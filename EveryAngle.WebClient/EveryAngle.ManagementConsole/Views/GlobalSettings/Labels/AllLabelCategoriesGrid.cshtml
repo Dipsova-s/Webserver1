@@ -1,0 +1,67 @@
+﻿@using EveryAngle.Shared.Globalization
+@using EveryAngle.ManagementConsole.Models
+@using EveryAngle.ManagementConsole.Helpers
+
+@{
+    List<PageToolbarButtonModel> buttons = new List<PageToolbarButtonModel>();
+    buttons.Add(new PageToolbarButtonModel
+    {
+        Type = PageToolbarButtonType.GridEditDelete,
+        Privilege = PrivilegeType.System,
+        EnableTemplate = "<a href=\"\\" + SiteMapHelper.ActionHash("GlobalSettings/AllLabelCategories/EditLabelCategory") + "\" onclick=\"MC.util.redirect(event, this)\" class=\"btn btnEdit\" data-parameters='{\"categoryLabelsUri\":\"#=jQuery.trim(data.labels.concat('?multilingual=yes'))#\",\"categoryUri\":\"#= jQuery.trim(data.uri.concat('?multilingual=yes'))#\"}'>" + Resource.Edit + "</a>" 
+                        + "<a onclick=\"MC.GlobalSettings.LabelCategories.DeleteLabelCategory(this,'#= data.uri #')\" class=\"btn btnDelete\" data-parameters='{\"labelUri\":\" #= data.id #\"}' data-delete-template=\"" + Resource.MC_DeleteLabelCategoryConfirm + "\" data-delete-field-index=\"1\">" + Resource.Delete + "</a>",
+        DisableTemplate = " <a href=\"\\" + SiteMapHelper.ActionHash("GlobalSettings/AllLabelCategories/EditLabelCategory") + "\" onclick=\"MC.util.redirect(event, this)\" class=\"btn btnEdit\" data-parameters='{\"categoryLabelsUri\":\"#=jQuery.trim(data.labels.concat('?multilingual=yes'))#\",\"categoryUri\":\"#= jQuery.trim(data.uri.concat('?multilingual=yes'))#\"}'>" + Resource.View + "</a>"
+                        + "<a class=\"btn btnDelete disabled\">" + Resource.Delete + "</a>"
+
+    });
+    string gridButton = HttpUtility.HtmlDecode(Html.GetGridToolbar(buttons));
+}
+
+@(Html.Kendo().Grid<EveryAngle.Core.ViewModels.LabelCategory.LabelCategoryViewModel>()
+    .Name("Grid")
+    .Columns(columns =>
+    {
+        columns.Bound(model => model.id)
+            .Title("")
+            .ClientTemplate("<a class='btnMove' title='Move'></a>")
+            .HeaderHtmlAttributes(new { @class = "gridColumnToolbar" })
+            .HtmlAttributes(new { @class = "gridColumnToolbar" })
+            .Width(50)
+            .Sortable(false);
+        
+        columns.Bound(model => model.id)
+            .Width(130)
+            .Title(Resource.ID)
+            .Sortable(false);
+        
+        columns.Bound(model => model.name)
+            .Width(130)
+            .Title(Resource.Category)
+            .ClientTemplate("#: (data.name || \"" + Resource.MC_NoData + "\") #")
+            .Sortable(false);
+        
+        columns.Bound("labelsID")
+            .Title(Resource.MC_IncludedLabels)
+            .Sortable(false)
+            .HtmlAttributes(new { @data_uri = "#= labels #" })
+            .ClientTemplate("");
+
+        columns.Bound("id")
+            .ClientTemplate(gridButton)
+            .HeaderHtmlAttributes(new { @class = "gridColumnToolbar" })
+            .HtmlAttributes(new { @class = "gridColumnToolbar" })
+            .Width(75)
+            .Title(Resource.MC_Action)
+            .Sortable(false);
+    })
+    .Resizable(resize => resize.Columns(true))
+    .Sortable(sortable=> sortable.AllowUnsort(false))
+    .Scrollable(scroll => scroll.Virtual(false).Height(10 * 36))
+    .DataSource(dataSource => dataSource
+        .Ajax().Events(e=>e.RequestStart("onKendoGridPagingStart"))
+        .Read(read => read.Action("ReadLabelGlobalCategories", "LabelCategories", new { q = ViewData["SearchKeyword"] , labelCategoryUri = ViewBag.LabelCategoryUri }))
+        .ServerOperation(false)
+    )
+    .EnableCustomBinding(true)
+    .AutoBind(false)
+)

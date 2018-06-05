@@ -1,0 +1,33 @@
+<!-- Contains parameters which can be set during deployment of the package in IIS -->
+<parameters>
+  <parameter name="HTTPS_Redirect"
+      description="Value for Web.config->configuration->rewrite->rules->rule->HTTP/S to HTTPS Redirect"
+      defaultValue="false">
+    <parameterEntry kind="XmlFile" scope="Web.config" match="/configuration/location/system.webServer/rewrite/rules/rule[@name='HTTPS_Redirect']/@enabled" />
+  </parameter>
+
+  <parameter name="Redirect_to_FQDN"
+     description="Value for Web.config->configuration->rewrite->rules->rule->Redirect to FQDN"
+     defaultValue="false">
+    <parameterEntry kind="XmlFile" scope="Web.config" match="/configuration/location/system.webServer/rewrite/rules/rule[@name='Redirect_to_FQDN']/@enabled" />
+  </parameter>
+
+  <parameter name="hostPattern"
+    description="Value for Web.config->configuration->rewrite->rules->rule->Redirect to FQDN->hostPattern"
+    defaultValue="^nl-eatst091\.everyangle\.org$">
+    <parameterEntry kind="XmlFile" scope="Web.config" match="/configuration/location/system.webServer/rewrite/rules/rule[@name='Redirect_to_FQDN']/conditions/add[@input='{HTTP_HOST}']/@pattern" />
+  </parameter>
+
+  <parameter name="redirectUrl"
+    description="Value for Web.config->configuration->rewrite->rules->rule->Redirect to FQDN->redirectUrl"
+    defaultValue="{C:1}://nl-eatst091.everyangle.org{HTTP_URL}">
+    <parameterEntry kind="XmlFile" scope="Web.config" match="/configuration/location/system.webServer/rewrite/rules/rule[@name='Redirect_to_FQDN']/action[@type='Redirect']/@url" />
+  </parameter>
+
+  <parameter name="httpCookies_requireSSL"
+    description="Value for Web.config->configuration->location->system.web->httpCookies->requireSSL"
+    defaultValue="false">
+    <parameterEntry kind="XmlFile" scope="Web.config" match="/configuration/location/system.web/httpCookies/@requireSSL" />
+  </parameter>
+
+</parameters>

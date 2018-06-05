@@ -1,0 +1,167 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+
+  <PropertyGroup>
+    <IncludeSetAclProviderOnDestination>false</IncludeSetAclProviderOnDestination>
+    <OnBeforePackageUsingManifest>AddCustomSkipRules</OnBeforePackageUsingManifest>
+
+  </PropertyGroup>
+
+  <Target Name="SetupCustomAcls" AfterTargets="AddIisSettingAndFileContentsToSourceManifest">
+    <ItemGroup>
+      <MsDeploySourceManifest Include="setAcl">
+        <Path>$(_MSDeployDirPath_FullPath)\Data</Path>
+        <setAclAccess>Read,Write,Modify</setAclAccess>
+        <setAclResourceType>Directory</setAclResourceType>
+        <AdditionalProviderSettings>setAclResourceType;setAclAccess</AdditionalProviderSettings>
+      </MsDeploySourceManifest>
+      <MsDeploySourceManifest Include="setAcl">
+        <Path>$(_MSDeployDirPath_FullPath)\web.config</Path>
+        <setAclAccess>Read, Write, Modify</setAclAccess>
+        <setAclResourceType>File</setAclResourceType>
+        <AdditionalProviderSettings>setAclResourceType;setAclAccess</AdditionalProviderSettings>
+      </MsDeploySourceManifest>
+      <MsDeploySourceManifest Include="setAcl">
+        <Path>$(_MSDeployDirPath_FullPath)\Resources</Path>
+        <setAclAccess>Read,Write,Modify</setAclAccess>
+        <setAclResourceType>Directory</setAclResourceType>
+        <AdditionalProviderSettings>setAclResourceType;setAclAccess</AdditionalProviderSettings>
+      </MsDeploySourceManifest>
+    </ItemGroup>
+  </Target>
+
+  <Target Name="DeclareCustomParameters" AfterTargets="AddIisAndContentDeclareParametersItems">
+    <ItemGroup>
+      <MsDeployDeclareParameters Include="ElmahSetAclParam">
+        <Kind>ProviderPath</Kind>
+        <Scope>setAcl</Scope>
+        <Match>^$(_EscapeRegEx_MSDeployDirPath)\\Data</Match>
+        <Description>Add write permission to the Data folder.</Description>
+        <DefaultValue>{$(_MsDeployParameterNameForContentPath)}/Data</DefaultValue>
+        <Value>$(_DestinationContentPath)/Data</Value>
+        <Tags>Hidden</Tags>
+        <Priority>$(VsSetAclPriority)</Priority>
+        <ExcludeFromSetParameter>True</ExcludeFromSetParameter>
+      </MsDeployDeclareParameters>
+
+      <MsDeployDeclareParameters Include="Override.configSetAclParam">
+        <Kind>ProviderPath</Kind>
+        <Scope>setAcl</Scope>
+        <Match>^$(_EscapeRegEx_MSDeployDirPath)\\web.config$</Match>
+        <Description>Add read write permission to the web.config .</Description>
+        <DefaultValue>{$(_MsDeployParameterNameForContentPath)}/web.config</DefaultValue>
+        <Value>$(_DestinationContentPath)/web.config</Value>
+        <Tags>Hidden</Tags>
+        <Priority>$(VsSetAclPriority)</Priority>
+        <ExcludeFromSetParameter>True</ExcludeFromSetParameter>
+      </MsDeployDeclareParameters>
+
+      <MsDeployDeclareParameters Include="SetAclToMovies">
+        <Kind>ProviderPath</Kind>
+        <Scope>setAcl</Scope>
+        <Match>^$(_EscapeRegEx_MSDeployDirPath)\\Resources</Match>
+        <Description>Add write permission to the Resources folder.</Description>
+        <DefaultValue>{$(_MsDeployParameterNameForContentPath)}/Resources</DefaultValue>
+        <Value>$(_DestinationContentPath)/Resources</Value>
+        <Tags>Hidden</Tags>
+        <Priority>$(VsSetAclPriority)</Priority>
+        <ExcludeFromSetParameter>True</ExcludeFromSetParameter>
+      </MsDeployDeclareParameters>
+
+      <MsDeployDeclareParameters Include="SetAclToMovies">
+        <Kind>ProviderPath</Kind>
+        <Scope>setAcl</Scope>
+        <Match>^$(_EscapeRegEx_MSDeployDirPath)\\Resources</Match>
+        <Description>Add write permission to the Resources folder.</Description>
+        <DefaultValue>{$(_MsDeployParameterNameForContentPath)}/Resources</DefaultValue>
+        <Value>$(_DestinationContentPath)/Resources</Value>
+        <Tags>Hidden</Tags>
+        <Priority>$(VsSetAclPriority)</Priority>
+        <ExcludeFromSetParameter>True</ExcludeFromSetParameter>
+      </MsDeployDeclareParameters>
+    </ItemGroup>
+  </Target>
+
+  <Target Name="AddCustomSkipRules">
+    <ItemGroup>
+      <MsDeploySkipRules Include="SkipAdminFiles">
+        <SkipAction>Delete</SkipAction>
+        <ObjectName>filePath</ObjectName>
+        <AbsolutePath>$(_Escaped_PackageTempDir)\\Admin\\.*$</AbsolutePath>
+        <XPath></XPath>
+      </MsDeploySkipRules>
+      <MsDeploySkipRules Include="SkipAdminFolder">
+        <SkipAction>Delete</SkipAction>
+        <ObjectName>dirPath</ObjectName>
+        <AbsolutePath>$(_Escaped_PackageTempDir)\\Admin\\.*$</AbsolutePath>
+        <XPath></XPath>
+      </MsDeploySkipRules>
+      <MsDeploySkipRules Include="SkipODataFolder">
+        <SkipAction>Delete</SkipAction>
+        <ObjectName>dirPath</ObjectName>
+        <AbsolutePath>$(_Escaped_PackageTempDir).*\\Odata$</AbsolutePath>
+        <XPath></XPath>
+      </MsDeploySkipRules>
+      <MsDeploySkipRules Include="SkipODataFiles">
+        <SkipAction>Delete</SkipAction>
+        <ObjectName>filePath</ObjectName>
+        <AbsolutePath>$(_Escaped_PackageTempDir).*\\Odata$</AbsolutePath>
+        <XPath></XPath>
+      </MsDeploySkipRules>
+      <MsDeploySkipRules Include="SkipDownloadsFiles">
+        <SkipAction>Delete</SkipAction>
+        <ObjectName>filePath</ObjectName>
+        <AbsolutePath>$(_Escaped_PackageTempDir)\\Resources\\.*$</AbsolutePath>
+        <XPath></XPath>
+      </MsDeploySkipRules>
+      <MsDeploySkipRules Include="SkipDownloadsFolder">
+        <SkipAction>Delete</SkipAction>
+        <ObjectName>dirPath</ObjectName>
+        <AbsolutePath>$(_Escaped_PackageTempDir)\\Resources\\.*$</AbsolutePath>
+        <XPath></XPath>
+      </MsDeploySkipRules>
+      <MsDeploySkipRules Include="SkipUpdateDownloadsFolder">
+        <SkipAction>Update</SkipAction>
+        <ObjectName>dirPath</ObjectName>
+        <AbsolutePath>$(_Escaped_PackageTempDir)\\Resources\\.*$</AbsolutePath>
+        <XPath></XPath>
+      </MsDeploySkipRules>
+      <MsDeploySkipRules Include="SkipUpdateDownloadsFiles">
+        <SkipAction>Update</SkipAction>
+        <ObjectName>filePath</ObjectName>
+        <AbsolutePath>$(_Escaped_PackageTempDir)\\Resources\\.*$</AbsolutePath>
+        <XPath></XPath>
+      </MsDeploySkipRules>
+      <MsDeploySkipRules Include="SkipOverideConfig">
+        <SkipAction>Update</SkipAction>
+        <ObjectName>filePath</ObjectName>
+        <AbsolutePath>Override\.config$</AbsolutePath>
+        <XPath></XPath>
+      </MsDeploySkipRules>
+      
+     
+
+    </ItemGroup>
+  </Target>
+
+  <!--<Target Name="AfterBuild">
+    <ItemGroup>
+      <EXTERNALRESOURCE Include="..\Data\antlrcs\**\*.*" />
+    </ItemGroup>
+
+    <Copy  SourceFiles="@(EXTERNALRESOURCE)" DestinationFolder="$(_MSDeployDirPath_FullPath)\Content\externalresource" ContinueOnError="true" />
+  </Target>-->
+  <Choose>
+    <When Condition=" '$(Configuration)'=='Debug'">
+      <PropertyGroup>
+        <DefineConstants>DEBUG;TRACE</DefineConstants>
+      </PropertyGroup>
+    </When>
+    <When Condition=" '$(Configuration)'=='Release'">
+      <PropertyGroup>
+        <DefineConstants>TRACE</DefineConstants>
+      </PropertyGroup>
+    </When>
+  </Choose>
+  
+</Project>

@@ -1,0 +1,42 @@
+﻿@model EveryAngle.Core.ViewModels.Model.Setting
+
+<label data-role="tooltip">@Model.Name</label>
+<p>
+    @{
+        string selectedValue = string.Empty;
+        if (string.IsNullOrEmpty(Convert.ToString(Model.Value)))
+        {
+            if (Model.Options != null && Model.Options.Count > 0)
+            {
+                foreach (var option in Model.Options)
+                {
+                    if (option.Default.HasValue && option.Default.Value == true)
+                    {
+                        selectedValue = option.id;
+                        break;
+                    }
+                }
+            }
+        }
+        else
+        {
+            selectedValue = Convert.ToString(Model.Value);
+        }
+
+        @(Html.Kendo()
+            .DropDownList()
+            .Name(Model.Id)
+            .Value(selectedValue)
+            .DataTextField("name")
+            .DataValueField("id")
+            .BindTo(ViewData["DefaultCurrency"] as List<EveryAngle.Core.ViewModels.SystemCurrencies.CurrenciesViewModel>)
+            .HtmlAttributes(new { @class = "currency_symbol autosyncinput", @data_setting_type= "currency_symbol", @data_type = "kendoDropDownList" })
+        );
+
+        if (Model.Description != null)
+        {
+            <a data-target="#popupDescriptionTemplate" title="Description" data-width="600" data-min-height="100" data-role="mcPopup" class="btn btnInfo" onclick='MC.util.showDescriptionPopup(this)'></a>
+            <textarea class="alwaysHidden"><pre>@Model.Description</pre></textarea>
+        }
+    }
+</p>

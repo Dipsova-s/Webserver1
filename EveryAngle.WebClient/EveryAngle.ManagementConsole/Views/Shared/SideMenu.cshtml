@@ -1,0 +1,14 @@
+﻿@model List<EveryAngle.ManagementConsole.Models.SiteMapModel.SiteMap>
+@{
+    ViewBag.Title = "Home Page";
+
+    int level = 1;
+}
+
+<ul class="unstyled sideMenu" id="sideMenu">
+@foreach (var item in Model)
+{
+    @EveryAngle.ManagementConsole.Helpers.SiteMapHelper.RenderItem(item, level);
+}
+</ul>
+<!--/.sideMenu-->

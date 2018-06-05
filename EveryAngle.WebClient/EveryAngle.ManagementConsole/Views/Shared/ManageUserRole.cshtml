@@ -1,0 +1,17 @@
+﻿@using EveryAngle.Shared.Globalization
+
+<div class="popup" id="UserInRolePopup">
+    <div class="popupContent"></div>
+    <div class="popupToolbar">
+        <a class="btn btnPrimary" onclick="MC.ui.masschangeuser.OnSubmit(event, this)">@Resource.Ok</a>
+        <a class="btn btnClose" data-role="popup-close">@Resource.Cancel</a>
+    </div>
+</div>
+
+<a id="ButtonShowRoleReport" class="btn alwaysHidden" data-target="#UserInRoleReportPopup" title="@(Resource.Manage + " " + Resource.MC_Users)" data-width="380" data-role="mcPopup"></a>
+<div class="popup" id="UserInRoleReportPopup">
+    <div class="popupContent"></div>
+    <div class="popupToolbar">
+        <a class="btn btnPrimary" data-role="popup-close" onclick="MC.ui.masschangeuser.ReloadCurrentPage()">@Resource.Ok</a>
+    </div>
+</div>

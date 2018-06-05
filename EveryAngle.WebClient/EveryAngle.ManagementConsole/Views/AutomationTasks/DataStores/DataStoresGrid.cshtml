@@ -1,0 +1,64 @@
+﻿@using EveryAngle.Shared.Globalization
+@using EveryAngle.ManagementConsole.Models
+@using Newtonsoft.Json;
+
+@{
+    List<PageToolbarButtonModel> buttons = new List<PageToolbarButtonModel>();
+    buttons.Add(new PageToolbarButtonModel
+    {
+        Type = PageToolbarButtonType.GridEditDelete,
+        Privilege = PrivilegeType.System,
+        EnableTemplate = "<a href=\"\\" + SiteMapHelper.ActionHash("AutomationTasks/DataStores/EditDatastores") + "\" onclick=\"MC.util.redirect(event, this)\" class=\"btn btnEdit\" data-parameters='{\"datastoreUri\":\"#= data.Uri #\", \"pluginUri\":\"\", \"plugin\":\"#= data.datastore_plugin #\"}'>" + Resource.Edit + "</a>"
+                        + "<a href=\"" + Url.Content("~/AutomationTasks/DeleteDataStore") + "\" onclick=\"MC.AutomationTasks.DataStores.DeleteDataStore(event, this)\" class=\"btn btnDelete\" data-parameters='{\"datastoreUri\":\"#= data.Uri #\"}' data-delete-template=\"" + Resource.MC_DeleteDataStoreConfirm + "\" data-delete-field-index=\"0\">" + Resource.Delete + "</a>",
+        DisableTemplate = "<a href=\"\\" + SiteMapHelper.ActionHash("AutomationTasks/DataStores/EditDatastores") + "\" onclick=\"MC.util.redirect(event, this)\" class=\"btn btnEdit\" data-parameters='{\"datastoreUri\":\"#= data.Uri #\", \"pluginUri\":\"\", \"plugin\":\"#= data.datastore_plugin #\"}'>" + Resource.View + "</a>"
+                        + "<a class=\"btn btnDelete disabled\">" + Resource.Delete + "</a>"
+    });
+    string gridButton = HttpUtility.HtmlDecode(Html.GetGridToolbar(buttons));
+}
+
+@(Html.Kendo().Grid<EveryAngle.Core.ViewModels.DataStore.DataStoresViewModel>()
+    .Name("DataStoresGrid")
+    .Columns(columns =>
+    {
+        columns.Bound(model => model.name).Sortable(true).Title(Resource.Name);
+
+        columns.Bound(model => model.plugin_name).Sortable(true).Title(Resource.Type);
+
+        columns.Bound(model => model.is_default)
+            .ClientTemplate(
+                "<label>"
+                + "# if (data.is_default == true) { #"
+                + "<input name=\"IsEnabled\" data-default=\"true\" checked=\"checked\" type=\"checkbox\" disabled=\"disabled\">"
+                + "# } else { #"
+                + "<input name=\"IsEnabled\" data-default=\"false\" type=\"checkbox\" disabled=\"disabled\">"
+                + "# } #"
+                + "<span class=\"label\"></span></label>")
+            .HeaderHtmlAttributes(new { @class = "columnBoolean" })
+            .HtmlAttributes(new { @Class = "columnBoolean" })
+            .Width(75)
+            .Sortable(true)
+            .Title(Resource.Default);
+
+        columns.Bound("Uri")
+            .ClientTemplate(gridButton)
+            .HeaderHtmlAttributes(new { @class = "gridColumnToolbar" })
+            .HtmlAttributes(new { @class = "gridColumnToolbar" })
+            .Width(75)
+            .Sortable(false)
+            .Title(Resource.MC_Action)
+            .Sortable(false);
+    })
+    .Resizable(resize => resize.Columns(true))
+    .Sortable(sortable => sortable.AllowUnsort(false))
+    .Scrollable(scroll => scroll.Virtual(true).Height(10 * 36))
+    .DataSource(dataSource => dataSource
+        .Ajax()
+        .Events(e => e.RequestStart("onKendoGridPagingStart"))
+        .Read(read => read
+                .Action("ReadAutomationTasks", "AutomationTasks", new { dataStoresUri = ViewBag.DataStoresUri, datastorePlugins = JsonConvert.SerializeObject(ViewBag.DatastorePlugins), q = ViewBag.Query })
+        )
+        .PageSize((int)ViewData["DefaultPageSize"])
+    )
+    .EnableCustomBinding(true)
+    .AutoBind(false)
+)

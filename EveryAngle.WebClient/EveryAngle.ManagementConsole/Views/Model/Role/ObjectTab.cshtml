@@ -1,0 +1,32 @@
+﻿@model IEnumerable<EveryAngle.Core.ViewModels.Model.ClassViewModel>
+@using EveryAngle.Shared.Globalization
+
+@(Html.Kendo().Grid(Model)
+      .Name("objectsGrid")
+      .Columns(columns =>
+      {
+          columns.Bound(p => p.short_name).Title(Resource.MC_ShortName).Sortable(true);
+          columns.Bound(p => p.long_name).Title(Resource.MC_LongName).Sortable(true);
+          columns.Bound(p => p.id).Title(Resource.ID).Sortable(true);
+
+          columns.Bound(p => p.Allowed).Title(Resource.MC_AccessType)
+              .Sortable(false)
+              .ClientTemplate(" # if (data.Allowed == true) { # "
+                   + "<label><input type='radio' name='#= data.id #_accessObjectRadio' value='true' checked onclick='MC.Models.Roles.ChangeAccessType(this)'> <span class='label'>" + Resource.Allow + "</span></label> <label><input type='radio' name='#= data.id #_accessObjectRadio' value='false'  onclick='MC.Models.Roles.ChangeAccessType(this)'> <span class='label'>" + Resource.Deny + "</span></label> <label><input type='radio' name='#= data.id #_accessObjectRadio' value='undefied'  onclick='MC.Models.Roles.ChangeAccessType(this)'> <span class='label'>" + Resource.Undefined + "</span></label>"
+                 + "# } else if(data.Allowed == false) { #"
+                      + "<label><input type='radio' name='#= data.id #_accessObjectRadio' value='true'  onclick='MC.Models.Roles.ChangeAccessType(this)'> <span class='label'>" + Resource.Allow + "</span></label> <label><input type='radio' checked name='#= data.id #_accessObjectRadio' value='false'  onclick='MC.Models.Roles.ChangeAccessType(this)'> <span class='label'>" + Resource.Deny + "</span></label> <label><input type='radio' name='#= data.id #_accessObjectRadio' value='undefied'  onclick='MC.Models.Roles.ChangeAccessType(this)' > <span class='label'>" + Resource.Undefined + "</span></label>"
+                + "# } else { #"
+              + "<label><input type='radio' name='#= data.id #_accessObjectRadio' value='true'  onclick='MC.Models.Roles.ChangeAccessType(this)'> <span class='label'>" + Resource.Allow + "</span></label> <label><input type='radio' name='#= data.id #_accessObjectRadio' value='false'  onclick='MC.Models.Roles.ChangeAccessType(this)'> <span class='label'>" + Resource.Deny + "</span></label> <label><input type='radio' name='#= data.id #_accessObjectRadio' value='undefied' checked  onclick='MC.Models.Roles.ChangeAccessType(this)'> <span class='label'>" + Resource.Undefined + "</span></label>"
+              + "# } #");
+      }).Sortable(sortable => sortable
+            .AllowUnsort(false)
+            .SortMode(GridSortMode.SingleColumn))
+               .DataSource(dataSource => dataSource
+          .Ajax()
+          .ServerOperation(false)
+          .Read(read => read
+               .Action("", "")
+
+          )
+      ).Scrollable(scroll => scroll.Enabled(true))
+)

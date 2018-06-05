@@ -1,0 +1,132 @@
+﻿@model List<EveryAngle.Core.ViewModels.Users.SystemAuthenticationProviderViewModel>
+@using EveryAngle.ManagementConsole.Models;
+@using EveryAngle.Shared.Globalization
+
+<div class="gridContainer">
+@{
+    List<PageToolbarButtonModel> buttonGrids = new List<PageToolbarButtonModel>();
+    buttonGrids.Add(new PageToolbarButtonModel
+    {
+        Type = PageToolbarButtonType.GridEditDelete,
+        Privilege = PrivilegeType.System,
+        EnableTemplate = "<a href=\"\\" + SiteMapHelper.ActionHash("GlobalSettings/Authentication/EditAuthentication") + "\" onclick=\"MC.util.redirect(event, this)\" class=\"btn btnEdit\" data-parameters='{\"authenticationProviderUri\":\"#= data.Uri #\", \"AuthenticationProviderTypesUri\":\"\"}'>" + Resource.Edit + "</a>"
+                        + "<a href=\"" + Url.Content("~/GlobalSettings/DeleteAuthenticationProvider") + "\" onclick=\"MC.GlobalSettings.Authentication.DeleteAuthenticationProvider(event, this)\" class=\"btn btnDelete\" data-parameters='{\"authenticationProviderUri\":\"#= data.Uri #\"}' data-delete-template=\"" + Resource.MC_DeleteAuthenticationProviderConfirm + "\" data-delete-field-index=\"2\">" + Resource.Delete + "</a>",
+        DisableTemplate = "<a href=\"\\" + SiteMapHelper.ActionHash("GlobalSettings/Authentication/EditAuthentication") + "\" onclick=\"MC.util.redirect(event, this)\" class=\"btn btnEdit\" data-parameters='{\"authenticationProviderUri\":\"#= data.Uri #\", \"AuthenticationProviderTypesUri\":\"\"}'>" + Resource.View + "</a>"
+                        + "<a class=\"btn btnDelete disabled\">" + Resource.Delete + "</a>"
+    });
+    string gridButton = HttpUtility.HtmlDecode(Html.GetGridToolbar(buttonGrids));
+}
+@(Html.Kendo().Grid(Model)
+    .Name("SystemAuthenticationGrid")
+    .Columns(columns =>
+    {
+        columns.Bound(model => model.IsEnabled)
+            .HeaderHtmlAttributes(new { @class = "columnBoolean" })
+            .HtmlAttributes(new { @class = "columnBoolean" })
+            .Width(65)
+            .Title(@Resource.MC_Provider)
+            .ClientTemplate(
+                "<span class='hidden'>"
+                + "# if(data.IsEnabled == true) { #"
+                + "<input  name=\"IsEnabled\" id=\"IsEnabled-#= data.Id #\" value=\"#= data.Uri #\" data-default=\"true\" checked=\"checked\" type=\"checkbox\" onclick=\"MC.GlobalSettings.Authentication.CheckIsDefault(this)\">"
+                + "# } else { #"
+                + "<input name=\"IsEnabled\" id=\"IsEnabled-#= data.Id #\" value=\"#= data.Uri #\" data-default=\"false\" type=\"checkbox\" onclick=\"MC.GlobalSettings.Authentication.CheckIsDefault(this)\">"
+                + "# } #"
+                + "<span class=\"label\"></span></span>"
+                + "<span class=\"#= data.IsEnabled == false ? 'textDisabled' : '' #\">#= data.IsEnabled ? 'Enabled' : 'Disabled' #</span>"
+            );
+        //columns.Bound(model => model.autoCreateUsers)
+        //    .HeaderHtmlAttributes(new { @class = "columnBoolean" })
+        //    .HtmlAttributes(new { @class = "columnBoolean" })
+        //    .Width(60)
+        //    .Title(@Resource.MC_AutocreateUsers)
+        //    .ClientTemplate(
+        //        "<label>"
+        //        + "# if(data.autoCreateUsers == true) { #"
+        //        + "<input name=\"IsAutoCreateUsers\" id=\"IsAutoCreateUsers-#= data.Id #\" #= data.autoCreateUsersAlwaysOn == true ?  disabled=\"disabled\" : '' # value=\"#= data.Uri #\" data-default=\"true\" checked=\"checked\" type=\"checkbox\" >"
+        //        + "# } else { #"
+        //        + "<input name=\"IsAutoCreateUsers\" id=\"IsAutoCreateUsers-#= data.Id #\" #= data.autoCreateUsersAlwaysOn == true ?  disabled=\"disabled\" : '' # value=\"#= data.Uri #\" data-default=\"false\" type=\"checkbox\" >"
+        //        + "# } #"
+        //        + "<span class=\"label\"></span></label>"
+        //    );
+        //columns.Bound(model => model.syncRolesToGroups)
+        //  .HeaderHtmlAttributes(new { @class = "columnBoolean" })
+        //  .HtmlAttributes(new { @class = "columnBoolean" })
+        //  .Width(60)
+        //  .Title(@Resource.MC_SyncRolesToGroups)
+        //  .ClientTemplate(
+        //      "<label>"
+        //      + "# if(data.syncRolesToGroups == true) { #"
+        //      + "<input name=\"IsSyncRolesToGroups\" id=\"IsSyncRolesToGroups-#= data.Id #\" value=\"#= data.Uri #\" data-default=\"true\" checked=\"checked\" type=\"checkbox\" >"
+        //      + "# } else { #"
+        //      + "<input name=\"IsSyncRolesToGroups\" id=\"IsSyncRolesToGroups-#= data.Id #\" value=\"#= data.Uri #\" data-default=\"false\" type=\"checkbox\" >"
+        //      + "# } #"
+        //      + "<span class=\"label\"></span></label>"
+        //  );
+        columns.Bound(model => model.Id)
+            .HeaderHtmlAttributes(new { @class = "columnBoolean" })
+            .HtmlAttributes(new { @class = "columnBoolean" })
+            .Width(65)
+            .Title(@Resource.Default)
+            .ClientTemplate(
+                "<label>"
+                + "# if (data.Uri.indexOf(\"" + ViewBag.DefaultProvider + "\") != -1 ) { #"
+                + "<input name=\"IsDefaultProvider\" id=\"IsDefaultProvider-#= data.Id #\" #= data.IsEnabled == false ?  disabled=\"disabled\" : '' # value=\"#= data.Uri #\" data-default=\"true\" checked=\"checked\" type=\"radio\">"
+                + "# } else { #"
+                + "<input name=\"IsDefaultProvider\" id=\"IsDefaultProvider-#= data.Id #\" #= data.IsEnabled == false ?  disabled=\"disabled\" : '' # value=\"#= data.Uri #\" data-default=\"false\" type=\"radio\">"
+                + "# } #"
+                + "<span class=\"label\"></span></label>"
+            );
+        columns.Bound(model => model.Id)
+            .ClientTemplate("<span class=\"#= data.IsEnabled == false ? 'textDisabled' : '' #\">#= data.Id #</span>")
+            .Width(65)
+            .Title(@Resource.ID);
+        columns.Bound(model => model.Type)
+            .ClientTemplate("<span class=\"#= data.IsEnabled == false ? 'textDisabled' : '' #\">#= data.Type #</span>")
+            .Width(40)
+            .Title(@Resource.Type);
+        columns.Bound(model => model.Description)
+            //.Width(400)
+            .ClientTemplate("<span class=\"#= data.IsEnabled == false ? 'textDisabled' : '' #\">#= data.Description #</span>")
+            .Title(@Resource.Description);
+        //columns.Bound(model => model.default_roles).Title(@Resource.MC_DefaultRoles)
+        //.ClientTemplate("<select name=\"DefaultSystemRoles\" id=\"DefaultSystemRoles-#= data.Id #\" class=\"required_default_roles DefaultRoles DefaultRoles-#= data.Id #\"></select>");
+        columns.Bound("Uri").ClientTemplate(gridButton).HeaderHtmlAttributes(new { @class = "gridColumnToolbar" }).HtmlAttributes(new { @class = "gridColumnToolbar" }).Width(75).Sortable(false).Title(Resource.MC_Action).Sortable(false);
+
+    })
+    .Resizable(resize => resize.Columns(true))
+    .Scrollable(scroll => scroll.Virtual(false).Height(10 * 36))
+    .DataSource(dataSource => dataSource
+        .Ajax().Events(e => e.RequestStart("onKendoGridPagingStart"))
+        .ServerOperation(false)
+    )
+    .EnableCustomBinding(true)
+)
+<br />
+@{
+    List<PageToolbarButtonModel> buttons = new List<PageToolbarButtonModel>();
+    buttons.Add(new PageToolbarButtonModel
+    {
+        EnableTemplate = "<a href=\"#popupAuthenticationProviderTypes\" class=\"btn\" onclick=\"MC.GlobalSettings.Authentication.ShowCreateNewAuthenticationProviderTypesPopup()\" title=\"" + Resource.MC_AuthenticationProviderTypes + "\" data-width=\"400\" data-min-height=\"100\" data-role=\"mcPopup\">" + Resource.MC_AddNewAuthenticationProvider + "</a>",
+        DisableTemplate = " <a class=\"btn btnAdd disabled\">" + Resource.MC_AddNewAuthenticationProvider + "</a>",
+        Type = PageToolbarButtonType.Custom,
+        Privilege = PrivilegeType.System
+    });
+    @Html.RenderPageToolbarBottom(buttons)    
+}
+</div>
+
+<div class="popup" id="popupAuthenticationProviderTypes">
+    <div class="popupContent">
+        <select id="AuthenticationProviderTypesSelect" name="authenticationProviderTypes">
+            @foreach (var adfsProviderTypes in ViewBag.AuthenticationProviderTypes as List<EveryAngle.Core.ViewModels.Users.AuthenticationProviderTypesViewModel>)
+            {
+                <option value="@adfsProviderTypes.Uri">@adfsProviderTypes.Description</option>
+            }
+        </select>
+    </div>
+    <div class="popupToolbar">
+        <a href="@SiteMapHelper.ActionHash("GlobalSettings/Authentication/CreateNewAuthentication")" class="btn btnPrimary btnSubmit" data-role="popup-close" onclick="MC.GlobalSettings.Authentication.CreateNewAuthentication(event, this)" >@Resource.Ok</a>
+        <a class="btn btnClose" data-role="popup-close">@Resource.Cancel</a>
+    </div>
+</div>

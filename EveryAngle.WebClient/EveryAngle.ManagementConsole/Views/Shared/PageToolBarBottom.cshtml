@@ -1,0 +1,21 @@
+﻿@using EveryAngle.ManagementConsole.Models
+@model List<PageToolbarButtonModel>
+
+@{
+    if (Model != null)
+    {
+        foreach (PageToolbarButtonModel button in Model)
+        {
+            if (button.Type == PageToolbarButtonType.Add)
+            {
+                <a class="@button.CssClass">@button.Label</a>
+            }
+            else if (PageHelper.UseCustomTemplate(button.Type))
+            {
+                @Html.Raw(button.Template);
+            }
+        }
+    }      
+}
+        
+

@@ -1,0 +1,21 @@
+﻿@model EveryAngle.Core.ViewModels.Model.Setting
+
+<label data-role="tooltip">@Model.Name</label>
+<p>
+@{
+    @(Html.TextBox(Model.Id, Convert.ToDouble(Model.Value), new {
+    @class = "percentage autosyncinput",
+    @data_role = "percentagetextbox",
+    @data_type = "kendoPercentageTextBox",
+    @data_setting_type = "percentage",
+    @data_min = Model.Min == null ? (double?) null :Convert.ToDouble(Model.Min) * 100,
+    @data_max = Model.Max == null ? (double?) null :Convert.ToDouble(Model.Max) * 100
+}));
+
+    if(Model.Description != null)
+    {
+        <a data-target="#popupDescriptionTemplate" title="Description" data-width="600" data-min-height="100" data-role="mcPopup" class="btn btnInfo" onclick='MC.util.showDescriptionPopup(this)'></a>
+        <textarea class="alwaysHidden"><pre>@Model.Description</pre></textarea>
+    }
+}
+</p>

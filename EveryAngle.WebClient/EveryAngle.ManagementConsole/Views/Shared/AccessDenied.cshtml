@@ -1,0 +1,10 @@
+﻿@Html.RenderPageToolbar()
+@using EveryAngle.Shared.Globalization
+
+<div class="content pageError">
+    <div class="contentSectionError">
+        <h2>@EveryAngle.Shared.Globalization.Resource.MC_ErrorReason @ViewBag.ErrorCode</h2>
+        <p>@ViewBag.ErrorMessage</p>
+        <a href="@Url.Content("~/")" class="btn">@Resource.BackToHome</a>
+    </div>
+</div>

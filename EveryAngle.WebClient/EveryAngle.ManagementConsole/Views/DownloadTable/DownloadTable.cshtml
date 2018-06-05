@@ -1,0 +1,36 @@
+@using EveryAngle.ManagementConsole.Models
+@using EveryAngle.ManagementConsole.Helpers
+@using EveryAngle.Shared.Globalization
+
+<script>
+    MC.util.loadScript({
+        test: MC.Models && MC.Models.TablesFields,
+        url: '@Scripts.Url("~/bundles/models/tablesfields")',
+        callback: function () {
+            MC.Models.TablesFields.InitialTable({});
+        }
+    });
+</script>
+
+@{
+    @Html.RenderPageToolbar(new List<PageToolbarButtonModel> {
+        new PageToolbarButtonModel { Type = PageToolbarButtonType.Reload }
+    })
+}
+
+<div class="content pageTablesFields">
+    <div class="contentSection contentSectionGrid">
+        <div class="gridToolbar gridToolbarTop">
+            <div class="gridToolbarFilter">
+                <input type="text" placeholder="@Resource.MC_Filter" data-role="gridfilter" data-method="remote" data-target="#DownloadTableGridContainer" /><span class="icon"></span>
+            </div>
+        </div>
+        <h2>@ViewBag.ModelName @Resource.MC_TablesAndFields</h2>
+        <div class="gridContainer" id="DownloadTableGridContainer">
+            @{ Html.RenderAction("GetDownloadTableGrid", "DownloadTable", new { modelId = ViewBag.ModelId, modelAgent = ViewBag.ModelAgent, modelUri = ViewBag.ModelUri });}  
+        </div>
+    </div> 
+
+</div>
+
+<!--/.content-->

@@ -1,0 +1,30 @@
+﻿{
+    "roles": "/users/1/roles",
+    "user_settings": "/users/1/settings",
+    "model_privileges": "/users/1/modelprivileges",
+    "system_privileges": {
+        "has_management_access": true,
+        "manage_system": true,
+        "manage_users": true,
+        "allow_impersonation": false,
+        "schedule_angles": false
+    },
+    "id": "local\\EAAdmin",
+    "uri": "/users/1",
+    "authenticationprovider": "/system/authenticationproviders/1",
+    "full_name": "EAAdmin",
+    "domain": "local",
+    "enabled": true,
+    "enabled_until": null,
+    "registered_on": 1394217094,
+    "last_logon": 1502260643,
+    "assigned_roles": [
+        {
+            "role_id": "SYSTEM_ALL"
+        },
+        {
+            "role_id": "EA2_800_ALL",
+            "model_id": "EA2_800"
+        }
+    ]
+}

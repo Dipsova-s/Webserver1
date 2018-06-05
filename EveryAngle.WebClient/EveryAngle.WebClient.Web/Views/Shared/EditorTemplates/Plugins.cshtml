@@ -1,0 +1,134 @@
+﻿@model EveryAngle.Core.ViewModels.Model.ModelServerSettings
+@using EveryAngle.Shared.Globalization
+
+
+    @foreach (var item in Model.SettingsGroup)
+    {
+        <div class="contentSection contentSectionInfo @item.Id">
+            <h2>@item.Name</h2>
+            <form id="@item.Id" data-role="validator" autocomplete="off">
+
+                @foreach (var settingId in item.Settings)
+                {
+                    <div class="contentSectionInfoItem" id="row-@settingId">
+                        @{
+                    var setting = Model.GetSettingById(settingId);
+                    var subGroups = item.GetSettingGroupById(settingId);
+                    if (subGroups != null && subGroups.Count > 0)
+                    {
+                            <h5 style="font-size: 14px">@setting.Name</h5>
+                            
+                    }
+                    if (setting != null)
+                    {
+                        switch (setting.Type.ToLower())
+                        {
+                            case "int":
+                            case "date":
+                            case "double":
+                            case "currency_symbol":
+                            case "text":
+                                if (setting.Name.ToLower().Contains("password"))
+                                {
+                                    Html.RenderPartial("~/Views/Shared/EditorTemplates/PasswordTemplate.cshtml", setting);
+                                }
+                                else
+                                {
+                                    Html.RenderPartial("~/Views/Shared/EditorTemplates/TextTemplate.cshtml", setting);
+                                }
+                                break;
+
+                            case "enum":
+                                Html.RenderPartial("~/Views/Shared/EditorTemplates/EnumTemplate.cshtml", setting);
+                                break;
+                                
+                            case "password":
+                                Html.RenderPartial("~/Views/Shared/EditorTemplates/PasswordTemplate.cshtml", setting);
+                                break;
+
+                            case "bool":
+                            case "boolean":
+                                Html.RenderPartial("~/Views/Shared/EditorTemplates/BooleanTemplate.cshtml", setting);
+                                break;
+
+                            case "percentage":
+                                Html.RenderPartial("~/Views/Shared/EditorTemplates/PercentageTemplate.cshtml", setting);
+                                break;
+
+                        }
+                    }
+
+
+                    if (subGroups != null)
+                    {
+
+                        foreach (var subGroup in subGroups)
+                        {
+                            
+                            <div class="contentSectionInfoSubItem @subGroup.EnablerValue @settingId">
+                                @{
+                            foreach (var subGroupSettingId in subGroup.Settings)
+                            {
+
+                                var subGroupSetting = Model.GetSettingById(subGroupSettingId);
+                                var isVisible = true;
+                                if (!string.IsNullOrEmpty(subGroup.EnablerValue))
+                                {
+                                    isVisible = subGroup.EnablerValue == subGroupSetting.Value;
+                                }
+
+                                if (subGroupSetting != null)
+                                {
+                                    switch (subGroupSetting.Type.ToLower())
+                                    {
+                                        case "int":
+                                        case "date":
+                                        case "double":
+                                        case "currency_symbol":
+                                        case "enum":
+                                        case "text":
+                                            if (subGroupSetting.Name != null)
+                                            {
+                                                if(subGroupSetting.Name.ToLower().Contains("password"))
+                                                {
+                                                    Html.RenderPartial("~/Views/Shared/EditorTemplates/PasswordTemplate.cshtml", subGroupSetting);
+                                                }
+                                                else
+                                                {
+                                                    Html.RenderPartial("~/Views/Shared/EditorTemplates/TextTemplate.cshtml", subGroupSetting);
+                                                }
+                                            }
+                                            else
+                                            {
+                                                Html.RenderPartial("~/Views/Shared/EditorTemplates/TextTemplate.cshtml", subGroupSetting);
+                                            }
+                                            break;
+                                            
+                                        case "password":
+                                            Html.RenderPartial("~/Views/Shared/EditorTemplates/PasswordTemplate.cshtml", subGroupSetting);
+                                            break;
+                                            
+                                        case "bool":
+                                        case "boolean":
+                                            Html.RenderPartial("~/Views/Shared/EditorTemplates/BooleanTemplate.cshtml", subGroupSetting);
+                                            break;
+
+                                        case "percentage":
+                                            Html.RenderPartial("~/Views/Shared/EditorTemplates/PercentageTemplate.cshtml", subGroupSetting);
+                                            break;
+
+                                    }
+                                }
+                            }
+                           
+                        }
+                        </div>
+                        }
+                    }
+                 }
+                </div>
+                }
+            </form>
+        </div>
+        <hr/>
+    }

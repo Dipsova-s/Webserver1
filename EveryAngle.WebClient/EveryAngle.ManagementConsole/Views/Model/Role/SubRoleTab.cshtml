@@ -1,0 +1,39 @@
+﻿@model EveryAngle.Core.ViewModels.Users.SystemRoleViewModel    
+@using EveryAngle.Shared.Globalization
+@using EveryAngle.ManagementConsole.Models
+
+@{
+    List<PageToolbarButtonModel> buttons = new List<PageToolbarButtonModel>();
+    buttons.Add(new PageToolbarButtonModel
+    {
+        ModelUri = ViewBag.ModelUri,
+        Privilege = PrivilegeType.Model,
+        Type = PageToolbarButtonType.GridEditDelete,
+        EnableTemplate = "<a data-parameters='{\"subrole_id\":\"" + Model.Id + "\"}' data-callback=\"MC.Models.Roles.RemoveSubRolesTemporary\" onclick=\"MC.form.template.markAsRemove(this)\" data-delete-template=\"" + Resource.MC_DeleteSubRolesConfirm + "\" data-delete-field-index=\"0\" class=\"btn btnDelete\"></a>",
+        DisableTemplate = "<a  class=\"btn btnDelete disabled\"></a>"  
+    });
+    string gridButton = HttpUtility.HtmlDecode(Html.GetGridToolbar(buttons));
+}
+
+@(Html.Kendo().Grid(Model.SubRoles)
+    .Name("SubRolesGrid")
+    .Columns(columns =>
+    {
+        columns.Bound(model => model.Id).Width(220);
+        columns.Bound(model => model.Description);
+        columns.Bound("Id")
+            .ClientTemplate(gridButton)
+            .HeaderHtmlAttributes(new { @class = "gridColumnToolbar" })
+            .HtmlAttributes(new { @class = "gridColumnToolbar" })
+            .Width(75)
+            .Title(Resource.MC_Action);
+    })
+    .Resizable(resize => resize.Columns(true))
+    .Scrollable(scroll => scroll.Virtual(false).Height(200))
+    .DataSource(dataSource => dataSource
+        .Ajax()
+        .PageSize(20)
+        .ServerOperation(false)
+        .Model(model => model.Id(p => p.Id))
+    )
+)

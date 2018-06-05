@@ -1,0 +1,95 @@
+﻿@model List<EveryAngle.Core.ViewModels.Cycle.TaskHistoryViewModel>
+@using EveryAngle.Shared.Globalization
+@(Html.Kendo().Grid<EveryAngle.Core.ViewModels.Cycle.TaskHistoryViewModel>()
+    .Name("TaskHistoryGrid")
+    .Columns(columns =>
+    {
+        columns.Bound(model => model.task_name)
+            .Width(290)
+            .ClientTemplate("#= data.task_name #")
+            .Title(Resource.Name);
+
+        columns.Bound(model => model.start_time)
+            .ClientTemplate(
+                "# if (data.start_time) { #"
+                + "<span data-role='localize' data-type='servertime'>#= data.start_time # </span>"
+                + "# } else { #"
+                + " "
+                + "# } #"
+            )
+            .HtmlAttributes(new { @class = "columnDate" })
+            .HeaderHtmlAttributes(new { @class = "columnDate" })
+            .Width(150)
+            .HeaderTemplate(PageHelper.HeaderWithTimezone(Resource.StartTime));
+        
+        columns.Bound(model => model.end_time)
+            .ClientTemplate(
+                "# if (data.end_time) { #"
+                + "<span data-role='localize' data-type='servertime'>#= data.end_time # </span>"
+                + "# } else { #"
+                + " "
+                + "# } #"
+            ).HtmlAttributes(new { @class = "columnDate" })
+            .HeaderHtmlAttributes(new { @class = "columnDate" })
+            .Width(150)
+            .HeaderTemplate(PageHelper.HeaderWithTimezone(Resource.EndTime));
+        
+        columns.Bound(model => model.result)
+            .Width(95)
+            .Title("Result");
+        
+        columns.Bound(model => model.error_count)
+            .Width(95)
+            .HtmlAttributes(new { @class = "columnNumber" })
+            .HeaderHtmlAttributes(new { @class = "columnNumber" })
+            .Title(Resource.ErrorCount);
+        
+        columns.Bound(model => model.warning_count)
+            .Width(95)
+            .HtmlAttributes(new { @class = "columnNumber" })
+            .HeaderHtmlAttributes(new { @class = "columnNumber" })
+            .Title(Resource.WarningCount);
+
+        columns.Bound(model => model.arguments)
+            .Sortable(false)
+            .Title(Resource.MC_Action)
+            .HeaderHtmlAttributes(new { @class = "gridColumnToolbar" })
+            .HtmlAttributes(new { @class = "gridColumnToolbar" })
+            .ClientTemplate(
+                    "<a class=\"btn btnInfo\" onclick=\"MC.ui.logpopup.ShowLogTable(this, \'#= correlation_id #\')\" data-target=\"\\#popupLogTable\" data-title=\"#= task_name #\" data-width=\"760\" data-min-height=\"600\" data-height=\"600\" data-role=\"mcPopup\" class=\"btn btnInfo\"  />"
+            );
+        
+    })
+    .Sortable(sort => sort.AllowUnsort(false))
+    .Resizable(resize => resize.Columns(true))
+    .Scrollable(scroll => scroll.Virtual(true).Height(37 * 6))
+    .DataSource(dataSource => dataSource
+        .Ajax()
+        .Events(e=>e.RequestStart("onKendoGridPagingStart"))
+        .Read(read => read.Action("ReadTaskHistories", "RefreshCycle", new { historyUri = @ViewBag.HistoryUri }))
+        .PageSize((int)ViewData["DefaultPageSize"])
+        .ServerOperation(false)
+    )
+    .AutoBind(false)
+)
+
+<div class="popup" id="popupLogTable">
+    <div class="popupContent">
+        <div class="contentSection contentSectionGrid">
+            <div class="gridToolbar gridToolbarTop hidden">
+                <div class="gridToolbarFilter">
+                    @*<select id="FilterLogTableType"></select>*@
+                    @*<input type="text" id="FilterLogTableTextbox" placeholder="@Resource.MC_NotImplemented" /><span class="icon"></span>*@
+                </div>
+            </div>
+            <div class="gridContainer">
+                <div id="SystemLogGrid"></div>
+                <div id="SystemLogDetails">
+                    <div class="logDetails">
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

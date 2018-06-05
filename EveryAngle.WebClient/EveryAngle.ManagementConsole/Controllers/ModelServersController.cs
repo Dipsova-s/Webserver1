@@ -1,0 +1,311 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web.Mvc;
+using System.Text;
+using System.IO;
+using System.Net.Mime;
+using Kendo.Mvc.UI;
+using Newtonsoft.Json.Linq;
+using EveryAngle.WebClient.Service.HttpHandlers;
+using EveryAngle.WebClient.Service.Security;
+using EveryAngle.ManagementConsole.Helpers;
+using EveryAngle.Logging;
+using EveryAngle.Core.Interfaces.Services;
+using EveryAngle.Core.ViewModels;
+using EveryAngle.Core.ViewModels.Model;
+using EveryAngle.Core.ViewModels.ModelServer;
+using EveryAngle.Shared.Helpers;
+using EveryAngle.Utilities;
+using EveryAngle.Shared.Globalization;
+using EveryAngle.WebClient.Domain.Enums;
+
+namespace EveryAngle.ManagementConsole.Controllers
+{
+    public class ModelServersController : BaseController
+    {
+        private readonly IModelService _modelService;
+
+        public ModelServersController(IModelService service)
+        {
+            _modelService = service;
+        }
+
+        #region "Public"
+
+        public ActionResult GetAllModelServers(string modelUri, string modelId, string q = "")
+        {
+            ViewBag.ModelId = modelId;
+            ViewBag.ModelUri = modelUri;
+
+            return PartialView("~/Views/Model/ModelServers/AllModelServer.cshtml");
+        }
+
+        public ActionResult GetFilterModelServers(string modelUri, string q = "")
+        {
+            modelUri = modelUri.ToLower();
+            var sessionHelper = SessionHelper.Initialize();
+            var currentModel = sessionHelper.GetModel(modelUri);
+            var modelServers = GetModelServers(q, modelUri, 1, MaxPageSize);
+            var currentInstanceModelServerId = string.Empty;
+
+            if (modelServers != null && modelServers.Data.Count() > 0)
+            {
+                modelServers.Data = modelServers.Data.Where(model => model.id != "EA4IT_Xtractor").ToList();
+                modelServers.Header.Total = modelServers.Header.Total - 1;
+            }
+
+            if (currentModel != null && currentModel.current_instance != null)
+            {
+                var modelServer =
+                    modelServers.Data.Find(
+                        filter =>
+                            filter.instance != null &&
+                            filter.instance.ToString() == currentModel.current_instance.ToString());
+                if (modelServer != null)
+                {
+                    currentInstanceModelServerId = modelServer.id;
+                }
+            }
+
+            modelServers.Data.ForEach(x => x.status = (x.IsProcessing.HasValue && x.IsProcessing.Value) ? "Postprocessing" : x.status);
+
+            ViewData["CurrentInstanceId"] = currentInstanceModelServerId;
+            ViewData["Total"] = modelServers.Header.Total;
+            ViewData["SearchKeyword"] = string.IsNullOrEmpty(q) ? string.Empty : q;
+            ViewData["DefaultPageSize"] = MaxPageSize;
+            ViewBag.ModelUri = modelUri;
+            return PartialView("~/Views/Model/ModelServers/ModelServerGrid.cshtml", modelServers.Data);
+        }
+
+        public ActionResult GetAllModelServer(string modelServerUri, bool isCurrentInstance)
+        {
+            // model instances
+            PartialViewResult partialViewResult;
+            ModelServerViewModel modelServerViewModel = _modelService.GetModelServer(modelServerUri);
+
+            // shared view bag
+            ViewBag.ModelServerUri = modelServerUri;
+            ViewBag.IsCurrentInstance = isCurrentInstance;
+
+            if (modelServerViewModel.IsModelServer)
+            {
+                partialViewResult = GetModelServerInfoPartialView(modelServerViewModel);
+            }
+            else
+            {
+                partialViewResult = GetModelExtractorInfoPartialView(modelServerViewModel);
+            }
+
+            return partialViewResult;
+        }
+
+        public ActionResult GetAllModelServerReport(string modelServerUri, bool isCurrentInstance)
+        {
+            var modelServer = _modelService.GetModelServer(modelServerUri);
+            ViewBag.ModelServerUri = modelServerUri;
+            ViewBag.ModelServerID = modelServer.id;
+            ViewBag.IsCurrentInstance = isCurrentInstance;
+            var parentDetails = new List<TreeViewItemModel>();
+
+            var reportUri = modelServer.reports == null ? "" : modelServer.reports.ToString();
+            var reports = string.IsNullOrEmpty(reportUri)
+                ? new ListViewModel<ModelServerReportViewModel>()
+                : _modelService.GetReports(reportUri);
+
+            var status = new TreeViewItemModel();
+            status.Text = Resource.MC_Status;
+            parentDetails.Add(status);
+
+            if (reports.Data != null)
+            {
+                var generalReports =
+                    reports.Data.Where(x => !x.id.StartsWith("Class") && !x.id.StartsWith("Enum")).ToList();
+                var classesReports = reports.Data.Where(x => x.id.StartsWith("Class")).ToList();
+                var enumReports = reports.Data.Where(x => x.id.StartsWith("Enum")).ToList();
+                CreateReportTreeView(parentDetails, generalReports, Resource.MC_GeneralReport);
+                CreateReportTreeView(parentDetails, classesReports, Resource.MC_ClassReport);
+                CreateReportTreeView(parentDetails, enumReports, Resource.MC_EnumReport);
+                ViewBag.TaskDetails = parentDetails;
+            }
+
+            return PartialView("~/Views/Model/ModelServers/ModelServerReport.cshtml", parentDetails);
+        }
+
+        public ContentResult GetModelServerReport(string modelServerUri, string reportUri)
+        {
+            var modelServer = _modelService.GetModelServer(modelServerUri);
+            ViewBag.ModelServerUri = modelServerUri;
+            ViewBag.ModelServerID = modelServer.id;
+            string report = null;
+            if (modelServer.status != "Down")
+            {
+                report = _modelService.GetModelServerReport(reportUri);
+            }
+            return Content(report, "application/json");
+        }
+
+        [AcceptVerbs(HttpVerbs.Post)]
+        public ActionResult ReadModelServers(string q, string modelUri, [DataSourceRequest] DataSourceRequest request)
+        {
+            var modelServer = GetModelServers(q, modelUri, request.Page, DefaultPageSize);
+            var result = new DataSourceResult
+            {
+                Data = modelServer.Data,
+                Total = modelServer.Header != null ? modelServer.Header.Total : 0
+            };
+            return Json(result);
+        }
+
+        [AcceptVerbs(HttpVerbs.Post)]
+        public ActionResult KillSAPJobs(string modelServerUri, string body)
+        {
+            JObject response = new JObject();
+            ModelServerViewModel modelServer = _modelService.GetModelServer(modelServerUri);
+            string requestUrl = string.Format("{0}/agent/killsapjobs", modelServer.model);
+
+            Log.SendInfo("[KillSapJobs] Model Server Status: {0}", modelServer.status);
+            Log.SendInfo("[KillSapJobs] Request Url: {0}", requestUrl);
+            Log.SendInfo("[KillSapJobs] Request Body: {0}", body);
+
+            if (modelServer.Status == ModelServerStatus.Extracting)
+            {
+                try
+                {
+                    response = RequestManager.Initialize(requestUrl).Run(RestSharp.Method.POST, body, RestSharp.DataFormat.Json);
+                    Log.SendInfo("[KillSapJobs] Kill Sap Jobs Successfully");
+                }
+                catch (Exception ex)
+                {
+                    Log.SendWarning("[KillSapJobs] Failed to Kill Sap Jobs, because {0}", ex.Message);
+                }
+            }
+            else
+            {
+                Log.SendWarning("[KillSapJobs] Failed to Kill Sap Jobs, because Extractor Server Status: Idle");
+            }
+            return Json(response.ToObject<Dictionary<string, object>>(), JsonRequestBehavior.AllowGet);
+        }
+
+        #endregion
+
+        #region "Private"
+
+        private ListViewModel<ModelServerViewModel> GetModelServers(string q, string modelUri, int page, int pagesize)
+        {
+            var models = SessionHelper.Initialize().Models;
+            var model = models.Where(eachModel => eachModel.Uri.ToString() == modelUri).FirstOrDefault();
+            var modelServer = new ListViewModel<ModelServerViewModel>();
+            if (model.ServerUri != null)
+            {
+                modelServer =
+                    _modelService.GetModelServers(model.ServerUri + "?" +
+                                                 UtilitiesHelper.GetOffsetLimitQueryString(page, pagesize, q));
+                foreach (var item in modelServer.Data)
+                {
+                    item.modelId =
+                        models.Where(eachModel => eachModel.Uri.ToString() == item.model.ToString()).FirstOrDefault().id;
+                    item.instance_status = item.instance_status != null
+                        ? _modelService.GetInstance(item.instance.ToString()).status
+                        : "";
+                }
+            }
+            return modelServer;
+        }
+
+        private void CreateReportTreeView(List<TreeViewItemModel> parentDetails,
+            List<ModelServerReportViewModel> reports, string reportName)
+        {
+            var reportNode = JToken.FromObject(reports);
+            var reportDetails = new List<TreeViewItemModel>();
+
+            foreach (var item in reports)
+            {
+                reportDetails.Add(new TreeViewItemModel
+                {
+                    Text = item.title,
+                    Id = item.id,
+                    HtmlAttributes =
+                        new Dictionary<string, string>
+                        {
+                            {"data-url", item.Uri != null ? item.Uri.ToString() : string.Empty}
+                        }
+                });
+            }
+
+            //create tree view
+            var reportTreeView = new TreeViewItemModel();
+            reportTreeView.Text = reportName;
+            reportTreeView.Items.AddRange(reportDetails);
+            parentDetails.Add(reportTreeView);
+        }
+
+       
+
+        public FileResult GetModelServerMetaDataFile(string fullPath, string modelServerId, string instanceid)
+        {
+            string requestUrl = string.Format("{0}/metadata", Base64Helper.Decode(fullPath));
+            string downloadFilename = string.Format("metadata_{0}_{1}.json", modelServerId, instanceid);
+
+            RequestManager requestManager = RequestManager.Initialize(requestUrl);
+            byte[] downloadFileByte = requestManager.GetBinary();
+            return File(downloadFileByte, MediaTypeNames.Application.Octet, downloadFilename);
+        }
+
+        private PartialViewResult GetModelServerInfoPartialView(ModelServerViewModel modelServerViewModel)
+        {
+            if (modelServerViewModel.Status != ModelServerStatus.Down)
+            {
+                InstanceViewModel instanceViewModel;
+                modelServerViewModel = _modelService.GetModelServer(modelServerViewModel.info.ToString());
+
+                // is post processing status
+                if (modelServerViewModel.IsProcessing.GetValueOrDefault())
+                {
+                    modelServerViewModel.status = ModelServerStatus.Postprocessing.ToString();
+                }
+
+                // model server view bag
+                if (modelServerViewModel.task_details != null)
+                {
+                    ViewBag.TaskDetails = new List<TreeViewItemModel>
+                    {
+                        new TreeViewItemModel
+                        {
+                            Text = Resource.MC_Status,
+                            Items = EventLogHelper.GetTreeViewItemModelList(modelServerViewModel.task_details)
+                        }
+                    };
+                }
+
+                if (modelServerViewModel.instance != null)
+                {
+                    instanceViewModel = _modelService.GetInstance(modelServerViewModel.instance.ToString());
+                    ViewBag.ModelInstance = instanceViewModel.created.ToUnixTime();
+                }
+            }
+            return PartialView("~/Views/Model/ModelServers/ModelServerInfo.cshtml", modelServerViewModel);
+        }
+
+        private PartialViewResult GetModelExtractorInfoPartialView(ModelServerViewModel modelServerViewModel)
+        {
+            ExtractorViewModel extractorViewModel;
+            // set model status
+            if (modelServerViewModel.Status == ModelServerStatus.Down)
+            {
+                extractorViewModel = new ExtractorViewModel
+                {
+                    id = modelServerViewModel.id,
+                    status = ModelServerStatus.Down.ToString()
+                };
+            }
+            else
+            {
+                extractorViewModel = _modelService.GetModelExtractor(modelServerViewModel.info.ToString());
+            }
+            return PartialView("~/Views/Model/ModelServers/ModelExtractorInfo.cshtml", extractorViewModel);
+        }
+
+        #endregion
+    }
+}

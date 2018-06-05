@@ -1,0 +1,11 @@
+﻿@model EveryAngle.Core.ViewModels.Model.Setting
+
+<label data-role="tooltip">@Model.Name</label>
+<p>
+    <label><input class="boolean autosyncinput" data-setting-type="boolean" data-type="checkbox" id="@Model.Id" name="@Model.Id" type="checkbox" value="true"@(Model.Value != null && Convert.ToBoolean( Model.Value) == true ? " checked='checked'" : "") /><span class="label"></span></label>
+    @if(Model.Description != null)
+    {
+        <a data-target="#popupDescriptionTemplate" title="Description" data-width="600" data-min-height="100" data-role="mcPopup" class="btn btnInfo" onclick='MC.util.showDescriptionPopup(this)'></a>
+        <textarea class="alwaysHidden"><pre>@Model.Description</pre></textarea>
+    }
+</p>

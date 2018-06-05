@@ -1,0 +1,176 @@
+﻿@using EveryAngle.ManagementConsole.Models
+@using EveryAngle.ManagementConsole.Helpers
+@using EveryAngle.Shared.Globalization
+@model EveryAngle.Core.ViewModels.WebClientSettings.WebClientConfigViewModel
+
+<script>
+    MC.util.loadScript({
+        test: MC.GlobalSettings && MC.GlobalSettings.WebClientSettings,
+        url: '@Scripts.Url("~/bundles/globalsettings/webclientsettings")',
+        callback: function () {
+            MC.GlobalSettings.WebClientSettings.Initial({
+                SaveUri: '@Url.Action("SaveWebClientSettings", "GlobalSettings")'
+            });
+        }
+    });
+</script>
+@{
+    List<PageToolbarButtonModel> buttons = new List<PageToolbarButtonModel>();
+       
+    buttons.Add(new PageToolbarButtonModel
+    {
+        Type = PageToolbarButtonType.Save,
+        OnClick = "MC.GlobalSettings.WebClientSettings.SaveWebClientSettings()",
+        Privilege = PrivilegeType.System
+    });
+    buttons.Add(new PageToolbarButtonModel
+    {
+        Type = PageToolbarButtonType.Reload
+    });
+    
+    @Html.RenderPageToolbar(buttons)
+}
+
+<div class="content pageWebClientSettings">
+    <form id="WebClientSettingsForm" data-role="validator" autocomplete="off">
+        <div class="contentSection contentSectionInfo">
+            <h2>@Resource.General</h2>
+            <div class="contentSectionInfoItem">
+                <label>
+                    @Html.LabelFor(model => model.WebServiceBackendEnableSSL)
+                </label>
+                <p>
+                    <label>
+                        <input data-val="true" id="WebServiceBackendEnableSSL" name="WebServiceBackendEnableSSL" type="checkbox" value="true"@(Model.WebServiceBackendEnableSSL ? " checked='checked'" : "") /><span class="label"></span></label>
+                    <a data-target="#popupDescriptionTemplate" title="Description" data-width="600" data-min-height="100" data-role="mcPopup" class="btn btnInfo" onclick="MC.util.showDescriptionPopup(this)"></a>
+                    <textarea class="alwaysHidden">@Resource.MC_WebClientSettingsHelpEnableSsl</textarea>
+                </p>
+            </div>
+            <div class="contentSectionInfoItem">
+                <label>
+                    @Html.LabelFor(model => model.TrustAllCertificate)
+                </label>
+                <p>
+                    <label>
+                        <input data-val="true" id="TrustAllCertificate" name="TrustAllCertificate" type="checkbox" value="true"@(Model.TrustAllCertificate ? " checked='checked'" : "") /><span class="label"></span></label>
+                    <a data-target="#popupDescriptionTemplate" title="Description" data-width="600" data-min-height="100" data-role="mcPopup" class="btn btnInfo" onclick="MC.util.showDescriptionPopup(this)"></a>
+                    <textarea class="alwaysHidden">@Resource.MC_WebClientSettingsHelpTrustAllCertificate</textarea>
+                </p>
+            </div>
+            <div class="contentSectionInfoItem">
+                <label>
+                    @Html.LabelFor(model => model.AjaxTimeoutExpirationInSeconds)
+                </label>
+                <p>@Html.Kendo().NumericTextBoxFor(model => model.AjaxTimeoutExpirationInSeconds).Decimals(0).Format("0").Step(1).Min(15).Max(1800).HtmlAttributes( new { @class = "required" })
+                    <a data-target="#popupDescriptionTemplate" title="Description" data-width="600" data-min-height="100" data-role="mcPopup" class="btn btnInfo" onclick="MC.util.showDescriptionPopup(this)"></a>
+                    <textarea class="alwaysHidden">@Resource.MC_WebClientSettingsHelpApplicationTimeout</textarea>
+                </p>
+            </div>
+            <div class="contentSectionInfoItem">
+                <label>
+                    @Html.LabelFor(model => model.ShowAngleAndDisplayID)
+                </label>
+                <p>
+                    <label>
+                        <input data-val="true" id="ShowAngleAndDisplayID" name="ShowAngleAndDisplayID" type="checkbox" value="true"@(Model.ShowAngleAndDisplayID ? " checked='checked'" : "") /><span class="label"></span></label>
+                    <a data-target="#popupDescriptionTemplate" title="Description" data-width="600" data-min-height="100" data-role="mcPopup" class="btn btnInfo" onclick="MC.util.showDescriptionPopup(this)"></a>
+                    <textarea class="alwaysHidden">@Resource.MC_WebClientSettingsHelpShowAngleAndDisplayID</textarea>
+                </p>
+            </div>
+            <div class="contentSectionInfoItem">
+                <label>
+                    @Html.LabelFor(model => model.MaxNumberOfMassChangeItems)
+                </label>
+                <p>@Html.Kendo().NumericTextBoxFor(model => model.MaxNumberOfMassChangeItems).Decimals(0).Format("0").Step(1).Min(1).Max(1800).HtmlAttributes( new { @class = "required" })
+                    <a data-target="#popupDescriptionTemplate" title="Description" data-width="600" data-min-height="100" data-role="mcPopup" class="btn btnInfo" onclick="MC.util.showDescriptionPopup(this)"></a>
+                    <textarea class="alwaysHidden">@Resource.MC_WebClientSettingsHelpMaxNumberOfMassChange</textarea>
+                </p>
+            </div>
+            <div class="contentSectionInfoItem">
+                <label>
+                    @Html.LabelFor(model => model.MaxNumberOfDashboard)
+                </label>
+                <p>@Html.Kendo().NumericTextBoxFor(model => model.MaxNumberOfDashboard).Decimals(0).Format("0").Step(1).Min(1).Max(9).HtmlAttributes( new { @class = "required" })
+                    <a data-target="#popupDescriptionTemplate" title="Description" data-width="600" data-min-height="100" data-role="mcPopup" class="btn btnInfo" onclick="MC.util.showDescriptionPopup(this)"></a>
+                    <textarea class="alwaysHidden">@Resource.MC_WebClientSettingsHelpMaxNumberOfDashboard</textarea>
+                </p>
+            </div>
+            <div class="contentSectionInfoItem">
+                <label>
+                    @Html.LabelFor(model => model.DashboardRefreshIntervalTime)
+                </label>
+                <p>@Html.Kendo().NumericTextBoxFor(model => model.DashboardRefreshIntervalTime).Decimals(0).Format("0").Step(1).Min(1).HtmlAttributes( new { @class = "required" })
+                    <a data-target="#popupDescriptionTemplate" title="Description" data-width="600" data-min-height="100" data-role="mcPopup" class="btn btnInfo" onclick="MC.util.showDescriptionPopup(this)"></a>
+                    <textarea class="alwaysHidden">@Resource.MC_WebClientSettingsHelpDashboardRefreshIntervalTime</textarea>
+                </p>
+            </div>
+            <div class="contentSectionInfoItem">
+                <label>
+                    @Html.LabelFor(model => model.JWPlayerKey)
+                </label>
+                <p>@Html.TextBoxFor(model => model.JWPlayerKey)
+                    <a data-target="#popupDescriptionTemplate" title="Description" data-width="600" data-min-height="100" data-role="mcPopup" class="btn btnInfo" onclick="MC.util.showDescriptionPopup(this)"></a>
+                    <textarea class="alwaysHidden">@Resource.MC_WebClientSettingsHelpJWPlayerKey</textarea>
+                </p>
+            </div>
+            <div class="contentSectionInfoItem">
+                <label>
+                    @Html.LabelFor(model => model.GoogleAnalyticsId)
+                </label>
+                <p>@Html.TextBoxFor(model => model.GoogleAnalyticsId, new { @class = "google_analytics_id" })
+                    <a data-target="#popupDescriptionTemplate" title="Description" data-width="600" data-min-height="100" data-role="mcPopup" class="btn btnInfo" onclick="MC.util.showDescriptionPopup(this)"></a>
+                    <textarea class="alwaysHidden">@Resource.MC_WebClientSettingsHelpGoogleAnalyticsCode</textarea>
+                </p>
+            </div>
+        </div>
+
+        <div class="contentSection contentSectionInfo">
+            <h2>@Resource.TroubleShooting</h2>
+            <div class="contentSectionInfoItem">
+                <label>
+                    @Html.LabelFor(model => model.ShowErrorSourceUri)
+                </label>
+                <p>
+                    <label>
+                        <input data-val="true" id="ShowErrorSourceUri" name="ShowErrorSourceUri" type="checkbox" value="true"@(Model.ShowErrorSourceUri ? " checked='checked'" : "") /><span class="label"></span></label>
+                    <a data-target="#popupDescriptionTemplate" title="Description" data-width="600" data-min-height="100" data-role="mcPopup" class="btn btnInfo" onclick="MC.util.showDescriptionPopup(this)"></a>
+                    <textarea class="alwaysHidden">@Resource.MC_WebClientSettingsHelpShowErrorSourceUri</textarea>
+                </p>
+            </div>
+            <div class="contentSectionInfoItem">
+                <label>
+                    @Html.LabelFor(model => model.EnableOptimizations)
+                </label>
+                <p>
+                    <label>
+                        <input data-val="true" id="EnableOptimizations" name="EnableOptimizations" type="checkbox" value="true"@(Model.EnableOptimizations ? " checked='checked'" : "") /><span class="label"></span></label>
+                    <a data-target="#popupDescriptionTemplate" title="Description" data-width="600" data-min-height="100" data-role="mcPopup" class="btn btnInfo" onclick="MC.util.showDescriptionPopup(this)"></a>
+                    <textarea class="alwaysHidden">@Resource.MC_WebClientSettingsHelpEnableOptimizations</textarea>
+                </p>
+            </div>
+            <div class="contentSectionInfoItem">
+                <label>
+                    @Html.LabelFor(model => model.MaxLogFileNumber)
+                </label>
+                <p>@Html.Kendo().NumericTextBoxFor(model => model.MaxLogFileNumber).Decimals(0).Format("0").Step(1).Min(1).Max(100).HtmlAttributes( new { @class = "required" }) 
+                    <a data-target="#popupDescriptionTemplate" title="Description" data-width="600" data-min-height="100" data-role="mcPopup" class="btn btnInfo" onclick="MC.util.showDescriptionPopup(this)"></a>
+                    <textarea class="alwaysHidden">@Resource.MC_WebClientSettingsHelpMaxLogFileNumber</textarea>
+                </p>
+            </div>
+            <div class="contentSectionInfoItem">
+                <label>
+                    @Html.LabelFor(model => model.MaxLogFileSize)
+                </label>
+                <p>@Html.Kendo().NumericTextBoxFor(model => model.MaxLogFileSize).Decimals(0).Format("0").Step(1).Min(1).Max(10000000).HtmlAttributes( new { @class = "required" }) 
+                    <a data-target="#popupDescriptionTemplate" title="Description" data-width="600" data-min-height="100" data-role="mcPopup" class="btn btnInfo" onclick="MC.util.showDescriptionPopup(this)"></a>
+                    <textarea class="alwaysHidden">@Resource.MC_WebClientSettingsHelpMaxLogFileSize</textarea>
+                </p>
+            </div>
+        </div>
+        <div class="contentSection contentSectionInfo">
+           <label>@Resource.MC_WebClientSettingNote</label>
+        </div>
+    </form>
+</div>
+
+@{Html.RenderPartial("~/Views/Shared/PluginPopupDescriptionTemplate.cshtml");}

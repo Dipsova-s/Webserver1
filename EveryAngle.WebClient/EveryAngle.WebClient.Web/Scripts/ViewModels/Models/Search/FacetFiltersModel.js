@@ -1,0 +1,468 @@
+var facetFiltersViewModel = new FacetFiltersViewModel();
+
+//Knock out function to render business process top bar in search view
+function FacetFiltersViewModel() {
+    "use strict";
+
+    var self = this;
+
+    self.OPENPANELSNAME = 'search_facet_open_panels';
+    self.FACETCACHE = 'search_facet_cache';
+    self.Data = ko.observableArray([]);
+    self.SortOptions = [];
+    self.SortRelevancyId = 'relevancy';
+    self.GroupExceptions = ['business_process'];  
+    self.GroupGeneral = 'item_property';
+    self.GroupCannotNegativeFilter = 'facetcat_admin';
+    self.GroupGeneralOrder = ['facetcat_itemtype', 'facetcat_characteristics', 'facetcat_models', 'facetcat_admin'];
+    self.FilterExclusionList = ['facet_executeonlogin'];
+    self.ShowOtherFacetFilterProperties = ko.observable(false);
+    self.selectedItems = [];
+
+    self.FacetItemProperties = ko.observableArray([]);
+    self.OptionalFacetProperties = ko.observableArray([]);
+
+    self.Load = function () {
+        self.ShowOtherFacetFilterProperties(!!$.address.parameterNames().length);
+       
+        var uri = directoryHandler.GetDirectoryUri(enumHandlers.ENTRIESNAME.ITEMS);
+        var query = {};
+        query[enumHandlers.SEARCHPARAMETER.OFFSET] = 0;
+        query[enumHandlers.SEARCHPARAMETER.LIMIT] = 0;
+        query[enumHandlers.SEARCHPARAMETER.VIEWMODE] = enumHandlers.VIEWMODETYPE.BASIC;
+
+        return GetDataFromWebService(uri, query)
+            .done(function (data, status, xhr) {
+                
+
+                self.SetFacetAndSort(data);
+            });
+    };
+    self.SetFacetAndSort = function (data) {
+        self.SetSortOptions(data.sort_options);
+        self.SetFacetExclusionList(data.facets);
+        self.SetFacet(data.facets);
+    };
+    self.SetSortOptions = function (sortOptions) {
+        self.SortOptions = WC.Utility.ToArray(ko.toJS(sortOptions));
+        self.SortOptions.removeObject('id', self.SortRelevancyId);
+    };
+    self.SetFacetExclusionList = function (facets) {
+        // check with_private_display visibility
+        var filterPrivateDisplayId = 'with_private_display';
+        var fq = searchQueryModel.GetParams()[enumHandlers.SEARCHPARAMETER.FQ];
+        var facetCharacteristics = WC.Utility.ToArray(facets).findObject('id', 'facetcat_characteristics');
+        if (facetCharacteristics) {
+            var filterPrivateDisplay = facetCharacteristics.filters.findObject('id', filterPrivateDisplayId);
+            if (filterPrivateDisplay) {
+                var indexFilterPrivateDisplay = jQuery.inArray(filterPrivateDisplayId, self.FilterExclusionList);
+                var showPrivateDisplayFacet = jQuery.inArray(filterPrivateDisplayId, fq.checked) !== -1 || jQuery.inArray(filterPrivateDisplayId, fq.unchecked) !== -1 || filterPrivateDisplay.count;
+                if (!showPrivateDisplayFacet) {
+                    if (indexFilterPrivateDisplay === -1) {
+                        self.FilterExclusionList.push(filterPrivateDisplayId);
+                    }
+                }
+                else {
+                    if (indexFilterPrivateDisplay !== -1) {
+                        self.FilterExclusionList.splice(indexFilterPrivateDisplay, 1);
+                    }
+                }
+            }
+        }
+    };
+    self.SetFacet = function (data) {     
+        var facetData = ko.toJS(data);
+        defaultValueHandler.CheckAndExtendProperties(facetData, enumHandlers.VIEWMODELNAME.SEARCHFACET, true);
+        var facets = [], facetGeneral = [],
+            fq = searchQueryModel.GetParams()[enumHandlers.SEARCHPARAMETER.FQ],
+            removeFacetIndexList = [],
+            panelsOpened = WC.Utility.ToArray(jQuery.localStorage(self.OPENPANELSNAME)),
+            currentPanelsOpened = [],
+            panelOpenedIndex, panelOpenedStatus;
+        if (!panelsOpened.length) {
+            panelsOpened = self.GroupGeneralOrder.slice();
+        }
+
+        self.GenerateFacetFromCache(facetData, fq.json);     
+
+        jQuery.each(facetData, function (indexFacet, facet) {
+            if (jQuery.inArray(facet.type, self.GroupExceptions) === -1) {
+                facet.preference_text = ko.observable('');
+                facet.child_checked = false;
+                panelOpenedIndex = jQuery.inArray(facet.id, panelsOpened);
+                panelOpenedStatus = panelOpenedIndex !== -1;
+                if (panelOpenedStatus) currentPanelsOpened.push(facet.id);
+                facet.panel_opened = ko.observable(panelOpenedStatus);
+                removeFacetIndexList = [];
+                jQuery.each(facet.filters, function (indexFilter, filter) {
+                    filter.count = ko.observable(filter.count || 0);
+                    filter.checked = ko.observable(jQuery.inArray(filter.id, fq.checked) !== -1 ? true : false);
+                    filter.negative = ko.observable(jQuery.inArray(filter.id, fq.unchecked) !== -1);
+                    if (filter.negative()) {
+                        filter.checked(true);
+                    }
+                    if (filter.checked()) facet.child_checked = true;
+                });
+                jQuery.each(removeFacetIndexList, function (index, removeIndex) {
+                    facet.filters.splice(removeIndex, 1);
+                });
+
+                var facetItems;
+                if (facet.type === self.GroupGeneral) {
+                    facetItems = facet.filters.slice(0);
+                }
+                else {
+                    facetItems = self.SortFacetFilter(facet.filters.slice(0), 'name', function (data) { return data.toLowerCase(); });
+                }
+
+                facet.filters = ko.observableArray(facetItems);
+                if (facet.type === self.GroupGeneral) {
+                    facetGeneral[jQuery.inArray(facet.id, self.GroupGeneralOrder)] = facet;
+                }
+                else {
+                    facets.push(facet);
+                }
+            }
+        });
+        jQuery.localStorage(self.OPENPANELSNAME, currentPanelsOpened);
+
+        if (!facets.length)
+            self.ShowOtherFacetFilterProperties(false);
+
+        var index = 0;
+        jQuery.each(facetGeneral, function (indexFacet, facet) {
+            if (typeof facet !== 'undefined') {
+                facets.splice(index, 0, facet);
+                index++;
+            }
+        });
+        self.Data(facets);
+
+        jQuery.localStorage(self.FACETCACHE, ko.toJS(facets));
+    };
+    self.GenerateFacetFromCache = function (currentFacets, fq) {
+        var facetsCache = WC.Utility.ToArray(jQuery.localStorage(self.FACETCACHE));
+		var facet, filter, facetData, filterItemList;
+        jQuery.each(fq, function (facetId, filters) {
+            facetData = {};
+
+            if (facetId.indexOf('-') === -1) {
+                // facet category
+                var currentFacet = currentFacets.findObject('id', facetId, false);
+                if (currentFacet) {
+                    facet = jQuery.extend({}, currentFacet);
+                }
+                else {
+                    facet = facetsCache.findObject('id', facetId, false);
+                }
+                if (!facet) {
+					facet = {
+						id: facetId,
+						name: facetId,
+						description: facetId,
+						type: facetId,
+						filters: []
+					};
+                }
+                else {
+                    if (!facet.filters) {
+                        facet.filters = [];
+                    }
+                }
+                jQuery.extend(facetData, facet, { filters: [] });
+
+                // facet filters
+                jQuery.each(filters, function (index, filterId) {
+                    var currentFilter = currentFacet ? currentFacet.filters.findObject('id', filterId, false) : null;
+                    if (currentFilter) {
+                        filter = jQuery.extend({}, currentFilter);
+                    }
+                    else {
+                        filterItemList = [];
+                        jQuery.each(facet.filters, function (index, filterItem) {
+                            filterItemList.push(filterItem);
+                        });
+
+                        filter = filterItemList.findObject('id', filterId, false); 
+                        if (filter) {
+                            filter.count = 0;
+                        }
+                    }
+                    if (filter) {
+                        facetData.filters.push(filter);
+                    }
+                    else {
+                        // get facet detail from cach   
+                        // Fix M4-14475: WC: Facet name will change when I select many facets
+                        var cachFacetName = filterId;
+                        var cachDescription = filterId;
+                        if (facetsCache) {
+                            var cachFacetItem = facetsCache.findObject('id', facetId, false);
+                            if (cachFacetItem) {
+
+                                filterItemList = [];
+                                jQuery.each(cachFacetItem.filters, function (index, filterItem) {
+                                    filterItemList.push(filterItem);
+                                });
+
+                                var cachFilterItem = filterItemList.findObject('id', filterId, false); 
+                                if (cachFilterItem) {
+                                    cachFacetName = cachFilterItem.name;
+									cachDescription = cachFilterItem.description;
+                                }
+                            }
+                        }
+                        facetData.filters.push({
+                            id: filterId,
+                            name: cachFacetName,
+                            description: cachDescription
+                        });
+                    }
+                });
+
+                // update currentFacets
+                if (!currentFacet) {
+                    currentFacets.push(facetData);
+                }
+                else {
+                    jQuery.each(filters, function (index, filterId) {
+                        if (!currentFacet.filters.hasObject('id', filterId, false)) {
+                            currentFacet.filters.push(facetData.filters.findObject('id', filterId, false));
+                        }
+                    });
+                }
+            }
+        });
+    };
+    self.UpdatePreferenceText = function () {
+        // clear preference text
+        jQuery.each(self.Data(), function (k2, v2) {
+            v2.preference_text('');
+        });
+
+        // find checked checkboxes
+        jQuery('#LeftMenu input:checked').each(function (index, checkbox) {
+            checkbox = jQuery(checkbox);
+            var text = jQuery.trim(checkbox.parent().text());
+            var modelId;
+            var filterContainer = checkbox.parents('.FilterCheckBox:first');
+            if (filterContainer.hasClass('FilterCheckBox-' + self.GroupGeneral)) {
+                modelId = jQuery('.FilterTab-' + self.GroupGeneral + ':first').attr('id');
+            }
+            else {
+                modelId = filterContainer.attr('id');
+            }
+            modelId = modelId.replace('_Checkbox', '');
+
+            // set preference text
+            jQuery.each(self.Data(), function (k2, v2) {
+                if (v2.id === modelId) {
+                    if (v2.preference_text()) v2.preference_text(v2.preference_text() + ',' + text);
+                    else v2.preference_text(text);
+                }
+            });
+        });
+    };
+    self.GetCategoryById = function (id) {
+        return jQuery.grep(self.Data(), function (obj, idx) { return obj.id === id; });
+    };
+    self.IsFacetVisible = function (facet) {
+        var isGeneralGroup = self.GroupGeneral === facet.type;
+
+        // hide this section if no visible filter
+        var isAllFiltersHidden = true;
+        jQuery.each(facet.filters(), function (index, facet) {
+            if (self.CheckAngleFacetVisibility(facet.id, facet.count())) {
+                isAllFiltersHidden = false;
+                return false;
+            }
+        });
+        return !isAllFiltersHidden && (isGeneralGroup || (!isGeneralGroup && self.ShowOtherFacetFilterProperties()));
+    };
+    self.IsFacetHeaderVisible = function (index, facetType) {
+        var isGeneralGroup = self.GroupGeneral === facetType;
+        return (index === 0 && isGeneralGroup) || !isGeneralGroup;
+    };
+    self.CheckAngleFacetVisibility = function (id, count) {
+        if (jQuery.inArray(id, self.FilterExclusionList) !== -1) {
+            return false;
+        }
+        else if (id === 'facet_has_warnings') {
+            if (userModel.IsPossibleToCreateAngle()
+                && userSettingModel.GetClientSettingByPropertyName(enumHandlers.CLIENT_SETTINGS_PROPERTY.SHOW_FACET_ANGLE_WARNINGS)) {
+                return true;
+            }
+            else {
+                return false;
+            }
+        }
+        else {
+            var canCreateAngle = privilegesViewModel.IsAllowCreateAngle();
+            var facetVisibility = true;
+            if (id === 'facet_isprivate' && !canCreateAngle && count <= 0) {
+                facetVisibility = false;
+            }
+            else if (id === 'facet_created' && !canCreateAngle && count <= 0) {
+                facetVisibility = false;
+            }
+            else if (id === 'facet_can_validate' && !canCreateAngle) {
+                facetVisibility = false;
+            }
+            else if (id === 'facet_can_manage' && !canCreateAngle) {
+                facetVisibility = false;
+            }
+            return facetVisibility;
+        }
+    };
+	self.SetIcon = function (id) {
+		var iconsMapping = {
+			facet_angle: {
+				path: GetImageFolderPath() + 'searchpage/icn_item_angle.svg',
+				dimension: {
+					width: 20,
+					height: 20
+				}
+			},
+			facet_dashboard: {
+				path: GetImageFolderPath() + 'searchpage/icn_item_dashboard.svg',
+				dimension: {
+					width: 16,
+					height: 16
+				},
+				style: 'left:3px;bottom:2px;'
+			},
+			facet_template: {
+				path: GetImageFolderPath() + 'searchpage/icn_item_template.svg',
+				dimension: {
+					width: 20,
+					height: 20
+				}
+			},
+			facet_isprivate: {
+				path: GetImageFolderPath() + 'searchpage/icn_private.svg',
+				dimension: {
+					width: 20,
+					height: 20
+				}
+			},
+			facet_isvalidated: {
+				path: GetImageFolderPath() + 'searchpage/icn_validated.svg',
+				dimension: {
+					width: 20,
+					height: 20
+				}
+			},
+			facet_isstarred: {
+				path: GetImageFolderPath() + 'searchpage/icn_starred_active.svg',
+				dimension: {
+					width: 20,
+					height: 20
+				}
+			},
+			facet_ispublished: {
+				path: GetImageFolderPath() + 'searchpage/icn_public.svg',
+				dimension: {
+					width: 20,
+					height: 20
+				}
+			},
+			facet_has_warnings: {
+				path: GetImageFolderPath() + 'icons/icon_warning.svg',
+				dimension: {
+					width: 16,
+					height: 16
+				},
+				style: 'left:2px;bottom:2px;'
+			},
+			with_private_display: {
+				path: GetImageFolderPath() + 'icons/icon_private_display.png',
+				dimension: {
+					width: 20,
+					height: 20
+				}
+			}
+		};
+		return iconsMapping[id.toLowerCase()];
+    };
+    self.GetFacetTooltip = function (facet) {
+        var tooltip = self.GroupGeneral === facet.type ? Localization.GeneralFilters : facet.name;
+        if (facet.preference_text()) {
+            tooltip += '\n' + facet.preference_text();
+        }
+        return tooltip;
+    };
+    self.GetFilterText = function (filter, isGeneralGroup) {
+		var icon = self.SetIcon(filter.id);
+		var html = '';
+
+        if (icon) {
+            html += '<img src="' + icon.path + '" height="' + icon.dimension.height + '" width="' + icon.dimension.width + '" style="' + (icon.style || '') + '" />';
+            html += '<span class="name withIcon">';
+        }
+        else {
+            html += '<span class="name">';
+        }
+        html += (isGeneralGroup ? '' : filter.description) || filter.name || filter.id;
+        if (filter.checked()) {
+            html += ' (' + filter.count() + ')';
+        }
+        html += '</span>';
+
+        return html;
+    };
+    self.ToggleCategory = function (data, event) {
+        var element = jQuery(event.currentTarget),
+            target = jQuery(data.type === self.GroupGeneral ? '.FilterCheckBox-' + data.type : '#' + jQuery(event.currentTarget).attr('id') + '_Checkbox'),
+            panelsOpened = jQuery.localStorage(self.OPENPANELSNAME), panelsOpenedIndex;
+
+        if (element.hasClass('Expand')) {
+            element.removeClass('Expand');
+            target.stop().slideUp('fast', function () {
+                if (data.type === self.GroupGeneral) {
+                    jQuery.each(self.GroupGeneralOrder, function (index, facetId) {
+                        panelsOpenedIndex = jQuery.inArray(facetId, panelsOpened);
+                        if (panelsOpenedIndex !== -1) {
+                            panelsOpened.splice(panelsOpenedIndex, 1);
+                        }
+                    });
+                }
+                else {
+                    panelsOpenedIndex = jQuery.inArray(data.id, panelsOpened);
+                    if (panelsOpenedIndex !== -1) {
+                        panelsOpened.splice(panelsOpenedIndex, 1);
+                    }
+                }
+                jQuery.localStorage(self.OPENPANELSNAME, panelsOpened);
+            });
+        }
+        else {
+            element.addClass('Expand');
+            target.stop().slideDown('fast', function () {
+                if (data.type === self.GroupGeneral) {
+                    panelsOpened = panelsOpened.concat(self.GroupGeneralOrder);
+                }
+                else {
+                    panelsOpened.push(data.id);
+                }
+                jQuery.localStorage(self.OPENPANELSNAME, panelsOpened);
+            });
+        }
+    };
+    self.SetFacetFilterFromUrlToUI = function (facetFilterParameter) {
+        self.UpdatePreferenceText();
+    };
+    self.SortFacetFilter = function (list, sortBy, convertor, direction) {
+        if (typeof convertor === 'undefined') convertor = jQuery.noop;
+        return jQuery(list).sort(function (a, b) {
+            var x = convertor(a[sortBy]),
+                y = convertor(b[sortBy]);
+            return (x < y ? -1 : (x > y ? 1 : 0)) * (direction === 'DESC' ? -1 : 1);
+        });
+    };
+    self.FilterItems = function (model, event, parent) {
+        searchQueryModel.ClearCharacteristicInAdvanceSearch(model.id);
+        searchModel.FilterItems(model, event, parent.type === self.GroupGeneral && parent.id !== self.GroupCannotNegativeFilter);
+
+        return true;
+    };
+}

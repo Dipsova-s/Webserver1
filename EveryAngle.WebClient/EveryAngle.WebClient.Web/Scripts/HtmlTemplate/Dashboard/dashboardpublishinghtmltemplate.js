@@ -1,0 +1,36 @@
+var dashboardPublishingHtmlTemplate = function () {
+    var dashboardPublishingHtmlTemplate = "";
+    dashboardPublishingHtmlTemplate += "<div class=\"popupTabPanel anglePublishingContainer\">";
+    dashboardPublishingHtmlTemplate += "    <div class=\"sectionPublishing sectionPublishingDetails\">";
+    dashboardPublishingHtmlTemplate += "        <div class=\"row\">";
+    dashboardPublishingHtmlTemplate += "            <div class=\"field\">" + Localization.BusinessProcesses + "<\/div>";
+    dashboardPublishingHtmlTemplate += "            <div class=\"input\" data-bind=\"text: bp_text, attr: { title: bp_text }\"><\/div>";
+    dashboardPublishingHtmlTemplate += "        <\/div>";
+    dashboardPublishingHtmlTemplate += "        <div class=\"row\">";
+    dashboardPublishingHtmlTemplate += "            <div class=\"field\">" + Localization.Languages + "<\/div>";
+    dashboardPublishingHtmlTemplate += "            <div class=\"input\" data-bind=\"text: language_text, attr: { title: language_text }\"><\/div>";
+    dashboardPublishingHtmlTemplate += "        <\/div>";
+    dashboardPublishingHtmlTemplate += "        <div class=\"row\">";
+    dashboardPublishingHtmlTemplate += "            <div class=\"field\">" + Localization.PrivilegeLabels + "<\/div>";
+    dashboardPublishingHtmlTemplate += "            <div class=\"input\" data-bind=\"text: privilege_label_text, attr: { title: privilege_label_text }\"><\/div>";
+    dashboardPublishingHtmlTemplate += "        <\/div>";
+    dashboardPublishingHtmlTemplate += "        <div class=\"row\">";
+    dashboardPublishingHtmlTemplate += "            <div class=\"field\">" + Localization.SearchLabels + "<\/div>";
+    dashboardPublishingHtmlTemplate += "            <div class=\"input\" data-bind=\"text: search_label_text, attr: { title: search_label_text }\"><\/div>";
+    dashboardPublishingHtmlTemplate += "        <\/div>";
+    dashboardPublishingHtmlTemplate += "    <\/div>";
+    dashboardPublishingHtmlTemplate += "    <div class=\"StatSeparate\"><\/div>";
+    dashboardPublishingHtmlTemplate += "    <div class=\"publishingNote\">" + Captions.Label_Dashboard_NumberOfDisplays + "<\/div>";
+    dashboardPublishingHtmlTemplate += "    <div class=\"sectionPublishing sectionPublishingDetails\">";
+    dashboardPublishingHtmlTemplate += "        <div class=\"row\">";
+    dashboardPublishingHtmlTemplate += "            <div class=\"field\">" + Captions.Label_Dashboard_PrivateDisplays + "<\/div>";
+    dashboardPublishingHtmlTemplate += "            <div class=\"input\" data-bind=\"text: private_displays().length, attr: { title: private_displays().length }\"><\/div>";
+    dashboardPublishingHtmlTemplate += "        <\/div>";
+    dashboardPublishingHtmlTemplate += "        <div class=\"row\">";
+    dashboardPublishingHtmlTemplate += "            <div class=\"field\">" + Captions.Label_Dashboard_PublicDisplays + "<\/div>";
+    dashboardPublishingHtmlTemplate += "            <div class=\"input\" data-bind=\"text: public_displays().length, attr: { title: public_displays().length }\"><\/div>";
+    dashboardPublishingHtmlTemplate += "        <\/div>";
+    dashboardPublishingHtmlTemplate += "    <\/div>";
+    dashboardPublishingHtmlTemplate += "<\/div>";
+    return dashboardPublishingHtmlTemplate;
+}

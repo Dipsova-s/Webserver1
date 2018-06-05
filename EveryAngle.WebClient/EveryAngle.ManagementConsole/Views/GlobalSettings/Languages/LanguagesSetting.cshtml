@@ -1,0 +1,108 @@
+﻿@using EveryAngle.ManagementConsole.Models
+@using EveryAngle.ManagementConsole.Helpers
+@using EveryAngle.Shared.Globalization
+@*@model List<EveryAngle.Core.ViewModels.SystemLanguages.SystemLanguageViewModel>*@
+
+<script>
+    MC.util.loadScript({
+        test: MC.GlobalSettings && MC.GlobalSettings.Languages,
+        url: '@Scripts.Url("~/bundles/globalsettings/languages")',
+        callback: function () {
+            MC.GlobalSettings.Languages.Initial({
+                SaveUri: '@Url.Action("SaveGlobalLanguages", "GlobalSettings")',
+                AllLanguages: @Html.Raw(Json.Encode(ViewData["UnableLanguages"]))
+            });
+        }
+    });
+</script>
+@{
+    List<PageToolbarButtonModel> buttons = new List<PageToolbarButtonModel>();
+    buttons.Add(new PageToolbarButtonModel
+    {
+        Type = PageToolbarButtonType.Save,
+        OnClick = "MC.GlobalSettings.Languages.SaveLanguageSettings()",
+        Privilege = PrivilegeType.System
+    });
+    buttons.Add(new PageToolbarButtonModel
+    {
+        Type = PageToolbarButtonType.Reload
+    });
+    
+    @Html.RenderPageToolbar(buttons)
+}
+
+<div class="content pageLanguages">
+    <form id="LanguageSettingsForm" data-role="validator">
+        <div class="contentSection contentSectionGrid contentSectionGridLanguages">
+            <h2>@Resource.Language @Resource.Settings</h2>
+            <div class="gridContainer">
+                <textarea class="hidden" id="templateLanguages">
+                    <tr class="newRow">
+                        <td>
+                            <input class="required UnableLanguages" name="uri" />
+                        </td>
+                        <td class="gridColumnToolbar"><a onclick="MC.form.template.remove(this)" data-delete-template="@Resource.MC_DeleteLanguageConfirm" data-delete-field-index="0" class="btn btnDelete"></a></td>
+                    </tr> 
+                </textarea>
+
+                @{
+                    buttons = new List<PageToolbarButtonModel>();
+                    buttons.Add(new PageToolbarButtonModel
+                    {
+                        Type = PageToolbarButtonType.GridEditDelete,
+                        Privilege = PrivilegeType.System,
+                        EnableTemplate = "<a data-parameters='{\"languageUri\":\"#= data.Uri #\"}' data-delete-template=\"" + Resource.MC_DeleteLanguageConfirm + "\" data-delete-field-index=\"0\" onclick=\"MC.form.template.markAsRemove(this)\" class=\"btn btnDelete\" data-callback=\"MC.GlobalSettings.Languages.DeletionCheckMark\">" + Resource.Delete + "</a>",
+                        DisableTemplate = "<a class=\"btn btnDelete disabled\">Delete</a>"
+                    });
+                    string gridButton = HttpUtility.HtmlDecode(Html.GetGridToolbar(buttons));
+                }
+
+                @(Html.Kendo().Grid<EveryAngle.Core.ViewModels.SystemLanguages.SystemLanguageViewModel>()
+                .Name("AvailableLanguagesGrid")
+                .Columns(columns =>
+                {
+                    columns.Bound(model => model.Name)
+                        .ClientTemplate("<input name=\"uri\" type=\"hidden\" value=\"#= data.Uri #\" />#= data.Name #")
+                        .Title(@Resource.MC_AvailableLanguages);
+                    columns.Bound(model => model.Id)
+                        .HeaderHtmlAttributes(new { @class = "gridColumnToolbar" })
+                        .HtmlAttributes(new { @class = "gridColumnToolbar" })
+                        .Title(@Resource.MC_Action)
+                        .Width(75)
+                        .ClientTemplate(
+                            "# if(data.Id != 'en') { #"
+                                    + gridButton
+                            + "#} #"
+                        );
+                })
+                .Resizable(resize => resize.Columns(true))
+                .Scrollable(scroll => scroll.Virtual(false).Height(10 * 31))
+                .DataSource(dataSource => dataSource
+                    .Ajax().Events(e => e.RequestStart("onKendoGridPagingStart"))
+                    .Read(read => read.Action("ReadGlobalLanguages", "GlobalSettings"))
+                    .ServerOperation(false)
+                )
+                .EnableCustomBinding(true))
+
+            </div>
+            <div class="gridToolbar gridToolbarBottom">
+
+                @{
+                    buttons = new List<PageToolbarButtonModel>();
+                    buttons.Add(new PageToolbarButtonModel
+                    {
+                        EnableTemplate = "<a class=\"btn btnAdd\" data-role=\"auto-template\" data-grid=\"#AvailableLanguagesGrid\" data-template=\"#templateLanguages\" data-callback=\"MC.GlobalSettings.Languages.AddNewLanguageCallback\">" + Resource.Add + " " + Resource.Language + "</a>",
+                        DisableTemplate = "<a class=\"btn btnAdd disabled\">" + Resource.Add + " " + Resource.Language + "</a>",
+                        Type = PageToolbarButtonType.Custom,
+                        Privilege = PrivilegeType.System
+                    });
+                    @Html.RenderPageToolbarBottom(buttons)    
+                }
+
+            </div>
+        </div>
+        <hr/>
+
+    </form>
+    @{Html.RenderAction("GetCommentsByType", "Comment", new { CommentType = "LANGUAGE_SETTINGS" });}
+</div>

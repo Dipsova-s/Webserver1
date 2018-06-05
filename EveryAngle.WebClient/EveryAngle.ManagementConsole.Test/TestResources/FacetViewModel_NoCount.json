@@ -1,0 +1,169 @@
+﻿[
+  {
+    "id": "facetcat_bp",
+    "name": "Business Processes",
+    "type": "business_process",
+    "filters": [
+      {
+        "count": 0,
+        "id": "P2P",
+        "name": "P2P",
+        "description": "Purchase to Pay"
+      },
+      {
+        "count": 0,
+        "id": "S2D",
+        "name": "S2D",
+        "description": "Supply to Demand"
+      },
+      {
+        "count": 0,
+        "id": "O2C",
+        "name": "O2C",
+        "description": "Order to Cash"
+      },
+      {
+        "count": 0,
+        "id": "F2R",
+        "name": "F2R",
+        "description": "Finance to Report"
+      },
+      {
+        "count": 0,
+        "id": "PM",
+        "name": "PM",
+        "description": "Plant Maintenance"
+      },
+      {
+        "count": 0,
+        "id": "HCM",
+        "name": "HCM",
+        "description": "Human Capital Management"
+      },
+      {
+        "count": 0,
+        "id": "GRC",
+        "name": "GRC",
+        "description": "Governance, Risk and Compliance"
+      },
+      {
+        "count": 0,
+        "id": "IT",
+        "name": "IT",
+        "description": "Information Technology"
+      }
+    ]
+  },
+  {
+    "id": "facetcat_characteristics",
+    "name": "Characteristics",
+    "type": "item_property",
+    "filters": [
+      {
+        "count": 0,
+        "id": "facet_isprivate",
+        "name": "Private",
+        "description": "Facet 'Private'"
+      },
+      {
+        "count": 0,
+        "id": "with_private_display",
+        "name": "Private Display",
+        "description": "Facet 'Private Display'"
+      },
+      {
+        "count": 0,
+        "id": "facet_isvalidated",
+        "name": "Validated",
+        "description": "Facet 'Validated'"
+      },
+      {
+        "count": 0,
+        "id": "facet_has_warnings",
+        "name": "Warnings",
+        "description": "Facet 'Warnings'"
+      },
+      {
+        "count": 0,
+        "id": "facet_isstarred",
+        "name": "Starred",
+        "description": "Facet 'Starred'"
+      },
+      {
+        "count": 0,
+        "id": "facet_executeonlogin",
+        "name": "Execute at login",
+        "description": "Facet 'Execute at login'"
+      }
+    ]
+  },
+  {
+    "id": "facetcat_models",
+    "name": "Models",
+    "type": "item_property",
+    "filters": [
+      {
+        "count": 0,
+        "id": "EA4IT",
+        "name": "EA4IT",
+        "description": "EA4IT"
+      },
+      {
+        "count": 0,
+        "id": "EA2_800",
+        "name": "EA2_800",
+        "description": "EA2_800"
+      }
+    ]
+  },
+  {
+    "id": "facetcat_itemtype",
+    "name": "Item type",
+    "type": "item_property",
+    "filters": [
+      {
+        "count": 0,
+        "id": "facet_angle",
+        "name": "Angle",
+        "description": "Facet 'Angle'"
+      },
+      {
+        "count": 0,
+        "id": "facet_template",
+        "name": "Template",
+        "description": "Facet 'Template'"
+      },
+      {
+        "count": 0,
+        "id": "facet_dashboard",
+        "name": "Dashboard",
+        "description": "Facet 'Dashboard'"
+      }
+    ]
+  },
+  {
+    "id": "facetcat_admin",
+    "name": "Administration (en)",
+    "type": "item_property",
+    "filters": [
+      {
+        "count": 0,
+        "id": "facet_created",
+        "name": "I created",
+        "description": "I created"
+      },
+      {
+        "count": 0,
+        "id": "facet_can_validate",
+        "name": "I can validate",
+        "description": "I can validate"
+      },
+      {
+        "count": 0,
+        "id": "facet_can_manage",
+        "name": "I can manage",
+        "description": "I can manage"
+      }
+    ]
+  }
+]

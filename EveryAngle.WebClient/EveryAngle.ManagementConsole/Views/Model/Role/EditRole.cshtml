@@ -1,0 +1,358 @@
+﻿@using EveryAngle.ManagementConsole.Models
+@using EveryAngle.ManagementConsole.Helpers
+@using EveryAngle.Shared.Globalization
+@model EveryAngle.Core.ViewModels.Users.SystemRoleViewModel
+
+@{
+    List<PageToolbarButtonModel> buttons;
+    var labelCategoriesList = ViewData["labelCategoriesList"] as List<EveryAngle.Core.ViewModels.LabelCategory.LabelCategoryViewModel>;  
+}
+
+<script>
+    MC.util.loadScript([
+        {
+            test: window.BusinessProcessesViewModel && window.FieldsChooserModel,
+            url: '@Scripts.Url("~/resources/embedded/js")'
+        },
+        {
+            test: MC.Models && MC.Models.Roles,
+            url: '@Scripts.Url("~/bundles/models/roles")',
+            callback: function () {
+                MC.Models.Roles.InitialRole({
+                    OverviewPageUri: '@SiteMapHelper.ActionHash("Overview")',
+                    SideMenuUri: '@Url.Action("SideMenu", "Home")',
+                    AllRolesPageUri: '@SiteMapHelper.ActionHash("Models/" + @ViewBag.ModelId + "/Roles")',
+                    RolePageUri: '@SiteMapHelper.ActionHash("Models/" + @ViewBag.ModelId + "/Roles/EditRole")',
+                    RoleUri: '@(Model.Uri == null ? "" : Model.Uri.ToString())',
+                    ModelId: '@ViewBag.ModelId',
+                    ModelUri: '@ViewBag.ModelUri',
+                    FieldsUri: '@ViewBag.FieldsUri',
+                    DefaultPagesize: @Convert.ToInt32(ViewBag.DefaultPagesize),
+                    MaxPageSize: @Convert.ToInt32(ViewBag.MaxPageSize),
+                    MaxDomainElementsForSearch: @Convert.ToInt32(ViewBag.MaxDomainElementsForSearch),
+                    //GetObjectMetadataUri: '@Url.Action("GetObjectMetadata", "Role")',
+                    GetFieldsUri: '@Url.Action("GetModelField", "Role")',
+                    GetFieldSourceUri: '@Url.Action("GetFieldSource", "Role")',
+                    GetFieldDomainUri: '@Url.Action("GetFieldDomain", "Role")',
+                    GetHelpTextsUri: '@Url.Action("GetHelpTexts", "Role")',
+                    PageTitle: '@(Model.Id == "" ? "New role" : Model.Id)',
+                    FieldCategoriesData: @Html.Raw(ViewData["fieldCategories"] == null ? "[]" : ViewData["fieldCategories"]),
+                    LabelCategoriesData: @Html.Raw(Json.Encode(labelCategoriesList)),
+                    LabelsData: @Html.Raw(Json.Encode(ViewData["labelsList"])),
+                    FieldCategoriesIconPath: '@VirtualPathUtility.ToAbsolute("~/UploadedResources/FieldCategoryIcons/")',
+                    ResourceIconPath: '@VirtualPathUtility.ToAbsolute("~/content/externalresource/")',
+                    BusinessProcessesData: @Html.Raw(Json.Encode(ViewData["BusinessProcesses"])),
+                    ModelData: @Html.Raw(Json.Encode(ViewData["ModelData"])),
+                    GetModelClassesUri: '@Url.Action("GetModelClasses", "SuggestedFields")',
+                    GetModelAnglesUri: '@Url.Action("GetModelAngles", "SuggestedFields")',
+                    GetHelpTextUri: '@Url.Action("GetHelpText", "Role")',
+                    HaveModelServer: @Convert.ToBoolean(ViewData["HaveModelServer"]).ToString().ToLower(),
+                    IsCreatePage: @(string.IsNullOrEmpty(Model.Id).ToString().ToLower()),
+                    ClientSettings: '@Html.Raw(ViewData["ClientSettings"])'
+                });
+            }
+        }
+    ]);
+</script>
+
+@{
+    @Html.RenderPageToolbar(new List<PageToolbarButtonModel>
+    {
+        new PageToolbarButtonModel { ModelUri = ViewBag.ModelUri, Privilege = PrivilegeType.Model, Type = @Model.Uri != null ? PageToolbarButtonType.Save : PageToolbarButtonType.Create, OnClick = "MC.Models.Roles.SaveEditRole()" },
+        new PageToolbarButtonModel { Type = PageToolbarButtonType.Cancel, Link = SiteMapHelper.ActionHash("Models/" + @ViewBag.ModelId + "/Roles") }
+    })
+}
+
+<div class="content pageRole pageRoleEdit">
+    @using (Html.BeginForm("SaveRole", "Role", FormMethod.Post, new { id = "EditRoleForm" }))
+    {
+        <input type="hidden" id="modelUri" value="@ViewBag.ModelUri" />
+        if (@Model.Uri != null)
+        {
+        @Html.Hidden("Uri", Model.Uri.AbsolutePath);
+        }
+        <div class="contentSection contentSectionInfo">
+            <div class="contentSectionInfoItem">
+                <label>@Resource.MC_RoleID:</label>
+                <p>
+                    @if (Model.Uri != null)
+                    {
+                        @Html.TextBoxFor(model => model.Id, new { @class = "required field_id", @readonly = "readonly", placeholder = Resource.MC_NewRole, maxlength = 50 })
+                    }
+                    else
+                    { 
+                        @Html.TextBoxFor(model => model.Id, new { @class = "required field_id", placeholder = Resource.MC_NewRole, maxlength = 50 })
+                    }
+                </p>
+                @Html.ValidationMessageFor(model => model.Id)
+            </div>
+            <div class="contentSectionInfoItem">
+                <label>@Resource.Description:</label>
+                <p>@Html.TextBoxFor(model => model.Description, new { @class = "required txtLarge", maxlength = 4000 })</p>
+            </div>
+        </div>
+        <!--/.contentSectionInfo-->
+@*<hr style="display:@(Model.Uri != null ? "block" : "none") !important;"/>*@
+        
+                    if (@Model.Uri != null)
+                    {
+        <div class="contentSection contentSectionTab contentSectionAccessSetting">
+            <div class="tab" data-role="tab" data-callback="MC.Models.Roles.RoleTabShown">
+                <div class="tabNav" id="tabNav">
+                    <a id="WebClient" class="active">@Resource.MC_Privileges</a>
+                    @{ if(Convert.ToBoolean(ViewData["HaveModelServer"])) {    
+                        <a id="Labels">@Resource.MC_Labels</a>
+                        <a id="Objects">@Resource.Objects</a>
+                        <a id="Fields">@Resource.Fields</a>
+                        <a id="Filter">Filters</a>
+                        <a id="SubRoles">@Resource.SubRoles</a>
+                        }
+                    }
+                </div>
+
+                <!--  Privileges -->
+                <div class="tabPanel tabPrivileges">
+                    <h3>@Resource.AccessClientFunctionality</h3>
+                    @{Html.RenderPartial("~/Views/Model/Role/WebClientFunctionTab.cshtml", Model);}
+
+                    <textarea class="hidden" id="templatePrivilegeLabels">
+                        <tr class="newRow">
+                            <td>
+                                <select id="LabelCategory" data-url='@Url.Action("GetLabelDropdown", "Role")' name="LabelCategory" onchange="MC.Models.Roles.BindLabelDropdown(this);">
+                                    <option value="">@Resource.PleaseSelect</option>
+                                    @foreach (var category in labelCategoriesList)
+                                    {
+                                        <option value="@category.id" data-parameters='{"categoryUri":"@category.uri"}'>@category.id (@category.name)</option>
+                                    }
+                                </select>
+                            </td>
+                            <td id="dropdownLabel"><input class="txtLabel" id="label" name="Label" disabled="disabled" onchange="MC.Models.Roles.UpdateOthersLabelDropdown(this);" /></td>
+                            <td>
+                                <select id="Type" name="Type">
+                                    <option value="view" @(Model.ModelPrivilege.DefaultLabelAuthorization == "view" ? " selected=\"selected\"" : "")>@Resource.View</option>
+                                    <option value="assign" @(Model.ModelPrivilege.DefaultLabelAuthorization == "assign" ? " selected=\"selected\"" : "")>@Resource.Assign</option>
+                                    <option value="manage" @(Model.ModelPrivilege.DefaultLabelAuthorization == "manage" ? " selected=\"selected\"" : "")>@Resource.Manage</option>
+                                    <option value="validate" @(Model.ModelPrivilege.DefaultLabelAuthorization == "validate" ? " selected=\"selected\"" : "")>@Resource.Validate</option>
+                                    <option value="deny" @(Model.ModelPrivilege.DefaultLabelAuthorization == "deny" ? " selected=\"selected\"" : "")>@Resource.Deny</option>
+                                </select>
+                            </td>
+                            <td class="gridColumnToolbar"><a onclick="MC.form.template.remove(this)" data-delete-template="@Resource.MC_DeleteLabelCoonfirm" data-delete-field-index="1" class="btn btnDelete" data-callback="MC.Models.Roles.UpdateOthersLabelDropdown"></a></td>
+                        </tr>
+                    </textarea>
+                </div>
+
+                <!--  Labels -->
+                <div class="tabPanel tabLabels">
+                    <h3>@Resource.MC_PrivilegesOnLabels</h3>
+                    <div class="accessSettingDefault">
+                        <div class="accessSettingDefaultLabel">@Resource.UnmentionedLabels</div>
+                        <div class="accessSettingDefaultValue">
+                            <select id="DefaultLabelAuthorization" name="ModelPrivilege.DefaultLabelAuthorization">
+                                <option value="undefined">@Resource.Undefined</option>
+                                <option value="view" @(Model.ModelPrivilege.DefaultLabelAuthorization == "view" ? " selected=\"selected\"" : "")>@Resource.View</option>
+                                <option value="assign" @(Model.ModelPrivilege.DefaultLabelAuthorization == "assign" ? " selected=\"selected\"" : "")>@Resource.Assign</option>
+                                <option value="manage" @(Model.ModelPrivilege.DefaultLabelAuthorization == "manage" ? " selected=\"selected\"" : "")>@Resource.Manage</option>
+                                <option value="validate" @(Model.ModelPrivilege.DefaultLabelAuthorization == "validate" ? " selected=\"selected\"" : "")>@Resource.Validate</option>
+                                <option value="deny" @(Model.ModelPrivilege.DefaultLabelAuthorization == "deny" ? " selected=\"selected\"" : "")>@Resource.Deny</option>
+                            </select>
+                        </div>
+                    
+                        <div class="gridToolbar gridToolbarTop">
+                        
+                            <div class="gridToolbarFilter">
+                                <input type="text" placeholder="@Resource.Filter" data-role="treelistfilter" data-method="local" data-target="#labelsFiltersGrid" data-filter="td:eq(0),td:eq(1)" data-callback="MC.Models.Roles.LabelsGridFilterCallback" /><span class="icon"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="gridContainer" id="labelsFiltersGrid">
+                        @{Html.RenderAction("RenderLabelTab", "Role", new { modelUri = ViewBag.ModelUri, roleUri = ViewBag.RoleUri, systemrole = Model });}
+                    </div>
+                    <a class="btn btnPrimary btnCollapseAll" onclick="MC.Models.Roles.CollapseOrExpandAllLabels(MC.Models.Roles.COLLAPSIBLE.COLLAPSE)">@Resource.MC_CollapseAll</a>
+                    <a class="btn btnPrimary btnExpandAll" onclick="MC.Models.Roles.CollapseOrExpandAllLabels(MC.Models.Roles.COLLAPSIBLE.EXPAND)">@Resource.MC_ExpandAll</a>
+                </div>
+
+                <!--  Objects -->
+                <div class="tabPanel tabObjects">
+                    <h3>@Resource.MC_AccessToObjects</h3>
+                    <div class="accessSettingDefault">
+                        <div class="accessSettingDefaultLabel">@Resource.MC_UnmentionedObjects</div>
+                        <div class="accessSettingDefaultValue" id="accessSettingDefaultValue">
+                            <select id="ModelPrivilege_DefaultClassAuthorization" name="ModelPrivilege.DefaultClassAuthorization">
+                                <option value="true" @(Model.ModelPrivilege.DefaultClassAuthorization.HasValue ? Model.ModelPrivilege.DefaultClassAuthorization.Value == true ? " selected=\"selected\"" : "" : "")>@Resource.MC_AllowedByThisRole</option>
+                                <option value="false" @(Model.ModelPrivilege.DefaultClassAuthorization.HasValue ? Model.ModelPrivilege.DefaultClassAuthorization.Value == false ? " selected=\"selected\"" : "" : "")>@Resource.MC_DeniedByThisRole</option>
+                                <option value="" @(Model.ModelPrivilege.DefaultClassAuthorization.HasValue ? "" : " selected=\"selected\"")>@Resource.MC_UneffectedByThisRole</option>
+                            </select>
+                        </div>
+                        <div class="gridToolbar gridToolbarTop">
+                            <div class="gridToolbarFilter">
+                                <input type="text" placeholder="@Resource.Filter" data-role="gridfilter" data-method="local" data-target="#objectsGrid" data-filter="0,1,2" id="ObjectGridTextbox" data-callback="MC.Models.Roles.ObjectGridFilterCallback"/><span class="icon"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="gridContainer" id="objectFiltersGrid">
+                        @{Html.RenderAction("RenderObjectTab", "Role", new { modelUri = ViewBag.ModelUri, roleUri = ViewBag.RoleUri });}
+                    </div>
+                </div>
+
+                <!-- Fields -->
+                <div class="tabPanel tabFields">
+                    <h3>@Resource.AccessFieldsOfAllowedObjects</h3>
+                    <div class="accessSettingDefault">
+                        <div class="accessSettingDefaultLabel">@Resource.MC_UnmentionedCurrencyFields</div>
+                        <div class="accessSettingDefaultValue">
+                            <select id="ModelPrivilege_FieldAuthorizations0_CurrencyFieldsDefault" name="ModelPrivilege.FieldAuthorizations[0].CurrencyFieldsDefault">
+                                <option value="allowed" @(Model.ModelPrivilege.FieldAuthorizations.Count() != 0 ? Model.ModelPrivilege.FieldAuthorizations[0].CurrencyFieldsDefault == "allowed" ? " selected=\"selected\"" : "" : "")>@Resource.MC_AllowedByThisRole</option>
+                                <option value="disallowed" @(Model.ModelPrivilege.FieldAuthorizations.Count() != 0 ? Model.ModelPrivilege.FieldAuthorizations[0].CurrencyFieldsDefault == "disallowed" ? " selected=\"selected\"" : "" : "")>@Resource.MC_DeniedByThisRole</option>
+                                <option value="" @(Model.ModelPrivilege.FieldAuthorizations.Count() != 0 ? Model.ModelPrivilege.FieldAuthorizations[0].CurrencyFieldsDefault == null ? " selected=\"selected\"" : "" : "")>@Resource.MC_UneffectedByThisRole</option>
+                            </select>
+                        </div>
+                        <br />
+                        <div class="accessSettingDefaultLabel">@Resource.MC_UnmentionedFields</div>
+                        <div class="accessSettingDefaultValue" id="defaultSettingFieldsValue">
+                            <select id="ModelPrivilege_FieldAuthorizations0_FieldsDefault" name="ModelPrivilege.FieldAuthorizations[0].FieldsDefault">
+                                <option value="allowed" @(Model.ModelPrivilege.FieldAuthorizations.Count() != 0 ? Model.ModelPrivilege.FieldAuthorizations[0].FieldsDefault == "allowed" ? " selected=\"selected\"" : "" : "")>@Resource.MC_AllowedByThisRole</option>
+                                <option value="disallowed" @(Model.ModelPrivilege.FieldAuthorizations.Count() != 0 ? Model.ModelPrivilege.FieldAuthorizations[0].FieldsDefault == "disallowed" ? " selected=\"selected\"" : "" : "")>@Resource.MC_DeniedByThisRole</option>
+                                <option value="" @(Model.ModelPrivilege.FieldAuthorizations.Count() != 0 ? Model.ModelPrivilege.FieldAuthorizations[0].FieldsDefault == null ? " selected=\"selected\"" : "" : "")>@Resource.MC_UneffectedByThisRole</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="gridToolbar gridToolbarTop">
+                    @{
+                        buttons = new List<PageToolbarButtonModel>();
+                        buttons.Add(new PageToolbarButtonModel
+                        {
+                            ModelUri = ViewBag.ModelUri,
+                            Privilege = PrivilegeType.Model,
+                            Type = PageToolbarButtonType.Custom,
+                            EnableTemplate = "<a class=\"btn btnAdd\" data-role=\"auto-template\" data-grid=\"#propertiesGrid\" data-template=\"#templateForCreateProperties\" data-callback=\"MC.Models.Roles.AddPropertyCallback\">" + Resource.MC_AddFieldAccess + " </a>",
+                            DisableTemplate = "<a class=\"btn btnAdd disabled\">" + Resource.MC_AddFieldAccess + "</a>"
+
+                        });
+                        @Html.RenderPageToolbarBottom(buttons)
+                    }
+                    </div>
+                    <div class="gridContainer" id="propertiesGridContainer">
+                        @{Html.RenderPartial("~/Views/Model/Role/PropertyTab.cshtml", Model.ModelPrivilege);}
+                    </div>
+                </div>
+
+                <!-- Filters -->
+                <div class="tabPanel tabFilters">
+                    <h3>@Resource.MC_ObjectFilters</h3>
+                    <div class="gridToolbar gridToolbarTop">
+                    @{
+                        buttons = new List<PageToolbarButtonModel>();
+                        buttons.Add(new PageToolbarButtonModel
+                        {
+                            ModelUri = ViewBag.ModelUri,
+                            Privilege = PrivilegeType.Model,
+                            Type = PageToolbarButtonType.Custom,
+                            EnableTemplate = "<a class=\"btn btnAdd\" data-role=\"auto-template\" data-grid=\"#ReferenceFilterGrid\" data-template=\"#templateNewReferenceFilter\" data-callback=\"MC.Models.Roles.AddReferenceFilterCallback\">" + "Add object filter" + " </a>",
+                            DisableTemplate = "<a class=\"btn btnAdd disabled\"  >" + "Add object filter" + " </a>",
+                        });
+                        @Html.RenderPageToolbarBottom(buttons)
+                    }
+                    </div>
+                    <div class="gridContainer" id="filtersContainerGrid">
+                        @{Html.RenderAction("RenderFilterTab", "Role", new { modelUri = ViewBag.ModelUri, roleUri = ViewBag.RoleUri });}
+                    </div>
+
+                    <textarea class="hidden" id="templateObjectFilters">
+                        <tr class="newRow">
+                            <td>
+                            <select class="required" id="SubRoleSelector" data-url='@Url.Action("GetAvailableSubRoles", "Role")' name="SubRoleSelector" onchange="MC.Models.Roles.BindSubRolesDropdown(this)">
+                                <option value="">@Resource.PleaseSelect</option>
+                                @foreach (var subRole in ViewData["SubRoles"] as List<Tuple<string, string>>)
+                                {
+                                    <option value="@subRole.Item1" data-description="@subRole.Item2" >@subRole.Item1</option>
+                                }
+                            </select>
+                            </td>
+                            <td></td>
+                            <td class="gridColumnToolbar"><a onclick="MC.form.template.remove(this)" data-delete-template="@Resource.MC_DeleteSubRolesConfirm" data-delete-field-index="0" class="btn btnDelete"></a></td>
+                        </tr>
+                    </textarea>
+                    <div class="popup" id="popupFilterDescriptionTemplate">
+                        <div class="popupContent"></div>
+                        <div class="popupToolbar">
+                            <a class="btn btnPrimary btnClose" data-role="popup-close">@EveryAngle.Shared.Globalization.Resource.Close</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!--Sub Roles-->
+                <div class="tabPanel tabSubroles">
+                    <h3>@Resource.AllEnabledSubRoles</h3>
+                    <div class="gridToolbar gridToolbarTop">
+                        @{
+                            buttons = new List<PageToolbarButtonModel>();
+                            buttons.Add(new PageToolbarButtonModel
+                            {
+                                ModelUri = ViewBag.ModelUri,
+                                Privilege = PrivilegeType.Model,
+                                Type = PageToolbarButtonType.Custom,
+                                EnableTemplate = "<a class=\"btn btnAdd\" data-role=\"auto-template\" data-grid=\"#SubRolesGrid\" data-template=\"#templateSubRoles\" data-callback=\"MC.Models.Roles.AddNewSubRolesCallback\">" + Resource.MC_AddRole + "</a>",
+                                DisableTemplate = "<a class=\"btn btnAdd disabled\">" + Resource.MC_AddRole + "</a>",
+                            });
+                            @Html.RenderPageToolbarBottom(buttons)
+                        }
+                        <div class="gridToolbarFilter">
+                            <input type="text" placeholder="@Resource.Filter" data-role="gridfilter" data-method="local" data-target="#SubRolesGrid" data-filter="0,1" data-callback="MC.Models.Roles.SubRolesGridFilterCallback"><span class="icon"></span>
+                        </div>
+                    </div>
+                    <div class="gridContainer" id="subRoleFiltersGrid">
+                        @{Html.RenderPartial("~/Views/Model/Role/SubRoleTab.cshtml", Model);}
+                    </div>
+
+                    <textarea class="alwaysHidden" id="templateSubRoles">
+                        <tr class="newRow">
+                            <td>
+                            <select class="required" id="SubRoleSelector" data-url='@Url.Action("GetAvailableSubRoles", "Role")' name="SubRoleSelector" onchange="MC.Models.Roles.BindSubRolesDropdown(this)">
+                                <option value="">@Resource.PleaseSelect</option>
+                                @foreach (var subRole in ViewData["SubRoles"] as List<Tuple<string, string>>)
+                                {
+                                    <option value="@subRole.Item1" data-description="@subRole.Item2" >@subRole.Item1</option>
+                                }
+                            </select>
+                            </td>
+                            <td></td>
+                            <td class="gridColumnToolbar"><a onclick="MC.form.template.remove(this)" data-delete-template="@Resource.MC_DeleteSubRolesConfirm" data-delete-field-index="0" class="btn btnDelete"></a></td>
+                        </tr>
+                    </textarea>
+                    <textarea id="TemplateAddPropertyOptions" class="alwaysHidden">
+                        <div class="addPropertyOptions">
+                            <a class="btn btnLarge btnSelectAll" onclick="MC.Models.Roles.PropertySelectAll()">@Resource.SelectAll</a>
+                            <a class="btn btnLarge btnClearAll" onclick="MC.Models.Roles.PropertyClearAll()">@Resource.ClearAll</a>
+                            <div class="contentSectionInfoItem addPropertyType">
+                                <label>@Resource.MC_SetSelectedField:</label>
+                                <p>
+                                    <label><input name="AddPropertyType" type="radio" value="True" /><span class="label">@Resource.Allow</span></label>
+                                    <label><input name="AddPropertyType" type="radio" value="False" checked="checked" /><span class="label">@Resource.Deny</span></label>
+                                </p>
+                            </div>
+                        </div>
+                    </textarea>
+                    <div id="popupClassesChooser" style="display: none">
+                        <div class="popupContent"></div>
+                        <div class="popupToolbar">
+                            <a class="btn btnLarge btnLeft btnSelectAll" onclick="MC.Models.SuggestedFields.SelectAllClasses();">@Resource.SelectAll</a>
+                            <a class="btn btnLarge btnLeft btnClearAll" onclick="MC.Models.SuggestedFields.ClearAllClasses();">@Resource.ClearAll</a>
+
+                            <a class="btn btnLarge btnPrimary btnContinue" id="ButtonContinue">@Resource.MC_Continue</a>
+                            <a class="btn btnLarge btnClose" data-role="popup-close">@Resource.Cancel</a>
+                        </div>
+                    </div>
+                    @{Html.RenderPartial("~/Views/Shared/PluginPopupDescriptionTemplate.cshtml");}
+                </div>
+            </div>
+        </div>
+        <!--/.contentSectionAccessSetting-->
+        <hr />
+                    }
+        <input type="hidden" id="roleUri" value="@ViewBag.RoleUri" />
+    }
+    <div style="display:@(Model.Uri != null ? "inline" : "none") !important;">
+        @{Html.RenderPartial("~/Views/Shared/CommentSectionOnSubPage.cshtml");}
+    </div>
+</div>
+<!--/.content-->

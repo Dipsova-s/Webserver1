@@ -1,0 +1,113 @@
+/* .customSortPopup
+============================================ */
+.customSortPopup {
+    width: 415px;
+    height: auto;
+}
+
+.customSortPopup.inside {
+    left: 160px !important; /* NOSONAR: override runtime css */
+    top: 24px !important;   /* NOSONAR: override runtime css */
+}
+
+.customSortPopup.inside:before {
+    content: '';
+    position: absolute;
+    left: -14px;
+    top: 90px;
+    background: transparent url('../../images/popup/popup_left_arrow.png') left top no-repeat;
+    width: 15px;
+    height: 21px;
+}
+
+.customSortPopupLeft.inside {
+    left: -365px !important;    /* NOSONAR: override runtime css */
+}
+
+.customSortPopupLeft.inside:before {
+    background: transparent url('../../images/popup/popup_right_arrow.png') left top no-repeat;
+    left: auto;
+    right: -14px;
+}
+
+.customSortPopup div.k-window-content {
+    padding: 15px;
+    font-size: 12px;
+    border-radius: 0;
+}
+
+.customSortPopup .k-window-content > .label {
+    float: left;
+    padding-top: 13px;
+    font-weight: bold;
+}
+
+.customSortPopup .k-window-content .sortNumber {
+    font-weight: normal;
+    background-color: #a0a0a0;
+    color: #fff;
+    padding: 0 3px;
+    border-radius: 2px;
+    margin-right: 3px;
+}
+
+.customSortPopup .field {
+    margin-left: 130px;
+    padding-bottom: 7px;
+}
+
+.no-touch.safari .customSortPopup .field {
+    padding-left: 100px;
+    -webkit-margin-start: 0 !important; /* NOSONAR: safari bug */
+}
+
+.customSortPopup .eaDropdown {
+    display: block;
+    margin-bottom: 10px;
+    width: 230px;
+}
+
+.customSortPopup .label {
+    margin-right: 10px;
+}
+
+/* .pivotCustomSortPopup
+============================================ */
+.pivotCustomSortPopup.k-window-arrow-w:before,
+.pivotCustomSortPopup.k-window-arrow-w:after,
+.pivotCustomSortPopup.k-window-arrow-e:before,
+.pivotCustomSortPopup.k-window-arrow-e:after {
+    top: 86px;
+}
+
+.pivotCustomSortPopup.k-window-arrow-w:before {
+    border-right-color: #efefef;
+}
+
+.pivotCustomSortPopup.k-window-arrow-e:before {
+    border-left-color: #efefef;
+}
+
+.pivotCustomSortPopup .k-window-content {
+    max-height: 272px;
+    min-height: 200px;
+}
+
+.pivotCustomSortPopup .k-window-content > .label {
+    display: block;
+    float: none;
+    padding: 0;
+    margin-bottom: 5px;
+}
+
+.pivotCustomSortPopup .field {
+    margin-left: 0;
+    padding-bottom: 0;
+}
+.no-touch.safari .pivotCustomSortPopup .field {
+    padding-left: 0;
+}
+
+.pivotCustomSortPopup .eaDropdown {
+    margin-bottom: 15px;
+}

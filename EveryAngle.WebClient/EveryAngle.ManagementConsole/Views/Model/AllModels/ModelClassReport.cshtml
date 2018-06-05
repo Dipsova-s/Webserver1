@@ -1,0 +1,46 @@
+﻿@{
+    ViewBag.Title = "ModelClassReport";
+    Layout = "~/Views/Shared/MasterNoMenuNoTop.cshtml";
+}
+<script>
+    var intervalId = setInterval(function () {
+        // do your loop
+        if (window.MC && window.MC.util) {
+            clearInterval(intervalId);
+
+            // get query string from url
+            var queryObject = (function (queryStringAsArray) {
+                var queryObjectResult = {};
+                jQuery.each(queryStringAsArray, function (index, queryString) {
+                    var queryStringDictionary = queryString.split('=', 2);
+                    var queryStringName = queryStringDictionary[0];
+                    var queryStringValue = queryStringDictionary[1];
+
+                    if (queryStringName) {
+                        queryObjectResult[queryStringName] = queryStringValue ? decodeURIComponent(queryStringValue.replace(/\+/g, ' ')) : '';
+                    }
+                });
+                return queryObjectResult;
+            })(window.location.search.substr(1).split('&'));
+
+            // create report grid layout
+            MC.util.setWindowTitle(queryObject.title);
+            MC.util.modelServerInfo.showReportServerClasses({
+                classes: queryObject.classes,
+                tabs: queryObject.tabs,
+                reportUri: queryObject.reportUri,
+                modelreportUri: queryObject.modelreportUri,
+                modelserverUri: queryObject.modelserverUri
+            });
+        }
+    }, 3000);
+
+</script>
+<div id="popupClassReport" class="k-widget k-window" style="opacity: 0">
+    <div class="k-window-titlebar k-header" style="margin-top: -65px;">
+        &nbsp;<span class="k-window-title">Model server <strong id="popupTitleClassReport"></strong></span>
+    </div>
+    <div id="popupContentClassReport" class="k-window-content k-content">
+        <div id="tabClassReport"></div>
+    </div>
+</div>

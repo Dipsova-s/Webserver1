@@ -1,0 +1,39 @@
+﻿@using EveryAngle.ManagementConsole.Models
+@using EveryAngle.ManagementConsole.Helpers
+@model EveryAngle.Core.ViewModels.Model.ModelServerSettings
+
+<script>
+    MC.util.loadScript({
+        test: MC.Models && MC.Models.ModelServer,
+        url: '@Scripts.Url("~/bundles/models/modelserver")',
+        callback: function () {
+            MC.Models.ModelServer.InitialModelServerSettings({
+                AgentUri: '@ViewBag.AgentUri',
+                SaveUri: '@Url.Action("SaveModelSettings", "Model")',
+                ModelUri: '@ViewBag.ModelUri'
+            });
+        }
+    });
+</script>
+
+@{
+    @Html.RenderPageToolbar(new List<PageToolbarButtonModel>
+    {
+        new PageToolbarButtonModel {  ModelUri = ViewBag.ModelUri, Privilege=PrivilegeType.Model, Type = PageToolbarButtonType.Save, OnClick = "MC.Models.ModelServer.SaveServerSettings()" },
+        new PageToolbarButtonModel { Type = PageToolbarButtonType.Reload }
+    })
+}
+<div class="content pageModelContentParameters">
+        @{Html.RenderPartial("~/Views/Shared/Plugins.cshtml", Model);}
+        @{Html.RenderPartial("~/Views/Shared/PluginPopupDescriptionTemplate.cshtml");}
+        @{
+            if(ViewBag.IsXtractor)
+            {
+                Html.RenderAction("GetCommentsByType", "Comment", new { CommentType = @ViewBag.ModelId + "XtractorSettings" });
+            }
+            else
+            {
+                Html.RenderAction("GetCommentsByType", "Comment", new { CommentType = @ViewBag.ModelId + "ModelServerSettings" });
+            }
+        }
+</div>

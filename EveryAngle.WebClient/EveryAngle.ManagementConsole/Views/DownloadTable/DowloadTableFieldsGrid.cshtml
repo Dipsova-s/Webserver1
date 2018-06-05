@@ -1,0 +1,181 @@
+﻿@using EveryAngle.ManagementConsole.Models
+@using EveryAngle.ManagementConsole.Helpers
+@using EveryAngle.Shared.Globalization
+@model List<EveryAngle.Core.ViewModels.DownloadTable.DownloadTableFieldViewModel>
+
+<script>
+    MC.util.loadScript({
+        test: MC.Models && MC.Models.TablesFields,
+        url: '@Scripts.Url("~/bundles/models/tablesfields")',
+        callback: function () {
+            MC.Models.TablesFields.InitialTableFields({
+                SaveUri: '@Url.Action("SaveDownloadTableField", "DownloadTable")',
+                TableUri: '@ViewBag.DownloadTableUri',
+                TableFieldsUri: '@ViewBag.DownloadTableFieldUri',
+                PageTitle: '@ViewBag.TableName'
+            });
+        }
+    });
+</script>
+
+@{
+    @Html.RenderPageToolbar(new List<PageToolbarButtonModel>
+    {
+        new PageToolbarButtonModel
+        {
+            ModelUri = ViewBag.ModelUri,
+            Privilege = PrivilegeType.Model,
+            Type = PageToolbarButtonType.Save,
+            OnClick = "MC.Models.TablesFields.SaveFields()"
+        },
+        new PageToolbarButtonModel
+        {
+            Type = PageToolbarButtonType.Cancel,
+            Link = SiteMapHelper.ActionHash("Models/" + @ViewBag.ModelId + "/DownloadTables")
+        }
+    })
+}
+
+<div class="content pageTablesFields">
+
+    <textarea class="hidden" id="templateDownloadTableGrid">
+        <tr class="newRow">
+            <td></td>
+            <td></td>
+            <td class="gridColumnCentered"></td>
+            <td></td>
+            <td class="columnNumber"></td>
+            <td></td>
+            <td></td>
+            <td class="gridColumnToolbar"><input type="hidden" /><a onclick="MC.Models.TablesFields.RemoveNewItem(this)" data-delete-template="@Resource.MC_DeleteRoleConfirm" data-delete-field-index="0" class="btn btnDelete"></a></td>
+        </tr>
+    </textarea>
+
+    <form id="formEditTable" data-role="validator">
+    <div class="contentSection contentSectionGrid contentSectionGridDownloadTable">
+        <h2>@Resource.MC_EditTable: @ViewBag.TableName</h2>
+
+        <div class="contentSectionInfoItem">
+            <label>@Resource.MC_DeltaDownload:</label>
+            <p>
+                <label><input data-val="true" data-val-required="The Delta Download field is required." id="deltaDownload" name="deltaDownload" type="checkbox" value="true"@(ViewBag.DeltaCondition == "" ? " disabled='disabled'" : "") @((bool)ViewBag.DeltaDownload ? " checked='checked'" : "") /><span class="label"></span></label>
+            </p>
+        </div>
+
+        <div class="contentSectionInfoItem">
+            <label>@Resource.MC_DeltaCondition:</label>
+            <p>
+                <input class="is_ansi" id="deltaCondition" name="detalCondition" type="text" onkeyup="MC.Models.TablesFields.CheckDeltaDownload(this)" value="@ViewBag.DeltaCondition" />
+            </p>
+        </div>
+
+        <div class="contentSectionInfoItem">
+            <label>@Resource.MC_CustomCondition:</label>
+            <p>
+                <input class="is_ansi" id="customCondition" name="customCondition" type="text" value="@ViewBag.CustomCondition" />
+            </p>
+        </div>
+
+        <div class="contentSectionInfoItem">
+            <label>@Resource.MC_DownloadAllFields:</label>
+            <p>
+                <label><input data-val="true" data-val-required="The Download All Fields is required." id="downloadAllFields" name="downloadAllFields" type="checkbox" value="true"@((bool)ViewBag.DownloadAllFields ? " checked='checked'" : "") /><span class="label"></span></label>
+            </p>
+        </div>
+          @{
+                    List<PageToolbarButtonModel> buttons = new List<PageToolbarButtonModel>();
+                    buttons.Add(new PageToolbarButtonModel
+                    {
+                        Type = PageToolbarButtonType.GridEditDelete,
+                        ModelUri = ViewBag.ModelUri,
+                        Privilege = PrivilegeType.Model,
+                        EnableTemplate = "<input  type=\"hidden\" value=\"#= id #'\" /><a data-callback=\"MC.Models.TablesFields.AssignedTableDeletionCheckMark\" data-parameters='{\"id\":\"#= data.id #\"}' data-delete-template=\"" + Resource.MC_DeleteFieldConfirm + "\" data-delete-field-index=\"0\" class=\"btn btnDelete#= data.is_mandatory ? \' disabled\' : \'\' #\" onclick=\"MC.form.template.markAsRemove(this)\">" + Resource.Delete + "</a>",
+                        DisableTemplate = "<input  type=\"hidden\" value=\"#= id #\" /><a  class=\"btn btnDelete  disabled\">" + Resource.Delete + "</a>",
+                    });
+                    string gridButton = HttpUtility.HtmlDecode(Html.GetGridToolbar(buttons));
+              }
+
+
+        <div class="gridContainer" id="DownloadTableGridContainer">
+            @(Html.Kendo().Grid(Model)
+                .Name("DownloadTableGrid")
+                .Columns(columns =>
+                {
+                    columns.Bound(model => model.name).Title(@Resource.MC_Field).Sortable(true);
+                    columns.Bound(model => model.description).Title(@Resource.Description).Sortable(true);
+                    columns.Bound(model => model.is_key_field).Title(@Resource.MC_KeyField)
+                        .Width(75)
+                        .Sortable(false)
+                        .HeaderHtmlAttributes(new { @class = "columnBoolean" })
+                        .HtmlAttributes(new { @class = "columnBoolean" })
+                        .ClientTemplate("<label>"
+                                        + "# if(data.is_key_field == true) { # "
+                                        + "<input name=\"is_key_field\" value=\" #= data.is_key_field #\" data-default=\"true\" disabled=\"disabled\" checked=\"checked\" type=\"checkbox\">"
+                                        + "# } else {# "
+                                        + "<input name=\"is_key_field\" value=\" #= data.is_key_field #\" data-default=\"false\" disabled=\"disabled\" type=\"checkbox\">"
+                                        + "# } #"
+                                        + "<span class=\"label\"></span></label>");
+                    columns.Bound(model => model.datatype).Title(@Resource.MC_Datatype).Sortable(true);
+                    columns.Bound(model => model.size).Title(@Resource.MC_Length)
+                        .Width(50)
+                        .Sortable(true)
+                        .HtmlAttributes(new { @class = "columnNumber" })
+                        .HeaderHtmlAttributes(new { @class = "columnNumber" });
+                    columns.Bound(model => model.domain).Title(@Resource.MC_Domain).Sortable(true);
+                    columns.Bound(model => model.rolename).Title(@Resource.MC_Rolename).Sortable(true);
+                    columns.Bound("uri").ClientTemplate(gridButton).HeaderHtmlAttributes(new { @class = "gridColumnToolbar" }).HtmlAttributes(new { @class = "gridColumnToolbar" }).Title(@Resource.MC_Action).Width(75).Sortable(false);
+                })
+                .Sortable(sortable=> sortable.AllowUnsort(false))
+                .Resizable(resize => resize.Columns(true))
+                .EnableCustomBinding(true)
+                .Scrollable(scroll => scroll.Virtual(false).Height(12 * 37))
+                .DataSource(dataSource => dataSource
+                .Ajax().Events(e => e.RequestStart("onKendoGridPagingStart"))
+                    .Read(read => read.Action("ReadDownloadTableFields", "DownloadTable", new { downloadTableUri = @ViewBag.DownloadTablefieldUri, keyword = ViewData["Keyword"], isEnable = true }))
+                    .ServerOperation(false)
+                )
+            )
+        </div>
+        <div class="gridToolbar gridToolbarBottom">
+        @{
+            buttons = new List<PageToolbarButtonModel>();
+            buttons.Add(new PageToolbarButtonModel
+            {
+                ModelUri = ViewBag.ModelUri,
+                EnableTemplate = "<a id=\"btnAddFields\" class=\"btn btnAdd\" href=\"#popupDownloadTableFields\" onclick=\"MC.Models.TablesFields.ShowAvailableFields()\"  data-parameters='{\"fieldsUri\": \"" + ViewBag.DownloadTablefieldUri + "\", \"isEnable\": false }'  data-url=\"" + Url.Action("GetAvailableFields", "DownloadTable") + "\" title=\"" + Resource.MC_SelectFields + "\" data-role=\"mcPopup\" data-width=\"750\" data-height=\"550\">" + Resource.MC_AddField + "</a>",
+                DisableTemplate = "<a  id=\"btnAddFields\" class=\"btn btnAdd disabled\" >" + Resource.MC_AddField + "</a>",
+                Type = PageToolbarButtonType.Custom,
+                Privilege = PrivilegeType.Model
+            });
+            @Html.RenderPageToolbarBottom(buttons)    
+        }
+        </div>
+    </div>
+    </form>
+</div>
+@*    <a class="hidden" id="btnConfirmDeleteTableFields" data-role="mcPopup" data-title="Deleted Table Fields" data-target="#popupShowTableFieldsUpdate" data-width="300" data-min-height="175"></a>
+    <div class="popup" id="popupShowTableFieldsUpdate">
+        <div class="popupContent"></div>
+        <div class="popupToolbar">
+            <a class="btn btnPrimary" onclick="MC.ajax.reloadMainContent()">@Resource.Ok</a>
+        </div>
+    </div>*@
+
+<div class="popup" id="popupDownloadTableFields">
+    <div class="popupContent">
+        <div class="contentSection contentSectionGrid contentSectionGridTableFields">
+            <div class="gridToolbar gridToolbarTop">
+                <div class="gridToolbarFilter">
+                    <input type="text" placeholder="@Resource.Filter" data-role="gridfilter" data-method="remote" data-callback="MC.Models.TablesFields.InitialAvailableTableGrid" data-target="#AvailableFieldsGridContainer" /><span class="icon"></span>
+                </div>
+            </div>
+            <h2>@Resource.MC_SelectTheFieldsToTable</h2>
+            <div class="gridContainer" id="AvailableFieldsGridContainer">
+            </div>
+        </div>
+    </div>
+    <div class="popupToolbar">
+        <a onclick="MC.Models.TablesFields.AddFields()" class="btn btnPrimary btnAddRoles" data-role="popup-close">@Resource.MC_AddField</a>
+        <a class="btn btnClose" data-role="popup-close">@Resource.Cancel</a>
+    </div>
+</div>

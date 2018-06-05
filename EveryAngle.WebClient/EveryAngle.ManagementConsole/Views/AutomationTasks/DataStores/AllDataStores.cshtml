@@ -1,0 +1,66 @@
+﻿@using EveryAngle.ManagementConsole.Models;
+@using EveryAngle.Shared.Globalization
+
+<script>
+    MC.util.loadScript({
+        test: MC.AutomationTasks && MC.AutomationTasks.DataStores,
+        url: '@Scripts.Url("~/bundles/automationtasks/datastores")',
+        callback: function () {
+            MC.AutomationTasks.DataStores.InitialAllDataStores({
+                EditDatastoreUri: '@SiteMapHelper.ActionHash("AutomationTasks/DataStores/EditDatastores")',
+                DataStoresUri: '@ViewBag.DatastoreUri',
+            });
+        }
+    });
+</script>
+
+@{
+    @Html.RenderPageToolbar(new List<PageToolbarButtonModel>
+    {
+        new PageToolbarButtonModel { Type = PageToolbarButtonType.Reload }
+    })
+}
+
+<div class="content pageDataStores">
+	<div class="contentSection contentSectionGrid">
+        <div class="gridToolbar gridToolbarTop">
+            <div class="gridToolbarFilter">
+                <input type="text" id="AutomationTasksFilterTextbox" placeholder="@Resource.Filter" data-role="gridfilter" data-method="remote" data-target="#DataStoresGridContainer" /><span class="icon"></span>
+            </div>
+        </div>
+		<h2>@Resource.DataStores</h2>
+		<div class="gridContainer" id="DataStoresGridContainer">
+            @{Html.RenderAction("GetFilterDataStores", "AutomationTasks", new { dataStoresUri = ViewBag.DatastoreUri, datastorePlugins = ViewBag.DatastorePlugins });}
+        </div>
+        <div class="gridToolbar gridToolbarBottom">
+        @{
+            List<PageToolbarButtonModel> buttons = new List<PageToolbarButtonModel>();
+            buttons.Add(new PageToolbarButtonModel
+            {
+                EnableTemplate = "<a href=\"#popupDatastorePlugins\" class=\"btn\" onclick=\"MC.AutomationTasks.DataStores.ShowCreateNewDatastoresPopup()\" title=\"" + Resource.MC_DatastorePlugins + "\" data-width=\"400\" data-min-height=\"100\" data-role=\"mcPopup\">" + Resource.MC_AddNewDatastore + "</a>",
+                DisableTemplate = "<a class=\"btn btnAdd disabled\">" + Resource.MC_AddNewDatastore + "</a>",
+                Type = PageToolbarButtonType.Custom,
+                Privilege = PrivilegeType.System
+            });
+            @Html.RenderPageToolbarBottom(buttons)    
+        }
+		</div>
+	</div>
+    <hr/>
+
+    @{Html.RenderAction("GetCommentsByType", "Comment", new { CommentType = "DATASTORE" });}
+</div><!--/.contentSectionGrid-->
+<div class="popup" id="popupDatastorePlugins">
+    <div class="popupContent">
+        <select id="DatastorePluginSelect" name="datastore_plugin">
+            @foreach (var plugin in ViewBag.DatastorePlugins as List<Tuple<string, string, string,bool?>>)
+            {
+                <option value="@plugin.Item1">@plugin.Item2</option>
+            }
+        </select>
+    </div>
+    <div class="popupToolbar">
+        <a href="@SiteMapHelper.ActionHash("AutomationTasks/DataStores/CreateNewDatastores")" class="btn btnPrimary btnSubmit" data-role="popup-close" onclick="MC.AutomationTasks.DataStores.CreateNewDatastores(event, this)" >@Resource.Ok</a>
+        <a class="btn btnClose" data-role="popup-close">@Resource.Cancel</a>
+    </div>
+</div>

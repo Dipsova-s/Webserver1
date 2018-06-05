@@ -1,0 +1,47 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<doc>
+    <assembly>
+        <name>Localization</name>
+    </assembly>
+    <members>
+        <member name="M:HandlerHelper.Load">
+            <summary>load data from service</summary>
+            <param name="uri">request uri</param>
+            <param name="params">query</param>
+            <param name="store">default: true, store data to localStorage</param>
+            <returns>Promised object</returns>
+        </member>
+        
+        <member name="M:HandlerHelper.LoadAll">
+            <summary>load all data from service</summary>
+            <param name="uri">request uri</param>
+            <param name="options">
+                <para>options.data: Object, query</para>
+                <para>options.store: Boolean, default=true, store data to localStorage</para>
+            </param>
+            <returns>Promised object</returns>
+        </member>
+
+        <member name="M:HandlerHelper.GetDataBy">
+            <summary>get cache data by object property</summary>
+            <param name="key">object property</param>
+            <param name="value">compare value</param>
+            <returns>Nullable</returns>
+        </member>
+
+        <member name="M:HandlerHelper.GetData">
+            <summary>get all data as array or object</summary>
+            <returns></returns>
+        </member>
+
+        <member name="M:HandlerHelper.SetData">
+            <summary>set data to storage</summary>
+            <param name="data">data</param>
+            <param name="storage">default=true, set data to localStorage?</param>
+        </member>
+
+        <member name="M:HandlerHelper.Initial">
+            <summary>initial data from storage to model</summary>
+        </member>
+    </members>
+</doc>

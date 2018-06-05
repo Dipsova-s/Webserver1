@@ -1,0 +1,158 @@
+﻿{
+    "user": "/users/1",
+    "session": "/sessions/1",
+    "entries": [
+        {
+            "entry": "about",
+            "uri": "/about"
+        },
+        {
+            "entry": "angles",
+            "uri": "/angles"
+        },
+        {
+            "entry": "authentication_provider_types",
+            "uri": "/system/authenticationprovider_types"
+        },
+        {
+            "entry": "authentication_providers",
+            "uri": "/system/authenticationproviders"
+        },
+        {
+            "entry": "business_processes",
+            "uri": "/businessprocesses"
+        },
+        {
+            "entry": "comments",
+            "uri": "/comments"
+        },
+        {
+            "entry": "dashboards",
+            "uri": "/dashboards"
+        },
+        {
+            "entry": "default_user_settings",
+            "uri": "/system/default_user_settings"
+        },
+        {
+            "entry": "eventlog",
+            "uri": "/eventlog"
+        },
+        {
+            "entry": "events",
+            "uri": "/events"
+        },
+        {
+            "entry": "export_items",
+            "uri": "/items/export"
+        },
+        {
+            "entry": "field_categories",
+            "uri": "/fieldcategories"
+        },
+        {
+            "entry": "internal_resources",
+            "uri": "/system/internalresources"
+        },
+        {
+            "entry": "item_exports",
+            "uri": "/item_exports"
+        },
+        {
+            "entry": "items",
+            "uri": "/items"
+        },
+        {
+            "entry": "labelcategories",
+            "uri": "/labelcategories"
+        },
+        {
+            "entry": "labels",
+            "uri": "/labels"
+        },
+        {
+            "entry": "model_servers",
+            "uri": "/modelservers"
+        },
+        {
+            "entry": "models",
+            "uri": "/models"
+        },
+        {
+            "entry": "packages",
+            "uri": "/packages"
+        },
+        {
+            "entry": "password",
+            "uri": "/password"
+        },
+        {
+            "entry": "results",
+            "uri": "/results"
+        },
+        {
+            "entry": "session",
+            "uri": "/session"
+        },
+        {
+            "entry": "sessions",
+            "uri": "/sessions"
+        },
+        {
+            "entry": "system_currencies",
+            "uri": "/system/currencies"
+        },
+        {
+            "entry": "system_datastore_plugins",
+            "uri": "/system/datastore_plugins"
+        },
+        {
+            "entry": "system_datastores",
+            "uri": "/system/datastores"
+        },
+        {
+            "entry": "system_information",
+            "uri": "/info"
+        },
+        {
+            "entry": "system_languages",
+            "uri": "/languages"
+        },
+        {
+            "entry": "system_license",
+            "uri": "/system/license"
+        },
+        {
+            "entry": "system_logs",
+            "uri": "/system/logfiles"
+        },
+        {
+            "entry": "system_roles",
+            "uri": "/system/roles"
+        },
+        {
+            "entry": "system_settings",
+            "uri": "/system/settings"
+        },
+        {
+            "entry": "tasks",
+            "uri": "/tasks"
+        },
+        {
+            "entry": "users",
+            "uri": "/users"
+        },
+        {
+            "entry": "versions",
+            "uri": "/versions"
+        },
+        {
+            "entry": "webclient_settings",
+            "uri": "/system/webclientsettings"
+        }
+    ],
+    "system_version": "0",
+    "uri": "/versions/3",
+    "version": "version three",
+    "is_latest": true
+}

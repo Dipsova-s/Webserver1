@@ -1,0 +1,2 @@
+﻿var webAPIUrl = '';
+var rootWebsitePath = '';

@@ -1,0 +1,280 @@
+/* #PivotMainWrapper
+============================================ */
+#PivotArea.displayArea {
+    overflow: visible;
+    background-color: #e6e6e6;
+}
+
+/* .pivotAreaContainer
+============================================ */
+.pivotAreaContainer {
+    position: relative;
+    overflow: hidden;
+    background-color: #e6e6e6;
+}
+
+.pivotAreaContainer td {
+    box-sizing: border-box;
+}
+
+.pivotAreaContainer .dxpgMainTable {
+    min-height: 24px;
+}
+
+.pivotMenuVisible {
+    display: table !important;      /* NOSONAR: override inline css */
+    visibility: visible !important; /* NOSONAR: override inline css */
+    opacity: 1 !important;          /* NOSONAR: override inline css */
+}
+
+.dxpgMainTable > .dxpgMainTable,
+.dxpgContainerCell > div > .dxpgMainTable {
+    table-layout: fixed;
+}
+
+.pivotAreaContainer .dxPivotGrid_pgSortUpButton {
+    background: transparent url('../../images/icons/icon_sort_asc_white.png') left top no-repeat;
+    width: 10px;
+    height: 13px;
+}
+
+.pivotAreaContainer .dxPivotGrid_pgSortDownButton {
+    background: transparent url('../../images/icons/icon_sort_desc_white.png') left top no-repeat;
+    width: 10px;
+    height: 13px;
+}
+
+.pivotAreaContainer .dxpgCollapsedButton {
+    padding-right: 1px;
+    float: left;
+}
+
+.pivotAreaContainer .dxpgColumnFieldValue.lastLevel {
+    cursor: pointer;
+}
+
+.pivotAreaContainer .norow .dxpgColumnFieldValue.lastLevel {
+    cursor: default;
+}
+
+.pivotAreaContainer .dxpgColumnFieldValue.pivot-column-active {
+    border-top: 1px solid #006f9b;
+    border-left: 1px solid #006f9b;
+    border-right: 1px solid #006f9b;
+    background-color: #bbb;
+}
+
+.pivotAreaContainer .pivot-column-active {
+    border-left: 1px solid #006f9b;
+}
+
+.pivotAreaContainer .pivot-column-active + .dxpgCell {
+    border-left: 1px solid #006f9b;
+}
+
+.resizeHeader .dxpgMainTable + .k-resize-handle {
+    display: none !important;   /* NOSONAR: override runtime css */
+}
+
+.displayArea .dxpgControl {
+    width: 100%;
+    border: 0;
+}
+
+.pivotAreaContainer > .dxpgControl {
+    background-color: #e6e6e6;
+    border-spacing: 0;
+}
+
+.displayArea .dxpgFilterArea,
+.displayArea .dxpgTopPager {
+    display: none;
+}
+
+.displayArea .dxpgBottomPager {
+    border-top: 0;
+    overflow: hidden;
+}
+
+.dxpgHeader.readonly {
+    cursor: default;
+}
+
+.dxpgRowFieldValue,
+.dxpgHeaderText,
+.dxpgColumnArea {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.dxpgHeaderFilter {
+    display: none;
+}
+
+.dxpgDataArea > table {
+    width: 100%;
+}
+
+.dxpgDataArea input {
+    display: none;
+}
+
+.dxpgDataArea > table > tbody > tr > td {   /* NOSONAR: override base pivot css */
+    padding: 0 2px 0 2px !important;        /* NOSONAR: override base pivot css */
+}
+
+.dxpgDataArea > table > tbody > tr > td:first-child {   /* NOSONAR: override base pivot css */
+    padding-left: 0 !important;                         /* NOSONAR: override base pivot css */
+}
+
+.dxpgRowArea + td {
+    vertical-align: middle;
+}
+
+.dxpgDataArea {
+    overflow: hidden;
+}
+
+.dxpgColumnArea {
+    padding-left: 0;
+}
+
+.dxpgColumnArea > table {
+    border-spacing: 0;
+}
+
+.dxpgColumnHeadersImage {
+    display: none;
+    cursor: default;
+}
+
+.dxpgColumnHeadersImage:before {
+    content: '';
+    display: inline-block;
+    vertical-align: -2px;
+    background: transparent url('../../images/angle/pivot/ui2.png') -232px -20px no-repeat;
+    width: 12px;
+    height: 12px;
+    margin-right: 3px;
+}
+
+.dxpgHeaderTable.row {
+    table-layout: fixed;
+}
+
+.dxpgHeaderTable.column {
+    table-layout: auto;
+}
+
+.dxpgHeaderTable.data {
+    table-layout: fixed;
+    width: 100%;
+}
+
+.dxpgHeaderText,
+.dxpgHeaderSort {
+    padding: 2px 0;
+    box-sizing: border-box;
+}
+
+.dxpgHeaderText {
+    width: auto;
+    max-width: 200px;
+    text-indent: 4px;
+}
+
+.dxpgHeaderSort {
+    width: 12px !important; /* NOSONAR: override runtime css */
+}
+
+.dxpgHeaderText.column,
+.dxpgHeaderSort.column {
+    padding-top: 4px;
+    padding-bottom: 4px;
+}
+
+.dxpgHeaderText.data {
+    padding-right: 4px;
+}
+
+.dxpgColumnFieldValue {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.dxpcLite .dxpgCustomizationFieldsContent .dxpgHeaderTable {
+    cursor: default;
+    table-layout: auto;
+    width: 100%;
+}
+
+.dxpcLite .dxpgCustomizationFieldsContent > table > tbody > tr > td {    /* NOSONAR: required to access 3-party component */
+    padding: 2px !important;     /* NOSONAR: override runtime css */
+    display: block;
+}
+
+.dxpcLite .dxpc-mainDiv {
+    border-width: 1px;
+}
+
+.pivotAreaContainer .k-resize-handle {
+    position: fixed;
+    cursor: col-resize;
+    z-index: 100;
+    display: none;
+}
+
+.pivotAreaContainer .k-resize-indicator {
+    display: none;
+    position: fixed !important; /* NOSONAR: override runtime css */
+    width: 0;
+    margin-left: 3px;
+    height: 1000%;
+    z-index: 1000;
+    border-left: 1px dashed #f00;
+    background-color: transparent;
+    box-sizing: border-box;
+}
+
+.dxpgRowFieldValue .dxPivotGrid_pgSortByColumn {
+    position: absolute;
+    left: auto;
+    top: auto;
+    margin-left: 0;
+}
+
+.dxpgRowFieldValue .dxPivotGrid_pgSortByColumn.sorting {
+    position: static;
+}
+
+.dxmLite > div,
+.dxmLite .dxm-popup {
+    width: auto !important; /* NOSONAR: override runtime css */
+}
+
+.dxpgCell {
+    text-overflow: ellipsis;
+    overflow: hidden;
+    empty-cells: show;
+    cursor: default;
+}
+
+.subWithSubTotal {
+    background-color: #eaeaea;
+}
+
+.subWithGrandTotal {
+    background-color: #dddddd;
+}
+
+.grandWithGrandTotal {
+    background-color: #cccccc;
+}
+
+.dxpgCell:hover {
+    background-color: #f15e34;
+    color: #fff;
+    border-color: transparent;
+}

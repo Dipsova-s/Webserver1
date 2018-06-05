@@ -1,0 +1,106 @@
+﻿@model List<EveryAngle.Core.ViewModels.LabelCategory.LabelCategoryViewModel>
+@using EveryAngle.Shared.Globalization
+
+@{
+    int pageSize = (int)ViewData["DefaultPageSize"];
+    int gridHeight = Math.Min(pageSize, 10) * 37;
+}
+
+@(Html.Kendo().Grid<EveryAngle.Core.ViewModels.LabelCategory.LabelCategoryViewModel>()
+.Name("Grid")
+.Columns(columns =>
+{
+    columns.Bound(model => model.id)
+        .ClientTemplate("<span name=\'categoryId\'>#= data.id #</span>")
+        .Title("ID");
+    
+    columns.Bound(model => model.name)
+        .Width(130)
+        .ClientTemplate("<input name=\"categoryName\" type=\"hidden\" value=\"#= data.name #\"><input name=\"categoryUri\" type=\"hidden\" value=\"#= data.uri #\">#=(data.name || \"" + Resource.MC_NoData + "\")#")
+        .Sortable(false)
+        .Title("Category");
+
+    columns.Bound("labelsID")
+        .Sortable(false)
+        .Title(@Resource.MC_IncludedLabels)
+        .Width(200)
+        .ClientTemplate("#=(data.labelsID || \"" + Resource.MC_NoData + "\")#");
+    
+    columns.Bound(model => model.activeForModel)
+        .Sortable(false)
+        .HeaderHtmlAttributes(new { @class = "columnBoolean" })
+        .HtmlAttributes(new { @class = "columnBoolean" })
+        .Title(@Resource.MC_ActiveForModel)
+        .ClientTemplate("<input name=\"contains_businessprocesses\" type=\"hidden\" value=\"#= data.contains_businessprocesses #\">"
+            + "<label>"
+            + "# if(data.contains_businessprocesses == true) {"
+                + " if(data.activeForModel == true) { #"
+                + "<input name=\"activeForModel\" value=\" #= data.activeForModel #\" data-default=\"true\" disabled=\"disabled\" checked=\"checked\" type=\"checkbox\">"
+                + "# } else { #"
+                + "<input name=\"activeForModel\" value=\" #= data.activeForModel #\" data-default=\"false\" disabled=\"disabled\" type=\"checkbox\">"
+                + "# } "
+            + "  } else {"
+                + " if(data.activeForModel == true) { #"
+                + "<input name=\"activeForModel\" value=\" #= data.activeForModel #\" data-default=\"true\" checked=\"checked\" onclick=\"MC.Models.Labels.ToggleActiveModel(this)\" type=\"checkbox\">"
+                + "# } else { #"
+                + "<input name=\"activeForModel\" value=\" #= data.activeForModel #\" data-default=\"false\" onclick=\"MC.Models.Labels.ToggleActiveModel(this)\" type=\"checkbox\">"
+                + "# } "
+            + " } #"
+            + "<span class=\"label\"></span></label>");
+            
+    columns.Bound(model => model.used_for_authorization)
+        .HeaderHtmlAttributes(new { @class = "columnBoolean" })
+        .HtmlAttributes(new { @class = "columnBoolean" })
+        .Sortable(false)
+        .Title(@Resource.MC_ValidForPrivilege)
+        .ClientTemplate(
+            "<label>"
+            + "# if(data.contains_businessprocesses == true || data.activeForModel == false) {"
+                + "if (data.used_for_authorization == true) { # "
+                + "<input name=\"used_for_authorization\" value=\" #= data.used_for_authorization #\" data-default=\"true\" disabled=\"disabled\" checked=\"checked\" type=\"checkbox\">"
+                + "# } else { #"
+                + "<input name=\"used_for_authorization\" value=\" #= data.used_for_authorization #\" data-default=\"false\" disabled=\"disabled\" type=\"checkbox\">"
+                + "# } "
+            + "} else {"
+                + "if (data.used_for_authorization == true) { #"
+                + "<input name=\"used_for_authorization\" value=\" #= data.used_for_authorization #\" data-default=\"true\" checked=\"checked\" type=\"checkbox\">"
+                + "# } else { #"
+                + "<input name=\"used_for_authorization\" value=\" #= data.used_for_authorization #\" data-default=\"false\" type=\"checkbox\">"
+                + "# }"
+            + "} #"
+            + "<span class=\"label\"></span></label>");
+
+    columns.Bound(model => model.is_required)
+        .HeaderHtmlAttributes(new { @class = "columnBoolean" })
+        .HtmlAttributes(new { @class = "columnBoolean" })
+        .Sortable(false)
+        .Title(@Resource.Required)
+        .ClientTemplate(
+            "<label>"
+            + "# if(data.contains_businessprocesses == true || data.activeForModel == false) {"
+                + "if(data.is_required == true) { # "
+                + "<input name=\"is_required\" value=\" #= data.is_required #\" data-default=\"true\" disabled=\"disabled\" checked=\"checked\" type=\"checkbox\">"
+                + "# } else { #"
+                + "<input name=\"is_required\" value=\" #= data.is_required #\" data-default=\"false\" disabled=\"disabled\" type=\"checkbox\">"
+                + "# }"
+            + "} else { "
+                + " if(data.is_required == true) {#"
+                + "<input name=\"is_required\" value=\" #= data.is_required #\" data-default=\"true\" checked=\"checked\" type=\"checkbox\">"
+                + " #} else {# "
+                + "<input name=\"is_required\" value=\" #= data.is_required #\" data-default=\"false\" type=\"checkbox\">"
+                + "# }"
+            + "} #"
+            + "<span class=\"label\"></span></label>");
+    })
+              
+    .Resizable(resize => resize.Columns(true))
+    .Sortable(sortable=> sortable.AllowUnsort(false))
+    .Scrollable(scroll => scroll.Virtual(true).Height(gridHeight))
+    .DataSource(dataSource => dataSource
+        .Ajax().Events(e=>e.RequestStart("onKendoGridPagingStart"))
+        .Read(read => read.Action("ReadLabelCategories", "LabelCategories", new { modelUri = ViewBag.ModelUri, labelCategoryUri = ViewBag.LabelCategoryUri }))
+        .PageSize(pageSize)
+    )
+    .EnableCustomBinding(true)
+    .AutoBind(false)
+)

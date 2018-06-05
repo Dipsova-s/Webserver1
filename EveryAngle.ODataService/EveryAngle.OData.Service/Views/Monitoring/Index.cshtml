@@ -1,0 +1,148 @@
+﻿
+@{
+    ViewBag.Title = "OData Monitoring";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container" ng-controller="monitoringController">
+
+    <div class="loading-spinner-container">
+        <h2>
+            OData Monitoring
+            <img class="loading-spinner" ng-src="@Url.Content("~/"){{metadataState}}" />
+        </h2>
+    </div>
+
+    <div class="container-fluid">
+
+        <div class="row monitoring-section-one">
+            <!-- memory -->
+            <div class="col-md-6">
+                <div class="panel panel-default memory-panel chromium-panel">
+                    <div class="panel-body">
+                        <div id="memoryChart"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- app server -->
+            <div class="col-md-3">
+                <div class="panel panel-default appserver-panel chromium-panel">
+                    <div class="panel-body">
+                        <div class="col-md-12">
+                            <div class="appserver-panel-row">
+                                <h4 class="appserver-header">Connections</h4>
+                            </div>
+                            <div class="appserver-panel-row">
+                                <h5>
+                                    <span title="Host: {{settings.host}}" class="label appserver-label" ng-class="settings.label">AS: {{settings.status}}</span>
+                                </h5>
+                                <h5>
+                                    <span title="Web client: {{settings.web_client_uri}}" class="label appserver-label" ng-class="settings.label">WC: {{settings.status}}</span>
+                                </h5>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- web client -->
+            <div class="col-md-3">
+                <div class="panel panel-default appserver-panel chromium-panel">
+                    <div class="panel-body">
+                        <div class="col-md-12">
+                            <div class="appserver-panel-row">
+                                <h4 class="appserver-header">Metadata</h4>
+                            </div>
+                            <div class="appserver-panel-row">
+                                <h5 title="Status: UP">
+                                    <span class="label appserver-label" ng-class="settings.label">{{settings.status}}</span>
+                                </h5>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="row monitoring-section-two">
+
+            <!-- angles -->
+            <div class="col-md-4">
+                <div class="panel panel-default sync-panel chromium-panel">
+                    <div class="panel-body">
+                        <div id="anglesChart"></div>
+
+                        <div class="progress">
+                            <div class="progress-bar" role="progressbar" style="width: 100%;"></div>
+                        </div>
+
+                        <div class="label-container">
+                            <h4>
+                                <span class="label label-success">available: {{angles.summary.i | number}}</span>
+                                <span class="label label-warning">skip: {{angles.summary.u | number}}</span>
+                                <span class="label label-info">total: {{angles.summary.t | number}}</span>
+                            </h4>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- displays -->
+            <div class="col-md-4">
+                <div class="panel panel-default sync-panel chromium-panel">
+                    <div class="panel-body">
+                        <div id="displaysChart"></div>
+
+                        <div class="progress">
+                            <div class="progress-bar" role="progressbar" style="width: 100%;">
+                            </div>
+                        </div>
+
+                        <div class="label-container">
+                            <h4>
+                                <span class="label label-success">available: {{displays.summary.i | number}}</span>
+                                <span class="label label-warning">skip: {{displays.summary.u | number}}</span>
+                                <span class="label label-info">total: {{displays.summary.t | number}}</span>
+                            </h4>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- fields -->
+            <div class="col-md-4">
+                <div class="panel panel-default sync-panel chromium-panel">
+                    <div class="panel-body">
+                        <div id="fieldsChart"></div>
+
+                        <div class="progress">
+                            <div class="progress-bar" role="progressbar" style="width: 100%;">
+                            </div>
+                        </div>
+
+                        <div class="label-container">
+                            <h4>
+                                <span class="label label-success">available: {{fields.summary.i | number}}</span>
+                                <span class="label label-warning">skip: {{fields.summary.u | number}}</span>
+                                <span class="label label-info">total: {{fields.summary.t | number}}</span>
+                            </h4>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="syncmonitoringController-sync-btn">
+        <button type="button" class="btn btn-danger" ng-disabled="syncing" ng-click="syncImmediately()">
+            Re-Sync
+            <img class="loading-spinner loading-spinner-btn" ng-src="@Url.Content("~/"){{metadataState}}" />
+        </button>
+    </div>
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/monitoringViewmodel")
+}

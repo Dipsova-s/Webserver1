@@ -1,0 +1,124 @@
+/* popupMassChangePopup
+============================================ */
+#AnglePrivateNoteCheckbox + .label {
+    top: 2px;
+}
+
+.popupMassChangePopup .txtPrivateNote {
+    position: relative;
+    top: -2px;
+    width: 90%;
+}
+
+.popupMassChangePopup .sectionGeneral {
+    margin-bottom: 20px;
+}
+
+.popupMassChangePopup .textStatus {
+    font-style: italic;
+    color: #777;
+}
+
+.touch.safari .popupMassChangePopup .textStatus {
+    position: relative;
+    top: -4px;
+}
+
+.sectionGeneral .input > label {
+    display: inline;
+    margin-left: -1px;
+}
+
+.sectionGeneral .textStatus {
+    position: absolute;
+    left: 0;
+    bottom: -18px;
+}
+
+.sectionStatus .row {
+    min-height: 20px;
+    margin-bottom: 15px;
+}
+
+.sectionStatus img {
+    position: absolute;
+    right: 20px;
+    bottom: 0;
+}
+
+.sectionStatus .row input {
+    margin-top: 4px;
+}
+
+.popupMassChangePopup input[type="text"].Dimmed {
+    opacity: .4;
+}
+
+#Labels-PlaceHolder {
+    margin-top: 10px;
+}
+
+#Labels-PlaceHolder.disabled,
+#Labels-PlaceHolder + .infoText {
+    display: none;
+}
+
+#Labels-PlaceHolder.disabled + .infoText {
+    display: block;
+    margin-top: 10px;
+    color: #777;
+    font-style: italic;
+}
+
+.sectionLabels #Labels {
+    margin-bottom: 15px;
+}
+
+.sectionLabels .row {
+    margin-bottom: 10px;
+}
+
+.sectionLabels .row > .field {
+    font-weight: normal;
+    position: static;
+    margin-top: 0;
+    float: left;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.sectionLabels .rowLabelCategory > .field {
+    font-weight: bold;
+    width: 100%;
+}
+
+/* popupMassChangeReport
+============================================ */
+.popupMassChangeReport .k-window-content {
+    font-size: 14px;
+}
+
+.popupMassChangeReport h3 {
+    font-weight: normal;
+    margin: 0;
+    padding: 0;
+    font-size: 14px;
+}
+
+.popupMassChangeReport thead th {
+    width: 85px;
+    font-weight: normal;
+    box-sizing: border-box;
+}
+
+.popupMassChangeReport thead th:first-child {
+    border-width: 0;
+    width: auto;
+    box-sizing: border-box;
+}
+
+.popupMassChangeReport tbody th {
+    text-align: left;
+    font-weight: normal;
+}

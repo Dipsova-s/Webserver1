@@ -1,0 +1,77 @@
+﻿using EveryAngle.OData.BusinessLogic.EdmBusinessLogics;
+using EveryAngle.OData.BusinessLogic.Interfaces;
+using EveryAngle.OData.DTO;
+using EveryAngle.OData.Settings;
+using EveryAngle.OData.Utils;
+using EveryAngle.OData.ViewModel;
+using EveryAngle.OData.ViewModel.Settings;
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
+using System.Net.Http;
+using System.Web.Http;
+
+namespace EveryAngle.OData.Service.APIs
+{
+    [RoutePrefix("api")]
+    public class AppEntryApiController : BaseApiController
+    {
+        IMasterEdmModelBusinessLogic _edmBusinessLogic;
+
+        public AppEntryApiController(IMasterEdmModelBusinessLogic edmBusinessLogic)
+        {
+            _edmBusinessLogic = edmBusinessLogic;
+        }
+
+        [Route("entry")]
+        public HttpResponseMessage Get()
+        {
+            KendoUIGridQueryViewModel query = GetQueryArgsAsViewModel<KendoUIGridQueryViewModel>();
+            List<EntryEntitiesViewModel> entities = new List<EntryEntitiesViewModel>();
+            if (query != null && !query.id.HasValue)
+            {
+                IEnumerable<Angle> angles = _edmBusinessLogic.GetAvailableAngles();
+
+                angles = DetermineFiltering(query, angles);
+                angles = DetermineSorting(query, angles);
+                entities.AddRange(angles.Skip(query.skip).Take(query.take).Select(x => new EntryEntitiesViewModel(x, ODataSettings.Settings.WebClientUri)));
+            }
+            else
+            {
+                Angle angle;
+                if (_edmBusinessLogic.TryGetAngle(Extensions.GetAngleCompositeKey(query.id.Value), out angle))
+                {
+                    // Using proper linq, expected angle's display should not exceeded than 100?
+                    entities.AddRange(angle.AvailableDisplays.Select(display =>
+                        new EntryEntitiesViewModel(display, ODataSettings.Settings.WebClientUri)));
+                }
+            }
+
+            return CreateResponse(new { result = entities, page_size = _edmBusinessLogic.CountAvailableAngles() });
+        }
+
+        private IEnumerable<Angle> DetermineFiltering(KendoUIGridQueryViewModel query, IEnumerable<Angle> angles)
+        {
+            if (query.filter != null && query.filter.filters.Any())
+            {
+                SubFilterQueryViewModel filter = query.filter.filters[0];
+                angles = angles.Where(x => x.name.ToLowerInvariant().Contains(filter.value.ToLowerInvariant())).ToList();
+            }
+
+            return angles;
+        }
+        private IEnumerable<Angle> DetermineSorting(KendoUIGridQueryViewModel query, IEnumerable<Angle> angles)
+        {
+            if (query.sort != null && query.sort.Any())
+            {
+                if (query.sort[0].dir == "desc")
+                    angles = angles.OrderByDescending(x => x.name).ToList();
+                else 
+                    angles = angles.OrderBy(x => x.name).ToList();
+            }
+
+            return angles;
+        }
+    }
+}

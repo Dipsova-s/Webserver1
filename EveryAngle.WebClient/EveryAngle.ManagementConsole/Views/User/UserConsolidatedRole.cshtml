@@ -1,0 +1,30 @@
+﻿@model Dictionary<string, List<TreeViewItemModel>>
+
+@if (Model.Count > 0)
+{
+        @(Html.Kendo()
+            .DropDownList()
+            .Name("UserModelPrivileges")
+            .Value(Model.FirstOrDefault().Key)
+            .BindTo(Model.Keys)
+            .HtmlAttributes(new { @class = "UserModelPrivileges", @data_type = "kendoDropDownList" })
+            .Events(e => {
+                e.Change("MC.util.consolidatedRole.changeModelPrivilege");
+            })
+        )
+    
+    int i = 0;
+    foreach (var item in Model)
+    {
+        string panelId = item.Key == "System privileges" ? "system_privileges" : item.Key;
+        ViewData["Id"] = panelId;
+        
+        <div class="contentSectionInfoItem @(i > 0 ? "hidden" : "")" id="@panelId">
+            @{Html.RenderPartial("~/Views/User/UserModelPrivileges.cshtml", item.Value, ViewData);}
+        </div>
+    i++;
+    }
+}
+else
+{ <p>@EveryAngle.Shared.Globalization.Resource.MC_UserNotHaveModelPrivileges</p> }
+

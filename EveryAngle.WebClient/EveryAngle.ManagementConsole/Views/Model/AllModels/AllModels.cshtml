@@ -1,0 +1,114 @@
+﻿@using EveryAngle.ManagementConsole.Models
+@using EveryAngle.ManagementConsole.Helpers
+@using EveryAngle.Shared.Globalization
+@model List<EveryAngle.Core.ViewModels.Model.ModelViewModel>
+
+<script>
+    MC.util.loadScript({
+        test: MC.Models && MC.Models.AllModels,
+        url: '@Scripts.Url("~/bundles/models/allmodels")',
+        callback: function () {
+            MC.Models.AllModels.Initial({
+                SideMenuUri: '@Url.Action("SideMenu", "Home")',
+                ReloadModelsUri: '@Url.Action("ReloadModels", "Model")',
+                FindAmountOfAngleAndDashboardUri: '@Url.Action("FindAmountOfAngleAndDashboard", "Model")'
+            });
+        }
+    });
+</script>
+
+@{
+    @Html.RenderPageToolbar(new List<PageToolbarButtonModel>
+    {
+        new PageToolbarButtonModel { Type = PageToolbarButtonType.Reload }
+    })
+}
+
+<div class="content pageModels">
+	<div class="contentSection contentSectionGrid">
+		<h2>@Resource.AllCurrentlyActiveModels</h2>
+		<div class="gridContainer">
+            @{
+                string actionButtons = "";
+                if (Convert.ToBoolean(ViewBag.ManageSystemPriveledge))
+                {
+                    actionButtons += "# if (data.manageModelPrivilege) { #";
+                    actionButtons += "<a href=\"\\" + SiteMapHelper.ActionHash("Models/AllModels/EditModel") + "\" onclick=\"MC.util.redirect(event, this)\" class=\"btn btnEdit\" data-parameters='{\"modelUri\":\"#= data.Uri #\"}'>" + Resource.Edit + "</a>";
+                    actionButtons += "# } else { #";
+                    actionButtons += "<a href=\"\\" + SiteMapHelper.ActionHash("Models/AllModels/EditModel") + "\" onclick=\"MC.util.redirect(event, this)\" class=\"btn btnEdit\" data-parameters='{\"modelUri\":\"#= data.Uri #\"}'>" + Resource.View + "</a>";
+                    actionButtons += "# } #";
+                    actionButtons += "<a href=\"" + Url.Content("~/Model/DeleteModel") + "\" onclick=\"MC.Models.AllModels.DeleteModel(event, this)\" data-parameters='{\"modelUri\":\"#= data.Uri #\"}' data-delete-template=\"" + Resource.MC_DeleteModelConfirm + "\" data-delete-field-index=\"0\" class=\"btn btnDelete #= (data.manageModelPrivilege ? '' : ' disabled') #\">" + Resource.Delete + "</a>";
+                }
+                else
+                {
+                    actionButtons += "# if (data.manageModelPrivilege) { #";
+                    actionButtons += "<a href=\"\\" + SiteMapHelper.ActionHash("Models/AllModels/EditModel") + "\" onclick=\"MC.util.redirect(event, this)\" class=\"btn btnEdit\" data-parameters='{\"modelUri\":\"#= data.Uri #\"}'>" + Resource.Edit + "</a>";
+                    actionButtons += "<a href=\"" + Url.Content("~/Model/DeleteModel") + "\" onclick=\"MC.Models.AllModels.DeleteModel(event, this)\" data-parameters='{\"modelUri\":\"#= data.Uri #\"}' data-delete-template=\"" + Resource.MC_DeleteModelConfirm + "\" data-delete-field-index=\"0\" class=\"btn btnDelete #= (data.manageModelPrivilege ? '' : ' disabled') #\">" + Resource.Delete + "</a>";
+                    actionButtons += "# } else { #";
+                    actionButtons += "<a href=\"\\" + SiteMapHelper.ActionHash("Models/AllModels/EditModel") + "\" onclick=\"MC.util.redirect(event, this)\" class=\"btn btnEdit\" data-parameters='{\"modelUri\":\"#= data.Uri #\"}'>" + Resource.View + "</a>";
+                    actionButtons += "<a class=\"btn btnDelete disabled\">" + Resource.Delete + "</a>";
+                    actionButtons += "# } #";
+                }    
+            }
+
+            @(Html.Kendo().Grid(Model)
+                .Name("Grid")
+                .Columns(columns =>
+                {
+                    columns.Bound(model => model.id).Title(@Resource.MC_ModelID);
+                    columns.Bound(model => model.short_name).Title(@Resource.MC_ModelShortName);
+                    columns.Bound(model => model.long_name).Title(@Resource.MC_ModelName);
+                    columns.Bound(model => model.model_status).Title(@Resource.Status);
+                    columns.Bound(model => model.environment);
+                    columns.Bound(model => model.LicensedType);
+
+                    columns.Bound("CreatedBy.Created")
+                        .Width(80)
+                        .HeaderHtmlAttributes(new { @class = "columnDate" })
+                        .HtmlAttributes(new { @class = "columnDate" })
+                        .ClientTemplate("<span data-role=\"localize\" data-type=\"date\">#= CreatedBy.Created #</span></text>");
+
+                    columns.Bound("Version")
+                        .Title(Resource.Version)
+                        .Width(70)
+                        .HeaderHtmlAttributes(new { @class = "columnDate" })
+                        .HtmlAttributes(new { @class = "columnDate" })
+                        .ClientTemplate("#= (Version || '') #");
+
+                    columns.Bound("uri")
+                        .HeaderHtmlAttributes(new { @class = "gridColumnToolbar" })
+                        .HtmlAttributes(new { @class = "gridColumnToolbar" })
+                        .Title(Resource.MC_Action)
+                        .Width(75)
+                        .ClientTemplate(actionButtons);
+
+                })
+                .Resizable(resize => resize.Columns(true))
+                .Scrollable(scroll => scroll.Virtual(false).Height(4 * 37))
+                .EnableCustomBinding(true)
+                .DataSource(dataSource => dataSource
+                    .Ajax()
+                    .Events(e => e.RequestStart("onKendoGridPagingStart"))
+                    .ServerOperation(false)
+                )
+            )
+        </div>
+        <div class="gridToolbar gridToolbarBottom">
+        @{
+            List<PageToolbarButtonModel> buttons = new List<PageToolbarButtonModel>();
+            buttons.Add(new PageToolbarButtonModel
+            {
+                DisableTemplate = "<a class=\"btn btnAdd disabled\">" + Resource.SetUpANewModel + "</a>",
+                EnableTemplate = "<a href=\"" + SiteMapHelper.ActionHash("Models/AllModels/CreateNewModel") + "\" class=\"btn btnAdd\">" + Resource.SetUpANewModel + "</a>",
+                Type = PageToolbarButtonType.Custom,
+                Privilege = PrivilegeType.System
+            });
+            @Html.RenderPageToolbarBottom(buttons)    
+        }
+		</div>
+	</div>
+    <hr/>
+
+    @{Html.RenderAction("GetCommentsByType", "Comment", new { CommentType = "ALL_MODELS" });}
+
+</div><!--/.contentSectionGrid-->

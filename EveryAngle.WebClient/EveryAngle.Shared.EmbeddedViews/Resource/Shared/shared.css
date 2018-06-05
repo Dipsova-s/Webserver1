@@ -1,0 +1,340 @@
+/* .chkIndeterminatable (checkbox 3 state)
+============================================ */
+.chk {
+    position: relative;
+    opacity: 0;
+    z-index: 1;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+.chkIndeterminatable {
+    cursor: pointer;
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 13px !important;
+    max-width: 13px !important;
+    height: 14px;
+    background: transparent url(checkbox.png) left top no-repeat;
+    z-index: 5;
+}
+
+.chkIndeterminatable.yes {
+    background-position: left 0;
+}
+
+.chkIndeterminatable.no {
+    background-position: left -15px;
+}
+
+.chkIndeterminatable.empty {
+    background-position: left -30px;
+}
+
+.chkIndeterminatable.disabled {
+    cursor: default;
+    opacity: .5;
+}
+
+.chkIndeterminatable + input[type="checkbox"] {
+    position: relative !important;
+}
+
+/* Base for label styling */
+[type="checkbox"]:not(:checked),
+[type="checkbox"]:checked,
+[type="radio"]:not(:checked),
+[type="radio"]:checked {
+    padding: 0;
+    margin: 0 5px 0 0;
+    z-index: 3;
+    cursor: pointer;
+    position: absolute;
+    left: 0;
+    top: 0;
+    opacity: 0 !important;
+}
+
+[type="checkbox"]:not(:checked) + .label,
+[type="checkbox"]:checked + .label,
+[type="radio"]:not(:checked) + .label,
+[type="radio"]:checked + .label {
+    cursor: pointer;
+    position: relative;
+    top: 1px;
+    z-index: 2;
+    margin-left: 21px;
+    display: inline-block;
+    min-height: 14px;
+    line-height: 14px;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+/* checkbox aspect */
+[type="checkbox"]:not(:checked) + .label:before,
+[type="checkbox"]:checked + .label:before,
+[type="radio"]:not(:checked) + .label:before,
+[type="radio"]:checked + .label:before,
+[type="checkbox"]:not(:checked) + .label:after,
+[type="checkbox"]:checked + .label:after,
+[type="radio"]:not(:checked) + .label:after,
+[type="radio"]:checked + .label:after {
+    content: '';
+    position: absolute;
+    left: -21px;
+    top: -1px;
+    width: 20px !important;
+    max-width: 20px !important;
+    height: 14px;
+    background: transparent url(checkbox.png) left -15px no-repeat;
+}
+
+[type="radio"]:not(:checked) + .label:before,
+[type="radio"]:checked + .label:before,
+[type="radio"]:not(:checked) + .label:after,
+[type="radio"]:checked + .label:after {
+    background-image: url(radio.png);
+}
+/* checked mark aspect */
+[type="checkbox"]:not(:checked) + .label:after,
+[type="checkbox"]:checked + .label:after {
+    background-position: left 0;
+}
+
+[type="radio"]:not(:checked) + .label:after,
+[type="radio"]:checked + .label:after {
+    background-position: left -30px;
+}
+
+/* checked mark aspect changes */
+[type="checkbox"]:not(:checked) + .label:after,
+[type="radio"]:not(:checked) + .label:after {
+    opacity: 0;
+}
+
+[type="checkbox"]:checked + .label:after,
+[type="radio"]:checked + .label:after {
+    opacity: 1;
+}
+/* disabled checkbox */
+[type="checkbox"]:disabled:not(:checked) + .label:before,
+[type="checkbox"]:disabled:checked + .label:before,
+[type="radio"]:disabled:not(:checked) + .label:before,
+[type="radio"]:disabled:checked + .label:before,
+[type="checkbox"]:disabled:checked + .label:after,
+[type="radio"]:disabled:checked + .label:after {
+    cursor: default;
+    opacity: .3;
+}
+
+[type="checkbox"]:disabled,
+[type="radio"]:disabled,
+[type="checkbox"]:disabled + .label,
+[type="radio"]:disabled + .label,
+[type="checkbox"]:disabled + .label:before,
+[type="radio"]:disabled + .label:before,
+[type="checkbox"]:disabled + .label:after,
+[type="radio"]:disabled + .label:after {
+    cursor: default !important;
+}
+
+/* .helpTextContainer
+============================================ */
+#helpTextFootNote {
+    position: absolute;
+    left: auto;
+    bottom: 10px;
+    font-size: 11px;
+    color: #777;
+}
+
+.helpTextContainer,
+.helpAdditionalContainer,
+.helpHeaderContainer {
+    font-size: 12px;
+}
+
+.helpTextContainer .helpNameHeader {
+    border-bottom: 1px solid #c2c2c2;
+    padding-bottom: 4px;
+    color: #333;
+    font-size: 1.3em;
+    margin-top: 15px;
+}
+
+.helpTextContainer a {
+    background: transparent;
+}
+
+.helpTextContainer a:active,
+.helpTextContainer a:hover {
+    outline: 0;
+}
+
+.helpTextContainer abbr[title] {
+    border-bottom: 1px dotted;
+}
+
+.helpTextContainer h1,
+.helpTextContainer h2,
+.helpTextContainer h3,
+.helpTextContainer h4,
+.helpAdditionalContainer h4,
+.helpTextContainer h5,
+.helpTextContainer h6 {
+    font-family: inherit;
+    font-weight: bold;
+    color: inherit;
+    text-rendering: optimizelegibility;
+    margin: .42em 0;
+}
+
+.helpTextContainer h1 {
+    font-size: 2em;
+}
+
+.helpTextContainer h2 {
+    font-size: 1.5em;
+}
+
+.helpTextContainer h3 {
+    font-size: 1.35em;
+}
+
+.helpTextContainer h4,
+.helpAdditionalContainer h4 {
+    font-size: 1.2em;
+}
+
+.helpAdditionalContainer h4 {
+    margin-top: 40px;
+}
+
+.helpTextContainer h5 {
+    font-size: .9em;
+}
+
+.helpTextContainer h6 {
+    font-size: .8em;
+}
+
+.helpTextContainer p,
+.helpHeaderContainer p {
+    margin: .86em 0;
+}
+
+.helpHeaderContainer p {
+    color: #000;
+}
+
+.helpHeaderContainer p img {
+    vertical-align: bottom;
+    margin-right: 2px;
+}
+
+.helpTextContainer .section {
+    margin: .42em 0 1.5em 0;
+}
+
+.helpTextContainer ul,
+.helpAdditionalContainer ul,
+.helpTextContainer ol {
+    margin-top: .42em;
+    margin-bottom: .42em;
+}
+
+.helpTextContainer b,
+.helpTextContainer strong {
+    font-weight: bold;
+}
+
+.helpTextContainer dfn,
+.helpTextContainer em,
+.helpTextContainer i {
+    font-style: italic;
+}
+
+.helpTextContainer hr {
+    box-sizing: content-box;
+    height: 0;
+}
+
+.helpTextContainer mark {
+    background: #ff0;
+    color: #000;
+}
+
+.helpTextContainer s,
+.helpTextContainer strike,
+.helpTextContainer del {
+    text-decoration: line-through;
+}
+
+.helpTextContainer code,
+.helpTextContainer kbd,
+.helpTextContainer pre,
+.helpTextContainer samp {
+    font-family: monospace, serif;
+    font-size: 1em;
+}
+
+.helpTextContainer pre {
+    white-space: pre-wrap;
+}
+
+.helpTextContainer q,
+.helpTextContainer blockquote {
+    quotes: "\201C" "\201D" "\2018" "\2019";
+}
+
+.helpTextContainer small {
+    font-size: 80%;
+}
+
+.helpTextContainer sub,
+.helpTextContainer sup {
+    font-size: 75%;
+    line-height: 0;
+    position: relative;
+    vertical-align: baseline;
+}
+
+.helpTextContainer sup {
+    top: -0.5em;
+}
+
+.helpTextContainer sub {
+    bottom: -0.25em;
+}
+
+.helpTextContainer img {
+    border: 0;
+    max-width: 100%;
+}
+
+.helpTextContainer table {
+    border-collapse: collapse;
+    border-spacing: 0;
+    margin: .22em 0;
+}
+
+.helpTextContainer td,
+.helpTextContainer th {
+    padding: 2px;
+    border: solid 1px #b2b2b2;
+    vertical-align: top;
+    text-align: left;
+}
+
+.helpTextContainer table ul,
+.helpTextContainer table ol {
+    margin-top: 0;
+}

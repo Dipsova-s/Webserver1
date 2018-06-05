@@ -1,0 +1,104 @@
+﻿@model EveryAngle.Core.ViewModels.Cycle.TaskViewModel
+@using EveryAngle.Shared.Globalization
+
+<div id="refreshCycleFormContainer">
+    <form id="refreshCycleForm" class="new" data-role="validator">
+        <div class="contentSection">
+            <p class="serverTimeInfo" id="ServerTimeInfo"></p>
+        </div>
+
+        <div class="contentSection contentSectionInfo slideToggleFormArea">
+            <div class="contentSectionInfoItem">
+                <label>@Resource.Name:</label>
+                <p>
+                    <input type="text" name="TaskName" class="columnTaskName required" placeholder="@Resource.Name" maxlength="100" />
+                </p>
+            </div>
+            <div class="contentSectionInfoItem">
+                <label>@Resource.MC_External:</label>
+                <p>
+                    <label><input type="checkbox" name="IsExternal" onclick="MC.Models.RefreshCycle.TriggerTypeChange(this)" /><span class="label"></span></label>
+                </p>
+            </div>
+            <div class="contentSectionInfoItem">
+                <label>@Resource.MC_Actionlist:</label>
+                <p>
+                    <select class="actionList required error" name="Action"></select>
+                    <span class="descriptionLabel hidden">
+                        <a onclick="MC.Models.RefreshCycle.ShowSpecifyTablesPopup()" class="btn btnSpecifyTables" data-target="#popupSpecifyTables" title="@Resource.MC_SpecifyTables" data-role="mcPopup" data-width="1000" data-height="700">
+                            @Resource.MC_SpecifyTables
+                            (<span class="specifyTablesCountItems">0</span>)
+                        </a>
+                    </span>
+                </p>
+                <div id="SelectedTableList" class="tableList hidden"></div>
+            </div>
+            <div class="contentSectionInfoItem">
+                <label>@Resource.MC_Delta:</label>
+                <p>
+                    <label><input type="checkbox" name="IsDelta" /><span class="label"></span></label>
+                </p>
+            </div>
+            <div class="scheduleArea">
+                <div class="contentSectionInfoItem">
+                    <label>@Resource.Day:</label>
+                    <p>
+                        <div class="cellDays" data-role="customcheckbox">
+                            <input type="checkbox" name="Days" class="continue_with_days" data-label="S" value="S">
+                            <input type="checkbox" name="Days" class="continue_with_days" data-label="M" value="M">
+                            <input type="checkbox" name="Days" class="continue_with_days" data-label="T" value="T">
+                            <input type="checkbox" name="Days" class="continue_with_days" data-label="W" value="W">
+                            <input type="checkbox" name="Days" class="continue_with_days" data-label="T" value="TH">
+                            <input type="checkbox" name="Days" class="continue_with_days" data-label="F" value="F">
+                            <input type="checkbox" name="Days" class="continue_with_days" data-label="S" value="Sat">
+                        </div>
+                    </p>
+                </div>
+                <div class="contentSectionInfoItem">
+                    <label>@Resource.StartTime:</label>
+                    <p>
+                        <input type="text" class="timePicker required time" name="StartTime" placeholder="@Resource.MC_SelectTime" />
+                        <span class="descriptionLabel hidden">@Resource.MC_ServerTimeLabel <span class="serverTimeValue"></span></span>
+                    </p>
+                </div>
+                <div class="contentSectionInfoItem">
+                    <label>@Resource.Continuous:</label>
+                    <p>
+                        <label><input type="checkbox" name="IsContinuous" onclick="MC.Models.RefreshCycle.ContinuousChange(this)" /><span class="label"></span></label>
+                    </p>
+                </div>
+                <div class="contentSectionInfoItem">
+                    <label>@Resource.RestartDelay:</label>
+                    <p>
+                        <input type="text" class="timePicker time" name="RestartDelay" disabled="disabled" placeholder="@Resource.MC_SelectTime" />
+                    </p>
+                </div>
+                <div class="contentSectionInfoItem">
+                    <label>@Resource.Until:</label>
+                    <p>
+                        <input type="text" class="timePicker time" name="EndTime" disabled="disabled" placeholder="@Resource.MC_SelectTime" />
+                        <span class="descriptionLabel hidden">@Resource.MC_ServerTimeLabel <span class="serverTimeValue"></span></span>
+                    </p>
+                </div>
+            </div>
+            <div class="contentSectionInfoItem">
+                <label>@Resource.MaxRunTime:</label>
+                <p>
+                    <input type="text" class="timePicker time" name="TimeStop" placeholder="@Resource.MC_SelectRunTime" />
+                </p>
+            </div>
+            <div class="contentSectionInfoItem">
+                <label>@Resource.Enabled:</label>
+                <p>
+                    <label><input type="checkbox" name="IsEnabled" checked /><span class="label"></span></label>
+                </p>
+            </div>
+            <div class="contentSectionInfoItem">
+                <input type="hidden" name="Parameters" value="" />
+                <input type="hidden" name="Uri" value="" />
+                <a href="javascript:void(0)" class="btn btnSaveForm btnPrimary" onclick="MC.Models.RefreshCycle.SaveTask()">@Resource.Save</a>
+                <a href="javascript:void(0)" class="btn" onclick="MC.Models.RefreshCycle.CancelEditTask(this)">@Resource.Cancel</a>
+            </div>
+        </div>
+    </form>
+</div>

@@ -1,0 +1,71 @@
+﻿@using EveryAngle.Shared.Globalization
+@using EveryAngle.ManagementConsole.Models
+
+@(Html.Kendo().Grid<EveryAngle.Core.ViewModels.Cycle.TaskViewModel>()
+    .Name("TasksGrid")
+    .Columns(columns =>
+    {
+        columns.Bound(model => model.name)
+            .Title(Resource.Name);
+
+        columns.Bound(model => model.enabled)
+            .HeaderHtmlAttributes(new { @class = "columnBoolean" }).HtmlAttributes(new { @class = "columnBoolean" }).Title(Resource.Enabled).Width(60)
+            .ClientTemplate(
+                "<label>"
+                + "# if (data.enabled == true) { #"
+                + "<input name=\"IsEnabled\" value=\"Continues\" data-default=\"true\" checked=\"checked\" type=\"checkbox\" disabled=\"disabled\">"
+                + "# } else { #"
+                + "<input name=\"IsEnabled\" value=\"Single\" data-default=\"false\" type=\"checkbox\" disabled=\"disabled\">"
+                + "# } #"
+                + "<span class=\"label\"></span></label>");
+
+        columns.Bound(model => model.Triggers)
+            .Title(Resource.Type)
+            .Width(100)
+            .ClientTemplate("#= data.Triggers && data.Triggers.length && data.Triggers[0].trigger_type ? data.Triggers[0].trigger_type :'' #");
+
+        columns.Bound(model => model.action_count)
+            .Width(60)
+            .Title(Resource.MC_Actions)
+            .HeaderHtmlAttributes(new { @class = "columnNumber" })
+            .HtmlAttributes(new { @class = "columnNumber" });
+
+        columns.Bound(model => model.RefreshCycleTrigger.days)
+            .ClientTemplate("#= data.Triggers && data.Triggers.length && data.Triggers[0].trigger_type !== 'schedule' ? '' : MC.AutomationTasks.Tasks.GetDaysCheckbox(data) #")
+            .Width(135)
+            .Title(Resource.Day);
+
+        columns.Bound(model => model.RefreshCycleTrigger.start_time)
+            .HeaderTemplate(PageHelper.HeaderWithTimezone(Resource.StartTime))
+            .ClientTemplate("#= data.RefreshCycleTrigger == null ? '' : MC.util.getDisplayTimeLocal(data.RefreshCycleTrigger.start_time) #")
+            .HeaderHtmlAttributes(new { @class = "columnDate" })
+            .HtmlAttributes(new { @class = "columnDate" })
+            .Width(115);
+
+        columns.Bound(model => model.max_run_time)
+            .Title(Resource.MaxRunTime)
+            .HeaderHtmlAttributes(new { @class = "columnDate" })
+            .HtmlAttributes(new { @class = "columnDate" })
+            .Width(90)
+            .ClientTemplate("#= MC.util.getDisplayTimeUTC(data.max_run_time) #");
+
+        columns.Bound(model => model.status)
+            .Width(50)
+            .Title(Resource.Status);
+
+        columns.Bound(model => model.id)
+            .ClientTemplate("#= MC.AutomationTasks.Tasks.SetAbilityToEditControl(data, " + ViewBag.ManageSystemPrivilege + ", " + ViewBag.CanScheduleAngles + ", \"" + ViewBag.UserUri + "\") #")
+            .HeaderHtmlAttributes(new { @class = "gridColumnToolbar" })
+            .HtmlAttributes(new { @class = "gridColumnToolbar" })
+            .Width(75)
+            .Title(Resource.MC_Action);
+    })
+    .AutoBind(false)
+    .Scrollable(scroll => scroll.Virtual(false).Height(37 * 6))
+    .Resizable(resize => resize.Columns(true))
+    .DataSource(dataSource => dataSource
+        .Ajax()
+        .Read(read => read.Action("ReadTasksGrid", "AutomationTasks", new { tasksUri = ViewBag.TasksUri }))
+        .ServerOperation(false)
+    )
+)

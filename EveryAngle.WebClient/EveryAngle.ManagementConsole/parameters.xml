@@ -1,0 +1,9 @@
+﻿<!-- Contains parameters which can be set during deployment of the package in IIS -->
+<parameters>
+  <parameter name="httpCookies_requireSSL"
+    description="Value for Web.config->configuration->system.web->httpCookies->requireSSL"
+    defaultValue="false">
+    <parameterEntry kind="XmlFile" scope="Web.config" match="/configuration/system.web/httpCookies/@requireSSL" />
+  </parameter>
+
+</parameters>

@@ -1,0 +1,698 @@
+var exportExcelHandler = new ExportExcelHandler();
+
+function ExportExcelHandler() {
+    "use strict";
+
+    var self = this;
+    var fnCheckExportProgress;
+
+    //BOF: Properties
+    self.ResultsUri = ko.observable();
+    self.ResultsFieldUri = ko.observable();
+    self.AngleName = ko.observable();
+    self.Description = ko.observable();
+    self.UserName = ko.observable();
+    self.TotalRow = ko.observable();
+    self.ExportRow = 0;
+    self.IsCancelExporting = false;
+    self.GenerateExcelUri = '';
+    self.GenerateExceljsonData = {};
+    self.SupportExcelExportAsChart = ['area', 'area_stack', 'bar', 'bar_stack', 'column', 'column_stack', 'line', 'line_stack', 'radarLine', 'radarLine_stack', 'donut', 'pie', 'bubble', 'scatter'];
+    //EOF: Properties
+
+    //BOF: Methods
+    self.SetData = function (angle) {
+        self.AngleName(WC.Utility.GetDefaultMultiLangText(angle.multi_lang_name));
+        self.Description(WC.Utility.GetDefaultMultiLangText(angle.multi_lang_description));
+
+        self.UserName(userModel.DisplayName());
+        self.ResultsUri(resultModel.Data().data_rows);
+        self.ResultsFieldUri(resultModel.Data().query_fields);
+    };
+    self.GetDisplayExcelDefaultSettings = function () {
+        var fieldsData = self.GetCurrentDisplayField(displayModel.Data().display_type);
+        displayDetailPageHandler.ConvertDisplayFieldPrefixNoneToNull(fieldsData);
+
+        return {
+            "plugin": "msexcel",
+            "file_name": '',
+            "offset": 0,
+            "limit": 0,
+            "fields": fieldsData,
+            "angle_multi_lang_name": angleInfoModel.Data().multi_lang_name,
+            "angle_multi_lang_description": angleInfoModel.Data().multi_lang_description,
+            "query_definition": angleQueryStepModel.CollectQueryBlocks(),
+            "display_definitions": [{
+                "display_type": displayModel.Data().display_type,
+                "multi_lang_name": displayModel.Data().multi_lang_name,
+                "multi_lang_description": displayModel.Data().multi_lang_description,
+                "query_blocks": displayQueryBlockModel.CollectQueryBlocks()
+            }],
+            "data_settings": {
+                "setting_list": []
+            }
+        };
+    };
+    self.GetAngleSummary = function () {
+        return {};
+    };
+    self.GetDisplaySummary = function () {
+        return {};
+    };
+    self.GetDefinitionsForExportToExcel = function (elementListId, filterType) {
+        var results = [];
+        var querySteps = elementListId === 'AngleQueryStepsList' ? ko.toJS(angleQueryStepModel.QuerySteps()) : ko.toJS(displayQueryBlockModel.QuerySteps());
+        querySteps = jQuery.grep(querySteps, function (queryStep) { return (queryStep.step_type !== enumHandlers.FILTERTYPE.AGGREGATION && queryStep.step_type !== enumHandlers.FILTERTYPE.SORTING) && queryStep.step_type === filterType; });
+
+        jQuery.each(querySteps, function (index, queryStep) {
+            results.push(WC.WidgetFilterHelper.GetFilterText(queryStep, resultModel.Data().model));
+        });
+
+        return results;
+    };
+    self.GetCurrentDisplayField = function (displayType) {
+        return exportHandler.GetCurrentDisplayField(displayType);
+    };
+    self.GenerateExcel = function () {
+        var uri = self.GenerateExcelUri;
+        clearTimeout(fnCheckExportProgress);
+        if (!progressbarModel.IsCancelPopup) {
+            GetDataFromWebService(uri)
+                .done(function (response) {
+                    progressbarModel.SetProgressBarText(kendo.toString(response.progress * 100, 'n0'), null, Localization.ProgressBar_CurrentRetrievingExcelFileFromApplicationServer);
+                    if (response.status.toLowerCase() === "finished") {
+
+                        WC.Ajax.EnableDeleteResult = false;
+                        WC.Utility.DownloadFile(WC.Ajax.BuildRequestUrl(response.file_uri, false));
+
+                        fnCheckExportProgress = setTimeout(function () {
+                            self.DoneToGenerateExcel(false);
+                        }, 2000);
+
+                    }
+                    else if (response.status.toLowerCase() === "failed") {
+                        popup.Error(Localization.Error_Title, response.message);
+                        self.DoneToGenerateExcel();
+                    }
+                    else {
+                        fnCheckExportProgress = setTimeout(function () {
+                            self.GenerateExcel();
+                        }, 2000);
+                    }
+                });
+        }
+        else {
+            DeleteDataToWebService(uri);
+        }
+    };
+    self.ShowExcelReportPopup = function () {
+        var popupName = 'ExcelReport',
+            popupSettings = {
+                width: 800,
+                height: 600,
+                title: Captions.Label_Excel_Report,
+                element: '#popup' + popupName,
+                className: 'popup' + popupName,
+                actions: ["Maximize"],
+                buttons: [
+                    {
+                        text: Localization.Ok,
+                        position: 'right',
+                        isPrimary: true,
+                        click: 'close'
+                    }
+                ]
+            };
+
+        return popup.Show(popupSettings);
+    };
+    self.DoneToGenerateExcel = function (isDeleteProgress) {
+        progressbarModel.IsCancelPopup = true;
+        progressbarModel.EndProgressBar();
+        self.CloseExportExcelPopup();
+        if (isDeleteProgress !== false) {
+            DeleteDataToWebService(self.GenerateExcelUri);
+        }
+    };
+    self.ShowExportExcelPopup = function (displayType) {
+
+        requestHistoryModel.SaveLastExecute(self, self.ShowExportExcelPopup, arguments);
+        requestHistoryModel.ClearPopupBeforeExecute = true;
+        /*
+        * M4-9903: Implement for single item
+        * 1.If export excel from single drill-down get seperate partial view (ExportDrilldownExcel)
+        */
+        var popupName = WC.Utility.UrlParameter(enumHandlers.ANGLEPARAMETER.LISTDRILLDOWN) ? 'ExportDrilldownExcel' : 'ExportExcel';
+        var htmltemplate = WC.Utility.UrlParameter(enumHandlers.ANGLEPARAMETER.LISTDRILLDOWN) ? exportDrilldownExcelHtmlTemplate() : exportExcelHtmlTemplate();
+        var popupSettings = {
+            title: Localization.ExportToExcel,
+            element: '#popup' + popupName,
+            html: htmltemplate,
+            className: 'popupExportExcel',
+            resizable: false,
+            width: 450,
+            minHeight: 100,
+            actions: ["Close"],
+            buttons: [
+                {
+                    text: Captions.Button_Cancel,
+                    click: 'close',
+                    position: 'right'
+                },
+                {
+                    className: 'executing',
+                    text: Localization.Ok,
+                    click: function (e, obj) {
+                        if (popup.CanButtonExecute(obj)) {
+                            /*
+                            * M4-9963: Export to excel: data only for chart
+                            * 2.Group export list/chart to one function
+                            * 2.1.Send display type parameter, use for call function condition
+                            * M4-9903: Implement for single item
+                            * 2.Send 'listdrilldown' to parameter for check
+                            */
+                            self.ExportDisplay(displayType);
+
+                        }
+                    },
+                    isPrimary: true,
+                    position: 'right'
+                }
+            ],
+            open: function () {
+                self.ShowExportExcelPopupCallback(displayType);
+                //M4-23212: Show or hide the number of export items
+                self.SetVisibilityForNumberOfItems(displayType);
+
+                //M4-23209: Indicate when charttype not supported
+                self.ShowNotSupportExportChartToExcelWarning(displayType, WC.Utility.ParseJSON(displayModel.Data().display_details));
+            },
+            close: function (e) {
+                setTimeout(function () {
+                    e.sender.destroy();
+                }, 500);
+            }
+        };
+
+        popup.Show(popupSettings);
+    };
+    self.ShowNotSupportExportChartToExcelWarning = function (displayType, displayDetails) {
+        var element = jQuery('.row.warningMessage');
+        element.hide();
+        if (displayType === enumHandlers.DISPLAYTYPE.CHART
+            && !self.IsSupportExcelExportAsChart(displayDetails.chart_type, displayDetails.stacked)) {
+            element.show();
+        }
+    };
+    self.IsSupportExcelExportAsChart = function (chartType, isStack) {
+        if (isStack) {
+            chartType += '_stack';
+        }
+        return jQuery.inArray(chartType, self.SupportExcelExportAsChart) !== -1 && !self.HasMultiDoughnutOrPie();
+    };
+    self.HasMultiDoughnutOrPie = function () {
+        return jQuery('.k-chart-item').length > 0;
+    };
+
+    self.ShowExportExcelPopupCallback = function (displayType) {
+        var exportRow = userSettingModel.GetByName(enumHandlers.USERSETTINGS.DEFAULT_EXPORT_LINES);
+        if (!exportRow) {
+            exportRow = resultModel.Data().row_count;
+        }
+        jQuery('[id="NumberOfItems"]:visible').val(exportRow);
+
+        if (typeof jQuery('[id="popupExportExcel"]:visible').get(0) !== 'undefined') {
+
+            if (self.CanSetNumberOfItem()) {
+                // if pivot hide number of rows for export
+                jQuery('[id="NumberOfItem"]:visible').hide();
+            }
+            else {
+                var numberOfObjectFormat = new Formatter({ thousandseparator: true }, enumHandlers.FIELDTYPE.INTEGER);
+                /* BOF: M4-11556: Implement max export rows */
+                if (displayType === enumHandlers.DISPLAYTYPE.LIST) {
+                    // Find model privileges by angle model
+                    var angleModels = jQuery.grep(userModel.Privileges.ModelPrivileges, function (modelPrivilege) { return modelPrivilege.model === angleInfoModel.Data().model; });
+                    var maxExportRow = angleModels.length === 0 ? null : angleModels[0].privileges.max_export_rows || 0;
+                    // Check if max export row is null use all total row but if not use max row
+                    if (!maxExportRow) {
+                        exportExcelHandler.TotalRow(Localization.All + ' (' + WC.FormatHelper.GetFormattedValue(numberOfObjectFormat, resultModel.TotalRow()) + ')');
+                        self.ExportRow = resultModel.TotalRow();
+                    }
+                    else {
+                        exportExcelHandler.TotalRow(Localization.Max + ' (' + maxExportRow + ')');
+                        self.ExportRow = maxExportRow;
+                    }
+                }
+                else {
+                    exportExcelHandler.TotalRow(Localization.All + ' (' + WC.FormatHelper.GetFormattedValue(numberOfObjectFormat, resultModel.TotalRow()) + ')');
+                    self.ExportRow = resultModel.TotalRow();
+                }
+            }
+        }
+
+        // Binding knockout
+        WC.HtmlHelper.ApplyKnockout(exportExcelHandler, jQuery('[id="ExportOptionArea"]:visible'));
+        /* EOF: M4-11556: Implement max export rows */
+
+        /*
+        * M4-10439: FB: Excel single item export
+        * 1.Default workbook name = <row.Object.shortname> #<row.id>
+        * 2.Default sheet name = 'sheet1' or whatever the default in excel version
+        */
+        var objectShortName = '';
+        var listDrilldown = null;
+        if (WC.Utility.UrlParameter(enumHandlers.ANGLEPARAMETER.LISTDRILLDOWN)) {
+            listDrilldown = JSON.parse(decodeURI(WC.Utility.UrlParameter(enumHandlers.ANGLEPARAMETER.LISTDRILLDOWN)));
+            var classObject = modelClassesHandler.GetClassById(listDrilldown.ObjectType, angleInfoModel.Data().model);
+            objectShortName = !classObject ? '' : classObject.short_name;
+        }
+
+        var workbookName = objectShortName ? (objectShortName + ' #' + listDrilldown.ID) : angleInfoModel.Name();
+        var sheetName = objectShortName ? 'Sheet1' : displayModel.Name();
+        // EOF: M4-10439: FB: Excel single item export
+
+        workbookName = CleanExcelFileName(workbookName, 'ExportAngle');
+        sheetName = CleanSheetName(sheetName, 'Sheet1', 31);
+
+        jQuery('#HeaderFormatEnum').kendoDropDownList({
+            dataTextField: "TEXT",
+            dataValueField: "VALUE",
+            dataSource: [
+                { VALUE: 'id', TEXT: Localization.ExportCSVEnumFormatId },
+                { VALUE: 'display', TEXT: Localization.ListFormatEnumShortName },
+                { VALUE: 'longname', TEXT: Localization.ListFormatEnumLongName }
+            ],
+            value: 'display'
+        });
+        self.SetVisibleHeaderFormat(displayType);
+
+        jQuery('[id="SaveFileName"]:visible').val(workbookName);
+        jQuery('[id="SaveSheetName"]:visible').val(sheetName);
+        jQuery('[id="SaveFileName"]:visible, [id="SaveSheetName"]:visible').removeClass('k-invalid');
+        jQuery('a[id*=btn-popupExportExcel]').removeClass('executing');
+        /*
+        * M4-9903: Implement for single item
+        * 3.Removed class executing from ok button
+        */
+        jQuery('a[id*=btn-popupExportDrilldownExcel]:visible').removeClass('executing');
+    };
+    self.CloseExportExcelPopup = function () {
+        popup.Close('#popupExportExcel');
+        popup.Close('#popupExportDrilldownExcel');
+    };
+    self.CanSetNumberOfItem = function () {
+        return displayModel.Data().display_type === enumHandlers.DISPLAYTYPE.PIVOT;
+    };
+    self.NumberOfRowsCustomFocus = function () {
+        jQuery('[id="NumberOfItems"]:visible').focus();
+    };
+    self.NumberOfRowsCustomBlur = function () {
+        var element = jQuery('[id="NumberOfItems"]:visible');
+        if (element.length) {
+            var v = element.val().replace(/\D/g, '');
+            if (v === '' || isNaN(v) || (!isNaN(v) && parseInt(v, 10) === 0)) {
+                var exportRow = userSettingModel.GetByName(enumHandlers.USERSETTINGS.DEFAULT_EXPORT_LINES);
+                if (!exportRow) {
+                    exportRow = 70;
+                }
+
+                element.val(exportRow);
+            }
+            else {
+                element.val(v.replace(/\D/g, ''));
+            }
+        }
+    };
+    self.SetVisibilityForNumberOfItems = function (displaytype) {
+        if (displaytype === enumHandlers.DISPLAYTYPE.LIST) {
+            $('#NumberOfItem').show();
+        }
+        else {
+            $('#NumberOfItem').hide();
+        }
+    };
+    self.SetVisibleHeaderFormat = function (displayType) {
+        if (displayType === enumHandlers.DISPLAYTYPE.LIST || self.IsExportPivotAsList(displayType))
+            jQuery('#HeaderFormat').show();
+        else
+            jQuery('#HeaderFormat').hide();
+    };
+
+    /*
+    * Move duplicate validate export options code to one function
+    */
+    self.ValidateExportOptions = function (fileName, sheetName) {
+        if (!IsValidFileName(fileName)) {
+            jQuery('[id="SaveFileName"]:visible').addClass('k-invalid');
+            popup.Alert(Localization.Warning_Title, Localization.ErrorExcelFileName);
+            return false;
+        }
+        else {
+            jQuery('[id="SaveFileName"]:visible').removeClass('k-invalid');
+        }
+
+        if (!IsValidSheetName(sheetName)) {
+            jQuery('[id="SaveSheetName"]:visible').addClass('k-invalid');
+            popup.Alert(Localization.Warning_Title, Localization.ErrorExcelSheetName);
+            return false;
+        }
+        else {
+            jQuery('[id="SaveSheetName"]:visible').removeClass('k-invalid');
+        }
+
+        return true;
+    };
+    /*
+    * M4-9963: Export to excel: data only for chart
+    * 3.This function use for collect client side data, angle/display/result uri and send these information to web server generate excel file
+    * M4-9903: Implement for single item
+    * 4.Check 'displayType' if drill-down single item call seperate function
+    */
+    self.ExportDisplay = function (displayType) {
+        //Save latest execute => use for cancel
+        requestHistoryModel.SaveLastExecute(self, self.ExportDisplay, arguments);
+
+        //Validate file name, sheet name
+        var exportOptions = {};
+        exportOptions.FileName = jQuery.trim(jQuery('[id="SaveFileName"]:visible').val());
+        exportOptions.SheetName = jQuery.trim(jQuery('[id="SaveSheetName"]:visible').val());
+
+        // validate file name
+        if (exportOptions.FileName && !IsValidFileAndSheetName(exportOptions.FileName)) {
+            popup.Alert(Localization.Warning_Title, kendo.format(Localization.ValidateExportExcel_SpecialCharacter, exportOptions.FileName, Captions.Label_Angle_Export_FileName, "msexcel"));
+            return false;
+        }
+
+        if (exportOptions.SheetName && !IsValidFileAndSheetName(exportOptions.SheetName)) {
+            popup.Alert(Localization.Warning_Title, kendo.format(Localization.ValidateExportExcel_SpecialCharacter, exportOptions.SheetName, Captions.Label_Angle_Export_SheetName, "msexcel"));
+            return false;
+        }
+
+        // clean file name
+        exportOptions.FileName = CleanExcelFileName(exportOptions.FileName, angleInfoModel.Name());
+        exportOptions.SheetName = CleanSheetName(exportOptions.SheetName, displayModel.Name(), 31);
+
+        if (displayType === enumHandlers.DISPLAYTYPE.PIVOT) {
+            self.ExportPivotDisplay(exportOptions);
+        }
+        else if (displayType === enumHandlers.DISPLAYTYPE.CHART) {
+            self.ExportChartDisplay(exportOptions);
+        }
+        else if (WC.Utility.UrlParameter(enumHandlers.ANGLEPARAMETER.LISTDRILLDOWN)) {
+            self.ExporSingleDrilldownItem(exportOptions);
+        }
+        else {
+            self.ExportListDisplay(exportOptions);
+        }
+
+        progressbarModel.CancelForceStop = true;
+    };
+
+    self.ExportPivotDisplay = function (options) {
+        progressbarModel.ShowStartProgressBar(Localization.ProgressBar_CurrentPrepareToExportData, false);
+        progressbarModel.CancelCustomHandler = true;
+        progressbarModel.CancelFunction = function () {
+            self.IsCancelExporting = true;
+        };
+
+        var fieldsData = self.GetCurrentDisplayField(displayModel.Data().display_type);
+        displayDetailPageHandler.ConvertDisplayFieldPrefixNoneToNull(fieldsData);
+
+        var enumFormat, headerFormat;
+        if (self.IsExportPivotAsList(enumHandlers.DISPLAYTYPE.PIVOT)) {
+            enumFormat = 'display';
+            headerFormat = jQuery('#HeaderFormatEnum').data('handler').value();
+        }
+        else {
+            enumFormat = 'id';
+            headerFormat = 'id';
+        }
+
+        var exportOptions = self.GetDisplayExcelDefaultSettings();
+        exportOptions.file_name = options.FileName;
+        exportOptions.limit = resultModel.Data().row_count;
+        exportOptions.data_settings.setting_list = [
+            {
+                "id": "sheet_name",
+                "value": options.SheetName
+            },
+            {
+                "id": "enum_format",
+                "value": enumFormat
+            },
+            {
+                "id": "header_format",
+                "value": headerFormat
+            },
+            {
+                "id": "pivot_settings",
+                "value": JSON.stringify(pivotPageHandler.FieldSettings)
+            },
+            {
+                "id": "add_angle_summary",
+                "value": jQuery('#EnableSummarySheet').is(':checked')
+            },
+            {
+                "id": "add_angle_definition",
+                "value": jQuery('[id="EnableDefinitionSheet"]:visible').is(':checked')
+            }
+        ];
+
+        clearTimeout(fnCheckExportProgress);
+        var request = resultModel.Data().uri + '/exports/?redirect=no';
+        progressbarModel.SetProgressBarText(0, null, Localization.ProgressBar_CurrentRetrievingExcelFileFromApplicationServer);
+        CreateDataToWebService(request, exportOptions)
+            .done(function (data, textStatus, xmlHttpRequest) {
+                progressbarModel.IsCancelPopup = false;
+                self.GenerateExcelUri = data.uri;
+                self.GenerateExcel();
+            });
+    };
+    self.IsExportPivotAsList = function (displayType) {
+        return displayType === enumHandlers.DISPLAYTYPE.PIVOT && !pivotPageHandler.FieldSettings.GetFields(enumHandlers.FIELDSETTINGAREA.COLUMN).length;
+    };
+
+    self.ExportChartDisplay = function (options) {
+        progressbarModel.ShowStartProgressBar(Localization.ProgressBar_CurrentPrepareToExportData, false);
+        progressbarModel.CancelCustomHandler = true;
+        progressbarModel.CancelFunction = function () {
+            self.IsCancelExporting = true;
+        };
+
+        var fieldsData = self.GetCurrentDisplayField(displayModel.Data().display_type);
+        displayDetailPageHandler.ConvertDisplayFieldPrefixNoneToNull(fieldsData);
+
+        var exportOptions = self.GetDisplayExcelDefaultSettings();
+        exportOptions.file_name = options.FileName;
+        exportOptions.limit = resultModel.Data().row_count;
+        exportOptions.data_settings.setting_list = [
+            {
+                "id": "sheet_name",
+                "value": options.SheetName
+            },
+            {
+                "id": "enum_format",
+                "value": 'display'
+            },
+            {
+                "id": "header_format",
+                "value": 'display'
+            },
+            {
+                "id": "chart_display_settings",
+                "value": JSON.stringify(chartHandler.GetDisplayDetails())
+            },
+            {
+                "id": "chart_settings",
+                "value": JSON.stringify(chartHandler.FieldSettings)
+            },
+            {
+                "id": "add_angle_summary",
+                "value": jQuery('#EnableSummarySheet').is(':checked')
+            },
+            {
+                "id": "add_angle_definition",
+                "value": jQuery('[id="EnableDefinitionSheet"]:visible').is(':checked')
+            }
+        ];
+
+        clearTimeout(fnCheckExportProgress);
+        var request = resultModel.Data().uri + '/exports/?redirect=no';
+        progressbarModel.SetProgressBarText(0, null, Localization.ProgressBar_CurrentRetrievingExcelFileFromApplicationServer);
+        CreateDataToWebService(request, exportOptions)
+            .done(function (data, textStatus, xmlHttpRequest) {
+                progressbarModel.IsCancelPopup = false;
+                self.GenerateExcelUri = data.uri;
+                self.GenerateExcel();
+            });
+    };
+
+    self.ExportListDisplay = function (options) {
+        //get number of export's rows
+        var numberOfItem;
+        if (jQuery('[id="NumberOfRowsCustom"]:visible').is(':checked')) {
+            numberOfItem = parseFloat(jQuery('[id="NumberOfItems"]:visible').val());
+            if (isNaN(numberOfItem))
+                numberOfItem = self.ExportRow;
+            if (numberOfItem > self.ExportRow)
+                numberOfItem = self.ExportRow;
+        }
+        else {
+            numberOfItem = self.ExportRow;
+        }
+        options.NumberOfItem = numberOfItem;
+
+        if (options.NumberOfItem > 1048575) {
+            popup.Alert(Localization.Warning_Title, Localization.ValidateExportExcel_RowLimit);
+            return false;
+        }
+
+        /* M4-11348: Check columns limited */
+        var fieldCount;
+        if (displayModel.Data().display_type === enumHandlers.DISPLAYTYPE.LIST) {
+            fieldCount = displayModel.Data().fields.length;
+        }
+        else {
+            fieldCount = chartHandler.FieldSettings.GetFields().findObjects('IsSelected', true).length;
+        }
+
+        if (fieldCount > 16384) {
+            popup.Alert(Localization.Warning_Title, Localization.ValidateExportExcel_ColumnLimit);
+            return false;
+        }
+
+        if (Modernizr.touch && !!$.browser.safari
+            && listHandler.IsGridHasBooleanColumn()
+            && !jQuery.localStorage('remember_export_ipad')) {
+
+            popup.Alert(Localization.Info, Localization.AlertWarningExportiPad, {
+                session_name: 'remember_export_ipad'
+            });
+            popup.OnCloseCallback = function () {
+                self.ExecuteExportListDisplay(options.NumberOfItem, options.FileName, options.SheetName);
+            };
+        }
+        else {
+            self.ExecuteExportListDisplay(options.NumberOfItem, options.FileName, options.SheetName);
+        }
+    };
+    self.ExecuteExportListDisplay = function (limitRows, fileName, sheetName) {
+
+        var unixTimeStamp = WC.DateHelper.GetCurrentUnixTime();
+        limitRows = limitRows === 0 ? userSettingModel.GetByName(enumHandlers.USERSETTINGS.DEFAULT_EXPORT_LINES) : limitRows;
+
+        var originalFileName = fileName;
+        fileName = fileName + '-' + unixTimeStamp.toString();
+
+        progressbarModel.ShowStartProgressBar(Localization.ProgressBar_CurrentPrepareToExportData, false);
+        progressbarModel.CancelCustomHandler = true;
+        progressbarModel.CancelFunction = function () {
+            self.IsCancelExporting = true;
+        };
+
+        var exportOptions = self.GetDisplayExcelDefaultSettings();
+        exportOptions.file_name = originalFileName;
+        exportOptions.limit = limitRows;
+        exportOptions.data_settings.setting_list = [
+            {
+                "id": "sheet_name",
+                "value": sheetName
+            },
+            {
+                "id": "enum_format",
+                "value": "display"
+            },
+            {
+                "id": "header_format",
+                "value": jQuery('#HeaderFormatEnum').data('handler').value()
+            },
+            {
+                "id": "add_angle_summary",
+                "value": jQuery('#EnableSummarySheet').is(':checked')
+            },
+            {
+                "id": "add_angle_definition",
+                "value": jQuery('[id="EnableDefinitionSheet"]:visible').is(':checked')
+            }
+        ];
+
+        self.GenerateExceljsonData = exportOptions;
+
+        clearTimeout(fnCheckExportProgress);
+        var request = resultModel.Data().uri + '/exports/?redirect=no';
+        progressbarModel.SetProgressBarText(0, null, Localization.ProgressBar_CurrentRetrievingExcelFileFromApplicationServer);
+        CreateDataToWebService(request, self.GenerateExceljsonData)
+            .done(function (data, textStatus, xmlHttpRequest) {
+                progressbarModel.IsCancelPopup = false;
+                self.GenerateExcelUri = data.uri;
+                self.GenerateExcel();
+            });
+    };
+
+    self.ExporSingleDrilldownItem = function (options) {
+
+        progressbarModel.ShowStartProgressBar(Localization.ProgressBar_CurrentPrepareToExportData, false);
+        progressbarModel.CancelCustomHandler = true;
+        progressbarModel.CancelFunction = function () {
+            self.IsCancelExporting = true;
+        };
+
+        var headersText = [Localization.Source, Localization.Field, Localization.Value];
+        if (userSettingModel.GetByName(enumHandlers.USERSETTINGS.SAP_FIELDS_IN_HEADER)) {
+            headersText.push(Localization.TechnicalInfo);
+        }
+
+        var sortQuery = listDrilldownHandler.GetSortQuery();
+        var facetsQuery = listDrilldownHandler.FacetModel.GetFacetQuery();
+
+        self.GenerateExceljsonData = {
+            "plugin": "msexcel",
+            "file_name": options.FileName.substr(0, 39) + '-' + WC.DateHelper.GetCurrentUnixTime(),
+            "data_settings": {
+                "setting_list": [
+                     {
+                         "id": "is_single_item",
+                         "value": true
+                     },
+                     {
+                         "id": "sheet_name",
+                         "value": options.SheetName
+                     },
+                     {
+                         "id": "add_angle_definition",
+                         "value": jQuery('[id="EnableDefinitionSheet"]:visible').is(':checked')
+                     },
+                     {
+                         "id": "headers_text",
+                         "value": headersText
+                     },
+                     {
+                         "id": "sort",
+                         "value": sortQuery.sort
+                     },
+                     {
+                         "id": "dir",
+                         "value": sortQuery.dir
+                     },
+                     {
+                         "id": "fq",
+                         "value": jQuery.isEmptyObject(facetsQuery) ? "" : facetsQuery.fq
+                     }
+                ]
+            }
+        };
+
+        clearTimeout(fnCheckExportProgress);
+        var request = resultModel.Data().uri + '/exports/?redirect=no';
+        progressbarModel.SetProgressBarText(0, null, Localization.ProgressBar_CurrentRetrievingExcelFileFromApplicationServer);
+        CreateDataToWebService(request, self.GenerateExceljsonData)
+            .done(function (data, textStatus, xmlHttpRequest) {
+                progressbarModel.IsCancelPopup = false;
+                self.GenerateExcelUri = data.uri;
+                self.GenerateExcel();
+            });
+
+    };
+    //EOF: Methods
+}

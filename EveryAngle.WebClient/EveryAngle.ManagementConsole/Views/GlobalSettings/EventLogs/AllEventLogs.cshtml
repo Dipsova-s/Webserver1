@@ -1,0 +1,120 @@
+﻿@using EveryAngle.ManagementConsole.Models
+@using EveryAngle.ManagementConsole.Helpers
+@using EveryAngle.Shared.Globalization
+
+<script>
+    MC.util.loadScript({
+        test: MC.GlobalSettings && MC.GlobalSettings.EventLog,
+        url: '@Scripts.Url("~/bundles/globalSettings/eventlog")',
+        callback: function () {
+            MC.GlobalSettings.EventLog.Initial({
+            });
+            MC.ui.logpopup.TaskHistoryUri = '@ViewBag.EventLogUri',
+            MC.ui.logpopup.GetLogUri = '@Url.Action("GetTasksHistoryByCorrelationId", "AutomationTasks")',
+            MC.ui.logpopup.GetLogDetailUri = '@Url.Action("GetTaskHistory", "AutomationTasks")',
+            MC.ui.logpopup.LogType = 'EventLogs'
+        }
+    });
+</script>
+@{
+    List<PageToolbarButtonModel> buttons = new List<PageToolbarButtonModel>();
+    buttons.Add(new PageToolbarButtonModel
+    {
+        Type = PageToolbarButtonType.Reload
+    });
+    @Html.RenderPageToolbar(buttons)
+}
+
+@{
+    int pageSize = (int)ViewBag.DefaultPageSize;
+    int gridHeight = Math.Min(pageSize, 10) * 37;
+}
+
+<div class="content pageEventLogs">
+    <div class="contentSection contentSectionGrid">
+        <h2>@Resource.MC_EventLog</h2>
+        <div class="gridContainer" id="EventLogsGridContainer">
+           @(Html.Kendo().Grid<EveryAngle.Core.ViewModels.Cycle.TaskHistoryViewModel>()
+            .Name("EventLogGrid")
+            .Columns(columns =>
+            {
+                columns.Bound(model => model.task_name)
+                    .Width(220)
+                    .ClientTemplate("#: data.task_name != null ? task_name : data.task_id #")
+                    .Title(Resource.Name);
+
+                columns.Bound(model => model.start_time)
+                    .ClientTemplate(
+                        "# if (data.start_time) { #"
+                        + "<span data-role='localize'>#= data.start_time # </span>"
+                        + "# } else { #"
+                        + " "
+                        + "# } #"
+                    )
+                    .HtmlAttributes(new { @class = "columnDate" })
+                    .HeaderHtmlAttributes(new { @class = "columnDate" })
+                    .Width(135).
+                    Title(Resource.StartTime);
+
+                columns.Bound(model => model.end_time)
+                    .ClientTemplate(
+                        "# if (data.end_time) { #"
+                        + "<span data-role='localize'>#= data.end_time # </span>"
+                        + "# } else { #"
+                        + " "
+                        + "# } #"
+                    )
+                    .HtmlAttributes(new { @class = "columnDate" })
+                    .HeaderHtmlAttributes(new { @class = "columnDate" })
+                    .Width(135)
+                    .Title(Resource.EndTime);
+
+                columns.Bound(model => model.result)
+                    .Width(65)
+                    .Title("Result");
+
+                columns.Bound(model => model.arguments)
+                .Sortable(false)
+                .Title(@Resource.MC_Action)
+                .Width(75)
+                .HeaderHtmlAttributes(new { @class = "gridColumnToolbar" })
+                .HtmlAttributes(new { @class = "gridColumnToolbar" })
+                .ClientTemplate(
+                        "<a class=\"btn btnInfo\" onclick=\"MC.ui.logpopup.ShowLogTable(this, \'#= correlation_id #\',\'#= timestamp #\')\" data-target=\"\\#popupLogTable\" data-title=\"#= task_name #\" data-width=\"760\" data-min-height=\"600\" data-height=\"600\" data-role=\"mcPopup\" class=\"btn btnInfo\"  />"
+                );
+
+            })
+            .AutoBind(false)
+            .Sortable(sort => sort.Enabled(false))
+            .Resizable(resize => resize.Columns(true))
+            .Scrollable(scroll => scroll.Virtual(true).Height(gridHeight))
+            .DataSource(dataSource => dataSource
+                .Ajax()
+                .Events(e => e.RequestStart("onKendoGridPagingStart"))
+                .Read(read => read.Action("ReadEventLogs", "GlobalSettings", new { eventLogUri = @ViewBag.EventLogUri }))
+                .PageSize(pageSize)
+            )
+        )
+        </div>
+    </div>
+    <!--/.contentSectionGrid-->
+</div>
+
+<div class="popup" id="popupLogTable">
+    <div class="popupContent">
+        <div class="contentSection contentSectionGrid">
+            <div class="gridToolbar gridToolbarTop hidden">
+                <div class="gridToolbarFilter">
+                    @*<input type="text" id="FilterLogTableTextbox" placeholder="@Resource.MC_NotImplemented" /><span class="icon"></span>*@
+                </div>
+            </div>
+            <div class="gridContainer">
+                <div id="SystemLogGrid"></div>
+                <div id="SystemLogDetails">
+                    <div class="logDetails">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

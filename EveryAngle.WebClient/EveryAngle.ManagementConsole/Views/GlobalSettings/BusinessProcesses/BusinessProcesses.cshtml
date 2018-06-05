@@ -1,0 +1,188 @@
+﻿@using EveryAngle.ManagementConsole.Models
+@using EveryAngle.ManagementConsole.Helpers
+@using EveryAngle.Shared.Globalization
+@using EveryAngle.Core.ViewModels.SystemLanguages;
+
+@model System.Data.DataTable
+
+@*@Scripts.Render("~/resources/embedded/js")*@
+
+<script>
+    MC.util.loadScript([
+        {
+            test: window.BusinessProcessesViewModel && window.FieldsChooserModel,
+            url: '@Scripts.Url("~/resources/embedded/js")'
+        },
+        {
+            test: MC.GlobalSettings && MC.GlobalSettings.BusinessProcesses,
+            url: '@Scripts.Url("~/bundles/globalsettings/businessprocesses")',
+            callback: function () {
+                MC.GlobalSettings.BusinessProcesses.Initial({
+                    SaveUri: '@Url.Action("SaveBusinessProcesses", "LabelCategories")',
+                    DeleteUri: '@Url.Action("DeleteBusinessProcessLabel", "LabelCategories")',
+                    CategoryUri: '@ViewBag.CategoryUri'
+                });
+            }
+        }
+    ]);
+</script>
+@{
+    List<PageToolbarButtonModel> buttons = new List<PageToolbarButtonModel>();
+
+    buttons.Add(new PageToolbarButtonModel
+    {
+        Type = PageToolbarButtonType.Save,
+        OnClick = "MC.GlobalSettings.BusinessProcesses.SaveBusinessProcess()",
+        Privilege = PrivilegeType.System
+    });
+
+    buttons.Add(new PageToolbarButtonModel
+    {
+        Type = PageToolbarButtonType.Reload
+    });
+    
+    @Html.RenderPageToolbar(buttons)
+}
+
+<div class="content pageBusinessProcesses customLoading">
+    <div class="contentSection contentSectionGrid contentSectionGridLabelCategory">
+        <h2>@Resource.Settings</h2>
+        <div class="gridContainer">
+            @{
+                Html.RenderAction("BusinessProcessesCategoryGrid", "LabelCategories", new { labelCategory = @ViewData["LabelCategoryViewModel"], enabledLanguagesList = @ViewData["LanguagesList"] });
+            }
+        </div>
+        <!--/.contentSectionGrid-->
+    </div>
+    <!--/.contentSectionInfo-->
+
+    <form id="BusinessProcessLabelForm" data-role="validator">
+        <div class="contentSection contentSectionGrid">
+            <h2>@Resource.BusinessProcesses</h2>
+            <div class="gridContainer">
+                @{
+                    buttons = new List<PageToolbarButtonModel>();
+                    buttons.Add(new PageToolbarButtonModel
+                    {
+                        Type = PageToolbarButtonType.GridEditDelete,
+                        Privilege = PrivilegeType.System,
+                        EnableTemplate = "<input  type=\"hidden\" name=\"uri\" value=\"#= Uri #\"/><a data-parameters='{\"uri\":\"#= data.Uri #\", \"abbreviation\":\"#= data.abbreviation #\"}' data-delete-field-index='1' class='btn btnDelete #= system == true ? 'disabled' : ''#' data-callback=\"MC.GlobalSettings.BusinessProcesses.DeletionCheckMark\"   onclick=\"MC.form.template.markAsRemove(this)\">" + Resource.Delete + "</a>",
+                        DisableTemplate = "<input type='hidden' name='uri' value='#= Uri #'/><a class='btn btnDelete " + " disabled' >" + Resource.Delete + "</a>"   
+                     
+                    });
+                    string gridButton = HttpUtility.HtmlDecode(Html.GetGridToolbar(buttons));
+                    
+                    List<SystemLanguageViewModel> languages = ViewData["LanguagesList"] as List<SystemLanguageViewModel>;
+                    @(Html.Kendo().Grid(Model)
+                    .Name("BusinessProcessesGrid")
+                    .Columns(columns =>
+                    {
+                        columns.Bound("id")
+                            .Title("")
+                            .ClientTemplate("<a class='btnMove' title='Move'></a>")
+                            .HeaderHtmlAttributes(new { @class = "gridColumnToolbar" })
+                            .HtmlAttributes(new { @class = "gridColumnToolbar" })
+                            .Width(50)
+                            .Sortable(false);
+
+                        columns.Bound("abbreviation")
+                            .Title(@Resource.MC_Abbreviation)
+                            .ClientTemplate("<input  maxlength='10' type='text' name='abbreviation' class='required field_id' value='#= abbreviation #'/>")
+                            .HtmlAttributes(new { @id = "#= id #" })
+                            .Width(100);
+
+                        foreach (System.Data.DataColumn column in Model.Columns)
+                        {
+                            if (column.ColumnName == "lang_en")
+                            {
+                                columns.Bound(column.ColumnName)
+                                    .ClientTemplate("<input type='text' class='required' maxlength='256' name='lang_en' value='#=" + column.ColumnName + "#' />")
+                                    .Width(170)
+                                    .HtmlAttributes(new { @class = "column-" + column.ColumnName })
+                                    .Title(languages.Where(l => l.Id == column.ColumnName.Replace("lang_", "")).FirstOrDefault().Name);
+
+                                for (int i = 0; i < 6; i++)
+                                {
+                                    columns
+                                        .Bound("id")
+                                        .ClientTemplate("")
+                                        .Title("");
+                                }
+                            }
+                            else if (column.ColumnName != "Uri" && column.ColumnName != "id" && column.ColumnName != "abbreviation" && column.ColumnName != "enabled" && column.ColumnName != "system")
+                            {
+                                columns.Bound(column.ColumnName)
+                                    .ClientTemplate("<input type='text' maxlength='256' name=" + column.ColumnName + " value='#=" + column.ColumnName + "#' /><input type='hidden' name='Uri' value='#= Uri #'/>")
+                                    .Title(languages.Where(l => l.Id == column.ColumnName.Replace("lang_", "")).FirstOrDefault().Name)
+                                    .HtmlAttributes(new { @class = "gridColumnNowrap column-" + column.ColumnName });
+                            }
+                        }
+                        columns.Bound("enabled")
+                            .Title(@Resource.Enabled)
+                            .Width(75)
+                            .Sortable(false)
+                            .HeaderHtmlAttributes(new { @class = "columnBoolean column-enabled" })
+                            .HtmlAttributes(new { @class = "columnBoolean" })
+                            .ClientTemplate("<label><input type='checkbox' name='enabled' #= enabled ? checked='checked' : '' #/><span class='label'></span></label>");
+
+                        columns.Bound("system")
+                            .HeaderHtmlAttributes(new { @class = "gridColumnToolbar" })
+                            .HtmlAttributes(new { @class = "gridColumnToolbar" })
+                            .Title(@Resource.MC_Action)
+                            .Width(75)
+                            .Sortable(false)
+                            .ClientTemplate("<input type='hidden' name='uri' value='#= Uri #'/>" + gridButton);
+                    })
+                    .Resizable(resize => resize.Columns(true))
+                    .Sortable(sortable => sortable.AllowUnsort(false))
+                    .Scrollable(scroll => scroll.Virtual(false).Height(10 * 37))
+                    .EnableCustomBinding(true)
+                    .DataSource(dataSource => dataSource
+                        .Ajax().Events(e => e.RequestStart("onKendoGridPagingStart"))
+                        .Model(model =>
+                        {
+                            foreach (System.Data.DataColumn column in Model.Columns)
+                            {
+                                model.Field(column.ColumnName, column.DataType);
+                            }
+                        })
+                        .Read(read => read.Action("ReadBusinessProcesses", "LabelCategories", new { categoryUri = ViewBag.CategoryUri }))
+                    ));
+                }
+            </div>
+
+            <div class="gridToolbar gridToolbarBottom">
+                @{
+                    buttons = new List<PageToolbarButtonModel>();
+                    buttons.Add(new PageToolbarButtonModel
+                    {
+                        EnableTemplate = "<a class=\"btn btnAdd\" data-role=\"auto-template\" data-grid=\"#BusinessProcessesGrid\" data-template=\"#BusinessProcessesGrid tbody tr:first\" data-callback=\"MC.GlobalSettings.BusinessProcesses.AddBusinessProcessRowCallback\" data-custom-fields='{\"0\": \"<a class=\\\"btnMove\\\" title=\\\"Move\\\"></a>\", \"1\": \"<input maxlength=\\\"50\\\" type=\\\"text\\\" name=\\\"id\\\" class=\\\"required field_id\\\" />\"}'>"+ Resource.Add+ " "+ Resource.BusinessProcesses +"</a>",
+                        DisableTemplate = "<a class=\"btn btnAdd disabled\" data-custom-fields='{\"0\": \"<a class=\\\"btnMove\\\" title=\\\"Move\\\"></a>\", \"1\": \"<input maxlength=\\\"50\\\" type=\\\"text\\\" name=\\\"id\\\" class=\\\"required field_id\\\" />\"}'>" + Resource.Add + " " + Resource.BusinessProcesses + "</a>",
+                        Type = PageToolbarButtonType.Custom,
+                        Privilege = PrivilegeType.System
+                    });
+                    @Html.RenderPageToolbarBottom(buttons)    
+                }
+                <a data-target="#popupPreview" class="btn" onclick="MC.GlobalSettings.BusinessProcesses.PreviewBar()" title="Preview Business Process Bar" data-width="610" data-min-width="450" data-role="mcPopup">@Resource.Preview @Resource.BusinessProcesses @Resource.Bar</a>
+            </div>
+        </div>
+        <!--/.contentSectionGrid-->
+    </form>
+</div>
+<!--/.content-->
+@*<a class="hidden" id="btnConfirmDeleteBusinessProcessLabels" data-role="mcPopup" data-title="@Resource.MC_DeletedLabels" data-target="#popupShowBusinessProcessLabelsUpdate" data-width="300" data-min-height="175"></a>
+<div class="popup" id="popupShowBusinessProcessLabelsUpdate">
+    <div class="popupContent"></div>
+    <div class="popupToolbar">
+        <a class="btn btnPrimary btnSubmit" onclick="MC.ajax.reloadMainContent()">@Resource.Ok</a>
+    </div>
+</div>*@
+
+<div class="popup" id="popupPreview">
+    <div class="popupContent">
+        <div class="tab" id="tab"></div>
+    </div>
+    <div class="popupToolbar">
+        <a class="btn btnPrimary btnClose" data-role="popup-close">@Resource.Close</a>
+    </div>
+</div>

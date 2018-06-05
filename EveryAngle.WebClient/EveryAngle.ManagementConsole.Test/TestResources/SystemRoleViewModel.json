@@ -1,0 +1,135 @@
+﻿[
+    {
+        "user_count": 12,
+        "id": "SYSTEM_ALL",
+        "uri": "/system/roles/1",
+        "users": "/system/roles/1/users",
+        "description": "Role for all authorization",
+        "subrole_ids": [],
+        "created": {
+            "user": "/users/1",
+            "datetime": 1394217094,
+            "full_name": "EAAdmin"
+        }
+    },
+    {
+        "user_count": 1,
+        "model_authorization": {
+            "model": "/models/1",
+            "model_id": "EA2_800",
+            "privileges": {
+                "manage_model": true,
+                "create_angles": true,
+                "allow_single_item_view": true,
+                "allow_more_details": true,
+                "allow_followups": true,
+                "allow_goto_sap": true,
+                "allow_rpc": true,
+                "allow_export": true,
+                "allow_advanced_filter": true,
+                "access_data_via_webclient": true,
+                "create_template_angles": true,
+                "save_displays": true,
+                "allow_publish_dashboards": true,
+                "manage_private_items": true,
+                "allow_nonvalidated_items": true,
+                "max_export_rows": null,
+                "access_data_via_odata": null
+            },
+            "allowed_classes": [],
+            "denied_classes": [],
+            "object_filters": [],
+            "field_authorizations": [
+                {
+                    "classes": [
+                        "*"
+                    ],
+                    "currency_fields_default": "allowed",
+                    "fields_default": "allowed",
+                    "allowed_fields": [],
+                    "disallowed_fields": []
+                }
+            ],
+            "label_authorizations": {
+                "P2P": "validate",
+                "S2D": "validate",
+                "O2C": "validate",
+                "F2R": "validate",
+                "PM": "validate",
+                "HCM": "validate",
+                "GRC": "validate",
+                "IT": "validate"
+            },
+            "default_label_authorization": "validate",
+            "default_class_authorization": true
+        },
+        "id": "EA2_800_ALL",
+        "uri": "/system/roles/2",
+        "users": "/system/roles/2/users",
+        "description": "EA2_800 Model role with all model privileges",
+        "subrole_ids": [],
+        "created": {
+            "user": "/users/1",
+            "datetime": 1501039205,
+            "full_name": "EAAdmin"
+        },
+        "changed": {
+            "user": "/users/1",
+            "datetime": 1501042749,
+            "full_name": "EAAdmin"
+        }
+    },
+    {
+        "user_count": 1,
+        "model_authorization": {
+            "model": "/models/1",
+            "model_id": "EA2_800",
+            "privileges": {
+                "manage_model": false,
+                "create_angles": false,
+                "allow_single_item_view": false,
+                "allow_more_details": false,
+                "allow_followups": false,
+                "allow_goto_sap": false,
+                "allow_rpc": false,
+                "allow_export": true,
+                "allow_advanced_filter": false,
+                "access_data_via_webclient": true,
+                "create_template_angles": false,
+                "save_displays": false,
+                "allow_publish_dashboards": false,
+                "manage_private_items": false,
+                "allow_nonvalidated_items": false,
+                "max_export_rows": null,
+                "access_data_via_odata": null
+            },
+            "allowed_classes": [],
+            "denied_classes": [],
+            "object_filters": [],
+            "field_authorizations": [
+                {
+                    "classes": [
+                        "*"
+                    ],
+                    "currency_fields_default": "allowed",
+                    "fields_default": "allowed",
+                    "allowed_fields": [],
+                    "disallowed_fields": []
+                }
+            ],
+            "label_authorizations": {},
+            "default_label_authorization": "view",
+            "default_class_authorization": true
+        },
+        "id": "EA2_800_BASIC",
+        "uri": "/system/roles/3",
+        "users": "/system/roles/3/users",
+        "description": "EA2_800 Model role with basic model privileges",
+        "subrole_ids": [],
+        "created": {
+            "user": "/users/1",
+            "datetime": 1501039325,
+            "full_name": "EAAdmin"
+        }
+    }
+]

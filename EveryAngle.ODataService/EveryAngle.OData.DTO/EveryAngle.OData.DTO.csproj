@@ -1,0 +1,127 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{1C536461-8EF3-4EEE-B8CA-92031F6B61AF}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>EveryAngle.OData.DTO</RootNamespace>
+    <AssemblyName>EveryAngle.OData.DTO</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Microsoft.Data.Edm, Version=5.6.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Data.Edm.5.6.0\lib\net40\Microsoft.Data.Edm.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Data.OData, Version=5.6.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Data.OData.5.6.0\lib\net40\Microsoft.Data.OData.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.10.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Net.Http.Formatting, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Client.5.2.3\lib\net45\System.Net.Http.Formatting.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Spatial, Version=5.6.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Spatial.5.6.0\lib\net40\System.Spatial.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Http, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Core.5.2.3\lib\net45\System.Web.Http.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Http.OData, Version=5.7.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.OData.5.7.0\lib\net45\System.Web.Http.OData.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="BaseDTO.cs" />
+    <Compile Include="CompositeKeys\AngleCompositeKey.cs" />
+    <Compile Include="CompositeKeys\BaseCompositeKey.cs" />
+    <Compile Include="CompositeKeys\DisplayCompositeKey.cs" />
+    <Compile Include="CompositeKeys\FieldCompositeKey.cs" />
+    <Compile Include="Interfaces\IBaseDTO.cs" />
+    <Compile Include="Interfaces\CompositeKeys\IBaseCompositeKey.cs" />
+    <Compile Include="Interfaces\IMetadata.cs" />
+    <Compile Include="Model\ModelPrivilegeListViewModel.cs" />
+    <Compile Include="Model\ModelPrivilegeViewModel.cs" />
+    <Compile Include="Model\Models.cs" />
+    <Compile Include="Model\PrivilegesForModelViewModel.cs" />
+    <Compile Include="Query\AggregationField.cs" />
+    <Compile Include="Angle\Angle.cs" />
+    <Compile Include="Angle\Angles.cs" />
+    <Compile Include="Query\Argument.cs" />
+    <Compile Include="Query\Authorizations.cs" />
+    <Compile Include="Query\QueryDefinition.cs" />
+    <Compile Include="Settings\SettingsDTO.cs" />
+    <Compile Include="View\Created.cs" />
+    <Compile Include="Row\DataRows.cs" />
+    <Compile Include="Display\Display.cs" />
+    <Compile Include="Display\DisplaysSummary.cs" />
+    <Compile Include="Enum\EdmModelStatus.cs" />
+    <Compile Include="Field\Facet.cs" />
+    <Compile Include="Field\Field.cs" />
+    <Compile Include="FieldMap.cs" />
+    <Compile Include="Field\Fields.cs" />
+    <Compile Include="Filter\Filter.cs" />
+    <Compile Include="Query\GroupingField.cs" />
+    <Compile Include="View\Header.cs" />
+    <Compile Include="Model\ModelInfo.cs" />
+    <Compile Include="Model\AssignedRolesViewModel.cs" />
+    <Compile Include="Enum\ModelType.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Query\QueryBlock.cs" />
+    <Compile Include="Query\QueryRequest.cs" />
+    <Compile Include="Query\QueryResult.cs" />
+    <Compile Include="Query\QueryStep.cs" />
+    <Compile Include="Row\Row.cs" />
+    <Compile Include="Session\Session.cs" />
+    <Compile Include="View\SortOption.cs" />
+    <Compile Include="Field\UserSpecific.cs" />
+    <Compile Include="Angle\ValidationDetails.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

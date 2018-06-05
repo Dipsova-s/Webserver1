@@ -1,0 +1,15 @@
+﻿{
+  "host": "http://localhost:9080",
+  "user": "eaadmin",
+  "password": "P@ssw0rd",
+  "model": 1,
+  "port": 60000,
+  "service_pattern": "http://localhost:{0}",
+  "angles_query": "",
+  "timeout": 30000,
+  "page_size": 1500,
+  "max_angles": 25,
+  "odata_version": "2.0",
+  "metadata_resync_minutes": 60,
+  "web_client_uri": "http://localhost:7948/" 
+}

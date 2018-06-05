@@ -1,0 +1,15 @@
+﻿@model List<TreeViewItemModel>
+
+@{ if (ViewData["Description"] != null){
+    <h3>@ViewData["Description"]  (@ViewData["Id"])</h3>
+    
+ }} 
+
+
+@(Html.Kendo().TreeView()
+        .Name("treeview_" + ViewData["Id"])
+        .ExpandAll(true)
+        .Template("#= jQuery('<div/>').html(item.text).html() #")
+        .BindTo(Model))
+
+

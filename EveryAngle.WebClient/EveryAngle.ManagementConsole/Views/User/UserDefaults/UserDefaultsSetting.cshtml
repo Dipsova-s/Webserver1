@@ -1,0 +1,337 @@
+﻿@using EveryAngle.ManagementConsole.Models
+@using EveryAngle.ManagementConsole.Helpers
+@using EveryAngle.Shared.Globalization
+@model EveryAngle.Core.ViewModels.Users.UserSettingsViewModel
+
+<script>
+    MC.util.loadScript([
+        {
+            test: window.BusinessProcessesViewModel && window.FieldsChooserModel,
+            url: '@Scripts.Url("~/resources/embedded/js")'
+        },
+        {
+            test: MC.Users && MC.Users.UserDefaultSettings,
+            url: '@Scripts.Url("~/bundles/users/userdefaultsettings")',
+            callback: function () {
+                MC.Users.UserDefaultSettings.Initial({
+                    SaveUri: '@Url.Action("SaveUserDefaultsSettings", "Users")',
+                    BusinessProcessesData: @(Html.Raw(Json.Encode(ViewData["BusinessProcesses"]))),
+                    SelectedBusinessProcesses: @(Html.Raw(Json.Encode(Model.default_business_processes)))
+                });
+            }
+        }
+    ]);
+</script>
+@{
+    List<PageToolbarButtonModel> buttons = new List<PageToolbarButtonModel>();
+
+    buttons.Add(new PageToolbarButtonModel
+    {
+        Privilege = PrivilegeType.User,
+        Type = PageToolbarButtonType.Save,
+        OnClick = "MC.Users.UserDefaultSettings.SaveUserDefaultSetting()"
+    });
+
+    buttons.Add(new PageToolbarButtonModel
+    {
+        Type = PageToolbarButtonType.Reload
+    });
+    
+    @Html.RenderPageToolbar(buttons)
+}
+
+<div class="content pageUser pageUserDefaultsSetting">
+    <div class="contentSection contentSectionInfo">
+        <form id="UserDefaultsSettingForm" data-role="validator">
+            <h2>@Resource.MC_UserDefaultSettings</h2>
+            <div class="contentSectionInfoItem">
+                @Html.LabelFor(model => model.general_decimal_seperator)
+                <p>
+                    <select id="GeneralDecimalSeperatorDropdown" name="GeneralDecimalSeperatorDropdown">
+                        <option value="," @(Model.general_decimal_seperator == "," ? " selected=\"selected\"" : "")>,</option>
+                        <option value="." @(Model.general_decimal_seperator == "." ? " selected=\"selected\"" : "")>.</option>
+                    </select>
+                </p>
+            </div>
+            <div class="contentSectionInfoItem">
+                @Html.LabelFor(model => model.general_thousand_seperator)
+                <p>
+                    <select id="GeneralThousandSeperatorDropdown" name="GeneralThousandSeperatorDropdown">
+                        <option value="," @(Model.general_thousand_seperator == "," ? " selected=\"selected\"" : "")>,</option>
+                        <option value="." @(Model.general_thousand_seperator == "." ? " selected=\"selected\"" : "")>.</option>
+                        <option value="'" @(Model.general_thousand_seperator == "'" ? " selected=\"selected\"" : "")>'</option>
+                        <option value=" " @(Model.general_thousand_seperator == " " ? " selected=\"selected\"" : "")></option>
+                    </select>
+                </p>
+            </div>
+
+            @*Date forat*@
+            <div class="contentSectionInfoItem">
+                @Html.LabelFor(model => model.format_date_model.date_order)
+                <p>
+                    <select id="DateOrderDropdown" name="DateOrderDropdown">
+                        <option value="DMY" @(Model.format_date_model.date_order == "DMY" ? " selected=\"selected\"" : "")>Day Month Year</option>
+                        <option value="MDY" @(Model.format_date_model.date_order == "MDY" ? " selected=\"selected\"" : "")>Month Day Year</option>
+                        <option value="YMD" @(Model.format_date_model.date_order == "YMD" ? " selected=\"selected\"" : "")>Year Month Day</option>
+                    </select>
+                </p>
+            </div>
+
+            <div class="contentSectionInfoItem">
+                @Html.LabelFor(model => model.format_date_model.date_day)
+                <p>
+                    <select id="DateDayDropdown" name="DateDayDropdown">
+                        <option value="d" @(Model.format_date_model.date_day == "d" ? " selected=\"selected\"" : "")>d (9)</option>
+                        <option value="dd" @(Model.format_date_model.date_day == "dd" ? " selected=\"selected\"" : "")>dd (09)</option>
+                    </select>
+                </p>
+            </div>
+
+            <div class="contentSectionInfoItem">
+                @Html.LabelFor(model => model.format_date_model.date_month)
+                <p>
+                    <select id="DateMonthDropdown" name="DateMonthDropdown">
+                        <option value="M" @(Model.format_date_model.date_month == "M" ? " selected=\"selected\"" : "")>M (8)</option>
+                        <option value="MM" @(Model.format_date_model.date_month == "MM" ? " selected=\"selected\"" : "")>MM (08)</option>
+                        <option value="MMM" @(Model.format_date_model.date_month == "MMM" ? " selected=\"selected\"" : "")>MMM (Aug)</option>
+                    </select>
+                </p>
+            </div>
+            <div class="contentSectionInfoItem">
+                @Html.LabelFor(model => model.format_date_model.date_year)
+                <p>
+                    <select id="DateYearDropdown" name="DateYearDropdown">
+                        <option value="yy" @(Model.format_date_model.date_year == "yy" ? " selected=\"selected\"" : "")>yy (15)</option>
+                        <option value="yyyy" @(Model.format_date_model.date_year == "yyyy" ? " selected=\"selected\"" : "")>yyyy (2015)</option>
+                    </select>
+                </p>
+            </div>
+            <div class="contentSectionInfoItem">
+                @Html.LabelFor(model => model.format_date_model.date_separator)
+                <p>
+                    <select id="DateSeparatorDropdown" name="DateSeparatorDropdown">
+                        <option value="/" @(Model.format_date_model.date_separator == "/" ? " selected=\"selected\"" : "")>/</option>
+                        <option value="." @(Model.format_date_model.date_separator == "." ? " selected=\"selected\"" : "")>.</option>
+                        <option value=" " @(Model.format_date_model.date_separator == " " ? " selected=\"selected\"" : "")> </option>
+                        <option value="-" @(Model.format_date_model.date_separator == "-" ? " selected=\"selected\"" : "")>-</option>
+                    </select>
+                </p>
+            </div>
+
+            <div class="contentSectionInfoItem">
+                @Html.LabelFor(model => model.format_time_model.hour)
+                <p>
+                    <select id="TimeHourFormatDropdown" name="DateSeparatorDropdown">
+                        <option value="HHmm" @(Model.format_time_model.hour  == "HHmm" ? " selected=\"selected\"" : "")>HH:mm (24h)</option>
+                        <option value="hmm" @(Model.format_time_model.hour == "hmm" ? " selected=\"selected\"" : "")>h:mm (am/pm)</option>
+                    </select>
+                </p>
+            </div>
+
+            <div class="contentSectionInfoItem">
+                @Html.LabelFor(model => model.format_time_model.separator)
+                <p>
+                    <select id="TimeSeparatorDropdown" name="DateSeparatorDropdown">
+                        <option value="." @(Model.format_time_model.separator == "." ? " selected=\"selected\"" : "")>.</option>
+                        <option value=":" @(Model.format_time_model.separator == ":" ? " selected=\"selected\"" : "")>:</option>
+                    </select>
+                </p>
+            </div>
+
+            <div class="contentSectionInfoItem">
+                @Html.LabelFor(model => model.default_language)
+                <p>
+                    <select id="DefaultLanguages" name="DefaultLanguages">
+                        @foreach (var language in ViewData["Languages"] as List<EveryAngle.Core.ViewModels.SystemLanguages.SystemLanguageViewModel>)
+                        {
+                            <option value="@language.Id" @(Model.default_language == language.Id ? " selected=\"selected\"" : "")>@language.Name</option>
+                        }
+                    </select>
+                </p>
+            </div>
+            <div class="contentSectionInfoItem">
+                @Html.LabelFor(model => model.default_currency)
+                <p>
+                    @(Html.Kendo()
+                        .DropDownList()
+                        .Name("DefaultCurrency")
+                        .Value(Model.default_currency)
+                        .DataTextField("name")
+                        .DataValueField("id")
+                        .BindTo(ViewData["DefaultCurrency"] as List<EveryAngle.Core.ViewModels.SystemCurrencies.CurrenciesViewModel>)
+                    )
+                </p>
+            </div>
+            <div class="contentSectionInfoItem">
+                <label>@Resource.MC_NumbersFormat</label>
+                <p>
+                    <select id="DecimalsNumbers" name="DecimalsNumbers">
+                        <option value="0" @(Model.format_numbers_model.decimals == 0 ? " selected=\"selected\"" : "")>@Resource.NoDecimal</option>
+                        <option value="1" @(Model.format_numbers_model.decimals == 1 ? " selected=\"selected\"" : "")>@Resource.OneDecimal</option>
+                        <option value="2" @(Model.format_numbers_model.decimals == 2 ? " selected=\"selected\"" : "")>@Resource.TwoDecimal</option>
+                        <option value="3" @(Model.format_numbers_model.decimals == 3 ? " selected=\"selected\"" : "")>@Resource.ThreeDecimal</option>
+                        <option value="4" @(Model.format_numbers_model.decimals == 4 ? " selected=\"selected\"" : "")>@Resource.FourDecimal</option>
+                        <option value="5" @(Model.format_numbers_model.decimals == 5 ? " selected=\"selected\"" : "")>@Resource.FiveDecimal</option>
+                        <option value="6" @(Model.format_numbers_model.decimals == 6 ? " selected=\"selected\"" : "")>@Resource.SixDecimal</option>
+                    </select>
+                    <select id="DecimalsNumbersPrefix" name="DecimalsNumbersPrefix">
+                        <option value="" @(Model.format_numbers_model.prefix == "" ? " selected=\"selected\"" : "")>@Resource.MC_None</option>
+                        <option value="K" @(Model.format_numbers_model.prefix == "K" ? " selected=\"selected\"" : "")>@Resource.MC_Thousands</option>
+                        <option value="M" @(Model.format_numbers_model.prefix == "M" ? " selected=\"selected\"" : "")>@Resource.MC_Millions</option>
+                    </select>
+                    <label>
+                        <input data-val="true" id="DecimalsNumbersThousandSeparator" name="DecimalsNumbersThousandSeparator" type="checkbox" value="true" @(Model.format_numbers_model.thousandseparator ? " checked='checked'" : "") />
+                        <span class="label">@Resource.MC_ThousandSeparator</span>
+                    </label>
+                </p>
+            </div>
+            <div class="contentSectionInfoItem">
+                <label>@Resource.MC_CurrenciesFormat</label>
+                <p>
+                    <select id="DecimalsCurrencies" name="DecimalsCurrencies">
+                        <option value="0" @(Model.format_currencies_model.decimals == 0 ? " selected=\"selected\"" : "")>@Resource.NoDecimal</option>
+                        <option value="1" @(Model.format_currencies_model.decimals == 1 ? " selected=\"selected\"" : "")>@Resource.OneDecimal</option>
+                        <option value="2" @(Model.format_currencies_model.decimals == 2 ? " selected=\"selected\"" : "")>@Resource.TwoDecimal</option>
+                        <option value="3" @(Model.format_currencies_model.decimals == 3 ? " selected=\"selected\"" : "")>@Resource.ThreeDecimal</option>
+                        <option value="4" @(Model.format_currencies_model.decimals == 4 ? " selected=\"selected\"" : "")>@Resource.FourDecimal</option>
+                        <option value="5" @(Model.format_currencies_model.decimals == 5 ? " selected=\"selected\"" : "")>@Resource.FiveDecimal</option>
+                        <option value="6" @(Model.format_currencies_model.decimals == 6 ? " selected=\"selected\"" : "")>@Resource.SixDecimal</option>
+                    </select>
+                    <select id="DecimalsCurrenciesPrefix" name="DecimalsCurrenciesPrefix">
+                        <option value="" @(Model.format_currencies_model.prefix == "" ? " selected=\"selected\"" : "")>@Resource.MC_None</option>
+                        <option value="K" @(Model.format_currencies_model.prefix == "K" ? " selected=\"selected\"" : "")>@Resource.MC_Thousands</option>
+                        <option value="M" @(Model.format_currencies_model.prefix == "M" ? " selected=\"selected\"" : "")>@Resource.MC_Millions</option>
+                    </select>
+                    <label>
+                        <input data-val="true" id="DecimalsCurrenciesThousandSeparator" name="DecimalsCurrenciesThousandSeparator" type="checkbox" value="true" @(Model.format_currencies_model.thousandseparator ? " checked='checked'" : "") />
+                        <span class="label">@Resource.MC_ThousandSeparator</span>
+                    </label>
+                </p>
+            </div>
+            <div class="contentSectionInfoItem">
+                <label>@Resource.MC_PercentagesFormat</label>
+                <p>
+                    <select id="DecimalsPercentages" name="DecimalsPercentages">
+                        <option value="0" @(Model.format_percentages_model.decimals == 0 ? " selected=\"selected\"" : "")>@Resource.NoDecimal</option>
+                        <option value="1" @(Model.format_percentages_model.decimals == 1 ? " selected=\"selected\"" : "")>@Resource.OneDecimal</option>
+                        <option value="2" @(Model.format_percentages_model.decimals == 2 ? " selected=\"selected\"" : "")>@Resource.TwoDecimal</option>
+                        <option value="3" @(Model.format_percentages_model.decimals == 3 ? " selected=\"selected\"" : "")>@Resource.ThreeDecimal</option>
+                        <option value="4" @(Model.format_percentages_model.decimals == 4 ? " selected=\"selected\"" : "")>@Resource.FourDecimal</option>
+                        <option value="5" @(Model.format_percentages_model.decimals == 5 ? " selected=\"selected\"" : "")>@Resource.FiveDecimal</option>
+                        <option value="6" @(Model.format_percentages_model.decimals == 6 ? " selected=\"selected\"" : "")>@Resource.SixDecimal</option>
+                    </select>
+                    <select id="DecimalsPercentagesPrefix" name="DecimalsPercentagesPrefix">
+                        <option value="" @(Model.format_percentages_model.prefix == "" ? " selected=\"selected\"" : "")>@Resource.MC_None</option>
+                        <option value="K" @(Model.format_percentages_model.prefix == "K" ? " selected=\"selected\"" : "")>@Resource.MC_Thousands</option>
+                        <option value="M" @(Model.format_percentages_model.prefix == "M" ? " selected=\"selected\"" : "")>@Resource.MC_Millions</option>
+                    </select>
+                    <label>
+                        <input data-val="true" id="DecimalsPercentagesThousandSeparator" name="DecimalsPercentagesThousandSeparator" type="checkbox" value="true" @(Model.format_percentages_model.thousandseparator ? " checked='checked'" : "") />
+                        <span class="label">@Resource.MC_ThousandSeparator</span>
+                    </label>
+                </p>
+            </div>
+            <div class="contentSectionInfoItem">
+                @Html.LabelFor(model => model.default_export_lines)
+                <p>
+                    <select id="DefaultExportLines" name="DefaultExportLines">
+                        @{
+                            int[] defaultExportLinesList = new int [] { 100, 1000, 10000, 100000, 0 };
+                            int defaultExportLinesValue = defaultExportLinesList.Contains(Model.default_export_lines) ? Model.default_export_lines : 0;
+                            foreach (int defaultExport in defaultExportLinesList)
+                            {
+                                <option value="@defaultExport" @(defaultExportLinesValue == defaultExport ? " selected=\"selected\"" : "")>
+                                    @((defaultExport == 0 ? Resource.All : Convert.ToString(defaultExport)) + " " + Resource.SystemSettingResults)
+                                </option>
+                            }
+                        }
+                    </select>
+                </p>
+            </div>
+            <div class="contentSectionInfoItem">
+                @Html.LabelFor(model => model.sap_fields_in_chooser)
+                <p>
+                    <label>
+                        <input data-val="true" data-val-required="The SAP fields in chooser field is required." id="sap_fields_in_chooser" name="sap_fields_in_chooser" type="checkbox" value="true"@(Model.sap_fields_in_chooser ? " checked='checked'" : "") /><span class="label"></span></label>
+                </p>
+            </div>
+            <div class="contentSectionInfoItem">
+                @Html.LabelFor(model => model.sap_fields_in_header)
+                <p>
+                    <label>
+                        <input data-val="true" data-val-required="The SAP fields in header field is required." id="sap_fields_in_header" name="sap_fields_in_header" type="checkbox" value="true"@(Model.sap_fields_in_header ? " checked='checked'" : "") /><span class="label"></span></label>
+                </p>
+            </div>
+            <div class="contentSectionInfoItem">
+                <label>
+                    @Resource.DefaultFilterSuggestedStarred
+                </label>
+                <p>
+                    <label>
+                        <input data-val="true" data-val-required="The Suggested fields in header field is required." id="default_Starred_Fields" name="default_Starred_Fields" type="checkbox" value="true"@(Model.default_Starred_Fields ? " checked='checked'" : "") /><span class="label">@Resource.DefaultStarredfieldsLabel</span></label>
+                    <label>
+                        <input data-val="true" data-val-required="The Starred fields in header field is required." id="default_Suggested_Fields" name="default_Suggested_Fields" type="checkbox" value="true"@(Model.default_Suggested_Fields ? " checked='checked'" : "") /><span class="label">@Resource.DefaultSuggestedfieldsLabel</span></label>
+                </p>
+            </div>
+            <div class="contentSectionInfoItem">
+                @Html.LabelFor(model => model.compressed_list_header)
+                <p>
+                    <label>
+                        <input data-val="true" data-val-required="The Compressed list header field is required." id="compressed_list_header" name="compressed_list_header" type="checkbox" value="true"@(Model.compressed_list_header ? " checked='checked'" : "") /><span class="label"></span></label>
+                </p>
+            </div>
+            <div class="contentSectionInfoItem">
+                @Html.LabelFor(model => model.compressed_bp_bar)
+                <p>
+                    <label>
+                        <input data-val="true" data-val-required="The Compressed business process bar is required." id="compressed_bp_bar" name="compressed_bp_bar" type="checkbox" value="true"@(Model.compressed_bp_bar ? " checked='checked'" : "") /><span class="label"></span></label>
+                </p>
+            </div>
+            <div class="contentSectionInfoItem">
+                @Html.LabelFor(model => model.default_business_processes)
+                <p>
+                    <div id="UserDefaulBusinessProcess">
+                        @*@{Html.RenderAction("BusinessProcessBar", "SharedComponent");}*@
+                    </div>
+                </p>
+            </div>
+            <div class="contentSectionInfoItem">
+                @Html.LabelFor(model => model.auto_execute_items_on_login)
+                <p>
+                    <label>
+                        <input data-val="true" data-val-required="The Auto execute items on login is required." id="auto_execute_items_on_login" name="auto_execute_items_on_login" type="checkbox" value="true"@(Model.auto_execute_items_on_login ? " checked='checked'" : "") /><span class="label"></span></label>
+                </p>
+            </div>
+            <div class="contentSectionInfoItem">
+                @Html.LabelFor(model => model.format_enum)
+                <p>
+                    <select id="DefaultEnum" name="DefaultEnum">
+                        <option value="shn" @(Model.format_enum == "shn" ? " selected=\"selected\"" : "")>@Resource.MC_ShortName</option>
+                        <option value="ln" @(Model.format_enum == "ln" ? " selected=\"selected\"" : "")>@Resource.MC_LongName</option>
+                        <option value="shnln" @(Model.format_enum == "shnln" ? " selected=\"selected\"" : "")>@Resource.MC_ShortName @string.Format("({0})", Resource.MC_LongName)</option>
+                    </select>
+                </p>
+            </div>
+           @* <div class="contentSectionInfoItem">
+                @Html.LabelFor(model => model.format_period)
+                <p>
+                    <select id="DefaultPeriod" name="DefaultPeriod">          
+                        <option value="day" @(Model.format_period == "day" ? " selected=\"selected\"" : "")>@Resource.MC_ShowInDays</option>            
+                        <option value="week" @(Model.format_period == "week" ? " selected=\"selected\"" : "")>@Resource.MC_ShowInWeeks</option>           
+                    </select>
+                </p>
+            </div>*@
+     @*       <div class="contentSectionInfoItem">
+                @Html.LabelFor(model => model.format_locale)
+                <p>
+                    <select id="FormatLocale" name="FormatLocale">
+                        @foreach (var language in ViewData["Languages"] as List<EveryAngle.Core.ViewModels.SystemLanguages.SystemLanguageViewModel>)
+                        {
+                            <option value="@language.Id" @(Model.format_locale == language.Id ? " selected=\"selected\"" : "")>@language.Name</option>
+                        }
+                    </select>
+                </p>
+            </div>*@
+        </form>
+    </div>
+</div>

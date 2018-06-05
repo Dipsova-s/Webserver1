@@ -1,0 +1,32 @@
+﻿{
+    "uri": "/sessions/1876",
+    "user": "/users/1",
+    "model_privileges": "/sessions/1876/modelprivileges",
+    "ip_address": "::1",
+    "is_active": true,
+    "is_explicit": true,
+    "use_tokencookie": true,
+    "created": 1501691262,
+    "expiration_time": 1501733789,
+    "last_activity": 1501730189,
+    "security_token": "ea2a39d68bd64240c9b7bfb7cf37327124",
+    "assigned_roles": [
+        {
+            "role_id": "SYSTEM_ALL"
+        },
+        {
+            "role_id": "EA2_800_ALL",
+            "model_id": "EA2_800"
+        }
+    ],
+    "system_privileges": {
+        "manage_system": true,
+        "manage_users": true,
+        "allow_impersonation": false,
+        "has_management_access": true,
+        "schedule_angles": false
+    },
+    "debug_logging": false,
+    "active_models": [],
+    "id": "1876"
+}

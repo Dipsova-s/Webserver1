@@ -1,0 +1,168 @@
+﻿@model EveryAngle.Core.ViewModels.DataStore.DataStoresViewModel
+@using EveryAngle.Shared.Globalization
+
+@if(Model.data_settings != null)
+{
+
+ foreach (var item in Model.data_settings.SettingsGroup)
+    {
+        <div class="contentSection contentSectionInfo dataSettings">
+            <h3>@item.Name</h3>
+
+                @foreach (var settingId in item.Settings)
+                {
+                    <div class="contentSectionInfoItem" id="row-@settingId">
+                    @{
+                    var setting = Model.data_settings.GetSettingById(settingId);
+                    var subGroups = item.GetSettingGroupById(settingId);
+                    
+                    if (subGroups != null && subGroups.Count > 0)
+                    {
+                            <h5 style="font-size: 14px">@setting.Name</h5>
+                            
+                    }
+                    if (setting != null)
+                    {
+                        switch (setting.Type.ToLower())
+                        {
+                            case "int":
+                                Html.RenderPartial("~/Views/Shared/EditorTemplates/IntegerTemplate.cshtml", setting);
+                                break;
+
+                            case "date":
+                                Html.RenderPartial("~/Views/Shared/EditorTemplates/DateTemplate.cshtml", setting);
+                                break;
+
+                            case "text":
+                                if (setting.Name.ToLower().Contains("password"))
+                                {
+                                    Html.RenderPartial("~/Views/Shared/EditorTemplates/PasswordTemplate.cshtml", setting);
+                                }
+                                else if (setting.Id.ToLower().Contains("email"))
+                                {
+                                    Html.RenderPartial("~/Views/Shared/EditorTemplates/EmailTemplate.cshtml", setting);
+                                }   
+                                else
+                                {
+                                    Html.RenderPartial("~/Views/Shared/EditorTemplates/TextTemplate.cshtml", setting);
+                                }
+                                break;
+
+                            case "password":
+                                Html.RenderPartial("~/Views/Shared/EditorTemplates/PasswordTemplate.cshtml", setting);
+                                break;
+
+                            case "bool":
+                            case "boolean":
+                                Html.RenderPartial("~/Views/Shared/EditorTemplates/BooleanTemplate.cshtml", setting);
+                                break;
+                                
+                            case "double":
+                                Html.RenderPartial("~/Views/Shared/EditorTemplates/DoubleTemplate.cshtml", setting);
+                                break;
+
+                            case "enum":
+
+                                string enableValue = string.Empty;
+                                if (subGroups != null && subGroups.Count > 0 && !string.IsNullOrEmpty(subGroups[0].EnablerValue))
+                                {
+                                    enableValue = subGroups[0].EnablerValue;
+                                }
+
+                                Html.RenderPartial("~/Views/Shared/EditorTemplates/EnumTemplate.cshtml", setting, new ViewDataDictionary { { "enableValue", enableValue } });
+                                break;
+
+                            case "percentage":
+                                Html.RenderPartial("~/Views/Shared/EditorTemplates/PercentageTemplate.cshtml", setting);
+                                break;
+
+                        }
+                    }
+
+
+                    if (subGroups != null)
+                    {
+
+                        foreach (var subGroup in subGroups)
+                        {
+                            
+                            <div class="contentSectionInfoSubItem @subGroup.EnablerValue @settingId">
+                            @{
+                            foreach (var subGroupSettingId in subGroup.Settings)
+                            {
+
+                                var subGroupSetting = Model.data_settings.GetSettingById(subGroupSettingId);
+                                var isVisible = true;
+                                if (!string.IsNullOrEmpty(subGroup.EnablerValue))
+                                {
+                                    isVisible = subGroup.EnablerValue == subGroupSetting.Value;
+                                }
+
+                                if (subGroupSetting != null)
+                                {
+                                    switch (subGroupSetting.Type.ToLower())
+                                    {
+                                        case "int":
+                                            Html.RenderPartial("~/Views/Shared/EditorTemplates/IntegerTemplate.cshtml", subGroupSetting);
+                                            break;
+
+                                        case "date":
+                                            Html.RenderPartial("~/Views/Shared/EditorTemplates/DateTemplate.cshtml", subGroupSetting);
+                                            break;
+
+                                        case "text" :
+                                            if (subGroupSetting.Name != null)
+                                            {
+                                                if(subGroupSetting.Name.ToLower().Contains("password"))
+                                                {
+                                                    Html.RenderPartial("~/Views/Shared/EditorTemplates/PasswordTemplate.cshtml", subGroupSetting);
+                                                }
+                                                else
+                                                {
+                                                    Html.RenderPartial("~/Views/Shared/EditorTemplates/TextTemplate.cshtml", subGroupSetting);
+                                                }
+                                            }
+                                            else
+                                            {
+                                                Html.RenderPartial("~/Views/Shared/EditorTemplates/TextTemplate.cshtml", subGroupSetting);
+                                            }
+                                            break;
+                                            
+                                        case "password":
+                                            Html.RenderPartial("~/Views/Shared/EditorTemplates/PasswordTemplate.cshtml", subGroupSetting);
+                                            break;
+
+                                        case "boolean":
+                                            Html.RenderPartial("~/Views/Shared/EditorTemplates/BooleanTemplate.cshtml", subGroupSetting);
+                                            break;
+
+                                        case "double":
+                                            Html.RenderPartial("~/Views/Shared/EditorTemplates/DoubleTemplate.cshtml", subGroupSetting);
+                                            break;
+
+                                        case "enum":
+                                            Html.RenderPartial("~/Views/Shared/EditorTemplates/EnumTemplate.cshtml", subGroupSetting);
+                                            break;
+
+                                        case "percentage":
+                                            Html.RenderPartial("~/Views/Shared/EditorTemplates/PercentageTemplate.cshtml", subGroupSetting);
+                                            break;
+
+                                    }
+                                }
+
+                            }
+                           
+                            }
+                            </div>
+                        }
+
+                    }
+                    }
+                    </div>
+                }
+        </div>
+    }
+}
+
+

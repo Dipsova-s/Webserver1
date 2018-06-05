@@ -1,0 +1,89 @@
+﻿@using EveryAngle.Shared.Globalization
+@using EveryAngle.ManagementConsole.Models
+
+@{
+    List<PageToolbarButtonModel> buttons = new List<PageToolbarButtonModel>();
+    buttons.Add(new PageToolbarButtonModel
+    {
+        Type = PageToolbarButtonType.GridEditDelete,
+        Privilege = PrivilegeType.System,
+        EnableTemplate = "<a href=\"\\" + SiteMapHelper.ActionHash("GlobalSettings/SystemRoles/EditSystemRole") + "\" onclick=\"MC.util.redirect(event, this)\" class=\"btn btnEdit\" data-parameters='{\"systemRoleUri\":\"#= data.Uri #\"}'>" + Resource.Edit + "</a>"
+            + "<a href=\"" + Url.Content("~/SystemRole/DeleteSystemRole") + "\" onclick=\"MC.GlobalSettings.SystemRoles.DeleteSystemRole(event, this)\" class=\"btn btnDelete\" data-parameters='{\"systemRoleUri\":\"#= data.Uri #\"}' data-delete-template=\"" + Resource.MC_DeleteSystemRoleConfirm + "\" data-delete-field-index=\"0\">" + Resource.Delete + "</a>",
+        DisableTemplate = " <a data-parameters='{\"systemRoleUri\":\"#= data.Uri #\"}'  href=\"\\" + SiteMapHelper.ActionHash("GlobalSettings/SystemRoles/EditSystemRole") + "\" onclick=\"MC.util.redirect(event, this)\" class=\"btn btnEdit\" >" + Resource.View + "</a>"
+            + "<a class=\"btn btnDelete disabled\">" + Resource.Delete + "</a>"
+
+    });
+    string gridButton = HttpUtility.HtmlDecode(Html.GetGridToolbar(buttons));
+}
+
+<div id="contentSectionComment">
+    <div class="contentSection contentSectionComment">
+        <div class="contentSectionCommentList">
+            <div class="gridContainer hidden" id="GridCommentContainer">
+                    @(Html.Kendo().Grid<EveryAngle.Core.ViewModels.Comment.CommentViewModel>()
+                        .Name("GridComment")
+                        .Columns(columns =>
+                        {
+
+                            columns.Bound(model => model.comment).Title(@Resource.MC_Comments).ClientTemplate("#= data.comment #");
+                            columns.Bound("attachment").ClientTemplate(
+                               "# if((data.attachment != 'Null') && (data.attachment != null) ) { #"
+                                + "<a class='btn btnViewAtteched' target='_blank\' href='" + Url.Content("~/UploadedResources/Comments/") + "#= data.attachment #'>View Attached File</a>"
+                                + "# } else { #"
+                                + "No Data"
+                                + "# } #")
+
+                              .Width(140).Title(@Resource.MC_Attachment);
+                            columns.Bound(model => model.CreatedBy.Created).ClientTemplate("by #= data.CreatedBy.Fullname # on <span data-role='localize'>#= data.CreatedBy.Created #</span>").Width(220).Title("Created");
+                            columns.Bound("uri")
+                        .HeaderHtmlAttributes(new { @class = "gridColumnToolbar" })
+                        .HtmlAttributes(new { @class = "gridColumnToolbar" })
+                        .Title(@Resource.MC_Action)
+                        .Width(75)
+                        .ClientTemplate(" # if('" + @ViewBag.CurrentUserUri + "' == data.CreatedBy.Uri) { #"
+                                                + "<a data-target=\"\\#popupCommentForm\"onclick=\"MC.ui.commentbox('editPopup', '#= data.uid #')\" title=\"" + Resource.MC_EditComment + "\" data-width=\"400\" data-height=\"230\" data-min-height=\"230\" data-role=\"mcPopup\" class=\"btn btnEdit\">" + @Resource.Edit + "</a>"
+                                                + "<a href=\"" + Url.Content("~/Comment/DeleteComment") + "\" data-parameters='{\"commentUri\":\"#= data.Uri #\"}' onclick=\"MC.ui.commentbox('delete', {event:event, obj: this})\" class=\"btn btnDelete\">" + @Resource.Delete + "</a>"
+                                                + "# } "
+                                                + "else {# "
+                                                + "<a class=\"btn btnEdit disabled\">" + @Resource.Edit + "</a>"
+                                                + "<a class=\"btn btnDelete disabled\">" + @Resource.Delete + "</a>"
+                                                + "# } #"); 
+                        })
+                        .Resizable(resize => resize.Columns(true))
+                        .EnableCustomBinding(true)
+                        .Scrollable(scroll => scroll.Virtual(true).Height(10 * 37))
+                        .AutoBind(false)
+                        .DataSource(dataSource => dataSource
+                            .Ajax()
+                            .Events(e => e.RequestStart("onKendoGridPagingStart"))
+                            .Read(read => read.Action("ReadComment", "Comment", new { commentType = @ViewBag.CommentType }))
+                            .PageSize((int)ViewData["DefaultPageSize"])
+                        )
+                    )
+            </div>
+            <p class="noResult" id="NoComment">@Resource.MC_NoComments...</p>
+        </div>
+    </div>
+    <a data-target="#popupCommentForm" class="btn btnAdd" onclick="MC.ui.commentbox('popup')" title="@Resource.MC_AddComment" data-width="400" data-height="230" data-min-height="230" data-role="mcPopup">@Resource.MC_AddComment</a>
+   
+
+</div>
+<div class="popup" id="popupCommentForm">
+    <form action="@Url.Action("AddComment", "Comment")" data-role="validator" data-get-uri="@Url.Action("GetCommentsByType", "Comment")" enctype="multipart/form-data" id="CommentForm" method="post">
+        <div class="popupContent">
+            <input type="hidden" id="commentType" name="commentType" value="@ViewBag.CommentType" />
+            <input type="hidden" id="commentUri" name="commentUri" value="" />
+            <textarea id="CommentText" rows="3" name="message" class="required" cols="20" maxlength="256" placeholder="@Resource.MC_CommentPlaceHolder"></textarea>
+        </div>
+        <div class="popupToolbar">
+            <a class="btn btnPrimary" id="SaveCommentBtn" data-url="" onclick="MC.ui.commentbox('add');">@Resource.Save</a>
+            <a class="btn btnClose alwaysHidden" id="CloseCommentForm" data-role="popup-close"></a>
+            <div class="fieldFile">
+                <input type="file" name="file" id="fileAttached" size="60" data-role="uploader" data-rule-extension="csl|htm|html|jpg|jpeg|png|gif|txt|doc|docx|pdf|xls|xlsx|bmp|zip|eapackage" data-msg-extension="@Resource.MC_Validation_Attached_Comment" data-text-browse="@Resource.MC_AddAttachment" />
+            </div>
+        </div>
+    </form>
+</div>
+<script>
+    MC.ui.commentbox('initial');
+</script>

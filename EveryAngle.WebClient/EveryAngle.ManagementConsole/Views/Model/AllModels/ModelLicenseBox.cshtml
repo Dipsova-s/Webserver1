@@ -1,0 +1,65 @@
+﻿@model EveryAngle.Core.ViewModels.Model.SystemLicenseViewModel
+@using EveryAngle.Shared.Globalization
+
+@{
+    EveryAngle.Core.ViewModels.Model.LicenseViewModel modelLicense = null;
+    if (Model != null && Model.model_licenses != null)
+    {
+        modelLicense = Model.model_licenses.FirstOrDefault(w => w.model_id == ViewBag.ModelId);
+    }
+}
+
+<h3>@Resource.License</h3>
+@if (Model != null)
+{ 
+    <div class="modelInfoItem">
+    <label>@Resource.MC_LicensedTo:</label>
+        @if (Model.application_server_license != null && Model.application_server_license.organisation != null && !string.IsNullOrWhiteSpace(Model.application_server_license.organisation.name))
+        { 
+            <div class="value">@Model.application_server_license.organisation.name</div>
+        }
+        else
+        {
+            <div class="value">@Resource.MC_NoData</div>
+        }
+    </div>
+    <div class="modelInfoItem">
+        <label>@Resource.LicenseType:</label>
+        @if (modelLicense != null && modelLicense.licensed_apps != null && modelLicense.licensed_apps.Any())
+        {
+            <div class="value">@string.Join(", ", modelLicense.licensed_apps)</div>
+        }
+        else
+        { 
+            <div class="value">@Resource.MC_NoData</div>
+        }
+        </div>
+    <div class="modelInfoItem">
+        <label>@Resource.MC_LicenseExpirationDate:</label>
+        @if (modelLicense != null && modelLicense.expires != null)
+        {
+        <div class="value"><span data-role="localize" data-type="date">@modelLicense.expires</span></div>
+        }
+        else
+        {
+        <div class="value">@Resource.MC_NoData</div>
+        }
+    </div>
+}
+else
+{
+    <div class="modelInfoItem">
+        <label>@Resource.MC_LicensedTo:</label>
+        <div class="value">@Resource.MC_NoData</div>
+    </div>
+    <div class="modelInfoItem">
+        <label>@Resource.LicenseType:</label>
+        <div class="value">@Resource.MC_NoData</div>
+    </div>
+    <div class="modelInfoItem">
+        <label>@Resource.MC_LicenseExpirationDate:</label>
+        <div class="value">@Resource.MC_NoData</div>
+    </div>
+}
+
+<a href="@SiteMapHelper.ActionHash("GlobalSettings/License")" class="btn">@Resource.MC_EditLicense</a>

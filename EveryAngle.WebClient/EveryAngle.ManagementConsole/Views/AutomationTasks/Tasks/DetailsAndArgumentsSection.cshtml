@@ -1,0 +1,83 @@
+﻿@model EveryAngle.Core.ViewModels.Cycle.TaskHistoryViewModel
+@using EveryAngle.Shared.Globalization;
+
+<div class="tab" data-role="tab" data-callback="MC.ui.logpopup.LogTabShown">
+    <div class="tabNav" id="tabNav">
+
+        @if (Model.report != null)
+        {
+            <a id="Report">@Resource.MC_Report</a>
+        }
+        @if (Model.details != null)
+        {
+            <a id="Details">@Resource.MC_Details</a>
+        }
+        @if (Model.arguments != null)
+        {
+            <a id="Arguments">@Resource.MC_Arguments</a>
+        }
+        @if (Model.tables != null)
+        {
+            for (int i = 0; i < Model.tables.Count; i++)
+            {
+                <a id="Tables_@i">@Model.tables[i].title</a>
+            }
+        }
+
+    </div>
+
+    @if (Model.report != null)
+    {
+        <div class="tabPanel" id="ReportTab">
+            <pre>@Model.report</pre>
+        </div>
+    }
+    @if (Model.details != null)
+    {
+        <div class="tabPanel" id="ReportTab">
+            @(Html.Kendo().TreeView()
+                .Name("TaskHistoryDetailsTreeView")
+                .ExpandAll(true)
+               .BindTo((List<TreeViewItemModel>)ViewBag.TaskHistoryDetails))
+        </div>
+    }
+    @if (Model.arguments != null)
+    {
+        <div class="tabPanel" id="ArgumentsTab">
+            @(Html.Kendo().TreeView()
+                .Name("TaskHistoryArgumentsTreeView")
+                .ExpandAll(true)
+                .BindTo((List<TreeViewItemModel>)ViewBag.TaskHistoryArguments))
+        </div>
+    }
+    @if (Model.tables != null)
+    {
+        for (int i = 0; i < Model.tables.Count; i++)
+        {
+            <div class="tabPanel tabTable" id="TableTab_@i">
+                <h3>@Model.tables[i].title</h3>
+                <table class="logDetailTable">
+                    <thead>
+                        <tr>
+                            @for (var f = 0; f < Model.tables[i].fields.Count; f++)
+                            {
+                                <th data-type="@Model.tables[i].fields[f].type" data-field="@Model.tables[i].fields[f].name">@Model.tables[i].fields[f].title</th>
+                            }
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @for (var r = 0; r < Model.tables[i].rows.Count; r++)
+                    {
+                            <tr>
+                                @for (var v = 0; v < Model.tables[i].rows[r].field_values.Count; v++)
+                                {
+                                    <td>@Model.tables[i].rows[r].field_values[v]</td>
+                                }
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        }
+    }
+</div>

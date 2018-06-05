@@ -1,0 +1,34 @@
+﻿@model System.Data.DataTable
+<div class="gridContainer">
+@(Html.Kendo().Grid(Model)
+    .Name("GridPackageError")
+    .Columns(columns => 
+                {
+                    foreach (System.Data.DataColumn column in Model.Columns)
+                    {
+                        if (column.ColumnName == "Type")
+                        {
+                            columns.Bound(column.ColumnName).Width(50);
+                        }
+                        else if (column.ColumnName == "ID")
+                        {
+                            columns.Bound(column.ColumnName).Width(215);
+                        }
+                        else
+                        {
+                            columns.Bound(column.ColumnName);
+                        }
+                    }               
+                }
+            )
+    .Pageable()
+    .Sortable()
+    .Scrollable(scroll => scroll.Virtual(false).Height("auto"))
+    .Resizable(resize => resize.Columns(true))
+    .DataSource(dataSource => dataSource
+        .Ajax()
+        .PageSize((int)ViewData["DefaultPageSize"])
+        .ServerOperation(false)
+    )
+)
+</div>

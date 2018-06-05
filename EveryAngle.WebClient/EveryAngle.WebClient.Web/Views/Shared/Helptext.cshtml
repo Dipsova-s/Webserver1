@@ -1,0 +1,77 @@
+﻿@using System.Web.UI.WebControls
+@using EveryAngle.Shared.Globalization
+@{
+    ViewBag.Title = "Every Angle - Help Text";
+    Layout = "~/Views/Shared/Master.cshtml";
+}
+@section scripts
+{
+
+}
+@section TopBar
+{
+    <div id="TopBar">
+        <div class="Wrapper">
+            <a id="Logo" href="@Url.Action("SearchPage", "Search")"><img alt="" src="@Url.Content("~/images/master/ealogo.svg")" width="175" height="29"/></a>
+        </div>
+    </div>
+}
+@section UnderTopHeader 
+{
+
+}
+
+<div id="MainContent" class="Wrapper helpTextContainer">
+    <div class="helpHeaderContainer">
+        <p><strong>@ViewBag.HelptextName</strong></p>
+    </div>
+    @Html.Raw(ViewBag.Helptext)
+</div>
+
+<style type="text/css">
+    .Wrapper.helpTextContainer {
+        padding: 15px 0;
+        overflow-y: auto !important;
+        height: 200px;
+        box-sizing: border-box;
+    }
+
+    #PopupProgressBarwrapper,
+    .k-overlay {
+        display: none !important;
+    }
+</style>
+<script>
+    jQuery(function () {
+        jQuery('#MainContent').outerHeight(WC.Window.Height - jQuery('#MainContent').offset().top);
+        jQuery(window).resize(function () {
+            jQuery('#MainContent').outerHeight(WC.Window.Height - jQuery('#MainContent').offset().top);
+        });
+
+        jQuery('#MainContent a').click(function (event) {
+            if (event.currentTarget.href && event.currentTarget.href.indexOf(helptextPageUrl.replace('helptext', '')) > 0) {
+
+                var keyword = helptextPageUrl.replace('helptext', '');
+                var startIndex = event.currentTarget.href.indexOf(keyword) + keyword.length;
+                var targetUri = event.currentTarget.href.substring(startIndex);
+
+                if (targetUri.indexOf('.html#') > -1) {
+                    var helptextId = targetUri.substring(0, targetUri.indexOf('.html#'));
+                    var searchPath = window.location.search.replace('?helptextUri=', '');
+                    var currentModel = searchPath.substring(0, searchPath.indexOf('/helptexts?'));
+                    window.open(helptextPageUrl + '?helptextUri=' + currentModel + '/helptexts?ids=' + helptextId, '_blank');
+                    event.preventDefault();
+                }
+                else if (targetUri.indexOf('.htm#') > -1) {
+                    
+                    var helptextId = targetUri.substring(0, targetUri.indexOf('.htm#'));
+                    var searchPath = window.location.search.replace('?helptextUri=', '');
+                    var currentModel = searchPath.substring(0, searchPath.indexOf('/helptexts?'));
+                    window.open(helptextPageUrl + '?helptextUri=' + currentModel + '/helptexts?ids=' + helptextId, '_blank');
+                    event.preventDefault();
+                }
+            }
+        });
+
+    });
+</script>

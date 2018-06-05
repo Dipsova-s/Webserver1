@@ -1,0 +1,1198 @@
+/* .btnInfo
+============================================ */
+.btnInfo {
+    cursor: pointer;
+    position: relative;
+    display: inline-block;
+    width: 16px;
+    height: 16px;
+    background: transparent url('../../images/icons/icon_info.svg') center center no-repeat;
+    margin-left: 5px;
+    background-size: 12px 12px;
+}
+
+/* #MainContent
+============================================ */
+#MainContent {
+    position: relative;
+    overflow: hidden;
+    z-index: 5;
+    background-color: #fff;
+}
+
+/* .popupResolveAngleDisplay
+============================================ */
+.popupResolveAngleDisplay {
+    font-size: 12px;
+}
+
+.popupResolveAngleDisplay .conflictAlert {
+    box-sizing: border-box;
+    padding: 3px 0 10px 30px;
+    min-height: 30px;
+    background: transparent url('../../images/popup/error/icn_alert.png') left top no-repeat;
+}
+
+.popupResolveAngleDisplay .conflictQuestion {
+    margin-top: 10px;
+}
+
+.popupResolveAngleDisplay th,
+.popupResolveAngleDisplay td {
+    font-size: 12px;
+    text-align: left;
+}
+
+.popupResolveAngleDisplay th {
+    width: 120px;
+}
+
+.popupResolveAngleDisplay th:first-child {
+    width: auto;
+}
+
+/* .popupAboutResultSummary
+===================================== */
+.popupAboutResultSummary {
+    min-width: 561px !important;
+    max-width: 561px !important;
+    min-height: 281px !important;
+    max-height: 281px !important;
+    width: 561px;
+    height: 281px;
+}
+
+.popupAboutResultSummary .k-window-title {
+    line-height: 32px;
+}
+
+.popupAboutResultSummary .k-window-content {
+    padding: 0;
+}
+
+.aboutContainer {
+    overflow: hidden;
+    font-size: 12px;
+    line-height: 15px;
+}
+
+.aboutCommon {
+    background: transparent url('../../images/master/ea_about_logo.svg') center 10px no-repeat;
+    background-size: 185px 185px;
+    float: left;
+    width: 215px;
+    height: 76px;
+    padding-top: 205px;
+    text-align: center;
+    border-right: 1px solid #c5c5c5;
+}
+
+.aboutCommon a {
+    text-decoration: underline;
+    color: #006f9b;
+}
+
+.aboutModels {
+    margin-left: 215px;
+    padding: 25px;
+    height: 231px;
+    overflow: auto;
+}
+
+.aboutModels h3 {
+    font-size: 12px;
+    margin: 0;
+    padding: 0;
+}
+
+.aboutModels .row {
+    overflow: hidden;
+}
+
+.aboutModels .label {
+    float: left;
+    width: 120px;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
+
+.aboutModels .value {
+    margin-left: 130px;
+}
+
+/* #popupModelParameters
+================================== */
+#popupModelParameters {
+    font-size: 12px;
+}
+
+#popupModelParameters .labelModel {
+    display: inline-block;
+    font-weight: bold;
+    margin-bottom: 5px;
+    margin-right: 5px;
+}
+
+#popupModelParametersHelp {
+    font-size: 12px;
+    white-space: pre-line;
+}
+
+.contentSectionInfo {
+    margin-bottom: 15px;
+}
+
+.contentSectionInfo h2 {
+    font-size: 18px;
+    margin: 15px 0;
+    word-break: break-all;
+}
+
+.contentSectionInfo hr {
+    display: block;
+    height: 1px;
+    border: 0;
+    border-top: 1px solid #ccc;
+    margin: 20px 0;
+    padding: 0;
+}
+
+.contentSectionInfoItem {
+    overflow: hidden;
+    margin-bottom: 5px;
+    padding-top: 2px;
+}
+
+.contentSectionInfoItem > label,
+.contentSectionInfoItem > p {
+    position: relative;
+    font-weight: bold;
+    margin-bottom: 1px;
+}
+
+.contentSectionInfoItem > label {
+    float: left;
+    width: 360px;
+    margin-right: 20px;
+}
+
+.contentSectionInfoItem > p {
+    margin-left: 380px;
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+.contentSectionInfoItem p > label {
+    margin-right: 0;
+    margin-bottom: 0;
+    width: 140px;
+    display: inline-block;
+}
+
+.contentSectionInfoItem .btnInfo {
+    min-width: 0;
+    padding: 0;
+    border-width: 0;
+    background-repeat: no-repeat;
+    background-position: center center;
+    margin-top: -2px;
+}
+
+/* popupAngleCopy
+============================================ */
+.popupAngleCopy {
+    width: 400px;
+    min-width: 400px;
+    height: auto;
+    min-height: 0 !important;
+}
+
+.popupAngleCopy .k-window-content {
+    overflow: visible !important;
+}
+
+.popupAngleCopyContainer {
+    font-size: 14px;
+}
+
+.popupAngleCopy .copyAngleLabel {
+    display: inline;
+    padding-right: 5px;
+}
+
+.popupAngleCopy .k-dropdown {
+    min-width: 220px;
+}
+
+/* popupReport
+============================================ */
+.popupReport {
+    width: 700px;
+    min-width: 400px;
+    height: 400px;
+}
+
+.popupReport .k-window-content {
+    max-height: 520px;
+    padding: 16px;
+    font-size: 12px;
+}
+
+.popupReport strong {
+    font-size: 14px;
+    line-height: 20px;
+}
+
+.popupReport em {
+    color: #900;
+}
+
+.popupReport .ok {
+    color: #090;
+}
+
+/* .popupPublishing
+============================================ */
+.popupPublishing {
+    width: 510px;
+    min-width: 510px !important;
+    height: 370px;
+    min-height: 370px !important;
+}
+
+.popupDashboardPublishing {
+    min-height: 224px !important;
+    height: 224px;
+}
+
+.popupPublishing .k-window-content {
+    overflow: visible !important;
+    z-index: 2;
+}
+
+.popupPublishing .popupTabPanel {
+    font-size: 14px;
+}
+
+.popupPublishing .popupTabPanel > .sectionPublishingOthers > span:first-child {
+    float: left;
+    margin: 10px 3px 0 0;
+}
+
+.popupPublishing .StatSeparate {
+    padding: 0;
+    margin: 15px 0;
+}
+
+.popupTabPanel .sectionPublishingDetails .row > .field {
+    font-weight: normal;
+    width: 200px;
+}
+
+.popupTabPanel .sectionPublishingDetails .row > .field + .input {
+    margin-left: 210px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.popupTabPanel .sectionPublishingDisplay .row > .field {
+    font-weight: normal;
+    width: 60px;
+}
+
+.popupTabPanel .sectionPublishingDisplay .row > .field > label {
+    margin: 2px;
+    position: absolute;
+    top: 0;
+    left: auto;
+    right: 0;
+}
+
+.popupTabPanel .sectionPublishingDisplay .row > .field > label:first-child {
+    left: 0;
+    right: auto;
+    margin-left: 7px;
+}
+
+.popupTabPanel .sectionPublishingDisplay .row > .field > label .label {
+    display: inline-block;
+}
+
+.popupTabPanel .sectionPublishingDisplay .row > .field + .input {
+    cursor: pointer;
+    margin-left: 80px;
+    padding-left: 35px;
+    height: 29px;
+    line-height: 29px;
+    background: transparent none 2px center no-repeat;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+}
+
+.popupTabPanel .sectionPublishingDisplay .row > .nonecursor {
+    margin-left: 80px;
+    height: 29px;
+    line-height: 29px;
+    background: transparent none 2px center no-repeat;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+}
+
+.popupTabPanel .sectionPublishingDisplay .row > .field + .input > .icon {
+    position: absolute;
+    left: 0;
+    top: auto;
+    border: 2px solid transparent;
+}
+
+.popupTabPanel .sectionPublishingDisplay .row > .field + .input > .icon:hover {
+    background-position: left top;
+}
+
+.popupTabPanel .sectionPublishingDisplay .row > .field + .default {
+    cursor: default;
+}
+
+.popupTabPanel .sectionPublishingDisplay .row > .field + .default > .icon {
+    border-color: #006f9b;
+}
+
+.popupTabPanel .sectionPublishingDisplay .rowHeader {
+    font-style: italic;
+}
+
+.popupTabPanel .sectionPublishingDisplay .rowHeader > .field + .input {
+    padding-left: 0;
+}
+
+.popupTabPanel .sectionPublishingDisplay .rowContent {
+    overflow: auto;
+    overflow-x: hidden;
+}
+
+.popupPublishing .iconPublic,
+.popupPublishing .iconPrivate {
+    background: transparent none center center no-repeat;
+    float: left;
+    width: 30px;
+    height: 20px;
+    margin-top: -4px;
+}
+
+.popupPublishing .iconPublic {
+    background-image: url('../../images/searchpage/icn_public.svg');
+}
+
+.popupPublishing .iconPrivate {
+    background-image: url('../../images/searchpage/icn_private.svg');
+}
+
+.popupTabPanel .sectionPublishingOthers .k-dropdown {
+    width: 350px;
+}
+
+.popupPublishing .publishingNote {
+    font-size: 12px;
+    margin: 10px 0;
+}
+
+/* .helpTextPopup
+============================================ */
+.helpTextPopup .k-window-titlebar .icon {
+    display: inline-block;
+    position: relative;
+    top: 9px;
+    left: 4px;
+    width: 20px;
+    height: 20px;
+    margin-left: 2px;
+    z-index: 2;
+}
+
+.helpTextPopup .k-window-titlebar .iconCategory img {
+    top: -2px;
+    position: relative;
+}
+
+.helpTextPopup .k-window-titlebar .iconStatus {
+    cursor: pointer;
+    background: transparent none center center no-repeat;
+}
+
+.helpTextPopup .k-window-titlebar .DisplayPropertiesGridSignFavorite {
+    background-image: url('../../images/searchpage/icn_starred_active.png');
+}
+
+.helpTextPopup .k-window-titlebar .DisplayPropertiesGridSignFavoriteDisable {
+    background-image: url('../../images/searchpage/icn_starred_inactive.png');
+}
+
+.helpTextPopup .k-window-titlebar .DisplayPropertiesGridSignSuggest {
+    background-image: url('../../images/searchpage/icn_suggest.png');
+}
+
+.helpTextPopup .k-window-titlebar .signLoading {
+    background-image: url('../../images/loading.gif');
+}
+
+#ToggleWrapper {
+    position: absolute;
+    width: 100%;
+    height: 30px;
+    color: #333;
+    font-size: 12px;
+    overflow: hidden;
+    padding: 0 20px;
+    box-sizing: border-box;
+    border-bottom: 1px solid transparent;
+}
+
+#ToggleWrapper.fullDetail {
+    position: relative;
+    height: auto;
+    width: auto;
+    border: none;
+}
+
+#YourNote {
+    cursor: pointer;
+    position: absolute;
+    display: block;
+    left: 20px;
+    bottom: -30px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-size: 14px;
+    color: #999;
+    width: 420px;
+    height: 22px;
+    line-height: 22px !important;
+    font-style: italic;
+    background: transparent none left center no-repeat;
+    box-sizing: border-box;
+}
+
+#YourNote:hover {
+    background-image: url('../../images/icons/icon_note.png');
+    padding-left: 23px;
+}
+
+#YourNote.editNoteMode,
+#YourNote.editNoteMode:hover {
+    background-image: url('../../images/icons/icon_note.png');
+}
+
+#YourNote.disabled,
+#YourNote.disabled:hover {
+    cursor: default;
+    background-image: none;
+}
+
+#txtYourNote {
+    margin-left: 23px;
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: 22px;
+    width: 345px;
+    line-height: 22px;
+    border-width: 0;
+    background-color: transparent;
+    box-sizing: border-box;
+    padding: 0 5px;
+}
+#txtYourNote:focus {
+    outline: none;
+    border-bottom: 1px dotted #333;
+}
+
+.DescriptionWrapper {
+    float: left;
+    margin-top: 25px;
+    visibility: hidden;
+    vertical-align: top;
+    position: relative;
+    height: 240px;
+    width: 48.5%;
+}
+
+#ToggleWrapper.fullDetail .DescriptionWrapper {
+    visibility: visible;
+}
+
+.DescriptionWrapper .sectionDefinitions {
+    border-bottom-width: 0;
+    margin-bottom: 0;
+    padding-bottom: 0;
+}
+
+#ToggleWrapper .DottedVertical {
+    float: left;
+    visibility: hidden;
+    vertical-align: top;
+    position: relative;
+    top: 9px;
+    width: 3%;
+    left: 0;
+    height: 232px;
+    background: url('../../images/angle/dotted.png') center top repeat-y;
+}
+
+#ToggleWrapper.fullDetail .DottedVertical {
+    visibility: visible;
+}
+
+#ToggleAngle {
+    cursor: pointer;
+    margin: 0 auto;
+    position: relative;
+    top: 1px;
+    width: 100px;
+    height: 30px;
+    background-color: #236e97;
+    color: #d0d0d0;
+    font-family: Verdana,Tahoma;
+    font-size: 10px;
+    text-align: center;
+    /*
+    border: 1px dashed #c5c5c5;
+	*/
+    border-top-left-radius: 2px;
+    border-top-right-radius: 2px;
+    border-bottom-width: 0;
+    z-index: 20;
+}
+
+.fullDetail + #ToggleAngle {
+    margin-top: -15px;
+}
+
+#ToggleAngle:hover {
+    background-color: #155577;
+}
+
+#ToggleAngle.disabled {
+    cursor: default;
+    background-color: #236e97 !important;
+}
+
+#ToggleAngle.disabled > span {
+    cursor: default;
+}
+
+#ToggleAngle > span {
+    margin: 0 5px 0 4px;
+    padding: 0;
+    position: relative;
+    top: 4px;
+    left: -1px;
+    width: 23px;
+    height: 23px;
+    cursor: pointer;
+    display: inline-block;
+}
+
+#ToggleAngle .Collapse {
+    background-image: url('../../images/angle/btn_toggleup.png');
+}
+
+#ToggleAngle .Expand {
+    background-image: url('../../images/angle/btn_toggledown.png');
+}
+
+#AngleTableWrapper .btnExecuteDisplay {
+    position: absolute;
+    top: 20px;
+    left: 50%;
+    margin-left: -65px;
+    z-index: 1000;
+}
+
+#AngleTableWrapper .k-grid-content .btnExecuteDisplay {
+    margin-left: -80px;
+}
+
+#AngleTableWrapper .btnExecuteDisplay > span {
+    width: 108px;
+}
+
+/* .mainDisplayWrapper
+============================================ */
+.mainDisplayWrapper {
+    position: relative;
+    top: 0;
+    z-index: 6;
+    overflow: hidden;
+    border: 0;
+}
+
+.mainDisplayWrapper.hiddenContent {
+    visibility: hidden;
+}
+
+.mainDisplayWrapper.hiddenContent .k-grid-content,
+.mainDisplayWrapper.hiddenContent .dxpgBottomPager {
+    display: none;
+}
+
+/* .domainIcon
+============================================ */
+.domainIcon {
+    float: left;
+    display: block;
+    position: relative;
+    width: 14px;
+    height: 14px;
+    margin-right: 2px;
+    background: transparent none center center no-repeat;
+}
+
+.k-dropdown-wrap .domainIcon {
+    margin-top: 6px;
+    margin-left: 2px;
+    margin-right: -2px;
+}
+
+.k-list .domainIcon {
+    margin-top: -1px;
+}
+
+.k-list-container .k-virtual-content {
+    overflow-y: auto;
+}
+
+/* .angleInformation
+===================================== */
+.angleInformation {
+    position: absolute;
+    left: 215px;
+    top: 20px;
+    z-index: 100;
+}
+
+.angleInformation > div,
+.angleInformation > span {
+    float: left;
+}
+
+.angleInformation > div {
+    position: static;
+    width: 20px;
+    height: 20px;
+    margin: -3px 0 0 2px;
+}
+
+.angleInformation > .SignPrivate,
+.angleInformation > .SignPublic {
+    margin-top: -3px;
+}
+.angleInformation > .SignType3 {
+    margin-top: -2px;
+}
+
+.angleInformation > .loading16x16 {
+    display: block;
+    cursor: wait !important;
+    background-color: transparent;
+}
+
+.angleInformation span {
+    display: inline-block !important;
+    width: auto;
+    text-align: left;
+    position: relative;
+    top: -3px;
+    margin-left: 4px;
+    max-width: 460px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    cursor: pointer;
+}
+
+.k-window-draggable .angleInformation,
+.k-window-draggable .angleInformation > div,
+.k-window-draggable .angleInformation > span {
+    cursor: move;
+}
+
+.k-window-draggable .angleInformation > div.SignFavorite,
+.k-window-draggable .angleInformation > div.SignFavoriteDisable {
+    cursor: pointer;
+}
+
+.k-window-draggable .angleInformation > div.SignFavorite.disabled,
+.k-window-draggable .angleInformation > div.SignFavoriteDisable.disabled {
+    cursor: move !important;
+}
+
+/* .popupAngleInfo
+===================================== */
+.popupAngleInfo {
+    min-width: 748px !important;
+    min-height: 300px !important;
+}
+
+.popupAngleInfo .k-window-title {
+    width: 200px;
+}
+
+#angleInfoLabelSectionPopup .InfoFocus span {
+    max-width: none;
+    min-width: 0;
+}
+
+#angleInfoLabelSectionPopup {
+    padding-bottom: 10px;
+}
+
+#angleInfoDisplaySectionPopup {
+    padding-bottom: 10px;
+}
+
+/* .popupDashboardInfo
+===================================== */
+#dashboardInfoLabelSectionPopup {
+    padding-bottom: 10px;
+}
+
+#dashboardInfoLabelSectionPopup .InfoFocus span {
+    max-width: none !important;
+    min-width: 0 !important;
+}
+
+/* .definitionArea
+===================================== */
+.definitionArea h2 {
+    margin-bottom: 15px;
+}
+
+.definitionArea .DefInfo {
+    position: relative;
+    font-size: 12px;
+    overflow: hidden;
+}
+
+.DefInfo > label {
+    color: #333333;
+    font-weight: bold;
+    position: relative;
+    float: left;
+    width: auto;
+    min-height: 15px;
+    padding-right: 10px;
+}
+
+.DefInfo > div {
+    position: relative;
+    min-height: 15px;
+}
+
+.safari.no-touch .DefInfo > div {
+    -webkit-margin-start: 0 !important; /* NOSONAR: safari bug */
+}
+
+.editmode .definitionArea .DefInfo.defInfoWrapper + .StatSeparate {
+    display: none;
+}
+
+.definitionArea .DefInfo.modelRoles > .sectionModelRole {
+    margin-left: 0;
+}
+
+.definitionArea .DefInfo.modelRoles .modelRoleHeader {
+    font-size: 12px;
+    font-weight: bold;
+    width: auto;
+    float: left;
+    margin-bottom: 0;
+    padding-right: 10px;
+}
+
+.definitionArea .DefInfo.modelRoles .modelRoleList {
+    margin-left: 90px;
+    min-height: 1px;
+    line-height: 16px;
+}
+
+.definitionArea .DefInfo.classesInfo,
+.definitionArea .DefInfo.displayInfo {
+    height: auto;
+}
+
+.definitionArea .DefInfo.classesInfo .definitionsObjectHeader {
+    display: inline-block;
+    vertical-align: top;
+    background-image: none;
+    padding-left: 0;
+    padding-right: 10px;
+    margin-bottom: 0;
+    line-height: 20px;
+    font-size: 12px;
+    font-weight: bold;
+}
+
+.definitionArea .DefInfo.classesInfo .definitionsObjectHeader > span:after {
+    content: ':';
+}
+
+.definitionArea .DefInfo.classesInfo > label,
+.definitionArea .DefInfo.displayInfo > label {
+    line-height: 20px;
+}
+
+.definitionArea .DefInfo .objectName {
+    overflow: hidden;
+    height: 16px;
+    margin-bottom: 3px;
+}
+
+.definitionArea .DefInfo.displayInfo .objectName {
+    line-height: 20px;
+}
+
+.definitionArea .DefInfo .objectName .detailDefinitionList.inline li:first-child > .object {
+    background-image: none;
+    padding-left: 0 !important;
+}
+
+#AnglePrivilege,
+#SearchLabel {
+    cursor: pointer;
+}
+
+.filterButtonWrapper {
+    position: relative;
+    padding-top: 12px;
+    overflow: hidden;
+    padding-bottom: 1px;
+}
+
+.filterButtonWrapper .btn {
+    float: right;
+    margin: 0 1px 0 9px;
+}
+
+.filterButtonWrapper .btn span {
+    position: relative;
+    padding-left: 37px;
+    text-align: left;
+    min-width: 0;
+    padding-right: 5px;
+}
+
+.filterButtonWrapper .btn span:before {
+    content: '';
+    display: block;
+    width: 30px;
+    height: 40px;
+    position: absolute;
+    left: 5px;
+    top: 0;
+    background: transparent none left center no-repeat;
+}
+
+.filterButtonWrapper .btnAddFilter span:before {
+    background-image: url('../../images/icons/icon_add_filter.png');
+}
+
+.filterButtonWrapper .btnAddFollowUp span:before {
+    background-image: url('../../images/icons/icon_add_followup.png');
+}
+
+.PublishChoice {
+    display: inline-block;
+    vertical-align: top;
+    height: 32px;
+    position: relative;
+    margin-right: 5px;
+}
+
+.PublishChoice .btnPublish,
+.PublishChoice .btnValidate,
+.PublishChoice .btnTemplate {
+    margin: 0;
+    position: relative;
+    float: left;
+}
+
+.PublishChoice .btnPublish.loading16x16 {
+    display: inline-block;
+    position: relative;
+    width: auto;
+    text-align: left;
+    text-indent: 22px;
+    background-position: 8px center;
+    background-image: url('../../images/loading.gif');
+    background-repeat: no-repeat;
+}
+
+.PublishChoice .lblPublishChoice {
+    padding-right: 55px;
+    min-width: 0;
+    padding-left: 5px;
+}
+
+.PublishChoice .icon {
+    background: transparent none right center no-repeat;
+    position: absolute;
+    right: 5px;
+    top: 0;
+    width: 50px;
+    height: 30px;
+    margin: 0;
+    padding: 0;
+}
+
+.PublishChoice .icon.public {
+    background-image: url('../../images/icons/icon_public_to_private.png');
+}
+
+.PublishChoice .icon.private {
+    background-image: url('../../images/icons/icon_private_to_public.png');
+}
+
+.PublishChoice .icon.validate {
+    background-image: url('../../images/icons/icon_validate_to_unvalidate.png');
+}
+
+.PublishChoice .icon.unvalidate {
+    background-image: url('../../images/icons/icon_unvalidate_to_validate.png');
+}
+
+.PublishChoice .icon.template {
+    background-image: url('../../images/icons/icon_template_to_angle.png');
+}
+
+.PublishChoice .icon.angle {
+    background-image: url('../../images/icons/icon_angle_to_template.png');
+}
+
+#PublishTabWrapper {
+    margin: 10px 0 0 0;
+    position: relative;
+}
+
+#ButtonInfoAllowMoreDetails {
+    vertical-align: bottom;
+}
+
+.statisticArea {
+    font-size: 12px;
+}
+
+.statisticArea .row {
+    margin-bottom: 15px;
+    margin-top: 15px;
+}
+
+.statisticArea .row > .field {
+    width: 160px;
+}
+
+.statisticArea .row > .field + .input {
+    margin-left: 160px;
+}
+
+.StatSeparate {
+    margin: 9px 0;
+    position: relative;
+    height: 1px;
+    background-color: #fff;
+    border-top: 1px solid #b3b3b3;
+}
+
+/* .popupSaveAs
+===================================== */
+.popupSaveAs {
+    width: 500px;
+    height: auto;
+    min-height: 0 !important;
+}
+
+.popupSaveAs .k-window-content {
+    font-size: 12px;
+    overflow: visible !important;
+    padding: 20px 15px 15px 15px;
+}
+
+.popupSaveAs .k-window-content h2 {
+    display: none;
+}
+
+.popupSaveAs .k-window-content table {
+    width: 100%;
+}
+
+.popupSaveAs .k-window-content table tr td:first-child {
+    vertical-align: top;
+    width: 130px;
+}
+
+.popupSaveAs .k-window-content table tr td:first-child > label {
+    position: relative;
+    top: 10px;
+}
+
+.popupSaveAs .row {
+    margin-bottom: 5px;
+}
+
+.popupSaveAs .row:before,
+.popupSaveAs .row:after {
+    display: table;
+    content: "";
+    line-height: 0;
+}
+
+.popupSaveAs .row:after {
+    clear: both;
+}
+
+.popupSaveAs .rowAddToNewAngle {
+    margin: 15px 0;
+    font-weight: bold;
+}
+
+.popupSaveAs .row.warningMessage {
+    font-weight: normal;
+    font-style: italic;
+    color: #900;
+    line-height: 22px;
+    padding-left: 20px;
+    background: transparent url('../../images/icons/icon_warning.svg') left top no-repeat;
+    background-size: 18px 18px;
+}
+
+.popupSaveAs .row > .field {
+    float: left;
+    width: 145px;
+    min-height: 1px;
+    font-weight: bold;
+    top: 12px !important;
+    position: relative;
+}
+
+.popupSaveAs .row > .field + .input {
+    margin-left: 150px;
+}
+
+.popupSaveAs .row > .input {
+    min-height: 1px;
+    position: relative;
+}
+
+.popupSaveAs .row > .input > label {
+    display: inline-block;
+    margin-right: 5px;
+}
+
+/* .popupExecuteParameters
+===================================== */
+.popupExecuteParameters {
+    min-width: 748px !important;
+}
+
+.popupExecuteParameters .DefInfo > label {
+    width: 210px;
+}
+
+.popupExecuteParameters .DefInfo > div {
+    margin-left: 215px;
+}
+
+.screenMinHeight .popupExecuteParameters .definitionList {
+    max-height: 395px;
+}
+
+.popupExecuteParameters .FilterCriteriaPlaceHolder + .StatSeparate,
+.popupExecuteParameters .AskForValue {
+    display: none !important;
+}
+
+/* .displayWrapper
+============================================ */
+.displayWrapper {
+    background-color: #e0e0e0;
+}
+
+.displayWrapper.full .fieldListArea {
+    position: absolute;
+}
+
+.fieldListToggleButton {
+    cursor: pointer;
+    position: absolute;
+    width: 10px;
+    height: 100%;
+    left: 400px;
+    top: 0;
+    background: transparent url('../../images/icons/icon_arrow_black_left_black.png') -2px center no-repeat;
+    z-index: 3;
+    padding-top: 1px;
+}
+
+.fieldListToggleButton:hover {
+    background-color: #777;
+}
+
+.displayWrapper.full .fieldListToggleButton {
+    left: 0;
+    background-image: url('../../images/icons/icon_arrow_right_black.png');
+    background-position: -4px center;
+}
+
+.displayArea {
+    font-size: 12px;
+    position: relative;
+    display: block;
+    margin-left: 410px;
+    overflow: hidden;
+    z-index: 2;
+}
+
+.no-touch.safari .displayArea {
+    padding-left: 10px;
+    -webkit-margin-start: 400px !important; /* NOSONAR: safari bug */
+}
+
+.no-touch.safari #ChartArea.displayArea,
+.no-touch.safari .displayWrapper.full .displayArea {
+    -webkit-margin-start: 0 !important; /* NOSONAR: safari bug */
+}
+
+.displayWrapper.full .displayArea {
+    margin-left: 10px;
+}
+
+.displayWrapper.readonly .displayArea {
+    margin-left: 0;
+    padding-left: 0;
+}
+
+.displayWrapper.readonly .fieldListToggleButton,
+.displayWrapper.readonly .fieldListArea {
+    display: none;
+}
+
+/* Portrait tablet to landscape and desktop */
+@media (max-width: 979px) {
+    #ContentBar .Wrapper {
+        min-width: 700px;
+    }
+
+    #MainContent.Wrapper {
+        min-width: 300px;
+    }
+
+    /* angle page */
+    .topBarWrapper,
+    .detailsWrapper {
+        min-width: 600px;
+    }
+}

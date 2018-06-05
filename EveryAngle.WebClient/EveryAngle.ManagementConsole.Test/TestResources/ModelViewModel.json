@@ -1,0 +1,82 @@
+﻿[
+    {
+        "id": "EA2_800",
+        "short_name": "EA2_800",
+        "long_name": "EA2_800",
+        "abbreviation": "EA2_800",
+        "uri": "/models/1",
+        "modelserver_settings": "/models/1/modelserver_settings",
+        "environment": "Test environment..",
+        "switch_when_postprocessing": true,
+        "is_postprocessing": false,
+        "licensed_apps": [
+            "SAPSCM",
+            "SAPHRM",
+            "SAPGTS",
+            "SAPGRC",
+            "SAP",
+            "P2P",
+            "SCM",
+            "O2C",
+            "HRM",
+            "PM",
+            "FiCo",
+            "Retail",
+            "GRCKPMG"
+        ],
+        "active_languages": [
+            "en",
+            "nl"
+        ],
+        "created": {
+            "user": "/users/1",
+            "datetime": 1502164350,
+            "full_name": "EAAdmin"
+        },
+        "type": "normal",
+        "packages": "/models/1/packages",
+        "authorizations": {
+            "update": true,
+            "delete": true,
+            "access_data": true,
+            "publish_dashboard": true,
+            "create_angle": true,
+            "manage_settings": true,
+            "manage_roles": true,
+            "assign_roles": true
+        }
+    },
+    {
+        "id": "EA4IT",
+        "short_name": "EA4IT",
+        "long_name": "EA4IT",
+        "abbreviation": "EA4IT",
+        "uri": "/models/14",
+        "modelserver_settings": "/models/14/modelserver_settings",
+        "environment": "EA4IT environment..",
+        "switch_when_postprocessing": true,
+        "is_postprocessing": false,
+        "licensed_apps": [],
+        "active_languages": [
+            "en",
+            "nl"
+        ],
+        "created": {
+            "user": "/users/1",
+            "datetime": 1502168129,
+            "full_name": "EAAdmin"
+        },
+        "type": "normal",
+        "packages": "/models/14/packages",
+        "authorizations": {
+            "update": true,
+            "delete": true,
+            "access_data": true,
+            "publish_dashboard": true,
+            "create_angle": true,
+            "manage_settings": true,
+            "manage_roles": true,
+            "assign_roles": true
+        }
+    }
+]

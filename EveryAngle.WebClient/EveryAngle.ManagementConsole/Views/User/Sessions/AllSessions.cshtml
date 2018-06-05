@@ -1,0 +1,43 @@
+﻿@using EveryAngle.ManagementConsole.Models
+@using EveryAngle.ManagementConsole.Helpers
+@using EveryAngle.Shared.Globalization
+
+<script>
+    MC.util.loadScript({
+        test: MC.Users && MC.Users.Sessions,
+        url: '@Scripts.Url("~/bundles/users/sessions")',
+        callback: function () {
+            MC.Users.Sessions.Initial({
+                CurrentUserUri: '@ViewBag.CurrentUserUri',
+                DeleteUri: '@Url.Action("DeleteSession", "Users")',
+                UpdateDebugLoggingUri: '@Url.Action("UpdateDebugLogging", "Users")',
+                GetUsersByUri: '@Url.Action("GetUsersByUri", "Users")'
+            });
+        }
+    });
+</script>
+
+@{
+    @Html.RenderPageToolbar(new List<PageToolbarButtonModel>
+    {
+        new PageToolbarButtonModel { Type = PageToolbarButtonType.Reload }
+    })
+}
+
+<div class="content pageSession">
+    <div class="contentSection contentSectionGrid">
+        <div class="gridToolbar gridToolbarTop">
+            <div class="gridToolbarFilter">
+                <input type="text" id="AllSessionsGridFilterBox" placeholder="@Resource.Filter" data-role="gridfilter" data-method="remote" data-target="#AllSessionsGridContainer" data-url="@Url.Action("GetFilterSessions", "Users")" /><span class="icon"></span>
+            </div>
+        </div>
+        <h2>@Resource.MC_Sessions</h2>
+        <div class="gridContainer" id="AllSessionsGridContainer">
+            @{Html.RenderAction("GetFilterSessions", "Users");}
+        </div>
+        <div class="gridToolbar gridToolbarBottom">
+        </div>
+    </div>
+    <!--/.contentSectionGrid-->
+</div>
+<!--/.content-->

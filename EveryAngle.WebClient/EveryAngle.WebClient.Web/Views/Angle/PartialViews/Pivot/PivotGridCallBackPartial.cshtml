@@ -1,0 +1,8 @@
+﻿@using DevExpress.Web.Mvc
+@model System.Data.DataTable
+@{
+    PivotGridSettings settings = (PivotGridSettings)ViewBag.PivotSettings;
+}
+/*DX*//*callback=@(ViewBag.CallbackArgument)*/(function() {
+return @Html.DevExpress().PivotGrid(settings).Bind(Model).GetHtml()
+})()

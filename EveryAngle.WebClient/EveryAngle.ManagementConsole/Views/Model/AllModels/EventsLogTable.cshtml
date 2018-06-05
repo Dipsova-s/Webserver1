@@ -1,0 +1,45 @@
+﻿@*@model System.Data.DataTable
+
+@if(Model != null)
+{
+    @(Html.Kendo().Grid(Model)
+        .Name("ServerEventsLogGrid")
+        .Columns(columns =>
+        {
+            foreach (System.Data.DataColumn column in Model.Columns)
+            {
+                if (column.ColumnName == "Time")
+                {
+                    columns.Bound(column.ColumnName)
+                        .ClientTemplate("<span data-role='localize'>#= " + column.ColumnName + " # </span>")
+                        .HtmlAttributes(new { @class = "columnDate" })
+                        .HeaderHtmlAttributes(new { @class = "columnDate" })
+                        .Width(170)
+                        .Title(column.ColumnName);
+                }
+                else
+                {
+                    columns.Bound(column.ColumnName).Title(column.ColumnName);
+                }
+            }
+        })
+        .Pageable()
+        .Resizable(resize => resize.Columns(true))
+        .Scrollable(s => s.Height(578))
+            .DataSource(dataSource => dataSource
+                .Ajax()
+                .Model(model =>
+                {
+                    foreach (System.Data.DataColumn column in Model.Columns)
+                    {
+                        model.Field(column.ColumnName, column.DataType);
+                    }
+                })
+                .Events(e => e.RequestStart("onKendoGridPagingStart"))
+                .Read(read => read.Action("ReadEventsLog", "Model", new { modelUri = @ViewBag.ModelUri }))
+                .PageSize((int)ViewData["DefaultPageSize"])
+                .Total((int)ViewData["Total"])
+                .ServerOperation(false)
+            )
+    );
+}*@

@@ -1,0 +1,56 @@
+﻿@using EveryAngle.ManagementConsole.Models
+@using EveryAngle.ManagementConsole.Helpers
+@using EveryAngle.Shared.Globalization
+
+<script>
+    MC.util.loadScript({
+        test: MC.Users && MC.Users.User,
+        url: '@Scripts.Url("~/bundles/users/user")',
+        callback: function () {
+            MC.Users.User.InitialImportUsersPage({
+                AllUsersPageUri: '@SiteMapHelper.ActionHash("Users/AllUsers")',
+                ImportUserUri: '@Url.Action("AddUser","Users")'
+            });
+        }
+    });
+</script>
+
+@{
+    @Html.RenderPageToolbar(new List<PageToolbarButtonModel>
+    {
+        new PageToolbarButtonModel
+        {
+            Type = PageToolbarButtonType.Custom,
+            Label =Resource.Save,
+            CssClass = "btnSave",
+            OnClick = "MC.Users.User.SaveEnableUsers()"
+        },
+        new PageToolbarButtonModel
+        {
+            Type = PageToolbarButtonType.Cancel,
+            Link = SiteMapHelper.ActionHash("Users/AllUsers")
+        }
+    })
+}
+
+<div class="content pageUser pageUserImport">
+    <div class="contentSection contentSectionInfo">
+        <h2>@Resource.MC_ImportUser_Add_Users</h2>
+        <div class="contentSectionInfoItem contentSectionInfoItemRole">
+            <label>@Resource.MC_SetRoles</label>
+            <p>
+                @(Html.Kendo().MultiSelect()
+                .Name("UserRoles")             
+                .DataValueField("Value")     
+                .DataTextField("Text") 
+                .ItemTemplate("<span data-tooltip-title=\"#: Tooltip #\">#: Text # </span>")
+                .TagTemplate("<span title=\"#: Tooltip #\">#: Text #</span>")
+                .Value(ViewBag.DefaultRoles)
+                .BindTo(ViewBag.SystemRoles))
+            </p>
+        </div>
+    </div>
+
+    @{Html.RenderAction("RenderImportUserGrid", "Users", new { uri = ViewBag.SystemAuthenticationProviderUri });}
+</div>
+<!--/.content-->

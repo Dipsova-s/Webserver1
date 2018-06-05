@@ -1,0 +1,57 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+
+  <PropertyGroup>
+    <IncludeSetAclProviderOnDestination>false</IncludeSetAclProviderOnDestination>
+    <AfterAddDeclareParametersItemsForContentPath>CreateEmptyDirectories</AfterAddDeclareParametersItemsForContentPath>
+  </PropertyGroup>
+
+  <!-- Prepare for logs folder then allow a read,write,modified acl access if the logs folder is created(allow to create by the system) -->
+  <Target Name="CreateEmptyDirectories">
+    <MakeDir Directories="$(_MSDeployDirPath_FullPath)\bin\logs" />
+  </Target>
+  
+  <!--then allow a read,write,modified acl access to the bin folder to use settings.json file -->
+  <Target Name="SetupCustomAcls" AfterTargets="AddIisSettingAndFileContentsToSourceManifest">
+    <ItemGroup>
+      <MsDeploySourceManifest Include="setAcl">
+        <Path>$(_MSDeployDirPath_FullPath)\bin</Path>
+        <setAclAccess>Read,Write,Modify</setAclAccess>
+        <setAclResourceType>Directory</setAclResourceType>
+        <AdditionalProviderSettings>setAclResourceType;setAclAccess</AdditionalProviderSettings>
+      </MsDeploySourceManifest>
+    </ItemGroup>
+  </Target>
+
+  <!--Declare a acl parameters -->
+  <Target Name="DeclareCustomParameters" AfterTargets="AddIisAndContentDeclareParametersItems">
+    <ItemGroup>
+      <MsDeployDeclareParameters Include="ElmahSetAclParam">
+        <Kind>ProviderPath</Kind>
+        <Scope>setAcl</Scope>
+        <Match>^$(_EscapeRegEx_MSDeployDirPath)\\bin$</Match>
+        <Description>Add write permission to the bin folder.</Description>
+        <DefaultValue>{$(_MsDeployParameterNameForContentPath)}/bin</DefaultValue>
+        <Value>$(_DestinationContentPath)/bin</Value>
+        <Tags>Hidden</Tags>
+        <Priority>$(VsSetAclPriority)</Priority>
+        <ExcludeFromSetParameter>True</ExcludeFromSetParameter>
+      </MsDeployDeclareParameters>
+    </ItemGroup>
+  </Target>
+
+  <!--Create a package condition when publishing a web deployment-->
+  <Choose>
+    <When Condition=" '$(Configuration)'=='Debug'">
+      <PropertyGroup>
+        <DefineConstants>DEBUG;TRACE</DefineConstants>
+      </PropertyGroup>
+    </When>
+    <When Condition=" '$(Configuration)'=='Release'">
+      <PropertyGroup>
+        <DefineConstants>TRACE</DefineConstants>
+      </PropertyGroup>
+    </When>
+  </Choose>
+  
+</Project>

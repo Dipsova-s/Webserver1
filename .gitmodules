@@ -1,0 +1,6 @@
+[submodule "Resources"]
+	path = Resources
+	url = https://everyangle.visualstudio.com/EveryAngle/_git/Resources
+[submodule "Content"]
+	path = Content
+	url = https://everyangle.visualstudio.com/EveryAngle/_git/Content

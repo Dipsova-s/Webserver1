@@ -1,0 +1,105 @@
+﻿@using EveryAngle.Shared.Globalization
+@using EveryAngle.Core.ViewModels.EAPackage
+@model IEnumerable<ExportPackageModelViewModel>
+@{
+    Layout = null;
+}
+
+<form id="ExportPackageForm" data-role="validator">
+    <div class="popupContent">
+        <h3>@Resource.MC_SelectModel</h3>
+        <div class="packageModel">
+            <div class="contentSectionInfoItem">
+                <p>
+                    @foreach (ExportPackageModelViewModel model in Model)
+                    {
+                        <label title="@(model.Name)">
+                            <input type="radio" name="model_id" value="@(model.Id)" @(model.HasManageModelPrivilege ? string.Empty : "disabled") />
+                            <span class="label"><span class="text">@(model.Name)</span></span>
+                        </label>
+                    }
+                </p>
+            </div>
+        </div>
+        <hr />
+        <h3>@Resource.MC_SelectContent</h3>
+        <div class="packageFilter">
+            <div class="contentSectionInfoItem">
+                <p class="itemExportSelectorContainer">
+                    <select id="ItemExportSelector">
+                        <option value="facet_angle">@Resource.Angles</option>
+                        <option value="facet_template">@Resource.Templates</option>
+                        <option value="facet_template facet_angle">@Resource.Both</option>
+                    </select>
+                </p>
+                <br />
+                <p>
+                    <label><input class="item" type="checkbox" name="has_private" value="facet_isprivate" /><span class="label">@Resource.Private <span class="totalItem totalPrivate">(0)</span></span></label>
+
+                    <span class="tooltip">
+                        <a data-target="#popupDescriptionTemplate" title="Tooltip" data-width="600" data-min-height="100" data-role="mcPopup" class="btn btnInfo" onclick="MC.util.showDescriptionPopup(this)"></a>
+                        <textarea class="alwaysHidden">@Resource.MC_ExportPackageIncludePrivateItemDescription</textarea>
+                    </span>
+                </p>
+                <p>
+                    <label><input class="item" type="checkbox" name="has_published" value="facet_isprivate" /><span class="label">@Resource.Published <span class="totalItem totalPublished">(0)</span></span></label>
+
+                    <span class="tooltip">
+                        <a data-target="#popupDescriptionTemplate" title="Tooltip" data-width="600" data-min-height="100" data-role="mcPopup" class="btn btnInfo" onclick="MC.util.showDescriptionPopup(this)"></a>
+                        <textarea class="alwaysHidden">@Resource.MC_ExportPackageIncludePublishedItemDescription</textarea>
+                    </span>
+                </p>
+                <p>
+                    <label class="innerCheckbox"><input class="item" type="checkbox" name="has_validated" value="facet_isvalidated" /><span class="label">@Resource.MC_IncludeValidated <span class="totalItem totalValidated">(0)</span></span></label>
+
+                    <span class="tooltip">
+                        <a data-target="#popupDescriptionTemplate" title="Tooltip" data-width="600" data-min-height="100" data-role="mcPopup" class="btn btnInfo" onclick="MC.util.showDescriptionPopup(this)"></a>
+                        <textarea class="alwaysHidden">@Resource.MC_ExportPackageIncludeValidatedItemDescription</textarea>
+                    </span>
+                </p>
+                <p>
+                    <label><input type="checkbox" name="has_label_categories_and_labels" value="true" /><span class="label">@Resource.LabelCategoriesAndLabels</span></label>
+
+                    <span class="tooltip">
+                        <a data-target="#popupDescriptionTemplate" title="Tooltip" data-width="600" data-min-height="100" data-role="mcPopup" class="btn btnInfo" onclick="MC.util.showDescriptionPopup(this)"></a>
+                        <textarea class="alwaysHidden">@Resource.MC_ExportPackageIncludeLabelsDescription</textarea>
+                    </span>
+                </p>
+            </div>
+        </div>
+        <hr />
+        <h3>@Resource.MC_PackageInfo</h3>
+        <div class="packageInfo">
+            <div class="contentSectionInfoItem">
+                <label>@Resource.Name</label>
+                <p>
+                    <input class="required package_name" type="text" name="package_name" value="AngleExport" maxlength="50" />
+                </p>
+            </div>
+            <div class="contentSectionInfoItem packageId">
+                <label>@Resource.ID</label>
+                <p>
+                    <input class="required package_id" type="text" name="package_id" value="AngleExport" maxlength="50" />
+                </p>
+            </div>
+            <div class="contentSectionInfoItem packageVersion">
+                <label>@Resource.Version</label>
+                <p>
+                    <input class="required package_version" type="text" name="package_version" value="1.0" maxlength="50" />
+                </p>
+            </div>
+            <div class="contentSectionInfoItem">
+                <label>@Resource.Description</label>
+                <p class="textareaWarpper">
+                    <textarea name="package_description" rows="4" maxlength="200"></textarea>
+                </p>
+            </div>
+        </div>
+    </div>
+    <div class="popupToolbar">
+        <a class="btn btnPrimary" id="ExportPackageButton" onclick="MC.GlobalSettings.Packages.ExportPackage(this)">@Resource.Ok</a>
+        <a class="btn" data-role="popup-close">@Resource.Cancel</a>
+    </div>
+</form>
+
+@{Html.RenderPartial("~/Views/Shared/PluginPopupDescriptionTemplate.cshtml");}

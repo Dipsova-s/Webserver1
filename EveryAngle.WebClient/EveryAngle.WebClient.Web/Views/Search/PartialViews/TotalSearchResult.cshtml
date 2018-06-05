@@ -1,0 +1,11 @@
+﻿<div class="sortWrapper">
+    <ul id="sortList" class="sortList"></ul>
+    <input id="SortItemBySelect" type="hidden" class="eaDropdown eaDropdownSize40" />
+</div>
+
+<div class="viewModeWrapper">
+    <div id="ViewType" class="viewType" data-bind="css: { 'viewTypeFull': searchPageHandler.DisplayType() === searchPageHandler.DISPLAY_TYPE.FULL, 'viewTypeCompact': searchPageHandler.DisplayType() === searchPageHandler.DISPLAY_TYPE.COMPACT }">
+        <a id="LongList" onclick="searchPageHandler.SwitchDisplay(searchPageHandler.DISPLAY_TYPE.FULL)" class="typeFull" data-bind="attr: { title: Localization.ViewDetailsMode }"></a>
+        <a id="ShortList" onclick="searchPageHandler.SwitchDisplay(searchPageHandler.DISPLAY_TYPE.COMPACT)" class="typeCompact" data-bind="attr: { title: Localization.ViewCompactMode }"></a>
+    </div>
+</div>

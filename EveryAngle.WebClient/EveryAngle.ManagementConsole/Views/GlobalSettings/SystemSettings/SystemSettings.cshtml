@@ -1,0 +1,256 @@
+﻿@using EveryAngle.ManagementConsole.Models
+@using EveryAngle.ManagementConsole.Helpers
+@using EveryAngle.Shared.Globalization
+@model EveryAngle.Core.ViewModels.SystemSettings.SystemSettingViewModel
+
+<script>
+    MC.util.loadScript({
+        test: MC.GlobalSettings && MC.GlobalSettings.SystemSettings,
+        url: '@Scripts.Url("~/bundles/globalsettings/systemsettings")',
+        callback: function () {
+            MC.GlobalSettings.SystemSettings.Initial({
+                SaveUri: '@Url.Action("SaveSystemSettings", "GlobalSettings")'
+            });
+        }
+    });
+</script>
+@{
+    List<PageToolbarButtonModel> buttons = new List<PageToolbarButtonModel>();
+    buttons.Add(new PageToolbarButtonModel
+    {
+        Type = PageToolbarButtonType.Save,
+        OnClick = "MC.GlobalSettings.SystemSettings.SaveSystemSettings()",
+        Privilege = PrivilegeType.System
+    });
+    buttons.Add(new PageToolbarButtonModel
+    {
+        Type = PageToolbarButtonType.Reload,
+        Privilege = PrivilegeType.None
+    });
+    
+    @Html.RenderPageToolbar(buttons)
+}
+
+<div class="content pageSystemSettings">
+    <form id="SystemSettingsForm" data-role="validator" autocomplete="off">
+        <div class="contentSection contentSectionInfo">
+
+            <h2>@Resource.SystemSettings</h2>
+            <div class="contentSectionInfoItem infoApplicationServerUrl">
+                <label>@Resource.MC_ApplicationServer</label>
+                <p>@EveryAngle.Shared.Helpers.UrlHelper.GetRequestUrl(EveryAngle.Shared.Helpers.URLType.NOA)
+                    <a data-target="#popupDescriptionTemplate" title="Description" data-width="600" data-min-height="100" data-role="mcPopup" class="btn btnInfo" onclick="MC.util.showDescriptionPopup(this)"></a>
+                    <textarea class="alwaysHidden">@Resource.MC_SystemSettingsHelpApplicationServer</textarea>
+                </p>
+            </div>
+            <div class="contentSectionInfoItem">
+                @Html.LabelFor(model => model.default_pagesize)
+                <p>@Html.Kendo().NumericTextBoxFor(model => model.default_pagesize).Decimals(0).Format("0").Step(1).Min(20).Max(200).HtmlAttributes(new { @class = "required digits valid_default_pagesize" })
+                    <a data-target="#popupDescriptionTemplate" title="Description" data-width="600" data-min-height="100" data-role="mcPopup" class="btn btnInfo" onclick="MC.util.showDescriptionPopup(this)"></a>
+                    <textarea class="alwaysHidden">@Resource.MC_SystemSettingsHelpDefaultPageSize</textarea>
+                </p>
+            </div>
+            <div class="contentSectionInfoItem">
+                @Html.LabelFor(model => model.max_pagesize_appserver)
+                <p>@Html.Kendo().NumericTextBoxFor(model => model.max_pagesize_appserver).Decimals(0).Format("0").Step(1).Min(100).Enable(false).HtmlAttributes(new { @class = "required valid_default_pagesize"})
+                    <a data-target="#popupDescriptionTemplate" title="Description" data-width="600" data-min-height="100" data-role="mcPopup" class="btn btnInfo" onclick="MC.util.showDescriptionPopup(this)"></a>
+                    <textarea class="alwaysHidden">@Resource.MC_SystemSettingsHelpMaxPageSize</textarea>
+                </p>
+            </div>
+            <div class="contentSectionInfoItem">
+                @Html.LabelFor(model => model.session_expiry_minutes)
+                <p>@Html.Kendo().NumericTextBoxFor(model => model.session_expiry_minutes).Decimals(0).Format("0").Step(1).Min(1).Max(1800).HtmlAttributes(new { @class = "required"})
+                    <a data-target="#popupDescriptionTemplate" title="Description" data-width="600" data-min-height="100" data-role="mcPopup" class="btn btnInfo" onclick="MC.util.showDescriptionPopup(this)"></a>
+                    <textarea class="alwaysHidden">@Resource.MC_SystemSettingsHelpSessionExpiryMinutes</textarea>
+                </p>
+            </div>
+            <div class="contentSectionInfoItem">
+                @Html.LabelFor(model => model.remember_expired_sessions_minutes)
+                <p>@Html.Kendo().NumericTextBoxFor(model => model.remember_expired_sessions_minutes).Decimals(0).Format("0").Step(1).Min(0).Max(1800).HtmlAttributes(new { @class = "required"})
+                    <a data-target="#popupDescriptionTemplate" title="Description" data-width="600" data-min-height="100" data-role="mcPopup" class="btn btnInfo" onclick="MC.util.showDescriptionPopup(this)"></a>
+                    <textarea class="alwaysHidden">@Resource.MC_SystemSettingsHelpRememberExpiredSessionsMinutes</textarea>
+                </p>
+            </div>
+            <div class="contentSectionInfoItem">
+                @Html.LabelFor(model => model.modelserver_check_seconds)
+                <p>@Html.Kendo().NumericTextBoxFor(model => model.modelserver_check_seconds).Decimals(0).Format("0").Step(1).Min(0).Max(2147483647).HtmlAttributes(new { @class = "required"})
+                    <a data-target="#popupDescriptionTemplate" title="Description" data-width="600" data-min-height="100" data-role="mcPopup" class="btn btnInfo" onclick="MC.util.showDescriptionPopup(this)"></a>
+                    <textarea class="alwaysHidden">@Resource.MC_SystemSettingsHelpModelserverCheckSeconds</textarea>
+                </p>
+            </div>
+            <div class="contentSectionInfoItem">
+                @Html.LabelFor(model => model.modelserver_timeout)
+                <p>@Html.Kendo().NumericTextBoxFor(model => model.modelserver_timeout).Decimals(0).Format("0").Step(1).Min(0).Max(2147483647).HtmlAttributes(new { @class = "required"})
+                    <a data-target="#popupDescriptionTemplate" title="Description" data-width="600" data-min-height="100" data-role="mcPopup" class="btn btnInfo" onclick="MC.util.showDescriptionPopup(this)"></a>
+                    <textarea class="alwaysHidden">@Resource.MC_SystemSettingsHelpModelserverTimeout</textarea>
+                </p>
+            </div>
+            <div class="contentSectionInfoItem">
+                @Html.LabelFor(model => model.modelserver_metadata_timeout)
+                <p>@Html.Kendo().NumericTextBoxFor(model => model.modelserver_metadata_timeout).Decimals(0).Format("0").Step(1).Min(0).Max(2147483647).HtmlAttributes(new { @class = "required"})
+                    <a data-target="#popupDescriptionTemplate" title="Description" data-width="600" data-min-height="100" data-role="mcPopup" class="btn btnInfo" onclick="MC.util.showDescriptionPopup(this)"></a>
+                    <textarea class="alwaysHidden">@Resource.MC_SystemSettingsHelpModelserverMetadataTimeout</textarea>
+                </p>
+            </div>
+            <div class="contentSectionInfoItem">
+                @Html.LabelFor(model => model.max_domainelements_for_search)
+                <p>@Html.Kendo().NumericTextBoxFor(model => model.max_domainelements_for_search).Decimals(0).Format("0").Step(1).Min(0).Max(2147483647).HtmlAttributes(new { @class = "required"})
+                    <a data-target="#popupDescriptionTemplate" title="Description" data-width="600" data-min-height="100" data-role="mcPopup" class="btn btnInfo" onclick="MC.util.showDescriptionPopup(this)"></a>
+                    <textarea class="alwaysHidden">@Resource.MC_SystemSettingsHelpMaxDomainElementsSearch</textarea>
+                </p>
+            </div>
+            <div class="contentSectionInfoItem">
+                @Html.LabelFor(model => model.default_cache_minutes)
+                <p>@Html.Kendo().NumericTextBoxFor(model => model.default_cache_minutes).Decimals(0).Format("0").Step(1).Min(0).Max(2147483647).HtmlAttributes(new { @class = "required"})
+                    <a data-target="#popupDescriptionTemplate" title="Description" data-width="600" data-min-height="100" data-role="mcPopup" class="btn btnInfo" onclick="MC.util.showDescriptionPopup(this)"></a>
+                    <textarea class="alwaysHidden">@Resource.MC_SystemSettingsHelpDefaultCacheMinutes</textarea>
+                </p>
+            </div>
+            <div class="contentSectionInfoItem">
+                @Html.LabelFor(model => model.min_labelcategories_to_publish)
+                <p>@Html.Kendo().NumericTextBoxFor(model => model.min_labelcategories_to_publish).Decimals(0).Format("0").Step(1).Min(1).Max(10).HtmlAttributes(new { @class = "required"})
+                    <a data-target="#popupDescriptionTemplate" title="Description" data-width="600" data-min-height="100" data-role="mcPopup" class="btn btnInfo" onclick="MC.util.showDescriptionPopup(this)"></a>
+                    <textarea class="alwaysHidden">@Resource.MC_SystemSettingsHelpMinlabelcategoriesPublish</textarea>
+                </p>
+            </div>
+            <div class="contentSectionInfoItem">
+                @Html.LabelFor(model => model.check_expired_sessions_minutes)
+                <p>@Html.Kendo().NumericTextBoxFor(model => model.check_expired_sessions_minutes).Decimals(0).Format("0").Step(1).Min(0).Max(10).HtmlAttributes(new { @class = "required"})
+                    <a data-target="#popupDescriptionTemplate" title="Description" data-width="600" data-min-height="100" data-role="mcPopup" class="btn btnInfo" onclick="MC.util.showDescriptionPopup(this)"></a>
+                    <textarea class="alwaysHidden">@Resource.MC_SystemSettingsHelpCheckExpiredSessionsMinutes</textarea>
+                </p>
+            </div>
+            <div class="contentSectionInfoItem">
+                @Html.LabelFor(model => model.instances_per_model)
+                <p>@Html.Kendo().NumericTextBoxFor(model => model.instances_per_model).Decimals(0).Format("0").Step(1).Min(0).Max(10).HtmlAttributes(new { @class = "required"})
+                    <a data-target="#popupDescriptionTemplate" title="Description" data-width="600" data-min-height="100" data-role="mcPopup" class="btn btnInfo" onclick="MC.util.showDescriptionPopup(this)"></a>
+                    <textarea class="alwaysHidden">@Resource.MC_SystemSettingsHelpInstancesPerModel</textarea>
+                </p>
+            </div>
+            <div class="contentSectionInfoItem">
+                @Html.LabelFor(model => model.active_directory_size_limit)
+                <p>@Html.Kendo().NumericTextBoxFor(model => model.active_directory_size_limit).Decimals(0).Format("0").Step(1).Min(1).Max(999).HtmlAttributes(new { @class = "required"})
+                    <a data-target="#popupDescriptionTemplate" title="Description" data-width="600" data-min-height="100" data-role="mcPopup" class="btn btnInfo" onclick="MC.util.showDescriptionPopup(this)"></a>
+                    <textarea class="alwaysHidden">@Resource.MC_SystemSettingsHelpActiveDirectorySizeLimit</textarea>
+                </p>
+            </div>
+            <div class="contentSectionInfoItem">
+                @Html.LabelFor(model => model.include_self_in_export_headers)
+                <p>
+                    <label>
+                        <input data-val="true" id="include_self_in_export_headers" name="SystemSettings.include_self_in_export_headers" type="checkbox" value="true" @(Model.include_self_in_export_headers != null ? !Model.include_self_in_export_headers ? "" : " checked='checked'" : " checked='checked'") /><span class="label"></span>
+                    </label>
+                    <a data-target="#popupDescriptionTemplate" title="Description" data-width="600" data-min-height="100" data-role="mcPopup" class="btn btnInfo" onclick="MC.util.showDescriptionPopup(this)"></a>
+                    <textarea class="alwaysHidden">@Resource.MC_SystemSettingsHelpIncludeSelfInExportHeaders</textarea>
+                </p>
+            </div>
+            <div class="contentSectionInfoItem">
+                @Html.LabelFor(model => model.default_max_export_page_size)
+                <p>@Html.Kendo().NumericTextBoxFor(model => model.default_max_export_page_size).Decimals(0).Format("0").Step(1).Min(1).Max(999999).HtmlAttributes(new { @class = "required"})
+                    <a data-target="#popupDescriptionTemplate" title="Description" data-width="600" data-min-height="100" data-role="mcPopup" class="btn btnInfo" onclick="MC.util.showDescriptionPopup(this)"></a>
+                    <textarea class="alwaysHidden">@Resource.MC_SystemSettingsHelpDefaultExportMaxPageSize</textarea>
+                </p>
+            </div>
+        </div>
+        <div class="contentSection contentSectionInfo">
+            <h2>@Resource.Logging</h2>
+            <div class="contentSectionInfoItem">
+                @Html.LabelFor(model => model.max_event_log_stored_records)
+                <p>
+                    @Html.Kendo().NumericTextBoxFor(model => model.max_event_log_stored_records).Decimals(0).Format("0").Step(1).Min(0).Max(2147483647).HtmlAttributes(new { @class = "required" })
+                <a data-target="#popupDescriptionTemplate" title="Description" data-width="600" data-min-height="100" data-role="mcPopup" class="btn btnInfo" onclick="MC.util.showDescriptionPopup(this)"></a>
+                <textarea class="alwaysHidden">@Resource.MC_SystemSettingsHelpMaxEventLogStoredRecords</textarea>
+                </p>
+            </div>
+            <div class="contentSectionInfoItem">
+                @Html.LabelFor(model => model.max_audit_log_history)
+                <p>
+                    @Html.Kendo().NumericTextBoxFor(model => model.max_audit_log_history).Decimals(0).Format("0").Step(1).Min(0).Max(120).HtmlAttributes(new { @class = "required" })
+                    <a data-target="#popupDescriptionTemplate" title="Description" data-width="600" data-min-height="100" data-role="mcPopup" class="btn btnInfo" onclick="MC.util.showDescriptionPopup(this)"></a>
+                    <textarea class="alwaysHidden">@Resource.MC_SystemSettingsHelpTextMaxAuditLogHistory</textarea>
+                </p>
+            </div>
+        </div>
+        <div class="contentSection contentSectionInfo">
+            <h2>@Resource.Email @Resource.Settings</h2>
+            <div class="contentSectionInfoItem">
+                @Html.LabelFor(model => model.EmailSettings.smtp_server)
+                <p>@Html.TextBoxFor(model => model.EmailSettings.smtp_server)
+                    <a data-target="#popupDescriptionTemplate" title="Description" data-width="600" data-min-height="100" data-role="mcPopup" class="btn btnInfo" onclick="MC.util.showDescriptionPopup(this)"></a>
+                    <textarea class="alwaysHidden">@Resource.MC_SystemSettingsHelpEmailSmtpServer</textarea>
+                </p>
+            </div>
+            <div class="contentSectionInfoItem">
+                @Html.LabelFor(model => model.EmailSettings.smtp_port)
+                <p>@Html.Kendo().NumericTextBoxFor(model => model.EmailSettings.smtp_port).Decimals(0).Format("0").Step(1).Min(0).Max(999999).Events(e => e.Change(@<text>function(e) { MC.GlobalSettings.SystemSettings.DetectSMTPPortValue(this); }</text>)).HtmlAttributes(new { @class = "required" })
+                    <a data-target="#popupDescriptionTemplate" title="Description" data-width="600" data-min-height="100" data-role="mcPopup" class="btn btnInfo" onclick="MC.util.showDescriptionPopup(this)"></a>
+                    <textarea class="alwaysHidden">@Resource.MC_SystemSettingsHelpEmailSmtpPort</textarea>
+                </p>
+            </div>
+            <div class="contentSectionInfoItem">
+                @Html.LabelFor(model => model.EmailSettings.smtp_sender)
+                <p>@Html.TextBoxFor(model => model.EmailSettings.smtp_sender, new { @class = "email" })
+                    <a data-target="#popupDescriptionTemplate" title="Description" data-width="600" data-min-height="100" data-role="mcPopup" class="btn btnInfo" onclick="MC.util.showDescriptionPopup(this)"></a>
+                    <textarea class="alwaysHidden">@Resource.MC_SystemSettingsHelpEmailSmtpSender</textarea>
+                </p>
+            </div>
+            <div class="contentSectionInfoItem">
+                @Html.LabelFor(model => model.EmailSettings.smtp_use_ssl)
+                <p>
+                    <label>
+                        <input data-val="true" id="smtp_use_ssl" name="EmailSettings.smtp_use_ssl" type="checkbox" value="true"@(Model.EmailSettings != null ? Model.EmailSettings.smtp_use_ssl ? " checked='checked'" : "" : "") /><span class="label"></span></label>
+                    <a data-target="#popupDescriptionTemplate" title="Description" data-width="600" data-min-height="100" data-role="mcPopup" class="btn btnInfo" onclick="MC.util.showDescriptionPopup(this)"></a>
+                    <textarea class="alwaysHidden">@Resource.MC_SystemSettingsHelpEmailSmtpUseSsl</textarea>
+                </p>
+            </div>
+            <div class="contentSectionInfoItem">
+                @Html.LabelFor(model => model.EmailSettings.username)
+                <p>
+                    @Html.TextBox("EmailSettings.username.inputfake", "", new { @class = "hidden" })
+                    @Html.TextBoxFor(model => model.EmailSettings.username, new { autocomplete = "off" })
+                    <a data-target="#popupDescriptionTemplate" title="Description" data-width="600" data-min-height="100" data-role="mcPopup" class="btn btnInfo" onclick="MC.util.showDescriptionPopup(this)"></a>
+                    <textarea class="alwaysHidden">@Resource.MC_SystemSettingsHelpEmailUsername</textarea>
+                </p>
+            </div>
+            <div class="contentSectionInfoItem">
+                @Html.LabelFor(model => model.EmailSettings.password)
+                <p>
+                    @Html.TextBox("EmailSettings.password.inputfake", "", new { @class = "hidden" })
+                    @Html.Password("EmailSettings.password.fake", "", new { @class = "hidden" })
+                    @Html.Password("EmailSettings.password", Model.EmailSettings != null ? Model.EmailSettings.password : "", new { autocomplete = "off" })
+                    <a data-target="#popupDescriptionTemplate" title="Description" data-width="600" data-min-height="100" data-role="mcPopup" class="btn btnInfo" onclick="MC.util.showDescriptionPopup(this)"></a>
+                    <textarea class="alwaysHidden">@Resource.MC_SystemSettingsHelpEmailPassword</textarea>
+                </p>
+            </div>
+            <div class="contentSectionInfoItem">
+                <label></label>
+                <p><a class="btn btnAdd" id="TestEmailButton" data-role="mcPopup" data-title="@Resource.MC_TestEmailSettings" data-target="#TestEmailPopup" data-width="400" data-min-height="200" data-height="200" onclick="MC.GlobalSettings.SystemSettings.ShowTestEmailSettingsPopup()">@Resource.MC_TestEmail</a></p>
+            </div>
+        </div>
+    </form>
+</div>
+
+@{Html.RenderPartial("~/Views/Shared/PluginPopupDescriptionTemplate.cshtml");}
+
+<div id="TestEmailPopup" class="hidden">
+    <form id="TestEmailForm" data-role="validator" autocomplete="off">
+        <div class="popupContent">
+            <div class="contentSectionInfoItem">
+                @Html.LabelFor(model => model.EmailSettings.recipient)
+                <p>@Html.TextBoxFor(model => model.EmailSettings.recipient, new { @class = "email required" })</p>
+            </div>
+        </div>
+        <div class="popupToolbar">
+            <a onclick="MC.GlobalSettings.SystemSettings.TestEmailSettings()" class="btn btnPrimary btnAddAction">@Resource.Ok</a>
+            <a class="btn btnClose" data-role="popup-close">@Resource.Cancel</a>
+        </div>
+    </form>
+</div>
+
+<a data-role="mcPopup" data-title="@Resource.MC_TestEmailSettingsResult" data-target="#TestEmailResult" data-width="600" data-height="400" id="btnShowTestEmailResult"></a>
+<div id="TestEmailResult" class="hidden">
+    <div class="popupContent">
+        <h3></h3>
+        <pre></pre>
+    </div>
+</div>

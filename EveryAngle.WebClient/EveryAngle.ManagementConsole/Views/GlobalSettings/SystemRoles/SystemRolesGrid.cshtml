@@ -1,0 +1,64 @@
+﻿@model List<EveryAngle.Core.ViewModels.Users.SystemRoleViewModel>
+@using EveryAngle.Shared.Globalization
+@using EveryAngle.ManagementConsole.Models
+
+@{
+    List<PageToolbarButtonModel> buttons = new List<PageToolbarButtonModel>();
+    buttons.Add(new PageToolbarButtonModel
+    {
+        Type = PageToolbarButtonType.GridEditDelete,
+        Privilege = PrivilegeType.System,
+        EnableTemplate =  "<a href=\"\\" + SiteMapHelper.ActionHash("GlobalSettings/SystemRoles/EditSystemRole") + "\" onclick=\"MC.util.redirect(event, this)\" class=\"btn btnEdit\" data-parameters='{\"systemRoleUri\":\"#= data.Uri #\"}'>" + Resource.Edit +"</a>",
+        DisableTemplate = "<a data-parameters='{\"systemRoleUri\":\"#= data.Uri #\"}'  href=\"\\" + SiteMapHelper.ActionHash("GlobalSettings/SystemRoles/EditSystemRole") + "\" onclick=\"MC.util.redirect(event, this)\" class=\"btn btnEdit\" >" + Resource.View + "</a>"
+    });
+    buttons.Add(new PageToolbarButtonModel
+    {
+        Type = PageToolbarButtonType.GridEditDelete,
+        Privilege = PrivilegeType.None,
+        Template = "<a class=\"btn btnInfo\" onclick=\"MC.GlobalSettings.SystemRoles.ShowConsolidatedRolePopup('#=data.Uri#') \"data-grid=\"SubRolesGrid\" data-target=\"\\#ConsoliDatedRolePopup\" title=\"" + Resource.MC_ShowConsolidatedRole + "\" data-width=\"700\" data-height=\"600\" data-role=\"mcPopup\">" + Resource.MC_ShowConsolidatedRole + "</a>"
+    });
+    buttons.Add(new PageToolbarButtonModel
+    {
+        Type = PageToolbarButtonType.GridEditDelete,
+        Privilege = PrivilegeType.User,
+        EnableTemplate = "<a class=\"btn btnManageUser\" onclick=\"MC.ui.masschangeuser.ShowUserInRolePopup('#=data.Uri#', '#=data.Id#', '') \"data-grid=\"UserInRole\" data-target=\"\\#UserInRolePopup\" title=\"" + Resource.Manage + " " + Resource.MC_Users + "\" data-width=\"760\" data-height=\"600\" data-role=\"mcPopup\">" + Resource.Manage + " " + Resource.MC_Users + "</a>",
+        DisableTemplate = "<a class=\"btn btnManageUser disabled\">" + Resource.Manage + " " + Resource.MC_Users + "</a>"
+    });
+    buttons.Add(new PageToolbarButtonModel
+    {
+        Type = PageToolbarButtonType.GridEditDelete,
+        Privilege = PrivilegeType.System,
+        EnableTemplate = "<a href=\"" + Url.Content("~/SystemRole/DeleteSystemRole") + "\" onclick=\"MC.GlobalSettings.SystemRoles.DeleteSystemRole(event, this)\" class=\"btn btnDelete\" data-parameters='{\"systemRoleUri\":\"#= data.Uri #\"}' data-delete-template=\"" + Resource.MC_DeleteSystemRoleConfirm + "\" data-delete-field-index=\"0\">" + Resource.Delete + "</a>",
+        DisableTemplate = "<a class=\"btn btnDelete disabled\">" + Resource.Delete + "</a>"
+    });
+    string gridButton = HttpUtility.HtmlDecode(Html.GetGridToolbar(buttons));
+    
+    int pageSize = (int)ViewData["DefaultPageSize"];
+    int gridHeight = Math.Min(pageSize, 10) * 37;
+}
+
+@(Html.Kendo().Grid<EveryAngle.Core.ViewModels.Users.SystemRoleViewModel>()
+    .Name("SystemRolesGrid")
+    .Columns(columns =>
+    {
+        columns.Bound(model => model.Id).Title(Resource.MC_RoleID);
+        columns.Bound(model => model.Description).Title(Resource.Description);
+        columns.Bound(model => model.CreatedBy.Created).HtmlAttributes(new { @class = "columnDate" }).HeaderHtmlAttributes(new { @class = "columnDate" }).ClientTemplate("<span data-role='localize'>#= data.CreatedBy.Created #</span>");
+        columns.Bound(model => model.CreatedBy.Fullname);
+        columns.Bound(model => model.user_count).Title(Resource.MC_UsersCount).HtmlAttributes(new { @class = "columnNumber" }).HeaderHtmlAttributes(new { @class = "columnNumber" }).Sortable(false);
+        columns.Bound("Uri").ClientTemplate(gridButton).HeaderHtmlAttributes(new { @class = "gridColumnToolbar" }).HtmlAttributes(new { @class = "gridColumnToolbar" }).Width(75).Title(Resource.MC_Action).Sortable(false);
+    })
+    .Resizable(resize => resize.Columns(true))
+    .Sortable(sortable => sortable.AllowUnsort(false))
+    .Scrollable(scroll => scroll.Virtual(true).Height(gridHeight))
+    .DataSource(dataSource => dataSource
+        .Ajax()
+        .Events(e => e.RequestStart("onKendoGridPagingStart"))
+        .Read(read => read
+            .Action("ReadSystemRoles", "SystemRole", new { systemRoleUri = @ViewBag.SystemRoleUri, q = @ViewBag.Query })
+        )
+        .PageSize(pageSize)
+    )
+    .EnableCustomBinding(true)
+    .AutoBind(false)
+)

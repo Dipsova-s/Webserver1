@@ -1,0 +1,292 @@
+/* placeholder
+============================================ */
+.loginPage input::-webkit-input-placeholder {
+    color: #999;
+}
+
+.loginPage input:focus::-webkit-input-placeholder {
+    color: #999;
+}
+
+.loginPage input:-moz-placeholder {
+    color: #999;
+}
+
+.loginPage input:focus:-moz-placeholder {
+    color: #999;
+}
+
+.loginPage input::-moz-placeholder {
+    color: #999;
+}
+
+.loginPage input:focus::-moz-placeholder {
+    color: #999;
+}
+
+.loginPage input:-ms-input-placeholder {
+    color: #999;
+}
+
+.loginPage input:focus:-ms-input-placeholder {
+    color: #999;
+}
+
+/* .loginPage & .popupLoginPopup
+============================================ */
+.loginPage,
+.popupLoginPopup {
+    background: #dbdcdf url('../../images/login/login_bg.jpg') center center no-repeat;
+    background-size: cover;
+}
+
+.screenMinHeight .loginPage,
+.screenMinHeight .popupLoginPopup {
+    max-height: none;
+}
+
+.loginPage {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    box-shadow: none;
+}
+
+.popupLoginPopup {
+    width: 786px;
+    height: 468px;
+    margin-left: -393px;
+    margin-top: -234px;
+}
+
+.loginPage .k-window-content,
+.popupLoginPopup .k-window-content {
+    background: transparent none;
+    position: absolute;
+    overflow: hidden;
+    width: 500px;
+    height: 436px;
+    left: 50%;
+    top: 50%;
+    margin-left: -250px;
+    margin-top: -218px;
+    box-shadow: 5px 0 21px 0 #999;
+}
+
+.loginPage .k-window-content:before,
+.popupLoginPopup .k-window-content:before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(227, 226, 224, .985) none;
+}
+
+#LoginContainer {
+    font-size: 13px;
+    color: #7d7d7d;
+    position: absolute;
+    height: 100%;
+    left: 45px;
+    right: 45px;
+}
+
+#LoginContainer h1 {
+    position: relative;
+    margin: 55px 0 0 0;
+    padding: 0;
+    width: 100%;
+    height: 51px;
+    text-indent: -1000%;
+    background: transparent url('../../images/login/login_logo.svg') center center no-repeat;
+}
+
+#LoginContainer.ChangePasswordContainer h1 {
+    margin-top: 20px;
+}
+
+#LoginContainer.ChangePasswordContainer .UserName {
+    margin-top: 13px;
+}
+
+.LogoContainer {
+    position: absolute;
+    width: 221px;
+    height: 42px;
+    left: 16px;
+    bottom: 10px;
+}
+
+.LogoContainer .LogoImage {
+    background: transparent url('../../images/popup/progressbar/ajax-loader.gif') left top no-repeat;
+}
+
+.LogoContainer .LogoImage:after {
+    content: '';
+    background: transparent url('../../admin/images/loading.gif') left top no-repeat;
+}
+
+#LoginContainer input {
+    position: relative;
+    left: 0;
+    width: 100%;
+    height: 43px;
+    line-height: 43px;
+    font-size: 18px;
+    box-sizing: border-box;
+    padding: 0 10px;
+    margin: 13px 0 0 0;
+}
+
+#LoginContainer .UserName,
+#LoginContainer .Password {
+    border: 1px solid #abadb3;
+    background-color: #fff;
+}
+
+#LoginContainer .UserName {
+    margin-top: 50px;
+}
+
+#LoginContainer .ChangePassword,
+#LoginContainer.ChangePasswordContainer #Password,
+#LoginContainer.ChangePasswordContainer .LoginButton {
+    display: none;
+}
+
+#LoginContainer.ChangePasswordContainer .ChangePassword {
+    display: block;
+}
+
+#LoginContainer #LoginButton,
+#LoginContainer #ChangePasswordButton {
+    margin-top: 26px;
+    font-size: 20px;
+    font-weight: normal;
+    text-shadow: none;
+    background: #076593 none;
+    border-radius: 4px;
+}
+
+#LoginContainer #LoginButton:disabled,
+#LoginContainer #ChangePasswordButton:disabled {
+    opacity: .6;
+}
+
+#LoginContainer #ChangePasswordButton {
+    width: 300px;
+}
+
+#LoginContainer.ChangePasswordContainer #LoginButton {
+    display: none;
+}
+
+#CancelButton,
+#CancelButtonPassword {
+    text-decoration: underline;
+    color: #333;
+    display: inline-block;
+    margin-top: 26px;
+    height: 43px;
+    line-height: 43px;
+    width: 70px;
+    text-align: center;
+}
+
+#LoginContainer.scene input,
+#LoginContainer.scene .ChangePassword {
+    left: 0;
+    transition: left .1s ease-in-out;
+}
+
+#LoginContainer.scene1 input {
+    left: -500px;
+}
+
+#LoginContainer.scene2 input,
+#LoginContainer.scene2 .ChangePassword {
+    left: 500px;
+    transition: none;
+}
+
+#LoginContainer.scene2 .ChangePassword {
+    display: block;
+}
+
+#LoginContainer.ChangePasswordContainer input,
+#LoginContainer.ChangePasswordContainer .ChangePassword {
+    left: 0;
+}
+
+#LoginContainer.scene3 input,
+#LoginContainer.scene3 .ChangePassword {
+    left: 500px;
+}
+
+#LoginContainer.scene4 input {
+    left: -500px;
+    transition: none;
+}
+
+.SessonExpiredDetail {
+    position: absolute;
+    top: 350px;
+    left: 105px;
+    width: 285px;
+    color: #e50;
+}
+
+.loginMessage {
+    color: red;
+    text-align: left;
+    margin-top: 5px;
+}
+
+.loginMessage.info {
+    color: #555;
+    padding-left: 20px;
+    background: transparent url('../../images/loading.gif') left center no-repeat;
+}
+
+.loginMessage.success {
+    color: #555;
+}
+
+.loginLoading {
+    display: none;
+}
+
+.VersionInfo {
+    position: absolute;
+    font-size: 12px;
+    color: #333;
+    right: 15px;
+    bottom: 10px;
+}
+
+.loginPage .VersionInfo {
+    right: -26px;
+    bottom: 13px;
+    color: #3f6988;
+}
+
+.popupLoginPopup .VersionInfo {
+    right: 14px;
+    bottom: 8px;
+}
+
+.pageLogin .popupNotification,
+.pageLogin .k-overlay {
+    display: none !important; /* NOSONAR: override runtime css */
+}
+
+@media (max-width: 979px) {
+    .popupLoginPopup {
+        max-width: 748px;
+        margin-left: -374px;
+    }
+}

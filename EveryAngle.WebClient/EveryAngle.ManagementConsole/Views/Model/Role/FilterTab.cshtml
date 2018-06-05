@@ -1,0 +1,259 @@
+﻿@model IEnumerable<EveryAngle.Core.ViewModels.Users.FilterDtoViewModel>
+@using EveryAngle.Shared.Globalization
+@using EveryAngle.ManagementConsole.Models
+
+@{
+    var allAvailableClasses = (ViewBag.AllClasses as List<EveryAngle.Core.ViewModels.Model.ClassViewModel>);
+    string className = "";
+}
+
+<textarea class="hidden" id="templateNewReferenceFilter">
+    <tr class="newRow">
+        <td>  
+            <select name="SourceObject" class="required">
+                <option value="">@Resource.PleaseSelect</option>
+                @foreach (var action in ViewBag.SourceClasses as IEnumerable<SelectListItem>)
+                {
+                    <option value="@action.Value">@action.Text</option>
+                }
+            </select>
+            @Html.ClassChooserButton(new PopupChooserButtonModel
+            {
+                ButtonType = PopupChooserButtonType.Input,
+                PopupTitle = Resource.MC_SelectAnObject,
+                ClassName = "alwaysHidden",
+                Attributes = "name=\"sourceClassField\" readonly=\"readonly\"",
+                OnClick = "MC.Models.Roles.ShowClassesChooser(MC.Models.Roles.FIELDSCHOOSER_FOR.CLASSES, this)"
+            })
+        </td>
+        <td>
+            <label>
+                <input value="true"  checked="checked" name="filterType" type="radio"  /><span class="label">@Resource.Allow</span></label>
+            <label>
+                <input value="false"  name="filterType"  type="radio" /><span class="label">@Resource.Deny</span></label>
+        </td>
+        <td>  
+            <select name="refrencedObject" class="required">
+            <option value="">@Resource.PleaseSelect</option>
+            @foreach (var action in ViewBag.TargetClasses as IEnumerable<SelectListItem>)
+            {
+                <option value="@action.Value">@action.Text</option>
+            }
+            </select>
+            @Html.ClassChooserButton(new PopupChooserButtonModel
+            {
+                ButtonType = PopupChooserButtonType.Input,
+                PopupTitle = Resource.MC_SelectAnObject,
+                ClassName = "alwaysHidden",
+                Attributes = "name=\"targetClassField\" readonly=\"readonly\"",
+                OnClick = "MC.Models.Roles.ShowClassesChooser(MC.Models.Roles.FIELDSCHOOSER_FOR.CLASSES, this)"
+            })
+        </td>
+
+        <td class="columnBoolean">
+            <label><input name="IsAllowed" type="checkbox" /><span class="label"></span></label>
+        </td>
+
+        <td>
+            @Html.FieldChooserButton(new PopupChooserButtonModel
+            {
+                ButtonType = PopupChooserButtonType.Input,
+                ClassName = "required",
+                PopupTitle = Resource.MC_SelectAField,
+                OnClick= "MC.Models.Roles.ShowFieldsChooser(MC.Models.Roles.FIELDSCHOOSER_FOR.OBJECT, this)",
+                Attributes = "name=\"txtField\" readonly=\"readonly\" placeholder=\"" + Resource.MC_SelectFieldHint + "\""
+            })
+            <input type="hidden" name="hdnFieldId" />
+        </td>
+
+        <td>
+            <input style="width:150px;" name="txtFilterValues" type="text" class="required multipleinput" data-role="multipleinput" data-default-text="Add values"   />
+        </td>
+        <td class="gridColumnToolbar">
+            <a data-target="#popupFilterDescriptionTemplate" title="Description" data-width="600" data-min-height="100" data-role="mcPopup" class="btn btnInfo" onclick='MC.Models.Roles.ShowFilterDescriptionPopup(this)'></a>
+        </td>
+        <td class="gridColumnToolbar">
+            <input type="hidden" name="hiddenId" value="-1" />
+            <a data-delete-template="@Resource.MC_DeleteFilterConfirm" onclick="MC.form.template.remove(this);" data-delete-field-index="0" class="btn btnDelete"></a>
+        </td>
+    </tr>
+</textarea>
+
+@(Html.Kendo().Grid(Model)
+    .Name("ReferenceFilterGrid")
+    .Columns(columns =>
+    {
+        columns.Template(@<text>
+            @Html.DropDownListFor(data => item.ClassId,
+                new SelectList(ViewBag.SourceClasses, "value", "text", item.ClassId),
+                Resource.PleaseSelect,
+                new { @class = "required", @Name = "SourceObject" })
+
+            @Html.ClassChooserButton(new PopupChooserButtonModel
+            {
+                ButtonType = PopupChooserButtonType.Input,
+                PopupTitle = Resource.MC_SelectAnObject,
+                Caption = item.ClassId,
+                ClassName = "alwaysHidden",
+                Attributes = "name=\"sourceClassField\" readonly=\"readonly\"",
+                OnClick = "MC.Models.Roles.ShowClassesChooser(MC.Models.Roles.FIELDSCHOOSER_FOR.CLASSES, this)"
+            })
+            @{
+                var sourceClass = allAvailableClasses.FirstOrDefault(filter => filter.id == item.ClassId);
+                className = sourceClass == null ? "" : sourceClass.short_name;
+                if (string.IsNullOrEmpty(className))
+                {
+                    className = item.ClassId;
+                }
+            }
+            <input type="hidden" value="@className" name="sourceClassFieldName" />
+        </text>)
+        .Title(Resource.Object)
+        .Width(150);
+
+        columns.Template(@<text>
+            @if (item.AllowedValues != null && item.AllowedValues.Count > 0)
+            {
+                string filterName = "filterType" + item.Index;
+                <label>
+                    <input type='radio' value="true" name='@filterName' checked />
+                    <span class="label">@Resource.Allow</span>
+                </label>
+                <label>
+                    <input type='radio' value="false" name='@filterName' />
+                    <span class="label">@Resource.Deny</span>
+                </label>
+            }
+            else if (item.DisAllowedValues != null && item.DisAllowedValues.Count > 0)
+            {
+                string filterName = "filterType" + item.Index;
+                <label>
+                    <input type='radio' value="true" name='@filterName'  />
+                    <span class="label">@Resource.Allow</span>
+                </label>
+                <label>
+                    <input type='radio' value="false" name='@filterName' checked />
+                    <span class="label">@Resource.Deny</span>
+                </label>
+            }
+        </text>)
+        .Title(Resource.FilterType)
+        .Width(140);
+
+        columns.Template(@<text>
+            @Html.DropDownListFor(data => item, new SelectList(ViewBag.TargetClasses, "value", "text", item.TargetClassId), Resource.PleaseSelect, new { @class = "required", @Name = "refrencedObject" })
+            @Html.ClassChooserButton(new PopupChooserButtonModel
+            {
+                ButtonType = PopupChooserButtonType.Input,
+                PopupTitle = Resource.MC_SelectAnObject,
+                Caption = item.TargetClassId,
+                ClassName = "alwaysHidden",
+                Attributes = "name=\"targetClassField\" readonly=\"readonly\"",
+                OnClick = "MC.Models.Roles.ShowClassesChooser(MC.Models.Roles.FIELDSCHOOSER_FOR.CLASSES, this)"
+            })
+            @{
+                var sourceClass = allAvailableClasses.FirstOrDefault(filter => filter.id == item.TargetClassId);
+                className = sourceClass == null ? "" : sourceClass.short_name;
+            }
+            <input type="hidden" value="@className" name="targetClassFieldName" />
+        </text>)
+        .Title(Resource.ReferencedObject)
+        .Width(150);
+
+        columns.Template(@<text>
+            @if (item.AllowedAllNull == true)
+            {   
+                <label>
+                    <input name="IsAllowed" type='checkbox' checked />
+                    <span class="label"></span>
+                </label>
+            }
+            else
+            {
+                <label>
+                    <input name="IsAllowed" type='checkbox' />
+                    <span class="label"></span>
+                </label>
+            }
+        </text>)
+        .Title(Resource.MC_AllowEmptly)
+        .Width(70)
+        .HtmlAttributes(new { @class = "columnBoolean" });
+
+        columns.Template(@<text>
+            @Html.FieldChooserButton(new PopupChooserButtonModel
+            {
+                ButtonType = PopupChooserButtonType.Input,
+                Caption = item.FieldName,
+                ClassName = "required",
+                PopupTitle = Resource.MC_SelectAField,
+                OnClick= "MC.Models.Roles.ShowFieldsChooser(MC.Models.Roles.FIELDSCHOOSER_FOR.OBJECT, this)",
+                Attributes = "name=\"txtField\" readonly=\"readonly\" placeholder=\"" + Resource.MC_SelectFieldHint + "\""
+            })
+            <input type="hidden" name="hdnFieldId" value="@item.FieldId"  />
+        </text>)
+        .Title(Resource.MC_Field)
+        .Width(150);
+
+        columns.Template(@<text>
+            @{
+                string txtBoxClass = !string.IsNullOrEmpty(item.DomainUri) ? "enumerated" : "multipleinput";
+                string dataRole = !string.IsNullOrEmpty(item.DomainUri) ? "multiple" : "multipleinput";
+                string dataType = !string.IsNullOrEmpty(item.DomainUri) ? "multiple" : "";
+            }
+            @if (item.AllowedValues != null && item.AllowedValues.Count > 0)
+            {
+                @Html.TextBoxFor(data => item.AllowedValuesName, new
+                                                {
+                                                    data_role = dataRole,
+                                                    data_default_text = "Add values",
+                                                    @class = "required " + txtBoxClass,
+                                                    Name = "txtFilterValues",
+                                                    id = "txtFilterValues" + item.Index,
+                                                    data_regexp = "checkRequiredField",
+                                                    data_type = dataType
+                                                })
+            }
+            else
+            {
+                @Html.TextBoxFor(data => item.DisAllowedValuesName, new
+                                                {
+                                                    data_role =dataRole,
+                                                    data_default_text = "Add values",
+                                                    @class = "required " + txtBoxClass,
+                                                    Name = "txtFilterValues",
+                                                    id = "txtFilterValues" + item.Index,
+                                                    data_regexp = "checkRequiredField",
+                                                    data_type = dataType
+                                                })
+            }
+
+            @if (txtBoxClass == "enumerated")
+            {
+                @Html.Hidden("hdnDomainUri", item.DomainUri)
+    
+            }
+        </text>)
+        .Title(Resource.Filter)
+        .Width(200);
+
+        columns.Template(@<text>
+            <a data-target="#popupFilterDescriptionTemplate" title="Description" data-width="600" data-min-height="100" data-role="mcPopup" class="btn btnInfo" onclick='MC.Models.Roles.ShowFilterDescriptionPopup(this)'></a>
+        </text>)
+        .HeaderHtmlAttributes(new { @class = "gridColumnToolbar" })
+        .HtmlAttributes(new { @class = "gridColumnToolbar" })
+        .Width(75)
+        .Title(Resource.MC_Info);
+
+        columns.Template(@<text>
+            <input type="hidden" name="hiddenId" value="@item.Index" />
+            <a data-delete-template="@Resource.MC_DeleteReferenceFilter" data-delete-field-index="0" onclick="MC.form.template.markAsRemove(this)" class="btn btnDelete" data-callback="MC.Models.Roles.RemoveFilterCallback" data-parameters='@item.Index'>Delete</a>
+        </text>)
+        .HeaderHtmlAttributes(new { @class = "gridColumnToolbar" })
+        .HtmlAttributes(new { @class = "gridColumnToolbar" })
+        .Width(75)
+        .Title(Resource.MC_Action);
+    })
+    .Scrollable(scroll => scroll.Virtual(false).Height(200))
+    .Resizable(resize => resize.Columns(true))
+)

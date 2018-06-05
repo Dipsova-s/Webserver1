@@ -1,0 +1,23 @@
+﻿{
+    "default_language": "en",
+    "default_currency": "EUR",
+    "client_settings": "{\"last_search_url\":\"/\",\"show_facet_angle_warnings\":false,\"default_Starred_Fields\":false,\"default_Suggested_Fields\":false,\"general_decimal_seperator\":\".\",\"general_thousand_seperator\":\",\"}",
+    "default_export_lines": 100,
+    "sap_fields_in_chooser": true,
+    "sap_fields_in_header": true,
+    "compressed_list_header": false,
+    "compressed_bp_bar": false,
+    "default_business_processes": [
+        "S2D"
+    ],
+    "auto_execute_items_on_login": true,
+    "auto_execute_last_search": false,
+    "format_locale": "",
+    "format_numbers": "{\"decimals\":0,\"prefix\":null,\"thousandseparator\":false}",
+    "format_currencies": "{\"decimals\":0,\"prefix\":null,\"thousandseparator\":false}",
+    "format_percentages": "{\"decimals\":0,\"prefix\":null,\"thousandseparator\":false}",
+    "format_enum": "shnln",
+    "format_date": "{\"order\":\"MDY\",\"day\":\"dd\",\"month\":\"MMM\",\"year\":\"yyyy\",\"separator\":\"/\"}",
+    "format_period": "",
+    "format_time": "{\"hour\":\"HHmm\",\"separator\":\":\",\"second\":\"\"}"
+}

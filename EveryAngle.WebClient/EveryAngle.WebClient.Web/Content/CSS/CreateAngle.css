@@ -1,0 +1,267 @@
+/* popupCreateNewAngleOption
+============================================ */
+.popupCreateNewAngleOption {
+    height: auto;
+}
+
+.screenMinHeight .popupCreateNewAngleOption {
+    height: 465px !important; /* NOSONAR: override runtime css */
+}
+
+.popupCreateNewAngleOption h2 {
+    color: #666666;
+    font-size: 18px;
+    font-style: normal;
+    font-weight: normal;
+    margin: 10px 30px 0 0;
+    position: relative;
+    text-decoration: none;
+}
+
+.popupCreateNewAngleOption .k-loading-color {
+    background-color: transparent;
+}
+
+.popupCreateNewAngleOption .content {
+    overflow: hidden;
+    padding-top: 15px;
+    margin-bottom: 15px;
+    border-top: 1px solid #b3b3b3;
+}
+
+.popupCreateNewAngleOption .content:first-child {
+    border-top: 0;
+    padding-top: 0;
+}
+
+.popupCreateNewAngleOption .imageSection {
+    float: left;
+    width: 190px;
+    text-align: left;
+}
+
+.popupCreateNewAngleOption .imageSection img {
+    cursor: pointer;
+}
+
+.popupCreateNewAngleOption .contentSection {
+    color: #333;
+    font-size: 12px;
+    margin-left: 190px;
+}
+
+.popupCreateNewAngleOption .showObjectButton .btn {
+    float: right;
+    margin-right: 0;
+}
+
+/* .popupCreateNewAngle
+============================================ */
+.popupCreateNewAngle {
+    width: 1000px;
+    height: 577px;
+}
+
+.popupCreateNewAngle .iconBack {
+    position: relative;
+    top: -3px;
+    margin-right: 5px;
+    font-size: 27px;
+    font-weight: bold;
+    display: inline;
+    font-style: normal;
+    vertical-align: middle;
+}
+
+/* .popupCreateNewAngleBySchema
+============================================ */
+.popupCreateNewAngleBySchema .schemaWrapper {
+    float: left;
+    width: 700px;
+    height: 500px;
+    overflow: hidden;
+}
+
+.popupCreateNewAngleBySchema #Angle {
+    background-color: #f9f9f9;
+    border: 1px solid #e6e6e6;
+    box-sizing: border-box;
+}
+
+#Schema {
+    position: relative;
+    min-width: 700px;
+    font-weight: bold;
+    font-family: Corbel, "Lucida Sans Unicode", "Lucida Grade", "Luxi Serif", Verdana, sans-serif;
+}
+
+#Schema img {
+    display: block;
+}
+
+#Schema > p {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    text-align: center;
+    font-style: italic;
+    color: #777;
+}
+
+#Schema > div {
+    position: absolute;
+    text-align: center;
+    font-size: 12px;
+    border: 3px solid transparent;
+    z-index: 1;
+}
+
+#Schema > div.active { /* NOSONAR: override runtime css */
+    border-color: #000 !important; /* NOSONAR: override runtime css */
+    box-shadow: 0 0 8px #fff inset, 0 0 8px #fff;
+    border-radius: 8px;
+    background-color: rgba(255, 255, 255, .25);
+}
+
+#Schema > div.active span { /* NOSONAR: override runtime css */
+    color: #000;
+}
+
+#Schema > div:hover { /* NOSONAR: override runtime css */
+    border-color: #00bc38 !important; /* NOSONAR: override runtime css */
+    box-shadow: 0 0 8px #fff inset, 0 0 8px #fff;
+    border-radius: 8px;
+}
+
+#Schema > div.disabled { /* NOSONAR: override runtime css */
+    border-color: transparent !important; /* NOSONAR: override runtime css */
+    box-shadow: inherit;
+    border-radius: inherit;
+}
+
+#Schema > div.disabled:hover { /* NOSONAR: override runtime css */
+    border-color: darkgreen !important; /* NOSONAR: override runtime css */
+}
+
+#Schema > div.noBorder, /* NOSONAR: override runtime css */
+#Schema > div.noBorder:hover { /* NOSONAR: override runtime css */
+    border-color: transparent !important; /* NOSONAR: override runtime css */
+}
+
+#Schema > .disabled a {
+    cursor: default;
+    opacity: .6;
+}
+
+#Schema .SubClass {
+    z-index: 2;
+}
+
+#Schema > .validWarning:before {
+    content: '';
+    position: absolute;
+    right: -5px;
+    top: -5px;
+    background: transparent url('../../images/icons/icon_warning.svg') center center no-repeat;
+    width: 16px;
+    height: 16px;
+    z-index: 10;
+}
+
+#Schema a {
+    display: table-cell;
+    color: #fff;
+    text-decoration: none;
+    position: relative;
+    vertical-align: top;
+    text-align: center;
+    font-size: medium;
+    background: transparent none left top repeat;
+}
+
+#Schema .ContextArea {
+    vertical-align: top;
+    text-align: left;
+    font-size: 16px;
+    line-height: 18px;
+}
+
+#Schema .ContextArea > span {
+    padding: 8px 6px 0 33px;
+}
+
+#Schema .ButtonArea {
+    vertical-align: top;
+    text-align: left;
+    font-size: 14px;
+    line-height: 18px;
+}
+
+#Schema .ButtonArea > span {
+    padding: 4px 2px 0 25px;
+}
+
+#Schema .SubArea {
+    vertical-align: top;
+    text-align: left;
+    font-size: 13px;
+    line-height: 15px;
+}
+
+#Schema .SubArea > span {
+    padding: 3px 5px 0 6px;
+}
+
+#Schema .Button {
+    vertical-align: middle;
+    text-align: left;
+    font-size: 13px;
+    line-height: 15px;
+}
+
+#Schema .Button > span {
+    padding: 1px 4px 1px 6px;
+}
+
+#Schema .Legend {
+    cursor: default;
+    color: #4d4d4d;
+    vertical-align: middle;
+    padding: 0;
+    margin: 0;
+    text-shadow: none;
+    font-size: 13px;
+    line-height: 17px;
+    text-align: left;
+    opacity: 1;
+}
+
+#Schema a > span {
+    display: block;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    padding-left: 2px;
+    box-sizing: border-box;
+    opacity: 1;
+    transition: opacity .3s ease;
+}
+
+#Schema a > .inprogress {
+    opacity: 0;
+}
+
+#popupCreateNewAngleBySchema .CreateNewAngleContainer .Description {
+    margin-left: 725px;
+}
+#popupCreateNewAngleBySchema.compactMode .CreateNewAngleContainer .Description {
+    margin-left: 0;
+}
+
+.popupCreateNewAngleBySchema .btnRight {
+    display: block;
+}
+
+.popupCreateNewAngleBySchema .loading16x16 {
+    display: none;
+}

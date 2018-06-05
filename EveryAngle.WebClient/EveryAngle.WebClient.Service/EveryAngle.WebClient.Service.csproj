@@ -1,0 +1,217 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{14D01084-DE1A-4C33-A81F-767E0FA7A77D}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>EveryAngle.WebClient.Service</RootNamespace>
+    <AssemblyName>EveryAngle.WebClient.Service</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <SccProjectName>
+    </SccProjectName>
+    <SccLocalPath>
+    </SccLocalPath>
+    <SccAuxPath>
+    </SccAuxPath>
+    <SccProvider>
+    </SccProvider>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'DEVMODE|AnyCPU'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\DEVMODE\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="DevExpress.Data.v17.1, Version=17.1.7.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <HintPath>..\packages\DevExpress.Data.17.1.0\lib\net40\DevExpress.Data.v17.1.dll</HintPath>
+    </Reference>
+    <Reference Include="DevExpress.PivotGrid.v17.1.Core, Version=17.1.7.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <HintPath>..\packages\DevExpress.PivotGrid.17.1.0\lib\net40\DevExpress.PivotGrid.v17.1.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="DevExpress.Utils.v17.1, Version=17.1.7.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <HintPath>..\packages\DevExpress.Utils.17.1.0\lib\net40\DevExpress.Utils.v17.1.dll</HintPath>
+    </Reference>
+    <Reference Include="DevExpress.Web.ASPxPivotGrid.v17.1, Version=17.1.7.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <HintPath>..\packages\DevExpress.Web.ASPxPivotGrid.17.1.0\lib\net40\DevExpress.Web.ASPxPivotGrid.v17.1.dll</HintPath>
+    </Reference>
+    <Reference Include="DevExpress.Web.Mvc5.v17.1, Version=17.1.7.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <HintPath>..\packages\DevExpress.Web.Mvc5.17.1.0\lib\net40\DevExpress.Web.Mvc5.v17.1.dll</HintPath>
+    </Reference>
+    <Reference Include="DevExpress.Web.v17.1, Version=17.1.7.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <HintPath>..\packages\DevExpress.Web.17.1.0\lib\net40\DevExpress.Web.v17.1.dll</HintPath>
+    </Reference>
+    <Reference Include="DocumentFormat.OpenXml, Version=2.5.5631.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\DocumentFormat.OpenXml.2.5\lib\DocumentFormat.OpenXml.dll</HintPath>
+    </Reference>
+    <Reference Include="EveryAngle.Logging, Version=2.4.2.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\EveryAngle.Logging.2.4.2\lib\net45\EveryAngle.Logging.dll</HintPath>
+    </Reference>
+    <Reference Include="EveryAngle.Shared.Formatter, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\EveryAngle.Shared.Formatter.1.0.0\lib\net45\EveryAngle.Shared.Formatter.dll</HintPath>
+    </Reference>
+    <Reference Include="EveryAngle.Shared.Globalization, Version=1.0.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\EveryAngle.Shared.Globalization.1.0.1\lib\net45\EveryAngle.Shared.Globalization.dll</HintPath>
+    </Reference>
+    <Reference Include="EveryAngle.Shared.Pivot, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\EveryAngle.Shared.Pivot.1.0.0\lib\net45\EveryAngle.Shared.Pivot.dll</HintPath>
+    </Reference>
+    <Reference Include="EveryAngle.Threading, Version=2.4.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\EveryAngle.Threading.2.4.1\lib\net45\EveryAngle.Threading.dll</HintPath>
+    </Reference>
+    <Reference Include="EveryAngle.Utilities, Version=2.4.2.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\EveryAngle.Utilities.2.4.2\lib\net45\EveryAngle.Utilities.dll</HintPath>
+    </Reference>
+    <Reference Include="Ionic.Zip, Version=1.9.1.8, Culture=neutral, PublicKeyToken=edbe51ad942a3f5c, processorArchitecture=MSIL">
+      <HintPath>..\packages\Ionic.Zip.1.9.1.8\lib\Ionic.Zip.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Web.Administration, Version=7.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Web.Administration.7.0.0.0\lib\net20\Microsoft.Web.Administration.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.10.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="Raize.CodeSiteLogging, Version=5.1.8.0, Culture=neutral, PublicKeyToken=5979856d688ff136, processorArchitecture=MSIL">
+      <HintPath>..\packages\Raize.CodeSiteLogging.5.1.8\lib\net45\Raize.CodeSiteLogging.dll</HintPath>
+    </Reference>
+    <Reference Include="RestSharp, Version=105.2.3.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\RestSharp.105.2.3\lib\net45\RestSharp.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Drawing">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.IO.Compression.FileSystem" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Net.Http.Formatting, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Web.Helpers, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.Helpers.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Http, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Web.Mvc, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Mvc.5.2.3\lib\net45\System.Web.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Razor.3.2.3\lib\net45\System.Web.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.WebPages.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Deployment, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.WebPages.Deployment.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.WebPages.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Xml" />
+    <Reference Include="WebActivatorEx, Version=2.0.0.0, Culture=neutral, PublicKeyToken=7b26dc2a43f6a0d4, processorArchitecture=MSIL">
+      <HintPath>..\packages\WebActivatorEx.2.0.3\lib\net40\WebActivatorEx.dll</HintPath>
+    </Reference>
+    <Reference Include="WindowsBase" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Aggregation\AggregationService.cs" />
+    <Compile Include="ApiServices\AutomationTaskService.cs" />
+    <Compile Include="ApiServices\CommentService.cs" />
+    <Compile Include="ApiServices\BaseService.cs" />
+    <Compile Include="ApiServices\FacetService.cs" />
+    <Compile Include="ApiServices\PackageService.cs" />
+    <Compile Include="ApiServices\TaskService.cs" />
+    <Compile Include="ApiServices\DirectoryService.cs" />
+    <Compile Include="ApiServices\GlobalSettingService.cs" />
+    <Compile Include="ApiServices\LabelCategoryService.cs" />
+    <Compile Include="ApiServices\ModelService.cs" />
+    <Compile Include="ApiServices\SessionService.cs" />
+    <Compile Include="ApiServices\SystemInformationService.cs" />
+    <Compile Include="ApiServices\DownloadTableService.cs" />
+    <Compile Include="ApiServices\UserService.cs" />
+    <Compile Include="EmbededResource\EmbeddedVirtualFile.cs" />
+    <Compile Include="EmbededResource\EmbeddedVirtualPathProvider.cs" />
+    <Compile Include="EmbededResource\HttpHandlers\EmbeddedResourceHttpHandler.cs" />
+    <Compile Include="EmbededResource\HttpHandlers\EmbeddedResourceRouteHandler.cs" />
+    <Compile Include="ErrorHandlers\CustomApiHandleError.cs" />
+    <Compile Include="ErrorHandlers\CustomErrorPageHandler.cs" />
+    <Compile Include="ErrorHandlers\CustomHandleError.cs" />
+    <Compile Include="FriendlyErrorMessageHelper.cs" />
+    <Compile Include="HttpHandlers\CustomHeaderModule.cs" />
+    <Compile Include="HttpHandlers\HttpResponseMessageBuilder.cs" />
+    <Compile Include="HttpHandlers\RequestManager.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="LogHandlers\LogExceptionApiHandler.cs" />
+    <Compile Include="LogHandlers\LogExceptionHandler.cs" />
+    <Compile Include="LogHandlers\LogManager.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Security\AccountService.cs" />
+    <Compile Include="Security\SessionHelper.cs" />
+    <Compile Include="UpdatedPropertiesResolver.cs" />
+    <Compile Include="WebClientConfigs\WebClientConfigService.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\EveryAngle.Core.Interfaces\EveryAngle.Core.Interfaces.csproj">
+      <Project>{7f61d24c-5fb8-4b24-8273-176209ae2b8e}</Project>
+      <Name>EveryAngle.Core.Interfaces</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\EveryAngle.Core.ViewModels\EveryAngle.Core.ViewModels.csproj">
+      <Project>{fd678f41-ed45-41ba-9d41-0c96498d2b7a}</Project>
+      <Name>EveryAngle.Core.ViewModels</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\EveryAngle.Shared.Helpers\EveryAngle.Shared.Helpers.csproj">
+      <Project>{25ef80a0-14d8-4efc-9ad2-265ef87b2429}</Project>
+      <Name>EveryAngle.Shared.Helpers</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\EveryAngle.WebClient.Domain\EveryAngle.WebClient.Domains.csproj">
+      <Project>{ec17ecc9-7496-4b25-b524-348e6c3c6e15}</Project>
+      <Name>EveryAngle.WebClient.Domains</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

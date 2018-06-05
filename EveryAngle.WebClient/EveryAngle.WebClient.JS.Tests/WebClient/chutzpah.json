@@ -1,0 +1,49 @@
+﻿{
+  "Framework": "jasmine",
+  "CodeCoverageIncludes": [],
+  "CodeCoverageExcludes": [
+    "*\\MockData\\*",
+    "*\\Tests\\*",
+    "*\\jQuery\\*",
+    "*\\KnockOut\\*",
+    "*\\SharedDependencies\\*",
+    "*\\Global.js",
+    "*\\modernizr.2.6.2.custom.js",
+    "*\\kendo.core.min.js"
+  ],
+  "CodeCoverageIgnores": [],
+  "BrowserArguments": {
+    "chrome": "--allow-file-access-from-files"
+  },
+  "References": [
+    { "Path": "/../MockData/text.js" },
+    { "Path": "/../MockData/mockdata.js" },
+    { "Path": "/Dependencies/Global.js" },
+    { "Path": "/Dependencies/modernizr.2.6.2.custom.js" },
+    { "Path": "/Dependencies/jQuery/jquery.js" },
+    { "Path": "/Dependencies/jQuery/jquery-migrate-1.2.1.js" },
+    { "Path": "/Dependencies/jQuery/jquery.cookie-1.4.1.min.js" },
+    { "Path": "/Dependencies/jQuery/jquery.base64.min.js" },
+    { "Path": "/Dependencies/jQuery/jquery.address.js" },
+    { "Path": "/Dependencies/KendoUI/kendo.core.min.js" },
+    { "Path": "/Dependencies/KendoUI/kendo.core.extension.js" },
+    { "Path": "/Dependencies/KnockOut/knockout-2.2.0.js" },
+    { "Path": "/Dependencies/KnockOut/knonkout.helper.js" },
+    { "Path": "/../SharedDependencies/shared.js" },
+    { "Path": "/Dependencies/Helper/GlobalFunction.js" },
+    { "Path": "/Dependencies/Helper/ManageCookies.js" },
+    { "Path": "/Dependencies/Helper/bootstrap.js" },
+    { "Path": "/Dependencies/Helper/EnumHandlers.js" },
+    { "Path": "/Dependencies/Helper/HtmlHelper.js" },
+    { "Path": "/Dependencies/Helper/Storage.js" },
+    { "Path": "/Dependencies/Helper/utilities.js" },
+    { "Path": "/Dependencies/Helper/DateTimeExtension.js" },
+    { "Path": "/Dependencies/Helper/modelhelper.js" },
+    { "Path": "/Dependencies/Helper/handlerhelper.js" },
+    { "Path": "/Dependencies/Helper/modelhandlerhelper.js" },
+    { "Path": "/Dependencies/Helper/viewengine.js" },
+    { "Path": "/Dependencies/AjaxHTTPHandler/AjaxRequestHandler.js" },
+    { "Path": "/Dependencies/AjaxHTTPHandler/RequestHistoryHandler.js" }
+  ],
+  "RootReferencePathMode": "SettingsFileDirectory"
+}

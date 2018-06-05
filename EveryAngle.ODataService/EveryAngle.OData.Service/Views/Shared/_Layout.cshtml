@@ -1,0 +1,55 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <link rel="shortcut icon" type="image/x-icon" href="@Url.Content("~/")favicon.ico" />
+    <title>@ViewBag.Title</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+</head>
+<body ng-app="odataService">
+
+    <script>
+        var api_destination = "@Url.Content("~/api/")";
+        var odata_destination = "@Url.Content("~/odata/")";
+    </script>
+
+    <div class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                @Html.ActionLink("Odata Service", "ODataEntry", "Home", new { area = "" }, new { @class = "navbar-brand" })
+            </div>
+            <div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+                    @*<li>@Html.ActionLink("Home", "Index", "Home")</li>*@
+                    @*<li>@Html.ActionLink("Service Entry", "ODataEntry", "Home")</li>*@
+                    @*<li>@Html.ActionLink("Monitoring", "Index", "Monitoring")</li>*@
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="container body-content">
+        @RenderBody()
+        <hr />
+        <footer>
+            <p>&copy; @DateTime.Now.Year - OData Service Application. (@EveryAngle.OData.Utils.Extensions.GetFileVersion())</p>
+        </footer>
+    </div>
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/angularjs")
+    @Scripts.Render("~/bundles/bootstrap")
+    @Scripts.Render("~/bundles/kendoUI")
+    @Scripts.Render("~/bundles/signalrComponent")
+    @Scripts.Render("~/signalr/hubs")
+
+    @RenderSection("scripts", required: false)
+    
+</body>
+</html>

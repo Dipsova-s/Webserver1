@@ -1,0 +1,770 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{4B6CF0BD-D335-4421-BA13-6FC991AA57CD}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>EveryAngle.WebClient.JS.Tests</RootNamespace>
+    <AssemblyName>EveryAngle.WebClient.JS.Tests</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <ProjectTypeGuids>{3AC096D0-A1C2-E12C-1390-A8335801FDAB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+    <ReferencePath>$(ProgramFiles)\Common Files\microsoft shared\VSTT\$(VisualStudioVersion)\UITestExtensionPackages</ReferencePath>
+    <IsCodedUITest>False</IsCodedUITest>
+    <TestProjectType>UnitTest</TestProjectType>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+  </ItemGroup>
+  <Choose>
+    <When Condition="('$(VisualStudioVersion)' == '10.0' or '$(VisualStudioVersion)' == '') and '$(TargetFrameworkVersion)' == 'v3.5'">
+      <ItemGroup>
+        <Reference Include="Microsoft.VisualStudio.QualityTools.UnitTestFramework, Version=10.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
+      </ItemGroup>
+    </When>
+    <Otherwise>
+      <ItemGroup>
+        <Reference Include="Microsoft.VisualStudio.QualityTools.UnitTestFramework" />
+      </ItemGroup>
+    </Otherwise>
+  </Choose>
+  <ItemGroup>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="..\EveryAngle.ManagementConsole\Scripts\Page\MC.Models.Packages.js">
+      <Link>ManagementConsole\Dependencies\page\MC.Models.Packages.js</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\EveryAngle.ManagementConsole\Scripts\jQuery\jquery.validate.additional-methods.js">
+      <Link>ManagementConsole\Dependencies\jquery\jquery.validate.additional-methods.js</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\EveryAngle.ManagementConsole\Scripts\jQuery\jquery.validate.min.js">
+      <Link>ManagementConsole\Dependencies\jquery\jquery.validate.min.js</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\EveryAngle.ManagementConsole\Scripts\Page\MC.GlobalSettings.Packages.js">
+      <Link>ManagementConsole\Dependencies\page\MC.GlobalSettings.Packages.js</Link>
+    </Content>
+    <Content Include="..\EveryAngle.Shared.EmbeddedViews\Resource\FieldsChooser\FieldsChooser.js">
+      <Link>SharedDependencies\FieldsChooser.js</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\EveryAngle.Shared.EmbeddedViews\Resource\Shared\shared.js">
+      <Link>SharedDependencies\shared.js</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\EveryAngle.Shared.EmbeddedViews\Resource\BusinessProcess\BusinessProcessesModel.js">
+      <Link>SharedDependencies\BusinessProcessesModel.js</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\EveryAngle.Shared.EmbeddedViews\Resource\ClassesChooser\ClassesChooser.js">
+      <Link>SharedDependencies\ClassesChooser.js</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\EveryAngle.WebClient.Web\Scripts\ViewManagement\Angle\FollowupPageHandler.js">
+      <Link>WebClient\Dependencies\ViewManagement\Angles\FollowupPageHandler.js</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="ManagementConsole\Tests\Custom\MC.AjaxTest.js" />
+    <Content Include="ManagementConsole\Tests\Custom\MC.Test.js" />
+    <Content Include="ManagementConsole\Tests\Custom\MC.UITest.js" />
+    <Content Include="ManagementConsole\Tests\Custom\MC.UtilModelServerInfoTest.js" />
+    <Content Include="ManagementConsole\Tests\jQuery\jquery.validate.additional-methods.Test.js" />
+    <Content Include="ManagementConsole\Tests\Page\MC.Models.PackagesTest.js" />
+    <Content Include="ManagementConsole\Tests\jQuery\jquery.validate.additional-methods.Test.js" />
+    <Content Include="ManagementConsole\Tests\Page\MC.GlobalSettings.PackagesTest.js" />
+    <Content Include="MockData\text.js" />
+    <Content Include="MockData\mockdata.js" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="..\EveryAngle.ManagementConsole\Scripts\Custom\MC.ajax.js">
+      <Link>ManagementConsole\Dependencies\custom\MC.ajax.js</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\EveryAngle.ManagementConsole\Scripts\Custom\MC.ui.js">
+      <Link>ManagementConsole\Dependencies\custom\MC.ui.js</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\EveryAngle.ManagementConsole\Scripts\Custom\MC.ui.loading.js">
+      <Link>ManagementConsole\Dependencies\custom\MC.ui.loading.js</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\EveryAngle.ManagementConsole\Scripts\Custom\MC.util.task.js">
+      <Link>ManagementConsole\Dependencies\custom\MC.util.task.js</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\EveryAngle.ManagementConsole\Scripts\Page\MC.Users.User.js">
+      <Link>ManagementConsole\Dependencies\page\MC.Users.User.js</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\EveryAngle.ManagementConsole\Scripts\Custom\MC.js">
+      <Link>ManagementConsole\Dependencies\custom\MC.js</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\EveryAngle.ManagementConsole\Scripts\Custom\MC.util.consolidatedrole.js">
+      <Link>ManagementConsole\Dependencies\custom\MC.util.consolidatedrole.js</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\EveryAngle.ManagementConsole\Scripts\Custom\MC.util.date.js">
+      <Link>ManagementConsole\Dependencies\custom\MC.util.date.js</Link>
+    </Content>
+    <Content Include="..\EveryAngle.ManagementConsole\Scripts\Custom\MC.util.grid.js">
+      <Link>ManagementConsole\Dependencies\custom\MC.util.grid.js</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\EveryAngle.ManagementConsole\Scripts\Custom\MC.util.js">
+      <Link>ManagementConsole\Dependencies\custom\MC.util.js</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\EveryAngle.ManagementConsole\Scripts\Custom\MC.util.massreport.js">
+      <Link>ManagementConsole\Dependencies\custom\MC.util.massreport.js</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\EveryAngle.ManagementConsole\Scripts\Custom\MC.util.modelserverinfo.js">
+      <Link>ManagementConsole\Dependencies\custom\MC.util.modelserverinfo.js</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\EveryAngle.ManagementConsole\Scripts\Custom\MC.util.popup.js">
+      <Link>ManagementConsole\Dependencies\custom\MC.util.popup.js</Link>
+    </Content>
+    <Content Include="..\EveryAngle.ManagementConsole\Scripts\Custom\MC.util.upload.js">
+      <Link>ManagementConsole\Dependencies\custom\MC.util.upload.js</Link>
+    </Content>
+    <Content Include="..\EveryAngle.ManagementConsole\Scripts\jQuery\jquery.extension.js">
+      <Link>ManagementConsole\Dependencies\jquery\jquery.extension.js</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\EveryAngle.ManagementConsole\Scripts\jQuery\jquery.min.js">
+      <Link>ManagementConsole\Dependencies\jquery\jquery.min.js</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\EveryAngle.ManagementConsole\Scripts\jstz.min.js">
+      <Link>ManagementConsole\Dependencies\jquery\jstz.min.js</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\EveryAngle.ManagementConsole\Scripts\KendoUI\kendo.all.min.js">
+      <Link>ManagementConsole\Dependencies\kendoui\kendo.all.min.js</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\EveryAngle.ManagementConsole\Scripts\KendoUI\kendo.timezones.min.js">
+      <Link>ManagementConsole\Dependencies\kendoui\kendo.timezones.min.js</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\EveryAngle.ManagementConsole\Scripts\Knockout\knockout.min.js">
+      <Link>ManagementConsole\Dependencies\knockout\knockout.min.js</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\EveryAngle.ManagementConsole\Scripts\Modernizr\modernizr.min.js">
+      <Link>ManagementConsole\Dependencies\modernizr\modernizr.min.js</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\EveryAngle.ManagementConsole\Scripts\Page\MC.AutomationTasks.Tasks.js">
+      <Link>ManagementConsole\Dependencies\page\MC.AutomationTasks.Tasks.js</Link>
+    </Content>
+    <Content Include="..\EveryAngle.ManagementConsole\Scripts\Page\MC.Models.AngleWarnings.js">
+      <Link>ManagementConsole\Dependencies\page\MC.Models.AngleWarnings.js</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\EveryAngle.ManagementConsole\Scripts\Page\MC.Models.RefreshCycle.js">
+      <Link>ManagementConsole\Dependencies\page\MC.Models.RefreshCycle.js</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\EveryAngle.ManagementConsole\Scripts\Page\MC.Models.Roles.js">
+      <Link>ManagementConsole\Dependencies\page\MC.Models.Roles.js</Link>
+    </Content>
+    <Content Include="ManagementConsole\Dependencies\Global.js" />
+    <Content Include="ManagementConsole\Tests\Custom\MC.UtilTest.js" />
+    <Content Include="ManagementConsole\Tests\Page\MC.Models.RefreshCycleTest.js" />
+    <Content Include="ManagementConsole\Tests\Page\MC.AutomationTasks.TasksTest.js" />
+    <Content Include="ManagementConsole\Tests\Page\MC.Models.RolesTest.js" />
+    <Content Include="ManagementConsole\Tests\Custom\MC.UtilTaskTest.js" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="..\EveryAngle.WebClient.Web\Scripts\AjaxHTTPHandler\AjaxRequestHandler.js">
+      <Link>WebClient\Dependencies\AjaxHttpHandler\AjaxRequestHandler.js</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\EveryAngle.WebClient.Web\Scripts\AjaxHTTPHandler\RequestHistoryHandler.js">
+      <Link>WebClient\Dependencies\AjaxHttpHandler\RequestHistoryHandler.js</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\EveryAngle.WebClient.Web\Scripts\ErrorHandler\ErrorHandler.js">
+      <Link>WebClient\Dependencies\ErrorHandler\ErrorHandler.js</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\EveryAngle.WebClient.Web\Scripts\Helper\bootstrap.js">
+      <Link>WebClient\Dependencies\Helper\bootstrap.js</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\EveryAngle.WebClient.Web\Scripts\Helper\DateTimeExtension.js">
+      <Link>WebClient\Dependencies\Helper\DateTimeExtension.js</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\EveryAngle.WebClient.Web\Scripts\Helper\DefaultValueHandler.js">
+      <Link>WebClient\Dependencies\Helper\DefaultValueHandler.js</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\EveryAngle.WebClient.Web\Scripts\Helper\EnumHandlers.js">
+      <Link>WebClient\Dependencies\Helper\EnumHandlers.js</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\EveryAngle.WebClient.Web\Scripts\Helper\GlobalFunction.js">
+      <Link>WebClient\Dependencies\Helper\GlobalFunction.js</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\EveryAngle.WebClient.Web\Scripts\Helper\HandlerHelper.js">
+      <Link>WebClient\Dependencies\Helper\HandlerHelper.js</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\EveryAngle.WebClient.Web\Scripts\Helper\HtmlHelper.js">
+      <Link>WebClient\Dependencies\Helper\HtmlHelper.js</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\EveryAngle.WebClient.Web\Scripts\Helper\HtmlHelper.MenuNavigatable.js">
+      <Link>WebClient\Dependencies\Helper\HtmlHelper.MenuNavigatable.js</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\EveryAngle.WebClient.Web\Scripts\Helper\ManageCookies.js">
+      <Link>WebClient\Dependencies\Helper\ManageCookies.js</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\EveryAngle.WebClient.Web\Scripts\Helper\MeasurePerformance.js">
+      <Link>WebClient\Dependencies\Helper\MeasurePerformance.js</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\EveryAngle.WebClient.Web\Scripts\Helper\ModelHandlerHelper.js">
+      <Link>WebClient\Dependencies\Helper\ModelHandlerHelper.js</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\EveryAngle.WebClient.Web\Scripts\Helper\ModelHelper.js">
+      <Link>WebClient\Dependencies\Helper\ModelHelper.js</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\EveryAngle.WebClient.Web\Scripts\Helper\Storage.js">
+      <Link>WebClient\Dependencies\Helper\Storage.js</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\EveryAngle.WebClient.Web\Scripts\Helper\utilities.js">
+      <Link>WebClient\Dependencies\Helper\utilities.js</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\EveryAngle.WebClient.Web\Scripts\Helper\ViewEngine.js">
+      <Link>WebClient\Dependencies\Helper\ViewEngine.js</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\EveryAngle.WebClient.Web\Scripts\HtmlTemplate\Export\exportcsvhtmltemplate.js">
+      <Link>WebClient\Dependencies\HtmlTemplate\Export\exportcsvhtmltemplate.js</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\EveryAngle.WebClient.Web\Scripts\HtmlTemplate\Export\exportdrilldownexcelhtmltemplate.js">
+      <Link>WebClient\Dependencies\HtmlTemplate\Export\exportdrilldownexcelhtmltemplate.js</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\EveryAngle.WebClient.Web\Scripts\HtmlTemplate\Export\exportexcelhtmltemplate.js">
+      <Link>WebClient\Dependencies\HtmlTemplate\Export\exportexcelhtmltemplate.js</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\EveryAngle.WebClient.Web\Scripts\HtmlTemplate\Menu\usersettingpopuphtmltemplate.js">
+      <Link>WebClient\Dependencies\HtmlTemplate\Menu\usersettingpopuphtmltemplate.js</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\EveryAngle.WebClient.Web\Scripts\jQuery\jquery-migrate-1.2.1.js">
+      <Link>WebClient\Dependencies\jQuery\jquery-migrate-1.2.1.js</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\EveryAngle.WebClient.Web\Scripts\jQuery\jquery.address.js">
+      <Link>WebClient\Dependencies\jQuery\jquery.address.js</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\EveryAngle.WebClient.Web\Scripts\jQuery\jquery.base64.min.js">
+      <Link>WebClient\Dependencies\jQuery\jquery.base64.min.js</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\EveryAngle.WebClient.Web\Scripts\jQuery\jquery.cookie-1.4.1.min.js">
+      <Link>WebClient\Dependencies\jQuery\jquery.cookie-1.4.1.min.js</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\EveryAngle.WebClient.Web\Scripts\jQuery\jquery.js">
+      <Link>WebClient\Dependencies\jQuery\jquery.js</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\EveryAngle.WebClient.Web\Scripts\KendoUI\kendo.core.extension.js">
+      <Link>WebClient\Dependencies\KendoUI\kendo.core.extension.js</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\EveryAngle.WebClient.Web\Scripts\KendoUI\kendo.core.min.js">
+      <Link>WebClient\Dependencies\KendoUI\kendo.core.min.js</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\EveryAngle.WebClient.Web\Scripts\KnockOut\knockout-2.2.0.js">
+      <Link>WebClient\Dependencies\KnockOut\knockout-2.2.0.js</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\EveryAngle.WebClient.Web\Scripts\KnockOut\knonkout.helper.js">
+      <Link>WebClient\Dependencies\KnockOut\knonkout.helper.js</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\EveryAngle.WebClient.Web\Scripts\modernizr.2.6.2.custom.js">
+      <Link>WebClient\Dependencies\modernizr.2.6.2.custom.js</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\EveryAngle.WebClient.Web\Scripts\User\Authentication.js">
+      <Link>WebClient\Dependencies\User\Authentication.js</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\EveryAngle.WebClient.Web\Scripts\ViewManagement\Angle\AnglePageHandler.js">
+      <Link>WebClient\Dependencies\ViewManagement\Angles\AnglePageHandler.js</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\EveryAngle.WebClient.Web\Scripts\ViewManagement\Angle\AngleActionMenuHandler.js">
+      <Link>WebClient\Dependencies\ViewManagement\Angles\AngleActionMenuHandler.js</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\EveryAngle.WebClient.Web\Scripts\ViewManagement\Angle\AngleDetailBodyPageHandler.js">
+      <Link>WebClient\Dependencies\ViewManagement\Angles\AngleDetailBodyPageHandler.js</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\EveryAngle.WebClient.Web\Scripts\ViewManagement\Angle\ChartHandler.js">
+      <Link>WebClient\Dependencies\ViewManagement\Angles\ChartHandler.js</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\EveryAngle.WebClient.Web\Scripts\ViewManagement\Angle\DisplayCopyHandler.js">
+      <Link>WebClient\Dependencies\ViewManagement\Angles\DisplayCopyHandler.js</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\EveryAngle.WebClient.Web\Scripts\ViewManagement\Angle\DisplayUpgradeHandler.js">
+      <Link>WebClient\Dependencies\ViewManagement\Angles\DisplayUpgradeHandler.js</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\EveryAngle.WebClient.Web\Scripts\ViewManagement\Angle\FieldSettingsHandler.js">
+      <Link>WebClient\Dependencies\ViewManagement\Angles\FieldSettingsHandler.js</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\EveryAngle.WebClient.Web\Scripts\ViewManagement\Angle\ListDrilldownHandler.js">
+      <Link>WebClient\Dependencies\ViewManagement\Angles\ListDrilldownHandler.js</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\EveryAngle.WebClient.Web\Scripts\ViewManagement\Angle\ListFormatSettingHandler.js">
+      <Link>WebClient\Dependencies\ViewManagement\Angles\ListFormatSettingHandler.js</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\EveryAngle.WebClient.Web\Scripts\ViewManagement\Angle\ListHandler.js">
+      <Link>WebClient\Dependencies\ViewManagement\Angles\ListHandler.js</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\EveryAngle.WebClient.Web\Scripts\ViewManagement\Angle\PivotHandler.js">
+      <Link>WebClient\Dependencies\ViewManagement\Angles\PivotHandler.js</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\EveryAngle.WebClient.Web\Scripts\ViewManagement\Angle\ScheduleAngleHandler.js">
+      <Link>WebClient\Dependencies\ViewManagement\Angles\ScheduleAngleHandler.js</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\EveryAngle.WebClient.Web\Scripts\ViewManagement\CreateNewAngle\CreateNewAnglePageHandler.js">
+      <Link>WebClient\Dependencies\ViewManagement\CreateNewAngle\CreateNewAnglePageHandler.js</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\EveryAngle.WebClient.Web\Scripts\ViewManagement\Dashboard\DashboardDetailsHandler.js">
+      <Link>WebClient\Dependencies\ViewManagement\Dashboard\DashboardDetailsHandler.js</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\EveryAngle.WebClient.Web\Scripts\ViewManagement\Dashboard\DashboardHandler.js">
+      <Link>WebClient\Dependencies\ViewManagement\Dashboard\DashboardHandler.js</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\EveryAngle.WebClient.Web\Scripts\ViewManagement\Exports\ExportExcelHandler.js">
+      <Link>WebClient\Dependencies\ViewManagement\Exports\ExportExcelHandler.js</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\EveryAngle.WebClient.Web\Scripts\ViewManagement\Exports\ExportHandler.js">
+      <Link>WebClient\Dependencies\ViewManagement\Exports\ExportHandler.js</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\EveryAngle.WebClient.Web\Scripts\ViewManagement\Search\anglecopyhandler.js">
+      <Link>WebClient\Dependencies\ViewManagement\Search\anglecopyhandler.js</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\EveryAngle.WebClient.Web\Scripts\ViewManagement\Search\angledownloadhandler.js">
+      <Link>WebClient\Dependencies\ViewManagement\Search\angledownloadhandler.js</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\EveryAngle.WebClient.Web\Scripts\ViewManagement\Search\AngleExportHandler.js">
+      <Link>WebClient\Dependencies\ViewManagement\Search\AngleExportHandler.js</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\EveryAngle.WebClient.Web\Scripts\ViewManagement\Search\importAngleHandler.js">
+      <Link>WebClient\Dependencies\ViewManagement\Search\importAngleHandler.js</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\EveryAngle.WebClient.Web\Scripts\ViewManagement\Search\ItemInfoHandler.js">
+      <Link>WebClient\Dependencies\ViewManagement\Search\ItemInfoHandler.js</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\EveryAngle.WebClient.Web\Scripts\ViewManagement\Search\SearchPageHandler.js">
+      <Link>WebClient\Dependencies\ViewManagement\Search\SearchPageHandler.js</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\EveryAngle.WebClient.Web\Scripts\ViewManagement\Shared\DirectoryHandler.js">
+      <Link>WebClient\Dependencies\ViewManagement\Shared\DirectoryHandler.js</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\EveryAngle.WebClient.Web\Scripts\ViewManagement\Shared\FieldCategoryHandler.js">
+      <Link>WebClient\Dependencies\ViewManagement\Shared\FieldCategoryHandler.js</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\EveryAngle.WebClient.Web\Scripts\ViewManagement\Shared\FieldChooserHandler.js">
+      <Link>WebClient\Dependencies\ViewManagement\Shared\FieldChooserHandler.js</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\EveryAngle.WebClient.Web\Scripts\ViewManagement\Shared\HelpTextHandler.js">
+      <Link>WebClient\Dependencies\ViewManagement\Shared\HelpTextHandler.js</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\EveryAngle.WebClient.Web\Scripts\ViewManagement\Shared\ModelCurrentInstanceHandler.js">
+      <Link>WebClient\Dependencies\ViewManagement\Shared\ModelCurrentInstanceHandler.js</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\EveryAngle.WebClient.Web\Scripts\ViewManagement\Shared\ModelFieldDomainHandler.js">
+      <Link>WebClient\Dependencies\ViewManagement\Shared\ModelFieldDomainHandler.js</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\EveryAngle.WebClient.Web\Scripts\ViewManagement\Shared\ModelFieldsHandler.js">
+      <Link>WebClient\Dependencies\ViewManagement\Shared\ModelFieldsHandler.js</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\EveryAngle.WebClient.Web\Scripts\ViewManagement\Shared\ModelFieldSourceHandler.js">
+      <Link>WebClient\Dependencies\ViewManagement\Shared\ModelFieldSourceHandler.js</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\EveryAngle.WebClient.Web\Scripts\ViewManagement\Shared\ModelFollowupsHandler.js">
+      <Link>WebClient\Dependencies\ViewManagement\Shared\ModelFollowupsHandler.js</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\EveryAngle.WebClient.Web\Scripts\ViewManagement\Shared\ModelLabelCategoryHandler.js">
+      <Link>WebClient\Dependencies\ViewManagement\Shared\ModelLabelCategoryHandler.js</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\EveryAngle.WebClient.Web\Scripts\ViewManagement\Shared\ModelsHandler.js">
+      <Link>WebClient\Dependencies\ViewManagement\Shared\ModelsHandler.js</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\EveryAngle.WebClient.Web\Scripts\ViewManagement\Shared\PopupPageHandlers.js">
+      <Link>WebClient\Dependencies\ViewManagement\Shared\PopupPageHandlers.js</Link>
+    </Content>
+    <Content Include="..\EveryAngle.WebClient.Web\Scripts\ViewManagement\Shared\ProgressBar.js">
+      <Link>WebClient\Dependencies\ViewManagement\Shared\ProgressBar.js</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\EveryAngle.WebClient.Web\Scripts\ViewManagement\Shared\SystemCurrencyHandler.js">
+      <Link>WebClient\Dependencies\ViewManagement\Shared\SystemCurrencyHandler.js</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\EveryAngle.WebClient.Web\Scripts\ViewManagement\Shared\SystemDefaultUserSettingHandler.js">
+      <Link>WebClient\Dependencies\ViewManagement\Shared\SystemDefaultUserSettingHandler.js</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\EveryAngle.WebClient.Web\Scripts\ViewManagement\Shared\SystemInformationHandler.js">
+      <Link>WebClient\Dependencies\ViewManagement\Shared\SystemInformationHandler.js</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\EveryAngle.WebClient.Web\Scripts\ViewManagement\Shared\SystemLanguageHandler.js">
+      <Link>WebClient\Dependencies\ViewManagement\Shared\SystemLanguageHandler.js</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\EveryAngle.WebClient.Web\Scripts\ViewManagement\Shared\SystemSettingHandler.js">
+      <Link>WebClient\Dependencies\ViewManagement\Shared\SystemSettingHandler.js</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\EveryAngle.WebClient.Web\Scripts\ViewManagement\Shared\UserFriendlyNameHandler.js">
+      <Link>WebClient\Dependencies\ViewManagement\Shared\UserFriendlyNameHandler.js</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\EveryAngle.WebClient.Web\Scripts\ViewManagement\Shared\ValidationHandler.js">
+      <Link>WebClient\Dependencies\ViewManagement\Shared\ValidationHandler.js</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\EveryAngle.WebClient.Web\Scripts\ViewManagement\Shared\WidgetDetails\WidgetDetailsHandler.js">
+      <Link>WebClient\Dependencies\ViewManagement\Shared\WidgetDetails\WidgetDetailsHandler.js</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\EveryAngle.WebClient.Web\Scripts\ViewManagement\Shared\WidgetDetails\WidgetDetailsView.js">
+      <Link>WebClient\Dependencies\ViewManagement\Shared\WidgetDetails\WidgetDetailsView.js</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\EveryAngle.WebClient.Web\Scripts\ViewManagement\Shared\WidgetFilter\WidgetFilterHandler.js">
+      <Link>WebClient\Dependencies\ViewManagement\Shared\WidgetFilter\WidgetFilterHandler.js</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\EveryAngle.WebClient.Web\Scripts\ViewManagement\Shared\WidgetFilter\WidgetFilterHelper.DateTranslator.js">
+      <Link>WebClient\Dependencies\ViewManagement\Shared\WidgetFilter\WidgetFilterHelper.DateTranslator.js</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\EveryAngle.WebClient.Web\Scripts\ViewManagement\Shared\WidgetFilter\WidgetFilterHelper.js">
+      <Link>WebClient\Dependencies\ViewManagement\Shared\WidgetFilter\WidgetFilterHelper.js</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\EveryAngle.WebClient.Web\Scripts\ViewManagement\Shared\WidgetFilter\WidgetFilterModel.js">
+      <Link>WebClient\Dependencies\ViewManagement\Shared\WidgetFilter\WidgetFilterModel.js</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\EveryAngle.WebClient.Web\Scripts\ViewManagement\Shared\WidgetFilter\WidgetFilterView.js">
+      <Link>WebClient\Dependencies\ViewManagement\Shared\WidgetFilter\WidgetFilterView.js</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\EveryAngle.WebClient.Web\Scripts\ViewManagement\User\UserSettingHandler.js">
+      <Link>WebClient\Dependencies\ViewManagement\User\UserSettingHandler.js</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\EveryAngle.WebClient.Web\Scripts\ViewManagement\User\UserSettingView.js">
+      <Link>WebClient\Dependencies\ViewManagement\User\UserSettingView.js</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\EveryAngle.WebClient.Web\Scripts\ViewModels\Models\Angle\AngleInfoModel.js">
+      <Link>WebClient\Dependencies\ViewModels\Models\Angle\AngleInfoModel.js</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\EveryAngle.WebClient.Web\Scripts\ViewModels\Models\Angle\anglequerystepmodel.js">
+      <Link>WebClient\Dependencies\ViewModels\Models\Angle\anglequerystepmodel.js</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\EveryAngle.WebClient.Web\Scripts\ViewModels\Models\Angle\DisplayFieldModel.js">
+      <Link>WebClient\Dependencies\ViewModels\Models\Angle\DisplayFieldModel.js</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\EveryAngle.WebClient.Web\Scripts\ViewModels\Models\Angle\displaymodel.js">
+      <Link>WebClient\Dependencies\ViewModels\Models\Angle\displaymodel.js</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\EveryAngle.WebClient.Web\Scripts\ViewModels\Models\Angle\displayqueryblockmodel.js">
+      <Link>WebClient\Dependencies\ViewModels\Models\Angle\displayqueryblockmodel.js</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\EveryAngle.WebClient.Web\Scripts\ViewModels\Models\Angle\historymodel.js">
+      <Link>WebClient\Dependencies\ViewModels\Models\Angle\historymodel.js</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\EveryAngle.WebClient.Web\Scripts\ViewModels\Models\Angle\resultmodel.js">
+      <Link>WebClient\Dependencies\ViewModels\Models\Angle\resultmodel.js</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\EveryAngle.WebClient.Web\Scripts\ViewModels\Models\Dashboard\dashboardmodel.js">
+      <Link>WebClient\Dependencies\ViewModels\Models\Dashboard\dashboardmodel.js</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\EveryAngle.WebClient.Web\Scripts\ViewModels\Models\Dashboard\dashboardresultmodel.js">
+      <Link>WebClient\Dependencies\ViewModels\Models\Dashboard\dashboardresultmodel.js</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\EveryAngle.WebClient.Web\Scripts\ViewModels\Models\Dashboard\DashboardWidgetModel.js">
+      <Link>WebClient\Dependencies\ViewModels\Models\Dashboard\DashboardWidgetModel.js</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\EveryAngle.WebClient.Web\Scripts\ViewModels\Models\Exports\ExportCSVModel.js">
+      <Link>WebClient\Dependencies\ViewModels\Models\Exports\ExportCSVModel.js</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\EveryAngle.WebClient.Web\Scripts\ViewModels\Models\Exports\ExportModel.js">
+      <Link>WebClient\Dependencies\ViewModels\Models\Exports\ExportModel.js</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\EveryAngle.WebClient.Web\Scripts\ViewModels\Models\FieldSettings\bucketmodel.js">
+      <Link>WebClient\Dependencies\ViewModels\Models\FieldSettings\bucketmodel.js</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\EveryAngle.WebClient.Web\Scripts\ViewModels\Models\FieldSettings\fieldmodel.js">
+      <Link>WebClient\Dependencies\ViewModels\Models\FieldSettings\fieldmodel.js</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\EveryAngle.WebClient.Web\Scripts\ViewModels\Models\FieldSettings\fieldsettingsmodel.js">
+      <Link>WebClient\Dependencies\ViewModels\Models\FieldSettings\fieldsettingsmodel.js</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\EveryAngle.WebClient.Web\Scripts\ViewModels\Models\Search\businessprocessmodel.js">
+      <Link>WebClient\Dependencies\ViewModels\Models\Search\businessprocessmodel.js</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\EveryAngle.WebClient.Web\Scripts\ViewModels\Models\Search\facetfiltersmodel.js">
+      <Link>WebClient\Dependencies\ViewModels\Models\Search\facetfiltersmodel.js</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\EveryAngle.WebClient.Web\Scripts\ViewModels\Models\Search\masschangemodel.js">
+      <Link>WebClient\Dependencies\ViewModels\Models\Search\masschangemodel.js</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\EveryAngle.WebClient.Web\Scripts\ViewModels\Models\Search\searchmodel.js">
+      <Link>WebClient\Dependencies\ViewModels\Models\Search\searchmodel.js</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\EveryAngle.WebClient.Web\Scripts\ViewModels\Models\Search\searchquery.js">
+      <Link>WebClient\Dependencies\ViewModels\Models\Search\searchquery.js</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\EveryAngle.WebClient.Web\Scripts\ViewModels\Models\Search\welcomemodel.js">
+      <Link>WebClient\Dependencies\ViewModels\Models\Search\welcomemodel.js</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\EveryAngle.WebClient.Web\Scripts\ViewModels\Models\Session\sessionmodel.js">
+      <Link>WebClient\Dependencies\ViewModels\Models\Session\sessionmodel.js</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\EveryAngle.WebClient.Web\Scripts\ViewModels\Models\User\privileges.js">
+      <Link>WebClient\Dependencies\ViewModels\Models\User\privileges.js</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\EveryAngle.WebClient.Web\Scripts\ViewModels\Models\User\usermodel.js">
+      <Link>WebClient\Dependencies\ViewModels\Models\User\usermodel.js</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\EveryAngle.WebClient.Web\Scripts\ViewModels\Models\User\usersettingmodel.js">
+      <Link>WebClient\Dependencies\ViewModels\Models\User\usersettingmodel.js</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\EveryAngle.WebClient.Web\Scripts\ViewModels\Shared\DataType\DataType.js">
+      <Link>WebClient\Dependencies\ViewModels\Shared\DataType\DataType.js</Link>
+    </Content>
+    <Content Include="..\EveryAngle.WebClient.Web\Scripts\ViewModels\Shared\QueryBlock\QueryBlockModel.js">
+      <Link>WebClient\Dependencies\ViewModels\Shared\QueryBlock\QueryBlockModel.js</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\EveryAngle.WebClient.Web\Scripts\ViewModels\Shared\QueryBlock\QueryBlocksModel.js">
+      <Link>WebClient\Dependencies\ViewModels\Shared\QueryBlock\QueryBlocksModel.js</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\EveryAngle.WebClient.Web\Scripts\ViewModels\Shared\QueryBlock\QueryStepModel.js">
+      <Link>WebClient\Dependencies\ViewModels\Shared\QueryBlock\QueryStepModel.js</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="WebClient\Dependencies\Global.js" />
+    <Content Include="WebClient\Tests\AjaxHTTPHandler\AjaxRequestHandlerTest.js" />
+    <Content Include="WebClient\Tests\Embedded\BusinessProcessesModelTest.js" />
+    <Content Include="WebClient\Tests\Embedded\FieldsChooserTest.js" />
+    <Content Include="WebClient\Tests\Embedded\ClassesChooserTest.js" />
+    <Content Include="WebClient\Tests\Embedded\SharedTest.js" />
+    <Content Include="WebClient\Tests\Helper\KendoCoreExtensionTest.js" />
+    <Content Include="WebClient\Tests\Helper\ErrorHandlerTest.js" />
+    <Content Include="WebClient\Tests\Helper\HtmlHelper.MenuNavigatableTest.js" />
+    <Content Include="WebClient\Tests\Helper\ModelHelperTest.js" />
+    <Content Include="WebClient\Tests\ViewManagement\Angles\AngleDetailBodyPageHandlerTest.js" />
+    <Content Include="WebClient\Tests\ViewManagement\Angles\ChartHandlerTest.js" />
+    <Content Include="WebClient\Tests\ViewManagement\Angles\DisplayCopyHandlerTest.js" />
+    <Content Include="WebClient\Tests\ViewManagement\Angles\DisplayUpgradeHandlerTest.js" />
+    <Content Include="WebClient\Tests\ViewManagement\Angles\ListHandlerTest.js" />
+    <Content Include="WebClient\Tests\ViewManagement\Angles\ListFormatSettingHandlerTest.js" />
+    <Content Include="WebClient\Tests\ViewManagement\Angles\FieldChooserHandlerTest.js" />
+    <Content Include="WebClient\Tests\ViewManagement\Angles\PivotHandlerTest.js" />
+    <Content Include="WebClient\Tests\ViewManagement\Angles\FieldSettingsHandlerTest.js" />
+    <Content Include="WebClient\Tests\Helper\StorageTest.js" />
+    <Content Include="WebClient\Tests\Helper\UtilitiesTest.js" />
+    <Content Include="WebClient\Tests\ViewManagement\Angles\ScheduleAngleHandlerTest.js" />
+    <Content Include="WebClient\Tests\ViewManagement\CreateNewAngle\CreateNewAnglePageHandlerTest.js" />
+    <Content Include="WebClient\Tests\ViewManagement\Dashboard\DashboardDetailsHandlerTest.js" />
+    <Content Include="WebClient\Tests\ViewManagement\Export\ExportHandlerTest.js" />
+    <Content Include="WebClient\Tests\ViewManagement\Export\ExportExcelHandlerTest.js" />
+    <Content Include="WebClient\Tests\ViewManagement\Search\AngleCopyHandlerTest.js" />
+    <Content Include="WebClient\Tests\ViewManagement\Search\AngleDownloadHandlerTest.js" />
+    <Content Include="WebClient\Tests\ViewManagement\Search\AngleExportHandlerTest.js" />
+    <Content Include="WebClient\Tests\ViewManagement\Search\ImportAngleHandlerTest.js" />
+    <Content Include="WebClient\Tests\ViewManagement\Search\ItemInfoHandlerTest.js" />
+    <Content Include="WebClient\Tests\ViewManagement\Search\SearchPageHandlerTest.js" />
+    <Content Include="WebClient\Tests\ViewManagement\Shared\ModelLabelCategoryHandlerTest.js" />
+    <Content Include="WebClient\Tests\ViewManagement\Shared\ProgressBarTest.js" />
+    <Content Include="WebClient\Tests\ViewManagement\Shared\ModelsHandlerTest.js" />
+    <Content Include="WebClient\Tests\ViewManagement\Shared\WidgetFilter\WidgetFilterHandlerTest.js" />
+    <Content Include="WebClient\Tests\ViewManagement\Shared\WidgetFilter\WidgetFilterHelperTest.js" />
+    <Content Include="WebClient\Tests\ViewManagement\User\UserSettingHandlerTest.js" />
+    <Content Include="WebClient\Tests\ViewModels\Models\Angles\AngleQueryStepModelTest.js" />
+    <Content Include="WebClient\Tests\ViewModels\Models\Angles\DisplayModelTest.js" />
+    <Content Include="WebClient\Tests\ViewModels\Models\Angles\DisplayQueryBlockModelTest.js" />
+    <Content Include="WebClient\Tests\ViewModels\Models\Angles\HistoryModelTest.js" />
+    <Content Include="WebClient\Tests\ViewModels\Models\Angles\ResultModelTest.js" />
+    <Content Include="WebClient\Tests\ViewModels\Models\Dashboard\DashboardResultViewModelTest.js" />
+    <Content Include="WebClient\Tests\ViewModels\Models\Dashboard\DashboardViewModelTest.js" />
+    <Content Include="WebClient\Tests\ViewModels\Models\Dashboard\DashboardWidgetViewModelTest.js" />
+    <Content Include="WebClient\Tests\ViewManagement\Shared\DirectoryHandlerTest.js" />
+    <Content Include="WebClient\Tests\ViewManagement\Shared\FieldCategoryHandlerTest.js" />
+    <Content Include="WebClient\Tests\ViewManagement\Shared\SystemDefaultUserSettingHandlerTest.js" />
+    <Content Include="WebClient\Tests\ViewManagement\Shared\SystemInformationHandlerTest.js" />
+    <Content Include="WebClient\Tests\ViewManagement\Shared\SystemLanguageHandlerTest.js" />
+    <Content Include="WebClient\Tests\ViewManagement\Shared\SystemSettingHandlerTest.js" />
+    <Content Include="WebClient\Tests\ViewModels\Models\Exports\ExportCSVModelTest.js" />
+    <Content Include="WebClient\Tests\ViewModels\Models\Exports\ExportModelTest.js" />
+    <Content Include="WebClient\Tests\ViewModels\Models\FieldSettings\BucketModelTest.js" />
+    <Content Include="WebClient\Tests\ViewModels\Models\FieldSettings\FieldModelTest.js" />
+    <Content Include="WebClient\Tests\ViewModels\Models\FieldSettings\FieldSettingsModelTest.js" />
+    <Content Include="WebClient\Tests\ViewModels\Models\Angles\AngleInfoModelTest.js" />
+    <Content Include="WebClient\Tests\ViewModels\Models\Search\BusinessprocessSearchModelTest.js" />
+    <Content Include="WebClient\Tests\ViewModels\Models\Search\SearchQueryTest.js" />
+    <Content Include="WebClient\Tests\ViewModels\Models\Search\FacetFiltersViewModelTest.js" />
+    <Content Include="WebClient\Tests\ViewModels\Models\Search\MassChangeModelTest.js" />
+    <Content Include="WebClient\Tests\ViewModels\Models\Search\SearchQueryViewModelTest.js" />
+    <Content Include="WebClient\Tests\ViewModels\Models\Search\SearchViewModelTest.js" />
+    <Content Include="WebClient\Tests\ViewModels\Models\Search\WelcomeViewModelTest.js" />
+    <Content Include="WebClient\Tests\ViewModels\Models\Session\SessionModelTest.js" />
+    <Content Include="WebClient\Tests\ViewModels\Models\User\PrivilegesViewModelTest.js" />
+    <Content Include="WebClient\Tests\ViewModels\Models\User\UserSettingViewModelTest.js" />
+    <Content Include="WebClient\Tests\ViewModels\Models\User\UserViewModelTest.js" />
+    <Content Include="WebClient\Tests\ViewModels\Shared\DataType\DataTypeTest.js" />
+    <Content Include="WebClient\Tests\ViewModels\Shared\QueryBlock\QueryBlockModelTest.js" />
+    <Content Include="WebClient\Tests\ViewModels\Shared\QueryBlock\QueryBlocksModelTest.js" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="ManagementConsole\chutzpah.json" />
+    <Content Include="ManagementConsole\Tests\Page\MC.Users.UserTest.js" />
+    <None Include="WebClient\chutzpah.json" />
+  </ItemGroup>
+  <ItemGroup />
+  <Choose>
+    <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">
+      <ItemGroup>
+        <Reference Include="Microsoft.VisualStudio.QualityTools.CodedUITestFramework, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+          <Private>False</Private>
+        </Reference>
+        <Reference Include="Microsoft.VisualStudio.TestTools.UITest.Common, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+          <Private>False</Private>
+        </Reference>
+        <Reference Include="Microsoft.VisualStudio.TestTools.UITest.Extension, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+          <Private>False</Private>
+        </Reference>
+        <Reference Include="Microsoft.VisualStudio.TestTools.UITesting, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+          <Private>False</Private>
+        </Reference>
+      </ItemGroup>
+    </When>
+  </Choose>
+  <Import Project="$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets" Condition="Exists('$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets')" />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+  <Target Name="BeforeBuild">
+    <Copy SourceFiles="%(Content.Identity)" DestinationFiles="%(Content.Link)" SkipUnchangedFiles="true" OverwriteReadOnlyFiles="true" Condition="'%(Content.Link)' != ''" />
+  </Target>
+</Project>

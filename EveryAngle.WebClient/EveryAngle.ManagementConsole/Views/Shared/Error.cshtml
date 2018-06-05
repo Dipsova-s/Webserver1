@@ -1,0 +1,70 @@
+﻿@using EveryAngle.Shared.Globalization
+@{
+    Layout = null;
+}
+<!doctype html>
+<html class="no-js">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <link rel="shortcut icon" href="@Url.Content("~/Images/favicon.ico")" />
+    <title>@EveryAngle.Shared.Globalization.Resource.ManagementConsoleSystem
+    </title>
+
+    @{   
+        @Styles.Render("~/content/default")
+    }
+</head>
+
+<body>
+
+    <div class="topWrapper" id="topWrapper">
+        <header class="header" id="header">
+            <div class="container headerInner">
+                <a href="@Url.Content("~/")" class="brand">
+                    <img id="logo" src="@Url.Content("~/Images/logo.png")" />
+                </a>
+            </div>
+            <!--/.headerInner-->
+        </header>
+
+        <div class="breadcrumb" id="breadcrumb">
+            <div class="container breadcrumbInner">
+            </div>
+            <!--/.breadcrumbInner-->
+        </div>
+        <!--/.breadcrumb-->
+    </div>
+
+    <div class="mainContainer mainContainerFull" id="mainContainer">
+        <div class="container contentInner">
+            <!--/.sideContent-->
+            <div class="mainContent" id="mainContent">
+
+                @Html.RenderPageToolbar()
+
+                <div class="content pageError">
+                    <div class="contentSectionError">
+                        <h2>@ViewBag.ErrorTitle</h2>
+                        <p>@ViewBag.ErrorMessage</p>
+                        <a href="@Url.Content("~/")" class="btn">@Resource.BackToHome</a>
+                    </div>
+                </div>
+
+            </div>
+            <!--/.mainContent-->
+        </div>
+    </div>
+    <!--/.mainContainer-->
+
+    @{
+        @Styles.Render("~/content/base")
+
+        @Scripts.Render("~/bundles/modernizr",
+                    "~/bundles/jquery",
+                    "~/bundles/jqueryplugin.js",
+                    "~/bundles/master.js")
+    }
+</body>
+</html>

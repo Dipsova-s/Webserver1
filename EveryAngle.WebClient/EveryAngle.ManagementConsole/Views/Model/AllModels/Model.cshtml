@@ -1,0 +1,76 @@
+﻿@using EveryAngle.ManagementConsole.Models
+@using EveryAngle.ManagementConsole.Helpers
+@using EveryAngle.Shared.Globalization
+@model EveryAngle.Core.ViewModels.Model.ModelViewModel
+
+<script>
+    MC.util.loadScript({
+        test: MC.Models && MC.Models.Model,
+        url: '@Scripts.Url("~/bundles/models/model")',
+        callback: function () {
+            MC.Models.Model.Initial({
+                SaveUri: '@Url.Action("SaveModel","Model")',
+                AllModelsPageUri: '@SiteMapHelper.ActionHash("Models/AllModels")',
+                SideMenuUri: '@Url.Action("SideMenu", "Home")',
+                PageTitle: '@(Model.short_name != null? Model.short_name : @Resource.NewModel)',
+                ModelUri: '@Model.Uri',
+                TopMenuUri: '@Url.Action("TopMenu", "Home")'
+            });
+        }
+    });
+</script>
+
+@{
+    @Html.RenderPageToolbar(new List<PageToolbarButtonModel>
+    {
+        new PageToolbarButtonModel { Mode= Model.id != null? ButtonMode.Edit:ButtonMode.Create, Privilege=PrivilegeType.SystemAndModel, ModelUri =   Model.Uri ==null? null:  Model.Uri.ToString(), Type = PageToolbarButtonType.Save, OnClick = "MC.Models.Model.SaveModel()" },
+        new PageToolbarButtonModel { Type = PageToolbarButtonType.Cancel, Link = SiteMapHelper.ActionHash("Models/AllModels") }
+    })
+}
+
+<div class="content pageModel pageModelEdit">
+    <div class="contentSection contentSectionInfo">
+        <form id="formAddModel" data-role="validator">
+                @if(@Model.id != null)
+                {
+                    <h2>@Model.short_name @Resource.MC_ModelName</h2>
+                }
+                else
+                {
+                    <h2>@Resource.CreateNewModel</h2>
+                }
+                
+            <div class="contentSectionInfoItem">
+			    <label>Model ID:</label>
+                
+                @if (@Model.id != null)
+                {
+                    <input type="hidden" name="Uri" value="@Model.Uri" />
+                    <input type="hidden" name="abbreviation" value="@Model.abbreviation" />
+                    <input type="hidden" name="latest_instance" value="@Model.latest_instance" />
+                    
+                    <p>@Html.TextBoxFor(model => model.id, new { @class = "required field_id", @name="id", maxlength = 25, @readonly="readonly"})</p>
+                }
+                else
+                {   <p>@Html.TextBoxFor(model => model.id, new { @class = "required field_id", @id="isNew", @name="id", maxlength = 25 })</p>}
+		    </div>
+            <div class="contentSectionInfoItem">
+			    <label>@Resource.MC_ModelShortName:</label>
+                <p>@Html.TextBoxFor(model => model.short_name, new { @class = "required", @name = "short_name", maxlength = 256 })</p>
+		    </div>
+            <div class="contentSectionInfoItem">
+			    <label>@Resource.MC_ModelName:</label>
+                <p>@Html.TextBoxFor(model => model.long_name, new { @name = "long_name", maxlength = 256 })</p>
+		    </div>
+            <div class="contentSectionInfoItem">
+			    <label>@Resource.MC_ModelEnvironment:</label>
+			    <p>@Html.TextBoxFor(model => model.environment, new { @name = "environment", maxlength = 50 })</p>
+		    </div>
+            <div class="contentSectionInfoItem">
+			    <label>@Resource.MC_ModelAgentUri:</label>
+                <p>@Html.TextBoxFor(model => model.agent_uri, new { @class = "required agent_url", @name = "agent_uri", maxlength = 256 })</p>
+		    </div>
+        </form>
+    </div><!--/.contentSectionInfo-->
+
+</div><!--/.content-->

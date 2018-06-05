@@ -1,0 +1,81 @@
+﻿@using EveryAngle.Shared.Globalization
+@model List<EveryAngle.Core.ViewModels.Users.AuthenticationProviderUserViewModel>
+
+<div class="manageUserRoleRow clearfix">
+    <div class="contentSection contentSectionGrid avaliableUserGridColumn">
+
+        <div class="gridToolbar gridToolbarTop">
+            <div class="gridToolbarFilter">
+                <input type="text" placeholder="@Resource.MC_FilterCaseSensitive" data-role="gridfilter" data-method="remote" data-start="MC.Users.User.UserFilterCallback" data-target="#AvailableUserGrid" data-url="@Url.Action("ReadAvailableUsers", "Users")" data-parameters='{"uri":"@ViewBag.SystemAuthenticationProviderUri"}' />
+                <span class="icon"></span>
+            </div>
+            <div id="ImportUserInfo" class="importUserInfo hidden">@Resource.MoreUsersAvailableToImport</div>
+        </div>
+        <h2>@Resource.MC_ImportUser_AvailableUsers_Title</h2>
+
+        <div class="gridContainer">
+            @(Html.Kendo().Grid<EveryAngle.Core.ViewModels.Users.AuthenticationProviderUserViewModel>()
+                .Name("AvailableUserGrid")
+                .Columns(columns =>
+                {
+                    columns.Bound(model => model.Id).Sortable(false).ClientTemplate(" # if(data.IsEnabled) { # "
+                    + "<label><input value='#= data.Uri #' name='#= data.Id #' type=\"checkbox\" checked=\"checked\" disabled=\"disabled\" /><span class=\"label\"></span></label>"
+                    + "# } else { #"
+                    + "<label><input value='#= data.Uri #' name='#= data.Id #' type=\"checkbox\"  /><span class=\"label\"></span></label>"
+                    + "# } #"
+                    ).HeaderHtmlAttributes(new { @class = "columnBoolean" }).HtmlAttributes(new { @class = "columnBoolean" }).Title("").Width(60);
+                    columns.Bound(model => model.Id).Title(@Resource.Username).Width(120);
+
+                    columns.Bound(model => model.Fullname).Title(@Resource.MC_FullName);
+
+                })
+                .Scrollable(scroll => scroll.Virtual(false).Height(20 * 25))
+                .Sortable(sortable => sortable.AllowUnsort(false))
+                .Resizable(resize => resize.Columns(true))
+                .DataSource(dataSource => dataSource
+                    .Ajax().Events(e => e.RequestStart("onKendoGridPagingStart").RequestEnd(@<text>
+                    function(e) {
+                        MC.Users.User.ImportUserGridRequestEnd(e);
+                    }
+                    </text>))
+                    .Read(read => read.Action("ReadAvailableUsers", "Users", new { uri = ViewBag.SystemAuthenticationProviderUri, q = ViewBag.Query }))
+                    .ServerOperation(false)
+                    .Sort(sort => sort.Add("Id"))
+                )
+                .AutoBind(false)
+                .EnableCustomBinding(true)
+            )
+        </div>
+
+        <div class="gridToolbar gridToolbarBottom">
+            <a class="btn btnSelectAll" id="chkSelectAllAvaliableUser">@Resource.SelectAll </a>
+            <a class="btn btnClearAll" id="chkClearAllAvaliableUser">@Resource.ClearAll </a>
+        </div>
+
+    </div>
+
+    <div class="actionMoveColumn">
+        <a class="btn btnAddUser" id="btnImportNewUser">@Resource.Add &gt;</a>
+        <a class="btn btnRemoveUser" id="btnRemovedSelectedUser">&lt; @Resource.Remove</a>
+    </div>
+
+    <div class="contentSection contentSectionGrid selectedUserGridColumn">
+        <div class="gridToolbar gridToolbarTop">
+            <div class="gridToolbarFilter">
+                
+                <input type="text" id="txtFilterSelectedUser" placeholder="@Resource.Filter" data-role="gridfilter" data-target="#SelectedUserGrid" data-callback="MC.Users.User.SelectedGridCallback" />
+                <span class="icon"></span>
+            </div>
+        </div>
+        <h2>@Resource.MC_ImportUser_SelectedUsers_Title</h2>
+
+        <div class="gridContainer">
+            <div id="SelectedUserGrid"></div>
+        </div>
+
+        <div class="gridToolbar gridToolbarBottom">
+            <a class="btn btnSelectAll" id="chkSelectAllSelectedUser">@Resource.SelectAll</a>
+            <a class="btn btnClearAll" id="chkClearAllSelectedUser">@Resource.ClearAll</a>
+        </div>
+    </div>
+</div>

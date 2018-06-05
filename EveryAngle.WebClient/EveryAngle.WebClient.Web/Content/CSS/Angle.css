@@ -1,0 +1,749 @@
+/* Angle Page
+============================================ */
+.topBarWrapper {
+    position: relative;
+    left: 0;
+    top: 0;
+    width: 100%;
+    min-width: 762px;
+    background: #025e7f;
+    border-bottom: 1px solid #fff;
+}
+
+.topBarWrapper .Wrapper {
+    height: 44px;
+}
+
+.detailsWrapper {
+    left: 0;
+    position: relative;
+    top: 0;
+    min-width: 760px;
+    height: auto;
+    background: #f5f5f5;
+    z-index: 1;
+    border-bottom: 1px solid #d8d8d8;
+    box-sizing: border-box;
+}
+
+.detailsWrapper.top {
+    z-index: 11;
+    background: #f5f5f5;
+}
+
+.detailsWrapper .Wrapper,
+#ResultContainerWrapper {
+    z-index: 0;
+    background: #f5f5f5;
+}
+
+#AngleSetting {
+    padding: 7px 0 0 0;
+    position: relative;
+    min-height: 63px;
+    z-index: 21;
+    border-bottom: 1px solid #d8d8d8 !important;
+    margin-bottom: 7px;
+}
+
+.informationDetailPanel {
+    position: relative;
+    top: 6px;
+    left: 4px;
+    margin-right: 460px;
+    padding-left: 10px;
+    height: 24px;
+    color: #006f9b;
+    font-size: 16px;
+    box-sizing: border-box;
+}
+
+.informationDetailPanel:hover {
+    color: #0090c9;
+}
+
+.informationDetailPanel .Name,
+.informationDetailPanel .detailName {
+    top: -1px;
+    max-width: 400px;
+}
+
+.executionResults {
+    margin-left: 20px;
+    top: 6px;
+    position: relative;
+    color: #666;
+    font-family: Verdana, Tahoma;
+    font-size: 11px;
+    float: left;
+    width: 500px;
+}
+
+.executionResults > span {
+    display: inline-block;
+    max-width: 475px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+.executionResults .btnInfo {
+    top: 2px;
+}
+
+.executionResults .infoText {
+    position: relative;
+    line-height: 16px;
+    font-size: 11px;
+}
+
+/* .detailDefinitionList
+============================================ */
+#AngleDescriptionWrapper .detailDefinitionList {
+    overflow-y: auto;
+    max-height: 88px;
+}
+
+#DisplayDescriptionWrapper .detailDefinitionList {
+    overflow-y: auto;
+    max-height: 111px;
+}
+
+#AngleDescriptionWrapper .detailDefinitionList.inline,
+#DisplayDescriptionWrapper .detailDefinitionList.inline {
+    overflow-y: hidden;
+}
+
+#AngleDescriptionWrapper .detailDefinitionList .name,
+#DisplayDescriptionWrapper .detailDefinitionList .name {
+    max-width: 375px;
+}
+
+/* #ActionSelect
+============================================ */
+#AngleSetting .btnTools {
+    top: -1px;
+    min-width: 65px;
+}
+
+#AngleSetting .btnTools span {
+    min-width: 65px;
+    padding-left: 5px;
+}
+
+.actionDropdownItem.exportToExcel {
+    background-image: url('../../images/angle/actiondropdownlist/exporttoexcel.png');
+    border-bottom-width: 0;
+}
+
+.actionDropdownItem.exportToCSV {
+    background-image: url('../../images/angle/actiondropdownlist/exporttocsv.png');
+}
+
+.actionDropdownItem.find {
+    background-image: url('../../images/angle/actiondropdownlist/find.png');
+}
+
+.actionDropdownItem.addToDashboard {
+    background-image: url('../../images/angle/actiondropdownlist/addtodashboard.png');
+}
+
+.actionDropdownItem.save {
+    background-image: url('../../images/angle/actiondropdownlist/save.png');
+    border-bottom-width: 0;
+}
+
+.actionDropdownItem.saveAs {
+    background-image: url('../../images/angle/actiondropdownlist/saveas.png');
+    border-bottom-width: 0;
+}
+
+.actionDropdownItem.copydisplay {
+    background-image: url('../../images/angle/actiondropdownlist/copydisplay.png');
+    border-bottom-width: 0;
+}
+
+.actionDropdownItem.pastedisplay {
+    background-image: url('../../images/angle/actiondropdownlist/pastedisplay.png');
+    border-bottom-width: 0;
+}
+
+.actionDropdownItem.editDisplay {
+    background-image: url('../../images/angle/actiondropdownlist/editdisplay.png');
+}
+
+.actionDropdownItem.addFollowup {
+    background-image: url('../../images/icons/icon_followup_addnew.png');
+    background-position: 4px center;
+}
+
+.actionDropdownItem.newDisplay {
+    background-image: url('../../images/angle/actiondropdownlist/createdisplay.png');
+    border-bottom-width: 0;
+}
+
+.actionDropdownItem.newDisplay + .exportToExcel {
+    border-top-width: 1px;
+}
+
+.actionDropdownItem.exitEditMode {
+    background-image: url('../../images/searchpage/icn_execute_item.png');
+}
+
+.actionDropdownItem.createList {
+    background-image: url('../../images/icons/icon_list_addnew.png');
+    background-position: 4px center;
+    border-bottom-width: 0;
+}
+
+.actionDropdownItem.createChart {
+    background-image: url('../../images/icons/icon_chart_addnew.png');
+    background-position: 4px center;
+}
+
+.actionDropdownItem.createPivot {
+    background-image: url('../../images/icons/icon_pivot_addnew.png');
+    background-position: 4px center;
+}
+
+.actionDropdownItem.scheduleAngle {
+    background-image: url('../../images/icons/icon_schedule.png');
+    background-position: 11px center;
+}
+
+/* .popupFindAngleResult
+============================================ */
+.popupFindAngleResult {
+    width: 500px;
+    height: 245px;
+}
+
+.popupFindAngleResult .k-window-content {
+    overflow: visible;
+    padding-right: 0;
+    font-size: 12px;
+}
+
+#findPopupArea {
+    overflow: hidden;
+}
+
+.findPopupOption {
+    position: relative;
+    margin: 0 15px 10px 0;
+    overflow: hidden;
+    min-height: 32px;
+}
+
+.popupFindAngleResult fieldset {
+    float: left;
+    width: 227px;
+    border: 1px solid #8f8f8f;
+    box-sizing: border-box;
+}
+
+.findPopupOptionText {
+    padding-left: 120px;
+    margin-right: 15px;
+}
+
+.findPopupOptionOther,
+.findPopupOptionScope {
+    height: 100px;
+}
+
+.findPopupOption .label {
+    margin-bottom: 3px;
+}
+
+.findPopupOptionText label {
+    position: absolute;
+    line-height: 32px;
+    left: 0;
+    top: 0;
+}
+
+.popupFindAngleResult .k-dropdown {
+    display: block;
+    margin: 5px 0 0 22px;
+    width: 178px;
+}
+
+/* .listFormatSettingPopup
+============================================ */
+.listFormatSettingPopup {
+    height: auto;
+}
+
+.listFormatSettingPopup.inside {
+    left: 160px !important; /* NOSONAR: override runtime css */
+    top: 35px;
+    height: auto;
+}
+
+.listFormatSettingPopup.inside:before {
+    content: '';
+    position: absolute;
+    left: -14px;
+    top: 188px;
+    background: transparent url('../../images/popup/popup_left_arrow.png') left top no-repeat;
+    width: 15px;
+    height: 21px;
+}
+
+.listFormatSettingPopupLeft.inside {
+    left: -365px !important; /* NOSONAR: override runtime css */
+}
+
+.listFormatSettingPopupLeft.inside:before {
+    background: transparent url('../../images/popup/popup_right_arrow.png') left top no-repeat;
+    left: auto;
+    right: -14px;
+}
+
+.listFormatSettingPopup div.k-window-content {
+    padding: 15px;
+    font-size: 12px;
+}
+
+.FieldFormat {
+    overflow: hidden;
+    font-size: 12px;
+    border-top: 1px solid #999;
+    padding: 8px 0;
+}
+
+.FieldFormat:first-child {
+    border-top: 0;
+    padding-top: 0;
+}
+
+.FieldFormatList {
+    margin-bottom: 15px;
+}
+
+.FieldFormatList .field {
+    float: left;
+    width: 90px;
+    line-height: 40px;
+}
+
+.FieldFormatList .field > span {
+    display: inline-block;
+    vertical-align: middle;
+    line-height: normal;
+}
+
+.FieldFormatList .row {
+    margin-top: 10px;
+}
+
+.FieldFormatList .row:first-child {
+    margin-top: 0;
+}
+
+.FieldFormatList .input {
+    margin-left: 100px;
+}
+
+.FieldFormatList .k-dropdown {
+    width: 100%;
+}
+
+.FieldFormatCheckDefault {
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+.FieldFormatCheckDefault > div {
+    margin-bottom: 5px;
+}
+
+.ThousandSeperateWrapper {
+    position: relative;
+    overflow: hidden;
+}
+
+.ThousandSeperateWrapper .textStatus {
+    position: relative;
+    top: -2px;
+}
+
+.touch.safari .ThousandSeperateWrapper .textStatus {
+    top: -4px;
+    left: -5px;
+}
+
+.UseAsDefaultWrapper .label + .label {
+    position: relative;
+    top: 1px;
+    font-weight: bold;
+}
+
+/* .popupListFilter
+============================================ */
+.popupListFilter {
+    height: auto;
+}
+
+.popupListFilter .k-window-content {
+    min-height: 200px;
+    font-size: 12px;
+}
+
+.popupListFilter .definitionList {
+    margin-bottom: 2px;
+}
+
+.popupListFilter .FilterHeader > .btnInfo {
+    right: 10px;
+    z-index: 100;
+}
+
+/* .popupAddToDashboard
+============================================ */
+.popupAddToDashboard {
+    width: 300px;
+    height: 200px;
+}
+
+.popupAddToDashboard .popupTabPanel > div {
+    margin-bottom: 20px;
+}
+
+.popupAddToDashboard .popupTabPanel .field {
+    margin-bottom: 5px;
+    width: 100%;
+    position: static;
+    margin-top: 0;
+}
+
+.popupAddToDashboard .popupTabPanel .input {
+    margin-bottom: 2px;
+    margin-left: 0;
+}
+
+.popupAddToDashboard .eaDropdown {
+    width: 100%;
+}
+
+/* .popupAngleResultSummary
+===================================== */
+.popupAngleResultSummary {
+    height: auto;
+}
+
+.popupResultSummaryPanel {
+    font-size: 14px;
+}
+
+#tablePopupResultSummaryPanel {
+    width: 93%;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    margin-left: 13px;
+    border-collapse: collapse;
+}
+
+#tablePopupResultSummaryPanel td {
+    border: 1px solid #c5c5c5;
+    background-color: #fff;
+    padding: 8px;
+}
+
+#tablePopupResultSummaryPanel td:first-child {
+    width: 150px;
+}
+
+/* .popupAngleDetail
+===================================== */
+.popupAngleDetail .k-window-title {
+    width: 200px;
+}
+
+.popupAngleDetail h2 {
+    color: #666666;
+    font-size: 18px;
+    font-weight: normal;
+    margin: 0 0 10px 0;
+}
+
+.popupAngleDetail .businessProcesses {
+    margin: 5px 0 0 0;
+}
+
+.inputModelValue {
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+#AngleDescriptionArea label {
+    color: #333333;
+    font-size: 13px;
+    font-weight: bold;
+    position: relative;
+    display: block;
+    width: 140px;
+}
+
+.popupAngleDetail .k-editor {
+    margin-top: 6px;
+    height: 360px;
+    z-index: 80;
+}
+
+/* .popupDisplayInfo
+===================================== */
+.popupDisplayInfo .k-window-title {
+    width: 200px;
+}
+
+.popupDisplayInfo .sectionDefinitions {
+    border-bottom-width: 0;
+    margin-bottom: 0;
+    padding-bottom: 0;
+}
+
+/* .popupDisplayDetail
+===================================== */
+.popupDisplayDetail .k-window-title {
+    width: 200px;
+}
+
+.popupDisplayDetail h2 {
+    color: #666666;
+    font-size: 18px;
+    font-weight: normal;
+    margin: 0 0 10px 0;
+}
+
+.displayPopupHeader {
+    position: absolute;
+    top: 10px;
+    left: 216px;
+}
+
+.displayPopupHeader > .icon {
+    position: relative;
+    top: 4px;
+    left: 0;
+    width: 25px;
+    height: 25px;
+    margin-right: 3px;
+}
+
+.displayPopupHeader > .icon:hover {
+    background-position: left top;
+}
+
+.displayPopupHeader > .icon.new,
+.displayPopupHeader > .icon.new:hover {
+    background-image: url('../../images/searchpage/icn_new.png');
+    background-position: left center;
+}
+
+.k-window-draggable .displayName {
+    display: inline-block;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    position: relative;
+    top: 5px;
+    max-width: 550px;
+}
+
+.safari .k-window-draggable .displayName {
+    top: 0;
+}
+
+#DisplayGeneralArea {
+    position: relative;
+}
+
+.popupDisplayDetail .k-editor {
+    height: 152px;
+    z-index: 80;
+}
+
+.popupDisplayDetail .k-editor .k-editable-area {
+    height: 55px;
+}
+
+.defaultDrilldownDisplay {
+    width: 100%;
+}
+
+#PrivateDisplay .icon.private {
+    float: left;
+    position: relative;
+    top: -5px;
+    width: 20px;
+    height: 20px;
+}
+
+.popupDisplayDetail .definitionList {
+    max-height: 390px;
+}
+
+.screenMinHeight .popupDisplayDetail .definitionList {
+    max-height: 325px;
+}
+
+#DisplayFilterArea {
+    position: relative;
+}
+
+#DisplayStatisticArea {
+    position: relative;
+}
+
+#DisplayFilterMoveArea {
+    position: absolute;
+    left: 15px;
+    top: 5px;
+    right: 0;
+    line-height: 50px;
+    background-color: #b4b4b4;
+    text-align: center;
+    font-size: 18px;
+    color: #383838;
+    border: 3px dashed #d8d8d8;
+    z-index: 1000;
+}
+
+#DisplayFilterMoveArea.focus {
+    border-color: #383838;
+}
+
+#DisplayFilterMoveArea .filterItem {
+    display: none;
+}
+
+/* .popupSaveDisplayAsBusinessProcess
+============================================ */
+.popupSaveDisplayAsBusinessProcess {
+    height: auto !important;
+    max-height: none;
+}
+
+.popupSaveDisplayAsBusinessProcess .k-window-content {
+    overflow: visible;
+}
+
+.popupSaveDisplayAsBusinessProcess .notificationMessages {
+    height: auto;
+}
+
+/* .popupScheduleAngle
+============================================ */
+.popupScheduleAngle {
+    height: auto;
+}
+
+.popupScheduleAngle .k-window-content {
+    font-size: 12px;
+}
+
+
+.scheduleAngleArea {
+    margin-bottom: 5px;
+}
+
+.popupScheduleAngle .k-dropdown {
+    width: 100%;
+}
+
+/* .context-menu-list 
+============================================ */
+.context-menu-list {
+    font-size: 12px;
+    font-family: Arial, 'Helvetica Neue', Helvetica, sans-serif, Tahoma;
+    z-index: 9999;
+    left: 0;
+    top: -100px;
+    background-color: #fff;
+    border: 1px solid #9c9c9c;
+    box-shadow: 1px 1px 7px 1px rgba(128,128,128,.3);
+}
+
+.context-menu-item {
+    display: block;
+    border: none;
+    border-top: 1px solid #c5c5c5;
+    border-radius: 0;
+    height: 36px;
+    line-height: 36px;
+    padding: 0 16px 0 0;
+    background-color: #fff;
+    box-sizing: border-box;
+}
+
+.context-menu-item:first-child {
+    border-top: none;
+}
+
+.context-menu-item.hover {
+    color: #2e2e2e;
+    background-color: #f0f0f0;
+}
+
+.context-menu-item.disabled {
+    cursor: default;
+    color: #aaa;
+    background-color: #fff;
+}
+
+.context-menu-item span {
+    padding-left: 4px;
+    display: block;
+    min-height: 15px;
+    padding-top: 0;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    max-width: 230px;
+}
+
+.context-menu-item.icon span {
+    background-repeat: no-repeat;
+    background-position: 10px center;
+    padding-left: 52px;
+}
+
+.context-menu-item.icon-drilldown span {
+    background-image: url('../../images/icons/icon_drilldown.png');
+}
+
+.context-menu-item.icon-filter span {
+    background-image: url('../../images/icons/icon_filter_addnew.png');
+    background-position: 4px center;
+}
+
+.context-menu-item.icon-copy span {
+    background-image: url('../../images/icons/icon_copy.png');
+}
+
+.context-menu-item.icon-sap span {
+    background-image: url('../../images/icons/icon_sap.png');
+}
+
+.context-menu-submenu:after {
+    content: '\203A';
+    top: 0;
+    font-size: 16px;
+}
+
+.context-menu-submenu .context-menu-item span {
+    background-image: none;
+    padding-left: 10px;
+    padding-top: 0;
+}
+
+/* Portrait tablet to landscape and desktop */
+@media (max-width: 979px) {
+    /* AngleDetail/DisplayDetail */
+    #AngleGeneralArea .businessProcessesItem > a {
+        min-width: 33px;
+        padding-right: 10px;
+    }
+}

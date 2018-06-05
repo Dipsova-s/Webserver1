@@ -1,0 +1,80 @@
+﻿@using EveryAngle.Core.ViewModels.SystemLanguages;
+@using EveryAngle.Core.ViewModels.LabelCategory;
+@using EveryAngle.Shared.Globalization
+@using EveryAngle.ManagementConsole.Models
+
+@model System.Data.DataTable
+
+@{
+    
+    List<PageToolbarButtonModel> buttons = new List<PageToolbarButtonModel>();
+    buttons.Add(new PageToolbarButtonModel
+    {
+        Type = PageToolbarButtonType.GridEditDelete,
+        Privilege = PrivilegeType.System,
+        EnableTemplate = "<input type=\"hidden\" name=\"uri\" value=\"#= Uri #\"/><a data-delete-template=\"" + Resource.MC_DeleteLabelCoonfirm + "\" data-delete-field-index=\"0\" class=\"btn btnDelete\" data-callback=\"MC.GlobalSettings.LabelCategories.DeletionCheckMark\" onclick=\"MC.form.template.markAsRemove(this)\" data-parameters='{\"uri\":\"#= data.Uri #\", \"abbreviation\":\"#= data.abbreviation #\"}' />",
+        DisableTemplate = "<input type=\"hidden\" name=\"uri\" value=\"#= Uri #\"/><a class=\"btn btnDelete disabled\" />"
+
+    });
+    string gridButton = HttpUtility.HtmlDecode(Html.GetGridToolbar(buttons));
+    
+}
+
+@{    
+    List<SystemLanguageViewModel> languages = ViewData["LanguagesList"] as List<SystemLanguageViewModel>;
+    @(Html.Kendo().Grid(Model)
+    .Name("Grid")
+    .Columns(columns =>
+    {
+        columns.Bound("abbreviation").Title(Resource.MC_Abbreviation).ClientTemplate("<input type=\"text\" maxlength=\"10\" class=\"required\" name=\"name\" value=\"#: abbreviation #\" />").HtmlAttributes(new { @id = "#: abbreviation #" }).Width(85);
+        foreach (System.Data.DataColumn column in Model.Columns)
+        {
+            if (column.ColumnName == "lang_en")
+            {
+                columns.Bound(column.ColumnName)
+                    .ClientTemplate("<input type=\"text\" class=\"required\" name=\"" + column.ColumnName + "\" value=\"#: " + column.ColumnName + " #\" />")
+                    .Width(170)
+                    .HtmlAttributes(new { @class = "column-" + column.ColumnName })
+                    .Title(languages.FirstOrDefault(l => l.Id == column.ColumnName.Replace("lang_", "")).Name);
+
+                for (int i = 0; i < 6; i++)
+                {
+                    columns
+                        .Bound("id")
+                        .ClientTemplate("")
+                        .Title("");
+                }
+            }
+            else if (column.ColumnName != "Uri" && column.ColumnName != "id" && column.ColumnName != "abbreviation" && column.ColumnName != "enabled" && column.ColumnName != "system" && column.ColumnName != "name")
+            {
+                if (column.ColumnName != "")
+                {
+                    columns.Bound(column.ColumnName)
+                        .ClientTemplate("<input type=\"text\" name=\"" + column.ColumnName + "\" value=\"#: " + column.ColumnName + "#\" />")
+                        .HtmlAttributes(new { @class = "column-" + column.ColumnName })
+                        .Title(languages.FirstOrDefault(l => l.Id == column.ColumnName.Replace("lang_", "")).Name);
+                }
+            }
+        }
+        columns.Bound("Uri").ClientTemplate(gridButton).HeaderHtmlAttributes(new { @class = "gridColumnToolbar" }).HtmlAttributes(new { @class = "gridColumnToolbar" }).Title(@Resource.MC_Action).Width(75).Sortable(false);
+    })
+    .Resizable(resize => resize.Columns(true))
+    .Scrollable(scroll => scroll.Virtual(false).Height(37 * 10))
+    .Sortable(sortable => sortable.AllowUnsort(false))
+    .DataSource(dataSource => dataSource
+        .Ajax()
+        .Events(e => e.RequestStart("onKendoGridPagingStart"))
+        .Model(model =>
+        {
+            foreach (System.Data.DataColumn column in Model.Columns)
+            {
+                model.Field(column.ColumnName, column.DataType);
+            }
+        })
+        .Read(read => read
+            .Action("ReadLabels", "LabelCategories", new { categoryLabelsUri = @ViewBag.CategoryLabelsUri, categoryUri = ViewBag.CategoryUri, q = ViewData["SearchKeyword"] })
+        )
+        .ServerOperation(false)
+    )
+  );
+}

@@ -1,0 +1,142 @@
+﻿@model EveryAngle.Core.ViewModels.Cycle.TaskViewModel
+@using EveryAngle.ManagementConsole.Models
+@using EveryAngle.ManagementConsole.Helpers
+@using EveryAngle.Shared.Globalization
+
+@{
+    List<PageToolbarButtonModel> toolbarButtons = new List<PageToolbarButtonModel>
+    {
+        new PageToolbarButtonModel
+        {
+            Type = PageToolbarButtonType.Reload
+        }
+    };
+
+    List<PageToolbarButtonModel> gridToolbarButtons = new List<PageToolbarButtonModel> {
+        new PageToolbarButtonModel
+        {
+            Type = PageToolbarButtonType.Custom,
+            ModelUri = ViewBag.ModelUri,
+            Privilege = PrivilegeType.Model,
+            EnableTemplate =  " <a id=\"btnAddNewRefreshCycle\" class=\"btn btnAdd\">" + @Resource.AddRefreshCommand + "</a>"
+                            + " <a id=\"btnShowActionLists\" class=\"btn\" href=\"#popupActionLists\" onclick=\"MC.Models.RefreshCycle.ShowActionLists()\" data-title=\"" + Resource.MC_ActionsList + "\" data-role=\"mcPopup\" data-width=\"750\" data-height=\"400\">" + Resource.ShowActionLists + "</a>"
+                            + " <a id=\"btnTestExtraction\" class=\"btn\" href=\"#popupTestExtraction\" onclick=\"MC.Models.RefreshCycle.TestExtraction(event)\" data-title=\"" + Resource.TestExtraction + "\" data-width=\"750\" data-height=\"400\">" + Resource.TestExtraction + "</a>"
+                            + " <a id=\"btnViewExtraction\" class=\"btn btnInfo disabled btnViewExtraction\" data-target=\"#popupModelServer\" data-title=\"" + Captions.MC_SAP_Jobs_Extractor_Status + "\" data-role=\"mcPopup\" data-width=\"80%\" data-min-width=\"760\" data-height=\"80%\">" + Captions.MC_SAP_Jobs_Extractor_Status + "</a>",
+
+            DisableTemplate = " <a class=\"btn btnAdd disabled\">" + @Resource.AddRefreshCommand + "</a>"
+                            + " <a id=\"btnShowActionLists\" class=\"btn\" href=\"#popupActionLists\" onclick=\"MC.Models.RefreshCycle.ShowActionLists()\" data-title=\"" + Resource.MC_ActionsList + "\" data-role=\"mcPopup\" data-width=\"750\" data-height=\"400\">" + Resource.ShowActionLists + "</a>"
+                            + " <a id=\"btnTestExtraction\" class=\"btn disabled\" >" + Resource.TestExtraction + "</a>"
+                            + " <a class=\"btn btnInfo disabled btnViewExtraction\">" + Captions.MC_SAP_Jobs_Extractor_Status + "</a>"
+        }
+    };
+}
+<script>
+    MC.util.loadScript([
+        {
+            test: false,
+            url: '@Scripts.Url("~/bundles/clipboard")'
+        },
+        {
+            test: MC.Models && MC.Models.RefreshCycle,
+            url: '@Scripts.Url("~/bundles/models/refreshcycle")',
+            callback: function () {
+                MC.ui.logpopup.GetLogUri = '@Url.Action("GetTasksHistoryByCorrelationId", "AutomationTasks")';
+                MC.ui.logpopup.GetLogDetailUri = '@Url.Action("GetTaskHistory", "AutomationTasks")';
+                MC.ui.logpopup.TaskHistoryUri = '@ViewBag.TaskHistoryUri';
+                MC.ui.logpopup.LogType = 'TasksEventLog';
+
+                MC.Models.RefreshCycle.Initial({
+                    CheckExtractorUri: '@Url.Action("CheckExtractor", "RefreshCycle")',
+                    SaveUri: '@Url.Action("SaveRefreshCycle", "RefreshCycle")',
+                    DeleteUri: '@Url.Action("DeleteRefreshCycle", "RefreshCycle")',
+                    ExecuteTaskUri: '@Url.Action("ExecuteTask", "RefreshCycle")',
+                    AbortTaskUri: '@Url.Action("AbortTask", "RefreshCycle")',
+                    TestExtractionUri: '@Url.Action("TestExtraction", "RefreshCycle")',
+                    ReloadTestExtractionUri: '@Url.Action("ReloadTestExtraction", "RefreshCycle")',
+                    GetTasksHistoriesUri: '@Url.Action("GetTaskHistory", "RefreshCycle", new { modelId = ViewBag.ModelId })',
+                    ModelServerUri: '@ViewBag.ModelServerUri',
+                    ModelId: '@ViewBag.ModelId',
+                    ModelUri: '@ViewBag.ModelUri',
+                    TasksUri: '@ViewBag.TasksUri',
+                    TaskHistoryUri: '@ViewBag.TaskHistoryUri',
+                    GetTasksHistoryUri: '@Url.Action("GetTasksHistoryByCorrelationId", "AutomationTasks")',
+                    GetTaskHistoryUri: '@Url.Action("GetTaskHistory", "AutomationTasks")',
+                    GetActionListUri: '@Url.Action("GetActionList", "RefreshCycle", new { modelAgentUri = ViewBag.ModelAgent })'
+                });
+            }
+        }
+    ]);
+</script>
+
+@Html.RenderPageToolbar(toolbarButtons)
+
+<div class="content pageRefreshCycle">
+    <div id="RefreshCycleContainer">
+
+        <div class="contentSection contentSectionGrid contentSectionGridTasks">
+            <h2 class="refreshCycleSlideToggleFormButton">@Resource.RefreshCycle</h2>
+            @Html.Partial("~/Views/Model/RefreshCycle/RefreshCycleForm.cshtml", Model)
+            <form id="TaskForm" data-role="validator">
+                <div class="gridContainer" id="TaskDetailsGridContainer">
+                    @{Html.RenderAction("GetTaskDetail", "RefreshCycle", new { modelId = @ViewBag.ModelId, tasksUri = @ViewBag.TasksUri, modelUri = ViewBag.ModelUri });}
+                </div>
+            </form>
+
+            <div class="gridToolbar gridToolbarBottom">
+                @Html.RenderPageToolbarBottom(gridToolbarButtons)
+            </div>
+        </div>
+        <hr />
+
+        <div class="contentSection contentSectionGrid contentSectionGridTasksHistory">
+            <h2>@Resource.RefreshCycleHistory</h2>
+            <div class="gridContainer" id="TaskHistoryGridContainer">
+                @{Html.RenderAction("GetTaskHistory", "RefreshCycle", new { modelId = @ViewBag.ModelId });}
+            </div>
+        </div>
+        <!--/.contentSectionGrid-->
+    </div>
+</div>
+<div class="popup" id="popupActionLists">
+    <div class="popupContent">
+        <div class="contentSection contentSectionGrid contentSectionGridActionList">
+            <div class="gridContainer" id="ActionListsGridContainer">
+                @{Html.RenderAction("ShowActionLists", "RefreshCycle");}
+            </div>
+        </div>
+    </div>
+</div>
+<div class="popup" id="popupTestExtraction">
+    <div class="popupContent" id="TestExtractionContainer"></div>
+</div>
+<!-- class chooser -->
+
+<div class="popup" id="popupSpecifyTables">
+    <div class="popupContent">
+        <div class="content pageTablesFields">
+            <div class="contentSection contentSectionGrid">
+                <div class="gridToolbar gridToolbarTop">
+                    <div class="gridToolbarFilter">
+                        <input type="text" placeholder="@Resource.MC_Filter" data-role="gridfilter" data-method="remote" data-target="#DownloadTableGridContainer" /><span class="icon"></span>
+                    </div>
+                </div>
+                <h2>@ViewBag.ModelName @Resource.MC_TablesAndFields</h2>
+                <div class="gridContainer" id="DownloadTableGridContainer">
+                    @{ Html.RenderAction("GetSpecifyTablesGrid", "DownloadTable", new { modelId = ViewBag.ModelId, modelAgent = ViewBag.ModelAgent, modelUri = ViewBag.ModelUri });}
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="popupToolbar">
+        <a class="btn btnLarge btnPrimary btnSubmit" id="ButtonSubmitObject" onclick="MC.Models.RefreshCycle.SetSpecifyTables()">@Resource.Ok</a>
+        <a class="btn btnLarge btnClose" data-role="popup-close">@Resource.Cancel</a>
+    </div>
+</div>
+
+<div class="popup" id="popupModelServer" data-server-url="@Url.Action("GetAllModelServerReport", "ModelServers")" data-info-url="@Url.Action("GetAllModelServer", "ModelServers")" data-report-url="@Url.Action("GetModelServerReport", "ModelServers")">
+    <div class="popupContent popupContentModelServer" id="ModelServerInfo">
+    </div>
+    <div class="popupToolbar">
+        <a class="btn btnPrimary btnClose" data-role="popup-close" id="popupModelServerCloseButton">@Resource.Close</a>
+    </div>
+</div>

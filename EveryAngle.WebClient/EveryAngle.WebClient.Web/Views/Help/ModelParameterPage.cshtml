@@ -1,0 +1,10 @@
+﻿@model EveryAngle.Core.ViewModels.Model.ModelServerSettings
+
+<label class="labelModel">@EveryAngle.Shared.Globalization.Captions.Popup_ModelParameters_Label_Model</label>
+<div id="ModelsDropdownList" class="eaDropdown eaDropdownSize40"></div>
+@{
+    if (Model != null)
+    {
+        Html.RenderPartial("~/Views/Shared/EditorTemplates/Plugins.cshtml", Model);
+    }
+}

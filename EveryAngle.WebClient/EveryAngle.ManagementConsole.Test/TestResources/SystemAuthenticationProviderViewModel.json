@@ -1,0 +1,74 @@
+﻿[
+	{
+        "id": "local",
+        "uri": "/system/authenticationproviders/1",
+        "description": "AD: Local machine (TH-EATST01)",
+        "type": "AD",
+        "domain_name": "Local machine (TH-EATST01)",
+        "is_enabled": true,
+        "auto_create_users": false,
+        "auto_create_users_always_on": false,
+        "sync_roles_to_groups": null,
+        "users": "/system/authenticationproviders/1/users",
+        "user_groups": "/system/authenticationproviders/1/user_groups",
+        "mandatory_groups": [],
+        "default_roles": [
+            {
+                "role_id": "SYSTEM_ALL"
+            }
+        ]
+    },
+    {
+        "id": "THEATST",
+        "uri": "/system/authenticationproviders/2",
+        "description": "AD: THEATST.ORG",
+        "type": "AD",
+        "domain_name": "THEATST.ORG",
+        "is_enabled": true,
+        "auto_create_users": false,
+        "auto_create_users_always_on": false,
+        "sync_roles_to_groups": null,
+        "users": "/system/authenticationproviders/2/users",
+        "user_groups": "/system/authenticationproviders/2/user_groups",
+        "mandatory_groups": [],
+        "default_roles": [
+			{
+                "role_id": "SYSTEM_ALL"
+            },
+			{
+                "role_id": "EA2_800"
+            }
+		]
+    },
+    {
+        "id": "ADFS",
+        "uri": "/system/authenticationproviders/3",
+        "description": "Active Directory Federation Services",
+        "type": "ADFS",
+        "target": "https://adfs.everyangle.com/adfs/services/trust/13/usernamemixed",
+        "identity": "https://ea2auth.everyangle.com/",
+        "is_enabled": true,
+        "auto_create_users": true,
+        "auto_create_users_always_on": true,
+        "sync_roles_to_groups": true,
+        "users": "/system/authenticationproviders/3/users",
+        "user_groups": "/system/authenticationproviders/3/user_groups",
+        "mandatory_groups": [],
+        "default_roles": []
+    },
+	{
+        "id": "XXX",
+        "uri": "/system/authenticationproviders/x",
+        "description": "XXX",
+        "type": "AD",
+        "domain_name": "XXX.XXX",
+        "is_enabled": false,
+        "auto_create_users": false,
+        "auto_create_users_always_on": false,
+        "sync_roles_to_groups": null,
+        "users": "/system/authenticationproviders/X/users",
+        "user_groups": "/system/authenticationproviders/X/user_groups",
+        "mandatory_groups": [],
+        "default_roles": []
+    }
+]

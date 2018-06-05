@@ -1,0 +1,48 @@
+﻿@{ 
+    Layout = null;
+     }
+<!doctype html>
+<html class="no-js">
+<head>
+    <title>Every Angle - @EveryAngle.Shared.Globalization.Resource.Login</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta http-equiv="content-type" content="text/html;charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="Description" content="Login" />
+    <meta name="Keywords" content="Login" />
+    
+    <link rel="shortcut icon" href="@Url.Content("~/Images/favicon.ico")" />
+    <script type="text/javascript">
+        var imageFolderPath = '@Url.Content("~/Images/")';
+        var rootWebsitePath = '@Url.Content("~/").ToLower()';
+        var requireUserNameAndPasword = '@EveryAngle.Shared.Globalization.Resource.PleaseEnterYourUsernameAndPassword';
+        var webAPIUrl = '@EveryAngle.Shared.Helpers.UrlHelper.GetRequestUrl(EveryAngle.Shared.Helpers.URLType.NOA)';
+        var webLoginUrl = '@EveryAngle.Shared.Helpers.UrlHelper.GetRequestUrl(EveryAngle.Shared.Helpers.URLType.HBA)';
+        var webApiVersion = '@System.Configuration.ConfigurationManager.AppSettings["WebApiVersion"]';
+    </script>
+</head>
+<body>
+    <div id="MainContainer" class="loginPage">
+        @{Html.RenderAction("GetLoginPage", "Security");}
+    </div>
+
+    @Styles.Render("~/content/default", "~/content/login")
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/LoginPage")
+
+    <script type="text/javascript">
+        jQuery('#LoginContainer h1').text('@EveryAngle.Shared.Globalization.Resource.AdminLogin');
+
+        jQuery("#UserName, #Password").off('keypress').on('keypress', function (event) {
+            if (event.which == 13 && window.UserLogin) {
+                window.UserLogin(jQuery('#UserName').val(), jQuery('#Password').val(), true);
+            }
+        });
+        jQuery('#LoginButton').removeAttr('onclick').off('click').on('click', function (event) {
+            if (window.UserLogin) {
+                window.UserLogin(jQuery('#UserName').val(), jQuery('#Password').val(), true);
+            }
+        });
+    </script>
+</body>
+</html>

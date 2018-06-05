@@ -1,0 +1,117 @@
+﻿@using EveryAngle.ManagementConsole.Models
+@using EveryAngle.ManagementConsole.Helpers
+@using EveryAngle.Shared.Globalization
+@model IEnumerable<EveryAngle.Core.ViewModels.Model.ModelViewModel>
+
+@{
+    SiteMapModel.SiteMap sitemapNode;
+    
+    List<PageToolbarButtonModel> buttons = new List<PageToolbarButtonModel>();
+    buttons.Add(new PageToolbarButtonModel
+    {
+        Privilege = PrivilegeType.System,
+        Type = PageToolbarButtonType.Custom,
+        Label = Resource.MC_Edit_Models,
+        Link = SiteMapHelper.ActionHash("Models/AllModels"),
+        CssClass = "btnAllModels"
+    });
+    buttons.Add(new PageToolbarButtonModel
+    {
+        Privilege = PrivilegeType.System,
+        Type = PageToolbarButtonType.Custom,
+        Label = Resource.MC_Setup_New_Model,
+        Link = SiteMapHelper.ActionHash("Models/AllModels/CreateNewModel"),
+        CssClass = "btnCreateNewModel"
+    });
+    @Html.RenderPageToolbar(buttons)
+}
+
+<script>
+    MC.util.loadScript({
+        test: MC.Models && MC.Models.Model,
+        url: '@Scripts.Url("~/bundles/models/model")',
+        callback: function () {
+            MC.Models.Model.InitialMainModelPage({
+                ModelServers: @(Html.Raw(new System.Web.Script.Serialization.JavaScriptSerializer().Serialize(ViewBag.ModelServers))),
+                UpdateModelInfoUri: '@Url.Action("UpdateModelInfo", "Model")',
+                ModelGraphDataUri: '@Url.Action("GetModelServerGraphData", "Model")',
+                IsOverviewPage: true
+            });
+        }
+    });
+</script>
+
+<div class="content pageOverview">
+
+    <div class="contentSection contentSectionAllModel">
+        @{Html.RenderAction("GetAllModelServers", "Model", new { models = Model, licenses = ViewBag.LicensesData, modelServersUri = ViewBag.ModelServersUri });}
+    </div>
+    <!--/.contentSectionAllModel-->
+
+    <div class="contentSection contentSectionMenu">
+        <div class="menuItemContainer">
+            <div class="menuItem menuItemGlobalSettings">
+                <h2><span class="icon"></span>@Resource.GlobalSettings</h2>
+                <ul>
+                    @{
+                        sitemapNode = SiteMapHelper.GetSiteMapByHashPath("GlobalSettings/WelcomePage");
+                        <li><a href="@SiteMapHelper.ActionHash(sitemapNode.HashPath)">@sitemapNode.Name.Trim()</a></li>
+
+                        sitemapNode = SiteMapHelper.GetSiteMapByHashPath("GlobalSettings/UploadEASets");
+                        <li><a href="@SiteMapHelper.ActionHash(sitemapNode.HashPath)">@sitemapNode.Name.Trim()</a></li>
+                        
+                        sitemapNode = SiteMapHelper.GetSiteMapByHashPath("GlobalSettings");
+                        <li><a href="@SiteMapHelper.ActionHash(sitemapNode.HashPath)" onclick="MC.Models.Model.ShowGlobalSettings(event, this)">@Resource.MC_More</a></li>
+                    }
+                </ul>
+            </div>
+
+            <div class="menuItem menuItemUsers">
+                <h2><span class="icon"></span>@Resource.MC_Users</h2>
+                <ul>
+                    @{
+                        sitemapNode = SiteMapHelper.GetSiteMapByHashPath("Users/AllUsers");
+                        <li><a href="@SiteMapHelper.ActionHash(sitemapNode.HashPath)">@sitemapNode.Name.Trim()</a></li>
+                    }
+                </ul>
+            </div>           
+                <div class="menuItem menuItemRoles">
+                    <h2><span class="icon"></span>@Resource.Roles</h2>
+                    <ul>
+                        @{
+                            sitemapNode = SiteMapHelper.GetSiteMapByHashPath("GlobalSettings/SystemRoles");
+                            <li><a href="@SiteMapHelper.ActionHash(sitemapNode.HashPath)">@sitemapNode.Name.Trim()</a></li>
+                            
+                            sitemapNode = SiteMapHelper.GetSiteMapByHashPath("GlobalSettings/SystemRoles/CreateNewSystemRole");
+                            buttons = new List<PageToolbarButtonModel>();
+                            buttons.Add(new PageToolbarButtonModel
+                            {
+                                EnableTemplate = "<li><a href=\"" + SiteMapHelper.ActionHash(sitemapNode.HashPath) + "\">" + sitemapNode.Name.Trim() + "</a></li>",
+                                DisableTemplate = "",
+                                Type = PageToolbarButtonType.Custom,
+                                Privilege = PrivilegeType.System
+                            });
+                            @Html.RenderPageToolbarBottom(buttons)
+                        }
+                    </ul>
+                </div>
+            <div class="menuItem menuItemLabels">
+                <h2><span class="icon"></span>@Resource.MC_Labels</h2>
+                <ul>
+                    @{
+                        sitemapNode = SiteMapHelper.GetSiteMapByHashPath("GlobalSettings/AllLabelCategories");
+                        <li><a href="@SiteMapHelper.ActionHash(sitemapNode.HashPath)">@sitemapNode.Name.Trim()</a></li>
+                            
+                        sitemapNode = SiteMapHelper.GetSiteMapByHashPath("GlobalSettings/BusinessProcesses");
+                        <li><a href="@SiteMapHelper.ActionHash(sitemapNode.HashPath)">@sitemapNode.Name.Trim()</a></li>
+                    }
+                </ul>
+            </div>
+        </div>
+        <!--/.menuItemContainer-->
+    </div>
+    <!--/.contentSectionMenu-->
+
+</div>
+<!--/.content-->
+

@@ -1,0 +1,42 @@
+﻿@model EveryAngle.Core.ViewModels.Model.Setting
+
+<label data-role="tooltip">@Model.Name</label>
+<p>
+
+@* aggree with Bart that first 4 chars are year,then month, day *@
+
+@{
+    int year = 0;
+    int month = 0;
+    int day = 0;
+
+    DateTime? date = null;
+
+    if (Model.Value != null)
+    {
+        try
+        {
+            string configDate = Convert.ToString(Model.Value);
+            year = Convert.ToInt32(configDate.Substring(0, 4));
+            month = Convert.ToInt32(configDate.Substring(4, 2));
+            day = Convert.ToInt32(configDate.Substring(6, 2));
+
+            date = new DateTime(year, month, day);
+        }
+        catch{}
+            
+            
+    }
+
+    @(Html.Kendo().DatePicker()
+        .Name(Model.Id)
+        .Value(date)
+        .HtmlAttributes(new { @class = "date autosyncinput", @data_setting_type = "date", @data_type = "kendoDatePicker" }));
+        
+    if(Model.Description != null)
+    {
+        <a data-target="#popupDescriptionTemplate" title="Description" data-width="600" data-min-height="100" data-role="mcPopup" class="btn btnInfo" onclick='MC.util.showDescriptionPopup(this)'></a>
+        <textarea class="alwaysHidden"><pre>@Model.Description</pre></textarea>
+    }
+}
+</p>

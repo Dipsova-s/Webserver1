@@ -1,0 +1,57 @@
+﻿
+@using EveryAngle.ManagementConsole.Models
+@using EveryAngle.ManagementConsole.Helpers
+@using EveryAngle.Shared.Globalization
+
+<script>
+    MC.util.loadScript({
+        test: MC.Models && MC.Models.ModelServer,
+        url: '@Scripts.Url("~/bundles/models/modelserver")',
+        callback: function () {
+            MC.Models.ModelServer.InitialAllModelServer({
+                SaveUri: '@Url.Action("SaveNewModelServers", "ModelServers")',
+                DeleteUri: '@Url.Action("DeleteModelServer", "ModelServers")',
+                ModelUri: '@ViewBag.ModelUri'
+            });
+        }
+    });
+</script>
+
+@{
+    @Html.RenderPageToolbar(new List<PageToolbarButtonModel>
+    {
+        new PageToolbarButtonModel { Type = PageToolbarButtonType.Reload }
+    })
+}
+
+<div class="content pageAllModelServer">
+    <div class="contentSection contentSectionGrid">
+        <div class="gridToolbar gridToolbarTop">
+            <div class="gridToolbarFilter">
+               @* <input type="text" placeholder="@Resource.MC_NotImplemented" disabled="disabled" data-role="gridfilter" data-callback="MC.Models.ModelServer.InitialModelServerGrid" data-method="remote" data-target="#AllModelServerGridContainer" data-url="@Url.Action("GetFilterModelServers", "ModelServers")" data-parameters='{"modelUri":"@ViewBag.ModelUri"}' /><span class="icon"></span>*@
+            </div>
+        </div>
+        <h2>@Resource.MC_ModelServer</h2>
+        <form id="NewModelServerForm" data-role="validator">
+        <div class="gridContainer" id="AllModelServerGridContainer">
+            @{Html.RenderAction("GetFilterModelServers", "ModelServers");}
+        </div>
+        </form>
+        <div class="gridToolbar gridToolbarBottom">
+		</div>
+    </div>
+    <!--/.contentSectionGrid-->
+    <hr/>
+
+    @{Html.RenderAction("GetCommentsByType", "Comment", new { CommentType = @ViewBag.ModelId + "MODEL_SERVERS" });}
+
+    <input type="hidden" id="modelUri" value="@ViewBag.ModelUri" />
+</div>
+<div class="popup" id="popupModelServer" data-server-url="@Url.Action("GetAllModelServerReport", "ModelServers")" data-info-url="@Url.Action("GetAllModelServer", "ModelServers")" data-report-url="@Url.Action("GetModelServerReport", "ModelServers")">
+    <div class="popupContent popupContentModelServer" id="ModelServerInfo">
+    </div>
+    <div class="popupToolbar">
+        <a class="btn btnPrimary btnClose" data-role="popup-close" id="popupModelServerCloseButton">@Resource.Close</a>
+    </div>
+</div>
+<!--/.content-->

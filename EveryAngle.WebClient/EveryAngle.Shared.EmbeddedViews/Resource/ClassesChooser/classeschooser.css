@@ -1,0 +1,300 @@
+.CreateNewAngleContainer {
+    position: relative;
+}
+
+.CreateNewAngleContainer .CreateNewAngleRow {
+    overflow: hidden;
+}
+
+.CreateNewAngleContainer .businessProcessContainer {
+    position: relative;
+    overflow: visible;
+    z-index: 1000;
+    top: 1px;
+}
+
+.CreateNewAngleContainer .businessProcesses {
+    margin: 0;
+    float: left;
+    overflow: hidden;
+    max-width: 530px;
+}
+
+.CreateNewAngleContainer .businessProcesses.expand {
+    overflow: visible;
+}
+
+.CreateNewAngleContainer .searchObjectGridContainer {
+    position: relative;
+    background-color: #fff;
+    border: 1px solid #c2c2c2;
+    z-index: 1;
+}
+
+.CreateNewAngleContainer .searchBoxWrapper {
+    position: relative;
+    float: left;
+    width: 560px;
+    height: 40px;
+    left: 0;
+    top: 0;
+    background-color: #fff;
+    border: 1px solid #d8d8d8;
+    border-right: none;
+    margin: 10px 0 10px 10px;
+    box-sizing: border-box;
+    border-radius: 2px;
+}
+
+.CreateNewAngleContainer .searchBoxWrapper:hover {
+    border-color: #025e7f;
+    transition: 0.15s ease-in;
+}
+
+.CreateNewAngleContainer .searchBoxWrapper:focus {
+    border-color: #025e7f;
+}
+
+.CreateNewAngleContainer .searchBoxWrapper > input {
+    position: absolute;
+    left: 0;
+    top: 0;
+    margin: 0;
+    padding: 0 79px 0 18px;
+    width: 100%;
+    height: 100%;
+    color: #666;
+    font-size: 13px;
+    line-height: normal;
+    text-align: left;
+    background: none transparent;
+    border: 0;
+    outline-style: none;
+    box-shadow: none;
+    box-sizing: border-box;
+    z-index: 1;
+}
+
+.CreateNewAngleContainer .searchBoxWrapper > a {
+    display: block;
+    height: 40px;
+    right: 0;
+    position: absolute;
+    top: -1px;
+    width: 57px;
+    background-color: #025e7f;
+    border-radius: 0 2px 2px 0;
+    box-sizing: border-box;
+    z-index: 2;
+}
+
+.CreateNewAngleContainer .searchBoxWrapper > a:before {
+    content: '';
+    background: transparent url(search-white.svg) center center no-repeat;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    margin-left: -10px;
+    margin-top: -10px;
+    height: 20px;
+    width: 20px;
+}
+
+.CreateNewAngleContainer .classTotalsWrapper {
+    font-size: 14px;
+    color: #555;
+    float: left;
+    width: 117px;
+    position: relative;
+    top: 36px;
+    text-align: right;
+}
+
+.CreateNewAngleContainer #ObjectsGridContainer {
+    position: relative;
+    float: left;
+    clear: left;
+    width: 680px;
+    margin: 0 10px 10px 10px;
+}
+.compactMode .CreateNewAngleContainer #ObjectsGridContainer {
+    width: auto;
+}
+
+#ObjectsGridContainer .grid-no-data {
+    text-align: center;
+    padding: 20px 0;
+    font-style: italic;
+    font-size: 14px;
+    color: #777;
+    position: absolute;
+    left: 0;
+    top: 35px;
+    width: 100%;
+}
+
+#ObjectsGrid {
+    height: 100%;
+}
+
+#ObjectsGridContainer .k-grid-content-expander {
+    width: auto !important;
+}
+
+#ObjectsGridContainer .k-grid td {
+    white-space: nowrap;
+    overflow: hidden;
+}
+
+#ObjectsGridContainer div.k-grid-header {
+    position: relative;
+    z-index: 2;
+}
+
+#ObjectsGridContainer div.k-grid-header-wrap {
+    box-shadow: 0 2px 8px #ccc;
+}
+
+#ObjectsGridContainer div.k-grid-header th.k-header {
+    overflow: visible;
+    position: relative;
+    border-bottom-width: 0;
+    border-left-color: #949494;
+    background-color: transparent;
+    color: #666;
+    font-size: 12px;
+    font-weight: bold;
+    text-indent: 5px;
+    cursor: pointer;
+    height: 34px;
+    vertical-align: middle;
+    padding: 0 5px;
+}
+
+#ObjectsGridContainer div.k-grid-header table {
+    border-bottom: 0 solid #949494;
+}
+
+#ObjectsGridContainer div.k-grid-header .gridHeaderContainer .sort {
+    background: transparent none center center no-repeat;
+    float: right;
+    height: 15px;
+    position: relative;
+    right: -4px;
+    top: 7px;
+    width: 15px;
+}
+
+#ObjectsGridContainer div.k-grid-header .gridHeaderContainer.asc .sort {
+    background-image: url(icon_sort_asc.png);
+}
+
+#ObjectsGridContainer div.k-grid-header .gridHeaderContainer.desc .sort {
+    background-image: url(icon_sort_desc.png);
+}
+
+#ObjectsGridContainer tr {
+    height: 26px;
+    color: #333;
+    font-size: 10px;
+}
+
+#ObjectsGridContainer tr.k-alt,
+#ObjectsGridContainer tr.k-alt:hover {
+    background-color: #f2f2f2;
+    background-image: none;
+}
+
+#ObjectsGridContainer tr.selected {
+    color: #ccc;
+}
+
+#ObjectsGridContainer .k-state-focused {
+    box-shadow: none !important;
+}
+
+#ObjectsGridContainer .k-state-selected,
+#ObjectsGridContainer .k-state-selected > td {
+    background-color: #eff8ff;
+    background-image: none;
+    border-color: #969696;
+    box-shadow: none !important;
+}
+
+#ObjectsGridContainer div.k-grid tbody td {
+    font-family: verdana;
+    font-size: 11px;
+    border-bottom: 1px solid #d3d6d9;
+    border-color: #d3d6d9;
+    padding: 0 5px;
+}
+
+#ObjectsGridContainer .PropertyName {
+    font-weight: bold;
+    padding-left: 7px;
+}
+
+#ObjectsGridContainer tr.k-state-selected td {
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+#ObjectsGridContainer td:first-child {
+    text-align: center;
+    text-overflow: clip;
+}
+
+#ObjectsGridContainer .gridCheckbox {
+    margin-left: 7px;
+    display: block;
+    height: 13px;
+}
+
+#ObjectsGridContainer .gridCheckbox input {
+    margin: 0;
+}
+
+.CreateNewAngleContainer .Description {
+    margin-left: 705px;
+    padding-right: 15px;
+    font-size: 12px;
+    height: 340px;
+    overflow: auto;
+    min-height: 100px;
+}
+
+.compactMode .CreateNewAngleContainer .Description {
+    margin-left: 0;
+    padding-top: 10px;
+    padding-left: 15px;
+    height: auto;
+    overflow: visible;
+    clear: both;
+}
+
+.CreateNewAngleContainer .Description .helpHeaderContainer,
+.CreateNewAngleContainer .Description .helpAdditionalContainer {
+    display: none;
+}
+
+.no-touch.safari .CreateNewAngleContainer .Description {
+    padding-left: 15px;
+    -webkit-margin-start: 0 !important;  /* NOSONAR: safari bug */
+}
+
+.CreateNewAngleContainer .skipTemplate {
+    display: none;
+    position: absolute;
+    bottom: 10px;
+    left: 705px;
+    font-size: 12px;
+}
+.compactMode .CreateNewAngleContainer .skipTemplate {
+    text-align: right;
+    clear: both;
+    position: static;
+    margin: 0 10px 5px 0;
+}

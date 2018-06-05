@@ -1,0 +1,36 @@
+﻿{
+  "modelserver_check_seconds": 10,
+  "default_cache_minutes": 10,
+  "min_labelcategories_to_publish": 0,
+  "log_response_times": true,
+  "include_self_in_export_headers": true,
+  "check_expired_sessions_minutes": 1,
+  "remember_expired_sessions_minutes": 120,
+  "modelserver_timeout": 30,
+  "modelserver_metadata_timeout": 300,
+  "instances_per_model": 5,
+  "max_domainelements_for_search": 100,
+  "default_authentication_provider": "/system/authenticationproviders/1",
+  "email_settings": {
+    "smtp_server": "smtp.everyangle.org",
+    "smtp_port": 25,
+    "smtp_user": "",
+    "smtp_password": "",
+    "smtp_use_ssl": false,
+    "smtp_sender": "testserver@everyangle.com"
+  },
+  "trusted_webservers": [
+    "127.0.0.1",
+    "::1",
+    "255.255.255.255"
+  ],
+  "tomcat_user": "xxxx",
+  "tomcat_password": "xxxx",
+  "active_directory_size_limit": 300,
+  "max_event_log_stored_records": 10000,
+  "max_audit_log_history": 13,
+  "default_max_export_page_size": 1000,
+  "default_pagesize": 30,
+  "max_pagesize": 5000,
+  "session_expiry_minutes": 60
+}

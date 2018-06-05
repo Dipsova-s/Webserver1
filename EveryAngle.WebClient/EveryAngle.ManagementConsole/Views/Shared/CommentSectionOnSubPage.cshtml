@@ -1,0 +1,19 @@
+﻿@using EveryAngle.Shared.Globalization
+
+<form action="@Url.Action("AddComment", "Comment")" data-role="validator" data-get-uri="@Url.Action("GetCommentsByType", "Comment")" enctype="multipart/form-data" id="CommentForm" method="post">
+    <div class="contentSectionCommentForm">
+        <h2>@Resource.MC_Comments</h2>
+        <input type="hidden" id="commentType" name="commentType" value="@ViewBag.CommentType" />
+        <div class="contentSectionCommentFormItem">
+            <div class="field">
+                <textarea id="CommentText" rows="3" name="message" class="required_comment_when_attachedfile" cols="20" maxlength="256" placeholder="@Resource.MC_CommentPlaceHolder"></textarea>
+            </div>
+        </div>
+        <div class="contentSectionCommentFormItem">
+            <div class="field fieldFile">
+                <input type="file" name="file" id="fileAttached" size="60" data-role="uploader" data-rule-extension="cls|htm|html|jpg|jpeg|png|gif|txt|doc|docx|pdf|xls|xlsx|bmp" data-msg-extension="@Resource.MC_Validation_Attached_Comment" data-text-browse="@Resource.MC_AddAttachment" />
+            </div>
+            <a class="alwaysHidden" id="btnAddComment" data-url="" onclick="MC.ui.commentbox('add');" />
+        </div>
+    </div>
+</form>

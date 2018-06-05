@@ -1,0 +1,87 @@
+﻿@model List<EveryAngle.Core.ViewModels.Users.SessionViewModel>
+@using EveryAngle.Shared.Globalization
+@using EveryAngle.ManagementConsole.Models
+
+@{
+    List<PageToolbarButtonModel> buttons = new List<PageToolbarButtonModel>();
+    buttons.Add(new PageToolbarButtonModel
+    {
+        Type = PageToolbarButtonType.GridEditDelete,
+        Privilege = PrivilegeType.User,
+        EnableTemplate = "# if(data.IsCurrentLogedInSession == false && data.IsActive == true) " +
+            "{# <input type='hidden' name='uri' value='#= Uri #'/><a data-delete-template='" + Resource.MC_DeleteSession + "' data-delete-field-index='0' class='btn btnDelete' onclick=\"MC.Users.Sessions.DeleteSessions(this,'#= Uri #')\"></a>  #} " +
+                "else {# #}#",
+        DisableTemplate = ""
+    });
+    string gridButton = HttpUtility.HtmlDecode(Html.GetGridToolbar(buttons));
+
+    int pageSize = (int)ViewData["DefaultPageSize"];
+    int gridHeight = Math.Min(pageSize, 15) * 37;
+}
+
+@(Html.Kendo().Grid<EveryAngle.Core.ViewModels.Users.SessionViewModel>()
+    .Name("SessionsGrid")
+    .Columns(columns =>
+    {
+        columns.Bound(model => model.UserID).HtmlAttributes(new { data_uri = "#= data.UserUri #" }).Title(Resource.User);
+        columns.Bound(model => model.Ip).HtmlAttributes(new { @class = "columnNumber" }).HeaderHtmlAttributes(new { @class = "columnNumber" }).Title(Resource.MC_IPAddress);
+        columns.Bound(model => model.IsExplicit)
+            .HeaderHtmlAttributes(new { @class = "columnBoolean" })
+            .HtmlAttributes(new { @class = "columnBoolean" })
+            .Title(Resource.MC_Explicit)
+            .Sortable(false)
+            .ClientTemplate(
+                "<label>"
+                + "<input name=\"IsExplicit\" value=\" #= data.IsExplicit #\" disabled=\"disabled\" #= data.IsExplicit ? checked=\"checked\" : \"\" # type=\"checkbox\">"
+                + "<span class=\"label\"></span></label>"
+            );
+        columns.Bound(model => model.TokenCookie)
+            .HeaderHtmlAttributes(new { @class = "columnBoolean" })
+            .HtmlAttributes(new { @class = "columnBoolean" })
+            .Title(Resource.MC_Cookie)
+            .Sortable(false)
+            .ClientTemplate(
+                "<label>"
+                + "<input name=\"TokenCookie\" value=\" #= data.TokenCookie #\"  disabled=\"disabled\" #= data.TokenCookie ? checked=\"checked\" : \"\" # type=\"checkbox\">"
+                + "<span class=\"label\"></span></label>"
+            );
+
+        columns.Bound(model => model.IsActive)
+            .HeaderHtmlAttributes(new { @class = "columnBoolean" })
+            .HtmlAttributes(new { @class = "columnBoolean" })
+            .Title(Resource.MC_Active)
+            .ClientTemplate(
+            "<label>"
+            + "<input name=\"IsActive\" value=\" #= data.IsActive #\" disabled=\"disabled\" #= data.IsActive ? checked=\"checked\" : \"\" # type=\"checkbox\">"
+            + "<span class=\"label\"></span></label>"
+        );
+        columns.Bound(model => model.debug_logging)
+            .HeaderHtmlAttributes(new { @class = "columnBoolean" })
+            .HtmlAttributes(new { @class = "columnBoolean" })
+            .Title(Resource.MC_DebugLogging)
+            .Sortable(false)
+            .ClientTemplate(
+            "<label>"
+            + "# if(data.IsActive == true) { #"
+            + "<input name=\"IsDebugLogging\" onclick=\"MC.Users.Sessions.UpdateDebugLogging(this)\" value=\"#= data.Uri #\" #= data.debug_logging ? checked=\"checked\" : \"\" # type=\"checkbox\">"
+            + "# } else { #"
+            + "<input name=\"IsDebugLogging\" value=\" #= data.Uri #\" disabled=\"disabled\"#= data.debug_logging ? checked=\"checked\" : \"\" # type=\"checkbox\">"
+            + "# } #"
+            + "<span class=\"label\"></span></label>"
+        );
+        columns.Bound(model => model.Created).Title(Resource.MC_Created).HtmlAttributes(new { @class = "columnDate" }).HeaderHtmlAttributes(new { @class = "columnDate" }).ClientTemplate("<span data-role='localize'>#= data.Created # </span>");
+        columns.Bound(model => model.ExpirationTime).Title(Resource.MC_Expires).HtmlAttributes(new { @class = "columnDate" }).HeaderHtmlAttributes(new { @class = "columnDate" }).ClientTemplate("<span data-role='localize'>#= data.ExpirationTime # </span>");
+        columns.Bound("Uri").ClientTemplate(gridButton).HeaderHtmlAttributes(new { @class = "gridColumnToolbar" }).HtmlAttributes(new { @class = "gridColumnToolbar" }).Title(@Resource.MC_Action).Width(75).Sortable(false);
+    })
+    .Resizable(resize => resize.Columns(true))
+    .Sortable(sortable => sortable.AllowUnsort(false))
+    .Scrollable(scroll => scroll.Virtual(true).Height(gridHeight))
+    .DataSource(dataSource => dataSource
+        .Ajax().Events(e => e.RequestStart("onKendoGridPagingStart"))
+        .Read(read => read.Action("ReadSessions", "Users", new { q = ViewBag.Query }))
+        .ServerOperation(true)
+        .PageSize(pageSize)
+    )
+    .EnableCustomBinding(true)
+    .AutoBind(false)
+)

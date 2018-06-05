@@ -1,0 +1,106 @@
+﻿@model List<EveryAngle.Core.ViewModels.EAPackage.PackageViewModel>
+@using EveryAngle.Shared.Globalization
+@using EveryAngle.ManagementConsole.Models
+
+@{
+    int pageSize = (int)ViewData["DefaultPageSize"];
+    int gridHeight = Math.Min(pageSize, 10) * 37;
+}
+@{
+    List<PageToolbarButtonModel> buttons = new List<PageToolbarButtonModel>();
+    buttons.Add(new PageToolbarButtonModel
+    {
+        Type = PageToolbarButtonType.GridEditDelete,
+        Privilege = PrivilegeType.Model,
+        ModelUri = ViewBag.ModelUri,
+        EnableTemplate = "#= MC.Models.Packages.GetPackageButtonsTemplate(data, true) #",
+        DisableTemplate = "#= MC.Models.Packages.GetPackageButtonsTemplate(data, false) #"
+    });
+    string gridButton = HttpUtility.HtmlDecode(Html.GetGridToolbar(buttons));
+}
+
+@(Html.Kendo().Grid<EveryAngle.Core.ViewModels.EAPackage.PackageViewModel>()
+    .Name("PackageGrid")
+    .Columns(columns =>
+    {
+        columns.Bound(model => model.Name)
+            .ClientTemplate("<span data-tooltip-title=\"MC.Models.Packages.GetPackageNameTooltip\" data-type=\"html\">#= Name #</span>")
+            .Title(Resource.Name)
+            .Sortable(true);
+        columns.Bound(model => model.Id).Title(Resource.ID).Sortable(false);
+        columns.Bound(model => model.Version)
+            .Width(60)
+            .HtmlAttributes(new { @class = "columnNumber" })
+            .HeaderHtmlAttributes(new { @class = "columnNumber" })
+            .Title(Resource.Version)
+            .Sortable(false);
+        columns.Bound(model => model.active_version)
+            .Width(60)
+            .HtmlAttributes(new { @class = "columnNumber" })
+            .HeaderHtmlAttributes(new { @class = "columnNumber" })
+            .Title(Resource.ActiveVersion)
+            .Sortable(false);
+        columns.Bound(model => model.source).Title(Resource.Source).Sortable(false);
+        columns.Bound(model => model.ReContentsList).Title(Resource.MC_ContentType).Sortable(false);
+
+        columns.Bound(model => model.CreatedDate)
+            .Title(Resource.MC_Created).HtmlAttributes(new { @class = "columnDate" })
+            .HeaderHtmlAttributes(new { @class = "columnDate" })
+            .ClientTemplate(
+                "# if (data.CreatedDate) { #" +
+                "<span data-role=\"localize\">#= data.CreatedDate #</span>" +
+                "# } #"
+            ).Sortable(true);
+
+        columns.Bound(model => model.ReLanguagesList)
+            .Title(Resource.MC_Languages)
+            .Width(75)
+            .Sortable(false);
+
+        columns.Bound(model => model.activated.Created)
+            .HtmlAttributes(new { @class = "columnDate" })
+            .HeaderHtmlAttributes(new { @class = "columnDate" })
+            .ClientTemplate(
+                "# if(data.activated != null) { #"
+                + "<span data-role='localize'>#= data.activated.Created #</span>"
+                + "# } else { #"
+                + "No data"
+                + "# } #"
+            )
+            .Title(Resource.Activated)
+            .Sortable(false);
+
+        columns.Bound(model => model.deactivated.Created)
+            .Title("Deactivated")
+            .HtmlAttributes(new { @class = "columnDate" })
+            .HeaderHtmlAttributes(new { @class = "columnDate" })
+            .ClientTemplate("# if (data.deactivated != null) { #"
+            + "<span data-role='localize'>#= data.deactivated.Created # </span>"
+            + "# } else { #"
+            + "No data"
+            + "# } #")
+            .Title(Resource.Deactivated)
+            .Sortable(false);
+
+        columns.Bound(model => model.status)
+            .Title(Resource.Status)
+            .Width(70)
+            .Sortable(true);
+
+        columns.Bound("Uri").ClientTemplate(gridButton)
+            .HeaderHtmlAttributes(new { @class = "gridColumnToolbar" })
+            .HtmlAttributes(new { @class = "gridColumnToolbar" })
+            .Title(Resource.MC_Action)
+            .Sortable(false).Width(75);
+    })
+    .EnableCustomBinding(true)
+    .AutoBind(false)
+    .Scrollable(scroll => scroll.Virtual(true).Height(gridHeight))
+    .Resizable(resize => resize.Columns(true))
+    .Sortable(sortable => sortable.AllowUnsort(false))
+    .DataSource(dataSource => dataSource
+        .Ajax().Events(e => e.RequestStart("onKendoGridPagingStart"))
+        .Read(read => read.Action("ReadPackages", "Packages", new { q = ViewBag.Query, packageUri = ViewBag.PackageUri, activeStatus = ViewBag.ActiveStatus }))
+        .PageSize(pageSize)
+    )
+)

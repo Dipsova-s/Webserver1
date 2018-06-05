@@ -1,0 +1,57 @@
+﻿@using EveryAngle.ManagementConsole.Models
+@using EveryAngle.ManagementConsole.Helpers
+@using EveryAngle.Shared.Globalization
+@model EveryAngle.Core.ViewModels.SystemSettings.SystemSettingViewModel
+
+<script>
+    MC.util.loadScript({
+        test: MC.GlobalSettings && MC.GlobalSettings.Authentication,
+        url: '@Scripts.Url("~/bundles/globalsettings/authentication")',
+        callback: function () {
+            MC.GlobalSettings.Authentication.Initial({
+                SaveUri: '@Url.Action("SaveAuthentication", "GlobalSettings")',
+                SystemRolesData: @Html.Raw(Json.Encode(ViewBag.SystemRoles))
+            });
+        }
+    });
+</script>
+@{
+    List<PageToolbarButtonModel> buttons = new List<PageToolbarButtonModel>();
+
+    buttons.Add(new PageToolbarButtonModel
+    {
+        Type = PageToolbarButtonType.Save,
+        OnClick = "MC.GlobalSettings.Authentication.SaveAll()",
+        Privilege = PrivilegeType.System
+    });
+
+    buttons.Add(new PageToolbarButtonModel
+    {
+        Type = PageToolbarButtonType.Reload
+    });
+    
+    @Html.RenderPageToolbar(buttons)
+}
+
+<div class="content pageSystemSettings">
+    <div class="contentSection contentSectionInfo">
+        <form id="SystemSettingsForm" data-role="validator">
+            <h2>@Resource.MC_Authentication</h2>
+            <div class="contentSectionInfoItem">
+                @Html.LabelFor(model => model.trusted_webservers)
+                <p>@Html.TextBoxFor(model => model.ReFormatTrustedWebservers, new
+                  {
+                      data_role = "multipleinput",
+                      data_default_text = Resource.MC_AuthenticationInputPlaceHolder,
+                      data_regexp = "checkIp4Ip6",
+                      data_min_input_width = 100
+                  })
+                </p>
+            </div>
+
+            <div class="contentSectionInfoItem">
+                @{Html.RenderPartial("~/Views/GlobalSettings/Authentication/SystemAuthenticationProviders.cshtml", ViewData["AuthenticationProvider"]);}
+            </div>
+        </form>
+    </div>
+</div>

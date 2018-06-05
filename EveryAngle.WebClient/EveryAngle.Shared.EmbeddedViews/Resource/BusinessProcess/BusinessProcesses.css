@@ -1,0 +1,399 @@
+.businessProcesses {
+    display: inline-block;
+    visibility: hidden;
+    height: 44px;
+    overflow: hidden;
+    position: relative;
+    z-index: 1;
+}
+
+.businessProcesses.normal {
+    height: auto;
+}
+
+.businessProcesses.expandable {
+    padding-right: 46px;
+}
+
+.businessProcesses.expand {
+    overflow: visible;
+}
+
+.businessProcesses:before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 1px;
+    height: 100%;
+    background-color: #fff;
+    z-index: 1000;
+}
+
+.businessProcesses .businessProcessesItem {
+    cursor: pointer;
+    position: relative;
+    float: left;
+    padding-top: 7px;
+    z-index: 100;
+    width: 96px;
+    line-height: 30px;
+    box-sizing: border-box;
+}
+
+.safari .businessProcesses .businessProcessesItem {
+    transform: translate3d(0, 0, 1px);
+}
+
+.businessProcessesCompact .businessProcessesItem {
+    width: 50px;
+}
+
+.businessProcesses .businessProcessesItem.linebreak {
+    line-height: 15px;
+}
+
+.businessProcesses .businessProcessesItemHeader,
+.businessProcesses .businessProcessesItemHeader:hover {
+    display: none;
+}
+
+.businessProcesses .businessProcessesItem:before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 7px;
+    z-index: 1;
+}
+
+.businessProcesses .businessProcessesItem:after {
+    content: '';
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: 1px;
+    height: 100%;
+    background-color: #fff;
+    z-index: 3;
+}
+
+.businessProcesses .businessProcessesItem.P2P:before {
+    background-color: #008e91;
+}
+
+.businessProcesses .businessProcessesItem.S2D:before {
+    background-color: #00537a;
+}
+
+.businessProcesses .businessProcessesItem.O2C:before {
+    background-color: #cf691e;
+}
+
+.businessProcesses .businessProcessesItem.F2R:before {
+    background-color: #dfb500;
+}
+
+.businessProcesses .businessProcessesItem.PM:before {
+    background-color: #93bf00;
+}
+
+.businessProcesses .businessProcessesItem.HCM:before {
+    background-color: #7f196f;
+}
+
+.businessProcesses .businessProcessesItem.GRC:before {
+    background-color: #c00000;
+}
+
+.businessProcesses .businessProcessesItem.IT:before {
+    background-color: #218b00;
+}
+
+.businessProcesses .businessProcessesItem.OTHER:before {
+    background-color: #999;
+}
+
+.businessProcesses .businessProcessesItem1:before {
+    background-color: #008e91;
+}
+
+.businessProcesses .businessProcessesItem2:before {
+    background-color: #00537a;
+}
+
+.businessProcesses .businessProcessesItem3:before {
+    background-color: #cf691e;
+}
+
+.businessProcesses .businessProcessesItem4:before {
+    background-color: #dfb500;
+}
+
+.businessProcesses .businessProcessesItem5:before {
+    background-color: #93bf00;
+}
+
+.businessProcesses .businessProcessesItem6:before {
+    background-color: #7f196f;
+}
+
+.businessProcesses .businessProcessesItem7:before {
+    background-color: #c00000;
+}
+
+.businessProcesses .businessProcessesItem8:before {
+    background-color: #218b00;
+}
+
+.businessProcesses .businessProcessesItem.active:before {
+    height: 100%;
+}
+
+.businessProcesses .businessProcessesItem.disabled:after {
+    width: 100%;
+    cursor: default;
+}
+
+.businessProcesses.readonly .businessProcessesItem,
+.businessProcesses.readonly .businessProcessesItem > a,
+.businessProcesses .businessProcessesItem.readonly,
+.businessProcesses .businessProcessesItem.readonly > a {
+    cursor: default;
+}
+
+.businessProcesses .businessProcessesItemMore {
+    display: none;
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: 46px;
+}
+
+.expandable.businessProcesses .businessProcessesItemMore {
+    display: block;
+}
+
+.businessProcesses .businessProcessesItemMore > a {
+    background: transparent none center center no-repeat;
+}
+
+.businessProcesses .businessProcessesItemMore > span {
+    position: absolute;
+    right: 3px;
+    top: 2px;
+    border-radius: 2px;
+    background-color: #DA1717;
+    color: #fff;
+    font-weight: bold;
+    font-size: 10px;
+    padding: 0 2px;
+    box-shadow: 1px 1px 1px #333;
+    min-width: 10px;
+    text-align: center;
+    line-height: normal;
+    z-index: 10;
+}
+
+.businessProcesses .businessProcessesItem.more {
+    display: none;
+}
+
+.expand.businessProcesses .businessProcessesItem.more {
+    display: block;
+    position: absolute;
+    right: 0;
+    width: 142px;
+    box-shadow: 1px 1px 7px 1px rgba(128,128,128,.8);
+}
+
+.expand.businessProcessesCompact .businessProcessesItem.more {
+    width: 96px;
+}
+
+.businessProcesses .businessProcessesItem > a {
+    position: relative;
+    z-index: 2;
+    display: block;
+    padding: 3px 10px 4px 10px;
+    color: #fff;
+    font-size: 14px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.businessProcessesCompact .businessProcessesItem > a {
+    padding: 3px 5px 4px 5px;
+}
+
+.businessProcesses .businessProcessesItem > a:hover {
+    color: #fff;
+}
+
+.businessProcessesCompact .businessProcessesItem > a {
+    text-align: center;
+}
+
+/* default theme */
+.default.businessProcesses:before,
+.default.businessProcesses .businessProcessesItem:after {
+    background: #257da9;
+    background: linear-gradient(to bottom, #257da9 40%,#005e80 100%);
+
+    opacity: .5;
+}
+
+.no-cssgradients .default.businessProcesses:before,
+.no-cssgradients .default.businessProcesses .businessProcessesItem:after {
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#257da9', endColorstr='#005e80',GradientType=0 ); /* NOSONAR: acceptable */
+}
+
+.default.businessProcesses .businessProcessesItem,
+.default.businessProcesses .businessProcessesItem.readonly,
+.default.businessProcesses .businessProcessesItem.readonly:hover,
+.default.businessProcesses.readonly .businessProcessesItem,
+.default.businessProcesses.readonly .businessProcessesItem:hover {
+    background: #006f9b;
+    background: linear-gradient(to bottom, #006f9b 0%,#005e80 100%);
+}
+
+.no-cssgradients .default.businessProcesses .businessProcessesItem,
+.no-cssgradients .default.businessProcesses .businessProcessesItem.readonly,
+.no-cssgradients .default.businessProcesses .businessProcessesItem.readonly:hover,
+.no-cssgradients .default.businessProcesses.readonly .businessProcessesItem,
+.no-cssgradients .default.businessProcesses.readonly .businessProcessesItem:hover {
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#006f9b', endColorstr='#005e80',GradientType=0 ); /* NOSONAR: acceptable */
+}
+
+.default.businessProcesses .businessProcessesItem:hover {
+    background: #00537a none;
+}
+
+.default.businessProcesses .businessProcessesItem.active:before {
+    box-shadow: inset 2px 3px 5px 2px #282828;
+}
+
+.default.businessProcesses .businessProcessesItem.active:after {
+    display: none;
+}
+
+.default.businessProcesses .businessProcessesItem.disabled:after {
+    display: block;
+    background: #aaa none;
+    opacity: .8;
+}
+
+.default.businessProcesses .businessProcessesItemMore {
+    padding-top: 0;
+}
+
+.default.businessProcesses .businessProcessesItemMore:before {
+    display: none;
+}
+
+.default.businessProcesses .businessProcessesItemMore:hover {
+    background: #01638c;
+    background: linear-gradient(to bottom, #01638c 0%,#01597d 100%);
+}
+
+.no-cssgradients .default.businessProcesses .businessProcessesItemMore:hover {
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#01638c', endColorstr='#01597d',GradientType=0 ); /* NOSONAR: acceptable */
+}
+
+.default.expand.businessProcesses .businessProcessesItemMore,
+.default.expand.businessProcesses .businessProcessesItemMore:hover {
+    background: #025275 none;
+}
+
+.default.businessProcesses .businessProcessesItemMore > a {
+    line-height: 37px;
+    background-image: url(bp_default_more.png);
+}
+
+/* flat theme */
+.flat.businessProcesses {
+    height: 38px;
+    padding-top: 7px;
+}
+.flat.businessProcesses:before,
+.flat.businessProcesses .businessProcessesItem:after {
+    background: #c5c5c5;
+    background: linear-gradient(to bottom, #c5c5c5 40%,#ffffff 100%);
+    height: 37px;
+    bottom: 0;
+    top: auto;
+}
+
+.flat.businessProcesses:before {
+    background: #c5c5c5 none;
+}
+
+.flat.businessProcesses .businessProcessesItem,
+.flat.businessProcesses .businessProcessesItem.readonly,
+.flat.businessProcesses .businessProcessesItem.readonly:hover,
+.flat.businessProcesses.readonly .businessProcessesItem,
+.flat.businessProcesses.readonly .businessProcessesItem:hover {
+    background: #dedede none;
+    border-bottom: 1px solid #c2c2c2;
+    height: 38px;
+    line-height: 24px;
+    box-sizing: border-box;
+    top: auto;
+    bottom: 0;
+}
+
+.flat.businessProcesses .businessProcessesItem:hover {
+    background: #f0f0f0 none;
+}
+
+.flat.businessProcesses .businessProcessesItem.active {
+    border-bottom-color: #fff;
+    background: #fff none;
+    height: 45px;
+    margin-top: -7px;
+}
+
+.flat.businessProcesses .businessProcessesItem.active:before {
+    height: 7px;
+}
+
+.flat.businessProcesses .businessProcessesItem > a {
+    height: 23px;
+    color: #777;
+}
+
+.flat.businessProcesses .businessProcessesItem > a:hover,
+.flat.businessProcesses .businessProcessesItem.active > a:hover {
+    color: #777;
+}
+
+.flat.businessProcesses .businessProcessesItem.disabled:after {
+    background: #777 none;
+    opacity: .8;
+}
+
+.flat.expand.businessProcesses .businessProcessesItem.more {
+    margin-top: 7px;
+}
+
+.flat.businessProcesses .businessProcessesItemMore > a {
+    background-image: url(bp_flat_more.png);
+}
+
+.flat.businessProcesses .businessProcessesItemMore:before {
+    background-color: #a3a3a3;
+}
+
+.flat.expand.businessProcesses .businessProcessesItemMore,
+.flat.expand.businessProcesses .businessProcessesItemMore:hover {
+    background: #dedede none;
+    border-bottom: transparent;
+}
+
+.flat.expand.businessProcesses .businessProcessesItemMore.active,
+.flat.expand.businessProcesses .businessProcessesItemMore.active:hover {
+    background-color: #fff;
+    border-bottom-color: transparent;
+}

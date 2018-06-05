@@ -1,0 +1,21 @@
+﻿<div class="facetFilter" data-bind="foreach: { data: Data, as: 'facet' }">
+    <div data-bind="visible: $root.IsFacetVisible(facet)">
+        <!-- ko if: $root.IsFacetHeaderVisible($index(), facet.type) -->
+        <div class="FilterTab" data-bind="attr: { 'id': facet.id, title: $root.GetFacetTooltip(facet) }, css: 'FilterTab-' + facet.type + ' ' + (facet.panel_opened() ? 'Expand' : ''
+            ), click: $root.ToggleCategory">
+            <span class="FilterTitle" data-bind="text: $root.GroupGeneral === facet.type ? Localization.GeneralFilters : facet.name"></span>
+            <span class="preferenceText" data-bind="text: facet.preference_text() === '' ? Localization.SearchPageNoPerferences : facet.preference_text(), attr: { 'class': 'preferenceText ' + facet.type }"></span>
+        </div>
+        <!-- /ko -->
+        <div data-bind="css: 'FilterCheckBox-' + facet.type, attr: { 'id': facet.id + '_Checkbox' }, visible: facet.panel_opened()" class="FilterCheckBox">
+            <ul data-bind="foreach: { data: facet.filters(), as: 'filter' }, attr: { 'class': facet.id }">
+                <li data-bind="visible: $root.CheckAngleFacetVisibility(filter.id, filter.count())">
+                    <label>
+                        <input type="checkbox" data-bind="attr: { 'id': filter.id }, checked: filter.checked, click: function (data, event) { return facetFiltersViewModel.FilterItems(data, event, $parent) }, Indeterminatable: filter.checked" />
+                        <span class="label" data-bind="html: $root.GetFilterText(filter, $root.GroupGeneral === facet.type), attr: { 'alt': filter.id }, css: { negative: filter.negative }"></span>
+                    </label>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>

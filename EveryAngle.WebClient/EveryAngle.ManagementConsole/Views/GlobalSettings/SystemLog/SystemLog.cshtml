@@ -1,0 +1,165 @@
+﻿@model FileModel
+@using EveryAngle.Core.ViewModels.Explorer
+@using EveryAngle.Shared.Globalization
+@using EveryAngle.ManagementConsole.Models
+@using EveryAngle.ManagementConsole.Helpers
+
+
+<script>
+    MC.util.loadScript({
+        test: MC.GlobalSettings && MC.GlobalSettings.Systemlog,
+        url: '@Scripts.Url("~/bundles/globalsettings/Systemlog")',
+        callback: function () {
+            MC.ui.logpopup.GetLogUri = '@Url.Action("GetSystemlog", "GlobalSettings")';
+            MC.ui.logpopup.GetLogDetailUri = '@Url.Action("GetSystemlogByDetailsUri", "GlobalSettings")';
+            MC.ui.logpopup.Target = '@ViewData["LogTarget"]';
+            MC.ui.logpopup.LogType = 'SystemLog';
+
+            MC.GlobalSettings.Systemlog.Initial({
+                GetSystemlogUri: '@Url.Action("GetSystemlog", "GlobalSettings")',
+                GetSystemlogDetailUri: '@Url.Action("GetSystemlogByDetailsUri", "GlobalSettings")',
+                Target: '@ViewData["LogTarget"]',
+                ModelId: '@ViewBag.ModelId',
+                Category: '@ViewBag.Category',
+                ModelsData: @Html.Raw(Json.Encode(ViewData["ModelsData"])),
+                ModelServicesData: @Html.Raw(ViewData["ModelServicesData"]),
+                DeleteSystemLogUri: '@Url.Action("DeleteSystemLogXML", "GlobalSettings")'
+            });
+        }
+    });
+</script>
+
+<script id="action-template" type="text/x-kendo-template">
+    <input type='hidden' value='#= FullPath #' />
+    @if (ViewBag.EnableLogViewer)
+    {
+    <a onclick='MC.ui.logpopup.ShowLogTable(this)'
+       class='btn btnInfo #= SupportViewer ? '' : 'disabled' #'
+       data-target='\\#popupLogTable'
+       data-title='#= Name #'
+       data-width='760'
+       data-min-height='600'
+       data-height='600'
+       data-role='mcPopup'>@Resource.View</a>
+    }
+    <a onclick='MC.GlobalSettings.Systemlog.DownloadLogFile(this)'
+       class='btn btnDownload'>@Resource.Download</a>
+</script>
+
+@{
+    List<PageToolbarButtonModel> buttons = new List<PageToolbarButtonModel>();
+    buttons.Add(new PageToolbarButtonModel
+    {
+        Type = PageToolbarButtonType.Reload
+    });
+    
+    @Html.RenderPageToolbar(buttons)
+    int pageSize = (int)ViewData["DefaultPageSize"];
+    bool scrollVirtual = (bool)ViewData["ScrollVirtual"];
+    bool sortEnabled = (bool)ViewData["SortEnabled"];
+    bool serverOperation = (bool)ViewData["ServerOperation"];
+}
+
+<div class="content pageSystenLog">
+    <div class="contentSection contentSectionGrid">
+        <h2>@Captions.MC_GlobalSetting_SystemLog_Title</h2>
+        @if (ViewData["LogTarget"].ToString() == "ModelServer")
+        { 
+            <p>
+                <label>@Resource.Model: 
+                    <input id="ddlModelServer" /></label>
+                <label>@Resource.MC_ServiceAgreementOnlyService:
+                    <input id="ddlModelService" /></label>
+                <label class="totalWarningError">@Resource.Total: &nbsp; @Resource.MC_Errors: <span id="TotalError">0</span> &nbsp; @Resource.Warnings: <span id="TotalWarning">0</span></label>
+            </p>
+        }
+        <div class="gridContainer">
+            @(Html.Kendo().Grid<FileModel>()
+                .Name("SystemLogsGrid")
+                .Columns(columns =>
+                {
+                    columns.Bound(model => model.Name)
+                        .Title(Resource.MC_LogFile);
+
+                    columns.Bound(model => model.WarningCount)
+                        .Title(Resource.Warnings)
+                        .Width(80)
+                        .HeaderHtmlAttributes(new { @class = "columnNumber" })
+                        .HtmlAttributes(new { @class = "columnNumber" })
+                        .ClientTemplate("#= WarningCount || '' #")
+                        .Hidden();
+
+                    columns.Bound(model => model.ErrorCount)
+                        .Title(Resource.MC_Errors)
+                        .Width(80)
+                        .HeaderHtmlAttributes(new { @class = "columnNumber" })
+                        .HtmlAttributes(new { @class = "columnNumber" })
+                        .ClientTemplate("#= ErrorCount || '' #")
+                        .Hidden();
+
+                    columns.Bound(model => model.Size)
+                        .Title(Resource.MC_LogSize)
+                        .Width(80)
+                        .HeaderHtmlAttributes(new { @class = "columnNumber" })
+                        .HtmlAttributes(new { @class = "columnNumber" })
+                        .ClientTemplate("#= SizeText #");
+
+                    columns.Bound(model => model.Modified)
+                        .Title(Resource.MC_LogTimestamp)
+                        .Width(130)
+                        .HeaderHtmlAttributes(new { @class = "columnDate" })
+                        .HtmlAttributes(new { @class = "columnDate" })
+                        .ClientTemplate("<span data-role='localize'>#= Modified #</span>");
+
+                    columns.Bound(model => model.FullPath)
+                        .Sortable(false)
+                        .Title(Resource.MC_Action)
+                        .Width(75)
+                        .HeaderHtmlAttributes(new { @class = "gridColumnToolbar" })
+                        .HtmlAttributes(new { @class = "gridColumnToolbar" })
+                        .ClientTemplate("#= MC.util.getTemplate('action-template', data) #");
+                })
+                .Sortable(sort => sort.AllowUnsort(false).Enabled(sortEnabled))
+
+                .Resizable(resize => resize.Columns(true))
+                .Scrollable(scroll => scroll.Virtual(scrollVirtual).Height(10 * 37))
+                .DataSource(dataSource => dataSource
+                    .Ajax()
+                    .Events(e => e.RequestStart("onKendoGridPagingStart").RequestEnd(@<text>
+                    function(e) {
+                        MC.GlobalSettings.Systemlog.SystemLogsGridRequestEnd(e);
+                    }
+                    </text>))
+                    .PageSize(pageSize)
+                    .Model(model =>
+                        model.Id("FullPath")
+                    )
+                    .Read(read => read.Action("ReadAllFolders", "GlobalSettings", new { target = ViewBag.LogTarget }))
+                    .ServerOperation(serverOperation)
+                )
+                .AutoBind(false)
+                .EnableCustomBinding(true)
+             )
+
+        </div>
+    </div>
+</div>
+
+<div class="popup" id="popupLogTable">
+    <div class="popupContent">
+        <div class="contentSection contentSectionGrid">
+            <div class="gridToolbar gridToolbarTop">
+                <div class="gridToolbarFilter">
+                    <select id="FilterLogTableType"></select>
+                    <input type="text" id="FilterLogTableTextbox" placeholder="@Resource.MC_Filter" data-method="remote" data-role="gridfilter" data-target="#SystemLogGrid" data-callback="MC.ui.logpopup.LogTableFilterCallback" /><span class="icon"></span>
+                </div>
+            </div>
+            <div class="gridContainer">
+                <div id="SystemLogGrid"></div>
+                <div id="SystemLogDetails">
+                    <div class="logDetails"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

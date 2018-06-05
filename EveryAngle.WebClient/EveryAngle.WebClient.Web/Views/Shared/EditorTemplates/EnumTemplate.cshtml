@@ -1,0 +1,24 @@
+﻿@model EveryAngle.Core.ViewModels.Model.Setting
+
+<label data-role="tooltip">@Model.Name</label>
+<p>
+@{
+    var value = Model.Value.ToString();
+    var option = Model.Options.FirstOrDefault(w => w.id == value);
+
+    if (option != null)
+    {
+            @(Html.Label(option.name, new { @class = "fieldValue " + Model.Type.ToLower() }));
+    }
+    else
+    {
+            <label>@value</label>
+    }
+    
+    if(Model.Description != null)
+    {
+        <a class="btn btnInfo" onclick='helpPopupPageHandler.ShowDescriptionPopup(this)'></a>
+        <textarea class="alwaysHide">@Model.Description</textarea>
+    }
+}
+</p>

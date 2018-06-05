@@ -1,0 +1,41 @@
+﻿@using EveryAngle.ManagementConsole.Models
+@using EveryAngle.Shared.Globalization;
+@model List<PageToolbarButtonModel>
+
+<div class="pageToolbar">
+	<div class="container pageToolbarInner">
+		<div class="pageToolbarButton" id="pageToolbarButton">
+        @{
+            if (Model != null)
+            {
+                foreach (PageToolbarButtonModel button in Model)
+                {
+                    string dataAttribute = button.Data == null ? "" : " data-parameters=" + Json.Encode(button.Data);
+                    if (button.Type == PageToolbarButtonType.Reload)
+                    {
+                        <a class="btn btnLarge btnPrimary btnReload" onclick="MC.ajax.reloadMainContent()"@dataAttribute>@Resource.MC_Reload</a>
+                    }
+                    else if (button.Type == PageToolbarButtonType.Save)
+                    {
+                        <a class="btn btnLarge btnPrimary btnSave  @button.CssClass" onclick="@button.OnClick"@dataAttribute>@Resource.Save</a>
+                    }
+                    else if (button.Type == PageToolbarButtonType.Cancel)
+                    {
+                        <a class="btn btnLarge btnPrimary btnBack" href="@button.Link" onclick="@button.OnClick"@dataAttribute>@Resource.Cancel</a>
+                    }
+                    else if (button.Type == PageToolbarButtonType.Create)
+                    {
+                        <a class="btn btnLarge btnPrimary btnSave @button.CssClass" onclick="@button.OnClick"@dataAttribute>@Resource.Create</a>
+                    }
+                    else
+                    {
+                        <a class="btn btnLarge btnPrimary @button.CssClass" href="@button.Link" onclick="@button.OnClick"@dataAttribute>@button.Label</a>
+                    }
+                } 
+            }      
+        }
+            
+		</div>
+		<h1 class="pageTitle" id="pageTitle"></h1>
+	</div><!--/.pageToolbarInner-->
+</div><!--/.pageToolbar-->

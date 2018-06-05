@@ -1,0 +1,90 @@
+﻿@model List<EveryAngle.Core.ViewModels.Users.UserViewModel>
+@using EveryAngle.Shared.Globalization
+@using EveryAngle.ManagementConsole.Models
+
+  @{
+      string currentUserID = ViewBag.CurrentUserID.ToString().Replace("\\", "\\\\");
+      string adminUser = "local\\\\eaadmin";
+      string systemUser = "system\\\\easystem";
+      List<PageToolbarButtonModel> buttons = new List<PageToolbarButtonModel>();
+      buttons.Add(new PageToolbarButtonModel
+      {
+          Type = PageToolbarButtonType.GridEditDelete,
+          Privilege = PrivilegeType.User,
+          EnableTemplate = "# if (data.Id.toLowerCase() == '" + systemUser + "') { #"
+                          + "<a class=\"btn btnEdit disabled\">" + Resource.Edit + "</a>"
+                          + "<a class=\"btn btnInfo disabled\">" + Resource.MC_ShowConsolidatedRole + "</a>"
+                          + "<a class=\"btn btnDelete disabled\">" + Resource.Delete + "</a>"
+                          + "# } else { #"
+                          + "<a href=\"\\" + SiteMapHelper.ActionHash("Users/AllUsers/EditUser") + "\" onclick=\"MC.util.redirect(event, this)\" class=\"btn btnEdit\" data-parameters='{\"userUri\":\"#= data.Uri #\"}'>" + Resource.Edit + "</a>"
+                          + "<a class=\"btn btnInfo\" onclick=\"MC.Users.User.ShowConsolidatedRolePopup('#=data.Uri #') \"data-grid=\"SubRolesGrid\" data-target=\"\\#ConsoliDatedRolePopup\" title=\"" + Resource.MC_ShowConsolidatedRole + "\" data-width=\"700\" data-height=\"600\" data-role=\"mcPopup\">" + Resource.MC_ShowConsolidatedRole + "</a>"
+                          + "# if (data.Id == '" + currentUserID + "'  || data.Id.toLowerCase() == '" + adminUser + "') { #"
+                          + "<a class=\"btn btnDelete disabled\">" + Resource.Delete + "</a>"
+                          + "# } else { #"
+                          + "<a href=\"" + Url.Content("~/Users/DeleteUser") + "\" onclick=\"MC.Users.User.DeleteUser(event, this)\" class=\"btn btnDelete\" data-parameters='{\"userUri\":\"#= data.Uri #\"}' data-delete-template=\"" + Resource.MC_DeleteUserConfirm + "\" data-delete-field-index=\"0\">" + Resource.Delete + "</a>"
+                          + "# } #"
+                          + "# } #",
+          DisableTemplate = "# if (data.Id.toLowerCase() == '" + systemUser + "') { #"
+                          + "<a class=\"btn btnEdit disabled\">" + Resource.Edit + "</a>"
+                          + "<a class=\"btn btnInfo disabled\">" + Resource.MC_ShowConsolidatedRole + "</a>"
+                          + "<a class=\"btn btnDelete disabled\">" + Resource.Delete + "</a>"
+                          + "# } else { #"
+                          + "<a href=\"\\" + SiteMapHelper.ActionHash("Users/AllUsers/EditUser") + "\" onclick=\"MC.util.redirect(event, this)\" class=\"btn btnEdit\" data-parameters='{\"userUri\":\"#= data.Uri #\"}'>" + Resource.View + "</a>"
+                          + "<a class=\"btn btnInfo\" onclick=\"MC.Users.User.ShowConsolidatedRolePopup('#=data.Uri #')\" data-grid=\"SubRolesGrid\" data-target=\"\\#ConsoliDatedRolePopup\" title=\"" + Resource.MC_ShowConsolidatedRole + "\" data-width=\"700\" data-height=\"600\" data-role=\"mcPopup\">" + Resource.MC_ShowConsolidatedRole + "</a>"
+                          + "# if (data.Id == '" + currentUserID + "' || data.Id.toLowerCase() == '" + adminUser + "){ #"
+                          + "<a class=\"btn btnDelete disabled\">" + Resource.Delete + "</a>"
+                          + "# } else { #"
+                          + "<a href=\"" + Url.Content("~/Users/DeleteUser") + "\" onclick=\"MC.Users.User.DeleteUser(event, this)\" class=\"btn btnDelete\" data-parameters='{\"userUri\":\"#= data.Uri #\"}' data-delete-template=\"" + Resource.MC_DeleteUserConfirm + "\" data-delete-field-index=\"0\">" + Resource.Delete + "</a>"
+                          + "# } #"
+                          + "# } #"
+      });
+      string gridButton = HttpUtility.HtmlDecode(Html.GetGridToolbar(buttons));
+
+      int pageSize = (int)ViewData["DefaultPageSize"];
+      int gridHeight = Math.Min(pageSize, 10) * 37;
+}
+
+@(Html.Kendo().Grid<EveryAngle.Core.ViewModels.Users.UserViewModel>()
+    .Name("UsersGrid")
+    .Columns(columns =>
+    {
+        columns.Bound(model => model.Id).Title(@Resource.Username);
+        columns.Bound(model => model.Fullname).Title(@Resource.MC_FullName);
+        columns.Bound(model => model.Enabled).Title(@Resource.Enabled).ClientTemplate(
+                "<label>"
+                + "# if (data.Enabled == true) { #"
+                + "<input name=\"IsEnabled\" data-default=\"true\" checked=\"checked\" type=\"checkbox\" disabled=\"disabled\">"
+                + "# } else { #"
+                + "<input name=\"IsEnabled\" data-default=\"false\" type=\"checkbox\" disabled=\"disabled\">"
+                + "# } #"
+                + "<span class=\"label\"></span></label>").HeaderHtmlAttributes(new { @class = "columnBoolean" }).HtmlAttributes(new { @Class = "columnBoolean" });
+        columns.Bound(model => model.AccessModel).Title(@Resource.MC_AccessToModel).ClientTemplate(
+            "# if(data.AccessModel != \"\" ) " +
+                "{# <text>#= data.AccessModel #</text> #} " +
+                    "else {# <text>" + Resource.MC_NoData + "</text> #}"
+        + "#").Sortable(false);
+
+        columns.Bound(model => model.SystemPrivileges.has_management_access).ClientTemplate("# if(data.SystemPrivileges.has_management_access == true ) " +
+                "{# <text>" + Resource.Yes + "</text> #} " +
+                    "else {# <text>" + Resource.MC_NoAccess + "</text> #}"
+        + "#").Sortable(false);
+
+
+        columns.Bound(model => model.TotalRole).HtmlAttributes(new { @class = "columnNumber" }).HeaderHtmlAttributes(new { @class = "columnNumber" }).Title("Roles").Sortable(false);
+        columns.Bound(model => model.Domain).Title(@Resource.MC_AuthenticationProvider).Sortable(false);
+            
+        columns.Bound("id").ClientTemplate(gridButton).HeaderHtmlAttributes(new { @class = "gridColumnToolbar" }).HtmlAttributes(new { @class = "gridColumnToolbar" }).Width(75).Title(@Resource.MC_Action).Sortable(false);
+    })
+    .Scrollable(scroll => scroll.Virtual(true).Height(gridHeight))
+    .Selectable(selectable => selectable.Enabled(false))
+    .Resizable(resize => resize.Columns(true))
+    .Sortable(sortable=> sortable.AllowUnsort(false))
+    .DataSource(dataSource => dataSource
+        .Ajax().Events(e => e.RequestStart("onKendoGridPagingStart"))
+        .Read(read => read.Action("ReadUsers", "Users", new { q = @ViewBag.Query }))
+        .Model(m => m.Id("Id"))
+        .PageSize(pageSize)
+    )
+    .EnableCustomBinding(true)
+    .AutoBind(false)
+)

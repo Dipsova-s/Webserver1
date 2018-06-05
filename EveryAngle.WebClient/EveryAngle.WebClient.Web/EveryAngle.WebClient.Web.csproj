@@ -1,0 +1,1172 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>
+    </ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{375381B9-3A36-429B-9453-AE08E6379809}</ProjectGuid>
+    <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>EveryAngle.WebClient.Web</RootNamespace>
+    <AssemblyName>EveryAngle.WebClient.Web</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <MvcBuildViews>false</MvcBuildViews>
+    <UseIISExpress>true</UseIISExpress>
+    <IISExpressSSLPort>
+    </IISExpressSSLPort>
+    <IISExpressAnonymousAuthentication>enabled</IISExpressAnonymousAuthentication>
+    <IISExpressWindowsAuthentication>disabled</IISExpressWindowsAuthentication>
+    <IISExpressUseClassicPipelineMode>false</IISExpressUseClassicPipelineMode>
+    <SccProjectName>
+    </SccProjectName>
+    <SccLocalPath>
+    </SccLocalPath>
+    <SccAuxPath>
+    </SccAuxPath>
+    <SccProvider>
+    </SccProvider>
+    <WebGreaseLibPath>..\packages\WebGrease.1.5.2\lib</WebGreaseLibPath>
+    <UseGlobalApplicationHostFile />
+    <TargetFrameworkProfile />
+    <Use64BitIISExpress />
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <DocumentationFile>
+    </DocumentationFile>
+    <ExcludeApp_Data>false</ExcludeApp_Data>
+    <ExcludeGeneratedDebugSymbol>false</ExcludeGeneratedDebugSymbol>
+    <ExcludeFoldersFromDeployment>JavaScriptUnitTesting</ExcludeFoldersFromDeployment>
+    <FilesToIncludeForPublish>OnlyFilesToRunTheApp</FilesToIncludeForPublish>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <ExcludeFoldersFromDeployment>JavaScriptUnitTesting;</ExcludeFoldersFromDeployment>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(SC_BranchPath)' == '' ">
+    <SC_BranchPath Condition="  Exists('..\..\..\..\..\Content')">$(MSBuildProjectDirectory)\..\..\..\..\..</SC_BranchPath>
+    <SC_BranchPath Condition=" !Exists('..\..\..\..\..\Content')">$(MSBuildProjectDirectory)\..\..\..\..\..\..\Acceptatie</SC_BranchPath>
+  </PropertyGroup>
+  <PropertyGroup>
+    <PreBuildEvent>robocopy "..\..\..\Content\Diagrams" "$(MSBuildProjectDirectory)\Resources\CreateNewAngleBySchema" /MIR /NP
+REM exit code 1 means 'files are copied, everything Ok'
+if %25ERRORLEVEL%25 LEQ 1 exit 0 else exit %25ERRORLEVEL%25</PreBuildEvent>
+  </PropertyGroup>
+  <Target Name="TestMessage" BeforeTargets="Build">
+    <!--Use $(Property Name) to reference a property-->
+    <Message Text="SC_BranchPath= $(SC_BranchPath)" Importance="high" />
+  </Target>
+  <ItemGroup>
+    <Reference Include="Antlr3.Runtime, Version=3.4.1.9004, Culture=neutral, PublicKeyToken=eb42632606e9261f, processorArchitecture=MSIL">
+      <HintPath>..\packages\Antlr.3.4.1.9004\lib\Antlr3.Runtime.dll</HintPath>
+    </Reference>
+    <Reference Include="DevExpress.Data.v17.1, Version=17.1.7.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <HintPath>..\packages\DevExpress.Data.17.1.0\lib\net40\DevExpress.Data.v17.1.dll</HintPath>
+    </Reference>
+    <Reference Include="DevExpress.PivotGrid.v17.1.Core, Version=17.1.7.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <HintPath>..\packages\DevExpress.PivotGrid.17.1.0\lib\net40\DevExpress.PivotGrid.v17.1.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="DevExpress.Utils.v17.1, Version=17.1.7.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <HintPath>..\packages\DevExpress.Utils.17.1.0\lib\net40\DevExpress.Utils.v17.1.dll</HintPath>
+    </Reference>
+    <Reference Include="DevExpress.Web.ASPxPivotGrid.v17.1, Version=17.1.7.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <HintPath>..\packages\DevExpress.Web.ASPxPivotGrid.17.1.0\lib\net40\DevExpress.Web.ASPxPivotGrid.v17.1.dll</HintPath>
+    </Reference>
+    <Reference Include="DevExpress.Web.Mvc5.v17.1, Version=17.1.7.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <HintPath>..\packages\DevExpress.Web.Mvc5.17.1.0\lib\net40\DevExpress.Web.Mvc5.v17.1.dll</HintPath>
+    </Reference>
+    <Reference Include="DevExpress.Web.v17.1, Version=17.1.7.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <HintPath>..\packages\DevExpress.Web.17.1.0\lib\net40\DevExpress.Web.v17.1.dll</HintPath>
+    </Reference>
+    <Reference Include="EveryAngle.Logging, Version=2.4.2.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\EveryAngle.Logging.2.4.2\lib\net45\EveryAngle.Logging.dll</HintPath>
+    </Reference>
+    <Reference Include="EveryAngle.Shared.Formatter, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\EveryAngle.Shared.Formatter.1.0.0\lib\net45\EveryAngle.Shared.Formatter.dll</HintPath>
+    </Reference>
+    <Reference Include="EveryAngle.Shared.Globalization, Version=1.0.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\EveryAngle.Shared.Globalization.1.0.1\lib\net45\EveryAngle.Shared.Globalization.dll</HintPath>
+    </Reference>
+    <Reference Include="EveryAngle.Shared.Pivot, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\EveryAngle.Shared.Pivot.1.0.0\lib\net45\EveryAngle.Shared.Pivot.dll</HintPath>
+    </Reference>
+    <Reference Include="EveryAngle.Threading, Version=2.4.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\EveryAngle.Threading.2.4.1\lib\net45\EveryAngle.Threading.dll</HintPath>
+    </Reference>
+    <Reference Include="EveryAngle.Utilities, Version=2.4.2.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\EveryAngle.Utilities.2.4.2\lib\net45\EveryAngle.Utilities.dll</HintPath>
+    </Reference>
+    <Reference Include="Ionic.Zip, Version=1.9.1.8, Culture=neutral, PublicKeyToken=edbe51ad942a3f5c, processorArchitecture=MSIL">
+      <HintPath>..\packages\Ionic.Zip.1.9.1.8\lib\Ionic.Zip.dll</HintPath>
+    </Reference>
+    <Reference Include="log4net, Version=1.2.14.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
+      <HintPath>..\packages\log4net.2.0.4\lib\net45-full\log4net.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.WebApi.MessageHandlers.Compression, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.MessageHandlers.Compression.1.3.0\lib\portable-net45+netcore45+wpa81+wp8+MonoAndroid1+MonoTouch1\Microsoft.AspNet.WebApi.MessageHandlers.Compression.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="MiniProfiler, Version=2.1.0.0, Culture=neutral, PublicKeyToken=b44f9351044011a3, processorArchitecture=MSIL">
+      <HintPath>..\packages\MiniProfiler.2.1.0\lib\net40\MiniProfiler.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.10.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="Raize.CodeSiteLogging, Version=5.1.8.0, Culture=neutral, PublicKeyToken=5979856d688ff136, processorArchitecture=MSIL">
+      <HintPath>..\packages\Raize.CodeSiteLogging.5.1.8\lib\net45\Raize.CodeSiteLogging.dll</HintPath>
+    </Reference>
+    <Reference Include="RazorGenerator.Mvc, Version=2.0.0.0, Culture=neutral, PublicKeyToken=7b26dc2a43f6a0d4, processorArchitecture=MSIL">
+      <HintPath>..\packages\RazorGenerator.Mvc.2.4.9\lib\net40\RazorGenerator.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="RestSharp, Version=105.2.3.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\RestSharp.105.2.3\lib\net45\RestSharp.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.IO.Compression" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Net.Http.Extensions, Version=2.2.28.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Net.Http.2.2.28\lib\net45\System.Net.Http.Extensions.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.Http.Formatting, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Client.5.2.3\lib\net45\System.Net.Http.Formatting.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.Http.Primitives, Version=4.2.28.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Net.Http.2.2.28\lib\net45\System.Net.Http.Primitives.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.Http.WebRequest" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Abstractions" />
+    <Reference Include="System.Web.ApplicationServices" />
+    <Reference Include="System.Web.DynamicData" />
+    <Reference Include="System.Web.Entity" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Web.Helpers, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.Helpers.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Http, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Core.5.2.3\lib\net45\System.Web.Http.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Http.WebHost, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.WebHost.5.2.3\lib\net45\System.Web.Http.WebHost.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Mvc, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Mvc.5.2.3\lib\net45\System.Web.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Optimization, Version=1.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Web.Optimization.1.1.3\lib\net40\System.Web.Optimization.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Razor.3.2.3\lib\net45\System.Web.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Routing" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Web.WebPages, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.WebPages.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Deployment, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.WebPages.Deployment.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.WebPages.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.XML" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="WebActivatorEx, Version=2.0.0.0, Culture=neutral, PublicKeyToken=7b26dc2a43f6a0d4, processorArchitecture=MSIL">
+      <HintPath>..\packages\WebActivatorEx.2.0.3\lib\net40\WebActivatorEx.dll</HintPath>
+    </Reference>
+    <Reference Include="WebGrease, Version=1.5.2.14234, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\WebGrease.1.5.2\lib\WebGrease.dll</HintPath>
+    </Reference>
+    <Reference Include="WindowsBase" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="App_Start\BundleConfig.cs" />
+    <Compile Include="App_Start\EmbededViewConfig.cs" />
+    <Compile Include="App_Start\FilterConfig.cs" />
+    <Compile Include="App_Start\LogConfig.cs" />
+    <Compile Include="App_Start\MiniProfiler.cs" />
+    <Compile Include="App_Start\RazorGeneratorMvcStart.cs" />
+    <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Controllers\AngleController.cs" />
+    <Compile Include="Controllers\Apis\CookieController.cs" />
+    <Compile Include="Controllers\Apis\HelpApiController.cs" />
+    <Compile Include="Controllers\Apis\UserApiController.cs" />
+    <Compile Include="Controllers\Apis\SessionController.cs" />
+    <Compile Include="Controllers\Apis\ProxyController.cs" />
+    <Compile Include="Controllers\BaseApiController.cs" />
+    <Compile Include="Controllers\BaseController.cs" />
+    <Compile Include="Controllers\CancelController.cs" />
+    <Compile Include="Controllers\DashboardController.cs" />
+    <Compile Include="Controllers\ErrorController.cs" />
+    <Compile Include="Controllers\HelpController.cs" />
+    <Compile Include="Controllers\MenuController.cs" />
+    <Compile Include="Controllers\PivotController.cs" />
+    <Compile Include="Controllers\PopupController.cs" />
+    <Compile Include="Controllers\ResourcesController.cs" />
+    <Compile Include="Controllers\SearchController.cs" />
+    <Compile Include="Controllers\SharedComponentController.cs" />
+    <Compile Include="Controllers\UserController.cs" />
+    <Compile Include="Filters\ActionFilters\IsUserLogedInAction.cs" />
+    <Compile Include="Global.asax.cs">
+      <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="Helpers\ControllerExtensions.cs" />
+    <Compile Include="Helpers\DataTableExtension.cs" />
+    <Compile Include="Helpers\LocalizationHelper.cs" />
+    <Compile Include="Helpers\Log4NetStorage.cs" />
+    <Compile Include="Helpers\OutputFilterStream.cs" />
+    <Compile Include="Helpers\Profiler.cs" />
+    <Compile Include="Helpers\ResouceExtension.cs" />
+    <Compile Include="Helpers\ViewRenderer.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Admin\MC.txt" />
+    <Content Include="Content\CSS\Angle.DisplayDropdown.css" />
+    <Content Include="Content\CSS\Base.css" />
+    <Content Include="Content\CSS\Common.css" />
+    <Content Include="Content\CSS\Angle.css" />
+    <Content Include="Content\CSS\UserPassword.css" />
+    <Content Include="Content\CSS\DisplayList.css" />
+    <Content Include="Content\CSS\CustomSort.css" />
+    <Content Include="Content\CSS\DisplayChart.css" />
+    <Content Include="Content\CSS\DisplayPivot.css" />
+    <Content Include="Content\CSS\ExportCsv.css" />
+    <Content Include="Content\CSS\ExportExcel.css" />
+    <Content Include="Content\CSS\JumpChooser.css" />
+    <Content Include="Content\CSS\Search.MassChange.css" />
+    <Content Include="Content\CSS\Dashboard.css" />
+    <Content Include="Content\CSS\WidgetFilters.css" />
+    <Content Include="Content\CSS\FieldSettings.css" />
+    <Content Include="Content\CSS\CreateAngle.css" />
+    <Content Include="Content\CSS\Search.AngleDownload.css" />
+    <Content Include="Content\CSS\UserSettings.css" />
+    <Content Include="Content\CSS\Search.css" />
+    <Content Include="Content\CSS\Login.css" />
+    <Content Include="Content\CSS\WidgetDetails.css" />
+    <Content Include="Content\CSS\WidgetLabels.css" />
+    <Content Include="Content\CSS\WidgetLanguages.css" />
+    <Content Include="Content\CSS\KendoExtension.css" />
+    <Content Include="Content\CSS\Pivot.css" />
+    <Content Include="Content\kendoui\Black\editor.png" />
+    <Content Include="Content\kendoui\Black\imagebrowser.png" />
+    <Content Include="Content\kendoui\Black\indeterminate.gif" />
+    <Content Include="Content\kendoui\Black\loading-image.gif" />
+    <Content Include="Content\kendoui\Black\loading.gif" />
+    <Content Include="Content\kendoui\Black\loading_2x.gif" />
+    <Content Include="Content\kendoui\Black\markers.png" />
+    <Content Include="Content\kendoui\Black\markers_2x.png" />
+    <Content Include="Content\kendoui\Black\slider-h.gif" />
+    <Content Include="Content\kendoui\Black\slider-v.gif" />
+    <Content Include="Content\kendoui\Black\sprite.png" />
+    <Content Include="Content\kendoui\Black\sprite_2x.png" />
+    <Content Include="Content\kendoui\Black\sprite_kpi.png" />
+    <Content Include="Content\kendoui\Black\sprite_kpi_2x.png" />
+    <Content Include="Content\kendoui\BlueOpal\editor.png" />
+    <Content Include="Content\kendoui\BlueOpal\imagebrowser.png" />
+    <Content Include="Content\kendoui\BlueOpal\indeterminate.gif" />
+    <Content Include="Content\kendoui\BlueOpal\loading-image.gif" />
+    <Content Include="Content\kendoui\BlueOpal\loading.gif" />
+    <Content Include="Content\kendoui\BlueOpal\loading_2x.gif" />
+    <Content Include="Content\kendoui\BlueOpal\markers.png" />
+    <Content Include="Content\kendoui\BlueOpal\markers_2x.png" />
+    <Content Include="Content\kendoui\BlueOpal\slider-h.gif" />
+    <Content Include="Content\kendoui\BlueOpal\slider-v.gif" />
+    <Content Include="Content\kendoui\BlueOpal\sprite.png" />
+    <Content Include="Content\kendoui\BlueOpal\sprite_2x.png" />
+    <Content Include="Content\kendoui\BlueOpal\sprite_kpi.png" />
+    <Content Include="Content\kendoui\BlueOpal\sprite_kpi_2x.png" />
+    <Content Include="Content\kendoui\Bootstrap\editor.png" />
+    <Content Include="Content\kendoui\Bootstrap\imagebrowser.png" />
+    <Content Include="Content\kendoui\Bootstrap\indeterminate.gif" />
+    <Content Include="Content\kendoui\Bootstrap\loading-image.gif" />
+    <Content Include="Content\kendoui\Bootstrap\loading.gif" />
+    <Content Include="Content\kendoui\Bootstrap\loading_2x.gif" />
+    <Content Include="Content\kendoui\Bootstrap\markers.png" />
+    <Content Include="Content\kendoui\Bootstrap\markers_2x.png" />
+    <Content Include="Content\kendoui\Bootstrap\slider-h.gif" />
+    <Content Include="Content\kendoui\Bootstrap\slider-v.gif" />
+    <Content Include="Content\kendoui\Bootstrap\sprite.png" />
+    <Content Include="Content\kendoui\Bootstrap\sprite_2x.png" />
+    <Content Include="Content\kendoui\Bootstrap\sprite_kpi.png" />
+    <Content Include="Content\kendoui\Bootstrap\sprite_kpi_2x.png" />
+    <Content Include="Content\kendoui\default\sprite_kpi.png" />
+    <Content Include="Content\kendoui\default\sprite_kpi_2x.png" />
+    <Content Include="Content\kendoui\Flat\editor.png" />
+    <Content Include="Content\kendoui\Flat\imagebrowser.png" />
+    <Content Include="Content\kendoui\Flat\indeterminate.gif" />
+    <Content Include="Content\kendoui\Flat\loading-image.gif" />
+    <Content Include="Content\kendoui\Flat\loading.gif" />
+    <Content Include="Content\kendoui\Flat\loading_2x.gif" />
+    <Content Include="Content\kendoui\Flat\slider-h.gif" />
+    <Content Include="Content\kendoui\Flat\slider-v.gif" />
+    <Content Include="Content\kendoui\Flat\sprite.png" />
+    <Content Include="Content\kendoui\Flat\sprite_2x.png" />
+    <Content Include="Content\kendoui\Flat\sprite_kpi.png" />
+    <Content Include="Content\kendoui\Flat\sprite_kpi_2x.png" />
+    <Content Include="Content\kendoui\HighContrast\editor.png" />
+    <Content Include="Content\kendoui\HighContrast\imagebrowser.png" />
+    <Content Include="Content\kendoui\HighContrast\indeterminate.gif" />
+    <Content Include="Content\kendoui\HighContrast\loading-image.gif" />
+    <Content Include="Content\kendoui\HighContrast\loading.gif" />
+    <Content Include="Content\kendoui\HighContrast\loading_2x.gif" />
+    <Content Include="Content\kendoui\HighContrast\slider-h.gif" />
+    <Content Include="Content\kendoui\HighContrast\slider-v.gif" />
+    <Content Include="Content\kendoui\HighContrast\sprite.png" />
+    <Content Include="Content\kendoui\HighContrast\sprite_2x.png" />
+    <Content Include="Content\kendoui\HighContrast\sprite_kpi.png" />
+    <Content Include="Content\kendoui\HighContrast\sprite_kpi_2x.png" />
+    <Content Include="Content\kendoui\images\back.png" />
+    <Content Include="Content\kendoui\images\kendoui.svg" />
+    <Content Include="Content\kendoui\images\wp8_icons.png" />
+    <Content Include="Content\kendoui\images\wp8_inverseicons.png" />
+    <Content Include="Content\kendoui\kendo.black.min.css" />
+    <Content Include="Content\kendoui\kendo.blueopal.min.css" />
+    <Content Include="Content\kendoui\kendo.bootstrap.min.css" />
+    <Content Include="Content\kendoui\kendo.dataviz.default.min.css" />
+    <Content Include="Content\kendoui\default\indeterminate.gif" />
+    <Content Include="Content\kendoui\default\loading-image.gif" />
+    <Content Include="Content\kendoui\default\loading_2x.gif" />
+    <Content Include="Content\kendoui\default\markers.png" />
+    <Content Include="Content\kendoui\default\markers_2x.png" />
+    <Content Include="Content\kendoui\default\sprite_2x.png" />
+    <Content Include="Content\kendoui\Flat\markers.png" />
+    <Content Include="Content\kendoui\Flat\markers_2x.png" />
+    <Content Include="Content\kendoui\HighContrast\markers.png" />
+    <Content Include="Content\kendoui\HighContrast\markers_2x.png" />
+    <Content Include="Content\kendoui\kendo.dataviz.black.min.css" />
+    <Content Include="Content\kendoui\kendo.dataviz.blueopal.min.css" />
+    <Content Include="Content\kendoui\kendo.dataviz.bootstrap.min.css" />
+    <Content Include="Content\kendoui\kendo.dataviz.flat.min.css" />
+    <Content Include="Content\kendoui\kendo.dataviz.highcontrast.min.css" />
+    <Content Include="Content\kendoui\kendo.dataviz.metro.min.css" />
+    <Content Include="Content\kendoui\kendo.dataviz.min.css" />
+    <Content Include="Content\kendoui\kendo.dataviz.moonlight.min.css" />
+    <Content Include="Content\kendoui\kendo.dataviz.silver.min.css" />
+    <Content Include="Content\kendoui\kendo.dataviz.uniform.min.css" />
+    <Content Include="Content\kendoui\kendo.flat.min.css" />
+    <Content Include="Content\kendoui\kendo.highcontrast.min.css" />
+    <Content Include="Content\kendoui\kendo.metro.min.css" />
+    <Content Include="Content\kendoui\kendo.silver.min.css" />
+    <Content Include="Content\kendoui\kendo.uniform.min.css" />
+    <Content Include="Content\kendoui\Metro\editor.png" />
+    <Content Include="Content\kendoui\Metro\imagebrowser.png" />
+    <Content Include="Content\kendoui\Metro\indeterminate.gif" />
+    <Content Include="Content\kendoui\Metro\loading-image.gif" />
+    <Content Include="Content\kendoui\Metro\loading.gif" />
+    <Content Include="Content\kendoui\Metro\loading_2x.gif" />
+    <Content Include="Content\kendoui\Metro\markers.png" />
+    <Content Include="Content\kendoui\Metro\markers_2x.png" />
+    <Content Include="Content\kendoui\Metro\slider-h.gif" />
+    <Content Include="Content\kendoui\Metro\slider-v.gif" />
+    <Content Include="Content\kendoui\Metro\sprite.png" />
+    <Content Include="Content\kendoui\Metro\sprite_2x.png" />
+    <Content Include="Content\kendoui\Metro\sprite_kpi.png" />
+    <Content Include="Content\kendoui\Metro\sprite_kpi_2x.png" />
+    <Content Include="Content\kendoui\Moonlight\editor.png" />
+    <Content Include="Content\kendoui\Moonlight\imagebrowser.png" />
+    <Content Include="Content\kendoui\Moonlight\indeterminate.gif" />
+    <Content Include="Content\kendoui\Moonlight\loading-image.gif" />
+    <Content Include="Content\kendoui\Moonlight\loading.gif" />
+    <Content Include="Content\kendoui\Moonlight\loading_2x.gif" />
+    <Content Include="Content\kendoui\Moonlight\markers.png" />
+    <Content Include="Content\kendoui\Moonlight\markers_2x.png" />
+    <Content Include="Content\kendoui\Moonlight\slider-h.gif" />
+    <Content Include="Content\kendoui\Moonlight\slider-v.gif" />
+    <Content Include="Content\kendoui\Moonlight\sprite.png" />
+    <Content Include="Content\kendoui\Moonlight\sprite_2x.png" />
+    <Content Include="Content\kendoui\Moonlight\sprite_kpi.png" />
+    <Content Include="Content\kendoui\Moonlight\sprite_kpi_2x.png" />
+    <Content Include="Content\kendoui\Silver\editor.png" />
+    <Content Include="Content\kendoui\Silver\imagebrowser.png" />
+    <Content Include="Content\kendoui\Silver\indeterminate.gif" />
+    <Content Include="Content\kendoui\Silver\loading-image.gif" />
+    <Content Include="Content\kendoui\Silver\loading.gif" />
+    <Content Include="Content\kendoui\Silver\loading_2x.gif" />
+    <Content Include="Content\kendoui\Silver\markers.png" />
+    <Content Include="Content\kendoui\Silver\markers_2x.png" />
+    <Content Include="Content\kendoui\Silver\slider-h.gif" />
+    <Content Include="Content\kendoui\Silver\slider-v.gif" />
+    <Content Include="Content\kendoui\Silver\sprite.png" />
+    <Content Include="Content\kendoui\Silver\sprite_2x.png" />
+    <Content Include="Content\kendoui\Silver\sprite_kpi.png" />
+    <Content Include="Content\kendoui\Silver\sprite_kpi_2x.png" />
+    <Content Include="Content\kendoui\textures\brushed-metal.png" />
+    <Content Include="Content\kendoui\textures\dots1.png" />
+    <Content Include="Content\kendoui\textures\dots10.png" />
+    <Content Include="Content\kendoui\textures\dots11.png" />
+    <Content Include="Content\kendoui\textures\dots12.png" />
+    <Content Include="Content\kendoui\textures\dots13.png" />
+    <Content Include="Content\kendoui\textures\dots2.png" />
+    <Content Include="Content\kendoui\textures\dots3.png" />
+    <Content Include="Content\kendoui\textures\dots4.png" />
+    <Content Include="Content\kendoui\textures\dots5.png" />
+    <Content Include="Content\kendoui\textures\dots6.png" />
+    <Content Include="Content\kendoui\textures\dots7.png" />
+    <Content Include="Content\kendoui\textures\dots8.png" />
+    <Content Include="Content\kendoui\textures\dots9.png" />
+    <Content Include="Content\kendoui\textures\glass-lighter.png" />
+    <Content Include="Content\kendoui\textures\hsv-gradient.png" />
+    <Content Include="Content\kendoui\textures\hue.png" />
+    <Content Include="Content\kendoui\textures\leather1.png" />
+    <Content Include="Content\kendoui\textures\leather2.png" />
+    <Content Include="Content\kendoui\textures\noise.png" />
+    <Content Include="Content\kendoui\textures\stripe1.png" />
+    <Content Include="Content\kendoui\textures\stripe2.png" />
+    <Content Include="Content\kendoui\textures\stripe3.png" />
+    <Content Include="Content\kendoui\textures\stripe4.png" />
+    <Content Include="Content\kendoui\textures\stripe5.png" />
+    <Content Include="Content\kendoui\textures\stripe6.png" />
+    <Content Include="Content\kendoui\textures\transparency.png" />
+    <Content Include="Content\kendoui\textures\transtexture.png" />
+    <Content Include="Content\kendoui\Uniform\editor.png" />
+    <Content Include="Content\kendoui\Uniform\imagebrowser.png" />
+    <Content Include="Content\kendoui\Uniform\indeterminate.gif" />
+    <Content Include="Content\kendoui\Uniform\loading-image.gif" />
+    <Content Include="Content\kendoui\Uniform\loading.gif" />
+    <Content Include="Content\kendoui\Uniform\loading_2x.gif" />
+    <Content Include="Content\kendoui\Uniform\markers.png" />
+    <Content Include="Content\kendoui\Uniform\markers_2x.png" />
+    <Content Include="Content\kendoui\Uniform\slider-h.gif" />
+    <Content Include="Content\kendoui\Uniform\slider-v.gif" />
+    <Content Include="Content\kendoui\Uniform\sprite.png" />
+    <Content Include="Content\kendoui\Uniform\sprite_2x.png" />
+    <Content Include="Content\kendoui\Uniform\sprite_kpi.png" />
+    <Content Include="Content\kendoui\Uniform\sprite_kpi_2x.png" />
+    <Content Include="Data\Export\log.txt" />
+    <Content Include="Data\Log\log.txt" />
+    <Content Include="Images\Angle\ActionDropdownList\AddToDashboard.svg" />
+    <Content Include="Images\Angle\ActionDropdownList\copydisplay.png" />
+    <Content Include="Images\Angle\ActionDropdownList\copydisplay.svg" />
+    <Content Include="Images\Angle\ActionDropdownList\ExportToCSV.svg" />
+    <Content Include="Images\Angle\ActionDropdownList\ExportToExcel.svg" />
+    <Content Include="Images\Angle\ActionDropdownList\Find.svg" />
+    <Content Include="Images\Angle\ActionDropdownList\pastedisplay.png" />
+    <Content Include="Images\Angle\ActionDropdownList\save.svg" />
+    <Content Include="Images\Angle\ActionDropdownList\saveas.svg" />
+    <Content Include="Images\Angle\AngleDetail\btn_deselectall.svg" />
+    <Content Include="Images\Angle\AngleDetail\btn_invertselect.svg" />
+    <Content Include="Images\Angle\AngleDetail\btn_selectall.svg" />
+    <Content Include="Images\Angle\back2search.svg" />
+    <Content Include="Images\Angle\btn_addcolumn.svg" />
+    <Content Include="Images\Angle\DescribeListImage2.svg" />
+    <Content Include="Images\Angle\icn_header_SAP.svg" />
+    <Content Include="Images\Angle\icon_template.svg" />
+    <Content Include="Images\Angle\pivotchart.png" />
+    <Content Include="Images\Domains\InvItemTypes\InvItemTypesInvoiceItemType0PO.png" />
+    <Content Include="Images\Domains\InvItemTypes\InvItemTypesInvoiceItemType1NoPO.png" />
+    <Content Include="Images\Domains\InvItemTypes\InvItemTypesInvoiceItemType2Material.png" />
+    <Content Include="Images\Domains\InvoiceReceiptStatusSimple\InvoiceReceiptStatusSimpleEx0None.png" />
+    <Content Include="Images\Domains\InvoiceReceiptStatusSimple\InvoiceReceiptStatusSimpleEx1Open.png" />
+    <Content Include="Images\Domains\InvoiceReceiptStatusSimple\InvoiceReceiptStatusSimpleEx2PartOpen.png" />
+    <Content Include="Images\Domains\InvoiceReceiptStatusSimple\InvoiceReceiptStatusSimpleEx3Closed.png" />
+    <Content Include="Images\Domains\InvoiceReceiptStatusSimple\InvoiceReceiptStatusSimpleEx4DUMMY.png" />
+    <Content Include="Images\Domains\LogisticsBehaviour\logisticsbehaviourls0nologisticsbehaviour.png" />
+    <Content Include="Images\Domains\LogisticsBehaviour\logisticsbehaviourls1consuming.png" />
+    <Content Include="Images\Domains\LogisticsBehaviour\logisticsbehaviourls2delivering.png" />
+    <Content Include="Images\Domains\LogisticsBehaviour\logisticsbehaviourls3transferwithinplant.png" />
+    <Content Include="Images\Domains\LogisticsBehaviour\logisticsbehaviourls4transferbetweenplants.png" />
+    <Content Include="Images\dropdown_check.svg" />
+    <Content Include="Images\dropdown_check_active.svg" />
+    <Content Include="Images\Icons\icon_about.png" />
+    <Content Include="Images\Icons\icon_adv_filter.svg" />
+    <Content Include="Images\Icons\icon_arrow_black_down_black.png" />
+    <Content Include="Images\Icons\icon_arrow_black_up_black.png" />
+    <Content Include="Images\Icons\icon_arrow_down.svg" />
+    <Content Include="Images\Icons\icon_arrow_down_white.png" />
+    <Content Include="Images\Icons\icon_arrow_right_black.svg" />
+    <Content Include="Images\Icons\icon_arrow_up.svg" />
+    <Content Include="Images\Icons\icon_change_password.png" />
+    <Content Include="Images\Icons\icon_check_white.png" />
+    <Content Include="Images\Icons\icon_clear_all.png" />
+    <Content Include="Images\Icons\icon_close.svg" />
+    <Content Include="Images\Icons\icon_copy_angle.png" />
+    <Content Include="Images\Icons\icon_create_angle.svg" />
+    <Content Include="Images\Icons\icon_deny.png" />
+    <Content Include="Images\Icons\icon_download_angle.png" />
+    <Content Include="Images\Icons\icon_down_white.svg" />
+    <Content Include="Images\Icons\icon_help.png" />
+    <Content Include="Images\Icons\icon_info.svg" />
+    <Content Include="Images\Icons\icon_item_dashboard.svg" />
+    <Content Include="Images\Icons\icon_list_addnew.png" />
+    <Content Include="Images\Icons\icon_mass_change.png" />
+    <Content Include="Images\Icons\icon_open_new_window.svg" />
+    <Content Include="Images\Icons\icon_popup_maximize.png" />
+    <Content Include="Images\Icons\icon_popup_maximize.svg" />
+    <Content Include="Images\Icons\icon_popup_minimize.png" />
+    <Content Include="Images\Icons\icon_popup_minimize.svg" />
+    <Content Include="Images\Icons\icon_private_display.png" />
+    <Content Include="Images\Icons\icon_private_display.svg" />
+    <Content Include="Images\Icons\icon_schedule.png" />
+    <Content Include="Images\Icons\icon_schedule_small.png" />
+    <Content Include="Images\Icons\icon_select_all.png" />
+    <Content Include="Images\Icons\icon_sorting.png" />
+    <Content Include="Images\Icons\icon_note.png" />
+    <Content Include="Images\Domains\ConditionRecordScaleType\ConditionRecordScaleTypeConditionScale0Item.png" />
+    <Content Include="Images\Domains\ConditionRecordScaleType\ConditionRecordScaleTypeConditionScale1Quantity.png" />
+    <Content Include="Images\Domains\ConditionRecordScaleType\ConditionRecordScaleTypeConditionScale2Value.png" />
+    <Content Include="Images\Domains\CustomerCreditPosition\CustomerCreditPositionds0None.png" />
+    <Content Include="Images\Domains\CustomerCreditPosition\CustomerCreditPositionds3Late.png" />
+    <Content Include="Images\Domains\CustomerCreditPosition\CustomerCreditPositionds4DeliveredOnTime.png" />
+    <Content Include="Images\Domains\CustomerCreditPosition\CustomerCreditPositionds5DeliveredEarly.png" />
+    <Content Include="Images\Domains\CustomerLastActiveDate\CustomerLastActiveDateclad0Till3Mnd.png" />
+    <Content Include="Images\Domains\CustomerLastActiveDate\CustomerLastActiveDateclad12Mnd.png" />
+    <Content Include="Images\Domains\CustomerLastActiveDate\CustomerLastActiveDateclad3Till6Mnd.png" />
+    <Content Include="Images\Domains\CustomerLastActiveDate\CustomerLastActiveDateclad6Till12Mnd.png" />
+    <Content Include="Images\Domains\CustomerLastActiveDate\CustomerLastActiveDatecladNone.png" />
+    <Content Include="Images\Domains\InvoiceItemType\InvoiceItemTypeInvoiceItemType0PO.png" />
+    <Content Include="Images\Domains\InvoiceItemType\InvoiceItemTypeInvoiceItemType1NoPO.png" />
+    <Content Include="Images\Domains\InvoiceItemType\InvoiceItemTypeInvoiceItemType2Material.png" />
+    <Content Include="Images\Domains\OnTimeSTATUS\OnTimeSTATUSds0None.png" />
+    <Content Include="Images\Domains\OnTimeSTATUS\OnTimeSTATUSds1DeliveredOnTime.png" />
+    <Content Include="Images\Domains\OnTimeSTATUS\OnTimeSTATUSds5DeliveredEarly.png" />
+    <Content Include="Images\Domains\OnTimeSTATUS\OnTimeSTATUSds6DeliveredLate.png" />
+    <Content Include="Images\Domains\PaymentStatus\PaymentStatusCleared.png" />
+    <Content Include="Images\Domains\PaymentStatus\PaymentStatusOpen.png" />
+    <Content Include="Images\Domains\PaymentStatus\PaymentStatusParked.png" />
+    <Content Include="Images\Domains\PaymentStatus\PaymentStatusPartially.png" />
+    <Content Include="Images\Domains\PaymentStatus\PaymentStatusUnknown.png" />
+    <Content Include="Images\Domains\UserFlag\UserFlagufLockedDueToIncorrectLogins.png" />
+    <Content Include="Images\Domains\UserFlag\UserFlagufLockedDueToIncorrectLoginsAndGloballyByAdmin.png" />
+    <Content Include="Images\Domains\UserFlag\UserFlagufLockedDueToIncorrectLoginsAndLocallyByAdmin.png" />
+    <Content Include="Images\Domains\UserFlag\UserFlagufLockedGloballyByAdmin.png" />
+    <Content Include="Images\Domains\UserFlag\UserFlagufLockedLocallybyAdmin.png" />
+    <Content Include="Images\Domains\UserFlag\UserFlagufufLockedGloballyAndLocallybyAdmin.png" />
+    <Content Include="Images\Domains\UserFlag\UserFlagufUnlocked.png" />
+    <Content Include="Images\Domains\UserType\UserTypeCommunication.png" />
+    <Content Include="Images\Domains\UserType\UserTypeDialog.png" />
+    <Content Include="Images\Domains\UserType\UserTypeReference.png" />
+    <Content Include="Images\Domains\UserType\UserTypeService.png" />
+    <Content Include="Images\Domains\UserType\UserTypeSystem.png" />
+    <Content Include="Images\Icons\icon_upload_angle.png" />
+    <Content Include="Images\Icons\icon_warning.svg" />
+    <Content Include="Images\image-not-found.png" />
+    <Content Include="Images\image-not-found.svg" />
+    <Content Include="Images\Login\login_bg.jpg" />
+    <Content Include="Images\Login\login_logo.svg" />
+    <Content Include="Images\Master\EALogo.svg" />
+    <Content Include="Images\Master\ea_about_logo.svg" />
+    <Content Include="Images\Master\helpuser.svg" />
+    <Content Include="Images\Master\usercontrol.svg" />
+    <Content Include="Images\Popup\Error\icn_alert.svg" />
+    <Content Include="Images\Popup\Error\icn_error.svg" />
+    <Content Include="Images\Popup\Error\icn_info.svg" />
+    <Content Include="Images\Popup\Error\icn_question.svg" />
+    <Content Include="Images\search-white.svg" />
+    <Content Include="Images\SearchPage\icn_item_angle.svg" />
+    <Content Include="Images\SearchPage\icn_item_dashboard.svg" />
+    <Content Include="Images\SearchPage\icn_item_template.svg" />
+    <Content Include="Images\SearchPage\icn_private.svg" />
+    <Content Include="Images\SearchPage\icn_public.svg" />
+    <Content Include="Images\SearchPage\icn_recently_used.png" />
+    <Content Include="Images\SearchPage\icn_recently_used.svg" />
+    <Content Include="Images\SearchPage\icn_starred_active.svg" />
+    <Content Include="Images\SearchPage\icn_validated.svg" />
+    <Content Include="Images\SearchPage\icon_adv_filter.svg" />
+    <Content Include="Resources\Help\help.txt" />
+    <Content Include="Scripts\ContextMenu\clipboard.js" />
+    <Content Include="Scripts\Helper\HtmlHelper.MenuNavigatable.js" />
+    <Content Include="Scripts\Helper\HtmlHelper.js" />
+    <Content Include="Scripts\Helper\HtmlHelper.Tooltip.js" />
+    <Content Include="Scripts\Helper\MeasurePerformance.js" />
+    <Content Include="Scripts\Helper\ModelHandlerHelper.js" />
+    <Content Include="Scripts\Helper\HandlerHelper.js" />
+    <Content Include="Scripts\HtmlTemplate\AdvanceFilter\advancefilterhtmltemplate.js" />
+    <Content Include="Scripts\HtmlTemplate\AngleDetail\angledetailbodyhtmltemplate.js" />
+    <Content Include="Scripts\HtmlTemplate\AngleDetail\anglepublishinghtmltemplate.js" />
+    <Content Include="Scripts\HtmlTemplate\CreateNewAngle\createangleschemahtmlpopuptemplate.js" />
+    <Content Include="Scripts\HtmlTemplate\CreateNewAngle\createangleoptionhtmlpopuptemplate.js" />
+    <Content Include="Scripts\HtmlTemplate\CustomSort\customsorthtmtemplate.js" />
+    <Content Include="Scripts\HtmlTemplate\Dashboard\addtodashboardhtmltemplate.js" />
+    <Content Include="Scripts\HtmlTemplate\Dashboard\dashboarddetailbodyhtmltemplate.js" />
+    <Content Include="Scripts\HtmlTemplate\Dashboard\dashboardpublishinghtmltemplate.js" />
+    <Content Include="Scripts\HtmlTemplate\DisplayDetail\displaydetailbodyhtmltemplate.js" />
+    <Content Include="Scripts\HtmlTemplate\ExecuteParameters\executeparametershtmltemplate.js" />
+    <Content Include="Scripts\HtmlTemplate\Export\exportcsvhtmltemplate.js" />
+    <Content Include="Scripts\HtmlTemplate\Export\exportdrilldownexcelhtmltemplate.js" />
+    <Content Include="Scripts\HtmlTemplate\Export\exportexcelhtmltemplate.js" />
+    <Content Include="Scripts\HtmlTemplate\Find\findangleresulthtmltemplate.js" />
+    <Content Include="Scripts\HtmlTemplate\ListFormatSetting\listformatsettinghtmltemplate.js" />
+    <Content Include="Scripts\HtmlTemplate\MassChange\masschangelabelshtmltemplate.js" />
+    <Content Include="Scripts\HtmlTemplate\MassChange\masschangehtmltemplate.js" />
+    <Content Include="Scripts\HtmlTemplate\Menu\aboutHtmlTemplate.js" />
+    <Content Include="Scripts\HtmlTemplate\Menu\usersettingpopuphtmltemplate.js" />
+    <Content Include="Scripts\HtmlTemplate\ResultSummary\resultsummaryhtmltemplate.js" />
+    <Content Include="Scripts\HtmlTemplate\ScheduleAngle\scheduleanglehtmltemplate.js" />
+    <Content Include="Scripts\HtmlTemplate\Search\angleexporthtmltemplate.js" />
+    <None Include="packages.config">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Scripts\kendo.all.min.intellisense.js" />
+    <Content Include="Scripts\KendoUI\kendo.timespanpicker.js" />
+    <Content Include="Scripts\KendoUI\kendo.core.extension.js" />
+    <Content Include="Scripts\KendoUI\kendo.numerictextbox.custom.js" />
+    <Content Include="Scripts\KendoUI\kendo.colorpicker.custom.js" />
+    <Content Include="Scripts\KendoUI\kendo.datetimepicker.custom.js" />
+    <Content Include="Scripts\KendoUI\cultures\kendo.culture.de-DE.min.js" />
+    <Content Include="Scripts\KendoUI\kendo.ooxml.min.js" />
+    <Content Include="Scripts\KendoUI\kendo.timezones.min.js" />
+    <Content Include="Scripts\KendoUI\kendo.upload.min.js" />
+    <Content Include="Scripts\KendoUI\kendo.virtuallist.min.js" />
+    <Content Include="Scripts\KendoUI\messages\kendo.messages.de-DE.js" />
+    <Content Include="Scripts\User\Authentication.js" />
+    <Content Include="Scripts\VideoPlayer\jwpsrv.js" />
+    <Content Include="Scripts\VideoPlayer\ping.gif" />
+    <Content Include="Scripts\VideoPlayer\Skin\six.xml" />
+    <Content Include="Global.asax" />
+    <Content Include="Images\Angle\ActionDropdownList\createdisplay.png" />
+    <Content Include="Images\Angle\ActionDropdownList\editdisplay.png" />
+    <Content Include="Images\Angle\ActionDropdownList\save.png" />
+    <Content Include="Images\Angle\ActionDropdownList\saveas.png" />
+    <Content Include="Images\Angle\ActionDropdownList\Tools.png" />
+    <Content Include="Images\Angle\AngleDetail\btn_AddDate.jpg" />
+    <Content Include="Images\Angle\AngleDetail\btn_delete_language.png" />
+    <Content Include="Images\Angle\AngleDetail\btn_ReduceDate.jpg" />
+    <Content Include="Images\Angle\AngleDetail\btn_RemoveAll.png" />
+    <Content Include="Images\Angle\create_new_from_template.png" />
+    <Content Include="Images\Angle\create_new_business_schema.png" />
+    <Content Include="Images\Angle\create_new_full_list.png" />
+    <Content Include="Images\Angle\backgroundLeftColumn.png" />
+    <Content Include="Images\Angle\Chart\charttype.png" />
+    <Content Include="Images\Angle\Followups\followups_category.png" />
+    <Content Include="Images\Angle\Followups\followups_flow.png" />
+    <Content Include="Images\Angle\Followups\followups_relation.png" />
+    <Content Include="Images\Angle\Followups\followups_relation_indicator.png" />
+    <Content Include="Images\Angle\Pivot\ui1.png" />
+    <Content Include="Images\Angle\Pivot\ui2.png" />
+    <Content Include="Images\back_buttons.png" />
+    <Content Include="Images\btn_options_state.png" />
+    <Content Include="Images\btn_schema_type.png" />
+    <Content Include="Images\grid_header_active_bg.png" />
+    <Content Include="Images\grid_header_hover_bg.png" />
+    <Content Include="Images\Icons\icon_angle_to_template.png" />
+    <Content Include="Images\Icons\icon_arrow_black_left_black.png" />
+    <Content Include="Images\Icons\icon_authorization.png" />
+    <Content Include="Images\Icons\icon_chart.png" />
+    <Content Include="Images\Icons\icon_chart_addnew.png" />
+    <Content Include="Images\Icons\icon_clearformat.png" />
+    <Content Include="Images\Icons\icon_close.png" />
+    <Content Include="Images\btn_bg.png" />
+    <Content Include="Images\btn_primary_bg.png" />
+    <Content Include="Images\definition_bg.png" />
+    <Content Include="Images\filter_nav_bg.png" />
+    <Content Include="Images\Icons\icon_add_filter.png" />
+    <Content Include="Images\Icons\icon_add_followup.png" />
+    <Content Include="Images\Icons\icon_adv_filter.png" />
+    <Content Include="Images\Icons\icon_arrow_right_black.png" />
+    <Content Include="Images\Icons\icon_arrow_right_white.png" />
+    <Content Include="Images\Icons\icon_arrow_up.png" />
+    <Content Include="Images\Icons\icon_bin.png" />
+    <Content Include="Images\Icons\icon_column_addnew.png" />
+    <Content Include="Images\Icons\icon_column_remove.png" />
+    <Content Include="Images\Icons\icon_copy.png" />
+    <Content Include="Images\Icons\icon_create_angle.png" />
+    <Content Include="Images\Icons\icon_arrow_down.png" />
+    <Content Include="Images\Icons\icon_dashboard.png" />
+    <Content Include="Images\Icons\icon_def_filter.png" />
+    <Content Include="Images\Icons\icon_def_followup.png" />
+    <Content Include="Images\Icons\icon_delete.png" />
+    <Content Include="Images\Icons\icon_delete_transparent.png" />
+    <Content Include="Images\Icons\icon_drilldown.png" />
+    <Content Include="Images\Icons\icon_error.png" />
+    <Content Include="Images\Icons\icon_facet_collapse.png" />
+    <Content Include="Images\Icons\icon_facet_expand.png" />
+    <Content Include="Images\Icons\icon_filter_addnew.png" />
+    <Content Include="Images\Icons\icon_followup_addnew.png" />
+    <Content Include="Images\Icons\icon_format.png" />
+    <Content Include="Images\Icons\icon_gear.png" />
+    <Content Include="Images\Icons\icon_info.png" />
+    <Content Include="Images\Icons\icon_info_hover.png" />
+    <Content Include="Images\Icons\icon_info_large.png" />
+    <Content Include="Images\Icons\icon_list.png" />
+    <Content Include="Images\Icons\icon_logout.png" />
+    <Content Include="Images\Icons\icon_mark_as_new.png" />
+    <Content Include="Images\Icons\icon_maximize.png" />
+    <Content Include="Images\Icons\icon_minimize.png" />
+    <Content Include="Images\Icons\icon_move.png" />
+    <Content Include="Images\Icons\icon_move_definition.png" />
+    <Content Include="Images\Icons\icon_object.png" />
+    <Content Include="Images\Icons\icon_private_to_public.png" />
+    <Content Include="Images\Icons\icon_pivot.png" />
+    <Content Include="Images\Icons\icon_pivot_addnew.png" />
+    <Content Include="Images\Icons\icon_public_to_private.png" />
+    <Content Include="Images\Icons\icon_sap.png" />
+    <Content Include="Images\Icons\icon_sort_asc_large.png" />
+    <Content Include="Images\Icons\icon_sort_asc_white.png" />
+    <Content Include="Images\Icons\icon_sort_custom.png" />
+    <Content Include="Images\Icons\icon_sort_desc_large.png" />
+    <Content Include="Images\Icons\icon_sort_desc_white.png" />
+    <Content Include="Images\Icons\icon_template_to_angle.png" />
+    <Content Include="Images\Icons\icon_unvalidate_to_validate.png" />
+    <Content Include="Images\Icons\icon_validate_to_unvalidate.png" />
+    <Content Include="Images\Icons\icon_viewmode.png" />
+    <Content Include="Images\Popup\popup_left_bottom_arrow.png" />
+    <Content Include="Images\Popup\popup_top_arrow.png" />
+    <Content Include="Images\Angle\icon_template.jpg" />
+    <Content Include="Images\SearchPage\icn_execute_item.png" />
+    <Content Include="Images\SearchPage\icn_item_angle.png" />
+    <Content Include="Images\SearchPage\icn_item_template.png" />
+    <Content Include="Images\SearchPage\icn_starred_active.png" />
+    <Content Include="Images\SearchPage\icn_suggest.png" />
+    <Content Include="Images\SearchPage\icon_followup.png" />
+    <Content Include="Images\control_bg.png" />
+    <Content Include="Images\custom_sprite.png" />
+    <Content Include="Images\Domains\DeliveryStatus\DeliveryStatusds0None.png" />
+    <Content Include="Images\Domains\DeliveryStatus\DeliveryStatusds1NotCritical.png" />
+    <Content Include="Images\Domains\DeliveryStatus\DeliveryStatusds2Critical.png" />
+    <Content Include="Images\Domains\DeliveryStatus\DeliveryStatusds3Late.png" />
+    <Content Include="Images\Domains\DeliveryStatus\DeliveryStatusds40Pollution.png" />
+    <Content Include="Images\Domains\DeliveryStatus\DeliveryStatusds4DeliveredOnTime.png" />
+    <Content Include="Images\Domains\DeliveryStatus\DeliveryStatusds5DeliveredEarly.png" />
+    <Content Include="Images\Domains\DeliveryStatus\DeliveryStatusds6DeliveredLate.png" />
+    <Content Include="Images\Domains\ExecutionStatus\ExecutionStatuses0ToBeExecuted.png" />
+    <Content Include="Images\Domains\ExecutionStatus\ExecutionStatuses1PartiallyExecuted.png" />
+    <Content Include="Images\Domains\ExecutionStatus\ExecutionStatuses2FullyExecuted.png" />
+    <Content Include="Images\Domains\ExecutionStatus\ExecutionStatuses3Cancelled.png" />
+    <Content Include="Images\Domains\ExecutionStatus\ExecutionStatuses4None.png" />
+    <Content Include="Images\Domains\LogisticBehaviour\LogisticsBehaviourls0NoLogisticsBehaviour.png" />
+    <Content Include="Images\Domains\LogisticBehaviour\LogisticsBehaviourls1Consuming.png" />
+    <Content Include="Images\Domains\LogisticBehaviour\LogisticsBehaviourls2Delivering.png" />
+    <Content Include="Images\Domains\LogisticBehaviour\LogisticsBehaviourls4TransferBetweenPlants.png" />
+    <Content Include="Images\Domains\LogisticBehaviour\LogisticsBehaviourls3TransferWithinPlant.png" />
+    <Content Include="Images\dropdown_check.png" />
+    <Content Include="Images\dropdown_check_active.png" />
+    <Content Include="Images\grid_header_bg.png" />
+    <Content Include="Images\Icons\icon_webclient.png" />
+    <Content Include="Images\Icons\icon_sort_asc.png" />
+    <Content Include="Images\Icons\icon_sort_desc.png" />
+    <Content Include="Images\Popup\popup_right_arrow.png" />
+    <Content Include="Images\icon_left_arrow.png" />
+    <Content Include="Images\icon_right_arrow.png" />
+    <Content Include="Images\loading-image.gif" />
+    <Content Include="Images\loading.gif" />
+    <Content Include="Images\Master\SeparateLine.png" />
+    <Content Include="Images\Master\TopBar_BG.png" />
+    <Content Include="Images\Popup\popup_left_arrow.png" />
+    <Content Include="Images\Popup\ProgressBar\ajax-loader.gif" />
+    <Content Include="Images\SearchPage\icn_execute.png" />
+    <Content Include="Images\SearchPage\icn_item_dashboard.png" />
+    <Content Include="Images\SearchPage\icn_private.png" />
+    <Content Include="Images\SearchPage\icn_public.png" />
+    <Content Include="Images\SearchPage\icn_starred_inactive.png" />
+    <Content Include="Images\SearchPage\icn_validated.png" />
+    <Content Include="EveryAngle.WebClient.Web.wpp.targets" />
+    <Content Include="Scripts\ViewManagement\Angle\AngleHandler.js" />
+    <Content Include="Scripts\ViewManagement\Angle\AngleActionMenuHandler.js" />
+    <Content Include="Scripts\ViewManagement\Angle\DisplayUpgradeHandler.js" />
+    <Content Include="Scripts\ViewManagement\Angle\DisplayCopyHandler.js" />
+    <Content Include="Scripts\ViewManagement\Angle\ResolveAngleDisplayHandler.js" />
+    <Content Include="Scripts\ViewManagement\Angle\ScheduleAngleHandler.js" />
+    <Content Include="Scripts\ViewManagement\Search\angledownloadhandler.js" />
+    <Content Include="Scripts\ViewManagement\Search\AngleExportHandler.js" />
+    <Content Include="Scripts\ViewManagement\Search\ImportAngleHandler.js" />
+    <Content Include="Scripts\ViewManagement\Search\ItemInfoHandler.js" />
+    <Content Include="Scripts\ViewManagement\Help\HelpPopupPageHandler.js" />
+    <Content Include="Scripts\ViewManagement\Shared\AboutSystemHandler.js" />
+    <Content Include="Scripts\ViewManagement\Shared\ModelCurrentInstanceHandler.js" />
+    <Content Include="Scripts\ViewManagement\Shared\ModelsHandler.js" />
+    <Content Include="Scripts\ViewManagement\Shared\ModelInstanceFieldsHandler.js" />
+    <Content Include="Scripts\ViewManagement\Shared\ModelLabelCategoryHandler.js" />
+    <Content Include="Scripts\ViewManagement\Shared\SystemCurrencyHandler.js" />
+    <Content Include="Scripts\ViewManagement\Shared\SystemDefaultUserSettingHandler.js" />
+    <Content Include="Scripts\ViewManagement\Shared\SystemInformationHandler.js" />
+    <Content Include="Scripts\ViewManagement\Shared\FieldCategoryHandler.js" />
+    <Content Include="Scripts\ViewManagement\Shared\InternalResourceHandler.js" />
+    <Content Include="Scripts\ViewManagement\Shared\SystemLanguageHandler.js" />
+    <Content Include="Scripts\ViewManagement\Shared\SystemSettingHandler.js" />
+    <Content Include="Scripts\ViewManagement\Shared\ValidationHandler.js" />
+    <Content Include="Scripts\ViewManagement\Shared\ExecutionParameterHandler.js" />
+    <Content Include="Scripts\ViewManagement\Shared\DirectoryHandler.js" />
+    <Content Include="Scripts\ViewManagement\Shared\ModelFieldDomainHandler.js" />
+    <Content Include="Scripts\ViewManagement\Shared\ModelFieldSourceHandler.js" />
+    <Content Include="Scripts\ViewManagement\Shared\WidgetFilter\WidgetFilterHelper.DateTranslator.js" />
+    <Content Include="Scripts\ViewManagement\Shared\WidgetLabels\WidgetLabelsHandler.js" />
+    <Content Include="Scripts\ViewManagement\Shared\WidgetLabels\WidgetLabelsView.js" />
+    <Content Include="Scripts\ViewManagement\User\UserPasswordHandler.js" />
+    <Content Include="Scripts\ViewManagement\User\UserSettingHandler.js" />
+    <Content Include="Scripts\ViewManagement\User\UserSettingView.js" />
+    <Content Include="Scripts\vsdoc.loc.xml" />
+    <Content Include="Content\kendoui\images\kendoui.ttf" />
+    <Content Include="Content\kendoui\images\kendoui.woff" />
+    <Content Include="Override.config" />
+    <Content Include="Content\kendoui\fonts\DejaVu\DejaVuSans-Bold.ttf" />
+    <Content Include="Content\kendoui\fonts\DejaVu\DejaVuSans-BoldOblique.ttf" />
+    <Content Include="Content\kendoui\fonts\DejaVu\DejaVuSans-Oblique.ttf" />
+    <Content Include="Content\kendoui\fonts\DejaVu\DejaVuSans.ttf" />
+    <Content Include="Content\kendoui\fonts\DejaVu\DejaVuSansMono-Bold.ttf" />
+    <Content Include="Content\kendoui\fonts\DejaVu\DejaVuSansMono-BoldOblique.ttf" />
+    <Content Include="Content\kendoui\fonts\DejaVu\DejaVuSansMono-Oblique.ttf" />
+    <Content Include="Content\kendoui\fonts\DejaVu\DejaVuSansMono.ttf" />
+    <Content Include="Content\kendoui\fonts\DejaVu\DejaVuSerif-Bold.ttf" />
+    <Content Include="Content\kendoui\fonts\DejaVu\DejaVuSerif-BoldItalic.ttf" />
+    <Content Include="Content\kendoui\fonts\DejaVu\DejaVuSerif-Italic.ttf" />
+    <Content Include="Content\kendoui\fonts\DejaVu\DejaVuSerif.ttf" />
+    <Content Include="Content\kendoui\fonts\DejaVu\LICENSE" />
+    <None Include="Properties\PublishProfiles\Publishing.pubxml">
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="Images\Angle\ActionDropdownList\AddToDashboard.png" />
+    <Content Include="Images\Angle\ActionDropdownList\ExportToCSV.png" />
+    <Content Include="Images\Angle\ActionDropdownList\ExportToExcel.png" />
+    <Content Include="Images\Angle\ActionDropdownList\Find.png" />
+    <Content Include="Images\Angle\ActionDropdownList\NewColumn.png" />
+    <Content Include="Images\Angle\ActionDropdownList\Sort.png" />
+    <Content Include="Images\Angle\AngleTopBG.jpg" />
+    <Content Include="Images\Angle\btn_ToggleDown.png" />
+    <Content Include="Images\Angle\btn_ToggleUp.png" />
+    <Content Include="Images\Angle\DescribeListImage1.png" />
+    <Content Include="Images\Angle\DescribeListImage2.png" />
+    <Content Include="Images\SearchPage\icn_new.png" />
+    <Content Include="Images\Angle\Dotted.png" />
+    <Content Include="Images\Angle\icn_header_order.png" />
+    <Content Include="Images\Angle\icn_header_SAP.png" />
+    <Content Include="Images\Angle\icn_header_schedule.png" />
+    <Content Include="Images\Angle\tableHeader.jpg" />
+    <Content Include="Images\favicon.ico" />
+    <Content Include="Images\Popup\Error\icn_alert.png" />
+    <Content Include="Images\Popup\Error\icn_error.png" />
+    <Content Include="Images\Popup\Error\icn_info.png" />
+    <Content Include="Images\Popup\Error\icn_question.png" />
+    <Content Include="Images\search_button.png" />
+    <Content Include="Images\tabbar_bg.png" />
+    <Content Include="Scripts\KendoUI\cultures\kendo.culture.en-GB.min.js" />
+    <Content Include="Scripts\VideoPlayer\jwplayer.flash.swf" />
+    <Content Include="Scripts\VideoPlayer\jwplayer.html5.js" />
+    <Content Include="Scripts\VideoPlayer\jwplayer.js" />
+    <Content Include="Scripts\ViewManagement\Shared\ModelFieldsHandler.js" />
+    <Content Include="Scripts\ViewManagement\Shared\ModelFollowupsHandler.js" />
+    <Content Include="Scripts\ViewManagement\Shared\WidgetLanguages\WidgetLanguagesHandler.js" />
+    <Content Include="Scripts\ViewManagement\Shared\WidgetLanguages\WidgetLanguagesView.js" />
+    <Content Include="parameters.xml">
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Scripts\AjaxHTTPHandler\AjaxRequestHandler.js" />
+    <Content Include="Scripts\AjaxHTTPHandler\RequestHistoryHandler.js" />
+    <Content Include="Scripts\ContextMenu\jquery.jeegoocontext-2.0.0.js" />
+    <Content Include="Scripts\ContextMenu\jquery.ui.position.js" />
+    <Content Include="Images\ContextMenu\cut.png" />
+    <Content Include="Images\ContextMenu\door.png" />
+    <Content Include="Images\ContextMenu\page_white_add.png" />
+    <Content Include="Images\ContextMenu\page_white_copy.png" />
+    <Content Include="Images\ContextMenu\page_white_delete.png" />
+    <Content Include="Images\ContextMenu\page_white_edit.png" />
+    <Content Include="Images\ContextMenu\page_white_paste.png" />
+    <Content Include="Content\ContextMenu\jquery.contextmenu.css" />
+    <Content Include="Scripts\ErrorHandler\ErrorHandler.js" />
+    <Content Include="Scripts\EveryAngle.Shared.EmbeddedViews.Resource.Shared.shared.vsdoc.js" />
+    <Content Include="Scripts\Helper\Bootstrap.js" />
+    <Content Include="Scripts\Helper\ModelHelper.js" />
+    <Content Include="Scripts\Helper\DefaultValueHandler.js" />
+    <Content Include="Scripts\Helper\EnumHandlers.js" />
+    <Content Include="Scripts\Helper\Storage.js" />
+    <Content Include="Scripts\Helper\GlobalFunction.js" />
+    <Content Include="Scripts\Helper\Utilities.js" />
+    <Content Include="Scripts\jQuery\jquery.js" />
+    <Content Include="Scripts\jQuery\jquery-migrate-1.2.1.js" />
+    <Content Include="Scripts\jQuery\jquery.address.js" />
+    <Content Include="Scripts\jQuery\jquery.cookie-1.4.1.min.js" />
+    <Content Include="Scripts\jQuery\jquery.highlight.js" />
+    <Content Include="Scripts\jQuery\jquery.mousewheel.js" />
+    <Content Include="Scripts\jQuery\jquery.placeholder.min.js" />
+    <Content Include="Scripts\KendoUI\kendo.autocomplete.min.js" />
+    <Content Include="Scripts\KendoUI\kendo.calendar.min.js" />
+    <Content Include="Scripts\KendoUI\kendo.color.min.js" />
+    <Content Include="Scripts\KendoUI\kendo.colorpicker.min.js" />
+    <Content Include="Scripts\KendoUI\kendo.columnsorter.min.js" />
+    <Content Include="Scripts\KendoUI\kendo.combobox.min.js" />
+    <Content Include="Scripts\KendoUI\kendo.core.min.js" />
+    <Content Include="Scripts\KendoUI\kendo.data.min.js" />
+    <Content Include="Scripts\KendoUI\kendo.dataviz.chart.min.js" />
+    <Content Include="Scripts\KendoUI\kendo.dataviz.chart.polar.min.js" />
+    <Content Include="Scripts\KendoUI\kendo.dataviz.core.min.js" />
+    <Content Include="Scripts\KendoUI\kendo.dataviz.gauge.min.js" />
+    <Content Include="Scripts\KendoUI\kendo.dataviz.themes.min.js" />
+    <Content Include="Scripts\KendoUI\kendo.datepicker.min.js" />
+    <Content Include="Scripts\KendoUI\kendo.datetimepicker.min.js" />
+    <Content Include="Scripts\KendoUI\kendo.draganddrop.min.js" />
+    <Content Include="Scripts\KendoUI\kendo.drawing.min.js" />
+    <Content Include="Scripts\KendoUI\kendo.dropdownlist.min.js" />
+    <Content Include="Scripts\KendoUI\kendo.editor.min.js" />
+    <Content Include="Scripts\KendoUI\kendo.fx.min.js" />
+    <Content Include="Scripts\KendoUI\kendo.grid.min.js" />
+    <Content Include="Scripts\KendoUI\kendo.list.min.js" />
+    <Content Include="Scripts\KendoUI\kendo.mobile.scroller.min.js" />
+    <Content Include="Scripts\KendoUI\kendo.numerictextbox.min.js" />
+    <Content Include="Scripts\KendoUI\kendo.pager.min.js" />
+    <Content Include="Scripts\KendoUI\kendo.percentagetextbox.js" />
+    <Content Include="Scripts\KendoUI\kendo.popup.min.js" />
+    <Content Include="Scripts\KendoUI\kendo.progressbar.min.js" />
+    <Content Include="Scripts\KendoUI\kendo.reorderable.min.js" />
+    <Content Include="Scripts\KendoUI\kendo.resizable.min.js" />
+    <Content Include="Scripts\KendoUI\kendo.selectable.min.js" />
+    <Content Include="Scripts\KendoUI\kendo.slider.min.js" />
+    <Content Include="Scripts\KendoUI\kendo.sortable.min.js" />
+    <Content Include="Scripts\KendoUI\kendo.splitter.min.js" />
+    <Content Include="Scripts\KendoUI\kendo.timepicker.min.js" />
+    <Content Include="Scripts\KendoUI\kendo.touch.min.js" />
+    <Content Include="Scripts\KendoUI\kendo.userevents.min.js" />
+    <Content Include="Scripts\KendoUI\kendo.window.min.js" />
+    <Content Include="Scripts\KendoUI\messages\kendo.messages.en-US.min.js" />
+    <Content Include="Scripts\KendoUI\messages\kendo.messages.es-ES.min.js" />
+    <Content Include="Scripts\KendoUI\messages\kendo.messages.fr-FR.min.js" />
+    <Content Include="Scripts\KendoUI\messages\kendo.messages.nl-NL.min.js" />
+    <Content Include="Scripts\KnockOut\knockout-2.2.0.debug.js" />
+    <Content Include="Scripts\KnockOut\knockout-2.2.0.js" />
+    <Content Include="Scripts\KnockOut\knonkout.helper.js" />
+    <Content Include="Scripts\jQuery\jquery.base64.min.js" />
+    <Content Include="Scripts\modernizr.2.6.2.custom.js" />
+    <Content Include="Scripts\ViewManagement\Angle\AnglePageHandler.js" />
+    <Content Include="Scripts\ViewManagement\Angle\ChartHandler.js" />
+    <Content Include="Scripts\ViewManagement\Angle\ChartTypeDropdownlistTemplate.js" />
+    <Content Include="Scripts\ViewManagement\Angle\FindPopupHandler.js" />
+    <Content Include="Scripts\ViewManagement\Angle\QuickFilterHandler.js" />
+    <Content Include="Scripts\ViewManagement\Angle\FieldSettingsHandler.js" />
+    <Content Include="Scripts\ViewManagement\Angle\ListDrilldownHandler.js" />
+    <Content Include="Scripts\ViewManagement\Shared\HelpTextHandler.js" />
+    <Content Include="Scripts\ViewManagement\Angle\ListFormatSettingHandler.js" />
+    <Content Include="Scripts\ViewManagement\Angle\ListHandler.js" />
+    <Content Include="Scripts\ViewManagement\Angle\FollowupTemplate.js" />
+    <Content Include="Scripts\ViewManagement\Angle\FollowupPageHandler.js" />
+    <Content Include="Scripts\ViewManagement\Angle\ListSortHandler.js" />
+    <Content Include="Scripts\ViewManagement\Angle\PivotHandler.js" />
+    <Content Include="Scripts\ViewManagement\CreateNewAngle\createnewanglepagehandler.js" />
+    <Content Include="Scripts\ViewManagement\Dashboard\DashboardDetailsHandler.js" />
+    <Content Include="Scripts\ViewManagement\Dashboard\DashboardHandler.js" />
+    <Content Include="Scripts\ViewManagement\Exports\ExportExcelHandler.js" />
+    <Content Include="Scripts\ViewManagement\Exports\ExportHandler.js" />
+    <Content Include="Scripts\ViewManagement\Search\anglecopyhandler.js" />
+    <Content Include="Scripts\ViewManagement\Search\searchpagetemplate.js" />
+    <Content Include="Scripts\ViewManagement\Shared\businessprocesshandler.js" />
+    <Content Include="Scripts\ViewManagement\Shared\FieldChooserHandler.js" />
+    <Content Include="Scripts\ViewManagement\Shared\WidgetDetails\WidgetDetailsHandler.js" />
+    <Content Include="Scripts\ViewManagement\Shared\WidgetDetails\WidgetDetailsView.js" />
+    <Content Include="Scripts\ViewManagement\Shared\WidgetFilter\WidgetFilterHelper.js" />
+    <Content Include="Scripts\ViewManagement\Shared\WidgetFilter\WidgetFilterView.js" />
+    <Content Include="Scripts\ViewManagement\Shared\WidgetFilter\WidgetFilterModel.js" />
+    <Content Include="Scripts\ViewManagement\Shared\WidgetFilter\WidgetFilterHandler.js" />
+    <Content Include="Scripts\ViewManagement\Shared\PopupPageHandlers.js" />
+    <Content Include="Scripts\KendoUI\cultures\kendo.culture.en-US.min.js" />
+    <Content Include="Scripts\KendoUI\cultures\kendo.culture.es-ES.min.js" />
+    <Content Include="Scripts\KendoUI\cultures\kendo.culture.fr-FR.min.js" />
+    <Content Include="Scripts\KendoUI\cultures\kendo.culture.nl-NL.min.js" />
+    <Content Include="Scripts\KendoUI\cultures\kendo.culture.th-TH.min.js" />
+    <Content Include="Content\kendoui\default\editor.png" />
+    <Content Include="Content\kendoui\default\imagebrowser.png" />
+    <Content Include="Content\kendoui\default\loading.gif" />
+    <Content Include="Content\kendoui\default\slider-h.gif" />
+    <Content Include="Content\kendoui\default\slider-v.gif" />
+    <Content Include="Content\kendoui\default\sprite.png" />
+    <Content Include="Content\kendoui\kendo.common.min.css" />
+    <Content Include="Content\kendoui\kendo.default.min.css" />
+    <Content Include="Content\kendoui\textures\glass.png" />
+    <Content Include="Content\kendoui\textures\highlight.png" />
+    <Content Include="Scripts\ViewManagement\Angle\AngleDetailBodyPageHandler.js" />
+    <Content Include="Scripts\ViewManagement\Angle\AnglePageRetainsUrl.js" />
+    <Content Include="Scripts\ViewManagement\Angle\DisplayPopupBodyPageHandler.js" />
+    <Content Include="Scripts\ViewManagement\Shared\UserFriendlyNameHandler.js" />
+    <Content Include="Scripts\ViewManagement\Shared\ProgressBar.js" />
+    <Content Include="Scripts\Helper\ViewEngine.js" />
+    <Content Include="Scripts\Helper\Localization.js" />
+    <Content Include="Scripts\ViewModels\Models\Angle\AngleInfoModel.js" />
+    <Content Include="Scripts\ViewModels\Models\Angle\AngleQueryStepModel.js" />
+    <Content Include="Scripts\ViewModels\Models\Angle\DisplayFieldModel.js" />
+    <Content Include="Scripts\ViewModels\Models\Exports\ExportCSVModel.js" />
+    <Content Include="Scripts\ViewModels\Models\Exports\ExportModel.js" />
+    <Content Include="Scripts\ViewModels\Models\Angle\HistoryModel.js" />
+    <Content Include="Scripts\ViewModels\Models\Angle\DisplayModel.js" />
+    <Content Include="Scripts\ViewModels\Models\Angle\DisplayQueryBlockModel.js" />
+    <Content Include="Scripts\ViewModels\Models\Angle\ResultModel.js" />
+    <Content Include="Scripts\ViewModels\Models\Dashboard\DashboardResultModel.js" />
+    <Content Include="Scripts\ViewModels\Models\Dashboard\DashboardWidgetModel.js" />
+    <Content Include="Scripts\ViewModels\Models\Dashboard\DashboardModel.js" />
+    <Content Include="Scripts\ViewManagement\Shared\ModelClassesHandler.js" />
+    <Content Include="Scripts\ViewModels\Models\FieldSettings\BucketModel.js" />
+    <Content Include="Scripts\ViewModels\Models\FieldSettings\FieldModel.js" />
+    <Content Include="Scripts\ViewModels\Models\FieldSettings\FieldSettingsModel.js" />
+    <Content Include="Scripts\ViewModels\Models\Search\businessprocessmodel.js" />
+    <Content Include="Scripts\ViewModels\Models\Search\welcomemodel.js" />
+    <Content Include="Scripts\ViewModels\Models\Search\facetfiltersmodel.js" />
+    <Content Include="Scripts\ViewModels\Models\Search\masschangemodel.js" />
+    <Content Include="Scripts\ViewModels\Models\Session\SessionModel.js" />
+    <Content Include="Scripts\ViewModels\Models\User\UserSettingModel.js" />
+    <Content Include="Scripts\ViewModels\Models\User\Privileges.js" />
+    <Content Include="Scripts\ViewModels\Models\User\UserModel.js" />
+    <Content Include="Scripts\Configuration\GlobalConfiguration.js" />
+    <Content Include="Scripts\Helper\ManageCookies.js" />
+    <Content Include="Scripts\Helper\DateTimeExtension.js" />
+    <Content Include="Scripts\ViewManagement\Search\searchpagehandler.js" />
+    <Content Include="Scripts\ViewManagement\Search\searchpageretainsurl.js" />
+    <Content Include="Scripts\ViewModels\Models\Search\searchmodel.js" />
+    <Content Include="Scripts\ViewModels\Models\Search\searchquery.js" />
+    <Content Include="Scripts\ViewModels\Shared\DataType\DataType.js" />
+    <Content Include="Scripts\ViewModels\Shared\QueryBlock\QueryBlocksModel.js" />
+    <Content Include="Scripts\ViewModels\Shared\QueryBlock\QueryBlockModel.js" />
+    <Content Include="Scripts\ViewModels\Shared\QueryBlock\QueryStepModel.js" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Web.Debug.config">
+      <DependentUpon>Web.config</DependentUpon>
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Web.Release.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </Content>
+    <Content Include="Scripts\_references.js" />
+    <Content Include="Views\_ViewStart.cshtml" />
+    <Content Include="Views\Shared\Error.cshtml" />
+    <Content Include="Views\Shared\_Layout.cshtml" />
+    <Content Include="Views\Shared\Master.cshtml" />
+    <Content Include="Views\Search\SearchPage.cshtml" />
+    <Content Include="Views\Search\PartialViews\FacetFilters\FacetFilters.cshtml">
+      <SubType>Code</SubType>
+    </Content>
+    <Content Include="Views\Search\PartialViews\TotalSearchResult.cshtml" />
+    <Content Include="Views\Shared\Menus\Top\UserMenu.cshtml" />
+    <Content Include="Views\Angle\AnglePage.cshtml" />
+    <Content Include="Views\Shared\Menus\Top\UserPanel.cshtml" />
+    <Content Include="Views\Web.config">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Views\LogTest\Index.cshtml" />
+    <Content Include="Views\Angle\PartialViews\Pivot\PivotGridPartial.cshtml" />
+    <Content Include="Views\Security\Login.cshtml">
+      <Generator>MvcRazorClassGenerator</Generator>
+    </Content>
+    <Content Include="Views\Angle\PartialViews\DisplayDropdownList\DisplayDropdownList.cshtml" />
+    <Content Include="Views\Shared\_MINIPROFILER UPDATED Layout.cshtml" />
+    <Content Include="Views\Shared\ErrorPartial.cshtml" />
+    <Content Include="Views\Dashboard\DashboardPage.cshtml" />
+    <Content Include="Views\Angle\PartialViews\Pivot\PivotGridCallBackPartial.cshtml" />
+    <Content Include="Views\Shared\Helptext.cshtml" />
+    <Content Include="Content\ExternalResource\*" />
+    <Content Include="bin\nl\*" />
+    <Content Include="bin\th\*" />
+    <Content Include="bin\ar\*" />
+    <Content Include="bin\de\*" />
+    <Content Include="bin\es\*" />
+    <Content Include="bin\fr\*" />
+    <Content Include="Data\Help\**\*.*" />
+    <Content Include="Data\Images\**\*.*" />
+    <Content Include="Views\Shared\EditorTemplates\BooleanTemplate.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\PasswordTemplate.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\PercentageTemplate.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\TextTemplate.cshtml" />
+    <Content Include="Views\Help\ModelParameterPage.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\Plugins.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\EnumTemplate.cshtml" />
+    <Content Include="Views\Angle\PartialViews\Pivot\PivotGridScript.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="App_Data\" />
+    <Folder Include="Resources\Movies\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\EveryAngle.Core.Interfaces\EveryAngle.Core.Interfaces.csproj">
+      <Project>{7f61d24c-5fb8-4b24-8273-176209ae2b8e}</Project>
+      <Name>EveryAngle.Core.Interfaces</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\EveryAngle.Core.ViewModels\EveryAngle.Core.ViewModels.csproj">
+      <Project>{fd678f41-ed45-41ba-9d41-0c96498d2b7a}</Project>
+      <Name>EveryAngle.Core.ViewModels</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\EveryAngle.Shared.EmbeddedViews\EveryAngle.Shared.EmbeddedViews.csproj">
+      <Project>{72a4f91c-c51b-4c5a-8db1-7ad5a9795dca}</Project>
+      <Name>EveryAngle.Shared.EmbeddedViews</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\EveryAngle.Shared.Helpers\EveryAngle.Shared.Helpers.csproj">
+      <Project>{25ef80a0-14d8-4efc-9ad2-265ef87b2429}</Project>
+      <Name>EveryAngle.Shared.Helpers</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\EveryAngle.WebClient.Domain\EveryAngle.WebClient.Domains.csproj">
+      <Project>{ec17ecc9-7496-4b25-b524-348e6c3c6e15}</Project>
+      <Name>EveryAngle.WebClient.Domains</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\EveryAngle.WebClient.Service\EveryAngle.WebClient.Service.csproj">
+      <Project>{14d01084-de1a-4c33-a81f-767e0fa7a77d}</Project>
+      <Name>EveryAngle.WebClient.Service</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{3259AA49-8AA1-44D3-9025-A0B520596A8C}" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
+  </ItemGroup>
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'DEVMODE|AnyCPU'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE;DEBUG;DEVMODE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
+  <Target Name="MvcBuildViews" AfterTargets="AfterBuild" Condition="'$(MvcBuildViews)'=='true'">
+    <AspNetCompiler VirtualPath="temp" PhysicalPath="$(WebProjectOutputDir)" />
+  </Target>
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>True</UseIIS>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>33986</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>http://localhost:55555/</IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>
+          </CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+  <Import Project="..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets" Condition="Exists('..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets')" />
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets'))" />
+  </Target>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target> -->
+</Project>

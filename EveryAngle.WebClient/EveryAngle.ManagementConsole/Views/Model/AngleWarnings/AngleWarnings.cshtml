@@ -1,0 +1,241 @@
+﻿@using EveryAngle.ManagementConsole.Models
+@using EveryAngle.ManagementConsole.Helpers
+@using EveryAngle.Shared.Globalization
+@using EveryAngle.WebClient.Service.Security;
+@{
+    string webClientAngleUrl = PageHelper.GetWebclientUrl();
+}
+
+<script>
+   MC.util.loadScript([
+        {
+            test: window.BusinessProcessesViewModel && window.FieldsChooserModel,
+            url: '@Scripts.Url("~/resources/embedded/js")'
+        },
+        {
+            test: MC.Models && MC.Models.AngleWarnings,
+            url: '@Scripts.Url("~/bundles/models/anglewarnings")',
+            callback: function () {
+                MC.Models.AngleWarnings.InitialAngleWarnings({
+                    SearchAngleWarningsUrl: '@Url.Action("FilterAngleWarnings", "AngleWarnings")',
+                    ExecuteAngleWarningsUrl: '@Url.Action("ExecuteAngleWarnings", "AngleWarnings")',
+                    CheckExecuteAngleWarningsUrl: '@Url.Action("CheckExecuteAngleWarnings", "AngleWarnings")',
+                    GetAngleWarningTaskHistoryUrl: '@Url.Action("GetAngleWarningTaskHistory", "AngleWarnings")',
+                    DeleteAngleWarningTaskUrl: '@Url.Action("DeleteAngleWarningTask", "AngleWarnings")',
+                    GetAllThirdLevelUrl: '@Url.Action("GetAllThirdLevel", "AngleWarnings")',
+                    GetAllJumpsUrl: '@Url.Action("GetAllJumps", "AngleWarnings")',
+                    WebClientAngleUrl: '@webClientAngleUrl',
+                    ModelUri: '@ViewBag.ModelUri',
+                    ModelId: '@ViewBag.ModelId',
+                    UserId: '@ViewBag.UserId',
+                    CanAccessViaWebClient: @ViewBag.CanAccessViaWebClient,
+                    ClientSettings: '@Html.Raw(ViewBag.ClientSettings)',
+                    FieldsUri: '@ViewBag.FieldsUri',
+                    GetModelClassesUri: '@Url.Action("GetModelClasses", "SuggestedFields")',
+                    GetModelAnglesUri: '@Url.Action("GetModelAngles", "SuggestedFields")',
+                    GetFieldsUri: '@Url.Action("GetModelField", "Role")',
+                    GetFieldSourceUri: '@Url.Action("GetFieldSource", "Role")',
+                    GetFieldDomainUri: '@Url.Action("GetFieldDomain", "Role")',
+                    GetHelpTextUri: '@Url.Action("GetHelpText", "Role")',
+                    GetHelpTextsUri: '@Url.Action("GetHelpTexts", "Role")',
+                    DefaultPagesize: '@ViewBag.DefaultPagesize',
+                    MaxPageSize: '@ViewBag.MaxPageSize',
+                    MaxDomainElementsForSearch: '@ViewBag.MaxDomainElementsForSearch',
+                    BusinessProcessesData: @Html.Raw(Json.Encode(ViewData["BusinessProcesses"])),
+                    ModelData: @Html.Raw(Json.Encode(ViewData["ModelData"])),
+                    FieldCategoriesData: @Html.Raw(ViewData["fieldCategories"] == null ? "[]" : ViewData["fieldCategories"]),
+                    FieldCategoriesIconPath: '@VirtualPathUtility.ToAbsolute("~/UploadedResources/FieldCategoryIcons/")',
+                    ResourceIconPath: '@VirtualPathUtility.ToAbsolute("~/content/externalresource/")',
+                });
+                MC.ui.logpopup.GetLogUri = '@Url.Action("GetTasksHistoryByCorrelationId", "AutomationTasks")',
+                MC.ui.logpopup.GetLogDetailUri = '@Url.Action("GetTaskHistory", "AutomationTasks")',
+                MC.ui.logpopup.TaskHistoryUri = '@ViewBag.TaskHistoryUri',
+                MC.ui.logpopup.LogType = 'TasksEventLog'
+            }
+        }
+    ]);
+</script>
+
+@{
+    @Html.RenderPageToolbar(new List<PageToolbarButtonModel>
+    {
+        new PageToolbarButtonModel { Type = PageToolbarButtonType.Reload }
+    })
+}
+
+<div class="content pageAngleWarnings">
+    <form id="FormSearchAngleWarnings" data-role="validator">
+        <div class="contentSection contentSectionInfo">
+            <div class="contentSectionInfoItem">
+                <p>
+                    <label>
+                        <input type="checkbox" name="include_public" id="include_public" checked="checked" />
+                        <span class="label">@Resource.MC_AngleWarnings_FilterPublicItems</span>
+                    </label>
+
+                    <label>
+                        <input type="checkbox" name="include_private" id="include_private" />
+                        <span class="label">@Resource.MC_AngleWarnings_FilterPrivateItems</span>
+                    </label>
+
+                    <label>
+                        <input type="checkbox" name="include_validated" id="include_validated" />
+                        <span class="label">@Resource.MC_AngleWarnings_FilterValidatedItems</span>
+                    </label>
+                    
+                    <label>                    
+                        <input type="text" id="item_type" name="item_type" />                      
+                    </label>
+
+                    <label>
+                        @(Html.Kendo().AutoComplete()
+                            .Name("created_by")
+                            .HtmlAttributes(new { @class = "existing_username" })
+                            .DataTextField("Id")
+                            .Filter("contains")
+                            .IgnoreCase(true)
+                            .Placeholder(Resource.MC_AngleWarnings_FilterUserHint)
+                            .MinLength(1)
+                            .DataSource(source => source
+                                .Events(e => e
+                                    .RequestStart("onKendoGridPagingStart")
+                                )
+                                .Read(read =>
+                                {
+                                    read.Action("ReadUsers", "Users").Data(@<text>function(){ return MC.Models.AngleWarnings.GetFilterUserQuery(); }</text>);
+                                })
+                                .ServerFiltering(true)
+                            ))
+                    </label>
+
+                    <a class="btn btnPrimary btnSearch" id="ButtonSearch" onclick="MC.Models.AngleWarnings.SearchAngleWarnings()">@Resource.Ok</a>
+                </p>
+            </div>
+        </div>
+    </form>
+    <hr />
+
+    <div id="AngleWarningSearchResults">
+        <div class="contentSection contentSectionInfo hidden" id="AngleWarningsSummaryContainer">
+            <div class="contentSectionInfoItem">
+                <label>@Resource.MC_AngleWarnings_InfoTotalAngles</label>
+                <p>
+                    <span id="AnglesTotal"></span>
+                    <span >(@Resource.MC_AngleWarnings_InfoContainErrorsWarnings <strong id="AnglesWarnings"></strong>)</span>
+                </p>
+            </div>
+
+            <div class="contentSectionInfoItem">
+                <label>@Resource.MC_AngleWarnings_InfoTotalDisplays</label>
+                <p>
+                    <span id="DisplaysTotal"></span>
+                    <span>(@Resource.MC_AngleWarnings_InfoContainErrorsWarnings <strong id="DisplaysWarnings"></strong>)</span>
+                </p>
+            </div>
+
+            <div class="contentSectionInfoItem">
+                <label>@Resource.MC_AngleWarnings_InfoTotalErrors</label>
+                <p>
+                    <span id="ErrorsTotal"></span>
+                    <span>(@Resource.MC_AngleWarnings_InfoUniqueErrors <strong id="ErrorsUnique"></strong>)</span>
+                </p>
+            </div>
+
+            <div class="contentSectionInfoItem">
+                <label>@Resource.MC_AngleWarnings_InfoTotalWarnings</label>
+                <p>
+                    <span id="WarningsTotal"></span>
+                    <span>(@Resource.MC_AngleWarnings_InfoUniqueWarnings <strong id="WarningsUnique"></strong>)</span>
+                </p>
+            </div>
+        </div>
+
+        <div class="contentSection contentSectionGrid hidden" id="AngleWarningsTreeListContainer">
+            <div class="gridContainer">
+                @(Html.Kendo().TreeList<EveryAngle.Core.ViewModels.Model.AngleWarningsViewModel>()
+                    .Name("TreeListAngleWarnings")
+                    .Columns(columns =>
+                    {
+                        columns.Add().Field(e => e.Id)
+                            .Template("#= MC.Models.AngleWarnings.GetAngleWarningNameTemplate(data) #")
+                            .Title("Errors and warnings");
+
+                        columns.Add().Field(e => e.Id)
+                            .Template("#= MC.Models.AngleWarnings.GetAngleWarningActionTemplate(data) #")
+                            .Width(310)
+                            .Title(Resource.MC_Action);
+                    })
+                    .Height(480)
+                    .Filterable(false)
+                    .Resizable(true)
+                    .DataSource(dataSource => dataSource
+                        .Events(e => e
+                            .RequestStart(@<text>
+                function(e) {
+                                    MC.Models.AngleWarnings.PrepareAngleWarningQuery(e)
+                                }
+                            </text>)
+                            .RequestEnd(@<text>
+                function(e) {
+                                    MC.Models.AngleWarnings.ApplyAngleWarningsInfo(e)
+                                }
+                            </text>))
+                        .Read(read => read.Action("ReadAngleWarnings", "AngleWarnings", new { modelUri = ViewBag.ModelUri }))
+                        .Model(m =>
+                        {
+                            m.Id(f => f.fakeId);
+                            m.ParentId(f => f.ParentId);
+                            m.Field(f => f.Name);
+                        })
+                    )
+                    .AutoBind(false)
+
+                )
+            </div>
+
+            <div class="textRight">
+                <a class="btn btnExecuteAction" id="showSolveWarningConfirm" onclick="MC.Models.AngleWarnings.ShowSolveWarningConfirm(this)">Execute</a>
+            </div>
+        </div>
+    </div>
+    <a class="btn btnInfo alwaysHidden" id="showAngleWarningLog" data-correlationid="c3e4d237f01546a4b091f1a9957ca05d" onclick="MC.Models.AngleWarnings.ShowAngleWarningLogTable(this)" data-target="#popupLogTable" data-title="QAtestPackage" data-width="760" data-min-height="600" data-height="600" data-role="mcPopup"></a>
+
+</div>
+
+<div class="popup" id="popupLogTable">
+    <div class="popupContent">
+        <div class="contentSection contentSectionGrid">
+            <div class="gridToolbar gridToolbarTop hidden">
+                <div class="gridToolbarFilter">
+                    @*<select id="FilterLogTableType"></select>*@
+                    @*<input type="text" id="FilterLogTableTextbox" placeholder="@Resource.MC_NotImplemented" /><span class="icon"></span>*@
+                </div>
+            </div>
+            <div class="gridContainer">
+                <div id="SystemLogGrid"></div>
+                <div id="SystemLogDetails">
+                    <div class="logDetails">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- class chooser -->
+@Html.ClassChooserButton(new PopupChooserButtonModel
+{
+    PopupTitle = "Select object to replace",
+    ClassName = "btn alwaysHidden",
+    Attributes = "id=\"ShowClassesChooser\""
+})
+<div id="popupClassesChooser">
+    <div class="popupContent"></div>
+    <div class="popupToolbar">
+        <a class="btn btnLarge btnPrimary btnSubmit" id="ButtonSubmitObject">@Resource.Ok</a>
+        <a class="btn btnLarge btnClose" data-role="popup-close">@Resource.Cancel</a>
+    </div>
+</div>
+
+
+<!--/.content-->

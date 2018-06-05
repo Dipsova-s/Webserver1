@@ -1,0 +1,168 @@
+﻿@using EveryAngle.ManagementConsole.Models
+@using EveryAngle.ManagementConsole.Helpers
+@using EveryAngle.Shared.Globalization
+@model EveryAngle.Core.ViewModels.Users.UserViewModel
+
+<script>
+    MC.util.loadScript([
+        {
+            test: window.BusinessProcessesViewModel && window.FieldsChooserModel,
+            url: '@Scripts.Url("~/resources/embedded/js")'
+        },
+        {
+            test: MC.Users && MC.Users.User,
+            url: '@Scripts.Url("~/bundles/users/user")',
+            callback: function () {
+                MC.Users.User.InitialEditUserPage({
+                    SaveUserUri: '@Url.Action("SaveEditUser", "Users")',
+                    EditUserPageUri: '@SiteMapHelper.ActionHash("Users/AllUsers/EditUser")',
+                    AssignedRolesData: @(Html.Raw(new System.Web.Script.Serialization.JavaScriptSerializer().Serialize(Model.AssignedRoles))),
+                    BusinessProcessesData: @Html.Raw(ViewData["BusinessProcesses"]),
+                    CurrentUserBusinessProcesses: @(Html.Raw(new System.Web.Script.Serialization.JavaScriptSerializer().Serialize(Model.default_business_processes))),
+                    CurrentUntilDate: @(Model.EnabledUntil.HasValue ? Model.EnabledUntil.Value.ToString() : "null"),
+                    UserModelPrivileges: '@Url.Action("GetUserConsolidate", "Users")',
+                    PageTitle: '@(Model.Id != "" ? Model.Id.Replace("\\", "\\\\") : "New user")'
+                });
+            }
+        }
+    ]);
+</script>
+
+@{
+    @Html.RenderPageToolbar(new List<PageToolbarButtonModel>
+    {
+        new PageToolbarButtonModel { Privilege = PrivilegeType.User, Type = PageToolbarButtonType.Save, OnClick = "MC.Users.User.SaveEditUser()" },
+        new PageToolbarButtonModel { Type = PageToolbarButtonType.Cancel, Link = SiteMapHelper.ActionHash("Users/AllUsers") }
+    })
+}
+
+<div class="content pageUser">
+    <form id="formUserInfo" data-role="validator">
+        @Html.HiddenFor(model => model.Uri)
+        <div class="contentSection contentSectionInfo">
+            @if (Model.Id != "")
+            {
+                <h2>@Resource.User: @Model.Id</h2>
+                <div class="contentSectionInfoItem">
+                    <label>@Resource.Username:</label>
+                    <p>
+                        @Html.TextBoxFor(model => model.Id, new { @class = "required field_id", disabled = "disabled", style = "border-color: #ccc !important;" })
+                    </p>
+                </div>
+            }
+            else
+            {
+                <h2>@Resource.User: @Resource.NewUser</h2>
+                <div class="contentSectionInfoItem">
+                    <label>@Resource.Username:</label>
+                    <p>
+                        @Html.TextBoxFor(model => model.Id, new { @class = "required field_id" })
+                    </p>
+                </div>
+            }
+            <div class="contentSectionInfoItem">
+                <label>@Resource.User:</label>
+                <p>
+
+                    @Html.TextBoxFor(model => model.Fullname, new { @class = "required", disabled = "disabled" })
+                </p>
+            </div>
+
+            <div class="contentSectionInfoItem">
+
+                <label>@Resource.MC_Authentication:</label>
+                <p>
+                    @foreach (var provider in ViewData["AuthenticationProvidersList"] as List<string>)
+                    {
+                        <label><input disabled="disabled" type="radio" name="Authentication" id="@provider" @(Model.UserProvider != provider ? "" : "checked=checked")/><span class="label">@provider</span></label>
+                    }
+                </p>
+            </div>
+            <div class="contentSectionInfoItem">
+                <label>@Resource.MC_UserEnabled:</label>
+                <p>
+                    <label>@Html.RadioButtonFor(model => model.Enabled, true, new { @id = "ylabelForUserEnabled" })<span class="label">Yes</span></label>
+                    <label>@Html.RadioButtonFor(model => model.Enabled, false, new { @id = "nlabelForUserEnabled" })<span class="label">No</span></label>
+                </p>
+            </div>
+            <div class="contentSectionInfoItem">
+                <label>@Resource.MC_EnabledUntil:</label>
+                <p>
+                    @Html.Kendo().DatePicker().Name("EnabledUntil").HtmlAttributes(new { data_min = "getToday" })
+                </p>
+            </div>
+            <div class="contentSectionInfoItem">
+                <label>@Resource.MC_DefaultBusinessProcesses:</label>
+                <div id="UserBusinessProcess">
+                    @*@{Html.RenderAction("BusinessProcessBar", "SharedComponent");}*@
+                </div>
+            </div>
+        </div>
+        <!--/.contentSectionInfo-->
+        <hr/>
+    </form>
+    <form id="formAssignedRoles" data-role="validator">
+        @if (Model.Id != "")
+        {
+             <div class="contentSection contentSectionGrid">
+                <div class="gridContainer">
+                    @Html.Action("AssignedRolesGrid", "Users", new { userUri = @ViewBag.UserUri, assignedRoles = @ViewData["AssignedRoles"] })
+                </div>
+                <div class="gridToolbar gridToolbarBottom">
+                    @{
+                        List<PageToolbarButtonModel> buttons = new List<PageToolbarButtonModel>();
+                        buttons.Add(new PageToolbarButtonModel
+                        {
+                            EnableTemplate = " <a id=\"subRolesButton\" class=\"btn btnAdd\" onclick=\"MC.Users.User.ShowAvailableRoleGridPopup(this)\" data-grid=\"SubRolesGrid\" data-target=\"#popupSubRolesTable\" title=\"" + Resource.MC_SelectRolesAdd + "\" data-width=\"700\" data-role=\"mcPopup\">" + Resource.MC_AddRole + "</a>",
+                            DisableTemplate = " <a id=\"subRolesButton\" class=\"btn btnAdd disabled\">" + Resource.MC_AddRole + "</a>",
+                            Type = PageToolbarButtonType.Custom,
+                            Label = Resource.MC_AddRole,
+                            Privilege = PrivilegeType.User
+                        });
+                        @Html.RenderPageToolbarBottom(buttons)    
+                    }
+                    <a id="consolidatedRoleButton" class="btn" onclick="MC.Users.User.ShowConsolidatedRolePopup('@Model.Uri')" data-grid="SubRolesGrid" data-target="#ConsoliDatedRolePopup" title="@Resource.MC_ShowConsolidatedRole" data-width="700" data-height="600" data-role="mcPopup">@Resource.MC_ShowConsolidatedRole</a>
+                </div>
+            </div>
+            <!--/.contentSectionGrid-->
+            <hr/>
+        }
+    </form>
+    @{Html.RenderPartial("~/Views/Shared/CommentSectionOnSubPage.cshtml");}
+</div>
+<!--/.content-->
+<textarea class="hidden" id="templateGetAvailableRole">
+    <tr class="newRow">
+        <td></td>
+        <td></td>
+        <td class="columnNumber"></td>
+        <td></td>
+        <td class="gridColumnToolbar"><a onclick="MC.form.template.remove(this)" data-delete-template="@Resource.MC_DeleteRoleConfirm" data-delete-field-index="1" class="btn btnDelete"></a></td>
+        <td style="display:none"></td>
+    </tr>
+</textarea>
+<div class="popup" id="popupSubRolesTable">
+    <div class="popupContent">
+        <div class="contentSection contentSectionGrid">
+            <div class="gridToolbar gridToolbarTop">
+                <div class="gridToolbarFilter">
+                    <input type="text" placeholder="@Resource.Filter" data-role="gridfilter" data-filter="0,1,3" data-target="#AvailableRoleGrid" data-callback="MC.Users.User.InitialAvailableRoleGrid" /><span class="icon"></span>
+                </div>
+            </div>
+            <h2>@Resource.SelectRolesToAssign</h2>
+            <div class="gridContainer" id="AvailableRoleGridContainer">
+                @Html.Action("GetAvailableRoleTable", "Users", new { availableRoles = @ViewData["AvailableRoles"] })
+            </div>
+        </div>
+    </div>
+    <div class="popupToolbar">
+        <a onclick="MC.Users.User.AddRoles()" class="btn btnPrimary btnAddRoles" data-role="popup-close">@Resource.MC_AddRole</a>
+    </div>
+</div>
+
+<div class="popup" id="ConsoliDatedRolePopup">
+    <div class="popupContent"></div>
+    <div class="popupToolbar">
+        <a class="btn btnPrimary" data-role="popup-close">@Resource.Ok</a>
+    </div>
+</div>

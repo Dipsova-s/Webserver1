@@ -1,0 +1,95 @@
+@using EveryAngle.ManagementConsole.Models
+@using EveryAngle.ManagementConsole.Helpers
+@using EveryAngle.Shared.Globalization
+
+<script>
+    MC.util.loadScript({
+        test: MC.GlobalSettings && MC.GlobalSettings.LabelCategories,
+        url: '@Scripts.Url("~/bundles/globalsettings/labelcategories")',
+        callback: function () {
+            MC.GlobalSettings.LabelCategories.Initial({
+                SaveUri: '@Url.Action("SaveLabelCategory", "LabelCategories")',
+                DeleteUri: '@Url.Action("DeleteLabelCategory", "LabelCategories")',
+                EditPageUri: '@SiteMapHelper.ActionHash("GlobalSettings/AllLabelCategories/EditLabelCategory")',
+                CategoryEnName: '@ViewBag.CategoryEnName',
+                AllModelsLabelCategoriesPageUri: '@SiteMapHelper.ActionHash("GlobalSettings/AllLabelCategories")'
+            });
+        }
+    });
+</script>
+
+@{
+    @Html.RenderPageToolbar(new List<PageToolbarButtonModel>
+    {
+        new PageToolbarButtonModel { Privilege= PrivilegeType.System, Type = (ViewBag.CategoryLabelsUri != null)? PageToolbarButtonType.Save : PageToolbarButtonType.Create, OnClick = "MC.GlobalSettings.LabelCategories.SaveAll()" },
+        new PageToolbarButtonModel { Type = PageToolbarButtonType.Cancel, Link = SiteMapHelper.ActionHash("GlobalSettings/AllLabelCategories") }
+    })
+}
+
+<div class="content pageLabel pageLabelEdit @(!ViewBag.IsVisibleLabelGrid ? "pageLabelAdd" : "") customLoading">
+    <form id="LabelCategoryForm" data-role="validator">
+        <div class="contentSection contentSectionGrid contentSectionGridLabelCategory">
+            <div class="gridContainer">
+                @if (@ViewBag.CategoryLabelsUri != null)
+                {
+                    Html.RenderAction("EditLabelCategoryGrid", "LabelCategories", new { categoryUri = @ViewBag.CategoryUri, enabledLanguagesList = @ViewData["LanguagesList"], labelCategory = ViewData["LabelCategory"] });
+                }
+                else
+                {
+                    Html.RenderAction("EditLabelCategoryGrid", "LabelCategories", new { categoryUri = "", enabledLanguagesList = @ViewData["LanguagesList"] });
+                }
+            </div>
+            <!--/.contentSectionGrid-->
+        </div>
+    </form>
+
+    <form id="LabelForm" data-role="validator">
+        <div class="contentSection contentSectionGrid contentSectionGridLabel">
+            <div class="gridToolbar gridToolbarTop">
+                <div class="gridToolbarFilter">
+                    <input type="text" id="FilterLabelTextbox" placeholder="@Resource.Filter" data-role="gridfilter" data-start="MC.GlobalSettings.LabelCategories.LabelGridFilterStart" data-callback="MC.GlobalSettings.LabelCategories.InitialLabelGrid" data-method="remote" data-target="#LabelsGridContainer" /><span class="icon"></span>
+                </div>
+            </div>
+            <h2>@ViewBag.CategoryEnName</h2>
+            <div class="gridContainer" id="LabelsGridContainer">
+                @if (@ViewBag.CategoryLabelsUri != null)
+                {
+                    Html.RenderAction("LabelsGrid", "LabelCategories", new { categoryLabelsUri = @ViewBag.CategoryLabelsUri, enabledLanguagesList = @ViewData["LanguagesList"], labelCategory = ViewData["LabelCategory"] });
+                }
+            </div>
+            <div class="gridToolbar gridToolbarBottom">
+
+                @{
+                    List<PageToolbarButtonModel> buttons = new List<PageToolbarButtonModel>();
+                    buttons.Add(new PageToolbarButtonModel
+                    {
+                        EnableTemplate = "<a href=\"#\" class=\"btn btnAdd\" data-role=\"auto-template\" data-grid=\"#Grid\" data-template=\"#LabelCategoryGrid tbody tr:first\" data-callback=\"MC.GlobalSettings.LabelCategories.AddRowCallback\" data-custom-fields='{\"0\": \"<input type=\\\"text\\\" maxlength=\\\"10\\\" name=\\\"id\\\" class=\\\"required field_id\\\" />\", \"1\": \"<input type=\\\"text\\\" name=\\\"en\\\" class=\\\"required\\\" />\", \"last\": \"<a class=\\\"btn btnDelete\\\" data-delete-template=\\\"" + Resource.MC_DeleteLabelCoonfirm + "\\\" data-delete-field-index=\\\"0\\\"></a>\"}'>" + Resource.Add + " " + Resource.Label + "</a>",
+                        DisableTemplate = "<a href=\"#\" class=\"btn btnAdd disabled\" data-custom-fields='{\"0\": \"<input type=\\\"text\\\" maxlength=\\\"10\\\" name=\\\"id\\\" class=\\\"required field_id\\\" />\", \"1\": \"<input type=\\\"text\\\" maxlength=\\\"10\\\" name=\\\"en\\\" class=\\\"required\\\" />\", \"last\": \"<a class=\\\"btn btnDelete\\\" data-delete-template=\\\"" + Resource.MC_DeleteLabelCoonfirm + "\\\" data-delete-field-index=\\\"0\\\"></a>\"}'>" + Resource.Add + " " + Resource.Label + "</a>",
+                        Type = PageToolbarButtonType.Custom,
+                        Privilege = PrivilegeType.System
+                    });
+                    @Html.RenderPageToolbarBottom(buttons)    
+                }
+
+            </div>
+        </div>
+        <hr style="display:@(ViewBag.CategoryLabelsUri != null ? "inline" : "none") !important;"/>
+    </form>
+    <!--/.contentSectionGrid-->
+    <div style="display:@(ViewBag.CategoryLabelsUri != null ? "inline" : "none") !important;">
+        @{Html.RenderPartial("~/Views/Shared/CommentSectionOnSubPage.cshtml");}
+    </div>
+    <!--/.contentSectionComment-->
+    <input type="hidden" id="businessprocesses" value="@ViewBag.Businessprocesses" />
+    <input type="hidden" id="categoryUri" value="@ViewBag.CategoryUri" />
+    <input type="hidden" id="categoryLabelsUri" value="@ViewBag.CategoryLabelsUri" />
+</div>
+<!--/.content-->
+
+@*<a class="hidden" id="btnConfirmDeleteLabels" data-role="mcPopup" data-title="@Resource.MC_DeletedLabels" data-target="#popupShowLabelsUpdate" data-width="300" data-min-height="175"></a>
+<div class="popup" id="popupShowLabelsUpdate">
+    <div class="popupContent"></div>
+    <div class="popupToolbar">
+        <a class="btn btnPrimary btnSubmit" onclick="MC.ajax.reloadMainContent()">@Resource.Ok</a>
+    </div>
+</div>*@

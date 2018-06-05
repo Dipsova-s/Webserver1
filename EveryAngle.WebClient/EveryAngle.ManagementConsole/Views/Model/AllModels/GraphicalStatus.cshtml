@@ -1,0 +1,18 @@
+﻿@model List<EveryAngle.Core.ViewModels.ModelServer.EventLogViewModel>
+
+@if (ViewBag.ModelServerId != "EA4IT_Xtractor")
+{
+    <div class="modelInfoStatusGraphItem" id="modelInfoStatusGraphItem@(ViewBag.ModelServerId)">
+        @if (ViewBag.CurrentInstanceTime == "True")
+        {
+            <div class="modelCurrentInstanceInfoStatusGraph"><strong>@ViewBag.ModelServerId</strong></div>
+        }
+        else
+        {
+            <strong>@ViewBag.ModelServerId</strong>
+        }
+    
+        <div class="modelInfoStatusGraph loadingGraph">
+        </div>
+    </div><!--/.modelInfoStatusGraphItem-->
+}

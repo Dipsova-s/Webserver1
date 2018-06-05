@@ -1,0 +1,5210 @@
+/* .btn
+================================== */
+.btn,
+.btn:hover {
+    position: relative;
+    display: inline-block;
+    padding: 3px 12px 5px 12px;
+    height: 20px;
+    border: 1px solid #5f5f5f;
+    border-radius: 4px;
+    color: #282828;
+    font-size: 11px;
+    font-weight: bold;
+    line-height: 20px;
+    text-align: center;
+    text-shadow: 1px 1px #ececec;
+    margin-right: 10px;
+    cursor: pointer;
+    background: #fff url(../images/ui/btn_bg.png) left bottom repeat-x;
+}
+
+.btn:active {
+    background-position: left top;
+}
+
+.btn:after {
+    display: block;
+    content: '';
+    background: transparent none left center no-repeat;
+    position: absolute;
+    top: 0;
+    right: -5px;
+    width: 30px;
+    height: 100%;
+}
+
+.btnPrimary,
+.btnPrimary:hover {
+    color: #fff;
+    text-shadow: 1px 1px #000;
+    background-color: #1b1c1d;
+    background-image: url(../images/ui/btn_primary_bg.png);
+    background-position: left top;
+}
+
+.btnPrimary:active {
+    background-position: left bottom;
+}
+
+.btnLarge,
+.btnLarge:hover {
+    height: 28px;
+    line-height: 30px;
+}
+
+.btn.disabled,
+.btn.disabled:hover,
+.btn.disabled:active,
+.btn[disabled],
+.btn[disabled]:hover,
+.btn[disabled]:active {
+    cursor: default;
+    background-position: left bottom;
+    opacity: .5;
+}
+
+.btnPrimary.disabled,
+.btnPrimary.disabled:hover,
+.btnPrimary.disabled:active,
+.btnPrimary[disabled],
+.btnPrimary[disabled]:hover,
+.btnPrimary[disabled]:active {
+    background-position: left top;
+}
+
+.btnLeft {
+    float: left;
+}
+
+.btnAdd,
+.btnManageUser,
+.btnImport,
+.btnEdit,
+.btnDelete,
+.btnCancel,
+.btnNext,
+.btnLogout,
+.btnExecute,
+.btnAbort {
+    padding-right: 35px !important;
+}
+
+.btnAdd:after,
+.btnImport:after {
+    background-image: url(../images/icons/icon_add.png);
+}
+
+.btnEdit:after {
+    background-image: url(../images/icons/icon_edit.png);
+}
+
+.btnDelete:after {
+    background-image: url(../images/icons/icon_delete.png);
+}
+
+.btnCancel:after {
+    top: 1px;
+    background-image: url(../images/icons/icon_edit_cancel.png);
+}
+
+.btnNext:after {
+    right: -2px;
+    background-image: url(../images/icons/icon_next.png);
+}
+
+.btnLogout:after {
+    background-image: url(../images/icons/icon_logout.png);
+}
+
+.btnCopy:after {
+    background-image: url(../images/icons/icon_copy.png);
+}
+
+.btnExecute:after {
+    background-image: url(../images/icons/icon_execute.png);
+}
+
+.btnAbort:after {
+    background-image: url(../images/icons/icon_abort.png);
+}
+
+.btnDownload:after {
+    background-image: url(../images/icons/icon_download.png);
+}
+
+.btnSetInactive:after {
+    background-image: url(../images/icons/icon_abort.png);
+}
+
+.btnSetActive:after {
+    background-image: url(../images/icons/icon_execute.png);
+}
+
+.btnManageUser:after {
+    background-image: url(../images/icons/icon_manage_user.png);
+}
+
+.btnSpecifyTables:after {
+    background-image: url(../images/icons/icon_edit.png);
+}
+
+.k-upload {
+    background-color: transparent;
+    border-width: 0;
+}
+
+.k-upload .btn {
+    height: 30px;
+    width: auto;
+    box-shadow: 1px 0 #fff;
+    margin: 0 12px 0 0;
+}
+
+.k-upload .k-upload-status {
+    position: relative;
+    top: 4px;
+    left: 0;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 190px;
+    display: inline-block;
+    line-height: 14px;
+}
+
+.btnGroupContainer {
+    position: relative;
+}
+
+.btnGroupContainer > .btn {
+    width: 37px;
+    height: 25px;
+    background: #f5f5f5 none;
+    display: block;
+    border-color: #878787;
+}
+
+.btnGroupContainer.open > .btn {
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.15),0 1px 2px rgba(0,0,0,0.05);
+}
+
+.btnGroupContainer > .btn:before {
+    display: block;
+    content: '';
+    background: transparent url(../images/icons/icon_arrow_down_small.png) center center no-repeat;
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 30px;
+    height: 100%;
+    border-left: 1px solid #878787;
+}
+
+.btnGroupContainer > .btn:after {
+    right: auto !important;
+    left: 0 !important;
+    width: 33px;
+    background-position: center center;
+}
+
+.btnGroupInner {
+    display: none;
+    position: absolute;
+    top: 100%;
+    right: 1px;
+    margin: 2px 0 2px 0;
+    padding: 5px 0;
+    z-index: 3;
+    min-width: 160px;
+    background-color: #eaeaea;
+    border: 1px solid #878787;
+    border-radius: 4px;
+    box-shadow: 0 5px 10px rgba(0,0,0,0.2);
+}
+
+.btnGroupContainer.open .btnGroupInner {
+    display: block;
+}
+
+.btnGroupContainer.revert .btnGroupInner {
+    top: auto;
+    bottom: 100%;
+}
+
+.btnGroupContainer.left .btnGroupInner {
+    right: 67px;
+}
+
+.btnGroupInner > .btn {
+    display: block;
+    background: transparent none;
+    border: 0;
+    border-radius: 0;
+    padding: 5px 5px 5px 40px !important;
+    text-align: left;
+    text-indent: 0 !important;
+}
+
+.btnGroupInner > .btn:hover {
+    background-color: #fff;
+}
+
+.btnGroupInner > .btn:after {
+    right: auto !important;
+    left: 0 !important;
+    width: 40px;
+    background-position: center center;
+}
+
+/* input text /textarea, select
+================================== */
+select {
+    outline: none;
+}
+
+input[type="text"],
+input[type="password"],
+textarea,
+.tagsinput,
+.labelinput {
+    outline: none;
+    border: 1px solid #c5c5c5;
+    background: #fafafa url(../images/ui/input_bg.png) left top repeat-x;
+    padding: 5px;
+    border-radius: 5px;
+    box-sizing: border-box;
+    min-height: 28px;
+    transition: border linear .2s,box-shadow linear .2s;
+}
+
+.tagsinput.error {
+    border-color: #c33;
+}
+
+textarea {
+    height: auto;
+}
+
+input[type="text"]:focus,
+input[type="password"]:focus,
+textarea:focus,
+.tagsinput:focus,
+.labelinput:focus {
+    border-color: rgba(82,168,236,0.8);
+    outline: 0;
+    box-shadow: inset 0 1px 1px rgba(0,0,0,0.075),0 0 8px rgba(82,168,236,0.6);
+}
+
+input:read-only,
+input[readonly],
+input[readonly="readonly"],
+textarea:read-only,
+textarea[readonly],
+textarea[readonly="readonly"] {
+    color: #aaa;
+    border-color: #c5c5c5 !important;
+    box-shadow: none !important;
+}
+
+.labelinput {
+    padding-bottom: 7px;
+    margin-right: 0;
+}
+
+.labelinput > span {
+    color: #aaa;
+    position: relative;
+    top: 1px;
+}
+
+.labelinput > input {
+    padding-left: 0;
+    border-width: 0;
+    outline: 0 !important;
+    box-shadow: none !important;
+    background: transparent none;
+}
+
+/* checkbox
+================================== */
+.checkbox {
+    position: relative;
+}
+
+.checkbox > input[type="checkbox"] {
+    position: absolute;
+    left: auto;
+    top: 0;
+    visibility: hidden;
+    z-index: 1;
+}
+
+.checkbox > .input {
+    cursor: pointer;
+    position: relative;
+    float: left;
+    min-width: 17px;
+    line-height: 17px;
+    background: #F5F5F5 url(kendoui/textures/highlight.png) center center repeat-x; /* NOSONAR: acceptable */
+    border: 1px solid #999;
+    margin-right: -1px;
+    z-index: 2;
+    font-weight: bold;
+    overflow: hidden;
+    text-align: center;
+}
+
+.checkbox > .input.checked {
+    background-color: #b4b4b4;
+}
+
+.checkbox > .input.disabled {
+    cursor: default;
+    color: #999;
+}
+
+/* tagsinput
+================================== */
+div.tagsinput {
+    overflow-y: hidden;
+    padding: 2px;
+    background: #fff none;
+}
+
+div.tagsinput span.tag {
+    display: block;
+    float: left;
+    padding: 3px 5px 2px 5px;
+    margin-right: 2px;
+    margin-bottom: 2px;
+    text-decoration: none;
+    text-align: center;
+    border: 1px solid #c5c5c5;
+    border-radius: 4px;
+    cursor: default;
+    min-width: 64px;
+    background-color: #e3e3e3;
+    background-image: linear-gradient(to bottom,rgba(255,255,255,.6) 0,rgba(255,255,255,.0) 100%);
+    box-sizing: border-box;
+}
+
+div.tagsinput span.tag > span {
+    position: relative;
+    display: inline-block;
+}
+
+div.tagsinput span.tag a {
+    position: relative;
+    top: 0;
+    display: inline-block;
+    text-indent: -10000px;
+    background: transparent url(kendoui/default/sprite.png) -32px -16px no-repeat;
+    width: 16px;
+    height: 16px;
+}
+
+div.tagsinput input {
+    width: 80px;
+    margin: 0;
+    border: 1px solid transparent;
+    padding: 3px 5px;
+    background: transparent;
+    outline: 0;
+    margin-right: 5px;
+    margin-bottom: 5px;
+    font-weight: normal;
+    box-sizing: border-box;
+}
+
+div.tagsinput div {
+    display: block;
+    float: left;
+}
+
+div.tagsinput .tags_clear {
+    clear: both;
+    width: 100%;
+    height: 0;
+}
+
+div.tagsinput .not_valid {
+    background: #fbd8db !important;
+    color: #90111a !important;
+}
+
+/* kendo ui
+================================== */
+.k-numeric-wrap .k-input {
+    width: 100% !important;
+    padding-right: 5px !important;
+    text-align: right !important;
+}
+
+.k-editor-dialog .k-edit-field .k-textbox {
+    height: 26px;
+}
+
+.k-upload-button input {
+    font-size: 500px;
+}
+
+.k-datepicker {
+    background-color: transparent;
+}
+
+.k-multiselect {
+    font-weight: normal;
+    padding: 0;
+    min-width: 250px;
+    position: relative;
+}
+
+.k-multiselect .k-state-hover .k-delete {
+    background-position: -48px -16px;
+}
+
+.k-multiselect .k-multiselect-wrap {
+    position: relative;
+    z-index: 2;
+}
+
+.k-dropdown select,
+.k-multiselect select,
+.k-dropdown input {
+    display: block !important;
+    position: absolute;
+    left: 0;
+    top: 0;
+    z-index: 1;
+    width: 100%;
+    height: 100%;
+    border-radius: 4px;
+    opacity: 0;
+}
+
+.k-dropdown select {
+    width: 1px;
+    height: 1px;
+    top: 100%;
+    z-index: -1;
+}
+
+.k-popup.k-list-container {
+    min-width: 100px;
+}
+
+.k-popup .k-list .k-item {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.k-tooltip-custom {
+    display: none;
+    position: absolute;
+    border-radius: 3px;
+    border: 1px solid #555;
+    background: #fefefe url(kendoui/textures/highlight.png) 0 -258px repeat-x;
+    font-size: 11px;
+    font-family: verdana, tahoma;
+    color: #555;
+    padding: 4px;
+    box-shadow: 2px 2px 5px #555;
+    max-width: 800px;
+    word-wrap: break-word;
+    z-index: 100000;
+}
+
+.k-treeview span.k-in {
+    line-height: 16px;
+    background: transparent url(../images/icons/icon_subobject.png) left top no-repeat;
+    border-width: 0;
+    box-shadow: none;
+    color: #333;
+    margin-left: -10px;
+    padding-left: 15px;
+    padding-top: 0;
+    padding-bottom: 0;
+}
+
+.k-treeview .k-icon + span.k-in {
+    background: transparent none;
+    padding-left: 5px;
+    margin-left: 0;
+}
+
+/* .helpTextPopup
+================================== */
+#helpTextFootNote {
+    background-color: #efefef;
+    width: 97%;
+    bottom: 0;
+    left: 0;
+    padding: 10px 0;
+    text-indent: 20px;
+}
+
+.helpHeaderContainer {
+    margin-bottom: 15px;
+}
+
+.helpHeaderContainer p {
+    margin: 0 0 3px 0;
+}
+
+.helpTextPopup .k-window-titlebar .icon {
+    position: relative;
+    top: 15px;
+    left: 4px;
+    width: 20px;
+    height: 20px;
+    margin-left: 2px;
+    float: left;
+    z-index: 2;
+}
+
+.helpTextPopup .k-window-titlebar .iconCategory img {
+    position: relative;
+    top: 1px;
+    border: 0;
+}
+
+.helpTextPopup .k-window-titlebar .k-window-title {
+    text-indent: 45px;
+}
+
+.helpTextPopup .k-window-titlebar .iconStatus {
+    background: transparent none center center no-repeat;
+    margin-left: 15px;
+}
+
+.helpTextPopup .k-window-titlebar .DisplayPropertiesGridSignFavorite {
+    background-image: url(./externalresource/icon_starred_active.png);
+}
+
+.helpTextPopup .k-window-titlebar .DisplayPropertiesGridSignFavoriteDisable {
+    background-image: url(./externalresource/icon_starred_inactive.png);
+}
+
+.helpTextPopup .k-window-titlebar .DisplayPropertiesGridSignSuggest {
+    background-image: url(./externalresource/icon_suggest.png);
+}
+
+/* .tab
+================================== */
+.tabNav {
+    border-bottom: 1px solid #bbb;
+}
+
+.tabNav:before,
+.tabNav:after {
+    display: table;
+    content: "";
+    line-height: 0;
+}
+
+.tabNav:after {
+    clear: both;
+}
+
+.tabNav > a {
+    display: block;
+    border: 1px solid #bbb;
+    border-bottom: 0;
+    border-radius: 0;
+    background: #e6e6e6 url(../images/ui/tab_bg.png) left center repeat-x;
+    margin-right: 8px;
+    color: #084777;
+    font-size: 14px;
+    padding: 0 10px;
+    height: 27px;
+    line-height: 27px;
+    max-width: 300px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    float: left;
+}
+
+.tabNav > a:hover {
+    background-color: #dadada;
+    background-image: url(../images/ui/tab_hover_bg.png);
+}
+
+.tabNav > a.active {
+    cursor: default;
+    background-color: #fff;
+    background-image: none;
+    color: #666;
+    margin-bottom: -1px;
+    padding-bottom: 1px;
+}
+
+.tabPanel {
+    display: none;
+    padding-top: 20px;
+}
+
+.tabPanel.active {
+    display: block;
+}
+
+/* .panelBar
+================================== */
+.panelBar {
+    border-bottom: 0;
+}
+
+.panelBar > .k-item > .k-link {
+    font-weight: normal;
+    background: #e6e6e6 url(../images/ui/tab_bg.png) left center repeat-x;
+    color: #084777;
+    font-size: 14px;
+    padding-left: 26px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.panelBar > .k-item > .k-state-selected,
+.panelBar > .k-item > .k-link:hover {
+    background-color: #dadada;
+    background-image: url(../images/ui/tab_hover_bg.png);
+    box-shadow: none;
+    color: #084777 !important;
+}
+
+.panelBar > .k-item > .k-link > .k-icon {
+    width: 20px;
+    height: 30px;
+    background: transparent none left center no-repeat;
+    background-size: auto !important;
+    right: auto;
+    left: 5px;
+    top: 8px;
+}
+
+.panelBar > .k-item > .k-link > .k-panelbar-expand {
+    background-image: url(../images/icons/icon_arrow_right.png);
+}
+
+.panelBar > .k-item > .k-link > .k-panelbar-collapse {
+    background-image: url(../images/icons/icon_arrow_down.png);
+}
+
+.panelBar .k-grid-header {
+    padding-right: 0 !important;
+}
+
+.panelBar .k-grid-content {
+    overflow-y: hidden;
+}
+
+/* .popup
+================================== */
+.popup {
+    display: none;
+    background-color: #efefef;
+}
+
+.popupContent {
+    min-height: 100px;
+}
+
+.km-scroll-container .popupContent {
+    min-height: 100px;
+    padding-bottom: 0;
+}
+
+.popupToolbar {
+    position: absolute;
+    left: 20px;
+    right: 10px;
+    bottom: 0;
+    min-height: 45px;
+    padding-top: 17px;
+    text-align: right;
+}
+
+.km-scroll-container .popupToolbar {
+    position: relative;
+    right: -10px;
+    left: 0;
+}
+
+.popupContent .k-dropdown {
+    width: 100% !important;
+}
+
+.popupContent .contentSection {
+    margin-bottom: 0;
+}
+
+.popupContentScrollable.k-window-content {
+    overflow: hidden;
+    padding: 0;
+}
+
+.popupContentScrollable.k-window-content .popupContent {
+    overflow: auto;
+    padding: 20px 20px 0 20px;
+    box-sizing: border-box;
+}
+
+.popupContentScrollable.k-window-content .popupToolbar {
+    position: relative;
+    left: 0;
+    padding-left: 20px;
+    padding-right: 10px;
+    min-height: 62px;
+    box-sizing: border-box;
+}
+
+.k-window {
+    padding-top: 65px !important;
+}
+
+.k-window-titlebar {
+    margin-top: -65px !important;
+    height: 45px;
+    border-bottom-width: 0;
+    background-color: #ddd;
+    padding: 10px 0;
+    cursor: move;
+}
+
+.k-window-titlebar .k-window-title {
+    font-size: 20px;
+    top: 18px;
+    line-height: 30px;
+    padding-left: 0;
+    left: 20px;
+    right: 40px;
+    cursor: move;
+}
+
+.k-window-titlebar .k-window-actions {
+    top: 19px;
+    right: 17px;
+}
+
+.k-window .k-link.k-state-hover {
+    background: none;
+    border-color: transparent;
+}
+
+.k-window .k-link .k-i-close,
+.k-window .k-link:not(.k-state-disabled):hover > .k-i-close {
+    background-image: url(../images/icons/icon_close_popup.png);
+    background-position: left top;
+    background-size: auto !important;
+}
+
+.k-window .k-link .k-i-maximize,
+.k-window .k-link:not(.k-state-disabled):hover > .k-i-maximize {
+    background-image: url(../images/icons/icon_popup_maximize.png);
+    background-position: left top;
+    background-size: auto !important;
+}
+
+.k-window .k-link .k-i-restore,
+.k-window .k-link:not(.k-state-disabled):hover > .k-i-restore {
+    background-image: url(../images/icons/icon_popup_minimize.png);
+    background-position: left top;
+    background-size: auto !important;
+}
+
+div.k-window-content {
+    padding: 20px 20px 60px 20px;
+    min-height: 160px;
+}
+
+div.k-window-content.km-scroll-wrapper {
+    overflow: hidden;
+}
+
+div.k-window-content > .k-loading-mask {
+    z-index: 1000;
+    left: 0;
+    top: 0;
+}
+
+/* .k-wc
+================================== */
+.k-wc {
+    background: #efefef none;
+    border-radius: 0;
+    border: 1px solid #9c9c9c;
+    box-shadow: 1px 1px 7px 1px rgba(128,128,128,.3);
+    left: 0;
+    top: 0;
+}
+
+.k-wc.k-state-focused {
+    border: 1px solid #9c9c9c !important;
+    box-shadow: 1px 1px 7px 1px rgba(128,128,128,.3) !important;
+}
+
+.k-wc .k-window-titlebar {
+    background: #dcdcdc none;
+    height: 40px;
+    border-radius: 0;
+    padding: 13px 0;
+}
+
+.k-wc .k-window-title {
+    font-size: 22px;
+    left: 15px;
+    top: 12px;
+    line-height: 40px;
+}
+
+.k-window-draggable .k-window-title {
+    cursor: move;
+}
+
+.k-wc .k-window-action.k-state-hover {
+    box-shadow: none;
+    background: transparent none;
+    border-color: transparent;
+}
+
+.k-wc div.k-window-content {
+    background: #efefef none;
+    padding: 0;
+    margin: 0;
+}
+
+/* .popupWarning
+================================== */
+.popupWarning .popupContent {
+    padding-left: 25px;
+    background: transparent url(../images/icons/icon_warning.gif) left top no-repeat;
+}
+
+.popupWarning h1 {
+    font-size: 14px;
+    margin: 0 0 10px 0;
+}
+
+/* .popupError
+================================== */
+.popupError .popupContent {
+    padding-left: 25px;
+    background: transparent url(../images/icons/icon_error.png) left top no-repeat;
+}
+
+.popupError h1 {
+    font-size: 14px;
+    margin: 0 0 10px 0;
+    padding-top: 8px;
+    padding-left: 15px;
+}
+
+/* .popupAbout
+================================== */
+#popupAbout {
+    overflow: hidden !important;
+    padding: 0 !important;
+}
+
+.aboutContainer {
+    overflow: hidden;
+    font-size: 12px;
+    line-height: 15px;
+}
+
+.aboutCommon {
+    background: transparent url(../images/ea_about_logo.png) center -5px no-repeat;
+    float: left;
+    width: 215px;
+    height: 76px;
+    padding-top: 205px;
+    text-align: center;
+    border-right: 1px solid #c5c5c5;
+}
+
+.aboutCommon a {
+    text-decoration: underline;
+    color: #006f9b;
+}
+
+.aboutModels {
+    margin-left: 215px;
+    padding: 25px;
+    height: 222px;
+    overflow: auto;
+}
+
+.aboutModels h3 {
+    font-size: 12px;
+    margin: 0;
+    padding: 0;
+}
+
+.aboutModels .row {
+    overflow: hidden;
+}
+
+.aboutModels .label {
+    float: left;
+    width: 120px;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
+
+.aboutModels .value {
+    margin-left: 130px;
+}
+
+.aboutContainer .btnOk {
+    position: absolute;
+    right: 10px;
+    bottom: 15px;
+}
+
+/* #ConsoliDatedRolePopup
+================================== */
+#ConsoliDatedRolePopup .k-treeview > ul > .k-item > div > .k-in {
+    font-weight: bold;
+}
+
+#ConsoliDatedRolePopup i.allowed {
+    color: #090;
+}
+
+#ConsoliDatedRolePopup i.denied {
+    color: #900;
+}
+
+#ConsoliDatedRolePopup i.unspecified {
+    color: #777;
+}
+
+#ConsoliDatedRolePopup i.validate {
+    color: #090;
+}
+
+#ConsoliDatedRolePopup i.assign {
+    color: #090;
+}
+
+#ConsoliDatedRolePopup i.manage {
+    color: #090;
+}
+
+#ConsoliDatedRolePopup i.view {
+    color: #777;
+}
+
+#ConsoliDatedRolePopup .contentSectionInfoItem {
+    overflow: auto;
+}
+
+
+/* #popupPreview
+================================== */
+#popupPreview {
+    min-height: 250px;
+    overflow: visible;
+}
+
+#popupPreview .tabPanel {
+    padding: 20px;
+    position: relative;
+    background-color: #fff;
+    border: 1px solid #bbb;
+    border-top: 0;
+    overflow: visible;
+}
+
+#popupPreview .previewArea {
+    display: none;
+    background: transparent url(../images/bp_preview_bg.png) left top repeat;
+    position: absolute;
+    left: 20px;
+    width: 530px;
+    top: 0;
+    height: 100%;
+    opacity: .5;
+    z-index: 1;
+}
+
+.popupPreview .k-resize-n,
+.popupPreview .k-resize-ne,
+.popupPreview .k-resize-nw,
+.popupPreview .k-resize-s,
+.popupPreview .k-resize-se,
+.popupPreview .k-resize-sw {
+    display: none !important;
+}
+
+/* .popupFieldChooser
+================================== */
+#popupFieldChooser_wnd_title img {
+    vertical-align: middle;
+    position: relative;
+    top: -2px;
+}
+
+.fieldChooserGridContainer .btnInfo {
+    cursor: pointer;
+    position: relative;
+    display: inline-block;
+    width: 16px;
+    height: 16px;
+    background: transparent url(../images/icons/icon_field_info.png) center center no-repeat;
+}
+
+.fieldChooserGridContainer .btnInfo:hover {
+    background-image: url(../images/icons/icon_field_info_hover.png);
+}
+
+.fieldChooserButtons .btnSelectAll {
+    margin-left: 210px;
+}
+
+.fieldChooserButtons .btnAddProperty {
+    float: right;
+}
+
+.fieldChooserButtons .btnPropertyCancel {
+    float: right;
+    margin-right: 5px;
+}
+
+.editRoleFieldsChooser .fieldChooserGridContainer .btnAddProperty,
+.editRoleFieldsChooser .fieldChooserGridContainer .btnPropertyCancel,
+.angleWarningFieldChooser .fieldChooserGridContainer .btnAddProperty,
+.angleWarningFieldChooser .fieldChooserGridContainer .btnPropertyCancel,
+.suggestedFieldsChooser .fieldChooserGridContainer .btnAddProperty,
+.suggestedFieldsChooser .fieldChooserGridContainer .btnPropertyCancel {
+    margin-top: 10px;
+}
+
+.addPropertyOptions {
+    font-size: 14px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.addPropertyOptions .addPropertyType {
+    margin-top: 10px;
+}
+
+.addPropertyOptions .contentSectionInfoItem > label {
+    font-weight: normal;
+    width: 150px;
+}
+
+.addPropertyOptions .contentSectionInfoItem > p {
+    font-weight: normal;
+    margin-left: 150px;
+}
+
+.suggestedFieldsChooser .fieldChooserGridContainer .DisplayPropertiesGridSignFavoriteDisable {
+    background-image: url(../images/icons/icon_unsuggest.png);
+}
+
+.suggestedFieldsChooser .k-dirty {
+    margin-top: -2px;
+}
+
+/* #popupClassesChooser
+================================== */
+#popupClassesChooser_wnd_title img {
+    vertical-align: middle;
+    position: relative;
+    top: -2px;
+}
+
+#popupClassesChooser .popupToolbar {
+    bottom: 5px;
+}
+
+#popupClassesChooser .modelWrapper {
+    display: none;
+}
+
+/* #popupSelectedClasses
+================================== */
+#popupSelectedClasses_wnd_title img {
+    vertical-align: middle;
+    position: relative;
+    top: -2px;
+}
+
+#popupSelectedClasses .popupToolbar {
+    bottom: 5px;
+}
+
+#popupSelectedClasses ul {
+    margin: 0;
+    padding: 0;
+}
+
+#popupSelectedClasses li {
+    padding: 0 10px 0 10px;
+    position: relative;
+    float: left;
+    width: 50%;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    box-sizing: border-box;
+}
+
+#popupSelectedClasses .classesList li {
+    width: 33%;
+}
+
+#popupSelectedClasses li:before {
+    content: '•';
+    position: absolute;
+    left: 0;
+    top: 1px;
+}
+
+/* #popupModuleEdit
+================================== */
+#popupModuleEdit {
+    overflow: visible !important;
+}
+
+#popupModuleEdit .gridContainer {
+    margin-bottom: 0;
+}
+
+#popupModuleEdit h2 {
+    margin-bottom: 8px;
+}
+
+#popupModuleEditPlaintext #plaintext {
+    width: 100%;
+    box-sizing: border-box;
+    resize: none;
+}
+
+#popupModuleEditPlaintext .popupContent {
+    overflow: visible;
+}
+
+/* #popupConfirmCopy
+================================== */
+#popupConfirmCopy .contentSectionInfoItem > label {
+    width: 110px;
+}
+
+#popupConfirmCopy .contentSectionInfoItem > p {
+    margin-left: 120px;
+}
+
+/* table.grid
+================================== */
+table.grid {
+    position: relative;
+    color: #2e2e2e;
+    border: 1px solid #c5c5c5;
+    border-bottom-width: 0;
+    border-spacing: 0;
+    width: 100%;
+    border-collapse: separate;
+    empty-cells: show;
+    table-layout: fixed;
+    outline: 0;
+}
+
+table.grid thead th {
+    overflow: hidden;
+    border-style: solid;
+    border-width: 0 0 1px 1px;
+    border-color: #c5c5c5;
+    padding: .5em 5px .4em 5px;
+    font-weight: bold;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    text-align: left;
+    background: #b0b0b0 url(../images/ui/table_header_bg.png) left top repeat-x;
+}
+
+table.grid thead th:first-child {
+    border-left-width: 0;
+}
+
+table.grid tbody td {
+    font-size: 11px;
+    padding: .4em 5px .4em 5px;
+    border-style: solid;
+    border-width: 0 0 0 1px;
+    border-color: #c5c5c5;
+    overflow: hidden;
+    line-height: 1.6em;
+    vertical-align: middle;
+    text-overflow: ellipsis;
+}
+
+table.grid tbody td:first-child {
+    border-left-width: 0;
+}
+
+/* .contentSectionDescription
+================================== */
+.contentSectionDescription h2 {
+    font-size: 18px;
+    margin-bottom: 20px;
+    word-break: break-all;
+}
+
+/* .contentSectionInfo
+================================== */
+.contentSectionInfo h2 {
+    font-size: 18px;
+    margin-bottom: 20px;
+    word-break: break-all;
+}
+
+.contentSectionInfo h3 {
+    font-size: 14px;
+    margin-bottom: 20px;
+    word-break: break-all;
+}
+
+.contentSectionInfoItem {
+    overflow: hidden;
+    margin-bottom: 5px;
+}
+
+.contentSectionInfoItem > label,
+.contentSectionInfoItem > p,
+.contentSectionInfoSubItem > label,
+.contentSectionInfoSubItem > p {
+    position: relative;
+    font-weight: bold;
+    margin-bottom: 1px;
+}
+
+.contentSectionInfoItem > label,
+.contentSectionInfoSubItem > label {
+    float: left;
+    width: 200px;
+    margin-right: 20px;
+}
+
+.contentSectionInfoItem > p,
+.contentSectionInfoSubItem > p {
+    margin-left: 220px;
+}
+
+.contentSectionInfoItem p > label,
+.contentSectionInfoSubItem p > label {
+    margin-right: 10px;
+    margin-bottom: 0;
+    width: auto;
+}
+
+.contentSectionInfoItem p > input[type="text"],
+.contentSectionInfoSubItem p > input[type="text"],
+.contentSectionInfoItem p > input[type="password"],
+.contentSectionInfoSubItem p > input[type="password"] {
+    font-weight: normal;
+    min-width: 200px;
+}
+
+.contentSectionInfoItem p > textarea,
+.contentSectionInfoSubItem p > textarea {
+    font-weight: normal;
+}
+
+.contentSectionInfoItem p > .txtLarge,
+.contentSectionInfoSubItem p > .txtLarge {
+    width: 90%;
+}
+
+.contentSectionInfoItemHeader label,
+.contentSectionInfoItemHeader p,
+.contentSectionInfoSubItemHeader label,
+.contentSectionInfoSubItemHeader p {
+    margin-bottom: 9px;
+}
+
+.contentSectionInfoItemHeader .value,
+.contentSectionInfoSubItemHeader .value {
+    font-size: 16px;
+    font-weight: normal;
+}
+
+.contentSectionInfoItem .icon,
+.contentSectionInfoSubItem .icon {
+    position: absolute;
+    right: -51px;
+    top: 0;
+    background: transparent url(../images/icons/icon_info.png) center center no-repeat;
+    display: inline-block;
+    width: 27px;
+    height: 23px;
+}
+
+/* .contentSectionGrid
+================================== */
+.contentSectionGrid {
+    position: relative;
+}
+
+.gridToolbar {
+    margin-bottom: 20px;
+}
+
+.gridToolbarTop {
+    text-align: right;
+    margin-bottom: 0;
+    margin-left: 10px;
+    float: right;
+}
+
+.gridToolbarFilter {
+    position: relative;
+}
+
+.gridToolbarFilter input {
+    padding-right: 38px;
+    width: 165px;
+    padding-top: 0;
+    padding-bottom: 0;
+    min-height: 24px;
+}
+
+.gridToolbarFilter .icon {
+    position: absolute;
+    z-index: 2;
+    width: 38px;
+    height: 100%;
+    top: 0;
+    right: 0;
+    background: transparent url(../images/icons/icon_filter.png) center center no-repeat;
+}
+
+.gridToolbarFilter .iconLoading {
+    background-image: url(../images/loading_small.gif);
+}
+
+.gridContainer {
+    clear: both;
+    margin-bottom: 12px;
+}
+
+.gridContainer .k-grid tr {
+    height: 37px;
+}
+
+.gridContainer .k-grid-header th.k-header {
+    font-weight: bold;
+    background: #b0b0b0 url(../images/ui/table_header_bg.png) left top repeat-x;
+    padding-left: 5px;
+    padding-right: 5px;
+    vertical-align: middle;
+}
+
+.gridContainer .k-grid-header th.k-header.k-header-sorter .k-link {
+    cursor: pointer;
+}
+
+.gridContainer .k-grid-error {
+    position: absolute;
+    left: 0;
+    top: 0;
+    z-index: 100;
+    padding: 10px 20px;
+    font-size: 11px;
+    width: 100%;
+    color: #c33;
+    background-color: #ffc;
+    border-bottom: 1px solid #ccc;
+    box-sizing: border-box;
+}
+
+.gridContainer .k-grid-error h1 {
+    display: inline;
+    font-size: 11px;
+    margin-right: 3px;
+    line-height: 14px;
+}
+
+.gridContainer .k-grid-error p {
+    display: inline;
+    font-size: 11px;
+    line-height: 14px;
+}
+
+.gridContainer .k-grid-error .btnRetry {
+    text-decoration: underline;
+    color: #333;
+    margin-left: 3px;
+    font-weight: bold;
+}
+
+.gridContainer .k-grid-error + .k-virtual-scrollable-wrap + .k-scrollbar {
+    overflow: visible;
+    padding-top: 18px;
+}
+
+.k-scrollbar:before {
+    content: '';
+    width: 100%;
+    position: absolute;
+    height: 100%;
+    left: 0;
+    top: 0;
+    overflow: scroll;
+}
+
+.gridContainer .k-grid .k-i-arrow-n {
+    background-position: 0 0 !important;
+}
+
+.gridContainer .k-grid .k-i-arrow-s {
+    background-position: 0 -32px !important;
+}
+
+.gridContainer .k-grid tr.t-no-data {
+    display: none;
+}
+
+.gridContainer .k-grid tr.disabled {
+    opacity: .5;
+}
+
+.gridContainer .k-grid tr.disabled .disabled {
+    opacity: 1;
+}
+
+.gridContainer .k-grid td {
+    padding: 4px;
+    font-size: 11px;
+    white-space: nowrap;
+}
+
+.gridContainer .k-grid .k-state-selected .k-dirty {
+    display: none;
+}
+
+.gridContainer .k-grid .k-dirty.revert {
+    border-color: transparent transparent #f00 #f00;
+    margin-top: 2.55em;
+}
+
+.gridContainer .k-grid .columnNumber,
+.gridContainer .k-grid .columnDate {
+    text-align: right;
+    white-space: nowrap;
+}
+
+.gridContainer .k-grid .columnBoolean {
+    text-align: center;
+    white-space: nowrap;
+    line-height: 1;
+}
+
+.gridContainer .k-grid .columnBoolean > label {
+    margin-right: 0;
+    width: 13px;
+    display: inline-block;
+}
+
+.gridContainer .k-grid .columnBoolean > label > input {
+    margin-right: 0;
+}
+
+.gridContainer .k-grid td .k-dropdown {
+    width: 100%;
+}
+
+.gridContainer [class^="icon"],
+.gridContainer [class*=" icon"] {
+    display: inline-block;
+    vertical-align: middle;
+    width: 16px;
+    height: 16px;
+    margin-right: 10px;
+    background: transparent none center center no-repeat;
+}
+
+.gridContainer .iconFilter {
+    background-image: url(../images/icons/icon_filter.png);
+}
+
+.gridContainer input[type="text"] {
+    width: 100%;
+    color: #333;
+}
+
+.gridContainer .k-grid .k-autocomplete {
+    width: 100%;
+}
+
+.gridContainer .k-grid .k-timepicker {
+    width: 100%;
+    background: transparent none;
+    margin: 0;
+    padding: 0;
+}
+
+.gridContainer .k-grid .k-widget .k-input {
+    padding: .375em 0;
+}
+
+.gridContainer .k-grid .k-widget .k-select {
+    line-height: 2.25em;
+}
+
+.gridContainer select {
+    width: 1px;
+    opacity: 0;
+}
+
+.gridContainer label {
+    margin-right: 10px;
+}
+
+.gridColumnCentered {
+    text-align: center;
+}
+
+.gridColumnNowrap {
+    white-space: nowrap;
+}
+
+.gridColumnToolbar {
+    text-align: center !important;
+}
+
+td.gridColumnToolbar {
+    overflow: visible !important;
+}
+
+.gridColumnToolbar .btn,
+.gridColumnToolbar .btn:hover {
+    padding-right: 15px !important;
+    margin: 0 1px;
+    padding-top: 0;
+    padding-bottom: 1px;
+    text-indent: -9000px;
+}
+
+.gridColumnToolbar .btn:after {
+    right: -9px;
+}
+
+.gridColumnToolbar .btnEdit:after {
+    top: 1px;
+}
+
+.gridColumnToolbar .btnAddLanguage,
+.gridColumnToolbar .btnAddLanguage:hover,
+.gridColumnToolbar .btnAddLanguage:active {
+    width: 23px;
+    height: 22px;
+    padding-left: 0;
+    padding-right: 0 !important;
+    background-color: transparent;
+    background-image: url(../images/icons/icon_add_language.png);
+    background-position: center center;
+    background-repeat: no-repeat;
+    border-radius: 0;
+    border: 0;
+    line-height: 1;
+}
+
+.gridColumnToolbar .btnMove {
+    cursor: move;
+    display: inline-block;
+    width: 40px;
+    height: 24px;
+    background: transparent url(../images/icons/icon_move.png) center center no-repeat;
+}
+
+tr.rowMaskAsRemove {
+    background-color: #ff9 !important;
+}
+
+tr.rowMaskAsRemove .btnDelete:after {
+    background-image: url(../images/icons/icon_delete_cancel.png);
+}
+
+tr.rowMaskAsRemove .btnGroupContainer > .btn {
+    width: 6px;
+    margin: auto;
+}
+
+tr.rowMaskAsRemove .btnGroupContainer > .btn:before {
+    display: none;
+}
+
+tr.rowMaskAsRemove .btnGroupContainer > .btn:after {
+    background-image: url(../images/icons/icon_delete_cancel.png);
+    left: -1px !important;
+}
+
+.k-pager-numbers .k-state-selected {
+    line-height: 24px;
+}
+
+/* .contentSectionSync
+================================== */
+.contentSectionSync {
+    border-bottom: 1px solid #bbb;
+    padding-bottom: 15px;
+    margin-bottom: 28px;
+}
+
+.contentSectionSyncItem {
+    width: 100%;
+    display: table-cell;
+    vertical-align: middle;
+    padding-bottom: 15px;
+}
+
+.contentSectionSyncItem p {
+    display: inline;
+    margin-left: 3px;
+}
+
+.contentSectionSyncItem select {
+    margin-right: 2px;
+}
+
+/* .contentSectionComment
+================================== */
+.contentSectionComment {
+    border-bottom: 0;
+    margin-bottom: 0;
+}
+
+.contentSectionCommentList {
+    padding-top: 2px;
+    margin-bottom: 12px;
+}
+
+.contentSectionCommentList .noResult {
+    background-color: #eee;
+    padding: 20px;
+    margin-bottom: 0;
+}
+
+.contentSectionCommentList .btnViewAtteched {
+    margin-right: 0;
+}
+
+.contentSectionCommentFormItem {
+    padding-bottom: 10px;
+}
+
+.contentSectionCommentFormItem textarea {
+    width: 100%;
+    height: 88px;
+}
+
+#popupCommentForm textarea {
+    width: 100%;
+    resize: none;
+    box-sizing: border-box;
+}
+
+#popupCommentForm .fieldFile {
+    float: left;
+}
+
+#popupCommentForm .k-upload .k-upload-status {
+    max-width: 175px;
+}
+
+/* .pageError
+================================== */
+.contentSectionError {
+    background: transparent url(../images/icons/icon_alert.png) 20px 10px no-repeat;
+    position: relative;
+    background-color: #ecd7dc;
+    border: 1px solid #b58f98;
+    border-radius: 4px;
+    padding: 15px 15px 15px 90px;
+}
+
+/* #EventLogGrid
+================================== */
+#EventLogGrid .btnInfo:after {
+    right: -10px;
+    background-image: url(../images/icons/icon_info_small.png);
+}
+
+/* .pageSystemLog
+================================== */
+#taskTimestamp {
+    position: absolute;
+    right: 55px;
+    bottom: 8px;
+    color: #777;
+}
+
+#SystemLogsGrid .btnInfo:after {
+    background-image: url(../images/icons/icon_open_in_new.png);
+}
+
+.pageSystenLog .totalWarningError {
+    display: none;
+    float: right;
+    margin-top: 5px;
+    font-style: italic;
+}
+
+#popupLogTable {
+    padding: 0;
+    overflow: hidden;
+}
+
+.logType > span {
+    background: transparent url(../images/icons/icon_logs.png) left 22px no-repeat;
+    display: inline-block;
+    vertical-align: middle;
+    width: 16px;
+    height: 12px;
+}
+
+.logType > .All {
+    display: none;
+}
+
+.logType > span.Info,
+.logType > span.info {
+    background-position: 0 0;
+}
+
+.logType > span.Note,
+.logType > span.note {
+    background-position: 0 -22px;
+}
+
+.logType > span.Warning,
+.logType > span.warning {
+    background-position: 0 -44px;
+}
+
+.logType > span.Error,
+.logType > span.error {
+    background-position: 0 -66px;
+}
+
+.logType > span.Exception,
+.logType > span.exception {
+    background-position: 0 -88px;
+}
+
+.logType > span.Reminder,
+.logType > span.reminder {
+    background-position: 0 -110px;
+}
+
+.logType > span.CheckPoint,
+.logType > span.checkpoint {
+    background-position: 0 -132px;
+}
+
+.logType > span.Level1,
+.logType > span.level1 {
+    background-position: 0 -154px;
+}
+
+.logType > span.Level2,
+.logType > span.level2 {
+    background-position: 0 -176px;
+}
+
+.logType > span.Level3,
+.logType > span.level3 {
+    background-position: 0 -198px;
+}
+
+.logType > span.Level4,
+.logType > span.level4 {
+    background-position: 0 -220px;
+}
+
+.logType > span.Level5,
+.logType > span.level5 {
+    background-position: 0 -242px;
+}
+
+.logType > span.Level6,
+.logType > span.level6 {
+    background-position: 0 -264px;
+}
+
+.logType > span.Level7,
+.logType > span.level7 {
+    background-position: 0 -286px;
+}
+
+.logType > span.Enter,
+.logType > span.enter {
+    background-position: 0 -308px;
+}
+
+.logType > span.Exit,
+.logType > span.exit {
+    background-position: 0 -330px;
+}
+
+.logType > span.Timing,
+.logType > span.timing {
+    background-position: 0 -352px;
+}
+
+#popupLogTable .popupContent {
+    height: 100%;
+}
+
+#popupLogTable .gridToolbarTop {
+    margin: 10px;
+}
+
+#popupLogTable .gridToolbarTop .k-dropdown {
+    text-align: left;
+    width: 120px !important;
+    font-size: 11px;
+}
+
+#popupLogTable .gridToolbarTop .k-dropdown .logType > span {
+    margin-left: 4px;
+}
+
+#popupLogTable .gridContainer {
+    margin-bottom: 0;
+    border-top-width: 0;
+    border-bottom-width: 0;
+}
+
+#popupLogTable .gridContainer .k-grid tr {
+    height: 22px;
+}
+
+#popupLogTable .gridContainer .k-grid tr td {
+    padding: 0 4px;
+}
+
+#popupLogTable .gridContainer .k-grid tr td.k-state-focused {
+    box-shadow: none;
+}
+
+#SystemLogDetails > .logDetails {
+    margin: 10px;
+    min-height: 50px;
+}
+
+#SystemLogDetails > .logDetails.fail {
+    color: #c33;
+    font-size: 11px;
+}
+
+#SystemLogDetails > .logDetails .k-loading-mask {
+    max-height: 100%;
+    margin-top: -10px;
+}
+
+#SystemLogDetails ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+#SystemLogDetails li {
+    padding: 0 0 0 8px;
+    position: relative;
+    white-space: normal;
+    word-wrap: break-word;
+}
+
+#SystemLogDetails .tabPanel {
+    padding-top: 10px;
+}
+
+#SystemLogDetails .tabTable h3 {
+    margin-bottom: 5px;
+}
+
+#SystemLogDetails div.k-treeview {
+    overflow: visible;
+    margin-left: 5px;
+}
+
+#ReportTab li:before {
+    display: none;
+}
+
+/* .pageWebClientSettings
+================================== */
+.pageWebClientSettings .k-numerictextbox {
+    width: 200px;
+}
+
+.pageWebClientSettings .k-numerictextbox .k-input[data-role="numerictextbox"] {
+    display: inline-block !important;
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 1px !important;
+    height: 100%;
+    opacity: 0;
+}
+
+.pageWebClientSettings .k-numerictextbox .k-state-focused .k-input[data-role="numerictextbox"] {
+    position: relative;
+    width: 100% !important;
+    height: 1.65em !important;
+    opacity: 1;
+}
+
+.pageWebClientSettings .contentSectionInfoItem > p {
+    max-width: 250px;
+    min-height: 30px;
+}
+
+.pageWebClientSettings .contentSectionInfoItem > p .btnInfo {
+    position: absolute;
+    right: 0;
+    top: 2px;
+    margin: 0 1px;
+    padding-top: 3px;
+    padding-bottom: 1px;
+    padding-right: 15px !important;
+}
+
+.pageWebClientSettings .contentSectionInfoItem > p .btnInfo:after {
+    right: -10px;
+    background-image: url(../images/icons/icon_info_small.png);
+}
+
+/* .pageSystemSettings
+================================== */
+.pageSystemSettings .k-numerictextbox,
+.pageSystemSettings input[type="text"],
+.pageSystemSettings input[type="password"] {
+    width: 260px;
+}
+
+.pageSystemSettings .contentSectionInfoItem > label {
+    line-height: normal;
+    margin-top: 5px;
+}
+
+.pageSystemSettings .contentSectionInfoItem > p {
+    max-width: 300px;
+    min-height: 30px;
+}
+
+.pageSystemSettings .infoApplicationServerUrl > p {
+    line-height: 30px;
+}
+
+.pageSystemSettings .contentSectionInfoItem p > label {
+    display: inline-block;
+    margin-top: 4px;
+}
+
+.pageSystemSettings .contentSectionInfoItem > p .btnInfo {
+    position: absolute;
+    right: 0;
+    top: 2px;
+    margin: 0 1px;
+    padding-top: 3px;
+    padding-bottom: 1px;
+    padding-right: 15px !important;
+}
+
+.pageSystemSettings .contentSectionInfoItem > p .btnInfo:after {
+    right: -10px;
+    background-image: url(../images/icons/icon_info_small.png);
+}
+
+.pageSystemSettings div.tagsinput input {
+    width: 95px;
+}
+
+.pageSystemSettings .k-multiselect {
+    min-width: 0;
+}
+
+.pageSystemSettings .k-numerictextbox .k-input[data-role="numerictextbox"] {
+    display: inline-block !important;
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 1px !important;
+    height: 100%;
+    opacity: 0;
+}
+
+.pageSystemSettings .k-numerictextbox .k-state-focused .k-input[data-role="numerictextbox"] {
+    position: relative;
+    width: 100% !important;
+    height: 1.65em !important;
+    opacity: 1;
+}
+
+#TestEmailPopup .contentSectionInfoItem > label {
+    width: 100px;
+}
+
+#TestEmailPopup .contentSectionInfoItem > p {
+    margin-left: 120px;
+}
+
+#TestEmailPopup .contentSectionInfoItem > p input {
+    min-width: 228px;
+}
+
+#TestEmailResult h3 {
+    font-size: 14px;
+}
+
+/* .pageLanguages
+================================== */
+.contentSectionGridLanguages .gridContainer {
+    width: 350px;
+}
+
+.contentSectionGridLanguages .k-grid-content tr {
+    height: 31px;
+}
+
+/* .pageCustomIcons
+================================== */
+.pageCustomIcons .preview {
+    vertical-align: middle;
+    width: 16px;
+    height: 16px;
+    border: 1px solid transparent;
+    filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(sizingMethod=scale);
+}
+
+.pageCustomIcons .editRow .preview,
+.pageCustomIcons .newRow .preview {
+    border-color: #333;
+}
+
+.pageCustomIcons .previewLarger {
+    width: 32px;
+    height: 32px;
+}
+
+.pageCustomIcons .gridContainer .k-upload {
+    display: none;
+    vertical-align: middle;
+}
+
+.pageCustomIcons .editRow .k-upload,
+.pageCustomIcons .newRow .k-upload {
+    display: inline-block;
+}
+
+.pageCustomIcons .contentSectionGrid {
+    margin-bottom: 0;
+}
+
+.pageCustomIcons .gridContainer .k-upload .btn {
+    border: 0;
+    background: none;
+    box-shadow: none;
+    text-shadow: none;
+    text-decoration: underline;
+    padding: 0;
+    margin: 0;
+    color: #082F56;
+    font-weight: normal;
+    height: auto;
+}
+
+.pageCustomIcons .gridContainer .k-upload .btn:hover {
+    /*display: none;*/
+}
+
+.pageCustomIcons .gridContainer .k-upload .btn > span {
+    text-indent: 0;
+    float: right;
+    text-decoration: underline;
+}
+
+.pageCustomIcons .gridContainer .editRow .btnGroupInner .btnEdit,
+.pageCustomIcons .gridContainer .btnGroupInner .btnCancel {
+    display: none;
+}
+
+.pageCustomIcons .gridContainer .btnGroupInner .btnEdit,
+.pageCustomIcons .gridContainer .editRow .btnGroupInner .btnCancel {
+    display: block;
+}
+
+#FieldCategoryGrid .k-grid-content tr {
+    height: 42px !important;
+}
+
+/* .pageBusinessProcesses
+================================== */
+.pageBusinessProcesses .contentSectionInfo h2 {
+    font-size: 20px;
+}
+
+.pageBusinessProcesses .contentSectionInfoItem {
+    margin-bottom: 10px;
+}
+
+.pageBusinessProcesses .contentSectionInfoItem .icon {
+    top: -3px;
+}
+
+.pageBusinessProcesses .contentSectionInfoItem p > label {
+    font-weight: normal;
+}
+
+.pageBusinessProcesses .columnSwitchLanguage {
+    vertical-align: top;
+    height: 29px;
+}
+
+.pageBusinessProcesses .columnSwitchLanguageInner {
+    position: relative;
+    width: 99%;
+    height: 100%;
+}
+
+.pageBusinessProcesses .columnSwitchLanguage select {
+    position: absolute;
+    width: 100%;
+    height: 29px;
+    left: 0;
+    top: 0;
+    opacity: 0;
+    z-index: 2;
+}
+
+.pageBusinessProcesses .columnSwitchLanguage input {
+    position: absolute;
+    z-index: 1;
+    width: 100%;
+    left: 0;
+    top: 0;
+    z-index: 1;
+}
+
+.pageBusinessProcesses #BusinessProcessesCategoryGrid tbody td {
+    height: 29px;
+}
+
+/* .pagePackages
+================================== */
+.pagePackages .contentSectionGrid .gridToolbarFilter {
+    margin-bottom: 25px;
+}
+
+.pagePackages .contentSectionGrid .gridToolbarFilterPackageType {
+    position: absolute;
+    right: 0;
+    top: 25px;
+    width: 100%;
+}
+
+.pagePackages .contentSectionGrid .gridToolbarFilterPackageType > label {
+    margin-left: 10px;
+}
+
+.pagePackages .contentSectionGrid .btnInfo:after {
+    right: -10px;
+    background-image: url(../images/icons/icon_info_small.png);
+}
+
+.pagePackages .contentSectionGrid .btnSetActive,
+.pagePackages .contentSectionGrid .btnSetInactive,
+.pagePackages .contentSectionGrid .btnAbort {
+    text-indent: 0;
+}
+
+.pagePackages .field.fieldFile {
+    display: inline-block;
+}
+
+#popupPackageErrorMessage {
+    padding: 0;
+}
+
+#popupPackageErrorMessage .gridContainer {
+    margin-bottom: 0;
+}
+
+form#ImportPackageForm .contentSectionInfoItem p {
+    margin-left: 0;
+}
+
+form#ExportPackageForm .packageModel p {
+    margin-left: 0;
+}
+
+form#ExportPackageForm .packageModel label {
+    float: left;
+    padding-bottom: 10px;
+}
+
+form#ExportPackageForm .packageModel label .text {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    display: inline-block;
+    width: 100px;
+}
+
+form#ExportPackageForm .packageFilter p {
+    margin-left: 0;
+    margin-bottom: 15px;
+}
+
+form#ExportPackageForm .packageFilter .itemExportSelectorContainer {
+    width: 25%;
+}
+
+form#ExportPackageForm .packageFilter .innerCheckbox {
+    left: 22px;
+}
+
+form#ExportPackageForm .packageFilter .tooltip {
+    position: absolute;
+    left: 250px;
+}
+
+form#ExportPackageForm .packageFilter .tooltip a {
+    position: absolute;
+    right: 0;
+    top: -5px;
+    margin: 0 1px;
+    padding-top: 3px;
+    padding-bottom: 1px;
+    padding-right: 15px !important;
+}
+
+form#ExportPackageForm .packageFilter .tooltip a::after {
+    right: -10px;
+    background-image: url(../images/icons/icon_info_small.png);
+}
+
+form#ExportPackageForm .packageInfo label {
+    width: 50px;
+    margin-top: 5px;
+}
+
+form#ExportPackageForm .packageInfo p {
+    margin-left: 85px;
+    margin-bottom: 8px;
+}
+
+form#ExportPackageForm .packageInfo input {
+    width: 100%;
+}
+
+form#ExportPackageForm .packageInfo textarea {
+    width: 100%;
+    resize: none;
+    box-sizing: border-box;
+}
+
+form#ExportPackageForm .packageInfo .packageId {
+    width: 65%;
+    float: left;
+    padding-right: 10%;
+}
+
+form#ExportPackageForm .packageInfo .packageVersion {
+    width: 25%;
+}
+
+form#ExportPackageForm .packageInfo .packageVersion input {
+    width: 50px;
+    min-width: 100%;
+}
+
+/* .pageWelcome
+================================== */
+#pageToolbarButton .btnGenerateThumbnails > i {
+    position: absolute;
+    right: -3px;
+    top: -5px;
+    font-style: normal;
+    border-radius: 2px;
+    background-color: #DA1717;
+    color: #fff;
+    font-weight: bold;
+    font-size: 10px;
+    padding: 0 2px;
+    box-shadow: 1px 1px 1px #333;
+    min-width: 10px;
+    text-align: center;
+    line-height: normal;
+}
+
+.pageWelcome .contentSection {
+    border-width: 0;
+    padding: 5px;
+    border: 2px dashed #eee;
+}
+
+.pageWelcome .contentSection h2 {
+    font-size: 14px;
+    margin-bottom: 5px;
+}
+
+.pageWelcome .contentSection .k-raw-content {
+    display: block !important;
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 1px;
+    height: 1px;
+    opacity: 0;
+    z-index: 1001;
+}
+
+.pageWelcome .contentSectionInfo {
+    border-color: transparent;
+    padding-bottom: 0;
+}
+
+.pageWelcome .contentSectionInfoItem > label {
+    width: 100px;
+}
+
+.pageWelcome .contentSectionInfoItem > p {
+    margin-left: 120px;
+}
+
+.contentSectionWelcomeLogo {
+    float: right;
+    width: 230px;
+}
+
+.contentSectionWelcomeLogoItem {
+    position: relative;
+    margin-bottom: 10px;
+    margin-right: 5px;
+}
+
+.contentSectionWelcomeLogoItem > img {
+    border: 2px solid #eee;
+    min-height: 50px;
+}
+
+.contentSectionWelcomeLogoItem .k-upload {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    border: 2px solid transparent;
+    z-index: 2;
+}
+
+.contentSectionWelcomeLogoItem .k-upload-button {
+    width: 100%;
+    height: 100%;
+}
+
+.contentSectionWelcomeDetail1 {
+    margin-right: 250px;
+}
+
+.contentSectionWelcomeDetail1Item {
+    position: relative;
+}
+
+.contentSectionWelcomeMovie {
+    margin-right: 250px;
+}
+
+.contentSectionWelcomeMovie h4 {
+    font-size: 12px;
+    margin-bottom: 10px;
+}
+
+.contentSectionWelcomeMovieItem,
+.contentSectionWelcomeMovieItem p {
+    margin-bottom: 10px;
+}
+
+.contentSectionWelcomeMoviePreview {
+    background-color: #eee;
+    min-height: 180px;
+}
+
+.contentSectionWelcomeMovieItem .k-dropdown {
+    width: 100%;
+}
+
+.contentSectionWelcomeMovieItem p > label {
+    width: 60px;
+    display: inline-block;
+}
+
+.contentSectionWelcomeMovieItem p > input {
+    width: 180px;
+}
+
+.contentSectionWelcomeDetail2 {
+    /*margin-left: 290px;*/
+    margin-right: 250px;
+}
+
+.contentSectionWelcomeDetail2 .details2Title {
+    width: 99.8%;
+    padding-left: 0;
+    padding-right: 0;
+    text-indent: 5px;
+}
+
+.contentSectionWelcomeDetail2Item {
+    position: relative;
+}
+
+.contentSectionWelcomeDetail2Item,
+.contentSectionWelcomeDetail2Item p {
+    margin-bottom: 10px;
+}
+
+.contentSectionWelcomeDetail2Item p > label {
+    margin-right: 10px;
+    display: inline-block;
+}
+
+.contentSectionWelcomeDetail2Item p > .k-widget {
+    width: 120px !important;
+}
+
+/* .pageOVerview
+================================== */
+.contentSectionAllModel {
+    overflow: hidden;
+    margin-left: -8px;
+    margin-bottom: 0;
+}
+
+.modelOverviewItem {
+    vertical-align: top;
+    display: inline-block;
+    position: relative;
+    width: 300px;
+    min-height: 380px;
+    margin-left: 8px;
+    margin-bottom: 15px;
+    padding-bottom: 60px;
+    border: 1px solid #a3a3a3;
+}
+
+.mainContainerFull .modelOverviewItem {
+    width: 300px;
+}
+
+.modelOverviewItem:after {
+    content: '';
+    background: transparent url(../images/shadow_bg.png) right top no-repeat;
+    position: absolute;
+    left: 0;
+    bottom: -9px;
+    width: 100%;
+    height: 8px;
+}
+
+.modelOverviewItem h2 {
+    color: #fff;
+    font-size: 16px;
+    padding: 10px;
+    margin-bottom: 10px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.modelOverviewItem h2 span {
+    font-weight: normal;
+    font-size: 12px;
+}
+
+.modelOverviewItemUp h2 {
+    background-color: #106501;
+}
+
+.modelOverviewItemLoading h2 {
+    background-color: #cf8101;
+}
+
+.modelOverviewItemDown h2 {
+    background-color: #be0206;
+}
+
+.modelOverviewItemExtract h2 {
+    background-color: #cf8101;
+}
+
+.modelOverviewItemNoModelServer h2 {
+    background-color: #CCC;
+}
+
+.modelOverviewItem .modelInfoStatusReport {
+    padding-top: 6px;
+    margin: 0 10px 10px 10px;
+}
+
+.modelOverviewItem .modelInfoStatusReport .description {
+    font-weight: bold;
+    font-size: 13px;
+}
+
+.modelOverviewItemDetail {
+    margin: 0 10px 15px 10px;
+}
+
+.modelOverviewItemDetailItem {
+    overflow: hidden;
+}
+
+.modelOverviewItemDetailItem label {
+    float: left;
+    width: 65%;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    box-sizing: border-box;
+}
+
+.modelOverviewItemDetailItem span {
+    float: right;
+    text-align: right;
+    width: 35%;
+}
+
+.modelOverviewItemDetailItem span.modelStatus {
+    float: left;
+    height: 12px;
+    width: 12px;
+    margin-top: 2px;
+    margin-right: 6px;
+}
+
+.modelOverviewItemDetailItem .noLicense {
+    color: #be0206;
+}
+
+.modelOverviewItemDetailItem .licensed {
+    color: #106501;
+}
+
+.modelOverviewItem .btnOpenModel,
+.modelOverviewItem .btnOpenLogs {
+    position: absolute;
+    left: 10px;
+    bottom: 20px;
+}
+.modelOverviewItem .btnOpenLogs {
+    left: auto;
+    right: 0;
+}
+@media (max-width: 979px) {
+    .modelOverviewItem .btnOpenModel,
+    .modelOverviewItem .btnOpenLogs {
+        padding-right: 12px !important;
+    }
+    .modelOverviewItem .btnOpenModel:after,
+    .modelOverviewItem .btnOpenLogs:after {
+        display: none;
+    }
+}
+
+.contentSectionMenu {
+    overflow: hidden;
+    border-bottom: 0;
+    margin-bottom: 0;
+    padding-bottom: 0;
+}
+
+.menuItemContainer {
+    margin-left: -21px;
+}
+
+.menuItem {
+    margin-left: 10px;
+    padding-left: 10px;
+    float: left;
+    width: 234px;
+    height: 161px;
+    border-left: 1px dotted #bbb;
+}
+
+.mainContainerFull .menuItem {
+    width: 294px;
+}
+
+.menuItem h2 {
+    background-color: #E2E2E2;
+    line-height: 40px;
+    margin-top: 0;
+    font-size: 18px;
+    font-weight: normal;
+}
+
+.menuItem .icon {
+    float: left;
+    background: transparent none left center no-repeat;
+    width: 51px;
+    height: 40px;
+}
+
+.menuItemGlobalSettings .icon {
+    background-image: url(../images/menu_globalsettings.png);
+}
+
+.menuItemUsers .icon {
+    background-image: url(../images/menu_users.png);
+}
+
+.menuItemRoles .icon {
+    background-image: url(../images/menu_roles.png);
+}
+
+.menuItemLabels .icon {
+    background-image: url(../images/menu_labels.png);
+}
+
+.menuItemContent .icon {
+    background-image: url(../images/menu_content.png);
+}
+
+.menuItemAutomated .icon {
+    background-image: url(../images/menu_automated.png);
+}
+
+.menuItem ul {
+    margin-left: 55px;
+    color: #0073B6;
+    font-size: 13px;
+}
+
+.menuItem li {
+    line-height: 16px;
+}
+
+.menuItem a {
+    color: inherit;
+}
+
+.menuItem a:hover {
+    text-decoration: underline;
+}
+
+/* .pageModelInfo
+================================== */
+.pageModelInfo {
+    overflow: hidden;
+}
+
+.modelStatus {
+    display: inline-block;
+    background-color: transparent;
+    box-shadow: inset -5px -5px 15px 0 rgba(0, 0, 0, .4);
+}
+
+.statusUp {
+    background-color: #0d650a;
+}
+
+.statusLoading {
+    background-color: #cf800c;
+}
+
+.statusDown {
+    background-color: #be0206;
+}
+
+.statusExtract {
+    background: #cf800c url(../images/model_status_bg.png) left top repeat;
+    box-shadow: none;
+}
+
+.statusRestructure {
+    background: #959591 url(../images/model_status_bg.png) left top repeat;
+    box-shadow: none;
+}
+
+.statusUnknown {
+    background: #000 url(../images/model_status_bg.png) left top repeat;
+    box-shadow: none;
+}
+
+.modelInfoColumn1 {
+    float: left;
+    width: 300px;
+}
+
+.modelInfoColumn2 {
+    overflow: hidden;
+    margin-left: 309px;
+}
+
+.no-touch.safari .modelInfoColumn2 {
+    -webkit-margin-start: 0 !important; /* NOSONAR: safari bug */
+    padding-left: 9px;
+}
+
+.modelInfo {
+    background-color: #ededed;
+    padding: 20px 10px 20px 20px;
+    margin-bottom: 20px;
+}
+
+.modelInfo h3 {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    max-width: 250px;
+    display: inline-block;
+}
+
+.modelInfo .btn {
+    margin-top: 20px;
+}
+
+.modelInfo .btnInfo {
+    margin-top: -2px;
+    background: transparent url(../images/icons/icon_info_small.png) center center no-repeat;
+    display: inline-block;
+    width: 16px;
+    height: 16px;
+    vertical-align: top;
+    margin-top: 1px;
+}
+
+.modelInfoStatus .k-loading-mask {
+    left: 18px;
+    top: 18px;
+}
+
+.modelInfoStatusReport {
+    min-height: 50px;
+    padding-left: 60px;
+    margin-bottom: 20px;
+    background: transparent none left 3px no-repeat;
+}
+
+.modelInfoStatusReport strong {
+    font-size: 21px;
+    line-height: 23px;
+    display: block;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+.modelInfoStatusReport .description {
+    font-size: 11px;
+    line-height: 1.2;
+    margin-top: 2px;
+}
+
+.modelInfoStatusReport .description .noLicense {
+    color: #be0206;
+    font-weight: bold;
+}
+
+.modelInfoStatusReport .description .licensed {
+    color: #106501;
+    font-weight: bold;
+}
+
+.modelInfoStatusUp {
+    background-image: url(../images/icons/icon_status_up.png);
+}
+
+.modelInfoStatusUp strong {
+    color: #106501;
+}
+
+.modelInfoStatusDown {
+    background-image: url(../images/icons/icon_status_down.png);
+}
+
+.modelInfoStatusDown strong {
+    color: #be0206;
+}
+
+.modelInfoStatusLoading {
+    background-image: url(../images/icons/icon_status_load.png);
+}
+
+.modelInfoStatusLoading strong {
+    color: #cf8101;
+}
+
+.modelInfoStatusExtract {
+    background-image: url(../images/icons/icon_status_extracting.png);
+}
+
+.modelInfoStatusExtract strong {
+    color: #cf8101;
+}
+
+.modelInfoStatusGraphContainer {
+    cursor: pointer;
+}
+
+.modelInfoStatusGraphItem {
+    margin-top: 8px;
+    overflow: hidden;
+}
+
+.modelInfoStatusGraphItem strong {
+    display: block;
+    font-weight: normal;
+    margin-left: 30px;
+    overflow: hidden;
+    white-space: nowrap;
+}
+
+.modelCurrentInstanceInfoStatusGraph strong {
+    display: block;
+    font-weight: bold !important;
+    margin-left: 30px;
+    overflow: hidden;
+    white-space: nowrap;
+}
+
+.modelInfoStatusGraph {
+    margin-left: 30px;
+    width: 300px;
+    height: 31px;
+    line-height: 31px;
+    overflow: hidden;
+    background-color: #ddd;
+    text-indent: 15px;
+    font-style: italic;
+    color: #777;
+}
+
+.modelInfoStatusGraph .modelStatus {
+    position: relative;
+    float: left;
+    height: 100%;
+    box-shadow: none;
+    left: 0;
+    transition: all .5s ease-in-out;
+}
+
+.modelInfoStatusGraph.loadingGraph .modelStatus {
+    -webkit-transform: translate(250px,0);
+    -moz-transform: translate(250px,0);
+    -o-transform: translate(250px,0);
+    -ms-transform: translate(250px,0);
+    transform: translate(250px,0);
+}
+
+.modelInfoStatusGraphScale {
+    position: relative;
+    color: #747474;
+    padding-top: 12px;
+    background: transparent url(../images/model_ruler_bg.png) left top repeat-x;
+    margin-left: 30px;
+    margin-bottom: 5px;
+}
+
+.modelInfoStatusGraphScale .scaleLabel {
+    position: absolute;
+    left: -30px;
+    top: 12px;
+    white-space: nowrap;
+}
+
+.modelInfoStatusGraphScale .scaleValue {
+    float: left;
+    text-align: right;
+    width: 33.3%;
+}
+
+.modelInfoStatusGraphScale .scaleValue:first-child {
+    text-align: left;
+    width: 33.4%;
+}
+
+.modelInfoStatusGraphMeaning {
+    overflow: hidden;
+    margin-left: 23px;
+}
+
+.modelInfoStatusGraphMeaningItem {
+    float: left;
+    min-width: 70px;
+    margin-left: 7px;
+    margin-bottom: 2px;
+    line-height: 17px;
+    font-weight: bold;
+}
+
+.modelInfoStatusGraphMeaningItem .modelStatus {
+    float: left;
+    width: 17px;
+    height: 17px;
+    margin-right: 5px;
+}
+
+.modelInfoItem label {
+    float: left;
+    font-weight: bold;
+    width: 105px;
+}
+
+.modelInfoInstance .modelInfoItemStatus {
+    overflow: hidden;
+    margin-bottom: 4px;
+}
+
+.modelInfoInstance .modelInfoItemStatus a {
+    position: relative;
+    color: #016896;
+    font-weight: bold;
+    padding-left: 16px;
+    padding-right: 10px;
+}
+.modelInfoInstance .modelInfoItemStatus a:hover {
+    color: #016896;
+    text-decoration: underline;
+}
+
+.modelInfoInstance .modelInfoItemUri label {
+    width: 100%;
+    float: none;
+    display: block;
+    line-height: 1.2;
+}
+
+.modelInfoInstance .modelInfoItemUri .value {
+    margin-left: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.modelInfoColumn2 .modelInfoItem {
+    overflow: hidden;
+}
+
+.modelInfoColumn2 .modelInfoItem label {
+    width: 150px;
+}
+
+.modelInfoColumn2 .modelInfoItem .value {
+    margin-left: 155px;
+}
+
+.modelInfoItem .value {
+    margin-left: 110px;
+    min-height: 20px;
+    position: relative;
+}
+
+.modelInfoInstance .modelStatus {
+    position: absolute;
+    width: 12px;
+    height: 12px;
+    left: 0;
+    top: 50%;
+    margin-top: -6px;
+}
+
+.modelInfoOptionsGroup h4 {
+    font-size: 16px;
+    font-weight: normal;
+    color: #535353;
+}
+
+.modelInfoOptionsGroup a.modelInfoOptionsItem {
+    position: relative;
+    display: block;
+    float: left;
+    text-align: center;
+    color: #0b61a1;
+    margin-right: 3px;
+    margin-bottom: 20px;
+    padding: 16px 0 0 0;
+    width: 96px;
+    height: 75px;
+    border: 1px solid #b9b9b9;
+    border-top-color: #959590;
+    border-top-width: 7px;
+    border-radius: 5px;
+    background: #ffffff;
+    background: linear-gradient(to bottom, #ffffff 0%,#d3d3d3 100%);
+    transition: all .3s ease-in-out;
+}
+
+.modelInfoOptionsGroup a.modelInfoOptionsItem:hover {
+    box-shadow: 0 0 8px 0 #777;
+}
+
+.modelInfoOptionsGroup a.settingStatusOK {
+    border-top-color: #0d650a;
+}
+
+.modelInfoOptionsGroup a.settingStatusError {
+    border-top-color: #be0206;
+}
+
+.modelInfoOptionsGroup a.settingStatusS {
+    border-top-color: #0e75ba;
+}
+
+.modelInfoOptionsGroup a.modelInfoOptionsItem:before {
+    content: '';
+    background: transparent none center top no-repeat;
+    position: absolute;
+    left: 0;
+    bottom: 14px;
+    width: 100%;
+    height: 23px;
+}
+
+.modelInfoOptionsGroup a.settingStatusOK:before {
+    background-image: url(../images/icons/icon_option_ok.png);
+}
+
+.modelInfoOptionsGroup a.settingStatusError:before {
+    background-image: url(../images/icons/icon_option_error.png);
+}
+
+.modelInfoOptionsGroup a.settingStatusS:before {
+    background-image: url(../images/icons/icon_option_s.png);
+}
+
+.modelInfoOptionsGroup a.modelInfoOptionsItem:after {
+    content: '';
+    background: transparent url(../images/shadow_bg.png) right top no-repeat;
+    position: absolute;
+    left: 0;
+    bottom: -9px;
+    width: 100%;
+    height: 8px;
+}
+
+#popupEventsLogTable {
+    padding: 0;
+    overflow: hidden;
+}
+
+#popupEventsLogTable .gridContainer {
+    margin-bottom: 0;
+}
+
+/* .pageLicense
+================================== */
+.pageLicense .uploadLicenseFile {
+    position: absolute;
+    left: 237px;
+    top: 12px;
+    z-index: 10;
+}
+
+.pageLicense .contentSectionInfoItem {
+    margin-bottom: 10px;
+}
+
+.pageLicense .contentSectionInfoItem p > label {
+    font-weight: normal;
+}
+
+.pageLicense .iconValid,
+.pageLicense .iconWarning,
+.pageLicense .iconError {
+    background: transparent none center center no-repeat;
+    display: inline-block;
+    width: 25px;
+    height: 16px;
+}
+
+.pageLicense .iconValid {
+    background-image: url(../images/icons/icon_check.gif);
+}
+
+.pageLicense .iconWarning {
+    background-image: url(../images/icons/icon_warning.gif);
+}
+
+.pageLicense .iconError {
+    background-image: url(../images/icons/icon_error.gif);
+}
+
+/* .pageSystemRoles
+================================== */
+#SystemRolesGrid .btnInfo:after {
+    background-image: url(../images/icons/icon_open_in_new.png);
+}
+
+#formAccessManagementConsole .contentSectionInfoItem > p {
+    max-width: 270px;
+    min-height: 30px;
+}
+
+#formAccessManagementConsole .contentSectionInfoItem > p .btnInfo {
+    position: absolute;
+    right: 0;
+    top: 0;
+    margin: 0 1px;
+    padding-top: 3px;
+    padding-bottom: 1px;
+    padding-right: 15px !important;
+}
+
+#formAccessManagementConsole .contentSectionInfoItem > p .btnInfo:after {
+    right: -10px;
+    background-image: url(../images/icons/icon_info_small.png);
+}
+
+#formAccessManagementConsole .contentSectionInfoItem > label {
+    line-height: 30px;
+}
+
+#formAccessManagementConsole .contentSectionInfoItem p > label {
+    display: inline-block;
+    margin-top: 4px;
+}
+
+/* .pageAllModelServer
+================================== */
+.pageAllModelServer .contentSectionGrid .btnInfo:after {
+    right: -10px;
+    background-image: url(../images/icons/icon_info_small.png);
+}
+
+.pageAllModelServer .currentInstance, .currentInstance {
+    background: transparent url(../images/icons/icon_check.gif) left -1px no-repeat;
+    padding-left: 18px;
+    line-height: 16px;
+    display: inline-block;
+}
+
+#popupModelServer {
+    overflow: hidden !important;
+    padding: 0 !important;
+}
+
+#popupModelServer.k-window-content,
+#popupTestExtraction.k-window-content {
+    padding-bottom: 0;
+}
+
+#popupModelServer.k-window-content .popupToolbar {
+    display: none;
+}
+
+#popupModelServer_wnd_title {
+    margin-right: 36px;
+}
+
+#ModelServerInfo {
+    position: relative;
+    height: 100%;
+    background-color: transparent;
+}
+
+#ModelServerInfoDataError {
+    padding: 10px;
+}
+
+.popupError #ModelServerInfo {
+    background-position: 15px 8px;
+}
+
+#ModelServerInfo.compact .k-splitbar {
+    display: none;
+}
+
+#ModelServerData .k-treeview {
+    overflow: visible;
+}
+
+#ModelServerData .k-treeview .k-item,
+#ModelServerData .k-treeview .k-in {
+    cursor: pointer;
+    position: relative;
+}
+
+#ModelServerData .k-plus,
+#ModelServerData .k-minus {
+    position: absolute;
+    left: 18px;
+    top: 0;
+}
+
+#ModelServerData .k-item .k-in {
+    display: block;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
+
+#ModelServerData .k-treeview .k-in:hover {
+    color: #082f56;
+}
+
+#ModelServerData .k-item .k-item .k-state-selected {
+    color: #082f56;
+    background-color: orange;
+}
+
+#ModelServerData .k-treeview,
+#ModelServerInfoData,
+#ReportSection .tab {
+    margin: 10px;
+}
+
+#ServerStatusMenu {
+    margin-right: 0 !important;
+}
+
+#ReportSection.popupError {
+    padding: 10px;
+}
+
+.compact #ReportSection.popupError {
+    padding-left: 0 !important;
+}
+
+#ReportSection td .k-progressbar {
+    width: 100%;
+}
+
+#ReportSection .contentSectionInfoModelServer {
+    margin-bottom: 10px;
+}
+
+#ReportSection .tab .k-grid td {
+    white-space: nowrap;
+}
+
+#ReportSection .newWindow {
+    float: right;
+    width: 16px;
+    height: 16px;
+    background: transparent url(../images/icons/icon_popup.png) center center no-repeat no-repeat;
+    position: relative;
+    right: -4px;
+    top: 5px;
+    cursor: pointer;
+}
+
+#ReportSection > div.gridToolbar.gridToolbarTop {
+    margin: 15px 10px 15px 0;
+    float: none;
+}
+
+.popupContent .btnAbort {
+    position: absolute;
+    right: 5px;
+    top: 10px;
+}
+
+.contentSectionInfoModelServer h2 {
+    margin-bottom: 5px;
+    font-size: 14px;
+    line-height: 16px;
+}
+
+.contentSectionInfoModelServer .k-grid-header {
+    padding-right: 0 !important;
+}
+
+.contentSectionInfoModelServer .k-grid-content {
+    overflow-y: hidden;
+}
+
+/* .pageCommunications
+================================== */
+
+/* .pageModelContentParameters
+================================== */
+.pageModelContentParameters .contentSectionInfoItem > label,
+.pageModelContentParameters .contentSectionInfoSubItem > label {
+    width: 265px;
+}
+
+.pageModelContentParameters .contentSectionInfoItem > p,
+.pageModelContentParameters .contentSectionInfoSubItem > p {
+    max-width: 320px;
+    min-height: 30px;
+    margin-left: 325px;
+}
+
+.pageModelContentParameters .contentSectionInfoItem > p .btnInfo,
+.pageModelContentParameters .contentSectionInfoSubItem > p .btnInfo {
+    position: absolute;
+    right: 0;
+    top: 0;
+    margin: 0 1px;
+    padding-top: 3px;
+    padding-bottom: 1px;
+    padding-right: 15px !important;
+}
+
+.pageModelContentParameters .contentSectionInfoItem > p .btnInfo:after,
+.pageModelContentParameters .contentSectionInfoSubItem > p .btnInfo:after {
+    right: -10px;
+    background-image: url(../images/icons/icon_info_small.png);
+}
+
+.pageModelContentParameters .contentSectionInfoItem .k-datepicker,
+.pageModelContentParameters .contentSectionInfoSubItem .k-datepicker {
+    width: 285px;
+}
+
+.pageModelContentParameters .k-dropdown {
+    width: 285px;
+}
+
+.pageModelContentParameters .k-numeric-wrap {
+    width: 260px;
+}
+
+.pageModelContentParameters .contentSectionInfoItem p > input[type="text"],
+.pageModelContentParameters .contentSectionInfoItem p > input[type="password"] {
+    min-width: 285px;
+}
+
+/* .pageModelEdit
+================================== */
+.pageModelEdit .contentSectionInfoItem p {
+    font-weight: normal;
+    margin-bottom: 8px;
+}
+
+.pageModelEdit .contentSectionInfoItem p .value {
+    font-size: 16px;
+}
+
+.pageModelEdit .contentSectionInfoItem p input[type="text"] {
+    width: 200px;
+}
+
+/* .pageAngleWarnings
+================================== */
+#FormSearchAngleWarnings .contentSectionInfoItem > p {
+    margin-left: 0;
+}
+
+#AngleWarningSearchResults {
+    min-height: 200px;
+}
+
+#AngleWarningsSummaryContainer .contentSectionInfoItem > p > span:first-child {
+    display: inline-block;
+    width: 50px;
+    text-align: right;
+    margin-right: 10px;
+}
+
+#TreeListAngleWarnings span.warning,
+#TreeListAngleWarnings span.error {
+    display: inline-block;
+    width: 16px;
+    height: 16px;
+    background: transparent none center center no-repeat;
+    position: relative;
+    top: 3px;
+    margin-right: 5px;
+}
+
+#TreeListAngleWarnings span.warning {
+    background-image: url(../images/icons/icon_angle_warning.png);
+}
+
+#TreeListAngleWarnings span.error {
+    background-image: url(../images/icons/icon_angle_error.png);
+}
+
+#TreeListAngleWarnings .angleLink {
+    position: relative;
+    top: 1px;
+    left: -7px;
+    font-weight: bold;
+}
+
+#TreeListAngleWarnings a.angleLink {
+    color: #428bca;
+    text-decoration: underline;
+}
+
+#TreeListAngleWarnings .k-dropdown,
+#TreeListAngleWarnings input[type="text"] {
+    width: 110px;
+    margin-right: 5px;
+}
+
+#TreeListAngleWarnings input[type="text"] {
+    height: 14px;
+}
+
+#TreeListAngleWarnings .iconChecked {
+    background-image: url(../images/icons/icon_check.gif);
+}
+
+#TreeListAngleWarnings .btnExecuteAction {
+    height: 18px;
+    margin-right: 0;
+    top: 1px;
+}
+
+#TreeListAngleWarnings .itemType {
+    padding-left: 22px;
+    line-height: 18px;
+    background: transparent url(../images/icons/icon_items.png) 0 0 no-repeat;
+}
+
+#TreeListAngleWarnings [type="checkbox"] + .label:before,
+#TreeListAngleWarnings [type="checkbox"] + .label:after {
+    top: 1px !important;
+}
+
+#TreeListAngleWarnings .itemType.label:before,
+#TreeListAngleWarnings .itemType.label:after {
+    top: 2px !important;
+}
+
+#TreeListAngleWarnings .label {
+    display: inline;
+    padding-top: 3px;
+    padding-bottom: 3px;
+}
+
+#TreeListAngleWarnings .itemType.angle {
+    background-position: 0 0;
+}
+
+#TreeListAngleWarnings .itemType.template {
+    background-position: 0 -19px;
+}
+
+#TreeListAngleWarnings .itemType.list {
+    background-position: 0 -39px;
+}
+
+#TreeListAngleWarnings .itemType.chart {
+    background-position: 0 -61px;
+}
+
+#TreeListAngleWarnings .itemType.pivot {
+    background-position: 0 -82px;
+}
+
+.angleWarningConfirm {
+    border-top: 1px solid #ccc;
+    padding-top: 15px;
+    margin-top: 15px;
+}
+
+.angleWarningConfirm:first-child {
+    border-top: 0;
+    margin-top: 0;
+    padding-top: 0;
+}
+
+.angleWarningConfirm > p {
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.angleWarningConfirmItem {
+    position: relative;
+    line-height: 24px;
+    padding-left: 35px;
+    border: 1px solid #c5c5c5;
+    border-top-width: 0;
+}
+
+.angleWarningConfirmItem.first {
+    border-top-width: 1px;
+}
+
+.angleWarningConfirmItem:before {
+    content: '';
+    position: absolute;
+    left: 5px;
+    top: 50%;
+    margin-top: -9px;
+    width: 18px;
+    height: 18px;
+    background: transparent url(../images/icons/icon_items.png) 5px 0 no-repeat;
+}
+
+.angleWarningConfirmItem.angle:before {
+    background-position: 0 0;
+}
+
+.angleWarningConfirmItem.template:before {
+    background-position: 0 -19px;
+}
+
+.angleWarningConfirmItem.list:before {
+    background-position: 0 -39px;
+}
+
+.angleWarningConfirmItem.chart:before {
+    background-position: 0 -61px;
+}
+
+.angleWarningConfirmItem.pivot:before {
+    background-position: 0 -82px;
+}
+
+.angleWarningConfirmItem:after {
+    content: '';
+    position: absolute;
+    left: 28px;
+    top: 0;
+    width: 1px;
+    height: 100%;
+    background-color: #c5c5c5;
+}
+
+.pageAngleWarnings .btnExecuteAction {
+    margin-right: 0;
+}
+
+/* .pageModules
+================================== */
+.pageModules .contentSectionGrid {
+    margin-bottom: 0;
+}
+
+.pageModules .gridToolbarFilter input {
+    width: 200px;
+}
+
+.pageModules .k-treelist .warning {
+    position: absolute;
+    right: 10px;
+    top: auto;
+    padding-right: 25px;
+    background: transparent url(../images/icons/icon_disabled_red.png) right center no-repeat;
+    color: #999;
+    font-size: 13px;
+    line-height: 30px;
+}
+
+.pageModules .k-treelist tr {
+    height: auto;
+}
+
+.pageModules .k-treelist .top,
+.pageModules .k-treelist .child {
+    height: 30px;
+    line-height: 30px;
+}
+
+.pageModules .k-treelist .top {
+    cursor: pointer;
+    background: #e6e6e6 url(../images/ui/tab_bg.png) left center repeat-x;
+    font-size: 14px;
+    color: #084777;
+}
+
+.pageModules .k-treelist .child {
+    border-left: 1px solid #c5c5c5;
+}
+.pageModules .k-treelist .child.name {
+    border-left-width: 0;
+}
+
+.pageModules .k-treelist .k-icon {
+    float: left;
+    margin-top: 6px;
+}
+
+.pageModules .k-treelist .k-icon:first-child {
+    margin-left: 5px;
+}
+
+.pageModules .k-treelist .noLicense {
+    cursor: default;
+}
+
+.pageModules .k-treelist .top .btnInfo {
+    display: none;
+}
+
+.pageModules .k-treelist tbody td {
+    text-align: center;
+    vertical-align: middle;
+    padding: 0;
+    border: 0 solid #c5c5c5;
+    border-bottom-width: 1px;
+}
+
+.pageModules .k-treelist tbody td:first-child {
+    text-align: left;
+}
+
+.pageModules .k-treelist tbody td .btn {
+    margin: 0 1px;
+    padding-top: 0;
+    padding-bottom: 1px;
+}
+
+.pageModules .k-treelist tbody td .btnAdd,
+.pageModules .k-treelist tbody td .btnInfo {
+    top: 4px;
+    padding-right: 15px !important;
+}
+
+.pageModules .k-treelist tbody td .btn:after {
+    right: -9px;
+}
+
+.pageModules .k-treelist .btnInfo {
+    cursor: default;
+}
+
+.pageModules .k-treelist thead th .btnInfo:after {
+    right: -3px;
+    background-image: url(../images/icons/icon_info.png);
+}
+
+.pageModules .k-treelist tbody td .btnInfo:after {
+    right: -10px;
+    background-image: url(../images/icons/icon_info_small.png);
+}
+
+.pageModules .k-treelist .iconChecked {
+    background-image: url(../images/icons/icon_checked.png);
+    width: 16px;
+    height: 16px;
+    background-position: -1px -1px;
+    margin-right: 0;
+}
+
+.pageModules .k-treelist .chk {
+    margin-top: -3px;
+}
+
+.pageModules .k-treelist td label {
+    margin-left: 0;
+    margin-right: -4px;
+    top: 3px;
+}
+
+.pageModules .k-treelist .iconDisabled {
+    background-image: url(../images/icons/icon_disabled.png);
+    margin-left: -2px;
+    margin-right: 8px;
+}
+
+.pageModules .k-treelist .rowDisabled td {
+    color: #999;
+}
+
+/* .pageTablesFields
+================================== */
+.pageTablesFields .contentSectionGrid {
+    margin-bottom: 0;
+}
+
+.contentSectionGridDownloadTable .contentSectionInfoItem > label {
+    width: 150px;
+}
+
+.contentSectionGridDownloadTable .contentSectionInfoItem > p {
+    margin-left: 170px;
+}
+
+.contentSectionGridDownloadTable .contentSectionInfoItem > p > input[type="text"] {
+    width: 96%;
+}
+
+.contentSectionGridDownloadTable > .gridContainer {
+    margin-top: 15px;
+}
+
+.contentSectionGridTableFields,
+.contentSectionGridTableFields .gridContainer {
+    margin-bottom: 0;
+}
+
+#popupDownloadTableFields {
+    min-height: 250px;
+}
+
+.disableDelta {
+    color: #ccc;
+}
+
+/* .pageRefreshCycle
+================================== */
+.pageRefreshCycle .contentSectionInfoItem p {
+    font-weight: normal;
+}
+.pageRefreshCycle .gridContainer .editRow .btnGroupInner .btnEdit,
+.pageRefreshCycle .gridContainer .btnGroupInner .btnCancel {
+    display: none;
+}
+
+.pageRefreshCycle .gridContainer .btnGroupInner .btnEdit,
+.pageRefreshCycle .gridContainer .editRow .btnGroupInner .btnCancel {
+    display: block;
+}
+
+.pageRefreshCycle .contentSectionGrid .btnInfo:after {
+    right: -10px;
+    background-image: url(../images/icons/icon_info_small.png);
+}
+
+.pageRefreshCycle .contentSectionGridTasksHistory {
+    margin-bottom: 0;
+}
+
+.pageRefreshCycle .columnTaskAction {
+    line-height: 15px;
+}
+
+#popupActionLists.k-window-content {
+    padding: 0;
+    overflow: hidden;
+}
+
+#popupActionLists .gridContainer {
+    margin: 0;
+}
+
+.contentSectionGridActionList .k-grid-header th.k-header {
+    background-position: left bottom;
+    background-color: #fff;
+    font-size: 11px;
+}
+
+.contentSectionGridActionList .actionList {
+    position: relative;
+    height: 30px;
+}
+
+.contentSectionGridActionList .actionList > div {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    line-height: 15px;
+    min-height: 15px;
+}
+
+.contentSectionGridActionList .actionListName {
+    position: absolute;
+    width: 140px;
+    padding-left: 5px;
+    left: 0;
+    top: 0;
+    font-weight: bold;
+}
+
+.contentSectionGridActionList .actionListDescription {
+    margin: 0 55px 0 150px;
+    font-style: italic;
+}
+
+.contentSectionGridActionList .actionListParams {
+    position: absolute;
+    width: 50px;
+    right: 0;
+    top: 0;
+}
+
+.contentSectionGridActionList .actionListActions {
+    padding-left: 5px;
+}
+
+.btnViewExtraction {
+    padding-right: 25px !important;
+}
+
+.clipboardPopup {
+    font-family: monospace;
+    word-wrap: break-word;
+    word-break: break-all;
+    width: 300px;
+}
+
+#refreshCycleFormContainer .contentSectionInfoItem {
+    min-height: 30px;
+}
+
+.serverTimeInfo {
+    font-size: 11px;
+    margin-bottom: 20px;
+}
+
+#refreshCycleFormContainer .columnTaskName {
+    min-width: 150px;
+    width: 150px;
+}
+
+.contentSection .descriptionLabel {
+    margin-left: 15px;
+    color: #333333;
+    font-style: italic;
+}
+
+.contentSection .descriptionLabel .btn {
+    font-style: normal;
+}
+
+#TaskDetailsGridContainer .inactiveRow {
+    background: #eee;
+    opacity: 0.3;
+}
+
+#RefreshCycleContainer .slideToggleFormArea {
+    display: none;
+}
+
+#RefreshCycleContainer .btn.btnSpecifyTables {
+    padding-right: 30px !important;
+}
+
+#RefreshCycleContainer .tableList {
+    padding: 3px 0;
+    font-style: italic;
+    font-size: 10px;
+    line-height: 14px;
+    margin-left: 220px;
+}
+
+#RefreshCycleContainer .contentSectionInfoItem .actionList.k-dropdown .k-input {
+    font-weight: bold;
+}
+
+#RefreshCycleContainer .gridToolbarBottom .btn {
+    margin-bottom: 10px;
+}
+
+/* .pageSuggestedFields
+================================== */
+.pageSuggestedFields .contentSectionInfo > p {
+    max-width: 640px;
+}
+
+.pageSuggestedFields .contentSectionInfoItem {
+    margin-bottom: 20px;
+}
+
+.pageSuggestedFields .contentSectionInfoItem > label {
+    width: 100px;
+    margin-top: 3px;
+    margin-right: 0;
+}
+
+.pageSuggestedFields .contentSectionInfoItem > p {
+    margin-left: 100px;
+    font-weight: normal;
+    max-width: 540px;
+}
+
+.pageSuggestedFields .contentSectionInfoItem strong {
+    display: block;
+    font-size: 14px;
+}
+
+.pageSuggestedFields .contentSectionInfoItem strong > img {
+    position: relative;
+    top: -3px;
+}
+
+/* .pageLabel
+================================== */
+.pageLabel {
+}
+
+/* .pageLabelEdit
+================================== */
+.pageLabelEdit .contentSectionInfo {
+    margin-bottom: 14px;
+}
+
+.pageLabelEdit .columnSwitchLanguage {
+    vertical-align: top;
+    height: 29px;
+}
+
+.pageLabelEdit .columnSwitchLanguageInner {
+    position: relative;
+    width: 99%;
+    height: 100%;
+}
+
+.pageLabelEdit .columnSwitchLanguage select {
+    position: absolute;
+    width: 100%;
+    height: 25px;
+    left: 0;
+    top: 0;
+    opacity: 0;
+    z-index: 2;
+}
+
+.pageLabelEdit .columnSwitchLanguage input {
+    position: absolute;
+    z-index: 1;
+    width: 100%;
+    left: 0;
+    top: 0;
+    z-index: 1;
+}
+
+.pageLabelEdit #LabelCategoryGrid tbody td {
+    height: 29px;
+}
+
+.pageLabelEdit .contentSectionGridLabel h2 {
+    word-break: break-all;
+    margin-right: 220px;
+}
+
+.pageLabelEdit .contentSectionGridLabel .gridToolbarTop {
+    position: absolute;
+    margin-top: 0;
+    top: 0;
+    right: 0;
+}
+
+/* .pageLabelAdd
+================================== */
+.pageLabelAdd .contentSectionGridLabelCategory {
+    border-bottom-width: 1px;
+}
+
+.pageLabelAdd .contentSectionGridLabel {
+    display: none;
+}
+
+/* .pageRole
+================================== */
+#Grid .btnInfo:after {
+    background-image: url(../images/icons/icon_open_in_new.png);
+}
+
+.pageRole .contentSectionGrid h2 {
+    word-break: break-all;
+    margin-right: 220px;
+}
+
+.pageRole .contentSectionGrid .gridToolbarTop {
+    position: absolute;
+    margin-top: 0;
+    top: 0;
+    right: 0;
+}
+
+#popupCopyRole {
+    min-width: 275px;
+}
+
+#popupCopyRole .popupContent {
+    min-height: 95px;
+}
+
+#UserInRolePopup.k-window-content {
+    overflow: hidden;
+}
+
+#UserInRolePopup .contentSectionInfoItem > p {
+    margin-left: 0;
+    margin-bottom: 5px;
+    width: 320px;
+    font-weight: normal;
+}
+
+.manageUserRoleRow {
+    position: relative;
+}
+
+.manageUserRoleRow .contentSectionGrid h2 {
+    font-size: 13px;
+    line-height: 15px;
+    margin-top: 5px;
+    margin-bottom: 10px;
+}
+
+.manageUserRoleRow .avaliableUserGridColumn,
+.manageUserRoleRow .selectedUserGridColumn {
+    box-sizing: border-box;
+    float: left;
+    width: 50%;
+    z-index: 1000;
+}
+.manageUserRoleRow .avaliableUserGridColumn {
+    padding-right: 60px;
+}
+.manageUserRoleRow .selectedUserGridColumn {
+    padding-left: 60px;
+}
+
+.manageUserRoleRow .actionMoveColumn {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    margin-left: -60px;
+    margin-top: -60px;
+    width: 120px;
+    text-align: center;
+    z-index: 1001;
+}
+
+.manageUserRoleRow .actionMoveColumn .btn {
+    margin: 3px 0;
+    width: 75px;
+}
+
+.manageUserRoleRow .gridToolbarBottom {
+    margin-bottom: 0;
+}
+
+.manageUserRoleRow .k-alt.k-state-selected {
+    background-color: #f5f5f5;
+    color: #2e2e2e;
+}
+
+.manageUserRoleRow .k-state-selected {
+    background-color: #fff;
+    color: #2e2e2e;
+}
+
+.manageUserRoleRow .k-grid td.columnBoolean {
+    text-overflow: initial;
+}
+
+/* .pageRoleEdit
+================================== */
+.pageRoleEdit .contentSectionInfo {
+    border-bottom-width: 1px;
+}
+
+.pageRoleEdit .contentSectionInfo h2 {
+    font-size: 20px;
+}
+
+.pageRoleEdit .contentSectionInfoItem p {
+    font-weight: normal;
+    margin-bottom: 8px;
+}
+
+.pageRoleEdit .contentSectionInfoItem p .value {
+    font-size: 16px;
+}
+
+.pageRoleEdit .tabPrivileges h4 {
+    font-size: 14px;
+    margin-top: 15px;
+    margin-bottom: 5px;
+}
+
+.pageRoleEdit .tabPrivileges .hideNoModel h4,
+.pageRoleEdit .tabPrivileges .hideNoModel .contentSectionInfoItem {
+    display: none;
+}
+
+.pageRoleEdit .tabPrivileges .k-numerictextbox {
+    width: 80px;
+    font-size: 11px;
+    position: absolute;
+    right: 0;
+    top: 0;
+}
+
+.pageRoleEdit .tabPrivileges .contentSectionInfoItem > p {
+    max-width: 300px;
+}
+
+.pageRoleEdit .tabPrivileges .contentSectionInfoItem > p .btnInfo {
+    position: absolute;
+    right: 0;
+    top: 0;
+    margin: 0 1px;
+    padding-top: 3px;
+    padding-bottom: 1px;
+    padding-right: 15px !important;
+}
+
+.pageRoleEdit .tabPrivileges .contentSectionInfoItem > p .btnInfo:after {
+    right: -10px;
+    background-image: url(../images/icons/icon_info_small.png);
+}
+
+.pageRoleEdit .tabPrivileges .contentSectionInfoItem > label {
+    line-height: 28px;
+}
+
+.pageRoleEdit .tabPrivileges .contentSectionInfoItem p > label {
+    display: inline-block;
+    margin-top: 4px;
+}
+
+.pageRoleEdit .tabLabels input.txtLabel {
+    display: block !important;
+    position: absolute;
+    left: 0;
+    top: 100%;
+    width: 1px;
+    height: 1px;
+    opacity: 0;
+}
+
+.pageRoleEdit .tabLabels .accessSettingDefault {
+    margin: -10px 0 10px 0;
+}
+
+.pageRoleEdit .tabObjects .accessSettingDefault {
+    margin: -10px 0 10px 0;
+}
+
+.pageRoleEdit .accessSettingDefaultLabel {
+    display: inline-block;
+    width: 200px;
+    margin-right: 20px;
+    font-weight: bold;
+}
+
+.pageRoleEdit .tabLabels .accessSettingDefaultLabel,
+.pageRoleEdit .tabObjects .accessSettingDefaultLabel {
+    width: auto;
+}
+
+.pageRoleEdit .accessSettingDefaultValue {
+    display: inline-block;
+}
+
+.pageRoleEdit .accessSettingDefaultValue > span {
+    margin-right: 5px;
+}
+
+.pageRoleEdit .accessSettingDefaultValue label {
+    margin-right: 20px;
+}
+
+
+.pageRoleEdit .tabFields .gridToolbarTop,
+.pageRoleEdit .tabFilters .gridToolbarTop,
+.pageRoleEdit .tabSubroles .gridToolbarTop {
+    float: none;
+    margin: 5px 0 10px 0;
+    overflow: hidden;
+}
+
+.pageRoleEdit .tabLabels .gridToolbarTop .btn,
+.pageRoleEdit .tabFields .gridToolbarTop .btn,
+.pageRoleEdit .tabFilters .gridToolbarTop .btn,
+.pageRoleEdit .tabSubroles .gridToolbarTop .btn {
+    float: left;
+    position: relative;
+    z-index: 10;
+}
+
+.pageRoleEdit .tabFields .accessSettingDefaultValue {
+    margin-bottom: 10px;
+}
+
+#objectFiltersGrid .fieldFilters {
+    overflow: hidden;
+}
+
+#ReferenceFilterGrid .btnInfo:after {
+    right: -10px;
+    background-image: url(../images/icons/icon_info_small.png);
+}
+
+/* .pageObjectEdit
+================================== */
+.pageObjectEdit .k-dropdown {
+    width: 100%;
+}
+
+.pageObjectEdit .btnRemoveField {
+    position: relative;
+    left: -7px;
+    margin-left: -10px;
+}
+
+.pageObjectEdit .gridContainerColumn {
+    float: left;
+    width: 49%;
+    margin-left: 2%;
+}
+
+.pageObjectEdit .gridContainerColumn:first-child {
+    margin-left: 0;
+}
+
+.pageObjectEdit input[readonly] {
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+.pageObjectEdit .objectLists {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 1px;
+    height: 20px;
+    padding: 0;
+    opacity: 0;
+}
+
+.pageObjectEdit .contentSectionGrid {
+    margin-bottom: 0;
+}
+
+#EditRoleForm .gridContainer input[name="txtFilterValues"] {
+    display: block !important;
+    position: absolute;
+    left: auto;
+    top: auto;
+    width: 1px !important;
+    height: 1px;
+    opacity: 0;
+}
+
+.EditRoleForm .gridContainer .tagsinput, .pageRoleEdit .gridContainer .tagsinput {
+    width: 100% !important;
+    min-height: 29px !important;
+    box-sizing: border-box;
+}
+
+.pageObjectEdit .gridContainer .editRow .btnGroupInner .btnEdit,
+.pageObjectEdit .gridContainer .btnGroupInner .btnCancel {
+    display: none;
+}
+
+.pageObjectEdit .gridContainer .btnGroupInner .btnEdit,
+.pageObjectEdit .gridContainer .editRow .btnGroupInner .btnCancel {
+    display: block;
+}
+
+/* .pageUser
+================================== */
+.pageUser .contentSectionInfoItem p {
+    font-weight: normal;
+}
+
+.pageUser .contentSectionInfoItem p > label {
+    font-weight: normal;
+}
+
+.pageUser .k-datepicker {
+    max-width: 212px;
+}
+
+.pageUser #UsersGrid .btnInfo:after {
+    background-image: url(../images/icons/icon_open_in_new.png);
+}
+
+#popupSubRolesTable {
+    min-height: 300px;
+}
+
+#popupSubRolesTable .gridContainer {
+    margin-bottom: 0;
+}
+
+#popupMassChangeUsers .contentSectionInfoItem {
+    overflow: visible;
+}
+
+#popupMassChangeUsers .contentSectionInfoItem > p {
+    margin-left: 0;
+}
+
+/* .pageUserImport
+================================== */
+.pageUserImport .contentSectionInfo {
+    overflow: hidden;
+    margin-bottom: 5px;
+}
+
+.pageUserImport .contentSectionInfoItemRole {
+    box-sizing: border-box;
+    float: right;
+    width: 50%;
+    padding-left: 60px;
+}
+
+.pageUserImport .contentSectionInfoItemRole > label {
+    width: 60px;
+    margin-right: 0;
+    margin-top: 4px;
+}
+
+.pageUserImport .contentSectionInfoItemRole > p {
+    margin-left: 70px;
+}
+
+.pageUserImport .k-multiselect.k-header {
+    min-width: 0;
+}
+
+.pageUserImport .gridToolbarTop {
+    position: relative;
+}
+
+.pageUserImport .gridToolbarFilter input {
+    width: 190px;
+}
+
+.pageUserImport .importUserInfo {
+    position: absolute;
+    top: -20px;
+    right: 0;
+}
+
+/* .pageSession
+================================== */
+.pageSession .contentSectionGrid {
+    margin-bottom: 0;
+}
+
+.pageSession .k-grid-content tr {
+    height: 36px;
+}
+
+/* .pageUserDefaultsSetting
+================================== */
+.pageUserDefaultsSetting .k-dropdown,
+.pageUserDefaultsSetting .k-numerictextbox {
+    width: 200px;
+    margin-right: 5px;
+}
+
+/* .pageTaskEdit
+================================== */
+#formTask p .k-dropdown {
+    width: 200px;
+}
+
+.pageTaskEdit #check_actions {
+    width: 1px;
+    position: absolute;
+    top: 2px;
+    left: 0;
+    opacity: 0;
+}
+
+.pageTaskEdit .contentSectionInfoItem p {
+    font-weight: normal;
+}
+
+#TaskActionsGrid tr td {
+    white-space: nowrap;
+}
+
+#AddActionPopup .btnInfo {
+    position: absolute;
+    right: 0;
+    top: 0;
+    margin: 0 1px;
+    padding-top: 3px;
+    padding-bottom: 1px;
+    padding-right: 15px !important;
+}
+
+#AddActionPopup .btnInfo:after {
+    right: -10px;
+    background-image: url(../images/icons/icon_info_small.png);
+}
+
+#AddActionPopup .contentSectionInfo h2 {
+    position: relative;
+    margin-bottom: 5px;
+}
+
+#AddActionPopup .contentSectionInfoItem > label {
+    width: 120px;
+    line-height: 25px;
+}
+
+#AddActionPopup .contentSectionInfoItem > p {
+    margin-left: 140px;
+    min-height: 26px;
+}
+
+#AddActionPopup .contentSectionInfoItem p > label {
+    line-height: 24px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    display: block;
+}
+
+#AddActionPopup .contentSectionInfoItem > p > label,
+#AddActionPopup .contentSectionInfoSubItem > p > label {
+    width: auto !important;
+}
+
+#AddActionPopup .contentSectionInfoItem p > label.textInfo {
+    color: #777;
+    font-weight: normal;
+    font-style: italic;
+    text-align: right;
+    margin-right: 3px;
+}
+
+#AddActionPopup #angle_id {
+    width: 215px;
+}
+
+#AddActionPopup #hdnAngleId {
+    opacity: 0;
+}
+
+#AddActionPopup .btnFindAngle {
+    padding-top: 2px;
+    padding-bottom: 3px;
+    margin-right: 0;
+}
+
+#AddActionPopup .contentSectionInfoItem {
+    overflow: visible;
+}
+
+#AddActionPopup .contentSectionInfoItemDropdown {
+    padding-right: 30px;
+}
+
+#AddActionPopup .btnLink {
+    position: absolute;
+    top: 0;
+    right: -30px;
+    padding-top: 2px;
+    padding-bottom: 2px;
+    margin-right: 0;
+}
+
+#AddActionPopup .btnLink:after {
+    background-image: url(../images/icons/icon_open_in_new.png);
+    right: -10px;
+}
+
+#AddActionPopup .contentSectionInfoItemCondition .k-dropdown {
+    width: 150px !important;
+}
+
+#AddActionPopup .contentSectionInfoItemCondition #condition_value {
+    min-width: 0;
+    margin-left: 5px;
+    width: 110px;
+}
+
+#AddActionPopup .k-grid-content-expander {
+    display: none !important;
+}
+
+#AngleParametersGrid .k-numerictextbox {
+    width: 100%;
+}
+
+#AngleParametersGrid .k-multiselect .k-button {
+    height: 23px;
+    margin-top: 2px;
+    margin-bottom: 2px;
+}
+
+#AngleParametersGrid .k-multiselect .k-button > span.k-select {
+    top: -2px;
+}
+
+.multipleSelectHeader {
+    border-width: 0;
+    border-bottom-width: 1px;
+    margin-bottom: 3px;
+}
+
+.multipleSelectHeader > .btn {
+    min-width: 0;
+    width: 29px;
+    height: 28px;
+    padding: 0;
+    margin-right: 3px;
+    background-position: -1px -1px;
+}
+
+.multipleSelectHeader > .btnSelectAll {
+    background-image: url(../images/ui/btn_selectall.png);
+}
+
+.multipleSelectHeader > .btnClearAll {
+    background-image: url(../images/ui/btn_deselectall.png);
+}
+
+.multipleSelectHeader > .btnInvert {
+    background-image: url(../images/ui/btn_invertselect.png);
+}
+
+#AngleParametersGrid .actionExecutionBetween {
+    width: 45%;
+    float: left;
+    box-sizing: border-box;
+}
+
+#AngleParametersGrid .actionExecutionBetween:first-child {
+    width: 55%;
+    padding-right: 25px;
+}
+
+#AngleParametersGrid .contentSectionInfoEmail h2 {
+    overflow: visible;
+}
+
+#AddActionPopup .contentSectionInfoEmail .btnInfo {
+    right: auto;
+    left: auto;
+    border-width: 0;
+    background: none transparent;
+}
+
+#AddActionPopup .contentSectionInfoEmail .btnInfo:after {
+    background-image: url(../images/icons/icon_help.png);
+    right: -3px;
+}
+
+#AddActionPopup .gridContainer {
+    position: relative;
+}
+
+#CheckRecipients {
+    position: absolute;
+    opacity: 0;
+    width: 1px !important;
+    top: 10px;
+}
+
+#CheckRecipients.error + .k-grid {
+    border-color: #c33;
+}
+
+#AddActionPopup .contentSectionInfoEmail .btnAddRecipient {
+    margin-top: 5px;
+}
+
+#AddActionPopup .contentSectionInfoEmail .contentSectionInfoItem > p:first-child {
+    margin-left: 0;
+}
+
+#AddActionPopup .contentSectionInfoEmail .contentSectionInfoItemEmailAttachResult label {
+    line-height: 16px;
+}
+
+#AddActionPopup .contentSectionInfoEmail .tagsinput {
+    box-sizing: border-box;
+}
+
+#AddActionPopup .contentSectionInfoEmail .error + .tagsinput {
+    border-color: #c33;
+}
+
+#AddActionPopup .contentSectionInfoEmail input[type="text"] {
+    width: 100%;
+}
+
+#AddActionPopup #email_recipients {
+    display: block !important;
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 1px !important;
+    min-width: 0;
+    height: 1px;
+    padding: 0;
+    opacity: 0;
+}
+
+#AddActionPopup #email_recipients:disabled, #filtersContainerGrid .multipleinput:disabled {
+    width: 100% !important;
+    height: 100%;
+    background-color: #fff;
+    z-index: 10;
+    opacity: .75;
+    bottom: -1px !important;
+    left: -1px;
+    text-indent: -10000px;
+}
+
+#AddActionPopup #email_recipients_tag {
+    margin-bottom: 2px;
+}
+
+#AddActionPopup .contentSectionInfoEmail textarea {
+    box-sizing: border-box;
+    display: block !important;
+    width: 1px;
+    height: 1px;
+    position: absolute;
+    left: 5px;
+    top: 40px;
+    z-index: 10;
+    resize: none;
+}
+
+#AddActionPopup .contentSectionInfoEmail textarea:disabled {
+    resize: none;
+}
+
+#AddActionPopup .contentSectionInfoEmail .k-editor.error {
+    border-color: #c33;
+    box-sizing: border-box;
+}
+
+#AddActionPopup .contentSectionInfoEmail .k-editor.disabled .k-editable-area:before {
+    content: '';
+    background-color: #fff;
+    opacity: .4;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    left: 0;
+    top: 0;
+    z-index: 11;
+}
+
+#DatastoreSettings .contentSectionInfo {
+    margin-bottom: 10px;
+}
+
+#DatastoreSettings .contentSectionInfoItem {
+    position: relative;
+}
+
+#DatastoreSettings .contentSectionInfoItem > label,
+#DatastoreSettings .contentSectionInfoSubItem > label {
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
+
+#DatastoreSettings .contentSectionInfoItem > p,
+#DatastoreSettings .contentSectionInfoSubItem > p {
+    max-width: 320px;
+    min-height: 30px;
+}
+
+#DatastoreSettings .contentSectionInfoItem > p > label,
+#DatastoreSettings .contentSectionInfoSubItem > p > label {
+    top: 3px;
+}
+
+#DatastoreSettings .contentSectionInfoItem .k-datepicker,
+#DatastoreSettings .contentSectionInfoSubItem .k-datepicker {
+    width: 285px;
+}
+
+#DatastoreSettings .k-dropdown {
+    width: 285px !important;
+}
+
+#DatastoreSettings .k-numeric-wrap {
+    width: 260px;
+}
+
+#DatastoreSettings .contentSectionInfoItem p > input[type="text"],
+#DatastoreSettings .contentSectionInfoItem p > input[type="password"] {
+    min-width: 285px;
+}
+
+a.mailto {
+    color: #c33;
+    text-decoration: underline;
+}
+
+/* .pageDatastoreEdit
+================================== */
+.pageDatastoreEdit .contentSectionInfoItem > p,
+.pageDatastoreEdit .contentSectionInfoSubItem > p {
+    max-width: 320px;
+    min-height: 30px;
+    margin-left: 325px;
+}
+
+.pageDatastoreEdit .contentSectionInfoItem > p .btnInfo,
+.pageDatastoreEdit .contentSectionInfoSubItem > p .btnInfo {
+    position: absolute;
+    right: 0;
+    top: 0;
+    margin: 0 1px;
+    padding-top: 3px;
+    padding-bottom: 1px;
+    padding-right: 15px !important;
+}
+
+.pageDatastoreEdit .contentSectionInfoItem > p .btnInfo:after,
+.pageDatastoreEdit .contentSectionInfoSubItem > p .btnInfo:after {
+    right: -10px;
+    background-image: url(../images/icons/icon_info_small.png);
+}
+
+.pageDatastoreEdit .contentSectionInfoItem .k-datepicker,
+.pageDatastoreEdit .contentSectionInfoSubItem .k-datepicker {
+    width: 285px;
+}
+
+.pageDatastoreEdit .k-dropdown {
+    width: 285px;
+}
+
+.pageDatastoreEdit .k-numeric-wrap {
+    width: 260px;
+}
+
+.pageDatastoreEdit .contentSectionInfoItem p > input[type="text"],
+.pageDatastoreEdit .contentSectionInfoItem p > input[type="password"] {
+    min-width: 285px;
+}
+
+.pageDatastoreEdit .statusInfo {
+    display: block;
+    font-weight: normal;
+    font-style: italic;
+    color: #777;
+    line-height: 14px;
+    margin-top: 3px;
+}
+
+#CheckOutputFolder hr {
+    display: none;
+}
+
+#CheckOutputFolder hr.last {
+    display: block;
+}
+
+.pageWelcome .k-tool-text,
+#AddActionPopup .k-tool-text {
+    display: none;
+}
+
+
+/* Portrait tablet to landscape and desktop */
+@media (max-width: 979px) {
+    .tabNav > a {
+        margin-right: 0;
+    }
+
+    .k-wc {
+        max-width: 748px;
+    }
+
+    /* .pageOverview
+    ================================== */
+    .modelOverviewItem {
+        width: 259px;
+    }
+
+    .mainContainerFull .modelOverviewItem {
+        width: 349px;
+    }
+
+    .menuItem {
+        width: 256px;
+    }
+
+    .mainContainerFull .menuItem {
+        width: 223px;
+    }
+
+    /* .pageModelInfo
+    ================================== */
+    .modelInfoColumn2 .modelInfo {
+        padding-left: 15px;
+    }
+
+    .modelInfoOptionsGroup a.modelInfoOptionsItem {
+        width: 93px;
+        margin-right: 3px;
+    }
+
+    .mainContainerFull .modelInfoOptionsGroup a.modelInfoOptionsItem {
+        width: 110px;
+        margin-right: 12px;
+    }
+
+    .mainContainerFull .modelInfoColumn2 .modelInfo {
+        padding-left: 20px;
+    }
+
+    .modelInfoColumn2 .modelInfoItem label {
+        width: 110px;
+    }
+
+    .mainContainerFull .modelInfoColumn2 .modelInfoItem label {
+        width: 130px;
+    }
+
+    .modelInfoColumn2 .modelInfoItem .value {
+        margin-left: 115px;
+    }
+
+    .mainContainerFull .modelInfoColumn2 .modelInfoItem value {
+        margin-left: 145px;
+    }
+
+    /* .pageModelContentParameters
+    ================================== */
+    .pageModelContentParameters .contentSectionInfoItem .k-datepicker,
+    .pageModelContentParameters .contentSectionInfoSubItem .k-datepicker {
+        width: 175px;
+    }
+
+    .pageModelContentParameters .k-dropdown {
+        width: 175px;
+    }
+
+    .pageModelContentParameters .k-numeric-wrap {
+        width: 150px;
+    }
+
+    .pageModelContentParameters .contentSectionInfoItem p > input[type="text"],
+    .pageModelContentParameters .contentSectionInfoItem p > input[type="password"] {
+        min-width: 163px;
+    }
+
+    /* .pageDatastoreEdit
+    ================================== */
+    .pageDatastoreEdit .contentSectionInfoItem .k-datepicker,
+    .pageDatastoreEdit .contentSectionInfoSubItem .k-datepicker {
+        width: 175px;
+    }
+
+    .pageDatastoreEdit .k-dropdown {
+        width: 175px;
+    }
+
+    .pageDatastoreEdit .k-numeric-wrap {
+        width: 150px;
+    }
+
+    .pageDatastoreEdit .contentSectionInfoItem p > input[type="text"],
+    .pageDatastoreEdit .contentSectionInfoItem p > input[type="password"] {
+        min-width: 163px;
+    }
+
+    /* .contentSectionComment
+    ================================== */
+    .contentSectionCommentFormItem textarea {
+        width: 302px;
+    }
+}
+
+.actionDropdownItem {
+    padding: 0 0 0 45px;
+    display: block;
+    position: relative;
+    height: 38px;
+    line-height: 38px;
+    color: #333333;
+    font-size: 12px;
+    background: transparent none 12px center no-repeat;
+    border-top: 0 solid #c5c5c5;
+    border-bottom: 1px solid #c5c5c5;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+}
+
+.actionDropdownItem:hover {
+    background-color: #f0f0f0;
+}
+
+
+
+.k-window-arrow-n:before,
+.k-window-arrow-n:after {
+    content: '';
+    display: inline-block;
+    position: absolute;
+    z-index: 12;
+    width: 0;
+    height: 0;
+    line-height: 0;
+    border: 10px dashed #dcdcdc;
+}
+
+.k-window-arrow-n:after {
+    z-index: 11;
+    border-color: #9c9c9c;
+}
+
+.k-window-arrow-n:before,
+.k-window-arrow-n:after {
+    left: 0;
+    top: -10px;
+    border-bottom-color: #dcdcdc;
+    border-bottom-style: solid;
+    border-top: none;
+    border-left-color: transparent;
+    border-right-color: transparent;
+}
+
+.k-window-arrow-n:after {
+    top: -11px;
+    border-bottom-color: #9c9c9c;
+}
+
+
+.popupUserMenu {
+    text-align: left;
+    top: 35px;
+    right: 103px;
+    left: auto;
+    width: 200px;
+    display: none;
+    position: absolute;
+    z-index: 1002;
+    border: 1px solid #9c9c9c;
+}
+
+.popupUserMenu:before,
+.popupUserMenu:after {
+    left: auto !important;
+    right: 30px !important;
+}
+
+.popupUserMenu:before {
+    border-bottom-color: #fff !important;
+}
+
+.popupUserMenu .k-window-content {
+    min-height: 0;
+    overflow: hidden;
+    padding: 0;
+    background-color: #fff;
+}
+
+.popupUserMenu a {
+    color: #000;
+}
+
+.popupUserMenu a:hover {
+    cursor: pointer;
+}
+
+.popupUserMenu a.btn {
+    text-align: left;
+    margin: 0 0 10px 0;
+    float: none;
+    display: block;
+    background: transparent none center center no-repeat;
+}
+
+.popupUserMenu a.btnWC {
+    background-image: url(../../images/icons/icon_webclient.png);
+}
+
+.popupUserMenu a.btnLogout {
+    background-image: url(../../images/icons/icon_logout.png);
+}
+
+.popupUserMenu a span {
+    padding-left: 0;
+}
+
+.popupHelpMenu {
+    text-align: left;
+    top: 35px;
+    right: 36px;
+    left: auto;
+    width: 200px;
+    display: none;
+    position: absolute;
+    z-index: 1002;
+    border: 1px solid #9c9c9c;
+}
+
+.popupHelpMenu:before,
+.popupHelpMenu:after {
+    left: auto !important;
+    right: 30px !important;
+}
+
+.popupHelpMenu:before {
+    border-bottom-color: #fff !important;
+}
+
+.popupHelpMenu .k-window-content {
+    min-height: 0;
+    overflow: hidden;
+    padding: 0;
+    background-color: #fff;
+}
+
+.popupHelpMenu a {
+    color: #000;
+}
+
+.popupHelpMenu a:hover {
+    cursor: pointer;
+}
+
+.popupHelpMenu a.btn {
+    text-align: left;
+    margin: 0 0 10px 0;
+    float: none;
+    display: block;
+    background: transparent none center center no-repeat;
+}
+
+
+.popupHelpMenu a.btnAbout {
+    background-image: url(../../images/icons/icon_about.png);
+}
+
+.popupHelpMenu a.btnHelp {
+    background-image: url(../../images/icons/icon_help.png);
+}
+
+
+.popupHelpMenu a span {
+    padding-left: 0;
+}
+
+.iconDisplay {
+    display: block;
+    line-height: 23px;
+}
+
+.iconDisplay:before {
+    content: '';
+    float: left;
+    display: block;
+    width: 19px;
+    height: 19px;
+    background: transparent none 0 0 no-repeat;
+    overflow: hidden;
+    margin: 1px 3px 0 5px;
+}
+
+.iconDisplay.no:before {
+   content: none;
+}
+
+.k-list-container .iconDisplay:before {
+    margin-left: 0;
+    margin-right: 4px;
+}
+
+.iconDisplay.list:before {
+    background-image: url(../images/icons/icon_list.png);
+}
+
+.iconDisplay.chart:before {
+    background-image: url(../images/icons/icon_chart.png);
+}
+
+.iconDisplay.pivot:before {
+    background-image: url(../images/icons/icon_pivot.png);
+}
+
+
+#labelsFiltersGrid .k-treelist tr.k-treelist-group.top {
+    cursor: pointer;
+}
+
+#labelsFiltersGrid .k-treelist tr.top {
+    background: #e6e6e6 url(../images/ui/tab_bg.png) left center repeat-x;
+    font-size: 14px;
+    height: 31px;
+}
+
+#labelsFiltersGrid .k-treelist tr.top > td {
+    border-color: transparent;
+    border-bottom: 1px solid #c5c5c5;
+    font-size: 14px;
+    color: #084777;
+}
+
+#labelsFiltersGrid .k-treelist tbody td {
+    padding-top: 1px;
+    padding-bottom: 1px;
+}
+
+#labelsFiltersGrid .k-treelist tr.k-treelist-group.top, #labelsFiltersGrid .top label {
+    cursor: pointer;
+}
+
+/* Authentication Page */
+.DefaultSystemRoles {
+    width: 90%;
+}
+
+#popupClassReport,
+#tabClassReport {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    box-sizing: border-box;
+}
+
+#popupClassReport {
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+}
+
+#popupContentClassReport {
+    padding: 20px;
+    overflow: hidden;
+}
+
+#popupContentClassReport {
+    display: block;
+    padding: 20px;
+    overflow: hidden;
+    margin-top: 40px;
+    padding-top: 10px;
+}
+
+#popupClassReport .gridToolbarTop {
+    text-align: right;
+    margin-bottom: 0;
+    margin-left: 10px;
+    float: right;
+}
+
+#popupClassReport .gridToolbarFilter {
+    position: relative;
+    display: block;
+    margin-right: 20px;
+    top: 10px;
+}
+
+.k-delete, .k-group-delete, .k-i-close {
+    background-position: -32px -18px;
+}
+
+.k-button:active .k-delete, .k-button:active .k-group-delete, .k-button:active .k-i-close, .k-button:not(.k-state-disabled):hover .k-delete, .k-button:not(.k-state-disabled):hover .k-group-delete, .k-button:not(.k-state-disabled):hover .k-i-close, .k-link:not(.k-state-disabled):hover > .k-delete, .k-link:not(.k-state-disabled):hover > .k-group-delete, .k-link:not(.k-state-disabled):hover > .k-i-close, .k-state-hover > * > .k-delete, .k-state-hover > * > .k-group-delete, .k-state-hover > * > .k-i-close, .k-state-hover > .k-delete, .k-state-hover > .k-group-delete, .k-state-hover > .k-i-close, .k-textbox:hover .k-delete, .k-textbox:hover .k-group-delete, .k-textbox:hover .k-i-close {
+    background-position: -48px -18px;
+}
+
+.resultType > span {
+    display: inline-block;
+    vertical-align: middle;
+    width: 18px;
+    height: 16px;
+}
+
+.resultType > span.failed {
+    background: transparent url(../images/icons/icon_error.png) left -1px no-repeat;
+}
+
+.resultType > span.finished {
+    background: transparent url(../images/icons/icon_check.gif) left -1px no-repeat;
+}

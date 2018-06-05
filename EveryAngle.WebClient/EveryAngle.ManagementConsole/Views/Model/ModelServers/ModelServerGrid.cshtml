@@ -1,0 +1,46 @@
+﻿@model List<EveryAngle.Core.ViewModels.ModelServer.ModelServerViewModel>
+@using EveryAngle.Shared.Globalization
+
+@(Html.Kendo().Grid(Model)
+    .Name("ModelServerGrid")
+    .Columns(columns =>
+    {
+        columns.Bound(model => model.id).Title(@Resource.Name)
+                .ClientTemplate(""
+                        + "# if(data.id == '" + @ViewData["CurrentInstanceId"] + "') { # "
+                        + "<label class='currentInstance'>#= data.id #</label>"
+                        + "# } else {# "
+                        + "<label>#= data.id #</label>"
+                        + "# } #"
+                        + "");
+
+        columns.Bound(model => model.type).Title(@Resource.Type);
+        columns.Bound(model => model.server_uri).Title(@Resource.Host);
+        columns.Bound(model => model.status).Title(@Resource.ModelStatus);
+        columns.Bound(model => model.application_version).Title(@Resource.Version).HeaderHtmlAttributes(new { @class = "columnNumber" }).HtmlAttributes(new { @class = "columnNumber" });
+        columns.Bound(model => model.instance_status).Title(@Resource.MC_InstanceStatus);
+
+        columns.Bound("id")
+            .HeaderHtmlAttributes(new { @class = "gridColumnToolbar" })
+            .HtmlAttributes(new { @class = "gridColumnToolbar" })
+            .Title(Resource.Download)
+            .Width(70)
+            .Sortable(false)
+            .ClientTemplate("<a style=\"#= data.type == 'Extractor' || data.status.toLowerCase() == 'down' ? 'display:none' : '' #\" onclick=\"MC.Models.ModelServer.DownloadModelServerMetaData(event, this)\" class=\"btn btnDownload\"  data-parameters = '{\"modelServerUri\":\"#= data.Uri #\",\"modelServerId\":\"#=data.id#\",\"modelServerInstanceid\":\"#=data.instance_id#\"}'></a>");
+
+        columns.Bound("id")
+            .HeaderHtmlAttributes(new { @class = "gridColumnToolbar" })
+            .HtmlAttributes(new { @class = "gridColumnToolbar" })
+            .Title(Resource.Info)
+            .Width(50)
+            .Sortable(false)
+            .ClientTemplate("<a href=\"\\#popupModelServer\" onclick=\"MC.Models.ModelServer.ShowModelServerInfo(event, this)\" class=\"btn btnInfo\"  data-parameters = '{\"modelServerUri\":\"#= data.Uri #\",\"isCurrentInstance\": #=data.id == '" + ViewBag.CurrentInstanceId + "'#}' data-title=\"#= MC.util.modelServerInfo.getPopupTitle(data.type) #\" data-role=\"mcPopup\" data-width=\"80%\" data-min-width=\"760\" data-height=\"80%\"></a>");
+
+    })
+    .Resizable(resize => resize.Columns(true))
+    .Scrollable(scroll => scroll.Virtual(false).Height(200))
+    .DataSource(dataSource => dataSource
+        .Ajax()
+        .ServerOperation(false)
+    )
+)

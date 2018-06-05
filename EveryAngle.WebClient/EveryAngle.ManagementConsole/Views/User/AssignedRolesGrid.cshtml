@@ -1,0 +1,47 @@
+﻿@model List<EveryAngle.Core.ViewModels.Users.SystemRoleViewModel>
+@using EveryAngle.Shared.Globalization
+@using EveryAngle.ManagementConsole.Models
+
+@{
+    List<PageToolbarButtonModel> buttons = new List<PageToolbarButtonModel>();
+    buttons.Add(new PageToolbarButtonModel
+    {
+        Type = PageToolbarButtonType.GridEditDelete,
+        Privilege = PrivilegeType.User,
+        EnableTemplate ="<input type='hidden' name='uri' value='#= data.Uri #' />"
+                + "<a data-callback='MC.Users.User.SubrolesDeletionCheckMark' onclick='MC.form.template.markAsRemove(this)' data-delete-template='Delete role: {reference}?' data-delete-field-index='0' class='btn btnDelete' data-parameters='{\"roleId\": \"#= data.Id #\",\"userUri\":\"#= data.UserUri #\"}'></a>",
+        DisableTemplate = "<input type='hidden' name='uri' value='#= data.Uri #' />"
+                + "<a data-callback='MC.Users.User.SubrolesDeletionCheckMark'  data-delete-template='Delete role: {reference}?' data-delete-field-index='0' class='btn btnDelete disabled' data-parameters='{\"roleId\": \"#= data.Id #\",\"userUri\":\"#= data.UserUri #\"}'></a>"
+    });
+    string gridButton = HttpUtility.HtmlDecode(Html.GetGridToolbar(buttons));
+}
+
+
+
+@(Html.Kendo().Grid(Model)
+    .Name("GridAssignRoles")
+    .Columns(columns =>
+    {
+        columns.Bound(model => model.Id).Title(Resource.MC_Rolename);
+        columns.Bound(model => model.Description).Title(Resource.Description);
+        columns.Bound(model => model.TotalSubRole)
+            .ClientTemplate("#= data.Subrole_ids.length #")
+            .HtmlAttributes(new { @class = "columnNumber" })
+            .HeaderHtmlAttributes(new { @class = "columnNumber" })
+            .Title(Resource.MC_InclSubroles);
+        columns.Bound(model => model.ModelRole).Title(Resource.Model);
+        columns.Bound(@Resource.ID)
+            .ClientTemplate(gridButton)
+            .HeaderHtmlAttributes(new { @class = "gridColumnToolbar" })
+            .HtmlAttributes(new { @class = "gridColumnToolbar" })
+            .Width(75)
+            .Title(@Resource.MC_Action);
+        columns.Bound(model => model.ModelId).Hidden().Title(Resource.Model);
+    })
+    .Scrollable(scroller => scroller.Virtual(false))
+    .Resizable(resize => resize.Columns(true))
+    .DataSource(dataSource => dataSource
+        .Ajax()
+        .ServerOperation(false)
+    )
+)

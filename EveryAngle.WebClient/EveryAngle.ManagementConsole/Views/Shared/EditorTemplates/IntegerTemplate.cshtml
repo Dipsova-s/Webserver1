@@ -1,0 +1,36 @@
+﻿@model EveryAngle.Core.ViewModels.Model.Setting
+
+
+<label data-role="tooltip">@Model.Name</label>
+<p>
+@{
+    int? defaultValue = null;
+
+    if (Model.Value != null)
+    {
+        defaultValue = Convert.ToInt32(Model.Value);
+
+        // -1 is considered NULL, except when the minimum value is set below zero
+        if (defaultValue == -1 && Convert.ToInt32(Model.Min) >= 0)
+        {
+            defaultValue = null;
+        }    
+    }
+    
+              
+    @(Html.Kendo().IntegerTextBox()
+        .Name(Model.Id)
+        .Value(defaultValue)
+        .Format("0")
+        .Step(1)
+        .Min(Model.Min == null? (int?) 0 :Convert.ToInt32(Model.Min))
+        .Max(Model.Max == null?(int?) null :Convert.ToInt32(Model.Max))
+        .HtmlAttributes(new { @class="integer autosyncinput", @data_setting_type = "integer", @data_type = "kendoNumericTextBox", @maxlength = 10}));
+
+    if(Model.Description != null)
+    {
+        <a data-target="#popupDescriptionTemplate" title="Description" data-width="600" data-min-height="100" data-role="mcPopup" class="btn btnInfo" onclick='MC.util.showDescriptionPopup(this)'></a>
+        <textarea class="alwaysHidden"><pre>@Model.Description</pre></textarea>
+    }
+}  
+</p>

@@ -1,0 +1,186 @@
+/* #ChartMainWrapper
+============================================ */
+#ChartMainWrapper .displayArea {
+    background-color: #fff;
+}
+
+/* .chartWrapper
+============================================ */
+.displayArea .k-chart-item {
+    float: left;
+    position: relative;
+}
+
+.displayArea .k-chart-item .k-chart {
+    box-sizing: border-box;
+    border: 1px solid #999;
+    border-left-width: 0;
+    border-top-width: 0;
+}
+
+.displayArea .chartWrapper {
+    overflow: visible;
+    position: relative;
+}
+
+.displayArea .chartWrapper > .k-chart {
+    margin: auto;
+}
+
+.displayArea .chartWrapper > .k-gauge {
+    z-index: 2;
+}
+
+.k-legend-custom-wrapper {
+    position: absolute;
+    width: 150px;
+}
+
+.k-legend-custom-wrapper h3 {
+    font: 14px Arial,Helvetica,sans-serif;
+    color: #777;
+    margin: 0 0 3px 10px;
+    padding: 0;
+}
+
+.k-legend-custom-wrapper h3 > span {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: inline-block;
+    max-width: 124px;
+    vertical-align: middle;
+}
+
+.k-legend-custom-wrapper h3 > .btnInfo {
+    vertical-align: middle;
+}
+
+.k-legend-custom {
+    font-size: 12px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    overflow: auto;
+    overflow-x: hidden;
+}
+
+.k-legend-custom > li {
+    cursor: default;
+    display: block;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    line-height: 1.3;
+    margin-left: 10px;
+}
+
+.k-legend-custom.drilldown > li {
+    cursor: pointer;
+}
+
+.k-legend-custom > li > span {
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+    margin-right: 3px;
+}
+
+.chartWrapper .gaugePointerLabel {
+    display: block;
+    top: auto;
+    bottom: 0;
+    z-index: 1;
+}
+
+.chartWrapper .gaugePointerLabel .k-tooltip-label {
+    background-color: #f35800;
+    border-color: #f35800;
+    color: #fff;
+}
+
+.chartWrapper .gaugePointerLabel .gaugeCaption {
+    display: block;
+    color: #555;
+    margin-top: 5px;
+    font-size: 14px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+.displayArea .navigatable .chartWrapper,
+.displayArea.navigatable .chartWrapper {
+    overflow: auto;
+}
+
+.displayArea .navigatable .chartWrapper.minichart,
+.displayArea.navigatable .chartWrapper.minichart {
+    overflow-x: hidden;
+}
+
+.displayArea .chartLoading {
+    height: 80px;
+    position: absolute;
+    width: 100%;
+    bottom: 0;
+}
+
+.displayArea .chartLoading .k-loading-color {
+    opacity: 1;
+    background: linear-gradient(to bottom, rgba(255,255,255,0) 0,rgba(255,255,255,1) 80%);
+}
+
+.no-cssgradients .displayArea .k-loading-color {
+    opacity: .6;
+    background: #fff url('../kendoui/textures/highlight.png') center center repeat;
+}
+
+.displayArea .navigatorWrapper {
+    position: relative;
+    height: auto;
+}
+
+.no-boxshadow .displayArea .navigatorWrapper {
+    border-top: 2px solid #999;
+}
+
+.displayArea .navigatorWrapper.hidden {
+    height: 10px;
+}
+
+.displayArea .navigatorWrapper.hidden .navigator {
+    display: none;
+    min-height: 1px;
+}
+
+.displayArea .navigatorWrapper .toggleButton {
+    cursor: pointer;
+    height: 10px;
+    background: #e6e6e6 url('../../images/icons/icon_arrow_black_down_black.png') center -4px no-repeat;
+}
+
+.displayArea .navigatorWrapper.hidden .toggleButton {
+    background-image: url('../../images/icons/icon_arrow_black_up_black.png');
+    background-position: center -2px;
+}
+
+.displayArea .navigatorWrapper .toggleButton:hover {
+    background-color: #777;
+}
+
+.displayArea .navigator {
+    min-height: 60px;
+}
+
+.displayArea .navigator .k-mask {
+    opacity: .15;
+}
+
+.displayArea .navigator .k-selection-bg {
+    background-color: transparent;
+}
+
+.displayArea .navigator .k-selector {
+    border: 1px solid #ccc;
+}

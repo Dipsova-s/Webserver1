@@ -1,0 +1,150 @@
+﻿@model List<EveryAngle.Core.ViewModels.Cycle.TaskViewModel>
+@using EveryAngle.Shared.Globalization
+@using EveryAngle.ManagementConsole.Models
+
+@{
+    List<PageToolbarButtonModel> buttons = new List<PageToolbarButtonModel>();
+    buttons.Add(new PageToolbarButtonModel
+    {
+        ModelUri = ViewBag.ModelUri,
+        EnableTemplate = "#= MC.Models.RefreshCycleTemplate.SetAbilityToEditControl(data, \"" + @ViewBag.ModelId + "\"" + ") #",
+        DisableTemplate = "#= MC.Models.RefreshCycleTemplate.SetDisableToEditControl(data, \"" + @ViewBag.ModelId + "\"" + ") #",
+        Type = PageToolbarButtonType.GridEditDelete,
+        Privilege = PrivilegeType.Model
+    });
+    string gridButtons = HttpUtility.HtmlDecode(Html.GetGridToolbar(buttons));
+}
+
+@(Html.Kendo().Grid<EveryAngle.Core.ViewModels.Cycle.TaskViewModel>()
+    .Name("TaskDetailGrid")
+    .Columns(columns =>
+    {
+        columns.Bound(model => model.name)
+            .Width(300)
+            .HeaderHtmlAttributes(new { @class = "columnTaskName" })
+            .HtmlAttributes(new { @Class = "columnTaskName" })
+            .Title(Resource.Name);
+
+        columns.Bound(model => model.enabled)
+            .Width(75)
+            .HeaderHtmlAttributes(new { @class = "columnEnabled columnBoolean" })
+            .HtmlAttributes(new { @Class = "columnEnabled columnBoolean" })
+            .Title(Resource.Enabled)
+            .ClientTemplate(
+                "<label>"
+                + "# if (data.enabled) { #"
+                + "<input name=\"IsEnabled\" value=\"Continues\" data-default=\"true\" checked=\"checked\" type=\"checkbox\" disabled=\"disabled\">"
+                + "# } else { #"
+                + "<input name=\"IsEnabled\" value=\"Single\" data-default=\"false\" type=\"checkbox\" disabled=\"disabled\">"
+                + "# } #"
+                + "<span class=\"label\"></span></label>");
+
+        columns.Bound(model => model.RefreshCycleTrigger.trigger_type)
+            .Width(85)
+            .HeaderHtmlAttributes(new { @class = "columnExternal columnBoolean" })
+            .HtmlAttributes(new { @class = "columnExternal columnBoolean" })
+            .Title(Resource.MC_External)
+            .ClientTemplate(
+                "<label>"
+                + "# if(MC.util.task.isTriggerExternal(data)) { #"
+                + "<input name=\"IsExternal\" value=\"true\" data-default=\"true\" checked=\"checked\" type=\"checkbox\" disabled=\"disabled\" onclick=\"MC.Models.RefreshCycle.TriggerTypeChange(this)\">"
+                + "# } else { #"
+                + "<input name=\"IsExternal\" value=\"false\" data-default=\"false\" type=\"checkbox\" disabled=\"disabled\" onclick=\"MC.Models.RefreshCycle.TriggerTypeChange(this)\">"
+                + "# } #"
+                + "<span class=\"label\"></span></label>");
+
+        columns.Bound(model => model.ActionList)
+            .ClientTemplate("#= data.ActionList #")
+            .HeaderHtmlAttributes(new { @class = "columnTaskAction" })
+            .HtmlAttributes(new { @data_refresh_id = "#= data.ActionList #", @class = "columnTaskAction" })
+            .Title(Resource.MC_Actionlist)
+            .Width(150);
+
+        columns.Bound(model => model.Delta)
+            .Title(Resource.MC_Delta)
+            .Width(75)
+            .HeaderHtmlAttributes(new { @Class = "columnDelta columnBoolean" })
+            .HtmlAttributes(new { @Class = "columnDelta columnBoolean" })
+            .ClientTemplate(
+                "<label>"
+                + "# if(data.Delta) { #"
+                + "<input name=\"IsDelta\" value=\"#= data.Delta #\" data-default=\"true\" disabled=\"disabled\" checked=\"checked\" type=\"checkbox\">"
+                + "# } else { #"
+                + "<input name=\"IsDelta\" value=\"#= data.Delta #\" data-default=\"false\" disabled=\"disabled\" type=\"checkbox\">"
+                + "# } #"
+                + "<span class=\"label\"></span></label>");
+
+        columns.Bound(model => model.RefreshCycleTrigger.days)
+            .HeaderHtmlAttributes(new { @Class = "columnDays" })
+            .HtmlAttributes(new { @Class = "columnDays" })
+            .ClientTemplate("#= MC.Models.RefreshCycleTemplate.GetDaysCheckbox(data) #")
+            .Width(145)
+            .Title(Resource.Day);
+
+        columns.Bound(model => model.RefreshCycleTrigger.start_time)
+            .HeaderTemplate(PageHelper.HeaderWithTimezone(Resource.StartTime))
+            .ClientTemplate("<span>#= data.RefreshCycleTrigger == null ? '' : MC.util.getDisplayTimeLocal(data.RefreshCycleTrigger.start_time) #</span>")
+            .HeaderHtmlAttributes(new { @class = "columnStartTime columnDate" })
+            .HtmlAttributes(new { @class = "columnStartTime columnDate" })
+            .Width(115);
+
+        columns.Bound(model => model.RefreshCycleTrigger.continuous)
+            .Width(85)
+            .HeaderHtmlAttributes(new { @class = "columnContinuous columnBoolean" })
+            .HtmlAttributes(new { @class = "columnContinuous columnBoolean" })
+            .Title(Resource.Continuous)
+            .ClientTemplate(
+                "<label>"
+                + "# if(MC.util.task.isContinuous(data)) { #"
+                + "<input name=\"IsContinuous\" value=\"true\" data-default=\"true\" disabled=\"disabled\" checked=\"checked\" type=\"checkbox\" onclick=\"MC.Models.RefreshCycle.ContinuousChange(this)\">"
+                + "# } else { #"
+                + "<input name=\"IsContinuous\" value=\"false\" data-default=\"false\" disabled=\"disabled\" type=\"checkbox\" onclick=\"MC.Models.RefreshCycle.ContinuousChange(this)\">"
+                + "# } #"
+                + "<span class=\"label\"></span></label>");
+
+        columns.Bound(model => model.RefreshCycleTrigger.restart_delay)
+            .Title(Resource.RestartDelay)
+            .ClientTemplate("<span>#= data.RefreshCycleTrigger == null ? '' : MC.util.getDisplayTimeUTC(data.RefreshCycleTrigger.restart_delay) #</span>")
+            .HeaderHtmlAttributes(new { @class = "columnRestartDelay columnDate" })
+            .HtmlAttributes(new { @class = "columnRestartDelay columnDate" })
+            .Width(95);
+
+        columns.Bound(model => model.RefreshCycleTrigger.end_time)
+            .HeaderTemplate(PageHelper.HeaderWithTimezone(Resource.Until))
+            .ClientTemplate("<span>#= data.RefreshCycleTrigger == null ? '' : MC.util.getDisplayTimeLocal(data.RefreshCycleTrigger.end_time) #</span>")
+            .HeaderHtmlAttributes(new { @class = "columnEndTime columnDate" })
+            .HtmlAttributes(new { @class = "columnEndTime columnDate" })
+            .Width(95);
+
+        columns.Bound(model => model.max_run_time)
+            .Title(Resource.MaxRunTime)
+            .ClientTemplate("<span>#= MC.util.getDisplayTimeUTC(data.max_run_time) #</span>")
+            .HeaderHtmlAttributes(new { @class = "columnTimeStop columnDate" })
+            .HtmlAttributes(new { @class = "columnTimeStop columnDate" })
+            .Width(95);
+
+        columns.Bound(model => model.status)
+            .HeaderHtmlAttributes(new { @class = "columnStatus" })
+            .HtmlAttributes(new { @class = "columnStatus" })
+            .Width(75)
+            .Title(Resource.Status);
+
+        columns.Bound(model => model.id)
+            .ClientTemplate(gridButtons)
+            .HeaderHtmlAttributes(new { @class = "gridColumnToolbar" })
+            .HtmlAttributes(new { @class = "gridColumnToolbar" })
+            .Title(Resource.MC_Action);
+
+        columns.Bound(model => model.SpecifyTables)
+             .ClientTemplate("<input name=\"SpecifyTables\" value=\"#= data.SpecifyTables #\" type=\"hidden\" />")
+             .Hidden();
+    })
+    .Scrollable(scroll => scroll.Virtual(false).Height(37 * 6))
+    .Resizable(resize => resize.Columns(true))
+    .DataSource(dataSource => dataSource
+        .Ajax()
+        .Read(read => read.Action("ReadTaskDetail", "RefreshCycle", new { modelId = ViewBag.ModelId, tasksUri = ViewBag.TasksUri, modelUri = ViewBag.ModelUri }))
+        .ServerOperation(false)
+    )
+    .AutoBind(false)
+)

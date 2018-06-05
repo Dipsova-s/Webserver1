@@ -1,0 +1,122 @@
+/* .languageWrapper
+============================================ */
+.languageWrapper,
+.popupTabPanel .row > .languageWrapper {
+    min-height: 40px;
+}
+
+.languageWrapper a {
+    color: #333333;
+}
+
+.languageWrapper .languageList {
+    padding-left: 1px;
+}
+
+.languageWrapper .LanguageItem {
+    position: relative;
+    float: left;
+    margin-left: -1px;
+}
+
+.languageWrapper .Language {
+    position: relative;
+    height: 40px;
+    line-height: 40px;
+    background-color: #eee;
+    font-family: Verdana, Tahoma;
+    font-size: 10px;
+    border: 1px solid #a9a9a9;
+    z-index: 1;
+    box-sizing: border-box;
+}
+
+.languageWrapper .Language a {
+    display: block;
+    padding: 0 10px;
+    color: #a9a9a9;
+}
+
+.languageWrapper .Language.Focus {
+    background-color: #fff;
+    border-color: #777;
+    z-index: 2;
+}
+
+.languageWrapper .Language.Focus a {
+    color: #333;
+}
+
+.LanguageDelete {
+    display: none;
+    float: left;
+    position: absolute;
+    right: 3px;
+    top: 3px;
+    width: 10px;
+    height: 10px;
+    text-indent: -9000px;
+    cursor: pointer;
+    background: transparent url(../../images/angle/angledetail/btn_delete_language.png) left top no-repeat;
+    z-index: 3;
+}
+
+.touch .LanguageItem .LanguageDelete,
+.LanguageItem:hover .LanguageDelete {
+    display: block;
+}
+
+.languageWrapper .btnAddLanguage {
+    float: left;
+    position: relative;
+    height: 40px;
+    line-height: 40px;
+    margin-bottom: 5px;
+    background-color: #eee;
+    cursor: pointer;
+    font-family: Verdana, Tahoma;
+    font-size: 20px;
+    font-weight: bold;
+    text-align: center;
+    border: 1px solid #a9a9a9;
+    width: 24px;
+    z-index: 1;
+    box-sizing: border-box;
+}
+
+.languageAvailableList {
+    display: none;
+    position: absolute;
+    left: 0;
+    top: 40px;
+    z-index: 90;
+    box-shadow: 0 2px 2px 0 rgba(0,0,0,.3);
+    border: 1px solid #c5c5c5;
+    border-top: 0;
+    width: 150px;
+    max-height: 225px;
+    overflow: auto;
+    box-sizing: border-box;
+}
+
+.languageAvailableList .Item {
+    cursor: pointer;
+    padding: 6px;
+    border-top: 1px solid #c5c5c5;
+    background-color: #fff;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.languageAvailableList .Item:hover,
+.languageAvailableList .Item.active {
+    background-color: #f0f0f0;
+}
+
+.rowLanguageName > .field,
+.popupTabPanel .rowLanguageName > .field {
+    top: auto;
+    margin-top: 0;
+    bottom: 10px;
+}

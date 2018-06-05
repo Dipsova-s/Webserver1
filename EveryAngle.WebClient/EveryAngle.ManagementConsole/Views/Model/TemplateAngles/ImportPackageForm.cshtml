@@ -1,0 +1,38 @@
+﻿@using EveryAngle.Shared.Globalization
+@{
+    Layout = null;
+}
+
+<form id="ImportPackageForm">
+    <div class="popupContent">
+        <h3>@Resource.MC_Include</h3>
+        <div class="contentSectionInfoItem">
+            <p>
+                <label><input type="checkbox" name="includeLabelCategories" value="true" onchange="MC.Models.Packages.includeLabelsSelected(this.checked)" checked /><span class="label">@Resource.LabelCategoriesAndLabels</span></label>
+                <label><input type="checkbox" name="includePrivateItems" value="true" checked /><span class="label">@Resource.MC_PrivateAnglesAndDisplays</span></label>
+            </p>
+        </div>
+        <hr />
+        <h3>@Resource.MC_Duplicates</h3>
+        <div class="contentSectionInfoItem">
+            <h4>@Resource.Angles</h4>
+            <p>
+                <label><input type="radio" name="anglesConflictResolution" value="overwrite" checked /><span class="label">@Resource.MC_Overwrite</span></label>
+                <label><input type="radio" name="anglesConflictResolution" value="skip" /><span class="label">@Resource.MC_Skip</span></label>
+            </p>
+        </div>
+        <br />
+        <div class="contentSectionInfoItem labelCategoriesSection">
+            <h4>@Resource.MC_LabelCategories</h4>
+            <p>
+                <label><input type="radio" name="labelCategoriesConflictResolution" value="overwrite" checked /><span class="label">@Resource.MC_Overwrite</span></label>
+                <label><input type="radio" name="labelCategoriesConflictResolution" value="skip" /><span class="label">@Resource.MC_Skip</span></label>
+                <label><input type="radio" name="labelCategoriesConflictResolution" value="merge" /><span class="label">@Resource.MC_Merge</span></label>
+            </p>
+        </div>
+    </div>
+    <div class="popupToolbar">
+        <a class="btn btnPrimary btnSubmit" onclick="MC.Models.Packages.ActivatePackage(this)">@Resource.Ok</a>
+        <a class="btn" data-role="popup-close">@Resource.Cancel</a>
+    </div>
+</form>

@@ -1,0 +1,124 @@
+﻿@using EveryAngle.ManagementConsole.Models
+@using EveryAngle.ManagementConsole.Helpers
+@model EveryAngle.Core.ViewModels.Users.SystemRoleViewModel
+@using EveryAngle.Shared.Globalization
+
+<script>
+    MC.util.loadScript({
+        test: MC.GlobalSettings && MC.GlobalSettings.SystemRoles,
+        url: '@Scripts.Url("~/bundles/globalsettings/systemroles")',
+        callback: function () {
+            MC.GlobalSettings.SystemRoles.Initial({
+                SaveUri: '@Url.Action("SaveSystemRole", "SystemRole")',
+                SideMenuUri: '@Url.Action("SideMenu", "Home")',
+                AllRolesPageUri: '@SiteMapHelper.ActionHash("GlobalSettings/SystemRoles")',
+                EditRolePageUri: '@SiteMapHelper.ActionHash("GlobalSettings/SystemRoles/EditSystemRole")',
+                RoleId: '@Model.Id',
+                RoleUri: '@Model.Uri'
+            });
+        }
+    });
+</script>
+
+@{
+    @Html.RenderPageToolbar(new List<PageToolbarButtonModel>
+    {
+        new PageToolbarButtonModel { Privilege = PrivilegeType.System ,Type = (Model.Uri != null)? PageToolbarButtonType.Save : PageToolbarButtonType.Create , OnClick = "MC.GlobalSettings.SystemRoles.SaveEditSystemRole()" },
+        new PageToolbarButtonModel { Type = PageToolbarButtonType.Cancel, Link = SiteMapHelper.ActionHash("GlobalSettings/SystemRoles") }
+    })
+}
+
+<div class="content pageSystemRoles pageSystemRolesEdit">
+    <form id="formSystemRoleInfo" data-role="validator">
+        <div class="contentSection contentSectionInfo">
+            <h2>@Resource.Role @Model.Id</h2>
+            <div class="contentSectionInfoItem">
+                <label>@Resource.MC_RoleID:</label>
+                <p>
+                    @if (Model.Uri != null)
+                    {
+                        @Html.TextBoxFor(model => model.Id, new { @class = "required field_id", @readonly = "readonly", placeholder = Resource.MC_NewRole, maxlength = 50 })
+                    }
+                    else
+                    {
+                        @Html.TextBoxFor(model => model.Id, new { @class = "required field_id", placeholder = Resource.MC_NewRole, maxlength = 50 })
+                    }
+                </p>
+            </div>
+
+            <div class="contentSectionInfoItem">
+                <label>@Resource.MC_RoleDescription:</label>
+                <p>
+                    @Html.TextBoxFor(model => model.Description, new { @class = "required txtLarge", maxlength = 4000 })
+                </p>
+            </div>
+        </div>
+        <!--/.contentSectionInfo-->
+    </form>
+
+    <form id="formAccessManagementConsole" data-role="validator">
+        @if (Model.Uri != null)
+        {
+            <div class="contentSection contentSectionInfo">
+                <h2>@Resource.MC_AssignedRoles</h2>
+                <div class="contentSectionInfoItem">
+                    <label>@Html.LabelFor(model => model.SystemPrivileges.manage_users)</label>
+                    <p>
+                        <label>@Html.RadioButton("manage_users", "true", bool.Equals(true, Model.SystemPrivileges.manage_users), new { onclick = "MC.GlobalSettings.SystemRoles.ChangeManageUser()" })<span class="label">@Resource.Allow</span></label>
+                        <label>@Html.RadioButton("manage_users", "false", bool.Equals(false, Model.SystemPrivileges.manage_users), new { onclick = "MC.GlobalSettings.SystemRoles.ChangeManageUser()" })<span class="label">@Resource.Deny</span></label>
+                        <label>@Html.RadioButton("manage_users", "null", Model.SystemPrivileges.manage_users.HasValue ? false : true, new { onclick = "MC.GlobalSettings.SystemRoles.ChangeManageUser()" })<span class="label">@Resource.Undefined</span></label>   
+                        <a data-target="#popupDescriptionTemplate" title="Description" data-width="600" data-min-height="100" data-role="mcPopup" class="btn btnInfo" onclick='MC.util.showDescriptionPopup(this)'></a>
+                        <textarea class="alwaysHidden">@Resource.MC_ManageUserDescription</textarea>
+                    </p>
+                </div>
+                <div class="contentSectionInfoItem">
+                    <label>@Html.LabelFor(model => model.SystemPrivileges.manage_system)</label>
+                    <p>
+                        <label>@Html.RadioButton("manage_system", "true", bool.Equals(true, Model.SystemPrivileges.manage_system), new { onclick = "MC.GlobalSettings.SystemRoles.ChangeManageSystem()" })<span class="label">@Resource.Allow</span></label>
+                        <label>@Html.RadioButton("manage_system", "false", bool.Equals(false, Model.SystemPrivileges.manage_system), new { onclick = "MC.GlobalSettings.SystemRoles.ChangeManageSystem()" })<span class="label">@Resource.Deny</span></label>
+                        <label>@Html.RadioButton("manage_system", "null", Model.SystemPrivileges.manage_system.HasValue ? false : true, new { onclick = "MC.GlobalSettings.SystemRoles.ChangeManageSystem()" })<span class="label">@Resource.Undefined</span></label> 
+                        <a data-target="#popupDescriptionTemplate" title="Description" data-width="600" data-min-height="100" data-role="mcPopup" class="btn btnInfo" onclick='MC.util.showDescriptionPopup(this)'></a>
+                        <textarea class="alwaysHidden">@Resource.MC_ManageSystemDescription</textarea>   
+                    </p>
+                </div>
+                <div class="contentSectionInfoItem">
+                    <label>@Html.LabelFor(model => model.SystemPrivileges.allow_impersonation)</label>
+                    <p>
+                        <label>@Html.RadioButton("allow_impersonation", "true", bool.Equals(true, Model.SystemPrivileges.allow_impersonation), new { disabled = "disabled" } )<span class="label">@Resource.Allow</span></label>
+                        <label>@Html.RadioButton("allow_impersonation", "false", bool.Equals(false, Model.SystemPrivileges.allow_impersonation), new { disabled = "disabled" })<span class="label">@Resource.Deny</span></label>
+                        <label>@Html.RadioButton("allow_impersonation", "null", Model.SystemPrivileges.allow_impersonation.HasValue ? false : true, new { disabled = "disabled" })<span class="label">@Resource.Undefined</span></label>
+                        <a data-target="#popupDescriptionTemplate" title="Description" data-width="600" data-min-height="100" data-role="mcPopup" class="btn btnInfo" onclick='MC.util.showDescriptionPopup(this)'></a>
+                        <textarea class="alwaysHidden">@Resource.MC_AllowImpersonationDescription</textarea>  
+                    </p>
+                </div>
+                <div class="contentSectionInfoItem">
+                    <label>@Html.LabelFor(model => model.SystemPrivileges.has_management_access)</label>
+                    <p>
+                        <label>@Html.RadioButton("has_management_access", "true", bool.Equals(true, Model.SystemPrivileges.has_management_access), new { disabled = "disabled" })<span class="label">@Resource.Allow</span></label>
+                        <label>@Html.RadioButton("has_management_access", "false", !bool.Equals(true, Model.SystemPrivileges.has_management_access), new { disabled = "disabled" })<span class="label">@Resource.Deny</span></label>
+                        <a data-target="#popupDescriptionTemplate" title="Description" data-width="600" data-min-height="100" data-role="mcPopup" class="btn btnInfo" onclick='MC.util.showDescriptionPopup(this)'></a>
+                        <textarea class="alwaysHidden">@Resource.MC_ManagementAccessDescription</textarea>
+                    </p>
+                </div>
+                <div class="contentSectionInfoItem">
+                    <label>@Html.LabelFor(model => model.SystemPrivileges.schedule_angles)</label>
+                    <p>
+                        <label>@Html.RadioButton("schedule_angles", "true", bool.Equals(true, Model.SystemPrivileges.schedule_angles))<span class="label">@Resource.Allow</span></label>
+                        <label>@Html.RadioButton("schedule_angles", "false", bool.Equals(false, Model.SystemPrivileges.schedule_angles))<span class="label">@Resource.Deny</span></label>
+                        <label>@Html.RadioButton("schedule_angles", "null", Model.SystemPrivileges.schedule_angles.HasValue ? false : true)<span class="label">@Resource.Undefined</span></label>
+                        <a data-target="#popupDescriptionTemplate" title="Description" data-width="600" data-min-height="100" data-role="mcPopup" class="btn btnInfo" onclick='MC.util.showDescriptionPopup(this)'></a>
+                        <textarea class="alwaysHidden">@Resource.MC_ScheduleAnglesDescription</textarea>
+                    </p>
+                </div>
+            </div>
+            <!--/.contentSectionGrid-->
+            <hr />
+        }
+    </form>
+    <div style="display:@(Model.Uri != null ? "inline" : "none") !important;">
+        @{Html.RenderPartial("~/Views/Shared/CommentSectionOnSubPage.cshtml");}
+    </div>
+
+    @{Html.RenderPartial("~/Views/Shared/PluginPopupDescriptionTemplate.cshtml");}
+</div>
+<!--/.content-->

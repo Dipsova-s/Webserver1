@@ -1,0 +1,67 @@
+﻿@using EveryAngle.ManagementConsole.Models
+@using EveryAngle.ManagementConsole.Helpers
+@using EveryAngle.Shared.Globalization
+@model List<EveryAngle.Core.ViewModels.SystemLanguages.SystemLanguageViewModel>
+
+@*@Scripts.Render("~/bundles/models/languagestemplate")*@
+
+<script>
+    MC.util.loadScript({
+        test: MC.Models && MC.Models.Languages,
+        url: '@Scripts.Url("~/bundles/models/languages")',
+        callback: function () {
+            MC.Models.Languages.Initial({
+                SaveUri: '@Url.Action("SaveActiveLanguages", "ActiveLanguage")',
+                ModelUri: '@ViewBag.ModelUri',
+                ActiveLanguages: @Html.Raw(Json.Encode(ViewData["ModelLanguages"]))
+            });
+        }
+    });
+</script>
+
+@{
+    @Html.RenderPageToolbar(new List<PageToolbarButtonModel>
+    {
+        new PageToolbarButtonModel
+        {
+            ModelUri = ViewBag.ModelUri,
+            Privilege = PrivilegeType.Model,
+            Type = PageToolbarButtonType.Save,
+            OnClick = "MC.Models.Languages.SaveActiveLanguages()"
+        },
+        new PageToolbarButtonModel
+        {
+            Type = PageToolbarButtonType.Reload
+        }
+    })
+}
+
+<div class="content pageLanguages">
+    <div class="contentSection contentSectionGrid contentSectionGridLanguages">
+        <h2>@Resource.MC_LanguageSettings</h2>
+        <div class="gridContainer">
+            @(Html.Kendo().Grid<EveryAngle.Core.ViewModels.SystemLanguages.SystemLanguageViewModel>()
+                .Name("ActiveLanguagesGrid")
+                .Columns(columns =>
+                {
+                    columns.Bound(model => model.Name).Title(@Resource.Language);
+                    columns.Bound(model => model.Id)
+                        .Title(@Resource.MC_Action)
+                        .ClientTemplate("#= MC.Models.LanguagesTemplate.GetColumnActionHtml(data) #");
+                })
+                .Resizable(resize => resize.Columns(true))
+                .Scrollable(scroll => scroll.Virtual(false).Height(10 * 31))
+                .DataSource(dataSource => dataSource
+                    .Ajax().Events(e=>e.RequestStart("onKendoGridPagingStart"))
+                    .Read(read => read.Action("ReadLanguages", "ActiveLanguage"))
+                    .ServerOperation(false)
+                )
+                .EnableCustomBinding(true)
+                .AutoBind(false)
+            )
+        </div>
+    </div>
+    <hr/>
+
+    @{Html.RenderAction("GetCommentsByType", "Comment", new { CommentType = ViewBag.ModelId + "_LANGUAGE_SETTINGS" });}
+</div>

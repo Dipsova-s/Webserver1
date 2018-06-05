@@ -1,0 +1,159 @@
+﻿@using EveryAngle.ManagementConsole.Models
+@using EveryAngle.ManagementConsole.Helpers
+@using EveryAngle.Shared.Globalization
+@model List<EveryAngle.Core.ViewModels.FieldCategory.FieldCategoryViewModel>
+
+<script>
+    MC.util.loadScript({
+        test: MC.GlobalSettings && MC.GlobalSettings.FieldCategories,
+        url: '@Scripts.Url("~/bundles/globalsettings/fieldcategories")',
+        callback: function () {
+            MC.GlobalSettings.FieldCategories.Initial({
+                SaveUri: '@Url.Action("DeleteFieldCategory", "GlobalSettings")'
+            });
+        }
+    });
+</script>
+@{
+    List<PageToolbarButtonModel> buttons = new List<PageToolbarButtonModel>();
+
+    buttons.Add(new PageToolbarButtonModel
+    {
+        Type = PageToolbarButtonType.Save,
+        OnClick = "MC.GlobalSettings.FieldCategories.SaveCustomIcon()",
+        Privilege = PrivilegeType.System
+    });
+
+    buttons.Add(new PageToolbarButtonModel
+    {
+        Type = PageToolbarButtonType.Reload
+    });
+    
+    @Html.RenderPageToolbar(buttons)
+}
+
+<div class="content pageCustomIcons">
+
+    @{
+        buttons = new List<PageToolbarButtonModel>();
+        buttons.Add(new PageToolbarButtonModel
+        {
+            Type = PageToolbarButtonType.GridEditDelete,
+            Privilege = PrivilegeType.System,
+            EnableTemplate = "<a onclick=\"MC.GlobalSettings.FieldCategories.EditCustomIcon(this)\" class=\"btn btnEdit\">" + Resource.Edit + "</a><a onclick=\"MC.GlobalSettings.FieldCategories.CancelCustomIcon(this)\" class=\"btn btnCancel\">" + Resource.Cancel + "</a>"
+                            + " <a data-delete-template=\"" + Resource.MC_DeleteIconConfirm + "\" data-delete-field-index=\"0\" onclick=\"MC.form.template.markAsRemove(this)\" class=\"btn btnDelete\" data-callback=\"MC.GlobalSettings.FieldCategories.DeletionCheckMark\" data-parameters='{\"uri\":\"#= data.uri #\", \"short_name\":\"#= data.short_name #\"}'>" + Resource.Delete + "</a>",
+            DisableTemplate = "<a class=\"btn btnEdit disabled\">" + Resource.Edit + "</a><a class=\"btn btnCancel disabled\">" + Resource.Cancel + "</a><a class=\"btn btnDelete disabled\">" + Resource.Delete + "</a>"
+        });
+        string gridButton = HttpUtility.HtmlDecode(Html.GetGridToolbar(buttons));
+    }
+
+    @using (Html.BeginForm("SaveFieldCategory", "GlobalSettings", FormMethod.Post, new { enctype = "multipart/form-data", id = "FieldForm", data_role = "validator" }))
+    {
+        
+        
+        <div class="contentSection contentSectionGrid">
+            <h2>@Resource.MC_AllIconsForPropertyType</h2>
+            <div class="gridContainer">
+                @(Html.Kendo().Grid(Model)
+                .Name("FieldCategoryGrid")
+                .Columns(columns =>
+                {
+                    columns.Bound(model => model.short_name).Width(120).Title(@Resource.MC_PropertyType);
+                    columns.Bound(model => model.id)
+                        .HeaderHtmlAttributes(new { @class = "gridColumnToolbar" })
+                        .HtmlAttributes(new { @class = "gridColumnToolbar" })
+                        .Title(@Resource.MC_SmallIcon)
+                        .ClientTemplate(
+                            "<img class=\"preview preview16\" data-default='" + string.Format(Url.Absolute(Url.Content("~/UploadedResources/FieldCategoryIcons/{0}_16.png")), "#= data.id #") + "'  src='" + string.Format(Url.Content("~/UploadedResources/FieldCategoryIcons/{0}_16.png?v={1}"), "#= data.id #", "#= jQuery.now() #") + "' />"
+                            + "<div class=\"k-widget k-upload upload16\">"
+                            + "<div class=\"k-button k-upload-button btn\">"
+                            + "<input type=\"file\" name=\"files\" class=\"isEdit\" onchange=\"MC.GlobalSettings.FieldCategories.ShowPreview(event)\"  data-rule-extension=\"jpg|jpeg|png\" autocomplete=\"off\" />"
+                            + "<span data-tooltip-title=\"\">" + Resource.MC_UploadIcon + "</span>"
+                            + "</div>"
+                            + "</div>"
+                        );
+
+
+                    columns.Bound(model => model.id)
+                        .HeaderHtmlAttributes(new { @class = "gridColumnToolbar" })
+                        .HtmlAttributes(new { @class = "gridColumnToolbar" })
+                        .Title(@Resource.MC_LargerIcon)
+                        .ClientTemplate(
+                            "<img class=\"preview preview32 previewLarger\" data-default='" + string.Format(Url.Absolute(Url.Content("~/UploadedResources/FieldCategoryIcons/{0}_32.png")), "#= data.id #") + "'  src='" + string.Format(Url.Content("~/UploadedResources/FieldCategoryIcons/{0}_32.png?v={1}"), "#= data.id #", "#= jQuery.now() #") + "' />"
+
+                            + "<div class=\"k-widget k-upload upload32\">"
+                            + "<div class=\"k-button k-upload-button btn\">"
+                            + "<input type=\"file\" name=\"files\" class=\"isEdit\" onchange=\"MC.GlobalSettings.FieldCategories.ShowPreview(event)\" data-rule-extension=\"jpg|jpeg|png\" autocomplete=\"off\" />"
+                            + "<span data-tooltip-title=\"\">" + Resource.MC_UploadIcon + "</span>"
+                            + "</div>"
+                            + "</div>"
+                        );
+                    columns.Bound(model => model.id)
+                        .HeaderHtmlAttributes(new { @class = "gridColumnToolbar" })
+                        .HtmlAttributes(new { @class = "gridColumnToolbar" })
+                        .Title(@Resource.MC_Action)
+                        .Width(75)
+                        .ClientTemplate(
+                            "<input type=\"hidden\" name=\"uri\" value=\"#= data.uri #\" />"
+                            + " # if(data.id == 'EA' || data.id == 'Reference' || data.id == 'SAP'  || data.id == 'GRC') {# "
+                            + " #} else {#"
+                            + gridButton
+                            + "#}#"                           
+                        );
+                    })
+                    .Resizable(resize => resize.Columns(true))
+                    .Scrollable(scroll => scroll.Virtual(false).Height(10 * 42))
+                    .DataSource(dataSource => dataSource
+                        .Ajax()
+                        .Events(e => e.RequestStart("onKendoGridPagingStart"))
+                        .ServerOperation(false)
+                        .Total((int)ViewData["Total"])
+                    )
+                    .EnableCustomBinding(true)
+                )
+            </div>
+            <div class="gridToolbar gridToolbarBottom">
+            @{
+                buttons = new List<PageToolbarButtonModel>();
+                buttons.Add(new PageToolbarButtonModel
+                {
+                    EnableTemplate = "<a class=\"btn btnAdd\" id=\"AddNewIcon\" data-role=\"auto-template\" data-grid=\"#FieldCategoryGrid\" data-template=\"#templateCustomIcon\" data-callback=\"MC.GlobalSettings.FieldCategories.AddNewIconToHiddenField\">" + Resource.AddNewIcon + "</a>",
+                    DisableTemplate = "<a class=\"btn btnAdd disabled\">" + Resource.AddNewIcon + "</a>",
+                    Type = PageToolbarButtonType.Custom,
+                    Privilege = PrivilegeType.System
+                });
+                @Html.RenderPageToolbarBottom(buttons)    
+            }
+            </div>
+        </div>
+        @Html.Hidden("updatedFields")
+    }
+
+    <textarea class="hidden" id="templateCustomIcon">
+        <tr class="newRow">
+            <td><input type="text" maxlength="50" name="editId" class="required"  onkeypress="MC.GlobalSettings.FieldCategories.HandlerEnterKey(event)"  /></td>
+            <td style="display:none;"><input type="hidden" value="" /></td>
+            <td class="gridColumnToolbar">
+                <img class="preview preview16" src="data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==" />
+                <div class="k-widget k-upload upload16">
+                    <div class="k-button k-upload-button btn">
+                        <input type="file" name="files" onchange="MC.GlobalSettings.FieldCategories.ShowPreview(event)" data-rule-extension="jpg|jpeg|png" autocomplete="off" />
+                        <span>@Resource.MC_UploadIcon</span>
+                    </div>
+                </div>
+            </td>
+            <td class="gridColumnToolbar">
+                <img class="preview preview32 previewLarger" src="data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==" />
+                <div class="k-widget k-upload upload32">
+                    <div class="k-button k-upload-button btn">
+                        <input type="file" name="files" onchange="MC.GlobalSettings.FieldCategories.ShowPreview(event)" data-rule-extension="jpg|jpeg|png" autocomplete="off" />                       
+                        <span>@Resource.MC_UploadIcon</span>
+                    </div>
+                </div>
+            </td>
+            <td class="gridColumnToolbar">
+                <a class="btn btnDelete" data-delete-template="@Resource.MC_DeleteIconConfirm" data-delete-field-index="0" onclick="MC.form.template.remove(this);" data-callback="MC.GlobalSettings.FieldCategories.RemoveNewIconFromHiddenField">@Resource.Delete</a>
+            </td>
+        </tr>
+    </textarea>
+</div>

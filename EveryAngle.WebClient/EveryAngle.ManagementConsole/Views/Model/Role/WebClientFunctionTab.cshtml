@@ -1,0 +1,139 @@
+﻿@model EveryAngle.Core.ViewModels.Users.SystemRoleViewModel
+@using EveryAngle.Shared.Globalization
+
+<div class="contentSection contentSectionInfo @(Convert.ToBoolean(ViewData["HaveModelServer"]) ? "" : "hideNoModel")" id="AccessClient"> 
+    <h4>@Resource.MC_Basic</h4>
+    <div class="contentSectionInfoItem">
+        <label>@Html.LabelFor(model => model.ModelPrivilege.Privileges.access_data_via_webclient)</label>
+        <p>
+            <label>@Html.RadioButton("AccessDataViaWebclient", true, Model.ModelPrivilege.Privileges.access_data_via_webclient.HasValue ? Model.ModelPrivilege.Privileges.access_data_via_webclient.Value == true ? true : false : false)<span class="label">@Resource.Allow</span></label>
+            <label>@Html.RadioButton("AccessDataViaWebclient", false, Model.ModelPrivilege.Privileges.access_data_via_webclient.HasValue ? Model.ModelPrivilege.Privileges.access_data_via_webclient.Value == false ? true : false : false)<span class="label">@Resource.Deny</span></label>
+            <label>@Html.RadioButton("AccessDataViaWebclient", "Undefined", Model.ModelPrivilege.Privileges.access_data_via_webclient.HasValue ? false : true)<span class="label">@Resource.Undefined</span></label>
+        </p>
+    </div>
+    <div class="contentSectionInfoItem">
+        <label> @Html.LabelFor(model => model.ModelPrivilege.Privileges.allow_nonvalidated_items)</label>
+        <p>
+            <label>@Html.RadioButton("AllowNonvalidatedItems", true, Model.ModelPrivilege.Privileges.allow_nonvalidated_items.HasValue ? Model.ModelPrivilege.Privileges.allow_nonvalidated_items.Value == true ? true : false : false)<span class="label">@Resource.Allow</span></label>
+            <label>@Html.RadioButton("AllowNonvalidatedItems", false, Model.ModelPrivilege.Privileges.allow_nonvalidated_items.HasValue ? Model.ModelPrivilege.Privileges.allow_nonvalidated_items.Value == false ? true : false : false)<span class="label">@Resource.Deny</span></label>
+            <label>@Html.RadioButton("AllowNonvalidatedItems", "Undefined", Model.ModelPrivilege.Privileges.allow_nonvalidated_items.HasValue ? false : true)<span class="label">@Resource.Undefined</span></label>
+            <a data-target="#popupDescriptionTemplate" title="Description" data-width="600" data-min-height="100" data-role="mcPopup" class="btn btnInfo" onclick='MC.util.showDescriptionPopup(this)'></a>
+            <textarea class="alwaysHidden">@Resource.MC_ShowNonValidatedItemsDescription</textarea>
+        </p>
+    </div>
+    <div class="contentSectionInfoItem">
+        <label>@Html.LabelFor(model => model.ModelPrivilege.Privileges.allow_export)</label>
+        <p>
+            <label>@Html.RadioButton("AllowExport", true, Model.ModelPrivilege.Privileges.allow_export.HasValue ? Model.ModelPrivilege.Privileges.allow_export.Value == true ? true : false : false, new { onclick = "MC.Models.Roles.EnableMaxExportRows(true)" })<span class="label">@Resource.Allow</span></label>
+            <label>@Html.RadioButton("AllowExport", false, Model.ModelPrivilege.Privileges.allow_export.HasValue ? Model.ModelPrivilege.Privileges.allow_export.Value == false ? true : false : false, new { onclick = "MC.Models.Roles.EnableMaxExportRows(false)" })<span class="label">@Resource.Deny</span></label>
+            <label>@Html.RadioButton("AllowExport", "Undefined", Model.ModelPrivilege.Privileges.allow_export.HasValue ? false : true, new { onclick = "MC.Models.Roles.EnableMaxExportRows(false)" })<span class="label">@Resource.Undefined</span></label>
+            @Html.TextBox("ModelPrivilege_Privileges_max_export_rows", !Model.ModelPrivilege.Privileges.max_export_rows.HasValue || Model.ModelPrivilege.Privileges.max_export_rows.Value == 0 ? "" : Model.ModelPrivilege.Privileges.max_export_rows.Value.ToString())
+        </p>
+    </div>
+    @if ((bool)ViewData["SupportODataService"])
+    {
+        <div class="contentSectionInfoItem">
+            <label>@Html.LabelFor(model => model.ModelPrivilege.Privileges.access_data_via_odata)</label>
+            <p>
+                <label>@Html.RadioButton("AccessDataViaOData", true, Model.ModelPrivilege.Privileges.access_data_via_odata.HasValue ? Model.ModelPrivilege.Privileges.access_data_via_odata.Value == true ? true : false : false)<span class="label">@Resource.Allow</span></label>
+                <label>@Html.RadioButton("AccessDataViaOData", false, Model.ModelPrivilege.Privileges.access_data_via_odata.HasValue ? Model.ModelPrivilege.Privileges.access_data_via_odata.Value == false ? true : false : false)<span class="label">@Resource.Deny</span></label>
+                <label>@Html.RadioButton("AccessDataViaOData", "Undefined", Model.ModelPrivilege.Privileges.access_data_via_odata.HasValue ? false : true)<span class="label">@Resource.Undefined</span></label>
+            </p>
+        </div>
+    }
+
+    <h4>@Resource.MC_Advanced</h4>
+    <div class="contentSectionInfoItem">
+        <label>@Html.LabelFor(model => model.ModelPrivilege.Privileges.allow_more_details)</label>
+        <p>
+            <label>@Html.RadioButton("AllowMoreDetails", true, Model.ModelPrivilege.Privileges.allow_more_details.HasValue ? Model.ModelPrivilege.Privileges.allow_more_details.Value == true ? true : false : false)<span class="label">@Resource.Allow</span></label>
+            <label>@Html.RadioButton("AllowMoreDetails", false, Model.ModelPrivilege.Privileges.allow_more_details.HasValue ? Model.ModelPrivilege.Privileges.allow_more_details.Value == false ? true : false : false)<span class="label">@Resource.Deny</span></label>
+            <label>@Html.RadioButton("AllowMoreDetails", "Undefined", Model.ModelPrivilege.Privileges.allow_more_details.HasValue ? false : true)<span class="label">@Resource.Undefined</span></label>
+            <a data-target="#popupDescriptionTemplate" title="Description" data-width="600" data-min-height="100" data-role="mcPopup" class="btn btnInfo" onclick='MC.util.showDescriptionPopup(this)'></a>
+            <textarea class="alwaysHidden">@Resource.MC_ObtainMoreDetailsDescription</textarea>
+       </p>
+    </div>
+    <div class="contentSectionInfoItem">
+        <label>@Html.LabelFor(model => model.ModelPrivilege.Privileges.allow_single_item_view)</label>
+        <p>
+            <label>@Html.RadioButton("AllowSingleItemView", true, Model.ModelPrivilege.Privileges.allow_single_item_view.HasValue ? Model.ModelPrivilege.Privileges.allow_single_item_view.Value == true ? true : false : false)<span class="label">@Resource.Allow</span></label>
+            <label>@Html.RadioButton("AllowSingleItemView", false, Model.ModelPrivilege.Privileges.allow_single_item_view.HasValue ? Model.ModelPrivilege.Privileges.allow_single_item_view.Value == false ? true : false : false)<span class="label">@Resource.Deny</span></label>
+            <label>@Html.RadioButton("AllowSingleItemView", "Undefined", Model.ModelPrivilege.Privileges.allow_single_item_view.HasValue ? false : true)<span class="label">@Resource.Undefined</span></label>
+        </p>
+    </div>
+    <div class="contentSectionInfoItem">
+        <label>@Html.LabelFor(model => model.ModelPrivilege.Privileges.save_displays)</label>
+        <p>
+           <label>@Html.RadioButton("AllowPrivateDisplays", true, Model.ModelPrivilege.Privileges.save_displays.HasValue ? Model.ModelPrivilege.Privileges.save_displays.Value == true ? true : false : false)<span class="label">@Resource.Allow</span></label>
+            <label>@Html.RadioButton("AllowPrivateDisplays", false, Model.ModelPrivilege.Privileges.save_displays.HasValue ? Model.ModelPrivilege.Privileges.save_displays.Value == false ? true : false : false)<span class="label">@Resource.Deny</span></label>
+            <label>@Html.RadioButton("AllowPrivateDisplays", "Undefined", Model.ModelPrivilege.Privileges.save_displays.HasValue ? false : true)<span class="label">@Resource.Undefined</span></label>
+        </p>
+    </div>
+    <div class="contentSectionInfoItem">
+        <label>@Html.LabelFor(model => model.ModelPrivilege.Privileges.allow_followups)</label>
+        <p>
+            <label>@Html.RadioButton("AllowFollowups", true, Model.ModelPrivilege.Privileges.allow_followups.HasValue ? Model.ModelPrivilege.Privileges.allow_followups.Value == true ? true : false : false)<span class="label">@Resource.Allow</span></label>
+            <label>@Html.RadioButton("AllowFollowups", false, Model.ModelPrivilege.Privileges.allow_followups.HasValue ? Model.ModelPrivilege.Privileges.allow_followups.Value == false ? true : false : false)<span class="label">@Resource.Deny</span></label>
+            <label>@Html.RadioButton("AllowFollowups", "Undefined", Model.ModelPrivilege.Privileges.allow_followups.HasValue ? false : true)<span class="label">@Resource.Undefined</span></label>          
+       </p>
+    </div>
+    <div class="contentSectionInfoItem">
+        <label>@Html.LabelFor(model => model.ModelPrivilege.Privileges.allow_advanced_filter)</label>
+        <p>
+            <label>@Html.RadioButton("AdvancedFilterSearch", true, Model.ModelPrivilege.Privileges.allow_advanced_filter.HasValue ? Model.ModelPrivilege.Privileges.allow_advanced_filter.Value == true ? true : false : false)<span class="label">@Resource.Allow</span></label>
+            <label>@Html.RadioButton("AdvancedFilterSearch", false, Model.ModelPrivilege.Privileges.allow_advanced_filter.HasValue ? Model.ModelPrivilege.Privileges.allow_advanced_filter.Value == false ? true : false : false)<span class="label">@Resource.Deny</span></label>
+            <label>@Html.RadioButton("AdvancedFilterSearch", "Undefined", Model.ModelPrivilege.Privileges.allow_advanced_filter.HasValue ? false : true)<span class="label">@Resource.Undefined</span></label>
+       </p>
+    </div>
+
+    <h4>@Resource.MC_Contributor</h4>
+    <div class="contentSectionInfoItem">
+        <label>@Html.LabelFor(model => model.ModelPrivilege.Privileges.allow_publish_dashboards)</label>
+        <p>
+            <label>@Html.RadioButton("AllowPublishDashboards", true, Model.ModelPrivilege.Privileges.allow_publish_dashboards.HasValue ? Model.ModelPrivilege.Privileges.allow_publish_dashboards.Value == true ? true : false : false)<span class="label">@Resource.Allow</span></label>
+            <label>@Html.RadioButton("AllowPublishDashboards", false, Model.ModelPrivilege.Privileges.allow_publish_dashboards.HasValue ? Model.ModelPrivilege.Privileges.allow_publish_dashboards.Value == false ? true : false : false)<span class="label">@Resource.Deny</span></label>
+            <label>@Html.RadioButton("AllowPublishDashboards", "Undefined", Model.ModelPrivilege.Privileges.allow_publish_dashboards.HasValue ? false : true)<span class="label">@Resource.Undefined</span></label>
+        </p>
+    </div>
+    <div class="contentSectionInfoItem">
+        <label>@Html.LabelFor(model => model.ModelPrivilege.Privileges.create_angles)</label>
+        <p>
+            <label>@Html.RadioButton("AllowCreateAngles", true, Model.ModelPrivilege.Privileges.create_angles.HasValue ? Model.ModelPrivilege.Privileges.create_angles.Value == true ? true : false : false)<span class="label">@Resource.Allow</span></label>
+            <label>@Html.RadioButton("AllowCreateAngles", false, Model.ModelPrivilege.Privileges.create_angles.HasValue ? Model.ModelPrivilege.Privileges.create_angles.Value == false ? true : false : false)<span class="label">@Resource.Deny</span></label>
+            <label>@Html.RadioButton("AllowCreateAngles", "Undefined", Model.ModelPrivilege.Privileges.create_angles.HasValue ? false : true)<span class="label">@Resource.Undefined</span></label>
+         </p>
+    </div>
+    <div class="contentSectionInfoItem">
+        <label>@Html.LabelFor(model => model.ModelPrivilege.Privileges.create_template_angles)</label>
+        <p>
+           <label>@Html.RadioButton("AllowCreateTemplateAngles", true, Model.ModelPrivilege.Privileges.create_template_angles.HasValue ? Model.ModelPrivilege.Privileges.create_template_angles.Value == true ? true : false : false)<span class="label">@Resource.Allow</span></label>
+            <label>@Html.RadioButton("AllowCreateTemplateAngles", false, Model.ModelPrivilege.Privileges.create_template_angles.HasValue ? Model.ModelPrivilege.Privileges.create_template_angles.Value == false ? true : false : false)<span class="label">@Resource.Deny</span></label>
+            <label>@Html.RadioButton("AllowCreateTemplateAngles", "Undefined", Model.ModelPrivilege.Privileges.create_template_angles.HasValue ? false : true)<span class="label">@Resource.Undefined</span></label>
+        </p>
+    </div>
+
+    <h4 class="alwaysVisible">@Resource.MC_Administrator</h4>
+    <div class="contentSectionInfoItem alwaysVisible">
+        <label>@Html.LabelFor(model => model.ModelPrivilege.Privileges.manage_model)
+        </label>
+        <p>
+            <label>@Html.RadioButton("ManageModel", true, Model.ModelPrivilege.Privileges.manage_model.HasValue ? Model.ModelPrivilege.Privileges.manage_model.Value == true ? true : false : false)<span class="label">@Resource.Allow</span></label>
+            <label>@Html.RadioButton("ManageModel", false, Model.ModelPrivilege.Privileges.manage_model.HasValue ? Model.ModelPrivilege.Privileges.manage_model.Value == false ? true : false : false)<span class="label">@Resource.Deny</span></label>
+            <label>@Html.RadioButton("ManageModel", "Undefined", Model.ModelPrivilege.Privileges.manage_model.HasValue ? false : true)<span class="label">@Resource.Undefined</span></label>
+            <a data-target="#popupDescriptionTemplate" title="Description" data-width="600" data-min-height="100" data-role="mcPopup" class="btn btnInfo" onclick='MC.util.showDescriptionPopup(this)'></a>
+            <textarea class="alwaysHidden">@Resource.MC_ManageModelDescription</textarea>
+        </p>
+    </div>
+         
+    <div class="contentSectionInfoItem">
+        <label>@Html.LabelFor(model => model.ModelPrivilege.Privileges.manage_private_items)
+        </label>
+        <p>
+            <label>@Html.RadioButton("manage_private_items", true, Model.ModelPrivilege.Privileges.manage_private_items.HasValue ? Model.ModelPrivilege.Privileges.manage_private_items.Value == true ? true : false : false)<span class="label">@Resource.Allow</span></label>
+            <label>@Html.RadioButton("manage_private_items", false, Model.ModelPrivilege.Privileges.manage_private_items.HasValue ? Model.ModelPrivilege.Privileges.manage_private_items.Value == false ? true : false : false)<span class="label">@Resource.Deny</span></label>
+            <label>@Html.RadioButton("manage_private_items", "Undefined", Model.ModelPrivilege.Privileges.manage_private_items.HasValue ? false : true)<span class="label">@Resource.Undefined</span></label>
+            <a data-target="#popupDescriptionTemplate" title="Description" data-width="600" data-min-height="100" data-role="mcPopup" class="btn btnInfo" onclick='MC.util.showDescriptionPopup(this)'></a>
+            <textarea class="alwaysHidden">@Resource.MC_ShowAllPrivateItemsDescription</textarea>
+        </p>
+    </div>
+</div>

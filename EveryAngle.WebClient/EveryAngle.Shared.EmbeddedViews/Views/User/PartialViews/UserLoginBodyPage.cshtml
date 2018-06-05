@@ -1,0 +1,35 @@
+﻿<div id="LoginContainer">
+    <h1>@EveryAngle.Shared.Globalization.Resource.Login</h1>
+    <input id="UserName" name="wc_username" class="UserName" type="text" tabindex="1" placeholder="@EveryAngle.Shared.Globalization.Resource.Username" />
+    <input id="Password" name="wc_password" class="Password" type="password" tabindex="2" placeholder="@EveryAngle.Shared.Globalization.Resource.Password" />
+
+    <div class="LogoContainer">
+        <div class="Logo LogoImage"></div>
+    </div>
+    <input id="LoginButton" class="btn btnPrimary" type="button" value="@EveryAngle.Shared.Globalization.Resource.Login" tabindex="3" />
+
+    <a id="CancelButton" style="display: none;">@EveryAngle.Shared.Globalization.Resource.Cancel</a>
+    <div class="loginLoading"></div>
+
+    <div id="ErrorMessage" class="loginMessage"></div>
+    <div class="SessonExpiredDetail"></div>
+    <span id="VersionInfoLogin" class="VersionInfo">@ViewBag.FileVersion</span>
+</div>
+
+<script type="text/javascript">
+    jQuery("#UserName, #Password").off('keypress').on('keypress', function (event) {
+        if (event.which == 13 && window.UserLogin) {
+            window.UserLogin(jQuery('#UserName').val(), jQuery('#Password').val(), true);
+        }
+    });
+    jQuery('#LoginButton').removeAttr('onclick').off('click').on('click', function (event) {
+        if (window.UserLogin) {
+            UserLogin(jQuery('#UserName').val(), jQuery('#Password').val(), true);
+        }
+    });
+    jQuery('#CancelButton').removeAttr('onclick').off('click').on('click', function (event) {
+        if (window.CancelToLoginPage) {
+            window.CancelToLoginPage();
+        }
+    });
+</script>

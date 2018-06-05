@@ -1,0 +1,54 @@
+﻿@using EveryAngle.ManagementConsole.Models
+@using EveryAngle.ManagementConsole.Helpers
+@using EveryAngle.Shared.Globalization
+
+<script>
+    MC.util.loadScript({
+        test: MC.GlobalSettings && MC.GlobalSettings.LabelCategories,
+        url: '@Scripts.Url("~/bundles/globalsettings/labelcategories")',
+        callback: function () {
+            MC.GlobalSettings.LabelCategories.InitialCategoryPage({
+                GetLabelsUri: '@Url.Action("GetLabels", "LabelCategories")',
+                SaveLabelCategoryUri: '@Url.Action("SaveLabelCategoryOrder", "LabelCategories")',
+                DeleteUri: '@Url.Action("DeleteLabelCategory", "LabelCategories")'
+            });
+        }
+    });
+</script>
+
+@{
+    @Html.RenderPageToolbar(new List<PageToolbarButtonModel>
+    {
+        new PageToolbarButtonModel { Type = PageToolbarButtonType.Reload }
+    })
+}
+
+<div class="content pageLabel">
+    <div class="contentSection contentSectionGrid">
+        <h2>@Resource.LabelCategoriesSetting</h2>
+        <div class="gridContainer" id="LabelCategoriesGridContainer">
+            @{Html.RenderAction("GetFilterGlobalLabelCategories", "LabelCategories", new { q = "" });}
+        </div>
+        <div class="gridToolbar gridToolbarBottom">
+        @{
+            List<PageToolbarButtonModel> buttons = new List<PageToolbarButtonModel>();
+            buttons.Add(new PageToolbarButtonModel
+            {
+                EnableTemplate = "<a href=\"" + SiteMapHelper.ActionHash("GlobalSettings/AllLabelCategories/CreateLabelCategory") +"\" class=\"btn btnAdd\">" + Resource.MC_AddLabelCategory + "</a>",
+                DisableTemplate = "<a class=\"btn btnAdd disabled\">" + Resource.MC_AddLabelCategory + "</a>",
+                Type = PageToolbarButtonType.Custom,
+                Privilege = PrivilegeType.System
+            });
+            @Html.RenderPageToolbarBottom(buttons)    
+        }
+		</div>
+    </div>
+    <hr />
+    <!--/.contentSectionGrid-->
+
+    @{Html.RenderAction("GetCommentsByType", "Comment", new { CommentType = "Global_Label_Categories" });}
+
+    <input type="hidden" id="modelUri" value="@ViewBag.ModelUri" />
+</div>
+
+<!--/.content-->

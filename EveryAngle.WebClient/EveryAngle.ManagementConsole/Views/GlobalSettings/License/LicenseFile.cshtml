@@ -1,0 +1,231 @@
+﻿@using EveryAngle.ManagementConsole.Models
+@using EveryAngle.ManagementConsole.Helpers
+@using EveryAngle.Shared.Globalization
+@model EveryAngle.Core.ViewModels.Model.SystemLicenseViewModel
+
+<script>
+    MC.util.loadScript({
+        test: MC.Models && MC.Models.License,
+        url: '@Scripts.Url("~/bundles/models/license")',
+        callback: function () {
+            MC.Models.License.Initial();
+        }
+    });
+</script>
+
+@{
+    List<PageToolbarButtonModel> buttons = new List<PageToolbarButtonModel>();
+
+    buttons.Add(new PageToolbarButtonModel
+    {
+        Type = PageToolbarButtonType.Save,
+        Privilege = PrivilegeType.System,
+        OnClick = "MC.Models.License.SaveLicenseFile()"
+    });
+
+    buttons.Add(new PageToolbarButtonModel
+    {
+        Type = PageToolbarButtonType.Reload
+    });
+    
+    @Html.RenderPageToolbar(buttons)
+}
+
+<div class="content pageLicense">
+    <div class="contentSection contentSectionInfo">
+        <h2>@Resource.License</h2>
+        <div class="uploadLicenseFile">
+            <form action="@Url.Action("SaveLicenseFile", "License")" data-role="validator" enctype="multipart/form-data" id="AddLicenseFileForm" method="post">
+                <input name="LicenseUri" type="hidden" value="@ViewBag.LicenseUri" />
+                @{
+                    buttons = new List<PageToolbarButtonModel>();
+                    buttons.Add(new PageToolbarButtonModel
+                    {
+                        EnableTemplate = " <input type=\"file\" name=\"file\" id=\"fileAttached\" size=\"60\" data-role=\"uploader\" data-text-browse=\"" + Resource.MC_UploadLicense + "\" />",
+                        DisableTemplate = " <input type=\"file\" name=\"file\" id=\"fileAttached\" size=\"60\" disabled=\"disabled\" data-text-browse=\"" + Resource.MC_UploadLicense + "\" />",
+                        Type = PageToolbarButtonType.Custom,
+                        Privilege = PrivilegeType.System
+                    });
+                    @Html.RenderPageToolbarBottom(buttons)    
+                }
+
+            </form>
+        </div>
+        <div class="contentSectionInfoItem">
+            <label>@Html.LabelFor(model => model.application_server_license.organisation.name)</label>
+            <p>
+                <label>
+                    @if (Model != null && Model.application_server_license != null && Model.application_server_license.organisation != null)
+                    {
+                        @(string.Format("{0} ({1})", Model.application_server_license.organisation.name, Model.application_server_license.organisation.id))
+                    }
+                </label>
+            </p>
+        </div>
+        <div class="contentSectionInfoItem">
+            <label>@Html.LabelFor(model => model.application_server_license.expires)</label>
+            <p>
+                <label>
+                    <span data-role="localize" data-type="date">
+                        @if (Model != null && Model.application_server_license != null)
+                        {
+                            @Model.application_server_license.expires.ToString()
+                        }
+                    </span>
+                </label>
+            </p>
+        </div>
+        <div class="contentSectionInfoItem">
+            <label>@Html.LabelFor(model => model.application_server_license.ip_addresses)</label>
+            <p>
+                <label>
+                    @if (Model != null && Model.application_server_license != null)
+                    {
+                        @Model.application_server_license.ReanableIpAddresses
+                    }
+                </label>
+            </p>
+        </div>
+    </div>
+    <hr />
+
+    <div class="contentSection contentSectionInfo">
+        <h2>@Resource.Limits</h2>
+        <div class="contentSectionInfoItem">
+            <label>@Html.LabelFor(model => model.application_server_license.max_models)</label>
+            <p>
+                <label>
+                    @if (Model != null && Model.application_server_license != null)
+                    {
+                        @(Model.application_server_license.max_models ?? Resource.MC_License_Unlimited)
+                    }
+                </label>
+            </p>
+        </div>
+        <div class="contentSectionInfoItem">
+            <label>@Html.LabelFor(model => model.application_server_license.max_named_users)</label>
+            <p>
+                <label>
+                    @if (Model != null && Model.application_server_license != null)
+                    {
+                        @(Model.application_server_license.max_named_users ?? Resource.MC_License_Unlimited)
+                    }
+                </label>
+            </p>
+        </div>
+        <div class="contentSectionInfoItem">
+            <label>@Html.LabelFor(model => model.application_server_license.max_concurrent_users)</label>
+            <p>
+                <label>
+                    @if (Model != null && Model.application_server_license != null)
+                    {
+                        @(Model.application_server_license.max_concurrent_users ?? Resource.MC_License_Unlimited)
+                    }
+                </label>
+            </p>
+        </div>
+
+    </div>
+    <hr />
+
+    @if (Model != null && Model.application_server_license != null && Model.application_server_license.features != null && Model.application_server_license.features.Count() > 0)
+    {
+        <div class="contentSection contentSectionInfo">
+            <h2>@Resource.MC_Features</h2>
+            @{
+        foreach (var fea in Model.application_server_license.features)
+        {
+                    <div class="contentSectionInfoItem">
+                        <label>@Html.CaptionText(string.Format("MC_Label_{0}", fea.feature))</label>
+                        <p><label>@fea.licensed</label></p>
+                    </div>
+        }
+            }
+
+        </div>
+         <hr />
+    }
+
+
+    @if (Model != null && Model.model_licenses != null)
+    {
+        foreach (var modelLicense in Model.model_licenses)
+        {
+        <div class="contentSection contentSectionInfo">
+            <h2>@Resource.Model @modelLicense.ModelName</h2>
+            <div class="contentSectionInfoItem">
+                <label>@Resource.MC_ExpirationDate</label>
+                <p>
+                    <label>
+                        <span data-role="localize" data-type="date">
+                            @if (modelLicense != null)
+                            {
+                                @modelLicense.expires.ToString()
+                            }
+                        </span>
+                    </label>
+                </p>
+            </div>
+            <div class="contentSectionInfoItem">
+                <label>@Resource.MC_NumberOfModelServers</label>
+                <p>
+                    <label>
+                        @if (modelLicense != null)
+                        {
+                            @(modelLicense.max_modelservers ?? Resource.MC_License_Unlimited)
+                        }
+                    </label>
+                </p>
+            </div>
+            <div class="contentSectionInfoItem">
+                <label>@Resource.MC_NumberOfUsers</label>
+                <p>
+                    <label>
+                        @if (modelLicense != null)
+                        {
+                            @(modelLicense.max_users ?? Resource.MC_License_Unlimited)
+                        }
+                    </label>
+                </p>
+            </div>
+            <div class="contentSectionInfoItem">
+                <label>@Resource.MC_LicensedApps</label>
+                <p>
+                    <label>
+                        @if (modelLicense != null && modelLicense.licensed_apps != null)
+                        {
+                            @modelLicense.ReanableLicensedApps
+                        }
+                    </label>
+                </p>
+            </div>
+            <div class="contentSectionInfoItem">
+                <label>@Resource.MC_LicensedIPAddress</label>
+                <p>
+                    <label>
+                        @if (modelLicense != null && modelLicense.licensed_apps != null)
+                        {
+                            @modelLicense.ReanableIpAddresses
+                        }
+                    </label>
+                </p>
+            </div>
+            <div class="contentSectionInfoItem">
+                <label>@Resource.MC_EFSRequired</label>
+                <p>
+                    <label>
+                        @if (modelLicense != null)
+                        {
+                            @modelLicense.EFS_Required.ToString()
+                        }
+                    </label>
+                </p>
+            </div>
+        </div>
+        <hr />
+        }
+    }
+    <!--/.contentSectionSync-->
+
+    @{Html.RenderAction("GetCommentsByType", "Comment", new { CommentType = "License" });}
+</div>

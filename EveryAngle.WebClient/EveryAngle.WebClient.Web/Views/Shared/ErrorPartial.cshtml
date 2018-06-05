@@ -1,0 +1,16 @@
+﻿@model System.Web.Mvc.HandleErrorInfo
+<div class="error">
+   <strong> Controller:</strong> @Model.ControllerName
+    <br>
+   <strong> Action:</strong> @Model.ActionName
+    <br>
+   <strong> Exception:</strong> @Model.Exception
+</div>
+<style type="text/css">
+    .error {
+        color: #9F6000;
+        background-color: #FEEFB3;
+        padding: 20px;
+        overflow: scroll;
+    }
+</style>

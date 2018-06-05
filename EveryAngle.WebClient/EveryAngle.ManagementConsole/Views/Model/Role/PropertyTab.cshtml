@@ -1,0 +1,133 @@
+﻿@model EveryAngle.Core.ViewModels.Privilege.ModelPrivilegeViewModel
+@using EveryAngle.Shared.Globalization
+@using EveryAngle.ManagementConsole.Models
+
+
+@{
+    var allAvailableClasseFields = (ViewBag.AllClasses as List<EveryAngle.Core.ViewModels.Model.ClassViewModel>);
+    string classFieldName = "";
+}
+
+
+<textarea class="hidden" id="templateForCreateProperties">
+    <tr class="newRow">
+        <td>
+            <select name="SourcePropertyObject" class="required">
+                <option value="">@Resource.PleaseSelect</option>
+                @foreach (var action in ViewBag.SourceClasses as IEnumerable<SelectListItem>)
+                {
+                        <option value="@action.Value">@action.Text</option>
+                }
+            </select>
+            <input type="hidden" value="@classFieldName" name="sourceClassFieldName" />
+            @Html.ClassChooserButton(new PopupChooserButtonModel
+            {
+                ButtonType = PopupChooserButtonType.Input,
+                PopupTitle = Resource.MC_SelectAnObject,
+                ClassName = "alwaysHidden",
+                Attributes = "name=\"sourceClassFieldId\" readonly=\"readonly\"",
+                OnClick = "MC.Models.Roles.ShowClassesChooser(MC.Models.Roles.FIELDSCHOOSER_FOR.CLASSES, this)"
+            })
+        </td>
+        <td>
+            @Html.FieldChooserButton(new PopupChooserButtonModel
+            {
+                ButtonType = PopupChooserButtonType.Input,
+                PopupTitle = Resource.MC_SelectAField,
+                OnClick= "MC.Models.Roles.ShowFieldsChooser(MC.Models.Roles.FIELDSCHOOSER_FOR.PROPERTY, this)",
+                Attributes = "name=\"txtField\" readonly=\"readonly\" placeholder=\"" + Resource.MC_SelectFieldHint + "\""
+            })
+            <input type="hidden" name="hdnFieldId" />
+        </td>
+        <td></td>
+        <td>
+            <label><input value="True" name="AllowedFields" type="radio" /><span class="label">@Resource.Allow</span></label>
+            <label><input value="False" name="AllowedFields" type="radio" checked /><span class="label">@Resource.Deny</span></label>
+        </td>
+        <td class="gridColumnToolbar">
+            <a onclick="MC.form.template.remove(this)" data-delete-template="@Resource.MC_DeletePropertyConfirm" data-delete-field-index="0" class="btn btnDelete"></a>
+            <input type="hidden" name="id" value="" />
+        </td>
+    </tr>
+</textarea>
+
+<table id="propertiesGrid">
+    <colgroup>
+        <col />
+        <col />
+        <col />
+        <col style="width: 205px;" />
+        <col style="width: 70px;" />
+    </colgroup>
+    <thead>
+        <tr>
+            <th data-field="short_name">@Resource.Object</th>
+            <th data-field="short_name">@Resource.FieldName</th>
+            <th data-field="technical_info">@Resource.TechnicalInfo</th>
+            <th data-field="access">@Resource.Access</th>
+            <th data-field="action" class="gridColumnToolbar">@Resource.MC_Action</th>
+        </tr>
+    </thead>
+    <tbody>
+    @foreach (var field in ViewData["fieldsList"] as List<Tuple<string, string, string, bool,string>>)
+    {
+        var name = "AllowedFields_" + field.Item1;
+        <tr>
+            <td>
+                @Html.DropDownList("SourcePropertyObject", new SelectList(ViewBag.SourceClasses, "value", "text", field.Item2), Resource.PleaseSelect)
+                @{
+        var sourceClass = allAvailableClasseFields.Where(filter => filter.id == field.Item2).FirstOrDefault();
+        classFieldName = sourceClass == null ? "" : sourceClass.short_name;
+                }
+
+                <input type="hidden" value="@classFieldName" name="sourceClassFieldName" />
+                @Html.ClassChooserButton(new PopupChooserButtonModel
+                {
+                    ButtonType = PopupChooserButtonType.Input,
+                    PopupTitle = Resource.MC_SelectAnObject,
+                    Caption = field.Item2,
+                    ClassName = "alwaysHidden",
+                    Attributes = "name=\"sourceClassFieldId\" readonly=\"readonly\"",
+                    OnClick = "MC.Models.Roles.ShowClassesChooser(MC.Models.Roles.FIELDSCHOOSER_FOR.CLASSES, this)"
+                })
+            </td>
+            <td>
+                @Html.FieldChooserButton(new PopupChooserButtonModel
+                {
+                    ButtonType = PopupChooserButtonType.Input,
+                    Caption = field.Item5,
+                    ClassName = "required",
+                    PopupTitle = Resource.MC_SelectAField,
+                    OnClick= "MC.Models.Roles.ShowFieldsChooser(MC.Models.Roles.FIELDSCHOOSER_FOR.PROPERTY, this)",
+                    Attributes = "name=\"txtField\" readonly=\"readonly\" placeholder=\"" + Resource.MC_SelectFieldHint + "\""
+                })
+                <input type="hidden" name="hdnFieldId" value=" @field.Item3"  />
+
+            </td>
+            <td></td>
+            <td>
+                <label>
+                    <input value="True" name="@name" type="radio" @(field.Item4 == true ? "checked=checked" : "") /><span class="label">@Resource.Allow</span></label>
+                <label>
+                    <input value="False" name="@name" type="radio" @(field.Item4 == false ? "checked=checked" : "") /><span class="label">@Resource.Deny</span></label>
+            </td>
+            <td class="gridColumnToolbar">
+            @{
+                var buttons = new List<PageToolbarButtonModel>();
+                buttons.Add(new PageToolbarButtonModel
+                {
+                    ModelUri = ViewBag.ModelUri,
+                    Privilege = PrivilegeType.Model,
+                    Type = PageToolbarButtonType.Custom,
+                    EnableTemplate = "<a onclick=\"MC.form.template.markAsRemove(this)\" data-parameters='{\"id\":\"" + field.Item1 + "\"}' data-callback=\"MC.Models.Roles.RemovePropertyTemporary\" class=\"btn btnDelete\"></a>  <input type=\"hidden\" name=\"id\" value=\"" + field.Item1 + "\" />",
+                    DisableTemplate = "<a class=\"btn btnDelete disabled\"></a>"
+                });
+                @Html.RenderPageToolbarBottom(buttons)
+            }
+            </td>
+        </tr>
+    }
+    </tbody>
+</table>
+
+<!--/.tabPanel-->

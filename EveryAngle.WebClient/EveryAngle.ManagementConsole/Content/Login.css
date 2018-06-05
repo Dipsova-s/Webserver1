@@ -1,0 +1,141 @@
+/* .loginPage & .popupLoginPopup
+============================================ */
+div.loginPage {
+	position: absolute;
+	left: 50%;
+	top: 50%;
+	margin-left: -393px;
+	margin-top: -234px;
+	padding-top: 0 !important;
+	background: #fff url(../../images/login/login_bg.png) left bottom repeat-x;
+	border-radius: 0;
+	border: 1px solid #9c9c9c;
+	box-shadow: 1px 1px 7px 1px rgba(128,128,128,.3);
+}
+
+div.loginPage,
+div.popupLoginPopup {
+	width: 786px;
+	height: 468px;
+}
+
+#LoginContainer {
+	font-size: 13px;
+	color: #000;
+	position: absolute;
+	height: 100%;
+	width: 100%;
+	left: 0;
+	top: 0;
+	background: transparent url(../../images/login/login_image.png) right center no-repeat;
+}
+
+#LoginContainer h1 {
+	position: relative;
+	font-weight: normal;
+	font-family: Verdana,Tahoma;
+	font-size: 24px;
+	top: 135px;
+	left: 110px;
+	display: inline-block;
+	white-space: nowrap;
+	margin: 0;
+}
+
+.LogoContainer {
+	position: absolute;
+	width: 221px;
+	height: 42px;
+	left: 16px;
+	bottom: 10px;
+	background: transparent url(../../images/logo.png) -15px center no-repeat;
+}
+
+#LoginContainer .UserName,
+#LoginContainer .Password {
+	font-size: 13px;
+	height: 23px;
+	line-height: 23px;
+	text-indent: 10px;
+	left: 110px;
+	position: absolute;
+	width: 220px;
+	height: 30px;
+	border: 1px solid #abadb3;
+	background-color: #fff;
+}
+
+#LoginContainer .UserName {
+	top: 192px;
+}
+
+#LoginContainer .Password {
+	top: 234px;
+}
+
+#LoginButton {
+	height: 30px;
+	left: 110px;
+	position: absolute;
+	text-align: center;
+	top: 275px;
+	width: 100px;
+	padding: 0;
+	margin: 3px 0 0 0;
+	font-size: 13px;
+	font-weight: normal;
+	text-shadow: none;
+	color: #fff !important;
+	background-color: #2c6c93;
+	border-width: 0;
+}
+
+#CancelButton {
+	position: absolute;
+	top: 284px;
+	left: 225px;
+	text-decoration: underline;
+	color: #333;
+}
+
+.SessonExpiredDetail {
+	position: absolute;
+	top: 350px;
+	left: 110px;
+	width: 250px;
+	color: #e50;
+}
+
+.loginMessage {
+	color: #f00;
+	left: 110px;
+	position: absolute;
+	text-align: left;
+	top: 315px;
+	width: 250px;
+}
+
+.VersionInfo {
+	position: absolute;
+	font-size: 12px;
+	color: #333;
+	right: 15px;
+	bottom: 10px;
+}
+
+.loginPage .VersionInfo {
+	right: 14px;
+	bottom: -32px;
+}
+
+.ChangePaswordSection {
+    display: none;
+}
+
+/* Portrait tablet to landscape and desktop */
+@media (max-width: 979px) {
+	.loginPage {
+		max-width: 748px;
+		margin-left: -374px;
+	}
+}

@@ -1,0 +1,119 @@
+﻿@using EveryAngle.Shared.Globalization
+@using EveryAngle.WebClient.Service.Security;
+@{
+    Layout = null;
+    var FileVersion = AssemblyInfoHelper.GetFileVersion();
+
+    EveryAngle.Core.ViewModels.Users.UserViewModel user = SessionHelper.Initialize().CurrentUser; 
+}
+@using StackExchange.Profiling;
+<!doctype html>
+<html class="no-js">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <link rel="shortcut icon" href="@Url.Content("~/Images/favicon.ico")" />
+    <title>@Resource.ManagementConsoleSystem</title>
+
+    @{
+        @Styles.Render("~/content/default")
+        @Scripts.Render("~/bundles/modernizr")
+    }
+</head>
+<body>
+    @RenderBody()
+    <!--/.mainContainer-->
+    <input type="hidden" id="token" value="@ViewBag.Token" />
+
+    <div id="loading" class="loading" style="display: none;">
+        <div class="loadingOverlay"></div>
+        <div class="loadingContent">
+            <a href="#close" class="loadingClose"></a>
+            <span class="loadingContentText"></span>
+        </div>
+    </div>
+
+    <script src='@Url.Content("~/resources/index")' type="text/javascript"></script>
+    <script type="text/javascript">
+        var webAPIUrl = '@EveryAngle.Shared.Helpers.UrlHelper.GetRequestUrl(EveryAngle.Shared.Helpers.URLType.NOA)';
+        var webLoginUrl = '@EveryAngle.Shared.Helpers.UrlHelper.GetRequestUrl(EveryAngle.Shared.Helpers.URLType.HBA)';
+        var webApiVersion = '@System.Configuration.ConfigurationManager.AppSettings["WebApiVersion"]';
+        var webGlobalSettingsDownloadUrl = '@Url.Action("GetSystemlogFile", "GlobalSettings")';
+        var webModelServersDownloadUrl = '@Url.Action("GetModelServerMetaDataFile", "ModelServers")';
+        var webModelClassReportUrl = '@Url.Action("ModelClassReport", "Model")';
+        var timezoneOffsetWithDst = @(TimeZone.CurrentTimeZone.GetUtcOffset(DateTime.Now).TotalMinutes * -1);
+        @{
+            string userCurrency = "EUR";
+            string userLanguage = "en";
+            if (user != null && user.Settings != null)
+            {
+                if (!string.IsNullOrEmpty(user.Settings.default_currency))
+                {
+                    userCurrency = user.Settings.default_currency;
+                }
+                if (!string.IsNullOrEmpty(user.Settings.default_language))
+                {
+                    userLanguage = user.Settings.default_language;
+                }
+            }
+        }
+        var userCurrency = '@userCurrency';
+        var userLanguage = '@userLanguage';
+    </script>
+
+    @{
+        if (!BundleTable.EnableOptimizations)
+        {
+        @Styles.Render("~/content/kendoui/css",
+                        "~/content/externalresource/css",
+                        "~/content/base")
+        
+        @Scripts.Render("~/bundles/jquery",
+                        "~/bundles/jqueryplugin.js",
+                        "~/bundles/knockout",
+                        "~/bundles/kendo.js",
+                        EveryAngle.ManagementConsole.Localization.UserCulture.GetScriptCulture(),
+                        "~/resources/embedded/sharedjs",
+                        "~/bundles/master.js")
+        }
+        else
+        {
+        @Styles.Render("~/content/kendoui/css",
+                    "~/content/externalresource/css",
+                    "~/content/base")
+        @Scripts.Render("~/bundles/jquery", "~/bundles/jqueryplugin.js");
+        <script>
+            $LAB.script([
+                    '@Scripts.Url("~/bundles/knockout")',
+                    '@Scripts.Url("~/bundles/kendo.js")'
+                ]).wait()
+                .script([
+                    '@Url.Content(EveryAngle.ManagementConsole.Localization.UserCulture.GetScriptCulture())',
+                    '@Scripts.Url("~/resources/embedded/sharedjs")'
+                ]).wait()
+                .script('@Scripts.Url("~/bundles/master.js")');
+        </script>
+        }
+
+        string configFilePath = EveryAngle.Shared.Helpers.WebConfigHelper.GetWebClientFilePathBy("web.config");
+        if (!Request.PhysicalPath.Contains("EveryAngle.ManagementConsole"))
+        {
+            configFilePath = configFilePath.Replace(@"EveryAngle.WebClient.Web\", "");
+        }
+        string googleAnalyticsId = EveryAngle.Shared.Helpers.WebConfigHelper.GetAppSettingsValueFromWebConfig(configFilePath, "GoogleAnalyticsId");
+        if (!string.IsNullOrEmpty(googleAnalyticsId))
+        {
+            <script>
+                (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+                    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+                    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+                })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+                ga('create', '@googleAnalyticsId', 'auto');
+                ga('send', 'pageview');
+            </script>
+        }
+    }
+</body>
+</html>

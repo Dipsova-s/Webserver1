@@ -1,0 +1,499 @@
+/* #DashboardField
+============================================ */
+#DashboardField.detailsWrapper {
+    min-width: 768px;
+}
+#DashboardField .informationDetailPanel {
+    margin-right: 125px;
+}
+
+#DashboardDescriptionWrapper .sectionDescriptions {
+    border-bottom-width: 0;
+}
+
+#DashboardDescriptionWrapper .sectionDefinitions {
+    display: none;
+}
+
+#WidgetsDetailWrapper .definitionsHeader {
+    line-height: 20px;
+    font-size: 16px;
+    margin-bottom: 10px;
+    padding: 0 0 3px 0;
+    border-bottom: 1px solid #999;
+}
+
+#WidgetsDetailWrapper .definitionsHeader .btnChangeDisplay {
+    position: absolute;
+    top: 0;
+    right: 0;
+    color: #006f9b;
+    font-size: 13px;
+}
+
+#DashboardWidgetsWrapper .displayNameContainer {
+    height: auto;
+    padding-top: 2px;
+    box-sizing: border-box;
+}
+
+#DashboardWidgetsWrapper .displayNameContainer .name {
+    padding-left: 5px;
+    max-width: 400px;
+}
+
+/* #dashboardWrapper
+============================================ */
+#widgetMaximizeWrapper {
+    display: none;
+    position: absolute;
+    left: 0;
+    top: 0;
+    margin-left: 0;
+    background-color: #fff;
+    z-index: 10;
+}
+
+#widgetMaximizeWrapper.active {
+    display: block;
+}
+
+#dashboardWrapper .widgetDisplayRow {
+    overflow: hidden;
+    height: 100%;
+    border-top-width: 0;
+    border-bottom-width: 0;
+}
+
+#dashboardWrapper .widgetDisplayColumn {
+    position: relative;
+    float: left;
+    width: 100%;
+    overflow: hidden;
+    z-index: 1;
+}
+
+.widgetDisplayHeader {
+    cursor: move;
+    position: relative;
+    height: 30px;
+    background-color: #236e97;
+}
+
+#dashboardWrapper.nodrag .widgetDisplayHeader,
+.widgetDisplayHeader.nodrag {
+    cursor: default;
+}
+
+.widgetDisplayHeader .widgetName {
+    line-height: 30px;
+    margin: 0 0 0 5px;
+    display: inline-block;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+    color: #fff;
+    text-shadow: 1px 1px 1px #555;
+    font-size: 14px;
+    opacity: .9;
+}
+
+.widgetDisplayHeader .btnWidgetInfo {
+    vertical-align: baseline;
+    top: -7px;
+    background-size: 13px 13px;
+}
+
+.safari .widgetDisplayHeader .btnWidgetInfo {
+    vertical-align: bottom;
+}
+
+.widgetDisplayHeader .widgetToolbar {
+    position: absolute;
+    right: 5px;
+    top: 50%;
+    margin-top: -11px;
+}
+
+.widgetButtonMenu {
+    display: none;
+    float: right;
+    width: 22px;
+    height: 22px;
+    margin: 0 0 0 4px;
+    min-width: 0;
+    padding: 0;
+}
+
+.widgetDisplayColumn:hover .widgetButtonMenu,
+.touch .widgetButtonMenu {
+    display: block;
+}
+
+.widgetButtonMenu:after {
+    right: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url('../../images/custom_sprite.png');
+    background-position: 5px 6px;
+}
+
+.widgetToolbarActions {
+    top: 30px;
+    left: auto;
+    right: -2px;
+    width: 160px;
+    border-color: #c5c5c5;
+}
+
+.widgetDisplayHeader .widgetButtonMenu + .widgetToolbarActions {
+    display: none;
+}
+
+.widgetDisplayColumn:hover .widgetButtonMenu.open + .widgetToolbarActions,
+.touch .widgetButtonMenu.open + .widgetToolbarActions {
+    display: block;
+}
+
+.widgetToolbar .k-window-arrow-n:before,
+.widgetToolbar .k-window-arrow-n:after {
+    left: auto;
+    right: 2px;
+}
+
+.widgetToolbar .k-window-arrow-n:before {
+    border-bottom-color: #fff;
+}
+
+.widgetToolbar .k-window-content {
+    background-color: #fff;
+}
+
+.widgetToolbarActions a {
+    padding: 0 0 0 40px;
+    display: block;
+    position: relative;
+    height: 38px;
+    line-height: 38px;
+    color: #333333;
+    font-size: 12px;
+    background: transparent none 12px center no-repeat;
+    border-bottom: 1px solid #c5c5c5;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+    box-sizing: border-box;
+}
+
+.widgetToolbarActions a:hover,
+.widgetToolbarActions .active {
+    background-color: #f0f0f0;
+}
+
+.widgetToolbarActions .widgetButtonMaximize {
+    background-image: url('../../images/icons/icon_maximize.png');
+}
+
+#widgetMaximizeWrapper .widgetToolbarActions .widgetButtonMaximize {
+    display: none;
+}
+
+.widgetToolbarActions .widgetButtonMinimize {
+    display: none;
+    background-image: url('../../images/icons/icon_minimize.png');
+}
+
+#widgetMaximizeWrapper .widgetToolbarActions .widgetButtonMinimize {
+    display: block;
+}
+
+.widgetToolbarActions .widgetButtonDelete {
+    background-image: url('../../images/icons/icon_bin.png');
+}
+
+.widgetToolbarActions .widgetButtonOpenNewWindow {
+    background-image: url('../../images/icons/icon_open_new_window.svg');
+    background-position: 7px center;
+    background-size: 25px 25px;
+}
+
+.widgetToolbarActions .disabled {
+    cursor: default;
+    color: #777;
+    opacity: .5;
+}
+
+.widgetNotExists .btnWidgetInfo {
+    display: none;
+}
+
+.widgetDisplay {
+    position: relative;
+}
+
+.widgetNotExists .widgetDisplay {
+    text-align: center;
+    font-style: italic;
+    color: #777;
+    position: absolute;
+    width: 100%;
+    margin-top: -10px;
+    top: 50%;
+    left: 0;
+    cursor: default;
+}
+
+.widgetInvalid .widgetDisplay {
+    font-size: 14px;
+    font-style: italic;
+    color: #777;
+    text-align: left;
+    margin: auto;
+    padding: 20px;
+    overflow: auto;
+}
+
+.widgetInvalid .widgetDisplay ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.widgetInvalid .widgetDisplay ul:first-child {
+    margin-top: 5px;
+}
+
+.widgetInvalid .widgetDisplay li {
+    padding-left: 10px;
+    white-space: normal;
+    position: relative;
+}
+
+.widgetInvalid .widgetDisplay li:before {
+    content: '\2022';
+    position: absolute;
+    left: 0;
+    top: 0;
+}
+
+#dashboardWrapper .k-splitbar,
+#dashboardWrapper .k-ghost-splitbar {
+    z-index: 2;
+}
+
+#dashboardWrapper .k-secondary.k-splitbar {
+    background-color: #9c9c9c;
+    border-color: #2b2b2b;
+}
+
+#dashboardWrapper .k-splitbar-horizontal-hover:hover,
+#dashboardWrapper .k-splitbar-vertical-hover:hover {
+    background-color: #8c8c8c;
+}
+
+#dashboardWrapper .k-restricted-size-vertical, .k-restricted-size-horizontal {
+    background-color: #d31;
+}
+
+#dashboardWrapper .displayArea {
+    background-color: #fff;
+    margin-left: 0;
+}
+
+.no-touch.safari #dashboardWrapper .displayArea,
+.no-touch.safari #widgetMaximizeWrapper.displayArea {
+    padding-left: 0;
+    -webkit-margin-start: 0 !important; /* NOSONAR: safari bug */
+}
+
+#dashboardWrapper .fitChartWrapper {
+    overflow: hidden;
+}
+
+#dashboardWrapper .dxpgDataArea .dxpgHeaderText {
+    cursor: default;
+}
+
+.widgetDragging {
+    position: relative;
+    cursor: move;
+    width: 150px;
+    height: 80px;
+    border-radius: 5px;
+    border: 2px solid #000;
+    background-color: #eee;
+    box-sizing: border-box;
+}
+
+.widgetDragging.revertHorizontal {
+    margin-left: -130px;
+}
+
+.widgetDragging.revertVertical {
+    margin-top: -40px;
+}
+
+.widgetDragging .widgetDisplayHeader {
+    height: 20px;
+}
+
+.widgetDragging .widgetDisplayHeader .widgetName {
+    display: block;
+    margin-right: 5px;
+    font-size: 10px;
+    line-height: 20px;
+}
+
+.widgetDragging .widgetDisplayHeader .btnWidgetInfo {
+    display: none;
+}
+
+.widgetDragging .widgetDraggingInfo {
+    padding: 10px 5px;
+    text-align: center;
+    font-size: 11px;
+}
+
+.widgetDropArea {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 10001;
+}
+
+.widgetDropArea .droppable {
+    position: absolute;
+    background-color: #000;
+    border: 2px dashed #fff;
+    opacity: .5;
+    z-index: 2;
+}
+
+.widgetDropArea .droppable.dropToRow {
+    width: 100%;
+    z-index: 3;
+}
+
+.widgetDropArea .droppable.dropToReorder {
+    background-color: #0ff;
+}
+
+.widgetDropArea .dragFocus {
+    opacity: .9;
+}
+
+/* .popupDashboardDetails
+===================================== */
+.popupDashboardDetails .k-window-title {
+    width: 200px;
+}
+
+.labelDashboardExecuteAtLogin {
+    font-size: 12px;
+}
+
+.widgetDetailRow {
+    position: relative;
+    margin: 0 10px 10px 10px;
+    line-height: 32px;
+}
+
+.widgetDetailRowAngle {
+    line-height: 23px;
+    height: 23px;
+}
+
+.widgetDetailRowAngle .displayNameContainer {
+    padding-top: 0;
+}
+
+.widgetDetailRowDisplays {
+    line-height: normal;
+}
+
+.widgetDetailRowDisplays .DisplayItemList {
+    border: 1px solid #c5c5c5;
+    border-bottom-width: 0;
+}
+
+.widgetDetailRowDisplays .ItemList {
+    cursor: default;
+}
+
+.widgetDetailRowDisplays .ItemList .selectStatus {
+    cursor: pointer;
+}
+
+.widgetDetailRowDisplays .ItemList.ItemListSelected .selectStatus,
+.widgetDetailRowDisplays .ItemList.disabled .selectStatus {
+    cursor: default;
+}
+
+.widgetDetailRowDisplays .ItemList .displayNameContainer {
+    margin-right: 35px;
+}
+
+.widgetDetailLabel {
+    position: absolute;
+    left: 0;
+    top: 0;
+}
+
+.widgetDetailValue {
+    position: relative;
+    margin-left: 75px;
+}
+
+.popupDashboardDetails .DefInfo > label {
+    float: none;
+    display: block;
+    margin-bottom: 3px;
+}
+
+.popupDashboardDetails .FilterHeader:before {
+    display: none;
+}
+
+.popupDashboardDetails .FilterHeader .displayNameContainer {
+    padding-top: 10px;
+    padding-right: 60px;
+}
+
+.popupDashboardDetails .FilterHeader .name {
+    font-size: 11px;
+    font-weight: bold;
+    line-height: 26px;
+    padding-left: 10px;
+    max-width: 400px;
+}
+
+/* .popupDashboardInfo
+===================================== */
+.popupDashboardInfo .k-window-title {
+    width: 200px;
+}
+
+/* .popupDashboardWidgetInfo
+===================================== */
+.popupDashboardWidgetInfo .descriptionHeader,
+.popupDashboardWidgetInfo .definitionsHeader,
+.popupDashboardWidgetInfo .modelRoleHeader {
+    font-size: 14px;
+    font-weight: bold;
+    border-bottom-width: 0;
+}
+
+.popupDashboardWidgetInfo .definitionsObjectHeader {
+    font-weight: normal;
+}
+
+.popupDashboardWidgetInfo .sectionDescriptions {
+    padding-bottom: 5px;
+}
+
+.popupDashboardWidgetInfo .descriptionBody i {
+    display: inline;
+    color: #999;
+}

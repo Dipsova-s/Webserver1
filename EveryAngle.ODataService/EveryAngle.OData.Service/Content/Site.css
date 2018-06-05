@@ -1,0 +1,172 @@
+﻿body {
+    padding-top: 50px;
+    padding-bottom: 20px;
+}
+
+/* Set padding to keep content from hitting the edges */
+.body-content {
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+/* Set width on the form input elements since they're 100% wide by default */
+input,
+select,
+textarea {
+    max-width: 280px;
+}
+
+.syncmonitoringController-sync-btn {
+    text-align: right;
+}
+
+.item-photo {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    background-size: 20px 20px;
+    background-position: center center;
+    vertical-align: middle;
+    line-height: 20px;
+    margin-left: 5px;
+}
+
+.item-name {
+    display: inline-block;
+    vertical-align: middle;
+    line-height: 32px;
+    padding-left: 3px;
+}
+
+/* sync button in search bar */
+.sync-textbox-container {
+    text-align: left;
+    padding: 5px 0px;
+}
+
+/* search bar */
+.search-textbox-container {
+    text-align: right;
+    padding: 5px 0px;
+    width: 100%;
+}
+
+.custom-search-input {
+    height: 40px;
+}
+
+/* tree list grid */
+
+.odata-copy-container {
+    text-align: center;
+}
+
+.sub-primary .k-icon {
+    color: #686868;
+}
+
+    .sub-primary .k-icon:hover {
+        color: #ffffff;
+    }
+
+.primary .k-icon {
+    color: #686868;
+}
+
+.primary {
+    background-color: Transparent;
+    background-repeat: no-repeat;
+    border: none;
+    cursor: pointer;
+    overflow: hidden;
+    outline: none;
+}
+
+.chromium-panel {
+    background: rgba(255,255,255,1);
+    background: -moz-linear-gradient(top, rgba(255,255,255,1) 0%, rgba(235,235,235,1) 49%, rgba(245,245,245,1) 50%, rgba(255,255,255,1) 100%);
+    background: -webkit-gradient(left top, left bottom, color-stop(0%, rgba(255,255,255,1)), color-stop(49%, rgba(235,235,235,1)), color-stop(50%, rgba(245,245,245,1)), color-stop(100%, rgba(255,255,255,1)));
+    background: -webkit-linear-gradient(top, rgba(255,255,255,1) 0%, rgba(235,235,235,1) 49%, rgba(245,245,245,1) 50%, rgba(255,255,255,1) 100%);
+    background: -o-linear-gradient(top, rgba(255,255,255,1) 0%, rgba(235,235,235,1) 49%, rgba(245,245,245,1) 50%, rgba(255,255,255,1) 100%);
+    background: -ms-linear-gradient(top, rgba(255,255,255,1) 0%, rgba(235,235,235,1) 49%, rgba(245,245,245,1) 50%, rgba(255,255,255,1) 100%);
+    background: linear-gradient(to bottom, rgba(255,255,255,1) 0%, rgba(235,235,235,1) 49%, rgba(245,245,245,1) 50%, rgba(255,255,255,1) 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#ffffff', GradientType=0 );
+
+    border-left: 3px solid #189adc;
+    border-left-width: 10px;
+    border-radius: 3px;
+}
+
+.sync-panel {
+}
+
+.memory-panel {
+}
+
+.appserver-panel {
+    min-height: 117px;
+    content: "Application Server";
+}
+
+.loading-spinner-container {
+    display: block;
+}
+
+.loading-spinner {
+    width: 24px;
+    height: 24px;
+    position: relative;
+    border: none;
+}
+
+.loading-spinner-btn {
+    width: 16px;
+    height: 16px;
+}
+
+.label-container {
+    text-align: center;
+}
+
+.panel-heading {
+    font-weight: bold;
+}
+
+.monitoring-section-one {
+}
+
+.monitoring-section-two {
+}
+
+.progress {
+    height: 3px;
+}
+
+.progress-bar {
+    position: relative;
+    height: 3px;
+    background: rgb(255, 0, 0);
+    background: -moz-linear-gradient(left, rgba(255, 125, 78, 1) 0%, rgba(0, 255, 0, 1) 100%);
+    background: -webkit-gradient(linear, left top, right top, color-stop(0%, rgba(255, 125, 78, 1)), color-stop(100%, rgba(0, 255, 0, 1)));
+    background: -webkit-linear-gradient(left, rgba(255, 125, 78, 1) 0%, rgba(0, 255, 0, 1) 100%);
+    background: -o-linear-gradient(left, rgba(255, 125, 78, 1) 0%, rgba(0, 255, 0, 1) 100%);
+    background: -ms-linear-gradient(left, rgba(255, 125, 78, 1) 0%, rgba(0, 255, 0, 1) 100%);
+    background: linear-gradient(to right, rgba(255, 125, 78, 1) 0%, rgba(0, 255, 0, 1) 100%);
+    filter: progid: DXImageTransform.Microsoft.gradient(startColorstr='#fc7e4d', endColorstr='#00ff00', GradientType=1);
+}
+
+.panel-body {
+    padding: 0 0 15px 0;
+}
+
+.appserver-label {
+    border-radius: 0;
+}
+
+.appserver-panel-row {
+    margin: 15px 15px 11px 15px;
+}
+
+.appserver-header {
+    color: #9b8e8e;
+}

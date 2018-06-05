@@ -1,0 +1,31 @@
+﻿@using EveryAngle.Shared.Globalization
+@model List<TreeViewItemModel>
+
+@if (Model == null)
+{
+    <div id="ModelServerInfoDataError">
+        <p>@ViewBag.ModelServerID is @Resource.Down</p>
+        @if (ViewBag.ModelServerUri != null && ViewBag.IsCurrentInstance != null)
+        {
+            <a class="btn btnPrimary btnRetry">Retry</a>
+        }
+    </div>
+}
+else
+{
+    <div id="ModelServerData">
+        @if (Model != null)
+        {
+            @(Html.Kendo().TreeView()
+                .Name("ServerStatusMenu")
+                .Events(events => events
+                    .Select(@<text>
+                        function (e) {
+                            MC.util.modelServerInfo.showReport(e);
+                        }
+                    </text>))
+                .BindTo(Model))
+        }
+    </div>
+    <div id="ReportSection"></div>
+}

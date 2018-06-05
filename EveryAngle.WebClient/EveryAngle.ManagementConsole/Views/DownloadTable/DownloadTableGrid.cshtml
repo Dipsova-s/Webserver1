@@ -1,0 +1,58 @@
+﻿@model List<EveryAngle.Core.ViewModels.DownloadTable.DownloadTableViewModel>
+@using EveryAngle.Shared.Globalization
+
+@{
+    int pageSize = (int)ViewData["DefaultPageSize"];
+    int gridHeight = Math.Min(pageSize, 14) * 37;    
+}
+
+@(Html.Kendo().Grid<EveryAngle.Core.ViewModels.DownloadTable.DownloadTableViewModel>()
+    .Name("Grid")
+    .Columns(columns =>
+    {
+        columns.Bound(model => model.id).ClientTemplate("<span name=\'downloadTableId\'>#= data.id #</span>").Title(@Resource.ID).Sortable(true).Visible(false);
+        columns.Bound(model => model.external_name).Title(@Resource.MC_Table).Sortable(true);
+        columns.Bound(model => model.description).Title(@Resource.Description);
+        columns.Bound(model => model.table_group).Title(@Resource.MC_TableGroup);
+        columns.Bound(model => model.local_name).Title(@Resource.MC_EAName);
+        columns.Bound(model => model.condition).Title(@Resource.MC_Condition).Sortable(false);
+        columns.Bound(model => model.custom_condition).Title(@Resource.MC_CustomCondition).Sortable(false);
+        columns.Bound(model => model.delta_download)
+            .Title(@Resource.MC_Delta)
+            .Width(50)
+            .Sortable(false)
+            .HeaderHtmlAttributes(new { @class = "columnBoolean" })
+            .HtmlAttributes(new { @class = "columnBoolean" })
+            .ClientTemplate(
+                "<label>"
+                + "# if (data.delta_download == true) { #"
+                + "<input name=\"delta_download\" value=\" #= data.delta_download #\" data-default=\"true\" disabled=\"disabled\" checked=\"checked\" type=\"checkbox\">"
+                + "# } else { #"
+                + "<input name=\"delta_download\" value=\" #= data.delta_download #\" data-default=\"false\" disabled=\"disabled\" type=\"checkbox\">"
+                + "# } #"
+                + "<span class=\"label\"></span></label>"
+            );
+        columns.Bound(model => model.delta_condition).Title(@Resource.MC_DeltaCondition).Sortable(false)
+            .ClientTemplate(" # if(data.delta_download == true) { # "
+                + "<span class=\"enableDelta\">#= data.delta_condition #</span>"
+                + "# } "
+                + "else {# "
+                + "<span class=\"disableDelta\">#= data.delta_condition #</span>"
+                + "# } #");
+
+        columns.Bound("id").ClientTemplate(
+            "<a href=\"\\" + SiteMapHelper.ActionHash("Models/" + @ViewBag.ModelId + "/DownloadTables/EditDownloadTable") + "\" onclick=\"MC.util.redirect(event, this)\" class=\"btn btnEdit\" data-parameters='{\"downloadTableUri\":\"#= data.uri #\", \"downloadTableName\":\"#= data.external_name #\", \"modelId\":\"" + @ViewBag.ModelId + "\", \"modelUri\":\"" + @ViewBag.modelUri + "\"}'>" + @Resource.Edit + "</a>")
+            .HeaderHtmlAttributes(new { @class = "gridColumnToolbar" })
+            .Title(@Resource.MC_Action).HtmlAttributes(new { @class = "gridColumnToolbar" }).Width(75).Sortable(false);      
+    })   
+    .Sortable(sortable=> sortable.AllowUnsort(false))
+    .Resizable(resize => resize.Columns(true))     
+    .Scrollable(scroll => scroll.Virtual(true).Height(gridHeight))
+    .DataSource(dataSource => dataSource
+        .Ajax().Events(e=>e.RequestStart("onKendoGridPagingStart"))
+        .Read(read => read.Action("ReadDownloadTable", "DownloadTable", new { downloadTableUri = ViewBag.DownloadTableUri, keyword = ViewData["Keyword"] }))
+        .PageSize(pageSize)
+    )
+    .EnableCustomBinding(true)
+    .AutoBind(false)
+)

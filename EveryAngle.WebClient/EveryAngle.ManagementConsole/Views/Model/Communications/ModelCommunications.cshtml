@@ -1,0 +1,90 @@
+﻿@using EveryAngle.ManagementConsole.Models
+@using EveryAngle.ManagementConsole.Helpers
+@using EveryAngle.Shared.Globalization
+@model EveryAngle.Core.ViewModels.Model.ModelViewModel
+
+<script>
+    MC.util.loadScript({
+        test: MC.Models && MC.Models.Communications,
+        url: '@Scripts.Url("~/bundles/models/communications")',
+        callback: function () {
+            MC.Models.Communications.Initial({
+                SaveUri: '@Url.Action("SaveModelCommunication","ModelCommunication")',
+                ModelUri: '@Model.Uri'
+            });
+        }
+    });
+</script>
+
+@{
+    @Html.RenderPageToolbar(new List<PageToolbarButtonModel>
+    {
+        new PageToolbarButtonModel { ModelUri = Model.Uri.ToString(), Privilege=PrivilegeType.Model, Type = PageToolbarButtonType.Save, OnClick = "MC.Models.Communications.SaveModelCommunication()" },
+        new PageToolbarButtonModel { Type = PageToolbarButtonType.Reload }
+    })
+}
+
+<div class="content pageCommunications">
+    
+    <div class="contentSection contentSectionInfo">
+        <h2>@Resource.MC_CompanyInformation</h2>
+        <form id="CompanyInformationForm" data-role="validator">
+            <div class="contentSectionInfoItem">
+			    <label>@Html.LabelFor(model => model.CompanyInformation.contact)</label>
+			    <p>@Html.TextBoxFor(model => model.CompanyInformation.contact)</p>
+		    </div>
+            <div class="contentSectionInfoItem">
+			    <label>@Html.LabelFor(model => model.CompanyInformation.address)</label>
+			    <p>@Html.TextBoxFor(model => model.CompanyInformation.address)</p>
+		    </div>
+            <div class="contentSectionInfoItem">
+			    <label>@Html.LabelFor(model => model.CompanyInformation.city)</label>
+			    <p>@Html.TextBoxFor(model => model.CompanyInformation.city)</p>
+		    </div>
+            <div class="contentSectionInfoItem">
+			    <label>@Html.LabelFor(model => model.CompanyInformation.country)</label>
+			    <p>@Html.TextBoxFor(model => model.CompanyInformation.country)</p>
+		    </div>
+            <div class="contentSectionInfoItem">
+			    <label>@Html.LabelFor(model => model.CompanyInformation.telephone)</label>
+			    <p>@Html.TextBoxFor(model => model.CompanyInformation.telephone, new { @class = "phoneNumber" })</p>
+		    </div>
+            <div class="contentSectionInfoItem">
+			    <label>@Html.LabelFor(model => model.CompanyInformation.email)</label>
+			    <p>@Html.TextBoxFor(model => model.CompanyInformation.email, new { @class = "email" })</p>
+		    </div>            
+        </form>
+    </div><!--/.contentSectionInfo-->
+    <hr/>
+
+    <div class="contentSection contentSectionInfo">
+        <h2>@Resource.MC_EmailSettings</h2>
+        <form id="EmailSettingsForm" data-role="validator" autocomplete="off">
+            <div class="contentSectionInfoItem">
+			    <label>@Resource.MessageRecipients</label>
+			    <p>@Html.TextBoxFor(model => model.EmailSettings.ReOrderrecipients, new {
+                        data_role = "multipleinput",
+                        data_default_text = "Add email",
+                        data_regexp = "checkEmailAddress"
+                    })
+			    </p>
+		    </div>            
+            <div class="contentSectionInfoItem">
+			    <label>@Resource.MC_AttachLogfiles</label>
+                <p><label><input data-val="true" data-val-required="The Attach logfiles is required." id="EmailSettings_attach_logfiles" name="EmailSettings.attach_logfiles" type="checkbox" value="true"@( (Model.EmailSettings.attach_logfiles.HasValue && Model.EmailSettings.attach_logfiles.Value) ? " checked='checked'" : "") /><span class="label"></span></label></p>
+            </div>
+            <div class="contentSectionInfoItem">
+			    <label>@Html.LabelFor(model => model.EmailSettings.send_system_logs_frequency_hours)</label>
+                @(Html.Kendo().IntegerTextBoxFor(model => model.EmailSettings.send_system_logs_frequency_hours)
+                    .Format("0")
+                    .Step(1)
+                    .Min(0)
+                    .Max(168) // 7 days
+                    .HtmlAttributes(new { @class="integer autosyncinput", @data_type = "kendoNumericTextBox", @maxlength = 10}))
+		    </div>
+        </form>
+    </div><!--/.contentSectionInfo-->
+    <hr/>
+
+    @{Html.RenderAction("GetCommentsByType", "Comment", new { CommentType = ViewBag.ModelId + "_Communications" });}
+</div><!--/.content-->

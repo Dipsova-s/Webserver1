@@ -1,0 +1,68 @@
+﻿
+@using EveryAngle.ManagementConsole.Models
+@using EveryAngle.ManagementConsole.Helpers
+@using EveryAngle.Shared.Globalization
+<script>
+    MC.util.loadScript({
+        test: MC.Models && MC.Models.Packages,
+        url: '@Scripts.Url("~/bundles/models/packages")',
+        callback: function () {
+            MC.Models.Packages.Initial({
+                ModelId: '@ViewBag.ModelId',
+                ShowPackageErrorMessageUri: '@Url.Action("GetPackageErrorMessage", "Packages")',
+                ManagePackageUri: '@Url.Content("~/Packages/ManagePackage")',
+                DownloadPackageUri: '@Url.Content("~/Packages/DownloadPackageFile")'
+            });
+            MC.ui.logpopup.GetLogUri = '@Url.Action("GetTasksHistoryByCorrelationId", "AutomationTasks")',
+            MC.ui.logpopup.GetLogDetailUri = '@Url.Action("GetTaskHistory", "AutomationTasks")',
+            MC.ui.logpopup.TaskHistoryUri = '@ViewBag.EventlogUri',
+            MC.ui.logpopup.LogType = 'PackagesEventLog'
+        }
+    });
+</script>
+
+@{
+    @Html.RenderPageToolbar(new List<PageToolbarButtonModel>
+    {
+        new PageToolbarButtonModel { Type = PageToolbarButtonType.Reload }
+    })
+}
+
+<div class="content pagePackages">
+    <div class="contentSection contentSectionGrid">
+        <div class="gridToolbar gridToolbarTop">
+            <div class="gridToolbarFilter">
+                <input type="text" id="PackagesGridFilterBox" placeholder="@Resource.MC_Filter" data-role="gridfilter" data-method="remote" data-start="MC.Models.Packages.PackagesGridBeforeFilter" data-target="#TemplateAnglesGridContainer" /><span class="icon"></span>
+            </div>
+            <div class="gridToolbarFilterPackageType">
+                <label><input name="FilterPackages" onclick="MC.Models.Packages.PackagesGridFilter(this)" value="active" type="radio" checked="checked" /><span class="label">@Resource.MC_Active</span></label>
+                <label><input name="FilterPackages" onclick="MC.Models.Packages.PackagesGridFilter(this)" value="inactive" type="radio" /><span class="label">@Resource.Inactive</span></label>
+                <label><input name="FilterPackages" onclick="MC.Models.Packages.PackagesGridFilter(this)" value="all" type="radio" /><span class="label">@Resource.All</span></label>
+            </div>
+        </div>
+        <div class="gridContainer" id="TemplateAnglesGridContainer">
+            @{Html.RenderAction("GetFilterTemplateAngles", "Packages", new { modelUri = ViewBag.ModelUri });}
+        </div>
+    </div>
+    <hr />
+
+    <div class="contentSection contentSectionGrid PackagesHistoryContentSectionGrid">
+        <h2>@Resource.MC_PackagesHistory</h2>
+        <div class="gridContainer">
+            @{Html.RenderAction("GetPackagesHistory", "Packages", new { EventlogUri = @ViewBag.ModelPackagesUri });}
+        </div>
+    </div>
+    <hr />
+
+    @{Html.RenderAction("GetCommentsByType", "Comment", new { CommentType = "TemplateAngles_" + ViewBag.ModelId });}
+</div>
+
+<div class="popup" id="popupPackageErrorMessage">
+    <div class="popupContent">
+        <div class="contentSection contentSectionGrid" id="GridPackageErrorMessage"></div>
+    </div>
+</div>
+
+<div class="popup" id="ImportPackagePopup">
+    @Html.Partial("~/Views/Model/TemplateAngles/ImportPackageForm.cshtml")
+</div>

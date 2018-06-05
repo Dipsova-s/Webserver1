@@ -1,0 +1,74 @@
+﻿@using EveryAngle.ManagementConsole.Models
+@using EveryAngle.ManagementConsole.Helpers
+@using EveryAngle.Shared.Globalization
+
+<script>
+    MC.util.loadScript([
+        {
+            test: false,
+            url: '@Scripts.Url("~/bundles/clipboard")'
+        },
+        {
+            test: MC.AutomationTasks && MC.AutomationTasks.Tasks,
+            url: '@Scripts.Url("~/bundles/automationtasks/tasks")',
+            callback: function () {
+                MC.AutomationTasks.Tasks.InitialAllTasks({
+                    DeleteTaskUri: '@Url.Action("DeleteTask", "AutomationTasks")',
+                    ExecuteTaskUri: '@Url.Action("ExecuteTask", "RefreshCycle")',
+                    EditTaskPage: '@SiteMapHelper.ActionHash("AutomationTasks/Tasks/EditTask")',
+                    AbortTaskUri: '@Url.Action("AbortTask", "RefreshCycle")',
+                    TaskHistoryUri: '@ViewBag.TaskHistoryUri',
+                    GetTaskHistoryUri: '@Url.Action("GetTaskHistory", "AutomationTasks")',
+                    AllTaskPageUri: '@SiteMapHelper.ActionHash("AutomationTasks/Tasks")'
+                });
+
+                MC.ui.logpopup.GetLogUri = '@Url.Action("GetTasksHistoryByCorrelationId", "AutomationTasks")',
+                MC.ui.logpopup.GetLogDetailUri = '@Url.Action("GetTaskHistory", "AutomationTasks")',
+                MC.ui.logpopup.TaskHistoryUri = '@ViewBag.TaskHistoryUri',
+                MC.ui.logpopup.LogType = 'TasksEventLog'
+            }
+        }
+    ]);
+</script>
+@{
+    List<PageToolbarButtonModel> buttons = new List<PageToolbarButtonModel>();
+    buttons.Add(new PageToolbarButtonModel
+    {
+        Type = PageToolbarButtonType.Reload
+    });
+    @Html.RenderPageToolbar(buttons)
+}
+<div class="content pageRefreshCycle">
+
+    <div class="contentSection contentSectionGrid contentSectionGridTasks">
+        <h2>@Resource.MC_AutomationTasks</h2>
+        <form id="TaskForm" data-role="validator">
+            <div class="gridContainer" id="TaskDetailsGridContainer">
+                @{Html.RenderAction("GetTasksGrid", "AutomationTasks", new { tasksUri = ViewBag.TasksUri });}
+            </div>
+        </form>
+
+        <div class="gridToolbar gridToolbarBottom">
+        @{
+            List<PageToolbarButtonModel> gridButtons = new List<PageToolbarButtonModel>();
+            gridButtons.Add(new PageToolbarButtonModel
+            {
+                EnableTemplate = "<a href=\"" + SiteMapHelper.ActionHash("AutomationTasks/Tasks/CreateNewTask") + "\" class=\"btn btnAdd\" onclick=\"MC.AutomationTasks.Tasks.CreateNewTaskUri(event, this)\">" + Resource.MC_AddTask + "</a>",
+                DisableTemplate = "<a class=\"btn btnAdd disabled\">" + Resource.MC_AddTask + "</a>",
+                Type = PageToolbarButtonType.Custom,
+                Privilege = PrivilegeType.System
+            });
+            @Html.RenderPageToolbarBottom(gridButtons)
+        }
+        </div>
+    </div>
+    <hr/>
+
+    <div class="contentSection contentSectionGrid contentSectionGridTasksHistory">
+        <h2>Tasks history</h2>
+        <div class="gridContainer" id="TaskHistoryGridContainer">
+            @{Html.RenderAction("GetTasksHistory", "AutomationTasks", new { taskHistoryUri = @ViewBag.TaskHistoryUri });}
+        </div>
+    </div>
+    <!--/.contentSectionGrid-->
+</div>

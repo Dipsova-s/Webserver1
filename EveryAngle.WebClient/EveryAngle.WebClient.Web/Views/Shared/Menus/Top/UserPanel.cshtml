@@ -1,0 +1,9 @@
+﻿@using EveryAngle.Shared.Globalization
+@using System.Threading;
+
+<div id="UserPanel">
+    <div id="UserControl" onclick="userSettingsView.ToggleMenu();"></div>
+    <span class="UserPanelSeparator"></span>
+    <div id="Help" onclick="userSettingsView.ToggleMenuHelp();">@Resource.Help</div>
+    @{Html.RenderAction("UserMenu", "Menu", new { isVisible = false });}
+</div>

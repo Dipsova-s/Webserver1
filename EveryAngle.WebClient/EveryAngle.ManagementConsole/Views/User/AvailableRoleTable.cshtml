@@ -1,0 +1,28 @@
+﻿@using EveryAngle.Shared.Globalization
+
+@model List<EveryAngle.Core.ViewModels.Users.SystemRoleViewModel>
+
+@(Html.Kendo().Grid(Model)
+    .Name("AvailableRoleGrid")
+    .Columns(columns =>
+    {
+        columns.Bound(model => model.Id).Width(170).Title(@Resource.MC_Rolename);
+        columns.Bound(model => model.Description).Title(@Resource.Description);
+        columns.Bound(model => model.TotalSubRole)
+            .ClientTemplate("#= data.Subrole_ids.length #")
+            .HtmlAttributes(new { @class = "columnNumber" })
+            .HeaderHtmlAttributes(new { @class = "columnNumber" })
+            .Width(110)
+            .Title(@Resource.MC_InclSubroles);
+        columns.Bound(model => model.ModelRole).Width(100).Title(@Resource.Model);
+        columns.Bound(model => model.ModelId).Hidden().Title(Resource.Model);
+    })
+    .Resizable(resize => resize.Columns(true))
+    .Sortable(sortable => sortable.AllowUnsort(false))
+    .Scrollable(scroller => scroller.Virtual(false).Height(400))
+    .DataSource(dataSource => dataSource
+        .Ajax()
+        .ServerOperation(false)
+        .Sort(sort => sort.Add("Id").Ascending())
+    )
+)

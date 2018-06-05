@@ -1,0 +1,78 @@
+﻿@using EveryAngle.Core.ViewModels.SystemLanguages;
+@using EveryAngle.Shared.Globalization
+
+@model System.Data.DataTable
+@{
+    List<SystemLanguageViewModel> languages = ViewData["LanguagesList"] as List<SystemLanguageViewModel>;
+    @(Html.Kendo().Grid(Model)
+        .Name("LabelCategoryGrid")
+        .Columns(columns =>
+        {
+            columns.Bound("id").Title(@Resource.ID).ClientTemplate("<input type='text' #= uri ? disabled='disabled' : '' #   class='required field_id restricted_ids' value='#: id #' />").HtmlAttributes(new { @id = "#: id #" }).Width(85);
+            foreach (System.Data.DataColumn column in Model.Columns)
+            {
+                if (column.ColumnName == "lang_en")
+                {
+                    columns.Bound(column.ColumnName)
+                        .ClientTemplate("<input class=\"required\" type=\"text\" name=\"" + column.ColumnName + "\" value=\"#: " + column.ColumnName + "#\" /><input class=\"label\" type=\"hidden\" value=\"#= uri #\"/>")
+                        .HtmlAttributes(new { @class = "column-" + column.ColumnName })
+                        .Width(170)
+                        .Title(languages.Where(l => l.Id == column.ColumnName.Replace("lang_", "")).FirstOrDefault().Name);
+
+                    for (int i = 0; i < 6; i++)
+                    {
+                        columns
+                            .Bound("id")
+                            .ClientTemplate("")
+                            .HeaderHtmlAttributes(new { @class = "columnSwitchLanguage" })
+                            .Title("");
+                    }
+                }
+                else if (!string.IsNullOrEmpty(column.ColumnName) && column.ColumnName != "uri" && column.ColumnName != "id" && column.ColumnName != "name")
+                {
+                    string languageId = column.ColumnName.Replace("lang_", "");
+                    bool isLanguageAvailable = languages.Any(f => f.Id.Equals(languageId, StringComparison.OrdinalIgnoreCase));
+                    if (isLanguageAvailable)
+                    {
+                        columns.Bound(column.ColumnName)
+                       .ClientTemplate("<input type=\"text\" name=\"" + column.ColumnName + "\" value=\"#: " + column.ColumnName + " #\" /><input class=\"label\" type=\"hidden\"  value=\"#= uri ? uri : ''  #\"/>")
+                       .HtmlAttributes(new { @class = "column-" + column.ColumnName })
+                       .Title(languages.Where(l => l.Id.Equals(languageId, StringComparison.OrdinalIgnoreCase)).FirstOrDefault().Name);
+                    }
+                   
+                }
+            }
+            
+            columns.Bound("id")
+                .ClientTemplate("<input type=\"hidden\" value=\"#= id #\"/>")
+                .Title("&nbsp;")
+                .Hidden(true)
+                .HeaderHtmlAttributes(new { @class = "gridColumnToolbar" })
+                .HtmlAttributes(new { @class = "gridColumnToolbar" });
+        })
+        .Resizable(resize => resize.Columns(true))
+        .Scrollable(scroll => scroll.Virtual(false).Height("auto"))
+        .DataSource(dataSource => dataSource
+            .Ajax()
+            .Model(model =>
+            {
+                foreach (System.Data.DataColumn column in Model.Columns)
+                {
+                    model.Field(column.ColumnName, column.DataType);
+                }
+            })
+            .Read(read => read.Action("ReadLabelCategory", "LabelCategories"))
+        )
+    );
+}
+
+<select id="cboLanguage" class="hidden" onchange="MC.GlobalSettings.LabelCategories.SwitchLanguage(this);">
+    @foreach (var language in languages)
+    {
+        if (language.Id != "en")
+        {
+            string replaceId = "lang_" + language.Id;
+            <option value="@replaceId">@language.Name</option>
+        }
+    }
+</select>

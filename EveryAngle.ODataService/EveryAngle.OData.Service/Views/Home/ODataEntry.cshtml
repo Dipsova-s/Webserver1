@@ -1,0 +1,78 @@
+﻿
+@{
+    ViewBag.Title = "ODataEntry";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>OData item list</h2>
+
+<div class="container" ng-controller="odataEntryController">
+    <div class="tree-list-parent">
+        <div class="k-content">
+            <div class="row">
+                <div class="col-md-6">
+                    <!-- sync buttons container -->
+                    <div class="input-group sync-textbox-container">
+                        <button type="button" class="btn btn-success" disabled="disabled" ng-disabled="syncing" ng-click="syncImmediately()">
+                            Re-Sync
+                            <img class="loading-spinner loading-spinner-btn" ng-src="@Url.Content("~/"){{metadataState}}" />
+                        </button>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <!-- search container -->
+                    <div class="input-group search-textbox-container">
+                        <input type="search" class="form-control custom-search-input"
+                               placeholder="Search"
+                               id="searchInput"
+                               ng-model="searchInput" />
+                        <span class="input-group-addon">
+                            <i class="k-icon k-i-zoom"></i>
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <kendo-tree-list k-options="treeListOptions" class="tree-list-options"></kendo-tree-list>
+        <kendo-pager k-options="pagerOptions"></kendo-pager>
+    </div>
+</div>
+<p class="odata-tooltip-copied"></p>
+
+<script id="item-template" type="text/x-kendo-template">
+
+    <div class='item-photo' style="background-image: url(@Url.Content("~/")Content/Images/#:data.item_type#.png);"></div>
+    <div class='item-name'>#: name #</div>
+    <a icon="'k-icon k-i-hyperlink-open-sm'"
+       href="{{this.dataItem.web_client_uri}}"
+       target="_blank"
+       class="sub-primary"
+       role="button"
+       aria-disabled="false"
+       tabindex="0">
+        <span class="k-icon k-i-k-icon k-i-hyperlink-open-sm"></span>
+    </a>
+</script>
+<script id="odata-column-template" type="text/x-kendo-template">
+    <div class="odata-copy-container">
+        <a kendo-button=""
+           icon="'k-icon k-i-copy'"
+           alt="Copy to clipboard"
+           id="{{this.dataItem.entity_id}}"
+           ng-click="copyOdataEntry(this);
+                     $event.preventDefault();
+                     $event.stopPropagation();"
+           ng-if="generateIfDisplay(this)"
+           href="{{odataEntryLink(this)}}"
+           class="primary k-button k-button-icon"
+           data-role="button" role="button"
+           aria-disabled="false" tabindex="0">
+            <span class="k-icon k-i-k-icon k-i-copy"></span>
+        </a>
+    </div>
+</script>
+
+@section Scripts {
+    <script src="~/Scripts/ngClipboard.js"></script>
+    @Scripts.Render("~/bundles/odataEntryViewmodel")
+}

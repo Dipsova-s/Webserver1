@@ -1,0 +1,155 @@
+﻿@using System.Threading;
+@using EveryAngle.Shared.Globalization;
+@{
+    Layout = null;
+    Culture = "en-US";
+    UICulture = "en-US";
+}
+<!DOCTYPE html>
+<html class="no-js pageLogin">
+<head>
+     @{        
+         string loginText = (System.Web.HttpContext.Current.Request.QueryString["redirect"] != null && System.Web.HttpContext.Current.Request.QueryString["redirect"].ToLower().Contains("admin")) ?
+             Resource.AdminLogin :
+             Resource.Login;
+     }  
+
+    <title>Every Angle - @loginText</title>
+    <meta http-equiv="content-type" content="text/html;charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="Description" content="Login" />
+    <meta name="Keywords" content="Login" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <link rel="shortcut icon" href="@Url.Content("~/images/favicon.ico")" />
+    <script type="text/javascript">
+        var webLanguage = '@Thread.CurrentThread.CurrentUICulture.TwoLetterISOLanguageName';
+        var webAPIUrl = '@EveryAngle.Shared.Helpers.UrlHelper.GetRequestUrl(EveryAngle.Shared.Helpers.URLType.NOA)';
+        var webLoginUrl = '@EveryAngle.Shared.Helpers.UrlHelper.GetRequestUrl(EveryAngle.Shared.Helpers.URLType.HBA)';
+        var ajaxTimeoutExpirationInSeconds = parseInt('@EveryAngle.Shared.Helpers.WebConfigHelper.GetAppSettingByKey("Ajax-Timeout-Expiration-In-Seconds")', 10);
+        var webApiVersion = '@EveryAngle.Shared.Helpers.WebConfigHelper.GetAppSettingByKey("WebApiVersion")';
+        var imageFolderPath = '@Url.Content("~/images/").ToLower()';
+        var loginPageUrl = '@Url.Action("Login", "User").ToLower()';
+        var loginProcessUrl = '@Url.Action("LoginProcess", "User").ToLower()';
+        var logoutPageUrl = '@Url.Action("Logout", "User").ToLower()';
+        var searchPageUrl = '@Url.Action("SearchPage", "Search").ToLower()';
+        var anglePageUrl = '@Url.Action("AnglePage", "Angle").ToLower()';
+        var dashboardPageUrl = '@Url.Action("DashboardPage", "Dashboard").ToLower()';
+
+        var rootWebsitePath = '@Url.Content("~/").ToLower()';
+        var requireUserNameAndPasword = '@Resource.PleaseEnterYourUsernameAndPassword';
+        var privateBrowsingInSafariIsNotSupported = '@Resource.PrivateBrowsingInSafariIsNotSupported';
+        var userCannotAccess = '@Resource.DonotHaveWCAndMCAuthrozation';
+        var changePasswordSuccessful = '@Resource.ChangePasswordSuccessful';
+        var changingPassword = '@Resource.ChangingPassword';
+        var pleaseEnterYourPasswords = '@Resource.PleaseEnterYourPasswords';
+        var passwordDoesNotMatch = '@Resource.PasswordDoesNotMatch';
+        var Localization = {};
+        var Captions = {};
+        var kendoTheme = '@EveryAngle.Shared.Helpers.WebConfigHelper.GetAppSettingByKey("KendoTheme").ToLower()';
+        var seriesColors = ('@EveryAngle.Shared.Helpers.WebConfigHelper.GetAppSettingByKey("SeriesColor").ToLower()').split(",");
+        var mcUrl = rootWebsitePath + '@EveryAngle.Shared.Helpers.WebConfigHelper.GetAppSettingByKey("ManagementConsoleUrl")';
+        var largePageSize = parseInt('@EveryAngle.Shared.Helpers.WebConfigHelper.GetAppSettingByKey("LargePageSize")');
+        var loginText = '@loginText';
+        var isLoginPage = true;
+        var isResourcesLoaded = false;
+        var wcClearSessionUrl = '@Url.Action("DestroyAllSession", "User").ToLower()';
+        var mcClearSessionUrl = @Html.Raw(ViewBag.ClearSessionUrl);
+    </script>
+
+    <!--[if lt IE 10]>
+    @Styles.Render("~/content/kendoui/kendoui.common.css")
+    @Styles.Render("~/content/kendoui/kendoui.default.css")
+    <![endif]-->
+
+    <!--[if gte IE 10]>
+    @Styles.Render("~/content/kendoui/kendoui.css")
+    <![endif]-->
+
+    <!--[if !IE]> -->
+    @Styles.Render("~/content/kendoui/kendoui.css")
+    <!-- <![endif]-->
+
+    @Styles.Render("~/content/css/main.css")
+
+    @Scripts.Render("~/bundles/core_external",
+                "~/resources/embedded/sharedjs",
+                "~/bundles/core",
+                "~/bundles/login")
+</head>
+<body>
+
+    <div class="k-window-custom k-window-titleless loginPage">
+        <div class="k-content k-window-content">
+        @{Html.RenderAction("GetLoginPage", "User");}
+        </div>
+    </div>
+
+    <script type="text/javascript">
+        jQuery('#LoginContainer h1').html(loginText);
+        jQuery('#UserIp').val('@ViewBag.ClientIP');
+    </script>
+
+    @{
+        if (!BundleTable.EnableOptimizations)
+        {
+            @Styles.Render(
+                "~/content/css/widgets.css",
+                "~/content/css/searchpage.css",
+                "~/content/css/anglepage.css",
+                "~/content/css/dashboardpage.css")
+            @Styles.Render("~/content/externalresource/externalresource.css")
+
+            @Scripts.Render(
+                "~/bundles/kendoui_core.js",
+                "~/bundles/kendoui_cultures.js",
+                "~/bundles/main",
+                "~/resources/embedded/js",
+                "~/bundles/searchpage.js",
+                "~/bundles/anglepage.js",
+                "~/bundles/contextmenu",
+                "~/bundles/dashboardpage.js"
+            )
+
+            <script>
+                jQuery(window).load(function() {
+                    isResourcesLoaded = true;
+                    WC.Authentication.ClearUserStorage(false);
+                });
+            </script>
+        }
+        else
+        {
+            <script>
+                WC.Page.LoadLoginPageScripts(
+                    [
+                        '@Styles.Url("~/content/externalresource/externalresource.css")',
+                        '@Styles.Url("~/content/css/widgets.css")',
+                        '@Styles.Url("~/content/css/searchpage.css")',
+                        '@Styles.Url("~/content/css/anglepage.css")',
+                        '@Styles.Url("~/content/css/dashboardpage.css")',
+                        '@Scripts.Url("~/bundles/kendoui_core.js")'
+                    ],
+                    [
+                        '@Scripts.Url("~/bundles/kendoui_cultures.js")'
+                    ],
+                    [
+                        '@Scripts.Url("~/bundles/main")',
+                        '@Scripts.Url("~/resources/embedded/js")',
+                        '@Scripts.Url("~/bundles/contextmenu")'
+                    ],
+                    [
+                        '@Scripts.Url("~/bundles/searchpage.js")',
+                        '@Scripts.Url("~/bundles/anglepage.js")',
+                        '@Scripts.Url("~/bundles/dashboardpage.js")'
+                    ],
+                    function() {
+                        isResourcesLoaded = true;
+                        WC.Authentication.ClearUserStorage(false);
+                    }
+                );
+            </script>
+        }
+    }
+
+</body>
+</html>

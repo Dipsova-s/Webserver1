@@ -1,0 +1,166 @@
+﻿@using EveryAngle.ManagementConsole.Models
+@using EveryAngle.Shared.Globalization
+
+<script>
+    MC.util.loadScript([
+        {
+            test: window.BusinessProcessesViewModel && window.FieldsChooserModel,
+            url: '@Scripts.Url("~/resources/embedded/js")'
+        },
+        {
+            test: MC.Models && MC.Models.SuggestedFields,
+            url: '@Scripts.Url("~/bundles/models/suggestedfields")',
+            callback: function () {
+                MC.Models.SuggestedFields.Initial({
+                    ModelUri: '@ViewBag.ModelUri',
+                    FieldsUri: '@ViewBag.FieldsUri',
+                    GetModelClassesUri: '@Url.Action("GetModelClasses", "SuggestedFields")',
+                    GetModelAnglesUri: '@Url.Action("GetModelAngles", "SuggestedFields")',
+                    GetFieldsUri: '@Url.Action("GetModelField", "Role")',
+                    GetFieldSourceUri: '@Url.Action("GetFieldSource", "Role")',
+                    GetFieldDomainUri: '@Url.Action("GetFieldDomain", "Role")',
+                    GetHelpTextUri: '@Url.Action("GetHelpText", "Role")',
+                    GetHelpTextsUri: '@Url.Action("GetHelpTexts", "Role")',
+                    DefaultPagesize: '@ViewBag.DefaultPagesize',
+                    MaxPageSize: '@ViewBag.MaxPageSize',
+                    MaxDomainElementsForSearch: '@ViewBag.MaxDomainElementsForSearch',
+                    BusinessProcessesData: @Html.Raw(Json.Encode(ViewData["BusinessProcesses"])),
+                    ModelData: @Html.Raw(Json.Encode(ViewData["ModelData"])),
+                    FieldCategoriesData: @Html.Raw(ViewData["fieldCategories"] == null ? "[]" : ViewData["fieldCategories"]),
+                    FieldCategoriesIconPath: '@VirtualPathUtility.ToAbsolute("~/UploadedResources/FieldCategoryIcons/")',
+                    ResourceIconPath: '@VirtualPathUtility.ToAbsolute("~/content/externalresource/")',
+                    SaveSuggestedByFieldsUri: '@Url.Action("SaveSuggestedByField", "SuggestedFields")',
+                    SaveSuggestedByClassessUri: '@Url.Action("SaveSuggestedByClasses", "SuggestedFields")',
+                    GetModelSuggestedUri: '@Url.Action("GetModelSuggested", "SuggestedFields")',
+                    ModelId : '@ViewBag.ModelId',
+                    ClientSettings: '@Html.Raw(ViewBag.ClientSettings)'
+                });
+            }
+        }
+    ]);
+</script>
+
+@{
+    @Html.RenderPageToolbar(new List<PageToolbarButtonModel>
+    {
+        new PageToolbarButtonModel { Type = PageToolbarButtonType.Reload }
+    })
+}
+
+<div class="content pageSuggestedFields">
+    <div class="contentSection contentSectionDescription">
+        @{var summary = ViewData["SuggestedFieldsSummaryData"] as SuggestedFieldsSummaryViewModel;}
+        <h2>@Resource.MC_GeneralInformation</h2>
+        <p>
+            @Resource.MC_TotalNumberOfSuggestedFields @summary.suggested_fields <br/>
+            @Resource.MC_NumberOfObjectsHavingSugggestedFields @summary.classes_with_suggested_fields <br/>
+            @Resource.MC_NumberOfObjectsWithoutSuggestedFields @summary.classes_without_suggested_fields <br/>
+            @Resource.MC_SuggestedFieldsSettingsLastChanged @summary.suggested_fields_last_change <span data-role="localize"> @summary.suggested_fields_timestamp </span> <br/>
+        </p>
+    </div>
+    <hr />
+
+    <div class="contentSection contentSectionInfo">
+        <h2>@Resource.MC_ManageSuggestedFieldsObjects</h2>
+        <p>@Resource.MC_ManageSuggestedFieldsObjects_Description</p>
+
+        <div class="contentSectionInfoItem">
+            <label>
+                @Html.ClassChooserButton(new PopupChooserButtonModel
+                {
+                    Caption = Resource.MC_SetFields,
+                    ClassName = "btn",
+                    OnClick = "MC.Models.SuggestedFields.ShowClassesChooser(this, MC.Models.SuggestedFields.SUGGEST_FOR.SINGLE_OBJECT)"
+                })
+            </label>
+            <p>
+                <strong>@Html.Raw(string.Format(Resource.MC_SetSuggestedFieldsForSingleObject, "<img src=\"" + Url.Content("~/content/externalresource/icon_suggest.png") + "\" alt=\"\" />"))</strong>
+                @Resource.MC_SetSuggestedFieldsForSingleObject_Description
+            </p>
+        </div>
+
+        <div class="contentSectionInfoItem">
+            <label>
+                @Html.ClassChooserButton(new PopupChooserButtonModel
+                {
+                    Caption = Resource.MC_SetFields,
+                    ClassName = "btn",
+                    OnClick = "MC.Models.SuggestedFields.ShowClassesChooser(this, MC.Models.SuggestedFields.SUGGEST_FOR.BASIC_LIST)"
+                })
+            </label>
+            <p>
+                <strong>@Html.Raw(string.Format(Resource.MC_SetDefaultBasicListFieldsToSuggested, "<img src=\"" + Url.Content("~/content/externalresource/icon_suggest.png") + "\" alt=\"\" />"))</strong>
+                @Resource.MC_SetDefaultBasicListFieldsToSuggested_Description
+            </p>
+        </div>
+
+        <div class="contentSectionInfoItem">
+            <label>
+                @Html.ClassChooserButton(new PopupChooserButtonModel
+                {
+                    Caption = Resource.MC_SetFields,
+                    ClassName = "btn",
+                    OnClick = "MC.Models.SuggestedFields.ShowClassesChooser(this, MC.Models.SuggestedFields.SUGGEST_FOR.DEFAULT_TEMPLATE)"
+                })
+            </label>
+            <p>
+                <strong>@Html.Raw(string.Format(Resource.MC_SetAllDefaultTemplateFieldsToSuggested, "<img src=\"" + Url.Content("~/content/externalresource/icon_suggest.png") + "\" alt=\"\" />"))</strong>
+                @Resource.MC_SetAllDefaultTemplateFieldsToSuggested_Description
+            </p>
+        </div>
+
+        <div class="contentSectionInfoItem">
+            <label>
+                @Html.ClassChooserButton(new PopupChooserButtonModel
+                {
+                    Caption = Resource.MC_SetFields,
+                    ClassName = "btn",
+                    OnClick = "MC.Models.SuggestedFields.ShowClassesChooser(this, MC.Models.SuggestedFields.SUGGEST_FOR.ALL_TEMPLATE)"
+                })
+            </label>
+            <p>
+                <strong>@Html.Raw(string.Format(Resource.MC_SetAllTemplateFieldsToSuggested, "<img src=\"" + Url.Content("~/content/externalresource/icon_suggest.png") + "\" alt=\"\" />"))</strong>
+                @Resource.MC_SetAllTemplateFieldsToSuggested_Description
+            </p>
+        </div>
+        <div class="contentSectionInfoItem">
+            <label>
+                @Html.ClassChooserButton(new PopupChooserButtonModel
+                {
+                    Caption = Resource.MC_SetFields,
+                    ClassName = "btn",
+                    OnClick = "MC.Models.SuggestedFields.ShowClassesChooser(this, MC.Models.SuggestedFields.SUGGEST_FOR.CLEAR_ALL)"
+                })
+            </label>
+            <p>
+                <strong>@Html.Raw(string.Format(Resource.MC_ClearAllSuggestedFields, "<img src=\"" + Url.Content("~/content/externalresource/icon_suggest.png") + "\" alt=\"\" />"))</strong>
+                @Resource.MC_ClearAllSuggestedFields_Description
+            </p>
+        </div>
+    </div>
+</div>
+
+<div id="popupClassesChooser">
+    <div class="popupContent"></div>
+    <div class="popupToolbar">
+        <a class="btn btnLarge btnLeft btnSelectAll" onclick="MC.Models.SuggestedFields.SelectAllClasses();">@Resource.SelectAll</a>
+        <a class="btn btnLarge btnLeft btnClearAll" onclick="MC.Models.SuggestedFields.ClearAllClasses();">@Resource.ClearAll</a>
+
+        <a class="btn btnLarge btnPrimary btnContinue" id="ButtonContinue">@Resource.MC_Continue</a>
+        <a class="btn btnLarge btnClose" data-role="popup-close">@Resource.Cancel</a>
+    </div>
+</div>
+
+<textarea id="suggestedIconTemplate" class="alwaysHidden">
+    <img src="@Url.Content("~/content/externalresource/icon_suggest.png")" alt="" />
+</textarea>
+
+<a class="hidden" id="btnShowSelectedClasses" data-role="mcPopup" data-title="@Resource.MC_SetDefaultBasicFieldsToSuggestedForObject" data-target="#popupSelectedClasses" data-width="760" data-height="640" data-min-height="400" data-min-width="400"></a>
+<div class="popup" id="popupSelectedClasses">
+    <div class="popupContent"></div>
+    <input id="selectedClasses" type="hidden" />
+    <div class="popupToolbar">
+        <a class="btn btnLarge btnPrimary" onclick="MC.Models.SuggestedFields.SaveSuggestedFields()">@Resource.Save</a>
+        <a class="btn btnLarge btnClose" data-role="popup-close">@Resource.Cancel</a>
+    </div>
+</div>

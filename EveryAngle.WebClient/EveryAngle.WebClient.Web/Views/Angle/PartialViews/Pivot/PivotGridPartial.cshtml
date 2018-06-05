@@ -1,0 +1,7 @@
+﻿@using DevExpress.Web.Mvc
+@model System.Data.DataTable
+
+@{
+    PivotGridSettings settings = (PivotGridSettings)ViewBag.PivotSettings;
+    Html.DevExpress().PivotGrid(settings).Bind(Model).GetHtml();
+}

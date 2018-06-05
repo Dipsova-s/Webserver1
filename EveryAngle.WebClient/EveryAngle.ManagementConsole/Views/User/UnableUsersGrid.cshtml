@@ -1,0 +1,32 @@
+﻿@model List<EveryAngle.Core.ViewModels.Users.AuthenticationProviderUserViewModel>
+@using EveryAngle.Shared.Globalization
+@(Html.Kendo().Grid<EveryAngle.Core.ViewModels.Users.AuthenticationProviderUserViewModel>()
+    .Name("UnableUsersGrid")
+    .Columns(columns =>
+    {
+        columns.Bound(model => model.Id).Title(@Resource.Username).Width(120);
+        columns.Bound(model => model.Domain).Title(@Resource.MC_Domain).Width(100);
+        columns.Bound(model => model.Fullname).Title(@Resource.MC_FullName);
+        columns.Bound(model => model.Id).Sortable(false).ClientTemplate(" # if(data.IsEnabled) { # "
+            + "<label><input value='#= data.Uri #' name='#= data.Id #' type=\"checkbox\" checked=\"checked\" disabled=\"disabled\" /><span class=\"label\"></span></label>"
+            + "# } else { #"
+            + "<label><input value='#= data.Uri #' name='#= data.Id #' type=\"checkbox\" onclick=\"MC.Users.User.MarkForAddUser(this)\" /><span class=\"label\"></span></label>"
+            + "# } #"
+            ).HeaderHtmlAttributes(new { @class = "columnBoolean" }).HtmlAttributes(new { @class = "columnBoolean" }).Title(@Resource.Enabled).Width(60);        
+    })
+    .Scrollable(scroll => scroll.Virtual(false).Height(20 * 25))
+    .Sortable(sortable=> sortable.AllowUnsort(false))
+    .Resizable(resize => resize.Columns(true))
+    .DataSource(dataSource => dataSource
+        .Ajax().Events(e => e.RequestStart("onKendoGridPagingStart").RequestEnd(@<text>
+            function(e) {
+                MC.Users.User.ImportUserGridRequestEnd(e);
+            }
+        </text>))
+        .Read(read => read.Action("ReadAvailableUsers", "Users", new { uri= ViewBag.SystemAuthenticationProviderUri, q = ViewBag.Query }))
+        .ServerOperation(false)
+        .Sort(sort => sort.Add("Id"))
+    )
+    .AutoBind(false)
+    .EnableCustomBinding(true) 
+)

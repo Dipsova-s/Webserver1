@@ -1,0 +1,211 @@
+/* .popupFollowup
+============================================ */
+.popupFollowup {
+    width: 750px;
+    height: auto;
+}
+
+.popupFollowup .k-window-content {
+    padding: 0;
+}
+
+.followupsArea,
+.followupsHelp {
+    position: relative;
+    overflow: auto;
+    box-sizing: border-box;
+}
+
+.followupsArea {
+    padding: 16px;
+}
+
+.followupsArea.initializing {
+    visibility: hidden;
+}
+
+.followupsAreaInner {
+    position: relative;
+    height: 490px;
+    max-height: 490px;
+    min-width: 710px;
+}
+
+.followupsArea .blockHeader {
+    color: #fff;
+    font-weight: bold;
+    font-size: 13px;
+    background-color: #8197c8;
+    background: linear-gradient(to bottom, #8197c8 0,#5a7193 100%);
+}
+
+.followupBlock,
+.followupClass,
+.followupRelation,
+.followupFlow,
+.followupsIndicator,
+.followupButton {
+    position: absolute;
+}
+
+.followupBlock,
+.followupClass {
+    z-index: 2;
+}
+
+.followupRelation,
+.followupFlow {
+    z-index: 3;
+}
+
+.followupsIndicator,
+.followupButton {
+    z-index: 4;
+}
+
+.followupBlock {
+    width: 220px;
+    height: 134px;
+    border-bottom: 1px solid #5a7193;
+    box-shadow: 1px 1px 7px 1px rgba(128,128,128,.3);
+    box-sizing: border-box;
+}
+
+.followupBlock.up {
+    height: 238px;
+}
+
+.followupBlock .grid-no-data {
+    font-size: 12px;
+    padding: 0;
+    text-indent: 0;
+}
+
+.followupBlock .k-grid-header {
+    padding-right: 0 !important;    /* NOSONAR: override runtime css */
+}
+
+.followupBlock .k-header:before {
+    content: '';
+    float: left;
+    width: 23px;
+    height: 20px;
+    background: transparent url('../../images/angle/followups/followups_category.png') left center no-repeat;
+}
+
+.followupBlock .k-grid-header .k-header.gridHeaderContainer {
+    color: #fff;
+    line-height: 22px;
+    height: 30px;
+    padding-right: 20px;
+}
+
+.followupBlock .gridHeaderContainer .sort {
+    right: -18px;
+}
+
+.followupBlock .gridHeaderContainer.asc .sort {
+    background-image: url('../../images/icons/icon_sort_asc_white.png');
+}
+
+.followupBlock .gridHeaderContainer.desc .sort {
+    background-image: url('../../images/icons/icon_sort_desc_white.png');
+}
+
+.followupBlock .k-grid-content {
+    overflow-x: hidden;
+}
+
+.followupsArea .k-grid-content td {
+    text-indent: 23px;
+}
+
+.followupClass {
+    width: 190px;
+    height: 50px;
+    line-height: 50px;
+    padding: 0 10px;
+    box-shadow: 1px 1px 7px 1px rgba(128,128,128,.3);
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    box-sizing: border-box;
+}
+
+.followupFlow {
+    width: 40px;
+    height: 50px;
+    background: transparent none center center no-repeat;
+}
+
+.followupFlow.forward,
+.followupsIndicator > .flow.forward {
+    background-image: url('../../images/angle/followups/followups_flow.png');
+}
+
+.followupRelation {
+    width: 9px;
+    height: 34px;
+    background: transparent none left center no-repeat;
+}
+
+.followupRelation.manyToOne {
+    background-image: url('../../images/angle/followups/followups_relation.png');
+}
+
+.followupsIndicator {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    font-size: 11px;
+    color: #777;
+}
+
+.followupsIndicator > li {
+    padding-left: 35px;
+    background: transparent none left center no-repeat;
+}
+
+.followupsIndicator > .relation {
+    line-height: 20px;
+}
+
+.followupsIndicator > .relation.manyToOne {
+    background-image: url('../../images/angle/followups/followups_relation_indicator.png');
+}
+
+.followupsIndicator > .flow {
+    line-height: 45px;
+}
+
+.followupButton .btn {
+    margin: 0;
+    white-space: nowrap;
+}
+
+.followupWarning {
+    display: none;
+    text-align: right;
+    font-size: 12px;
+    color: #c00;
+    font-weight: bold;
+    white-space: nowrap;
+}
+
+.followupsHelp {
+    padding: 16px;
+    border-top: 1px solid #d5d5d5;
+    background-color: #f9f9f9;
+}
+
+.followupsHelpInner {
+    position: relative;
+    height: 80px;
+    min-height: 80px;
+    z-index: 1;
+}
+
+.followupsHelp .helpHeaderContainer {
+    font-size: 16px;
+    margin-bottom: 10px;
+}

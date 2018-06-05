@@ -1,0 +1,113 @@
+﻿@model List<EveryAngle.Core.ViewModels.Label.LabelDtoViewModel>
+@using EveryAngle.Core.ViewModels.Users
+@using EveryAngle.Shared.Globalization
+@using EveryAngle.ManagementConsole.Models
+@using PrivilegeType = EveryAngle.ManagementConsole.Models.PrivilegeType
+
+
+@(Html.Kendo().TreeList<EveryAngle.Core.ViewModels.Label.LabelDtoViewModel>()
+            .Name(Resource.TreeList)
+            .Resizable(true)
+           .Columns(columns =>
+            {
+                columns.Add()
+                    .Width(275)
+                    .HtmlAttributes(new { @data_role = "tooltip" })
+                    .Title("")
+                    .Template("<label>#= Name #</label>");
+                
+                columns.Add()
+                    .Width(75)
+                    .HtmlAttributes(new { @data_role = "tooltip", @class = "columnBoolean" })
+                    .HeaderAttributes(new { @class = "columnBoolean k-header" })
+                    .Title(Resource.MC_View)
+                    .Template("# if (Authorization != null ) { #" +
+                            "# if (Authorization == 'view') { #" +
+                            "<label><input type='radio' name='#= Id #_rdoLabelPvls' title='Set #= Name # to view' checked='checked' value='view'/><span class='label'></span></label>" +
+                        "# } else  { #" +
+                            "<label><input type='radio' name='#= Id #_rdoLabelPvls' title='Set #= Name # to view'   value='view'/><span class='label'></span></label>" +
+                        "# } #" +
+                          "# } #");
+                
+                columns.Add()
+                    .Width(75)
+                    .HtmlAttributes(new { @data_role = "tooltip", @class = "columnBoolean" })
+                    .HeaderAttributes(new { @class = "columnBoolean k-header" })
+                    .Title(Resource.MC_Assign)
+                    .Template("# if (Authorization != null ) { #" +
+                         "# if (Authorization == 'assign') { #" +
+                            "<label><input type='radio' name='#= Id #_rdoLabelPvls' title='Set #= Name # to undefined'  checked='checked' value='assign'/><span class='label'></span></label>" +
+                        "# } else  { #" +
+                            "<label><input type='radio' name='#= Id #_rdoLabelPvls' title='Set #= Name # to assign'   value='assign'/><span class='label'></span></label>" +
+                        "# } #" +
+                          "# } #");
+                
+                columns.Add()
+                    .Width(75)
+                    .HtmlAttributes(new { @data_role = "tooltip", @class = "columnBoolean" })
+                    .HeaderAttributes(new { @class = "columnBoolean k-header" })
+                    .Title(Resource.MC_Manage)
+                    .Template("# if (Authorization != null ) { #" +
+                    "# if (Authorization == 'manage') { #" +
+                        "<label><input type='radio' name='#= Id #_rdoLabelPvls' title='Set #= Name # to manage' checked='checked' value='manage'/><span class='label'></span></label>" +
+                    "# } else  { #" +
+                        "<label><input type='radio' name='#= Id #_rdoLabelPvls' title='Set #= Name # to manage' value='manage'/><span class='label'></span></label>" +
+                    "# } #" +
+                  "# } #");
+                
+                columns.Add()
+                    .Width(75)
+                    .HtmlAttributes(new { @data_role = "tooltip", @class = "columnBoolean" })
+                    .HeaderAttributes(new { @class = "columnBoolean k-header" })
+                    .Title(Resource.MC_Validate)
+                    .Template("# if (Authorization != null ) { #" +
+                        "# if (Authorization == 'validate') { #" +
+                            "<label><input type='radio' name='#= Id #_rdoLabelPvls' title='Set #= Name # to validate' checked='checked' value='validate'/><span class='label'></span></label>" +
+                        "# } else  { #" +
+                            "<label><input type='radio' name='#= Id #_rdoLabelPvls' title='Set #= Name # to validate' value='validate'/><span class='label'></span></label>" +
+                        "# } #" +
+                      "# } #");
+                
+                columns.Add()
+                    .Width(75)
+                    .HtmlAttributes(new { @data_role = "tooltip", @class = "columnBoolean" })
+                    .HeaderAttributes(new { @class = "columnBoolean k-header" })
+                    .Title(Resource.MC_Deny)
+                    .Template("# if (Authorization != null ) { #" +
+                        "# if (Authorization == 'deny') { #" +
+                            "<label><input type='radio' name='#= Id #_rdoLabelPvls' title='Set #= Name # to deny' checked='checked' value='deny'/><span class='label'></span></label>" +
+                        "# } else  { #" +
+                            "<label><input type='radio' name='#= Id #_rdoLabelPvls' title='Set #= Name # to deny' value='deny'/><span class='label'></span></label>" +
+                        "# } #" +
+                      "# } #");
+                columns.Add()
+                    .Width(75)
+                    .HtmlAttributes(new { @data_role = "tooltip", @class = "columnBoolean" })
+                    .HeaderAttributes(new { @class = "columnBoolean k-header" })
+                    .Title(Resource.MC_Undefined)
+                    .Template("# if (Authorization != null ) { #" +
+                        "# if (Authorization == 'undefined') { #" +
+                            "<label><input type='radio' name='#= Id #_rdoLabelPvls' title='Set #= Name # to undefined' checked='checked' value='undefined'/><span class='label'></span></label>" +
+                        "# } else { #" +
+                            "<label><input type='radio' name='#= Id #_rdoLabelPvls' title='Set #= Name # to undefined' value='undefined'/><span class='label'></span></label>" +
+                        "# } #" +
+                     "# } #");
+                
+                columns.Add();
+                     
+            })
+
+        .DataSource(dataSource => dataSource
+                .Read(read => read.Action("ReadLabels", "Role", new { modelUri = ViewBag.ModelUri, roleUri = ViewBag.RoleUri }))
+                
+                .ServerOperation(false)
+            .Model(m =>
+            {
+                m.Id(f => f.FakeId);
+                m.ParentId(f => f.ParentFakeId);
+                m.Field(f => f.Name);
+                m.Field(f => f.ParentFakeId);
+            })
+        )
+        .AutoBind(true)
+        .Height(400))

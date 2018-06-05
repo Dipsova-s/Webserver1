@@ -1,0 +1,147 @@
+﻿@using EveryAngle.ManagementConsole.Models
+@using EveryAngle.ManagementConsole.Helpers
+@using EveryAngle.Shared.Globalization
+@model EveryAngle.Core.ViewModels.Users.SystemAuthenticationProviderViewModel
+<script>
+    MC.util.loadScript({
+        test: MC.AutomationTasks && MC.AutomationTasks.DataStores,
+        url: '@Scripts.Url("~/bundles/globalsettings/authentication")',
+        callback: function () {
+            MC.GlobalSettings.Authentication.Initial({
+                SaveAuthenticationProviderUri: '@Url.Action("SaveAuthenticationProvider", "GlobalSettings")',
+                AllAuthenticationProviderUri: '@SiteMapHelper.ActionHash("GlobalSettings/Authentication")',
+                SystemRolesData: @Html.Raw(Json.Encode(ViewBag.SystemRoles)),
+                SystemAuthenticationProviderData: @Html.Raw(Json.Encode(ViewBag.SystemAuthenticationProvider))
+            });
+        }
+    });
+</script>
+
+@{
+    @Html.RenderPageToolbar(new List<PageToolbarButtonModel> {
+        new PageToolbarButtonModel { Privilege=PrivilegeType.System, Type = PageToolbarButtonType.Save, OnClick = "MC.GlobalSettings.Authentication.SaveAuthenticationProvider()" },
+        new PageToolbarButtonModel { Type = PageToolbarButtonType.Cancel, Link = SiteMapHelper.ActionHash("GlobalSettings/Authentication") }
+    })
+    
+    string authenticationProviderTypesId = ((EveryAngle.Core.ViewModels.Users.AuthenticationProviderTypesViewModel)ViewBag.AuthenticationProviderTypes).Id;
+    string showAD = authenticationProviderTypesId == "AD" ? "inline" : "none";
+    string showADFS = authenticationProviderTypesId == "ADFS" ? "inline" : "none";
+}
+
+<div class="content pageRole pageRoleEdit">
+    <form id="formAuthenticationProvider" data-role="validator" autocomplete="off" onsubmit="return false">
+        <div class="contentSection contentSectionInfo">
+            @if (Model.Uri != null)
+            {
+                <h2>@Resource.MC_EditAuthentication</h2>
+            }
+            else
+            {
+                <h2>@Resource.MC_CreateAuthentication</h2>
+            }
+            <input type="hidden" name="authenticationProviderTypes" value="@authenticationProviderTypesId" />
+            <div class="contentSectionInfoItem">
+                <label>@Resource.ID:</label>
+                <p>
+                    @if (Model.Uri != null)
+                    {
+                        @Html.TextBoxFor(model => model.Id, new { @class = "required", @readonly = "readonly", @Style = "color:#aaa;" , @name = "Id", maxlength = 25 })
+                    }
+                    else
+                    {
+                        @Html.TextBoxFor(model => model.Id, new { @class = "required", @name = "Id", maxlength = 25 })
+                    }
+
+                    @if (Model.Uri != null)
+                    {
+                        @Html.Hidden("Uri", Model.Uri.AbsolutePath);
+                    }
+                    else
+                    {
+                        <input type="hidden" name="Uri" value="@authenticationProviderTypesId" />
+                    }
+                </p>
+
+            </div>
+            <div class="contentSectionInfoItem">
+                <label>@Resource.Description:</label>
+                <p>@Html.TextBoxFor(model => model.Description, new { @class = "required txtLarge", maxlength = 4000 })</p>
+            </div>
+            <div class="contentSectionInfoItem">
+                <label>Type:</label>
+                <p>@authenticationProviderTypesId</p>
+            </div>
+            <div class="contentSectionInfoItem">
+                <label>@Resource.MC_Provider:</label>
+                <p>
+                    <label>
+                        <input id="is_enabled" name="is_enabled" type="checkbox"  @(Model.IsEnabled ? "checked=\"checked\"" : "") /><span class="label"></span></label>
+                </p>
+            </div>
+
+            <div class="contentSectionInfoItem">
+                <label>@Resource.MC_AutocreateUsers:*</label>
+                <p>
+                    <label>
+                        <input id="auto_create_users"  @(authenticationProviderTypesId == "ADFS" ? "disabled=\"disabled\"" : "") name="auto_create_users" type="checkbox"  @(Model.autoCreateUsers ? "checked=\"checked\"" : "")  /><span class="label"></span></label>
+                </p>
+            </div>
+
+            <div class="contentSectionInfoItem">
+                <label>@Resource.MC_SyncRolesToGroups:</label>
+                <p>
+                    <label>
+                        @{
+                            var syncRolesToGroups = false;
+                            if(Model.syncRolesToGroups.HasValue)
+                            {
+                                syncRolesToGroups = Model.syncRolesToGroups.Value;
+                            }
+                        }
+                        <input id="sync_roles_to_groups" name="sync_roles_to_groups" type="checkbox"  @(syncRolesToGroups ? "checked=\"checked\"" : "")  /><span class="label"></span></label>
+                </p>
+            </div>
+
+             <div class="contentSectionInfoItem">
+                <label>@Resource.MC_DefaultRoles:</label>
+                <p>
+                        <select name="DefaultSystemRoles" id="DefaultSystemRoles" class="required_default_roles DefaultRoles DefaultSystemRoles"></select>
+                       @* @{
+                            if(Model.default_roles !=null && Model.default_roles.Count > 0)
+                            {
+                                string default_roles = string.Join(", ", Model.default_roles.ToArray());
+                                Response.Write(default_roles);
+                            }
+                        }*@
+                </p>
+            </div>
+
+            <div class="contentSectionInfoItem" style="display:@showAD">
+                <label>@Resource.MC_Domain:</label>
+                <p>
+                    @Html.TextBoxFor(model => model.domain_name, new { @class = "required txtLarge", @name = "domain_name", maxlength = 200 })
+                </p>
+
+            </div>
+
+            <div class="contentSectionInfoItem" style="display:@showADFS">
+                <label>@Resource.MC_Target:</label>
+                <p>
+                    @Html.TextBoxFor(model => model.target, new { @class = "required txtLarge", @name = "target", maxlength = 200 })
+                </p>
+
+            </div>
+
+            <div class="contentSectionInfoItem" style="display:@showADFS">
+                <label>@Resource.MC_Identity:</label>
+                <p>
+                    @Html.TextBoxFor(model => model.identity, new { @class = "required txtLarge", @name = "identity", maxlength = 200 })
+                </p>
+
+            </div>
+
+        </div>
+        <hr />
+        *@Resource.MC_ADFSRequires
+    </form>
+</div>

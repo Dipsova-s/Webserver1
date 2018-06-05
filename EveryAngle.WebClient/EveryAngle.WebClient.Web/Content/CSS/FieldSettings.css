@@ -1,0 +1,703 @@
+/* .fieldListArea
+============================================ */
+.fieldListArea {
+    float: left;
+    position: relative;
+    width: 400px;
+    font-size: 12px;
+    background-color: #f5f5f5;
+    z-index: 1;
+}
+
+.fieldListAreaInner {
+    position: relative;
+    overflow: hidden;
+    overflow-y: auto;
+    padding: 0 0 0 10px;
+    z-index: 1;
+    height: 745px;
+    box-sizing: border-box;
+}
+
+.fieldListArea.fieldListAreaPivot .displayOptionsWrapper > label,
+.fieldListArea.fieldListAreaPivot .displayOptionsWrapper > .eaDropdown,
+.fieldListArea.fieldListAreaPivot .gaugeChartSettingWrapper,
+.fieldListArea.fieldListAreaChart .gaugeChartSettingWrapper,
+.fieldListArea.fieldListAreaChart .pivotTotalForWrapper,
+.fieldListArea.fieldListAreaChartGauge .rowArea,
+.fieldListArea.fieldListAreaChartGauge .columnArea,
+.fieldListArea.fieldListAreaChartGauge .pivotTotalForWrapper {
+    display: none;
+}
+
+.fieldListAreaItem {
+    position: relative;
+    height: 33%;
+    min-height: 100px;
+    width: 380px;
+    overflow: hidden;
+}
+
+.fieldListAreaHeader {
+    position: absolute;
+    top: 0;
+    left: 0;
+    padding: 5px 0;
+    z-index: 2;
+    width: 100%;
+}
+
+.fieldListAreaHeader h4 {
+    position: relative;
+    margin: 0;
+    padding: 5px 0 4px 20px;
+    font-weight: normal;
+}
+
+.fieldListAreaHeader h4:before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 3px;
+    width: 16px;
+    height: 16px;
+    background: transparent url('../../images/angle/pivotchart.png') left top no-repeat;
+}    
+
+#ChartMainWrapper .fieldListAreaHeader h4 {
+    padding-left: 0;
+}
+
+#ChartMainWrapper .fieldListAreaHeader h4:before {
+    background: none;
+} 
+
+.fieldListAreaItem.rowArea .fieldListAreaHeader h4:before {
+    background-position: 0 0;
+}
+.fieldListAreaItem.rowArea.area_area .fieldListAreaHeader h4:before,
+.fieldListAreaItem.rowArea.area_bubble .fieldListAreaHeader h4:before,
+.fieldListAreaItem.rowArea.area_column .fieldListAreaHeader h4:before,
+.fieldListAreaItem.rowArea.area_line .fieldListAreaHeader h4:before,
+.fieldListAreaItem.rowArea.area_scatter .fieldListAreaHeader h4:before {
+    background-position: 0 -18px;
+}
+.fieldListAreaItem.rowArea.area_bar .fieldListAreaHeader h4:before {
+    background-position: 0 -36px;
+}
+.fieldListAreaItem.rowArea.area_donut .fieldListAreaHeader h4:before,
+.fieldListAreaItem.rowArea.area_pie .fieldListAreaHeader h4:before {
+    background-position: 0 -54px;
+}
+.fieldListAreaItem.rowArea.area_radarLine .fieldListAreaHeader h4:before {
+    background-position: 0 -72px;
+}
+
+.fieldListAreaItem.columnArea .fieldListAreaHeader h4:before {
+    background-position: -18px 0;
+}
+.fieldListAreaItem.columnArea.area_area .fieldListAreaHeader h4:before,
+.fieldListAreaItem.columnArea.area_bubble .fieldListAreaHeader h4:before,
+.fieldListAreaItem.columnArea.area_column .fieldListAreaHeader h4:before,
+.fieldListAreaItem.columnArea.area_line .fieldListAreaHeader h4:before,
+.fieldListAreaItem.columnArea.area_scatter .fieldListAreaHeader h4:before {
+    background-position: -18px -18px;
+}
+.fieldListAreaItem.columnArea.area_bar .fieldListAreaHeader h4:before {
+    background-position: -18px -36px;
+}
+.fieldListAreaItem.columnArea.area_donut .fieldListAreaHeader h4:before,
+.fieldListAreaItem.columnArea.area_pie .fieldListAreaHeader h4:before {
+    background-position: -18px -54px;
+}
+.fieldListAreaItem.columnArea.area_radarLine .fieldListAreaHeader h4:before {
+    background-position: -18px -72px;
+}
+
+.fieldListAreaItem.dataArea .fieldListAreaHeader h4:before {
+    background-position: -36px 0;
+}
+.fieldListAreaItem.dataArea.area_area .fieldListAreaHeader h4:before,
+.fieldListAreaItem.dataArea.area_bubble .fieldListAreaHeader h4:before,
+.fieldListAreaItem.dataArea.area_column .fieldListAreaHeader h4:before,
+.fieldListAreaItem.dataArea.area_line .fieldListAreaHeader h4:before,
+.fieldListAreaItem.dataArea.area_scatter .fieldListAreaHeader h4:before {
+    background-position: -36px -18px;
+}
+.fieldListAreaItem.dataArea.area_bar .fieldListAreaHeader h4:before {
+    background-position: -36px -36px;
+}
+.fieldListAreaItem.dataArea.area_donut .fieldListAreaHeader h4:before,
+.fieldListAreaItem.dataArea.area_pie .fieldListAreaHeader h4:before {
+    background-position: -36px -54px;
+}
+.fieldListAreaItem.dataArea.area_radarLine .fieldListAreaHeader h4:before {
+    background-position: -36px -72px;
+}
+
+.fieldListArea .addFieldButton {
+    position: absolute;
+    right: 0;
+    top: 95%;
+    line-height: 21px;
+    text-align: center;
+    width: 22px;
+    min-width: 0;
+    height: auto;
+    padding: 0;
+    margin: -22px 0 0 0;
+}
+
+.fieldListArea .addFieldButton > span {
+    height: 21px;
+    min-width: 0;
+    display: block;
+}
+
+.fieldListAreaBody {
+    position: relative;
+    height: 100%;
+    padding: 36px 0 0 0;
+    box-sizing: border-box;
+}
+
+.fieldListArea ul {
+    list-style: none;
+    margin: 0;
+    overflow-x: hidden;
+    overflow-y: auto;
+    position: relative;
+    height: 100%;
+    border: 1px solid #d8d8d8;
+    padding: 1px;
+    background: #fff;
+    z-index: 1;
+    box-sizing: border-box;
+}
+
+.fieldListArea li,
+.draggingField li {
+    position: relative;
+    list-style: none;
+    color: #fff;
+    background-color: #b9b9b9;
+    cursor: move;
+    white-space: nowrap;
+    text-align: left;
+    padding: 5px 20px 5px 5px;
+    margin: 0 0 1px 0;
+}
+
+.fieldListArea .noDrag {
+    cursor: default;
+}
+
+.fieldListArea .validError {
+    cursor: default;
+}
+
+.fieldListArea .validWarning:after,
+.fieldListArea .validError:after {
+    content: '';
+    display: block;
+    position: absolute;
+    right: 24px;
+    top: 0;
+    width: 16px;
+    height: 100%;
+    background: transparent none center center no-repeat;
+}
+
+.fieldListArea .validWarning:after {
+    background-image: url('../../images/icons/icon_warning.svg');
+}
+
+.fieldListArea .validError:after {
+    background-image: url('../../images/icons/icon_error.png');
+}
+
+.fieldListArea li:hover,
+.fieldListArea .k-state-selected {
+    background-color: #f15e34;
+}
+
+.fieldListArea .k-state-dragging ul {
+    background-color: #ffc;
+}
+
+.fieldListArea .fieldName,
+.draggingField .fieldName,
+.fieldListArea .caption,
+.draggingField .caption {
+    display: inline-block;
+    vertical-align: middle;
+    max-width: 350px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.fieldListArea .validWarning .fieldName,
+.fieldListArea .validError .fieldName,
+.fieldListArea .areaFieldSortable .fieldName {
+    max-width: 327px;
+}
+
+.fieldListArea .btnInfo,
+.draggingField .btnInfo {
+    display: none;
+    vertical-align: middle;
+    width: 20px;
+}
+
+.fieldListArea .btnDelete {
+    display: none;
+    background: transparent url('../../images/angle/angledetail/btn_delete_language.png') center center no-repeat;
+    position: absolute;
+    width: 25px;
+    height: 100%;
+    cursor: pointer;
+    text-indent: -9000px;
+    right: 0;
+    top: 0;
+    z-index: 1;
+}
+
+.touch .fieldListArea .btnDelete,
+.fieldListArea li:hover .btnDelete {
+    display: inline-block;
+}
+
+.fieldListArea .areaFieldSortable .btnSort {
+    display: block;
+    background: transparent url('../../images/icons/icon_sorting.png') center 0 no-repeat;
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+    text-indent: -9000px;
+    right: 22px;
+    top: 2px;
+    z-index: 1;
+}
+
+.fieldListArea .areaFieldSortable .btnSort.asc {
+    background-position: center -44px;
+}
+
+.fieldListArea .areaFieldSortable .btnSort.desc {
+    background-position: center -22px;
+}
+
+.fieldListArea .btnSort,
+.fieldListArea .validError .btnSort,
+.fieldListArea .areaFieldSortable .btnSort.disabled {
+    display: none;
+}
+
+.draggingField {
+    opacity: .8;
+    font-size: 12px;
+}
+
+.draggingField li {
+    display: block;
+    width: 376px;
+    padding: 5px 3px;
+    box-sizing: border-box;
+}
+
+.fieldListArea .k-state-selected .k-dirty {
+    display: none;
+}
+
+.fieldListArea .k-dirty {
+    margin-top: -.4em;
+    margin-left: -.4em;
+}
+
+.fieldListArea .k-dirty.revert {
+    border-color: transparent transparent #f00 #f00;
+    margin-top: 1.2em;
+}
+
+.fieldListArea .fieldListButton {
+    overflow: hidden;
+    padding: 5px 10px 10px 0;
+}
+
+.fieldListArea .fieldListButton .btn {
+    margin: 0;
+    float: right;
+}
+
+.fieldListArea .hint {
+    font-style: italic;
+    color: lightgray;
+    vertical-align: middle;
+    margin-left: 5px;
+}
+
+/* .popupBucket
+============================================ */
+.popupBucket {
+    left: 200px;
+    top: 0;
+    width: 300px;
+    padding-bottom: 60px;
+}
+
+.popupBucket.k-window-arrow-w:before,
+.popupBucket.k-window-arrow-w:after {
+    top: 10px;
+}
+
+.popupBucket.k-window-arrow-sw:before,
+.popupBucket.k-window-arrow-sw:after {
+    top: auto;
+    bottom: 20px;
+}
+
+.popupBucket.k-window-arrow-e:before,
+.popupBucket.k-window-arrow-e:after {
+    top: 10px;
+}
+
+.popupBucket.k-window-arrow-mw:before,
+.popupBucket.k-window-arrow-mw:after {
+    top: 60%;
+}
+
+.popupBucket.k-window-arrow-mw:before {
+    border-right-color: #eeeeee;
+}
+
+.popupBucket .Title {
+    display: block;
+    margin-bottom: 5px;
+}
+
+.popupBucket .BucketOption {
+    display: block;
+    margin-bottom: 10px;
+}
+
+.popupBucket .ThousandSeperateWrapper {
+    margin-top: 15px;
+}
+
+.popupBucket .k-dropdown {
+    width: 100%;
+}
+
+.popupBucket .k-window-buttons {
+    height: 60px;
+}
+
+/* .popupChartOptions
+============================================ */
+.popupChartOptions {
+    left: 200px;
+    top: 0;
+    padding-bottom: 0;
+    width: 320px;
+}
+
+.popupChartOptions.k-window-arrow-w:before,
+.popupChartOptions.k-window-arrow-w:after {
+    top: 10px;
+}
+
+.popupChartOptions.k-window-arrow-sw:before,
+.popupChartOptions.k-window-arrow-sw:after {
+    top: auto;
+    bottom: 20px;
+}
+
+.popupChartOptions .ChartOption {
+    display: block;
+    margin-bottom: 10px;
+}
+
+.popupChartOptions .Title,
+.popupChartOptions .ExtendTitle {
+    clear: both;
+    display: block;
+    margin-bottom: 5px;
+}
+
+.popupChartOptions .ExtendTitle {
+    font-size: 12px;
+    font-weight: bold;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+#ChartAxisScaleRanges {
+    margin-bottom: 5px;
+}
+
+#ChartAxisScaleRanges > .inputScale1,
+#ChartAxisScaleRanges > .inputScale2 {
+    width: 90px;
+    font-size: 12px;
+    margin-bottom: 5px;
+}
+
+#ChartAxisScaleRanges > .labelScale1,
+#ChartAxisScaleRanges > .labelScale2 {
+    display: inline-block;
+    font-size: 12px;
+    white-space: nowrap;
+    position: relative;
+    top: -2px;
+}
+
+#ChartAxisScaleRanges > .labelScale1 {
+    width: 40px;
+    text-align: center;
+}
+
+#ChartAxisScaleRanges > .labelScale2 {
+    width: 45px;
+    margin-left: 5px;
+}
+
+.popupChartOptions .k-dropdown {
+    width: 100%;
+}
+
+/* #ChartType
+============================================ */
+.displayOptionsWrapper {
+    padding: 9px 10px 1px 10px;
+    text-align: left;
+    font-size: 16px;
+    overflow: hidden;
+    position: relative;
+    z-index: 2;
+}
+
+.displayOptionsWrapper label {
+    position: relative;
+    top: 3px;
+    width: 85px;
+    display: inline-block;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.displayOptionsWrapper .k-dropdown {
+    width: 195px;
+    text-align: left;
+}
+
+#ChartType-list.k-list-container .k-item {
+    padding: 1px 4px 0 4px;
+}
+
+#ChartType-list.k-list-container .k-item:after {
+    display: none;
+}
+
+.displayOptionsWrapper .btnDisplayOptions {
+    margin-right: 0;
+    float: right;
+}
+
+.ChartTypeName {
+    float: left;
+    width: 65px;
+    line-height: 36px;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
+
+.ChartTypeItemHeader .ChartTypeName {
+    float: none;
+    width: auto;
+    margin-left: 40px;
+}
+
+.ChartTypeItem {
+    overflow: hidden;
+}
+
+.ChartTypeItem .ChartTypeUsage {
+    margin-left: 65px;
+    overflow: hidden;
+}
+
+.no-touch.safari .ChartTypeItem .ChartTypeUsage {
+    -webkit-margin-start: 0 !important; /* NOSONAR: safari bug */
+}
+
+.ChartTypeItemHeader .ChartTypeUsage {
+    float: left;
+    width: 40px;
+    margin-top: 2px;
+    margin-left: 0;
+}
+
+.ChartTypeItem .ChartTypeUsage > span {
+    cursor: pointer;
+    float: left;
+    margin: 1px 1px 1px 5px;
+    width: 33px;
+    height: 33px;
+    background: transparent url('../../images/angle/chart/charttype.png') 0 0 no-repeat;
+    border: 1px solid #999;
+    box-sizing: border-box;
+}
+
+.ChartTypeItem .ChartTypeUsage > span:hover,
+.ChartTypeItem .ChartTypeUsage > .active {
+    border-width: 2px;
+    border-color: #777;
+    margin: 0 0 0 4px;
+    width: 35px;
+    height: 35px;
+    box-sizing: border-box;
+}
+
+.ChartTypeItemHeader .ChartTypeUsage > span:hover {
+    margin: 1px 1px 1px 5px;
+    border-width: 1px;
+    border-color: #999;
+    width: 33px;
+    height: 33px;
+    box-sizing: border-box;
+}
+
+.ChartTypeItem .ChartTypeUsage > .active,
+.ChartTypeItem .ChartTypeUsage > .active:hover {
+    border-color: #e07500;
+}
+
+.ChartTypeItem .ChartTypeUsage > .area {
+    background-position: 0 0;
+}
+
+.ChartTypeItem .ChartTypeUsage > .area_stack {
+    background-position: -40px 0;
+}
+
+.ChartTypeItem .ChartTypeUsage > .area_multi {
+    background-position: -80px 0;
+}
+
+.ChartTypeItem .ChartTypeUsage > .bar {
+    background-position: 0 -38px;
+}
+
+.ChartTypeItem .ChartTypeUsage > .bar_stack {
+    background-position: -40px -38px;
+}
+
+.ChartTypeItem .ChartTypeUsage > .bubble {
+    background-position: 0 -76px;
+}
+
+.ChartTypeItem .ChartTypeUsage > .bullet {
+    background-position: 0 -114px;
+}
+
+.ChartTypeItem .ChartTypeUsage > .column {
+    background-position: 0 -152px;
+}
+
+.ChartTypeItem .ChartTypeUsage > .column_stack {
+    background-position: -40px -152px;
+}
+
+.ChartTypeItem .ChartTypeUsage > .column_multi {
+    background-position: -80px -152px;
+}
+
+.ChartTypeItem .ChartTypeUsage > .donut {
+    background-position: 0 -190px;
+}
+
+.ChartTypeItem .ChartTypeUsage > .line {
+    background-position: 0 -228px;
+}
+
+.ChartTypeItem .ChartTypeUsage > .line_stack {
+    background-position: -40px -228px;
+}
+
+.ChartTypeItem .ChartTypeUsage > .line_multi {
+    background-position: -80px -228px;
+}
+
+.ChartTypeItem .ChartTypeUsage > .pie {
+    background-position: 0 -266px;
+}
+
+.ChartTypeItem .ChartTypeUsage > .radarLine {
+    background-position: 0 -304px;
+}
+
+.ChartTypeItem .ChartTypeUsage > .radarLine_stack {
+    background-position: -40px -304px;
+}
+
+.ChartTypeItem .ChartTypeUsage > .scatter {
+    background-position: 0 -342px;
+}
+
+.ChartTypeItem .ChartTypeUsage > .scatter_stack {
+    background-position: -40px -342px;
+}
+
+.ChartTypeItem .ChartTypeUsage > .scatter_multi {
+    background-position: -80px -342px;
+}
+
+.ChartTypeItem .ChartTypeUsage > .gauge {
+    background-position: 0 -380px;
+}
+
+/* .fieldListAreaChartGauge
+============================================ */
+.gaugeSettingRow {
+    overflow: hidden;
+    margin: 0 auto;
+    padding: 0 1px;
+    width: 302px;
+    box-sizing: border-box;
+}
+
+.gaugeSettingRow:first-child {
+    padding-top: 15px;
+}
+
+.gaugeSettingRow label,
+.gaugeSettingRow .k-widget {
+    float: left;
+    padding: 0;
+    margin-bottom: 5px;
+    line-height: 28px;
+}
+
+.gaugeSettingRow label {
+    width: 150px;
+    font-size: 16px;
+}
+
+.gaugeSettingRow .k-numerictextbox {
+    width: 150px;
+}
+
+.gaugeSettingRow .k-numerictextbox .k-input {
+    font-size: 16px;
+}
+
+.gaugeSettingRow .k-colorpicker {
+    font-size: 14px;
+    margin-left: 85px;
+    margin-bottom: 0;
+}

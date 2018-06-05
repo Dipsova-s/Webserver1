@@ -1,0 +1,307 @@
+﻿@using EveryAngle.ManagementConsole.Models
+@using EveryAngle.ManagementConsole.Helpers
+@using EveryAngle.Shared.Globalization
+@{
+    string taskCreator = (string)ViewData["TaskCreator"];
+    List<PageToolbarButtonModel> actionButton = new List<PageToolbarButtonModel>
+    {
+        new PageToolbarButtonModel
+        {
+            Type = PageToolbarButtonType.GridEditDelete,
+            Privilege = PrivilegeType.ScheduleTask,
+            UserUri = taskCreator,
+            EnableTemplate = "<a href=\"\\\\#AddActionPopup\" class=\"btn btnEdit\"  onclick=\"MC.AutomationTasks.Tasks.ShowEditActionPopup(\\'#= uid #\\', true)\" data-role=\"mcPopup\" data-width=\"700\" data-min-width=\"600\" data-height=\"575\" data-min-height=\"350\">" + Resource.Edit + "</a>"
+                           + "<a class=\"btn btnDelete\" data-parameters=\\'{\"uid\":\"#= data.uid #\"}\\' data-delete-template=\"" + Resource.MC_DeleteFieldConfirm + "\" class=\"btn btnDelete\" onclick=\"MC.form.template.markAsRemove(this)\">" + Resource.Delete + "</a>",
+            DisableTemplate = "<a href=\"\\\\#AddActionPopup\" class=\"btn btnEdit\" onclick=\"MC.AutomationTasks.Tasks.ShowEditActionPopup(\\'#= uid #\\', false)\" data-role=\"mcPopup\" data-width=\"700\" data-min-width=\"600\" data-height=\"575\" data-min-height=\"350\">" + Resource.View + "</a>"
+                           + "<a class=\"btn btnDelete disabled\">" + Resource.Delete + "</a>"
+        }
+    };
+    string actionButtonTemplate = HttpUtility.HtmlDecode(Html.GetGridToolbar(actionButton)).Trim();
+    string webClientAngleUrl = PageHelper.GetWebclientUrl();
+}
+<script>
+    MC.util.loadScript({
+        test: MC.AutomationTasks && MC.AutomationTasks.Tasks,
+        url: '@Scripts.Url("~/bundles/automationtasks/tasks")',
+        callback: function () {
+            MC.AutomationTasks.Tasks.InitialTask({
+                SaveAutomatedTaskUri: '@Url.Action("SaveAutomateTask", "AutomationTasks")',
+                DataStoreValues:   @Html.Raw(Json.Encode(ViewData["DataStores"])),
+                AllModels: @Html.Raw(Json.Encode(ViewData["AllModels"])),
+                GetUserUri : '@Url.Action("ReadUsers", "Users")',
+                FindAngleUri : '@Url.Action("FindAngle", "AutomationTasks")',
+                TaskUri: '@ViewBag.TasksUri',
+                AngleUri: @Html.Raw(Json.Encode(ViewData["AngleUri"])),
+                EditTaskPage: '@SiteMapHelper.ActionHash("AutomationTasks/Tasks/EditTask")',
+                GetDataStoreTemplateUri: '@Url.Action("GetDatastore", "AutomationTasks")',
+                ActionButtonTemplate : '@Html.Raw(actionButtonTemplate)',
+                ModelPrivileges :  '@Html.Raw(Json.Encode(ViewData["ModelPrivileges"]))',
+                TasksActionsUri : '@ViewBag.TasksActionsUri',
+                AllTaskPageUri: '@SiteMapHelper.ActionHash("AutomationTasks/Tasks")',
+                CheckTaskActionUri : '@Url.Action("CheckTaskAction", "AutomationTasks")',
+                GetFieldsUri : '@Url.Action("GetModelField", "Role")',
+                GetFieldSourceUri: '@Url.Action("GetFieldSource", "Role")',
+                GetFieldDomainUri: '@Url.Action("GetFieldDomain", "Role")',
+                TaskData: @Html.Raw(ViewData["TaskData"]),
+                GetTaskActionUri: '@Url.Action("GetTaskAction", "AutomationTasks")',
+                WebClientAngleUrl: '@webClientAngleUrl'
+            });
+        }
+    });
+</script>
+
+@{
+    @Html.RenderPageToolbar(new List<PageToolbarButtonModel>
+    {
+        new PageToolbarButtonModel
+        {
+            Privilege = PrivilegeType.ScheduleTask,
+            UserUri = taskCreator,
+            Type = ViewBag.TasksUri != "" ? PageToolbarButtonType.Save : PageToolbarButtonType.Create,
+            OnClick = "MC.AutomationTasks.Tasks.SaveAutomateTask()"
+        },
+        new PageToolbarButtonModel 
+        {
+            Type = PageToolbarButtonType.Cancel,
+            Link = SiteMapHelper.ActionHash("AutomationTasks/Tasks")
+        }
+    })
+}
+
+<div class="content pageTask pageTaskEdit">
+
+    <textarea class="hidden" id="templateActionGrid">
+        <tr class="newRow">
+            <td></td>
+            <td></td>
+            <td style="display:none"></td>
+            <td></td>
+            <td style="display:none"></td>
+            <td ></td>
+             <td ></td>
+             <td style="display:none"></td>
+             <td style="display:none"></td>
+            <td class="gridColumnToolbar"><input type="hidden" /><a onclick="MC.AutomationTasks.Tasks.RemoveNewItem(this)" data-delete-template="@Resource.MC_DeleteActionConfirm" data-delete-field-index="0" class="btn btnDelete"></a></td>
+        </tr>
+    </textarea>
+
+    <form id="formTask" data-role="validator">
+    <div class="contentSection">
+        <p class="serverTimeInfo" id="ServerTimeInfo"></p>
+    </div>
+    <div class="contentSection contentSectionInfo editTask">
+        <div class="contentSectionInfoItem">
+            <label>@Resource.Name</label>
+            <p>
+                <input name="TaskName" id="TaskName" type="text" class="required" maxlength="100" />
+            </p>
+        </div>
+        <div class="contentSectionInfoItem">
+            <label>@Resource.RunAsUser</label>
+            <p>
+                <input name="RunasUser" id="RunasUser"  type="text" class="required" maxlength="100" @((bool)ViewData["CanManageSystem"] ? "" : " disabled=\"disabled\"") />
+            </p>
+        </div>
+        <div class="contentSectionInfoItem">
+            <label>@Resource.Enabled</label>
+            <p>
+                <label><input name="IsEnabled" id="IsEnabled" type="checkbox" /><span class="label"></span></label>
+            </p>
+        </div>
+        <div class="contentSectionInfoItem">
+                <label>@Resource.MaxRunTime</label>
+                <input type="text" class="time" name="TimeStop" />
+        </div>
+        <div class="contentSectionInfoItem">
+            <label>@Resource.Type</label>
+            <p>
+                <select id="action_type">
+                </select>
+                <select id="event_type" style="display:none;">
+                </select>
+            </p>
+        </div>
+        <div id="ScheduleSection">
+                <div class="contentSectionInfoItem">
+                <label>@Resource.Day</label>
+                <div data-role="customcheckbox">
+                    <input type="checkbox" name="Days" data-label="S" value="S">
+                    <input type="checkbox" name="Days" data-label="M" value="M">
+                    <input type="checkbox" name="Days" data-label="T" value="T">
+                    <input type="checkbox" name="Days" data-label="W" value="W">
+                    <input type="checkbox" name="Days" data-label="T" value="TH">
+                    <input type="checkbox" name="Days" data-label="F" value="F">
+                    <input type="checkbox" name="Days" data-label="S" value="Sat">
+                </div>
+            </div>
+                <div class="contentSectionInfoItem">
+                <label>@Resource.StartTime</label>
+                    <p>
+                        <input type="text" class="txtTime required time timePicker" name="StartTime" />
+                        <span class="descriptionLabel hidden">Server time: <span class="serverTimeValue"></span></span>
+                    </p>
+            </div>                  
+        </div>
+        <div id="EventSection">
+            <div class="contentSectionInfoItem">
+                <label>@Resource.Model</label>
+                @Html.Kendo().DropDownList().Name("model").BindTo((List<SelectListItem>)ViewData["AllModel"])
+            </div>
+        </div>
+    </div>
+    <hr/>
+
+    <div class="contentSection contentSectionGrid">
+        <input id="check_actions" name="check_actions" class="required" data-msg-required="@Resource.MC_Validation_TaskActionRequired" />
+        <div class="gridContainer">
+            <div id="TaskActionsGrid"></div>
+        </div>
+        <div class="gridToolbar gridToolbarBottom">
+            @{
+                List<PageToolbarButtonModel> buttons = new List<PageToolbarButtonModel>();
+                buttons.Add(new PageToolbarButtonModel
+                {
+                    EnableTemplate = "<a href=\"#AddActionPopup\" class=\"btn btnAdd\" onclick=\"MC.AutomationTasks.Tasks.ShowAddActionPopup()\" data-role=\"mcPopup\" data-width=\"600\" data-min-width=\"700\" data-height=\"600\" data-min-height=\"350\">" + Resource.MC_AddAction + "</a>",
+                    DisableTemplate = " <a class=\"btn btnAdd disabled\">" + Resource.MC_AddAction + "</a>", 
+                    Type = PageToolbarButtonType.Custom,
+                    Privilege = PrivilegeType.ScheduleTask,
+                    UserUri = taskCreator
+                });
+                @Html.RenderPageToolbarBottom(buttons)    
+            }
+        </div>
+    </div>
+    </form>
+    <!--/.contentSectionInfo-->
+
+    <textarea id="TemplateManageAction" class="alwaysHidden">
+        <form id="FormEditAction" data-role="validator">
+        <div class="contentSection contentSectionInfo contentSectionInfoGeneral">
+            <div class="contentSectionInfoItem">
+                <label>@Resource.Model:</label>
+                <p><input type="hidden" id="model_id" /><label id="model_name"></label></p>
+            </div>
+
+            <div class="contentSectionInfoItem">
+                <label>@Resource.Angle:</label>
+                <p>
+                    <input type="text" id="angle_id" name="angle_id" placeholder="contain /models/1/angles/1 or /models/1/angles/1/displays/1" class="required angle_display" />
+                    <input type="hidden" id="hdnAngleId" />
+                    <a class="btn btnPrimary btnFindAngle" onclick="MC.AutomationTasks.Tasks.FindAngle()">@Resource.MC_CheckAngle</a>
+                </p>
+            </div>
+
+            <div class="contentSectionInfoItem">
+                <label>@Resource.AngleName</label>
+                <p><label id="angle_name" /></p>
+            </div>
+
+            <div class="contentSectionInfoItem contentSectionInfoItemDropdown">
+                <label>@Resource.Display:</label>
+                <p><input type="text" id="display_id" name="display_id" class="required"/><a class="btn btnLink" target="_blank" id="linkDisplay"></a></p>
+                <input type="hidden" id="hdnDisplayId" />
+            </div>
+
+            <div class="contentSectionInfoItem contentSectionInfoItemDropdown">
+                <label>@Resource.MC_ApprovalState:</label>
+                <p><select type="text" id="approvalddl" name="approvalddl" class="required"></select></p>
+            </div>
+
+            <div class="contentSectionInfoItem contentSectionInfoItemCondition">
+                <label>@Resource.MC_Condition:</label>
+                <p><select id="condition_operator" name="condition_operator"></select><input id="condition_value" type="text" disabled="disabled" name="condition_value" class="number" /> <span>@Resource.MC_TaskDetaiObjects</span></p>
+            </div>
+            <div class="contentSectionInfoItem">
+                <div class="gridContainer">
+                    <div id="AngleParametersGrid"></div>
+                </div>
+            </div>
+            </div>
+        <hr />
+
+        <div class="contentSection contentSectionInfo contentSectionInfoEmail">
+                <h2>@Resource.MC_DataStore</h2>
+                <div class="contentSectionInfoItem contentSectionInfoItemDropdown">
+                    <p><select id="datastore" name="datastore" class="required"></select></p>
+                </div>
+        </div>
+
+        <br />
+        <div id="DatastoreSettings"></div>
+        <div class="contentSection contentSectionInfo contentSectionInfoEmail">
+            <h2>@Resource.MC_EmailSettings<a data-role="mcPopup" data-title="@Resource.MC_TextFormattingNotationHelpTitle" data-target="#popupMailSettingsHelp" data-width="650" data-min-height="400" class="btn btnInfo"></a></h2> 
+            <div class="contentSectionInfoItem">
+                <p>
+                    <label><input type="checkbox" id="email_enable" name="email_enable" onchange="MC.AutomationTasks.Tasks.SetEnableEmailNotification(this.checked)"><span class="label">@Resource.MC_Task_SendNotificationAfterFinished</span></label>
+                </p>
+            </div>
+
+            <div class="contentSectionInfoItem emailSettingSection">
+                <div class="gridContainer">
+                    <input type="text" id="CheckRecipients" class="required" value="" />
+                    <div id="RecipientsGrid"></div>
+                    <a data-role="auto-template" data-grid="#RecipientsGrid" data-template="#templateRecipientsGrid" class="btn btnAddRecipient">Add recipient</a>
+                    <label><input type="checkbox" id="email_attach_result" name="result" /><span class="label">@Resource.MC_AttachResult</span></label>
+                </div>
+            </div>
+
+            <div class="contentSectionInfoItem contentSectionInfoItemEmailSubject emailSettingSection">
+                <p><input type="text" id="email_subject" name="email_subject" class="required" placeholder="@Resource.MC_Subject" /></p>
+            </div>
+
+            <div class="contentSectionInfoItem emailSettingSection">
+                <p>&lt;textarea id="email_body" name="email_body" class="required"&gt;&lt;/textarea&gt;</p>
+            </div>
+        </div>
+        </form>
+    </textarea>
+
+    <textarea class="alwaysHidden" id="templateRecipientsGrid">
+        <tr class="newRow">
+            <td><input type="text" name="email_address" class="email"/></td>
+            <td class="columnBoolean">
+                <label data-tooltip-title="Send message with the result when all conditions are met">
+                    <input name="is_result" value="false" type="checkbox" class="check_task_email_result">
+                    <span class="label"></span>
+                </label>
+            </td>
+            <td class="columnBoolean">
+                <label data-tooltip-title="Send notification on success">
+                    <input name="is_success" value="false" type="checkbox" class="check_task_email_result">
+                    <span class="label"></span>
+                </label>
+            </td>
+            <td class="columnBoolean">
+                <label data-tooltip-title="Send notification on failure">
+                    <input name="is_failed" value="false" type="checkbox" class="check_task_email_result">
+                    <span class="label"></span>
+                </label>
+            </td>
+            <td class="gridColumnToolbar">
+                <a onclick="MC.form.template.remove(this)" data-delete-template="@Resource.MC_DeleteRecipientsConfirm" data-delete-field-index="0" class="btn btnDelete"></a>
+            </td>
+
+        </tr>
+    </textarea>
+
+    <div class="alwaysHidden">
+        <div id="AddActionPopup">
+            <div class="popupContent"></div>
+            <div class="popupToolbar">
+                <a onclick="MC.AutomationTasks.Tasks.CheckAction()"class="btn btnPrimary btnCheckAction disabled">@Resource.MC_CheckAction</a>
+                <a onclick="MC.AutomationTasks.Tasks.AddAction()" class="btn btnPrimary btnAddAction disabled">@Resource.Ok</a>
+                <a class="btn btnClose" data-role="popup-close">@Resource.Cancel</a>
+            </div>
+        </div>
+    </div>
+    @{Html.RenderPartial("~/Views/Shared/PluginPopupDescriptionTemplate.cshtml");}
+
+    <div class="alwaysHidden">
+        <div id="popupMailSettingsHelp">
+            <div class="popupContent">
+                @Html.Raw(Resource.MC_MailSettingsHelp)
+            </div>
+        </div>
+    </div>
+</div>
+<!--/.content-->

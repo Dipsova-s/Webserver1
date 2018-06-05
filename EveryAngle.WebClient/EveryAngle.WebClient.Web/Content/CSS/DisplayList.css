@@ -1,0 +1,490 @@
+/* .grid
+============================================ */
+.grid {
+    position: relative;
+    border: 0;
+}
+
+.grid .headerBarLeft {
+    position: absolute;
+    background-image: url(../kendoui/textures/highlight.png);
+    background-image: none,-webkit-gradient(linear,left top,left bottom,from(rgba(255,255,255,.6)),to(rgba(255,255,255,0)));
+    background-image: none,-webkit-linear-gradient(top,rgba(255,255,255,.6) 0,rgba(255,255,255,0) 100%);
+    background-image: none,linear-gradient(to bottom,rgba(255,255,255,.6) 0,rgba(255,255,255,0) 100%);
+    background-position: 50% 50%;
+    background-color: #eae8e8;
+    height: 25px;
+    width: 46px;
+    left: 0;
+    top: 37px;
+    border-bottom: 1px solid #838383;
+    border-right: 1px solid #838383;
+    box-sizing: border-box;
+    z-index: 999;
+}
+
+.grid .headerBarRight {
+    position: absolute;
+    background-color: #e3e3e3;
+    right: 0;
+    top: 0;
+    width: 17px;
+    z-index: 999;
+}
+
+.touch .grid .headerBarRight {
+    display: none;
+}
+
+.grid .k-grid-header .last {
+    border-right: 1px solid #949494;
+}
+
+.grid .k-grid-header-locked {
+    border-color: #838383;
+    z-index: 101;
+}
+
+.grid .k-grid-content-locked {
+    background-color: #cbcbcb;
+    border-color: #838383;
+    z-index: 101;
+    user-select: none;
+}
+
+.grid .k-grid-content td:last-child,
+.grid .k-grid-content .last {
+    border-right: 1px solid #d3d6d9;
+}
+
+.grid .k-scrollbar {
+    z-index: 999;
+}
+
+.grid td {
+    padding: 0;
+    overflow: hidden;
+}
+
+.grid .k-grid-content-locked .Number,
+.grid .k-grid-content-locked .Number:hover,
+.grid .k-state-selected .Number,
+.grid .k-state-selected.Number,
+.grid .k-state-selected.Number:hover {
+    cursor: pointer;
+    border-bottom: 1px solid #838383;
+    background: #cbcbcb none;
+    font-weight: bold;
+    text-align: center;
+    color: #333;
+}
+
+.grid .k-header.Number,
+.grid .k-header.Number:hover {
+    cursor: default;
+}
+
+.grid .textLeft {
+    text-align: left;
+    padding-left: 5px;
+}
+
+.grid .textRight {
+    text-align: right;
+    padding-right: 5px;
+}
+
+.grid .textCenter {
+    text-align: center;
+}
+
+.grid .k-grid-header .k-header {
+    vertical-align: top;
+    border-top: 1px solid transparent;
+}
+
+#AngleGrid.grid .k-grid-header-wrap .k-header:hover {
+    background: #e5e5e5 url('../../images/grid_header_hover_bg.png') left bottom repeat-x;
+    border-top-color: #949494;
+}
+
+#AngleGrid.grid .k-grid-header .k-header,
+#AngleGrid.grid .k-grid-content td {
+    transition: border .1s ease-out;
+}
+
+.grid .k-grid-content .k-state-selected,
+.grid .k-grid-content .k-state-selected:hover,
+.grid .k-state-selected > td,
+.grid .k-state-selected.k-state-focused {
+    background-color: #006f9b;
+    color: #fff;
+}
+
+.grid .btnAddField {
+    padding: 0;
+    margin: 0 auto;
+    display: block;
+    position: relative;
+    top: 8px;
+    width: 25px;
+    height: 15px;
+    background: url('../../images/angle/btn_addcolumn.svg') center no-repeat;
+}
+
+.readOnlyMode .k-resize-handle {
+    display: none !important;   /* NOSONAR: override runtime css */
+}
+
+/* .listRemoveColumnArea
+============================================ */
+.listRemoveColumnArea {
+    border: 5px dotted #fff;
+    position: absolute;
+    left: 0;
+    width: 100%;
+    z-index: 1000;
+    background-color: #000;
+    opacity: .7;
+    box-sizing: border-box;
+}
+
+.listRemoveColumnAreaInner {
+    display: table-cell;
+    vertical-align: middle;
+    text-align: center;
+    color: #fff;
+    font-size: 20px;
+    text-shadow: 1px 1px 1px #f00;
+}
+
+/* .angleListHeader
+============================================ */
+.angleListHeader {
+    position: relative;
+    height: 64px;
+    margin: 0 3px 0 5px;
+    display: block;
+    overflow: hidden;
+}
+
+.validWarning .angleListHeader:after,
+.validError .angleListHeader:after,
+.deny .angleListHeader:after,
+.denyPartial .angleListHeader:after {
+    content: '';
+    display: block;
+    position: absolute;
+    right: 0;
+    top: 4px;
+    width: 16px;
+    height: 16px;
+    background: transparent none center center no-repeat;
+}
+
+.validWarning .angleListHeader:after {
+    background-image: url('../../images/icons/icon_warning.svg');
+}
+
+.deny .angleListHeader:after {
+    background-image: url('../../images/icons/icon_deny.png');
+}
+
+.validError .angleListHeader:after {
+    background-image: url('../../images/icons/icon_error.png');
+}
+
+.angleListHeader.withoutSAP {
+    height: 51px;
+}
+
+.angleListHeader .handler {
+    cursor: pointer;
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #fff;
+    opacity: 0;
+    z-index: 10;
+}
+
+.readOnlyMode .angleListHeader .handler {
+    cursor: default;
+}
+
+.angleListHeader .icon {
+    position: absolute;
+    left: 0;
+    top: 3px;
+    z-index: 9;
+    width: 20px;
+    height: 20px;
+}
+
+.angleListHeader .property {
+    position: relative;
+    line-height: 14px;
+    margin: 0 10px 0 18px;
+    padding-top: 3px;
+    z-index: 8;
+}
+
+.angleListHeader .property > span {
+    display: block;
+    min-height: 15px;
+    color: #3e3e3e;
+    font-size: 12px;
+    font-family: Arial, Tahoma;
+    text-align: left;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.angleListHeader .property > .propertyName {
+    color: #666;
+}
+
+.angleListHeader .property > .propertyDescription {
+    white-space: normal;
+    display: -webkit-box; /* NOSONAR: acceptable */
+    -webkit-line-clamp: 2; /* NOSONAR: acceptable */
+    -webkit-box-orient: vertical; /* NOSONAR: acceptable */
+    font-weight: bold;
+    height: 30px;
+    line-height: 15px;
+}
+
+.angleListHeader .property > .propertyItem {
+    font-size: 10px;
+}
+
+.angleListHeader.withoutSAP .property > .propertyItem {
+    display: none;
+}
+
+.angleListHeader .angleListSort {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    z-index: 9;
+    width: 11px;
+    height: 30px;
+}
+
+.angleListHeader .angleListSort .sortOrderIndex {
+    display: block;
+    width: 11px;
+    height: 11px;
+    font-size: 10px;
+    line-height: 11px;
+    text-align: center;
+    color: #fff;
+    border-radius: 2px;
+    background-color: #333;
+    overflow: hidden;
+}
+
+.angleListHeader .angleListSort .sortOrderIndex.Hide {
+    display: block;
+    visibility: hidden;
+}
+
+.angleListHeader .angleListSort .sortOrder {
+    display: block;
+    background: transparent none center top no-repeat;
+    width: 11px;
+    height: 14px;
+    margin-top: 3px;
+}
+
+.angleListHeader .angleListSort .sortOrder.ASC {
+    background-image: url('../../images/icons/icon_sort_asc.png');
+}
+
+.angleListHeader .angleListSort .sortOrder.DESC {
+    background-image: url('../../images/icons/icon_sort_desc.png');
+}
+
+/* .HeaderPopup
+============================================ */
+.HeaderPopup {
+    height: auto;
+    text-align: left;
+    top: 45px;
+    width: auto;
+    min-width: 170px;
+    max-width: 260px;
+    min-height: 37px;
+    z-index: 100;
+    display: none;
+    padding-top: 51px;
+    box-sizing: border-box;
+}
+
+.HeaderPopup > .k-window-content {
+    min-height: 0;
+    overflow: visible;
+    z-index: 99;
+}
+
+.HeaderPopup.scrollable > .k-window-content {
+    overflow: auto;
+    overflow-x: hidden;
+}
+
+.HeaderPopup .propertyFunction {
+    position: relative;
+    border-top: 1px solid #e6e6e6;
+    background-color: #fff;
+}
+
+.HeaderPopup .propertyFunction:first-child {
+    border-top-width: 0;
+}
+
+.HeaderPopup .propertyFunction > a {
+    padding: 0 5px 0 42px;
+    display: block;
+    position: relative;
+    height: 36px;
+    line-height: 36px;
+    color: #333;
+    font-size: 12px;
+    background: transparent none 5px center no-repeat;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    padding-right: 10px;
+    box-sizing: border-box;
+}
+
+.HeaderPopup .propertyFunction > .sortAsc {
+    background-image: url('../../images/icons/icon_sort_asc_large.png');
+}
+
+.HeaderPopup .propertyFunction > .sortDesc {
+    background-image: url('../../images/icons/icon_sort_desc_large.png');
+}
+
+.HeaderPopup .propertyFunction > .sortCustom {
+    background-image: url('../../images/icons/icon_sort_custom.png');
+}
+
+.HeaderPopup .propertyFunction > .fieldFormat {
+    background-image: url('../../images/icons/icon_format.png');
+}
+
+.HeaderPopup .propertyFunction > .createPivot {
+    background-image: url('../../images/icons/icon_pivot_addnew.png');
+}
+
+.HeaderPopup .propertyFunction > .createChart {
+    background-image: url('../../images/icons/icon_chart_addnew.png');
+}
+
+.HeaderPopup .propertyFunction > .addColumn {
+    background-image: url('../../images/icons/icon_column_addnew.png');
+}
+
+.HeaderPopup .propertyFunction > .removeColumn {
+    background-image: url('../../images/icons/icon_column_remove.png');
+}
+
+.HeaderPopup .propertyFunction > .addFilter {
+    background-image: url('../../images/icons/icon_filter_addnew.png');
+}
+
+.HeaderPopup .propertyFunction > .fieldInfo {
+    background-image: url('../../images/icons/icon_info_large.png');
+}
+
+.HeaderPopup .propertyFunction > .active,
+.HeaderPopup .propertyFunction > a:hover {
+    background-color: #efefef;
+}
+
+.HeaderPopup .propertyFunction > .disabled,
+.HeaderPopup .propertyFunction > .disabled:hover {
+    color: #999;
+    cursor: default;
+    background-color: transparent;
+}
+
+/* .listDrilldown
+============================================ */
+.listDrilldown #ToggleAngle {
+    visibility: hidden;
+}
+
+.listDrilldown .grid,
+.listDrilldown .displayWrapper {
+    position: absolute;
+    left: -1000%;
+    top: -1000%;
+}
+
+.listDrilldown .listDrilldownGrid {
+    position: relative;
+    left: 0;
+    top: 0;
+}
+
+#ListDrilldownWrapper {
+    display: none;
+}
+
+.listDrilldown #ListDrilldownWrapper {
+    display: block;
+}
+
+.listDrilldown .hiddenContent #ListDrilldownWrapper {
+    display: none;
+}
+
+#ListDrilldownWrapper .fieldChooserFilter {
+    position: absolute;
+    margin: 0;
+}
+
+#ListDrilldownWrapper .fieldChooserFilter > div {
+    padding-top: 0;
+}
+
+.listDrilldownGrid {
+    margin-left: 186px;
+}
+
+.listDrilldownGrid .iconCategory {
+    display: block;
+    height: 16px;
+    background: transparent none center center no-repeat;
+}
+
+.listDrilldownGrid .k-grid-header .k-header {
+    cursor: default;
+    height: 55px;
+    padding-left: 0;
+    font-weight: bold;
+    font-size: 12px;
+    vertical-align: middle;
+}
+
+.listDrilldownGrid .k-grid-header .k-header.Number:hover {
+    background: transparent none;
+}
+
+.listDrilldownGrid .k-grid-content td {
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    padding: 0 5px;
+}
+.listDrilldownGrid .k-grid-content-locked .Number,
+.listDrilldownGrid .k-grid-content-locked .Number:hover,
+.listDrilldownGrid .k-grid-content-locked .k-state-selected.Number,
+.listDrilldownGrid .k-grid-content-locked .k-state-selected.Number:hover {
+    cursor: default;
+}

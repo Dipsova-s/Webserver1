@@ -1,0 +1,76 @@
+﻿@model List<EveryAngle.Core.ViewModels.Users.SystemRoleViewModel>
+@using EveryAngle.Shared.Globalization
+@using EveryAngle.ManagementConsole.Models
+
+@{
+    List<PageToolbarButtonModel> buttons = new List<PageToolbarButtonModel>();
+    buttons.Add(new PageToolbarButtonModel
+    {
+        Type = PageToolbarButtonType.GridEditDelete,
+        ModelUri = ViewBag.ModelUri,
+        Privilege = PrivilegeType.Model,
+        EnableTemplate = "<a href=\"\\" + SiteMapHelper.ActionHash("Models/" + ViewBag.ModelId + "/Roles/EditRole") + "\" onclick=\"MC.util.redirect(event, this)\" class=\"btn btnEdit\" data-parameters='{\"modelUri\":\"" + ViewBag.ModelUri + "\",\"roleUri\":\"#= data.Uri #\",\"haveModelServer\":\"" + ViewBag.HaveModelServer + "\"}'>" + Resource.Edit + "</a>",
+        DisableTemplate = "<a href=\"\\" + SiteMapHelper.ActionHash("Models/" + ViewBag.ModelId + "/Roles/EditRole") + "\" onclick=\"MC.util.redirect(event, this)\" class=\"btn btnEdit\" data-parameters='{\"modelUri\":\"" + ViewBag.ModelUri + "\",\"roleUri\":\"#= data.Uri #\",\"haveModelServer\":\"" + ViewBag.HaveModelServer + "\"}'>" + Resource.View + "</a>"
+    });
+    buttons.Add(new PageToolbarButtonModel
+    {
+        Type = PageToolbarButtonType.GridEditDelete,
+        ModelUri = ViewBag.ModelUri,
+        Privilege = PrivilegeType.Model,
+        EnableTemplate = "<a href=\"\\#popupCopyRole\" onclick=\"MC.Models.Roles.CopyRolePopup(\'#= data.Id #\',\'#= data.Uri #\', #= data.TotalSubRoles #)\" data-role=\"mcPopup\" title=\"" + Resource.MC_CopyRole + "\" data-width=\"500\" data-min-height=\"180\" data-min-width=\"475\" class=\"btn btnCopy\">" + Resource.Copy + "</a>",
+        DisableTemplate = "<a class=\"btn btnCopy disabled\">" + Resource.Copy + "</a>"
+    });
+    buttons.Add(new PageToolbarButtonModel
+    {
+        Type = PageToolbarButtonType.GridEditDelete,
+        Privilege = PrivilegeType.None,
+        Template = "<a class=\"btn btnInfo\" onclick=\"MC.Models.Roles.ShowConsolidatedRolePopup('#=data.Uri#') \"data-grid=\"SubRolesGrid\" data-target=\"\\#ConsoliDatedRolePopup\" title=\"" + Resource.MC_ShowConsolidatedRole + "\" data-width=\"700\" data-height=\"600\" data-role=\"mcPopup\">" + Resource.MC_ShowConsolidatedRole + "</a>"
+    });
+    buttons.Add(new PageToolbarButtonModel
+    {
+        Type = PageToolbarButtonType.GridEditDelete,
+        Privilege = PrivilegeType.User,
+        EnableTemplate = "<a class=\"btn btnManageUser\" onclick=\"MC.ui.masschangeuser.ShowUserInRolePopup('#=data.Uri#', '#=data.Id#', '" + ViewBag.ModelId + "') \"data-grid=\"UserInRole\" data-target=\"\\#UserInRolePopup\" title=\"" + Resource.Manage + " " + Resource.MC_Users + "\" data-width=\"800\" data-height=\"600\" data-role=\"mcPopup\">" + Resource.Manage + " " + Resource.MC_Users + "</a>",
+        DisableTemplate = "<a class=\"btn btnManageUser disabled\">" + Resource.Manage + " " + Resource.MC_Users + "</a>"
+    });
+    buttons.Add(new PageToolbarButtonModel
+    {
+        Type = PageToolbarButtonType.GridEditDelete,
+        ModelUri = ViewBag.ModelUri,
+        Privilege = PrivilegeType.Model,
+        EnableTemplate = "<a href=\"" + Url.Content("~/Role/DeleteRole") + "\" data-parameters='{\"modelUri\":\"" + ViewBag.ModelUri + "\",\"roleUri\":\"#= data.Uri #\"}' data-delete-template=\"" + Resource.MC_DeleteRoleConfirm + "\" data-delete-field-index=\"0\" onclick=\"MC.Models.Roles.DeleteRole(event, this)\" class=\"btn btnDelete\">" + Resource.Delete + "</a>",
+        DisableTemplate = "<a class=\"btn btnDelete disabled\">" + Resource.Delete + "</a>"
+    });
+
+    string gridButton = HttpUtility.HtmlDecode(Html.GetGridToolbar(buttons));
+    
+    int pageSize = (int)ViewData["DefaultPageSize"];
+    int gridHeight = Math.Min(pageSize, 10) * 37;
+}
+
+@(Html.Kendo().Grid<EveryAngle.Core.ViewModels.Users.SystemRoleViewModel>()
+    .Name("Grid")
+    .Columns(columns =>
+    {
+        columns.Bound(model => model.Id);
+        columns.Bound(model => model.Description).Width(230).ClientTemplate("#: data.Description #");
+        columns.Bound(model => model.CreatedBy.Created).Title(@Resource.MC_Created).HtmlAttributes(new { @class = "columnDate" }).HeaderHtmlAttributes(new { @class = "columnNumber" }).ClientTemplate("<span data-role='localize'>#= data.CreatedBy.Created # </span>");
+        columns.Bound(model => model.CreatedBy.Fullname).Width(80);
+        columns.Bound(model => model.user_count).Title(@Resource.MC_UsersCount).HtmlAttributes(new { @class = "columnNumber" }).HeaderHtmlAttributes(new { @class = "columnNumber" }).Sortable(false);
+        columns.Bound(model => model.TotalSubRoles).Width(70).HtmlAttributes(new { @class = "columnNumber" }).HeaderHtmlAttributes(new { @class = "columnNumber" }).Sortable(false).Title(@Resource.MC_SubRolesHeader);
+
+        columns.Bound("id").ClientTemplate(gridButton).HeaderHtmlAttributes(new { @class = "gridColumnToolbar" }).HtmlAttributes(new { @class = "gridColumnToolbar" }).Width(75).Sortable(false).Title(@Resource.MC_Action);
+
+    })
+    .Resizable(resize => resize.Columns(true))
+    .Sortable(sortable => sortable.AllowUnsort(false))
+    .Scrollable(scroll => scroll.Virtual(true).Height(gridHeight))
+    .DataSource(dataSource => dataSource
+        .Ajax()
+        .Events(e => e.RequestStart("onKendoGridPagingStart"))
+        .Read(read => read.Action("ReadRoles", "Role", new { modelUri = ViewBag.ModelUri }))
+        .PageSize(pageSize)
+    )
+    .AutoBind(false)
+    .EnableCustomBinding(true)
+)

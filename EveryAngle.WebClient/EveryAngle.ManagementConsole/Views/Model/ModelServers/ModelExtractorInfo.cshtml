@@ -1,0 +1,174 @@
+﻿@model EveryAngle.Core.ViewModels.ModelServer.ExtractorViewModel
+@using EveryAngle.Shared.Globalization
+@using EveryAngle.WebClient.Domain.Enums
+
+<div id="ModelServerInfoData" data-callback='{ "id": "@Model.id", "uri": "@ViewBag.ModelServerUri", "status": "@Model.status" }'>
+    @if (Model.Status == ModelServerStatus.Down)
+    {
+        <p>@Model.id is @Resource.Down</p>
+        <a class="btn btnPrimary btnRetry">@Resource.Retry</a>
+    }
+    else
+    {
+        <div class="contentSection contentSectionInfo contentSectionInfoModelServer">
+            <h2>@Model.id</h2>
+            @if (Model.Status == ModelServerStatus.Running)
+            {
+                <a class="btn btnAbort" onclick="MC.Models.ModelServer.AbortServer('@ViewBag.ModelServerUri')">@Resource.MC_Abort</a>
+            }
+            <div class="contentSectionInfoItem">
+                <label>@Resource.Version</label>
+                <p>@if (Model.application_version != null)
+                { @Model.application_version } api @if (Model.api_version != null)
+                { @Model.api_version }</p>
+            </div>
+            <div class="contentSectionInfoItem">
+                <label>@Resource.Status</label>
+                <p>@if (Model.status != null)
+                {@Model.status} <span data-role='localize'>@if (Model.status_timestamp != null)
+                { @Model.status_timestamp } </span></p>
+            </div>
+            <div class="contentSectionInfoItem">
+                <label>@Resource.MC_XtractorStarted</label>
+                <p><span data-role='localize'>@if (Model.instance_created != null)
+                {@Model.instance_created}</span></p>
+            </div>
+            <div class="contentSectionInfoItem">
+                <label>@Resource.MC_Errors</label>
+                <p>@if (Model.error_count != null)
+                {@Model.error_count}</p>
+            </div>
+            <div class="contentSectionInfoItem">
+                <label>@Resource.Warnings</label>
+                <p>@if (Model.warning_count != null)
+                {@Model.warning_count}</p>
+            </div>
+        </div>
+        <div class="contentSection contentSectionInfo contentSectionInfoModelServer">
+            <h2>@Resource.Status @Resource.Details</h2>
+            <div class="contentSectionInfoItem">
+                <label>@Resource.MC_Actionlist</label>
+                <p>
+                    @(Model.task_details == null ? string.Empty : !string.IsNullOrEmpty(Model.task_details.action_list.id)  ? Model.task_details.action_list.id + " (" + Model.task_details.action_list.description + ")" : string.Empty)
+                </p>
+            </div>
+            <div class="contentSectionInfoItem">
+                <label>@Resource.MC_CurrentAction</label>
+                <p>
+                    @(Model.task_details == null ? string.Empty : !string.IsNullOrEmpty(Model.task_details.current_action.id) ? Model.task_details.current_action.id + " (" + Model.task_details.current_action.description + ")" : string.Empty)
+                </p>
+            </div>
+        </div>
+        <div class="contentSection contentSectionGrid contentSectionInfoModelServer">
+            <h2>@Resource.MC_ExtractingTables</h2>
+            <div class="gridContainer">
+                <table id="ExtractingTables">
+                    <tr>
+                        <th>@Resource.Progress</th>
+                        <th class="columnNumber">@Resource.Total</th>
+                        <th class="columnNumber">@Resource.Busy</th>
+                        <th class="columnNumber">@Resource.Todo</th>
+                        <th class="columnNumber">@Resource.Done</th>
+                        <th>@Resource.CurrentTables</th>
+                        <th width="208">@Resource.MC_Action</th>
+                    </tr>
+                    @if (Model.task_details != null)
+                    {
+                        <tr>
+                            <td>@Model.task_details.extracting_tables.progress</td>
+                            <td class="columnNumber">@Model.task_details.extracting_tables.summary.total</td>
+                            <td class="columnNumber">@Model.task_details.extracting_tables.summary.busy</td>
+                            <td class="columnNumber">@Model.task_details.extracting_tables.summary.remaining</td>
+                            <td class="columnNumber">@Model.task_details.extracting_tables.summary.done</td>
+                            <td>@Model.task_details.extracting_tables.RePlaceTables</td>
+                            <td class="noTooltip">
+                                @Html.RenderButton(Captions.MC_SAP_Jobs_Cancel_And_Retry, Resource.MC_SAP_Jobs_Cancel_And_Retry_Info, !Model.IsBusy, "MC.util.modelServerInfo.killSapJobs(this, true)")
+                                @Html.RenderButton(Captions.Button_Cancel, Resource.MC_SAP_Jobs_Cancel_Info, !Model.IsBusy, "MC.util.modelServerInfo.killSapJobs(this, false)")
+                            </td>
+                        </tr>
+                    }
+                </table>
+            </div>
+        </div>
+        <div class="contentSection contentSectionGrid contentSectionInfoModelServer">
+            <h2>@Resource.CopyingTables</h2>
+            <div class="gridContainer">
+                <table id="CopyingTables">
+                    <tr>
+                        <th>@Resource.Progress</th>
+                        <th class="columnNumber">@Resource.Total</th>
+                        <th class="columnNumber">@Resource.Busy</th>
+                        <th class="columnNumber">@Resource.Todo</th>
+                        <th class="columnNumber">@Resource.Done</th>
+                        <th>@Resource.CurrentTables</th>
+                    </tr>
+                    @if (Model.task_details != null)
+                    {
+                        <tr>
+                            <td>@Model.task_details.copying_tables.progress</td>
+                            <td class="columnNumber">@Model.task_details.copying_tables.summary.total</td>
+                            <td class="columnNumber">@Model.task_details.copying_tables.summary.busy</td>
+                            <td class="columnNumber">@Model.task_details.copying_tables.summary.remaining</td>
+                            <td class="columnNumber">@Model.task_details.copying_tables.summary.done</td>
+                            <td>@Model.task_details.copying_tables.RePlaceTables</td>
+                        </tr>
+                    }
+                </table>
+            </div>
+        </div>
+        <div class="contentSection contentSectionGrid contentSectionInfoModelServer">
+            <h2>@Resource.IndexingTables</h2>
+            <div class="gridContainer">
+                <table id="IndexingTables">
+                    <tr>
+                        <th>@Resource.Progress</th>
+                        <th class="columnNumber">@Resource.Total</th>
+                        <th class="columnNumber">@Resource.Busy</th>
+                        <th class="columnNumber">@Resource.Todo</th>
+                        <th class="columnNumber">@Resource.Done</th>
+                        <th>@Resource.CurrentTables</th>
+                    </tr>
+                    @if (Model.task_details != null)
+                    {
+                        <tr>
+                            <td>@Model.task_details.indexing_tables.progress</td>
+                            <td class="columnNumber">@Model.task_details.indexing_tables.summary.total</td>
+                            <td class="columnNumber">@Model.task_details.indexing_tables.summary.busy</td>
+                            <td class="columnNumber">@Model.task_details.indexing_tables.summary.remaining</td>
+                            <td class="columnNumber">@Model.task_details.indexing_tables.summary.done</td>
+                            <td>@Model.task_details.indexing_tables.RePlaceTables</td>
+                        </tr>
+                    }
+                </table>
+            </div>
+        </div>
+        <div class="contentSection contentSectionGrid contentSectionInfoModelServer">
+            <h2>@Resource.ExternalApps</h2>
+            <div class="gridContainer">
+                <table id="ExternalApps">
+                    <tr>
+                        <th>@Resource.Progress</th>
+                        <th class="columnNumber">@Resource.Total</th>
+                        <th class="columnNumber">@Resource.Busy</th>
+                        <th class="columnNumber">@Resource.Todo</th>
+                        <th class="columnNumber">@Resource.Done</th>
+                        <th>@Resource.CurrentTables</th>
+                    </tr>
+                    @if (Model.task_details != null)
+                    {
+                        <tr>
+                            <td>@Model.task_details.running_external_apps.progress</td>
+                            <td class="columnNumber">@Model.task_details.running_external_apps.summary.total</td>
+                            <td class="columnNumber">@Model.task_details.running_external_apps.summary.busy</td>
+                            <td class="columnNumber">@Model.task_details.running_external_apps.summary.remaining</td>
+                            <td class="columnNumber">@Model.task_details.running_external_apps.summary.done</td>
+                            <td>@Model.task_details.running_external_apps.RePlaceApps</td>
+                        </tr>
+                    }
+                </table>
+            </div>
+        </div>
+    }
+</div>
+<input id="ModelServerUri" type="hidden" value="@ViewBag.ModelServerUri" />
+<input id="KillSapJobsUri" type="hidden" value="@Url.Action("KillSAPJobs", "ModelServers")" />
