@@ -149,7 +149,7 @@ Source: "{src}\Movies.zip"; DestDir: "{src}"; Flags: external onlyifdoesntexist;
 Source: "{src}\*.mp4"; DestDir: "{src}"; Flags: external onlyifdoesntexist; Components: movies
 
 ; Escape/Unescape
-Source: "EveryAngle.ODataService\packages\EveryAngle.EncryptionDecryption32.2.4.2\lib\net45\EveryAngle.EncryptionDecryption32.dll";Flags: dontcopy; Components: OData
+Source: "SetupFiles\packages\EveryAngle.EncryptionDecryption32.2.4.2\lib\net45\EveryAngle.EncryptionDecryption32.dll";Flags: dontcopy; Components: OData
 
 [Dirs]
 Name: "{code:DataPath|log}";

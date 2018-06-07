@@ -51,9 +51,6 @@
     <Reference Include="EveryAngle.EncryptionDecryption.Core, Version=2.4.2.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\EveryAngle.EncryptionDecryption.Core.2.4.2\lib\net45\EveryAngle.EncryptionDecryption.Core.dll</HintPath>
     </Reference>
-    <Reference Include="EveryAngle.EncryptionDecryption32, Version=2.4.2.0, Culture=neutral, processorArchitecture=x86">
-      <HintPath>..\packages\EveryAngle.EncryptionDecryption32.2.4.2\lib\net45\EveryAngle.EncryptionDecryption32.dll</HintPath>
-    </Reference>
     <Reference Include="EveryAngle.Utilities, Version=2.4.2.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\EveryAngle.Utilities.2.4.2\lib\net45\EveryAngle.Utilities.dll</HintPath>
     </Reference>
