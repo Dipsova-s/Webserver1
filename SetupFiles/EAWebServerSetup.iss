@@ -8,7 +8,7 @@
 ;DotNet Libraries: http://www.codeproject.com/KB/install/dotnetfx_innosetup_instal.aspx
 
 #define RemoteSource = "\\NL-EABLD001\Perforce\M4\Releases\Release2017_Sub10"
-#define VersionFile = "NET\Frontend\Source Code\EveryAngle.WebClient\EveryAngle.WebClient.Web\bin\EveryAngle.WebClient.Web.dll"
+#define VersionFile = "EveryAngle.WebClient\EveryAngle.WebClient.Web\bin\EveryAngle.WebClient.Web.dll"
 
 ;If no sourceDir specified, try .\..\.., else use RemoteSource
 #ifndef SourceDir
