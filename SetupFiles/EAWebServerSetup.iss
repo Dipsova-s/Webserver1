@@ -109,7 +109,7 @@ Name: codesite; Description: "CodeSite logging"; Types: full; Flags: disablenoun
 
 [Files]
 ;WebClient
-;Source: "NET\Frontend\WebDeploy\M4WebClient.deploy-readme.txt"; DestDir: "{code:DataPath|WebDeploy}"; Flags: ignoreversion; Components: webclient
+Source: "NET\Frontend\WebDeploy\M4WebClient.deploy-readme.txt"; DestDir: "{code:DataPath|WebDeploy}"; Flags: ignoreversion; Components: webclient
 Source: "NET\Frontend\WebDeploy\M4WebClient.SourceManifest.xml"; DestDir: "{code:DataPath|WebDeploy}"; Flags: ignoreversion; Components: webclient
 Source: "NET\Frontend\WebDeploy\M4WebClient.zip"; DestDir: "{code:DataPath|WebDeploy}"; Flags: ignoreversion nocompression; Components: webclient
 Source: "NET\Frontend\WebDeploy\M4WebClient.SetParameters.xml"; DestDir: "{code:DataPath|WebDeploy}"; Components: webclient
@@ -117,7 +117,7 @@ Source: "NET\Frontend\WebDeploy\M4WebClient.deploy.cmd"; DestDir: "{code:DataPat
 ;Diagrams
 Source: "{#ContentDir}\Content\Diagrams\*.*"; DestDir: "{code:DataPath|WebDeploy\Diagrams}"; Flags: recursesubdirs ignoreversion deleteafterinstall; BeforeInstall: RegisterDiagramFile(); Components: webclient
 ;ManagementConsole
-;Source: "NET\Frontend\WebDeploy\M4ManagementConsole.deploy-readme.txt"; DestDir: "{code:DataPath|WebDeploy}"; Flags: ignoreversion; Components: webclient
+Source: "NET\Frontend\WebDeploy\M4ManagementConsole.deploy-readme.txt"; DestDir: "{code:DataPath|WebDeploy}"; Flags: ignoreversion; Components: webclient
 Source: "NET\Frontend\WebDeploy\M4ManagementConsole.SourceManifest.xml"; DestDir: "{code:DataPath|WebDeploy}"; Flags: ignoreversion; Components: webclient
 Source: "NET\Frontend\WebDeploy\M4ManagementConsole.zip"; DestDir: "{code:DataPath|WebDeploy}"; Flags: ignoreversion nocompression; Components: webclient
 Source: "NET\Frontend\WebDeploy\M4ManagementConsole.SetParameters.xml"; DestDir: "{code:DataPath|WebDeploy}"; Components: webclient
