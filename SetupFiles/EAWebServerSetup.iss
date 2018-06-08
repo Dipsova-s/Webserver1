@@ -134,7 +134,7 @@ Source: "NET\Backend\DeploymentTools\bin\BouncyCastle.Crypto.dll"; DestDir: "{co
 Source: "NET\Backend\DeploymentTools\bin\AMS.Profile.dll"; DestDir: "{code:DataPath|Tools}"; Flags: ignoreversion; Components: webclient
 
 ;OData Service
-;Source: "NET\Frontend\WebDeploy\ODataService.deploy-readme.txt"; DestDir: "{code:DataPath|WebDeploy}"; Flags: ignoreversion; Components: webclient
+Source: "NET\Frontend\WebDeploy\ODataService.deploy-readme.txt"; DestDir: "{code:DataPath|WebDeploy}"; Flags: ignoreversion; Components: webclient
 Source: "NET\Frontend\WebDeploy\ODataService.SourceManifest.xml"; DestDir: "{code:DataPath|WebDeploy}"; Flags: ignoreversion; Components: webclient
 Source: "NET\Frontend\WebDeploy\ODataService.zip"; DestDir: "{code:DataPath|WebDeploy}"; Flags: ignoreversion nocompression; Components: webclient
 Source: "NET\Frontend\WebDeploy\ODataService.SetParameters.xml"; DestDir: "{code:DataPath|WebDeploy}"; Components: webclient
