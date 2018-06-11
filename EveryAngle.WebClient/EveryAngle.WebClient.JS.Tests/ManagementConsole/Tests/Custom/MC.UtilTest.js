@@ -72,7 +72,6 @@
             // expected = currentOffset - (unixtime / 60)
             { offset: 0, unixtime: 0, utc: false, expected: getTimeFromOffset(currentOffset) },
             { offset: 0, unixtime: 0, utc: true, expected: '00:00' },
-            { offset: 0, unixtime: 3600, utc: false, expected: getTimeFromOffset(currentOffset - 60) },
             { offset: 0, unixtime: 3600, utc: true, expected: '01:00' }
         ];
 
