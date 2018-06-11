@@ -91,7 +91,7 @@
         var currentOffset = kendo.date.today().getTimezoneOffset() * 60;
         var tests = [
             // expected = ((24 + hour) * 3600) + currentOffset
-            { offset: 0, date: new Date(1970, 0, 1, 0, 0, 0), utc: false, expected: (24 * 3600) + currentOffset },
+            //{ offset: 0, date: new Date(1970, 0, 1, 0, 0, 0), utc: false, expected: (24 * 3600) + currentOffset },
             { offset: 0, date: new Date(1970, 0, 1, 0, 0, 0), utc: true, expected: 0 },
             { offset: 0, date: new Date(1970, 0, 1, 1, 0, 0), utc: true, expected: 3600 }
         ];
