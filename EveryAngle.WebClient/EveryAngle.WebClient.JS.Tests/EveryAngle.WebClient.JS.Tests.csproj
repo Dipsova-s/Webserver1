@@ -734,6 +734,7 @@
   <ItemGroup>
     <None Include="ManagementConsole\chutzpah.json" />
     <Content Include="ManagementConsole\Tests\Page\MC.Users.UserTest.js" />
+    <None Include="packages.config" />
     <None Include="WebClient\chutzpah.json" />
   </ItemGroup>
   <ItemGroup />
