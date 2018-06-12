@@ -65,7 +65,18 @@
     <SC_BranchPath Condition=" !Exists('..\..\..\..\..\Content')">$(MSBuildProjectDirectory)\..\..\..\..\..\..\Acceptatie</SC_BranchPath>
   </PropertyGroup>
   <PropertyGroup>
-    <PreBuildEvent>robocopy "..\..\..\Content\Diagrams" "$(MSBuildProjectDirectory)\Resources\CreateNewAngleBySchema" /MIR /NP
+    <PreBuildEvent>xcopy "$(MSBuildProjectDirectory)\..\EveryAngle.Shared.EmbeddedViews\Resource\BusinessProcess\*.css" "$(MSBuildProjectDirectory)\Content\ExternalResource\" /Y /I /F /H  
+xcopy "$(MSBuildProjectDirectory)\..\EveryAngle.Shared.EmbeddedViews\Resource\BusinessProcess\*.png" "$(MSBuildProjectDirectory)\Content\ExternalResource\" /Y /I /F /H  
+xcopy "$(MSBuildProjectDirectory)\..\EveryAngle.Shared.EmbeddedViews\Resource\FieldsChooser\*.css" "$(MSBuildProjectDirectory)\Content\ExternalResource\" /Y /I /F /H  
+xcopy "$(MSBuildProjectDirectory)\..\EveryAngle.Shared.EmbeddedViews\Resource\FieldsChooser\*.png" "$(MSBuildProjectDirectory)\Content\ExternalResource\" /Y /I /F /H  
+xcopy "$(MSBuildProjectDirectory)\..\EveryAngle.Shared.EmbeddedViews\Resource\FieldsChooser\*.svg" "$(MSBuildProjectDirectory)\Content\ExternalResource\" /Y /I /F /H  
+xcopy "$(MSBuildProjectDirectory)\..\EveryAngle.Shared.EmbeddedViews\Resource\FieldsChooser\*.gif" "$(MSBuildProjectDirectory)\Content\ExternalResource\" /Y /I /F /H  
+xcopy "$(MSBuildProjectDirectory)\..\EveryAngle.Shared.EmbeddedViews\Resource\Shared\*.css" "$(MSBuildProjectDirectory)\Content\ExternalResource\" /Y /I /F /H  
+xcopy "$(MSBuildProjectDirectory)\..\EveryAngle.Shared.EmbeddedViews\Resource\Shared\*.png" "$(MSBuildProjectDirectory)\Content\ExternalResource\" /Y /I /F /H  
+xcopy "$(MSBuildProjectDirectory)\..\EveryAngle.Shared.EmbeddedViews\Resource\ClassesChooser\*.css" "$(MSBuildProjectDirectory)\Content\ExternalResource\" /Y /I /F /H  
+xcopy "$(MSBuildProjectDirectory)\..\EveryAngle.Shared.EmbeddedViews\Resource\ClassesChooser\*.png" "$(MSBuildProjectDirectory)\Content\ExternalResource\" /Y /I /F /H  
+
+robocopy "..\..\..\Content\Diagrams" "$(MSBuildProjectDirectory)\Resources\CreateNewAngleBySchema" /MIR /NP
 REM exit code 1 means 'files are copied, everything Ok'
 if %25ERRORLEVEL%25 LEQ 1 exit 0 else exit %25ERRORLEVEL%25</PreBuildEvent>
   </PropertyGroup>
@@ -1142,7 +1153,7 @@ if %25ERRORLEVEL%25 LEQ 1 exit 0 else exit %25ERRORLEVEL%25</PreBuildEvent>
     <VisualStudio>
       <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
         <WebProjectProperties>
-          <UseIIS>True</UseIIS>
+          <UseIIS>False</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>33986</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>

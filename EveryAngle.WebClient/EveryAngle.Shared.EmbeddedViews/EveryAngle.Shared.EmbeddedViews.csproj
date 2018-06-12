@@ -194,28 +194,8 @@
     </PostBuildEvent>
   </PropertyGroup>
   <PropertyGroup>
-    <PreBuildEvent>xcopy "$(ProjectDir)Resource\BusinessProcess\*.css" "$(ProjectDir)..\EveryAngle.WebClient.Web\Content\ExternalResource\" /Y /I /F /H  
-xcopy "$(ProjectDir)Resource\BusinessProcess\*.png" "$(ProjectDir)..\EveryAngle.WebClient.Web\Content\ExternalResource\" /Y /I /F /H  
-xcopy "$(ProjectDir)Resource\FieldsChooser\*.css" "$(ProjectDir)..\EveryAngle.WebClient.Web\Content\ExternalResource\" /Y /I /F /H  
-xcopy "$(ProjectDir)Resource\FieldsChooser\*.png" "$(ProjectDir)..\EveryAngle.WebClient.Web\Content\ExternalResource\" /Y /I /F /H  
-xcopy "$(ProjectDir)Resource\FieldsChooser\*.svg" "$(ProjectDir)..\EveryAngle.WebClient.Web\Content\ExternalResource\" /Y /I /F /H  
-xcopy "$(ProjectDir)Resource\FieldsChooser\*.gif" "$(ProjectDir)..\EveryAngle.WebClient.Web\Content\ExternalResource\" /Y /I /F /H  
-xcopy "$(ProjectDir)Resource\Shared\*.css" "$(ProjectDir)..\EveryAngle.WebClient.Web\Content\ExternalResource\" /Y /I /F /H  
-xcopy "$(ProjectDir)Resource\Shared\*.png" "$(ProjectDir)..\EveryAngle.WebClient.Web\Content\ExternalResource\" /Y /I /F /H  
-xcopy "$(ProjectDir)Resource\ClassesChooser\*.css" "$(ProjectDir)..\EveryAngle.WebClient.Web\Content\ExternalResource\" /Y /I /F /H  
-xcopy "$(ProjectDir)Resource\ClassesChooser\*.png" "$(ProjectDir)..\EveryAngle.WebClient.Web\Content\ExternalResource\" /Y /I /F /H  
-
-xcopy "$(ProjectDir)Resource\BusinessProcess\*.css" "$(ProjectDir)..\EveryAngle.ManagementConsole\Content\ExternalResource\" /Y /I /F /H  
-xcopy "$(ProjectDir)Resource\BusinessProcess\*.png" "$(ProjectDir)..\EveryAngle.ManagementConsole\Content\ExternalResource\" /Y /I /F /H  
-xcopy "$(ProjectDir)Resource\FieldsChooser\*.css" "$(ProjectDir)..\EveryAngle.ManagementConsole\Content\ExternalResource\" /Y /I /F /H  
-xcopy "$(ProjectDir)Resource\FieldsChooser\*.png" "$(ProjectDir)..\EveryAngle.ManagementConsole\Content\ExternalResource\" /Y /I /F /H  
-xcopy "$(ProjectDir)Resource\FieldsChooser\*.svg" "$(ProjectDir)..\EveryAngle.ManagementConsole\Content\ExternalResource\" /Y /I /F /H  
-xcopy "$(ProjectDir)Resource\FieldsChooser\*.gif" "$(ProjectDir)..\EveryAngle.ManagementConsole\Content\ExternalResource\" /Y /I /F /H  
-xcopy "$(ProjectDir)Resource\Shared\*.css" "$(ProjectDir)..\EveryAngle.ManagementConsole\Content\ExternalResource\" /Y /I /F /H  
-xcopy "$(ProjectDir)Resource\Shared\*.png" "$(ProjectDir)..\EveryAngle.ManagementConsole\Content\ExternalResource\" /Y /I /F /H  
-xcopy "$(ProjectDir)Resource\ClassesChooser\*.css" "$(ProjectDir)..\EveryAngle.ManagementConsole\Content\ExternalResource\" /Y /I /F /H  
-xcopy "$(ProjectDir)Resource\ClassesChooser\*.png" "$(ProjectDir)..\EveryAngle.ManagementConsole\Content\ExternalResource\" /Y /I /F /H  
-</PreBuildEvent>
+    <PreBuildEvent>
+    </PreBuildEvent>
   </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
