@@ -934,12 +934,15 @@ begin
     ShowProgressAndText((90 / Length(ODataModels)) * (i+1), msg1, 'Running MSDeploy for OData service: ' + ODataModels[i]);
 
     // Read json settings before upgrade/install
+    ShowProgressAndText((90 / Length(ODataModels)) * (i+1), msg1, 'ReadODataConfig');
     ODataConfig := ReadODataConfig(ODataPath, ODataModels[i]);   
 
     // Deploy OData Service using MSDeploy
+    ShowProgressAndText((90 / Length(ODataModels)) * (i+1), msg1, 'ExecuteODataServiceDeploy');
     ExecuteODataServiceDeploy(ODataModels[i]);
     
     // Write updated json settings
+    ShowProgressAndText((90 / Length(ODataModels)) * (i+1), msg1, 'WriteODataConfigForModel');
     WriteODataConfigForModel(ODataPath, ODataModels[i], WebSite_FQDN, AppServerUrl, ODataUser, ODataPassword, ODataConfig);
   end;
 
