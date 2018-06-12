@@ -109,19 +109,19 @@ Name: codesite; Description: "CodeSite logging"; Types: full; Flags: disablenoun
 
 [Files]
 ;WebClient
-Source: "NET\Frontend\WebDeploy\M4WebClient.deploy-readme.txt"; DestDir: "{code:DataPath|WebDeploy}"; Flags: ignoreversion; Components: webclient
-Source: "NET\Frontend\WebDeploy\M4WebClient.SourceManifest.xml"; DestDir: "{code:DataPath|WebDeploy}"; Flags: ignoreversion; Components: webclient
-Source: "NET\Frontend\WebDeploy\M4WebClient.zip"; DestDir: "{code:DataPath|WebDeploy}"; Flags: ignoreversion nocompression; Components: webclient
-Source: "NET\Frontend\WebDeploy\M4WebClient.SetParameters.xml"; DestDir: "{code:DataPath|WebDeploy}"; Components: webclient
-Source: "NET\Frontend\WebDeploy\M4WebClient.deploy.cmd"; DestDir: "{code:DataPath|WebDeploy}"; Flags: ignoreversion; Components: webclient
+Source: "NET\Frontend\WebDeploy\EveryAngle.WebClient.Web.deploy-readme.txt"; DestDir: "{code:DataPath|WebDeploy}"; Flags: ignoreversion; Components: webclient
+Source: "NET\Frontend\WebDeploy\EveryAngle.WebClient.Web.SourceManifest.xml"; DestDir: "{code:DataPath|WebDeploy}"; Flags: ignoreversion; Components: webclient
+Source: "NET\Frontend\WebDeploy\EveryAngle.WebClient.Web.zip"; DestDir: "{code:DataPath|WebDeploy}"; Flags: ignoreversion nocompression; Components: webclient
+Source: "NET\Frontend\WebDeploy\EveryAngle.WebClient.Web.SetParameters.xml"; DestDir: "{code:DataPath|WebDeploy}"; Components: webclient
+Source: "NET\Frontend\WebDeploy\EveryAngle.WebClient.Web.deploy.cmd"; DestDir: "{code:DataPath|WebDeploy}"; Flags: ignoreversion; Components: webclient
 ;Diagrams
 Source: "{#ContentDir}\Content\Diagrams\*.*"; DestDir: "{code:DataPath|WebDeploy\Diagrams}"; Flags: recursesubdirs ignoreversion deleteafterinstall; BeforeInstall: RegisterDiagramFile(); Components: webclient
 ;ManagementConsole
-Source: "NET\Frontend\WebDeploy\M4ManagementConsole.deploy-readme.txt"; DestDir: "{code:DataPath|WebDeploy}"; Flags: ignoreversion; Components: webclient
-Source: "NET\Frontend\WebDeploy\M4ManagementConsole.SourceManifest.xml"; DestDir: "{code:DataPath|WebDeploy}"; Flags: ignoreversion; Components: webclient
-Source: "NET\Frontend\WebDeploy\M4ManagementConsole.zip"; DestDir: "{code:DataPath|WebDeploy}"; Flags: ignoreversion nocompression; Components: webclient
-Source: "NET\Frontend\WebDeploy\M4ManagementConsole.SetParameters.xml"; DestDir: "{code:DataPath|WebDeploy}"; Components: webclient
-Source: "NET\Frontend\WebDeploy\M4ManagementConsole.deploy.cmd"; DestDir: "{code:DataPath|WebDeploy}"; Flags: ignoreversion; Components: webclient
+Source: "NET\Frontend\WebDeploy\EveryAngle.ManagementConsole.Web.deploy-readme.txt"; DestDir: "{code:DataPath|WebDeploy}"; Flags: ignoreversion; Components: webclient
+Source: "NET\Frontend\WebDeploy\EveryAngle.ManagementConsole.Web.SourceManifest.xml"; DestDir: "{code:DataPath|WebDeploy}"; Flags: ignoreversion; Components: webclient
+Source: "NET\Frontend\WebDeploy\EveryAngle.ManagementConsole.Web.zip"; DestDir: "{code:DataPath|WebDeploy}"; Flags: ignoreversion nocompression; Components: webclient
+Source: "NET\Frontend\WebDeploy\EveryAngle.ManagementConsole.Web.SetParameters.xml"; DestDir: "{code:DataPath|WebDeploy}"; Components: webclient
+Source: "NET\Frontend\WebDeploy\EveryAngle.ManagementConsole.Web.deploy.cmd"; DestDir: "{code:DataPath|WebDeploy}"; Flags: ignoreversion; Components: webclient
 
 ;Certificate installer
 Source: "DeploymentTools\bin\EveryAngle.CustomerCertificates.Installer.console.exe"; DestDir: "{code:DataPath|Tools}"; Flags: ignoreversion; Components: webclient
@@ -134,11 +134,11 @@ Source: "DeploymentTools\bin\BouncyCastle.Crypto.dll"; DestDir: "{code:DataPath|
 Source: "DeploymentTools\bin\AMS.Profile.dll"; DestDir: "{code:DataPath|Tools}"; Flags: ignoreversion; Components: webclient
 
 ;OData Service
-Source: "NET\Frontend\WebDeploy\ODataService.deploy-readme.txt"; DestDir: "{code:DataPath|WebDeploy}"; Flags: ignoreversion; Components: webclient
-Source: "NET\Frontend\WebDeploy\ODataService.SourceManifest.xml"; DestDir: "{code:DataPath|WebDeploy}"; Flags: ignoreversion; Components: webclient
-Source: "NET\Frontend\WebDeploy\ODataService.zip"; DestDir: "{code:DataPath|WebDeploy}"; Flags: ignoreversion nocompression; Components: webclient
-Source: "NET\Frontend\WebDeploy\ODataService.SetParameters.xml"; DestDir: "{code:DataPath|WebDeploy}"; Components: webclient
-Source: "NET\Frontend\WebDeploy\ODataService.deploy.cmd"; DestDir: "{code:DataPath|WebDeploy}"; Flags: ignoreversion; Components: webclient
+Source: "NET\Frontend\WebDeploy\EveryAngle.OData.Service.deploy-readme.txt"; DestDir: "{code:DataPath|WebDeploy}"; Flags: ignoreversion; Components: webclient
+Source: "NET\Frontend\WebDeploy\EveryAngle.OData.Service.SourceManifest.xml"; DestDir: "{code:DataPath|WebDeploy}"; Flags: ignoreversion; Components: webclient
+Source: "NET\Frontend\WebDeploy\EveryAngle.OData.Service.zip"; DestDir: "{code:DataPath|WebDeploy}"; Flags: ignoreversion nocompression; Components: webclient
+Source: "NET\Frontend\WebDeploy\EveryAngle.OData.Service.SetParameters.xml"; DestDir: "{code:DataPath|WebDeploy}"; Components: webclient
+Source: "NET\Frontend\WebDeploy\EveryAngle.OData.Service.deploy.cmd"; DestDir: "{code:DataPath|WebDeploy}"; Flags: ignoreversion; Components: webclient
 
 ;Codesite
 Source: "Resources\Raize-{#CodeSiteVersion}\CS5_Tools.exe"; DestDir: "{code:DataPath|Setup}"; Flags: ignoreversion nocompression; Components: codesite
@@ -161,7 +161,7 @@ Filename: "PowerShell"; Parameters: """Import-Module ServerManager; Add-WindowsF
 [UninstallRun] 
 
 [UninstallDelete]
-Type: files; Name: "{code:DataPath|WebDeploy\M4WebClient.SetParameters.xml}"; Components: webclient
+Type: files; Name: "{code:DataPath|WebDeploy\EveryAngle.WebClient.Web.SetParameters.xml}"; Components: webclient
 
 [Code]
 //Globals
@@ -656,7 +656,7 @@ begin
   ParametersPath := DataPath('WebDeploy');
 
   // Read WebClient deploy parameters
-  Parameters := LoadXMLConfigFile(ParametersPath, 'M4WebClient.SetParameters.xml');
+  Parameters := LoadXMLConfigFile(ParametersPath, 'EveryAngle.WebClient.Web.SetParameters.xml');
   
   // Set WebClient deploy parameters (in memory)
   setDeployParameter(Parameters, 'IIS Web Application Name', IISPathWC());
@@ -684,12 +684,12 @@ begin
   end;
 
   // Write webclient deploy parameters
-  SaveXMLConfigFile(Parameters, ParametersPath, 'M4WebClient.SetParameters.xml');
+  SaveXMLConfigFile(Parameters, ParametersPath, 'EveryAngle.WebClient.Web.SetParameters.xml');
   
   // Set Management Console Deploy Parameters
-  Parameters := LoadXMLConfigFile(ParametersPath, 'M4ManagementConsole.SetParameters.xml');
+  Parameters := LoadXMLConfigFile(ParametersPath, 'EveryAngle.ManagementConsole.Web.SetParameters.xml');
   setDeployParameter(Parameters, 'IIS Web Application Name', IISPathMC);
-  SaveXMLConfigFile(Parameters, ParametersPath, 'M4ManagementConsole.SetParameters.xml');
+  SaveXMLConfigFile(Parameters, ParametersPath, 'EveryAngle.ManagementConsole.Web.SetParameters.xml');
 end;
 
 procedure WriteConfigFiles(IISPhysicalPath, WebSite_FQDN: string);
@@ -787,12 +787,12 @@ end;
 
 procedure ExecuteM4ManagementConsoleDeploy();
 begin
-  DeployWebSite('M4ManagementConsole.deploy.cmd','');
+  DeployWebSite('EveryAngle.ManagementConsole.Web.deploy.cmd','');
 end;
 
 procedure ExecuteWebClientDeploy();
 begin
-  DeployWebSite('M4WebClient.deploy.cmd','');
+  DeployWebSite('EveryAngle.WebClient.Web.deploy.cmd','');
 end;
 
 procedure ExecuteODataServiceDeploy(ModelId: string);
@@ -801,7 +801,7 @@ var
 begin
   IIS_Web_Application_Name := IISPathWC + '/odata/' + ModelId;
 
-  DeployWebSite('ODataService.deploy.cmd', '"-setParam:name=''IIS Web Application Name'',value=''"' + IIS_Web_Application_Name + '''');
+  DeployWebSite('EveryAngle.OData.Service.deploy.cmd', '"-setParam:name=''IIS Web Application Name'',value=''"' + IIS_Web_Application_Name + '''');
 end;
 
 procedure ExecuteWebsiteUndeploy(aSite: string);
