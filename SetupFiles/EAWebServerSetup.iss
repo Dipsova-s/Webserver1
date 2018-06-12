@@ -570,12 +570,22 @@ var
   SettingsPath : string;
   JsonString : TStringList;
 begin
+  ShowProgressAndText(90, '', 'SetJsonString: host=' + AppServerUrl);
   SetJsonString(ODataSettings, 'host', AppServerUrl);
+
+  ShowProgressAndText(90, '', 'SetJsonString: user=' + ODataUser);
   SetJsonString(ODataSettings, 'user', ODataUser);
+
+  ShowProgressAndText(90, '', 'SetJsonString: password=' + ODataPassword);
   SetJsonString(ODataSettings, 'password', ODataPassword);
+
+  ShowProgressAndText(90, '', 'SetJsonString: model_id=' + ModelId);
   SetJsonString(ODataSettings, 'model_id', ModelId);
+
+  ShowProgressAndText(90, '', 'SetJsonString: web_client_uri=' + WebSite_FQDN);
   SetJsonString(ODataSettings, 'web_client_uri', WebSite_FQDN);
 
+  ShowProgressAndText(90, '', 'SetUserSettingsToJson');
   SetUserSettingsToJson(ODataSettings,'angles_query','');
   SetUserSettingsToJson(ODataSettings,'timeout','');
   SetUserSettingsToJson(ODataSettings,'page_size','');
@@ -584,10 +594,12 @@ begin
                     
   SettingsPath := ODataPath + '\' + ModelId + '\bin\settings.json';
   
+  ShowProgressAndText(90, '', 'Writing OData settings');
   Log('[i]Writing OData settings');
   jsonString := JsonToStringList(ODataSettings);
   Log('[i]Writing OData settings :' + SettingsPath + #10#13 + jsonString.Text);
 
+  ShowProgressAndText(90, '', 'SaveToFile');
   JsonString.SaveToFile(SettingsPath);  
 end;
 
@@ -934,15 +946,12 @@ begin
     ShowProgressAndText((90 / Length(ODataModels)) * (i+1), msg1, 'Running MSDeploy for OData service: ' + ODataModels[i]);
 
     // Read json settings before upgrade/install
-    ShowProgressAndText((90 / Length(ODataModels)) * (i+1), msg1, 'ReadODataConfig');
     ODataConfig := ReadODataConfig(ODataPath, ODataModels[i]);   
 
     // Deploy OData Service using MSDeploy
-    ShowProgressAndText((90 / Length(ODataModels)) * (i+1), msg1, 'ExecuteODataServiceDeploy');
     ExecuteODataServiceDeploy(ODataModels[i]);
     
     // Write updated json settings
-    ShowProgressAndText((90 / Length(ODataModels)) * (i+1), msg1, 'WriteODataConfigForModel');
     WriteODataConfigForModel(ODataPath, ODataModels[i], WebSite_FQDN, AppServerUrl, ODataUser, ODataPassword, ODataConfig);
   end;
 
