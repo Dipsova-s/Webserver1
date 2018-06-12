@@ -3,7 +3,7 @@
 // https://github.com/koldev/JsonParser/blob/master/JsonParser.pas
 
 function Escape(text: AnsiString; out strout: WideString): Boolean;
-  external 'Escape@files:EveryAngle.EncryptionDecryption32.dll stdcall delayload';
+  external 'Escape@files:EveryAngle.EncryptionDecryption32.dll,EveryAngle.EncryptionDecryption.Core.dll stdcall loadwithalteredsearchpath';
 
 type
   TJsonNumber = Double;
