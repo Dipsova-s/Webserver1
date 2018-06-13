@@ -1180,4 +1180,7 @@ if %25ERRORLEVEL%25 LEQ 1 exit 0 else exit %25ERRORLEVEL%25</PreBuildEvent>
   </Target>
   <Target Name="AfterBuild">
   </Target> -->
+  <Target Name="CreateDirectories">
+    <MakeDir Directories="$(PublishDir)Content\\ExternalResource" Condition="!Exists('$(PublishDir)Content\\ExternalResource')" />
+  </Target>
 </Project>
