@@ -1077,7 +1077,7 @@ if %25ERRORLEVEL%25 LEQ 1 exit 0 else exit %25ERRORLEVEL%25</PreBuildEvent>
     <Content Include="Views\Dashboard\DashboardPage.cshtml" />
     <Content Include="Views\Angle\PartialViews\Pivot\PivotGridCallBackPartial.cshtml" />
     <Content Include="Views\Shared\Helptext.cshtml" />
-    <Content Include="Content\ExternalResource\*" />
+    <Content Include="Content\ExternalResource\**\*.*" />
     <Content Include="bin\nl\*" />
     <Content Include="bin\th\*" />
     <Content Include="bin\ar\*" />
@@ -1180,7 +1180,7 @@ if %25ERRORLEVEL%25 LEQ 1 exit 0 else exit %25ERRORLEVEL%25</PreBuildEvent>
   </Target>
   <Target Name="AfterBuild">
   </Target> -->
-  <Target Name="CreateDirectories" AfterTargets="AfterPublish">
-    <MakeDir Directories="$(PublishDir)Content\\ExternalResource" Condition="!Exists('$(PublishDir)Content\\ExternalResource')" />
+  <Target Name="CreateDirectories">
+    <MakeDir Directories="$(PublishDir)Content\\ExternalResource" />
   </Target>
 </Project>

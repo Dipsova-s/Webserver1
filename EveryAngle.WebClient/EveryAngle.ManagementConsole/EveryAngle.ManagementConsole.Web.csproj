@@ -937,7 +937,7 @@ xcopy "$(MSBuildProjectDirectory)\..\EveryAngle.Shared.EmbeddedViews\Resource\Cl
   </Target>-->
   <Target Name="CreateDirectories">
     <MakeDir Directories="$(ProjectDir)UploadedResources\\ExtraFiles" />
-    <MakeDir Directories="$(PublishDir)Content\\ExternalResource" Condition="!Exists('$(PublishDir)Content\\ExternalResource')" />
+    <MakeDir Directories="$(PublishDir)Content\\ExternalResource" />
     <!-- <Copy SourceFiles="$(IncludeRootDir)\\FieldCategoryIcons\\**.*"
 DestinationFolder="$(IncludeRootDir)\\UploadedResources\\ExtraFiles" /> -->
   </Target>
