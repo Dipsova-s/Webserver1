@@ -295,4 +295,5 @@ __pycache__/
 /EveryAngle.WebClient/EveryAngle.WebClient.Web/Resources
 !**/TestResources/**/*.log
 !**/log/log.txt
-!/EveryAngle.WebClient/EveryAngle.ManagementConsole\UploadedResources\Packages
+!/EveryAngle.WebClient/EveryAngle.ManagementConsole/UploadedResources/Packages/**
+!/Robot/**/Packages/**
