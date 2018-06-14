@@ -401,7 +401,7 @@ describe("ClassesChooser", function () {
 
             _classesChooser.HasOtherBusinessProcess = function () { return true; };
             var dataSource = _classesChooser.GetGridDataSource(grid, []);
-            var otherFilter = dataSource.filter[0].filters[1];
+            var otherFilter = dataSource.filter[1].filters[1];
 
             expect([otherFilter.field, otherFilter.operator, otherFilter.value]).toEqual(['id', 'neq', 'you_always_find_this']);
 
@@ -414,7 +414,7 @@ describe("ClassesChooser", function () {
                 items: [{ id: 'other1' }]
             }, '');
             var dataSource = _classesChooser.GetGridDataSource(grid, []);
-            var otherFilter = dataSource.filter[0].filters[1].filters[0];
+            var otherFilter = dataSource.filter[1].filters[1].filters[0];
 
             expect([otherFilter.field, otherFilter.operator, otherFilter.value]).toEqual(['id', 'neq', 'other1']);
 
@@ -425,7 +425,7 @@ describe("ClassesChooser", function () {
             _classesChooser.HasOtherBusinessProcess = function () { return false; };
             var dataSource = _classesChooser.GetGridDataSource(grid, []);
 
-            expect(dataSource.filter[0].filters.length).toEqual(1);
+            expect(dataSource.filter[1].filters.length).toEqual(1);
 
         });
 
@@ -434,7 +434,7 @@ describe("ClassesChooser", function () {
             _classesChooser.GetSearchQuery = function () { return ''; };
             var dataSource = _classesChooser.GetGridDataSource(grid, []);
 
-            expect(dataSource.filter.length).toEqual(1);
+            expect(dataSource.filter.length).toEqual(2);
 
         });
 
@@ -443,7 +443,7 @@ describe("ClassesChooser", function () {
             _classesChooser.GetSearchQuery = function () { return 'test'; };
             var dataSource = _classesChooser.GetGridDataSource(grid, []);
 
-            expect(dataSource.filter.length).toEqual(2);
+            expect(dataSource.filter.length).toEqual(3);
 
         });
 
@@ -1066,6 +1066,41 @@ describe("ClassesChooser", function () {
             var result = !!classesChooser.HasOtherBusinessProcessData(['Other']);
             expect(result).toEqual(false);
 
+        });
+
+    });
+
+    describe("call GetBlackListFiltersDataSource", function () {
+
+        it("verify number of blacklist filters", function () {
+            var mockBlackListClassIds = [];
+            for (var i = 0; i < 5; i++) {
+                mockBlackListClassIds.push(i);
+            }
+
+            var result = classesChooser.GetBlackListFiltersDataSource(mockBlackListClassIds);
+
+            expect(result).toBeDefined();
+            expect(result).toEqual(jasmine.any(Object));
+            expect(result.length).toEqual(5);
+        });
+
+        it("verify blacklist filters properties value", function () {
+
+            var mockBlackListClassIds = ['id1', 'id2'];
+            var result = classesChooser.GetBlackListFiltersDataSource(mockBlackListClassIds);
+            
+            expect(result[0]).toBeDefined();
+            expect(result[0]).toEqual(jasmine.any(Object));
+            expect(result[0].field).toEqual('id');
+            expect(result[0].operator).toEqual('neq');
+            expect(result[0].value).toEqual('id1');
+
+            expect(result[1]).toBeDefined();
+            expect(result[1]).toEqual(jasmine.any(Object));
+            expect(result[1].field).toEqual('id');
+            expect(result[1].operator).toEqual('neq');
+            expect(result[1].value).toEqual('id2');
         });
 
     });

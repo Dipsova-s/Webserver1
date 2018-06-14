@@ -10,6 +10,7 @@
         this.SelectingClasses = [];
         this.DataBpAngle = {};
         this.DataClasses = {};
+        this.BlackListClassIds = ['AnglesView', 'DisplaysView'];
 
         // globalize model
         window[this.Name] = this;
@@ -337,6 +338,12 @@
             otherData = self.GetCacheDataBpAngle(_self.RequestOtherBpAngle);
         }
 
+        // exclude classes by blacklist class ids
+        data.filter.push({
+            logic: 'and',
+            filters: self.GetBlackListFiltersDataSource(self.BlackListClassIds)
+        });
+
         // filters by BP
         data.filter.push({
             logic: 'or',
@@ -358,6 +365,12 @@
         }
 
         return data;
+    };
+    proto.GetBlackListFiltersDataSource = function (blackListClassIds) {
+        var blackListfilters = jQuery.map(blackListClassIds, function (blackListClassId) {
+            return { field: 'id', operator: 'neq', value: blackListClassId };
+        });
+        return blackListfilters;
     };
     proto.ApplyDataSource = function (grid, dataClasses) {
         var self = this;
