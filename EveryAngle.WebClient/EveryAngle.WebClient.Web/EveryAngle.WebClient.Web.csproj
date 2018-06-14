@@ -246,113 +246,9 @@ if %25ERRORLEVEL%25 LEQ 1 exit 0 else exit %25ERRORLEVEL%25</PreBuildEvent>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="..\EveryAngle.Shared.EmbeddedViews\Resource\BusinessProcess\bp_default_more.png">
-      <Link>Content\ExternalResource\bp_default_more.png</Link>
-    </Content>
-    <Content Include="..\EveryAngle.Shared.EmbeddedViews\Resource\BusinessProcess\bp_flat_more.png">
-      <Link>Content\ExternalResource\bp_flat_more.png</Link>
-    </Content>
-    <Content Include="..\EveryAngle.Shared.EmbeddedViews\Resource\BusinessProcess\BusinessProcesses.css">
-      <Link>Content\ExternalResource\BusinessProcesses.css</Link>
-    </Content>
-    <Content Include="..\EveryAngle.Shared.EmbeddedViews\Resource\FieldsChooser\btn_search.png">
-      <Link>Content\ExternalResource\btn_search.png</Link>
-    </Content>
-    <Content Include="..\EveryAngle.Shared.EmbeddedViews\Resource\FieldsChooser\FieldsChooser.css">
-      <Link>Content\ExternalResource\FieldsChooser.css</Link>
-    </Content>
-    <Content Include="..\EveryAngle.Shared.EmbeddedViews\Resource\FieldsChooser\filter_nav_bg.png">
-      <Link>Content\ExternalResource\filter_nav_bg.png</Link>
-    </Content>
-    <Content Include="..\EveryAngle.Shared.EmbeddedViews\Resource\FieldsChooser\grid_header_bg.png">
-      <Link>Content\ExternalResource\grid_header_bg.png</Link>
-    </Content>
-    <Content Include="..\EveryAngle.Shared.EmbeddedViews\Resource\FieldsChooser\highlight.png">
-      <Link>Content\ExternalResource\highlight.png</Link>
-    </Content>
-    <Content Include="..\EveryAngle.Shared.EmbeddedViews\Resource\FieldsChooser\icon_arrow_down.png">
-      <Link>Content\ExternalResource\icon_arrow_down.png</Link>
-    </Content>
-    <Content Include="..\EveryAngle.Shared.EmbeddedViews\Resource\FieldsChooser\icon_arrow_down.svg">
-      <Link>Content\ExternalResource\icon_arrow_down.svg</Link>
-    </Content>
-    <Content Include="..\EveryAngle.Shared.EmbeddedViews\Resource\FieldsChooser\icon_arrow_up.png">
-      <Link>Content\ExternalResource\icon_arrow_up.png</Link>
-    </Content>
-    <Content Include="..\EveryAngle.Shared.EmbeddedViews\Resource\FieldsChooser\icon_arrow_up.svg">
-      <Link>Content\ExternalResource\icon_arrow_up.svg</Link>
-    </Content>
-    <Content Include="..\EveryAngle.Shared.EmbeddedViews\Resource\FieldsChooser\icon_currency.png">
-      <Link>Content\ExternalResource\icon_currency.png</Link>
-    </Content>
-    <Content Include="..\EveryAngle.Shared.EmbeddedViews\Resource\FieldsChooser\icon_date.png">
-      <Link>Content\ExternalResource\icon_date.png</Link>
-    </Content>
-    <Content Include="..\EveryAngle.Shared.EmbeddedViews\Resource\FieldsChooser\icon_datetime.png">
-      <Link>Content\ExternalResource\icon_datetime.png</Link>
-    </Content>
-    <Content Include="..\EveryAngle.Shared.EmbeddedViews\Resource\FieldsChooser\icon_facet_collapse.png">
-      <Link>Content\ExternalResource\icon_facet_collapse.png</Link>
-    </Content>
-    <Content Include="..\EveryAngle.Shared.EmbeddedViews\Resource\FieldsChooser\icon_facet_expand.png">
-      <Link>Content\ExternalResource\icon_facet_expand.png</Link>
-    </Content>
-    <Content Include="..\EveryAngle.Shared.EmbeddedViews\Resource\FieldsChooser\icon_number.png">
-      <Link>Content\ExternalResource\icon_number.png</Link>
-    </Content>
-    <Content Include="..\EveryAngle.Shared.EmbeddedViews\Resource\FieldsChooser\icon_percentage.png">
-      <Link>Content\ExternalResource\icon_percentage.png</Link>
-    </Content>
-    <Content Include="..\EveryAngle.Shared.EmbeddedViews\Resource\FieldsChooser\icon_period.png">
-      <Link>Content\ExternalResource\icon_period.png</Link>
-    </Content>
-    <Content Include="..\EveryAngle.Shared.EmbeddedViews\Resource\FieldsChooser\icon_set.png">
-      <Link>Content\ExternalResource\icon_set.png</Link>
-    </Content>
-    <Content Include="..\EveryAngle.Shared.EmbeddedViews\Resource\FieldsChooser\icon_sort_asc.png">
-      <Link>Content\ExternalResource\icon_sort_asc.png</Link>
-    </Content>
-    <Content Include="..\EveryAngle.Shared.EmbeddedViews\Resource\FieldsChooser\icon_sort_desc.png">
-      <Link>Content\ExternalResource\icon_sort_desc.png</Link>
-    </Content>
-    <Content Include="..\EveryAngle.Shared.EmbeddedViews\Resource\FieldsChooser\icon_starred_active.png">
-      <Link>Content\ExternalResource\icon_starred_active.png</Link>
-    </Content>
-    <Content Include="..\EveryAngle.Shared.EmbeddedViews\Resource\FieldsChooser\icon_starred_inactive.png">
-      <Link>Content\ExternalResource\icon_starred_inactive.png</Link>
-    </Content>
-    <Content Include="..\EveryAngle.Shared.EmbeddedViews\Resource\FieldsChooser\icon_suggest.png">
-      <Link>Content\ExternalResource\icon_suggest.png</Link>
-    </Content>
-    <Content Include="..\EveryAngle.Shared.EmbeddedViews\Resource\FieldsChooser\icon_text.png">
-      <Link>Content\ExternalResource\icon_text.png</Link>
-    </Content>
-    <Content Include="..\EveryAngle.Shared.EmbeddedViews\Resource\FieldsChooser\icon_time.png">
-      <Link>Content\ExternalResource\icon_time.png</Link>
-    </Content>
-    <Content Include="..\EveryAngle.Shared.EmbeddedViews\Resource\FieldsChooser\icon_unknown.png">
-      <Link>Content\ExternalResource\icon_unknown.png</Link>
-    </Content>
-    <Content Include="..\EveryAngle.Shared.EmbeddedViews\Resource\FieldsChooser\icon_viewmode.png">
-      <Link>Content\ExternalResource\icon_viewmode.png</Link>
-    </Content>
-    <Content Include="..\EveryAngle.Shared.EmbeddedViews\Resource\FieldsChooser\icon_yes_no.png">
-      <Link>Content\ExternalResource\icon_yes_no.png</Link>
-    </Content>
-    <Content Include="..\EveryAngle.Shared.EmbeddedViews\Resource\FieldsChooser\loading.gif">
-      <Link>Content\ExternalResource\loading.gif</Link>
-    </Content>
-    <Content Include="..\EveryAngle.Shared.EmbeddedViews\Resource\FieldsChooser\search-white.svg">
-      <Link>Content\ExternalResource\search-white.svg</Link>
-    </Content>
-    <Content Include="..\EveryAngle.Shared.EmbeddedViews\Resource\Shared\checkbox.png">
-      <Link>Content\ExternalResource\checkbox.png</Link>
-    </Content>
-    <Content Include="..\EveryAngle.Shared.EmbeddedViews\Resource\Shared\radio.png">
-      <Link>Content\ExternalResource\radio.png</Link>
-    </Content>
-    <Content Include="..\EveryAngle.Shared.EmbeddedViews\Resource\Shared\shared.css">
-      <Link>Content\ExternalResource\shared.css</Link>
+    <Content Include="..\EveryAngle.Shared.EmbeddedViews\Resource\**">
+      <Link>Content\ExternalResource\%(Filename)%(Extension)</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Admin\MC.txt" />
     <Content Include="Content\CSS\Angle.DisplayDropdown.css" />
@@ -1269,6 +1165,7 @@ if %25ERRORLEVEL%25 LEQ 1 exit 0 else exit %25ERRORLEVEL%25</PreBuildEvent>
       <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
     </PropertyGroup>
     <Error Condition="!Exists('..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets'))" />
+    <Error Condition="!Exists('..\packages\MSBuild.WebApplication.CopyContentLinkedFiles.1.0.0\build\MSBuild.WebApplication.CopyContentLinkedFiles.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\MSBuild.WebApplication.CopyContentLinkedFiles.1.0.0\build\MSBuild.WebApplication.CopyContentLinkedFiles.targets'))" />
   </Target>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
@@ -1279,4 +1176,5 @@ if %25ERRORLEVEL%25 LEQ 1 exit 0 else exit %25ERRORLEVEL%25</PreBuildEvent>
   <Target Name="CreateDirectories">
     <MakeDir Directories="$(PublishDir)Content\\ExternalResource" />
   </Target>
+  <Import Project="..\packages\MSBuild.WebApplication.CopyContentLinkedFiles.1.0.0\build\MSBuild.WebApplication.CopyContentLinkedFiles.targets" Condition="Exists('..\packages\MSBuild.WebApplication.CopyContentLinkedFiles.1.0.0\build\MSBuild.WebApplication.CopyContentLinkedFiles.targets')" />
 </Project>
