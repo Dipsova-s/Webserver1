@@ -97,6 +97,7 @@
     <Content Include="ManagementConsole\Tests\Page\MC.Models.PackagesTest.js" />
     <Content Include="ManagementConsole\Tests\jQuery\jquery.validate.additional-methods.Test.js" />
     <Content Include="ManagementConsole\Tests\Page\MC.GlobalSettings.PackagesTest.js" />
+    <Content Include="ManagementConsole\Tests\Page\MC.Users.UserTest.js" />
     <Content Include="MockData\text.js" />
     <Content Include="MockData\mockdata.js" />
   </ItemGroup>
@@ -131,6 +132,7 @@
     </Content>
     <Content Include="..\EveryAngle.ManagementConsole\Scripts\Custom\MC.util.date.js">
       <Link>ManagementConsole\Dependencies\custom\MC.util.date.js</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="..\EveryAngle.ManagementConsole\Scripts\Custom\MC.util.grid.js">
       <Link>ManagementConsole\Dependencies\custom\MC.util.grid.js</Link>
@@ -150,9 +152,11 @@
     </Content>
     <Content Include="..\EveryAngle.ManagementConsole\Scripts\Custom\MC.util.popup.js">
       <Link>ManagementConsole\Dependencies\custom\MC.util.popup.js</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="..\EveryAngle.ManagementConsole\Scripts\Custom\MC.util.upload.js">
       <Link>ManagementConsole\Dependencies\custom\MC.util.upload.js</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="..\EveryAngle.ManagementConsole\Scripts\jQuery\jquery.extension.js">
       <Link>ManagementConsole\Dependencies\jquery\jquery.extension.js</Link>
@@ -184,6 +188,7 @@
     </Content>
     <Content Include="..\EveryAngle.ManagementConsole\Scripts\Page\MC.AutomationTasks.Tasks.js">
       <Link>ManagementConsole\Dependencies\page\MC.AutomationTasks.Tasks.js</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="..\EveryAngle.ManagementConsole\Scripts\Page\MC.Models.AngleWarnings.js">
       <Link>ManagementConsole\Dependencies\page\MC.Models.AngleWarnings.js</Link>
@@ -195,6 +200,7 @@
     </Content>
     <Content Include="..\EveryAngle.ManagementConsole\Scripts\Page\MC.Models.Roles.js">
       <Link>ManagementConsole\Dependencies\page\MC.Models.Roles.js</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="ManagementConsole\Dependencies\Global.js" />
     <Content Include="ManagementConsole\Tests\Custom\MC.UtilTest.js" />
@@ -645,6 +651,7 @@
     </Content>
     <Content Include="..\EveryAngle.WebClient.Web\Scripts\ViewModels\Shared\DataType\DataType.js">
       <Link>WebClient\Dependencies\ViewModels\Shared\DataType\DataType.js</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="..\EveryAngle.WebClient.Web\Scripts\ViewModels\Shared\QueryBlock\QueryBlockModel.js">
       <Link>WebClient\Dependencies\ViewModels\Shared\QueryBlock\QueryBlockModel.js</Link>
@@ -733,7 +740,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="ManagementConsole\chutzpah.json" />
-    <Content Include="ManagementConsole\Tests\Page\MC.Users.UserTest.js" />
     <None Include="packages.config" />
     <None Include="WebClient\chutzpah.json" />
   </ItemGroup>

@@ -286,14 +286,14 @@ __pycache__/
 *.btm.cs
 *.odx.cs
 *.xsd.cs
-/EveryAngle.WebClient/EveryAngle.ManagementConsole/Content/externalresource
 /EveryAngle.WebClient/EveryAngle.WebClient.JS.Tests/ManagementConsole/Dependencies
 !/EveryAngle.WebClient/EveryAngle.WebClient.JS.Tests/ManagementConsole/Dependencies/Global.js
 /EveryAngle.WebClient/EveryAngle.WebClient.JS.Tests/WebClient/Dependencies
 !/EveryAngle.WebClient/EveryAngle.WebClient.JS.Tests/WebClient/Dependencies/Global.js
 /EveryAngle.WebClient/EveryAngle.WebClient.JS.Tests/SharedDependencies
-/EveryAngle.WebClient/EveryAngle.WebClient.Web/Content/ExternalResource
+**/Content/ExternalResource
 /EveryAngle.WebClient/EveryAngle.WebClient.Web/Resources
 !**/TestResources/**/*.log
 !**/log/log.txt
-!/EveryAngle.WebClient/EveryAngle.ManagementConsole\UploadedResources\Packages
+!/EveryAngle.WebClient/EveryAngle.ManagementConsole/UploadedResources/Packages/**
+!/Robot/**/Packages/**

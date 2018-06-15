@@ -25,6 +25,8 @@
     <TargetFrameworkProfile />
     <Use64BitIISExpress />
     <WebGreaseLibPath>..\packages\WebGrease.1.5.2\lib</WebGreaseLibPath>
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -217,7 +219,10 @@
     <Compile Include="Models\SiteMapModel.cs" />
     <Compile Include="Models\UsersDataSourceResult.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Content Include="Content\ExternalResource\*" />
+    <Content Include="..\EveryAngle.Shared.EmbeddedViews\Resource\**">
+      <Link>Content\ExternalResource\%(Filename)%(Extension)</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="bin\Template\Xslt\*" />
     <Content Include="Content\Login.css" />
     <Content Include="Content\Default.css" />
@@ -460,6 +465,12 @@
     <Content Include="Scripts\Page\MC.GlobalSettings.SystemSettings.js" />
     <Content Include="UploadedResources\Comments\log.txt" />
     <Content Include="UploadedResources\CompanyLogo\ea_logo.png" />
+    <Content Include="UploadedResources\ExtraFiles\EA_16.png" />
+    <Content Include="UploadedResources\ExtraFiles\EA_32.png" />
+    <Content Include="UploadedResources\ExtraFiles\reference_16.png" />
+    <Content Include="UploadedResources\ExtraFiles\reference_32.png" />
+    <Content Include="UploadedResources\ExtraFiles\SAP_16.png" />
+    <Content Include="UploadedResources\ExtraFiles\SAP_32.png" />
     <Content Include="UploadedResources\FieldCategoryIcons\balancing_16.png" />
     <Content Include="UploadedResources\FieldCategoryIcons\balancing_32.png" />
     <Content Include="UploadedResources\FieldCategoryIcons\ea_16.png" />
@@ -475,7 +486,6 @@
     <Content Include="UploadedResources\Packages\Images\logo.png" />
     <Content Include="Data\Help\**\*.*" />
     <Content Include="Data\Images\**\*.*" />
-    <Content Include="UploadedResources\ExtraFiles\**\*.*" />
     <Content Include="Views\DownloadTable\SpecifyTablesGrid.cshtml">
       <SubType>Code</SubType>
     </Content>
@@ -879,24 +889,8 @@ del DevExpress.Charts.v14.1.Core.dll
 del DocumentFormat.OpenXml.dll</PostBuildEvent>
   </PropertyGroup>
   <PropertyGroup>
-    <PreBuildEvent>xcopy "$(MSBuildProjectDirectory)\UploadedResources\FieldCategoryIcons\ea_16.png" "$(MSBuildProjectDirectory)\UploadedResources\ExtraFiles\" /Y /I /F /H  
-xcopy "$(MSBuildProjectDirectory)\UploadedResources\FieldCategoryIcons\ea_32.png" "$(MSBuildProjectDirectory)\UploadedResources\ExtraFiles\" /Y /I /F /H  
-xcopy "$(MSBuildProjectDirectory)\UploadedResources\FieldCategoryIcons\reference_16.png" "$(MSBuildProjectDirectory)\UploadedResources\ExtraFiles\" /Y /I /F /H  
-xcopy "$(MSBuildProjectDirectory)\UploadedResources\FieldCategoryIcons\reference_32.png" "$(MSBuildProjectDirectory)\UploadedResources\ExtraFiles\" /Y /I /F /H  
-xcopy "$(MSBuildProjectDirectory)\UploadedResources\FieldCategoryIcons\sap_16.png" "$(MSBuildProjectDirectory)\UploadedResources\ExtraFiles\" /Y /I /F /H  
-xcopy "$(MSBuildProjectDirectory)\UploadedResources\FieldCategoryIcons\sap_32.png" "$(MSBuildProjectDirectory)\UploadedResources\ExtraFiles\" /Y /I /F /H  
-
-xcopy "$(MSBuildProjectDirectory)\..\EveryAngle.Shared.EmbeddedViews\Resource\BusinessProcess\*.css" "$(MSBuildProjectDirectory)\Content\ExternalResource\" /Y /I /F /H  
-xcopy "$(MSBuildProjectDirectory)\..\EveryAngle.Shared.EmbeddedViews\Resource\BusinessProcess\*.png" "$(MSBuildProjectDirectory)\Content\ExternalResource\" /Y /I /F /H  
-xcopy "$(MSBuildProjectDirectory)\..\EveryAngle.Shared.EmbeddedViews\Resource\FieldsChooser\*.css" "$(MSBuildProjectDirectory)\Content\ExternalResource\" /Y /I /F /H  
-xcopy "$(MSBuildProjectDirectory)\..\EveryAngle.Shared.EmbeddedViews\Resource\FieldsChooser\*.png" "$(MSBuildProjectDirectory)\Content\ExternalResource\" /Y /I /F /H  
-xcopy "$(MSBuildProjectDirectory)\..\EveryAngle.Shared.EmbeddedViews\Resource\FieldsChooser\*.svg" "$(MSBuildProjectDirectory)\Content\ExternalResource\" /Y /I /F /H  
-xcopy "$(MSBuildProjectDirectory)\..\EveryAngle.Shared.EmbeddedViews\Resource\FieldsChooser\*.gif" "$(MSBuildProjectDirectory)\Content\ExternalResource\" /Y /I /F /H  
-xcopy "$(MSBuildProjectDirectory)\..\EveryAngle.Shared.EmbeddedViews\Resource\Shared\*.css" "$(MSBuildProjectDirectory)\Content\ExternalResource\" /Y /I /F /H  
-xcopy "$(MSBuildProjectDirectory)\..\EveryAngle.Shared.EmbeddedViews\Resource\Shared\*.png" "$(MSBuildProjectDirectory)\Content\ExternalResource\" /Y /I /F /H  
-xcopy "$(MSBuildProjectDirectory)\..\EveryAngle.Shared.EmbeddedViews\Resource\ClassesChooser\*.css" "$(MSBuildProjectDirectory)\Content\ExternalResource\" /Y /I /F /H  
-xcopy "$(MSBuildProjectDirectory)\..\EveryAngle.Shared.EmbeddedViews\Resource\ClassesChooser\*.png" "$(MSBuildProjectDirectory)\Content\ExternalResource\" /Y /I /F /H  
-</PreBuildEvent>
+    <PreBuildEvent>
+    </PreBuildEvent>
   </PropertyGroup>
   <PropertyGroup>
     <PostBuildEvent>del "$(TargetDir)DevExpress.*"</PostBuildEvent>
@@ -940,5 +934,12 @@ xcopy "$(MSBuildProjectDirectory)\..\EveryAngle.Shared.EmbeddedViews\Resource\Cl
     <MakeDir Directories="$(PublishDir)Content\\ExternalResource" />
     <!-- <Copy SourceFiles="$(IncludeRootDir)\\FieldCategoryIcons\\**.*"
 DestinationFolder="$(IncludeRootDir)\\UploadedResources\\ExtraFiles" /> -->
+  </Target>
+  <Import Project="..\packages\MSBuild.WebApplication.CopyContentLinkedFiles.1.0.0\build\MSBuild.WebApplication.CopyContentLinkedFiles.targets" Condition="Exists('..\packages\MSBuild.WebApplication.CopyContentLinkedFiles.1.0.0\build\MSBuild.WebApplication.CopyContentLinkedFiles.targets')" />
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\MSBuild.WebApplication.CopyContentLinkedFiles.1.0.0\build\MSBuild.WebApplication.CopyContentLinkedFiles.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\MSBuild.WebApplication.CopyContentLinkedFiles.1.0.0\build\MSBuild.WebApplication.CopyContentLinkedFiles.targets'))" />
   </Target>
 </Project>

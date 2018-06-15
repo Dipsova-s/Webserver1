@@ -65,18 +65,7 @@
     <SC_BranchPath Condition=" !Exists('..\..\..\..\..\Content')">$(MSBuildProjectDirectory)\..\..\..\..\..\..\Acceptatie</SC_BranchPath>
   </PropertyGroup>
   <PropertyGroup>
-    <PreBuildEvent>xcopy "$(MSBuildProjectDirectory)\..\EveryAngle.Shared.EmbeddedViews\Resource\BusinessProcess\*.css" "$(MSBuildProjectDirectory)\Content\ExternalResource\" /Y /I /F /H  
-xcopy "$(MSBuildProjectDirectory)\..\EveryAngle.Shared.EmbeddedViews\Resource\BusinessProcess\*.png" "$(MSBuildProjectDirectory)\Content\ExternalResource\" /Y /I /F /H  
-xcopy "$(MSBuildProjectDirectory)\..\EveryAngle.Shared.EmbeddedViews\Resource\FieldsChooser\*.css" "$(MSBuildProjectDirectory)\Content\ExternalResource\" /Y /I /F /H  
-xcopy "$(MSBuildProjectDirectory)\..\EveryAngle.Shared.EmbeddedViews\Resource\FieldsChooser\*.png" "$(MSBuildProjectDirectory)\Content\ExternalResource\" /Y /I /F /H  
-xcopy "$(MSBuildProjectDirectory)\..\EveryAngle.Shared.EmbeddedViews\Resource\FieldsChooser\*.svg" "$(MSBuildProjectDirectory)\Content\ExternalResource\" /Y /I /F /H  
-xcopy "$(MSBuildProjectDirectory)\..\EveryAngle.Shared.EmbeddedViews\Resource\FieldsChooser\*.gif" "$(MSBuildProjectDirectory)\Content\ExternalResource\" /Y /I /F /H  
-xcopy "$(MSBuildProjectDirectory)\..\EveryAngle.Shared.EmbeddedViews\Resource\Shared\*.css" "$(MSBuildProjectDirectory)\Content\ExternalResource\" /Y /I /F /H  
-xcopy "$(MSBuildProjectDirectory)\..\EveryAngle.Shared.EmbeddedViews\Resource\Shared\*.png" "$(MSBuildProjectDirectory)\Content\ExternalResource\" /Y /I /F /H  
-xcopy "$(MSBuildProjectDirectory)\..\EveryAngle.Shared.EmbeddedViews\Resource\ClassesChooser\*.css" "$(MSBuildProjectDirectory)\Content\ExternalResource\" /Y /I /F /H  
-xcopy "$(MSBuildProjectDirectory)\..\EveryAngle.Shared.EmbeddedViews\Resource\ClassesChooser\*.png" "$(MSBuildProjectDirectory)\Content\ExternalResource\" /Y /I /F /H  
-
-robocopy "..\..\..\Content\Diagrams" "$(MSBuildProjectDirectory)\Resources\CreateNewAngleBySchema" /MIR /NP
+    <PreBuildEvent>robocopy "..\..\..\Content\Diagrams" "$(MSBuildProjectDirectory)\Resources\CreateNewAngleBySchema" /MIR /NP
 REM exit code 1 means 'files are copied, everything Ok'
 if %25ERRORLEVEL%25 LEQ 1 exit 0 else exit %25ERRORLEVEL%25</PreBuildEvent>
   </PropertyGroup>
@@ -257,6 +246,10 @@ if %25ERRORLEVEL%25 LEQ 1 exit 0 else exit %25ERRORLEVEL%25</PreBuildEvent>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="..\EveryAngle.Shared.EmbeddedViews\Resource\**">
+      <Link>Content\ExternalResource\%(Filename)%(Extension)</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Admin\MC.txt" />
     <Content Include="Content\CSS\Angle.DisplayDropdown.css" />
     <Content Include="Content\CSS\Base.css" />
@@ -1077,7 +1070,6 @@ if %25ERRORLEVEL%25 LEQ 1 exit 0 else exit %25ERRORLEVEL%25</PreBuildEvent>
     <Content Include="Views\Dashboard\DashboardPage.cshtml" />
     <Content Include="Views\Angle\PartialViews\Pivot\PivotGridCallBackPartial.cshtml" />
     <Content Include="Views\Shared\Helptext.cshtml" />
-    <Content Include="Content\ExternalResource\**\*.*" />
     <Content Include="bin\nl\*" />
     <Content Include="bin\th\*" />
     <Content Include="bin\ar\*" />
@@ -1173,6 +1165,7 @@ if %25ERRORLEVEL%25 LEQ 1 exit 0 else exit %25ERRORLEVEL%25</PreBuildEvent>
       <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
     </PropertyGroup>
     <Error Condition="!Exists('..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets'))" />
+    <Error Condition="!Exists('..\packages\MSBuild.WebApplication.CopyContentLinkedFiles.1.0.0\build\MSBuild.WebApplication.CopyContentLinkedFiles.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\MSBuild.WebApplication.CopyContentLinkedFiles.1.0.0\build\MSBuild.WebApplication.CopyContentLinkedFiles.targets'))" />
   </Target>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
@@ -1183,4 +1176,5 @@ if %25ERRORLEVEL%25 LEQ 1 exit 0 else exit %25ERRORLEVEL%25</PreBuildEvent>
   <Target Name="CreateDirectories">
     <MakeDir Directories="$(PublishDir)Content\\ExternalResource" />
   </Target>
+  <Import Project="..\packages\MSBuild.WebApplication.CopyContentLinkedFiles.1.0.0\build\MSBuild.WebApplication.CopyContentLinkedFiles.targets" Condition="Exists('..\packages\MSBuild.WebApplication.CopyContentLinkedFiles.1.0.0\build\MSBuild.WebApplication.CopyContentLinkedFiles.targets')" />
 </Project>
