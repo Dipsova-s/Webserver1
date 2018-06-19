@@ -64,8 +64,8 @@
                 ModelUri = ViewBag.ModelUri,
                 Privilege = EveryAngle.ManagementConsole.Models.PrivilegeType.Model,
                 Type = PageToolbarButtonType.Custom,
-                EnableTemplate = "<a href=\"" + SiteMapHelper.ActionHash("Models/" + ViewBag.ModelId + "/Roles/CreateNewRole") + "\" class=\"btn btnAdd\">" + Resource.CreateNewRole + "</a>",
-                DisableTemplate = "<a class=\"btn btnAdd disabled\">" + Resource.CreateNewRole + "</a>"
+                EnableTemplate = "<a href=\"" + SiteMapHelper.ActionHash("Models/" + ViewBag.ModelId + "/Roles/CreateNewRole") + "\" class=\"btn btnPrimary btnAdd\">" + Resource.CreateNewRole + "</a>",
+                DisableTemplate = "<a class=\"btn btnPrimary btnAdd disabled\">" + Resource.CreateNewRole + "</a>"
             });
             @Html.RenderPageToolbarBottom(buttons)
         }

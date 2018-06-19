@@ -23,23 +23,23 @@
         <header class="header" id="header">
             <div class="container headerInner">
                 <a href="@Url.Content("~/")" class="brand">
-                    <img id="logo" src="@Url.Content("~/Images/logo.png")" />
+                    <img id="logo" src="@Url.Content("~/Images/logo.svg")" />
                 </a>
             </div>
             <!--/.headerInner-->
         </header>
-
-        <div class="breadcrumb" id="breadcrumb">
-            <div class="container breadcrumbInner">
-            </div>
-            <!--/.breadcrumbInner-->
-        </div>
-        <!--/.breadcrumb-->
     </div>
 
     <div class="mainContainer mainContainerFull" id="mainContainer">
         <div class="container contentInner">
-            <!--/.sideContent-->
+
+            <div class="breadcrumb" id="breadcrumb">
+                <div class="breadcrumbInner">
+                </div>
+                <!--/.breadcrumbInner-->
+            </div>
+            <!--/.breadcrumb-->
+
             <div class="mainContent" id="mainContent">
 
                 @Html.RenderPageToolbar()

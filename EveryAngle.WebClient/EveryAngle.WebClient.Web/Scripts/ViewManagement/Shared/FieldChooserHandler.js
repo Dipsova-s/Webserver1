@@ -13,6 +13,7 @@ function FieldsChooserHandler() {
     self.USETYPE = {
         ADDCOLUMN: 'AddColumn',
         ADDFILTER: 'AddFilter',
+        ADDDASHBOARDFILTER: 'AddDashboardFilter',
         ADDAGGREGATION: 'AddAggregation'
     };
     //EOF: View model properties
@@ -101,6 +102,13 @@ function FieldsChooserHandler() {
             case self.USETYPE.ADDAGGREGATION:
                 self.SetAddAggregationPopupSettings(popupSettings);
                 break;
+
+            case self.USETYPE.ADDDASHBOARDFILTER:
+                self.SetAddDashboardFilterPopupSettings(popupSettings, handler);
+                break;
+
+            default:
+                break;
         }
 
         // start render field chooser popup
@@ -179,6 +187,22 @@ function FieldsChooserHandler() {
                 return false;
             };
         }
+    };
+    self.SetAddDashboardFilterPopupSettings = function (popupSettings, handler) {
+        popupSettings.title = Localization.SelectAPropertyToApplyAsFilter;
+
+        self.SetSubmitButtonCaption(popupSettings, Localization.Ok);
+
+        fieldsChooserModel.CanDuplicatedField = false;
+        fieldsChooserModel.AllowMultipleSelection = false;
+        fieldsChooserModel.FacetsHidden = [];
+        fieldsChooserModel.CheckFieldIsExistsFunction = function (fieldId) {
+            return handler.GetData().hasObject('field', fieldId, false);
+        };
+        fieldsChooserModel.OnSubmit = function () {
+            handler.AddFilters(fieldsChooserModel.SelectedItems(), enumHandlers.FILTERTYPE.FILTER);
+            fieldsChooserModel.ClosePopup();
+        };
     };
     self.IsFieldTypeInGroup = function (id, type) {
         var group = ['number', 'int', 'double'];
@@ -367,7 +391,9 @@ function FieldsChooserHandler() {
         return followupIndex;
     };
     self.GetFieldChooserType = function (type) {
-        return type === enumHandlers.ANGLEPOPUPTYPE.ANGLE || type === enumHandlers.ANGLEPOPUPTYPE.DISPLAY ? null : type;
+        return type === enumHandlers.ANGLEPOPUPTYPE.ANGLE
+            || type === enumHandlers.ANGLEPOPUPTYPE.DISPLAY
+            || type === enumHandlers.ANGLEPOPUPTYPE.DASHBOARD ? null : type;
     };
     self.GetDefaultFacetFilters = function (defaultStarred, defaultSuggested) {
         var filters = [];

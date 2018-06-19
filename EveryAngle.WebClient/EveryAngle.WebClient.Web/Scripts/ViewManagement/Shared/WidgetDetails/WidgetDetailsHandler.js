@@ -454,7 +454,7 @@ ko.bindingHandlers.SetInvalidQuery = {
                 .attr('title', invalidMessage);
 
             element.parent()
-                .attr('onclick', '').unbind('click')
+                .attr('onclick', '').off('click')
                 .removeClass('Collapse Expand').addClass('Disabled');
         }
     }

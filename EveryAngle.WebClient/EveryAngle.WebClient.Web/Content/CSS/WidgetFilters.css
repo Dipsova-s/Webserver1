@@ -7,29 +7,29 @@
     max-height: 365px;
     overflow: hidden;
     overflow-y: auto;
-    border: 1px solid #c1c1c1;
-    box-shadow: 0 1px 0 rgba(0,0,0,.1), inset 0 0 0 rgba(0,0,0,.1);
 }
-
 .definitionList.no {
-    border-width: 0;
-    box-shadow: none;
+    display: none;
 }
 
 .screenMinHeight .definitionList {
     max-height: 300px;
 }
 
-.definitionList .filterItem {
-    border-top: 1px solid #c1c1c1;
+.treeview .filterItem {
+    margin-left: 40px;
+    box-sizing: border-box;
 }
 
 .definitionList .NoticeIcon {
     background: transparent url(../../images/searchpage/icn_execute.png) left top no-repeat;
 }
 
-.definitionList .filterItem:first-child,
-.definitionList .filterItem.first {
+.definitionList .FilterHeader:first-child,
+.definitionList .first .FilterHeader {
+    border-top-width: 1px;
+}
+.treeview .first .FilterHeader {
     border-top-width: 0;
 }
 
@@ -67,7 +67,12 @@
     height: 44px;
     line-height: 44px;
     background: #f3f3f3;
-    box-shadow: 0 0 0 1px #c1c1c1;
+    border: 1px solid #c1c1c1;
+    border-top-width: 0;
+}
+
+.treeview .filterItem > .FilterHeader {
+    border-top-width: 0;
 }
 
 .FilterHeader.Followup,
@@ -104,6 +109,13 @@
     right: 0;
     background-image: url('../../images/icons/icon_arrow_down.png');
     z-index: 10;
+}
+
+.treeViewHeader {
+    border-top-width: 1px;
+}
+.treeViewHeader:before {
+    display: none;
 }
 
 .definitionList.sortable .FilterHeader .handler {
@@ -144,6 +156,12 @@
     background: transparent url('../../images/icons/icon_def_filter.png') 8px center no-repeat;
     box-sizing: border-box;
     z-index: 3;
+}
+
+.treeViewHeader p {
+    padding-left: 10px;
+    padding-right: 110px;
+    background-image: none;
 }
 
 .definitionList.sortable .FilterHeader.Filter p,
@@ -240,6 +258,7 @@
 }
 
 .FilterHeader .btnInfo,
+.FilterHeader .btnAddFilter,
 .FilterHeader .btnDelete {
     display: none;
     position: absolute;
@@ -255,8 +274,24 @@
     right: 60px;
 }
 
+.treeViewHeader > .btnInfo {
+    right: 90px;
+}
+
 .no-backgroundsize .FilterHeader .btnInfo {
     top: 13px;
+}
+
+.FilterHeader .btnAddFilter {
+    background: transparent url('../../images/icons/icon_add_filter.png') center center no-repeat;
+    background-size: 24px;
+}
+
+.treeViewHeader > .btnAddFilter {
+    right: 60px;
+    top: 9px;
+    width: 24px;
+    height: 20px;
 }
 
 .FilterHeader .btnDelete {
@@ -265,6 +300,7 @@
 }
 
 .FilterHeader:hover .btnInfo,
+.FilterHeader:hover .btnAddFilter,
 .FilterHeader:hover .btnDelete {
     display: block;
 }
@@ -286,7 +322,8 @@
 .FilterDetail {
     padding: 11px 0 11px 0;
     position: relative;
-    border-top: 1px solid #c1c1c1;
+    border: 1px solid #c1c1c1;
+    border-top-width: 0;
 }
 
 .filtersSorting .FilterDetail {

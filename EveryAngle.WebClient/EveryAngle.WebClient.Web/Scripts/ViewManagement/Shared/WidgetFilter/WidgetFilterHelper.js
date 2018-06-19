@@ -377,17 +377,17 @@ function WidgetFilterHelper() {
         return userFriendlyNameHandler.GetFriendlyName(fieldMetaData, enumHandlers.FRIENDLYNAMEMODE.FIELDSOURCE_AND_LONGNAME);
     };
 
-    self.GetFilterText = function (data, modelUri) {
+    self.GetFilterText = function (data, modelUri, hideFieldName) {
         if (data.step_type === enumHandlers.FILTERTYPE.FILTER) {
             var fieldMetaData = WC.Utility.IfNothing(modelFieldsHandler.GetFieldById(data.field, modelUri), { id: data.field });
-            var fieldName = self.GetFilterFieldName(data.field, modelUri);
+            var fieldName = hideFieldName === true ? '' : self.GetFilterFieldName(data.field, modelUri);
             var isAdvanceArgument = self.CanUseAdvanceArgument(fieldMetaData.fieldtype, data.operator);
             var args = WC.Utility.ToArray(data.arguments);
             var argumentType = args.length ? args[0].argument_type : null;
             var isExtraOperator = isAdvanceArgument && argumentType === enumHandlers.FILTERARGUMENTTYPE.FUNCTION;
             var operatorText = self.ConvertOperatorToCriteria(data.operator, fieldMetaData.fieldtype, isExtraOperator);
             var valueText = self.ConvertFilterToFilterText(data, fieldMetaData);
-            return fieldName + ' ' + operatorText + ' ' + valueText;
+            return jQuery.trim(kendo.format('{0} {1} {2}', fieldName, operatorText, valueText));
         }
         else if (data.step_type === enumHandlers.FILTERTYPE.FOLLOWUP) {
             var followup = modelFollowupsHandler.GetFollowupById(data.followup, modelUri);

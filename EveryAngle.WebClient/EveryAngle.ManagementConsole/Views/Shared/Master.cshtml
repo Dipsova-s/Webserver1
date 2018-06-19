@@ -27,7 +27,7 @@
         <header class="header" id="header">
             <div class="container headerInner">
                 <a href="@Url.Content("~/")" class="brand">
-                    <img id="logo" src="@Url.Content("~/Images/logo.png")" />
+                    <img id="logo" src="@Url.Content("~/Images/logo.svg")" />
                 </a>
 
                 @{
@@ -61,28 +61,23 @@
             </div>
             <!--/.headerInner-->
         </header>
-        <!--/.header-->
-        <div class="breadcrumb" id="breadcrumb">
-            <div class="container breadcrumbInner">
-                <a onclick="MC.sideMenu.toggleMenu(event)" id="btnToggleMenu" class="btnToggleMenu open">
-                    <span class="textHideMenu">Hide<br />
-                        menu</span>
-                    <span class="textShowMenu">Show<br />
-                        menu</span>
-                </a>
-                <ul class="inline breadcrumbList" id="breadcrumbList"></ul>
-            </div>
-            <!--/.breadcrumbInner-->
-        </div>
-        <!--/.breadcrumb-->
     </div>
     <div class="mainContainer" id="mainContainer">
         <div class="container contentInner">
             <div class="sideContent" id="sideContent">
-                @{ 
-                    user = SessionHelper.Initialize().CurrentUser;
-                    if (user != null) { Html.RenderAction("SideMenu", "Home"); } }
+                @{
+            user = SessionHelper.Initialize().CurrentUser;
+            if (user != null) { Html.RenderAction("SideMenu", "Home"); } }
             </div>
+
+            <div class="breadcrumb" id="breadcrumb">
+                <div class="breadcrumbInner">
+                    <ul class="inline breadcrumbList" id="breadcrumbList"></ul>
+                </div>
+                <!--/.breadcrumbInner-->
+            </div>
+            <!--/.breadcrumb-->
+
             <!--/.sideContent-->
             <div class="mainContent" id="mainContent">
                 @RenderBody()

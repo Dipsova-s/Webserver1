@@ -69,7 +69,7 @@
                     <a onclick='MC.Models.Modules.ShowModuleEdit(this, MC.Models.Modules.MODULETYPE.LONGTEXT)' href='\\#popupModuleEdit' class='btn btnLongText' @popupAttributes>#= TotalLongText #</a>
                 # } else if(ModuleExtensionLongText != null) { #
                     <input type='hidden' value='#= LongTextUri #' />
-                    <a onclick='MC.Models.Modules.ShowModuleEdit(this, MC.Models.Modules.MODULETYPE.LONGTEXT)' href='\\#popupModuleEdit' class='btn btnAdd' @popupAttributes></a>
+                    <a onclick='MC.Models.Modules.ShowModuleEdit(this, MC.Models.Modules.MODULETYPE.LONGTEXT)' href='\\#popupModuleEdit' class='btn btnPrimary btnAdd' @popupAttributes></a>
                 # } #
                 </div>
             </script>
@@ -81,7 +81,7 @@
                     <a onclick='MC.Models.Modules.ShowModuleEditPlaintext(this, MC.Models.Modules.MODULETYPE.CLASSIFICATION)' href='\\#popupModuleEditPlaintext' class='btn btnClassification' @popupAttributes>#= TotalClassification #</a>
                 # } else if(ModuleExtensionClassifications != null) { #
                     <input type='hidden' value='#= ClassificationGenericUri #' />
-                    <a onclick='MC.Models.Modules.ShowModuleEditPlaintext(this, MC.Models.Modules.MODULETYPE.CLASSIFICATION)' href='\\#popupModuleEditPlaintext' class='btn btnAdd' @popupAttributes></a>
+                    <a onclick='MC.Models.Modules.ShowModuleEditPlaintext(this, MC.Models.Modules.MODULETYPE.CLASSIFICATION)' href='\\#popupModuleEditPlaintext' class='btn btnPrimary btnAdd' @popupAttributes></a>
                 # } #
                 </div>
             </script>
@@ -93,7 +93,7 @@
                     <a href='\\#popupModuleEdit' onclick='MC.Models.Modules.ShowModuleEdit(this, MC.Models.Modules.MODULETYPE.PARTNERROLES)' class='btn btnPartnerRoles' @popupAttributes>#= TotalPartnerRoles #</a>
                 # } else if(ModuleExtensionPartnerRoles !== null) { #
                     <input type='hidden' value='#= PartnerRolesUri #' />
-                    <a onclick='MC.Models.Modules.ShowModuleEdit(this, MC.Models.Modules.MODULETYPE.PARTNERROLES)' href='\\#popupModuleEdit' class='btn btnAdd' @popupAttributes></a>
+                    <a onclick='MC.Models.Modules.ShowModuleEdit(this, MC.Models.Modules.MODULETYPE.PARTNERROLES)' href='\\#popupModuleEdit' class='btn btnPrimary btnAdd' @popupAttributes></a>
                 # } #
                 </div>
             </script>
@@ -105,7 +105,7 @@
                     <a href='\\#popupModuleEditPlaintext' onclick='MC.Models.Modules.ShowModuleEditPlaintext(this, MC.Models.Modules.MODULETYPE.STATUS)' class='btn btnPartnerRoles' @popupAttributes>#= TotalStatus #</a>
                 # } else if(ModuleExtensionStatus != null) { #
                     <input type='hidden' value='#= StatusUri #' />
-                    <a onclick='MC.Models.Modules.ShowModuleEditPlaintext(this, MC.Models.Modules.MODULETYPE.STATUS)' href='\\#popupModuleEditPlaintext' class='btn btnAdd' @popupAttributes></a>
+                    <a onclick='MC.Models.Modules.ShowModuleEditPlaintext(this, MC.Models.Modules.MODULETYPE.STATUS)' href='\\#popupModuleEditPlaintext' class='btn btnPrimary btnAdd' @popupAttributes></a>
                 # } #
                 </div>
             </script>

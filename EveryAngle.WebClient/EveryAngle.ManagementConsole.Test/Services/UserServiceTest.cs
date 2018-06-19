@@ -6,7 +6,7 @@ using NUnit.Framework;
 using System;
 using System.Collections.Generic;
 
-namespace EveryAngle.ManagementConsole.Test
+namespace EveryAngle.ManagementConsole.Services.Test
 {
     [TestFixture(Category = "MC")]
     public class UserServiceTest

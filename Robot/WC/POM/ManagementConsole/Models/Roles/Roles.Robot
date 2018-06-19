@@ -4,7 +4,7 @@ ${trRowInRolesGrid}                   jquery=#RolesGridContainer tbody tr
 ${btnEditRole}                        .btnGroupContainer>.btn
 ${btnActionEditRole}                  .btnGroupInner .btnEdit
 ${btnActionCopyRole}                  .btnGroupInner .btnCopy
-${btnActionShowConsolidateRole}       .btnGroupInner .btnInfo
+${btnActionShowConsolidateRole}       .btnGroupInner .btnOpenWindow
 ${btnActionDeleteRole}                .btnGroupInner .btnDelete
 ${btnActionManageUser}                .btnGroupInner .btnManageUser
 

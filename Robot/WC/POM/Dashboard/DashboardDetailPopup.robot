@@ -15,6 +15,7 @@ ${tabDashboardDescription}    css=#DashboardTabs .description
 ${tabDashboardDefinition}    css=#DashboardTabs .definition
 ${tabDashboardPublishing}    css=#DashboardTabs .publishing
 ${tabDashboardStatistic}    css=#DashboardTabs .statistic
+${tabDashboardFieldandFilter}    css=#DashboardTabs .fieldsfilters
 
 #General tab elements
 ${txtDashboardId}           AngleId
@@ -37,6 +38,9 @@ ${btnConfirmPublishDashboard}    btn-popupDashboardPublishing1
 
 ${tabDashboardPrivilege}    jquery=#PublishTabWrapper .tabMenu li:eq(0)
 ${tabDashboardSearchLabel}    jquery=#PublishTabWrapper .tabMenu li:eq(1)
+
+#Fields and Filters
+${btnAddFilter}    css=#DashboardAddfilter
 
 *** Keywords ***
 Wait Dashboard Detail Document Loaded
@@ -97,4 +101,18 @@ Close Dashboard Detail Popup
 Click Confirm Publish Dashboard
     Wait Until Element Is Visible    ${btnConfirmPublishDashboard}
     Click Element    ${btnConfirmPublishDashboard}
+
+Open Dashboard From First Dashboard in Search Page
+    [Arguments]    ${angleName}
+    Click Link First Item From Search Result
+    Sleep    2s
+    Wait Dashboard Document Loaded
+
+Click Dashboard Detail FieldandFilter Tab
+    Wait Until Element Is Visible    ${tabDashboardFieldandFilter}
+    Click Element    ${tabDashboardFieldandFilter}
+
+Click Add Dashboard Filter
+    Wait Until Element Is Visible    ${btnAddFilter}
+    Click Element    ${btnAddFilter}
 

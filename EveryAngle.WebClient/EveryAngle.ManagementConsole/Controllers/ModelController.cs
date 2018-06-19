@@ -25,20 +25,24 @@ namespace EveryAngle.ManagementConsole.Controllers
     public class ModelController : BaseController
     {
         private readonly IGlobalSettingService globalSettingService;
-        private readonly ILabelService labelService;
         private readonly IModelService modelService;
-        private readonly ISessionService sessionService;
-        private readonly ISystemInformationService systemInformationService;
 
-        public ModelController(IModelService service, ILabelService labelService,
-            IGlobalSettingService globalSettingService, ISystemInformationService systemInformationService,
-            ISessionService sessionService)
+        public ModelController(
+            IModelService service,
+            IGlobalSettingService globalSettingService,
+            SessionHelper sessionHelper)
         {
             this.modelService = service;
-            this.labelService = labelService;
             this.globalSettingService = globalSettingService;
-            this.systemInformationService = systemInformationService;
-            this.sessionService = sessionService;
+            this.SessionHelper = sessionHelper;
+        }
+        public ModelController(
+            IModelService service,
+            IGlobalSettingService globalSettingService)
+        {
+            this.modelService = service;
+            this.globalSettingService = globalSettingService;
+            this.SessionHelper = SessionHelper.Initialize();
         }
 
         #region "Public"
@@ -105,67 +109,70 @@ namespace EveryAngle.ManagementConsole.Controllers
 
         public ActionResult GetModelServers(string modelUri, string modelId)
         {
-            var licenseUri = SessionHelper.Initialize().GetSystemLicenseUri();
-            var modelLicenses = SessionHelper.Initialize().GetModelLicense(licenseUri);
-
-            ViewBag.LicensesData = modelLicenses;
-            ViewBag.LicenseDate = SessionHelper.Initialize().GetModelLicenseDate(modelId, modelLicenses);
+            int parallelRequestIndex = 0;
+            IList<ModelServerViewModel> modelServerViewModels = new List<ModelServerViewModel>();
+            IList<AgentModelInfoViewModel> agentModelInfoViewModels = new List<AgentModelInfoViewModel>();
+            DateTime currentTime = TimeZoneInfo.ConvertTimeFromUtc(DateTime.UtcNow, TimeZoneInfo.FindSystemTimeZoneById(TimeZoneInfo.Local.Id));
+            DateTime unixEpochTime = new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc);
+            ModelViewModel modelViewModel = SessionHelper.GetModelById(modelId);
 
             ViewBag.ModelId = modelId;
             ViewBag.ModelUri = modelUri;
-
-            var model = SessionHelper.Initialize().GetModelById(modelId);
+            ViewBag.LicensesData = SessionHelper.GetModelLicense(SessionHelper.GetSystemLicenseUri());
+            ViewBag.LicenseDate = SessionHelper.GetModelLicenseDate(modelId, ViewBag.LicensesData);
             // M4-13788: Error 500 when created second model and then click model menu immediately
-            ViewBag.ModelStatus = model.model_status;
-            ViewBag.ModelLongName = model.long_name;
-            ViewBag.ModelEnvironment = model.environment;
-            ViewBag.ModelType = model.modelType;
-            ViewBag.ConnectedUser = model.connected_users;
-            ViewBag.ActiveUsersThisWeek = model.active_this_week;
-            ViewBag.ActiveUsersThisMonth = model.active_this_month;
-                
-            var zone = TimeZoneInfo.Local.Id;
-            var tz = TimeZoneInfo.FindSystemTimeZoneById(zone);
-            var dt = TimeZoneInfo.ConvertTimeFromUtc(DateTime.UtcNow, tz);
-            ViewBag.DateToday = dt.ToUnixTime();
-            ViewBag.DateYesterday = dt.AddDays(-1).ToUnixTime();
+            ViewBag.ModelStatus = modelViewModel.model_status;
+            ViewBag.ModelLongName = modelViewModel.long_name;
+            ViewBag.ModelEnvironment = modelViewModel.environment;
+            ViewBag.ModelType = modelViewModel.modelType;
+            ViewBag.ConnectedUser = modelViewModel.connected_users;
+            ViewBag.AuthorizedUsers = modelViewModel.authorized_users;
+            ViewBag.ActiveUsersThisWeek = modelViewModel.active_this_week;
+            ViewBag.ActiveUsersThisMonth = modelViewModel.active_this_month;
+            ViewBag.DateToday = currentTime.ToUnixTime();
+            ViewBag.DateYesterday = currentTime.AddDays(-1).ToUnixTime();
 
-            IEnumerable<ModelServerViewModel> Data = new List<ModelServerViewModel>();
-            ViewBag.AuthorizedUsers = model.authorized_users;
-            if (model.ServerUri != null)
+            if (modelViewModel.ServerUri != null)
             {
-                string serverUri = model.ServerUri.ToString();
-                
-                var uriList = new List<string>();
-                uriList.Add(serverUri);
-                
-                UrlHelperExtension.ParallelRequest(uriList, true).ForEach(delegate(Task<JObject> task)
+                List<string> modelServerRequestUrls = new List<string>
+                    { modelViewModel.ServerUri.ToString(), string.Format("{0}/modelinfo", modelViewModel.Agent.ToString()) };
+
+                UrlHelperExtension.ParallelRequest(modelServerRequestUrls, true).ForEach(delegate (Task<JObject> task)
                 {
                     if (task.IsCompleted)
                     {
-                        Data = JsonConvert.DeserializeObject<List<ModelServerViewModel>>(
-                                task.Result.SelectToken("model_servers").ToString(), new UnixDateTimeConverter());
+                        if (parallelRequestIndex == 0)
+                            modelServerViewModels = JsonConvert.DeserializeObject<IList<ModelServerViewModel>>(task.Result.SelectToken("model_servers").ToString(), new UnixDateTimeConverter());
+                        else
+                            agentModelInfoViewModels = JsonConvert.DeserializeObject<IList<AgentModelInfoViewModel>>(task.Result.SelectToken("servers").ToString(), new UnixDateTimeConverter());
+
+                        parallelRequestIndex++;
                     }
                 });
 
-                DateTime date = new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc);
-                ModelServerViewModel modelServer = Data.Where(x => x.type.Equals("ModelServer") || x.type.Equals("HanaServer"))
-                    .OrderByDescending(x => date.AddMilliseconds(x.timestamp)).FirstOrDefault();
+                SetModelServersActiveStatus(modelServerViewModels, agentModelInfoViewModels);
+
+                ModelServerViewModel modelServer = modelServerViewModels.Where(x => x.type.Equals("ModelServer", StringComparison.InvariantCultureIgnoreCase) || x.type.Equals("HanaServer", StringComparison.InvariantCultureIgnoreCase))
+                    .OrderByDescending(x => unixEpochTime.AddMilliseconds(x.timestamp))
+                    .FirstOrDefault();
+
                 if (modelServer != null)
                 {
-                    modelServer.status = (bool.Equals(model.IsProcessing.Value, true) && modelServer.status.ToLower() == "up") ? "Postprocessing" : modelServer.status;
+                    modelServer.status = modelViewModel.IsProcessing.GetValueOrDefault(false) && modelServer.status.Equals("up", StringComparison.InvariantCultureIgnoreCase) ? "Postprocessing" : modelServer.status;
                     ViewBag.ServerStatus = modelServer.status;
-                    if (modelServer.instance != null && model.current_instance != null)
+
+                    if (modelServer.instance != null && modelViewModel.current_instance != null)
                     {
-                        modelServer.IsCurrentInstance = model.current_instance.Equals(modelServer.instance);
+                        modelServer.IsCurrentInstance = modelViewModel.current_instance.Equals(modelServer.instance);
                         modelServer.currentInstanceTime = modelService.GetInstance(modelServer.instance.ToString()).modeldata_timestamp;
                     }
                 }
 
                 // re-order fow showing in UI
-                Data = Data.OrderBy(s => s.id).ToList();
+                modelServerViewModels = modelServerViewModels.OrderBy(s => s.id).ToList();
             }
-            return PartialView("~/Views/Model/AllModels/ModelServer.cshtml", Data);
+
+            return PartialView("~/Views/Model/AllModels/ModelServer.cshtml", modelServerViewModels);
         }
 
         public ActionResult GetModelServerGraph(string modelServerId, string isCurrentInstance)
@@ -370,8 +377,8 @@ namespace EveryAngle.ManagementConsole.Controllers
             else
             {
                 var updateModel = JsonConvert.SerializeObject(modelViewModel, new JsonSerializerSettings
-                    {
-                        ContractResolver =
+                {
+                    ContractResolver =
                             new CleanUpPropertiesResolver(new List<string>
                             {
                                 "abbreviation",
@@ -388,7 +395,7 @@ namespace EveryAngle.ManagementConsole.Controllers
                                 "company_information",
                                 "email_settings"
                             })
-                    });
+                });
                 modelService.UpdateModel(modelUri, updateModel);
             }
 
@@ -474,7 +481,7 @@ namespace EveryAngle.ManagementConsole.Controllers
 
             //add hardcode for switch when processing
             if (!isEAXtractor)
-            {                
+            {
                 AddSwitchWhenProcessingToModelServerSetting(modelServerSettings, model);
             }
             return PartialView("~/Views/Model/ModelServers/ModelServerSettings.cshtml", modelServerSettings);
@@ -577,7 +584,7 @@ namespace EveryAngle.ManagementConsole.Controllers
                 var taskIndex = 0;
                 var amountofAngle = 0;
                 var amountofDashboard = 0;
-                UrlHelperExtension.ParallelRequest(uriList).ForEach(delegate(Task<JObject> task)
+                UrlHelperExtension.ParallelRequest(uriList).ForEach(delegate (Task<JObject> task)
                 {
                     if (taskIndex == 0)
                     {
@@ -600,5 +607,27 @@ namespace EveryAngle.ManagementConsole.Controllers
         }
 
         #endregion
+
+        #region "function"
+
+        public void SetModelServersActiveStatus(IList<ModelServerViewModel> modelServerViewModels, IList<AgentModelInfoViewModel> agentModelInfoViewModels)
+        {
+            foreach (ModelServerViewModel modelServerViewModel in modelServerViewModels)
+            {
+                modelServerViewModel.ModelServerId = string.Empty;
+                modelServerViewModel.IsActiveServer = false;
+
+                AgentModelInfoViewModel agentModelInfo = agentModelInfoViewModels.Where(item => modelServerViewModel.id.Contains(item.id)).FirstOrDefault();
+
+                if (agentModelInfo != null)
+                {
+                    modelServerViewModel.ModelServerId = agentModelInfo.id;
+                    modelServerViewModel.IsActiveServer = agentModelInfo.is_active;
+                }
+            }
+        }
+
+        #endregion
+
     }
 }

@@ -11,12 +11,14 @@ function DashboardDetailsHandler() {
     self.HandlerLanguages = null;
     self.HandlerLanguagesSaveAs = null;
     self.HandlerLabels = null;
+    self.HandlerFilter = null;
     self.ID = 'DashboardDetails';
     self.IsSubmit = false;
     self.TAB = {
         GENERAL: 'general',
         DESCRIPTION: 'description',
         DEFINITION: 'definition',
+        FIELDSFILTERS: 'fieldsfilters',
         PUBLISHING: 'publishing',
         STATISTIC: 'statistic'
     };
@@ -138,6 +140,10 @@ function DashboardDetailsHandler() {
             }
         }
 
+        if (self.HandlerFilter) {
+            self.HandlerFilter.View.AdjustLayout();
+        }
+
         var filterWrapper = e.sender.wrapper.find('.definitionList');
         if (filterWrapper.is(':visible')) {
             filterWrapper.css('max-height', winHeight - (filterWrapper.offset().top - e.sender.element.offset().top) - 5);
@@ -150,6 +156,7 @@ function DashboardDetailsHandler() {
         }
 
         setTimeout(function () {
+            self.HandlerFilter = null;
             e.sender.destroy();
         }, 200);
     };
@@ -173,108 +180,59 @@ function DashboardDetailsHandler() {
         deferred.pushDeferred(systemLanguageHandler.LoadLanguages);
         deferred.pushDeferred(modelsHandler.LoadModelsInfo);
 
-        jQuery.whenAll(deferred)
-            .done(function () {
-                var checkDashboardIsReady = setInterval(function () {
-                    if (self.IsReady && self.Model.Data()) {
-                        clearInterval(checkDashboardIsReady);
-
-                        // set name size
-                        win.wrapper.find('.detailName').css('max-width', win.element.width() - 360);
-
-                        // model
-                        var availableModels = WC.Utility.ToArray(ko.toJS(modelsHandler.GetData()));
-
-                        if (!availableModels.length) {
-                            availableModels = [{ id: '', uri: '', short_name: Localization.NoModelAvaliable, available: true }];
-                        }
-                        else {
-                            availableModels.removeObject('model_status', 'No ModelServer');
-                        }
-                        jQuery.each(availableModels, function (index, model) {
-                            if (!model.available) {
-                                model.short_name += ' (down)';
-                            }
-                        });
-
-                        self.Model.Data().model = self.GetDefaultModel(availableModels);
-
-                        if (availableModels.length > 1)
-                            availableModels.unshift({ short_name: Localization.PleaseSelect, uri: null });
-
-                        var isTempDashboard = dashboardModel.IsTemporaryDashboard();
-                        if (isTempDashboard) {
-                            WC.HtmlHelper.DropdownList('#SystemModels', availableModels, {
-                                dataTextField: 'short_name',
-                                dataValueField: 'uri',
-                                value: self.Model.Data().model,
-                                enable: !self.Model.Data().is_validated(),
-                                change: self.ChangedSystemModel
-                            });
-                        }
-                        else {
-                            jQuery('#SystemModels').html(dashboardModel.GetModel());
-                        }
-
-                        // bp
-                        if (!dashboardModel.CanUpdateDashboard('assigned_labels_bp')) {
-                            businessProcessesModel.General.ReadOnly(true);
-                        }
-                        else {
-                            businessProcessesModel.General.ReadOnly(false);
-                        }
-
-                        var modelPrivileges = privilegesViewModel.GetModelPrivilegesByUri(self.Model.Data().model);
-                        businessProcessHandler.ManageBPAuthorization(businessProcessesModel.General, modelPrivileges, dashboardModel.Data().is_published());
-                        businessProcessesModel.General.MultipleActive(true);
-                        businessProcessesModel.General.CanEmpty(false);
-                        businessProcessesModel.General.ClickCallback(function (data, event, changed) {
-                            self.Model.Data().assigned_labels = self.HandlerLabels.GetAssignedLabels();
-                        });
-                        businessProcessesModel.General.ClickHeaderCallback(function (data, event, changed) {
-                            self.Model.Data().assigned_labels = self.HandlerLabels.GetAssignedLabels();
-                        });
-                        var activeBusinessProcessBars = {};
-                        jQuery.each(self.Model.Data().assigned_labels, function (index, label) {
-                            var businessProcessData = jQuery.grep(businessProcessesModel.General.Data(), function (businessProcess) { return businessProcess.id.toLowerCase() === label.toLowerCase() });
-                            if (businessProcessData.length && businessProcessData[0].is_allowed !== false) {
-                                activeBusinessProcessBars[label] = true;
-                            }
-                        });
-                        businessProcessesModel.General.CurrentActive(activeBusinessProcessBars);
-                        businessProcessesModel.General.ApplyHandler('#DashboardBusinessProcesses');
-
-                        // prepare languages
-                        self.InitialLanguages();
-
-                        // prepare definitions
-                        self.PrepareDefinitions();
-
-                        self.HandlerLabels = new WidgetLabelsHandler('#PublishTabWrapper', self.Model.Data().assigned_labels, businessProcessesModel.General);
-                        self.HandlerLabels.Captions.TabPrivilegeName(Localization.DashboardDetailPublishTabDashboardPrivileges);
-                        if (!dashboardModel.CanUpdateDashboard('assigned_labels')) {
-                            self.HandlerLabels.TabEnabledIndexes.removeAll();
-                        }
-                        self.HandlerLabels.OnLabelChanged = function (currentLabels) {
-                            self.Model.Data().assigned_labels = currentLabels;
-                        };
-
-                        // bind ko
-                        WC.HtmlHelper.ApplyKnockout(self, win.wrapper);
-
-                        setTimeout(function () {
-                            // set focus tab
-                            self.TabClick(selectTab, self.PopupSettings.DefinitionIndex);
-
-                            win.element.css('overflow', '').busyIndicator(false);
-                            win.element.find('.popupTabMenu, .popupTabPanel').css('visibility', '');
-
-                            win.wrapper.find('.k-window-buttons .btn').removeClass('executing');
-                        }, 500);
-                    }
-                }, 100);
-            });
+        jQuery.whenAll(deferred).done(function () {
+            var checkDashboardIsReady = setInterval(function () {
+                if (self.IsReady && self.Model.Data()) {
+                    clearInterval(checkDashboardIsReady);
+                    self.OnDashboardDetailPopupIsReady(win, selectTab);
+                }
+            }, 100);
+        });
     };
+    self.OnDashboardDetailPopupIsReady = function (win, selectTab) {
+        // set name size
+        win.wrapper.find('.detailName').css('max-width', win.element.width() - 360);
+
+        self.InitializeGeneralTab();
+        self.InitializeDescriptionTab();
+        self.InitializeDefinitionTab();
+        self.InitializeFieldsAndFiltersTab();
+        self.InitializePublishingTab();
+
+        // bind ko
+        WC.HtmlHelper.ApplyKnockout(self, win.wrapper);
+
+        self.InitializeDefaultTab(win, selectTab);
+    };
+
+    self.InitializeGeneralTab = function () {
+        self.InitializeModelLabel();
+        self.InitializeBusinessProcesses();
+    };
+    self.InitializeDescriptionTab = function () {
+        self.InitialLanguages();
+    };
+    self.InitializeDefinitionTab = function () {
+        self.PrepareDefinitions();
+    };
+    self.InitializeFieldsAndFiltersTab = function () {
+        self.PrepareFieldsFilters();
+    };
+    self.InitializePublishingTab = function () {
+        self.InitializeLabels();
+    };
+    self.InitializeDefaultTab = function (win, selectTab) {
+        setTimeout(function () {
+            // set focus tab
+            self.TabClick(selectTab, self.PopupSettings.DefinitionIndex);
+
+            win.element.css('overflow', '').busyIndicator(false);
+            win.element.find('.popupTabMenu, .popupTabPanel').css('visibility', '');
+
+            win.wrapper.find('.k-window-buttons .btn').removeClass('executing');
+        }, 500);
+    };
+
     self.GetDefaultModel = function (availableModels) {
         if (!self.Model.Data().model) {
             if (availableModels.length === 1)
@@ -487,6 +445,17 @@ function DashboardDetailsHandler() {
             return false;
         }
 
+        // fields & filterd
+        if (self.HandlerFilter) {
+            var checkValidArgument = validationHandler.CheckValidExecutionParameters(self.HandlerFilter.GetData(), self.HandlerFilter.ModelUri);
+            if (!checkValidArgument.IsAllValidArgument) {
+                popup.Alert(Localization.Warning_Title, checkValidArgument.InvalidMessage);
+                self.TabClick(self.TAB.FIELDSFILTERS);
+
+                return false;
+            }
+        }
+
         // check validate
         if (self.Model.Data().is_validated() && self.Model.Data().is_validated() !== dashboardModel.Data().is_validated()) {
             var validatedAngleCount = 0, angle;
@@ -680,7 +649,71 @@ function DashboardDetailsHandler() {
         }
     };
 
-    // language
+    // general
+    self.InitializeModelLabel = function () {
+        var availableModels = WC.Utility.ToArray(ko.toJS(modelsHandler.GetData()));
+
+        if (!availableModels.length) {
+            availableModels = [{ id: '', uri: '', short_name: Localization.NoModelAvaliable, available: true }];
+        }
+        else {
+            availableModels.removeObject('model_status', 'No ModelServer');
+        }
+        jQuery.each(availableModels, function (index, model) {
+            if (!model.available) {
+                model.short_name += ' (down)';
+            }
+        });
+
+        self.Model.Data().model = self.GetDefaultModel(availableModels);
+
+        if (availableModels.length > 1)
+            availableModels.unshift({ short_name: Localization.PleaseSelect, uri: null });
+
+        var isTempDashboard = dashboardModel.IsTemporaryDashboard();
+        if (isTempDashboard) {
+            WC.HtmlHelper.DropdownList('#SystemModels', availableModels, {
+                dataTextField: 'short_name',
+                dataValueField: 'uri',
+                value: self.Model.Data().model,
+                enable: !self.Model.Data().is_validated(),
+                change: self.ChangedSystemModel
+            });
+        }
+        else {
+            jQuery('#SystemModels').html(dashboardModel.GetModel());
+        }
+    };
+    self.InitializeBusinessProcesses = function () {
+        if (!dashboardModel.CanUpdateDashboard('assigned_labels_bp')) {
+            businessProcessesModel.General.ReadOnly(true);
+        }
+        else {
+            businessProcessesModel.General.ReadOnly(false);
+        }
+
+        var modelPrivileges = privilegesViewModel.GetModelPrivilegesByUri(self.Model.Data().model);
+        businessProcessHandler.ManageBPAuthorization(businessProcessesModel.General, modelPrivileges, dashboardModel.Data().is_published());
+        businessProcessesModel.General.MultipleActive(true);
+        businessProcessesModel.General.CanEmpty(false);
+        businessProcessesModel.General.ClickCallback(function (data, event, changed) {
+            self.Model.Data().assigned_labels = self.HandlerLabels.GetAssignedLabels();
+        });
+        businessProcessesModel.General.ClickHeaderCallback(function (data, event, changed) {
+            self.Model.Data().assigned_labels = self.HandlerLabels.GetAssignedLabels();
+        });
+        var activeBusinessProcessBars = {};
+        jQuery.each(self.Model.Data().assigned_labels, function (index, label) {
+            var businessProcessData = jQuery.grep(businessProcessesModel.General.Data(), function (businessProcess) { return businessProcess.id.toLowerCase() === label.toLowerCase() });
+            if (businessProcessData.length && businessProcessData[0].is_allowed !== false) {
+                activeBusinessProcessBars[label] = true;
+            }
+        });
+        businessProcessesModel.General.CurrentActive(activeBusinessProcessBars);
+        businessProcessesModel.General.ApplyHandler('#DashboardBusinessProcesses');
+    };
+
+    // description
     self.InitialLanguages = function () {
         // languages
         var dashboardData = ko.toJS(self.Model.Data());
@@ -693,6 +726,56 @@ function DashboardDetailsHandler() {
             return dashboardModel.CanUpdateDashboard('name');
         };
         self.HandlerLanguages.ApplyHandler();
+    };
+
+    // fields & filters
+    self.PrepareFieldsFilters = function () {
+        var dashboardFilters = self.Model.GetDashboardFilters(WidgetFilterModel);
+        self.HandlerFilter = new WidgetFilterHandler(jQuery('#FieldsFiltersWrapper'), []);
+        self.HandlerFilter.ModelUri = self.Model.Data().model;
+        self.HandlerFilter.Data(dashboardFilters);
+        self.HandlerFilter.Sortable(false);
+        self.HandlerFilter.HasExecutionParameter(false);
+        self.HandlerFilter.FilterFor = self.HandlerFilter.FILTERFOR.DASHBOARD;
+        self.HandlerFilter.CanChange = function () {
+            return !dashboardModel.IsTemporaryDashboard() && self.Model.CanUpdateDashboard('query_difinitions');
+        };
+        self.HandlerFilter.CanRemove = function () {
+            return !dashboardModel.IsTemporaryDashboard() && self.Model.CanUpdateDashboard('query_difinitions');
+        };
+        self.HandlerFilter.ShowAddFilterPopup = self.ShowAddFilterPopup;
+        self.HandlerFilter.SetTreeViewMode();
+        self.HandlerFilter.ApplyHandler();
+    };
+    self.ShowAddFilterPopup = function () {
+        // do nothing if disabled
+        if (jQuery(event.currentTarget).hasClass('disabled'))
+            return;
+
+        // cannot add filter on unsaved dashboard
+        if (dashboardModel.IsTemporaryDashboard()) {
+            popup.Alert(Localization.Warning_Title, 'Dashboard need to be saved first');
+            return;
+        }
+
+        // initial field chooser
+        fieldsChooserHandler.ModelUri = self.HandlerFilter.ModelUri;
+        fieldsChooserHandler.AngleClasses = [];
+        fieldsChooserHandler.AngleSteps = [];
+        fieldsChooserHandler.DisplaySteps = self.HandlerFilter.GetData();
+        fieldsChooserHandler.ShowPopup(fieldsChooserHandler.USETYPE.ADDDASHBOARDFILTER, enumHandlers.ANGLEPOPUPTYPE.DASHBOARD, self.HandlerFilter);
+    };
+
+    // publishing
+    self.InitializeLabels = function () {
+        self.HandlerLabels = new WidgetLabelsHandler('#PublishTabWrapper', self.Model.Data().assigned_labels, businessProcessesModel.General);
+        self.HandlerLabels.Captions.TabPrivilegeName(Localization.DashboardDetailPublishTabDashboardPrivileges);
+        if (!dashboardModel.CanUpdateDashboard('assigned_labels')) {
+            self.HandlerLabels.TabEnabledIndexes.removeAll();
+        }
+        self.HandlerLabels.OnLabelChanged = function (currentLabels) {
+            self.Model.Data().assigned_labels = currentLabels;
+        };
     };
 
     // definitions
@@ -1145,6 +1228,10 @@ function DashboardDetailsHandler() {
 
         requestHistoryModel.SaveLastExecute(self, self.SaveDashboard, arguments);
 
+        if (self.HandlerFilter) {
+            // update "filters" before get dashboard data
+            self.Model.SetDashboardFilters(self.HandlerFilter.GetData());
+        }
         var data = self.Model.GetData();
         var originalData = dashboardModel.GetData();
         var showSaveProgressbar = function () {

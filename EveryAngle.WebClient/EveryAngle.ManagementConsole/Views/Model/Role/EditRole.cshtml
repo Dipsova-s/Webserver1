@@ -224,8 +224,8 @@
                             ModelUri = ViewBag.ModelUri,
                             Privilege = PrivilegeType.Model,
                             Type = PageToolbarButtonType.Custom,
-                            EnableTemplate = "<a class=\"btn btnAdd\" data-role=\"auto-template\" data-grid=\"#propertiesGrid\" data-template=\"#templateForCreateProperties\" data-callback=\"MC.Models.Roles.AddPropertyCallback\">" + Resource.MC_AddFieldAccess + " </a>",
-                            DisableTemplate = "<a class=\"btn btnAdd disabled\">" + Resource.MC_AddFieldAccess + "</a>"
+                            EnableTemplate = "<a class=\"btn btnPrimary btnAdd\" data-role=\"auto-template\" data-grid=\"#propertiesGrid\" data-template=\"#templateForCreateProperties\" data-callback=\"MC.Models.Roles.AddPropertyCallback\">" + Resource.MC_AddFieldAccess + " </a>",
+                            DisableTemplate = "<a class=\"btn btnPrimary btnAdd disabled\">" + Resource.MC_AddFieldAccess + "</a>"
 
                         });
                         @Html.RenderPageToolbarBottom(buttons)
@@ -247,8 +247,8 @@
                             ModelUri = ViewBag.ModelUri,
                             Privilege = PrivilegeType.Model,
                             Type = PageToolbarButtonType.Custom,
-                            EnableTemplate = "<a class=\"btn btnAdd\" data-role=\"auto-template\" data-grid=\"#ReferenceFilterGrid\" data-template=\"#templateNewReferenceFilter\" data-callback=\"MC.Models.Roles.AddReferenceFilterCallback\">" + "Add object filter" + " </a>",
-                            DisableTemplate = "<a class=\"btn btnAdd disabled\"  >" + "Add object filter" + " </a>",
+                            EnableTemplate = "<a class=\"btn btnPrimary btnAdd\" data-role=\"auto-template\" data-grid=\"#ReferenceFilterGrid\" data-template=\"#templateNewReferenceFilter\" data-callback=\"MC.Models.Roles.AddReferenceFilterCallback\">" + "Add object filter" + " </a>",
+                            DisableTemplate = "<a class=\"btn btnPrimary btnAdd disabled\"  >" + "Add object filter" + " </a>",
                         });
                         @Html.RenderPageToolbarBottom(buttons)
                     }
@@ -291,8 +291,8 @@
                                 ModelUri = ViewBag.ModelUri,
                                 Privilege = PrivilegeType.Model,
                                 Type = PageToolbarButtonType.Custom,
-                                EnableTemplate = "<a class=\"btn btnAdd\" data-role=\"auto-template\" data-grid=\"#SubRolesGrid\" data-template=\"#templateSubRoles\" data-callback=\"MC.Models.Roles.AddNewSubRolesCallback\">" + Resource.MC_AddRole + "</a>",
-                                DisableTemplate = "<a class=\"btn btnAdd disabled\">" + Resource.MC_AddRole + "</a>",
+                                EnableTemplate = "<a class=\"btn btnPrimary btnAdd\" data-role=\"auto-template\" data-grid=\"#SubRolesGrid\" data-template=\"#templateSubRoles\" data-callback=\"MC.Models.Roles.AddNewSubRolesCallback\">" + Resource.MC_AddRole + "</a>",
+                                DisableTemplate = "<a class=\"btn btnPrimary btnAdd disabled\">" + Resource.MC_AddRole + "</a>",
                             });
                             @Html.RenderPageToolbarBottom(buttons)
                         }

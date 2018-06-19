@@ -255,6 +255,7 @@ if %25ERRORLEVEL%25 LEQ 1 exit 0 else exit %25ERRORLEVEL%25</PreBuildEvent>
     <Content Include="Content\CSS\Base.css" />
     <Content Include="Content\CSS\Common.css" />
     <Content Include="Content\CSS\Angle.css" />
+    <Content Include="Content\CSS\DashboardFilters.css" />
     <Content Include="Content\CSS\UserPassword.css" />
     <Content Include="Content\CSS\DisplayList.css" />
     <Content Include="Content\CSS\CustomSort.css" />
@@ -787,6 +788,7 @@ if %25ERRORLEVEL%25 LEQ 1 exit 0 else exit %25ERRORLEVEL%25</PreBuildEvent>
     <Content Include="Scripts\ViewManagement\Angle\DisplayCopyHandler.js" />
     <Content Include="Scripts\ViewManagement\Angle\ResolveAngleDisplayHandler.js" />
     <Content Include="Scripts\ViewManagement\Angle\ScheduleAngleHandler.js" />
+    <Content Include="Scripts\ViewManagement\Dashboard\DashboardFiltersHandler.js" />
     <Content Include="Scripts\ViewManagement\Search\angledownloadhandler.js" />
     <Content Include="Scripts\ViewManagement\Search\AngleExportHandler.js" />
     <Content Include="Scripts\ViewManagement\Search\ImportAngleHandler.js" />

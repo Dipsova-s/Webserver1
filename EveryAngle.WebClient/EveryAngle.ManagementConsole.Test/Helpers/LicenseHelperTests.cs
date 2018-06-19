@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace EveryAngle.ManagementConsole.Test
+namespace EveryAngle.ManagementConsole.Test.Helpers
 {
     [TestFixture(Category = "MC")]
     public class LicenseHelperTests

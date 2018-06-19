@@ -4,42 +4,24 @@
     min-width: 768px;
 }
 #DashboardField .informationDetailPanel {
-    margin-right: 125px;
+    margin-right: 140px;
 }
-
-#DashboardDescriptionWrapper .sectionDescriptions {
-    border-bottom-width: 0;
+#DashboardField .Wrapper {
+    padding: 7px 0;
+    position: relative;
+    min-height: 48px;
 }
-
-#DashboardDescriptionWrapper .sectionDefinitions {
-    display: none;
+#DashboardField .btnInfo {
+    margin-left: 2px;
 }
-
-#WidgetsDetailWrapper .definitionsHeader {
-    line-height: 20px;
-    font-size: 16px;
-    margin-bottom: 10px;
-    padding: 0 0 3px 0;
-    border-bottom: 1px solid #999;
+#YourNote {
+    bottom: 5px;
 }
-
-#WidgetsDetailWrapper .definitionsHeader .btnChangeDisplay {
-    position: absolute;
-    top: 0;
-    right: 0;
-    color: #006f9b;
-    font-size: 13px;
+#ActionSelect {
+    right: 30px;
 }
-
-#DashboardWidgetsWrapper .displayNameContainer {
-    height: auto;
-    padding-top: 2px;
-    box-sizing: border-box;
-}
-
-#DashboardWidgetsWrapper .displayNameContainer .name {
-    padding-left: 5px;
-    max-width: 400px;
+.popupAction {
+    right: -10px;
 }
 
 /* #dashboardWrapper

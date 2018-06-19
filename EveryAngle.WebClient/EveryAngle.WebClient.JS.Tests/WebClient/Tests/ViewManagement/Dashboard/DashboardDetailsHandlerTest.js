@@ -4,6 +4,8 @@
 /// <reference path="/Dependencies/ViewManagement/Shared/ValidationHandler.js" />
 /// <reference path="/Dependencies/ViewManagement/Shared/ModelsHandler.js" />
 /// <reference path="/Dependencies/ViewManagement/Dashboard/DashboardDetailsHandler.js" />
+/// <reference path="/Dependencies/ViewManagement/Shared/WidgetFilter/WidgetFilterModel.js" />
+
 
 describe("DashboardDetailsHandler", function () {
     var dashboardDetailsHandler;
@@ -359,5 +361,7 @@ describe("DashboardDetailsHandler", function () {
             expect(defaultModel).toEqual('/models/1');
         });
     });
+
+
 });
 

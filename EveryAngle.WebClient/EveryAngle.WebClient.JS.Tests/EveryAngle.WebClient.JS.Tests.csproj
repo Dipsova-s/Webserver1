@@ -677,6 +677,7 @@
     <Content Include="WebClient\Tests\Helper\ModelHelperTest.js" />
     <Content Include="WebClient\Tests\ViewManagement\Angles\AngleDetailBodyPageHandlerTest.js" />
     <Content Include="WebClient\Tests\ViewManagement\Angles\ChartHandlerTest.js" />
+    <Content Include="WebClient\Tests\ViewManagement\Angles\FollowupPageHandlerTest.js" />
     <Content Include="WebClient\Tests\ViewManagement\Angles\DisplayCopyHandlerTest.js" />
     <Content Include="WebClient\Tests\ViewManagement\Angles\DisplayUpgradeHandlerTest.js" />
     <Content Include="WebClient\Tests\ViewManagement\Angles\ListHandlerTest.js" />
@@ -702,6 +703,7 @@
     <Content Include="WebClient\Tests\ViewManagement\Shared\ModelsHandlerTest.js" />
     <Content Include="WebClient\Tests\ViewManagement\Shared\WidgetFilter\WidgetFilterHandlerTest.js" />
     <Content Include="WebClient\Tests\ViewManagement\Shared\WidgetFilter\WidgetFilterHelperTest.js" />
+    <Content Include="WebClient\Tests\ViewManagement\Shared\WidgetFilter\WidgetFilterViewTest.js" />
     <Content Include="WebClient\Tests\ViewManagement\User\UserSettingHandlerTest.js" />
     <Content Include="WebClient\Tests\ViewModels\Models\Angles\AngleQueryStepModelTest.js" />
     <Content Include="WebClient\Tests\ViewModels\Models\Angles\DisplayModelTest.js" />

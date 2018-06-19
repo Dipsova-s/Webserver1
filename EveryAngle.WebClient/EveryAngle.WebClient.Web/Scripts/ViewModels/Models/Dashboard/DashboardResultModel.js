@@ -39,6 +39,11 @@ function DashboardResultViewModel(elementId, model, executeParameters) {
         if (executeParameters.display.length)
             data.query_definition[1].execution_parameters = executeParameters.display;
 
+        // dashboard filters
+        var dashboardQueryBlock = dashboardDetailsHandler.Model.GetDashboardFiltersQueryBlock();
+        if (dashboardQueryBlock)
+            data.query_definition.push(dashboardQueryBlock);
+
         // set executing dashboard
         if (!dashboardModel.IsTemporaryDashboard())
             data.dashboard = dashboardModel.Data().uri;

@@ -47,58 +47,26 @@
 {
     <div id="DashboardField" class="detailsWrapper top">
         <div class="Wrapper">
-            <div id="AngleSetting">
-                <div id="DashboardName" class="angleInformation informationDetailPanel">
-                    <div data-bind="css: { 'SignFavorite': Model.Data().user_specific.is_starred(), 'SignFavoriteDisable': !Model.Data().user_specific.is_starred(), disabled: !dashboardModel.Data().authorizations.update_user_specific }, click: $root.SetFavorite"></div>
-                    <div data-bind="css: { 'SignPublic': Model.Data().is_published(), 'SignPrivate': !Model.Data().is_published() }"></div>
-                    <div class="SignType3"></div>
+            <div id="DashboardName" class="angleInformation informationDetailPanel">
+                <div data-bind="css: { 'SignFavorite': Model.Data().user_specific.is_starred(), 'SignFavoriteDisable': !Model.Data().user_specific.is_starred(), disabled: !dashboardModel.Data().authorizations.update_user_specific }, click: $root.SetFavorite"></div>
+                <div data-bind="css: { 'SignPublic': Model.Data().is_published(), 'SignPrivate': !Model.Data().is_published() }"></div>
+                <div class="SignType3"></div>
 
-                    <span class="Name" onclick="dashboardDetailsHandler.ShowPopup()" data-bind="text: Model.Data().name(), attr: { title: Model.Data().name() }"></span>
-                    <div class="SignValidated" data-bind="visible: Model.Data().is_validated()" style="display: none"></div>
-                </div>
-                <span id="YourNote" data-bind="text: !dashboardModel.Data().user_specific.private_note() && dashboardModel.Data().authorizations.update_user_specific ? Localization.AddNote : Model.Data().user_specific.private_note(), css: { disabled: !dashboardModel.Data().authorizations.update_user_specific }"></span>
-                <div id="ActionSelect">
-                    <div id="ActionDropdownList" class="btn btnDefault btnTools" onclick="dashboardHandler.ToggleActionDropDown()"><span data-bind="text: Localization.Tools"></span></div>
-                    <div class="k-window-titleless k-window-custom k-window-arrow-n popupAction popupActionAngle" id="ActionDropdownListPopup">
-                        <div class="k-window-content k-content"></div>
-                    </div>
-                </div>
+                <span class="Name" onclick="dashboardDetailsHandler.ShowPopup()" data-bind="text: Model.Data().name(), attr: { title: Model.Data().name() }"></span>
+                <div class="SignValidated" data-bind="visible: Model.Data().is_validated()" style="display: none"></div>
+                <a class="btnInfo" data-bind="visible: Model.Data(), click: ShowInfoPopup"></a>
             </div>
-            <div id="ToggleWrapper">
-                <div class="DescriptionWrapper DashboardDescriptionWrapper" id="DashboardDescriptionWrapper">
+            <span id="YourNote" data-bind="text: !dashboardModel.Data().user_specific.private_note() && dashboardModel.Data().authorizations.update_user_specific ? Localization.AddNote : Model.Data().user_specific.private_note(), css: { disabled: !dashboardModel.Data().authorizations.update_user_specific }"></span>
+            <div id="ActionSelect">
+                <div id="ActionDropdownList" class="btn btnDefault btnTools" onclick="dashboardHandler.ToggleActionDropDown()"><span data-bind="text: Localization.Tools"></span></div>
+                <div class="k-window-titleless k-window-custom k-window-arrow-n popupAction popupActionAngle" id="ActionDropdownListPopup">
+                    <div class="k-window-content k-content"></div>
                 </div>
-                <div class="DottedVertical"></div>
-                <div class="DescriptionWrapper DashboardWidgetsWrapper" id="DashboardWidgetsWrapper">
-                    <div class="DescriptionScrollable">
-                        <div class="sectionDefinitions" id="WidgetsDetailWrapper">
-                            <h2 class="definitionsHeader">
-                                <span data-bind="html: Localization.AnglePanelWidgetsDashboard + ' <em onclick=\'dashboardDetailsHandler.ShowPopup(dashboardDetailsHandler.TAB.DEFINITION)\'>(' + Model.Data().widget_definitions.length + ')<\/em>'">@Resource.AnglePanelWidgetsDashboard</span>
-                                <a class="btnInfo" onclick="dashboardDetailsHandler.ShowPopup(dashboardDetailsHandler.TAB.DEFINITION)"></a>
-                                <a class="btnChangeDisplay" data-bind="text: Localization.DashboardChangeDisplays" onclick="dashboardDetailsHandler.ShowPopup(dashboardDetailsHandler.TAB.DEFINITION)">@Resource.DashboardChangeDisplays</a>
-                            </h2>
-
-                            <ul class="detailDefinitionList" data-bind="foreach: Model.Data().widget_definitions">
-                                <!-- ko if: $index() < 6 -->
-                                <li class="displayNameContainer large" data-bind="with: GetDisplay()">
-                                    <div class="front">
-                                        <a class="icon" data-bind="css: display_type, click: function () { dashboardDetailsHandler.ShowPopup(dashboardDetailsHandler.TAB.DEFINITION, $index()) }"></a>
-                                    </div>
-                                    <span class="name"data-bind="text: $parent.GetWidgetName(), attr: { title: $parent.GetWidgetName() }"></span>
-                                    @*<a class="linkDefinition" data-bind="click: function () { dashboardDetailsHandler.ShowPopup(dashboardDetailsHandler.TAB.DEFINITION, $index()) }"></a>
-                                    <span class="k-with-icon" data-bind="text: $parent.GetWidgetName(), css: display_type, attr: { title: $parent.GetWidgetName() }"></span>*@
-                                </li>
-                                <!-- /ko -->
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div id="ToggleAngle" onclick="dashboardHandler.TogglePanel()">
-                <span class="Expand"></span>
             </div>
         </div>
     </div>
 }
 
+<div id="dashboardFilterWrapper" class="dashboardFilterWrapper" data-bind="css: { active: IsActive, open: IsOpen(), close: !IsOpen() }"></div>
 <div id="dashboardWrapper" class="mainDisplayWrapper"></div>
 <div id="widgetMaximizeWrapper" class="mainDisplayWrapper"></div>
