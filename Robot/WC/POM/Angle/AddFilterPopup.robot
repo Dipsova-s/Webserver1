@@ -246,9 +246,9 @@ Click OK Add Filter to List
 
 Click Cancel Add Filter to list
     Click Element     ${btnCancelFilter}
-	
+
 #Time
-Verify All Operators Of Time	
+Verify All Operators Of Time
     Open Operator Dropdown List
 	Wait Until Page Contains    is not empty
 	Wait Until Page Contains    is empty

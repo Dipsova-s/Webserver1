@@ -15,6 +15,9 @@ ${divWidgets}               jquery=#dashboardWrapper .widgetDisplayColumn
 
 ${linkMaximizeDashboard}     jquery=.widgetButtonMaximize
 ${linkMinimizeDashboard}     jquery=.widgetButtonMinimize
+${ddlDashboardPanel}         jquery=#dashboardFilterWrapper
+${btnOpenDashboardFilter}    .btnOpenFilters
+${ddlDashboardFilterCount}   .dashboardFilterCount 
 
 *** Keywords ***
 Wait Dashboard Document Loaded
@@ -79,3 +82,23 @@ Click Execute Dashboard Action
     Click Dashboard Dropdown Actions
     Wait Until Element Is Visible    ${ddlDashboardActionDropdownListExecuteDashboard}
     Click Element    ${ddlDashboardActionDropdownListExecuteDashboard}
+
+Open Dashboard Detail Popup From Dashboard Name
+    [Arguments]    ${fieldKeyword}
+    Wait Until Element Is Visible    ${txtDashboard} [title="${fieldKeyword}"]
+    Click Element    ${txtDashboard} [title="${fieldKeyword}"]
+    Wait Dashboard Detail Document Loaded
+
+Open Dashboard From First Dashboard in Search Page
+    [Arguments]    ${dashboardName}
+    Click Link First Item From Search Result
+    Sleep    2s
+
+Open Filter From Dashboard Filter Panel
+    Click Element    ${ddlDashboardPanel} ${btnOpenDashboardFilter}
+    Wait Dashboard Detail Document Loaded
+
+Verify Dashboard Filters Count
+    [Arguments]    ${expectFilterCount}
+    ${filterText}    Get Text    ${ddlDashboardPanel} ${ddlDashboardFilterCount}
+    Should Be Equal    ${filterText}    ${expectFilterCount}   

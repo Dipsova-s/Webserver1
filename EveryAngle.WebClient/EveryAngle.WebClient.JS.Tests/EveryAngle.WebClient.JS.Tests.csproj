@@ -89,6 +89,14 @@
       <Link>WebClient\Dependencies\ViewManagement\Angles\FollowupPageHandler.js</Link>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="..\EveryAngle.WebClient.Web\Scripts\ViewManagement\Angle\QuickFilterHandler.js">
+      <Link>WebClient\Dependencies\ViewManagement\Angles\QuickFilterHandler.js</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\EveryAngle.WebClient.Web\Scripts\ViewManagement\Dashboard\DashboardFiltersHandler.js">
+      <Link>WebClient\Dependencies\ViewManagement\Dashboard\DashboardFiltersHandler.js</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="ManagementConsole\Tests\Custom\MC.AjaxTest.js" />
     <Content Include="ManagementConsole\Tests\Custom\MC.Test.js" />
     <Content Include="ManagementConsole\Tests\Custom\MC.UITest.js" />
@@ -690,6 +698,7 @@
     <Content Include="WebClient\Tests\ViewManagement\Angles\ScheduleAngleHandlerTest.js" />
     <Content Include="WebClient\Tests\ViewManagement\CreateNewAngle\CreateNewAnglePageHandlerTest.js" />
     <Content Include="WebClient\Tests\ViewManagement\Dashboard\DashboardDetailsHandlerTest.js" />
+    <Content Include="WebClient\Tests\ViewManagement\Dashboard\DashboardFiltersHandlerTest.js" />
     <Content Include="WebClient\Tests\ViewManagement\Export\ExportHandlerTest.js" />
     <Content Include="WebClient\Tests\ViewManagement\Export\ExportExcelHandlerTest.js" />
     <Content Include="WebClient\Tests\ViewManagement\Search\AngleCopyHandlerTest.js" />

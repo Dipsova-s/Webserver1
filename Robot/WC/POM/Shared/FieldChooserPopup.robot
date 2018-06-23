@@ -10,6 +10,8 @@ ${btnFieldChooserFullMode}      LongProperty
 ${btnFiedlChooserCompactMode}     ShortProperty
 
 ${divFieldChooserDetail}         css=.fieldChooserGridContainer .detail
+${divFieldSource}                jquery=#NewColumnFilter .FilterTab-metadata:eq(0) 
+${chkSourceSelf}                 jquery=#source_Checkbox input:eq(0)
 
 *** Keywords ***
 Wait Progress Bar Field Chooser Search Closed
@@ -40,3 +42,9 @@ Click Set Field Chooser View To Full Mode
 Click Set Field Chooser View To Compact Mode
     Wait Until Element Is Visible    ${btnFiedlChooserCompactMode}
     Click Element    ${btnFiedlChooserCompactMode}
+
+Select Field Source(Self) From FieldandFilter Tab
+    Wait Until Ajax Complete
+    Wait Until Element Is Visible    ${divFieldSource}
+    Click Element    ${divFieldSource}
+    Select Checkbox    ${chkSourceSelf}        

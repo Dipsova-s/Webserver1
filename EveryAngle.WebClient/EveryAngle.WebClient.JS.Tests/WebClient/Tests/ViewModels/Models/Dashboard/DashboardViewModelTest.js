@@ -5,9 +5,24 @@
 
 describe("DashboardModel", function () {
     var dashboardModel;
+    var mockDashboardModel;
 
     beforeEach(function () {
         dashboardModel = new DashboardViewModel();
+        mockDashboardModel = {
+            filters: [
+                {
+                    field: 'PurchaseRequisition__BAFIX',
+                    operator: 'equal_to',
+                    tech_info: 'xxx',
+                    step_type: 'filter',
+                    arguments: [{
+                        argument_type: 'field',
+                        field: 'PurchaseOrderLine__AcknowledgementRequired'
+                    }]
+                }
+            ]
+        };
     });
 
     describe("when create new instance", function () {
@@ -43,29 +58,11 @@ describe("DashboardModel", function () {
     describe("call GetDashboardFilters", function () {
 
         it("should get dashboard filters by widget filters view model", function () {
-            // mock
-            var mockResponse = {
-                filters: [
-                    {
-                        field: 'PurchaseRequisition__BAFIX',
-                        operator: 'equal_to',
-                        tech_info: 'xxx',
-                        step_type: 'filter',
-                        arguments: [{
-                            argument_type: 'field',
-                            field: 'PurchaseOrderLine__AcknowledgementRequired'
-                        }]
-                    }
-                ]
-            };
-
             var viewModel = WidgetFilterModel;
-            dashboardModel.Data(mockResponse);
+            dashboardModel.Data(mockDashboardModel);
 
-            // execute
             var result = dashboardModel.GetDashboardFilters(viewModel);
 
-            // assert
             expect(result).toBeDefined();
             expect(result.length).toEqual(1);
             expect(result[0].arguments.length).toEqual(1);
@@ -82,31 +79,13 @@ describe("DashboardModel", function () {
     describe("call SetDashboardFilters", function () {
 
         it("should set dashboard filters by widget filters view model", function () {
-            // mock
-            var mockResponse = {
-                filters: [
-                    {
-                        field: 'PurchaseRequisition__BAFIX',
-                        operator: 'equal_to',
-                        tech_info: 'xxx',
-                        step_type: 'filter',
-                        arguments: [{
-                            argument_type: 'field',
-                            field: 'PurchaseOrderLine__AcknowledgementRequired'
-                        }]
-                    }
-                ]
-            };
-
-            var widgetFilterViewModels = mockResponse.filters.map(function (widgetFilter) {
+            var widgetFilterViewModels = mockDashboardModel.filters.map(function (widgetFilter) {
                 return new WidgetFilterModel(widgetFilter);
             });
             dashboardModel.Data([]);
 
-            // execute
             dashboardModel.SetDashboardFilters(widgetFilterViewModels);
 
-            // assert
             expect(dashboardModel.Data()).toBeDefined();
             expect(dashboardModel.Data().filters).toBeDefined();
             expect(dashboardModel.Data().filters.length).toEqual(1);
@@ -124,16 +103,7 @@ describe("DashboardModel", function () {
     describe("call GetDashboardFiltersQueryBlock", function () {
 
         it("should get dashboard query block if it has filters", function () {
-            spyOn(dashboardModel, 'GetDashboardFilters').and.returnValue([{
-                field: 'PurchaseRequisition__BAFIX',
-                operator: 'equal_to',
-                tech_info: 'xxx',
-                step_type: 'filter',
-                arguments: [{
-                    argument_type: 'field',
-                    field: 'PurchaseOrderLine__AcknowledgementRequired'
-                }]
-            }]);
+            spyOn(dashboardModel, 'GetDashboardFilters').and.returnValue(mockDashboardModel.filters);
 
             var result = dashboardModel.GetDashboardFiltersQueryBlock();
 
@@ -154,30 +124,31 @@ describe("DashboardModel", function () {
     describe("call ExtendDashboardFilter", function () {
 
         it("should normalize dashboard filter", function () {
-            var mockFilter = {
-                field: 'PurchaseRequisition__BAFIX',
-                operator: 'equal_to',
-                tech_info: 'xxx',
-                step_type: 'filter',
-                arguments: [{
-                    argument_type: 'field',
-                    field: 'PurchaseOrderLine__AcknowledgementRequired'
-                }]
-            };
+            var dashboardFilter = mockDashboardModel.filters[0];
 
-            dashboardModel.ExtendDashboardFilter(mockFilter);
+            dashboardModel.ExtendDashboardFilter(dashboardFilter);
 
-            expect(mockFilter).toBeDefined();
-            expect(mockFilter.arguments).toBeDefined();
-            expect(mockFilter.arguments.length).toEqual(1);
-            expect(mockFilter.step_type).toEqual('filter');
-            expect(mockFilter.field).toEqual('PurchaseRequisition__BAFIX');
-            expect(mockFilter.operator).toEqual('equal_to');
-            expect(mockFilter.tech_info).toEqual('xxx');
-            expect(mockFilter.arguments[0].argument_type).toEqual('field');
-            expect(mockFilter.arguments[0].field).toEqual('PurchaseOrderLine__AcknowledgementRequired');
+            expect(dashboardFilter).toBeDefined();
+            expect(dashboardFilter.arguments).toBeDefined();
+            expect(dashboardFilter.arguments.length).toEqual(1);
+            expect(dashboardFilter.step_type).toEqual('filter');
+            expect(dashboardFilter.field).toEqual('PurchaseRequisition__BAFIX');
+            expect(dashboardFilter.operator).toEqual('equal_to');
+            expect(dashboardFilter.tech_info).toEqual('xxx');
+            expect(dashboardFilter.arguments[0].argument_type).toEqual('field');
+            expect(dashboardFilter.arguments[0].field).toEqual('PurchaseOrderLine__AcknowledgementRequired');
         });
 
+    });
+
+    describe("call GetAllDashboardFilterFieldIds", function () {
+        it("should get all filter ids", function () {
+            dashboardModel.Data(mockDashboardModel);
+
+            var result = dashboardModel.GetAllDashboardFilterFieldIds();
+
+            expect(result.length).toEqual(2);
+        });
     });
 
 });

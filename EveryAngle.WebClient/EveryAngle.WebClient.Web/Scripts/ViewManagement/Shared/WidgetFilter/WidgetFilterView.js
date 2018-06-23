@@ -19,7 +19,7 @@
                 '<a class="btnDelete" data-bind="click: $root.RemoveTreeViewHeader, clickBubble: false, visible: $root.CanRemove(query)"></a>',
             '</div>',
             '<!-- /ko -->',
-            '<div class="filterItem" data-bind="attr: { index: $index() }, css: { movable: $root.CanFilterMoveToAngle(query, $index()) }">',
+            '<div class="filterItem" data-bind="attr: { index: $index() }, css: { movable: $root.CanFilterMoveToAngle(query, $index()), noBorderBottom: $root.IsNextElementIsTreeViewHeader($element) }">',
                 '<div class="FilterHeader Collapse" data-bind="attr: { id: \'FilterHeader-\' + $index() }, css: { Followup: query.step_type == enumHandlers.FILTERTYPE.FOLLOWUP, Filter: query.step_type == enumHandlers.FILTERTYPE.FILTER, Disabled: !$root.CanChange(query), Unsave: query.is_adhoc_filter }, click: $root.View.Toggle">',
                     '<p data-bind="SetInvalidQuery: query">',
                         '<label class="filterText" data-bind="text: $root.GetFilterText(query, $root.ModelUri, $root.ViewMode() === $root.VIEWMODE.TREEVIEW), css: query.step_type"></label>',
@@ -567,6 +567,7 @@
         if (element.hasClass('Expand')) {
             // close current
             self.CollapsePanel(element);
+            self.HandleTreeViewHeaderTextColor(element);
         }
         else {
             self.CollapseAllAndExpandSelectedPanel(element);
@@ -578,6 +579,10 @@
     self.CollapsePanel = function (target) {
         target.removeClass('Expand').addClass('Collapse FilterDisable');
         target.nextUntil('.FilterHeader').removeClass('Show').addClass('Hide');
+    };
+    self.HandleTreeViewHeaderTextColor = function (element) {
+        var allFilterHeaders = element.siblings('.FilterHeader').andSelf();
+        allFilterHeaders.removeClass('FilterDisable');
     };
     self.CollapseAllAndExpandSelectedPanel = function (element) {
         // close all

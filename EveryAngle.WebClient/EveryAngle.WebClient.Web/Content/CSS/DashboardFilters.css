@@ -52,6 +52,11 @@
     background-image: url(../../images/icons/icon_definition_shortcut.svg);
     background-size: 14px 14px;
 }
+.dashboardFilterItemHeader:hover .btnFieldInfo {
+    background-image: url(../../images/icons/icon_info.svg);
+    background-size: 14px 14px;
+    padding-right: 10px;
+}
 .dashboardFilterToolButtons .btnToggleFilter {
     background-image: url(../../images/icons/icon_arrow_up.png);
 }

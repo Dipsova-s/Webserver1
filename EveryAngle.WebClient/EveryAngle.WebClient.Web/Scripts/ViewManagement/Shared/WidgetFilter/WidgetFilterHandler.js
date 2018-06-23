@@ -566,9 +566,12 @@ function WidgetFilterHandler(container, models) {
     };
 
     // tree view mode
+    self.IsTreeViewMode = function () {
+        var isTreeViewMode = self.ViewMode() === self.VIEWMODE.TREEVIEW;
+        return isTreeViewMode;
+    };
     self.IsTreeViewHeader = function (data) {
-        var isTreeViewItem = self.ViewMode() === self.VIEWMODE.TREEVIEW;
-        if (!isTreeViewItem)
+        if (!self.IsTreeViewMode())
             return false;
 
         var isTreeViewHeader = true;
@@ -596,6 +599,19 @@ function WidgetFilterHandler(container, models) {
             self.CreateFromQuerySteps(self.Data());
         });
         return self.Data();
+    };
+    self.IsNextElementIsTreeViewHeader = function (element) {
+        if (!self.IsTreeViewMode())
+            return false;
+
+        element = $(element);
+        var nextElement = element.next();
+
+        if (nextElement.is('.filterItem.alwaysHide'))
+            nextElement = nextElement.next();
+
+        var isTreeViewHeader = nextElement.is('.FilterHeader');
+        return isTreeViewHeader;
     };
 
     // =========== Second part ======================================

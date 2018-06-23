@@ -40,7 +40,15 @@ ${tabDashboardPrivilege}    jquery=#PublishTabWrapper .tabMenu li:eq(0)
 ${tabDashboardSearchLabel}    jquery=#PublishTabWrapper .tabMenu li:eq(1)
 
 #Fields and Filters
-${btnAddFilter}    css=#DashboardAddfilter
+${txtDashboard}                 css=#DashboardName
+${btnAddDashboardFilter}        css=#DashboardAddfilter
+${ddlValueList}                 jquery=#InputValue-0_listbox li[data-offset-index=0]
+${ddSelectValueDropdownList}    css=#FilterDetail-0-PlaceHolder  .k-input
+${ddlDateField}                 css=#InputValue-
+${ddlAddFieldFilter}            jquery=#FieldsFiltersWrapper .FilterHeader
+${btnAddFilterToField}          jquery=#FieldsFiltersWrapper .FilterHeader:eq(2) .btnAddFilter
+${chkValueInFilter}             jquery=#FilterDetail-3-PlaceHolder
+
 
 *** Keywords ***
 Wait Dashboard Detail Document Loaded
@@ -64,6 +72,9 @@ Save Dashboard
     Wait Until Element Is Enabled    ${btnSaveDashboard}
     Click Element    ${btnSaveDashboard}
     Wait Progress Bar Closed
+
+Cancel Dashboard
+    Click Element    ${btnCancel}
 
 Open Dashboard Detail Popup
     Wait Until Element Is Visible    ${lnkDashboardName}
@@ -102,17 +113,36 @@ Click Confirm Publish Dashboard
     Wait Until Element Is Visible    ${btnConfirmPublishDashboard}
     Click Element    ${btnConfirmPublishDashboard}
 
-Open Dashboard From First Dashboard in Search Page
-    [Arguments]    ${angleName}
-    Click Link First Item From Search Result
-    Sleep    2s
-    Wait Dashboard Document Loaded
-
 Click Dashboard Detail FieldandFilter Tab
     Wait Until Element Is Visible    ${tabDashboardFieldandFilter}
     Click Element    ${tabDashboardFieldandFilter}
 
-Click Add Dashboard Filter
-    Wait Until Element Is Visible    ${btnAddFilter}
-    Click Element    ${btnAddFilter}
+Click Add Filter Button In Dashboard Detail Popup
+    Wait Until Element Is Visible    ${btnAddDashboardFilter}
+    Click Element    ${btnAddDashboardFilter}
+
+Choose Dropdown Filter Operator In FieldandFilter Tab
+    [Arguments]    ${index}    ${selectText}    
+    Choose Dropdown Filter Operator    ${index}    ${selectText}
+
+Choose Value In Dropdown List
+    Wait Until Element Is Visible    ${ddlValueList}
+    Click Element    ${ddlValueList}
+
+Input Filter Value
+    [Arguments]    ${value}
+    Input Text    ${ddSelectValueDropdownList}    ${value}
+
+Input Date Value
+    [Arguments]    ${index}    ${value} 
+    Input Text    ${ddlDateField}${index}    ${value} 
+
+Click Add Filter From Field
+    [Arguments]    ${index}
+    Mouse Over    ${ddlAddFieldFilter}:eq(${index})
+    Click Element    ${btnAddFilterToField}
+
+Select Checkbox Value List
+    [Arguments]    ${index}
+    Select Checkbox    ${chkValueInFilter} input:eq(${index})        
 

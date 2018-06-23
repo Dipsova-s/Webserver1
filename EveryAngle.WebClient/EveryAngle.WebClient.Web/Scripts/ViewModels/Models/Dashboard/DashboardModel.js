@@ -999,6 +999,9 @@ function DashboardViewModel() {
         }
     };
 
+    /*
+    *  Dashboard Filter functionality
+    */
     self.GetDashboardFiltersQueryBlock = function () {
         // convert to query block before post result
         var dashboardFilters = self.GetDashboardFilters();
@@ -1038,6 +1041,22 @@ function DashboardViewModel() {
                 argument.value = null;
         });
     };
+    self.GetAllDashboardFilterFieldIds = function () {
+        var filterFieldIds = [];
+        var dashboardFilters = self.Data().filters;
+        jQuery.each(dashboardFilters, function (i, filter) {
+            var argumentFieldIds = jQuery.map(filter.arguments, function (argument) {
+                return argument.argument_type === enumHandlers.FILTERARGUMENTTYPE.FIELD ? argument.field : null;
+            });
+            filterFieldIds.push(filter.field);
+            jQuery.merge(filterFieldIds, argumentFieldIds);
+        });
+        filterFieldIds = filterFieldIds.distinct();
+        return filterFieldIds;
+    };
+    /*
+    *  Dashboard Filter functionality
+    */
 
     self.UpdatePublicationsWatcher = function () {
         // update publications watcher

@@ -445,7 +445,7 @@ function DashboardHandler() {
 
                 // set publication status
                 dashboardModel.UpdatePublicationsWatcher();
-                
+
                 // M4-33874 get filters list from local storage (bug fixed in IE an Edge)
                 var parameterized = jQuery.localStorage(enumHandlers.DASHBOARDPARAMETER.ASK_EXECUTION);
 
@@ -540,6 +540,14 @@ function DashboardHandler() {
                     });
 
                     return jQuery.whenAll(deferred);
+                }
+                return jQuery.when(canRender);
+            })
+            .then(function (canRender) {
+                if (canRender !== false) {
+                    return self.LoadAllFilterFieldsMetadata().then(function () {
+                        return jQuery.when(canRender);
+                    });
                 }
                 return jQuery.when(canRender);
             })
@@ -1708,6 +1716,25 @@ function DashboardHandler() {
             self.BackToSearch(true);
         };
     };
+
+    /*
+    *  Dashboard Filter functionality
+    */ 
+    self.LoadAllFilterFieldsMetadata = function () {
+        var dashboardModelData = dashboardModel.Data();
+        if (dashboardModelData.model) {
+            var filterFieldIds = dashboardModel.GetAllDashboardFilterFieldIds();
+            var modelFieldUri = modelsHandler.GetQueryFieldsUri(null, dashboardModelData, true);
+            return modelFieldsHandler.LoadFieldsByIds(modelFieldUri, filterFieldIds).then(function (modelFieldModel) {
+                return modelFieldsHandler.LoadFieldsMetadata(modelFieldModel.fields);
+            });
+        }
+        return jQuery.when();
+    };
+    /*
+    *  Dashboard Filter functionality
+    */
+
     /*EOF: Model Methods*/
 
     // initialize method

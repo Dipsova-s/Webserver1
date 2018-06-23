@@ -109,3 +109,10 @@ Back To Search And Delete Dashboard Are Created
     Delete All Search Result Items
     Search By Text    ${dashboardName}
     Element Should Not Contain    ${gridSearchResult}    ${dashboardName}
+
+Search Dashboard From Search Page And Open It 
+    [Arguments]    ${fieldKeyword}
+    Search By Text    ${fieldKeyword}  
+    Click Select First Item From Search Result
+    Open Dashboard From First Dashboard in Search Page    ${fieldKeyword}  
+

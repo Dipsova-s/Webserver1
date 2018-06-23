@@ -27,10 +27,9 @@ function FieldsChooserHandler() {
             type = null;
 
         self.PopupConfig = self.GetPopupConfiguration(type, handler);
-
         window.fieldsChooserModel = new FieldsChooserModel();
-
         fieldsChooserModel.GridName = enumHandlers.FIELDCHOOSERNAME.FIELDCHOOSER;
+        fieldsChooserModel.ModelUri = self.ModelUri;
 
         // set fields & source fields
         fieldsChooserModel.FieldsSource = modelFieldSourceHandler.GetFieldsSourceByModelUri(self.ModelUri);
@@ -40,7 +39,6 @@ function FieldsChooserHandler() {
         var defaultStarred = userSettingModel.GetClientSettingByPropertyName(enumHandlers.CLIENT_SETTINGS_PROPERTY.DEFAULT_STARRED_FIELDS);
         var defaultSuggested = userSettingModel.GetClientSettingByPropertyName(enumHandlers.CLIENT_SETTINGS_PROPERTY.DEFAULT_SUGGESTED_FIELDS);
         fieldsChooserModel.DefaultFacetFilters = self.GetDefaultFacetFilters(defaultStarred, defaultSuggested);
-
         fieldsChooserModel.BeforeOpenCategoryFunction = null;
         fieldsChooserModel.HideFacetsFunction = function () { return false; };
         fieldsChooserModel.DisabledFacetsFunction = function () { return false; };
@@ -90,6 +88,17 @@ function FieldsChooserHandler() {
         popupSettings.buttons = self.GetFieldChooserButtons();
 
         // decide to set type of field chooser popup
+        self.InitializePopupSettingsByName(popupName, popupSettings, handler);
+
+        // start render field chooser popup
+        fieldsChooserModel.GetFieldChooserButtons = function () {
+            return popupSettings.buttons;
+        };
+
+        // initialize popup
+        fieldsChooserModel.DisplayFieldChooserPopup(popupSettings)
+    };
+    self.InitializePopupSettingsByName = function (popupName, popupSettings, handler) {
         switch (popupName) {
             case self.USETYPE.ADDCOLUMN:
                 self.SetAddColumnPopupSettings(popupSettings, handler, window.listHandler);
@@ -110,14 +119,6 @@ function FieldsChooserHandler() {
             default:
                 break;
         }
-
-        // start render field chooser popup
-        fieldsChooserModel.GetFieldChooserButtons = function () {
-            return popupSettings.buttons;
-        };
-
-        // initialize popup
-        fieldsChooserModel.DisplayFieldChooserPopup(popupSettings)
     };
     self.GetFieldChooserButtons = function () {
         return [

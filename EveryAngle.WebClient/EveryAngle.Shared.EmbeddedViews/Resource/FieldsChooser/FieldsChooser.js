@@ -79,6 +79,7 @@ function FieldsChooserModel() {
     var self = this;
     self.PopupId = '#popupFieldChooser';
     self.GridName = enumHandlers.FIELDCHOOSERNAME.FIELDCHOOSER;
+    self.ModelUri = '';
     self.DISPLAY_TYPE = {
         FULL: 1,
         COMPACT: 2
@@ -1746,7 +1747,7 @@ function FieldsChooserModel() {
             }
             else {
                 fnGetHelps = function (ids) {
-                    return GetDataFromWebService(angleInfoModel.Data().model + uriParameter + ids.join(','))
+                    return GetDataFromWebService(self.ModelUri + uriParameter + ids.join(','))
                        .done(function (response) {
                            helpTextHandler.SetHelpTexts(response.help_texts);
 

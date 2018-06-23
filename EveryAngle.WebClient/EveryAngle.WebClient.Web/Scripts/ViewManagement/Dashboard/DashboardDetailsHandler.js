@@ -122,6 +122,9 @@ function DashboardDetailsHandler() {
         var winWidth = e.sender.element.width(),
             winHeight = e.sender.element.height();
 
+        var definitionList = e.sender.wrapper.find('.definitionArea .definitionList');
+        var fieldsfiltersList = e.sender.wrapper.find('.fieldsfiltersArea .definitionList');
+
         var businessProcessBar = jQuery('#DashboardArea .businessProcesses');
         businessProcessBar.css('max-width', jQuery('#DashboardArea').width() - 180);
         if (businessProcessesModel.General) {
@@ -144,11 +147,17 @@ function DashboardDetailsHandler() {
             self.HandlerFilter.View.AdjustLayout();
         }
 
-        var filterWrapper = e.sender.wrapper.find('.definitionList');
-        if (filterWrapper.is(':visible')) {
-            filterWrapper.css('max-height', winHeight - (filterWrapper.offset().top - e.sender.element.offset().top) - 5);
+        if (definitionList.is(':visible')) {
+            definitionList.css('max-height', winHeight - (definitionList.offset().top - e.sender.element.offset().top) - 5);
             self.DefinitionAdjustLayout();
         }
+
+        if (fieldsfiltersList.is(':visible')) {
+            var height = winHeight - (fieldsfiltersList.offset().top - e.sender.element.offset().top) - 125;
+            fieldsfiltersList.parent().height(height + 72);
+            fieldsfiltersList.css('max-height', height + 70);
+        }
+
     };
     self.DashboardDetailsPopupClose = function (e) {
         if (!self.IsSubmit) {
@@ -623,6 +632,10 @@ function DashboardDetailsHandler() {
                 }, 10);
                 break;
 
+            case self.TAB.FIELDSFILTERS:
+                win.trigger('resize');
+                break;
+
             case self.TAB.DEFINITION:
                 if (typeof definitionIndex !== 'undefined') {
                     jQuery('#FilterWrapper .FilterHeader').eq(definitionIndex).trigger('click');
@@ -657,11 +670,11 @@ function DashboardDetailsHandler() {
             availableModels = [{ id: '', uri: '', short_name: Localization.NoModelAvaliable, available: true }];
         }
         else {
-            availableModels.removeObject('model_status', 'No ModelServer');
+            availableModels.removeObject('model_status', Localization.ModelLabel_NoModelServer);
         }
         jQuery.each(availableModels, function (index, model) {
             if (!model.available) {
-                model.short_name += ' (down)';
+                model.short_name += Localization.ModelLabel_Down;
             }
         });
 

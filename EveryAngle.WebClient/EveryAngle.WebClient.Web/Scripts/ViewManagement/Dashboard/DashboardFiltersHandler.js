@@ -60,13 +60,18 @@
         var modelUri = self.GetModelUri();
         return WC.WidgetFilterHelper.GetFilterFieldName(filterNode.field, modelUri);
     };
-    self.GetFilterText = function (filter) {
+    self.GetFilterText = function (filter, fieldId) {
         var modelUri = self.GetModelUri();
         var filterQueryStep = ko.toJS(filter);
+        filterQueryStep.field = fieldId;
         filterQueryStep.step_type = enumHandlers.FILTERTYPE.FILTER;
         return WC.WidgetFilterHelper.GetFilterText(filterQueryStep, modelUri, true);
     };
 
+    self.ShowFieldInfoPopup = function (fieldId) {
+        var modelUri = dashboardModel.GetData().model;
+        helpTextHandler.ShowHelpTextPopup(fieldId, helpTextHandler.HELPTYPE.FIELD, modelUri);
+    };
     self.ShowEditFilterPopup = function (filter, fieldId) {
         // open quick filter popup
         var modelUri = self.GetModelUri();
@@ -125,6 +130,7 @@
                     '<li data-bind="css: { collapsed: filterNode.collapsed, expanded: !filterNode.collapsed() }">',
                         '<div class="dashboardFilterItemHeader">',
                             '<div class="dashboardFilterToolButtons">',
+                                '<a class="btnFieldInfo" data-bind="click: $root.ShowFieldInfoPopup.bind($root, filterNode.field)"></a>',
                                 '<a class="btnToggleFilter" data-bind="click: $root.ToggleFilterHeader.bind($root, filterNode)"></a>',
                             '</div>',
                             '<div class="dashboardFilterHeaderTitle textEllipsis" data-bind="text: $root.GetFilterHeader(filterNode)"></div>',
@@ -135,7 +141,7 @@
                                     '<div class="dashboardFilterToolButtons">',
                                         '<a class="btnEditFilter" data-bind="click: $root.ShowEditFilterPopup.bind($root, filter, filterNode.field)"></a>',
                                     '</div>',
-                                    '<div class="dashboardFilterHeaderTitle textEllipsis" data-bind="text: $root.GetFilterText(filter)"></div>',
+                                    '<div class="dashboardFilterHeaderTitle textEllipsis" data-bind="text: $root.GetFilterText(filter, filterNode.field)"></div>',
                                 '</div>',
                             '</li>',
                         '</ul>',
@@ -190,10 +196,6 @@
             });
 
         });
-    };
-    self.GetFilterFieldsMetadata = function () {
-        var filters = self.GetDashboardFilters();
-        console.log(filters);
     };
 };
 var dashboardFiltersHandler = new DashboardFiltersHandler();

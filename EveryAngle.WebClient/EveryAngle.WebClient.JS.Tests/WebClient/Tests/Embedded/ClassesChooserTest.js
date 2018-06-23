@@ -1089,7 +1089,7 @@ describe("ClassesChooser", function () {
 
             var mockBlackListClassIds = ['id1', 'id2'];
             var result = classesChooser.GetBlackListFiltersDataSource(mockBlackListClassIds);
-            
+
             expect(result[0]).toBeDefined();
             expect(result[0]).toEqual(jasmine.any(Object));
             expect(result[0].field).toEqual('id');

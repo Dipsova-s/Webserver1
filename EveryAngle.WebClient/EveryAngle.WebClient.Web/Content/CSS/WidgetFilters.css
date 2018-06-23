@@ -9,7 +9,8 @@
     overflow-y: auto;
 }
 .definitionList.no {
-    display: none;
+    border-width: 0;
+    box-shadow: none;
 }
 
 .screenMinHeight .definitionList {
@@ -73,6 +74,11 @@
 
 .treeview .filterItem > .FilterHeader {
     border-top-width: 0;
+}
+
+.treeview .filterItem.noBorderBottom > .FilterHeader.Collapse,
+.treeview .filterItem.noBorderBottom > .FilterDetail {
+    border-bottom-width: 0;
 }
 
 .FilterHeader.Followup,
