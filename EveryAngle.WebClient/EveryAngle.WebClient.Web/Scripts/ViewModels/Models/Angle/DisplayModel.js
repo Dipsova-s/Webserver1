@@ -1075,6 +1075,8 @@ function DisplayModel(model) {
                 }
                 else if (queryStep.step_type === enumHandlers.FILTERTYPE.FOLLOWUP)
                     currentDisplayFilters.push(queryStep);
+                else if (queryStep.step_type === enumHandlers.FILTERTYPE.SORTING)
+                    currentDisplaySorts.push(queryStep);
             });
         }
         else if (displayQueryBlockModel.QuerySteps().length) {

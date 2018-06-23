@@ -9,7 +9,6 @@
         self.RoleUri = '';
         self.RolePageUri = '';
         self.ConsolidatedRoleUri = '';
-        self.HaveModelServer = '';
         self.SupportOData = false;
         self.ClientSettings = '';
 
@@ -334,7 +333,6 @@
             self.DeleteListLabelPrivillage = [];
             self.DeleteListSubRoles = [];
             self.BusinessProcessesData = [];
-            self.HaveModelServer = '';
             jQuery.extend(self, data || {});
 
             if (self.ModelData.Uri) {
@@ -1354,7 +1352,6 @@
             data.allowed_classes = self.AllowObject;
             data.denied_classes = self.DenyObject;
             data.object_filters = self.GetReferenceFiltersDataFromGrid();
-            data.haveModelServer = self.HaveModelServer;
             return data;
         };
         self.GetAccessToObjectsData = function (isallowed) {
@@ -1455,7 +1452,7 @@
         self.GetUndefinedPrivilegeData = function () {
             var datas = [];
             $('#treelist tbody tr input:checked[value="undefined"]').each(function (index, selectedPvl) {
-                var selectedPvl = $(selectedPvl);
+                selectedPvl = $(selectedPvl);
                 var labelId = $.trim(selectedPvl.attr('name').replace('_rdoLabelPvls', ''));
                 datas.push(labelId);
             });
@@ -1476,69 +1473,60 @@
             jQuery('#EditRoleForm .tabPanel').show();
 
             if (!jQuery('#EditRoleForm').valid()) {
-
                 var errorTabIndex = $('#EditRoleForm .error:first').parents('.tabPanel:first').index() - 1;
-
                 jQuery('#EditRoleForm .tabPanel').removeAttr('style');
                 jQuery('#EditRoleForm .tabNav a').eq(errorTabIndex).trigger('click');
                 jQuery('#EditRoleForm').valid();
                 return false;
             }
-
-
+            
             jQuery('#EditRoleForm .tabPanel').removeAttr('style');
             var data = self.GetRoleData();
-
             var frm = jQuery('#EditRoleForm');
-
-            var isNew = !self.RoleUri;
-            var activeTab = $('#tabNav').find('a.active').attr('id');
             if ($('#CommentText').val()) {
                 $('#btnAddComment').trigger('click');
             }
-            /*
-            denied_classes
-            string allowedObjects, string denyObjects
-            */
+
             MC.ajax.request({
                 url: frm.attr('action'),
-                parameters: data.serializedData + '&modelUri=' + data.modelUri + '&modelId=' + data.modelId + '&deleteClassFromRole=' + JSON.stringify(data.deleteObjectsList) + '&privilegeLabels=' + JSON.stringify(data.privilegeData) + '&deleteLabelPrivillage=' + JSON.stringify(data.deleteLabelPrivillageList) + '&subRoleIds=' + JSON.stringify(data.subRolesData) + '&field_authorizations=' + JSON.stringify(data.fieldsData) + '&allowedObjects=' + JSON.stringify(data.allowed_classes)
-                + '&denyObjects=' + JSON.stringify(data.denied_classes) + '&objectFilters=' + encodeURIComponent(JSON.stringify(data.object_filters)) + '&haveModelServer=' + data.haveModelServer,
-                type: frm.attr('method'),
-                ajaxSuccess: function (metadata, response, status, xhr) {
-
-                    if (response.session_needs_update) {
-                        MC.util.showPopupConfirmation(Localization.MC_ConfirmChangePrivileges, function () {
-                            jQuery('#logoutForm').submit();
-                        }, function () {
-                            MC.ajax.request({
-                                target: '#sideContent',
-                                url: self.SideMenuUri,
-                                ajaxSuccess: function () {
-                                    if (isNew) {
-                                        location.hash = self.RolePageUri + '?parameters=' + JSON.stringify(response.parameters);
-                                    }
-                                    else {
-                                        location.hash = self.AllRolesPageUri;
-                                    }
-                                }
-                            });
-                        });
-                    }
-                    else {
-                        MC.ajax.request({
-                            target: '#sideContent',
-                            url: self.SideMenuUri,
-                            ajaxSuccess: function () {
-                                if (isNew) {
-                                    location.hash = self.RolePageUri + '?parameters=' + JSON.stringify(response.parameters);
-                                }
-                                else {
-                                    location.hash = self.AllRolesPageUri;
-                                }
-                            }
-                        });
-                    }
+                parameters: data.serializedData
+                    + '&modelUri=' + data.modelUri
+                    + '&modelId=' + data.modelId
+                    + '&deleteClassFromRole=' + JSON.stringify(data.deleteObjectsList)
+                    + '&privilegeLabels=' + JSON.stringify(data.privilegeData)
+                    + '&deleteLabelPrivillage=' + JSON.stringify(data.deleteLabelPrivillageList)
+                    + '&subRoleIds=' + JSON.stringify(data.subRolesData)
+                    + '&field_authorizations=' + JSON.stringify(data.fieldsData)
+                    + '&allowedObjects=' + JSON.stringify(data.allowed_classes)
+                    + '&denyObjects=' + JSON.stringify(data.denied_classes)
+                    + '&objectFilters=' + encodeURIComponent(JSON.stringify(data.object_filters)),
+                type: frm.attr('method')
+            })
+            .done(function (response) {
+                if (response.session_needs_update) {
+                    MC.util.showPopupConfirmation(Localization.MC_ConfirmChangePrivileges, function () {
+                        jQuery('#logoutForm').submit();
+                    }, function () {
+                        self.SaveEditRoleCallback(response.parameters);
+                    });
+                }
+                else {
+                    self.SaveEditRoleCallback(response.parameters);
+                }
+            });
+        };
+        self.SaveEditRoleCallback = function (params) {
+            MC.ajax.request({
+                target: '#sideContent',
+                url: self.SideMenuUri
+            })
+            .done(function () {
+                var isNew = !self.RoleUri;
+                if (isNew) {
+                    location.hash = self.RolePageUri + '?parameters=' + JSON.stringify(params);
+                }
+                else {
+                    location.hash = self.AllRolesPageUri;
                 }
             });
         };

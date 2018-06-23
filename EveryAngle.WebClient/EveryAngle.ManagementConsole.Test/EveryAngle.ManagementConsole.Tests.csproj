@@ -111,6 +111,7 @@
     <Compile Include="Controllers\AutomationTasksControllerTests.cs" />
     <Compile Include="Controllers\CommentControllerTests.cs" />
     <Compile Include="Controllers\DownloadTableControllerTests.cs" />
+    <Compile Include="Controllers\ModelControllerTest.cs" />
     <Compile Include="Controllers\PackagesControllerTests.cs" />
     <Compile Include="Controllers\SystemRoleControllerTest.cs" />
     <Compile Include="Controllers\ErrorControllerTests.cs" />
@@ -184,6 +185,7 @@
     <None Include="TestResources\ModelViewModel.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Include="TestResources\ModelViewModel_Full.json" />
     <None Include="TestResources\SessionViewModel.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
