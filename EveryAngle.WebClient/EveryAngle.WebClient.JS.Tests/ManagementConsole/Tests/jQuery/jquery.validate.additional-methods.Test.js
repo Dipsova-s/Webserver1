@@ -91,33 +91,5 @@ describe("$.validator.methods", function () {
             });
         });
     });
-    
-    describe(".table_name", function () {
-
-        var tests = [
-            // valid
-            { value: 'TableName', expected: true },
-            { value: 'TableName123', expected: true },
-            { value: 'TableName_123', expected: true },
-            { value: '{anglename:normalized}', expected: true },
-            { value: '{anglename:normalized}{anglename:normalized}', expected: true },
-            { value: '{anglename:normalized}123{anglename:normalized}', expected: true },
-            { value: '{anglename:normalized}{anglename:normalized}123', expected: true },
-
-            // invalid
-            { value: "test'; DROP TABLE EAM4.dbo.EAUSERS--", expected: false },
-            { value: '123TableName', expected: false },
-            { value: '_tableName', expected: false },
-            { value: '@tableName', expected: false },
-            { value: '#tableName', expected: false }
-        ];
-
-        $.each(tests, function (index, test) {
-            it("should be " + (test.expected ? 'valid' : 'invalid') + " for table name \"" + test.value + "\"", function () {
-                var result = $.validator.methods.table_name.call($.validator.prototype, test.value);
-                expect(test.expected).toEqual(result);
-            });
-        });
-    });
 
 });

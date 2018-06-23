@@ -138,46 +138,8 @@
         <AbsolutePath>Override\.config$</AbsolutePath>
         <XPath></XPath>
       </MsDeploySkipRules>
-
-      <MsDeploySkipRules Include="SkipStsFiles">
-        <SkipAction>Delete</SkipAction>
-        <ObjectName>filePath</ObjectName>
-        <AbsolutePath>$(_Escaped_PackageTempDir).*\\sts$</AbsolutePath>
-        <XPath></XPath>
-      </MsDeploySkipRules>
-      <MsDeploySkipRules Include="SkipStsFolder">
-        <SkipAction>Delete</SkipAction>
-        <ObjectName>dirPath</ObjectName>
-        <AbsolutePath>$(_Escaped_PackageTempDir).*\\sts$</AbsolutePath>
-        <XPath></XPath>
-      </MsDeploySkipRules>
-
-
-      <MsDeploySkipRules Include="SkipRepositoryFiles">
-        <SkipAction>Delete</SkipAction>
-        <ObjectName>filePath</ObjectName>
-        <AbsolutePath>$(_Escaped_PackageTempDir).*\\repository$</AbsolutePath>
-        <XPath></XPath>
-      </MsDeploySkipRules>
-      <MsDeploySkipRules Include="SkipRepositoryFolder">
-        <SkipAction>Delete</SkipAction>
-        <ObjectName>dirPath</ObjectName>
-        <AbsolutePath>$(_Escaped_PackageTempDir).*\\repository$</AbsolutePath>
-        <XPath></XPath>
-      </MsDeploySkipRules>
-      <MsDeploySkipRules Include="SkipWorkbenchFiles">
-        <SkipAction>Delete</SkipAction>
-        <ObjectName>filePath</ObjectName>
-        <AbsolutePath>$(_Escaped_PackageTempDir).*\\workbench$</AbsolutePath>
-        <XPath></XPath>
-      </MsDeploySkipRules>
-      <MsDeploySkipRules Include="SkipWorkbenchFolder">
-        <SkipAction>Delete</SkipAction>
-        <ObjectName>dirPath</ObjectName>
-        <AbsolutePath>$(_Escaped_PackageTempDir).*\\workbench$</AbsolutePath>
-        <XPath></XPath>
-      </MsDeploySkipRules>
-
+      
+     
 
     </ItemGroup>
   </Target>
@@ -201,5 +163,5 @@
       </PropertyGroup>
     </When>
   </Choose>
-
+  
 </Project>

@@ -43,7 +43,7 @@ namespace EveryAngle.Core.ViewModels.Tests
             // assert
             Assert.AreEqual(true, testViewModel.CanManageCommunications);
             Assert.AreEqual(false, testViewModel.CanManageExtractor);
-            Assert.AreEqual(false, testViewModel.CanViewModelServers);
+            Assert.AreEqual(true, testViewModel.CanViewModelServers);
             Assert.AreEqual(false, testViewModel.CanManageRefreshTasks);
             Assert.AreEqual(true, testViewModel.CanManageAngleWarnings);
             Assert.AreEqual(false, testViewModel.CanManageContentParameters);
@@ -52,6 +52,48 @@ namespace EveryAngle.Core.ViewModels.Tests
             Assert.AreEqual(false, testViewModel.CanManageModules);
             Assert.AreEqual(true, testViewModel.CanManagePackages);
             Assert.AreEqual(true, testViewModel.CanManageSuggestedFields);
+            Assert.AreEqual(false, testViewModel.CanManageDownloadTables);
+            Assert.AreEqual(true, testViewModel.CanManageRoles);
+        }
+
+        [Test]
+        public void ModelSiteMapHanaServerViewModel_WithUrl()
+        {
+            ModelSiteMapBaseViewModel testViewModel = GetTestViewModelWithUrl(typeof(ModelSiteMapHanaServerViewModel));
+
+            // assert
+            Assert.AreEqual(true, testViewModel.CanManageCommunications);
+            Assert.AreEqual(true, testViewModel.CanManageExtractor);
+            Assert.AreEqual(false, testViewModel.CanViewModelServers);
+            Assert.AreEqual(true, testViewModel.CanManageRefreshTasks);
+            Assert.AreEqual(false, testViewModel.CanManageAngleWarnings);
+            Assert.AreEqual(true, testViewModel.CanManageContentParameters);
+            Assert.AreEqual(true, testViewModel.CanManageLabelCategories);
+            Assert.AreEqual(true, testViewModel.CanManageLanguages);
+            Assert.AreEqual(true, testViewModel.CanManageModules);
+            Assert.AreEqual(true, testViewModel.CanManagePackages);
+            Assert.AreEqual(false, testViewModel.CanManageSuggestedFields);
+            Assert.AreEqual(true, testViewModel.CanManageDownloadTables);
+            Assert.AreEqual(true, testViewModel.CanManageRoles);
+        }
+
+        [Test]
+        public void ModelSiteMapHanaServerViewModel_WithoutUrl()
+        {
+            ModelSiteMapBaseViewModel testViewModel = GetTestViewModelWithoutUrl(typeof(ModelSiteMapHanaServerViewModel));
+
+            // assert
+            Assert.AreEqual(true, testViewModel.CanManageCommunications);
+            Assert.AreEqual(false, testViewModel.CanManageExtractor);
+            Assert.AreEqual(false, testViewModel.CanViewModelServers);
+            Assert.AreEqual(false, testViewModel.CanManageRefreshTasks);
+            Assert.AreEqual(false, testViewModel.CanManageAngleWarnings);
+            Assert.AreEqual(false, testViewModel.CanManageContentParameters);
+            Assert.AreEqual(true, testViewModel.CanManageLabelCategories);
+            Assert.AreEqual(false, testViewModel.CanManageLanguages);
+            Assert.AreEqual(false, testViewModel.CanManageModules);
+            Assert.AreEqual(true, testViewModel.CanManagePackages);
+            Assert.AreEqual(false, testViewModel.CanManageSuggestedFields);
             Assert.AreEqual(false, testViewModel.CanManageDownloadTables);
             Assert.AreEqual(true, testViewModel.CanManageRoles);
         }
@@ -93,6 +135,48 @@ namespace EveryAngle.Core.ViewModels.Tests
             Assert.AreEqual(false, testViewModel.CanManageLanguages);
             Assert.AreEqual(false, testViewModel.CanManageModules);
             Assert.AreEqual(false, testViewModel.CanManagePackages);
+            Assert.AreEqual(false, testViewModel.CanManageSuggestedFields);
+            Assert.AreEqual(false, testViewModel.CanManageDownloadTables);
+            Assert.AreEqual(true, testViewModel.CanManageRoles);
+        }
+
+        [Test]
+        public void ModelSiteMapEA4ITViewModel_WithUrl()
+        {
+            ModelSiteMapBaseViewModel testViewModel = GetTestViewModelWithUrl(typeof(ModelSiteMapEA4ITViewModel));
+
+            // assert
+            Assert.AreEqual(true, testViewModel.CanManageCommunications);
+            Assert.AreEqual(false, testViewModel.CanManageExtractor);
+            Assert.AreEqual(false, testViewModel.CanViewModelServers);
+            Assert.AreEqual(false, testViewModel.CanManageRefreshTasks);
+            Assert.AreEqual(false, testViewModel.CanManageAngleWarnings);
+            Assert.AreEqual(false, testViewModel.CanManageContentParameters);
+            Assert.AreEqual(true, testViewModel.CanManageLabelCategories);
+            Assert.AreEqual(true, testViewModel.CanManageLanguages);
+            Assert.AreEqual(false, testViewModel.CanManageModules);
+            Assert.AreEqual(true, testViewModel.CanManagePackages);
+            Assert.AreEqual(false, testViewModel.CanManageSuggestedFields);
+            Assert.AreEqual(false, testViewModel.CanManageDownloadTables);
+            Assert.AreEqual(true, testViewModel.CanManageRoles);
+        }
+
+        [Test]
+        public void ModelSiteMapEA4ITViewModel_WithoutUrl()
+        {
+            ModelSiteMapBaseViewModel testViewModel = GetTestViewModelWithoutUrl(typeof(ModelSiteMapEA4ITViewModel));
+
+            // assert
+            Assert.AreEqual(true, testViewModel.CanManageCommunications);
+            Assert.AreEqual(false, testViewModel.CanManageExtractor);
+            Assert.AreEqual(false, testViewModel.CanViewModelServers);
+            Assert.AreEqual(false, testViewModel.CanManageRefreshTasks);
+            Assert.AreEqual(false, testViewModel.CanManageAngleWarnings);
+            Assert.AreEqual(false, testViewModel.CanManageContentParameters);
+            Assert.AreEqual(true, testViewModel.CanManageLabelCategories);
+            Assert.AreEqual(false, testViewModel.CanManageLanguages);
+            Assert.AreEqual(false, testViewModel.CanManageModules);
+            Assert.AreEqual(true, testViewModel.CanManagePackages);
             Assert.AreEqual(false, testViewModel.CanManageSuggestedFields);
             Assert.AreEqual(false, testViewModel.CanManageDownloadTables);
             Assert.AreEqual(true, testViewModel.CanManageRoles);

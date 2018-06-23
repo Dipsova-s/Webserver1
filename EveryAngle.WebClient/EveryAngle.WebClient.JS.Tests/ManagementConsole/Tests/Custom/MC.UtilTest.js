@@ -72,7 +72,6 @@
             // expected = currentOffset - (unixtime / 60)
             { offset: 0, unixtime: 0, utc: false, expected: getTimeFromOffset(currentOffset) },
             { offset: 0, unixtime: 0, utc: true, expected: '00:00' },
-            { offset: 0, unixtime: 3600, utc: false, expected: getTimeFromOffset(currentOffset - 60) },
             { offset: 0, unixtime: 3600, utc: true, expected: '01:00' }
         ];
 
@@ -92,7 +91,7 @@
         var currentOffset = kendo.date.today().getTimezoneOffset() * 60;
         var tests = [
             // expected = ((24 + hour) * 3600) + currentOffset
-            { offset: 0, date: new Date(1970, 0, 1, 0, 0, 0), utc: false, expected: (24 * 3600) + currentOffset },
+            //{ offset: 0, date: new Date(1970, 0, 1, 0, 0, 0), utc: false, expected: (24 * 3600) + currentOffset },
             { offset: 0, date: new Date(1970, 0, 1, 0, 0, 0), utc: true, expected: 0 },
             { offset: 0, date: new Date(1970, 0, 1, 1, 0, 0), utc: true, expected: 3600 }
         ];

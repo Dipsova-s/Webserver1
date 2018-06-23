@@ -46,6 +46,7 @@
                     GetModelClassesUri: '@Url.Action("GetModelClasses", "SuggestedFields")',
                     GetModelAnglesUri: '@Url.Action("GetModelAngles", "SuggestedFields")',
                     GetHelpTextUri: '@Url.Action("GetHelpText", "Role")',
+                    HaveModelServer: @Convert.ToBoolean(ViewData["HaveModelServer"]).ToString().ToLower(),
                     IsCreatePage: @(string.IsNullOrEmpty(Model.Id).ToString().ToLower()),
                     ClientSettings: '@Html.Raw(ViewData["ClientSettings"])'
                 });
@@ -91,20 +92,21 @@
             </div>
         </div>
         <!--/.contentSectionInfo-->
+@*<hr style="display:@(Model.Uri != null ? "block" : "none") !important;"/>*@
         
-        if (@Model.Uri != null)
-        {
+                    if (@Model.Uri != null)
+                    {
         <div class="contentSection contentSectionTab contentSectionAccessSetting">
             <div class="tab" data-role="tab" data-callback="MC.Models.Roles.RoleTabShown">
                 <div class="tabNav" id="tabNav">
                     <a id="WebClient" class="active">@Resource.MC_Privileges</a>
-                    @if (Convert.ToBoolean(ViewData["ShowFullRoleDetails"]))
-                    {
+                    @{ if(Convert.ToBoolean(ViewData["HaveModelServer"])) {    
                         <a id="Labels">@Resource.MC_Labels</a>
                         <a id="Objects">@Resource.Objects</a>
                         <a id="Fields">@Resource.Fields</a>
                         <a id="Filter">Filters</a>
                         <a id="SubRoles">@Resource.SubRoles</a>
+                        }
                     }
                 </div>
 
@@ -346,7 +348,7 @@
         </div>
         <!--/.contentSectionAccessSetting-->
         <hr />
-        }
+                    }
         <input type="hidden" id="roleUri" value="@ViewBag.RoleUri" />
     }
     <div style="display:@(Model.Uri != null ? "inline" : "none") !important;">

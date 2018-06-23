@@ -385,6 +385,16 @@ namespace EveryAngle.ManagementConsole.Helpers
             }
         }
 
+        public static string GetServerTitle(string type)
+        {
+            if ("ModelServer".Equals(type, StringComparison.InvariantCultureIgnoreCase))
+                return Resource.MC_ModelServer;
+            else if ("Extractor".Equals(type, StringComparison.InvariantCultureIgnoreCase))
+                return Resource.MC_EAXtractor;
+            else
+                return type;
+        }
+
         #endregion
 
     }

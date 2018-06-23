@@ -1,7 +1,7 @@
 ﻿@model EveryAngle.Core.ViewModels.Users.SystemRoleViewModel
 @using EveryAngle.Shared.Globalization
 
-<div class="contentSection contentSectionInfo @(Convert.ToBoolean(ViewData["ShowFullRoleDetails"]) ? "" : "hideNoModel")" id="AccessClient"> 
+<div class="contentSection contentSectionInfo @(Convert.ToBoolean(ViewData["HaveModelServer"]) ? "" : "hideNoModel")" id="AccessClient"> 
     <h4>@Resource.MC_Basic</h4>
     <div class="contentSectionInfoItem">
         <label>@Html.LabelFor(model => model.ModelPrivilege.Privileges.access_data_via_webclient)</label>

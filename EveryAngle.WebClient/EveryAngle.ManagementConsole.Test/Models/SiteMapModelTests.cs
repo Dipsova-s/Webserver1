@@ -29,13 +29,14 @@ namespace EveryAngle.ManagementConsole.Test.Models
         #region tests
 
         [TestCase("EA2_800", false, false, typeof(ModelSiteMapSlaveViewModel))]
+        [TestCase("EA4IT", false, true, typeof(ModelSiteMapEA4ITViewModel))]
+        [TestCase("EA2_800", false, true, typeof(ModelSiteMapHanaServerViewModel))]
         [TestCase("EA2_800", true, false, typeof(ModelSiteMapBaseViewModel))]
         public void Can_GetModelSiteMapType(string modelId, bool hasModelServer, bool hasHanaServer, Type expectedSiteMapType)
         {
-            // Prepare
             Type siteMapType = _testingModel.GetModelSiteMapType(modelId, hasModelServer, hasHanaServer);
 
-            // Assert
+            // Assert 2 menu should be visible
             Assert.AreEqual(expectedSiteMapType, siteMapType);
         }
 

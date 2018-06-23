@@ -19,12 +19,21 @@
 @{
     @Html.RenderPageToolbar(new List<PageToolbarButtonModel>
     {
-        new PageToolbarButtonModel {  ModelUri = ViewBag.ModelUri, Privilege = PrivilegeType.Model, Type = PageToolbarButtonType.Save, OnClick = "MC.Models.ModelServer.SaveServerSettings()" },
+        new PageToolbarButtonModel {  ModelUri = ViewBag.ModelUri, Privilege=PrivilegeType.Model, Type = PageToolbarButtonType.Save, OnClick = "MC.Models.ModelServer.SaveServerSettings()" },
         new PageToolbarButtonModel { Type = PageToolbarButtonType.Reload }
     })
 }
 <div class="content pageModelContentParameters">
-    @{ Html.RenderPartial("~/Views/Shared/Plugins.cshtml", Model); }
-    @{ Html.RenderPartial("~/Views/Shared/PluginPopupDescriptionTemplate.cshtml"); }
-    @{ Html.RenderAction("GetCommentsByType", "Comment", new { CommentType = @ViewBag.CommentType }); }
+        @{Html.RenderPartial("~/Views/Shared/Plugins.cshtml", Model);}
+        @{Html.RenderPartial("~/Views/Shared/PluginPopupDescriptionTemplate.cshtml");}
+        @{
+            if(ViewBag.IsXtractor)
+            {
+                Html.RenderAction("GetCommentsByType", "Comment", new { CommentType = @ViewBag.ModelId + "XtractorSettings" });
+            }
+            else
+            {
+                Html.RenderAction("GetCommentsByType", "Comment", new { CommentType = @ViewBag.ModelId + "ModelServerSettings" });
+            }
+        }
 </div>

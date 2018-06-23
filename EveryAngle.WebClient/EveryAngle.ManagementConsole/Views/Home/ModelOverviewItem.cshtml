@@ -1,23 +1,23 @@
 ﻿@using EveryAngle.Shared.Globalization
-@using EveryAngle.Core.ViewModels.ModelServer
 @using EveryAngle.Core.ViewModels.SystemLog
 @model List<EveryAngle.Core.ViewModels.ModelServer.ModelServerViewModel>
-
 @{
     string serverStatus = ViewBag.ModelStatus;
-    string serverStatusClassName = (serverStatus != null) ? serverStatus.Replace(" ", "") : serverStatus;
+    string serverStatusClassName = (serverStatus != null) ? serverStatus.Replace(" ", ""): serverStatus;
     if (serverStatus.ToLower() == "initializing" || serverStatus.ToLower() == "loading"
         || serverStatus.ToLower() == "extract" || serverStatus.ToLower() == "restructure"
-            || serverStatus.ToLower() == "importing")
+         || serverStatus.ToLower() == "importing")
     {
         serverStatusClassName = "Loading";
     }
+   
+
 
     string modelOverviewItem = "modelOverviewItem" + serverStatusClassName;
     string modelInfoStatus = "modelInfoStatus" + serverStatusClassName;
     DateTime currentDate = DateTime.Now;
-
-
+    
+    
     // license
     string licenseStatus;
     string licenseDate = ViewBag.LicenseDate;
@@ -36,94 +36,97 @@
             licenseStatus = "<strong class=\"noLicense\"> " + Resource.MC_LicensedExpiredOn + " <abbr data-role=\"localize\" data-type=\"date\">" + licenseDate + "</abbr></strong>";
         }
     }
-}
-@if (Model.Any())
+}               
+@if(Model.Count > 0)
 {
-    ModelServerViewModel currentInstance = Model.FirstOrDefault(x => x.IsCurrentInstance);
-    ModelServerViewModel modelServer = Model.FirstOrDefault(x => x.IsPrimaryType);
-    string modelServerName = modelServer != null ? modelServer.id + "_status" : "";
-
     <div class="modelOverviewItem @modelOverviewItem">
         <h2>@ViewBag.ModelName<span></span></h2>
 
         <div class="modelInfoStatusReport @modelInfoStatus">
+            @{
+                var currentModel = Model.Where(x => (x.type == "ModelServer" || x.type == "HanaServer")).FirstOrDefault();
+                string modelServerName = (currentModel != null) ? currentModel.id + "_status" : "";
+            }
             <strong class="@modelServerName">@ViewBag.ModelStatus</strong>
-            @if (currentInstance != null)
+            @if (Model.Count() > 0)
             {
-                DateTime startUnixTime = new DateTime(1970, 1, 1, 0, 0, 0, 0);
-                startUnixTime = startUnixTime.AddSeconds((long)currentInstance.timestamp).ToLocalTime();
-                System.TimeSpan modeldate = currentDate.Subtract(startUnixTime);
-                var day = modeldate.Days == 0 ? null : modeldate.Days + " days";
-                var hours = modeldate.Hours == 0 ? null : modeldate.Hours + " hr";
-                var minutes = modeldate.Minutes == 0 ? null : modeldate.Minutes + " mins";
-                string className = "hidden description " + currentInstance.id + "_time";
+                var currentInstance = Model.Where(x => x.IsCurrentInstance == true).FirstOrDefault();
+                if (currentInstance != null)
+                {
+                    DateTime startUnixTime = new DateTime(1970, 1, 1, 0, 0, 0, 0);
+                    startUnixTime = startUnixTime.AddSeconds((long)currentInstance.timestamp).ToLocalTime();
+                    System.TimeSpan modeldate = currentDate.Subtract(startUnixTime);
+                    var day = modeldate.Days == 0 ? null : modeldate.Days + " days";
+                    var hours = modeldate.Hours == 0 ? null : modeldate.Hours + " hr";
+                    var minutes = modeldate.Minutes == 0 ? null : modeldate.Minutes + " mins";
 
-                <div class="@className">for @day @hours @minutes</div>
+                    string className = "hidden description " + currentInstance.id + "_time";
+                    <div class="@className">for @day @hours @minutes</div>
+                }
+                else
+                {
+                    var modelserver = Model.Where(x => (x.type == "ModelServer" || x.type == "HanaServer")).FirstOrDefault();
+                    if(modelserver != null){
+                        DateTime startUnixTime = new DateTime(1970, 1, 1, 0, 0, 0, 0);
+                        startUnixTime = startUnixTime.AddSeconds((long)modelserver.timestamp).ToLocalTime();
+                        System.TimeSpan modeldate = currentDate.Subtract(startUnixTime);
+                        var day = modeldate.Days == 0 ? null : modeldate.Days + " " + Resource.MC_Day;
+                        var hours = modeldate.Hours == 0 ? null : modeldate.Hours + " " + Resource.MC_Hr;
+                        var minutes = modeldate.Minutes == 0 ? null : modeldate.Minutes + " " + Resource.MC_Mins;
+                        string className = "hidden description " + modelserver.id + "_time";
+                        <div class="@className">for @day @hours @minutes</div>
+                    }
+                }
             }
-            else if (modelServer != null) {
-                DateTime startUnixTime = new DateTime(1970, 1, 1, 0, 0, 0, 0);
-                startUnixTime = startUnixTime.AddSeconds((long)modelServer.timestamp).ToLocalTime();
-                System.TimeSpan modeldate = currentDate.Subtract(startUnixTime);
-                var day = modeldate.Days == 0 ? null : modeldate.Days + " " + Resource.MC_Day;
-                var hours = modeldate.Hours == 0 ? null : modeldate.Hours + " " + Resource.MC_Hr;
-                var minutes = modeldate.Minutes == 0 ? null : modeldate.Minutes + " " + Resource.MC_Mins;
-                string className = "hidden description " + modelServer.id + "_time";
-
-                <div class="@className">for @day @hours @minutes</div>
-            }
+                
         </div>
 
         <div class="modelOverviewItemDetail">
             <strong>@Resource.Instances</strong>
-            @foreach (ModelServerViewModel item in Model)
-            {
-                DateTime startUnixTime = new DateTime(1970, 1, 1, 0, 0, 0, 0);
-                startUnixTime = startUnixTime.AddSeconds((long)item.timestamp).ToLocalTime();
-
-                var modeldate = currentDate.Subtract(startUnixTime);
-                var day = modeldate.Days == 0 ? null : modeldate.Days + "d";
-                var hours = modeldate.Hours == 0 ? null : modeldate.Hours + "hr";
-                var minutes = modeldate.Minutes == 0 ? null : modeldate.Minutes + "m";
-
-                if (item.id != "EA4IT_Xtractor")
+                @foreach (var item in Model)
                 {
+                    DateTime startUnixTime = new DateTime(1970, 1, 1, 0, 0, 0, 0);                       
+                    startUnixTime = startUnixTime.AddSeconds((long)item.timestamp).ToLocalTime();
+
+                    var modeldate = currentDate.Subtract(startUnixTime);
+                    var day = modeldate.Days == 0 ? null : modeldate.Days + "d";
+                    var hours = modeldate.Hours == 0 ? null : modeldate.Hours + "hr";
+                    var minutes = modeldate.Minutes == 0 ? null : modeldate.Minutes + "m";
+
+                    if (item.id != "EA4IT_Xtractor")
+                    {
+                        <div class="modelOverviewItemDetailItem">
+                    @{
+                        
                     string className = item.id + "_status";
                     string classtime = "alwaysHidden " + item.id + "_time";
+                    }
 
-                    <div class="modelOverviewItemDetailItem">
-
-                        @if (item.IsCurrentInstance)
-                        {
-                            <strong>
-                                <label class="@className">@item.id: @item.status</label>
-                                <span class="@classtime">@day @hours @minutes</span>
-                            </strong>
-                        }
-                        else
-                        {
+                    @if(item.IsCurrentInstance)
+                    {
+                        <strong>
                             <label class="@className">@item.id: @item.status</label>
                             <span class="@classtime">@day @hours @minutes</span>
-                        }
-
-                    </div>
-                }
-            }
+                        </strong>
+                    }
+                    else
+                    {
+                        <label class="@className">@item.id: @item.status</label>
+                        <span class="@classtime">@day @hours @minutes</span>
+                    }
+                </div>
+                    }
+                }           
         </div>
 
-        @if (currentInstance != null && (currentInstance.SupportModelDate || currentInstance.SupportModelSize))
-        {
-            <div class="modelOverviewItemDetail">
-                @if (currentInstance.SupportModelDate)
-                {
-                    <strong>@Resource.ModelDate</strong>
-                    <p data-role="localize">@(currentInstance != null ? currentInstance.modeldata_timestamp.ToString() : "")</p>
-                }
-                @if (currentInstance.SupportModelSize)
-                {
-                    <div class="modelOverviewItemDetailItem">@string.Format("{0}: {1}", Resource.MC_Volume, currentInstance != null ? currentInstance.FormattedSize : "0 GB")</div>
-                }
-            </div>
-        }
+        <div class="modelOverviewItemDetail">
+            <strong>@Resource.ModelDate</strong>
+            @{
+            EveryAngle.Core.ViewModels.ModelServer.ModelServerViewModel CurrentInstance = Model.Where(x => x.IsCurrentInstance == true).FirstOrDefault();
+            <p data-role="localize">@(CurrentInstance != null ? CurrentInstance.modeldata_timestamp.ToString() : "" )</p>
+            <div class="modelOverviewItemDetailItem">@Resource.MC_Volume: @(CurrentInstance != null ? Math.Round(decimal.Parse(Model.Where(x => x.IsCurrentInstance == true).FirstOrDefault().size)/ (1024*1024*1024) , 2) : 0 ) GB</div>
+            }
+        </div>
 
         <div class="modelOverviewItemDetail">
             <strong>@Resource.MC_Users</strong>
@@ -140,5 +143,5 @@
         @*M4-13792: Fixed 'Open model' button missing*@
         <a href="@SiteMapHelper.ActionHash("Models/" + @ViewBag.ModelId)" class="btn btnLarge btnNext btnOpenModel">@Resource.OpenModel</a>
         <a href="@SiteMapHelper.ActionHash("GlobalSettings/Systemlog/ModelServer")" onclick="MC.util.redirect(event, this)" data-parameters='{"target":"@SystemLogType.ModelServer","modelId":"@ViewBag.ModelId"}' class="btn btnLarge btnNext btnOpenLogs">@Captions.MC_Button_OpenErrorWarningLog</a>
-    </div>
+    </div>             
 }

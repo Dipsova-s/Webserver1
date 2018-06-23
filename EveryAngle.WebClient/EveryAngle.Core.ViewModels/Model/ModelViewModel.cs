@@ -260,8 +260,6 @@ namespace EveryAngle.Core.ViewModels.Model
         [JsonProperty(PropertyName = "is_postprocessing")]
         public bool? IsProcessing { get; set; }
 
-        [JsonProperty(PropertyName = "is_modelserver_switchable")]
-        public bool IsModelserverSwitchable { get; set; }
     }
 
     public class CompanyInformationViewModel

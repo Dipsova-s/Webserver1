@@ -46,18 +46,17 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="EveryAngle.Shared.Globalization, Version=1.0.1.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\Shared\EveryAngle.Shared\Bin\EveryAngle.Shared.Globalization.dll</HintPath>
+      <HintPath>..\packages\EveryAngle.Shared.Globalization.1.0.1\lib\net45\EveryAngle.Shared.Globalization.dll</HintPath>
     </Reference>
-    <Reference Include="EveryAngle.Utilities, Version=2.4.1.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\EveryAngle.Utilities.2.4.1\lib\net45\EveryAngle.Utilities.dll</HintPath>
+    <Reference Include="EveryAngle.Utilities, Version=2.4.2.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\EveryAngle.Utilities.2.4.2\lib\net45\EveryAngle.Utilities.dll</HintPath>
     </Reference>
     <Reference Include="Ionic.Zip, Version=1.9.1.8, Culture=neutral, PublicKeyToken=edbe51ad942a3f5c, processorArchitecture=MSIL">
       <HintPath>..\packages\Ionic.Zip.1.9.1.8\lib\Ionic.Zip.dll</HintPath>
     </Reference>
     <Reference Include="Kendo.Mvc, Version=2015.2.902.440, Culture=neutral, PublicKeyToken=121fae78165ba3d4, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\..\..\..\General\Components\DotNet\Kendo\2015.2.902\Kendo.Mvc.dll</HintPath>
+      <HintPath>..\..\Resources\Kendo-2015.2.902\Kendo.Mvc.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
@@ -112,7 +111,6 @@
     <Compile Include="Controllers\AutomationTasksControllerTests.cs" />
     <Compile Include="Controllers\CommentControllerTests.cs" />
     <Compile Include="Controllers\DownloadTableControllerTests.cs" />
-    <Compile Include="Controllers\ModelControllerTest.cs" />
     <Compile Include="Controllers\PackagesControllerTests.cs" />
     <Compile Include="Controllers\SystemRoleControllerTest.cs" />
     <Compile Include="Controllers\ErrorControllerTests.cs" />
@@ -186,7 +184,6 @@
     <None Include="TestResources\ModelViewModel.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="TestResources\ModelViewModel_Full.json" />
     <None Include="TestResources\SessionViewModel.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>

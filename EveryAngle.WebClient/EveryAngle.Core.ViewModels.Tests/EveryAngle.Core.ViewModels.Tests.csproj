@@ -63,7 +63,7 @@
     <Compile Include="EAPackage\PackageViewModelTest.cs" />
     <Compile Include="EAPackage\ActivePackageQueryViewModelTest.cs" />
     <Compile Include="EAPackage\ExportPackageQueryViewModelTest.cs" />
-    <Compile Include="ModelServer\ModelServerViewModelTest.cs" />
+    <Compile Include="Model\ModelSiteMapViewModelTest.cs" />
     <Compile Include="Model\ActionListViewModelTest.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -73,7 +73,6 @@
     <Compile Include="Model\FacetViewModelTest.cs" />
     <Compile Include="Model\FieldDomainViewModelTest.cs" />
     <Compile Include="Model\FieldViewModelTest.cs" />
-    <Compile Include="Model\ModelSiteMapViewModelTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SystemSettings\SystemSettingViewModelTest.cs" />
     <Compile Include="UnitTestBase.cs" />
@@ -111,10 +110,6 @@
     <ProjectReference Include="..\EveryAngle.Shared.Helpers\EveryAngle.Shared.Helpers.csproj">
       <Project>{25ef80a0-14d8-4efc-9ad2-265ef87b2429}</Project>
       <Name>EveryAngle.Shared.Helpers</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\EveryAngle.WebClient.Domain\EveryAngle.WebClient.Domains.csproj">
-      <Project>{ec17ecc9-7496-4b25-b524-348e6c3c6e15}</Project>
-      <Name>EveryAngle.WebClient.Domains</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

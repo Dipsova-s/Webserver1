@@ -101,10 +101,6 @@
     <Reference Include="RestSharp, Version=105.2.3.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\RestSharp.105.2.3\lib\net45\RestSharp.dll</HintPath>
     </Reference>
-    <Reference Include="Kendo.Mvc, Version=2015.2.624.440, Culture=neutral, PublicKeyToken=121fae78165ba3d4, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\..\..\..\General\Components\DotNet\Kendo\2015.2.902\Kendo.Mvc.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -531,7 +527,7 @@
       <Name>EveryAngle.Shared.Helpers</Name>
     </ProjectReference>
     <ProjectReference Include="..\EveryAngle.WebClient.Domain\EveryAngle.WebClient.Domains.csproj">
-      <Project>{ec17ecc9-7496-4b25-b524-348e6c3c6e15}</Project>
+      <Project>{EC17ECC9-7496-4B25-B524-348E6C3C6E15}</Project>
       <Name>EveryAngle.WebClient.Domains</Name>
     </ProjectReference>
     <ProjectReference Include="..\EveryAngle.WebClient.Service\EveryAngle.WebClient.Service.csproj">

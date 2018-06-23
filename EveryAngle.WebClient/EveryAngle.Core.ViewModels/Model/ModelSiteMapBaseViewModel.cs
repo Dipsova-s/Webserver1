@@ -29,7 +29,7 @@ namespace EveryAngle.Core.ViewModels.Model
 
         public virtual bool CanManageCommunications => true;
         public virtual bool CanManageExtractor => !string.IsNullOrEmpty(DownloadSettings);
-        public virtual bool CanViewModelServers => !string.IsNullOrEmpty(ModelInfo);
+        public virtual bool CanViewModelServers => true;
         public virtual bool CanManageRefreshTasks => !string.IsNullOrEmpty(RefreshTasks);
         public virtual bool CanManageAngleWarnings => true;
         public virtual bool CanManageContentParameters  => !string.IsNullOrEmpty(ModelServerSettings);
