@@ -1,9 +1,4 @@
 *** Variables ***
-${btnEAXractor}                css=#sideMenu-Models-EA4IT-EAXtractor
-${btnRefreshCycle}             css=#sideMenu-Models-EA4IT-RefreshCycle
-${btnContentParameters}        css=#sideMenu-Models-EA4IT-ContentParameters
-${btnModules}                  css=#sideMenu-Models-EA4IT-Modules
-
 ${btnBusinessProcessOTHER}               jquery=#CreateAngleByObjectBusinessProcess .OTHER
 
 ${btnSelectModelCreateNewAngle}          css=#SelectModelCreateNewAngle
@@ -19,18 +14,6 @@ Click Edit User By User Name
     Click Element    ${trRowInAllUserGrid} ${btnEditUser}
     Wait Until Ajax Complete
     Wait MC Progress Bar Closed
-
-Verify EAxtractor
-    Element Should Not Be Visible    ${btnEAXractor}
-
-Verify Refresh Cycle
-    Element Should Not Be Visible    ${btnRefreshCycle}
-
-Verify Content Parameters
-    Element Should Not Be Visible    ${btnContentParameters}
-
-Verify Modules
-    Element Should Not Be Visible    ${btnModules}
 
 Select Business Process Other
     Click Element    ${btnBusinessProcessOTHER}

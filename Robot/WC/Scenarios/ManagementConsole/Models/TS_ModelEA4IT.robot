@@ -11,12 +11,6 @@ Verify Model EA4IT Is Present
     Wait Until Element Is Visible    ${trRowAllModelGrid}
     Page Should Contain Element    ${trRowAllModelGrid}:contains(${ID})
 
-Verify Menu Item Under EA4IT Are Not Present
-    Verify EAxtractor
-    Verify Refresh Cycle
-    Verify Content Parameters
-    Verify Modules
-
 Verify Role EA4IT_ALL Is Available
     [Arguments]    ${ID}
     Click Side Menu Models EA4IT Roles
