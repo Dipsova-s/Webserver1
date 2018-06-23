@@ -24,7 +24,7 @@
         settingStatusCssClass = "settingStatusError";
     }
     else
-    {     
+    {
         if (EveryAngle.Shared.Helpers.LicenseHelper.IsValidLicense(licenseDate))
         {
             licenseStatus = "<span class=\"licensed\">Licensed until: <abbr data-role=\"localize\" data-type=\"date\">" + licenseDate + "</abbr></span>";
@@ -123,20 +123,18 @@
             <!--/.modelInfoStatusGraphContainer-->
         </div>
         <!--/.modelInfoStatus-->
-        @if (Model != null)
+        @foreach (var item in Model)
         {
-            foreach (var item in Model)
+            if (item.id != "EA4IT_Xtractor")
             {
-                if (item.id != "EA4IT_Xtractor")
-                {
             <div class="modelInfo modelInfoInstance">
                 <h3 title="@item.id">@item.id</h3>
                 @if (item.type != "Extractor")
                 {
-                    <div class="modelInfoItem">
-                        @Html.LabelFor(model => item.instance_status, Resource.MC_InstanceStatus + ":")
-                        <div class="value breakword">@item.instance_status</div>
-                    </div>
+                <div class="modelInfoItem">
+                    @Html.LabelFor(model => item.instance_status, Resource.MC_InstanceStatus + ":")
+                    <div class="value breakword">@item.instance_status</div>
+                </div>
                 }
                 <div class="modelInfoItem">
                     <label>@(item.ModelServerName):</label>
@@ -146,31 +144,31 @@
                     <label>@Resource.Since:</label>
                     <div class="value"><span data-role='localize'>@item.timestamp</span></div>
                 </div>
-                @if (item.type != "Extractor")
+                @if (item.SupportModelDate)
                 {
-                    <div class="modelInfoItem">
-                        <label>@Resource.ModelDate:</label>
-                        <div class="value"><span data-role='localize'>@item.modeldata_timestamp</span></div>
-                    </div>
+                <div class="modelInfoItem">
+                    <label>@Resource.ModelDate:</label>
+                    <div class="value"><span data-role='localize'>@item.modeldata_timestamp</span></div>
+                </div>
                 }
                 <div class="modelInfoItem">
-                    @Html.LabelFor(model => item.application_version, Resource.MC_ServerVersion + ":")
-                    @if (item.application_version != null)
-                    {
-                        <div class="value">@item.application_version</div>
-                    }
-                    else
-                    {
-                        <div class="value">@Resource.MC_NoData</div>
-                    }
+                @Html.LabelFor(model => item.application_version, Resource.MC_ServerVersion + ":")
+                @if (item.application_version != null)
+                {
+                    <div class="value">@item.application_version</div>
+                }
+                else
+                {
+                    <div class="value">@Resource.MC_NoData</div>
+                }
                 </div>
 
-                @if (item.type != "Extractor")
+                @if (item.SupportModelSize)
                 {
-                    <div class="modelInfoItem">
-                        @Html.LabelFor(model => item.size, Resource.MC_ModelSize + ":")
-                        <div class="value">@(Math.Round(decimal.Parse(item.size) / (1024 * 1024 * 1024), 2)) GB</div>
-                    </div>
+                <div class="modelInfoItem">
+                    @Html.LabelFor(model => item.size, Resource.MC_ModelSize + ":")
+                    <div class="value">@item.FormattedSize</div>
+                </div>
                 }
 
                 <div class="modelInfoItem modelInfoItemStatus">
@@ -190,12 +188,12 @@
                 </div>
 
                 @{
-                    var infoButton = (item.type != "HanaServer") ? "<a data-target=\"#popupModelServer\" data-title=\"" + PageHelper.GetServerTitle(item.type) + "\" data-width='80%' data-min-width='760' " +
-                              " data-height='80%' data-role='mcPopup' class='btn' onclick=\"MC.Models.Model.ShowModelServerInfo(event, this)\" data-callback=\"MC.Models.Model.ShowModelServerInfoCallback\" data-parameters='{\"modelServerUri\" : \"" + item.Uri + "\", \"isCurrentInstance\" : " + item.IsCurrentInstance.ToString().ToLower() + " }'>" + Resource.MC_StatusAndReport + " <i class='btnInfo'></i></a>" : "";
+                    string infoButton = "<a data-target=\"#popupModelServer\" data-title=\"" + item.ModelServerName + "\" data-width='80%' data-min-width='760' " +
+                                        " data-height='80%' data-role='mcPopup' class='btn' onclick=\"MC.Models.Model.ShowModelServerInfo(event, this)\" data-callback=\"MC.Models.Model.ShowModelServerInfoCallback\" data-parameters='{\"modelServerUri\" : \"" + item.Uri + "\", \"isCurrentInstance\" : " + item.IsCurrentInstance.ToString().ToLower() + " }'>" + Resource.MC_StatusAndReport + " <i class='btnInfo'></i></a>";
 
                     List<PageToolbarButtonModel> buttons = new List<PageToolbarButtonModel>();
 
-                    if (item.type == "ModelServer")
+                    if (item.IsModelServer)
                     {
                         string text = string.Empty;
                         bool? updateStatus;
@@ -215,7 +213,7 @@
                             ModelUri = ViewBag.ModelUri,
                             Privilege = PrivilegeType.Model,
                             Type = PageToolbarButtonType.Custom,
-                            EnableTemplate = updateStatus == null ? infoButton + "<a class=\"btn disabled\" >" + text + "</a>" : infoButton + "<a class=\"btn\" onclick=\"MC.Models.Model.UpdateInstance('" + item.ModelServerId + "'," + Convert.ToString(updateStatus).ToLower() + ",'"+ item.id +"')\">" + text + "</a>",
+                            EnableTemplate = infoButton + (updateStatus == null ? "<a class=\"btn disabled\" >" + text + "</a>" : "<a class=\"btn\" onclick=\"MC.Models.Model.UpdateInstance('" + item.ModelServerId + "'," + Convert.ToString(updateStatus).ToLower() + ",'"+ item.id +"')\">" + text + "</a>"),
                             DisableTemplate = "<a class=\"btn disabled\" >" + text + "</a>"
                         });
                     }
@@ -231,10 +229,8 @@
                     }
                     @Html.RenderPageToolbarBottom(buttons)
                 }
-
             </div>
             <!--/.modelInfoInstance-->
-                }
             }
         }
     </div>

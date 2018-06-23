@@ -9,8 +9,8 @@
         Type = PageToolbarButtonType.GridEditDelete,
         ModelUri = ViewBag.ModelUri,
         Privilege = PrivilegeType.Model,
-        EnableTemplate = "<a href=\"\\" + SiteMapHelper.ActionHash("Models/" + ViewBag.ModelId + "/Roles/EditRole") + "\" onclick=\"MC.util.redirect(event, this)\" class=\"btn btnEdit\" data-parameters='{\"modelUri\":\"" + ViewBag.ModelUri + "\",\"roleUri\":\"#= data.Uri #\",\"haveModelServer\":\"" + ViewBag.HaveModelServer + "\"}'>" + Resource.Edit + "</a>",
-        DisableTemplate = "<a href=\"\\" + SiteMapHelper.ActionHash("Models/" + ViewBag.ModelId + "/Roles/EditRole") + "\" onclick=\"MC.util.redirect(event, this)\" class=\"btn btnEdit\" data-parameters='{\"modelUri\":\"" + ViewBag.ModelUri + "\",\"roleUri\":\"#= data.Uri #\",\"haveModelServer\":\"" + ViewBag.HaveModelServer + "\"}'>" + Resource.View + "</a>"
+        EnableTemplate = "<a href=\"\\" + SiteMapHelper.ActionHash("Models/" + ViewBag.ModelId + "/Roles/EditRole") + "\" onclick=\"MC.util.redirect(event, this)\" class=\"btn btnEdit\" data-parameters='{\"modelUri\":\"" + ViewBag.ModelUri + "\",\"roleUri\":\"#= data.Uri #\"}'>" + Resource.Edit + "</a>",
+        DisableTemplate = "<a href=\"\\" + SiteMapHelper.ActionHash("Models/" + ViewBag.ModelId + "/Roles/EditRole") + "\" onclick=\"MC.util.redirect(event, this)\" class=\"btn btnEdit\" data-parameters='{\"modelUri\":\"" + ViewBag.ModelUri + "\",\"roleUri\":\"#= data.Uri #\"}'>" + Resource.View + "</a>"
     });
     buttons.Add(new PageToolbarButtonModel
     {

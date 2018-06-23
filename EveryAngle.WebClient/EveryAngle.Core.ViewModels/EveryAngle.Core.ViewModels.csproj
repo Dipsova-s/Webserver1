@@ -102,10 +102,6 @@
     <Compile Include="ModelServer\ModelServerViewModel.cs" />
     <Compile Include="Model\ActionListViewModel.cs" />
     <Compile Include="Model\AgentModelInfoViewModel.cs" />
-    <Compile Include="Model\ModelSiteMapHanaServerViewModel.cs" />
-    <Compile Include="Model\ModelSiteMapSlaveViewModel.cs" />
-    <Compile Include="Model\ModelSiteMapEA4ITViewModel.cs" />
-    <Compile Include="Model\ModelSiteMapBaseViewModel.cs" />
     <Compile Include="Model\AgentViewModel.cs" />
     <Compile Include="Model\ClassViewModel.cs" />
     <Compile Include="Model\AngleWarningsViewModel.cs" />
@@ -117,6 +113,8 @@
     <Compile Include="Model\LicenseViewModel.cs" />
     <Compile Include="Model\ModelAuthorizationsViewModel.cs" />
     <Compile Include="Model\ModelServerSettings.cs" />
+    <Compile Include="Model\ModelSiteMapBaseViewModel.cs" />
+    <Compile Include="Model\ModelSiteMapSlaveViewModel.cs" />
     <Compile Include="Model\ModelViewModel.cs" />
     <Compile Include="Model\ModuleViewModel.cs" />
     <Compile Include="EAPackage\ExportSummaryFacetViewModel.cs" />
@@ -153,17 +151,15 @@
       <Name>EveryAngle.Shared.Helpers</Name>
     </ProjectReference>
     <ProjectReference Include="..\EveryAngle.WebClient.Domain\EveryAngle.WebClient.Domains.csproj">
-      <Project>{EC17ECC9-7496-4B25-B524-348E6C3C6E15}</Project>
+      <Project>{ec17ecc9-7496-4b25-b524-348e6c3c6e15}</Project>
       <Name>EveryAngle.WebClient.Domains</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <None Include="app.config" />
-    <None Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
     <Folder Include="Item\" />
     <Folder Include="Package\" />
+    <None Include="app.config" />
+    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

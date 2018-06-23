@@ -50,13 +50,13 @@ namespace EveryAngle.Core.ViewModels.ModelServer
             get
             {
                 ModelAgentType agentType;
-                Enum.TryParse(type, out agentType);
+                Enum.TryParse(type, true, out agentType);
                 return agentType;
             }
         }
-
-        public virtual string status { get; set; }
-
+		
+		public virtual string status { get; set; }
+		
         public ModelServerStatus Status
         {
             get
@@ -88,12 +88,31 @@ namespace EveryAngle.Core.ViewModels.ModelServer
         [LocalizedDisplayName("MC_StatusSince")]
         public virtual long timestamp { get; set; }
 
-
         public virtual string api_version { get; set; }
 
         [JsonProperty(PropertyName = "size")]
         [LocalizedDisplayName("MC_ModelSize")]
         public virtual string size { get; set; }
+
+        public string FormattedSize {
+            get
+            {
+                if (!string.IsNullOrEmpty(size))
+                {
+                    double gbSize = UtilitiesHelper.ConvertBytesToGigabytes(Convert.ToDouble(size));
+                    return string.Format("{0:#,##0.##} GB", gbSize);
+                }
+                return string.Empty;
+            }
+        }
+
+        public bool SupportModelSize
+        {
+            get
+            {
+                return IsModelServer;
+            }
+        }
 
         public virtual string error_count { get; set; }
 
@@ -124,6 +143,14 @@ namespace EveryAngle.Core.ViewModels.ModelServer
 
         [JsonProperty(PropertyName = "modeldata_timestamp", NullValueHandling = NullValueHandling.Ignore)]
         public virtual long modeldata_timestamp { get; set; }
+
+        public bool SupportModelDate
+        {
+            get
+            {
+                return Type == ModelAgentType.ModelServer;
+            }
+        }
 
         [JsonProperty(PropertyName = "metadata_available")]
         public bool metadata_available { get; set; }
@@ -177,23 +204,33 @@ namespace EveryAngle.Core.ViewModels.ModelServer
         public bool IsCaching { get; set; }
 
         public string ModelServerName
-        {
+        {            
             get
             {
                 if (IsModelServer)
                     return Resource.MC_ModelServer;
-
+                if (Type == ModelAgentType.Extractor)
+                    return Resource.MC_EAXtractor;
                 return type;
             }
+
         }
 
         public bool IsModelServer
         {
             get
             {
-                return Type.Equals(ModelAgentType.ModelServer);
+                return Type == ModelAgentType.ModelServer;
+            }
+        } 
+
+        public bool IsPrimaryType
+        {
+            get
+            {
+                return Type == ModelAgentType.ModelServer
+                    || Type == ModelAgentType.HanaServer;
             }
         }
-
     }
 }

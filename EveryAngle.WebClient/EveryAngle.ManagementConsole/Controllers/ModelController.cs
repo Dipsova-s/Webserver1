@@ -123,7 +123,7 @@ namespace EveryAngle.ManagementConsole.Controllers
             ViewBag.ConnectedUser = model.connected_users;
             ViewBag.ActiveUsersThisWeek = model.active_this_week;
             ViewBag.ActiveUsersThisMonth = model.active_this_month;
-                
+
             var zone = TimeZoneInfo.Local.Id;
             var tz = TimeZoneInfo.FindSystemTimeZoneById(zone);
             var dt = TimeZoneInfo.ConvertTimeFromUtc(DateTime.UtcNow, tz);
@@ -370,8 +370,8 @@ namespace EveryAngle.ManagementConsole.Controllers
             else
             {
                 var updateModel = JsonConvert.SerializeObject(modelViewModel, new JsonSerializerSettings
-                    {
-                        ContractResolver =
+                {
+                    ContractResolver =
                             new CleanUpPropertiesResolver(new List<string>
                             {
                                 "abbreviation",
@@ -388,7 +388,7 @@ namespace EveryAngle.ManagementConsole.Controllers
                                 "company_information",
                                 "email_settings"
                             })
-                    });
+                });
                 modelService.UpdateModel(modelUri, updateModel);
             }
 
@@ -449,109 +449,95 @@ namespace EveryAngle.ManagementConsole.Controllers
 
         public ActionResult RenderModelServerSettings(string modelUri)
         {
-            var model = SessionHelper.Initialize().GetModel(modelUri);
-            var agentModel = modelService.GetModelAgent(model.Agent.ToString());
-            ViewBag.ModelUri = modelUri;
-            return RenderModelServerSettingsByAgentUri(agentModel.ModelserverSettings.ToString(), modelUri, false);
-        }
+            ModelViewModel modelViewModel = SessionHelper.Initialize().GetModel(modelUri);
+            AgentViewModel agentViewModel = modelService.GetModelAgent(modelViewModel.Agent.ToString());
+            ModelServerSettings modelServerSettings = GetModelServerSettings(modelViewModel, agentViewModel.ModelserverSettings.ToString());
+            AddSwitchWhenPostprocessingSetting(modelServerSettings, modelViewModel);
 
-        public ActionResult RenderModelServerSettingsByAgentUri(string agentUri, string modelUri, bool isEAXtractor)
-        {
-            var version = SessionHelper.Initialize().Version;
-            var modelServerSettings = modelService.GetModelSettings(agentUri);
-            var systemCurrencies =
-                globalSettingService.GetSystemCurrencies(version.GetEntryByName("system_currencies").Uri.ToString());
-            ViewData["DefaultCurrency"] = systemCurrencies != null
-                ? systemCurrencies.Where(currency => currency.enabled).ToList()
-                : null;
-            ViewBag.AgentUri = agentUri;
-            ViewBag.ModelUri = modelUri;
-
-            // M4-24410: We need the model id and isxtractor flag to tie comments to their subject and model
-            var model = modelService.GetModel(modelUri);
-            ViewBag.ModelId = model.id;
-            ViewBag.IsXtractor = isEAXtractor;
-
-            //add hardcode for switch when processing
-            if (!isEAXtractor)
-            {                
-                AddSwitchWhenProcessingToModelServerSetting(modelServerSettings, model);
-            }
-            return PartialView("~/Views/Model/ModelServers/ModelServerSettings.cshtml", modelServerSettings);
-        }
-
-        private static void AddSwitchWhenProcessingToModelServerSetting(ModelServerSettings modelServerSettings, ModelViewModel model)
-        {
-            bool switchWhenProcessingValue = model != null && bool.Equals(model.SwitchWhenPostprocessing, true);
-            Setting switchWhenProcessing = new Setting() { Id = "switchWhenProcessing", Type = "boolean", Name = "Switch when postprocessing", Value = switchWhenProcessingValue, Description = Resource.MC_SwitchWhenPostprocessing_Description };
-            SettingGroup refreshSetting = new SettingGroup() { Id = "Refresh settings", Name = "Refresh settings" };
-            refreshSetting.Settings = new List<string>();
-            refreshSetting.Settings.Add("switchWhenProcessing");
-            modelServerSettings.SettingsGroup.Insert(0, refreshSetting);
-            modelServerSettings.SettingList.Add(switchWhenProcessing);
-        }
-
-        [ValidateInput(false)]
-        [AcceptVerbs(HttpVerbs.Put)]
-        public ActionResult SaveModelSettings(string agentUri, string jsonData, bool switchWhenPostprocessing, string modelUri, bool isEAXtractor)
-        {
-            var data = JToken.Parse(jsonData);
-            var tokens = data.SelectToken("setting_list").ToArray();
-
-            var array = new JArray();
-
-            foreach (var token in tokens)
-            {
-                if (token.SelectToken("type").ToString() == "percentage" ||
-                    token.SelectToken("type").ToString() == "double")
-                {
-                    token["value"] = Convert.ToDouble(token.SelectToken("value"));
-                }
-                else if (token.SelectToken("type").ToString() == "date")
-                {
-                    if (UtilitiesHelper.IsJTokenNullOrEmpty(token["value"]))
-                    {
-                        token["value"] = 0;
-                    }
-                }
-
-                var newData = new JObject();
-                newData["id"] = token["id"];
-                newData["value"] = token["value"];
-                array.Add(newData);
-            }
-
-            var json = new JObject();
-            json["setting_list"] = array;
-
-            var modelServerSettings = modelService.SaveModelSettings(agentUri, JsonConvert.SerializeObject(json));
-
-            if (!isEAXtractor)
-            {
-                var jsonSwitchWhenProcessing = new JObject();
-                jsonSwitchWhenProcessing["switch_when_postprocessing"] = switchWhenPostprocessing;
-                var model = modelService.UpdateModel(modelUri, JsonConvert.SerializeObject(jsonSwitchWhenProcessing));
-                AddSwitchWhenProcessingToModelServerSetting(modelServerSettings, model);
-                ViewBag.ModelId = model.id;
-            }
-            else
-            {
-                var model = modelService.GetModel(modelUri);
-                ViewBag.ModelId = model.id;
-            }
-
-            // M4-24410: We need the model id and isxtractor flag to tie comments to their subject and model
-            ViewBag.IsXtractor = isEAXtractor;
+            // M4-24410
+            ViewBag.CommentType = string.Format("{0}{1}", modelViewModel.id, "ModelServerSettings");
 
             return PartialView("~/Views/Model/ModelServers/ModelServerSettings.cshtml", modelServerSettings);
         }
 
         public ActionResult RenderExtractorSettings(string modelUri)
         {
-            var model = SessionHelper.Initialize().GetModel(modelUri);
-            ViewBag.ModelUri = modelUri;
-            var agentModel = modelService.GetModelAgent(model.Agent.ToString());
-            return RenderModelServerSettingsByAgentUri(agentModel.DownloadSettings.ToString(), modelUri, true);
+            ModelViewModel modelViewModel = SessionHelper.Initialize().GetModel(modelUri);
+            AgentViewModel agentViewModel = modelService.GetModelAgent(modelViewModel.Agent.ToString());
+            ModelServerSettings modelServerSettings = GetModelServerSettings(modelViewModel, agentViewModel.DownloadSettings.ToString());
+
+            // M4-24410
+            ViewBag.CommentType = string.Format("{0}{1}", modelViewModel.id, "XtractorSettings");
+
+            return PartialView("~/Views/Model/ModelServers/ModelServerSettings.cshtml", modelServerSettings);
+        }
+
+        public ModelServerSettings GetModelServerSettings(ModelViewModel modelViewModel, string modelSettingsUri)
+        {
+            ViewBag.AgentUri = modelSettingsUri;
+            ViewBag.ModelUri = modelViewModel.Uri.ToString();
+            ModelServerSettings modelServerSettings = modelService.GetModelSettings(modelSettingsUri);
+            return modelServerSettings;
+        }
+
+        public void AddSwitchWhenPostprocessingSetting(ModelServerSettings modelServerSettings, ModelViewModel modelViewModel)
+        {
+            if (!modelViewModel.IsModelserverSwitchable)
+                return;
+
+            bool switchWhenPostprocessingValue = modelViewModel != null && bool.Equals(modelViewModel.SwitchWhenPostprocessing, true);
+
+            SettingGroup refreshSettingGroup = new SettingGroup
+            {
+                Id = "Refresh settings",
+                Name = "Refresh settings",
+                Settings = new List<string>
+                {
+                    "switchWhenPostprocessing"
+                }
+            };
+
+            Setting switchWhenPostprocessingSetting = new Setting
+            {
+                Id = "switchWhenPostprocessing",
+                Type = "boolean",
+                Name = "Switch when postprocessing",
+                Value = switchWhenPostprocessingValue,
+                Description = Resource.MC_SwitchWhenPostprocessing_Description
+            };
+
+            modelServerSettings.SettingsGroup.Insert(0, refreshSettingGroup);
+            modelServerSettings.SettingList.Add(switchWhenPostprocessingSetting);
+        }
+
+        [ValidateInput(false)]
+        [AcceptVerbs(HttpVerbs.Put)]
+        public void SaveModelSettings(string modelUri, string agentUri, string settingList, bool? switchWhenPostprocessing)
+        {
+            JArray settingListAsJArray = JArray.Parse(settingList);
+
+            IEnumerable<object> modelSettingList = settingListAsJArray.Select(modelSetting => new
+            {
+                id = modelSetting.Value<string>("id"),
+                value = ConvertJTokenModelSettingValueByFieldType(modelSetting)
+            });
+
+            JObject modelSettingsObject = new JObject
+            {
+                ["setting_list"] = JArray.FromObject(modelSettingList)
+            };
+
+            modelService.SaveModelSettings(agentUri, JsonConvert.SerializeObject(modelSettingsObject));
+
+            if (switchWhenPostprocessing.HasValue)
+            {
+                JObject switchWhenPostprocessingObject = new JObject
+                {
+                    ["switch_when_postprocessing"] = switchWhenPostprocessing.Value
+                };
+
+                modelService.UpdateModel(modelUri, JsonConvert.SerializeObject(switchWhenPostprocessingObject));
+            }
         }
 
         [AcceptVerbs(HttpVerbs.Get)]
@@ -577,7 +563,7 @@ namespace EveryAngle.ManagementConsole.Controllers
                 var taskIndex = 0;
                 var amountofAngle = 0;
                 var amountofDashboard = 0;
-                UrlHelperExtension.ParallelRequest(uriList).ForEach(delegate(Task<JObject> task)
+                UrlHelperExtension.ParallelRequest(uriList).ForEach(delegate (Task<JObject> task)
                 {
                     if (taskIndex == 0)
                     {
@@ -597,6 +583,22 @@ namespace EveryAngle.ManagementConsole.Controllers
                          "\", \"ConnectedUsers\":\"" + modelViewModel.connected_users + "\"}";
             }
             return Content(result, "application/json");
+        }
+
+        #endregion
+
+        #region "Private"
+
+        private object ConvertJTokenModelSettingValueByFieldType(JToken token)
+        {
+            object result = token["value"];
+
+            if ("percentage".Equals(token.SelectToken("type").ToString()) || "double".Equals(token.SelectToken("type").ToString()))
+                result = Convert.ToDouble(token.SelectToken("value"));
+            else if ("date".Equals(token.SelectToken("type").ToString()) && UtilitiesHelper.IsJTokenNullOrEmpty(token["value"]))
+                result = 0;
+
+            return result;
         }
 
         #endregion

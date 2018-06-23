@@ -31,10 +31,13 @@
                 <label>@Resource.Status</label>
                 <p>@if (Model.status != null) { @Model.status } <span data-role='localize'>@if (Model.status != null) { @Model.timestamp }</span></p>
             </div>
+            @if (Model.SupportModelDate)
+            {
             <div class="contentSectionInfoItem">
                 <label>@Resource.ModelTimestamp</label>
                 <p><span data-role='localize'>@if (Model.modeldata_timestamp != null) { @Model.modeldata_timestamp }</span></p>
             </div>
+            }
             <div class="contentSectionInfoItem">
                 <label>@Resource.ServerStarted</label>
                 <p><span data-role='localize'>@if (ViewBag.ModelInstance != null) { @ViewBag.ModelInstance }</span></p>
@@ -45,7 +48,6 @@
                 <p>
                     <label>
                         @if (Model.metadata_available != null) { <input type="checkbox" checked="@Model.metadata_available" disabled="disabled" /> } <span class="label"> </span></label>
-                        
                 </p>
             </div>
 
@@ -57,10 +59,13 @@
                 </p>
             </div>
 
+            @if (Model.SupportModelSize)
+            {
             <div class="contentSectionInfoItem">
                 <label>@Resource.MC_ModelSize</label>
-                <p>@if (Model.size != null) { @EveryAngle.Shared.Helpers.UtilitiesHelper.ConvertBytesToGigabytes(Convert.ToDouble(Model.size)).ToString() } GB</p>
+                <p>@Model.FormattedSize</p>
             </div>
+            }
 
             <div class="contentSectionInfoItem">
                 <label>@Resource.MC_Errors</label>
@@ -79,14 +84,13 @@
             </div>
         
             <div class="contentSectionInfoItem">
-
-                @if (ViewBag.TaskDetails != null)
-                {
-                    @(Html.Kendo().TreeView()
-                .Name("treeview")
-                .ExpandAll(true)
-               .BindTo((List<TreeViewItemModel>)ViewBag.TaskDetails));
-                }
+            @if (ViewBag.TaskDetails != null)
+            {
+                @(Html.Kendo().TreeView()
+                    .Name("treeview")
+                    .ExpandAll(true)
+                    .BindTo((List<TreeViewItemModel>)ViewBag.TaskDetails));
+            }
             </div>
 
             <div class="contentSectionInfoItem">
