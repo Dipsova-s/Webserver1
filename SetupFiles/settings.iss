@@ -38,7 +38,12 @@ begin
   begin
     Result := GetIniString('Paths', aName, '', AddBackslash(ExtractFilePath(ExpandConstant('{srcexe}'))) + 'EASetup.ini');
     if Result <> '' then
-      log(format('[i]var: "%s:=%s" (EASetup.ini)', [aName, Result]));
+    begin
+      if (Pos('password', LowerCase(aName)) > 0) then
+        log(format('[i]var: "%s:=*************" (EASetup.ini)', [aName]))
+      else
+        log(format('[i]var: "%s:=%s" (EASetup.ini)', [aName, Result])); 
+    end
   end;
 end;
 
@@ -128,7 +133,12 @@ begin
     if not SkipConfigFile then
       Result := GetAppSetting(aXmlConfigFile, aKey);
     if Result <> '' then
-      log(format('[i]var: %s:=%s (AppSettings)', [aKey, Result]))
+	  
+		if (Pos('password', LowerCase(aKey)) > 0) then 
+			log(format('[i]var: %s:=************* (AppSettings)', [aKey]))
+		else
+			log(format('[i]var: %s:=%s (AppSettings)', [aKey, Result]))
+	  
     else
       begin
         Result := aDefault;
@@ -142,6 +152,11 @@ begin
   result := xmlSetAttribute(aXmlConfigFile, '/configuration/appSettings/add[@key="' + aKey + '"]', 'value', aValue);
   if not result then
     result := pri_AddNameValueNode(aXmlConfigFile, '/configuration/appSettings', 'add', 'key', aKey, 'value', aValue);
+end;
+
+procedure SetConnectionString(var aXmlConfigFile: Variant; aName, aConnectionString: String);
+begin
+  xmlSetAttribute(aXmlConfigFile, '/configuration/connectionStrings/add[@name="' + aName + '"]', 'connectionString', aConnectionString);
 end;
 
 function MergeAppSettings(aOldXmlConfigDoc, aNewXmlConfigDoc: variant): variant;

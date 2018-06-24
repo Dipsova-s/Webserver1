@@ -109,7 +109,12 @@ begin
   try
     XMLNode := aXMLDocument.selectSingleNode(aPath);
     XMLNode.SetAttribute(aAttribute, aValue);
-    log('[i]xmlSetAttribute: "' + aPath + '@' +  aAttribute + ':=' + aValue + '"');
+     
+    if (Pos('password', LowerCase(aPath)) > 0) then 
+      log('[i]xmlSetAttribute: "' + aPath + '@' +  aAttribute + ':=*************"')
+    else
+      log('[i]xmlSetAttribute: "' + aPath + '@' +  aAttribute + ':=' + aValue + '"');
+               
     result := true;
   except
     result := false;
