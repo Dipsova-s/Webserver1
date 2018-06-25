@@ -41,7 +41,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="EveryAngle.Shared.Globalization, Version=1.0.1.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\EveryAngle.Shared.Globalization.1.0.1\lib\net45\EveryAngle.Shared.Globalization.dll</HintPath>
+      <HintPath>..\packages\EveryAngle.Shared.Globalization.2.4.3.2\lib\net45\EveryAngle.Shared.Globalization.dll</HintPath>
     </Reference>
     <Reference Include="EveryAngle.Utilities, Version=2.4.2.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\EveryAngle.Utilities.2.4.2\lib\net45\EveryAngle.Utilities.dll</HintPath>
@@ -156,10 +156,14 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <None Include="app.config" />
+    <None Include="packages.config">
+      <SubType>Designer</SubType>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
     <Folder Include="Item\" />
     <Folder Include="Package\" />
-    <None Include="app.config" />
-    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
