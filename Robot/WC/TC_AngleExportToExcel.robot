@@ -9,6 +9,7 @@ Force Tags        	acceptance     acc_wc
 *** Variables ***
 ${TEST_VERIFY_EXPORT_TO_EXCEL_NAME}                     Export Extended Charactor.Béßø<>
 ${TEST_VERIFY_EXPORT_DRILLDOWN_TO_EXCEL_NAME}           [ROBOT] Verify Export Drilldown To Excel
+${TEST_VERIFY_EXPORT_FIELDS_CONTAIN_SPECIAL_CHAR}       ROBOT_ANGLE_Pivot_fields_contain_special_characters
 ${LONG_FILE_NAME}    Export angle to excel with such a long filename. A filename of 200 characters should be allowed. Since the windows max path length is 260, this could lead to a path too long exception, when this happens, show the error message to the user.
 ${ERROR_MESSAGE}     Full name of the file exceeds Windows limitations (260 characters).
 
@@ -49,3 +50,15 @@ Verify Error Message If A Filename Is Too Long
     Click Export Excel Button
     Wait Until Page Contains    ${ERROR_MESSAGE}
 
+Verify Export Field Names Contain Special Charactor
+    Search By Text And Expect In Search Result    ${TEST_VERIFY_EXPORT_FIELDS_CONTAIN_SPECIAL_CHAR}
+    Open Angle From First Angle in Search Page    ${TEST_VERIFY_EXPORT_FIELDS_CONTAIN_SPECIAL_CHAR}
+    Wait Progress Bar Closed
+    Check If Angle Or Display Has A Warning Then Close The Popup
+    Wait Progress Bar Closed
+    Click Angle Dropdown To Export Excel
+    ${fileName}    Get Value    ${txtFileName}
+    Should Be Equal    ${fileName}    ROBOT_ANGLE_Pivot_fields_contain_special_characters
+    Click Export Excel Button
+    ${file}    Wait Until Keyword Succeeds    1 min    2 sec    Download should be done    ${DOWNLOAD_DIRECTORY}
+    Should Contain    ${file}    ROBOT_ANGLE_Pivot_fields_contain_special_characters.xlsx

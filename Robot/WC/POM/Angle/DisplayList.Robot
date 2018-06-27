@@ -25,6 +25,7 @@ ${ddlDecimalsList}                  jquery=#FormatDecimalSelect_listbox >li
 ${decimalsDropDown}                 jquery=#FormatDecimalSelect_ddlWrapper > span
 ${twoDecimalsOption}                :nth-child(3)
 ${formatOKButton}                   jquery=#btn-PopupListFormatSetting1
+${txtFieldName}                     jquery=#AliasName
 ${K Unit}                           :nth-child(2)
 ${M Unit}                           :nth-child(3)
 
@@ -81,6 +82,10 @@ Click Create Pivot From Header Column
 Click Format Field From Header Column
     Click Element   ${btnFormatfield}
     Wait Until Element Is visible  ${formatPopup}
+
+Click OK Button On field Format Popup
+    Click Element    ${formatOKButton} 
+    Sleep    ${TIMEOUT_LARGEST}    Wait format field applied
 
 Open Display Units Drop Down
     Click Element   ${displayUnitsDropDown}
@@ -198,3 +203,8 @@ Click Drilldown To Item By Name
     [Arguments]    ${name}
     Click Show Menu In List Display Cell By Name    ${name}
     Click Drildown To Item In Menu
+
+Input Field Name
+    [Arguments]    ${fieldName}
+    Wait Until Element Is Visible    ${txtFieldName}
+    Input Text    ${txtFieldName}    ${fieldName}
