@@ -512,9 +512,11 @@ if %25ERRORLEVEL%25 LEQ 1 exit 0 else exit %25ERRORLEVEL%25</PreBuildEvent>
     <Content Include="Images\Icons\icon_close.svg" />
     <Content Include="Images\Icons\icon_copy_angle.png" />
     <Content Include="Images\Icons\icon_create_angle.svg" />
+    <Content Include="Images\Icons\icon_definition_shortcut.svg" />
     <Content Include="Images\Icons\icon_deny.png" />
     <Content Include="Images\Icons\icon_download_angle.png" />
     <Content Include="Images\Icons\icon_down_white.svg" />
+    <Content Include="Images\Icons\icon_edit_filter.svg" />
     <Content Include="Images\Icons\icon_help.png" />
     <Content Include="Images\Icons\icon_info.svg" />
     <Content Include="Images\Icons\icon_item_dashboard.svg" />

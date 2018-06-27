@@ -9,15 +9,18 @@ ${ddlDashboardActionDropdownListExecuteDashboard}        css=#ActionDropdownList
 ${divWidgetDisplayHeader}               jquery=.widgetDisplayHeader
 ${btnWidgetButtonMenu}                  jquery=.widgetButtonMenu
 ${lnkWidgetOpenNewWindow}               jquery=.widgetButtonOpenNewWindow:visible
-${btnDashboardNote}         css=#YourNote
-${txtDashboardNote}         css=#txtYourNote
-${divWidgets}               jquery=#dashboardWrapper .widgetDisplayColumn
+${btnDashboardNote}          css=#YourNote
+${txtDashboardNote}          css=#txtYourNote
+${divWidgets}                jquery=#dashboardWrapper .widgetDisplayColumn
 
 ${linkMaximizeDashboard}     jquery=.widgetButtonMaximize
 ${linkMinimizeDashboard}     jquery=.widgetButtonMinimize
 ${ddlDashboardPanel}         jquery=#dashboardFilterWrapper
 ${btnOpenDashboardFilter}    .btnOpenFilters
 ${ddlDashboardFilterCount}   .dashboardFilterCount 
+${btnEditFilter}             .btnEditFilter
+${ddlPopupListFilter}        css=#popupListFilter
+${btnCancelEditDashboard}    css=#btn-popupListFilter0
 
 *** Keywords ***
 Wait Dashboard Document Loaded
@@ -33,6 +36,7 @@ Click Edit Dashboard
 
 Click Dashboard Name
     Click Element   ${lnkDashboardName}
+    Wait Dashboard Detail Document Loaded
 
 Open Dashboard Windget Menu
     [Arguments]    ${index}
@@ -83,22 +87,14 @@ Click Execute Dashboard Action
     Wait Until Element Is Visible    ${ddlDashboardActionDropdownListExecuteDashboard}
     Click Element    ${ddlDashboardActionDropdownListExecuteDashboard}
 
-Open Dashboard Detail Popup From Dashboard Name
-    [Arguments]    ${fieldKeyword}
-    Wait Until Element Is Visible    ${txtDashboard} [title="${fieldKeyword}"]
-    Click Element    ${txtDashboard} [title="${fieldKeyword}"]
-    Wait Dashboard Detail Document Loaded
-
-Open Dashboard From First Dashboard in Search Page
-    [Arguments]    ${dashboardName}
-    Click Link First Item From Search Result
-    Sleep    2s
-
 Open Filter From Dashboard Filter Panel
+    Wait Until Element Is Visible    ${ddlDashboardPanel} ${btnOpenDashboardFilter}
     Click Element    ${ddlDashboardPanel} ${btnOpenDashboardFilter}
     Wait Dashboard Detail Document Loaded
 
-Verify Dashboard Filters Count
-    [Arguments]    ${expectFilterCount}
-    ${filterText}    Get Text    ${ddlDashboardPanel} ${ddlDashboardFilterCount}
-    Should Be Equal    ${filterText}    ${expectFilterCount}   
+Click Editing From Dashboard Filter Panel
+    Wait Until Element Is Visible    ${ddlDashboardPanel} ${btnEditFilter}  
+    Click Element    ${ddlDashboardPanel} ${btnEditFilter} 
+
+Cancel Edit Dashboard
+    Click Element    ${btnCancelEditDashboard}

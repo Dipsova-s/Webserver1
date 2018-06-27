@@ -658,14 +658,7 @@ function DashboardHandler() {
         self.ApplyBindingHandler();
     };
     self.ExecuteAllWidgets = function () {
-        errorHandlerModel.Enable(false);
-        var fnCheckIsRendered = setInterval(function () {
-            if (!jQuery('#dashboardWrapper .k-loading-mask').length) {
-                clearInterval(fnCheckIsRendered);
-                errorHandlerModel.Enable(true);
-            }
-        }, 2000);
-        var widgetElement;
+        self.PreExecuteWidgetsHandler();
         jQuery.each(dashboardModel.Data().widget_definitions, function (index, widget) {
             if (widget) {
                 var display = widget.GetDisplay(),
@@ -674,7 +667,7 @@ function DashboardHandler() {
                 if (angle && display) {
                     if (!self.IsEditMode() && self.CheckInvalidAngleAndDisplay(angle, display).Valid && modelsHandler.GetModelByUri(angle.model).available) {
                         if (display) {
-                            widgetElement = jQuery('#' + self.ElementPrefix + widget.id + '-container');
+                            var widgetElement = jQuery('#' + self.ElementPrefix + widget.id + '-container');
                             if (!widgetElement.data('Model')) {
                                 self.CreateWidgetBusyIndicator(widgetElement);
                                 var model = new DashboardResultViewModel('#' + self.ElementPrefix + widget.id, widget, dashboardModel.ExecuteParameters);
@@ -688,6 +681,7 @@ function DashboardHandler() {
         });
     };
     self.ReloadAllWidgets = function () {
+        self.PreExecuteWidgetsHandler();
         jQuery('#dashboardWrapper .widgetDisplayColumn').each(function (index, widgetElement) {
             widgetElement = jQuery(widgetElement);
             var model = widgetElement.data('ResultModel');
@@ -696,6 +690,15 @@ function DashboardHandler() {
                 model.Execute();
             }
         });
+    };
+    self.PreExecuteWidgetsHandler = function () {
+        errorHandlerModel.Enable(false);
+        var fnCheckIsRendered = setInterval(function () {
+            if (!jQuery('#dashboardWrapper .k-loading-mask').length) {
+                clearInterval(fnCheckIsRendered);
+                errorHandlerModel.Enable(true);
+            }
+        }, 2000);
     };
     self.CreateWidgetBusyIndicator = function (widgetElement) {
         widgetElement.busyIndicator(true);

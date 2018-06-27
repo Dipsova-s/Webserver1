@@ -16,7 +16,7 @@
         self.AfterTogglePanel();
     });
     self.HasChanged = ko.observable(false);
-    self.FilterNodes = [];
+    self.FilterNodes = ko.observableArray([]);
 
     // external functions
     self.AfterTogglePanel = jQuery.noop;
@@ -31,6 +31,9 @@
             _self.Element.html(_self.GetView());
             ko.applyBindings(self, _self.Element.get(0));
         }
+
+        // force update view after save changed
+        self.FilterNodes.valueHasMutated();
     };
     self.SetDashboardModel = function (model) {
         // set DashboardModel
@@ -157,7 +160,7 @@
     _self.GetDashboardFilters = function () {
         // convert from treeview to listview
         var filters = _self.Model.GetDashboardFilters();
-        jQuery.each(self.FilterNodes, function (indexNode, filterNode) {
+        jQuery.each(self.FilterNodes(), function (indexNode, filterNode) {
             jQuery.each(filterNode.filters, function (index, filter) {
                 filters[filter.index].operator = filter.operator();
                 filters[filter.index].arguments = filter.arguments();
@@ -175,9 +178,9 @@
         //        ]
         //    }
         // ]
-        self.FilterNodes = [];
+        self.FilterNodes([]);
         jQuery.each(filters, function (index, filter) {
-            var filterNode = self.FilterNodes.findObject('field', filter.field);
+            var filterNode = self.FilterNodes().findObject('field', filter.field);
             if (!filterNode) {
                 // create new if it's not exists
                 filterNode = {
@@ -185,7 +188,7 @@
                     collapsed: ko.observable(_self.DefaultCollapsedState),
                     filters: []
                 };
-                self.FilterNodes.push(filterNode);
+                self.FilterNodes().push(filterNode);
             }
 
             // add to filters node

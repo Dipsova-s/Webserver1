@@ -88,12 +88,15 @@ Set Dashboard to Publish
     Click Confirm Publish Dashboard
     Wait Until Ajax Complete
 
-Select Field From FieldandFilter Tab
+Select Field From Fields Tab
     [Arguments]   ${fieldKeyword}    ${fieldId}
     Add Field By Search From Field Chooser    ${fieldKeyword}    ${fieldId}
 
 Verify Dashboard Filter Still Showing
     [Arguments]   ${index}    ${expectFilterText}
+    Click Add Filter From Field    ${index}
     ${filterText}    Get Text    css=#FilterHeader-${index} .filterText  
     Should Be Equal    ${filterText}    ${expectFilterText}   
-    Cancel Dashboard
+
+
+ 

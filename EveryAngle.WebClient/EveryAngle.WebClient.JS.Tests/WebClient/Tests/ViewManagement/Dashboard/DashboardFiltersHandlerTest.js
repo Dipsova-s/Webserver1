@@ -50,7 +50,7 @@ describe("DashboardFiltersHandler", function () {
         it("should appends dashboard filters to filters node", function () {
             utils.createMockDashboardFilters();
 
-            expect(dashboardFiltersHandler.FilterNodes.length).toEqual(1);
+            expect(dashboardFiltersHandler.FilterNodes().length).toEqual(1);
         });
     });
 
@@ -78,7 +78,7 @@ describe("DashboardFiltersHandler", function () {
     describe("call ToggleFilterHeader", function () {
         it("should be false if collapsed is true", function () {
             utils.createMockDashboardFilters();
-            var filterNode = dashboardFiltersHandler.FilterNodes[0];
+            var filterNode = dashboardFiltersHandler.FilterNodes()[0];
             dashboardFiltersHandler.ToggleFilterHeader(filterNode);
 
             expect(filterNode.collapsed()).toBe(true);
@@ -106,7 +106,7 @@ describe("DashboardFiltersHandler", function () {
     describe("call GetFilterHeader", function () {
         it("verify filter header value", function () {
             utils.createMockDashboardFilters();
-            var filterNode = dashboardFiltersHandler.FilterNodes[0];
+            var filterNode = dashboardFiltersHandler.FilterNodes()[0];
             var result = dashboardFiltersHandler.GetFilterHeader(filterNode);
 
             expect(result).toEqual('ExecutionStatus');
@@ -116,7 +116,7 @@ describe("DashboardFiltersHandler", function () {
     describe("call GetFilterText", function () {
         it("verify filter text value", function () {
             utils.createMockDashboardFilters();
-            var filterItem = dashboardFiltersHandler.FilterNodes[0].filters[0];
+            var filterItem = dashboardFiltersHandler.FilterNodes()[0].filters[0];
             var result = dashboardFiltersHandler.GetFilterText(filterItem);
 
             expect(result).toEqual('is in list (es0ToBeExecuted)');
@@ -126,7 +126,7 @@ describe("DashboardFiltersHandler", function () {
     describe("call ShowEditFilterPopup", function () {
         it("should call quick filter popup function", function () {
             utils.createMockDashboardFilters();
-            var filter = dashboardFiltersHandler.FilterNodes[0].filters[0];
+            var filter = dashboardFiltersHandler.FilterNodes()[0].filters[0];
             spyOn(quickFilterHandler, 'ShowAddDashboardFilterPopup').and.callFake(jQuery.noop);
             dashboardFiltersHandler.ShowEditFilterPopup(filter, 'testid');
 
@@ -138,7 +138,7 @@ describe("DashboardFiltersHandler", function () {
         var mockFilter;
         beforeEach(function () {
             utils.createMockDashboardFilters();
-            mockFilter = dashboardFiltersHandler.FilterNodes[0].filters[0];
+            mockFilter = dashboardFiltersHandler.FilterNodes()[0].filters[0];
             var mockUpdateFilter = { operator: 'test', arguments: [{ argument_type: 'value', value: 'test' }] };
             dashboardFiltersHandler.HasChanged(false);
             dashboardFiltersHandler.ApplyFilter(mockFilter, mockUpdateFilter);

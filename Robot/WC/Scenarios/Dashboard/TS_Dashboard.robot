@@ -110,9 +110,78 @@ Back To Search And Delete Dashboard Are Created
     Search By Text    ${dashboardName}
     Element Should Not Contain    ${gridSearchResult}    ${dashboardName}
 
-Search Dashboard From Search Page And Open It 
-    [Arguments]    ${fieldKeyword}
-    Search By Text    ${fieldKeyword}  
-    Click Select First Item From Search Result
-    Open Dashboard From First Dashboard in Search Page    ${fieldKeyword}  
+Verify Dashboard Filters Count
+    [Arguments]    ${expectFilterCount}
+    ${filterText}    Get Text    ${ddlDashboardPanel} ${ddlDashboardFilterCount}
+    Should Be Equal    ${filterText}    ${expectFilterCount}  
 
+Create Dashboard From Specific Angle Name
+    [Arguments]    ${angleName}    ${dashboardName}
+    Login To WC By Admin User
+    Search By Text    ${angleName} 
+    Click Select First Item From Search Result
+    Click Search Action Execute As Dashboard
+    Input Dashboard Name    ${dashboardName#1} 
+    Save Dashboard
+
+Add Dashboard Filter From Dashboard Name 
+    Click Dashboard Name
+    Click Dashboard Detail Filters Tab
+    Click Add Filter Button In Dashboard Detail Popup
+    Select Field From Fields Tab    "plant"    Plant
+    Choose Dropdown Filter Operator In Fields Tab    0    is equal to
+    Input Filter Value     1000 (werk Hamburg)
+    Choose Value In Dropdown List
+    Save Dashboard
+
+Verify Dashboard Filter Showing 
+    [Arguments]    ${dashboardName}
+    Back To Search
+    Search Dashboard From Search Page And Open It    ${dashboardName} 
+    Click Dashboard Name
+    Click Dashboard Detail Filters Tab  
+    Verify Dashboard Filter Still Showing    0    is equal to 1000 (Werk Hamburg) 
+    Cancel Dashboard
+
+Verify Editing Dashboard Filter
+    Click Editing From Dashboard Filter Panel
+    Verify Editing Filter Popup    0    (Self) - Plant is equal to 1000 (Werk Hamburg)
+    Cancel Edit Dashboard  
+
+Create Dashboard From Many Angles
+    [Arguments]    ${angleKeyword}    ${dashboardName}
+    Login To WC By Admin User
+    Search By Text    ${angleKeyword} 
+    Click Search Action Select All
+    Click Search Action Execute As Dashboard
+    Input Dashboard Name    ${dashboardName} 
+    Save Dashboard
+
+Add Dashboard Filter From Dashboard Filter Panel
+    Open Filter From Dashboard Filter Panel
+    Click Add Filter Button In Dashboard Detail Popup
+    Select Field From Fields Tab    "Address"    ADRNR
+    Input Filter Input Text In List    0    Stress
+    Click Add Filter Button In Dashboard Detail Popup
+    Select Field Source(Self)
+    Select Field From Fields Tab    "Created on"    ERSDA
+    Input Date Value    1_0    May/24/2016
+    Click Add Filter From Field    2
+    Choose Dropdown Filter Operator In Fields Tab    2    is before
+    Input Date Value    2_0    March/24/2016    
+    Click Add Filter Button In Dashboard Detail Popup
+    Select Field From Fields Tab    "Plant"    Plant
+    Select Checkbox Value List     2
+    Select Checkbox Value List     3
+    Save Dashboard 
+
+Verify Remove Field In Fields Tab
+    Open Filter From Dashboard Filter Panel
+    Remove Field In Fields Tab    0
+    Save Dashboard 
+
+Verify Editing Filter Popup
+    [Arguments]    ${index}    ${expectFilterText} 
+    Wait Until Element Exist And Visible    ${ddlPopupListFilter}
+    ${filterText}    Get Text    css=#FilterHeader-${index} .filterText  
+    Should Be Equal    ${filterText}    ${expectFilterText}  

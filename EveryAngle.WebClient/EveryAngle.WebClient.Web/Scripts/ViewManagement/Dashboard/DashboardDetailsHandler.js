@@ -535,6 +535,9 @@ function DashboardDetailsHandler() {
             }
         });
 
+        // don't compare layout object, because it's not equal default layout object anymore after dashboard filter panel has release
+        delete data.layout;
+
         if (!jQuery.isEmptyObject(data)) {
             popup.Alert(Localization.Warning_Title, Localization.MessageSaveRequiredPublishDashboard);
             return false;
@@ -783,7 +786,7 @@ function DashboardDetailsHandler() {
     self.InitializeLabels = function () {
         self.HandlerLabels = new WidgetLabelsHandler('#PublishTabWrapper', self.Model.Data().assigned_labels, businessProcessesModel.General);
         self.HandlerLabels.Captions.TabPrivilegeName(Localization.DashboardDetailPublishTabDashboardPrivileges);
-        if (!dashboardModel.CanUpdateDashboard('assigned_labels')) {
+        if (!dashboardModel.CanUpdateDashboard(EA_CONSTANTS.dashboard.assignedLabels)) {
             self.HandlerLabels.TabEnabledIndexes.removeAll();
         }
         self.HandlerLabels.OnLabelChanged = function (currentLabels) {
@@ -1180,6 +1183,11 @@ function DashboardDetailsHandler() {
             is_published: true
         };
 
+        var newLayout = self.Model.GetData().layout;
+        var oldLayout = dashboardModel.GetData().layout;
+        if (newLayout !== oldLayout)
+            dashboardData.layout = newLayout;
+
         jQuery.when(dashboardModel.SaveDashboard(dashboardData))
             .done(function (data) {
                 self.Model.SetData(data);
@@ -1253,16 +1261,14 @@ function DashboardDetailsHandler() {
             progressbarModel.SetDisableProgressBar();
         };
 
-        if (isQuickSave) {
-            if (!data.model) {
-                var models = modelsHandler.GetAvailabelModels();
-                if (models.length) {
-                    data.model = models[0].uri;
-                }
-                else {
-                    popup.Alert(Localization.Warning_Title, Localization.Info_NoAvailableModel);
-                    return;
-                }
+        if (isQuickSave && !data.model) {
+            var models = modelsHandler.GetAvailabelModels();
+            if (models.length) {
+                data.model = models[0].uri;
+            }
+            else {
+                popup.Alert(Localization.Warning_Title, Localization.Info_NoAvailableModel);
+                return;
             }
         }
 
@@ -1341,6 +1347,8 @@ function DashboardDetailsHandler() {
                     }
                 });
 
+                var isFiltersChanged = data.filters !== undefined;
+
                 var saveDashboard = function () {
                     showSaveProgressbar();
 
@@ -1392,6 +1400,8 @@ function DashboardDetailsHandler() {
                             else {
                                 self.Model.SetData(response);
                                 dashboardHandler.ApplyBindingHandler();
+                                if (isFiltersChanged)
+                                    dashboardHandler.ReloadAllWidgets();
                             }
 
                             if (dashboardModel.Data().is_validated())

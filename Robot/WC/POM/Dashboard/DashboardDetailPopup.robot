@@ -15,7 +15,7 @@ ${tabDashboardDescription}    css=#DashboardTabs .description
 ${tabDashboardDefinition}    css=#DashboardTabs .definition
 ${tabDashboardPublishing}    css=#DashboardTabs .publishing
 ${tabDashboardStatistic}    css=#DashboardTabs .statistic
-${tabDashboardFieldandFilter}    css=#DashboardTabs .fieldsfilters
+${tabDashboardFields}    css=#DashboardTabs .fieldsfilters
 
 #General tab elements
 ${txtDashboardId}           AngleId
@@ -46,7 +46,6 @@ ${ddlValueList}                 jquery=#InputValue-0_listbox li[data-offset-inde
 ${ddSelectValueDropdownList}    css=#FilterDetail-0-PlaceHolder  .k-input
 ${ddlDateField}                 css=#InputValue-
 ${ddlAddFieldFilter}            jquery=#FieldsFiltersWrapper .FilterHeader
-${btnAddFilterToField}          jquery=#FieldsFiltersWrapper .FilterHeader:eq(2) .btnAddFilter
 ${chkValueInFilter}             jquery=#FilterDetail-3-PlaceHolder
 
 
@@ -113,15 +112,15 @@ Click Confirm Publish Dashboard
     Wait Until Element Is Visible    ${btnConfirmPublishDashboard}
     Click Element    ${btnConfirmPublishDashboard}
 
-Click Dashboard Detail FieldandFilter Tab
-    Wait Until Element Is Visible    ${tabDashboardFieldandFilter}
-    Click Element    ${tabDashboardFieldandFilter}
+Click Dashboard Detail Filters Tab
+    Wait Until Element Is Visible    ${tabDashboardFields}
+    Click Element    ${tabDashboardFields}
 
 Click Add Filter Button In Dashboard Detail Popup
     Wait Until Element Is Visible    ${btnAddDashboardFilter}
     Click Element    ${btnAddDashboardFilter}
 
-Choose Dropdown Filter Operator In FieldandFilter Tab
+Choose Dropdown Filter Operator In Fields Tab
     [Arguments]    ${index}    ${selectText}    
     Choose Dropdown Filter Operator    ${index}    ${selectText}
 
@@ -140,9 +139,18 @@ Input Date Value
 Click Add Filter From Field
     [Arguments]    ${index}
     Mouse Over    ${ddlAddFieldFilter}:eq(${index})
-    Click Element    ${btnAddFilterToField}
+    Click Element    ${ddlAddFieldFilter}:eq(${index}) .btnAddFilter
 
 Select Checkbox Value List
     [Arguments]    ${index}
     Select Checkbox    ${chkValueInFilter} input:eq(${index})        
 
+Remove Field In Fields Tab
+    [Arguments]    ${index}
+    Mouse Over    ${ddlAddFieldFilter}:eq(${index})
+    Click Element    ${ddlAddFieldFilter}:eq(${index}) .btnDelete
+
+
+
+
+    
