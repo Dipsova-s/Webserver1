@@ -1077,12 +1077,15 @@ function DashboardHandler() {
                     self.CreateDropArea(jQuery(e.currentTarget).parents('.widgetDisplayColumn:first'));
                 },
                 drag: function (e) {
-                    var hint = jQuery(e.currentTarget).parents('.widgetDisplayColumn:first').data('kendoDraggable').hint;
-                    if (hint.offset().left < WC.Window.Width - hint.width() - 50) hint.removeClass('revertHorizontal');
-                    if (hint.offset().top < WC.Window.Height - hint.height() - 25) hint.removeClass('revertVertical');
+                    var draggable = jQuery(e.currentTarget).parents('.widgetDisplayColumn:first').data('kendoDraggable');
+                    if (draggable && draggable.hint) {
+                        var hint = draggable.hint;
+                        if (hint.offset().left < WC.Window.Width - hint.width() - 50) hint.removeClass('revertHorizontal');
+                        if (hint.offset().top < WC.Window.Height - hint.height() - 25) hint.removeClass('revertVertical');
 
-                    if (hint.offset().left + hint.width() > WC.Window.Width - 50) hint.addClass('revertHorizontal');
-                    if (hint.offset().top + hint.height() > WC.Window.Height - 25) hint.addClass('revertVertical');
+                        if (hint.offset().left + hint.width() > WC.Window.Width - 50) hint.addClass('revertHorizontal');
+                        if (hint.offset().top + hint.height() > WC.Window.Height - 25) hint.addClass('revertVertical');
+                    }
                 },
                 dragend: self.ClearDropArea
             });
@@ -1105,10 +1108,12 @@ function DashboardHandler() {
             // create droppable in row
             row = jQuery(row);
             var topOffset = row.offset().top;
+            var leftOffset = row.offset().left - 10;
+
             if (canAddNewRowNearby || (!canAddNewRowNearby && (rowIndex < currentRowIndex || rowIndex > currentRowIndex + 1))) {
                 jQuery('<div class="droppable dropToRow" />')
                     .css({
-                        left: 0,
+                        left: leftOffset,
                         top: rowIndex === 0 ? 0 : topOffset - (dropAreaSize / 2),
                         height: rowIndex === 0 ? Math.max(topOffset, dropAreaSize) : dropAreaSize
                     })
@@ -1123,7 +1128,7 @@ function DashboardHandler() {
                 var bottomOffset = topOffset + row.height() - dropAreaSize;
                 jQuery('<div class="droppable dropToRow" />')
                     .css({
-                        left: 0,
+                        left: leftOffset,
                         top: bottomOffset,
                         height: Math.max(WC.Window.Height - bottomOffset, dropAreaSize)
                     })
@@ -1720,9 +1725,7 @@ function DashboardHandler() {
         };
     };
 
-    /*
-    *  Dashboard Filter functionality
-    */ 
+    // Dashboard Filter functionality
     self.LoadAllFilterFieldsMetadata = function () {
         var dashboardModelData = dashboardModel.Data();
         if (dashboardModelData.model) {
@@ -1734,9 +1737,7 @@ function DashboardHandler() {
         }
         return jQuery.when();
     };
-    /*
-    *  Dashboard Filter functionality
-    */
+    // Dashboard Filter functionality
 
     /*EOF: Model Methods*/
 

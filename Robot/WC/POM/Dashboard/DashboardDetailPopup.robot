@@ -15,7 +15,7 @@ ${tabDashboardDescription}    css=#DashboardTabs .description
 ${tabDashboardDefinition}    css=#DashboardTabs .definition
 ${tabDashboardPublishing}    css=#DashboardTabs .publishing
 ${tabDashboardStatistic}    css=#DashboardTabs .statistic
-${tabDashboardFields}    css=#DashboardTabs .fieldsfilters
+${tabDashboardFilters}    css=#DashboardTabs .fieldsfilters
 
 #General tab elements
 ${txtDashboardId}           AngleId
@@ -39,13 +39,12 @@ ${btnConfirmPublishDashboard}    btn-popupDashboardPublishing1
 ${tabDashboardPrivilege}    jquery=#PublishTabWrapper .tabMenu li:eq(0)
 ${tabDashboardSearchLabel}    jquery=#PublishTabWrapper .tabMenu li:eq(1)
 
-#Fields and Filters
-${txtDashboard}                 css=#DashboardName
+#Filters Tab
 ${btnAddDashboardFilter}        css=#DashboardAddfilter
 ${ddlValueList}                 jquery=#InputValue-0_listbox li[data-offset-index=0]
 ${ddSelectValueDropdownList}    css=#FilterDetail-0-PlaceHolder  .k-input
-${ddlDateField}                 css=#InputValue-
-${ddlAddFieldFilter}            jquery=#FieldsFiltersWrapper .FilterHeader
+${spanDateField}                css=#InputValue-
+${divAddFieldFilter}            jquery=#FieldsFiltersWrapper .FilterHeader
 ${chkValueInFilter}             jquery=#FilterDetail-3-PlaceHolder
 
 
@@ -113,14 +112,14 @@ Click Confirm Publish Dashboard
     Click Element    ${btnConfirmPublishDashboard}
 
 Click Dashboard Detail Filters Tab
-    Wait Until Element Is Visible    ${tabDashboardFields}
-    Click Element    ${tabDashboardFields}
+    Wait Until Element Is Visible    ${tabDashboardFilters}
+    Click Element    ${tabDashboardFilters}
 
 Click Add Filter Button In Dashboard Detail Popup
     Wait Until Element Is Visible    ${btnAddDashboardFilter}
     Click Element    ${btnAddDashboardFilter}
 
-Choose Dropdown Filter Operator In Fields Tab
+Choose Dropdown Filter Operator In FilterField In Filters tab
     [Arguments]    ${index}    ${selectText}    
     Choose Dropdown Filter Operator    ${index}    ${selectText}
 
@@ -134,12 +133,12 @@ Input Filter Value
 
 Input Date Value
     [Arguments]    ${index}    ${value} 
-    Input Text    ${ddlDateField}${index}    ${value} 
+    Input Text    ${spanDateField}${index}    ${value} 
 
 Click Add Filter From Field
     [Arguments]    ${index}
-    Mouse Over    ${ddlAddFieldFilter}:eq(${index})
-    Click Element    ${ddlAddFieldFilter}:eq(${index}) .btnAddFilter
+    Mouse Over    ${divAddFieldFilter}:eq(${index})
+    Click Element    ${divAddFieldFilter}:eq(${index}) .btnAddFilter
 
 Select Checkbox Value List
     [Arguments]    ${index}
@@ -147,10 +146,8 @@ Select Checkbox Value List
 
 Remove Field In Fields Tab
     [Arguments]    ${index}
-    Mouse Over    ${ddlAddFieldFilter}:eq(${index})
-    Click Element    ${ddlAddFieldFilter}:eq(${index}) .btnDelete
-
-
+    Mouse Over    ${divAddFieldFilter}:eq(${index})
+    Click Element    ${divAddFieldFilter}:eq(${index}) .btnDelete
 
 
     

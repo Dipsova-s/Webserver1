@@ -197,6 +197,12 @@ function FieldsChooserHandler() {
         fieldsChooserModel.CanDuplicatedField = false;
         fieldsChooserModel.AllowMultipleSelection = false;
         fieldsChooserModel.FacetsHidden = [];
+        fieldsChooserModel.GetCustomQueryUriFunction = function (page) {
+            var request = this.GetQueryFilterDefaultUri(page);
+            var dashboardModelData = dashboardModel.Data();
+            request.url = modelsHandler.GetQueryFieldsUri(null, dashboardModelData, true);
+            return request;
+        };
         fieldsChooserModel.CheckFieldIsExistsFunction = function (fieldId) {
             return handler.GetData().hasObject('field', fieldId, false);
         };

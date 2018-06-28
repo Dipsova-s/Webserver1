@@ -1,10 +1,9 @@
 *** Settings ***
 Resource            ${EXECDIR}/resources/WCSettings.robot
-Suite Setup         Open Browser in Sandbox Mode
+Suite Setup         Go to WC Then Login With EAPower User
 Suite Teardown      Logout WC Then Close Browser
-Test Setup          Go To    ${URL_WC}
-Test Teardown       Logout WC Then Close Browser
-Force Tags        	acceptance    acc_wc
+Test Teardown       Go to Search Page
+Force Tags          acceptance    acc_wc
 
 *** Variables ***
 ${ANGLENAME}                    Plant For Dashboard Filter  

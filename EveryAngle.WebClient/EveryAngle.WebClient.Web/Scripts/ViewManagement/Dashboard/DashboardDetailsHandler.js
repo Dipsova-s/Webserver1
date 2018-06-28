@@ -1389,25 +1389,8 @@ function DashboardDetailsHandler() {
                         .then(function () {
                             return dashboardModel.SaveDashboard(data);
                         })
-                        .done(function (response) {
-                            self.ClosePopup();
-                            progressbarModel.EndProgressBar();
-
-                            if (widgetDerferred.length) {
-                                dashboardHandler.CheckBeforeRender = true;
-                                dashboardHandler.Render();
-                            }
-                            else {
-                                self.Model.SetData(response);
-                                dashboardHandler.ApplyBindingHandler();
-                                if (isFiltersChanged)
-                                    dashboardHandler.ReloadAllWidgets();
-                            }
-
-                            if (dashboardModel.Data().is_validated())
-                                jQuery('.widgetDisplayColumn').find('.widgetButtonDelete').addClass('disabled');
-                            else
-                                jQuery('.widgetDisplayColumn').find('.widgetButtonDelete').removeClass('disabled');
+                        .done(function (dashboardData) {
+                            self.SaveDashboardCallback(dashboardData, widgetDerferred, isFiltersChanged);
                         });
                 };
 
@@ -1427,6 +1410,29 @@ function DashboardDetailsHandler() {
                 }
             }
         }
+    };
+    self.SaveDashboardCallback = function (dashboardData, widgetDerferred, isFiltersChanged) {
+        var deleteWidgetButtonElement = jQuery('.widgetDisplayColumn').find('.widgetButtonDelete');
+        self.ClosePopup();
+        progressbarModel.EndProgressBar();
+
+        if (widgetDerferred.length) {
+            dashboardHandler.CheckBeforeRender = true;
+            dashboardHandler.Render();
+        }
+        else {
+            self.Model.SetData(dashboardData);
+            dashboardHandler.ApplyBindingHandler();
+
+            if (isFiltersChanged) {
+                dashboardHandler.ReloadAllWidgets();
+            }
+        }
+
+        if (dashboardModel.Data().is_validated())
+            deleteWidgetButtonElement.addClass('disabled');
+        else
+            deleteWidgetButtonElement.removeClass('disabled');
     };
     self.GetConfirmMessageBeforeSave = function (isValidatedDashboard, updateData) {
         // M4-33955: save with validated state

@@ -169,7 +169,9 @@ function ChartHandler(elementId, container) {
     };
 
     self.HideLoadingIndicator = function () {
-        jQuery(self.Container).find('.pivotAreaContainer').busyIndicator(false);
+        var container = jQuery(self.Container);
+        container.find('.pivotAreaContainer').busyIndicator(false);
+        container.busyIndicator(false);
         if (!self.DashBoardMode()) {
             fieldSettingsHandler.HideLoadingIndicator();
         }
@@ -514,17 +516,31 @@ function ChartHandler(elementId, container) {
 
         return jQuery.whenAll(deferred, true, false)
             .fail(function (requests) {
-                if (requests[0] instanceof Array)
+                if (requests instanceof Array)
                     requests = requests[0];
-                if (requests[0] instanceof Array)
+                if (requests instanceof Array)
                     requests = requests[0];
 
-                if (self.DashBoardMode())
+                if (self.DashBoardMode()) {
+                    self.RemoveChart();
                     self.Models.Result.RetryPostResult(requests.responseText);
-                else
+                }
+                else {
                     self.Models.Result.SetRetryPostResultToErrorPopup(requests.status);
+                }
             })
             .done(self.GenerateChartDatasource);
+    };
+    self.RemoveChart = function () {
+        var chartElement = jQuery(self.ElementId);
+        var widgetContainer = chartElement.closest('.widgetDisplayColumn');
+        var chartObject = chartElement.data(enumHandlers.KENDOUITYPE.CHART) || chartElement.data(enumHandlers.KENDOUITYPE.RADIALGAUGE);
+        if (chartObject) {
+            chartObject.destroy();
+        }
+        chartElement.detach().appendTo(widgetContainer);
+        widgetContainer.find('.chartWrapper').remove();
+        widgetContainer.find('.navigatorWrapper').remove();
     };
     self.LoadSuccess = function (data) {
         self.Data.fields = data.fields;

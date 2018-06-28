@@ -19,7 +19,7 @@ ${ddlDashboardPanel}         jquery=#dashboardFilterWrapper
 ${btnOpenDashboardFilter}    .btnOpenFilters
 ${ddlDashboardFilterCount}   .dashboardFilterCount 
 ${btnEditFilter}             .btnEditFilter
-${ddlPopupListFilter}        css=#popupListFilter
+${divPopupListFilter}        css=#popupListFilter
 ${btnCancelEditDashboard}    css=#btn-popupListFilter0
 
 *** Keywords ***

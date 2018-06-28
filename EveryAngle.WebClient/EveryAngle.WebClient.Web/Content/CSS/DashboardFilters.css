@@ -5,7 +5,7 @@
     position: relative;
     float: left;
     display: none;
-    width: 410px;
+    width: 250px;
     overflow: hidden;
     font-size: 12px;
 }
@@ -13,7 +13,7 @@
     display: block;
 }
 #dashboardFilterWrapper.active + .mainDisplayWrapper {
-    margin-left: 410px;
+    margin-left: 250px;
 }
 #dashboardFilterWrapper.active.close {
     width: 10px;
@@ -27,7 +27,7 @@
     left: 0;
     top: 0;
     height: 100%;
-    width: 400px;
+    width: 240px;
     background-color: #fff;
     padding: 34px 0 50px 0;
     box-sizing: border-box;

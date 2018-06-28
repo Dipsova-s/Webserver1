@@ -117,19 +117,18 @@ Verify Dashboard Filters Count
 
 Create Dashboard From Specific Angle Name
     [Arguments]    ${angleName}    ${dashboardName}
-    Login To WC By Admin User
     Search By Text    ${angleName} 
     Click Select First Item From Search Result
     Click Search Action Execute As Dashboard
-    Input Dashboard Name    ${dashboardName#1} 
+    Input Dashboard Name    ${dashboardName} 
     Save Dashboard
 
 Add Dashboard Filter From Dashboard Name 
     Click Dashboard Name
     Click Dashboard Detail Filters Tab
     Click Add Filter Button In Dashboard Detail Popup
-    Select Field From Fields Tab    "plant"    Plant
-    Choose Dropdown Filter Operator In Fields Tab    0    is equal to
+    Select Field From Fielters Tab    "plant"    Plant
+    Choose Dropdown Filter Operator In FilterField In Filters tab    0    is equal to
     Input Filter Value     1000 (werk Hamburg)
     Choose Value In Dropdown List
     Save Dashboard
@@ -150,7 +149,6 @@ Verify Editing Dashboard Filter
 
 Create Dashboard From Many Angles
     [Arguments]    ${angleKeyword}    ${dashboardName}
-    Login To WC By Admin User
     Search By Text    ${angleKeyword} 
     Click Search Action Select All
     Click Search Action Execute As Dashboard
@@ -160,17 +158,17 @@ Create Dashboard From Many Angles
 Add Dashboard Filter From Dashboard Filter Panel
     Open Filter From Dashboard Filter Panel
     Click Add Filter Button In Dashboard Detail Popup
-    Select Field From Fields Tab    "Address"    ADRNR
+    Select Field From Fielters Tab    "Address"    ADRNR
     Input Filter Input Text In List    0    Stress
     Click Add Filter Button In Dashboard Detail Popup
     Select Field Source(Self)
-    Select Field From Fields Tab    "Created on"    ERSDA
+    Select Field From Fielters Tab    "Created on"    ERSDA
     Input Date Value    1_0    May/24/2016
     Click Add Filter From Field    2
-    Choose Dropdown Filter Operator In Fields Tab    2    is before
+    Choose Dropdown Filter Operator In FilterField In Filters tab    2    is before
     Input Date Value    2_0    March/24/2016    
     Click Add Filter Button In Dashboard Detail Popup
-    Select Field From Fields Tab    "Plant"    Plant
+    Select Field From Fielters Tab    "Plant"    Plant
     Select Checkbox Value List     2
     Select Checkbox Value List     3
     Save Dashboard 
@@ -182,6 +180,6 @@ Verify Remove Field In Fields Tab
 
 Verify Editing Filter Popup
     [Arguments]    ${index}    ${expectFilterText} 
-    Wait Until Element Exist And Visible    ${ddlPopupListFilter}
+    Wait Until Element Exist And Visible    ${divPopupListFilter}
     ${filterText}    Get Text    css=#FilterHeader-${index} .filterText  
     Should Be Equal    ${filterText}    ${expectFilterText}  

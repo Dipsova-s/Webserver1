@@ -88,7 +88,7 @@ Set Dashboard to Publish
     Click Confirm Publish Dashboard
     Wait Until Ajax Complete
 
-Select Field From Fields Tab
+Select Field From Fielters Tab
     [Arguments]   ${fieldKeyword}    ${fieldId}
     Add Field By Search From Field Chooser    ${fieldKeyword}    ${fieldId}
 

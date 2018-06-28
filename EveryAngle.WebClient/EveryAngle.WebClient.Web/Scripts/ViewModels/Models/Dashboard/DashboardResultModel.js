@@ -94,10 +94,13 @@ function DashboardResultViewModel(elementId, model, executeParameters) {
         return CreateDataToWebService(directoryHandler.ResolveDirectoryUri(self.Data().execute_steps) + '?redirect=no', query);
     };
     self.RetryPostResult = function (msg) {
-        jQuery(self.ElementId).parent().busyIndicator(false);
+        var displayElement = jQuery(self.ElementId);
+        var widgetElement = displayElement.closest('.widgetDisplayColumn');
+        widgetElement.busyIndicator(false);
+        displayElement.empty();
         var message = errorHandlerModel.GetAreaErrorMessage(msg);
         errorHandlerModel.ShowAreaError(self.ElementId, message, function () {
-            jQuery(self.ElementId).parent().busyIndicator(true);
+            widgetElement.busyIndicator(true);
             self.Execute();
         });
     };
