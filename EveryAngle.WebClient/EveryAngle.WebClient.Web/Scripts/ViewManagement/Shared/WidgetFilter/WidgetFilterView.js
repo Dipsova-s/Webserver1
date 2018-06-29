@@ -257,6 +257,7 @@
             ko.applyBindings(self.Handler, self.Handler.Element.find('.definitionList').get(0));
 
             if (self.Handler.VIEWMODE.TREEVIEW === self.Handler.ViewMode()) {
+                self.Handler.Data.valueHasMutated();
                 self.Handler.Element.find('.filterItem').addClass('Hide');
             }
 

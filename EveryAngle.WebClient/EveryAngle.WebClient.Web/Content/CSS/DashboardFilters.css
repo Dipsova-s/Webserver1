@@ -79,8 +79,8 @@
     box-sizing: border-box;
 }
 .dashboardFilterTitle {
-    font-size: inherit;
-    font-weight: bold;
+    font-size: 14px;
+    font-weight: normal;
     line-height: 34px;
     margin: 0;
     padding: 0;
@@ -108,7 +108,7 @@
     border-left: 2px solid #236e97;
 }
 .dashboardFilterHeaderTitle {
-    font-weight: bold;
+    font-weight: normal;
     line-height: 30px;
 }
 
