@@ -275,6 +275,12 @@
     z-index: 10;
 }
 
+.treeview .FilterHeader .btnInfo,
+.treeview .FilterHeader .btnAddFilter,
+.treeview .FilterHeader .btnDelete {
+    display: block;
+}
+
 .FilterHeader > .btnInfo {
     background-size: 100%;
     right: 60px;
@@ -282,6 +288,7 @@
 
 .treeViewHeader > .btnInfo {
     right: 90px;
+    margin: 0;
 }
 
 .no-backgroundsize .FilterHeader .btnInfo {

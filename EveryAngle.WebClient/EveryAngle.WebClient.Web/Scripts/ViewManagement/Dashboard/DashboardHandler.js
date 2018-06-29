@@ -1108,7 +1108,9 @@ function DashboardHandler() {
             // create droppable in row
             row = jQuery(row);
             var topOffset = row.offset().top;
-            var leftOffset = row.offset().left - 10;
+            var leftOffset = row.offset().left;
+            if (!dashboardModel.IsTemporaryDashboard())
+                leftOffset -= 10;
 
             if (canAddNewRowNearby || (!canAddNewRowNearby && (rowIndex < currentRowIndex || rowIndex > currentRowIndex + 1))) {
                 jQuery('<div class="droppable dropToRow" />')
