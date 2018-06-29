@@ -5,7 +5,7 @@
     position: relative;
     float: left;
     display: none;
-    width: 250px;
+    width: 300px;
     overflow: hidden;
     font-size: 12px;
 }
@@ -13,7 +13,7 @@
     display: block;
 }
 #dashboardFilterWrapper.active + .mainDisplayWrapper {
-    margin-left: 250px;
+    margin-left: 300px;
 }
 #dashboardFilterWrapper.active.close {
     width: 10px;
@@ -27,7 +27,7 @@
     left: 0;
     top: 0;
     height: 100%;
-    width: 240px;
+    width: 290px;
     background-color: #fff;
     padding: 34px 0 50px 0;
     box-sizing: border-box;
@@ -105,7 +105,7 @@
     padding: 0 5px 0 10px;
 }
 .expanded > .dashboardFilterItemHeader {
-    border-left: 2px solid #236e97;
+    border-left: 4px solid #236e97;
 }
 .dashboardFilterHeaderTitle {
     font-weight: normal;
@@ -161,13 +161,14 @@
     top: 0;
     height: 100%;
     width: 10px;
-    background: #d1d1d1 url(../../images/icons/icon_arrow_black_left_black.png) -2px center no-repeat;
+    background: #cecece url(../../images/icons/icon_arrow_black_left_black.png) -2px center no-repeat;
     z-index: 2;
+    transition: all .3s cubic-bezier(.25,.8,.25,1);
 }
 .close .dashboardFilterToggle {
     background-image: url(../../images/icons/icon_arrow_right_black.png);
     background-position: -4px center;
 }
 .dashboardFilterToggle:hover {
-    background-color: #777;
+    background-color: #b7b7b7;
 }
