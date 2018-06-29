@@ -45,6 +45,7 @@
     height: 100%;
     border-top-width: 0;
     border-bottom-width: 0;
+    border-color: #b7b7b7;
 }
 
 #dashboardWrapper .widgetDisplayColumn {
@@ -75,7 +76,6 @@
     overflow: hidden;
     white-space: nowrap;
     color: #fff;
-    text-shadow: 1px 1px 1px #555;
     font-size: 14px;
     opacity: .9;
 }
