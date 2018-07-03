@@ -151,6 +151,23 @@ function DashboardWidgetViewModel(model) {
         return self.name() || self.GetDefaultWidgetName();
     };
 
+    // GetQuerySteps: get all query steps from widget display if not found then return null
+    self.GetQuerySteps = function () {
+        var widgetQueryBlock = self.GetQueryDefinitions();
+        var widgetQuerySteps = widgetQueryBlock.findObject('queryblock_type', enumHandlers.QUERYBLOCKTYPE.QUERY_STEPS);
+        return widgetQuerySteps;
+    };
+
+    // GetAggregationQuerySteps: get aggregation query step from current widget display if not found then return null
+    self.GetAggregationQueryStep = function () {
+        var aggregationQueryStep = null;
+        var widgetQuerySteps = self.GetQuerySteps();
+        if (widgetQuerySteps) {
+            aggregationQueryStep = widgetQuerySteps.query_steps.findObject('step_type', enumHandlers.FILTERTYPE.AGGREGATION);
+        }
+        return aggregationQueryStep;
+    };
+
     //EOF: View modle methods
 
     // constructure action

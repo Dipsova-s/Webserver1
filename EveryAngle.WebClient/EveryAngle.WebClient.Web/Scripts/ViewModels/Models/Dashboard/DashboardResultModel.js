@@ -1,4 +1,4 @@
-function DashboardResultViewModel(elementId, model, executeParameters) {
+function DashboardResultViewModel(elementId, model, dashboardViewModel, executeParameters) {
     "use strict";
 
     var self = this;
@@ -11,6 +11,7 @@ function DashboardResultViewModel(elementId, model, executeParameters) {
     self.Display = model.GetDisplay();
     self.AngleModel = new AngleInfoViewModel(self.Angle);
     self.DisplayModel = new DisplayModel(self.Display);
+    self.DashboardModel = dashboardViewModel;
     self.ExecuteParameters = WC.Utility.ToArray(executeParameters);
     //EOF: View model properties
 
@@ -19,34 +20,7 @@ function DashboardResultViewModel(elementId, model, executeParameters) {
     };
     self.PostResult = function () {
         var uri = directoryHandler.GetDirectoryUri(enumHandlers.ENTRIESNAME.RESULTS) + '?redirect=no';
-        var data = {
-            query_definition: [
-                {
-                    queryblock_type: enumHandlers.QUERYBLOCKTYPE.BASE_ANGLE,
-                    base_angle: self.WidgetModel.angle
-                },
-                {
-                    queryblock_type: enumHandlers.QUERYBLOCKTYPE.BASE_DISPLAY,
-                    base_display: self.WidgetModel.display
-                }
-            ]
-        };
-
-        // execute parameters
-        var executeParameters = self.GetPostExecuteParameters(self.ExecuteParameters, self.Angle.query_definition, self.Display.query_blocks);
-        if (executeParameters.angle.length)
-            data.query_definition[0].execution_parameters = executeParameters.angle;
-        if (executeParameters.display.length)
-            data.query_definition[1].execution_parameters = executeParameters.display;
-
-        // dashboard filters
-        var dashboardQueryBlock = dashboardDetailsHandler.Model.GetDashboardFiltersQueryBlock();
-        if (dashboardQueryBlock)
-            data.query_definition.push(dashboardQueryBlock);
-
-        // set executing dashboard
-        if (!dashboardModel.IsTemporaryDashboard())
-            data.dashboard = dashboardModel.Data().uri;
+        var data = self.CreatePostData();
 
         return CreateDataToWebService(directoryHandler.ResolveDirectoryUri(uri), data)
             .fail(self.ApplyResultFail)
@@ -55,6 +29,45 @@ function DashboardResultViewModel(elementId, model, executeParameters) {
                 self.Data(response);
                 self.GetResult(response.uri);
             });
+    };
+    self.CreatePostData = function () {
+        var postData = { query_definition: [] };
+        var executeParameters = self.GetPostExecuteParameters(self.ExecuteParameters, self.Angle.query_definition, self.Display.query_blocks);
+        var dashboardQueryBlock = self.DashboardModel.GetDashboardFiltersQueryBlock();
+
+        postData.query_definition.push({
+            queryblock_type: enumHandlers.QUERYBLOCKTYPE.BASE_ANGLE,
+            base_angle: self.WidgetModel.angle
+        });
+        if (executeParameters.angle.length)
+            postData.query_definition[0].execution_parameters = executeParameters.angle;
+
+        // [DANGER AREA]: pivot or chart widget will got the error when try to include base display with dashboard query steps
+        if (dashboardQueryBlock && self.Display.contained_aggregation_steps) {
+            var widgetQuerySteps = ko.toJS(self.WidgetModel.GetQuerySteps());
+            var aggregationStep = self.WidgetModel.GetAggregationQueryStep();
+            widgetQuerySteps.query_steps.removeObject('step_type', enumHandlers.FILTERTYPE.AGGREGATION);
+
+            var newQuerySteps = jQuery.merge(widgetQuerySteps.query_steps, dashboardQueryBlock.query_steps);
+            newQuerySteps.push(aggregationStep);
+            dashboardQueryBlock.query_steps = newQuerySteps;
+        }
+        else {
+            postData.query_definition.push({
+                queryblock_type: enumHandlers.QUERYBLOCKTYPE.BASE_DISPLAY,
+                base_display: self.WidgetModel.display
+            });
+            if (executeParameters.display.length)
+                postData.query_definition[1].execution_parameters = executeParameters.display;
+        }
+
+        if (dashboardQueryBlock)
+            postData.query_definition.push(dashboardQueryBlock);
+
+        if (!self.DashboardModel.IsTemporaryDashboard())
+            postData.dashboard = self.DashboardModel.Data().uri;
+
+        return postData;
     };
     self.GetPostExecuteParameters = function (executeParameters, angleQueryBlocks, displayQueryBlocks) {
         var data = {

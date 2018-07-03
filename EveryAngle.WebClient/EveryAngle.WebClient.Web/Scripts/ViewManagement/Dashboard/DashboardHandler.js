@@ -670,7 +670,7 @@ function DashboardHandler() {
                             var widgetElement = jQuery('#' + self.ElementPrefix + widget.id + '-container');
                             if (!widgetElement.data('Model')) {
                                 self.CreateWidgetBusyIndicator(widgetElement);
-                                var model = new DashboardResultViewModel('#' + self.ElementPrefix + widget.id, widget, dashboardModel.ExecuteParameters);
+                                var model = new DashboardResultViewModel('#' + self.ElementPrefix + widget.id, widget, dashboardDetailsHandler.Model, dashboardModel.ExecuteParameters);
                                 widgetElement.data('ResultModel', model);
                                 model.Execute();
                             }
