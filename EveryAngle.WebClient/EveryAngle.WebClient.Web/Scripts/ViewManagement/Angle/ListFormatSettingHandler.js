@@ -132,7 +132,7 @@ function ListFormatSettingHandler() {
             userSettingsHandler.RenderFormatSettingDropdownlist('format', self.FormatList(), displayFormat.format, "Text", "Value");
         }
 
-    
+
         var source = modelFieldSourceHandler.GetFieldSourceByUri(field.source);
         var sourceName = source ? userFriendlyNameHandler.GetFriendlyName(source, enumHandlers.FRIENDLYNAMEMODE.SHORTNAME) : '';
 
@@ -151,7 +151,7 @@ function ListFormatSettingHandler() {
                 }
             });;
 
-   
+
         if (WC.FormatHelper.IsSupportThousandSeparator(fieldType)) {
             var thousandseparator = (fieldDetails && typeof fieldDetails.thousandseparator === 'boolean') ? fieldDetails.thousandseparator : null;
             self.ThousandSeparator(thousandseparator);
@@ -191,16 +191,16 @@ function ListFormatSettingHandler() {
         else if (fieldType === enumHandlers.FIELDTYPE.PERIOD)
             results = enumHandlers.LISTFORMATPERIOD;
         else if (jQuery.inArray(fieldType, [
-                enumHandlers.FIELDTYPE.DOUBLE,
-                enumHandlers.FIELDTYPE.CURRENCY,
-                enumHandlers.FIELDTYPE.NUMBER
-            ]) !== -1)
+            enumHandlers.FIELDTYPE.DOUBLE,
+            enumHandlers.FIELDTYPE.CURRENCY,
+            enumHandlers.FIELDTYPE.NUMBER
+        ]) !== -1)
             results = enumHandlers.LISTFORMATNUMBER;
         else if (jQuery.inArray(fieldType, [
-                enumHandlers.FIELDTYPE.DATETIME,
-                enumHandlers.FIELDTYPE.TIME,
-                enumHandlers.FIELDTYPE.TIMESPAN
-            ]) !== -1)
+            enumHandlers.FIELDTYPE.DATETIME,
+            enumHandlers.FIELDTYPE.TIME,
+            enumHandlers.FIELDTYPE.TIMESPAN
+        ]) !== -1)
             results = enumHandlers.TIMESECONDSFORMATLIST;
 
         return self.AddUseDefaulToFormatList(fieldType, results.slice());
@@ -290,7 +290,7 @@ function ListFormatSettingHandler() {
             applySetting();
         }
     };
-    self.SetListFormatDisplay = function (formValues, field, isNumberDataType) {
+    self.SetListFormatDisplay = function (formValues, field, isNumberDataType) { 
 
         requestHistoryModel.SaveLastExecute(self, self.SetListFormatDisplay, arguments);
 
@@ -347,9 +347,11 @@ function ListFormatSettingHandler() {
                 displayFieldDetail[enumHandlers.FIELDDETAILPROPERTIES.FORMAT] = format;
         }
 
-        var applySetting = function () {
-            var defaultName = jQuery.trim(jQuery('#AliasName').data('default'));
-            var aliasName = jQuery.trim(jQuery('#AliasName').val());
+        var defaultName = jQuery.trim(jQuery('#AliasName').data('default'));
+        var aliasName = jQuery.trim(jQuery('#AliasName').val());
+
+        var applySetting = function (defaultName, aliasName) {
+
             var multiAlias = displayField.multi_lang_alias || [];
             var language = userSettingModel.GetByName(enumHandlers.USERSETTINGS.DEFAULT_LANGUAGES);
 
@@ -402,12 +404,12 @@ function ListFormatSettingHandler() {
                     // update list handler
                     listHandler.ColumnDefinitions = listHandler.GetColumnDefinitions();
 
-                    applySetting();
+                    applySetting(defaultName, aliasName);
                 });
 
         }
         else {
-            applySetting();
+            applySetting(defaultName, aliasName);
         }
     };
     //EOF: Methods
