@@ -61,5 +61,33 @@ describe("MC.Models.RefreshCycle", function () {
 
             expect(refreshCycle.BindingSpecifyTablesDataToForm).toHaveBeenCalled();
         });
+
+        it("should call unixtimeToTimePicker 4 times when it has the valid time value", function () {
+            var data = {
+                RefreshCycleTrigger: {
+                    "start_time": 0,
+                    "restart_delay": 1,
+                    "end_time": 2
+                },
+                max_run_time: 3
+            };
+            refreshCycle.BindingDataToForm(data);
+
+            expect(MC.util.unixtimeToTimePicker).toHaveBeenCalledTimes(4);
+        });
+
+        it("should not call unixtimeToTimePicker when it has the invalid time value", function () {
+            var data = {
+                RefreshCycleTrigger: {
+                    "start_time": null,
+                    "restart_delay": undefined,
+                    "end_time": undefined
+                },
+                max_run_time: null
+            };
+            refreshCycle.BindingDataToForm(data);
+
+            expect(MC.util.unixtimeToTimePicker).toHaveBeenCalledTimes(0);
+        });
     });
 });

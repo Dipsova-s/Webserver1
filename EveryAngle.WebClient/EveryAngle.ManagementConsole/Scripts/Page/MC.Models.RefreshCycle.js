@@ -240,7 +240,7 @@
             });
 
             // start time
-            if (data.RefreshCycleTrigger && data.RefreshCycleTrigger.start_time) {
+            if (data.RefreshCycleTrigger && data.RefreshCycleTrigger.start_time || data.RefreshCycleTrigger.start_time == 0) {
                 var startTimePickerValue = MC.util.unixtimeToTimePicker(data.RefreshCycleTrigger.start_time, false);
                 var startTime = self.RefreshCycleForm.find('input[name="StartTime"]').data('handler');
                 startTime.value(startTimePickerValue);
@@ -248,13 +248,13 @@
             }
 
             // restart delay
-            if (data.RefreshCycleTrigger && data.RefreshCycleTrigger.restart_delay) {
+            if (data.RefreshCycleTrigger && data.RefreshCycleTrigger.restart_delay || data.RefreshCycleTrigger.restart_delay == 0) {
                 var restartDelayPickerValue = MC.util.unixtimeToTimePicker(data.RefreshCycleTrigger.restart_delay, true);
                 self.RefreshCycleForm.find('input[name="RestartDelay"]').data('handler').value(restartDelayPickerValue);
             }
 
             // until
-            if (data.RefreshCycleTrigger && data.RefreshCycleTrigger.end_time) {
+            if (data.RefreshCycleTrigger && data.RefreshCycleTrigger.end_time || data.RefreshCycleTrigger.end_time == 0) {
                 var endTimePickerValue = MC.util.unixtimeToTimePicker(data.RefreshCycleTrigger.end_time, false);
                 var endTime = self.RefreshCycleForm.find('input[name="EndTime"]').data('handler');
                 endTime.value(endTimePickerValue);
@@ -262,7 +262,7 @@
             }
 
             // maximum run time
-            if (data.max_run_time) {
+            if (data.max_run_time || data.max_run_time == 0) {
                 var timeStopPickerValue = MC.util.unixtimeToTimePicker(data.max_run_time, true);
                 self.RefreshCycleForm.find('input[name="TimeStop"]').data('handler').value(timeStopPickerValue);
             }
