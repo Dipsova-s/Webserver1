@@ -87,7 +87,7 @@ namespace EveryAngle.ManagementConsole.Controllers
         }
 
         [AcceptVerbs(HttpVerbs.Post)]
-        public ActionResult SaveUserInRole(string roleId, string assignUserList, string unAssignUserList, string modelId)
+        public async Task<ActionResult> SaveUserInRole(string roleId, string assignUserList, string unAssignUserList, string modelId)
         {
             if(assignUserList == "" && unAssignUserList == "")
                 return Json(new List<TaskHistoryViewModel>(), JsonRequestBehavior.AllowGet);
@@ -118,7 +118,7 @@ namespace EveryAngle.ManagementConsole.Controllers
 
             var breakLoop = false;
             var taskHistory = new List<TaskHistoryViewModel>();
-            while (breakLoop == false)
+            while (!breakLoop)
             {
                 requestManager = RequestManager.Initialize(taskViewModel.History.ToString());
                 jsonResult = requestManager.Run();
@@ -134,6 +134,10 @@ namespace EveryAngle.ManagementConsole.Controllers
                     }
 
                     breakLoop = true;
+                }
+                else
+                {
+                    await Task.Delay(1000);
                 }
             }
 
