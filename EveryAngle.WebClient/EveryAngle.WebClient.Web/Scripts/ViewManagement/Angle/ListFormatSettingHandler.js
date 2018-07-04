@@ -290,7 +290,7 @@ function ListFormatSettingHandler() {
             applySetting();
         }
     };
-    self.SetListFormatDisplay = function (formValues, field, isNumberDataType) { 
+    self.SetListFormatDisplay = function (formValues, field, isNumberDataType) {
 
         requestHistoryModel.SaveLastExecute(self, self.SetListFormatDisplay, arguments);
 
@@ -349,37 +349,8 @@ function ListFormatSettingHandler() {
 
         var defaultName = jQuery.trim(jQuery('#AliasName').data('default'));
         var aliasName = jQuery.trim(jQuery('#AliasName').val());
-
-        var applySetting = function (defaultName, aliasName) {
-
-            var multiAlias = displayField.multi_lang_alias || [];
-            var language = userSettingModel.GetByName(enumHandlers.USERSETTINGS.DEFAULT_LANGUAGES);
-
-            // clear current language
-            multiAlias.removeObject('lang', language, false);
-
-            // add new if changes
-            if (aliasName && defaultName !== aliasName) {
-                multiAlias.push({
-                    lang: language,
-                    text: aliasName
-                });
-            }
-
-            // update model
-            displayField.multi_lang_alias = multiAlias;
-            displayField.field_details = JSON.stringify(displayFieldDetail);
-            displayModel.Data.commit();
-
-            WC.FormatHelper.ClearFormatCached();
-            listHandler.ColumnInfo[field.id.toLowerCase()] = displayField;
-
-            self.UpdateAliasHeader(field, displayField);
-            jQuery('#AngleGrid').data(enumHandlers.KENDOUITYPE.GRID).refresh();
-            listHandler.HideHeaderPopup();
-            historyModel.Save();
-        };
-
+        var language = userSettingModel.GetByName(enumHandlers.USERSETTINGS.DEFAULT_LANGUAGES);
+        var grid = jQuery('#AngleGrid').data(enumHandlers.KENDOUITYPE.GRID);
         // if check set to defualt
         if (saveDefault) {
             var currentFieldUserSpecific = field.user_specific;
@@ -404,13 +375,42 @@ function ListFormatSettingHandler() {
                     // update list handler
                     listHandler.ColumnDefinitions = listHandler.GetColumnDefinitions();
 
-                    applySetting(defaultName, aliasName);
+                    self.ApplySetting(displayField, language, field, displayFieldDetail, grid, defaultName, aliasName);
                 });
 
         }
         else {
-            applySetting(defaultName, aliasName);
+            self.ApplySetting(displayField, language, field, displayFieldDetail, grid, defaultName, aliasName);
         }
     };
+    self.ApplySetting = function (displayField, language, field, displayFieldDetail, grid, defaultName, aliasName) {
+
+        var multiAlias = displayField.multi_lang_alias || [];
+
+        // clear current language
+        multiAlias.removeObject('lang', language, false);
+
+        // add new if changes
+        if (aliasName && defaultName !== aliasName) {
+            multiAlias.push({
+                lang: language,
+                text: aliasName
+            });
+        }
+
+        // update model
+        displayField.multi_lang_alias = multiAlias;
+        displayField.field_details = JSON.stringify(displayFieldDetail);
+        displayModel.Data.commit();
+
+        WC.FormatHelper.ClearFormatCached();
+        listHandler.ColumnInfo[field.id.toLowerCase()] = displayField;
+
+        self.UpdateAliasHeader(field, displayField);
+        grid.refresh();
+        listHandler.HideHeaderPopup();
+        historyModel.Save();
+    };
+
     //EOF: Methods
 }
