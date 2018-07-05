@@ -20,6 +20,7 @@ ${divSideMenuModelsEA2_800Roles}            jquery=#sideMenu-Models-EA2_800-Role
 ${divSideMenuModules}                       sideMenu-Models-EA2_800-Modules
 ${divSideMenuModelLanguages}                sideMenu-Models-EA2_800-Languages
 ${divSideMenuSuggestedFields}               sideMenu-Models-EA2_800-SuggestedFields
+${divSideMenuRefreshCycle}                  sideMenu-Models-EA2_800-RefreshCycle
 
 ${divSideMenuModelsEA4IT}                   sideMenu-Models-EA4IT
 ${divSideMenuModelsEA4ITRoles}              sideMenu-Models-EA4IT-Roles
@@ -185,6 +186,13 @@ Click Side Menu Suggested Fields
     Click Element    ${divSideMenuSuggestedFields}
     Wait MC Progress Bar Closed
     Wait Until Page Contains    Manage suggested fields for objects
+
+Click Side Menu Refresh Cycle
+    Wait MC Progress Bar Closed
+    Wait Until Element Is Visible    ${divSideMenuRefreshCycle}
+    Click Element    ${divSideMenuRefreshCycle}
+    Wait MC Progress Bar Closed
+    Wait Until Page Contains    Refresh cycle
 
 Click Side Menu Models EA2_800 Roles
     Wait Until Page Contains Element    ${divSideMenuModelsEA2_800Roles}
