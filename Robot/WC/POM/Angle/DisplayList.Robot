@@ -28,6 +28,7 @@ ${formatOKButton}                   jquery=#btn-PopupListFormatSetting1
 ${txtFieldName}                     jquery=#AliasName
 ${K Unit}                           :nth-child(2)
 ${M Unit}                           :nth-child(3)
+${chkUseAsDefaultFormate}           css=#UseAsDefaultFormat
 
 # angle context menu [Drilldown to item, Quick Filter, Copy]
 ${angleContextMenu}                 jquery=#angleContextMenu
@@ -208,3 +209,6 @@ Input Field Name
     [Arguments]    ${fieldName}
     Wait Until Element Is Visible    ${txtFieldName}
     Input Text    ${txtFieldName}    ${fieldName}
+
+Click CheckBox Set As Default For Field 
+    Select Checkbox    ${chkUseAsDefaultFormate}
