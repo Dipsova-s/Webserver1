@@ -106,15 +106,6 @@
             </div>
             <div class="contentSectionInfoItem">
                 <label>
-                    @Html.LabelFor(model => model.JWPlayerKey)
-                </label>
-                <p>@Html.TextBoxFor(model => model.JWPlayerKey)
-                    <a data-target="#popupDescriptionTemplate" title="Description" data-width="600" data-min-height="100" data-role="mcPopup" class="btn btnInfo" onclick="MC.util.showDescriptionPopup(this)"></a>
-                    <textarea class="alwaysHidden">@Resource.MC_WebClientSettingsHelpJWPlayerKey</textarea>
-                </p>
-            </div>
-            <div class="contentSectionInfoItem">
-                <label>
                     @Html.LabelFor(model => model.GoogleAnalyticsId)
                 </label>
                 <p>@Html.TextBoxFor(model => model.GoogleAnalyticsId, new { @class = "google_analytics_id" })

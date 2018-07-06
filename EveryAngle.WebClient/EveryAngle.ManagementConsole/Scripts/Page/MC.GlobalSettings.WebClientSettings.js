@@ -50,7 +50,6 @@
             var maxLogFileNumber = $('#MaxLogFileNumber').val();
             var maxLogFileSize = $('#MaxLogFileSize').val();
             var dashboardRefreshIntervalTime = $('#DashboardRefreshIntervalTime').val();
-            var jwPlayerKey = $.trim($('#JWPlayerKey').val());
             var googleAnalyticsId = $.trim($('#GoogleAnalyticsId').val());
 
             var webClientSettingsData = {
@@ -65,7 +64,6 @@
                 'MaxLogFileNumber': maxLogFileNumber,
                 'MaxLogFileSize': maxLogFileSize,
                 'DashboardRefreshIntervalTime': dashboardRefreshIntervalTime,
-                'JWPlayerKey': jwPlayerKey,
                 'GoogleAnalyticsId': googleAnalyticsId
             };
 

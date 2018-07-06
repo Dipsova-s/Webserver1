@@ -32,9 +32,6 @@ namespace EveryAngle.Core.ViewModels.WebClientSettings
         [Display(Name = "Dashboard refresh interval (minutes)")]
         public int DashboardRefreshIntervalTime { get; set; }
 
-        [Display(Name = "JW Player key")]
-        public string JWPlayerKey { get; set; }
-
         [Display(Name = "Google Analytics ID")]
         public string GoogleAnalyticsId { get; set; }
 
