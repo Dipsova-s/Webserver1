@@ -10,49 +10,30 @@ using EveryAngle.Core.ViewModels.Angle;
 using System.Text.RegularExpressions;
 using System.Web.Mvc;
 using System.Drawing;
-using Newtonsoft.Json;
 using System.Reflection;
+using EveryAngle.WebClient.Web.Helpers;
+using EveryAngle.Core.ViewModels.VideoPlayer;
 
 namespace EveryAngle.WebClient.Web.Controllers.Apis
 {
     public class UserApiController : BaseApiController
     {
-         [HttpGet]
-        public HttpResponseMessage GetMovieByUserType(string type, string lang)
+        [HttpGet]
+        public HttpResponseMessage GetVideos(string lang)
         {
-            List<Movie> movieList = new List<Movie>();
-            string userLanguage = lang ?? "en";
-            string dirPath = string.Format(System.Web.Hosting.HostingEnvironment.MapPath(@"~/Resources/Movies/" + userLanguage)).ToLowerInvariant();
-            DirectoryInfo directory = new DirectoryInfo(dirPath);
-            if (userLanguage != "en" && !directory.Exists)
-            {
-                dirPath = dirPath.Replace("/" + userLanguage, "/en");
-                directory = new DirectoryInfo(dirPath);
-            }
-            if (directory.Exists)
-            {
-                FileInfo[] movieFiles = directory.GetFiles("*.mp4");
-                foreach (FileInfo file in movieFiles)
-                {
-                    string movieName = file.Name.Substring(0, file.Name.Length - 4);
-                    string moviePath = (HttpContext.Current.Request.ApplicationPath + @"/Resources/Movies/" + userLanguage).Replace("//", "/");
-                        
-                    Movie movie = new Movie();
-                    movie.name = movieName;
-                    movie.source = string.Format(@"{0}/{1}.mp4", moviePath, movieName).ToLowerInvariant();
-                    movie.poster = !File.Exists(string.Format(@"{0}/{1}.jpg", file.Directory, movieName.Replace(" ", "")))
-                        ? string.Empty
-                        : string.Format(@"{0}/{1}.jpg", moviePath, movieName.Replace(" ", "")).ToLowerInvariant();
-                    movieList.Add(movie);
-                }
+            string userLanguage = lang ?? VideoHelper.VideoDefaultLanguage;
+            string videoDirectory = string.Empty;
+            string videoServerPath = HttpContext.Current.Server.MapPath(@"~" + VideoHelper.VideoResourcePath + userLanguage).ToLowerInvariant();
+            string videoWebPath = (HttpContext.Current.Request.ApplicationPath + @"" + VideoHelper.VideoResourcePath + userLanguage).Replace("//", "/");
 
-            }
+            VideoHelper.TryParseVideoDirectory(videoServerPath, userLanguage, out videoDirectory);
+            IList<VideoPlayList> videosPlayList = VideoHelper.GetAllVideoPlayList(videoDirectory, videoWebPath);
+            JArray videosPlayListAsJArray = JArray.FromObject(videosPlayList);
 
-
-            return HttpResponseMessageBuilder.GetHttpResponseMessageFromArray(this, JArray.FromObject(movieList));
+            return HttpResponseMessageBuilder.GetHttpResponseMessageFromArray(this, videosPlayListAsJArray);
         }
 
-         [HttpGet]
+        [HttpGet]
         public HttpResponseMessage GetCreateNewAngleBySchema()
         {
             List<AngleSchemaResource> angleSchema = GetSchemaResources();
@@ -60,7 +41,7 @@ namespace EveryAngle.WebClient.Web.Controllers.Apis
 
             // restructure Detail property (JSON -> Array)
             List<string> properties = new List<string>();
-            foreach(PropertyInfo prop in typeof(AreaCoordinate).GetProperties())
+            foreach (PropertyInfo prop in typeof(AreaCoordinate).GetProperties())
                 properties.Add(prop.Name);
 
             foreach (JToken result in schema)
@@ -375,13 +356,6 @@ namespace EveryAngle.WebClient.Web.Controllers.Apis
                 }
             }
             return currentCoordinate.ParentName;
-        }
-
-        private class Movie
-        {
-            public String name;
-            public String source;
-            public String poster;
         }
     }
 }

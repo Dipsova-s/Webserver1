@@ -145,6 +145,9 @@
     <Compile Include="Users\UserDateViewModel.cs" />
     <Compile Include="Users\UserSettingsViewModel.cs" />
     <Compile Include="Users\UserViewModel.cs" />
+    <Compile Include="VideoPlayer\VideoPlayList.cs" />
+    <Compile Include="VideoPlayer\VideoSource.cs" />
+    <Compile Include="VideoPlayer\VideoThumbnail.cs" />
     <Compile Include="WebClientSettings\WebClientConfigViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
