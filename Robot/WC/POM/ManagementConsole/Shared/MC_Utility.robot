@@ -58,10 +58,13 @@ Click Action In Grid By Name
     Sleep    ${TIMEOUT_GENERAL}
     Click Element    ${trRowInGrid}:contains(${name}) ${btnAction}
 
+Click More Action In Grid By Name
+    [Arguments]    ${name}    ${trRowInGrid}    ${btnAction}
+    Wait Until Page Contains Element    ${trRowInGrid}:contains(${name}) ${btnAction}
+    Sleep    ${TIMEOUT_GENERAL}
+    Click Element At Coordinates    ${trRowInGrid}:contains(${name}) ${btnAction}    10     5
+
 Click Action In Grid By Index
     [Arguments]    ${index}    ${trRowInGrid}    ${btnAction}
     Wait Until Page Contains Element    ${trRowInGrid}:eq(${index}) ${btnAction}
     Click Element    ${trRowInGrid}:eq(${index}) ${btnAction}
-
-
-

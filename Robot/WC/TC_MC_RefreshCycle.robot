@@ -18,11 +18,15 @@ Test Refresh Cycle For Validate Time
     # Test mid night time
     Set Refresh Cycle Time Detail       ${RefreshCycleNameForMidNight}    ${MidNight}
     Verify Refresh Cycle After Set      ${RefreshCycleNameForMidNight}    ${MidNight}
-
+    
     # Test before mid night time
-    Eidt Refresh Cycle Time Detail      ${RefreshCycleNameForBeforeMidNight}    ${BeforeMidNight}
+    Edit Refresh Cycle Time Detail      ${RefreshCycleNameForBeforeMidNight}    ${BeforeMidNight}
     Verify Refresh Cycle After Set      ${RefreshCycleNameForBeforeMidNight}    ${BeforeMidNight}
 
     # Test after mid night time
-    Eidt Refresh Cycle Time Detail      ${RefreshCycleNameForAfterMidNight}    ${AfterMidNight}
+    Edit Refresh Cycle Time Detail      ${RefreshCycleNameForAfterMidNight}    ${AfterMidNight}
     Verify Refresh Cycle After Set      ${RefreshCycleNameForAfterMidNight}    ${AfterMidNight}
+
+    # Delete Test Refresh Cycle
+    Click Cancel Refresh Cycle Form
+    Delete Refresh Cycle                ${RefreshCycleNameForAfterMidNight}

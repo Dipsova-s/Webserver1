@@ -29,9 +29,10 @@ Set Refresh Cycle Time Detail
     Input Refresh Cycle Restart Delay           ${refreshCycleTime}
     Input Refresh Cycle Until                   ${refreshCycleTime}
     Input Refresh Cycle Maximum Runtime         ${refreshCycleTime}
+    Click Enabled Refresh Cycle
     Click Save Refresh Cycle Form
 
-Eidt Refresh Cycle Time Detail
+Edit Refresh Cycle Time Detail
     [Arguments]    ${refreshCycleName}          ${refreshCycleTime}
     Fill Refresh Cycle Name                     ${refreshCycleName}
     Click Refresh Cycle Monday
@@ -49,3 +50,9 @@ Verify Refresh Cycle After Set
     Refresh Cycle Restart Delay Should Be Equal         ${refreshCycleTime}
     Refresh Cycle Until Should Be Equal                 ${refreshCycleTime}
     Refresh Cycle Maximum Runtime Should Be Equal       ${refreshCycleTime}
+
+Delete Refresh Cycle
+    [Arguments]    ${refreshCycleName}
+    Click Action Delete Refresh Cycle By Name           ${refreshCycleName}
+    Click Delete Refresh Cycle By Name                  ${refreshCycleName}
+    Click Confirm Delete Refresh Cycle
