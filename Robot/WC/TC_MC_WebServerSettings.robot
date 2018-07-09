@@ -13,4 +13,3 @@ Test Basic Web Server Settings
     Wait Until Overview Page Loaded
     Go To Web Server Settings Page
     Verify Web Server Settings Page Is Ready
-    Verify Input JWPlayer HTML Tag
