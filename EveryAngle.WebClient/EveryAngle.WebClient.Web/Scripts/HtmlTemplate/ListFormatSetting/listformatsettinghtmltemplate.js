@@ -55,13 +55,18 @@ var listFormatHtmlTemplate = function (dataType) {
     listFormatHtmlTemplate += "    <\/div>";
     listFormatHtmlTemplate += "<\/div>";
 
+    var separator = "<div class=\"StatSeparate\"><\/div>";
+
     if (WC.FormatHelper.IsNumberFieldType(dataType)) {
+        listFormatHtmlTemplate += separator
         listFormatHtmlTemplate += numberListFormatHtmlPartialTemplate(dataType);
     }
     else if (WC.FormatHelper.IsFieldTypeHasTime(dataType)) {
+        listFormatHtmlTemplate += separator
         listFormatHtmlTemplate += timeListFormatHtmlPartialTemplate();
     }
     else if (dataType === enumHandlers.FIELDTYPE.ENUM) {
+        listFormatHtmlTemplate += separator
         listFormatHtmlTemplate += normalListFormatHtmlPartialTemplate();
     }
 
