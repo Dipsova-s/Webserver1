@@ -9,7 +9,6 @@ ${chkShowItemID}                  ShowAngleAndDisplayID
 ${txtItemInMassChange}            MaxNumberOfMassChangeItems
 ${txtAngleOnDashboard}            MaxNumberOfDashboard
 ${txtDashboardRefreshInterval}    DashboardRefreshIntervalTime
-${txtJWPlayerKey}                 JWPlayerKey
 ${txtGoogleAnalyticsID}           GoogleAnalyticsId
 
 ${chkUriInErrorPopup}             ShowErrorSourceUri
@@ -64,17 +63,6 @@ Input Web Server Settings Angle On Dashboard
 Input Web Server Settings Dashboard Refresh Interval
     [Arguments]    ${dashboardRefreshInterval}
     Input kendo Numeric TextBox    ${txtDashboardRefreshInterval}    ${dashboardRefreshInterval}
-
-Input Web Server Settings JW Player Key
-    [Arguments]    ${JWPlayerKey}
-    Wait MC Progress Bar Closed
-    Wait Until Page Contains Element    ${txtJWPlayerKey}
-    Wait MC Progress Bar Closed
-    Input Text    ${txtJWPlayerKey}    ${JWPlayerKey}
-
-Get Web Server Settings JW Player Key Value
-    ${value}    Get Value    ${txtJWPlayerKey}
-    [Return]    ${value}
 
 Input Web Server Settings Google Analytics ID
     [Arguments]    ${googleAnalyticsID}
