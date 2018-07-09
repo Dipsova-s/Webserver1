@@ -52,3 +52,34 @@ Create Pivot From List Header Column
     Add Column By Search And Add To List Display If Not Exist    ${fieldId}    ${fieldKeyword}
     Click Header by Data Field Angle Grid List Display    ${fieldId}
     Click Create Pivot From Header Column
+
+Search Angle From Search Page And Execute Angle
+    [Arguments]    ${keyword}
+    Search By Text And Expect In Search Result    ${keyword}
+    Open Angle From First Angle in Search Page    ${keyword}
+
+Edit Format Field From Field Header
+    [Arguments]    ${fieldName}
+    Click Header by Data Field Angle Grid List Display    ${fieldName}    
+    Click Format Field From Header Column
+    Input Field Name     Edit Field
+    Click OK Button On Field Format Popup
+
+Verify Field Alias Was Changed
+    [Arguments]    ${Expect}   
+    Page Should Contain    Edit Field
+
+Edit Format Field With Checking Set As Default From Field Header
+    [Arguments]    ${fieldName}
+    Click Header by Data Field Angle Grid List Display    ${fieldName}    
+    Click Format Field From Header Column
+    Input Field Name     Edit Field
+    Click CheckBox Set As Default For Field
+    Click OK Button On Field Format Popup    
+
+Remove Field Format From Changing
+    [Arguments]    ${fieldName}
+    Click Header by Data Field Angle Grid List Display    ${fieldName}  
+    Click Format Field From Header Column
+    Press Key    ${txtFieldName}    \\8
+    Click OK Button On Field Format Popup  
