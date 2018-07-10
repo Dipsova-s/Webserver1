@@ -134,6 +134,7 @@
   <ItemGroup>
     <Compile Include="ControllerTest\PivotControllerTests.cs" />
     <Compile Include="ControllerTest\HelpApiControllerTests.cs" />
+    <Compile Include="HelperTests\VideoHelperTests.cs" />
     <Compile Include="ServiceTests\AggregationServiceTests.cs" />
     <Compile Include="ServiceTests\ModelServiceTests.cs" />
     <Compile Include="ServiceTests\RequestManagerTests.cs" />

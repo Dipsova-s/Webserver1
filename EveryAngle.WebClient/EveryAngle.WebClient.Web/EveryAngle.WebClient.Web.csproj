@@ -242,6 +242,7 @@ if %25ERRORLEVEL%25 LEQ 1 exit 0 else exit %25ERRORLEVEL%25</PreBuildEvent>
     <Compile Include="Helpers\OutputFilterStream.cs" />
     <Compile Include="Helpers\Profiler.cs" />
     <Compile Include="Helpers\ResouceExtension.cs" />
+    <Compile Include="Helpers\VideoHelper.cs" />
     <Compile Include="Helpers\ViewRenderer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -462,6 +463,8 @@ if %25ERRORLEVEL%25 LEQ 1 exit 0 else exit %25ERRORLEVEL%25</PreBuildEvent>
     <Content Include="Content\kendoui\Uniform\sprite_2x.png" />
     <Content Include="Content\kendoui\Uniform\sprite_kpi.png" />
     <Content Include="Content\kendoui\Uniform\sprite_kpi_2x.png" />
+    <Content Include="Content\VideoPlayer\Plugins\videojs-playlist-ui.css" />
+    <Content Include="Content\VideoPlayer\Plugins\videojs-playlist-ui.vertical.css" />
     <Content Include="Data\Export\log.txt" />
     <Content Include="Data\Log\log.txt" />
     <Content Include="Images\Angle\ActionDropdownList\AddToDashboard.svg" />
@@ -640,9 +643,6 @@ if %25ERRORLEVEL%25 LEQ 1 exit 0 else exit %25ERRORLEVEL%25</PreBuildEvent>
     <Content Include="Scripts\KendoUI\kendo.virtuallist.min.js" />
     <Content Include="Scripts\KendoUI\messages\kendo.messages.de-DE.js" />
     <Content Include="Scripts\User\Authentication.js" />
-    <Content Include="Scripts\VideoPlayer\jwpsrv.js" />
-    <Content Include="Scripts\VideoPlayer\ping.gif" />
-    <Content Include="Scripts\VideoPlayer\Skin\six.xml" />
     <Content Include="Global.asax" />
     <Content Include="Images\Angle\ActionDropdownList\createdisplay.png" />
     <Content Include="Images\Angle\ActionDropdownList\editdisplay.png" />
@@ -781,6 +781,12 @@ if %25ERRORLEVEL%25 LEQ 1 exit 0 else exit %25ERRORLEVEL%25</PreBuildEvent>
     <Content Include="Images\SearchPage\icn_starred_inactive.png" />
     <Content Include="Images\SearchPage\icn_validated.png" />
     <Content Include="EveryAngle.WebClient.Web.wpp.targets" />
+    <Content Include="Content\VideoPlayer\video-js.css" />
+    <Content Include="Content\VideoPlayer\video-js.min.css" />
+    <Content Include="Scripts\VideoPlayer\Plugins\videojs-playlist-ui.js" />
+    <Content Include="Scripts\VideoPlayer\Plugins\videojs-playlist.js" />
+    <Content Include="Scripts\VideoPlayer\video.js" />
+    <Content Include="Scripts\VideoPlayer\video.min.js" />
     <Content Include="Scripts\ViewManagement\Angle\AngleHandler.js" />
     <Content Include="Scripts\ViewManagement\Angle\AngleActionMenuHandler.js" />
     <Content Include="Scripts\ViewManagement\Angle\DisplayUpgradeHandler.js" />
@@ -860,9 +866,6 @@ if %25ERRORLEVEL%25 LEQ 1 exit 0 else exit %25ERRORLEVEL%25</PreBuildEvent>
     <Content Include="Images\search_button.png" />
     <Content Include="Images\tabbar_bg.png" />
     <Content Include="Scripts\KendoUI\cultures\kendo.culture.en-GB.min.js" />
-    <Content Include="Scripts\VideoPlayer\jwplayer.flash.swf" />
-    <Content Include="Scripts\VideoPlayer\jwplayer.html5.js" />
-    <Content Include="Scripts\VideoPlayer\jwplayer.js" />
     <Content Include="Scripts\ViewManagement\Shared\ModelFieldsHandler.js" />
     <Content Include="Scripts\ViewManagement\Shared\ModelFollowupsHandler.js" />
     <Content Include="Scripts\ViewManagement\Shared\WidgetLanguages\WidgetLanguagesHandler.js" />
