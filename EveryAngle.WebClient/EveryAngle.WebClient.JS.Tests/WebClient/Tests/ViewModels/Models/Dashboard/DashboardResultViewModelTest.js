@@ -23,14 +23,16 @@
 
 describe("DashboardResultViewModel", function () {
     var dashboardResultViewModel;
+    var dashboardModel;
     var widGetModel;
     var testElementId = "TestElementId";
 
     beforeEach(function () {
+        dashboardModel = new DashboardViewModel();
         widGetModel = new DashboardWidgetViewModel();
         widGetModel.GetAngle = $.noop;
         widGetModel.GetDisplay = $.noop;
-        dashboardResultViewModel = new DashboardResultViewModel(testElementId, widGetModel);
+        dashboardResultViewModel = new DashboardResultViewModel(testElementId, widGetModel, dashboardModel);
     });
 
     describe("when create new instance", function () {
@@ -93,4 +95,36 @@ describe("DashboardResultViewModel", function () {
 
     });
 
+    describe("call CreatePostData", function () {
+
+        beforeEach(function () {
+            dashboardResultViewModel.Angle = { query_definition: [] };
+            dashboardResultViewModel.Display = { query_definition: [] };
+
+            dashboardResultViewModel.WidgetModel.angle = 'angle';
+            dashboardResultViewModel.WidgetModel.display = 'display';
+
+            spyOn(dashboardResultViewModel, 'GetPostExecuteParameters').and.returnValue({ angle: [], display: [] });
+            spyOn(dashboardResultViewModel.DashboardModel, 'GetDashboardFiltersQueryBlock').and.returnValue({ query_steps: [] });
+            spyOn(dashboardResultViewModel.DashboardModel, 'IsTemporaryDashboard').and.returnValue(true);
+
+            spyOn(dashboardResultViewModel.WidgetModel, 'GetQuerySteps').and.returnValue({ query_steps: [] });
+            spyOn(dashboardResultViewModel.WidgetModel, 'GetAggregationQueryStep').and.returnValue({});
+        });
+
+        it("should included base display if not contain aggregation step", function () {
+            dashboardResultViewModel.Display.contained_aggregation_steps = false;
+            var postData = dashboardResultViewModel.CreatePostData();
+            var baseDisplay = postData.query_definition.findObject('queryblock_type', enumHandlers.QUERYBLOCKTYPE.BASE_DISPLAY);
+            expect(baseDisplay).not.toBeNull();
+        });
+
+        it("should excluded base display if contain aggregation step", function () {
+            dashboardResultViewModel.Display.contained_aggregation_steps = true;
+            var postData = dashboardResultViewModel.CreatePostData();
+            var baseDisplay = postData.query_definition.findObject('queryblock_type', enumHandlers.QUERYBLOCKTYPE.BASE_DISPLAY);
+            expect(baseDisplay).toBeNull();
+        });
+
+    });
 });
