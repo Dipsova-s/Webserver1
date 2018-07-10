@@ -163,6 +163,13 @@ namespace EveryAngle.WebClient.Web
                 "~/scripts/viewmodels/shared/queryblock/queryblocksmodel.js"
             };
 
+            var videoPlayerScripts = new string[]
+            {
+                "~/scripts/videoplayer/video.min.js",
+                "~/scripts/videoplayer/plugins/videojs-playlist.js",
+                "~/scripts/videoplayer/plugins/videojs-playlist-ui.js"
+            };
+
             var widgetFilterScripts = new string[] {
                 "~/scripts/viewmanagement/shared/widgetfilter/widgetfilterview.js",
                 "~/scripts/viewmanagement/shared/widgetfilter/widgetfiltermodel.js",
@@ -201,7 +208,10 @@ namespace EveryAngle.WebClient.Web
                 .Include("~/content/css/createangle.css",
                     "~/content/css/search.masschange.css",
                     "~/content/css/search.angledownload.css",
-                    "~/content/css/search.css"));
+                    "~/content/css/search.css",
+                    "~/content/videoplayer/video-js.min.css",
+                    "~/content/videoplayer/plugins/videojs-playlist-ui.css",
+                    "~/content/videoplayer/plugins/videojs-playlist-ui.vertical.css"));
 
             bundles.Add(new StyleBundle("~/content/css/anglepage.css")
                 .Include("~/content/contextmenu/jquery.contextmenu.css",
@@ -284,11 +294,11 @@ namespace EveryAngle.WebClient.Web
             /*** End - kendo ***/
 
             /*** Begin - search page ***/
-            bundles.Add(new StyleBundle("~/content/searchpagecss").Include(
-               "~/content/css/searchpage.css"));
+            bundles.Add(new StyleBundle("~/content/searchpagecss")
+                .Include("~/content/css/searchpage.css"));
 
             bundles.Add(new ScriptBundle("~/bundles/searchpage.js")
-                .Include("~/scripts/videoplayer/jwplayer.js")
+                .Include(videoPlayerScripts)
                 .Include(widgetFilterScripts)
                 .Include(widgetDetailsScripts)
                 .Include(executionparameterScripts)

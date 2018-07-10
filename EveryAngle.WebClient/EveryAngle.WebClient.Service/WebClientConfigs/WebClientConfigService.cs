@@ -92,9 +92,6 @@ namespace EveryAngle.WebClient.Service.WebClientConfigs
                             Int32.TryParse(configValue, out dashboardRefreshIntervalTime);
                             webClientConfigViewModel.DashboardRefreshIntervalTime = dashboardRefreshIntervalTime;
                             break;
-                        case "jwplayerkey":
-                            webClientConfigViewModel.JWPlayerKey = configValue;
-                            break;
                         case "googleanalyticsid":
                             webClientConfigViewModel.GoogleAnalyticsId = configValue;
                             break;
@@ -138,10 +135,7 @@ namespace EveryAngle.WebClient.Service.WebClientConfigs
             int dashboardRefreshIntervalTime = 15;
             Int32.TryParse(WebConfigHelper.GetNoneExecutingWebConfigBy("DashboardRefreshIntervalTime"), out dashboardRefreshIntervalTime);
             webClientConfigViewModel.DashboardRefreshIntervalTime = dashboardRefreshIntervalTime;
-
-            string jwPlayerKey = WebConfigHelper.GetNoneExecutingWebConfigBy("JWPlayerKey");
-            webClientConfigViewModel.JWPlayerKey = jwPlayerKey;
-
+            
             string googleAnalyticsId = WebConfigHelper.GetNoneExecutingWebConfigBy("GoogleAnalyticsId");
             webClientConfigViewModel.GoogleAnalyticsId = googleAnalyticsId;
 
@@ -180,7 +174,7 @@ namespace EveryAngle.WebClient.Service.WebClientConfigs
             XmlDocument xmlDocument = new XmlDocument();
             xmlDocument.Load(overideFilePath);
 
-            string MCWebConfigKeys = @"WebServiceBackendEnableSSL|TrustAllCertificate|Ajax-Timeout-Expiration-In-Seconds|ShowAngleAndDisplayID|MaxNumberOfMassChangeItems|MaxNumberOfDashboard|ShowErrorSourceUri|EnableOptimizations|MaxLogFileNumber|MaxLogFileSize|DashboardRefreshIntervalTime|JWPlayerKey|GoogleAnalyticsId";//WebConfigHelper.GetAppSettingsValueFromWebConfig(overideFilePath, "MCWebConfigKeys");
+            string MCWebConfigKeys = @"WebServiceBackendEnableSSL|TrustAllCertificate|Ajax-Timeout-Expiration-In-Seconds|ShowAngleAndDisplayID|MaxNumberOfMassChangeItems|MaxNumberOfDashboard|ShowErrorSourceUri|EnableOptimizations|MaxLogFileNumber|MaxLogFileSize|DashboardRefreshIntervalTime|GoogleAnalyticsId";//WebConfigHelper.GetAppSettingsValueFromWebConfig(overideFilePath, "MCWebConfigKeys");
 
             if (MCWebConfigKeys != "")
             {

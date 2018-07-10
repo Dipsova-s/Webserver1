@@ -23,7 +23,6 @@
         var webApiVersion = '@EveryAngle.Shared.Helpers.WebConfigHelper.GetAppSettingByKey("WebApiVersion")';
         var ajaxTimeoutExpirationInSeconds = parseInt('@EveryAngle.Shared.Helpers.WebConfigHelper.GetAppSettingByKey("Ajax-Timeout-Expiration-In-Seconds")', 10);
         var dashboardRefreshIntervalTime = parseInt('@EveryAngle.Shared.Helpers.WebConfigHelper.GetAppSettingByKey("DashboardRefreshIntervalTime")', 10);
-        var jwplayerKey = '@EveryAngle.Shared.Helpers.WebConfigHelper.GetAppSettingByKey("JWPlayerKey")';
         var loginPageUrl = '@Url.Action("Login", "User").ToLower()';
         var logoutPageUrl = '@Url.Action("Logout", "User").ToLower()';
         var ClientVersion = '@EveryAngle.Shared.Helpers.AssemblyInfoHelper.GetFileVersion()';

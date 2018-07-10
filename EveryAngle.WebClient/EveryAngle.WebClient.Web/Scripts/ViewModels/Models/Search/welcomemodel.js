@@ -7,95 +7,87 @@ function WelcomeViewModel() {
     /*BOF: Model Properties */
     var self = this;
     self.Data = ko.observable(null);
-    self.PRIVILEGETYPE = {
-        POWER: 'power',
-        VIEWING: 'viewing'
-    };
-    self.MoviesCache = {};
-    self.MoviesCache[self.PRIVILEGETYPE.POWER] = {};
-    self.MoviesCache[self.PRIVILEGETYPE.VIEWING] = {};
+    self.VideoPlayer = null;
 
     self.Initial = function () {
-        var directoryUri = directoryHandler.GetDirectoryUri(enumHandlers.ENTRIESNAME.WEBCLIENTSETTINGS),
-            moviePlayer = jwplayer('#WelcomePlayer');
+        errorHandlerModel.Enable(false);
+        var requests = self.CreateParallelRequests();
+        return jQuery.whenAll(requests).done(self.ParallelRequestsCallback);
+    };
 
-        if (!directoryUri || self.Data()) {
-            if (moviePlayer.id) {
-                var randomMovieIndex = Math.floor(Math.random() * moviePlayer.getPlaylist().length);
-                moviePlayer.playlistItem(randomMovieIndex).play();
-            }
-            return jQuery.when();
-        }
-
-        // jwplayer key
-        jwplayer.key = jwplayerKey;
-
-        // initial bp
-        businessProcessesModel.WelcomeMovie = new BusinessProcessesViewModel();
-        businessProcessesModel.WelcomeMovie.MultipleActive(false);
-        businessProcessesModel.WelcomeMovie.CanEmpty(false);
-        businessProcessesModel.WelcomeMovie.ClickCallback(self.BPMovieClickCallback);
-        var bpDefault = userSettingModel.GetByName(enumHandlers.USERSETTINGS.DEFAULT_BUSINESS_PROCESSES).slice();
-        if (!bpDefault.length) {
-            bpDefault = [businessProcessesModel.WelcomeMovie.Data()[0].id];
-        }
-        var bpCurrentActive = {};
-        jQuery.each(bpDefault, function (index, bp) {
-            // check is_allowed then add to bpCurrentActive
-            var bpObject = businessProcessesModel.WelcomeMovie.Data().findObject('id', bp, false);
-            if (bpObject && bpObject.is_allowed) {
-                bpCurrentActive[bp] = true;
-
-                // select only 1
-                return false;
-            }
-        });
-        businessProcessesModel.WelcomeMovie.CurrentActive(bpCurrentActive);
-        businessProcessesModel.WelcomeMovie.ApplyHandler('#WelcomeMovieBusinessProcesses');
-
+    self.CreateParallelRequests = function () {
         var deferred = [];
+        var directoryUri = directoryHandler.GetDirectoryUri(enumHandlers.ENTRIESNAME.WEBCLIENTSETTINGS);
+
         deferred.pushDeferred(self.LoadWelcomeData, [directoryUri]);
         deferred.pushDeferred(self.LoadMoviesPlayList);
 
-        errorHandlerModel.Enable(false);
-        return jQuery.whenAll(deferred)
-            .done(function (xhrWelcome, xhrMovie) {
-                setTimeout(function () {
-                    errorHandlerModel.Enable(true);
-                }, 100);
+        return deferred;
+    };
+    self.ParallelRequestsCallback = function (xhrWelcome, xhrMovie) {
+        setTimeout(function () {
+            errorHandlerModel.Enable(true);
+        }, 100);
 
-                var dataWelcome = xhrWelcome[1] === 'success' ? xhrWelcome[0] : {};
-                var playlist = xhrMovie[0];
-                dataWelcome.movies = playlist;
-                self.SetData(dataWelcome);
+        self.SetParallelData(xhrWelcome, xhrMovie);
 
-                if (typeof ko.dataFor(jQuery('#LandingPage').get(0)) === 'undefined') {
-                    self.GenerateMovieFromPlayList(playlist);
-
-                    if (/(\.jpg|\.jpeg|\.png|\.gif)$/.test(dataWelcome.companylogo)) {
-                        jQuery('.sectionWelcomeLogo > img')
-                            .attr('src', dataWelcome.companylogo + '?v=' + jQuery.now())
-                            .error(function () {
-                                jQuery(this).removeAttr('src');
-                            });
-                    }
-                    else {
-                        jQuery('.sectionWelcomeLogo > img').removeAttr('src');
-                    }
-
-                    WC.HtmlHelper.ApplyKnockout(self, jQuery('#LandingPage'));
-                }
-            });
+        if (!self.IsKnockoutInitialized()) {
+            self.CreateVideoPlayer();
+            self.SetCompanyLogo();
+            WC.HtmlHelper.ApplyKnockout(self, jQuery('#LandingPage'));
+        }
     };
 
-    self.BPMovieClickCallback = function (data, event, changed) {
-        if (changed) {
-            WC.Ajax.AbortAll();
-            self.LoadMoviesPlayList()
-                .done(function (playlist) {
-                    self.GenerateMovieFromPlayList(playlist);
+    self.SetParallelData = function (xhrWelcome, xhrMovie) {
+        var data = xhrWelcome[1] === 'success' ? xhrWelcome[0] : {};
+        data.videos = xhrMovie[0];
+        self.SetData(data);
+    };
+    self.IsKnockoutInitialized = function () {
+        return typeof ko.dataFor(jQuery('#LandingPage').get(0)) !== 'undefined';
+    };
+
+    self.SetCompanyLogo = function () {
+        var data = self.Data();
+        if (/(\.jpg|\.jpeg|\.png|\.gif)$/.test(data.companylogo)) {
+            jQuery('.sectionWelcomeLogo > img')
+                .attr('src', data.companylogo + '?v=' + jQuery.now())
+                .error(function () {
+                    jQuery(this).removeAttr('src');
                 });
         }
+        else {
+            jQuery('.sectionWelcomeLogo > img').removeAttr('src');
+        }
+    };
+
+    self.CreateVideoPlayer = function () {
+        var videos = self.Data().videos;
+        var videoWrapper = jQuery('#WelcomePlayer');
+
+        if (videos.length) {
+            var video = '<video id="VideoPlayer" class="video-js vjs-default-skin"></video>';
+            var playlist = '<div class="playlist-container"><div class="vjs-playlist"></div></div>';
+            var options = { controls: true, autoplay: false, preload: 'auto' };
+
+            videoWrapper.addClass('hasVideo');
+            videoWrapper.html(video + playlist);
+
+            self.VideoPlayer = videojs('VideoPlayer', options, function () {
+                videoWrapper.removeClass('noVideo');
+            });
+
+            self.VideoPlayer.playlist(videos);
+            self.VideoPlayer.playlistUi();
+        }
+        else {
+            videoWrapper.addClass('noVideo');
+            videoWrapper.text(Localization.WelcomeNoMovie);
+        }
+    };
+    self.StopPlayingVideo = function () {
+        if (self.VideoPlayer)
+            self.VideoPlayer.pause();
     };
 
     self.LoadWelcomeData = function (uri) {
@@ -103,105 +95,20 @@ function WelcomeViewModel() {
         query[enumHandlers.PARAMETERS.CACHING] = false;
         return GetDataFromWebService(uri, query);
     };
-
     self.LoadMoviesPlayList = function () {
-        var type = privilegesViewModel.IsAllowCreateAngle() ? self.PRIVILEGETYPE.POWER : self.PRIVILEGETYPE.VIEWING;
-        var query = {};
-        var bps = ['*'];
-        query['bp'] = bps.join(',');
-        query['type'] = type;
-        query['lang'] = userSettingModel.Data().default_language;
-
         jQuery('#WelcomePlayer').busyIndicator(true);
 
-        return jQuery.when(
-            self.GetMoviesPlayListFromLocal(type, bps)
-            || GetDataFromWebService('userapi/getmoviebyusertype', query, true))
-            .then(function (data, status, xhr) {
-                jQuery('#WelcomePlayer').busyIndicator(false);
+        var url = 'userapi/getvideos';
+        var query = { lang: userSettingModel.Data().default_language };
 
-                data.sortObject('name');
-
-                jQuery.each(bps, function (index, bp) {
-                    bp = bp.toLowerCase();
-                    self.MoviesCache[type][bp] = [];
-                });
-
-                var playlist = [];
-                jQuery.each(data, function (index, movie) {
-                    if (/(\.mp4)$/.test(movie.source)) {
-                        var bp = '*';
-                        self.MoviesCache[type][bp].push(movie);
-
-                        playlist.push({
-                            title: movie.name,
-                            description: movie.description || '',
-                            file: movie.source,
-                            image: movie.poster || ''
-                        });
-                    }
-                });
-                
-                return jQuery.when(playlist.slice());
-            });
+        return jQuery.when(GetDataFromWebService(url, query, true))
+            .then(self.LoadMoviesPlayListCallback.bind(this));
     };
+    self.LoadMoviesPlayListCallback = function (videos) {
+        jQuery('#WelcomePlayer').busyIndicator(false);
+        videos.sortObject('name');
 
-    self.GetMoviesPlayListFromLocal = function (type, bps) {
-        var playlist = [], isFoundAll = true;
-        jQuery.each(bps, function (index, bp) {
-            bp = bp.toLowerCase();
-            if (!self.MoviesCache[type][bp]) {
-                isFoundAll = false;
-                return false;
-            }
-            else {
-                jQuery.merge(playlist, self.MoviesCache[type][bp]);
-            }
-        });
-
-        return isFoundAll ? playlist : null;
-    };
-
-    self.GenerateMovieFromPlayList = function (playlist) {
-        var player = jwplayer('WelcomePlayer');
-        if (player.stop) player.stop();
-        if (player.remove) player.remove();
-        jQuery('#WelcomePlayer').addClass('welcomeMovie noVideo');
-
-        if (playlist.length) {
-            jwplayer('WelcomePlayer').setup({
-                flashplayer: GetScriptFolderPath() + "videoplayer/jwplayer.flash.swf",
-                html5player: GetScriptFolderPath() + "videoplayer/jwplayer.html5.js",
-                skin: GetScriptFolderPath() + "videoplayer/skin/six.xml",
-                repeat: false,
-                autostart: false,
-                height: 310,
-                width: '100%',
-                playlist: playlist,
-                listbar: {
-                    position: 'right',
-                    size: 240
-                },
-                onReady: function () {
-                    jQuery('#WelcomePlayer').removeClass('noVideo');
-                },
-                events: {
-                    onBeforeComplete: function () {
-                        this.stop();
-                    }
-                }
-            });
-        }
-        else {
-            jQuery('#WelcomePlayer').text(Localization.WelcomeNoMovie);
-        }
-    };
-
-    self.StopPlayingVideo = function () {
-        var moviePlayer = jwplayer('WelcomePlayer');
-        if (moviePlayer.stop) {
-            moviePlayer.stop();
-        }
+        return jQuery.when(videos);
     };
 
     self.SetData = function (data) {
@@ -214,7 +121,6 @@ function WelcomeViewModel() {
         data.last_logon = lastLoginDateText ? Localization.LastLogin + lastLoginDateText : '';
         self.Data(data);
     };
-
     self.GetData = function () {
         var data = ko.toJS(self.Data());
         data.client_details = JSON.stringify(data.client_details);
