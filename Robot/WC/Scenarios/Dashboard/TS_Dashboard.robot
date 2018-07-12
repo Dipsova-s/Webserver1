@@ -51,6 +51,8 @@ Check Dashboard Execution Parameters Are Presented
 Change Dashboard Execution Parameters Then Execute
     Change Dashboard First Filter Operator To Is Not Empty
     Change Dashboard Second Filter Equal To Partially open
+    Input Filter Value For Is In List For Third Dashboard Filter    3745
+    Input Filter Value For Is In List For Third Dashboard Filter    5550
 
 Change Dashboard First Filter Operator To Is Not Empty
     Expand Dashboard Parameters First Filter Panel
@@ -61,6 +63,11 @@ Change Dashboard Second Filter Equal To Partially open
     Expand Dashboard Parameters Second Filter Panel
     Choose Second Dropdown Filter Operator Dashboard Parameters    is equal to
     Input Second Filter Set Select Value Dashboard Parameters    Partially open
+
+Input Filter Value For Is In List For Third Dashboard Filter
+    [Arguments]   ${value}
+    Expand Dashboard Parameters Third Filter Panel
+    Input Filter Input Text In List    2    ${value}
 
 Open First Angle In Dashboard Widget
     Open Dashboard Windget Menu    0
@@ -81,6 +88,7 @@ Open Second Angle In Dashboard Widget
 Check First Angle Should Apply Dashboard Execution Parameters
     Page Should Contain    (Self) - Purchasing Document Category is not empty
     Page Should Contain    (Self) - Execution status is equal to Partially open
+    Page Should Contain    Vendor - Vendor is in list (3745, 5550)
     Close Window
     Select Window
 
