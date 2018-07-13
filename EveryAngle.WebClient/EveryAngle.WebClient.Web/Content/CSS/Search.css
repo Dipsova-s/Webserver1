@@ -632,6 +632,11 @@
     margin-bottom: 10px;
 }
 
+.sectionWelcomeMovie .welcomeMovie.hasVideo {
+    background: #1a1a1a;
+    overflow: hidden;
+}
+
 .sectionWelcomeMovie .welcomeMovie.noVideo {
     cursor: default;
     color: #999;
@@ -642,29 +647,69 @@
     box-sizing: content-box;
 }
 
-.sectionWelcomeMovie .jwplayer {
-    margin-bottom: 5px;
+.sectionWelcomeMovie .video-js,
+.sectionWelcomeMovie .playlist-container {
+    float: left;
+    position: relative;
+    height: 0;
+    padding-top: 41.66666666666667%;
 }
 
-.sectionWelcomeMovie .jwtextwrapper {
-    margin-left: 108px;
+.sectionWelcomeMovie .video-js {
+    width: 80%;
+    min-height: 150px;
 }
 
-.sectionWelcomeMovie .jwitem .jwtitle {
-    font-size: 11px !important; /* NOSONAR: override runtime css */
-    height: 56px !important; /* NOSONAR: override runtime css */
-    line-height: 14px !important; /* NOSONAR: override runtime css */
+.sectionWelcomeMovie .video-js .vjs-big-play-button {
+    top: 45%;
+    left: 45%;
 }
 
-.sectionWelcomeMovie .businessProcesses {
-    height: 34px;
-    display: none;
+.sectionWelcomeMovie .playlist-container {
+    width: 20%;
+    min-height: 0;
 }
 
-.sectionWelcomeMovie .welcomeMovieLink {
-    color: #00f;
-    text-decoration: underline;
-    display: none;
+.sectionWelcomeMovie .vjs-playlist {
+    margin: 0;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+}
+
+.sectionWelcomeMovie .vjs-playlist .vjs-playlist-item-list {
+    padding: 17px;
+    padding-bottom: 0;
+}
+
+.sectionWelcomeMovie .vjs-playlist .vjs-playlist-item {
+    background: none;
+    outline: none;
+    height: 68px;
+    margin-bottom: 17px;
+}
+
+.sectionWelcomeMovie .vjs-playlist .vjs-playlist-item:not(.vjs-selected) img {
+    opacity: .5;
+}
+
+.sectionWelcomeMovie .vjs-playlist .vjs-playlist-item img {
+    opacity: 1;
+}
+
+.sectionWelcomeMovie .vjs-playlist .vjs-playlist-thumbnail {
+    float: left;
+    width: 121px;
+    height: 68px;
+    font-size: 13px;
+    margin-right: 17px;
+}
+
+.sectionWelcomeMovie .vjs-playlist-now-playing-text,
+.sectionWelcomeMovie .vjs-up-next-text {
+    display: none !important;
 }
 
 /* #SearchResultView
