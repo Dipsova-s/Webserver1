@@ -125,12 +125,18 @@
     background-image: url(../images/icons/icon_edit_cancel.png);
 }
 
+.btnNext,
+.btnNext:hover {
+    color: #333;
+    border-color: #c1c1c1;
+}
+.btnNext:hover {
+    background-color: #eaeaea;
+}
 .btnNext:after {
     right: 9px;
-	top: 11px;
     background-image: url(../images/icons/icon_next.svg);
     width: 14px;
-	height: 14px;
 }
 
 .btnLogout:after {
@@ -174,11 +180,22 @@
     border-width: 0;
 }
 
-.k-upload .btn {
+.k-upload .k-button,
+.k-upload .k-button:focus:not(.k-state-disabled):not([disabled]),
+.k-upload .k-button:focus:active:not(.k-state-disabled):not([disabled]) {
     height: 30px;
     width: auto;
     box-shadow: 1px 0 #fff;
     margin: 0 12px 0 0;
+    border: 1px solid #0a6088;
+    color: #0a6088;
+    background-color: inherit;
+}
+.k-upload .k-button:hover,
+.k-upload .k-button:active:hover {
+    background-color: rgba(32,168,230,.11);
+    border: 1px solid #0a6088;
+    color: #0a6088;
 }
 
 .k-upload .k-upload-status {
@@ -284,11 +301,11 @@ textarea,
 .labelinput {
     outline: none;
     border: 1px solid #c5c5c5;
-    background-color: #fafafa;
+    background-color: #f9f9f9;
     padding: 5px;
     border-radius: 0;
     box-sizing: border-box;
-    min-height: 28px;
+    min-height: 30px;
     transition: border linear .2s,box-shadow linear .2s;
 }
 
@@ -359,7 +376,7 @@ textarea[readonly="readonly"] {
     float: left;
     min-width: 17px;
     line-height: 17px;
-    background: #F5F5F5 url(kendoui/textures/highlight.png) center center repeat-x; /* NOSONAR: acceptable */
+    background: #f5f5f5 url(kendoui/textures/highlight.png) center center repeat-x; /* NOSONAR: acceptable */
     border: 1px solid #999;
     margin-right: -1px;
     z-index: 2;
@@ -381,8 +398,8 @@ textarea[readonly="readonly"] {
 ================================== */
 div.tagsinput {
     overflow-y: hidden;
-    padding: 2px;
-    background: #fff none;
+    padding: 2px 2px 1px 2px;
+    background: #f9f9f9 none;
 }
 
 div.tagsinput span.tag {
@@ -394,7 +411,6 @@ div.tagsinput span.tag {
     text-decoration: none;
     text-align: center;
     border: 1px solid #c5c5c5;
-    border-radius: 2px;
     cursor: default;
     min-width: 64px;
     background-color: #e3e3e3;
@@ -419,13 +435,11 @@ div.tagsinput span.tag a {
 
 div.tagsinput input {
     width: 80px;
-    margin: 0;
+    margin: 0 5px 0 0;
     border: 1px solid transparent;
     padding: 3px 5px;
     background: transparent;
     outline: 0;
-    margin-right: 5px;
-    margin-bottom: 5px;
     font-weight: normal;
     box-sizing: border-box;
 }
@@ -448,9 +462,101 @@ div.tagsinput .not_valid {
 
 /* kendo ui
 ================================== */
-.k-numeric-wrap {
+.k-block,
+.k-button,
+.k-textbox,
+.k-drag-clue,
+.k-touch-scrollbar,
+.k-window,
+.k-window-titleless .k-window-content,
+.k-window-action,
+.k-inline-block,
+.k-grid .k-filter-options,
+.k-grouping-header .k-group-indicator,
+.k-autocomplete,
+.k-multiselect,
+.k-combobox,
+.k-dropdown,
+.k-dropdown-wrap,
+.k-datepicker,
+.k-timepicker,
+.k-colorpicker,
+.k-datetimepicker,
+.k-notification,
+.k-numerictextbox,
+.k-picker-wrap,
+.k-numeric-wrap,
+.k-colorpicker,
+.k-list-container,
+.k-calendar-container,
+.k-calendar td,
+.k-calendar .k-link,
+.k-treeview .k-in,
+.k-editor-inline,
+.k-tooltip,
+.k-tile,
+.k-slider-track,
+.k-slider-selection,
+.k-upload,
+
+.k-list .k-state-hover,
+.k-list .k-state-focused,
+.k-list .k-state-highlight,
+.k-list .k-state-selected,
+.k-fieldselector .k-list .k-item,
+.k-dropzone,
+.k-dropdown-wrap .k-input,
+.k-picker-wrap .k-input,
+.k-numeric-wrap .k-input,
+
+.k-window-titlebar,
+.k-block>.k-header,
+.k-tabstrip-items .k-item,
+.k-panelbar .k-tabstrip-items .k-item,
+.k-tabstrip-items .k-link,
+.k-calendar-container.k-state-border-down,
+.k-list-container.k-state-border-down,
+.k-autocomplete.k-state-border-down,
+.k-multiselect.k-state-border-down,
+.k-dropdown-wrap.k-state-border-down,
+.k-picker-wrap.k-state-border-down,
+.k-numeric-wrap.k-state-border-down,
+
+.k-calendar-container.k-state-border-up,
+.k-list-container.k-state-border-up,
+.k-autocomplete.k-state-border-up,
+.k-multiselect.k-state-border-up,
+.k-dropdown-wrap.k-state-border-up,
+.k-picker-wrap.k-state-border-up,
+.k-numeric-wrap.k-state-border-up,
+.k-window-content,
+.k-filter-menu,
+
+.k-calendar .k-link.k-state-hover,
+.k-window-titlebar .k-link {
     border-radius: 0;
 }
+
+#ObjectsGridContainer div.k-grid-header th.k-header,
+.DisplayAvaliablePropertiesHeaderGrid,
+.DisplayAvaliablePropertiesHeaderGrid:hover,
+.k-grid-header th.k-header > .k-link {
+    color: #252525;
+}
+
+.k-picker-wrap .k-input,
+.k-numeric-wrap .k-input,
+.k-autocomplete .k-input {
+    min-height: 28px;
+}
+
+.k-autocomplete.k-state-default,
+.k-picker-wrap.k-state-default,
+.k-numeric-wrap.k-state-default,
+.k-dropdown-wrap.k-state-default {
+    background: #f9f9f9 none;
+}
+
 .k-numeric-wrap .k-input {
     width: 100% !important;
     padding-right: 5px !important;
@@ -487,8 +593,9 @@ div.tagsinput .not_valid {
 }
 
 .k-multiselect .k-multiselect-wrap,
-.k-multiselect.k-state-border-down .k-multiselect-wrap{
+.k-multiselect.k-state-border-down .k-multiselect-wrap {
     position: relative;
+    min-height: 30px;
     border-radius: 0;
     z-index: 2;
 }
@@ -503,8 +610,12 @@ div.tagsinput .not_valid {
     z-index: 1;
     width: 100%;
     height: 100%;
-    border-radius: 1px;
     opacity: 0;
+    border-radius: 0;
+}
+.k-dropdown .k-input {
+    padding-top: 4px;
+    padding-bottom: 4px;
 }
 
 .k-dropdown select {
@@ -527,7 +638,6 @@ div.tagsinput .not_valid {
 .k-tooltip-custom {
     display: none;
     position: absolute;
-    border-radius: 3px;
     border: 1px solid #555;
     background: #fefefe url(kendoui/textures/highlight.png) 0 -258px repeat-x;
     font-size: 11px;
@@ -742,18 +852,31 @@ div.tagsinput .not_valid {
 
 .popupToolbar {
     position: absolute;
-    left: 20px;
-    right: 10px;
+    left: 0;
+    right: 0;
     bottom: 0;
-    min-height: 45px;
-    padding-top: 17px;
+    min-height: 66px;
+    padding: 0 20px;
     text-align: right;
+    border-top: 1px solid #e6e6e6;
+    border-radius: 0 0 2px 2px;
+    box-sizing: border-box;
 }
 
 .km-scroll-container .popupToolbar {
     position: relative;
     right: -10px;
     left: 0;
+}
+
+.popupToolbar .btn {
+    top: 18px;
+    margin-left: 10px;
+    margin-right: 0;
+}
+.popupToolbar .btnLeft {
+    margin-left: 0;
+    margin-right: 10px;
 }
 
 .popupContent .k-dropdown {
@@ -771,27 +894,21 @@ div.tagsinput .not_valid {
 
 .popupContentScrollable.k-window-content .popupContent {
     overflow: auto;
-    padding: 20px 20px 0 20px;
-    box-sizing: border-box;
-}
-
-.popupContentScrollable.k-window-content .popupToolbar {
-    position: relative;
-    left: 0;
-    padding-left: 20px;
-    padding-right: 10px;
-    min-height: 62px;
+    padding: 20px;
+    height: 100px;
     box-sizing: border-box;
 }
 
 .k-window {
-    padding-top: 65px !important;
+    padding-top: 66px !important;
+    border-radius: 2px;
 }
 
 .k-window-titlebar {
-    margin-top: -65px !important;
+    margin-top: -66px !important;
     height: 45px;
-    border-bottom-width: 1px solid #e6e6e6;
+    border-bottom: 1px solid #e6e6e6;
+    border-radius: 2px 2px 0 0;
     background-color: #fff;
     padding: 10px 0;
     cursor: move;
@@ -803,7 +920,7 @@ div.tagsinput .not_valid {
     line-height: 30px;
     padding-left: 0;
     left: 20px;
-    right: 40px;
+    right: 80px;
     cursor: move;
 }
 
@@ -812,9 +929,21 @@ div.tagsinput .not_valid {
     right: 17px;
 }
 
+.k-window-titlebar .k-link {
+    margin-left: 10px;
+    width: 14px;
+    height: 14px;
+    padding: 0;
+}
+
 .k-window .k-link.k-state-hover {
     background: none;
-    border-color: transparent;
+    border-width: 0;
+}
+
+.k-window .k-link .k-icon {
+    width: 14px;
+    height: 14px;
 }
 
 .k-window .k-link .k-i-close,
@@ -833,11 +962,14 @@ div.tagsinput .not_valid {
 .k-window .k-link:not(.k-state-disabled):hover > .k-i-restore {
     background-image: url(../../images/icons/icon_popup_minimize.svg);
     background-position: left top;
+    background-size: 15px 14px;
+    width: 15px;
 }
 
 div.k-window-content {
-    padding: 20px 20px 60px 20px;
-    min-height: 160px;
+    padding: 20px 20px 86px 20px;
+    min-height: 166px;
+    border-radius: 0 0 2px 2px;
 }
 
 div.k-window-content.km-scroll-wrapper {
@@ -848,51 +980,6 @@ div.k-window-content > .k-loading-mask {
     z-index: 1000;
     left: 0;
     top: 0;
-}
-
-/* .k-wc
-================================== */
-.k-wc {
-    background: #fff none;
-    border-radius: 0;
-    border: 1px solid #9c9c9c;
-    left: 0;
-    top: 0;
-}
-
-.k-wc.k-state-focused {
-    border: 1px solid #9c9c9c !important;
-    box-shadow: 1px 1px 7px 1px rgba(128,128,128,.3) !important;
-}
-
-.k-wc .k-window-titlebar {
-    background: #dcdcdc none;
-    height: 40px;
-    border-radius: 0;
-    padding: 13px 0;
-}
-
-.k-wc .k-window-title {
-    font-size: 22px;
-    left: 15px;
-    top: 12px;
-    line-height: 40px;
-}
-
-.k-window-draggable .k-window-title {
-    cursor: move;
-}
-
-.k-wc .k-window-action.k-state-hover {
-    box-shadow: none;
-    background: transparent none;
-    border-color: transparent;
-}
-
-.k-wc div.k-window-content {
-    background: #fff none;
-    padding: 0;
-    margin: 0;
 }
 
 /* .popupWarning
@@ -911,7 +998,8 @@ div.k-window-content > .k-loading-mask {
 ================================== */
 .popupError .popupContent {
     padding-left: 25px;
-    background: transparent url(../images/icons/icon_error.png) left top no-repeat;
+    background: transparent url(../images/icons/icon_error.svg) left top no-repeat;
+    background-size: 14px 14px;
 }
 
 .popupError h1 {
@@ -986,6 +1074,14 @@ div.k-window-content > .k-loading-mask {
 
 /* #ConsoliDatedRolePopup
 ================================== */
+#ConsoliDatedRolePopup {
+    min-height: 220px;
+}
+
+#ConsoliDatedRolePopup .k-dropdown .UserModelPrivileges {
+    top: -10000px;
+}
+
 #ConsoliDatedRolePopup .k-treeview > ul > .k-item > div > .k-in {
     font-weight: bold;
 }
@@ -1081,6 +1177,12 @@ div.k-window-content > .k-loading-mask {
     background-image: url(../images/icons/icon_field_info_hover.png);
 }
 
+.fieldChooserButtons {
+    background-color: #fff;
+    padding-top: 18px;
+    padding-bottom: 18px;
+}
+
 .fieldChooserButtons .btnSelectAll {
     margin-left: 210px;
 }
@@ -1138,9 +1240,8 @@ div.k-window-content > .k-loading-mask {
     position: relative;
     top: -2px;
 }
-
 #popupClassesChooser .popupToolbar {
-    bottom: 5px;
+    min-height: 76px;
 }
 
 #popupClassesChooser .modelWrapper {
@@ -1156,7 +1257,7 @@ div.k-window-content > .k-loading-mask {
 }
 
 #popupSelectedClasses .popupToolbar {
-    bottom: 5px;
+    min-height: 76px;
 }
 
 #popupSelectedClasses ul {
@@ -1197,7 +1298,7 @@ div.k-window-content > .k-loading-mask {
 }
 
 #popupModuleEdit h2 {
-    margin-bottom: 8px;
+    margin-bottom: 15px;
 }
 
 #popupModuleEditPlaintext #plaintext {
@@ -1638,8 +1739,7 @@ td.gridColumnToolbar {
     overflow: visible !important;
 }
 
-.gridColumnToolbar .btn,
-.gridColumnToolbar .btn:hover {
+.gridColumnToolbar .btn {
     padding-right: 15px !important;
     border: none;
     box-shadow: none;
@@ -1648,6 +1748,14 @@ td.gridColumnToolbar {
     padding-top: 0;
     padding-bottom: 1px;
     text-indent: -9000px;
+}
+
+.gridColumnToolbar .btnGroupInner .btn:hover {
+    background-color: rgba(32, 168, 230, .11);
+}
+
+.gridColumnToolbar .btnGroupInner .btn:active {
+    background-color: rgba(29, 159, 217, .27);
 }
 
 .gridColumnToolbar .btn:after {
@@ -1771,6 +1879,9 @@ tr.rowMaskAsRemove .btnGroupContainer > .btn:after {
 
 #popupCommentForm .fieldFile {
     float: left;
+}
+#popupCommentForm .fieldFile .btn {
+    margin-left: 0;
 }
 
 #popupCommentForm .k-upload .k-upload-status {
@@ -1914,13 +2025,16 @@ tr.rowMaskAsRemove .btnGroupContainer > .btn:after {
     margin: 10px;
 }
 
-#popupLogTable .gridToolbarTop .k-dropdown {
+#popupLogTable .k-dropdown {
     text-align: left;
     width: 120px !important;
     font-size: 11px;
 }
-
-#popupLogTable .gridToolbarTop .k-dropdown .logType > span {
+#popupLogTable .k-dropdown .k-input {
+    padding-top: 2px;
+    padding-bottom: 2px;
+}
+#popupLogTable .k-dropdown .logType > span {
     margin-left: 4px;
 }
 
@@ -2138,10 +2252,6 @@ tr.rowMaskAsRemove .btnGroupContainer > .btn:after {
     color: #082F56;
     font-weight: normal;
     height: auto;
-}
-
-.pageCustomIcons .gridContainer .k-upload .btn:hover {
-    /*display: none;*/
 }
 
 .pageCustomIcons .gridContainer .k-upload .btn > span {
@@ -2616,15 +2726,6 @@ form#ExportPackageForm .packageInfo .packageVersion input {
     position: absolute;
     left: 10px;
     bottom: 20px;
-    color: #333;
-    border: 1px solid #c1c1c1;
-}
-
-.modelOverviewItem .btnOpenModel:hover,
-.modelOverviewItem .btnOpenLogs:hover {
-    color: #333;
-    border: 1px solid #c1c1c1;
-    background: #eaeaea;
 }
 
 .modelOverviewItem .btnOpenLogs {
@@ -2718,6 +2819,10 @@ form#ExportPackageForm .packageInfo .packageVersion input {
 
 .modelInfo .btnInfo {
     padding-right: 27px;
+}
+
+.modelInfo .btnStartStopModelServer {
+    margin-right: 0;
 }
 
 .modelInfoStatus .k-loading-mask {
@@ -3038,27 +3143,6 @@ form#ExportPackageForm .packageInfo .packageVersion input {
     font-weight: normal;
 }
 
-.pageLicense .iconValid,
-.pageLicense .iconWarning,
-.pageLicense .iconError {
-    background: transparent none center center no-repeat;
-    display: inline-block;
-    width: 25px;
-    height: 16px;
-}
-
-.pageLicense .iconValid {
-    background-image: url(../images/icons/icon_check.gif);
-}
-
-.pageLicense .iconWarning {
-    background-image: url(../images/icons/icon_warning.gif);
-}
-
-.pageLicense .iconError {
-    background-image: url(../images/icons/icon_error.gif);
-}
-
 /* .pageSystemRoles
 ================================== */
 #formAccessManagementConsole .contentSectionInfoItem > p {
@@ -3077,11 +3161,12 @@ form#ExportPackageForm .packageInfo .packageVersion input {
 
 /* .pageAllModelServer
 ================================== */
-.pageAllModelServer .currentInstance, .currentInstance {
-    background: transparent url(../images/icons/icon_check.gif) left -1px no-repeat;
+.currentInstance {
+    background: transparent url(../images/icons/icon_check.svg) left top no-repeat;
     padding-left: 18px;
     line-height: 16px;
     display: inline-block;
+    background-size: 14px 14px;
 }
 
 #popupModelServer {
@@ -3324,11 +3409,13 @@ form#ExportPackageForm .packageInfo .packageVersion input {
 }
 
 #TreeListAngleWarnings input[type="text"] {
-    height: 14px;
+    height: 29px;
+    min-height: 28px;
 }
 
 #TreeListAngleWarnings .iconChecked {
-    background-image: url(../images/icons/icon_check.gif);
+    background-image: url(../images/icons/icon_check.svg);
+    background-size: 14px 14px;
 }
 
 #TreeListAngleWarnings .btnExecuteAction {
@@ -3532,6 +3619,10 @@ form#ExportPackageForm .packageInfo .packageVersion input {
     margin: 0 1px;
     padding-top: 0;
     padding-bottom: 1px;
+}
+
+.pageModules .btnAdd:after {
+    background-image: url(../images/icons/icon_add_blue.svg);
 }
 
 .pageModules .k-treelist tbody .btnAdd,
@@ -3874,7 +3965,7 @@ form#ExportPackageForm .packageInfo .packageVersion input {
 }
 
 #popupCopyRole .popupContent {
-    min-height: 95px;
+    overflow: hidden;
 }
 
 #UserInRolePopup.k-window-content {
@@ -4151,7 +4242,7 @@ form#ExportPackageForm .packageInfo .packageVersion input {
 }
 
 #popupSubRolesTable {
-    min-height: 300px;
+    min-height: 500px;
 }
 
 #popupSubRolesTable .gridContainer {
@@ -4293,8 +4384,8 @@ form#ExportPackageForm .packageInfo .packageVersion input {
 }
 
 #AddActionPopup .btnFindAngle {
-    padding-top: 2px;
-    padding-bottom: 3px;
+    padding-top: 3px;
+    padding-bottom: 5px;
     margin-right: 0;
 }
 
@@ -4338,13 +4429,8 @@ form#ExportPackageForm .packageInfo .packageVersion input {
 }
 
 #AngleParametersGrid .k-multiselect .k-button {
-    height: 23px;
     margin-top: 2px;
     margin-bottom: 2px;
-}
-
-#AngleParametersGrid .k-multiselect .k-button > span.k-select {
-    top: -2px;
 }
 
 .multipleSelectHeader {
@@ -5000,12 +5086,14 @@ a.mailto {
     vertical-align: middle;
     width: 18px;
     height: 16px;
+    background: transparent none left top no-repeat;
+    background-size: 14px 14px;
 }
 
 .resultType > span.failed {
-    background: transparent url(../images/icons/icon_error.png) left -1px no-repeat;
+    background-image: url(../images/icons/icon_error.svg);
 }
 
 .resultType > span.finished {
-    background: transparent url(../images/icons/icon_check.gif) left -1px no-repeat;
+    background-image: url(../images/icons/icon_check.svg);
 }

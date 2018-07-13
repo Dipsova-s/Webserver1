@@ -183,9 +183,6 @@
         self.ShowAvailableFields = function () {
             MC.ui.popup('setScrollable', {
                 element: '#popupDownloadTableFields',
-                getHeight: function (win) {
-                    return win.element.height() - win.element.find('.popupToolbar').outerHeight() - 20;
-                },
                 onResize: function (win) {
                     var grid = win.element.find('.k-grid');
                     grid.height(win.element.find('.popupContent').height() - 45);

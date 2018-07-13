@@ -215,7 +215,7 @@
                             ModelUri = ViewBag.ModelUri,
                             Privilege = PrivilegeType.Model,
                             Type = PageToolbarButtonType.Custom,
-                            EnableTemplate = updateStatus == null ? infoButton + "<a class=\"btn disabled\" >" + text + "</a>" : infoButton + "<a class=\"btn btnStartStopModelServer\" onclick=\"MC.Models.Model.UpdateInstance('" + item.ModelServerId + "'," + Convert.ToString(updateStatus).ToLower() + ",'"+ item.id +"')\">" + text + "</a>",
+                            EnableTemplate = updateStatus == null ? infoButton + "<a class=\"btn btnNext disabled\" >" + text + "</a>" : infoButton + "<a class=\"btn btnNext btnStartStopModelServer\" onclick=\"MC.Models.Model.UpdateInstance('" + item.ModelServerId + "'," + Convert.ToString(updateStatus).ToLower() + ",'"+ item.id +"')\">" + text + "</a>",
                             DisableTemplate = "<a class=\"btn disabled\" >" + text + "</a>"
                         });
                     }

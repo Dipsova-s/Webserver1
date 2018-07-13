@@ -229,13 +229,16 @@
     <Content Include="Images\ea_about_logo.png" />
     <Content Include="Images\Icons\icon_about.png" />
     <Content Include="Images\Icons\icon_add.svg" />
+    <Content Include="Images\Icons\icon_add_blue.svg" />
     <Content Include="Images\Icons\icon_angle_error.png" />
     <Content Include="Images\Icons\icon_angle_warning.png" />
     <Content Include="Images\Icons\icon_arrow_right.svg" />
     <Content Include="Images\Icons\icon_arrow_white_down.svg" />
     <Content Include="Images\Icons\icon_chart.png" />
+    <Content Include="Images\Icons\icon_check.svg" />
     <Content Include="Images\Icons\icon_close.svg" />
     <Content Include="Images\Icons\icon_download.png" />
+    <Content Include="Images\Icons\icon_error.svg" />
     <Content Include="Images\Icons\icon_gear.png" />
     <Content Include="Images\Icons\icon_help.svg" />
     <Content Include="Images\Icons\icon_info.svg" />
@@ -356,12 +359,9 @@
     <Content Include="Images\Icons\icon_arrow_down.png" />
     <Content Include="Images\Icons\icon_arrow_down_small.png" />
     <Content Include="Images\Icons\icon_edit_cancel.png" />
-    <Content Include="Images\Icons\icon_check.gif" />
     <Content Include="Images\Icons\icon_checked.png" />
     <Content Include="Images\Icons\icon_disabled.png" />
     <Content Include="Images\Icons\icon_disabled_red.png" />
-    <Content Include="Images\Icons\icon_error.gif" />
-    <Content Include="Images\Icons\icon_error.png" />
     <Content Include="Images\Icons\icon_add_language.png" />
     <Content Include="Images\Icons\icon_close.png" />
     <Content Include="Images\Icons\icon_close_popup.png" />
@@ -379,7 +379,6 @@
     <Content Include="Images\model_status_bg.png" />
     <Content Include="Images\UI\btn_primary_bg.png" />
     <Content Include="Images\UI\input_bg.png" />
-    <Content Include="Images\Icons\icon_add.png" />
     <Content Include="Images\Icons\icon_arrow_white_down.png" />
     <Content Include="Images\Icons\icon_delete.png" />
     <Content Include="Images\Icons\icon_edit.png" />

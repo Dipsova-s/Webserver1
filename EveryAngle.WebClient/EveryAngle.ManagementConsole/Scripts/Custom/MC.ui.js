@@ -688,6 +688,16 @@
             }
         },
         commentbox: function (action, option) {
+
+            var setScrollablePopup = function (win) {
+                MC.ui.popup('setScrollable', {
+                    element: '#popupCommentForm',
+                    onResize: function (win) {
+                        win.element.find('textarea').height(win.element.height() - win.element.find('.popupToolbar').height() - 56);
+                    }
+                });
+            };
+
             switch (action) {
                 case 'edit':
                 case 'add':
@@ -723,12 +733,7 @@
                     });
                     break;
                 case 'editPopup':
-                    MC.ui.popup('setScrollable', {
-                        element: '#popupCommentForm',
-                        onResize: function (win) {
-                            win.element.find('textarea').height(win.element.height() - 95);
-                        }
-                    });
+                    setScrollablePopup();
                     var grid = jQuery('#GridComment').data('kendoGrid');
                     if (grid) {
                         var dataItem = grid.dataSource.getByUid(option);
@@ -741,12 +746,7 @@
                     }
                     break;
                 case 'popup':
-                    MC.ui.popup('setScrollable', {
-                        element: '#popupCommentForm',
-                        onResize: function (win) {
-                            win.element.find('textarea').height(win.element.height() - 95);
-                        }
-                    });
+                    setScrollablePopup();
                     $('#commentUri').val('');
                     $('.fieldFile').show();
                     $('#SaveCommentBtn').attr("onclick", "MC.ui.commentbox('add')")

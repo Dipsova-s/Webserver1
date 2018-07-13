@@ -128,7 +128,7 @@
                         attributes.href = '#ImportPackagePopup';
                         attributes['data-role'] = 'mcPopup';
                         attributes['data-width'] = '400';
-                        attributes['data-height'] = '340';
+                        attributes['data-height'] = '360';
                     }
                     else {
                         // other type package
@@ -222,7 +222,7 @@
             MC.util.setGridWidth(e.sender, e.sender.columns.length - 1, 75);
             MC.ui.localize();
             MC.ui.popup();
-            //MC.ui.btnGroup();
+
             var dataItems = e.sender.dataItems();
             e.sender.items().not('.k-no-data').each(function (index, item) {
                 $(item).attr('id', 'row-' + dataItems[index].id);
@@ -288,6 +288,10 @@
         self.ManagePackage = function (e, element) {
             var dataParameters = $(element).data('parameters');
             if (dataParameters.isActive && dataParameters.isUpgradePackage) {
+                MC.ui.popup('setScrollable', {
+                    element: '#ImportPackagePopup'
+                });
+
                 var importPackagePopup = $('#ImportPackagePopup');
                 importPackagePopup.find('form').trigger('reset');
                 importPackagePopup.find('.btnSubmit').data('parameters', dataParameters);

@@ -44,7 +44,7 @@
                     win.restoreOptions.height = height + 'px';
                 }
                 else {
-                    win.element.find('.popupContent').height(options.getHeight(win));
+                    win.element.find('.popupContent').css('height', options.getHeight(win));
                     options.onResize(win);
                 }
             });
@@ -56,9 +56,9 @@
         var options = jQuery.extend({
             element: null,
             getHeight: function (win) {
-                return win.element.height() - win.element.find('.popupToolbar').outerHeight() - 20;
+                return win.element.height() - win.element.find('.popupToolbar').outerHeight();
             },
-            onResize: function (win) { }
+            onResize: jQuery.noop
         }, settings);
 
         var win = jQuery(options.element).data('kendoWindow');
