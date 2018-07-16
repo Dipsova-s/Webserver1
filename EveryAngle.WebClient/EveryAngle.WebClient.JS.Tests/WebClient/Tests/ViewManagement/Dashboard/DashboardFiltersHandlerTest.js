@@ -127,10 +127,10 @@ describe("DashboardFiltersHandler", function () {
         it("should call quick filter popup function", function () {
             utils.createMockDashboardFilters();
             var filter = dashboardFiltersHandler.FilterNodes()[0].filters[0];
-            spyOn(quickFilterHandler, 'ShowAddDashboardFilterPopup').and.callFake(jQuery.noop);
+            spyOn(quickFilterHandler, 'ShowEditDashboardFilterPopup').and.callFake(jQuery.noop);
             dashboardFiltersHandler.ShowEditFilterPopup(filter, 'testid');
 
-            expect(quickFilterHandler.ShowAddDashboardFilterPopup).toHaveBeenCalled();
+            expect(quickFilterHandler.ShowEditDashboardFilterPopup).toHaveBeenCalled();
         });
     });
 

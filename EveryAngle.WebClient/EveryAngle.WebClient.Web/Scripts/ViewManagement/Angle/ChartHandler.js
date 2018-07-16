@@ -522,7 +522,10 @@ function ChartHandler(elementId, container) {
                     requests = requests[0];
 
                 if (self.DashBoardMode()) {
-                    self.RemoveChart();
+                    var widgetDisplayElementId = self.ElementId.slice(1);
+                    var widgetContainer = jQuery(self.ElementId + '-container');
+                    var chartType = self.GetDisplayDetails().chart_type;
+                    self.RemoveWidgetChart(widgetDisplayElementId, widgetContainer, chartType);
                     self.Models.Result.RetryPostResult(requests.responseText);
                 }
                 else {
@@ -531,16 +534,30 @@ function ChartHandler(elementId, container) {
             })
             .done(self.GenerateChartDatasource);
     };
-    self.RemoveChart = function () {
-        var chartElement = jQuery(self.ElementId);
-        var widgetContainer = chartElement.closest('.widgetDisplayColumn');
-        var chartObject = chartElement.data(enumHandlers.KENDOUITYPE.CHART) || chartElement.data(enumHandlers.KENDOUITYPE.RADIALGAUGE);
-        if (chartObject) {
-            chartObject.destroy();
+    self.RemoveWidgetChart = function (widgetDisplayElementId, widgetContainer, chartType) {
+
+        if (self.IsDonutOrPieChartType(chartType)) {
+            var chartItems = widgetContainer.find('.k-chart');
+            jQuery.each(chartItems, function (index, chartItem) {
+                chartItem = jQuery(chartItem);
+                var chartObject = chartItem.data(enumHandlers.KENDOUITYPE.CHART);
+                if (chartObject)
+                    chartObject.destroy();
+            });
+            widgetContainer.find('.chartWrapper').empty().attr('id', widgetDisplayElementId);
         }
-        chartElement.detach().appendTo(widgetContainer);
-        widgetContainer.find('.chartWrapper').remove();
-        widgetContainer.find('.navigatorWrapper').remove();
+        else {
+            var widgetDisplay = widgetContainer.find('.widgetDisplay');
+            var chartObject = widgetDisplay.data(enumHandlers.KENDOUITYPE.CHART) || widgetDisplay.data(enumHandlers.KENDOUITYPE.RADIALGAUGE);
+            if (chartObject)
+                chartObject.destroy();
+
+            widgetDisplay.detach().appendTo(widgetContainer);
+            widgetContainer.find('.widgetDisplay').empty();
+            widgetContainer.find('.chartWrapper').remove();
+            widgetContainer.find('.navigatorWrapper').remove();
+        }
+
     };
     self.LoadSuccess = function (data) {
         self.Data.fields = data.fields;

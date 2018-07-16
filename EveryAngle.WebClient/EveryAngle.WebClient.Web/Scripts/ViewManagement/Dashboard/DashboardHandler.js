@@ -971,6 +971,8 @@ function DashboardHandler() {
         var updateDisplay = function () {
             var container = jQuery('#dashboardWrapper');
             var maximizeContainer = jQuery('#widgetMaximizeWrapper');
+            var widgetColumns = container.find('.widgetDisplayColumn');
+
             var updateWidgetLayout = function (widgetElement) {
                 widgetElement.find('.widgetName').css('max-width', widgetElement.find('.widgetDisplayHeader').width() - widgetElement.find('.widgetToolbar').width() - 55);
 
@@ -986,10 +988,9 @@ function DashboardHandler() {
             if (maximizeContainer.hasClass('active')) {
                 updateWidgetLayout(maximizeContainer);
             }
-            else {
+            else if (widgetColumns.length) {
                 kendo.resize(container);
-
-                jQuery('#dashboardWrapper .widgetDisplayColumn').each(function (index, widgetElement) {
+                widgetColumns.each(function (index, widgetElement) {
                     updateWidgetLayout(jQuery(widgetElement));
                 });
             }
@@ -1007,6 +1008,27 @@ function DashboardHandler() {
             if (model)
                 model.ApplyResult();
         });
+    };
+    self.RemoveWidgetDisplayElement = function (widgetDisplayElementId, widgetContainer, displayData) {
+        var widgetDisplay = widgetContainer.find('.widgetDisplay');
+        var displayType = displayData.display_type;
+        if (enumHandlers.DISPLAYTYPE.CHART === displayType) {
+            var displayDetails = JSON.parse(displayData.display_details);
+            chartHandler.RemoveWidgetChart(widgetDisplayElementId, widgetContainer, displayDetails.chart_type);
+            widgetDisplay = jQuery('#' + widgetDisplayElementId);
+        }
+        else if (enumHandlers.DISPLAYTYPE.PIVOT === displayType) {
+            widgetDisplay = widgetContainer.find('.pivotAreaContainer');
+            widgetDisplay.empty();
+        }
+        else {
+            widgetDisplay.empty();
+        }
+        setTimeout(function () {
+            if (widgetDisplay.find('.areaErrorContainer').length) {
+                widgetDisplay.attr('style', '').attr('class', 'widgetDisplay');
+            }
+        }, 100);
     };
 
     self.CreateSplitter = function (structure) {

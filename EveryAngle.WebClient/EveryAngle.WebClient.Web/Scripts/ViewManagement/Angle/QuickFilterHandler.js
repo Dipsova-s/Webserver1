@@ -9,14 +9,14 @@ function QuickFilterHandler() {
     /*BOF: Model Properties*/
     _self.handler = null;
     _self.popupName = 'ListFilter';
-
+    
     self.HandlerFilter = null;
     /*EOF: Model Properties*/
 
     /*BOF: Model Methods*/
-    self.GetPopupSettings = function (fnApplyFilter) {
+    self.GetPopupSettings = function (popupTitle, fnApplyFilter) {
         return {
-            title: Localization.ListHeaderPopupAddFilter,
+            title: popupTitle,
             element: '#popup' + _self.popupName,
             appendTo: 'body',
             className: 'popup' + _self.popupName,
@@ -74,7 +74,7 @@ function QuickFilterHandler() {
         listSortHandler.CloseCustomPopup();
         listFormatSettingHandler.CloseCustomPopup();
 
-        var popupSettings = self.GetPopupSettings(function () {
+        var popupSettings = self.GetPopupSettings(Localization.ListHeaderPopupAddFilter, function () {
             self.ApplyFilter();
         });
         popupSettings.open = function (e) {
@@ -113,11 +113,11 @@ function QuickFilterHandler() {
             e.sender.wrapper.find('.btn').removeClass('executing');
         }, 10);
     };
-    self.ShowAddDashboardFilterPopup = function (filter, modelUri, fnApplyFilter) {
-        requestHistoryModel.SaveLastExecute(self, self.ShowAddDashboardFilterPopup, arguments);
+    self.ShowEditDashboardFilterPopup = function (filter, modelUri, fnApplyFilter) {
+        requestHistoryModel.SaveLastExecute(self, self.ShowEditDashboardFilterPopup, arguments);
         requestHistoryModel.ClearPopupBeforeExecute = true;
 
-        var popupSettings = self.GetPopupSettings(fnApplyFilter);
+        var popupSettings = self.GetPopupSettings(Localization.ListHeaderPopupEditFilter, fnApplyFilter);
         popupSettings.open = function (e) {
             self.HandlerFilter = new WidgetFilterHandler(e.sender.element, []);
             self.HandlerFilter.Data([filter]);
@@ -133,14 +133,14 @@ function QuickFilterHandler() {
             };
             self.HandlerFilter.SetFieldChoooserInfo([]);
 
-            self.ShowAddDashboardFilterPopupCallback(e);
+            self.ShowEditDashboardFilterPopupCallback(e);
         };
 
         self.HandlerFilter = null;
 
         popup.Show(popupSettings);
     };
-    self.ShowAddDashboardFilterPopupCallback = function (e) {
+    self.ShowEditDashboardFilterPopupCallback = function (e) {
         self.HandlerFilter.ApplyHandler();
         self.HandlerFilter.View.Toggle('FilterHeader-0');
         self.HandlerFilter.Element.find('.FilterHeader').addClass('Disabled');

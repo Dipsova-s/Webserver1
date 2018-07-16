@@ -84,8 +84,8 @@
         filterObject.field = fieldId;
         filterObject.step_type = enumHandlers.FILTERTYPE.FILTER;
         var filterViewModel = new WidgetFilterModel(filterObject);
-
-        quickFilterHandler.ShowAddDashboardFilterPopup(filterViewModel, modelUri, function (updateFilter) {
+        
+        quickFilterHandler.ShowEditDashboardFilterPopup(filterViewModel, modelUri, function (updateFilter) {
             self.ApplyFilter(filter, updateFilter);
             quickFilterHandler.CloseAddFilterPopup();
         });

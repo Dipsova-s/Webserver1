@@ -114,7 +114,7 @@
     left: auto;
     right: 0;
     background-image: url('../../images/icons/icon_arrow_down.png');
-    z-index: 10;
+    z-index: 9;
 }
 
 .treeViewHeader {
@@ -143,7 +143,7 @@
 
 .FilterHeader.Expand:after {
     background-image: url('../../images/icons/icon_arrow_up.png');
-    z-index: 10;
+    z-index: 9;
 }
 
 .FilterHeader.Followup:after,
@@ -275,24 +275,32 @@
     z-index: 10;
 }
 
+.FilterHeader > .btnInfo {
+    background-size: 100%;
+    right: 60px;
+}
+
+.readonly .FilterHeader .btnInfo {
+    right: 36px
+}
+
+.readonly .FilterHeader.Disabled .btnInfo {
+    right: 18px
+}
+
+.no-backgroundsize .FilterHeader .btnInfo {
+    top: 13px;
+}
+
 .treeview .FilterHeader .btnInfo,
 .treeview .FilterHeader .btnAddFilter,
 .treeview .FilterHeader .btnDelete {
     display: block;
 }
 
-.FilterHeader > .btnInfo {
-    background-size: 100%;
-    right: 60px;
-}
-
 .treeViewHeader > .btnInfo {
     right: 90px;
     margin: 0;
-}
-
-.no-backgroundsize .FilterHeader .btnInfo {
-    top: 13px;
 }
 
 .FilterHeader .btnAddFilter {

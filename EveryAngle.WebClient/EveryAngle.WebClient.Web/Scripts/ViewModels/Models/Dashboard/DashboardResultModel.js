@@ -107,13 +107,12 @@ function DashboardResultViewModel(elementId, model, dashboardViewModel, executeP
         return CreateDataToWebService(directoryHandler.ResolveDirectoryUri(self.Data().execute_steps) + '?redirect=no', query);
     };
     self.RetryPostResult = function (msg) {
-        var displayElement = jQuery(self.ElementId);
-        var widgetElement = displayElement.closest('.widgetDisplayColumn');
-        widgetElement.busyIndicator(false);
-        displayElement.empty();
+        var widgetContainer = jQuery(self.ElementId + '-container');
         var message = errorHandlerModel.GetAreaErrorMessage(msg);
+        widgetContainer.busyIndicator(false);
+        dashboardHandler.RemoveWidgetDisplayElement(self.ElementId.slice(1), widgetContainer, self.Display);
         errorHandlerModel.ShowAreaError(self.ElementId, message, function () {
-            widgetElement.busyIndicator(true);
+            widgetContainer.busyIndicator(true);
             self.Execute();
         });
     };

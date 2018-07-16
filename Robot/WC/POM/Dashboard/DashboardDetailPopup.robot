@@ -120,12 +120,8 @@ Click Add Filter Button In Dashboard Detail Popup
     Click Element    ${btnAddDashboardFilter}
 
 Choose Dropdown Filter Operator In FilterField In Filters tab
-    [Arguments]    ${index}    ${selectText}    
+    [Arguments]    ${index}    ${selectText}
     Choose Dropdown Filter Operator    ${index}    ${selectText}
-
-Choose Value In Dropdown List
-    Wait Until Element Is Visible    ${ddlValueList}
-    Click Element    ${ddlValueList}
 
 Input Filter Value
     [Arguments]    ${value}

@@ -125,20 +125,19 @@ Verify Dashboard Filters Count
 
 Create Dashboard From Specific Angle Name
     [Arguments]    ${angleName}    ${dashboardName}
-    Search By Text    ${angleName} 
+    Search By Text And Expect In Search Result    ${angleName} 
     Click Select First Item From Search Result
     Click Search Action Execute As Dashboard
     Input Dashboard Name    ${dashboardName} 
     Save Dashboard
 
-Add Dashboard Filter From Dashboard Name 
+Add Dashboard Filter From Dashboard Name
     Click Dashboard Name
     Click Dashboard Detail Filters Tab
     Click Add Filter Button In Dashboard Detail Popup
     Select Field From Filters Tab    "plant"    Plant
     Choose Dropdown Filter Operator In FilterField In Filters tab    0    is equal to
-    Input Filter Value     1000 (werk Hamburg)
-    Choose Value In Dropdown List
+    Input Filter Set Select Value    0    1000 (Werk Hamburg)
     Save Dashboard
 
 Verify Dashboard Filter Showing 
@@ -153,11 +152,11 @@ Verify Dashboard Filter Showing
 Verify Editing Dashboard Filter
     Click Editing From Dashboard Filter Panel
     Verify Editing Filter Popup    0    (Self) - Plant is equal to 1000 (Werk Hamburg)
-    Cancel Edit Dashboard  
+    Cancel Edit Dashboard
 
 Create Dashboard From Many Angles
     [Arguments]    ${angleKeyword}    ${dashboardName}
-    Search By Text    ${angleKeyword} 
+    Search By Text And Expect In Search Result    ${angleKeyword} 
     Click Search Action Select All
     Click Search Action Execute As Dashboard
     Input Dashboard Name    ${dashboardName} 
@@ -174,7 +173,7 @@ Add Dashboard Filter From Dashboard Filter Panel
     Input Date Value    1_0    May/24/2016
     Click Add Filter From Field    2
     Choose Dropdown Filter Operator In FilterField In Filters tab    2    is before
-    Input Date Value    2_0    March/24/2016    
+    Input Date Value    2_0    Mar/24/2016
     Click Add Filter Button In Dashboard Detail Popup
     Select Field From Filters Tab    "Plant"    Plant
     Select Checkbox Value List     2

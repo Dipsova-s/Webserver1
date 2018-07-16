@@ -297,3 +297,4 @@ __pycache__/
 !**/log/log.txt
 !/EveryAngle.WebClient/EveryAngle.ManagementConsole/UploadedResources/Packages/**
 !/Robot/**/Packages/**
+/Robot/chromedriver.exe

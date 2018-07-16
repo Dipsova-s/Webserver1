@@ -763,7 +763,7 @@ function DashboardDetailsHandler() {
         self.HandlerFilter.SetTreeViewMode();
         self.HandlerFilter.ApplyHandler();
     };
-    self.ShowAddFilterPopup = function () {
+    self.ShowAddFilterPopup = function (data, event) {
         // do nothing if disabled
         if (jQuery(event.currentTarget).hasClass('disabled'))
             return;
@@ -1325,6 +1325,10 @@ function DashboardDetailsHandler() {
                 });
         }
         else {
+            // clean updating data before check, in case viewer user will remain only user_specific property
+            self.CleanUpdatingData(data);
+            self.CleanUpdatingData(originalData);
+
             // save normally
             if (jQuery.deepCompare(data, originalData)) {
                 // nothing changes
@@ -1433,6 +1437,17 @@ function DashboardDetailsHandler() {
             deleteWidgetButtonElement.addClass('disabled');
         else
             deleteWidgetButtonElement.removeClass('disabled');
+    };
+    self.CleanUpdatingData = function (data) {
+        // no cleanup if can update this dashboard
+        if (dashboardModel.CanUpdateDashboard())
+            return;
+
+        // viewer user only allow to update user_specific property
+        jQuery.each(data, function (name, value) {
+            if (name !== 'user_specific')
+                delete data[name];
+        });
     };
     self.GetConfirmMessageBeforeSave = function (isValidatedDashboard, updateData) {
         // M4-33955: save with validated state

@@ -7,7 +7,7 @@
 
     self.Template = [
         '<!-- ko stopBinding: true -->',
-        '<div class="definitionList" data-bind="foreach: { data: Data, as: \'query\' }, css: { sortable: $root.Sortable() && ($root.CanChange() || $root.CanRemove()), movable: $root.CanFiltersMovable(), no: !$root.HasDefinition(Data()), treeview: $root.ViewMode() === $root.VIEWMODE.TREEVIEW }">',
+        '<div class="definitionList" data-bind="foreach: { data: Data, as: \'query\' }, css: { sortable: $root.Sortable() && ($root.CanChange() || $root.CanRemove()), movable: $root.CanFiltersMovable(), no: !$root.HasDefinition(Data()), treeview: $root.ViewMode() === $root.VIEWMODE.TREEVIEW, readonly: !$root.CanChange() && !$root.CanRemove() }">',
             '<!-- ko if: $root.IsFilterOrJumpQueryStep(query.step_type) -->',
             '<!-- ko if: $root.IsTreeViewHeader(query) -->',
             '<div class="FilterHeader Collapse treeViewHeader" data-bind="click: $root.View.ToggleTreeViewHeader">',
@@ -15,7 +15,7 @@
                     '<label class="filterText" data-bind="text: $root.GetFilterFieldName(query.field, $root.ModelUri)"></label>',
                 '</p>',
                 '<a class="btnInfo" data-bind="click: $root.ShowFieldInfo, clickBubble: false"></a>',
-                '<a class="btnAddFilter" data-bind="click: $root.AddFilterFromTreeHeader, clickBubble: false"></a>',
+                '<a class="btnAddFilter" data-bind="click: $root.AddFilterFromTreeHeader, clickBubble: false, visible: $root.CanChange(query)"></a>',
                 '<a class="btnDelete" data-bind="click: $root.RemoveTreeViewHeader, clickBubble: false, visible: $root.CanRemove(query)"></a>',
             '</div>',
             '<!-- /ko -->',
