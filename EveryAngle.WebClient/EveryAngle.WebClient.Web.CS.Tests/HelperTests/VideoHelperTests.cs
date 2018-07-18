@@ -22,6 +22,15 @@ namespace EveryAngle.WebClient.Web.CS.Tests.ControllerTest
             Assert.AreEqual(expectedType, video.sources[0].type);
         }
 
+        [TestCase("01 - test 23", "01-test23")]
+        [TestCase("0123456", "0123456")]
+        public void Can_GetVideoThumbnailName(string videoName, string expectedVideoName)
+        {
+            string newName = VideoHelper.GetVideoThumbnailName(videoName);
+
+            Assert.AreEqual(expectedVideoName, newName);
+        }
+
         #endregion
 
     }

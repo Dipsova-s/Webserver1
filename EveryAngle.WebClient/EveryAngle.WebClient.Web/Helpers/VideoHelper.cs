@@ -52,7 +52,7 @@ namespace EveryAngle.WebClient.Web.Helpers
 
             string videoName = Path.GetFileNameWithoutExtension(videoFile.Name);
             string videoSourceFile = string.Format(@"{0}/{1}.mp4", videoWebPath, videoName).ToLowerInvariant();
-            string videoThumbnailFile = string.Format(@"{0}/{1}.jpg", videoWebPath, videoName).ToLowerInvariant();
+            string videoThumbnailFile = string.Format(@"{0}/{1}.jpg", videoWebPath, GetVideoThumbnailName(videoName)).ToLowerInvariant();
 
             videoPlayList.name = videoName;
             videoSource.type = "video/mp4";
@@ -70,8 +70,13 @@ namespace EveryAngle.WebClient.Web.Helpers
         public static bool HasVideoThumbnail(FileInfo videoFile)
         {
             string videoName = Path.GetFileNameWithoutExtension(videoFile.Name);
-            string videoThumbnailDirectory = string.Format(@"{0}/{1}.jpg", videoFile.Directory, videoName);
+            string videoThumbnailDirectory = string.Format(@"{0}/{1}.jpg", videoFile.Directory, GetVideoThumbnailName(videoName));
             return File.Exists(videoThumbnailDirectory);
+        }
+
+        public static string GetVideoThumbnailName(string videoName)
+        {
+            return videoName.Replace(" ", string.Empty);
         }
     }
 }
