@@ -59,7 +59,7 @@ end;
 #include "settings.iss"
 #include "JsonParser.iss"
 #include "custom_pages.iss"
-#include "codesite_install.iss"
+#include "codesite_install.iss"   
 
 [Setup]
 ; NOTE: The value of AppId uniquely identifies this application.
@@ -133,6 +133,13 @@ Source: "DeploymentTools\bin\Ionic.Zip.dll"; DestDir: "{code:DataPath|Tools}"; F
 Source: "DeploymentTools\bin\BouncyCastle.Crypto.dll"; DestDir: "{code:DataPath|Tools}"; Flags: ignoreversion; Components: webclient
 Source: "DeploymentTools\bin\AMS.Profile.dll"; DestDir: "{code:DataPath|Tools}"; Flags: ignoreversion; Components: webclient
 
+;Command Tool 
+Source: "EveryAngle.WebClient\EveryAngle.WebClient.Web\bin\EveryAngle.CSM.Client.dll"; DestDir: "{code:DataPath|AppServerReg}"; Flags: ignoreversion; Components: webclient
+Source: "EveryAngle.WebClient\EveryAngle.WebClient.Web\bin\EveryAngle.CSM.Client.Interfaces.dll"; DestDir: "{code:DataPath|AppServerReg}"; Flags: ignoreversion; Components: webclient
+Source: "EveryAngle.WebClient\EveryAngle.WebClient.Web\bin\EveryAngle.CSM.Reg.exe"; DestDir: "{code:DataPath|AppServerReg}"; Flags: ignoreversion; Components: webclient
+Source: "EveryAngle.WebClient\EveryAngle.WebClient.Web\bin\EveryAngle.CSM.Shared.dll"; DestDir: "{code:DataPath|AppServerReg}"; Flags: ignoreversion; Components: webclient
+Source: "EveryAngle.WebClient\EveryAngle.WebClient.Web\bin\CommandLine.dll"; DestDir: "{code:DataPath|AppServerReg}"; Flags: ignoreversion; Components: webclient
+ 
 ;OData Service
 Source: "NET\Frontend\WebDeploy\EveryAngle.OData.Service.deploy-readme.txt"; DestDir: "{code:DataPath|WebDeploy}"; Flags: ignoreversion; Components: webclient
 Source: "NET\Frontend\WebDeploy\EveryAngle.OData.Service.SourceManifest.xml"; DestDir: "{code:DataPath|WebDeploy}"; Flags: ignoreversion; Components: webclient
@@ -156,7 +163,7 @@ Name: "{code:DataPath|log}";
 
 [Run]
 ;Install windows feature 'Dynamic Compression' in IIS
-Filename: "PowerShell"; Parameters: """Import-Module ServerManager; Add-WindowsFeature Web-Server, Web-Dyn-Compression"""; Flags: runhidden; StatusMsg: "Installing Dynamic Compression for IIS"
+Filename: "PowerShell"; Parameters: """Import-Module ServerManager; Add-WindowsFeature Web-Server, Web-Dyn-Compression"""; Flags: runhidden; StatusMsg: "Installing Dynamic Compression for IIS" 
 
 [UninstallRun] 
 
@@ -187,9 +194,9 @@ var
   DiagramFiles: Tstringlist;
   MoviesSelected,
   IsNewInstall,
-  AppConstantInitialized : Boolean;
-
-
+  AppConstantInitialized : Boolean; 
+  AppServerUrl: string;
+  
 procedure RegisterDiagramFile();
 begin
   DiagramFiles.Add(ExpandConstant(CurrentFileName));
@@ -815,6 +822,47 @@ begin
   MSDeployParameters := Format('-verb:delete -dest:iisapp="%s"', [aSite]);
   ExecuteAndLog(MsDeployLocation, MSDeployExe, MSDeployParameters);
 end;
+ 
+function RegisterWebServer(AppServerUrl, WebServerUrl: string): boolean;
+var 
+  AppVersion: string;
+  MachineName: string; 
+  CmdParams: string;
+  ResultCode: integer;
+  command: string;
+begin  
+  AppVersion := '{#MyAppVersion}';
+  MachineName := GetComputerNameString;
+  CmdParams := '--appserveruri=' + AppServerUrl + ' --action=Register --type=WebServer --uri=' + WebServerUrl + ' --version=' + AppVersion + ' --machine=' + MachineName;
+  
+  ExtractTemporaryFile('EveryAngle.CSM.Client.dll');
+  ExtractTemporaryFile('EveryAngle.CSM.Client.Interfaces.dll');
+  ExtractTemporaryFile('EveryAngle.CSM.Reg.exe');
+  ExtractTemporaryFile('EveryAngle.CSM.Shared.dll');
+  ExtractTemporaryFile('CommandLine.dll');
+  
+  command := ExpandConstant('/C "{tmp}\EveryAngle.CSM.Reg.exe ' + CmdParams + '"'); 
+  ExecAsOriginalUser('cmd.exe', command, '', SW_HIDE, ewWaitUntilTerminated, ResultCode);
+  result := ResultCode = 0; 
+
+end;
+
+function DeregisterWebServer() : boolean;
+var
+  AppServerUrl: string;
+  WebServerUrl: string;
+  AppVersion: string;
+  MachineName: string; 
+  CmdParams: string;
+begin  
+  AppServerUrl := GetPreviousData('AppServerUrl', '');  
+  WebServerUrl := GetPreviousData('WebServerUrl', '');
+  AppVersion := '{#MyAppVersion}';
+  MachineName := GetComputerNameString;
+  CmdParams := '--appserveruri=' + AppServerUrl + ' --action=Deregister --type=WebServer --uri=' + WebServerUrl + ' --version=' + AppVersion + ' --machine=' + MachineName; 
+  result := ExecuteAndLogEx(DataPath('AppServerReg'), 'EveryAngle.CSM.Reg.exe', CmdParams, ToSetupLog) = 0 
+
+end;
 
 Procedure ExecuteWebUndeploy;
 begin
@@ -903,6 +951,7 @@ var
   ODataPath,
   ODataIds,
   AppServerUrl,
+  WebServerUrl,
   ODataUser,
   ODataPassword :String;
   ODataConfig : TJsonParserOutput;
@@ -925,6 +974,7 @@ begin
 
   ODataPath := IISPhysicalPath + '\OData';
   AppServerUrl := WebClientConfigPage.Values[1] + ':' + WebClientConfigPage.Values[2];
+  WebServerUrl := WebClientConfigPage.Values[0] + ':' + WebClientConfigPage.Values[2];
 
 // TODO: Progress updates
 
@@ -940,13 +990,12 @@ begin
     ExecuteODataServiceDeploy(ODataModels[i]);
     
     // Write updated json settings
-    WriteODataConfigForModel(ODataPath, ODataModels[i], WebSite_FQDN, AppServerUrl, ODataUser, ODataPassword, ODataConfig);
+    WriteODataConfigForModel(ODataPath, ODataModels[i], WebSite_FQDN, AppServerUrl, ODataUser, ODataPassword, ODataConfig); 
   end;
 
   HideProgress();
 end;
-
-
+  
 // Run MSDeploy for the Web Client and Management Console
 // Returns the physical path of the deployed website
 function WebClientAfterInstall(WebSite_FQDN: string): string;
@@ -1087,6 +1136,8 @@ function NextButtonClick(CurPageID: Integer): Boolean;
 // Called when the user clicks the Next button. If you return True, the wizard will move to the next page; if you return False, it will remain on the current page (specified by CurPageID).
 // Note that this function is called on silent installs as well, even though there is no Next button that the user can click.
 // Setup instead simulates "clicks" on the Next button. On a silent install, if your NextButtonClick function returns False prior to installation starting, Setup will exit automatically.
+var AppServerUrl : string;
+    WebServerUrl : string;
 begin
   result := true;
 
@@ -1108,6 +1159,18 @@ begin
     begin
       UpdateCurAccessConfig;
     end;
+
+    AppServerUrl := WebClientConfigPage.Values[1] + ':' + WebClientConfigPage.Values[2];
+    WebServerUrl := WebClientConfigPage.Values[0] + ':' + WebClientConfigPage.Values[2];
+
+    if RegisterWebServer(AppServerUrl, WebServerUrl) then
+    begin
+    end
+    else
+    begin
+       MsgBox('Application Server Url cannot be registered', mbError, MB_OK);
+      result := false;
+    end
   end;
 end;
 
@@ -1120,20 +1183,22 @@ var
   IISPhysicalPath,
   WebSite_FQDN : string;
 begin
+
   if (CurStep = ssPostInstall) then
-  begin
-    WebSite_FQDN := LowerCase(WebClientConfigPage.Values[0]);
+  begin   
+      WebSite_FQDN := LowerCase(WebClientConfigPage.Values[0]);
 
-    IISPhysicalPath := WebClientAfterInstall(WebSite_FQDN {, IISVirtualPath});
+      IISPhysicalPath := WebClientAfterInstall(WebSite_FQDN {, IISVirtualPath});
 
-    if IsComponentSelected('OData') then
-    begin
-      WebSite_FQDN := WebSite_FQDN +  IISVirtualPath.Text;
-      ODataAfterInstall(IISPhysicalPath, WebSite_FQDN);
-    end;
+      if IsComponentSelected('OData') then
+      begin
+        WebSite_FQDN := WebSite_FQDN +  IISVirtualPath.Text;
+        ODataAfterInstall(IISPhysicalPath, WebSite_FQDN);
+      end;
 
-    if (IsComponentSelected('codesite')) then
-      CodeSiteAfterInstall(DataPath('Setup'));
+      if (IsComponentSelected('codesite')) then
+        CodeSiteAfterInstall(DataPath('Setup'));
+        
   end;
 end;
 
@@ -1168,6 +1233,8 @@ begin
   SetPreviousData(PreviousDataKey, 'Data', DataPath(''));
   SetPreviousData(PreviousDataKey, 'Site', IISSite.Text);
   SetPreviousData(PreviousDataKey, 'Path', IISVirtualPath.Text);
+  SetPreviousData(PreviousDataKey, 'AppServerUrl', WebClientConfigPage.Values[1] + ':' + WebClientConfigPage.Values[2]); 
+  SEtPreviousData(PreviousDataKey, 'WebServerUrl', WebClientConfigPage.Values[0] + ':' + WebClientConfigPage.Values[2]);
 
   // TODO: if new installation AND datapath.endswith 'WebClient', Shared datapath is datapath - 'WebClient'
   // SetEASharedRegistryKey('Data', DataPath(''));
@@ -1220,14 +1287,24 @@ begin
 end; 
 
 // ----------------------------------------------------------------------------
-// Uninstall handling
+// Uninstall handling  
 procedure CurUninstallStepChanged(CurUninstallStep: TUninstallStep);
 begin
   if CurUninstallStep = usUninstall then
   begin
     // WebClient / Management Console
-    ExecuteWebUndeploy;
+    ExecuteWebUndeploy; 
+  end;
+end;  
+
+function InitializeUninstall(): boolean;
+begin
+  if DeregisterWebServer then 
+  begin 
+    result := true;
+  end else
+  begin
+     MsgBox('WebServer cannot be deregistered, Uninstallation failed.', mbError, MB_OK);
+     result := false;
   end;
 end;
-
-
