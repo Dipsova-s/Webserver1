@@ -1159,18 +1159,19 @@ begin
     begin
       UpdateCurAccessConfig;
     end;
-
+  end
+  else if CurPageId = wpReady then 
+  begin
+ 
     AppServerUrl := WebClientConfigPage.Values[1] + ':' + WebClientConfigPage.Values[2];
     WebServerUrl := WebClientConfigPage.Values[0] + ':' + WebClientConfigPage.Values[2];
-
-    if RegisterWebServer(AppServerUrl, WebServerUrl) then
+     
+    if not RegisterWebServer(AppServerUrl, WebServerUrl) then 
     begin
-    end
-    else
-    begin
-       MsgBox('Application Server Url cannot be registered', mbError, MB_OK);
+      MsgBox('Application Server Url cannot be registered', mbError, MB_OK);
       result := false;
-    end
+    end;
+
   end;
 end;
 
