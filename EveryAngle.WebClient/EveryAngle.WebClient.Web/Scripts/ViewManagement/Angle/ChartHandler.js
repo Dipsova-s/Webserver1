@@ -1250,35 +1250,8 @@ function ChartHandler(elementId, container) {
 
         var categoryField = WC.Utility.ConvertFieldName(self.CategoryField);
         var groupField = WC.Utility.ConvertFieldName(self.GroupField);
-        var aggFields = self.AggergateFields;
         var container = jQuery(self.Container);
-
-        if (self.IsScatterOrBubbleChartType(setting.Type)) {
-            self.Series = jQuery.grep(self.Series, function (serie) {
-                // check null category field
-                if (serie[categoryField] == null) {
-                    return false;
-                }
-
-                // check null aggr field
-                var hasNullAggr = false;
-                jQuery.each(aggFields, function (index, aggField) {
-                    if (serie[aggField.field] == null) {
-                        hasNullAggr = true;
-                        return false;
-                    }
-                });
-
-                return !hasNullAggr;
-            });
-
-            self.Categories = jQuery.grep(self.Categories, function (categories) {
-                return categories.value != null;
-            });
-        }
-
         var categoryLabelTemplate = self.GetCategoryLabelTemplate();
-
         var isDonutOrPieChart = self.IsDonutOrPieChartType(setting.Type);
         var dataSource = self.GetChartDataSource(setting);
         var modelField = dataSource.schema.model.fields;
