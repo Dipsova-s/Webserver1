@@ -123,6 +123,19 @@ Source: "NET\Frontend\WebDeploy\EveryAngle.ManagementConsole.Web.zip"; DestDir: 
 Source: "NET\Frontend\WebDeploy\EveryAngle.ManagementConsole.Web.SetParameters.xml"; DestDir: "{code:DataPath|WebDeploy}"; Components: webclient
 Source: "NET\Frontend\WebDeploy\EveryAngle.ManagementConsole.Web.deploy.cmd"; DestDir: "{code:DataPath|WebDeploy}"; Flags: ignoreversion; Components: webclient
 
+;Command Tool 
+Source: "EveryAngle.WebClient\EveryAngle.WebClient.Web\bin\CommandLine.dll"; DestDir: "{code:DataPath|AppServerReg}"; Flags: ignoreversion; Components: webclient
+Source: "EveryAngle.WebClient\EveryAngle.WebClient.Web\bin\EveryAngle.CSM.AppServerAPI.dll"; DestDir: "{code:DataPath|AppServerReg}"; Flags: ignoreversion; Components: webclient
+Source: "EveryAngle.WebClient\EveryAngle.WebClient.Web\bin\EveryAngle.CSM.Client.dll"; DestDir: "{code:DataPath|AppServerReg}"; Flags: ignoreversion; Components: webclient
+Source: "EveryAngle.WebClient\EveryAngle.WebClient.Web\bin\EveryAngle.CSM.Client.Interfaces.dll"; DestDir: "{code:DataPath|AppServerReg}"; Flags: ignoreversion; Components: webclient
+Source: "EveryAngle.WebClient\EveryAngle.WebClient.Web\bin\EveryAngle.CSM.Reg.exe"; DestDir: "{code:DataPath|AppServerReg}"; Flags: ignoreversion; Components: webclient
+Source: "EveryAngle.WebClient\EveryAngle.WebClient.Web\bin\EveryAngle.CSM.Reg.exe.config"; DestDir: "{code:DataPath|AppServerReg}"; Flags: ignoreversion; Components: webclient
+Source: "EveryAngle.WebClient\EveryAngle.WebClient.Web\bin\EveryAngle.CSM.Shared.dll"; DestDir: "{code:DataPath|AppServerReg}"; Flags: ignoreversion; Components: webclient
+Source: "EveryAngle.WebClient\EveryAngle.WebClient.Web\bin\Microsoft.Rest.ClientRuntime.dll"; DestDir: "{code:DataPath|AppServerReg}"; Flags: ignoreversion; Components: webclient
+Source: "EveryAngle.WebClient\EveryAngle.WebClient.Web\bin\Newtonsoft.Json.dll"; DestDir: "{code:DataPath|AppServerReg}"; Flags: ignoreversion; Components: webclient
+Source: "EveryAngle.WebClient\EveryAngle.WebClient.Web\bin\EveryAngle.Utilities.dll"; DestDir: "{code:DataPath|AppServerReg}"; Flags: ignoreversion; Components: webclient
+Source: "EveryAngle.WebClient\EveryAngle.WebClient.Web\bin\EveryAngle.Security.dll"; DestDir: "{code:DataPath|AppServerReg}"; Flags: ignoreversion; Components: webclient
+  
 ;Certificate installer
 Source: "DeploymentTools\bin\EveryAngle.CustomerCertificates.Installer.console.exe"; DestDir: "{code:DataPath|Tools}"; Flags: ignoreversion; Components: webclient
 Source: "DeploymentTools\bin\EveryAngle.CustomerCertificates.dll"; DestDir: "{code:DataPath|Tools}"; Flags: ignoreversion; Components: webclient
@@ -132,13 +145,6 @@ Source: "DeploymentTools\bin\Newtonsoft.Json.dll"; DestDir: "{code:DataPath|Tool
 Source: "DeploymentTools\bin\Ionic.Zip.dll"; DestDir: "{code:DataPath|Tools}"; Flags: ignoreversion; Components: webclient
 Source: "DeploymentTools\bin\BouncyCastle.Crypto.dll"; DestDir: "{code:DataPath|Tools}"; Flags: ignoreversion; Components: webclient
 Source: "DeploymentTools\bin\AMS.Profile.dll"; DestDir: "{code:DataPath|Tools}"; Flags: ignoreversion; Components: webclient
-
-;Command Tool 
-Source: "EveryAngle.WebClient\EveryAngle.WebClient.Web\bin\EveryAngle.CSM.Client.dll"; DestDir: "{code:DataPath|AppServerReg}"; Flags: ignoreversion; Components: webclient
-Source: "EveryAngle.WebClient\EveryAngle.WebClient.Web\bin\EveryAngle.CSM.Client.Interfaces.dll"; DestDir: "{code:DataPath|AppServerReg}"; Flags: ignoreversion; Components: webclient
-Source: "EveryAngle.WebClient\EveryAngle.WebClient.Web\bin\EveryAngle.CSM.Reg.exe"; DestDir: "{code:DataPath|AppServerReg}"; Flags: ignoreversion; Components: webclient
-Source: "EveryAngle.WebClient\EveryAngle.WebClient.Web\bin\EveryAngle.CSM.Shared.dll"; DestDir: "{code:DataPath|AppServerReg}"; Flags: ignoreversion; Components: webclient
-Source: "EveryAngle.WebClient\EveryAngle.WebClient.Web\bin\CommandLine.dll"; DestDir: "{code:DataPath|AppServerReg}"; Flags: ignoreversion; Components: webclient
  
 ;OData Service
 Source: "NET\Frontend\WebDeploy\EveryAngle.OData.Service.deploy-readme.txt"; DestDir: "{code:DataPath|WebDeploy}"; Flags: ignoreversion; Components: webclient
@@ -830,18 +836,28 @@ var
   CmdParams: string;
   ResultCode: integer;
   command: string;
+  AppPath: string;
 begin  
   AppVersion := '{#MyAppVersion}';
   MachineName := GetComputerNameString;
-  CmdParams := '--appserveruri=' + AppServerUrl + ' --action=Register --type=WebServer --uri=' + WebServerUrl + ' --version=' + AppVersion + ' --machine=' + MachineName;
-  
+  CmdParams := Format('--appserveruri=%s --action=Register --type=WebServer --uri=%s --version=%s --machine=%s', [AppServerUrl, WebServerUrl, AppVersion, MachineName]);
+  //ExtractTemporaryFiles('{code:DataPath|AppServerReg}\*.*');
+
+  ExtractTemporaryFile('CommandLine.dll');
+  ExtractTemporaryFile('EveryAngle.CSM.AppServerAPI.dll');
   ExtractTemporaryFile('EveryAngle.CSM.Client.dll');
   ExtractTemporaryFile('EveryAngle.CSM.Client.Interfaces.dll');
   ExtractTemporaryFile('EveryAngle.CSM.Reg.exe');
+  ExtractTemporaryFile('EveryAngle.CSM.Reg.exe.config');
   ExtractTemporaryFile('EveryAngle.CSM.Shared.dll');
-  ExtractTemporaryFile('CommandLine.dll');
+  ExtractTemporaryFile('EveryAngle.Security.dll');
+  ExtractTemporaryFile('EveryAngle.Utilities.dll');
+  ExtractTemporaryFile('Microsoft.Rest.ClientRuntime.dll');
+  ExtractTemporaryFile('Newtonsoft.Json.dll');
   
-  command := ExpandConstant('/C "{tmp}\EveryAngle.CSM.Reg.exe ' + CmdParams + '"'); 
+  AppPath := ExpandConstant('{tmp}\') +'EveryAngle.CSM.Reg.exe';
+  command := ExpandConstant(Format('/C "%s %s"', [AppPath, CmdParams])); 
+ 
   ExecAsOriginalUser('cmd.exe', command, '', SW_HIDE, ewWaitUntilTerminated, ResultCode);
   result := ResultCode = 0; 
 
@@ -853,15 +869,14 @@ var
   WebServerUrl: string;
   AppVersion: string;
   MachineName: string; 
-  CmdParams: string;
+  CmdParams: string; 
 begin  
   AppServerUrl := GetPreviousData('AppServerUrl', '');  
   WebServerUrl := GetPreviousData('WebServerUrl', '');
   AppVersion := '{#MyAppVersion}';
   MachineName := GetComputerNameString;
-  CmdParams := '--appserveruri=' + AppServerUrl + ' --action=Deregister --type=WebServer --uri=' + WebServerUrl + ' --version=' + AppVersion + ' --machine=' + MachineName; 
+  CmdParams := Format('--appserveruri=%s --action=Deregister --type=WebServer --uri=%s --version=%s --machine=%s', [AppServerUrl, WebServerUrl, AppVersion, MachineName]);  
   result := ExecuteAndLogEx(DataPath('AppServerReg'), 'EveryAngle.CSM.Reg.exe', CmdParams, ToSetupLog) = 0 
-
 end;
 
 Procedure ExecuteWebUndeploy;
@@ -996,6 +1011,34 @@ begin
   HideProgress();
 end;
   
+function MoveRegisterFilesAfterInstall(): boolean;
+var
+  DestDirPath: string;
+  FindRec: TFindRec;
+  IsMovable: boolean;
+begin 
+  DestDirPath :=  ExpandConstant('{code:DataPath|AppServerReg}\Storage'); 
+  if DirExists(DestDirPath) or CreateDir(DestDirPath) then
+  begin  
+ 
+    if FindFirst(ExpandConstant('{tmp}\Storage\*'), FindRec) then begin
+      try
+        repeat
+          // Don't count directories
+          if FindRec.Attributes and FILE_ATTRIBUTE_DIRECTORY = 0 then
+          begin 
+            FileCopy(ExpandConstant('{tmp}\Storage\' + FindRec.Name),ExpandConstant('{code:DataPath|AppServerReg}\Storage\' + FindRec.Name), False);
+          end;
+        until not FindNext(FindRec);
+      finally
+        FindClose(FindRec);
+      end;
+    end; 
+
+    //IsMovable := FileCopy(ExpandConstant('{tmp}\Storage\*.*'),ExpandConstant('{code:DataPath|AppServerReg}\Storage\*.*'), False);  
+  end;
+end;
+
 // Run MSDeploy for the Web Client and Management Console
 // Returns the physical path of the deployed website
 function WebClientAfterInstall(WebSite_FQDN: string): string;
@@ -1199,7 +1242,9 @@ begin
 
       if (IsComponentSelected('codesite')) then
         CodeSiteAfterInstall(DataPath('Setup'));
-        
+      
+      MoveRegisterFilesAfterInstall;
+
   end;
 end;
 
@@ -1293,19 +1338,13 @@ procedure CurUninstallStepChanged(CurUninstallStep: TUninstallStep);
 begin
   if CurUninstallStep = usUninstall then
   begin
+
+    if not DeregisterWebServer then  
+    begin
+      MsgBox('WebServer cannot be deregistered, Uninstallation failed.', mbError, MB_OK); 
+    end;
+
     // WebClient / Management Console
     ExecuteWebUndeploy; 
   end;
-end;  
-
-function InitializeUninstall(): boolean;
-begin
-  if DeregisterWebServer then 
-  begin 
-    result := true;
-  end else
-  begin
-     MsgBox('WebServer cannot be deregistered, Uninstallation failed.', mbError, MB_OK);
-     result := false;
-  end;
-end;
+end;   
