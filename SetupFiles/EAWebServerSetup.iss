@@ -1343,14 +1343,20 @@ end;
 procedure CurUninstallStepChanged(CurUninstallStep: TUninstallStep);
 begin
   if CurUninstallStep = usUninstall then
-  begin
-
-    if not DeregisterWebServer then  
-    begin
-      MsgBox('WebServer cannot be deregistered.', mbError, MB_OK); 
-    end;
-
+  begin 
     // WebClient / Management Console
     ExecuteWebUndeploy; 
   end;
 end;   
+
+function InitializeUninstall(): boolean;
+begin
+  if DeregisterWebServer then 
+  begin 
+    result := true;
+  end else
+  begin
+     MsgBox('WebServer cannot be deregistered, Uninstallation failed.', mbError, MB_OK);
+     result := false;
+  end;
+end; 
