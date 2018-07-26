@@ -175,6 +175,8 @@ Filename: "PowerShell"; Parameters: """Import-Module ServerManager; Add-WindowsF
 
 [UninstallDelete]
 Type: files; Name: "{code:DataPath|WebDeploy\EveryAngle.WebClient.Web.SetParameters.xml}"; Components: webclient
+Type: files; Name: "{code:DataPath|AppServerReg}\*"; 
+Type: filesandordirs; Name: "{code:DataPath|AppServerReg}"
 
 [Code]
 //Globals
@@ -829,6 +831,36 @@ begin
   ExecuteAndLog(MsDeployLocation, MSDeployExe, MSDeployParameters);
 end;
  
+function MoveCsmFiles(): boolean;
+var
+  DestDirPath: string;
+  FindRec: TFindRec;
+  IsMovable: boolean;
+begin 
+  DestDirPath :=  ExpandConstant('{code:DataPath|AppServerReg}'); 
+  if DirExists(DestDirPath) or ForceDirectories(DestDirPath) then
+  begin   
+    if FindFirst(ExpandConstant('{tmp}\*'), FindRec) then begin
+      try
+        repeat
+          // Don't count directories
+          if FindRec.Attributes and FILE_ATTRIBUTE_DIRECTORY = 0 then
+          begin 
+            FileCopy(ExpandConstant('{tmp}\' + FindRec.Name), ExpandConstant('{code:DataPath|AppServerReg}\' + FindRec.Name), False);
+          end;
+        until not FindNext(FindRec);
+      finally
+        FindClose(FindRec);
+      end;
+    end;  
+    Result := true; 
+  end
+  else
+  begin
+    Result := false;
+  end;
+end;
+
 function RegisterWebServer(AppServerUrl, WebServerUrl: string): boolean;
 var 
   AppVersion: string;
@@ -841,8 +873,7 @@ begin
   AppVersion := '{#MyAppVersion}';
   MachineName := GetComputerNameString;
   CmdParams := Format('--appserveruri=%s --action=Register --type=WebServer --uri=%s --version=%s --machine=%s', [AppServerUrl, WebServerUrl, AppVersion, MachineName]);
-  //ExtractTemporaryFiles('{code:DataPath|AppServerReg}\*.*');
-
+  
   ExtractTemporaryFile('CommandLine.dll');
   ExtractTemporaryFile('EveryAngle.CSM.AppServerAPI.dll');
   ExtractTemporaryFile('EveryAngle.CSM.Client.dll');
@@ -855,12 +886,18 @@ begin
   ExtractTemporaryFile('Microsoft.Rest.ClientRuntime.dll');
   ExtractTemporaryFile('Newtonsoft.Json.dll');
   
-  AppPath := ExpandConstant('{tmp}\') +'EveryAngle.CSM.Reg.exe';
-  command := ExpandConstant(Format('/C "%s %s"', [AppPath, CmdParams])); 
- 
-  ExecAsOriginalUser('cmd.exe', command, '', SW_HIDE, ewWaitUntilTerminated, ResultCode);
-  result := ResultCode = 0; 
+  if MoveCsmFiles then
+  begin 
+    AppPath := ExpandConstant('{code:DataPath|AppServerReg}') + '\EveryAngle.CSM.Reg.exe';
+    command := ExpandConstant(Format('/C "%s %s"', [AppPath, CmdParams])); 
 
+    ExecAsOriginalUser('cmd.exe', command, '', SW_HIDE, ewWaitUntilTerminated, ResultCode);
+    result := ResultCode = 0;  
+  end 
+  else 
+  begin
+    result := false;
+  end;
 end;
 
 function DeregisterWebServer() : boolean;
@@ -1010,35 +1047,7 @@ begin
 
   HideProgress();
 end;
-  
-function MoveRegisterFilesAfterInstall(): boolean;
-var
-  DestDirPath: string;
-  FindRec: TFindRec;
-  IsMovable: boolean;
-begin 
-  DestDirPath :=  ExpandConstant('{code:DataPath|AppServerReg}\Storage'); 
-  if DirExists(DestDirPath) or CreateDir(DestDirPath) then
-  begin  
- 
-    if FindFirst(ExpandConstant('{tmp}\Storage\*'), FindRec) then begin
-      try
-        repeat
-          // Don't count directories
-          if FindRec.Attributes and FILE_ATTRIBUTE_DIRECTORY = 0 then
-          begin 
-            FileCopy(ExpandConstant('{tmp}\Storage\' + FindRec.Name),ExpandConstant('{code:DataPath|AppServerReg}\Storage\' + FindRec.Name), False);
-          end;
-        until not FindNext(FindRec);
-      finally
-        FindClose(FindRec);
-      end;
-    end; 
-
-    //IsMovable := FileCopy(ExpandConstant('{tmp}\Storage\*.*'),ExpandConstant('{code:DataPath|AppServerReg}\Storage\*.*'), False);  
-  end;
-end;
-
+   
 // Run MSDeploy for the Web Client and Management Console
 // Returns the physical path of the deployed website
 function WebClientAfterInstall(WebSite_FQDN: string): string;
@@ -1241,10 +1250,7 @@ begin
       end;
 
       if (IsComponentSelected('codesite')) then
-        CodeSiteAfterInstall(DataPath('Setup'));
-      
-      MoveRegisterFilesAfterInstall;
-
+        CodeSiteAfterInstall(DataPath('Setup')); 
   end;
 end;
 
@@ -1341,7 +1347,7 @@ begin
 
     if not DeregisterWebServer then  
     begin
-      MsgBox('WebServer cannot be deregistered, Uninstallation failed.', mbError, MB_OK); 
+      MsgBox('WebServer cannot be deregistered.', mbError, MB_OK); 
     end;
 
     // WebClient / Management Console
