@@ -119,7 +119,7 @@
             var currentStatus = data.status;
             var name = data.name;
             var uri = data.Uri;
-            var taskOwner = data.created.Uri;
+            var taskOwner = data.run_as_user;
 
             var canManageTask = manageSystemPrivilege || (canScheduleAngles && currentUser === taskOwner);
             var isExecuting = currentStatus === 'running' || currentStatus === 'queued';
@@ -139,7 +139,7 @@
             else {
                 template += "<a href=\"" + MC.AutomationTasks.Tasks.EditTaskPage + "\"  onclick=\"MC.util.redirect(event, this)\" data-parameters='{\"tasksUri\":\"" + uri + "\"}' class=\"btn btnEdit\">" + Localization.View + "</a>";
             }
-            template += "<a data-parameters='{\"taskUri\":\"" + uri + "\", \"name\":\"" + name + "\"}' data-delete-template=\"" + Localization.MC_DeleteTaskConfirm + "\" data-delete-field-index=\"0\" onclick=\"MC.AutomationTasks.Tasks.DeleteTask(event,this)\" class=\"btn btnDelete" + (isExecuting || !canManageTask ? ' disabled' : '') + "\">" + Localization.Delete + "</a>";
+            template += "<a  data-parameters='{\"taskUri\":\"" + uri + "\", \"name\":\"" + name + "\"}' data-delete-template=\"" + Localization.MC_DeleteTaskConfirm + "\" data-delete-field-index=\"0\" onclick=\"MC.AutomationTasks.Tasks.DeleteTask(event,this)\" class=\"btn btnDelete" + (isExecuting || !manageSystemPrivilege ? ' disabled' : '') + "\">" + Localization.Delete + "</a>";
             return template;
         };
         self.ExecuteTask = function (obj, uri) {
@@ -658,26 +658,26 @@
                 url: self.GetDataStoreTemplateUri,
                 parameters: { datstoreUri: dataItem.Uri }
             }))
-            .done(function (response) {
-                self.GetDataStoreTemplate[dataItem.Uri] = response;
+                .done(function (response) {
+                    self.GetDataStoreTemplate[dataItem.Uri] = response;
 
-                var containerSettings = $('#DatastoreSettings').show();
-                containerSettings.html(response + ($.trim(response) ? '<hr/>' : ''));
+                    var containerSettings = $('#DatastoreSettings').show();
+                    containerSettings.html(response + ($.trim(response) ? '<hr/>' : ''));
 
-                MC.ui.popup();
-                MC.ui.autosyncinput();
+                    MC.ui.popup();
+                    MC.ui.autosyncinput();
 
-                $.each(models || [], function (index, arg) {
-                    var input = containerSettings.find('[id="' + arg.name + '"]');
-                    self.SetDatastoreSettingValue(input, arg);
+                    $.each(models || [], function (index, arg) {
+                        var input = containerSettings.find('[id="' + arg.name + '"]');
+                        self.SetDatastoreSettingValue(input, arg);
+                    });
+                })
+                .always(function () {
+                    setTimeout(function () {
+                        self.HideOrShowFormat();
+                        MC.ui.popup('requestEnd');
+                    }, 100);
                 });
-            })
-            .always(function () {
-                setTimeout(function () {
-                    self.HideOrShowFormat();
-                    MC.ui.popup('requestEnd');
-                }, 100);
-            });
         };
         self.SetDatastoreSettingValue = function (input, arg) {
             var settingType = input.data('setting-type');
@@ -1185,7 +1185,7 @@
                 _self.modelId = dataItem.model;
                 jQuery('#model_id').val(dataItem.model);
                 jQuery('#model_name').text(dataItem.model_name);
-                
+
                 // angle_id + display_id
                 var getAccessDeniedText = function (name) {
                     return kendo.format('{0} ({1})', name, Localization.MC_AccessDenied.toLowerCase());
@@ -1546,10 +1546,10 @@
                             dataTextField: "short_name",
                             dataValueField: "id",
                             headerTemplate: '<div class="dropdown-header k-widget k-header multipleSelectHeader">'
-                            + '<a class="btn btnSelectAll" onclick="MC.AutomationTasks.Tasks.BatchParameters(' + index + ', MC.AutomationTasks.Tasks.BATCHPARAMETERSTYPE.SELECTALL)" title="Select all"></a>'
-                            + '<a class="btn btnClearAll" onclick="MC.AutomationTasks.Tasks.BatchParameters(' + index + ', MC.AutomationTasks.Tasks.BATCHPARAMETERSTYPE.CLEARALL)" title="Deselect all"></a>'
-                            + '<a class="btn btnInvert" onclick="MC.AutomationTasks.Tasks.BatchParameters(' + index + ', MC.AutomationTasks.Tasks.BATCHPARAMETERSTYPE.INVERT)" title="Invert selection"></a>'
-                            + '</div>',
+                                + '<a class="btn btnSelectAll" onclick="MC.AutomationTasks.Tasks.BatchParameters(' + index + ', MC.AutomationTasks.Tasks.BATCHPARAMETERSTYPE.SELECTALL)" title="Select all"></a>'
+                                + '<a class="btn btnClearAll" onclick="MC.AutomationTasks.Tasks.BatchParameters(' + index + ', MC.AutomationTasks.Tasks.BATCHPARAMETERSTYPE.CLEARALL)" title="Deselect all"></a>'
+                                + '<a class="btn btnInvert" onclick="MC.AutomationTasks.Tasks.BatchParameters(' + index + ', MC.AutomationTasks.Tasks.BATCHPARAMETERSTYPE.INVERT)" title="Invert selection"></a>'
+                                + '</div>',
                             tagTemplate: '#: (short_name === long_name ? short_name : short_name + " (" + long_name + ")") #',
                             template: '#: (short_name === long_name ? short_name : short_name + " (" + long_name + ")") #',
                             value: enumValues,
@@ -1682,95 +1682,95 @@
                         }
                     }) : { fields: [] }
                 )
-                .then(function (dataField) {
-                    var fieldSourceUri = [];
-                    var fieldDomainUri = [];
+                    .then(function (dataField) {
+                        var fieldSourceUri = [];
+                        var fieldDomainUri = [];
 
-                    $.each(dataField.fields, function (index, field) {
-                        fieldsData[angle.model][field.id.toLowerCase()] = field;
-                    });
+                        $.each(dataField.fields, function (index, field) {
+                            fieldsData[angle.model][field.id.toLowerCase()] = field;
+                        });
 
-                    $.each(executionParameterList, function (index, executionParameter) {
-                        var field = fieldsData[angle.model][executionParameter.field.toLowerCase()];
-                        if (field) {
-                            if (field.source && !fieldSourcesData[field.source]) {
-                                fieldSourceUri.push(field.source);
-                            }
-                            if (field.domain && !fieldDomainsData[field.domain]) {
-                                fieldDomainUri.push(field.domain);
-                            }
-                        }
-                    });
-
-                    var getFieldSource = function (uri) {
-                        disableLoading();
-                        return MC.ajax.request({
-                            url: self.GetFieldSourceUri + '?fieldsSourceUri=' + escape(uri)
-                        })
-                            .done(function (data) {
-                                fieldSourcesData[data.uri] = data;
-                            });
-                    };
-
-                    var getFieldDomain = function (uri) {
-                        disableLoading();
-                        return MC.ajax.request({
-                            url: self.GetFieldDomainUri + '?fieldsDomainUri=' + escape(uri)
-                        })
-                            .done(function (data) {
-                                if (data.may_be_sorted) {
-                                    data.elements.sortObject('short_name', -1, false);
+                        $.each(executionParameterList, function (index, executionParameter) {
+                            var field = fieldsData[angle.model][executionParameter.field.toLowerCase()];
+                            if (field) {
+                                if (field.source && !fieldSourcesData[field.source]) {
+                                    fieldSourceUri.push(field.source);
                                 }
-                                fieldDomainsData[data.uri] = data;
-                            });
-                    };
-
-                    var requests = [];
-                    $.each(fieldSourceUri.distinct(), function (index, uri) {
-                        requests.push(getFieldSource(uri));
-                    });
-                    $.each(fieldDomainUri.distinct(), function (index, uri) {
-                        requests.push(getFieldDomain(uri));
-                    });
-                    return $.when.apply($, requests);
-                })
-                .done(function (fields) {
-                    var executionParameterData = [];
-                    var allowedFieldTypes = ['enumerated', 'text', 'number', 'int', 'double', 'percentage', 'period'];
-                    $.each(executionParameterList, function (index, executionParameter) {
-                        var field = fieldsData[angle.model][executionParameter.field.toLowerCase()];
-                        if (field && $.inArray(field.fieldtype, allowedFieldTypes) != -1) {
-
-                            // name
-                            var sourceData = field.source ? fieldSourcesData[field.source] || null : null;
-                            var fieldName = sourceData ? sourceData.short_name : '';
-                            if (fieldName) fieldName += ' - ';
-                            fieldName += field.short_name;
-                            executionParameter.name = fieldName;
-
-                            // domains
-                            if (fieldDomainsData[field.domain]) {
-                                executionParameter.domains = fieldDomainsData[field.domain].elements;
+                                if (field.domain && !fieldDomainsData[field.domain]) {
+                                    fieldDomainUri.push(field.domain);
+                                }
                             }
+                        });
 
-                            // field type
-                            executionParameter.fieldtype = field.fieldtype;
+                        var getFieldSource = function (uri) {
+                            disableLoading();
+                            return MC.ajax.request({
+                                url: self.GetFieldSourceUri + '?fieldsSourceUri=' + escape(uri)
+                            })
+                                .done(function (data) {
+                                    fieldSourcesData[data.uri] = data;
+                                });
+                        };
 
-                            executionParameterData.push(executionParameter);
-                        }
+                        var getFieldDomain = function (uri) {
+                            disableLoading();
+                            return MC.ajax.request({
+                                url: self.GetFieldDomainUri + '?fieldsDomainUri=' + escape(uri)
+                            })
+                                .done(function (data) {
+                                    if (data.may_be_sorted) {
+                                        data.elements.sortObject('short_name', -1, false);
+                                    }
+                                    fieldDomainsData[data.uri] = data;
+                                });
+                        };
+
+                        var requests = [];
+                        $.each(fieldSourceUri.distinct(), function (index, uri) {
+                            requests.push(getFieldSource(uri));
+                        });
+                        $.each(fieldDomainUri.distinct(), function (index, uri) {
+                            requests.push(getFieldDomain(uri));
+                        });
+                        return $.when.apply($, requests);
+                    })
+                    .done(function (fields) {
+                        var executionParameterData = [];
+                        var allowedFieldTypes = ['enumerated', 'text', 'number', 'int', 'double', 'percentage', 'period'];
+                        $.each(executionParameterList, function (index, executionParameter) {
+                            var field = fieldsData[angle.model][executionParameter.field.toLowerCase()];
+                            if (field && $.inArray(field.fieldtype, allowedFieldTypes) != -1) {
+
+                                // name
+                                var sourceData = field.source ? fieldSourcesData[field.source] || null : null;
+                                var fieldName = sourceData ? sourceData.short_name : '';
+                                if (fieldName) fieldName += ' - ';
+                                fieldName += field.short_name;
+                                executionParameter.name = fieldName;
+
+                                // domains
+                                if (fieldDomainsData[field.domain]) {
+                                    executionParameter.domains = fieldDomainsData[field.domain].elements;
+                                }
+
+                                // field type
+                                executionParameter.fieldtype = field.fieldtype;
+
+                                executionParameterData.push(executionParameter);
+                            }
+                        });
+
+                        grid.dataSource.data(executionParameterData);
+                    })
+                    .always(function () {
+                        clearInterval(fnCheckAngleParametersGrid);
+                        setTimeout(function () {
+                            $('#AngleParametersGrid').busyIndicator(false);
+                        }, 100);
+
+                        // set buttons
+                        self.SetActionButtons(_self.uid);
                     });
-
-                    grid.dataSource.data(executionParameterData);
-                })
-                .always(function () {
-                    clearInterval(fnCheckAngleParametersGrid);
-                    setTimeout(function () {
-                        $('#AngleParametersGrid').busyIndicator(false);
-                    }, 100);
-
-                    // set buttons
-                    self.SetActionButtons(_self.uid);
-                });
                 $('#AngleParametersGrid').show();
             }
             else {

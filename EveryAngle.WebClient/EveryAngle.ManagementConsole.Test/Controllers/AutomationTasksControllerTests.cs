@@ -52,7 +52,10 @@ namespace EveryAngle.ManagementConsole.Test.Controllers
             Assert.AreEqual(tasksUri, _testingController.ViewBag.TasksUri);
             Assert.AreEqual("true", _testingController.ViewBag.ManageSystemPrivilege);
             Assert.AreEqual("false", _testingController.ViewBag.CanScheduleAngles);
-            Assert.AreEqual(sessionHelper.Object.CurrentUser.Uri.ToString(), _testingController.ViewBag.UserUri);
+             
+            Assert.AreEqual(
+                sessionHelper.Object.CurrentUser.Id.Replace("\\", "\\\\"), 
+                _testingController.ViewBag.UserId);
         }
 
         [TestCase]

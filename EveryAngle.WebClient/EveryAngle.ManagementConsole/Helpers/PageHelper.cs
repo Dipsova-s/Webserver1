@@ -332,7 +332,7 @@ namespace EveryAngle.ManagementConsole.Helpers
                         break;
                     case PrivilegeType.ScheduleTask:
                         bool canScheduleAngles = session.IsValidToScheduleAngles();
-                        bool isTaskOwner = buttons[index].UserUri == session.UserUri.ToString();
+                        bool isTaskOwner = buttons[index].IsTaskOwner;
                         bool canScheduleTask = canManageSystem || (canScheduleAngles && isTaskOwner);
                         if (!canScheduleTask)
                             SetDisabledButton(buttons[index]);
