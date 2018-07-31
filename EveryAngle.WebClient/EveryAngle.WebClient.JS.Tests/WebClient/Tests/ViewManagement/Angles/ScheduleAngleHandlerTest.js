@@ -8,6 +8,8 @@
 /// <reference path="/Dependencies/ViewManagement/Angles/FieldSettingsHandler.js" />
 /// <reference path="/Dependencies/ViewManagement/Shared/PopupPageHandlers.js" />
 /// <reference path="/Dependencies/ViewManagement/Angles/ScheduleAngleHandler.js" />
+/// <reference path="/Dependencies/ViewManagement/Angles/ScheduleAngleHandler.js" />
+/// <reference path="/Dependencies/User/Authentication.js" />
 
 describe("ScheduleAngleHandler", function () {
 
@@ -52,7 +54,7 @@ describe("ScheduleAngleHandler", function () {
             spyOn(scheduleAngleHandler, "CheckAlreadyAssignedDisplay").and.callFake(function () { return { tasks: [] }; });
             spyOn(scheduleAngleHandler, "BindingFieldDropdownList").and.callFake($.noop);
 
-            var data = { tasks: [{name : 'new task', uri : '/tasks/1'}] };
+            var data = { tasks: [{ name: 'new task', uri: '/tasks/1' }] };
             scheduleAngleHandler.PopulateTaskList(e, data);
 
             expect(popup.Alert).not.toHaveBeenCalled();
@@ -84,11 +86,11 @@ describe("ScheduleAngleHandler", function () {
             });
 
             displayModel.Data = ko.observable({
-                id : '123',
+                id: '123',
                 used_in_task: true
             });
 
-            var data = { tasks: [{ name: 'new task', uri: '/tasks/1', actions: [{ arguments: [{name : 'angle_id',value : '123'}, {name : 'display_id' , value : '123'}]}] }] };
+            var data = { tasks: [{ name: 'new task', uri: '/tasks/1', actions: [{ arguments: [{ name: 'angle_id', value: '123' }, { name: 'display_id', value: '123' }] }] }] };
             var result = scheduleAngleHandler.CheckAlreadyAssignedDisplay(data.tasks);
 
             expect(result.selectedTaskId).toEqual('/tasks/1');
@@ -116,4 +118,45 @@ describe("ScheduleAngleHandler", function () {
             expect(result.tasks).toContain(data.tasks[0]);
         });
     });
+
+    describe("gPopulateTaskList", function () {
+        it("should return tasks filtered by run as user when use only user tasks", function () {
+            var e = {
+                sender: {
+                    wrapper: $()
+                }
+            };
+
+            debugger;
+
+            displayModel.Data = ko.observable({
+                used_in_task: true
+            });
+
+            spyOn(userModel, "Data").and.callFake(function () { return { 'id' : 'Viewer' }; });
+            spyOn(popup, "Alert").and.callFake($.noop);
+            spyOn(scheduleAngleHandler, "CheckAlreadyAssignedDisplay").and.callFake(function () { return { tasks: [] }; });
+            spyOn(scheduleAngleHandler, "BindingFieldDropdownList").and.callFake($.noop);
+            spyOn(scheduleAngleHandler, "UseOnlyUserTasks").and.callFake(function () { return true; });
+
+            var data = {
+                tasks: [
+                    { name: 'task 4', uri: '/tasks/4', run_as_user: 'Viewer' },
+                    { name: 'task 3', uri: '/tasks/3', run_as_user: 'EAAdmin' },
+                    { name: 'task 2', uri: '/tasks/2', run_as_user: 'Viewer' },
+                    { name: 'task 1', uri: '/tasks/1', run_as_user: 'EAAdmin' },
+                ]
+            };
+            scheduleAngleHandler.PopulateTaskList(e, data);
+
+            expect(data.tasks.length).toEqual(2);
+            expect(data.tasks[0].name).toEqual('task 2');
+            expect(data.tasks[1].name).toEqual('task 4');
+
+            expect(popup.Alert).not.toHaveBeenCalled();
+            expect(scheduleAngleHandler.CheckAlreadyAssignedDisplay).toHaveBeenCalled();
+            expect(scheduleAngleHandler.BindingFieldDropdownList).toHaveBeenCalled();
+        });
+    });
+
 });
