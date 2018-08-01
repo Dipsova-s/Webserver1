@@ -98,8 +98,8 @@
             List<PageToolbarButtonModel> buttons = new List<PageToolbarButtonModel>();
             buttons.Add(new PageToolbarButtonModel
             {
-                DisableTemplate = "<a class=\"btn btnAdd disabled\">" + Resource.SetUpANewModel + "</a>",
-                EnableTemplate = "<a href=\"" + SiteMapHelper.ActionHash("Models/AllModels/CreateNewModel") + "\" class=\"btn btnAdd\">" + Resource.SetUpANewModel + "</a>",
+                DisableTemplate = "<a class=\"btn btnPrimary btnAdd disabled\">" + Resource.SetUpANewModel + "</a>",
+                EnableTemplate = "<a href=\"" + SiteMapHelper.ActionHash("Models/AllModels/CreateNewModel") + "\" class=\"btn btnPrimary btnAdd\">" + Resource.SetUpANewModel + "</a>",
                 Type = PageToolbarButtonType.Custom,
                 Privilege = PrivilegeType.System
             });

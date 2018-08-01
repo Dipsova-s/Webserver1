@@ -1793,7 +1793,7 @@ describe("Widget Filter Handler", function () {
             });
         });
 
-        var betweenGroupOperatorTests= ["between", "not_between", "relative_between", "not_relative_between"];
+        var betweenGroupOperatorTests = ["between", "not_between", "relative_between", "not_relative_between"];
         $.each(betweenGroupOperatorTests, function (index, operator) {
             it("should get 2 for between operator (" + operator + ")", function () {
                 expect(widgetFilterHandler.GetMaxArgumentsCount(operator)).toEqual(2);
@@ -1944,4 +1944,69 @@ describe("Widget Filter Handler", function () {
         });
 
     });
+
+    describe("call IsTreeViewHeader", function () {
+
+        var testCases;
+
+        testCases = [{
+            title: 'should be true if viewmode is treeview',
+            isTreeViewMode: true,
+            expectedResult: true
+        }, {
+            title: 'should be false if viewmode is not treeview',
+            isTreeViewMode: false,
+            expectedResult: false
+        }];
+
+        testCases.forEach(function (testCase) {
+            it(testCase.title, function () {
+                var mockFilter = {
+                    field: "test1",
+                    step_type: "filter"
+                };
+                widgetFilterHandler.Data(mockFilter);
+
+                if (testCase.isTreeViewMode)
+                    widgetFilterHandler.SetTreeViewMode();
+
+                var result = widgetFilterHandler.IsTreeViewHeader(mockFilter);
+
+                expect(result).toEqual(testCase.expectedResult);
+            });
+        });
+
+        testCases = [{
+            title: 'should be true if params filter field is not equal previous filter field',
+            paramFieldName: 'test2',
+            expectedResult: true
+        }, {
+            title: 'should be false if params filter field is equal previous filter field',
+            paramFieldName: 'test1',
+            expectedResult: false
+        }];
+
+        testCases.forEach(function (testCase) {
+            it(testCase.title, function () {
+                var mockFilters = [{
+                    field: "test1",
+                    step_type: "filter"
+                }, {
+                    field: testCase.paramFieldName,
+                    step_type: "filter"
+                }];
+
+                var mockParamFilter = mockFilters[1];
+
+                widgetFilterHandler.Data(mockFilters);
+                widgetFilterHandler.SetTreeViewMode();
+
+                var result = widgetFilterHandler.IsTreeViewHeader(mockParamFilter);
+
+                expect(result).toEqual(testCase.expectedResult);
+            });
+        });
+
+    });
+
 });

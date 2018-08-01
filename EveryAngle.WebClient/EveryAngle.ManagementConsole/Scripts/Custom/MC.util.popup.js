@@ -46,7 +46,13 @@
     var popup = {
         showDescriptionPopup: function (obj) {
             MC.ui.popup('setScrollable', {
-                element: '#popupDescriptionTemplate'
+                element: '#popupDescriptionTemplate',
+                getHeight: function (win) {
+                    return Math.min(win.element.find('.popupContent').height('auto').outerHeight(), 400);
+                },
+                onResize: function (win) {
+                    win.wrapper.height(win.element.find('.popupContent').height() + win.element.find('.popupToolbar').outerHeight() + 40);
+                }
             });
 
             var win = $('#popupDescriptionTemplate').data('kendoWindow');
@@ -171,7 +177,7 @@
             setButtonHandler(submitButton, eventOkButton);
 
             //add cancel button 
-            var cancelButton = $('<a class="btn btnPrimary btnConfirmCancel">' + Localization.Cancel + '</a>');
+            var cancelButton = $('<a class="btn btnConfirmCancel">' + Localization.Cancel + '</a>');
             setButtonHandler(cancelButton, eventCancelButton);
 
             // set all popup

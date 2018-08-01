@@ -2,7 +2,7 @@
 ${trSystemRowInRolesGrid}                   jquery=#SystemRolesGrid tbody tr
 ${btnEditSystemRole}                        .btnGroupContainer>.btn
 ${btnActionEditSystemRole}                  .btnGroupInner .btnEdit
-${btnActionShowConsolidateSystemRole}       .btnGroupInner .btnInfo
+${btnActionShowConsolidateSystemRole}       .btnGroupInner .btnOpenWindow
 ${btnActionDeleteSystemRole}                .btnGroupInner .btnDelete
 ${txtSystemRole}                             All system roles
 ${btnAddSystemRole}                         css=.gridToolbarBottom .btnAdd

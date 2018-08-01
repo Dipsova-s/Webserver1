@@ -8,7 +8,7 @@
         .Name("LabelCategoryGrid")
         .Columns(columns =>
         {
-            columns.Bound("id").Title(@Resource.ID).ClientTemplate("<input type='text' #= uri ? disabled='disabled' : '' #   class='required field_id restricted_ids' value='#: id #' />").HtmlAttributes(new { @id = "#: id #" }).Width(85);
+            columns.Bound("id").Title(@Resource.ID).ClientTemplate("<input type='text' #= uri ? disabled='disabled' : '' #   class='required field_id restricted_ids' value='#: id #' />").HtmlAttributes(new { @id = "#: id #" }).Width(95);
             foreach (System.Data.DataColumn column in Model.Columns)
             {
                 if (column.ColumnName == "lang_en")

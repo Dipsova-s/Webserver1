@@ -142,8 +142,8 @@
             buttons.Add(new PageToolbarButtonModel
             {
                 ModelUri = ViewBag.ModelUri,
-                EnableTemplate = "<a id=\"btnAddFields\" class=\"btn btnAdd\" href=\"#popupDownloadTableFields\" onclick=\"MC.Models.TablesFields.ShowAvailableFields()\"  data-parameters='{\"fieldsUri\": \"" + ViewBag.DownloadTablefieldUri + "\", \"isEnable\": false }'  data-url=\"" + Url.Action("GetAvailableFields", "DownloadTable") + "\" title=\"" + Resource.MC_SelectFields + "\" data-role=\"mcPopup\" data-width=\"750\" data-height=\"550\">" + Resource.MC_AddField + "</a>",
-                DisableTemplate = "<a  id=\"btnAddFields\" class=\"btn btnAdd disabled\" >" + Resource.MC_AddField + "</a>",
+                EnableTemplate = "<a id=\"btnAddFields\" class=\"btn btnPrimary btnAdd\" href=\"#popupDownloadTableFields\" onclick=\"MC.Models.TablesFields.ShowAvailableFields()\"  data-parameters='{\"fieldsUri\": \"" + ViewBag.DownloadTablefieldUri + "\", \"isEnable\": false }'  data-url=\"" + Url.Action("GetAvailableFields", "DownloadTable") + "\" title=\"" + Resource.MC_SelectFields + "\" data-role=\"mcPopup\" data-width=\"750\" data-height=\"550\">" + Resource.MC_AddField + "</a>",
+                DisableTemplate = "<a  id=\"btnAddFields\" class=\"btn btnPrimary btnAdd disabled\" >" + Resource.MC_AddField + "</a>",
                 Type = PageToolbarButtonType.Custom,
                 Privilege = PrivilegeType.Model
             });

@@ -102,7 +102,7 @@ if %25ERRORLEVEL%25 LEQ 1 exit 0 else exit %25ERRORLEVEL%25</PreBuildEvent>
       <HintPath>..\packages\EveryAngle.Shared.Formatter.1.0.0\lib\net45\EveryAngle.Shared.Formatter.dll</HintPath>
     </Reference>
     <Reference Include="EveryAngle.Shared.Globalization, Version=1.0.1.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\EveryAngle.Shared.Globalization.2.4.3.2\lib\net45\EveryAngle.Shared.Globalization.dll</HintPath>
+      <HintPath>..\packages\EveryAngle.Shared.Globalization.2.4.4\lib\net45\EveryAngle.Shared.Globalization.dll</HintPath>
     </Reference>
     <Reference Include="EveryAngle.Shared.Pivot, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\EveryAngle.Shared.Pivot.1.0.0\lib\net45\EveryAngle.Shared.Pivot.dll</HintPath>
@@ -242,6 +242,7 @@ if %25ERRORLEVEL%25 LEQ 1 exit 0 else exit %25ERRORLEVEL%25</PreBuildEvent>
     <Compile Include="Helpers\OutputFilterStream.cs" />
     <Compile Include="Helpers\Profiler.cs" />
     <Compile Include="Helpers\ResouceExtension.cs" />
+    <Compile Include="Helpers\VideoHelper.cs" />
     <Compile Include="Helpers\ViewRenderer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -255,6 +256,7 @@ if %25ERRORLEVEL%25 LEQ 1 exit 0 else exit %25ERRORLEVEL%25</PreBuildEvent>
     <Content Include="Content\CSS\Base.css" />
     <Content Include="Content\CSS\Common.css" />
     <Content Include="Content\CSS\Angle.css" />
+    <Content Include="Content\CSS\DashboardFilters.css" />
     <Content Include="Content\CSS\UserPassword.css" />
     <Content Include="Content\CSS\DisplayList.css" />
     <Content Include="Content\CSS\CustomSort.css" />
@@ -462,6 +464,8 @@ if %25ERRORLEVEL%25 LEQ 1 exit 0 else exit %25ERRORLEVEL%25</PreBuildEvent>
     <Content Include="Content\kendoui\Uniform\sprite_2x.png" />
     <Content Include="Content\kendoui\Uniform\sprite_kpi.png" />
     <Content Include="Content\kendoui\Uniform\sprite_kpi_2x.png" />
+    <Content Include="Content\VideoPlayer\Plugins\videojs-playlist-ui.css" />
+    <Content Include="Content\VideoPlayer\Plugins\videojs-playlist-ui.vertical.css" />
     <Content Include="Data\Export\log.txt" />
     <Content Include="Data\Log\log.txt" />
     <Content Include="Images\Angle\ActionDropdownList\AddToDashboard.svg" />
@@ -511,9 +515,11 @@ if %25ERRORLEVEL%25 LEQ 1 exit 0 else exit %25ERRORLEVEL%25</PreBuildEvent>
     <Content Include="Images\Icons\icon_close.svg" />
     <Content Include="Images\Icons\icon_copy_angle.png" />
     <Content Include="Images\Icons\icon_create_angle.svg" />
+    <Content Include="Images\Icons\icon_definition_shortcut.svg" />
     <Content Include="Images\Icons\icon_deny.png" />
     <Content Include="Images\Icons\icon_download_angle.png" />
     <Content Include="Images\Icons\icon_down_white.svg" />
+    <Content Include="Images\Icons\icon_edit_filter.svg" />
     <Content Include="Images\Icons\icon_help.png" />
     <Content Include="Images\Icons\icon_info.svg" />
     <Content Include="Images\Icons\icon_item_dashboard.svg" />
@@ -640,9 +646,6 @@ if %25ERRORLEVEL%25 LEQ 1 exit 0 else exit %25ERRORLEVEL%25</PreBuildEvent>
     <Content Include="Scripts\KendoUI\kendo.virtuallist.min.js" />
     <Content Include="Scripts\KendoUI\messages\kendo.messages.de-DE.js" />
     <Content Include="Scripts\User\Authentication.js" />
-    <Content Include="Scripts\VideoPlayer\jwpsrv.js" />
-    <Content Include="Scripts\VideoPlayer\ping.gif" />
-    <Content Include="Scripts\VideoPlayer\Skin\six.xml" />
     <Content Include="Global.asax" />
     <Content Include="Images\Angle\ActionDropdownList\createdisplay.png" />
     <Content Include="Images\Angle\ActionDropdownList\editdisplay.png" />
@@ -781,12 +784,19 @@ if %25ERRORLEVEL%25 LEQ 1 exit 0 else exit %25ERRORLEVEL%25</PreBuildEvent>
     <Content Include="Images\SearchPage\icn_starred_inactive.png" />
     <Content Include="Images\SearchPage\icn_validated.png" />
     <Content Include="EveryAngle.WebClient.Web.wpp.targets" />
+    <Content Include="Content\VideoPlayer\video-js.css" />
+    <Content Include="Content\VideoPlayer\video-js.min.css" />
+    <Content Include="Scripts\VideoPlayer\Plugins\videojs-playlist-ui.js" />
+    <Content Include="Scripts\VideoPlayer\Plugins\videojs-playlist.js" />
+    <Content Include="Scripts\VideoPlayer\video.js" />
+    <Content Include="Scripts\VideoPlayer\video.min.js" />
     <Content Include="Scripts\ViewManagement\Angle\AngleHandler.js" />
     <Content Include="Scripts\ViewManagement\Angle\AngleActionMenuHandler.js" />
     <Content Include="Scripts\ViewManagement\Angle\DisplayUpgradeHandler.js" />
     <Content Include="Scripts\ViewManagement\Angle\DisplayCopyHandler.js" />
     <Content Include="Scripts\ViewManagement\Angle\ResolveAngleDisplayHandler.js" />
     <Content Include="Scripts\ViewManagement\Angle\ScheduleAngleHandler.js" />
+    <Content Include="Scripts\ViewManagement\Dashboard\DashboardFiltersHandler.js" />
     <Content Include="Scripts\ViewManagement\Search\angledownloadhandler.js" />
     <Content Include="Scripts\ViewManagement\Search\AngleExportHandler.js" />
     <Content Include="Scripts\ViewManagement\Search\ImportAngleHandler.js" />
@@ -860,9 +870,6 @@ if %25ERRORLEVEL%25 LEQ 1 exit 0 else exit %25ERRORLEVEL%25</PreBuildEvent>
     <Content Include="Images\search_button.png" />
     <Content Include="Images\tabbar_bg.png" />
     <Content Include="Scripts\KendoUI\cultures\kendo.culture.en-GB.min.js" />
-    <Content Include="Scripts\VideoPlayer\jwplayer.flash.swf" />
-    <Content Include="Scripts\VideoPlayer\jwplayer.html5.js" />
-    <Content Include="Scripts\VideoPlayer\jwplayer.js" />
     <Content Include="Scripts\ViewManagement\Shared\ModelFieldsHandler.js" />
     <Content Include="Scripts\ViewManagement\Shared\ModelFollowupsHandler.js" />
     <Content Include="Scripts\ViewManagement\Shared\WidgetLanguages\WidgetLanguagesHandler.js" />

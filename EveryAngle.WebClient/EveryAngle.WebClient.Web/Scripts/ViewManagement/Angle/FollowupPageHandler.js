@@ -427,162 +427,182 @@ function FollowupPageHandler() {
         }];
     };
     self.ApplyFollowup = function () {
-        if (self.SelectingFollowup) {
-            displayModel.KeepFilter(false)
-            var followups = [];
-            followups.push(JSON.parse(JSON.stringify(self.SelectingFollowup)));
+        // nothing selected
+        if (!self.SelectingFollowup)
+            return;
 
-            modelFollowupsHandler.SetFollowups(followups);
+        displayModel.KeepFilter(false);
+        var followups = [];
+        followups.push(JSON.parse(JSON.stringify(self.SelectingFollowup)));
 
-            if (!self.IsAdHocFollowup && !self.ListDrilldown) {
-                self.HandlerFilter.AddFilters(followups, enumHandlers.FILTERTYPE.FOLLOWUP);
+        modelFollowupsHandler.SetFollowups(followups);
+
+        // add jump from Angle/Display popup
+        if (!self.IsAdHocFollowup && !self.ListDrilldown) {
+            self.HandlerFilter.AddFilters(followups, enumHandlers.FILTERTYPE.FOLLOWUP);
+            self.ClosePopup();
+            return;
+        }
+
+        // add jump from Action menu
+        progressbarModel.ShowStartProgressBar(Localization.ProgressBar_CheckingJump, false);
+        self.GetDefaultJumpTemplate(followups[0].id)
+            .done(function (jumpDisplay) {
+                if (jumpDisplay) {
+                    // use jump's template
+                    self.ApplyFollowupByTemplate(followups, jumpDisplay);
+                }
+                else {
+                    // use default behavior
+                    self.ApplyFollowupByDefault(followups);
+                }
+            });
+
+        self.ClosePopup();
+    };
+    self.ApplyFollowupByTemplate = function (followups, jumpDisplay) {
+        // transfer query_blocks
+        self.HandlerFilter.AddFilters(followups, enumHandlers.FILTERTYPE.FOLLOWUP);
+        var currentQuerySteps = self.HandlerFilter.GetData();
+
+        // set adding follwoups as adhoc
+        currentQuerySteps[currentQuerySteps.length - 1].is_adhoc_filter = true;
+
+        // set new query_blocks
+        var currentQueryBlocks = [{
+            query_steps: currentQuerySteps,
+            queryblock_type: 'query_steps'
+        }];
+        jumpDisplay.query_blocks = self.GetQueryBlockFromJumpTemplate(currentQueryBlocks, jumpDisplay.query_blocks);
+
+        jQuery.when(displayModel.CreateTempDisplay(jumpDisplay.display_type, jumpDisplay))
+            .done(function (data) {
+                fieldSettingsHandler.ClearFieldSettings();
+
+                // redirect to display
+                displayModel.GotoTemporaryDisplay(data.uri);
+            });
+    };
+    self.ApplyFollowupByDefault = function (followups) {
+        var followup = {
+            step_type: enumHandlers.FILTERTYPE.FOLLOWUP,
+            followup: followups[0].id,
+            uri: followups[0].uri,
+            is_adhoc_filter: followups[0].is_adhoc_filter || false
+        };
+
+        if (!displayModel.IsTemporaryDisplay() || self.ListDrilldown) {
+            var postObject = self.GetPostingQueryBlock(followup);
+            if (self.ListDrilldown)
+                self.IsAdHocFollowup = true;
+            displayDetailPageHandler.ExecuteFollowup(postObject, false, self.IsAdHocFollowup, self.ListDrilldown, false);
+        }
+        else {
+            self.ApplyFollowupForAdhocDisplay(followup);
+        }
+    };
+    self.GetPostingQueryBlock = function (followup) {
+        var queryBlocks = displayQueryBlockModel.CollectQueryBlocks();
+        var postObject;
+
+        if (self.ListDrilldown) {
+            var listDrilldownParameter = JSON.parse(unescape(WC.Utility.UrlParameter(enumHandlers.ANGLEPARAMETER.LISTDRILLDOWN)));
+            var querySteps = [];
+
+            jQuery.each(listDrilldownParameter, function (propName, value) {
+                var queryStep = {
+                    field: propName,
+                    operator: enumHandlers.OPERATOR.EQUALTO.Value,
+                    arguments: [WC.WidgetFilterHelper.ArgumentObject(value, enumHandlers.FILTERARGUMENTTYPE.VALUE)],
+                    step_type: enumHandlers.FILTERTYPE.FILTER,
+                    is_adhoc_filter: true,
+                    valid: true
+                };
+
+                querySteps.push(queryStep);
+            });
+
+            followup.is_adhoc_filter = true;
+            querySteps.push(followup);
+            if (!queryBlocks.length) {
+                postObject = {
+                    query_blocks: [{
+                        queryblock_type: enumHandlers.QUERYBLOCKTYPE.QUERY_STEPS,
+                        query_steps: querySteps
+                    }]
+                };
             }
             else {
-                progressbarModel.ShowStartProgressBar(Localization.ProgressBar_CheckingJump, false);
-                self.GetDefaultJumpTemplate(followups[0].id)
-                    .done(function (jumpDisplay) {
-                        if (jumpDisplay) {
-
-                            // transfer query_blocks
-                            self.HandlerFilter.AddFilters(followups, enumHandlers.FILTERTYPE.FOLLOWUP);
-                            var currentQuerySteps = self.HandlerFilter.GetData();
-
-                            // set adding follwoups as adhoc
-                            currentQuerySteps[currentQuerySteps.length - 1].is_adhoc_filter = true;
-
-                            // set new query_blocks
-                            var currentQueryBlocks = [{
-                                query_steps: currentQuerySteps,
-                                queryblock_type: 'query_steps'
-                            }];
-                            jumpDisplay.query_blocks = self.GetQueryBlockFromJumpTemplate(currentQueryBlocks, jumpDisplay.query_blocks);
-
-                            jQuery.when(displayModel.CreateTempDisplay(jumpDisplay.display_type, jumpDisplay))
-                                .done(function (data) {
-                                    fieldSettingsHandler.ClearFieldSettings();
-
-                                    // redirect to display
-                                    displayModel.GotoTemporaryDisplay(data.uri);
-                                });
-                        }
-                        else {
-                            var followup = {
-                                step_type: enumHandlers.FILTERTYPE.FOLLOWUP,
-                                followup: followups[0].id,
-                                uri: followups[0].uri,
-                                is_adhoc_filter: followups[0].is_adhoc_filter || false
-                            }
-                            var queryBlocks = displayQueryBlockModel.CollectQueryBlocks();
-                            var postObject;
-
-                            if (self.ListDrilldown) {
-                                var listDrilldownParameter = JSON.parse(unescape(WC.Utility.UrlParameter(enumHandlers.ANGLEPARAMETER.LISTDRILLDOWN)));
-                                var querySteps = [];
-
-                                jQuery.each(listDrilldownParameter, function (propName, value) {
-                                    var queryStep = {
-                                        field: propName,
-                                        operator: enumHandlers.OPERATOR.EQUALTO.Value,
-                                        arguments: [WC.WidgetFilterHelper.ArgumentObject(value, enumHandlers.FILTERARGUMENTTYPE.VALUE)],
-                                        step_type: enumHandlers.FILTERTYPE.FILTER,
-                                        is_adhoc_filter: true,
-                                        valid: true
-                                    };
-
-                                    querySteps.push(queryStep);
-                                });
-
-                                followup.is_adhoc_filter = true;
-                                querySteps.push(followup);
-                                if (!queryBlocks.length) {
-                                    postObject = {
-                                        query_blocks: [{
-                                            queryblock_type: enumHandlers.QUERYBLOCKTYPE.QUERY_STEPS,
-                                            query_steps: querySteps
-                                        }]
-                                    };
-                                }
-                                else {
-                                    jQuery.merge(queryBlocks[0].query_steps, querySteps);
-                                    postObject = {
-                                        query_blocks: queryBlocks
-                                    };
-                                }
-                            }
-                            else {
-                                if (!queryBlocks.length) {
-                                    postObject = {
-                                        query_blocks: [{
-                                            queryblock_type: enumHandlers.QUERYBLOCKTYPE.QUERY_STEPS,
-                                            query_steps: [followup]
-                                        }]
-                                    };
-                                }
-                                else {
-                                    queryBlocks[0].query_steps.push(followup);
-                                    postObject = {
-                                        query_blocks: queryBlocks
-                                    };
-                                }
-                            }
-
-                            if (!displayModel.IsTemporaryDisplay() || self.ListDrilldown) {
-                                if (self.ListDrilldown)
-                                    self.IsAdHocFollowup = true;
-                                displayDetailPageHandler.ExecuteFollowup(postObject, false, self.IsAdHocFollowup, self.ListDrilldown, false);
-                            }
-                            else {
-                                if (displayModel.Data().display_type === enumHandlers.DISPLAYTYPE.LIST) {
-                                    displayQueryBlockModel.QuerySteps.push(new WidgetFilterModel(followup));
-                                    displayQueryBlockModel.TempQuerySteps.push(new WidgetFilterModel(followup));
-                                    progressbarModel.ShowStartProgressBar(Localization.ProgressBar_PostResult, false);
-
-                                    var oldDisplayModel = historyModel.Get(displayModel.Data().uri);
-                                    var oldQueryStep = displayQueryBlockModel.QuerySteps();
-                                    var oldQueryStepTemp = displayQueryBlockModel.TempQuerySteps();
-                                    progressbarModel.CancelCustomHandler = true;
-                                    progressbarModel.CancelFunction = function () {
-                                        displayQueryBlockModel.QuerySteps(oldQueryStep);
-                                        displayQueryBlockModel.TempQuerySteps(oldQueryStepTemp);
-
-                                        WC.Ajax.AbortAll();
-                                        displayModel.LoadSuccess(oldDisplayModel);
-                                        resultModel.LoadSuccess(oldDisplayModel.results);
-                                        historyModel.Save();
-
-                                        resultModel.GetResult(resultModel.Data().uri)
-                                            .then(resultModel.LoadResultFields)
-                                            .done(function () {
-                                                resultModel.ApplyResult();
-                                            });
-                                    };
-
-                                    resultModel.PostResult({ customQueryBlocks: displayQueryBlockModel.CollectQueryBlocks() })
-                                        .then(function () {
-                                            historyModel.Save();
-                                            return resultModel.GetResult(resultModel.Data().uri);
-                                        })
-                                        .then(function () {
-                                            return displayModel.GetDefaultListFields(resultModel.Data());
-                                        })
-                                        .done(function (fields) {
-                                            displayModel.Data().fields = fields;
-                                            displayModel.Data.commit();
-                                            resultModel.ApplyResult();
-                                        });
-                                }
-                                else {
-                                    var filterSteps = displayQueryBlockModel.GetQueryStepByNotInType(enumHandlers.FILTERTYPE.AGGREGATION);
-                                    filterSteps.push(new WidgetFilterModel(followup));
-                                    postObject = { query_blocks: [{ queryblock_type: enumHandlers.QUERYBLOCKTYPE.QUERY_STEPS, query_steps: filterSteps }] };
-                                    displayDetailPageHandler.ExecuteFollowup(postObject, false, self.IsAdHocFollowup, self.ListDrilldown, false);
-                                }
-                            }
-                        }
-                    });
+                jQuery.merge(queryBlocks[0].query_steps, querySteps);
+                postObject = {
+                    query_blocks: queryBlocks
+                };
             }
+        }
+        else {
+            if (!queryBlocks.length) {
+                postObject = {
+                    query_blocks: [{
+                        queryblock_type: enumHandlers.QUERYBLOCKTYPE.QUERY_STEPS,
+                        query_steps: [followup]
+                    }]
+                };
+            }
+            else {
+                queryBlocks[0].query_steps.push(followup);
+                postObject = {
+                    query_blocks: queryBlocks
+                };
+            }
+        }
 
-            self.ClosePopup();
+        return postObject;
+    };
+    self.ApplyFollowupForAdhocDisplay = function (followup) {
+        if (displayModel.Data().display_type === enumHandlers.DISPLAYTYPE.LIST) {
+            displayQueryBlockModel.QuerySteps.push(new WidgetFilterModel(followup));
+            displayQueryBlockModel.TempQuerySteps.push(new WidgetFilterModel(followup));
+            progressbarModel.ShowStartProgressBar(Localization.ProgressBar_PostResult, false);
+
+            var oldDisplayModel = historyModel.Get(displayModel.Data().uri);
+            var oldQueryStep = displayQueryBlockModel.QuerySteps();
+            var oldQueryStepTemp = displayQueryBlockModel.TempQuerySteps();
+            progressbarModel.CancelCustomHandler = true;
+            progressbarModel.CancelFunction = function () {
+                displayQueryBlockModel.QuerySteps(oldQueryStep);
+                displayQueryBlockModel.TempQuerySteps(oldQueryStepTemp);
+
+                WC.Ajax.AbortAll();
+                displayModel.LoadSuccess(oldDisplayModel);
+                resultModel.LoadSuccess(oldDisplayModel.results);
+                historyModel.Save();
+
+                resultModel.GetResult(resultModel.Data().uri)
+                    .then(resultModel.LoadResultFields)
+                    .done(function () {
+                        resultModel.ApplyResult();
+                    });
+            };
+
+            resultModel.PostResult({ customQueryBlocks: displayQueryBlockModel.CollectQueryBlocks() })
+                .then(function () {
+                    return resultModel.GetResult(resultModel.Data().uri);
+                })
+                .then(function () {
+                    return displayModel.GetDefaultListFields(resultModel.Data());
+                })
+                .done(function (fields) {
+                    displayModel.Data().fields = fields;
+                    displayModel.Data.commit();
+                    historyModel.Save();
+                    resultModel.ApplyResult();
+                });
+        }
+        else {
+            var filterSteps = displayQueryBlockModel.GetQueryStepByNotInType(enumHandlers.FILTERTYPE.AGGREGATION);
+            filterSteps.push(new WidgetFilterModel(followup));
+            var postObject = { query_blocks: [{ queryblock_type: enumHandlers.QUERYBLOCKTYPE.QUERY_STEPS, query_steps: filterSteps }] };
+            displayDetailPageHandler.ExecuteFollowup(postObject, false, self.IsAdHocFollowup, self.ListDrilldown, false);
         }
     };
     /*EOF: Model Methods*/

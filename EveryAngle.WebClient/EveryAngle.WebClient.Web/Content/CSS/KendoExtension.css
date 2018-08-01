@@ -534,7 +534,7 @@ div.k-window-content {
     border: 1px solid #c1c1c1;
     color: #333;
     font-size: 11px;
-    transition: all 0.3s cubic-bezier(.25,.8,.25,1);
+    transition: all .3s cubic-bezier(.25,.8,.25,1);
 }
 
 .k-palette .k-button {
@@ -632,7 +632,7 @@ table.k-editor {
     background-color: #fff;
     border: 1px solid #c1c1c1;
     color: #333;
-    transition: all 0.3s cubic-bezier(.25,.8,.25,1);
+    transition: all .3s cubic-bezier(.25,.8,.25,1);
 }
 
 .k-editor-dialog .k-button:active,

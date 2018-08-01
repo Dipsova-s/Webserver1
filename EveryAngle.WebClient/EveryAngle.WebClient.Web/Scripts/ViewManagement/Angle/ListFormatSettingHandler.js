@@ -132,7 +132,7 @@ function ListFormatSettingHandler() {
             userSettingsHandler.RenderFormatSettingDropdownlist('format', self.FormatList(), displayFormat.format, "Text", "Value");
         }
 
-    
+
         var source = modelFieldSourceHandler.GetFieldSourceByUri(field.source);
         var sourceName = source ? userFriendlyNameHandler.GetFriendlyName(source, enumHandlers.FRIENDLYNAMEMODE.SHORTNAME) : '';
 
@@ -151,7 +151,7 @@ function ListFormatSettingHandler() {
                 }
             });;
 
-   
+
         if (WC.FormatHelper.IsSupportThousandSeparator(fieldType)) {
             var thousandseparator = (fieldDetails && typeof fieldDetails.thousandseparator === 'boolean') ? fieldDetails.thousandseparator : null;
             self.ThousandSeparator(thousandseparator);
@@ -191,16 +191,16 @@ function ListFormatSettingHandler() {
         else if (fieldType === enumHandlers.FIELDTYPE.PERIOD)
             results = enumHandlers.LISTFORMATPERIOD;
         else if (jQuery.inArray(fieldType, [
-                enumHandlers.FIELDTYPE.DOUBLE,
-                enumHandlers.FIELDTYPE.CURRENCY,
-                enumHandlers.FIELDTYPE.NUMBER
-            ]) !== -1)
+            enumHandlers.FIELDTYPE.DOUBLE,
+            enumHandlers.FIELDTYPE.CURRENCY,
+            enumHandlers.FIELDTYPE.NUMBER
+        ]) !== -1)
             results = enumHandlers.LISTFORMATNUMBER;
         else if (jQuery.inArray(fieldType, [
-                enumHandlers.FIELDTYPE.DATETIME,
-                enumHandlers.FIELDTYPE.TIME,
-                enumHandlers.FIELDTYPE.TIMESPAN
-            ]) !== -1)
+            enumHandlers.FIELDTYPE.DATETIME,
+            enumHandlers.FIELDTYPE.TIME,
+            enumHandlers.FIELDTYPE.TIMESPAN
+        ]) !== -1)
             results = enumHandlers.TIMESECONDSFORMATLIST;
 
         return self.AddUseDefaulToFormatList(fieldType, results.slice());
@@ -347,37 +347,10 @@ function ListFormatSettingHandler() {
                 displayFieldDetail[enumHandlers.FIELDDETAILPROPERTIES.FORMAT] = format;
         }
 
-        var applySetting = function () {
-            var defaultName = jQuery.trim(jQuery('#AliasName').data('default'));
-            var aliasName = jQuery.trim(jQuery('#AliasName').val());
-            var multiAlias = displayField.multi_lang_alias || [];
-            var language = userSettingModel.GetByName(enumHandlers.USERSETTINGS.DEFAULT_LANGUAGES);
-
-            // clear current language
-            multiAlias.removeObject('lang', language, false);
-
-            // add new if changes
-            if (aliasName && defaultName !== aliasName) {
-                multiAlias.push({
-                    lang: language,
-                    text: aliasName
-                });
-            }
-
-            // update model
-            displayField.multi_lang_alias = multiAlias;
-            displayField.field_details = JSON.stringify(displayFieldDetail);
-            displayModel.Data.commit();
-
-            WC.FormatHelper.ClearFormatCached();
-            listHandler.ColumnInfo[field.id.toLowerCase()] = displayField;
-
-            self.UpdateAliasHeader(field, displayField);
-            jQuery('#AngleGrid').data(enumHandlers.KENDOUITYPE.GRID).refresh();
-            listHandler.HideHeaderPopup();
-            historyModel.Save();
-        };
-
+        var defaultName = jQuery.trim(jQuery('#AliasName').data('default'));
+        var aliasName = jQuery.trim(jQuery('#AliasName').val());
+        var language = userSettingModel.GetByName(enumHandlers.USERSETTINGS.DEFAULT_LANGUAGES);
+        var grid = jQuery('#AngleGrid').data(enumHandlers.KENDOUITYPE.GRID);
         // if check set to defualt
         if (saveDefault) {
             var currentFieldUserSpecific = field.user_specific;
@@ -402,13 +375,42 @@ function ListFormatSettingHandler() {
                     // update list handler
                     listHandler.ColumnDefinitions = listHandler.GetColumnDefinitions();
 
-                    applySetting();
+                    self.ApplySetting(displayField, language, field, displayFieldDetail, grid, defaultName, aliasName);
                 });
 
         }
         else {
-            applySetting();
+            self.ApplySetting(displayField, language, field, displayFieldDetail, grid, defaultName, aliasName);
         }
     };
+    self.ApplySetting = function (displayField, language, field, displayFieldDetail, grid, defaultName, aliasName) {
+
+        var multiAlias = displayField.multi_lang_alias || [];
+
+        // clear current language
+        multiAlias.removeObject('lang', language, false);
+
+        // add new if changes
+        if (aliasName && defaultName !== aliasName) {
+            multiAlias.push({
+                lang: language,
+                text: aliasName
+            });
+        }
+
+        // update model
+        displayField.multi_lang_alias = multiAlias;
+        displayField.field_details = JSON.stringify(displayFieldDetail);
+        displayModel.Data.commit();
+
+        WC.FormatHelper.ClearFormatCached();
+        listHandler.ColumnInfo[field.id.toLowerCase()] = displayField;
+
+        self.UpdateAliasHeader(field, displayField);
+        grid.refresh();
+        listHandler.HideHeaderPopup();
+        historyModel.Save();
+    };
+
     //EOF: Methods
 }

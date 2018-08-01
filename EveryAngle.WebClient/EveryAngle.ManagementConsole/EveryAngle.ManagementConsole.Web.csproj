@@ -55,7 +55,7 @@
       <HintPath>..\packages\EveryAngle.Logging.2.4.2\lib\net45\EveryAngle.Logging.dll</HintPath>
     </Reference>
     <Reference Include="EveryAngle.Shared.Globalization, Version=1.0.1.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\EveryAngle.Shared.Globalization.2.4.3.2\lib\net45\EveryAngle.Shared.Globalization.dll</HintPath>
+      <HintPath>..\packages\EveryAngle.Shared.Globalization.2.4.4\lib\net45\EveryAngle.Shared.Globalization.dll</HintPath>
     </Reference>
     <Reference Include="EveryAngle.Threading, Version=2.4.1.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\EveryAngle.Threading.2.4.1\lib\net45\EveryAngle.Threading.dll</HintPath>
@@ -228,24 +228,39 @@
     <Content Include="Content\Default.css" />
     <Content Include="Images\ea_about_logo.png" />
     <Content Include="Images\Icons\icon_about.png" />
+    <Content Include="Images\Icons\icon_add.svg" />
+    <Content Include="Images\Icons\icon_add_blue.svg" />
     <Content Include="Images\Icons\icon_angle_error.png" />
     <Content Include="Images\Icons\icon_angle_warning.png" />
+    <Content Include="Images\Icons\icon_arrow_right.svg" />
+    <Content Include="Images\Icons\icon_arrow_white_down.svg" />
     <Content Include="Images\Icons\icon_chart.png" />
+    <Content Include="Images\Icons\icon_check.svg" />
+    <Content Include="Images\Icons\icon_close.svg" />
     <Content Include="Images\Icons\icon_download.png" />
+    <Content Include="Images\Icons\icon_error.svg" />
     <Content Include="Images\Icons\icon_gear.png" />
+    <Content Include="Images\Icons\icon_help.svg" />
+    <Content Include="Images\Icons\icon_info.svg" />
     <Content Include="Images\Icons\icon_list.png" />
     <Content Include="Images\Icons\icon_logout.png" />
     <Content Include="Images\Icons\icon_logs.png" />
     <Content Include="Images\Icons\icon_manage_user.png" />
+    <Content Include="Images\Icons\icon_next.svg" />
     <Content Include="Images\Icons\icon_open_in_new.png" />
     <Content Include="Images\Icons\icon_pivot.png" />
     <Content Include="Images\Icons\icon_items.png" />
+    <Content Include="Images\Icons\icon_plus.svg" />
     <Content Include="Images\Icons\icon_popup.png" />
     <Content Include="Images\Icons\icon_popup_maximize.png" />
+    <Content Include="Images\Icons\icon_popup_maximize.svg" />
     <Content Include="Images\Icons\icon_popup_minimize.png" />
+    <Content Include="Images\Icons\icon_popup_minimize.svg" />
     <Content Include="Images\Icons\icon_unsuggest.png" />
+    <Content Include="Images\Icons\icon_user.svg" />
     <Content Include="Images\Icons\icon_webclient.png" />
     <Content Include="Images\Login\login_image.png" />
+    <Content Include="Images\logo.svg" />
     <Content Include="Images\UI\btn_deselectall.png" />
     <Content Include="Images\UI\btn_invertselect.png" />
     <Content Include="Images\UI\btn_selectall.png" />
@@ -339,18 +354,14 @@
     <Content Include="Images\Icons\icon_subobject.png" />
     <Content Include="Images\loading_progressbar.gif" />
     <Content Include="Images\bp_preview_bg.png" />
-    <Content Include="Images\breadcrumb_bg.png" />
     <Content Include="Images\favicon.ico" />
     <Content Include="Images\Icons\icon_alert.png" />
     <Content Include="Images\Icons\icon_arrow_down.png" />
     <Content Include="Images\Icons\icon_arrow_down_small.png" />
     <Content Include="Images\Icons\icon_edit_cancel.png" />
-    <Content Include="Images\Icons\icon_check.gif" />
     <Content Include="Images\Icons\icon_checked.png" />
     <Content Include="Images\Icons\icon_disabled.png" />
     <Content Include="Images\Icons\icon_disabled_red.png" />
-    <Content Include="Images\Icons\icon_error.gif" />
-    <Content Include="Images\Icons\icon_error.png" />
     <Content Include="Images\Icons\icon_add_language.png" />
     <Content Include="Images\Icons\icon_close.png" />
     <Content Include="Images\Icons\icon_close_popup.png" />
@@ -361,35 +372,19 @@
     <Content Include="Images\Icons\icon_option_error.png" />
     <Content Include="Images\Icons\icon_option_ok.png" />
     <Content Include="Images\Icons\icon_option_s.png" />
-    <Content Include="Images\Icons\icon_status_down.png" />
-    <Content Include="Images\Icons\icon_status_extracting.png" />
-    <Content Include="Images\Icons\icon_status_load.png" />
-    <Content Include="Images\Icons\icon_status_up.png" />
     <Content Include="Images\Icons\icon_warning.gif" />
-    <Content Include="Images\menu_automated.png" />
-    <Content Include="Images\menu_content.png" />
-    <Content Include="Images\menu_globalsettings.png" />
-    <Content Include="Images\menu_labels.png" />
-    <Content Include="Images\menu_roles.png" />
-    <Content Include="Images\menu_users.png" />
     <Content Include="Images\popup_arrow.png" />
     <Content Include="Images\shadow_bg.png" />
     <Content Include="Images\model_ruler_bg.png" />
     <Content Include="Images\model_status_bg.png" />
-    <Content Include="Images\UI\btn_bg.png" />
     <Content Include="Images\UI\btn_primary_bg.png" />
     <Content Include="Images\UI\input_bg.png" />
-    <Content Include="Images\header_bg.png" />
-    <Content Include="Images\Icons\icon_add.png" />
     <Content Include="Images\Icons\icon_arrow_white_down.png" />
     <Content Include="Images\Icons\icon_delete.png" />
-    <Content Include="Images\Icons\icon_double_arrow_left.png" />
-    <Content Include="Images\Icons\icon_double_arrow_right.png" />
     <Content Include="Images\Icons\icon_edit.png" />
     <Content Include="Images\Icons\icon_filter.png" />
     <Content Include="Images\Icons\icon_help.png" />
     <Content Include="Images\Icons\icon_info.png" />
-    <Content Include="Images\Icons\icon_minus.png" />
     <Content Include="Images\Icons\icon_plus.png" />
     <Content Include="Images\Icons\icon_user.png" />
     <Content Include="Images\Icons\icon_arrow_right.png" />
@@ -397,9 +392,6 @@
     <Content Include="Images\loading_small.gif" />
     <Content Include="Images\Login\login_bg.png" />
     <Content Include="Images\logo.png" />
-    <Content Include="Images\page_toolbar_bg.png" />
-    <Content Include="Images\side_menu_bg.png" />
-    <Content Include="Images\UI\table_header_bg.png" />
     <Content Include="Images\UI\tab_bg.png" />
     <Content Include="Images\UI\tab_hover_bg.png" />
     <Content Include="log\log.txt" />

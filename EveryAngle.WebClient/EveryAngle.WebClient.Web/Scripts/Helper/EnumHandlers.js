@@ -829,7 +829,8 @@ function EnumHandlers() {
 
     self.ANGLEPOPUPTYPE = {
         ANGLE: 'AngleDetail',
-        DISPLAY: 'DisplayDetail'
+        DISPLAY: 'DisplayDetail',
+        DASHBOARD: 'DashboardDetail'
     };
 
     self.FIELDCHOOSERNAME = {

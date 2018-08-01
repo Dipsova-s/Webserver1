@@ -41,9 +41,11 @@ Resource            ${EXECDIR}/WC/Scenarios/ManagementConsole/Models/Roles/TS_Ro
 Resource            ${EXECDIR}/WC/Scenarios/ManagementConsole/Models/Users/TS_Users.robot
 Resource            ${EXECDIR}/WC/Scenarios/ManagementConsole/Models/Users/TS_UserDefaults.robot
 Resource            ${EXECDIR}/WC/Scenarios/ManagementConsole/Models/TS_AllModels.robot
+Resource            ${EXECDIR}/WC/Scenarios/ManagementConsole/Models/TS_ModelServer.robot
 Resource            ${EXECDIR}/WC/Scenarios/ManagementConsole/Models/TS_ModelEA4IT.robot
 Resource            ${EXECDIR}/WC/Scenarios/ManagementConsole/Models/TS_Modules.robot
 Resource            ${EXECDIR}/WC/Scenarios/ManagementConsole/Models/TS_SuggestedFields.robot
+Resource            ${EXECDIR}/WC/Scenarios/ManagementConsole/Models/TS_RefreshCycle.robot
 Resource            ${EXECDIR}/WC/Scenarios/ManagementConsole/AutomationTasks/Tasks/TS_Tasks.robot
 
 *** Variables ***

@@ -34,7 +34,7 @@
     @if (ViewBag.EnableLogViewer)
     {
     <a onclick='MC.ui.logpopup.ShowLogTable(this)'
-       class='btn btnInfo #= SupportViewer ? '' : 'disabled' #'
+       class='btn btnOpenWindow #= SupportViewer ? '' : 'disabled' #'
        data-target='\\#popupLogTable'
        data-title='#= Name #'
        data-width='760'

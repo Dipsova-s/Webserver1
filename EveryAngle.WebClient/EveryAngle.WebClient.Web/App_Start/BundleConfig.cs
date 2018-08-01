@@ -163,6 +163,13 @@ namespace EveryAngle.WebClient.Web
                 "~/scripts/viewmodels/shared/queryblock/queryblocksmodel.js"
             };
 
+            var videoPlayerScripts = new string[]
+            {
+                "~/scripts/videoplayer/video.min.js",
+                "~/scripts/videoplayer/plugins/videojs-playlist.js",
+                "~/scripts/videoplayer/plugins/videojs-playlist-ui.js"
+            };
+
             var widgetFilterScripts = new string[] {
                 "~/scripts/viewmanagement/shared/widgetfilter/widgetfilterview.js",
                 "~/scripts/viewmanagement/shared/widgetfilter/widgetfiltermodel.js",
@@ -201,7 +208,10 @@ namespace EveryAngle.WebClient.Web
                 .Include("~/content/css/createangle.css",
                     "~/content/css/search.masschange.css",
                     "~/content/css/search.angledownload.css",
-                    "~/content/css/search.css"));
+                    "~/content/css/search.css",
+                    "~/content/videoplayer/video-js.min.css",
+                    "~/content/videoplayer/plugins/videojs-playlist-ui.css",
+                    "~/content/videoplayer/plugins/videojs-playlist-ui.vertical.css"));
 
             bundles.Add(new StyleBundle("~/content/css/anglepage.css")
                 .Include("~/content/contextmenu/jquery.contextmenu.css",
@@ -218,7 +228,8 @@ namespace EveryAngle.WebClient.Web
                     "~/content/css/angle.css"));
 
             bundles.Add(new StyleBundle("~/content/css/dashboardpage.css")
-                .Include("~/content/css/dashboard.css"));
+                .Include("~/content/css/dashboardfilters.css",
+                    "~/content/css/dashboard.css"));
 
             bundles.Add(new StyleBundle("~/content/css/widgets.css")
                 .Include("~/content/css/widgetlanguages.css",
@@ -283,11 +294,11 @@ namespace EveryAngle.WebClient.Web
             /*** End - kendo ***/
 
             /*** Begin - search page ***/
-            bundles.Add(new StyleBundle("~/content/searchpagecss").Include(
-               "~/content/css/searchpage.css"));
+            bundles.Add(new StyleBundle("~/content/searchpagecss")
+                .Include("~/content/css/searchpage.css"));
 
             bundles.Add(new ScriptBundle("~/bundles/searchpage.js")
-                .Include("~/scripts/videoplayer/jwplayer.js")
+                .Include(videoPlayerScripts)
                 .Include(widgetFilterScripts)
                 .Include(widgetDetailsScripts)
                 .Include(executionparameterScripts)
@@ -444,6 +455,7 @@ namespace EveryAngle.WebClient.Web
                     "~/scripts/viewmodels/models/fieldsettings/fieldsettingsmodel.js", 
                     
                     "~/scripts/viewmanagement/angle/fieldsettingshandler.js",
+                    "~/scripts/viewmanagement/angle/quickfilterhandler.js",
                     "~/scripts/viewmanagement/shared/fieldchooserhandler.js",
                     "~/scripts/viewmodels/models/dashboard/dashboardwidgetmodel.js",
                     "~/scripts/viewmodels/models/dashboard/dashboardmodel.js",
@@ -452,6 +464,7 @@ namespace EveryAngle.WebClient.Web
                     "~/scripts/htmltemplate/dashboard/dashboarddetailbodyhtmltemplate.js",
                     "~/scripts/htmltemplate/dashboard/dashboardpublishinghtmltemplate.js",
                     "~/scripts/viewmanagement/dashboard/dashboarddetailshandler.js",
+                    "~/scripts/viewmanagement/dashboard/dashboardfiltershandler.js",
                     "~/scripts/viewmanagement/dashboard/dashboardhandler.js"));
 
             /*** ContextMenu ***/

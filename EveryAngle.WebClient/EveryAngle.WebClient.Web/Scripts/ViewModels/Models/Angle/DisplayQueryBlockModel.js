@@ -100,24 +100,19 @@ function DisplayQueryBlockModel(model) {
         // update executed parameters
         var excuteParameters = self.ExcuteParameters();
         if (excuteParameters && excuteParameters.execution_parameters instanceof Array) {
-            var parematerIndex = 0;
+
             jQuery.each(self.QuerySteps(), function (index, queryStep) {
-                if (queryStep.step_type === enumHandlers.FILTERTYPE.FILTER && queryStep.is_execution_parameter()) {
-                    var parameterStep = excuteParameters.execution_parameters[parematerIndex];
-                    if (parameterStep) {
-                        self.QuerySteps()[index].operator = parameterStep.operator;
-                        self.QuerySteps()[index].arguments = parameterStep.arguments.slice();
+                var parameterStep = excuteParameters.execution_parameters.findObject('execution_parameter_id', queryStep.execution_parameter_id);
 
-                        self.TempQuerySteps()[index].operator = parameterStep.operator;
-                        self.TempQuerySteps()[index].arguments = parameterStep.arguments.slice();
+                if (queryStep.step_type === enumHandlers.FILTERTYPE.FILTER && queryStep.is_execution_parameter() && parameterStep) {
+                    self.QuerySteps()[index].operator = parameterStep.operator;
+                    self.QuerySteps()[index].arguments = parameterStep.arguments.slice();
 
-                        parematerIndex++;
-                    }
-                    else {
-                        return false;
-                    }
+                    self.TempQuerySteps()[index].operator = parameterStep.operator;
+                    self.TempQuerySteps()[index].arguments = parameterStep.arguments.slice();
                 }
             });
+
         }
     };
     self.CommitAll = function () {

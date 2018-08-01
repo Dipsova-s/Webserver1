@@ -57,7 +57,7 @@
       <HintPath>..\packages\DevExpress.Web.17.1.0\lib\net40\DevExpress.Web.v17.1.dll</HintPath>
     </Reference>
     <Reference Include="EveryAngle.Shared.Globalization, Version=1.0.1.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\EveryAngle.Shared.Globalization.2.4.3.2\lib\net45\EveryAngle.Shared.Globalization.dll</HintPath>
+      <HintPath>..\packages\EveryAngle.Shared.Globalization.2.4.4\lib\net45\EveryAngle.Shared.Globalization.dll</HintPath>
     </Reference>
     <Reference Include="EveryAngle.Shared.Pivot, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\EveryAngle.Shared.Pivot.1.0.0\lib\net45\EveryAngle.Shared.Pivot.dll</HintPath>
@@ -134,6 +134,7 @@
   <ItemGroup>
     <Compile Include="ControllerTest\PivotControllerTests.cs" />
     <Compile Include="ControllerTest\HelpApiControllerTests.cs" />
+    <Compile Include="HelperTests\VideoHelperTests.cs" />
     <Compile Include="ServiceTests\AggregationServiceTests.cs" />
     <Compile Include="ServiceTests\ModelServiceTests.cs" />
     <Compile Include="ServiceTests\RequestManagerTests.cs" />

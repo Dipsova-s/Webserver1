@@ -87,7 +87,8 @@ function PivotPageHandler(elementId, container) {
         var header = container.find('.widgetDisplayHeader');
         var headerSize = header.height() || 0;
         if (self.DashBoardMode()) {
-            var widgetId = container.find('.widgetDisplay').attr('id');
+            var widgetId = container.find('.widgetDisplay, .pivotAreaContainer').attr('id');
+
             container.html(header.clone(true));
             container.append('<div class="pivotAreaContainer" id="' + widgetId + '" />');
         }

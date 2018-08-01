@@ -3,7 +3,7 @@
 @model List<PageToolbarButtonModel>
 
 <div class="pageToolbar">
-	<div class="container pageToolbarInner">
+	<div class="pageToolbarInner">
 		<div class="pageToolbarButton" id="pageToolbarButton">
         @{
             if (Model != null)
@@ -13,7 +13,7 @@
                     string dataAttribute = button.Data == null ? "" : " data-parameters=" + Json.Encode(button.Data);
                     if (button.Type == PageToolbarButtonType.Reload)
                     {
-                        <a class="btn btnLarge btnPrimary btnReload" onclick="MC.ajax.reloadMainContent()"@dataAttribute>@Resource.MC_Reload</a>
+                        <a class="btn btnLarge btnReload" onclick="MC.ajax.reloadMainContent()"@dataAttribute>@Resource.MC_Reload</a>
                     }
                     else if (button.Type == PageToolbarButtonType.Save)
                     {
@@ -21,7 +21,7 @@
                     }
                     else if (button.Type == PageToolbarButtonType.Cancel)
                     {
-                        <a class="btn btnLarge btnPrimary btnBack" href="@button.Link" onclick="@button.OnClick"@dataAttribute>@Resource.Cancel</a>
+                        <a class="btn btnLarge btnBack" href="@button.Link" onclick="@button.OnClick"@dataAttribute>@Resource.Cancel</a>
                     }
                     else if (button.Type == PageToolbarButtonType.Create)
                     {
@@ -29,7 +29,7 @@
                     }
                     else
                     {
-                        <a class="btn btnLarge btnPrimary @button.CssClass" href="@button.Link" onclick="@button.OnClick"@dataAttribute>@button.Label</a>
+                        <a class="btn btnLarge @button.CssClass" href="@button.Link" onclick="@button.OnClick"@dataAttribute>@button.Label</a>
                     }
                 } 
             }      

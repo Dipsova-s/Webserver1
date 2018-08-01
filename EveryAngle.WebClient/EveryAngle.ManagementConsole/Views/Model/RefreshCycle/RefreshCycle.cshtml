@@ -18,12 +18,12 @@
             Type = PageToolbarButtonType.Custom,
             ModelUri = ViewBag.ModelUri,
             Privilege = PrivilegeType.Model,
-            EnableTemplate =  " <a id=\"btnAddNewRefreshCycle\" class=\"btn btnAdd\">" + @Resource.AddRefreshCommand + "</a>"
+            EnableTemplate =  " <a id=\"btnAddNewRefreshCycle\" class=\"btn btnPrimary btnAdd\">" + @Resource.AddRefreshCommand + "</a>"
                             + " <a id=\"btnShowActionLists\" class=\"btn\" href=\"#popupActionLists\" onclick=\"MC.Models.RefreshCycle.ShowActionLists()\" data-title=\"" + Resource.MC_ActionsList + "\" data-role=\"mcPopup\" data-width=\"750\" data-height=\"400\">" + Resource.ShowActionLists + "</a>"
                             + " <a id=\"btnTestExtraction\" class=\"btn\" href=\"#popupTestExtraction\" onclick=\"MC.Models.RefreshCycle.TestExtraction(event)\" data-title=\"" + Resource.TestExtraction + "\" data-width=\"750\" data-height=\"400\">" + Resource.TestExtraction + "</a>"
                             + " <a id=\"btnViewExtraction\" class=\"btn btnInfo disabled btnViewExtraction\" data-target=\"#popupModelServer\" data-title=\"" + Captions.MC_SAP_Jobs_Extractor_Status + "\" data-role=\"mcPopup\" data-width=\"80%\" data-min-width=\"760\" data-height=\"80%\">" + Captions.MC_SAP_Jobs_Extractor_Status + "</a>",
 
-            DisableTemplate = " <a class=\"btn btnAdd disabled\">" + @Resource.AddRefreshCommand + "</a>"
+            DisableTemplate = " <a class=\"btn btnPrimary btnAdd disabled\">" + @Resource.AddRefreshCommand + "</a>"
                             + " <a id=\"btnShowActionLists\" class=\"btn\" href=\"#popupActionLists\" onclick=\"MC.Models.RefreshCycle.ShowActionLists()\" data-title=\"" + Resource.MC_ActionsList + "\" data-role=\"mcPopup\" data-width=\"750\" data-height=\"400\">" + Resource.ShowActionLists + "</a>"
                             + " <a id=\"btnTestExtraction\" class=\"btn disabled\" >" + Resource.TestExtraction + "</a>"
                             + " <a class=\"btn btnInfo disabled btnViewExtraction\">" + Captions.MC_SAP_Jobs_Extractor_Status + "</a>"

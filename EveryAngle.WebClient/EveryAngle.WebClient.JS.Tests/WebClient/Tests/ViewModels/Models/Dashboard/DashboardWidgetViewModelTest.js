@@ -67,4 +67,52 @@ describe("DashboardWidgetViewModel", function () {
 
     });
 
+    describe("call GetQuerySteps", function () {
+
+        it("should get query steps if it exists", function () {
+            spyOn(dashboardWidgetViewModel, 'GetQueryDefinitions').and.returnValue([
+                { queryblock_type: enumHandlers.QUERYBLOCKTYPE.QUERY_STEPS, query_steps: [] },
+                { queryblock_type: 'test', query_steps: [] }
+            ]);
+            var querySteps = dashboardWidgetViewModel.GetQuerySteps();
+            expect(querySteps).not.toBeNull();
+        });
+
+        it("should not get query steps if it not exists", function () {
+            spyOn(dashboardWidgetViewModel, 'GetQueryDefinitions').and.returnValue([
+                { queryblock_type: enumHandlers.QUERYBLOCKTYPE.BASE_CLASSES, query_steps: [] },
+                { queryblock_type: 'test', query_steps: [] }
+            ]);
+            var querySteps = dashboardWidgetViewModel.GetQuerySteps();
+            expect(querySteps).toBeNull();
+        });
+
+    });
+
+    describe("call GetAggregationQueryStep", function () {
+
+        it("should get aggregation query step if it exists", function () {
+            spyOn(dashboardWidgetViewModel, 'GetQuerySteps').and.returnValue({
+                query_steps: [
+                    { step_type: enumHandlers.FILTERTYPE.AGGREGATION },
+                    { step_type: 'test' },
+                ]
+            });
+            var aggregationQueryStep = dashboardWidgetViewModel.GetAggregationQueryStep();
+            expect(aggregationQueryStep).not.toBeNull();
+        });
+
+        it("should not get aggregation query step if it not exists", function () {
+            spyOn(dashboardWidgetViewModel, 'GetQuerySteps').and.returnValue({
+                query_steps: [
+                    { step_type: enumHandlers.FILTERTYPE.FILTER },
+                    { step_type: 'test' },
+                ]
+            });
+            var aggregationQueryStep = dashboardWidgetViewModel.GetAggregationQueryStep();
+            expect(aggregationQueryStep).toBeNull();
+        });
+
+    });
+
 });

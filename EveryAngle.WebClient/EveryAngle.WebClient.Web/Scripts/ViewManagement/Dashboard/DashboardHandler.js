@@ -13,7 +13,6 @@ function DashboardHandler() {
     self.UpdateDisplayLayoutChecker = null;
     self.UpdateLayoutConfigChecker = null;
     self.CanUpdateLayoutConfig = true;
-    self.HandlerDetails = null;
     self.LastPrivateNote = "";
     self.IsRefreshModelCurrentInfo = false;
     self.CheckModelCurrentInfo = null;
@@ -79,13 +78,11 @@ function DashboardHandler() {
             // set firstLogin status
             jQuery.localStorage('firstLogin', 0);
 
-            jQuery('#ToggleWrapper').hide();
             self.SetWrapperHeight();
 
             // toogle panel is in edit mode
             if (self.IsEditMode()) {
                 jQuery('html').addClass('editmode');
-                self.TogglePanel(false);
             }
             else {
                 jQuery('html').removeClass('editmode');
@@ -311,65 +308,6 @@ function DashboardHandler() {
             window.location = searchPageUrl + '#' + lastSearchUrl;
         }
     };
-    self.TogglePanel = function (animation) {
-        if (jQuery('#ToggleAngle').hasClass('disabled'))
-            return;
-
-        if (typeof animation === 'undefined')
-            animation = true;
-
-        var maximizeWrapper = jQuery('#widgetMaximizeWrapper');
-        var isMaximizedWidget = maximizeWrapper.hasClass('active');
-        var isFullDetail = jQuery('#ToggleWrapper').hasClass('fullDetail');
-        if (isFullDetail) {
-            jQuery('#ToggleAngle .Collapse').addClass('Expand').removeClass('Collapse');
-            jQuery('#ToggleAngle .ToggleStautus').text('Show: ');
-        }
-        else {
-            jQuery('#ToggleWrapper').css({ 'position': 'relative', 'height': 'auto' }).hide();
-            jQuery('#ToggleAngle .Expand').addClass('Collapse').removeClass('Expand');
-            jQuery('#ToggleAngle .ToggleStautus').text('Hide: ');
-        }
-
-        if (animation) {
-            var fnCheckMaximizeWrapper = null;
-            if (isMaximizedWidget) {
-                var mainWrapper = jQuery('#dashboardWrapper');
-                fnCheckMaximizeWrapper = setInterval(function () {
-                    maximizeWrapper.css('top', mainWrapper.offset().top);
-                }, 1);
-            }
-
-            jQuery('#ToggleWrapper').slideToggle('fast', function () {
-                clearInterval(fnCheckMaximizeWrapper);
-                togglePanel();
-            });
-        }
-        else {
-            togglePanel();
-        }
-
-        function togglePanel() {
-            self.CanUpdateLayoutConfig = false;
-
-            jQuery('#ToggleWrapper').removeAttr('style').toggleClass('fullDetail');
-
-            self.SetWrapperHeight();
-
-            var container = jQuery('#dashboardWrapper');
-            var spliiter = container.data(enumHandlers.KENDOUITYPE.SPLITTER);
-            if (spliiter && !isMaximizedWidget) {
-                spliiter.element.children('.k-pane').each(function (index, element) {
-                    element = jQuery(element);
-                    var config = element.data('config');
-                    spliiter.size(element, config.height);
-                });
-            }
-            else {
-                self.UpdateDisplayLayout(200);
-            }
-        }
-    };
     self.SetWrapperHeight = function () {
         var wraperHeight = WC.Window.Height;
         var mainWrapperTop = jQuery('.mainDisplayWrapper').offset().top || 0;
@@ -378,27 +316,13 @@ function DashboardHandler() {
             wraperHeight -= mainWrapperTop;
         }
 
-        jQuery('.mainDisplayWrapper').height(wraperHeight);
-        jQuery('#widgetMaximizeWrapper').height(wraperHeight).css('top', mainWrapperTop);
+        jQuery('#dashboardFilterWrapper, .mainDisplayWrapper').height(wraperHeight);
+        jQuery('#widgetMaximizeWrapper').css('top', mainWrapperTop);
     };
     self.UpdateDetailSection = function () {
-        var wrapperVisible = jQuery('#ToggleWrapper').is(':visible');
-        if (!wrapperVisible)
-            jQuery('#ToggleWrapper').show();
-
         var nameSize = jQuery('#DashboardName').width();
         jQuery('#DashboardName .Name').css({ 'max-width': nameSize - 110 });
         jQuery('#YourNote').width((nameSize / 2) - 60);
-
-        if (self.HandlerDetails) {
-            self.HandlerDetails.AdjustLayout();
-        }
-
-        // set max-width for not inline list
-        WC.HtmlHelper.AdjustNameContainer('#WidgetsDetailWrapper', 0, function (size) { return size - 10; });
-
-        if (!wrapperVisible)
-            jQuery('#ToggleWrapper').hide();
     };
     self.TriggerWatcher = function (e) {
         var refreshDashboard = function () {
@@ -521,7 +445,7 @@ function DashboardHandler() {
 
                 // set publication status
                 dashboardModel.UpdatePublicationsWatcher();
-                
+
                 // M4-33874 get filters list from local storage (bug fixed in IE an Edge)
                 var parameterized = jQuery.localStorage(enumHandlers.DASHBOARDPARAMETER.ASK_EXECUTION);
 
@@ -549,8 +473,6 @@ function DashboardHandler() {
                 var isShowExecutionParametersPopup = !isEditMode && !dashboardModel.ExecuteParameters && executionInfo.query_steps.length;
 
                 if (isNew) {
-                    self.TogglePanel(false);
-
                     // check showing dashboard details popup
                     if (isShowExecutionParametersPopup) {
                         self.IsShowPopupAfterExecuteParameters = true;
@@ -621,6 +543,14 @@ function DashboardHandler() {
                 }
                 return jQuery.when(canRender);
             })
+            .then(function (canRender) {
+                if (canRender !== false) {
+                    return self.LoadAllFilterFieldsMetadata().then(function () {
+                        return jQuery.when(canRender);
+                    });
+                }
+                return jQuery.when(canRender);
+            })
             .fail(function () {
                 // check current model instace
                 self.CheckUpdateModelCurrentInstance();
@@ -650,7 +580,7 @@ function DashboardHandler() {
                 }
 
                 // if updating current_instance not null and current_instance changed then set refresh flag
-                if (!model || (model && model.current_instance && self.ModelCurrentInfo[widget.widget_details.model].Uri !== model.current_instance)) {
+                if (!model || (model.current_instance && self.ModelCurrentInfo[widget.widget_details.model].Uri !== model.current_instance)) {
                     self.ModelCurrentInfo[widget.widget_details.model].IsUpdate = true;
                     self.ModelCurrentInfo[widget.widget_details.model].Uri = model ? model.current_instance : null;
                 }
@@ -721,14 +651,14 @@ function DashboardHandler() {
         dashboardDetailsHandler.IsReady = true;
         self.IsRefreshModelCurrentInfo = false;
 
-        errorHandlerModel.Enable(false);
-        var fnCheckIsRendered = setInterval(function () {
-            if (!jQuery('#dashboardWrapper .k-loading-mask').length) {
-                clearInterval(fnCheckIsRendered);
-                errorHandlerModel.Enable(true);
-            }
-        }, 2000);
-        var widgetElement;
+        self.ExecuteAllWidgets();
+
+        self.CheckBeforeRender = false;
+
+        self.ApplyBindingHandler();
+    };
+    self.ExecuteAllWidgets = function () {
+        self.PreExecuteWidgetsHandler();
         jQuery.each(dashboardModel.Data().widget_definitions, function (index, widget) {
             if (widget) {
                 var display = widget.GetDisplay(),
@@ -737,16 +667,10 @@ function DashboardHandler() {
                 if (angle && display) {
                     if (!self.IsEditMode() && self.CheckInvalidAngleAndDisplay(angle, display).Valid && modelsHandler.GetModelByUri(angle.model).available) {
                         if (display) {
-                            widgetElement = jQuery('#' + self.ElementPrefix + widget.id + '-container');
+                            var widgetElement = jQuery('#' + self.ElementPrefix + widget.id + '-container');
                             if (!widgetElement.data('Model')) {
-                                widgetElement.busyIndicator(true);
-                                var widgetLoading = widgetElement.children('.k-loading-mask');
-                                var headerSize = widgetElement.children('.widgetDisplayHeader').height();
-                                widgetLoading.css({
-                                    top: headerSize,
-                                    height: widgetLoading.height() - headerSize
-                                });
-                                var model = new DashboardResultViewModel('#' + self.ElementPrefix + widget.id, widget, dashboardModel.ExecuteParameters);
+                                self.CreateWidgetBusyIndicator(widgetElement);
+                                var model = new DashboardResultViewModel('#' + self.ElementPrefix + widget.id, widget, dashboardDetailsHandler.Model, dashboardModel.ExecuteParameters);
                                 widgetElement.data('ResultModel', model);
                                 model.Execute();
                             }
@@ -755,30 +679,48 @@ function DashboardHandler() {
                 }
             }
         });
-
-        self.CheckBeforeRender = false;
-
-        self.ApplyBindingHandler();
+    };
+    self.ReloadAllWidgets = function () {
+        self.PreExecuteWidgetsHandler();
+        jQuery('#dashboardWrapper .widgetDisplayColumn').each(function (index, widgetElement) {
+            widgetElement = jQuery(widgetElement);
+            var model = widgetElement.data('ResultModel');
+            if (model) {
+                self.CreateWidgetBusyIndicator(widgetElement);
+                model.Execute();
+            }
+        });
+    };
+    self.PreExecuteWidgetsHandler = function () {
+        errorHandlerModel.Enable(false);
+        var fnCheckIsRendered = setInterval(function () {
+            if (!jQuery('#dashboardWrapper .k-loading-mask').length) {
+                clearInterval(fnCheckIsRendered);
+                errorHandlerModel.Enable(true);
+            }
+        }, 2000);
+    };
+    self.CreateWidgetBusyIndicator = function (widgetElement) {
+        widgetElement.busyIndicator(true);
+        var widgetLoading = widgetElement.children('.k-loading-mask');
+        var headerSize = widgetElement.children('.widgetDisplayHeader').height();
+        widgetLoading.css({
+            top: headerSize,
+            height: widgetLoading.height() - headerSize
+        });
     };
     self.ApplyBindingHandler = function () {
         WC.HtmlHelper.ApplyKnockout(dashboardDetailsHandler, jQuery('#DashboardField'));
 
-        var descriptionData = dashboardDetailsHandler.Model.Data().description();
-        if (!self.HandlerDetails) {
-            self.HandlerDetails = new WidgetDetailsHandler('#DashboardDescriptionWrapper', descriptionData, [], []);
-            self.HandlerDetails.ModelUri = dashboardDetailsHandler.Model.Data().model;
-            self.HandlerDetails.Labels.HeaderDescription = Localization.DashboardDetails;
-            self.HandlerDetails.Labels.ButtonEdit = Localization.AnglePanelEditDashboard;
-            self.HandlerDetails.FullMode(false);
-            self.HandlerDetails.IsVisibleModelRoles(false);
-            self.HandlerDetails.ClickShowEditPopupString = 'dashboardDetailsHandler.ShowPopup()';
-            self.HandlerDetails.ClickShowInfoPopupString = 'dashboardDetailsHandler.ShowInfoPopup()';
-            self.HandlerDetails.ClickShowQueryStepsPopupString = 'dashboardDetailsHandler.ShowPopup(dashboardDetailsHandler.TAB.DEFINITION)';
-            self.HandlerDetails.ApplyHandler();
-        }
-        else {
-            self.HandlerDetails.SetData(descriptionData, []);
-        }
+        dashboardFiltersHandler.SetDashboardModel(dashboardDetailsHandler.Model);
+        dashboardFiltersHandler.AfterTogglePanel = function () {
+            self.UpdateDisplayLayout(200);
+        };
+        dashboardFiltersHandler.ShowFilterDetailsPopup = function () {
+            dashboardDetailsHandler.ShowPopup(dashboardDetailsHandler.TAB.FIELDSFILTERS);
+        };
+        dashboardFiltersHandler.IsActive(!dashboardModel.IsTemporaryDashboard());
+        dashboardFiltersHandler.ApplyHandler(jQuery('#dashboardFilterWrapper'));
 
         self.RenderActionDropdownList();
         self.UpdateDetailSection();
@@ -1029,6 +971,8 @@ function DashboardHandler() {
         var updateDisplay = function () {
             var container = jQuery('#dashboardWrapper');
             var maximizeContainer = jQuery('#widgetMaximizeWrapper');
+            var widgetColumns = container.find('.widgetDisplayColumn');
+
             var updateWidgetLayout = function (widgetElement) {
                 widgetElement.find('.widgetName').css('max-width', widgetElement.find('.widgetDisplayHeader').width() - widgetElement.find('.widgetToolbar').width() - 55);
 
@@ -1044,10 +988,9 @@ function DashboardHandler() {
             if (maximizeContainer.hasClass('active')) {
                 updateWidgetLayout(maximizeContainer);
             }
-            else {
+            else if (widgetColumns.length) {
                 kendo.resize(container);
-
-                jQuery('#dashboardWrapper .widgetDisplayColumn').each(function (index, widgetElement) {
+                widgetColumns.each(function (index, widgetElement) {
                     updateWidgetLayout(jQuery(widgetElement));
                 });
             }
@@ -1065,6 +1008,27 @@ function DashboardHandler() {
             if (model)
                 model.ApplyResult();
         });
+    };
+    self.RemoveWidgetDisplayElement = function (widgetDisplayElementId, widgetContainer, displayData) {
+        var widgetDisplay = widgetContainer.find('.widgetDisplay');
+        var displayType = displayData.display_type;
+        if (enumHandlers.DISPLAYTYPE.CHART === displayType) {
+            var displayDetails = JSON.parse(displayData.display_details);
+            chartHandler.RemoveWidgetChart(widgetDisplayElementId, widgetContainer, displayDetails.chart_type);
+            widgetDisplay = jQuery('#' + widgetDisplayElementId);
+        }
+        else if (enumHandlers.DISPLAYTYPE.PIVOT === displayType) {
+            widgetDisplay = widgetContainer.find('.pivotAreaContainer');
+            widgetDisplay.empty();
+        }
+        else {
+            widgetDisplay.empty();
+        }
+        setTimeout(function () {
+            if (widgetDisplay.find('.areaErrorContainer').length) {
+                widgetDisplay.attr('style', '').attr('class', 'widgetDisplay');
+            }
+        }, 100);
     };
 
     self.CreateSplitter = function (structure) {
@@ -1135,12 +1099,15 @@ function DashboardHandler() {
                     self.CreateDropArea(jQuery(e.currentTarget).parents('.widgetDisplayColumn:first'));
                 },
                 drag: function (e) {
-                    var hint = jQuery(e.currentTarget).parents('.widgetDisplayColumn:first').data('kendoDraggable').hint;
-                    if (hint.offset().left < WC.Window.Width - hint.width() - 50) hint.removeClass('revertHorizontal');
-                    if (hint.offset().top < WC.Window.Height - hint.height() - 25) hint.removeClass('revertVertical');
+                    var draggable = jQuery(e.currentTarget).parents('.widgetDisplayColumn:first').data('kendoDraggable');
+                    if (draggable && draggable.hint) {
+                        var hint = draggable.hint;
+                        if (hint.offset().left < WC.Window.Width - hint.width() - 50) hint.removeClass('revertHorizontal');
+                        if (hint.offset().top < WC.Window.Height - hint.height() - 25) hint.removeClass('revertVertical');
 
-                    if (hint.offset().left + hint.width() > WC.Window.Width - 50) hint.addClass('revertHorizontal');
-                    if (hint.offset().top + hint.height() > WC.Window.Height - 25) hint.addClass('revertVertical');
+                        if (hint.offset().left + hint.width() > WC.Window.Width - 50) hint.addClass('revertHorizontal');
+                        if (hint.offset().top + hint.height() > WC.Window.Height - 25) hint.addClass('revertVertical');
+                    }
                 },
                 dragend: self.ClearDropArea
             });
@@ -1163,10 +1130,14 @@ function DashboardHandler() {
             // create droppable in row
             row = jQuery(row);
             var topOffset = row.offset().top;
+            var leftOffset = row.offset().left;
+            if (!dashboardModel.IsTemporaryDashboard())
+                leftOffset -= 10;
+
             if (canAddNewRowNearby || (!canAddNewRowNearby && (rowIndex < currentRowIndex || rowIndex > currentRowIndex + 1))) {
                 jQuery('<div class="droppable dropToRow" />')
                     .css({
-                        left: 0,
+                        left: leftOffset,
                         top: rowIndex === 0 ? 0 : topOffset - (dropAreaSize / 2),
                         height: rowIndex === 0 ? Math.max(topOffset, dropAreaSize) : dropAreaSize
                     })
@@ -1181,7 +1152,7 @@ function DashboardHandler() {
                 var bottomOffset = topOffset + row.height() - dropAreaSize;
                 jQuery('<div class="droppable dropToRow" />')
                     .css({
-                        left: 0,
+                        left: leftOffset,
                         top: bottomOffset,
                         height: Math.max(WC.Window.Height - bottomOffset, dropAreaSize)
                     })
@@ -1777,6 +1748,21 @@ function DashboardHandler() {
             self.BackToSearch(true);
         };
     };
+
+    // Dashboard Filter functionality
+    self.LoadAllFilterFieldsMetadata = function () {
+        var dashboardModelData = dashboardModel.Data();
+        if (dashboardModelData.model) {
+            var filterFieldIds = dashboardModel.GetAllDashboardFilterFieldIds();
+            var modelFieldUri = modelsHandler.GetQueryFieldsUri(null, dashboardModelData, true);
+            return modelFieldsHandler.LoadFieldsByIds(modelFieldUri, filterFieldIds).then(function (modelFieldModel) {
+                return modelFieldsHandler.LoadFieldsMetadata(modelFieldModel.fields);
+            });
+        }
+        return jQuery.when();
+    };
+    // Dashboard Filter functionality
+
     /*EOF: Model Methods*/
 
     // initialize method

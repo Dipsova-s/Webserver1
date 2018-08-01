@@ -448,3 +448,14 @@ Click Change View To Detail Mode
 Click Change View To Compact Mode
     Wait Until Page Contains Element    ${btnCompactMode}
     Click Element    ${btnCompactMode}
+
+Open Dashboard From First Dashboard in Search Page
+    [Arguments]    ${dashboardName}
+    Click Link First Item From Search Result
+    Sleep    2s
+
+Search Dashboard From Search Page And Open It 
+    [Arguments]    ${fieldKeyword}
+    Search By Text    ${fieldKeyword}  
+    Click Select First Item From Search Result
+    Open Dashboard From First Dashboard in Search Page    ${fieldKeyword}  
