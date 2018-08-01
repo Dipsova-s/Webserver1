@@ -1345,18 +1345,16 @@ begin
   if CurUninstallStep = usUninstall then
   begin 
     // WebClient / Management Console
-    ExecuteWebUndeploy; 
+
+    if DeregisterWebServer then 
+    begin
+      ExecuteWebUndeploy; 
+    end
+    else
+    begin
+      MsgBox('WebServer cannot be deregistered, uninstallation failed.', mbError, MB_OK);
+      Abort;
+    end;
+
   end;
 end;   
-
-function InitializeUninstall(): boolean;
-begin
-  if DeregisterWebServer then 
-  begin 
-    result := true;
-  end else
-  begin
-     MsgBox('WebServer cannot be deregistered, Uninstallation failed.', mbError, MB_OK);
-     result := false;
-  end;
-end; 
