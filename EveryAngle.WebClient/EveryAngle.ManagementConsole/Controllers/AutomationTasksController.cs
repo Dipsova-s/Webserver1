@@ -70,7 +70,7 @@ namespace EveryAngle.ManagementConsole.Controllers
             ViewBag.TasksUri = tasksUri;
             ViewBag.ManageSystemPrivilege = Convert.ToString(SessionHelper.Session.IsValidToManageSystemPrivilege()).ToLower();
             ViewBag.CanScheduleAngles = Convert.ToString(SessionHelper.Session.IsValidToScheduleAngles()).ToLower();
-            ViewBag.UserUri = SessionHelper.CurrentUser.Uri.ToString();
+            ViewBag.UserId = SessionHelper.CurrentUser.Id.Replace("\\", "\\\\");
 
             return PartialView("~/Views/AutomationTasks/Tasks/TasksGrid.cshtml");
         }
@@ -140,16 +140,11 @@ namespace EveryAngle.ManagementConsole.Controllers
         /// <returns></returns>
         public ActionResult EditTask(string tasksUri, string angleUri)
         {
+            bool canManageSystem = SessionHelper.Session.IsValidToManageSystemPrivilege();
+
             // task
             TaskViewModel task = GetTask(tasksUri);
-
-            // automatic update run_as_user to scheduler (from WC) if can manage_system
-            bool canManageSystem = SessionHelper.Session.IsValidToManageSystemPrivilege();
-            if (!string.IsNullOrEmpty(angleUri) && canManageSystem)
-            {
-                task.run_as_user = SessionHelper.CurrentUser.Id;
-            }
-
+            
             // datastore
             List<DataStoresViewModel> dataStores = GetAllDataStores();
 
@@ -171,6 +166,7 @@ namespace EveryAngle.ManagementConsole.Controllers
 
             ViewBag.TasksUri = tasksUri;
             ViewBag.TasksActionsUri = tasksUri + "/actions";
+            ViewBag.IsTaskOwner = task.run_as_user == SessionHelper.CurrentUser.Id;
 
             ViewData["AngleUri"] = angleUri;
             ViewData["DataStores"] = GetDataStoresDataSource(dataStores);
@@ -178,7 +174,7 @@ namespace EveryAngle.ManagementConsole.Controllers
             ViewData["ModelPrivileges"] = SessionHelper.Session.ModelPrivileges;
             ViewData["TaskData"] = JsonConvert.SerializeObject(task);
             ViewData["TaskCreator"] = task.created == null ? SessionHelper.CurrentUser.Uri.ToString() : task.created.Uri.ToString();
-
+            
             // use for model dropdown list
             ViewData["AllModel"] = models;
 

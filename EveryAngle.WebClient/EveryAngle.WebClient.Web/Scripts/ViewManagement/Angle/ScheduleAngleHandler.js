@@ -105,7 +105,7 @@ function ScheduleAngleHandler() {
         ddlTasks.trigger('change');
     };
 
-    self.GetTasks = function () {
+    self.GetTasks = function () { 
         var uri = directoryHandler.GetDirectoryUri(enumHandlers.ENTRIESNAME.TASKS);
         return GetDataFromWebService(uri, { type: "export_angle_to_datastore", offset: 0, limit: systemSettingHandler.GetMaxPageSize() }, false);
     };
@@ -116,8 +116,8 @@ function ScheduleAngleHandler() {
 
         // remove taks which cannot be managed
         if (self.UseOnlyUserTasks()) {
-            var currentUser = userModel.Data().uri;
-            data.tasks = data.tasks.findObjects('created', function (created) { return created.user === currentUser; });
+            var currentUser = userModel.Data().id;
+            data.tasks = data.tasks.findObjects('run_as_user', currentUser);
         }
 
         if (data.tasks.length) {

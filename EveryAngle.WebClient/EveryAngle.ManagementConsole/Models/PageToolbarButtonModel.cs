@@ -21,7 +21,7 @@ namespace EveryAngle.ManagementConsole.Models
         public string DisableTemplate { get; set; }
         public string Template { get; set; }
         public ButtonMode Mode { get; set; }
-     
+        public bool IsTaskOwner { get; set; }
 
     }
 
@@ -50,9 +50,9 @@ namespace EveryAngle.ManagementConsole.Models
 
     public enum ButtonMode
     {
-       None,
-       Create,
-       Edit
+        None,
+        Create,
+        Edit
     }
-   
+
 }

@@ -54,7 +54,7 @@
             .Title(Resource.Status);
 
         columns.Bound(model => model.id)
-            .ClientTemplate("#= MC.AutomationTasks.Tasks.SetAbilityToEditControl(data, " + ViewBag.ManageSystemPrivilege + ", " + ViewBag.CanScheduleAngles + ", \"" + ViewBag.UserUri + "\") #")
+            .ClientTemplate("#= MC.AutomationTasks.Tasks.SetAbilityToEditControl(data, " + ViewBag.ManageSystemPrivilege + ", " + ViewBag.CanScheduleAngles + ", \"" + ViewBag.UserId + "\") #")
             .HeaderHtmlAttributes(new { @class = "gridColumnToolbar" })
             .HtmlAttributes(new { @class = "gridColumnToolbar" })
             .Width(75)
