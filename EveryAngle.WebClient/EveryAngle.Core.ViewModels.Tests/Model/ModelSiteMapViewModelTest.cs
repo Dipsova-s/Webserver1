@@ -27,8 +27,7 @@ namespace EveryAngle.Core.ViewModels.Tests
             Assert.AreEqual(true, testViewModel.CanManageAngleWarnings);
             Assert.AreEqual(true, testViewModel.CanManageContentParameters);
             Assert.AreEqual(true, testViewModel.CanManageLabelCategories);
-            Assert.AreEqual(true, testViewModel.CanManageLanguages);
-            Assert.AreEqual(true, testViewModel.CanManageModules);
+            Assert.AreEqual(true, testViewModel.CanManageLanguages); 
             Assert.AreEqual(true, testViewModel.CanManagePackages);
             Assert.AreEqual(true, testViewModel.CanManageSuggestedFields);
             Assert.AreEqual(true, testViewModel.CanManageDownloadTables);
@@ -48,8 +47,7 @@ namespace EveryAngle.Core.ViewModels.Tests
             Assert.AreEqual(true, testViewModel.CanManageAngleWarnings);
             Assert.AreEqual(false, testViewModel.CanManageContentParameters);
             Assert.AreEqual(true, testViewModel.CanManageLabelCategories);
-            Assert.AreEqual(false, testViewModel.CanManageLanguages);
-            Assert.AreEqual(false, testViewModel.CanManageModules);
+            Assert.AreEqual(false, testViewModel.CanManageLanguages); 
             Assert.AreEqual(true, testViewModel.CanManagePackages);
             Assert.AreEqual(true, testViewModel.CanManageSuggestedFields);
             Assert.AreEqual(false, testViewModel.CanManageDownloadTables);
@@ -69,8 +67,7 @@ namespace EveryAngle.Core.ViewModels.Tests
             Assert.AreEqual(false, testViewModel.CanManageAngleWarnings);
             Assert.AreEqual(false, testViewModel.CanManageContentParameters);
             Assert.AreEqual(false, testViewModel.CanManageLabelCategories);
-            Assert.AreEqual(true, testViewModel.CanManageLanguages);
-            Assert.AreEqual(true, testViewModel.CanManageModules);
+            Assert.AreEqual(true, testViewModel.CanManageLanguages); 
             Assert.AreEqual(false, testViewModel.CanManagePackages);
             Assert.AreEqual(false, testViewModel.CanManageSuggestedFields);
             Assert.AreEqual(true, testViewModel.CanManageDownloadTables);
@@ -90,8 +87,7 @@ namespace EveryAngle.Core.ViewModels.Tests
             Assert.AreEqual(false, testViewModel.CanManageAngleWarnings);
             Assert.AreEqual(false, testViewModel.CanManageContentParameters);
             Assert.AreEqual(false, testViewModel.CanManageLabelCategories);
-            Assert.AreEqual(false, testViewModel.CanManageLanguages);
-            Assert.AreEqual(false, testViewModel.CanManageModules);
+            Assert.AreEqual(false, testViewModel.CanManageLanguages); 
             Assert.AreEqual(false, testViewModel.CanManagePackages);
             Assert.AreEqual(false, testViewModel.CanManageSuggestedFields);
             Assert.AreEqual(false, testViewModel.CanManageDownloadTables);
@@ -109,8 +105,7 @@ namespace EveryAngle.Core.ViewModels.Tests
             viewModel.ModelInfo = "url";
             viewModel.RefreshTasks = "url";
             viewModel.ModelServerSettings = "url";
-            viewModel.Languages = "url";
-            viewModel.Modules = "url";
+            viewModel.Languages = "url"; 
             viewModel.DownloadTables = "url";
             return viewModel;
         }

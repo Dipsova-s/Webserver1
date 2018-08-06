@@ -147,7 +147,6 @@ Click Side Menu Models EA2_800
     Click Element    ${divSideMenuModelsEA2_800}
     Wait Until Page Contains    Content settings
     Wait Until Page Contains    Languages
-    Wait Until Page Contains    Tables & fields
     Wait Until Page Contains    Roles
     Sleep    ${TIMEOUT_GENERAL}
 

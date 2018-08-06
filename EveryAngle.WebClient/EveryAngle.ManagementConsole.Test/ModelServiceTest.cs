@@ -185,46 +185,7 @@ namespace EveryAngle.ManagementConsole.Test
             };
             return modelServer;
         }
-
-        private List<ModuleViewModel> GetModulesMockData()
-        {
-            List<ModuleViewModel> modules = new List<ModuleViewModel>();
-            for (int index = 0; index < 50; index++)
-            {
-                ModuleViewModel module = new ModuleViewModel
-                {
-                    id = "TestGetModules" + index.ToString(),
-                    name = "Module" + index.ToString()
-                };
-                module.ModuleList = new ModuleListViewModel
-                {
-                    id = "CUSTOMER",
-                    enabled = true,
-                    required = true,
-                    name = "CUSTOMER"
-                };
-                modules.Add(module);
-            }
-            return modules;
-        }
-
-        private List<ModuleListViewModel> GetModuleDetailMockData()
-        {
-            List<ModuleListViewModel> roles = new List<ModuleListViewModel>();
-            for (int index = 0; index < 50; index++)
-            {
-                ModuleListViewModel modelServer = new ModuleListViewModel
-                {
-                    id = "CUSTOMER",
-                    enabled = true,
-                    required = true,
-                    name = "CUSTOMER"
-                };
-                roles.Add(modelServer);
-            }
-            return roles;
-        }
-
+        
         [SetUp]
         public void Initialize()
         {
@@ -266,16 +227,6 @@ namespace EveryAngle.ManagementConsole.Test
             service
                 .Setup(v => v.GetRoles(It.Is<string>(s => s == "TestGetRoles")))
                 .Returns(GetRolesMockData())
-                .Verifiable();
-
-            service
-                .Setup(v => v.GetModules(It.Is<string>(s => s == "TestGetModules")))
-                .Returns(GetModulesMockData())
-                .Verifiable();
-
-            service
-                .Setup(v => v.GetModuleDetail())
-                .Returns(GetModuleDetailMockData())
                 .Verifiable();
         }
 
@@ -328,20 +279,6 @@ namespace EveryAngle.ManagementConsole.Test
         {
             var roles = service.Object.GetRoles("TestGetRoles");
             Assert.IsTrue(roles.Data.Count == 50);
-        }
-
-        [Test]
-        public void TestGetModules()
-        {
-            var modules = service.Object.GetModules("TestGetModules");
-            Assert.IsTrue(modules.Count() == 50);
-        }
-
-        [Test]
-        public void TestGetModuleDetail()
-        {
-            var modules = service.Object.GetModuleDetail();
-            Assert.IsTrue(modules.Count == 50);
         }
     }
 }

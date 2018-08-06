@@ -656,53 +656,7 @@ namespace EveryAngle.WebClient.Service.ApiServices
                 JsonConvert.DeserializeObject<List<FieldCategoryViewModel>>(jsonResult.SelectToken("fields").ToString());
             return fieldCategory.FirstOrDefault();
         }
-
-        public IEnumerable<ModuleViewModel> GetModules(string uri)
-        {
-            IEnumerable<ModuleViewModel> ModuleViewModels = new List<ModuleViewModel>();
-            // Get module data 
-            var requestManager = RequestManager.Initialize(uri);
-            var modulResult = requestManager.Run();
-
-            //get agent data
-            if (modulResult.SelectToken("agent_uri") != null)
-            {
-                var agent = modulResult.SelectToken("agent").ToString();
-                var agentUri = UrlHelper.GetRequestUrl(URLType.NOA) + agent;
-                requestManager = RequestManager.Initialize(agentUri);
-                var agentResult = requestManager.Run();
-
-                //get models data
-                var modules_uri = agentResult.SelectToken("modules_uri").ToString();
-                var modulesUri = UrlHelper.GetRequestUrl(URLType.NOA) + modules_uri;
-                requestManager = RequestManager.Initialize(modulesUri);
-                var agentModultsResult = requestManager.Run();
-
-                var modules = agentModultsResult.SelectToken("modules").ToString();
-                var module_list = agentModultsResult.SelectToken("module_list").ToString();
-                ModuleViewModels = JsonConvert.DeserializeObject<IEnumerable<ModuleViewModel>>(modules);
-                ModuleListViewModels = JsonConvert.DeserializeObject<IEnumerable<ModuleListViewModel>>(module_list);
-
-                var moduleListViewModelList = ModuleListViewModels.ToDictionary(x => x.id, x => x);
-                var moduleListViewModel = new ModuleListViewModel();
-
-                var allModuleViewModel = ModuleViewModels.Count();
-                for (var i = 0; i < allModuleViewModel; i++)
-                {
-                    var module = ModuleViewModels.ElementAt(i);
-                    moduleListViewModelList.TryGetValue(module.id, out moduleListViewModel);
-                    module.name = moduleListViewModel != null ? moduleListViewModel.name : module.id;
-                    module.ModuleList = moduleListViewModel;
-                }
-            }
-            return ModuleViewModels;
-        }
-
-        public List<ModuleListViewModel> GetModuleDetail()
-        {
-            return ModuleListViewModels.ToList();
-        }
-
+        
         public string GetModuleExtensionsDetail(string detailUri)
         {
             var requestManager = RequestManager.Initialize(detailUri);
@@ -716,42 +670,13 @@ namespace EveryAngle.WebClient.Service.ApiServices
             var modelInfoResult = requestManager.Run(Method.PUT, extensionData);
             return modelInfoResult.ToString();
         }
-
-
-        public ModuleInfoViewModel GetModuleInfoDetail(string uri)
-        {
-            var requestManager = RequestManager.Initialize(uri);
-            var modelInfoResult = requestManager.Run();
-            var moduleInfo = JsonConvert.DeserializeObject<ModuleInfoViewModel>(modelInfoResult.ToString());
-            return moduleInfo;
-        }
-
+        
         public void UpdateModelActiveLanguages(string uri, string updatelanguage)
         {
             var requestManager = RequestManager.Initialize(uri);
             requestManager.Run(Method.PUT, updatelanguage);
-        }
-
-        public void UpdateModuleList(string moduleUri, string modulesData)
-        {
-            var requestManager = RequestManager.Initialize(moduleUri);
-            requestManager.Run(Method.PUT, modulesData);
-        }
-
-        public List<ModuleListViewModel> ValidateSaveModules(string validateUri, string modulesData)
-        {
-            var ModuleListViewModels = new List<ModuleListViewModel>();
-            var requestManager = RequestManager.Initialize(validateUri);
-            var jsonResult = requestManager.Run(Method.PUT, modulesData);
-            if (jsonResult["module_list"] != null)
-            {
-                ModuleListViewModels =
-                    JsonConvert.DeserializeObject<List<ModuleListViewModel>>(
-                        jsonResult.SelectToken("module_list").ToString());
-            }
-            return ModuleListViewModels;
-        }
-
+        } 
+        
         public ModelServerSettings GetModelSettings(string uri)
         {
             var requestManager = RequestManager.Initialize(uri);
@@ -888,15 +813,7 @@ namespace EveryAngle.WebClient.Service.ApiServices
                 }
             }
         }
-
-        #region Data
-
-        public List<ModuleViewModel> ModuleViewModels { get; set; }
-
-        public IEnumerable<ModuleListViewModel> ModuleListViewModels { get; set; }
-
-        #endregion
-
+        
         public JObject GetAngleWarningFirstLevel(string uri)
         {
             var requestManager = RequestManager.Initialize(uri);

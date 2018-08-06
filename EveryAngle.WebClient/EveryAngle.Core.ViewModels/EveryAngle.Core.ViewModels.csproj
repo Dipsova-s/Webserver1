@@ -116,7 +116,6 @@
     <Compile Include="Model\ModelSiteMapBaseViewModel.cs" />
     <Compile Include="Model\ModelSiteMapSlaveViewModel.cs" />
     <Compile Include="Model\ModelViewModel.cs" />
-    <Compile Include="Model\ModuleViewModel.cs" />
     <Compile Include="EAPackage\ExportSummaryFacetViewModel.cs" />
     <Compile Include="Privilege\ModelPrivilegeViewModel.cs" />
     <Compile Include="Privilege\PrivilegesForModelViewModel.cs" />

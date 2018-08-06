@@ -39,17 +39,6 @@ namespace EveryAngle.Core.ViewModels.Model
             }
         }
 
-        private Uri modules_uri;
-        [JsonProperty(PropertyName = "modules_uri")]
-        public virtual Uri Modules
-        {
-            get { return modules_uri; }
-            set
-            {
-                modules_uri = new Uri(UrlHelper.GetRequestUrl(URLType.NOA) + value);
-            }
-        }
-
         private Uri download_settings_uri;
         [JsonProperty(PropertyName = "download_settings_uri")]
         public virtual Uri DownloadSettings

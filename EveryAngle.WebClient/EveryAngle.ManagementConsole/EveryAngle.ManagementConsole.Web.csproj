@@ -183,7 +183,6 @@
     <Compile Include="Controllers\LicenseController.cs" />
     <Compile Include="Controllers\ModelCommunicationController.cs" />
     <Compile Include="Controllers\ModelServersController.cs" />
-    <Compile Include="Controllers\ModuleController.cs" />
     <Compile Include="Controllers\PackagesController.cs" />
     <Compile Include="Controllers\RefreshCycleController.cs" />
     <Compile Include="Controllers\ResourcesController.cs" />
@@ -446,7 +445,6 @@
     <Content Include="Scripts\Page\MC.Models.Packages.js" />
     <Content Include="Scripts\Page\MC.Models.SuggestedFields.js" />
     <Content Include="Scripts\Page\MC.Models.TablesFields.js" />
-    <Content Include="Scripts\Page\MC.Models.Modules.js" />
     <Content Include="Scripts\Page\MC.Models.LanguagesTemplate.js" />
     <Content Include="Scripts\Page\MC.Models.Languages.js" />
     <Content Include="Scripts\Page\MC.Models.RefreshCycleTemplate.js" />
@@ -602,9 +600,6 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Shared\Comment.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Views\Model\Modules\ModuleList.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Home\OverView.cshtml" />

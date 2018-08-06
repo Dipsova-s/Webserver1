@@ -72,7 +72,6 @@ namespace EveryAngle.WebClient.Web.CSTests.TestBase
 
             modelservice.Setup(x => x.GetModelServer(It.IsAny<string>())).Returns(new ModelServerViewModel());
             modelservice.Setup(x => x.GetModelServers(It.IsAny<string>())).Returns(new ListViewModel<ModelServerViewModel>());
-            modelservice.Setup(x => x.GetModuleDetail()).Returns(new List<ModuleListViewModel>());
             modelservice.Setup(x => x.GetModelSettings(It.IsAny<string>())).Returns(new ModelServerSettings());
 
             _modelService = modelservice.Object;

@@ -178,10 +178,7 @@ namespace EveryAngle.ManagementConsole
             bundles.Add(new CustomScriptBundle("~/bundles/models/languages")
                 .Include("~/scripts/page/mc.models.languagestemplate.js")
                 .Include("~/scripts/page/mc.models.languages.js"));
-
-            bundles.Add(new CustomScriptBundle("~/bundles/models/modules")
-                .Include("~/scripts/page/mc.models.modules.js"));
-
+              
             bundles.Add(new CustomScriptBundle("~/bundles/models/tablesfields")
                 .Include("~/scripts/page/mc.models.tablesfields.js"));
 

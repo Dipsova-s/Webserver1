@@ -36,8 +36,6 @@ namespace EveryAngle.Core.Interfaces.Services
         List<ClassViewModel> GetClasses(string uri);
         ListViewModel<ModelServerViewModel> GetModelServers(string uri);
         List<EventLogViewModel> GetEventLog(string modelServerUri);
-        IEnumerable<ModuleViewModel> GetModules(string uri);
-        List<ModuleListViewModel> GetModuleDetail();
         List<SystemRoleViewModel> GetSystemRoles(string uri);
         FieldViewModel GetModelFields(string uri);
         FieldCategoryViewModel GetFieldCategory(string uri);
@@ -46,10 +44,8 @@ namespace EveryAngle.Core.Interfaces.Services
         string GetModelServerReport(string reportUri);
         void UpdateModelActiveLanguages(string uri, string activeLanguages);
         DataTable GetEventsTable(string modelUri, int page, int pageSize);
-        ModuleInfoViewModel GetModuleInfoDetail(string genericUri);
         void DeleteModelServer(string modelServerUri);
-        ModelServerViewModel CreateModelServer(string modelServerUri, string modelServersData);
-        void UpdateModuleList(string moduleUri, string modulesData);
+        ModelServerViewModel CreateModelServer(string modelServerUri, string modelServersData); 
         string SaveRole(string modelUri, string roleUri, string updatedRole);
 
         FieldCategoryViewModel GetFieldName(string fieldsUri);
@@ -75,14 +71,9 @@ namespace EveryAngle.Core.Interfaces.Services
         TaskViewModel CreateTask(string uri, string data);
         TaskViewModel UpdateTask(string uri, string data);
         void DeleteTask(string uri);
-
-        List<ModuleListViewModel> ValidateSaveModules(string validateUri, string moduleListUpdatingData);
-
+        
         ListViewModel<TaskHistoryViewModel> GetTaskHistories(string uri);
-        List<ModuleViewModel> ModuleViewModels { get; set; }
-
-        IEnumerable<ModuleListViewModel> ModuleListViewModels { get; set; }
-
+        
         ModelServerViewModel GetModelServer(string modelServerUri);
 
         ExtractorViewModel GetModelExtractor(string uri);

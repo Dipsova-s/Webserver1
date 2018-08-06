@@ -18,10 +18,7 @@ namespace EveryAngle.Core.ViewModels.Model
 
         [JsonProperty(PropertyName = "languages_uri")]
         public string Languages { get; set; }
-
-        [JsonProperty(PropertyName = "modules_uri")]
-        public string Modules { get; set; }
-
+          
         [JsonProperty(PropertyName = "downloadtables_uri")]
         public string DownloadTables { get; set; }
 
@@ -34,8 +31,7 @@ namespace EveryAngle.Core.ViewModels.Model
         public virtual bool CanManageAngleWarnings => true;
         public virtual bool CanManageContentParameters  => !string.IsNullOrEmpty(ModelServerSettings);
         public virtual bool CanManageLabelCategories  => true;
-        public virtual bool CanManageLanguages  => !string.IsNullOrEmpty(Languages);
-        public virtual bool CanManageModules  => !string.IsNullOrEmpty(Modules);
+        public virtual bool CanManageLanguages  => !string.IsNullOrEmpty(Languages); 
         public virtual bool CanManagePackages  => true;
         public virtual bool CanManageSuggestedFields  => true;
         public virtual bool CanManageDownloadTables  => !string.IsNullOrEmpty(DownloadTables);

@@ -237,23 +237,8 @@ namespace EveryAngle.ManagementConsole.Models
                     new SiteMap { Id = "ContentParameters", Name = Resource.MC_ContentParameters, Uri = "~/Model/RenderModelServerSettings", HashPath = string.Format("{0}/ContentParameters", modelPath), Parameters = parameters, Visible = modelSiteMap.CanManageContentParameters },
                     new SiteMap { Id = "LabelCategories", Name = Resource.MC_Labels, Uri = "~/LabelCategories/LabelCategories", HashPath = string.Format("{0}/LabelCategories", modelPath), Parameters = parameters, Visible = modelSiteMap.CanManageLabelCategories },
                     new SiteMap { Id = "Languages", Name = Resource.MC_Languages, Uri = "~/ActiveLanguage/GetModelLanguages", HashPath = string.Format("{0}/Languages", modelPath), Parameters = parameters, Visible = modelSiteMap.CanManageLanguages },
-                    new SiteMap { Id = "Modules", Name = Resource.MC_Modules, Uri = "~/Module/GetModules", HashPath = string.Format("{0}/Modules", modelPath), Parameters = parameters, Visible = modelSiteMap.CanManageModules },
                     new SiteMap { Id = "TemplateAngles", Name = Resource.MC_Packages, Uri = "~/Packages/RenderTemplateAnglesPage", HashPath = string.Format("{0}/TemplateAngles", modelPath), Parameters = parameters , Visible = modelSiteMap.CanManagePackages },
                     new SiteMap { Id = "SuggestedFields", Name = Resource.MC_SuggestedFields, Uri = "~/SuggestedFields/SuggestedFields", HashPath = string.Format("{0}/SuggestedFields", modelPath), Parameters = parameters , Visible = modelSiteMap.CanManageSuggestedFields },
-                    new SiteMap
-                    {
-                        Id = "DownloadTables",
-                        Name = Resource.MC_TablesAndFields,
-                        Uri = "~/DownloadTable/GetDownloadTablePage",
-                        HashPath = string.Format("{0}/DownloadTables", modelPath),
-                        Parameters = parameters,
-                        Visible = modelSiteMap.CanManageDownloadTables,
-                        ChildsVisible = false,
-                        Childs = new List<SiteMap>
-                        {
-                            new SiteMap { Id = "EditDownloadTable", Name = Resource.MC_EditTable, Uri = "~/DownloadTable/EditDownloadTable", HashPath = string.Format("{0}/DownloadTables/EditDownloadTable", modelPath) }
-                        }
-                    },
                     new SiteMap { Id = "RolesSettings", Name = Resource.MC_RolesSettings, HashPath = string.Format("{0}/RolesSettings", modelPath), IsText = true },
                     new SiteMap
                     {

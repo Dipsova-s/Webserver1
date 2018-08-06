@@ -1167,30 +1167,6 @@ div.k-window-content > .k-loading-mask {
     top: 1px;
 }
 
-/* #popupModuleEdit
-================================== */
-#popupModuleEdit {
-    overflow: visible !important;
-}
-
-#popupModuleEdit .gridContainer {
-    margin-bottom: 0;
-}
-
-#popupModuleEdit h2 {
-    margin-bottom: 8px;
-}
-
-#popupModuleEditPlaintext #plaintext {
-    width: 100%;
-    box-sizing: border-box;
-    resize: none;
-}
-
-#popupModuleEditPlaintext .popupContent {
-    overflow: visible;
-}
-
 /* #popupConfirmCopy
 ================================== */
 #popupConfirmCopy .contentSectionInfoItem > label {
@@ -2607,15 +2583,18 @@ form#ExportPackageForm .packageInfo .packageVersion input {
     left: 10px;
     bottom: 20px;
 }
+
 .modelOverviewItem .btnOpenLogs {
     left: auto;
     right: 0;
 }
+
 @media (max-width: 979px) {
     .modelOverviewItem .btnOpenModel,
     .modelOverviewItem .btnOpenLogs {
         padding-right: 12px !important;
     }
+
     .modelOverviewItem .btnOpenModel:after,
     .modelOverviewItem .btnOpenLogs:after {
         display: none;
@@ -2974,6 +2953,7 @@ form#ExportPackageForm .packageInfo .packageVersion input {
     padding-left: 16px;
     padding-right: 10px;
 }
+
 .modelInfoInstance .modelInfoItemStatus a:hover {
     color: #016896;
     text-decoration: underline;
@@ -3576,138 +3556,6 @@ form#ExportPackageForm .packageInfo .packageVersion input {
     margin-right: 0;
 }
 
-/* .pageModules
-================================== */
-.pageModules .contentSectionGrid {
-    margin-bottom: 0;
-}
-
-.pageModules .gridToolbarFilter input {
-    width: 200px;
-}
-
-.pageModules .k-treelist .warning {
-    position: absolute;
-    right: 10px;
-    top: auto;
-    padding-right: 25px;
-    background: transparent url(../images/icons/icon_disabled_red.png) right center no-repeat;
-    color: #999;
-    font-size: 13px;
-    line-height: 30px;
-}
-
-.pageModules .k-treelist tr {
-    height: auto;
-}
-
-.pageModules .k-treelist .top,
-.pageModules .k-treelist .child {
-    height: 30px;
-    line-height: 30px;
-}
-
-.pageModules .k-treelist .top {
-    cursor: pointer;
-    background: #e6e6e6 url(../images/ui/tab_bg.png) left center repeat-x;
-    font-size: 14px;
-    color: #084777;
-}
-
-.pageModules .k-treelist .child {
-    border-left: 1px solid #c5c5c5;
-}
-.pageModules .k-treelist .child.name {
-    border-left-width: 0;
-}
-
-.pageModules .k-treelist .k-icon {
-    float: left;
-    margin-top: 6px;
-}
-
-.pageModules .k-treelist .k-icon:first-child {
-    margin-left: 5px;
-}
-
-.pageModules .k-treelist .noLicense {
-    cursor: default;
-}
-
-.pageModules .k-treelist .top .btnInfo {
-    display: none;
-}
-
-.pageModules .k-treelist tbody td {
-    text-align: center;
-    vertical-align: middle;
-    padding: 0;
-    border: 0 solid #c5c5c5;
-    border-bottom-width: 1px;
-}
-
-.pageModules .k-treelist tbody td:first-child {
-    text-align: left;
-}
-
-.pageModules .k-treelist tbody td .btn {
-    margin: 0 1px;
-    padding-top: 0;
-    padding-bottom: 1px;
-}
-
-.pageModules .k-treelist tbody td .btnAdd,
-.pageModules .k-treelist tbody td .btnInfo {
-    top: 4px;
-    padding-right: 15px !important;
-}
-
-.pageModules .k-treelist tbody td .btn:after {
-    right: -9px;
-}
-
-.pageModules .k-treelist .btnInfo {
-    cursor: default;
-}
-
-.pageModules .k-treelist thead th .btnInfo:after {
-    right: -3px;
-    background-image: url(../images/icons/icon_info.png);
-}
-
-.pageModules .k-treelist tbody td .btnInfo:after {
-    right: -10px;
-    background-image: url(../images/icons/icon_info_small.png);
-}
-
-.pageModules .k-treelist .iconChecked {
-    background-image: url(../images/icons/icon_checked.png);
-    width: 16px;
-    height: 16px;
-    background-position: -1px -1px;
-    margin-right: 0;
-}
-
-.pageModules .k-treelist .chk {
-    margin-top: -3px;
-}
-
-.pageModules .k-treelist td label {
-    margin-left: 0;
-    margin-right: -4px;
-    top: 3px;
-}
-
-.pageModules .k-treelist .iconDisabled {
-    background-image: url(../images/icons/icon_disabled.png);
-    margin-left: -2px;
-    margin-right: 8px;
-}
-
-.pageModules .k-treelist .rowDisabled td {
-    color: #999;
-}
-
 /* .pageTablesFields
 ================================== */
 .pageTablesFields .contentSectionGrid {
@@ -3748,6 +3596,7 @@ form#ExportPackageForm .packageInfo .packageVersion input {
 .pageRefreshCycle .contentSectionInfoItem p {
     font-weight: normal;
 }
+
 .pageRefreshCycle .gridContainer .editRow .btnGroupInner .btnEdit,
 .pageRefreshCycle .gridContainer .btnGroupInner .btnCancel {
     display: none;
@@ -3844,7 +3693,8 @@ form#ExportPackageForm .packageInfo .packageVersion input {
     margin-bottom: 20px;
 }
 
-#refreshCycleFormContainer .columnTaskName {
+#refreshCycleFormContainer .columnTaskName,
+#refreshCycleFormContainer .columnActionList {
     min-width: 150px;
     width: 150px;
 }
@@ -4042,9 +3892,11 @@ form#ExportPackageForm .packageInfo .packageVersion input {
     width: 50%;
     z-index: 1000;
 }
+
 .manageUserRoleRow .avaliableUserGridColumn {
     padding-right: 60px;
 }
+
 .manageUserRoleRow .selectedUserGridColumn {
     padding-left: 60px;
 }
@@ -5092,7 +4944,7 @@ a.mailto {
 }
 
 .iconDisplay.no:before {
-   content: none;
+    content: none;
 }
 
 .k-list-container .iconDisplay:before {

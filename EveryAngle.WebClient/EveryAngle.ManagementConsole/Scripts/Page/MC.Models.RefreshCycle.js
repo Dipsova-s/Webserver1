@@ -70,10 +70,7 @@
         };
         self.InitialRefreshCycleForm = function () {
             self.RefreshCycleForm = self.GetRefreshCycleForm();
-
-            // action list field
-            self.CreateActionListDropdown(self.RefreshCycleForm.find('.actionList'));
-
+             
             // days field
             MC.ui.customcheckbox(self.RefreshCycleForm.find('[data-role="customcheckbox"]'));
 
@@ -224,10 +221,8 @@
             // enabled
             self.RefreshCycleForm.find('[name="IsEnabled"]').prop('checked', data.enabled);
 
-            // action list
-            var actionList = self.RefreshCycleForm.find('[name="Action"]').data('handler');
-            actionList.value(data.ActionList);
-            actionList.trigger('change');
+            // action list 
+            self.RefreshCycleForm.find('[name="Action"]').val(data.ActionList); 
 
             // delta
             self.RefreshCycleForm.find('[name="IsDelta"]').prop('checked', data.Delta != null && data.Delta);
@@ -274,13 +269,26 @@
             self.RefreshCycleForm.find('[name="Uri"]').val(data.Uri);
 
         };
-        self.BindingSpecifyTablesDataToForm = function (data) {
+        self.BindingSpecifyTablesDataToForm = function (data) { 
             var tableList = data.SpecifyTables.split(' ');
 
             // parameters [action list = 'tables']
             self.RefreshCycleForm.find('[name="Parameters"]').val(tableList.join(' '));
             self.RefreshCycleForm.find('.specifyTablesCountItems').text(data.SpecifyTables ? tableList.length : 0);
-            self.RefreshCycleForm.find('#SelectedTableList').text(tableList.join(', '));
+
+            var specifyTablesLabel = self.RefreshCycleForm.find('#SelectedTableList'); 
+            specifyTablesLabel.text(tableList.join(', '));
+             
+            self.UpdateSpecifyTableLabelVisible(specifyTablesLabel, data.ActionList); 
+        };
+        self.UpdateSpecifyTableLabelVisible = function (specifyTablesLabel, value) { 
+            // if value of action list = 'tables' it will show textbox label
+            if (specifyTablesLabel.text() && value && value.toLowerCase() === 'tables') {
+                specifyTablesLabel.removeClass('hidden');
+            }
+            else {
+                specifyTablesLabel.addClass('hidden');
+            }
         };
         self.ResetFormData = function () {
             self.RefreshCycleForm = self.GetRefreshCycleForm();
@@ -296,10 +304,8 @@
             // name
             self.RefreshCycleForm.find('input[name="TaskName"]').val('');
 
-            // action list
-            var actionList = self.RefreshCycleForm.find('[name="Action"]').data('handler');
-            actionList.value('');
-            actionList.trigger('change');
+            // action list 
+            self.RefreshCycleForm.find('[name="Action"]').val(''); 
 
             // delta
             self.RefreshCycleForm.find('input[name="IsDelta"]').prop('checked', false);
@@ -367,6 +373,15 @@
                 self.ActionsList = [];
             }
         };
+        self.OnActionListChanged = function (element) {
+            self.RefreshCycleForm = self.GetRefreshCycleForm();
+
+            var actionListContainer = self.RefreshCycleForm.find('[name="Action"]').closest('.contentSectionInfoItem'); 
+            var specifyTablesLabel = actionListContainer.find('#SelectedTableList');
+            var value = element.value;
+
+            self.UpdateSpecifyTableLabelVisible(specifyTablesLabel, value);
+        }
         self.CreateActionListDropdown = function (dropdownElement) {
             var preValue = {
                 id: '',
