@@ -45,9 +45,6 @@
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="EveryAngle.Shared.Globalization, Version=1.0.1.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\EveryAngle.Shared.Globalization.2.4.4\lib\net45\EveryAngle.Shared.Globalization.dll</HintPath>
-    </Reference>
     <Reference Include="EveryAngle.Utilities, Version=2.4.2.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\EveryAngle.Utilities.2.4.2\lib\net45\EveryAngle.Utilities.dll</HintPath>
     </Reference>
@@ -153,6 +150,10 @@
     <ProjectReference Include="..\EveryAngle.ManagementConsole\EveryAngle.ManagementConsole.Web.csproj">
       <Project>{6d2de634-8b78-4fdb-8067-919f98e4ef24}</Project>
       <Name>EveryAngle.ManagementConsole.Web</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\EveryAngle.Shared.Globalization\EveryAngle.Shared.Globalization.csproj">
+      <Project>{1c85ec76-0087-4319-8411-28bebc56aab0}</Project>
+      <Name>EveryAngle.Shared.Globalization</Name>
     </ProjectReference>
     <ProjectReference Include="..\EveryAngle.Shared.Helpers\EveryAngle.Shared.Helpers.csproj">
       <Project>{25ef80a0-14d8-4efc-9ad2-265ef87b2429}</Project>

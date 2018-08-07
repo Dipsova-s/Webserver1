@@ -56,12 +56,6 @@
     <Reference Include="DevExpress.Web.v17.1, Version=17.1.7.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
       <HintPath>..\packages\DevExpress.Web.17.1.0\lib\net40\DevExpress.Web.v17.1.dll</HintPath>
     </Reference>
-    <Reference Include="EveryAngle.Shared.Globalization, Version=1.0.1.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\EveryAngle.Shared.Globalization.2.4.4\lib\net45\EveryAngle.Shared.Globalization.dll</HintPath>
-    </Reference>
-    <Reference Include="EveryAngle.Shared.Pivot, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\EveryAngle.Shared.Pivot.1.0.0\lib\net45\EveryAngle.Shared.Pivot.dll</HintPath>
-    </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
@@ -153,6 +147,10 @@
     <ProjectReference Include="..\EveryAngle.Shared.EmbeddedViews\EveryAngle.Shared.EmbeddedViews.csproj">
       <Project>{72a4f91c-c51b-4c5a-8db1-7ad5a9795dca}</Project>
       <Name>EveryAngle.Shared.EmbeddedViews</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\EveryAngle.Shared.Globalization\EveryAngle.Shared.Globalization.csproj">
+      <Project>{1c85ec76-0087-4319-8411-28bebc56aab0}</Project>
+      <Name>EveryAngle.Shared.Globalization</Name>
     </ProjectReference>
     <ProjectReference Include="..\EveryAngle.Shared.Helpers\EveryAngle.Shared.Helpers.csproj">
       <Project>{25ef80a0-14d8-4efc-9ad2-265ef87b2429}</Project>
