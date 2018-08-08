@@ -31,6 +31,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EveryAngle.WebClient.JS.Tes
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EveryAngle.Core.ViewModels.Tests", "EveryAngle.Core.ViewModels.Tests\EveryAngle.Core.ViewModels.Tests.csproj", "{C32CCE8B-C46E-4D44-AEE1-C0DA92DE29E9}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EveryAngle.Shared.Globalization", "EveryAngle.Shared.Globalization\EveryAngle.Shared.Globalization.csproj", "{1C85EC76-0087-4319-8411-28BEBC56AAB0}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -110,6 +112,12 @@ Global
 		{C32CCE8B-C46E-4D44-AEE1-C0DA92DE29E9}.DEVMODE|Any CPU.Build.0 = Debug|Any CPU
 		{C32CCE8B-C46E-4D44-AEE1-C0DA92DE29E9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C32CCE8B-C46E-4D44-AEE1-C0DA92DE29E9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1C85EC76-0087-4319-8411-28BEBC56AAB0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1C85EC76-0087-4319-8411-28BEBC56AAB0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1C85EC76-0087-4319-8411-28BEBC56AAB0}.DEVMODE|Any CPU.ActiveCfg = Debug|Any CPU
+		{1C85EC76-0087-4319-8411-28BEBC56AAB0}.DEVMODE|Any CPU.Build.0 = Debug|Any CPU
+		{1C85EC76-0087-4319-8411-28BEBC56AAB0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1C85EC76-0087-4319-8411-28BEBC56AAB0}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

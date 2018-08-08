@@ -75,11 +75,8 @@
     <Reference Include="EveryAngle.Shared.Formatter, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\EveryAngle.Shared.Formatter.1.0.0\lib\net45\EveryAngle.Shared.Formatter.dll</HintPath>
     </Reference>
-    <Reference Include="EveryAngle.Shared.Globalization, Version=1.0.1.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\EveryAngle.Shared.Globalization.2.4.4\lib\net45\EveryAngle.Shared.Globalization.dll</HintPath>
-    </Reference>
-    <Reference Include="EveryAngle.Shared.Pivot, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\EveryAngle.Shared.Pivot.1.0.0\lib\net45\EveryAngle.Shared.Pivot.dll</HintPath>
+    <Reference Include="EveryAngle.Shared.Pivot, Version=2.4.4.1, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\EveryAngle.Shared.Pivot.2.4.4.1\lib\net45\EveryAngle.Shared.Pivot.dll</HintPath>
     </Reference>
     <Reference Include="EveryAngle.Threading, Version=2.4.1.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\EveryAngle.Threading.2.4.1\lib\net45\EveryAngle.Threading.dll</HintPath>
@@ -197,6 +194,10 @@
       <Project>{fd678f41-ed45-41ba-9d41-0c96498d2b7a}</Project>
       <Name>EveryAngle.Core.ViewModels</Name>
     </ProjectReference>
+    <ProjectReference Include="..\EveryAngle.Shared.Globalization\EveryAngle.Shared.Globalization.csproj">
+      <Project>{1c85ec76-0087-4319-8411-28bebc56aab0}</Project>
+      <Name>EveryAngle.Shared.Globalization</Name>
+    </ProjectReference>
     <ProjectReference Include="..\EveryAngle.Shared.Helpers\EveryAngle.Shared.Helpers.csproj">
       <Project>{25ef80a0-14d8-4efc-9ad2-265ef87b2429}</Project>
       <Name>EveryAngle.Shared.Helpers</Name>
@@ -207,8 +208,12 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <None Include="app.config" />
-    <None Include="packages.config" />
+    <None Include="app.config">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="packages.config">
+      <SubType>Designer</SubType>
+    </None>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
