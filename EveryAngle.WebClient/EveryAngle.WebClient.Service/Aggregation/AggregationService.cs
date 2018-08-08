@@ -277,7 +277,15 @@ namespace EveryAngle.WebClient.Service.Aggregation
             bool isBlockDisplayChange = IsBlockDisplayChange();
 
             // active Pivot language by a user default language
-            PivotGridLocalizer.Active = new CustomPivotGridLocalizer(FieldSetting.CultureName);
+            string language = FieldSetting.CultureName;
+            Dictionary<PivotGridStringId, string> texts = new Dictionary<PivotGridStringId, string>
+            {
+                [PivotGridStringId.PrintDesignerDataHeaders] = ResourceHelper.GetLocalization("DataHeaders", language),
+                [PivotGridStringId.GrandTotal] = ResourceHelper.GetLocalization("GrandTotal", language),
+                [PivotGridStringId.TotalFormat] = "{0} " + ResourceHelper.GetLocalization("Total", language),
+                [PivotGridStringId.Total] = ResourceHelper.GetLocalization("Total", language)
+            };
+            PivotGridLocalizer.Active = new CustomPivotGridLocalizer(texts);
 
             PivotGridSettings settings = new PivotGridSettings();
             settings.Name = FieldSetting.ComponentId ?? "pivotGrid";
