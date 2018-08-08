@@ -751,8 +751,10 @@ function ChartHandler(elementId, container) {
         else if (fieldSettingData.DataType === enumHandlers.FIELDTYPE.PERIOD) {
             formatter = new Formatter({
                 format: '#'
-            }, enumHandlers.FIELDTYPE.INTEGER);
-
+            }, enumHandlers.FIELDTYPE.PERIOD);
+            if (fieldSettingData.Area === enumHandlers.FIELDSETTINGAREA.DATA) {
+                formatter.type = enumHandlers.FIELDTYPE.INTEGER;
+            }
             // set null to use a format
             formatter.decimals = null;
         }
@@ -949,6 +951,9 @@ function ChartHandler(elementId, container) {
             var yearFormat = metadata.formatter.format.indexOf('yyyy') !== -1 ? 'yyyy' : 'yy';
             return self.GetWeekOfYear(value, yearFormat);
         }
+        else if (value !== null && metadata.formatter.type === enumHandlers.FIELDTYPE.PERIOD) {
+            return self.GetPeriodRangeBucketLabel(metadata.formatter.format, metadata.bucket, value);
+        }
         else {
             return WC.FormatHelper.GetFormattedValue(metadata.formatter, value);
         }
@@ -965,6 +970,47 @@ function ChartHandler(elementId, container) {
         var lowerLabel = WC.FormatHelper.GetFormattedValue(formatter, value);
         var upperLabel = WC.FormatHelper.GetFormattedValue(formatter, value + bucketSize);
         return kendo.format('[{0}..{1}>', lowerLabel, upperLabel);
+    };
+    self.GetPeriodRangeBucketLabel = function (format, bucket, value) {
+        var periodRangeFormatSetting = self.GetPeriodRangeFormatSetting(bucket);
+        var unitText = Localization['Period_Unit_' + bucket];
+        var label;
+        value /= periodRangeFormatSetting.divide;
+        var lowerValue = kendo.toString(value, format);
+        var upperValue = kendo.toString(value + 1, format);
+        if (periodRangeFormatSetting.supportRange) {
+            label = kendo.format('[{0} {2}..{1} {2}>', lowerValue, upperValue, unitText);
+        }
+        else {
+            label = kendo.format('{0} {1}', lowerValue, unitText);
+        }
+        
+        return label;
+    };
+    self.GetPeriodRangeFormatSetting = function (bucket) {
+        var setting = { divide: 1, supportRange: true };
+        if (bucket === enumHandlers.FILTERPERIODTYPE.WEEK) {
+            setting.divide = 7;
+        }
+        else if (bucket === enumHandlers.FILTERPERIODTYPE.MONTH) {
+            setting.divide = 30.43685;
+        }
+        else if (bucket === enumHandlers.FILTERPERIODTYPE.QUARTER) {
+            setting.divide = 91.31055;
+        }
+        else if (bucket === enumHandlers.FILTERPERIODTYPE.TRIMESTER) {
+            setting.divide = 121.7474;
+        }
+        else if (bucket === enumHandlers.FILTERPERIODTYPE.SEMESTER) {
+            setting.divide = 182.6211;
+        }
+        else if (bucket === enumHandlers.FILTERPERIODTYPE.YEAR) {
+            setting.divide = 365.2422;
+        }
+        else {
+            setting.supportRange = false;
+        }
+        return setting;
     };
 
     self.GetWeekOfYear = function (value, yearFormat) {

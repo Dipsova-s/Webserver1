@@ -99,7 +99,7 @@ if %25ERRORLEVEL%25 LEQ 1 exit 0 else exit %25ERRORLEVEL%25</PreBuildEvent>
       <HintPath>..\packages\EveryAngle.Logging.2.4.2\lib\net45\EveryAngle.Logging.dll</HintPath>
     </Reference>
     <Reference Include="EveryAngle.Shared.Formatter, Version=2.4.4.1, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\EveryAngle.Shared.Formatter.2.4.4-M4-44706-2\lib\net45\EveryAngle.Shared.Formatter.dll</HintPath>
+      <HintPath>..\packages\EveryAngle.Shared.Formatter.2.4.4-M4-44706-3\lib\net45\EveryAngle.Shared.Formatter.dll</HintPath>
     </Reference>
     <Reference Include="EveryAngle.Shared.Pivot, Version=2.4.4.1, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\EveryAngle.Shared.Pivot.2.4.4.1\lib\net45\EveryAngle.Shared.Pivot.dll</HintPath>
