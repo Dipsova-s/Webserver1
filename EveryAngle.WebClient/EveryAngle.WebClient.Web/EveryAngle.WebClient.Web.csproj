@@ -119,8 +119,8 @@ if %25ERRORLEVEL%25 LEQ 1 exit 0 else exit %25ERRORLEVEL%25</PreBuildEvent>
     <Reference Include="EveryAngle.Security, Version=2.4.3.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\EveryAngle.Security.2.4.3.2\lib\net45\EveryAngle.Security.dll</HintPath>
     </Reference>
-    <Reference Include="EveryAngle.Shared.Formatter, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\EveryAngle.Shared.Formatter.1.0.0\lib\net45\EveryAngle.Shared.Formatter.dll</HintPath>
+    <Reference Include="EveryAngle.Shared.Formatter, Version=2.4.4.1, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\EveryAngle.Shared.Formatter.2.4.4-M4-44706-2\lib\net45\EveryAngle.Shared.Formatter.dll</HintPath>
     </Reference>
     <Reference Include="EveryAngle.Shared.Globalization, Version=1.0.1.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\EveryAngle.Shared.Globalization.2.4.3.2\lib\net45\EveryAngle.Shared.Globalization.dll</HintPath>

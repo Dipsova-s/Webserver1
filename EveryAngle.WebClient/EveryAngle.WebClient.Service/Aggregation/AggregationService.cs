@@ -489,17 +489,10 @@ namespace EveryAngle.WebClient.Service.Aggregation
             }
             else
             {
-                int intResult = 0;
-                double doubleResult = 0;
-                if (int.TryParse(row.field_values[columnIndex].ToString(), out intResult))
-                {
-                newDataRow[fieldName] = ParseRowNumberValue<long>(row.field_values[columnIndex].ToString(), cultureInfo);
-                }
-                else if (double.TryParse(row.field_values[columnIndex].ToString(), out doubleResult))
-                {
+                if (long.TryParse(row.field_values[columnIndex].ToString(), out long intResult))
+                    newDataRow[fieldName] = ParseRowNumberValue<long>(row.field_values[columnIndex].ToString(), cultureInfo);
+                else if (double.TryParse(row.field_values[columnIndex].ToString(), out double doubleResult))
                     newDataRow[fieldName] = ParseRowNumberValue<double>(row.field_values[columnIndex].ToString(), cultureInfo);
-                }
-
             }
         }
 
@@ -629,6 +622,19 @@ namespace EveryAngle.WebClient.Service.Aggregation
                 field.ValueFormat.Format = new TimeSpanFormatter(Resource.Days);
                 field.CellFormat.Format = new TimeSpanFormatter(Resource.Days);
             }
+            else if (EveryAngleEnums.FIELDTYPE.PERIOD.ToString().Equals(dataField.DataType, StringComparison.InvariantCultureIgnoreCase))
+            {
+                string unitText = GetPeriodUnitText(dataField.Bucket.Operator);
+                PeriodFormatter periodFormatter = new PeriodFormatter(dataField.CellFormat, dataField.Bucket.Operator, unitText);
+                field.ValueFormat.Format = periodFormatter;
+                field.CellFormat.Format = periodFormatter;
+            }
+        }
+
+        private string GetPeriodUnitText(string bucketOperator)
+        {
+            string unitText = ResourceHelper.GetLocalization($"Period_Unit_{bucketOperator}");
+            return unitText;
         }
 
         private bool IsCustomEnumerated(EAPivotField eaField)
