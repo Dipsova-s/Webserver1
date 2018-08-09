@@ -45,8 +45,18 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Captions.Designer.cs" />
-    <Compile Include="Resource.Designer.cs" />
+    <Compile Include="..\..\Content\Translations\Captions.Designer.cs">
+      <Link>Captions.Designer.cs</Link>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Captions.resx</DependentUpon>
+    </Compile>
+    <Compile Include="..\..\Content\Translations\Resource.Designer.cs">
+      <Link>Resource.Designer.cs</Link>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resource.resx</DependentUpon>
+    </Compile>
     <Compile Include="Helpers\ResourceHelper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -65,6 +75,8 @@
     </EmbeddedResource>
     <EmbeddedResource Include="..\..\Content\Translations\Captions.resx">
       <Link>Captions.resx</Link>
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>Captions.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="..\..\Content\Translations\Resource.de.resx">
       <Link>Resource.de.resx</Link>
@@ -80,6 +92,8 @@
     </EmbeddedResource>
     <EmbeddedResource Include="..\..\Content\Translations\Resource.resx">
       <Link>Resource.resx</Link>
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resource.Designer.cs</LastGenOutput>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
