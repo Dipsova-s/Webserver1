@@ -598,4 +598,28 @@ describe("FieldSettingsHandler", function () {
 
     });
 
+    describe("call SetPeriodFormat", function () {
+        beforeEach(function () {
+            this.field = {};
+        });
+
+        it("should returns numeric type when field area is data", function () {
+            this.field.Area = enumHandlers.FIELDSETTINGAREA.DATA;
+            fieldSettingsHandler.SetPeriodFormat(this.field);
+            expect(this.field.CellFormatType).toBe(enumHandlers.DEVXPRESSFORMATTYPE.NUMERIC);
+        });
+
+        it("should returns custom type when field area is row", function () {
+            this.field.Area = enumHandlers.FIELDSETTINGAREA.ROW;
+            fieldSettingsHandler.SetPeriodFormat(this.field);
+            expect(this.field.CellFormatType).toBe(enumHandlers.DEVXPRESSFORMATTYPE.CUSTOM);
+        });
+
+        it("should returns custom type when field area is column", function () {
+            this.field.Area = enumHandlers.FIELDSETTINGAREA.COLUMN;
+            fieldSettingsHandler.SetPeriodFormat(this.field);
+            expect(this.field.CellFormatType).toBe(enumHandlers.DEVXPRESSFORMATTYPE.CUSTOM);
+        });
+    });
+
 });

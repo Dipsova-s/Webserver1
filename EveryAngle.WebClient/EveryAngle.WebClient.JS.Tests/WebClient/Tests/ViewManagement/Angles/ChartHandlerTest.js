@@ -662,5 +662,73 @@ describe("ChartHandler", function () {
             expect(result[0].sum === -165670616.47).toEqual(true);
         });
     });
-});
 
+    describe("call GetChartFormatter", function () {
+        beforeEach(function () {
+            this.fieldSettingData = {};
+        });
+
+        describe("when datatype is period", function () {
+            beforeEach(function () {
+                this.fieldSettingData.DataType = enumHandlers.FIELDTYPE.PERIOD;
+                spyOn(chartHandler.Models.Angle, "Data").and.returnValue({ model: "models/1" });
+            });
+            it("should returns period type when field area is row", function () {
+                this.fieldSettingData.Area = enumHandlers.FIELDSETTINGAREA.ROW;
+                var expectedFormatter = chartHandler.GetChartFormatter(this.fieldSettingData);
+                expect(expectedFormatter.type).toBe(enumHandlers.FIELDTYPE.PERIOD);
+            });
+
+            it("should returns period type when field area is column", function () {
+                this.fieldSettingData.Area = enumHandlers.FIELDSETTINGAREA.COLUMN;
+                var expectedFormatter = chartHandler.GetChartFormatter(this.fieldSettingData);
+                expect(expectedFormatter.type).toBe(enumHandlers.FIELDTYPE.PERIOD);
+            });
+
+            it("should returns numeric type when field area is data", function () {
+                this.fieldSettingData.Area = enumHandlers.FIELDSETTINGAREA.DATA;
+                var expectedFormatter = chartHandler.GetChartFormatter(this.fieldSettingData);
+                expect(expectedFormatter.type).toBe(enumHandlers.FIELDTYPE.INTEGER);
+            });
+        });
+    });
+
+    describe("call GetPeriodRangeFormatSetting", function () {
+        describe("should get expected total number of days", function () {
+            this.bucketOparetors = [
+                { type: 'day', operator: enumHandlers.FILTERPERIODTYPE.DAY, expectedTotalDays: 1 },
+                { type: 'week', operator: enumHandlers.FILTERPERIODTYPE.WEEK, expectedTotalDays: 7 },
+                { type: 'month', operator: enumHandlers.FILTERPERIODTYPE.MONTH, expectedTotalDays: 30.43685 },
+                { type: 'quarter', operator: enumHandlers.FILTERPERIODTYPE.QUARTER, expectedTotalDays: 91.31055 },
+                { type: 'trimester', operator: enumHandlers.FILTERPERIODTYPE.TRIMESTER, expectedTotalDays: 121.7474 },
+                { type: 'semester', operator: enumHandlers.FILTERPERIODTYPE.SEMESTER, expectedTotalDays: 182.6211 },
+                { type: 'year', operator: enumHandlers.FILTERPERIODTYPE.YEAR, expectedTotalDays: 365.2422 }
+            ];
+            this.bucketOparetors.forEach(function (bucketOparetor) {
+                it("when operator is " + bucketOparetor.type, function () {
+                    var expectedSetting = chartHandler.GetPeriodRangeFormatSetting(bucketOparetor.operator);
+                    expect(expectedSetting.divide).toBe(bucketOparetor.expectedTotalDays);
+                });
+            });
+        });
+        
+        describe("should get expected unit text", function () {
+            this.bucketOparetors = [
+                { type: 'day', operator: enumHandlers.FILTERPERIODTYPE.DAY, expectedUnitText: 'days' },
+                { type: 'week', operator: enumHandlers.FILTERPERIODTYPE.WEEK, expectedUnitText: 'weeks' },
+                { type: 'month', operator: enumHandlers.FILTERPERIODTYPE.MONTH, expectedUnitText: 'months' },
+                { type: 'quarter', operator: enumHandlers.FILTERPERIODTYPE.QUARTER, expectedUnitText: 'quarters' },
+                { type: 'trimester', operator: enumHandlers.FILTERPERIODTYPE.TRIMESTER, expectedUnitText: 'trimesters' },
+                { type: 'semester', operator: enumHandlers.FILTERPERIODTYPE.SEMESTER, expectedUnitText: 'semesters' },
+                { type: 'year', operator: enumHandlers.FILTERPERIODTYPE.YEAR, expectedUnitText: 'years' }
+            ];
+            this.bucketOparetors.forEach(function (bucketOparetor) {
+                it("when operator is " + bucketOparetor.type, function () {
+                    var expectedSetting = chartHandler.GetPeriodRangeFormatSetting(bucketOparetor.operator);
+                    expect(expectedSetting.unitText).toBe(bucketOparetor.expectedUnitText);
+                });
+            });
+        });
+    });
+
+});

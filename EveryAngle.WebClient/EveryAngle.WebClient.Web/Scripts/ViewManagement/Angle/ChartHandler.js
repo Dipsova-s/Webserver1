@@ -939,23 +939,24 @@ function ChartHandler(elementId, container) {
         return kendo.format('[{0}..{1}>', lowerLabel, upperLabel);
     };
     self.GetPeriodRangeBucketLabel = function (format, bucket, value) {
-        var periodRangeFormatSetting = self.GetPeriodRangeFormatSetting(bucket);
-        var unitText = Localization['Period_Unit_' + bucket];
         var label;
+        var periodRangeFormatSetting = self.GetPeriodRangeFormatSetting(bucket);
+        
         value /= periodRangeFormatSetting.divide;
         var lowerValue = kendo.toString(value, format);
-        var upperValue = kendo.toString(value + 1, format);
+        
         if (periodRangeFormatSetting.supportRange) {
-            label = kendo.format('[{0} {2}..{1} {2}>', lowerValue, upperValue, unitText);
+            var upperValue = kendo.toString(value + 1, format);
+            label = kendo.format('[{0} {2}..{1} {2}>', lowerValue, upperValue, periodRangeFormatSetting.unitText);
         }
         else {
-            label = kendo.format('{0} {1}', lowerValue, unitText);
+            label = kendo.format('{0} {1}', lowerValue, periodRangeFormatSetting.unitText);
         }
         
         return label;
     };
     self.GetPeriodRangeFormatSetting = function (bucket) {
-        var setting = { divide: 1, supportRange: true };
+        var setting = { divide: 1, supportRange: true, unitText: Localization['Period_Unit_' + bucket] };
         if (bucket === enumHandlers.FILTERPERIODTYPE.WEEK) {
             setting.divide = 7;
         }
