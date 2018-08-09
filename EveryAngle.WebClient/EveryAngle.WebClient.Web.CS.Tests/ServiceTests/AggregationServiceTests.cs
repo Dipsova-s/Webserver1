@@ -1,13 +1,17 @@
-﻿using DevExpress.Web.ASPxPivotGrid;
+﻿using DevExpress.Utils;
+using DevExpress.Web.ASPxPivotGrid;
 using DevExpress.Web.Internal;
 using DevExpress.Web.Mvc;
 using DevExpress.XtraPivotGrid;
+using EveryAngle.Shared.Formatter;
 using EveryAngle.Shared.Pivot;
+using EveryAngle.WebClient.Domain;
 using EveryAngle.WebClient.Service.Aggregation;
 using EveryAngle.WebClient.Web.CSTests.TestBase;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using NUnit.Framework;
+using System;
 using System.Collections.Generic;
 using System.Web.UI;
 using System.Web.UI.WebControls;
@@ -192,6 +196,29 @@ namespace EveryAngle.WebClient.Web.CSTests.ServiceTests
                 Assert.AreEqual(testField.SortBySummaryInfo.Conditions[0].Field.FieldName, expectConditionFieldName);
                 Assert.AreEqual(testField.SortBySummaryInfo.Conditions[0].Value, expectConditionFieldValue);
             }
+        }
+
+        [TestCase(typeof(PeriodFormatter))]
+        public void ShouldSetCellFormatAsExpectedWhenFieldDataTypeMatched(Type expectedType)
+        {
+            var fieldName = "espresso";
+            var mockPivotGridSettings = new PivotGridSettings();
+            var mvcxPivotGridField = new MVCxPivotGridField(fieldName, PivotArea.RowArea);
+            var mockEAPivotFields = new List<EAPivotField>
+            {
+                new EAPivotField
+                {
+                    FieldName = fieldName,
+                    CellFormat = string.Empty,
+                    CellFormatType = (int)FormatType.Custom,
+                    DataType = EveryAngleEnums.FIELDTYPE.PERIOD.ToString(),
+                    Bucket = new BucketSetting { Operator = "week" }
+                }
+            };
+            mockPivotGridSettings.Fields.AddField(mvcxPivotGridField);
+            _aggregationService.SetPivotGridSettingsFormat(mockPivotGridSettings, null, mockEAPivotFields);
+            Type actualType = mockPivotGridSettings.Fields[fieldName].CellFormat.Format.GetType();
+            Assert.AreEqual(expectedType, actualType);
         }
     }
 }
