@@ -695,7 +695,7 @@ describe("ChartHandler", function () {
 
     describe("call GetPeriodRangeFormatSetting", function () {
         describe("should get expected total number of days", function () {
-            this.bucketOparetors = [
+            this.bucketOperators = [
                 { type: 'day', operator: enumHandlers.FILTERPERIODTYPE.DAY, expectedTotalDays: 1 },
                 { type: 'week', operator: enumHandlers.FILTERPERIODTYPE.WEEK, expectedTotalDays: 7 },
                 { type: 'month', operator: enumHandlers.FILTERPERIODTYPE.MONTH, expectedTotalDays: 30.43685 },
@@ -704,16 +704,16 @@ describe("ChartHandler", function () {
                 { type: 'semester', operator: enumHandlers.FILTERPERIODTYPE.SEMESTER, expectedTotalDays: 182.6211 },
                 { type: 'year', operator: enumHandlers.FILTERPERIODTYPE.YEAR, expectedTotalDays: 365.2422 }
             ];
-            this.bucketOparetors.forEach(function (bucketOparetor) {
-                it("when operator is " + bucketOparetor.type, function () {
-                    var expectedSetting = chartHandler.GetPeriodRangeFormatSetting(bucketOparetor.operator);
-                    expect(expectedSetting.divide).toBe(bucketOparetor.expectedTotalDays);
+            this.bucketOperators.forEach(function (bucketOperator) {
+                it("when operator is " + bucketOperator.type, function () {
+                    var expectedSetting = chartHandler.GetPeriodRangeFormatSetting(bucketOperator.operator);
+                    expect(expectedSetting.divide).toBe(bucketOperator.expectedTotalDays);
                 });
             });
         });
         
         describe("should get expected unit text", function () {
-            this.bucketOparetors = [
+            this.bucketOperators = [
                 { type: 'day', operator: enumHandlers.FILTERPERIODTYPE.DAY, expectedUnitText: 'days' },
                 { type: 'week', operator: enumHandlers.FILTERPERIODTYPE.WEEK, expectedUnitText: 'weeks' },
                 { type: 'month', operator: enumHandlers.FILTERPERIODTYPE.MONTH, expectedUnitText: 'months' },
@@ -722,10 +722,10 @@ describe("ChartHandler", function () {
                 { type: 'semester', operator: enumHandlers.FILTERPERIODTYPE.SEMESTER, expectedUnitText: 'semesters' },
                 { type: 'year', operator: enumHandlers.FILTERPERIODTYPE.YEAR, expectedUnitText: 'years' }
             ];
-            this.bucketOparetors.forEach(function (bucketOparetor) {
-                it("when operator is " + bucketOparetor.type, function () {
-                    var expectedSetting = chartHandler.GetPeriodRangeFormatSetting(bucketOparetor.operator);
-                    expect(expectedSetting.unitText).toBe(bucketOparetor.expectedUnitText);
+            this.bucketOperators.forEach(function (bucketOperator) {
+                it("when operator is " + bucketOperator.type, function () {
+                    var expectedSetting = chartHandler.GetPeriodRangeFormatSetting(bucketOperator.operator);
+                    expect(expectedSetting.unitText).toBe(bucketOperator.expectedUnitText);
                 });
             });
         });
