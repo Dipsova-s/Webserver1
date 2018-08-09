@@ -120,7 +120,8 @@ namespace EveryAngle.ManagementConsole.Controllers
 
         public void DeleteUser(string userUri)
         {
-            _userService.DeleteUser(userUri);
+            string query = string.Format("{0}?{1}", userUri, "forced=true");
+            _userService.DeleteUser(query);
         }
 
         private ListViewModel<UserViewModel> GetUsers([DataSourceRequest] DataSourceRequest request,
@@ -446,7 +447,8 @@ namespace EveryAngle.ManagementConsole.Controllers
             {
                 ContractResolver = new CleanUpPropertiesResolver(removeProperties)
             });
-            string updateResult = _userService.UpdateUser(userUri, data);
+            string query = string.Format("{0}?{1}", userUri, "forced=true");
+            string updateResult = _userService.UpdateUser(query, data);
 
             // check session_needs_update from response
             dynamic jsonResponse = JsonConvert.DeserializeObject(updateResult);
