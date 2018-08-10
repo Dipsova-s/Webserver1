@@ -1118,9 +1118,13 @@ function FieldSettingsHandler() {
 		jQuery('#' + field.InternalID).remove();
 	};
 
-	self.SetPeriodFormat = function (field) {
-		field.CellFormatType = enumHandlers.DEVXPRESSFORMATTYPE.NUMERIC;
-		field.CellFormat = '0';
+    self.SetPeriodFormat = function (field) {
+        if (field.Area === enumHandlers.FIELDSETTINGAREA.DATA)
+            field.CellFormatType = enumHandlers.DEVXPRESSFORMATTYPE.NUMERIC;
+        else
+            field.CellFormatType = enumHandlers.DEVXPRESSFORMATTYPE.CUSTOM;
+
+        field.CellFormat = '0';
 	};
 
 	self.SetTimeFormat = function (field, fieldDetails) {
