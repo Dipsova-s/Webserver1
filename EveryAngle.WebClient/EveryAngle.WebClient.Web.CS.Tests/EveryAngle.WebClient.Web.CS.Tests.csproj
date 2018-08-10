@@ -56,8 +56,7 @@
     <Reference Include="DevExpress.Web.v17.1, Version=17.1.7.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
       <HintPath>..\packages\DevExpress.Web.17.1.0\lib\net40\DevExpress.Web.v17.1.dll</HintPath>
     </Reference>
-    <Reference Include="EveryAngle.Shared.Formatter, Version=2.4.4.1, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
+    <Reference Include="EveryAngle.Shared.Formatter, Version=2.4.4.2, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\EveryAngle.Shared.Formatter.2.4.4.2\lib\net45\EveryAngle.Shared.Formatter.dll</HintPath>
     </Reference>
     <Reference Include="EveryAngle.Shared.Pivot, Version=2.4.4.1, Culture=neutral, processorArchitecture=MSIL">
