@@ -17,7 +17,7 @@ namespace EveryAngle.Core.ViewModels.Tests
 {
     public class TaskViewModelTest : UnitTestBase
     {
-        [TestCase]
+        [Test]
         public void TaskViewModel_TEST()
         {
             //arrange
@@ -45,7 +45,7 @@ namespace EveryAngle.Core.ViewModels.Tests
             AssertTaskViewModel(viewModel);
         }
 
-        [TestCase]
+        [Test]
         public void TriggerViewModel_TEST()
         {
             //arrange
@@ -65,7 +65,7 @@ namespace EveryAngle.Core.ViewModels.Tests
             AssertTriggerViewModel(viewModel);
         }
 
-        [TestCase]
+        [Test]
         public void DaysList_TEST()
         {
             //arrange
@@ -85,7 +85,7 @@ namespace EveryAngle.Core.ViewModels.Tests
             Assert.IsTrue(viewModelSerialize.Contains("active"));
         }
 
-        [TestCase]
+        [Test]
         public void Action_TEST()
         {
             //arrange
@@ -105,7 +105,7 @@ namespace EveryAngle.Core.ViewModels.Tests
             AssertAction(viewModel);
         }
 
-        [TestCase]
+        [Test]
         public void Notification_TEST()
         {
             //arrange
@@ -134,7 +134,7 @@ namespace EveryAngle.Core.ViewModels.Tests
             Assert.IsTrue(viewModelSerialize.Contains("attach_result"));
         }
 
-        [TestCase]
+        [Test]
         public void Argument_TEST()
         {
             //arrange
@@ -153,7 +153,7 @@ namespace EveryAngle.Core.ViewModels.Tests
             Assert.IsTrue(viewModelSerialize.Contains("value"));
         }
 
-        [TestCase]
+        [Test]
         public void Recipients_TEST()
         {
             //arrange
@@ -177,6 +177,32 @@ namespace EveryAngle.Core.ViewModels.Tests
             Assert.IsTrue(viewModelSerialize.Contains("result"));
             Assert.IsTrue(viewModelSerialize.Contains("success"));
             Assert.IsTrue(viewModelSerialize.Contains("failed"));
+        }
+
+        [TestCase(null, false)]
+        [TestCase("true", true)]
+        [TestCase("True", true)]
+        [TestCase("t", true)]
+        [TestCase("1", true)]
+        [TestCase("False", false)]
+        [TestCase("any", false)]
+        public void MissingFieldsOnly_TEST(object value, bool expected)
+        {
+            TaskViewModel testTask = new TaskViewModel
+            {
+                actions = new List<TaskAction>
+                {
+                    new TaskAction
+                    {
+                        arguments = new List<Cycle.Argument>
+                        {
+                            new Cycle.Argument { name = "missing_fields_only", value = value }
+                        }
+                    }
+                }
+            };
+
+            Assert.AreEqual(expected, testTask.MissingFieldsOnly);
         }
 
         #region Private

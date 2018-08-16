@@ -47,9 +47,9 @@
             .ClientTemplate(
                 "<label>"
                 + "# if(MC.util.task.isTriggerExternal(data)) { #"
-                + "<input name=\"IsExternal\" value=\"true\" data-default=\"true\" checked=\"checked\" type=\"checkbox\" disabled=\"disabled\" onclick=\"MC.Models.RefreshCycle.TriggerTypeChange(this)\">"
+                + "<input name=\"IsExternal\" value=\"true\" data-default=\"true\" checked=\"checked\" type=\"checkbox\" disabled=\"disabled\">"
                 + "# } else { #"
-                + "<input name=\"IsExternal\" value=\"false\" data-default=\"false\" type=\"checkbox\" disabled=\"disabled\" onclick=\"MC.Models.RefreshCycle.TriggerTypeChange(this)\">"
+                + "<input name=\"IsExternal\" value=\"false\" data-default=\"false\" type=\"checkbox\" disabled=\"disabled\">"
                 + "# } #"
                 + "<span class=\"label\"></span></label>");
 
@@ -71,6 +71,20 @@
                 + "<input name=\"IsDelta\" value=\"#= data.Delta #\" data-default=\"true\" disabled=\"disabled\" checked=\"checked\" type=\"checkbox\">"
                 + "# } else { #"
                 + "<input name=\"IsDelta\" value=\"#= data.Delta #\" data-default=\"false\" disabled=\"disabled\" type=\"checkbox\">"
+                + "# } #"
+                + "<span class=\"label\"></span></label>");
+
+        columns.Bound(model => model.MissingFieldsOnly)
+            .Title("Missing tables and fields")
+            .Width(75)
+            .HeaderHtmlAttributes(new { @Class = "columnMissingFieldsOnly columnBoolean" })
+            .HtmlAttributes(new { @Class = "columnMissingFieldsOnly columnBoolean" })
+            .ClientTemplate(
+                "<label>"
+                + "# if(data.MissingFieldsOnly) { #"
+                + "<input name=\"IsMissingFieldsOnly\" value=\"#= data.MissingFieldsOnly #\" data-default=\"true\" disabled=\"disabled\" checked=\"checked\" type=\"checkbox\">"
+                + "# } else { #"
+                + "<input name=\"IsMissingFieldsOnly\" value=\"#= data.MissingFieldsOnly #\" data-default=\"false\" disabled=\"disabled\" type=\"checkbox\">"
                 + "# } #"
                 + "<span class=\"label\"></span></label>");
 
@@ -96,9 +110,9 @@
             .ClientTemplate(
                 "<label>"
                 + "# if(MC.util.task.isContinuous(data)) { #"
-                + "<input name=\"IsContinuous\" value=\"true\" data-default=\"true\" disabled=\"disabled\" checked=\"checked\" type=\"checkbox\" onclick=\"MC.Models.RefreshCycle.ContinuousChange(this)\">"
+                + "<input name=\"IsContinuous\" value=\"true\" data-default=\"true\" disabled=\"disabled\" checked=\"checked\" type=\"checkbox\">"
                 + "# } else { #"
-                + "<input name=\"IsContinuous\" value=\"false\" data-default=\"false\" disabled=\"disabled\" type=\"checkbox\" onclick=\"MC.Models.RefreshCycle.ContinuousChange(this)\">"
+                + "<input name=\"IsContinuous\" value=\"false\" data-default=\"false\" disabled=\"disabled\" type=\"checkbox\">"
                 + "# } #"
                 + "<span class=\"label\"></span></label>");
 

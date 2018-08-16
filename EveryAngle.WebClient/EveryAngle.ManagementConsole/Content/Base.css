@@ -3709,9 +3709,22 @@ form#ExportPackageForm .packageInfo .packageVersion input {
 
 /* .pageRefreshCycle
 ================================== */
+.pageRefreshCycle .contentSectionInfoItem {
+    min-height: 30px;
+}
 .pageRefreshCycle .contentSectionInfoItem p {
     font-weight: normal;
 }
+.pageRefreshCycle .contentSectionInfoItem .btnInfo {
+    position: absolute;
+    left: 165px;
+    top: 0;
+    margin: 0 1px;
+    padding-top: 3px;
+    padding-bottom: 1px;
+    padding-right: 15px !important;
+}
+
 .pageRefreshCycle .gridContainer .editRow .btnGroupInner .btnEdit,
 .pageRefreshCycle .gridContainer .btnGroupInner .btnCancel {
     display: none;
@@ -3792,10 +3805,6 @@ form#ExportPackageForm .packageInfo .packageVersion input {
     word-wrap: break-word;
     word-break: break-all;
     width: 300px;
-}
-
-#refreshCycleFormContainer .contentSectionInfoItem {
-    min-height: 30px;
 }
 
 .serverTimeInfo {
