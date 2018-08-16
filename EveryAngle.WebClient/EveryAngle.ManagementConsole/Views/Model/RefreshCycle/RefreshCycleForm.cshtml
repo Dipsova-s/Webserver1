@@ -22,9 +22,9 @@
             </div>
             <div class="contentSectionInfoItem">
                 <label>@Resource.MC_Actionlist:</label>
-                <p> 
-                    <input type="text" name="Action" 
-                           onchange="MC.Models.RefreshCycle.OnActionListChanged(this)" 
+                <p>
+                    <input type="text" name="Action"
+                           onchange="MC.Models.RefreshCycle.OnActionListChanged(this)"
                            onkeyup="MC.Models.RefreshCycle.OnActionListChanged(this)"
                            class="columnActionList required error" placeholder="@Resource.MC_Actionlist" maxlength="100" />
                     <span class="descriptionLabel hidden">
@@ -32,14 +32,22 @@
                             @Resource.MC_SpecifyTables
                             (<span class="specifyTablesCountItems">0</span>)
                         </a>
-                    </span> 
+                    </span>
                 </p>
                 <div id="SelectedTableList" class="tableList hidden"></div>
             </div>
             <div class="contentSectionInfoItem">
                 <label>@Resource.MC_Delta:</label>
                 <p>
-                    <label><input type="checkbox" name="IsDelta" /><span class="label"></span></label>
+                    <label><input type="checkbox" name="IsDelta" onclick="MC.Models.RefreshCycle.DeltaChange(this)" /><span class="label"></span></label>
+                </p>
+            </div>
+            <div class="contentSectionInfoItem">
+                <label>@Resource.MC_MissingFieldsOnly:</label>
+                <p>
+                    <label><input type="checkbox" name="IsMissingFieldsOnly" onclick="MC.Models.RefreshCycle.MissingFieldsOnlyChange(this)" /><span class="label"></span></label>
+                    <a data-target="#popupDescriptionTemplate" title="Description" data-width="600" data-min-height="100" data-role="mcPopup" class="btn btnInfo" onclick='MC.util.showDescriptionPopup(this)'></a>
+                    <textarea class="alwaysHidden"><pre>@Resource.MC_MissingFieldsOnly_Description</pre></textarea>
                 </p>
             </div>
             <div class="scheduleArea">
@@ -105,3 +113,7 @@
         </div>
     </form>
 </div>
+
+@{
+    Html.RenderPartial("~/Views/Shared/PluginPopupDescriptionTemplate.cshtml");
+}

@@ -42,6 +42,8 @@ describe("MC.Models.RefreshCycle", function () {
     describe(".BindingDataToForm", function () {
         beforeEach(function () {
             spyOn(refreshCycle, 'GetRefreshCycleForm').and.returnValue($());
+            spyOn(refreshCycle, 'DeltaChange').and.callFake($.noop);
+            spyOn(refreshCycle, 'MissingFieldsOnlyChange').and.callFake($.noop);
             spyOn(refreshCycle, 'TriggerTypeChange').and.callFake($.noop);
             spyOn(refreshCycle, 'ContinuousChange').and.callFake($.noop);
             spyOn(refreshCycle, 'BindingSpecifyTablesDataToForm').and.callFake($.noop);
@@ -96,13 +98,70 @@ describe("MC.Models.RefreshCycle", function () {
         });
 
         it("Show SpecifiTableLabel when input Tables", function () {
-            debugger;
             var input = 'Tables';
             selectedTableListElement.text('TableName');
 
             refreshCycle.UpdateSpecifyTableLabelVisible(selectedTableListElement, input);
             expect(selectedTableListElement.hasClass('hidden')).toEqual(false);
         });
+    });
+
+    describe(".DeltaChange", function () {
+        
+        var form;
+
+        beforeEach(function () {
+
+            form = $('<form />', { html: '<input type="checkbox" name="IsMissingFieldsOnly" />' });
+
+            spyOn(refreshCycle, 'GetRefreshCycleForm').and.returnValue(form);
+        });
+
+        it("should update IsMissingFieldsOnly checkbox disabled=true", function () {
+            var checkbox = $('<input type="checkbox" name="IsDelta" checked="checked" />');
+            refreshCycle.DeltaChange(checkbox);
+
+            var chkDisabled = form.find('input[name="IsMissingFieldsOnly"]').prop('disabled');
+            expect(true).toEqual(chkDisabled);
+        });
+
+        it("should update IsMissingFieldsOnly checkbox disabled=false", function () {
+            var checkbox = $('<input type="checkbox" name="IsDelta" />');
+            refreshCycle.DeltaChange(checkbox);
+
+            var chkDisabled = form.find('input[name="IsMissingFieldsOnly"]').prop('disabled');
+            expect(false).toEqual(chkDisabled);
+        });
+
+    });
+
+    describe(".MissingFieldsOnlyChange", function () {
+
+        var form;
+
+        beforeEach(function () {
+
+            form = $('<form />', { html: '<input type="checkbox" name="IsDelta" />' });
+
+            spyOn(refreshCycle, 'GetRefreshCycleForm').and.returnValue(form);
+        });
+
+        it("should update IsDelta checkbox disabled=true", function () {
+            var checkbox = $('<input type="checkbox" name="IsMissingFieldsOnly" checked="checked" />');
+            refreshCycle.MissingFieldsOnlyChange(checkbox);
+
+            var chkDisabled = form.find('input[name="IsDelta"]').prop('disabled');
+            expect(true).toEqual(chkDisabled);
+        });
+
+        it("should update IsDelta checkbox disabled=false", function () {
+            var checkbox = $('<input type="checkbox" name="IsMissingFieldsOnly" />');
+            refreshCycle.MissingFieldsOnlyChange(checkbox);
+
+            var chkDisabled = form.find('input[name="IsDelta"]').prop('disabled');
+            expect(false).toEqual(chkDisabled);
+        });
+
     });
 
 });

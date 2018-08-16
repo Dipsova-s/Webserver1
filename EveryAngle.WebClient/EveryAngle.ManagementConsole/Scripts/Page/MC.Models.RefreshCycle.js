@@ -208,12 +208,14 @@
 
             // start binding the data to input elements
             // external
-            self.RefreshCycleForm.find('[name="IsExternal"]').prop('checked', isExternal);
-            self.TriggerTypeChange(self.RefreshCycleForm.find('[name="IsExternal"]'));
+            var externalElement = self.RefreshCycleForm.find('[name="IsExternal"]');
+            externalElement.prop('checked', isExternal);
+            self.TriggerTypeChange(externalElement);
 
             // continuous
-            self.RefreshCycleForm.find('[name="IsContinuous"]').prop('checked', isContinuousTask);
-            self.ContinuousChange(self.RefreshCycleForm.find('[name="IsContinuous"]'));
+            var continuousElement = self.RefreshCycleForm.find('[name="IsContinuous"]');
+            continuousElement.prop('checked', isContinuousTask);
+            self.ContinuousChange(continuousElement);
 
             // name
             self.RefreshCycleForm.find('[name="TaskName"]').val(data.name);
@@ -225,7 +227,14 @@
             self.RefreshCycleForm.find('[name="Action"]').val(data.ActionList); 
 
             // delta
-            self.RefreshCycleForm.find('[name="IsDelta"]').prop('checked', data.Delta != null && data.Delta);
+            var deltaElement = self.RefreshCycleForm.find('[name="IsDelta"]');
+            deltaElement.prop('checked', data.Delta);
+            self.DeltaChange(deltaElement);
+
+            // missing_fields_only
+            var missingFieldsOnlyElement = self.RefreshCycleForm.find('[name="IsMissingFieldsOnly"]');
+            missingFieldsOnlyElement.prop('checked', data.MissingFieldsOnly);
+            self.MissingFieldsOnlyChange(missingFieldsOnlyElement);
 
             // days
             self.RefreshCycleForm.find('[name="Days"]').each(function (index, day) {
@@ -294,12 +303,14 @@
             self.RefreshCycleForm = self.GetRefreshCycleForm();
 
             // external
-            self.RefreshCycleForm.find('input[name="IsExternal"]').prop('checked', false);
+            var externalElement = self.RefreshCycleForm.find('input[name="IsExternal"]');
+            externalElement.prop('checked', false);
             self.TriggerTypeChange(self.RefreshCycleForm.find('[name="IsExternal"]'));
 
             // continuous
-            self.RefreshCycleForm.find('input[name="IsContinuous"]').prop('checked', false);
-            self.ContinuousChange(self.RefreshCycleForm.find('[name="IsContinuous"]'));
+            var continuousElement = self.RefreshCycleForm.find('input[name="IsContinuous"]');
+            continuousElement.prop('checked', false);
+            self.ContinuousChange(continuousElement);
 
             // name
             self.RefreshCycleForm.find('input[name="TaskName"]').val('');
@@ -308,7 +319,14 @@
             self.RefreshCycleForm.find('[name="Action"]').val(''); 
 
             // delta
-            self.RefreshCycleForm.find('input[name="IsDelta"]').prop('checked', false);
+            var deltaElement = self.RefreshCycleForm.find('input[name="IsDelta"]');
+            deltaElement.prop('checked', false);
+            self.DeltaChange(deltaElement);
+
+            // missing_fields_only
+            var missingFieldsOnlyElement = self.RefreshCycleForm.find('input[name="IsMissingFieldsOnly"]');
+            missingFieldsOnlyElement.prop('checked', false);
+            self.MissingFieldsOnlyChange(missingFieldsOnlyElement);
 
             // days
             self.RefreshCycleForm.find('.cellDays .checked').trigger('click');
@@ -512,7 +530,7 @@
                 // find cancel edit button in grid and click it
                 var grid = $('#TaskDetailGrid');
                 grid.find('.btnGroupContainer > .btnCancel').next().find('.btnCancel').trigger('click');
-            }
+            };
 
             if (!btn) {
                 // if click add button when edit mode
@@ -563,6 +581,20 @@
 
             // trigger slide form
             self.ClickSlideToggleForm();
+        };
+        self.DeltaChange = function (checkbox) {
+            self.RefreshCycleForm = self.GetRefreshCycleForm();
+            var delta = $(checkbox).prop('checked');
+
+            var missingFieldsOnlyElement = self.RefreshCycleForm.find('input[name="IsMissingFieldsOnly"]');
+            missingFieldsOnlyElement.prop('disabled', delta);
+        };
+        self.MissingFieldsOnlyChange = function (checkbox) {
+            self.RefreshCycleForm = self.GetRefreshCycleForm();
+            var missingFieldsOnly = $(checkbox).prop('checked');
+
+            var deltaElement = self.RefreshCycleForm.find('input[name="IsDelta"]');
+            deltaElement.prop('disabled', missingFieldsOnly);
         };
         self.ContinuousChange = function (checkbox) {
             self.RefreshCycleForm = self.GetRefreshCycleForm();
@@ -642,7 +674,14 @@
 
             actionModel.arguments.push(self.CreateArgumentModel('model', self.ModelId));
             actionModel.arguments.push(self.CreateArgumentModel('action_list', self.RefreshCycleForm.find('[name="Action"]').val()));
-            actionModel.arguments.push(self.CreateArgumentModel('delta', self.RefreshCycleForm.find('[name^="IsDelta"]').is(':checked')));
+
+            var deltaElement = self.RefreshCycleForm.find('[name^="IsDelta"]');
+            var isDelta = !deltaElement.prop('disabled') && deltaElement.prop('checked');
+            actionModel.arguments.push(self.CreateArgumentModel('delta', isDelta));
+
+            var missingFieldsOnlyElement = self.RefreshCycleForm.find('[name^="IsMissingFieldsOnly"]');
+            var isMissingFieldsOnly = !missingFieldsOnlyElement.prop('disabled') && missingFieldsOnlyElement.prop('checked');
+            actionModel.arguments.push(self.CreateArgumentModel('missing_fields_only', isMissingFieldsOnly));
 
             if (actionList.val() === 'tables')
                 actionModel.arguments.push(self.CreateArgumentModel('parameters', jQuery.trim(actionListParams.val())));
