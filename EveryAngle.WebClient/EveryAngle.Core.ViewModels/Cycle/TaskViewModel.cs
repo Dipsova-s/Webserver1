@@ -38,11 +38,11 @@ namespace EveryAngle.Core.ViewModels.Cycle
             }
         }
 
-        public bool MissingFieldsOnly
+        public bool ChangedTablesOnly
         {
             get
             {
-                return GetDataFromBooleanArgument("missing_fields_only");
+                return GetDataFromBooleanArgument("new_and_changed_tables_only");
             }
         }
 

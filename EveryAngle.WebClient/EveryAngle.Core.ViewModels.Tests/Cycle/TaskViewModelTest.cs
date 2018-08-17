@@ -186,7 +186,7 @@ namespace EveryAngle.Core.ViewModels.Tests
         [TestCase("1", true)]
         [TestCase("False", false)]
         [TestCase("any", false)]
-        public void MissingFieldsOnly_TEST(object value, bool expected)
+        public void ChangedTablesOnly_TEST(object value, bool expected)
         {
             TaskViewModel testTask = new TaskViewModel
             {
@@ -196,13 +196,13 @@ namespace EveryAngle.Core.ViewModels.Tests
                     {
                         arguments = new List<Cycle.Argument>
                         {
-                            new Cycle.Argument { name = "missing_fields_only", value = value }
+                            new Cycle.Argument { name = "new_and_changed_tables_only", value = value }
                         }
                     }
                 }
             };
 
-            Assert.AreEqual(expected, testTask.MissingFieldsOnly);
+            Assert.AreEqual(expected, testTask.ChangedTablesOnly);
         }
 
         #region Private
