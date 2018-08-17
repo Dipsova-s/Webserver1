@@ -43,7 +43,7 @@ describe("MC.Models.RefreshCycle", function () {
         beforeEach(function () {
             spyOn(refreshCycle, 'GetRefreshCycleForm').and.returnValue($());
             spyOn(refreshCycle, 'DeltaChange').and.callFake($.noop);
-            spyOn(refreshCycle, 'MissingFieldsOnlyChange').and.callFake($.noop);
+            spyOn(refreshCycle, 'ChangedTablesOnlyChange').and.callFake($.noop);
             spyOn(refreshCycle, 'TriggerTypeChange').and.callFake($.noop);
             spyOn(refreshCycle, 'ContinuousChange').and.callFake($.noop);
             spyOn(refreshCycle, 'BindingSpecifyTablesDataToForm').and.callFake($.noop);
@@ -106,30 +106,30 @@ describe("MC.Models.RefreshCycle", function () {
 
         beforeEach(function () {
 
-            form = $('<form />', { html: '<input type="checkbox" name="IsMissingFieldsOnly" />' });
+            form = $('<form />', { html: '<input type="checkbox" name="ChangedTablesOnly" />' });
 
             spyOn(refreshCycle, 'GetRefreshCycleForm').and.returnValue(form);
         });
 
-        it("should update IsMissingFieldsOnly checkbox disabled=true", function () {
+        it("should update ChangedTablesOnly checkbox disabled=true", function () {
             var checkbox = $('<input type="checkbox" name="IsDelta" checked="checked" />');
             refreshCycle.DeltaChange(checkbox);
 
-            var chkDisabled = form.find('input[name="IsMissingFieldsOnly"]').prop('disabled');
+            var chkDisabled = form.find('input[name="ChangedTablesOnly"]').prop('disabled');
             expect(true).toEqual(chkDisabled);
         });
 
-        it("should update IsMissingFieldsOnly checkbox disabled=false", function () {
+        it("should update ChangedTablesOnly checkbox disabled=false", function () {
             var checkbox = $('<input type="checkbox" name="IsDelta" />');
             refreshCycle.DeltaChange(checkbox);
 
-            var chkDisabled = form.find('input[name="IsMissingFieldsOnly"]').prop('disabled');
+            var chkDisabled = form.find('input[name="ChangedTablesOnly"]').prop('disabled');
             expect(false).toEqual(chkDisabled);
         });
 
     });
 
-    describe(".MissingFieldsOnlyChange", function () {
+    describe(".ChangedTablesOnlyChange", function () {
 
         var form;
 
@@ -141,16 +141,16 @@ describe("MC.Models.RefreshCycle", function () {
         });
 
         it("should update IsDelta checkbox disabled=true", function () {
-            var checkbox = $('<input type="checkbox" name="IsMissingFieldsOnly" checked="checked" />');
-            refreshCycle.MissingFieldsOnlyChange(checkbox);
+            var checkbox = $('<input type="checkbox" name="ChangedTablesOnly" checked="checked" />');
+            refreshCycle.ChangedTablesOnlyChange(checkbox);
 
             var chkDisabled = form.find('input[name="IsDelta"]').prop('disabled');
             expect(true).toEqual(chkDisabled);
         });
 
         it("should update IsDelta checkbox disabled=false", function () {
-            var checkbox = $('<input type="checkbox" name="IsMissingFieldsOnly" />');
-            refreshCycle.MissingFieldsOnlyChange(checkbox);
+            var checkbox = $('<input type="checkbox" name="ChangedTablesOnly" />');
+            refreshCycle.ChangedTablesOnlyChange(checkbox);
 
             var chkDisabled = form.find('input[name="IsDelta"]').prop('disabled');
             expect(false).toEqual(chkDisabled);

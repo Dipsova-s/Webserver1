@@ -236,10 +236,10 @@
             deltaElement.prop('checked', data.Delta);
             self.DeltaChange(deltaElement);
 
-            // missing_fields_only
-            var missingFieldsOnlyElement = self.RefreshCycleForm.find('[name="IsMissingFieldsOnly"]');
-            missingFieldsOnlyElement.prop('checked', data.MissingFieldsOnly);
-            self.MissingFieldsOnlyChange(missingFieldsOnlyElement);
+            // new_and_changed_tables_only
+            var changedTablesOnlyElement = self.RefreshCycleForm.find('[name="ChangedTablesOnly"]');
+            changedTablesOnlyElement.prop('checked', data.ChangedTablesOnly);
+            self.ChangedTablesOnlyChange(changedTablesOnlyElement);
 
             // days
             self.RefreshCycleForm.find('[name="Days"]').each(function (index, day) {
@@ -319,10 +319,10 @@
             deltaElement.prop('checked', false);
             self.DeltaChange(deltaElement);
 
-            // missing_fields_only
-            var missingFieldsOnlyElement = self.RefreshCycleForm.find('input[name="IsMissingFieldsOnly"]');
-            missingFieldsOnlyElement.prop('checked', false);
-            self.MissingFieldsOnlyChange(missingFieldsOnlyElement);
+            // new_and_changed_tables_only
+            var changedTablesOnlyElement = self.RefreshCycleForm.find('input[name="ChangedTablesOnly"]');
+            changedTablesOnlyElement.prop('checked', false);
+            self.ChangedTablesOnlyChange(changedTablesOnlyElement);
 
             // days
             self.RefreshCycleForm.find('.cellDays .checked').trigger('click');
@@ -573,15 +573,15 @@
             self.RefreshCycleForm = self.GetRefreshCycleForm();
             var delta = $(checkbox).prop('checked');
 
-            var missingFieldsOnlyElement = self.RefreshCycleForm.find('input[name="IsMissingFieldsOnly"]');
-            missingFieldsOnlyElement.prop('disabled', delta);
+            var changedTablesOnlyElement = self.RefreshCycleForm.find('input[name="ChangedTablesOnly"]');
+            changedTablesOnlyElement.prop('disabled', delta);
         };
-        self.MissingFieldsOnlyChange = function (checkbox) {
+        self.ChangedTablesOnlyChange = function (checkbox) {
             self.RefreshCycleForm = self.GetRefreshCycleForm();
-            var missingFieldsOnly = $(checkbox).prop('checked');
+            var changedTablesOnly = $(checkbox).prop('checked');
 
             var deltaElement = self.RefreshCycleForm.find('input[name="IsDelta"]');
-            deltaElement.prop('disabled', missingFieldsOnly);
+            deltaElement.prop('disabled', changedTablesOnly);
         };
         self.ContinuousChange = function (checkbox) {
             self.RefreshCycleForm = self.GetRefreshCycleForm();
@@ -666,9 +666,9 @@
             var isDelta = !deltaElement.prop('disabled') && deltaElement.prop('checked');
             actionModel.arguments.push(self.CreateArgumentModel('delta', isDelta));
 
-            var missingFieldsOnlyElement = self.RefreshCycleForm.find('[name^="IsMissingFieldsOnly"]');
-            var isMissingFieldsOnly = !missingFieldsOnlyElement.prop('disabled') && missingFieldsOnlyElement.prop('checked');
-            actionModel.arguments.push(self.CreateArgumentModel('missing_fields_only', isMissingFieldsOnly));
+            var changedTablesOnlyElement = self.RefreshCycleForm.find('[name^="ChangedTablesOnly"]');
+            var changedTablesOnly = !changedTablesOnlyElement.prop('disabled') && changedTablesOnlyElement.prop('checked');
+            actionModel.arguments.push(self.CreateArgumentModel('new_and_changed_tables_only', changedTablesOnly));
 
             if (actionList.val() === 'tables')
                 actionModel.arguments.push(self.CreateArgumentModel('parameters', jQuery.trim(actionListParams.val())));

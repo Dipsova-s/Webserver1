@@ -74,17 +74,17 @@
                 + "# } #"
                 + "<span class=\"label\"></span></label>");
 
-        columns.Bound(model => model.MissingFieldsOnly)
-            .Title("Missing tables and fields")
+        columns.Bound(model => model.ChangedTablesOnly)
+            .Title(Resource.MC_ChangedTablesOnly)
             .Width(75)
-            .HeaderHtmlAttributes(new { @Class = "columnMissingFieldsOnly columnBoolean" })
-            .HtmlAttributes(new { @Class = "columnMissingFieldsOnly columnBoolean" })
+            .HeaderHtmlAttributes(new { @Class = "columnChangedTablesOnly columnBoolean" })
+            .HtmlAttributes(new { @Class = "columnChangedTablesOnly columnBoolean" })
             .ClientTemplate(
                 "<label>"
-                + "# if(data.MissingFieldsOnly) { #"
-                + "<input name=\"IsMissingFieldsOnly\" value=\"#= data.MissingFieldsOnly #\" data-default=\"true\" disabled=\"disabled\" checked=\"checked\" type=\"checkbox\">"
+                + "# if(data.ChangedTablesOnly) { #"
+                + "<input name=\"ChangedTablesOnly\" value=\"#= data.ChangedTablesOnly #\" data-default=\"true\" disabled=\"disabled\" checked=\"checked\" type=\"checkbox\">"
                 + "# } else { #"
-                + "<input name=\"IsMissingFieldsOnly\" value=\"#= data.MissingFieldsOnly #\" data-default=\"false\" disabled=\"disabled\" type=\"checkbox\">"
+                + "<input name=\"ChangedTablesOnly\" value=\"#= data.ChangedTablesOnly #\" data-default=\"false\" disabled=\"disabled\" type=\"checkbox\">"
                 + "# } #"
                 + "<span class=\"label\"></span></label>");
 
