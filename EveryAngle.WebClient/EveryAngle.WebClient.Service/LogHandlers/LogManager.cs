@@ -589,8 +589,8 @@ namespace EveryAngle.WebClient.Service.LogHandlers
             {
                 body = "{\"authorization\":\"xxxxxxxxxxxxxxxxx\"}";
             }
-            else if (Method.PUT == method &&
-                "password/changepassword".Equals(url))
+            else if (method == Method.PUT &&
+                url.Equals("password/changepassword"))
             {
                 var separators = new List<string> { ":", "," };
                 body = AnonymizeField("oldpassword", separators, body);
