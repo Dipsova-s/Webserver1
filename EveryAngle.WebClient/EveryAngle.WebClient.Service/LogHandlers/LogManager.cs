@@ -436,12 +436,7 @@ namespace EveryAngle.WebClient.Service.LogHandlers
             IList<string> cookies = GetHeaderParameters<IRestRequest>(request, ParameterType.Cookie);
             IList<string> headers = GetHeaderParameters<IRestRequest>(request, ParameterType.HttpHeader);
             string body = GetHeaderBody(request);
-
-            if (body.Contains("authorization"))
-            {
-                body = "{\"authorization\":\"xxxxxxxxxxxxxxxxx\"}";
-            }
-
+            
             DataTable requestInfo = LogManager.GenerateInfoTable(method.ToString(), uri, headers, cookies, body, "Request");
             Log.SendTable(LogMessageType.Green, string.Format("{0} => {1}", method.ToString(), uri), requestInfo);
         }
@@ -538,19 +533,19 @@ namespace EveryAngle.WebClient.Service.LogHandlers
 
             return results;
         }
-        public static string GetHeaderBody(IRestRequest header)
+        public static string GetHeaderBody(IRestRequest request)
         {
-            string result = string.Empty;
+            string body = string.Empty;
 
-            foreach (var para in header.Parameters)
+            foreach (var para in request.Parameters)
             {
                 if (para.Type == ParameterType.RequestBody)
                 {
-                    result = para.Value.ToString();
+                    body = para.Value.ToString();
                 }
             }
-
-            return result;
+            
+            return ParseBodyContentLogging(request.Resource, body, request.Method);
         }
         public static void WriteExceptionLog(Exception ex)
         {
@@ -588,6 +583,21 @@ namespace EveryAngle.WebClient.Service.LogHandlers
 
             return targetFolder;
         }
+        public static string ParseBodyContentLogging(string url, string body, Method method)
+        {
+            if (body.Contains("authorization"))
+            {
+                body = "{\"authorization\":\"xxxxxxxxxxxxxxxxx\"}";
+            }
+            else if (method == Method.PUT &&
+                url.Equals("password/changepassword"))
+            {
+                var separators = new List<string> { ":", "," };
+                body = AnonymizeField("oldpassword", separators, body);
+                body = AnonymizeField("newpassword", separators, body);
+            }
+            return body;
+        }
         #endregion
 
         #region Private Methods
@@ -619,6 +629,25 @@ namespace EveryAngle.WebClient.Service.LogHandlers
             }
 
             return result;
+        }
+        private static string AnonymizeField(string fieldName, IEnumerable<string> fieldSeparators, string input)
+        {
+            if (input.Contains(fieldName))
+            {
+                const string findExpression = "\"{0}\"\\s*?{1}\\s*?\"[^>]*?\"";
+                const string replaceExpression = "\"{0}\"{1}\"********\"";
+                string output = input;
+
+                foreach (string fieldSeparator in fieldSeparators)
+                {
+                    var find = string.Format(findExpression, fieldName, fieldSeparator);
+                    var replace = string.Format(replaceExpression, fieldName, fieldSeparator);
+
+                    output = Regex.Replace(output, find, replace, RegexOptions.IgnoreCase);
+                }
+                return output;
+            }
+            return input;
         }
         #endregion
     }
