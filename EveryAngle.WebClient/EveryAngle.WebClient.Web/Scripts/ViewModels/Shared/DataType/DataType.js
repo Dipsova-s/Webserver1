@@ -141,9 +141,10 @@ function FormatHelper() {
             return formatter.format + ' UTC';
         }
         else if (formatter.type === enumHandlers.FIELDTYPE.PERIOD) {
-            if (formatter.format === enumHandlers.TIMEFORMAT.DAY || formatter.format === enumHandlers.TIMEFORMAT.WEEK) {
+            if (formatter.format === enumHandlers.TIMEFORMAT.DAY || formatter.format === enumHandlers.TIMEFORMAT.WEEK)
                 return '0 ' + self.Captions.PeriodDays;
-            }
+            else
+                return formatter.format;
         }
         else if (self.IsNumberFieldType(formatter.type) && formatter.decimals !== null) {
             var format = '0';

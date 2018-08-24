@@ -731,4 +731,23 @@ describe("ChartHandler", function () {
         });
     });
 
+    describe("call GetFormattedValue", function () {
+        beforeEach(function () {
+            this.metadata = {};
+            this.value = '';
+        });
+
+        describe("when bucket is period", function () {
+            beforeEach(function () {
+                this.metadata.bucket = enumHandlers.FIELDTYPE.PERIOD;
+                this.metadata.formatter = new Formatter('#', enumHandlers.FIELDTYPE.PERIOD);
+            });
+            it("should handle null value", function () {
+                this.value = null;
+                var expectedValue = chartHandler.GetFormattedValue(this.metadata, this.value);
+                expect(expectedValue).toBe(null);
+            });
+        });
+    });
+
 });
