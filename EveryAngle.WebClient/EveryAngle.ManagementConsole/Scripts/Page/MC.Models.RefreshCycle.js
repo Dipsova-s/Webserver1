@@ -211,12 +211,14 @@
 
             // start binding the data to input elements
             // external
-            self.RefreshCycleForm.find('[name="IsExternal"]').prop('checked', isExternal);
-            self.TriggerTypeChange(self.RefreshCycleForm.find('[name="IsExternal"]'));
+            var externalElement = self.RefreshCycleForm.find('[name="IsExternal"]');
+            externalElement.prop('checked', isExternal);
+            self.TriggerTypeChange(externalElement);
 
             // continuous
-            self.RefreshCycleForm.find('[name="IsContinuous"]').prop('checked', isContinuousTask);
-            self.ContinuousChange(self.RefreshCycleForm.find('[name="IsContinuous"]'));
+            var continuousElement = self.RefreshCycleForm.find('[name="IsContinuous"]');
+            continuousElement.prop('checked', isContinuousTask);
+            self.ContinuousChange(continuousElement);
 
             // name
             self.RefreshCycleForm.find('[name="TaskName"]').val(data.name);
@@ -230,7 +232,14 @@
             actionList.trigger('change');
 
             // delta
-            self.RefreshCycleForm.find('[name="IsDelta"]').prop('checked', data.Delta != null && data.Delta);
+            var deltaElement = self.RefreshCycleForm.find('[name="IsDelta"]');
+            deltaElement.prop('checked', data.Delta);
+            self.DeltaChange(deltaElement);
+
+            // new_and_changed_tables_only
+            var changedTablesOnlyElement = self.RefreshCycleForm.find('[name="ChangedTablesOnly"]');
+            changedTablesOnlyElement.prop('checked', data.ChangedTablesOnly);
+            self.ChangedTablesOnlyChange(changedTablesOnlyElement);
 
             // days
             self.RefreshCycleForm.find('[name="Days"]').each(function (index, day) {
@@ -288,12 +297,14 @@
             self.RefreshCycleForm = self.GetRefreshCycleForm();
 
             // external
-            self.RefreshCycleForm.find('input[name="IsExternal"]').prop('checked', false);
+            var externalElement = self.RefreshCycleForm.find('input[name="IsExternal"]');
+            externalElement.prop('checked', false);
             self.TriggerTypeChange(self.RefreshCycleForm.find('[name="IsExternal"]'));
 
             // continuous
-            self.RefreshCycleForm.find('input[name="IsContinuous"]').prop('checked', false);
-            self.ContinuousChange(self.RefreshCycleForm.find('[name="IsContinuous"]'));
+            var continuousElement = self.RefreshCycleForm.find('input[name="IsContinuous"]');
+            continuousElement.prop('checked', false);
+            self.ContinuousChange(continuousElement);
 
             // name
             self.RefreshCycleForm.find('input[name="TaskName"]').val('');
@@ -304,7 +315,14 @@
             actionList.trigger('change');
 
             // delta
-            self.RefreshCycleForm.find('input[name="IsDelta"]').prop('checked', false);
+            var deltaElement = self.RefreshCycleForm.find('input[name="IsDelta"]');
+            deltaElement.prop('checked', false);
+            self.DeltaChange(deltaElement);
+
+            // new_and_changed_tables_only
+            var changedTablesOnlyElement = self.RefreshCycleForm.find('input[name="ChangedTablesOnly"]');
+            changedTablesOnlyElement.prop('checked', false);
+            self.ChangedTablesOnlyChange(changedTablesOnlyElement);
 
             // days
             self.RefreshCycleForm.find('.cellDays .checked').trigger('click');
@@ -499,7 +517,7 @@
                 // find cancel edit button in grid and click it
                 var grid = $('#TaskDetailGrid');
                 grid.find('.btnGroupContainer > .btnCancel').next().find('.btnCancel').trigger('click');
-            }
+            };
 
             if (!btn) {
                 // if click add button when edit mode
@@ -550,6 +568,20 @@
 
             // trigger slide form
             self.ClickSlideToggleForm();
+        };
+        self.DeltaChange = function (checkbox) {
+            self.RefreshCycleForm = self.GetRefreshCycleForm();
+            var delta = $(checkbox).prop('checked');
+
+            var changedTablesOnlyElement = self.RefreshCycleForm.find('input[name="ChangedTablesOnly"]');
+            changedTablesOnlyElement.prop('disabled', delta);
+        };
+        self.ChangedTablesOnlyChange = function (checkbox) {
+            self.RefreshCycleForm = self.GetRefreshCycleForm();
+            var changedTablesOnly = $(checkbox).prop('checked');
+
+            var deltaElement = self.RefreshCycleForm.find('input[name="IsDelta"]');
+            deltaElement.prop('disabled', changedTablesOnly);
         };
         self.ContinuousChange = function (checkbox) {
             self.RefreshCycleForm = self.GetRefreshCycleForm();
@@ -629,7 +661,14 @@
 
             actionModel.arguments.push(self.CreateArgumentModel('model', self.ModelId));
             actionModel.arguments.push(self.CreateArgumentModel('action_list', self.RefreshCycleForm.find('[name="Action"]').val()));
-            actionModel.arguments.push(self.CreateArgumentModel('delta', self.RefreshCycleForm.find('[name^="IsDelta"]').is(':checked')));
+
+            var deltaElement = self.RefreshCycleForm.find('[name^="IsDelta"]');
+            var isDelta = !deltaElement.prop('disabled') && deltaElement.prop('checked');
+            actionModel.arguments.push(self.CreateArgumentModel('delta', isDelta));
+
+            var changedTablesOnlyElement = self.RefreshCycleForm.find('[name^="ChangedTablesOnly"]');
+            var changedTablesOnly = !changedTablesOnlyElement.prop('disabled') && changedTablesOnlyElement.prop('checked');
+            actionModel.arguments.push(self.CreateArgumentModel('new_and_changed_tables_only', changedTablesOnly));
 
             if (actionList.val() === 'tables')
                 actionModel.arguments.push(self.CreateArgumentModel('parameters', jQuery.trim(actionListParams.val())));

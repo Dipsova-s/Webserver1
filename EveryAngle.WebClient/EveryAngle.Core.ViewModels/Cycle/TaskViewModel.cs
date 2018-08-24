@@ -34,20 +34,15 @@ namespace EveryAngle.Core.ViewModels.Cycle
         {
             get
             {
-                object value = GetDataFromArgument("delta");
+                return GetDataFromBooleanArgument("delta");
+            }
+        }
 
-                if (value == null)
-                    return false;
-
-                switch (value.ToString().ToLowerInvariant())
-                {
-                    case "t":
-                    case "true":
-                    case "1":
-                        return true;
-                    default:
-                        return false;
-                }
+        public bool ChangedTablesOnly
+        {
+            get
+            {
+                return GetDataFromBooleanArgument("new_and_changed_tables_only");
             }
         }
 
@@ -97,13 +92,31 @@ namespace EveryAngle.Core.ViewModels.Cycle
             List<Argument> arguments = actions.SelectMany(filter => filter.arguments).ToList();
             if (arguments != null && arguments.Count() > 0)
             {
-                Argument arg = arguments.Where(filter => filter.name == nameArgument).FirstOrDefault();
+                Argument arg = arguments.FirstOrDefault(filter => filter.name == nameArgument);
                 if (arg != null)
                 {
                     value = arg.value;
                 }
             }
             return value;
+        }
+
+        private bool GetDataFromBooleanArgument(string nameArgument)
+        {
+            object value = GetDataFromArgument(nameArgument);
+
+            if (value == null)
+                return false;
+
+            switch (value.ToString().ToLowerInvariant())
+            {
+                case "t":
+                case "true":
+                case "1":
+                    return true;
+                default:
+                    return false;
+            }
         }
 
         [JsonProperty(PropertyName = "actions")]
