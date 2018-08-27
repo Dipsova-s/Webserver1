@@ -4,8 +4,7 @@
 call runrobot-config.cmd
 
 :: check chromedriver.exe
-if exist "..\..\..\..\General\Components\DotNet\ChromeDriver" xcopy ..\..\..\..\General\Components\DotNet\ChromeDriver\*.* . /E /S /Y /Q
-if not exist "chromedriver.exe" echo chromedriver.exe does not exists, download from https://sites.google.com/a/chromium.org/chromedriver/downloads &pause &exit
+if not exist "chromedriver.exe" echo chromedriver.exe does not exists in %cd%, download from https://sites.google.com/a/chromium.org/chromedriver/downloads &pause &exit
 
 :: check TAG
 if not defined TAG echo please input TAG &pause &exit

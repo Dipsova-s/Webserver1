@@ -53,8 +53,8 @@
             List<PageToolbarButtonModel> gridButtons = new List<PageToolbarButtonModel>();
             gridButtons.Add(new PageToolbarButtonModel
             {
-                EnableTemplate = "<a href=\"" + SiteMapHelper.ActionHash("AutomationTasks/Tasks/CreateNewTask") + "\" class=\"btn btnAdd\" onclick=\"MC.AutomationTasks.Tasks.CreateNewTaskUri(event, this)\">" + Resource.MC_AddTask + "</a>",
-                DisableTemplate = "<a class=\"btn btnAdd disabled\">" + Resource.MC_AddTask + "</a>",
+                EnableTemplate = "<a href=\"" + SiteMapHelper.ActionHash("AutomationTasks/Tasks/CreateNewTask") + "\" class=\"btn btnPrimary btnAdd\" onclick=\"MC.AutomationTasks.Tasks.CreateNewTaskUri(event, this)\">" + Resource.MC_AddTask + "</a>",
+                DisableTemplate = "<a class=\"btn btnPrimary btnAdd disabled\">" + Resource.MC_AddTask + "</a>",
                 Type = PageToolbarButtonType.Custom,
                 Privilege = PrivilegeType.System
             });

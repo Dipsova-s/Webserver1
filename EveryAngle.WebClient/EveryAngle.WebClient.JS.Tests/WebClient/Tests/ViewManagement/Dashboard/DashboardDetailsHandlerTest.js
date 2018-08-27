@@ -4,6 +4,8 @@
 /// <reference path="/Dependencies/ViewManagement/Shared/ValidationHandler.js" />
 /// <reference path="/Dependencies/ViewManagement/Shared/ModelsHandler.js" />
 /// <reference path="/Dependencies/ViewManagement/Dashboard/DashboardDetailsHandler.js" />
+/// <reference path="/Dependencies/ViewManagement/Shared/WidgetFilter/WidgetFilterModel.js" />
+
 
 describe("DashboardDetailsHandler", function () {
     var dashboardDetailsHandler;
@@ -359,5 +361,38 @@ describe("DashboardDetailsHandler", function () {
             expect(defaultModel).toEqual('/models/1');
         });
     });
-});
 
+    describe("call CleanUpdatingData", function () {
+
+        var tests = [
+            {
+                name: 'should no clean up input data if a user can update dashboard',
+                canUpdate: true,
+                input: { id: 'id1', user_specific: 'xx' },
+                expected: { id: 'id1', user_specific: 'xx' }
+            },
+            {
+                name: 'should clean up other properties than \"user_specific\" if a user cannot update dashboard #1',
+                canUpdate: false,
+                input: { id: 'id1', user_specific: 'xx' },
+                expected: { user_specific: 'xx' }
+            },
+            {
+                name: 'should clean up other properties than \"user_specific\" if a user cannot update dashboard #2',
+                canUpdate: false,
+                input: { id: 'id1' },
+                expected: {}
+            }
+        ];
+
+        $.each(tests, function (index, test) {
+            it(test.name, function () {
+                spyOn(dashboardModel, 'CanUpdateDashboard').and.returnValue(test.canUpdate);
+
+                dashboardDetailsHandler.CleanUpdatingData(test.input);
+                expect(JSON.stringify(test.expected)).toEqual(JSON.stringify(test.input));
+            });
+        });
+        
+    });
+});

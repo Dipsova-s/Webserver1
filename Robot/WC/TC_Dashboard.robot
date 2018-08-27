@@ -19,4 +19,4 @@ Verify Dashboard Execution Parameters
     Dashboard Execution Parameters
 
 Verify Execute Dashboard With Execution Parameters In Edit Mode
-    Verify Execute Dashboard With Execution Parameters In Edit Mode    Dashboard with execute parameters in edit mode
+    Execute Dashboard With Execution Parameters In Edit Mode    Dashboard with execute parameters in edit mode

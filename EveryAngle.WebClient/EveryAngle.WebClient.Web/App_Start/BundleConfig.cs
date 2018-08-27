@@ -228,7 +228,8 @@ namespace EveryAngle.WebClient.Web
                     "~/content/css/angle.css"));
 
             bundles.Add(new StyleBundle("~/content/css/dashboardpage.css")
-                .Include("~/content/css/dashboard.css"));
+                .Include("~/content/css/dashboardfilters.css",
+                    "~/content/css/dashboard.css"));
 
             bundles.Add(new StyleBundle("~/content/css/widgets.css")
                 .Include("~/content/css/widgetlanguages.css",
@@ -454,6 +455,7 @@ namespace EveryAngle.WebClient.Web
                     "~/scripts/viewmodels/models/fieldsettings/fieldsettingsmodel.js", 
                     
                     "~/scripts/viewmanagement/angle/fieldsettingshandler.js",
+                    "~/scripts/viewmanagement/angle/quickfilterhandler.js",
                     "~/scripts/viewmanagement/shared/fieldchooserhandler.js",
                     "~/scripts/viewmodels/models/dashboard/dashboardwidgetmodel.js",
                     "~/scripts/viewmodels/models/dashboard/dashboardmodel.js",
@@ -462,6 +464,7 @@ namespace EveryAngle.WebClient.Web
                     "~/scripts/htmltemplate/dashboard/dashboarddetailbodyhtmltemplate.js",
                     "~/scripts/htmltemplate/dashboard/dashboardpublishinghtmltemplate.js",
                     "~/scripts/viewmanagement/dashboard/dashboarddetailshandler.js",
+                    "~/scripts/viewmanagement/dashboard/dashboardfiltershandler.js",
                     "~/scripts/viewmanagement/dashboard/dashboardhandler.js"));
 
             /*** ContextMenu ***/

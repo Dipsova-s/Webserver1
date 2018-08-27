@@ -251,11 +251,13 @@
                             }
                     ];
                     $(self.reportSectionId).removeClass('popupError');
-                    $('#ModelServerInfo table#ExtractingTables').kendoGrid({
+                    var extractingTable = $('#ModelServerInfo table#ExtractingTables');
+                    var noneExtractingTables = $('#ModelServerInfo table:not(#ExtractingTables)');
+                    extractingTable.kendoGrid({
                         columns: columns,
                         scrollable: true
                     });
-                    $('#ModelServerInfo table:not(#ExtractingTables)').kendoGrid({
+                    noneExtractingTables.kendoGrid({
                         columns: columns.slice(0, columns.length - 1),
                         scrollable: true
                     });

@@ -95,7 +95,7 @@
             else {
                 height = MC.util.window.height;
             }
-            jQuery('#sideContent').height(height - 180);
+            jQuery('#sideContent').height(height - 60);
         },
         setBreadcrumb: function (obj) {
             MC.ui.breadcrumb.render(obj);
@@ -185,7 +185,7 @@
 
                         jQuery('#mainContent').removeClass('errorMainContent').addClass('loadingMainContent');
 
-                        var pageToolbar = jQuery('#mainContainer').children('.pageToolbar');
+                        var pageToolbar = jQuery('#mainContainer .contentInner').children('.pageToolbar');
                         if (pageToolbar.length) {
                             pageToolbar.find('.pageToolbarButton').remove();
                             jQuery('#pageTitle').html(title);
@@ -196,8 +196,8 @@
                         jQuery('#mainContent').removeClass('loadingMainContent');
 
                         // move page toolbar
-                        jQuery('#mainContainer').children('.pageToolbar').remove();
-                        jQuery('#mainContainer').append(jQuery('#mainContent .pageToolbar'));
+                        jQuery('#mainContainer .contentInner').children('.pageToolbar').remove();
+                        jQuery('#mainContainer .contentInner').append(jQuery('#mainContent .pageToolbar'));
                         jQuery('#mainContainer .pageToolbarButton').addClass('hidden');
                         fnCheckMainPageToolbar = setTimeout(function () {
                             jQuery('#mainContainer .pageToolbarButton').removeClass('hidden');
@@ -251,32 +251,6 @@
             jQuery('#sideMenu li').removeClass(this.activeClass);
             jQuery(obj).parents('li').addClass(this.activeClass);
         },
-        toggleMenu: function (e) {
-            if (jQuery('#mainContainer').hasClass('mainContainerFull')) {
-                jQuery('#btnToggleMenu').addClass('open').removeClass('close');
-                jQuery('#mainContainer').removeClass('mainContainerFull');
-                var distance = jQuery('#sideContent').width();
-                jQuery('#mainContent').css('margin-left', 0).stop(true, true).animate({ 'margin-left': distance }, function () {
-                    jQuery(this).css('margin-left', '');
-                });
-                jQuery('#sideContent').css('width', 0).stop(true, true).animate({ 'width': distance }, function () {
-                    jQuery(this).css({ 'width': '', 'display': '' });
-                });
-            }
-            else {
-                jQuery('#btnToggleMenu').removeClass('open').addClass('close');
-                jQuery('#mainContent').stop(true, true).animate({ 'margin-left': 0 }, function () {
-                    jQuery('#mainContainer').addClass('mainContainerFull');
-                    jQuery(this).css('margin-left', '');
-                });
-                jQuery('#sideContent').stop(true, true).animate({ 'width': 0 }, function () {
-                    jQuery('#mainContainer').addClass('mainContainerFull');
-                    jQuery(this).css({ 'width': '', 'display': '' });
-                });
-            }
-
-            MC.util.preventDefault(e);
-		},
 		toggleSeed: null,
         toggle: function (obj, callback) {
 			var self = this;

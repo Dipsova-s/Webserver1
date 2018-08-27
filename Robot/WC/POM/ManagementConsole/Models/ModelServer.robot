@@ -11,6 +11,9 @@ ${btnModelServerGeneralReport}         jquery=#ServerStatusMenu_tv_active[data-i
 ${btnModelServerClassReport}           jquery=#ServerStatusMenu_tv_active[data-id="Class Report"]
 ${btnModelServerEnumReport}            jquery=#ServerStatusMenu_tv_active[data-id="Enum Report"]
 
+${lblModelServerStatus}                jquery=.modelInfoInstance:first .modelInfoItem .status span
+${btnStartStopModelServer}             jquery=.modelInfoInstance:first .btnStartStopModelServer
+
 *** Keywords ***
 
 Click Download Model Server By Model Server Name

@@ -2524,9 +2524,6 @@
             // resize events
             MC.ui.popup('setScrollable', {
                 element: '#popupClassesChooser',
-                //getHeight: function (win) {
-                //    return win.element.height() - win.element.find('.popupToolbar').outerHeight() - 20;
-                //},
                 onResize: function (win) {
                     if (win.wrapper.is(':visible')) {
                         var businessProcessBar = win.element.find('.businessProcesses');
@@ -2539,10 +2536,10 @@
                             // grid + help
                             var gridElement = win.wrapper.find('.k-grid');
                             var winHeight = win.element.height();
-                            var height = winHeight - win.element.find('.searchObjectGridContainer').position().top - 87;
-                            jQuery('#ObjectsGrid').height(height - jQuery('#ObjectsGridContainer').position().top - 25);
+                            var height = winHeight - win.element.find('.searchObjectGridContainer').position().top - 120;
+                            jQuery('#ObjectsGrid').height(height - jQuery('#ObjectsGridContainer').position().top - 15);
                             var winWidth = win.element.width();
-                            if (winWidth > 768) {
+                            if (winWidth > 760) {
                                 win.element.removeClass('compactMode');
                                 win.element.find('.Description').height(height);
                             }

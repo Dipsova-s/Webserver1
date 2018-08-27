@@ -8,12 +8,55 @@ function QuickFilterHandler() {
 
     /*BOF: Model Properties*/
     _self.handler = null;
-
-    self.Handler = null;
-    self.Field = null;
+    _self.popupName = 'ListFilter';
+    
+    self.HandlerFilter = null;
     /*EOF: Model Properties*/
 
     /*BOF: Model Methods*/
+    self.GetPopupSettings = function (popupTitle, fnApplyFilter) {
+        return {
+            title: popupTitle,
+            element: '#popup' + _self.popupName,
+            appendTo: 'body',
+            className: 'popup' + _self.popupName,
+            width: 545,
+            minWidth: 545,
+            buttons: [
+                {
+                    text: Captions.Button_Cancel,
+                    click: function (e) {
+                        e.kendoWindow.close();
+                        e.stopPropagation();
+                    },
+                    position: 'right'
+                },
+                {
+                    text: Localization.Ok,
+                    className: 'executing',
+                    click: function (e, obj) {
+                        if (popup.CanButtonExecute(obj) && self.CheckValidation()) {
+                            var queryStep = self.GetFilterStep();
+                            fnApplyFilter(queryStep);
+                        }
+                    },
+                    isPrimary: true,
+                    position: 'right'
+                }
+            ],
+            animation: false,
+            resize: function () {
+                if (self.HandlerFilter) {
+                    self.HandlerFilter.View.AdjustLayout();
+                }
+            },
+            close: function (e) {
+                setTimeout(function () {
+                    e.sender.destroy();
+                }, 500);
+            }
+        };
+    };
     self.ShowAddFilterPopup = function (fieldId, handler) {
         self.SetViewHandler(handler);
 
@@ -31,77 +74,36 @@ function QuickFilterHandler() {
         listSortHandler.CloseCustomPopup();
         listFormatSettingHandler.CloseCustomPopup();
 
-        var popupName = 'ListFilter',
-            popupSettings = {
-                title: Localization.ListHeaderPopupAddFilter,
-                element: '#popup' + popupName,
-                appendTo: 'body',
-                className: 'popup' + popupName,
-                width: 545,
-                minWidth: 545,
-                buttons: [
-                    {
-                        text: Captions.Button_Cancel,
-                        click: function (e) {
-                            e.kendoWindow.close();
-                            e.stopPropagation();
-                        },
-                        position: 'right'
-                    },
-                    {
-                        text: Localization.Ok,
-                        className: 'executing',
-                        click: function (e, obj) {
-                            if (popup.CanButtonExecute(obj)) {
-                                if (self.CheckValidation()) {
-                                    self.ApplyFilter();
-                                }
-                            }
-                        },
-                        isPrimary: true,
-                        position: 'right'
-                    }
-                ],
-                animation: false,
-                resize: function () {
-                    if (self.Handler) {
-                        self.Handler.View.AdjustLayout();
-                    }
-                },
-                open: function (e) {
-                    self.Handler = new WidgetFilterHandler(e.sender.element, []);
-                    self.Handler.ModelUri = _self.handler.Models.Angle.Data().model;
-                    self.Handler.HasExecutionParameter(true);
-                    self.Handler.FilterFor = self.Handler.FILTERFOR.DISPLAY;
-                    self.Handler.Sortable(false);
-                    self.Handler.CanChange = function () {
-                        return true;
-                    };
-                    self.Handler.CanRemove = function () {
-                        return false;
-                    };
-
-                    var angleBaseClassBlock = _self.handler.Models.Angle.Data().query_definition.findObject('queryblock_type', enumHandlers.QUERYBLOCKTYPE.BASE_CLASSES);
-                    self.Handler.SetFieldChoooserInfo(angleBaseClassBlock ? angleBaseClassBlock.base_classes : [], angleQueryStepModel.QuerySteps());
-
-                    self.ShowCustomPopupCallback(e);
-                },
-                close: function (e) {
-                    setTimeout(function () {
-                        e.sender.destroy();
-                    }, 500);
-                }
+        var popupSettings = self.GetPopupSettings(Localization.ListHeaderPopupAddFilter, function () {
+            self.ApplyFilter();
+        });
+        popupSettings.open = function (e) {
+            self.HandlerFilter = new WidgetFilterHandler(e.sender.element, []);
+            self.HandlerFilter.ModelUri = modelUri;
+            self.HandlerFilter.HasExecutionParameter(true);
+            self.HandlerFilter.FilterFor = self.HandlerFilter.FILTERFOR.DISPLAY;
+            self.HandlerFilter.Sortable(false);
+            self.HandlerFilter.CanChange = function () {
+                return true;
+            };
+            self.HandlerFilter.CanRemove = function () {
+                return false;
             };
 
-        self.Handler = null;
-        self.Field = field;
+            var angleBaseClassBlock = _self.handler.Models.Angle.Data().query_definition.findObject('queryblock_type', enumHandlers.QUERYBLOCKTYPE.BASE_CLASSES);
+            self.HandlerFilter.SetFieldChoooserInfo(angleBaseClassBlock ? angleBaseClassBlock.base_classes : [], angleQueryStepModel.QuerySteps());
+
+            self.ShowAddFilterPopupCallback(e, field);
+        };
+
+        self.HandlerFilter = null;
 
         popup.Show(popupSettings);
     };
-    self.ShowCustomPopupCallback = function (e) {
-        self.Handler.ApplyHandler();
-        self.Handler.AddFilter(self.Field, enumHandlers.FILTERTYPE.FILTER);
-        self.Handler.Element.find('.FilterHeader').addClass('Disabled');
+    self.ShowAddFilterPopupCallback = function (e, field) {
+        self.HandlerFilter.ApplyHandler();
+        self.HandlerFilter.AddFilter(field, enumHandlers.FILTERTYPE.FILTER);
+        self.HandlerFilter.Element.find('.FilterHeader').addClass('Disabled');
 
         setTimeout(function () {
             listHandler.UpdateAngleGridHeaderPopup();
@@ -110,7 +112,42 @@ function QuickFilterHandler() {
         setTimeout(function () {
             e.sender.wrapper.find('.btn').removeClass('executing');
         }, 10);
+    };
+    self.ShowEditDashboardFilterPopup = function (filter, modelUri, fnApplyFilter) {
+        requestHistoryModel.SaveLastExecute(self, self.ShowEditDashboardFilterPopup, arguments);
+        requestHistoryModel.ClearPopupBeforeExecute = true;
 
+        var popupSettings = self.GetPopupSettings(Localization.ListHeaderPopupEditFilter, fnApplyFilter);
+        popupSettings.open = function (e) {
+            self.HandlerFilter = new WidgetFilterHandler(e.sender.element, []);
+            self.HandlerFilter.Data([filter]);
+            self.HandlerFilter.ModelUri = modelUri;
+            self.HandlerFilter.HasExecutionParameter(false);
+            self.HandlerFilter.FilterFor = self.HandlerFilter.FILTERFOR.DASHBOARD;
+            self.HandlerFilter.Sortable(false);
+            self.HandlerFilter.CanChange = function () {
+                return true;
+            };
+            self.HandlerFilter.CanRemove = function () {
+                return false;
+            };
+            self.HandlerFilter.SetFieldChoooserInfo([]);
+
+            self.ShowEditDashboardFilterPopupCallback(e);
+        };
+
+        self.HandlerFilter = null;
+
+        popup.Show(popupSettings);
+    };
+    self.ShowEditDashboardFilterPopupCallback = function (e) {
+        self.HandlerFilter.ApplyHandler();
+        self.HandlerFilter.View.Toggle('FilterHeader-0');
+        self.HandlerFilter.Element.find('.FilterHeader').addClass('Disabled');
+
+        setTimeout(function () {
+            e.sender.wrapper.find('.btn').removeClass('executing');
+        }, 10);
     };
     self.CloseAddFilterPopup = function () {
         popup.Close('.popupListFilter .k-window-content');
@@ -120,7 +157,7 @@ function QuickFilterHandler() {
     };
     self.CheckValidation = function () {
         /* M4-14130: Show message if filter is invalided */
-        var checkValidArgument = validationHandler.CheckValidExecutionParameters(self.Handler.Data(), _self.handler.Models.Angle.Data().model);
+        var checkValidArgument = validationHandler.CheckValidExecutionParameters(self.HandlerFilter.Data(), self.HandlerFilter.ModelUri);
         if (!checkValidArgument.IsAllValidArgument) {
             popup.Alert(Localization.Warning_Title, checkValidArgument.InvalidMessage);
             return false;
@@ -129,11 +166,15 @@ function QuickFilterHandler() {
             return true
         }
     };
+    self.GetFilterStep = function () {
+        var filter = self.HandlerFilter.GetData()[0];
+        filter.is_adhoc_filter = true;
+        return filter;
+    };
     self.ApplyFilter = function () {
         requestHistoryModel.SaveLastExecute(self, self.ApplyFilter, arguments);
 
-        var queryStep = self.Handler.GetData()[0];
-        queryStep.is_adhoc_filter = true;
+        var queryStep = self.GetFilterStep();
 
         var getInsertFilterIndex = function (querySteps) {
             var index = -1;
@@ -218,7 +259,7 @@ function QuickFilterHandler() {
     self.ApplyCustomFilter = function (handler, filter) {
         var queryStep = new WidgetFilterModel(filter);
         self.SetViewHandler(handler);
-        self.Handler = { GetData: ko.observable([queryStep]) };
+        self.HandlerFilter = { GetData: ko.observable([queryStep]) };
         self.ApplyFilter();
     };
     /*EOF: Model Methods*/

@@ -10,7 +10,8 @@ function WidgetFilterHandler(container, models) {
     self.FilterFor = null;
     self.FILTERFOR = {
         ANGLE: 'Angle',
-        DISPLAY: 'Display'
+        DISPLAY: 'Display',
+        DASHBOARD: 'Dashboard'
     };
     self.CompareInfo = null;
     self.HasExecutionParameter = ko.observable(false);
@@ -18,6 +19,12 @@ function WidgetFilterHandler(container, models) {
     self.Sortable = ko.observable(true);
     self.ModelUri = '';
     self.SwitchOperator = false;
+
+    self.VIEWMODE = {
+        LISTVIEW: 'listview',
+        TREEVIEW: 'treeview'
+    };
+    self.ViewMode = ko.observable(self.VIEWMODE.LISTVIEW);
 
     // actions
     self.ApplyHandler = function () {
@@ -29,6 +36,9 @@ function WidgetFilterHandler(container, models) {
     self.ReApplyHandler = function () {
         self.View.KoCleanNode();
         return self.ApplyHandler();
+    };
+    self.SetTreeViewMode = function () {
+        self.ViewMode(self.VIEWMODE.TREEVIEW);
     };
 
     // move filter
@@ -44,7 +54,9 @@ function WidgetFilterHandler(container, models) {
 
     // Add Filters from 'Add Filter' button, Remove filter from 'x' button
     self.AddFilterModelFromField = function (field, queryType, index) {
-        if (typeof index === 'undefined') index = self.Data().length || 1;
+        // append to bottom if no specify
+        if (typeof index === 'undefined')
+            index = self.Data().length;
 
         var modelFilter;
         if (queryType === enumHandlers.FILTERTYPE.FILTER) {
@@ -69,7 +81,7 @@ function WidgetFilterHandler(container, models) {
 
         if (modelFilter) {
             var model = new WidgetFilterModel(modelFilter, false);
-            self.Data.push(model);
+            self.Data.splice(index, 0, model);
 
             return model;
         }
@@ -131,6 +143,7 @@ function WidgetFilterHandler(container, models) {
 
                     self.CreateFromQuerySteps(self.Data());
 
+                    self.View.ToggleTreeViewHeader('FilterHeader-' + elementIndex);
                     self.View.Toggle('FilterHeader-' + elementIndex);
                 }
                 self.CompareInfo = null;
@@ -158,6 +171,35 @@ function WidgetFilterHandler(container, models) {
         });
 
         return self.Data();
+    };
+    self.AddFilterFromTreeHeader = function (data, event) {
+        var field = modelFieldsHandler.GetFieldById(data.field, self.ModelUri);
+        if (field) {
+            modelFieldsHandler.SetFields([field], self.ModelUri);
+            modelFieldsHandler.LoadFieldsMetadata([field])
+                .done(function () {
+                    var currentIndex = self.Data.indexOf(data);
+                    var insertIndex = self.GetInsertFilterPosition(data.field, currentIndex);
+                    self.AddFilterModelFromField(field, enumHandlers.FILTERTYPE.FILTER, insertIndex);
+                    self.CreateFromQuerySteps(self.Data());
+
+                    // expand panels
+                    if (!$(event.currentTarget).parent().hasClass('Expand'))
+                        self.View.ToggleTreeViewHeader('FilterHeader-' + currentIndex);
+
+                    self.View.Toggle('FilterHeader-' + insertIndex);
+                });
+        }
+    };
+    self.GetInsertFilterPosition = function (fieldId, currentIndex) {
+        var insertIndex = currentIndex + 1;
+        for (var index = insertIndex; index < self.Data().length; index++) {
+            if (self.Data()[index].field !== fieldId)
+                break;
+
+            insertIndex = index + 1;
+        }
+        return insertIndex;
     };
     self.ShowCompareFilterPopup = function (fieldType, elementIndex) {
         var elementId = 'Operator-' + self.GetAdvanceElementIndex(elementIndex) + '-DropdownList';
@@ -521,6 +563,55 @@ function WidgetFilterHandler(container, models) {
             data.index = elementLastPart;
 
         return data;
+    };
+
+    // tree view mode
+    self.IsTreeViewMode = function () {
+        var isTreeViewMode = self.ViewMode() === self.VIEWMODE.TREEVIEW;
+        return isTreeViewMode;
+    };
+    self.IsTreeViewHeader = function (data) {
+        if (!self.IsTreeViewMode())
+            return false;
+
+        var isTreeViewHeader = true;
+        var index = self.Data.indexOf(data);
+        for (var i = index - 1; i >= 0; i--) {
+            var queryStep = self.Data()[i];
+
+            if (queryStep && queryStep.field === data.field) {
+                isTreeViewHeader = false;
+                break;
+            }
+        }
+
+        return isTreeViewHeader;
+    };
+    self.RemoveTreeViewHeader = function (data) {
+        jQuery(document).trigger('click');
+        setTimeout(function () {
+            var removingFieldId = data.field;
+            var filters = self.Data();
+            for (var i = filters.length - 1; i >= 0; i--) {
+                if (removingFieldId === filters[i].field)
+                    self.Data.remove(filters[i]);
+            }
+            self.CreateFromQuerySteps(self.Data());
+        });
+        return self.Data();
+    };
+    self.IsNextElementIsTreeViewHeader = function (element) {
+        if (!self.IsTreeViewMode())
+            return false;
+
+        element = $(element);
+        var nextElement = element.next();
+
+        if (nextElement.is('.filterItem.alwaysHide'))
+            nextElement = nextElement.next();
+
+        var isTreeViewHeader = nextElement.is('.FilterHeader');
+        return isTreeViewHeader;
     };
 
     // =========== Second part ======================================

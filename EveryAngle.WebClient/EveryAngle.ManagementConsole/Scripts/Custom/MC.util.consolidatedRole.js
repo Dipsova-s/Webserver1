@@ -36,8 +36,8 @@
                         win.bind('resize', function (e) {
                             var contentSectionElement = win.element.find('.contentSectionInfoItem');
                             if (contentSectionElement.length) {
-                                var dropdownHeight = win.element.find('.UserModelPrivileges').outerHeight() || 0;
-                                contentSectionElement.height(win.element.outerHeight() - win.element.find('.popupToolbar').outerHeight() - dropdownHeight - 25);
+                                var dropdownHeight = win.element.find('.k-dropdown.UserModelPrivileges').outerHeight() || 0;
+                                contentSectionElement.height(win.element.outerHeight() - win.element.find('.popupToolbar').outerHeight() - dropdownHeight - 45);
                             }
                         });
                         win.__scrollable_resize = true;

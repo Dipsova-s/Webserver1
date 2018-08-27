@@ -169,7 +169,9 @@ function ChartHandler(elementId, container) {
     };
 
     self.HideLoadingIndicator = function () {
-        jQuery(self.Container).find('.pivotAreaContainer').busyIndicator(false);
+        var container = jQuery(self.Container);
+        container.find('.pivotAreaContainer').busyIndicator(false);
+        container.busyIndicator(false);
         if (!self.DashBoardMode()) {
             fieldSettingsHandler.HideLoadingIndicator();
         }
@@ -514,17 +516,48 @@ function ChartHandler(elementId, container) {
 
         return jQuery.whenAll(deferred, true, false)
             .fail(function (requests) {
-                if (requests[0] instanceof Array)
+                if (requests instanceof Array)
                     requests = requests[0];
-                if (requests[0] instanceof Array)
+                if (requests instanceof Array)
                     requests = requests[0];
 
-                if (self.DashBoardMode())
+                if (self.DashBoardMode()) {
+                    var widgetDisplayElementId = self.ElementId.slice(1);
+                    var widgetContainer = jQuery(self.ElementId + '-container');
+                    var chartType = self.GetDisplayDetails().chart_type;
+                    self.RemoveWidgetChart(widgetDisplayElementId, widgetContainer, chartType);
                     self.Models.Result.RetryPostResult(requests.responseText);
-                else
+                }
+                else {
                     self.Models.Result.SetRetryPostResultToErrorPopup(requests.status);
+                }
             })
             .done(self.GenerateChartDatasource);
+    };
+    self.RemoveWidgetChart = function (widgetDisplayElementId, widgetContainer, chartType) {
+
+        if (self.IsDonutOrPieChartType(chartType)) {
+            var chartItems = widgetContainer.find('.k-chart');
+            jQuery.each(chartItems, function (index, chartItem) {
+                chartItem = jQuery(chartItem);
+                var chartObject = chartItem.data(enumHandlers.KENDOUITYPE.CHART);
+                if (chartObject)
+                    chartObject.destroy();
+            });
+            widgetContainer.find('.chartWrapper').empty().attr('id', widgetDisplayElementId);
+        }
+        else {
+            var widgetDisplay = widgetContainer.find('.widgetDisplay');
+            var chartObject = widgetDisplay.data(enumHandlers.KENDOUITYPE.CHART) || widgetDisplay.data(enumHandlers.KENDOUITYPE.RADIALGAUGE);
+            if (chartObject)
+                chartObject.destroy();
+
+            widgetDisplay.detach().appendTo(widgetContainer);
+            widgetContainer.find('.widgetDisplay').empty();
+            widgetContainer.find('.chartWrapper').remove();
+            widgetContainer.find('.navigatorWrapper').remove();
+        }
+
     };
     self.LoadSuccess = function (data) {
         self.Data.fields = data.fields;

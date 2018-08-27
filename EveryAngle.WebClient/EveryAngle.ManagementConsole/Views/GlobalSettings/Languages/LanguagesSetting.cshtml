@@ -91,8 +91,8 @@
                     buttons = new List<PageToolbarButtonModel>();
                     buttons.Add(new PageToolbarButtonModel
                     {
-                        EnableTemplate = "<a class=\"btn btnAdd\" data-role=\"auto-template\" data-grid=\"#AvailableLanguagesGrid\" data-template=\"#templateLanguages\" data-callback=\"MC.GlobalSettings.Languages.AddNewLanguageCallback\">" + Resource.Add + " " + Resource.Language + "</a>",
-                        DisableTemplate = "<a class=\"btn btnAdd disabled\">" + Resource.Add + " " + Resource.Language + "</a>",
+                        EnableTemplate = "<a class=\"btn btnPrimary btnAdd\" data-role=\"auto-template\" data-grid=\"#AvailableLanguagesGrid\" data-template=\"#templateLanguages\" data-callback=\"MC.GlobalSettings.Languages.AddNewLanguageCallback\">" + Resource.Add + " " + Resource.Language + "</a>",
+                        DisableTemplate = "<a class=\"btn btnPrimary btnAdd disabled\">" + Resource.Add + " " + Resource.Language + "</a>",
                         Type = PageToolbarButtonType.Custom,
                         Privilege = PrivilegeType.System
                     });

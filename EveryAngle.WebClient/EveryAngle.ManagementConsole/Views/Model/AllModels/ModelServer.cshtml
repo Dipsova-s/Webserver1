@@ -138,7 +138,7 @@
                 }
                 <div class="modelInfoItem">
                     <label>@(item.ModelServerName):</label>
-                    <div class="value"><span data-role='localize'>@item.status</span></div>
+                    <div class="value status"><span data-role='localize'>@item.status</span></div>
                 </div>
                 <div class="modelInfoItem">
                     <label>@Resource.Since:</label>
@@ -189,7 +189,7 @@
 
                 @{
                     string infoButton = "<a data-target=\"#popupModelServer\" data-title=\"" + item.ModelServerName + "\" data-width='80%' data-min-width='760' " +
-                                        " data-height='80%' data-role='mcPopup' class='btn' onclick=\"MC.Models.Model.ShowModelServerInfo(event, this)\" data-callback=\"MC.Models.Model.ShowModelServerInfoCallback\" data-parameters='{\"modelServerUri\" : \"" + item.Uri + "\", \"isCurrentInstance\" : " + item.IsCurrentInstance.ToString().ToLower() + " }'>" + Resource.MC_StatusAndReport + " <i class='btnInfo'></i></a>";
+                                        " data-height='80%' data-role='mcPopup' class='btn btnInfo' onclick=\"MC.Models.Model.ShowModelServerInfo(event, this)\" data-callback=\"MC.Models.Model.ShowModelServerInfoCallback\" data-parameters='{\"modelServerUri\" : \"" + item.Uri + "\", \"isCurrentInstance\" : " + item.IsCurrentInstance.ToString().ToLower() + " }'>" + Resource.MC_StatusAndReport + "</a>";
 
                     List<PageToolbarButtonModel> buttons = new List<PageToolbarButtonModel>();
 
@@ -213,7 +213,7 @@
                             ModelUri = ViewBag.ModelUri,
                             Privilege = PrivilegeType.Model,
                             Type = PageToolbarButtonType.Custom,
-                            EnableTemplate = infoButton + (updateStatus == null ? "<a class=\"btn disabled\" >" + text + "</a>" : "<a class=\"btn\" onclick=\"MC.Models.Model.UpdateInstance('" + item.ModelServerId + "'," + Convert.ToString(updateStatus).ToLower() + ",'"+ item.id +"')\">" + text + "</a>"),
+                            EnableTemplate = infoButton + (updateStatus == null ? "<a class=\"btn btnNext btnStartStopModelServer disabled\" >" + text + "</a>" : "<a class=\"btn btnNext btnStartStopModelServer\" onclick=\"MC.Models.Model.UpdateInstance('" + item.ModelServerId + "'," + Convert.ToString(updateStatus).ToLower() + ",'"+ item.id +"')\">" + text + "</a>"),
                             DisableTemplate = "<a class=\"btn disabled\" >" + text + "</a>"
                         });
                     }

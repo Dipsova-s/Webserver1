@@ -34,8 +34,8 @@
             List<PageToolbarButtonModel> buttons = new List<PageToolbarButtonModel>();
             buttons.Add(new PageToolbarButtonModel
             {
-                EnableTemplate = "<a href=\"" + SiteMapHelper.ActionHash("GlobalSettings/AllLabelCategories/CreateLabelCategory") +"\" class=\"btn btnAdd\">" + Resource.MC_AddLabelCategory + "</a>",
-                DisableTemplate = "<a class=\"btn btnAdd disabled\">" + Resource.MC_AddLabelCategory + "</a>",
+                EnableTemplate = "<a href=\"" + SiteMapHelper.ActionHash("GlobalSettings/AllLabelCategories/CreateLabelCategory") + "\" class=\"btn btnPrimary btnAdd\">" + Resource.MC_AddLabelCategory + "</a>",
+                DisableTemplate = "<a class=\"btn btnPrimary btnAdd disabled\">" + Resource.MC_AddLabelCategory + "</a>",
                 Type = PageToolbarButtonType.Custom,
                 Privilege = PrivilegeType.System
             });

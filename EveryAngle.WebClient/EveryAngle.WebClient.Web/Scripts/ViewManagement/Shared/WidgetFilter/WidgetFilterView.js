@@ -7,19 +7,29 @@
 
     self.Template = [
         '<!-- ko stopBinding: true -->',
-        '<div class="definitionList" data-bind="foreach: { data: Data, as: \'query\' }, css: { sortable: $root.Sortable() && ($root.CanChange() || $root.CanRemove()), movable: $root.CanFiltersMovable(), no: !HasDefinition(Data()) }">',
+        '<div class="definitionList" data-bind="foreach: { data: Data, as: \'query\' }, css: { sortable: $root.Sortable() && ($root.CanChange() || $root.CanRemove()), movable: $root.CanFiltersMovable(), no: !$root.HasDefinition(Data()), treeview: $root.ViewMode() === $root.VIEWMODE.TREEVIEW, readonly: !$root.CanChange() && !$root.CanRemove() }">',
             '<!-- ko if: $root.IsFilterOrJumpQueryStep(query.step_type) -->',
-            '<div class="filterItem" data-bind="attr: { index: $index() }, css: { movable: $root.CanFilterMoveToAngle(query, $index()) }">',
+            '<!-- ko if: $root.IsTreeViewHeader(query) -->',
+            '<div class="FilterHeader Collapse treeViewHeader" data-bind="click: $root.View.ToggleTreeViewHeader">',
+                '<p>',
+                    '<label class="filterText" data-bind="text: $root.GetFilterFieldName(query.field, $root.ModelUri)"></label>',
+                '</p>',
+                '<a class="btnInfo" data-bind="click: $root.ShowFieldInfo, clickBubble: false"></a>',
+                '<a class="btnAddFilter" data-bind="click: $root.AddFilterFromTreeHeader, clickBubble: false, visible: $root.CanChange(query)"></a>',
+                '<a class="btnDelete" data-bind="click: $root.RemoveTreeViewHeader, clickBubble: false, visible: $root.CanRemove(query)"></a>',
+            '</div>',
+            '<!-- /ko -->',
+            '<div class="filterItem" data-bind="attr: { index: $index() }, css: { movable: $root.CanFilterMoveToAngle(query, $index()), noBorderBottom: $root.IsNextElementIsTreeViewHeader($element) }">',
                 '<div class="FilterHeader Collapse" data-bind="attr: { id: \'FilterHeader-\' + $index() }, css: { Followup: query.step_type == enumHandlers.FILTERTYPE.FOLLOWUP, Filter: query.step_type == enumHandlers.FILTERTYPE.FILTER, Disabled: !$root.CanChange(query), Unsave: query.is_adhoc_filter }, click: $root.View.Toggle">',
                     '<p data-bind="SetInvalidQuery: query">',
-                        '<label class="filterText" data-bind="text: $root.GetFilterText(query, $root.ModelUri), css: query.step_type"></label>',
+                        '<label class="filterText" data-bind="text: $root.GetFilterText(query, $root.ModelUri, $root.ViewMode() === $root.VIEWMODE.TREEVIEW), css: query.step_type"></label>',
                         '<!-- ko if: $root.HasExecutionParameter() && query.step_type != enumHandlers.FILTERTYPE.FOLLOWUP -->',
                         '<span data-bind="visible: query.is_execution_parameter, css: { NoticeIcon: query.is_execution_parameter }, attr: {id: \'FilterHeader-\' + $index() + \'-Parameter\' }"></span>',
                         '<!-- /ko -->',
                         '<label class="validWarningText"></label>',
                     '</p>',
-                    '<a class="btnInfo" data-bind="click: $root.ShowFieldInfo"></a>',
-                    '<a class="btnDelete" data-bind="click: $root.RemoveFilter, visible: $root.CanRemove(query)"></a>',
+                    '<a class="btnInfo" data-bind="click: $root.ShowFieldInfo, clickBubble: false, css: { alwaysHide: $root.ViewMode() === $root.VIEWMODE.TREEVIEW }"></a>',
+                    '<a class="btnDelete" data-bind="click: $root.RemoveFilter, clickBubble: false, visible: $root.CanRemove(query)"></a>',
                     '<div class="handler"></div>',
                 '</div>',
                 '<!-- ko if: query.step_type != enumHandlers.FILTERTYPE.FOLLOWUP -->',
@@ -243,8 +253,14 @@
         self.Handler.Element.html(self.Handler.View.Template);
 
         var currentBinding = ko.dataFor(self.Handler.Element.get(0));
-        if (!currentBinding || (currentBinding && currentBinding.Identity !== self.Handler.Identity)) {
+        if (!currentBinding || currentBinding.Identity !== self.Handler.Identity) {
             ko.applyBindings(self.Handler, self.Handler.Element.find('.definitionList').get(0));
+
+            if (self.Handler.VIEWMODE.TREEVIEW === self.Handler.ViewMode()) {
+                self.Handler.Data.valueHasMutated();
+                self.Handler.Element.find('.filterItem').addClass('Hide');
+            }
+
             self.InitialSortable();
             self.InitialEnumerateFilter();
         }
@@ -497,14 +513,8 @@
     };
     self.Toggle = function (data, event) {
         var toggleElement = self.Handler.Element.find('.filterItem');
-        var element;
+        var element = typeof data === 'string' ? self.GetHtmlElementById(data) : jQuery(event.currentTarget);
 
-        if (typeof data === 'string') {
-            element = self.GetHtmlElementById(data);
-        }
-        else {
-            element = jQuery(event.currentTarget);
-        }
         if (!element.hasClass('Disabled') && !element.hasClass('Followup')) {
             if (element.hasClass('Expand')) {
                 element.removeClass('Expand').addClass('Collapse');
@@ -523,7 +533,7 @@
                 }
 
                 toggleElement.each(function () {
-                    var elementItem = jQuery(this); //.children().attr('id');
+                    var elementItem = jQuery(this);
                     if (element.attr('id') !== elementItem.children().attr('id')) {
                         elementItem.children().removeClass('Expand').addClass('Collapse FilterDisable');
                         elementItem.children().next().removeClass('Show').addClass('Hide');
@@ -552,6 +562,47 @@
         }
 
         self.AdjustLayout();
+    };
+    self.ToggleTreeViewHeader = function (elementId, event) {
+        var element = self.GetTreeViewHeader(elementId, event);
+        if (element.hasClass('Expand')) {
+            // close current
+            self.CollapsePanel(element);
+            self.HandleTreeViewHeaderTextColor(element);
+        }
+        else {
+            self.CollapseAllAndExpandSelectedPanel(element);
+        }
+    };
+    self.GetTreeViewHeader = function (elementId, event) {
+        return typeof elementId === 'string' ? self.GetHtmlElementById(elementId).parent().prev('.treeViewHeader') : jQuery(event.currentTarget);
+    };
+    self.CollapsePanel = function (target) {
+        target.removeClass('Expand').addClass('Collapse FilterDisable');
+        target.nextUntil('.FilterHeader').removeClass('Show').addClass('Hide');
+    };
+    self.HandleTreeViewHeaderTextColor = function (element) {
+        var allFilterHeaders = element.siblings('.FilterHeader').andSelf();
+        allFilterHeaders.removeClass('FilterDisable');
+    };
+    self.CollapseAllAndExpandSelectedPanel = function (element) {
+        // close all
+        var toggleElements = self.Handler.Element.find('.treeViewHeader');
+        toggleElements.each(function () {
+            self.CollapsePanel(jQuery(this));
+        });
+
+        // expand current
+        element.removeClass('Collapse FilterDisable').addClass('Expand');
+        var filterBody = element.nextUntil('.FilterHeader').removeClass('Hide').addClass('Show');
+
+        // refresh virtual grid scrollbar
+        filterBody.find('.k-grid').each(function () {
+            var grid = jQuery(this).data(enumHandlers.KENDOUITYPE.GRID);
+            if (grid && grid.virtualScrollable) {
+                grid.virtualScrollable.refresh();
+            }
+        });
     };
     self.AdjustLayout = function (placeholders) {
         if (typeof placeholders === 'undefined')
@@ -1416,9 +1467,9 @@
         ddlOperator.refresh();
     };
     self.UpdateWidgetFilterText = function (data, index) {
-        var filterText = self.Handler.GetFilterText(data, self.Handler.ModelUri);
+        var filterText = self.Handler.GetFilterText(data, self.Handler.ModelUri, self.Handler.ViewMode() === self.Handler.VIEWMODE.TREEVIEW);
         var headerElement = self.GetHtmlElementById('FilterHeader-' + index);
-        headerElement.find('.filterText').text(filterText).attr('title', filterText);
+        headerElement.find('.filterText').text(filterText);
     };
     self.BindingDropdownArgumentType = function (elementKey, argumentType) {
         return WC.HtmlHelper.DropdownList(self.GetHtmlElementById('InputType-' + elementKey), enumHandlers.FILTERARGUMENTTYPES, {
@@ -2016,11 +2067,11 @@
 
         var columnFormat = !formatTemplate ? '' : '{0:' + formatTemplate + '}';
         var grid = self.GetHtmlElementById(elementId).kendoGrid({
-            height: 100,
+            height: 130,
             scrollable: {
                 virtual: true
             },
-            dataSource: self.GetListGridDataSource(defaultValues || []),
+            dataSource: self.GetListGridDataSource(defaultValues),
             selectable: 'multiple, row',
             columns: [
                 {

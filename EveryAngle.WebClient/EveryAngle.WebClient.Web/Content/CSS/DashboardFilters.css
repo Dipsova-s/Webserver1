@@ -1,0 +1,174 @@
+
+/* #dashboardFilterWrapper
+============================================ */
+#dashboardFilterWrapper {
+    position: relative;
+    float: left;
+    display: none;
+    width: 300px;
+    overflow: hidden;
+    font-size: 12px;
+}
+#dashboardFilterWrapper.active {
+    display: block;
+}
+#dashboardFilterWrapper.active + .mainDisplayWrapper {
+    margin-left: 300px;
+}
+#dashboardFilterWrapper.active.close {
+    width: 10px;
+}
+#dashboardFilterWrapper.active.close + .mainDisplayWrapper {
+    margin-left: 10px;
+}
+
+.dashboardFilterListWrapper {
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: 100%;
+    width: 290px;
+    background-color: #fff;
+    padding: 34px 0 50px 0;
+    box-sizing: border-box;
+    z-index: 1;
+}
+.close .dashboardFilterListWrapper {
+    display: none;
+}
+
+.dashboardFilterToolButtons {
+    float: right;
+    margin-top: 8px;
+}
+.dashboardFilterToolButtons a {
+    display: inline-block;
+    width: 16px;
+    height: 16px;
+    background: center center none no-repeat;
+    background-size: auto auto;
+}
+.dashboardFilterToolButtons .btnOpenFilters {
+    background-image: url(../../images/icons/icon_definition_shortcut.svg);
+    background-size: 14px 14px;
+}
+.dashboardFilterItemHeader:hover .btnFieldInfo {
+    background-image: url(../../images/icons/icon_info.svg);
+    background-size: 14px 14px;
+    padding-right: 10px;
+}
+.dashboardFilterToolButtons .btnToggleFilter {
+    background-image: url(../../images/icons/icon_arrow_up.png);
+}
+.collapsed .dashboardFilterToolButtons .btnToggleFilter {
+    background-image: url(../../images/icons/icon_arrow_down.png);
+}
+.dashboardFilterToolButtons .btnEditFilter {
+    background-image: url(../../images/icons/icon_edit_filter.svg);
+    background-size: 14px 14px;
+}
+
+.dashboardFilterHeader {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 34px;
+    background-color: #e6e6e6;
+    padding: 0 5px 0 10px;
+    box-sizing: border-box;
+}
+.dashboardFilterTitle {
+    font-size: 14px;
+    font-weight: normal;
+    line-height: 34px;
+    margin: 0;
+    padding: 0;
+}
+
+.dashboardFilterItems {
+    list-style: none;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    overflow: auto;
+    border-top: 1px solid #d8d8d8;
+    border-bottom: 1px solid #d8d8d8;
+    box-sizing: border-box;
+}
+.dashboardFilterItems > li {
+    border-bottom: 1px solid #e8e8e8;
+    background-color: #f2f2f2;
+}
+.dashboardFilterItemHeader {
+    position: relative;
+    padding: 0 5px 0 10px;
+}
+.expanded > .dashboardFilterItemHeader {
+    border-left: 4px solid #236e97;
+}
+.dashboardFilterHeaderTitle {
+    font-weight: normal;
+    line-height: 30px;
+}
+
+.dashboardFilterItemList {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+.collapsed .dashboardFilterItemList {
+    display: none;
+}
+.dashboardFilterItemList > li {
+    border-top: 1px solid #e8e8e8;
+    background-color: #fbfbfb;
+    transition: all .3s cubic-bezier(.25,.8,.25,1);
+}
+.dashboardFilterItemList > li:hover {
+    background-color: #f2f2f2;
+}
+.dashboardFilterItemList .dashboardFilterItemHeader {
+    padding-left: 20px;
+}
+.dashboardFilterItemList .dashboardFilterHeaderTitle {
+    font-weight: normal;
+    line-height: 26px;
+}
+.dashboardFilterItemList .dashboardFilterToolButtons {
+    margin-top: 5px;
+}
+
+.dashboardFilterFooter {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    height: 50px;
+    background-color: #f5f5f5;
+    padding: 0 10px;
+    box-sizing: border-box;
+}
+.dashboardFilterFooter .btn {
+    margin: 10px 0 0 0;
+    float: right;
+}
+
+.dashboardFilterToggle {
+    cursor: pointer;
+    position: absolute;
+    right: 0;
+    top: 0;
+    height: 100%;
+    width: 10px;
+    background: #cecece url(../../images/icons/icon_arrow_black_left_black.png) -2px center no-repeat;
+    z-index: 2;
+    transition: all .3s cubic-bezier(.25,.8,.25,1);
+}
+.close .dashboardFilterToggle {
+    background-image: url(../../images/icons/icon_arrow_right_black.png);
+    background-position: -4px center;
+}
+.dashboardFilterToggle:hover {
+    background-color: #b7b7b7;
+}

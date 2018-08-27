@@ -163,8 +163,8 @@
                 List<PageToolbarButtonModel> buttons = new List<PageToolbarButtonModel>();
                 buttons.Add(new PageToolbarButtonModel
                 {
-                    EnableTemplate = "<a href=\"#AddActionPopup\" class=\"btn btnAdd\" onclick=\"MC.AutomationTasks.Tasks.ShowAddActionPopup()\" data-role=\"mcPopup\" data-width=\"600\" data-min-width=\"700\" data-height=\"600\" data-min-height=\"350\">" + Resource.MC_AddAction + "</a>",
-                    DisableTemplate = " <a class=\"btn btnAdd disabled\">" + Resource.MC_AddAction + "</a>",
+                    EnableTemplate = "<a href=\"#AddActionPopup\" class=\"btn btnPrimary btnAdd\" onclick=\"MC.AutomationTasks.Tasks.ShowAddActionPopup()\" data-role=\"mcPopup\" data-width=\"600\" data-min-width=\"700\" data-height=\"600\" data-min-height=\"350\">" + Resource.MC_AddAction + "</a>",
+                    DisableTemplate = " <a class=\"btn btnPrimary btnAdd disabled\">" + Resource.MC_AddAction + "</a>", 
                     Type = PageToolbarButtonType.Custom,
                     Privilege = PrivilegeType.ScheduleTask,
                     IsTaskOwner = ViewBag.IsTaskOwner,
@@ -201,7 +201,7 @@
 
             <div class="contentSectionInfoItem contentSectionInfoItemDropdown">
                 <label>@Resource.Display:</label>
-                <p><input type="text" id="display_id" name="display_id" class="required"/><a class="btn btnLink" target="_blank" id="linkDisplay"></a></p>
+                <p><input type="text" id="display_id" name="display_id" class="required"/><a class="btn btnOpenWindow btnLink" target="_blank" id="linkDisplay"></a></p>
                 <input type="hidden" id="hdnDisplayId" />
             </div>
 

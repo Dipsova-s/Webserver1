@@ -15,6 +15,7 @@ ${tabDashboardDescription}    css=#DashboardTabs .description
 ${tabDashboardDefinition}    css=#DashboardTabs .definition
 ${tabDashboardPublishing}    css=#DashboardTabs .publishing
 ${tabDashboardStatistic}    css=#DashboardTabs .statistic
+${tabDashboardFilters}    css=#DashboardTabs .fieldsfilters
 
 #General tab elements
 ${txtDashboardId}           AngleId
@@ -38,6 +39,15 @@ ${btnConfirmPublishDashboard}    btn-popupDashboardPublishing1
 ${tabDashboardPrivilege}    jquery=#PublishTabWrapper .tabMenu li:eq(0)
 ${tabDashboardSearchLabel}    jquery=#PublishTabWrapper .tabMenu li:eq(1)
 
+#Filters Tab
+${btnAddDashboardFilter}        css=#DashboardAddfilter
+${ddlValueList}                 jquery=#InputValue-0_listbox li[data-offset-index=0]
+${ddSelectValueDropdownList}    css=#FilterDetail-0-PlaceHolder  .k-input
+${spanDateField}                css=#InputValue-
+${divAddFieldFilter}            jquery=#FieldsFiltersWrapper .FilterHeader
+${chkValueInFilter}             jquery=#FilterDetail-3-PlaceHolder
+
+
 *** Keywords ***
 Wait Dashboard Detail Document Loaded
     Wait Until Ajax Complete
@@ -60,6 +70,9 @@ Save Dashboard
     Wait Until Element Is Enabled    ${btnSaveDashboard}
     Click Element    ${btnSaveDashboard}
     Wait Progress Bar Closed
+
+Cancel Dashboard
+    Click Element    ${btnCancel}
 
 Open Dashboard Detail Popup
     Wait Until Element Is Visible    ${lnkDashboardName}
@@ -98,3 +111,39 @@ Click Confirm Publish Dashboard
     Wait Until Element Is Visible    ${btnConfirmPublishDashboard}
     Click Element    ${btnConfirmPublishDashboard}
 
+Click Dashboard Detail Filters Tab
+    Wait Until Element Is Visible    ${tabDashboardFilters}
+    Click Element    ${tabDashboardFilters}
+
+Click Add Filter Button In Dashboard Detail Popup
+    Wait Until Element Is Visible    ${btnAddDashboardFilter}
+    Click Element    ${btnAddDashboardFilter}
+
+Choose Dropdown Filter Operator In FilterField In Filters tab
+    [Arguments]    ${index}    ${selectText}
+    Choose Dropdown Filter Operator    ${index}    ${selectText}
+
+Input Filter Value
+    [Arguments]    ${value}
+    Input Text    ${ddSelectValueDropdownList}    ${value}
+
+Input Date Value
+    [Arguments]    ${index}    ${value} 
+    Input Text    ${spanDateField}${index}    ${value} 
+
+Click Add Filter From Field
+    [Arguments]    ${index}
+    Mouse Over    ${divAddFieldFilter}:eq(${index})
+    Click Element    ${divAddFieldFilter}:eq(${index}) .btnAddFilter
+
+Select Checkbox Value List
+    [Arguments]    ${index}
+    Select Checkbox    ${chkValueInFilter} input:eq(${index})        
+
+Remove Field In Fields Tab
+    [Arguments]    ${index}
+    Mouse Over    ${divAddFieldFilter}:eq(${index})
+    Click Element    ${divAddFieldFilter}:eq(${index}) .btnDelete
+
+
+    

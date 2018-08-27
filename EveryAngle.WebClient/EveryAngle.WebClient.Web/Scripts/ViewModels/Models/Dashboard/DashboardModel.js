@@ -217,6 +217,12 @@ function DashboardViewModel() {
             }
         });
 
+        // query_definition
+        data.filters = WC.Utility.ToArray(data.filters);
+        jQuery.each(data.filters, function (index) {
+            self.ExtendDashboardFilter(data.filters[index]);
+        });
+
         // custom properties
         data.model_name = ko.computed(function () {
             return self.GetModel();
@@ -993,8 +999,67 @@ function DashboardViewModel() {
         }
     };
 
+    /*
+    *  Dashboard Filter functionality
+    */
+    self.GetDashboardFiltersQueryBlock = function () {
+        // convert to query block before post result
+        var dashboardFilters = self.GetDashboardFilters();
+        if (!dashboardFilters.length)
+            return null;
+
+        return {
+            queryblock_type: enumHandlers.QUERYBLOCKTYPE.QUERY_STEPS,
+            query_steps: dashboardFilters
+        };
+    };
+    self.GetDashboardFilters = function (viewModel) {
+        var dashboardFilters = self.Data()['filters'];
+        if (viewModel) {
+            // convert to view model before binding with GUI (knockoutJS)
+            dashboardFilters = jQuery.map(dashboardFilters, function (dashboardFilter) {
+                return new viewModel(dashboardFilter);
+            });
+        }
+        return dashboardFilters;
+    };
+    self.SetDashboardFilters = function (widgetFilterModels) {
+        // convert to json and remove unused properties before post/put dashboard
+        var filters = ko.toJS(widgetFilterModels);
+        jQuery.each(filters, function (i, filter) {
+            WC.ModelHelper.RemoveReadOnlyQueryStep(filter);
+        });
+        self.Data()['filters'] = filters;
+    };
+    self.ExtendDashboardFilter = function (filter) {
+        // normalize object before convert to view model
+        filter.field = WC.Utility.ToString(filter.field);
+        filter.operator = WC.Utility.ToString(filter.operator);
+        filter.arguments = WC.Utility.ToArray(filter.arguments);
+        jQuery.each(filter.arguments, function (i, argument) {
+            if (argument.argument_type === enumHandlers.FILTERARGUMENTTYPE.VALUE && typeof argument.value === 'undefined')
+                argument.value = null;
+        });
+    };
+    self.GetAllDashboardFilterFieldIds = function () {
+        var filterFieldIds = [];
+        var dashboardFilters = self.Data().filters;
+        jQuery.each(dashboardFilters, function (i, filter) {
+            var argumentFieldIds = jQuery.map(filter.arguments, function (argument) {
+                return argument.argument_type === enumHandlers.FILTERARGUMENTTYPE.FIELD ? argument.field : null;
+            });
+            filterFieldIds.push(filter.field);
+            jQuery.merge(filterFieldIds, argumentFieldIds);
+        });
+        filterFieldIds = filterFieldIds.distinct();
+        return filterFieldIds;
+    };
+    /*
+    *  Dashboard Filter functionality
+    */
+
     self.UpdatePublicationsWatcher = function () {
-        // update publiactions watcher
+        // update publications watcher
         jQuery.each(self.Angles, function (index, angle) {
             jQuery.each(angle.display_definitions, function (indexDisplay, display) {
                 jQuery.storageWatcher(enumHandlers.STORAGE.WATCHER_DASHBOARD_PUBLICATIONS.replace('{uri}', display.uri), display.is_public);

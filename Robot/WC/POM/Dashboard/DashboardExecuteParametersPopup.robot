@@ -44,6 +44,9 @@ Expand Dashboard Parameters First Filter Panel
 Expand Dashboard Parameters Second Filter Panel
     Expand Filter Panel    1
 
+Expand Dashboard Parameters Third Filter Panel
+    Expand Filter Panel    2
+
 Choose First Dropdown Filter Operator Dashboard Parameters
     [Arguments]    ${operator}
     Choose Dropdown Filter Operator    0    ${operator}

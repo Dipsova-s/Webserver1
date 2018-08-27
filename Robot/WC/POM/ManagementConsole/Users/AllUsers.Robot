@@ -2,7 +2,7 @@
 ${trRowInAllUserGrid}                   jquery=#AllUsersGridContainer tbody tr
 ${btnEditUser}                        .btnGroupContainer>.btn
 ${btnActionEditUser}                  .btnGroupInner .btnEdit
-${btnActionShowConsolidateRoleForUser}       .btnGroupInner .btnInfo
+${btnActionShowConsolidateRoleForUser}       .btnGroupInner .btnOpenWindow
 ${btnActionDeleteUser}                .btnGroupInner .btnDelete
 
 #Add new user variables

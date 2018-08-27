@@ -13,6 +13,7 @@ function FieldsChooserHandler() {
     self.USETYPE = {
         ADDCOLUMN: 'AddColumn',
         ADDFILTER: 'AddFilter',
+        ADDDASHBOARDFILTER: 'AddDashboardFilter',
         ADDAGGREGATION: 'AddAggregation'
     };
     //EOF: View model properties
@@ -26,10 +27,9 @@ function FieldsChooserHandler() {
             type = null;
 
         self.PopupConfig = self.GetPopupConfiguration(type, handler);
-
         window.fieldsChooserModel = new FieldsChooserModel();
-
         fieldsChooserModel.GridName = enumHandlers.FIELDCHOOSERNAME.FIELDCHOOSER;
+        fieldsChooserModel.ModelUri = self.ModelUri;
 
         // set fields & source fields
         fieldsChooserModel.FieldsSource = modelFieldSourceHandler.GetFieldsSourceByModelUri(self.ModelUri);
@@ -39,7 +39,6 @@ function FieldsChooserHandler() {
         var defaultStarred = userSettingModel.GetClientSettingByPropertyName(enumHandlers.CLIENT_SETTINGS_PROPERTY.DEFAULT_STARRED_FIELDS);
         var defaultSuggested = userSettingModel.GetClientSettingByPropertyName(enumHandlers.CLIENT_SETTINGS_PROPERTY.DEFAULT_SUGGESTED_FIELDS);
         fieldsChooserModel.DefaultFacetFilters = self.GetDefaultFacetFilters(defaultStarred, defaultSuggested);
-
         fieldsChooserModel.BeforeOpenCategoryFunction = null;
         fieldsChooserModel.HideFacetsFunction = function () { return false; };
         fieldsChooserModel.DisabledFacetsFunction = function () { return false; };
@@ -89,6 +88,17 @@ function FieldsChooserHandler() {
         popupSettings.buttons = self.GetFieldChooserButtons();
 
         // decide to set type of field chooser popup
+        self.InitializePopupSettingsByName(popupName, popupSettings, handler);
+
+        // start render field chooser popup
+        fieldsChooserModel.GetFieldChooserButtons = function () {
+            return popupSettings.buttons;
+        };
+
+        // initialize popup
+        fieldsChooserModel.DisplayFieldChooserPopup(popupSettings)
+    };
+    self.InitializePopupSettingsByName = function (popupName, popupSettings, handler) {
         switch (popupName) {
             case self.USETYPE.ADDCOLUMN:
                 self.SetAddColumnPopupSettings(popupSettings, handler, window.listHandler);
@@ -101,15 +111,14 @@ function FieldsChooserHandler() {
             case self.USETYPE.ADDAGGREGATION:
                 self.SetAddAggregationPopupSettings(popupSettings);
                 break;
+
+            case self.USETYPE.ADDDASHBOARDFILTER:
+                self.SetAddDashboardFilterPopupSettings(popupSettings, handler);
+                break;
+
+            default:
+                break;
         }
-
-        // start render field chooser popup
-        fieldsChooserModel.GetFieldChooserButtons = function () {
-            return popupSettings.buttons;
-        };
-
-        // initialize popup
-        fieldsChooserModel.DisplayFieldChooserPopup(popupSettings)
     };
     self.GetFieldChooserButtons = function () {
         return [
@@ -179,6 +188,28 @@ function FieldsChooserHandler() {
                 return false;
             };
         }
+    };
+    self.SetAddDashboardFilterPopupSettings = function (popupSettings, handler) {
+        popupSettings.title = Localization.SelectAPropertyToApplyAsFilter;
+
+        self.SetSubmitButtonCaption(popupSettings, Localization.Ok);
+
+        fieldsChooserModel.CanDuplicatedField = false;
+        fieldsChooserModel.AllowMultipleSelection = false;
+        fieldsChooserModel.FacetsHidden = [];
+        fieldsChooserModel.GetCustomQueryUriFunction = function (page) {
+            var request = this.GetQueryFilterDefaultUri(page);
+            var dashboardModelData = dashboardModel.Data();
+            request.url = modelsHandler.GetQueryFieldsUri(null, dashboardModelData, true);
+            return request;
+        };
+        fieldsChooserModel.CheckFieldIsExistsFunction = function (fieldId) {
+            return handler.GetData().hasObject('field', fieldId, false);
+        };
+        fieldsChooserModel.OnSubmit = function () {
+            handler.AddFilters(fieldsChooserModel.SelectedItems(), enumHandlers.FILTERTYPE.FILTER);
+            fieldsChooserModel.ClosePopup();
+        };
     };
     self.IsFieldTypeInGroup = function (id, type) {
         var group = ['number', 'int', 'double'];
@@ -367,7 +398,9 @@ function FieldsChooserHandler() {
         return followupIndex;
     };
     self.GetFieldChooserType = function (type) {
-        return type === enumHandlers.ANGLEPOPUPTYPE.ANGLE || type === enumHandlers.ANGLEPOPUPTYPE.DISPLAY ? null : type;
+        return type === enumHandlers.ANGLEPOPUPTYPE.ANGLE
+            || type === enumHandlers.ANGLEPOPUPTYPE.DISPLAY
+            || type === enumHandlers.ANGLEPOPUPTYPE.DASHBOARD ? null : type;
     };
     self.GetDefaultFacetFilters = function (defaultStarred, defaultSuggested) {
         var filters = [];

@@ -6,6 +6,7 @@ Resource            ${EXECDIR}/WC/POM/Angle/AddToDashboardPopup.robot
 ***Variables***
 ${dashboardName}   [ROBOT] Dashboard Test
 
+
 *** Keywords ***
 Dashboard Details
     Create Dashboard With 2 Angles    ${dashboardName}
@@ -86,3 +87,16 @@ Set Dashboard to Publish
     Wait Until Page Contains    Published Displays
     Click Confirm Publish Dashboard
     Wait Until Ajax Complete
+
+Select Field From Filters Tab
+    [Arguments]   ${fieldKeyword}    ${fieldId}
+    Add Field By Search From Field Chooser    ${fieldKeyword}    ${fieldId}
+
+Verify Dashboard Filter Still Showing
+    [Arguments]   ${index}    ${expectFilterText}
+    Click Add Filter From Field    ${index}
+    ${filterText}    Get Text    css=#FilterHeader-${index} .filterText  
+    Should Be Equal    ${filterText}    ${expectFilterText}   
+
+
+ 

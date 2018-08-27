@@ -37,8 +37,8 @@
             List<PageToolbarButtonModel> buttons = new List<PageToolbarButtonModel>();
             buttons.Add(new PageToolbarButtonModel
             {
-                EnableTemplate = "<a href=\"#popupDatastorePlugins\" class=\"btn\" onclick=\"MC.AutomationTasks.DataStores.ShowCreateNewDatastoresPopup()\" title=\"" + Resource.MC_DatastorePlugins + "\" data-width=\"400\" data-min-height=\"100\" data-role=\"mcPopup\">" + Resource.MC_AddNewDatastore + "</a>",
-                DisableTemplate = "<a class=\"btn btnAdd disabled\">" + Resource.MC_AddNewDatastore + "</a>",
+                EnableTemplate = "<a href=\"#popupDatastorePlugins\" class=\"btn btnPrimary btnAdd\" onclick=\"MC.AutomationTasks.DataStores.ShowCreateNewDatastoresPopup()\" title=\"" + Resource.MC_DatastorePlugins + "\" data-width=\"400\" data-min-height=\"100\" data-role=\"mcPopup\">" + Resource.MC_AddNewDatastore + "</a>",
+                DisableTemplate = "<a class=\"btn btnPrimary btnAdd disabled\">" + Resource.MC_AddNewDatastore + "</a>",
                 Type = PageToolbarButtonType.Custom,
                 Privilege = PrivilegeType.System
             });

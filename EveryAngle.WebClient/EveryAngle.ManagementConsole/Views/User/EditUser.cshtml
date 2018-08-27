@@ -113,15 +113,15 @@
                         List<PageToolbarButtonModel> buttons = new List<PageToolbarButtonModel>();
                         buttons.Add(new PageToolbarButtonModel
                         {
-                            EnableTemplate = " <a id=\"subRolesButton\" class=\"btn btnAdd\" onclick=\"MC.Users.User.ShowAvailableRoleGridPopup(this)\" data-grid=\"SubRolesGrid\" data-target=\"#popupSubRolesTable\" title=\"" + Resource.MC_SelectRolesAdd + "\" data-width=\"700\" data-role=\"mcPopup\">" + Resource.MC_AddRole + "</a>",
-                            DisableTemplate = " <a id=\"subRolesButton\" class=\"btn btnAdd disabled\">" + Resource.MC_AddRole + "</a>",
+                            EnableTemplate = " <a id=\"subRolesButton\" class=\"btn btnPrimary btnAdd\" onclick=\"MC.Users.User.ShowAvailableRoleGridPopup(this)\" data-grid=\"SubRolesGrid\" data-target=\"#popupSubRolesTable\" title=\"" + Resource.MC_SelectRolesAdd + "\" data-width=\"700\" data-role=\"mcPopup\">" + Resource.MC_AddRole + "</a>",
+                            DisableTemplate = " <a id=\"subRolesButton\" class=\"btn btnPrimary btnAdd disabled\">" + Resource.MC_AddRole + "</a>",
                             Type = PageToolbarButtonType.Custom,
                             Label = Resource.MC_AddRole,
                             Privilege = PrivilegeType.User
                         });
                         @Html.RenderPageToolbarBottom(buttons)    
                     }
-                    <a id="consolidatedRoleButton" class="btn" onclick="MC.Users.User.ShowConsolidatedRolePopup('@Model.Uri')" data-grid="SubRolesGrid" data-target="#ConsoliDatedRolePopup" title="@Resource.MC_ShowConsolidatedRole" data-width="700" data-height="600" data-role="mcPopup">@Resource.MC_ShowConsolidatedRole</a>
+                    <a id="consolidatedRoleButton" class="btn" onclick="MC.Users.User.ShowConsolidatedRolePopup('@Model.Uri')" data-grid="SubRolesGrid" data-target="#ConsoliDatedRolePopup" title="@Resource.MC_ShowConsolidatedRole" data-width="700" data-height="600" data-min-height="400" data-role="mcPopup">@Resource.MC_ShowConsolidatedRole</a>
                 </div>
             </div>
             <!--/.contentSectionGrid-->

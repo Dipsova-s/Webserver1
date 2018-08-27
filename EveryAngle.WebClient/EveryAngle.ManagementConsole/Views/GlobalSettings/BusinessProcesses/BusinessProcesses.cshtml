@@ -156,8 +156,8 @@
                     buttons = new List<PageToolbarButtonModel>();
                     buttons.Add(new PageToolbarButtonModel
                     {
-                        EnableTemplate = "<a class=\"btn btnAdd\" data-role=\"auto-template\" data-grid=\"#BusinessProcessesGrid\" data-template=\"#BusinessProcessesGrid tbody tr:first\" data-callback=\"MC.GlobalSettings.BusinessProcesses.AddBusinessProcessRowCallback\" data-custom-fields='{\"0\": \"<a class=\\\"btnMove\\\" title=\\\"Move\\\"></a>\", \"1\": \"<input maxlength=\\\"50\\\" type=\\\"text\\\" name=\\\"id\\\" class=\\\"required field_id\\\" />\"}'>"+ Resource.Add+ " "+ Resource.BusinessProcesses +"</a>",
-                        DisableTemplate = "<a class=\"btn btnAdd disabled\" data-custom-fields='{\"0\": \"<a class=\\\"btnMove\\\" title=\\\"Move\\\"></a>\", \"1\": \"<input maxlength=\\\"50\\\" type=\\\"text\\\" name=\\\"id\\\" class=\\\"required field_id\\\" />\"}'>" + Resource.Add + " " + Resource.BusinessProcesses + "</a>",
+                        EnableTemplate = "<a class=\"btn btnPrimary btnAdd\" data-role=\"auto-template\" data-grid=\"#BusinessProcessesGrid\" data-template=\"#BusinessProcessesGrid tbody tr:first\" data-callback=\"MC.GlobalSettings.BusinessProcesses.AddBusinessProcessRowCallback\" data-custom-fields='{\"0\": \"<a class=\\\"btnMove\\\" title=\\\"Move\\\"></a>\", \"1\": \"<input maxlength=\\\"50\\\" type=\\\"text\\\" name=\\\"id\\\" class=\\\"required field_id\\\" />\"}'>" + Resource.Add+ " "+ Resource.BusinessProcesses +"</a>",
+                        DisableTemplate = "<a class=\"btn btnPrimary btnAdd disabled\" data-custom-fields='{\"0\": \"<a class=\\\"btnMove\\\" title=\\\"Move\\\"></a>\", \"1\": \"<input maxlength=\\\"50\\\" type=\\\"text\\\" name=\\\"id\\\" class=\\\"required field_id\\\" />\"}'>" + Resource.Add + " " + Resource.BusinessProcesses + "</a>",
                         Type = PageToolbarButtonType.Custom,
                         Privilege = PrivilegeType.System
                     });
