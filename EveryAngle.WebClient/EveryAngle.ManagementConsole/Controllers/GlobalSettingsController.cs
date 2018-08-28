@@ -1203,6 +1203,13 @@ namespace EveryAngle.ManagementConsole.Controllers
             else
             {
                 FileInfo fileInfo = new FileInfo(logFile);
+
+                if (!fileInfo.FullName.StartsWith(logDirectory.FullName, StringComparison.InvariantCultureIgnoreCase))
+                {
+                    throw new UnauthorizedAccessException(
+                        String.Format("Access to {0} is denied.", fileInfo.FullName));
+                }
+
                 fileBytes = System.IO.File.ReadAllBytes(logFile);
                 fileName = fileInfo.Name;
             }
