@@ -2308,7 +2308,7 @@ function ListHandler(elementId, container) {
             }
         };
 
-        jQuery(document).off('mouseup.copy').on('mouseup.copy', function () {
+        jQuery(grid.element).off('mouseup.copy').on('mouseup.copy', function () {
             setIsCopyText();
         });
 
