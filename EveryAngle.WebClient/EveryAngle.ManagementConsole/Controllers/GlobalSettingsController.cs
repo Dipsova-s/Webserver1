@@ -1204,16 +1204,25 @@ namespace EveryAngle.ManagementConsole.Controllers
             {
                 FileInfo fileInfo = new FileInfo(logFile);
 
-                if (!fileInfo.FullName.StartsWith(logDirectory.FullName, StringComparison.InvariantCultureIgnoreCase))
-                {
-                    throw new UnauthorizedAccessException(
-                        String.Format("Access to {0} is denied.", fileInfo.FullName));
-                }
+                VerifyArbitraryPathTraversal(fileInfo);
 
                 fileBytes = System.IO.File.ReadAllBytes(logFile);
                 fileName = fileInfo.Name;
             }
             return File(fileBytes, MediaTypeNames.Application.Octet, fileName);
+        }
+
+        private void VerifyArbitraryPathTraversal(FileInfo fileInfo)
+        {
+            string logFileFolder = LogManager.GetLogPath(ConfigurationManager.AppSettings.Get("LogFileFolder"));
+            string fullPathLogFileFolder = Path.GetFullPath(logFileFolder);
+            DirectoryInfo logDirectoryInfo = new DirectoryInfo(fullPathLogFileFolder);
+
+            if (!fileInfo.FullName.StartsWith(logDirectoryInfo.FullName, StringComparison.InvariantCultureIgnoreCase))
+            {
+                throw new UnauthorizedAccessException(
+                    String.Format("Access to {0} is denied.", fileInfo.FullName));
+            }
         }
 
         private void DownloadAndCreateLogFile(ref string fullPath)
