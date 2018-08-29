@@ -28,6 +28,7 @@ using System.Configuration;
 using System.Drawing;
 using System.IO;
 using System.Linq;
+using System.Net;
 using System.Net.Mime;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
@@ -1205,6 +1206,7 @@ namespace EveryAngle.ManagementConsole.Controllers
                 FileInfo fileInfo = new FileInfo(logFile);
 
                 VerifyArbitraryPathTraversal(fileInfo);
+                VerifyFileExtension(fileInfo);
 
                 fileBytes = System.IO.File.ReadAllBytes(logFile);
                 fileName = fileInfo.Name;
@@ -1220,8 +1222,25 @@ namespace EveryAngle.ManagementConsole.Controllers
 
             if (!fileInfo.FullName.StartsWith(logDirectoryInfo.FullName, StringComparison.InvariantCultureIgnoreCase))
             {
-                throw new UnauthorizedAccessException(
-                    String.Format("Access to {0} is denied.", fileInfo.FullName));
+                throw new HttpException((int) HttpStatusCode.Forbidden, JsonConvert.SerializeObject(new
+                {
+                    reason = HttpStatusCode.Forbidden.ToString(),
+                    message = String.Format("Access to {0} is denied.", fileInfo.FullName)
+                }));
+            }
+        }
+
+        private void VerifyFileExtension(FileInfo fileInfo)
+        {
+            var whitelistFileExtension = new[] { ".log", ".csl" };
+
+            if (!whitelistFileExtension.Contains(fileInfo.Extension))
+            {
+                throw new HttpException((int)HttpStatusCode.Forbidden, JsonConvert.SerializeObject(new
+                {
+                    reason = HttpStatusCode.Forbidden.ToString(),
+                    message = "ONLY .csl and .log files are allowed to be requested"
+                }));
             }
         }
 
