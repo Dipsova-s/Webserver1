@@ -108,6 +108,7 @@
     <Compile Include="Controllers\AutomationTasksControllerTests.cs" />
     <Compile Include="Controllers\CommentControllerTests.cs" />
     <Compile Include="Controllers\DownloadTableControllerTests.cs" />
+    <Compile Include="Controllers\GlobalSettingsControllerTests.cs" />
     <Compile Include="Controllers\ModelControllerTests.cs" />
     <Compile Include="Controllers\PackagesControllerTests.cs" />
     <Compile Include="Controllers\SystemRoleControllerTest.cs" />

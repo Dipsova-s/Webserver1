@@ -46,12 +46,8 @@ namespace EveryAngle.ManagementConsole.Controllers
         #endregion
 
         #region private variables
-        // search patterns for WC amd MC log files
-        private readonly Dictionary<SystemLogType, string[]> webLogFilters = new Dictionary<SystemLogType, string[]>
-        {
-            { SystemLogType.WebClient, WebConfigHelper.WebClientSearchPatterns },
-            { SystemLogType.ManagementConsole, WebConfigHelper.ManagementConsoleSearchPatterns }
-        };
+        private Dictionary<SystemLogType, string[]> _webLogFilters;
+
         private DirectoryInfo logDirectory
         {
             get
@@ -943,10 +939,25 @@ namespace EveryAngle.ManagementConsole.Controllers
             });
         }
 
+        private string[] GetWebLogFilters(SystemLogType logType)
+        {
+            // search patterns for WC amd MC log files
+            if (_webLogFilters == null)
+            {
+                _webLogFilters = new Dictionary<SystemLogType, string[]>
+                {
+                    { SystemLogType.WebClient, WebConfigHelper.WebClientSearchPatterns },
+                    { SystemLogType.ManagementConsole, WebConfigHelper.ManagementConsoleSearchPatterns }
+                };
+            }
+            
+            return _webLogFilters[logType];
+        }
+
         private List<FileModel> GetClientLog(DataSourceRequest request, SystemLogType logType, ref int total)
         {
             string logFileFolder = LogManager.GetLogPath(ConfigurationManager.AppSettings.Get("LogFileFolder"));
-            string[] searchPatterns = webLogFilters[logType];
+            string[] searchPatterns = GetWebLogFilters(logType);
             List<FileModel> files = FileModel.GetFiles(logFileFolder, searchPatterns);
             int skip = request.PageSize * (request.Page - 1);
 
@@ -1225,7 +1236,7 @@ namespace EveryAngle.ManagementConsole.Controllers
                 throw new HttpException((int) HttpStatusCode.Forbidden, JsonConvert.SerializeObject(new
                 {
                     reason = HttpStatusCode.Forbidden.ToString(),
-                    message = String.Format("Access to {0} is denied.", fileInfo.FullName)
+                    message = String.Format("Access to the requested path denied")
                 }));
             }
         }
@@ -1239,7 +1250,7 @@ namespace EveryAngle.ManagementConsole.Controllers
                 throw new HttpException((int)HttpStatusCode.Forbidden, JsonConvert.SerializeObject(new
                 {
                     reason = HttpStatusCode.Forbidden.ToString(),
-                    message = "ONLY .csl and .log files are allowed to be requested"
+                    message = "Access to the requested path denied"
                 }));
             }
         }

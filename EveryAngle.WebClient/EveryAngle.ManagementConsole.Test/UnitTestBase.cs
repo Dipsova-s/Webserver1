@@ -44,6 +44,7 @@ namespace EveryAngle.ManagementConsole.Test
         protected readonly Mock<IPackageService> packageService = new Mock<IPackageService>();
         protected readonly Mock<IFacetService> facetService = new Mock<IFacetService>();
 		protected readonly Mock<ISystemInformationService> systemInformationService = new Mock<ISystemInformationService>();
+		protected readonly Mock<IWebClientConfigService> webClientConfigService = new Mock<IWebClientConfigService>();
 
         #endregion
 
