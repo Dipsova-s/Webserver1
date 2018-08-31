@@ -1236,7 +1236,7 @@ namespace EveryAngle.ManagementConsole.Controllers
                 throw new HttpException((int) HttpStatusCode.Forbidden, JsonConvert.SerializeObject(new
                 {
                     reason = HttpStatusCode.Forbidden.ToString(),
-                    message = String.Format("Access to the requested path denied")
+                    message = "Access to the requested path denied"
                 }));
             }
         }
