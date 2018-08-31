@@ -1529,6 +1529,7 @@ function DashboardHandler() {
                             maximizeWrapper.empty().removeClass('active').removeData();
                         }
 
+                        // remove widget
                         var splitter = element.parent().data(enumHandlers.KENDOUITYPE.SPLITTER);
                         splitter.remove(element);
                         if (splitter.element.children('.k-pane').length === 0) {
@@ -1536,7 +1537,12 @@ function DashboardHandler() {
                             rowSplitter.remove(splitter.element);
                         }
 
-                        if (dashboardModel.Data().widget_definitions.length <= 1) {
+                        if (!dashboardModel.Data().widget_definitions.length) {
+                            // destroy splitter of no widget
+                            jQuery('#dashboardWrapper').data(enumHandlers.KENDOUITYPE.SPLITTER).destroy();
+                        }
+                        else if (dashboardModel.Data().widget_definitions.length <= 1) {
+                            // disable maximize/inimize if remains 1 widget
                             jQuery('#dashboardWrapper').find('.widgetButtonMaximize, .widgetButtonMinimize').addClass('disabled');
                         }
                     })
