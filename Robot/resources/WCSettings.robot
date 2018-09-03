@@ -2,7 +2,6 @@
 Library             OperatingSystem
 Library             Selenium2Library    	timeout=${Timeout}
 Library             HttpLibrary.HTTP
-Library             RequestsLibrary
 Library             DateTime
 Library             String
 Library             Collections

@@ -13,6 +13,7 @@ using EveryAngle.Core.ViewModels.WebClientSettings;
 using EveryAngle.ManagementConsole.Helpers;
 using EveryAngle.ManagementConsole.Helpers.Controls;
 using EveryAngle.ManagementConsole.Models;
+using EveryAngle.Shared.Globalization;
 using EveryAngle.Shared.Helpers;
 using EveryAngle.WebClient.Service;
 using EveryAngle.WebClient.Service.HttpHandlers;
@@ -1236,7 +1237,7 @@ namespace EveryAngle.ManagementConsole.Controllers
                 throw new HttpException((int) HttpStatusCode.Forbidden, JsonConvert.SerializeObject(new
                 {
                     reason = HttpStatusCode.Forbidden.ToString(),
-                    message = "Access to the requested path denied"
+                    message = Resource.MC_AccessRequestedPathDenied
                 }));
             }
         }
@@ -1250,7 +1251,7 @@ namespace EveryAngle.ManagementConsole.Controllers
                 throw new HttpException((int)HttpStatusCode.Forbidden, JsonConvert.SerializeObject(new
                 {
                     reason = HttpStatusCode.Forbidden.ToString(),
-                    message = "Access to the requested path denied"
+                    message = Resource.MC_AccessRequestedPathDenied
                 }));
             }
         }
