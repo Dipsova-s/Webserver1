@@ -69,7 +69,7 @@ Force Logout WC
     Wait Search Page Document Loaded
     Logout
 
-Force Logout MC Them Close Browser
+Force Logout MC Then Close Browser
     Go to    ${URL_MC}/security/logout
     Close Browser
 

@@ -1,7 +1,7 @@
 *** Settings ***
 Resource            ${EXECDIR}/resources/WCSettings.robot
 Suite Setup         Go to MC Then Login With Admin User
-Suite Teardown      Force Logout MC Them Close Browser
+Suite Teardown      Force Logout MC Then Close Browser
 Force Tags          MC    acc_mc
 
 *** Test Cases ***
