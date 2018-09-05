@@ -1542,7 +1542,7 @@ function DashboardHandler() {
                             jQuery('#dashboardWrapper').data(enumHandlers.KENDOUITYPE.SPLITTER).destroy();
                         }
                         else if (dashboardModel.Data().widget_definitions.length <= 1) {
-                            // disable maximize/inimize if remains 1 widget
+                            // disable maximize/minimize if remains 1 widget
                             jQuery('#dashboardWrapper').find('.widgetButtonMaximize, .widgetButtonMinimize').addClass('disabled');
                         }
                     })
