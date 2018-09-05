@@ -69,6 +69,10 @@ Force Logout WC
     Wait Search Page Document Loaded
     Logout
 
+Force Logout MC Then Close Browser
+    Go to    ${URL_MC}/security/logout
+    Close Browser
+
 Get MC Language Page Url
     ${languagePageUrl}    Execute JavaScript    return window.location.origin + "/${Branch}/admin/home/index#/Global settings/Languages/"
     [Return]    ${languagePageUrl}

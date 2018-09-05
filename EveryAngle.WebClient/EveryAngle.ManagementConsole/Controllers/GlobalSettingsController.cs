@@ -13,6 +13,7 @@ using EveryAngle.Core.ViewModels.WebClientSettings;
 using EveryAngle.ManagementConsole.Helpers;
 using EveryAngle.ManagementConsole.Helpers.Controls;
 using EveryAngle.ManagementConsole.Models;
+using EveryAngle.Shared.Globalization;
 using EveryAngle.Shared.Helpers;
 using EveryAngle.WebClient.Service;
 using EveryAngle.WebClient.Service.HttpHandlers;
@@ -28,6 +29,7 @@ using System.Configuration;
 using System.Drawing;
 using System.IO;
 using System.Linq;
+using System.Net;
 using System.Net.Mime;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
@@ -45,12 +47,8 @@ namespace EveryAngle.ManagementConsole.Controllers
         #endregion
 
         #region private variables
-        // search patterns for WC amd MC log files
-        private readonly Dictionary<SystemLogType, string[]> webLogFilters = new Dictionary<SystemLogType, string[]>
-        {
-            { SystemLogType.WebClient, WebConfigHelper.WebClientSearchPatterns },
-            { SystemLogType.ManagementConsole, WebConfigHelper.ManagementConsoleSearchPatterns }
-        };
+        private Dictionary<SystemLogType, string[]> _webLogFilters;
+
         private DirectoryInfo logDirectory
         {
             get
@@ -942,10 +940,25 @@ namespace EveryAngle.ManagementConsole.Controllers
             });
         }
 
+        private string[] GetWebLogFilters(SystemLogType logType)
+        {
+            // search patterns for WC amd MC log files
+            if (_webLogFilters == null)
+            {
+                _webLogFilters = new Dictionary<SystemLogType, string[]>
+                {
+                    { SystemLogType.WebClient, WebConfigHelper.WebClientSearchPatterns },
+                    { SystemLogType.ManagementConsole, WebConfigHelper.ManagementConsoleSearchPatterns }
+                };
+            }
+            
+            return _webLogFilters[logType];
+        }
+
         private List<FileModel> GetClientLog(DataSourceRequest request, SystemLogType logType, ref int total)
         {
             string logFileFolder = LogManager.GetLogPath(ConfigurationManager.AppSettings.Get("LogFileFolder"));
-            string[] searchPatterns = webLogFilters[logType];
+            string[] searchPatterns = GetWebLogFilters(logType);
             List<FileModel> files = FileModel.GetFiles(logFileFolder, searchPatterns);
             int skip = request.PageSize * (request.Page - 1);
 
@@ -1203,10 +1216,44 @@ namespace EveryAngle.ManagementConsole.Controllers
             else
             {
                 FileInfo fileInfo = new FileInfo(logFile);
+
+                VerifyArbitraryPathTraversal(fileInfo);
+                VerifyFileExtension(fileInfo);
+
                 fileBytes = System.IO.File.ReadAllBytes(logFile);
                 fileName = fileInfo.Name;
             }
             return File(fileBytes, MediaTypeNames.Application.Octet, fileName);
+        }
+
+        private void VerifyArbitraryPathTraversal(FileInfo fileInfo)
+        {
+            string logFileFolder = LogManager.GetLogPath(ConfigurationManager.AppSettings.Get("LogFileFolder"));
+            string fullPathLogFileFolder = Path.GetFullPath(logFileFolder);
+            DirectoryInfo logDirectoryInfo = new DirectoryInfo(fullPathLogFileFolder);
+
+            if (!fileInfo.FullName.StartsWith(logDirectoryInfo.FullName, StringComparison.InvariantCultureIgnoreCase))
+            {
+                throw new HttpException((int) HttpStatusCode.Forbidden, JsonConvert.SerializeObject(new
+                {
+                    reason = HttpStatusCode.Forbidden.ToString(),
+                    message = Resource.MC_AccessRequestedPathDenied
+                }));
+            }
+        }
+
+        private void VerifyFileExtension(FileInfo fileInfo)
+        {
+            var whitelistFileExtension = new[] { ".log", ".csl" };
+
+            if (!whitelistFileExtension.Contains(fileInfo.Extension))
+            {
+                throw new HttpException((int)HttpStatusCode.Forbidden, JsonConvert.SerializeObject(new
+                {
+                    reason = HttpStatusCode.Forbidden.ToString(),
+                    message = Resource.MC_AccessRequestedPathDenied
+                }));
+            }
         }
 
         private void DownloadAndCreateLogFile(ref string fullPath)
