@@ -299,3 +299,5 @@ __pycache__/
 !/Robot/**/Packages/**
 /Robot/chromedriver.exe
 /Robot/report/**
+/NET/Frontend/WebDeploy
+/SetupFiles/ThirdParty/7-Zip

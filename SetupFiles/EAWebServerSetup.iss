@@ -7,7 +7,7 @@
 ;Inno Source: http://www.hackchina.com/en/cont/123128 
 ;DotNet Libraries: http://www.codeproject.com/KB/install/dotnetfx_innosetup_instal.aspx
 
-#define RemoteSource = "\\NL-EABLD001\Perforce\M4\Releases\Release2017_Sub10"
+#define RemoteSource = ".\.."
 #define VersionFile = "EveryAngle.WebClient\EveryAngle.WebClient.Web\bin\EveryAngle.WebClient.Web.dll"
 
 ;If no sourceDir specified, try .\..\.., else use RemoteSource
@@ -115,7 +115,7 @@ Source: "NET\Frontend\WebDeploy\EveryAngle.WebClient.Web.zip"; DestDir: "{code:D
 Source: "NET\Frontend\WebDeploy\EveryAngle.WebClient.Web.SetParameters.xml"; DestDir: "{code:DataPath|WebDeploy}"; Components: webclient
 Source: "NET\Frontend\WebDeploy\EveryAngle.WebClient.Web.deploy.cmd"; DestDir: "{code:DataPath|WebDeploy}"; Flags: ignoreversion; Components: webclient
 ;Diagrams
-Source: "{#ContentDir}\Content\Diagrams\*.*"; DestDir: "{code:DataPath|WebDeploy\Diagrams}"; Flags: recursesubdirs ignoreversion deleteafterinstall; BeforeInstall: RegisterDiagramFile(); Components: webclient
+Source: "Content\Diagrams\*.*"; DestDir: "{code:DataPath|WebDeploy\Diagrams}"; Flags: recursesubdirs ignoreversion deleteafterinstall; BeforeInstall: RegisterDiagramFile(); Components: webclient
 ;ManagementConsole
 Source: "NET\Frontend\WebDeploy\EveryAngle.ManagementConsole.Web.deploy-readme.txt"; DestDir: "{code:DataPath|WebDeploy}"; Flags: ignoreversion; Components: webclient
 Source: "NET\Frontend\WebDeploy\EveryAngle.ManagementConsole.Web.SourceManifest.xml"; DestDir: "{code:DataPath|WebDeploy}"; Flags: ignoreversion; Components: webclient
@@ -131,10 +131,11 @@ Source: "EveryAngle.WebClient\EveryAngle.WebClient.Web\bin\EveryAngle.CSM.Client
 Source: "EveryAngle.WebClient\EveryAngle.WebClient.Web\bin\EveryAngle.CSM.Reg.exe"; DestDir: "{code:DataPath|AppServerReg}"; Flags: ignoreversion; Components: webclient
 Source: "EveryAngle.WebClient\EveryAngle.WebClient.Web\bin\EveryAngle.CSM.Reg.exe.config"; DestDir: "{code:DataPath|AppServerReg}"; Flags: ignoreversion; Components: webclient
 Source: "EveryAngle.WebClient\EveryAngle.WebClient.Web\bin\EveryAngle.CSM.Shared.dll"; DestDir: "{code:DataPath|AppServerReg}"; Flags: ignoreversion; Components: webclient
-Source: "EveryAngle.WebClient\EveryAngle.WebClient.Web\bin\Microsoft.Rest.ClientRuntime.dll"; DestDir: "{code:DataPath|AppServerReg}"; Flags: ignoreversion; Components: webclient
-Source: "EveryAngle.WebClient\EveryAngle.WebClient.Web\bin\Newtonsoft.Json.dll"; DestDir: "{code:DataPath|AppServerReg}"; Flags: ignoreversion; Components: webclient
 Source: "EveryAngle.WebClient\EveryAngle.WebClient.Web\bin\EveryAngle.Utilities.dll"; DestDir: "{code:DataPath|AppServerReg}"; Flags: ignoreversion; Components: webclient
 Source: "EveryAngle.WebClient\EveryAngle.WebClient.Web\bin\EveryAngle.Security.dll"; DestDir: "{code:DataPath|AppServerReg}"; Flags: ignoreversion; Components: webclient
+Source: "EveryAngle.WebClient\EveryAngle.WebClient.Web\bin\Ionic.Zip.dll"; DestDir: "{code:DataPath|AppServerReg}"; Flags: ignoreversion; Components: webclient
+Source: "EveryAngle.WebClient\EveryAngle.WebClient.Web\bin\Microsoft.Rest.ClientRuntime.dll"; DestDir: "{code:DataPath|AppServerReg}"; Flags: ignoreversion; Components: webclient
+Source: "EveryAngle.WebClient\EveryAngle.WebClient.Web\bin\Newtonsoft.Json.dll"; DestDir: "{code:DataPath|AppServerReg}"; Flags: ignoreversion; Components: webclient
   
 ;Certificate installer
 Source: "DeploymentTools\bin\EveryAngle.CustomerCertificates.Installer.console.exe"; DestDir: "{code:DataPath|Tools}"; Flags: ignoreversion; Components: webclient
@@ -866,9 +867,6 @@ var
   AppVersion: string;
   MachineName: string; 
   CmdParams: string;
-  ResultCode: integer;
-  command: string;
-  AppPath: string;
 begin  
   AppVersion := '{#MyAppVersion}';
   MachineName := GetComputerNameString;
@@ -883,16 +881,13 @@ begin
   ExtractTemporaryFile('EveryAngle.CSM.Shared.dll');
   ExtractTemporaryFile('EveryAngle.Security.dll');
   ExtractTemporaryFile('EveryAngle.Utilities.dll');
+  ExtractTemporaryFile('Ionic.Zip.dll');
   ExtractTemporaryFile('Microsoft.Rest.ClientRuntime.dll');
   ExtractTemporaryFile('Newtonsoft.Json.dll');
   
-  if MoveCsmFiles then
-  begin 
-    AppPath := ExpandConstant('{code:DataPath|AppServerReg}') + '\EveryAngle.CSM.Reg.exe';
-    command := ExpandConstant(Format('/C "%s %s"', [AppPath, CmdParams])); 
-
-    ExecAsOriginalUser('cmd.exe', command, '', SW_HIDE, ewWaitUntilTerminated, ResultCode);
-    result := ResultCode = 0;  
+  if MoveCsmFiles and (DirExists(LogFolder) or CreateDir(LogFolder)) then
+  begin
+    result := ExecuteAndLogEx(DataPath('AppServerReg'), 'EveryAngle.CSM.Reg.exe', CmdParams, ToSetupLog) = 0;  
   end 
   else 
   begin
@@ -1216,7 +1211,7 @@ begin
   begin
  
     AppServerUrl := WebClientConfigPage.Values[1] + ':' + WebClientConfigPage.Values[2];
-    WebServerUrl := WebClientConfigPage.Values[0] + ':' + WebClientConfigPage.Values[2];
+    WebServerUrl := WebClientConfigPage.Values[0];
      
     if not RegisterWebServer(AppServerUrl, WebServerUrl) then 
     begin
