@@ -1,3 +1,4 @@
+using DevExpress.Data.PivotGrid;
 using DevExpress.Utils;
 using DevExpress.Web;
 using DevExpress.Web.ASPxPivotGrid;
@@ -144,26 +145,6 @@ namespace EveryAngle.WebClient.Service.Aggregation
             return pivotId != "pivotGrid" ? pivotId + "-FieldSettings" : "FieldSettings";
         }
 
-        public Type GetDataType(string type, string fieldOperator)
-        {
-            EveryAngleEnums.FIELDTYPE fieldType = EnumHelper.ParseEnum<EveryAngleEnums.FIELDTYPE>(type);
-
-            if (IsAveragePeriodOperator(type, fieldOperator))
-            {
-                return typeof(Double);
-            }
-            else
-            {
-            if (IsIntegerDataType(fieldType))
-                    return typeof(Int64);
-            if (IsDoubleDataType(fieldType))
-                    return typeof(Double);
-            if (IsDateTimeDataType(fieldType))
-                return typeof(DateTime);
-                    return typeof(String);
-                }
-        }
-
         public dynamic ConvertStringToDynamic(string jsonString)
         {
             JavaScriptSerializer json_serializer = new JavaScriptSerializer();
@@ -277,13 +258,12 @@ namespace EveryAngle.WebClient.Service.Aggregation
             bool isBlockDisplayChange = IsBlockDisplayChange();
 
             // active Pivot language by a user default language
-            string language = FieldSetting.CultureName;
             Dictionary<PivotGridStringId, string> texts = new Dictionary<PivotGridStringId, string>
             {
-                [PivotGridStringId.PrintDesignerDataHeaders] = ResourceHelper.GetLocalization("DataHeaders", language),
-                [PivotGridStringId.GrandTotal] = ResourceHelper.GetLocalization("GrandTotal", language),
-                [PivotGridStringId.TotalFormat] = "{0} " + ResourceHelper.GetLocalization("Total", language),
-                [PivotGridStringId.Total] = ResourceHelper.GetLocalization("Total", language)
+                [PivotGridStringId.PrintDesignerDataHeaders] = Resource.DataHeaders,
+                [PivotGridStringId.GrandTotal] = Resource.GrandTotal,
+                [PivotGridStringId.TotalFormat] = "{0} " + Resource.Total,
+                [PivotGridStringId.Total] = Resource.Total
             };
             PivotGridLocalizer.Active = new CustomPivotGridLocalizer(texts);
 
@@ -399,19 +379,19 @@ namespace EveryAngle.WebClient.Service.Aggregation
 
         #region Private methods
 
-        private bool IsIntegerDataType(EveryAngleEnums.FIELDTYPE fieldType)
+        private static bool IsIntegerDataType(EveryAngleEnums.FIELDTYPE fieldType)
         {
             return EveryAngleEnums.FIELDTYPE.PERIOD == fieldType
                 || EveryAngleEnums.FIELDTYPE.INT == fieldType;
         }
-        private bool IsDoubleDataType(EveryAngleEnums.FIELDTYPE fieldType)
+        private static bool IsDoubleDataType(EveryAngleEnums.FIELDTYPE fieldType)
         {
             return EveryAngleEnums.FIELDTYPE.DOUBLE == fieldType
                 || EveryAngleEnums.FIELDTYPE.CURRENCY == fieldType
                 || EveryAngleEnums.FIELDTYPE.PERCENTAGE == fieldType
                 || EveryAngleEnums.FIELDTYPE.TIMESPAN == fieldType;
         }
-        private bool IsDateTimeDataType(EveryAngleEnums.FIELDTYPE fieldType)
+        private static bool IsDateTimeDataType(EveryAngleEnums.FIELDTYPE fieldType)
         {
             return EveryAngleEnums.FIELDTYPE.DATE == fieldType
                 || EveryAngleEnums.FIELDTYPE.DATETIME == fieldType
@@ -582,10 +562,10 @@ namespace EveryAngle.WebClient.Service.Aggregation
             }
         }
 
-        private bool IsAveragePeriodOperator(string type, string fieldOperator)
+        private static bool IsAveragePeriodOperator(string type, string fieldOperator)
         {
             EveryAngleEnums.FIELDTYPE fieldType = EnumHelper.ParseEnum<EveryAngleEnums.FIELDTYPE>(type);
-            return fieldOperator.Equals("average", StringComparison.OrdinalIgnoreCase) && fieldType.Equals(EveryAngleEnums.FIELDTYPE.PERIOD);
+            return fieldOperator.StartsWith("average", StringComparison.OrdinalIgnoreCase) && fieldType.Equals(EveryAngleEnums.FIELDTYPE.PERIOD);
         }
 
         private void SetCustomFieldFormat(ref PivotGridField field, EAPivotField dataField)
@@ -852,73 +832,84 @@ namespace EveryAngle.WebClient.Service.Aggregation
         public void SetPivotGridField(List<EAPivotField> fields, PivotGridSettings settings)
         {
             int areaIndex = 0;
-            int dataAreaIndex = 0;
 
-            for (int index = 0; index < fields.Count(); index++)
+            for (int index = 0; index < fields.Count; index++)
             {
                 EAPivotField field = fields[index];
                 if (field.IsSelected)
                 {
                     string fieldName = field.FieldName.ToLowerInvariant();
-                    PivotArea area = (DevExpress.XtraPivotGrid.PivotArea)field.Area;
-                    MVCxPivotGridField newMVCxPivotGridField = new MVCxPivotGridField();
-                    newMVCxPivotGridField.Caption = field.Caption;
-                    newMVCxPivotGridField.FieldName = fieldName;
-                    newMVCxPivotGridField.Area = area;
-                    newMVCxPivotGridField.AreaIndex = areaIndex++;
-                    newMVCxPivotGridField.HeaderStyle.CssClass = field.CssClass;
-                    newMVCxPivotGridField.Options.AllowSortBySummary = DevExpress.Utils.DefaultBoolean.True;
-                    newMVCxPivotGridField.Options.AllowDrag = DevExpress.Utils.DefaultBoolean.False;
+                    PivotArea area = (PivotArea)field.Area;
+                    MVCxPivotGridField pivotGridField = new MVCxPivotGridField(fieldName, area);
+                    pivotGridField.Caption = field.Caption;
+                    pivotGridField.AreaIndex = areaIndex;
+                    pivotGridField.HeaderStyle.CssClass = field.CssClass;
+                    pivotGridField.Options.AllowSortBySummary = DefaultBoolean.True;
+                    pivotGridField.Options.AllowDrag = DefaultBoolean.False;
 
                     // sorting
                     dynamic fieldDetails = JsonConvert.DeserializeObject(field.FieldDetails);
-                    newMVCxPivotGridField.SortOrder = GetSortDirection(fieldDetails.sorting.Value);
+                    pivotGridField.SortOrder = GetSortDirection(fieldDetails.sorting.Value);
 
-                    settings.Fields.Add(newMVCxPivotGridField);
+                    // set summary type
+                    if (area == PivotArea.DataArea)
+                    {
+                        pivotGridField.SummaryType = GetPivotSummaryType(field.Bucket.Operator);
+                    }
+
+                    settings.Fields.Add(pivotGridField);
+                    areaIndex++;
 
                     // Add percentage field
-                    if (FieldSetting.PercentageSummaryType != PivotEnums.PercentageSummaryType.None && area == PivotArea.DataArea)
+                    if (FieldSetting.PercentageSummaryType != PivotEnums.PercentageSummaryType.None
+                        && area == PivotArea.DataArea)
                     {
-                        MVCxPivotGridField summaryDisplayTypeDataField = settings.Fields.Add(fieldName, DevExpress.XtraPivotGrid.PivotArea.DataArea);
-                        string summaryCaption = string.Empty;
-                        switch (FieldSetting.PercentageSummaryType)
-                        {
-                            case PivotEnums.PercentageSummaryType.Column:
-                                summaryDisplayTypeDataField.SummaryDisplayType = DevExpress.Data.PivotGrid.PivotSummaryDisplayType.PercentOfColumnGrandTotal;
-                                summaryCaption = ResourceHelper.GetCaption("Pivot_PercentOfColumn", FieldSetting.CultureName);
-                                break;
-                            case PivotEnums.PercentageSummaryType.Row:
-                                summaryDisplayTypeDataField.SummaryDisplayType = DevExpress.Data.PivotGrid.PivotSummaryDisplayType.PercentOfRowGrandTotal;
-                                summaryCaption = ResourceHelper.GetCaption("Pivot_PercentOfRow", FieldSetting.CultureName);
-                                break;
-                            case PivotEnums.PercentageSummaryType.Total:
-                                summaryDisplayTypeDataField.SummaryDisplayType = DevExpress.Data.PivotGrid.PivotSummaryDisplayType.PercentOfGrandTotal;
-                                summaryCaption = ResourceHelper.GetCaption("Pivot_PercentOfTotal", FieldSetting.CultureName);
-                                break;
-                            default:
-                                break;
-                        }
-
-                        string decimalsPercentageFormat = GetDecimalsPercentageFromUserSetting(HttpContext.Current.Session["UserSettingsViewModel"] as UserSettingsViewModel);
-                        
-                        // To format field value
-                        summaryDisplayTypeDataField.ValueFormat.FormatType = FormatType.Numeric;
-                        summaryDisplayTypeDataField.ValueFormat.FormatString = String.Format("p{0}", decimalsPercentageFormat);
-
-                        // To format summary cell
-                        summaryDisplayTypeDataField.CellFormat.FormatType = FormatType.Numeric;
-                        summaryDisplayTypeDataField.CellFormat.FormatString = String.Format("p{0}", decimalsPercentageFormat);
-
-                        summaryDisplayTypeDataField.ID = "summaryDisplayTypeDataField" + dataAreaIndex.ToString();
-                        summaryDisplayTypeDataField.CellStyle.CssClass = "PercentageSummaryCell";
-                        summaryDisplayTypeDataField.Caption = string.Format(summaryCaption, field.Caption);
-                        SetFieldCaption(field, summaryDisplayTypeDataField);
-                        summaryDisplayTypeDataField.AreaIndex = areaIndex;
+                        MVCxPivotGridField summaryField = GetSummaryField(field, pivotGridField, FieldSetting.PercentageSummaryType, areaIndex);
+                        settings.Fields.Add(summaryField);
                         areaIndex++;
-                        dataAreaIndex++;
                     }
                 }
             }
+        }
+
+        private MVCxPivotGridField GetSummaryField(EAPivotField eaField, MVCxPivotGridField sourceField, PivotEnums.PercentageSummaryType percentageSummaryType, int areaIndex)
+        {
+            MVCxPivotGridField summaryField = new MVCxPivotGridField(sourceField.FieldName, PivotArea.DataArea);
+            summaryField.AreaIndex = areaIndex;
+            summaryField.CellStyle.CssClass = "PercentageSummaryCell";
+            
+            switch (FieldSetting.PercentageSummaryType)
+            {
+                case PivotEnums.PercentageSummaryType.Row:
+                    summaryField.SummaryDisplayType = PivotSummaryDisplayType.PercentOfRowGrandTotal;
+                    summaryField.Caption = string.Format(Captions.Pivot_PercentOfRow, sourceField.Caption);
+                    break;
+                case PivotEnums.PercentageSummaryType.Column:
+                    summaryField.SummaryDisplayType = PivotSummaryDisplayType.PercentOfColumnGrandTotal;
+                    summaryField.Caption = string.Format(Captions.Pivot_PercentOfColumn, sourceField.Caption);
+                    break;
+                case PivotEnums.PercentageSummaryType.Total:
+                    summaryField.SummaryDisplayType = PivotSummaryDisplayType.PercentOfGrandTotal;
+                    summaryField.Caption = string.Format(Captions.Pivot_PercentOfTotal, sourceField.Caption);
+                    break;
+                default:
+                    break;
+            }
+
+            string decimalsPercentageFormat = GetDecimalsPercentageFromUserSetting(HttpContext.Current.Session["UserSettingsViewModel"] as UserSettingsViewModel);
+
+            // To format field value
+            summaryField.ValueFormat.FormatType = FormatType.Numeric;
+            summaryField.ValueFormat.FormatString = String.Format("p{0}", decimalsPercentageFormat);
+
+            // To format summary cell
+            summaryField.CellFormat.FormatType = FormatType.Numeric;
+            summaryField.CellFormat.FormatString = String.Format("p{0}", decimalsPercentageFormat);
+            
+            // adjust caption for html
+            SetFieldCaption(eaField, summaryField);
+
+            return summaryField;
         }
 
         private static void SetCallbackRouteValues(PivotGridSettings settings)
@@ -1458,6 +1449,36 @@ namespace EveryAngle.WebClient.Service.Aggregation
             }
 
             return default(T);
+        }
+
+        internal static Type GetDataType(string type, string fieldOperator)
+        {
+            EveryAngleEnums.FIELDTYPE fieldType = EnumHelper.ParseEnum<EveryAngleEnums.FIELDTYPE>(type);
+
+            if (IsAveragePeriodOperator(type, fieldOperator) || IsDoubleDataType(fieldType))
+                return typeof(Double);
+
+            if (IsIntegerDataType(fieldType))
+                return typeof(Int64);
+
+            if (IsDateTimeDataType(fieldType))
+                return typeof(DateTime);
+
+            return typeof(String);
+        }
+
+        internal static PivotSummaryType GetPivotSummaryType(string bucket)
+        {
+            if (bucket == "min")
+                return PivotSummaryType.Min;
+
+            if (bucket == "max")
+                return PivotSummaryType.Max;
+
+            if (bucket == "average" || bucket == "average_valid")
+                return PivotSummaryType.Average;
+
+            return PivotSummaryType.Sum;
         }
 
         #endregion

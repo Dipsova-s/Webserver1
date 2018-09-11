@@ -1,4 +1,5 @@
-﻿using DevExpress.Utils;
+﻿using DevExpress.Data.PivotGrid;
+using DevExpress.Utils;
 using DevExpress.Web.ASPxPivotGrid;
 using DevExpress.Web.Internal;
 using DevExpress.Web.Mvc;
@@ -220,5 +221,40 @@ namespace EveryAngle.WebClient.Web.CSTests.ServiceTests
             Type actualType = mockPivotGridSettings.Fields[fieldName].CellFormat.Format.GetType();
             Assert.AreEqual(expectedType, actualType);
         }
+
+        [TestCase(null, PivotSummaryType.Sum)]
+        [TestCase("any", PivotSummaryType.Sum)]
+        [TestCase("sum", PivotSummaryType.Sum)]
+        [TestCase("count", PivotSummaryType.Sum)]
+        [TestCase("count_valid", PivotSummaryType.Sum)]
+        [TestCase("min", PivotSummaryType.Min)]
+        [TestCase("max", PivotSummaryType.Max)]
+        [TestCase("average", PivotSummaryType.Average)]
+        [TestCase("average_valid", PivotSummaryType.Average)]
+        public void PivotControlBuilder_GetPivotSummaryType(string bucket, PivotSummaryType expected)
+        {
+            PivotSummaryType result = AggregationService.GetPivotSummaryType(bucket);
+
+            Assert.AreEqual(expected, result);
+        }
+
+        [TestCase("period", "average", typeof(Double))]
+        [TestCase("period", "average_valid", typeof(Double))]
+        [TestCase("period", "any", typeof(Int64))]
+        [TestCase("int", "any", typeof(Int64))]
+        [TestCase("double", "any", typeof(Double))]
+        [TestCase("currency", "any", typeof(Double))]
+        [TestCase("percentage", "any", typeof(Double))]
+        [TestCase("timespan", "any", typeof(Double))]
+        [TestCase("date", "any", typeof(DateTime))]
+        [TestCase("datetime", "any", typeof(DateTime))]
+        [TestCase("time", "any", typeof(DateTime))]
+        public void PivotControlBuilder_GetDataType(string type, string bucket, Type expected)
+        {
+            Type result = AggregationService.GetDataType(type, bucket);
+            
+            Assert.AreEqual(expected, result);
+        }
+
     }
 }
