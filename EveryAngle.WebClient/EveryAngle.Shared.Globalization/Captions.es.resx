@@ -1,0 +1,798 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="Button_BackToPreviousPage" xml:space="preserve">
+    <value>Volver a la página anterior</value>
+  </data>
+  <data name="Button_Cancel" xml:space="preserve">
+    <value>Cancelar</value>
+  </data>
+  <data name="Button_Dashboard_WidgetDelete" xml:space="preserve">
+    <value>Borrar</value>
+  </data>
+  <data name="Button_Dashboard_WidgetEditTitle" xml:space="preserve">
+    <value>Editar título</value>
+  </data>
+  <data name="Button_Dashboard_WidgetGotoAngle" xml:space="preserve">
+    <value>Ir a Angle</value>
+  </data>
+  <data name="Button_Dashboard_WidgetMaximize" xml:space="preserve">
+    <value>Maximizar</value>
+  </data>
+  <data name="Button_Dashboard_WidgetMinimize" xml:space="preserve">
+    <value>Minimizar</value>
+  </data>
+  <data name="Button_EditItem" xml:space="preserve">
+    <value>Editar</value>
+  </data>
+  <data name="Conflict_Header_Message" xml:space="preserve">
+    <value>No se pudo procesar la solicitud debido a un conflicto en la misma.</value>
+  </data>
+  <data name="Generic_Error_Message" xml:space="preserve">
+    <value>Se ha producido un error al procesar la solicitud. Póngase en contacto con el &lt;a class="mailto" href="mailto:servicedesk@everyangle.com" target="_top"&gt;administrador&lt;/a&gt; del sistema.</value>
+  </data>
+  <data name="Label_AdvanceFilter_AngleDescription" xml:space="preserve">
+    <value>Descripción de Angle:</value>
+  </data>
+  <data name="Label_AdvanceFilter_AngleDisplayName" xml:space="preserve">
+    <value>Nombre de Display:</value>
+  </data>
+  <data name="Label_AdvanceFilter_AngleId" xml:space="preserve">
+    <value>ID de Angle:</value>
+  </data>
+  <data name="Label_AdvanceFilter_AngleName" xml:space="preserve">
+    <value>Nombre de Angle:</value>
+  </data>
+  <data name="Label_AdvanceFilter_BaseClasses" xml:space="preserve">
+    <value>Objeto de inicio:</value>
+  </data>
+  <data name="Label_AdvanceFilter_DisplayDescription" xml:space="preserve">
+    <value>Descripción de Display:</value>
+  </data>
+  <data name="Label_AdvanceFilter_Followup" xml:space="preserve">
+    <value>Jump:</value>
+  </data>
+  <data name="Label_AdvanceFilter_LastChangedBy" xml:space="preserve">
+    <value>Modificado por</value>
+  </data>
+  <data name="Label_AdvanceFilter_PulicationStatus" xml:space="preserve">
+    <value>Status de publicación</value>
+  </data>
+  <data name="Label_AdvanceFilter_QueryStep" xml:space="preserve">
+    <value>Filtro:</value>
+  </data>
+  <data name="Label_AdvanceFilter_Search_AllowFollowup" xml:space="preserve">
+    <value>Permitir Jump</value>
+  </data>
+  <data name="Label_AdvanceFilter_Search_AllowMoreDetail" xml:space="preserve">
+    <value>Permitir más detalles</value>
+  </data>
+  <data name="Label_AdvanceFilter_Search_Label" xml:space="preserve">
+    <value>Etiqueta de búsqueda:</value>
+  </data>
+  <data name="Label_AdvanceFilter_Search_Private_Label" xml:space="preserve">
+    <value>Etiqueta de privilegio:</value>
+  </data>
+  <data name="Label_AdvanceFilter_StarredStatus" xml:space="preserve">
+    <value>Status de favorito</value>
+  </data>
+  <data name="Label_AdvanceFilter_ValidationStatus" xml:space="preserve">
+    <value>Status de validación</value>
+  </data>
+  <data name="Label_ActionDropdown_ExecuteDisplay" xml:space="preserve">
+    <value>Ejecutar Display</value>
+  </data>
+  <data name="Label_Angle_ExecuteWithModelRole" xml:space="preserve">
+    <value>Ejecutado con la función del modelo</value>
+  </data>
+  <data name="Label_Angle_Export_AddDefinitionSheet" xml:space="preserve">
+    <value>Agregar hoja de definiciones</value>
+  </data>
+  <data name="Label_Angle_Export_AddSummarySheet" xml:space="preserve">
+    <value>Agregar hoja de resumen</value>
+  </data>
+  <data name="Label_Angle_Export_FileName" xml:space="preserve">
+    <value>Nombre de archivo</value>
+  </data>
+  <data name="Label_Angle_Export_NumberOfItems" xml:space="preserve">
+    <value>Número de posiciones</value>
+  </data>
+  <data name="Label_Angle_Export_SheetName" xml:space="preserve">
+    <value>Nombre de hoja</value>
+  </data>
+  <data name="Label_Angle_Privilleges_SystemLocation" xml:space="preserve">
+    <value>Ubicación del sistema</value>
+  </data>
+  <data name="Label_CSV_Export_AddModelDate" xml:space="preserve">
+    <value>Introducir fecha de modelo</value>
+  </data>
+  <data name="Label_CSV_Export_BoolChars" xml:space="preserve">
+    <value>Carácter sí/no</value>
+  </data>
+  <data name="Label_CSV_Export_DateFormat" xml:space="preserve">
+    <value>Formato de fecha</value>
+  </data>
+  <data name="Label_CSV_Export_DateSeparator" xml:space="preserve">
+    <value>Separador de fechas</value>
+  </data>
+  <data name="Label_CSV_Export_Decimal" xml:space="preserve">
+    <value>Decimales</value>
+  </data>
+  <data name="Label_CSV_Export_DecimalSeparator" xml:space="preserve">
+    <value>Separador de decimales</value>
+  </data>
+  <data name="Label_CSV_Export_Enquote" xml:space="preserve">
+    <value>Usar calificador de texto</value>
+  </data>
+  <data name="Label_CSV_Export_EnquoteCharacter" xml:space="preserve">
+    <value>Calificador de texto</value>
+  </data>
+  <data name="Label_CSV_Export_EnquoteHeaders" xml:space="preserve">
+    <value>Usar calificador de texto en cabeceras</value>
+  </data>
+  <data name="Label_CSV_Export_EnumFormat" xml:space="preserve">
+    <value>Definir formato</value>
+  </data>
+  <data name="Label_CSV_Export_FieldSeparator" xml:space="preserve">
+    <value>Delimitador de campo</value>
+  </data>
+  <data name="Label_CSV_Export_HeaderRows" xml:space="preserve">
+    <value>Filas de cabeceras</value>
+  </data>
+  <data name="Label_CSV_Export_LineSeparator" xml:space="preserve">
+    <value>Delimitador de líneas</value>
+  </data>
+  <data name="Label_CSV_Export_SectionFileOptions" xml:space="preserve">
+    <value>Opciones de archivo</value>
+  </data>
+  <data name="Label_CSV_Export_SectionFormatOptions" xml:space="preserve">
+    <value>Opciones de formato</value>
+  </data>
+  <data name="Label_CSV_Export_TimeFormat" xml:space="preserve">
+    <value>Formato de hora</value>
+  </data>
+  <data name="Label_CSV_Export_TimeSeparator" xml:space="preserve">
+    <value>Separador de horas</value>
+  </data>
+  <data name="Label_Dashboard_AddToANewDashboard" xml:space="preserve">
+    <value>Agregar a nuevo Dashboard</value>
+  </data>
+  <data name="Label_Dashboard_AddToExistingDashboard" xml:space="preserve">
+    <value>Agregar a Dashboard existente</value>
+  </data>
+  <data name="Label_ActionDropdown_ExecuteDashboard" xml:space="preserve">
+    <value>Ejecutar Dashboard</value>
+  </data>
+  <data name="Label_Dashboard_ExecuteWithModelRole" xml:space="preserve">
+    <value>Ejecutado con la función del modelo</value>
+  </data>
+  <data name="Label_Dashboard_NumberOfDisplays" xml:space="preserve">
+    <value>Número de Displays en el Dashboard</value>
+  </data>
+  <data name="Label_Dashboard_PrivateDisplays" xml:space="preserve">
+    <value>Displays personales</value>
+  </data>
+  <data name="Label_Dashboard_PublicDisplays" xml:space="preserve">
+    <value>Displays publicadas</value>
+  </data>
+  <data name="Label_No_Information_About_AutoExecute" xml:space="preserve">
+    <value>No hay posiciones disponibles para la ejecución automática.</value>
+  </data>
+  <data name="Label_Search_WelcomeMovieTitle" xml:space="preserve">
+    <value>Películas de formación</value>
+  </data>
+  <data name="Label_Sort_Ascending" xml:space="preserve">
+    <value>Ascendente</value>
+  </data>
+  <data name="Label_Sort_By" xml:space="preserve">
+    <value>Clasificar por:</value>
+  </data>
+  <data name="Label_Sort_Descending" xml:space="preserve">
+    <value>Descendente</value>
+  </data>
+  <data name="Label_Sort_ThenBy" xml:space="preserve">
+    <value>Después por:</value>
+  </data>
+  <data name="MassChange_BP_Tab_Title" xml:space="preserve">
+    <value>Etiquetas de Proceso de negocios</value>
+  </data>
+  <data name="MassChange_Category_Title" xml:space="preserve">
+    <value>Categoría</value>
+  </data>
+  <data name="MassChange_Label_NoModelSelected" xml:space="preserve">
+    <value>Nota: Para agregar o quitar etiquetas, seleccione solamente Angle(s) desde el mismo modelo.</value>
+  </data>
+  <data name="MassChange_Label_NumberItems" xml:space="preserve">
+    <value>Número de posiciones:</value>
+  </data>
+  <data name="MassChange_PrivilegeLabel_Tab_Title" xml:space="preserve">
+    <value>Etiquetas de privilegio</value>
+  </data>
+  <data name="MassChange_ReportHeader_Failed" xml:space="preserve">
+    <value>Error</value>
+  </data>
+  <data name="MassChange_ReportHeader_Successful" xml:space="preserve">
+    <value>Correcto</value>
+  </data>
+  <data name="MassChange_SearchLabel_Tab_Title" xml:space="preserve">
+    <value>Etiquetas de búsqueda</value>
+  </data>
+  <data name="Page_Angle_Title" xml:space="preserve">
+    <value>Every Angle - página Angle</value>
+  </data>
+  <data name="Page_Dashboard_Title" xml:space="preserve">
+    <value>Every Angle - Dashboard</value>
+  </data>
+  <data name="Page_Search_Title" xml:space="preserve">
+    <value>Every Angle - página Buscar</value>
+  </data>
+  <data name="Popup_Followup_Title" xml:space="preserve">
+    <value>Seleccione Jump para aplicar</value>
+  </data>
+  <data name="Popup_HelpText_TitleClass" xml:space="preserve">
+    <value>Información de Objeto</value>
+  </data>
+  <data name="Popup_HelpText_TitleField" xml:space="preserve">
+    <value>Información de Campo</value>
+  </data>
+  <data name="Popup_HelpText_TitleFollowup" xml:space="preserve">
+    <value>Información de Jump</value>
+  </data>
+  <data name="Popup_SaveAsCSV_Title" xml:space="preserve">
+    <value>Exportar a CSV</value>
+  </data>
+  <data name="SaveAsCSV_BoolChars_False" xml:space="preserve">
+    <value>Carácter no</value>
+  </data>
+  <data name="SaveAsCSV_BoolChars_True" xml:space="preserve">
+    <value>Carácter sí</value>
+  </data>
+  <data name="SaveAsCSV_FileName" xml:space="preserve">
+    <value>Nombre de archivo</value>
+  </data>
+  <data name="UnProcessEntity_Header_Message" xml:space="preserve">
+    <value>La solicitud no se ha podido ejecutar debido a errores de semántica.</value>
+  </data>
+  <data name="Pivot_Show_Total_For" xml:space="preserve">
+    <value>Mostrar totales para</value>
+  </data>
+  <data name="Pivot_Total_For_Column" xml:space="preserve">
+    <value>Columna</value>
+  </data>
+  <data name="Pivot_Total_For_None" xml:space="preserve">
+    <value>Ninguno</value>
+  </data>
+  <data name="Pivot_Total_For_Row" xml:space="preserve">
+    <value>Fila</value>
+  </data>
+  <data name="Pivot_Total_For_RowAndColumn" xml:space="preserve">
+    <value>Fila y columna</value>
+  </data>
+  <data name="Tooltip_BusinessProcess_Deselect" xml:space="preserve">
+    <value>Haga clic para anular la selección</value>
+  </data>
+  <data name="Tooltip_BusinessProcess_Select" xml:space="preserve">
+    <value>Haga clic para seleccionar</value>
+  </data>
+  <data name="Button_CancelExecution" xml:space="preserve">
+    <value>Cancelar ejecución</value>
+  </data>
+  <data name="Button_ChartOptions" xml:space="preserve">
+    <value>Opciones</value>
+  </data>
+  <data name="Title_ChartOptions" xml:space="preserve">
+    <value>Opciones</value>
+  </data>
+  <data name="Label_ChartOptions_AxisTitle" xml:space="preserve">
+    <value>Títulos de ejes</value>
+  </data>
+  <data name="Label_ChartOptions_AxisTitle_Hide" xml:space="preserve">
+    <value>Ocultar títulos de ejes</value>
+  </data>
+  <data name="Label_ChartOptions_AxisTitle_Show" xml:space="preserve">
+    <value>Mostrar títulos de ejes</value>
+  </data>
+  <data name="Label_ChartOptions_AxisTitle_ShowX" xml:space="preserve">
+    <value>Mostrar título de eje X</value>
+  </data>
+  <data name="Label_ChartOptions_AxisTitle_ShowY" xml:space="preserve">
+    <value>Mostrar título de eje Y</value>
+  </data>
+  <data name="Label_ChartOptions_AxisValue" xml:space="preserve">
+    <value>Valores de ejes</value>
+  </data>
+  <data name="Label_ChartOptions_AxisValue_Hide" xml:space="preserve">
+    <value>Ocultar valores de ejes</value>
+  </data>
+  <data name="Label_ChartOptions_AxisValue_Show" xml:space="preserve">
+    <value>Mostrar valores de ejes</value>
+  </data>
+  <data name="Label_ChartOptions_AxisValue_ShowX" xml:space="preserve">
+    <value>Mostrar valores de eje X</value>
+  </data>
+  <data name="Label_ChartOptions_AxisValue_ShowY" xml:space="preserve">
+    <value>Mostrar valores de eje Y</value>
+  </data>
+  <data name="Label_ChartOptions_DataLabel" xml:space="preserve">
+    <value>Etiquetas de datos</value>
+  </data>
+  <data name="Label_ChartOptions_DataLabel_Hide" xml:space="preserve">
+    <value>Ocultar etiquetas de datos</value>
+  </data>
+  <data name="Label_ChartOptions_DataLabel_Mouse" xml:space="preserve">
+    <value>Pasar por encima</value>
+  </data>
+  <data name="Label_ChartOptions_DataLabel_Show" xml:space="preserve">
+    <value>Mostrar etiquetas de datos</value>
+  </data>
+  <data name="Label_ChartOptions_Gridline" xml:space="preserve">
+    <value>Cuadrícula</value>
+  </data>
+  <data name="Label_ChartOptions_GridlineRadar_Hide" xml:space="preserve">
+    <value>Ocultar cuadrícula</value>
+  </data>
+  <data name="Label_ChartOptions_GridlineRadar_Show" xml:space="preserve">
+    <value>Mostrar cuadrícula</value>
+  </data>
+  <data name="Label_ChartOptions_Legend" xml:space="preserve">
+    <value>Leyenda</value>
+  </data>
+  <data name="Label_ChartOptions_Legend_Hide" xml:space="preserve">
+    <value>Ocultar leyenda</value>
+  </data>
+  <data name="Label_ChartOptions_Legend_Show" xml:space="preserve">
+    <value>Mostrar leyenda</value>
+  </data>
+  <data name="Label_ChartOptions_GridlineType" xml:space="preserve">
+    <value>Clase de cuadrícula</value>
+  </data>
+  <data name="Label_ChartOptions_GridlineType_Arc" xml:space="preserve">
+    <value>Arco</value>
+  </data>
+  <data name="Label_ChartOptions_GridlineType_Line" xml:space="preserve">
+    <value>Línea</value>
+  </data>
+  <data name="Label_ChartOptions_Ranges" xml:space="preserve">
+    <value>Intervalos</value>
+  </data>
+  <data name="Label_ChartOptions_Ranges_Hide" xml:space="preserve">
+    <value>Ocultar intervalos</value>
+  </data>
+  <data name="Label_ChartOptions_Ranges_Show" xml:space="preserve">
+    <value>Mostrar intervalos</value>
+  </data>
+  <data name="MassChange_Label_LeaveUnchanged" xml:space="preserve">
+    <value>Dejar sin modificar</value>
+  </data>
+  <data name="MassChange_Label_SetToNormalAngle" xml:space="preserve">
+    <value>Definir en “Angle”</value>
+  </data>
+  <data name="MassChange_Label_SetToNotStarred" xml:space="preserve">
+    <value>Definir en “No iniciado”</value>
+  </data>
+  <data name="MassChange_Label_SetToNotValidated" xml:space="preserve">
+    <value>Definir en “No validado”</value>
+  </data>
+  <data name="MassChange_Label_SetToPrivate" xml:space="preserve">
+    <value>Definir en “Personal”</value>
+  </data>
+  <data name="MassChange_Label_SetToPublished" xml:space="preserve">
+    <value>Definir en “Publicado”</value>
+  </data>
+  <data name="MassChange_Label_SetToStarred" xml:space="preserve">
+    <value>Definir en “Favorito”</value>
+  </data>
+  <data name="MassChange_Label_SetToTemplate" xml:space="preserve">
+    <value>Definir en “Template”</value>
+  </data>
+  <data name="MassChange_Label_SetToValidated" xml:space="preserve">
+    <value>Definir en “Validado”</value>
+  </data>
+  <data name="MassChange_Label_Updatenote" xml:space="preserve">
+    <value>Actualizar nota</value>
+  </data>
+  <data name="Label_Excel_Report" xml:space="preserve">
+    <value>Informe de Excel</value>
+  </data>
+  <data name="Popup_ResultSummary_Title" xml:space="preserve">
+    <value>Información</value>
+  </data>
+  <data name="Label_ActionDropdown_CreateChart" xml:space="preserve">
+    <value>Crear gráfico</value>
+  </data>
+  <data name="Label_ActionDropdown_CreateList" xml:space="preserve">
+    <value>Crear lista</value>
+  </data>
+  <data name="Label_ActionDropdown_CreatePivot" xml:space="preserve">
+    <value>Crear tabla dinámica</value>
+  </data>
+  <data name="Button_CreateNewAngle" xml:space="preserve">
+    <value>Crear Angle</value>
+  </data>
+  <data name="Button_CreateNewAngle_NoModel" xml:space="preserve">
+    <value>Sin modelo</value>
+  </data>
+  <data name="Popup_CreateNewAngle_TitleByType" xml:space="preserve">
+    <value>Crear Angle para el modelo {0}: {1}</value>
+  </data>
+  <data name="Popup_CreateNewAngle_TitleOptions" xml:space="preserve">
+    <value>Crear Angle para el modelo {0}</value>
+  </data>
+  <data name="Button_Continue" xml:space="preserve">
+    <value>Continuar</value>
+  </data>
+  <data name="Popup_CreateNewAngle_DropdownText" xml:space="preserve">
+    <value>Crear Angle para {0}</value>
+  </data>
+  <data name="Label_FieldFormat_Date" xml:space="preserve">
+    <value>Fecha</value>
+  </data>
+  <data name="Label_FieldFormat_Day" xml:space="preserve">
+    <value>Día</value>
+  </data>
+  <data name="Label_FieldFormat_DecimalSeparate" xml:space="preserve">
+    <value>Separador de decimales</value>
+  </data>
+  <data name="Label_FieldFormat_Hour" xml:space="preserve">
+    <value>Hora</value>
+  </data>
+  <data name="Label_FieldFormat_Month" xml:space="preserve">
+    <value>Mes</value>
+  </data>
+  <data name="Label_FieldFormat_Numbers" xml:space="preserve">
+    <value>Números</value>
+  </data>
+  <data name="Label_FieldFormat_Order" xml:space="preserve">
+    <value>Orden</value>
+  </data>
+  <data name="Label_FieldFormat_Other" xml:space="preserve">
+    <value>Otro</value>
+  </data>
+  <data name="Label_FieldFormat_Separator" xml:space="preserve">
+    <value>Delimitador</value>
+  </data>
+  <data name="Label_FieldFormat_ThousandSeperator" xml:space="preserve">
+    <value>Separador de millares</value>
+  </data>
+  <data name="Label_FieldFormat_Year" xml:space="preserve">
+    <value>Año</value>
+  </data>
+  <data name="Label_Unsorted" xml:space="preserve">
+    <value>Sin clasificar</value>
+  </data>
+  <data name="PivotCustomSort_LabelColumn" xml:space="preserve">
+    <value>Clasificar {0} por esta columna</value>
+  </data>
+  <data name="PivotCustomSort_LabelRow" xml:space="preserve">
+    <value>Clasificar {0} por esta fila</value>
+  </data>
+  <data name="Popup_ModelParameters_Label_Model" xml:space="preserve">
+    <value>Configuración para el modelo:</value>
+  </data>
+  <data name="AdhocEnableSummarySheet" xml:space="preserve">
+    <value>No está disponible para display ad hoc</value>
+  </data>
+  <data name="Button_Search" xml:space="preserve">
+    <value>Buscar</value>
+  </data>
+  <data name="Pivot_Option_Percentages" xml:space="preserve">
+    <value>Porcentajes</value>
+  </data>
+  <data name="Pivot_PercentOfColumn" xml:space="preserve">
+    <value>% de la columna {0}</value>
+  </data>
+  <data name="Pivot_PercentOfRow" xml:space="preserve">
+    <value>% de la fila {0}</value>
+  </data>
+  <data name="Pivot_PercentOfTotal" xml:space="preserve">
+    <value>% del total {0}</value>
+  </data>
+  <data name="Label_ChartOptions_DataLabel_ShowValues" xml:space="preserve">
+    <value>Mostrar solo los valores</value>
+  </data>
+  <data name="Pivot_Option_DoNotShowTotals" xml:space="preserve">
+    <value>No mostrar los totales</value>
+  </data>
+  <data name="Pivot_Option_Totals" xml:space="preserve">
+    <value>Totales</value>
+  </data>
+  <data name="Pivot_Option_IncludeSubtotals" xml:space="preserve">
+    <value>Incluir subtotales</value>
+  </data>
+  <data name="Pivot_Option_ShowForColumns" xml:space="preserve">
+    <value>Mostrar para columnas</value>
+  </data>
+  <data name="Pivot_Option_ShowForRows" xml:space="preserve">
+    <value>Mostrar para filas</value>
+  </data>
+  <data name="Pivot_Option_ShowForRowsAndColumns" xml:space="preserve">
+    <value>Mostrar para filas y columnas</value>
+  </data>
+  <data name="Label_Angle_Export_ShowInAggregatedFormat" xml:space="preserve">
+    <value>Mostrar en formato agregado</value>
+  </data>
+  <data name="Label_AngleExport_PackageId" xml:space="preserve">
+    <value>ID de paquete</value>
+  </data>
+  <data name="Popup_ModelParameters_Title" xml:space="preserve">
+    <value>Parámetros de Modelo</value>
+  </data>
+  <data name="MC_GlobalSetting_SystemLog_Title" xml:space="preserve" translate="no">
+    <value>System log</value>
+  </data>
+  <data name="Drop_Here_To_Remove_This_Column" xml:space="preserve">
+    <value>Colóquelo aquí para eliminar este columna</value>
+  </data>
+  <data name="Label_ChartOptions_AxisScale_Automatic" xml:space="preserve">
+    <value>Automático</value>
+  </data>
+  <data name="Label_ChartOptions_AxisScale_Manual" xml:space="preserve">
+    <value>Manual</value>
+  </data>
+  <data name="Label_ChartOptions_AxisScale" xml:space="preserve">
+    <value>Escala de ejes</value>
+  </data>
+  <data name="Label_ChartOptions_Gridline_Hide" xml:space="preserve">
+    <value>Ninguno</value>
+  </data>
+  <data name="Label_ChartOptions_Gridline_Show" xml:space="preserve">
+    <value>Ambos</value>
+  </data>
+  <data name="Label_ChartOptions_Gridline_ShowX" xml:space="preserve">
+    <value>Vertical</value>
+  </data>
+  <data name="Label_ChartOptions_Gridline_ShowY" xml:space="preserve">
+    <value>Horizontal</value>
+  </data>
+  <data name="Label_AdvanceFilter_WarningStatus" xml:space="preserve">
+    <value>Status de advertencia</value>
+  </data>
+  <data name="Label_ChartOptions_ShowAsPercentage" xml:space="preserve">
+    <value>Mostrar como porcentaje</value>
+  </data>
+  <data name="FieldFormat_Example" xml:space="preserve">
+    <value>Ejemplo</value>
+  </data>
+  <data name="FormatSetting_Apostrophe" xml:space="preserve">
+    <value>Apóstrofo (')</value>
+  </data>
+  <data name="FormatSetting_Comma" xml:space="preserve">
+    <value>Coma (,)</value>
+  </data>
+  <data name="FormatSetting_FullStop" xml:space="preserve">
+    <value>Punto (.)</value>
+  </data>
+  <data name="FormatSetting_Space" xml:space="preserve">
+    <value>Espacio ( )</value>
+  </data>
+  <data name="FormatSetting_Colon" xml:space="preserve">
+    <value>Dos puntos (:)</value>
+  </data>
+  <data name="FormatSetting_Dash" xml:space="preserve">
+    <value>Guion (-)</value>
+  </data>
+  <data name="FormatSetting_Slash" xml:space="preserve">
+    <value>Barra (/)</value>
+  </data>
+  <data name="FieldFormat_Notation" xml:space="preserve">
+    <value>Notación</value>
+  </data>
+  <data name="Label_FieldFormat_UseThousandSeperator" xml:space="preserve">
+    <value>Use el separador de millares</value>
+  </data>
+  <data name="Label_FieldFormat_Hours" xml:space="preserve">
+    <value>Horas</value>
+  </data>
+  <data name="Label_FieldFormat_Minutes" xml:space="preserve">
+    <value>Minutos</value>
+  </data>
+  <data name="Label_FieldFormat_Seconds" xml:space="preserve">
+    <value>Segundos</value>
+  </data>
+  <data name="AngleExport_TypeDownload" xml:space="preserve">
+    <value>Descargar Angles individuales</value>
+  </data>
+  <data name="AngleExport_TypePackage" xml:space="preserve">
+    <value>Descargar Angles como un paquete</value>
+  </data>
+  <data name="ResolveAngleDisplay_TaskCreator" xml:space="preserve">
+    <value>Propietario de la tarea</value>
+  </data>
+  <data name="ResolveAngleDisplay_TaskDatastore" xml:space="preserve">
+    <value>Almacén de datos de acción</value>
+  </data>
+  <data name="ResolveAngleDisplay_TaskName" xml:space="preserve">
+    <value>Tarea</value>
+  </data>
+  <data name="ResolveAngleDisplay_WillDeleteTask" xml:space="preserve">
+    <value>Eliminar tarea</value>
+  </data>
+  <data name="FormatSetting_None" xml:space="preserve">
+    <value>Ninguno</value>
+  </data>
+  <data name="WidgetFilter_ArgumentAdvance" xml:space="preserve">
+    <value>Avanzado</value>
+  </data>
+  <data name="WidgetFilter_ArgumentPeriod_Last" xml:space="preserve">
+    <value>Último</value>
+  </data>
+  <data name="WidgetFilter_ArgumentPeriod_Next" xml:space="preserve">
+    <value>Siguiente</value>
+  </data>
+  <data name="WidgetFilter_ArgumentPeriod_This" xml:space="preserve">
+    <value>Este</value>
+  </data>
+  <data name="WidgetFilter_ArgumentType_Field" xml:space="preserve">
+    <value>Campo</value>
+  </data>
+  <data name="WidgetFilter_ArgumentType_Function" xml:space="preserve">
+    <value>Período</value>
+  </data>
+  <data name="WidgetFilter_ArgumentType_Value" xml:space="preserve">
+    <value>Fecha</value>
+  </data>
+  <data name="WidgetFilter_PeriodType_Days" xml:space="preserve">
+    <value>Día(s)</value>
+  </data>
+  <data name="WidgetFilter_PeriodType_Months" xml:space="preserve">
+    <value>Mes(es)</value>
+  </data>
+  <data name="WidgetFilter_PeriodType_Quarters" xml:space="preserve">
+    <value>Trimestre(s)</value>
+  </data>
+  <data name="WidgetFilter_PeriodType_Semesters" xml:space="preserve">
+    <value>Semestre(s)</value>
+  </data>
+  <data name="WidgetFilter_PeriodType_Trimesters" xml:space="preserve">
+    <value>Trimestre(s)</value>
+  </data>
+  <data name="WidgetFilter_PeriodType_Weeks" xml:space="preserve">
+    <value>Semana(s)</value>
+  </data>
+  <data name="WidgetFilter_PeriodType_Years" xml:space="preserve">
+    <value>Año(s)</value>
+  </data>
+  <data name="MC_SAP_Jobs_Cancel_And_Retry" xml:space="preserve" translate="no">
+    <value>Cancel and retry</value>
+  </data>
+  <data name="MC_SAP_Jobs_Extractor_Status" xml:space="preserve" translate="no">
+    <value>Extractor status</value>
+  </data>
+  <data name="MC_Label_AngleAutomation" xml:space="preserve" translate="no">
+    <value>Angle automation</value>
+  </data>
+  <data name="MC_Label_ODataService" xml:space="preserve" translate="no">
+    <value>OData service</value>
+  </data>
+  <data name="Label_Angle_Export_HeaderFormat" xml:space="preserve">
+    <value>Formato de cabecera</value>
+  </data>
+  <data name="MC_Button_OpenErrorWarningLog" xml:space="preserve" translate="no">
+    <value>Errors and warnings</value>
+  </data>
+  <data name="Label_CSV_Export_ModelDate_None" xml:space="preserve">
+    <value>Ninguno</value>
+  </data>
+  <data name="Label_CSV_Export_ModelDate_Placeholder" xml:space="preserve">
+    <value>Seleccionar columna</value>
+  </data>
+  <data name="MC_Label_ETLDesigner" xml:space="preserve" translate="no">
+    <value>ETL Designer</value>
+  </data>
+</root>

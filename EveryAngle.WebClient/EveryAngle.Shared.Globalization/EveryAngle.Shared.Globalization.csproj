@@ -44,14 +44,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="..\..\Content\Translations\Captions.Designer.cs">
-      <Link>Captions.Designer.cs</Link>
+    <Compile Include="Captions.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Captions.resx</DependentUpon>
     </Compile>
-    <Compile Include="..\..\Content\Translations\Resource.Designer.cs">
-      <Link>Resource.Designer.cs</Link>
+    <Compile Include="Resource.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Resource.resx</DependentUpon>
@@ -60,40 +58,21 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="..\..\Content\Translations\Captions.de.resx">
-      <Link>Captions.de.resx</Link>
-    </EmbeddedResource>
-    <EmbeddedResource Include="..\..\Content\Translations\Captions.es.resx">
-      <Link>Captions.es.resx</Link>
-    </EmbeddedResource>
-    <EmbeddedResource Include="..\..\Content\Translations\Captions.fr.resx">
-      <Link>Captions.fr.resx</Link>
-    </EmbeddedResource>
-    <EmbeddedResource Include="..\..\Content\Translations\Captions.nl.resx">
-      <Link>Captions.nl.resx</Link>
-    </EmbeddedResource>
-    <EmbeddedResource Include="..\..\Content\Translations\Captions.resx">
-      <Link>Captions.resx</Link>
-      <Generator>PublicResXFileCodeGenerator</Generator>
+    <EmbeddedResource Include="Captions.de.resx" />
+    <EmbeddedResource Include="Captions.es.resx" />
+    <EmbeddedResource Include="Captions.fr.resx" />
+    <EmbeddedResource Include="Captions.nl.resx" />
+    <EmbeddedResource Include="Captions.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Captions.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <EmbeddedResource Include="..\..\Content\Translations\Resource.de.resx">
-      <Link>Resource.de.resx</Link>
-    </EmbeddedResource>
-    <EmbeddedResource Include="..\..\Content\Translations\Resource.es.resx">
-      <Link>Resource.es.resx</Link>
-    </EmbeddedResource>
-    <EmbeddedResource Include="..\..\Content\Translations\Resource.fr.resx">
-      <Link>Resource.fr.resx</Link>
-    </EmbeddedResource>
-    <EmbeddedResource Include="..\..\Content\Translations\Resource.nl.resx">
-      <Link>Resource.nl.resx</Link>
-    </EmbeddedResource>
-    <EmbeddedResource Include="..\..\Content\Translations\Resource.resx">
-      <Link>Resource.resx</Link>
-      <Generator>PublicResXFileCodeGenerator</Generator>
+    <EmbeddedResource Include="Resource.de.resx" />
+    <EmbeddedResource Include="Resource.es.resx" />
+    <EmbeddedResource Include="Resource.fr.resx" />
+    <EmbeddedResource Include="Resource.nl.resx" />
+    <EmbeddedResource Include="Resource.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resource.Designer.cs</LastGenOutput>
-      <SubType>Designer</SubType>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
