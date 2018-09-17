@@ -125,18 +125,26 @@
             </div>
         }
 
-        <div class="modelOverviewItemDetail">
-            <strong>@Resource.MC_Users</strong>
-            <div class="modelOverviewItemDetailItem">
-                <label>@Resource.Enabled:</label>
-                <span>@ViewBag.AuthorizedUsers</span>
+            <div class="modelOverviewItemDetail">
+                <strong>@Resource.MC_Users</strong>
+                <div class="modelOverviewItemDetailItem">
+                    <label>@Resource.Enabled:</label>
+                    <span>@ViewBag.AuthorizedUsers</span>
+                </div>
+                <div class="modelOverviewItemDetailItem">
+                    <label style="width:auto">@Resource.MC_Connected:</label>
+                    <span style="width:100px">@ViewBag.ConnectedUser</span>
+                </div>
+                <div class="modelOverviewItemDetailItem">
+                    <label style="width:auto">@Resource.MC_ActiveUsersThisWeek:</label>
+                    <span style="width:100px">@ViewBag.ActiveUsersThisWeek</span>
+                </div>
+                <div class="modelOverviewItemDetailItem">
+                    <label style="width:auto">@Resource.MC_ActiveUsersThisMonth:</label>
+                    <span style="width:100px">@ViewBag.ActiveUsersThisMonth</span>
+                </div>
+                <div class="modelOverviewItemDetailItem">@Html.Raw(licenseStatus)</div>
             </div>
-            <div class="modelOverviewItemDetailItem">
-                <label style="width:auto">@Resource.MC_Connected:</label>
-                <span style="width:100px">@ViewBag.ConnectedUser</span>
-            </div>
-            <div class="modelOverviewItemDetailItem">@Html.Raw(licenseStatus)</div>
-        </div>
         @*M4-13792: Fixed 'Open model' button missing*@
         <a href="@SiteMapHelper.ActionHash("Models/" + @ViewBag.ModelId)" class="btn btnLarge btnNext btnOpenModel">@Resource.OpenModel</a>
         <a href="@SiteMapHelper.ActionHash("GlobalSettings/Systemlog/ModelServer")" onclick="MC.util.redirect(event, this)" data-parameters='{"target":"@SystemLogType.ModelServer","modelId":"@ViewBag.ModelId"}' class="btn btnLarge btnNext btnOpenLogs">@Captions.MC_Button_OpenErrorWarningLog</a>
