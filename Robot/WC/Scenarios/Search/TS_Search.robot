@@ -104,7 +104,6 @@ Find And Execute Angle
 
 Execute First Search Item In Edit Mode
     Click First Item Info Button
-    Wait Item Info Popup Loaded
     Click Edit Mode Button Via Item Info Popup
     Wait Angle Page Document Loaded
     Check If Angle Or Display Has A Warning Then Close The Popup

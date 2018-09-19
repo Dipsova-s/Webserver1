@@ -865,6 +865,7 @@ function DashboardDetailsHandler() {
             var hasJump = WC.ModelHelper.HasFollowup(displayObject.query_blocks);
             var hasFilter = WC.ModelHelper.HasFilter(displayObject.query_blocks);
             var link = self.DefinitionGetLink(angle, displayObject);
+            var parameterizeInfo = self.DefinitionGetParameterizedInfo(angle, displayObject);
             var displayValidation = validationHandler.GetDisplayValidation(displayObject, angle.model);
             var isError = displayValidation.Level === validationHandler.VALIDATIONLEVEL.ERROR;
             var isWarning = displayValidation.Level === validationHandler.VALIDATIONLEVEL.WARNING;
@@ -888,7 +889,7 @@ function DashboardDetailsHandler() {
                     '<div class="rear">',
                         '<i class="icon ' + (displayObject.is_parameterized ? 'parameterized' : 'none') + '"></i>',
                         '<i class="icon ' + (isError ? 'validError' : (isWarning ? 'validWarning' : 'none')) + '"></i>',
-                        '<a class="icon link" href="' + link + '" target="_blank" onclick="dashboardDetailsHandler.DefinitionOpenDisplay(event, \'' + displayObject.uri + '\', ' + displayObject.is_public + ')"></a>',
+                        '<a class="icon link" href="' + link + '" target="_blank" data-parameterized="' + parameterizeInfo + '" onclick="dashboardDetailsHandler.DefinitionOpenDisplay(event, \'' + displayObject.uri + '\', ' + displayObject.is_public + ')"></a>',
                     '</div>'
                 ].join('')
             };
@@ -1012,18 +1013,31 @@ function DashboardDetailsHandler() {
     };
     self.DefinitionGetLink = function (angle, display) {
         var q = {};
-        var executionParametersInfo = dashboardModel.GetAngleExecutionParametersInfo(angle, display);
-        if (!jQuery.isEmptyObject(executionParametersInfo)) {
-            q[enumHandlers.ANGLEPARAMETER.ASK_EXECUTION] = escape(JSON.stringify(executionParametersInfo));
-        }
         q[enumHandlers.ANGLEPARAMETER.TARGET] = enumHandlers.ANGLETARGET.PUBLISH;
         q[enumHandlers.ANGLEPARAMETER.EDITMODE] = true;
 
         return WC.Utility.GetAnglePageUri(angle.uri, display.uri, q);
     };
+    self.DefinitionGetParameterizedInfo = function (angle, display) {
+        var executionParametersInfo = dashboardModel.GetAngleExecutionParametersInfo(angle, display);
+        if (!jQuery.isEmptyObject(executionParametersInfo)) {
+            // encode before use
+            return jQuery.base64.encode(JSON.stringify(executionParametersInfo));
+        }
+        else {
+            return '';
+        }
+    };
     self.DefinitionOpenDisplay = function (event, displayUri, isPublic) {
         var watcherKey = enumHandlers.STORAGE.WATCHER_DASHBOARD_PUBLICATIONS.replace('{uri}', displayUri);
         jQuery.storageWatcher(watcherKey, isPublic);
+
+        // set parameterized before go to Angle page
+        var executionParametersInfo = jQuery(event.currentTarget).data('parameterized');
+        if (executionParametersInfo) {
+            var parameterized = JSON.parse(jQuery.base64.decode(executionParametersInfo));
+            jQuery.localStorage(enumHandlers.ANGLEPARAMETER.ASK_EXECUTION, parameterized);
+        }
 
         event = event || window.event;
         if (event.stopPropagation)

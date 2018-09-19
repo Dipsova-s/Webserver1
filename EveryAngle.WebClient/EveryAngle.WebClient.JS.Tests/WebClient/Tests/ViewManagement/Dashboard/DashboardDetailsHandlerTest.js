@@ -244,31 +244,6 @@ describe("DashboardDetailsHandler", function () {
 
         });
 
-        it("should contain execution parameters", function () {
-
-            dashboardModel.ExecuteParameters = [{
-                "step_type": "filter",
-                "field": "PurchasingDocumentCategory",
-                "arguments": [{ "argument_type": "value", "field": "A" }],
-                "operator": "equal_to",
-                "execution_parameter_id": "eaf69c0f8119e5400cbc34c1776c6f466d",
-                "is_execution_parameter": true
-            }, {
-                "step_type": "filter",
-                "field": "ExecutionStatus",
-                "arguments": [{ "argument_type": "value", "value": "es0ToBeExecuted" }],
-                "operator": "equal_to",
-                "execution_parameter_id": "eab630425629de488d901c70eed74cdca8",
-                "is_execution_parameter": true
-            }];
-
-            var link = dashboardDetailsHandler.DefinitionGetLink(mockAngles[1], mockAngles[1].display_definitions[0]);
-            var expectExecutionParameters = enumHandlers.ANGLEPARAMETER.ASK_EXECUTION + '=';
-
-            expect(link).toContain(expectExecutionParameters);
-
-        });
-
     });
 
     describe("call DefinitionOpenDisplay", function () {
