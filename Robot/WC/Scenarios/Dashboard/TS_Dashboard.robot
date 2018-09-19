@@ -28,7 +28,6 @@ Execute Dashboard With Execution Parameters In Edit Mode
     Search By Text And Expect In Search Result    ${dashboardName}
     Sleep    2s    Wait SOLR
     Click First Item Info Button
-    Wait Item Info Popup Loaded
     Click Dashbaord Edit Mode Button Via Item Info Popup
     Click Execute Dashboard Action
     Click Submit Dashboard Execution Parameters

@@ -341,6 +341,7 @@ Click Link Template From Search Result
 Click Item Info Button
     [Arguments]    ${rowNumber}
     Click Element    ${btnSearchInfo}:eq(${rowNumber})
+    Wait Item Info Popup Loaded
 
 Click First Item Info Button
     Click Item Info Button    0

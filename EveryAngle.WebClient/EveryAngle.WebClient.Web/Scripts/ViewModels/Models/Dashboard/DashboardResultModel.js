@@ -2,6 +2,7 @@ function DashboardResultViewModel(elementId, model, dashboardViewModel, executeP
     "use strict";
 
     var self = this;
+    var checkPostIntegrityQueue = null;
     //BOF: View model properties
     self.Data = ko.observable(null);
     self.DataFields = [];
@@ -16,24 +17,33 @@ function DashboardResultViewModel(elementId, model, dashboardViewModel, executeP
     //EOF: View model properties
 
     self.Execute = function () {
-        return self.PostResult();
+        return self.CheckPostIntegrityQueue()
+            .then(self.PostIntegrity)
+            .then(self.PostResult)
+            .fail(self.ApplyResultFail)
+            .done(function (response, queryDefinition) {
+                response.query_definition = queryDefinition;
+                self.Data(response);
+                self.GetResult(response.uri);
+            });
     };
     self.PostResult = function () {
         var uri = directoryHandler.GetDirectoryUri(enumHandlers.ENTRIESNAME.RESULTS) + '?redirect=no';
         var data = self.CreatePostData();
 
         return CreateDataToWebService(directoryHandler.ResolveDirectoryUri(uri), data)
-            .fail(self.ApplyResultFail)
-            .done(function (response, status, xhr) {
-                response.query_definition = data.query_definition;
-                self.Data(response);
-                self.GetResult(response.uri);
+            .then(function (response) {
+                return jQuery.when(response, data.query_definition);
             });
     };
     self.CreatePostData = function () {
         var postData = { query_definition: [] };
         var executeParameters = self.GetPostExecuteParameters(self.ExecuteParameters, self.Angle.query_definition, self.Display.query_blocks);
-        var dashboardQueryBlock = self.DashboardModel.GetDashboardFiltersQueryBlock();
+        var validDashboardFilters = self.WidgetModel.GetExtendedFilters();
+        var dashboardQueryBlock = {
+            queryblock_type: enumHandlers.QUERYBLOCKTYPE.QUERY_STEPS,
+            query_steps: validDashboardFilters
+        };
 
         postData.query_definition.push({
             queryblock_type: enumHandlers.QUERYBLOCKTYPE.BASE_ANGLE,
@@ -43,14 +53,9 @@ function DashboardResultViewModel(elementId, model, dashboardViewModel, executeP
             postData.query_definition[0].execution_parameters = executeParameters.angle;
 
         // [DANGER AREA]: pivot or chart widget will got the error when try to include base display with dashboard query steps
-        if (dashboardQueryBlock && self.Display.contained_aggregation_steps) {
-            var widgetQuerySteps = ko.toJS(self.WidgetModel.GetQuerySteps());
-            var aggregationStep = self.WidgetModel.GetAggregationQueryStep();
-            widgetQuerySteps.query_steps.removeObject('step_type', enumHandlers.FILTERTYPE.AGGREGATION);
-
-            var newQuerySteps = jQuery.merge(widgetQuerySteps.query_steps, dashboardQueryBlock.query_steps);
-            newQuerySteps.push(aggregationStep);
-            dashboardQueryBlock.query_steps = newQuerySteps;
+        if (validDashboardFilters.length && self.Display.contained_aggregation_steps) {
+            var newBlockQuerySteps = self.WidgetModel.GetBlockQueryStepsWithNewFilters(validDashboardFilters);
+            dashboardQueryBlock.query_steps = newBlockQuerySteps.query_steps;
         }
         else {
             postData.query_definition.push({
@@ -61,13 +66,61 @@ function DashboardResultViewModel(elementId, model, dashboardViewModel, executeP
                 postData.query_definition[1].execution_parameters = executeParameters.display;
         }
 
-        if (dashboardQueryBlock)
+        if (validDashboardFilters.length)
             postData.query_definition.push(dashboardQueryBlock);
 
         if (!self.DashboardModel.IsTemporaryDashboard())
             postData.dashboard = self.DashboardModel.Data().uri;
 
         return postData;
+    };
+    self.CheckPostIntegrityQueue = function () {
+        var deferred = jQuery.Deferred();
+        clearInterval(checkPostIntegrityQueue);
+        checkPostIntegrityQueue = setInterval(function () {
+            if (!DashboardResultViewModel.IsPostIntegrityRunning)
+                deferred.resolve();
+        }, 100);
+        return deferred.promise();
+    };
+    self.PostIntegrity = function () {
+        // clean current filters
+        self.WidgetModel.SetExtendedFilters([]);
+
+        // no integrity check if no dashboard filter
+        if (!self.DashboardModel.GetDashboardFilters().length)
+            return jQuery.when();
+
+        // do integrity check
+        var integrityUri = self.Angle.model + '/validate_query_integrity?redirect=no';
+        var integrityData = self.CreatePostIntegrityData();
+
+        var deferred = jQuery.Deferred();
+        DashboardResultViewModel.IsPostIntegrityRunning = true;
+        CreateDataToWebService(directoryHandler.ResolveDirectoryUri(integrityUri), integrityData)
+            .fail(function () {
+                // ignore error but don't use filters
+                self.WidgetModel.SetExtendedFilters([]);
+                deferred.resolve(null);
+            })
+            .done(function (response) {
+                // AppServer always response index 1 as query_steps
+                self.WidgetModel.SetExtendedFilters(response.query_definition[1].query_steps);
+                deferred.resolve(response);
+            })
+            .always(function () {
+                DashboardResultViewModel.IsPostIntegrityRunning = false;
+            });
+        return deferred.promise();
+    };
+    self.CreatePostIntegrityData = function () {
+        // get querystep block combined with dashboard filters
+        var dashboardFilters = self.DashboardModel.GetDashboardFilters();
+        var queryDefinition = self.WidgetModel.GetQueryDefinitionsWithNewFilters(dashboardFilters);
+
+        return {
+            query_definition: queryDefinition
+        };
     };
     self.GetPostExecuteParameters = function (executeParameters, angleQueryBlocks, displayQueryBlocks) {
         var data = {
@@ -76,11 +129,10 @@ function DashboardResultViewModel(elementId, model, dashboardViewModel, executeP
         };
 
         if (executeParameters.length) {
-            var angleStepQueryBlock = angleQueryBlocks.findObject('queryblock_type', enumHandlers.QUERYBLOCKTYPE.QUERY_STEPS);
-            var angleSteps = angleStepQueryBlock ? angleStepQueryBlock.query_steps : [];
-            var displayStepQueryBlock = displayQueryBlocks.findObject('queryblock_type', enumHandlers.QUERYBLOCKTYPE.QUERY_STEPS);
-            var displaySteps = displayStepQueryBlock ? displayStepQueryBlock.query_steps : [];
-
+            var getQuerySteps = function (queryBlocks) {
+                var stepQueryBlock = queryBlocks.findObject('queryblock_type', enumHandlers.QUERYBLOCKTYPE.QUERY_STEPS);
+                return stepQueryBlock ? stepQueryBlock.query_steps : [];
+            };
             var setExecutableQuery = function (source, querySteps, query) {
                 var executableQuerys = querySteps.findObjects('is_execution_parameter', true);
                 var executableQuery = executableQuerys.findObject('field', query.field);
@@ -90,6 +142,9 @@ function DashboardResultViewModel(elementId, model, dashboardViewModel, executeP
                     source.push(executableQuery);
                 }
             };
+
+            var angleSteps = getQuerySteps(angleQueryBlocks);
+            var displaySteps = getQuerySteps(displayQueryBlocks);
 
             jQuery.each(executeParameters, function (index, query) {
                 setExecutableQuery(data.angle, angleSteps, query);
@@ -226,7 +281,7 @@ function DashboardResultViewModel(elementId, model, dashboardViewModel, executeP
         };
         return jQuery.Deferred().reject(response, null, null).promise();
     };
-    self.ApplyResultFail = function (xhr, status, error) {
+    self.ApplyResultFail = function (xhr) {
         jQuery(self.ElementId).parent().busyIndicator(false);
         progressbarModel.EndProgressBar();
 
@@ -276,3 +331,4 @@ function DashboardResultViewModel(elementId, model, dashboardViewModel, executeP
     };
     //EOF: View model methods
 }
+DashboardResultViewModel.IsPostIntegrityRunning = false;

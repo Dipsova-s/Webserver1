@@ -2,6 +2,9 @@ function DashboardWidgetViewModel(model) {
     "use strict";
 
     //BOF: View model properties
+    var _self = {};
+    _self.ExtendedFilters = [];
+
     var self = this;
     //EOF: View model properties
 
@@ -133,10 +136,23 @@ function DashboardWidgetViewModel(model) {
             displayQuerySteps = jQuery.grep(display.query_blocks, function (queryBlock) { return queryBlock.queryblock_type === enumHandlers.QUERYBLOCKTYPE.QUERY_STEPS; });
 
         definitions.push(baseClasses[0]);
-        queryStep.query_steps = queryStep.query_steps.concat(angleQuerySteps.length !== 0 ? angleQuerySteps[0].query_steps : [], displayQuerySteps.length !== 0 ? displayQuerySteps[0].query_steps : []);
+        queryStep.query_steps = queryStep.query_steps.concat(angleQuerySteps.length ? angleQuerySteps[0].query_steps : [], displayQuerySteps.length ? displayQuerySteps[0].query_steps : []);
         definitions.push(queryStep);
 
         return definitions;
+    };
+
+    self.GetQueryDefinitionsWithNewFilters = function (filters) {
+        // get initial blocks
+        var queryDefinitions = ko.toJS(self.GetQueryDefinitions());
+
+        // get querystep block combined with dashboard filters
+        var newQueryStepBlock = self.GetBlockQueryStepsWithNewFilters(filters);
+
+        // replace with updated block
+        queryDefinitions[1] = newQueryStepBlock;
+
+        return queryDefinitions;
     };
 
     // GetDefaultWidgetName: get default widget name
@@ -152,20 +168,67 @@ function DashboardWidgetViewModel(model) {
     };
 
     // GetQuerySteps: get all query steps from widget display if not found then return null
-    self.GetQuerySteps = function () {
+    self.GetBlockQuerySteps = function () {
         var widgetQueryBlock = self.GetQueryDefinitions();
         var widgetQuerySteps = widgetQueryBlock.findObject('queryblock_type', enumHandlers.QUERYBLOCKTYPE.QUERY_STEPS);
         return widgetQuerySteps;
+    };
+    
+    self.GetBlockQueryStepsWithNewFilters = function (filters) {
+        var querySteps = ko.toJS(self.GetBlockQuerySteps());
+        if (!querySteps) {
+            // if no filter then return a new block
+            return {
+                queryblock_type: enumHandlers.QUERYBLOCKTYPE.QUERY_STEPS,
+                query_steps: filters
+            };
+        }
+
+        // combined filters
+        jQuery.merge(querySteps.query_steps, filters);
+
+        // aggregation step always put at the last order
+        var aggregationStep = self.GetAggregationQueryStep();
+        if (aggregationStep) {
+            querySteps.query_steps.removeObject('step_type', enumHandlers.FILTERTYPE.AGGREGATION);
+            querySteps.query_steps.push(aggregationStep);
+        }
+        
+        return querySteps;
     };
 
     // GetAggregationQuerySteps: get aggregation query step from current widget display if not found then return null
     self.GetAggregationQueryStep = function () {
         var aggregationQueryStep = null;
-        var widgetQuerySteps = self.GetQuerySteps();
+        var widgetQuerySteps = self.GetBlockQuerySteps();
         if (widgetQuerySteps) {
             aggregationQueryStep = widgetQuerySteps.query_steps.findObject('step_type', enumHandlers.FILTERTYPE.AGGREGATION);
         }
         return aggregationQueryStep;
+    };
+
+    self.SetExtendedFilters = function (validatedFilters) {
+        // get number of filters
+        var rawBlockQuerySteps = self.GetBlockQuerySteps();
+        var rawFilterCount = 0;
+        if (rawBlockQuerySteps) {
+            rawFilterCount = rawBlockQuerySteps.query_steps.length;
+
+            // aggregation step will move to the last
+            if (self.GetAggregationQueryStep())
+                rawFilterCount--;
+        }
+
+        _self.ExtendedFilters = [];
+        for (var index = rawFilterCount; index < validatedFilters.length; index++) {
+            var queryStep = validatedFilters[index];
+            if (queryStep.step_type === enumHandlers.FILTERTYPE.FILTER && queryStep.valid !== false)
+                _self.ExtendedFilters.push(queryStep);
+        }
+    };
+
+    self.GetExtendedFilters = function () {
+        return _self.ExtendedFilters;
     };
 
     //EOF: View modle methods

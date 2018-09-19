@@ -100,27 +100,6 @@ describe("DashboardModel", function () {
 
     });
 
-    describe("call GetDashboardFiltersQueryBlock", function () {
-
-        it("should get dashboard query block if it has filters", function () {
-            spyOn(dashboardModel, 'GetDashboardFilters').and.returnValue(mockDashboardModel.filters);
-
-            var result = dashboardModel.GetDashboardFiltersQueryBlock();
-
-            expect(result.queryblock_type).toEqual('query_steps');
-            expect(result.query_steps).toBeDefined();
-            expect(result.query_steps.length).toEqual(1);
-            expect(result.query_steps[0].arguments.length).toEqual(1);
-            expect(result.query_steps[0].step_type).toEqual('filter');
-            expect(result.query_steps[0].field).toEqual('PurchaseRequisition__BAFIX');
-            expect(result.query_steps[0].operator).toEqual('equal_to');
-            expect(result.query_steps[0].tech_info).toEqual('xxx');
-            expect(result.query_steps[0].arguments[0].argument_type).toEqual('field');
-            expect(result.query_steps[0].arguments[0].field).toEqual('PurchaseOrderLine__AcknowledgementRequired');
-        });
-
-    });
-
     describe("call ExtendDashboardFilter", function () {
 
         it("should normalize dashboard filter", function () {

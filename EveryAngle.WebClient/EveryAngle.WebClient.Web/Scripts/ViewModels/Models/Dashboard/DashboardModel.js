@@ -1002,17 +1002,6 @@ function DashboardViewModel() {
     /*
     *  Dashboard Filter functionality
     */
-    self.GetDashboardFiltersQueryBlock = function () {
-        // convert to query block before post result
-        var dashboardFilters = self.GetDashboardFilters();
-        if (!dashboardFilters.length)
-            return null;
-
-        return {
-            queryblock_type: enumHandlers.QUERYBLOCKTYPE.QUERY_STEPS,
-            query_steps: dashboardFilters
-        };
-    };
     self.GetDashboardFilters = function (viewModel) {
         var dashboardFilters = self.Data()['filters'];
         if (viewModel) {
