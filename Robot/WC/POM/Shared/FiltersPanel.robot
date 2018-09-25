@@ -165,3 +165,5 @@ Input Filter Set Select Value
     ${expect} =    Execute Javascript    return '${expect}'.split(' (')[0]
     Wait Until Element Is Visible    jquery=[aria-owns="${ddlFilterSelectValue}${index}_listbox"]
     Input Text    jquery=[aria-owns="${ddlFilterSelectValue}${index}_listbox"]    ${expect}
+    Press Key     jquery=[aria-owns="${ddlFilterSelectValue}${index}_listbox"]    \\13
+    Sleep    ${TIMEOUT_DROPDOWN}
