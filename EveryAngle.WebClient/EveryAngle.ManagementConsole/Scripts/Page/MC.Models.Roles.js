@@ -571,11 +571,10 @@
                                 sortable: false
                             }
                         ],
-                        //sortable: true,
                         scrollable: true,
                         resizable: true
                     }).data('kendoGrid');
-                    propertiesGrid.content.height(200);
+                    propertiesGrid.content.height(375);
                     propertiesGrid.bind('dataBound', self.PropertyGridDataBound);
                 }
 
