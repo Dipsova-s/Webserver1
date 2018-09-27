@@ -21,6 +21,9 @@ function WidgetDetailsHandler(container, description, queryblocks, modelRoles, d
     // set button base class info visibility
     self.CanViewBaseClassInfo = ko.observable(false);
 
+    // show model info or not?
+    self.IsVisibleModelInfo = ko.observable(false);
+
     // show execute with model role section or not?
     self.IsVisibleModelRoles = ko.observable(true);
 
@@ -52,7 +55,7 @@ function WidgetDetailsHandler(container, description, queryblocks, modelRoles, d
         DisplayDefinitions: ko.observableArray(WC.Utility.ToArray(displayDefinitions)),
         Labels: ko.observableArray(WC.Utility.ToArray(labels)),
         Widgets: ko.observableArray([]),
-
+        
         AngleName: ko.observable(''),
         DisplayName: ko.observable(''),
         AngleDescription: ko.observable(''),
@@ -296,6 +299,15 @@ function WidgetDetailsHandler(container, description, queryblocks, modelRoles, d
         else {
             return detail;
         }
+    };
+    self.GetModelInfo = function () {
+        var modelInfoText = '';
+        var modelInfo = modelsHandler.GetModelByUri(self.ModelUri);
+        if (modelInfo) {
+            var aboutInfo = aboutSystemHandler.GetModelInfoById(modelInfo.id);
+            modelInfoText = aboutInfo ? jQuery.trim(kendo.format('{0} {1}', aboutInfo.name(), aboutInfo.date())) : '';
+        }
+        return modelInfoText;
     };
 
     self.HaveFilterDisplay = function (queryBlocks) {

@@ -133,6 +133,10 @@ function ModelsHandler() {
         var model = self.GetModelByUri(modelUri);
         return model ? model.short_name || model.id : '';
     };
+    self.GetModelNameById = function (modelId) {
+        var model = self.GetModelById(modelId);
+        return model ? model.short_name || model.id : modelId;
+    };
 
     self.GetQueryFieldsUri = function (resultData, angleData, isMetaData) {
         if (typeof isMetaData === 'undefined')

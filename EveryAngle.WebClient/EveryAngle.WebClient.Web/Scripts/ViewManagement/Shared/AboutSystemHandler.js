@@ -8,6 +8,31 @@ function AboutSystemModel(model) {
         app_server_version: '',
         models: []
     }, model);
+
+    // add extra info
+    jQuery.each(this.models, function (index, data) {
+        data.name = function () {
+            return modelsHandler.GetModelNameById(this.model_id);
+        };
+
+        var hasInfo = data.status.toLowerCase() !== 'down' && data.modeldata_timestamp;
+        if (hasInfo) {
+            data.date = function () {
+                return WC.FormatHelper.GetFormattedValue(enumHandlers.FIELDTYPE.DATETIME_WC, this.modeldata_timestamp);
+            };
+            data.info = function () {
+                return kendo.format('{0}, {1}', this.status, this.date());
+            };
+        }
+        else {
+            data.date = function () {
+                return '';
+            };
+            data.info = function () {
+                return this.status;
+            };
+        }
+    });
 }
 
 function AboutSystemHandler() {
@@ -50,6 +75,11 @@ function AboutSystemHandler() {
 
         var uri = directoryHandler.GetDirectoryUri(enumHandlers.ENTRIESNAME.ABOUT);
         return self.Load(uri);
+    };
+
+    self.GetModelInfoById = function (id) {
+        var data = self.GetData();
+        return data.models ? data.models.findObject('model_id', id) : null;
     };
 
     self.GetWebClientVersion = function () {

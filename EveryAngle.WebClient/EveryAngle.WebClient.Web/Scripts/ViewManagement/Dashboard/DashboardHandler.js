@@ -40,7 +40,8 @@ function DashboardHandler() {
                     systemSettingHandler.LoadSystemSettings(),
                     userModel.Load(),
                     systemInformationHandler.LoadSystemInformation(),
-                    systemCurrencyHandler.LoadCurrencies()
+                    systemCurrencyHandler.LoadCurrencies(),
+                    aboutSystemHandler.LoadAboutSystem()
                );
             })
             .then(function () {
@@ -1664,13 +1665,14 @@ function DashboardHandler() {
                 if (handler)
                     handler.AdjustLayout();
             },
-            open: function (e) {
+            open: function () {
                 var angle = widget.GetAngle();
                 var display = widget.GetDisplay();
                 var blocks = angle.query_definition.concat(display.query_blocks);
                 var modelRoles = ko.toJS(userModel.GetModelRolesByModelUri(angle.model));
 
                 handler = new WidgetDetailsHandler('#popup' + popupName);
+                handler.IsVisibleModelInfo(true);
                 handler.Angle = angle;
                 handler.ModelUri = angle.model;
                 handler.Data.AngleName(angle.name);
@@ -1679,6 +1681,7 @@ function DashboardHandler() {
                 handler.Data.DisplayDescription(display.description);
                 handler.Data.QueryBlocks(blocks);
                 handler.Data.ModelRoles(modelRoles);
+                handler.Labels.HeaderModelInfo = Localization.AboutModelInfo + ':';
                 handler.Labels.HeaderAngleTitle = Localization.DashboardWidgetInfo_HeaderAngleTitle;
                 handler.Labels.HeaderDisplayTitle = Localization.DashboardWidgetInfo_HeaderDisplayTitle;
                 handler.Labels.HeaderAngleDescription = Localization.DashboardWidgetInfo_HeaderAngleDescription;

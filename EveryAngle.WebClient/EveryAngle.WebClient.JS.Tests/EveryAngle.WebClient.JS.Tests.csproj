@@ -97,6 +97,10 @@
       <Link>WebClient\Dependencies\ViewManagement\Dashboard\DashboardFiltersHandler.js</Link>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="..\EveryAngle.WebClient.Web\Scripts\ViewManagement\Shared\AboutSystemHandler.js">
+      <Link>WebClient\Dependencies\ViewManagement\Shared\AboutSystemHandler.js</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="ManagementConsole\Tests\Custom\MC.AjaxTest.js" />
     <Content Include="ManagementConsole\Tests\Custom\MC.Test.js" />
     <Content Include="ManagementConsole\Tests\Custom\MC.UITest.js" />
@@ -707,9 +711,11 @@
     <Content Include="WebClient\Tests\ViewManagement\Search\ImportAngleHandlerTest.js" />
     <Content Include="WebClient\Tests\ViewManagement\Search\ItemInfoHandlerTest.js" />
     <Content Include="WebClient\Tests\ViewManagement\Search\SearchPageHandlerTest.js" />
+    <Content Include="WebClient\Tests\ViewManagement\Shared\AboutSystemHandlerTest.js" />
     <Content Include="WebClient\Tests\ViewManagement\Shared\ModelLabelCategoryHandlerTest.js" />
     <Content Include="WebClient\Tests\ViewManagement\Shared\ProgressBarTest.js" />
     <Content Include="WebClient\Tests\ViewManagement\Shared\ModelsHandlerTest.js" />
+    <Content Include="WebClient\Tests\ViewManagement\Shared\WidgetDetails\WidgetDetailsHandlerTest.js" />
     <Content Include="WebClient\Tests\ViewManagement\Shared\WidgetFilter\WidgetFilterHandlerTest.js" />
     <Content Include="WebClient\Tests\ViewManagement\Shared\WidgetFilter\WidgetFilterHelperTest.js" />
     <Content Include="WebClient\Tests\ViewManagement\Shared\WidgetFilter\WidgetFilterViewTest.js" />
