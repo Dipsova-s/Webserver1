@@ -393,6 +393,7 @@
 
 .popupListFilter .definitionList {
     margin-bottom: 2px;
+    max-height: none;
 }
 
 .popupListFilter .FilterHeader > .btnInfo {

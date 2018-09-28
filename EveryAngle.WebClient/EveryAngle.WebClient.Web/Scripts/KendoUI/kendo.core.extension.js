@@ -94,10 +94,4 @@
         return kendo.__format.apply(kendo, arguments);
     };
 
-    // touch + mouse device
-    if (window.Modernizr.touch && window.Modernizr.mouse) {
-        kendo.support.mobileOS = true;
-        kendo.support.kineticScrollNeeded = true;
-    }
-
 })(window, window.kendo, window.jQuery);
