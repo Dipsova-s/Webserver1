@@ -380,7 +380,15 @@ function FacetFiltersViewModel() {
 					width: 20,
 					height: 20
 				}
-			}
+            },
+            icon_clock: {
+                path: GetImageFolderPath() + 'searchpage/icn_clock.svg',
+                dimension: {
+                    width: 15,
+                    height: 15
+                },
+                style: 'float:left;margin:-1px 2px 0 0;'
+            }
 		};
 		return iconsMapping[id.toLowerCase()];
     };
@@ -391,13 +399,16 @@ function FacetFiltersViewModel() {
         }
         return tooltip;
     };
-    self.GetFilterText = function (filter, isGeneralGroup) {
+    self.GetFilterText = function (filter, isGeneralGroup, facetcat) {
 		var icon = self.SetIcon(filter.id);
 		var html = '';
 
         if (icon) {
             html += '<img src="' + icon.path + '" height="' + icon.dimension.height + '" width="' + icon.dimension.width + '" style="' + (icon.style || '') + '" />';
             html += '<span class="name withIcon">';
+        }
+        else if (facetcat === 'facetcat_models') {
+            html += '<span class="name" data-type="html" data-tooltip-function="GetRefreshTime" data-tooltip-argument="' + filter.id + '">';
         }
         else {
             html += '<span class="name">';
@@ -465,4 +476,52 @@ function FacetFiltersViewModel() {
 
         return true;
     };
+    self.GetDuration = function (seconds) {
+        var duration = "";
+        var epoch, interval;
+        var duration_in_seconds = {
+            epochs: ['y', 'd', 'h', 'm'],
+            y: 31536000,
+            d: 86400,
+            h: 3600,
+            m: 60
+        };
+
+        for (var i = 0; i < duration_in_seconds.epochs.length; i++) {
+            epoch = duration_in_seconds.epochs[i];
+            interval = Math.floor(seconds / duration_in_seconds[epoch]);
+            if (interval >= 1) {
+                duration += interval + epoch + ' ';
+                if (epoch !== 'y') {
+                    seconds -= interval * duration_in_seconds[epoch];
+                }
+                else {
+                    return duration;
+                }
+            }
+        }
+
+        return duration;
+    };
+    self.GetTimeAgoByTimestamp = function (timestamp) {
+        var now = new Date();
+        var ts = new Date(timestamp * 1000);
+        var seconds = (now.getTime() - ts.getTime()) / 1000;
+        var duration = self.GetDuration(seconds);
+        return kendo.format(Localization.SinceLastRefresh, duration);
+    };
+    self.GetRefreshTime = function (modelId) {
+        var icon = self.SetIcon('icon_clock');
+        var aboutInfo = aboutSystemHandler.GetModelInfoById(modelId);
+        var refreshTime = aboutInfo ? (aboutInfo.date() ? self.GetTimeAgoByTimestamp(aboutInfo.modeldata_timestamp) : aboutInfo.info()) : '';
+        var html = '';
+
+        if (refreshTime) {
+            html += '<img src="' + icon.path + '" height="' + icon.dimension.height + '" width="' + icon.dimension.width + '" style="' + (icon.style || '') + '" />';
+            html += '<span style="">' + refreshTime + '</span>';
+        }
+
+        return html;
+    };
+    window.GetRefreshTime = self.GetRefreshTime;
 }

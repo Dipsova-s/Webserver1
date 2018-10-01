@@ -5833,4 +5833,7 @@ Are you sure you want to delete this role?</value>
   <data name="MC_AccessRequestedPathDenied" xml:space="preserve">
     <value>Access to the requested path denied</value>
   </data>
+  <data name="SinceLastRefresh" xml:space="preserve">
+    <value>{0}since last refresh</value>
+  </data>
 </root>

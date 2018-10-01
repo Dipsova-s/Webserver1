@@ -15848,6 +15848,15 @@ namespace EveryAngle.Shared.Globalization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to {0}since last refresh.
+        /// </summary>
+        public static string SinceLastRefresh {
+            get {
+                return ResourceManager.GetString("SinceLastRefresh", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to 6 decimals.
         /// </summary>
         public static string SixDecimal {

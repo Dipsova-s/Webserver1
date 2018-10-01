@@ -12,7 +12,7 @@
                 <li data-bind="visible: $root.CheckAngleFacetVisibility(filter.id, filter.count())">
                     <label>
                         <input type="checkbox" data-bind="attr: { 'id': filter.id }, checked: filter.checked, click: function (data, event) { return facetFiltersViewModel.FilterItems(data, event, $parent) }, Indeterminatable: filter.checked" />
-                        <span class="label" data-bind="html: $root.GetFilterText(filter, $root.GroupGeneral === facet.type), attr: { 'alt': filter.id }, css: { negative: filter.negative }"></span>
+                        <span class="label" data-bind="html: $root.GetFilterText(filter, $root.GroupGeneral === facet.type, facet.id), attr: { 'alt': filter.id }, css: { negative: filter.negative }"></span>
                     </label>
                 </li>
             </ul>

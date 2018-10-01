@@ -5818,4 +5818,7 @@ Are you sure you want to delete this role?</value>
   <data name="Period_Unit_year" xml:space="preserve">
     <value>years</value>
   </data>
+  <data name="SinceLastRefresh" xml:space="preserve">
+    <value>{0}since last refresh</value>
+  </data>
 </root>

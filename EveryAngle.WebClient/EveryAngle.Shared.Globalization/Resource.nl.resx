@@ -3239,7 +3239,7 @@ Copyright © {0}</value>
   </data>
   <data name="DefaultDatastore" xml:space="preserve">
     <value>Standaard dataopslag</value>
-</data>
+  </data>
   <data name="MC_ShowWarningPopupCopyRole" xml:space="preserve">
     <value>The copied role will not contain sub roles</value>
   </data>
@@ -3326,7 +3326,7 @@ Copyright © {0}</value>
   </data>
   <data name="Info_RequiredFieldInRowAreaChart_Radar" xml:space="preserve">
     <value>U moet een veld toevoegen aan de categorieën (cirkel-as).</value>
-</data>
+  </data>
   <data name="MC_AngleWarnings_InfoTotalTemplates" xml:space="preserve">
     <value>Total number of Templates</value>
   </data>
@@ -3344,7 +3344,7 @@ Copyright © {0}</value>
   </data>
   <data name="Info_PleaseRemoveOneFieldFromDataArea_Radar" xml:space="preserve">
     <value>Verwijder één veld uit het gegevensgebied (radiale as).</value>
-</data>
+  </data>
   <data name="MC_Validation_ID_Restricted" xml:space="preserve">
     <value>The following ID is not allowed: {0}</value>
   </data>
@@ -3368,7 +3368,7 @@ Copyright © {0}</value>
   </data>
   <data name="Confirm_SaveAngleWithWarning" xml:space="preserve">
     <value>Een Jump toevoegen of verwijderen kan Anglewaarschuwingen veroorzaken.&lt;br&gt;Wilt u doorgaan?</value>
-</data>
+  </data>
   <data name="MC_ImportUser_Add_Users" xml:space="preserve">
     <value>Add users</value>
   </data>
@@ -3534,7 +3534,7 @@ Copyright © {0}</value>
   <data name="JSONLengthExceeded" xml:space="preserve">
     <value>Maximum lengte overschreden (MaxJsonLength). Mogelijk is het aantal te kopiëren items te groot, of de te kopiëren items bevatten te lange namen, helpteksten etc.</value>
   </data>
- <data name="MC_Duplicates" xml:space="preserve">
+  <data name="MC_Duplicates" xml:space="preserve">
     <value>Duplicates</value>
   </data>
   <data name="MC_Include" xml:space="preserve">
@@ -3590,5 +3590,8 @@ Copyright © {0}</value>
   </data>
   <data name="Period_Unit_year" xml:space="preserve">
     <value>jaren</value>
+  </data>
+  <data name="SinceLastRefresh" xml:space="preserve">
+    <value>{0}sinds laatste verversing</value>
   </data>
 </root>

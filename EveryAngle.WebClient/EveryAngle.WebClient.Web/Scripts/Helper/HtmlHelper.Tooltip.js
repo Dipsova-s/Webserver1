@@ -42,7 +42,14 @@
     var getTooltipInfo = function (e, ui) {
         var target = jQuery(e.currentTarget);
         var text, renderAs;
-        if (target.find('[data-tooltip-title]').length) {
+
+        if (target.is('[data-tooltip-function]')) {
+            var tooltipFunction = window[target.attr('data-tooltip-function')];
+            var tooltipArgument = target.attr('data-tooltip-argument');
+            text = tooltipFunction.call(window, tooltipArgument);
+            renderAs = target.data('type');
+        }
+        else if (target.find('[data-tooltip-title]').length) {
             var dataTooltip = target.find('[data-tooltip-title]');
             text = dataTooltip.data('tooltip-title');
             renderAs = dataTooltip.data('type');
