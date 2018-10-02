@@ -224,16 +224,6 @@
     background-color: #fff;
 }
 
-/* #ContentBar
-============================================ */
-#ContentBar {
-    border-bottom: 1px solid #e0e0e0;
-}
-
-#ContentBar .Wrapper {
-    height: 80px;
-}
-
 /* #LeftMenu
 ============================================ */
 #LeftMenu {
@@ -1016,7 +1006,7 @@
 
 .ResultContent {
     font-size: 11px;
-    margin: 10px 105px 5px 20px;
+    margin: 10px 65px 5px 20px;
     position: relative;
     z-index: 1;
 }
@@ -1085,7 +1075,7 @@
 .ResultView {
     right: 8px;
     position: absolute;
-    width: 90px;
+    width: 50px;
     padding-top: 2px;
     z-index: 2;
 }
@@ -1104,20 +1094,52 @@
     cursor: pointer;
     position: relative;
     float: right;
-    margin-left: 5px;
 }
 
-.compactMode .ResultView .icon {
-    display: none;
+.btnShowDisplays {
+    width: 16px;
+    height: 16px;
+    right: 20px;
 }
-
-.compactMode .ResultView .defaultIcon {
-    display: block;
+.btnShowDisplays .badge {
+    right: -14px;
+    top: -6px;
+    min-width: 16px;
 }
 
 .compactMode .ResultContent .Date,
 .compactMode .ResultContent .ContentDetail {
     display: none;
+}
+
+#popupDisplays {
+    width: 600px;
+}
+#popupDisplays.k-window-arrow-n:before,
+#popupDisplays.k-window-arrow-n:after,
+#popupDisplays.k-window-arrow-s:before,
+#popupDisplays.k-window-arrow-s:after{
+    left: auto;
+    right: 10px;
+}
+#popupDisplays .k-window-content {
+    min-height: 35px;
+}
+#popupDisplays .sectionDefinitions {
+    font-size: 12px;
+    padding-bottom: 0;
+    margin-bottom: 0;
+    border-bottom-width: 0;
+}
+#popupDisplays .sectionDescriptions,
+#popupDisplays .sectionDefinitions h3 {
+    display: none;
+}
+#popupDisplays .displayNameContainer {
+    border-bottom: 1px solid #c5c5c5;
+}
+#popupDisplays .displayNameContainer:hover {
+    background-color: #eefbff;
 }
 
 @media (max-width: 1139px) {

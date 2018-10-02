@@ -4,6 +4,8 @@ function ItemInfoHandler() {
     "use strict";
 
     var self = this;
+    self.CacheItems = {};
+    self.MaxDisplays = 8;
     self.HandlerInfoDetails = null;
 
     self.ShowInfoPopup = function (uri, event) {
@@ -106,22 +108,19 @@ function ItemInfoHandler() {
                     e.sender.element.busyIndicator(true);
 
                     // gettting angle
-                    var angle;
-                    var query = {};
-                    query[enumHandlers.PARAMETERS.CACHING] = false;
-                    query[enumHandlers.PARAMETERS.MULTILINGUAL] = 'yes';
-                    GetDataFromWebService(item.uri, query)
+                    self.LoadItem(GetDataFromWebService, item.uri)
                         .then(function (response) {
-                            angle = response;
-                            angleInfoModel.SetData(angle);
+                            self.CacheItems[item.uri] = response;
+                            self.HandlerInfoDetails.Angle = response;
+                            angleInfoModel.SetData(response);
 
                             // load fields
-                            return angleInfoModel.LoadMetadata(angle, null);
+                            return angleInfoModel.LoadMetadata(response, null);
                         })
                         .then(function () {
                             // load labels
                             var isLoadAllLabels = true;
-                            jQuery.each(angle.assigned_labels, function (index, label) {
+                            jQuery.each(self.HandlerInfoDetails.Angle.assigned_labels, function (index, label) {
                                 if (!modelLabelCategoryHandler.GetLabelById(label)) {
                                     isLoadAllLabels = false;
                                     return false;
@@ -136,18 +135,15 @@ function ItemInfoHandler() {
                             }
                         })
                         .done(function () {
-                            var angleDescription = WC.Utility.GetDefaultMultiLangText(angle.multi_lang_description);
+                            var angleDescription = WC.Utility.GetDefaultMultiLangText(self.HandlerInfoDetails.Angle.multi_lang_description);
 
                             //Sort displayDefinitions ASC
                             var displayDefinitions = angleInfoModel.Data().display_definitions;
-                            jQuery.each(displayDefinitions, function (index, display) {
-                                display.name = WC.Utility.GetDefaultMultiLangText(WC.Utility.ToArray(display.multi_lang_name));
-                            });
-                            displayDefinitions.sortObject('name', enumHandlers.SORTDIRECTION.ASC, false);
+                            self.UpdateDisplayDefinitions(displayDefinitions);
 
                             //Find Label
                             var labels = [];
-                            jQuery.each(angle.assigned_labels, function (index, value) {
+                            jQuery.each(self.HandlerInfoDetails.Angle.assigned_labels, function (index, value) {
                                 var labelItem = modelLabelCategoryHandler.GetLabelById(value);
                                 if (labelItem) {
                                     labels.push(labelItem.name);
@@ -156,18 +152,10 @@ function ItemInfoHandler() {
                                     labels.push(value);
                                 }
                             });
-
-                            self.HandlerInfoDetails.Angle = angle;
-                            self.HandlerInfoDetails.ShowExecutionParameterPopup = function (display, event) {
-                                if (angle.is_parameterized || display.is_parameterized) {
-                                    self.ShowAngleExecutionParameterPopup(angle, display.uri);
-                                }
-                                else {
-                                    event.currentTarget.href += "&" + enumHandlers.ANGLEPARAMETER.STARTTIMES + "=" + jQuery.now();
-                                    return true;
-                                }
+                            
+                            self.HandlerInfoDetails.ShowExecutionParameterPopup = function (angle, display, event) {
+                                return self.ShowAngleExecutionParameterPopupFunction(angle, display, event);
                             };
-                            self.HandlerInfoDetails.IsVisibleDisplayList(true);
                             self.HandlerInfoDetails.SetData(angleDescription, angleInfoModel.Data().query_definition, [], displayDefinitions, labels);
 
                             e.sender.wrapper.find('.k-window-buttons .btn').removeClass('executing');
@@ -180,13 +168,7 @@ function ItemInfoHandler() {
                     self.HandlerInfoDetails.Angle = null;
                     self.HandlerInfoDetails.IsVisibleModelRoles(false);
                     self.HandlerInfoDetails.ShowExecutionParameterPopup = function (angle, display, event) {
-                        if (angle.is_parameterized || display.is_parameterized) {
-                            self.ShowAngleExecutionParameterPopup(angle, display.uri);
-                        }
-                        else {
-                            event.currentTarget.href += "&" + enumHandlers.ANGLEPARAMETER.STARTTIMES + "=" + jQuery.now();
-                            return true;
-                        }
+                        return self.ShowAngleExecutionParameterPopupFunction(angle, display, event);
                     };
 
                     titleElement.after(WC.WidgetDetailsView.TemplateDashboardInfoPopupHeader);
@@ -205,12 +187,10 @@ function ItemInfoHandler() {
                         SetFavorite: searchPageHandler.SetFavoriteItem
                     }, e.sender.wrapper.find('.dashboardInformation'));
 
-                    query = {};
-                    query[enumHandlers.PARAMETERS.CACHING] = false;
-
                     var dashboard;
-                    dashboardModel.LoadDashboard(item.uri)
+                    self.LoadItem(dashboardModel.LoadDashboard, item.uri)
                         .then(function (response) {
+                            self.CacheItems[item.uri] = response;
                             dashboard = response;
                             e.sender.wrapper.find('.k-window-buttons .btn').removeClass('executing');
                             e.sender.trigger('resize');
@@ -265,8 +245,6 @@ function ItemInfoHandler() {
 
                             self.HandlerInfoDetails.SetWidget(labels, true, modelList);
                             self.HandlerInfoDetails.IsVisibleWidgetList(true);
-                            self.HandlerInfoDetails.IsVisibleDisplayList(false);
-
                         });
 
                 }
@@ -280,6 +258,102 @@ function ItemInfoHandler() {
         };
 
         popup.Show(popupSettings);
+    };
+
+    self.LoadItem = function (fn, uri) {
+        var query = {};
+        query[enumHandlers.PARAMETERS.CACHING] = false;
+        query[enumHandlers.PARAMETERS.MULTILINGUAL] = 'yes';
+        return jQuery.when(self.CacheItems[uri] || fn(uri, query))
+            .done(function (data) {
+                self.CacheItems[uri] = data;
+            });
+    };
+
+    self.ShowDisplays = function (event, target, uri, totalDisplays) {
+        if (event && event.stopPropagation) {
+            event.stopPropagation();
+        }
+
+        requestHistoryModel.SaveLastExecute(self, self.ShowInfoPopup, arguments);
+        requestHistoryModel.ClearPopupBeforeExecute = true;
+
+        WC.Ajax.AbortAll();
+
+        // create container
+        target = jQuery(target);
+        var container = self.CreateShowDisplaysElement(target, totalDisplays);
+        var contentElement = container.children('.k-window-content');
+
+        // get data
+        contentElement.busyIndicator(true);
+        self.LoadItem(GetDataFromWebService, uri)
+            .done(function (angle) {
+                var displayDefinitions = angle.display_definitions;
+                self.UpdateDisplayDefinitions(displayDefinitions);
+
+                var handler = new WidgetDetailsHandler(contentElement, null, [], [], displayDefinitions);
+                handler.Angle = angle;
+                handler.IsVisibleDisplayList(true);
+                handler.ClickableRow(true);
+                handler.ModelUri = angle.model;
+                handler.ShowExecutionParameterPopup = function (angle, display, event) {
+                    return self.ShowAngleExecutionParameterPopupFunction(angle, display, event);
+                };
+                handler.ApplyHandler(WC.WidgetDetailsView.TemplateDisplayList);
+                handler.AdjustLayout();
+            })
+            .fail(self.HideDisplays)
+            .always(function () {
+                setTimeout(function () {
+                    // make sure that the indicator is removed
+                    contentElement.busyIndicator(false);
+                }, 100);
+            });
+    };
+    self.HideDisplays = function () {
+        jQuery('#popupDisplays').hide();
+    };
+    self.CreateShowDisplaysElement = function (target, totalDisplays) {
+        var container = jQuery('#popupDisplays');
+        if (!container.length) {
+            container = jQuery('<div class="k-window-titleless k-window-custom k-window-arrow-n" id="popupDisplays" />');
+            container.appendTo('body');
+            jQuery.clickOutside('#popupDisplays', '.btnShowDisplays');
+            jQuery(window).off('resize.showdisplays').on('resize.showdisplays', function () {
+                self.HideDisplays();
+            });
+        }
+        container.html('<div class="k-window-content k-content" />');
+        container.removeClass('k-window-arrow-n k-window-arrow-s');
+        container.show();
+        
+        var settings = self.GetDisplaysElementSettings(container.width(), target, totalDisplays);
+        container.addClass(settings.arrow);
+        container.css(settings.offset);
+        container.children('.k-window-content').height(settings.height);
+
+        return container;
+    };
+    self.GetDisplaysElementSettings = function (contentWidth, target, totalDisplays) {
+        var settings = { offset: {}, height: 0, arrow: 'k-window-arrow-n' };
+        var arrowSize = 12;
+        var maxDisplays = Math.min(self.MaxDisplays, totalDisplays);
+        var contentHeight = maxDisplays * 35;
+        var targetHeight = target.height() + arrowSize;
+        var offset = target.offset();
+        offset.left -= contentWidth - target.width() - arrowSize;
+        offset.top += targetHeight;
+
+        // position top top of target if no space at bottom
+        if (offset.top + contentHeight > WC.Window.Height) {
+            settings.arrow = 'k-window-arrow-s';
+            offset.top -= contentHeight + targetHeight + arrowSize;
+        }
+
+        settings.offset = offset;
+        settings.height = contentHeight;
+        return settings;
     };
 
     self.CreateAngleListInDashboardInfo = function (widgets) {
@@ -330,7 +404,24 @@ function ItemInfoHandler() {
         return modelList;
     };
 
+    self.UpdateDisplayDefinitions = function (displayDefinitions) {
+        //Sort displayDefinitions ASC
+        jQuery.each(displayDefinitions, function (index, display) {
+            display.name = WC.Utility.GetDefaultMultiLangText(WC.Utility.ToArray(display.multi_lang_name));
+        });
+        displayDefinitions.sortObject('name', enumHandlers.SORTDIRECTION.ASC, false);
+    };
+
     // popup execution parameter
+    self.ShowAngleExecutionParameterPopupFunction = function (angle, display, event) {
+        if (angle.is_parameterized || display.is_parameterized) {
+            self.ShowAngleExecutionParameterPopup(angle, display.uri);
+        }
+        else {
+            var link = event.currentTarget.href + "&" + enumHandlers.ANGLEPARAMETER.STARTTIMES + "=" + jQuery.now();
+            WC.Utility.RedirectUrl(link);
+        }
+    };
     self.ShowAngleExecutionParameterPopup = function (angle, displayUri) {
         var executionParameter = new ExecutionParameterHandler();
         executionParameter.ModelUri = angle.model;

@@ -10,13 +10,7 @@ describe('SearchPageHandler', function () {
         searchPageHandler = new SearchPageHandler();
     });
 
-    describe('when create new instance', function () {
-        it('should be defined', function () {
-            expect(searchPageHandler).toBeDefined();
-        });
-    });
-
-    describe('call IsDeleteMenuEnabled', function () {
+    describe('.IsDeleteMenuEnabled()', function () {
 
         var mockItem, mockCurrentUser;
         beforeEach(function () {
@@ -90,6 +84,18 @@ describe('SearchPageHandler', function () {
             searchModel.SelectedItems([mockItem]);
             var expectedResult = searchPageHandler.IsDeleteMenuEnabled();
             expect(expectedResult).toEqual(false);
+        });
+    });
+
+    describe('.GetItemIconCSSClassByDisplay(data)', function () {
+        it('should get class for hiding if no displays', function () {
+            var result = searchPageHandler.GetItemIconCSSClassByDisplay({});
+            expect(result).toBe('alwaysHide');
+        });
+
+        it('should get empty class if have displays', function () {
+            var result = searchPageHandler.GetItemIconCSSClassByDisplay({ displays: [] });
+            expect(result).toBe('');
         });
     });
 });

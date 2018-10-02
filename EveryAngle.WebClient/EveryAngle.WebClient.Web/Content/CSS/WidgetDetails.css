@@ -305,6 +305,10 @@
     text-decoration: underline;
 }
 
+.detailDefinitionList .cursorPointer .nameLink:hover {
+    text-decoration: none;
+}
+
 .detailDefinitionList.inline span:before {
     content: ', ';
 }

@@ -1179,20 +1179,3 @@
 .displayWrapper.readonly .fieldListArea {
     display: none;
 }
-
-/* Portrait tablet to landscape and desktop */
-@media (max-width: 979px) {
-    #ContentBar .Wrapper {
-        min-width: 700px;
-    }
-
-    #MainContent.Wrapper {
-        min-width: 300px;
-    }
-
-    /* angle page */
-    .topBarWrapper,
-    .detailsWrapper {
-        min-width: 600px;
-    }
-}

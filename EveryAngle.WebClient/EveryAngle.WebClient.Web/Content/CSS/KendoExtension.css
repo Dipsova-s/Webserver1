@@ -263,10 +263,12 @@ div.k-grid .k-grid-content tr td.last.k-column-active {
 }
 
 .k-window-arrow-n:before,
+.k-window-arrow-s:before,
 .k-window-arrow-e:before,
 .k-window-arrow-w:before,
 .k-window-arrow-sw:before,
 .k-window-arrow-n:after,
+.k-window-arrow-s:after,
 .k-window-arrow-e:after,
 .k-window-arrow-w:after,
 .k-window-arrow-sw:after {
@@ -281,6 +283,7 @@ div.k-grid .k-grid-content tr td.last.k-column-active {
 }
 
 .k-window-arrow-n:after,
+.k-window-arrow-s:after,
 .k-window-arrow-e:after,
 .k-window-arrow-w:after,
 .k-window-arrow-sw:after {
@@ -302,6 +305,24 @@ div.k-grid .k-grid-content tr td.last.k-column-active {
 .k-window-arrow-n:after {
     top: -11px;
     border-bottom-color: #c1c1c1;
+}
+
+.k-window-arrow-s:before,
+.k-window-arrow-s:after {
+    left: 0;
+    top: auto;
+    bottom: -9px;
+    border-top-color: #fff;
+    border-top-style: solid;
+    border-bottom: none;
+    border-left-color: transparent;
+    border-right-color: transparent;
+}
+
+.k-window-arrow-s:after {
+    top: auto;
+    bottom: -10px;
+    border-top-color: #c1c1c1;
 }
 
 .k-window-arrow-e:before,

@@ -328,34 +328,8 @@ function SearchPageHandler() {
     self.GetIsValidateItemHtmlElement = function (data) {
         return data.is_validated ? 'validated' : 'none';
     };
-    self.GetItemIconCSSClassByDisplay = function (data, iconType) {
-        var isDefaultCompactViewIcon = false;
-        var className = 'alwaysHide';
-
-        iconType = iconType.toLowerCase();
-        var displays = [];
-        if (data.displays) {
-            displays = data.displays;
-        }
-        if (displays.length !== 0) {
-            for (var i = 0; i < displays.length; i++) {
-                var isSameDisplayType = displays[i].display_type.toLowerCase() === iconType;
-                if (isSameDisplayType && displays[i].is_angle_default === true) {
-                    className = 'defaultIcon';
-                    break;
-                }
-
-                if (isSameDisplayType) {
-                    className = '';
-                }
-            }
-
-            if (!isDefaultCompactViewIcon && displays[0].display_type.toLowerCase() === iconType) {
-                className = 'defaultIcon';
-            }
-        }
-
-        return className;
+    self.GetItemIconCSSClassByDisplay = function (data) {
+        return data.displays ? '' : 'alwaysHide';
     };
     self.GetItemIconTypeCSSClassByItem = function (selectedItem) {
         if (selectedItem.type === enumHandlers.ITEMTYPE.DASHBOARD)
@@ -1278,7 +1252,6 @@ function SearchPageHandler() {
         element = jQuery(element);
         helpTextHandler.ShowHelpTextPopup(element.data('id'), helpTextHandler.HELPTYPE.CLASS, modelUri);
     };
-
     self.ShowDashboardExecutionParameterPopup = function (dashboard, executionsInfo) {
         // custom angle & display in executionsInfo
 
@@ -1320,6 +1293,12 @@ function SearchPageHandler() {
             window.location.href = WC.Utility.GetDashboardPageUri(dashboard.uri, query);
         };
         executionParameter.CancelExecutionParameters = jQuery.noop;
+    };
+    self.ShowDisplays = function (event, target, uri, totalDisplays) {
+        itemInfoHandler.ShowDisplays(event, target, uri, totalDisplays);
+        jQuery('#InnerResultWrapper .k-scrollbar').off('scroll.showdisplays').on('scroll.showdisplays', function () {
+            itemInfoHandler.HideDisplays();
+        });
     };
 
     // popup advanced filter

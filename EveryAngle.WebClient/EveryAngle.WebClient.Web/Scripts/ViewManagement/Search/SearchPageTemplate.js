@@ -17,9 +17,7 @@ function SearchPageTemplateModel() {
                         '</div>',
 
                         '<div class="ResultView">',
-                            '<a href="#= searchModel.GetHrefUri(data, enumHandlers.DISPLAYTYPE_EXTRA.LIST) #" onclick="return searchModel.ItemLinkClicked(event, \'#= uri #\', enumHandlers.DISPLAYTYPE_EXTRA.LIST)" class="icon list #= searchPageHandler.GetItemIconCSSClassByDisplay(data, enumHandlers.DISPLAYTYPE_EXTRA.LIST) #"></a>',
-                            '<a href="#= searchModel.GetHrefUri(data, enumHandlers.DISPLAYTYPE_EXTRA.CHART) #" onclick="return searchModel.ItemLinkClicked(event, \'#= uri #\', enumHandlers.DISPLAYTYPE_EXTRA.CHART)" class="icon chart #= searchPageHandler.GetItemIconCSSClassByDisplay(data, enumHandlers.DISPLAYTYPE_EXTRA.CHART) #"></a>',
-                            '<a href="#= searchModel.GetHrefUri(data, enumHandlers.DISPLAYTYPE_EXTRA.PIVOT) #" onclick="return searchModel.ItemLinkClicked(event, \'#= uri #\', enumHandlers.DISPLAYTYPE_EXTRA.PIVOT)" class="icon pivot #= searchPageHandler.GetItemIconCSSClassByDisplay(data, enumHandlers.DISPLAYTYPE_EXTRA.PIVOT) #"></a>',
+                            '<a class="icon new btnShowDisplays #= searchPageHandler.GetItemIconCSSClassByDisplay(data) #" onclick="searchPageHandler.ShowDisplays(event, this, \'#= uri #\', #= searchModel.GetTotalDisplays(data) #)"><span class="badge">#= searchModel.GetTotalDisplays(data) #</span></a>',
                         '</div>',
 
                         '<div class="ResultContent">',

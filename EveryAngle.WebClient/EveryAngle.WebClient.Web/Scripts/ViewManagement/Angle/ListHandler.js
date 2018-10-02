@@ -1255,9 +1255,14 @@ function ListHandler(elementId, container) {
 
         var grid = self.GetGridObject();
         var fieldId = obj.attr('alt');
+        var gridHeaderColumn = grid.thead.find('.k-header[data-field="' + WC.Utility.RevertBackSlashFieldName(fieldId) + '"] .angleListHeader');
+        if (!gridHeaderColumn.length) {
+            obj.hide();
+            return;
+        }
+
         var leftSpace = 46;
         var rightSpace = WC.Window.ScrollBarWidth;
-        var gridHeaderColumn = grid.thead.find('.k-header[data-field="' + WC.Utility.RevertBackSlashFieldName(fieldId) + '"] .angleListHeader');
         var gridHeaderColumnOffset = gridHeaderColumn.offset();
         var gridHeaderColumnSize = gridHeaderColumn.width();
         var popupSpace = 5;

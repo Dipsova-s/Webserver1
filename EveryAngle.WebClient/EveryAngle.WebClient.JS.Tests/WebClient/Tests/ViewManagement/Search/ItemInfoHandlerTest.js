@@ -66,24 +66,77 @@ describe("ItemInfoHandler", function () {
         }];
     });
 
+    describe(".LoadItem(fn, uri)", function () {
 
-    describe("when create new instance", function () {
-        it("should be defined", function () {
-            expect(itemInfoHandler).toBeDefined();
+        it("should store loaded data in cache", function () {
+            var uri = 'uri1';
+            var fnGetData = function () {
+                return 'data';
+            };
+
+            expect(itemInfoHandler.CacheItems[uri]).not.toBeDefined();
+            itemInfoHandler.LoadItem(fnGetData, uri)
+                .done(function () {
+                    expect(itemInfoHandler.CacheItems[uri]).toBeDefined();
+                });
         });
+
+        it("should use data from cache", function () {
+            var uri = 'uri1';
+            var fnGetData = function () {
+                return 'data_new';
+            };
+            itemInfoHandler.CacheItems[uri] = 'data_old';
+            
+            itemInfoHandler.LoadItem(fnGetData, uri)
+                .done(function () {
+                    expect(itemInfoHandler.CacheItems[uri]).toBe('data_old');
+                });
+        });
+
     });
 
-    describe("call CreateAngleListInDashboardInfo", function () {
+    describe(".GetDisplaysElementSettings(contentWidth, target, totalDisplays)", function () {
+
+        var tests = [
+            {
+                title: 'should show display list at bottom if it has enough space',
+                totalDisplays: 1,
+                expectedArrow: 'k-window-arrow-n'
+            },
+            {
+                title: 'should show display list at top if no space at bottom',
+                totalDisplays: 10,
+                expectedArrow: 'k-window-arrow-s'
+            }
+        ];
+
+        $.each(tests, function (index, test) {
+            it(test.title, function () {
+                var contentWidth = 500;
+                var target = {
+                    height: function () { return 20; },
+                    width: function () { return 20; },
+                    offset: function () { return { left: 0, top: 500 }; }
+                };
+                window.WC.Window.Height = 600;
+                var result = itemInfoHandler.GetDisplaysElementSettings(contentWidth, target, test.totalDisplays);
+                expect(result.arrow).toEqual(test.expectedArrow);
+            });
+        });
+
+    });
+
+    describe(".CreateAngleListInDashboardInfo(widgets)", function () {
         it("should return angle list equal to 3", function () {
             itemInfoHandler.HandlerInfoDetails = new WidgetDetailsHandler(null, '', [], []);
             var angleList = itemInfoHandler.CreateAngleListInDashboardInfo(widgets);
             expect(angleList.length).toEqual(3);
-
         });
 
     });
 
-    describe("call CreateModelListInDashboardInfo", function () {
+    describe(".CreateModelListInDashboardInfo(angles)", function () {
 
         it("should return model list equal to 2", function () {
             itemInfoHandler.HandlerInfoDetails = new WidgetDetailsHandler(null, '', [], []);
@@ -96,7 +149,45 @@ describe("ItemInfoHandler", function () {
             var angleList = itemInfoHandler.CreateAngleListInDashboardInfo(widgets);
             var modelList = itemInfoHandler.CreateModelListInDashboardInfo(angleList);
             expect(modelList.length).toEqual(2);
+        });
 
+    });
+
+    describe(".ShowAngleExecutionParameterPopupFunction(angle, display, event)", function () {
+
+        beforeEach(function () {
+            spyOn(itemInfoHandler, 'ShowAngleExecutionParameterPopup').and.callFake($.noop);
+            spyOn(WC.Utility, 'RedirectUrl').and.callFake($.noop);
+        });
+
+        it("should call ItemInfoHandler.ShowAngleExecutionParameterPopup if angle is_parameterized", function () {
+            var angle = { is_parameterized: true };
+            var display = {};
+            var event = {};
+            itemInfoHandler.ShowAngleExecutionParameterPopupFunction(angle, display, event);
+
+            // assert
+            expect(itemInfoHandler.ShowAngleExecutionParameterPopup).toHaveBeenCalled();
+        });
+
+        it("should call ItemInfoHandler.ShowAngleExecutionParameterPopup if display is_parameterized", function () {
+            var angle = { };
+            var display = { is_parameterized: true };
+            var event = {};
+            itemInfoHandler.ShowAngleExecutionParameterPopupFunction(angle, display, event);
+
+            // assert
+            expect(itemInfoHandler.ShowAngleExecutionParameterPopup).toHaveBeenCalled();
+        });
+
+        it("should call WC.Utility.RedirectUrl if no is_parameterized", function () {
+            var angle = {};
+            var display = {};
+            var event = { currentTarget: { href: '' } };
+            itemInfoHandler.ShowAngleExecutionParameterPopupFunction(angle, display, event);
+
+            // assert
+            expect(WC.Utility.RedirectUrl).toHaveBeenCalled();
         });
 
     });

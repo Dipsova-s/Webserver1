@@ -91,7 +91,7 @@ ${lblSearchResult}              css=#SearchResultList span:first-child
 ${publishStatusFromFirstAngleInSearchResult}        jquery=.SearchResult:eq(0) .public
 ${privateStatusFromFirstAngleInSearchResult}        jquery=.SearchResult:eq(0) .private
 ${validatedStatusFromFirstAngleInSearchResult}      jquery=.SearchResult:eq(0) .validated
-${btnDisplaysSelectedItem}      jquery=#InnerResultWrapper .k-state-selected .ResultView .icon:not(.alwaysHide)
+${btnDisplaysSelectedItem}      jquery=#InnerResultWrapper .k-state-selected .btnShowDisplays
 ${lnkItemNameSelectedItem}      jquery=#InnerResultWrapper .k-state-selected .name
 ${divSearchResultNoData}         css=.grid-no-data
 
@@ -381,8 +381,9 @@ Get Model Name for Create New Angle
     [return]    ${modelForCreateNewAngleValue}
 
 Get Number Display Of Selected Item From Search Result
-    ${displayLength}    Get Elements Count     ${btnDisplaysSelectedItem}
-    [Return]    ${displayLength}
+    ${displayNumberText}    Get Text     ${btnDisplaysSelectedItem}
+    ${displayNumber}    Convert To Integer    ${displayNumberText}
+    [Return]    ${displayNumber}
 
 Get Name Of Selected Item From Search Result
     ${angleItemName}    Get Text     ${lnkItemNameSelectedItem}

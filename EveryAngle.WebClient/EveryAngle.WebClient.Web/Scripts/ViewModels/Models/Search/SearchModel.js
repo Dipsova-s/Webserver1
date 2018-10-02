@@ -315,4 +315,8 @@ function SearchViewModel() {
         //Standard procedure for selecting display
         return WC.Utility.GetDefaultDisplay(item.display_definitions);
     };
+    self.GetTotalDisplays = function (item) {
+        var displays = WC.Utility.ToArray(item.displays);
+        return displays.length;
+    };
 }

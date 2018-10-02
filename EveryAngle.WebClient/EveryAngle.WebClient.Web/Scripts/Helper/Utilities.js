@@ -151,8 +151,11 @@
         // default behavior
         window.open(url);
     };
-    window.WC.Utility.DownloadFile = function (url) {
+    window.WC.Utility.RedirectUrl = function (url) {
         window.location = url;
+    };
+    window.WC.Utility.DownloadFile = function (url) {
+        WC.Utility.RedirectUrl(url);
     };
     window.WC.Utility.UrlParameter = function (name, value, append) {
         return jQuery.address.parameter(name, value, append);
@@ -753,7 +756,8 @@
                                 handleChecker = v.checker.split(' ');
                                 handleChecker = handleChecker[handleChecker.length - 1].charAt(0);
                                 handleCheckBy = handleChecker === '#' ? 'id' : (handleChecker === '.' ? 'class' : 'tag');
-                                if (!jQuery(e.target).parents(v.checker).length
+                                if (!jQuery(e.target).parents(v.selector).length
+                                    && !jQuery(e.target).parents(v.checker).length
                                     && ((handleCheckBy === 'id' && e.target.id !== v.checker.substr(1))
                                         || (handleCheckBy === 'class' && !jQuery(e.target).hasClass(v.checker.substr(1)))
                                         || (handleCheckBy === 'tag' && !jQuery(e.target).is(v.checker)))) {

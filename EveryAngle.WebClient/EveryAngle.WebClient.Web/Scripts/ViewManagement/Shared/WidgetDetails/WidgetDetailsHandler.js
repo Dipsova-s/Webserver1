@@ -36,6 +36,9 @@ function WidgetDetailsHandler(container, description, queryblocks, modelRoles, d
     // show definition list or not?
     self.IsVisibleDefinition = ko.observable(true);
 
+    // click row for navigation?
+    self.ClickableRow = ko.observable(false);
+
     self.CanRemoveAdhocQuery = ko.observable(true);
     self.CreateMovableArea = jQuery.noop;
     self.OnFilterMoved = jQuery.noop;
@@ -417,6 +420,10 @@ function WidgetDetailsHandler(container, description, queryblocks, modelRoles, d
             params[enumHandlers.ANGLEPARAMETER.TEMPLATE] = true;
         }
         return WC.Utility.GetAnglePageUri(angle.uri, displayDefinition.uri, params);
+    };
+    self.ClickRow = function (data, event) {
+        if (self.ClickableRow())
+            jQuery(event.currentTarget).find('.name').trigger('click');
     };
 
     // M4-22971 validate angle only
