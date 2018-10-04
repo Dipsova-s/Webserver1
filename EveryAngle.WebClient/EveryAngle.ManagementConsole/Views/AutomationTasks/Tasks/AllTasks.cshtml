@@ -19,7 +19,9 @@
                     AbortTaskUri: '@Url.Action("AbortTask", "RefreshCycle")',
                     TaskHistoryUri: '@ViewBag.TaskHistoryUri',
                     GetTaskHistoryUri: '@Url.Action("GetTaskHistory", "AutomationTasks")',
-                    AllTaskPageUri: '@SiteMapHelper.ActionHash("AutomationTasks/Tasks")'
+                    AllTaskPageUri: '@SiteMapHelper.ActionHash("AutomationTasks/Tasks")',
+                    CopyTaskUri: '@Url.Action("CopyTask", "AutomationTasks")',
+                    VerifyModelPriviledgeUri: '@Url.Action("VerifyModelPriviledge", "AutomationTasks")'
                 });
 
                 MC.ui.logpopup.GetLogUri = '@Url.Action("GetTasksHistoryByCorrelationId", "AutomationTasks")',
@@ -71,4 +73,24 @@
         </div>
     </div>
     <!--/.contentSectionGrid-->
+</div>
+
+<div class="popup" id="popupCopyTask">
+    <div class="popupContent">
+        <form id="formCopyTask" data-role="validator">
+            <div class="contentSection contentSectionInfo">
+                <div class="contentSectionInfoItem">
+                    <label>@Resource.MC_NewTaskName</label>
+                    <p>
+                        <input type="text" id="TaskName" maxlength="100" class="required" />
+                        <input type="hidden" id="TaskUri" />
+                    </p>
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="popupToolbar">
+        <a class="btn btnPrimary btnSubmit" onclick="MC.AutomationTasks.Tasks.CopyTask(event, this)">@Resource.Ok</a>
+        <a class="btn btnClose" data-role="popup-close">@Resource.Cancel</a>
+    </div>
 </div>

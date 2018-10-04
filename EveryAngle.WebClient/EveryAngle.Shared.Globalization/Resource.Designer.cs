@@ -8023,6 +8023,15 @@ namespace EveryAngle.Shared.Globalization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Copy task.
+        /// </summary>
+        public static string MC_CopyTask {
+            get {
+                return ResourceManager.GetString("MC_CopyTask", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Country.
         /// </summary>
         public static string MC_Country {
@@ -10469,6 +10478,15 @@ namespace EveryAngle.Shared.Globalization {
         public static string MC_NewRole {
             get {
                 return ResourceManager.GetString("MC_NewRole", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to New task name.
+        /// </summary>
+        public static string MC_NewTaskName {
+            get {
+                return ResourceManager.GetString("MC_NewTaskName", resourceCulture);
             }
         }
         

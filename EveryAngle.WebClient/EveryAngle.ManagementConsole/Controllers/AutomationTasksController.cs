@@ -144,7 +144,7 @@ namespace EveryAngle.ManagementConsole.Controllers
 
             // task
             TaskViewModel task = GetTask(tasksUri);
-            
+
             // datastore
             List<DataStoresViewModel> dataStores = GetAllDataStores();
 
@@ -174,7 +174,7 @@ namespace EveryAngle.ManagementConsole.Controllers
             ViewData["ModelPrivileges"] = SessionHelper.Session.ModelPrivileges;
             ViewData["TaskData"] = JsonConvert.SerializeObject(task);
             ViewData["TaskCreator"] = task.created == null ? SessionHelper.CurrentUser.Uri.ToString() : task.created.Uri.ToString();
-            
+
             // use for model dropdown list
             ViewData["AllModel"] = models;
 
@@ -183,7 +183,7 @@ namespace EveryAngle.ManagementConsole.Controllers
 
             return PartialView("~/Views/AutomationTasks/Tasks/TaskDetail.cshtml");
         }
-        
+
         /// <summary>
         /// Extend task action info
         /// </summary>
@@ -225,6 +225,45 @@ namespace EveryAngle.ManagementConsole.Controllers
             return Content(JsonConvert.SerializeObject(taskActions), "application/json");
         }
 
+        [AcceptVerbs(HttpVerbs.Get)]
+        public ActionResult VerifyModelPriviledge(string taskUri)
+        {
+            TaskViewModel task = GetTask(taskUri);
+            VerifyPriviledge(task);
+            return new JsonResult
+            {
+                Data = new
+                {
+                    success = true,
+                    message = Resource.MC_Validation_Accept,
+                    parameters = new { tasksUri = task?.Uri?.ToString() }
+                },
+                JsonRequestBehavior = JsonRequestBehavior.AllowGet
+            };
+        }
+
+        [AcceptVerbs(HttpVerbs.Post)]
+        public ActionResult CopyTask(string taskUri, string taskName)
+        {
+            TaskViewModel task = GetTask(taskUri);
+            VerifyPriviledge(task);
+
+            task.name = taskName;
+            string createTaskUri = SessionHelper.Version.GetEntryByName("tasks").Uri.ToString();
+            task = _taskService.CreateTask(createTaskUri, task);
+
+            return new JsonResult
+            {
+                Data = new
+                {
+                    success = true,
+                    message = Resource.MC_ItemSuccesfullyUpdated,
+                    parameters = new { tasksUri = task.Uri.ToString() }
+                },
+                JsonRequestBehavior = JsonRequestBehavior.AllowGet
+            };
+        }
+
         [AcceptVerbs(HttpVerbs.Post)]
         public ActionResult CheckTaskAction(string taskUri, string ActionData)
         {
@@ -234,7 +273,7 @@ namespace EveryAngle.ManagementConsole.Controllers
                 ContentType = "text/html"
             };
         }
-        
+
         public ActionResult RenderDataStoresPage()
         {
             var version = SessionHelper.Version;
@@ -322,7 +361,7 @@ namespace EveryAngle.ManagementConsole.Controllers
             var datastore = _automationTaskService.GetDatastore(datstoreUri);
             return PartialView("~/Views/AutomationTasks/Tasks/DatastoreSettings.cshtml", datastore);
         }
-        
+
         public DataStorePluginsViewModel GetDatastorePlugin(string pluginUri)
         {
             var datastorePlugin = _automationTaskService.GetDatastorePlugin(pluginUri);
@@ -387,7 +426,7 @@ namespace EveryAngle.ManagementConsole.Controllers
         {
             _automationTaskService.DeleteDataStore(datastoreUri);
         }
-        
+
         [AcceptVerbs(HttpVerbs.Post)]
         public ActionResult ExecuteTask(string tasksUri, string data)
         {
@@ -444,7 +483,7 @@ namespace EveryAngle.ManagementConsole.Controllers
         {
             return Content(GetAngle(angleUri).ToString(), "application/json");
         }
-        
+
         [AcceptVerbs(HttpVerbs.Post)]
         public JObject TestDataStoreConnection(string testconnectionUri, string jsonData)
         {
@@ -505,7 +544,7 @@ namespace EveryAngle.ManagementConsole.Controllers
                 JsonRequestBehavior = JsonRequestBehavior.AllowGet
             };
         }
-        
+
         [AcceptVerbs(HttpVerbs.Delete)]
         public void DeleteTask(string taskUri)
         {
@@ -552,7 +591,7 @@ namespace EveryAngle.ManagementConsole.Controllers
             availableDataStores.AddRange(dataStores.OrderBy(datastore => datastore.name));
             return availableDataStores;
         }
-        
+
         /// <summary>
         /// Get task info
         /// </summary>
@@ -593,6 +632,24 @@ namespace EveryAngle.ManagementConsole.Controllers
                 task = _modelService.GetTask(taskUri);
             }
             return task;
+        }
+
+
+        /// <summary>
+        /// try get all angle in actions in order to verify ModelPriviledge
+        /// </summary>
+        /// <param name="task">task to verify</param>
+        private void VerifyPriviledge(TaskViewModel task)
+        {
+            foreach (TaskAction action in task.actions)
+            {
+                var arg = action.arguments.FirstOrDefault(filter => filter.name == "angle_id");
+                var model = action.arguments.FirstOrDefault(filter => filter.name == "model");
+                if (arg != null)
+                {
+                    JObject angle = GetAngleById(arg.value.ToString(), model.value);
+                }
+            }
         }
 
         #endregion

@@ -4,9 +4,9 @@ ${pgbEditTaskPage}       css=#formTask .k-loading-mask
 ${btnSaveEditTasks}      css=.btnSave
 ${btnCancelEditTasks}    css=.btnBack
 
-${txtTaskName}    TaskName
-${ddlActionType}    css=.k-dropdown[aria-owns=action_type_listbox]
-${ddlEventType}    css=.k-dropdown[aria-owns=event_type_listbox]
+${txtTaskName}           TaskName
+${ddlActionType}         css=.k-dropdown[aria-owns=action_type_listbox]
+${ddlEventType}          css=.k-dropdown[aria-owns=event_type_listbox]
 
 *** Keywords ***
 Wait Edit Tasks Page Ready
@@ -34,3 +34,14 @@ Choose Dropdown List Task Event Type
     [Arguments]    ${taskEventType}
     Wait Until Page Contains Element    ${ddlEventType}
     Select Dropdown By InnerText    ${ddlEventType}    ${taskEventType}
+
+Click Edit Task Action By Task Name
+    [Arguments]    ${taskName}
+    Click Show Action Dropdown In Grid By Name    ${taskName}    ${trRowTaskGrid}
+
+Click Copy Task Action By Task Name
+    [Arguments]    ${taskName}
+    Click Action In Grid By Name    ${taskName}    ${trRowTaskGrid}    ${btnActionCopyRole}
+    Wait Until Page Contains   Copy task
+    Wait Until Page Contains   New task name
+    Wait Until Ajax Complete

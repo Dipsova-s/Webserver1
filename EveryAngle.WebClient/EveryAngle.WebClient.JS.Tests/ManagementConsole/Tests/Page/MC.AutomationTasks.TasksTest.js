@@ -260,6 +260,25 @@ describe("MC.AutomationTasks.Tasks => Task get correct argument data for executi
             });
         });
 
-    });
+        var data = {
+            status: 'none',
+            name: 'task',
+            Uri: 'http://www.ea.com',
+            run_as_user: 'run_as_user'
+        };
 
+        it("Show copy task command when has ManageSystemPrivilege", function () {
+            spyOn(MC.util.task, 'getTriggerExternalUrl').and.callFake($.noop);
+            var result = automationTask.SetAbilityToEditControl(
+                data, true, false, "");
+            expect(result).toContain("popupCopyTask");
+        });
+
+        it("Hide copy task command when has no ManageSystemPrivilege", function () {
+            spyOn(MC.util.task, 'getTriggerExternalUrl').and.callFake($.noop);
+            var result = automationTask.SetAbilityToEditControl(
+                data, false, true, 'run_as_user');
+            expect(result.indexOf('popupCopyTask') === -1).toBe(true);
+        });
+    });
 });

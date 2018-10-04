@@ -1,7 +1,11 @@
-﻿using EveryAngle.Core.ViewModels.SystemSettings;
+﻿using EveryAngle.Core.ViewModels.Cycle;
+using EveryAngle.Core.ViewModels.SystemSettings;
 using EveryAngle.Core.ViewModels.Users;
 using EveryAngle.ManagementConsole.Controllers;
+using Moq;
 using NUnit.Framework;
+using System.Collections.Generic;
+using System.Web.Mvc;
 
 namespace EveryAngle.ManagementConsole.Test.Controllers
 {
@@ -52,9 +56,9 @@ namespace EveryAngle.ManagementConsole.Test.Controllers
             Assert.AreEqual(tasksUri, _testingController.ViewBag.TasksUri);
             Assert.AreEqual("true", _testingController.ViewBag.ManageSystemPrivilege);
             Assert.AreEqual("false", _testingController.ViewBag.CanScheduleAngles);
-             
+
             Assert.AreEqual(
-                sessionHelper.Object.CurrentUser.Id.Replace("\\", "\\\\"), 
+                sessionHelper.Object.CurrentUser.Id.Replace("\\", "\\\\"),
                 _testingController.ViewBag.UserId);
         }
 
@@ -66,7 +70,7 @@ namespace EveryAngle.ManagementConsole.Test.Controllers
 
             // setup
             sessionHelper.SetupGet(x => x.SystemSettings).Returns(new SystemSettingViewModel { max_pagesize = mockPageSize });
-            
+
             // execute
             string dataStoresUri = _testingController.GetDataStoresUri();
 
@@ -74,6 +78,58 @@ namespace EveryAngle.ManagementConsole.Test.Controllers
             Assert.That(dataStoresUri.Contains(expectedLimit));
         }
 
+        [TestCase]
+        public void Can_CopyTask()
+        {
+            string taskUri = "TASK_URI";
+            string taskName = "TASK_NAME";
+
+            modelService.Setup(x => x.GetTask(It.IsAny<string>())).Returns(new TaskViewModel
+            {
+                actions = new List<TaskAction>
+                {
+                    new TaskAction { arguments = new List<Core.ViewModels.Cycle.Argument>() } 
+                }
+            });
+            taskService.Setup(x => x.CreateTask(It.IsAny<string>(), It.IsAny<TaskViewModel>()))
+                .Returns(new TaskViewModel
+                {
+                    Uri = new System.Uri("http://www.ea.com")
+                });
+
+            _testingController.CopyTask(taskUri, taskName);
+
+            modelService.Verify(x =>
+                x.GetTask(taskUri));
+            taskService.Verify(x =>
+                x.CreateTask(It.IsAny<string>(), It.Is<TaskViewModel>(vm => vm.name == taskName)));
+        }
+
+        [TestCase]
+        public void Can_VerifyModelPriviledge()
+        {
+            string taskUri = "TASK_URI";
+
+            modelService.Setup(x => x.GetTask(It.IsAny<string>())).Returns(new TaskViewModel
+            {
+                actions = new List<TaskAction>
+                {
+                    new TaskAction { arguments = new List<Core.ViewModels.Cycle.Argument>() }
+                }
+            });
+            taskService.Setup(x => x.CreateTask(It.IsAny<string>(), It.IsAny<TaskViewModel>()))
+                .Returns(new TaskViewModel
+                {
+                    Uri = new System.Uri("http://www.ea.com")
+                });
+
+            _testingController.VerifyModelPriviledge(taskUri);
+
+            modelService.Verify(x =>
+                x.GetTask(taskUri));
+        }
+
         #endregion
     }
+
 }

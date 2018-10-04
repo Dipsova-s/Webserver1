@@ -29,6 +29,7 @@
         self.GetFieldSourceUri = '';
         self.GetFieldDomainUri = '';
         self.WebClientAngleUrl = '';
+        self.VerifyModelPriviledgeUri = '';
 
         self.TASK_TYPES = {
             EVENT: 'event',
@@ -53,6 +54,9 @@
             self.TasksActionsUri = '';
             self.CheckTaskActionUri = '';
             self.GetFieldsUri = '';
+            self.CopyTaskUri = '';
+            self.VerifyModelPriviledgeUri = '';
+
             jQuery.extend(self, data || {});
 
             setTimeout(function () {
@@ -127,7 +131,10 @@
 
             template += "<input type=\"hidden\" name=\"uri\" value=\"" + uri + "\" />";
             if (canManageTask) {
-                template += "<a href=\"" + MC.AutomationTasks.Tasks.EditTaskPage + "\"  onclick=\"MC.util.redirect(event, this)\" data-parameters='{\"tasksUri\":\"" + uri + "\"}' class=\"btn btnEdit\">" + Localization.Edit + "</a>";
+                template += "<a href=\"" + MC.AutomationTasks.Tasks.EditTaskPage + "\"  onclick=\"MC.AutomationTasks.Tasks.EditTask(event, this, '" + uri + "')\" data-parameters='{\"tasksUri\":\"" + uri + "\"}' class=\"btn btnEdit\">" + Localization.Edit + "</a>";
+                if (manageSystemPrivilege) {
+                    template += "<a href=\"#popupCopyTask\" onclick=\"MC.AutomationTasks.Tasks.CopyTaskPopup('" + uri + "','" + data.name + "')\" data-role=\"mcPopup\" title=\"" + Localization.MC_CopyTask + "\" data-width=\"500\" data-min-height=\"180\" data-min-width=\"475\" class=\"btn btnCopy\">" + Localization.Copy + "</a>";
+                }
                 template += "<a onclick=\"MC.AutomationTasks.Tasks.ExecuteTask(this,'" + uri + "')\" class=\"btn btn btnExecute" + (isExecuting ? " disabled" : "") + "\">" + Localization.MC_ExecuteNow + "</a>";
 
                 if (MC.util.task.isTriggerExternal(data)) {
@@ -137,11 +144,65 @@
                 template += "<a onclick=\"MC.AutomationTasks.Tasks.AbortTask(this,'" + uri + "')\" class=\"btn btnAbort" + (!isExecuting ? " disabled" : "") + "\">" + Localization.MC_Abort + "</a>";
             }
             else {
-                template += "<a href=\"" + MC.AutomationTasks.Tasks.EditTaskPage + "\"  onclick=\"MC.util.redirect(event, this)\" data-parameters='{\"tasksUri\":\"" + uri + "\"}' class=\"btn btnEdit\">" + Localization.View + "</a>";
+                template += "<a href=\"" + MC.AutomationTasks.Tasks.EditTaskPage + "\"  onclick=\"MC.AutomationTasks.Tasks.EditTask(event, this)\" data-parameters='{\"tasksUri\":\"" + uri + "\"}' class=\"btn btnEdit\">" + Localization.View + "</a>";
             }
             template += "<a  data-parameters='{\"taskUri\":\"" + uri + "\", \"name\":\"" + name + "\"}' data-delete-template=\"" + Localization.MC_DeleteTaskConfirm + "\" data-delete-field-index=\"0\" onclick=\"MC.AutomationTasks.Tasks.DeleteTask(event,this)\" class=\"btn btnDelete" + (isExecuting || !manageSystemPrivilege ? ' disabled' : '') + "\">" + Localization.Delete + "</a>";
             return template;
         };
+        self.EditTask = function (event, obj, uri) {
+            MC.ajax.request({
+                url: self.VerifyModelPriviledgeUri,
+                parameters: { taskUri: uri },
+                type: 'GET'
+            })
+                .done(function () {
+                    MC.util.redirect(event, obj);
+                });
+
+            event.preventDefault();
+        };
+        self.CopyTaskPopup = function (taskUri, taskName) {
+            MC.ui.popup('setScrollable', {
+                element: '#popupCopyTask'
+            });
+
+            var win = $('#popupCopyTask').data('kendoWindow');
+            win.setOptions({
+                resizable: false,
+                actions: ["Close"]
+            });
+
+            $("#TaskUri").val(taskUri);
+            $("#TaskName").val(taskName + '_copy');
+
+            MC.form.validator.init('#formCopyTask');
+            $('#formCopyTask').submit(function (e) {
+                $('#popupCopyTask .btnSubmit').trigger('click');
+                e.preventDefault();
+            });
+        };
+
+        self.CopyTask = function (e, obj) {
+
+            if (!jQuery('#formCopyTask').valid())
+                return;
+
+            var taskUri = $("#TaskUri").val();
+            var taskName = $("#TaskName").val();
+
+            MC.ajax.request({
+                url: self.CopyTaskUri,
+                parameters: { taskUri: taskUri, taskName: taskName },
+                type: 'POST'
+            }).done(function () {
+                jQuery('#popupCopyTask').data('kendoWindow').close();
+
+                MC.ajax.reloadMainContent();
+            }).error(function () {
+                $('#popupCopyTask .btnClose').trigger('click');
+            });
+        };
+
         self.ExecuteTask = function (obj, uri) {
             if (!$(obj).hasClass('disabled')) {
                 var data = {
