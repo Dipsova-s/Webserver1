@@ -1,0 +1,3594 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AddFilter" xml:space="preserve">
+    <value>Voeg Filter toe</value>
+  </data>
+  <data name="AddFollowUp" xml:space="preserve">
+    <value>Voeg Jump toe</value>
+  </data>
+  <data name="AddToAngle" xml:space="preserve">
+    <value>Toevoegen aan Angle</value>
+  </data>
+  <data name="AdvancedFilters" xml:space="preserve">
+    <value>Geavanceerde Filters</value>
+  </data>
+  <data name="AngleDefinition" xml:space="preserve">
+    <value>Angledefinitie</value>
+  </data>
+  <data name="AngleDescription" xml:space="preserve">
+    <value>Angle-omschrijving</value>
+  </data>
+  <data name="AngleDetailPublishTabAddLabel" xml:space="preserve">
+    <value>Voeg label toe ..</value>
+  </data>
+  <data name="AngleDetailPublishTabAngleNote" xml:space="preserve">
+    <value>Opmerking: Er moet minstens één label van elke categorie gemarkeerd met (*) worden toegekend voor publicatie</value>
+  </data>
+  <data name="AngleDetailPublishTabAnglePivilegeLabel" xml:space="preserve">
+    <value>Anglepivilegelabels voor het publiceren van deze Angle:</value>
+  </data>
+  <data name="AngleDetailPublishTabAnglePrivileges" xml:space="preserve">
+    <value>Privilegelabels</value>
+  </data>
+  <data name="AngleDetailPublishTabHeader" xml:space="preserve">
+    <value>Publiceren</value>
+  </data>
+  <data name="AngleDetailPublishTabLimitationLabel" xml:space="preserve">
+    <value>Beperkingen</value>
+  </data>
+  <data name="AngleDetailPublishTabLocationLabel" xml:space="preserve">
+    <value>Locatie</value>
+  </data>
+  <data name="AngleDetailPublishTabProductDistributionLabel" xml:space="preserve">
+    <value>Distributiekanaal</value>
+  </data>
+  <data name="AngleDetailPublishTabProductGroupLabel" xml:space="preserve">
+    <value>Productgroep</value>
+  </data>
+  <data name="AngleDetailPublishTabSearchLabels" xml:space="preserve">
+    <value>Zoeklabels</value>
+  </data>
+  <data name="AngleDetailPublishTabTemplate" xml:space="preserve">
+    <value>Instellen als "Template"</value>
+  </data>
+  <data name="AngleDetailPublishTabValidatedAngle" xml:space="preserve">
+    <value>Instellen als "Gevalideerd"</value>
+  </data>
+  <data name="AngleDetails" xml:space="preserve">
+    <value>Angledetails</value>
+  </data>
+  <data name="AngleName" xml:space="preserve">
+    <value>Anglenaam</value>
+  </data>
+  <data name="AppliedFilterLinesAndFollowUps" xml:space="preserve">
+    <value>Toegepaste Filters en Jumps</value>
+  </data>
+  <data name="Apply" xml:space="preserve">
+    <value>Toepassen</value>
+  </data>
+  <data name="AuthenticationFailed" xml:space="preserve">
+    <value>Authenticatie mislukt</value>
+  </data>
+  <data name="BackToCreateOptions" xml:space="preserve">
+    <value>Terug</value>
+  </data>
+  <data name="BackToSearch" xml:space="preserve">
+    <value>Terug naar zoeken</value>
+  </data>
+  <data name="BusinessProcesses" xml:space="preserve">
+    <value>Bedrijfsprocessen</value>
+  </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>Annuleren</value>
+  </data>
+  <data name="CompanyName" xml:space="preserve">
+    <value>Bedrijfsnaam</value>
+  </data>
+  <data name="CreateFromSchemaDetailedDescription" xml:space="preserve">
+    <value>Het objectdiagram toont de belangrijkste objecten van een Bedrijfsproces en hun onderlinge relaties in een schema. Als u een object uit het diagram selecteert, wordt er een Template Angle uitgevoerd dat kan worden aangepast en opgeslagen als een aparte Angle.</value>
+  </data>
+  <data name="CreateFromSchemaDetailed" xml:space="preserve">
+    <value>Gevorderd: Selecteer een Template Angle uit het objectendiagram</value>
+  </data>
+  <data name="CreateFromObjectsDescription" xml:space="preserve">
+    <value>De volledige objectenlijst geeft een overzicht van alle beschikbare objecten van een Bedrijfsproces zonder relaties. U kunt één of meer objecten selecteren en op basis van deze selectie een nieuwe Angle maken.</value>
+  </data>
+  <data name="CreateFromObjects" xml:space="preserve">
+    <value>Expert: Selecteer een object uit de volledige objectenlijst</value>
+  </data>
+  <data name="CreatedBy" xml:space="preserve">
+    <value>Gemaakt door</value>
+  </data>
+  <data name="CreateFromSchemaSimpleDescription" xml:space="preserve">
+    <value>Het activiteitendiagram toont de belangrijkste activiteiten van een Bedrijfsproces en hun onderlinge relaties in een schema. Als u een activiteit uit het diagram selecteert, wordt er een Template Angle uitgevoerd dat kan worden aangepast en opgeslagen als een aparte Angle.</value>
+  </data>
+  <data name="CreateFromSchemaSimple" xml:space="preserve">
+    <value>Start: Selecteer een Template Angle uit het Activiteitendiagram</value>
+  </data>
+  <data name="CreateNewAngle" xml:space="preserve">
+    <value>Nieuwe Angle maken</value>
+  </data>
+  <data name="CreateNewAngleFromSelectedObjects" xml:space="preserve">
+    <value>Maak Angle</value>
+  </data>
+  <data name="CreateNewAngleTitle" xml:space="preserve">
+    <value>Omschrijving van het (laatste) geselecteerde object</value>
+  </data>
+  <data name="CreationDate" xml:space="preserve">
+    <value>Aanmaakdatum</value>
+  </data>
+  <data name="Creator" xml:space="preserve">
+    <value>Maker</value>
+  </data>
+  <data name="CurrentDisplayDefinition" xml:space="preserve">
+    <value>Definitie huidige Display</value>
+  </data>
+  <data name="DefaultAngleName" xml:space="preserve">
+    <value>Nieuwe Angle</value>
+  </data>
+  <data name="DefaultDisplay" xml:space="preserve">
+    <value>Standaard Display</value>
+  </data>
+  <data name="DefaultDisplayListName" xml:space="preserve">
+    <value>Nieuwe Display</value>
+  </data>
+  <data name="Definition" xml:space="preserve">
+    <value>Definitie</value>
+  </data>
+  <data name="Delete" xml:space="preserve">
+    <value>Verwijderen</value>
+  </data>
+  <data name="Description" xml:space="preserve">
+    <value>Omschrijving</value>
+  </data>
+  <data name="DisplayDescription" xml:space="preserve">
+    <value>Omschrijving Display</value>
+  </data>
+  <data name="DisplayDetails" xml:space="preserve">
+    <value>Displaydetails</value>
+  </data>
+  <data name="DisplayForAngle" xml:space="preserve">
+    <value>Display voor Angle</value>
+  </data>
+  <data name="DisplayName" xml:space="preserve">
+    <value>Displaynaam</value>
+  </data>
+  <data name="DisplayType" xml:space="preserve">
+    <value>Displaysoort</value>
+  </data>
+  <data name="Division" xml:space="preserve">
+    <value>Divisie</value>
+  </data>
+  <data name="EnterYourBusinessQuestionHere" xml:space="preserve">
+    <value>Typ hier uw vraag</value>
+  </data>
+  <data name="ExecuteAtLogin" xml:space="preserve">
+    <value>Uitvoeren na inloggen</value>
+  </data>
+  <data name="ExecutionPopupExecutionParameters" xml:space="preserve">
+    <value>Uitvoeringsparameters</value>
+  </data>
+  <data name="Filters" xml:space="preserve">
+    <value>Filters &amp; Jumps</value>
+  </data>
+  <data name="FindObject" xml:space="preserve">
+    <value>Zoek object...</value>
+  </data>
+  <data name="First" xml:space="preserve">
+    <value>Eerste</value>
+  </data>
+  <data name="General" xml:space="preserve">
+    <value>Algemeen</value>
+  </data>
+  <data name="GeneralFilters" xml:space="preserve">
+    <value>Algemene filters</value>
+  </data>
+  <data name="Help" xml:space="preserve">
+    <value>Help</value>
+  </data>
+  <data name="Language" xml:space="preserve">
+    <value>Taal</value>
+  </data>
+  <data name="Last" xml:space="preserve">
+    <value>Laatste</value>
+  </data>
+  <data name="LastChangedBy" xml:space="preserve">
+    <value>Laatst gewijzigd door</value>
+  </data>
+  <data name="LastExecutedBy" xml:space="preserve">
+    <value>Laatste uitgevoerd door</value>
+  </data>
+  <data name="Location" xml:space="preserve">
+    <value>Locatie</value>
+  </data>
+  <data name="Login" xml:space="preserve">
+    <value>Inloggen</value>
+  </data>
+  <data name="Logout" xml:space="preserve">
+    <value>Uitloggen</value>
+  </data>
+  <data name="MarkedForDeletion" xml:space="preserve">
+    <value>Gemarkeerd voor verwijdering</value>
+  </data>
+  <data name="More" xml:space="preserve">
+    <value>Meer</value>
+  </data>
+  <data name="No" xml:space="preserve">
+    <value>Nee</value>
+  </data>
+  <data name="NumberOfExecutes" xml:space="preserve">
+    <value>Aantal keer uitgevoerd</value>
+  </data>
+  <data name="ObjectName" xml:space="preserve">
+    <value>Objectnaam</value>
+  </data>
+  <data name="Password" xml:space="preserve">
+    <value>Wachtwoord</value>
+  </data>
+  <data name="PersonalNote" xml:space="preserve">
+    <value>Persoonlijke opmerking</value>
+  </data>
+  <data name="Pivot_Bucket_Average" xml:space="preserve">
+    <value>Gemiddelde</value>
+  </data>
+  <data name="Pivot_Bucket_AverageValid" xml:space="preserve">
+    <value>Gemiddelde geldig</value>
+  </data>
+  <data name="Pivot_Bucket_Count" xml:space="preserve">
+    <value>Aantal</value>
+  </data>
+  <data name="Pivot_Bucket_CountValid" xml:space="preserve">
+    <value>Aantal geldig</value>
+  </data>
+  <data name="Pivot_Bucket_FirstCharacter" xml:space="preserve">
+    <value>Eerste karakter</value>
+  </data>
+  <data name="Pivot_Bucket_FirstCharacters" xml:space="preserve">
+    <value>Eerste {0} karakters</value>
+  </data>
+  <data name="Pivot_Bucket_Individual" xml:space="preserve">
+    <value>Individueel</value>
+  </data>
+  <data name="Pivot_Bucket_Max" xml:space="preserve">
+    <value>Max</value>
+  </data>
+  <data name="Pivot_Bucket_Min" xml:space="preserve">
+    <value>Min</value>
+  </data>
+  <data name="Pivot_Bucket_PerDay" xml:space="preserve">
+    <value>Per dag</value>
+  </data>
+  <data name="Pivot_Bucket_PerMonth" xml:space="preserve">
+    <value>Per maand</value>
+  </data>
+  <data name="Pivot_Bucket_PerQuarter" xml:space="preserve">
+    <value>Per kwartaal</value>
+  </data>
+  <data name="Pivot_Bucket_PerSemester" xml:space="preserve">
+    <value>Per semester</value>
+  </data>
+  <data name="Pivot_Bucket_PerTrimester" xml:space="preserve">
+    <value>Per trimester</value>
+  </data>
+  <data name="Pivot_Bucket_PerWeek" xml:space="preserve">
+    <value>Per week</value>
+  </data>
+  <data name="Pivot_Bucket_PerYear" xml:space="preserve">
+    <value>Per jaar</value>
+  </data>
+  <data name="Pivot_Bucket_Sum" xml:space="preserve">
+    <value>Som</value>
+  </data>
+  <data name="PleaseEnterYourUsernameAndPassword" xml:space="preserve">
+    <value>Voer uw gebruikersnaam en wachtwoord in</value>
+  </data>
+  <data name="Popularity" xml:space="preserve">
+    <value>Populariteit</value>
+  </data>
+  <data name="Publishing" xml:space="preserve">
+    <value>Publicatie</value>
+  </data>
+  <data name="Items" xml:space="preserve">
+    <value>resultaten</value>
+  </data>
+  <data name="Save" xml:space="preserve">
+    <value>Opslaan</value>
+  </data>
+  <data name="SearchResults" xml:space="preserve">
+    <value>Zoekresultaten</value>
+  </data>
+  <data name="SelectObjectInProcess" xml:space="preserve">
+    <value>Selecteer object in proces</value>
+  </data>
+  <data name="Settings" xml:space="preserve">
+    <value>Instellingen</value>
+  </data>
+  <data name="ShowAllObjects" xml:space="preserve">
+    <value>Toon alle objecten</value>
+  </data>
+  <data name="ShowAllTemplates" xml:space="preserve">
+    <value>Toon alle Templates</value>
+  </data>
+  <data name="SortBy" xml:space="preserve">
+    <value>Sorteer op</value>
+  </data>
+  <data name="Statistics" xml:space="preserve">
+    <value>Statistieken</value>
+  </data>
+  <data name="System" xml:space="preserve">
+    <value>Systeem</value>
+  </data>
+  <data name="SystemLabel" xml:space="preserve">
+    <value>Systeem: </value>
+  </data>
+  <data name="ThisIsAPrivateDisplayNotAvailableForOtherUsers" xml:space="preserve">
+    <value>Dit is een privé Display, niet beschikbaar voor andere gebruikers</value>
+  </data>
+  <data name="Username" xml:space="preserve">
+    <value>Gebruikersnaam</value>
+  </data>
+  <data name="ValidationFor" xml:space="preserve">
+    <value>Validatie voor</value>
+  </data>
+  <data name="ValidationLastChangedBy" xml:space="preserve">
+    <value>Validatie laatst gewijzigd door</value>
+  </data>
+  <data name="View" xml:space="preserve">
+    <value>Bekijken</value>
+  </data>
+  <data name="Yes" xml:space="preserve">
+    <value>Ja</value>
+  </data>
+  <data name="Aggregation" xml:space="preserve">
+    <value>Aggregatie</value>
+  </data>
+  <data name="Bucket" xml:space="preserve">
+    <value>Bucket</value>
+  </data>
+  <data name="Pivot_Bucket_PerHour" xml:space="preserve">
+    <value>Per uur</value>
+  </data>
+  <data name="IsPublishInfoMessage" xml:space="preserve">
+    <value>Deze Angle zal niet langer beschikbaar zijn voor u, omdat u niet de maker bent van deze Angle. Publicatie Angle opheffen?</value>
+  </data>
+  <data name="Pivot_Bucket_LastCharacter" xml:space="preserve">
+    <value>Laatste karakter</value>
+  </data>
+  <data name="Pivot_Bucket_LastCharacters" xml:space="preserve">
+    <value>Laatste {0} karakters</value>
+  </data>
+  <data name="SearchPageManagementConsole" xml:space="preserve">
+    <value>IT Beheerconsole</value>
+  </data>
+  <data name="SearchPageNoPerferences" xml:space="preserve">
+    <value>Geen voorkeuren</value>
+  </data>
+  <data name="AdvanceFilterPublishedTitle" xml:space="preserve">
+    <value>Gepubliceerd</value>
+  </data>
+  <data name="AddColumn" xml:space="preserve">
+    <value>Voeg kolom toe</value>
+  </data>
+  <data name="AddField" xml:space="preserve">
+    <value>Voeg veld toe</value>
+  </data>
+  <data name="AddToDashboard" xml:space="preserve">
+    <value>Voeg toe aan Dashboard</value>
+  </data>
+  <data name="AddToPivotFieldArea" xml:space="preserve">
+    <value>Voeg toe aan {0} gebied</value>
+  </data>
+  <data name="AdvanceFilterFrom" xml:space="preserve">
+    <value>Van</value>
+  </data>
+  <data name="AdvanceFilterLanguageDescription" xml:space="preserve">
+    <value>Omschrijving</value>
+  </data>
+  <data name="AdvanceFilterLanguageName" xml:space="preserve">
+    <value>Naam</value>
+  </data>
+  <data name="AdvanceFilterLanguageTitle" xml:space="preserve">
+    <value>Taal</value>
+  </data>
+  <data name="AdvanceFilterLimitationsBlockedDisplays" xml:space="preserve">
+    <value>Geblokkeerde Displays</value>
+  </data>
+  <data name="AdvanceFilterLimitationsBlockedDrilldown" xml:space="preserve">
+    <value>Geblokkeerde Drilldown</value>
+  </data>
+  <data name="AdvanceFilterLimitationsBlockedFollowUp" xml:space="preserve">
+    <value>Geblokkeerde Jump</value>
+  </data>
+  <data name="AdvanceFilterLimitationsTitle" xml:space="preserve">
+    <value>Beperkingen</value>
+  </data>
+  <data name="AdvanceFilterNoReferenceChoice" xml:space="preserve">
+    <value>Geen verwijzing</value>
+  </data>
+  <data name="AdvanceFilterPrivateChoice" xml:space="preserve">
+    <value>Persoonlijk</value>
+  </data>
+  <data name="AdvanceFilterPublishChoice" xml:space="preserve">
+    <value>Publiceren</value>
+  </data>
+  <data name="AdvanceFilterTextInDescription" xml:space="preserve">
+    <value>In omschrijving</value>
+  </data>
+  <data name="AdvanceFilterTextInFilterLines" xml:space="preserve">
+    <value>In filterlijnen</value>
+  </data>
+  <data name="AdvanceFilterTextInFollowUpQuestions" xml:space="preserve">
+    <value>In Jumps</value>
+  </data>
+  <data name="AdvanceFilterTextInPrivateLabels" xml:space="preserve">
+    <value>In privé labels</value>
+  </data>
+  <data name="AdvanceFilterTextInPublicLabels" xml:space="preserve">
+    <value>In gepubliceerde labels</value>
+  </data>
+  <data name="AdvanceFilterTextInTitle" xml:space="preserve">
+    <value>In titel</value>
+  </data>
+  <data name="AdvanceFilterTextTitle" xml:space="preserve">
+    <value>Tekst</value>
+  </data>
+  <data name="AdvanceFilterTo" xml:space="preserve">
+    <value>Naar</value>
+  </data>
+  <data name="AdvanceFilterUsageChangedBy" xml:space="preserve">
+    <value>Gewijzigd door</value>
+  </data>
+  <data name="AdvanceFilterUsageCreateBy" xml:space="preserve">
+    <value>Gemaakt door</value>
+  </data>
+  <data name="AdvanceFilterUsageLastExecutedBy" xml:space="preserve">
+    <value>Laatst uitgevoerd door</value>
+  </data>
+  <data name="AdvanceFilterUsageMarkedForDeletionBy" xml:space="preserve">
+    <value>Gemarkeerd voor verwijdering door</value>
+  </data>
+  <data name="AdvanceFilterUsageNumberOfExecutes" xml:space="preserve">
+    <value>Aantal keer uitgevoerd</value>
+  </data>
+  <data name="AdvanceFilterUsageTitle" xml:space="preserve">
+    <value>Gebruik</value>
+  </data>
+  <data name="AdvanceFilterUsageValidationChangeBy" xml:space="preserve">
+    <value>Validatiewijziging door</value>
+  </data>
+  <data name="AngleDefinitionAreaObjectsIn" xml:space="preserve">
+    <value>Objecten {0} in</value>
+  </data>
+  <data name="AngleDefinitionAreaNumberRow" xml:space="preserve">
+    <value>({0} rijen)</value>
+  </data>
+  <data name="AngleDefinitionAreaSec" xml:space="preserve">
+    <value>sec</value>
+  </data>
+  <data name="AngleDropdownListSelectDisplay" xml:space="preserve">
+    <value>Selecteer Display</value>
+  </data>
+  <data name="Close" xml:space="preserve">
+    <value>Sluiten</value>
+  </data>
+  <data name="CreateNewAngleGridClassesHeader" xml:space="preserve">
+    <value>Object</value>
+  </data>
+  <data name="ExportToCSV" xml:space="preserve">
+    <value>Exporteren naar CSV</value>
+  </data>
+  <data name="ExportToExcel" xml:space="preserve">
+    <value>Exporteren naar Excel</value>
+  </data>
+  <data name="FiledChooserFacetFilterLess" xml:space="preserve">
+    <value>minder...</value>
+  </data>
+  <data name="FiledChooserFacetFilterMore" xml:space="preserve">
+    <value>meer...</value>
+  </data>
+  <data name="FiledChooserFilterProperties" xml:space="preserve">
+    <value>Zoek veld...</value>
+  </data>
+  <data name="Find" xml:space="preserve">
+    <value>Zoeken</value>
+  </data>
+  <data name="Ok" xml:space="preserve">
+    <value>OK</value>
+  </data>
+  <data name="SeeInfoAboutProperty" xml:space="preserve">
+    <value>Zie info over veld</value>
+  </data>
+  <data name="SelectAPropertyToApplyAsFilter" xml:space="preserve">
+    <value>Selecteer een veld om toe te passen als filter</value>
+  </data>
+  <data name="Sort" xml:space="preserve">
+    <value>Sorteren</value>
+  </data>
+  <data name="StartObject" xml:space="preserve">
+    <value>Startobject</value>
+  </data>
+  <data name="Tools" xml:space="preserve">
+    <value>Acties</value>
+  </data>
+  <data name="AddValue" xml:space="preserve">
+    <value>Voeg waarde toe</value>
+  </data>
+  <data name="After" xml:space="preserve">
+    <value>Na</value>
+  </data>
+  <data name="And" xml:space="preserve">
+    <value>en</value>
+  </data>
+  <data name="AskForValueWhenTheAngleOpens" xml:space="preserve">
+    <value>Vraag naar waarde wanneer de Angle opent</value>
+  </data>
+  <data name="Before" xml:space="preserve">
+    <value>Voor</value>
+  </data>
+  <data name="Between" xml:space="preserve">
+    <value>Tussen</value>
+  </data>
+  <data name="CellPopupMenuCopy" xml:space="preserve">
+    <value>Kopiëren</value>
+  </data>
+  <data name="CellPopupMenuDrillDownTo" xml:space="preserve">
+    <value>Drilldown naar item</value>
+  </data>
+  <data name="CellPopupMenuFilterThisColumn" xml:space="preserve">
+    <value>Snelfilter</value>
+  </data>
+  <data name="CellPopupMenuGotoSAP" xml:space="preserve">
+    <value>Ga naar SAP</value>
+  </data>
+  <data name="CellPopupSubMenuEmpty" xml:space="preserve">
+    <value>Is Leeg</value>
+  </data>
+  <data name="CellPopupSubMenuEqual" xml:space="preserve">
+    <value>Is gelijk aan</value>
+  </data>
+  <data name="CellPopupSubMenuLargerThan" xml:space="preserve">
+    <value>Is groter dan</value>
+  </data>
+  <data name="CellPopupSubMenuNotEmpty" xml:space="preserve">
+    <value>Is niet leeg</value>
+  </data>
+  <data name="CellPopupSubMenuNotEqual" xml:space="preserve">
+    <value>Is niet gelijk aan</value>
+  </data>
+  <data name="CellPopupSubMenuSmallerThan" xml:space="preserve">
+    <value>Is kleiner dan</value>
+  </data>
+  <data name="DaysFromActualDate" xml:space="preserve">
+    <value>dagen vanaf werkelijke datum</value>
+  </data>
+  <data name="InputTitleInputDate" xml:space="preserve">
+    <value>Input datum:</value>
+  </data>
+  <data name="InputTitleInputNumber" xml:space="preserve">
+    <value>Input nummer:</value>
+  </data>
+  <data name="InputTitleInputPeriod" xml:space="preserve">
+    <value>Input periode:</value>
+  </data>
+  <data name="InputTitleInputText" xml:space="preserve">
+    <value>Input tekst:</value>
+  </data>
+  <data name="InputTitleSelectValue" xml:space="preserve">
+    <value>Selecteer waarde</value>
+  </data>
+  <data name="ListHeaderPopupCreateChart" xml:space="preserve">
+    <value>Maak grafiek</value>
+  </data>
+  <data name="ListHeaderPopupCreatePivot" xml:space="preserve">
+    <value>Maak draaitabel</value>
+  </data>
+  <data name="ListHeaderPopupCustomSort" xml:space="preserve">
+    <value>Eigen sortering</value>
+  </data>
+  <data name="ListHeaderPopupRemoveColumn" xml:space="preserve">
+    <value>Verwijder kolom</value>
+  </data>
+  <data name="ListHeaderPopupSortAscending" xml:space="preserve">
+    <value>Sorteer oplopend</value>
+  </data>
+  <data name="ListHeaderPopupSortDecending" xml:space="preserve">
+    <value>Sorteer aflopend</value>
+  </data>
+  <data name="NotBetween" xml:space="preserve">
+    <value>niet tussen</value>
+  </data>
+  <data name="OperatorContainsSubstring" xml:space="preserve">
+    <value>bevat substring(s)</value>
+  </data>
+  <data name="OperatorDoesNotContainSubstring" xml:space="preserve">
+    <value>bevat substring(s) niet</value>
+  </data>
+  <data name="OperatorDoesNotEndOnSubstring" xml:space="preserve">
+    <value>eindigt niet op substring(s)</value>
+  </data>
+  <data name="OperatorDoesNotStartWithSubstring" xml:space="preserve">
+    <value>begint niet met substring(s)</value>
+  </data>
+  <data name="OperatorEndsOnSubstring" xml:space="preserve">
+    <value>eindigt op substring(s)</value>
+  </data>
+  <data name="OperatorHasNoValue" xml:space="preserve">
+    <value>is leeg</value>
+  </data>
+  <data name="OperatorHasValue" xml:space="preserve">
+    <value>is niet leeg</value>
+  </data>
+  <data name="OperatorIsAfter" xml:space="preserve">
+    <value>is na</value>
+  </data>
+  <data name="OperatorIsAfterOrEqualTo" xml:space="preserve">
+    <value>is na of gelijk aan</value>
+  </data>
+  <data name="OperatorIsAfterOrOn" xml:space="preserve">
+    <value>is na of op</value>
+  </data>
+  <data name="OperatorIsBefore" xml:space="preserve">
+    <value>is voor</value>
+  </data>
+  <data name="OperatorIsBeforeOrEqualTo" xml:space="preserve">
+    <value>is voor of gelijk aan</value>
+  </data>
+  <data name="OperatorIsBeforeOrOn" xml:space="preserve">
+    <value>is voor of op</value>
+  </data>
+  <data name="OperatorIsBetween" xml:space="preserve">
+    <value>is tussen</value>
+  </data>
+  <data name="OperatorIsEqualTo" xml:space="preserve">
+    <value>is gelijk aan</value>
+  </data>
+  <data name="OperatorIsGreaterThan" xml:space="preserve">
+    <value>is groter dan</value>
+  </data>
+  <data name="OperatorIsGreaterThanOrEqualTo" xml:space="preserve">
+    <value>is groter dan of gelijk aan</value>
+  </data>
+  <data name="OperatorIsInList" xml:space="preserve">
+    <value>is in lijst</value>
+  </data>
+  <data name="OperatorIsNotBetween" xml:space="preserve">
+    <value>is niet tussen</value>
+  </data>
+  <data name="OperatorIsNotEqualTo" xml:space="preserve">
+    <value>is niet gelijk</value>
+  </data>
+  <data name="OperatorIsNotInList" xml:space="preserve">
+    <value>is niet in lijst</value>
+  </data>
+  <data name="OperatorIsNotRelativeBetween" xml:space="preserve">
+    <value>is niet relatief tussen</value>
+  </data>
+  <data name="OperatorIsRelativeAfter" xml:space="preserve">
+    <value>is relatief na</value>
+  </data>
+  <data name="OperatorIsRelativeBefore" xml:space="preserve">
+    <value>is relatief voor</value>
+  </data>
+  <data name="OperatorIsRelativeBetween" xml:space="preserve">
+    <value>is relatief tussen</value>
+  </data>
+  <data name="OperatorIsSmallerThan" xml:space="preserve">
+    <value>is kleiner dan</value>
+  </data>
+  <data name="OperatorIsSmallerThanOrEqualTo" xml:space="preserve">
+    <value>is kleiner dan of gelijk aan</value>
+  </data>
+  <data name="OperatorMatchesPattern" xml:space="preserve">
+    <value>komt overeen met patroon</value>
+  </data>
+  <data name="OperatorStartsWithSubstring" xml:space="preserve">
+    <value>begint met substring(s)</value>
+  </data>
+  <data name="ProgressbarProgressing" xml:space="preserve">
+    <value>Voortgang</value>
+  </data>
+  <data name="Retry" xml:space="preserve">
+    <value>Opnieuw proberen</value>
+  </data>
+  <data name="SelectedListValueDays" xml:space="preserve">
+    <value>Dagen</value>
+  </data>
+  <data name="ActionsAtLogin" xml:space="preserve">
+    <value>Acties na inloggen</value>
+  </data>
+  <data name="ActionSettingClearAll" xml:space="preserve">
+    <value>Alles wissen</value>
+  </data>
+  <data name="ActionSettingExecuteAtLogin" xml:space="preserve">
+    <value>Voer Angles en Dashboards automatisch uit wanneer ik inlog:</value>
+  </data>
+  <data name="ActionSettingExecuteLastSearch" xml:space="preserve">
+    <value>Voer laatste zoekopdracht uit als ik inlog.</value>
+  </data>
+  <data name="FormatSettingDecimal" xml:space="preserve">
+    <value>decimaal</value>
+  </data>
+  <data name="FormatSettingDecimals" xml:space="preserve">
+    <value>decimalen</value>
+  </data>
+  <data name="FormatSettingLabelCurrency" xml:space="preserve">
+    <value>Valuta</value>
+  </data>
+  <data name="FormatSettingLabelNumbers" xml:space="preserve">
+    <value>Getallen</value>
+  </data>
+  <data name="FormatSettingLabelPercentages" xml:space="preserve">
+    <value>Percentages</value>
+  </data>
+  <data name="FormatSettingNoDecimal" xml:space="preserve">
+    <value>Geen decimaal</value>
+  </data>
+  <data name="FieldFormats" xml:space="preserve">
+    <value>Veldformaten</value>
+  </data>
+  <data name="SystemSettingLabelDefaultBusinessProcess" xml:space="preserve">
+    <value>Standaard Bedrijfsproces</value>
+  </data>
+  <data name="SystemSettingLabelDefaultOfRowsExportToExcel" xml:space="preserve">
+    <value>Standaard # rijen bij export naar Excel</value>
+  </data>
+  <data name="SystemSettingLabelInColumnHeadersOfLists" xml:space="preserve">
+    <value>In kolomkoppen van lijsten</value>
+  </data>
+  <data name="SystemSettingLabelShowSAPPropertyNames" xml:space="preserve">
+    <value>Toon technische namen</value>
+  </data>
+  <data name="SystemSettingLabelShowSmallBusinessProcessBar" xml:space="preserve">
+    <value>Toon kleine Bedrijfsprocessenbalk</value>
+  </data>
+  <data name="SystemSettingLabelWhenSelectingAProperty" xml:space="preserve">
+    <value>In de veldkiezer, bij het selecteren van een veld</value>
+  </data>
+  <data name="SystemSettingResults" xml:space="preserve">
+    <value>resultaten</value>
+  </data>
+  <data name="SystemSettings" xml:space="preserve">
+    <value>Systeeminstellingen</value>
+  </data>
+  <data name="UserInformation" xml:space="preserve">
+    <value>Gebruikersinformatie</value>
+  </data>
+  <data name="UserSettingLabelAuthorisation" xml:space="preserve">
+    <value>Authorisatie</value>
+  </data>
+  <data name="UserSettingLabelRoles" xml:space="preserve">
+    <value>Rollen:</value>
+  </data>
+  <data name="UserSettingLabelUser" xml:space="preserve">
+    <value>Gebruiker:</value>
+  </data>
+  <data name="UserSettingLabelUserInfo" xml:space="preserve">
+    <value>Gebruikersinfo</value>
+  </data>
+  <data name="UserSettingLabelUserParameters" xml:space="preserve">
+    <value>Parameters gebruiker:</value>
+  </data>
+  <data name="UserSettingLabelUserType" xml:space="preserve">
+    <value>Soort gebruiker:</value>
+  </data>
+  <data name="SaveAs" xml:space="preserve">
+    <value>Opslaan als...</value>
+  </data>
+  <data name="SaveAsTitle" xml:space="preserve">
+    <value>Opslaan als...</value>
+  </data>
+  <data name="SaveAsPrivate" xml:space="preserve">
+    <value>Opslaan als privé Angle</value>
+  </data>
+  <data name="ListFormatEnumLongName" xml:space="preserve">
+    <value>Lange naam</value>
+  </data>
+  <data name="ListFormatEnumShortName" xml:space="preserve">
+    <value>Korte naam</value>
+  </data>
+  <data name="ListFormatSettingResetDefault" xml:space="preserve">
+    <value>Resetten</value>
+  </data>
+  <data name="ListFormatSettingTitle" xml:space="preserve">
+    <value>Formaat veld</value>
+  </data>
+  <data name="ListFormatNumberFour" xml:space="preserve">
+    <value>4 decimalen</value>
+  </data>
+  <data name="ListFormatNumberMillion" xml:space="preserve">
+    <value>Toon in miljoenen M</value>
+  </data>
+  <data name="ListFormatNumberOne" xml:space="preserve">
+    <value>1 decimaal</value>
+  </data>
+  <data name="ListFormatNumberSix" xml:space="preserve">
+    <value>6 decimalen</value>
+  </data>
+  <data name="ListFormatNumberThousand" xml:space="preserve">
+    <value>Toon in duizenden K</value>
+  </data>
+  <data name="ListFormatNumberTwo" xml:space="preserve">
+    <value>2 decimalen</value>
+  </data>
+  <data name="ListFormatNumberZero" xml:space="preserve">
+    <value>0 decimalen</value>
+  </data>
+  <data name="ListFormatSaveAsDefault" xml:space="preserve">
+    <value>Gebruik als standaard voor dit veld</value>
+  </data>
+  <data name="ListFormatPeriodDays" xml:space="preserve">
+    <value>Toon in dagen</value>
+  </data>
+  <data name="ListFormatPeriodDDHH" xml:space="preserve">
+    <value>Toon in dagen (DD: HH)</value>
+  </data>
+  <data name="ListFormatPeriodHHMM" xml:space="preserve">
+    <value>Toon in uren (HH: MM)</value>
+  </data>
+  <data name="ListFormatPeriodHours" xml:space="preserve">
+    <value>Toon in uren</value>
+  </data>
+  <data name="ListFormatPeriodSeconds" xml:space="preserve">
+    <value>Toon in seconden</value>
+  </data>
+  <data name="LIstFormatPeriodWeeks" xml:space="preserve">
+    <value>Toon in weken</value>
+  </data>
+  <data name="LIstFormatPeriodWWDD" xml:space="preserve">
+    <value>Toon in weken (WW: DD)</value>
+  </data>
+  <data name="DefaultDisplayListDescription" xml:space="preserve">
+    <value>Omschrijving nieuwe Display</value>
+  </data>
+  <data name="CreateNewAngleGridClassesHeaderLongName" xml:space="preserve">
+    <value>Omschrijving</value>
+  </data>
+  <data name="ErrorCannotSaveDisplay" xml:space="preserve">
+    <value>Display kan niet worden opgeslagen, u moet eerst de Angle opslaan</value>
+  </data>
+  <data name="DrilldownErrorItemNotFound" xml:space="preserve">
+    <value>Gevraagde item is niet gevonden</value>
+  </data>
+  <data name="DrilldownErrorNoIDField" xml:space="preserve">
+    <value>Gevraagde item heeft geen ID veld</value>
+  </data>
+  <data name="DrilldownErrorPrimaryDataNotFound" xml:space="preserve">
+    <value>ID '{ID}' voor Objectsoort '{ObjectType}' bestaat niet</value>
+  </data>
+  <data name="DrilldownErrorPrimaryDataNotUnique" xml:space="preserve">
+    <value>ID '{ID}' voor Objectsoort '{ObjectType}' is niet uniek</value>
+  </data>
+  <data name="NotImplement" xml:space="preserve">
+    <value>niet geïmplementeerd</value>
+  </data>
+  <data name="PersonalDefaultDisplay" xml:space="preserve">
+    <value>Persoonlijk standaard Display</value>
+  </data>
+  <data name="AngleId" xml:space="preserve">
+    <value>Angle-ID</value>
+  </data>
+  <data name="DisplayId" xml:space="preserve">
+    <value>Display-ID</value>
+  </data>
+  <data name="DisplayDropdownListKeepFilter" xml:space="preserve">
+    <value>Bewaar actieve Displayfilters</value>
+  </data>
+  <data name="DisplayDrilldownDefault" xml:space="preserve">
+    <value>Standaard drilldown Display</value>
+  </data>
+  <data name="None" xml:space="preserve">
+    <value>[Geen]</value>
+  </data>
+  <data name="CreateNewAngleFromSchema" xml:space="preserve">
+    <value>Maak Angle</value>
+  </data>
+  <data name="InitialDropdownLabel" xml:space="preserve">
+    <value>-- Selecteer  --</value>
+  </data>
+  <data name="Enum" xml:space="preserve">
+    <value>Set</value>
+  </data>
+  <data name="Period" xml:space="preserve">
+    <value>Periode</value>
+  </data>
+  <data name="SystemSettingLabelUserLocale" xml:space="preserve">
+    <value>Regionale instellingen</value>
+  </data>
+  <data name="Time" xml:space="preserve">
+    <value>Tijd</value>
+  </data>
+  <data name="UserSettingLabelThousandSeparator" xml:space="preserve">
+    <value>Scheidingsteken voor duizendtallen</value>
+  </data>
+  <data name="DashboardDetails" xml:space="preserve">
+    <value>Dashboarddetails</value>
+  </data>
+  <data name="AppliedAngleDisplays" xml:space="preserve">
+    <value>Toegepaste Angle Displays</value>
+  </data>
+  <data name="SelectDashboardDisplay" xml:space="preserve">
+    <value>Displays:</value>
+  </data>
+  <data name="DashboardName" xml:space="preserve">
+    <value>Dashboard naam</value>
+  </data>
+  <data name="PopupConfirmDiscardChangeFieldSetting" xml:space="preserve">
+    <value>Wijzigingen in {0} Display zijn niet toegepast.&lt;br&gt;Wijzigingen negeren en opslaan?</value>
+  </data>
+  <data name="ErrorCommonMessage" xml:space="preserve">
+    <value>Er is een fout opgetreden tijdens het verwerken, neem contact op met de systeembeheerder.</value>
+  </data>
+  <data name="ErrorDisplayNotExistsThenGotoOtherDisplay" xml:space="preserve">
+    <value>Display bestaat niet. Klik OK om naar een bestaand Display te gaan.</value>
+  </data>
+  <data name="ErrorDisplayNotExistsThenGotoSearchPage" xml:space="preserve">
+    <value>Display bestaat niet. Klik OK om terug te gaan naar de zoekpagina.</value>
+  </data>
+  <data name="ErrorExcelFileName" xml:space="preserve">
+    <value>Bestandsnaam kan niet bevatten: \ / : * ? " &lt; &gt; |</value>
+  </data>
+  <data name="ErrorExcelSheetName" xml:space="preserve">
+    <value>Werkbladnaam kan niet bevatten: \ / : * ? " &lt; &gt; |</value>
+  </data>
+  <data name="ErrorFieldDuplicated" xml:space="preserve">
+    <value>Geselecteerde velden kunnen niet gedupliceerd worden</value>
+  </data>
+  <data name="ErrorInfoObjectNotFound" xml:space="preserve">
+    <value>Het systeem verwacht {property} '{value}' maar dit bestaat niet.</value>
+  </data>
+  <data name="ErrorInfoObjectUndefined" xml:space="preserve">
+    <value>Het systeem verwacht veld '{property}' maar dit is niet gedefinieerd.</value>
+  </data>
+  <data name="ErrorNoClasses" xml:space="preserve">
+    <value>Er is geen object teruggekomen.</value>
+  </data>
+  <data name="ErrorNoFieldSelected" xml:space="preserve">
+    <value>Geen veld geselecteerd</value>
+  </data>
+  <data name="ErrorNoObjectSelected" xml:space="preserve">
+    <value>Er is geen object geselecteerd</value>
+  </data>
+  <data name="ErrorObjectNotFound" xml:space="preserve">
+    <value>Object '{value}' is niet gevonden</value>
+  </data>
+  <data name="ErrorObjectUndefined" xml:space="preserve">
+    <value>Het specifieke object is niet gedefinieerd</value>
+  </data>
+  <data name="ErrorAngleInvalid" xml:space="preserve">
+    <value>Angle is niet geldig, het systeem wordt omgeleid naar de zoekpagina.</value>
+  </data>
+  <data name="ErrorPostResultFinishWithUnknown" xml:space="preserve">
+    <value>Kan gegevens niet ophalen omdat verwerking mislukt is.</value>
+  </data>
+  <data name="Decimal" xml:space="preserve">
+    <value>Decimalen</value>
+  </data>
+  <data name="FallBack" xml:space="preserve">
+    <value>Terugvallen op</value>
+  </data>
+  <data name="Format" xml:space="preserve">
+    <value>Formaat</value>
+  </data>
+  <data name="Number" xml:space="preserve">
+    <value>Aantal</value>
+  </data>
+  <data name="Other" xml:space="preserve">
+    <value>Andere instellingen</value>
+  </data>
+  <data name="Preferred" xml:space="preserve">
+    <value>Voorkeur</value>
+  </data>
+  <data name="RegionalSettings" xml:space="preserve">
+    <value>Regionale instellingen</value>
+  </data>
+  <data name="AngleDetailPublishTabAllowFollowups" xml:space="preserve">
+    <value>Sta niet toe dat gebruikers naar gerelateerde objecten springen via de Jumps</value>
+  </data>
+  <data name="AngleDetailPublishTabAllowMoreDetails" xml:space="preserve">
+    <value>Sta niet toe dat gebruikers meer details verkrijgen</value>
+  </data>
+  <data name="CreateAngleDetailedSchema" xml:space="preserve">
+    <value>Objecten</value>
+  </data>
+  <data name="CreateAngleSimpleSchema" xml:space="preserve">
+    <value>Functies</value>
+  </data>
+  <data name="SearchPageAngleAction" xml:space="preserve">
+    <value>Angle-acties</value>
+  </data>
+  <data name="DeSelect" xml:space="preserve">
+    <value>Wis selectie</value>
+  </data>
+  <data name="Execute" xml:space="preserve">
+    <value>Uitvoeren</value>
+  </data>
+  <data name="MassChange" xml:space="preserve">
+    <value>Massawijziging</value>
+  </data>
+  <data name="SelectAll" xml:space="preserve">
+    <value>Alles selecteren</value>
+  </data>
+  <data name="ClassName" xml:space="preserve">
+    <value>Objectnaam</value>
+  </data>
+  <data name="FieldType" xml:space="preserve">
+    <value>Veldsoort</value>
+  </data>
+  <data name="Name" xml:space="preserve">
+    <value>Naam</value>
+  </data>
+  <data name="Source" xml:space="preserve">
+    <value>Bron</value>
+  </data>
+  <data name="TechnicalInfo" xml:space="preserve">
+    <value>Technische info</value>
+  </data>
+  <data name="ListHeaderPopupAddColumn" xml:space="preserve">
+    <value>Voeg kolom toe</value>
+  </data>
+  <data name="Chart_area1" xml:space="preserve">
+    <value>Gebied</value>
+  </data>
+  <data name="Chart_area2" xml:space="preserve">
+    <value>Gestapeld gebied</value>
+  </data>
+  <data name="Chart_area3" xml:space="preserve">
+    <value>Gestapeld gebied en gestapelde kolom</value>
+  </data>
+  <data name="Chart_bar1" xml:space="preserve">
+    <value>Geclusterde staaf</value>
+  </data>
+  <data name="Chart_bar2" xml:space="preserve">
+    <value>Gestapelde staaf</value>
+  </data>
+  <data name="Chart_bubble1" xml:space="preserve">
+    <value>Bellen</value>
+  </data>
+  <data name="Chart_column1" xml:space="preserve">
+    <value>Geclusterde kolom</value>
+  </data>
+  <data name="Chart_column2" xml:space="preserve">
+    <value>Gestapelde kolom</value>
+  </data>
+  <data name="Chart_column3" xml:space="preserve">
+    <value>Gestapelde kolom en lijn</value>
+  </data>
+  <data name="Chart_donut1" xml:space="preserve">
+    <value>Ring</value>
+  </data>
+  <data name="Chart_line1" xml:space="preserve">
+    <value>Lijn</value>
+  </data>
+  <data name="Chart_line2" xml:space="preserve">
+    <value>Gestapelde lijn</value>
+  </data>
+  <data name="Chart_line3" xml:space="preserve">
+    <value>Lijn en gestapeld gebied</value>
+  </data>
+  <data name="Chart_pie1" xml:space="preserve">
+    <value>Cirkel</value>
+  </data>
+  <data name="Chart_radar1" xml:space="preserve">
+    <value>Lijn radar</value>
+  </data>
+  <data name="Chart_radar2" xml:space="preserve">
+    <value>Gevulde radar</value>
+  </data>
+  <data name="Chart_scatter1" xml:space="preserve">
+    <value>Spreiding met alleen punten</value>
+  </data>
+  <data name="Chart_scatter2" xml:space="preserve">
+    <value>Spreiding met vloeiende lijnen en punten</value>
+  </data>
+  <data name="Chart_scatter3" xml:space="preserve">
+    <value>Spreiding met rechte lijnen en punten</value>
+  </data>
+  <data name="DashboardDetailPublishTabPublished" xml:space="preserve">
+    <value>Gepubliceerd Dashboard</value>
+  </data>
+  <data name="DashboardDetailPublishTabValidated" xml:space="preserve">
+    <value>Gevalideerd Dashboard</value>
+  </data>
+  <data name="ErrorPublishAngleWithoutPublicDisplay" xml:space="preserve">
+    <value>Er is minimaal 1 geplubliceerd Display nodig om deze Angle te publiceren</value>
+  </data>
+  <data name="AppliedDashboardDisplays" xml:space="preserve">
+    <value>Toegepaste Dashboard Displays</value>
+  </data>
+  <data name="DashboardId" xml:space="preserve">
+    <value>Dashboard-ID</value>
+  </data>
+  <data name="SaveDisplay" xml:space="preserve">
+    <value>Display opslaan</value>
+  </data>
+  <data name="MessageConfirmUnpublishAngle" xml:space="preserve">
+    <value>Weet u zeker dat u de publicatie van deze Angle wilt opheffen?&lt;br&gt;U bent niet de maker van deze Angle, dus als u de publicatie opheft, heeft u niet langer toegang tot deze Angle.</value>
+  </data>
+  <data name="MessagePublishingNote" xml:space="preserve">
+    <value>Opmerking: Er moet minimaal één Display als gepubliceerd ingesteld zijn om de Angle te publiceren</value>
+  </data>
+  <data name="NumberOfBPs" xml:space="preserve">
+    <value>Aantal Bedrijfsprocessen:</value>
+  </data>
+  <data name="NumberOfLanguages" xml:space="preserve">
+    <value>Aantal talen:</value>
+  </data>
+  <data name="NumberOfPrivilegeLabels" xml:space="preserve">
+    <value>Aantal privilegelabels:</value>
+  </data>
+  <data name="NumberOfSearchLabels" xml:space="preserve">
+    <value>Aantal zoeklabels:</value>
+  </data>
+  <data name="SetDefaultDisplay" xml:space="preserve">
+    <value>Stel standaard Display in:</value>
+  </data>
+  <data name="SetDefaultPublicOrPrivate" xml:space="preserve">
+    <value>Stel standaard in op gepubliceerd of privé:</value>
+  </data>
+  <data name="AnglePublishing" xml:space="preserve">
+    <value>Samenvatting publicatie</value>
+  </data>
+  <data name="MessageSaveRequiredPublishAngle" xml:space="preserve">
+    <value>Sla alle niet opgeslagen wijzigingen op vóór de publicatie van dit dashboard</value>
+  </data>
+  <data name="AngleDetailPublishTabPublishButton" xml:space="preserve">
+    <value>Instellen als "Publiceren"</value>
+  </data>
+  <data name="AngleDetailPublishTabUnpublishButton" xml:space="preserve">
+    <value>Instellen als "Publicatie opheffen"</value>
+  </data>
+  <data name="FormatSettingNoFormat" xml:space="preserve">
+    <value>Geen formaat</value>
+  </data>
+  <data name="CreateNewDisplay" xml:space="preserve">
+    <value>Nieuwe Display maken</value>
+  </data>
+  <data name="SystemSettingLabelDefaultOfRowOfPivot" xml:space="preserve">
+    <value>Standaard # rijen in een draaitabel</value>
+  </data>
+  <data name="All" xml:space="preserve">
+    <value>Alle</value>
+  </data>
+  <data name="DashboardDetailPublishTabDashboardPrivileges" xml:space="preserve">
+    <value>Dashboardprivileges</value>
+  </data>
+  <data name="CreateEAPackage" xml:space="preserve">
+    <value>Download Angles</value>
+  </data>
+  <data name="FileName" xml:space="preserve">
+    <value>Bestandsnaam</value>
+  </data>
+  <data name="NumberOfAngles" xml:space="preserve">
+    <value>Toe te voegen Angles</value>
+  </data>
+  <data name="Selected" xml:space="preserve">
+    <value>Geselecteerd</value>
+  </data>
+  <data name="EAPackage" xml:space="preserve">
+    <value>EA-Package</value>
+  </data>
+  <data name="FieldSettingWarningMessageNotAllowSameFieldSameBucketInDataArea" xml:space="preserve">
+    <value>Kan hetzelfde veld met dezelfde aggregatie niet aan het datagebied toevoegen.</value>
+  </data>
+  <data name="Status" xml:space="preserve">
+    <value>Status</value>
+  </data>
+  <data name="MassChangePersonalNote" xml:space="preserve">
+    <value>Persoonlijke opmerking</value>
+  </data>
+  <data name="MassChangePublished" xml:space="preserve">
+    <value>Publiceren</value>
+  </data>
+  <data name="MassChangeStarred" xml:space="preserve">
+    <value>Gemarkeerd</value>
+  </data>
+  <data name="MassChangeTemplate" xml:space="preserve">
+    <value>Template</value>
+  </data>
+  <data name="MassChangeValidated" xml:space="preserve">
+    <value>Gevalideerd</value>
+  </data>
+  <data name="CompairCurrency" xml:space="preserve">
+    <value>Selecteer valuta</value>
+  </data>
+  <data name="CompairDate" xml:space="preserve">
+    <value>Selecteer datum</value>
+  </data>
+  <data name="CompairPeriod" xml:space="preserve">
+    <value>Selecteer periode</value>
+  </data>
+  <data name="CompairValue" xml:space="preserve">
+    <value>Selecteer veld</value>
+  </data>
+  <data name="ExecuteAsDashboard" xml:space="preserve">
+    <value>Uitvoeren als Dashboard</value>
+  </data>
+  <data name="ListHeaderPopupAddFilter" xml:space="preserve">
+    <value>Voeg Filter toe</value>
+  </data>
+  <data name="ListHeaderPopupFieldInfo" xml:space="preserve">
+    <value>Veldinfo</value>
+  </data>
+  <data name="ListHeaderPopupFormatFields" xml:space="preserve">
+    <value>Veld formaat</value>
+  </data>
+  <data name="Admin" xml:space="preserve">
+    <value>Admin</value>
+  </data>
+  <data name="AdminLogin" xml:space="preserve">
+    <value>Admin inloggen</value>
+  </data>
+  <data name="AnglePanelEditAngle" xml:space="preserve">
+    <value>Wijzig Angle</value>
+  </data>
+  <data name="AnglePanelEditDisplay" xml:space="preserve">
+    <value>Wijzig Display</value>
+  </data>
+  <data name="AnglePanelFilterFollowup" xml:space="preserve">
+    <value>Filters en Jumps</value>
+  </data>
+  <data name="AnglePanelEditDashboard" xml:space="preserve">
+    <value>Wijzig Dashboard</value>
+  </data>
+  <data name="AnglePanelWidgetsDashboard" xml:space="preserve">
+    <value>Dashboard Displays</value>
+  </data>
+  <data name="CopyAngle" xml:space="preserve">
+    <value>Kopieer Angle</value>
+  </data>
+  <data name="CopyAngleLabel" xml:space="preserve">
+    <value>Kopieer {0} Angles naar:</value>
+  </data>
+  <data name="InsertColumn" xml:space="preserve">
+    <value>Kolom invoegen</value>
+  </data>
+  <data name="InsertField" xml:space="preserve">
+    <value>Veld invoegen</value>
+  </data>
+  <data name="InsertToFieldArea" xml:space="preserve">
+    <value>Voeg toe aan {0} gebied</value>
+  </data>
+  <data name="ListHeaderPopupInsertColumn" xml:space="preserve">
+    <value>Kolom invoegen</value>
+  </data>
+  <data name="EditDisplay" xml:space="preserve">
+    <value>Wijzig Display</value>
+  </data>
+  <data name="ShowFacetForAngleWarnings" xml:space="preserve">
+    <value>Toon symbool voor &lt;i class="iconWarning"&gt;&lt;/i&gt; Anglewaarschuwingen</value>
+  </data>
+  <data name="WelcomeAllMoviesLink" xml:space="preserve">
+    <value>Bekijk alle gerelateerde video's (via help)</value>
+  </data>
+  <data name="WelcomeNoMovie" xml:space="preserve">
+    <value>Er is geen gerelateerde video beschikbaar</value>
+  </data>
+  <data name="FollowupsHelpManyToOneRelation" xml:space="preserve">
+    <value>Veel-op-éénrelatie</value>
+  </data>
+  <data name="FollowupsHelpProcessFlow" xml:space="preserve">
+    <value>Procesmatig</value>
+  </data>
+  <data name="FollowupsButtonSubmit" xml:space="preserve">
+    <value>Voer geselecteerd Jump uit</value>
+  </data>
+  <data name="FollowupsWarningAngle" xml:space="preserve">
+    <value>Alle Displays worden verwijderd</value>
+  </data>
+  <data name="FollowupsWarningDisplay" xml:space="preserve">
+    <value>Alle kolommen worden verwijderd</value>
+  </data>
+  <data name="FollowupsDownText" xml:space="preserve">
+    <value>Lijsten</value>
+  </data>
+  <data name="FollowupsLeftText" xml:space="preserve">
+    <value>Vorige</value>
+  </data>
+  <data name="FollowupsRightText" xml:space="preserve">
+    <value>Volgende</value>
+  </data>
+  <data name="FollowupsUpText" xml:space="preserve">
+    <value>Referenties</value>
+  </data>
+  <data name="ActivitiesScheme" xml:space="preserve">
+    <value>Activiteitendiagram</value>
+  </data>
+  <data name="ObjectsScheme" xml:space="preserve">
+    <value>Objectendiagram</value>
+  </data>
+  <data name="DrilldownErrorKeyNotValid" xml:space="preserve">
+    <value>Dit '{ObjectType}' heeft geen ID, drilldown niet mogelijk</value>
+  </data>
+  <data name="CreateEAPackageInvalidPackageName" xml:space="preserve">
+    <value>Packagenaam mag alleen a-z, A-Z, 0-9 en '_' bevatten.</value>
+  </data>
+  <data name="Languages" xml:space="preserve">
+    <value>Taal</value>
+  </data>
+  <data name="PrivilegeLabels" xml:space="preserve">
+    <value>Privilegelabels</value>
+  </data>
+  <data name="SearchLabels" xml:space="preserve">
+    <value>Zoeklabels</value>
+  </data>
+  <data name="MessageConfirmUnpublishDashboard" xml:space="preserve">
+    <value>Weet u zeker dat u de publicatie van dit Dashboard wilt opheffen?&lt;br&gt;U bent niet de maker van deze Dashboard, dus als u de publicatie opheft, heeft u niet langer toegang tot dit Dashboard.</value>
+  </data>
+  <data name="DonotHaveWCAndMCAuthrozation" xml:space="preserve">
+    <value>U heeft geen toestemming om de Web Client en Beheerconsole te gebruiken</value>
+  </data>
+  <data name="EditDashboard" xml:space="preserve">
+    <value>Dashboard bewerken</value>
+  </data>
+  <data name="SaveDashboard" xml:space="preserve">
+    <value>Dashboard opslaan</value>
+  </data>
+  <data name="MassChangeMessageConfirmUnpublishAngle" xml:space="preserve">
+    <value>Weet u zeker dat u de publicatie van deze Angle wilt opheffen?&lt;br&gt;U bent niet de maker van deze Angle, dus als u de publicatie opheft, heeft u niet langer toegang tot deze Angle.</value>
+  </data>
+  <data name="MessageSaveRequiredPublishDashboard" xml:space="preserve">
+    <value>Sla alle niet opgeslagen wijzgingen op voor u dit Dashboard publiceert</value>
+  </data>
+  <data name="ViewCompactMode" xml:space="preserve">
+    <value>Compacte modus</value>
+  </data>
+  <data name="ViewDetailsMode" xml:space="preserve">
+    <value>Gedetailleerde modus</value>
+  </data>
+  <data name="ExportWarningPrivateAngles" xml:space="preserve">
+    <value>Privé Angle(s) worden niet in het package opgenomen</value>
+  </data>
+  <data name="SaveAngleAs" xml:space="preserve">
+    <value>Angle opslaan als...</value>
+  </data>
+  <data name="CellPopupSubMenuAfter" xml:space="preserve">
+    <value>Na</value>
+  </data>
+  <data name="CellPopupSubMenuBefore" xml:space="preserve">
+    <value>Voor</value>
+  </data>
+  <data name="FindAngleResultAllTextField" xml:space="preserve">
+    <value>Alleen tekstveld</value>
+  </data>
+  <data name="FindAngleResultBackward" xml:space="preserve">
+    <value>Achteruit</value>
+  </data>
+  <data name="FindAngleResultCaseSensitive" xml:space="preserve">
+    <value>Hoofdlettergevoelig</value>
+  </data>
+  <data name="FindAngleResultForward" xml:space="preserve">
+    <value>Vooruit</value>
+  </data>
+  <data name="FindAngleResultEntireScope" xml:space="preserve">
+    <value>Volledig bereik</value>
+  </data>
+  <data name="FindAngleResultFromCursor" xml:space="preserve">
+    <value>Vanaf de cursor</value>
+  </data>
+  <data name="FindAngleResultOptions" xml:space="preserve">
+    <value>Opties</value>
+  </data>
+  <data name="FindAngleResultOrigin" xml:space="preserve">
+    <value>Oorsprong</value>
+  </data>
+  <data name="FindAngleResultScope" xml:space="preserve">
+    <value>Omvang</value>
+  </data>
+  <data name="FindAngleResultSelectedTextField" xml:space="preserve">
+    <value>Geselecteerd tekstveld:</value>
+  </data>
+  <data name="FindAngleResultTextToFind" xml:space="preserve">
+    <value>Te zoeken tekst:</value>
+  </data>
+  <data name="FindAngleResultDirection" xml:space="preserve">
+    <value>Richting</value>
+  </data>
+  <data name="ChartColumnArea" xml:space="preserve">
+    <value>Serie</value>
+  </data>
+  <data name="ChartDataArea" xml:space="preserve">
+    <value>Gegevens (verticale as)</value>
+  </data>
+  <data name="ChartRowArea" xml:space="preserve">
+    <value>Categorieën (horizontale as)</value>
+  </data>
+  <data name="PivotColumnArea" xml:space="preserve">
+    <value>Kolomgebied</value>
+  </data>
+  <data name="PivotDataArea" xml:space="preserve">
+    <value>Gegevensgebied</value>
+  </data>
+  <data name="PivotRowArea" xml:space="preserve">
+    <value>Rijgebied</value>
+  </data>
+  <data name="ExecutionPopupChangeAngle" xml:space="preserve">
+    <value>Wijzig Angleparameters</value>
+  </data>
+  <data name="ExecutionPopupChangeDisplay" xml:space="preserve">
+    <value>Wijzig Displayparameters</value>
+  </data>
+  <data name="Column" xml:space="preserve">
+    <value>Kolom</value>
+  </data>
+  <data name="Data" xml:space="preserve">
+    <value>Gegevens</value>
+  </data>
+  <data name="Row" xml:space="preserve">
+    <value>Rij</value>
+  </data>
+  <data name="AngleDetailPublishTabAngle" xml:space="preserve">
+    <value>Instellen als "Angle"</value>
+  </data>
+  <data name="AngleDetailPublishTabUnvalidatedAngle" xml:space="preserve">
+    <value>Instellen als "Niet gevalideerd"</value>
+  </data>
+  <data name="MessageSaveQuestionPublishAngle" xml:space="preserve">
+    <value>U hebt niet opgeslagen wijzigingen in de Angle details. Wilt u de wijzigingen opslaan en verdergaan met publiceren?</value>
+  </data>
+  <data name="MessageSaveFollowupRequiredPublishAngle" xml:space="preserve">
+    <value>Angledefinitie gewijzigd, een Jump is toegevoegd of verwijderd. Deze wijziging moet worden opgeslagen voordat de Angle kan worden gepubliceerd.</value>
+  </data>
+  <data name="ErrorLanguageNotInModel" xml:space="preserve">
+    <value>De gewenste taal is niet geactiveerd voor het geselecteerde model.</value>
+  </data>
+  <data name="DashboardWidgetInfo_HeaderAngleDescription" xml:space="preserve">
+    <value>Angle-omschrijving</value>
+  </data>
+  <data name="DashboardWidgetInfo_HeaderAngleDisplayDefinitions" xml:space="preserve">
+    <value>Object, Filters en Jumps starten</value>
+  </data>
+  <data name="DashboardWidgetInfo_HeaderAngleTitle" xml:space="preserve">
+    <value>Anglenaam:</value>
+  </data>
+  <data name="DashboardWidgetInfo_HeaderDisplayDescription" xml:space="preserve">
+    <value>Displayomschrijving</value>
+  </data>
+  <data name="DashboardWidgetInfo_HeaderDisplayTitle" xml:space="preserve">
+    <value>Displaynaam:</value>
+  </data>
+  <data name="DashboardWidgetInfo_Title" xml:space="preserve">
+    <value>Dashboard Displaydetails</value>
+  </data>
+  <data name="Info_AddedDisplayToDashboardSuccessfull" xml:space="preserve">
+    <value>Display is toegevoegd aan het Dashboard. &lt;br&gt;Klik &lt;a href="{0}" target="_blank" onclick="popup.CloseAll();"&gt;here&lt;/a&gt; om uw Dashboard te zien.</value>
+  </data>
+  <data name="Info_CannotSetFavoriteToAdhocAngle" xml:space="preserve">
+    <value>Een ad-hoc Angle kan geen ster krijgen. U moet de Angle eerst opslaan.</value>
+  </data>
+  <data name="Info_DisplayMustContainAtLeastOneValidField" xml:space="preserve">
+    <value>Het Display moet minstens 1 geldig veld bevatten.</value>
+  </data>
+  <data name="Info_FollowUpHasNoResults" xml:space="preserve">
+    <value>De extra Jump heeft geen resultaten.</value>
+  </data>
+  <data name="Info_NoFieldsReturn" xml:space="preserve">
+    <value>Het Display heeft geen velden teruggegeven</value>
+  </data>
+  <data name="Info_NoModelsReturn" xml:space="preserve">
+    <value>De applicatieserver heeft geen modellen teruggegeven</value>
+  </data>
+  <data name="Info_PleaseSaveAndRefresh" xml:space="preserve">
+    <value>Het Display bevat alleen ongeldige kolommen. Wijzig het Display.</value>
+  </data>
+  <data name="Info_TheFieldYouSelectedNotEnumeratedType" xml:space="preserve">
+    <value>Het door u geselecteerde veld is het juiste veldsoort. Selecteer een veld van het soort set.</value>
+  </data>
+  <data name="Info_AddDisplayToDashboardSucceed" xml:space="preserve">
+    <value>Display is toegevoegd aan het Dashboard.&lt;br&gt;Klik &lt;a href="{0}" target="_blank" onclick="popup.CloseAll();"&gt;here&lt;/a&gt; om uw Dashboard te zien.</value>
+  </data>
+  <data name="Info_CannotHandleUnknownField" xml:space="preserve">
+    <value>Kan onbekende veldsoort niet verwerken.&lt;br /&gt;Verwachtte een set maar de werkelijke veldsoort is {0}.&lt;br /&gt;&lt;a href={1} target="_blank"&gt;{2}&lt;/a&gt;</value>
+  </data>
+  <data name="Info_NoFieldTypeTextInResult" xml:space="preserve">
+    <value>Er zijn geen resultaten voor veldsoort \"tekst\".</value>
+  </data>
+  <data name="Info_SearchResultDoesNotExists" xml:space="preserve">
+    <value>Zoekresultaat bestaat niet</value>
+  </data>
+  <data name="Alert_Title" xml:space="preserve">
+    <value>Waarschuwing</value>
+  </data>
+  <data name="Confirm_AreYouSureToDelete" xml:space="preserve">
+    <value>Weet u zeker dat u {0} wilt verwijderen?</value>
+  </data>
+  <data name="Confirm_CreateNewFollowUp" xml:space="preserve">
+    <value>Een nieuw Display wordt gemaakt met aanbevolen velden. &lt;br&gt;Weet u zeker dat u door wilt gaan?</value>
+  </data>
+  <data name="Confirm_DeleteAngle" xml:space="preserve">
+    <value>Verwijder Angle:&lt;br /&gt; {0}?</value>
+  </data>
+  <data name="Confirm_DeleteDisplay" xml:space="preserve">
+    <value>Verwijder Display: '{0}' {1} ?</value>
+  </data>
+  <data name="Confirm_DeleteWidget" xml:space="preserve">
+    <value>Verwijder widget: {0}?</value>
+  </data>
+  <data name="Confirm_InvalidQueryWillBeRemoved" xml:space="preserve">
+    <value>De volgende Filters hebben geen criteria of zijn ongeldig: {0}&lt;br&gt;Deze Filters worden verwijderd.</value>
+  </data>
+  <data name="Confirm_Title" xml:space="preserve">
+    <value>Bevestiging</value>
+  </data>
+  <data name="Info_ActionNotAllowed" xml:space="preserve">
+    <value>Actie niet toegestaan</value>
+  </data>
+  <data name="Info_AtLeastOneItemBeforeDelete" xml:space="preserve">
+    <value>Selecteer minstens één item</value>
+  </data>
+  <data name="Info_CannotPublishedDashboardBecausePrivateAngleDisplay" xml:space="preserve">
+    <value>Het Dashboard kan niet worden gepubliceerd, omdat het privé Displays bevat.&lt;br&gt;&lt;br&gt;Klik op OK om door te gaan naar de Definitie tab. Klik vervolgens op Ga naar Angle om toegang te krijgen tot het Display dat je wilt publiceren.</value>
+  </data>
+  <data name="Info_CannotSetPrivateDisplayToDefaultDisplay" xml:space="preserve">
+    <value>Een privé Display kan niet worden ingesteld als standaard Display</value>
+  </data>
+  <data name="Info_DashboardItemsWillNotAffect" xml:space="preserve">
+    <value>Deze actie heeft geen invloed op Dashboarditems.</value>
+  </data>
+  <data name="Info_InvalidDashboardId" xml:space="preserve">
+    <value>Dashboard-ID moet starten met a-z, A-Z en kan alleen a-z, A-Z, 0-9 en "_" bevatten</value>
+  </data>
+  <data name="Info_InvalidDisplayID" xml:space="preserve">
+    <value>Display-ID moet starten met a-z, A-Z en kan alleen a-z, A-Z, 0-9 en "_" bevatten</value>
+  </data>
+  <data name="Info_InvalidID" xml:space="preserve">
+    <value>Angle-ID moet starten met a-z, A-Z en kan alleen a-z, A-Z, 0-9 en "_" bevatten</value>
+  </data>
+  <data name="Info_MoreThanOneTemplateReturn" xml:space="preserve">
+    <value>Er is meer dan één Template teruggegeven</value>
+  </data>
+  <data name="Info_NoActiveClassForModel" xml:space="preserve">
+    <value>Geen actieve objectn voor model-ID: {0}</value>
+  </data>
+  <data name="Info_NoActiveModelInstance" xml:space="preserve">
+    <value>Geen actieve modelserver voor model: {0}</value>
+  </data>
+  <data name="Info_NoAvailableModel" xml:space="preserve">
+    <value>Er is geen geldig model beschikbaar</value>
+  </data>
+  <data name="Info_NoPermissionToDeleteAngles" xml:space="preserve">
+    <value>U heeft geen toestemming om deze items te verwijderen</value>
+  </data>
+  <data name="Info_NotAllowedToPublishTheAngle" xml:space="preserve">
+    <value>U mag de volgende Dashboardprivilegelabels niet publiceren: {0} in model {1}</value>
+  </data>
+  <data name="Info_NoTemplateReturn" xml:space="preserve">
+    <value>Er is geen Template teruggegeven</value>
+  </data>
+  <data name="Info_NotValidItemsToRemove" xml:space="preserve">
+    <value>De geselecteerde items kunnen niet worden verwijderd</value>
+  </data>
+  <data name="Info_OnlyAngleAreAllowedToCreateACopy" xml:space="preserve">
+    <value>U kunt alleen Angles kopiëren.</value>
+  </data>
+  <data name="Info_OnlyAnglesAreAllowedToCreateADashboard" xml:space="preserve">
+    <value>Alleen Angles kunnen worden uitgevoerd als een Dashboard.</value>
+  </data>
+  <data name="Info_OnlyAnglesAreAllowedToMassChange" xml:space="preserve">
+    <value>Massawijzigingen kunnen alleen worden uitgevoerd op Angles.</value>
+  </data>
+  <data name="Info_OperationTimeout" xml:space="preserve">
+    <value>408: Verzoek Timeout</value>
+  </data>
+  <data name="Info_OperationTimeoutDescription" xml:space="preserve">
+    <value>&lt;div class=customTimeout&gt;&lt;strong&gt;De operatie is verlopen (timeout)&lt;/strong&gt;&lt;br&gt;&lt;i&gt;{0}: {1}&lt;/i&gt;&lt;/div&gt;</value>
+  </data>
+  <data name="Info_PleaseEnterValidFilter" xml:space="preserve">
+    <value>Geef een geldig Filter op</value>
+  </data>
+  <data name="Info_PleaseRemoveAllInvalidFields" xml:space="preserve">
+    <value>Verwijder alle ongeldige Filters of velden.</value>
+  </data>
+  <data name="Info_PleaseRemoveAllInvalidFieldsInAggArea" xml:space="preserve">
+    <value>Verwijder alle ongeldige velden in rij, kolom of gegevensgebied.</value>
+  </data>
+  <data name="Info_PleaseRemoveOneFieldFromDataArea" xml:space="preserve">
+    <value>Verwijder één veld uit het gegevensgebied (verticale as).</value>
+  </data>
+  <data name="Info_PleaseSelectMissingValueForFilters" xml:space="preserve">
+    <value>Selecteer een waarde voor dit Filter of kies 'Vraag naar waarde wanneer de Angle opent'.</value>
+  </data>
+  <data name="Info_PleaseUseTextBelowToCopy" xml:space="preserve">
+    <value>Gebruik onderstaande tekst om te kopiëren</value>
+  </data>
+  <data name="Info_ReachMaximumItems" xml:space="preserve">
+    <value>Het maximum voor alles selecteren is: {0} items.</value>
+  </data>
+  <data name="Info_ReachMaximumOfDashboard" xml:space="preserve">
+    <value>Het maximum voor een Dashboard is: {0} items.</value>
+  </data>
+  <data name="Info_RequiredExportPackage" xml:space="preserve">
+    <value>Om een EA-package te maken is het noodzakelijk om:</value>
+  </data>
+  <data name="Info_RequiredAtleastOneColumn" xml:space="preserve">
+    <value>U kunt niet alle kolommen verwijderen.</value>
+  </data>
+  <data name="Info_RequiredAtLeastOneFieldForPivot" xml:space="preserve">
+    <value>Een draaitabel heeft minimaal één geldig veld in het rijgebied nodig.</value>
+  </data>
+  <data name="Info_RequiredAtLeastOneLabelBeforePublish" xml:space="preserve">
+    <value>Er moet(en) labels vanuit minstens {0} labelcategorieën worden toegekend voor publicatie.</value>
+  </data>
+  <data name="Info_RequiredAtleastOneLabelBeforePublishDashboard" xml:space="preserve">
+    <value>Wijs publicatielabels toe aan categorieën gemarkeerd met een (*): &lt;ul&gt;{0}&lt;/ul&gt;</value>
+  </data>
+  <data name="Info_RequiredBusinessProcessForAngle" xml:space="preserve">
+    <value>Selecteer minimaal één Bedrijfsproces voordat u opslaat.</value>
+  </data>
+  <data name="Info_RequiredDashboardName" xml:space="preserve">
+    <value>Vul een Dashboardnaam in</value>
+  </data>
+  <data name="Info_RequiredFieldsInMultiAxis" xml:space="preserve">
+    <value>Een meerassige grafiek heeft twee velden in het gegevensgebied (verticale as) nodig.</value>
+  </data>
+  <data name="Info_RequiredFieldsInBubbleChart" xml:space="preserve">
+    <value>Een bellendiagram heeft een of twee velden in het gegevensgebied (verticale as) nodig.</value>
+  </data>
+  <data name="Info_RequiredLabelsForAngle" xml:space="preserve">
+    <value>Wijs publicatielabels toe voor categorieën die gemarkeerd zijn met een (*): &lt;ul&gt;{0}&lt;/ul&gt;</value>
+  </data>
+  <data name="Info_RequiredNumberOrDateFieldForChart" xml:space="preserve">
+    <value>getal- of datumveld nodig voor de categorieën (horizontale as).</value>
+  </data>
+  <data name="Info_RequiredOneDisplayBeforeCreateAngle" xml:space="preserve">
+    <value>Angle kan niet gemaakt worden omdat er geen Display is.</value>
+  </data>
+  <data name="Info_RequiredOneMoreDisplayToProcess" xml:space="preserve">
+    <value>U heeft nog een gepubliceerd Display nodig om door te kunnen gaan met de volgende stap.</value>
+  </data>
+  <data name="Info_RequiredPublicDisplayBeforePublishedAngle" xml:space="preserve">
+    <value>Een gepubliceerde Angle heeft minstens een gepubliceerd Display nodig.</value>
+  </data>
+  <data name="Info_RequiredTemplateBeforeCreateAngle" xml:space="preserve">
+    <value>Selecteer een Template.</value>
+  </data>
+  <data name="Info_RequiredValidatedBeforePublishDashboard" xml:space="preserve">
+    <value>Alle Angles moeten gevalideerd zijn voordat het Dashboard gevalideerd kan worden.</value>
+  </data>
+  <data name="Info_RequiredValidAtleastOneDisplays" xml:space="preserve">
+    <value>Er moet minstens een Display geldig zijn voordat u kunt publiceren.</value>
+  </data>
+  <data name="Info_SelectedTextAlreadyCopied" xml:space="preserve">
+    <value>De geselecteerde tekst is gekopiëerd</value>
+  </data>
+  <data name="Info_Title" xml:space="preserve">
+    <value>Info</value>
+  </data>
+  <data name="Info_ValidatedAngleAdhocFilterWillRemovedAfterSaved" xml:space="preserve">
+    <value>Angle is gevalideerd: alle ad-hoc Filters zijn verwijderd voor het opslaan.</value>
+  </data>
+  <data name="Warning_Title" xml:space="preserve">
+    <value>Waarschuwing</value>
+  </data>
+  <data name="Message_NoMovieAvailable" xml:space="preserve">
+    <value>Er is geen video beschikbaar</value>
+  </data>
+  <data name="Confirm_AreYouSureToDeleteItems" xml:space="preserve">
+    <value>Weet u zeker dat u {0} items wilt verwijderen?</value>
+  </data>
+  <data name="Info_RequiredBusinessProcessPrivilegeForAngle" xml:space="preserve">
+    <value>Actie is niet toegestaan omdat u geen privileges hebt voor Bedrijfsproceslabels.</value>
+  </data>
+  <data name="Info_SessionChanged" xml:space="preserve">
+    <value>De sessie is gewijzigd in een ander tabblad of venster. Klik op OK om over te gaan naar de nieuwe sessie.</value>
+  </data>
+  <data name="Title_SessionChanged" xml:space="preserve">
+    <value>Sessie gewijzigd</value>
+  </data>
+  <data name="Info_SaveAsAngleWarning" xml:space="preserve">
+    <value>Angle of sommige Displays bevat(ten) waarschuwingen</value>
+  </data>
+  <data name="Info_SaveAsDisplayWarning" xml:space="preserve">
+    <value>Display bevat waarschuwingen</value>
+  </data>
+  <data name="Enum_CSV_Header_Full" xml:space="preserve">
+    <value>Volledige veldnaam in kop</value>
+  </data>
+  <data name="Enum_CSV_Header_Id" xml:space="preserve">
+    <value>ID in kop</value>
+  </data>
+  <data name="Enum_CSV_Header_NoHeader" xml:space="preserve">
+    <value>Geen koppen</value>
+  </data>
+  <data name="ExportCSVEnquoteAll" xml:space="preserve">
+    <value>alle</value>
+  </data>
+  <data name="ExportCSVEnquoteNone" xml:space="preserve">
+    <value>geen</value>
+  </data>
+  <data name="ExportCSVEnquoteOnlyStrings" xml:space="preserve">
+    <value>alleen tekenreeksen</value>
+  </data>
+  <data name="ExportCSVEnumFormatAngle" xml:space="preserve">
+    <value>Angle</value>
+  </data>
+  <data name="ExportCSVEnumFormatId" xml:space="preserve">
+    <value>ID</value>
+  </data>
+  <data name="ExportCSVFullHeader" xml:space="preserve">
+    <value>Volledige veldnaam in kop</value>
+  </data>
+  <data name="ExportCSVIdHeader" xml:space="preserve">
+    <value>ID in kop</value>
+  </data>
+  <data name="ExportCSVNoHeader" xml:space="preserve">
+    <value>Geen koppen</value>
+  </data>
+  <data name="Info_ListEmptyResult" xml:space="preserve">
+    <value>De ontvangen gegevens zijn incompleet en kunnen niet worden verwerkt.</value>
+  </data>
+  <data name="AskForValueWhenTheDisplayOpens" xml:space="preserve">
+    <value>Vraag naar waarde wanneer het Display opent</value>
+  </data>
+  <data name="DashboardChangeDisplays" xml:space="preserve">
+    <value>Wijzig Displays</value>
+  </data>
+  <data name="Info_FieldSettingsEditModeApplied" xml:space="preserve">
+    <value>Uw wijziging is toegepast</value>
+  </data>
+  <data name="ValidateExportExcel_ColumnLimit" xml:space="preserve">
+    <value>Het is niet mogelijk om meer dan 16384 kolommen te exporteren (Excel limiet)</value>
+  </data>
+  <data name="ValidateExportExcel_RowLimit" xml:space="preserve">
+    <value>Het is niet mogelijk om meer dan 1048575 rijen te exporteren (Excel limiet)</value>
+  </data>
+  <data name="Info_RequiredExportPackage_Angle" xml:space="preserve">
+    <value>- Om alleen Angles en/of Templates te selecteren</value>
+  </data>
+  <data name="Info_RequiredExportPackage_Model" xml:space="preserve">
+    <value>- Om één model te selecteren onder Algemene filters</value>
+  </data>
+  <data name="Info_RequiredExportPackage_Published" xml:space="preserve">
+    <value>- Om alleen gepubliceerde items te selecteren</value>
+  </data>
+  <data name="ErrorExcelPathOverLimit" xml:space="preserve">
+    <value>De volledige naam van de exportmap overschrijdt de Excel limiet (218 karakters)</value>
+  </data>
+  <data name="HTTP_408_Timeout" xml:space="preserve">
+    <value>Request timed out</value>
+  </data>
+  <data name="Info_WarningCannotAddMoreDashboard" xml:space="preserve">
+    <value>Kan Angle niet aan huidig Dashboard toevoegen. Het maximum aantal Angles is bereikt.</value>
+  </data>
+  <data name="AllCurrentlyActiveModels" xml:space="preserve">
+    <value>Alle modellen op dit moment actief</value>
+  </data>
+  <data name="Email" xml:space="preserve">
+    <value>E-mail</value>
+  </data>
+  <data name="TheDefaultValueIsUsed" xml:space="preserve">
+    <value>De standaard waarde wordt gebruikt.</value>
+  </data>
+  <data name="TroubleShooting" xml:space="preserve">
+    <value>Probleemoplossing</value>
+  </data>
+  <data name="Access" xml:space="preserve">
+    <value>Toegang</value>
+  </data>
+  <data name="AccessClientFunctionality" xml:space="preserve">
+    <value>Toegang tot clientfunctionaliteit</value>
+  </data>
+  <data name="AccessFieldsOfAllowedObjects" xml:space="preserve">
+    <value>Toegang tot velden van toegestane objecten</value>
+  </data>
+  <data name="AccessManagementFunctionality" xml:space="preserve">
+    <value>Toegang tot managementfunctionaliteit</value>
+  </data>
+  <data name="Actions" xml:space="preserve">
+    <value>Acties</value>
+  </data>
+  <data name="Activate" xml:space="preserve">
+    <value>Activeren</value>
+  </data>
+  <data name="Activated" xml:space="preserve">
+    <value>Geactiveerd</value>
+  </data>
+  <data name="ActiveVersion" xml:space="preserve">
+    <value>Actieve versie</value>
+  </data>
+  <data name="Add" xml:space="preserve">
+    <value>Toevoegen</value>
+  </data>
+  <data name="AddNewIcon" xml:space="preserve">
+    <value>Nieuw icoon toevoegen</value>
+  </data>
+  <data name="AddRefreshCommand" xml:space="preserve">
+    <value>Voeg ververscommando toe</value>
+  </data>
+  <data name="Address" xml:space="preserve">
+    <value>Adres</value>
+  </data>
+  <data name="AllAvailableRolesOn" xml:space="preserve">
+    <value>Alle beschikbare rollen op</value>
+  </data>
+  <data name="AllEnabledSubRoles" xml:space="preserve">
+    <value>Alle geactiveerde subrollen</value>
+  </data>
+  <data name="AllModules" xml:space="preserve">
+    <value>Alle modules</value>
+  </data>
+  <data name="Allow" xml:space="preserve">
+    <value>Toestaan</value>
+  </data>
+  <data name="Angle" xml:space="preserve">
+    <value>Angle</value>
+  </data>
+  <data name="Angles" xml:space="preserve">
+    <value>Angles</value>
+  </data>
+  <data name="Assign" xml:space="preserve">
+    <value>Toewijzen</value>
+  </data>
+  <data name="Bar" xml:space="preserve">
+    <value>staaf</value>
+  </data>
+  <data name="Busy" xml:space="preserve">
+    <value>Bezig</value>
+  </data>
+  <data name="Category" xml:space="preserve">
+    <value>Categorie</value>
+  </data>
+  <data name="Classif" xml:space="preserve">
+    <value>Classif. karakter</value>
+  </data>
+  <data name="ClearAll" xml:space="preserve">
+    <value>Alles verwijderen</value>
+  </data>
+  <data name="Copy" xml:space="preserve">
+    <value>Kopiëren</value>
+  </data>
+  <data name="CopyingTables" xml:space="preserve">
+    <value>Tabellen kopiëren</value>
+  </data>
+  <data name="CopyToModel" xml:space="preserve">
+    <value>Kopieer naar model</value>
+  </data>
+  <data name="Create" xml:space="preserve">
+    <value>Aanmaken</value>
+  </data>
+  <data name="CreatedOnModel" xml:space="preserve">
+    <value>Aangemaakt op model</value>
+  </data>
+  <data name="CreateNewModel" xml:space="preserve">
+    <value>Nieuw model aanmaken</value>
+  </data>
+  <data name="CreateNewRole" xml:space="preserve">
+    <value>Nieuwe rol aanmaken</value>
+  </data>
+  <data name="CurrentTables" xml:space="preserve">
+    <value>Huidige tabellen</value>
+  </data>
+  <data name="DataStores" xml:space="preserve">
+    <value>Datastores</value>
+  </data>
+  <data name="Day" xml:space="preserve">
+    <value>Dag</value>
+  </data>
+  <data name="Deactivate" xml:space="preserve">
+    <value>Deactiveren</value>
+  </data>
+  <data name="Deactivated" xml:space="preserve">
+    <value>Gedeactiveerd</value>
+  </data>
+  <data name="Default" xml:space="preserve">
+    <value>Standaard</value>
+  </data>
+  <data name="DefaultSettingsUnmentionedFields" xml:space="preserve">
+    <value>Standaard instellingen voor niet genoemde velden</value>
+  </data>
+  <data name="DefaultSettingsUnmentionedLabels" xml:space="preserve">
+    <value>Standaard instellingen voor niet genoemde labels</value>
+  </data>
+  <data name="Deny" xml:space="preserve">
+    <value>Weigeren</value>
+  </data>
+  <data name="Details" xml:space="preserve">
+    <value>details</value>
+  </data>
+  <data name="Display" xml:space="preserve">
+    <value>Display</value>
+  </data>
+  <data name="Done" xml:space="preserve">
+    <value>Klaar</value>
+  </data>
+  <data name="Down" xml:space="preserve">
+    <value>Inactief</value>
+  </data>
+  <data name="Edit" xml:space="preserve">
+    <value>Wijzigen</value>
+  </data>
+  <data name="Empty" xml:space="preserve">
+    <value>Leeg</value>
+  </data>
+  <data name="Enabled" xml:space="preserve">
+    <value>Geactiveerd</value>
+  </data>
+  <data name="EndTime" xml:space="preserve">
+    <value>Eindtijd</value>
+  </data>
+  <data name="ErrorCount" xml:space="preserve">
+    <value>Aantal fouten</value>
+  </data>
+  <data name="Errors" xml:space="preserve">
+    <value>Fouten</value>
+  </data>
+  <data name="ExternalApps" xml:space="preserve">
+    <value>Externe applicaties</value>
+  </data>
+  <data name="Extract" xml:space="preserve">
+    <value>Extractie</value>
+  </data>
+  <data name="FieldName" xml:space="preserve">
+    <value>Veldnaam</value>
+  </data>
+  <data name="Fields" xml:space="preserve">
+    <value>Velden</value>
+  </data>
+  <data name="Filter" xml:space="preserve">
+    <value>Filter</value>
+  </data>
+  <data name="FilterType" xml:space="preserve">
+    <value>Filtersoort</value>
+  </data>
+  <data name="FindAngle" xml:space="preserve">
+    <value>Zoek Angle</value>
+  </data>
+  <data name="Functionality" xml:space="preserve">
+    <value>Functionaliteit</value>
+  </data>
+  <data name="GlobalSettings" xml:space="preserve">
+    <value>Globale instellingen</value>
+  </data>
+  <data name="History" xml:space="preserve">
+    <value>historie</value>
+  </data>
+  <data name="Host" xml:space="preserve">
+    <value>Host</value>
+  </data>
+  <data name="ID" xml:space="preserve">
+    <value>ID</value>
+  </data>
+  <data name="Inactive" xml:space="preserve">
+    <value>Inactief</value>
+  </data>
+  <data name="IndexingTables" xml:space="preserve">
+    <value>Tabellen indexeren</value>
+  </data>
+  <data name="Info" xml:space="preserve">
+    <value>Info</value>
+  </data>
+  <data name="InObject" xml:space="preserve">
+    <value>In object</value>
+  </data>
+  <data name="InspectRole" xml:space="preserve">
+    <value>Rol controleren</value>
+  </data>
+  <data name="InstanceId" xml:space="preserve">
+    <value>Instantie-ID</value>
+  </data>
+  <data name="Instances" xml:space="preserve">
+    <value>Instanties</value>
+  </data>
+  <data name="Label" xml:space="preserve">
+    <value>label</value>
+  </data>
+  <data name="Labels" xml:space="preserve">
+    <value>labels</value>
+  </data>
+  <data name="LabelCategoriesSetting" xml:space="preserve">
+    <value>Labelcategorie instellingen</value>
+  </data>
+  <data name="LastChanges" xml:space="preserve">
+    <value>Laatste wijzigingen</value>
+  </data>
+  <data name="License" xml:space="preserve">
+    <value>Licentie</value>
+  </data>
+  <data name="LicenseId" xml:space="preserve">
+    <value>Licentie-ID</value>
+  </data>
+  <data name="LicenseType" xml:space="preserve">
+    <value>Licentiesoort</value>
+  </data>
+  <data name="Limits" xml:space="preserve">
+    <value>Limieten</value>
+  </data>
+  <data name="Link" xml:space="preserve">
+    <value>Link</value>
+  </data>
+  <data name="Loading" xml:space="preserve">
+    <value>Laden</value>
+  </data>
+  <data name="LongText" xml:space="preserve">
+    <value>Lange tekst</value>
+  </data>
+  <data name="Manage" xml:space="preserve">
+    <value>Beheren</value>
+  </data>
+  <data name="Management" xml:space="preserve">
+    <value>Beheer</value>
+  </data>
+  <data name="MaxRunTime" xml:space="preserve">
+    <value>Maximale looptijd</value>
+  </data>
+  <data name="MessageRecipients" xml:space="preserve">
+    <value>Ontvangers van bericht (alleen kommagescheiden e-mailadressen)</value>
+  </data>
+  <data name="MetadataAvaillable" xml:space="preserve">
+    <value>Stamgegevens beschikbaar</value>
+  </data>
+  <data name="Model" xml:space="preserve">
+    <value>Model</value>
+  </data>
+  <data name="ModelDate" xml:space="preserve">
+    <value>Modeldatum</value>
+  </data>
+  <data name="ModelSetup" xml:space="preserve">
+    <value>Modelinstellingen</value>
+  </data>
+  <data name="ModelShortName" xml:space="preserve">
+    <value>Korte naam model</value>
+  </data>
+  <data name="ModelStatus" xml:space="preserve">
+    <value>Modelstatus</value>
+  </data>
+  <data name="ModelTimestamp" xml:space="preserve">
+    <value>Model timestamp</value>
+  </data>
+  <data name="ModifySetup" xml:space="preserve">
+    <value>Instellingen aanpassen</value>
+  </data>
+  <data name="MoreUsersAvailableToImport" xml:space="preserve">
+    <value>Meer gebruikers beschikbaar voor importeren.</value>
+  </data>
+  <data name="Movies" xml:space="preserve">
+    <value>Video's</value>
+  </data>
+  <data name="NewModel" xml:space="preserve">
+    <value>Nieuw model</value>
+  </data>
+  <data name="NewRoleName" xml:space="preserve">
+    <value>Nieuwe rolnaam</value>
+  </data>
+  <data name="Object" xml:space="preserve">
+    <value>Object</value>
+  </data>
+  <data name="Objects" xml:space="preserve">
+    <value>Objecten</value>
+  </data>
+  <data name="OpenModel" xml:space="preserve">
+    <value>Model openen</value>
+  </data>
+  <data name="Params" xml:space="preserve">
+    <value>Parameters</value>
+  </data>
+  <data name="PartnerRoles" xml:space="preserve">
+    <value>Partnerrollen</value>
+  </data>
+  <data name="PleaseSelect" xml:space="preserve">
+    <value>Selecteer</value>
+  </data>
+  <data name="Preview" xml:space="preserve">
+    <value>Voorbeeld bekijken</value>
+  </data>
+  <data name="Progress" xml:space="preserve">
+    <value>Voortgang</value>
+  </data>
+  <data name="Read" xml:space="preserve">
+    <value>Lezen</value>
+  </data>
+  <data name="ReadyForQueries" xml:space="preserve">
+    <value>Klaar voor filters</value>
+  </data>
+  <data name="ReferencedObject" xml:space="preserve">
+    <value>Object waarnaar wordt verwezen</value>
+  </data>
+  <data name="RefreshCycle" xml:space="preserve">
+    <value>Ververscyclus</value>
+  </data>
+  <data name="RefreshCycleHistory" xml:space="preserve">
+    <value>Ververscyclushistorie</value>
+  </data>
+  <data name="RequireApplicationPoolReset" xml:space="preserve">
+    <value>Applicatiepool resetten vereist.</value>
+  </data>
+  <data name="Required" xml:space="preserve">
+    <value>Verplicht</value>
+  </data>
+  <data name="Restructure" xml:space="preserve">
+    <value>Herstructureren</value>
+  </data>
+  <data name="Role" xml:space="preserve">
+    <value>Rol</value>
+  </data>
+  <data name="Roles" xml:space="preserve">
+    <value>Rollen</value>
+  </data>
+  <data name="RunAsUser" xml:space="preserve">
+    <value>Uitvoeren als gebruiker</value>
+  </data>
+  <data name="Select" xml:space="preserve">
+    <value>Selecteer</value>
+  </data>
+  <data name="SenderEmailAccount" xml:space="preserve">
+    <value>Afzender (e-mailaccount)</value>
+  </data>
+  <data name="ServerStarted" xml:space="preserve">
+    <value>Server gestart</value>
+  </data>
+  <data name="SetDefaultTo" xml:space="preserve">
+    <value>Standaard instellen op</value>
+  </data>
+  <data name="SetUpANewModel" xml:space="preserve">
+    <value>Een nieuw model instellen</value>
+  </data>
+  <data name="ShowActionLists" xml:space="preserve">
+    <value>Toon actielijsten</value>
+  </data>
+  <data name="Since" xml:space="preserve">
+    <value>Sinds</value>
+  </data>
+  <data name="StartServer" xml:space="preserve">
+    <value>Start server</value>
+  </data>
+  <data name="StartTime" xml:space="preserve">
+    <value>Starttijd</value>
+  </data>
+  <data name="StopServer" xml:space="preserve">
+    <value>Stop server</value>
+  </data>
+  <data name="SubRoles" xml:space="preserve">
+    <value>Subrollen</value>
+  </data>
+  <data name="Techn" xml:space="preserve">
+    <value>Techn. naam</value>
+  </data>
+  <data name="TestExtraction" xml:space="preserve">
+    <value>Test extractie</value>
+  </data>
+  <data name="Textbox1" xml:space="preserve">
+    <value>Tekstvak 1</value>
+  </data>
+  <data name="Textbox2" xml:space="preserve">
+    <value>Tekstvak 2</value>
+  </data>
+  <data name="Todo" xml:space="preserve">
+    <value>Te doen</value>
+  </data>
+  <data name="Total" xml:space="preserve">
+    <value>Totaal</value>
+  </data>
+  <data name="Training" xml:space="preserve">
+    <value>Training</value>
+  </data>
+  <data name="TreeList" xml:space="preserve">
+    <value>structuurlijst</value>
+  </data>
+  <data name="Type" xml:space="preserve">
+    <value>Soort</value>
+  </data>
+  <data name="Undefined" xml:space="preserve">
+    <value>Niet gedefinieerd</value>
+  </data>
+  <data name="UnmentionedLabels" xml:space="preserve">
+    <value>Niet genoemde labels (erboven)</value>
+  </data>
+  <data name="Up" xml:space="preserve">
+    <value>Actief</value>
+  </data>
+  <data name="Update" xml:space="preserve">
+    <value>Update</value>
+  </data>
+  <data name="Uploaded" xml:space="preserve">
+    <value>Geüpload</value>
+  </data>
+  <data name="Validate" xml:space="preserve">
+    <value>Valideren</value>
+  </data>
+  <data name="Version" xml:space="preserve">
+    <value>Versie</value>
+  </data>
+  <data name="WarningCount" xml:space="preserve">
+    <value>Aantal waarschuwingen</value>
+  </data>
+  <data name="Warnings" xml:space="preserve">
+    <value>Waarschuwingen</value>
+  </data>
+  <data name="WebClient" xml:space="preserve">
+    <value>Webclient</value>
+  </data>
+  <data name="Write" xml:space="preserve">
+    <value>Schrijven</value>
+  </data>
+  <data name="AllUsers" xml:space="preserve">
+    <value>Alle gebruikers</value>
+  </data>
+  <data name="BackToHome" xml:space="preserve">
+    <value>Terug naar startpagina</value>
+  </data>
+  <data name="Euro" xml:space="preserve">
+    <value>Euro</value>
+  </data>
+  <data name="FourDecimal" xml:space="preserve">
+    <value>4 decimalen</value>
+  </data>
+  <data name="LastLogin" xml:space="preserve">
+    <value>Laatste keer ingelogd:</value>
+  </data>
+  <data name="Maintenance" xml:space="preserve">
+    <value>Onderhoud</value>
+  </data>
+  <data name="ManagementConsoleSystem" xml:space="preserve">
+    <value>IT Beheerconsole</value>
+  </data>
+  <data name="Million" xml:space="preserve">
+    <value>M (1M)</value>
+  </data>
+  <data name="NewUser" xml:space="preserve">
+    <value>Nieuwe gebruiker</value>
+  </data>
+  <data name="NoDecimal" xml:space="preserve">
+    <value>geen decimalen</value>
+  </data>
+  <data name="OneDecimal" xml:space="preserve">
+    <value>1 decimaal</value>
+  </data>
+  <data name="OpenWebclient" xml:space="preserve">
+    <value>Webclient openen</value>
+  </data>
+  <data name="SelectRolesToAssign" xml:space="preserve">
+    <value>Selecteer toe te wijzen rollen</value>
+  </data>
+  <data name="SixDecimal" xml:space="preserve">
+    <value>6 decimalen</value>
+  </data>
+  <data name="Thousand" xml:space="preserve">
+    <value>K (1K)</value>
+  </data>
+  <data name="TwoDecimal" xml:space="preserve">
+    <value>2 decimalen</value>
+  </data>
+  <data name="USDollar" xml:space="preserve">
+    <value>US Dollar</value>
+  </data>
+  <data name="User" xml:space="preserve">
+    <value>Gebruiker</value>
+  </data>
+  <data name="Continuous" xml:space="preserve">
+    <value>Doorlopend</value>
+  </data>
+  <data name="Until" xml:space="preserve">
+    <value>Tot</value>
+  </data>
+  <data name="RestartDelay" xml:space="preserve">
+    <value>Herstartvertraging</value>
+  </data>
+  <data name="Info_MissingValueFilterIndex" xml:space="preserve">
+    <value>Item {0}:</value>
+  </data>
+  <data name="MessageModelIsNotAvailable" xml:space="preserve">
+    <value>Model {0} is momenteel niet beschikbaar (status: {1}). Probeer het later nogmaals.</value>
+  </data>
+  <data name="Info_WarningSelectExistingDashboard" xml:space="preserve">
+    <value>Selecteer een Dashboard</value>
+  </data>
+  <data name="Info_ChartCanHaveOnlyOneFieldInCategories" xml:space="preserve">
+    <value>Categorie en serie kan elk slechts een veld bevatten..</value>
+  </data>
+  <data name="WarningCategoriesOrSeriesInChartHadMoreThanOne" xml:space="preserve">
+    <value>Grafiek kan niet gegenereerd worden omdat de categorie of serie meer dan een veld bevat. Verwijder een van de velden.</value>
+  </data>
+  <data name="Info_PasteFilterValuesLimited" xml:space="preserve">
+    <value>De eerste {0} klemborditems worden toegevoegd aan de lijst</value>
+  </data>
+  <data name="RenderingPivot" xml:space="preserve">
+    <value>Draaitabel genereren</value>
+  </data>
+  <data name="ErrorAngleNotExistsThenGotoSearchPage" xml:space="preserve">
+    <value>Angle was verwijderd of verborgen. Klik OK om terug te gaan naar de zoekpagina.</value>
+  </data>
+  <data name="ErrorAngleNoDefaultDisplay" xml:space="preserve">
+    <value>De standaard Display is verwijderd of verborgen. Sluit deze melding om bij te werken.</value>
+  </data>
+  <data name="Info_ListDisplaysDeletedWhileProcess" xml:space="preserve">
+    <value>De volgende Displays faalden tijdens de verwerking</value>
+  </data>
+  <data name="AngleDefinitionAreaMin" xml:space="preserve">
+    <value>min</value>
+  </data>
+  <data name="HTTP_408_Server_Currently_Busy" xml:space="preserve">
+    <value>De server is momenteel bezig. Probeer het later nogmaals.</value>
+  </data>
+  <data name="Download" xml:space="preserve">
+    <value>Downloaden</value>
+  </data>
+  <data name="NameAsShowInPivot" xml:space="preserve">
+    <value>Naam (zoals weergegeven in draaitabel)</value>
+  </data>
+  <data name="NameAsShowInChart" xml:space="preserve">
+    <value>Naam (zoals weergegeven in grafiek)</value>
+  </data>
+  <data name="ErrorAllowMoreDetailsAllowFollowupsWithAdhocDisplay" xml:space="preserve">
+    <value>U heeft niet opgeslagen wijzigingen in uw Display. Door deze instelling toe te passen kunt u deze wijzigingen niet meer opslaan.</value>
+  </data>
+  <data name="ErrorAllowMoreDetailsAllowFollowupsWithUnsaveDisplay" xml:space="preserve">
+    <value>U heeft niet opgeslagen wijzigingen in uw Display. Door deze instelling toe te passen kunt u deze wijzigingen niet meer opslaan.</value>
+  </data>
+  <data name="ExportCSVEnumFormatShortName" xml:space="preserve">
+    <value>Korte naam</value>
+  </data>
+  <data name="ExportCSVEnumFormatDisplay" xml:space="preserve">
+    <value>Display</value>
+  </data>
+  <data name="ValidateExportExcel_SpecialCharacter" xml:space="preserve">
+    <value>Waarde '{0}' voor instelling '{1}' mag geen speciale karakters bevatten ({2})</value>
+  </data>
+  <data name="AdhocEnableSummarySheet" xml:space="preserve">
+    <value>Niet beschikbaar voor ad-hoc weergave</value>
+  </data>
+  <data name="AllInSearchResult" xml:space="preserve">
+    <value>Alles in zoekresultaat</value>
+  </data>
+  <data name="Selection" xml:space="preserve">
+    <value>Selectie</value>
+  </data>
+  <data name="ValidationForRequired" xml:space="preserve">
+    <value>{0} is vereist</value>
+  </data>
+  <data name="MaxNumberToExportThePackage" xml:space="preserve">
+    <value>Het maximum aantal te selecteren Angles is {0}</value>
+  </data>
+  <data name="BaseClassName" xml:space="preserve">
+    <value>Startobject</value>
+  </data>
+  <data name="DisplayTotalRow" xml:space="preserve">
+    <value>Aantal objecten</value>
+  </data>
+  <data name="ExecutionTime" xml:space="preserve">
+    <value>Looptijd Modelserver</value>
+  </data>
+  <data name="PopupResultSummaryAngleInfo" xml:space="preserve">
+    <value>Deze Angle wordt uitgevoerd op de volgende set gegevens:</value>
+  </data>
+  <data name="PopupResultSummaryNote" xml:space="preserve">
+    <value>&lt;strong&gt;Note:&lt;/strong&gt; De downloaddatum &amp; -tijd worden herberekend naar de lokale datum &amp; tijd op uw computer.</value>
+  </data>
+  <data name="PopupResultSummaryResultInfo" xml:space="preserve">
+    <value>Het resultaat van het toepassen van deze Angle op deze set gegevens is:</value>
+  </data>
+  <data name="ResultDateTime" xml:space="preserve">
+    <value>Datum &amp; tijd download</value>
+  </data>
+  <data name="SAPSystem" xml:space="preserve">
+    <value>SAP systeem</value>
+  </data>
+  <data name="Info_FieldSettingsApplySortingField" xml:space="preserve">
+    <value>U moet de instellingen toepassen om uw wijzigingen te zien.</value>
+  </data>
+  <data name="AngleDefinitionAreaObjects" xml:space="preserve">
+    <value>Objecten</value>
+  </data>
+  <data name="DefaultFilterSuggestedStarred" xml:space="preserve">
+    <value>Standaard geselecteerd in de veldkiezer</value>
+  </data>
+  <data name="DefaultStarredfieldsLabel" xml:space="preserve">
+    <value>Velden met ster</value>
+  </data>
+  <data name="DefaultSuggestedfieldsLabel" xml:space="preserve">
+    <value>Aanbevolen velden</value>
+  </data>
+  <data name="ProgressBar_ApplyDashboardDetails" xml:space="preserve">
+    <value>Dashboarddetails toepassen</value>
+  </data>
+  <data name="ProgressBar_ApplyingAngle" xml:space="preserve">
+    <value>Angle toepassen</value>
+  </data>
+  <data name="ProgressBar_ApplyingDisplay" xml:space="preserve">
+    <value>Display toepassen</value>
+  </data>
+  <data name="ProgressBar_Cancelling" xml:space="preserve">
+    <value>Annuleren...</value>
+  </data>
+  <data name="ProgressBar_CheckingAngle" xml:space="preserve">
+    <value>Angle controleren</value>
+  </data>
+  <data name="ProgressBar_CheckingModel" xml:space="preserve">
+    <value>Model controleren</value>
+  </data>
+  <data name="ProgressBar_CopyingAngleDetail" xml:space="preserve">
+    <value>Angledetails kopiëren</value>
+  </data>
+  <data name="ProgressBar_CopyingAngles" xml:space="preserve">
+    <value>Angles kopiëren</value>
+  </data>
+  <data name="ProgressBar_CopyingDisplay" xml:space="preserve">
+    <value>Display kopiëren</value>
+  </data>
+  <data name="ProgressBar_CreatingDashboard" xml:space="preserve">
+    <value>Dashboard maken</value>
+  </data>
+  <data name="ProgressBar_CurrentPrepareToExportData" xml:space="preserve">
+    <value>Huidig: voorbereiden om gegevens te exporteren</value>
+  </data>
+  <data name="ProgressBar_CurrentRetrievingCSVFileFromApplicationServer" xml:space="preserve">
+    <value>Huidig: CSV-bestand ophalen uit Applicatieserver</value>
+  </data>
+  <data name="ProgressBar_CurrentRetrievingDataFromModelServer" xml:space="preserve">
+    <value>Huidig: gegevens ophalen uit Modelserver</value>
+  </data>
+  <data name="ProgressBar_CurrentRetrievingExcelFileFromApplicationServer" xml:space="preserve">
+    <value>Huidig: Excelbestand ophalen uit Applicatieserver</value>
+  </data>
+  <data name="ProgressBar_CurrentRetrievingPackageFileFromApplicationServer" xml:space="preserve">
+    <value>Huidig: packagebestand ophalen uit Applicatieserver</value>
+  </data>
+  <data name="ProgressBar_CurrentRows" xml:space="preserve">
+    <value>rows</value>
+  </data>
+  <data name="ProgressBar_DeletingItems" xml:space="preserve">
+    <value>Items verwijderen</value>
+  </data>
+  <data name="ProgressBar_DeletingWidget" xml:space="preserve">
+    <value>Widget verwijderen...</value>
+  </data>
+  <data name="ProgressBar_DrillingDown" xml:space="preserve">
+    <value>Drildown uitvoeren</value>
+  </data>
+  <data name="ProgressBar_ExecutingJump" xml:space="preserve">
+    <value>Jump uitvoeren</value>
+  </data>
+  <data name="ProgressBar_ExportingEAPackage" xml:space="preserve">
+    <value>EA-Package exporteren</value>
+  </data>
+  <data name="ProgressBar_ExportingExcel" xml:space="preserve">
+    <value>Exporteren naar Excel</value>
+  </data>
+  <data name="ProgressBar_GETResults" xml:space="preserve">
+    <value>Resultaten ophalen</value>
+  </data>
+  <data name="ProgressBar_GettingAngle" xml:space="preserve">
+    <value>Angle ophalen</value>
+  </data>
+  <data name="ProgressBar_GettingAngleFields" xml:space="preserve">
+    <value>Anglevelden ophalen</value>
+  </data>
+  <data name="ProgressBar_GettingAngles" xml:space="preserve">
+    <value>Angles ophalen</value>
+  </data>
+  <data name="ProgressBar_PleaseWait" xml:space="preserve">
+    <value>Even geduld...</value>
+  </data>
+  <data name="ProgressBar_PostDisplay" xml:space="preserve">
+    <value>Display uitvoeren</value>
+  </data>
+  <data name="ProgressBar_PostResult" xml:space="preserve">
+    <value>Verzoek uitvoeren</value>
+  </data>
+  <data name="ProgressBar_PreparingData" xml:space="preserve">
+    <value>Gegevens voorbereiden</value>
+  </data>
+  <data name="ProgressBar_PUTAngleDetail" xml:space="preserve">
+    <value>Angledetails bijwerken</value>
+  </data>
+  <data name="ProgressBar_PUTDashboardDetails" xml:space="preserve">
+    <value>Dashboarddetails bijwerken</value>
+  </data>
+  <data name="ProgressBar_PUTDisplay" xml:space="preserve">
+    <value>Display bijwerken</value>
+  </data>
+  <data name="ProgressBar_Redirecting" xml:space="preserve">
+    <value>Doorsturen</value>
+  </data>
+  <data name="ProgressBar_SavingAsCSV" xml:space="preserve">
+    <value>Opslaan als CSV</value>
+  </data>
+  <data name="ProgressBar_SavingMassChange" xml:space="preserve">
+    <value>Massawijziging opslaan</value>
+  </data>
+  <data name="Remove" xml:space="preserve">
+    <value>Verwijderen</value>
+  </data>
+  <data name="NewAdhocFollowup" xml:space="preserve">
+    <value>Nieuwe  ad-hoc Jump</value>
+  </data>
+  <data name="Info_AngleNotExecuted" xml:space="preserve">
+    <value>Angle wordt niet uitgevoerd</value>
+  </data>
+  <data name="AddToNewAngle" xml:space="preserve">
+    <value>Toevoegen aan nieuwe Angle</value>
+  </data>
+  <data name="FormatSettingDisplayUnits" xml:space="preserve">
+    <value>Weergave eenheden</value>
+  </data>
+  <data name="FormatSettingDisplayUnitsMillions" xml:space="preserve">
+    <value>Miljoenen (M)</value>
+  </data>
+  <data name="FormatSettingDisplayUnitsNone" xml:space="preserve">
+    <value>Geen</value>
+  </data>
+  <data name="FormatSettingDisplayUnitsThousands" xml:space="preserve">
+    <value>Duizenden (K)</value>
+  </data>
+  <data name="AddNote" xml:space="preserve">
+    <value>Notitie toevoegen</value>
+  </data>
+  <data name="AlertWarningCreatePopup" xml:space="preserve">
+    <value>U heeft meer dan een object geselecteerd om te gebruiken in uw Angle. Dit kan ongewenste resultaten geven en is meestal niet nodig.</value>
+  </data>
+  <data name="InfoAllowMoreDetailsPopup" xml:space="preserve">
+    <value>Gebruikers beperken in het verkrijgen van meer details heeft het volgende effect: &lt;br&gt; 
+- Gebruikers mogen in geen enkel Display velden toevoegen of verwijderen &lt;br&gt;
+- Gebruikers mogen geen Filters toevoegen, verwijderen of bijwerken &lt;br&gt;
+- Gebruikers mogen Jumps toevoegen of verwijderen &lt;br&gt;
+- Gebruikers mogen in geen enkel Display een drilldown uitvoeren</value>
+  </data>
+  <data name="Infomation_Title" xml:space="preserve">
+    <value>Informatie</value>
+  </data>
+  <data name="DisplayType_chart" xml:space="preserve">
+    <value>Grafiek Display</value>
+  </data>
+  <data name="DisplayType_list" xml:space="preserve">
+    <value>Lijst Display</value>
+  </data>
+  <data name="DisplayType_pivot" xml:space="preserve">
+    <value>Draaitabel Display</value>
+  </data>
+  <data name="PopupConfirmDiscardChangeFieldSettingAndContinue" xml:space="preserve">
+    <value>Wijzigingen aan {0} Display zijn niet toegepast.&lt;br&gt;Wijzigingen negeren en doorgaan?</value>
+  </data>
+  <data name="ObjectList" xml:space="preserve">
+    <value>Objectlijst</value>
+  </data>
+  <data name="ClassChooserSearchPlaceholder" xml:space="preserve">
+    <value>Zoek object...</value>
+  </data>
+  <data name="AboutEveryAngle" xml:space="preserve">
+    <value>Over Every Angle</value>
+  </data>
+  <data name="Helppage" xml:space="preserve">
+    <value>Helppagina</value>
+  </data>
+  <data name="ModelParameters" xml:space="preserve">
+    <value>Modelparameters</value>
+  </data>
+  <data name="Info_RequiredFieldInRowAreaChart" xml:space="preserve">
+    <value>U moet een veld toevoegen aan de categorieën (horizontale as).</value>
+  </data>
+  <data name="OperatorContainsSubstringEnum" xml:space="preserve">
+    <value>korte naam bevat substring(s)</value>
+  </data>
+  <data name="OperatorStartsWithSubstringEnum" xml:space="preserve">
+    <value>korte naam begint met substring(s)</value>
+  </data>
+  <data name="Models" xml:space="preserve">
+    <value>Modellen</value>
+  </data>
+  <data name="FiveDecimal" xml:space="preserve">
+    <value>5 decimalen</value>
+  </data>
+  <data name="ListFormatNumberFive" xml:space="preserve">
+    <value>5 decimalen</value>
+  </data>
+  <data name="ListFormatNumberThree" xml:space="preserve">
+    <value>3 decimalen</value>
+  </data>
+  <data name="ThreeDecimal" xml:space="preserve">
+    <value>3 decimalen</value>
+  </data>
+  <data name="Info_WarringCannotUseSameSymbolForSeparator" xml:space="preserve">
+    <value>U kunt niet hetzelfde symbool gebruiken als scheidingsteken voor decimalen en duizendtallen. Selecteer verschillende symbolen.</value>
+  </data>
+  <data name="ProgressBar_CheckingDashboard" xml:space="preserve">
+    <value>Dashboard controleren</value>
+  </data>
+  <data name="ProgressBar_CheckingJump" xml:space="preserve">
+    <value>Jump Template controleren</value>
+  </data>
+  <data name="Error_Title" xml:space="preserve">
+    <value>Fout</value>
+  </data>
+  <data name="SearchRecentUseTotalItems" xml:space="preserve">
+    <value>U heeft {0} recent gebruikte items die voldoen aan de zoekcriteria.</value>
+  </data>
+  <data name="Info_UserCurrencyRequired" xml:space="preserve">
+    <value>Selecteer een valuta</value>
+  </data>
+  <data name="Info_UserCurrencyUnavailable" xml:space="preserve">
+    <value>Uw huidige valuta is niet beschikbaar. Selecteer een nieuwe valuta.</value>
+  </data>
+  <data name="Unknown" xml:space="preserve">
+    <value>Onbekend</value>
+  </data>
+  <data name="AboutEveryAngleDetails" xml:space="preserve">
+    <value>Voor de allernieuwste productinformatie,&lt;br&gt;
+bezoek onze website &lt;a href="http://www.everyangle.com" target="_blank"&gt;www.everyangle.com&lt;/a&gt;&lt;br&gt;&lt;br&gt;
+Copyright © {0}</value>
+  </data>
+  <data name="AboutClientVersion" xml:space="preserve">
+    <value>Client:</value>
+  </data>
+  <data name="AboutModelInfo" xml:space="preserve">
+    <value>Modelinfo</value>
+  </data>
+  <data name="AboutServerVersion" xml:space="preserve">
+    <value>Applicatieserver:</value>
+  </data>
+  <data name="AboutVersion" xml:space="preserve">
+    <value>Versie</value>
+  </data>
+  <data name="ResponseTime" xml:space="preserve">
+    <value>Reactietijd</value>
+  </data>
+  <data name="SaveAsDashboard" xml:space="preserve">
+    <value>Dashboard opslaan als...</value>
+  </data>
+  <data name="Field" xml:space="preserve">
+    <value>Veld</value>
+  </data>
+  <data name="Value" xml:space="preserve">
+    <value>Waarde</value>
+  </data>
+  <data name="NumberDataRows" xml:space="preserve">
+    <value>Aantal gegevensrijen</value>
+  </data>
+  <data name="AdvanceFilterUsageOperatorAfter" xml:space="preserve">
+    <value>Na</value>
+  </data>
+  <data name="AdvanceFilterUsageOperatorBefore" xml:space="preserve">
+    <value>Voor</value>
+  </data>
+  <data name="AdvanceFilterUsageOperatorBetween" xml:space="preserve">
+    <value>Tussen</value>
+  </data>
+  <data name="AdvanceFilterUsageOperatorEqualTo" xml:space="preserve">
+    <value>Gelijk aan</value>
+  </data>
+  <data name="AdvanceFilterUsageOperatorLargerThan" xml:space="preserve">
+    <value>Groter dan</value>
+  </data>
+  <data name="AdvanceFilterUsageOperatorNotStarred" xml:space="preserve">
+    <value>Zonder ster</value>
+  </data>
+  <data name="AdvanceFilterUsageOperatorNotValidated" xml:space="preserve">
+    <value>Niet gevalideerd</value>
+  </data>
+  <data name="AdvanceFilterUsageOperatorOn" xml:space="preserve">
+    <value>Op</value>
+  </data>
+  <data name="AdvanceFilterUsageOperatorPrivate" xml:space="preserve">
+    <value>Privé</value>
+  </data>
+  <data name="AdvanceFilterUsageOperatorPublished" xml:space="preserve">
+    <value>Gepubliceerd</value>
+  </data>
+  <data name="AdvanceFilterUsageOperatorSmallerThan" xml:space="preserve">
+    <value>Kleinder dan</value>
+  </data>
+  <data name="AdvanceFilterUsageOperatorStarred" xml:space="preserve">
+    <value>Met ster</value>
+  </data>
+  <data name="AdvanceFilterUsageOperatorValidated" xml:space="preserve">
+    <value>Gevalideerd</value>
+  </data>
+  <data name="AdvanceFilterUsageTextAfter" xml:space="preserve">
+    <value>Na:</value>
+  </data>
+  <data name="AdvanceFilterUsageTextBefore" xml:space="preserve">
+    <value>Voor:</value>
+  </data>
+  <data name="AdvanceFilterUsageTextFrom" xml:space="preserve">
+    <value>Van:</value>
+  </data>
+  <data name="AdvanceFilterUsageTextOn" xml:space="preserve">
+    <value>Op:</value>
+  </data>
+  <data name="AdvanceFilterUsageTextTo" xml:space="preserve">
+    <value>Tot:</value>
+  </data>
+  <data name="CompanyLogo" xml:space="preserve">
+    <value>Bedrijfslogo</value>
+  </data>
+  <data name="NoSearchResult" xml:space="preserve">
+    <value>Er zijn geen zoekresultaten.</value>
+  </data>
+  <data name="NumberSelectingItems" xml:space="preserve">
+    <value>{0} item(s) geselecteerd</value>
+  </data>
+  <data name="Relevancy" xml:space="preserve">
+    <value>Relevantie</value>
+  </data>
+  <data name="AllDecimals" xml:space="preserve">
+    <value>Alle decimalen</value>
+  </data>
+  <data name="ChartAreaLabel" xml:space="preserve">
+    <value>Vlak</value>
+  </data>
+  <data name="ChartBarLabel" xml:space="preserve">
+    <value>Staaf</value>
+  </data>
+  <data name="ChartBubbleLabel" xml:space="preserve">
+    <value>Bel</value>
+  </data>
+  <data name="ChartColumnLabel" xml:space="preserve">
+    <value>Kolom</value>
+  </data>
+  <data name="ChartDonutLabel" xml:space="preserve">
+    <value>Ring</value>
+  </data>
+  <data name="ChartGaugeAreaColor" xml:space="preserve">
+    <value>Vlakkleur:</value>
+  </data>
+  <data name="ChartGaugeAreaValue" xml:space="preserve">
+    <value>Waarde {0}:</value>
+  </data>
+  <data name="ChartGaugeLabel" xml:space="preserve">
+    <value>Gauge</value>
+  </data>
+  <data name="ChartLineLabel" xml:space="preserve">
+    <value>Lijn</value>
+  </data>
+  <data name="ChartPieLabel" xml:space="preserve">
+    <value>Cirkel</value>
+  </data>
+  <data name="ChartRadarLabel" xml:space="preserve">
+    <value>Radar</value>
+  </data>
+  <data name="ChartScatterLabel" xml:space="preserve">
+    <value>Spreiding</value>
+  </data>
+  <data name="ChartType" xml:space="preserve">
+    <value>Soort grafiek:</value>
+  </data>
+  <data name="Chart_gauge1" xml:space="preserve">
+    <value>Gauge</value>
+  </data>
+  <data name="DateOrderTemplateDay" xml:space="preserve">
+    <value>Dag</value>
+  </data>
+  <data name="DateOrderTemplateMonth" xml:space="preserve">
+    <value>Maand</value>
+  </data>
+  <data name="DateOrderTemplateYear" xml:space="preserve">
+    <value>Jaar</value>
+  </data>
+  <data name="FormatSettingLabelDate" xml:space="preserve">
+    <value>Datum</value>
+  </data>
+  <data name="FormatSettingLabelGeneral" xml:space="preserve">
+    <value>Algemeen</value>
+  </data>
+  <data name="FormatSettingLabelTime" xml:space="preserve">
+    <value>Tijd</value>
+  </data>
+  <data name="MassChangeReportTitle" xml:space="preserve">
+    <value>Rapport massawijziging</value>
+  </data>
+  <data name="MassChangeStatusAddLabel" xml:space="preserve">
+    <value>Label toevoegen "{0}"</value>
+  </data>
+  <data name="MassChangeStatusAngle" xml:space="preserve">
+    <value>Instellen als "Normale Angle"</value>
+  </data>
+  <data name="MassChangeStatusNotStarred" xml:space="preserve">
+    <value>Instellen als "Zonder ster"</value>
+  </data>
+  <data name="MassChangeStatusNotValidated" xml:space="preserve">
+    <value>Instellen als "Niet gevalideerd"</value>
+  </data>
+  <data name="MassChangeStatusPrivate" xml:space="preserve">
+    <value>Instellen als "Privé"</value>
+  </data>
+  <data name="MassChangeStatusPrivateNote" xml:space="preserve">
+    <value>Persoonlijke notitie instellen</value>
+  </data>
+  <data name="MassChangeStatusPublished" xml:space="preserve">
+    <value>Instellen als "Gepubliceerd"</value>
+  </data>
+  <data name="MassChangeStatusRemoveLabel" xml:space="preserve">
+    <value>Label verwijderen "{0}"</value>
+  </data>
+  <data name="MassChangeStatusStarred" xml:space="preserve">
+    <value>Instellen als "Met ster"</value>
+  </data>
+  <data name="MassChangeStatusTemplate" xml:space="preserve">
+    <value>Instellen als "Template"</value>
+  </data>
+  <data name="MassChangeStatusValidated" xml:space="preserve">
+    <value>Instellen als "Gevalideerd"</value>
+  </data>
+  <data name="MassChangeTitle" xml:space="preserve">
+    <value>Massawijziging</value>
+  </data>
+  <data name="Max" xml:space="preserve">
+    <value>Max</value>
+  </data>
+  <data name="PrivilegeStatusAssign" xml:space="preserve">
+    <value>Toewijzen</value>
+  </data>
+  <data name="PrivilegeStatusManage" xml:space="preserve">
+    <value>Beheren</value>
+  </data>
+  <data name="PrivilegeStatusValidate" xml:space="preserve">
+    <value>Valideren</value>
+  </data>
+  <data name="PrivilegeStatusView" xml:space="preserve">
+    <value>Bekijken</value>
+  </data>
+  <data name="ResultStatusFinished" xml:space="preserve">
+    <value>Klaar</value>
+  </data>
+  <data name="ResultStatusRunning" xml:space="preserve">
+    <value>Uitvoeren (resultaat berekenen)</value>
+  </data>
+  <data name="ResultStatusScheduled" xml:space="preserve">
+    <value>Gepland</value>
+  </data>
+  <data name="AbortStatus" xml:space="preserve">
+    <value>Afbreken</value>
+  </data>
+  <data name="CancelledByUser" xml:space="preserve">
+    <value>Geannuleerd door gebruiker</value>
+  </data>
+  <data name="CopyAngleReport" xml:space="preserve">
+    <value>Rapport Angle kopiëren</value>
+  </data>
+  <data name="CopyAngleReportHeader" xml:space="preserve">
+    <value>Angles maken geslaagd {0} van {1}</value>
+  </data>
+  <data name="ErrorAngleNoDisplay" xml:space="preserve">
+    <value>Angle heeft geen Display</value>
+  </data>
+  <data name="ErrorAngleNoDisplayReason" xml:space="preserve">
+    <value>Angle moet minstens 1 display bevatten</value>
+  </data>
+  <data name="NoModelAvaliable" xml:space="preserve">
+    <value>Geen model beschikbaar</value>
+  </data>
+  <data name="Successful" xml:space="preserve">
+    <value>Geslaagd</value>
+  </data>
+  <data name="CustomSortTitle" xml:space="preserve">
+    <value>Aangepast sorteren</value>
+  </data>
+  <data name="Info_FieldForbidden" xml:space="preserve">
+    <value>Toegang tot veld {0} is geweigerd</value>
+  </data>
+  <data name="Error_AggregationFieldMissing" xml:space="preserve">
+    <value>De applicatieserver heeft geen goede gegevens teruggegeven: de Aggregation velden ontbreken</value>
+  </data>
+  <data name="Error_BaseAnglePropertyMissing" xml:space="preserve">
+    <value>De applicatieserver heeft geen goede gegevens teruggegeven: de database-eigenschap base_angle ontbreekt</value>
+  </data>
+  <data name="Error_BaseClassesPropertyMissing" xml:space="preserve">
+    <value>De applicatieserver heeft geen goede gegevens teruggegeven: de database-eigenschap base_classes ontbreekt</value>
+  </data>
+  <data name="Error_BaseDisplayPropertyMissing" xml:space="preserve">
+    <value>De applicatieserver heeft geen goede gegevens teruggegeven: de database-eigenschap base_display ontbreekt</value>
+  </data>
+  <data name="Error_FieldContainsInvalidArguments" xml:space="preserve">
+    <value>Veld {0} bevat ongeldig(e) argument(en)</value>
+  </data>
+  <data name="Error_FieldNoArgument" xml:space="preserve">
+    <value>Veld {0} heeft geen argument</value>
+  </data>
+  <data name="Error_FieldNotAvailableInObjects" xml:space="preserve">
+    <value>Veld {0} is niet beschikbaar in object(en) {1}</value>
+  </data>
+  <data name="Error_FieldPropertyMissing" xml:space="preserve">
+    <value>De applicatieserver heeft geen goede gegevens teruggegeven: de database-eigenschap field ontbreekt</value>
+  </data>
+  <data name="Error_ObjectIsNotAvailable" xml:space="preserve">
+    <value>Object {0} is niet beschikbaar</value>
+  </data>
+  <data name="Error_ObjectsAreNotAvailable" xml:space="preserve">
+    <value>Objecten {0} zijn niet beschikbaar</value>
+  </data>
+  <data name="Error_QueryBlockTypePropertyMissing" xml:space="preserve">
+    <value>De applicatieserver heeft geen goede gegevens teruggegeven: de database-eigenschap queryblock_type is leeg</value>
+  </data>
+  <data name="Error_QueryStepsPropertyMissing" xml:space="preserve">
+    <value>De applicatieserver heeft geen goede gegevens teruggegeven: de database-eigenschap query_steps ontbreekt</value>
+  </data>
+  <data name="Error_FollowupNotAvailableInObjects" xml:space="preserve">
+    <value>Jump {0} is niet beschikbaar in object(en) {1}</value>
+  </data>
+  <data name="Dashboard_WidgetNotExist" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Info_GaugeChartIncorrectOrder" xml:space="preserve">
+    <value>De waarden staan niet allemaal in oplopende of aflopende volgorde.</value>
+  </data>
+  <data name="Info_DisplaySortingReachedLimitation" xml:space="preserve">
+    <value>Deze Angle kan niet gesorteerd worden. Het maximale aantal objecten dat gesorteerd kan worden is {0}</value>
+  </data>
+  <data name="AlertWarningExportiPad" xml:space="preserve">
+    <value>Wanneer u exporteert met een iPad, worden &lt;i class="icon_yes_no"&gt;&lt;/i&gt; ja/nee-velden zonder waarde naar Excel geëxporteerd.</value>
+  </data>
+  <data name="Info_InvalidPackageId" xml:space="preserve">
+    <value>ID moet starten met [A-Z, a-z] gevolgd door [A-Z, a-z], [0-9] of [ _ ]</value>
+  </data>
+  <data name="Info_InvalidPackageVersion" xml:space="preserve">
+    <value>Ongeldige versie package</value>
+  </data>
+  <data name="Info_SelectItemsContainTemplatesOrAngles" xml:space="preserve">
+    <value>Uw selectie bevat Templates en/of Dashboards.&lt;br&gt;Deze kunnen niet worden uitgevoerd als een Dashboard.&lt;br&gt;&lt;br&gt;Klik op OK om alleen de geselecteerde Angle(s) als Dashboard uit te voeren.</value>
+  </data>
+  <data name="Info_AdvFilterSelectFilter" xml:space="preserve">
+    <value>Selecteer een filter uit de lijst.</value>
+  </data>
+  <data name="Info_OnlyDisplayWillBeCreated" xml:space="preserve">
+    <value>Alleen dit Display wordt toegevoegd aan uw nieuwe Angle</value>
+  </data>
+  <data name="Copied" xml:space="preserve">
+    <value>Gekopieerd</value>
+  </data>
+  <data name="PressControlCopy" xml:space="preserve">
+    <value>Druk op CTRL+C om te kopiëren</value>
+  </data>
+  <data name="Not_Available" xml:space="preserve">
+    <value>Niet beschikbaar</value>
+  </data>
+  <data name="CopyDisplay" xml:space="preserve">
+    <value>Display kopiëren</value>
+  </data>
+  <data name="Info_CannotPasteDisplayBecuaseAngleWarning" xml:space="preserve">
+    <value>Display kan niet worden gekopieerd, omdat de Angle waarschuwingen bevat.</value>
+  </data>
+  <data name="Info_DisplayCannotBeCopied" xml:space="preserve">
+    <value>Display kan niet worden geplakt.</value>
+  </data>
+  <data name="Info_DisplayHasBeenCopied" xml:space="preserve">
+    <value>Display is gekopieerd.</value>
+  </data>
+  <data name="PasteDisplay" xml:space="preserve">
+    <value>Display plakken</value>
+  </data>
+  <data name="TemplateHasNoValidDisplay" xml:space="preserve">
+    <value>Template '{0}' kan niet worden uitgevoerd omdat het geen geldige Displays heeft.</value>
+  </data>
+  <data name="Info_DropFilterToAngleDefinition" xml:space="preserve">
+    <value>Sleep hierheen om het filter naar de Angle definitie te verplaatsen.</value>
+  </data>
+  <data name="Info_ConfirmDropFilterToAngleDefinition" xml:space="preserve">
+    <value>Filter toevoegen aan Angle definitie?</value>
+  </data>
+  <data name="CellPopupSubMenuIsBetween" xml:space="preserve">
+    <value>Is tussen {0} en {1}</value>
+  </data>
+  <data name="CellPopupSubMenuIsNotBetween" xml:space="preserve">
+    <value>Is niet tussen {0} en {1} </value>
+  </data>
+  <data name="OtherBusinessProcess" xml:space="preserve">
+    <value>Overig</value>
+  </data>
+  <data name="Maximize" xml:space="preserve">
+    <value>Maximaliseren</value>
+  </data>
+  <data name="RestoreDown" xml:space="preserve">
+    <value>Verkleinen</value>
+  </data>
+  <data name="To" xml:space="preserve">
+    <value>tot</value>
+  </data>
+  <data name="MC_IncludeSelfInExportHeaders" xml:space="preserve">
+    <value>Include Self in export headers</value>
+  </data>
+  <data name="MC_SystemSettingsHelpIncludeSelfInExportHeaders" xml:space="preserve">
+    <value>Indicates whether "Include Self in export headers" will be enabled.</value>
+  </data>
+  <data name="ExportCSVEnumFormatLongName" xml:space="preserve">
+    <value>Lange naam</value>
+  </data>
+  <data name="AdvanceFilterUsageOperatorNotWarning" xml:space="preserve">
+    <value>Bevat geen waarschuwingen</value>
+  </data>
+  <data name="AdvanceFilterUsageOperatorWarning" xml:space="preserve">
+    <value>Bevat waarschuwingen</value>
+  </data>
+  <data name="AdvanceFilterAll" xml:space="preserve">
+    <value>Alle</value>
+  </data>
+  <data name="Widgets" xml:space="preserve">
+    <value>Widgets</value>
+  </data>
+  <data name="FormatSettingGeneralDate" xml:space="preserve">
+    <value>Wat de notaties betekenen: &lt;br/&gt;d = dag; m = maand; y = jaar</value>
+  </data>
+  <data name="FormatSettingGeneralDescription" xml:space="preserve">
+    <value>Algemeen formaat is van toepassing op Getallen, Valuta en Percentages.</value>
+  </data>
+  <data name="FormatSettingGeneralTime" xml:space="preserve">
+    <value>Wat de notaties betekenen: &lt;br/&gt;h = uur; m = minuut; s = seconde&lt;br/&gt;&lt;br/&gt;h/H = 12/24 uur</value>
+  </data>
+  <data name="FormatSettingGeneralCurrency" xml:space="preserve">
+    <value />
+  </data>
+  <data name="FormatSettingGeneralNumber" xml:space="preserve">
+    <value />
+  </data>
+  <data name="FormatSettingGeneralPercentages" xml:space="preserve">
+    <value />
+  </data>
+  <data name="FormatSettingGeneralSet" xml:space="preserve">
+    <value />
+  </data>
+  <data name="FormatSettingCurrencySymbol" xml:space="preserve">
+    <value>Valuta symbool</value>
+  </data>
+  <data name="ClassChooser_StartWithBlankAngle" xml:space="preserve">
+    <value>Start met lege Angle</value>
+  </data>
+  <data name="PopupWarningRemberSession" xml:space="preserve">
+    <value>Waarschuw me tijdens deze sessie niet nogmaals</value>
+  </data>
+  <data name="AlertWarningFieldChooserSource" xml:space="preserve">
+    <value>Wanneer u velden van objecten waarnaar verwezen wordt selecteert, zullen in de meeste gevallen items meerdere keren worden geteld. Dit levert onjuiste resultaten op.&lt;br&gt;Let op dat u een correct veld selecteert.</value>
+  </data>
+  <data name="WarningExcelNotSupportedExportAsChart" xml:space="preserve">
+    <value>Export van dit grafiek type wordt niet ondersteund. Alleen de gegevens zullen worden geëxporteerd naar Excel.</value>
+  </data>
+  <data name="ProgressBar_DownloadAngle" xml:space="preserve">
+    <value>Angles downloaden</value>
+  </data>
+  <data name="AngleExport_TypePackage_WarningTitle" xml:space="preserve">
+    <value>Individuele Angles worden gedownload.</value>
+  </data>
+  <data name="AngleExport_TypePackage_PackageDownload_Not_Available" xml:space="preserve">
+    <value>Package download is niet beschikbaar, want de selectie bevat:</value>
+  </data>
+  <data name="AngleExport_TypePackage_WarningModel" xml:space="preserve">
+    <value>- Angles en/of Templates van andere modellen.</value>
+  </data>
+  <data name="AngleExport_TypePackage_WarningPrivate" xml:space="preserve">
+    <value>- Privé Angles en/of Templates.</value>
+  </data>
+  <data name="AngleExport_WarningNoExportItem" xml:space="preserve">
+    <value>Dashboards kunnen niet worden gedownload. Selecteer alleen Angles en/of Templates.</value>
+  </data>
+  <data name="AngleExport_DownloadAngleConfirmation" xml:space="preserve">
+    <value>Weet u zeker dat u {0} individuele Angles wilt downloaden?</value>
+  </data>
+  <data name="UploadAngles" xml:space="preserve">
+    <value>Angles uploaden</value>
+  </data>
+  <data name="UploadAnglesReport" xml:space="preserve">
+    <value>Upload Angles rapport</value>
+  </data>
+  <data name="ProgressBar_UploadingAngles" xml:space="preserve">
+    <value>Angles uploaden</value>
+  </data>
+  <data name="UploadAngles_InvalideExtension" xml:space="preserve">
+    <value>ongeldige bestandsextensie</value>
+  </data>
+  <data name="UploadAngles_InvalideParseJson" xml:space="preserve">
+    <value>kan JSON string niet ontleden</value>
+  </data>
+  <data name="UploadAngles_InvalideUploadedFile" xml:space="preserve">
+    <value>ongeldig geüpload bestand</value>
+  </data>
+  <data name="UploadAngles_SelectFile" xml:space="preserve">
+    <value>Selecteer Angle bestanden om te uploaden of zet hier neer...</value>
+  </data>
+  <data name="UploadAngles_SuccessfulMessage" xml:space="preserve">
+    <value>Angles upload geslaagd {0} van {1}</value>
+  </data>
+  <data name="FormatSetting_UseDefault" xml:space="preserve">
+    <value>Gebruik default</value>
+  </data>
+  <data name="ResolveAngleDisplay_UsedInAutomationTask" xml:space="preserve">
+    <value>Angle/Display wordt gebruikt in de geautomatiseerde taak.</value>
+  </data>
+  <data name="ResolveAngleDisplay_ConflictAlert_Delete" xml:space="preserve">
+    <value>De huidige Angle/Display wordt gebruikt in de volgende geautomatiseerde taken. Bij het updaten van de Angle/Display zal de actie worden verwijderd.&lt;br&gt;Indien er geen acties overblijven, zal de taak worden verwijderd.</value>
+  </data>
+  <data name="ResolveAngleDisplay_ConflictAlert_Update" xml:space="preserve">
+    <value>De huidige Angle/Display wordt gebruikt in de volgende geautomatiseerde taken. Bij het updaten van de Angle/Display zullen de taak acties worden gewijzigd. Hierdoor zou de taak kunnen mislukken.</value>
+  </data>
+  <data name="ResolveAngleDisplay_ConflictQuestion_Delete" xml:space="preserve">
+    <value>Weet u zeker dat u deze Angle/Display wilt verwijderen?</value>
+  </data>
+  <data name="ResolveAngleDisplay_ConflictQuestion_Update" xml:space="preserve">
+    <value>Weet u zeker dat u deze Angle/Display wilt updaten?</value>
+  </data>
+  <data name="WidgetAngleName" xml:space="preserve">
+    <value>Angle:</value>
+  </data>
+  <data name="WidgetName" xml:space="preserve">
+    <value>Naam:</value>
+  </data>
+  <data name="DomainElementFilter" xml:space="preserve">
+    <value>Zoek item...</value>
+  </data>
+  <data name="MC_AllowEmptly" xml:space="preserve">
+    <value>Allow empty</value>
+  </data>
+  <data name="MC_ConfirmStartServer" xml:space="preserve">
+    <value>Start server {0}. Are you sure you want to start this server?</value>
+  </data>
+  <data name="MC_ConfirmStopServer" xml:space="preserve">
+    <value>Stop server {0}. Are you sure you want to stop this server?</value>
+  </data>
+  <data name="ScheduleAngle" xml:space="preserve">
+    <value>Plannen</value>
+  </data>
+  <data name="SelectTask" xml:space="preserve">
+    <value>Selecteer een taak..</value>
+  </data>
+  <data name="ToOpenMC" xml:space="preserve">
+    <value>&lt;strong&gt;Note: &lt;/strong&gt;Deze actie opent de IT Management Console.</value>
+  </data>
+  <data name="NoTaskAvailable" xml:space="preserve">
+    <value>Geen taken beschikbaar in het systeem.</value>
+  </data>
+  <data name="DefaultDatastore" xml:space="preserve">
+    <value>Standaard dataopslag</value>
+</data>
+  <data name="MC_ShowWarningPopupCopyRole" xml:space="preserve">
+    <value>The copied role will not contain sub roles</value>
+  </data>
+  <data name="MC_SpecifyTables" xml:space="preserve">
+    <value>Specify tables</value>
+  </data>
+  <data name="OperatorIsIn" xml:space="preserve">
+    <value>is in</value>
+  </data>
+  <data name="OperatorIsNotIn" xml:space="preserve">
+    <value>is niet in</value>
+  </data>
+  <data name="ChangePassword" xml:space="preserve">
+    <value>Wachtwoord wijzigen</value>
+  </data>
+  <data name="ConfirmPassword" xml:space="preserve">
+    <value>Wachtwoord bevestigen</value>
+  </data>
+  <data name="NewPassword" xml:space="preserve">
+    <value>Nieuw wachtwoord</value>
+  </data>
+  <data name="OldPassword" xml:space="preserve">
+    <value>Oud wachtwoord</value>
+  </data>
+  <data name="PasswordExpired" xml:space="preserve">
+    <value>Wachtwoord verlopen</value>
+  </data>
+  <data name="ChangePasswordSuccessful" xml:space="preserve">
+    <value>Uw wachtwoord is gewijzigd.</value>
+  </data>
+  <data name="ChangingPassword" xml:space="preserve">
+    <value>Wachtwoord wijzigen</value>
+  </data>
+  <data name="PasswordDoesNotMatch" xml:space="preserve">
+    <value>De wachtwoorden komen niet overeen.</value>
+  </data>
+  <data name="PleaseEnterYourPasswords" xml:space="preserve">
+    <value>Voer uw wachtwoorden in.</value>
+  </data>
+  <data name="Days" xml:space="preserve">
+    <value>dagen</value>
+  </data>
+  <data name="WidgetFilter_Preview_After" xml:space="preserve">
+    <value>Is na of op {0}</value>
+  </data>
+  <data name="WidgetFilter_Preview_Before" xml:space="preserve">
+    <value>Is voor {0}</value>
+  </data>
+  <data name="WidgetFilter_Preview_Between" xml:space="preserve">
+    <value>Is tussen {0} en {1}</value>
+  </data>
+  <data name="WidgetFilter_Preview_Equal" xml:space="preserve">
+    <value>Is op {0}</value>
+  </data>
+  <data name="WidgetFilter_Preview_NotBetween" xml:space="preserve">
+    <value>Is voor {0} of na of op {1}</value>
+  </data>
+  <data name="WidgetFilter_Preview_NotEqual" xml:space="preserve">
+    <value>Is niet op {0}</value>
+  </data>
+  <data name="ChartDataArea_Bar" xml:space="preserve">
+    <value>Gegevens (horizontale as)</value>
+  </data>
+  <data name="ChartDataArea_DonutPie" xml:space="preserve">
+    <value>Gegevens</value>
+  </data>
+  <data name="ChartDataArea_Radar" xml:space="preserve">
+    <value>Gegevens (radiale as)</value>
+  </data>
+  <data name="ChartRowArea_Bar" xml:space="preserve">
+    <value>Categorieën (verticale as)</value>
+  </data>
+  <data name="ChartRowArea_DonutPie" xml:space="preserve">
+    <value>Categorieën</value>
+  </data>
+  <data name="ChartRowArea_Radar" xml:space="preserve">
+    <value>Categorieën (cirkel as)</value>
+  </data>
+  <data name="Info_RequiredFieldInRowAreaChart_Bar" xml:space="preserve">
+    <value>U moet een veld toevoegen aan de categorieën (verticale as).</value>
+  </data>
+  <data name="Info_RequiredFieldInRowAreaChart_DonutPie" xml:space="preserve">
+    <value>U moet een veld toevoegen aan de categorieën.</value>
+  </data>
+  <data name="Info_RequiredFieldInRowAreaChart_Radar" xml:space="preserve">
+    <value>U moet een veld toevoegen aan de categorieën (cirkel-as).</value>
+</data>
+  <data name="MC_AngleWarnings_InfoTotalTemplates" xml:space="preserve">
+    <value>Total number of Templates</value>
+  </data>
+  <data name="ChartDataArea_Gauge" xml:space="preserve">
+    <value>Gegevens (naald)</value>
+  </data>
+  <data name="Info_PleaseRemoveOneFieldFromDataArea_Bar" xml:space="preserve">
+    <value>Verwijder één veld uit het gegevensgebied (horizontale as).</value>
+  </data>
+  <data name="Info_PleaseRemoveOneFieldFromDataArea_DonutPie" xml:space="preserve">
+    <value>Verwijder één veld uit het gegevensgebied.</value>
+  </data>
+  <data name="Info_PleaseRemoveOneFieldFromDataArea_Gauge" xml:space="preserve">
+    <value>Verwijder één veld uit het gegevensgebied (naald).</value>
+  </data>
+  <data name="Info_PleaseRemoveOneFieldFromDataArea_Radar" xml:space="preserve">
+    <value>Verwijder één veld uit het gegevensgebied (radiale as).</value>
+</data>
+  <data name="MC_Validation_ID_Restricted" xml:space="preserve">
+    <value>The following ID is not allowed: {0}</value>
+  </data>
+  <data name="MC_SAP_Jobs_Cancel_And_Retry_Info" xml:space="preserve">
+    <value>Cancel all running SAP&lt;br&gt; jobs and initiate retry.&lt;br&gt; Retry is not possible when the&lt;br&gt; maximum number of&lt;br&gt; retries has been reached.</value>
+  </data>
+  <data name="MC_SAP_Jobs_Cancel_Info" xml:space="preserve">
+    <value>Cancel all running SAP&lt;br&gt; jobs without retry. The&lt;br&gt; refresh task can still finish if&lt;br&gt; all essentially-marked&lt;br&gt; tables are successfully extracted.</value>
+  </data>
+  <data name="MC_License_Unlimited" xml:space="preserve">
+    <value>unlimited</value>
+  </data>
+  <data name="MC_MaxExportRowsUnlimited" xml:space="preserve">
+    <value>unlimited</value>
+  </data>
+  <data name="MC_ODataLogin" xml:space="preserve">
+    <value>Connect to OData</value>
+  </data>
+  <data name="WeekFormat" xml:space="preserve">
+    <value>Wk {0} van {1}</value>
+  </data>
+  <data name="Confirm_SaveAngleWithWarning" xml:space="preserve">
+    <value>Een Jump toevoegen of verwijderen kan Anglewaarschuwingen veroorzaken.&lt;br&gt;Wilt u doorgaan?</value>
+</data>
+  <data name="MC_ImportUser_Add_Users" xml:space="preserve">
+    <value>Add users</value>
+  </data>
+  <data name="MC_ImportUser_AvailableUsers_Title" xml:space="preserve">
+    <value>Available users</value>
+  </data>
+  <data name="MC_ImportUser_SelectedUsers_Title" xml:space="preserve">
+    <value>Selected users</value>
+  </data>
+  <data name="MC_External" xml:space="preserve">
+    <value>External</value>
+  </data>
+  <data name="MC_Actions" xml:space="preserve">
+    <value>Actions</value>
+  </data>
+  <data name="MC_CopyCommand" xml:space="preserve">
+    <value>Copy command</value>
+  </data>
+  <data name="MC_CopyCommandHelpText" xml:space="preserve">
+    <value>The following command has been copied to your clipboard:</value>
+  </data>
+  <data name="Unauthorized" xml:space="preserve">
+    <value>Niet geautoriseerd</value>
+  </data>
+  <data name="Info_ReportDeleteItem" xml:space="preserve">
+    <value>Verwijderen Dashboard/Angles geslaagd {0} van {1}</value>
+  </data>
+  <data name="Title_ReportDeleteItem" xml:space="preserve">
+    <value>Verwijder Anglerapport</value>
+  </data>
+  <data name="StatisticDateTime" xml:space="preserve">
+    <value>op {0} om {1}</value>
+  </data>
+  <data name="DataHeaders" xml:space="preserve">
+    <value>Data headers</value>
+  </data>
+  <data name="GrandTotal" xml:space="preserve">
+    <value>Eindtotaal</value>
+  </data>
+  <data name="PrivateBrowsingInSafariIsNotSupported" xml:space="preserve">
+    <value>De privémodus in Safari wordt niet ondersteund. Zet de privémodus uit als u verder wilt gaan.</value>
+  </data>
+  <data name="MC_SelectAField" xml:space="preserve">
+    <value>Select a field</value>
+  </data>
+  <data name="MC_SelectAFieldFromObject" xml:space="preserve">
+    <value>Select a field from object {0}</value>
+  </data>
+  <data name="MC_SelectAnObject" xml:space="preserve">
+    <value>Select an object</value>
+  </data>
+  <data name="MC_SelectFieldToReplace" xml:space="preserve">
+    <value>Select field to replace</value>
+  </data>
+  <data name="Confirm_SaveValidatedAngle" xml:space="preserve">
+    <value>U heeft een gevalideerde Angle aangepast. Wilt u doorgaan?</value>
+  </data>
+  <data name="Confirm_SaveValidatedDashboard" xml:space="preserve">
+    <value>U heeft een gevalideerd Dashboard aangepast. Wilt u doorgaan?</value>
+  </data>
+  <data name="MC_NoFieldAvailable" xml:space="preserve">
+    <value>No field available</value>
+  </data>
+  <data name="MC_AuthenticationInputPlaceHolder" xml:space="preserve">
+    <value>Add webservers</value>
+  </data>
+  <data name="MC_SelectRunTime" xml:space="preserve">
+    <value>Select runtime</value>
+  </data>
+  <data name="MC_SelectTime" xml:space="preserve">
+    <value>Select time</value>
+  </data>
+  <data name="MC_ServerLocationLabel" xml:space="preserve">
+    <value>Server's location:</value>
+  </data>
+  <data name="MC_ServerTimeLabel" xml:space="preserve">
+    <value>Server time:</value>
+  </data>
+  <data name="MC_UtcOffsetLabel" xml:space="preserve">
+    <value>UTC offset:</value>
+  </data>
+  <data name="MC_ActiveUsersThisMonth" xml:space="preserve">
+    <value>Active users this month</value>
+  </data>
+  <data name="MC_ActiveUsersThisWeek" xml:space="preserve">
+    <value>Active users this week</value>
+  </data>
+  <data name="MC_ManageUsersRole_RequiresReLogin" xml:space="preserve">
+    <value>This action requires a re-login. Press OK to continue.</value>
+  </data>
+  <data name="Result" xml:space="preserve">
+    <value>Resultaat</value>
+  </data>
+  <data name="MC_ConfirmActivatePackage" xml:space="preserve">
+    <value>Activate Package: {reference}?</value>
+  </data>
+  <data name="MC_ConfirmDeactivatePackage" xml:space="preserve">
+    <value>Deactivate Package: {reference}?</value>
+  </data>
+  <data name="MC_ConfirmUpdatePackage" xml:space="preserve">
+    <value>Update Package: {reference}?</value>
+  </data>
+  <data name="MC_Validation_TableName" xml:space="preserve">
+    <value>Invalid table name. Table names may not begin with numeric values or SQL commands</value>
+  </data>
+  <data name="MC_ActivatePackage" xml:space="preserve">
+    <value>Activate package</value>
+  </data>
+  <data name="Both" xml:space="preserve">
+    <value>Beide</value>
+  </data>
+  <data name="LabelCategoriesAndLabels" xml:space="preserve">
+    <value>Labelcategorieën &amp; Labels</value>
+  </data>
+  <data name="MC_CreateNewPackage" xml:space="preserve">
+    <value>Create new package</value>
+  </data>
+  <data name="MC_CreatePackage" xml:space="preserve">
+    <value>Create package</value>
+  </data>
+  <data name="MC_ExportPackageIncludeLabelsDescription" xml:space="preserve">
+    <value>Include or exclude all Label categories and labels</value>
+  </data>
+  <data name="MC_ExportPackageIncludePrivateItemDescription" xml:space="preserve">
+    <value>Include or exclude Private Angles and/or Templates</value>
+  </data>
+  <data name="MC_ExportPackageIncludePublishedItemDescription" xml:space="preserve">
+    <value>Include or exclude all Published (Unvalidated) Angles and/or Templates</value>
+  </data>
+  <data name="MC_ExportPackageIncludeValidatedItemDescription" xml:space="preserve">
+    <value>Include or exclude all Validated Angles and/or Templates</value>
+  </data>
+  <data name="MC_PackageInfo" xml:space="preserve">
+    <value>Package info</value>
+  </data>
+  <data name="MC_SelectModel" xml:space="preserve">
+    <value>Select model</value>
+  </data>
+  <data name="Private" xml:space="preserve">
+    <value>Privé</value>
+  </data>
+  <data name="Published" xml:space="preserve">
+    <value>Gepubliceerd</value>
+  </data>
+  <data name="Templates" xml:space="preserve">
+    <value>Templates</value>
+  </data>
+  <data name="MC_IncludeValidated" xml:space="preserve">
+    <value>Include Validated</value>
+  </data>
+  <data name="MC_SelectContent" xml:space="preserve">
+    <value>Select Content</value>
+  </data>
+  <data name="Logging" xml:space="preserve">
+    <value>Logging</value>
+  </data>
+  <data name="MC_MaxAuditLogHistory" xml:space="preserve">
+    <value>Max audit log history [months]</value>
+  </data>
+  <data name="MC_SystemSettingsHelpTextMaxAuditLogHistory" xml:space="preserve">
+    <value>Maximum stored history of Audit Log records in months after the refresh cycle has completed.&lt;br&gt;Value 0 means the setting is off, no clearing of the Audit Log.&lt;br&gt;The maximum value is 120 months.</value>
+  </data>
+  <data name="JSONLengthExceeded" xml:space="preserve">
+    <value>Maximum lengte overschreden (MaxJsonLength). Mogelijk is het aantal te kopiëren items te groot, of de te kopiëren items bevatten te lange namen, helpteksten etc.</value>
+  </data>
+ <data name="MC_Duplicates" xml:space="preserve">
+    <value>Duplicates</value>
+  </data>
+  <data name="MC_Include" xml:space="preserve">
+    <value>Include</value>
+  </data>
+  <data name="MC_Merge" xml:space="preserve">
+    <value>Merge</value>
+  </data>
+  <data name="MC_Overwrite" xml:space="preserve">
+    <value>Overwrite</value>
+  </data>
+  <data name="MC_PrivateAnglesAndDisplays" xml:space="preserve">
+    <value>Private Angles/Displays</value>
+  </data>
+  <data name="MC_Skip" xml:space="preserve">
+    <value>Skip</value>
+  </data>
+  <data name="MessageAngleNeedsToBeReExecuted" xml:space="preserve">
+    <value>Het model is bijgewerkt. Voer deze Angle opnieuw uit.</value>
+  </data>
+  <data name="ModelLabel_Down" xml:space="preserve">
+    <value> (down)</value>
+  </data>
+  <data name="ModelLabel_NoModelServer" xml:space="preserve">
+    <value>Geen Model Server</value>
+  </data>
+  <data name="DashboardFilters_Description" xml:space="preserve">
+    <value>Ingeschakelde filters</value>
+  </data>
+  <data name="DashboardFilters_Title" xml:space="preserve">
+    <value>Filters</value>
+  </data>
+  <data name="ListHeaderPopupEditFilter" xml:space="preserve">
+    <value>Wijzig Filter</value>
+  </data>
+  <data name="Period_Unit_day" xml:space="preserve">
+    <value>dagen</value>
+  </data>
+  <data name="Period_Unit_month" xml:space="preserve">
+    <value>maanden</value>
+  </data>
+  <data name="Period_Unit_quarter" xml:space="preserve">
+    <value>kwartalen</value>
+  </data>
+  <data name="Period_Unit_semester" xml:space="preserve">
+    <value>semesters</value>
+  </data>
+  <data name="Period_Unit_trimester" xml:space="preserve">
+    <value>trimesters</value>
+  </data>
+  <data name="Period_Unit_week" xml:space="preserve">
+    <value>weken</value>
+  </data>
+  <data name="Period_Unit_year" xml:space="preserve">
+    <value>jaren</value>
+  </data>
+</root>
