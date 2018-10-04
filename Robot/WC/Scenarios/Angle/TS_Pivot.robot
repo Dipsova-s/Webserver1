@@ -35,6 +35,13 @@ Pivot Settings Subtotal / Percentages Column / Custom Name / Field Icons / Colla
     # Alias
     #Alias Name Should Be Displayed Correctly In Pivot
 
+    # Check keep collapsed state
+    ${layoutBefore}   Get Pivot Layout
+    Restore Pivot Settings For Percentages Display
+    Click Apply Field Setting
+    ${layoutAfter}   Get Pivot Layout
+    Should Be Equal    ${layoutBefore}    ${layoutAfter}
+
 Pivot Display Drilldown
     [Arguments]   ${objectName}    ${angleName}    ${fieldId}    ${fieldKeyword}
     Create Angle From Object List And Save    ${objectName}    ${angleName}
@@ -128,6 +135,12 @@ Change Pivot Settings For Percentages Display
     Select Show Total Option    Show for columns
     Select Checkbox Include Subtotal
     Select Show Percentage Option    Column
+
+Restore Pivot Settings For Percentages Display
+    Click Show Display Option
+    Select Show Total Option    Show for rows and columns
+    Unselect Checkbox Include Subtotal
+    Select Show Percentage Option    None
 
 Percentages Should Be Displayed And Correct Result In Pivot
     Percentages Should Be Displayed In Pivot

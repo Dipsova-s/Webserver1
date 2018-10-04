@@ -144,7 +144,7 @@ describe("FieldSettingsHandler", function () {
         });
     });
 
-    describe("call SetTimeFormat", function () {
+    describe(".SetTimeFormat", function () {
 
         beforeEach(function () {
             fieldSettingsHandler.Handler = {
@@ -175,7 +175,7 @@ describe("FieldSettingsHandler", function () {
 
     });
 
-    describe("call SetTimeSpanFormat", function () {
+    describe(".SetTimeSpanFormat", function () {
 
         beforeEach(function () {
             fieldSettingsHandler.Handler = {
@@ -206,7 +206,7 @@ describe("FieldSettingsHandler", function () {
 
     });
 
-    describe("call GetBucketFormatOptions", function () {
+    describe(".GetBucketFormatOptions", function () {
 
         it("should get a list of decimal formats in data area", function () {
 
@@ -287,7 +287,7 @@ describe("FieldSettingsHandler", function () {
 
     });
 
-    describe("call AddUseDefaulToFormatList", function () {
+    describe(".AddUseDefaulToFormatList", function () {
 
         var formatList;
 
@@ -349,7 +349,7 @@ describe("FieldSettingsHandler", function () {
         });
     });
 
-    describe("call SetNumberFormat", function () {
+    describe(".SetNumberFormat", function () {
 
         it("should set type as numeric if is data area", function () {
             var field = { Area: enumHandlers.FIELDSETTINGAREA.DATA };
@@ -369,7 +369,7 @@ describe("FieldSettingsHandler", function () {
 
     });
 
-    describe("call GetStandardNumberFormat", function () {
+    describe(".GetStandardNumberFormat", function () {
 
         it("should set type as numeric and handle percentage format", function () {
             var formatter = new Formatter({
@@ -406,7 +406,7 @@ describe("FieldSettingsHandler", function () {
 
     });
 
-    describe("call NeedToDisableDisplayOptions", function () {
+    describe(".NeedToDisableDisplayOptions", function () {
 
         beforeEach(function () {
             fieldSettingsHandler.FieldSettings = { GetFields: $.noop };
@@ -482,7 +482,7 @@ describe("FieldSettingsHandler", function () {
         });
     });
 
-    describe("call GetDefaultOperator", function () {
+    describe(".GetDefaultOperator", function () {
 
         it("default operator for fieldType TIME in data area must be AVERAGE", function () {
             var fieldType = enumHandlers.FIELDTYPE.TIME;
@@ -502,7 +502,7 @@ describe("FieldSettingsHandler", function () {
 
     });
 
-    describe("call CanSetChartScale", function () {
+    describe(".CanSetChartScale", function () {
 
         var tests = [
             { index: 0, chart: 'line', expected: true },
@@ -527,7 +527,7 @@ describe("FieldSettingsHandler", function () {
 
     });
 
-    describe("call CreateChartScaleFormatSettings", function () {
+    describe(".CreateChartScaleFormatSettings", function () {
 
         window.textDays = 'days';
         var tests = [
@@ -549,7 +549,7 @@ describe("FieldSettingsHandler", function () {
 
     });
 
-    describe("call GetChartScaleBoundary", function () {
+    describe(".GetChartScaleBoundary", function () {
 
         var tests = [
             { datatype: 'any', prefix: null, decimals: 0, scale: null, expected: [0, 1] },
@@ -574,7 +574,7 @@ describe("FieldSettingsHandler", function () {
 
     });
 
-    describe("call CreateChartScaleElement", function () {
+    describe(".CreateChartScaleElement", function () {
 
         it("a container should contains caption text and suffix", function () {
             var container = $('<div />');
@@ -598,7 +598,7 @@ describe("FieldSettingsHandler", function () {
 
     });
 
-    describe("call SetPeriodFormat", function () {
+    describe(".SetPeriodFormat", function () {
         beforeEach(function () {
             this.field = {};
         });
@@ -620,6 +620,57 @@ describe("FieldSettingsHandler", function () {
             fieldSettingsHandler.SetPeriodFormat(this.field);
             expect(this.field.CellFormatType).toBe(enumHandlers.DEVXPRESSFORMATTYPE.CUSTOM);
         });
+    });
+
+    describe(".ChangeIncludeSubtotals()", function () {
+
+        it("should not reset layout", function () {
+            fieldSettingsHandler.IsNeedResetLayout = false;
+            fieldSettingsHandler.FieldSettings = { SetDisplayDetails: $.noop };
+            fieldSettingsHandler.ChangeIncludeSubtotals();
+            expect(fieldSettingsHandler.IsNeedResetLayout).toEqual(false);
+        });
+
+    });
+
+    describe(".ShowTotalForChanged(e)", function () {
+
+        it("should not reset layout", function () {
+            fieldSettingsHandler.IsNeedResetLayout = false;
+            fieldSettingsHandler.FieldSettings = { SetDisplayDetails: $.noop };
+            fieldSettingsHandler.ShowTotalForChanged({ sender: { value: $.noop } });
+            expect(fieldSettingsHandler.IsNeedResetLayout).toEqual(false);
+        });
+
+    });
+
+    describe(".PercentageSummaryChanged(e)", function () {
+
+        it("should not reset layout", function () {
+            fieldSettingsHandler.IsNeedResetLayout = false;
+            fieldSettingsHandler.FieldSettings = { SetDisplayDetails: $.noop };
+            fieldSettingsHandler.PercentageSummaryChanged({ sender: { value: $.noop } });
+            expect(fieldSettingsHandler.IsNeedResetLayout).toEqual(false);
+        });
+
+    });
+
+    describe(".SelectedCountCheckbox()", function () {
+
+        it("should not reset layout", function () {
+            spyOn(fieldSettingsHandler, 'SetSorting').and.callFake($.noop);
+            fieldSettingsHandler.IsNeedResetLayout = false;
+            fieldSettingsHandler.FieldSettings = {
+                GetFields: function () {
+                    return [
+                        { FieldName: 'count' }
+                    ];
+                }
+            };
+            fieldSettingsHandler.SelectedCountCheckbox();
+            expect(fieldSettingsHandler.IsNeedResetLayout).toEqual(false);
+        });
+
     });
 
 });

@@ -500,7 +500,6 @@ function FieldSettingsHandler() {
 		var isTrue = jQuery("#chkIncludeSubtotal").prop('checked');
 		self.FieldSettings.SetDisplayDetails({ include_subtotals: isTrue });
 		self.SetApplyButtonStatus(true);
-		self.IsNeedResetLayout = true;
 	};
 	self.ChangeIncludeSubtotalsControlStatus = function (isEnable) {
 		if (isEnable) {
@@ -1687,32 +1686,18 @@ function FieldSettingsHandler() {
 
 		if (jQuery('#btnFieldSettingApply').hasClass('disabled'))
 			return;
-
-		if (self.FieldSettings.GetFields().hasObject('Valid', false)) {
-			popup.Alert(Localization.Warning_Title, Localization.Info_PleaseRemoveAllInvalidFieldsInAggArea);
-			return;
-		}
-
-		var isChart = self.Handler.Models.Display.Data().display_type === enumHandlers.DISPLAYTYPE.CHART;
-		if (isChart && (self.FieldSettings.GetFields(enumHandlers.FIELDSETTINGAREA.ROW).length > 1 || self.FieldSettings.GetFields(enumHandlers.FIELDSETTINGAREA.COLUMN).length > 1)) {
-			popup.Alert(Localization.Warning_Title, Localization.Info_ChartCanHaveOnlyOneFieldInCategories);
-			return;
-		}
-
-		self.SetApplyButtonStatus(false);
-
+        
 		if (!self.CheckValidateFieldSettings()) {
-			self.IsNeedResetLayout = true;
-			self.SetApplyButtonStatus(true);
 			return;
-		}
+        }
+
+        self.SetApplyButtonStatus(false);
 
 		if (self.IsNeedResetLayout)
 			self.ClearSortBySummary(true);
 
-		self.IsChangeFieldsSetting = false;
-
-		var displayDetails = self.FieldSettings.GetDisplayDetails();
+        var displayDetails = self.FieldSettings.GetDisplayDetails();
+        var isChart = self.Handler.Models.Display.Data().display_type === enumHandlers.DISPLAYTYPE.CHART;
 		var isGaugeChart = isChart && displayDetails.chart_type === enumHandlers.CHARTTYPE.GAUGE.Code;
 		if (isGaugeChart) {
 			var fields = self.FieldSettings.GetFields();
@@ -1748,14 +1733,17 @@ function FieldSettingsHandler() {
 		else
 			self.Handler.GetPivotResult();
 	};
-	self.CheckValidateFieldSettings = function () {
+    self.CheckValidateFieldSettings = function () {
+        if (self.FieldSettings.GetFields().hasObject('Valid', false)) {
+            popup.Alert(Localization.Warning_Title, Localization.Info_PleaseRemoveAllInvalidFieldsInAggArea);
+            return false;
+        }
+
 		//check data area not allow dupicate field with same bucket
-		if (fieldsChooserModel.FieldChooserType === 'data') {
-			var dataAreaWarningMessage = self.ValidateDataArea();
-			if (dataAreaWarningMessage) {
-				popup.Alert(Localization.Warning_Title, dataAreaWarningMessage);
-				return false;
-			}
+		var dataAreaWarningMessage = self.ValidateDataArea();
+		if (dataAreaWarningMessage) {
+			popup.Alert(Localization.Warning_Title, dataAreaWarningMessage);
+			return false;
 		}
 
 		var displayDetails = self.FieldSettings.GetDisplayDetails();
@@ -1764,15 +1752,27 @@ function FieldSettingsHandler() {
 		var dataFields = self.FieldSettings.GetFields(enumHandlers.FIELDSETTINGAREA.DATA).findObjects('IsSelected', true);
 		var rowFieldCount = rowFields.length;
 		var columnFieldCount = columnFields.length;
-		var dataFieldCount = dataFields.length;
+        var dataFieldCount = dataFields.length;
+        var isChart = self.Handler.Models.Display.Data().display_type === enumHandlers.DISPLAYTYPE.CHART;
+        
+        if (isChart) {
+            var isGuageChart = displayDetails.chart_type === enumHandlers.CHARTTYPE.GAUGE.Code;
+            var isBubbleChart = displayDetails.chart_type === enumHandlers.CHARTTYPE.BUBBLECHART.Code;
 
-		if (self.Handler.Models.Display.Data().display_type === enumHandlers.DISPLAYTYPE.CHART) {
-			if (displayDetails.chart_type !== enumHandlers.CHARTTYPE.GAUGE.Code && rowFieldCount === 0) {
+            // all charts
+            if (rowFields.length > 1 || columnFields.length > 1) {
+                popup.Alert(Localization.Warning_Title, Localization.Info_ChartCanHaveOnlyOneFieldInCategories);
+                return false;
+            }
+
+            // other charts but gauge
+            if (!isGuageChart && rowFieldCount === 0) {
 				popup.Alert(Localization.Warning_Title, self.GetLocalizationTextByChartType(displayDetails.chart_type, 'Info_RequiredFieldInRowAreaChart'));
 				return false;
 			}
 
-			if (displayDetails.chart_type === enumHandlers.CHARTTYPE.BUBBLECHART.Code) {
+            // data area
+            if (isBubbleChart) {
 				if (dataFieldCount < 1 || dataFieldCount > 2) {
 					popup.Alert(Localization.Warning_Title, Localization.Info_RequiredFieldsInBubbleChart);
 					return false;
@@ -1789,6 +1789,7 @@ function FieldSettingsHandler() {
 				}
 			}
 
+            // bubble & scatter
 			var validFieldTypes = [
 				enumHandlers.FIELDTYPE.CURRENCY, enumHandlers.FIELDTYPE.NUMBER, enumHandlers.FIELDTYPE.INTEGER,
 				enumHandlers.FIELDTYPE.DOUBLE, enumHandlers.FIELDTYPE.PERCENTAGE,
@@ -1796,13 +1797,14 @@ function FieldSettingsHandler() {
 				enumHandlers.FIELDTYPE.TIME, enumHandlers.FIELDTYPE.TIMESPAN, enumHandlers.FIELDTYPE.PERIOD
 			];
 			var isRowArea = rowFields.length && rowFields[0].Area === enumHandlers.FIELDSETTINGAREA.ROW;
-			var isBubbleOrScatter = displayDetails.chart_type === enumHandlers.CHARTTYPE.BUBBLECHART.Code || displayDetails.chart_type === enumHandlers.CHARTTYPE.SCATTERCHART.Code;
+            var isBubbleOrScatter = isBubbleChart || displayDetails.chart_type === enumHandlers.CHARTTYPE.SCATTERCHART.Code;
 			if (isRowArea && jQuery.inArray(rowFields[0].DataType, validFieldTypes) === -1 && isBubbleOrScatter) {
 				popup.Alert(Localization.Warning_Title, displayDetails.chart_type + ' ' + Localization.Info_RequiredNumberOrDateFieldForChart);
 				return false;
 			}
 
-			if (displayDetails.chart_type === enumHandlers.CHARTTYPE.GAUGE.Code) {
+            // guage
+            if (isGuageChart) {
 				var warningMessage = self.CheckValidateApplyGauge();
 				if (warningMessage) {
 					popup.Alert(Localization.Warning_Title, warningMessage);
@@ -1933,7 +1935,6 @@ function FieldSettingsHandler() {
 		else {
 			countCheckbox.parents('li:first').find('.btnSort').removeClass('disabled');
 		}
-		self.IsNeedResetLayout = true;
 		self.FieldSettings.Fields = JSON.stringify(fields);
 
 		self.SetApplyButtonStatus(true);
@@ -3097,25 +3098,14 @@ function FieldSettingsHandler() {
 
 		WC.HtmlHelper.DropdownList('#ShowTotalFor', enumHandlers.PIVOTSHOWTOTALMODES, {
 			value: (!IsUndefindedOrNull(displayDetails.show_total_for) ? displayDetails.show_total_for : 1) + '',
-			change: function (e) {
-				self.SetApplyButtonStatus(true);
-				self.IsNeedResetLayout = true;
-				var showTotalForDropdownValue = parseInt(e.sender.value());
-				self.FieldSettings.SetDisplayDetails({ show_total_for: showTotalForDropdownValue });
-				self.ChangeIncludeSubtotalsControlStatus(showTotalForDropdownValue === 0);
-			},
+            change: self.ShowTotalForChanged,
 			enable: true
 		});
 
 		// Percentage drpodown
 		WC.HtmlHelper.DropdownList('#PercentageSummaryDropDown', enumHandlers.PERCENTAGESUMMARYTYPES, {
 			value: (displayDetails.percentage_summary_type || 0) + '',
-			change: function (e) {
-				self.SetApplyButtonStatus(true);
-				self.IsNeedResetLayout = true;
-				var percentageSummaryValue = parseInt(e.sender.value());
-				self.FieldSettings.SetDisplayDetails({ percentage_summary_type: percentageSummaryValue });
-			},
+            change: self.PercentageSummaryChanged,
 			enable: true
 		});
 
@@ -3125,7 +3115,18 @@ function FieldSettingsHandler() {
 		}
 		jQuery('#chkIncludeSubtotal').prop('checked', displayDetails.include_subtotals !== undefined ? displayDetails.include_subtotals : false);
 
-	};
+    };
+    self.ShowTotalForChanged = function (e) {
+        self.SetApplyButtonStatus(true);
+        var showTotalForDropdownValue = parseInt(e.sender.value());
+        self.FieldSettings.SetDisplayDetails({ show_total_for: showTotalForDropdownValue });
+        self.ChangeIncludeSubtotalsControlStatus(showTotalForDropdownValue === 0);
+    };
+    self.PercentageSummaryChanged = function (e) {
+        self.SetApplyButtonStatus(true);
+        var percentageSummaryValue = parseInt(e.sender.value());
+        self.FieldSettings.SetDisplayDetails({ percentage_summary_type: percentageSummaryValue });
+    };
 	self.CreateChartDisplayOptions = function (popup) {
 		self.CheckChartScaleRanges();
 
