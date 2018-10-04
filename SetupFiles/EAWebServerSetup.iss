@@ -1049,6 +1049,8 @@ function WebClientAfterInstall(WebSite_FQDN: string): string;
 var 
   msg1 : string;
   IISPhysicalPath : string;
+  AppServerUrl : string;
+  WebServerUrl : string;
 begin
   msg1 := 'Installing / Updating Web Client in IIS';
   InitProgress(msg1, 'Start');
@@ -1090,6 +1092,14 @@ begin
   // Upgrade environment
   ShowProgressAndText(88, msg1, 'Updating Environment');
   UpgradeEnvironment(IISPhysicalPath);
+ 
+  AppServerUrl := WebClientConfigPage.Values[1] + ':' + WebClientConfigPage.Values[2];
+  WebServerUrl := WebClientConfigPage.Values[0];
+     
+  if not RegisterWebServer(AppServerUrl, WebServerUrl) then 
+  begin
+     ShowError(Format('The Web Server failed to register on the AppServer(%s)',[AppServerUrl]), mbError, MB_OK);
+	end;
 
   // Upgrade environment
   ShowProgressAndText(90, msg1, 'Granting access to appPoolIdentity');
@@ -1207,19 +1217,7 @@ begin
       UpdateCurAccessConfig;
     end;
   end
-  else if CurPageId = wpReady then 
-  begin
- 
-    AppServerUrl := WebClientConfigPage.Values[1] + ':' + WebClientConfigPage.Values[2];
-    WebServerUrl := WebClientConfigPage.Values[0];
-     
-    if not RegisterWebServer(AppServerUrl, WebServerUrl) then 
-    begin
-      MsgBox('Application Server Url cannot be registered', mbError, MB_OK);
-      result := false;
-    end;
 
-  end;
 end;
 
 
