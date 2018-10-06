@@ -98,3 +98,9 @@ Click Editing From Dashboard Filter Panel
 
 Cancel Edit Dashboard
     Click Element    ${btnCancelEditDashboard}
+
+Get Widget Title For Angle Page
+    [Arguments]    ${index}
+    ${widgetTitle}    Get Text    ${divWidgets}:eq(${index}) .widgetName
+    ${anglePageTitle}    Execute JavaScript    return $.trim('${widgetTitle}'.substr('${widgetTitle}'.indexOf(' - ') + 3));
+    [Return]    ${anglePageTitle}

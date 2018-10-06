@@ -35,6 +35,7 @@ function DisplayQueryBlockModel(model) {
                     valid: queryStep.valid !== false,
                     validation_details: queryStep.validation_details,
                     is_adhoc_filter: queryStep.is_adhoc_filter,
+                    is_dashboard_filter: queryStep.is_dashboard_filter,
                     is_execution_parameter: queryStep.is_execution_parameter,
                     execution_parameter_id: queryStep.execution_parameter_id
                 });
