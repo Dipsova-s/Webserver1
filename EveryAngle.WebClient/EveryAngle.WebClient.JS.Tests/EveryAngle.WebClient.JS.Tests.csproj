@@ -697,6 +697,7 @@
     <Content Include="WebClient\Tests\Helper\UtilitiesTest.js" />
     <Content Include="WebClient\Tests\ViewManagement\Angles\ScheduleAngleHandlerTest.js" />
     <Content Include="WebClient\Tests\ViewManagement\CreateNewAngle\CreateNewAnglePageHandlerTest.js" />
+    <Content Include="WebClient\Tests\ViewManagement\Dashboard\DashboardHandlerTest.js" />
     <Content Include="WebClient\Tests\ViewManagement\Dashboard\DashboardDetailsHandlerTest.js" />
     <Content Include="WebClient\Tests\ViewManagement\Dashboard\DashboardFiltersHandlerTest.js" />
     <Content Include="WebClient\Tests\ViewManagement\Export\ExportHandlerTest.js" />

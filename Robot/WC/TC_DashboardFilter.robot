@@ -26,4 +26,10 @@ Verify Apply Multi Filter To Dashboard (Step9,Step14)
     Verify Dashboard Filters Count    4
     Verify Remove Field In Fields Tab
     Verify Dashboard Filters Count    3
+    Open Angle In Dashboard Widget    0
+    Check First Angle Should Apply Dashboard Filters
+    Open Angle In Dashboard Widget    1
+    Check Second Angle Should Apply Dashboard Filters
+    Open Angle In Dashboard Widget    2
+    Check Third Angle Should Apply Dashboard Filters
     Back To Search And Delete Dashboard Are Created    ${DASHBOARD_FILTER_CASE#2}  

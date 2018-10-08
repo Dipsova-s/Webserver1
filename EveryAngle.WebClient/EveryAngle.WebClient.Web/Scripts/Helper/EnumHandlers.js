@@ -438,7 +438,8 @@ function EnumHandlers() {
         ASK_EXECUTION: 'parameterized',
         STARTTIMES: 'starttimes',
         EDITID: 'editid',
-        TARGET: 'target'
+        TARGET: 'target',
+        ADHOCFILTERS: 'adhocfilters'
     };
 
     self.ANGLETARGET = {

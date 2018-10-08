@@ -913,6 +913,8 @@ function DashboardHandler() {
             columnElement.find('.widgetButtonOpenNewWindow')
                 .attr('href', WC.Utility.GetAnglePageUri(angle.uri, display.uri))
                 .click(function (e) {
+                    var element = jQuery(e.currentTarget);
+                    var widgetElement = element.parents('.widgetDisplayColumn:first');
 
                     // get parameterized from the memory
                     var executionParametersInfo = dashboardModel.GetAngleExecutionParametersInfo(angle, display);
@@ -924,7 +926,9 @@ function DashboardHandler() {
                         jQuery.localStorage(enumHandlers.ANGLEPARAMETER.ASK_EXECUTION, executionParametersInfo);
                     }
 
-                    var element = jQuery(e.currentTarget);
+                    // get valid filters
+                    self.SetValidFilters(widgetElement);
+                    
                     element.parents('.widgetDisplayColumn:first').find('.widgetButtonMenu').trigger('close');
                 });
 
@@ -949,6 +953,14 @@ function DashboardHandler() {
         }
 
         return columnElement;
+    };
+    self.SetValidFilters = function (widgetElement) {
+        if (widgetElement.data('ResultModel')) {
+            var filters = widgetElement.data('ResultModel').WidgetModel.GetExtendedFilters();
+            if (filters.length) {
+                jQuery.localStorage(enumHandlers.ANGLEPARAMETER.ADHOCFILTERS, filters);
+            }
+        }
     };
     self.SetWidgetName = function (columnElement, widget) {
         var widgetName = widget.GetWidgetName();

@@ -10,9 +10,9 @@ Dashboard Execution Parameters
     Change Dashboard Execution Parameters Then Execute
     Click Submit Adhoc Dashboard Execution Parameters
     Close Dashboard Detail Popup
-    Open First Angle In Dashboard Widget
+    Open Angle In Dashboard Widget    0
     Check First Angle Should Apply Dashboard Execution Parameters
-    Open Second Angle In Dashboard Widget
+    Open Angle In Dashboard Widget    1
     Check Second Angle Should Apply Dashboard Execution Parameters
 
 Verify Execute Dashboard With Execution Parameters In Edit Mode
@@ -68,18 +68,12 @@ Input Filter Value For Is In List For Third Dashboard Filter
     Expand Dashboard Parameters Third Filter Panel
     Input Filter Input Text In List    2    ${value}
 
-Open First Angle In Dashboard Widget
-    Open Dashboard Windget Menu    0
+Open Angle In Dashboard Widget
+    [Arguments]    ${index}
+    ${angleTitleName}    Get Widget Title For Angle Page    ${index}
+    Open Dashboard Windget Menu    ${index}
     Click Link Go To Angle
-    Wait Until Keyword Succeeds    30 sec    1 sec    Select Window    Angle for Dashboard Test 1 - New Display
-    Wait Angle Page Document Loaded
-    Check If Angle Or Display Has A Warning Then Close The Popup
-    Click Toggle Angle
-
-Open Second Angle In Dashboard Widget
-    Open Dashboard Windget Menu    1
-    Click Link Go To Angle
-    Wait Until Keyword Succeeds    30 sec    1 sec    Select Window    Angle for Dashboard Test 2 - New chart display
+    Wait Until Keyword Succeeds    30 sec    1 sec    Select Window    ${angleTitleName}
     Wait Angle Page Document Loaded
     Check If Angle Or Display Has A Warning Then Close The Popup
     Click Toggle Angle
@@ -120,7 +114,23 @@ Back To Search And Delete Dashboard Are Created
 Verify Dashboard Filters Count
     [Arguments]    ${expectFilterCount}
     ${filterText}    Get Text    ${ddlDashboardPanel} ${ddlDashboardFilterCount}
-    Should Be Equal    ${filterText}    ${expectFilterCount}  
+    Should Be Equal    ${filterText}    ${expectFilterCount}
+
+Check First Angle Should Apply Dashboard Filters
+    Page Should Contain    (Self) - Creation date is after May/24/2016
+    Page Should Contain    (Self) - Creation date is before Mar/24/2016
+    Close Window
+    Select Window
+
+Check Second Angle Should Apply Dashboard Filters
+    Page Should Contain    (Self) - Plant is in list (0001 (Werk 0001), 0052 (Plant 0052))
+    Close Window
+    Select Window
+
+Check Third Angle Should Apply Dashboard Filters
+    Page Should Not Contain    (Self) - Address contains substring(s) (Stress)
+    Close Window
+    Select Window
 
 Create Dashboard From Specific Angle Name
     [Arguments]    ${angleName}    ${dashboardName}
@@ -155,7 +165,8 @@ Verify Editing Dashboard Filter
 
 Create Dashboard From Many Angles
     [Arguments]    ${angleKeyword}    ${dashboardName}
-    Search By Text And Expect In Search Result    ${angleKeyword} 
+    Search By Text And Expect In Search Result    ${angleKeyword}
+    Click Sort By Name Ascending On Search Page
     Click Search Action Select All
     Click Search Action Execute As Dashboard
     Input Dashboard Name    ${dashboardName} 

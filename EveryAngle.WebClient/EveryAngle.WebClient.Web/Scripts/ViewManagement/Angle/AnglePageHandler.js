@@ -17,6 +17,7 @@ function AnglePageHandler() {
     self.IsPosibleToEditModel = true;
     self.OpenAngleDetailPopupAfterExecuted = false;
     self.DisableProgressbarCancelling = false;
+    self.AdhocFilters = [];
 
     // use historyModel on ExecuteAngle?
     self.UseHistory = true;
@@ -799,6 +800,20 @@ function AnglePageHandler() {
                     return jQuery.when(false);
                 }
 
+                // adhoc filters from dashboard
+                var adhocFilters = jQuery.localStorage(enumHandlers.ANGLEPARAMETER.ADHOCFILTERS);
+                if (adhocFilters) {
+                    // keep and it will be removed after succeeded.
+                    self.AdhocFilters = adhocFilters;
+
+                    // and then remove it
+                    jQuery.localStorage.removeItem(enumHandlers.ANGLEPARAMETER.ADHOCFILTERS);
+                    
+                    // do execute again
+                    self.ExecuteAngle();
+
+                    return jQuery.when(false);
+                }
 
                 // M4-33874 get parameterized from local storage (bug fixed in IE an Edge)
                 var parameterizedOption = jQuery.localStorage(enumHandlers.ANGLEPARAMETER.ASK_EXECUTION);
@@ -876,7 +891,7 @@ function AnglePageHandler() {
 
                     return jQuery.when(false);
                 }
-
+                
                 // set display info
                 if (displayModel.IsTemporaryDisplay()) {
                     displayModel.LoadSuccess(tempDisplay);
@@ -903,7 +918,7 @@ function AnglePageHandler() {
 
                 if (!canContinue)
                     return;
-
+                
                 if (!isTemplate) {
                     self.UpdateAngleDisplayValidation();
                     self.ShowAngleDisplayInvalidMessage(self.OpenAngleDetailPopupAfterExecuted ? 1500 : 300);
@@ -949,6 +964,20 @@ function AnglePageHandler() {
                     }
                     jQuery('html').removeClass('listDrilldown');
                 }
+
+                // apply adhoc filter from dashboard
+                if (self.AdhocFilters.length) {
+                    // apply filters to viewmodel
+                    jQuery.each(self.AdhocFilters, function (index, filter) {
+                        filter.is_adhoc_filter = true;
+                        filter.is_dashboard_filter = true;
+                        displayQueryBlockModel.QuerySteps.push(new WidgetFilterModel(filter));
+                        displayQueryBlockModel.TempQuerySteps.push(new WidgetFilterModel(filter));
+                    });
+                    displayQueryBlockModel.SetDisplayQueryBlock(displayQueryBlockModel.CollectQueryBlocks());
+                    historyModel.Save();
+                }
+                self.AdhocFilters = [];
 
                 var canPostResult = self.CanPostResult();
                 var isEditMode = self.IsEditMode();
@@ -1173,7 +1202,7 @@ function AnglePageHandler() {
                 });
             }
         }
-
+        
         var hasResultDataUrl = resultModel.Data() && resultModel.Data().uri;
         if (hasResultDataUrl
             && displayData.display_type === resultModel.Data().display_type
@@ -1184,9 +1213,10 @@ function AnglePageHandler() {
 
         var option = {};
         if (postNewResult && !ignoreDisplayQueryBlock) {
-            if (resultModel.Data()
+            var containsDashboardFilters = displayQueryBlockModel.QuerySteps().hasObject('is_dashboard_filter', true);
+            if (containsDashboardFilters || (resultModel.Data()
                 && (!jQuery.deepCompare(angleBlocks1, angleBlocks2, false)
-                    || !jQuery.deepCompare(displayBlocks1, displayBlocks2, false))) {
+                || !jQuery.deepCompare(displayBlocks1, displayBlocks2, false)))) {
                 option.customQueryBlocks = displayQueryBlockModel.CollectQueryBlocks();
             }
         }
