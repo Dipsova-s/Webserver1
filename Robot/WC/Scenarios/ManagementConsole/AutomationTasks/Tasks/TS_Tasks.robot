@@ -3,9 +3,18 @@ Resource            ${EXECDIR}/WC/POM/ManagementConsole/AutomationTasks/Tasks/Al
 Resource            ${EXECDIR}/WC/POM/ManagementConsole/AutomationTasks/Tasks/EditTasks.robot
 
 *** Keywords ***
+Go To Tasks Page With Admin User
+    Go to MC Then Login With Admin User
+    Wait Until Overview Page Loaded
+    Go To All Tasks Page
+
 Go To All Tasks Page
     Wait Side Menu Ready
     Click Side Menu Automation Tasks
+    Click Side Menu Automation Tasks and Tasks
+    Wait All Tasks Page Ready
+
+Reload Tasks Page
     Click Side Menu Automation Tasks and Tasks
     Wait All Tasks Page Ready
 
@@ -16,22 +25,9 @@ Verify Event type dropdown
     Choose Dropdown List Task Event Type    When new model available
     Page Should Contain    Event
     Page Should Contain    When new model available
+    Click Cancel Create Task
 
-#Test Copy Task
-Verify Popup Copy task UI
-    [Arguments]    ${taskName}
-    Click Edit Task Action By Task Name    ${taskName}
-    Click Copy Task Action By Task Name    ${taskName}
-    Page Should Contain    New task name
-   
-Verify Create Task By Copy Task Name
+Create Task By Copy Action
     [Arguments]    ${taskName}    ${newTaskName}
     Create Task By Copy Task    ${taskName}    ${newTaskName}
-    Page Should Contain      New task name
-
-Delete Task By Task Name
-    [Arguments]    ${taskName}
-    Click Edit Task Action By Task Name    ${taskName}
-    Click Delete Task Action By Task Name    ${taskName}
-  #  Wait Until Element Does Not Contain    ${divRolesGrid}    ${roleName}
-
+    Page Should Contain      ${newTaskName}

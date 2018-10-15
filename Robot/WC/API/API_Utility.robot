@@ -4,8 +4,14 @@ Create Context
     ${parts}     Split String     ${url}    ://
     ${scheme}    Get From List    ${parts}    0
     ${host}      Get From List    ${parts}    1
+    ${host}      Remove String    ${host}    /
     Create Http Context    ${host}    ${scheme}
     Set Basic Auth    ${user}    ${pwd}
+
+Create Context: Web
+    [Arguments]    ${user}=${AdminUsername}    ${pwd}=${Password}
+    ${url}    Execute JavaScript    return window.webAPIUrl;
+    Create Context    ${url}    ${user}    ${pwd}
 
 Create Context: Current Server
     [Arguments]    ${user}=${AdminUsername}    ${pwd}=${Password}
@@ -23,6 +29,7 @@ Set Next Request Expectation
 Send GET
     [Arguments]   ${path}    ${success}=True
     Set Next Request Expectation    ${success}
+    Set Request Header    Content-Type    application/json
     GET     ${path}
     ${json}    Get Response Json
     [Return]    ${json}
@@ -30,6 +37,7 @@ Send GET
 Send PUT
     [Arguments]   ${path}    ${data}    ${success}=True
     Set Next Request Expectation    ${success}
+    Set Request Header    Content-Type    application/json
     ${body}    Get Request Body    ${data}
     Set Request Body    ${body}
     PUT     ${path}
@@ -39,6 +47,7 @@ Send PUT
 Send POST
     [Arguments]   ${path}    ${data}    ${success}=True
     Set Next Request Expectation    ${success}
+    Set Request Header    Content-Type    application/json
     ${body}    Get Request Body    ${data}
     Set Request Body    ${body}
     POST     ${path}
@@ -48,20 +57,20 @@ Send POST
 Send DELETE
     [Arguments]   ${path}    ${success}=True
     Set Next Request Expectation    ${success}
+    Set Request Header    Content-Type    application/json
     DELETE     ${path}
-
-Get Text From File
-    [Arguments]    ${filename}
-    ${text}     Get File    ${EXECDIR}/WC/API/Mock/${filename}
-    ${json}     Parse Json    ${text}
-    ${result}   Stringify Json    ${json}
-    [Return]    ${result}
 
 Get Json From File
     [Arguments]    ${filename}
-    ${text}     Get Text From File    ${filename}
+    ${text}     Get File    ${EXECDIR}/WC/API/Mock/${filename}    
     ${json}     Parse Json    ${text}
     [Return]    ${json}
+
+Get Text From File
+    [Arguments]    ${filename}
+    ${json}     Get Json From File    ${filename}
+    ${text}   Stringify Json    ${json}
+    [Return]    ${text}
 
 Get Request Body
     [Arguments]    ${data}

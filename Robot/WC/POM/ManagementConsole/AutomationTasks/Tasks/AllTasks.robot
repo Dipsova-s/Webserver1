@@ -1,9 +1,10 @@
 *** Variables ***
-${btnAddNewTasks}     css=#mainContent > div > div.contentSection.contentSectionGrid.contentSectionGridTasks > div > a
+${btnAddNewTasks}              css=#mainContent > div > div.contentSection.contentSectionGrid.contentSectionGridTasks > div > a
 ${gridTaskRoleContainEvent}    jquery=#TasksGrid > div.k-grid-content > table:contains(event)
 
 ${trRowTaskGrid}               jquery=#TaskDetailsGridContainer tbody tr
 ${btnSubmitTask}               css=#popupCopyTask .btnSubmit
+${btnCloseTask}                css=#popupCopyTask .btnClose
 ${btnDeleteTask}               .btnGroupInner .btnDelete
 ${btnSaveDeleteTask}           css=#popupConfirmation .btnSubmit
 
@@ -38,3 +39,7 @@ Click OK Copy Task
     Click Element    ${btnSubmitTask}
     Wait MC Progress Bar Closed
     Wait Until Ajax Complete
+
+Click Cancel Copy Task
+    Click Element    ${btnCloseTask} 
+

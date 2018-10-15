@@ -8,6 +8,7 @@ ${txtTaskName}           TaskName
 ${ddlActionType}         css=.k-dropdown[aria-owns=action_type_listbox]
 ${ddlEventType}          css=.k-dropdown[aria-owns=event_type_listbox]
 
+
 *** Keywords ***
 Wait Edit Tasks Page Ready
       Wait Until Page Contains    Create task
@@ -44,4 +45,8 @@ Click Copy Task Action By Task Name
     Click Action In Grid By Name    ${taskName}    ${trRowTaskGrid}    ${btnActionCopyRole}
     Wait Until Page Contains   Copy task
     Wait Until Page Contains   New task name
+    Wait Until Ajax Complete
+
+Click Cancel Create Task
+    Click Element    ${btnCancelEditTasks}
     Wait Until Ajax Complete
