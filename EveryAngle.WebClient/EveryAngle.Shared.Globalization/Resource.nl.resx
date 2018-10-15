@@ -3591,4 +3591,13 @@ Copyright © {0}</value>
   <data name="Period_Unit_year" xml:space="preserve">
     <value>jaren</value>
   </data>
+  <data name="SinceLastRefresh" xml:space="preserve">
+    <value>{0}sinds laatste verversing</value>
+  </data>
+  <data name="MC_ChangedTablesOnly" xml:space="preserve" translate="no">
+    <value>New and changed tables only</value>
+  </data>
+  <data name="MC_ChangedTablesOnly_Description" xml:space="preserve" translate="no">
+    <value>Select this option to extract only newly added and changed tables. This option cannot be used together with Delta.</value>
+  </data>
 </root>

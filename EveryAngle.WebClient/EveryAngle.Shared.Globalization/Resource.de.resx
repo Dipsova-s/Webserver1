@@ -5782,40 +5782,49 @@ Are you sure you want to delete this role?</value>
   <data name="MessageAngleNeedsToBeReExecuted" xml:space="preserve">
     <value>Das Modell wurde aktualisiert. Dieser Angle muss erneut ausgeführt werden.</value>
   </data>
-  <data name="ModelLabel_Down" xml:space="preserve">
-    <value> (abwärts)</value>
-  </data>
-  <data name="ModelLabel_NoModelServer" xml:space="preserve">
-    <value>Kein Model Server</value>
-  </data>
   <data name="DashboardFilters_Description" xml:space="preserve">
     <value>Aktivierte Filter</value>
   </data>
   <data name="DashboardFilters_Title" xml:space="preserve">
     <value>Filter</value>
   </data>
+  <data name="ModelLabel_Down" xml:space="preserve">
+    <value> (abwärts)</value>
+  </data>
+  <data name="ModelLabel_NoModelServer" xml:space="preserve">
+    <value>Kein Modell-Server</value>
+  </data>
   <data name="ListHeaderPopupEditFilter" xml:space="preserve">
     <value>Filter bearbeiten</value>
   </data>
   <data name="Period_Unit_day" xml:space="preserve">
-    <value>days</value>
+    <value>Tage</value>
   </data>
   <data name="Period_Unit_month" xml:space="preserve">
-    <value>months</value>
+    <value>Monate</value>
   </data>
   <data name="Period_Unit_quarter" xml:space="preserve">
-    <value>quarters</value>
+    <value>Quartale</value>
   </data>
   <data name="Period_Unit_semester" xml:space="preserve">
-    <value>semesters</value>
+    <value>Halbjahre</value>
   </data>
   <data name="Period_Unit_trimester" xml:space="preserve">
-    <value>trimesters</value>
+    <value>Trimester</value>
   </data>
   <data name="Period_Unit_week" xml:space="preserve">
-    <value>weeks</value>
+    <value>Wochen</value>
   </data>
   <data name="Period_Unit_year" xml:space="preserve">
-    <value>years</value>
+    <value>Jahre</value>
+  </data>
+  <data name="SinceLastRefresh" xml:space="preserve">
+    <value>{0}since last refresh</value>
+  </data>
+  <data name="MC_ChangedTablesOnly" xml:space="preserve" translate="no">
+    <value>New and changed tables only</value>
+  </data>
+  <data name="MC_ChangedTablesOnly_Description" xml:space="preserve" translate="no">
+    <value>Select this option to extract only newly added and changed tables. This option cannot be used together with Delta.</value>
   </data>
 </root>
