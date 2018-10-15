@@ -62,7 +62,7 @@ Search Filter By All Angles And Business Process
 
 Write All Angles in Search Result to Test File
     [Arguments]    ${anglePerTest}
-    ${angleCount}    Execute Javascript     return parseInt($('#${lblSearchTotal}').text())
+    ${angleCount}    Get Number Of Search Results
     Run Keyword If    ${angleCount} != 0    Click Select All Items from Search Result
     @{items}    Get Selected Items Data
     ${itemCount}    Get Length    ${items}

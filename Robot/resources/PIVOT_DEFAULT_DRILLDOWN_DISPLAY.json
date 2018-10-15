@@ -1,0 +1,193 @@
+{
+  "source": {
+    "system": "nl-webmb01.everyangle.org:21000",
+    "version": "19.000.00.00628",
+    "datetime": "2018-10-10T06:39+02:00",
+    "user": "local\\EAAdmin",
+    "model": "EA2_800"
+  },
+  "angle": {
+    "assigned_labels": [
+      "S2D"
+    ],
+    "multi_lang_name": [
+      {
+        "lang": "en",
+        "text": "Pivot default drilldown test"
+      }
+    ],
+    "multi_lang_description": [],
+    "query_definition": [
+      {
+        "queryblock_type": "base_classes",
+        "base_classes": [
+          "PurchaseOrder",
+          "PurchaseOrderScheduleLine"
+        ]
+      }
+    ],
+    "display_definitions": [
+      {
+        "id": "d4130aecdd49b09f05f4b539142460965",
+        "display_type": "list",
+        "multi_lang_name": [
+          {
+            "lang": "en",
+            "text": "list"
+          }
+        ],
+        "multi_lang_description": [],
+        "display_details": "{}",
+        "query_blocks": [],
+        "fields": [
+          {
+            "field": "ObjectType",
+            "tech_info": "",
+            "multi_lang_alias": [],
+            "field_details": "{\"width\":81,\"format\":\"shn\"}"
+          },
+          {
+            "field": "ID",
+            "tech_info": "",
+            "multi_lang_alias": [],
+            "field_details": "{\"width\":97}"
+          },
+          {
+            "field": "Vendor__Vendor",
+            "tech_info": "LFA1-LIFNR",
+            "multi_lang_alias": [],
+            "field_details": "{\"width\":80}"
+          },
+          {
+            "field": "Vendor__Description",
+            "tech_info": "LFA1-NAME1",
+            "multi_lang_alias": [],
+            "field_details": "{\"width\":168}"
+          },
+          {
+            "field": "PurchasingDocumentCategory",
+            "tech_info": "EKKO-BSTYP",
+            "multi_lang_alias": [],
+            "field_details": "{\"width\":105,\"format\":\"shnln\"}"
+          },
+          {
+            "field": "CompanyCode__CompanyCode",
+            "tech_info": "T001-BUKRS",
+            "multi_lang_alias": [],
+            "field_details": "{\"width\":92,\"format\":\"shn\"}"
+          },
+          {
+            "field": "PurchaseOrganization__PurchaseOrganization",
+            "tech_info": "T024E-EKORG",
+            "multi_lang_alias": [],
+            "field_details": "{\"width\":93}"
+          },
+          {
+            "field": "ExecutionStatus",
+            "tech_info": "",
+            "multi_lang_alias": [],
+            "field_details": "{\"width\":97,\"format\":\"shn\"}"
+          },
+          {
+            "field": "CreationDate",
+            "tech_info": "EKKO-AEDAT",
+            "multi_lang_alias": [],
+            "field_details": "{\"width\":84}"
+          },
+          {
+            "field": "DeliveryStatus",
+            "tech_info": "",
+            "multi_lang_alias": [],
+            "field_details": "{\"width\":89,\"format\":\"shn\"}"
+          },
+          {
+            "field": "OrderedValue",
+            "tech_info": "",
+            "multi_lang_alias": [],
+            "field_details": "{\"width\":97}"
+          },
+          {
+            "field": "BKGRP",
+            "tech_info": "EKKO-EKGRP",
+            "multi_lang_alias": [],
+            "field_details": "{\"width\":120}"
+          },
+          {
+            "field": "OrderDueDate",
+            "tech_info": "EKES_LC-EINDT/EKES_FC-EINDT/EKET_COMMIT-EINDT/EKET-EINDT/EKET-SLFDT",
+            "multi_lang_alias": [],
+            "field_details": "{\"width\":120}"
+          }
+        ]
+      },
+      {
+        "id": "ea7ff2a85343dd4d8d8b48e69c6139c967",
+        "display_type": "pivot",
+        "is_angle_default": true,
+        "multi_lang_name": [
+          {
+            "lang": "en",
+            "text": "pivot"
+          }
+        ],
+        "multi_lang_description": [],
+        "display_details": "{\"show_total_for\":1,\"percentage_summary_type\":0,\"include_subtotals\":false,\"count_index\":0,\"drilldown_display\":\"d4130aecdd49b09f05f4b539142460965\",\"layout\":\"{\\\"collapse\\\":\\\"/v///wAAAAAAAAAAAAAAAP7///8AAAAAAAAAAAAAAAA=\\\"}\"}",
+        "query_blocks": [
+          {
+            "queryblock_type": "query_steps",
+            "query_steps": [
+              {
+                "step_type": "filter",
+                "field": "Plant__Plant",
+                "tech_info": "T001W-WERKS",
+                "operator": "in_set",
+                "arguments": [
+                  {
+                    "argument_type": "value"
+                  },
+                  {
+                    "argument_type": "value",
+                    "value": "0001"
+                  },
+                  {
+                    "argument_type": "value",
+                    "value": "0052"
+                  }
+                ]
+              },
+              {
+                "step_type": "aggregation",
+                "aggregation_fields": [
+                  {
+                    "field": "count",
+                    "operator": "count"
+                  }
+                ],
+                "grouping_fields": [
+                  {
+                    "source_field": "Plant__Plant",
+                    "tech_info": "T001W-WERKS",
+                    "field": "individual_Plant__Plant",
+                    "operator": "individual"
+                  }
+                ]
+              }
+            ]
+          }
+        ],
+        "fields": [
+          {
+            "field": "individual_Plant__Plant",
+            "multi_lang_alias": [],
+            "field_details": "{\"pivot_area\":\"row\",\"sorting\":\"asc\"}"
+          },
+          {
+            "field": "count",
+            "multi_lang_alias": [],
+            "field_details": "{\"pivot_area\":\"data\",\"sorting\":\"\"}"
+          }
+        ]
+      }
+    ]
+  }
+}

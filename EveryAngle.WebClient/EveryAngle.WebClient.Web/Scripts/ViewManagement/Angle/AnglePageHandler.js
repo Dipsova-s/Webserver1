@@ -808,7 +808,7 @@ function AnglePageHandler() {
 
                     // and then remove it
                     jQuery.localStorage.removeItem(enumHandlers.ANGLEPARAMETER.ADHOCFILTERS);
-                    
+
                     // do execute again
                     self.ExecuteAngle();
 
@@ -891,7 +891,7 @@ function AnglePageHandler() {
 
                     return jQuery.when(false);
                 }
-                
+
                 // set display info
                 if (displayModel.IsTemporaryDisplay()) {
                     displayModel.LoadSuccess(tempDisplay);
@@ -918,7 +918,7 @@ function AnglePageHandler() {
 
                 if (!canContinue)
                     return;
-                
+
                 if (!isTemplate) {
                     self.UpdateAngleDisplayValidation();
                     self.ShowAngleDisplayInvalidMessage(self.OpenAngleDetailPopupAfterExecuted ? 1500 : 300);
@@ -1003,9 +1003,9 @@ function AnglePageHandler() {
                     self.PostResult(ignoreDisplayQueryBlock, listDrilldown, displayParameter, angleData, displayData),
                     self.LoadAngleDisplayMetadata(angleData, displayData)
                 )
-                .done(function (renderNewResult) {
-                    self.CheckLoadMetadataDone(renderNewResult);
-                });
+                    .done(function (renderNewResult) {
+                        self.CheckLoadMetadataDone(renderNewResult);
+                    });
             });
     };
     self.ShowAngleDetailsPopupAfterTemplateCreated = function (angleData, displayParameter) {
@@ -1202,7 +1202,7 @@ function AnglePageHandler() {
                 });
             }
         }
-        
+
         var hasResultDataUrl = resultModel.Data() && resultModel.Data().uri;
         if (hasResultDataUrl
             && displayData.display_type === resultModel.Data().display_type
@@ -1216,7 +1216,7 @@ function AnglePageHandler() {
             var containsDashboardFilters = displayQueryBlockModel.QuerySteps().hasObject('is_dashboard_filter', true);
             if (containsDashboardFilters || (resultModel.Data()
                 && (!jQuery.deepCompare(angleBlocks1, angleBlocks2, false)
-                || !jQuery.deepCompare(displayBlocks1, displayBlocks2, false)))) {
+                    || !jQuery.deepCompare(displayBlocks1, displayBlocks2, false)))) {
                 option.customQueryBlocks = displayQueryBlockModel.CollectQueryBlocks();
             }
         }
@@ -1559,7 +1559,7 @@ function AnglePageHandler() {
             // clear data
             fieldSettingsHandler.ClearFieldSettings();
 
-            displayModel.AdhocDrilldown(display.Uri);
+            displayModel.AdhocDrilldown(display.Uri, undefined, undefined, undefined, undefined, undefined, angleInfoModel.Data().model);
 
             return;
         }

@@ -2,6 +2,7 @@
 /// <reference path="/Dependencies/ViewModels/Shared/DataType/DataType.js" />
 /// <reference path="/Dependencies/ViewModels/Models/Angle/displaymodel.js" />
 /// <reference path="/Dependencies/ViewManagement/Angles/FieldSettingsHandler.js" />
+/// <reference path="/Dependencies/ViewManagement/Shared/validationHandler.js" />
 
 describe("DisplayModel", function () {
     var displayModel;
@@ -88,7 +89,7 @@ describe("DisplayModel", function () {
     describe("when drill down on a null value ", function () {
 
         it("should apply equal to operator", function () {
-            var result = displayModel.GetDrilldownQueryStepOperator(null, enumHandlers.FIELDTYPE.ENUM, "individual","");
+            var result = displayModel.GetDrilldownQueryStepOperator(null, enumHandlers.FIELDTYPE.ENUM, "individual", "");
             expect(result).toEqual(enumHandlers.OPERATOR.EQUALTO.Value);
         });
     });
@@ -127,6 +128,72 @@ describe("DisplayModel", function () {
                 expect(testObject.expectedResult.lowerBound).toEqual(actualResult[0].value);
                 expect(testObject.expectedResult.upperBound).toEqual(actualResult[1].value);
             });
+        });
+    });
+
+    describe('call CleanNotAcceptedExecutionParameter', function () {
+        it('should return empty array when queryBlocks is empty array', function () {
+            var queryBlocks = [];
+            var modelUri = '/models/1';
+            var result = displayModel.CleanNotAcceptedExecutionParameter(queryBlocks, modelUri);
+            expect(result).toEqual([]);
+        });
+
+        it('should return null when queryBlocks is null', function () {
+            var queryBlocks = null;
+            var modelUri = '/models/1';
+            var result = displayModel.CleanNotAcceptedExecutionParameter(queryBlocks, modelUri);
+            expect(result).toEqual(null);
+        });
+
+        it('should return undefined array when queryBlocks is undefined', function () {
+            var queryBlocks = undefined;
+            var modelUri = '/models/1';
+            var result = displayModel.CleanNotAcceptedExecutionParameter(queryBlocks, modelUri);
+            expect(result).toEqual(undefined);
+        });
+
+        it('should return all parameter but type is Filter', function () {
+            spyOn(validationHandler, 'CheckValidExecutionParameters').and.returnValue({ IsAllValidArgument: false });
+            var queryBlocks = [{
+                query_steps: [
+                    {
+                        step_type: enumHandlers.FILTERTYPE.FILTER
+                    },
+                    {
+                        step_type: enumHandlers.FILTERTYPE.SQLFILTER
+                    },
+                    {
+                        step_type: enumHandlers.FILTERTYPE.FOLLOWUP
+                    },
+                    {
+                        step_type: enumHandlers.FILTERTYPE.AGGREGATION
+                    },
+                    {
+                        step_type: enumHandlers.FILTERTYPE.EXPRESSION_AGGREGATION
+                    },
+                    {
+                        step_type: enumHandlers.FILTERTYPE.SORTING
+                    }
+                ]
+            }];
+            var modelUri = '/models/1';
+            var result = displayModel.CleanNotAcceptedExecutionParameter(queryBlocks, modelUri);
+            expect(result[0].query_steps.length).toEqual(5);
+        });
+
+        it('should return Filter parameter when Filter parameter is valid', function () {
+            spyOn(validationHandler, 'CheckValidExecutionParameters').and.returnValue({ IsAllValidArgument: true });
+            var queryBlocks = [{
+                query_steps: [
+                    {
+                        step_type: enumHandlers.FILTERTYPE.FILTER
+                    }
+                ]
+            }];
+            var modelUri = '/models/1';
+            var result = displayModel.CleanNotAcceptedExecutionParameter(queryBlocks, modelUri);
+            expect(result[0].query_steps.length).toEqual(1);
         });
     });
 

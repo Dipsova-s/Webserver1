@@ -109,9 +109,10 @@ Login And Create Angle By 2 Objects From Object List
 
 Back To Search And Delete Angle Are Created
     [Arguments]   ${angleName}
-    Back To Search
-    Search By Text And Expect In Search Result    ${angleName}
-    Delete All Search Result Items
+    Go to Search Page
+    Search By Text    ${angleName}
+    ${itemCount}    Get Number Of Search Results
+    Run Keyword If    ${itemCount}>0    Delete All Search Result Items
     Element Should Not Contain    ${gridSearchResult}    ${angleName}
 
 Execute All Displays In Angle

@@ -43,19 +43,13 @@ Pivot Settings Subtotal / Percentages Column / Custom Name / Field Icons / Colla
     Should Be Equal    ${layoutBefore}    ${layoutAfter}
 
 Pivot Display Drilldown
-    [Arguments]   ${objectName}    ${angleName}    ${fieldId}    ${fieldKeyword}
-    Create Angle From Object List And Save    ${objectName}    ${angleName}
-    Wait Progress Bar Closed
-    Wait Until List Display Loaded
-    Create Pivot From List Header Column    ${fieldId}    ${fieldKeyword}
+    [Arguments]    ${angleJsonFilename}    ${angleName}    ${modelName}
+    Upload Angle    ${angleJsonFilename}    ${angleName}    ${modelName}
+    Open Angle From First Angle in Search Page    ${angleName}
+    ${numberOfNull}    Get Pivot Total Cell Value By Row Index    0
+    Drilldown Pivot Total Cell Value By Row Index    0
     ${numberOfObject}    Get Number Of Object
-    ${grandTotalValue}    Get Grand Total
-    Should Be True    ${numberOfObject}==${grandTotalValue}
-    ${pivotLastLineValue}    Get Pivot Nearly Grand Total Cell Value
-    Drilldown Pivot Nearly Grand Total Cell
-    ${numberOfDrilldownObject}    Get Number Of Object
-    Should Be True    ${pivotLastLineValue}==${numberOfDrilldownObject}
-    Back To Search And Delete Angle Are Created    ${angleName}
+    Should Be True    ${numberOfObject}==${numberOfNull}
 
 Pivot Percentages
     Go To Pivot Percentage Test Display

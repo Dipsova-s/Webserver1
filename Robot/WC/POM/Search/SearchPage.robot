@@ -8,6 +8,7 @@ Resource            ${EXECDIR}/WC/POM/Search/CreateAngleByObjectListPopup.robot
 Resource            ${EXECDIR}/WC/POM/Search/CreateAngleByObjectListWarningPopup.robot
 Resource            ${EXECDIR}/WC/POM/Search/ItemInfoPopup.robot
 Resource            ${EXECDIR}/WC/POM/Search/CreatePackagePopup.robot
+Resource            ${EXECDIR}/WC/POM/Search/UploadAnglesPopup.robot
 
 *** Variables ***
 ${lblSearchTotal}           SearchTotal
@@ -114,6 +115,7 @@ ${ddlSearchActionCopyAngle}             css=#ActionDropdownListPopup .copyAngle
 ${ddlSearchActionSelectAll}             css=#ActionDropdownListPopup .selectAll
 ${ddlSearchActionExecuteAsDashboard}    css=#ActionDropdownListPopup .executeDashboard
 ${ddlSearchActionCreateEAPackage}       css=#ActionDropdownListPopup .createEAPackage
+${ddlSearchActionUploadAngles}          css=#ActionDropdownListPopup .uploadAngles
 
 #View Mode
 ${btnDetailMode}                        LongList
@@ -177,6 +179,10 @@ Click Search Action Select All
     Click Search Action    ${ddlSearchActionSelectAll}
     Wait Progress Bar Search Closed
     Wait Progress Bar Search Closed
+
+Click Search Action Upload Angles
+    Click Search Action    ${ddlSearchActionUploadAngles}
+    Wait Upload Angles Popup Loaded
 
 Click Search Action Execute As Dashboard
     Click Search Action    ${ddlSearchActionExecuteAsDashboard}
@@ -379,6 +385,10 @@ Click Search Action Menu
 Get Model Name for Create New Angle
     ${modelForCreateNewAngleValue} =    Execute Javascript     return (modelsHandler.GetData().length > 1) ? $('#${lblModelForCreateNewAngle}').text() : modelsHandler.GetData()[0].id
     [return]    ${modelForCreateNewAngleValue}
+
+Get Number Of Search Results
+    ${itemCount}    Execute Javascript     return parseInt($('#${lblSearchTotal}').text())
+    [return]   ${itemCount}
 
 Get Number Display Of Selected Item From Search Result
     ${displayNumberText}    Get Text     ${btnDisplaysSelectedItem}

@@ -147,7 +147,7 @@
 
 /* .popupCompleteUploadReport
 ============================================ */
-.popupCompleteUploadReport {
+.popupCompleteUploadReport .k-window-content {
     font-size: 12px;
 }
 

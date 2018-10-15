@@ -80,6 +80,11 @@ Drilldown Pivot Above Grand Total Cell
     Execute Javascript    $('#${grandTotal}').parent().siblings().eq(${negativeIndex}).children().last().click()
     Wait Progress Bar Closed
 
+Drilldown Pivot Total Cell Value By Row Index
+    [Arguments]    ${row}
+    Click Element   jquery=#${pivotResultTable} tr:eq(${row}) ${pivotGrandTotalCell}:eq(0)
+    Wait Progress Bar Closed
+
 First Column Header Should Have New Line
     Page Should Contain Element    ${tdPivotHeaderColumn}:eq(0) br
 

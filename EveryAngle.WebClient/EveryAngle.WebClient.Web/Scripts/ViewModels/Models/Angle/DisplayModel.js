@@ -839,7 +839,8 @@ function DisplayModel(model) {
         var drillDownDisplay = handler.Models.Angle.Data().display_definitions.findObject('id', displayDetails.drilldown_display);
 
         if (displayDetails.drilldown_display && drillDownDisplay) {
-            jQuery.when(self.AdhocDrilldown(drillDownDisplay.uri, querySteps, drillDownDisplay, isDashboardDrilldown, handler.Models.Angle.Data(), true))
+            var angleData = handler.Models.Angle.Data();
+            jQuery.when(self.AdhocDrilldown(drillDownDisplay.uri, querySteps, drillDownDisplay, isDashboardDrilldown, angleData, true, angleData.model))
                 .done(function () {
                     if (!isDashboardDrilldown) {
                         progressbarModel.KeepCancelFunction = true;
@@ -963,12 +964,12 @@ function DisplayModel(model) {
         }
     };
 
-    self.CleanNotAcceptedExecutionParameter = function (queryBlocks) {
+    self.CleanNotAcceptedExecutionParameter = function (queryBlocks, modelUri) {
         if (queryBlocks && queryBlocks.length) {
             var newFiltersQuerySteps = [];
             jQuery.each(queryBlocks[0].query_steps, function (index, filterItem) {
                 if (filterItem.step_type === enumHandlers.FILTERTYPE.FILTER) {
-                    var validationParameterResult = validationHandler.CheckValidExecutionParameters([filterItem], '');
+                    var validationParameterResult = validationHandler.CheckValidExecutionParameters([filterItem], modelUri);
                     if (validationParameterResult.IsAllValidArgument)
                         newFiltersQuerySteps.push(filterItem);
                 }
@@ -1003,7 +1004,7 @@ function DisplayModel(model) {
         }
         return fieldsWithoutFormat;
     };
-    self.AdhocDrilldown = function (uri, querySteps, basicDisplay, isDashboardDrilldown, angleData, notKeepDisplayFilters) {
+    self.AdhocDrilldown = function (uri, querySteps, basicDisplay, isDashboardDrilldown, angleData, notKeepDisplayFilters, modelUri) {
         if (typeof isDashboardDrilldown === 'undefined') {
             isDashboardDrilldown = false;
         }
@@ -1127,7 +1128,7 @@ function DisplayModel(model) {
             newSwitchDisplayQueryBlock[0].query_steps.push(switchDisplayAggs[0]);
 
         var angleUri = switchDisplay.uri.substr(0, switchDisplay.uri.indexOf('/displays'));
-        switchDisplay.query_blocks = self.CleanNotAcceptedExecutionParameter(newSwitchDisplayQueryBlock);
+        switchDisplay.query_blocks = self.CleanNotAcceptedExecutionParameter(newSwitchDisplayQueryBlock, modelUri);
         switchDisplay.KeepFilter = self.KeepFilter();
         delete switchDisplay.id;
         delete switchDisplay.uri;
