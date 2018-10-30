@@ -233,6 +233,7 @@
     <Content Include="Images\Icons\icon_chart.png" />
     <Content Include="Images\Icons\icon_check.svg" />
     <Content Include="Images\Icons\icon_close.svg" />
+    <Content Include="Images\Icons\icon_datastore.svg" />
     <Content Include="Images\Icons\icon_download.png" />
     <Content Include="Images\Icons\icon_error.svg" />
     <Content Include="Images\Icons\icon_gear.png" />
@@ -252,6 +253,7 @@
     <Content Include="Images\Icons\icon_popup_maximize.svg" />
     <Content Include="Images\Icons\icon_popup_minimize.png" />
     <Content Include="Images\Icons\icon_popup_minimize.svg" />
+    <Content Include="Images\Icons\icon_script.svg" />
     <Content Include="Images\Icons\icon_unsuggest.png" />
     <Content Include="Images\Icons\icon_user.svg" />
     <Content Include="Images\Icons\icon_webclient.png" />

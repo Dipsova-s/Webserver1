@@ -3,7 +3,7 @@ using EveryAngle.WebClient.Web.Helpers;
 using NUnit.Framework;
 using System.IO;
 
-namespace EveryAngle.WebClient.Web.CS.Tests.ControllerTest
+namespace EveryAngle.WebClient.Web.CSTests.ControllerTest
 {
     [TestFixture]
     public class VideoHelperTests : UnitTestBase

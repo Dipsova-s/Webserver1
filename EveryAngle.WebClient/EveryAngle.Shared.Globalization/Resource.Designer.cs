@@ -6646,6 +6646,24 @@ namespace EveryAngle.Shared.Globalization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Datastore.
+        /// </summary>
+        public static string MC_ActionType_Datastore {
+            get {
+                return ResourceManager.GetString("MC_ActionType_Datastore", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Program/script.
+        /// </summary>
+        public static string MC_ActionType_Script {
+            get {
+                return ResourceManager.GetString("MC_ActionType_Script", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Activate package.
         /// </summary>
         public static string MC_ActivatePackage {
@@ -12320,11 +12338,196 @@ namespace EveryAngle.Shared.Globalization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Action.
+        /// </summary>
+        public static string MC_TaskAction_ColumnAction {
+            get {
+                return ResourceManager.GetString("MC_TaskAction_ColumnAction", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Angle.
+        /// </summary>
+        public static string MC_TaskAction_ColumnAngle {
+            get {
+                return ResourceManager.GetString("MC_TaskAction_ColumnAngle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Approval state.
+        /// </summary>
+        public static string MC_TaskAction_ColumnApprovalState {
+            get {
+                return ResourceManager.GetString("MC_TaskAction_ColumnApprovalState", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Condition.
+        /// </summary>
+        public static string MC_TaskAction_ColumnCondition {
+            get {
+                return ResourceManager.GetString("MC_TaskAction_ColumnCondition", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Detail.
+        /// </summary>
+        public static string MC_TaskAction_ColumnDetail {
+            get {
+                return ResourceManager.GetString("MC_TaskAction_ColumnDetail", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Display.
+        /// </summary>
+        public static string MC_TaskAction_ColumnDisplay {
+            get {
+                return ResourceManager.GetString("MC_TaskAction_ColumnDisplay", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Model.
+        /// </summary>
+        public static string MC_TaskAction_ColumnModel {
+            get {
+                return ResourceManager.GetString("MC_TaskAction_ColumnModel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to When checked, the Task will fail when this action fails.&lt;br&gt;
+        ///When unchecked, the Task will continue and complete itself when this action fails..
+        /// </summary>
+        public static string MC_TaskAction_DescriptionAbortWhenError {
+            get {
+                return ResourceManager.GetString("MC_TaskAction_DescriptionAbortWhenError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Add arguments to pass to the script.&lt;br&gt;
+        ///The syntax depends on the type of script that is used in this action..
+        /// </summary>
+        public static string MC_TaskAction_DescriptionParameters {
+            get {
+                return ResourceManager.GetString("MC_TaskAction_DescriptionParameters", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The password of the Run user for the program/script.&lt;br&gt;
+        ///For security reasons, the password must always be reentered before saving the action..
+        /// </summary>
+        public static string MC_TaskAction_DescriptionPassword {
+            get {
+                return ResourceManager.GetString("MC_TaskAction_DescriptionPassword", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Select the program or script file for this action.&lt;br&gt;
+        ///You can only select .cmd, .exe, .ps1 and .bat files that are located in the designated folder. The location of this folder can be configured under system settings..
+        /// </summary>
+        public static string MC_TaskAction_DescriptionScript {
+            get {
+                return ResourceManager.GetString("MC_TaskAction_DescriptionScript", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The username of the Run user for the program/script.&lt;br&gt;
+        ///This must be a valid Windows user with sufficient permissions..
+        /// </summary>
+        public static string MC_TaskAction_DescriptionUsername {
+            get {
+                return ResourceManager.GetString("MC_TaskAction_DescriptionUsername", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Add action.
+        /// </summary>
+        public static string MC_TaskAction_TitleAddAction {
+            get {
+                return ResourceManager.GetString("MC_TaskAction_TitleAddAction", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Edit action.
+        /// </summary>
+        public static string MC_TaskAction_TitleEditAction {
+            get {
+                return ResourceManager.GetString("MC_TaskAction_TitleEditAction", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Action was validated, result Failure..
+        /// </summary>
+        public static string MC_TaskCheckAction_Failure {
+            get {
+                return ResourceManager.GetString("MC_TaskCheckAction_Failure", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Action was validated, result OK..
+        /// </summary>
+        public static string MC_TaskCheckAction_Success {
+            get {
+                return ResourceManager.GetString("MC_TaskCheckAction_Success", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to objects.
         /// </summary>
         public static string MC_TaskDetaiObjects {
             get {
                 return ResourceManager.GetString("MC_TaskDetaiObjects", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Send notification on failure.
+        /// </summary>
+        public static string MC_TaskEmail_TooltipFailure {
+            get {
+                return ResourceManager.GetString("MC_TaskEmail_TooltipFailure", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Send message with the result when all conditions are met.
+        /// </summary>
+        public static string MC_TaskEmail_TooltipResult {
+            get {
+                return ResourceManager.GetString("MC_TaskEmail_TooltipResult", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Send notification on success.
+        /// </summary>
+        public static string MC_TaskEmail_TooltipSuccess {
+            get {
+                return ResourceManager.GetString("MC_TaskEmail_TooltipSuccess", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to When new model available.
+        /// </summary>
+        public static string MC_TaskEvent_CurrentinstanceChanged {
+            get {
+                return ResourceManager.GetString("MC_TaskEvent_CurrentinstanceChanged", resourceCulture);
             }
         }
         

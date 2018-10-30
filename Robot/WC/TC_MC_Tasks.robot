@@ -4,12 +4,14 @@ Resource                  ${EXECDIR}/WC/API/API_Angle.robot
 Resource                  ${EXECDIR}/WC/API/API_Task.robot
 Suite Setup               Go To Tasks Page With Admin User
 Suite Teardown            Logout MC Then Close Browser
-Test Teardown             Reload Tasks Page
 Force Tags                MC    acc_mc
 
 *** Test Cases ***
-Test Verify Event type dropdown
-    Verify Event type dropdown
+Test Verify Task UI
+    Click Button To Add New Task
+    Verify Edit Task Page
+    Verify Add Task Action Popup
+    [Teardown]  Reload Tasks Page
 
 Verify Copy Task
     @{cleanUpItems}    Create List
@@ -24,4 +26,5 @@ Verify Copy Task
     Reload Tasks Page
     Create Task By Copy Action   TaskForCopy    TestCopyTask
 
-    [Teardown]  Run Keyword  Clean Up Items     Web    ${cleanUpItems}
+    [Teardown]  Run Keywords  Clean Up Items     Web    ${cleanUpItems}
+    ...         AND           Reload Tasks Page

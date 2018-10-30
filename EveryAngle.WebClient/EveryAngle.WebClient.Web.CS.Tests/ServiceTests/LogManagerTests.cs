@@ -8,7 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace EveryAngle.WebClient.Web.CS.Tests.ServiceTests
+namespace EveryAngle.WebClient.Web.CSTests.ServiceTests
 {
     [TestFixture]
     public class LogManagerTests : UnitTestBase

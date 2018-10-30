@@ -68,6 +68,7 @@
     </Content>
     <Content Include="..\EveryAngle.ManagementConsole\Scripts\Page\MC.GlobalSettings.Packages.js">
       <Link>ManagementConsole\Dependencies\page\MC.GlobalSettings.Packages.js</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="..\EveryAngle.Shared.EmbeddedViews\Resource\FieldsChooser\FieldsChooser.js">
       <Link>SharedDependencies\FieldsChooser.js</Link>

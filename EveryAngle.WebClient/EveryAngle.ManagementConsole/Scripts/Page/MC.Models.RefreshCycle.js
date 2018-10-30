@@ -193,7 +193,7 @@
                     }
                     // remove flag
                     else {
-                        addButton.removeClass('active')
+                        addButton.removeClass('active');
                     }
                 }
 

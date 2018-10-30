@@ -31,12 +31,6 @@
         self.WebClientAngleUrl = '';
         self.VerifyModelPriviledgeUri = '';
 
-        self.TASK_TYPES = {
-            EVENT: 'event',
-            SCHEDULE: 'schedule',
-            EXTERNAL: 'external'
-        };
-
         self.InitialAllTasks = function (data) {
 
             self.DataStoresUri = '';
@@ -161,6 +155,7 @@
 
             event.preventDefault();
         };
+
         self.CopyTaskPopup = function (taskUri, taskName) {
             MC.ui.popup('setScrollable', {
                 element: '#popupCopyTask'
@@ -181,7 +176,6 @@
                 e.preventDefault();
             });
         };
-
         self.CopyTask = function (e, obj) {
 
             if (!jQuery('#formCopyTask').valid())
@@ -240,20 +234,10 @@
         self.GetDaysCheckbox = function (data) {
             return MC.util.task.getDaysCheckbox(data);
         };
-        self.ACTION_CONDITION_OPERATOR = {
-            ALWAYS: Localization.MC_Always,
-            EXACTLY: Localization.MC_Exactly,
-            LESS_THAN: Localization.MC_LessThan,
-            GREATER_THAN: Localization.MC_MoreThan
-        };
-        self.APPROVAL_STATE = {
-            ENABLED: Localization.MC_enabled,
-            DISABLED: Localization.MC_Disabled,
-            REQUESTED: Localization.MC_Requested,
-            REJECTED: Localization.MC_Rejected
-        };
+
         self.SaveAutomatedTaskUri = '';
         self.DataStoreValues = [];
+        self.Scripts = [];
         self.AllModels = [];
         self.GetUserUri = '';
         self.FindAngleUri = '';
@@ -334,17 +318,51 @@
             self.OPERATOR.HASVALUE.Value,
             self.OPERATOR.HASNOVALUE.Value
         ];
-        self.ACTION_TYPE = {
-            Schedule: Localization.MC_Schedule,
-            External: Localization.MC_External,
-            Event: Localization.MC_Event
+
+        self.ACTION_CONDITION_OPERATOR = {
+            ALWAYS: Localization.MC_Always,
+            EXACTLY: Localization.MC_Exactly,
+            LESS_THAN: Localization.MC_LessThan,
+            GREATER_THAN: Localization.MC_MoreThan
         };
+
+        self.APPROVAL_STATE_ID = {
+            ENABLED: 'enabled',
+            DISABLED: 'disabled',
+            REQUESTED: 'requested',
+            REJECTED: 'rejected'
+        };
+        self.APPROVAL_STATE = {};
+        self.APPROVAL_STATE[self.APPROVAL_STATE_ID.ENABLED] = Localization.MC_enabled;
+        self.APPROVAL_STATE[self.APPROVAL_STATE_ID.DISABLED] = Localization.MC_Disabled;
+        self.APPROVAL_STATE[self.APPROVAL_STATE_ID.REQUESTED] = Localization.MC_Requested;
+        self.APPROVAL_STATE[self.APPROVAL_STATE_ID.REJECTED] = Localization.MC_Rejected;
+
+        self.TRIGGER_TYPE_ID = {
+            SCHEDULE: 'schedule',
+            EXTERNAL: 'external',
+            EVENT: 'event'
+        };
+        self.TRIGGER_TYPE = {};
+        self.TRIGGER_TYPE[self.TRIGGER_TYPE_ID.SCHEDULE] = Localization.MC_Schedule;
+        self.TRIGGER_TYPE[self.TRIGGER_TYPE_ID.EXTERNAL] = Localization.MC_External;
+        self.TRIGGER_TYPE[self.TRIGGER_TYPE_ID.EVENT] = Localization.MC_Event;
+
         self.EVENT_TYPE = {
-            currentinstance_changed: {
-                id: 'currentinstance_changed',
-                text: 'When new model available'
-            }
+            currentinstance_changed: Localization.MC_TaskEvent_CurrentinstanceChanged
         };
+
+        self.ACTION_TYPE_ID = {
+            DATASTORE: 'export_angle_to_datastore',
+            SCRIPT: 'run_external_command'
+        };
+        self.ACTION_TYPE = {};
+        self.ACTION_TYPE[self.ACTION_TYPE_ID.DATASTORE] = Localization.MC_ActionType_Datastore;
+        self.ACTION_TYPE[self.ACTION_TYPE_ID.SCRIPT] = Localization.MC_ActionType_Script;
+
+        self.DEFAULT_EMAIL_SUBJECT = {};
+        self.DEFAULT_EMAIL_SUBJECT[self.ACTION_TYPE_ID.DATASTORE] = "{rowstotal} items in Angle '{anglename}' on {modeltimestamp}";
+        self.DEFAULT_EMAIL_SUBJECT[self.ACTION_TYPE_ID.SCRIPT] = "{rowstotal} items in Angle '{anglename}' on {modeltimestamp}";
 
         var nameConditionMinimumRows = 'condition_minimum_rows';
         var nameConditionMaximumRows = 'condition_maximum_rows';
@@ -352,6 +370,7 @@
 
             self.SaveAutomatedTaskUri = '';
             self.DataStoreValues = [];
+            self.Scripts = [];
             self.AllModels = [];
             self.GetUserUri = '';
             self.FindAngleUri = '';
@@ -404,33 +423,8 @@
             MC.form.page.init(self.GetData);
         };
         self.InitialKendoComponents = function () {
-            var actionTypeDatasources = [];
-            var eventTypeDatasources = [];
-
-            jQuery.each(self.ACTION_TYPE, function (key, value) {
-                actionTypeDatasources.push({ id: value });
-            });
-
-            jQuery.each(self.EVENT_TYPE, function (key, value) {
-                eventTypeDatasources.push({ id: value.id, text: value.text });
-            });
-
-            $('#action_type').kendoDropDownList({
-                dataTextField: "id",
-                dataValueField: "id",
-                dataSource: actionTypeDatasources,
-                change: function (e) {
-                    var eventTypesDropdown = jQuery('#event_type').data('kendoDropDownList');
-                    var actionType = e.sender.value();
-                    self.AdjustLayoutByActionType(actionType, eventTypesDropdown);
-                }
-            });
-
-            $('#event_type').kendoDropDownList({
-                dataTextField: "text",
-                dataValueField: "id",
-                dataSource: eventTypeDatasources
-            });
+            self.CreateTriggerTypeDropdown();
+            self.CreateEventTypeDropdown();
 
             // binding server time info to sub header
             MC.util.showServerClock('#ServerTimeInfo', ', {0:HH:mm:ss}');
@@ -450,30 +444,43 @@
                 }
             });
         };
-        self.GetActionType = function (triggerType) {
-            var currentType = null;
-            switch (triggerType) {
-                case self.TASK_TYPES.EVENT:
-                    currentType = Localization.MC_Event;
-                    break;
-                case self.TASK_TYPES.EXTERNAL:
-                    currentType = Localization.MC_External;
-                    break;
-                default:
-                    currentType = Localization.MC_Schedule;
-                    break;
-            }
-            return currentType;
+        self.CreateTriggerTypeDropdown = function () {
+            var triggerTypeDatasources = [];
+            jQuery.each(self.TRIGGER_TYPE, function (key, value) {
+                triggerTypeDatasources.push({ id: key, text: value });
+            });
+            $('#trigger_type').kendoDropDownList({
+                dataTextField: "text",
+                dataValueField: "id",
+                dataSource: triggerTypeDatasources,
+                change: self.TriggerTypeDropdownChanged
+            });
+        };
+        self.TriggerTypeDropdownChanged = function (e) {
+            var eventTypesDropdown = jQuery('#event_type').data('kendoDropDownList');
+            var triggerType = e.sender.value();
+            self.AdjustLayoutByTriggerType(triggerType, eventTypesDropdown);
+        };
+        self.CreateEventTypeDropdown = function () {
+            var eventTypeDatasources = [];
+            jQuery.each(self.EVENT_TYPE, function (key, value) {
+                eventTypeDatasources.push({ id: key, text: value });
+            });
+            $('#event_type').kendoDropDownList({
+                dataTextField: "text",
+                dataValueField: "id",
+                dataSource: eventTypeDatasources
+            });
         };
         self.SetValueToEventTypesDropdown = function (taskData, triggerType, eventTypesDropdown, modelsDropdown) {
-            if (triggerType === self.TASK_TYPES.EVENT) {
-                var triggerData = taskData.triggers[0];
+            if (triggerType !== self.TRIGGER_TYPE_ID.EVENT)
+                return;
 
-                if (triggerData) {
-                    // set value to event type
-                    eventTypesDropdown.value(triggerData.event);
-                    self.SetValueToEventModelsDropdown(triggerData, modelsDropdown);
-                }
+            var triggerData = taskData.triggers[0];
+            if (triggerData) {
+                // set value to event type
+                eventTypesDropdown.value(triggerData.event);
+                self.SetValueToEventModelsDropdown(triggerData, modelsDropdown);
             }
         };
         self.SetValueToEventModelsDropdown = function (triggerData, modelsDropdown) {
@@ -489,7 +496,7 @@
             var runAsUserTextbox = jQuery('#RunasUser');
             var enabledCheckbox = jQuery('#IsEnabled');
 
-            var actionTypesDropdown = jQuery('#action_type').data('kendoDropDownList');
+            var triggerTypeDropdown = jQuery('#trigger_type').data('kendoDropDownList');
             var eventTypesDropdown = jQuery('#event_type').data('kendoDropDownList');
             var modelsDropdown = jQuery('#model').data('kendoDropDownList');
             var startTimePicker = jQuery('[name="StartTime"]').data('kendoTimePicker');
@@ -497,16 +504,23 @@
 
             var triggerDaysList = MC.util.task.getTriggerDays(taskData);
             var triggerType = MC.util.task.getTriggerType(taskData);
-            var actionType = self.GetActionType(triggerType);
             var startTimeValue = MC.util.task.getStartTime(taskData);
 
             // start data binding
             taskNameTextbox.val(taskData.name);
             runAsUserTextbox.val(taskData.run_as_user);
-            enabledCheckbox.prop('checked', taskData.enabled);
-            maximumRunTimePicker.value(MC.util.unixtimeToTimePicker(taskData.max_run_time, true));
-            actionTypesDropdown.value(actionType);
-            if (startTimeValue != null) {
+
+            if (taskData.id) {
+                enabledCheckbox.prop('checked', taskData.enabled);
+                maximumRunTimePicker.value(MC.util.unixtimeToTimePicker(taskData.max_run_time, true));
+            }
+            else {
+                enabledCheckbox.prop('checked', true);
+            }
+
+            triggerTypeDropdown.value(triggerType);
+            
+            if (startTimeValue !== null) {
                 startTimePicker.value(MC.util.unixtimeToTimePicker(startTimeValue, false));
                 startTimePicker.trigger('change');
             }
@@ -527,30 +541,29 @@
             // start manage components
             MC.util.hideErrorContainerIfOpenTimePicker(startTimePicker.element);
             self.InitialRunAsUserAutoComplete();
-            self.AdjustLayoutByActionType(actionType, eventTypesDropdown);
+            self.AdjustLayoutByTriggerType(triggerType, eventTypesDropdown);
             self.SetValueToEventTypesDropdown(taskData, triggerType, eventTypesDropdown, modelsDropdown);
             // end manage components
         };
-        self.AdjustLayoutByActionType = function (actionType, eventTypesDropdown) {
+        self.AdjustLayoutByTriggerType = function (triggerType, eventTypesDropdown) {
             var scheduleLayout = jQuery('#ScheduleSection');
             var eventLayout = jQuery('#EventSection');
 
-            if (actionType === Localization.MC_Event) {
+            if (triggerType === self.TRIGGER_TYPE_ID.EVENT) {
                 scheduleLayout.hide();
                 eventLayout.show();
                 eventTypesDropdown.wrapper.show();
             }
-            else if (actionType === Localization.MC_Schedule) {
+            else if (triggerType === self.TRIGGER_TYPE_ID.SCHEDULE) {
                 scheduleLayout.show();
                 eventLayout.hide();
                 eventTypesDropdown.wrapper.hide();
             }
-            else if (actionType === Localization.MC_External) {
+            else if (triggerType === self.TRIGGER_TYPE_ID.EXTERNAL) {
                 scheduleLayout.hide();
                 eventLayout.hide();
                 eventTypesDropdown.wrapper.hide();
             }
-
         };
         self.InitialActionsGrid = function (dataItem) {
             // grid columns
@@ -588,17 +601,13 @@
                     attributes: { 'class': 'gridColumnToolbar' },
                     template: '<a class="btnMove" title="Move"></a>'
                 },
-                { field: 'datastore_name', title: 'Data store', width: 80 },
-                { field: 'model_name', title: 'Model', width: 80 },
-                { field: 'angle_id', title: 'Angle', hidden: true },
-                { field: 'angle_name', title: 'Angle' },
-                { field: 'display_id', title: 'Display', attributes: { 'data-display-uri': '#= display_uri #' }, hidden: true },
-                { field: 'display_name', title: 'Display' },
-                { field: 'condition', title: 'Condition', width: 140, template: '#= condition.operator + (condition.value === null ? "" : " " + condition.value) #' },
-                { field: 'condition_name', title: 'condition_name', hidden: true },
-                { field: 'condition_value', title: 'condition_value', hidden: true },
-                { field: 'Angle', hidden: true },
-                { field: 'approval_state', title: 'Approval state', width: 100 },
+                { field: 'action_type_name', title: Localization.MC_TaskAction_ColumnAction, width: 80, template: self.GetActionTypeName },
+                { field: 'action_detail', title: Localization.MC_TaskAction_ColumnDetail, width: 80, template: self.GetActionDetail },
+                { field: 'model_name', title: Localization.MC_TaskAction_ColumnModel, width: 80, template: self.GetModelNameFromActionData },
+                { field: 'angle_name', title: Localization.MC_TaskAction_ColumnAngle },
+                { field: 'display_name', title: Localization.MC_TaskAction_ColumnDisplay, attributes: { 'data-display-uri': '#= display_uri #' } },
+                { field: 'condition_name', title: Localization.MC_TaskAction_ColumnCondition, width: 140, template: self.GetConditionName },
+                { field: 'approval_state', title: Localization.MC_TaskAction_ColumnApprovalState, width: 100 },
                 {
                     field: 'action',
                     title: ' ',
@@ -609,6 +618,37 @@
                 }
             ];
             return columns;
+        };
+        self.GetActionTypeName = function (data) {
+            return self.ACTION_TYPE[data.action_type];
+        };
+        self.GetActionDetail = function (data) {
+            if (data.action_type === self.ACTION_TYPE_ID.DATASTORE) {
+                var datastoreId = self.GetArgumentValueByName(data.arguments, 'datastore');
+                return (self.DataStoreValues.findObject('id', datastoreId) || { name: datastoreId }).name;
+            }
+            else if (data.action_type === self.ACTION_TYPE_ID.SCRIPT) {
+                var scriptId = self.GetArgumentValueByName(data.arguments, 'script');
+                return (self.Scripts.findObject('id', scriptId) || { name: scriptId }).name;
+            }
+            return '';
+        };
+        self.GetModelName = function (modelId) {
+            return (self.AllModels.findObject('id', modelId) || { short_name: modelId }).short_name;
+        };
+        self.GetModelNameFromActionData = function (data) {
+            var modelId = self.GetArgumentValueByName(data.arguments, 'model') || '';
+            return self.GetModelName(modelId);
+        };
+        self.GetConditionName = function (data) {
+            if (data.action_type === self.ACTION_TYPE_ID.DATASTORE) {
+                var conditionOperator = self.GetArgumentConditionOperator(data.arguments);
+                var conditionValue = self.GetArgumentConditionValue(data.arguments, conditionOperator);
+                return conditionOperator + (conditionValue === null ? '' : ' ' + conditionValue);
+            }
+            else {
+                return '';
+            }
         };
         self.GetActionsGridDataSource = function (actions) {
             var data = [];
@@ -623,40 +663,25 @@
                     return 1;
                 else return 0;
             });
-
-
+            
             var sortIndex = 0;
             jQuery.each(actions, function (index, action) {
-                var conditionOperator = self.GetArgumentConditionOperator(action.arguments);
-                var datastore = self.GetArgumentValueByName(action.arguments, 'datastore');
-                var dataStoreName = (self.DataStoreValues.findObject('id', datastore) || { name: datastore }).name;
-                var modelId = self.GetArgumentValueByName(action.arguments, 'model');
-                var modelName = (self.AllModels.findObject('id', modelId) || { short_name: modelId }).short_name;
                 var angleId = self.GetArgumentValueByName(action.arguments, 'angle_id');
                 var displayId = self.GetArgumentValueByName(action.arguments, 'display_id');
                 var model = {
-                    datastore: datastore,
-                    datastore_name: dataStoreName,
-                    model: modelId,
-                    model_name: modelName,
-                    angle_id: angleId,
+                    action_type: action.action_type,
                     angle_name: action.AngleName || angleId,
-                    display_id: displayId,
                     display_name: action.DisplayName || displayId,
                     display_uri: '',
-                    condition: { operator: conditionOperator, value: self.GetArgumentConditionValue(action.arguments, conditionOperator) },
-                    condition_name: conditionOperator,
-                    condition_value: self.GetArgumentConditionValue(action.arguments, conditionOperator),
                     Angle: action.Angle,
                     approval_state: action.approval_state,
-                    model_timestamp: false,
                     notification: action.notification,
                     arguments: action.arguments,
                     uri: action.uri,
                     order: sortIndex
                 };
                 if (action.Angle) {
-                    var display = JSON.parse(action.Angle).display_definitions.findObject('id', model.display_id);
+                    var display = JSON.parse(action.Angle).display_definitions.findObject('id', displayId);
                     if (display)
                         model.display_uri = display.uri;
                 }
@@ -684,10 +709,10 @@
             if (min === null && max === null)
                 return self.ACTION_CONDITION_OPERATOR.ALWAYS;
 
-            if (min === null && max != null)
+            if (min === null)
                 return self.ACTION_CONDITION_OPERATOR.LESS_THAN;
 
-            if (min != null && max === null)
+            if (max === null)
                 return self.ACTION_CONDITION_OPERATOR.GREATER_THAN;
 
             return self.ACTION_CONDITION_OPERATOR.EXACTLY;
@@ -769,9 +794,9 @@
             }
         };
         self.SetDatastoreSettingMaxRowsToExportValue = function (integerInput, value) {
-            if (value != null) {
+            if (value !== null) {
                 var model = self.AllModels.findObject('id', jQuery('#model_id').val());
-                var modelPrivilege = model != null ? JSON.parse(self.ModelPrivileges).findObject('model', model.Uri) : null;
+                var modelPrivilege = model !== null ? JSON.parse(self.ModelPrivileges).findObject('model', model.Uri) : null;
                 if (modelPrivilege) {
                     var inputValue = Math.min(modelPrivilege.Privileges.max_export_rows || Number.MAX_VALUE, value);
                     integerInput.value(inputValue);
@@ -889,9 +914,9 @@
         self.SetEmailNotification = function (notification) {
             if (notification) {
                 $('#email_enable').prop('checked', true);
-                $('#email_attach_result').prop('checked', !!notification.attach_result);
+                $('#email_attach_result').prop('checked', notification.attach_result);
+                self.SetEmailSubject(notification.subject);
                 self.SetRecipientsData(notification.recipients);
-                $('#email_subject').val(notification.subject);
 
                 var editor = $('#email_body').data('kendoEditor');
                 if (editor)
@@ -900,10 +925,14 @@
                 self.SetEnableEmailNotification(true);
             }
             else {
-                self.SetRecipientsData([]);
                 $('#email_enable').prop('checked', false);
+                $('#email_attach_result').prop('checked', false);
+                self.SetEmailSubject();
+                self.SetRecipientsData([]);
                 self.SetEnableEmailNotification(false);
             }
+            
+            self.SetEmailRecipientsColumns();
         };
         self.SetEnableEmailNotification = function (isChecked) {
             var emailUI = $('#CheckRecipients, #email_subject, #email_body, .contentSectionInfoEmail .k-editor').removeClass('error');
@@ -918,9 +947,6 @@
                 emailUI.addClass('required').prop('disabled', false);
                 $('#email_attach_result').prop('disabled', false);
                 emailUI2.prop('disabled', false);
-
-                if (!$('#email_subject').val())
-                    $('#email_subject').val("{rowstotal} items in Angle '{anglename}' on {modeltimestamp}");
             }
             else {
                 $('.emailSettingSection').hide();
@@ -961,6 +987,9 @@
                     MC.form.validator.hideErrorMessage();
                 },
                 change: function (e) {
+                    if (!e.sender.dataItem())
+                        return;
+
                     var currentAngleParameters = [];
                     var angleQueryStepBlock = self.CurrentAngle.query_definition.findObject('queryblock_type', 'query_steps');
                     if (angleQueryStepBlock) {
@@ -985,6 +1014,16 @@
         };
         self.InitialManageActionEmailSection = function () {
             self.InitialRecipientsGrid();
+
+            var defaultSubjects = {};
+            $.each(self.DEFAULT_EMAIL_SUBJECT, function (key, subject) {
+                defaultSubjects[key] = subject;
+            });
+            $('#email_subject')
+                .data(defaultSubjects)
+                .on('change', function () {
+                    self.SetEmailSubject(this.value);
+                });
 
             $('#email_body').kendoEditor({
                 execute: function (e) {
@@ -1087,7 +1126,6 @@
             if (grid) {
                 // generate grid data source
                 var data = [];
-                var sortIndex = 0;
                 recipients.sort(function (a, b) {
                     a.order = a.order || 0;
                     b.order = b.order || 0;
@@ -1104,13 +1142,29 @@
                         success: recipient.success,
                         failed: recipient.failed
                     };
-                    sortIndex++;
 
                     data.push(model);
                 });
 
                 grid.dataSource.data(data);
             }
+        };
+        self.SetEmailRecipientsColumns = function () {
+            var grid = $('#RecipientsGrid').data('kendoGrid');
+            if (self.IsDatastoreAction()) {
+                grid.wrapper.addClass('showResult');
+                grid.showColumn('result');
+            }
+            else {
+                grid.wrapper.addClass('hideResult');
+                grid.hideColumn('result');
+            }
+        };
+        self.SetEmailSubject = function (subject) {
+            var actionType = $('#action_type').data('kendoDropDownList').value();
+            var defaultSubject = $('#email_subject').data(actionType);
+            var emailSubject = typeof subject === 'undefined' ? defaultSubject : subject;
+            $('#email_subject').data(actionType, emailSubject).val(emailSubject);
         };
         self.InitialManageActionPopup = function (title) {
             MC.ui.popup('setScrollable', {
@@ -1144,55 +1198,12 @@
             $('#AddActionPopup .popupContent').html(template);
             MC.form.template.autoTemplate();
 
-            jQuery('#datastore').kendoDropDownList({
-                dataTextField: "name",
-                dataValueField: "id",
-                dataSource: self.DataStoreValues,
-                open: function () {
-                    MC.form.validator.hideErrorMessage();
-                },
-                change: function (e) {
-                    self.SetDatastoreSettings(e.sender.dataItem(), null);
-                    self.HideOrShowFormat();
-                    self.HideOrShowAttachResult(e.sender.dataItem());
-                },
-                cascade: function (e) {
-                    self.SetDatastoreFieldsValidation(e.sender.dataItem());
-                }
-            });
-
+            self.CreateActionTypeDropdown();
+            self.CreateScriptDropdown();
+            self.CreateDatastoreDropdown();
             self.InitialManageActionAngleDisplaySection();
-
-            var approvalDatasources = [];
-            jQuery.each(self.APPROVAL_STATE, function (key, value) {
-                approvalDatasources.push({ id: value });
-            });
-            $('#approvalddl').kendoDropDownList({
-                dataTextField: "id",
-                dataValueField: "id",
-                dataSource: approvalDatasources
-            });
-
-            var conditionDatasources = [];
-            jQuery.each(self.ACTION_CONDITION_OPERATOR, function (key, value) {
-                conditionDatasources.push({ id: value });
-            });
-            $('#condition_operator').kendoDropDownList({
-                dataTextField: "id",
-                dataValueField: "id",
-                dataSource: conditionDatasources,
-                change: function () {
-                    if (this.value() === 'Always') {
-                        $('#condition_value').removeClass('error required').attr('disabled', 'disabled');
-                        $('#condition_value').val('');
-                    }
-                    else {
-                        $('#condition_value').removeClass('error').removeAttr('disabled');
-                        $('#condition_value').addClass('required');
-                    }
-                }
-            });
-
+            self.CreateApprovalStateDropdown();
+            self.CreateConditionDropdown();
             self.InitialAngleParametersGrid();
             self.InitialManageActionEmailSection();
 
@@ -1204,15 +1215,13 @@
             _self.modelId = null;
 
             setTimeout(function () {
-                self.InitialManageActionPopup('Add Action');
-                $('#AngleParametersGrid').hide();
-                jQuery('#datastore').data('kendoDropDownList').trigger('change');
+                self.InitialManageActionPopup(Localization.MC_TaskAction_TitleAddAction);
+
+                $('#action_type').data('kendoDropDownList').trigger('change');
+                $('#datastore').data('kendoDropDownList').trigger('change');
 
                 self.CurrentAngle = {};
-
-                $('#email_enable').prop('checked', false);
-                self.SetEnableEmailNotification(false);
-
+                self.SetEmailNotification(null);
                 self.SetActionButtons(_self.uid);
 
                 if (self.AngleUri) {
@@ -1220,6 +1229,7 @@
                     $('.btn.btnFindAngle').trigger('click');
                     self.AngleUri = null;
                 }
+                $('#AddActionPopup .popupContent').scrollTop(0);
             }, 1);
         };
         self.ShowEditActionPopup = function (uid, canEdit) {
@@ -1231,110 +1241,257 @@
                 // hide action button in the action grid
                 $(document).trigger('click');
 
-                self.InitialManageActionPopup('Edit Action');
+                self.InitialManageActionPopup(Localization.MC_TaskAction_TitleEditAction);
                 var grid = $('#TaskActionsGrid').data('kendoGrid');
                 var dataItem = grid.dataSource.getByUid(_self.uid);
 
-                try {
-                    self.CurrentAngle = JSON.parse(dataItem.Angle);
-                }
-                catch (ex) {
-                    self.CurrentAngle = null;
-                }
-
-                // model_id
-                _self.modelId = dataItem.model;
-                jQuery('#model_id').val(dataItem.model);
-                jQuery('#model_name').text(dataItem.model_name);
-
-                // angle_id + display_id
-                var getAccessDeniedText = function (name) {
-                    return kendo.format('{0} ({1})', name, Localization.MC_AccessDenied.toLowerCase());
-                };
-                var setDisplayInfo = function (dataSource, display, displayId, angleUri) {
-                    var ddlDisplays = $('#display_id').data('kendoDropDownList');
-                    if (display && dataSource.length) {
-                        jQuery('#angle_id').val(display.uri);
-
-                        ddlDisplays.setDataSource(dataSource);
-                        ddlDisplays.enable(true);
-
-                        // set link
-                        self.SetLinkToDisplay(display.uri, _self.modelId);
-                    }
-                    else {
-                        jQuery('#angle_id').val(angleUri);
-
-                        dataSource.push({ id: displayId, name: getAccessDeniedText(displayId), display_type: 'no' });
-                        ddlDisplays.setDataSource(dataSource);
-                        ddlDisplays.enable(false);
-
-                        // set link
-                        self.SetLinkToDisplay(null, null);
-                    }
-                    ddlDisplays.value(displayId);
-                };
-                var angleName = dataItem.angle_name || dataItem.angle_id;
-                if (self.CurrentAngle) {
-                    // set angle name
-                    jQuery('#angle_name').text(angleName);
-
-                    var display = self.CurrentAngle.display_definitions.findObject('id', dataItem.display_id);
-                    self.CurrentAngle.display_definitions.sortObject('name', -1, false);
-
-                    // set info + link
-                    setDisplayInfo(self.CurrentAngle.display_definitions, display, dataItem.display_id, self.CurrentAngle.uri);
-
-                    // parameterized
-                    self.SetAngleParametersData(self.CurrentAngle, JSON.parse(JSON.stringify(dataItem.arguments)));
-                }
-                else {
-                    // set angle name
-                    jQuery('#angle_name').text(getAccessDeniedText(angleName));
-
-                    // set info + link
-                    setDisplayInfo([], null, dataItem.display_id, null);
-                }
+                // action_type
+                var actionTypeDroppdown = $('#action_type').data('kendoDropDownList');
+                actionTypeDroppdown.value(dataItem.action_type);
+                actionTypeDroppdown.trigger('change');
 
                 // approval
                 jQuery('#approvalddl').data('kendoDropDownList').value(dataItem.approval_state);
 
-                // condition
-                var conditionOperatorSection = $('#condition_operator').data('kendoDropDownList');
-                conditionOperatorSection.value(dataItem.condition.operator);
-                conditionOperatorSection.trigger('change');
-                if (dataItem.condition.operator !== 'Always') {
-                    $('#condition_value').val(dataItem.condition.value);
-                    $('#condition_value').removeAttr('disabled');
+                if (dataItem.action_type === self.ACTION_TYPE_ID.DATASTORE) {
+                    self.SetEditDatastoreActionType(dataItem);
                 }
-                else {
-                    $('#condition_value').attr('disabled', 'disabled');
+                else if (dataItem.action_type === self.ACTION_TYPE_ID.SCRIPT) {
+                    self.SetEditScriptActionType(dataItem);
                 }
-
-                // datastore
-                var ddlDatastore = jQuery('#datastore').data('kendoDropDownList');
-                ddlDatastore.value(dataItem.datastore);
-
-                self.SetDatastoreSettings(ddlDatastore.dataItem(), dataItem.arguments);
 
                 // notification
                 self.SetEmailNotification(dataItem.notification);
 
                 // set buttons
                 self.SetActionButtons(_self.uid);
-
-                self.HideOrShowFormat();
-                self.HideOrShowAttachResult(ddlDatastore.dataItem());
+                $('#AddActionPopup .popupContent').scrollTop(0);
             }, 1);
+        };
+        self.CreateActionTypeDropdown = function () {
+            var template = '<span class="actionTypeIcon icon-#= id #"></span>#: text #';
+            var actionTypeDatasources = [];
+            jQuery.each(self.ACTION_TYPE, function (key, value) {
+                actionTypeDatasources.push({ id: key, text: value });
+            });
+            $('#action_type').kendoDropDownList({
+                dataTextField: "text",
+                dataValueField: "id",
+                valueTemplate: template,
+                template: template,
+                dataSource: actionTypeDatasources,
+                change: self.ActionTypeDropdownChanged
+            });
+        };
+        self.ActionTypeDropdownChanged = function (e) {
+            var container = $('#FormEditAction');
+            var actionType = e.sender.value();
+            if (actionType === self.ACTION_TYPE_ID.DATASTORE) {
+                container.find('.scriptActionType').hide();
+                container.find('.datastoreActionType').show();
+
+                // attach result depends on some of datastores
+                var ddlDatastore = jQuery('#datastore').data('kendoDropDownList');
+                self.HideOrShowAttachResult(ddlDatastore.dataItem());
+            }
+            else if (actionType === self.ACTION_TYPE_ID.SCRIPT) {
+                container.find('.datastoreActionType').hide();
+                container.find('.scriptActionType').show();
+                self.HideOrShowAttachResult();
+            }
+            self.SetEmailSubject();
+            self.SetEmailRecipientsColumns();
+
+            // set buttons
+            self.SetActionButtons(_self.uid);
+        };
+        self.CreateScriptDropdown = function () {
+            var template = '#: name + (id ? " (." + filetype + ")" : "") #';
+            $('#script').kendoDropDownList({
+                dataTextField: "name",
+                dataValueField: "id",
+                valueTemplate: template,
+                template: template,
+                dataSource: self.Scripts,
+                open: self.ScriptDropdownOpen,
+            });
+        };
+        self.ScriptDropdownOpen = function () {
+            MC.form.validator.hideErrorMessage();
+        };
+        self.CreateDatastoreDropdown = function () {
+            $('#datastore').kendoDropDownList({
+                dataTextField: "name",
+                dataValueField: "id",
+                dataSource: self.DataStoreValues,
+                open: self.DatastoreDropdownOpen,
+                change: self.DatastoreDropdownChanged,
+                cascade: self.DatastoreDropdownCascade
+            });
+        };
+        self.DatastoreDropdownOpen = function () {
+            MC.form.validator.hideErrorMessage();
+        };
+        self.DatastoreDropdownChanged = function (e) {
+            self.SetDatastoreSettings(e.sender.dataItem(), null);
+            self.HideOrShowAttachResult(e.sender.dataItem());
+            self.HideOrShowFormat();
+        };
+        self.DatastoreDropdownCascade = function (e) {
+            self.SetDatastoreFieldsValidation(e.sender.dataItem());
+        };
+        self.CreateApprovalStateDropdown = function () {
+            var approvalDatasources = [];
+            jQuery.each(self.APPROVAL_STATE, function (key, value) {
+                approvalDatasources.push({ id: key, text: value });
+            });
+            $('#approvalddl').kendoDropDownList({
+                dataTextField: "text",
+                dataValueField: "id",
+                dataSource: approvalDatasources
+            });
+        };
+        self.CreateConditionDropdown = function () {
+            var conditionDatasources = [];
+            jQuery.each(self.ACTION_CONDITION_OPERATOR, function (key, value) {
+                conditionDatasources.push({ id: value });
+            });
+            $('#condition_operator').kendoDropDownList({
+                dataTextField: "id",
+                dataValueField: "id",
+                dataSource: conditionDatasources,
+                change: self.ConditionDropdownChanged
+            });
+        };
+        self.ConditionDropdownChanged = function (e) {
+            if (e.sender.value() === self.ACTION_CONDITION_OPERATOR.ALWAYS) {
+                $('#condition_value').removeClass('error required').prop('disabled', true);
+                $('#condition_value').val('');
+            }
+            else {
+                $('#condition_value').removeClass('error').prop('disabled', false);
+                $('#condition_value').addClass('required');
+            }
+        };
+        self.SetEditDatastoreActionType = function (dataItem) {
+            // parse angle data
+            try {
+                self.CurrentAngle = JSON.parse(dataItem.Angle);
+            }
+            catch (ex) {
+                self.CurrentAngle = null;
+            }
+
+            // model_id
+            var modelId = self.GetArgumentValueByName(dataItem.arguments, 'model');
+            _self.modelId = modelId;
+            jQuery('#model_id').val(_self.modelId);
+            jQuery('#model_name').text(self.GetModelNameFromActionData(dataItem));
+
+            // angle_id + display_id
+            var getAccessDeniedText = function (name) {
+                return kendo.format('{0} ({1})', name, Localization.MC_AccessDenied.toLowerCase());
+            };
+            var setDisplayInfo = function (dataSource, display, displayId, angleUri) {
+                var ddlDisplays = $('#display_id').data('kendoDropDownList');
+                if (display && dataSource.length) {
+                    jQuery('#angle_id').val(display.uri);
+
+                    ddlDisplays.setDataSource(dataSource);
+                    ddlDisplays.enable(true);
+
+                    // set link
+                    self.SetLinkToDisplay(display.uri, _self.modelId);
+                }
+                else {
+                    jQuery('#angle_id').val(angleUri);
+
+                    dataSource.push({ id: displayId, name: getAccessDeniedText(displayId), display_type: 'no', uri: '' });
+                    ddlDisplays.setDataSource(dataSource);
+                    ddlDisplays.enable(false);
+
+                    // set link
+                    self.SetLinkToDisplay(null, null);
+                }
+                ddlDisplays.value(displayId);
+            };
+            var angleId = self.GetArgumentValueByName(dataItem.arguments, 'angle_id');
+            var displayId = self.GetArgumentValueByName(dataItem.arguments, 'display_id');
+            var angleName = dataItem.angle_name || angleId;
+            if (self.CurrentAngle) {
+                // set angle name
+                jQuery('#angle_name').text(angleName);
+
+                var display = self.CurrentAngle.display_definitions.findObject('id', displayId);
+                self.CurrentAngle.display_definitions.sortObject('name', -1, false);
+
+                // set info + link
+                setDisplayInfo(self.CurrentAngle.display_definitions, display, displayId, self.CurrentAngle.uri);
+
+                // parameterized
+                self.SetAngleParametersData(self.CurrentAngle, JSON.parse(JSON.stringify(dataItem.arguments)));
+            }
+            else {
+                // set angle name
+                jQuery('#angle_name').text(getAccessDeniedText(angleName));
+
+                // set info + link
+                setDisplayInfo([], null, displayId, null);
+            }
+
+            // condition operator
+            var conditionOperator = self.GetArgumentConditionOperator(dataItem.arguments);
+            var conditionOperatorSection = $('#condition_operator').data('kendoDropDownList');
+            conditionOperatorSection.value(conditionOperator);
+            conditionOperatorSection.trigger('change');
+
+            // condition value
+            var conditionValue = self.GetArgumentConditionValue(dataItem.arguments, conditionOperator);
+            $('#condition_value').val(conditionValue);
+
+            // datastore
+            var datastoreId = self.GetArgumentValueByName(dataItem.arguments, 'datastore');
+            var ddlDatastore = jQuery('#datastore').data('kendoDropDownList');
+            ddlDatastore.value(datastoreId);
+            self.SetDatastoreSettings(ddlDatastore.dataItem(), dataItem.arguments);
+            self.HideOrShowAttachResult(ddlDatastore.dataItem());
+            self.HideOrShowFormat();
+        };
+        self.SetEditScriptActionType = function (dataItem) {
+            // script
+            var scriptId = self.GetArgumentValueByName(dataItem.arguments, 'script');
+            jQuery('#script').data('kendoDropDownList').value(scriptId);
+
+            // parameters
+            var parameters = self.GetArgumentValueByName(dataItem.arguments, 'parameters');
+            jQuery('#parameters').val(parameters);
+
+            // run_as_user
+            var runAsUser = self.GetArgumentValueByName(dataItem.arguments, 'run_as_user');
+            jQuery('#run_as_user').val(runAsUser);
+
+            // password
+            // password always leave as empty
+
+            // abort_task_when_error
+            var abortTaskWhenError = self.GetArgumentValueByName(dataItem.arguments, 'abort_task_when_error');
+            jQuery('#abort_task_when_error').prop('checked', abortTaskWhenError);
+        };
+        self.IsDatastoreAction = function () {
+            var actionType = $('#action_type').data('kendoDropDownList').value();
+            return actionType === self.ACTION_TYPE_ID.DATASTORE;
         };
         self.CanCheckAction = function () {
             return self.TaskUri && self.CanSetAction();
         };
+        self.VisibleCheckAction = function () {
+            return self.IsDatastoreAction();
+        };
         self.CanSetAction = function () {
-            var dllDisplay = $('#display_id').data('kendoDropDownList');
+            var ddlDisplay = $('#display_id').data('kendoDropDownList');
             var canSelectDisplay = false;
-            if (dllDisplay) {
-                canSelectDisplay = !dllDisplay.wrapper.find('.k-state-disabled').length && dllDisplay.dataSource.data().length;
+            if (ddlDisplay) {
+                canSelectDisplay = !ddlDisplay.wrapper.find('.k-state-disabled').length && ddlDisplay.dataSource.data().length;
             }
             return _self.canSetAction && canSelectDisplay;
         };
@@ -1346,7 +1503,14 @@
                 $('#AddActionPopup .popupToolbar a.btnCheckAction').addClass('no disabled').removeAttr("onclick");
             }
 
-            if (self.CanSetAction()) {
+            if (self.VisibleCheckAction()) {
+                $('#AddActionPopup .popupToolbar a.btnCheckAction').removeClass('alwaysHidden');
+            }
+            else {
+                $('#AddActionPopup .popupToolbar a.btnCheckAction').addClass('alwaysHidden');
+            }
+
+            if (self.CanSetAction() || !self.IsDatastoreAction()) {
                 if (!uid)
                     $('#AddActionPopup .popupToolbar a.btnAddAction').removeClass('disabled').attr("onclick", 'MC.AutomationTasks.Tasks.AddAction()');
                 else
@@ -1724,6 +1888,7 @@
             executionFields = executionFields.distinct();
 
             if (executionParameterList.length) {
+                $('#AngleParametersGrid').show();
                 if (!$('#AddActionPopup > .k-loading-mask').length) {
                     $('#AngleParametersGrid').busyIndicator(true);
                 }
@@ -1800,7 +1965,7 @@
                         var allowedFieldTypes = ['enumerated', 'text', 'number', 'int', 'double', 'percentage', 'period'];
                         $.each(executionParameterList, function (index, executionParameter) {
                             var field = fieldsData[angle.model][executionParameter.field.toLowerCase()];
-                            if (field && $.inArray(field.fieldtype, allowedFieldTypes) != -1) {
+                            if (field && $.inArray(field.fieldtype, allowedFieldTypes) !== -1) {
 
                                 // name
                                 var sourceData = field.source ? fieldSourcesData[field.source] || null : null;
@@ -1832,7 +1997,6 @@
                         // set buttons
                         self.SetActionButtons(_self.uid);
                     });
-                $('#AngleParametersGrid').show();
             }
             else {
                 $('#AngleParametersGrid').hide();
@@ -1857,7 +2021,9 @@
                             return false;
                         }
                     }
-                    catch (ex) { }
+                    catch (ex) {
+                        // do nothing
+                    }
                 });
             }
             return !isContainColumn;
@@ -1951,10 +2117,12 @@
         };
         self.FindAngle = function () {
             var btnFindAngle = $('#AddActionPopup .btnFindAngle');
-            if (!jQuery('#angle_id').valid() || btnFindAngle.hasClass('disabled')) return;
+            if (!jQuery('#angle_id').valid() || btnFindAngle.hasClass('disabled'))
+                return;
 
             var matchesAngleDisplay = jQuery('#angle_id').val().match(/(\/?models\/\d+\/angles\/\d+)(\/displays\/\d+)?/ig);
-            if (!matchesAngleDisplay || !matchesAngleDisplay.length) return;
+            if (!matchesAngleDisplay || !matchesAngleDisplay.length)
+                return;
 
             var angleDisplayUrl = '';
             $.each(matchesAngleDisplay, function (index, matchAngleDisplay) {
@@ -1990,14 +2158,14 @@
                 type: 'GET'
             })
                 .done(function (data) {
+                    self.CurrentAngle = data;
+                    _self.modelId = data.modelId;
 
-                    var modelName = (self.AllModels.findObject('id', data.modelId) || { short_name: data.modelId }).short_name;
-                    jQuery('#model_id').val(data.modelId);
+                    var modelName = self.GetModelName(_self.modelId);
+                    jQuery('#model_id').val(_self.modelId);
                     jQuery('#model_name').text(modelName);
                     jQuery('#hdnAngleId').val(data.id);
                     jQuery('#angle_name').removeClass('textInfo').attr('title', data.name).text(data.name);
-                    self.CurrentAngle = data;
-                    _self.modelId = data.modelId;
 
                     var ddlDisplays = $('#display_id').data('kendoDropDownList');
 
@@ -2058,55 +2226,121 @@
             return recipients;
         };
         self.GetActionData = function () {
-            var ddlDatastore = $('#datastore').data('kendoDropDownList');
-            var datastore = ddlDatastore.value();
-            var datastoreName = (self.DataStoreValues.findObject('id', datastore) || { name: datastore }).name;
+            var actionData = {};
+            actionData.action_type = $('#action_type').data('kendoDropDownList').value();
+            actionData.approval_state = jQuery('#approvalddl').data('kendoDropDownList').value();
+
+            // general
+            if (actionData.action_type === self.ACTION_TYPE_ID.DATASTORE) {
+                var displayData = $('#display_id').data('kendoDropDownList').dataItem() || { name: '', uri: '' };
+
+                actionData.Angle = JSON.stringify(self.CurrentAngle);
+                actionData.angle_name = $('#angle_name').text();
+                actionData.display_name = displayData.name;
+                actionData.display_uri = displayData.uri;
+                actionData.arguments = self.GetDatastoreActionArgumentsFromUI();
+            }
+            else {
+                actionData.Angle = null;
+                actionData.angle_name = '';
+                actionData.display_name = '';
+                actionData.display_uri = '';
+                actionData.arguments = self.GetScriptActionArgumentsFromUI();
+            }
+
+            // notification
+            actionData.notification = self.GetEmailNotificationDataFromUI();
+
+            return actionData;
+        };
+        self.GetDatastoreActionArgumentsFromUI = function () {
+            var datastoreId = $('#datastore').data('kendoDropDownList').value();
             var modelId = $('#model_id').val();
-            var modelName = (self.AllModels.findObject('id', modelId) || { short_name: modelId }).short_name;
             var angleId = self.CurrentAngle.id;
             var displayId = $('#display_id').data('kendoDropDownList').value();
-            var display_uri = self.CurrentAngle.display_definitions.findObject('id', displayId);
             var conditionOperator = $('#condition_operator').data('kendoDropDownList').value();
             var conditionValue = $('#condition_value').val();
-            var angleName = $('#angle_name').text();
-            var displayName = $('#display_id').data('kendoDropDownList').text();
-            var state = jQuery('#approvalddl').data('kendoDropDownList').value();
 
+            var actionArguments = [
+                {
+                    "name": "datastore",
+                    "value": datastoreId
+                },
+                {
+                    "name": "model",
+                    "value": modelId
+                },
+                {
+                    "name": "angle_id",
+                    "value": angleId
+                },
+                {
+                    "name": "display_id",
+                    "value": displayId
+                }
+            ];
+            switch (conditionOperator) {
+                case Localization.MC_Exactly:
+                    actionArguments.push({ 'name': 'condition_minimum_rows', 'value': parseInt(conditionValue, 10) });
+                    actionArguments.push({ 'name': 'condition_maximum_rows', 'value': parseInt(conditionValue, 10) });
+                    break;
+                case Localization.MC_LessThan:
+                    actionArguments.push({ 'name': 'condition_maximum_rows', 'value': parseInt(conditionValue, 10) });
+                    break;
+                case Localization.MC_MoreThan:
+                    actionArguments.push({ 'name': 'condition_minimum_rows', 'value': parseInt(conditionValue, 10) });
+                    break;
+                default:
+                    break;
+            }
 
+            var datastoreSettings = self.GetDataStoreSettings();
+            return actionArguments.concat(datastoreSettings);
+        };
+        self.GetScriptActionArgumentsFromUI = function () {
+            var scriptId = $('#script').data('kendoDropDownList').value();
+            var parameters = $('#parameters').val();
+            var runAsUser = $('#run_as_user').val();
+            var password = $('#password').val();
+            var abortTaskWhenError = $('#abort_task_when_error').prop('checked');
+            return [
+                {
+                    "name": "script",
+                    "value": scriptId
+                },
+                {
+                    "name": "parameters",
+                    "value": parameters
+                },
+                {
+                    "name": "run_as_user",
+                    "value": runAsUser
+                },
+                {
+                    "name": "password",
+                    "value": password
+                },
+                {
+                    "name": "abort_task_when_error",
+                    "value": abortTaskWhenError
+                }
+            ];
+        };
+        self.GetEmailNotificationDataFromUI = function () {
             var notification = null;
-
             if ($('#email_enable').is(':checked')) {
                 var recipients = self.GetActionRecipientsData();
-
                 var editor = $('#email_body').data('kendoEditor');
 
                 notification = {
                     'notification_type': 'email',
-                    'attach_result': $('#email_attach_result').prop('checked'),
+                    'attach_result': $('#email_attach_result').is(':visible') && $('#email_attach_result').prop('checked'),
                     'subject': $('#email_subject').val(),
                     'body': editor ? editor.value() : '',
                     'recipients': recipients
                 };
             }
-
-            return {
-                'datastore': datastore,
-                'datastore_name': datastoreName,
-                'model': modelId,
-                'model_name': modelName,
-                'angle_id': angleId,
-                'angle_name': angleName,
-                'display_id': displayId,
-                'display_name': displayName,
-                'display_uri': display_uri,
-                'condition': { 'operator': conditionOperator, 'value': conditionValue },
-                'condition_name': conditionOperator,
-                'condition_value': conditionValue,
-                'Angle': JSON.stringify(self.CurrentAngle),
-                'approval_state': state,
-                'notification': notification,
-                'arguments': self.GetDataStoreSettings()
-            };
+            return notification;
         };
         self.AddAction = function () {
             if (!self.IsActionValidated()) {
@@ -2130,18 +2364,11 @@
             var data = self.GetActionData();
             var grid = $('#TaskActionsGrid').data('kendoGrid');
             var dataItem = grid.dataSource.getByUid(uid);
-            dataItem.set("datastore", data.datastore);
-            dataItem.set("datastore_name", data.datastore_name);
-            dataItem.set("model", data.model);
-            dataItem.set("model_name", data.model_name),
-                dataItem.set("angle_id", data.angle_id);
+            dataItem.set("action_type", data.action_type);
             dataItem.set("angle_name", data.angle_name);
-            dataItem.set("display_id", data.display_id);
             dataItem.set("display_name", data.display_name);
-            dataItem.set('condition', data.condition);
-            dataItem.set("condition_name", data.condition_name);
-            dataItem.set("condition_value", data.condition_value);
-            dataItem.set("Angle", JSON.stringify(self.CurrentAngle));
+            dataItem.set("display_uri", data.display_uri);
+            dataItem.set("Angle", data.Angle);
             dataItem.set("approval_state", data.approval_state);
             dataItem.set('notification', data.notification);
             dataItem.set('arguments', data.arguments);
@@ -2155,39 +2382,9 @@
             }
 
             var data = self.GetActionData();
-            var argumentData = self.GetDataStoreSettings();
-            var more = [{
-                "name": "datastore",
-                "value": data.datastore
-            }, {
-                "name": "model",
-                "value": data.model
-            }, {
-                "name": "angle_id",
-                "value": data.angle_id
-            }, {
-                "name": "display_id",
-                "value": data.display_id
-            }
-            ];
-
-            switch (data.condition_name) {
-                case Localization.MC_Exactly:
-                    more.push({ 'name': 'condition_minimum_rows', 'value': parseInt(data.condition_value, 10) });
-                    more.push({ 'name': 'condition_maximum_rows', 'value': parseInt(data.condition_value, 10) });
-                    break;
-                case Localization.MC_LessThan:
-                    more.push({ 'name': 'condition_maximum_rows', 'value': parseInt(data.condition_value, 10) });
-                    break;
-                case Localization.MC_MoreThan:
-                    more.push({ 'name': 'condition_minimum_rows', 'value': parseInt(data.condition_value, 10) });
-                    break;
-                default:
-                    break;
-            }
             var action = {
-                "action_type": "export_angle_to_datastore",
-                "arguments": argumentData.concat(more)
+                "action_type": data.action_type,
+                "arguments": data.arguments
             };
 
             var win = MC.util.showPopupOK(Localization.MC_CheckAction, '', '', 450, 180);
@@ -2200,12 +2397,12 @@
             })
                 .done(function (e) {
                     var result = JSON.parse(e);
-                    var popupMessage = "";
+                    var popupMessage;
                     if (result.IsSuccessful) {
-                        popupMessage = 'Action was validated, result OK.';
+                        popupMessage = Localization.MC_TaskCheckAction_Success;
                     }
                     else {
-                        popupMessage += "Action was validated, result Failure.";
+                        popupMessage = MC_TaskCheckAction_Failure;
                         popupMessage += "<ul>";
                         $.each(result.ErrorMessages, function (key, value) {
                             popupMessage += "<li>" + value + "</li>";
@@ -2288,26 +2485,26 @@
             };
 
             //send data type event
-            if (jQuery('#action_type').val() === Localization.MC_Event) {
+            var triggerType = jQuery('#trigger_type').val();
+            if (triggerType === self.TRIGGER_TYPE_ID.EVENT) {
                 data.triggers = [{
                     "arguments": [{
                         "name": "model",
                         "value": jQuery('[name^="model"]').val()
                     }],
                     "event": jQuery('#event_type').val(),
-                    "trigger_type": "event"
+                    "trigger_type": triggerType
                 }];
             }
-            else if (jQuery('#action_type').val() === Localization.MC_Schedule) {
+            else if (triggerType === self.TRIGGER_TYPE_ID.SCHEDULE) {
                 var days = [];
                 jQuery('[data-role="customcheckbox"] :checkbox').each(function (index, chk) {
                     days.push({ day: index, active: chk.checked });
                 });
 
-
                 data.triggers = [{
                     "days": days,
-                    "trigger_type": "schedule",
+                    "trigger_type": triggerType,
                     "continuous": false,
                     "frequency": "Weekly",
                     "start_time": MC.util.timePickerToUnixTime(jQuery('[name="StartTime"]').data('kendoTimePicker').value(), false)
@@ -2315,99 +2512,56 @@
 
                 data.uri = jQuery('[name^="uri"]').val();
             }
-            else if (jQuery('#action_type').val() === Localization.MC_External) {
+            else if (triggerType === self.TRIGGER_TYPE_ID.EXTERNAL) {
                 data.triggers = [{
-                    "trigger_type": "external"
+                    "trigger_type": triggerType
                 }];
             }
             return data;
         };
         self.GetData = function () {
             var data = self.GetTaskData();
-            var actions = [];
-            var actionsDelete = [];
+            data.actions = [];
+            data.actionsDelete = [];
+
             var taskActionsGrid = $('#TaskActionsGrid').data('kendoGrid');
-            if (taskActionsGrid) {
-                var sortIndex = 0;
-                taskActionsGrid.items().each(function (index, task) {
-                    task = $(task);
-                    var dataItem = taskActionsGrid.dataSource.getByUid(task.data('uid'));
-                    if (dataItem) {
-                        if (task.hasClass('rowMaskAsRemove')) {
-                            actionsDelete.push(dataItem.uri);
-                        }
-                        else {
-                            var notification = dataItem.notification;
-                            if (notification) {
-                                if (!notification.subject || !notification.recipients.length || !notification.body) {
-                                    notification = null;
-                                }
-                                else if (notification.toJSON) {
-                                    notification = notification.toJSON();
-                                }
-                            }
+            if (!taskActionsGrid)
+                return data;
 
-                            var action = {
-                                "action_type": "export_angle_to_datastore",
-                                "arguments": [
-                                    {
-                                        "name": "datastore",
-                                        "value": dataItem.datastore
-                                    },
-                                    {
-                                        "name": "model",
-                                        "value": dataItem.model
-                                    },
-                                    {
-                                        "name": "angle_id",
-                                        "value": dataItem.angle_id
-                                    },
-                                    {
-                                        "name": "display_id",
-                                        "value": dataItem.display_id
-                                    }
-                                ],
-                                'approval_state': dataItem.approval_state,
-                                "notification": notification,
-                                "Uri": dataItem.uri,
-                                "order": sortIndex
-                            };
-                            sortIndex++;
-
-                            switch (dataItem.condition_name) {
-                                case Localization.MC_Exactly:
-                                    action.arguments.push({ 'name': 'condition_minimum_rows', 'value': parseInt(dataItem.condition_value, 10) });
-                                    action.arguments.push({ 'name': 'condition_maximum_rows', 'value': parseInt(dataItem.condition_value, 10) });
-                                    break;
-                                case Localization.MC_LessThan:
-                                    action.arguments.push({ 'name': 'condition_maximum_rows', 'value': parseInt(dataItem.condition_value, 10) });
-                                    break;
-                                case Localization.MC_MoreThan:
-                                    action.arguments.push({ 'name': 'condition_minimum_rows', 'value': parseInt(dataItem.condition_value, 10) });
-                                    break;
-                                default:
-                                    break;
-                            }
-
-                            $.each(dataItem.arguments, function (index, arg) {
-                                if (!action.arguments.hasObject('name', arg.name)) {
-                                    action.arguments.push({
-                                        name: arg.name,
-                                        value: arg.value
-                                    });
-                                }
-                            });
-
-                            actions.push(action);
-                        }
+            var sortIndex = 0;
+            $.each(taskActionsGrid.items(), function (index, task) {
+                task = $(task);
+                var dataItem = taskActionsGrid.dataSource.getByUid(task.data('uid'));
+                if (dataItem) {
+                    if (task.hasClass('rowMaskAsRemove')) {
+                        data.actionsDelete.push(dataItem.uri);
                     }
+                    else {
+                        var notification = dataItem.notification;
+                        if (notification) {
+                            if (!notification.subject || !notification.recipients.length || !notification.body) {
+                                notification = null;
+                            }
+                            else if (notification.toJSON) {
+                                notification = notification.toJSON();
+                            }
+                        }
 
-                });
-            }
-            data.actions = actions;
-            data.actionsDelete = actionsDelete;
+                        var action = {
+                            "action_type": dataItem.action_type,
+                            "arguments": dataItem.arguments,
+                            'approval_state': dataItem.approval_state,
+                            "notification": notification,
+                            "Uri": dataItem.uri,
+                            "order": sortIndex
+                        };
+                        sortIndex++;
+
+                        data.actions.push(action);
+                    }
+                }
+            });
             return data;
-
         };
         self.CreateNewTaskUri = function (e, obj) {
             $(obj).data('parameters', {
@@ -2473,11 +2627,9 @@
 
         self.SetDatastoreFieldsValidation = function (dataItem) {
             setTimeout(function () {
-
                 if (dataItem.datastore_plugin === 'odbc' || dataItem.datastore_plugin === 'mssql') {
                     $('#table_name').addClass('table_name');
                 }
-
             }, 100);
         };
     };

@@ -28,7 +28,7 @@ namespace EveryAngle.ManagementConsole.Test.Controllers
             // session helper
             sessionHelper.SetupGet(x => x.Session).Returns(GetMockViewModel<SessionViewModel>());
 
-            _testingController = new AutomationTasksController(modelService.Object, taskService.Object, automationTaskService.Object, sessionHelper.Object);
+            _testingController = new AutomationTasksController(modelService.Object, taskService.Object, automationTaskService.Object, systemScriptService.Object, sessionHelper.Object);
         }
 
         #endregion

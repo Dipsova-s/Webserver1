@@ -16,7 +16,7 @@ Wait All Tasks Page Ready
 #Create New Task
 Click Button To Add New Task
     Click Element    ${btnAddNewTasks}
-    Wait MC Progress Bar Closed
+    Wait Edit Tasks Page Ready
 
 Create Task By Copy Task
     [Arguments]    ${taskName}    ${newTaskName}

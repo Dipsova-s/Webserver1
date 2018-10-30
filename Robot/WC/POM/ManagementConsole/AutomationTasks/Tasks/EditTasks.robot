@@ -5,36 +5,59 @@ ${btnSaveEditTasks}      css=.btnSave
 ${btnCancelEditTasks}    css=.btnBack
 
 ${txtTaskName}           TaskName
-${ddlActionType}         css=.k-dropdown[aria-owns=action_type_listbox]
-${ddlEventType}          css=.k-dropdown[aria-owns=event_type_listbox]
+${ddlTaskTriggerType}        css=.k-dropdown[aria-owns=trigger_type_listbox]
+${ddlTaskEventType}          css=.k-dropdown[aria-owns=event_type_listbox]
+${txtTaskTimeStop}           css=[name="TimeStop"]
+${txtTaskStartTime}          css=[name="StartTime"]
+${chkTaskIsEnabled}          css=#IsEnabled
+${divScheduleSection}    css=#ScheduleSection
+${divEventSection}       css=#EventSection
 
+${btnTaskAddAction}          css=#AddActionButton
+${btnCloseAddActionPopup}    css=#AddActionPopup .btnClose
+${ddlTaskActionType}         css=.k-dropdown[aria-owns="action_type_listbox"]
+${chkTaskEnableEmail}        css=#email_enable
+${btnTaskAddRecipient}       css=.btnAddRecipient
+${thRecipientsResult}    css=#RecipientsGrid .k-header[data-field="result"]
+${tdRecipientsResult}    css=#RecipientsGrid .columnEmailResult
+${chkTaskActionAttachResult}   css=#email_attach_result
+${lblTaskActionModelName}      css=#model_name
+${txtTaskActionAngleId}        css=#angle_id
+${lblTaskActionAngleName}      css=#angle_name
+${ddlTaskActionDisplayId}      css=#display_id
+${ddlTaskActionApproval}       css=#approvalddl
+${ddlTaskActionConditionOperator}   css=#condition_operator
+${txtTaskActionConditionValue}      css=#condition_value
+${ddlTaskActionDatastore}      css=#datastore
+${ddlTaskActionScript}         css=#script
+${txtTaskActionParameters}     css=#parameters
+${txtTaskActionUsername}       css=#run_as_user
+${txtTaskActionPassword}       css=#password
+${chkTaskActionAbortError}     css=#abort_task_when_error
 
 *** Keywords ***
 Wait Edit Tasks Page Ready
       Wait Until Page Contains    Create task
       Wait Until Page Contains    Maximum run time
-      Wait Until Page Contains Element    ${ddlActionType}
+      Wait Until Page Contains Element    ${ddlTaskTriggerType}
       Wait MC Progress Bar Closed
       Sleep    ${TIMEOUT_GENERAL}
       Wait Until Page Does Not Contain Element    ${pgbEditTaskPage}
 
 Fill in Task Name
     [Arguments]    ${taskName}
-    Wait Until Page Contains Element    ${txtTaskName}
     Input Text    ${txtTaskName}    ${taskName}
 
 Click Save and Edit Tasks
     Click Element    ${btnSaveEditTasks}
 
-Choose Dropdown List Task Action Type
-    [Arguments]    ${taskActionType}
-    Wait Until Page Contains Element    ${ddlActionType}
-    Select Dropdown By InnerText    ${ddlActionType}    ${taskActionType}
+Choose Dropdown List Task Trigger Type
+    [Arguments]    ${taskTriggerType}
+    Select Dropdown By InnerText    ${ddlTaskTriggerType}    ${taskTriggerType}
 
 Choose Dropdown List Task Event Type
     [Arguments]    ${taskEventType}
-    Wait Until Page Contains Element    ${ddlEventType}
-    Select Dropdown By InnerText    ${ddlEventType}    ${taskEventType}
+    Select Dropdown By InnerText    ${ddlTaskEventType}    ${taskEventType}
 
 Click Edit Task Action By Task Name
     [Arguments]    ${taskName}
@@ -50,3 +73,32 @@ Click Copy Task Action By Task Name
 Click Cancel Create Task
     Click Element    ${btnCancelEditTasks}
     Wait Until Ajax Complete
+
+Click Add Action Button
+    Click Element    ${btnTaskAddAction}
+    Wait Add Action Popup Ready
+
+Wait Add Action Popup Ready
+    Sleep    ${TIMEOUT_GENERAL}
+
+Close Add Action Popup
+    Click Element    ${btnCloseAddActionPopup}
+
+Row In Add Action Popup Should Be Visible
+    [Arguments]    ${label}
+    Element Should Be Visible    jquery=#AddActionPopup .contentSectionInfoItem:contains(${label})
+
+Select Action Type Datastore
+    Select Dropdown By InnerText    ${ddlTaskActionType}  Datastore
+
+Select Action Type Program/script
+    Select Dropdown By InnerText    ${ddlTaskActionType}  Program/script
+
+Enable Send Email Notification
+    Select Checkbox      ${chkTaskEnableEmail}
+
+Disable Send Email Notification
+    Unselect Checkbox    ${chkTaskEnableEmail}
+
+Click Add Recipient Button
+    Click Element    ${btnTaskAddRecipient}

@@ -1,7 +1,7 @@
 ﻿/// <reference path="/../SharedDependencies/FieldsChooser.js" />
 /// <reference path="/Dependencies/page/MC.AutomationTasks.Tasks.js" />
 
-describe("MC.AutomationTasks.Tasks => Task get correct argument data for execution parameter.", function () {
+describe("MC.AutomationTasks.Tasks", function () {
 
     var automationTask;
 
@@ -9,9 +9,9 @@ describe("MC.AutomationTasks.Tasks => Task get correct argument data for executi
         automationTask = MC.AutomationTasks.Tasks;
     });
 
-    describe("When argument value are ", function () {
+    describe(".GetArgumentValue", function () {
 
-        it("argument value undefiened get empty string", function () {
+        it("argument value undefined get empty string", function () {
             // prepare
             var expectedValue = '';
             var actualValue = automationTask.GetArgumentValue();
@@ -61,26 +61,20 @@ describe("MC.AutomationTasks.Tasks => Task get correct argument data for executi
         });
     });
 
-    describe("call GetActionType", function () {
+    describe(".TriggerTypeDropdownChanged", function () {
 
-        // tests data
-        var testValues = ['schedule', 'event', 'external'];
-        var expectValues = ['Schedule', 'Event', 'External'];
+        it("should call AdjustLayoutByTriggerType function", function () {
+            // prepare
+            spyOn(automationTask, 'TriggerTypeDropdownChanged').and.callFake($.noop);
+            automationTask.TriggerTypeDropdownChanged({ sender: { value: $.noop } });
 
-        $.each(testValues, function (index, triggerType) {
-            it("should get correct value by " + triggerType, function () {
-
-                // begin test
-                var result = automationTask.GetActionType(triggerType);
-
-                // assert
-                expect(expectValues[index]).toEqual(result);
-            });
+            // assert
+            expect(automationTask.TriggerTypeDropdownChanged).toHaveBeenCalled();
         });
 
     });
 
-    describe("call SetValueToEventTypesDropdown", function () {
+    describe(".SetValueToEventTypesDropdown", function () {
 
         // tests data
         var eventTypes = { event: 'event', external: 'external' };
@@ -121,7 +115,8 @@ describe("MC.AutomationTasks.Tasks => Task get correct argument data for executi
                 // assert
                 if (testValue.expectValueCall) {
                     expect(testValue.eventTypesDropdown.value).toHaveBeenCalled();
-                } else {
+                }
+                else {
                     expect(testValue.eventTypesDropdown.value).not.toHaveBeenCalled();
                 }
 
@@ -130,7 +125,7 @@ describe("MC.AutomationTasks.Tasks => Task get correct argument data for executi
 
     });
 
-    describe('call SetValueToEventModelsDropdown', function () {
+    describe('.SetValueToEventModelsDropdown', function () {
 
         // tests data
         var tests = [{
@@ -187,25 +182,25 @@ describe("MC.AutomationTasks.Tasks => Task get correct argument data for executi
 
     });
 
-    describe("call AdjustLayoutByActionType", function () {
+    describe(".AdjustLayoutByTriggerType", function () {
 
         // tests data
         var kendoDropdown = { wrapper: { show: $.noop, hide: $.noop } };
         var testValues = [{
             title: 'if action type is event',
-            actionType: 'Event',
+            actionType: 'event',
             eventTypesDropdown: kendoDropdown,
             expectShowEventTypeDropdown: true
         },
         {
             title: 'if action type is schedule',
-            actionType: 'Schedule',
+            actionType: 'schedule',
             eventTypesDropdown: kendoDropdown,
             expectShowEventTypeDropdown: false
         },
         {
             title: 'if action type is external',
-            actionType: 'External',
+            actionType: 'external',
             eventTypesDropdown: kendoDropdown,
             expectShowEventTypeDropdown: false
         }];
@@ -218,7 +213,7 @@ describe("MC.AutomationTasks.Tasks => Task get correct argument data for executi
                 spyOn(testValue.eventTypesDropdown.wrapper, 'hide').and.callFake($.noop);
 
                 // begin test
-                automationTask.AdjustLayoutByActionType(testValue.actionType, testValue.eventTypesDropdown);
+                automationTask.AdjustLayoutByTriggerType(testValue.actionType, testValue.eventTypesDropdown);
 
                 // assert
                 if (testValue.expectShowEventTypeDropdown) {
@@ -233,7 +228,7 @@ describe("MC.AutomationTasks.Tasks => Task get correct argument data for executi
 
     });
 
-    describe("call SetAbilityToEditControl", function () {
+    describe(".SetAbilityToEditControl", function () {
 
         // tests data
         var testValues = [{
@@ -281,4 +276,469 @@ describe("MC.AutomationTasks.Tasks => Task get correct argument data for executi
             expect(result.indexOf('popupCopyTask') === -1).toBe(true);
         });
     });
+
+    describe(".GetActionsGridColumnDefinitions", function () {
+
+        it("should get task action columns", function () {
+            // prepare
+            var columns = automationTask.GetActionsGridColumnDefinitions();
+
+            // assert
+            expect(columns.length).toEqual(9);
+            expect(columns[0].field).toEqual('order');
+            expect(columns[1].field).toEqual('action_type_name');
+            expect(typeof columns[1].template).toEqual('function');
+            expect(columns[2].field).toEqual('action_detail');
+            expect(typeof columns[2].template).toEqual('function');
+            expect(columns[3].field).toEqual('model_name');
+            expect(typeof columns[3].template).toEqual('function');
+            expect(columns[4].field).toEqual('angle_name');
+            expect(columns[5].field).toEqual('display_name');
+            expect(columns[6].field).toEqual('condition_name');
+            expect(typeof columns[6].template).toEqual('function');
+            expect(columns[7].field).toEqual('approval_state');
+            expect(columns[8].field).toEqual('action');
+        });
+
+    });
+
+    describe(".GetActionTypeName", function () {
+
+        it("should get action name from action type 'datastore'", function () {
+            // prepare
+            var actionData = { action_type: automationTask.ACTION_TYPE_ID.DATASTORE };
+            var result = automationTask.GetActionTypeName(actionData);
+
+            // assert
+            expect(result).toEqual(Localization.MC_ActionType_Datastore);
+        });
+
+        it("should get action name from action type 'script'", function () {
+            // prepare
+            var actionData = { action_type: automationTask.ACTION_TYPE_ID.SCRIPT };
+            var result = automationTask.GetActionTypeName(actionData);
+
+            // assert
+            expect(result).toEqual(Localization.MC_ActionType_Script);
+        });
+
+    });
+
+    describe(".GetActionDetail", function () {
+
+        it("should get action details from action type 'datastore' #1", function () {
+            // prepare
+            var actionData = {
+                action_type: automationTask.ACTION_TYPE_ID.DATASTORE,
+                arguments: [
+                    { name: 'datastore', value: 'test_id' }
+                ]
+            };
+            automationTask.DataStoreValues = [];
+            var result = automationTask.GetActionDetail(actionData);
+
+            // assert
+            expect(result).toEqual('test_id');
+        });
+
+        it("should get action details from action type 'datastore' #2", function () {
+            // prepare
+            var actionData = {
+                action_type: automationTask.ACTION_TYPE_ID.DATASTORE,
+                arguments: [
+                    { name: 'datastore', value: 'test_id' }
+                ]
+            };
+            automationTask.DataStoreValues = [
+                { id: 'test_id', name: 'test_name' }
+            ];
+            var result = automationTask.GetActionDetail(actionData);
+
+            // assert
+            expect(result).toEqual('test_name');
+        });
+
+        it("should get action details from action type 'script' #1", function () {
+            // prepare
+            var actionData = {
+                action_type: automationTask.ACTION_TYPE_ID.SCRIPT,
+                arguments: [
+                    { name: 'script', value: 'test_id' }
+                ]
+            };
+            automationTask.Scripts = [];
+            var result = automationTask.GetActionDetail(actionData);
+
+            // assert
+            expect(result).toEqual('test_id');
+        });
+
+        it("should get action details from action type 'script' #2", function () {
+            // prepare
+            var actionData = {
+                action_type: automationTask.ACTION_TYPE_ID.SCRIPT,
+                arguments: [
+                    { name: 'script', value: 'test_id' }
+                ]
+            };
+            automationTask.Scripts = [
+                { id: 'test_id', name: 'test_name' }
+            ];
+            var result = automationTask.GetActionDetail(actionData);
+
+            // assert
+            expect(result).toEqual('test_name');
+        });
+
+    });
+
+    describe(".GetModelName", function () {
+
+        it("should get model id if no model data", function () {
+            // prepare
+            automationTask.AllModels = [];
+            var result = automationTask.GetModelName('model_test');
+
+            // assert
+            expect(result).toEqual('model_test');
+        });
+
+        it("should get model name if has model data", function () {
+            // prepare
+            automationTask.AllModels = [
+                { id: 'model_test', short_name: 'model_test_name' }
+            ];
+            var result = automationTask.GetModelName('model_test');
+
+            // assert
+            expect(result).toEqual('model_test_name');
+        });
+
+    });
+
+    describe(".GetModelNameFromActionData", function () {
+
+        it("should get model name from action data #1", function () {
+            // prepare
+            var actionData = { arguments: [] };
+            automationTask.AllModels = [
+                { id: 'model_test', short_name: 'model_test_name' }
+            ];
+            var result = automationTask.GetModelNameFromActionData(actionData);
+
+            // assert
+            expect(result).toEqual('');
+        });
+
+        it("should get model name from action data #2", function () {
+            // prepare
+            var actionData = { arguments: [{ name: 'model', value: 'model_test' } ] };
+            automationTask.AllModels = [
+                { id: 'model_test', short_name: 'model_test_name' }
+            ];
+            var result = automationTask.GetModelNameFromActionData(actionData);
+
+            // assert
+            expect(result).toEqual('model_test_name');
+        });
+
+    });
+
+    describe(".GetConditionName", function () {
+
+        beforeEach(function () {
+            spyOn(automationTask, 'GetArgumentConditionOperator').and.returnValue('operator');
+        });
+
+        it("should get condition if datastore and condition value is null", function () {
+            // prepare
+            spyOn(automationTask, 'GetArgumentConditionValue').and.returnValue(null);
+            var actionData = { action_type: automationTask.ACTION_TYPE_ID.DATASTORE };
+            var result = automationTask.GetConditionName(actionData);
+
+            // assert
+            expect(result).toEqual('operator');
+        });
+
+        it("should get condition if datastore and condition value is not null", function () {
+            // prepare
+            spyOn(automationTask, 'GetArgumentConditionValue').and.returnValue('value');
+            var actionData = { action_type: automationTask.ACTION_TYPE_ID.DATASTORE };
+            var result = automationTask.GetConditionName(actionData);
+
+            // assert
+            expect(result).toEqual('operator value');
+        });
+
+        it("should get condition if not datastore", function () {
+            // prepare
+            spyOn(automationTask, 'GetArgumentConditionValue').and.returnValue('value');
+            var actionData = { action_type: automationTask.ACTION_TYPE_ID.SCRIPT };
+            var result = automationTask.GetConditionName(actionData);
+
+            // assert
+            expect(result).toEqual('');
+        });
+
+    });
+
+    describe(".GetActionsGridDataSource", function () {
+
+        var angle = JSON.stringify({
+            id: 'angle2',
+            display_definitions: [
+                { id: 'display21', uri: '/angles/2/displays/21' }
+            ]
+        });
+
+        var actions = [
+            {
+                // full information
+                action_type: 'action_type2',
+                AngleName: 'AngleName2',
+                DisplayName: 'DisplayName2',
+                approval_state: 'approval_state2',
+                notification: 'notification2',
+                arguments: [
+                    { name: 'angle_id', value: 'angle2' },
+                    { name: 'display_id', value: 'display21' }
+                ],
+                uri: '/tasks/2',
+                order: 4,
+                Angle: angle
+            },
+            {
+                // no Angle information
+                action_type: 'action_type1',
+                AngleName: '',
+                DisplayName: '',
+                approval_state: 'approval_state1',
+                notification: 'notification1',
+                arguments: [
+                    { name: 'angle_id', value: 'angle1' },
+                    { name: 'display_id', value: 'display11' }
+                ],
+                uri: '/tasks/1',
+                order: 3,
+                Angle: null
+            },
+            {
+                // no Angle information
+                action_type: 'action_type3',
+                AngleName: '',
+                DisplayName: '',
+                approval_state: 'approval_state3',
+                notification: 'notification3',
+                arguments: [
+                    { name: 'angle_id', value: 'angle1' },
+                    { name: 'display_id', value: 'display12' }
+                ],
+                uri: '/tasks/3',
+                order: 5,
+                Angle: null
+            }
+        ];
+
+        it("should get correct datasource", function () {
+            // prepare
+            var result = automationTask.GetActionsGridDataSource(actions);
+
+            // assert
+            expect(result.data[0].action_type).toEqual('action_type1');
+            expect(result.data[0].angle_name).toEqual('angle1');
+            expect(result.data[0].display_name).toEqual('display11');
+            expect(result.data[0].display_uri).toEqual('');
+            expect(result.data[0].approval_state).toEqual('approval_state1');
+            expect(result.data[0].notification).toEqual('notification1');
+            expect(result.data[0].uri).toEqual('/tasks/1');
+            expect(result.data[0].order).toEqual(0);
+            expect(result.data[0].Angle).toEqual(null);
+
+            expect(result.data[1].action_type).toEqual('action_type2');
+            expect(result.data[1].angle_name).toEqual('AngleName2');
+            expect(result.data[1].display_name).toEqual('DisplayName2');
+            expect(result.data[1].display_uri).toEqual('/angles/2/displays/21');
+            expect(result.data[1].approval_state).toEqual('approval_state2');
+            expect(result.data[1].notification).toEqual('notification2');
+            expect(result.data[1].uri).toEqual('/tasks/2');
+            expect(result.data[1].order).toEqual(1);
+            expect(result.data[1].Angle).not.toEqual(null);
+
+            expect(result.data[2].action_type).toEqual('action_type3');
+            expect(result.data[2].angle_name).toEqual('angle1');
+            expect(result.data[2].display_name).toEqual('display12');
+            expect(result.data[2].display_uri).toEqual('');
+            expect(result.data[2].approval_state).toEqual('approval_state3');
+            expect(result.data[2].notification).toEqual('notification3');
+            expect(result.data[2].uri).toEqual('/tasks/3');
+            expect(result.data[2].order).toEqual(2);
+            expect(result.data[2].Angle).toEqual(null);
+
+            expect(result.sort.field).toEqual('order');
+            expect(result.sort.dir).toEqual('asc');
+        });
+
+    });
+    
+    describe(".SetEmailRecipientsColumns", function () {
+
+        var grid;
+        var gridFunction = { wrapper: $(), showColumn: $.noop, hideColumn: $.noop };
+        beforeEach(function () {
+            spyOn(gridFunction, 'showColumn');
+            spyOn(gridFunction, 'hideColumn');
+            grid = $('<div id="RecipientsGrid" />').data('kendoGrid', gridFunction);
+            grid.appendTo('body');
+        });
+
+        afterEach(function () {
+            grid.remove();
+        });
+
+        it("should show column if datastore type", function () {
+            // prepare
+            spyOn(automationTask, 'IsDatastoreAction').and.returnValue(true);
+            automationTask.SetEmailRecipientsColumns();
+
+            // assert
+            expect(gridFunction.showColumn).toHaveBeenCalled();
+        });
+
+        it("should show column if not datastore type", function () {
+            // prepare
+            spyOn(automationTask, 'IsDatastoreAction').and.returnValue(false);
+            automationTask.SetEmailRecipientsColumns();
+
+            // assert
+            expect(gridFunction.hideColumn).toHaveBeenCalled();
+        });
+
+    });
+
+    describe(".ConditionDropdownChanged", function () {
+
+        var textbox;
+        beforeEach(function () {
+            textbox = $('<input id="condition_value" type="text" value="100" />');
+            textbox.appendTo('body');
+        });
+
+        afterEach(function () {
+            textbox.remove();
+        });
+
+        it("should set textbox to correct state if Always operator", function () {
+            // prepare
+            automationTask.ConditionDropdownChanged({
+                sender: {
+                    value: function () {
+                        return automationTask.ACTION_CONDITION_OPERATOR.ALWAYS;
+                    }
+                }
+            });
+
+            // assert
+            expect(textbox.hasClass('error')).toEqual(false);
+            expect(textbox.hasClass('required')).toEqual(false);
+            expect(textbox.prop('disabled')).toEqual(true);
+            expect(textbox.val()).toEqual('');
+        });
+
+        it("should set textbox to correct state if not Always operator", function () {
+            // prepare
+            automationTask.ConditionDropdownChanged({
+                sender: {
+                    value: function () {
+                        return 'any';
+                    }
+                }
+            });
+
+            // assert
+            expect(textbox.hasClass('error')).toEqual(false);
+            expect(textbox.hasClass('required')).toEqual(true);
+            expect(textbox.prop('disabled')).toEqual(false);
+            expect(textbox.val()).toEqual('100');
+        });
+
+    });
+
+    describe(".IsDatastoreAction", function () {
+
+        var dropdown;
+        var dropdownFunction = { value: $.noop };
+        beforeEach(function () {
+            dropdown = $('<div id="action_type" />').data('kendoDropDownList', dropdownFunction);
+            dropdown.appendTo('body');
+        });
+
+        afterEach(function () {
+            dropdown.remove();
+        });
+
+        it("should get true if action type is datastore", function () {
+            // prepare
+            spyOn(dropdownFunction, 'value').and.returnValue(automationTask.ACTION_TYPE_ID.DATASTORE);
+            var result = automationTask.IsDatastoreAction();
+
+            // assert
+            expect(result).toEqual(true);
+        });
+
+        it("should get false if action type is not datastore", function () {
+            // prepare
+            spyOn(dropdownFunction, 'value').and.returnValue('any');
+            var result = automationTask.IsDatastoreAction();
+
+            // assert
+            expect(result).toEqual(false);
+        });
+
+    });
+
+    describe(".GetActionData", function () {
+
+        var container;
+        var dropdownFunction = {
+            value: $.noop,
+            dataItem: function () {
+                return { uri: 'uri', name: 'name' };
+            }
+        };
+        beforeEach(function () {
+            spyOn(automationTask, 'GetDatastoreActionArgumentsFromUI').and.returnValue('datastore');
+            spyOn(automationTask, 'GetScriptActionArgumentsFromUI').and.returnValue('script');
+            spyOn(automationTask, 'GetEmailNotificationDataFromUI').and.returnValue('notification');
+            automationTask.CurrentAngle = {};
+
+            container = $('<div/>').appendTo('body');
+            $('<div id="action_type"/>').data('kendoDropDownList', dropdownFunction).appendTo(container);
+            $('<div id="approvalddl"/>').data('kendoDropDownList', dropdownFunction).appendTo(container);
+            $('<div id="display_id"/>').data('kendoDropDownList', dropdownFunction).appendTo(container);
+        });
+
+        afterEach(function () {
+            container.remove();
+        });
+
+        it("should get data if action type is datastore", function () {
+            // prepare
+            spyOn(dropdownFunction, 'value').and.returnValue(automationTask.ACTION_TYPE_ID.DATASTORE);
+            var result = automationTask.GetActionData();
+
+            // assert
+            expect(result.arguments).toEqual('datastore');
+        });
+
+        it("should get data if action type is not datastore", function () {
+            // prepare
+            spyOn(dropdownFunction, 'value').and.returnValue('any');
+            var result = automationTask.GetActionData();
+
+            // assert
+            expect(result.arguments).toEqual('script');
+        });
+
+    });
+
 });

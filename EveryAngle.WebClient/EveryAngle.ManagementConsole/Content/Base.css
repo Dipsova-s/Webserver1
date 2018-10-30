@@ -603,6 +603,7 @@ div.tagsinput .not_valid {
 .k-dropdown select,
 .k-multiselect select,
 .k-dropdown input {
+    cursor: pointer;
     display: block !important;
     position: absolute;
     left: 0;
@@ -3562,13 +3563,8 @@ form#ExportPackageForm .packageInfo .packageVersion input {
     font-weight: normal;
 }
 .pageRefreshCycle .contentSectionInfoItem .btnInfo {
-    position: absolute;
     left: 165px;
-    top: 0;
-    margin: 0 1px;
-    padding-top: 3px;
-    padding-bottom: 1px;
-    padding-right: 15px !important;
+    right: auto;
 }
 
 .pageRefreshCycle .gridContainer .editRow .btnGroupInner .btnEdit,
@@ -4193,6 +4189,22 @@ form#ExportPackageForm .packageInfo .packageVersion input {
     font-weight: normal;
 }
 
+.actionTypeIcon {
+    display: inline-block;
+    vertical-align: middle;
+    width: 16px;
+    height: 16px;
+    margin-right: 3px;
+    background: transparent none center center no-repeat;
+    background-size: 16px 16px;
+}
+.actionTypeIcon.icon-export_angle_to_datastore {
+    background-image: url(../images/icons/icon_datastore.svg);
+}
+.actionTypeIcon.icon-run_external_command {
+    background-image: url(../images/icons/icon_script.svg);
+}
+
 #TaskActionsGrid tr td {
     white-space: nowrap;
 }
@@ -4205,6 +4217,10 @@ form#ExportPackageForm .packageInfo .packageVersion input {
 #AddActionPopup .contentSectionInfoItem > label {
     width: 120px;
     line-height: 25px;
+}
+#AddActionPopup .rowParameters > label,
+#AddActionPopup .rowAbortTaskWhenError > label{
+    line-height: normal;
 }
 
 #AddActionPopup .contentSectionInfoItem > p {
@@ -4251,8 +4267,19 @@ form#ExportPackageForm .packageInfo .packageVersion input {
     overflow: visible;
 }
 
-#AddActionPopup .contentSectionInfoItemDropdown {
+#AddActionPopup .contentSectionInfoItemDropdown,
+#AddActionPopup .contentSectionInfoItemInput {
     padding-right: 30px;
+}
+
+#AddActionPopup .contentSectionInfoItemInput input[type="text"],
+#AddActionPopup .contentSectionInfoItemInput input[type="password"]{
+    width: 100%;
+}
+
+#AddActionPopup .contentSectionInfoItemDropdown .btnInfo,
+#AddActionPopup .contentSectionInfoItemInput .btnInfo{
+    right: -30px;
 }
 
 #AddActionPopup .btnLink {
@@ -4349,6 +4376,13 @@ form#ExportPackageForm .packageInfo .packageVersion input {
 
 #AddActionPopup .gridContainer {
     position: relative;
+}
+
+#RecipientsGrid.showResult .columnEmailResult {
+    display: table-cell;
+}
+#RecipientsGrid.hideResult .columnEmailResult {
+    display: none;
 }
 
 #CheckRecipients {

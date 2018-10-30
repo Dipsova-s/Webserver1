@@ -27,6 +27,7 @@ namespace EveryAngle.ManagementConsole.Controllers
         private readonly IAutomationTaskService _automationTaskService;
         private readonly IModelService _modelService;
         private readonly ITaskService _taskService;
+        private readonly ISystemScriptService _systemScriptService;
 
         #endregion
 
@@ -34,24 +35,29 @@ namespace EveryAngle.ManagementConsole.Controllers
 
         // testsability only 
         public AutomationTasksController(
-            IModelService modelService,
+           IModelService modelService,
            ITaskService taskService,
            IAutomationTaskService automationTaskService,
+           ISystemScriptService systemScriptService,
            SessionHelper sessionHelper)
         {
             SessionHelper = sessionHelper;
             _modelService = modelService;
             _taskService = taskService;
             _automationTaskService = automationTaskService;
+            _systemScriptService = systemScriptService;
         }
 
-        public AutomationTasksController(IModelService modelService,
+        public AutomationTasksController(
+            IModelService modelService,
             ITaskService tasklService,
-            IAutomationTaskService automationTaskService)
+            IAutomationTaskService automationTaskService,
+            ISystemScriptService systemScriptService)
         {
             _modelService = modelService;
             _taskService = tasklService;
             _automationTaskService = automationTaskService;
+            _systemScriptService = systemScriptService;
         }
 
         #endregion
@@ -77,7 +83,7 @@ namespace EveryAngle.ManagementConsole.Controllers
 
         public ActionResult ReadTasksGrid([DataSourceRequest] DataSourceRequest request, string tasksUri)
         {
-            string fullTasksUri = string.Format("{0}?type=export_angle_to_datastore&{1}", tasksUri, OffsetLimitQuery);
+            string fullTasksUri = string.Format("{0}?types=export_angle_to_datastore,run_external_command&{1}", tasksUri, OffsetLimitQuery);
             var tasks = _taskService.GetTasks(fullTasksUri);
 
             return Json(new DataSourceResult
@@ -123,7 +129,7 @@ namespace EveryAngle.ManagementConsole.Controllers
         public ActionResult ReadAutomationTasksHistories([DataSourceRequest] DataSourceRequest request,
             string taskHistoryUri)
         {
-            string fullTaskHistoryUri = string.Format("{0}?type=export_angle_to_datastore&filterMode=task_results&{1}", taskHistoryUri, OffsetLimitQuery);
+            string fullTaskHistoryUri = string.Format("{0}?types=export_angle_to_datastore,run_external_command&filterMode=task_results&{1}", taskHistoryUri, OffsetLimitQuery);
             ListViewModel<TaskHistoryViewModel> alltasksHistory = _taskService.GetTaskHistories(fullTaskHistoryUri);
             return Json(new DataSourceResult
             {
@@ -170,6 +176,7 @@ namespace EveryAngle.ManagementConsole.Controllers
 
             ViewData["AngleUri"] = angleUri;
             ViewData["DataStores"] = GetDataStoresDataSource(dataStores);
+            ViewData["Scripts"] = GetScriptsDataSource();
             ViewData["CanManageSystem"] = canManageSystem;
             ViewData["ModelPrivileges"] = SessionHelper.Session.ModelPrivileges;
             ViewData["TaskData"] = JsonConvert.SerializeObject(task);
@@ -235,8 +242,7 @@ namespace EveryAngle.ManagementConsole.Controllers
                 Data = new
                 {
                     success = true,
-                    message = Resource.MC_Validation_Accept,
-                    parameters = new { tasksUri = task?.Uri?.ToString() }
+                    parameters = new { tasksUri = taskUri }
                 },
                 JsonRequestBehavior = JsonRequestBehavior.AllowGet
             };
@@ -581,15 +587,25 @@ namespace EveryAngle.ManagementConsole.Controllers
 
         private static List<DataStoresViewModel> GetDataStoresDataSource(List<DataStoresViewModel> dataStores)
         {
-            DataStoresViewModel dataStore = new DataStoresViewModel
+            List<DataStoresViewModel> availableDataStores = dataStores.OrderBy(datastore => datastore.name).ToList();
+            availableDataStores.Insert(0, new DataStoresViewModel
             {
                 id = "",
-                name = "Please Select"
-            };
-            List<DataStoresViewModel> availableDataStores = new List<DataStoresViewModel>();
-            availableDataStores.Add(dataStore);
-            availableDataStores.AddRange(dataStores.OrderBy(datastore => datastore.name));
+                name = Resource.PleaseSelect
+            });
             return availableDataStores;
+        }
+
+        private List<SystemScriptViewModel> GetScriptsDataSource()
+        {
+            string scriptUri = SessionHelper.Version.GetEntryByName("system_scripts").Uri.ToString();
+            List<SystemScriptViewModel> scripts = _systemScriptService.GetSystemScripts(scriptUri);
+            scripts.Insert(0, new SystemScriptViewModel
+            {
+                id = "",
+                name = Resource.PleaseSelect
+            });
+            return scripts;
         }
 
         /// <summary>

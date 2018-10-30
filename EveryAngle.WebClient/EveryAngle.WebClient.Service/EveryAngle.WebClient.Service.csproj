@@ -154,6 +154,7 @@
     <Compile Include="ApiServices\BaseService.cs" />
     <Compile Include="ApiServices\FacetService.cs" />
     <Compile Include="ApiServices\PackageService.cs" />
+    <Compile Include="ApiServices\SystemScriptService.cs" />
     <Compile Include="ApiServices\TaskService.cs" />
     <Compile Include="ApiServices\DirectoryService.cs" />
     <Compile Include="ApiServices\GlobalSettingService.cs" />

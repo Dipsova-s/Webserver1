@@ -1573,6 +1573,33 @@ namespace EveryAngle.Shared.Globalization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Fail task if this action fails.
+        /// </summary>
+        public static string MC_Label_ScriptAbortTaskWhenError {
+            get {
+                return ResourceManager.GetString("MC_Label_ScriptAbortTaskWhenError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Program/script.
+        /// </summary>
+        public static string MC_Label_ScriptName {
+            get {
+                return ResourceManager.GetString("MC_Label_ScriptName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Add arguments&lt;br /&gt;(optional).
+        /// </summary>
+        public static string MC_Label_ScriptParameters {
+            get {
+                return ResourceManager.GetString("MC_Label_ScriptParameters", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Cancel and retry.
         /// </summary>
         public static string MC_SAP_Jobs_Cancel_And_Retry {

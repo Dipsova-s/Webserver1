@@ -795,4 +795,13 @@
   <data name="MC_Label_ETLDesigner" xml:space="preserve">
     <value>ETL Designer</value>
   </data>
+  <data name="MC_Label_ScriptAbortTaskWhenError" xml:space="preserve">
+    <value>Fail task if this action fails</value>
+  </data>
+  <data name="MC_Label_ScriptName" xml:space="preserve">
+    <value>Program/script</value>
+  </data>
+  <data name="MC_Label_ScriptParameters" xml:space="preserve">
+    <value>Add arguments&lt;br /&gt;(optional)</value>
+  </data>
 </root>
