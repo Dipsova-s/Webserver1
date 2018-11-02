@@ -794,3 +794,35 @@ begin
     Log(Format('Failed to list %s', [SourcePath]));
   end;
 end;
+
+function ParamStartsWith(SubStr, S: String): Boolean;
+begin
+  Result:= Pos(SubStr, S) = 1;
+end;
+
+function StringReplace(S, oldSubString, newSubString: String): String;
+var
+  stringCopy: String;
+begin
+  stringCopy := S;
+  StringChange(stringCopy, oldSubString, newSubString);
+  Result := stringCopy;
+end;
+
+function GetCommandlineParameter(ParameterName: String): String; 
+var
+   paramNameAndValue: String;
+   i: Integer;
+begin
+  Result := '';
+
+  for i := 0 to ParamCount do
+  begin
+    paramNameAndValue := ParamStr(i);
+    if (ParamStartsWith(ParameterName, paramNameAndValue)) then
+    begin
+      Result := StringReplace(paramNameAndValue, ParameterName + '=', '');
+      break;
+    end;
+  end;
+end;

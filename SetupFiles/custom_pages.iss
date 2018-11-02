@@ -163,3 +163,28 @@ begin
   Result.Width := 220;
   Result.Text := aDefault;
 end;
+
+function addPasswordEditBox(aPage: TWizardPage; Left, Top: integer; aLabelText: string; aDefault: string): TPasswordEdit;
+var
+  DescLabel : TLabel;
+begin
+  DescLabel := addLabel(aPage, Left, Top, aLabelText);
+
+  Result := TPasswordEdit.Create(aPage);
+  Result.Parent := aPage.Surface;
+  Result.Left := Left;
+  Result.Top := DescLabel.Top + DescLabel.Height + 6;  
+  Result.Width := 220;
+  Result.Text := aDefault;
+end;
+
+function addCheckBox(aPage: TWizardPage; Left, Top: integer; aLabelText: string; aDefault: boolean): TCheckBox;
+begin
+  Result := TCheckBox.Create(aPage);
+  Result.Parent := aPage.Surface;
+  Result.Left := Left;
+  Result.Top := Top + 6;  
+  Result.Width := 220;
+  Result.Caption := aLabelText;
+  Result.Checked := aDefault;
+end;

@@ -106,6 +106,7 @@ Name: WebClient; Description: "Web Client"; Types: full; Flags: fixed
 Name: OData; Description: "OData service";
 Name: Movies; Description: "{#coTrainingMovies}"; Types: full; Flags: disablenouninstallwarning
 Name: codesite; Description: "CodeSite logging"; Types: full; Flags: disablenouninstallwarning
+Name: HTTPSCertificate; Description: "Secured environment certificate"; Types: Full; Flags: disablenouninstallwarning
 
 [Files]
 ;WebClient
@@ -194,18 +195,21 @@ var
   ManagementConsoleConfig: Variant;
 
   WebClientConfigPage: TInputQueryWizardPage;
-  WebClientOptionPage: TInputOptionWizardPage;
+  CertificatePage: TInputFileWizardPage;
   ODataSettingsPage: TInputQueryWizardPage;
 
   IISSite: TComboBox;
   IISVirtualPath: TEdit;
 
+  CertificatePassword: TPasswordEdit;
+
   DiagramFiles: Tstringlist;
   MoviesSelected,
   IsNewInstall,
-  AppConstantInitialized : Boolean; 
+  AppConstantInitialized,
+  ComponentsPageInitialized : Boolean; 
   AppServerUrl: string;
-  
+
 procedure RegisterDiagramFile();
 begin
   DiagramFiles.Add(ExpandConstant(CurrentFileName));
@@ -348,6 +352,46 @@ begin
    Result := Result + '\WebServer'; 
 end;
 
+function IsHTTPSCertificateComponentSelected(): boolean;
+begin
+  Result := IsComponentSelected('HTTPSCertificate');
+end;
+
+function UpdateDefaultInstallCertificate(): boolean;
+var
+  PreviousSSL: boolean;
+  SSLCommand: boolean;
+begin
+   Result := True;
+
+   PreviousSSL := StrToBool(GetPreviousData('IsHttps', 'True'));
+   if not PreviousSSL then
+   begin
+     Result := PreviousSSL;
+   end;
+   
+   if WizardSilent then
+   begin
+     SSLCommand := StrToBool(GetCommandlineParameter('SSL'));
+     if not SSLCommand then
+     begin
+       Result := SSLCommand;
+     end;
+   end;
+end;
+
+function GetAppServerUrlWithPort(AppServerUrl, BasePort: string; IsHttps: boolean): string;
+var
+  Port: string;
+begin
+  Port := BasePort;
+  if IsHttps then
+  begin
+    Port := IntToStr(StrToInt(BasePort) + 1);
+  end;
+  Result := Format('%s:%s', [AppServerUrl, Port]);
+end;
+
 // ***** Config Page definition: add new config options here ******************
 // ********************************
 
@@ -466,6 +510,26 @@ end;
 
 // ****************************************************************************
 // ****************************************************************************
+// Settings for components page
+procedure SetComponent(const aComponentName: string; const aSelected: Boolean);
+var
+  i: Integer;
+begin
+  i := WizardForm.ComponentsList.Items.IndexOf(aComponentName);
+  if i = -1 then
+  begin
+    Log(Format('[i]Component "%s" not found', [aComponentName]));
+    Exit;
+  end;
+
+  Log(Format('[i]Selecting component "%s": %s', [aComponentName, BoolToStr(aSelected)]));
+  WizardForm.ComponentsList.Checked[i] := aSelected;
+end;
+
+procedure ReadComponentsPageFromExistingInstallation;
+begin
+  SetComponent('Secured environment certificate', UpdateDefaultInstallCertificate);
+end;
 
 procedure CreateConfigPages;
 var
@@ -501,13 +565,15 @@ begin
 
   // Create config page for web client
   WebClientConfigPage := CreateInputQueryPage(wpSelectComponents, 'Web Client Access Configuration', 'Enter configuration details for the Web Client', '');
-  WebClientConfigPage.Add('Website Url (FQDN):', False); //0: used for redirection
-  WebClientConfigPage.Add('Application Server Url:', False); //1: WebServerBackendUrl
+  WebClientConfigPage.Add('Web Server Fully Qualified Domain Name:', False); //0: used for redirection
+  WebClientConfigPage.Add('Application Server Fully Qualified Domain Name:', False); //1: WebServerBackendUrl
   WebClientConfigPage.Add('BasePort:', False); //2: noaport
   // RespaceQueryPage(WebClientConfigPage, -5, 0);
 
-  WebClientOptionPage := CreateInputOptionPage(WebClientConfigPage.ID, 'WebClient options', '', '', False, False);
-  WebClientOptionPage.Add('Accept untrusted AppServer certificate'); //0:
+  CertificatePage := CreateInputFilePage(WebClientConfigPage.ID, 'Installing certificates for secured environment', 'Select the certificates archive that will be installed', '');
+  CertificatePage.Add('Certificates archive:', 'EA Certificate archive files|*.eacert', '*.eacert');
+  CertificatePassword := addPasswordEditBox(CertificatePage, 0, 70, 'Password:', '');
+  CertificatePassword.Width := 332;
 end;
 
 function UrlRemoveProtocol(aUrl: string): string;
@@ -515,6 +581,18 @@ begin
   Result := LowerCase(aUrl);
   StringChangeEx(Result, 'http://', '', true);
   StringChangeEx(Result, 'https://', '', true);
+end;
+
+function AddProtocolUrl(aUrl: string): string;
+var
+  Protocol: string;
+begin
+    Protocol := 'http://';
+    if IsHTTPSCertificateComponentSelected then
+      begin
+        Protocol := 'https://';
+      end;
+    Result := Protocol + UrlRemoveProtocol(aUrl);
 end;
 
 function HostPattern(aUrl: string): string;
@@ -571,6 +649,20 @@ begin
   result := JsonParser.Output;
 end;
 
+// Get the first eacert file you can find in the same folder of the setup.exe
+function GetFirstCertificateFileOnDisk: string;
+var
+  FindRec: TFindRec;
+begin
+  Result := '';
+
+  if FindFirst(ExpandConstant(AddBackslash(ExtractFilePath(ExpandConstant('{srcexe}'))) + '*.eacert'), FindRec) then
+  try
+    Result := AddBackslash(ExtractFilePath(ExpandConstant('{srcexe}'))) + FindRec.Name;
+  finally
+    FindClose(FindRec);
+  end;
+end;
 
 procedure SetUserSettingsToJson(ODataSettings: TJsonParserOutput; Key: string;DefaultValue: string);
 var 
@@ -607,19 +699,10 @@ begin
   JsonString.SaveToFile(SettingsPath);  
 end;
 
-procedure ReadConfigFiles;
+procedure LoadWebConfig;
 var 
-  local_FQDN,
-  WebSite_FQDN,
-  ODataModelIds,
-  IISPhysicalPath: string;
-  ODataModels : TStringList;
-  ODataSettings : TJsonParserOutput;
-                           
+  IISPhysicalPath: string;                      
 begin
-  ODataModelIds := '';
-  ODataSettings := EmptyJsonObject();
-
   IISPhysicalPath := GetIISPhysicalPath();
   if IISPhysicalPath = '' then
   begin
@@ -633,7 +716,57 @@ begin
       WebClientConfig := emptyAppSettings();
     if not LoadXMLConfigFileEx(IISPhysicalPath + '\admin', 'web.config', false, ManagementConsoleConfig) then
       ManagementConsoleConfig := emptyAppSettings();
+  end;
+end;
 
+procedure UpdateWebClientConfig;
+var
+  LocalFQDN: string;
+  WebSiteFQDN: string;
+begin
+  LocalFQDN := GetComputerName(ComputerNameDnsFullyQualified);
+  WebSiteFQDN := LowerCase(GetAppSettingOrOverride(WebClientConfig, 'RedirectUrl', LocalFQDN, {skipIf}IsNewInstall));
+  // Show config in the Gui
+  WebClientConfigPage.Values[0] := UrlRemoveProtocol(WebSiteFQDN);
+  WebClientConfigPage.Values[1] := UrlRemoveProtocol(GetAppSettingOrOverride(WebClientConfig, 'WebServerBackendUrl', WebSiteFQDN, {skipIf}IsNewInstall));
+  WebClientConfigPage.Values[2] := GetAppSettingOrOverride(WebClientConfig, 'WebServiceBackendNOAPort', '9080', {skipIf}IsNewInstall);
+end;
+
+procedure UpdateCertificateConfig;
+var
+  CFolder: String;
+  CPassword: String;
+begin
+ if IsHTTPSCertificateComponentSelected then
+ begin
+  if WizardSilent then
+   begin
+    CFolder := GetCommandlineParameter('cf');
+    CPassword := GetCommandlineParameter('cp');
+   end
+   else
+   begin
+    CFolder := GetFirstCertificateFileOnDisk;
+    CPassword := CertificatePassword.Text;
+   end;
+ end;
+  CertificatePage.Values[0] := CFolder;
+  CertificatePassword.Text := CPassword;
+end;
+
+procedure UpdateODataConfig;
+var
+  IISPhysicalPath: string;
+  ODataModelIds: String; 
+  ODataModels : TStringList;
+  ODataSettings : TJsonParserOutput;
+begin
+  ODataModelIds := '';
+  ODataSettings := EmptyJsonObject();
+  IISPhysicalPath := GetIISPhysicalPath();
+
+  if IISPhysicalPath <> '' then
+  begin
     // Read OData settings
     ODataModels := GetODataModelIds(IISPhysicalPath + '\OData\');
   
@@ -644,24 +777,17 @@ begin
     end;
   end;
 
-  local_FQDN := GetComputerName(ComputerNameDnsFullyQualified);
-  WebSite_FQDN := LowerCase(GetAppSettingOrOverride(WebClientConfig, 'RedirectUrl', local_FQDN, {skipIf}IsNewInstall));
-  
-  // The testserver sends the hostname only. therefore protocol needs to be added...
-  if not validateUrl(WebSite_FQDN) then
-      WebSite_FQDN := 'http://' + WebSite_FQDN;
-  
-  // Show config in the Gui
-  WebClientConfigPage.Values[0] := WebSite_FQDN;
-  WebClientConfigPage.Values[1] := GetAppSettingOrOverride(WebClientConfig, 'WebServerBackendUrl', WebSite_FQDN, {skipIf}IsNewInstall);
-  WebClientConfigPage.Values[2] := GetAppSettingOrOverride(WebClientConfig, 'WebServiceBackendNOAPort', '9080', {skipIf}IsNewInstall);
-  
-  WebClientOptionPage.Values[0] := StrToBool(GetAppSettingOrOverride(WebClientConfig, 'TrustAllCertificate', 'false', {skipIf}IsNewInstall));
-  
   // update Odata page
   ODataSettingsPage.Values[0] := ODataModelIds;
   ODataSettingsPage.Values[1] := GetJsonSettingOrOverride(ODataSettings, 'user', 'ODataService');
   ODataSettingsPage.Values[2] := GetJsonSettingOrOverride(ODataSettings, 'password', '');
+end;
+
+procedure ReadConfigFiles;
+begin
+  LoadWebConfig;
+  UpdateWebClientConfig;
+  UpdateODataConfig;
 end;
 
 procedure WriteDeployParameters(WebSite_FQDN: string);
@@ -715,11 +841,10 @@ var
 
 begin
   // Get the settings from the setup Gui
-  setAppSetting(WebClientConfig, 'RedirectUrl', WebClientConfigPage.Values[0]);
-  setAppSetting(WebClientConfig, 'WebServerBackendUrl', WebClientConfigPage.Values[1]);
+  setAppSetting(WebClientConfig, 'RedirectUrl', AddProtocolUrl(WebClientConfigPage.Values[0]));
+  setAppSetting(WebClientConfig, 'WebServerBackendUrl', AddProtocolUrl(WebClientConfigPage.Values[1]));
   setAppSetting(WebClientConfig, 'WebServiceBackendNOAPort', WebClientConfigPage.Values[2]);
   setAppSetting(WebClientConfig, 'LogFileFolder', LogFolder);
-  setAppSetting(WebClientConfig, 'TrustAllCertificate', BoolToStr(WebClientOptionPage.Values[0]));
 
   if isNewInstall then
     setAppSetting(WebClientConfig, 'UseCors', BoolToStr(false));
@@ -770,14 +895,19 @@ begin
   ReadConfigFiles;
 end;
 
-procedure UpdateCurAccessConfig;
-var sLength: Integer;
+procedure UpdateFQDNConfig;
 begin
   // Enforce FQDN: lowercast, not ends with '/'
-  WebClientConfigPage.Values[0] := TrimLastSlashes(LowerCase(WebClientConfigPage.Values[0]));
+  WebClientConfigPage.Values[0] := AddProtocolUrl(TrimLastSlashes(WebClientConfigPage.Values[0]));
 
   // Enforce Application Server Url: lowercast, not ends with '/'
-  WebClientConfigPage.Values[1] := TrimLastSlashes(LowerCase(WebClientConfigPage.Values[1]));
+  WebClientConfigPage.Values[1] := AddProtocolUrl(TrimLastSlashes(WebClientConfigPage.Values[1]));
+end;
+
+procedure RestoreFQDNConfig;
+begin
+  WebClientConfigPage.Values[0] := UrlRemoveProtocol(WebClientConfigPage.Values[0]);
+  WebClientConfigPage.Values[1] := UrlRemoveProtocol(WebClientConfigPage.Values[1]);
 end;
 
 procedure DeployWebSite(commandName,para :string);
@@ -862,16 +992,33 @@ begin
   end;
 end;
 
-function RegisterWebServer(AppServerUrl, WebServerUrl: string): boolean;
-var 
+function RegisterWebServer(IISPhysicalPath: string): boolean;
+var
   AppVersion: string;
-  MachineName: string; 
+  MachineName: string;
+  AppServerUrl: string;
+  WebServerUrl: string;
   CmdParams: string;
-begin  
+  Thumbprint: string;
+  WebConfig : variant;
+begin
+  AppServerUrl := AddProtocolUrl(GetAppServerUrlWithPort(WebClientConfigPage.Values[1], WebClientConfigPage.Values[2], IsHTTPSCertificateComponentSelected));
+  WebServerUrl := AddProtocolUrl(WebClientConfigPage.Values[0]);  
   AppVersion := '{#MyAppVersion}';
   MachineName := GetComputerNameString;
-  CmdParams := Format('--appserveruri=%s --action=Register --type=WebServer --uri=%s --version=%s --machine=%s', [AppServerUrl, WebServerUrl, AppVersion, MachineName]);
-  
+  LoadXMLConfigFileEx(IISPhysicalPath, 'web.config', false, {out}WebConfig);
+
+
+   if IsHTTPSCertificateComponentSelected then
+      begin
+       Thumbprint :=  GetAppSetting(WebConfig,'WebServiceCertificateThumbPrint');
+       CmdParams := Format('--appserveruri=%s --action=Register --type=WebServer --uri=%s --version=%s --machine=%s --appserverthumbprint=%s', [AppServerUrl, WebServerUrl, AppVersion, MachineName, Thumbprint]);
+      end 
+   else
+      begin
+        CmdParams := Format('--appserveruri=%s --action=Register --type=WebServer --uri=%s --version=%s --machine=%s', [AppServerUrl, WebServerUrl, AppVersion, MachineName]);
+      end;
+
   ExtractTemporaryFile('CommandLine.dll');
   ExtractTemporaryFile('EveryAngle.CSM.AppServerAPI.dll');
   ExtractTemporaryFile('EveryAngle.CSM.Client.dll');
@@ -887,23 +1034,23 @@ begin
   
   if MoveCsmFiles and (DirExists(LogFolder) or CreateDir(LogFolder)) then
   begin
-    result := ExecuteAndLogEx(DataPath('AppServerReg'), 'EveryAngle.CSM.Reg.exe', CmdParams, ToSetupLog) = 0;  
+    Result := ExecuteAndLogEx(DataPath('AppServerReg'), 'EveryAngle.CSM.Reg.exe', CmdParams, ToSetupLog) = 0;  
   end 
   else 
   begin
-    result := false;
+    Result := False;
   end;
 end;
 
 function DeregisterWebServer() : boolean;
 var
+  AppVersion: string;
+  MachineName: string;  
   AppServerUrl: string;
   WebServerUrl: string;
-  AppVersion: string;
-  MachineName: string; 
   CmdParams: string; 
 begin  
-  AppServerUrl := GetPreviousData('AppServerUrl', '');  
+  AppServerUrl := GetAppServerUrlWithPort(GetPreviousData('AppServerUrl', ''), GetPreviousData('BasePort', ''), StrToBool(GetPreviousData('IsHttps', '')));  
   WebServerUrl := GetPreviousData('WebServerUrl', '');
   AppVersion := '{#MyAppVersion}';
   MachineName := GetComputerNameString;
@@ -922,10 +1069,49 @@ end;
 
 // ***** After install functions ***************************************************
 
+procedure InstallCertificate(IISPhysicalPath: string);
+var
+  Source: string;
+  Target: string;
+  ExitCode: Integer;
+begin
+  if IsHTTPSCertificateComponentSelected then
+  begin
+    Source := CertificatePage.Values[0];
+    Target := Format('%s\%s', [IISPhysicalPath, ExtractFileName(Source)]);
+    if not FileCopy(Source, Target, False) then
+    begin
+        Log(Format('Can not copy HTTPS certificate file from: %s -> %s', [Source, Target]));
+    end
+    else
+    begin
+      ExitCode := ExecuteAndLogEx(DataPath('Tools'), 'EveryAngle.CustomerCertificates.Installer.console.exe', Format('-a -i %s -p %s -f %s', [Target, CertificatePassword.Text, IISPhysicalPath]), ToSetupLog);
+      Log('EveryAngle.CustomerCertificates.Installer.console.exe exited with code ' + IntToStr(ExitCode));
+      if ExitCode <> 0 then
+      begin
+        if WizardForm.Visible then
+        begin
+          MsgBox(Format('Error during installing HTTPS certificate (exit code %d): Installation interrupted.' + #13#10 + #13#10 + 'Please check CustomerCertificates.Installer.console log for details', [ExitCode]), mbCriticalError, MB_OK)
+          WizardForm.Close;
+        end
+        else
+        begin
+          Log(Format('ERROR!: Error during installing HTTPS certificate (exit code %d).', [ExitCode]));
+        end;
+      end;
+      if not DeleteFile(Target) then
+      begin
+          Log(Format('Can not delete HTTPS certificate file in: %s', [Target]));
+      end;
+    end;
+  end;
+end;
+
 procedure UpgradeEnvironment(IISPhysicalPath: string);
 begin
   // Spr89 -> Spr90: override.config no longer used, rename to override_config.old
   RenameFile(IISPhysicalPath + '\override.config', IISPhysicalPath + '\override_config.old');
+  InstallCertificate(IISPhysicalPath);
 end;
 
 procedure DeployDiagramFiles(IISPhysicalPath: string);
@@ -1050,7 +1236,6 @@ var
   msg1 : string;
   IISPhysicalPath : string;
   AppServerUrl : string;
-  WebServerUrl : string;
 begin
   msg1 := 'Installing / Updating Web Client in IIS';
   InitProgress(msg1, 'Start');
@@ -1075,7 +1260,7 @@ begin
 
   // Make sure this path is now known
   CheckIISPhysicalPath(IISPhysicalPath);
-
+ 
   // Deploy the Diagram files (StandardContent)
   ShowProgressAndText(70, msg1, 'Installing diagram definitions');
   DeployDiagramFiles(IISPhysicalPath);
@@ -1089,17 +1274,18 @@ begin
   ShowProgressAndText(85, msg1, 'Updating config files');
   WriteConfigFiles(IISPhysicalPath, WebSite_FQDN);
 
-  // Upgrade environment
+  //As discussed reorder this step to install cert first and then register
+  //Upgrade environment
   ShowProgressAndText(88, msg1, 'Updating Environment');
   UpgradeEnvironment(IISPhysicalPath);
- 
-  AppServerUrl := WebClientConfigPage.Values[1] + ':' + WebClientConfigPage.Values[2];
-  WebServerUrl := WebClientConfigPage.Values[0];
-     
-  if not RegisterWebServer(AppServerUrl, WebServerUrl) then 
+
+  //Register to CSM after register the cert as discuss
+  if not RegisterWebServer(IISPhysicalPath) then 
   begin
-     ShowError(Format('The Web Server failed to register on the AppServer(%s)',[AppServerUrl]), mbError, MB_OK);
-	end;
+      // Log(Format('[i]Applications in IIS: [Site: %s, Applications: %s', [IISSite.Text, Paths.CommaText])); 
+      AppServerUrl := AddProtocolUrl(GetAppServerUrlWithPort(WebClientConfigPage.Values[1], WebClientConfigPage.Values[2], IsHTTPSCertificateComponentSelected));
+      MsgBox(Format('The Web Server failed to register on the AppServer(%s)',[AppServerUrl]), mbError, MB_OK);
+  end;
 
   // Upgrade environment
   ShowProgressAndText(90, msg1, 'Granting access to appPoolIdentity');
@@ -1180,44 +1366,74 @@ function ShouldSkipPage(PageID: Integer): Boolean;
 // Note: This event function isn't called for the wpWelcome, wpPreparing, and wpInstalling pages, nor for pages that Setup has already 
 // determined should be skipped (for example, wpSelectComponents in an install containing no components).
 begin
-  if (PageID = WebClientConfigPage.ID)
-  or (PageID = WebClientOptionPage.ID) then
-    result := not IsComponentSelected('WebClient')
+  if (PageID = WebClientConfigPage.ID) then
+    Result := not IsComponentSelected('WebClient')
   else if (PageID = ODataSettingsPage.ID) then
-    result := not IsComponentSelected('OData')
+    Result := not IsComponentSelected('OData')
+  else if (PageID = CertificatePage.ID) then
+    Result := not IsHTTPSCertificateComponentSelected
   else 
-    result := false;
+    Result := False;
+end;
+
+procedure CurPageChanged(CurPageID: Integer);
+begin
+  // Called after a new wizard page (specified by CurPageID) is shown.
+  // Initialize components
+  if (CurPageID = wpSelectComponents) 
+  and not ComponentsPageInitialized then
+  begin
+    ComponentsPageInitialized := True;
+    ReadComponentsPageFromExistingInstallation;
+  end;
+
+  // Initialize webclient config page
+  if (CurPageID = WebClientConfigPage.ID) then
+  begin
+    RestoreFQDNConfig;
+  end;
+
+  // Initialize certificate page
+  if (CurPageID = CertificatePage.ID) then
+  begin
+    UpdateCertificateConfig;
+  end;
 end;
 
 function NextButtonClick(CurPageID: Integer): Boolean;
 // Called when the user clicks the Next button. If you return True, the wizard will move to the next page; if you return False, it will remain on the current page (specified by CurPageID).
 // Note that this function is called on silent installs as well, even though there is no Next button that the user can click.
 // Setup instead simulates "clicks" on the Next button. On a silent install, if your NextButtonClick function returns False prior to installation starting, Setup will exit automatically.
-var AppServerUrl : string;
-    WebServerUrl : string;
 begin
-  result := true;
+  Result := True;
 
   // Update config when leaving 'select dir' page
   if CurPageID = wpSelectDir then
   begin
-    AppConstantInitialized := true;
+    AppConstantInitialized := True;
     UpdateCurConfig;
   end
-  else if CurPageId = WebClientConfigPage.Id then
+  else if CurPageId = WebClientConfigPage.ID then
   begin
-    if (not validateUrl(WebClientConfigPage.Values[0])) 
-    or (not validateUrl(WebClientConfigPage.Values[1])) then
+    if WebClientConfigPage.Values[2] = '' then
     begin
-      MsgBox('Website Url and Application Server Url must be valid url''s'#10#13'starting with http:// or https://', mbError, MB_OK);
-      result := false;
-    end
-    else
-    begin
-      UpdateCurAccessConfig;
+      MsgBox('Baseport is required', mbError, MB_OK);
+      Result := False;    
     end;
   end
-
+  else if CurPageId = CertificatePage.ID then
+  begin
+      if not FileExists(CertificatePage.Values[0]) then
+      begin
+        MsgBox('No valid file has been selcted.', mbError, MB_OK);
+        Result := False;
+      end
+      else if CertificatePassword.Text = '' then
+      begin
+        MsgBox('No password is provided.', mbError, MB_OK);
+        Result := False;
+      end
+  end
 end;
 
 
@@ -1278,8 +1494,10 @@ begin
   SetPreviousData(PreviousDataKey, 'Data', DataPath(''));
   SetPreviousData(PreviousDataKey, 'Site', IISSite.Text);
   SetPreviousData(PreviousDataKey, 'Path', IISVirtualPath.Text);
-  SetPreviousData(PreviousDataKey, 'AppServerUrl', WebClientConfigPage.Values[1] + ':' + WebClientConfigPage.Values[2]); 
-  SEtPreviousData(PreviousDataKey, 'WebServerUrl', WebClientConfigPage.Values[0] + ':' + WebClientConfigPage.Values[2]);
+  SetPreviousData(PreviousDataKey, 'WebServerUrl', WebClientConfigPage.Values[0]);
+  SetPreviousData(PreviousDataKey, 'AppServerUrl', WebClientConfigPage.Values[1]);
+  SetPreviousData(PreviousDataKey, 'BasePort', WebClientConfigPage.Values[2]);
+  SetPreviousData(PreviousDataKey, 'IsHttps', IntToStr(Integer(IsHTTPSCertificateComponentSelected)));
 
   // TODO: if new installation AND datapath.endswith 'WebClient', Shared datapath is datapath - 'WebClient'
   // SetEASharedRegistryKey('Data', DataPath(''));
@@ -1302,8 +1520,11 @@ begin
   if not ShouldSkipPage(WebClientConfigPage.ID) then
     AddPageSettings(WebClientConfigPage, Space, NewLine, {var}Settings);
 
-  if not ShouldSkipPage(WebClientOptionPage.ID) then
-    Settings := Settings + Space + 'Trust all SSL certificates: ' + BoolToStr(WebClientOptionPage.Values[0]) + NewLine; 
+  if not ShouldSkipPage(CertificatePage.ID) then
+  begin
+    Settings := Settings + Space + 'Certificate file: ' + CertificatePage.Values[0] + NewLine;
+    Settings := Settings + Space + 'Certificate password: *********' + NewLine;
+  end;
 
   if not ShouldSkipPage(ODataSettingsPage.ID) then
     AddPageSettings(ODataSettingsPage, Space, NewLine, {var}Settings);
