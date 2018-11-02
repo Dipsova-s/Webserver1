@@ -11,8 +11,8 @@ ${tdPivotHeaderData}                jquery=#pivotGrid_ACCDataArea .dxpgHeaderTex
 ${tdPivotDateSampleCell}            pivotGrid_R4
 ${tdPivotNumberSampleCell}          pivotGrid_C1
 ${tdPivotSetSampleCell}             pivotGrid_R0
-${iconOpenElement}                  css=.domainIcon.es0ToBeExecuted
-${cssOpenElement}                   css=#css-es0ToBeExecuted
+${iconOpenElement}                  css=.domainIcon.icon-executionstatuses0ToBeExecuted
+${cssOpenElement}                   css=#css-icon-executionstatuses0ToBeExecuted
 ${tdSubtotal}                       css=#pivotGrid_DCSCell_SCDTable .dxpgTotalCell
 ${tdPercentage}                     css=#pivotGrid_DCSCell_SCDTable .PercentageSummaryCell
 ${tdPivotSortSummaryCell}           pivotGrid_C2

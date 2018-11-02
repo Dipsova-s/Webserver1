@@ -714,6 +714,7 @@
     <Content Include="WebClient\Tests\ViewManagement\Search\ItemInfoHandlerTest.js" />
     <Content Include="WebClient\Tests\ViewManagement\Search\SearchPageHandlerTest.js" />
     <Content Include="WebClient\Tests\ViewManagement\Shared\AboutSystemHandlerTest.js" />
+    <Content Include="WebClient\Tests\ViewManagement\Shared\ModelFieldDomainHandlerTest.js" />
     <Content Include="WebClient\Tests\ViewManagement\Shared\ModelLabelCategoryHandlerTest.js" />
     <Content Include="WebClient\Tests\ViewManagement\Shared\ProgressBarTest.js" />
     <Content Include="WebClient\Tests\ViewManagement\Shared\ModelsHandlerTest.js" />

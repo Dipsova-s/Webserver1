@@ -213,9 +213,10 @@
     };
     self.TemplateEnumDropdown = function (data, domainPath) {
         var template = '';
-        if (domainPath) {
-			jQuery.injectCSS('.domainIcon.' + data.id + ' { background-image: url("' + (GetImageFolderPath() + 'domains/' + domainPath + '/' + domainPath + data.id + '.png').toLowerCase() + '"); }', data.id);
-            template += '<span class="domainIcon ' + data.id + '"></span>';
+        if (domainPath && data.id !== null) {
+            var iconInfo = modelFieldDomainHandler.GetDomainElementIconInfo(domainPath, data.id);
+            jQuery.injectCSS(iconInfo.css, iconInfo.id);
+            template += iconInfo.html;
         }
         template += '<span>' + self.Handler.GetEnumText(data.id, data.short_name, data.long_name) + '</span>';
 
@@ -225,8 +226,9 @@
         var template = '<input type="checkbox"' + (data.checked ? ' checked' : '') + ' data-index="' + data.index + '" data-click="$root.View.ApplyWhenClickEnumListGrid(this, \'' + elementId + '\');" />';
         template += '<span class="label">';
         if (domainPath && data.id !== null) {
-			jQuery.injectCSS('.domainIcon.' + data.id + ' { background-image: url("' + (GetImageFolderPath() + 'domains/' + domainPath + '/' + domainPath + data.id + '.png').toLowerCase() + '"); }', data.id);
-            template += '<i class="domainIcon ' + data.id + '"></i>';
+            var iconInfo = modelFieldDomainHandler.GetDomainElementIconInfo(domainPath, data.id);
+            jQuery.injectCSS(iconInfo.css, iconInfo.id);
+            template += iconInfo.html;
         }
 
         template += self.Handler.GetEnumText(data.id, data.short_name, data.long_name, elementId.indexOf('ValueListEnlarge') !== -1 ? self.Handler.FilterEnumFormat : null) + '</span>';

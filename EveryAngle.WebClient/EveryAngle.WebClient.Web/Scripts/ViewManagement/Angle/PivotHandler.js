@@ -110,13 +110,19 @@ function PivotPageHandler(elementId, container) {
     };
     self.InjectFieldIconCSS = function () {
         var fields = self.FieldSettings.GetFields();
+        var injectCSS = function (folder, id) {
+            if (id !== null) {
+                var iconInfo = modelFieldDomainHandler.GetDomainElementIconInfo(folder, id);
+                jQuery.injectCSS(iconInfo.css, iconInfo.id);
+            }
+        };
         jQuery.each(fields, function (index, field) {
             if (field.DataType === enumHandlers.FIELDTYPE.ENUM && field.DomainURI) {
                 var domainPath = modelFieldDomainHandler.GetDomainPathByUri(field.DomainURI);
                 var fieldDomain = modelFieldDomainHandler.GetFieldDomainByUri(field.DomainURI);
                 if (fieldDomain && domainPath) {
-                    jQuery.each(fieldDomain.elements, function (index, cellValue) {
-						jQuery.injectCSS('.domainIcon.' + cellValue.id + ' { background-image: url("' + (GetImageFolderPath() + 'domains/' + domainPath + '/' + domainPath + cellValue.id + '.png').toLowerCase() + '"); }', cellValue.id);
+                    jQuery.each(fieldDomain.elements, function (index, element) {
+                        injectCSS(domainPath, element.id);
                     });
                 }
             }

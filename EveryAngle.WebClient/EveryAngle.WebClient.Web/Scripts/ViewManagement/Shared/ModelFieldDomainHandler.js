@@ -101,6 +101,16 @@ function ModelFieldDomainHandler() {
     self.GetDomainImageOnServer = function () {
         return domainImageFolders.toLowerCase().split(',');
     };
+    self.GetDomainElementIconInfo = function (folder, elementId) {
+        var iconName = folder + elementId;
+        var className = 'icon-' + iconName;
+        var iconPath = kendo.format('{0}domains/{1}/{2}.png', GetImageFolderPath(), folder, iconName).toLowerCase();
+        return {
+            id: className,
+            css: kendo.format('.domainIcon.{0} \{ background-image: url("{1}"); \}', className, iconPath),
+            html: kendo.format('<span class="domainIcon {0}"></span>', className)
+        };
+    };
     self.GetDomainElementById = function (domainUri, elementId) {
         var result = null;
         var domain = self.GetFieldDomainByUri(domainUri);

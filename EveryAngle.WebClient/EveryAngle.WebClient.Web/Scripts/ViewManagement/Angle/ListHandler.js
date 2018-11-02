@@ -1568,17 +1568,15 @@ function ListHandler(elementId, container) {
         return self.Models.Display.Data().fields.indexOfObject('field', columnId) !== -1;
     };
     self.GetDomainImageHtml = function (cellValue, domainUri) {
-        var domainImage,
-            domainPath = modelFieldDomainHandler.GetDomainPathByUri(domainUri);
-
-        if (domainPath && cellValue) {
-			jQuery.injectCSS('.domainIcon.' + cellValue + ' { background-image: url("' + (GetImageFolderPath() + 'domains/' + domainPath + '/' + domainPath + cellValue + '.png').toLowerCase() + '"); }', cellValue);
-            domainImage = '<span class="domainIcon ' + cellValue + '"></span>';
+        var domainFolder = modelFieldDomainHandler.GetDomainPathByUri(domainUri);
+        if (domainFolder && cellValue !== null) {
+            var iconInfo = modelFieldDomainHandler.GetDomainElementIconInfo(domainFolder, cellValue);
+            jQuery.injectCSS(iconInfo.css, iconInfo.id);
+            return iconInfo.html;
         }
         else {
-            domainImage = '';
+            return '';
         }
-        return domainImage;
     };
     self.GetFormatValue = function (fieldId, cellValue, domainUri, nullableElement) {
         if (cellValue === '...') {

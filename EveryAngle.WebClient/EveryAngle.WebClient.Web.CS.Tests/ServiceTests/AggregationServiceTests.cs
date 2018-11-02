@@ -22,17 +22,19 @@ namespace EveryAngle.WebClient.Web.CSTests.ServiceTests
     [TestFixture]
     public class AggregationServiceTests : UnitTestBase
     {
-        [Test]
-        public void Check_DomainImage_Is_Existing()
+        [TestCase("DeliveryStatus", null, null)]
+        [TestCase("any", "/models/1/field_domains/66", null)]
+        [TestCase("DeliveryStatus", "/models/1/field_domains/66", "deliverystatus")]
+        public void TestGetDomainImageFolder(string fieldInFolderList, string domainURI, string expected)
         {
-            string[] domainImageFolderList = new string[] { "CustomerCreditPosition", "DeliveryStatus", "ExecutionStatus" };
+            string[] domainImageFolderList = new string[] { fieldInFolderList };
             EAPivotField field = new EAPivotField();
             field.DataType = "enumerated";
-            field.DomainURI = "/models/1/field_domains/66";
+            field.DomainURI = domainURI;
             field.Bucket = new BucketSetting { Operator = "individual" };
 
-            bool imageExisting = _aggregationService.CheckDomainImageIsExisting(field, domainImageFolderList);
-            Assert.IsTrue(imageExisting);
+            string folder = _aggregationService.GetDomainImageFolder(field, domainImageFolderList);
+            Assert.AreEqual(expected, folder);
         }
 
         [Test]
@@ -54,28 +56,28 @@ namespace EveryAngle.WebClient.Web.CSTests.ServiceTests
             _aggregationService.SetPivotGridField(fields, settings);
             _aggregationService.SetPivotGridSettingsFormat(settings, null, fields);
 
-            Assert.AreEqual(settings.Fields[0].CellFormat.FormatString, "h:mm tt");
+            Assert.AreEqual("h:mm tt", settings.Fields[0].CellFormat.FormatString);
         }
 
         [Test]
         public void TestGetCellBackgroundColorForSubTotalRowAndColumn()
         {
             string cellClass = _aggregationService.GetCellBackgroundColor(true, false, true, true);
-            Assert.AreEqual(cellClass, "subWithSubTotal");
+            Assert.AreEqual("subWithSubTotal", cellClass);
         }
 
         [Test]
         public void TestGetCellBackgroundColorForGrandTotalColumn()
         {
             string cellClass = _aggregationService.GetCellBackgroundColor(true, true, true, false);
-            Assert.AreEqual(cellClass, "subWithGrandTotal");
+            Assert.AreEqual("subWithGrandTotal", cellClass);
         }
 
         [Test]
         public void TestGetCellBackgroundColorForGrandTotalTotalRowAndColumn()
         {
             string cellClass = _aggregationService.GetCellBackgroundColor(false, true, true, true);
-            Assert.AreEqual(cellClass, "grandWithGrandTotal");
+            Assert.AreEqual("grandWithGrandTotal", cellClass);
         }
 
         [Test]

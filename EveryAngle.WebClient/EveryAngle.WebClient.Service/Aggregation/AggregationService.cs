@@ -1042,28 +1042,34 @@ namespace EveryAngle.WebClient.Service.Aggregation
 
         public void SetHtmlFieldIcon(PivotHtmlFieldValuePreparedEventArgs e, string caption, int index)
         {
-            if (e.Field != null)
-            {
-                EAPivotField field = GetFieldSettingMetaData(e.Field.FieldName, FieldSetting);
-                if (field != null && CheckDomainImageIsExisting(field, _domainImageFolderList))
-                {
-                    e.Cell.Controls.RemoveAt(index);
-                    e.Cell.Controls.AddAt(index, new LiteralControl(string.Format("<span class=\"domainIcon {0}\"></span>{1}", e.Value, caption)));
-                }
-            }
+            if (e.Field == null)
+                return;
+
+            EAPivotField field = GetFieldSettingMetaData(e.Field.FieldName, FieldSetting);
+            if (field == null)
+                return;
+
+            string folder = GetDomainImageFolder(field, _domainImageFolderList);
+            if (folder == null)
+                return;
+            
+            var className = $"icon-{folder}{e.Value}";
+
+            e.Cell.Controls.RemoveAt(index);
+            e.Cell.Controls.AddAt(index, new LiteralControl(string.Format("<span class=\"domainIcon {0}\"></span>{1}", className, caption)));
         }
 
-        public bool CheckDomainImageIsExisting(EAPivotField field, string[] domainImageFolderList)
+        public string GetDomainImageFolder(EAPivotField field, string[] domainImageFolderList)
         {
-            bool imageExist = false;
             if (IsCustomEnumerated(field))
             {
                 dynamic domainElement = GetDomainElementsByUri(field.DomainURI);
                 string domainId = domainElement.id;
-                string[] domain = domainId.Split('_');
-                imageExist = domainImageFolderList.Any(x => x.Equals(domain.Last(), StringComparison.OrdinalIgnoreCase));
+                string domainFolder = domainId.Split('_').Last();
+                if (domainImageFolderList.Any(x => x.Equals(domainFolder, StringComparison.OrdinalIgnoreCase)))
+                    return domainFolder.ToLowerInvariant();
             }
-            return imageExist;
+            return null;
         }
 
         private void SetNullText(PivotHtmlFieldValuePreparedEventArgs e, string nullText)
