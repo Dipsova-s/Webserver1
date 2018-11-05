@@ -1289,6 +1289,7 @@
             if (actionType === self.ACTION_TYPE_ID.DATASTORE) {
                 container.find('.scriptActionType').hide();
                 container.find('.datastoreActionType').show();
+                $('#EmailResultSettings').show();
 
                 // attach result depends on some of datastores
                 var ddlDatastore = jQuery('#datastore').data('kendoDropDownList');
@@ -1297,6 +1298,7 @@
             else if (actionType === self.ACTION_TYPE_ID.SCRIPT) {
                 container.find('.datastoreActionType').hide();
                 container.find('.scriptActionType').show();
+                $('#EmailResultSettings').hide();
                 self.HideOrShowAttachResult();
             }
             self.SetEmailSubject();
@@ -1313,7 +1315,7 @@
                 valueTemplate: template,
                 template: template,
                 dataSource: self.Scripts,
-                open: self.ScriptDropdownOpen,
+                open: self.ScriptDropdownOpen
             });
         };
         self.ScriptDropdownOpen = function () {
@@ -2216,7 +2218,7 @@
                     if (emailAddress && checkEmailAddress(emailAddress)) {
                         recipients.push({
                             "email_address": emailAddress,
-                            "result": recipient.find('[name^="is_result"]').is(":checked"),
+                            "result": recipient.find('[name^="is_result"]').is(":visible") && recipient.find('[name^="is_result"]').is(":checked"),
                             "success": recipient.find('[name^="is_success"]').is(":checked"),
                             "failed": recipient.find('[name^="is_failed"]').is(":checked")
                         });
@@ -2335,8 +2337,8 @@
                 notification = {
                     'notification_type': 'email',
                     'attach_result': $('#email_attach_result').is(':visible') && $('#email_attach_result').prop('checked'),
-                    'subject': $('#email_subject').val(),
-                    'body': editor ? editor.value() : '',
+                    'subject': $('#email_subject').is(':visible') ? $('#email_subject').val() : '',
+                    'body': editor && editor.wrapper.is(':visible') ? editor.value() : '',
                     'recipients': recipients
                 };
             }
@@ -2539,7 +2541,7 @@
                     else {
                         var notification = dataItem.notification;
                         if (notification) {
-                            if (!notification.subject || !notification.recipients.length || !notification.body) {
+                            if (!notification.recipients.length) {
                                 notification = null;
                             }
                             else if (notification.toJSON) {
