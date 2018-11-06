@@ -86,8 +86,7 @@
                 + "# } else { #"
                 + "<input name=\"ChangedTablesOnly\" value=\"#= data.ChangedTablesOnly #\" data-default=\"false\" disabled=\"disabled\" type=\"checkbox\">"
                 + "# } #"
-                + "<span class=\"label\"></span></label>")
-            .Hidden();
+                + "<span class=\"label\"></span></label>");
 
         columns.Bound(model => model.RefreshCycleTrigger.days)
             .HeaderHtmlAttributes(new { @Class = "columnDays" })
