@@ -8,7 +8,7 @@ namespace EveryAngle.WebClient.Service.EmbededResource
 {
     public class EmbeddedVirtualPathProvider : VirtualPathProvider
     {
-        private VirtualPathProvider _previous;
+        private readonly VirtualPathProvider _previous;
         public EmbeddedVirtualPathProvider(VirtualPathProvider previous)
         {
             _previous = previous;

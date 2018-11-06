@@ -101,7 +101,7 @@
             },
             timePickerOptions: {
                 format: 'HH:mm:ss',
-                parseFormats: ['HH:mm:ss'],
+                parseFormats: ['HH:mm:ss']
             }
         },
 

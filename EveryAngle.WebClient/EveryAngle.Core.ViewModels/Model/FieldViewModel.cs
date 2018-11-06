@@ -63,14 +63,7 @@ namespace EveryAngle.Core.ViewModels.Model
             get { return Source; }
             set
             {
-                if (value == null)
-                {
-                    Source = null;
-                }
-                else
-                {
-                    Source = new Uri(UrlHelper.GetRequestUrl(URLType.NOA) + value);
-                }
+                Source = value != null ? new Uri(UrlHelper.GetRequestUrl(URLType.NOA) + value) : null;
             }
         }
 

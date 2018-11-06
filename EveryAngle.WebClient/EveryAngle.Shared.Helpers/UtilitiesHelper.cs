@@ -24,11 +24,11 @@ namespace EveryAngle.Shared.Helpers
                 result = Regex.Replace(result, @"<h\d\b[^>]*>(.*?)<\/h\d>", string.Empty, RegexOptions.IgnoreCase);
             }
 
-            result = Regex.Replace(result, @"(<\/(blockquote|tr|ol|ul|li|div|p|h\d)>)", "\r\n", RegexOptions.IgnoreCase); 
+            result = Regex.Replace(result, @"(<\/(blockquote|tr|ol|ul|li|div|p|h\d)>)", "\r\n", RegexOptions.IgnoreCase);
             result = Regex.Replace(result, @"(<ul[^>]*>)", "\r\n", RegexOptions.IgnoreCase);
-            result = Regex.Replace(result, @"(<(li|td)>)", "- ", RegexOptions.IgnoreCase); 
+            result = Regex.Replace(result, @"(<(li|td)>)", "- ", RegexOptions.IgnoreCase);
             result = Regex.Replace(result, @"(<\/[a-z]+>)", " ", RegexOptions.IgnoreCase);
-            result = Regex.Replace(result, @"<br ?\/?>", "\r\n", RegexOptions.IgnoreCase); 
+            result = Regex.Replace(result, @"<br ?\/?>", "\r\n", RegexOptions.IgnoreCase);
             result = Regex.Replace(result, @"<hr ?\/?>", string.Empty, RegexOptions.IgnoreCase);
             result = Regex.Replace(result, @"<img[^>]*>", string.Empty, RegexOptions.IgnoreCase);
             result = Regex.Replace(result, @"<%", string.Empty, RegexOptions.IgnoreCase);
@@ -61,7 +61,6 @@ namespace EveryAngle.Shared.Helpers
         public static int CalculateOffset(int page, int pagesize)
         {
             return (page - 1) * pagesize;
-
         }
 
         public static double ConvertBytesToGigabytes(double val)
@@ -110,11 +109,6 @@ namespace EveryAngle.Shared.Helpers
                 path = path.Substring(1);
 
             return rootPath + path;
-        }
-
-        public static T ConvertValue<T>(object value)
-        {
-            return (T)Convert.ChangeType(value, typeof(T));
         }
 
         private const int EXECUTE_TIME = 300000;
@@ -243,7 +237,7 @@ namespace EveryAngle.Shared.Helpers
 
                 if (cslModifiedTime.Subtract(xmlModifiedTime).TotalSeconds > 0)
                 {
-                    result = ExecuteFile(executeParameters) as ExecuteJsonResult;
+                    result = ExecuteFile(executeParameters);
                 }
                 else
                 {
@@ -253,7 +247,7 @@ namespace EveryAngle.Shared.Helpers
             }
             else
             {
-                result = ExecuteFile(executeParameters) as ExecuteJsonResult;
+                result = ExecuteFile(executeParameters);
             }
 
             if (result.Success)
@@ -262,7 +256,7 @@ namespace EveryAngle.Shared.Helpers
                 if (resultFile.Exists)
                 {
                     result.ResultPath = resultFile.FullName;
-                    string xml = System.IO.File.ReadAllText(result.ResultPath);
+                    string xml = File.ReadAllText(result.ResultPath);
 
                     try
                     {
@@ -271,30 +265,17 @@ namespace EveryAngle.Shared.Helpers
                         xml = xml.Replace("\x04", "");
                         xmlDocument.LoadXml(xml);
 
-                        List<string> filters = new List<string>();
-                        if (!string.IsNullOrEmpty(executeParameters.Q))
-                        {
-                            filters.Add(string.Format("contains(translate(@ProcessID,'ABCDEFGHJIKLMNOPQRSTUVWXYZ', 'abcdefghjiklmnopqrstuvwxyz'),'{0}') or contains(translate(@ThreadName,'ABCDEFGHJIKLMNOPQRSTUVWXYZ', 'abcdefghjiklmnopqrstuvwxyz'),'{0}') or contains(translate(@MsgText,'ABCDEFGHJIKLMNOPQRSTUVWXYZ', 'abcdefghjiklmnopqrstuvwxyz'),'{0}')", executeParameters.Q.ToLower()));
-                        }
+                        List<string> filters = GetCslLogFilters(executeParameters);
+                        string xpathFilter = GetCslLogPathFilter(filters);
 
-                        if (!string.IsNullOrEmpty(executeParameters.MessageType))
-                        {
-                            filters.Add(filters.Any()
-                                ? string.Format("and @MsgType = '{0}'", executeParameters.MessageType)
-                                : string.Format("@MsgType = '{0}'", executeParameters.MessageType));
-                        }
-
-                        string xpathFilter = String.Empty;
-                        if (filters.Any())
-                        {
-                            xpathFilter = "[" + string.Join(" ", filters) + "]";
-                        }
-
-                        var nodes = xmlDocument.SelectNodes("/CodeSiteLog/Message" + xpathFilter);
+                        var nodes = xmlDocument.SelectNodes($"/CodeSiteLog/Message{xpathFilter}");
+                        int total = 0;
                         IList<JObject> resultToken = new List<JObject>();
                         if (nodes != null)
                         {
-                            for (int index = executeParameters.Offset; index < (executeParameters.Offset + executeParameters.Limit); index++)
+                            total = nodes.Count;
+                            int indexTo = executeParameters.Offset + executeParameters.Limit;
+                            for (int index = executeParameters.Offset; index < indexTo; index++)
                             {
                                 if (nodes[index] != null)
                                 {
@@ -313,65 +294,7 @@ namespace EveryAngle.Shared.Helpers
                                         lastChild.ParentNode.InsertAfter(newNode, lastChild);
                                     }
 
-                                    JObject token = JObject.FromObject(new
-                                    {
-                                        AppName =
-                                            nodes[index]["AppName"] == null
-                                                ? string.Empty
-                                                : nodes[index]["AppName"].InnerText,
-                                        MsgType =
-                                            nodes[index].Attributes["MsgType"] == null
-                                                ? string.Empty
-                                                : nodes[index].Attributes["MsgType"].InnerText,
-                                        Category = new
-                                        {
-                                            Color =
-                                                nodes[index]["Category"] == null
-                                                    ? string.Empty
-                                                    : nodes[index]["Category"].GetAttribute("Color"),
-                                            FontColor =
-                                                nodes[index]["Category"] == null
-                                                    ? string.Empty
-                                                    : nodes[index]["Category"].GetAttribute("FontColor")
-                                        },
-                                        ComputerName =
-                                            nodes[index]["ComputerName"] == null
-                                                ? string.Empty
-                                                : nodes[index]["ComputerName"].InnerText,
-                                        MsgContent =
-                                            nodes[index].Attributes["MsgContent"] == null
-                                                ? string.Empty
-                                                : nodes[index].Attributes["MsgContent"].InnerText,
-                                        MsgText =
-                                            nodes[index].Attributes["MsgText"] == null
-                                                ? string.Empty
-                                                : SplitMessageByNewLine(nodes[index].Attributes["MsgText"].InnerText),
-                                        ProcessID =
-                                            nodes[index]["ProcessID"] == null
-                                                ? string.Empty
-                                                : nodes[index]["ProcessID"].InnerText,
-                                        ThreadName =
-                                            nodes[index]["ThreadName"] == null
-                                                ? string.Empty
-                                                : nodes[index]["ThreadName"].InnerText,
-                                        TimeStamp = new
-                                        {
-                                            Date =
-                                                nodes[index]["TimeStamp"] == null
-                                                    ? null
-                                                    : nodes[index]["TimeStamp"].GetAttribute("Date"),
-                                            Time =
-                                                nodes[index]["TimeStamp"] == null
-                                                    ? null
-                                                    : nodes[index]["TimeStamp"].GetAttribute("Time")
-                                        },
-                                        TypeName =
-                                            nodes[index]["TypeName"] == null ? null : nodes[index]["TypeName"].InnerText,
-                                        DetailsUri =
-                                            nodes[index]["DetailsUri"] == null
-                                                ? null
-                                                : nodes[index]["DetailsUri"].InnerText
-                                    });
+                                    JObject token = JObject.FromObject(GetCslLogDataRow(nodes[index]));
                                     resultToken.Add(token);
                                 }
                             }
@@ -382,28 +305,92 @@ namespace EveryAngle.Shared.Helpers
                             messages = resultToken,
                             header = new
                             {
-                                total = nodes.Count,
+                                total,
                                 offset = executeParameters.Offset,
                                 limit = executeParameters.Limit
                             }
-
                         });
 
                         result.Success = true;
                         result.Content = output;
-
                     }
                     catch (Exception ex)
                     {
                         result.Success = false;
                         result.ErrorMessage = ex.Message;
                     }
-
                 }
 
             }
             return result;
+        }
 
+        private static List<string> GetCslLogFilters(ExecuteParameters executeParameters)
+        {
+            List<string> filters = new List<string>();
+            if (!string.IsNullOrEmpty(executeParameters.Q))
+            {
+                filters.Add(string.Format("contains(translate(@ProcessID,'ABCDEFGHJIKLMNOPQRSTUVWXYZ', 'abcdefghjiklmnopqrstuvwxyz'),'{0}') or contains(translate(@ThreadName,'ABCDEFGHJIKLMNOPQRSTUVWXYZ', 'abcdefghjiklmnopqrstuvwxyz'),'{0}') or contains(translate(@MsgText,'ABCDEFGHJIKLMNOPQRSTUVWXYZ', 'abcdefghjiklmnopqrstuvwxyz'),'{0}')", executeParameters.Q.ToLower()));
+            }
+
+            if (!string.IsNullOrEmpty(executeParameters.MessageType))
+            {
+                filters.Add(filters.Any()
+                    ? string.Format("and @MsgType = '{0}'", executeParameters.MessageType)
+                    : string.Format("@MsgType = '{0}'", executeParameters.MessageType));
+            }
+            return filters;
+        }
+
+        private static string GetCslLogPathFilter(List<string> filters)
+        {
+            string xpathFilter = string.Empty;
+            if (filters.Any())
+            {
+                xpathFilter = "[" + string.Join(" ", filters) + "]";
+            }
+            return xpathFilter;
+        }
+
+        private static dynamic GetCslLogDataRow(XmlNode node)
+        {
+            return new
+            {
+                AppName = GetXmlElementInnerText(node["AppName"]),
+                MsgType = GetXmlNodeAttributeInnerText(node, "MsgType"),
+                Category = new
+                {
+                    Color = GetXmlElementAttributeInnerText(node["Category"], "Color"),
+                    FontColor = GetXmlElementAttributeInnerText(node["Category"], "FontColor")
+                },
+                ComputerName = GetXmlElementInnerText(node["ComputerName"]),
+                MsgContent = GetXmlNodeAttributeInnerText(node, "MsgContent"),
+                MsgText = SplitMessageByNewLine(GetXmlNodeAttributeInnerText(node, "MsgText")),
+                ProcessID = GetXmlElementInnerText(node["ProcessID"]),
+                ThreadName = GetXmlElementInnerText(node["ThreadName"]),
+                TimeStamp = new
+                {
+                    Date = node["TimeStamp"]?.GetAttribute("Date"),
+                    Time = node["TimeStamp"]?.GetAttribute("Time")
+                },
+                TypeName = node["TypeName"]?.InnerText,
+                DetailsUri = node["DetailsUri"]?.InnerText
+            };
+        }
+
+        private static string GetXmlNodeAttributeInnerText(XmlNode node, string name)
+        {
+            return node.Attributes[name] == null ? string.Empty : node.Attributes[name].InnerText;
+        }
+
+        private static string GetXmlElementInnerText(XmlElement element)
+        {
+            return element == null ? string.Empty : element.InnerText;
+        }
+
+        private static string GetXmlElementAttributeInnerText(XmlElement element, string name)
+        {
+            return element == null ? string.Empty : element.GetAttribute(name);
         }
 
         private static string SplitMessageByNewLine(string source)
@@ -432,40 +419,23 @@ namespace EveryAngle.Shared.Helpers
                 if (resultFile.Exists)
                 {
                     result.ResultPath = resultFile.FullName;
-                    string xml = System.IO.File.ReadAllText(result.ResultPath);
-
-
+                    string xml = File.ReadAllText(result.ResultPath);
+                    
                     try
                     {
-
                         XmlDocument xmlDocument = new XmlDocument();
                         xml = xml.Replace("\x01", "");
                         xmlDocument.LoadXml(xml);
 
-                        List<string> filters = new List<string>();
-                        if (!string.IsNullOrEmpty(executeParameters.Q))
-                        {
-                            filters.Add(string.Format("contains(translate(@ProcessID,'ABCDEFGHJIKLMNOPQRSTUVWXYZ', 'abcdefghjiklmnopqrstuvwxyz'),'{0}') or contains(translate(@ThreadName,'ABCDEFGHJIKLMNOPQRSTUVWXYZ', 'abcdefghjiklmnopqrstuvwxyz'),'{0}') or contains(translate(@MsgText,'ABCDEFGHJIKLMNOPQRSTUVWXYZ', 'abcdefghjiklmnopqrstuvwxyz'),'{0}')", executeParameters.Q.ToLower()));
-                        }
+                        List<string> filters = GetCslLogFilters(executeParameters);
+                        string xpathFilter = GetCslLogPathFilter(filters);
 
-                        if (!string.IsNullOrEmpty(executeParameters.MessageType))
-                        {
-                            filters.Add(filters.Any()
-                                ? string.Format("and @MsgType = '{0}'", executeParameters.MessageType)
-                                : string.Format("@MsgType = '{0}'", executeParameters.MessageType));
-                        }
-
-                        string xpathFilter = String.Empty;
-                        if (filters.Any())
-                        {
-                            xpathFilter = "[" + string.Join(" ", filters) + "]";
-                        }
-
-                        var nodes = xmlDocument.SelectNodes("/CodeSiteLog/Message" + xpathFilter);
+                        var nodes = xmlDocument.SelectNodes($"/CodeSiteLog/Message{xpathFilter}");
                         if (nodes != null)
                         {
-                            XmlNode lastChild = nodes[int.Parse(executeParameters.DetailsId)].LastChild;
-                            string cslType = nodes[int.Parse(executeParameters.DetailsId)].SelectSingleNode("TypeName") != null ? nodes[int.Parse(executeParameters.DetailsId)].SelectSingleNode("TypeName").InnerText : "";
+                            XmlNode node = nodes[int.Parse(executeParameters.DetailsId)];
+                            XmlNode lastChild = node.LastChild;
+                            string cslType = node.SelectSingleNode("TypeName") != null ? node.SelectSingleNode("TypeName").InnerText : "";
                             var resultText = "";
                             if (lastChild.Name == "Details")
                             {
@@ -533,12 +503,10 @@ namespace EveryAngle.Shared.Helpers
                             }
                             else
                             {
-                                resultText = nodes[int.Parse(executeParameters.DetailsId)].Attributes["MsgText"] == null
-                                                  ? string.Empty
-                                                  : nodes[int.Parse(executeParameters.DetailsId)].Attributes["MsgText"].InnerText;
+                                resultText = GetXmlNodeAttributeInnerText(node, "MsgText");
                             }
                             result.Success = true;
-                            result.StringContent = "<pre>" + resultText + "</pre>";
+                            result.StringContent = $"<pre>{resultText}</pre>";
                         }
 
 
@@ -581,14 +549,14 @@ namespace EveryAngle.Shared.Helpers
         static readonly string[] SizeSuffixes = { "bytes", "KB", "MB", "GB", "TB", "PB", "EB", "ZB", "YB" };
         public static string GetFileSizeInString(Int64 value)
         {
-            if (value < 0) 
-            { 
-                return "-" + GetFileSizeInString(-value); 
+            if (value < 0)
+            {
+                return "-" + GetFileSizeInString(-value);
             }
 
-            if (value == 0) 
-            { 
-                return "0.0 bytes"; 
+            if (value == 0)
+            {
+                return "0.0 bytes";
             }
 
             int mag = (int)Math.Log(value, 1024);
@@ -629,7 +597,4 @@ namespace EveryAngle.Shared.Helpers
         public string StringContent { get; internal set; }
 
     }
-
-
-
 }

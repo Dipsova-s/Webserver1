@@ -122,7 +122,7 @@ describe("ListFormatSettingHandler", function () {
 
                 expectLength: 0,
                 expect: 'DefaultName'
-            },
+            }
         ];
 
         $.each(tests, function (index, test) {
@@ -140,7 +140,7 @@ describe("ListFormatSettingHandler", function () {
                 if (test.expectLength > 0) {
                     expect(test.displayField.multi_lang_alias[0].text).toEqual(test.expect);
                 }
-            })
+            });
         });
 
     });

@@ -207,7 +207,7 @@
             comfortZone: 20,
             inputPadding: 6 * 2,
             sensitive: true,
-            regexp: null,
+            regexp: null
         }, options);
 
 		this.each(function() {

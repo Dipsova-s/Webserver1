@@ -18,7 +18,7 @@ namespace EveryAngle.Core.ViewModels.Model
             Setting setting = null;
             if (this.SettingList != null)
             {
-                setting = this.SettingList.Where(filter => filter.Id == id).FirstOrDefault();
+                setting = SettingList.FirstOrDefault(filter => filter.Id == id);
             }
 
             return setting;

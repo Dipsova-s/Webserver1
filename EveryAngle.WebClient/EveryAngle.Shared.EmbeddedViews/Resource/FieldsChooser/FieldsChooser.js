@@ -927,7 +927,7 @@ function FieldsChooserModel() {
             // set last column width
             var headerWrapperSpace = headerWrapper.width();
             var lastColumn = headerWrapper.find('th:last');
-            var newWidth = Math.max(self.ShowTechnicalInfo ? 70 : 50, (headerWrapperSpace - lastColumn.position().left))
+            var newWidth = Math.max(self.ShowTechnicalInfo ? 70 : 50, (headerWrapperSpace - lastColumn.position().left));
             jQuery.setGridWidth(grid, lastColumn.index(), newWidth);
 
             // set detail size

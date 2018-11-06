@@ -13,24 +13,8 @@ namespace EveryAngle.WebClient.Service.ErrorHandlers
     {
         public static void RedirectToCustomErrorPage(HttpContext httpContext, IController errorController, RouteData currentRouteData, Exception ex)
         {
-            string currentController = string.Empty;
-            string currentAction = string.Empty;
             if (currentRouteData != null)
             {
-                if (currentRouteData.Values["controller"] != null &&
-                    !string.IsNullOrEmpty(currentRouteData.Values["controller"].ToString()))
-                {
-                    currentController = currentRouteData.Values["controller"].ToString();
-                }
-
-                if (currentRouteData.Values["action"] != null &&
-                    !string.IsNullOrEmpty(currentRouteData.Values["action"].ToString()))
-                {
-                    currentAction = currentRouteData.Values["action"].ToString();
-                }
-
-             
-
                 var routeData = new RouteData();
                 var action = "Index";
                 var errorMessage = ex.Message;
@@ -51,8 +35,7 @@ namespace EveryAngle.WebClient.Service.ErrorHandlers
                 routeData.Values["controller"] = "Error";
                 routeData.Values["action"] = action;
                 routeData.Values["error"] = errorMessage;
-
-              //  errorController.ViewData.Model = new HandleErrorInfo(ex, currentController, currentAction);
+                
                 errorController.Execute(new RequestContext(new HttpContextWrapper(httpContext), routeData));
             }
         }

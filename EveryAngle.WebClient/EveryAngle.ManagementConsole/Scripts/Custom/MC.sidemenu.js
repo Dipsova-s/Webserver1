@@ -12,12 +12,12 @@
                 clearTimeout(fnCheckFirstAddressChange);
 
                 // if upload file come here then stop it
-                if (MC.ui.loading.type == MC.ui.loading.TYPE.upload) {
+                if (MC.ui.loading.type === MC.ui.loading.TYPE.upload) {
                     return;
                 }
 
                 // jump to the first linked menu
-                if (event.value == '/') {
+                if (event.value === '/') {
                     MC.sideMenu.redirectToFirstLink();
                     return false;
                 }
@@ -71,7 +71,7 @@
 
                             // load first linked page if reload page
                             // e.g. now in #/Models/ but this will show overview content (the first link)
-                            if (MC.ajax.lastMainContentRequest == null) {
+                            if (MC.ajax.lastMainContentRequest === null) {
                                 var firstLinkable = MC.sideMenu.getFirstLink();
                                 MC.sideMenu.load(firstLinkable.get(0));
                             }
@@ -101,7 +101,7 @@
             MC.ui.breadcrumb.render(obj);
         },
         getFirstLink: function () {
-            return jQuery('#sideMenu a[data-url]').filter(function () { return jQuery(this).data('url') }).first();
+            return jQuery('#sideMenu a[data-url]').filter(function () { return jQuery(this).data('url'); }).first();
         },
         redirectToFirstLink: function () {
             var link = MC.sideMenu.getFirstLink();
@@ -115,7 +115,7 @@
                 url.splice(0, 0, jQuery('>a .sideMenuLabel', v).text());
             });
 
-            return url.length == 0 ? '/' : '/' + url.join('/') + '/';
+            return url.length === 0 ? '/' : '/' + url.join('/') + '/';
         },
         setDeepLink: function (url) {
             jQuery.address.value(url);
@@ -221,6 +221,7 @@
                     req.parameters = JSON.parse(unescape(params));
                 }
                 catch (e) {
+                    // do nothing
                 }
             }
             MC.ajax.request(req)
@@ -236,8 +237,7 @@
                         MC.ajax.setErrorDisable(xhr, status, error);
                         var msg = MC.ajax.getErrorMessage(xhr, null, error);
                         msg += '<a class="btn" onclick="$.address.update()">' + Localization.Retry + '</a>';
-                        jQuery('#mainContent').html('<div class="content"><div class="contentSection contentSectionError">' + msg + '</div></div>')
-
+                        jQuery('#mainContent').html('<div class="content"><div class="contentSection contentSectionError">' + msg + '</div></div>');
                     }
                     else {
                         jQuery('#mainContent').addClass('errorMainContent');
@@ -302,7 +302,7 @@
 		expanded: function (obj, callback) {
 			var self = this;
 			jQuery(obj).parent('li').addClass(self.activeClass);
-			if (typeof callback == 'function')
+			if (typeof callback === 'function')
 				callback(obj);
 		},
         collapse: function (obj, animate, callback) {
@@ -320,9 +320,9 @@
 		collapsed: function (obj, callback) {
 			var self = this;
 			jQuery(obj).parent('li').removeClass(self.activeClass);
-			if (typeof callback == 'function')
+			if (typeof callback === 'function')
 				callback(obj);
-		},
+		}
     };
 
 

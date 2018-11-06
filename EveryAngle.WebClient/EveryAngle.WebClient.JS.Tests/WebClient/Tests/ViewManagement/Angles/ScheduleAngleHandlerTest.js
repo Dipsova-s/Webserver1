@@ -127,8 +127,6 @@ describe("ScheduleAngleHandler", function () {
                 }
             };
 
-            debugger;
-
             displayModel.Data = ko.observable({
                 used_in_task: true
             });
@@ -144,7 +142,7 @@ describe("ScheduleAngleHandler", function () {
                     { name: 'task 4', uri: '/tasks/4', run_as_user: 'Viewer' },
                     { name: 'task 3', uri: '/tasks/3', run_as_user: 'EAAdmin' },
                     { name: 'task 2', uri: '/tasks/2', run_as_user: 'Viewer' },
-                    { name: 'task 1', uri: '/tasks/1', run_as_user: 'EAAdmin' },
+                    { name: 'task 1', uri: '/tasks/1', run_as_user: 'EAAdmin' }
                 ]
             };
             scheduleAngleHandler.PopulateTaskList(e, data);

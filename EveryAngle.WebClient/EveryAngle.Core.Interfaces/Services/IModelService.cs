@@ -43,7 +43,7 @@ namespace EveryAngle.Core.Interfaces.Services
         ListViewModel<ModelServerReportViewModel> GetReports(string reportUri);
         string GetModelServerReport(string reportUri);
         void UpdateModelActiveLanguages(string uri, string activeLanguages);
-        DataTable GetEventsTable(string modelUri, int page, int pageSize);
+        DataTable GetEventsTable(string modelServerUri, int page, int pageSize);
         void DeleteModelServer(string modelServerUri);
         ModelServerViewModel CreateModelServer(string modelServerUri, string modelServersData); 
         string SaveRole(string modelUri, string roleUri, string updatedRole);

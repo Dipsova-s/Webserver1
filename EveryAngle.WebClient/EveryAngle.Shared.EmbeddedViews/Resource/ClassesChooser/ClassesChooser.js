@@ -14,7 +14,7 @@
 
         // globalize model
         window[this.Name] = this;
-    };
+    }
 
     // register class
     window.ClassesChooser = classesChooser;

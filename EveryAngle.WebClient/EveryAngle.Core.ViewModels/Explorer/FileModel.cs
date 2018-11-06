@@ -1,5 +1,4 @@
-﻿
-using EveryAngle.Shared.Helpers;
+﻿using EveryAngle.Shared.Helpers;
 using EveryAngle.Utilities;
 using System.Collections.Generic;
 using System.IO;
@@ -86,7 +85,6 @@ namespace EveryAngle.Core.ViewModels.Explorer
         /// <param name="basePath"></param>
         public FileModel(dynamic fi, string basePath)
         {
-            // TODO: don't use dynamic, create viewmodel
             Size = (long)fi.size;
             Name = (string)fi.file;
             Modified = (long)fi.modified;

@@ -9,8 +9,6 @@ namespace EveryAngle.WebClient.Service.LogHandlers
 {
     public class LogExceptionApiHandler : ExceptionFilterAttribute
     {
-        private LogSourceType sourceType = Directory.GetFiles(HttpContext.Current.Request.MapPath("~/bin")).FirstOrDefault(f => f.Contains("EveryAngle.WebClient.Web.dll")) != null ? LogSourceType.WebClient : LogSourceType.ManagementConsole;
-
         public override void OnException(HttpActionExecutedContext actionExecutedContext)
         {
             Exception ex = actionExecutedContext.Exception;

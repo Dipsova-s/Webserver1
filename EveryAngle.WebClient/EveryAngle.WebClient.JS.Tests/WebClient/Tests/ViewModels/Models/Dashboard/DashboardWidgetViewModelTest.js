@@ -95,7 +95,7 @@ describe("DashboardWidgetViewModel", function () {
             spyOn(dashboardWidgetViewModel, 'GetBlockQuerySteps').and.returnValue({
                 query_steps: [
                     { step_type: enumHandlers.FILTERTYPE.AGGREGATION },
-                    { step_type: 'test' },
+                    { step_type: 'test' }
                 ]
             });
             var aggregationQueryStep = dashboardWidgetViewModel.GetAggregationQueryStep();

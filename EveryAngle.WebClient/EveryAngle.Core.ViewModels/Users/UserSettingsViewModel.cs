@@ -87,25 +87,22 @@ namespace EveryAngle.Core.ViewModels.Users
         private bool IsDefaultSuggestedFields()
         {
             dynamic cliendSettings = JsonConvert.DeserializeObject(this.client_settings);
-
             return cliendSettings.default_Suggested_Fields ?? false;
         }
 
         public void LoadClientSettings()
         {
-            this.default_Starred_Fields = IsDefaultStarredFields();
-            this.default_Suggested_Fields = IsDefaultSuggestedFields();
-            string generalDecimalSeparator = GetClientSettingBy("general_decimal_seperator");
-            this.general_decimal_seperator = generalDecimalSeparator != null ? generalDecimalSeparator : ".";
-            string generalThousandSeparator = GetClientSettingBy("general_thousand_seperator");
-            this.general_thousand_seperator = generalThousandSeparator != null ? generalThousandSeparator : ",";
+            default_Starred_Fields = IsDefaultStarredFields();
+            default_Suggested_Fields = IsDefaultSuggestedFields();
+            general_decimal_seperator = GetClientSettingBy("general_decimal_seperator") ?? ".";
+            general_thousand_seperator = GetClientSettingBy("general_thousand_seperator") ?? ",";
         }
 
         public string GetClientSettingBy(string name)
         {
-            if (this.client_settings != null)
+            if (client_settings != null)
             {
-                dynamic cliendSettings = JsonConvert.DeserializeObject(this.client_settings);
+                dynamic cliendSettings = JsonConvert.DeserializeObject(client_settings);
                 return cliendSettings[name];
             }
             else return null;
@@ -113,7 +110,7 @@ namespace EveryAngle.Core.ViewModels.Users
 
         public object Clone()
         {
-            return this.MemberwiseClone();
+            return MemberwiseClone();
         }
     }
 

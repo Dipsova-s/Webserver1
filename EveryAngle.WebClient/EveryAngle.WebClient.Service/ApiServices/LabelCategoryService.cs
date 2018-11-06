@@ -31,18 +31,6 @@ namespace EveryAngle.WebClient.Service.ApiServices
             return systemLanguages.Data;
         }
 
-        //public ListViewModel<LabelCategoryViewModel> GetLabelCategoriesExceptBusinessProcess(string uri)
-        //{
-        //    var requestManager = RequestManager.Initialize(uri, false);
-        //    JObject jsonResult = requestManager.Run();
-        //    ListViewModel<LabelCategoryViewModel> result = new ListViewModel<LabelCategoryViewModel>();
-
-        //    result.Data = JsonConvert.DeserializeObject<List<LabelCategoryViewModel>>(jsonResult.SelectToken("label_categories").ToString()).Where(x => x.contains_businessprocesses != true).ToList();
-        //    result.Header = JsonConvert.DeserializeObject<HeaderViewModel>(jsonResult.SelectToken("header").ToString());
-        //    result.Header.Total = result.Data.Count();
-        //    return result;
-        //}
-
         public ListViewModel<LabelCategoryViewModel> GetLabelCategories(string uri)
         {
             var requestManager = RequestManager.Initialize(uri);

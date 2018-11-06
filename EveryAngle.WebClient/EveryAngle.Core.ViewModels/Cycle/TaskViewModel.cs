@@ -14,14 +14,6 @@ namespace EveryAngle.Core.ViewModels.Cycle
 {
     public class TaskViewModel : ICloneable
     {
-        public TaskAction RefreshCycleAction
-        {
-            get
-            {
-                return actions.Where(filter => filter.action_type == "refresh_model" || filter.action_type == "EATest" || filter.action_type == "export_angle_to_datastore").FirstOrDefault();
-            }
-        }
-
         public string Model
         {
             get
@@ -90,7 +82,7 @@ namespace EveryAngle.Core.ViewModels.Cycle
         {
             object value = null;
             List<Argument> arguments = actions.SelectMany(filter => filter.arguments).ToList();
-            if (arguments != null && arguments.Count() > 0)
+            if (arguments != null && arguments.Any())
             {
                 Argument arg = arguments.FirstOrDefault(filter => filter.name == nameArgument);
                 if (arg != null)
@@ -134,14 +126,7 @@ namespace EveryAngle.Core.ViewModels.Cycle
         {
             get
             {
-                if (Triggers != null)
-                {
-                    return Triggers.FirstOrDefault(filter => filter.trigger_type == "schedule");
-                }
-                else
-                {
-                    return null;
-                }
+                return Triggers?.FirstOrDefault(filter => filter.trigger_type == "schedule");
             }
         }
 

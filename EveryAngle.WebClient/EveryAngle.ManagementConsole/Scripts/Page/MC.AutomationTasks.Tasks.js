@@ -2481,7 +2481,7 @@
                 "run_as_user": jQuery('[name^="RunasUser"]').val(),
                 "actions": [],
                 "enabled": jQuery('[name^="IsEnabled"]').is(':checked'),
-                "max_run_time": timeStop !== '' || timeStop === '00:00' ? MC.util.timePickerToUnixTime(jQuery('[name^="TimeStop"]').data('kendoTimePicker').value(), true) : 0,
+                "max_run_time": timeStop !== '' ? MC.util.timePickerToUnixTime(jQuery('[name^="TimeStop"]').data('kendoTimePicker').value(), true) : 0,
                 "actions_uri": self.TasksActionsUri,
                 "triggers": []
             };
@@ -2607,7 +2607,7 @@
             MC.form.template.remove(obj);
         };
         self.DeleteTask = function (e, obj) {
-            if (!($(obj).hasClass("disabled"))) {
+            if (!$(obj).hasClass("disabled")) {
 
                 var confirmMessage = MC.form.template.getRemoveMessage(obj);
                 MC.util.showPopupConfirmation(confirmMessage, function () {

@@ -31,9 +31,9 @@ namespace EveryAngle.WebClient.Service.ApiServices
 
         public object category { get; set; }
 
-        public ModelServerViewModel GetModelServer(string uri)
+        public ModelServerViewModel GetModelServer(string modelServerUri)
         {
-            var requestManager = RequestManager.Initialize(uri);
+            var requestManager = RequestManager.Initialize(modelServerUri);
             var jsonResult = requestManager.Run();
             var result = JsonConvert.DeserializeObject<ModelServerViewModel>(jsonResult.ToString(),
                 new UnixDateTimeConverter());
@@ -71,9 +71,9 @@ namespace EveryAngle.WebClient.Service.ApiServices
             return models;
         }
 
-        public DataTable GetEventsTable(string serverUri, int page, int pagesize)
+        public DataTable GetEventsTable(string modelServerUri, int page, int pageSize)
         {
-            var eventsTimeList = GetAllModelServersEventsTime(serverUri, page, pagesize);
+            var eventsTimeList = GetAllModelServersEventsTime(modelServerUri, page, pageSize);
 
             //Created Table
             var EventDataTable = new DataTable();
@@ -425,15 +425,6 @@ namespace EveryAngle.WebClient.Service.ApiServices
             return package;
         }
 
-        //public byte[] DownloadPackageFile(string packageUri)
-        //{
-        //    var requestManager = RequestManager.Initialize(packageUri, false);
-        //    string DownloadFileName = "";
-        //    byte[] fileData = clientManager.GetBinaryWithFileName(ref DownloadFileName);
-
-        //    return fileData;
-        //}
-
         public void UpdatePackage(string packageUri, string updatedPackage)
         {
             var requestManager = RequestManager.Initialize(packageUri);
@@ -550,7 +541,7 @@ namespace EveryAngle.WebClient.Service.ApiServices
             var success = false;
             var requestManager = RequestManager.Initialize(updatedRole.Uri.ToString());
             var roleInfo = JsonConvert.SerializeObject(updatedRole, new UnixDateTimeConverter());
-            var jsonResult = requestManager.Run(Method.PUT, roleInfo);
+            requestManager.Run(Method.PUT, roleInfo);
             if (requestManager.ResponseStatus == HttpStatusCode.OK)
             {
                 var roleModel = GetRole(modelUri, updatedRole.Uri.ToString());
@@ -586,7 +577,7 @@ namespace EveryAngle.WebClient.Service.ApiServices
 
                 requestManager = RequestManager.Initialize(updatedRole.Uri.ToString());
                 roleModel.CreatedBy = null;
-                jsonResult = requestManager.Run(Method.PUT, JsonConvert.SerializeObject(roleModel));
+                requestManager.Run(Method.PUT, JsonConvert.SerializeObject(roleModel));
                 success = requestManager.ResponseStatus == HttpStatusCode.OK;
             }
             return success;
@@ -594,12 +585,8 @@ namespace EveryAngle.WebClient.Service.ApiServices
 
         public string SaveRole(string modelUri, string roleUri, string updatedRole)
         {
-            var success = false;
             var requestManager = RequestManager.Initialize(roleUri);
-            // string roleInfo = JsonConvert.SerializeObject(updatedRole, new UnixDateTimeConverter());
             var jsonResult = requestManager.Run(Method.PUT, updatedRole);
-
-            success = requestManager.ResponseStatus == HttpStatusCode.OK;
             return jsonResult.ToString();
         }
 

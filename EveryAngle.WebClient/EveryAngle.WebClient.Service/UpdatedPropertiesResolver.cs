@@ -13,7 +13,7 @@ namespace EveryAngle.WebClient.Service
     {
         private readonly T updatedObject;
         private readonly T defaultObject;
-        private Dictionary<string, string> ObjectContracts = new Dictionary<string, string>();
+        private readonly Dictionary<string, string> ObjectContracts = new Dictionary<string, string>();
 
         public UpdatedPropertiesResolver(T updatedObject, T defaultObject)
         {
@@ -42,11 +42,7 @@ namespace EveryAngle.WebClient.Service
                 }
             }
 
-            if (updatedProperties.Count != 0)
-            {
-                return updatedProperties;
-            }
-            else return null;
+            return updatedProperties.Any() ? updatedProperties : null;
         }
 
         //1
@@ -112,7 +108,7 @@ namespace EveryAngle.WebClient.Service
         private object FindMember(object obj, Type expectedType)
         {
             object member = null;
-            var contract = ObjectContracts.Where(filter => filter.Value == expectedType.FullName).FirstOrDefault();
+            var contract = ObjectContracts.FirstOrDefault(filter => filter.Value == expectedType.FullName);
             if (!contract.Equals(default(KeyValuePair<string, string>)))
             {
                 GetValue(obj, contract.Key, out member);
@@ -126,7 +122,7 @@ namespace EveryAngle.WebClient.Service
             object updatedValue = null;
             object defaultValue = null;
 
-            if (type == this.updatedObject.GetType())
+            if (type == updatedObject.GetType())
             {
                 updatedValue = updatedObject.GetType().GetProperty(propertyName, BindingFlags.IgnoreCase | BindingFlags.Public | BindingFlags.Instance).GetValue(updatedObject);
                 defaultValue = defaultObject.GetType().GetProperty(propertyName, BindingFlags.IgnoreCase | BindingFlags.Public | BindingFlags.Instance).GetValue(defaultObject);
@@ -142,39 +138,33 @@ namespace EveryAngle.WebClient.Service
                     updatedValue = updatedMember.GetType().GetProperty(propertyName, BindingFlags.IgnoreCase | BindingFlags.Public | BindingFlags.Instance).GetValue(updatedMember);
                     defaultValue = defaultMember.GetType().GetProperty(propertyName, BindingFlags.IgnoreCase | BindingFlags.Public | BindingFlags.Instance).GetValue(defaultMember);
                 }
-
-
             }
 
-            if (!Object.Equals(updatedValue, defaultValue))
+            if (!Equals(updatedValue, defaultValue) && updatedValue != null)
             {
-                if (updatedValue != null)
+                if (updatedValue.GetType() == typeof(List<string>))
                 {
-                    if (updatedValue.GetType() == typeof(List<string>))
-                    {
-
-                        isChanged = !(updatedValue as List<string>).SequenceEqual(defaultValue as List<string>);
-                    }
-                    else if (updatedValue.GetType() == typeof(DateTime))
-                    {
-                        isChanged = ((DateTime)updatedValue).CompareTo(((DateTime)defaultValue)) != 0;
-                    }
-                    else if (updatedValue.GetType() == typeof(Int32))
-                    {
-                        isChanged = ((int)updatedValue).CompareTo(((int)defaultValue)) != 0;
-                    }
-                    else if (updatedValue.GetType() == typeof(string))
-                    {
-                        isChanged = ((string)updatedValue).CompareTo(((string)defaultValue)) != 0;
-                    }
-                    else if (updatedValue.GetType() == typeof(bool))
-                    {
-                        isChanged = !Object.Equals(updatedValue, defaultValue);
-                    }
-                    else
-                    {
-                        isChanged = true;
-                    }
+                    isChanged = !(updatedValue as List<string>).SequenceEqual(defaultValue as List<string>);
+                }
+                else if (updatedValue is DateTime)
+                {
+                    isChanged = ((DateTime)updatedValue).CompareTo(((DateTime)defaultValue)) != 0;
+                }
+                else if (updatedValue is int)
+                {
+                    isChanged = ((int)updatedValue).CompareTo(((int)defaultValue)) != 0;
+                }
+                else if (updatedValue is string)
+                {
+                    isChanged = ((string)updatedValue).CompareTo(((string)defaultValue)) != 0;
+                }
+                else if (updatedValue is bool)
+                {
+                    isChanged = !Equals(updatedValue, defaultValue);
+                }
+                else
+                {
+                    isChanged = true;
                 }
             }
 
@@ -184,9 +174,8 @@ namespace EveryAngle.WebClient.Service
 
     public class CleanUpPropertiesResolver : DefaultContractResolver
     {
-        private List<string> exceptFields;
-
-
+        private readonly List<string> exceptFields;
+        
         public CleanUpPropertiesResolver(List<string> exceptFields)
         {
             this.exceptFields = exceptFields;
@@ -206,11 +195,7 @@ namespace EveryAngle.WebClient.Service
                 }
             }
 
-            if (updatedProperties.Count != 0)
-            {
-                return updatedProperties;
-            }
-            else return null;
+            return updatedProperties.Any() ? updatedProperties : null;
         }
 
         private bool IsValidToAdd(JsonProperty property)
@@ -230,7 +215,6 @@ namespace EveryAngle.WebClient.Service
                     return false;
                 }
                 else return true;
-                //return false;
             }
             else
             {
@@ -253,7 +237,5 @@ namespace EveryAngle.WebClient.Service
             }
 
         }
-
-
     }
 }

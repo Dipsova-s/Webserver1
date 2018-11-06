@@ -1,16 +1,10 @@
 using EveryAngle.Core.Interfaces.Services;
-using EveryAngle.Core.ViewModels.Model;
-using EveryAngle.Utilities;
-using EveryAngle.WebClient.Service.HttpHandlers;
-using Newtonsoft.Json;
-using RestSharp;
-using System;
-using System.Linq;
-using System.Collections.Generic;
-using System.Web;
-using Newtonsoft.Json.Linq;
-using EveryAngle.Core.ViewModels.Cycle;
 using EveryAngle.Core.ViewModels;
+using EveryAngle.Core.ViewModels.Cycle;
+using EveryAngle.Core.ViewModels.Model;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace EveryAngle.WebClient.Service.ApiServices
 {
@@ -27,11 +21,11 @@ namespace EveryAngle.WebClient.Service.ApiServices
         #region Private variable
 
         // remove those properties on create/update task
-        List<string> defaultCleanTaskProperties = new List<string>
+        readonly List<string> defaultCleanTaskProperties = new List<string>
         {
             "id", "uri", "description",
             "created", "changed", "status",
-            "RefreshCycleAction", "RefreshCycleTrigger",
+            "RefreshCycleTrigger",
             "Model", "model", "Delta", "ActionList", "action_count",
             "Angle_Id", "Angle", "AngleName", "DisplayName",
             "Datastore", "SpecifyTables",
@@ -40,7 +34,7 @@ namespace EveryAngle.WebClient.Service.ApiServices
         };
 
         // remove those properties on create/update task action
-        List<string> defaultCleanTaskActionProperties = new List<string>
+        readonly List<string> defaultCleanTaskActionProperties = new List<string>
         {
             "Angle", "AngleName", "DisplayName", "run_as_user"
         };
@@ -85,12 +79,12 @@ namespace EveryAngle.WebClient.Service.ApiServices
         /// <param name="model"></param>
         /// <param name="includeTaskActions">Save actions with task or not?</param>
         /// <returns></returns>
-        public TaskViewModel UpdateTask(TaskViewModel model, bool includeTaskActions)
+        public TaskViewModel UpdateTask(TaskViewModel model, bool includeTaskAction)
         {
             List<string> cleanUpdateTaskProperties = new List<string>(defaultCleanTaskProperties);
 
             // additional removing properties on update task
-            if (!includeTaskActions)
+            if (!includeTaskAction)
                 cleanUpdateTaskProperties.Add("actions");
 
             return Update<TaskViewModel>(model, cleanUpdateTaskProperties);

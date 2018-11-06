@@ -5,7 +5,7 @@ namespace EveryAngle.WebClient.Service.EmbededResource
 {
     public class EmbeddedVirtualFile : VirtualFile
     {
-        private Stream _stream;
+        private readonly Stream _stream;
         public EmbeddedVirtualFile(string virtualPath, Stream stream)
             : base(virtualPath)
         {

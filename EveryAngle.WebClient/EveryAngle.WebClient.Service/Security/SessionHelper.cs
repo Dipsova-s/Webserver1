@@ -22,8 +22,7 @@ namespace EveryAngle.WebClient.Service.Security
     public class SessionHelper
     {
         #region variables
-
-        private List<ModelViewModel> _models = null;
+        
         private bool hasCookie = false;
 
         public virtual bool HasCookie
@@ -168,13 +167,13 @@ namespace EveryAngle.WebClient.Service.Security
         public virtual void ReloadModels()
         {
             ModelService modelService = new ModelService();
-            _models = modelService.GetSessionModels(Version.GetEntryByName("models").Uri.ToString() + "?caching=false");
-            HttpContext.Current.Session["ModelViewModelList"] = _models;
+            List<ModelViewModel> models = modelService.GetSessionModels(Version.GetEntryByName("models").Uri.ToString() + "?caching=false");
+            HttpContext.Current.Session["ModelViewModelList"] = models;
         }
 
         public virtual void ReloadSystemSetting(SystemSettingViewModel savedSystemSettings = null)
         {
-            var systemSettings = new SystemSettingViewModel();
+            SystemSettingViewModel systemSettings;
             if (savedSystemSettings == null)
             {
                 GlobalSettingService globalSettingService = new GlobalSettingService();
@@ -217,8 +216,6 @@ namespace EveryAngle.WebClient.Service.Security
 
         public virtual string GetModelLicenseDate(string modelId, SystemLicenseViewModel modelLicenses)
         {
-            string licenseDate = null;
-
             if (modelLicenses != null && modelLicenses.model_licenses != null)
             {
                 var modelLicensesCount = modelLicenses.model_licenses.Count;
@@ -227,11 +224,11 @@ namespace EveryAngle.WebClient.Service.Security
                     var model_licensesItem = modelLicenses.model_licenses[i];
                     if (model_licensesItem.model_id.Equals(modelId))
                     {
-                        return licenseDate = model_licensesItem.expires.ToString();
+                        return model_licensesItem.expires.ToString();
                     }
                 }
             }
-            return licenseDate;
+            return null;
         }
 
         public virtual List<ModelServerViewModel> GetModelServers(List<ModelViewModel> modelList)
@@ -335,26 +332,6 @@ namespace EveryAngle.WebClient.Service.Security
 
             // use the lastest one
             return eaTokenCookies.LastOrDefault();
-        }
-
-        private static Task<JObject> GetAsync(string requestUrl)
-        {
-            var requestManager = RequestManager.Initialize(requestUrl);
-            return (requestManager.GetAsync());
-        }
-
-        private static List<Task<JObject>> ParallelRequest(List<string> uriList)
-        {
-            List<Task<JObject>> request = new List<Task<JObject>>();
-
-            foreach (var uri in uriList)
-            {
-                request.Add(GetAsync(uri));
-            }
-
-            Task.WaitAll(request.ToArray());
-
-            return request;
         }
 
         #endregion

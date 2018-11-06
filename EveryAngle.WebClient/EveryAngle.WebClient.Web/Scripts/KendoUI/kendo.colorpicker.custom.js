@@ -7,10 +7,9 @@
 
 (function ($) {
 
-    var kendo = window.kendo
+    var kendo = window.kendo;
     var ui = kendo.ui;
     var Widget = ui.ColorPicker;
-    var extend = $.extend;
 
     // private function
     var createCustomUI = function (that) {
@@ -160,7 +159,7 @@
                 .kendoFlatColorPicker({
                     buttons: true,
                     preview: that.options.preview,
-                    messages: that.options.messages,
+                    messages: that.options.messages
                 })
                 .data('kendoFlatColorPicker');
 

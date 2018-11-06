@@ -299,7 +299,7 @@
                 packageVersion: '',
                 packageDescription: '',
                 facetQuery: '',
-                includeLabels: true,
+                includeLabels: true
             };
         };
         self.CheckSubmitButtonState = function (itemSummaries) {
@@ -397,7 +397,7 @@
                 itemType: itemType,
                 includePrivate: formData.hasObject('name', 'has_private'),
                 includePublished: formData.hasObject('name', 'has_published'),
-                includeValidated: formData.hasObject('name', 'has_validated'),
+                includeValidated: formData.hasObject('name', 'has_validated')
             };
         };
         self.GetFacetQueryString = function (facetParameters) {

@@ -56,12 +56,12 @@ namespace EveryAngle.Core.ViewModels.Directory
 
         public Entry GetEntryByName(string name)
         {
-            return this.Entries.Where(filter => filter.Name.Equals(name, StringComparison.InvariantCultureIgnoreCase)).SingleOrDefault();
+            return Entries.SingleOrDefault(filter => filter.Name.Equals(name, StringComparison.InvariantCultureIgnoreCase));
         }
 
         public Entry GetEntryByEnum(VersionEntry versionEntryEnum)
         {
-            return this.Entries.Where(filter => filter.Name.Equals(versionEntryEnum.ToString(), StringComparison.InvariantCultureIgnoreCase)).SingleOrDefault();
+            return Entries.SingleOrDefault(filter => filter.Name.Equals(versionEntryEnum.ToString(), StringComparison.InvariantCultureIgnoreCase));
         }
     }
 
