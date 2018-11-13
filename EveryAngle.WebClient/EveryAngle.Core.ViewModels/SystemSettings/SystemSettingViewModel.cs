@@ -93,6 +93,10 @@ namespace EveryAngle.Core.ViewModels.SystemSettings
         [LocalizedDisplayName("MC_IncludeSelfInExportHeaders")]
         public bool include_self_in_export_headers { get; set; }
 
+        [JsonProperty(PropertyName = "script_location")]
+        [LocalizedDisplayName("MC_ScriptLocation")]
+        public string script_location { get; set; }
+
         public string ReFormatTrustedWebservers
         {
             get

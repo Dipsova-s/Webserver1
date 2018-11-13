@@ -93,6 +93,7 @@ namespace EveryAngle.ManagementConsole.Controllers
             var systemSettingModel = globalSettingService.GetSystemSettings(version.GetEntryByName("system_settings").Uri.ToString());
 
             ViewBag.DefaultProvider = systemSettingModel.DefaultAuthenticationProvider;
+            ViewBag.SupportAngleAutomation = SessionHelper.Info.AngleAutomation;
             return PartialView("~/Views/GlobalSettings/SystemSettings/SystemSettings.cshtml", systemSettingModel);
         }
 
@@ -145,12 +146,18 @@ namespace EveryAngle.ManagementConsole.Controllers
 
 
             //Update System Setting
+            List<string> cleanupProperties = new List<string>
+            {
+                "remote_certificates"
+            };
+            if (!SessionHelper.Info.AngleAutomation)
+                cleanupProperties.Add("script_location");
             updatedSystemSettings.DefaultAuthenticationProvider = SystemSettings.DefaultAuthenticationProvider;
             updatedSystemSettings.trusted_webservers = SystemSettings.trusted_webservers;
             var savedSystemSettings = globalSettingService.UpdateSystemSetting(version.GetEntryByName("system_settings").Uri.ToString(),
                                         JsonConvert.SerializeObject(updatedSystemSettings, new JsonSerializerSettings
                                         {
-                                            ContractResolver = new CleanUpPropertiesResolver(new List<string> { "remote_certificates" })
+                                            ContractResolver = new CleanUpPropertiesResolver(cleanupProperties)
                                         }));
 
             SessionHelper.ReloadSystemSetting(savedSystemSettings);
@@ -159,10 +166,9 @@ namespace EveryAngle.ManagementConsole.Controllers
         [AcceptVerbs(HttpVerbs.Post)]
         public ActionResult SaveSystemSettings(string systemSettingsData, string recipient)
         {
-            var sessionHelper = SessionHelper;
-            var version = sessionHelper.Version;
-            var systemSettings = JsonConvert.DeserializeObject<SystemSettingViewModel>(systemSettingsData);
-            var updatedSystemSettings = (SystemSettingViewModel)sessionHelper.SystemSettings.Clone();
+            VersionViewModel version = SessionHelper.Version;
+            SystemSettingViewModel systemSettings = JsonConvert.DeserializeObject<SystemSettingViewModel>(systemSettingsData);
+            SystemSettingViewModel updatedSystemSettings = (SystemSettingViewModel)SessionHelper.SystemSettings.Clone();
             updatedSystemSettings.session_expiry_minutes = systemSettings.session_expiry_minutes;
             updatedSystemSettings.modelserver_check_seconds = systemSettings.modelserver_check_seconds;
             updatedSystemSettings.default_cache_minutes = systemSettings.default_cache_minutes;
@@ -182,6 +188,7 @@ namespace EveryAngle.ManagementConsole.Controllers
             updatedSystemSettings.max_event_log_stored_records = systemSettings.max_event_log_stored_records;
             updatedSystemSettings.max_audit_log_history = systemSettings.max_audit_log_history;
             updatedSystemSettings.include_self_in_export_headers = systemSettings.include_self_in_export_headers;
+            updatedSystemSettings.script_location = systemSettings.script_location;
 
             updatedSystemSettings.EmailSettings.smtp_server = systemSettings.EmailSettings.smtp_server;
             updatedSystemSettings.EmailSettings.smtp_port = systemSettings.EmailSettings.smtp_port;
@@ -190,19 +197,21 @@ namespace EveryAngle.ManagementConsole.Controllers
             updatedSystemSettings.EmailSettings.username = systemSettings.EmailSettings.username;
             updatedSystemSettings.EmailSettings.password = systemSettings.EmailSettings.password;
 
-            var savedSystemSettings =
+            List<string> cleanupProperties = new List<string>
+            {
+                "default_authentication_provider",
+                "max_pagesize"
+            };
+            if (!SessionHelper.Info.AngleAutomation)
+                cleanupProperties.Add("script_location");
+            SystemSettingViewModel savedSystemSettings =
                 globalSettingService.UpdateSystemSetting(version.GetEntryByName("system_settings").Uri.ToString(),
                     JsonConvert.SerializeObject(updatedSystemSettings, new JsonSerializerSettings
                     {
-                        ContractResolver =
-                            new CleanUpPropertiesResolver(new List<string>
-                            {
-                                "default_authentication_provider",
-                                "max_pagesize"
-                            })
+                        ContractResolver = new CleanUpPropertiesResolver(cleanupProperties)
                     }));
 
-            sessionHelper.ReloadSystemSetting(savedSystemSettings);
+            SessionHelper.ReloadSystemSetting(savedSystemSettings);
 
             if (!string.IsNullOrEmpty(recipient))
             {

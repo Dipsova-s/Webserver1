@@ -5913,4 +5913,12 @@ For security reasons, the password must always be reentered before saving the ac
     <value>Select the program or script file for this action.&lt;br&gt;
 You can only select .cmd, .exe, .ps1 and .bat files that are located in the designated folder. The location of this folder can be configured under system settings.</value>
   </data>
+  <data name="MC_ScriptLocation" xml:space="preserve">
+    <value>Program/scripts folder</value>
+  </data>
+  <data name="MC_SystemSettingsHelpScriptLocation" xml:space="preserve">
+    <value>The location of the folder for program/script files for use in Automation Tasks.&lt;br&gt;
+Any file in this folder of type .cmd, .exe, .ps1 and .bat will become available in the dropdown when setting up an Action of type Program/script.&lt;br&gt;
+Attention: The specified location must be a full file path on the Application server.</value>
+  </data>
 </root>

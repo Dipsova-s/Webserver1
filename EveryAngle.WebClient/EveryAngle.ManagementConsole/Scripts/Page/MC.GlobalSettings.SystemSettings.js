@@ -135,6 +135,7 @@
 			var maxEventlogStoredRecords = $('#max_event_log_stored_records').val();
 			var maxAuditLogHistory = $('#max_audit_log_history').val();
             var includeSelfInExportHeaders = $('#include_self_in_export_headers').is(':checked');
+            var scriptLocation = $('#script_location').val();
 
             var emailSettings = {
                 "smtp_server": smtpServer,
@@ -165,7 +166,8 @@
 				'max_event_log_stored_records': maxEventlogStoredRecords,
 				'max_audit_log_history': maxAuditLogHistory,
                 'include_self_in_export_headers': includeSelfInExportHeaders,
-                'default_max_export_page_size': defaultMaxExportPageSize
+                'default_max_export_page_size': defaultMaxExportPageSize,
+                'script_location': scriptLocation
             };
 
             return {

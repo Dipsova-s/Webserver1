@@ -16,15 +16,18 @@ namespace EveryAngle.Core.ViewModels.Tests
             //arrange
             SystemSettingViewModel viewModel = new SystemSettingViewModel
             {
-                max_audit_log_history = 555
+                max_audit_log_history = 555,
+                script_location = "c:\\"
             };
 
             //assert type
             Assert.AreEqual(viewModel.max_audit_log_history.GetType(), typeof(int));
+            Assert.AreEqual(viewModel.script_location.GetType(), typeof(string));
 
             //assert json serialize
             string viewModelSerialize = JsonConvert.SerializeObject(viewModel);
             Assert.IsTrue(viewModelSerialize.Contains("max_audit_log_history"));
+            Assert.IsTrue(viewModelSerialize.Contains("script_location"));
         }
     }
 }

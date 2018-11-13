@@ -3562,9 +3562,11 @@ form#ExportPackageForm .packageInfo .packageVersion input {
 .pageRefreshCycle .contentSectionInfoItem p {
     font-weight: normal;
 }
-.pageRefreshCycle .contentSectionInfoItem .btnInfo {
+.pageRefreshCycle .rowChangedTablesOnly .btnInfo,
+.pageRefreshCycle .rowChangedTablesOnly .btnInfo:hover {
     left: 165px;
     right: auto;
+    margin-top: -7px;
 }
 
 .pageRefreshCycle .gridContainer .editRow .btnGroupInner .btnEdit,
