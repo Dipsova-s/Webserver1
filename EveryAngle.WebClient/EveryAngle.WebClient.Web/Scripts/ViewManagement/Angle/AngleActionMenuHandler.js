@@ -4,24 +4,6 @@ function AngleActionMenuHandler(base) {
     var self = jQuery.extend(base, this);
 
     /*BOF: Model Methods*/
-
-    self.ToggleActionDropDown = function () {
-        if (jQuery('#ActionDropdownList').hasClass('disabled'))
-            return;
-
-        if (jQuery('#ActionDropdownListPopup').is(':visible'))
-            self.HideActionDropDown();
-        else
-            self.ShowActionDropDown();
-    };
-    self.ShowActionDropDown = function () {
-        jQuery('#AngleField').removeClass('top');
-        jQuery('#ActionDropdownListPopup').show();
-    };
-    self.HideActionDropDown = function () {
-        jQuery('#AngleField').addClass('top');
-        jQuery('#ActionDropdownListPopup').hide();
-    };
     self.RenderActionDropdownList = function () {
         // collect data
         var data = [];
@@ -228,8 +210,6 @@ function AngleActionMenuHandler(base) {
 
     self.CallActionDropdownFunction = function (obj, selectedValue) {
         if (!jQuery(obj).hasClass('disabled')) {
-            self.HideActionDropDown();
-
             var actions = {};
             actions[enumHandlers.ANGLEACTION.ADDTODASHBOARD.Id] = [self, self.ShowAddToDashboardPopup];
             actions[enumHandlers.ANGLEACTION.SAVE.Id] = [self, self.QuickSaveDisplay];

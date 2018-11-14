@@ -77,13 +77,7 @@ Dashboard Note Should Be Equal
     ${compareDashboardNote}    Get Text    ${btnDashboardNote}
     Should Be Equal    ${compareDashboardNote}    ${DashboardNote}
 
-Click Dashboard Dropdown Actions
-    Wait Until Page Contains Element    ${ddlDashboardActionDropdownList}
-    Wait Until Element Is Visible    ${ddlDashboardActionDropdownList}
-    Click Element    ${ddlDashboardActionDropdownList}
-
 Click Execute Dashboard Action
-    Click Dashboard Dropdown Actions
     Wait Until Element Is Visible    ${ddlDashboardActionDropdownListExecuteDashboard}
     Click Element    ${ddlDashboardActionDropdownListExecuteDashboard}
 

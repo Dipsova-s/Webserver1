@@ -156,7 +156,7 @@ Close Angle Detail Popup
 Open Angle Detail Popup
     Wait Progress Bar Closed
     Wait Until Element Is Visible    ${lnkAngleName}
-    Click Element    ${lnkAngleName}
+    Execute Javascript    $('#AngleName .Name').trigger('click');
     Wait Angle Detail Document Loaded
 
 Get Last Execute Angle Date

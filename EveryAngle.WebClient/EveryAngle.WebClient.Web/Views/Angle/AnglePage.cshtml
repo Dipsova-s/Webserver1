@@ -60,16 +60,15 @@
                 <!-- ko stopBinding: true -->
                 <span id="ExecutionResults" class="executionResults" data-bind="html: $root.GetExecutionResultText(), attr: { title: $root.GetExecutionResultText(true) }"></span>
                 <!-- /ko -->
-                <div id="SelectedDisplay" onclick="anglePageHandler.ShowOrHideDisplayList();">
-                  @*  @{Html.RenderAction("DisplayDropdownList", "Angle");}*@
-                    @{Html.RenderPartial("~/Views/Angle/PartialViews/DisplayDropdownList/DisplayDropdownList.cshtml");}
-                    
-                </div>
-                <div id="ActionSelect">
-                    <div id="ActionDropdownList" class="btn btnDefault btnTools" onclick="anglePageHandler.ToggleActionDropDown()"><span data-bind="text: Localization.Tools">@Resource.Tools</span></div>
+                <div id="ActionSelect" class="compactMode">
+                    <div id="ActionDropdownList" class="btn btnDefault btnTools"><span data-bind="text: Localization.Tools">@Resource.Tools</span></div>
                     <div class="k-window-titleless k-window-custom k-window-arrow-n popupAction popupActionAngle" id="ActionDropdownListPopup">
                         <div class="k-window-content k-content"></div>
                     </div>
+                </div>
+                <div id="SelectedDisplay" onclick="anglePageHandler.ShowOrHideDisplayList();">
+                    @{Html.RenderPartial("~/Views/Angle/PartialViews/DisplayDropdownList/DisplayDropdownList.cshtml");}
+
                 </div>
                 <span id="YourNote" data-bind="text: !PrivateNote() && Data() && Data().authorizations.update_user_specific ? Localization.AddNote : PrivateNote, attr: { title: PrivateNote }, css: { disabled: Data() && !Data().authorizations.update_user_specific }"></span>
             </div>

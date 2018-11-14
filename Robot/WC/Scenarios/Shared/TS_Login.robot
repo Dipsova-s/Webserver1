@@ -4,7 +4,7 @@ Resource            ${EXECDIR}/WC/POM/Shared/LoginPage.robot
 *** Keywords ***
 Login
     [Arguments]   ${username}  ${password}
-    Maximize Browser Window
+    Maximize Browser window
     Wait Login Page Document Loaded
     Fill in Username    ${username}
     Fill in Password    ${password}
@@ -18,7 +18,7 @@ Login And Expected Result
 Login To WC By Power User
     Login    ${Username}    ${Password}
     Wait Search Page Document Loaded
-    Maximize Browser Window
+    Maximize Browser window
 
 Login To WC By Admin User
     Login    ${AdminUsername}    ${Password}

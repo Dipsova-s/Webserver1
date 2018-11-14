@@ -1,6 +1,10 @@
 ﻿(function (win) {
     "use strict";
 
+    win.TOOLTIP_POSITION = {
+        BOTTOM: 'bottom'
+    };
+
     var fnCheckTooltip;
 
     var getTooltipElement = function (ui) {
@@ -14,13 +18,26 @@
     var setTooltipPosition = function (tooltip, e) {
         var tooltipWidth = tooltip.outerWidth();
         var tooltipHeight = tooltip.outerHeight();
-        var tooltipLeft = e.pageX + tooltipWidth + 5 > jQuery(window).scrollLeft() + win.WC.Window.Width ? e.pageX - tooltipWidth - 5 : e.pageX + 5;
-        if (tooltipLeft < 5) {
-            tooltipLeft = 5;
+        var tooltipLeft;
+        var tooltipTop;
+
+        if (e.data.position === TOOLTIP_POSITION.BOTTOM) {
+            // show at bottom
+            var target = jQuery(e.target);
+            var targetOffset = target.offset();
+            tooltipLeft = targetOffset.left + (target.outerWidth() / 2) - (tooltipWidth / 2);
+            tooltipTop = targetOffset.top + target.outerHeight();
         }
-        var tooltipTop = e.pageY + tooltipHeight + 5 > jQuery(window).scrollTop() + win.WC.Window.Height ? e.pageY - tooltipHeight - 5 : e.pageY + 5;
-        if (tooltipTop < 5) {
-            tooltipTop = 5;
+        else {
+            // depends on your mouse
+            tooltipLeft = e.pageX + tooltipWidth + 5 > jQuery(window).scrollLeft() + win.WC.Window.Width ? e.pageX - tooltipWidth - 5 : e.pageX + 5;
+            if (tooltipLeft < 5) {
+                tooltipLeft = 5;
+            }
+            tooltipTop = e.pageY + tooltipHeight + 5 > jQuery(window).scrollTop() + win.WC.Window.Height ? e.pageY - tooltipHeight - 5 : e.pageY + 5;
+            if (tooltipTop < 5) {
+                tooltipTop = 5;
+            }
         }
         tooltip.css({
             left: tooltipLeft,
@@ -76,10 +93,15 @@
         };
     };
 
+    var setClassName = function (tooltip, className) {
+        tooltip.attr('class', 'k-grid-tooltip ' + className);
+    };
+
     var showTooltip = function (e) {
         var ui = win.WC.HtmlHelper.Tooltip;
         var tooltip = getTooltipElement(ui);
         clearTimeout(fnCheckTooltip);
+        setClassName(tooltip, e.data.className);
 
         var target = jQuery(e.currentTarget);
         var info = getTooltipInfo(e, ui);
@@ -119,14 +141,12 @@
         element: '#tooltip',
         except: 'select, input:visible, textarea',
         maxchars: 5000,
-        Create: function (key, selector, showWhenNeed) {
-            if (typeof showWhenNeed === 'undefined') {
-                showWhenNeed = false;
-            }
+        Create: function (key, selector, showWhenNeed, position, tooltipClassName) {
+            showWhenNeed = WC.Utility.ToBoolean(showWhenNeed);
 
             jQuery(document)
                 .off('mouseover.' + key)
-                .on('mouseover.' + key, selector, { selector: selector, showWhenNeed: showWhenNeed }, showTooltip)
+                .on('mouseover.' + key, selector, { selector: selector, showWhenNeed: showWhenNeed, position: position, className: tooltipClassName }, showTooltip)
                 .off('mouseout.' + key)
                 .on('mouseout.' + key, delayHideTooltip)
                 .off('mousewheel.' + key + ' mousedown.' + key)

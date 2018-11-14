@@ -154,12 +154,12 @@ Get Search Input Text
     [Return]    ${text}
 
 Click Search Button
-    Click Link    ${btnSearchButton}
+    Press Key   ${txtSearchInput}    \\13 
+
 
 #******** Search Action  ***************
 Click Search Action
-    [Arguments]    ${actionSelector}
-    Click Search Action Menu
+  [Arguments]    ${actionSelector}
     Click Element    ${actionSelector}
 
 Click Search Action Mass Change
@@ -378,9 +378,9 @@ Click Select First Item From Search Result
 Click Select Second Item From Search Result
     Click Select Item From Search Result    2
 
-Click Search Action Menu
-    Click Element    ${btnSearchAction}
-    Wait Until Element Is Visible    ${ddlSearchActionList}
+#Click Search Action Menu
+#    Click Element    ${btnSearchAction}
+#    Wait Until Element Is Visible    ${ddlSearchActionList}
 
 Get Model Name for Create New Angle
     ${modelForCreateNewAngleValue} =    Execute Javascript     return (modelsHandler.GetData().length > 1) ? $('#${lblModelForCreateNewAngle}').text() : modelsHandler.GetData()[0].id

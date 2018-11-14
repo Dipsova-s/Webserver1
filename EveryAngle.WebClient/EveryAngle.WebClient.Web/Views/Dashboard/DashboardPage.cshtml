@@ -56,8 +56,8 @@
                 <div class="SignValidated" data-bind="visible: Model.Data().is_validated()" style="display: none"></div>
             </div>
             <span id="YourNote" data-bind="text: !dashboardModel.Data().user_specific.private_note() && dashboardModel.Data().authorizations.update_user_specific ? Localization.AddNote : Model.Data().user_specific.private_note(), css: { disabled: !dashboardModel.Data().authorizations.update_user_specific }"></span>
-            <div id="ActionSelect">
-                <div id="ActionDropdownList" class="btn btnDefault btnTools" onclick="dashboardHandler.ToggleActionDropDown()"><span data-bind="text: Localization.Tools"></span></div>
+            <div id="ActionSelect" class="compactMode">
+                <div id="ActionDropdownList" class="btn btnDefault btnTools"><span data-bind="text: Localization.Tools"></span></div>
                 <div class="k-window-titleless k-window-custom k-window-arrow-n popupAction popupActionAngle" id="ActionDropdownListPopup">
                     <div class="k-window-content k-content"></div>
                 </div>

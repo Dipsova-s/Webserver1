@@ -108,10 +108,12 @@ function AnglePageHandler() {
             // set firstLogin status
             jQuery.localStorage('firstLogin', 0);
 
+            // tooltip
+            WC.HtmlHelper.Tooltip.Create('actionmenu', '#ActionDropdownListPopup .actionDropdownItem', false, TOOLTIP_POSITION.BOTTOM, 'tooltipActionmenu k-window-arrow-n');
+
             // menu navigatable
             WC.HtmlHelper.MenuNavigatable('#UserControl', '#UserMenu', '.actionDropdownItem');
             WC.HtmlHelper.MenuNavigatable('#Help', '#HelpMenu', '.actionDropdownItem');
-            WC.HtmlHelper.MenuNavigatable('#ActionDropdownList', '#ActionDropdownListPopup', '.actionDropdownItem');
             WC.HtmlHelper.MenuNavigatable('#SelectedDisplay', '#DisplayItemList', '.ItemList', 'ItemListSelected');
             WC.HtmlHelper.MenuNavigatable('#btnAddLanguage', '.languageAvailableList', '.Item');
             WC.HtmlHelper.MenuNavigatable('.btnAddLabel', '.availableLabelsList', 'li');
@@ -151,13 +153,6 @@ function AnglePageHandler() {
             };
             jQuery.clickOutside('#UserMenu', '#UserControl');
             jQuery.clickOutside('#HelpMenu', '#Help');
-            jQuery.clickOutside('#ActionDropdownListPopup', function (e) {
-                var excepts = [
-                    '[id^=ActionDropdownList]'
-                ];
-                if (isHide(e.target, excepts))
-                    self.HideActionDropDown();
-            });
             jQuery.clickOutside('.languageAvailableList', '.btnAddLanguage');
             jQuery.clickOutside('#DisplayListSelection', function (e) {
                 if (!jQuery(e.target).hasClass('SelectedDisplayPointer'))
@@ -1533,14 +1528,14 @@ function AnglePageHandler() {
             jQuery('#DisplayItemList').removeClass('DisplayItemListContainerWithKeepFilter');
 
         if (forceHide || isOpened) {
-            jQuery('#AngleField').addClass('top');
+            jQuery('#AngleField').removeClass('top');
             jQuery('#DisplayListSelection, #SelectedDisplay').removeClass('open');
             jQuery('#DisplayListSelection .DisplayItemListContainer').animate({ top: -maxH }, 100, function () {
                 displayListElement.hide();
             });
         }
         else {
-            jQuery('#AngleField').removeClass('top');
+            jQuery('#AngleField').addClass('top');
             jQuery('#DisplayListSelection').show();
             self.UpdateDisplaysDropdownLayout();
             jQuery('#DisplayListSelection .DisplayItemListContainer').animate({ top: 0 }, 200, function () {
@@ -1751,9 +1746,7 @@ function AnglePageHandler() {
     self.ShowAddToDashboardPopup = function () {
         requestHistoryModel.SaveLastExecute(self, self.ShowAddToDashboardPopup, arguments);
         requestHistoryModel.ClearPopupBeforeExecute = true;
-
-        self.HideActionDropDown();
-
+        
         var popupName = 'AddToDashboard',
             popupSettings = {
                 title: Localization.AddToDashboard,

@@ -448,14 +448,14 @@ function EnumHandlers() {
 
     // action dropdown on search page
     self.SEARCHACTION = {
-        EXECUTEDASHBOARD: { Text: Localization.ExecuteAsDashboard, Id: 'executeDashboard' },
-        MASSCHANGE: { Text: Localization.MassChange, Id: 'massChange' },
-        DELETE: { Text: Localization.Delete, Id: 'delete' },
         SELECTALL: { Text: Localization.SelectAll, Id: 'selectAll' },
         DESELECT: { Text: Localization.DeSelect, Id: 'deSelect' },
+        EXECUTEDASHBOARD: { Text: Localization.ExecuteAsDashboard, Id: 'executeDashboard' },
+        MASSCHANGE: { Text: Localization.MassChange, Id: 'massChange' },
+        COPYANGLE: { Text: Localization.CopyAngle, Id: 'copyAngle' },
+        DELETE: { Text: Localization.Delete, Id: 'delete' },
         UPLOADANGLES: { Text: Localization.UploadAngles, Id: 'uploadAngles' },
-        CREATEEAPACKAGE: { Text: Localization.CreateEAPackage, Id: 'createEAPackage' },
-        COPYANGLE: { Text: Localization.CopyAngle, Id: 'copyAngle' }
+        CREATEEAPACKAGE: { Text: Localization.CreateEAPackage, Id: 'createEAPackage' }
     };
 
     // action dropdown on angle page

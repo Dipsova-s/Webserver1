@@ -316,7 +316,7 @@
 }
 
 .FilterHeader .btnDelete {
-    background: transparent url('../../images/icons/icon_delete.png') center center no-repeat;
+    background: transparent url('../../images/icons/icon_delete.svg') center center no-repeat;
     background-size: 13px;
 }
 

@@ -37,18 +37,6 @@
 {
     <div id="SearchBar">
         <div class="Wrapper">
-            <div id="Search" class="searchBoxWrapper">
-                <input id="SearchInput" type="text" />
-                <a id="SearchButton" onclick="searchPageHandler.SubmitSearchForm();"></a>
-            </div>
-
-            <div id="ActionSelect">
-                <div id="ActionDropdownList" class="btn btnDefault btnTools disabled" onclick="searchPageHandler.ToggleActionDropdown()"><span data-bind="text: Localization.SearchPageAngleAction">@Resource.SearchPageAngleAction</span></div>
-                <div class="k-window-titleless k-window-custom k-window-arrow-n popupAction popupActionSearch" id="ActionDropdownListPopup">
-                    <div class="k-window-content k-content"></div>
-                </div>
-            </div>
-
             <div id="CreateNewAngleButtonWrapper" class="createNewAngleButtonWrapper alwaysHide">
                 <a id="CreateNewAngle" class="btn btnCreateNewAngle" onclick="createNewAngleViewManagementModel.CheckModelAvailable()">
                     <span data-bind="html: Captions.Button_CreateNewAngle + '<br/><i>' + Captions.Button_CreateNewAngle_NoModel + '</i>'"></span>
@@ -59,8 +47,20 @@
                 </div>
             </div>
 
+            <div id="Search" class="searchBoxWrapper">
+                <input id="SearchInput" type="text" />
+                <a id="SearchButton" onclick="searchPageHandler.SubmitSearchForm();"></a>
+            </div>
+
+            <div id="ActionSelect" class="compactMode">
+                <div id="ActionDropdownList" class="btn btnDefault btnTools disabled"><span data-bind="text: Localization.SearchPageAngleAction">@Resource.SearchPageAngleAction</span></div>
+                <div class="k-window-titleless k-window-custom k-window-arrow-n popupAction popupActionSearch" id="ActionDropdownListPopup">
+                    <div class="k-window-content k-content"></div>
+                </div>
+            </div>
+
             <div id="SearchResultView">
-               @{Html.RenderPartial("~/Views/Search/PartialViews/TotalSearchResult.cshtml");}         
+                @{Html.RenderPartial("~/Views/Search/PartialViews/TotalSearchResult.cshtml");}
             </div>
         </div>
     </div>

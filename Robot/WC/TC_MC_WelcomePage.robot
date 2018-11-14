@@ -4,7 +4,7 @@ Suite Setup         Open Browser in Sandbox Mode
 Suite Teardown      Close Browser
 Test Setup          Go To               ${URL_MC}
 Test Teardown       Logout MC
-Force Tags          MC   smk_mc    MK
+Force Tags          MC   smk_mc
 
 *** Variables ***
 ${fileImagePath}                           ${EXECDIR}/resources/test.png

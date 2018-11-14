@@ -89,10 +89,12 @@ function DashboardHandler() {
                 jQuery('html').removeClass('editmode');
             }
 
+            // tooltip
+            WC.HtmlHelper.Tooltip.Create('actionmenu', '#ActionDropdownListPopup .actionDropdownItem', false, TOOLTIP_POSITION.BOTTOM, 'tooltipActionmenu k-window-arrow-n');
+
             // menu navigatable
             WC.HtmlHelper.MenuNavigatable('#UserControl', '#UserMenu', '.actionDropdownItem');
             WC.HtmlHelper.MenuNavigatable('#Help', '#HelpMenu', '.actionDropdownItem');
-            WC.HtmlHelper.MenuNavigatable('#ActionDropdownList', '#ActionDropdownListPopup', '.actionDropdownItem');
             WC.HtmlHelper.MenuNavigatable('.widgetButtonMenu', '.widgetToolbarActions', 'a');
             WC.HtmlHelper.MenuNavigatable('#btnAddLanguage', '.languageAvailableList', '.Item');
             WC.HtmlHelper.MenuNavigatable('.btnAddLabel', '.availableLabelsList', 'li');
@@ -111,16 +113,6 @@ function DashboardHandler() {
             jQuery.clickOutside('#UserMenu', '#UserControl');
             jQuery.clickOutside('#HelpMenu', '#Help');
             jQuery.clickOutside('.languageAvailableList', '.btnAddLanguage');
-            jQuery.clickOutside('#ActionDropdownListPopup', function (e) {
-                var target = jQuery(e.target);
-                var excepts = [
-                    '[id^=ActionDropdownList]'
-                ].join(',');
-
-                if (!target.filter(excepts).length && !target.parents(excepts).length) {
-                    self.HideActionDropDown();
-                }
-            });
             jQuery.clickOutside('.HeaderPopup', function (e) {
                 var target = jQuery(e.target);
                 var excepts = [
@@ -1579,23 +1571,6 @@ function DashboardHandler() {
     2.Both options are always visible 
     2.1.Enabled see the M4 Authorisations and priviliges document
     */
-    self.ToggleActionDropDown = function () {
-        if (jQuery('#ActionDropdownList').hasClass('disabled'))
-            return;
-
-        if (jQuery('#ActionDropdownListPopup').is(':visible'))
-            self.HideActionDropDown();
-        else
-            self.ShowActionDropDown();
-    };
-    self.ShowActionDropDown = function () {
-        jQuery('#AngleField').removeClass('top');
-        jQuery('#ActionDropdownListPopup').show();
-    };
-    self.HideActionDropDown = function () {
-        jQuery('#AngleField').addClass('top');
-        jQuery('#ActionDropdownListPopup').hide();
-    };
     self.RenderActionDropdownList = function () {
         var data = [],
             isEnable = false,
@@ -1628,7 +1603,6 @@ function DashboardHandler() {
     };
     self.CallActionDropdownFunction = function (obj, selectedValue) {
         if (!jQuery(obj).hasClass('disabled')) {
-            self.HideActionDropDown();
             switch (selectedValue) {
                 case enumHandlers.DASHBOARDACTION.SAVE.Id:
                     if (dashboardModel.IsTemporaryDashboard()) {

@@ -3,7 +3,7 @@
 #SelectedDisplay {
     position: absolute;
     top: 13px;
-    right: 130px;
+    right: 20px;
     width: 322px;
     z-index: 10;
     font-size: 12px;
@@ -169,7 +169,7 @@
     top: 10px;
     width: 15px;
     height: 15px;
-    background: transparent url('../../images/icons/icon_delete.png') center center no-repeat;
+    background: transparent url('../../images/icons/icon_delete.svg') center center no-repeat;
 }
 
 .safari.touch .ItemList .btnDelete,

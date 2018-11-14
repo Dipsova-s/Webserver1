@@ -70,7 +70,10 @@ function SearchPageHandler() {
             self.InitialUserPrivileges();
             self.InitialSearchBox();
             self.BindSortingDropdown();
+
+            // tooltip
             WC.HtmlHelper.Tooltip.Create('searchfacet', '#LeftMenu .name', true);
+            WC.HtmlHelper.Tooltip.Create('actionmenu', '#ActionDropdownListPopup .actionDropdownItem', false, TOOLTIP_POSITION.BOTTOM, 'tooltipActionmenu k-window-arrow-n');
 
             // check currency
             userSettingsHandler.CheckUserCurrency();
@@ -78,7 +81,6 @@ function SearchPageHandler() {
             // menu navigatable
             WC.HtmlHelper.MenuNavigatable('#UserControl', '#UserMenu', '.actionDropdownItem');
             WC.HtmlHelper.MenuNavigatable('#Help', '#HelpMenu', '.actionDropdownItem');
-            WC.HtmlHelper.MenuNavigatable('#ActionDropdownList', '#ActionDropdownListPopup', '.actionDropdownItem');
             WC.HtmlHelper.MenuNavigatable('#SelectModelCreateNewAngle', '#PopupSelectModelCreateNewAngle', '.k-item', 'k-state-selected');
 
             //Binding knockout
@@ -94,7 +96,6 @@ function SearchPageHandler() {
 
             jQuery.clickOutside('#UserMenu', '#UserControl');
             jQuery.clickOutside('#HelpMenu', '#Help');
-            jQuery.clickOutside('#ActionDropdownListPopup', '#ActionDropdownList');
             jQuery.clickOutside('#PopupSelectModelCreateNewAngle', '#SelectModelCreateNewAngle');
 
             // load auto execute list
@@ -661,8 +662,10 @@ function SearchPageHandler() {
         grid.content
             .on('click', 'tr', function () {
                 var item = grid.dataSource.getByUid(jQuery(this).data('uid'));
-                if (item)
+                if (item) {
                     searchModel.SelectRow(item);
+                    self.UpdateActionMenuState();
+                }
             })
             .on('click', 'a[href]', function (e) {
                 if (e.ctrlKey)
@@ -733,7 +736,7 @@ function SearchPageHandler() {
     self.SearchItemSuccess = function (data) {
         defaultValueHandler.CheckAndExtendProperties(data.items, enumHandlers.VIEWMODELNAME.SEARCHMODEL, true);
 
-        self.UpdateActionDropdown();
+        self.UpdateActionMenuState();
 
         if (data.header.total && WC.Utility.UrlParameter(enumHandlers.SEARCHPARAMETER.SORT) === 'executed')
             searchModel.TotalItems(data.header.total + 1);
@@ -773,23 +776,6 @@ function SearchPageHandler() {
     };
 
     // action dropdown
-    self.ToggleActionDropdown = function () {
-        if (!jQuery('#ActionDropdownList').hasClass('disabled')) {
-            if (jQuery('#ActionDropdownListPopup').is(':visible')) {
-                self.HideActionDropdown();
-            }
-            else {
-                self.ShowActionDropdown();
-            }
-        }
-    };
-    self.ShowActionDropdown = function () {
-        self.UpdateActionDropdown();
-        jQuery('#ActionDropdownListPopup').show();
-    };
-    self.HideActionDropdown = function () {
-        jQuery('#ActionDropdownListPopup').hide();
-    };
     self.RenderActionDropdownList = function () {
         var menuHtml = [];
         jQuery.each(enumHandlers.SEARCHACTION, function (key, action) {
@@ -800,8 +786,7 @@ function SearchPageHandler() {
     self.CallActionDropdownFunction = function (element, selectedValue) {
         if (jQuery(element).hasClass('disabled'))
             return;
-
-        self.HideActionDropdown();
+        
         switch (selectedValue) {
             case enumHandlers.SEARCHACTION.DELETE.Id:
                 self.DeleteItems();
@@ -1021,6 +1006,7 @@ function SearchPageHandler() {
     };
     self.ClearAllSelectedRows = function () {
         searchModel.ClearSelectedRow();
+        self.UpdateActionMenuState();
 
         jQuery('#InnerResultWrapper .k-state-selected').removeClass('k-state-selected').attr('aria-selected', false);
     };
@@ -1035,7 +1021,7 @@ function SearchPageHandler() {
                         if (!grid.dataSource._requestInProgress) {
                             clearInterval(fnCheckGetAllItems);
                             self.SetSelectedAll(grid.dataSource);
-                            self.UpdateActionDropdown();
+                            self.UpdateActionMenuState();
                             grid.content.busyIndicator(false);
                         }
                     }, 100);
@@ -1066,7 +1052,7 @@ function SearchPageHandler() {
             jQuery('tr[data-uri="' + item.uri + '"]').addClass('k-state-selected').attr('aria-selected', true);
         }
     };
-    self.UpdateActionDropdown = function () {
+    self.UpdateActionMenuState = function () {
         jQuery('#ActionDropdownList').removeClass('disabled');
 
         var canCreateAngle = privilegesViewModel.IsAllowCreateAngle();
@@ -1092,7 +1078,7 @@ function SearchPageHandler() {
                 }
             }
 
-            ddlList.filter(allowedMenuList.toString()).removeClass('disabled');
+            ddlList.filter(allowedMenuList.join(',')).removeClass('disabled');
         }
 
         if (canCreateAngle) {

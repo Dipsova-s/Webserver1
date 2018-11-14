@@ -21,6 +21,7 @@ html, body, input, textarea {
     scrollbar-3dlight-color: #c1c1c1;
     scrollbar-darkshadow-color: #c1c1c1;
 }
+
 ::-webkit-scrollbar {
     width: 10px;
     height: 10px;
@@ -311,7 +312,6 @@ img {
     outline: none;
     box-sizing: border-box;
     background: #fff;
-
     border: 1px solid #0a6088;
     color: #0a6088;
     font-size: 13px;
@@ -356,6 +356,7 @@ img {
     font-weight: bold;
     box-shadow: none;
 }
+
 .btnDefault:active,
 .btnDefault.active,
 .btnDefault:hover {
@@ -433,6 +434,7 @@ img {
 
 .icon.new {
     background-image: url('../../images/searchpage/icn_new.png');
+    width: 25px;
 }
 
 .icon.list,
@@ -695,17 +697,10 @@ img {
     position: relative;
     margin: 0 auto;
     width: 100%;
-    /*
-    width: 980px;
-    */
 }
 
 #TopBar {
     background: #025e7f !important;
-    /*
-	background: #fefefe url('../../images/master/topbar_bg.png') left bottom repeat-x;
-    background: linear-gradient(to bottom, #006f9b 50%,#005e80 90%);
-    */
 }
 
 #TopBar .Wrapper {
@@ -788,6 +783,7 @@ img {
     margin-left: 11px;
     top: -2px;
 }
+
 #Help:before {
     content: '';
     position: absolute;
@@ -844,24 +840,28 @@ img {
     margin: 0 0 10px 0;
     float: none;
     display: block;
-    background: transparent none center center no-repeat;
 }
 
-.popupUserMenu .btnMC {
+.popupUserMenu .actionDropdownItem {
+    background-position: center center;
+}
+
+.popupUserMenu .actionDropdownItem.btnMC:before {
     background-image: url('../../images/icons/icon_webclient.png');
+    background-position: 8px center;
 }
 
-.popupUserMenu .btnSettings {
+.popupUserMenu .actionDropdownItem.btnSettings:before {
     background-image: url('../../images/icons/icon_gear.png');
 }
 
 
-.popupUserMenu .btnChangePassword {
+.popupUserMenu .actionDropdownItem.btnChangePassword:before {
     background-image: url('../../images/icons/icon_change_password.png');
 }
 
 
-.popupUserMenu .btnLogout {
+.popupUserMenu .actionDropdownItem.btnLogout:before {
     background-image: url('../../images/icons/icon_logout.png');
 }
 
@@ -904,19 +904,19 @@ img {
     cursor: pointer;
 }
 
-.popupHelpMenu .actionDropdownItem {
+.popupHelpMenu .actionDropdownItem:before {
     background-position: 12px 9px;
 }
 
-.popupHelpMenu .btnAbout {
+.popupHelpMenu .btnAbout:before {
     background-image: url('../../images/icons/icon_about.png');
 }
 
-.popupHelpMenu .btnModelParameters {
+.popupHelpMenu .btnModelParameters:before {
     background-image: url('../../images/icons/icon_gear.png');
 }
 
-.popupHelpMenu .btnHelp {
+.popupHelpMenu .btnHelp:before {
     background-image: url('../../images/icons/icon_help.png');
 }
 
@@ -1416,9 +1416,11 @@ img {
 .displayNameContainer .rear .icon {
     width: 22px;
 }
+
 .displayNameContainer .rear .validated {
     margin-right: -2px;
 }
+
 .displayNameContainer .rear .parameterized {
     background-size: 18px 18px;
 }
@@ -1493,10 +1495,14 @@ img {
 ============================================ */
 #ActionSelect {
     position: absolute;
-    top: 14px;
+    top: 20px;
     right: 20px;
     width: 97px;
     font-size: 12px;
+}
+
+#ActionSelect.compactMode {
+    width: auto;
 }
 
 .btnTools {
@@ -1505,6 +1511,25 @@ img {
     top: 0;
     background: #fff none;
     font-weight: bold;
+}
+
+.compactMode .btnTools {
+    display: none;
+    text-indent: -10000px;
+    position: absolute;
+    width: 40px;
+    height: 25px;
+    right: 0;
+    top: 0;
+    min-width: 0;
+}
+
+.compactMode .btnTools.active {
+    display: block;
+}
+
+.compactMode .btnTools:after {
+    right: 10px;
 }
 
 .btnTools:after {
@@ -1539,10 +1564,30 @@ img {
     border-color: #c5c5c5;
 }
 
+.compactMode .popupAction {
+    display: block !important;
+    position: relative;
+    max-width: none;
+    min-width: 0;
+    margin-top: 0;
+    border-width: 0;
+    background-color: transparent;
+    box-shadow: none;
+}
+
+.btnTools.disabled + .popupAction {
+    display: none !important;
+}
+
 .popupAction:before,
 .popupAction:after {
     left: auto;
     right: 35px;
+}
+
+.compactMode .popupAction:before,
+.compactMode .popupAction:after {
+    display: none;
 }
 
 .popupAction:before {
@@ -1553,22 +1598,48 @@ img {
     min-height: 0;
 }
 
+.compactMode .popupAction .k-window-content {
+    border-radius: 0;
+    background-color: transparent;
+    overflow: visible;
+}
+
 .actionDropdownItem {
-    padding: 0 0 0 45px;
+    padding: 0 10px 0 45px;
     display: block;
     position: relative;
     height: 38px;
     line-height: 38px;
     color: #333333;
     font-size: 12px;
-    background: transparent none 12px center no-repeat;
+    background-color: transparent;
     border-top: 0 solid #c5c5c5;
     border-bottom: 1px solid #c5c5c5;
     text-overflow: ellipsis;
     overflow: hidden;
     white-space: nowrap;
-    padding-right: 10px;
     box-sizing: border-box;
+}
+
+.compactMode .actionDropdownItem {
+    float: left;
+    top: 0;
+    width: 35px;
+    height: 25px;
+    padding: 0;
+    border-width: 0;
+    overflow: visible;
+    text-indent: -10000px;
+    transition: top .3s cubic-bezier(.25,.8,.25,1),
+            height .3s cubic-bezier(.25,.8,.25,1);
+    border-radius: 0;
+}
+
+.compactMode .actionDropdownItem.more {
+    position: absolute;
+    right: 0;
+    border: 1px solid #c1c1c1;
+    transition: none;
 }
 
 .actionDropdownItem:hover,
@@ -1576,14 +1647,57 @@ img {
     background-color: #f0f0f0;
 }
 
+.compactMode .actionDropdownItem:hover,
+.compactMode .actionDropdownItem.active {
+    background-color: inherit;
+}
+
+.compactMode .actionDropdownItem:hover {
+    top: -8px;
+    height: 33px;
+}
+
 .actionDropdownItem.disabled,
 .actionDropdownItem.disabled:hover {
     cursor: default;
     color: #aaa;
     text-decoration: none;
-    /*text-shadow: 0 1px 1px #fff;*/
     text-shadow: none !important;
     background-color: transparent;
+    top: 0;
+    height: 25px;
+}
+
+.actionDropdownItem:before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 40px;
+    height: 100%;
+    background: transparent none 12px center no-repeat;
+}
+
+.compactMode .actionDropdownItem:before {
+    width: 100%;
+    background-position: center center;
+    opacity: .615;
+}
+
+.compactMode .actionDropdownItem:hover:before {
+    opacity: .75;
+}
+
+.compactMode .actionDropdownItem:active:before {
+    opacity: 1;
+}
+
+.compactMode .actionDropdownItem.disabled:before {
+    opacity: .1625;
+}
+
+.compactMode .actionDropdownItem span {
+    display: none;
 }
 
 /* .InfoFocus
@@ -1618,6 +1732,29 @@ img {
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
+}
+
+/* .tooltipActionmenu
+============================================ */
+.tooltipActionmenu {
+    margin-top: 3px;
+    background: none #000;
+    box-shadow: none;
+    border-width: 0;
+    color: #fff;
+}
+
+.tooltipActionmenu:before,
+.tooltipActionmenu:after {
+    left: 50%;
+    margin-left: -4px;
+    top: -4px;
+    border-width: 4px;
+    border-bottom-color: #000;
+}
+
+.tooltipActionmenu:after {
+    display: none;
 }
 
 @media (max-width: 979px) {

@@ -42,7 +42,6 @@ Verify Copy Display When Angle Invalid Test
     Search By Text And Expect In Search Result    ${INVALIE_ANGLE_NAME}
     Open Angle From First Angle in Search Page    ${INVALIE_ANGLE_NAME}
     Check If Angle Or Display Has A Warning Then Close The Popup
-    Click Angle Dropdown Actions
     Is Element Has CssClass    ${ddlAngleActionDropdownListPasteDisplay}    disabled
 
 Verify Copy Display When Display Invalid Field Test

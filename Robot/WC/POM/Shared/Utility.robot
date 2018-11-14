@@ -256,7 +256,7 @@ Set Default Downloading Path And Open Browser
 
 Open Chrome Browser With Options
     [Arguments]  ${options}
-
+   
     # set options
     Call Method    ${options}    add_argument    --no-sandbox
     Call Method    ${options}    add_argument    --disable-infobars

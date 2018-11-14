@@ -46,9 +46,8 @@ function BusinessprocessSearchModel() {
         if ($.address.value() === '/' && !isActive) {
             self.SetCurrentActive();
         }
-        searchQueryModel.Search();
-
         searchPageHandler.ClearAllSelectedRows();
+        searchQueryModel.Search();
     };
 
     self.SetCurrentActive = function () {

@@ -121,94 +121,82 @@
 
 /* #ActionSelect
 ============================================ */
-#AngleSetting .btnTools {
-    top: -1px;
-    min-width: 65px;
+#ActionSelect.compactMode {
+    right: 360px;
 }
 
-#AngleSetting .btnTools span {
-    min-width: 65px;
-    padding-left: 5px;
+#ActionSelect .actionDropdownItem {
+    background-color: #f5f5f5;
 }
 
-.actionDropdownItem.exportToExcel {
-    background-image: url('../../images/angle/actiondropdownlist/exporttoexcel.png');
-    border-bottom-width: 0;
+
+#ActionSelect .actionDropdownItem:before {
+    background-position: center center;
+    background-size: 16px 16px;
 }
 
-.actionDropdownItem.exportToCSV {
-    background-image: url('../../images/angle/actiondropdownlist/exporttocsv.png');
+.actionDropdownItem.save:before {
+    background-image: url('../../images/angle/actiondropdownlist/save.svg');
 }
 
-.actionDropdownItem.find {
-    background-image: url('../../images/angle/actiondropdownlist/find.png');
+.actionDropdownItem.saveAs:before {
+    background-image: url('../../images/angle/actiondropdownlist/saveas.svg');
 }
 
-.actionDropdownItem.addToDashboard {
-    background-image: url('../../images/angle/actiondropdownlist/addtodashboard.png');
+.actionDropdownItem.copydisplay:before {
+    background-image: url('../../images/angle/actiondropdownlist/copydisplay.svg');
 }
 
-.actionDropdownItem.save {
-    background-image: url('../../images/angle/actiondropdownlist/save.png');
-    border-bottom-width: 0;
+.actionDropdownItem.pastedisplay:before {
+    background-image: url('../../images/angle/actiondropdownlist/pastedisplay.svg');
 }
 
-.actionDropdownItem.saveAs {
-    background-image: url('../../images/angle/actiondropdownlist/saveas.png');
-    border-bottom-width: 0;
+.actionDropdownItem.editDisplay:before {
+    background-image: url('../../images/angle/actiondropdownlist/editdisplay.svg');
 }
 
-.actionDropdownItem.copydisplay {
-    background-image: url('../../images/angle/actiondropdownlist/copydisplay.png');
-    border-bottom-width: 0;
+.actionDropdownItem.newDisplay:before {
+    background-image: url('../../images/angle/actiondropdownlist/createdisplay.svg');
 }
 
-.actionDropdownItem.pastedisplay {
-    background-image: url('../../images/angle/actiondropdownlist/pastedisplay.png');
-    border-bottom-width: 0;
+.actionDropdownItem.createList:before {
+    background-image: url('../../images/icons/icon_list_addnew.svg');
 }
 
-.actionDropdownItem.editDisplay {
-    background-image: url('../../images/angle/actiondropdownlist/editdisplay.png');
+.actionDropdownItem.createChart:before {
+    background-image: url('../../images/icons/icon_chart_addnew.svg');
 }
 
-.actionDropdownItem.addFollowup {
-    background-image: url('../../images/icons/icon_followup_addnew.png');
-    background-position: 4px center;
+.actionDropdownItem.createPivot:before {
+    background-image: url('../../images/icons/icon_pivot_addnew.svg');
 }
 
-.actionDropdownItem.newDisplay {
-    background-image: url('../../images/angle/actiondropdownlist/createdisplay.png');
-    border-bottom-width: 0;
+.actionDropdownItem.exportToExcel:before {
+    background-image: url('../../images/angle/actiondropdownlist/exporttoexcel.svg');
 }
 
-.actionDropdownItem.newDisplay + .exportToExcel {
-    border-top-width: 1px;
+.actionDropdownItem.exportToCSV:before {
+    background-image: url('../../images/angle/actiondropdownlist/exporttocsv.svg');
 }
 
-.actionDropdownItem.exitEditMode {
-    background-image: url('../../images/searchpage/icn_execute_item.png');
+.actionDropdownItem.addToDashboard:before {
+    background-image: url('../../images/angle/actiondropdownlist/addtodashboard.svg');
 }
 
-.actionDropdownItem.createList {
-    background-image: url('../../images/icons/icon_list_addnew.png');
-    background-position: 4px center;
-    border-bottom-width: 0;
+.actionDropdownItem.addFollowup:before {
+    background-image: url('../../images/icons/icon_followup_addnew.svg');
 }
 
-.actionDropdownItem.createChart {
-    background-image: url('../../images/icons/icon_chart_addnew.png');
-    background-position: 4px center;
+.actionDropdownItem.scheduleAngle:before {
+    background-image: url('../../images/icons/icon_schedule.svg');
 }
 
-.actionDropdownItem.createPivot {
-    background-image: url('../../images/icons/icon_pivot_addnew.png');
-    background-position: 4px center;
+.actionDropdownItem.find:before {
+    background-image: url('../../images/angle/actiondropdownlist/find.svg');
 }
 
-.actionDropdownItem.scheduleAngle {
-    background-image: url('../../images/icons/icon_schedule.png');
-    background-position: 11px center;
+.actionDropdownItem.exitEditMode:before {
+    background-image: url('../../images/icons/icon_execute_display.svg');
 }
 
 /* .popupFindAngleResult

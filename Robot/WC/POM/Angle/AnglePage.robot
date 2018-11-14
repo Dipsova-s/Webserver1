@@ -87,67 +87,51 @@ Click Remove Last Adhoc Filter
     Click Element   ${divLastRemovableDisplayFilter}
     Wait Progress Bar Closed
 
-Click Angle Dropdown Actions
-#    Wait Until Page Contains Element    ${ddlAngleActionDropdownList}
-    Wait Until Element Is Visible    ${ddlAngleActionDropdownList}
-    Click Element    ${ddlAngleActionDropdownList}
 
 Click Angle Dropdown Actions Create New Display
-    Click Angle Dropdown Actions
     Click Element    ${ddlAngleActionDropdownListCreateNewDisplay}
 
 Click Angle Dropdown Actions Save Display As
-    Click Angle Dropdown Actions
     Click Element    ${ddlAngleActionDropdownListSaveDisplayAs}
 
 Click Angle Dropdown Actions Copy Display
-    Click Angle Dropdown Actions
     Click Element    ${ddlAngleActionDropdownListCopyDisplay}
 
 Click Angle Dropdown Actions Paste Display
-    Click Angle Dropdown Actions
     Click Element    ${ddlAngleActionDropdownListPasteDisplay}
 
 Click Angle Dropdown Actions Save Adhoc Display
-    Click Angle Dropdown Actions
     Click Element    ${ddlAngleActionDropdownListSaveDisplay}
     Wait Until Page Contains    Save Display as...
     Wait Until Page Contains Element    ${txtSaveAsDisplayName}
     Wait Until Page Contains Element    ${btnSubmitSaveAsDisplay}
 
 Click Angle Dropdown Actions Save Existing Display
-    Click Angle Dropdown Actions
     Click Element    ${ddlAngleActionDropdownListSaveDisplay}
     Wait Progress Bar Closed
 
 Click Angle Dropdown Actions Edit Display
-    Click Angle Dropdown Actions
     Click Element    ${ddlAngleActionDropdownListEditDisplay}
     Wait Display Detail Document Loaded
 
 Click Angle Dropdown Actions Create List
-    Click Angle Dropdown Actions
     Click Element    ${ddlAngleActionDropdownListCreateList}
     Wait Progress Bar Closed
     Wait Until List Display Loaded
 
 Click Angle Dropdown Add Jump
-    Click Angle Dropdown Actions
     Click Element    ${ddlAngleActionDropdownAddJump}
     Wait Until Add Jump Popup Loaded
 
 Click Angle Dropdown Actions Add To Dashboard
-    Click Angle Dropdown Actions
     Click Element    ${ddlAngleActionDropdownListAddToDashboard}
     Wait Add To Dashboard Popup Load
 
 Click Angle Dropdown To Export Excel
-    Click Angle Dropdown Actions
     Click Element    ${ddlAngleActionDropdownListExportToExcel}
     Wait Until Export To Excel Popup Loaded
 
 Click Angle Dropdown To Export Drilldown To Excel
-    Click Angle Dropdown Actions
     Click Element    ${ddlAngleActionDropdownListExportToExcel}
     Wait Until Export Drilldown To Excel Popup Loaded
 

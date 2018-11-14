@@ -17,11 +17,8 @@
 #YourNote {
     bottom: 5px;
 }
-#ActionSelect {
-    right: 30px;
-}
-.popupAction {
-    right: -10px;
+#ActionSelect.compactMode {
+    right: 15px;
 }
 
 /* #dashboardWrapper

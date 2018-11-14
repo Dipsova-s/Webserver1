@@ -22,81 +22,77 @@
 /* #SearchBar
 ============================================ */
 #SearchBar {
+    position: relative;
+    height: 80px;
     background: #fff;
     border-bottom: 1px solid #e6e6e6;
-    padding: 10px 0 10px 0;
+    padding: 20px 0 0 0;
+    box-sizing: border-box;
+    z-index: 10;
 }
 
 #SearchBar .Wrapper {
-    height: 60px;
+    padding: 0 0 0 210px;
+    box-sizing: border-box;
 }
 
 #SearchBar .searchBoxWrapper {
     float: left;
-    margin: 10px 0 0 210px;
-    min-width: 480px;
+    margin: 0;
+    min-width: 400px;
     position: relative;
 }
 
 /* #ActionSelect
 ============================================ */
-#SearchBar #ActionSelect {
-    position: relative;
-    top: 0;
-    right: 0;
-    margin: 10px 0 0 20px;
-    width: 107px;
-    float: left;
-    box-shadow: none;
+#ActionSelect.compactMode {
+    top: 8px;
+    right: 150px;
+    z-index: 2;
 }
 
-#SearchBar .btnTools {
-    height: 40px;
+#ActionSelect .actionDropdownItem {
+    background-color: #fff;
 }
 
-#SearchBar .btnTools span {
-    height: 38px;
+.actionDropdownItem.executeDashboard:before {
+    background-image: url('../../images/icons/icon_execute_dashboard.svg');
+    background-size: 23px 23px;
 }
 
-#SearchBar .actionDropdownItem {
-    padding-left: 10px;
-    padding-right: 10px;
+.actionDropdownItem.massChange:before {
+    background-image: url('../../images/icons/icon_mass_change.svg');
+    background-size: 23px 23px;
 }
 
-/* .popupActionSearch
-============================================ */
-.popupActionSearch .executeDashboard {
-    background-image: url('../../images/searchpage/icn_item_dashboard.svg');
+.actionDropdownItem.delete:before {
+    background-image: url('../../images/icons/icon_delete.svg');
     background-size: 18px 18px;
 }
 
-.popupActionSearch .massChange {
-    background-image: url('../../images/icons/icon_mass_change.png');
+.actionDropdownItem.selectAll:before {
+    background-image: url('../../images/icons/icon_select_all.svg');
+    background-size: 20px 20px;
 }
 
-.popupActionSearch .delete {
-    background-image: url('../../images/icons/icon_delete.png');
+.actionDropdownItem.deSelect:before {
+    background-image: url('../../images/icons/icon_clear_all.svg');
+    background-size: 20px 20px;
 }
 
-.popupActionSearch .selectAll {
-    background-image: url('../../images/icons/icon_select_all.png');
+.actionDropdownItem.copyAngle:before {
+    background-image: url('../../images/icons/icon_copy_angle.svg');
+    background-size: 23px 23px;
 }
 
-.popupActionSearch .deSelect {
-    background-image: url('../../images/icons/icon_clear_all.png');
+.actionDropdownItem.createEAPackage:before {
+    background-image: url('../../images/icons/icon_download_angle.svg');
+    background-size: 21px 21px;
 }
 
-.popupActionSearch .createEAPackage {
-    background-image: url('../../images/icons/icon_download_angle.png');
-}
-
-.popupActionSearch .copyAngle {
-    background-image: url('../../images/icons/icon_copy_angle.png');
-    border-bottom: 0;
-}
-
-.popupActionSearch .uploadAngles {
-    background-image: url('../../images/icons/icon_upload_angle.png');
+.actionDropdownItem.uploadAngles:before {
+    background-image: url('../../images/icons/icon_upload_angle.svg');
+    background-size: 22px 22px;
 }
 
 .popupActionSearch span {
@@ -108,8 +104,7 @@
 .createNewAngleButtonWrapper {
     float: left;
     position: relative;
-    margin: 10px 0 0 20px;
-    width: 105px;
+    margin: 0 15px 0 0;
 }
 
 .btnCreateNewAngle {
@@ -422,7 +417,7 @@
     right: 12px;
     top: 15px;
     z-index: 2;
-    background: transparent url('../../images/icons/icon_delete.png') center center no-repeat;
+    background: transparent url('../../images/icons/icon_delete.svg') center center no-repeat;
     background-size: 10px 10px;
 }
 
@@ -710,6 +705,8 @@
     font-size: 13px;
     top: 0;
     right: 0;
+    width: 500px;
+    z-index: 1;
 }
 
 .SearchTotalContainer {
@@ -727,7 +724,7 @@
 
 #SearchResultView .viewModeWrapper {
     position: absolute;
-    top: 10px;
+    top: 0;
     right: 32px;
 }
 
@@ -789,8 +786,8 @@
 /* .sortWrapper
 ============================================ */
 .sortWrapper {
-    position: relative;
-    top: 76px;
+    position: absolute;
+    top: 66px;
     z-index: 99;
     float: right;
     right: 12px;
@@ -1144,7 +1141,7 @@
 
 @media (max-width: 1139px) {
     #SearchBar .searchBoxWrapper {
-        min-width: 315px;
+        min-width: 330px;
     }
 }
 
@@ -1153,9 +1150,12 @@
         margin-right: 125px;
     }
 
-    #SearchBar .searchBoxWrapper {
-        margin-left: 10px;
-        min-width: 315px;
+    #SearchBar .Wrapper {
+        padding-left: 12px;
+    }
+
+    #ActionSelect.compactMode {
+        right: 120px;
     }
 
     #SearchResultView .viewModeWrapper {
@@ -1193,11 +1193,5 @@
 
     .popupAdvFilteringRowUsage .eaAutocomplete + .eaDropdown {
         width: 100px;
-    }
-}
-
-@media (max-width: 739px) {
-    #SearchBar .searchBoxWrapper {
-        min-width: 185px;
     }
 }

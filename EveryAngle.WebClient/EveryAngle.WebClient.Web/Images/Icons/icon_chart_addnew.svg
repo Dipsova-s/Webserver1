@@ -6,10 +6,15 @@
 	.st0{fill:#333333;}
 </style>
 <g>
-	<rect x="9" y="1.6" class="st0" width="2" height="3.3"/>
-	<path class="st0" d="M13,0H0.2v16h15.6V2.8L13,0z M3.5,0.7h8.5v5.2H3.5V0.7z M12.9,15.3H2.8V8.5h10.1V15.3z"/>
-	<rect x="3.6" y="9.5" class="st0" width="8.5" height="0.7"/>
-	<rect x="3.6" y="11.1" class="st0" width="8.5" height="0.7"/>
-	<rect x="3.6" y="12.7" class="st0" width="6.7" height="0.7"/>
+	<g id="Layer_4">
+		<g>
+			<rect x="5.5" y="8.7" class="st0" width="2.8" height="7.2"/>
+			<rect x="9.3" y="5.4" class="st0" width="2.8" height="10.5"/>
+			<rect x="13.2" y="12" class="st0" width="2.8" height="3.9"/>
+		</g>
+	</g>
+	<g transform="translate(0,-952.36218)">
+		<path class="st0" d="M3.1,952.4v3.1H0v1.1h3.1v3.1h1.1v-3.1h3v-1.1H4.2v-3.1H3.1z"/>
+	</g>
 </g>
 </svg>
