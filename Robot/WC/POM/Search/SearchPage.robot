@@ -86,14 +86,14 @@ ${divFirstAngleStar}            InnerResultWrapper .k-grid-content tr:first .Res
 ${btnSearchInfo}                jquery=#InnerResultWrapper .k-grid-content tr .btnInfo
 ${pgbStarredProgress}           css=#InnerResultWrapper .loading16x16
 ${btnFirstListFromSearch}       jquery=#InnerResultWrapper .k-grid-content tr:first .icon.list
-${lnkSearchResult}              jquery=#InnerResultWrapper .k-grid-content tr .name
+${lnkSearchResult}              jquery=#InnerResultWrapper .k-grid-content .ResultContent .name
 ${trItemInSearchResult}         InnerResultWrapper .k-grid-content tr
 ${lblSearchResult}              css=#SearchResultList span:first-child
 ${publishStatusFromFirstAngleInSearchResult}        jquery=.SearchResult:eq(0) .public
 ${privateStatusFromFirstAngleInSearchResult}        jquery=.SearchResult:eq(0) .private
 ${validatedStatusFromFirstAngleInSearchResult}      jquery=.SearchResult:eq(0) .validated
 ${btnDisplaysSelectedItem}      jquery=#InnerResultWrapper .k-state-selected .btnShowDisplays
-${lnkItemNameSelectedItem}      jquery=#InnerResultWrapper .k-state-selected .name
+${lnkItemNameSelectedItem}      jquery=#InnerResultWrapper .k-state-selected .ResultContent .name
 ${divSearchResultNoData}         css=.grid-no-data
 
 #Delete Angle
@@ -118,10 +118,13 @@ ${ddlSearchActionCreateEAPackage}       css=#ActionDropdownListPopup .createEAPa
 ${ddlSearchActionUploadAngles}          css=#ActionDropdownListPopup .uploadAngles
 
 #View Mode
+${btnDisplaysMode}                      DisplaysList
 ${btnDetailMode}                        LongList
 ${btnCompactMode}                       ShortList
 
 ${divContentDetail}                     css=.SearchResult .Date
+${btnShowDisplays}                      css=.SearchResult .ResultView .btnShowDisplays
+${divDisplaysList}                      css=.SearchResult .ResultView .detailDefinitionList
 
 *** Keywords ***
 Wait Search Page Document Loaded
@@ -365,7 +368,7 @@ Click Link First Item From Search Result
     Click Link Item From Search Result By Row Number    1
 
 Click Link Item From Search Result By Item Uri: ${itemUri}
-    Click Link Item From Search Result    jquery=#${trItemInSearchResult}[data-uri="${itemUri}"] .name
+    Click Link Item From Search Result    jquery=#${trItemInSearchResult}[data-uri="${itemUri}"] .ResultContent .name
 
 Click Select Item From Search Result
     [Arguments]    ${rowNumber}
@@ -377,10 +380,6 @@ Click Select First Item From Search Result
 
 Click Select Second Item From Search Result
     Click Select Item From Search Result    2
-
-#Click Search Action Menu
-#    Click Element    ${btnSearchAction}
-#    Wait Until Element Is Visible    ${ddlSearchActionList}
 
 Get Model Name for Create New Angle
     ${modelForCreateNewAngleValue} =    Execute Javascript     return (modelsHandler.GetData().length > 1) ? $('#${lblModelForCreateNewAngle}').text() : modelsHandler.GetData()[0].id
@@ -453,13 +452,35 @@ Button Remove Advance Filters Should Not Be Visible
     Sleep    ${TIMEOUT_GENERAL}
     Element Should Not Be Visible    ${btnRemoveFilter}
 
+Click Change View To Displays Mode
+    Wait Until Page Contains Element    ${btnDisplaysMode}
+    Click Element    ${btnDisplaysMode}
+    Sleep    ${TIMEOUT_GENERAL}
+
 Click Change View To Detail Mode
     Wait Until Page Contains Element    ${btnDetailMode}
     Click Element    ${btnDetailMode}
+    Sleep    ${TIMEOUT_GENERAL}
 
 Click Change View To Compact Mode
     Wait Until Page Contains Element    ${btnCompactMode}
     Click Element    ${btnCompactMode}
+    Sleep    ${TIMEOUT_GENERAL}
+
+Check Elements On Displays Mode
+    Element Should Be Visible    ${divContentDetail}
+    Page Should Not Contain Element    ${btnShowDisplays}
+    Page Should Contain Element    ${divDisplaysList}
+
+Check Elements On Detail Mode
+    Element Should Be Visible    ${divContentDetail}
+    Page Should Contain Element    ${btnShowDisplays}
+    Page Should Not Contain Element    ${divDisplaysList}
+
+Check Elements On Compact Mode
+    Element Should Not Be Visible    ${divContentDetail}
+    Page Should Contain Element    ${btnShowDisplays}
+    Page Should Not Contain Element    ${divDisplaysList}
 
 Open Dashboard From First Dashboard in Search Page
     [Arguments]    ${dashboardName}

@@ -10,29 +10,40 @@ ${TEST_SEARCH_REMEMBER_DETAIL_SETTING}         Angle For General Test
 ${TEST_FIELD_CHOOSER_REMEMBER_DETAIL_SETTING}         Angle For General Test
 
 *** Test Cases ***
-Verify Search Remember Detail Setting By Search Box Test
+Verify Search Viewmode
+    # compact mode
     Search By Text And Expect In Search Result    ${TEST_SEARCH_REMEMBER_DETAIL_SETTING}
-    Click Search Filter Angle
     Click Change View To Compact Mode
-    Check Existing Angle From Search Result     ${TEST_SEARCH_REMEMBER_DETAIL_SETTING}
+    Check Elements On Compact Mode
     Open Angle From First Angle in Search Page    ${TEST_SEARCH_REMEMBER_DETAIL_SETTING}
     Back To Search
-    Element Should Not Be Visible    ${divContentDetail}
-
-    Click Search Filter Angle
-    Check Existing Angle From Search Result     ${TEST_SEARCH_REMEMBER_DETAIL_SETTING}
-    Element Should Not Be Visible    ${divContentDetail}
-
+    Check Elements On Compact Mode
     Logout
     Login To WC By Power User
-
-    Click Search Filter Angle
-    Check Existing Angle From Search Result     ${TEST_SEARCH_REMEMBER_DETAIL_SETTING}
-    Click Change View To Detail Mode
     Search By Text And Expect In Search Result    ${TEST_SEARCH_REMEMBER_DETAIL_SETTING}
+    Check Elements On Compact Mode
+
+    # displays mode
+    Click Change View To Displays Mode
+    Check Elements On Displays Mode
     Open Angle From First Angle in Search Page    ${TEST_SEARCH_REMEMBER_DETAIL_SETTING}
     Back To Search
-    Element Should Be Visible    ${divContentDetail}
+    Check Elements On Displays Mode
+    Logout
+    Login To WC By Power User
+    Search By Text And Expect In Search Result    ${TEST_SEARCH_REMEMBER_DETAIL_SETTING}
+    Check Elements On Displays Mode
+
+    # details mode
+    Click Change View To Detail Mode
+    Check Elements On Detail Mode
+    Open Angle From First Angle in Search Page    ${TEST_SEARCH_REMEMBER_DETAIL_SETTING}
+    Back To Search
+    Check Elements On Detail Mode
+    Logout
+    Login To WC By Power User
+    Search By Text And Expect In Search Result    ${TEST_SEARCH_REMEMBER_DETAIL_SETTING}
+    Check Elements On Detail Mode
 
 Verify Field Chooser Remember Detail Setting Test
     Search By Text And Expect In Search Result    ${TEST_FIELD_CHOOSER_REMEMBER_DETAIL_SETTING}

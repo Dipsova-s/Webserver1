@@ -857,33 +857,6 @@ span.eaDropdownSize40 .k-dropdown-wrap .k-select {
     width: 38px;
 }
 
-.k-with-icon {
-    padding-left: 35px !important;
-}
-
-.k-with-icon:before {
-    content: '';
-    position: absolute;
-    left: 5px;
-    top: 50%;
-    margin-top: -12px;
-    width: 25px;
-    height: 25px;
-    background: transparent none left top no-repeat;
-}
-
-.k-with-icon.list:before {
-    background-image: url('../../images/icons/icon_list.png');
-}
-
-.k-with-icon.pivot:before {
-    background-image: url('../../images/icons/icon_pivot.png');
-}
-
-.k-with-icon.chart:before {
-    background-image: url('../../images/icons/icon_chart.png');
-}
-
 /* .eaDatepicker
 =================================== */
 span.eaDatepicker .k-picker-wrap {

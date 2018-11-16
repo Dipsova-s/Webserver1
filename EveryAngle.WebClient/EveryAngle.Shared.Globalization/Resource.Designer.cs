@@ -16881,6 +16881,15 @@ namespace EveryAngle.Shared.Globalization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Displays mode.
+        /// </summary>
+        public static string ViewDisplaysMode {
+            get {
+                return ResourceManager.GetString("ViewDisplaysMode", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Warning.
         /// </summary>
         public static string Warning_Title {

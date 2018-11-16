@@ -70,21 +70,21 @@ function DisplayDetailPageHandler() {
                             value: value
                         };
                     });
-                    WC.HtmlHelper.DropdownList('#tempDisplayType', ddlData, {
+                    var displayTypeTemplate = [
+                        '<div class="displayNameContainer">',
+                            '<div class="front">',
+                                '<i class="icon #= data.value #"></i>',
+                            '</div>',
+                            '<span class="name">#= data.text #</span>',
+                        '</div>'
+                    ].join('');
+                    var ddlDisplayType = WC.HtmlHelper.DropdownList('#tempDisplayType', ddlData, {
                         dataTextField: 'text',
                         dataValueField: 'value',
-                        change: function (e) {
-                            e.sender.wrapper.find('.k-input').attr('class', 'k-input k-with-icon ' + e.sender.value());
-                        },
-                        dataBound: function (e) {
-                            var list = e.sender.list,
-                                wrapper = e.sender.wrapper;
-                            list.find('.k-item').each(function (k, v) {
-                                jQuery(v).addClass('k-with-icon ' + ddlData[k].value);
-                            });
-                            wrapper.find('.k-input').attr('class', 'k-input k-with-icon ' + e.sender.value());
-                        }
+                        valueTemplate: displayTypeTemplate,
+                        template: displayTypeTemplate
                     });
+                    ddlDisplayType.list.addClass('displayNameDropdownList');
                 }
 
                 self.SetDefaultDrilldownDropdown();
@@ -283,16 +283,16 @@ function DisplayDetailPageHandler() {
 
             var itemTemplate = [
                 '<div class="displayNameContainer">',
-                '<div class="front">',
-                '<i class="icon #= data.PublicClassName #"></i>',
-                '<i class="icon #= data.DisplayTypeClassName + \' \' + data.ExtendDisplayTypeClassName #"></i>',
-                '<i class="icon #= data.FilterClassName #"></i>',
-                '</div>',
-                '<span class="name">#= data.Name #</span>',
-                '<div class="rear">',
-                '<i class="icon #= data.ParameterizedClassName #"></i>',
-                '<i class="icon #= data.ValidClassName #"></i>',
-                '</div>',
+                    '<div class="front">',
+                        '<i class="icon #= data.PublicClassName #"></i>',
+                        '<i class="icon #= data.DisplayTypeClassName + \' \' + data.ExtendDisplayTypeClassName #"></i>',
+                        '<i class="icon #= data.FilterClassName #"></i>',
+                    '</div>',
+                    '<span class="name">#= data.Name #</span>',
+                    '<div class="rear">',
+                        '<i class="icon #= data.ParameterizedClassName #"></i>',
+                        '<i class="icon #= data.ValidClassName #"></i>',
+                    '</div>',
                 '</div>'
             ].join('');
 

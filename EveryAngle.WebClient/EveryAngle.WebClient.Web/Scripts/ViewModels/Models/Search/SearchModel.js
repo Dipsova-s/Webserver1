@@ -83,6 +83,13 @@ function SearchViewModel() {
         }
         return redirectUrl;
     };
+    self.GetDisplayHrefUri = function (angleUri, displayUri, isTemplate) {
+        var params = {};
+        if (isTemplate) {
+            params[enumHandlers.ANGLEPARAMETER.TEMPLATE] = true;
+        }
+        return WC.Utility.GetAnglePageUri(angleUri, displayUri, params);
+    };
     self.GetTotalItems = function () {
         if (self.TotalItems() && WC.Utility.UrlParameter(enumHandlers.SEARCHPARAMETER.SORT) === "executed")
             return self.TotalItems() - 1;
@@ -118,24 +125,17 @@ function SearchViewModel() {
         var details = [];
 
         // model
-        if (data.model) {
-            var model = modelsHandler.GetModelByUri(data.model);
-            if (model) {
-                details.push(model.short_name || model.id);
-            }
-        }
+        var modelName = modelsHandler.GetModelName(data.model);
+        details.push(kendo.format('{0}: <strong>{1}</strong>', Localization.Model, modelName || '-'));
 
         // created
         if (data.created) {
-            if (data.created.full_name) {
-                details.push(data.created.full_name);
-            }
-            if (data.created.datetime) {
-                details.push(WC.FormatHelper.GetFormattedValue(enumHandlers.FIELDTYPE.DATETIME_WC, data.created.datetime));
-            }
+            var createdBy = data.created.full_name;
+            var createdDate = WC.FormatHelper.GetFormattedValue(enumHandlers.FIELDTYPE.DATETIME_WC, data.created.datetime);
+            details.push(kendo.format('{0}: <strong>{1} - {2}</strong>', Localization.CreatedBy, createdBy, createdDate));
         }
 
-        return details.join(' - ');
+        return details.join(' &nbsp; ');
     };
     self.FilterItems = function (model, event, canNegativeFilter) {
         if (event.ctrlKey && model.checked() && canNegativeFilter) {
@@ -167,78 +167,80 @@ function SearchViewModel() {
             return "searchModel.ItemLinkClicked(event,'" + selectedSearchResultItem.uri + "', enumHandlers.DISPLAYTYPE_EXTRA.DEFAULT)";
         }
     };
-    self.ItemLinkClicked = function (event, uri, type) {
-        var target = event.target || event.srcElement;
-        var isLtIE9 = !!jQuery.browser.msie && parseFloat(jQuery.browser.browser) < 9;
-        if (((isLtIE9 && event.button === 1) || (!isLtIE9 && event.button === 0)) && !event.ctrlKey && !event.shiftKey) {
-            var item = self.GetItemByUri(uri);
-            if (item) {
-                if (item.type !== enumHandlers.ITEMTYPE.DASHBOARD) {
-                    // get full angle to check is_parameterized and warning in displays
-                    progressbarModel.ShowStartProgressBar(Localization.ProgressBar_CheckingAngle, false);
+    self.ItemLinkClicked = function (event, uri, type, displayUri) {
+        var item = self.GetItemByUri(uri);
+        if (!item || !self.IsValidClickItemLink(event))
+            return true;
 
-                    var query = {};
-                    query[enumHandlers.PARAMETERS.CACHING] = false;
-                    GetDataFromWebService(item.uri, query)
-                        .done(function (angle) {
-                            var displayObject;
-                            if (type === enumHandlers.DISPLAYTYPE_EXTRA.DEFAULT) {
-                                displayObject = WC.Utility.GetDefaultDisplay(angle.display_definitions);
-                            }
-                            else {
-                                displayObject = angle.display_definitions.findObject('display_type', type);
-                            }
+        var redirectUrl = (event.target || event.srcElement).href;
+        if (item.type !== enumHandlers.ITEMTYPE.DASHBOARD) {
+            // get full angle to check is_parameterized and warning in displays
+            progressbarModel.ShowStartProgressBar(Localization.ProgressBar_CheckingAngle, false);
 
-                            var angleValidation = validationHandler.GetAngleValidation(angle);
-                            var displayValidation = validationHandler.GetAngleValidation(displayObject);
-                            if (angleValidation.CanPostResult && displayValidation.CanPostResult
-                                && (angle.is_parameterized || (displayObject && displayObject.is_parameterized))) {
-                                progressbarModel.EndProgressBar();
-                                itemInfoHandler.ShowAngleExecutionParameterPopup(angle, displayObject.uri);
-                            }
-                            else {
-                                progressbarModel.SetProgressBarText(null, null, Localization.ProgressBar_Redirecting);
-                                var redirectUrl = target.href;
-                                if (displayObject) {
-                                    redirectUrl = redirectUrl.replace('display=' + type, 'display=' + displayObject.uri);
-                                }
-                                window.location.href = redirectUrl + "&" + enumHandlers.ANGLEPARAMETER.STARTTIMES + "=" + jQuery.now();
-                            }
+            var query = {};
+            query[enumHandlers.PARAMETERS.CACHING] = false;
+            GetDataFromWebService(item.uri, query)
+                .done(function (angle) {
+                    var displayObject;
+                    if (type === enumHandlers.DISPLAYTYPE_EXTRA.DEFAULT) {
+                        displayObject = WC.Utility.GetDefaultDisplay(angle.display_definitions);
+                    }
+                    else if (displayUri) {
+                        displayObject = angle.display_definitions.findObject('uri', displayUri);
+                    }
+                    else {
+                        displayObject = angle.display_definitions.findObject('display_type', type);
+                    }
 
-                            angleInfoModel.Data(angle);
-                            angleInfoModel.Data.commit();
-                        });
+                    var angleValidation = validationHandler.GetAngleValidation(angle);
+                    var displayValidation = validationHandler.GetAngleValidation(displayObject);
+                    if (angleValidation.CanPostResult && displayValidation.CanPostResult
+                        && (angle.is_parameterized || (displayObject && displayObject.is_parameterized))) {
+                        progressbarModel.EndProgressBar();
+                        itemInfoHandler.ShowAngleExecutionParameterPopup(angle, displayObject.uri);
+                    }
+                    else {
+                        progressbarModel.SetProgressBarText(null, null, Localization.ProgressBar_Redirecting);
+                        if (displayObject) {
+                            redirectUrl = redirectUrl.replace('display=' + type, 'display=' + displayObject.uri);
+                        }
+                        window.location.href = redirectUrl + "&" + enumHandlers.ANGLEPARAMETER.STARTTIMES + "=" + jQuery.now();
+                    }
 
-                    return false;
-                }
-                else {
-                    progressbarModel.ShowStartProgressBar(Localization.ProgressBar_CheckingDashboard, false);
-
-                    // get full dashboard info
-                    dashboardModel.LoadDashboard(item.uri)
-                        .then(function () {
-                            return dashboardModel.LoadAngles(dashboardModel.keyName, false)
-                        })
-                        .done(function () {
-                            var executionInfo = dashboardModel.GetDashboardExecutionParameters();
-                            if (executionInfo.query_steps.length) {
-                                progressbarModel.EndProgressBar();
-                                searchPageHandler.ShowDashboardExecutionParameterPopup(dashboardModel.Data(), executionInfo);
-                            }
-                            else {
-                                progressbarModel.SetProgressBarText(null, null, Localization.ProgressBar_Redirecting);
-                                window.location.href = target.href;
-                            }
-                        });
-
-                    return false;
-                }
-            }
+                    angleInfoModel.Data(angle);
+                    angleInfoModel.Data.commit();
+                });
         }
+        else {
+            progressbarModel.ShowStartProgressBar(Localization.ProgressBar_CheckingDashboard, false);
 
-        return true;
+            // get full dashboard info
+            dashboardModel.LoadDashboard(item.uri)
+                .then(function () {
+                    return dashboardModel.LoadAngles(dashboardModel.keyName, false);
+                })
+                .done(function () {
+                    var executionInfo = dashboardModel.GetDashboardExecutionParameters();
+                    if (executionInfo.query_steps.length) {
+                        progressbarModel.EndProgressBar();
+                        searchPageHandler.ShowDashboardExecutionParameterPopup(dashboardModel.Data(), executionInfo);
+                    }
+                    else {
+                        progressbarModel.SetProgressBarText(null, null, Localization.ProgressBar_Redirecting);
+                        window.location.href = redirectUrl;
+                    }
+                });
+        }
+        return false;
     };
-    self.SetValidDeleteItems = function (angles, dashboards, unauthorized) {
+    self.IsValidClickItemLink = function (event) {
+        var isTriggerClick = event.isTrigger;
+        var isLtIE9 = jQuery.browser.msie && parseFloat(jQuery.browser.version) < 9;
+        var isLeftClick = (isLtIE9 && event.button === 1) || (!isLtIE9 && event.button === 0);
+        var isNormalClick = !event.ctrlKey && !event.shiftKey;
+        return isTriggerClick || (isLeftClick && isNormalClick);
+    };
+    self.SetValidDeleteItems = function (angles, dashboards) {
         jQuery.each(self.SelectedItems(), function (index, item) {
             if (item.type === enumHandlers.ITEMTYPE.ANGLE) {
                 angles.push(item);

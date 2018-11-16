@@ -10,7 +10,7 @@ var displayDetailHtmlTemplate = function () {
                 '<h2>' + Localization.General + '</h2>',
                 '<div class="row newDisplay" data-bind="visible: IsNewDisplay()">',
                     '<div class="field">' + Localization.DisplayType + '</div>',
-                    '<div class="input"><select class="eaDropdown eaDropdownSize40 tempDisplayType" id="tempDisplayType"></select></div>',
+                    '<div class="input"><select class="eaDropdown eaDropdownSize40 displayNameDropdownList tempDisplayType" id="tempDisplayType"></select></div>',
                 '</div>',
                 '<div class="row" data-bind="visible: !IsNewDisplay()">',
                     '<div class="field">' + Localization.DisplayType + '</div>',

@@ -443,30 +443,19 @@ img {
     position: relative;
     width: 25px;
     height: 25px;
+    background-position: center center;
+    background-size: 20px 20px;
 }
-
 .icon.list {
-    background-image: url('../../images/icons/icon_list.png');
-}
-
-.icon.list:hover {
-    background-position: center bottom;
+    background-image: url('../../images/icons/icon_display_list.svg');
 }
 
 .icon.chart {
-    background-image: url('../../images/icons/icon_chart.png');
-}
-
-.icon.chart:hover {
-    background-position: center bottom;
+    background-image: url('../../images/icons/icon_display_chart.svg');
 }
 
 .icon.pivot {
-    background-image: url('../../images/icons/icon_pivot.png');
-}
-
-.icon.pivot:hover {
-    background-position: center bottom;
+    background-image: url('../../images/icons/icon_display_pivot.svg');
 }
 
 .icon.default:after {
@@ -1386,10 +1375,13 @@ img {
     box-sizing: border-box;
 }
 
+.displayNameContainer.small {
+    height: 20px;
+}
+
 .displayNameContainer.large {
     height: 35px;
     padding-top: 5px;
-    box-sizing: border-box;
 }
 
 .displayNameContainer .front,
@@ -1400,6 +1392,14 @@ img {
     float: left;
     height: 25px;
     line-height: 25px;
+}
+
+.displayNameContainer.small .front,
+.displayNameContainer.small .rear,
+.displayNameContainer.small .name,
+.displayNameContainer.small .icon {
+    height: 20px;
+    line-height: 20px;
 }
 
 .displayNameContainer .name {
@@ -1413,6 +1413,38 @@ img {
     box-sizing: border-box;
 }
 
+.displayNameContainer.small .icon {
+    width: 20px;
+}
+
+.displayNameContainer.small .icon.filter,
+.displayNameContainer.small .icon.noFilter {
+    background-size: 12px 12px;
+}
+.displayNameContainer.small .icon.followup {
+    background-size: 14px 16px;
+}
+.displayNameContainer.small .icon.public,
+.displayNameContainer.small .icon.private {
+    background-position: center 3px;
+    background-size: 16px 16px;
+}
+
+.displayNameContainer.small .icon.list,
+.displayNameContainer.small .icon.chart,
+.displayNameContainer.small .icon.pivot {
+    background-size: 16px 16px;
+}
+
+.displayNameContainer.small .icon.default:after {
+    width: 20px;
+    height: 20px;
+}
+.displayNameContainer.small .icon.schedule:before {
+    right: -3px;
+    bottom: -1px;
+}
+
 .displayNameContainer .rear .icon {
     width: 22px;
 }
@@ -1423,12 +1455,6 @@ img {
 
 .displayNameContainer .rear .parameterized {
     background-size: 18px 18px;
-}
-
-.displayNameContainer .list:hover,
-.displayNameContainer .pivot:hover,
-.displayNameContainer .chart:hover {
-    background-position: center top;
 }
 
 .displayNameContainer .default:after {

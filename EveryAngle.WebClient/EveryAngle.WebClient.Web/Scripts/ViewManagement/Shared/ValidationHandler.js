@@ -278,7 +278,7 @@ function ValidationHandler() {
                 }
                 else if (block.queryblock_type === enumHandlers.QUERYBLOCKTYPE.QUERY_STEPS) {
                     var invalidQueryStepCount = 0;
-                    var allQueryStepCount = 0;
+                    var allQueryStepCount = block.query_steps.length;
                     jQuery.each(block.query_steps, function (index, queryStep) {
                         if (queryStep.step_type === enumHandlers.FILTERTYPE.FILTER
                             && (queryStep.valid === false || !WC.WidgetFilterHelper.IsValidArguments(queryStep.arguments))) {

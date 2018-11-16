@@ -5,7 +5,8 @@ function SearchPageHandler() {
     self.IsPageInitialized = false;
     self.DISPLAY_TYPE = {
         FULL: 'details',
-        COMPACT: 'compact'
+        COMPACT: 'compact',
+        DISPLAYS: 'displays'
     };
 
     var lastSearch = userSettingModel.GetClientSettingByPropertyName(enumHandlers.CLIENT_SETTINGS_PROPERTY.LAST_SEARCH_URL);
@@ -159,7 +160,7 @@ function SearchPageHandler() {
     self.ExecuteSearchPage = function () {
 
         var forceEditId = WC.Utility.UrlParameter(enumHandlers.SEARCHPARAMETER.EDITID) || null;
-        if (forceEditId != null) {
+        if (forceEditId !== null) {
             self.CanEditId(forceEditId === 'true');
             jQuery.localStorage('can_edit_id', self.CanEditId());
             var query = {};
@@ -254,6 +255,7 @@ function SearchPageHandler() {
             delete grid._rowHeight;
             grid.virtualScrollable.refresh();
             grid.virtualScrollable.verticalScrollbar.scrollTop(scrollRatio * grid._rowHeight);
+            grid.refresh();
         }
     };
     self.SubmitSearchForm = function () {
@@ -300,13 +302,12 @@ function SearchPageHandler() {
         evt.initMouseEvent("click", true, true, window, 0, 0, 0, 0, 0, true, false, false, false, 0, null);
         a.dispatchEvent(evt);
     };
-    self.GetSPrivateNoteByUserSpecific = function (data, isAddIntroText) {
-        var privateNote = '';
+    self.GetPrivateNoteByUserSpecific = function (data, isTitle) {
         if (data.user_specific && data.user_specific.private_note) {
             var rawPrivateNote = WC.HtmlHelper.StripHTML(data.user_specific.private_note);
-            privateNote = isAddIntroText ? "Note: " + rawPrivateNote : rawPrivateNote;
+            return isTitle ? rawPrivateNote : kendo.format('{0}: {1}', Localization.PersonalNote, rawPrivateNote);
         }
-        return privateNote;
+        return '';
     };
     self.GetSignFavoriteIconCSSClass = function (data) {
         var cssClass;
@@ -342,6 +343,25 @@ function SearchPageHandler() {
     };
     self.SetFavoriteIconCSSClass = function (target, data) {
         target.removeClass().addClass(self.GetSignFavoriteIconCSSClass(data));
+    };
+    self.GetDisplayPublishCSSClass = function (data) {
+        return data.is_public ? 'public' : 'private';
+    };
+    self.GetDisplayTypeCSSClass = function (data) {
+        var classNames = [data.display_type];
+        if (data.is_angle_default)
+            classNames.push('default');
+        if (data.used_in_task)
+            classNames.push('schedule');
+        return classNames.join(' ');
+    };
+    self.GetDisplayFilterCSSClass = function (data) {
+        var classNames = ['filter'];
+        if (data.has_followups)
+            classNames.push('followup');
+        if (!data.has_filters && !data.has_followups)
+            classNames.push('noFilter');
+        return classNames.join(' ');
     };
     self.GetParameterizeCSSClass = function (data) {
         return data.is_parameterized ? 'parameterized' : 'none';
@@ -403,14 +423,14 @@ function SearchPageHandler() {
 
             var countResultfacetFilters = function (resultfacetfilters, isStarredCount) {
                 if (resultfacetfilters.length > 0) {
-                    resultfacetfilters[0].count(resultfacetfilters[0].count() + isStarredCount)
+                    resultfacetfilters[0].count(resultfacetfilters[0].count() + isStarredCount);
                 }
             };
             // update facet
             if (facetFiltersViewModel.Data().length > 0) {
                 var resultfacetitem = jQuery.grep(facetFiltersViewModel.Data(), function (facetItem) { return facetItem.id === 'facetcat_characteristics'; });
                 var resultfacetitemhasvalue = resultfacetitem.length > 0 ? resultfacetitem[0] : null;
-                if (resultfacetitemhasvalue != null && resultfacetitemhasvalue.filters().length > 0) {
+                if (resultfacetitemhasvalue !== null && resultfacetitemhasvalue.filters().length > 0) {
                     var resultfacetfilters = jQuery.grep(resultfacetitemhasvalue.filters(), function (facetfilter) {
                         return facetfilter.id === 'facet_isstarred';
                     });
@@ -500,17 +520,15 @@ function SearchPageHandler() {
                     if (e.data.id !== facetFiltersViewModel.SortRelevancyId
                         || (e.data.id === facetFiltersViewModel.SortRelevancyId && ddlSort.value() !== facetFiltersViewModel.SortRelevancyId)) {
                         var dir = '';
-                        if (e.data.id !== ddlSort.value() && e.data.id !== 'name') {
+                        if (e.data.id !== ddlSort.value() && e.data.id !== 'name')
                             dir = 'asc';
-                        }
 
                         if (e.data.id === 'executed')
                             dir = 'asc';
 
                         ddlSort.value(e.data.id);
-                        if (dir) {
+                        if (dir)
                             ddlSort.dataItem().dir(dir);
-                        }
 
                         ddlSort.trigger('select');
                     }
@@ -597,7 +615,6 @@ function SearchPageHandler() {
             },
             schema: {
                 total: function () {
-                    //totalItemDatarow
                     return searchModel.TotalItems();
                 }
             },
@@ -618,41 +635,43 @@ function SearchPageHandler() {
                 virtual: true
             },
             dataBound: function (e) {
-                if (e.sender.dataItems().length) {
-                    var contentSize = jQuery('#InnerResultWrapper .ResultContent').width();
-                    e.sender.content.find('.name').css('max-width', contentSize - 165);
+                if (!e.sender.dataItems().length)
+                    return;
+                
+                WC.HtmlHelper.AdjustNameContainer(e.sender.element.find('.ResultContent'));
 
-                    jQuery.each(searchModel.SelectedItems(), function (idx, item) {
-                        self.SetSelectedRow(item);
-                    });
+                jQuery.each(searchModel.SelectedItems(), function (idx, item) {
+                    self.SetSelectedRow(item);
+                });
 
-                    clearTimeout(fnCheckRequestEnd);
-                    fnCheckRequestEnd = setTimeout(function () {
-                        if (!e.sender.dataSource._requestInProgress) {
-                            clearInterval(fnCheckFetching);
-                            fnCheckFetching = setInterval(function () {
-                                if (!e.sender.virtualScrollable._fetching) {
-                                    clearInterval(fnCheckFetching);
+                self.SetResultViewEvent(e.sender.element);
 
-                                    var scrollbar = e.sender.content.find('.k-scrollbar-vertical');
-                                    scrollbar.trigger('scroll');
-                                    if (scrollTop) {
-                                        scrollbar.scrollTop(scrollTop);
-                                        scrollTop = null;
-                                    }
+                clearTimeout(fnCheckRequestEnd);
+                fnCheckRequestEnd = setTimeout(function () {
+                    if (!e.sender.dataSource._requestInProgress) {
+                        clearInterval(fnCheckFetching);
+                        fnCheckFetching = setInterval(function () {
+                            if (!e.sender.virtualScrollable._fetching) {
+                                clearInterval(fnCheckFetching);
+
+                                var scrollbar = e.sender.content.find('.k-scrollbar-vertical');
+                                scrollbar.trigger('scroll');
+                                if (scrollTop) {
+                                    scrollbar.scrollTop(scrollTop);
+                                    scrollTop = null;
                                 }
-                            }, 10);
-                        }
-                    }, 100);
+                            }
+                        }, 10);
+                    }
+                }, 100);
 
-                    clearInterval(fnCheckRequestIndicator);
-                    fnCheckRequestIndicator = setInterval(function () {
-                        if (e.sender.content.children('.k-loading-mask').length) {
-                            clearInterval(fnCheckRequestIndicator);
-                            e.sender.content.busyIndicator(false);
-                        }
-                    }, 2000);
-                }
+                clearInterval(fnCheckRequestIndicator);
+                fnCheckRequestIndicator = setInterval(function () {
+                    if (e.sender.content.children('.k-loading-mask').length) {
+                        clearInterval(fnCheckRequestIndicator);
+                        e.sender.content.busyIndicator(false);
+                    }
+                }, 2000);
             },
             pageable: false
         }).data(enumHandlers.KENDOUITYPE.GRID);
@@ -690,7 +709,7 @@ function SearchPageHandler() {
                 }, 2000);
             });
 
-        if (!!jQuery.browser.msie) {
+        if (jQuery.browser.msie) {
             grid.content
             .off('mousewheel.iefix')
             .on('mousewheel.iefix', function (e) {
@@ -767,6 +786,22 @@ function SearchPageHandler() {
 
         jQuery('#Content').busyIndicator(false);
     };
+    self.SetResultViewEvent = function (element) {
+        if (self.DisplayType() !== searchPageHandler.DISPLAY_TYPE.DISPLAYS)
+            return;
+
+        WC.HtmlHelper.AdjustNameContainer(element.find('.ResultView'));
+
+        element.find('.ResultView:visible')
+            .off('mousewheel.displaysview')
+            .on('mousewheel.displaysview', function (e) {
+                var displayListContainer = jQuery(e.currentTarget);
+                if (displayListContainer.height() < displayListContainer.children().height()) {
+                    displayListContainer.scrollTop(displayListContainer.scrollTop() - e.deltaY * 30);
+                    e.stopPropagation();
+                }
+            });
+    };
     self.InitialUserPrivileges = function () {
         userModel.SetCreateAngleButton();
         userModel.SetManagementControlButton();
@@ -840,7 +875,7 @@ function SearchPageHandler() {
             return false;
         }
 
-        searchModel.SetValidDeleteItems(angles, dashboards, unauthorized);
+        searchModel.SetValidDeleteItems(angles, dashboards);
 
         var deleteItemCount = angles.length + dashboards.length;
         var deleteQuestion = kendo.format(Localization.Confirm_AreYouSureToDeleteItems, deleteItemCount + unauthorized.length);
@@ -1281,10 +1316,57 @@ function SearchPageHandler() {
         executionParameter.CancelExecutionParameters = jQuery.noop;
     };
     self.ShowDisplays = function (event, target, uri, totalDisplays) {
-        itemInfoHandler.ShowDisplays(event, target, uri, totalDisplays);
+        if (event && event.stopPropagation)
+            event.stopPropagation();
+
+        // create container
+        target = jQuery(target);
+        var container = itemInfoHandler.CreateShowDisplaysElement(target, totalDisplays);
+        var contentElement = container.children('.k-window-content');
+
+        // render displays
+        var angle = searchModel.GetItemByUri(uri);
+        var html = self.GetDisplaysListHtmlFromItem(angle, 'large');
+        contentElement.html(html);
+
         jQuery('#InnerResultWrapper .k-scrollbar').off('scroll.showdisplays').on('scroll.showdisplays', function () {
             itemInfoHandler.HideDisplays();
         });
+    };
+    self.GetDisplaysListHtmlFromItem = function (angle, extraCssClass) {
+        var displays = JSON.parse(JSON.stringify(WC.Utility.ToArray(angle.displays)));
+        displays.sortObject('name', enumHandlers.SORTDIRECTION.ASC, false);
+        var html = ['<ul class="detailDefinitionList">'];
+        jQuery.each(displays, function (index, display) {
+            display.__angle_uri = angle.uri;
+            display.__angle_is_template = angle.is_template;
+            var template = [
+                '<li class="displayNameContainer cursorPointer ' + extraCssClass +'" onclick="searchPageHandler.ClickDisplay(event)">',
+                    '<div class="front">',
+                        '<i class="icon #= searchPageHandler.GetDisplayPublishCSSClass(data) #"></i>',
+                        '<i class="icon #= searchPageHandler.GetDisplayTypeCSSClass(data) #"></i>',
+                        '<i class="icon #= searchPageHandler.GetDisplayFilterCSSClass(data) #"></i>',
+                    '</div>',
+                    '<a class="name nameLink displayName"',
+                        ' title="#:data.name #"',
+                        ' href="#= searchModel.GetDisplayHrefUri(data.__angle_uri, data.uri, data.__angle_is_template) #"',
+                        ' onclick="return searchModel.ItemLinkClicked(event, \'#: data.__angle_uri #\', null, \'#: data.uri #\')">',
+                        '#: data.name #</a>',
+                    '<div class="rear">',
+                        '<i class="icon #= searchPageHandler.GetParameterizeCSSClass(data) #"></i>',
+                        '<i class="icon #= searchPageHandler.GetWarnningClass(data) #"></i>',
+                    '</div>',
+                '</li>'
+            ].join('');
+            var templateFunction = kendo.template(template);
+            html.push(templateFunction(display));
+        });
+        html.push('</ul>');
+        return html.join('');
+    };
+    self.ClickDisplay = function (e) {
+        if (!jQuery(e.target || e.srcElement).hasClass('name'))
+            jQuery(e.currentTarget).find('.name').trigger('click');
     };
 
     // popup advanced filter

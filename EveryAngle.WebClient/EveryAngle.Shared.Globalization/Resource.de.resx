@@ -5827,4 +5827,7 @@ Are you sure you want to delete this role?</value>
   <data name="MC_ChangedTablesOnly_Description" xml:space="preserve" translate="no">
     <value>Select this option to extract only newly added and changed tables. This option cannot be used together with Delta.</value>
   </data>
+  <data name="ViewDisplaysMode" xml:space="preserve">
+    <value>Displays mode</value>
+  </data>
 </root>

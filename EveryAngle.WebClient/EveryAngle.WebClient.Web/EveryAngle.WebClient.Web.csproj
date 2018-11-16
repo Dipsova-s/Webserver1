@@ -551,6 +551,9 @@ if %25ERRORLEVEL%25 LEQ 1 exit 0 else exit %25ERRORLEVEL%25</PreBuildEvent>
     <Content Include="Images\Icons\icon_definition_shortcut.svg" />
     <Content Include="Images\Icons\icon_delete.svg" />
     <Content Include="Images\Icons\icon_deny.png" />
+    <Content Include="Images\Icons\icon_display_chart.svg" />
+    <Content Include="Images\Icons\icon_display_list.svg" />
+    <Content Include="Images\Icons\icon_display_pivot.svg" />
     <Content Include="Images\Icons\icon_download_angle.png" />
     <Content Include="Images\Icons\icon_download_angle.svg" />
     <Content Include="Images\Icons\icon_down_white.svg" />
@@ -614,6 +617,9 @@ if %25ERRORLEVEL%25 LEQ 1 exit 0 else exit %25ERRORLEVEL%25</PreBuildEvent>
     <Content Include="Images\Domains\UserType\UserTypeService.png" />
     <Content Include="Images\Domains\UserType\UserTypeSystem.png" />
     <Content Include="Images\Icons\icon_upload_angle.svg" />
+    <Content Include="Images\Icons\icon_viewmode_compact.svg" />
+    <Content Include="Images\Icons\icon_viewmode_details.svg" />
+    <Content Include="Images\Icons\icon_viewmode_displays.svg" />
     <Content Include="Images\Icons\icon_warning.svg" />
     <Content Include="Images\image-not-found.png" />
     <Content Include="Images\image-not-found.svg" />
@@ -711,7 +717,6 @@ if %25ERRORLEVEL%25 LEQ 1 exit 0 else exit %25ERRORLEVEL%25</PreBuildEvent>
     <Content Include="Images\Icons\icon_angle_to_template.png" />
     <Content Include="Images\Icons\icon_arrow_black_left_black.png" />
     <Content Include="Images\Icons\icon_authorization.png" />
-    <Content Include="Images\Icons\icon_chart.png" />
     <Content Include="Images\Icons\icon_clearformat.png" />
     <Content Include="Images\Icons\icon_close.png" />
     <Content Include="Images\btn_bg.png" />
@@ -744,7 +749,6 @@ if %25ERRORLEVEL%25 LEQ 1 exit 0 else exit %25ERRORLEVEL%25</PreBuildEvent>
     <Content Include="Images\Icons\icon_info.png" />
     <Content Include="Images\Icons\icon_info_hover.png" />
     <Content Include="Images\Icons\icon_info_large.png" />
-    <Content Include="Images\Icons\icon_list.png" />
     <Content Include="Images\Icons\icon_logout.png" />
     <Content Include="Images\Icons\icon_mark_as_new.png" />
     <Content Include="Images\Icons\icon_maximize.png" />
@@ -753,7 +757,6 @@ if %25ERRORLEVEL%25 LEQ 1 exit 0 else exit %25ERRORLEVEL%25</PreBuildEvent>
     <Content Include="Images\Icons\icon_move_definition.png" />
     <Content Include="Images\Icons\icon_object.png" />
     <Content Include="Images\Icons\icon_private_to_public.png" />
-    <Content Include="Images\Icons\icon_pivot.png" />
     <Content Include="Images\Icons\icon_public_to_private.png" />
     <Content Include="Images\Icons\icon_sap.png" />
     <Content Include="Images\Icons\icon_sort_asc_large.png" />

@@ -47,7 +47,7 @@
 ============================================ */
 #ActionSelect.compactMode {
     top: 8px;
-    right: 150px;
+    right: 175px;
     z-index: 2;
 }
 
@@ -724,7 +724,7 @@
 
 #SearchResultView .viewModeWrapper {
     position: absolute;
-    top: 0;
+    top: 5px;
     right: 32px;
 }
 
@@ -744,43 +744,41 @@
     height: auto;
     width: auto;
 }
-
-.viewType .typeFull,
-.viewType .typeCompact {
+.viewType > a {
+    position: relative;
     float: left;
-    display: block;
+    background-color: #adadad;
     width: 42px;
-    height: 42px;
-    margin-left: 7px;
-    background: transparent url('../../images/icons/icon_viewmode.png') left top no-repeat;
+    height: 30px;
+    transition: background-color .15s ease-in-out,
+        box-shadow .15s ease-in-out;
 }
-
-.viewType .typeFull:hover {
-    background-position: left -90px;
+.viewType > a:hover,
+.viewType > a.active {
+    background-color: #1e7696;
 }
-
-.viewType .typeCompact:hover {
-    background-position: right -90px;
+.viewType > a.active:hover {
+    opacity: .8;
+    box-shadow: 0 3px 9px 0 rgba(0, 0, 0, .26);
 }
-
-.viewTypeFull .typeFull,
-.viewTypeFull .typeFull:hover {
-    cursor: default;
-    background-position: left top;
+.viewType > a:before {
+    content: '';
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    margin-top: -7px;
+    margin-left: -7px;
+    width: 14px;
+    height: 14px;
 }
-
-.viewTypeFull .typeCompact {
-    background-position: right top;
+.viewType .typeDisplays:before {
+    background-image: url('../../images/icons/icon_viewmode_displays.svg');
 }
-
-.viewTypeCompact .typeFull {
-    background-position: left -45px;
+.viewType .typeFull:before {
+    background-image: url('../../images/icons/icon_viewmode_details.svg');
 }
-
-.viewTypeCompact .typeCompact,
-.viewTypeCompact .typeCompact:hover {
-    cursor: default;
-    background-position: right -45px;
+.viewType .typeCompact:before {
+    background-image: url('../../images/icons/icon_viewmode_compact.svg');
 }
 
 /* .sortWrapper
@@ -915,6 +913,8 @@
 
 #InnerResultWrapper td {
     padding: 0;
+    font-family: inherit;
+    font-size: 12px;
 }
 
 #InnerResultWrapper colgroup {
@@ -928,23 +928,24 @@
 .SearchResult {
     display: block;
     position: relative;
-    height: 115px;
+    height: 120px;
     overflow: hidden;
+    box-sizing: border-box;
 }
 
 .compactMode .SearchResult {
     height: 60px;
-    padding-bottom: 1px;
-    box-sizing: border-box;
+}
+
+.displaysMode .SearchResult {
+    height: 150px;
 }
 
 .ResultSign {
     float: left;
     position: relative;
-    width: 83px;
-    padding-top: 2px;
+    width: 85px;
     z-index: 2;
-    left: 5px;
 }
 
 .ResultSign .icon,
@@ -957,7 +958,7 @@
 }
 
 .ResultSign > a:first-child {
-    margin-left: 10px;
+    margin-left: 15px;
 }
 
 .ResultSign .dashboard {
@@ -1002,22 +1003,25 @@
 }
 
 .ResultContent {
-    font-size: 11px;
-    margin: 10px 65px 5px 20px;
+    margin: 10px 65px 0 20px;
     position: relative;
     z-index: 1;
 }
 
+.displaysMode .ResultContent {
+    margin-right: 540px;
+    min-width: 350px;
+}
+
 .ResultContent .displayNameContainer {
+    margin-left: 65px;
     clear: right;
 }
 
 .ResultContent .name {
     color: #006f9b;
-    font-family: Arial,Tahoma;
     font-size: 16px;
-    left: 5px;
-    margin-right: 5px;
+    line-height: 23px;
 }
 
 .ResultContent .name:hover {
@@ -1036,9 +1040,7 @@
 }
 
 .ResultContent .Date {
-    margin-bottom: 3px;
-    margin-top: 2px;
-    color: #5a5a5a;
+    color: #6c757d;
 }
 
 .ResultContent .ContentDetail,
@@ -1048,25 +1050,23 @@
 
 .ResultContent .ContentDetail {
     color: #333;
-    height: 33px;
-    font-size: 12px;
+    height: 32px;
+    line-height: 16px;
     overflow: hidden;
     white-space: normal;
-    margin-bottom: 2px;
+    margin-bottom: 10px;
     display: -webkit-box; /* NOSONAR: css for specific browser */
     -webkit-line-clamp: 2; /* NOSONAR: css for specific browser */
     -webkit-box-orient: vertical; /* NOSONAR: css for specific browser */
-    width: 90%;
-    margin-top: 4px;
+}
+.displaysMode .ResultContent .ContentDetail {
+    height: 64px;
+    -webkit-line-clamp: 4; /* NOSONAR: css for specific browser */
 }
 
 .ResultContent .PrivateNote {
-    font-style: italic;
-    color: #999;
-}
-
-.k-state-selected .ResultContent .PrivateNote {
-    color: #5a5a5a;
+    height: 19px;
+    color: #6c757d;
 }
 
 .ResultView {
@@ -1075,6 +1075,15 @@
     width: 50px;
     padding-top: 2px;
     z-index: 2;
+}
+.displaysMode .ResultView {
+    width: 525px;
+    height: 130px;
+    padding-top: 0;
+    overflow: auto;
+}
+.displaysMode .ResultView .detailDefinitionList {
+    margin-left: 10px;    
 }
 
 /* webkit */
@@ -1087,10 +1096,21 @@
     right: 12px;
 }
 
+.ResultView .detailDefinitionList .displayNameContainer {
+    overflow: visible;
+    background-color: #f7f7f7;
+    margin-top: 2px;
+}
+.ResultView .detailDefinitionList .displayNameContainer:hover {
+    background-color: #ebebeb;
+}
+.ResultView .detailDefinitionList .displayNameContainer:first-child {
+    margin-top: 0;
+}
+
 .ResultView .icon {
     cursor: pointer;
     position: relative;
-    float: right;
 }
 
 .btnShowDisplays {
@@ -1133,15 +1153,22 @@
     display: none;
 }
 #popupDisplays .displayNameContainer {
+    font-size: 12px;
     border-bottom: 1px solid #c5c5c5;
 }
 #popupDisplays .displayNameContainer:hover {
-    background-color: #eefbff;
+    background-color: #ebebeb;
 }
 
 @media (max-width: 1139px) {
     #SearchBar .searchBoxWrapper {
-        min-width: 330px;
+        min-width: 300px;
+    }
+    .displaysMode .ResultContent {
+        margin-right: 330px;
+    }
+    .displaysMode .ResultView {
+        width: 315px;
     }
 }
 
@@ -1155,7 +1182,7 @@
     }
 
     #ActionSelect.compactMode {
-        right: 120px;
+        right: 145px;
     }
 
     #SearchResultView .viewModeWrapper {
