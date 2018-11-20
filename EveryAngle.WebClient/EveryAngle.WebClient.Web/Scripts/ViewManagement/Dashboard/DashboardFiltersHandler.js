@@ -11,7 +11,7 @@
     var self = this;
     self.Identity = 'DashboardFiltersHandler';
     self.IsActive = ko.observable(false);
-    self.IsOpen = ko.observable(true);
+    self.IsOpen = ko.observable(false);
     self.IsOpen.subscribe(function () {
         self.AfterTogglePanel();
     });
@@ -30,6 +30,9 @@
         if (!currentBinding || currentBinding.Identity !== self.Identity) {
             _self.Element.html(_self.GetView());
             ko.applyBindings(self, _self.Element.get(0));
+            
+            // set open panel state
+            self.IsOpen(self.GetFiltersCount() > 0);
         }
 
         // force update view after save changed
