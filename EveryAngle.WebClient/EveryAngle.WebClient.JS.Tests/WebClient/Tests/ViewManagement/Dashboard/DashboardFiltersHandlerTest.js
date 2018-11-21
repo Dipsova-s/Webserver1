@@ -40,13 +40,39 @@ describe("DashboardFiltersHandler", function () {
         };
     });
 
-    describe("when create new instance", function () {
-        it("should be defined", function () {
-            expect(dashboardFiltersHandler).toBeDefined();
+    describe(".ApplyHandler", function () {
+        it("should not open panel if no filter", function () {
+            spyOn(ko, 'dataFor').and.callFake($.noop);
+            spyOn(ko, 'applyBindings').and.callFake($.noop);
+            spyOn(dashboardFiltersHandler, 'GetFiltersCount').and.returnValue(0);
+
+            // before apply
+            expect(dashboardFiltersHandler.IsOpen()).toEqual(false);
+
+            // apply
+            dashboardFiltersHandler.ApplyHandler($());
+
+            // after apply
+            expect(dashboardFiltersHandler.IsOpen()).toEqual(false);
+        });
+
+        it("should open panel if has filters", function () {
+            spyOn(ko, 'dataFor').and.callFake($.noop);
+            spyOn(ko, 'applyBindings').and.callFake($.noop);
+            spyOn(dashboardFiltersHandler, 'GetFiltersCount').and.returnValue(1);
+
+            // before apply
+            expect(dashboardFiltersHandler.IsOpen()).toEqual(false);
+
+            // apply
+            dashboardFiltersHandler.ApplyHandler($());
+
+            // after apply
+            expect(dashboardFiltersHandler.IsOpen()).toEqual(true);
         });
     });
 
-    describe("call SetDashboardModel", function () {
+    describe(".SetDashboardModel", function () {
         it("should appends dashboard filters to filters node", function () {
             utils.createMockDashboardFilters();
 
@@ -54,7 +80,7 @@ describe("DashboardFiltersHandler", function () {
         });
     });
 
-    describe("call TogglePanel", function () {
+    describe(".TogglePanel", function () {
         var testCases = [{
             title: 'should be true if previously is false',
             isOpen: false,
@@ -75,7 +101,7 @@ describe("DashboardFiltersHandler", function () {
         });
     });
 
-    describe("call ToggleFilterHeader", function () {
+    describe(".ToggleFilterHeader", function () {
         it("should be false if collapsed is true", function () {
             utils.createMockDashboardFilters();
             var filterNode = dashboardFiltersHandler.FilterNodes()[0];
@@ -85,7 +111,7 @@ describe("DashboardFiltersHandler", function () {
         });
     });
 
-    describe("call GetFiltersCount", function () {
+    describe(".GetFiltersCount", function () {
         it("verify total number filter nodes", function () {
             utils.createMockDashboardFilters();
             var result = dashboardFiltersHandler.GetFiltersCount();
@@ -94,7 +120,7 @@ describe("DashboardFiltersHandler", function () {
         });
     });
 
-    describe("call GetModelUri", function () {
+    describe(".GetModelUri", function () {
         it("verify model server url", function () {
             utils.createMockDashboardFilters();
             var result = dashboardFiltersHandler.GetModelUri();
@@ -103,7 +129,7 @@ describe("DashboardFiltersHandler", function () {
         });
     });
 
-    describe("call GetFilterHeader", function () {
+    describe(".GetFilterHeader", function () {
         it("verify filter header value", function () {
             utils.createMockDashboardFilters();
             var filterNode = dashboardFiltersHandler.FilterNodes()[0];
@@ -113,7 +139,7 @@ describe("DashboardFiltersHandler", function () {
         });
     });
 
-    describe("call GetFilterText", function () {
+    describe(".GetFilterText", function () {
         it("verify filter text value", function () {
             utils.createMockDashboardFilters();
             var filterItem = dashboardFiltersHandler.FilterNodes()[0].filters[0];
@@ -123,7 +149,7 @@ describe("DashboardFiltersHandler", function () {
         });
     });
 
-    describe("call ShowEditFilterPopup", function () {
+    describe(".ShowEditFilterPopup", function () {
         it("should call quick filter popup function", function () {
             utils.createMockDashboardFilters();
             var filter = dashboardFiltersHandler.FilterNodes()[0].filters[0];
@@ -134,7 +160,7 @@ describe("DashboardFiltersHandler", function () {
         });
     });
 
-    describe("call ApplyFilter", function () {
+    describe(".ApplyFilter", function () {
         var mockFilter;
         beforeEach(function () {
             utils.createMockDashboardFilters();
@@ -153,7 +179,7 @@ describe("DashboardFiltersHandler", function () {
         });
     });
 
-    describe("call ApplyFilters", function () {
+    describe(".ApplyFilters", function () {
         it("should not update dashboard filters if hasChanged is false", function () {
             dashboardFiltersHandler.Model = { SetDashboardFilters: jQuery.noop };
             spyOn(dashboardFiltersHandler.Model, 'SetDashboardFilters').and.callFake(jQuery.noop);
