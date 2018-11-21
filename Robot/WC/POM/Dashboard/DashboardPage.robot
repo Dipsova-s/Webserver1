@@ -9,9 +9,11 @@ ${ddlDashboardActionDropdownListExecuteDashboard}        css=#ActionDropdownList
 ${divWidgetDisplayHeader}               jquery=.widgetDisplayHeader
 ${btnWidgetButtonMenu}                  jquery=.widgetButtonMenu
 ${lnkWidgetOpenNewWindow}               jquery=.widgetButtonOpenNewWindow:visible
-${btnDashboardNote}          css=#YourNote
-${txtDashboardNote}          css=#txtYourNote
-${divWidgets}                jquery=#dashboardWrapper .widgetDisplayColumn
+${btnDashboardNote}                     css=#YourNote
+${txtDashboardNote}                     css=#txtYourNote
+${divWidgets}                           jquery=#dashboardWrapper .widgetDisplayColumn
+${divDashboardFilterWrapper}            css=#dashboardFilterWrapper
+${btnDashboardFilterToggle}             css=.dashboardFilterToggle
 
 ${linkMaximizeDashboard}     jquery=.widgetButtonMaximize
 ${linkMinimizeDashboard}     jquery=.widgetButtonMinimize
@@ -87,8 +89,16 @@ Click Execute Dashboard Action
     Wait Until Element Is Visible    ${ddlDashboardActionDropdownListExecuteDashboard}
     Click Element    ${ddlDashboardActionDropdownListExecuteDashboard}
 
+Open Filter Panel
+    ${isPanelClosed}    Is Element Has CssClass    ${divDashboardFilterWrapper}    close
+    Run Keyword If    ${isPanelClosed}    Click Element    ${btnDashboardFilterToggle}
+
+Close Filter Panel
+    ${isPanelOpened}    Is Element Has CssClass    ${divDashboardFilterWrapper}    open
+    Run Keyword If    ${isPanelOpened}    Click Element    ${btnDashboardFilterToggle}
+
 Open Filter From Dashboard Filter Panel
-    Wait Until Element Is Visible    ${ddlDashboardPanel} ${btnOpenDashboardFilter}
+    Open Filter Panel
     Click Element    ${ddlDashboardPanel} ${btnOpenDashboardFilter}
     Wait Dashboard Detail Document Loaded
 
