@@ -8,24 +8,29 @@ using EveryAngle.WebClient.Service.Security;
 
 using EveryAngle.ManagementConsole.Helpers;
 using System.Collections.Generic;
+using Newtonsoft.Json;
 
 namespace EveryAngle.ManagementConsole.Controllers
 {
     public class LicenseController : BaseController
     {
         private readonly IGlobalSettingService globalSettingService;
-        private readonly IModelService modelService;
 
-        public LicenseController(IModelService modelService, IGlobalSettingService globalSettingService)
+        public LicenseController(IGlobalSettingService globalSettingService)
         {
-            this.modelService = modelService;
             this.globalSettingService = globalSettingService;
+            SessionHelper = SessionHelper.Initialize();
+        }
+
+        public LicenseController(IGlobalSettingService globalSettingService, SessionHelper sessionHelper)
+        {
+            this.globalSettingService = globalSettingService;
+            SessionHelper = sessionHelper;
         }
 
         public ActionResult GetLicense()
         {
-            SessionHelper session = SessionHelper.Initialize();
-            string licenseUri = session.Version.GetEntryByName("system_license").Uri.ToString();
+            string licenseUri = SessionHelper.Version.GetEntryByName("system_license").Uri.ToString();
             SystemLicenseViewModel modelLicense = new SystemLicenseViewModel();
             ViewBag.LicenseUri = licenseUri;
             try
@@ -33,7 +38,7 @@ namespace EveryAngle.ManagementConsole.Controllers
                 modelLicense = globalSettingService.GetLicense(licenseUri);
                 if (modelLicense.model_licenses != null)
                 {
-                    List<ModelViewModel> models = session.Models;
+                    List<ModelViewModel> models = SessionHelper.Models;
                     modelLicense.model_licenses.ForEach(license =>
                     {
                         ModelViewModel model = models.FirstOrDefault(w => w.id == license.model_id);
@@ -83,6 +88,21 @@ namespace EveryAngle.ManagementConsole.Controllers
                     MessageType.DEFAULT,
                     null);
             }
+        }
+
+        [AcceptVerbs(HttpVerbs.Post)]
+        public ActionResult ResendLicense()
+        {
+            string licenseUri = SessionHelper.Version.GetEntryByName("system_license").Uri.ToString();
+            SystemLicenseViewModel modelLicense = globalSettingService.GetLicense(licenseUri);
+            globalSettingService.UpdateLicense(licenseUri, JsonConvert.SerializeObject(modelLicense));
+
+            return JsonHelper.GetJsonStringResult(
+                        true,
+                        null,
+                        null,
+                        MessageType.SUCCESS_UPDATED,
+                        null);
         }
     }
 }

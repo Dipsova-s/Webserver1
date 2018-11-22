@@ -189,7 +189,7 @@
                     .attr('autocomplete', 'off')
                     .data('uploader', true)
                     .wrap('<div class="k-widget k-upload" />')
-                    .wrap('<div class="k-button k-upload-button btn" />')
+                    .wrap('<div class="k-button k-upload-button btn ' + (element.prop('disabled') ? ' disabled' : '') +'" />')
                     .after('<span>' + settings.textBrowse + '</span>')
                     .change(function (e) {
                         if (typeof e.target.files == 'undefined') {

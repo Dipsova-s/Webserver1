@@ -570,6 +570,9 @@ div.tagsinput .not_valid {
 .k-upload-button input {
     font-size: 500px;
 }
+.k-upload-button.disabled input {
+    cursor: default;
+}
 
 .k-datepicker {
     background-color: transparent;
@@ -3111,7 +3114,18 @@ form#ExportPackageForm .packageInfo .packageVersion input {
     position: absolute;
     left: 237px;
     top: 12px;
+    padding-right: 100px;
     z-index: 10;
+}
+.pageLicense .k-upload-status {
+    display: none;
+}
+
+.pageLicense .btnResendLicense {
+    position: absolute;
+    right: 0;
+    top: 0;
+    margin-right: 0;
 }
 
 .pageLicense .contentSectionInfoItem {

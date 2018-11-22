@@ -8,21 +8,15 @@
         test: MC.Models && MC.Models.License,
         url: '@Scripts.Url("~/bundles/models/license")',
         callback: function () {
-            MC.Models.License.Initial();
+            MC.Models.License.Initial({
+                ResendLicenseUri: '@Url.Action("ResendLicense", "License")'
+            });
         }
     });
 </script>
 
 @{
     List<PageToolbarButtonModel> buttons = new List<PageToolbarButtonModel>();
-
-    buttons.Add(new PageToolbarButtonModel
-    {
-        Type = PageToolbarButtonType.Save,
-        Privilege = PrivilegeType.System,
-        OnClick = "MC.Models.License.SaveLicenseFile()"
-    });
-
     buttons.Add(new PageToolbarButtonModel
     {
         Type = PageToolbarButtonType.Reload
@@ -41,11 +35,21 @@
                     buttons = new List<PageToolbarButtonModel>();
                     buttons.Add(new PageToolbarButtonModel
                     {
-                        EnableTemplate = " <input type=\"file\" name=\"file\" id=\"fileAttached\" size=\"60\" data-role=\"uploader\" data-text-browse=\"" + Resource.MC_UploadLicense + "\" />",
-                        DisableTemplate = " <input type=\"file\" name=\"file\" id=\"fileAttached\" size=\"60\" disabled=\"disabled\" data-text-browse=\"" + Resource.MC_UploadLicense + "\" />",
+                        EnableTemplate = " <input type=\"file\" name=\"file\" id=\"licenseFile\" size=\"60\" data-role=\"uploader\" data-text-browse=\"" + Resource.MC_UploadLicense + "\" onchange=\"MC.Models.License.SaveLicenseFile()\" />",
+                        DisableTemplate = " <input type=\"file\" name=\"file\" id=\"licenseFile\" size=\"60\" data-role=\"uploader\" disabled=\"disabled\" data-text-browse=\"" + Resource.MC_UploadLicense + "\" />",
                         Type = PageToolbarButtonType.Custom,
                         Privilege = PrivilegeType.System
                     });
+                    if (Model != null)
+                    {
+                        buttons.Add(new PageToolbarButtonModel
+                        {
+                            EnableTemplate = " <a id=\"ButtonResendLicense\" class=\"btn btnResendLicense\" onclick=\"MC.Models.License.ResendLicense()\">" + Resource.MC_ResendLicense + "</a>",
+                            DisableTemplate = " <a id=\"ButtonResendLicense\" class=\"btn btnResendLicense disabled\">" + Resource.MC_ResendLicense + "</a>",
+                            Type = PageToolbarButtonType.Custom,
+                            Privilege = PrivilegeType.System
+                        });
+                    }
                     @Html.RenderPageToolbarBottom(buttons)    
                 }
 

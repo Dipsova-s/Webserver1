@@ -5924,4 +5924,7 @@ Attention: The specified location must be a full file path on the Application se
   <data name="ViewDisplaysMode" xml:space="preserve">
     <value>Displays mode</value>
   </data>
+  <data name="MC_ResendLicense" xml:space="preserve">
+    <value>Resend license</value>
+  </data>
 </root>

@@ -11091,6 +11091,15 @@ namespace EveryAngle.Shared.Globalization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Resend license.
+        /// </summary>
+        public static string MC_ResendLicense {
+            get {
+                return ResourceManager.GetString("MC_ResendLicense", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Role description.
         /// </summary>
         public static string MC_RoleDescription {

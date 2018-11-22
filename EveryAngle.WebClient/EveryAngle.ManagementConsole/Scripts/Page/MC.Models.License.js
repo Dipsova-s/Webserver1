@@ -2,6 +2,7 @@
 
     function License() {
         var self = this;
+        self.ResendLicenseUri = '';
 
         self.Initial = function (data) {
             jQuery.extend(self, data || {});
@@ -18,7 +19,7 @@
 
             var data = {};
             data.licenseData = jQuery('#AddLicenseFileForm').serializeArray();
-            data.licenseFile = $('#fileAttached').val();
+            data.licenseFile = $('#licenseFile').val();
 
             return data;
         };
@@ -31,16 +32,21 @@
                 return false;
             }
 
-            if (!$('#fileAttached').val()) {
-                MC.ui.loading.showAndHide();
-                return false;
-            }
-
             MC.util.ajaxUpload('#AddLicenseFileForm',
             {
                 successCallback: function () {
                     MC.ajax.reloadMainContent();
+                },
+                completeCallback: function () {
+                    MC.util.ajaxUploadClearInput('#licenseFile');
                 }
+            });
+        };
+
+        self.ResendLicense = function () {
+            MC.ajax.request({
+                url: self.ResendLicenseUri,
+                type: 'POST'
             });
         };
     }
