@@ -9,13 +9,13 @@ Go to Search Page
 
 Search By Text Without Double Quote
     [Arguments]   ${searchText}
+    Wait Search Page Document Loaded
     Input Search Text    ${searchText}
     Click Search Button
     Wait Progress Bar Search Closed
 
 Search By Text
     [Arguments]    ${searchText}
-    Wait Search Page Document Loaded
     Search By Text Without Double Quote    "${searchText}"
 
 Search By Text And Expect In Search Result
@@ -107,11 +107,6 @@ Execute First Search Item In Edit Mode
     Click Edit Mode Button Via Item Info Popup
     Wait Angle Page Document Loaded
     Check If Angle Or Display Has A Warning Then Close The Popup
-
-Execute Angle in Search Page And Expect No Valid Display Warning Popup
-    [Arguments]    ${angleName}
-    Click Link Item From Search Result Not Execute Popup    ${angleName}
-    Wait Until Page Contains    Template '${angleName}' can not be executed because it has no valid Displays
 
 Click Select All Items from Search Result
     ${totalItems} =    Execute Javascript     return $('#${lblSearchTotal}').text();

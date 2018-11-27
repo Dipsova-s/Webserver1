@@ -172,7 +172,7 @@ function SearchViewModel() {
         if (!item || !self.IsValidClickItemLink(event))
             return true;
 
-        var redirectUrl = (event.target || event.srcElement).href;
+        var redirectUrl = (event.currentTarget || event.target || event.srcElement).href;
         if (item.type !== enumHandlers.ITEMTYPE.DASHBOARD) {
             // get full angle to check is_parameterized and warning in displays
             progressbarModel.ShowStartProgressBar(Localization.ProgressBar_CheckingAngle, false);

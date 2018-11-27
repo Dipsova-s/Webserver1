@@ -578,15 +578,6 @@
     text-overflow: ellipsis;
 }
 
-.fullDetail .fieldChooserGridContainer .highlight {
-    background-color: transparent;
-}
-
-.fullDetail .fieldChooserGridContainer .highlight.first {
-    background-color: #09f;
-    color: #fff;
-}
-
 .fullDetail .longText {
     display: inline;
 }

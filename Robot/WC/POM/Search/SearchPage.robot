@@ -133,6 +133,10 @@ Wait Search Page Document Loaded
     Wait Until Page Contains Element    ${chkFacetAngle}    120s
     Wait Until Ajax Complete
 
+Reload Search Page
+    Reload Page
+    Wait Search Page Document Loaded
+
 Wait Progress Bar Search Closed
     Wait Until Page Does Not Contain Element    ${pgbSearchResults}
     Sleep    2s    Wait SOLR
@@ -334,7 +338,7 @@ Click Starred First Item
 
 Click Link Item From Search Result Not Execute Popup
     [Arguments]    ${link}
-    Click Link    ${link}
+    Click Link    ${lnkSearchResult}:contains(${link})
 
 Click Link Item From Search Result
     [Arguments]    ${link}
@@ -343,7 +347,7 @@ Click Link Item From Search Result
 
 Click Link Template From Search Result
     [Arguments]    ${link}
-    Click Link Item From Search Result    ${link}
+    Click Link Item From Search Result    ${lnkSearchResult}:contains(${link})
     Wait Angle Detail Document Loaded
     Check If Angle Or Display Has A Warning Then Close The Popup
 
@@ -360,7 +364,7 @@ Click First List Display From Search Result
 
 Click Link Item From Search Result By Row Number
     [Arguments]    ${rowNumber}
-    ${rowNumber} =    Execute Javascript    return ${rowNumber} - 1
+    ${rowNumber}    Execute Javascript    return ${rowNumber} - 1
     Click Link Item From Search Result    ${lnkSearchResult}:eq(${rowNumber})
 
 Click Link First Item From Search Result
@@ -372,7 +376,7 @@ Click Link Item From Search Result By Item Uri: ${itemUri}
 
 Click Select Item From Search Result
     [Arguments]    ${rowNumber}
-    ${rowNumber} =    Execute Javascript    return ${rowNumber} - 1
+    ${rowNumber}    Execute Javascript    return ${rowNumber} - 1
     Click Element    jquery=#${trItemInSearchResult}:eq(${rowNumber})
 
 Click Select First Item From Search Result
@@ -481,6 +485,18 @@ Check Elements On Compact Mode
     Element Should Not Be Visible    ${divContentDetail}
     Page Should Contain Element    ${btnShowDisplays}
     Page Should Not Contain Element    ${divDisplaysList}
+
+Check Hightlight On Displays/Detail Mode
+    [Arguments]    ${textName}    ${textDescription}    ${textNote}
+    ${angleName}    Get Element Html    jquery=.ResultContent .name
+    ${angleDescription}    Get Element Html    jquery=.ResultContent .ContentDetail
+    ${angleNote}    Get Element Html    jquery=.ResultContent .PrivateNote
+    Should Contain    ${angleName}    <span class="highlight">${textName}</span>
+    Should Contain    ${angleDescription}    <span class="highlight first">${textDescription}</span>
+    Should Contain    ${angleNote}    <span class="highlight">${textNote}</span>
+
+Check Hightlight On Compact Mode
+    Page Should Not Contain Element    jquery=.SearchResult .highlight
 
 Open Dashboard From First Dashboard in Search Page
     [Arguments]    ${dashboardName}

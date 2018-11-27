@@ -489,5 +489,92 @@
         }
     };
 
+    // highlighter
+    var normalizeText = function (text) {
+        // clean up text
+        text = jQuery.trim(text);
+        text = text.replace(/\"\"/g, '"');
+        text = text.replace(/ \" /g, ' ');
+        text = text.replace(/\s\s/g, ' ');
+        text = text.replace(/\" /g, '"" ');
+        text = text.replace(/ \"/g, ' ""');
+        return text;
+    };
+    var isWordWithDblQoute = function (word) {
+        return word[0] === '"' && word[word.length - 1] === '"';
+    };
+    var cleanWords = function (rawWords, words) {
+        jQuery.each(rawWords, function (index, word) {
+            word = jQuery.trim(word);
+            if (word.indexOf('" ') !== -1) {
+                // e.g. ["a b" c]
+                cleanWords(word.split('" '), words);
+            }
+            else if (word.indexOf(' "') !== -1) {
+                // e.g. [a "b c"]
+                cleanWords(word.split(' "'), words);
+            }
+            else if (isWordWithDblQoute(word)) {
+                // e.g. ["a b c"] or [""a"]
+                word = word.replace(/\"\"/g, '"');
+                words.push(word.substr(1, word.length - 2));
+            }
+            else if (word.indexOf(' ') !== -1) {
+                // e.g. [a b c]
+                cleanWords(word.split(' '), words);
+            }
+            else {
+                // finally
+                words.push(word);
+            }
+        });
+    };
+    var getWords = function (text) {
+        text = normalizeText(text);
+        var words = [];
+        cleanWords([text], words);
+        return words.distinct();
+    };
+    var truncateElement = function (target) {
+        // restore old content
+        var storedCache = target.data('highlightCache');
+        if (storedCache)
+            target.html(storedCache);
+
+        // store old content
+        var cache = target.html();
+        target.removeClass('truncated').data('highlightCache', cache);
+
+        target.find('.highlight:first').addClass('first');
+        var html = target.html();
+        var index = html.indexOf('<span class="highlight first">') - 20;
+        if (index > 0) {
+            html = '...' + html.substr(index);
+            target.addClass('truncated').html(html);
+        }
+    };
+    jQuery.highlighter = {
+        getWords: getWords
+    };
+    jQuery.fn.highlighter = function (text) {
+        // required highlight library
+        if (!jQuery.fn.highlight || !jQuery.trim(text))
+            return;
+
+        // clear highlight
+        var elements = jQuery(this);
+        elements.removeHighlight();
+
+        // highlight
+        var words = getWords(text);
+        jQuery.each(words, function (index, word) {
+            elements.highlight(word);
+        });
+
+        // truncate if need
+        elements.filter('.truncatable').each(function () {
+            truncateElement(jQuery(this));
+        });
+    };
 
 })(window, window.jQuery);

@@ -110,7 +110,6 @@ function FieldsChooserModel() {
     self.SortingList = [];
     self.CurrentSort = null;
     self.SelectedItems = ko.observableArray([]);
-    self.HighlighStatus = {};
 
     self.Captions = {
         FieldTypeBoolean: 'yes/no',
@@ -308,9 +307,8 @@ function FieldsChooserModel() {
         if (fieldSourceLongName !== fieldSourceShortName) {
             target.attr('data-tooltip-title', fieldSourceLongName);
         }
-
-        self.SetBindingStatus(rows, { source: true });
-        self.SetHightlightText(rows);
+        
+        self.SetHightlightText(rows.find('.FieldSource'));
     };
 
     self.GetFieldDomain = function (uri) {
@@ -397,9 +395,8 @@ function FieldsChooserModel() {
 
             target.text(domains.join(', ')).parent().addClass('withDomain');
         }
-
-        self.SetBindingStatus(rows, { domain: true });
-        self.SetHightlightText(rows);
+        
+        self.SetHightlightText(rows.find('.detailDomain'));
     };
 
     self.SetFacetFilter = function (model) {
@@ -696,8 +693,6 @@ function FieldsChooserModel() {
             helptext: []
         };
 
-        self.HighlighStatus = {};
-
         var grid = jQuery('#' + self.GridName).empty().data('submited', false).kendoGrid({
             dataSource: displayFieldsDataSource,
             autoBind: false,
@@ -728,47 +723,29 @@ function FieldsChooserModel() {
 
                 self.AdjustDetailsColumn(e.sender);
 
-                // set data binding status
-                var gridRows = grid.tbody.find('tr'), currentRow;
+                var gridRows = grid.tbody.find('tr');
                 gridRows.removeHighlight();
-                gridRows.each(function (index, element) {
-                    self.HighlighStatus[element.id] = {
-                        source: false,
-                        domain: false,
-                        helptext: false
-                    };
-                });
+                self.SetHightlightText(gridRows.find('.fieldName'));
 
-                var helpIds = [];
+                // load source, domain, helptext
                 jQuery.each(grid.dataSource.data(), function (index, data) {
-                    currentRow = gridRows.eq(index);
-
+                    var currentRow = gridRows.eq(index);
                     if (data.source) {
                         var sourceField = self.GetFieldSourceByUri(data.source);
                         if (sourceField) {
                             self.SetSourceText(sourceField, currentRow);
                         }
-                        else {
-                            if (jQuery.inArray(data.source, requestingInfo.source) === -1) {
-                                requestingInfo.source.push(data.source);
-                                jQuery.when(self.GetFieldSource(data.source))
-                                    .fail(function (xhr, status, error) {
-                                        if (xhr.status === 404) {
-                                            jQuery('div[name="' + data.source + '"]').text(status + ' : ' + xhr.status + ' ' + error).css('color', 'red');
-                                        }
-                                    })
-                                    .done(function (response) {
-                                        var source = self.GetFieldSourceByUri(response.uri);
-                                        if (!source) {
-                                            self.FieldsSource.push(response);
-                                        }
-                                        self.SetSourceText(response);
-                                    });
-                            }
+                        else if (jQuery.inArray(data.source, requestingInfo.source) === -1) {
+                            requestingInfo.source.push(data.source);
+                            jQuery.when(self.GetFieldSource(data.source))
+                                .done(function (response) {
+                                    var source = self.GetFieldSourceByUri(response.uri);
+                                    if (!source) {
+                                        self.FieldsSource.push(response);
+                                    }
+                                    self.SetSourceText(response);
+                                });
                         }
-                    }
-                    else {
-                        self.SetBindingStatus(currentRow, { source: true });
                     }
 
                     if (self.DisplayType === self.DISPLAY_TYPE.FULL) {
@@ -777,39 +754,24 @@ function FieldsChooserModel() {
                             if (domainField) {
                                 self.SetDomainText(domainField, currentRow);
                             }
-                            else {
-                                if (jQuery.inArray(data.domain, requestingInfo.domain) === -1) {
-                                    requestingInfo.domain.push(data.domain);
-
-                                    self.LoadFieldDomain(data.domain);
-                                }
+                            else if (jQuery.inArray(data.domain, requestingInfo.domain) === -1) {
+                                requestingInfo.domain.push(data.domain);
+                                self.LoadFieldDomain(data.domain);
                             }
-                        }
-                        else {
-                            self.SetBindingStatus(currentRow, { domain: true });
                         }
 
                         if (data.helptext) {
                             if (self.HelpTexts[data.helptext]) {
                                 self.SetHelpText(self.HelpTexts[data.helptext], currentRow);
                             }
-                            else {
-                                if (jQuery.inArray(data.helpid, helpIds) === -1) {
-                                    helpIds.push(data.helpid);
-                                }
+                            else if (jQuery.inArray(data.helpid, requestingInfo.helptext) === -1) {
+                                requestingInfo.helptext.push(data.helpid);
                             }
                         }
-                        else {
-                            self.SetBindingStatus(currentRow, { helptext: true });
-                        }
-                    }
-                    else {
-                        self.SetBindingStatus(currentRow, { domain: true, helptext: true });
                     }
                 });
-                self.SetHightlightText(gridRows);
 
-                self.LoadHelpText(helpIds);
+                self.LoadHelpText(requestingInfo.helptext);
             }
         }).data('kendoGrid');
 
@@ -1134,7 +1096,7 @@ function FieldsChooserModel() {
             e.returnValue = false;
     };
     self.GetFieldSourceColumnTemplate = function (item) {
-        var columnTemplate = '<div class="FieldSource" name="#FieldSource#">#FieldSourceDetail#</div><div class="detail detailHelp" name="#HelpId#"></div><div class="detail detailDomain" name="#DomainId#"></div>';
+        var columnTemplate = '<div class="FieldSource" name="#FieldSource#">#FieldSourceDetail#</div><div class="detail detailHelp truncatable" name="#HelpId#"></div><div class="detail detailDomain truncatable" name="#DomainId#"></div>';
 
         if (item.source) {
             columnTemplate = columnTemplate.replace('#FieldSource#', item.source);
@@ -1167,7 +1129,7 @@ function FieldsChooserModel() {
             columnTemplate = '<div class="fieldName noInfo" data-tooltip-title="#PropertyHoverText#">#PropertyText#</div>';
         }
         if (!self.ShowSourceField) {
-            columnTemplate += '<div class="detail detailHelp" name="#HelpId#"></div><div class="detail detailDomain" name="#DomainId#"></div>';
+            columnTemplate += '<div class="detail detailHelp truncatable" name="#HelpId#"></div><div class="detail detailDomain truncatable" name="#DomainId#"></div>';
         }
 
         columnTemplate = columnTemplate.replace('#UID#', item.uid);
@@ -1716,59 +1678,57 @@ function FieldsChooserModel() {
         }
 
         target.text(self.StripHTML(data.html_help, true));
-
-        self.SetBindingStatus(rows, { helptext: true });
-        self.SetHightlightText(rows);
+        
+        self.SetHightlightText(rows.find('.detailHelp'));
     };
     self.LoadHelpText = function (helpIds, needUpdateHelp) {
-        if (helpIds.length > 0) {
-            if (typeof needUpdateHelp === 'undefined')
-                needUpdateHelp = true;
+        if (!helpIds.length)
+            return jQuery.when(null);
 
-            var deferred = [], fnGetHelps;
-            var uriParameter = '/helptexts?viewmode=details&ids=';
+        if (typeof needUpdateHelp === 'undefined')
+            needUpdateHelp = true;
 
-            if (self.GetHelpTextFunction !== null) {
-                fnGetHelps = function (ids) {
-                    return jQuery.when(self.GetHelpTextFunction.call(self, uriParameter + ids.join(',')))
+        var deferred = [], fnGetHelps;
+        var uriParameter = '/helptexts?viewmode=details&ids=';
+
+        if (self.GetHelpTextFunction !== null) {
+            fnGetHelps = function (ids) {
+                return jQuery.when(self.GetHelpTextFunction.call(self, uriParameter + ids.join(',')))
+                .done(function (response) {
+                    jQuery.each(response, function (index, helpText) {
+                        var helpKey = helpText.uri;
+                        if (helpText.uri.substr(0, 4) === 'http') {
+                            helpKey = helpText.uri.substr(helpText.uri.indexOf('/models/'));
+                        }
+                        self.HelpTexts[helpKey] = helpText;
+                        if (needUpdateHelp) {
+                            self.SetHelpText(helpText);
+                        }
+                    });
+                });
+            };
+        }
+        else {
+            fnGetHelps = function (ids) {
+                return GetDataFromWebService(self.ModelUri + uriParameter + ids.join(','))
                     .done(function (response) {
-                        jQuery.each(response, function (index, helpText) {
-                            var helpKey = helpText.uri;
-                            if (helpText.uri.substr(0, 4) === 'http') {
-                                helpKey = helpText.uri.substr(helpText.uri.indexOf('/models/'));
-                            }
-                            self.HelpTexts[helpKey] = helpText;
+                        helpTextHandler.SetHelpTexts(response.help_texts);
+
+                        jQuery.each(response.help_texts, function (index, helpText) {
+                            self.HelpTexts[helpText.uri] = helpText;
                             if (needUpdateHelp) {
                                 self.SetHelpText(helpText);
                             }
                         });
                     });
-                };
-            }
-            else {
-                fnGetHelps = function (ids) {
-                    return GetDataFromWebService(self.ModelUri + uriParameter + ids.join(','))
-                       .done(function (response) {
-                           helpTextHandler.SetHelpTexts(response.help_texts);
-
-                           jQuery.each(response.help_texts, function (index, helpText) {
-                               self.HelpTexts[helpText.uri] = helpText;
-                               if (needUpdateHelp) {
-                                   self.SetHelpText(helpText);
-                               }
-                           });
-                       });
-                };
-            }
-
-            while (helpIds.length) {
-                deferred.push(fnGetHelps(helpIds.splice(0, 30)));
-            }
-
-            return jQuery.when.apply(jQuery, deferred);
+            };
         }
 
-        return jQuery.when(null);
+        while (helpIds.length) {
+            deferred.push(fnGetHelps(helpIds.splice(0, 30)));
+        }
+
+        return jQuery.when.apply(jQuery, deferred);
     };
     self.GetHelpTextSummary = function (html) {
         var help = jQuery('<div>').append(html);
@@ -1827,88 +1787,10 @@ function FieldsChooserModel() {
             return jQuery.trim(rawText);
         }
     };
-    self.SetBindingStatus = function (rows, data) {
-        rows.each(function (index, row) {
-            jQuery.extend(self.HighlighStatus[row.id], data);
-        });
-    };
-    self.SetHightlightText = function (rows) {
-        var setDetailText = function (detail, needHightlight) {
-            if (needHightlight) {
-                detail.children('.highlight:first').addClass('first');
-                var html = detail.html();
-                var index = html.indexOf('<span class="highlight first">') - 20;
-                if (index > 0) {
-                    html = '...' + html.substr(index);
-                    detail.html(html);
-                }
-            }
-        };
-        var highlightElement = function (element, q) {
-            var highlightingTexts = self.GetKeyWordQuerySet(q);
-            if (highlightingTexts.length > 1) {
-                var highlightingText = highlightingTexts.join(' ');
-                element.highlight(highlightingText);
-                if (highlightingText.indexOf('"') !== -1) {
-                    element.highlight(highlightingText.replace(/\"/g, ''));
-                }
-            }
-
-            jQuery.each(highlightingTexts, function (i, s) {
-                s = jQuery.trim(s);
-                if (s) {
-                    element.highlight(s);
-                }
-                if (s[0] === '"' && s[s.length - 1] === '"') {
-                    s = s.substr(1, s.length - 2);
-                    if (s) {
-                        element.highlight(s);
-                    }
-                }
-            });
-        };
-
-        var q = jQuery.trim((jQuery('#txtFitlerAvailableProperties').val() || '').toLowerCase()),
-            status, highlighting;
-        if (q && self.DisplayType === self.DISPLAY_TYPE.FULL) {
-            rows.each(function (index, row) {
-                row = jQuery(row);
-                status = self.HighlighStatus[row.attr('id')];
-                if (status.source && status.domain && status.helptext && !row.find('.highlight.first').length) {
-                    row.removeHighlight();
-                    highlightElement(row, q);
-
-                    // other area
-                    var findFirst = false;
-                    highlighting = row.find('.highlight').filter(function () {
-                        return jQuery(this).parent('.detail').length === 0;
-                    });
-                    if (highlighting.length !== 0) {
-                        highlighting.first().addClass('first');
-
-                        findFirst = true;
-                    }
-
-                    // detailHelp
-                    highlighting = row.find('.detailHelp .highlight');
-                    if (highlighting.length !== 0) {
-                        setDetailText(highlighting.parent(), !findFirst);
-
-                        if (!findFirst)
-                            findFirst = true;
-                    }
-
-                    // detailDomain
-                    highlighting = row.find('.detailDomain .highlight');
-                    if (highlighting.length !== 0) {
-                        setDetailText(highlighting.parent(), !findFirst);
-                    }
-                }
-            });
-        }
-        else {
-            rows.removeHighlight();
-        }
+    self.SetHightlightText = function (target) {
+        var q = jQuery('#txtFitlerAvailableProperties').val() || '';
+        if (self.DisplayType === self.DISPLAY_TYPE.FULL)
+            target.highlighter(q);
     };
 
     self.ShowFieldInfo = function (e, uid) {

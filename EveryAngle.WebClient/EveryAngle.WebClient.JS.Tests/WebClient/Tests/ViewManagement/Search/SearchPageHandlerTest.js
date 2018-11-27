@@ -263,4 +263,33 @@ describe('SearchPageHandler', function () {
 
     });
 
+    describe('.HighlightSearchResult(element)', function () {
+
+        beforeEach(function () {
+            $.fn.highlighter = $.noop;
+            $.fn.removeHighlight = $.noop;
+            spyOn($.fn, 'highlighter');
+            spyOn(WC.Utility, 'GetParameterByName').and.returnValue('');
+        });
+
+        it('should call highlighter in details viewmode', function () {
+            searchPageHandler.DisplayType(searchPageHandler.DISPLAY_TYPE.FULL);
+            searchPageHandler.HighlightSearchResult($());
+            expect($.fn.highlighter).toHaveBeenCalled();
+        });
+
+        it('should call highlighter in displays viewmode', function () {
+            searchPageHandler.DisplayType(searchPageHandler.DISPLAY_TYPE.DISPLAYS);
+            searchPageHandler.HighlightSearchResult($());
+            expect($.fn.highlighter).toHaveBeenCalled();
+        });
+
+        it('should call highlighter in displays viewmode', function () {
+            searchPageHandler.DisplayType(searchPageHandler.DISPLAY_TYPE.COMPACT);
+            searchPageHandler.HighlightSearchResult($());
+            expect($.fn.highlighter).not.toHaveBeenCalled();
+        });
+
+    });
+
 });

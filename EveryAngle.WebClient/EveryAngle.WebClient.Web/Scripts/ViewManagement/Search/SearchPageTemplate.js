@@ -34,7 +34,7 @@ function SearchPageTemplateModel() {
                                     '<a onclick="itemInfoHandler.ShowInfoPopup(\'#= uri #\',event)" class="btnInfo"></a>',
                                 '</div>',
                             '</div>',
-                            '<p class="ContentDetail">#= WC.HtmlHelper.StripHTML(description, true) #</p>',
+                            '<p class="ContentDetail truncatable">#= WC.HtmlHelper.StripHTML(description, true) #</p>',
                             '<p class="PrivateNote textEllipsis" title="#= searchPageHandler.GetPrivateNoteByUserSpecific(data, true) #">#= searchPageHandler.GetPrivateNoteByUserSpecific(data, false) #</p>',
                             '<div class="Date">#= searchModel.GetCreatedItemDetail(data) #</div>',
                         '</div>',

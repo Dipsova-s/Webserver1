@@ -646,6 +646,9 @@ function SearchPageHandler() {
 
                 self.SetResultViewEvent(e.sender.element);
 
+                // highlight matched keywords
+                self.HighlightSearchResult(e.sender.element);
+
                 clearTimeout(fnCheckRequestEnd);
                 fnCheckRequestEnd = setTimeout(function () {
                     if (!e.sender.dataSource._requestInProgress) {
@@ -801,6 +804,15 @@ function SearchPageHandler() {
                     e.stopPropagation();
                 }
             });
+    };
+    self.HighlightSearchResult = function (element) {
+        element.removeHighlight();
+        if (self.DisplayType() !== self.DISPLAY_TYPE.COMPACT) {
+            // don't highlight on compact mode
+            var searchText = WC.Utility.GetParameterByName(enumHandlers.SEARCHPARAMETER.Q);
+            var highlightElements = element.find('.ResultContent .name, .ResultContent .ContentDetail, .ResultContent .PrivateNote');
+            highlightElements.highlighter(searchText);
+        }
     };
     self.InitialUserPrivileges = function () {
         userModel.SetCreateAngleButton();
@@ -1365,7 +1377,7 @@ function SearchPageHandler() {
         return html.join('');
     };
     self.ClickDisplay = function (e) {
-        if (!jQuery(e.target || e.srcElement).hasClass('name'))
+        if (jQuery(e.target || e.srcElement).hasClass('displayNameContainer'))
             jQuery(e.currentTarget).find('.name').trigger('click');
     };
 

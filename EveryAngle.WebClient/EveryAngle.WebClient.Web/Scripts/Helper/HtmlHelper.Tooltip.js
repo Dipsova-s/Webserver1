@@ -63,7 +63,7 @@
         if (target.is('[data-tooltip-function]')) {
             var tooltipFunction = window[target.attr('data-tooltip-function')];
             var tooltipArgument = target.attr('data-tooltip-argument');
-            text = tooltipFunction.call(window, tooltipArgument);
+            text = tooltipFunction.call(target, tooltipArgument);
             renderAs = target.data('type');
         }
         else if (target.find('[data-tooltip-title]').length) {

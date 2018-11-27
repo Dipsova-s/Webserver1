@@ -81,6 +81,12 @@ Get Element Index
     ${index}    Execute Javascript    return $('${jquerySelector}').index()
     [Return]    ${index}
 
+Get Element Html
+    [Arguments]  ${selector}
+    ${jquerySelector}    Get JQuery Selector    ${selector}
+    ${html}    Execute Javascript    return $('${jquerySelector}').html()
+    [Return]    ${html}
+
 Is Element Visible
     [Arguments]  ${selector}
     ${jquerySelector}    Get JQuery Selector    ${selector}

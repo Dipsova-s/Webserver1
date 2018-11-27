@@ -91,7 +91,7 @@
         }];
     });
 
-    describe("call sortObject", function () {
+    describe("Array.sortObject", function () {
 
         it("sort string when not specify direction, should short name by ascending", function () {
             object.sortObject('name');
@@ -136,6 +136,48 @@
             object2.sortObject('short_name', enumHandlers.SORTDIRECTION.ASC, false);
             expect(object2[0].short_name).toEqual('<no value>');
             expect(object2[1].short_name).toEqual('<not in set>');
+        });
+
+    });
+
+    describe('jQuery.highlighter.getWords', function () {
+        
+        var tests = [
+            {
+                text: '',
+                expected: ''
+            },
+            {
+                text: 'a b a b c',
+                expected: 'a,b,c'
+            },
+            {
+                text: '"a b" b c',
+                expected: 'a b,b,c'
+            },
+            {
+                text: '0 "1" "a b" "a b"',
+                expected: '0,1,a b'
+            },
+            {
+                text: 'a"b "c d" e f',
+                expected: 'a"b,c d,e,f'
+            },
+            {
+                text: '"a b" c"',
+                expected: 'a b,c"'
+            },
+            {
+                text: '"a b" c" "a b"',
+                expected: 'a b,c"'
+            }
+        ];
+
+        $.each(tests, function (index, test) {
+            it('should get words [' + test.text + '] -> [' + test.expected + ']', function () {
+                var result = jQuery.highlighter.getWords(test.text);
+                expect(result.join(',')).toEqual(test.expected);
+            });
         });
 
     });
