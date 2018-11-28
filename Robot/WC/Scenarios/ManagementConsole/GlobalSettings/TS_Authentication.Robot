@@ -10,7 +10,6 @@ Go To Authentication Page
 
 Go To Authentication Page With Admin User
     Go to MC Then Login With Admin User
-    Wait Until Overview Page Loaded
     Go To Authentication Page
 
 Reload Authentication Page

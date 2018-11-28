@@ -11,7 +11,6 @@ Go To Suggested Fields Page
 
 Go To Suggested Fields Page With Admin User
     Go to MC Then Login With Admin User
-    Wait Until Overview Page Loaded
     Go To Suggested Fields Page
 
 Reload Suggested Fields Page

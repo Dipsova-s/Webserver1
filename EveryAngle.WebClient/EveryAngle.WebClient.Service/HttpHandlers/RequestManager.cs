@@ -234,6 +234,15 @@ namespace EveryAngle.WebClient.Service.HttpHandlers
             return Run(Method.GET, string.Empty, DataFormat.Json);
         }
 
+        public JArray RunArray(Method method)
+        {
+            return RunArray(method, string.Empty, DataFormat.Json);
+        }
+        public JArray RunArray(Method method, string content, DataFormat requestFormat)
+        {
+            return ExecuteArray(requestFormat, requestUrlList[0], method, content);
+        }
+
         public List<JObject> Runs(Method method, List<string> contentList, DataFormat requestFormat)
         {
             List<string> newContentList = contentList ?? new List<string>();
@@ -360,8 +369,18 @@ namespace EveryAngle.WebClient.Service.HttpHandlers
 
         private JObject Execute(DataFormat requestFormat, string requestUrl, Method method, string content)
         {
-            JObject jsonResult = new JObject();
+            string responseContent = ExecuteForContent(requestFormat, requestUrl, method, content);
+            return !string.IsNullOrEmpty(responseContent) ? JObject.Parse(responseContent) : new JObject();
+        }
 
+        private JArray ExecuteArray(DataFormat requestFormat, string requestUrl, Method method, string content)
+        {
+            string responseContent = ExecuteForContent(requestFormat, requestUrl, method, content); 
+            return !string.IsNullOrEmpty(responseContent) ? JArray.Parse(responseContent) : new JArray();
+        }
+
+        private string ExecuteForContent(DataFormat requestFormat, string requestUrl, Method method, string content)
+        {
             string newRequestUrl = VerifyURL(requestUrl);
 
             RestRequest request = new RestRequest(newRequestUrl, method);
@@ -376,13 +395,9 @@ namespace EveryAngle.WebClient.Service.HttpHandlers
 
             VerifyResponseStatus(response);
 
-            if (!string.IsNullOrEmpty(response.Content))
-            {
-                jsonResult = JObject.Parse(response.Content);
-            }
-
-            return jsonResult;
+            return response?.Content;
         }
+
         private JObject Execute(DataFormat requestFormat, string requestUrl, Method method)
         {
             return Execute(requestFormat, requestUrl, method, string.Empty);
@@ -452,7 +467,7 @@ namespace EveryAngle.WebClient.Service.HttpHandlers
             {
                 message.Content.Headers.TryAddWithoutValidation(responseHeader.Name, responseHeader.Value.ToString());
 
-                if (HttpContext.Current != null && 
+                if (HttpContext.Current != null &&
                     HttpContext.Current.Response.Headers[responseHeader.Name] == null &&
                     !responseHeader.Name.Equals("content-disposition", StringComparison.InvariantCultureIgnoreCase) &&
                     !responseHeader.Name.Equals("content-length", StringComparison.InvariantCultureIgnoreCase))
@@ -544,7 +559,7 @@ namespace EveryAngle.WebClient.Service.HttpHandlers
                     var serializer = new JavaScriptSerializer();
                     if (content.Length > serializer.MaxJsonLength)
                         throw new HttpException(
-                            HttpStatusCode.BadRequest.GetHashCode(), 
+                            HttpStatusCode.BadRequest.GetHashCode(),
                             ResourceHelper.GetLocalization("JSONLengthExceeded", Thread.CurrentThread.CurrentUICulture.TwoLetterISOLanguageName));
 
                     request.AddBody(serializer.Deserialize<dynamic>(content));

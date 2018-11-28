@@ -1,0 +1,24 @@
+    @using EveryAngle.ManagementConsole.Models
+    @using EveryAngle.ManagementConsole.Helpers
+
+    <script>
+    MC.util.loadScript({
+        test: MC.GlobalSettings && MC.GlobalSettings.Components,
+        url: '@Scripts.Url("~/bundles/globalsettings/components")',
+        callback: function () {
+            MC.GlobalSettings.Components.InitialComponents();
+        }
+    });
+    </script>
+
+    @{
+        @Html.RenderPageToolbar(new List<PageToolbarButtonModel> {
+            new PageToolbarButtonModel { Type = PageToolbarButtonType.Reload }
+        })
+    }
+
+    <div class="content pageComponent">
+        <div class="contentSection contentSectionGrid">
+            @{ Html.RenderPartial("~/Views/Component/ComponentGrid.cshtml"); }
+        </div>
+    </div>

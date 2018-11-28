@@ -1,12 +1,14 @@
 using EveryAngle.Core.Interfaces.Services;
 using EveryAngle.Core.ViewModels;
 using EveryAngle.Core.ViewModels.DataTransferObject;
+using EveryAngle.Core.ViewModels.Directory;
 using EveryAngle.Core.ViewModels.Model;
 using EveryAngle.Core.ViewModels.ModelServer;
 using EveryAngle.ManagementConsole.Helpers;
 using EveryAngle.Shared.Globalization;
 using EveryAngle.Shared.Helpers;
 using EveryAngle.Utilities;
+using EveryAngle.WebClient.Domain.Enums;
 using EveryAngle.WebClient.Service;
 using EveryAngle.WebClient.Service.Security;
 using Newtonsoft.Json;
@@ -26,22 +28,27 @@ namespace EveryAngle.ManagementConsole.Controllers
     {
         private readonly IGlobalSettingService globalSettingService;
         private readonly IModelService modelService;
+        private readonly IComponentService componentService;
 
         public ModelController(
             IModelService service,
             IGlobalSettingService globalSettingService,
+            IComponentService componentService,
             SessionHelper sessionHelper)
         {
             this.modelService = service;
             this.globalSettingService = globalSettingService;
+            this.componentService = componentService;
             this.SessionHelper = sessionHelper;
         }
         public ModelController(
             IModelService service,
-            IGlobalSettingService globalSettingService)
+            IGlobalSettingService globalSettingService,
+            IComponentService componentService)
         {
             this.modelService = service;
             this.globalSettingService = globalSettingService;
+            this.componentService = componentService;
             this.SessionHelper = SessionHelper.Initialize();
         }
 
@@ -337,24 +344,46 @@ namespace EveryAngle.ManagementConsole.Controllers
         public ActionResult GetModel(string modelUri)
         {
             var modelViewModel = new ModelViewModel();
-            if (modelUri != "")
+            if (!string.IsNullOrEmpty(modelUri))
             {
                 modelViewModel = SessionHelper.Initialize().GetModel(modelUri);
             }
+            ViewBag.IsCreateNewModel = string.IsNullOrEmpty(modelViewModel.id);
+            ViewBag.FormTitle = ViewBag.IsCreateNewModel ? Resource.CreateNewModel : string.Format("{0} {1}", modelViewModel.short_name, Resource.MC_ModelName);
             return PartialView("~/Views/Model/AllModels/Model.cshtml", modelViewModel);
+        }
+
+        [HttpGet]
+        public ActionResult ModelIdDropdownItems()
+        {
+            IList<ModelViewModel> models = SessionHelper.Initialize().Models;
+            IList<ComponentViewModel> components = componentService.GetItems().Where(x => ComponentServiceManagerType.ModelAgentService.Equals(x.Type)).ToList();
+            foreach (ModelViewModel model in models)
+            {
+                ComponentViewModel modelAgent = components.FirstOrDefault(x => model.id.Equals(x.ModelId));
+                if(modelAgent != null)
+                {
+                    components.Remove(modelAgent);
+                }
+            }
+            IEnumerable<object> dropdownList = components.Select(x => new
+            {
+                id = x.ModelId
+            });
+            return Json(dropdownList, JsonRequestBehavior.AllowGet);
         }
 
         public ActionResult SaveModel(string jsonData, string modelUri)
         {
-            var version = SessionHelper.Initialize().Version;
-            var modelViewModel = JsonConvert.DeserializeObject<ModelViewModel>(jsonData);
-            if (modelUri == "")
+            VersionViewModel version = SessionHelper.Initialize().Version;
+            ModelViewModel modelViewModel = JsonConvert.DeserializeObject<ModelViewModel>(jsonData);
+            if (string.IsNullOrEmpty(modelUri))
             {
                 try
                 {
-                    var uri = version.GetEntryByName("models").Uri.ToString();
+                    string uri = version.GetEntryByName("models").Uri.ToString();
                     modelViewModel.active_languages = new List<string> { "en" };
-                    var createdModel = modelService.CreateModel(uri,
+                    ModelViewModel createdModel = modelService.CreateModel(uri,
                         JsonConvert.SerializeObject(modelViewModel, new JsonSerializerSettings
                         {
                             ContractResolver = new CleanUpPropertiesResolver(null)
@@ -376,7 +405,7 @@ namespace EveryAngle.ManagementConsole.Controllers
             }
             else
             {
-                var updateModel = JsonConvert.SerializeObject(modelViewModel, new JsonSerializerSettings
+                string updateModel = JsonConvert.SerializeObject(modelViewModel, new JsonSerializerSettings
                 {
                     ContractResolver =
                             new CleanUpPropertiesResolver(new List<string>
@@ -390,16 +419,13 @@ namespace EveryAngle.ManagementConsole.Controllers
                                 "model_status",
                                 "type",
                                 "company_information",
-                                "email_settings",
-                                "type",
-                                "company_information",
                                 "email_settings"
                             })
                 });
                 modelService.UpdateModel(modelUri, updateModel);
             }
 
-            var parameters = new JsonResult { Data = new { modelUri } };
+            JsonResult parameters = new JsonResult { Data = new { modelUri } };
             return JsonHelper.GetJsonResult(true, null, parameters.Data, null,
                 MessageType.SUCCESS_UPDATED);
         }

@@ -80,6 +80,7 @@ namespace EveryAngle.ManagementConsole.Test.Controllers
             return new ModelController(
                 modelService.Object,
                 globalSettingService.Object,
+                componentService.Object,
                 sessionHelper.Object
             );
         }

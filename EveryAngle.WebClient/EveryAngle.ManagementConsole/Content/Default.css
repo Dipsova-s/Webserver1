@@ -669,6 +669,22 @@ ul.breadcrumbList li {
     text-overflow: ellipsis;
 }
 
+.sideMenuLabel.badge {
+    border-radius: 10px;
+    min-width: 90px;
+    max-width: 170px;
+    color: #fff;
+    font-weight: bold;
+    padding-left: 10px;
+    padding-right: 10px;
+    box-sizing: border-box;
+    line-height: 19px;
+    position: relative;
+    top: 4px;
+    width: initial;
+    display: inline-block;
+}
+
 .sideMenu li > a > .icon {
     display: none;
 }

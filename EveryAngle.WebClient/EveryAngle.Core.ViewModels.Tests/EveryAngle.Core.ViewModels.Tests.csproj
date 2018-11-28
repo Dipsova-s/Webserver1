@@ -45,6 +45,7 @@
     <Compile Include="About\AboutViewModelTest.cs" />
     <Compile Include="BusinessProcesses\BusinessProcessViewModelTest.cs" />
     <Compile Include="Comment\CommentViewModelTest.cs" />
+    <Compile Include="Component\ComponentViewModelTest.cs" />
     <Compile Include="Cycle\EventViewModelTest.cs" />
     <Compile Include="Cycle\TaskHistoryViewModelTest.cs">
       <SubType>Code</SubType>

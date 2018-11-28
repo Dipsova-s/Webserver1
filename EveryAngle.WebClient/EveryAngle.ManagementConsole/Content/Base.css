@@ -3343,8 +3343,75 @@ form#ExportPackageForm .packageInfo .packageVersion input {
     font-size: 16px;
 }
 
-.pageModelEdit .contentSectionInfoItem p input[type="text"] {
+.pageModelEdit .contentSectionInfoItem p input[type="text"],
+.pageModelEdit .contentSectionInfoItem p .k-dropdown {
     width: 200px;
+}
+
+.pageModelEdit input[name="id"] {
+    visibility: hidden;
+    position: absolute;
+    top: 55px;
+    left: 237px;
+}
+
+.pageModelEdit input[name="short_name"] {
+    padding-right: 30px;
+}
+
+.pageModelEdit .modelColorPickerButton {
+    cursor: pointer;
+    position: absolute;
+    top: 4px;
+    left: 175px;
+    padding: 1px 2px;
+    box-sizing: border-box;
+}
+
+.pageModelEdit .modelColorPickerButton.hasColor {
+    border: 1px solid #fff;
+}
+
+.pageModelEdit .modalColorPickerIcon {
+    background-image: url(../images/icons/black_arrow_down.svg);
+    background-size: 10px;
+    padding: 7px;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.modelColorPickerContainer {
+    background: #fff;
+    border: 1px solid #c5c5c5;
+    display: inline-block;
+    padding: 10px 5px;
+    position: relative;
+    bottom: 133px;
+    left: 303px;
+    visibility: hidden;
+}
+
+.modelColorPickerContainer #modelColorPicker {
+    top: 3px;
+}
+
+.modelColorPickerContainer #modelColorPicker table {
+    border-collapse: separate;
+    border-spacing: 7px 0;
+}
+
+.modelColorPickerContainer .nocolor {
+    border: 1px solid #c5c5c5;
+    padding: 0;
+}
+
+.modelColorPickerContainer .nocolor:hover,
+.modelColorPickerContainer .nocolorSelected {
+    z-index: 100;
+    background: 0 0;
+    -webkit-box-shadow: 0 1px 3px 1px rgba(0,0,0,.7), inset 0 0 0 1px rgba(255,255,255,.45);
+    box-shadow: 0 1px 3px 1px rgba(0,0,0,.7), inset 0 0 0 1px rgba(255,255,255,.45);
+    position: relative;
 }
 
 /* .pageAngleWarnings

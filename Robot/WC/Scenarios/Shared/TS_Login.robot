@@ -55,6 +55,7 @@ Go to MC Then Login With Admin User
     Open Browser in Sandbox Mode
     Go To    ${URL_MC}
     Login To MC By Admin User
+    Wait Until Overview Page Loaded
 
 Logout WC Then Close Browser
     Logout

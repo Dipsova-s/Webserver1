@@ -2331,9 +2331,6 @@
   <data name="Model" xml:space="preserve">
     <value>Model</value>
   </data>
-  <data name="MC_ModelAgentUri" xml:space="preserve">
-    <value>Model agent uri</value>
-  </data>
   <data name="ModelDate" xml:space="preserve">
     <value>Model date</value>
   </data>
@@ -5925,7 +5922,25 @@ Attention: The specified location must be a full file path on the Application se
   <data name="ViewDisplaysMode" xml:space="preserve">
     <value>Displays mode</value>
   </data>
+  <data name="MC_Available" xml:space="preserve">
+    <value>Available</value>
+  </data>
+  <data name="MC_Components" xml:space="preserve">
+    <value>Components</value>
+  </data> 
+  <data name="MC_DeleteComponentConfirm" xml:space="preserve">
+    <value>Deleting a component can cause further operations to fail. Are you sure you want to delete this component?</value>
+  </data>
+  <data name="MC_NoModelsAvailable" xml:space="preserve">
+    <value>No models available</value> 
+  </data>
   <data name="MC_ResendLicense" xml:space="preserve">
     <value>Resend license</value>
+  </data>
+  <data name="MC_Components_GridTitle" xml:space="preserve">
+    <value>All registered component services</value>
+  </data>
+  <data name="MC_DownloadMetadata" xml:space="preserve">
+    <value>Download metadata</value>
   </data>
 </root>

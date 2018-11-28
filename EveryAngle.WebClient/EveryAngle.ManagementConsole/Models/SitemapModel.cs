@@ -6,7 +6,6 @@ using EveryAngle.Core.ViewModels.Users;
 using EveryAngle.ManagementConsole.Helpers;
 using EveryAngle.Shared.Globalization;
 using EveryAngle.WebClient.Domain.Enums;
-using EveryAngle.WebClient.Service.ApiServices;
 using EveryAngle.WebClient.Service.Security;
 using System;
 using System.Collections.Generic;
@@ -39,6 +38,7 @@ namespace EveryAngle.ManagementConsole.Models
         public class SiteMap
         {
             public string Id { get; set; }
+            public string Color { get; set; }
             public string Name { get; set; }
             public string Uri { get; set; }
             public string HashPath { get; set; }
@@ -137,6 +137,9 @@ namespace EveryAngle.ManagementConsole.Models
                         }
                     },
                     new SiteMap { Id = "BusinessProcesses", Name = Resource.MC_BusinessProcesses, Uri = "~/LabelCategories/AllBusinessProcesses", HashPath = "GlobalSettings/BusinessProcesses" },
+
+                    new SiteMap { Id = "Components", Name = Resource.MC_Components, Uri = "~/Component/SystemComponents", HashPath = "GlobalSettings/Components" },
+
                     new SiteMap { Id = "CustomIcons", Name = Resource.MC_CustomIcons, Uri = "~/GlobalSettings/AllFieldCategory", HashPath = "GlobalSettings/CustomIcons" },
 
                     new SiteMap
@@ -220,6 +223,7 @@ namespace EveryAngle.ManagementConsole.Models
             SiteMap siteMap = new SiteMap
             {
                 Id = item.id,
+                Color = item.color,
                 Name = String.IsNullOrEmpty(item.short_name) ? item.id : item.short_name,
                 Uri = "~/Model/GetModelServers",
                 HashPath = modelPath,
@@ -229,7 +233,7 @@ namespace EveryAngle.ManagementConsole.Models
                     new SiteMap { Id = "ServerSettings", Name = Resource.MC_ServerSettings, HashPath = string.Format("{0}/ServerSettings", modelPath), IsText = true },
                     new SiteMap { Id = "Communications", Name = Resource.MC_Communications, Uri = "~/ModelCommunication/GetCommunications", HashPath = string.Format("{0}/Communications", modelPath), Parameters = parameters, Visible = modelSiteMap.CanManageCommunications },
                     new SiteMap { Id = "EAXtractor", Name = Resource.MC_EAXtractor, Uri = "~/Model/RenderExtractorSettings", HashPath = string.Format("{0}/EAXtractor", modelPath), Parameters = parameters, Visible = modelSiteMap.CanManageExtractor },
-                    new SiteMap { Id = "ModelServer", Name = Resource.MC_ModelServers, Uri = "~/ModelServers/GetAllModelServers", HashPath = string.Format("{0}/ModelServer", modelPath), Parameters = parameters , Visible = modelSiteMap.CanViewModelServers },
+                    new SiteMap { Id = "ModelComponents", Name = Resource.MC_Components, Uri = "~/Component/ModelComponents", HashPath = string.Format("{0}/Components", item.id), Parameters = parameters , Visible = true },
                     new SiteMap { Id = "RefreshCycle", Name = Resource.MC_RefreshCycle, Uri ="~/RefreshCycle/GetRefreshCycle", HashPath = string.Format("{0}/RefreshCycle", modelPath), Parameters = parameters, Visible = modelSiteMap.CanManageRefreshTasks },
 
                     new SiteMap { Id = "ContentSettings", Name = Resource.MC_ContentSettings, HashPath = string.Format("{0}/ContentSettings", modelPath), IsText = true },

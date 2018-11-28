@@ -7,10 +7,9 @@ Test Teardown               Logout MC
 Force Tags                  acc_mc_s
 
 *** Test Cases ***
-Test Status And Report Button On Model Page
+Verify Fields On Setup New Model Form
     Login To MC By Admin User
     Wait Until Overview Page Loaded
-    Go To EA2_800 Models Page
-    Verify Status And Report Button
-    Verify Model Server Report Filter    WAERS__TCURC
-    Verify Popup Stop Server
+    Go To All Models Page
+    Click Create Models
+    Verify Setup New Model Form

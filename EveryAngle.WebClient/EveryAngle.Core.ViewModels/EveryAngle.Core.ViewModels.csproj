@@ -50,6 +50,7 @@
       <HintPath>..\packages\Newtonsoft.Json.11.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.Composition" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
     <Reference Include="System.Data" />
@@ -64,6 +65,8 @@
     <Compile Include="Angle\AreaCoordinate.cs" />
     <Compile Include="BusinessProcesses\BusinessProcessViewModel.cs" />
     <Compile Include="Comment\CommentViewModel.cs" />
+    <Compile Include="Component\ComponentViewModel.cs" />
+    <Compile Include="Component\RegistrationStatus.cs" />
     <Compile Include="Cycle\EventViewModel.cs" />
     <Compile Include="Cycle\TaskHistoryViewModel.cs" />
     <Compile Include="Cycle\TaskViewModel.cs" />
@@ -167,10 +170,7 @@
       <SubType>Designer</SubType>
     </None>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Item\" />
-    <Folder Include="Package\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

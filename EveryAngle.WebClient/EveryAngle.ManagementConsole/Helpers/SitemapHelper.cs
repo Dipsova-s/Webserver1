@@ -105,6 +105,7 @@ namespace EveryAngle.ManagementConsole.Helpers
         public static MvcHtmlString RenderItem(SiteMapModel.SiteMap model, int level)
         {
             string html = "<li id=\"sideMenu-" + model.HashPath.Replace("/", "-") + "\" class=\"" + (model.IsText ? "sideMenuLevel" + level + "Category" : "") + (model.Childs != null && model.ChildsVisible.Value ? " sideMenuWithChild" : "") + (model.Visible.Value == true ? "" : " alwaysHidden") + "\">";
+            TryGetBadgeStyle(model, out string badgeClassname, out string badgeColor);
 
             if (model.IsText)
             {
@@ -114,7 +115,7 @@ namespace EveryAngle.ManagementConsole.Helpers
             {
                 html += "<a href=\"" + ActionHash(model.HashPath) + "\" data-url=\"" + (model.Uri == null ? "" : VirtualPathUtility.ToAbsolute(model.Uri)) + "\"" + (model.Parameters == null ? "" : " data-parameters='" + Newtonsoft.Json.JsonConvert.SerializeObject(model.Parameters) + "'") + " onclick=\"MC.sideMenu.click(event, this);\">"
                             + "<span class=\"icon\"></span>"
-                            + "<span class=\"sideMenuLabel\">" + model.Name + "</span>"
+                            + "<span class=\"sideMenuLabel" + badgeClassname + "\" " + badgeColor + ">" + model.Name + "</span>"
                         + "</a>";
             }
 
@@ -131,6 +132,20 @@ namespace EveryAngle.ManagementConsole.Helpers
             html += "</li>";
 
             return MvcHtmlString.Create(html);
+        }
+
+        private static bool TryGetBadgeStyle(SiteMapModel.SiteMap model, out string badgeClassname, out string badgeColor)
+        {
+            bool hasBadgeStyle = false;
+            badgeClassname = string.Empty;
+            badgeColor = string.Empty;
+            if (!string.IsNullOrEmpty(model.Color))
+            {
+                hasBadgeStyle = true;
+                badgeClassname = " badge";
+                badgeColor = string.Format("style=\"background-color: {0}\"", model.Color);
+            }
+            return hasBadgeStyle;
         }
     }
 }

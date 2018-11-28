@@ -11,7 +11,6 @@ Go To Refresh Cycle Page
 
 Go To Refresh Cycle Page With Admin User
     Go to MC Then Login With Admin User
-    Wait Until Overview Page Loaded
     Go To Refresh Cycle Page
 
 Reload Refresh Cycle Page

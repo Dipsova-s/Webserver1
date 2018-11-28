@@ -77,6 +77,7 @@ namespace EveryAngle.ManagementConsole.App_Start
             kernel.Bind<IPackageService>().To<PackageService>();
             kernel.Bind<IFacetService>().To<FacetService>();
             kernel.Bind<ISystemScriptService>().To<SystemScriptService>();
+            kernel.Bind<IComponentService>().To<ComponentService>();
         }
     }
 }

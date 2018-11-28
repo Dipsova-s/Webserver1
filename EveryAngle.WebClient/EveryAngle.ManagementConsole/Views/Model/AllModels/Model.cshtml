@@ -9,6 +9,7 @@
         url: '@Scripts.Url("~/bundles/models/model")',
         callback: function () {
             MC.Models.Model.Initial({
+                ModelIdDropdownItemsUri: '@Url.Action("ModelIdDropdownItems", "Model")',
                 SaveUri: '@Url.Action("SaveModel","Model")',
                 AllModelsPageUri: '@SiteMapHelper.ActionHash("Models/AllModels")',
                 SideMenuUri: '@Url.Action("SideMenu", "Home")',
@@ -30,47 +31,40 @@
 
 <div class="content pageModel pageModelEdit">
     <div class="contentSection contentSectionInfo">
-        <form id="formAddModel" data-role="validator">
-                @if(@Model.id != null)
-                {
-                    <h2>@Model.short_name @Resource.MC_ModelName</h2>
-                }
-                else
-                {
-                    <h2>@Resource.CreateNewModel</h2>
-                }
-                
+        <form id="formAddModel" class="@(ViewBag.IsCreateNewModel ? "newModel" : string.Empty)" data-role="validator">
+            <h2>@ViewBag.FormTitle</h2>
             <div class="contentSectionInfoItem">
-			    <label>Model ID:</label>
-                
-                @if (@Model.id != null)
-                {
-                    <input type="hidden" name="Uri" value="@Model.Uri" />
-                    <input type="hidden" name="abbreviation" value="@Model.abbreviation" />
-                    <input type="hidden" name="latest_instance" value="@Model.latest_instance" />
-                    
-                    <p>@Html.TextBoxFor(model => model.id, new { @class = "required field_id", @name="id", maxlength = 25, @readonly="readonly"})</p>
-                }
-                else
-                {   <p>@Html.TextBoxFor(model => model.id, new { @class = "required field_id", @id="isNew", @name="id", maxlength = 25 })</p>}
-		    </div>
+                <label>Model ID:</label>
+                <p><select id="modelId" class="required hidden"></select></p>
+                <input type="text" name="id" class="required" value="@Model.id" readonly />
+            </div>
             <div class="contentSectionInfoItem">
-			    <label>@Resource.MC_ModelShortName:</label>
-                <p>@Html.TextBoxFor(model => model.short_name, new { @class = "required", @name = "short_name", maxlength = 256 })</p>
-		    </div>
+                <label>@Resource.MC_ModelShortName:</label>
+                <p>@Html.TextBoxFor(model => model.short_name, new { @class = "required", @name = "short_name", maxlength = 256 })
+                    <span class="modelColorPickerButton" onclick="MC.Models.Model.ToggleModelColorPickerPopup()">
+                        <span class="modalColorPickerIcon"></span>
+                    </span>
+                </p>
+                <input type="hidden" name="color" value="@Model.color" />
+            </div>
             <div class="contentSectionInfoItem">
-			    <label>@Resource.MC_ModelName:</label>
+                <label>@Resource.MC_ModelName:</label>
                 <p>@Html.TextBoxFor(model => model.long_name, new { @name = "long_name", maxlength = 256 })</p>
-		    </div>
+            </div>
             <div class="contentSectionInfoItem">
-			    <label>@Resource.MC_ModelEnvironment:</label>
-			    <p>@Html.TextBoxFor(model => model.environment, new { @name = "environment", maxlength = 50 })</p>
-		    </div>
-            <div class="contentSectionInfoItem">
-			    <label>@Resource.MC_ModelAgentUri:</label>
-                <p>@Html.TextBoxFor(model => model.agent_uri, new { @class = "required agent_url", @name = "agent_uri", maxlength = 256 })</p>
-		    </div>
+                <label>@Resource.MC_ModelEnvironment:</label>
+                <p>@Html.TextBoxFor(model => model.environment, new { @name = "environment", maxlength = 50 })</p>
+            </div>
+            @if (!ViewBag.IsCreateNewModel)
+            {
+                <input type="hidden" name="Uri" value="@Model.Uri" />
+                <input type="hidden" name="abbreviation" value="@Model.abbreviation" />
+                <input type="hidden" name="latest_instance" value="@Model.latest_instance" />
+            }
         </form>
     </div><!--/.contentSectionInfo-->
-
 </div><!--/.content-->
+
+<div class="modelColorPickerContainer">
+    <span id="modelColorPicker"></span>
+</div>

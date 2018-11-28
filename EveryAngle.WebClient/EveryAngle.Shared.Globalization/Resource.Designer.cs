@@ -7519,6 +7519,15 @@ namespace EveryAngle.Shared.Globalization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Available.
+        /// </summary>
+        public static string MC_Available {
+            get {
+                return ResourceManager.GetString("MC_Available", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Available Classes Name.
         /// </summary>
         public static string MC_AvailableClassesName {
@@ -7812,6 +7821,24 @@ namespace EveryAngle.Shared.Globalization {
         public static string MC_CompanyInformation {
             get {
                 return ResourceManager.GetString("MC_CompanyInformation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Components.
+        /// </summary>
+        public static string MC_Components {
+            get {
+                return ResourceManager.GetString("MC_Components", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to All registered component services.
+        /// </summary>
+        public static string MC_Components_GridTitle {
+            get {
+                return ResourceManager.GetString("MC_Components_GridTitle", resourceCulture);
             }
         }
         
@@ -8491,6 +8518,15 @@ namespace EveryAngle.Shared.Globalization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Deleting a component can cause further operations to fail. Are you sure you want to delete this component?.
+        /// </summary>
+        public static string MC_DeleteComponentConfirm {
+            get {
+                return ResourceManager.GetString("MC_DeleteComponentConfirm", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Deleted.
         /// </summary>
         public static string MC_Deleted {
@@ -8889,6 +8925,15 @@ namespace EveryAngle.Shared.Globalization {
         public static string MC_DownloadAllFields {
             get {
                 return ResourceManager.GetString("MC_DownloadAllFields", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Download metadata.
+        /// </summary>
+        public static string MC_DownloadMetadata {
+            get {
+                return ResourceManager.GetString("MC_DownloadMetadata", resourceCulture);
             }
         }
         
@@ -10311,15 +10356,6 @@ namespace EveryAngle.Shared.Globalization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Model agent uri.
-        /// </summary>
-        public static string MC_ModelAgentUri {
-            get {
-                return ResourceManager.GetString("MC_ModelAgentUri", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Model privilege.
         /// </summary>
         public static string MC_ModelAuthorization {
@@ -10550,6 +10586,15 @@ namespace EveryAngle.Shared.Globalization {
         public static string MC_NoFieldAvailable {
             get {
                 return ResourceManager.GetString("MC_NoFieldAvailable", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to No models available.
+        /// </summary>
+        public static string MC_NoModelsAvailable {
+            get {
+                return ResourceManager.GetString("MC_NoModelsAvailable", resourceCulture);
             }
         }
         

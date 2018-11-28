@@ -12,6 +12,14 @@ ${btnView}                  .btn btnInfo.first
 ${btnDelete}                .btnDelete.first
 
 *** Keywords ***
+Go To MC Page
+    [Arguments]    ${location}
+    ${targetLocation}    Set Variable    ${URL_MC}/home/index#${location}
+    ${currentLocation}    Get Location
+    Run Keyword If    '${currentLocation}'=='${targetLocation}'    Reload Page
+    ...        ELSE    Go To    ${targetLocation}
+    Wait MC Progress Bar Closed
+
 Click User Menu MC
     Wait MC Progress Bar Closed
     Wait Until Element Is Visible    ${btnUserMenuMC}

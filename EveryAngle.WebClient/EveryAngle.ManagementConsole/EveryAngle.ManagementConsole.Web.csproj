@@ -173,6 +173,7 @@
     <Compile Include="Controllers\CommentController.cs" />
     <Compile Include="Controllers\AngleWarningsController.cs" />
     <Compile Include="Controllers\ErrorController.cs" />
+    <Compile Include="Controllers\ComponentController.cs" />
     <Compile Include="Controllers\LicenseController.cs" />
     <Compile Include="Controllers\ModelCommunicationController.cs" />
     <Compile Include="Controllers\ModelServersController.cs" />
@@ -223,6 +224,7 @@
     <Content Include="Content\Login.css" />
     <Content Include="Content\Default.css" />
     <Content Include="Images\ea_about_logo.png" />
+    <Content Include="Images\Icons\black_arrow_down.svg" />
     <Content Include="Images\Icons\icon_about.png" />
     <Content Include="Images\Icons\icon_add.svg" />
     <Content Include="Images\Icons\icon_add_blue.svg" />
@@ -257,6 +259,7 @@
     <Content Include="Images\Icons\icon_unsuggest.png" />
     <Content Include="Images\Icons\icon_user.svg" />
     <Content Include="Images\Icons\icon_webclient.png" />
+    <Content Include="Images\Icons\white_arrow_down.svg" />
     <Content Include="Images\Login\login_image.png" />
     <Content Include="Images\logo.svg" />
     <Content Include="Images\UI\btn_deselectall.png" />
@@ -288,6 +291,7 @@
     <Content Include="Scripts\jstz.min.js" />
     <Content Include="Scripts\KendoUI\kendo.custom.js" />
     <Content Include="Scripts\KendoUI\kendo.timezones.min.js" />
+    <Content Include="Scripts\Page\MC.GlobalSettings.Components.js" />
     <Content Include="Scripts\Page\MC.Models.AngleWarnings.js" />
     <Content Include="Scripts\Page\MC.GlobalSettings.EventLog.js" />
     <Content Include="Scripts\Page\MC.GlobalSettings.Systemlog.js" />
@@ -816,6 +820,9 @@
     <Content Include="Views\Shared\ManageUserRole.cshtml" />
     <Content Include="Views\Model\RefreshCycle\RefreshCycleForm.cshtml" />
     <Content Include="Views\GlobalSettings\UploadEASets\ExportPackageForm.cshtml" />
+    <Content Include="Views\Component\SystemComponent.cshtml" />
+    <Content Include="Views\Component\ModelComponent.cshtml" />
+    <Content Include="Views\Component\ComponentGrid.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

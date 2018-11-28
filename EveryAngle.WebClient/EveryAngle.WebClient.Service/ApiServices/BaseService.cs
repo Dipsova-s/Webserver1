@@ -54,7 +54,7 @@ namespace EveryAngle.WebClient.Service.ApiServices
         /// <returns></returns>
         public IEnumerable<T> GetItems<T>(string uri) where T : class
         {
-            Func<JObject, string> resolver = delegate(JObject result)
+            Func<JObject, string> resolver = delegate (JObject result)
             {
                 return GetResolvedResult(result, null);
             };
@@ -70,7 +70,7 @@ namespace EveryAngle.WebClient.Service.ApiServices
         /// <returns></returns>
         public IEnumerable<T> GetItems<T>(string uri, string dataAttribute)
         {
-            Func<JObject, string> resolver = delegate(JObject result)
+            Func<JObject, string> resolver = delegate (JObject result)
             {
                 return ResultResolver(result, dataAttribute);
             };
@@ -87,7 +87,22 @@ namespace EveryAngle.WebClient.Service.ApiServices
         public IEnumerable<T> GetItems<T>(string uri, Func<JObject, string> resolver)
         {
             return Get<IEnumerable<T>>(uri, resolver);
-        } 
+        }
+        #endregion
+
+        #region GetArrayItems
+        public IEnumerable<T> GetArrayItems<T>(string uri) where T : class
+        {
+            Func<JArray, string> resolver = delegate (JArray result)
+            {
+                return GetResolvedResult(result, null);
+            };
+            return GetArrayItems<T>(uri, resolver);
+        }
+        public IEnumerable<T> GetArrayItems<T>(string uri, Func<JArray, string> resolver)
+        {
+            return RequestArray<T>(Method.GET, uri, resolver);
+        }
         #endregion
 
         #region GetPagableItems
@@ -100,7 +115,7 @@ namespace EveryAngle.WebClient.Service.ApiServices
         /// <returns></returns>
         public ListViewModel<T> GetPagableItems<T>(string uri, string dataAttribute) where T : class
         {
-            Func<JObject, string> resolver = delegate(JObject result)
+            Func<JObject, string> resolver = delegate (JObject result)
             {
                 return ListViewModelResolver<T>(result, PAGABLE_HEADER_ATTRIBUTE, dataAttribute);
             };
@@ -117,7 +132,7 @@ namespace EveryAngle.WebClient.Service.ApiServices
         public ListViewModel<T> GetPagableItems<T>(string uri, Func<JObject, string> resolver)
         {
             return Get<ListViewModel<T>>(uri, resolver);
-        } 
+        }
         #endregion
 
         #region Create
@@ -204,7 +219,7 @@ namespace EveryAngle.WebClient.Service.ApiServices
         public T Update<T>(string uri, string body)
         {
             return Request<T>(Method.PUT, uri, body, null);
-        } 
+        }
         #endregion
 
         #region Delete
@@ -226,7 +241,7 @@ namespace EveryAngle.WebClient.Service.ApiServices
         public void Delete(string uri)
         {
             RequestManager.Initialize(uri).Run(Method.DELETE);
-        } 
+        }
         #endregion
 
         #region Miscellaneous
@@ -292,6 +307,13 @@ namespace EveryAngle.WebClient.Service.ApiServices
             return DeserializeObject<T>(GetResolvedResult(result, resolver));
         }
 
+        private IEnumerable<T> RequestArray<T>(Method method, string uri, Func<JArray, string> resolver)
+        {
+            RequestManager requestManager = RequestManager.Initialize(uri);
+            JArray result = requestManager.RunArray(method);
+            return DeserializeObject<IEnumerable<T>>(GetResolvedResult(result, resolver));
+        }
+
         /// <summary>
         /// Convert response body to ViewModel
         /// </summary>
@@ -310,6 +332,17 @@ namespace EveryAngle.WebClient.Service.ApiServices
         /// <param name="resolver"></param>
         /// <returns></returns>
         private string GetResolvedResult(JObject result, Func<JObject, string> resolver)
+        {
+            return resolver == null ? result.ToString() : resolver(result);
+        }
+
+        /// <summary>
+        /// Get resolved result
+        /// </summary>
+        /// <param name="result"></param>
+        /// <param name="resolver"></param>
+        /// <returns></returns>
+        private string GetResolvedResult(JArray result, Func<JArray, string> resolver)
         {
             return resolver == null ? result.ToString() : resolver(result);
         }

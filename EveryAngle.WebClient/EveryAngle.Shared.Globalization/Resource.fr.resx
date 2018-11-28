@@ -492,7 +492,7 @@
   <data name="AddColumn" xml:space="preserve">
     <value>Ajouter colonne</value>
   </data>
-  <data name="MC_AddField" xml:space="preserve" translate="no">
+  <data name="MC_AddField" xml:space="preserve">
     <value>Add field</value>
   </data>
   <data name="AddToDashboard" xml:space="preserve">
@@ -1875,7 +1875,7 @@
   <data name="TroubleShooting" xml:space="preserve">
     <value>Dépannage</value>
   </data>
-  <data name="MC_Abbreviation" xml:space="preserve" translate="no">
+  <data name="MC_Abbreviation" xml:space="preserve">
     <value>Abbreviation</value>
   </data>
   <data name="Access" xml:space="preserve">
@@ -1890,19 +1890,19 @@
   <data name="AccessManagementFunctionality" xml:space="preserve">
     <value>Accès à la fonctionnalité de gestion</value>
   </data>
-  <data name="MC_AccessSetting" xml:space="preserve" translate="no">
+  <data name="MC_AccessSetting" xml:space="preserve">
     <value>Access setting</value>
   </data>
-  <data name="MC_AccessToObjects" xml:space="preserve" translate="no">
+  <data name="MC_AccessToObjects" xml:space="preserve">
     <value>Access to objects</value>
   </data>
-  <data name="MC_AccessType" xml:space="preserve" translate="no">
+  <data name="MC_AccessType" xml:space="preserve">
     <value>Access type</value>
   </data>
-  <data name="MC_Action" xml:space="preserve" translate="no">
+  <data name="MC_Action" xml:space="preserve">
     <value>Action</value>
   </data>
-  <data name="MC_Actionlist" xml:space="preserve" translate="no">
+  <data name="MC_Actionlist" xml:space="preserve">
     <value>Action list</value>
   </data>
   <data name="Actions" xml:space="preserve">
@@ -1914,10 +1914,10 @@
   <data name="Activated" xml:space="preserve">
     <value>Activé</value>
   </data>
-  <data name="MC_Active" xml:space="preserve" translate="no">
+  <data name="MC_Active" xml:space="preserve">
     <value>Active</value>
   </data>
-  <data name="MC_ActiveForModel" xml:space="preserve" translate="no">
+  <data name="MC_ActiveForModel" xml:space="preserve">
     <value>Active for model</value>
   </data>
   <data name="ActiveVersion" xml:space="preserve">
@@ -1926,16 +1926,16 @@
   <data name="Add" xml:space="preserve">
     <value>Ajouter</value>
   </data>
-  <data name="MC_AddLabelCategory" xml:space="preserve" translate="no">
+  <data name="MC_AddLabelCategory" xml:space="preserve">
     <value>Add label category</value>
   </data>
-  <data name="MC_AddNewDatastore" xml:space="preserve" translate="no">
+  <data name="MC_AddNewDatastore" xml:space="preserve">
     <value>Add new datastore</value>
   </data>
   <data name="AddNewIcon" xml:space="preserve">
     <value>Ajouter nouvelle icône</value>
   </data>
-  <data name="MC_AddNewObject" xml:space="preserve" translate="no">
+  <data name="MC_AddNewObject" xml:space="preserve">
     <value>Add new object</value>
   </data>
   <data name="AddRefreshCommand" xml:space="preserve">
@@ -1944,10 +1944,10 @@
   <data name="Address" xml:space="preserve">
     <value>Adresse</value>
   </data>
-  <data name="MC_AddRole" xml:space="preserve" translate="no">
+  <data name="MC_AddRole" xml:space="preserve">
     <value>Add role</value>
   </data>
-  <data name="MC_AddTask" xml:space="preserve" translate="no">
+  <data name="MC_AddTask" xml:space="preserve">
     <value>Add task</value>
   </data>
   <data name="AllAvailableRolesOn" xml:space="preserve">
@@ -1956,7 +1956,7 @@
   <data name="AllEnabledSubRoles" xml:space="preserve">
     <value>Tous les sous-rôles activés</value>
   </data>
-  <data name="MC_AllIconsForPropertyType" xml:space="preserve" translate="no">
+  <data name="MC_AllIconsForPropertyType" xml:space="preserve">
     <value>All icons for field type</value>
   </data>
   <data name="AllModules" xml:space="preserve">
@@ -1965,10 +1965,10 @@
   <data name="Allow" xml:space="preserve">
     <value>Permettre</value>
   </data>
-  <data name="MC_AllSystemRoles" xml:space="preserve" translate="no">
+  <data name="MC_AllSystemRoles" xml:space="preserve">
     <value>All system roles</value>
   </data>
-  <data name="MC_AllUploadedPackages" xml:space="preserve" translate="no">
+  <data name="MC_AllUploadedPackages" xml:space="preserve">
     <value>All uploaded packages</value>
   </data>
   <data name="Angle" xml:space="preserve">
@@ -1977,31 +1977,31 @@
   <data name="Angles" xml:space="preserve">
     <value>Angles</value>
   </data>
-  <data name="MC_ApprovalState" xml:space="preserve" translate="no">
+  <data name="MC_ApprovalState" xml:space="preserve">
     <value>Approval state</value>
   </data>
   <data name="Assign" xml:space="preserve">
     <value>Assigner</value>
   </data>
-  <data name="MC_AssignedRoles" xml:space="preserve" translate="no">
+  <data name="MC_AssignedRoles" xml:space="preserve">
     <value>Assigned roles</value>
   </data>
-  <data name="MC_AttachLogfiles" xml:space="preserve" translate="no">
+  <data name="MC_AttachLogfiles" xml:space="preserve">
     <value>Attach logfiles</value>
   </data>
-  <data name="MC_AttachResult" xml:space="preserve" translate="no">
+  <data name="MC_AttachResult" xml:space="preserve">
     <value>Attach result</value>
   </data>
-  <data name="MC_Authentication" xml:space="preserve" translate="no">
+  <data name="MC_Authentication" xml:space="preserve">
     <value>Authentication</value>
   </data>
-  <data name="MC_AutocreateUsers" xml:space="preserve" translate="no">
+  <data name="MC_AutocreateUsers" xml:space="preserve">
     <value>Automatically create users</value>
   </data>
-  <data name="MC_AutomationTasks" xml:space="preserve" translate="no">
+  <data name="MC_AutomationTasks" xml:space="preserve">
     <value>Automation tasks</value>
   </data>
-  <data name="MC_AvailableLanguages" xml:space="preserve" translate="no">
+  <data name="MC_AvailableLanguages" xml:space="preserve">
     <value>Available languages</value>
   </data>
   <data name="Bar" xml:space="preserve">
@@ -2019,25 +2019,25 @@
   <data name="ClearAll" xml:space="preserve">
     <value>Effacer tout</value>
   </data>
-  <data name="MC_CompanyInformation" xml:space="preserve" translate="no">
+  <data name="MC_CompanyInformation" xml:space="preserve">
     <value>Company information</value>
   </data>
-  <data name="MC_Condition" xml:space="preserve" translate="no">
+  <data name="MC_Condition" xml:space="preserve">
     <value>Condition</value>
   </data>
-  <data name="MC_Connected" xml:space="preserve" translate="no">
+  <data name="MC_Connected" xml:space="preserve">
     <value>Connected</value>
   </data>
-  <data name="MC_ConsoleSection" xml:space="preserve" translate="no">
+  <data name="MC_ConsoleSection" xml:space="preserve">
     <value>Console section</value>
   </data>
-  <data name="MC_ContentParameters" xml:space="preserve" translate="no">
+  <data name="MC_ContentParameters" xml:space="preserve">
     <value>Content parameters</value>
   </data>
-  <data name="MC_ContentSettings" xml:space="preserve" translate="no">
+  <data name="MC_ContentSettings" xml:space="preserve">
     <value>Content settings</value>
   </data>
-  <data name="MC_ContentType" xml:space="preserve" translate="no">
+  <data name="MC_ContentType" xml:space="preserve">
     <value>Content</value>
   </data>
   <data name="Copy" xml:space="preserve">
@@ -2052,13 +2052,13 @@
   <data name="Create" xml:space="preserve">
     <value>Créer</value>
   </data>
-  <data name="MC_Created" xml:space="preserve" translate="no">
+  <data name="MC_Created" xml:space="preserve">
     <value>Created</value>
   </data>
   <data name="CreatedOnModel" xml:space="preserve">
     <value>Créé sur Instance</value>
   </data>
-  <data name="MC_CreateNew" xml:space="preserve" translate="no">
+  <data name="MC_CreateNew" xml:space="preserve">
     <value>Create new</value>
   </data>
   <data name="CreateNewModel" xml:space="preserve">
@@ -2067,28 +2067,28 @@
   <data name="CreateNewRole" xml:space="preserve">
     <value>Créer nouveau rôle</value>
   </data>
-  <data name="MC_CurrentAction" xml:space="preserve" translate="no">
+  <data name="MC_CurrentAction" xml:space="preserve">
     <value>Current action</value>
   </data>
   <data name="CurrentTables" xml:space="preserve">
     <value>Tables actuelles</value>
   </data>
-  <data name="MC_CustomCondition" xml:space="preserve" translate="no">
+  <data name="MC_CustomCondition" xml:space="preserve">
     <value>Custom condition</value>
   </data>
-  <data name="MC_DataStore" xml:space="preserve" translate="no">
+  <data name="MC_DataStore" xml:space="preserve">
     <value>Datastore</value>
   </data>
-  <data name="MC_DataStoreName" xml:space="preserve" translate="no">
+  <data name="MC_DataStoreName" xml:space="preserve">
     <value>Datastore name</value>
   </data>
-  <data name="MC_DataStorePlugin" xml:space="preserve" translate="no">
+  <data name="MC_DataStorePlugin" xml:space="preserve">
     <value>Datastore plugin</value>
   </data>
   <data name="DataStores" xml:space="preserve">
     <value>Banques de données</value>
   </data>
-  <data name="MC_Datatype" xml:space="preserve" translate="no">
+  <data name="MC_Datatype" xml:space="preserve">
     <value>Data type</value>
   </data>
   <data name="Day" xml:space="preserve">
@@ -2103,7 +2103,7 @@
   <data name="Default" xml:space="preserve">
     <value>Par défaut</value>
   </data>
-  <data name="MC_DefaultRoles" xml:space="preserve" translate="no">
+  <data name="MC_DefaultRoles" xml:space="preserve">
     <value>Default roles</value>
   </data>
   <data name="DefaultSettingsUnmentionedFields" xml:space="preserve">
@@ -2112,19 +2112,19 @@
   <data name="DefaultSettingsUnmentionedLabels" xml:space="preserve">
     <value>Paramètres par défaut pour les étiquettes non mentionnées</value>
   </data>
-  <data name="MC_DefaultSettingsUnmentionedObjects" xml:space="preserve" translate="no">
+  <data name="MC_DefaultSettingsUnmentionedObjects" xml:space="preserve">
     <value>Default settings for unmentioned objects</value>
   </data>
-  <data name="MC_DeletedLabels" xml:space="preserve" translate="no">
+  <data name="MC_DeletedLabels" xml:space="preserve">
     <value>Deleted labels</value>
   </data>
-  <data name="MC_Delta" xml:space="preserve" translate="no">
+  <data name="MC_Delta" xml:space="preserve">
     <value>Delta</value>
   </data>
-  <data name="MC_DeltaCondition" xml:space="preserve" translate="no">
+  <data name="MC_DeltaCondition" xml:space="preserve">
     <value>Delta condition</value>
   </data>
-  <data name="MC_DeltaDownload" xml:space="preserve" translate="no">
+  <data name="MC_DeltaDownload" xml:space="preserve">
     <value>Delta download</value>
   </data>
   <data name="Deny" xml:space="preserve">
@@ -2136,7 +2136,7 @@
   <data name="Display" xml:space="preserve">
     <value>Display</value>
   </data>
-  <data name="MC_Domain" xml:space="preserve" translate="no">
+  <data name="MC_Domain" xml:space="preserve">
     <value>Domain</value>
   </data>
   <data name="Done" xml:space="preserve">
@@ -2145,25 +2145,25 @@
   <data name="Down" xml:space="preserve">
     <value>Inactif</value>
   </data>
-  <data name="MC_DownloadAllFields" xml:space="preserve" translate="no">
+  <data name="MC_DownloadAllFields" xml:space="preserve">
     <value>Download all fields</value>
   </data>
-  <data name="MC_EAName" xml:space="preserve" translate="no">
+  <data name="MC_EAName" xml:space="preserve">
     <value>EA name</value>
   </data>
   <data name="Edit" xml:space="preserve">
     <value>Modifier</value>
   </data>
-  <data name="MC_EditLicense" xml:space="preserve" translate="no">
+  <data name="MC_EditLicense" xml:space="preserve">
     <value>Edit license</value>
   </data>
-  <data name="MC_EditTable" xml:space="preserve" translate="no">
+  <data name="MC_EditTable" xml:space="preserve">
     <value>Edit table</value>
   </data>
-  <data name="MC_EightHours" xml:space="preserve" translate="no">
+  <data name="MC_EightHours" xml:space="preserve">
     <value>8 hours</value>
   </data>
-  <data name="MC_EmailLog" xml:space="preserve" translate="no">
+  <data name="MC_EmailLog" xml:space="preserve">
     <value>E-mail logfiles</value>
   </data>
   <data name="Empty" xml:space="preserve">
@@ -2172,7 +2172,7 @@
   <data name="Enabled" xml:space="preserve">
     <value>Activé</value>
   </data>
-  <data name="MC_EnabledFor" xml:space="preserve" translate="no">
+  <data name="MC_EnabledFor" xml:space="preserve">
     <value>Enabled for</value>
   </data>
   <data name="EndTime" xml:space="preserve">
@@ -2184,7 +2184,7 @@
   <data name="Errors" xml:space="preserve">
     <value>Erreurs</value>
   </data>
-  <data name="MC_ExpirationDate" xml:space="preserve" translate="no">
+  <data name="MC_ExpirationDate" xml:space="preserve">
     <value>Expiration date</value>
   </data>
   <data name="ExternalApps" xml:space="preserve">
@@ -2193,10 +2193,10 @@
   <data name="Extract" xml:space="preserve">
     <value>Extraire</value>
   </data>
-  <data name="MC_ExtractingTables" xml:space="preserve" translate="no">
+  <data name="MC_ExtractingTables" xml:space="preserve">
     <value>Extracting tables</value>
   </data>
-  <data name="MC_Field" xml:space="preserve" translate="no">
+  <data name="MC_Field" xml:space="preserve">
     <value>Field</value>
   </data>
   <data name="FieldName" xml:space="preserve">
@@ -2214,7 +2214,7 @@
   <data name="FindAngle" xml:space="preserve">
     <value>Recherche Angle</value>
   </data>
-  <data name="MC_FourHours" xml:space="preserve" translate="no">
+  <data name="MC_FourHours" xml:space="preserve">
     <value>4 hours</value>
   </data>
   <data name="Functionality" xml:space="preserve">
@@ -2232,13 +2232,13 @@
   <data name="ID" xml:space="preserve">
     <value>ID</value>
   </data>
-  <data name="MC_ImportLabels" xml:space="preserve" translate="no">
+  <data name="MC_ImportLabels" xml:space="preserve">
     <value>Import labels</value>
   </data>
   <data name="Inactive" xml:space="preserve">
     <value>Inactif</value>
   </data>
-  <data name="MC_IncludedLabels" xml:space="preserve" translate="no">
+  <data name="MC_IncludedLabels" xml:space="preserve">
     <value>Included labels</value>
   </data>
   <data name="IndexingTables" xml:space="preserve">
@@ -2259,10 +2259,10 @@
   <data name="Instances" xml:space="preserve">
     <value>Instances</value>
   </data>
-  <data name="MC_InstanceStatus" xml:space="preserve" translate="no">
+  <data name="MC_InstanceStatus" xml:space="preserve">
     <value>Instance status</value>
   </data>
-  <data name="MC_KeyField" xml:space="preserve" translate="no">
+  <data name="MC_KeyField" xml:space="preserve">
     <value>Key field</value>
   </data>
   <data name="Label" xml:space="preserve">
@@ -2271,28 +2271,28 @@
   <data name="LabelCategoriesSetting" xml:space="preserve">
     <value>Paramètres de catégorie d'étiquette</value>
   </data>
-  <data name="MC_Labels" xml:space="preserve" translate="no">
+  <data name="MC_Labels" xml:space="preserve">
     <value>Labels</value>
   </data>
-  <data name="MC_LanguageSettings" xml:space="preserve" translate="no">
+  <data name="MC_LanguageSettings" xml:space="preserve">
     <value>Language settings</value>
   </data>
-  <data name="MC_LargerIcon" xml:space="preserve" translate="no">
+  <data name="MC_LargerIcon" xml:space="preserve">
     <value>Large icon 32*32</value>
   </data>
   <data name="LastChanges" xml:space="preserve">
     <value>Dernières modifications</value>
   </data>
-  <data name="MC_Length" xml:space="preserve" translate="no">
+  <data name="MC_Length" xml:space="preserve">
     <value>Length</value>
   </data>
   <data name="License" xml:space="preserve">
     <value>Licence</value>
   </data>
-  <data name="MC_LicensedApps" xml:space="preserve" translate="no">
+  <data name="MC_LicensedApps" xml:space="preserve">
     <value>Licensed applications</value>
   </data>
-  <data name="MC_LicenseExpirationDate" xml:space="preserve" translate="no">
+  <data name="MC_LicenseExpirationDate" xml:space="preserve">
     <value>License expiration date</value>
   </data>
   <data name="LicenseId" xml:space="preserve">
@@ -2331,25 +2331,22 @@
   <data name="Model" xml:space="preserve">
     <value>Instance</value>
   </data>
-  <data name="MC_ModelAgentUri" xml:space="preserve" translate="no">
-    <value>Model agent uri</value>
-  </data>
   <data name="ModelDate" xml:space="preserve">
     <value>Date de l'Instance</value>
   </data>
-  <data name="MC_ModelDescription" xml:space="preserve" translate="no">
+  <data name="MC_ModelDescription" xml:space="preserve">
     <value>Model description</value>
   </data>
-  <data name="MC_ModelEnvironment" xml:space="preserve" translate="no">
+  <data name="MC_ModelEnvironment" xml:space="preserve">
     <value>Model environment</value>
   </data>
-  <data name="MC_ModelID" xml:space="preserve" translate="no">
+  <data name="MC_ModelID" xml:space="preserve">
     <value>Model ID</value>
   </data>
-  <data name="MC_ModelName" xml:space="preserve" translate="no">
+  <data name="MC_ModelName" xml:space="preserve">
     <value>Model name</value>
   </data>
-  <data name="MC_ModelServer" xml:space="preserve" translate="no">
+  <data name="MC_ModelServer" xml:space="preserve">
     <value>Model server</value>
   </data>
   <data name="ModelSetup" xml:space="preserve">
@@ -2358,7 +2355,7 @@
   <data name="ModelShortName" xml:space="preserve">
     <value>Nom court de l'Instance</value>
   </data>
-  <data name="MC_ModelSize" xml:space="preserve" translate="no">
+  <data name="MC_ModelSize" xml:space="preserve">
     <value>Model size</value>
   </data>
   <data name="ModelStatus" xml:space="preserve">
@@ -2367,7 +2364,7 @@
   <data name="ModelTimestamp" xml:space="preserve">
     <value>Horodateur Instance</value>
   </data>
-  <data name="MC_ModelType" xml:space="preserve" translate="no">
+  <data name="MC_ModelType" xml:space="preserve">
     <value>Model type</value>
   </data>
   <data name="ModifySetup" xml:space="preserve">
@@ -2385,10 +2382,10 @@
   <data name="NewRoleName" xml:space="preserve">
     <value>ID nouveau rôle</value>
   </data>
-  <data name="MC_NumberOfModelServers" xml:space="preserve" translate="no">
+  <data name="MC_NumberOfModelServers" xml:space="preserve">
     <value>Number of Model Servers</value>
   </data>
-  <data name="MC_NumberOfUsers" xml:space="preserve" translate="no">
+  <data name="MC_NumberOfUsers" xml:space="preserve">
     <value>Number of users</value>
   </data>
   <data name="Object" xml:space="preserve">
@@ -2397,7 +2394,7 @@
   <data name="Objects" xml:space="preserve">
     <value>Objets</value>
   </data>
-  <data name="MC_OneHour" xml:space="preserve" translate="no">
+  <data name="MC_OneHour" xml:space="preserve">
     <value>1 hour</value>
   </data>
   <data name="OpenModel" xml:space="preserve">
@@ -2415,13 +2412,13 @@
   <data name="Preview" xml:space="preserve">
     <value>Aperçu</value>
   </data>
-  <data name="MC_PrivilegesOnLabels" xml:space="preserve" translate="no">
+  <data name="MC_PrivilegesOnLabels" xml:space="preserve">
     <value>Privileges on labels</value>
   </data>
   <data name="Progress" xml:space="preserve">
     <value>Progrès</value>
   </data>
-  <data name="MC_PropertyType" xml:space="preserve" translate="no">
+  <data name="MC_PropertyType" xml:space="preserve">
     <value>Field type</value>
   </data>
   <data name="Read" xml:space="preserve">
@@ -2430,7 +2427,7 @@
   <data name="ReadyForQueries" xml:space="preserve">
     <value>Prêt pour requêtes</value>
   </data>
-  <data name="MC_Recipients" xml:space="preserve" translate="no">
+  <data name="MC_Recipients" xml:space="preserve">
     <value>Recipients</value>
   </data>
   <data name="ReferencedObject" xml:space="preserve">
@@ -2454,34 +2451,34 @@
   <data name="Role" xml:space="preserve">
     <value>Rôle</value>
   </data>
-  <data name="MC_RoleDescription" xml:space="preserve" translate="no">
+  <data name="MC_RoleDescription" xml:space="preserve">
     <value>Role description</value>
   </data>
-  <data name="MC_Rolename" xml:space="preserve" translate="no">
+  <data name="MC_Rolename" xml:space="preserve">
     <value>Role name</value>
   </data>
   <data name="Roles" xml:space="preserve">
     <value>Rôles</value>
   </data>
-  <data name="MC_RoleSettings" xml:space="preserve" translate="no">
+  <data name="MC_RoleSettings" xml:space="preserve">
     <value>Role settings</value>
   </data>
   <data name="RunAsUser" xml:space="preserve">
     <value>Exécuter en tant qu'utilisateur</value>
   </data>
-  <data name="MC_RunResult" xml:space="preserve" translate="no">
+  <data name="MC_RunResult" xml:space="preserve">
     <value>Run result</value>
   </data>
   <data name="Select" xml:space="preserve">
     <value>Sélectionner</value>
   </data>
-  <data name="MC_SelectTheFieldsToTable" xml:space="preserve" translate="no">
+  <data name="MC_SelectTheFieldsToTable" xml:space="preserve">
     <value>Select fields to add to the table</value>
   </data>
   <data name="SenderEmailAccount" xml:space="preserve">
     <value>Expéditeur (compte e-mail)</value>
   </data>
-  <data name="MC_ServerSettings" xml:space="preserve" translate="no">
+  <data name="MC_ServerSettings" xml:space="preserve">
     <value>Server settings</value>
   </data>
   <data name="ServerStarted" xml:space="preserve">
@@ -2490,7 +2487,7 @@
   <data name="SetDefaultTo" xml:space="preserve">
     <value>Définir la valeur par défaut sur</value>
   </data>
-  <data name="MC_SetSelectedField" xml:space="preserve" translate="no">
+  <data name="MC_SetSelectedField" xml:space="preserve">
     <value>Set selected field to</value>
   </data>
   <data name="SetUpANewModel" xml:space="preserve">
@@ -2502,7 +2499,7 @@
   <data name="Since" xml:space="preserve">
     <value>Depuis</value>
   </data>
-  <data name="MC_SmallIcon" xml:space="preserve" translate="no">
+  <data name="MC_SmallIcon" xml:space="preserve">
     <value>Small icon 16*16</value>
   </data>
   <data name="StartServer" xml:space="preserve">
@@ -2514,28 +2511,28 @@
   <data name="StopServer" xml:space="preserve">
     <value>Arrêter le serveur</value>
   </data>
-  <data name="MC_ShowComputedResultingRole" xml:space="preserve" translate="no">
+  <data name="MC_ShowComputedResultingRole" xml:space="preserve">
     <value>Show resulting role</value>
   </data>
-  <data name="MC_Subject" xml:space="preserve" translate="no">
+  <data name="MC_Subject" xml:space="preserve">
     <value>Subject</value>
   </data>
   <data name="SubRoles" xml:space="preserve">
     <value>Sous-rôles</value>
   </data>
-  <data name="MC_Table" xml:space="preserve" translate="no">
+  <data name="MC_Table" xml:space="preserve">
     <value>Table</value>
   </data>
-  <data name="MC_TableGroup" xml:space="preserve" translate="no">
+  <data name="MC_TableGroup" xml:space="preserve">
     <value>Table group</value>
   </data>
-  <data name="MC_TablesAndFields" xml:space="preserve" translate="no">
+  <data name="MC_TablesAndFields" xml:space="preserve">
     <value>Tables &amp; fields</value>
   </data>
   <data name="Techn" xml:space="preserve">
     <value>Nom techn.</value>
   </data>
-  <data name="MC_TestEmail" xml:space="preserve" translate="no">
+  <data name="MC_TestEmail" xml:space="preserve">
     <value>Test email settings</value>
   </data>
   <data name="TestExtraction" xml:space="preserve">
@@ -2553,7 +2550,7 @@
   <data name="Total" xml:space="preserve">
     <value>Total</value>
   </data>
-  <data name="MC_SubRolesHeader" xml:space="preserve" translate="no">
+  <data name="MC_SubRolesHeader" xml:space="preserve">
     <value>Subroles</value>
   </data>
   <data name="Training" xml:space="preserve">
@@ -2562,13 +2559,13 @@
   <data name="TreeList" xml:space="preserve">
     <value>arborescence</value>
   </data>
-  <data name="MC_TwelveHours" xml:space="preserve" translate="no">
+  <data name="MC_TwelveHours" xml:space="preserve">
     <value>12 hours</value>
   </data>
-  <data name="MC_TwentyFourHours" xml:space="preserve" translate="no">
+  <data name="MC_TwentyFourHours" xml:space="preserve">
     <value>24 hours</value>
   </data>
-  <data name="MC_TwoHours" xml:space="preserve" translate="no">
+  <data name="MC_TwoHours" xml:space="preserve">
     <value>2 hours</value>
   </data>
   <data name="Type" xml:space="preserve">
@@ -2577,16 +2574,16 @@
   <data name="Undefined" xml:space="preserve">
     <value>Non défini</value>
   </data>
-  <data name="MC_UnmentionedCurrencyFields" xml:space="preserve" translate="no">
+  <data name="MC_UnmentionedCurrencyFields" xml:space="preserve">
     <value>By default, currency fields are</value>
   </data>
-  <data name="MC_UnmentionedFields" xml:space="preserve" translate="no">
+  <data name="MC_UnmentionedFields" xml:space="preserve">
     <value>By default, fields are</value>
   </data>
   <data name="UnmentionedLabels" xml:space="preserve">
     <value>Par défaut, le privilège attribué aux étiquettes est</value>
   </data>
-  <data name="MC_UnmentionedObjects" xml:space="preserve" translate="no">
+  <data name="MC_UnmentionedObjects" xml:space="preserve">
     <value>By default, objects are</value>
   </data>
   <data name="Up" xml:space="preserve">
@@ -2595,28 +2592,28 @@
   <data name="Update" xml:space="preserve">
     <value>Mise à jour</value>
   </data>
-  <data name="MC_UploadCustomerLogo" xml:space="preserve" translate="no">
+  <data name="MC_UploadCustomerLogo" xml:space="preserve">
     <value>Upload customer logo</value>
   </data>
   <data name="Uploaded" xml:space="preserve">
     <value>Téléchargé</value>
   </data>
-  <data name="MC_UploadIcon" xml:space="preserve" translate="no">
+  <data name="MC_UploadIcon" xml:space="preserve">
     <value>Upload icon</value>
   </data>
-  <data name="MC_UploadLicense" xml:space="preserve" translate="no">
+  <data name="MC_UploadLicense" xml:space="preserve">
     <value>Upload license</value>
   </data>
-  <data name="MC_UploadNewPackage" xml:space="preserve" translate="no">
+  <data name="MC_UploadNewPackage" xml:space="preserve">
     <value>Upload new package</value>
   </data>
-  <data name="MC_Users" xml:space="preserve" translate="no">
+  <data name="MC_Users" xml:space="preserve">
     <value>users</value>
   </data>
   <data name="Validate" xml:space="preserve">
     <value>Validé</value>
   </data>
-  <data name="MC_ValidForPrivilege" xml:space="preserve" translate="no">
+  <data name="MC_ValidForPrivilege" xml:space="preserve">
     <value>Valid for privilege</value>
   </data>
   <data name="Version" xml:space="preserve">
@@ -2634,67 +2631,67 @@
   <data name="Write" xml:space="preserve">
     <value>Écrire</value>
   </data>
-  <data name="MC_XtractorStarted" xml:space="preserve" translate="no">
+  <data name="MC_XtractorStarted" xml:space="preserve">
     <value>EA ETL Sandbox started</value>
   </data>
-  <data name="MC_AccessToModel" xml:space="preserve" translate="no">
+  <data name="MC_AccessToModel" xml:space="preserve">
     <value>Access to model</value>
   </data>
-  <data name="MC_AddAttachment" xml:space="preserve" translate="no">
+  <data name="MC_AddAttachment" xml:space="preserve">
     <value>Add attachment</value>
   </data>
-  <data name="MC_AddMyComment" xml:space="preserve" translate="no">
+  <data name="MC_AddMyComment" xml:space="preserve">
     <value>Add my comment</value>
   </data>
   <data name="AllUsers" xml:space="preserve">
     <value>Tous les utilisateurs</value>
   </data>
-  <data name="MC_Attachment" xml:space="preserve" translate="no">
+  <data name="MC_Attachment" xml:space="preserve">
     <value>Attachment</value>
   </data>
-  <data name="MC_AuthenticationProvider" xml:space="preserve" translate="no">
+  <data name="MC_AuthenticationProvider" xml:space="preserve">
     <value>Authentication provider</value>
   </data>
   <data name="BackToHome" xml:space="preserve">
     <value>Retour vers la page d'accueil</value>
   </data>
-  <data name="MC_Comment" xml:space="preserve" translate="no">
+  <data name="MC_Comment" xml:space="preserve">
     <value>Comment</value>
   </data>
-  <data name="MC_Comments" xml:space="preserve" translate="no">
+  <data name="MC_Comments" xml:space="preserve">
     <value>Comment</value>
   </data>
-  <data name="MC_Cookie" xml:space="preserve" translate="no">
+  <data name="MC_Cookie" xml:space="preserve">
     <value>Cookie</value>
   </data>
-  <data name="MC_DefaultBusinessProcesses" xml:space="preserve" translate="no">
+  <data name="MC_DefaultBusinessProcesses" xml:space="preserve">
     <value>Default Business Processes</value>
   </data>
-  <data name="MC_EnabledUntil" xml:space="preserve" translate="no">
+  <data name="MC_EnabledUntil" xml:space="preserve">
     <value>Enabled until</value>
   </data>
   <data name="Euro" xml:space="preserve">
     <value>Euro</value>
   </data>
-  <data name="MC_Explicit" xml:space="preserve" translate="no">
+  <data name="MC_Explicit" xml:space="preserve">
     <value>Explicit</value>
   </data>
   <data name="FourDecimal" xml:space="preserve">
     <value>4 chiffres après la virgule</value>
   </data>
-  <data name="MC_FullName" xml:space="preserve" translate="no">
+  <data name="MC_FullName" xml:space="preserve">
     <value>Full name</value>
   </data>
-  <data name="MC_InclSubroles" xml:space="preserve" translate="no">
+  <data name="MC_InclSubroles" xml:space="preserve">
     <value>Include subrole</value>
   </data>
-  <data name="MC_IPAddress" xml:space="preserve" translate="no">
+  <data name="MC_IPAddress" xml:space="preserve">
     <value>IP address</value>
   </data>
   <data name="LastLogin" xml:space="preserve">
     <value>Dernière connexion :</value>
   </data>
-  <data name="MC_LongName" xml:space="preserve" translate="no">
+  <data name="MC_LongName" xml:space="preserve">
     <value>Long name</value>
   </data>
   <data name="Maintenance" xml:space="preserve">
@@ -2721,34 +2718,34 @@
   <data name="SelectRolesToAssign" xml:space="preserve">
     <value>Sélectionner rôles à assigner</value>
   </data>
-  <data name="MC_Sessions" xml:space="preserve" translate="no">
+  <data name="MC_Sessions" xml:space="preserve">
     <value>Sessions</value>
   </data>
-  <data name="MC_ShortName" xml:space="preserve" translate="no">
+  <data name="MC_ShortName" xml:space="preserve">
     <value>Short name</value>
   </data>
-  <data name="MC_ShowInDays" xml:space="preserve" translate="no">
+  <data name="MC_ShowInDays" xml:space="preserve">
     <value>Show in days</value>
   </data>
-  <data name="MC_ShowInDaysDDHH" xml:space="preserve" translate="no">
+  <data name="MC_ShowInDaysDDHH" xml:space="preserve">
     <value>Show in days (DD:HH)</value>
   </data>
-  <data name="MC_ShowInHours" xml:space="preserve" translate="no">
+  <data name="MC_ShowInHours" xml:space="preserve">
     <value>Show in hours</value>
   </data>
-  <data name="MC_ShowInHoursHHMM" xml:space="preserve" translate="no">
+  <data name="MC_ShowInHoursHHMM" xml:space="preserve">
     <value>Show in hours (HH:MM)</value>
   </data>
-  <data name="MC_ShowInSeconds" xml:space="preserve" translate="no">
+  <data name="MC_ShowInSeconds" xml:space="preserve">
     <value>Show in seconds</value>
   </data>
-  <data name="MC_ShowInWeeks" xml:space="preserve" translate="no">
+  <data name="MC_ShowInWeeks" xml:space="preserve">
     <value>Show in weeks</value>
   </data>
-  <data name="MC_ShowInWeeksWWDD" xml:space="preserve" translate="no">
+  <data name="MC_ShowInWeeksWWDD" xml:space="preserve">
     <value>Show in weeks (WW:DD)</value>
   </data>
-  <data name="MC_ShowRole" xml:space="preserve" translate="no">
+  <data name="MC_ShowRole" xml:space="preserve">
     <value>Show role</value>
   </data>
   <data name="SixDecimal" xml:space="preserve">
@@ -2766,10 +2763,10 @@
   <data name="User" xml:space="preserve">
     <value>Util.</value>
   </data>
-  <data name="MC_UserDefaultSettings" xml:space="preserve" translate="no">
+  <data name="MC_UserDefaultSettings" xml:space="preserve">
     <value>User default settings</value>
   </data>
-  <data name="MC_UserEnabled" xml:space="preserve" translate="no">
+  <data name="MC_UserEnabled" xml:space="preserve">
     <value>User enabled</value>
   </data>
   <data name="Continuous" xml:space="preserve">
@@ -2781,226 +2778,226 @@
   <data name="RestartDelay" xml:space="preserve">
     <value>Redémarrer le délai</value>
   </data>
-  <data name="MC_Module_Column_Name" xml:space="preserve" translate="no">
+  <data name="MC_Module_Column_Name" xml:space="preserve">
     <value>Modules</value>
   </data>
-  <data name="MC_Task_SendNotificationAfterFinished" xml:space="preserve" translate="no">
+  <data name="MC_Task_SendNotificationAfterFinished" xml:space="preserve">
     <value>Send a notification after the task has finished</value>
   </data>
-  <data name="MC_SupportsAppend" xml:space="preserve" translate="no">
+  <data name="MC_SupportsAppend" xml:space="preserve">
     <value>Supports append</value>
   </data>
-  <data name="MC_CheckDisplay" xml:space="preserve" translate="no">
+  <data name="MC_CheckDisplay" xml:space="preserve">
     <value>Check Display</value>
   </data>
-  <data name="MC_CheckAngle" xml:space="preserve" translate="no">
+  <data name="MC_CheckAngle" xml:space="preserve">
     <value>Check Angle</value>
   </data>
-  <data name="MC_Validation_AlphaNumeric" xml:space="preserve" translate="no">
+  <data name="MC_Validation_AlphaNumeric" xml:space="preserve">
     <value>Please use only letters, numbers, and underscores</value>
   </data>
-  <data name="MC_Validation_Integer" xml:space="preserve" translate="no">
+  <data name="MC_Validation_Integer" xml:space="preserve">
     <value>Please use a positive or negative non-decimal number</value>
   </data>
-  <data name="MC_Validation_LettersOnly" xml:space="preserve" translate="no">
+  <data name="MC_Validation_LettersOnly" xml:space="preserve">
     <value>Please use only letters</value>
   </data>
-  <data name="MC_Validation_LettersWithBasicPunc" xml:space="preserve" translate="no">
+  <data name="MC_Validation_LettersWithBasicPunc" xml:space="preserve">
     <value>Please use only letters and punctuation</value>
   </data>
-  <data name="MC_Validation_NoWhiteSpace" xml:space="preserve" translate="no">
+  <data name="MC_Validation_NoWhiteSpace" xml:space="preserve">
     <value>White space not allowed</value>
   </data>
-  <data name="MC_Abort" xml:space="preserve" translate="no">
+  <data name="MC_Abort" xml:space="preserve">
     <value>Abort</value>
   </data>
-  <data name="MC_Ajax_ControllerUndefined" xml:space="preserve" translate="no">
+  <data name="MC_Ajax_ControllerUndefined" xml:space="preserve">
     <value>There is no options.url or href=\"url\" in your request.</value>
   </data>
-  <data name="MC_Ajax_RequestTimeout" xml:space="preserve" translate="no">
+  <data name="MC_Ajax_RequestTimeout" xml:space="preserve">
     <value>Request timeout</value>
   </data>
-  <data name="MC_Always" xml:space="preserve" translate="no">
+  <data name="MC_Always" xml:space="preserve">
     <value>Always</value>
   </data>
-  <data name="MC_CheckChangePage" xml:space="preserve" translate="no">
+  <data name="MC_CheckChangePage" xml:space="preserve">
     <value>You have made changes without saving. If you leave this page your changes will be lost.\nClick OK to continue or Cancel to stay on the current page.</value>
   </data>
-  <data name="MC_Day" xml:space="preserve" translate="no">
+  <data name="MC_Day" xml:space="preserve">
     <value>days</value>
   </data>
-  <data name="MC_DeleteTemplate" xml:space="preserve" translate="no">
+  <data name="MC_DeleteTemplate" xml:space="preserve">
     <value>Delete: {reference}?</value>
   </data>
-  <data name="MC_Disabled" xml:space="preserve" translate="no">
+  <data name="MC_Disabled" xml:space="preserve">
     <value>disabled</value>
   </data>
-  <data name="MC_enabled" xml:space="preserve" translate="no">
+  <data name="MC_enabled" xml:space="preserve">
     <value>enabled</value>
   </data>
-  <data name="MC_ErrorOccured" xml:space="preserve" translate="no">
+  <data name="MC_ErrorOccured" xml:space="preserve">
     <value>An error occured</value>
   </data>
-  <data name="MC_ErrorReason" xml:space="preserve" translate="no">
+  <data name="MC_ErrorReason" xml:space="preserve">
     <value>Error</value>
   </data>
-  <data name="MC_ErrorReason400" xml:space="preserve" translate="no">
+  <data name="MC_ErrorReason400" xml:space="preserve">
     <value>Bad request</value>
   </data>
-  <data name="MC_Exactly" xml:space="preserve" translate="no">
+  <data name="MC_Exactly" xml:space="preserve">
     <value>Exactly</value>
   </data>
-  <data name="MC_ExecuteNow" xml:space="preserve" translate="no">
+  <data name="MC_ExecuteNow" xml:space="preserve">
     <value>Execute now</value>
   </data>
-  <data name="MC_Hours" xml:space="preserve" translate="no">
+  <data name="MC_Hours" xml:space="preserve">
     <value>hours</value>
   </data>
-  <data name="MC_Hr" xml:space="preserve" translate="no">
+  <data name="MC_Hr" xml:space="preserve">
     <value>hr</value>
   </data>
-  <data name="MC_InternalError" xml:space="preserve" translate="no">
+  <data name="MC_InternalError" xml:space="preserve">
     <value>Internal error</value>
   </data>
-  <data name="MC_LessThan" xml:space="preserve" translate="no">
+  <data name="MC_LessThan" xml:space="preserve">
     <value>Less than or equal to</value>
   </data>
-  <data name="MC_ManualAbort" xml:space="preserve" translate="no">
+  <data name="MC_ManualAbort" xml:space="preserve">
     <value>Manual abort from IT Management Console</value>
   </data>
-  <data name="MC_ManualExecute" xml:space="preserve" translate="no">
+  <data name="MC_ManualExecute" xml:space="preserve">
     <value>Manual execute from IT Management Console</value>
   </data>
-  <data name="MC_Mins" xml:space="preserve" translate="no">
+  <data name="MC_Mins" xml:space="preserve">
     <value>mins</value>
   </data>
-  <data name="MC_MoreThan" xml:space="preserve" translate="no">
+  <data name="MC_MoreThan" xml:space="preserve">
     <value>More than or equal to</value>
   </data>
-  <data name="MC_Rejected" xml:space="preserve" translate="no">
+  <data name="MC_Rejected" xml:space="preserve">
     <value>rejected</value>
   </data>
-  <data name="MC_Requested" xml:space="preserve" translate="no">
+  <data name="MC_Requested" xml:space="preserve">
     <value>requested</value>
   </data>
-  <data name="MC_UploadFileRunningPopup" xml:space="preserve" translate="no">
+  <data name="MC_UploadFileRunningPopup" xml:space="preserve">
     <value>File upload is running.\nDo you want to cancel?</value>
   </data>
-  <data name="MC_UploadInprogress" xml:space="preserve" translate="no">
+  <data name="MC_UploadInprogress" xml:space="preserve">
     <value>Upload in progress...</value>
   </data>
-  <data name="MC_UploadSuccessful" xml:space="preserve" translate="no">
+  <data name="MC_UploadSuccessful" xml:space="preserve">
     <value>Upload successful</value>
   </data>
-  <data name="MC_Validation_Extension" xml:space="preserve" translate="no">
+  <data name="MC_Validation_Extension" xml:space="preserve">
     <value>Please enter a value with a valid extension.</value>
   </data>
   <data name="Info_MissingValueFilterIndex" xml:space="preserve">
     <value>Article {0} :</value>
   </data>
-  <data name="MC_AbortedVideoPlayback" xml:space="preserve" translate="no">
+  <data name="MC_AbortedVideoPlayback" xml:space="preserve">
     <value>[x]you aborted the video playback.</value>
   </data>
-  <data name="MC_BrowserNotSupport" xml:space="preserve" translate="no">
+  <data name="MC_BrowserNotSupport" xml:space="preserve">
     <value>Your browser does not support HTML5 video and canvas.</value>
   </data>
-  <data name="MC_ConflictingModulesSelection" xml:space="preserve" translate="no">
+  <data name="MC_ConflictingModulesSelection" xml:space="preserve">
     <value>Conflicting modules in selection. The following modules cannot be active simultaneously:</value>
   </data>
-  <data name="MC_EnableSelectedModules" xml:space="preserve" translate="no">
+  <data name="MC_EnableSelectedModules" xml:space="preserve">
     <value>To enable the selected modules, also the following modules need to be enabled:</value>
   </data>
-  <data name="MC_ExtractionFailed" xml:space="preserve" translate="no">
+  <data name="MC_ExtractionFailed" xml:space="preserve">
     <value>Extraction failed</value>
   </data>
-  <data name="MC_File" xml:space="preserve" translate="no">
+  <data name="MC_File" xml:space="preserve">
     <value>File</value>
   </data>
-  <data name="MC_FollowingSecurablesNotExist" xml:space="preserve" translate="no">
+  <data name="MC_FollowingSecurablesNotExist" xml:space="preserve">
     <value>The following items do not exist in the target model:</value>
   </data>
-  <data name="MC_GenerateThumbnailsReport" xml:space="preserve" translate="no">
+  <data name="MC_GenerateThumbnailsReport" xml:space="preserve">
     <value>Generate thumbnails report</value>
   </data>
-  <data name="MC_Generating" xml:space="preserve" translate="no">
+  <data name="MC_Generating" xml:space="preserve">
     <value>Generating...</value>
   </data>
-  <data name="MC_ImageExtractionFailed" xml:space="preserve" translate="no">
+  <data name="MC_ImageExtractionFailed" xml:space="preserve">
     <value>[x]image cannot be extracted from the video.</value>
   </data>
-  <data name="MC_NotIncludeInModule" xml:space="preserve" translate="no">
+  <data name="MC_NotIncludeInModule" xml:space="preserve">
     <value>(Not included in module)</value>
   </data>
-  <data name="MC_RemovedFieldsList" xml:space="preserve" translate="no">
+  <data name="MC_RemovedFieldsList" xml:space="preserve">
     <value>Removed the following fields:</value>
   </data>
-  <data name="MC_RemovedIconsList" xml:space="preserve" translate="no">
+  <data name="MC_RemovedIconsList" xml:space="preserve">
     <value>Deleted the following icons:</value>
   </data>
-  <data name="MC_RemovedLabels" xml:space="preserve" translate="no">
+  <data name="MC_RemovedLabels" xml:space="preserve">
     <value>Removed labels</value>
   </data>
-  <data name="MC_RemovedLabelsList" xml:space="preserve" translate="no">
+  <data name="MC_RemovedLabelsList" xml:space="preserve">
     <value>Deleted the following labels:</value>
   </data>
-  <data name="MC_RemovedLanguagesList" xml:space="preserve" translate="no">
+  <data name="MC_RemovedLanguagesList" xml:space="preserve">
     <value>The following languages will be removed:</value>
   </data>
-  <data name="MC_RemovedObjects" xml:space="preserve" translate="no">
+  <data name="MC_RemovedObjects" xml:space="preserve">
     <value>Removed objects</value>
   </data>
-  <data name="MC_RemovedReferenceFields" xml:space="preserve" translate="no">
+  <data name="MC_RemovedReferenceFields" xml:space="preserve">
     <value>Removed reference fields</value>
   </data>
-  <data name="MC_SuccessLowerCase" xml:space="preserve" translate="no">
+  <data name="MC_SuccessLowerCase" xml:space="preserve">
     <value>success</value>
   </data>
-  <data name="MC_ThumbUnknownError" xml:space="preserve" translate="no">
+  <data name="MC_ThumbUnknownError" xml:space="preserve">
     <value>[x]an unknown error occurred.</value>
   </data>
-  <data name="MC_UnRemovedFieldsList" xml:space="preserve" translate="no">
+  <data name="MC_UnRemovedFieldsList" xml:space="preserve">
     <value>Failed to remove the following fields:</value>
   </data>
-  <data name="MC_UnRemovedIconsList" xml:space="preserve" translate="no">
+  <data name="MC_UnRemovedIconsList" xml:space="preserve">
     <value>Failed to delete the following icons:</value>
   </data>
-  <data name="MC_UnRemovedLabelsList" xml:space="preserve" translate="no">
+  <data name="MC_UnRemovedLabelsList" xml:space="preserve">
     <value>Failed to delete the following labels:</value>
   </data>
-  <data name="MC_UnRemovedLanguagesList" xml:space="preserve" translate="no">
+  <data name="MC_UnRemovedLanguagesList" xml:space="preserve">
     <value>Failed to remove the following languages:</value>
   </data>
-  <data name="MC_VideoDownloadFail" xml:space="preserve" translate="no">
+  <data name="MC_VideoDownloadFail" xml:space="preserve">
     <value>a network error caused the video download to fail.</value>
   </data>
-  <data name="MC_VideoNotLoaded" xml:space="preserve" translate="no">
+  <data name="MC_VideoNotLoaded" xml:space="preserve">
     <value>the video could not be loaded, either because the server or network failed or because the format is not supported.</value>
   </data>
-  <data name="MC_VideoPlaybackAborted" xml:space="preserve" translate="no">
+  <data name="MC_VideoPlaybackAborted" xml:space="preserve">
     <value>the video playback was aborted due to a corruption problem or because the video uses features your browser does not support.</value>
   </data>
-  <data name="MC_VideoUnknownError" xml:space="preserve" translate="no">
+  <data name="MC_VideoUnknownError" xml:space="preserve">
     <value>an unknown error occurred.</value>
   </data>
-  <data name="MC_AddAction" xml:space="preserve" translate="no">
+  <data name="MC_AddAction" xml:space="preserve">
     <value>Add action</value>
   </data>
-  <data name="MC_EmailSettings" xml:space="preserve" translate="no">
+  <data name="MC_EmailSettings" xml:space="preserve">
     <value>Email settings</value>
   </data>
-  <data name="MC_Read" xml:space="preserve" translate="no">
+  <data name="MC_Read" xml:space="preserve">
     <value>Read</value>
   </data>
-  <data name="MC_TaskDetaiObjects" xml:space="preserve" translate="no">
+  <data name="MC_TaskDetaiObjects" xml:space="preserve">
     <value>objects</value>
   </data>
-  <data name="MC_TestConnection" xml:space="preserve" translate="no">
+  <data name="MC_TestConnection" xml:space="preserve">
     <value>Test connection</value>
   </data>
-  <data name="MC_Write" xml:space="preserve" translate="no">
+  <data name="MC_Write" xml:space="preserve">
     <value>Write</value>
   </data>
-  <data name="MC_MailSettingsHelp" xml:space="preserve" translate="no">
+  <data name="MC_MailSettingsHelp" xml:space="preserve">
     <value>&lt;b&gt;The following macro’s are available:&lt;/b&gt;
                 &lt;br&gt;&lt;br&gt;
                 &lt;table props="allow_pagebreak"&gt;
@@ -3126,274 +3123,274 @@
 	&lt;/TR&gt;
 &lt;/table&gt;</value>
   </data>
-  <data name="MC_ErrorAndWarning" xml:space="preserve" translate="no">
+  <data name="MC_ErrorAndWarning" xml:space="preserve">
     <value>Error and warning</value>
   </data>
-  <data name="MC_NotImplemented" xml:space="preserve" translate="no">
+  <data name="MC_NotImplemented" xml:space="preserve">
     <value>Not implemented</value>
   </data>
-  <data name="MC_Expires" xml:space="preserve" translate="no">
+  <data name="MC_Expires" xml:space="preserve">
     <value>Expires</value>
   </data>
-  <data name="MC_LicensedFor" xml:space="preserve" translate="no">
+  <data name="MC_LicensedFor" xml:space="preserve">
     <value>Licensed for</value>
   </data>
-  <data name="MC_ModelShortName" xml:space="preserve" translate="no">
+  <data name="MC_ModelShortName" xml:space="preserve">
     <value>Model short name</value>
   </data>
-  <data name="MC_NoData" xml:space="preserve" translate="no">
+  <data name="MC_NoData" xml:space="preserve">
     <value>no data</value>
   </data>
-  <data name="MC_Reload" xml:space="preserve" translate="no">
+  <data name="MC_Reload" xml:space="preserve">
     <value>Reload</value>
   </data>
-  <data name="MC_Validation_TaskActionRequired" xml:space="preserve" translate="no">
+  <data name="MC_Validation_TaskActionRequired" xml:space="preserve">
     <value>The task must contain at least one action.</value>
   </data>
-  <data name="MC_Validation_Accept" xml:space="preserve" translate="no">
+  <data name="MC_Validation_Accept" xml:space="preserve">
     <value>Please enter a value with a valid MIME type.</value>
   </data>
-  <data name="MC_Validation_AgentUrl" xml:space="preserve" translate="no">
+  <data name="MC_Validation_AgentUrl" xml:space="preserve">
     <value>Please enter a valid URL.</value>
   </data>
-  <data name="MC_Validation_AngleDisplay" xml:space="preserve" translate="no">
+  <data name="MC_Validation_AngleDisplay" xml:space="preserve">
     <value>Invalid Angle or Display URL.</value>
   </data>
-  <data name="MC_Validation_DateITA" xml:space="preserve" translate="no">
+  <data name="MC_Validation_DateITA" xml:space="preserve">
     <value>Please enter a correct date</value>
   </data>
-  <data name="MC_Validation_DateLocalized" xml:space="preserve" translate="no">
+  <data name="MC_Validation_DateLocalized" xml:space="preserve">
     <value>Please enter a correct date</value>
   </data>
-  <data name="MC_Validation_DateNL" xml:space="preserve" translate="no">
+  <data name="MC_Validation_DateNL" xml:space="preserve">
     <value>Please enter a correct date</value>
   </data>
-  <data name="MC_Validation_Email" xml:space="preserve" translate="no">
+  <data name="MC_Validation_Email" xml:space="preserve">
     <value>Please enter a valid email address</value>
   </data>
-  <data name="MC_Validation_FieldId" xml:space="preserve" translate="no">
+  <data name="MC_Validation_FieldId" xml:space="preserve">
     <value>ID must start with a-z, A-Z and should contain only a-z, A-Z, 0-9, and '_'</value>
   </data>
-  <data name="MC_Validation_IsAnsi" xml:space="preserve" translate="no">
+  <data name="MC_Validation_IsAnsi" xml:space="preserve">
     <value>Please enter ANSI characters</value>
   </data>
-  <data name="MC_Validation_Packagename" xml:space="preserve" translate="no">
+  <data name="MC_Validation_Packagename" xml:space="preserve">
     <value>A valid package name should be &amp;lt;source&amp;gt;-&amp;lt;name&amp;gt;-&amp;lt;version&amp;gt;.eapackage</value>
   </data>
-  <data name="MC_Validation_Pattern" xml:space="preserve" translate="no">
+  <data name="MC_Validation_Pattern" xml:space="preserve">
     <value>Invalid format</value>
   </data>
-  <data name="MC_Validation_PhoneNumber" xml:space="preserve" translate="no">
+  <data name="MC_Validation_PhoneNumber" xml:space="preserve">
     <value>Please enter a valid phone number</value>
   </data>
-  <data name="MC_Validation_RequiredDefaultRoles" xml:space="preserve" translate="no">
+  <data name="MC_Validation_RequiredDefaultRoles" xml:space="preserve">
     <value>Please select default roles</value>
   </data>
-  <data name="MC_Validation_RequireFromGroup" xml:space="preserve" translate="no">
+  <data name="MC_Validation_RequireFromGroup" xml:space="preserve">
     <value>Please fill at least {0} of these fields.</value>
   </data>
-  <data name="MC_Validation_SkipOrFillMinimum" xml:space="preserve" translate="no">
+  <data name="MC_Validation_SkipOrFillMinimum" xml:space="preserve">
     <value>Please either skip these fields or fill at least {0} of them.</value>
   </data>
-  <data name="MC_Validation_Time" xml:space="preserve" translate="no">
+  <data name="MC_Validation_Time" xml:space="preserve">
     <value>Please enter a valid time, between 00:00 and 23:59</value>
   </data>
-  <data name="MC_Validation_Time12h" xml:space="preserve" translate="no">
+  <data name="MC_Validation_Time12h" xml:space="preserve">
     <value>Please enter a valid time in 12-hour am/pm format</value>
   </data>
-  <data name="MC_Validation_TimeMinute" xml:space="preserve" translate="no">
+  <data name="MC_Validation_TimeMinute" xml:space="preserve">
     <value>Please enter a valid time, between 00:00 and 00:59</value>
   </data>
-  <data name="MC_Validation_ValidActionEmail" xml:space="preserve" translate="no">
+  <data name="MC_Validation_ValidActionEmail" xml:space="preserve">
     <value>Please complete this email notification.</value>
   </data>
-  <data name="MC_Validation_ValidDefaultPageSize" xml:space="preserve" translate="no">
+  <data name="MC_Validation_ValidDefaultPageSize" xml:space="preserve">
     <value>Default page size must be equal or less than the maximum page size.</value>
   </data>
-  <data name="MC_Privileges" xml:space="preserve" translate="no">
+  <data name="MC_Privileges" xml:space="preserve">
     <value>Privileges</value>
   </data>
   <data name="MessageModelIsNotAvailable" xml:space="preserve">
     <value>L'Instance {0} est actuellement indisponible (statut : {1}). Veuillez réessayer plus tard.</value>
   </data>
-  <data name="MC_AddRoles" xml:space="preserve" translate="no">
+  <data name="MC_AddRoles" xml:space="preserve">
     <value>Add roles</value>
   </data>
-  <data name="MC_ImportNewUsers" xml:space="preserve" translate="no">
+  <data name="MC_ImportNewUsers" xml:space="preserve">
     <value>Import new users</value>
   </data>
-  <data name="MC_MassChangeUsers" xml:space="preserve" translate="no">
+  <data name="MC_MassChangeUsers" xml:space="preserve">
     <value>Mass change</value>
   </data>
-  <data name="MC_RemoveRoles" xml:space="preserve" translate="no">
+  <data name="MC_RemoveRoles" xml:space="preserve">
     <value>Remove roles</value>
   </data>
-  <data name="MC_SetRoles" xml:space="preserve" translate="no">
+  <data name="MC_SetRoles" xml:space="preserve">
     <value>Set roles</value>
   </data>
-  <data name="MC_ImportUsersFailAddRoles" xml:space="preserve" translate="no">
+  <data name="MC_ImportUsersFailAddRoles" xml:space="preserve">
     <value>User has been created but no the roles were assigned.</value>
   </data>
-  <data name="MC_AddingUser" xml:space="preserve" translate="no">
+  <data name="MC_AddingUser" xml:space="preserve">
     <value>Adding user</value>
   </data>
-  <data name="MC_AddUserReportTitle" xml:space="preserve" translate="no">
+  <data name="MC_AddUserReportTitle" xml:space="preserve">
     <value>Add users report</value>
   </data>
   <data name="Info_WarningSelectExistingDashboard" xml:space="preserve">
     <value>Veuillez sélectionner un Dashboard</value>
   </data>
-  <data name="MC_MassChangeReport" xml:space="preserve" translate="no">
+  <data name="MC_MassChangeReport" xml:space="preserve">
     <value>Mass change report</value>
   </data>
-  <data name="MC_Errors" xml:space="preserve" translate="no">
+  <data name="MC_Errors" xml:space="preserve">
     <value>Errors</value>
   </data>
-  <data name="MC_LicensedIPAddress" xml:space="preserve" translate="no">
+  <data name="MC_LicensedIPAddress" xml:space="preserve">
     <value>Licensed IP address</value>
   </data>
-  <data name="MC_ServiceAgreement" xml:space="preserve" translate="no">
+  <data name="MC_ServiceAgreement" xml:space="preserve">
     <value>Service agreement</value>
   </data>
-  <data name="MC_AddUser" xml:space="preserve" translate="no">
+  <data name="MC_AddUser" xml:space="preserve">
     <value>Add user</value>
   </data>
-  <data name="MC_AllModels" xml:space="preserve" translate="no">
+  <data name="MC_AllModels" xml:space="preserve">
     <value>All models</value>
   </data>
-  <data name="MC_AllUsers" xml:space="preserve" translate="no">
+  <data name="MC_AllUsers" xml:space="preserve">
     <value>All users</value>
   </data>
-  <data name="MC_BusinessProcesses" xml:space="preserve" translate="no">
+  <data name="MC_BusinessProcesses" xml:space="preserve">
     <value>Business Processes</value>
   </data>
-  <data name="MC_Communications" xml:space="preserve" translate="no">
+  <data name="MC_Communications" xml:space="preserve">
     <value>Communications</value>
   </data>
-  <data name="MC_CreateDatastore" xml:space="preserve" translate="no">
+  <data name="MC_CreateDatastore" xml:space="preserve">
     <value>Create datastore</value>
   </data>
-  <data name="MC_CreateNewLabelCategory" xml:space="preserve" translate="no">
+  <data name="MC_CreateNewLabelCategory" xml:space="preserve">
     <value>Create new label category</value>
   </data>
-  <data name="MC_CreateNewModel" xml:space="preserve" translate="no">
+  <data name="MC_CreateNewModel" xml:space="preserve">
     <value>Create new model</value>
   </data>
-  <data name="MC_CreateNewRole" xml:space="preserve" translate="no">
+  <data name="MC_CreateNewRole" xml:space="preserve">
     <value>Create new role</value>
   </data>
-  <data name="MC_CreateNewSystemRole" xml:space="preserve" translate="no">
+  <data name="MC_CreateNewSystemRole" xml:space="preserve">
     <value>Create new system role</value>
   </data>
-  <data name="MC_CreateObject" xml:space="preserve" translate="no">
+  <data name="MC_CreateObject" xml:space="preserve">
     <value>Create object</value>
   </data>
-  <data name="MC_CreateTask" xml:space="preserve" translate="no">
+  <data name="MC_CreateTask" xml:space="preserve">
     <value>Create task</value>
   </data>
-  <data name="MC_CustomIcons" xml:space="preserve" translate="no">
+  <data name="MC_CustomIcons" xml:space="preserve">
     <value>Custom icons</value>
   </data>
-  <data name="MC_EAXtractor" xml:space="preserve" translate="no">
+  <data name="MC_EAXtractor" xml:space="preserve">
     <value>EA ETL Sandbox</value>
   </data>
-  <data name="MC_EditDatastore" xml:space="preserve" translate="no">
+  <data name="MC_EditDatastore" xml:space="preserve">
     <value>Edit datastore</value>
   </data>
-  <data name="MC_EditLabelCategory" xml:space="preserve" translate="no">
+  <data name="MC_EditLabelCategory" xml:space="preserve">
     <value>Edit label category</value>
   </data>
-  <data name="MC_EditModel" xml:space="preserve" translate="no">
+  <data name="MC_EditModel" xml:space="preserve">
     <value>Edit model</value>
   </data>
-  <data name="MC_EditObject" xml:space="preserve" translate="no">
+  <data name="MC_EditObject" xml:space="preserve">
     <value>Edit object</value>
   </data>
-  <data name="MC_EditRole" xml:space="preserve" translate="no">
+  <data name="MC_EditRole" xml:space="preserve">
     <value>Edit role</value>
   </data>
-  <data name="MC_EditSystemRole" xml:space="preserve" translate="no">
+  <data name="MC_EditSystemRole" xml:space="preserve">
     <value>Edit system role</value>
   </data>
-  <data name="MC_EditTask" xml:space="preserve" translate="no">
+  <data name="MC_EditTask" xml:space="preserve">
     <value>Edit task</value>
   </data>
-  <data name="MC_EditUser" xml:space="preserve" translate="no">
+  <data name="MC_EditUser" xml:space="preserve">
     <value>Edit user</value>
   </data>
-  <data name="MC_GlobalSettings" xml:space="preserve" translate="no">
+  <data name="MC_GlobalSettings" xml:space="preserve">
     <value>Global settings</value>
   </data>
-  <data name="MC_LabelCategories" xml:space="preserve" translate="no">
+  <data name="MC_LabelCategories" xml:space="preserve">
     <value>Label categories</value>
   </data>
-  <data name="MC_Languages" xml:space="preserve" translate="no">
+  <data name="MC_Languages" xml:space="preserve">
     <value>Languages</value>
   </data>
-  <data name="MC_License" xml:space="preserve" translate="no">
+  <data name="MC_License" xml:space="preserve">
     <value>License</value>
   </data>
-  <data name="MC_ModelServers" xml:space="preserve" translate="no">
+  <data name="MC_ModelServers" xml:space="preserve">
     <value>Model servers</value>
   </data>
-  <data name="MC_Modules" xml:space="preserve" translate="no">
+  <data name="MC_Modules" xml:space="preserve">
     <value>Modules</value>
   </data>
-  <data name="MC_Overview" xml:space="preserve" translate="no">
+  <data name="MC_Overview" xml:space="preserve">
     <value>Overview</value>
   </data>
-  <data name="MC_Packages" xml:space="preserve" translate="no">
+  <data name="MC_Packages" xml:space="preserve">
     <value>Packages</value>
   </data>
-  <data name="MC_RefreshCycle" xml:space="preserve" translate="no">
+  <data name="MC_RefreshCycle" xml:space="preserve">
     <value>Refresh cycle</value>
   </data>
-  <data name="MC_Roles" xml:space="preserve" translate="no">
+  <data name="MC_Roles" xml:space="preserve">
     <value>Roles</value>
   </data>
-  <data name="MC_RolesSettings" xml:space="preserve" translate="no">
+  <data name="MC_RolesSettings" xml:space="preserve">
     <value>Role settings</value>
   </data>
-  <data name="MC_SystemLog" xml:space="preserve" translate="no">
+  <data name="MC_SystemLog" xml:space="preserve">
     <value>System log</value>
   </data>
-  <data name="MC_SystemRoles" xml:space="preserve" translate="no">
+  <data name="MC_SystemRoles" xml:space="preserve">
     <value>System roles</value>
   </data>
-  <data name="MC_SystemSettings" xml:space="preserve" translate="no">
+  <data name="MC_SystemSettings" xml:space="preserve">
     <value>System settings</value>
   </data>
-  <data name="MC_Tasks" xml:space="preserve" translate="no">
+  <data name="MC_Tasks" xml:space="preserve">
     <value>Tasks</value>
   </data>
-  <data name="MC_UserDefaults" xml:space="preserve" translate="no">
+  <data name="MC_UserDefaults" xml:space="preserve">
     <value>User defaults</value>
   </data>
-  <data name="MC_UsersUpperCase" xml:space="preserve" translate="no">
+  <data name="MC_UsersUpperCase" xml:space="preserve">
     <value>Users</value>
   </data>
-  <data name="MC_WebServerSettings" xml:space="preserve" translate="no">
+  <data name="MC_WebServerSettings" xml:space="preserve">
     <value>Web Server settings</value>
   </data>
-  <data name="MC_WelcomePage" xml:space="preserve" translate="no">
+  <data name="MC_WelcomePage" xml:space="preserve">
     <value>Welcome page</value>
   </data>
-  <data name="MC_Info_TestConnectionSuccess" xml:space="preserve" translate="no">
+  <data name="MC_Info_TestConnectionSuccess" xml:space="preserve">
     <value>A connection was successfully established</value>
   </data>
-  <data name="MC_Volume" xml:space="preserve" translate="no">
+  <data name="MC_Volume" xml:space="preserve">
     <value>Volume</value>
   </data>
   <data name="Info_ChartCanHaveOnlyOneFieldInCategories" xml:space="preserve">
     <value>Les zones de catégories et de séries ne peuvent contenir qu'un seul champ chacune.</value>
   </data>
-  <data name="MC_LicensedExpiredOn" xml:space="preserve" translate="no">
+  <data name="MC_LicensedExpiredOn" xml:space="preserve">
     <value>License expired on</value>
   </data>
-  <data name="MC_LicensedUntil" xml:space="preserve" translate="no">
+  <data name="MC_LicensedUntil" xml:space="preserve">
     <value>Licensed until</value>
   </data>
-  <data name="MC_Unlicensed" xml:space="preserve" translate="no">
+  <data name="MC_Unlicensed" xml:space="preserve">
     <value>Unlicensed</value>
   </data>
   <data name="WarningCategoriesOrSeriesInChartHadMoreThanOne" xml:space="preserve">
@@ -3414,22 +3411,22 @@
   <data name="Info_ListDisplaysDeletedWhileProcess" xml:space="preserve">
     <value>Les Displays suivants ont échoué au cours du traitement</value>
   </data>
-  <data name="MC_SystemLog_AppServer" xml:space="preserve" translate="no">
+  <data name="MC_SystemLog_AppServer" xml:space="preserve">
     <value>Application Server</value>
   </data>
-  <data name="MC_SystemLog_ManagementConsole" xml:space="preserve" translate="no">
+  <data name="MC_SystemLog_ManagementConsole" xml:space="preserve">
     <value>Management Console</value>
   </data>
-  <data name="MC_SystemLog_WebClient" xml:space="preserve" translate="no">
+  <data name="MC_SystemLog_WebClient" xml:space="preserve">
     <value>Web Client</value>
   </data>
-  <data name="MC_LogFile" xml:space="preserve" translate="no">
+  <data name="MC_LogFile" xml:space="preserve">
     <value>Logfile</value>
   </data>
-  <data name="MC_LogSize" xml:space="preserve" translate="no">
+  <data name="MC_LogSize" xml:space="preserve">
     <value>Size</value>
   </data>
-  <data name="MC_LogTimestamp" xml:space="preserve" translate="no">
+  <data name="MC_LogTimestamp" xml:space="preserve">
     <value>Timestamp</value>
   </data>
   <data name="AngleDefinitionAreaMin" xml:space="preserve">
@@ -3441,7 +3438,7 @@
   <data name="Download" xml:space="preserve">
     <value>Téléchargement</value>
   </data>
-  <data name="MC_UsersCount" xml:space="preserve" translate="no">
+  <data name="MC_UsersCount" xml:space="preserve">
     <value>Users count</value>
   </data>
   <data name="NameAsShowInPivot" xml:space="preserve">
@@ -3456,10 +3453,10 @@
   <data name="ErrorAllowMoreDetailsAllowFollowupsWithUnsaveDisplay" xml:space="preserve">
     <value>Votre Display contient des modifications non sauvegardées. Si vous appliquez ce paramètre, ces modifications ne pourront plus être enregistrées.</value>
   </data>
-  <data name="MC_Arguments" xml:space="preserve" translate="no">
+  <data name="MC_Arguments" xml:space="preserve">
     <value>Arguments</value>
   </data>
-  <data name="MC_Report" xml:space="preserve" translate="no">
+  <data name="MC_Report" xml:space="preserve">
     <value>Report</value>
   </data>
   <data name="ExportCSVEnumFormatShortName" xml:space="preserve">
@@ -3468,10 +3465,10 @@
   <data name="ExportCSVEnumFormatDisplay" xml:space="preserve">
     <value>Display</value>
   </data>
-  <data name="MC_Edit_Models" xml:space="preserve" translate="no">
+  <data name="MC_Edit_Models" xml:space="preserve">
     <value>Edit models</value>
   </data>
-  <data name="MC_Setup_New_Model" xml:space="preserve" translate="no">
+  <data name="MC_Setup_New_Model" xml:space="preserve">
     <value>Setup a new model</value>
   </data>
   <data name="ValidateExportExcel_SpecialCharacter" xml:space="preserve">
@@ -3489,10 +3486,10 @@
   <data name="ValidationForRequired" xml:space="preserve">
     <value>{0} est requis</value>
   </data>
-  <data name="MC_Details" xml:space="preserve" translate="no">
+  <data name="MC_Details" xml:space="preserve">
     <value>Details</value>
   </data>
-  <data name="MC_Validation_Attached_Comment" xml:space="preserve" translate="no">
+  <data name="MC_Validation_Attached_Comment" xml:space="preserve">
     <value>Only the following extension types are allowed: .eapackage .bmp .csl .doc .docx .gif .htm .html .jpeg .jpg .pdf .png .txt .xls .xlsx .zip</value>
   </data>
   <data name="MaxNumberToExportThePackage" xml:space="preserve">
@@ -3528,7 +3525,7 @@
   <data name="AngleDefinitionAreaObjects" xml:space="preserve">
     <value>Objets</value>
   </data>
-  <data name="MC_EventLog" xml:space="preserve" translate="no">
+  <data name="MC_EventLog" xml:space="preserve">
     <value>Event log</value>
   </data>
   <data name="DefaultFilterSuggestedStarred" xml:space="preserve">
@@ -3540,7 +3537,7 @@
   <data name="DefaultSuggestedfieldsLabel" xml:space="preserve">
     <value>Champs suggérés</value>
   </data>
-  <data name="MC_PackagesHistory" xml:space="preserve" translate="no">
+  <data name="MC_PackagesHistory" xml:space="preserve">
     <value>Packages history</value>
   </data>
   <data name="ProgressBar_ApplyDashboardDetails" xml:space="preserve">
@@ -3660,13 +3657,13 @@
   <data name="Info_AngleNotExecuted" xml:space="preserve">
     <value>L'Angle n'est pas exécuté</value>
   </data>
-  <data name="MC_ConfirmAddModel" xml:space="preserve" translate="no">
+  <data name="MC_ConfirmAddModel" xml:space="preserve">
     <value>After adding a new model, you will be logged out and need to login again. Continue adding model '{0}'?</value>
   </data>
-  <data name="MC_ConfirmChangePrivileges" xml:space="preserve" translate="no">
+  <data name="MC_ConfirmChangePrivileges" xml:space="preserve">
     <value>The last update has changed your privileges. Do you want to login again to update your privileges?</value>
   </data>
-  <data name="MC_DeleteModel" xml:space="preserve" translate="no">
+  <data name="MC_DeleteModel" xml:space="preserve">
     <value>Delete model {0} ({1}) will terminate all active sessions. All users need to login again to update the existing models.
 Deleting this model will also delete all {2} Angles and {3} Dashboards created for this model and logout all {4} active user(s).
 Are you sure you want to delete this model?</value>
@@ -3674,51 +3671,51 @@ Are you sure you want to delete this model?</value>
   <data name="AddToNewAngle" xml:space="preserve">
     <value>Ajouter à nouvel Angle</value>
   </data>
-  <data name="MC_AddComment" xml:space="preserve" translate="no">
+  <data name="MC_AddComment" xml:space="preserve">
     <value>Add comment</value>
   </data>
-  <data name="MC_EnterTextHere" xml:space="preserve" translate="no">
+  <data name="MC_EnterTextHere" xml:space="preserve">
     <value>Enter text here...</value>
   </data>
-  <data name="MC_NoComments" xml:space="preserve" translate="no">
+  <data name="MC_NoComments" xml:space="preserve">
     <value>No comment yet</value>
   </data>
-  <data name="MC_SuggestedFields" xml:space="preserve" translate="no">
+  <data name="MC_SuggestedFields" xml:space="preserve">
     <value>Suggested fields</value>
   </data>
-  <data name="MC_ClearAllSuggestedFields" xml:space="preserve" translate="no">
+  <data name="MC_ClearAllSuggestedFields" xml:space="preserve">
     <value>Clear all suggested {0} fields</value>
   </data>
-  <data name="MC_ClearAllSuggestedFields_Description" xml:space="preserve" translate="no">
+  <data name="MC_ClearAllSuggestedFields_Description" xml:space="preserve">
     <value>This option clears the list of suggested fields for one or more objects.</value>
   </data>
-  <data name="MC_ManageSuggestedFieldsObjects" xml:space="preserve" translate="no">
+  <data name="MC_ManageSuggestedFieldsObjects" xml:space="preserve">
     <value>Manage suggested fields for objects</value>
   </data>
-  <data name="MC_ManageSuggestedFieldsObjects_Description" xml:space="preserve" translate="no">
+  <data name="MC_ManageSuggestedFieldsObjects_Description" xml:space="preserve">
     <value>There are thousands of fields available to be used in Angles. To help users choose from this set the most interesting fields for different objects can be selected.
             These fields are marked as a "Suggested field". Suggested fields are visible for users to select or deselect from their Angles and Displays.
             There are four available options to set suggested fields for objects:</value>
   </data>
-  <data name="MC_SetAllDefaultTemplateFieldsToSuggested" xml:space="preserve" translate="no">
+  <data name="MC_SetAllDefaultTemplateFieldsToSuggested" xml:space="preserve">
     <value>Set all default Template fields to suggested {0}</value>
   </data>
-  <data name="MC_SetAllDefaultTemplateFieldsToSuggested_Description" xml:space="preserve" translate="no">
+  <data name="MC_SetAllDefaultTemplateFieldsToSuggested_Description" xml:space="preserve">
     <value>The default Template creates a number of default Displays and Filters when creating a new Angle by selecting an object from the object list. By selecting this option for one or more objects the suggested fields are limited to all fields present in these default Displays and Filters of that object.</value>
   </data>
-  <data name="MC_SetDefaultBasicListFieldsToSuggested" xml:space="preserve" translate="no">
+  <data name="MC_SetDefaultBasicListFieldsToSuggested" xml:space="preserve">
     <value>Set default Basic List fields to suggested {0}</value>
   </data>
-  <data name="MC_SetDefaultBasicListFieldsToSuggested_Description" xml:space="preserve" translate="no">
+  <data name="MC_SetDefaultBasicListFieldsToSuggested_Description" xml:space="preserve">
     <value>The default Template creates a Basic List Display when a new Angle is created by selecting an object from the object list. By selecting this option for one or more objects the suggested fields are limited to all fields present in this default Basic List of that object.</value>
   </data>
-  <data name="MC_SetFields" xml:space="preserve" translate="no">
+  <data name="MC_SetFields" xml:space="preserve">
     <value>Set fields</value>
   </data>
-  <data name="MC_SetSuggestedFieldsForSingleObject" xml:space="preserve" translate="no">
+  <data name="MC_SetSuggestedFieldsForSingleObject" xml:space="preserve">
     <value>Set suggested {0} fields for single object</value>
   </data>
-  <data name="MC_SetSuggestedFieldsForSingleObject_Description" xml:space="preserve" translate="no">
+  <data name="MC_SetSuggestedFieldsForSingleObject_Description" xml:space="preserve">
     <value>This option sets the suggested fields for a single object. Individual fields can be selected and set to suggested fields for any chosen object.</value>
   </data>
   <data name="FormatSettingDisplayUnits" xml:space="preserve">
@@ -3733,87 +3730,87 @@ Are you sure you want to delete this model?</value>
   <data name="FormatSettingDisplayUnitsThousands" xml:space="preserve">
     <value>Milliers (K)</value>
   </data>
-  <data name="MC_GeneralInformation" xml:space="preserve" translate="no">
+  <data name="MC_GeneralInformation" xml:space="preserve">
     <value>General information</value>
   </data>
-  <data name="MC_NumberOfObjectsHavingSugggestedFields" xml:space="preserve" translate="no">
+  <data name="MC_NumberOfObjectsHavingSugggestedFields" xml:space="preserve">
     <value>Number of objects that have suggested fields:</value>
   </data>
-  <data name="MC_NumberOfObjectsWithoutSuggestedFields" xml:space="preserve" translate="no">
+  <data name="MC_NumberOfObjectsWithoutSuggestedFields" xml:space="preserve">
     <value>Number of objects that do not have suggested fields:</value>
   </data>
-  <data name="MC_SuggestedFieldsSettingsLastChanged" xml:space="preserve" translate="no">
+  <data name="MC_SuggestedFieldsSettingsLastChanged" xml:space="preserve">
     <value>Suggested fields settings last changed:</value>
   </data>
-  <data name="MC_TotalNumberOfSuggestedFields" xml:space="preserve" translate="no">
+  <data name="MC_TotalNumberOfSuggestedFields" xml:space="preserve">
     <value>Total number of suggested fields in the model:</value>
   </data>
-  <data name="MC_DeleteRole" xml:space="preserve" translate="no">
+  <data name="MC_DeleteRole" xml:space="preserve">
     <value>Delete role {0} ({1}) will effect the current user session. There are {2} user(s) that have this role assigned.
 Are you sure you want to delete this role?</value>
   </data>
   <data name="AddNote" xml:space="preserve">
     <value>Ajouter remarque</value>
   </data>
-  <data name="MC_Continue" xml:space="preserve" translate="no">
+  <data name="MC_Continue" xml:space="preserve">
     <value>Continue</value>
   </data>
-  <data name="MC_SetAllTemplateFieldsToSuggested" xml:space="preserve" translate="no">
+  <data name="MC_SetAllTemplateFieldsToSuggested" xml:space="preserve">
     <value>Set all Template fields to suggested {0}</value>
   </data>
-  <data name="MC_SetAllTemplateFieldsToSuggested_Description" xml:space="preserve" translate="no">
+  <data name="MC_SetAllTemplateFieldsToSuggested_Description" xml:space="preserve">
     <value>All existing Templates contain multiple Displays and Filters. By selecting this option for one or more objects the suggested fields are limited to all fields used in any related Template for that object.</value>
   </data>
   <data name="AlertWarningCreatePopup" xml:space="preserve">
     <value>Vous avez sélectionné plus d'un objet à utiliser dans votre Angle. Ceci est susceptible d'entraîner des résultats non désirés, et n'est en général pas nécessaire.</value>
   </data>
-  <data name="MC_SetDefaultBasicFieldsToSuggestedForObject" xml:space="preserve" translate="no">
+  <data name="MC_SetDefaultBasicFieldsToSuggestedForObject" xml:space="preserve">
     <value>Set default basic fields to suggested {0} for the following objects:</value>
   </data>
-  <data name="MC_ClearAllSuggestedFieldsForObject" xml:space="preserve" translate="no">
+  <data name="MC_ClearAllSuggestedFieldsForObject" xml:space="preserve">
     <value>Clear all suggested {0} fields for the following objects:</value>
   </data>
-  <data name="MC_SetAllDefaultTemplateFieldsToSuggestedConfirm" xml:space="preserve" translate="no">
+  <data name="MC_SetAllDefaultTemplateFieldsToSuggestedConfirm" xml:space="preserve">
     <value>All Displays and Filters in all existing Templates will be set to suggested.</value>
   </data>
-  <data name="MC_SetAllDefaultTemplateFieldsToSuggesteForObject" xml:space="preserve" translate="no">
+  <data name="MC_SetAllDefaultTemplateFieldsToSuggesteForObject" xml:space="preserve">
     <value>Set all default Template fields to suggested {0} for the following objects:</value>
   </data>
-  <data name="MC_SetAllTemplateFieldsToSuggesteForObject" xml:space="preserve" translate="no">
+  <data name="MC_SetAllTemplateFieldsToSuggesteForObject" xml:space="preserve">
     <value>Set all Template fields to suggested {0} for the following objects:</value>
   </data>
-  <data name="MC_SetDefaultBasicListFieldsToSuggestedForObject" xml:space="preserve" translate="no">
+  <data name="MC_SetDefaultBasicListFieldsToSuggestedForObject" xml:space="preserve">
     <value>Set default Basic List fields to suggested {0} for the following objects:</value>
   </data>
-  <data name="MC_SetSuggestedFieldsForObject" xml:space="preserve" translate="no">
+  <data name="MC_SetSuggestedFieldsForObject" xml:space="preserve">
     <value>Set suggested {0} fields for object</value>
   </data>
-  <data name="MC_CommentPlaceHolder" xml:space="preserve" translate="no">
+  <data name="MC_CommentPlaceHolder" xml:space="preserve">
     <value>Enter your comment here...</value>
   </data>
-  <data name="MC_SingleObject_Instruction" xml:space="preserve" translate="no">
+  <data name="MC_SingleObject_Instruction" xml:space="preserve">
     <value>&lt;h3&gt;Instruction&lt;/h3&gt;&lt;p&gt;Select an object in the list by clicking its checkbox. &lt;br&gt;&lt;br&gt;
 After selecting an object, click the Continue button to start setting the suggested fields for the selected object in the next window.&lt;/p&gt;</value>
   </data>
-  <data name="MC_SelectTheObjects" xml:space="preserve" translate="no">
+  <data name="MC_SelectTheObjects" xml:space="preserve">
     <value>&lt;h3&gt;Instruction&lt;/h3&gt;&lt;p&gt;Select the object(s) in the list for which all fields from the Basic List Display in the object list Template should be set to suggested. You can select objects by clicking their checkboxes. &lt;br&gt;&lt;br&gt;When you have selected the objects, click the Continue button for review.&lt;/p&gt;</value>
   </data>
-  <data name="MC_BasicList_Instruction" xml:space="preserve" translate="no">
+  <data name="MC_BasicList_Instruction" xml:space="preserve">
     <value>&lt;h3&gt;Instruction&lt;/h3&gt;&lt;p&gt;Select the objects in the list for which all fields from the Basic List Display in the object list Template should be set to suggested. You can select objects by clicking their checkboxes. &lt;br&gt;&lt;br&gt;When you have selected the objects, click the Continue button for review.&lt;/p&gt;</value>
   </data>
-  <data name="MC_ClearAll_Instruction" xml:space="preserve" translate="no">
+  <data name="MC_ClearAll_Instruction" xml:space="preserve">
     <value>&lt;h3&gt;Instruction&lt;/h3&gt;&lt;p&gt;Select the object(s) in the list for which the suggested fields should be cleared. You can select objects by clicking their checkboxes. &lt;br&gt;&lt;br&gt;When you have selected the objects, click the Continue button for review.&lt;/p&gt;</value>
   </data>
-  <data name="MC_AllTemplate_Instruction" xml:space="preserve" translate="no">
+  <data name="MC_AllTemplate_Instruction" xml:space="preserve">
     <value>&lt;h3&gt;Instruction&lt;/h3&gt;&lt;p&gt;Select the objects in the list for which all Displays and Filters in all existing Templates should be set to suggested. You can select objects by clicking their checkboxes. &lt;br&gt;&lt;br&gt;After a selection of objects have been made, click on the Continue button for review.&lt;/p&gt;</value>
   </data>
-  <data name="MC_Template_Instruction" xml:space="preserve" translate="no">
+  <data name="MC_Template_Instruction" xml:space="preserve">
     <value>&lt;h3&gt;Instruction&lt;/h3&gt;&lt;p&gt;Select the objects in the list for which all fields from all Displays and Filters in the object list Template should be set to suggested. You can select objects by clicking their checkboxes. &lt;br&gt;&lt;br&gt;When you have selected the objects, click the Continue button for review.&lt;/p&gt;</value>
   </data>
-  <data name="MC_SetAllSuggest" xml:space="preserve" translate="no">
+  <data name="MC_SetAllSuggest" xml:space="preserve">
     <value>Suggest all</value>
   </data>
-  <data name="MC_SetNoneSuggest" xml:space="preserve" translate="no">
+  <data name="MC_SetNoneSuggest" xml:space="preserve">
     <value>Suggest none</value>
   </data>
   <data name="InfoAllowMoreDetailsPopup" xml:space="preserve">
@@ -3822,7 +3819,7 @@ After selecting an object, click the Continue button to start setting the sugges
   <data name="Infomation_Title" xml:space="preserve">
     <value>Informations</value>
   </data>
-  <data name="MC_Filter" xml:space="preserve" translate="no">
+  <data name="MC_Filter" xml:space="preserve">
     <value>Filter</value>
   </data>
   <data name="DisplayType_chart" xml:space="preserve">
@@ -3834,43 +3831,43 @@ After selecting an object, click the Continue button to start setting the sugges
   <data name="DisplayType_pivot" xml:space="preserve">
     <value>Display tableau croisé dynamique</value>
   </data>
-  <data name="MC_CurrenciesFormat" xml:space="preserve" translate="no">
+  <data name="MC_CurrenciesFormat" xml:space="preserve">
     <value>Currencies format</value>
   </data>
-  <data name="MC_Millions" xml:space="preserve" translate="no">
+  <data name="MC_Millions" xml:space="preserve">
     <value>Millions (M)</value>
   </data>
-  <data name="MC_None" xml:space="preserve" translate="no">
+  <data name="MC_None" xml:space="preserve">
     <value>None</value>
   </data>
-  <data name="MC_NumbersFormat" xml:space="preserve" translate="no">
+  <data name="MC_NumbersFormat" xml:space="preserve">
     <value>Numbers format</value>
   </data>
-  <data name="MC_PercentagesFormat" xml:space="preserve" translate="no">
+  <data name="MC_PercentagesFormat" xml:space="preserve">
     <value>Percentages format</value>
   </data>
-  <data name="MC_Thousands" xml:space="preserve" translate="no">
+  <data name="MC_Thousands" xml:space="preserve">
     <value>Thousands (K)</value>
   </data>
-  <data name="MC_ThousandSeparator" xml:space="preserve" translate="no">
+  <data name="MC_ThousandSeparator" xml:space="preserve">
     <value>Thousands separator</value>
   </data>
-  <data name="MC_RoleID" xml:space="preserve" translate="no">
+  <data name="MC_RoleID" xml:space="preserve">
     <value>Role ID</value>
   </data>
   <data name="PopupConfirmDiscardChangeFieldSettingAndContinue" xml:space="preserve">
     <value>Des modifications sur {0} Displays n'ont pas été appliquées.&lt;br/&gt;Annuler les modifications et continuer ?</value>
   </data>
-  <data name="MC_CheckAction" xml:space="preserve" translate="no">
+  <data name="MC_CheckAction" xml:space="preserve">
     <value>Check action</value>
   </data>
   <data name="ObjectList" xml:space="preserve">
     <value>Liste d'objets</value>
   </data>
-  <data name="MC_NotifyOnFail" xml:space="preserve" translate="no">
+  <data name="MC_NotifyOnFail" xml:space="preserve">
     <value>Notify on failure</value>
   </data>
-  <data name="MC_NotifyOnSuccess" xml:space="preserve" translate="no">
+  <data name="MC_NotifyOnSuccess" xml:space="preserve">
     <value>Notify on success</value>
   </data>
   <data name="ClassChooserSearchPlaceholder" xml:space="preserve">
@@ -3918,10 +3915,10 @@ After selecting an object, click the Continue button to start setting the sugges
   <data name="ProgressBar_CheckingJump" xml:space="preserve">
     <value>Contrôle du Template de Jump</value>
   </data>
-  <data name="MC_SystemLog_ModelServer" xml:space="preserve" translate="no">
+  <data name="MC_SystemLog_ModelServer" xml:space="preserve">
     <value>Model Server</value>
   </data>
-  <data name="MC_EditComment" xml:space="preserve" translate="no">
+  <data name="MC_EditComment" xml:space="preserve">
     <value>Edit comment</value>
   </data>
   <data name="Error_Title" xml:space="preserve">
@@ -3939,16 +3936,16 @@ After selecting an object, click the Continue button to start setting the sugges
   <data name="Unknown" xml:space="preserve">
     <value>Inconnu</value>
   </data>
-  <data name="MC_Administrator" xml:space="preserve" translate="no">
+  <data name="MC_Administrator" xml:space="preserve">
     <value>Administrator</value>
   </data>
-  <data name="MC_Advanced" xml:space="preserve" translate="no">
+  <data name="MC_Advanced" xml:space="preserve">
     <value>Advanced</value>
   </data>
-  <data name="MC_Basic" xml:space="preserve" translate="no">
+  <data name="MC_Basic" xml:space="preserve">
     <value>Basic</value>
   </data>
-  <data name="MC_Contributor" xml:space="preserve" translate="no">
+  <data name="MC_Contributor" xml:space="preserve">
     <value>Contributor</value>
   </data>
   <data name="AboutEveryAngleDetails" xml:space="preserve">
@@ -3972,7 +3969,7 @@ After selecting an object, click the Continue button to start setting the sugges
   <data name="SaveAsDashboard" xml:space="preserve">
     <value>Enregistrer Dashboard sous...</value>
   </data>
-  <data name="MC_ShowConsolidatedRole" xml:space="preserve" translate="no">
+  <data name="MC_ShowConsolidatedRole" xml:space="preserve">
     <value>Show consolidated role</value>
   </data>
   <data name="Field" xml:space="preserve">
@@ -3981,463 +3978,463 @@ After selecting an object, click the Continue button to start setting the sugges
   <data name="Value" xml:space="preserve">
     <value>Valeur</value>
   </data>
-  <data name="MC_DebugLogging" xml:space="preserve" translate="no">
+  <data name="MC_DebugLogging" xml:space="preserve">
     <value>Debug logging</value>
   </data>
-  <data name="MC_DeleteSession" xml:space="preserve" translate="no">
+  <data name="MC_DeleteSession" xml:space="preserve">
     <value>Delete session from user : {reference}?</value>
   </data>
-  <data name="MC_AllObjects" xml:space="preserve" translate="no">
+  <data name="MC_AllObjects" xml:space="preserve">
     <value>All objects</value>
   </data>
-  <data name="MC_AllowImpersonation" xml:space="preserve" translate="no">
+  <data name="MC_AllowImpersonation" xml:space="preserve">
     <value>Allow impersonation</value>
   </data>
-  <data name="MC_AllowListDisplays" xml:space="preserve" translate="no">
+  <data name="MC_AllowListDisplays" xml:space="preserve">
     <value>Allow List Displays</value>
   </data>
-  <data name="MC_AllowMoreDetails" xml:space="preserve" translate="no">
+  <data name="MC_AllowMoreDetails" xml:space="preserve">
     <value>Obtain more details</value>
   </data>
-  <data name="MC_AllowRelatedReports" xml:space="preserve" translate="no">
+  <data name="MC_AllowRelatedReports" xml:space="preserve">
     <value>Allow Related Reports</value>
   </data>
-  <data name="MC_CreateAngle" xml:space="preserve" translate="no">
+  <data name="MC_CreateAngle" xml:space="preserve">
     <value>Create Angle</value>
   </data>
-  <data name="MC_CreateTemplateAngle" xml:space="preserve" translate="no">
+  <data name="MC_CreateTemplateAngle" xml:space="preserve">
     <value>Create Template Angle</value>
   </data>
-  <data name="MC_CurrentProgress" xml:space="preserve" translate="no">
+  <data name="MC_CurrentProgress" xml:space="preserve">
     <value>Current progress</value>
   </data>
-  <data name="MC_DeletedIconsTitle" xml:space="preserve" translate="no">
+  <data name="MC_DeletedIconsTitle" xml:space="preserve">
     <value>Deleted Icons</value>
   </data>
-  <data name="MC_DeletedLanguagesTitle" xml:space="preserve" translate="no">
+  <data name="MC_DeletedLanguagesTitle" xml:space="preserve">
     <value>Deleted Languages</value>
   </data>
-  <data name="MC_DeletedTableFieldsTitle" xml:space="preserve" translate="no">
+  <data name="MC_DeletedTableFieldsTitle" xml:space="preserve">
     <value>Deleted Table Fields</value>
   </data>
-  <data name="MC_DeleteRecipient" xml:space="preserve" translate="no">
+  <data name="MC_DeleteRecipient" xml:space="preserve">
     <value>Delete recipient: {reference}?</value>
   </data>
-  <data name="MC_ExportData" xml:space="preserve" translate="no">
+  <data name="MC_ExportData" xml:space="preserve">
     <value>Export data</value>
   </data>
-  <data name="MC_GoToSAP" xml:space="preserve" translate="no">
+  <data name="MC_GoToSAP" xml:space="preserve">
     <value>Go to SAP</value>
   </data>
-  <data name="MC_ItemsAdded" xml:space="preserve" translate="no">
+  <data name="MC_ItemsAdded" xml:space="preserve">
     <value>items added</value>
   </data>
-  <data name="MC_Jump" xml:space="preserve" translate="no">
+  <data name="MC_Jump" xml:space="preserve">
     <value>Execute Jump</value>
   </data>
-  <data name="MC_ManagementAccess" xml:space="preserve" translate="no">
+  <data name="MC_ManagementAccess" xml:space="preserve">
     <value>Management access</value>
   </data>
-  <data name="MC_ScheduleAngles" xml:space="preserve" translate="no">
+  <data name="MC_ScheduleAngles" xml:space="preserve">
     <value>Schedule Angles</value>
   </data>
-  <data name="MC_ManageModel" xml:space="preserve" translate="no">
+  <data name="MC_ManageModel" xml:space="preserve">
     <value>Manage model</value>
   </data>
-  <data name="MC_ManageSuggestedFieldsReport" xml:space="preserve" translate="no">
+  <data name="MC_ManageSuggestedFieldsReport" xml:space="preserve">
     <value>Manage suggested fields report</value>
   </data>
-  <data name="MC_ManageSystem" xml:space="preserve" translate="no">
+  <data name="MC_ManageSystem" xml:space="preserve">
     <value>Manage system</value>
   </data>
-  <data name="MC_ManageUsers" xml:space="preserve" translate="no">
+  <data name="MC_ManageUsers" xml:space="preserve">
     <value>Manage users</value>
   </data>
-  <data name="MC_NotAvaliable" xml:space="preserve" translate="no">
+  <data name="MC_NotAvaliable" xml:space="preserve">
     <value>Not Avaliable</value>
   </data>
-  <data name="MC_RPCAllowed" xml:space="preserve" translate="no">
+  <data name="MC_RPCAllowed" xml:space="preserve">
     <value>RPC allowed</value>
   </data>
-  <data name="MC_SaveDisplay" xml:space="preserve" translate="no">
+  <data name="MC_SaveDisplay" xml:space="preserve">
     <value>Save Display</value>
   </data>
-  <data name="MC_SelectObject" xml:space="preserve" translate="no">
+  <data name="MC_SelectObject" xml:space="preserve">
     <value>Select object</value>
   </data>
-  <data name="MC_SetToNotSuggested" xml:space="preserve" translate="no">
+  <data name="MC_SetToNotSuggested" xml:space="preserve">
     <value>, set to Not suggested</value>
   </data>
-  <data name="MC_SetToSuggested" xml:space="preserve" translate="no">
+  <data name="MC_SetToSuggested" xml:space="preserve">
     <value>, set to Suggested</value>
   </data>
-  <data name="MC_SetValues" xml:space="preserve" translate="no">
+  <data name="MC_SetValues" xml:space="preserve">
     <value>Set values:</value>
   </data>
-  <data name="MC_TaskFailed" xml:space="preserve" translate="no">
+  <data name="MC_TaskFailed" xml:space="preserve">
     <value>Task Failed.</value>
   </data>
-  <data name="MC_TaskSuccess" xml:space="preserve" translate="no">
+  <data name="MC_TaskSuccess" xml:space="preserve">
     <value>Task Success.</value>
   </data>
-  <data name="MC_TestingConnection" xml:space="preserve" translate="no">
+  <data name="MC_TestingConnection" xml:space="preserve">
     <value>Testing connection...</value>
   </data>
-  <data name="MC_TestResultFailure" xml:space="preserve" translate="no">
+  <data name="MC_TestResultFailure" xml:space="preserve">
     <value>Test result failure</value>
   </data>
-  <data name="MC_TestResultSuccessful" xml:space="preserve" translate="no">
+  <data name="MC_TestResultSuccessful" xml:space="preserve">
     <value>Test result successful</value>
   </data>
-  <data name="MC_TooTipRecipientsFailure" xml:space="preserve" translate="no">
+  <data name="MC_TooTipRecipientsFailure" xml:space="preserve">
     <value>Send notification on failure</value>
   </data>
-  <data name="MC_TooTipRecipientsResult" xml:space="preserve" translate="no">
+  <data name="MC_TooTipRecipientsResult" xml:space="preserve">
     <value>Send message with the result when all conditions are met</value>
   </data>
-  <data name="MC_TooTipRecipientsSuccess" xml:space="preserve" translate="no">
+  <data name="MC_TooTipRecipientsSuccess" xml:space="preserve">
     <value>Send notification on success</value>
   </data>
-  <data name="MC_UseNonDefaultDisplaysAngles" xml:space="preserve" translate="no">
+  <data name="MC_UseNonDefaultDisplaysAngles" xml:space="preserve">
     <value>Use non-default displays on angles</value>
   </data>
-  <data name="MC_ActiveDirectorySizeLimit" xml:space="preserve" translate="no">
+  <data name="MC_ActiveDirectorySizeLimit" xml:space="preserve">
     <value>Active directory size limit</value>
   </data>
-  <data name="MC_Address" xml:space="preserve" translate="no">
+  <data name="MC_Address" xml:space="preserve">
     <value>Address</value>
   </data>
-  <data name="MC_AdvancedFilterSearch" xml:space="preserve" translate="no">
+  <data name="MC_AdvancedFilterSearch" xml:space="preserve">
     <value>Advanced filter search</value>
   </data>
-  <data name="MC_AllowEmptyReference" xml:space="preserve" translate="no">
+  <data name="MC_AllowEmptyReference" xml:space="preserve">
     <value>Allow empty reference</value>
   </data>
-  <data name="MC_AllowNonValidatedItems" xml:space="preserve" translate="no">
+  <data name="MC_AllowNonValidatedItems" xml:space="preserve">
     <value>Show non-validated items</value>
   </data>
-  <data name="MC_AssignFollowingRoles" xml:space="preserve" translate="no">
+  <data name="MC_AssignFollowingRoles" xml:space="preserve">
     <value>Assign the following roles</value>
   </data>
-  <data name="MC_AssignTrustedWebservers" xml:space="preserve" translate="no">
+  <data name="MC_AssignTrustedWebservers" xml:space="preserve">
     <value>Assign trusted webservers</value>
   </data>
-  <data name="MC_AutoExecuteItemsLogin" xml:space="preserve" translate="no">
+  <data name="MC_AutoExecuteItemsLogin" xml:space="preserve">
     <value>Auto-execute items on login</value>
   </data>
-  <data name="MC_AutomaticallyCreateUsersFirstLogon" xml:space="preserve" translate="no">
+  <data name="MC_AutomaticallyCreateUsersFirstLogon" xml:space="preserve">
     <value>Automatically create users at first logon</value>
   </data>
-  <data name="MC_CacheValidity" xml:space="preserve" translate="no">
+  <data name="MC_CacheValidity" xml:space="preserve">
     <value>Cache validity</value>
   </data>
-  <data name="MC_CategoryValidForPrivilege" xml:space="preserve" translate="no">
+  <data name="MC_CategoryValidForPrivilege" xml:space="preserve">
     <value>Category valid for privilege?</value>
   </data>
-  <data name="MC_CheckExpiredSessions" xml:space="preserve" translate="no">
+  <data name="MC_CheckExpiredSessions" xml:space="preserve">
     <value>Check expired sessions minutes</value>
   </data>
-  <data name="MC_City" xml:space="preserve" translate="no">
+  <data name="MC_City" xml:space="preserve">
     <value>City</value>
   </data>
-  <data name="MC_CompressedBusinessProcessBar" xml:space="preserve" translate="no">
+  <data name="MC_CompressedBusinessProcessBar" xml:space="preserve">
     <value>Compressed Business Process bar</value>
   </data>
-  <data name="MC_CompressedListHeader" xml:space="preserve" translate="no">
+  <data name="MC_CompressedListHeader" xml:space="preserve">
     <value>Compressed list header</value>
   </data>
-  <data name="MC_ConcurrentUsers" xml:space="preserve" translate="no">
+  <data name="MC_ConcurrentUsers" xml:space="preserve">
     <value>Concurrent users</value>
   </data>
-  <data name="MC_Contact" xml:space="preserve" translate="no">
+  <data name="MC_Contact" xml:space="preserve">
     <value>Contact</value>
   </data>
-  <data name="MC_Country" xml:space="preserve" translate="no">
+  <data name="MC_Country" xml:space="preserve">
     <value>Country</value>
   </data>
-  <data name="MC_DateOrder" xml:space="preserve" translate="no">
+  <data name="MC_DateOrder" xml:space="preserve">
     <value>Date Order</value>
   </data>
-  <data name="MC_DateSeparator" xml:space="preserve" translate="no">
+  <data name="MC_DateSeparator" xml:space="preserve">
     <value>Date separator</value>
   </data>
-  <data name="MC_DayFormat" xml:space="preserve" translate="no">
+  <data name="MC_DayFormat" xml:space="preserve">
     <value>Day format</value>
   </data>
-  <data name="MC_DecimalSeparator" xml:space="preserve" translate="no">
+  <data name="MC_DecimalSeparator" xml:space="preserve">
     <value>Decimal separator</value>
   </data>
-  <data name="MC_DefaultMaxExportPageSize" xml:space="preserve" translate="no">
+  <data name="MC_DefaultMaxExportPageSize" xml:space="preserve">
     <value>Default maximum export page size</value>
   </data>
-  <data name="MC_DefaultPageSize" xml:space="preserve" translate="no">
+  <data name="MC_DefaultPageSize" xml:space="preserve">
     <value>Default page size</value>
   </data>
-  <data name="MC_DefaultSettingBusinessProcesses" xml:space="preserve" translate="no">
+  <data name="MC_DefaultSettingBusinessProcesses" xml:space="preserve">
     <value>Default setting for Business Processes</value>
   </data>
-  <data name="MC_DefaultSettingCurrency" xml:space="preserve" translate="no">
+  <data name="MC_DefaultSettingCurrency" xml:space="preserve">
     <value>Default setting for currency</value>
   </data>
-  <data name="MC_DefaultSettingExportLines" xml:space="preserve" translate="no">
+  <data name="MC_DefaultSettingExportLines" xml:space="preserve">
     <value>Default setting for export lines</value>
   </data>
-  <data name="MC_DefaultSettingLanguage" xml:space="preserve" translate="no">
+  <data name="MC_DefaultSettingLanguage" xml:space="preserve">
     <value>Default setting for language</value>
   </data>
-  <data name="MC_DefaultSettingPeriod" xml:space="preserve" translate="no">
+  <data name="MC_DefaultSettingPeriod" xml:space="preserve">
     <value>Default setting for period</value>
   </data>
-  <data name="MC_DefaultSettingSet" xml:space="preserve" translate="no">
+  <data name="MC_DefaultSettingSet" xml:space="preserve">
     <value>Default setting for set</value>
   </data>
-  <data name="MC_DefaultStarredFields" xml:space="preserve" translate="no">
+  <data name="MC_DefaultStarredFields" xml:space="preserve">
     <value>Default Starred Fields</value>
   </data>
-  <data name="MC_DefaultSuggestedFields" xml:space="preserve" translate="no">
+  <data name="MC_DefaultSuggestedFields" xml:space="preserve">
     <value>Default Suggested Fields</value>
   </data>
-  <data name="MC_EFSRequired" xml:space="preserve" translate="no">
+  <data name="MC_EFSRequired" xml:space="preserve">
     <value>EFS Required</value>
   </data>
-  <data name="MC_DisplayPrivateItem" xml:space="preserve" translate="no">
+  <data name="MC_DisplayPrivateItem" xml:space="preserve">
     <value>Manage private items</value>
   </data>
-  <data name="MC_EmailAddress" xml:space="preserve" translate="no">
+  <data name="MC_EmailAddress" xml:space="preserve">
     <value>E-mail address</value>
   </data>
-  <data name="MC_EmailServerPort" xml:space="preserve" translate="no">
+  <data name="MC_EmailServerPort" xml:space="preserve">
     <value>E-mailserver port (SMTP Port)</value>
   </data>
-  <data name="MC_EmailServerSMTP" xml:space="preserve" translate="no">
+  <data name="MC_EmailServerSMTP" xml:space="preserve">
     <value>E-mailserver (SMTP)</value>
   </data>
-  <data name="MC_Entries" xml:space="preserve" translate="no">
+  <data name="MC_Entries" xml:space="preserve">
     <value>Entries</value>
   </data>
-  <data name="MC_Environment" xml:space="preserve" translate="no">
+  <data name="MC_Environment" xml:space="preserve">
     <value>Environment</value>
   </data>
-  <data name="MC_FormatLocale" xml:space="preserve" translate="no">
+  <data name="MC_FormatLocale" xml:space="preserve">
     <value>Format locale</value>
   </data>
-  <data name="MC_InstanceId" xml:space="preserve" translate="no">
+  <data name="MC_InstanceId" xml:space="preserve">
     <value>Instance id</value>
   </data>
-  <data name="MC_InstancesKeepPerModel" xml:space="preserve" translate="no">
+  <data name="MC_InstancesKeepPerModel" xml:space="preserve">
     <value>Instances to keep per model</value>
   </data>
-  <data name="MC_LabelCategory" xml:space="preserve" translate="no">
+  <data name="MC_LabelCategory" xml:space="preserve">
     <value>Label category</value>
   </data>
-  <data name="MC_LicensedTo" xml:space="preserve" translate="no">
+  <data name="MC_LicensedTo" xml:space="preserve">
     <value>Licensed to</value>
   </data>
-  <data name="MC_MaxDomainSizeSearch" xml:space="preserve" translate="no">
+  <data name="MC_MaxDomainSizeSearch" xml:space="preserve">
     <value>Max domain size for search</value>
   </data>
-  <data name="MC_MaxExportRows" xml:space="preserve" translate="no">
+  <data name="MC_MaxExportRows" xml:space="preserve">
     <value>Max Export Rows</value>
   </data>
-  <data name="MC_MaxPageSize" xml:space="preserve" translate="no">
+  <data name="MC_MaxPageSize" xml:space="preserve">
     <value>Max page size</value>
   </data>
-  <data name="MC_MessageRecipients" xml:space="preserve" translate="no">
+  <data name="MC_MessageRecipients" xml:space="preserve">
     <value>Message recipients (only comma-separated email addresses)</value>
   </data>
-  <data name="MC_MinimumNumberPublishAngle" xml:space="preserve" translate="no">
+  <data name="MC_MinimumNumberPublishAngle" xml:space="preserve">
     <value>Minimum number of label categories to publish angle</value>
   </data>
-  <data name="MC_ModelServerMetadataTimeout" xml:space="preserve" translate="no">
+  <data name="MC_ModelServerMetadataTimeout" xml:space="preserve">
     <value>Model server metadata timeout [seconds]</value>
   </data>
-  <data name="MC_ModelserverTimeout" xml:space="preserve" translate="no">
+  <data name="MC_ModelserverTimeout" xml:space="preserve">
     <value>Model server timeout [seconds]</value>
   </data>
-  <data name="MC_MonthFormat" xml:space="preserve" translate="no">
+  <data name="MC_MonthFormat" xml:space="preserve">
     <value>Month format</value>
   </data>
-  <data name="MC_NumberOfModels" xml:space="preserve" translate="no">
+  <data name="MC_NumberOfModels" xml:space="preserve">
     <value>Number of models</value>
   </data>
-  <data name="MC_PollModelserver" xml:space="preserve" translate="no">
+  <data name="MC_PollModelserver" xml:space="preserve">
     <value>Poll Model Server [seconds]</value>
   </data>
-  <data name="MC_PublishDashboard" xml:space="preserve" translate="no">
+  <data name="MC_PublishDashboard" xml:space="preserve">
     <value>Publish Dashboard</value>
   </data>
-  <data name="MC_RequiredAnglePublishing" xml:space="preserve" translate="no">
+  <data name="MC_RequiredAnglePublishing" xml:space="preserve">
     <value>Required at angle publishing?</value>
   </data>
-  <data name="MC_SAPFieldsChooser" xml:space="preserve" translate="no">
+  <data name="MC_SAPFieldsChooser" xml:space="preserve">
     <value>SAP fields in chooser</value>
   </data>
-  <data name="MC_SAPFieldsHeader" xml:space="preserve" translate="no">
+  <data name="MC_SAPFieldsHeader" xml:space="preserve">
     <value>SAP fields in header</value>
   </data>
-  <data name="MC_Sender" xml:space="preserve" translate="no">
+  <data name="MC_Sender" xml:space="preserve">
     <value>Sender</value>
   </data>
-  <data name="MC_SenderEmailaccount" xml:space="preserve" translate="no">
+  <data name="MC_SenderEmailaccount" xml:space="preserve">
     <value>Sender (E-mailaccount)</value>
   </data>
-  <data name="MC_ServerVersion" xml:space="preserve" translate="no">
+  <data name="MC_ServerVersion" xml:space="preserve">
     <value>Server version</value>
   </data>
-  <data name="MC_SessionHistory" xml:space="preserve" translate="no">
+  <data name="MC_SessionHistory" xml:space="preserve">
     <value>Session history [minutes]</value>
   </data>
-  <data name="MC_SessionTimeout" xml:space="preserve" translate="no">
+  <data name="MC_SessionTimeout" xml:space="preserve">
     <value>Session timeout [minutes]</value>
   </data>
-  <data name="MC_SingleItemView" xml:space="preserve" translate="no">
+  <data name="MC_SingleItemView" xml:space="preserve">
     <value>Drilldown to item in a list Display</value>
   </data>
-  <data name="MC_StatusSince" xml:space="preserve" translate="no">
+  <data name="MC_StatusSince" xml:space="preserve">
     <value>Status since</value>
   </data>
-  <data name="MC_TelephoneNumber" xml:space="preserve" translate="no">
+  <data name="MC_TelephoneNumber" xml:space="preserve">
     <value>Telephone number</value>
   </data>
-  <data name="MC_TimeFormat" xml:space="preserve" translate="no">
+  <data name="MC_TimeFormat" xml:space="preserve">
     <value>Time format</value>
   </data>
-  <data name="MC_TimeSeparator" xml:space="preserve" translate="no">
+  <data name="MC_TimeSeparator" xml:space="preserve">
     <value>Time separator</value>
   </data>
-  <data name="MC_Url" xml:space="preserve" translate="no">
+  <data name="MC_Url" xml:space="preserve">
     <value>Url</value>
   </data>
-  <data name="MC_UseSSL" xml:space="preserve" translate="no">
+  <data name="MC_UseSSL" xml:space="preserve">
     <value>Use SSL</value>
   </data>
-  <data name="MC_Version" xml:space="preserve" translate="no">
+  <data name="MC_Version" xml:space="preserve">
     <value>Version</value>
   </data>
-  <data name="MC_WebClientLogin" xml:space="preserve" translate="no">
+  <data name="MC_WebClientLogin" xml:space="preserve">
     <value>Login to Web Client</value>
   </data>
-  <data name="MC_YearFormat" xml:space="preserve" translate="no">
+  <data name="MC_YearFormat" xml:space="preserve">
     <value>Year format</value>
   </data>
-  <data name="MC_FilterAtLeast2Characters" xml:space="preserve" translate="no">
+  <data name="MC_FilterAtLeast2Characters" xml:space="preserve">
     <value>Filter (at least 2 characters)</value>
   </data>
-  <data name="MC_FilterCaseSensitive" xml:space="preserve" translate="no">
+  <data name="MC_FilterCaseSensitive" xml:space="preserve">
     <value>Filter with case sensitive</value>
   </data>
-  <data name="MC_TextFormattingNotationHelpTitle" xml:space="preserve" translate="no">
+  <data name="MC_TextFormattingNotationHelpTitle" xml:space="preserve">
     <value>Macro Help</value>
   </data>
-  <data name="MC_ActionsList" xml:space="preserve" translate="no">
+  <data name="MC_ActionsList" xml:space="preserve">
     <value>Actions list</value>
   </data>
-  <data name="MC_AuthenticationProviders" xml:space="preserve" translate="no">
+  <data name="MC_AuthenticationProviders" xml:space="preserve">
     <value>Authentication providers</value>
   </data>
-  <data name="MC_Confirm" xml:space="preserve" translate="no">
+  <data name="MC_Confirm" xml:space="preserve">
     <value>Confirm</value>
   </data>
-  <data name="MC_CopyRole" xml:space="preserve" translate="no">
+  <data name="MC_CopyRole" xml:space="preserve">
     <value>Copy role</value>
   </data>
-  <data name="MC_DatastorePlugins" xml:space="preserve" translate="no">
+  <data name="MC_DatastorePlugins" xml:space="preserve">
     <value>Datastore Plugins</value>
   </data>
-  <data name="MC_DeleteActionConfirm" xml:space="preserve" translate="no">
+  <data name="MC_DeleteActionConfirm" xml:space="preserve">
     <value>Delete action: {reference}?</value>
   </data>
-  <data name="MC_DeleteFilterConfirm" xml:space="preserve" translate="no">
+  <data name="MC_DeleteFilterConfirm" xml:space="preserve">
     <value>Delete Filter: {reference}?</value>
   </data>
-  <data name="MC_DeleteIconConfirm" xml:space="preserve" translate="no">
+  <data name="MC_DeleteIconConfirm" xml:space="preserve">
     <value>Delete Icon: {reference}?</value>
   </data>
-  <data name="MC_DeleteLabelCoonfirm" xml:space="preserve" translate="no">
+  <data name="MC_DeleteLabelCoonfirm" xml:space="preserve">
     <value>Delete Label: {reference}?</value>
   </data>
-  <data name="MC_DeleteLanguageConfirm" xml:space="preserve" translate="no">
+  <data name="MC_DeleteLanguageConfirm" xml:space="preserve">
     <value>Delete Language: {reference}?</value>
   </data>
-  <data name="MC_DeleteModelConfirm" xml:space="preserve" translate="no">
+  <data name="MC_DeleteModelConfirm" xml:space="preserve">
     <value>Delete model {0} ({1})
 Deleting this model will also delete all {2} Angles and {3} Dashboards created for this model and logout all {4} active user(s).
 Are you sure you want to delete this model?</value>
   </data>
-  <data name="MC_DeletePropertyConfirm" xml:space="preserve" translate="no">
+  <data name="MC_DeletePropertyConfirm" xml:space="preserve">
     <value>Delete Property: {reference}?</value>
   </data>
-  <data name="MC_DeleteRecipientsConfirm" xml:space="preserve" translate="no">
+  <data name="MC_DeleteRecipientsConfirm" xml:space="preserve">
     <value>Delete recipients: {reference}?</value>
   </data>
-  <data name="MC_DeleteReferenceFilter" xml:space="preserve" translate="no">
+  <data name="MC_DeleteReferenceFilter" xml:space="preserve">
     <value>Delete Reference filter: {reference}?</value>
   </data>
-  <data name="MC_DeleteReferenceFilterConfirm" xml:space="preserve" translate="no">
+  <data name="MC_DeleteReferenceFilterConfirm" xml:space="preserve">
     <value>Delete Reference filter: {reference}?</value>
   </data>
-  <data name="MC_DeleteRoleConfirm" xml:space="preserve" translate="no">
+  <data name="MC_DeleteRoleConfirm" xml:space="preserve">
     <value>Delete role {0} ({1}) There are {2} user(s) that have this role assigned.
 Are you sure you want to delete this role?</value>
   </data>
-  <data name="MC_DeleteSubRolesConfirm" xml:space="preserve" translate="no">
+  <data name="MC_DeleteSubRolesConfirm" xml:space="preserve">
     <value>Delete Sub-roles: {reference}?</value>
   </data>
-  <data name="MC_DeleteTaskConfirm" xml:space="preserve" translate="no">
+  <data name="MC_DeleteTaskConfirm" xml:space="preserve">
     <value>Delete Task: {reference}?</value>
   </data>
-  <data name="MC_ModulesValidation" xml:space="preserve" translate="no">
+  <data name="MC_ModulesValidation" xml:space="preserve">
     <value>Modules validation</value>
   </data>
-  <data name="MC_More" xml:space="preserve" translate="no">
+  <data name="MC_More" xml:space="preserve">
     <value>more...</value>
   </data>
-  <data name="MC_NewRole" xml:space="preserve" translate="no">
+  <data name="MC_NewRole" xml:space="preserve">
     <value>New role</value>
   </data>
-  <data name="MC_SelectFields" xml:space="preserve" translate="no">
+  <data name="MC_SelectFields" xml:space="preserve">
     <value>Select fields</value>
   </data>
-  <data name="MC_SelectRolesAdd" xml:space="preserve" translate="no">
+  <data name="MC_SelectRolesAdd" xml:space="preserve">
     <value>Select roles to add</value>
   </data>
-  <data name="MC_TestEmailSettings" xml:space="preserve" translate="no">
+  <data name="MC_TestEmailSettings" xml:space="preserve">
     <value>Test email settings</value>
   </data>
-  <data name="MC_TestEmailSettingsResult" xml:space="preserve" translate="no">
+  <data name="MC_TestEmailSettingsResult" xml:space="preserve">
     <value>Test email settings result</value>
   </data>
-  <data name="MC_UserNotHaveModelPrivileges" xml:space="preserve" translate="no">
+  <data name="MC_UserNotHaveModelPrivileges" xml:space="preserve">
     <value>User does not have any model privileges.</value>
   </data>
   <data name="NumberDataRows" xml:space="preserve">
     <value>Nombre de lignes de données</value>
   </data>
-  <data name="MC_DeleteDataStoreConfirm" xml:space="preserve" translate="no">
+  <data name="MC_DeleteDataStoreConfirm" xml:space="preserve">
     <value>Delete Data Store: {reference}?</value>
   </data>
-  <data name="MC_DeleteFieldConfirm" xml:space="preserve" translate="no">
+  <data name="MC_DeleteFieldConfirm" xml:space="preserve">
     <value>Delete Field: {reference}?</value>
   </data>
-  <data name="MC_DeleteLabelCategoryConfirm" xml:space="preserve" translate="no">
+  <data name="MC_DeleteLabelCategoryConfirm" xml:space="preserve">
     <value>Delete Label Category: {reference}?</value>
   </data>
-  <data name="MC_DeletePackageConfirm" xml:space="preserve" translate="no">
+  <data name="MC_DeletePackageConfirm" xml:space="preserve">
     <value>Delete Package: {reference}?</value>
   </data>
-  <data name="MC_DeleteSystemRoleConfirm" xml:space="preserve" translate="no">
+  <data name="MC_DeleteSystemRoleConfirm" xml:space="preserve">
     <value>Delete System Role: {reference}?</value>
   </data>
-  <data name="MC_DeleteUserConfirm" xml:space="preserve" translate="no">
+  <data name="MC_DeleteUserConfirm" xml:space="preserve">
     <value>Delete User: {reference}?</value>
   </data>
-  <data name="MC_NoAccess" xml:space="preserve" translate="no">
+  <data name="MC_NoAccess" xml:space="preserve">
     <value>No Access</value>
   </data>
-  <data name="MC_ManageModelDescription" xml:space="preserve" translate="no">
+  <data name="MC_ManageModelDescription" xml:space="preserve">
     <value>Allowed to manage the settings of this model within the management console​. Also allowed to create EA packages.</value>
   </data>
-  <data name="MC_ObtainMoreDetailsDescription" xml:space="preserve" translate="no">
+  <data name="MC_ObtainMoreDetailsDescription" xml:space="preserve">
     <value>Restricting users to obtain more details will have the following effect:
 &lt;ul&gt;
 &lt;li&gt;Users are not allowed to add or remove fields in any Display&lt;/li&gt;
@@ -4446,208 +4443,208 @@ Are you sure you want to delete this role?</value>
 &lt;li&gt;Users are not allowed to drill down in any Display&lt;/li&gt;
 &lt;/ul&gt;</value>
   </data>
-  <data name="MC_ShowAllPrivateItemsDescription" xml:space="preserve" translate="no">
+  <data name="MC_ShowAllPrivateItemsDescription" xml:space="preserve">
     <value>Allowed to see all private Angles, Templates and Dashboards of other users​.</value>
   </data>
-  <data name="MC_ShowNonValidatedItemsDescription" xml:space="preserve" translate="no">
+  <data name="MC_ShowNonValidatedItemsDescription" xml:space="preserve">
     <value>Allowed to see all non-validated Angles, Templates and Dashboards that are within the user's authorization.</value>
   </data>
-  <data name="MC_301MovedPermanently" xml:space="preserve" translate="no">
+  <data name="MC_301MovedPermanently" xml:space="preserve">
     <value>301 Moved Permanently</value>
   </data>
-  <data name="MC_AccessDenied" xml:space="preserve" translate="no">
+  <data name="MC_AccessDenied" xml:space="preserve">
     <value>Access Denied</value>
   </data>
-  <data name="MC_ActivateUpgradePackageTask" xml:space="preserve" translate="no">
+  <data name="MC_ActivateUpgradePackageTask" xml:space="preserve">
     <value>Activate Upgrade Package Task</value>
   </data>
-  <data name="MC_AnErrorOccured" xml:space="preserve" translate="no">
+  <data name="MC_AnErrorOccured" xml:space="preserve">
     <value>An error occured</value>
   </data>
-  <data name="MC_ItemSuccesfullyUpdated" xml:space="preserve" translate="no">
+  <data name="MC_ItemSuccesfullyUpdated" xml:space="preserve">
     <value>Item succesfully updated!</value>
   </data>
-  <data name="MC_PackageFilenameCannotBeNull" xml:space="preserve" translate="no">
+  <data name="MC_PackageFilenameCannotBeNull" xml:space="preserve">
     <value>Package filename cannot be null.</value>
   </data>
-  <data name="MC_PackageFilenameCannotContainWhitespace" xml:space="preserve" translate="no">
+  <data name="MC_PackageFilenameCannotContainWhitespace" xml:space="preserve">
     <value>Package filename cannot contain whitespace.</value>
   </data>
-  <data name="MC_PackageNameMustBeSpecified" xml:space="preserve" translate="no">
+  <data name="MC_PackageNameMustBeSpecified" xml:space="preserve">
     <value>Package name must be specified.</value>
   </data>
-  <data name="MC_PackageSourceMustBeSpecified" xml:space="preserve" translate="no">
+  <data name="MC_PackageSourceMustBeSpecified" xml:space="preserve">
     <value>Package source must be specified.</value>
   </data>
-  <data name="MC_PackageVersionMustBeSpecified" xml:space="preserve" translate="no">
+  <data name="MC_PackageVersionMustBeSpecified" xml:space="preserve">
     <value>Package version must be specified.</value>
   </data>
-  <data name="MC_PageNotFound" xml:space="preserve" translate="no">
+  <data name="MC_PageNotFound" xml:space="preserve">
     <value>Page not found</value>
   </data>
-  <data name="MC_PleaseSelect" xml:space="preserve" translate="no">
+  <data name="MC_PleaseSelect" xml:space="preserve">
     <value>Please Select</value>
   </data>
-  <data name="MC_YourContactPage" xml:space="preserve" translate="no">
+  <data name="MC_YourContactPage" xml:space="preserve">
     <value>Your contact page.</value>
   </data>
-  <data name="MC_AddFieldAccess" xml:space="preserve" translate="no">
+  <data name="MC_AddFieldAccess" xml:space="preserve">
     <value>Add field access</value>
   </data>
-  <data name="MC_Info" xml:space="preserve" translate="no">
+  <data name="MC_Info" xml:space="preserve">
     <value>Info</value>
   </data>
-  <data name="MC_AllFields" xml:space="preserve" translate="no">
+  <data name="MC_AllFields" xml:space="preserve">
     <value>All fields</value>
   </data>
-  <data name="MC_AllFilters" xml:space="preserve" translate="no">
+  <data name="MC_AllFilters" xml:space="preserve">
     <value>All filters</value>
   </data>
-  <data name="MC_AllowAllNull" xml:space="preserve" translate="no">
+  <data name="MC_AllowAllNull" xml:space="preserve">
     <value>Allow all null</value>
   </data>
-  <data name="MC_AllowedClasses" xml:space="preserve" translate="no">
+  <data name="MC_AllowedClasses" xml:space="preserve">
     <value>Allowed objects</value>
   </data>
-  <data name="MC_AllowedFields" xml:space="preserve" translate="no">
+  <data name="MC_AllowedFields" xml:space="preserve">
     <value>Allowed fields</value>
   </data>
-  <data name="MC_AllowPrivateAngles" xml:space="preserve" translate="no">
+  <data name="MC_AllowPrivateAngles" xml:space="preserve">
     <value>Allow private angles</value>
   </data>
-  <data name="MC_Authorizations" xml:space="preserve" translate="no">
+  <data name="MC_Authorizations" xml:space="preserve">
     <value>Authorizations</value>
   </data>
-  <data name="MC_Classes" xml:space="preserve" translate="no">
+  <data name="MC_Classes" xml:space="preserve">
     <value>Classes</value>
   </data>
-  <data name="MC_CurrencyFieldsDefault" xml:space="preserve" translate="no">
+  <data name="MC_CurrencyFieldsDefault" xml:space="preserve">
     <value>All currency fields</value>
   </data>
-  <data name="MC_DefaultClassAuthorization" xml:space="preserve" translate="no">
+  <data name="MC_DefaultClassAuthorization" xml:space="preserve">
     <value>Default class authorization</value>
   </data>
-  <data name="MC_DefaultLabelAuthorization" xml:space="preserve" translate="no">
+  <data name="MC_DefaultLabelAuthorization" xml:space="preserve">
     <value>Default label authorization</value>
   </data>
-  <data name="MC_DeniedClasses" xml:space="preserve" translate="no">
+  <data name="MC_DeniedClasses" xml:space="preserve">
     <value>Denied objects</value>
   </data>
-  <data name="MC_DisallowedFields" xml:space="preserve" translate="no">
+  <data name="MC_DisallowedFields" xml:space="preserve">
     <value>Denied fields</value>
   </data>
-  <data name="MC_FieldAuthorizations" xml:space="preserve" translate="no">
+  <data name="MC_FieldAuthorizations" xml:space="preserve">
     <value>Fields</value>
   </data>
-  <data name="MC_FieldFilters" xml:space="preserve" translate="no">
+  <data name="MC_FieldFilters" xml:space="preserve">
     <value>Field filters</value>
   </data>
-  <data name="MC_FieldsDefault" xml:space="preserve" translate="no">
+  <data name="MC_FieldsDefault" xml:space="preserve">
     <value>All other fields</value>
   </data>
-  <data name="MC_FieldvalueFilters" xml:space="preserve" translate="no">
+  <data name="MC_FieldvalueFilters" xml:space="preserve">
     <value>Fieldvalue filters</value>
   </data>
-  <data name="MC_Index" xml:space="preserve" translate="no">
+  <data name="MC_Index" xml:space="preserve">
     <value>Index</value>
   </data>
-  <data name="MC_LabelAuthorizations" xml:space="preserve" translate="no">
+  <data name="MC_LabelAuthorizations" xml:space="preserve">
     <value>Labels</value>
   </data>
-  <data name="MC_Model" xml:space="preserve" translate="no">
+  <data name="MC_Model" xml:space="preserve">
     <value>Model</value>
   </data>
-  <data name="MC_ModelAuthorization" xml:space="preserve" translate="no">
+  <data name="MC_ModelAuthorization" xml:space="preserve">
     <value>Model privilege</value>
   </data>
-  <data name="MC_ObjectFilters" xml:space="preserve" translate="no">
+  <data name="MC_ObjectFilters" xml:space="preserve">
     <value>Object filters</value>
   </data>
-  <data name="MC_ReferenceFilters" xml:space="preserve" translate="no">
+  <data name="MC_ReferenceFilters" xml:space="preserve">
     <value>Reference filters</value>
   </data>
-  <data name="MC_Subrole_Ids" xml:space="preserve" translate="no">
+  <data name="MC_Subrole_Ids" xml:space="preserve">
     <value>Subrole ids</value>
   </data>
-  <data name="MC_SystemPrivileges" xml:space="preserve" translate="no">
+  <data name="MC_SystemPrivileges" xml:space="preserve">
     <value>System privileges</value>
   </data>
-  <data name="MC_Uri" xml:space="preserve" translate="no">
+  <data name="MC_Uri" xml:space="preserve">
     <value>Uri</value>
   </data>
-  <data name="MC_UserCount" xml:space="preserve" translate="no">
+  <data name="MC_UserCount" xml:space="preserve">
     <value>User count</value>
   </data>
-  <data name="MC_ModelserverAuthorization" xml:space="preserve" translate="no">
+  <data name="MC_ModelserverAuthorization" xml:space="preserve">
     <value>Model server authorization</value>
   </data>
-  <data name="MC_ProfileCreatedOn" xml:space="preserve" translate="no">
+  <data name="MC_ProfileCreatedOn" xml:space="preserve">
     <value>Profile created on</value>
   </data>
-  <data name="MC_ProfileId" xml:space="preserve" translate="no">
+  <data name="MC_ProfileId" xml:space="preserve">
     <value>Profile ID</value>
   </data>
-  <data name="MC_ProfileKey" xml:space="preserve" translate="no">
+  <data name="MC_ProfileKey" xml:space="preserve">
     <value>Profile key</value>
   </data>
-  <data name="MC_DisallowedClasses" xml:space="preserve" translate="no">
+  <data name="MC_DisallowedClasses" xml:space="preserve">
     <value>Disallowed objects</value>
   </data>
-  <data name="MC_AllowedAllNull" xml:space="preserve" translate="no">
+  <data name="MC_AllowedAllNull" xml:space="preserve">
     <value>Allowed all null</value>
   </data>
-  <data name="MC_AllowedValues" xml:space="preserve" translate="no">
+  <data name="MC_AllowedValues" xml:space="preserve">
     <value>Allowed values</value>
   </data>
-  <data name="MC_AllowedValuesName" xml:space="preserve" translate="no">
+  <data name="MC_AllowedValuesName" xml:space="preserve">
     <value>Allowed values name</value>
   </data>
-  <data name="MC_AvailableClassesName" xml:space="preserve" translate="no">
+  <data name="MC_AvailableClassesName" xml:space="preserve">
     <value>Available Classes Name</value>
   </data>
-  <data name="MC_ClassId" xml:space="preserve" translate="no">
+  <data name="MC_ClassId" xml:space="preserve">
     <value>Class ID</value>
   </data>
-  <data name="MC_ClassName" xml:space="preserve" translate="no">
+  <data name="MC_ClassName" xml:space="preserve">
     <value>Class name</value>
   </data>
-  <data name="MC_Deleted" xml:space="preserve" translate="no">
+  <data name="MC_Deleted" xml:space="preserve">
     <value>Deleted</value>
   </data>
-  <data name="MC_DisallowedValues" xml:space="preserve" translate="no">
+  <data name="MC_DisallowedValues" xml:space="preserve">
     <value>Disallowed values</value>
   </data>
-  <data name="MC_DisAllowedValuesName" xml:space="preserve" translate="no">
+  <data name="MC_DisAllowedValuesName" xml:space="preserve">
     <value>Disallowed values name</value>
   </data>
-  <data name="MC_FieldId" xml:space="preserve" translate="no">
+  <data name="MC_FieldId" xml:space="preserve">
     <value>Field ID</value>
   </data>
-  <data name="MC_FieldShortName" xml:space="preserve" translate="no">
+  <data name="MC_FieldShortName" xml:space="preserve">
     <value>Field short name</value>
   </data>
-  <data name="MC_IsReferenceFilter" xml:space="preserve" translate="no">
+  <data name="MC_IsReferenceFilter" xml:space="preserve">
     <value>Is reference filter</value>
   </data>
-  <data name="MC_TargetClass" xml:space="preserve" translate="no">
+  <data name="MC_TargetClass" xml:space="preserve">
     <value>Target class</value>
   </data>
-  <data name="MC_TargetClassId" xml:space="preserve" translate="no">
+  <data name="MC_TargetClassId" xml:space="preserve">
     <value>Target class ID</value>
   </data>
-  <data name="MC_TargetClassName" xml:space="preserve" translate="no">
+  <data name="MC_TargetClassName" xml:space="preserve">
     <value>Target class name</value>
   </data>
-  <data name="MC_TargetClassShortName" xml:space="preserve" translate="no">
+  <data name="MC_TargetClassShortName" xml:space="preserve">
     <value>Target class short name</value>
   </data>
-  <data name="MC_AllowedByThisRole" xml:space="preserve" translate="no">
+  <data name="MC_AllowedByThisRole" xml:space="preserve">
     <value>Allowed by this role</value>
   </data>
-  <data name="MC_DeniedByThisRole" xml:space="preserve" translate="no">
+  <data name="MC_DeniedByThisRole" xml:space="preserve">
     <value>Denied by this role</value>
   </data>
-  <data name="MC_UneffectedByThisRole" xml:space="preserve" translate="no">
+  <data name="MC_UneffectedByThisRole" xml:space="preserve">
     <value>Undefined by this role</value>
   </data>
   <data name="AdvanceFilterUsageOperatorAfter" xml:space="preserve">
@@ -4842,126 +4839,126 @@ Are you sure you want to delete this role?</value>
   <data name="ResultStatusScheduled" xml:space="preserve">
     <value>Programmé</value>
   </data>
-  <data name="MC_SystemSettingsHelpActiveDirectorySizeLimit" xml:space="preserve" translate="no">
+  <data name="MC_SystemSettingsHelpActiveDirectorySizeLimit" xml:space="preserve">
     <value>Maximum number of users or user groups that are returned when querying an authentication provider. Value may not exceed 999.</value>
   </data>
-  <data name="MC_SystemSettingsHelpCheckExpiredSessionsMinutes" xml:space="preserve" translate="no">
+  <data name="MC_SystemSettingsHelpCheckExpiredSessionsMinutes" xml:space="preserve">
     <value>Sessions will expire if no request is received within this time.</value>
   </data>
-  <data name="MC_SystemSettingsHelpDefaultExportMaxPageSize" xml:space="preserve" translate="no">
+  <data name="MC_SystemSettingsHelpDefaultExportMaxPageSize" xml:space="preserve">
     <value>Maximum page size while exporting (Value may not exceed 999999).</value>
   </data>
-  <data name="MC_SystemSettingsHelpDefaultCacheMinutes" xml:space="preserve" translate="no">
+  <data name="MC_SystemSettingsHelpDefaultCacheMinutes" xml:space="preserve">
     <value>Default time for cached items to remain valid.</value>
   </data>
-  <data name="MC_SystemSettingsHelpDefaultPageSize" xml:space="preserve" translate="no">
+  <data name="MC_SystemSettingsHelpDefaultPageSize" xml:space="preserve">
     <value>The default number of items returned when a list is requested.</value>
   </data>
-  <data name="MC_SystemSettingsHelpEmailPassword" xml:space="preserve" translate="no">
+  <data name="MC_SystemSettingsHelpEmailPassword" xml:space="preserve">
     <value>This password will be used when the SMTP server requires authentication.</value>
   </data>
-  <data name="MC_SystemSettingsHelpEmailSmtpPort" xml:space="preserve" translate="no">
+  <data name="MC_SystemSettingsHelpEmailSmtpPort" xml:space="preserve">
     <value>Port of the SMTP server.</value>
   </data>
-  <data name="MC_SystemSettingsHelpEmailSmtpSender" xml:space="preserve" translate="no">
+  <data name="MC_SystemSettingsHelpEmailSmtpSender" xml:space="preserve">
     <value>Sender of the SMTP server.</value>
   </data>
-  <data name="MC_SystemSettingsHelpEmailSmtpServer" xml:space="preserve" translate="no">
+  <data name="MC_SystemSettingsHelpEmailSmtpServer" xml:space="preserve">
     <value>Address of the SMTP server.</value>
   </data>
-  <data name="MC_SystemSettingsHelpEmailSmtpUseSsl" xml:space="preserve" translate="no">
+  <data name="MC_SystemSettingsHelpEmailSmtpUseSsl" xml:space="preserve">
     <value>Indicates whether SSL will be enabled.</value>
   </data>
-  <data name="MC_SystemSettingsHelpEmailUsername" xml:space="preserve" translate="no">
+  <data name="MC_SystemSettingsHelpEmailUsername" xml:space="preserve">
     <value>This username will be used when the SMTP server requires authentication.</value>
   </data>
-  <data name="MC_SystemSettingsHelpInstancesPerModel" xml:space="preserve" translate="no">
+  <data name="MC_SystemSettingsHelpInstancesPerModel" xml:space="preserve">
     <value>Number of instances that are kept as a history. If this number of instances is reached the import of a new instance will cause the instance with the least recent modeldata_timestamp to be automatically deleted.</value>
   </data>
-  <data name="MC_SystemSettingsHelpMaxDomainElementsSearch" xml:space="preserve" translate="no">
+  <data name="MC_SystemSettingsHelpMaxDomainElementsSearch" xml:space="preserve">
     <value>Maximum number of domain size for search.</value>
   </data>
-  <data name="MC_SystemSettingsHelpMaxPageSize" xml:space="preserve" translate="no">
+  <data name="MC_SystemSettingsHelpMaxPageSize" xml:space="preserve">
     <value>The maximum number of items returned when a list is requested.</value>
   </data>
-  <data name="MC_SystemSettingsHelpMinlabelcategoriesPublish" xml:space="preserve" translate="no">
+  <data name="MC_SystemSettingsHelpMinlabelcategoriesPublish" xml:space="preserve">
     <value>Publishing an Angle or Dashboard is only allowed if the assigned privilege labels originate from at least this amount of label categories. The minimum is 1, because the default label category Business Process is mandatory.</value>
   </data>
-  <data name="MC_SystemSettingsHelpModelserverCheckSeconds" xml:space="preserve" translate="no">
+  <data name="MC_SystemSettingsHelpModelserverCheckSeconds" xml:space="preserve">
     <value>Interval between automatic checks for the status of the Model Server.</value>
   </data>
-  <data name="MC_SystemSettingsHelpModelserverMetadataTimeout" xml:space="preserve" translate="no">
+  <data name="MC_SystemSettingsHelpModelserverMetadataTimeout" xml:space="preserve">
     <value>Number of seconds before a timeout occurs when data has been requested from the model server.
 	Interval between application server and model server metadata.</value>
   </data>
-  <data name="MC_SystemSettingsHelpModelserverTimeout" xml:space="preserve" translate="no">
+  <data name="MC_SystemSettingsHelpModelserverTimeout" xml:space="preserve">
     <value>Number of seconds before a timeout occurs when the status of the Model Server has been requested.
 	Interval to check the presence of the Model Server between Application Server and Model Server.</value>
   </data>
-  <data name="MC_SystemSettingsHelpRememberExpiredSessionsMinutes" xml:space="preserve" translate="no">
+  <data name="MC_SystemSettingsHelpRememberExpiredSessionsMinutes" xml:space="preserve">
     <value>Session history will be kept during this time.</value>
   </data>
-  <data name="MC_SystemSettingsHelpSessionExpiryMinutes" xml:space="preserve" translate="no">
+  <data name="MC_SystemSettingsHelpSessionExpiryMinutes" xml:space="preserve">
     <value>Number of minutes before a session expires if no request is received within this time.</value>
   </data>
-  <data name="MC_WebClientSettingsHelpApplicationTimeout" xml:space="preserve" translate="no">
+  <data name="MC_WebClientSettingsHelpApplicationTimeout" xml:space="preserve">
     <value>Number of seconds before a timeout occurs when data has been requested from the Application Server.</value>
   </data>
-  <data name="MC_WebClientSettingsHelpDashboardRefreshIntervalTime" xml:space="preserve" translate="no">
+  <data name="MC_WebClientSettingsHelpDashboardRefreshIntervalTime" xml:space="preserve">
     <value>Interval between automatic check model instance on Dashboard page.</value>
   </data>
-  <data name="MC_WebClientSettingsHelpEnableOptimizations" xml:space="preserve" translate="no">
+  <data name="MC_WebClientSettingsHelpEnableOptimizations" xml:space="preserve">
     <value>This is a debug setting. When set to True, all javascript code is optimized and thus unreadable. When set to False, all javascript code is sent to the Web Client in a readable form and can be used for browser debugging.</value>
   </data>
-  <data name="MC_WebClientSettingsHelpEnableSsl" xml:space="preserve" translate="no">
+  <data name="MC_WebClientSettingsHelpEnableSsl" xml:space="preserve">
     <value>Use SSL encrypted connections for communication with the Application Server.</value>
   </data>
-  <data name="MC_WebClientSettingsHelpGoogleAnalyticsCode" xml:space="preserve" translate="no">
+  <data name="MC_WebClientSettingsHelpGoogleAnalyticsCode" xml:space="preserve">
     <value>ID which you receive from Google Analytics.</value>
   </data>
-  <data name="MC_Validation_GoogleAnalyticsId" xml:space="preserve" translate="no">
+  <data name="MC_Validation_GoogleAnalyticsId" xml:space="preserve">
     <value>Invalid Google Analytics ID.</value>
   </data>
-  <data name="MC_WebClientSettingsHelpMaxLogFileNumber" xml:space="preserve" translate="no">
+  <data name="MC_WebClientSettingsHelpMaxLogFileNumber" xml:space="preserve">
     <value>Maximum number of logfiles.</value>
   </data>
-  <data name="MC_WebClientSettingsHelpMaxLogFileSize" xml:space="preserve" translate="no">
+  <data name="MC_WebClientSettingsHelpMaxLogFileSize" xml:space="preserve">
     <value>Maximum size of a logfile.</value>
   </data>
-  <data name="MC_WebClientSettingsHelpMaxNumberOfDashboard" xml:space="preserve" translate="no">
+  <data name="MC_WebClientSettingsHelpMaxNumberOfDashboard" xml:space="preserve">
     <value>Maximum number of Angles that can be added to a Dashboard.</value>
   </data>
-  <data name="MC_WebClientSettingsHelpMaxNumberOfMassChange" xml:space="preserve" translate="no">
+  <data name="MC_WebClientSettingsHelpMaxNumberOfMassChange" xml:space="preserve">
     <value>Maximum number of items that can be selected for a mass change.</value>
   </data>
-  <data name="MC_WebClientSettingsHelpShowAngleAndDisplayID" xml:space="preserve" translate="no">
+  <data name="MC_WebClientSettingsHelpShowAngleAndDisplayID" xml:space="preserve">
     <value>Show Angle, Display or Dashboard ID in the General tab of the item details pop-up window.</value>
   </data>
-  <data name="MC_WebClientSettingsHelpShowErrorSourceUri" xml:space="preserve" translate="no">
+  <data name="MC_WebClientSettingsHelpShowErrorSourceUri" xml:space="preserve">
     <value>Show the uri of the request causing the error.</value>
   </data>
-  <data name="MC_WebClientSettingsHelpTrustAllCertificate" xml:space="preserve" translate="no">
+  <data name="MC_WebClientSettingsHelpTrustAllCertificate" xml:space="preserve">
     <value>Ignore errors detected in SSL certificates received from the Application Server.</value>
   </data>
-  <data name="MC_AllowImpersonationDescription" xml:space="preserve" translate="no">
+  <data name="MC_AllowImpersonationDescription" xml:space="preserve">
     <value>User can impersonate other users. Used by the ZEA03n SAP transaction. Not allowed in combination with any other privileges.</value>
   </data>
-  <data name="MC_ManagementAccessDescription" xml:space="preserve" translate="no">
+  <data name="MC_ManagementAccessDescription" xml:space="preserve">
     <value>Allowed to access the management console. Management access is allowed when one of the following privileges is assigned: "Manage system", "Manage users" or "Manage model".</value>
   </data>
-  <data name="MC_ManageSystemDescription" xml:space="preserve" translate="no">
+  <data name="MC_ManageSystemDescription" xml:space="preserve">
     <value>Allowed to manage the global settings, setting up a new model, manage automation tasks. For managing automation tasks, the model role privilege "Manage model" is also required.</value>
   </data>
-  <data name="MC_ManageUserDescription" xml:space="preserve" translate="no">
+  <data name="MC_ManageUserDescription" xml:space="preserve">
     <value>Allowed to manage users within the system. For managing model roles, the model role privilege "Manage model" is required.</value>
   </data>
-  <data name="MC_ScheduleAnglesDescription" xml:space="preserve" translate="no">
+  <data name="MC_ScheduleAnglesDescription" xml:space="preserve">
     <value>Allowed to create Automation Tasks and schedule Angles directly from the Webclient. For managing Datastores "Manage system is required"</value>
   </data>
-  <data name="MC_ApplicationServer" xml:space="preserve" translate="no">
+  <data name="MC_ApplicationServer" xml:space="preserve">
     <value>Application server</value>
   </data>
-  <data name="MC_SystemSettingsHelpApplicationServer" xml:space="preserve" translate="no">
+  <data name="MC_SystemSettingsHelpApplicationServer" xml:space="preserve">
     <value>Application server url</value>
   </data>
   <data name="CancelledByUser" xml:space="preserve">
@@ -4991,16 +4988,16 @@ Are you sure you want to delete this role?</value>
   <data name="Info_FieldForbidden" xml:space="preserve">
     <value>L'accès au champ {0} est refusé</value>
   </data>
-  <data name="MC_ClassReport" xml:space="preserve" translate="no">
+  <data name="MC_ClassReport" xml:space="preserve">
     <value>Class Report</value>
   </data>
-  <data name="MC_EnumReport" xml:space="preserve" translate="no">
+  <data name="MC_EnumReport" xml:space="preserve">
     <value>Enum Report</value>
   </data>
-  <data name="MC_GeneralReport" xml:space="preserve" translate="no">
+  <data name="MC_GeneralReport" xml:space="preserve">
     <value>General Report</value>
   </data>
-  <data name="MC_Status" xml:space="preserve" translate="no">
+  <data name="MC_Status" xml:space="preserve">
     <value>Status</value>
   </data>
   <data name="Error_AggregationFieldMissing" xml:space="preserve">
@@ -5042,115 +5039,115 @@ Are you sure you want to delete this role?</value>
   <data name="Error_FollowupNotAvailableInObjects" xml:space="preserve">
     <value>Le Jump {0} n'est pas disponible dans un ou plusieurs objets {1}</value>
   </data>
-  <data name="MC_AngleWarnings" xml:space="preserve" translate="no">
+  <data name="MC_AngleWarnings" xml:space="preserve">
     <value>Angle warnings</value>
   </data>
-  <data name="MC_OtherWarnings" xml:space="preserve" translate="no">
+  <data name="MC_OtherWarnings" xml:space="preserve">
     <value>Other Errors and Warnings</value>
   </data>
-  <data name="MC_UnsupportedAggregationField" xml:space="preserve" translate="no">
+  <data name="MC_UnsupportedAggregationField" xml:space="preserve">
     <value>Pivot and Chart Displays with a non-existing value</value>
   </data>
-  <data name="MC_UnsupportedDisplayField" xml:space="preserve" translate="no">
+  <data name="MC_UnsupportedDisplayField" xml:space="preserve">
     <value>List Displays with a non-existing field</value>
   </data>
-  <data name="MC_UnsupportedFilterField" xml:space="preserve" translate="no">
+  <data name="MC_UnsupportedFilterField" xml:space="preserve">
     <value>and Displays with non-existing filter fields</value>
   </data>
-  <data name="MC_UnsupportedGroupingField" xml:space="preserve" translate="no">
+  <data name="MC_UnsupportedGroupingField" xml:space="preserve">
     <value>Pivot and Chart Displays with a non-existing dimension</value>
   </data>
-  <data name="MC_UnsupportedJump" xml:space="preserve" translate="no">
+  <data name="MC_UnsupportedJump" xml:space="preserve">
     <value>and Displays with non-existing Jump</value>
   </data>
-  <data name="MC_UnsupportedSortingField" xml:space="preserve" translate="no">
+  <data name="MC_UnsupportedSortingField" xml:space="preserve">
     <value>List Displays with a non-existing sorting field</value>
   </data>
-  <data name="MC_UnsupportedStartObject" xml:space="preserve" translate="no">
+  <data name="MC_UnsupportedStartObject" xml:space="preserve">
     <value>with non-existing start object</value>
   </data>
-  <data name="MC_AngleWarnings_FilterPrivateItems" xml:space="preserve" translate="no">
+  <data name="MC_AngleWarnings_FilterPrivateItems" xml:space="preserve">
     <value>Private items</value>
   </data>
-  <data name="MC_AngleWarnings_FilterPublicItems" xml:space="preserve" translate="no">
+  <data name="MC_AngleWarnings_FilterPublicItems" xml:space="preserve">
     <value>Published items</value>
   </data>
-  <data name="MC_AngleWarnings_FilterUserHint" xml:space="preserve" translate="no">
+  <data name="MC_AngleWarnings_FilterUserHint" xml:space="preserve">
     <value>all users</value>
   </data>
-  <data name="MC_AngleWarnings_FilterValidatedItems" xml:space="preserve" translate="no">
+  <data name="MC_AngleWarnings_FilterValidatedItems" xml:space="preserve">
     <value>Include validated items</value>
   </data>
-  <data name="MC_AngleWarnings_InfoContainErrorsWarnings" xml:space="preserve" translate="no">
+  <data name="MC_AngleWarnings_InfoContainErrorsWarnings" xml:space="preserve">
     <value>containing errors/warnings</value>
   </data>
-  <data name="MC_AngleWarnings_InfoTotalAngles" xml:space="preserve" translate="no">
+  <data name="MC_AngleWarnings_InfoTotalAngles" xml:space="preserve">
     <value>Total number of Angles</value>
   </data>
-  <data name="MC_AngleWarnings_InfoTotalDisplays" xml:space="preserve" translate="no">
+  <data name="MC_AngleWarnings_InfoTotalDisplays" xml:space="preserve">
     <value>Total number of Displays</value>
   </data>
-  <data name="MC_AngleWarnings_InfoTotalErrors" xml:space="preserve" translate="no">
+  <data name="MC_AngleWarnings_InfoTotalErrors" xml:space="preserve">
     <value>Total number of errors</value>
   </data>
-  <data name="MC_AngleWarnings_InfoTotalWarnings" xml:space="preserve" translate="no">
+  <data name="MC_AngleWarnings_InfoTotalWarnings" xml:space="preserve">
     <value>Total number of warnings</value>
   </data>
-  <data name="MC_AngleWarnings_InfoUniqueErrors" xml:space="preserve" translate="no">
+  <data name="MC_AngleWarnings_InfoUniqueErrors" xml:space="preserve">
     <value>unique errors</value>
   </data>
-  <data name="MC_AngleWarnings_InfoUniqueWarnings" xml:space="preserve" translate="no">
+  <data name="MC_AngleWarnings_InfoUniqueWarnings" xml:space="preserve">
     <value>unique warnings</value>
   </data>
-  <data name="MC_Validation_UserNotExist" xml:space="preserve" translate="no">
+  <data name="MC_Validation_UserNotExist" xml:space="preserve">
     <value>User does not exist in the system</value>
   </data>
-  <data name="MC_NoAction" xml:space="preserve" translate="no">
+  <data name="MC_NoAction" xml:space="preserve">
     <value>No action</value>
   </data>
-  <data name="MC_SelectFieldHint" xml:space="preserve" translate="no">
+  <data name="MC_SelectFieldHint" xml:space="preserve">
     <value>Select a field...</value>
   </data>
-  <data name="MC_SelectObjectHint" xml:space="preserve" translate="no">
+  <data name="MC_SelectObjectHint" xml:space="preserve">
     <value>Select an object...</value>
   </data>
-  <data name="MC_CollapseAll" xml:space="preserve" translate="no">
+  <data name="MC_CollapseAll" xml:space="preserve">
     <value>Collapse All</value>
   </data>
-  <data name="MC_ExpandAll" xml:space="preserve" translate="no">
+  <data name="MC_ExpandAll" xml:space="preserve">
     <value>Expand All</value>
   </data>
   <data name="Dashboard_WidgetNotExist" xml:space="preserve">
     <value />
   </data>
-  <data name="MC_AngleWarningsConfirmHeader" xml:space="preserve" translate="no">
+  <data name="MC_AngleWarningsConfirmHeader" xml:space="preserve">
     <value>{0}: All {1} items under {2}</value>
   </data>
   <data name="Info_GaugeChartIncorrectOrder" xml:space="preserve">
     <value>Les valeurs ne sont pas toutes en ordre croissant ou décroissant.</value>
   </data>
-  <data name="MC_Assign" xml:space="preserve" translate="no">
+  <data name="MC_Assign" xml:space="preserve">
     <value>Assign</value>
   </data>
-  <data name="MC_Deny" xml:space="preserve" translate="no">
+  <data name="MC_Deny" xml:space="preserve">
     <value>Deny</value>
   </data>
-  <data name="MC_Manage" xml:space="preserve" translate="no">
+  <data name="MC_Manage" xml:space="preserve">
     <value>Manage</value>
   </data>
-  <data name="MC_Undefined" xml:space="preserve" translate="no">
+  <data name="MC_Undefined" xml:space="preserve">
     <value>Undefined</value>
   </data>
-  <data name="MC_Validate" xml:space="preserve" translate="no">
+  <data name="MC_Validate" xml:space="preserve">
     <value>Validate</value>
   </data>
-  <data name="MC_View" xml:space="preserve" translate="no">
+  <data name="MC_View" xml:space="preserve">
     <value>View</value>
   </data>
-  <data name="MC_AngeWarningsNoBeExecuted" xml:space="preserve" translate="no">
+  <data name="MC_AngeWarningsNoBeExecuted" xml:space="preserve">
     <value>No action will be executed</value>
   </data>
-  <data name="MC_AngeWarningsNoItemSelect" xml:space="preserve" translate="no">
+  <data name="MC_AngeWarningsNoItemSelect" xml:space="preserve">
     <value>Please select at least one item</value>
   </data>
   <data name="Info_DisplaySortingReachedLimitation" xml:space="preserve">
@@ -5165,27 +5162,27 @@ Are you sure you want to delete this role?</value>
   <data name="Info_InvalidPackageVersion" xml:space="preserve">
     <value>Veuillez saisir un nombre valide.&lt;br/&gt;Utilisez le format N.N lorsque N est un nombre.&lt;br/&gt;Par exemple, 1.0</value>
   </data>
-  <data name="MC_SwitchWhenPostprocessing_Description" xml:space="preserve" translate="no">
+  <data name="MC_SwitchWhenPostprocessing_Description" xml:space="preserve">
     <value>When a Model Server has started and loaded the model, it will start caching and postprocessing a number of predefined fields. In a model environment with multiple Model Servers, this setting controls when the execution of queries will be switched to the Model Server with the newest data:
 &lt;ul&gt;&lt;li&gt;When this setting is selected (default value) the queries will be switched to the Model Server when it starts caching and postprocessing.&lt;/li&gt;
 &lt;li&gt;When deselected the queries will only be switched to the Model Server when it has finished caching and postprocessing (this is particularly useful when caching and postprocessing have a heavy toll on the system).&lt;/li&gt;&lt;/ul&gt;</value>
   </data>
-  <data name="MC_Event" xml:space="preserve" translate="no">
+  <data name="MC_Event" xml:space="preserve">
     <value>Event</value>
   </data>
-  <data name="MC_Schedule" xml:space="preserve" translate="no">
+  <data name="MC_Schedule" xml:space="preserve">
     <value>Schedule</value>
   </data>
-  <data name="MC_Features" xml:space="preserve" translate="no">
+  <data name="MC_Features" xml:space="preserve">
     <value>Features</value>
   </data>
-  <data name="MC_DisableSelectedModules" xml:space="preserve" translate="no">
+  <data name="MC_DisableSelectedModules" xml:space="preserve">
     <value>To disable the selected modules, also the following modules need to be disabled:</value>
   </data>
-  <data name="MC_IncludeInModule" xml:space="preserve" translate="no">
+  <data name="MC_IncludeInModule" xml:space="preserve">
     <value>(Included in module)</value>
   </data>
-  <data name="MC_AvailableLanguagesActive" xml:space="preserve" translate="no">
+  <data name="MC_AvailableLanguagesActive" xml:space="preserve">
     <value>All available languages are already active</value>
   </data>
   <data name="Info_SelectItemsContainTemplatesOrAngles" xml:space="preserve">
@@ -5194,34 +5191,34 @@ Are you sure you want to delete this role?</value>
   <data name="Info_AdvFilterSelectFilter" xml:space="preserve">
     <value>Veuillez sélectionner un filtre dans la liste.</value>
   </data>
-  <data name="MC_WebClientSettingNote" xml:space="preserve" translate="no">
+  <data name="MC_WebClientSettingNote" xml:space="preserve">
     <value>For the settings to become active, users need to clear the browser cache, or log out and log in again.</value>
   </data>
   <data name="Info_OnlyDisplayWillBeCreated" xml:space="preserve">
     <value>Seul ce Display sera ajouté à votre nouvel Angle.</value>
   </data>
-  <data name="MC_AddNewAuthenticationProvider" xml:space="preserve" translate="no">
+  <data name="MC_AddNewAuthenticationProvider" xml:space="preserve">
     <value>Add Authentication Provider</value>
   </data>
-  <data name="MC_AuthenticationProviderTypes" xml:space="preserve" translate="no">
+  <data name="MC_AuthenticationProviderTypes" xml:space="preserve">
     <value>Authentication Provider Types</value>
   </data>
-  <data name="MC_CreateAuthentication" xml:space="preserve" translate="no">
+  <data name="MC_CreateAuthentication" xml:space="preserve">
     <value>Create Authentication Provider</value>
   </data>
-  <data name="MC_DeleteAuthenticationProviderConfirm" xml:space="preserve" translate="no">
+  <data name="MC_DeleteAuthenticationProviderConfirm" xml:space="preserve">
     <value>Delete Authentication Provider: {reference}?</value>
   </data>
-  <data name="MC_EditAuthentication" xml:space="preserve" translate="no">
+  <data name="MC_EditAuthentication" xml:space="preserve">
     <value>Edit Authentication Provider</value>
   </data>
-  <data name="MC_Identity" xml:space="preserve" translate="no">
+  <data name="MC_Identity" xml:space="preserve">
     <value>Identity</value>
   </data>
-  <data name="MC_SyncRolesToGroups" xml:space="preserve" translate="no">
+  <data name="MC_SyncRolesToGroups" xml:space="preserve">
     <value>Sync roles to groups</value>
   </data>
-  <data name="MC_Target" xml:space="preserve" translate="no">
+  <data name="MC_Target" xml:space="preserve">
     <value>Target</value>
   </data>
   <data name="Copied" xml:space="preserve">
@@ -5230,7 +5227,7 @@ Are you sure you want to delete this role?</value>
   <data name="PressControlCopy" xml:space="preserve">
     <value>Appuyez sur CTRL+C pour copier</value>
   </data>
-  <data name="MC_ServiceAgreementOnlyService" xml:space="preserve" translate="no">
+  <data name="MC_ServiceAgreementOnlyService" xml:space="preserve">
     <value>Category</value>
   </data>
   <data name="Not_Available" xml:space="preserve">
@@ -5260,7 +5257,7 @@ Are you sure you want to delete this role?</value>
   <data name="Info_DropFilterToAngleDefinition" xml:space="preserve">
     <value>Déposez ici pour déplacer le filtre vers la définition d'Angle.</value>
   </data>
-  <data name="MC_ADFSRequires" xml:space="preserve" translate="no">
+  <data name="MC_ADFSRequires" xml:space="preserve">
     <value>ADFS requires the automatic creation of users</value>
   </data>
   <data name="Info_ConfirmDropFilterToAngleDefinition" xml:space="preserve">
@@ -5281,19 +5278,19 @@ Are you sure you want to delete this role?</value>
   <data name="To" xml:space="preserve">
     <value>à</value>
   </data>
-  <data name="MC_MaxEventLogStoredRecords" xml:space="preserve" translate="no">
+  <data name="MC_MaxEventLogStoredRecords" xml:space="preserve">
     <value>Max event log stored records</value>
   </data>
-  <data name="MC_SystemSettingsHelpMaxEventLogStoredRecords" xml:space="preserve" translate="no">
+  <data name="MC_SystemSettingsHelpMaxEventLogStoredRecords" xml:space="preserve">
     <value>Maximum quantity of stored records in Event log after the refresh cycle has completed.&lt;br&gt;Value 0 means the setting is off, no clearing of the log file.&lt;br&gt;The recommended setting is 10000.</value>
   </data>
   <data name="ExportCSVEnumFormatLongName" xml:space="preserve">
     <value>Long nom</value>
   </data>
-  <data name="MC_IncludeSelfInExportHeaders" xml:space="preserve" translate="no">
+  <data name="MC_IncludeSelfInExportHeaders" xml:space="preserve">
     <value>Include Self in export headers</value>
   </data>
-  <data name="MC_SystemSettingsHelpIncludeSelfInExportHeaders" xml:space="preserve" translate="no">
+  <data name="MC_SystemSettingsHelpIncludeSelfInExportHeaders" xml:space="preserve">
     <value>Indicates whether "Include Self in export headers" will be enabled.</value>
   </data>
   <data name="AdvanceFilterUsageOperatorNotWarning" xml:space="preserve">
@@ -5305,25 +5302,25 @@ Are you sure you want to delete this role?</value>
   <data name="AdvanceFilterAll" xml:space="preserve">
     <value>Tout</value>
   </data>
-  <data name="MC_AddMultiUsers" xml:space="preserve" translate="no">
+  <data name="MC_AddMultiUsers" xml:space="preserve">
     <value>Add Multi Users</value>
   </data>
-  <data name="MC_AddSingleUser" xml:space="preserve" translate="no">
+  <data name="MC_AddSingleUser" xml:space="preserve">
     <value>Add Single User</value>
   </data>
-  <data name="MC_ChooseUserAddInRole" xml:space="preserve" translate="no">
+  <data name="MC_ChooseUserAddInRole" xml:space="preserve">
     <value>Choose user(s) to add in role</value>
   </data>
-  <data name="MC_ChooseUserRemoveFromRole" xml:space="preserve" translate="no">
+  <data name="MC_ChooseUserRemoveFromRole" xml:space="preserve">
     <value>Choose user(s) to remove from role</value>
   </data>
-  <data name="MC_RemoveMultiUsers" xml:space="preserve" translate="no">
+  <data name="MC_RemoveMultiUsers" xml:space="preserve">
     <value>Remove Multi Users</value>
   </data>
-  <data name="MC_RemoveSingleUser" xml:space="preserve" translate="no">
+  <data name="MC_RemoveSingleUser" xml:space="preserve">
     <value>Remove Single User</value>
   </data>
-  <data name="MC_Provider" xml:space="preserve" translate="no">
+  <data name="MC_Provider" xml:space="preserve">
     <value>Provider</value>
   </data>
   <data name="Widgets" xml:space="preserve">
@@ -5428,10 +5425,10 @@ Are you sure you want to delete this role?</value>
   <data name="ResolveAngleDisplay_ConflictQuestion_Update" xml:space="preserve">
     <value>Êtes-vous sûr de vouloir mettre à jour cet Angle / Display ?</value>
   </data>
-  <data name="MC_StatusAndReport" xml:space="preserve" translate="no">
+  <data name="MC_StatusAndReport" xml:space="preserve">
     <value>Status and reports</value>
   </data>
-  <data name="MC_SendLogFrequencyInHours" xml:space="preserve" translate="no">
+  <data name="MC_SendLogFrequencyInHours" xml:space="preserve">
     <value>Send Logs Frequency [Hours]</value>
   </data>
   <data name="WidgetAngleName" xml:space="preserve">
@@ -5452,13 +5449,13 @@ Are you sure you want to delete this role?</value>
   <data name="ToOpenMC" xml:space="preserve">
     <value>&lt;strong&gt;Remarque : &lt;/strong&gt;Cette action ouvre la Console de gestion informatique.</value>
   </data>
-  <data name="MC_AllowEmptly" xml:space="preserve" translate="no">
+  <data name="MC_AllowEmptly" xml:space="preserve">
     <value>Allow empty</value>
   </data>
-  <data name="MC_ConfirmStartServer" xml:space="preserve" translate="no">
+  <data name="MC_ConfirmStartServer" xml:space="preserve">
     <value>Start server {0}. Are you sure you want to start this server?</value>
   </data>
-  <data name="MC_ConfirmStopServer" xml:space="preserve" translate="no">
+  <data name="MC_ConfirmStopServer" xml:space="preserve">
     <value>Stop server {0}. Are you sure you want to stop this server?</value>
   </data>
   <data name="NoTaskAvailable" xml:space="preserve">
@@ -5467,10 +5464,10 @@ Are you sure you want to delete this role?</value>
   <data name="DefaultDatastore" xml:space="preserve">
     <value>Magasin de données par défaut</value>
   </data>
-  <data name="MC_ShowWarningPopupCopyRole" xml:space="preserve" translate="no">
+  <data name="MC_ShowWarningPopupCopyRole" xml:space="preserve">
     <value>The copied role will not contain sub roles</value>
   </data>
-  <data name="MC_SpecifyTables" xml:space="preserve" translate="no">
+  <data name="MC_SpecifyTables" xml:space="preserve">
     <value>Specify tables</value>
   </data>
   <data name="OperatorIsIn" xml:space="preserve">
@@ -5554,7 +5551,7 @@ Are you sure you want to delete this role?</value>
   <data name="Info_RequiredFieldInRowAreaChart_Radar" xml:space="preserve">
     <value>Vous devez ajouter une champ dans la zone de catégories (axe circulaire).</value>
   </data>
-  <data name="MC_AngleWarnings_InfoTotalTemplates" xml:space="preserve" translate="no">
+  <data name="MC_AngleWarnings_InfoTotalTemplates" xml:space="preserve">
     <value>Total number of Templates</value>
   </data>
   <data name="ChartDataArea_Gauge" xml:space="preserve">
@@ -5572,22 +5569,22 @@ Are you sure you want to delete this role?</value>
   <data name="Info_PleaseRemoveOneFieldFromDataArea_Radar" xml:space="preserve">
     <value>Veuillez supprimer une champ de la zone de données (axe radial).</value>
   </data>
-  <data name="MC_Validation_ID_Restricted" xml:space="preserve" translate="no">
+  <data name="MC_Validation_ID_Restricted" xml:space="preserve">
     <value>The following ID is not allowed: {0}</value>
   </data>
-  <data name="MC_SAP_Jobs_Cancel_And_Retry_Info" xml:space="preserve" translate="no">
+  <data name="MC_SAP_Jobs_Cancel_And_Retry_Info" xml:space="preserve">
     <value>Cancel all running SAP&lt;br&gt; jobs and initiate retry.&lt;br&gt; Retry is not possible when the&lt;br&gt; maximum number of&lt;br&gt; retries has been reached.</value>
   </data>
-  <data name="MC_SAP_Jobs_Cancel_Info" xml:space="preserve" translate="no">
+  <data name="MC_SAP_Jobs_Cancel_Info" xml:space="preserve">
     <value>Cancel all running SAP&lt;br&gt; jobs without retry. The&lt;br&gt; refresh task can still finish if&lt;br&gt; all essentially-marked&lt;br&gt; tables are successfully extracted.</value>
   </data>
-  <data name="MC_License_Unlimited" xml:space="preserve" translate="no">
+  <data name="MC_License_Unlimited" xml:space="preserve">
     <value>unlimited</value>
   </data>
-  <data name="MC_MaxExportRowsUnlimited" xml:space="preserve" translate="no">
+  <data name="MC_MaxExportRowsUnlimited" xml:space="preserve">
     <value>unlimited</value>
   </data>
-  <data name="MC_ODataLogin" xml:space="preserve" translate="no">
+  <data name="MC_ODataLogin" xml:space="preserve">
     <value>Connect to OData</value>
   </data>
   <data name="WeekFormat" xml:space="preserve">
@@ -5596,25 +5593,25 @@ Are you sure you want to delete this role?</value>
   <data name="Confirm_SaveAngleWithWarning" xml:space="preserve">
     <value>L'ajout ou la suppression d'un Jump peut déclencher des avertissements d'Angle.&lt;br/&gt;Souhaitez-vous continuer ?</value>
   </data>
-  <data name="MC_ImportUser_Add_Users" xml:space="preserve" translate="no">
+  <data name="MC_ImportUser_Add_Users" xml:space="preserve">
     <value>Add users</value>
   </data>
-  <data name="MC_ImportUser_AvailableUsers_Title" xml:space="preserve" translate="no">
+  <data name="MC_ImportUser_AvailableUsers_Title" xml:space="preserve">
     <value>Available users</value>
   </data>
-  <data name="MC_ImportUser_SelectedUsers_Title" xml:space="preserve" translate="no">
+  <data name="MC_ImportUser_SelectedUsers_Title" xml:space="preserve">
     <value>Selected users</value>
   </data>
-  <data name="MC_External" xml:space="preserve" translate="no">
+  <data name="MC_External" xml:space="preserve">
     <value>External</value>
   </data>
-  <data name="MC_Actions" xml:space="preserve" translate="no">
+  <data name="MC_Actions" xml:space="preserve">
     <value>Actions</value>
   </data>
-  <data name="MC_CopyCommand" xml:space="preserve" translate="no">
+  <data name="MC_CopyCommand" xml:space="preserve">
     <value>Copy command</value>
   </data>
-  <data name="MC_CopyCommandHelpText" xml:space="preserve" translate="no">
+  <data name="MC_CopyCommandHelpText" xml:space="preserve">
     <value>The following command has been copied to your clipboard:</value>
   </data>
   <data name="Unauthorized" xml:space="preserve">
@@ -5638,16 +5635,16 @@ Are you sure you want to delete this role?</value>
   <data name="PrivateBrowsingInSafariIsNotSupported" xml:space="preserve">
     <value>Le mode Navigation Privée de Safari n'est pas pris en charge. Pour continuer, veuillez désactiver la Navigation Privée.</value>
   </data>
-  <data name="MC_SelectAField" xml:space="preserve" translate="no">
+  <data name="MC_SelectAField" xml:space="preserve">
     <value>Select a field</value>
   </data>
-  <data name="MC_SelectAFieldFromObject" xml:space="preserve" translate="no">
+  <data name="MC_SelectAFieldFromObject" xml:space="preserve">
     <value>Select a field from object {0}</value>
   </data>
-  <data name="MC_SelectAnObject" xml:space="preserve" translate="no">
+  <data name="MC_SelectAnObject" xml:space="preserve">
     <value>Select an object</value>
   </data>
-  <data name="MC_SelectFieldToReplace" xml:space="preserve" translate="no">
+  <data name="MC_SelectFieldToReplace" xml:space="preserve">
     <value>Select field to replace</value>
   </data>
   <data name="Confirm_SaveValidatedAngle" xml:space="preserve">
@@ -5656,52 +5653,52 @@ Are you sure you want to delete this role?</value>
   <data name="Confirm_SaveValidatedDashboard" xml:space="preserve">
     <value>Vous avez apporté des modifications à un Dashboard Validé.&lt;br/&gt;Êtes-vous sûr de vouloir continuer ?</value>
   </data>
-  <data name="MC_NoFieldAvailable" xml:space="preserve" translate="no">
+  <data name="MC_NoFieldAvailable" xml:space="preserve">
     <value>No field available</value>
   </data>
-  <data name="MC_AuthenticationInputPlaceHolder" xml:space="preserve" translate="no">
+  <data name="MC_AuthenticationInputPlaceHolder" xml:space="preserve">
     <value>Add webservers</value>
   </data>
-  <data name="MC_SelectRunTime" xml:space="preserve" translate="no">
+  <data name="MC_SelectRunTime" xml:space="preserve">
     <value>Select runtime</value>
   </data>
-  <data name="MC_SelectTime" xml:space="preserve" translate="no">
+  <data name="MC_SelectTime" xml:space="preserve">
     <value>Select time</value>
   </data>
-  <data name="MC_ServerLocationLabel" xml:space="preserve" translate="no">
+  <data name="MC_ServerLocationLabel" xml:space="preserve">
     <value>Server's location:</value>
   </data>
-  <data name="MC_ServerTimeLabel" xml:space="preserve" translate="no">
+  <data name="MC_ServerTimeLabel" xml:space="preserve">
     <value>Server time:</value>
   </data>
-  <data name="MC_UtcOffsetLabel" xml:space="preserve" translate="no">
+  <data name="MC_UtcOffsetLabel" xml:space="preserve">
     <value>UTC offset:</value>
   </data>
-  <data name="MC_ActiveUsersThisMonth" xml:space="preserve" translate="no">
+  <data name="MC_ActiveUsersThisMonth" xml:space="preserve">
     <value>Active users this month</value>
   </data>
-  <data name="MC_ActiveUsersThisWeek" xml:space="preserve" translate="no">
+  <data name="MC_ActiveUsersThisWeek" xml:space="preserve">
     <value>Active users this week</value>
   </data>
-  <data name="MC_ManageUsersRole_RequiresReLogin" xml:space="preserve" translate="no">
+  <data name="MC_ManageUsersRole_RequiresReLogin" xml:space="preserve">
     <value>This action requires a re-login. Press OK to continue.</value>
   </data>
   <data name="Result" xml:space="preserve">
     <value>Résultat</value>
   </data>
-  <data name="MC_ConfirmActivatePackage" xml:space="preserve" translate="no">
+  <data name="MC_ConfirmActivatePackage" xml:space="preserve">
     <value>Activate Package: {reference}?</value>
   </data>
-  <data name="MC_ConfirmDeactivatePackage" xml:space="preserve" translate="no">
+  <data name="MC_ConfirmDeactivatePackage" xml:space="preserve">
     <value>Deactivate Package: {reference}?</value>
   </data>
-  <data name="MC_ConfirmUpdatePackage" xml:space="preserve" translate="no">
+  <data name="MC_ConfirmUpdatePackage" xml:space="preserve">
     <value>Update Package: {reference}?</value>
   </data>
-  <data name="MC_Validation_TableName" xml:space="preserve" translate="no">
+  <data name="MC_Validation_TableName" xml:space="preserve">
     <value>Invalid table name. Table names may not begin with numeric values or SQL commands</value>
   </data>
-  <data name="MC_ActivatePackage" xml:space="preserve" translate="no">
+  <data name="MC_ActivatePackage" xml:space="preserve">
     <value>Activate package</value>
   </data>
   <data name="Both" xml:space="preserve">
@@ -5710,28 +5707,28 @@ Are you sure you want to delete this role?</value>
   <data name="LabelCategoriesAndLabels" xml:space="preserve">
     <value>Catégories d'étiquettes et étiquettes</value>
   </data>
-  <data name="MC_CreateNewPackage" xml:space="preserve" translate="no">
+  <data name="MC_CreateNewPackage" xml:space="preserve">
     <value>Create new package</value>
   </data>
-  <data name="MC_CreatePackage" xml:space="preserve" translate="no">
+  <data name="MC_CreatePackage" xml:space="preserve">
     <value>Create package</value>
   </data>
-  <data name="MC_ExportPackageIncludeLabelsDescription" xml:space="preserve" translate="no">
+  <data name="MC_ExportPackageIncludeLabelsDescription" xml:space="preserve">
     <value>Include or exclude all Label categories and labels</value>
   </data>
-  <data name="MC_ExportPackageIncludePrivateItemDescription" xml:space="preserve" translate="no">
+  <data name="MC_ExportPackageIncludePrivateItemDescription" xml:space="preserve">
     <value>Include or exclude Private Angles and/or Templates</value>
   </data>
-  <data name="MC_ExportPackageIncludePublishedItemDescription" xml:space="preserve" translate="no">
+  <data name="MC_ExportPackageIncludePublishedItemDescription" xml:space="preserve">
     <value>Include or exclude all Published (Unvalidated) Angles and/or Templates</value>
   </data>
-  <data name="MC_ExportPackageIncludeValidatedItemDescription" xml:space="preserve" translate="no">
+  <data name="MC_ExportPackageIncludeValidatedItemDescription" xml:space="preserve">
     <value>Include or exclude all Validated Angles and/or Templates</value>
   </data>
-  <data name="MC_PackageInfo" xml:space="preserve" translate="no">
+  <data name="MC_PackageInfo" xml:space="preserve">
     <value>Package info</value>
   </data>
-  <data name="MC_SelectModel" xml:space="preserve" translate="no">
+  <data name="MC_SelectModel" xml:space="preserve">
     <value>Select model</value>
   </data>
   <data name="Private" xml:space="preserve">
@@ -5743,40 +5740,40 @@ Are you sure you want to delete this role?</value>
   <data name="Templates" xml:space="preserve">
     <value>Templates</value>
   </data>
-  <data name="MC_IncludeValidated" xml:space="preserve" translate="no">
+  <data name="MC_IncludeValidated" xml:space="preserve">
     <value>Include Validated</value>
   </data>
-  <data name="MC_SelectContent" xml:space="preserve" translate="no">
+  <data name="MC_SelectContent" xml:space="preserve">
     <value>Select Content</value>
   </data>
   <data name="Logging" xml:space="preserve">
     <value>Enregistrement</value>
   </data>
-  <data name="MC_MaxAuditLogHistory" xml:space="preserve" translate="no">
+  <data name="MC_MaxAuditLogHistory" xml:space="preserve">
     <value>Max audit log history [months]</value>
   </data>
-  <data name="MC_SystemSettingsHelpTextMaxAuditLogHistory" xml:space="preserve" translate="no">
+  <data name="MC_SystemSettingsHelpTextMaxAuditLogHistory" xml:space="preserve">
     <value>Maximum stored history of Audit Log records in months after the refresh cycle has completed.&lt;br&gt;Value 0 means the setting is off, no clearing of the Audit Log.&lt;br&gt;The maximum value is 120 months.</value>
   </data>
   <data name="JSONLengthExceeded" xml:space="preserve">
     <value>Longueur maximale dépassée (MaxJsonLength). Cela peut se produire lorsque, par exemple, vous copiez une grande quantité d'éléments et / ou des éléments contenant de longs noms, des textes d'aide, etc.</value>
   </data>
-  <data name="MC_Duplicates" xml:space="preserve" translate="no">
+  <data name="MC_Duplicates" xml:space="preserve">
     <value>Duplicates</value>
   </data>
-  <data name="MC_Include" xml:space="preserve" translate="no">
+  <data name="MC_Include" xml:space="preserve">
     <value>Include</value>
   </data>
-  <data name="MC_Merge" xml:space="preserve" translate="no">
+  <data name="MC_Merge" xml:space="preserve">
     <value>Merge</value>
   </data>
-  <data name="MC_Overwrite" xml:space="preserve" translate="no">
+  <data name="MC_Overwrite" xml:space="preserve">
     <value>Overwrite</value>
   </data>
-  <data name="MC_PrivateAnglesAndDisplays" xml:space="preserve" translate="no">
+  <data name="MC_PrivateAnglesAndDisplays" xml:space="preserve">
     <value>Private Angles/Displays</value>
   </data>
-  <data name="MC_Skip" xml:space="preserve" translate="no">
+  <data name="MC_Skip" xml:space="preserve">
     <value>Skip</value>
   </data>
   <data name="MessageAngleNeedsToBeReExecuted" xml:space="preserve">
@@ -5821,10 +5818,10 @@ Are you sure you want to delete this role?</value>
   <data name="SinceLastRefresh" xml:space="preserve">
     <value>{0}since last refresh</value>
   </data>
-  <data name="MC_ChangedTablesOnly" xml:space="preserve" translate="no">
+  <data name="MC_ChangedTablesOnly" xml:space="preserve">
     <value>New and changed tables only</value>
   </data>
-  <data name="MC_ChangedTablesOnly_Description" xml:space="preserve" translate="no">
+  <data name="MC_ChangedTablesOnly_Description" xml:space="preserve">
     <value>Select this option to extract only newly added and changed tables. This option cannot be used together with Delta.</value>
   </data>
   <data name="ViewDisplaysMode" xml:space="preserve">

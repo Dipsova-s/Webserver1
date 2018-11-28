@@ -5,7 +5,6 @@ Resource            ${EXECDIR}/WC/POM/ManagementConsole/AutomationTasks/Tasks/Ed
 *** Keywords ***
 Go To Tasks Page With Admin User
     Go to MC Then Login With Admin User
-    Wait Until Overview Page Loaded
     Go To All Tasks Page
 
 Go To All Tasks Page
@@ -15,10 +14,7 @@ Go To All Tasks Page
     Wait All Tasks Page Ready
 
 Reload Tasks Page
-    ${tasksPage}    Set Variable    ${URL_MC}/home/index#/Automation%20tasks/Tasks/
-    ${currentLocation}    Get Location
-    Run Keyword If    '${currentLocation}'=='${tasksPage}'    Reload Page
-    ...        ELSE    Go To    ${URL_MC}/home/index#/Automation tasks/Tasks/
+    Go To MC Page    /Automation%20tasks/Tasks/
     Wait All Tasks Page Ready
 
 Verify Edit Task Page

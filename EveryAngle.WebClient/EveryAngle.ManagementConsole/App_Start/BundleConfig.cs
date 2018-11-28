@@ -153,6 +153,9 @@ namespace EveryAngle.ManagementConsole
             bundles.Add(new CustomScriptBundle("~/bundles/globalsettings/systemroles")
                 .Include("~/scripts/page/mc.globalsettings.systemroles.js"));
 
+            bundles.Add(new CustomScriptBundle("~/bundles/globalsettings/components")
+                .Include("~/scripts/page/mc.globalsettings.components.js"));
+
             bundles.Add(new CustomScriptBundle("~/bundles/models/allmodels")
                 .Include("~/scripts/page/mc.models.allmodels.js"));
 
@@ -178,7 +181,7 @@ namespace EveryAngle.ManagementConsole
             bundles.Add(new CustomScriptBundle("~/bundles/models/languages")
                 .Include("~/scripts/page/mc.models.languagestemplate.js")
                 .Include("~/scripts/page/mc.models.languages.js"));
-              
+
             bundles.Add(new CustomScriptBundle("~/bundles/models/tablesfields")
                 .Include("~/scripts/page/mc.models.tablesfields.js"));
 

@@ -13,6 +13,16 @@ Create Context: Web
     ${url}    Execute JavaScript    return window.webAPIUrl;
     Create Context    ${url}    ${user}    ${pwd}
 
+Create Context: MC
+    ${path}    Execute JavaScript    return window.location.pathname.indexOf('/admin') !== -1 ? '/${Branch}/admin'.toLowerCase() : '';
+    Set Test Variable    ${PATH_MC}    ${path}
+
+    ${scheme}    Execute JavaScript    return window.location.protocol.replace(':','');
+    ${host}    Execute JavaScript    return window.location.host;
+    Create Http Context    ${host}    ${scheme}
+    ${cookie}    Get Cookie Value    EASECTOKEN
+    Set Request Header    Cookie    EASECTOKEN=${cookie}
+
 Create Context: Current Server
     [Arguments]    ${user}=${AdminUsername}    ${pwd}=${Password}
     Create Context    ${PREF_SERVER_CURRENT}    ${user}    ${pwd}

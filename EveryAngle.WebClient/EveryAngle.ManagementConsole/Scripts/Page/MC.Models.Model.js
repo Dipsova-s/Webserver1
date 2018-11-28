@@ -12,6 +12,7 @@
         self.UpdateModelInfoUri = '';
         self.TopMenuUri = '';
         self.IsOverviewPage = false;
+        self.ModelIdDropdownItemsUri = '';
 
         self.Initial = function (data) {
             self.SaveUri = '';
@@ -22,21 +23,129 @@
             self.UpdateModelInfoUri = '';
             self.IsOverviewPage = false;
             self.TopMenuUri = '';
+            self.ModelIdDropdownItemsUri = '';
 
             jQuery.extend(self, data || {});
 
             setTimeout(function () {
                 $("#breadcrumbList li").last().replaceWith('<li><a class="noLink">' + self.PageTitle + '</a></li>');
-
+                self.InitialModelId();
+                self.InitialModelColorPicker();
                 MC.form.page.init(self.GetData);
             }, 1);
+        };
+        self.IsCreateNewModel = function () {
+            return $('#formAddModel').hasClass('newModel');
+        };
+        self.SetModelIdDropdown = function (dropdown) {
+            MC.ajax.request({
+                url: self.ModelIdDropdownItemsUri,
+                type: 'GET'
+            })
+            .done(function (items) {
+                if (items.length) {
+                    dropdown.kendoDropDownList({
+                        dataTextField: 'id',
+                        dataValueField: 'id',
+                        dataSource: items,
+                        change: function () {
+                            var modelId = this.value();
+                            $("input[name='id']").val(modelId);
+                        }
+                    });
+                    dropdown.data('kendoDropDownList').trigger('change');
+                    dropdown.removeClass('hidden');
+                }
+                else {
+                    self.UpdateModelIdAsText(dropdown, Localization.MC_NoModelsAvailable);
+                    $("input[name='short_name'], input[name='long_name'], input[name='environment']").prop('disabled', true);
+                    $(".modelColorPickerButton").removeAttr('onclick');
+                    $(".btnSave").addClass('disabled').removeAttr('onclick');
+                }
+            });
+        };
+        self.UpdateModelIdAsText = function (dropdown, text) {
+            var container = dropdown.parent();
+            container.empty().text(text).css('min-height', '30px');
+        };
+        self.InitialModelId = function () {
+            var dropdown = $("#modelId");
+            if (self.IsCreateNewModel()) {
+                self.SetModelIdDropdown(dropdown);
+            }
+            else {
+                self.UpdateModelIdAsText(dropdown, $("input[name='id']").val());
+            }
+        };
+        self.InitialModelColorPicker = function () {
+            var colorPicker = $("#modelColorPicker");
+            colorPicker.kendoColorPalette({
+                palette: modelColors.split(','),
+                tileSize: 20,
+                change: function () {
+                    var color = this.value();
+                    self.ChangeModelColor(color);
+                }
+            });
+            self.CreateNoModelColor(colorPicker);
+            var modelColor = $("input[name='color']").val();
+            self.SetModelColor(modelColor);
+        };
+        self.ChangeModelColor = function (colorSelected) {
+            self.SetModelColor(colorSelected);
+            self.ToggleModelColorPickerPopup();
+        };
+        self.SetModelColor = function (colorSelected) {
+            var colorPicker = $("#modelColorPicker");
+            var colorPickerButton = $(".modelColorPickerButton");
+            var nocolorItem = colorPicker.find('.nocolor');
+            if (colorSelected) {
+                nocolorItem.removeClass('nocolorSelected');
+                colorPickerButton.addClass('hasColor');
+            }
+            else {
+                nocolorItem.addClass('nocolorSelected');
+                colorPickerButton.removeClass('hasColor');
+            }
+            colorPicker.data('kendoColorPalette').value(colorSelected || null);
+            $("input[name='color']").val(colorSelected);
+            colorPickerButton.css('background-color', colorSelected);
+            $(".modalColorPickerIcon").css('background-image', colorSelected ? 'url(../images/icons/white_arrow_down.svg)' : '');
+        };
+        self.ToggleModelColorPickerPopup = function () {
+            var colorPickerPopup = $(".modelColorPickerContainer");
+            var isVisible = colorPickerPopup.css('visibility') === 'visible';
+            colorPickerPopup.css('visibility', isVisible ? 'hidden' : 'visible');
+
+            $(document).off('click').on('click', function (e) {
+                if (!$(e.target).closest('.modelColorPickerButton').length) {
+                    if (colorPickerPopup.css('visibility') === 'visible') {
+                        self.ToggleModelColorPickerPopup();
+                        $(document).off('click');
+                    }
+                }
+            });
+        };
+        self.CreateNoModelColor = function (colorPicker) {
+            colorPicker.find('tr')
+                .prepend("<td class=\"nocolor\" onclick=\"MC.Models.Model.ChangeModelColor('')\"><canvas id=\"nocolor\" width=\"20\" height=\"20\"></canvas></td>");
+
+            var canvas = $('#nocolor')[0];
+            var context = canvas.getContext('2d');
+            context.beginPath();
+            context.lineCap = 'round';
+            context.strokeStyle = '#FF0000';
+            context.lineWidth = 2;
+            context.moveTo(20, 0);
+            context.lineTo(0, 20);
+            context.stroke();
         };
         self.GetData = function () {
             MC.form.clean();
 
             var data = {};
 
-            data.type = $('#isNew').length ? 'POST' : 'PUT';
+            data.type = self.IsCreateNewModel() ? 'POST' : 'PUT';
             data.modelUri = self.ModelUri;
             data.modelData = $('#formAddModel').serializeObject();
 

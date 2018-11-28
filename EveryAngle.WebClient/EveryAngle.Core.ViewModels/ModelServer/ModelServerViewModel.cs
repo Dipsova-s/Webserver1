@@ -155,6 +155,9 @@ namespace EveryAngle.Core.ViewModels.ModelServer
         [JsonProperty(PropertyName = "metadata_available")]
         public bool metadata_available { get; set; }
 
+        [JsonProperty(PropertyName = "metadata")]
+        public string metadata { get; set; }
+
         [JsonProperty(PropertyName = "queryable")]
         public bool queryable { get; set; }
 

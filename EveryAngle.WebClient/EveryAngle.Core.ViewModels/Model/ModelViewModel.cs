@@ -38,6 +38,8 @@ namespace EveryAngle.Core.ViewModels.Model
             }
         }
 
+        public string color { get; set; }
+
         public string short_name { get; set; }
 
         public string long_name { get; set; }
