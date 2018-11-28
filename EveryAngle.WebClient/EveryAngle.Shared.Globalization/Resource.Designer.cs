@@ -12471,7 +12471,8 @@ namespace EveryAngle.Shared.Globalization {
         
         /// <summary>
         ///   Looks up a localized string similar to The username of the Run user for the program/script.&lt;br&gt;
-        ///This must be a valid Windows user with sufficient permissions..
+        ///This must be a valid Windows user with sufficient permissions.&lt;br&gt;
+        ///Prefix the username with &quot;domain\&quot; to use a domain user..
         /// </summary>
         public static string MC_TaskAction_DescriptionUsername {
             get {
