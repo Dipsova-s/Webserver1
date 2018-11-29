@@ -21,9 +21,10 @@
         {
             Type = PageToolbarButtonType.GridEditDelete,
             Privilege = PrivilegeType.None,
-            Template = "# if(data.IsDownloadMetadataEnabled) { #"
+            EnableTemplate = "# if(data.IsDownloadMetadataEnabled) { #"
                         + "<a href=\"" + Url.Content("~/Component/DownloadMetadata") + "\" class=\"btn btnDownload\" onclick=\"MC.GlobalSettings.Components.DownloadModelServerMetaData(event, this)\" data-parameters='{\"componentUri\":\"#= data.Uri #\",\"modelId\":\"#=data.ModelId#\"}'>" + Resource.MC_DownloadMetadata + "</a>"
                         + "# } else { #"
+                        + "<a class=\"btn btnDownload disabled\">" + Resource.MC_DownloadMetadata + "</a>"
                         + "# } #"
         });
 
@@ -31,9 +32,10 @@
         {
             Type = PageToolbarButtonType.GridEditDelete,
             Privilege = PrivilegeType.None,
-            Template = "# if(data.IsInfoEnabled) { #"
+            EnableTemplate = "# if(data.IsInfoEnabled) { #"
                         + "<a data-target=\"\\#popupModelServer\" data-component-info-url=\"" + Url.Content("~/Component/GetComponentInfo") + "\" class=\"btn btnInfo\" onclick=\"MC.GlobalSettings.Components.ShowModelServerInfo(event, this)\" data-parameters = '{\"componentUri\":\"#= data.Uri #\",\"modelId\": \"#=data.ModelId #\"}' data-title=\"#= MC.GlobalSettings.Components.GetModelServerInfoTitle(data.Type) #\" data-role=\"mcPopup\" data-width=\"80%\" data-min-width=\"760\" data-height=\"80%\">" + Resource.Info + "</a>"
                         + "# } else { #"
+                        + "<a class=\"btn btnInfo disabled\">" + Resource.Info + "</a>"
                         + "# } #"
         });
     }
@@ -49,53 +51,51 @@
 <h2>@Resource.MC_Components_GridTitle</h2>
 <div class="gridContainer" id="ComponentsGridContainer">
     @(Html.Kendo().Grid<EveryAngle.Core.ViewModels.ComponentViewModel>()
-                        .Name("ComponentsGrid")
-                        .Columns(columns =>
-                        {
-                            columns.Bound(model => model.Type)
-                                    .Title(Resource.Name);
-                            columns.Bound(model => model.Version)
-                                .Title(Resource.MC_Version);
-                            columns.Bound(model => model.Uri)
-                                .Title(Resource.MC_Uri);
-                            columns.Bound(model => model.MachineName)
-                                .Title(Resource.Host);
-                            columns.Bound(model => model.RegisteredOn)
-                                .HeaderTemplate(PageHelper.HeaderWithTimezone("Registered on"))
-                                .ClientTemplate("<span>#= MC.util.getDisplayDateTime(data.RegisteredOn) #</span>")
-                                .HeaderHtmlAttributes(new { @class = "columnStartTime columnDate" })
-                                .HtmlAttributes(new { @class = "columnStartTime columnDate" })
-                                .Width(115);
-                            columns.Bound(model => model.RegistrationId)
-                                .Title("Registration ID");
-                            columns.Bound(model => model.Status.Available)
-                                .ClientTemplate("<span>#= data.Status.Available ? Localization.MC_Available : Localization.Not_Available #</span>")
-                                .Title(Resource.MC_Status);
-                            columns.Bound(model => model.Status.LastEvent)
-                                .ClientTemplate("<span>#= data.Status.LastEvent ? data.Status.LastEvent : 'n/a' #</span>")
-                                .Title("Last event");
-                            columns.Bound(model => model.LastSuccessfulHeartbeat)
-                                .HeaderTemplate(PageHelper.HeaderWithTimezone("Last heartbeat"))
-                                .ClientTemplate("<span>#= MC.util.getDisplayDateTime(data.LastSuccessfulHeartbeat, 'n/a') #</span>")
-                                .Width(115);
+                                .Name("ComponentsGrid")
+                                .Columns(columns =>
+                                {
+                                    columns.Bound(model => model.Type)
+                                            .Title(Resource.Name);
+                                    columns.Bound(model => model.Version)
+                                        .Title(Resource.MC_Version);
+                                    columns.Bound(model => model.Uri)
+                                        .Title(Resource.MC_Uri);
+                                    columns.Bound(model => model.MachineName)
+                                        .Title(Resource.Host);
+                                    columns.Bound(model => model.RegisteredOn)
+                                        .HeaderTemplate(Resource.MC_RegisteredOn)
+                                        .ClientTemplate("<span data-role='localize'>#= data.RegisteredOn || 'n/a' # </span>")
+                                        .Width(115);
+                                    columns.Bound(model => model.RegistrationId)
+                                        .Title(Resource.MC_RegistrationId);
+                                    columns.Bound(model => model.Status.Available)
+                                        .ClientTemplate("<span>#= data.Status.Available ? Localization.MC_Available : Localization.Not_Available #</span>")
+                                        .Title(Resource.MC_Status);
+                                    columns.Bound(model => model.Status.LastEvent)
+                                        .ClientTemplate("<span>#= data.Status.LastEvent ? data.Status.LastEvent : 'n/a' #</span>")
+                                        .Title(Resource.MC_LastEvent);
+                                    columns.Bound(model => model.LastSuccessfulHeartbeat)
+                                        .Title(Resource.MC_LastHeartbeat)
+                                        .ClientTemplate("<span data-role='localize'>#= data.LastSuccessfulHeartbeat || 'n/a'  # </span>")
+                                        .Width(115);
 
-                            columns.Bound(model => model.RegistrationId)
-                                .ClientTemplate(gridButton)
-                                .HeaderHtmlAttributes(new { @class = "gridColumnToolbar" })
-                                .HtmlAttributes(new { @class = "gridColumnToolbar" })
-                                .Width(75)
-                                .Title(Resource.MC_Action)
-                                .Sortable(false);
-                        })
-                        .Resizable(resize => resize.Columns(true))
-                        .Scrollable(scroll => scroll.Virtual(false).Height(10 * 31))
-                        .EnableCustomBinding(true)
-                        .AutoBind(false)
-                        .DataSource(dataSource => dataSource
-                            .Ajax().Events(e => e.RequestStart("onKendoGridPagingStart"))
-                            .Read(read => read.Action("GetComponents", "Component", new { modelId = ViewBag.ModelId }))
-                            .ServerOperation(false)
-                        ))
+                                    columns.Bound(model => model.RegistrationId)
+                                        .ClientTemplate(gridButton)
+                                        .HeaderHtmlAttributes(new { @class = "gridColumnToolbar" })
+                                        .HtmlAttributes(new { @class = "gridColumnToolbar" })
+                                        .Width(75)
+                                        .Title(Resource.MC_Action)
+                                        .Sortable(false);
+                                })
+                                .Resizable(resize => resize.Columns(true))
+                                .Scrollable(scroll => scroll.Virtual(false).Height(10 * 31))
+                                .EnableCustomBinding(true)
+                                .AutoBind(false)
+                                .DataSource(dataSource => dataSource
+                                    .Ajax().Events(e => e.RequestStart("onKendoGridPagingStart"))
+                                    .Read(read => read.Action("GetComponents", "Component", new { modelId = ViewBag.ModelId }))
+                                    .ServerOperation(false)
+                                ))
 </div>
 
 <div class="popup" id="popupModelServer" data-server-url="@Url.Action("GetAllModelServerReport", "ModelServers")" data-info-url="@Url.Action("GetAllModelServer", "ModelServers")" data-report-url="@Url.Action("GetModelServerReport", "ModelServers")">

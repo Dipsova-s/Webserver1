@@ -9928,6 +9928,24 @@ namespace EveryAngle.Shared.Globalization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Last event.
+        /// </summary>
+        public static string MC_LastEvent {
+            get {
+                return ResourceManager.GetString("MC_LastEvent", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Last heartbeat.
+        /// </summary>
+        public static string MC_LastHeartbeat {
+            get {
+                return ResourceManager.GetString("MC_LastHeartbeat", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Length.
         /// </summary>
         public static string MC_Length {
@@ -10997,6 +11015,24 @@ namespace EveryAngle.Shared.Globalization {
         public static string MC_RefreshCycle {
             get {
                 return ResourceManager.GetString("MC_RefreshCycle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Registered on.
+        /// </summary>
+        public static string MC_RegisteredOn {
+            get {
+                return ResourceManager.GetString("MC_RegisteredOn", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Registration ID.
+        /// </summary>
+        public static string MC_RegistrationId {
+            get {
+                return ResourceManager.GetString("MC_RegistrationId", resourceCulture);
             }
         }
         

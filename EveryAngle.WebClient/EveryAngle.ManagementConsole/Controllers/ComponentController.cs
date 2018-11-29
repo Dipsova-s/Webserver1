@@ -3,6 +3,7 @@ using EveryAngle.Core.ViewModels;
 using EveryAngle.Core.ViewModels.Model;
 using EveryAngle.Core.ViewModels.ModelServer;
 using EveryAngle.WebClient.Service.HttpHandlers;
+using EveryAngle.WebClient.Service.Security;
 using Kendo.Mvc.UI;
 using System;
 using System.Collections.Generic;
@@ -21,6 +22,15 @@ namespace EveryAngle.ManagementConsole.Controllers
         {
             _componentService = componentService;
             _modelService = modelService;
+        }
+
+        public ComponentController(
+            IComponentService componentService,
+            IModelService modelService,
+            SessionHelper sessionHelper)
+            : this(componentService, modelService)
+        {
+            SessionHelper = sessionHelper;
         }
 
         public ActionResult SystemComponents()
@@ -49,13 +59,13 @@ namespace EveryAngle.ManagementConsole.Controllers
         public JsonResult GetComponentInfo(string modelId, string componentUri)
         {
             ModelViewModel model = SessionHelper.GetModelById(modelId);
-            ListViewModel<ModelServerViewModel> modelServers = _modelService.GetModelServers(model.ServerUri.ToString());
+            ListViewModel<ModelServerViewModel> modelServers = _modelService.GetModelServers(model?.ServerUri?.ToString());
             ModelServerViewModel modelServer = modelServers.Data.FirstOrDefault(x => new Uri(x.server_uri).ToString() == new Uri(componentUri).ToString());
 
             return Json(new
             {
                 modelServerUri = modelServer.Uri,
-                isCurrentInstance = model.current_instance == modelServer.instance
+                isCurrentInstance = model.current_instance != null && model.current_instance == modelServer.instance
             }, JsonRequestBehavior.AllowGet);
         }
 
