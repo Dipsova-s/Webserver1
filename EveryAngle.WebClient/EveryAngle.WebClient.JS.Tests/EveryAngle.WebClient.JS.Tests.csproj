@@ -54,6 +54,14 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="..\EveryAngle.ManagementConsole\Scripts\Custom\MC.form.js">
+      <Link>ManagementConsole\Dependencies\custom\MC.form.js</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\EveryAngle.ManagementConsole\Scripts\Page\MC.Models.Communications.js">
+      <Link>ManagementConsole\Dependencies\page\MC.Models.Communications.js</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="..\EveryAngle.ManagementConsole\Scripts\Page\MC.Models.Packages.js">
       <Link>ManagementConsole\Dependencies\page\MC.Models.Packages.js</Link>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
@@ -110,6 +118,7 @@
     <Content Include="ManagementConsole\Tests\Page\MC.Models.PackagesTest.js" />
     <Content Include="ManagementConsole\Tests\jQuery\jquery.validate.additional-methods.Test.js" />
     <Content Include="ManagementConsole\Tests\Page\MC.GlobalSettings.PackagesTest.js" />
+    <Content Include="ManagementConsole\Tests\Page\MC.Models.CommunicationsTest.js" />
     <Content Include="ManagementConsole\Tests\Page\MC.Users.UserTest.js" />
     <Content Include="MockData\text.js" />
     <Content Include="MockData\mockdata.js" />

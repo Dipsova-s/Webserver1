@@ -29,16 +29,12 @@
                 "country": $('#CompanyInformation_country').val(),
                 "telephone": $('#CompanyInformation_telephone').val(),
                 "email": $('#CompanyInformation_email').val()                
-                //"": $('#').val()
             };
 
             data.emailSettingsData = {
-                //"smtp_server": $('#EmailSettings_smtp_server').val(),
                 "sender": $('#EmailSettings_sender').val(),
-                //"username": $('#EmailSettings_username').val(),
-                //"password": $('#EmailSettings_password').val(),
                 "recipients": $('#EmailSettings_ReOrderrecipients').val().split(','),
-                "send_logs_frequency": $('#EmailSettings_send_system_logs_frequency_hours').val(),
+                "send_logs_frequency": $('#EmailSettings_send_system_logs_frequency_hours').val() || 0,
                 "attach_logfiles": $('#EmailSettings_attach_logfiles').is(":checked")
             };
 
