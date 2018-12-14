@@ -359,25 +359,22 @@ end;
 
 function UpdateDefaultInstallCertificate(): boolean;
 var
-  PreviousSSL: boolean;
   SSLCommand: boolean;
 begin
    Result := True;
-
-   PreviousSSL := StrToBool(GetPreviousData('IsHttps', 'True'));
-   if not PreviousSSL then
-   begin
-     Result := PreviousSSL;
-   end;
-   
-   if WizardSilent then
+     if WizardSilent then
    begin
      SSLCommand := StrToBool(GetCommandlineParameter('SSL'));
-     if not SSLCommand then
+   end
+   else
+     begin
+       SSLCommand := StrToBool(GetPreviousData('IsHttps', 'False'));
+     end;
+
+	 if not SSLCommand then
      begin
        Result := SSLCommand;
      end;
-   end;
 end;
 
 function GetAppServerUrlWithPort(AppServerUrl, BasePort: string; IsHttps: boolean): string;
@@ -1091,7 +1088,7 @@ begin
       begin
         if WizardForm.Visible then
         begin
-          MsgBox(Format('Error during installing HTTPS certificate (exit code %d): Installation interrupted.' + #13#10 + #13#10 + 'Please check CustomerCertificates.Installer.console log for details', [ExitCode]), mbCriticalError, MB_OK)
+          ShowError(Format('Error during installing HTTPS certificate (exit code %d): Installation interrupted.' + #13#10 + #13#10 + 'Please check CustomerCertificates.Installer.console log for details', [ExitCode]), mbCriticalError, MB_OK)
           WizardForm.Close;
         end
         else
@@ -1284,7 +1281,7 @@ begin
   begin
       // Log(Format('[i]Applications in IIS: [Site: %s, Applications: %s', [IISSite.Text, Paths.CommaText])); 
       AppServerUrl := AddProtocolUrl(GetAppServerUrlWithPort(WebClientConfigPage.Values[1], WebClientConfigPage.Values[2], IsHTTPSCertificateComponentSelected));
-      MsgBox(Format('The Web Server failed to register on the AppServer(%s)',[AppServerUrl]), mbError, MB_OK);
+      ShowError(Format('The Web Server failed to register on the AppServer(%s)',[AppServerUrl]), mbError, MB_OK);
   end;
 
   // Upgrade environment
@@ -1417,7 +1414,7 @@ begin
   begin
     if WebClientConfigPage.Values[2] = '' then
     begin
-      MsgBox('Baseport is required', mbError, MB_OK);
+      ShowError('Baseport is required', mbError, MB_OK);
       Result := False;    
     end;
   end
@@ -1425,12 +1422,12 @@ begin
   begin
       if not FileExists(CertificatePage.Values[0]) then
       begin
-        MsgBox('No valid file has been selcted.', mbError, MB_OK);
+        ShowError('No valid file has been selcted.', mbError, MB_OK);
         Result := False;
       end
       else if CertificatePassword.Text = '' then
       begin
-        MsgBox('No password is provided.', mbError, MB_OK);
+        ShowError('No password is provided.', mbError, MB_OK);
         Result := False;
       end
   end
@@ -1497,7 +1494,7 @@ begin
   SetPreviousData(PreviousDataKey, 'WebServerUrl', WebClientConfigPage.Values[0]);
   SetPreviousData(PreviousDataKey, 'AppServerUrl', WebClientConfigPage.Values[1]);
   SetPreviousData(PreviousDataKey, 'BasePort', WebClientConfigPage.Values[2]);
-  SetPreviousData(PreviousDataKey, 'IsHttps', IntToStr(Integer(IsHTTPSCertificateComponentSelected)));
+  SetPreviousData(PreviousDataKey, 'IsHttps', BoolToStr(IsHTTPSCertificateComponentSelected));
 
   // TODO: if new installation AND datapath.endswith 'WebClient', Shared datapath is datapath - 'WebClient'
   // SetEASharedRegistryKey('Data', DataPath(''));
@@ -1566,7 +1563,7 @@ begin
     end
     else
     begin
-      MsgBox('WebServer cannot be deregistered, uninstallation failed.', mbError, MB_OK);
+      ShowError('WebServer cannot be deregistered, uninstallation failed.', mbError, MB_OK);
       Abort;
     end;
 
