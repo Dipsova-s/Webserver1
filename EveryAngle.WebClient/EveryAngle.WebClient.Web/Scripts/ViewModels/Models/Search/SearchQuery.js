@@ -358,139 +358,36 @@ function SearchQueryViewModel() {
                 { key: '.executeFilter', datefilter: enumHandlers.ADVANCESEARCHPARAMETER.EXECUTED, userFilter: enumHandlers.ADVANCESEARCHPARAMETER.EXECUTOR, operator: enumHandlers.ADVANCESEARCHPARAMETER.EXECUTOROPERATOR },
                 { key: '.validateFilter', datefilter: enumHandlers.ADVANCESEARCHPARAMETER.VALIDATED, userFilter: enumHandlers.ADVANCESEARCHPARAMETER.VALIDATOR, operator: enumHandlers.ADVANCESEARCHPARAMETER.VALIDATOROPERATOR }
             ];
-
-            var autoCompleteElement, autoCompleteObject;
-            var dropdownObject;
             jQuery.each(usageClasses, function (index, currentClass) {
-                autoCompleteElement = jQuery(currentClass.key + ' .userFilter:input');
-                autoCompleteObject = autoCompleteElement.data(enumHandlers.KENDOUITYPE.AUTOCOMPLETE);
-                if (autoCompleteObject && autoCompleteObject.value() !== '') {
-                    queries.push(currentClass.userFilter + '=' + encodeURIComponent(autoCompleteObject.value()));
-                }
+                // usage user
+                var autoCompleteElement = jQuery(currentClass.key + ' .userFilter:input');
+                var autoCompleteObject = autoCompleteElement.data(enumHandlers.KENDOUITYPE.AUTOCOMPLETE);
+                self.SetGeneralQuery(queries, currentClass.userFilter, autoCompleteObject.value());
 
-                var lastTimeOfDay = 86399;
-                jQuery(currentClass.key + ' .dropdownUsageOperators').each(function (index, ele) {
-                    ele = jQuery(ele);
-                    dropdownObject = WC.HtmlHelper.DropdownList(ele);
-                    if (dropdownObject) {
-                        var selectecValue = parseInt(dropdownObject.value());
-                        if (selectecValue !== 0) {
-                            var startDate = ele.parent().parent().find('.datepickerFrom:input').data(enumHandlers.KENDOUITYPE.DATEPICKER).value();
-                            if (startDate) {
-                                startDate = kendo.date.toUtcTime(kendo.date.getDate(startDate)) / 1000;
-                            }
-                            else {
-                                startDate = '*';
-                            }
-
-                            var finishDate = ele.parent().parent().find('.datepickerTo:input').data(enumHandlers.KENDOUITYPE.DATEPICKER).value();
-                            if (finishDate) {
-                                finishDate = kendo.date.toUtcTime(kendo.date.getDate(finishDate)) / 1000;
-                                finishDate += lastTimeOfDay;
-                            }
-                            else {
-                                finishDate = '*';
-                            }
-
-                            if (selectecValue === 1) {
-                                finishDate = startDate + lastTimeOfDay;
-                                queries.push(currentClass.operator + '=' + selectecValue + '&' + currentClass.datefilter + '=[' + startDate + ' TO ' + finishDate + ']');
-                            }
-                            else if (selectecValue === 2) {
-                                if (startDate !== '*' && finishDate !== '*') {
-                                    queries.push(currentClass.operator + '=' + selectecValue + '&' + currentClass.datefilter + '=[' + startDate + ' TO ' + finishDate + ']');
-                                }
-                                else {
-                                    queries.push(currentClass.operator + '=' + selectecValue + '&' + currentClass.datefilter + '=[' + startDate + ' TO ' + '*]');
-                                }
-                            }
-                            else if (selectecValue === 3) {
-                                startDate -= 1;
-                                queries.push(currentClass.operator + '=' + selectecValue + '&' + currentClass.datefilter + '=[* TO ' + startDate + ']');
-                            }
-                            else {
-                                queries.push(currentClass.operator + '=' + selectecValue + '&' + currentClass.datefilter + '=[' + startDate + ' TO ' + finishDate + ']');
-                            }
-                        }
-
-                    }
-                });
-            });
-
-            jQuery('.numberExecutedFilter .dropdownNumberExcutes').each(function (index, ele) {
-                ele = jQuery(ele);
-                dropdownObject = WC.HtmlHelper.DropdownList(ele);
-                if (dropdownObject) {
-                    var selectecValue = parseInt(dropdownObject.value());
-                    if (selectecValue !== 0) {
-                        var numberOfExecute = jQuery('#textNumberExcutes').val();
-                        if (!jQuery.trim(numberOfExecute)) {
-                            numberOfExecute = 0;
-                        }
-                        if (selectecValue === 1) {
-                            queries.push(enumHandlers.ADVANCESEARCHPARAMETER.NUMBEROFEXECUTEOPERATOR + '=' + selectecValue + '&times_executed=[' + numberOfExecute + ' TO ' + numberOfExecute + ']');
-                        }
-                        else if (selectecValue === 2) {
-                            queries.push(enumHandlers.ADVANCESEARCHPARAMETER.NUMBEROFEXECUTEOPERATOR + '=' + selectecValue + '&times_executed=[' + (parseInt(numberOfExecute) + 1) + ' TO ' + '*]');
-                        }
-                        else {
-                            queries.push(enumHandlers.ADVANCESEARCHPARAMETER.NUMBEROFEXECUTEOPERATOR + '=' + selectecValue + '&times_executed=[*' + ' TO ' + (parseInt(numberOfExecute) - 1) + ']');
-                        }
-                    }
+                // usage operator
+                var dropdownUsage = WC.HtmlHelper.DropdownList(currentClass.key + ' .dropdownUsageOperators[data-role="dropdownlist"]');
+                var usageContainer = dropdownUsage.wrapper.closest('.popupAdvFilteringContent');
+                var usageOperator = parseInt(dropdownUsage.value());
+                var startDate = usageContainer.find('input.datepickerFrom').data(enumHandlers.KENDOUITYPE.DATEPICKER).value();
+                var finishDate = usageContainer.find('input.datepickerTo').data(enumHandlers.KENDOUITYPE.DATEPICKER).value();
+                if (self.IsValidUsageFilter(usageOperator, startDate, finishDate)) {
+                    self.SetUsageOperatorQuery(queries, currentClass, usageOperator, startDate, finishDate);
                 }
             });
 
-            var value = jQuery.trim(jQuery('#ids').val());
-            if (value) {
-                queries.push(enumHandlers.ADVANCESEARCHPARAMETER.IDS + '=' + encodeURIComponent(value));
-            }
+            var dropdownUsage = WC.HtmlHelper.DropdownList(jQuery('#dropdownNumberExcutes'));
+            self.SetNumberExcuteQuery(queries, dropdownUsage.value(), jQuery('#textNumberExcutes').val());
 
-            value = jQuery.trim(jQuery('#nameTextBox').val());
-            if (value) {
-                queries.push(enumHandlers.ADVANCESEARCHPARAMETER.ITEMNAME + '=' + encodeURIComponent(value));
-            }
-
-            value = jQuery.trim(jQuery('#descriptionTextBox').val());
-            if (value) {
-                queries.push(enumHandlers.ADVANCESEARCHPARAMETER.ITEMDESCRIPTION + '=' + encodeURIComponent(value));
-            }
-
-            value = jQuery.trim(jQuery('#displayNameTextBox').val());
-            if (value) {
-                queries.push(enumHandlers.ADVANCESEARCHPARAMETER.DISPLAYNAMES + '=' + encodeURIComponent(value));
-            }
-
-            value = jQuery.trim(jQuery('#displayDescriptionTextBox').val());
-            if (value) {
-                queries.push(enumHandlers.ADVANCESEARCHPARAMETER.DISPLAYDESCRIPTIONS + '=' + encodeURIComponent(value));
-            }
-
-            value = jQuery.trim(jQuery('#baseClassTextBox').val());
-            if (value) {
-                queries.push(enumHandlers.ADVANCESEARCHPARAMETER.BASECLASSES + '=' + encodeURIComponent(value));
-            }
-
-            value = jQuery.trim(jQuery('#queryStepFieldTextBox').val());
-            if (value) {
-                queries.push(enumHandlers.ADVANCESEARCHPARAMETER.QUERYSTEPFIELDS + '=' + encodeURIComponent(value));
-            }
-
-            value = jQuery.trim(jQuery('#followupTextBox').val());
-            if (value) {
-                queries.push(enumHandlers.ADVANCESEARCHPARAMETER.QUERYSTEPFOLLOWUPS + '=' + encodeURIComponent(value));
-            }
-
-            value = jQuery('#allowMoreDetailCheckbox').prop('checked');
-            if (value) {
-                queries.push(enumHandlers.ADVANCESEARCHPARAMETER.ALLOWMOREDETAILS + '=' + value);
-            }
-
-            value = jQuery('#allowFollowUpCheckbox').prop('checked');
-            if (jQuery('#allowFollowUpCheckbox').prop('checked')) {
-                queries.push(enumHandlers.ADVANCESEARCHPARAMETER.ALLOWFOLLOWUPS + '=' + value);
-            }
-
-
+            self.SetGeneralQuery(queries, enumHandlers.ADVANCESEARCHPARAMETER.IDS, jQuery.trim(jQuery('#ids').val()));
+            self.SetGeneralQuery(queries, enumHandlers.ADVANCESEARCHPARAMETER.ITEMNAME, jQuery.trim(jQuery('#nameTextBox').val()));
+            self.SetGeneralQuery(queries, enumHandlers.ADVANCESEARCHPARAMETER.ITEMDESCRIPTION, jQuery.trim(jQuery('#descriptionTextBox').val()));
+            self.SetGeneralQuery(queries, enumHandlers.ADVANCESEARCHPARAMETER.DISPLAYNAMES, jQuery.trim(jQuery('#displayNameTextBox').val()));
+            self.SetGeneralQuery(queries, enumHandlers.ADVANCESEARCHPARAMETER.DISPLAYDESCRIPTIONS, jQuery.trim(jQuery('#displayDescriptionTextBox').val()));
+            self.SetGeneralQuery(queries, enumHandlers.ADVANCESEARCHPARAMETER.BASECLASSES, jQuery.trim(jQuery('#baseClassTextBox').val()));
+            self.SetGeneralQuery(queries, enumHandlers.ADVANCESEARCHPARAMETER.QUERYSTEPFIELDS, jQuery.trim(jQuery('#queryStepFieldTextBox').val()));
+            self.SetGeneralQuery(queries, enumHandlers.ADVANCESEARCHPARAMETER.QUERYSTEPFOLLOWUPS, jQuery.trim(jQuery('#followupTextBox').val()));
+            self.SetGeneralQuery(queries, enumHandlers.ADVANCESEARCHPARAMETER.ALLOWMOREDETAILS, jQuery('#allowMoreDetailCheckbox').prop('checked'));
+            self.SetGeneralQuery(queries, enumHandlers.ADVANCESEARCHPARAMETER.ALLOWFOLLOWUPS, jQuery('#allowFollowUpCheckbox').prop('checked'));
         }
         else {
             queries = self.GetAdvanceSearchQueryFromUri();
@@ -499,24 +396,84 @@ function SearchQueryViewModel() {
         var query = queries.join('&');
         return query;
     };
+    self.SetGeneralQuery = function (queries, name, value) {
+        if (value) {
+            queries.push(name + '=' + encodeURIComponent(value));
+        }
+    };
+    self.SetUsageOperatorQuery = function (queries, currentClass, usageOperator, startDate, finishDate) {
+        var lastTimeOfDay = 86399;
+        if (startDate) {
+            startDate = kendo.date.toUtcTime(kendo.date.getDate(startDate)) / 1000;
+        }
+        else {
+            startDate = '*';
+        }
+                            
+        if (finishDate) {
+            finishDate = kendo.date.toUtcTime(kendo.date.getDate(finishDate)) / 1000;
+            finishDate += lastTimeOfDay;
+        }
+        else {
+            finishDate = '*';
+        }
+
+        if (usageOperator === 1) {
+            finishDate = startDate + lastTimeOfDay;
+            queries.push(currentClass.operator + '=' + usageOperator + '&' + currentClass.datefilter + '=[' + startDate + ' TO ' + finishDate + ']');
+        }
+        else if (usageOperator === 2) {
+            if (startDate !== '*' && finishDate !== '*') {
+                queries.push(currentClass.operator + '=' + usageOperator + '&' + currentClass.datefilter + '=[' + startDate + ' TO ' + finishDate + ']');
+            }
+            else {
+                queries.push(currentClass.operator + '=' + usageOperator + '&' + currentClass.datefilter + '=[' + startDate + ' TO ' + '*]');
+            }
+        }
+        else if (usageOperator === 3) {
+            startDate -= 1;
+            queries.push(currentClass.operator + '=' + usageOperator + '&' + currentClass.datefilter + '=[* TO ' + startDate + ']');
+        }
+        else {
+            queries.push(currentClass.operator + '=' + usageOperator + '&' + currentClass.datefilter + '=[' + startDate + ' TO ' + finishDate + ']');
+        }
+    };
+    self.SetNumberExcuteQuery = function (queries, usageOperator, numberOfExecute) {
+        usageOperator = parseInt(usageOperator);
+        if (usageOperator > 0) {
+            numberOfExecute = parseInt(numberOfExecute);
+            if (isNaN(numberOfExecute)) {
+                numberOfExecute = 0;
+            }
+            if (usageOperator === 1) {
+                queries.push(enumHandlers.ADVANCESEARCHPARAMETER.NUMBEROFEXECUTEOPERATOR + '=' + usageOperator + '&times_executed=[' + numberOfExecute + ' TO ' + numberOfExecute + ']');
+            }
+            else if (usageOperator === 2) {
+                queries.push(enumHandlers.ADVANCESEARCHPARAMETER.NUMBEROFEXECUTEOPERATOR + '=' + usageOperator + '&times_executed=[' + (numberOfExecute + 1) + ' TO ' + '*]');
+            }
+            else {
+                queries.push(enumHandlers.ADVANCESEARCHPARAMETER.NUMBEROFEXECUTEOPERATOR + '=' + usageOperator + '&times_executed=[*' + ' TO ' + (numberOfExecute - 1) + ']');
+            }
+        }
+    };
+    self.IsValidUsageFilter = function (usageOperator, startDate, finishDate) {
+        var isValidSingleOperator = usageOperator > 0 && usageOperator < 4 && startDate;
+        var isValidBetweenOperator = usageOperator === 4 && startDate && finishDate;
+        return isValidSingleOperator || isValidBetweenOperator;
+    };
 
     self.GetAdvanceSearchForCharacteristic = function (target, characteristicsName) {
         var dropdownObject = WC.HtmlHelper.DropdownList('#' + target);
         if (dropdownObject) {
-            var selectecValue = dropdownObject.value();
-            if (selectecValue !== 0) {
-
-                if (selectecValue === 1) {
-                    return characteristicsName;
-                }
-                else if (selectecValue === 2) {
-                    return '-' + characteristicsName;
-                }
+            var usageOperator = dropdownObject.value();
+            if (usageOperator === 1) {
+                return characteristicsName;
             }
-            else return null;
+            else if (usageOperator === 2) {
+                return '-' + characteristicsName;
+            }
         }
-
-        return query;
+        return null;
     };
 
     self.ClearCharacteristicInAdvanceSearch = function (facetId) {
@@ -549,27 +506,29 @@ function SearchQueryViewModel() {
         else if (facetId === 'facet_has_warnings') {
             jQuery('#facet_has_warnings').prop('checked', false);
         }
-
     };
 
     self.GetQueryStringForAdvanceSearchCharacteristic = function () {
-
         var result = '';
         var characteristicQueries = [];
-        if (self.GetAdvanceSearchForCharacteristic('dropdownPublicStatus', 'facet_isprivate')) {
-            characteristicQueries.push(self.GetAdvanceSearchForCharacteristic('dropdownPublicStatus', 'facet_isprivate'));
+        var publicStatus = self.GetAdvanceSearchForCharacteristic('dropdownPublicStatus', 'facet_isprivate');
+        if (publicStatus) {
+            characteristicQueries.push(publicStatus);
         }
 
-        if (self.GetAdvanceSearchForCharacteristic('dropdownValidation', 'facet_isvalidated')) {
-            characteristicQueries.push(self.GetAdvanceSearchForCharacteristic('dropdownValidation', 'facet_isvalidated'));
+        var validation = self.GetAdvanceSearchForCharacteristic('dropdownValidation', 'facet_isvalidated');
+        if (validation) {
+            characteristicQueries.push(validation);
         }
 
-        if (self.GetAdvanceSearchForCharacteristic('dropdownWarning', 'facet_has_warnings')) {
-            characteristicQueries.push(self.GetAdvanceSearchForCharacteristic('dropdownWarning', 'facet_has_warnings'));
+        var hasWarnings = self.GetAdvanceSearchForCharacteristic('dropdownWarning', 'facet_has_warnings');
+        if (hasWarnings) {
+            characteristicQueries.push(hasWarnings);
         }
 
-        if (self.GetAdvanceSearchForCharacteristic('dropdownStarred', 'facet_isstarred')) {
-            characteristicQueries.push(self.GetAdvanceSearchForCharacteristic('dropdownStarred', 'facet_isstarred'));
+        var isStarred = self.GetAdvanceSearchForCharacteristic('dropdownStarred', 'facet_isstarred');
+        if (isStarred) {
+            characteristicQueries.push(isStarred);
         }
 
         var filterChecked = [],
@@ -602,7 +561,7 @@ function SearchQueryViewModel() {
         var queries = [];
         var creator = WC.Utility.UrlParameter(enumHandlers.ADVANCESEARCHPARAMETER.CREATOR);
         if (creator) {
-            queries.push(enumHandlers.ADVANCESEARCHPARAMETER.CREATOR + '=' + creator);
+            queries.push(enumHandlers.ADVANCESEARCHPARAMETER.CREATOR + '=' + decodeURIComponent(creator));
         }
 
         var creatorOperator = WC.Utility.UrlParameter(enumHandlers.ADVANCESEARCHPARAMETER.CREATOROPERATOR);
@@ -612,12 +571,12 @@ function SearchQueryViewModel() {
 
         var created = WC.Utility.UrlParameter(enumHandlers.ADVANCESEARCHPARAMETER.CREATED);
         if (created) {
-            queries.push(enumHandlers.ADVANCESEARCHPARAMETER.CREATED + '=' + created);
+            queries.push(enumHandlers.ADVANCESEARCHPARAMETER.CREATED + '=' + decodeURIComponent(created));
         }
 
         var changer = WC.Utility.UrlParameter(enumHandlers.ADVANCESEARCHPARAMETER.CHANGER);
         if (changer) {
-            queries.push(enumHandlers.ADVANCESEARCHPARAMETER.CHANGER + '=' + changer);
+            queries.push(enumHandlers.ADVANCESEARCHPARAMETER.CHANGER + '=' + decodeURIComponent(changer));
         }
 
         var changerOperator = WC.Utility.UrlParameter(enumHandlers.ADVANCESEARCHPARAMETER.CHANGEROPERATOR);
@@ -627,12 +586,12 @@ function SearchQueryViewModel() {
 
         var changed = WC.Utility.UrlParameter(enumHandlers.ADVANCESEARCHPARAMETER.CHANGED);
         if (changed) {
-            queries.push(enumHandlers.ADVANCESEARCHPARAMETER.CHANGED + '=' + changed);
+            queries.push(enumHandlers.ADVANCESEARCHPARAMETER.CHANGED + '=' + decodeURIComponent(changed));
         }
 
         var executor = WC.Utility.UrlParameter(enumHandlers.ADVANCESEARCHPARAMETER.EXECUTOR);
         if (executor) {
-            queries.push(enumHandlers.ADVANCESEARCHPARAMETER.EXECUTOR + '=' + executor);
+            queries.push(enumHandlers.ADVANCESEARCHPARAMETER.EXECUTOR + '=' + decodeURIComponent(executor));
         }
 
         var executeOperator = WC.Utility.UrlParameter(enumHandlers.ADVANCESEARCHPARAMETER.EXECUTOROPERATOR);
@@ -642,12 +601,12 @@ function SearchQueryViewModel() {
 
         var executed = WC.Utility.UrlParameter(enumHandlers.ADVANCESEARCHPARAMETER.EXECUTED);
         if (executed) {
-            queries.push(enumHandlers.ADVANCESEARCHPARAMETER.EXECUTED + '=' + executed);
+            queries.push(enumHandlers.ADVANCESEARCHPARAMETER.EXECUTED + '=' + decodeURIComponent(executed));
         }
 
         var validator = WC.Utility.UrlParameter(enumHandlers.ADVANCESEARCHPARAMETER.VALIDATOR);
         if (validator) {
-            queries.push(enumHandlers.ADVANCESEARCHPARAMETER.VALIDATOR + '=' + validator);
+            queries.push(enumHandlers.ADVANCESEARCHPARAMETER.VALIDATOR + '=' + decodeURIComponent(validator));
         }
 
         var validateOperator = WC.Utility.UrlParameter(enumHandlers.ADVANCESEARCHPARAMETER.VALIDATOROPERATOR);
@@ -657,7 +616,7 @@ function SearchQueryViewModel() {
 
         var validated = WC.Utility.UrlParameter(enumHandlers.ADVANCESEARCHPARAMETER.VALIDATED);
         if (validated) {
-            queries.push(enumHandlers.ADVANCESEARCHPARAMETER.VALIDATED + '=' + validated);
+            queries.push(enumHandlers.ADVANCESEARCHPARAMETER.VALIDATED + '=' + decodeURIComponent(validated));
         }
 
         var numberOfExecuteOperator = WC.Utility.UrlParameter(enumHandlers.ADVANCESEARCHPARAMETER.NUMBEROFEXECUTEOPERATOR);
@@ -672,57 +631,49 @@ function SearchQueryViewModel() {
 
         var ids = WC.Utility.UrlParameter(enumHandlers.ADVANCESEARCHPARAMETER.IDS);
         if (ids) {
-            queries.push(enumHandlers.ADVANCESEARCHPARAMETER.IDS + '=' + ids);
+            queries.push(enumHandlers.ADVANCESEARCHPARAMETER.IDS + '=' + decodeURIComponent(ids));
         }
 
 
         var item_name = WC.Utility.UrlParameter(enumHandlers.ADVANCESEARCHPARAMETER.ITEMNAME);
         if (item_name) {
-            queries.push(enumHandlers.ADVANCESEARCHPARAMETER.ITEMNAME + '=' + item_name);
+            queries.push(enumHandlers.ADVANCESEARCHPARAMETER.ITEMNAME + '=' + decodeURIComponent(item_name));
         }
 
         var item_description = WC.Utility.UrlParameter(enumHandlers.ADVANCESEARCHPARAMETER.ITEMDESCRIPTION);
         if (item_description) {
-            queries.push(enumHandlers.ADVANCESEARCHPARAMETER.ITEMDESCRIPTION + '=' + item_description);
+            queries.push(enumHandlers.ADVANCESEARCHPARAMETER.ITEMDESCRIPTION + '=' + decodeURIComponent(item_description));
         }
 
         var display_names = WC.Utility.UrlParameter(enumHandlers.ADVANCESEARCHPARAMETER.DISPLAYNAMES);
         if (display_names) {
-            queries.push(enumHandlers.ADVANCESEARCHPARAMETER.DISPLAYNAMES + '=' + display_names);
+            queries.push(enumHandlers.ADVANCESEARCHPARAMETER.DISPLAYNAMES + '=' + decodeURIComponent(display_names));
         }
         var display_descriptions = WC.Utility.UrlParameter(enumHandlers.ADVANCESEARCHPARAMETER.DISPLAYDESCRIPTIONS);
         if (display_descriptions) {
-            queries.push(enumHandlers.ADVANCESEARCHPARAMETER.DISPLAYDESCRIPTIONS + '=' + display_descriptions);
+            queries.push(enumHandlers.ADVANCESEARCHPARAMETER.DISPLAYDESCRIPTIONS + '=' + decodeURIComponent(display_descriptions));
         }
         var base_classes = WC.Utility.UrlParameter(enumHandlers.ADVANCESEARCHPARAMETER.BASECLASSES);
         if (base_classes) {
-            queries.push(enumHandlers.ADVANCESEARCHPARAMETER.BASECLASSES + '=' + base_classes);
+            queries.push(enumHandlers.ADVANCESEARCHPARAMETER.BASECLASSES + '=' + decodeURIComponent(base_classes));
         }
 
         var query_step_fields = WC.Utility.UrlParameter(enumHandlers.ADVANCESEARCHPARAMETER.QUERYSTEPFIELDS);
         if (query_step_fields) {
-            queries.push(enumHandlers.ADVANCESEARCHPARAMETER.QUERYSTEPFIELDS + '=' + query_step_fields);
+            queries.push(enumHandlers.ADVANCESEARCHPARAMETER.QUERYSTEPFIELDS + '=' + decodeURIComponent(query_step_fields));
         }
         var query_step_followups = WC.Utility.UrlParameter(enumHandlers.ADVANCESEARCHPARAMETER.QUERYSTEPFOLLOWUPS);
         if (query_step_followups) {
-            queries.push(enumHandlers.ADVANCESEARCHPARAMETER.QUERYSTEPFOLLOWUPS + '=' + query_step_followups);
-        }
-        var grouping_label_names = WC.Utility.UrlParameter(enumHandlers.ADVANCESEARCHPARAMETER.GROUPINGLABELNAMES);
-        if (grouping_label_names) {
-            queries.push(enumHandlers.ADVANCESEARCHPARAMETER.GROUPINGLABELNAMES + '=' + grouping_label_names);
-        }
-        var privilege_label_names = WC.Utility.UrlParameter(enumHandlers.ADVANCESEARCHPARAMETER.PRIVILEGELABELNAMES);
-        if (privilege_label_names) {
-            queries.push(enumHandlers.ADVANCESEARCHPARAMETER.PRIVILEGELABELNAMES + '=' + privilege_label_names);
+            queries.push(enumHandlers.ADVANCESEARCHPARAMETER.QUERYSTEPFOLLOWUPS + '=' + decodeURIComponent(query_step_followups));
         }
 
         var allow_more_details = WC.Utility.UrlParameter(enumHandlers.ADVANCESEARCHPARAMETER.ALLOWMOREDETAILS);
         if (allow_more_details) {
-            queries.push(enumHandlers.ADVANCESEARCHPARAMETER.ALLOWMOREDETAILS + '=' + allow_more_details);
+            queries.push(enumHandlers.ADVANCESEARCHPARAMETER.ALLOWMOREDETAILS + '=' + decodeURIComponent(allow_more_details));
         }
         var allow_followups = WC.Utility.UrlParameter(enumHandlers.ADVANCESEARCHPARAMETER.ALLOWFOLLOWUPS);
         if (allow_followups) {
-            queries.push(enumHandlers.ADVANCESEARCHPARAMETER.ALLOWFOLLOWUPS + '=' + allow_followups);
+            queries.push(enumHandlers.ADVANCESEARCHPARAMETER.ALLOWFOLLOWUPS + '=' + decodeURIComponent(allow_followups));
         }
 
         return queries;
@@ -808,13 +759,13 @@ function SearchQueryViewModel() {
     self.SetUIOfAdvanceSearchFromParams = function () {
         if (jQuery('#popupAdvanceFilter:visible').length > 0) {
             var creator = jQuery.trim(decodeURIComponent(WC.Utility.UrlParameter(enumHandlers.ADVANCESEARCHPARAMETER.CREATOR) || ''));
-            var created = WC.Utility.UrlParameter(enumHandlers.ADVANCESEARCHPARAMETER.CREATED) || '';
+            var created = jQuery.trim(decodeURIComponent(WC.Utility.UrlParameter(enumHandlers.ADVANCESEARCHPARAMETER.CREATED) || ''));
             var executor = jQuery.trim(decodeURIComponent(WC.Utility.UrlParameter(enumHandlers.ADVANCESEARCHPARAMETER.EXECUTOR) || ''));
-            var executed = WC.Utility.UrlParameter(enumHandlers.ADVANCESEARCHPARAMETER.EXECUTED) || '';
+            var executed = jQuery.trim(decodeURIComponent(WC.Utility.UrlParameter(enumHandlers.ADVANCESEARCHPARAMETER.EXECUTED) || ''));
             var validator = jQuery.trim(decodeURIComponent(WC.Utility.UrlParameter(enumHandlers.ADVANCESEARCHPARAMETER.VALIDATOR) || ''));
-            var validated = WC.Utility.UrlParameter(enumHandlers.ADVANCESEARCHPARAMETER.VALIDATED) || '';
+            var validated = jQuery.trim(decodeURIComponent(WC.Utility.UrlParameter(enumHandlers.ADVANCESEARCHPARAMETER.VALIDATED) || ''));
             var changer = jQuery.trim(decodeURIComponent(WC.Utility.UrlParameter(enumHandlers.ADVANCESEARCHPARAMETER.CHANGER) || ''));
-            var changed = WC.Utility.UrlParameter(enumHandlers.ADVANCESEARCHPARAMETER.CHANGED) || '';
+            var changed = jQuery.trim(decodeURIComponent(WC.Utility.UrlParameter(enumHandlers.ADVANCESEARCHPARAMETER.CHANGED) || ''));
 
             var times_executed = WC.Utility.UrlParameter(enumHandlers.ADVANCESEARCHPARAMETER.TIMESEXECUTED) || '';
             var item_name = decodeURIComponent(WC.Utility.UrlParameter(enumHandlers.ADVANCESEARCHPARAMETER.ITEMNAME) || '');
@@ -853,26 +804,26 @@ function SearchQueryViewModel() {
             jQuery('#allowFollowUpCheckbox').prop('checked', allow_followups);
             jQuery('#ids').val(ids);
 
-            jQuery('.createdFilter .dropdownUsageOperators:eq(1)').data(enumHandlers.KENDOUITYPE.DROPDOWNLIST).value(creatorOperator);
-            var dates = created.toLowerCase().replace('[', '').replace(']', '').split(' to ');
-            self.BindUsagesValues('.createdFilter', creatorOperator, dates);
+            jQuery('.createdFilter .dropdownUsageOperators[data-role="dropdownlist"]').data(enumHandlers.KENDOUITYPE.DROPDOWNLIST).value(creatorOperator);
+            var createDates = created.toLowerCase().replace('[', '').replace(']', '').split(' to ');
+            self.BindUsagesValues('.createdFilter', creatorOperator, createDates);
 
-            jQuery('.lastChangedFilter .dropdownUsageOperators:eq(1)').data(enumHandlers.KENDOUITYPE.DROPDOWNLIST).value(changerOperator);
-            var dates = changed.toLowerCase().replace('[', '').replace(']', '').split(' to ');
-            self.BindUsagesValues('.lastChangedFilter', changerOperator, dates);
+            jQuery('.lastChangedFilter .dropdownUsageOperators[data-role="dropdownlist"]').data(enumHandlers.KENDOUITYPE.DROPDOWNLIST).value(changerOperator);
+            var changeDates = changed.toLowerCase().replace('[', '').replace(']', '').split(' to ');
+            self.BindUsagesValues('.lastChangedFilter', changerOperator, changeDates);
 
-            jQuery('.executeFilter .dropdownUsageOperators:eq(1)').data(enumHandlers.KENDOUITYPE.DROPDOWNLIST).value(executeOperator);
-            var dates = executed.toLowerCase().replace('[', '').replace(']', '').split(' to ');
-            self.BindUsagesValues('.executeFilter', executeOperator, dates);
+            jQuery('.executeFilter .dropdownUsageOperators[data-role="dropdownlist"]').data(enumHandlers.KENDOUITYPE.DROPDOWNLIST).value(executeOperator);
+            var executeDates = executed.toLowerCase().replace('[', '').replace(']', '').split(' to ');
+            self.BindUsagesValues('.executeFilter', executeOperator, executeDates);
 
-            jQuery('.validateFilter .dropdownUsageOperators:eq(1)').data(enumHandlers.KENDOUITYPE.DROPDOWNLIST).value(validateOperator);
-            var dates = validated.toLowerCase().replace('[', '').replace(']', '').split(' to ');
-            self.BindUsagesValues('.validateFilter', validateOperator, dates);
+            jQuery('.validateFilter .dropdownUsageOperators[data-role="dropdownlist"]').data(enumHandlers.KENDOUITYPE.DROPDOWNLIST).value(validateOperator);
+            var validateDates = validated.toLowerCase().replace('[', '').replace(']', '').split(' to ');
+            self.BindUsagesValues('.validateFilter', validateOperator, validateDates);
 
             numberOfExecuteOperator = parseInt(numberOfExecuteOperator);
             jQuery('#dropdownNumberExcutes').data(enumHandlers.KENDOUITYPE.DROPDOWNLIST).value(numberOfExecuteOperator);
             var times = times_executed.toLowerCase().replace('[', '').replace(']', '').split(' to ');
-            if (numberOfExecuteOperator === 0) {
+            if (numberOfExecuteOperator <= 0) {
                 jQuery('#textNumberExcutes').data("kendoNumericTextBox").enable(false);
                 jQuery('#textNumberExcutes').data('kendoNumericTextBox').value(0);
             }
@@ -897,10 +848,10 @@ function SearchQueryViewModel() {
 
 
         if (self.GetAdvanceSearchQueryFromUri().length > 0 || self.HaveWariningInAdvanceFilter()) {
-            jQuery('.btnRemoveFilter').show();
+            jQuery('#ClearSearchButton').removeClass('alwaysHide');
         }
         else {
-            jQuery('.btnRemoveFilter').hide();
+            jQuery('#ClearSearchButton').addClass('alwaysHide');
         }
 
     };
@@ -908,7 +859,7 @@ function SearchQueryViewModel() {
     self.HaveWariningInAdvanceFilter = function () {
         var warningValue = self.GetOperatorValueFromFacet('facet_has_warnings');
         var showAngleWarningInFacet = self.ShowAngleWarningInFacet();
-        return (warningValue !== 0 && !showAngleWarningInFacet);
+        return warningValue > 0 && !showAngleWarningInFacet;
     };
 
     self.ShowAngleWarningInFacet = function () {
@@ -944,16 +895,16 @@ function SearchQueryViewModel() {
             jQuery('#allowMoreDetailCheckbox').prop('checked', false);
             jQuery('#allowFollowUpCheckbox').prop('checked', false);
             jQuery('#ids').val('');
-            jQuery('.createdFilter .dropdownUsageOperators:eq(1)').data(enumHandlers.KENDOUITYPE.DROPDOWNLIST).value('0');
+            jQuery('.createdFilter .dropdownUsageOperators[data-role="dropdownlist"]').data(enumHandlers.KENDOUITYPE.DROPDOWNLIST).value(0);
             self.BindUsagesValues('.createdFilter', 0, null);
-            jQuery('.lastChangedFilter .dropdownUsageOperators:eq(1)').data(enumHandlers.KENDOUITYPE.DROPDOWNLIST).value('0');
+            jQuery('.lastChangedFilter .dropdownUsageOperators[data-role="dropdownlist"]').data(enumHandlers.KENDOUITYPE.DROPDOWNLIST).value(0);
             self.BindUsagesValues('.lastChangedFilter', 0, null);
-            jQuery('.executeFilter .dropdownUsageOperators:eq(1)').data(enumHandlers.KENDOUITYPE.DROPDOWNLIST).value('0');
+            jQuery('.executeFilter .dropdownUsageOperators[data-role="dropdownlist"]').data(enumHandlers.KENDOUITYPE.DROPDOWNLIST).value(0);
             self.BindUsagesValues('.executeFilter', 0, null);
-            jQuery('.validateFilter .dropdownUsageOperators:eq(1)').data(enumHandlers.KENDOUITYPE.DROPDOWNLIST).value('0');
+            jQuery('.validateFilter .dropdownUsageOperators[data-role="dropdownlist"]').data(enumHandlers.KENDOUITYPE.DROPDOWNLIST).value(0);
             self.BindUsagesValues('.validateFilter', 0, null);
 
-            jQuery('#dropdownNumberExcutes').data(enumHandlers.KENDOUITYPE.DROPDOWNLIST).value('0');
+            jQuery('#dropdownNumberExcutes').data(enumHandlers.KENDOUITYPE.DROPDOWNLIST).value(0);
             jQuery('#textNumberExcutes').data("kendoNumericTextBox").enable(false);
             jQuery('#textNumberExcutes').data('kendoNumericTextBox').value(0);
 

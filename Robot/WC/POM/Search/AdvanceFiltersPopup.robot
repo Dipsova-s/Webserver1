@@ -1,8 +1,8 @@
 *** Variables ***
 #General
-${divAdvFiltersPopup}           popupAdvanceFilter
-${btnAdvFiltersSearch}          btn-popupAdvanceFilter1
-${btnAdvFiltersClose}           btn-popupAdvanceFilter0
+${divAdvFiltersPopup}           css=#popupAdvanceFilter
+${btnAdvFiltersSearch}          css=#btn-popupAdvanceFilter0
+${btnAdvFiltersClose}           css=#SearchButton
 
 #Controls
 ${ddlAdvFilterPublicStatus}    dropdownPublicStatus_ddlWrapper

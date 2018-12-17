@@ -66,25 +66,25 @@ html, body, input, textarea {
 
 /* placeholder */
 ::-webkit-input-placeholder {
-    color: #666;
+    color: #818181;
 }
 
 :-moz-placeholder {
     opacity: 1;
-    color: #666;
+    color: #818181;
 }
 
 ::-moz-placeholder {
     opacity: 1;
-    color: #666;
+    color: #818181;
 }
 
 :-ms-input-placeholder {
-    color: #666;
+    color: #818181;
 }
 
 .placeholder {
-    color: #666;
+    color: #818181;
 }
 
 :focus::-webkit-input-placeholder {
@@ -576,6 +576,29 @@ img {
     height: 16px;
 }
 
+.icon.caret:before {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    margin-left: -4px;
+    margin-top: -2px;
+    width: 0;
+    height: 0;
+    content: '';
+    border: 4px solid #666;
+    border-right-color: transparent;
+    border-bottom: 0;
+    border-left-color: transparent;
+}
+
+.icon.remove {
+    background-image: url('../../images/icons/icon_delete.svg');
+    background-position: center center;
+    background-size: 10px 10px;
+    width: 16px;
+    height: 16px;
+}
+
 /* icons #2
 ============================================ */
 .SignFavorite {
@@ -924,7 +947,7 @@ img {
     position: relative;
     background-color: #fff;
     border: 1px solid #d8d8d8;
-    border-right: none;
+    border-right-width: 0;
     box-sizing: border-box;
     border-radius: 2px;
 }

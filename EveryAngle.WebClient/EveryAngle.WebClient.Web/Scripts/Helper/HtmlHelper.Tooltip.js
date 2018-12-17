@@ -21,10 +21,10 @@
         var tooltipLeft;
         var tooltipTop;
 
+        var target = jQuery(e.currentTarget);
+        var targetOffset = target.offset();
         if (e.data.position === TOOLTIP_POSITION.BOTTOM) {
             // show at bottom
-            var target = jQuery(e.target);
-            var targetOffset = target.offset();
             tooltipLeft = targetOffset.left + (target.outerWidth() / 2) - (tooltipWidth / 2);
             tooltipTop = targetOffset.top + target.outerHeight();
         }
@@ -66,10 +66,9 @@
             text = tooltipFunction.call(target, tooltipArgument);
             renderAs = target.data('type');
         }
-        else if (target.find('[data-tooltip-title]').length) {
-            var dataTooltip = target.find('[data-tooltip-title]');
-            text = dataTooltip.data('tooltip-title');
-            renderAs = dataTooltip.data('type');
+        else if (target.is('[data-tooltip-title]')) {
+            text = target.data('tooltip-title');
+            renderAs = target.data('type');
         }
         else if (!target.is('[data-role="tooltip"]') && target.find(ui.except).length) {
             text = '';

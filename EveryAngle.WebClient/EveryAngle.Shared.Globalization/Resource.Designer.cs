@@ -756,25 +756,7 @@ namespace EveryAngle.Shared.Globalization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to After:.
-        /// </summary>
-        public static string AdvanceFilterUsageTextAfter {
-            get {
-                return ResourceManager.GetString("AdvanceFilterUsageTextAfter", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Before:.
-        /// </summary>
-        public static string AdvanceFilterUsageTextBefore {
-            get {
-                return ResourceManager.GetString("AdvanceFilterUsageTextBefore", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to From:.
+        ///   Looks up a localized string similar to From.
         /// </summary>
         public static string AdvanceFilterUsageTextFrom {
             get {
@@ -783,16 +765,7 @@ namespace EveryAngle.Shared.Globalization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to On:.
-        /// </summary>
-        public static string AdvanceFilterUsageTextOn {
-            get {
-                return ResourceManager.GetString("AdvanceFilterUsageTextOn", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to To:.
+        ///   Looks up a localized string similar to To.
         /// </summary>
         public static string AdvanceFilterUsageTextTo {
             get {
@@ -2120,6 +2093,15 @@ namespace EveryAngle.Shared.Globalization {
         public static string ClassName {
             get {
                 return ResourceManager.GetString("ClassName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Clear filter(s).
+        /// </summary>
+        public static string ClearAdvancedFilters {
+            get {
+                return ResourceManager.GetString("ClearAdvancedFilters", resourceCulture);
             }
         }
         

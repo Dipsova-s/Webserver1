@@ -148,25 +148,25 @@
     <value>An error occurred while processing your request. Please contact your system &lt;a class="mailto" href="mailto:servicedesk@everyangle.com" target="_top"&gt;administrator&lt;/a&gt;.</value>
   </data>
   <data name="Label_AdvanceFilter_AngleDescription" xml:space="preserve">
-    <value>Angle description:</value>
+    <value>Angle description</value>
   </data>
   <data name="Label_AdvanceFilter_AngleDisplayName" xml:space="preserve">
-    <value>Display name:</value>
+    <value>Display name</value>
   </data>
   <data name="Label_AdvanceFilter_AngleId" xml:space="preserve">
-    <value>Angle ID:</value>
+    <value>Angle ID</value>
   </data>
   <data name="Label_AdvanceFilter_AngleName" xml:space="preserve">
-    <value>Angle name:</value>
+    <value>Angle name</value>
   </data>
   <data name="Label_AdvanceFilter_BaseClasses" xml:space="preserve">
-    <value>Start object:</value>
+    <value>Start object</value>
   </data>
   <data name="Label_AdvanceFilter_DisplayDescription" xml:space="preserve">
-    <value>Display description:</value>
+    <value>Display description</value>
   </data>
   <data name="Label_AdvanceFilter_Followup" xml:space="preserve">
-    <value>Jump:</value>
+    <value>Jump</value>
   </data>
   <data name="Label_AdvanceFilter_LastChangedBy" xml:space="preserve">
     <value>Last changed by</value>
@@ -175,7 +175,7 @@
     <value>Publication status</value>
   </data>
   <data name="Label_AdvanceFilter_QueryStep" xml:space="preserve">
-    <value>Filter:</value>
+    <value>Filter</value>
   </data>
   <data name="Label_AdvanceFilter_Search_AllowFollowup" xml:space="preserve">
     <value>Allow Jump</value>
@@ -184,10 +184,10 @@
     <value>Allow more detail</value>
   </data>
   <data name="Label_AdvanceFilter_Search_Label" xml:space="preserve">
-    <value>Search label:</value>
+    <value>Search label</value>
   </data>
   <data name="Label_AdvanceFilter_Search_Private_Label" xml:space="preserve">
-    <value>Privilege label:</value>
+    <value>Privilege label</value>
   </data>
   <data name="Label_AdvanceFilter_StarredStatus" xml:space="preserve">
     <value>Starred status</value>

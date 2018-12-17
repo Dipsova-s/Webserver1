@@ -376,7 +376,7 @@ namespace EveryAngle.Shared.Globalization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Angle description:.
+        ///   Looks up a localized string similar to Angle description.
         /// </summary>
         public static string Label_AdvanceFilter_AngleDescription {
             get {
@@ -385,7 +385,7 @@ namespace EveryAngle.Shared.Globalization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Display name:.
+        ///   Looks up a localized string similar to Display name.
         /// </summary>
         public static string Label_AdvanceFilter_AngleDisplayName {
             get {
@@ -394,7 +394,7 @@ namespace EveryAngle.Shared.Globalization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Angle ID:.
+        ///   Looks up a localized string similar to Angle ID.
         /// </summary>
         public static string Label_AdvanceFilter_AngleId {
             get {
@@ -403,7 +403,7 @@ namespace EveryAngle.Shared.Globalization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Angle name:.
+        ///   Looks up a localized string similar to Angle name.
         /// </summary>
         public static string Label_AdvanceFilter_AngleName {
             get {
@@ -412,7 +412,7 @@ namespace EveryAngle.Shared.Globalization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Start object:.
+        ///   Looks up a localized string similar to Start object.
         /// </summary>
         public static string Label_AdvanceFilter_BaseClasses {
             get {
@@ -421,7 +421,7 @@ namespace EveryAngle.Shared.Globalization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Display description:.
+        ///   Looks up a localized string similar to Display description.
         /// </summary>
         public static string Label_AdvanceFilter_DisplayDescription {
             get {
@@ -430,7 +430,7 @@ namespace EveryAngle.Shared.Globalization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Jump:.
+        ///   Looks up a localized string similar to Jump.
         /// </summary>
         public static string Label_AdvanceFilter_Followup {
             get {
@@ -457,7 +457,7 @@ namespace EveryAngle.Shared.Globalization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Filter:.
+        ///   Looks up a localized string similar to Filter.
         /// </summary>
         public static string Label_AdvanceFilter_QueryStep {
             get {
@@ -484,7 +484,7 @@ namespace EveryAngle.Shared.Globalization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Search label:.
+        ///   Looks up a localized string similar to Search label.
         /// </summary>
         public static string Label_AdvanceFilter_Search_Label {
             get {
@@ -493,7 +493,7 @@ namespace EveryAngle.Shared.Globalization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Privilege label:.
+        ///   Looks up a localized string similar to Privilege label.
         /// </summary>
         public static string Label_AdvanceFilter_Search_Private_Label {
             get {

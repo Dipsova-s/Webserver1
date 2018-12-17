@@ -148,25 +148,25 @@
     <value>Bei der Verarbeitung Ihrer Anfrage ist ein Fehler aufgetreten. Wenden Sie sich an Ihren System-&lt;a class="mailto" href="mailto:servicedesk@everyangle.com" target="_top"&gt;Administrator&lt;/a&gt;.</value>
   </data>
   <data name="Label_AdvanceFilter_AngleDescription" xml:space="preserve">
-    <value>Angle-Beschreibung:</value>
+    <value>Angle-Beschreibung</value>
   </data>
   <data name="Label_AdvanceFilter_AngleDisplayName" xml:space="preserve">
-    <value>Display-Name:</value>
+    <value>Display-Name</value>
   </data>
   <data name="Label_AdvanceFilter_AngleId" xml:space="preserve">
-    <value>Angle-ID:</value>
+    <value>Angle-ID</value>
   </data>
   <data name="Label_AdvanceFilter_AngleName" xml:space="preserve">
-    <value>Angle-Name:</value>
+    <value>Angle-Name</value>
   </data>
   <data name="Label_AdvanceFilter_BaseClasses" xml:space="preserve">
-    <value>Start-Objekt:</value>
+    <value>Start-Objekt</value>
   </data>
   <data name="Label_AdvanceFilter_DisplayDescription" xml:space="preserve">
-    <value>Display-Beschreibung:</value>
+    <value>Display-Beschreibung</value>
   </data>
   <data name="Label_AdvanceFilter_Followup" xml:space="preserve">
-    <value>Jump:</value>
+    <value>Jump</value>
   </data>
   <data name="Label_AdvanceFilter_LastChangedBy" xml:space="preserve">
     <value>Zuletzt geändert von</value>
@@ -175,7 +175,7 @@
     <value>Freigabestatus</value>
   </data>
   <data name="Label_AdvanceFilter_QueryStep" xml:space="preserve">
-    <value>Filter:</value>
+    <value>Filter</value>
   </data>
   <data name="Label_AdvanceFilter_Search_AllowFollowup" xml:space="preserve">
     <value>Jump zulassen</value>
@@ -184,10 +184,10 @@
     <value>Mehr Details zulassen</value>
   </data>
   <data name="Label_AdvanceFilter_Search_Label" xml:space="preserve">
-    <value>Such-Label:</value>
+    <value>Such-Label</value>
   </data>
   <data name="Label_AdvanceFilter_Search_Private_Label" xml:space="preserve">
-    <value>Berechtigungs-Label:</value>
+    <value>Berechtigungs-Label</value>
   </data>
   <data name="Label_AdvanceFilter_StarredStatus" xml:space="preserve">
     <value>Favoritenstatus</value>

@@ -633,6 +633,7 @@ if %25ERRORLEVEL%25 LEQ 1 exit 0 else exit %25ERRORLEVEL%25</PreBuildEvent>
     <Content Include="Images\Popup\Error\icn_error.svg" />
     <Content Include="Images\Popup\Error\icn_info.svg" />
     <Content Include="Images\Popup\Error\icn_question.svg" />
+    <Content Include="Images\search-grey.svg" />
     <Content Include="Images\search-white.svg" />
     <Content Include="Images\SearchPage\icn_clock.svg" />
     <Content Include="Images\SearchPage\icn_item_angle.svg" />
@@ -895,7 +896,6 @@ if %25ERRORLEVEL%25 LEQ 1 exit 0 else exit %25ERRORLEVEL%25</PreBuildEvent>
     <Content Include="Images\Popup\Error\icn_error.png" />
     <Content Include="Images\Popup\Error\icn_info.png" />
     <Content Include="Images\Popup\Error\icn_question.png" />
-    <Content Include="Images\search_button.png" />
     <Content Include="Images\tabbar_bg.png" />
     <Content Include="Scripts\KendoUI\cultures\kendo.culture.en-GB.min.js" />
     <Content Include="Scripts\ViewManagement\Shared\ModelFieldsHandler.js" />

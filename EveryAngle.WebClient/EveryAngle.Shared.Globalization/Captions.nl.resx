@@ -148,25 +148,25 @@
     <value>Er is een fout opgetreden tijdens het verwerken van uw verzoek. Neem alstublieft contact op met uw &lt;a class="mailto" href="mailto:servicedesk@everyangle.com" target="_top"&gt;systeembeheerder&lt;/a&gt;.</value>
   </data>
   <data name="Label_AdvanceFilter_AngleDescription" xml:space="preserve">
-    <value>Angle-omschrijving:</value>
+    <value>Angle-omschrijving</value>
   </data>
   <data name="Label_AdvanceFilter_AngleDisplayName" xml:space="preserve">
-    <value>Displaynaam:</value>
+    <value>Displaynaam</value>
   </data>
   <data name="Label_AdvanceFilter_AngleId" xml:space="preserve">
-    <value>Angle-ID:</value>
+    <value>Angle-ID</value>
   </data>
   <data name="Label_AdvanceFilter_AngleName" xml:space="preserve">
-    <value>Anglenaam:</value>
+    <value>Anglenaam</value>
   </data>
   <data name="Label_AdvanceFilter_BaseClasses" xml:space="preserve">
-    <value>Basisobject:</value>
+    <value>Basisobject</value>
   </data>
   <data name="Label_AdvanceFilter_DisplayDescription" xml:space="preserve">
-    <value>Displayomschrijving:</value>
+    <value>Displayomschrijving</value>
   </data>
   <data name="Label_AdvanceFilter_Followup" xml:space="preserve">
-    <value>Jump:</value>
+    <value>Jump</value>
   </data>
   <data name="Label_AdvanceFilter_LastChangedBy" xml:space="preserve">
     <value>Laatst gewijzigd door</value>
@@ -175,7 +175,7 @@
     <value>Publicatiestatus</value>
   </data>
   <data name="Label_AdvanceFilter_QueryStep" xml:space="preserve">
-    <value>Filter:</value>
+    <value>Filter</value>
   </data>
   <data name="Label_AdvanceFilter_Search_AllowFollowup" xml:space="preserve">
     <value>Jump toestaan</value>
@@ -184,10 +184,10 @@
     <value>Meer detail toestaan</value>
   </data>
   <data name="Label_AdvanceFilter_Search_Label" xml:space="preserve">
-    <value>Zoek label:</value>
+    <value>Zoek label</value>
   </data>
   <data name="Label_AdvanceFilter_Search_Private_Label" xml:space="preserve">
-    <value>Privilegelabel:</value>
+    <value>Privilegelabel</value>
   </data>
   <data name="Label_AdvanceFilter_StarredStatus" xml:space="preserve">
     <value>Sterstatus</value>

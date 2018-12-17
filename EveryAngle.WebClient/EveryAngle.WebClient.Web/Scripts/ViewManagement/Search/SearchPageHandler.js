@@ -74,6 +74,7 @@ function SearchPageHandler() {
             // tooltip
             WC.HtmlHelper.Tooltip.Create('searchfacet', '#LeftMenu .name', true);
             WC.HtmlHelper.Tooltip.Create('actionmenu', '#ActionDropdownListPopup .actionDropdownItem', false, TOOLTIP_POSITION.BOTTOM, 'tooltipActionmenu k-window-arrow-n');
+            WC.HtmlHelper.Tooltip.Create('searchbar', '#SearchBar .searchBoxWrapper > a', false, TOOLTIP_POSITION.BOTTOM, 'tooltipActionmenu k-window-arrow-n');
 
             // check currency
             userSettingsHandler.CheckUserCurrency();
@@ -200,6 +201,16 @@ function SearchPageHandler() {
         // bind keyup event to search box if user enter then submit form
         var fnCheckLastSearchValue;
         var lastSearchValue = '';
+        var submitSearch = function (currentValue) {
+            lastSearchValue = currentValue;
+
+            if (currentValue === decodeURIComponent(WC.Utility.UrlParameter(enumHandlers.SEARCHPARAMETER.Q))) {
+                $.address.update();
+            }
+            else {
+                self.SubmitSearchForm();
+            }
+        };
 
         jQuery('#SearchInput')
             .off('keyup')
@@ -211,15 +222,7 @@ function SearchPageHandler() {
 
                 if (event.keyCode === 13) {
                     clearTimeout(fnCheckLastSearchValue);
-                    lastSearchValue = currentValue;
-
-                    if (currentValue === decodeURIComponent(WC.Utility.UrlParameter(enumHandlers.SEARCHPARAMETER.Q))) {
-                        $.address.update();
-                    }
-                    else {
-                        self.SubmitSearchForm();
-                    }
-
+                    submitSearch(currentValue);
                     event.preventDefault();
                 }
 
@@ -227,14 +230,7 @@ function SearchPageHandler() {
                     WC.Ajax.AbortAll();
                     clearTimeout(fnCheckLastSearchValue);
                     fnCheckLastSearchValue = setTimeout(function () {
-                        lastSearchValue = currentValue;
-
-                        if (currentValue === decodeURIComponent(WC.Utility.UrlParameter(enumHandlers.SEARCHPARAMETER.Q))) {
-                            $.address.update();
-                        }
-                        else {
-                            self.SubmitSearchForm();
-                        }
+                        submitSearch(currentValue);
                     }, 500);
                 }
             })
@@ -1374,174 +1370,64 @@ function SearchPageHandler() {
         return html.join('');
     };
     self.ClickDisplay = function (e) {
-        if (jQuery(e.target || e.srcElement).hasClass('displayNameContainer'))
+        if (!jQuery(e.target || e.srcElement).hasClass('name'))
             jQuery(e.currentTarget).find('.name').trigger('click');
     };
 
     // popup advanced filter
     self.ShowAdvancedFilters = function () {
-        requestHistoryModel.SaveLastExecute(self, self.ShowAdvancedFilters, arguments);
-        requestHistoryModel.ClearPopupBeforeExecute = true;
+        jQuery('#SearchButton').removeClass('active');
+        if (jQuery('#popupAdvanceFilter').is(':visible')) {
+            // hide popup
+            popup.CloseAll();
+            return;
+        }
 
-        var popupName = 'AdvanceFilter',
-            popupSettings = {
-                title: Localization.AdvancedFilters,
-                element: '#popup' + popupName,
-                html: advanceFilterHtmlTemplate(),
-                className: 'popup' + popupName,
-                minWidth: 865,
-                buttons: [
-                    {
-                        text: Captions.Button_Cancel,
-                        click: self.CancelAdvanceSearch,
-                        position: 'right'
-                    },
-                    {
-                        text: Captions.Button_Search,
-                        isPrimary: true,
-                        click: self.SearchOnAdvance,
-                        position: 'right'
-                    }
-                ],
-                open: function (e) {
-                    if (!jQuery('#createdFilter').hasClass('k-input')) {
-                        var currentDate = new Date(), datepicker;
-                        jQuery('.popupAdvFiltering .Datepicker').each(function (idx, obj) {
-                            obj = jQuery(obj);
-                            obj.kendoDatePicker({
-                                change: function (e) {
-                                    var currentInput = jQuery(e.sender.element);
-                                    if (currentInput.hasClass('datepickerFrom')) {
-                                        var datepickerTo = e.sender.element.parent().parent().parent().find('.datepickerTo:input:eq(0)').data(enumHandlers.KENDOUITYPE.DATEPICKER);
-                                        if (jQuery(currentInput).val() !== '') {
-                                            datepickerTo.min(jQuery(currentInput).val());
-                                        }
-                                        else {
-                                            datepickerTo.min(new Date(1900, 1, 1));
-                                        }
-                                    }
-                                    else {
-                                        var datepickerFrom = e.sender.element.parent().parent().parent().find('.datepickerFrom:input:eq(0)').data(enumHandlers.KENDOUITYPE.DATEPICKER);
-                                        if (jQuery(currentInput).val() !== '') {
-                                            datepickerFrom.max(jQuery(currentInput).val());
-                                        }
-                                        else {
-                                            datepickerFrom.max(currentDate);
-                                        }
-                                    }
-                                },
-                                max: new Date()
-                            }).parents('.k-widget:first').addClass(obj.data('datepicker-class'));
-
-                            obj.prop("disabled", true);
-                            datepicker = obj.data(enumHandlers.KENDOUITYPE.DATEPICKER);
-                            if (datepicker) {
-                                datepicker.enable(false);
-                            }
-                        });
-
-                        self.InitialCreatorAutoComplete();
-                        self.InitialLastChangedAutoComplete();
-                        self.InitialLastExecutorAutoComplete();
-                        self.InitialValidatorAutoComplete();
-
-                        self.InitialIdsTextbox();
-
-                        jQuery('#textNumberExcutes').kendoNumericTextBox({
-                            value: 0,
-                            min: 0,
-                            max: 999999,
-                            step: 1,
-                            format: "#",
-                            decimals: 0
-                        });
-
-                        var numberExcutes = jQuery('#textNumberExcutes').data("kendoNumericTextBox");
-                        if (numberExcutes) {
-                            numberExcutes.enable(false);
-                        }
-
-                        var usageOperators = [
-                            { Id: 0, Value: Localization.PleaseSelect },
-                            { Id: 1, Value: Localization.AdvanceFilterUsageOperatorOn },
-                            { Id: 2, Value: Localization.AdvanceFilterUsageOperatorAfter },
-                            { Id: 3, Value: Localization.AdvanceFilterUsageOperatorBefore },
-                            { Id: 4, Value: Localization.AdvanceFilterUsageOperatorBetween }
-                        ];
-                        jQuery('.dropdownUsageOperators').each(function () {
-                            WC.HtmlHelper.DropdownList(this, usageOperators, {
-                                dataTextField: "Value",
-                                dataValueField: "Id",
-                                change: self.UsageOperatorChange
-                            });
-                        });
-
-                        var numberOperators = [
-                            { Id: 0, Value: Localization.PleaseSelect },
-                            { Id: 1, Value: Localization.AdvanceFilterUsageOperatorEqualTo },
-                            { Id: 2, Value: Localization.AdvanceFilterUsageOperatorLargerThan },
-                            { Id: 3, Value: Localization.AdvanceFilterUsageOperatorSmallerThan }
-                        ];
-
-                        WC.HtmlHelper.DropdownList('.dropdownNumberExcutes', numberOperators, {
-                            dataTextField: "Value",
-                            dataValueField: "Id",
-                            change: self.NumberOperatorChange
-                        });
-
-                        var publicStatus = [
-                            { Id: 0, Value: Localization.AdvanceFilterAll },
-                            { Id: 1, Value: Localization.AdvanceFilterUsageOperatorPrivate },
-                            { Id: 2, Value: Localization.AdvanceFilterUsageOperatorPublished }
-                        ];
-
-                        WC.HtmlHelper.DropdownList('#dropdownPublicStatus', publicStatus, {
-                            dataTextField: "Value",
-                            dataValueField: "Id"
-                        });
-
-                        var validationStatus = [
-                            { Id: 0, Value: Localization.AdvanceFilterAll },
-                            { Id: 1, Value: Localization.AdvanceFilterUsageOperatorValidated },
-                            { Id: 2, Value: Localization.AdvanceFilterUsageOperatorNotValidated }
-                        ];
-
-                        WC.HtmlHelper.DropdownList('#dropdownValidation', validationStatus, {
-                            dataTextField: "Value",
-                            dataValueField: "Id"
-                        });
-
-                        var starredStatus = [
-                            { Id: 0, Value: Localization.AdvanceFilterAll },
-                            { Id: 1, Value: Localization.AdvanceFilterUsageOperatorStarred },
-                            { Id: 2, Value: Localization.AdvanceFilterUsageOperatorNotStarred }
-                        ];
-
-                        WC.HtmlHelper.DropdownList('#dropdownStarred', starredStatus, {
-                            dataTextField: "Value",
-                            dataValueField: "Id"
-                        });
-
-                        var warningStatus = [
-                            { Id: 0, Value: Localization.AdvanceFilterAll },
-                            { Id: 1, Value: Localization.AdvanceFilterUsageOperatorWarning },
-                            { Id: 2, Value: Localization.AdvanceFilterUsageOperatorNotWarning }
-                        ];
-
-                        WC.HtmlHelper.DropdownList('#dropdownWarning', warningStatus, {
-                            dataTextField: "Value",
-                            dataValueField: "Id"
-                        });
-
-                        WC.HtmlHelper.ApplyKnockout(self, e.sender.wrapper);
-                    }
-                    searchQueryModel.SetUIOfAdvanceSearchFromParams();
-                },
-                close: function () {
-                    setTimeout(function () {
-                    }, 100);
+        // show popup
+        var popupName = 'AdvanceFilter';
+        var popupSettings = {
+            element: '#popup' + popupName,
+            html: advanceFilterHtmlTemplate(),
+            className: 'popup' + popupName,
+            maxWidth: 700,
+            appendTo: '#Search',
+            center: false,
+            modal: false,
+            position: {
+                left: 0,
+                top: 75
+            },
+            draggable: false,
+            buttons: [
+                {
+                    text: Captions.Button_Search,
+                    isPrimary: true,
+                    click: self.SearchOnAdvance,
+                    position: 'right'
                 }
-            };
+            ],
+            open: function (e) {
+                setTimeout(function () {
+                    jQuery(document).off('click.advfilter').on('click.advfilter', function (evt) {
+                        var target = jQuery(evt.target);
+                        var isAdvSearchButton = target.closest('#SearchButton').length || target.is('#SearchButton');
+                        if (!isAdvSearchButton && !target.closest('.popupAdvanceFilter').length && !target.closest('.k-animation-container').length)
+                            e.sender.close();
+                    });
+                });
+                jQuery('#SearchButton').addClass('active');
+                self.InitialAdvSearchUI(e);
+                searchQueryModel.SetUIOfAdvanceSearchFromParams();
+                e.sender.element.find('[data-role="dropdownlist"]').each(function () {
+                    var dropdown = WC.HtmlHelper.DropdownList(this);
+                    dropdown.trigger('change');
+                });
+            },
+            close: function () {
+                jQuery('#SearchButton').removeClass('active');
+                jQuery(document).off('click.advfilter');
+            }
+        };
 
         popup.Show(popupSettings);
     };
@@ -1551,7 +1437,169 @@ function SearchPageHandler() {
             e.kendoWindow.close();
         }
     };
+    self.InitialAdvSearchUI = function (e) {
+        if (jQuery('#createdFilter').hasClass('k-input'))
+            return;
 
+        jQuery('.popupAdvFiltering .Datepicker').each(function (idx, obj) {
+            obj = jQuery(obj);
+            obj.kendoDatePicker({
+                open: function (e) {
+                    e.sender.dateView.div.addClass('k-calendar-container-light');
+                },
+                change: function (e) {
+                    var currentDate = new Date();
+                    var currentInput = e.sender.element;
+                    if (currentInput.hasClass('datepickerFrom')) {
+                        var datepickerTo = e.sender.element.closest('.popupAdvFilteringContent').find('input.datepickerTo').data(enumHandlers.KENDOUITYPE.DATEPICKER);
+                        if (currentInput.val()) {
+                            datepickerTo.min(currentInput.val());
+                        }
+                        else {
+                            datepickerTo.min(new Date(1900, 1, 1));
+                        }
+                    }
+                    else {
+                        var datepickerFrom = e.sender.element.closest('.popupAdvFilteringContent').find('input.datepickerFrom').data(enumHandlers.KENDOUITYPE.DATEPICKER);
+                        if (currentInput.val()) {
+                            datepickerFrom.max(currentInput.val());
+                        }
+                        else {
+                            datepickerFrom.max(currentDate);
+                        }
+                    }
+                },
+                max: new Date()
+            }).closest('.k-widget').addClass(obj.data('datepicker-class'));
+
+            var datepicker = obj.data(enumHandlers.KENDOUITYPE.DATEPICKER);
+            if (datepicker) {
+                datepicker.enable(false);
+            }
+        });
+
+        self.InitialCreatorAutoComplete();
+        self.InitialLastChangedAutoComplete();
+        self.InitialLastExecutorAutoComplete();
+        self.InitialValidatorAutoComplete();
+
+        self.InitialIdsTextbox();
+        self.InitialTextboxes();
+
+        jQuery('#textNumberExcutes').kendoNumericTextBox({
+            value: 0,
+            min: 0,
+            max: 999999,
+            step: 1,
+            format: "#",
+            decimals: 0
+        });
+        var numberExcutes = jQuery('#textNumberExcutes').data("kendoNumericTextBox");
+        if (numberExcutes) {
+            numberExcutes.enable(false);
+        }
+
+        var usageOperators = [
+            { Id: 1, Value: Localization.AdvanceFilterUsageOperatorOn },
+            { Id: 2, Value: Localization.AdvanceFilterUsageOperatorAfter },
+            { Id: 3, Value: Localization.AdvanceFilterUsageOperatorBefore },
+            { Id: 4, Value: Localization.AdvanceFilterUsageOperatorBetween }
+        ];
+        jQuery('.dropdownUsageOperators').each(function () {
+            self.InitialAdvSearchDropdown(this, usageOperators, {
+                dataTextField: "Value",
+                dataValueField: "Id",
+                optionLabel: { Id: 0, Value: Localization.PleaseSelect },
+                change: self.UsageOperatorChange
+            });
+        });
+
+        var numberOperators = [
+            { Id: 1, Value: Localization.AdvanceFilterUsageOperatorEqualTo },
+            { Id: 2, Value: Localization.AdvanceFilterUsageOperatorLargerThan },
+            { Id: 3, Value: Localization.AdvanceFilterUsageOperatorSmallerThan }
+        ];
+        self.InitialAdvSearchDropdown('.dropdownNumberExcutes', numberOperators, {
+            dataTextField: "Value",
+            dataValueField: "Id",
+            optionLabel: { Id: 0, Value: Localization.AdvanceFilterUsageNumberOfExecutes },
+            change: self.NumberOperatorChange
+        });
+
+        var publicStatus = [
+            { Id: 1, Value: Localization.AdvanceFilterUsageOperatorPrivate },
+            { Id: 2, Value: Localization.AdvanceFilterUsageOperatorPublished }
+        ];
+        self.InitialAdvSearchDropdown('#dropdownPublicStatus', publicStatus, {
+            dataTextField: "Value",
+            dataValueField: "Id",
+            optionLabel: { Id: 0, Value: Captions.Label_AdvanceFilter_PulicationStatus }
+        });
+
+        var validationStatus = [
+            { Id: 1, Value: Localization.AdvanceFilterUsageOperatorValidated },
+            { Id: 2, Value: Localization.AdvanceFilterUsageOperatorNotValidated }
+        ];
+        self.InitialAdvSearchDropdown('#dropdownValidation', validationStatus, {
+            dataTextField: "Value",
+            dataValueField: "Id",
+            optionLabel: { Id: 0, Value: Captions.Label_AdvanceFilter_ValidationStatus }
+        });
+
+        var starredStatus = [
+            { Id: 1, Value: Localization.AdvanceFilterUsageOperatorStarred },
+            { Id: 2, Value: Localization.AdvanceFilterUsageOperatorNotStarred }
+        ];
+        self.InitialAdvSearchDropdown('#dropdownStarred', starredStatus, {
+            dataTextField: "Value",
+            dataValueField: "Id",
+            optionLabel: { Id: 0, Value: Captions.Label_AdvanceFilter_StarredStatus }
+        });
+
+        var warningStatus = [
+            { Id: 1, Value: Localization.AdvanceFilterUsageOperatorWarning },
+            { Id: 2, Value: Localization.AdvanceFilterUsageOperatorNotWarning }
+        ];
+        self.InitialAdvSearchDropdown('#dropdownWarning', warningStatus, {
+            dataTextField: "Value",
+            dataValueField: "Id",
+            optionLabel: { Id: 0, Value: Captions.Label_AdvanceFilter_WarningStatus }
+        });
+
+        WC.HtmlHelper.ApplyKnockout(self, e.sender.wrapper);
+    };
+    self.InitialAdvSearchDropdown = function (target, data, options) {
+        options.__open = options.open || jQuery.noop;
+        delete options.open;
+        options.open = function (e) {
+            e.sender.list.addClass('k-list-container-light');
+            options.__open(e);
+        };
+
+        options.__change = options.change || jQuery.noop;
+        delete options.change;
+        options.change = function (e) {
+            if (e.sender.options.optionLabel && e.sender.value() > 0) {
+                e.sender.wrapper.addClass('clearable');
+            }
+            else {
+                e.sender.wrapper.removeClass('clearable');
+            }
+            options.__change(e);
+        };
+
+        var dropdown = WC.HtmlHelper.DropdownList(target, data, options);
+        if (dropdown.options.optionLabel) {
+            var btnRemove = jQuery('<span class="k-clear-select"><span class="icon remove"></span></span>').on('click', function (e) {
+                e.stopPropagation();
+                dropdown.value(0);
+                dropdown.trigger('change');
+            });
+            dropdown.wrapper.find('.k-select').before(btnRemove);
+            dropdown.clearButton = btnRemove;
+        }
+        return dropdown;
+    };
     self.InitialAdvSearchAutoComplete = function (elementId, options) {
         var settings = jQuery.extend({
             dataTextField: 'id',
@@ -1559,8 +1607,7 @@ function SearchPageHandler() {
             minLength: 1,
             filter: 'contains',
             open: function (e) {
-                e.sender.list.addClass('k-autocomplete-popup').width(256);
-                e.sender.__filtered = true;
+                e.sender.list.addClass('k-list-container-light');
             },
             dataSource: new kendo.data.DataSource({
                 serverFiltering: true,
@@ -1657,91 +1704,65 @@ function SearchPageHandler() {
                 }, 1);
             });
     };
+    self.InitialTextboxes = function () {
+        jQuery('#popupAdvanceFilter input[type="text"]').off('change').on('change', function () {
+            var input = jQuery(this);
+            if (jQuery.trim(input.val())) {
+                input.addClass('focused');
+                input.closest('.k-widget').addClass('focused');
+            }
+            else {
+                input.removeClass('focused');
+                input.closest('.k-widget').removeClass('focused');
+            }
+        });
+    };
     self.UsageOperatorChange = function (ele) {
-
-        var elementContainer = ele.sender.element.parent().parent();
-        var datepickerFromOriginalControl = elementContainer.find('.datepickerFrom:input');
+        var elementContainer = ele.sender.element.closest('.popupAdvFilteringContent');
+        var datepickerFromOriginalControl = elementContainer.find('input.datepickerFrom');
         var datepickerFrom = datepickerFromOriginalControl.data(enumHandlers.KENDOUITYPE.DATEPICKER);
-        var datepickerToOriginalControl = elementContainer.find('.datepickerTo:input');
+        var datepickerToOriginalControl = elementContainer.find('input.datepickerTo');
         var datepickerTo = datepickerToOriginalControl.data(enumHandlers.KENDOUITYPE.DATEPICKER);
-        var labels = ele.sender.element.parent().parent().find('.labelSmall');
 
         var maxDate = new Date();
         var usageOperator = ele.sender.value();
-        if (usageOperator === 0) {
+        if (usageOperator <= 0) {
             // nothing
             datepickerFrom.enable(false);
+            datepickerFrom.element.attr('placeholder', '');
             datepickerFrom.min(new Date(1900, 1, 1));
             datepickerFrom.max(new Date(maxDate.getFullYear(), maxDate.getMonth(), maxDate.getDate(), 23, 59, 0, 0));
             datepickerFrom.value('');
             datepickerTo.enable(false);
+            datepickerTo.element.attr('placeholder', '');
             datepickerTo.min(new Date(1900, 1, 1));
             datepickerTo.max(new Date(maxDate.getFullYear(), maxDate.getMonth(), maxDate.getDate(), 23, 59, 0, 0));
             datepickerTo.value('');
-
-            elementContainer.find('.labelSmall').text('');
         }
         else if (usageOperator === 1 || usageOperator === 2 || usageOperator === 3) {
             // on, after, before
             maxDate = new Date();
 
+            datepickerFrom.element.attr('placeholder', ele.sender.text());
             datepickerFrom.enable(true);
-            datepickerFromOriginalControl.prop('disabled', true);
             datepickerFrom.min(new Date(1900, 1, 1));
             datepickerFrom.max(new Date(maxDate.getFullYear(), maxDate.getMonth(), maxDate.getDate(), 23, 59, 0, 0));
-            if (!datepickerFrom.value()) {
-                datepickerFrom.value(kendo.date.today());
-            }
             datepickerTo.enable(false);
+            datepickerTo.element.attr('placeholder', '-');
             datepickerTo.min(new Date(1900, 1, 1));
             datepickerTo.max(new Date(maxDate.getFullYear(), maxDate.getMonth(), maxDate.getDate(), 23, 59, 0, 0));
             datepickerTo.value('');
-
-            if (usageOperator === 1) {
-                labels.eq(0).text(Localization.AdvanceFilterUsageTextOn);
-            }
-            else if (usageOperator === 2) {
-                labels.eq(0).text(Localization.AdvanceFilterUsageTextAfter);
-            }
-            else {
-                labels.eq(0).text(Localization.AdvanceFilterUsageTextBefore);
-            }
-            labels.eq(1).text('');
         }
         else if (usageOperator === 4) {
             // between
             datepickerFrom.enable(true);
-            if (!datepickerFrom.value()) {
-                datepickerFrom.value(kendo.date.today());
-            }
-
+            datepickerFrom.element.attr('placeholder', Localization.AdvanceFilterUsageTextFrom);
             datepickerTo.enable(true);
-            datepickerFromOriginalControl.prop('disabled', true);
-            datepickerToOriginalControl.prop('disabled', true);
-
-            if (datepickerFrom.value()) {
-                datepickerTo.min(datepickerFrom.value());
-            }
-            if (!datepickerTo.value()) {
-                datepickerTo.value(kendo.date.today());
-            }
-
-            labels.eq(0).text(Localization.AdvanceFilterUsageTextFrom);
-            labels.eq(1).text(Localization.AdvanceFilterUsageTextTo);
+            datepickerTo.element.attr('placeholder', Localization.AdvanceFilterUsageTextTo);
         }
     };
     self.NumberOperatorChange = function (e) {
-        if (e.sender.value() === 0) {
-            jQuery('#textNumberExcutes').data("kendoNumericTextBox").enable(false);
-        }
-        else {
-            jQuery('#textNumberExcutes').data("kendoNumericTextBox").enable(true);
-        }
-    };
-    self.CancelAdvanceSearch = function (e) {
-        //M4-33726: When click on the cancel button restore the value from the uri
-        searchQueryModel.SetUIOfAdvanceSearchFromParams();
-        e.kendoWindow.close();
+        jQuery('#textNumberExcutes').data("kendoNumericTextBox").enable(e.sender.value() > 0);
     };
 
     /*EOF: Model Methods*/

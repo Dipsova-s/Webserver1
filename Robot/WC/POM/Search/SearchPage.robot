@@ -20,8 +20,8 @@ ${btnSortByName}            jquery=#sortList li:eq(0)
 ${btnSortByCreated}         jquery=#sortList li:eq(1)
 
 #Popup Advance Filters
-${btnAdvFilters}            css=#AdvancedFilters .btn
-${btnRemoveFilter}          css=.btnRemoveFilter
+${btnAdvFilters}            css=#SearchButton
+${btnRemoveFilter}          css=#ClearSearchButton
 
 #Popup Create Angle
 ${btnCreateNewAngle}            CreateNewAngle
@@ -29,7 +29,6 @@ ${lblModelForCreateNewAngle}    CreateNewAngle i
 
 #Text filter
 ${txtSearchInput}           css=#SearchInput
-${btnSearchButton}          css=#SearchButton
 
 #General Filter
 ${chkFacetAngle}            css=#facet_angle

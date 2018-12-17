@@ -148,22 +148,22 @@
     <value>Une erreur s'est produite au cours du traitement de la requête. Veuillez contacter votre &lt;a class="mailto" href="mailto:servicedesk@everyangle.com" target="_top"&gt;administrateur&lt;/a&gt; système.</value>
   </data>
   <data name="Label_AdvanceFilter_AngleDescription" xml:space="preserve">
-    <value>Description de l'Angle :</value>
+    <value>Description de l'Angle</value>
   </data>
   <data name="Label_AdvanceFilter_AngleDisplayName" xml:space="preserve">
-    <value>Nom du Display :</value>
+    <value>Nom du Display</value>
   </data>
   <data name="Label_AdvanceFilter_AngleId" xml:space="preserve">
-    <value>ID Angle :</value>
+    <value>ID Angle</value>
   </data>
   <data name="Label_AdvanceFilter_AngleName" xml:space="preserve">
-    <value>Nom de l'Angle :</value>
+    <value>Nom de l'Angle</value>
   </data>
   <data name="Label_AdvanceFilter_BaseClasses" xml:space="preserve">
-    <value>Objet de départ :</value>
+    <value>Objet de départ</value>
   </data>
   <data name="Label_AdvanceFilter_DisplayDescription" xml:space="preserve">
-    <value>Description du Display :</value>
+    <value>Description du Display</value>
   </data>
   <data name="Label_AdvanceFilter_Followup" xml:space="preserve">
     <value>Jump</value>
@@ -175,7 +175,7 @@
     <value>Statut de publication</value>
   </data>
   <data name="Label_AdvanceFilter_QueryStep" xml:space="preserve">
-    <value>Filtre :</value>
+    <value>Filtre</value>
   </data>
   <data name="Label_AdvanceFilter_Search_AllowFollowup" xml:space="preserve">
     <value>Permettre Jump</value>
@@ -184,10 +184,10 @@
     <value>Permettre plus de détails</value>
   </data>
   <data name="Label_AdvanceFilter_Search_Label" xml:space="preserve">
-    <value>Étiquette de recherche :</value>
+    <value>Étiquette de recherche</value>
   </data>
   <data name="Label_AdvanceFilter_Search_Private_Label" xml:space="preserve">
-    <value>Étiquette de privilège :</value>
+    <value>Étiquette de privilège</value>
   </data>
   <data name="Label_AdvanceFilter_StarredStatus" xml:space="preserve">
     <value>Statut Favori</value>

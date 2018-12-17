@@ -1,128 +1,139 @@
 var advanceFilterHtmlTemplate = function () {
-    var advanceFilterHtmlTemplate = "";
-    advanceFilterHtmlTemplate += "<div class=\"popupAdvFiltering\">";
-    advanceFilterHtmlTemplate += "    <div class=\"popupAdvFilteringRow popupAdvFilteringRowUsage\">";
-    advanceFilterHtmlTemplate += "        <h2>" + Localization.AdvanceFilterUsageTitle + "<\/h2>";
-    advanceFilterHtmlTemplate += "        <div class=\"popupAdvFilteringContent\">";
-    advanceFilterHtmlTemplate += "            <div class=\"popupAdvFilteringItem createdFilter\">";
-    advanceFilterHtmlTemplate += "                <label id=\"createdFilterLabel\">" + Localization.AdvanceFilterUsageCreateBy + ":<\/label>";
-    advanceFilterHtmlTemplate += "                <input class=\"eaAutocomplete eaAutocompleteSize40 userFilter\" id=\"createdFilter\" \/>";
-    advanceFilterHtmlTemplate += "                <span class=\"eaDropdown eaDropdownSize40 dropdownUsageOperators createdFilterType\" id=\"createdFilterType\"><\/span>";
-    advanceFilterHtmlTemplate += "                <label class=\"labelSmall\"><\/label>";
-    advanceFilterHtmlTemplate += "                <input type=\"text\" class=\"Datepicker datepickerFrom\" data-datepicker-class=\"eaDatepicker eaDatepickerSize40 datepickerFrom\" id=\"createdFilterFrom\" \/>";
-    advanceFilterHtmlTemplate += "                <label class=\"labelSmall\"><\/label>";
-    advanceFilterHtmlTemplate += "                <input type=\"text\" class=\"Datepicker datepickerTo\" data-datepicker-class=\"eaDatepicker eaDatepickerSize40 datepickerTo\" id=\"createdFilterTo\" \/>";
-    advanceFilterHtmlTemplate += "            <\/div>";
-    advanceFilterHtmlTemplate += "            <div class=\"popupAdvFilteringItem lastChangedFilter\">";
-    advanceFilterHtmlTemplate += "                <label id=\"lastChangedFilterLabel\">" + Captions.Label_AdvanceFilter_LastChangedBy + ":<\/label>";
-    advanceFilterHtmlTemplate += "                <input class=\"eaAutocomplete eaAutocompleteSize40 userFilter\" id=\"lastChangedFilter\" \/>";
-    advanceFilterHtmlTemplate += "                <span class=\"eaDropdown eaDropdownSize40 dropdownUsageOperators lastChangedFilterType\" id=\"lastChangedFilterType\"><\/span>";
-    advanceFilterHtmlTemplate += "                <label class=\"labelSmall\"><\/label>";
-    advanceFilterHtmlTemplate += "                <input type=\"text\" class=\"Datepicker datepickerFrom\" data-datepicker-class=\"eaDatepicker eaDatepickerSize40 datepickerFrom\" id=\"lastChangedFilterFrom\" \/>";
-    advanceFilterHtmlTemplate += "                <label class=\"labelSmall\"><\/label>";
-    advanceFilterHtmlTemplate += "                <input type=\"text\" class=\"Datepicker datepickerTo\" data-datepicker-class=\"eaDatepicker eaDatepickerSize40 datepickerTo\" id=\"lastChangedFilterTo\" \/>";
-    advanceFilterHtmlTemplate += "            <\/div>";
-    advanceFilterHtmlTemplate += "            <div class=\"popupAdvFilteringItem executeFilter\">";
-    advanceFilterHtmlTemplate += "                <label id=\"executeFilterLabel\">" + Localization.AdvanceFilterUsageLastExecutedBy + ":<\/label>";
-    advanceFilterHtmlTemplate += "                <input type=\"text\" class=\"eaAutocomplete eaAutocompleteSize40 userFilter\" id=\"executeFilter\" \/>";
-    advanceFilterHtmlTemplate += "                <span class=\"eaDropdown eaDropdownSize40 dropdownUsageOperators executeFilterType\" id=\"executeFilterType\"><\/span>";
-    advanceFilterHtmlTemplate += "                <label class=\"labelSmall\"><\/label>";
-    advanceFilterHtmlTemplate += "                <input type=\"text\" class=\"Datepicker datepickerFrom\" data-datepicker-class=\"eaDatepicker eaDatepickerSize40 datepickerFrom\" id=\"executeFilterFrom\" \/>";
-    advanceFilterHtmlTemplate += "                <label class=\"labelSmall\"><\/label>";
-    advanceFilterHtmlTemplate += "                <input type=\"text\" class=\"Datepicker datepickerTo\" data-datepicker-class=\"eaDatepicker eaDatepickerSize40 datepickerTo\" id=\"executeFilterTo\" \/>";
-    advanceFilterHtmlTemplate += "            <\/div>";
-    advanceFilterHtmlTemplate += "            <div class=\"popupAdvFilteringItem validateFilter\">";
-    advanceFilterHtmlTemplate += "                <label id=\"validateFilterLabel\">" + Localization.AdvanceFilterUsageValidationChangeBy + ":<\/label>";
-    advanceFilterHtmlTemplate += "                <input type=\"text\" class=\"eaAutocomplete eaAutocompleteSize40 userFilter\" id=\"validateFilter\" \/>";
-    advanceFilterHtmlTemplate += "                <span class=\"eaDropdown eaDropdownSize40 dropdownUsageOperators validateFilterType\" id=\"validateFilterType\"><\/span>";
-    advanceFilterHtmlTemplate += "                <label class=\"labelSmall\"><\/label>";
-    advanceFilterHtmlTemplate += "                <input type=\"text\" class=\"Datepicker datepickerFrom\" data-datepicker-class=\"eaDatepicker eaDatepickerSize40 datepickerFrom\" id=\"validateFilterFrom\" \/>";
-    advanceFilterHtmlTemplate += "                <label class=\"labelSmall\"><\/label>";
-    advanceFilterHtmlTemplate += "                <input type=\"text\" class=\"Datepicker datepickerTo\" data-datepicker-class=\"eaDatepicker eaDatepickerSize40 datepickerTo\" id=\"validateFilterTo\" \/>";
-    advanceFilterHtmlTemplate += "            <\/div>";
-    advanceFilterHtmlTemplate += "            <div class=\"popupAdvFilteringItem numberExecutedFilter\">";
-    advanceFilterHtmlTemplate += "                <label id=\"numberExcutesLabel\">" + Localization.AdvanceFilterUsageNumberOfExecutes + ":<\/label>";
-    advanceFilterHtmlTemplate += "                <span class=\"eaDropdown eaDropdownSize40 dropdownNumberExcutes\" id=\"dropdownNumberExcutes\"><\/span>";
-    advanceFilterHtmlTemplate += "                <input type=\"text\" class=\"eaNumeric eaNumericSize40 \" id=\"textNumberExcutes\" \/>";
-    advanceFilterHtmlTemplate += "            <\/div>";
-    advanceFilterHtmlTemplate += "           <div class=\"popupAdvFilteringItem publicStatus\">";
-    advanceFilterHtmlTemplate += "                <label id=\"publicStatusLabel\">" + Captions.Label_AdvanceFilter_PulicationStatus + ":<\/label>";
-    advanceFilterHtmlTemplate += "                <span class=\"eaDropdown eaDropdownSize40 dropdownPublicStatus\" id=\"dropdownPublicStatus\"><\/span>";
-    advanceFilterHtmlTemplate += "              ";
-    advanceFilterHtmlTemplate += "            <\/div>";
-    advanceFilterHtmlTemplate += "            <div class=\"popupAdvFilteringItem validationStatus\">";
-    advanceFilterHtmlTemplate += "                <label id=\"validationLabel\">" + Captions.Label_AdvanceFilter_ValidationStatus + ":<\/label>";
-    advanceFilterHtmlTemplate += "                <span class=\"eaDropdown eaDropdownSize40 dropdownValidation\" id=\"dropdownValidation\"><\/span>";
-    advanceFilterHtmlTemplate += "              ";
-    advanceFilterHtmlTemplate += "            <\/div>";
-    advanceFilterHtmlTemplate += "            <div class=\"popupAdvFilteringItem warningStatus\">";
-    advanceFilterHtmlTemplate += "                <label id=\"starredLabel\">" + Captions.Label_AdvanceFilter_WarningStatus + ":<\/label>";
-    advanceFilterHtmlTemplate += "                <span class=\"eaDropdown eaDropdownSize40 dropdownWarning\" id=\"dropdownWarning\"><\/span>";
-    advanceFilterHtmlTemplate += "            <\/div>";
-    advanceFilterHtmlTemplate += "            <div class=\"popupAdvFilteringItem starredStatus\">";
-    advanceFilterHtmlTemplate += "                <label id=\"starredLabel\">" + Captions.Label_AdvanceFilter_StarredStatus + ":<\/label>";
-    advanceFilterHtmlTemplate += "                <span class=\"eaDropdown eaDropdownSize40 dropdownStarred\" id=\"dropdownStarred\"><\/span>";
-    advanceFilterHtmlTemplate += "            <\/div>";
-    advanceFilterHtmlTemplate += "        <\/div>";
-    advanceFilterHtmlTemplate += "    <\/div>";
-    advanceFilterHtmlTemplate += "    <div class=\"popupAdvFilteringRow popupAdvFilteringRowUsage\">";
-    advanceFilterHtmlTemplate += "        <h2>" + Localization.AdvanceFilterTextTitle + "<\/h2>";
-    advanceFilterHtmlTemplate += "        <div class=\"popupAdvFilteringContent\">";
-
-    advanceFilterHtmlTemplate += "        <!-- ko if: searchPageHandler.CanEditId() -->";
-    advanceFilterHtmlTemplate += "        <div class=\"popupAdvFilteringItem\">";
-    advanceFilterHtmlTemplate += "            <label id=\"idsLabel\">" + Captions.Label_AdvanceFilter_AngleId + "<\/label>";
-    advanceFilterHtmlTemplate += "            <input type=\"text\" style='width:270px' class=\"eaText eaTextSize40\" id=\"ids\"\/>";
-    advanceFilterHtmlTemplate += "        <\/div>";
-    advanceFilterHtmlTemplate += "        <!-- /ko -->";
-
-    advanceFilterHtmlTemplate += "            <div class=\"popupAdvFilteringItem\">";
-    advanceFilterHtmlTemplate += "                <label id=\"nameTextBoxLabel\">" + Captions.Label_AdvanceFilter_AngleName + "<\/label>";
-    advanceFilterHtmlTemplate += "                <input type=\"text\" style='width:270px' class=\"eaText eaTextSize40\" id=\"nameTextBox\"\/>";
-    advanceFilterHtmlTemplate += "            <\/div>";
-    advanceFilterHtmlTemplate += "            <div class=\"popupAdvFilteringItem\">";
-    advanceFilterHtmlTemplate += "                <label id=\"descriptionTextBoxLabel\">" + Captions.Label_AdvanceFilter_AngleDescription + "<\/label>";
-    advanceFilterHtmlTemplate += "                <input type=\"text\" style='width:270px' class=\"eaText eaTextSize40\" id=\"descriptionTextBox\" \/>";
-    advanceFilterHtmlTemplate += "            <\/div>";
-    advanceFilterHtmlTemplate += "            <div class=\"popupAdvFilteringItem\">";
-    advanceFilterHtmlTemplate += "                <label id=\"displayNameTextBoxLabel\">" + Captions.Label_AdvanceFilter_AngleDisplayName + "<\/label>";
-    advanceFilterHtmlTemplate += "                <input type=\"text\" style='width:270px' class=\"eaText eaTextSize40\" id=\"displayNameTextBox\" \/>";
-    advanceFilterHtmlTemplate += "            <\/div>";
-    advanceFilterHtmlTemplate += "            <div class=\"popupAdvFilteringItem\">";
-    advanceFilterHtmlTemplate += "                <label id=\"displayDescriptionTextBoxLabel\">" + Captions.Label_AdvanceFilter_DisplayDescription + "<\/label>";
-    advanceFilterHtmlTemplate += "                <input type=\"text\" style='width:270px' class=\"eaText eaTextSize40\"  id=\"displayDescriptionTextBox\" \/>";
-    advanceFilterHtmlTemplate += "            <\/div>";
-    advanceFilterHtmlTemplate += "            <div class=\"popupAdvFilteringItem\">";
-    advanceFilterHtmlTemplate += "                <label id=\"baseClassTextBoxLabel\">" + Captions.Label_AdvanceFilter_BaseClasses + "<\/label>";
-    advanceFilterHtmlTemplate += "                <input type=\"text\" style='width:270px' class=\"eaText eaTextSize40\" id=\"baseClassTextBox\" \/>";
-    advanceFilterHtmlTemplate += "            <\/div>";
-    advanceFilterHtmlTemplate += "            <div class=\"popupAdvFilteringItem\">";
-    advanceFilterHtmlTemplate += "                <label id=\"queryStepFieldTextBoxLabel\">" + Captions.Label_AdvanceFilter_QueryStep + "<\/label>";
-    advanceFilterHtmlTemplate += "                <input type=\"text\" style='width:270px' class=\"eaText eaTextSize40\" id=\"queryStepFieldTextBox\" \/>";
-    advanceFilterHtmlTemplate += "            <\/div>";
-    advanceFilterHtmlTemplate += "            <div class=\"popupAdvFilteringItem\">";
-    advanceFilterHtmlTemplate += "                <label id=\"followupTextBoxLabel\">" + Captions.Label_AdvanceFilter_Followup + "<\/label>";
-    advanceFilterHtmlTemplate += "                <input type=\"text\" style='width:270px' class=\"eaText eaTextSize40\" id=\"followupTextBox\"\/>";
-    advanceFilterHtmlTemplate += "            <\/div>";
-    advanceFilterHtmlTemplate += "        <\/div>";
-    advanceFilterHtmlTemplate += "    <\/div>";
-    advanceFilterHtmlTemplate += "    <div class=\"popupAdvFilteringRow popupAdvFilteringRowLimitations\">";
-    advanceFilterHtmlTemplate += "        <h2>" + Localization.AdvanceFilterLimitationsTitle + "<\/h2>";
-    advanceFilterHtmlTemplate += "        <div class=\"popupAdvFilteringContent\">";
-    advanceFilterHtmlTemplate += "            <div class=\"popupAdvFilteringItem\">";
-    advanceFilterHtmlTemplate += "                <label for=\"allowMoreDetailCheckbox\">";
-    advanceFilterHtmlTemplate += "                    <input type=\"checkbox\" id=\"allowMoreDetailCheckbox\" \/>";
-    advanceFilterHtmlTemplate += "                    <span class=\"label\" id=\"allowMoreDetailCheckboxLabel\">" + Captions.Label_AdvanceFilter_Search_AllowMoreDetail + "<\/span>";
-    advanceFilterHtmlTemplate += "                <\/label>";
-    advanceFilterHtmlTemplate += "            <\/div>";
-    advanceFilterHtmlTemplate += "            <div class=\"popupAdvFilteringItem\">";
-    advanceFilterHtmlTemplate += "                <label for=\"allowFollowUpCheckbox\">";
-    advanceFilterHtmlTemplate += "                    <input type=\"checkbox\" id=\"allowFollowUpCheckbox\" \/>";
-    advanceFilterHtmlTemplate += "                    <span class=\"label\" id=\"allowFollowUpCheckboxLabel\">" + Captions.Label_AdvanceFilter_Search_AllowFollowup + "<\/span>";
-    advanceFilterHtmlTemplate += "                <\/label>";
-    advanceFilterHtmlTemplate += "            <\/div>";
-    advanceFilterHtmlTemplate += "        <\/div>";
-    advanceFilterHtmlTemplate += "    <\/div>";
-    advanceFilterHtmlTemplate += "<\/div>";
-    return advanceFilterHtmlTemplate;
+    return [
+        '<div class="popupAdvFiltering">',
+            '<div class="popupAdvFilteringRow popupAdvFilteringRowUsage">',
+                '<h2>' + Localization.AdvanceFilterTextTitle + '</h2>',
+                '<div class="popupAdvFilteringContent">',
+                    '<!-- ko if: searchPageHandler.CanEditId() -->',
+                    '<div class="popupAdvFilteringItem">',
+                        '<input type="text" class="eaText" id="ids" placeholder="' + Captions.Label_AdvanceFilter_AngleId + '" />',
+                    '</div>',
+                    '<!-- /ko -->',
+                    '<div class="popupAdvFilteringItem">',
+                        '<input type="text" class="eaText" id="nameTextBox" placeholder="' + Captions.Label_AdvanceFilter_AngleName + '" />',
+                    '</div>',
+                    '<div class="popupAdvFilteringItem">',
+                        '<input type="text" class="eaText" id="descriptionTextBox" placeholder="' + Captions.Label_AdvanceFilter_AngleDescription + '" />',
+                    '</div>',
+                '</div>',
+                '<div class="popupAdvFilteringContent">',
+                    '<div class="popupAdvFilteringItem">',
+                        '<input type="text" class="eaText" id="displayNameTextBox" placeholder="' + Captions.Label_AdvanceFilter_AngleDisplayName + '" />',
+                    '</div>',
+                    '<div class="popupAdvFilteringItem">',
+                        '<input type="text" class="eaText"  id="displayDescriptionTextBox" placeholder="' + Captions.Label_AdvanceFilter_DisplayDescription + '" />',
+                    '</div>',
+                '</div>',
+                '<div class="popupAdvFilteringContent">',
+                    '<div class="popupAdvFilteringItem">',
+                        '<input type="text" class="eaText" id="baseClassTextBox" placeholder="' + Captions.Label_AdvanceFilter_BaseClasses + '" />',
+                    '</div>',
+                    '<div class="popupAdvFilteringItem">',
+                        '<input type="text" class="eaText" id="queryStepFieldTextBox" placeholder="' + Captions.Label_AdvanceFilter_QueryStep + '" />',
+                    '</div>',
+                    '<div class="popupAdvFilteringItem">',
+                        '<input type="text" class="eaText" id="followupTextBox" placeholder="' + Captions.Label_AdvanceFilter_Followup + '" />',
+                    '</div>',
+                '</div>',
+            '</div>',
+            '<div class="popupAdvFilteringRow popupAdvFilteringRowUsage">',
+                '<h2>' + Localization.AdvanceFilterUsageTitle + '</h2>',
+                '<div class="popupAdvFilteringContent createdFilter">',
+                    '<div class="popupAdvFilteringItem">',
+                        '<input class="k-autocomplete-light userFilter" id="createdFilter" placeholder="' + Localization.AdvanceFilterUsageCreateBy + '" />',
+                    '</div>',
+                    '<div class="popupAdvFilteringItem">',
+                        '<span class="k-dropdown-light dropdownUsageOperators createdFilterType" id="createdFilterType"></span>',
+                    '</div>',
+                    '<div class="popupAdvFilteringItem datepickerColumn">',
+                        '<input type="text" class="Datepicker datepickerFrom" data-datepicker-class="k-datepicker-light datepickerFrom" id="createdFilterFrom" />',
+                    '</div>',
+                    '<div class="popupAdvFilteringItem datepickerColumn">',
+                        '<input type="text" class="Datepicker datepickerTo" data-datepicker-class="k-datepicker-light datepickerTo" id="createdFilterTo" />',
+                    '</div>',
+                '</div>',
+                '<div class="popupAdvFilteringContent lastChangedFilter">',
+                    '<div class="popupAdvFilteringItem">',
+                        '<input class="k-autocomplete-light userFilter" id="lastChangedFilter" placeholder="' + Captions.Label_AdvanceFilter_LastChangedBy + '" />',
+                    '</div>',
+                    '<div class="popupAdvFilteringItem">',
+                        '<span class="k-dropdown-light dropdownUsageOperators lastChangedFilterType" id="lastChangedFilterType"></span>',
+                    '</div>',
+                    '<div class="popupAdvFilteringItem datepickerColumn">',
+                        '<input type="text" class="Datepicker datepickerFrom" data-datepicker-class="k-datepicker-light datepickerFrom" id="lastChangedFilterFrom" />',
+                     '</div>',
+                    '<div class="popupAdvFilteringItem datepickerColumn">',
+                        '<input type="text" class="Datepicker datepickerTo" data-datepicker-class="k-datepicker-light datepickerTo" id="lastChangedFilterTo" />',
+                    '</div>',
+                '</div>',
+                '<div class="popupAdvFilteringContent executeFilter">',
+                    '<div class="popupAdvFilteringItem">',
+                        '<input type="text" class="k-autocomplete-light userFilter" id="executeFilter" placeholder="' + Localization.AdvanceFilterUsageLastExecutedBy + '" />',
+                    '</div>',
+                    '<div class="popupAdvFilteringItem">',
+                        '<span class="k-dropdown-light dropdownUsageOperators executeFilterType" id="executeFilterType"></span>',
+                    '</div>',
+                    '<div class="popupAdvFilteringItem datepickerColumn">',
+                        '<input type="text" class="Datepicker datepickerFrom" data-datepicker-class="k-datepicker-light datepickerFrom" id="executeFilterFrom" />',
+                    '</div>',
+                    '<div class="popupAdvFilteringItem datepickerColumn">',
+                        '<input type="text" class="Datepicker datepickerTo" data-datepicker-class="k-datepicker-light datepickerTo" id="executeFilterTo" />',
+                    '</div>',
+                '</div>',
+                '<div class="popupAdvFilteringContent validateFilter">',
+                    '<div class="popupAdvFilteringItem">',
+                        '<input type="text" class="k-autocomplete-light userFilter" id="validateFilter" placeholder="' + Localization.AdvanceFilterUsageValidationChangeBy + '" />',
+                    '</div>',
+                    '<div class="popupAdvFilteringItem">',
+                        '<span class="k-dropdown-light dropdownUsageOperators validateFilterType" id="validateFilterType"></span>',
+                    '</div>',
+                    '<div class="popupAdvFilteringItem datepickerColumn">',
+                        '<input type="text" class="Datepicker datepickerFrom" data-datepicker-class="k-datepicker-light datepickerFrom" id="validateFilterFrom" />',
+                    '</div>',
+                    '<div class="popupAdvFilteringItem datepickerColumn">',
+                        '<input type="text" class="Datepicker datepickerTo" data-datepicker-class="k-datepicker-light datepickerTo" id="validateFilterTo" />',
+                    '</div>',
+                '</div>',
+                '<div class="popupAdvFilteringContent numberExecutedFilter">',
+                    '<div class="popupAdvFilteringItem">',
+                        '<span class="k-dropdown-light dropdownNumberExcutes" id="dropdownNumberExcutes"></span>',
+                    '</div>',
+                    '<div class="popupAdvFilteringItem">',
+                        '<input type="text" class="k-numerictextbox-light" id="textNumberExcutes" />',
+                    '</div>',
+                '</div>',
+                '<div class="popupAdvFilteringContent characteristicFilter">',
+                    '<div class="popupAdvFilteringItem publicStatus">',
+                        '<span class="k-dropdown-light dropdownPublicStatus" id="dropdownPublicStatus"></span>',
+                    '</div>',
+                    '<div class="popupAdvFilteringItem validationStatus">',
+                        '<span class="k-dropdown-light dropdownValidation" id="dropdownValidation"></span>',
+                    '</div>',
+                    '<div class="popupAdvFilteringItem warningStatus">',
+                        '<span class="k-dropdown-light dropdownWarning" id="dropdownWarning"></span>',
+                    '</div>',
+                    '<div class="popupAdvFilteringItem starredStatus">',
+                        '<span class="k-dropdown-light dropdownStarred" id="dropdownStarred"></span>',
+                    '</div>',
+                '</div>',
+            '</div>',
+            '<div class="popupAdvFilteringRow popupAdvFilteringRowLimitations">',
+                '<h2>' + Localization.AdvanceFilterLimitationsTitle + '</h2>',
+                '<div class="popupAdvFilteringContent">',
+                    '<div class="popupAdvFilteringItem">',
+                        '<label for="allowMoreDetailCheckbox">',
+                            '<input type="checkbox" id="allowMoreDetailCheckbox" />',
+                            '<span class="label" id="allowMoreDetailCheckboxLabel">' + Captions.Label_AdvanceFilter_Search_AllowMoreDetail + '</span>',
+                        '</label>',
+                    '</div>',
+                    '<div class="popupAdvFilteringItem">',
+                        '<label for="allowFollowUpCheckbox">',
+                            '<input type="checkbox" id="allowFollowUpCheckbox" />',
+                            '<span class="label" id="allowFollowUpCheckboxLabel">' + Captions.Label_AdvanceFilter_Search_AllowFollowup + '</span>',
+                        '</label>',
+                    '</div>',
+                '</div>',
+            '</div>',
+        '</div>'
+    ].join('');
 };

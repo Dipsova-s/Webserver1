@@ -21,10 +21,10 @@ function Popup() {
     self.PageResize = function () {
         if (!jQuery.isReady) return;
 
-        var wh = WC.Window.Height,
-            ww = WC.Window.Width,
-            isScreenMinHeight = wh <= 670,
-            safari = !Modernizr.touch && !!jQuery.browser.safari;
+        var wh = WC.Window.Height;
+        var ww = WC.Window.Width;
+        var isScreenMinHeight = wh <= 670;
+        var safari = !Modernizr.touch && !!jQuery.browser.safari;
         jQuery('html').removeClass('screenMinHeight').addClass(isScreenMinHeight ? 'screenMinHeight' : '');
 
         jQuery('.k-window-content:visible').each(function () {
@@ -34,18 +34,22 @@ function Popup() {
                     win.wrapper.css('height', '');
                     win.wrapper.height(win.wrapper.height());
                 }
-                if (win.options.center) win.center();
-                else if (typeof win.options.position !== 'undefined') {
+                if (win.options.center) {
+                    win.center();
+                }
+                else if (!win.options.appendTo && win.options.position) {
                     win.wrapper.css('left', win.options.position.left);
                     win.wrapper.css('top', win.options.position.top);
 
-                    var winOffset = win.wrapper.offset(),
-                        winSize = {
-                            width: win.wrapper.width(),
-                            height: win.wrapper.height()
-                        };
-                    if (winSize.height + winOffset.top + 100 > wh) win.center();
-                    if (winSize.width + winOffset.left > ww) win.wrapper.css('left', 0);
+                    var winOffset = win.wrapper.offset();
+                    var winSize = {
+                        width: win.wrapper.outerWidth(),
+                        height: win.wrapper.outerHeight()
+                    };
+                    if (winSize.height + winOffset.top > wh)
+                        win.wrapper.css('top', 0);
+                    if (winSize.width + winOffset.left > ww)
+                        win.wrapper.css('left', 0);
                 }
                 win.trigger('resize');
             }

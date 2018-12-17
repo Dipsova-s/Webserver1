@@ -148,25 +148,25 @@
     <value>Se ha producido un error al procesar la solicitud. Póngase en contacto con el &lt;a class="mailto" href="mailto:servicedesk@everyangle.com" target="_top"&gt;administrador&lt;/a&gt; del sistema.</value>
   </data>
   <data name="Label_AdvanceFilter_AngleDescription" xml:space="preserve">
-    <value>Descripción de Angle:</value>
+    <value>Descripción de Angle</value>
   </data>
   <data name="Label_AdvanceFilter_AngleDisplayName" xml:space="preserve">
-    <value>Nombre de Display:</value>
+    <value>Nombre de Display</value>
   </data>
   <data name="Label_AdvanceFilter_AngleId" xml:space="preserve">
-    <value>ID de Angle:</value>
+    <value>ID de Angle</value>
   </data>
   <data name="Label_AdvanceFilter_AngleName" xml:space="preserve">
-    <value>Nombre de Angle:</value>
+    <value>Nombre de Angle</value>
   </data>
   <data name="Label_AdvanceFilter_BaseClasses" xml:space="preserve">
-    <value>Objeto de inicio:</value>
+    <value>Objeto de inicio</value>
   </data>
   <data name="Label_AdvanceFilter_DisplayDescription" xml:space="preserve">
-    <value>Descripción de Display:</value>
+    <value>Descripción de Display</value>
   </data>
   <data name="Label_AdvanceFilter_Followup" xml:space="preserve">
-    <value>Jump:</value>
+    <value>Jump</value>
   </data>
   <data name="Label_AdvanceFilter_LastChangedBy" xml:space="preserve">
     <value>Modificado por</value>
@@ -175,7 +175,7 @@
     <value>Status de publicación</value>
   </data>
   <data name="Label_AdvanceFilter_QueryStep" xml:space="preserve">
-    <value>Filtro:</value>
+    <value>Filtro</value>
   </data>
   <data name="Label_AdvanceFilter_Search_AllowFollowup" xml:space="preserve">
     <value>Permitir Jump</value>
@@ -184,10 +184,10 @@
     <value>Permitir más detalles</value>
   </data>
   <data name="Label_AdvanceFilter_Search_Label" xml:space="preserve">
-    <value>Etiqueta de búsqueda:</value>
+    <value>Etiqueta de búsqueda</value>
   </data>
   <data name="Label_AdvanceFilter_Search_Private_Label" xml:space="preserve">
-    <value>Etiqueta de privilegio:</value>
+    <value>Etiqueta de privilegio</value>
   </data>
   <data name="Label_AdvanceFilter_StarredStatus" xml:space="preserve">
     <value>Status de favorito</value>

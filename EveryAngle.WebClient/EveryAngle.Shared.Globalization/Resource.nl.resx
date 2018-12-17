@@ -2787,20 +2787,11 @@ Copyright © {0}</value>
   <data name="AdvanceFilterUsageOperatorValidated" xml:space="preserve">
     <value>Gevalideerd</value>
   </data>
-  <data name="AdvanceFilterUsageTextAfter" xml:space="preserve">
-    <value>Na:</value>
-  </data>
-  <data name="AdvanceFilterUsageTextBefore" xml:space="preserve">
-    <value>Voor:</value>
-  </data>
   <data name="AdvanceFilterUsageTextFrom" xml:space="preserve">
-    <value>Van:</value>
-  </data>
-  <data name="AdvanceFilterUsageTextOn" xml:space="preserve">
-    <value>Op:</value>
+    <value>Van</value>
   </data>
   <data name="AdvanceFilterUsageTextTo" xml:space="preserve">
-    <value>Tot:</value>
+    <value>Tot</value>
   </data>
   <data name="CompanyLogo" xml:space="preserve">
     <value>Bedrijfslogo</value>
@@ -3594,13 +3585,16 @@ Copyright © {0}</value>
   <data name="SinceLastRefresh" xml:space="preserve">
     <value>{0}sinds laatste verversing</value>
   </data>
-  <data name="MC_ChangedTablesOnly" xml:space="preserve" translate="no">
+  <data name="MC_ChangedTablesOnly" xml:space="preserve">
     <value>New and changed tables only</value>
   </data>
-  <data name="MC_ChangedTablesOnly_Description" xml:space="preserve" translate="no">
+  <data name="MC_ChangedTablesOnly_Description" xml:space="preserve">
     <value>Select this option to extract only newly added and changed tables. This option cannot be used together with Delta.</value>
   </data>
   <data name="ViewDisplaysMode" xml:space="preserve">
     <value>Displays modus</value>
+  </data>
+  <data name="ClearAdvancedFilters" xml:space="preserve">
+    <value>Clear filter(s)</value>
   </data>
 </root>

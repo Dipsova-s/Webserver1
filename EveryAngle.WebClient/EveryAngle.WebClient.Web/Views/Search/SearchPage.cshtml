@@ -48,8 +48,13 @@
             </div>
 
             <div id="Search" class="searchBoxWrapper">
+                <a id="ClearSearchButton" class="clearSearch alwaysHide" onclick="searchQueryModel.ClearAdvanceSearch();" data-tooltip-title="@Resource.ClearAdvancedFilters">
+                    <i class="icon remove"></i>
+                </a>
+                <a id="SearchButton" onclick="searchPageHandler.ShowAdvancedFilters();" data-tooltip-title="@Resource.AdvancedFilters">
+                    <i class="icon caret"></i>
+                </a>
                 <input id="SearchInput" type="text" />
-                <a id="SearchButton" onclick="searchPageHandler.SubmitSearchForm();"></a>
             </div>
 
             <div id="ActionSelect" class="compactMode">
@@ -68,11 +73,7 @@
 
 <div id="MainContent" class="Wrapper">
     <div id="LeftMenu">
-         @{Html.RenderPartial("~/Views/Search/PartialViews/FacetFilters/FacetFilters.cshtml");}       
-        <div id="AdvancedFilters">
-            <a class="btn" onclick="searchPageHandler.ShowAdvancedFilters();"><span>@Resource.AdvancedFilters</span></a>
-            <a class="btnRemoveFilter" style="display:none" onclick="searchQueryModel.ClearAdvanceSearch();"></a>
-        </div>
+         @{Html.RenderPartial("~/Views/Search/PartialViews/FacetFilters/FacetFilters.cshtml");}
     </div>
     <div id="Content">
         <div id="LandingPage">
