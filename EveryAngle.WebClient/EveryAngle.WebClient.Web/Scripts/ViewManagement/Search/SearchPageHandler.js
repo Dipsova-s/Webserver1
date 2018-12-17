@@ -4,14 +4,13 @@ function SearchPageHandler() {
     var self = this;
     self.IsPageInitialized = false;
     self.DISPLAY_TYPE = {
-        FULL: 'details',
         COMPACT: 'compact',
         DISPLAYS: 'displays'
     };
 
     var lastSearch = userSettingModel.GetClientSettingByPropertyName(enumHandlers.CLIENT_SETTINGS_PROPERTY.LAST_SEARCH_URL);
     var viewMode = WC.Utility.GetParameterByName(enumHandlers.SEARCHPARAMETER.VIEWMODE, lastSearch);
-    self.DisplayType = ko.observable(viewMode || self.DISPLAY_TYPE.FULL);
+    self.DisplayType = ko.observable(viewMode || self.DISPLAY_TYPE.DISPLAYS);
     self.SEARCHMODE = {
         AUTO: 1,
         MANUAL: 2
@@ -305,7 +304,7 @@ function SearchPageHandler() {
     self.GetPrivateNoteByUserSpecific = function (data, isTitle) {
         if (data.user_specific && data.user_specific.private_note) {
             var rawPrivateNote = WC.HtmlHelper.StripHTML(data.user_specific.private_note);
-            return isTitle ? rawPrivateNote : kendo.format('{0}: {1}', Localization.PersonalNote, rawPrivateNote);
+            return isTitle ? rawPrivateNote : kendo.format(' &nbsp; <span class="PrivateNote"><strong>{0}:</strong> {1}</span>', Localization.PersonalNote, rawPrivateNote);
         }
         return '';
     };
@@ -1355,9 +1354,7 @@ function SearchPageHandler() {
             var template = [
                 '<li class="displayNameContainer cursorPointer ' + extraCssClass +'" onclick="searchPageHandler.ClickDisplay(event)">',
                     '<div class="front">',
-                        '<i class="icon #= searchPageHandler.GetDisplayPublishCSSClass(data) #"></i>',
                         '<i class="icon #= searchPageHandler.GetDisplayTypeCSSClass(data) #"></i>',
-                        '<i class="icon #= searchPageHandler.GetDisplayFilterCSSClass(data) #"></i>',
                     '</div>',
                     '<a class="name nameLink displayName"',
                         ' title="#:data.name #"',

@@ -92,7 +92,7 @@ ${lblSearchResult}              css=#SearchResultList span:first-child
 ${publishStatusFromFirstAngleInSearchResult}        jquery=.SearchResult:eq(0) .public
 ${privateStatusFromFirstAngleInSearchResult}        jquery=.SearchResult:eq(0) .private
 ${validatedStatusFromFirstAngleInSearchResult}      jquery=.SearchResult:eq(0) .validated
-${btnDisplaysSelectedItem}      jquery=#InnerResultWrapper .k-state-selected .btnShowDisplays
+${btnDisplaysSelectedItem}      jquery=#InnerResultWrapper .k-state-selected .detailDefinitionList .displayName
 ${lnkItemNameSelectedItem}      jquery=#InnerResultWrapper .k-state-selected .ResultContent .name
 ${divSearchResultNoData}         css=.grid-no-data
 
@@ -394,8 +394,7 @@ Get Number Of Search Results
     [return]   ${itemCount}
 
 Get Number Display Of Selected Item From Search Result
-    ${displayNumberText}    Get Text     ${btnDisplaysSelectedItem}
-    ${displayNumber}    Convert To Integer    ${displayNumberText}
+    ${displayNumber}    Get Elements Count     ${btnDisplaysSelectedItem}
     [Return]    ${displayNumber}
 
 Get Name Of Selected Item From Search Result
@@ -482,7 +481,7 @@ Check Elements On Detail Mode
     Page Should Not Contain Element    ${divDisplaysList}
 
 Check Elements On Compact Mode
-    Element Should Not Be Visible    ${divContentDetail}
+    Element Should Be Visible    ${divContentDetail}
     Page Should Contain Element    ${btnShowDisplays}
     Page Should Not Contain Element    ${divDisplaysList}
 

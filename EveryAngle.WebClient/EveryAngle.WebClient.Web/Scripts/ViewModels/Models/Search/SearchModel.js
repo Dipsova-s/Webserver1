@@ -126,13 +126,13 @@ function SearchViewModel() {
 
         // model
         var modelName = modelsHandler.GetModelName(data.model);
-        details.push(kendo.format('{0}: <strong>{1}</strong>', Localization.Model, modelName || '-'));
+        details.push(kendo.format('<strong>{0}:</strong> {1}', Localization.Model, modelName || '-'));
 
         // created
-        if (data.created) {
+        if (data.created && searchPageHandler.DisplayType() === searchPageHandler.DISPLAY_TYPE.DISPLAYS) {
             var createdBy = data.created.full_name;
             var createdDate = WC.FormatHelper.GetFormattedValue(enumHandlers.FIELDTYPE.DATETIME_WC, data.created.datetime);
-            details.push(kendo.format('{0}: <strong>{1} - {2}</strong>', Localization.CreatedBy, createdBy, createdDate));
+            details.push(kendo.format('<strong>{0}:</strong> {1} - {2}', Localization.CreatedBy, createdBy, createdDate));
         }
 
         return details.join(' &nbsp; ');

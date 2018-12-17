@@ -272,12 +272,6 @@ describe('SearchPageHandler', function () {
             spyOn(WC.Utility, 'GetParameterByName').and.returnValue('');
         });
 
-        it('should call highlighter in details viewmode', function () {
-            searchPageHandler.DisplayType(searchPageHandler.DISPLAY_TYPE.FULL);
-            searchPageHandler.HighlightSearchResult($());
-            expect($.fn.highlighter).toHaveBeenCalled();
-        });
-
         it('should call highlighter in displays viewmode', function () {
             searchPageHandler.DisplayType(searchPageHandler.DISPLAY_TYPE.DISPLAYS);
             searchPageHandler.HighlightSearchResult($());

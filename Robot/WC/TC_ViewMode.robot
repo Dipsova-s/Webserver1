@@ -43,19 +43,6 @@ Verify Search Viewmode
     Check Elements On Displays Mode
     Check Hightlight On Displays/Detail Mode    wwww vvvv    yyyy    zzzz
 
-    # details mode
-    Click Change View To Detail Mode
-    Check Elements On Detail Mode
-    Check Hightlight On Displays/Detail Mode    wwww vvvv    yyyy    zzzz
-    Reload Search Page
-    Check Elements On Detail Mode
-    Check Hightlight On Displays/Detail Mode    wwww vvvv    yyyy    zzzz
-    Logout
-    Login To WC By Power User
-    Search By Text Without Double Quote    "wwww vvvv" yyyy zzzz
-    Check Elements On Detail Mode
-    Check Hightlight On Displays/Detail Mode    wwww vvvv    yyyy    zzzz
-
     [Teardown]  Run Keywords  Clean Up Items     Web    ${cleanUpItems}
     ...         AND           Go to Search Page
 

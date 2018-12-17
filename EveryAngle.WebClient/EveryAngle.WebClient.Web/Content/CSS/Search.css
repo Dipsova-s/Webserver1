@@ -47,7 +47,7 @@
 ============================================ */
 #ActionSelect.compactMode {
     top: 8px;
-    right: 175px;
+    right: 133px;
     z-index: 2;
 }
 
@@ -938,7 +938,7 @@
 }
 
 .displaysMode .SearchResult {
-    height: 150px;
+    height: 144px;
 }
 
 .ResultSign {
@@ -1041,6 +1041,7 @@
 
 .ResultContent .Date {
     color: #6c757d;
+    padding-top: 12px;
 }
 
 .ResultContent .ContentDetail,
@@ -1078,28 +1079,28 @@
 }
 .displaysMode .ResultView {
     width: 525px;
-    height: 130px;
+    height: 125px;
     padding-top: 0;
     overflow: auto;
+    border-left: 1px solid #e6e6e6;
 }
 .displaysMode .ResultView .detailDefinitionList {
-    margin-left: 10px;    
+    margin-left: 5px;
 }
 
 /* webkit */
 .webkit .ResultView {
-    right: 15px;
+    right: 10px;
 }
 
 /* edge */
 .webkit.ie .ResultView {
-    right: 12px;
+    right: 7px;
 }
 
 .ResultView .detailDefinitionList .displayNameContainer {
     overflow: visible;
-    background-color: #f7f7f7;
-    margin-top: 2px;
+    margin-top: 3px;
 }
 .ResultView .detailDefinitionList .displayNameContainer:hover {
     background-color: #ebebeb;
@@ -1116,7 +1117,6 @@
 .btnShowDisplays {
     width: 16px;
     height: 16px;
-    right: 20px;
 }
 .btnShowDisplays .badge {
     right: -14px;
@@ -1124,9 +1124,12 @@
     min-width: 16px;
 }
 
-.compactMode .ResultContent .Date,
 .compactMode .ResultContent .ContentDetail {
     display: none;
+}
+
+.compactMode .ResultContent .Date {
+    padding-top: 0;
 }
 
 #popupDisplays {
@@ -1160,6 +1163,12 @@
     background-color: #ebebeb;
 }
 
+#popupDisplays .detailDefinitionList .displayNameContainer .front,
+#popupDisplays .detailDefinitionList .displayNameContainer .rear,
+#popupDisplays .detailDefinitionList .displayNameContainer .icon {
+    margin-left: 2px;
+}
+
 @media (max-width: 1139px) {
     #SearchBar .searchBoxWrapper {
         min-width: 300px;
@@ -1182,7 +1191,7 @@
     }
 
     #ActionSelect.compactMode {
-        right: 145px;
+        right: 103px;
     }
 
     #SearchResultView .viewModeWrapper {

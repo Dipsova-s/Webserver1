@@ -1413,6 +1413,10 @@ img {
     box-sizing: border-box;
 }
 
+.displayNameContainer .name.displayName {
+    padding-left: 5px;
+}
+
 .displayNameContainer.small .icon {
     width: 20px;
 }
@@ -1437,8 +1441,10 @@ img {
 }
 
 .displayNameContainer.small .icon.default:after {
-    width: 20px;
-    height: 20px;
+    width: 18px;
+    height: 18px;
+    left: .5px;
+    top: .5px;
 }
 .displayNameContainer.small .icon.schedule:before {
     right: -3px;

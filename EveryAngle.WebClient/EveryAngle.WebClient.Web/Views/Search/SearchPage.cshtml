@@ -98,7 +98,7 @@
                 </div>
             </div>
         </div>
-        <div id="SearchResultList" data-bind="css: { 'displaysMode': searchPageHandler.DisplayType() === searchPageHandler.DISPLAY_TYPE.DISPLAYS, 'fullMode': searchPageHandler.DisplayType() === searchPageHandler.DISPLAY_TYPE.FULL, 'compactMode': searchPageHandler.DisplayType() === searchPageHandler.DISPLAY_TYPE.COMPACT }">
+        <div id="SearchResultList" data-bind="css: { 'displaysMode': searchPageHandler.DisplayType() === searchPageHandler.DISPLAY_TYPE.DISPLAYS, 'compactMode': searchPageHandler.DisplayType() === searchPageHandler.DISPLAY_TYPE.COMPACT }">
             <div class="SearchTotalContainer">
                 <span data-bind="text: kendo.format(Localization.NumberSelectingItems + ', ', SelectedItems().length), visible: SelectedItems().length"></span>
                 <span id="SearchTotal" data-bind="text: searchModel.GetTotalItems()">0</span>
