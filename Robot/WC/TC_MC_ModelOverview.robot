@@ -4,12 +4,12 @@ Suite Setup                 Open Browser in Sandbox Mode
 Suite Teardown              Close Browser
 Test Setup                  Go To               ${URL_MC}
 Test Teardown               Logout MC
-Force Tags                  acc_mc_s
 
 *** Variables ***
 
 *** Test Cases ***
 Test Status And Report Button On Model Page
+    [tags]    intermittent_s
     Login To MC By Admin User
     Wait Until Overview Page Loaded
     Go To EA2_800 Models Page
@@ -18,6 +18,7 @@ Test Status And Report Button On Model Page
     Verify Popup Stop Server
 
 Test Start/Stop Model Server Button
+    [tags]    acc_mc_s
     Login To MC By Admin User
     Wait Until Overview Page Loaded
     Go To EA2_800 Models Page

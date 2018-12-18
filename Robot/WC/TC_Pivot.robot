@@ -2,7 +2,7 @@
 Resource            ${EXECDIR}/resources/WCSettings.robot
 Suite Setup         Go to WC Then Login With EAPower User
 Suite Teardown      Logout WC Then Close Browser
-Force Tags          acceptance    acc_wc
+Force Tags          intermittent
 
 *** Test Cases ***
 Verify Pivot Settings Result
