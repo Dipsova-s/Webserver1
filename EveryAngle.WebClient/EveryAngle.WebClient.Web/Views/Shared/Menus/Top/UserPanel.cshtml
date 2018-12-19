@@ -2,8 +2,23 @@
 @using System.Threading;
 
 <div id="UserPanel">
-    <div id="UserControl" onclick="userSettingsView.ToggleMenu();"></div>
-    <span class="UserPanelSeparator"></span>
-    <div id="Help" onclick="userSettingsView.ToggleMenuHelp();">@Resource.Help</div>
+
+    <ul>
+        <li>
+            <a id="Help" onclick="userSettingsView.ToggleMenuHelp();">
+                <span id="HelpIcon"></span>
+            </a>
+        </li>
+
+        <li>
+            <a id="UserControl" onclick="userSettingsView.ToggleMenu();">
+                <p id="UserPanelItem">
+                    <span id="UserControlName" class="name" title=""></span>
+                    <span id="UserControlDownChevron"></span>
+                </p>
+            </a>
+        </li>
+    </ul>
+
     @{Html.RenderAction("UserMenu", "Menu", new { isVisible = false });}
 </div>

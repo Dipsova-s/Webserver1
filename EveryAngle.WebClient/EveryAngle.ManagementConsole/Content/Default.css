@@ -455,30 +455,29 @@ textarea.error {
 ================================== */
 .header {
     height: 60px;
-	background: #025e7f;
-	color: white;
-	
+    background: #fafcfc;
+    box-shadow: 0 0 6px rgba(0, 0, 0, .1);
 }
 
 .brand {
     float: left;
     width: 165px;
     height: 29px;
-	margin-left: 15px;
-	margin-top: 13px;
+    margin-left: 15px;
+    margin-top: 13px;
 }
 
 .topMenu {
     position: relative;
     text-align: right;
     margin-top: 15px;
-    margin-left: 230px;
+    margin-right: 20px;
 }
 
 .topMenu > a {
     display: inline-block;
     font-weight: bold;
-    color: white;
+    color: #666;
     line-height: 17px;
     font-size: 11px;
     padding-left: 18px;
@@ -486,25 +485,15 @@ textarea.error {
     background-size: 17px 17px;
 }
 
-.topMenu > a.linkUser {
-    background-image: url(../images/icons/icon_user.svg);
-    margin-right: 5px;
-}
-
-.topMenu > a.linkHelp {
-    margin-right: 30px;
-    background-image: url(../images/icons/icon_help.svg);
-}
-
 .systemInfo {
     position: absolute;
     right: 28px;
-	margin-bottom: 10px;
+    margin-bottom: 10px;
     top: 43px;
     text-align: right;
     white-space: nowrap;
     font-size: 11px;
-	color: white;
+    color: #666;
 }
 
 .systemInfoVersion {
@@ -532,7 +521,7 @@ textarea.error {
     color: #000;
     font-size: 16px;
     overflow: hidden;
-	font-weight: normal;
+    font-weight: normal;
 }
 
 ul.breadcrumbList {
@@ -647,7 +636,7 @@ ul.breadcrumbList li {
     height: 44px;
     line-height: 45px;
     text-decoration: none;
-	background: #f2f2f2;
+    background: #f2f2f2;
     border-bottom: 1px solid #e6e6e6;
     cursor: pointer;
     color: #1e1e1e;
@@ -738,12 +727,12 @@ ul.breadcrumbList li {
     font-weight: bold;
     background: rgba(32,168,230,.11);
     border-bottom: 1px solid #e6e6e6;
-	color: #333;
+    color: #333;
 }
 
 .sideMenuLevel2 > li.active > a {
     background-color: #025e7f;
-	color: white;
+    color: white;
 }
 
 .sideMenuLevel2 > li > a > .icon {
@@ -890,4 +879,20 @@ ul.breadcrumbList li {
         width: 100%;
         min-width: 768px;
     }
+}
+
+.helpIcon {
+    background: transparent url('../images/icons/help.svg') left center no-repeat;
+    width: 18px;
+    height: 18px;
+    text-align: right;
+    display: inline-block;
+}
+
+.downChevron {
+    background: transparent url(../images/icons/icon_arrow_down.png) left center no-repeat;
+    width: 14px;
+    height: 12px;
+    text-align: right;
+    display: inline-block;
 }

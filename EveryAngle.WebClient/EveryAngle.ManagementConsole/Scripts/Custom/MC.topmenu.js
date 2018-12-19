@@ -3,11 +3,13 @@
     var topMenu = {
         init: function () {
             jQuery('html').click(function (e) {
-                if (e.target.id != 'UserMenuControl') {
+                var isInUserMenu = $("#UserMenuControl").has(e.target).attr('class') === 'linkUser';
+                if (e.target.id !== 'UserMenuControl' && !isInUserMenu) {
                     jQuery('#UserMenu').hide();
                 }
 
-                if (e.target.id != 'HelpMenuControl') {
+                var isInHelpMenu = $("#HelpMenuControl").has(e.target).attr('class') === 'linkHelp';
+                if (e.target.id !== 'HelpMenuControl' && !isInHelpMenu) {
                     jQuery('#HelpMenu').hide();
                 }
             });
@@ -25,6 +27,9 @@
             MC.topMenu.click(jQuery('#UserMenu'), jQuery('#HelpMenu'));
         },
         clickHelp: function () {
+            var left = jQuery("#HelpMenuControl").position().left - 134;
+            jQuery("#HelpMenu").css("left", left);
+
             MC.topMenu.click(jQuery('#HelpMenu'), jQuery('#UserMenu'));
         }
     };

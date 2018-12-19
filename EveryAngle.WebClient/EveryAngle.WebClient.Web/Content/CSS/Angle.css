@@ -6,8 +6,8 @@
     top: 0;
     width: 100%;
     min-width: 762px;
-    background: #025e7f;
-    border-bottom: 1px solid #fff;
+    background: #fafcfc;
+    color: #666;
 }
 
 .topBarWrapper .Wrapper {

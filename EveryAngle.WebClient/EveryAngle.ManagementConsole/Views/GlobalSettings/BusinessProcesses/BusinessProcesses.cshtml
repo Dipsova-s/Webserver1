@@ -163,7 +163,6 @@
                     });
                     @Html.RenderPageToolbarBottom(buttons)    
                 }
-                <a data-target="#popupPreview" class="btn" onclick="MC.GlobalSettings.BusinessProcesses.PreviewBar()" title="Preview Business Process Bar" data-width="610" data-min-width="450" data-role="mcPopup">@Resource.Preview @Resource.BusinessProcesses @Resource.Bar</a>
             </div>
         </div>
         <!--/.contentSectionGrid-->
@@ -177,12 +176,3 @@
         <a class="btn btnPrimary btnSubmit" onclick="MC.ajax.reloadMainContent()">@Resource.Ok</a>
     </div>
 </div>*@
-
-<div class="popup" id="popupPreview">
-    <div class="popupContent">
-        <div class="tab" id="tab"></div>
-    </div>
-    <div class="popupToolbar">
-        <a class="btn btnPrimary btnClose" data-role="popup-close">@Resource.Close</a>
-    </div>
-</div>

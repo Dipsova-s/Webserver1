@@ -2,7 +2,10 @@
     "use strict";
 
     win.TOOLTIP_POSITION = {
-        BOTTOM: 'bottom'
+        BOTTOM: 'bottom',
+        RIGHT: 'right',
+        TOP: 'top',
+        LEFT: 'left'
     };
 
     var fnCheckTooltip;
@@ -20,6 +23,8 @@
         var tooltipHeight = tooltip.outerHeight();
         var tooltipLeft;
         var tooltipTop;
+        var target = jQuery(e.target);
+        var targetOffset = target.offset();
 
         var target = jQuery(e.currentTarget);
         var targetOffset = target.offset();
@@ -27,6 +32,11 @@
             // show at bottom
             tooltipLeft = targetOffset.left + (target.outerWidth() / 2) - (tooltipWidth / 2);
             tooltipTop = targetOffset.top + target.outerHeight();
+        }
+        else if (e.data.position === TOOLTIP_POSITION.RIGHT) {
+            // show at right
+            tooltipLeft = targetOffset.left + target.outerWidth() + 10;
+            tooltipTop = targetOffset.top - 4;
         }
         else {
             // depends on your mouse
@@ -72,6 +82,10 @@
         }
         else if (!target.is('[data-role="tooltip"]') && target.find(ui.except).length) {
             text = '';
+        }
+        else if (target.is('[data-tooltip-text]')) {
+            text = target.attr('data-tooltip-text');
+            renderAs = target.data('type');
         }
         else {
             text = jQuery.trim(target.text());

@@ -7,7 +7,6 @@ function SearchPageHandler() {
         COMPACT: 'compact',
         DISPLAYS: 'displays'
     };
-
     var lastSearch = userSettingModel.GetClientSettingByPropertyName(enumHandlers.CLIENT_SETTINGS_PROPERTY.LAST_SEARCH_URL);
     var viewMode = WC.Utility.GetParameterByName(enumHandlers.SEARCHPARAMETER.VIEWMODE, lastSearch);
     self.DisplayType = ko.observable(viewMode || self.DISPLAY_TYPE.DISPLAYS);
@@ -66,13 +65,13 @@ function SearchPageHandler() {
             progressbarModel.InitialProgressBar();
             userSettingsView.UpdateUserMenu();
             CheckUILanguage(userSettingModel.GetByName(enumHandlers.USERSETTINGS.DEFAULT_LANGUAGES).toLowerCase());
-            businessprocessSearchModel.Initial();
             self.InitialUserPrivileges();
             self.InitialSearchBox();
             self.BindSortingDropdown();
 
             // tooltip
-            WC.HtmlHelper.Tooltip.Create('searchfacet', '#LeftMenu .name', true);
+            WC.HtmlHelper.Tooltip.Create('searchfacet', '#LeftMenu .name', true); 
+            WC.HtmlHelper.Tooltip.Create('BusinessProcessFacet', '#LeftMenu .BusinessProcessFacet', false, TOOLTIP_POSITION.RIGHT, 'BusinessProcessFacet-tooltip k-window-arrow-w');
             WC.HtmlHelper.Tooltip.Create('actionmenu', '#ActionDropdownListPopup .actionDropdownItem', false, TOOLTIP_POSITION.BOTTOM, 'tooltipActionmenu k-window-arrow-n');
             WC.HtmlHelper.Tooltip.Create('searchbar', '#SearchBar .searchBoxWrapper > a', false, TOOLTIP_POSITION.BOTTOM, 'tooltipActionmenu k-window-arrow-n');
 
@@ -183,7 +182,6 @@ function SearchPageHandler() {
     self.ShowLandingPage = function () {
         jQuery('#SearchResultList').hide();
         jQuery('#Content').busyIndicator(false);
-
         jQuery('#LandingPage').show().css('opacity', 0).stop();
         welcomeModel.Initial()
             .always(function () {
@@ -192,7 +190,6 @@ function SearchPageHandler() {
     };
     self.ShowSearchResult = function () {
         welcomeModel.StopPlayingVideo();
-
         jQuery('#LandingPage').hide();
         jQuery('#SearchResultList').show();
         self.BindSearchResultGrid();

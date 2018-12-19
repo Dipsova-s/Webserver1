@@ -230,7 +230,6 @@ function UserSettingsHandler() {
 
         self.InitialControlsModel();
         self.InitialControlsBusinessProcess();
-        self.InitialControlsBusinessProcessStyle(setting);
         self.InitialControlsLanguage(setting);
         self.InitialControlsRowExportToExcel(setting);
         self.InitialControlsFacetWarning(clientSettings);
@@ -272,6 +271,7 @@ function UserSettingsHandler() {
         businessProcessesModel.UserSetting.MultipleActive(true);
         businessProcessesModel.UserSetting.CanEmpty(false);
         businessProcessesModel.UserSetting.Mode(businessProcessesModel.UserSetting.MODE.COMPACT);
+        businessProcessesModel.UserSetting.SetCheckBoxStyle();
         businessProcessesModel.UserSetting.ApplyHandler('#UserSettingsBusinessProcesses');
 
         var currentActiveList = {};
@@ -285,9 +285,6 @@ function UserSettingsHandler() {
             }
         });
         businessProcessesModel.UserSetting.CurrentActive(currentActiveList);
-    };
-    self.InitialControlsBusinessProcessStyle = function (setting) {
-        WC.HtmlHelper.SetCheckBoxStatus('#CompressedBusinessBar', setting[enumHandlers.USERSETTINGS.COMPRESSED_BP_BAR]);
     };
     self.InitialControlsLanguage = function (setting) {
         var avaliableLanguages = systemLanguageHandler.GetEnableLanguages();
@@ -458,7 +455,6 @@ function UserSettingsHandler() {
         var userSettings = {};
 
         self.SetDefaultBusinessProcess(defaultUserSetting, userSettings);
-        self.SetBusinessProcessBarStyle(defaultUserSetting, userSettings);
         self.SetLanguage(defaultUserSetting, userSettings);
         self.SetNumberExportExcel(defaultUserSetting, userSettings);
         self.SetTechnicalInfoSapFieldChooser(defaultUserSetting, userSettings);
@@ -489,12 +485,6 @@ function UserSettingsHandler() {
         var defaultBusinessProcess = businessProcessesModel.UserSetting.GetActive();
         if (defaultBusinessProcess.toString() !== defaultUserSetting[enumHandlers.USERSETTINGS.DEFAULT_BUSINESS_PROCESSES].toString()) {
             userSettings[enumHandlers.USERSETTINGS.DEFAULT_BUSINESS_PROCESSES] = defaultBusinessProcess;
-        }
-    };
-    self.SetBusinessProcessBarStyle = function (defaultUserSetting, userSettings) {
-        var compressBusinessprocessBar = WC.HtmlHelper.GetCheckBoxStatus('#CompressedBusinessBar');
-        if (compressBusinessprocessBar !== defaultUserSetting[enumHandlers.USERSETTINGS.COMPRESSED_BP_BAR]) {
-            userSettings[enumHandlers.USERSETTINGS.COMPRESSED_BP_BAR] = compressBusinessprocessBar;
         }
     };
     self.SetLanguage = function (defaultUserSetting, userSettings) {
@@ -667,9 +657,6 @@ function UserSettingsHandler() {
             // search grid
             searchQueryModel.Search();
             searchQueryModel.SetUIOfAdvanceSearchFromParams();
-
-            // set topbar business processes if exists
-            self.SetTopBarBusinessProcess();
         }
         else if (typeof anglePageHandler !== 'undefined') {
             self.RenderSingleDrilldown();
@@ -712,26 +699,6 @@ function UserSettingsHandler() {
         // add flag for trigger all other tab to reload the whole page
         // (event handler will contain in Storage.js)
         jQuery.localStorage('user_settings_has_changed', true);
-    };
-    self.SetTopBarBusinessProcess = function () {
-        if (typeof businessProcessesModel.Topbar !== 'undefined') {
-            var bpMode = userSettingModel.GetByName(enumHandlers.USERSETTINGS.COMPRESSED_BP_BAR) ? businessProcessesModel.Topbar.MODE.COMPACT : businessProcessesModel.Topbar.MODE.FULL;
-            businessProcessesModel.Topbar.Mode(bpMode);
-            if ($.address.value() === '/') {
-                var currentActiveList = {};
-                var currentBusinessProcesses = WC.Utility.ToArray(userSettingModel.GetByName(enumHandlers.USERSETTINGS.DEFAULT_BUSINESS_PROCESSES));
-                jQuery.each(businessProcessesModel.Topbar.Data(), function (index, data) {
-                    if (jQuery.inArray(data.id, currentBusinessProcesses) !== -1) {
-                        currentActiveList[data.id] = true;
-                    }
-                    else {
-                        currentActiveList[data.id] = false;
-                    }
-                });
-                businessProcessesModel.Topbar.CurrentActive(currentActiveList);
-            }
-            businessProcessesModel.Topbar.UpdateLayout(jQuery('#SearchFacetBusinessProcesses .businessProcesses'));
-        }
     };
     self.RenderDisplayView = function () {
         if (fieldsChooserModel.GridName !== enumHandlers.FIELDCHOOSERNAME.LISTDRILLDOWN && displayModel.Data()) {

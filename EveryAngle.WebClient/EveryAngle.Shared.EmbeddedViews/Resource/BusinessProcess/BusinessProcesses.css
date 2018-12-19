@@ -241,7 +241,6 @@
 .default.businessProcesses .businessProcessesItem:after {
     background: #257da9;
     background: linear-gradient(to bottom, #257da9 40%,#005e80 100%);
-
     opacity: .5;
 }
 
@@ -317,6 +316,7 @@
     height: 38px;
     padding-top: 7px;
 }
+
 .flat.businessProcesses:before,
 .flat.businessProcesses .businessProcessesItem:after {
     background: #c5c5c5;
@@ -396,4 +396,84 @@
 .flat.expand.businessProcesses .businessProcessesItemMore.active:hover {
     background-color: #fff;
     border-bottom-color: transparent;
+}
+
+
+
+.businessProcessesCheckBoxList {
+    height: auto;
+    width: 720px;
+}
+
+.businessProcesses.businessProcessesCheckBoxList:before {
+    width: 0px;
+}
+
+.BusinessProcessCheckBox {
+    display: inline-block;
+    width: 100px;
+}
+
+.BusinessProcessBadge {
+    border-radius: 3px;
+    height: 6px;
+    width: 12px;
+    box-sizing: border-box;
+    position: relative;
+    display: inline-block;
+    top: -1px;
+    margin-right: 6px;
+}
+
+.BusinessProcessBadgeLabel {
+    height: auto;
+}
+
+.BusinessProcessBadgeItem0,
+.BusinessProcessBadge.P2P {
+    background-color: #008e91;
+}
+
+.BusinessProcessBadgeItem1,
+.BusinessProcessBadge.S2D {
+    background-color: #00537a;
+}
+
+.BusinessProcessBadgeItem2,
+.BusinessProcessBadge.O2C {
+    background-color: #cf691e;
+}
+
+.BusinessProcessBadgeItem3,
+.BusinessProcessBadge.F2R {
+    background-color: #dfb500;
+}
+
+.BusinessProcessBadgeItem4,
+.BusinessProcessBadge.PM {
+    background-color: #93bf00;
+}
+
+.BusinessProcessBadgeItem5,
+.BusinessProcessBadge.HCM {
+    background-color: #7f196f;
+}
+
+.BusinessProcessBadgeItem6,
+.BusinessProcessBadge.GRC {
+    background-color: #c00000;
+}
+
+.BusinessProcessBadgeItem7,
+.BusinessProcessBadge.IT {
+    background-color: #218b00;
+}
+
+.BusinessProcessBadgeItem8,
+.BusinessProcessBadge.OTHER {
+    background-color: #999;
+}
+
+.BusinessProcessBadgeLabel.disabled {
+    color: #aaa;
 }

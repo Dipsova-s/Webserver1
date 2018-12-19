@@ -631,10 +631,6 @@
       <Link>WebClient\Dependencies\ViewModels\Models\FieldSettings\fieldsettingsmodel.js</Link>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="..\EveryAngle.WebClient.Web\Scripts\ViewModels\Models\Search\businessprocessmodel.js">
-      <Link>WebClient\Dependencies\ViewModels\Models\Search\businessprocessmodel.js</Link>
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
     <Content Include="..\EveryAngle.WebClient.Web\Scripts\ViewModels\Models\Search\facetfiltersmodel.js">
       <Link>WebClient\Dependencies\ViewModels\Models\Search\facetfiltersmodel.js</Link>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
@@ -752,7 +748,6 @@
     <Content Include="WebClient\Tests\ViewModels\Models\FieldSettings\FieldModelTest.js" />
     <Content Include="WebClient\Tests\ViewModels\Models\FieldSettings\FieldSettingsModelTest.js" />
     <Content Include="WebClient\Tests\ViewModels\Models\Angles\AngleInfoModelTest.js" />
-    <Content Include="WebClient\Tests\ViewModels\Models\Search\BusinessprocessSearchModelTest.js" />
     <Content Include="WebClient\Tests\ViewModels\Models\Search\SearchQueryTest.js" />
     <Content Include="WebClient\Tests\ViewModels\Models\Search\FacetFiltersViewModelTest.js" />
     <Content Include="WebClient\Tests\ViewModels\Models\Search\MassChangeModelTest.js" />

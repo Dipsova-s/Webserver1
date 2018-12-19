@@ -62,7 +62,6 @@ Verify User Information
 
 Verify System Settings
     Click System Settings Tab
-    Page Should Contain Checkbox    ${chkCompressedBusinessBar}
     Page Should Contain Checkbox    ${chkShowFacetAngleWarnings}
     Page Should Contain Checkbox    ${chkDefaultStarredfields}
     Page Should Contain Checkbox    ${chkDefaultSuggestedfields}
@@ -210,8 +209,7 @@ Verify field formats
     Click Dropdown Other Set
 
 Set User Settings In System Settings Tab
-    Click Element If Not Active    ${divUserSettingsBusinessProcessItems}.GRC
-    Select Checkbox Show Small Business Process Bar
+    Select Checkbox    ${divUserSettingsBusinessProcessItems} #GRC
     Select Dropdown Default Number Of Rows For Export To Excel    All results
     Select Checkbox Show Tag For Angle Warnings
     Select Checkbox Starred Fields
@@ -221,8 +219,7 @@ Set User Settings In System Settings Tab
 
 Verify Saved System Settings Tab
     Click System Settings Tab
-    Page Should Contain Element     ${divUserSettingsBusinessProcessItems}.GRC.active
-    Checkbox Should Be Selected     ${chkCompressedBusinessBar}
+    Checkbox Should Be Selected     ${divUserSettingsBusinessProcessItems} #GRC
     Element Should Contain          ${ddlDefaultRowsExportExcel}    All results
     Checkbox Should Be Selected     ${chkShowFacetAngleWarnings}
     Checkbox Should Be Selected     ${chkDefaultStarredfields}

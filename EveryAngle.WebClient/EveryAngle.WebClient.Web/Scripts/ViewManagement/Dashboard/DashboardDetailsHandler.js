@@ -726,6 +726,7 @@ function DashboardDetailsHandler() {
             }
         });
         businessProcessesModel.General.CurrentActive(activeBusinessProcessBars);
+        businessProcessesModel.General.SetCheckBoxStyle();
         businessProcessesModel.General.ApplyHandler('#DashboardBusinessProcesses');
     };
 

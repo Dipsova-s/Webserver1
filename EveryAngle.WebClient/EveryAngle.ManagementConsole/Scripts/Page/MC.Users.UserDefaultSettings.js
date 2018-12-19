@@ -55,6 +55,7 @@
             self.BusinessProcessesHandler = new BusinessProcessesViewModel(self.BusinessProcessesData);
             self.BusinessProcessesHandler.CurrentActive(bpUserDefaultSelecting);
             self.BusinessProcessesHandler.MultipleActive(true);
+            self.BusinessProcessesHandler.SetCheckBoxStyle();
             self.BusinessProcessesHandler.ApplyHandler('#UserDefaulBusinessProcess');
         };
 

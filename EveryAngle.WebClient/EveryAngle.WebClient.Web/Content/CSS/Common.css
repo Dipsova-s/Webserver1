@@ -446,6 +446,7 @@ img {
     background-position: center center;
     background-size: 20px 20px;
 }
+
 .icon.list {
     background-image: url('../../images/icons/icon_display_list.svg');
 }
@@ -712,7 +713,13 @@ img {
 }
 
 #TopBar {
-    background: #025e7f !important;
+    background: #fafcfc;
+    color: #666;
+}
+
+.Shadow {
+    z-index: 1002;
+    box-shadow: 0 0 6px rgba(0, 0, 0, .1) !important;
 }
 
 #TopBar .Wrapper {
@@ -722,7 +729,6 @@ img {
 #Logo {
     position: relative;
     top: 8px;
-    left: 17px;
     background-repeat: no-repeat;
     width: 175px;
     height: 29px;
@@ -730,10 +736,21 @@ img {
 }
 
 #UserPanel {
-    display: inline-block;
-    position: absolute;
-    right: 27px;
-    top: 12px;
+    float: right;
+    height: 100%;
+}
+
+#UserPanel > ul {
+    margin: 0;
+    list-style: none;
+}
+
+#UserPanel > ul > li {
+    float: left;
+}
+
+#UserPanel > ul > li > a {
+    display: block;
 }
 
 #AngleTopBar #UserPanel {
@@ -741,38 +758,42 @@ img {
 }
 
 #UserControl, #Help {
-    padding: 3px 0 0 24px;
+    font-size: 11px;
     cursor: pointer;
+    padding: 28px;
+    vertical-align: middle;
 }
 
 #UserControl {
-    color: #fff;
-    cursor: pointer;
-    display: inline-block;
-    font-size: 11px;
-    font-weight: bold;
-    position: relative;
-    text-decoration: none;
-    margin-right: 10px;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    max-width: 82px;
-    height: 13px;
+    background: #f3f4f7;
+    padding: 16px;
 }
 
 #UserControl:hover {
-    color: #eaeaea;
+    color: #818181;
 }
 
-#UserControl:before {
-    content: '';
-    position: absolute;
-    background: url('../../images/master/usercontrol.svg') no-repeat left center;
-    width: 16px;
-    height: 16px;
-    left: 0;
-    top: -1px;
+#UserPanelItem {
+    display: inline;
+}
+
+#UserControlName {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    min-width: 50px;
+    max-width: 100px;
+    padding-right: 3px;
+    box-sizing: border-box;
+    display: inline-block;
+}
+
+#UserControlDownChevron {
+    background: transparent url(../../images/icons/icon_arrow_down.svg) left center no-repeat;
+    width: 12px;
+    height: 12px;
+    text-align: right;
+    display: inline-block;
 }
 
 .UserPanelSeparator {
@@ -786,35 +807,28 @@ img {
 
 #Help {
     position: relative;
-    text-decoration: none;
-    color: #fff;
-    display: inline;
     font-size: 11px;
-    font-style: normal;
     font-weight: bold;
-    margin-left: 11px;
-    top: -2px;
-}
-
-#Help:before {
-    content: '';
-    position: absolute;
-    background: url('../../images/master/helpuser.svg') no-repeat left center;
-    width: 18px;
-    height: 18px;
-    left: 0;
-    top: -1px;
+    padding: 12px;
 }
 
 #Help:hover {
     color: #eaeaea;
 }
 
+#HelpIcon {
+    background: transparent url('../../images/master/help.svg') left center no-repeat;
+    width: 18px;
+    height: 18px;
+    text-align: right;
+    display: inline-block;
+}
+
 /* .popupUserMenu
 ============================================ */
 .popupUserMenu {
-    top: 35px;
-    right: 59px;
+    top: 48px;
+    right: 5px;
     left: auto;
     width: auto;
     min-width: 200px;
@@ -884,9 +898,7 @@ img {
 /* .popupHelpMenu
 ============================================ */
 .popupHelpMenu {
-    top: 35px;
-    right: 0;
-    left: auto;
+    top: 48px;
     width: 200px;
     display: none;
     border-color: #c5c5c5;
@@ -1448,9 +1460,11 @@ img {
 .displayNameContainer.small .icon.noFilter {
     background-size: 12px 12px;
 }
+
 .displayNameContainer.small .icon.followup {
     background-size: 14px 16px;
 }
+
 .displayNameContainer.small .icon.public,
 .displayNameContainer.small .icon.private {
     background-position: center 3px;
@@ -1469,6 +1483,7 @@ img {
     left: .5px;
     top: .5px;
 }
+
 .displayNameContainer.small .icon.schedule:before {
     right: -3px;
     bottom: -1px;
@@ -1530,7 +1545,6 @@ img {
     position: absolute;
     top: 3px;
     left: 210px;
-    color: #fff;
     font-size: 12px;
 }
 
@@ -1685,8 +1699,7 @@ img {
     border-width: 0;
     overflow: visible;
     text-indent: -10000px;
-    transition: top .3s cubic-bezier(.25,.8,.25,1),
-            height .3s cubic-bezier(.25,.8,.25,1);
+    transition: top .3s cubic-bezier(.25,.8,.25,1), height .3s cubic-bezier(.25,.8,.25,1);
     border-radius: 0;
 }
 
@@ -1831,7 +1844,7 @@ img {
     .popupUserMenu {
         text-align: left;
         right: 0;
-        top: 30px;
+        top: 48px;
     }
 
     .popupUserMenu:before,
@@ -1841,13 +1854,12 @@ img {
 
     #Help {
         display: inline-block;
-        margin-top: 5px;
     }
 
     .popupHelpMenu {
         text-align: left;
         right: 0;
-        top: 45px;
+        top: 48px;
     }
 
     .popupHelpMenu:before,
@@ -1859,4 +1871,58 @@ img {
         width: auto;
         min-width: 700px;
     }
+}
+
+.BusinessProcessBadge {
+    border-radius: 3px;
+    height: 6px;
+    width: 12px;
+    box-sizing: border-box;
+    position: relative;
+    display: inline-block;
+    margin-right: 6px;
+    top: -1px;
+}
+
+.businessProcessFacetTitle {
+    padding-top: 8px;
+}
+
+.BusinessProcessFacet.disabled {
+    color: #aaa;
+}
+
+.BusinessProcessFacet-tooltip {
+    background: none #000;
+    border-width: 0;
+    color: #fff;
+    box-shadow: none;
+    font-family: Arial;
+    font-size: 12px;
+    font-weight: normal;
+    text-align: center;
+    padding: 5px 10px 5px 10px;
+}
+
+.BusinessProcessFacet-tooltip:before,
+.BusinessProcessFacet-tooltip:after {
+    margin-left: -4px;
+    border-width: 4px;
+    border-bottom-color: #000;
+}
+
+.BusinessProcessFacet-tooltip:after {
+    display: none;
+}
+
+.BusinessProcessFacet-tooltip.k-window-arrow-w:before,
+.BusinessProcessFacet-tooltip.k-window-arrow-w:after {
+    left: 0;
+    top: 5px;
+    height: 1px;
+    border-right-color: #000;
+    border-right-style: solid;
+    border-left: none;
+    border-top-color: transparent;
+    border-bottom-color: transparent;
 }

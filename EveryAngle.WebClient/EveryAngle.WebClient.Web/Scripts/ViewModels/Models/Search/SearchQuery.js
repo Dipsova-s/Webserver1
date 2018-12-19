@@ -65,6 +65,10 @@ function SearchQueryViewModel() {
 
         return data;
     };
+    self.HasSearchQuery = function () {
+        var params = self.GetParams();
+        return !jQuery.isEmptyObject(params.fq.json) || params.q;
+    };
 
     self.GetSearchQueryFromUI = function (isRelevancy) {
         var query = '';
@@ -106,12 +110,7 @@ function SearchQueryViewModel() {
         // Add facet question to search query
         var isAvanceSearch = jQuery('#popupAdvanceFilter').is(":visible");
         var facetParameter = self.GetFacetFilterParameter(isAvanceSearch);
-        var businessProcessParameter = self.GetBusinessProcessParameter();
-
         var facetQuery = [];
-        if (businessProcessParameter) {
-            facetQuery.push(businessProcessParameter);
-        }
 
         if (facetParameter) {
 
@@ -147,7 +146,6 @@ function SearchQueryViewModel() {
             self.SetBusinessQuestionBoxValue(businessQuestionValue);
 
             // fq
-            businessprocessSearchModel.SetBusinessFilterFromUrlToUI(businessFilterValue);
             facetFiltersViewModel.SetFacetFilterFromUrlToUI(businessFilterValue);
             self.SetUIOfAdvanceSearchFromParams();
         }
@@ -235,15 +233,6 @@ function SearchQueryViewModel() {
             return unescape(jQuery.param(sortValueFromUI));
         }
         return '';
-    };
-
-    self.GetBusinessProcessParameter = function () {
-        var params = [];
-        jQuery.each(businessProcessesModel.Topbar.GetActive(), function (k, v) {
-            params.push(v);
-        });
-
-        return params.length ? enumHandlers.SEARCHFQPARAMETER.BP + ':(' + params.join(' ') + ')' : '';
     };
 
     self.GetFacetFilterParameter = function (isAvanceSearch) {
@@ -532,7 +521,7 @@ function SearchQueryViewModel() {
         }
 
         var filterChecked = [],
-           filterUnchecked = [];
+            filterUnchecked = [];
 
         for (var i = 0; i < characteristicQueries.length; i++) {
             if (characteristicQueries[i].indexOf('-') > -1) {
@@ -924,5 +913,5 @@ function SearchQueryViewModel() {
         self.Search(false);
     };
 
-  
+
 }

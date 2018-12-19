@@ -36,6 +36,7 @@
 ============================================ */
 .loginPage,
 .popupLoginPopup {
+    border: none;
     background: #dbdcdf url('../../images/login/login_bg.jpg') center center no-repeat;
     background-size: cover;
 }
@@ -72,7 +73,7 @@
     top: 50%;
     margin-left: -250px;
     margin-top: -218px;
-    box-shadow: 5px 0 21px 0 #999;
+    border-radius: 0;
 }
 
 .loginPage .k-window-content:before,
@@ -289,4 +290,8 @@
         max-width: 748px;
         margin-left: -374px;
     }
+}
+
+.loginPage .k-window-content:before, .popupLoginPopup .k-window-content:before {
+    background: #fff;
 }

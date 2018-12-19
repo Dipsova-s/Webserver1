@@ -19,9 +19,6 @@ Test Business Process
     Create New Business Process    ${BUSINESS_PROCESS_NAME}
     Click Enable Business Process By Abbreviation    ${BUSINESS_PROCESS_NAME}
     Click Save Business Process Without Delete
-    Click Preview Business Process bar
-    Wait Until Element Contains    ${divPreviewBusinessProcess}    ${BUSINESS_PROCESS_NAME}
-    Close Preview Business Process Bar Popup
     Go To All Users Page
     Add Business Process To User    ${TEST_USER}    ${BUSINESS_PROCESS_NAME}
     Go to Business Process

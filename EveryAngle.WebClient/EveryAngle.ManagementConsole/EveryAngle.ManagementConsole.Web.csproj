@@ -223,8 +223,9 @@
     <Content Include="bin\Template\Xslt\*" />
     <Content Include="Content\Login.css" />
     <Content Include="Content\Default.css" />
-    <Content Include="Images\ea_about_logo.png" />
+    <Content Include="Images\ea_about_logo.svg" />
     <Content Include="Images\Icons\black_arrow_down.svg" />
+    <Content Include="Images\Icons\help.svg" />
     <Content Include="Images\Icons\icon_about.png" />
     <Content Include="Images\Icons\icon_add.svg" />
     <Content Include="Images\Icons\icon_add_blue.svg" />

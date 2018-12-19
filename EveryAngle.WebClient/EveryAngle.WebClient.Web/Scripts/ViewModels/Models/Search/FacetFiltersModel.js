@@ -11,10 +11,11 @@ function FacetFiltersViewModel() {
     self.Data = ko.observableArray([]);
     self.SortOptions = [];
     self.SortRelevancyId = 'relevancy';
-    self.GroupExceptions = ['business_process'];  
+    self.GroupExceptions = [];
     self.GroupGeneral = 'item_property';
+    self.GroupBusinessProcess = 'business_process';
     self.GroupCannotNegativeFilter = 'facetcat_admin';
-    self.GroupGeneralOrder = ['facetcat_itemtype', 'facetcat_characteristics', 'facetcat_models', 'facetcat_admin'];
+    self.GroupGeneralOrder = ['facetcat_bp', 'facetcat_itemtype', 'facetcat_characteristics', 'facetcat_models', 'facetcat_admin'];
     self.FilterExclusionList = ['facet_executeonlogin'];
     self.ShowOtherFacetFilterProperties = ko.observable(false);
     self.selectedItems = [];
@@ -24,7 +25,7 @@ function FacetFiltersViewModel() {
 
     self.Load = function () {
         self.ShowOtherFacetFilterProperties(!!$.address.parameterNames().length);
-       
+
         var uri = directoryHandler.GetDirectoryUri(enumHandlers.ENTRIESNAME.ITEMS);
         var query = {};
         query[enumHandlers.SEARCHPARAMETER.OFFSET] = 0;
@@ -33,7 +34,7 @@ function FacetFiltersViewModel() {
 
         return GetDataFromWebService(uri, query)
             .done(function (data, status, xhr) {
-                
+
 
                 self.SetFacetAndSort(data);
             });
@@ -70,10 +71,11 @@ function FacetFiltersViewModel() {
             }
         }
     };
-    self.SetFacet = function (data) {     
+    self.SetFacet = function (data) {
         var facetData = ko.toJS(data);
         defaultValueHandler.CheckAndExtendProperties(facetData, enumHandlers.VIEWMODELNAME.SEARCHFACET, true);
-        var facets = [], facetGeneral = [],
+        var facets = [],
+            facetGeneral = [],
             fq = searchQueryModel.GetParams()[enumHandlers.SEARCHPARAMETER.FQ],
             removeFacetIndexList = [],
             panelsOpened = WC.Utility.ToArray(jQuery.localStorage(self.OPENPANELSNAME)),
@@ -83,7 +85,7 @@ function FacetFiltersViewModel() {
             panelsOpened = self.GroupGeneralOrder.slice();
         }
 
-        self.GenerateFacetFromCache(facetData, fq.json);     
+        self.GenerateFacetFromCache(facetData, fq.json);
 
         jQuery.each(facetData, function (indexFacet, facet) {
             if (jQuery.inArray(facet.type, self.GroupExceptions) === -1) {
@@ -102,13 +104,20 @@ function FacetFiltersViewModel() {
                         filter.checked(true);
                     }
                     if (filter.checked()) facet.child_checked = true;
+
+                    filter.index = indexFilter;
+                    filter.enabled = ko.observable(true);
+                    var businessProcessModel = businessProcessesModel.General.Data().findObject('id', filter.id);
+                    if (businessProcessModel) {
+                        filter.enabled = ko.observable(businessProcessModel.is_allowed);
+                    }
                 });
                 jQuery.each(removeFacetIndexList, function (index, removeIndex) {
                     facet.filters.splice(removeIndex, 1);
                 });
 
                 var facetItems;
-                if (facet.type === self.GroupGeneral) {
+                if (facet.type === self.GroupGeneral || facet.type === self.GroupBusinessProcess) {
                     facetItems = facet.filters.slice(0);
                 }
                 else {
@@ -116,11 +125,13 @@ function FacetFiltersViewModel() {
                 }
 
                 facet.filters = ko.observableArray(facetItems);
-                if (facet.type === self.GroupGeneral) {
-                    facetGeneral[jQuery.inArray(facet.id, self.GroupGeneralOrder)] = facet;
-                }
-                else {
-                    facets.push(facet);
+
+                switch (facet.type) {
+                    case self.GroupBusinessProcess:
+                    case self.GroupGeneral:
+                        facetGeneral[jQuery.inArray(facet.id, self.GroupGeneralOrder)] = facet;
+                        break;
+                    default: facets.push(facet);
                 }
             }
         });
@@ -142,7 +153,7 @@ function FacetFiltersViewModel() {
     };
     self.GenerateFacetFromCache = function (currentFacets, fq) {
         var facetsCache = WC.Utility.ToArray(jQuery.localStorage(self.FACETCACHE));
-		var facet, filter, facetData, filterItemList;
+        var facet, filter, facetData, filterItemList;
         jQuery.each(fq, function (facetId, filters) {
             facetData = {};
 
@@ -156,13 +167,13 @@ function FacetFiltersViewModel() {
                     facet = facetsCache.findObject('id', facetId, false);
                 }
                 if (!facet) {
-					facet = {
-						id: facetId,
-						name: facetId,
-						description: facetId,
-						type: facetId,
-						filters: []
-					};
+                    facet = {
+                        id: facetId,
+                        name: facetId,
+                        description: facetId,
+                        type: facetId,
+                        filters: []
+                    };
                 }
                 else {
                     if (!facet.filters) {
@@ -183,7 +194,7 @@ function FacetFiltersViewModel() {
                             filterItemList.push(filterItem);
                         });
 
-                        filter = filterItemList.findObject('id', filterId, false); 
+                        filter = filterItemList.findObject('id', filterId, false);
                         if (filter) {
                             filter.count = 0;
                         }
@@ -205,10 +216,10 @@ function FacetFiltersViewModel() {
                                     filterItemList.push(filterItem);
                                 });
 
-                                var cachFilterItem = filterItemList.findObject('id', filterId, false); 
+                                var cachFilterItem = filterItemList.findObject('id', filterId, false);
                                 if (cachFilterItem) {
                                     cachFacetName = cachFilterItem.name;
-									cachDescription = cachFilterItem.description;
+                                    cachDescription = cachFilterItem.description;
                                 }
                             }
                         }
@@ -267,7 +278,7 @@ function FacetFiltersViewModel() {
         return jQuery.grep(self.Data(), function (obj, idx) { return obj.id === id; });
     };
     self.IsFacetVisible = function (facet) {
-        var isGeneralGroup = self.GroupGeneral === facet.type;
+        var isGeneralGroup = self.GroupGeneral === facet.type || self.GroupBusinessProcess === facet.type;
 
         // hide this section if no visible filter
         var isAllFiltersHidden = true;
@@ -277,11 +288,11 @@ function FacetFiltersViewModel() {
                 return false;
             }
         });
-        return !isAllFiltersHidden && (isGeneralGroup || (!isGeneralGroup && self.ShowOtherFacetFilterProperties()));
+        return !isAllFiltersHidden && (isGeneralGroup || self.ShowOtherFacetFilterProperties());
     };
     self.IsFacetHeaderVisible = function (index, facetType) {
         var isGeneralGroup = self.GroupGeneral === facetType;
-        return (index === 0 && isGeneralGroup) || !isGeneralGroup;
+        return index === 1 && isGeneralGroup || !isGeneralGroup;
     };
     self.CheckAngleFacetVisibility = function (id, count) {
         if (jQuery.inArray(id, self.FilterExclusionList) !== -1) {
@@ -314,72 +325,72 @@ function FacetFiltersViewModel() {
             return facetVisibility;
         }
     };
-	self.SetIcon = function (id) {
-		var iconsMapping = {
-			facet_angle: {
-				path: GetImageFolderPath() + 'searchpage/icn_item_angle.svg',
-				dimension: {
-					width: 20,
-					height: 20
-				}
-			},
-			facet_dashboard: {
-				path: GetImageFolderPath() + 'searchpage/icn_item_dashboard.svg',
-				dimension: {
-					width: 16,
-					height: 16
-				},
-				style: 'left:3px;bottom:2px;'
-			},
-			facet_template: {
-				path: GetImageFolderPath() + 'searchpage/icn_item_template.svg',
-				dimension: {
-					width: 20,
-					height: 20
-				}
-			},
-			facet_isprivate: {
-				path: GetImageFolderPath() + 'searchpage/icn_private.svg',
-				dimension: {
-					width: 20,
-					height: 20
-				}
-			},
-			facet_isvalidated: {
-				path: GetImageFolderPath() + 'searchpage/icn_validated.svg',
-				dimension: {
-					width: 20,
-					height: 20
-				}
-			},
-			facet_isstarred: {
-				path: GetImageFolderPath() + 'searchpage/icn_starred_active.svg',
-				dimension: {
-					width: 20,
-					height: 20
-				}
-			},
-			facet_ispublished: {
-				path: GetImageFolderPath() + 'searchpage/icn_public.svg',
-				dimension: {
-					width: 20,
-					height: 20
-				}
-			},
-			facet_has_warnings: {
-				path: GetImageFolderPath() + 'icons/icon_warning.svg',
-				dimension: {
-					width: 16,
-					height: 16
-				},
-				style: 'left:2px;bottom:2px;'
-			},
-			with_private_display: {
-				path: GetImageFolderPath() + 'icons/icon_private_display.png',
-				dimension: {
-					width: 20,
-					height: 20
-				}
+    self.SetIcon = function (id) {
+        var iconsMapping = {
+            facet_angle: {
+                path: GetImageFolderPath() + 'searchpage/icn_item_angle.svg',
+                dimension: {
+                    width: 20,
+                    height: 20
+                }
+            },
+            facet_dashboard: {
+                path: GetImageFolderPath() + 'searchpage/icn_item_dashboard.svg',
+                dimension: {
+                    width: 16,
+                    height: 16
+                },
+                style: 'left:3px;bottom:2px;'
+            },
+            facet_template: {
+                path: GetImageFolderPath() + 'searchpage/icn_item_template.svg',
+                dimension: {
+                    width: 20,
+                    height: 20
+                }
+            },
+            facet_isprivate: {
+                path: GetImageFolderPath() + 'searchpage/icn_private.svg',
+                dimension: {
+                    width: 20,
+                    height: 20
+                }
+            },
+            facet_isvalidated: {
+                path: GetImageFolderPath() + 'searchpage/icn_validated.svg',
+                dimension: {
+                    width: 20,
+                    height: 20
+                }
+            },
+            facet_isstarred: {
+                path: GetImageFolderPath() + 'searchpage/icn_starred_active.svg',
+                dimension: {
+                    width: 20,
+                    height: 20
+                }
+            },
+            facet_ispublished: {
+                path: GetImageFolderPath() + 'searchpage/icn_public.svg',
+                dimension: {
+                    width: 20,
+                    height: 20
+                }
+            },
+            facet_has_warnings: {
+                path: GetImageFolderPath() + 'icons/icon_warning.svg',
+                dimension: {
+                    width: 16,
+                    height: 16
+                },
+                style: 'left:2px;bottom:2px;'
+            },
+            with_private_display: {
+                path: GetImageFolderPath() + 'icons/icon_private_display.png',
+                dimension: {
+                    width: 20,
+                    height: 20
+                }
             },
             icon_clock: {
                 path: GetImageFolderPath() + 'searchpage/icn_clock.svg',
@@ -389,8 +400,8 @@ function FacetFiltersViewModel() {
                 },
                 style: 'float:left;margin:-1px 2px 0 0;'
             }
-		};
-		return iconsMapping[id.toLowerCase()];
+        };
+        return iconsMapping[id.toLowerCase()];
     };
     self.GetFacetTooltip = function (facet) {
         var tooltip = self.GroupGeneral === facet.type ? Localization.GeneralFilters : facet.name;
@@ -399,25 +410,38 @@ function FacetFiltersViewModel() {
         }
         return tooltip;
     };
-    self.GetFilterText = function (filter, isGeneralGroup, facetcat) {
-		var icon = self.SetIcon(filter.id);
-		var html = '';
+    self.GetFilterText = function (filter, facetType, facetcat) {
+        var icon = self.SetIcon(filter.id);
+        var html = '';
+        var isGeneralGroup = self.GroupGeneral === facetType;
+        var isBusinessProcessGroup = self.GroupBusinessProcess === facetType;
 
-        if (icon) {
-            html += '<img src="' + icon.path + '" height="' + icon.dimension.height + '" width="' + icon.dimension.width + '" style="' + (icon.style || '') + '" />';
-            html += '<span class="name withIcon">';
-        }
-        else if (facetcat === 'facetcat_models') {
-            html += '<span class="name" data-type="html" data-tooltip-function="GetRefreshTime" data-tooltip-argument="' + filter.id + '">';
+        if (isBusinessProcessGroup) {
+            var extraCss = filter.enabled() ? '' : 'disabled';
+            var filterNumber = filter.index % 9;
+            html += '<span class="label"> ' +
+                '<span class="BusinessProcessBadge BusinessProcessBadgeItem' + filterNumber + ' ' + filter.name + '"></span>' +
+                '<span class="BusinessProcessFacet ' + extraCss + '" data-tooltip-text="' + filter.description + '">' + filter.name + '</span>' +
+                '</span>';
         }
         else {
-            html += '<span class="name">';
+            if (icon) {
+                html += '<img src="' + icon.path + '" height="' + icon.dimension.height + '" width="' + icon.dimension.width + '" style="' + (icon.style || '') + '" />';
+                html += '<span class="name withIcon">';
+            }
+            else if (facetcat === 'facetcat_models') {
+                html += '<span class="name" data-type="html" data-tooltip-function="GetRefreshTime" data-tooltip-argument="' + filter.id + '">';
+            }
+            else {
+                html += '<span class="name">';
+            }
+
+            html += (isGeneralGroup ? '' : filter.description) || filter.name || filter.id;
+            if (filter.checked()) {
+                html += ' (' + filter.count() + ')';
+            }
+            html += '</span>';
         }
-        html += (isGeneralGroup ? '' : filter.description) || filter.name || filter.id;
-        if (filter.checked()) {
-            html += ' (' + filter.count() + ')';
-        }
-        html += '</span>';
 
         return html;
     };
@@ -471,10 +495,31 @@ function FacetFiltersViewModel() {
         });
     };
     self.FilterItems = function (model, event, parent) {
+        var chkState = event.currentTarget.checked;
+        model.checked(chkState);
+
+        /* for business process only */
+        if (parent.type === self.GroupBusinessProcess) {
+            /* at landing page; when uncheck a checkbox, revert action */
+            var isSearchResultActive = searchQueryModel.HasSearchQuery();
+            if (!isSearchResultActive && !chkState) {
+                model.checked(!chkState);
+                event.currentTarget.checked = !chkState;
+            }
+            else {
+                /* when uncheck a checkbox cause nothing checked, revert action */
+                var filters = ko.toJS(jQuery(parent.filters()).get());
+                if (!filters.findObjects('checked', true).length) {
+                    model.checked(!chkState);
+                    event.currentTarget.checked = !chkState;
+                    return false;
+                }
+            }
+        }
         searchQueryModel.ClearCharacteristicInAdvanceSearch(model.id);
         searchModel.FilterItems(model, event, parent.type === self.GroupGeneral && parent.id !== self.GroupCannotNegativeFilter);
 
-        return true;
+        return event.currentTarget.checked === chkState;
     };
     self.GetDuration = function (seconds) {
         var duration = "";
@@ -522,6 +567,19 @@ function FacetFiltersViewModel() {
         }
 
         return html;
+    };
+    self.IsFacetChecked = function (filter, facet) {
+        /* at landing page; check if default business process */
+        var isSearchResultActive = searchQueryModel.HasSearchQuery();
+        if (facet.type === self.GroupBusinessProcess && !isSearchResultActive) {
+            var defaultBusinessProcesses = userSettingModel.GetByName(enumHandlers.USERSETTINGS.DEFAULT_BUSINESS_PROCESSES);
+            var isChecked = jQuery.inArray(filter.id, defaultBusinessProcesses) >= 0;
+            return isChecked;
+        }
+        else {
+            return filter.checked();
+        }
+
     };
     window.GetRefreshTime = self.GetRefreshTime;
 }

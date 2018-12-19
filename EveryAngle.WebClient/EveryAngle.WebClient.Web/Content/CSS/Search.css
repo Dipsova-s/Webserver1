@@ -4,6 +4,7 @@
     margin: 0 230px 0 210px;
     height: 100%;
 }
+
 .searchBusinessProcesses .businessProcesses {
     margin-top: 0;
     vertical-align: top;
@@ -28,20 +29,22 @@
     border-bottom: 1px solid #e6e6e6;
     padding: 20px 0 0 0;
     box-sizing: border-box;
-    z-index: 10;
 }
 
 #SearchBar .Wrapper {
-    padding: 0 0 0 210px;
+    padding: 0 0 0 .5rem;
     box-sizing: border-box;
 }
 
 #SearchBar .searchBoxWrapper {
     float: left;
+    min-width: 480px;
+    position: relative;
     margin: 0;
     min-width: 400px;
     border-width: 0;
 }
+
 #SearchBar .searchBoxWrapper:hover {
     border-color: transparent;
     transition: none;
@@ -55,10 +58,12 @@
     right: 4px;
     border-radius: 50%;
 }
+
 #SearchBar .searchBoxWrapper > a:hover,
 #SearchBar .searchBoxWrapper > a.active {
     background-color: #ebebeb;
 }
+
 #SearchBar .searchBoxWrapper > a:before {
     display: none;
 }
@@ -68,6 +73,7 @@
     text-align: center;
     padding-top: 6px;
 }
+
 #SearchBar .searchBoxWrapper > .clearSearch .icon {
     opacity: .85;
 }
@@ -155,8 +161,12 @@
     margin: 0 15px 0 0;
 }
 
+.createNewAngleButtonWrapper .btnCreateNewAngle,
+.createNewAngleButtonWrapper .btnSelectModelCreateNewAngle {
+    border-radius: 0;
+}
+
 .btnCreateNewAngle {
-    width: 135px;
     height: 40px;
     line-height: 13px;
     margin: 0;
@@ -164,6 +174,7 @@
     box-sizing: border-box;
     background: #025e7f;
     color: white;
+    padding-left: 7px;
 }
 
 .btnCreateNewAngle:hover {
@@ -177,22 +188,10 @@
 
 .btnCreateNewAngle span {
     position: relative;
-    padding-left: 30px;
     text-align: left;
-    min-width: 0;
+    min-width: 110px;
     font-size: 12px;
     top: 1px;
-}
-
-.btnCreateNewAngle span:before {
-    content: '';
-    display: block;
-    width: 24px;
-    height: 40px;
-    position: absolute;
-    left: 1px;
-    top: -1px;
-    background: transparent url('../../images/icons/icon_create_angle.svg') left center no-repeat;
 }
 
 .btnCreateNewAngle i {
@@ -210,16 +209,14 @@
 .btnSelectModelCreateNewAngle {
     display: none;
     position: absolute;
-    right: -30px;
     min-width: 0;
     width: 18px;
     margin: 0;
-    border-top-right-radius: 3px;
-    border-bottom-right-radius: 3px;
     background: #044d67;
     height: 40px;
     top: 0;
     border: none !important;
+    right: 0;
 }
 
 .btnSelectModelCreateNewAngle:hover {
@@ -434,6 +431,7 @@
 .popupAdvanceFilter {
     height: 500px;
 }
+
 .popupAdvFiltering {
     font-size: 11px;
     color: #333;
@@ -462,12 +460,15 @@
     padding: 0 15px;
     box-sizing: border-box;
 }
+
 .popupAdvFilteringRowUsage .popupAdvFilteringItem {
     width: 33.33333%;
 }
+
 .popupAdvFilteringRowUsage .datepickerColumn {
     width: 16.66667%;
 }
+
 .numberExecutedFilter .popupAdvFilteringItem,
 .characteristicFilter .popupAdvFilteringItem {
     width: 25%;
@@ -484,6 +485,7 @@
     height: 27px;
     font-size: 11px;
 }
+
 .popupAdvFilteringItem input:focus {
     outline: none;
     border-color: #188ae2;
@@ -658,13 +660,13 @@
     top: 0;
     right: 0;
     width: 500px;
-    z-index: 1;
+    z-index: 55;
 }
 
 .SearchTotalContainer {
     position: absolute;
     right: 26px;
-    top: 5px;
+    top: 86px;
     z-index: 50;
     color: #424242;
     font-size: 13px;
@@ -696,23 +698,26 @@
     height: auto;
     width: auto;
 }
+
 .viewType > a {
     position: relative;
     float: left;
     background-color: #adadad;
     width: 42px;
     height: 30px;
-    transition: background-color .15s ease-in-out,
-        box-shadow .15s ease-in-out;
+    transition: background-color .15s ease-in-out, box-shadow .15s ease-in-out;
 }
+
 .viewType > a:hover,
 .viewType > a.active {
     background-color: #1e7696;
 }
+
 .viewType > a.active:hover {
     opacity: .8;
     box-shadow: 0 3px 9px 0 rgba(0, 0, 0, .26);
 }
+
 .viewType > a:before {
     content: '';
     position: absolute;
@@ -723,12 +728,15 @@
     width: 14px;
     height: 14px;
 }
+
 .viewType .typeDisplays:before {
     background-image: url('../../images/icons/icon_viewmode_displays.svg');
 }
+
 .viewType .typeFull:before {
     background-image: url('../../images/icons/icon_viewmode_details.svg');
 }
+
 .viewType .typeCompact:before {
     background-image: url('../../images/icons/icon_viewmode_compact.svg');
 }
@@ -817,7 +825,7 @@
 #SearchBreadcrumb {
     position: absolute;
     left: 0;
-    top: 0;
+    top: 81px;
     width: 100%;
     height: 26px;
     background: #fff;
@@ -1012,6 +1020,7 @@
     -webkit-line-clamp: 2; /* NOSONAR: css for specific browser */
     -webkit-box-orient: vertical; /* NOSONAR: css for specific browser */
 }
+
 .displaysMode .ResultContent .ContentDetail {
     height: 64px;
     -webkit-line-clamp: 4; /* NOSONAR: css for specific browser */
@@ -1029,6 +1038,7 @@
     padding-top: 2px;
     z-index: 2;
 }
+
 .displaysMode .ResultView {
     width: 525px;
     height: 125px;
@@ -1036,6 +1046,7 @@
     overflow: auto;
     border-left: 1px solid #e6e6e6;
 }
+
 .displaysMode .ResultView .detailDefinitionList {
     margin-left: 5px;
 }
@@ -1054,9 +1065,11 @@
     overflow: visible;
     margin-top: 3px;
 }
+
 .ResultView .detailDefinitionList .displayNameContainer:hover {
     background-color: #ebebeb;
 }
+
 .ResultView .detailDefinitionList .displayNameContainer:first-child {
     margin-top: 0;
 }
@@ -1070,6 +1083,7 @@
     width: 16px;
     height: 16px;
 }
+
 .btnShowDisplays .badge {
     right: -14px;
     top: -6px;
@@ -1087,30 +1101,36 @@
 #popupDisplays {
     width: 600px;
 }
+
 #popupDisplays.k-window-arrow-n:before,
 #popupDisplays.k-window-arrow-n:after,
 #popupDisplays.k-window-arrow-s:before,
-#popupDisplays.k-window-arrow-s:after{
+#popupDisplays.k-window-arrow-s:after {
     left: auto;
     right: 10px;
 }
+
 #popupDisplays .k-window-content {
     min-height: 35px;
 }
+
 #popupDisplays .sectionDefinitions {
     font-size: 12px;
     padding-bottom: 0;
     margin-bottom: 0;
     border-bottom-width: 0;
 }
+
 #popupDisplays .sectionDescriptions,
 #popupDisplays .sectionDefinitions h3 {
     display: none;
 }
+
 #popupDisplays .displayNameContainer {
     font-size: 12px;
     border-bottom: 1px solid #c5c5c5;
 }
+
 #popupDisplays .displayNameContainer:hover {
     background-color: #ebebeb;
 }
@@ -1125,9 +1145,11 @@
     #SearchBar .searchBoxWrapper {
         min-width: 300px;
     }
+
     .displaysMode .ResultContent {
         margin-right: 330px;
     }
+
     .displaysMode .ResultView {
         width: 315px;
     }

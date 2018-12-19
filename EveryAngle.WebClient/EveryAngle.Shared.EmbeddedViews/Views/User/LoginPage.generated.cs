@@ -292,22 +292,7 @@ WriteLiteral("></div>\r\n        <div");
 
 WriteLiteral(" class=\"SessonExpiredDetail\"");
 
-WriteLiteral("></div>\r\n        <span");
-
-WriteLiteral(" id=\"VersionInfoLogin\"");
-
-WriteLiteral(" class=\"VersionInfo\"");
-
-WriteLiteral(">");
-
-            
-            #line 26 "..\..\Views\User\LoginPage.cshtml"
-                                                   Write(ViewBag.FileVersion);
-
-            
-            #line default
-            #line hidden
-WriteLiteral("</span>\r\n\r\n\r\n\r\n    </div>\r\n</form>\r\n");
+WriteLiteral("></div>\r\n\r\n\r\n\r\n    </div>\r\n</form>\r\n");
 
         }
     }

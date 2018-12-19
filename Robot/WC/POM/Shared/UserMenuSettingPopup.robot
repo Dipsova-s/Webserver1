@@ -5,14 +5,13 @@ ${ddlModelUserSettings}                 SystemModel_ddlWrapper
 
 #System settings Tabs
 ${tabSystemSetting}                     SystemSetting
-${chkCompressedBusinessBar}             CompressedBusinessBar
 ${chkShowFacetAngleWarnings}            ShowFacetAngleWarnings
 ${chkDefaultStarredfields}              DefaultStarredfields
 ${chkDefaultSuggestedfields}            DefaultSuggestedfields
 ${chkSapFieldsInChooser}                SapFieldsInChooser
 ${chkSapFieldsInHeader}                 SapFieldsInHeader
 ${divUserSettingsBusinessProcess}       UserSettingsBusinessProcesses
-${divUserSettingsBusinessProcessItems}       jquery=#UserSettingsBusinessProcesses .businessProcessesItem
+${divUserSettingsBusinessProcessItems}       jquery=#UserSettingsBusinessProcesses .BusinessProcessCheckBox
 ${ddlLanguage}                          LanguageSelect_ddlWrapper
 ${ddlDefaultRowsExportExcel}            ExcelRowSelect_ddlWrapper
 
@@ -133,16 +132,6 @@ Select User Setting Language Dropdown
 Get Selecting Business Processes
     ${BPs}    Execute JavaScript    return businessProcessesModel.UserSetting.GetActive();
     [Return] ${BPs}
-
-Select Checkbox Show Small Business Process Bar
-    Select Checkbox    ${chkCompressedBusinessBar}
-
-Unselect Checkbox Show Small Business Process Bar
-    Unselect Checkbox    ${chkCompressedBusinessBar}
-
-Get Checkbox Show Small Business Process Bar Status
-    ${isChecked}    Is Element Checked    ${chkCompressedBusinessBar}
-    [Return]    ${isChecked}
 
 Click Dropdown Default Number Of Rows For Export To Excel
     Click Element    ${ddlDefaultRowsExportExcel}

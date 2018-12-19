@@ -4,8 +4,6 @@ Resource    		${EXECDIR}/WC/POM/Search/SearchPage.robot
 *** Keywords ***
 Search Business Process
     [Arguments]    ${business_process_name}
-    ${statusMoreBP} =    Is Element Visible    ${divBusinessProcessesItemMore}
-    Run Keyword If    ${statusMoreBP} == True    Click Element    ${divBusinessProcessesItemMore}
     Run Keyword If    '${business_process_name}' == 'P2P'    Click Search Business Process P2P
     Run Keyword If    '${business_process_name}' == 'S2D'    Click Search Business Process S2D
     Run Keyword If    '${business_process_name}' == 'O2C'    Click Search Business Process O2C

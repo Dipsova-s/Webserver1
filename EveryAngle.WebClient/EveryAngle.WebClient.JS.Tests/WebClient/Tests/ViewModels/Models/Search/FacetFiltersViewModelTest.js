@@ -1,3 +1,7 @@
+
+/// <reference path="/Dependencies/ViewModels/Models/User/usersettingmodel.js" />
+/// <reference path="/Dependencies/ViewModels/Models/User/usermodel.js" />
+/// <reference path="/Dependencies/ViewModels/Models/Search/searchquery.js" />
 /// <reference path="/Dependencies/ViewModels/Models/Search/facetfiltersmodel.js" />
 /// <reference path="/Dependencies/ViewManagement/Shared/AboutSystemHandler.js" />
 
@@ -88,4 +92,116 @@ describe("FacetFiltersViewModel", function () {
         });
     });
 
+    describe("call IsFacetChecked", function () {
+
+        it("should return true when facet is [Business Process], on [landing page] and facet is [default business process]", function () {
+
+            spyOn(searchQueryModel, 'HasSearchQuery').and.returnValue(null);
+            spyOn(userSettingModel, 'GetByName').and.returnValue(['1', '2']);
+
+            var filter = {
+                id: '1',
+                checked: function () { return true; }
+            };
+            var facet = { type: facetFiltersViewModel.GroupBusinessProcess };
+
+            var isChecked = facetFiltersViewModel.IsFacetChecked(filter, facet);
+            expect(isChecked).toEqual(true);
+        });
+
+        it("should return false when facet is [Business Process], no [landing page] and facet is not [default business process]", function () {
+            spyOn(searchQueryModel, 'HasSearchQuery').and.returnValue(null);
+            spyOn(userSettingModel, 'GetByName').and.returnValue(['1', '2']);
+
+            var filter = {
+                id: '3',
+                checked: function () { return true; }
+            };
+            var facet = { type: facetFiltersViewModel.GroupBusinessProcess };
+
+            var isChecked = facetFiltersViewModel.IsFacetChecked(filter, facet);
+            expect(isChecked).toEqual(false);
+        });
+
+        it("should return true when facet is [Business Process], on [search page] and filter.checked is true", function () {
+            spyOn(searchQueryModel, 'HasSearchQuery').and.returnValue('query');
+            spyOn(userSettingModel, 'GetByName').and.returnValue(['1', '2']);
+
+            var filter = {
+                id: '3',
+                checked: function () { return true; }
+            };
+            var facet = { type: facetFiltersViewModel.GroupBusinessProcess };
+
+            var isChecked = facetFiltersViewModel.IsFacetChecked(filter, facet);
+            expect(isChecked).toEqual(true);
+        });
+
+        it("should return false when facet is [Business Process], on [search page] and filter.checked is false", function () {
+            spyOn(searchQueryModel, 'HasSearchQuery').and.returnValue('query');
+            spyOn(userSettingModel, 'GetByName').and.returnValue(['1', '2']);
+
+            var filter = {
+                id: '3',
+                checked: function () { return false; }
+            };
+            var facet = { type: facetFiltersViewModel.GroupBusinessProcess };
+
+            var isChecked = facetFiltersViewModel.IsFacetChecked(filter, facet);
+            expect(isChecked).toEqual(false);
+        });
+
+        it("should return true when facet is not [Business Process], on [landing page] and filter.checked is true", function () {
+            spyOn(searchQueryModel, 'HasSearchQuery').and.returnValue(null);
+
+            var filter = {
+                id: '1',
+                checked: function () { return true; }
+            };
+            var facet = { type: facetFiltersViewModel.GroupGeneral };
+
+            var isChecked = facetFiltersViewModel.IsFacetChecked(filter, facet);
+            expect(isChecked).toEqual(true);
+        });
+
+        it("should return false when facet is not [Business Process], on [landing page] and filter.checked is false", function () {
+            spyOn(searchQueryModel, 'HasSearchQuery').and.returnValue(null); 
+
+            var filter = {
+                id: '1',
+                checked: function () { return false; }
+            };
+            var facet = { type: facetFiltersViewModel.GroupGeneral };
+
+            var isChecked = facetFiltersViewModel.IsFacetChecked(filter, facet);
+            expect(isChecked).toEqual(false);
+        });
+
+        it("should return true when facet is not [Business Process], on [search page] and filter.checked is true", function () {
+            spyOn(searchQueryModel, 'HasSearchQuery').and.returnValue('query');
+
+            var filter = {
+                id: '1',
+                checked: function () { return true; }
+            };
+            var facet = { type: facetFiltersViewModel.GroupGeneral };
+
+            var isChecked = facetFiltersViewModel.IsFacetChecked(filter, facet);
+            expect(isChecked).toEqual(true);
+        });
+
+        it("should return false when facet is not [Business Process], on [search page] and filter.checked is false", function () {
+            spyOn(searchQueryModel, 'HasSearchQuery').and.returnValue('query');
+
+            var filter = {
+                id: '1',
+                checked: function () { return false; }
+            };
+            var facet = { type: facetFiltersViewModel.GroupGeneral };
+
+            var isChecked = facetFiltersViewModel.IsFacetChecked(filter, facet);
+            expect(isChecked).toEqual(false);
+        });
+
+    });
 });

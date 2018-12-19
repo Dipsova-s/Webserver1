@@ -12,7 +12,8 @@
         {
             @Scripts.Render("~/bundles/searchpage.js")
         }
-        else {
+        else
+        {
             <script>
                 WC.Page.LoadSearchPageScripts(
                     [
@@ -26,56 +27,55 @@
 @section TopBar
 {
     <div id="TopBar">
-        <div class="Wrapper">
-            <a id="Logo" href="@Url.Action("SearchPage", "Search")"><img alt="" src="@Url.Content("~/images/master/ealogo.svg")" width="175" height="29"/></a>
-            <div id="SearchFacetBusinessProcesses" class="searchBusinessProcesses initializing"></div>
+        <div class="Wrapper Shadow">
+            <a id="Logo" href="@Url.Action("SearchPage", "Search")"><img alt="" src="@Url.Content("~/images/master/ealogo.svg")" width="175" height="29" /></a>
             @{Html.RenderPartial("~/Views/Shared/Menus/Top/UserPanel.cshtml");}
         </div>
     </div>
 }
-@section UnderTopHeader 
-{
-    <div id="SearchBar">
-        <div class="Wrapper">
-            <div id="CreateNewAngleButtonWrapper" class="createNewAngleButtonWrapper alwaysHide">
-                <a id="CreateNewAngle" class="btn btnCreateNewAngle" onclick="createNewAngleViewManagementModel.CheckModelAvailable()">
-                    <span data-bind="html: Captions.Button_CreateNewAngle + '<br/><i>' + Captions.Button_CreateNewAngle_NoModel + '</i>'"></span>
-                </a>
-                <a id="SelectModelCreateNewAngle" class="btn btnSelectModelCreateNewAngle" onclick="createNewAngleViewManagementModel.ToggleModelsList()"></a>
-                <div class="k-list-container k-popup k-group k-reset k-list-large-container popupSelectModelCreateNewAngle" id="PopupSelectModelCreateNewAngle">
-                    <ul class="k-list k-reset"></ul>
-                </div>
-            </div>
 
-            <div id="Search" class="searchBoxWrapper">
-                <a id="ClearSearchButton" class="clearSearch alwaysHide" onclick="searchQueryModel.ClearAdvanceSearch();" data-tooltip-title="@Resource.ClearAdvancedFilters">
-                    <i class="icon remove"></i>
-                </a>
-                <a id="SearchButton" onclick="searchPageHandler.ShowAdvancedFilters();" data-tooltip-title="@Resource.AdvancedFilters">
-                    <i class="icon caret"></i>
-                </a>
-                <input id="SearchInput" type="text" />
-            </div>
-
-            <div id="ActionSelect" class="compactMode">
-                <div id="ActionDropdownList" class="btn btnDefault btnTools disabled"><span data-bind="text: Localization.SearchPageAngleAction">@Resource.SearchPageAngleAction</span></div>
-                <div class="k-window-titleless k-window-custom k-window-arrow-n popupAction popupActionSearch" id="ActionDropdownListPopup">
-                    <div class="k-window-content k-content"></div>
-                </div>
-            </div>
-
-            <div id="SearchResultView">
-                @{Html.RenderPartial("~/Views/Search/PartialViews/TotalSearchResult.cshtml");}
-            </div>
-        </div>
-    </div>
-}
-
+ 
 <div id="MainContent" class="Wrapper">
     <div id="LeftMenu">
          @{Html.RenderPartial("~/Views/Search/PartialViews/FacetFilters/FacetFilters.cshtml");}
     </div>
     <div id="Content">
+
+        <div id="SearchBar">
+            <div class="Wrapper">
+                <div id="CreateNewAngleButtonWrapper" class="createNewAngleButtonWrapper alwaysHide">
+                    <a id="CreateNewAngle" class="btn btnCreateNewAngle" onclick="createNewAngleViewManagementModel.CheckModelAvailable()">
+                        <span data-bind="html: Captions.Button_CreateNewAngle + '<br/><i>' + Captions.Button_CreateNewAngle_NoModel + '</i>'"></span>
+                    </a>
+                    <a id="SelectModelCreateNewAngle" class="btn btnSelectModelCreateNewAngle" onclick="createNewAngleViewManagementModel.ToggleModelsList()"></a>
+                    <div class="k-list-container k-popup k-group k-reset k-list-large-container popupSelectModelCreateNewAngle" id="PopupSelectModelCreateNewAngle">
+                        <ul class="k-list k-reset"></ul>
+                    </div>
+                </div>
+
+                <div id="Search" class="searchBoxWrapper">
+                    <a id="ClearSearchButton" class="clearSearch alwaysHide" onclick="searchQueryModel.ClearAdvanceSearch();" data-tooltip-title="@Resource.ClearAdvancedFilters">
+                        <i class="icon remove"></i>
+                    </a>
+                    <a id="SearchButton" onclick="searchPageHandler.ShowAdvancedFilters();" data-tooltip-title="@Resource.AdvancedFilters">
+                        <i class="icon caret"></i>
+                    </a>
+                    <input id="SearchInput" type="text" />
+                </div>
+
+                <div id="ActionSelect" class="compactMode">
+                    <div id="ActionDropdownList" class="btn btnDefault btnTools disabled"><span data-bind="text: Localization.SearchPageAngleAction">@Resource.SearchPageAngleAction</span></div>
+                    <div class="k-window-titleless k-window-custom k-window-arrow-n popupAction popupActionSearch" id="ActionDropdownListPopup">
+                        <div class="k-window-content k-content"></div>
+                    </div>
+                </div>
+
+                <div id="SearchResultView">
+                    @{Html.RenderPartial("~/Views/Search/PartialViews/TotalSearchResult.cshtml");}
+                </div>
+            </div>
+        </div>
+
         <div id="LandingPage">
             <div class="sectionWelcomeRow">
                 <div class="sectionWelcome sectionWelcomeLogo">
@@ -88,7 +88,7 @@
                 </div>
             </div>
             <div class="sectionWelcomeRow">
-                 <div class="sectionWelcome sectionWelcomeDetail2">
+                <div class="sectionWelcome sectionWelcomeDetail2">
                     <div data-bind="html: Data().newstext"></div>
                 </div>
             </div>

@@ -61,7 +61,7 @@ describe("UserSettingHandler", function () {
             spyOn(userSettingsHandler, "GetUserSettingButtons").and.callFake($.noop);
             spyOn(userSettingsView, "SetDisableSaveButton").and.callFake($.noop);
             spyOn(popup, "Show").and.callFake($.noop);
-			window.GetImageFolderPath = $.noop;
+            window.GetImageFolderPath = $.noop;
         });
 
         it("function show popup have been called", function () {
@@ -424,7 +424,6 @@ describe("UserSettingHandler", function () {
             });
             spyOn(userSettingsHandler, "InitialControlsModel").and.callFake($.noop);
             spyOn(userSettingsHandler, "InitialControlsBusinessProcess").and.callFake($.noop);
-            spyOn(userSettingsHandler, "InitialControlsBusinessProcessStyle").and.callFake($.noop);
             spyOn(userSettingsHandler, "InitialControlsLanguage").and.callFake($.noop);
             spyOn(userSettingsHandler, "InitialControlsRowExportToExcel").and.callFake($.noop);
             spyOn(userSettingsHandler, "InitialControlsFacetWarning").and.callFake($.noop);
@@ -474,11 +473,11 @@ describe("UserSettingHandler", function () {
                 id: 'EA2_800',
                 short_name: 'EA2_800'
             },
-                {
-                    uri: '/models/2',
-                    id: 'EA3_800',
-                    short_name: 'EA3_800'
-                }];
+            {
+                uri: '/models/2',
+                id: 'EA3_800',
+                short_name: 'EA3_800'
+            }];
             userSettingsHandler.DataModels.options = { enabled: true };
         });
 
@@ -545,25 +544,7 @@ describe("UserSettingHandler", function () {
             expect(businessProcessesModel.UserSetting.CurrentActive().O2C).toEqual(false);
         });
     });
-
-    describe("call InitialControlsBusinessProcessStyle", function () {
-
-        beforeEach(function () {
-            $('body').append('<input id="CompressedBusinessBar" type="checkbox">');
-        });
-
-        afterEach(function () {
-            $('#CompressedBusinessBar').remove();
-        });
-
-        it("should set business process style", function () {
-            var setting = { compressed_bp_bar: true };
-            userSettingsHandler.InitialControlsBusinessProcessStyle(setting);
-            expect($('#CompressedBusinessBar').is(':checked')).toEqual(true);
-        });
-
-    });
-
+    
     describe("call InitialControlsLanguage ", function () {
 
         beforeEach(function () {
@@ -758,7 +739,7 @@ describe("UserSettingHandler", function () {
             });
             spyOn(systemCurrencyHandler, "GetCurrencies").and.callFake(function () {
                 return [{ name: 'euro', id: 'EUR' },
-                    { name: 'us dollar', id: 'USD' }];
+                { name: 'us dollar', id: 'USD' }];
             });
 
             $('body').append('<input id="enable_thousandseparator_for_currency" type="checkbox">');
@@ -922,19 +903,19 @@ describe("UserSettingHandler", function () {
         });
 
         var elementId = 'SystemModel',
-                models = [{
-                    uri: '/models/1',
-                    id: 'EA2_800',
-                    short_name: 'EA2_800'
-                },
-                {
-                    uri: '/models/2',
-                    id: 'EA3_800',
-                    short_name: 'EA3_800'
-                }],
-                userSettingDefault = '/models/2',
-                dataTextField = 'short_name',
-                dataValueField = 'uri';
+            models = [{
+                uri: '/models/1',
+                id: 'EA2_800',
+                short_name: 'EA2_800'
+            },
+            {
+                uri: '/models/2',
+                id: 'EA3_800',
+                short_name: 'EA3_800'
+            }],
+            userSettingDefault = '/models/2',
+            dataTextField = 'short_name',
+            dataValueField = 'uri';
 
         $('body').append('<div id="SystemModel"></div>');
 
@@ -1022,11 +1003,11 @@ describe("UserSettingHandler", function () {
                     id: 'EA2_800',
                     short_name: 'EA2_800'
                 },
-                    {
-                        uri: '/models/2',
-                        id: 'EA3_800',
-                        short_name: 'EA3_800'
-                    }]
+                {
+                    uri: '/models/2',
+                    id: 'EA3_800',
+                    short_name: 'EA3_800'
+                }]
             };
 
             spyOn(modelsHandler, "GetDefaultModel").and.callFake(function () { });
@@ -1052,7 +1033,6 @@ describe("UserSettingHandler", function () {
             spyOn(requestHistoryModel, 'SaveLastExecute').and.callFake($.noop);
             spyOn(userSettingModel, 'Data').and.callFake(function () { return {}; });
             spyOn(userSettingsHandler, 'SetDefaultBusinessProcess').and.callFake($.noop);
-            spyOn(userSettingsHandler, 'SetBusinessProcessBarStyle').and.callFake($.noop);
             spyOn(userSettingsHandler, 'SetLanguage').and.callFake($.noop);
             spyOn(userSettingsHandler, 'SetNumberExportExcel').and.callFake($.noop);
             spyOn(userSettingsHandler, 'SetTechnicalInfoSapFieldChooser').and.callFake($.noop);
@@ -1183,30 +1163,7 @@ describe("UserSettingHandler", function () {
         });
 
     });
-
-    describe("call SetBusinessProcessBarStyle", function () {
-
-        beforeEach(function () {
-            spyOn(WC.HtmlHelper, "GetCheckBoxStatus").and.callFake(function () {
-                return true;
-            });
-        });
-
-        it("should set business process style", function () {
-            var defaultUserSetting = { compressed_bp_bar: false },
-                userSettings = {};
-            userSettingsHandler.SetBusinessProcessBarStyle(defaultUserSetting, userSettings);
-            expect(userSettings[enumHandlers.USERSETTINGS.COMPRESSED_BP_BAR]).toEqual(true);
-        });
-
-        it("when select default setting, should not set business process style", function () {
-            var defaultUserSetting = { compressed_bp_bar: true },
-                userSettings = {};
-            userSettingsHandler.SetBusinessProcessBarStyle(defaultUserSetting, userSettings);
-            expect(userSettings[enumHandlers.USERSETTINGS.COMPRESSED_BP_BAR]).toEqual(undefined);
-        });
-    });
-
+    
     describe("call SetLanguage", function () {
 
         beforeEach(function () {
@@ -1680,7 +1637,6 @@ describe("UserSettingHandler", function () {
             spyOn(userSettingsView, "ClosePopup").and.callFake($.noop);
             spyOn(searchQueryModel, "Search").and.callFake($.noop);
             spyOn(searchQueryModel, "SetUIOfAdvanceSearchFromParams").and.callFake($.noop);
-            spyOn(userSettingsHandler, "SetTopBarBusinessProcess").and.callFake($.noop);
             spyOn(userSettingsHandler, "RenderSingleDrilldown").and.callFake($.noop);
             spyOn(userSettingsHandler, "RenderDisplayView").and.callFake($.noop);
             spyOn(window, "ReloadWebPage").and.callFake($.noop);
@@ -1707,12 +1663,6 @@ describe("UserSettingHandler", function () {
             userSettingsHandler.SaveUserSettingsCallback(data);
             expect(userSettingsView.ClosePopup).toHaveBeenCalled();
         });
-        it("in search page, function SetTopBarBusinessProcess have been called", function () {
-            spyOn(userSettingModel, "ReloadAfterChanged").and.callFake(function () { return false; });
-            window.searchPageHandler = {};
-            userSettingsHandler.SaveUserSettingsCallback(data);
-            expect(userSettingsHandler.SetTopBarBusinessProcess).toHaveBeenCalled();
-        });
         it("in angle page, function RenderDisplayView have been called", function () {
             spyOn(userSettingModel, "ReloadAfterChanged").and.callFake(function () { return false; });
             window.searchPageHandler = undefined;
@@ -1736,7 +1686,6 @@ describe("UserSettingHandler", function () {
             window.dashboardHandler = undefined;
             userSettingsHandler.SaveUserSettingsCallback(data);
 
-            expect(userSettingsHandler.SetTopBarBusinessProcess).not.toHaveBeenCalled();
             expect(userSettingsHandler.RenderDisplayView).not.toHaveBeenCalled();
         });
     });
@@ -1757,61 +1706,7 @@ describe("UserSettingHandler", function () {
             expect(jQuery.localStorage('mouse')).toEqual(null);
         });
     });
-
-    describe("call SetTopBarBusinessProcess", function () {
-
-        beforeEach(function () {
-            businessProcessesModel.Topbar = {
-                Mode: $.noop,
-                MODE: { COMPACT: 1 },
-                UpdateLayout: $.noop,
-                Data: function () {
-                    return [{ id: "S2D" },
-                            { id: "P2P" },
-                            { id: "O2C" }];
-                },
-                currentActive: [],
-                CurrentActive: function (value) {
-                    this.currentActive = value;
-                }
-            };
-        });
-
-        it("S2D should be active", function () {
-            spyOn(userSettingModel, "GetByName").and.callFake(function () { return ["S2D", "O2C"]; });
-            userSettingsHandler.SetTopBarBusinessProcess();
-            expect(businessProcessesModel.Topbar.currentActive.S2D).toEqual(true);
-        });
-
-        it("P2P should be inactive", function () {
-            spyOn(userSettingModel, "GetByName").and.callFake(function () { return ["S2D", "O2C"]; });
-            userSettingsHandler.SetTopBarBusinessProcess();
-            expect(businessProcessesModel.Topbar.currentActive.P2P).toEqual(false);
-        });
-
-        it("not have topbar, function get business procress mode have not been called", function () {
-            spyOn(userSettingModel, "GetByName").and.callFake(function () { return ["S2D", "O2C"]; });
-            businessProcessesModel.Topbar = undefined;
-            userSettingsHandler.SetTopBarBusinessProcess();
-            expect(userSettingModel.GetByName).not.toHaveBeenCalled();
-        });
-
-        it("not have setting for compress business bar, business process mode should be full", function () {
-            spyOn(userSettingModel, "GetByName").and.callFake(function () { return false; });
-            userSettingsHandler.SetTopBarBusinessProcess();
-            expect(businessProcessesModel.Topbar.Mode()).toEqual(businessProcessesModel.Topbar.MODE.FULL);
-        });
-
-        it("business bar have been set, CurrentActive have not been called", function () {
-            spyOn(userSettingModel, "GetByName").and.callFake(function () { return false; });
-            spyOn($.address, "value").and.callFake(function () { return '/?fq=facetcat_bp:(S2D)'; });
-            spyOn(businessProcessesModel.Topbar, "CurrentActive").and.callFake($.noop);
-            userSettingsHandler.SetTopBarBusinessProcess();
-            expect(businessProcessesModel.Topbar.CurrentActive).not.toHaveBeenCalled();
-        });
-
-    });
-
+    
     describe("call RenderDisplayView", function () {
 
         beforeEach(function () {

@@ -627,6 +627,7 @@ if %25ERRORLEVEL%25 LEQ 1 exit 0 else exit %25ERRORLEVEL%25</PreBuildEvent>
     <Content Include="Images\Login\login_logo.svg" />
     <Content Include="Images\Master\EALogo.svg" />
     <Content Include="Images\Master\ea_about_logo.svg" />
+    <Content Include="Images\Master\help.svg" />
     <Content Include="Images\Master\helpuser.svg" />
     <Content Include="Images\Master\usercontrol.svg" />
     <Content Include="Images\Popup\Error\icn_alert.svg" />
@@ -1049,7 +1050,6 @@ if %25ERRORLEVEL%25 LEQ 1 exit 0 else exit %25ERRORLEVEL%25</PreBuildEvent>
     <Content Include="Scripts\ViewModels\Models\FieldSettings\BucketModel.js" />
     <Content Include="Scripts\ViewModels\Models\FieldSettings\FieldModel.js" />
     <Content Include="Scripts\ViewModels\Models\FieldSettings\FieldSettingsModel.js" />
-    <Content Include="Scripts\ViewModels\Models\Search\businessprocessmodel.js" />
     <Content Include="Scripts\ViewModels\Models\Search\welcomemodel.js" />
     <Content Include="Scripts\ViewModels\Models\Search\facetfiltersmodel.js" />
     <Content Include="Scripts\ViewModels\Models\Search\masschangemodel.js" />

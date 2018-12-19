@@ -24,7 +24,6 @@ Verify Change User Setings: System Settings Tab
     Click System Settings Tab
 
     # keep current states
-    ${isBPsmall}    Get Checkbox Show Small Business Process Bar Status
     ${rowExportExcel}    Get Default Number Of Rows For Export To Excel
     ${isAngleWarnings}    Get Checkbox Show Tag For Angle Warnings Status
     ${isStarred}    Get Checkbox Starred Fields Status
@@ -41,10 +40,7 @@ Verify Change User Setings: System Settings Tab
     Verify Saved System Settings Tab
 
     # restore old states
-    Click Element If Active    ${divUserSettingsBusinessProcessItems}.GRC
-
-    Run Keyword If    ${isBPsmall} == True    Select Checkbox Show Small Business Process Bar
-    ...    ELSE    Unselect Checkbox Show Small Business Process Bar
+    Unselect Checkbox    ${divUserSettingsBusinessProcessItems} #GRC
 
     Select Dropdown Default Number Of Rows For Export To Excel    ${rowExportExcel}
 

@@ -20,9 +20,9 @@ ${tabAngleStatistic}    AngleStatistic
 ${txtAngleId}           AngleId
 ${divAngleBusinessProcess}          css=.businessProcesses
 ${modelValueLabel}                  css=.inputModelValue
-${businessProcessesS2D}             css=.businessProcesses .businessProcessesItem.S2D
-${businessProcessesTestBP}          css=.businessProcesses .businessProcessesItem.TestBP
-${businessProcessesTestDeleteBP}    css=.businessProcesses .businessProcessesItem.TestDelBP
+${businessProcessesS2D}             css=.businessProcesses .BusinessProcessBadge.S2D
+${businessProcessesTestBP}          css=.businessProcesses .BusinessProcessBadge.TestBP
+${businessProcessesTestDeleteBP}    css=.businessProcesses .BusinessProcessBadge.TestDelBP
 
 #Description tab
 ${btnAddLanguageAngle}    css=.btnAddLanguage

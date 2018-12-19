@@ -97,8 +97,8 @@
 .btnImport:after {
     background-image: url(../images/icons/icon_add.svg);
     width: 14px;
-	height: 14px;
-	top: 6px;
+    height: 14px;
+    top: 6px;
     right: 6px;
 }
 
@@ -130,9 +130,11 @@
     color: #333;
     border-color: #c1c1c1;
 }
+
 .btnNext:hover {
     background-color: #eaeaea;
 }
+
 .btnNext:after {
     right: 9px;
     background-image: url(../images/icons/icon_next.svg);
@@ -191,6 +193,7 @@
     color: #0a6088;
     background-color: inherit;
 }
+
 .k-upload .k-button:hover,
 .k-upload .k-button:active:hover {
     background-color: rgba(32,168,230,.11);
@@ -498,7 +501,6 @@ div.tagsinput .not_valid {
 .k-slider-track,
 .k-slider-selection,
 .k-upload,
-
 .k-list .k-state-hover,
 .k-list .k-state-focused,
 .k-list .k-state-highlight,
@@ -508,9 +510,8 @@ div.tagsinput .not_valid {
 .k-dropdown-wrap .k-input,
 .k-picker-wrap .k-input,
 .k-numeric-wrap .k-input,
-
 .k-window-titlebar,
-.k-block>.k-header,
+.k-block > .k-header,
 .k-tabstrip-items .k-item,
 .k-panelbar .k-tabstrip-items .k-item,
 .k-tabstrip-items .k-link,
@@ -521,7 +522,6 @@ div.tagsinput .not_valid {
 .k-dropdown-wrap.k-state-border-down,
 .k-picker-wrap.k-state-border-down,
 .k-numeric-wrap.k-state-border-down,
-
 .k-calendar-container.k-state-border-up,
 .k-list-container.k-state-border-up,
 .k-autocomplete.k-state-border-up,
@@ -531,7 +531,6 @@ div.tagsinput .not_valid {
 .k-numeric-wrap.k-state-border-up,
 .k-window-content,
 .k-filter-menu,
-
 .k-calendar .k-link.k-state-hover,
 .k-window-titlebar .k-link {
     border-radius: 0;
@@ -570,6 +569,7 @@ div.tagsinput .not_valid {
 .k-upload-button input {
     font-size: 500px;
 }
+
 .k-upload-button.disabled input {
     cursor: default;
 }
@@ -617,6 +617,7 @@ div.tagsinput .not_valid {
     opacity: 0;
     border-radius: 0;
 }
+
 .k-dropdown .k-input {
     padding-top: 4px;
     padding-bottom: 4px;
@@ -878,6 +879,7 @@ div.tagsinput .not_valid {
     margin-left: 10px;
     margin-right: 0;
 }
+
 .popupToolbar .btnLeft {
     margin-left: 0;
     margin-right: 10px;
@@ -1027,7 +1029,7 @@ div.k-window-content > .k-loading-mask {
 }
 
 .aboutCommon {
-    background: transparent url(../images/ea_about_logo.png) center -5px no-repeat;
+    background: transparent url(../images/ea_about_logo.svg) center 8px no-repeat;
     float: left;
     width: 215px;
     height: 76px;
@@ -1244,6 +1246,7 @@ div.k-window-content > .k-loading-mask {
     position: relative;
     top: -2px;
 }
+
 #popupClassesChooser .popupToolbar {
     min-height: 76px;
 }
@@ -1465,7 +1468,7 @@ table.grid tbody td:first-child {
 }
 
 .contentSectionInfoItem > p .btnInfo:after,
-.contentSectionInfoSubItem > p .btnInfo:after{
+.contentSectionInfoSubItem > p .btnInfo:after {
     width: 14px;
     right: 0;
 }
@@ -1860,6 +1863,7 @@ tr.rowMaskAsRemove .btnGroupContainer > .btn:after {
 #popupCommentForm .fieldFile {
     float: left;
 }
+
 #popupCommentForm .fieldFile .btn {
     margin-left: 0;
 }
@@ -2010,10 +2014,12 @@ tr.rowMaskAsRemove .btnGroupContainer > .btn:after {
     width: 120px !important;
     font-size: 11px;
 }
+
 #popupLogTable .k-dropdown .k-input {
     padding-top: 2px;
     padding-bottom: 2px;
 }
+
 #popupLogTable .k-dropdown .logType > span {
     margin-left: 4px;
 }
@@ -2598,7 +2604,7 @@ form#ExportPackageForm .packageInfo .packageVersion input {
     margin-bottom: 15px;
     padding-bottom: 60px;
     box-shadow: 0 2px 2px 0 rgba(0,0,0,0.14), 0 1px 5px 0 rgba(0,0,0,0.12), 0 3px 1px -2px rgba(0,0,0,0.2);
-	transition: all .3s cubic-bezier(.25,.8,.25,1);
+    transition: all .3s cubic-bezier(.25,.8,.25,1);
 }
 
 .mainContainerFull .modelOverviewItem {
@@ -3117,6 +3123,7 @@ form#ExportPackageForm .packageInfo .packageVersion input {
     padding-right: 100px;
     z-index: 10;
 }
+
 .pageLicense .k-upload-status {
     display: none;
 }
@@ -3640,9 +3647,11 @@ form#ExportPackageForm .packageInfo .packageVersion input {
 .pageRefreshCycle .contentSectionInfoItem {
     min-height: 30px;
 }
+
 .pageRefreshCycle .contentSectionInfoItem p {
     font-weight: normal;
 }
+
 .pageRefreshCycle .rowChangedTablesOnly .btnInfo,
 .pageRefreshCycle .rowChangedTablesOnly .btnInfo:hover {
     left: 165px;
@@ -4281,9 +4290,11 @@ form#ExportPackageForm .packageInfo .packageVersion input {
     background: transparent none center center no-repeat;
     background-size: 16px 16px;
 }
+
 .actionTypeIcon.icon-export_angle_to_datastore {
     background-image: url(../images/icons/icon_datastore.svg);
 }
+
 .actionTypeIcon.icon-run_external_command {
     background-image: url(../images/icons/icon_script.svg);
 }
@@ -4301,8 +4312,9 @@ form#ExportPackageForm .packageInfo .packageVersion input {
     width: 120px;
     line-height: 25px;
 }
+
 #AddActionPopup .rowParameters > label,
-#AddActionPopup .rowAbortTaskWhenError > label{
+#AddActionPopup .rowAbortTaskWhenError > label {
     line-height: normal;
 }
 
@@ -4356,12 +4368,12 @@ form#ExportPackageForm .packageInfo .packageVersion input {
 }
 
 #AddActionPopup .contentSectionInfoItemInput input[type="text"],
-#AddActionPopup .contentSectionInfoItemInput input[type="password"]{
+#AddActionPopup .contentSectionInfoItemInput input[type="password"] {
     width: 100%;
 }
 
 #AddActionPopup .contentSectionInfoItemDropdown .btnInfo,
-#AddActionPopup .contentSectionInfoItemInput .btnInfo{
+#AddActionPopup .contentSectionInfoItemInput .btnInfo {
     right: -30px;
 }
 
@@ -4464,6 +4476,7 @@ form#ExportPackageForm .packageInfo .packageVersion input {
 #RecipientsGrid.showResult .columnEmailResult {
     display: table-cell;
 }
+
 #RecipientsGrid.hideResult .columnEmailResult {
     display: none;
 }
@@ -4823,8 +4836,8 @@ a.mailto {
 
 .popupUserMenu {
     text-align: left;
-    top: 35px;
-    right: 103px;
+    top: 48px;
+    right: -15px;
     left: auto;
     width: 200px;
     display: none;
@@ -4880,8 +4893,8 @@ a.mailto {
 
 .popupHelpMenu {
     text-align: left;
-    top: 35px;
-    right: 36px;
+    top: 48px;
+    right: 0;
     left: auto;
     width: 200px;
     display: none;

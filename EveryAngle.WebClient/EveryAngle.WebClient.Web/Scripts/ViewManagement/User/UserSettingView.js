@@ -4,11 +4,11 @@ function UserSettingsView() {
     "use strict";
 
     var self = this;
-   
+
 
     self.UpdateUserMenu = function () {
         var name = userModel.DisplayName();
-        jQuery('#UserControl').attr('title', name).text(name);
+        jQuery('#UserControlName').attr('title', name).text(name);
         self.CheckLocalUser();
     };
     self.CheckLocalUser = function () {
@@ -36,6 +36,8 @@ function UserSettingsView() {
     };
     self.ToggleMenuHelp = function () {
         if (jQuery('#HelpMenu').is(':hidden')) {
+            var position = jQuery("#Help").position().left;
+            jQuery('#HelpMenu').css('left', position - 140);
             jQuery('#HelpMenu').show();
             jQuery('#UserMenu').hide();
         }

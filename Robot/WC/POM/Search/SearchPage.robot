@@ -68,16 +68,14 @@ ${chkFacetModel}            css=#facetcat_models_Checkbox input:first-child
 ${lblCountModel}            css=#facetcat_models_Checkbox .name:first-child
 
 #Business process filter
-${divBusinessProcessesItems}        jquery=#SearchFacetBusinessProcesses .businessProcessesItem:not(.businessProcessesItemMore):visible
-${divBusinessprocessP2P}            css=#SearchFacetBusinessProcesses .P2P
-${divBusinessprocessS2D}            css=#SearchFacetBusinessProcesses .S2D
-${divBusinessprocessO2C}            css=#SearchFacetBusinessProcesses .O2C
-${divBusinessprocessF2R}            css=#SearchFacetBusinessProcesses .F2R
-${divBusinessprocessPM}             css=#SearchFacetBusinessProcesses .PM
-${divBusinessprocessHCM}            css=#SearchFacetBusinessProcesses .HCM
-${divBusinessprocessGRC}            css=#SearchFacetBusinessProcesses .GRC
-${divBusinessprocessIT}             css=#SearchFacetBusinessProcesses .IT
-${divBusinessProcessesItemMore}     css=#SearchFacetBusinessProcesses .businessProcessesItemMore
+${divBusinessprocessP2P}            css=#facetcat_bp_Checkbox .BusinessProcessBadge.P2P
+${divBusinessprocessS2D}            css=#facetcat_bp_Checkbox .BusinessProcessBadge.S2D
+${divBusinessprocessO2C}            css=#facetcat_bp_Checkbox .BusinessProcessBadge.O2C
+${divBusinessprocessF2R}            css=#facetcat_bp_Checkbox .BusinessProcessBadge.F2R
+${divBusinessprocessPM}             css=#facetcat_bp_Checkbox .BusinessProcessBadge.PM
+${divBusinessprocessHCM}            css=#facetcat_bp_Checkbox .BusinessProcessBadge.HCM
+${divBusinessprocessGRC}            css=#facetcat_bp_Checkbox .BusinessProcessBadge.GRC
+${divBusinessprocessIT}             css=#facetcat_bp_Checkbox .BusinessProcessBadge.IT
 
 #Search result
 ${gridSearchResult}             InnerResultWrapper

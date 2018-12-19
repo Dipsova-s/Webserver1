@@ -1,19 +1,39 @@
 var businessProcessBarHtmlTemplate = function () {
     return [
         '<!-- ko stopBinding: true -->',
-        '<div class="businessProcesses" data-bind="foreach: { data: Data, afterRender: AfterRender }, style: { visibility: Data().length > 0 ? \'visible\' : \'hidden\' }, css: ContainerCssClass()">',
-            '<!-- ko if: $index() == 0 -->',
-                '<div class="businessProcessesItem businessProcessesItemHeader" data-bind="click: $root.HeaderClick"></div>',
-            '<!-- /ko -->',
-            '<div class="businessProcessesItem" data-bind="css: $root.CssClass($data, $index()), click: $root.SetActive, attr: { title: $root.GetTitle($data) }">',
-                '<a data-bind="html: $root.BindName($data)"></a>',
-            '</div>',
-            '<!-- ko if: $root.Layout() == $root.LAYOUT.FLEXIBLE && $index() == $root.Data().length - 1 -->',
-            '<div class="businessProcessesItem businessProcessesItemMore" data-bind="click: $root.MoreClick, css: { active: $root.HiddenSelectingCount }">',
-                '<span data-bind="text: $root.HiddenSelectingCount, visible: $root.HiddenSelectingCount"></span>',
-                '<a>&nbsp;</a>',
-            '</div>',
-            '<!-- /ko -->',
+        '<div class="businessProcesses" ',
+        'data-bind="foreach: { data: Data, afterRender: AfterRender }, style: { visibility: Data().length > 0 ? \'visible\' : \'hidden\' }, css: ContainerCssClass()">',
+        '<!-- ko if: $index() == 0 -->',
+        '<div class="businessProcessesItem businessProcessesItemHeader" data-bind="click: $root.HeaderClick"></div>',
+        '<!-- /ko -->',
+        '<!-- ko if: $root.Display() == $root.DISPLAY_MODE.CHECKBOX -->',
+        '<div class="BusinessProcessCheckBox">',
+        '<label>',
+        '<input data-val="true" type="checkbox" ',
+        'data-bind="',
+        'click: function (data, event) { return $root.UpdateCheck(data) }, ',
+        'checked: $root.IsSelected($data), enable: $data.is_allowed, ',
+        'attr: { id: $data.id }">',
+        '<span class="label">',
+        '<span class="BusinessProcessBadge" data-bind="css: $root.BindCss($data)" ></span>',
+        '<span class="BusinessProcessBadgeLabel" data-bind="html: $root.BindName($data), css: $root.CssClassDisabled($data)"></span>',
+        '</span>',
+        '</label>',
+        '</div>',
+        '<!-- /ko -->',
+        '<!-- ko if: $root.Display() == $root.DISPLAY_MODE.TAB -->',
+        '<div class="businessProcessesItem" ',
+        'data-bind="css: $root.CssClass($data, $index()), click: $root.SetActive, attr: { title: $root.GetTitle($data) }">',
+        '<a data-bind="html: $root.BindName($data)"></a>',
+        '</div>',
+        '<!-- ko if: $root.Layout() == $root.LAYOUT.FLEXIBLE && $index() == $root.Data().length - 1 -->',
+        '<div class="businessProcessesItem businessProcessesItemMore" ',
+        'data-bind="click: $root.MoreClick, css: { active: $root.HiddenSelectingCount }">',
+        '<span data-bind="text: $root.HiddenSelectingCount, visible: $root.HiddenSelectingCount"></span>',
+        '<a>&nbsp;</a>',
+        '</div>',
+        '<!-- /ko -->',
+        '<!-- /ko -->',
         '</div>',
         '<!-- /ko -->'
     ].join('');
@@ -34,6 +54,11 @@ function BusinessProcessesViewModel(externalData) {
         COMPACT: 1,
         FULL: 2
     };
+    self.DISPLAY_MODE = {
+        TAB: 0,
+        CHECKBOX: 1
+    };
+    self.Display = ko.observable(self.DISPLAY_MODE.TAB);
     self.Mode = ko.observable(self.MODE.COMPACT);
     self.Theme = ko.observable('default');
     self.MultipleActive = ko.observable(false);
@@ -43,7 +68,7 @@ function BusinessProcessesViewModel(externalData) {
     self.ClickHeaderCallback = ko.observable(null);
     self.ClickCallback = ko.observable(null);
     self.ReadOnly = ko.observable(false);
-	self.HiddenSelectingCount = ko.observable(0);
+    self.HiddenSelectingCount = ko.observable(0);
     self.LAYOUT = {
         FLEXIBLE: 1,
         NORMAL: 2
@@ -139,6 +164,12 @@ function BusinessProcessesViewModel(externalData) {
 
         return classes.join(' ');
     };
+    self.CssClassDisabled = function (data) {
+        if (!data.is_allowed) {
+            return 'disabled';
+        }
+        return '';
+    };
     self.AfterRender = function (element, data) {
         // set active to false if is_allow = false
         if (!data.is_allowed && !data.__readonly)
@@ -203,7 +234,45 @@ function BusinessProcessesViewModel(externalData) {
             self.SetHideMoreEvent();
         }
     };
+    self.IsSelected = function (data) {
+        var active = self.CurrentActive();
+        return active[data.id] || false;
+    };
+    self.UpdateCheck = function (data) {
+
+        if (self.ReadOnly() || data.__readonly) {
+            return false;
+        }
+
+        var active = self.CurrentActive();
+        var isActived = active[data.id] || false;
+        var changed = false;
+
+        if (self.CanSetActive(data.is_allowed, isActived)) {
+            if (self.MultipleActive()) {
+                active[data.id] = !isActived;
+                changed = true;
+            }
+            else {
+                changed = !isActived;
+                jQuery.each(active, function (id) {
+                    active[id] = false;
+                });
+                active[data.id] = true;
+            }
+            self.CurrentActive(active);
+
+            self.DoCallbackFunction(self.ClickCallback(), [data, event, changed]);
+            return true;
+        }
+        return false;
+    };
+    self.SetCheckBoxStyle = function () {
+        self.Display(self.DISPLAY_MODE.CHECKBOX);
+        self.Theme('businessProcessesCheckBoxList');
+    };
     self.SetActive = function (data, event) {
+
         if (self.ReadOnly() || data.__readonly) {
             return false;
         }
@@ -227,17 +296,17 @@ function BusinessProcessesViewModel(externalData) {
                 });
                 active[data.id] = true;
 
-				container.children('.businessProcessesItem:not(.businessProcessesItemMore)').removeClass('active');
+                container.children('.businessProcessesItem:not(.businessProcessesItemMore)').removeClass('active');
                 element.addClass('active');
             }
             self.CurrentActive(active);
         }
 
-		self.HiddenSelectingCount(container.children('.more.active').length);
+        self.HiddenSelectingCount(container.children('.more.active').length);
 
-		// hide bp dropdown if is a single selection
-		if (changed && !self.MultipleActive())
-			jQuery(window).trigger('click.bp');
+        // hide bp dropdown if is a single selection
+        if (changed && !self.MultipleActive())
+            jQuery(window).trigger('click.bp');
 
         self.DoCallbackFunction(self.ClickCallback(), [data, event, changed]);
     };
@@ -288,6 +357,9 @@ function BusinessProcessesViewModel(externalData) {
             return self.GetSmartName(words, wordsLength);
         }
     };
+    self.BindCss = function (data) {
+        return self.BindName(data) + ' BusinessProcessBadgeItem' + (data.order - 1) % 9;
+    };
     self.GetSmartName = function (words, wordsLength) {
         var eaTextMeasure = self.GetTextMeasureElement();
         var distance = [];
@@ -317,7 +389,7 @@ function BusinessProcessesViewModel(externalData) {
         container.children('.businessProcessesItem').removeClass('more linebreak').removeAttr('style');
 
         // normal layout should be handled by css
-        if (self.Layout() === self.LAYOUT.NORMAL)
+        if (self.Layout() === self.LAYOUT.NORMAL || self.Display() === self.DISPLAY_MODE.CHECKBOX)
             return;
 
         // flexible layout must be handled by js

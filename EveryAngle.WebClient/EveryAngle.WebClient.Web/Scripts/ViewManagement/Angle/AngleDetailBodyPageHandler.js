@@ -245,6 +245,7 @@ function AngleDetailPageHandler() {
                         clearInterval(checkAngleIsReady);
 
                         WC.HtmlHelper.ApplyKnockout(angleInfoModel, win.wrapper);
+                        businessProcessesModel.General.SetCheckBoxStyle();
                         businessProcessesModel.General.ApplyHandler('#AngleBusinessProcesses');
 
                         // languages
