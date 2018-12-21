@@ -22,7 +22,7 @@
     height: auto;
     background: #f5f5f5;
     z-index: 1;
-    border-bottom: 1px solid #d8d8d8;
+    border-bottom: 1px solid #f2f2f2;
     box-sizing: border-box;
 }
 
@@ -34,7 +34,7 @@
 .detailsWrapper .Wrapper,
 #ResultContainerWrapper {
     z-index: 0;
-    background: #f5f5f5;
+    background: #f9f9f9;
 }
 
 #AngleSetting {
@@ -42,7 +42,8 @@
     position: relative;
     min-height: 63px;
     z-index: 21;
-    border-bottom: 1px solid #d8d8d8 !important;
+    border-bottom: 1px solid #f2f2f2;
+    background: #f9f9f9;
     margin-bottom: 7px;
 }
 
@@ -126,7 +127,7 @@
 }
 
 #ActionSelect .actionDropdownItem {
-    background-color: #f5f5f5;
+    background-color: #f9f9f9;
 }
 
 

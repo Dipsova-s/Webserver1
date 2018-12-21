@@ -322,11 +322,11 @@
     top: 0;
     width: 13px;
     height: 100%;
-    background: transparent url(../../images/icons/icon_arrow_down.svg) left center no-repeat !important;
+    background: transparent url(../../images/icons/icon_arrow_white_down.svg) left center no-repeat !important;
 }
 
 .FilterTab.Expand:after {
-    background-image: url('../../images/icons/icon_arrow_up.svg') !important;
+    background-image: url('../../images/icons/icon_arrow_white_up.svg') !important;
 }
 
 .FilterTab .FilterTitle {
@@ -790,16 +790,16 @@
     top: 0;
     width: 13px;
     height: 100%;
-    background: transparent url('../../images/icons/icon_arrow_up.svg') left center no-repeat;
+    background: transparent url('../../images/icons/icon_arrow_white_up.svg') left center no-repeat;
 }
 
 .sortList > .desc:after,
 .sortList > .revert:after {
-    background-image: url('../../images/icons/icon_arrow_down.svg');
+    background-image: url('../../images/icons/icon_arrow_white_down.svg');
 }
 
 .sortList > .revert.asc:after {
-    background-image: url('../../images/icons/icon_arrow_up.svg');
+    background-image: url('../../images/icons/icon_arrow_white_up.svg');
 }
 
 .sortList > .executed:after,
@@ -825,10 +825,13 @@
 #SearchBreadcrumb {
     position: absolute;
     left: 0;
-    top: 81px;
+    top: 79px;
     width: 100%;
     height: 26px;
     background: #fff;
+    border: solid 1px #ddd;
+    border-left-width: 0;
+    border-right-width: 0;
     z-index: 49;
 }
 
@@ -895,6 +898,13 @@
 
 .compactMode .SearchResult {
     height: 60px;
+}
+
+.compactMode .SearchResult .icon.new {
+    background-image: url('../../images/searchpage/icn_displays.svg');
+    width: 18px;
+    height: 18px;
+    right: -10px;
 }
 
 .displaysMode .SearchResult {
@@ -1088,6 +1098,8 @@
     right: -14px;
     top: -6px;
     min-width: 16px;
+    border-radius: 50%;
+    padding: 3px;
 }
 
 .compactMode .ResultContent .ContentDetail {
@@ -1096,6 +1108,7 @@
 
 .compactMode .ResultContent .Date {
     padding-top: 0;
+    padding-left: 65px;
 }
 
 #popupDisplays {

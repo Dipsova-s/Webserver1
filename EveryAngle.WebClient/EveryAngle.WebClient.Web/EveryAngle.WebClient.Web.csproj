@@ -540,8 +540,13 @@ if %25ERRORLEVEL%25 LEQ 1 exit 0 else exit %25ERRORLEVEL%25</PreBuildEvent>
     <Content Include="Images\Icons\icon_arrow_black_up_black.png" />
     <Content Include="Images\Icons\icon_arrow_down.svg" />
     <Content Include="Images\Icons\icon_arrow_down_white.png" />
+    <Content Include="Images\Icons\icon_arrow_white_left.svg" />
     <Content Include="Images\Icons\icon_arrow_right_black.svg" />
     <Content Include="Images\Icons\icon_arrow_up.svg" />
+    <Content Include="Images\Icons\icon_arrow_white_down.png" />
+    <Content Include="Images\Icons\icon_arrow_white_down.svg" />
+    <Content Include="Images\Icons\icon_arrow_white_right.svg" />
+    <Content Include="Images\Icons\icon_arrow_white_up.svg" />
     <Content Include="Images\Icons\icon_change_password.png" />
     <Content Include="Images\Icons\icon_chart_addnew.png" />
     <Content Include="Images\Icons\icon_chart_addnew.svg" />
@@ -649,6 +654,7 @@ if %25ERRORLEVEL%25 LEQ 1 exit 0 else exit %25ERRORLEVEL%25</PreBuildEvent>
     <Content Include="Images\SearchPage\icn_starred_active.svg" />
     <Content Include="Images\SearchPage\icn_validated.svg" />
     <Content Include="Images\SearchPage\icon_adv_filter.svg" />
+    <Content Include="Images\SearchPage\icn_displays.svg" />
     <Content Include="Resources\Help\help.txt" />
     <Content Include="Resources\Movies\movies.txt" />
     <Content Include="Scripts\ContextMenu\clipboard.js" />

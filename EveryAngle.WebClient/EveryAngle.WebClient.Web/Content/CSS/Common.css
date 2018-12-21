@@ -765,7 +765,7 @@ img {
 }
 
 #UserControl {
-    background: #f3f4f7;
+    background: transparent;
     padding: 16px;
 }
 
@@ -789,7 +789,7 @@ img {
 }
 
 #UserControlDownChevron {
-    background: transparent url(../../images/icons/icon_arrow_down.svg) left center no-repeat;
+    background: transparent url(../../images/icons/icon_arrow_white_down.svg) left center no-repeat;
     width: 12px;
     height: 12px;
     text-align: right;
@@ -818,8 +818,8 @@ img {
 
 #HelpIcon {
     background: transparent url('../../images/master/help.svg') left center no-repeat;
-    width: 18px;
-    height: 18px;
+    width: 20px;
+    height: 20px;
     text-align: right;
     display: inline-block;
 }
@@ -1545,6 +1545,7 @@ img {
     position: absolute;
     top: 3px;
     left: 210px;
+    color: #333;
     font-size: 12px;
 }
 

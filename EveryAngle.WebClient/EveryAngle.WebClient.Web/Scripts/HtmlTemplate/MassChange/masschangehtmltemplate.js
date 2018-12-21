@@ -39,7 +39,7 @@ var massChangeHtmlTemplate = function () {
                     '</div>',
                 '</div>',
                 '<div class="row" data-bind="visible: privilegesViewModel.IsAllowCreateAngle() && userModel.CanCreateTemplateAngle()">',
-				'<div class="field"><span>' + Localization.MassChangeTemplate + '</span><img alt=""src="' + GetImageFolderPath() + 'searchpage/icn_item_template.png"  height="20" width="20" /></div>',
+				'<div class="field"><span>' + Localization.MassChangeTemplate + '</span><img alt=""src="' + GetImageFolderPath() + 'searchpage/icn_item_angle.svg""  height="20" width="20" /></div>',
                     '<div class="input">',
                         '<input id="AngleIsTemplate" type="checkbox" value="is_template" data-bind="checked: massChangeModel.IsTemplate, IndeterminatableChange: massChangeModel.IsTemplate" />',
                         '<span class="textStatus"></span>',

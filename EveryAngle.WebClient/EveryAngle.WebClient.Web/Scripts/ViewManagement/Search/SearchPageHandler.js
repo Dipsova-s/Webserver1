@@ -268,8 +268,11 @@ function SearchPageHandler() {
     };
     self.UpdateLayout = function () {
         var h = WC.Window.Height - jQuery('#MainContent').offset().top;
-        jQuery('#LeftMenu, #Content, #InnerResultWrapper').height(h);
+        jQuery('#LeftMenu, #Content').height(h);
         jQuery('#LandingPage').outerHeight(h);
+
+        var innerResultWrapperHeight = WC.Window.Height - jQuery('#InnerResultWrapper').offset().top;
+        jQuery('#InnerResultWrapper').height(innerResultWrapperHeight);
 
         // Grid
         self.RefreshSearchGrid();

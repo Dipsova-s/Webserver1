@@ -233,6 +233,7 @@
     <Content Include="Images\Icons\icon_angle_warning.png" />
     <Content Include="Images\Icons\icon_arrow_right.svg" />
     <Content Include="Images\Icons\icon_arrow_white_down.svg" />
+    <Content Include="Images\Icons\icon_arrow_white_up.svg" />
     <Content Include="Images\Icons\icon_chart.png" />
     <Content Include="Images\Icons\icon_check.svg" />
     <Content Include="Images\Icons\icon_close.svg" />

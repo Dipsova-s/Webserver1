@@ -73,6 +73,7 @@
 }
 
 div.k-grid-header {
+    background-color: #fdfdfd;
     position: relative;
     z-index: 2;
 }
@@ -99,8 +100,8 @@ div.k-grid-header tr:hover {
 
 div.k-grid-header .k-header {
     position: relative;
-    border-left-color: #949494;
-    background-color: transparent;
+    border-left-color: #ddd;
+    background-color: #fdfdfd;
     padding: 0;
 }
 

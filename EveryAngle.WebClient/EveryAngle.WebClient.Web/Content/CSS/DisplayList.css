@@ -12,20 +12,19 @@
     background-image: none,-webkit-linear-gradient(top,rgba(255,255,255,.6) 0,rgba(255,255,255,0) 100%);
     background-image: none,linear-gradient(to bottom,rgba(255,255,255,.6) 0,rgba(255,255,255,0) 100%);
     background-position: 50% 50%;
-    background-color: #eae8e8;
+    background-color: #fdfdfd;
     height: 25px;
     width: 46px;
     left: 0;
     top: 37px;
-    border-bottom: 1px solid #838383;
-    border-right: 1px solid #838383;
+    border-right: 1px solid #ddd;
     box-sizing: border-box;
     z-index: 999;
 }
 
 .grid .headerBarRight {
     position: absolute;
-    background-color: #e3e3e3;
+    background-color: #fdfdfd;
     right: 0;
     top: 0;
     width: 17px;
@@ -37,17 +36,17 @@
 }
 
 .grid .k-grid-header .last {
-    border-right: 1px solid #949494;
+    border-right: 1px solid #ddd;
 }
 
 .grid .k-grid-header-locked {
-    border-color: #838383;
+    border-color: #ddd;
     z-index: 101;
 }
 
 .grid .k-grid-content-locked {
     background-color: #cbcbcb;
-    border-color: #838383;
+    border-color: #ddd;
     z-index: 101;
     user-select: none;
 }
@@ -72,8 +71,9 @@
 .grid .k-state-selected.Number,
 .grid .k-state-selected.Number:hover {
     cursor: pointer;
-    border-bottom: 1px solid #838383;
-    background: #cbcbcb none;
+    border-bottom: none;
+    background: #ebebeb;
+    border-right-color: #ddd;
     font-weight: bold;
     text-align: center;
     color: #333;
@@ -105,12 +105,12 @@
 
 #AngleGrid.grid .k-grid-header-wrap .k-header:hover {
     background: #e5e5e5 url('../../images/grid_header_hover_bg.png') left bottom repeat-x;
-    border-top-color: #949494;
 }
 
 #AngleGrid.grid .k-grid-header .k-header,
 #AngleGrid.grid .k-grid-content td {
     transition: border .1s ease-out;
+    border-bottom: none;
 }
 
 .grid .k-grid-content .k-state-selected,
