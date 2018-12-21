@@ -14,6 +14,7 @@ function WidgetFilterHandler(container, models) {
         DASHBOARD: 'Dashboard'
     };
     self.CompareInfo = null;
+    self.FollowupInfo = null;
     self.HasExecutionParameter = ko.observable(false);
     self.CanUseCompareField = ko.observable(true);
     self.Sortable = ko.observable(true);
@@ -31,6 +32,10 @@ function WidgetFilterHandler(container, models) {
         // clean element
         self.View.CleanHtmlElements();
         self.View.BindingAndSortingElementFilter();
+        
+        // tooltips
+        WC.HtmlHelper.Tooltip.Create('tooltip.widgetfilter', '.btnAddFilterFromJump');
+
         return self.CreateFromQuerySteps(self.Data());
     };
     self.ReApplyHandler = function () {
@@ -86,70 +91,74 @@ function WidgetFilterHandler(container, models) {
             return model;
         }
     };
-    self.AddFilter = function (field, filterType) {
-        var result = null;
-
-        if (filterType === enumHandlers.FILTERTYPE.FILTER) {
-            result = self.AddFieldFilter(field);
-        }
-        else if (filterType === enumHandlers.FILTERTYPE.FOLLOWUP) {
-            result = self.AddFieldFollowup(field);
-        }
-
-        return result;
-    };
-    self.AddFilters = function (fields, filterType) {
-        requestHistoryModel.SaveLastExecute(self, self.AddFilters, arguments);
-
-        var results = [];
-        jQuery.each(fields, function (index, field) {
-            results.push(self.AddFilter(field, filterType));
-        });
-
-        return results;
-    };
     self.AddFieldFollowup = function (field) {
         modelFollowupsHandler.SetFollowups([field]);
 
         return self.AddFilterModelFromField(field, enumHandlers.FILTERTYPE.FOLLOWUP);
     };
     self.AddFieldFilter = function (field) {
+        self.InsertFieldFilter(field, self.Data().length);
+    };
+    self.InsertFieldFilter = function (field, insertIndex, toggleHandler) {
         modelFieldsHandler.SetFields([field], self.ModelUri);
 
-        var result = null;
-        var compareInfo = self.CompareInfo;
+        toggleHandler = toggleHandler || function () {
+            self.View.ToggleTreeViewHeader('FilterHeader-' + insertIndex);
+            self.View.Toggle('FilterHeader-' + insertIndex);
+        };
+        
         modelFieldsHandler.LoadFieldsMetadata([field])
             .done(function () {
-                if (compareInfo) {
-                    compareInfo.Index += '';
-                    if (field.fieldtype === enumHandlers.FIELDTYPE.ENUM && !field.domain) {
-                        popup.Info(Localization.Info_TheFieldYouSelectedNotEnumeratedType);
-                        fieldsChooserModel.ClosePopup();
+                self.AddFilterModelFromField(field, enumHandlers.FILTERTYPE.FILTER, insertIndex);
+                self.CreateFromQuerySteps(self.Data());
 
-                        result = null;
-                    }
-                    else if (compareInfo.Index.indexOf('_') !== -1) {
-                        result = self.View.SetArgumentField(compareInfo.Index, field.id);
-                        self.ApplyAdvanceFilterWhenAction(compareInfo.Index);
-                    }
-                    else {
-                        var fieldName = userFriendlyNameHandler.GetFriendlyName(field, enumHandlers.FRIENDLYNAMEMODE.FIELDSOURCE_AND_LONGNAME);
-                        result = self.RenderCompareFieldView(fieldName, field.id, field.fieldtype, compareInfo.Index);
-                    }
+                toggleHandler();
+            });
+    };
+    self.SetCompareFieldFilter = function (field, targetIndex) {
+        modelFieldsHandler.SetFields([field], self.ModelUri);
+        
+        targetIndex += '';
+        modelFieldsHandler.LoadFieldsMetadata([field])
+            .done(function () {
+                if (field.fieldtype === enumHandlers.FIELDTYPE.ENUM && !field.domain) {
+                    popup.Info(Localization.Info_TheFieldYouSelectedNotEnumeratedType);
+                    fieldsChooserModel.ClosePopup();
+                }
+                else if (targetIndex.indexOf('_') !== -1) {
+                    self.View.SetArgumentField(targetIndex, field.id);
+                    self.ApplyAdvanceFilterWhenAction(targetIndex);
                 }
                 else {
-                    var elementIndex = self.Data().length;
-                    result = self.AddFilterModelFromField(field, enumHandlers.FILTERTYPE.FILTER, elementIndex);
-
-                    self.CreateFromQuerySteps(self.Data());
-
-                    self.View.ToggleTreeViewHeader('FilterHeader-' + elementIndex);
-                    self.View.Toggle('FilterHeader-' + elementIndex);
+                    var fieldName = userFriendlyNameHandler.GetFriendlyName(field, enumHandlers.FRIENDLYNAMEMODE.FIELDSOURCE_AND_LONGNAME);
+                    self.RenderCompareFieldView(fieldName, field.id, field.fieldtype, targetIndex);
                 }
-                self.CompareInfo = null;
             });
+    };
+    self.AddFilterFromTreeHeader = function (data, event) {
+        var field = modelFieldsHandler.GetFieldById(data.field, self.ModelUri);
+        if (!field)
+            return;
 
-        return result;
+        var currentIndex = self.Data.indexOf(data);
+        var insertIndex = self.GetInsertFilterPosition(data.field, currentIndex);
+        self.InsertFieldFilter(field, insertIndex, function () {
+            // expand panels
+            if (!jQuery(event.currentTarget).parent().hasClass('Expand'))
+                self.View.ToggleTreeViewHeader('FilterHeader-' + currentIndex);
+
+            self.View.Toggle('FilterHeader-' + insertIndex);
+        });
+    };
+    self.GetInsertFilterPosition = function (fieldId, currentIndex) {
+        var insertIndex = currentIndex + 1;
+        for (var index = insertIndex; index < self.Data().length; index++) {
+            if (self.Data()[index].field !== fieldId)
+                break;
+
+            insertIndex = index + 1;
+        }
+        return insertIndex;
     };
     self.RemoveFilter = function (data) {
         jQuery(document).trigger('click');
@@ -169,37 +178,6 @@ function WidgetFilterHandler(container, models) {
             }
             self.CreateFromQuerySteps(self.Data());
         });
-
-        return self.Data();
-    };
-    self.AddFilterFromTreeHeader = function (data, event) {
-        var field = modelFieldsHandler.GetFieldById(data.field, self.ModelUri);
-        if (field) {
-            modelFieldsHandler.SetFields([field], self.ModelUri);
-            modelFieldsHandler.LoadFieldsMetadata([field])
-                .done(function () {
-                    var currentIndex = self.Data.indexOf(data);
-                    var insertIndex = self.GetInsertFilterPosition(data.field, currentIndex);
-                    self.AddFilterModelFromField(field, enumHandlers.FILTERTYPE.FILTER, insertIndex);
-                    self.CreateFromQuerySteps(self.Data());
-
-                    // expand panels
-                    if (!$(event.currentTarget).parent().hasClass('Expand'))
-                        self.View.ToggleTreeViewHeader('FilterHeader-' + currentIndex);
-
-                    self.View.Toggle('FilterHeader-' + insertIndex);
-                });
-        }
-    };
-    self.GetInsertFilterPosition = function (fieldId, currentIndex) {
-        var insertIndex = currentIndex + 1;
-        for (var index = insertIndex; index < self.Data().length; index++) {
-            if (self.Data()[index].field !== fieldId)
-                break;
-
-            insertIndex = index + 1;
-        }
-        return insertIndex;
     };
     self.ShowCompareFilterPopup = function (fieldType, elementIndex) {
         var elementId = 'Operator-' + self.GetAdvanceElementIndex(elementIndex) + '-DropdownList';
@@ -217,17 +195,24 @@ function WidgetFilterHandler(container, models) {
 
         return elementId;
     };
-    self.SetFieldChoooserInfo = function (baseClasses, angleSteps) {
+    self.ShowAddFilterFromJumpPopup = function (data) {
+        self.FollowupInfo = {
+            Index: self.Data.indexOf(data),
+            Data: data
+        };
+        fieldsChooserHandler.ShowPopup(fieldsChooserHandler.USETYPE.ADDFILTER, enumHandlers.ANGLEPOPUPTYPE.ANGLE, self);
+    };
+    self.SetFieldChoooserInfo = function (baseClasses, angleSteps, displaySteps) {
         if (self.CanUseCompareField()) {
             fieldsChooserHandler.ModelUri = self.ModelUri;
             fieldsChooserHandler.AngleClasses = baseClasses;
 
             if (self.FilterFor === self.FILTERFOR.DISPLAY) {
                 fieldsChooserHandler.AngleSteps = angleSteps;
-                fieldsChooserHandler.DisplaySteps = self.Data();
+                fieldsChooserHandler.DisplaySteps = displaySteps || self.Data();
             }
             else {
-                fieldsChooserHandler.AngleSteps = self.Data();
+                fieldsChooserHandler.AngleSteps = angleSteps || self.Data();
                 fieldsChooserHandler.DisplaySteps = [];
             }
         }
@@ -319,7 +304,7 @@ function WidgetFilterHandler(container, models) {
         // change from self.HaveFilterOrJumpAfterIndex to self.HaveJumpAfterIndex
 
         // find current filter/jump index
-        var dataIndex = self.Data().indexOf(data);
+        var dataIndex = self.Data.indexOf(data);
         var canRemove = false;
         if (resultModel.Data()) {
             if (data.step_type === enumHandlers.FILTERTYPE.FOLLOWUP) {
@@ -339,6 +324,13 @@ function WidgetFilterHandler(container, models) {
         else {
             return false;
         }
+    };
+    self.IsReadOnly = function (data) {
+        return !self.CanChange(data) && !self.CanRemove(data);
+    };
+    self.CanAddFilterFromJump = function (data) {
+        var canChange = self.CanChange({ step_type: enumHandlers.FILTERTYPE.FILTER, is_execution_parameter: ko.observable(false) });
+        return canChange && data.step_type === enumHandlers.FILTERTYPE.FOLLOWUP && self.ViewMode() !== self.VIEWMODE.TREEVIEW;
     };
 
     // untility

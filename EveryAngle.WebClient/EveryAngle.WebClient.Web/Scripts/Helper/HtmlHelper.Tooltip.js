@@ -49,9 +49,19 @@
                 tooltipTop = 5;
             }
         }
+
+        // z-index
+        var zIndex = 999;
+        tooltip.siblings().each(function () {
+            var elementIndex = parseInt(jQuery(this).css('z-index'));
+            if (!isNaN(elementIndex) && elementIndex > zIndex)
+                zIndex = elementIndex;
+        });
+
         tooltip.css({
             left: tooltipLeft,
-            top: tooltipTop
+            top: tooltipTop,
+            'z-index': zIndex + 1
         });
     };
 
@@ -159,7 +169,7 @@
 
             jQuery(document)
                 .off('mouseover.' + key)
-                .on('mouseover.' + key, selector, { selector: selector, showWhenNeed: showWhenNeed, position: position, className: tooltipClassName }, showTooltip)
+                .on('mouseover.' + key, selector, { selector: selector, showWhenNeed: showWhenNeed, position: position, className: tooltipClassName || '' }, showTooltip)
                 .off('mouseout.' + key)
                 .on('mouseout.' + key, delayHideTooltip)
                 .off('mousewheel.' + key + ' mousedown.' + key)

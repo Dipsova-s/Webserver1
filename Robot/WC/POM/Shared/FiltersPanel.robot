@@ -8,6 +8,7 @@ ${txtInputNumber}                       InputValue-
 ${txtFirstInputDatePicker}              InputValue-
 ${txtFirstInputDatetimePicker}          InputValue-
 ${txtFirstInputTimePicker}              InputValue-
+${btnAddFilterBeforeJump}               .btnAddFilterFromJump
 
 ${listSelectedValue}                    css=.FilterDetail  .k-selectable:visible tr
 ${btnRemoveSelectedValue}               RemoveSelectedValue-
@@ -167,3 +168,7 @@ Input Filter Set Select Value
     Input Text    jquery=[aria-owns="${ddlFilterSelectValue}${index}_listbox"]    ${expect}
     Press Key     jquery=[aria-owns="${ddlFilterSelectValue}${index}_listbox"]    \\13
     Sleep    ${TIMEOUT_DROPDOWN}
+
+Click Add Filter From Jump
+    [Arguments]   ${index}
+    Click Element    ${divFilterPanel}:eq(${index}) + ${btnAddFilterBeforeJump}

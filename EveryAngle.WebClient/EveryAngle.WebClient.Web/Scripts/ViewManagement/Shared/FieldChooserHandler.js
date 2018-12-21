@@ -16,6 +16,10 @@ function FieldsChooserHandler() {
         ADDDASHBOARDFILTER: 'AddDashboardFilter',
         ADDAGGREGATION: 'AddAggregation'
     };
+    self.FOLLOWUPINDEX = {
+        LAST: 'last',
+        NO: '-1'
+    };
     //EOF: View model properties
 
     //BOF: View model methods
@@ -169,7 +173,15 @@ function FieldsChooserHandler() {
         fieldsChooserModel.CanDuplicatedField = true;
         fieldsChooserModel.AllowMultipleSelection = false;
         fieldsChooserModel.OnSubmit = function () {
-            handler.AddFilters(fieldsChooserModel.SelectedItems(), enumHandlers.FILTERTYPE.FILTER);
+            if (handler.CompareInfo) {
+                handler.SetCompareFieldFilter(fieldsChooserModel.SelectedItems()[0], handler.CompareInfo.Index);
+            }
+            else if (handler.FollowupInfo) {
+                handler.InsertFieldFilter(fieldsChooserModel.SelectedItems()[0], handler.FollowupInfo.Index);
+            }
+            else {
+                handler.AddFieldFilter(fieldsChooserModel.SelectedItems()[0]);
+            }
             fieldsChooserModel.ClosePopup();
         };
         if (fieldsChooserModel.FieldChooserType) {
@@ -207,7 +219,7 @@ function FieldsChooserHandler() {
             return handler.GetData().hasObject('field', fieldId, false);
         };
         fieldsChooserModel.OnSubmit = function () {
-            handler.AddFilters(fieldsChooserModel.SelectedItems(), enumHandlers.FILTERTYPE.FILTER);
+            handler.AddFieldFilter(fieldsChooserModel.SelectedItems()[0]);
             fieldsChooserModel.ClosePopup();
         };
     };
@@ -316,6 +328,7 @@ function FieldsChooserHandler() {
         setTimeout(function () {
             if (handler) {
                 handler.CompareInfo = null;
+                handler.FollowupInfo = null;
             }
         }, 500);
     };
@@ -372,20 +385,29 @@ function FieldsChooserHandler() {
             if (handler.CompareInfo) {
                 followupIndex = self.GetFollowupIndex(handler.Data(), handler.CompareInfo.Index);
             }
+            else if (handler.FollowupInfo) {
+                /* M4-32038: add filter before jump */
+                followupIndex = self.GetFollowupIndex(handler.Data(), handler.FollowupInfo.Index - 1, self.FOLLOWUPINDEX.NO);
+            }
             else {
-                /* M4-13243: Fixed incorrect result classes when add filter after added follow-up */
-                followupIndex = self.GetFollowupIndex(handler.Data(), Infinity);
+                followupIndex = self.FOLLOWUPINDEX.LAST;
             }
             popupConfig += ',' + followupIndex;
         }
         else if (popupConfig === enumHandlers.ANGLEPOPUPTYPE.DISPLAY) {
-            followupIndex = self.GetFollowupIndex(displayQueryBlockModel.TempQuerySteps(), Infinity);
+            followupIndex = self.FOLLOWUPINDEX.LAST;
             popupConfig += ',' + followupIndex;
         }
 
         return popupConfig;
     };
-    self.GetFollowupIndex = function (data, limit) {
+    self.GetFollowupIndex = function (data, limit, notFoundValue) {
+        if (!notFoundValue)
+            notFoundValue = self.FOLLOWUPINDEX.LAST;
+
+        if (limit === -1)
+            return notFoundValue;
+
         var followupIndex = -1;
         jQuery.each(data, function (index, queryStep) {
             if (queryStep.step_type === enumHandlers.FILTERTYPE.FOLLOWUP) {
@@ -395,7 +417,7 @@ function FieldsChooserHandler() {
                 return false;
             }
         });
-        return followupIndex;
+        return followupIndex === -1 ? notFoundValue : followupIndex;
     };
     self.GetFieldChooserType = function (type) {
         return type === enumHandlers.ANGLEPOPUPTYPE.ANGLE

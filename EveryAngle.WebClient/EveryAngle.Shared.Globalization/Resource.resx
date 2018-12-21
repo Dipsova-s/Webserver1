@@ -5949,4 +5949,7 @@ Attention: The specified location must be a full file path on the Application se
   <data name="ClearAdvancedFilters" xml:space="preserve">
     <value>Clear filter(s)</value>
   </data>
+  <data name="AddFilterBeforeJump" xml:space="preserve">
+    <value>Add filter before jump</value>
+  </data>
 </root>

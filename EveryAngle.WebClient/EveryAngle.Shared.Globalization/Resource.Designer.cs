@@ -261,6 +261,15 @@ namespace EveryAngle.Shared.Globalization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Add filter before jump.
+        /// </summary>
+        public static string AddFilterBeforeJump {
+            get {
+                return ResourceManager.GetString("AddFilterBeforeJump", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Add Jump.
         /// </summary>
         public static string AddFollowUp {

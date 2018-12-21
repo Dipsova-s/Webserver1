@@ -109,6 +109,18 @@ function FollowupPageHandler() {
                 self.AdjustLayout();
             });
     };
+    self.SetHandlerValues = function (handler, angleSteps, displaySteps) {
+        // set WidgetFilterHandler
+        self.HandlerFilter = handler;
+
+        // set field chooser data
+        var angleBlocks = angleInfoModel.Data().query_definition;
+        var angleBaseClassBlock = angleBlocks.findObject('queryblock_type', enumHandlers.QUERYBLOCKTYPE.BASE_CLASSES);
+        fieldsChooserHandler.ModelUri = angleInfoModel.Data().model;
+        fieldsChooserHandler.AngleClasses = angleBaseClassBlock ? angleBaseClassBlock.base_classes : [];
+        fieldsChooserHandler.AngleSteps = angleSteps;
+        fieldsChooserHandler.DisplaySteps = displaySteps;
+    };
     self.AdjustLayout = function () {
         var popupBody = jQuery('#popupFollowup'),
             popupBodyHeight = popupBody.height() - (16 * 4) - 1,
@@ -432,37 +444,36 @@ function FollowupPageHandler() {
             return;
 
         displayModel.KeepFilter(false);
-        var followups = [];
-        followups.push(JSON.parse(JSON.stringify(self.SelectingFollowup)));
+        var followup = JSON.parse(JSON.stringify(self.SelectingFollowup));
 
-        modelFollowupsHandler.SetFollowups(followups);
+        modelFollowupsHandler.SetFollowups([followup]);
 
         // add jump from Angle/Display popup
         if (!self.IsAdHocFollowup && !self.ListDrilldown) {
-            self.HandlerFilter.AddFilters(followups, enumHandlers.FILTERTYPE.FOLLOWUP);
+            self.HandlerFilter.AddFieldFollowup(followup);
             self.ClosePopup();
             return;
         }
 
         // add jump from Action menu
         progressbarModel.ShowStartProgressBar(Localization.ProgressBar_CheckingJump, false);
-        self.GetDefaultJumpTemplate(followups[0].id)
+        self.GetDefaultJumpTemplate(followup.id)
             .done(function (jumpDisplay) {
                 if (jumpDisplay) {
                     // use jump's template
-                    self.ApplyFollowupByTemplate(followups, jumpDisplay);
+                    self.ApplyFollowupByTemplate(followup, jumpDisplay);
                 }
                 else {
                     // use default behavior
-                    self.ApplyFollowupByDefault(followups);
+                    self.ApplyFollowupByDefault(followup);
                 }
             });
 
         self.ClosePopup();
     };
-    self.ApplyFollowupByTemplate = function (followups, jumpDisplay) {
+    self.ApplyFollowupByTemplate = function (followup, jumpDisplay) {
         // transfer query_blocks
-        self.HandlerFilter.AddFilters(followups, enumHandlers.FILTERTYPE.FOLLOWUP);
+        self.HandlerFilter.AddFieldFollowup(followup);
         var currentQuerySteps = self.HandlerFilter.GetData();
 
         // set adding follwoups as adhoc
@@ -483,22 +494,22 @@ function FollowupPageHandler() {
                 displayModel.GotoTemporaryDisplay(data.uri);
             });
     };
-    self.ApplyFollowupByDefault = function (followups) {
-        var followup = {
+    self.ApplyFollowupByDefault = function (followup) {
+        var followupStep = {
             step_type: enumHandlers.FILTERTYPE.FOLLOWUP,
-            followup: followups[0].id,
-            uri: followups[0].uri,
-            is_adhoc_filter: followups[0].is_adhoc_filter || false
+            followup: followup.id,
+            uri: followup.uri,
+            is_adhoc_filter: followup.is_adhoc_filter || false
         };
 
         if (!displayModel.IsTemporaryDisplay() || self.ListDrilldown) {
-            var postObject = self.GetPostingQueryBlock(followup);
+            var postObject = self.GetPostingQueryBlock(followupStep);
             if (self.ListDrilldown)
                 self.IsAdHocFollowup = true;
             displayDetailPageHandler.ExecuteFollowup(postObject, false, self.IsAdHocFollowup, self.ListDrilldown, false);
         }
         else {
-            self.ApplyFollowupForAdhocDisplay(followup);
+            self.ApplyFollowupForAdhocDisplay(followupStep);
         }
     };
     self.GetPostingQueryBlock = function (followup) {

@@ -3597,4 +3597,7 @@ Copyright © {0}</value>
   <data name="ClearAdvancedFilters" xml:space="preserve">
     <value>Clear filter(s)</value>
   </data>
+  <data name="AddFilterBeforeJump" xml:space="preserve">
+    <value>Add filter before jump</value>
+  </data>
 </root>

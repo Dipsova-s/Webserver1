@@ -1,44 +1,44 @@
 ﻿{
-  "Framework": "jasmine",
-  "CodeCoverageIncludes": [ ],
-  "CodeCoverageExcludes": [
-    "*\\MockData\\*",
-    "*\\Tests\\*",
-    "*\\jQuery\\*",
-    "*\\SharedDependencies\\*",
-    "*\\KnockOut\\*",
-    "*\\modernizr\\*",
-    "*\\kendoui\\*",
-    "*\\Global.js"
-  ],
-  "CodeCoverageIgnores": [ ],
-  "BrowserArguments": {
-    "chrome": "--allow-file-access-from-files"
-  },
-  "RootReferencePathMode": "SettingsFileDirectory",
-  "References": [
-    { "Path": "/../MockData/text.js" },
-    { "Path": "/Dependencies/Global.js" },
-    { "Path": "/Dependencies/modernizr/modernizr.min.js" },
-    { "Path": "/Dependencies/jquery/jquery.min.js" },
-    { "Path": "/Dependencies/jquery/jquery.extension.js" },
-    { "Path": "/Dependencies/jquery/jstz.min.js" },
-    { "Path": "/Dependencies/knockout/knockout.min.js" },
-    { "Path": "/Dependencies/kendoui/kendo.all.min.js" },
-    { "Path": "/Dependencies/kendoui/kendo.timezones.min.js" },
-    { "Path": "/../SharedDependencies/shared.js" },
-    { "Path": "/Dependencies/custom/MC.js" },
-    { "Path": "/Dependencies/custom/MC.util.js" },
-    { "Path": "/Dependencies/custom/MC.util.date.js" },
-    { "Path": "/Dependencies/custom/MC.util.grid.js" },
-    { "Path": "/Dependencies/custom/MC.util.popup.js" },
-    { "Path": "/Dependencies/custom/MC.util.upload.js" },
-    { "Path": "/Dependencies/custom/MC.util.consolidatedrole.js" },
-    { "Path": "/Dependencies/custom/MC.util.massreport.js" },
-    { "Path": "/Dependencies/custom/MC.util.modelserverinfo.js" },
-    { "Path": "/Dependencies/custom/MC.util.task.js" },
-    { "Path": "/Dependencies/custom/MC.ui.js" },
-    { "Path": "/Dependencies/custom/MC.ui.loading.js" },
-    { "Path": "/Dependencies/custom/MC.ajax.js" }
-  ]
+    "Framework": "jasmine",
+    "CodeCoverageIncludes": [],
+    "CodeCoverageExcludes": [
+        "*\\MockData\\*",
+        "*\\Tests\\*",
+        "*\\jQuery\\*",
+        "*\\SharedDependencies\\*",
+        "*\\KnockOut\\*",
+        "*\\modernizr\\*",
+        "*\\kendoui\\*",
+        "*\\Global.js"
+    ],
+    "CodeCoverageIgnores": [],
+    "BrowserArguments": {
+        "chrome": "--allow-file-access-from-files"
+    },
+    "RootReferencePathMode": "SettingsFileDirectory",
+    "References": [
+        { "Path": "/../MockData/text.js" },
+        { "Path": "/Dependencies/Global.js" },
+        { "Path": "/Dependencies/modernizr/modernizr.min.js" },
+        { "Path": "/Dependencies/jquery/jquery.min.js" },
+        { "Path": "/Dependencies/jquery/jquery.extension.js" },
+        { "Path": "/Dependencies/jquery/jstz.min.js" },
+        { "Path": "/Dependencies/knockout/knockout.min.js" },
+        { "Path": "/Dependencies/kendoui/kendo.all.min.js" },
+        { "Path": "/Dependencies/kendoui/kendo.timezones.min.js" },
+        { "Path": "/../SharedDependencies/shared.js" },
+        { "Path": "/Dependencies/custom/MC.js" },
+        { "Path": "/Dependencies/custom/MC.util.js" },
+        { "Path": "/Dependencies/custom/MC.util.date.js" },
+        { "Path": "/Dependencies/custom/MC.util.grid.js" },
+        { "Path": "/Dependencies/custom/MC.util.popup.js" },
+        { "Path": "/Dependencies/custom/MC.util.upload.js" },
+        { "Path": "/Dependencies/custom/MC.util.consolidatedrole.js" },
+        { "Path": "/Dependencies/custom/MC.util.massreport.js" },
+        { "Path": "/Dependencies/custom/MC.util.modelserverinfo.js" },
+        { "Path": "/Dependencies/custom/MC.util.task.js" },
+        { "Path": "/Dependencies/custom/MC.ui.js" },
+        { "Path": "/Dependencies/custom/MC.ui.loading.js" },
+        { "Path": "/Dependencies/custom/MC.ajax.js" }
+    ]
 }

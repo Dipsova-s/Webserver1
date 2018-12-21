@@ -4,8 +4,10 @@
 /// <reference path="/Dependencies/ViewModels/Models/Angle/resultmodel.js" />
 /// <reference path="/Dependencies/ViewModels/Models/Angle/displayqueryblockmodel.js" />
 /// <reference path="/Dependencies/ViewManagement/Shared/WidgetFilter/WidgetFilterModel.js" />
+/// <reference path="/Dependencies/ViewModels/Models/Angle/angleinfomodel.js" />
 /// <reference path="/Dependencies/ViewModels/Models/Angle/displaymodel.js" />
 /// <reference path="/Dependencies/ViewModels/Models/Angle/HistoryModel.js" />
+/// <reference path="/Dependencies/ViewManagement/Shared/FieldChooserHandler.js" />
 /// <reference path="/Dependencies/ViewManagement/Angles/FollowupPageHandler.js" />
 
 describe("FollowupPageHandler", function () {
@@ -16,7 +18,7 @@ describe("FollowupPageHandler", function () {
         followupPageHandler = new FollowupPageHandler();
     });
 
-    describe(".ApplyFollowupForAdhocDisplay(followup)", function () {
+    describe(".ApplyFollowupForAdhocDisplay", function () {
 
         beforeEach(function () {
             spyOn(progressbarModel, 'ShowStartProgressBar').and.callFake($.noop);
@@ -72,6 +74,34 @@ describe("FollowupPageHandler", function () {
 
             // fields in history model should be updated
             expect(displayDetailPageHandler.ExecuteFollowup).toHaveBeenCalled();
+        });
+    });
+
+    describe(".SetHandlerValues", function () {
+        it("should set handler correctly", function () {
+            var handler = 'handler1';
+            var model = 'model1';
+            var angleClasses = 'angleClasses1';
+            var angleSteps = 'angleSteps1';
+            var displaySteps = 'displaySteps1';
+            angleInfoModel.Data({
+                model: model,
+                query_definition: [
+                    {
+                        queryblock_type: enumHandlers.QUERYBLOCKTYPE.BASE_CLASSES,
+                        base_classes: angleClasses
+                    }
+                ]
+            });
+            angleInfoModel.Data.commit();
+
+            followupPageHandler.SetHandlerValues(handler, angleSteps, displaySteps);
+
+            expect(followupPageHandler.HandlerFilter).toEqual(handler);
+            expect(fieldsChooserHandler.ModelUri).toEqual(model);
+            expect(fieldsChooserHandler.AngleClasses).toEqual(angleClasses);
+            expect(fieldsChooserHandler.AngleSteps).toEqual(angleSteps);
+            expect(fieldsChooserHandler.DisplaySteps).toEqual(displaySteps);
         });
     });
 });

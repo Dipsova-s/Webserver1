@@ -26,15 +26,7 @@ describe("FieldsChooserHandler", function () {
         };
     });
 
-    describe("when create new instance", function () {
-
-        it("should be defined", function () {
-            expect(fieldChooserHandler).toBeDefined();
-        });
-
-    });
-
-    describe("call SetAggregationSettingDataArea", function () {
+    describe(".SetAggregationSettingDataArea", function () {
 
         it("should add 'source' category to 'DefaultFacetFilters'", function () {
 
@@ -98,7 +90,7 @@ describe("FieldsChooserHandler", function () {
 
     });
 
-    describe("call SetAggregationSettingForChart", function () {
+    describe(".SetAggregationSettingForChart", function () {
 
         it("should not set HideFacetsFunction if not 'row' area", function () {
 
@@ -170,6 +162,118 @@ describe("FieldsChooserHandler", function () {
                 expect(result).toEqual(true);
             });
 
+        });
+
+    });
+
+    describe(".GetPopupConfiguration", function () {
+
+        var tests = [
+            {
+                title: 'should get config for random type without handler',
+                type: 'test',
+                handler: undefined,
+                expected: 'test'
+            },
+            {
+                title: 'should get config for chart/pivot without handler',
+                type: 'data',
+                handler: undefined,
+                expected: 'DisplayDetail,last'
+            },
+            {
+                title: 'should get config for chart/pivot with handler',
+                type: 'data',
+                handler: { FilterFor: 'Display' },
+                expected: 'DisplayDetail,last'
+            },
+            {
+                title: 'should get config for Angle with handler',
+                type: 'data',
+                handler: { FilterFor: 'Angle' },
+                expected: 'AngleDetail,last'
+            },
+            {
+                title: 'should get config for CompareInfo',
+                type: 'data',
+                index: 1,
+                handler: {
+                    Data: function () { },
+                    FilterFor: 'Display',
+                    CompareInfo: {}
+                },
+                expected: 'DisplayDetail,1'
+            },
+            {
+                title: 'should get config for FollowupInfo',
+                type: 'data',
+                index: 2,
+                handler: {
+                    Data: function () { },
+                    FilterFor: 'Display',
+                    FollowupInfo: {}
+                },
+                expected: 'DisplayDetail,2'
+            }
+        ];
+
+        $.each(tests, function (index, test) {
+            it(test.title, function () {
+                spyOn(fieldChooserHandler, 'GetFollowupIndex').and.returnValue(test.index);
+                if (test.handler) {
+                    test.handler.FILTERFOR = {
+                        ANGLE: 'Angle',
+                        DISPLAY: 'Display',
+                        DASHBOARD: 'Dashboard'
+                    };
+                }
+                var result = fieldChooserHandler.GetPopupConfiguration(test.type, test.handler);
+                expect(result).toEqual(test.expected);
+            });
+        });
+
+    });
+
+    describe(".GetFollowupIndex", function () {
+
+        var tests = [
+            {
+                title: 'should index in case (limit = -1)',
+                limit: -1,
+                notFoundValue: undefined,
+                expected: 'last'
+            },
+            {
+                title: 'should index in case no followup',
+                data: [],
+                limit: Infinity,
+                notFoundValue: undefined,
+                expected: 'last'
+            },
+            {
+                title: 'should index in case has followup and limit',
+                limit: 1,
+                notFoundValue: '-1',
+                expected: 0
+            },
+            {
+                title: 'should index in case has followup and no limit',
+                limit: Infinity,
+                notFoundValue: '-1',
+                expected: 1
+            }
+        ];
+
+        $.each(tests, function (index, test) {
+            it(test.title, function () {
+                var data = test.data || [
+                    { step_type: enumHandlers.FILTERTYPE.FOLLOWUP },
+                    { step_type: enumHandlers.FILTERTYPE.FILTER },
+                    { step_type: enumHandlers.FILTERTYPE.FOLLOWUP }
+                ];
+                var result = fieldChooserHandler.GetFollowupIndex(data, test.limit, test.notFoundValue);
+                expect(result).toEqual(test.expected);
+            });
         });
 
     });

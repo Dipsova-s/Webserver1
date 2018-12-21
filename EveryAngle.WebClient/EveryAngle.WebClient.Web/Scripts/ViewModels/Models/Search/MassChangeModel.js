@@ -757,7 +757,8 @@ function MassChangeModel() {
             return jQuery.when();
         }
         return modelsHandler.LoadModelInfo(self.modelData.uri)
-            .then(function () {
+            .then(function (data) {
+                self.modelData = data;
                 return modelLabelCategoryHandler.LoadAllLabelCategories(self.modelData.label_categories);
             })
             .then(function () {

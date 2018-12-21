@@ -207,6 +207,11 @@ Click Add Filter In Definition Tab
     Wait Until Element Is Visible    ${btnAddFilter}
     Click Element    ${btnAddFilter}
 
+Click Add Jump In Definition Tab
+    Wait Until Element Is Visible    ${btnAddJump}
+    Click Element    ${btnAddJump}
+    Wait Until Add Jump Popup Loaded
+
 Click Select Field Button In Definition Tab
     Wait Until Element Is Visible    ${btnSelectField}
     Click Element    ${btnSelectField}

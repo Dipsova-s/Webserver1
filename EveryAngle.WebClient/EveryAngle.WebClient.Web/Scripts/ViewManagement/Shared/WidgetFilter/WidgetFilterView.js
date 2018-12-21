@@ -7,7 +7,7 @@
 
     self.Template = [
         '<!-- ko stopBinding: true -->',
-        '<div class="definitionList" data-bind="foreach: { data: Data, as: \'query\' }, css: { sortable: $root.Sortable() && ($root.CanChange() || $root.CanRemove()), movable: $root.CanFiltersMovable(), no: !$root.HasDefinition(Data()), treeview: $root.ViewMode() === $root.VIEWMODE.TREEVIEW, readonly: !$root.CanChange() && !$root.CanRemove() }">',
+        '<div class="definitionList" data-bind="foreach: { data: Data, as: \'query\' }, css: { sortable: $root.Sortable() && !$root.IsReadOnly(), movable: $root.CanFiltersMovable(), no: !$root.HasDefinition(Data()), treeview: $root.ViewMode() === $root.VIEWMODE.TREEVIEW, readonly: $root.IsReadOnly() }">',
             '<!-- ko if: $root.IsFilterOrJumpQueryStep(query.step_type) -->',
             '<!-- ko if: $root.IsTreeViewHeader(query) -->',
             '<div class="FilterHeader Collapse treeViewHeader" data-bind="click: $root.View.ToggleTreeViewHeader">',
@@ -51,6 +51,9 @@
                     '</div>',
                     '<!-- /ko -->',
                 '</div>',
+                '<!-- /ko -->',
+                '<!-- ko if: $root.CanAddFilterFromJump(query) -->',
+                '<a class="btn btnDefault btnAddFilterFromJump" data-role="tooltip" data-bind="click: $root.ShowAddFilterFromJumpPopup, text: Localization.AddFilterBeforeJump"></a>',
                 '<!-- /ko -->',
             '</div>',
             '<!-- /ko -->',

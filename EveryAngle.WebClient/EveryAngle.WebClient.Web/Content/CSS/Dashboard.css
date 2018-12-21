@@ -448,6 +448,10 @@
     max-width: 400px;
 }
 
+.popupDashboardDetails .filterItem {
+    margin-right: 0;
+}
+
 /* .popupDashboardInfo
 ===================================== */
 .popupDashboardInfo .k-window-title {

@@ -154,7 +154,6 @@ Move Display Filter By Index
 Move Display Filter To Angle Definition By Index
     [Arguments]    ${moveFilterIndex}
     Collapse All Display Filters
-    #Execute Javascript    $('#${divMoveToAngleDefinitionArea}').removeClass('alwaysHide');
     ${offsetY}    Execute JavaScript    return -44 * (${moveFilterIndex}+1)
     Drag And Drop By Offset    FilterHeader-${moveFilterIndex}    0    ${offsetY}
     Sleep    ${TIMEOUT_GENERAL}

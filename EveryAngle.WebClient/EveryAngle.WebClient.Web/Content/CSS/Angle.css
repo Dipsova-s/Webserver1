@@ -385,6 +385,10 @@
     max-height: none;
 }
 
+.popupListFilter .filterItem {
+    margin-right: 0;
+}
+
 .popupListFilter .FilterHeader > .btnInfo {
     right: 10px;
     z-index: 100;

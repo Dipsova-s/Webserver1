@@ -1,4 +1,5 @@
 ﻿/// <reference path="/Dependencies/Helper/DefaultValueHandler.js" />
+/// <reference path="/Dependencies/Helper/HtmlHelper.Tooltip.js" />
 /// <reference path="/Dependencies/ViewManagement/Shared/PopupPageHandlers.js" />
 /// <reference path="/Dependencies/ViewManagement/Shared/ValidationHandler.js" />
 /// <reference path="/Dependencies/ViewManagement/Shared/UserFriendlyNameHandler.js" />
@@ -20,7 +21,7 @@
 /// <reference path="/Dependencies/ViewManagement/Shared/WidgetFilter/WidgetFilterView.js" />
 /// <reference path="/Dependencies/ViewManagement/Shared/WidgetFilter/WidgetFilterHandler.js" />
 
-describe("Widget Filter Handler", function () {
+describe("WidgetFilterHandler", function () {
     var widgetFilterHandler;
 
     beforeEach(function () {
@@ -55,24 +56,11 @@ describe("Widget Filter Handler", function () {
             FOLLOWUP: 'followup',
             HELPTEXT: 'helptext'
         };
-
     });
 
-    describe("Widget filter should", function () {
+    describe(".ApplyHandler", function () {
+        it("should apply handler", function () {
 
-        it("Create an instance", function () {
-            // Arrange
-            var container = null;
-            var querySteps = [];
-            // Act
-            var actual = new WidgetFilterHandler(container, querySteps);
-
-            // Assert
-            expect(actual instanceof WidgetFilterHandler).toBeTruthy();
-            expect(actual.Identity).toBe("WidgetFilterHandler");
-        });
-
-        it("Apply filter steps", function () {
             // Arrange
             var container = '<div id="FilterWrapper"></div>';
             var querySteps = [{
@@ -99,8 +87,10 @@ describe("Widget Filter Handler", function () {
             // Assert
             expect(actual.length).toBe(1);
         });
+    });
 
-        it("Reapply filter steps", function () {
+    describe(".ReApplyHandler", function () {
+        it("should re-apply filter steps", function () {
             // Arrange
             var container = '<div id="FilterWrapper"><div class="definitionList"></div></div>';
             var querySteps = [{
@@ -126,7 +116,9 @@ describe("Widget Filter Handler", function () {
             // Assert
             expect(actual.length).toBe(1);
         });
+    });
 
+    describe(".CanFiltersMovable", function () {
         it("Check filter moveable area", function () {
             // Arrange
             var container = null;
@@ -150,7 +142,9 @@ describe("Widget Filter Handler", function () {
             // Assert
             expect(actual).toBe(true);
         });
+    });
 
+    describe(".CanFilterMoveToAngle", function () {
         it("Check filter can move to angle", function () {
             // Arrange
             var container = null;
@@ -218,46 +212,44 @@ describe("Widget Filter Handler", function () {
                 expect(target.CanFilterMoveToAngle(querySteps[index], index)).toBe(expected[index]);
             }
         });
+    });
 
+    describe(".AddFieldFilter", function () {
         it("Add filters from field chooser (not have execution parameter)", function () {
             // Arrange
             var container = null;
             var querySteps = [];
             var target = new WidgetFilterHandler(container, querySteps);
-            var fields = [
-                {
-                    "short_name": "Area",
-                    "long_name": "Area of the country",
-                    "id": "TheArea",
-                    "uri": "/models/1/instances/1/fields/996",
-                    "source": "/models/1/field_sources/1",
-                    "fieldtype": "text",
-                    "category": "/fieldcategories/1",
-                    "technical_info": "CountriesPerAreaDateTime-AREA",
-                    "helpid": "EA_PROPERTY_Area",
-                    "helptext": "/models/1/helptexts/244",
-                    "user_specific": {
-                        "is_starred": false
-                    },
-                    "fieldlength": 8
-                }
-            ];
+            var field = {
+                "short_name": "Area",
+                "long_name": "Area of the country",
+                "id": "TheArea",
+                "uri": "/models/1/instances/1/fields/996",
+                "source": "/models/1/field_sources/1",
+                "fieldtype": "text",
+                "category": "/fieldcategories/1",
+                "technical_info": "CountriesPerAreaDateTime-AREA",
+                "helpid": "EA_PROPERTY_Area",
+                "helptext": "/models/1/helptexts/244",
+                "user_specific": {
+                    "is_starred": false
+                },
+                "fieldlength": 8
+            };
             target.View.Toggle = function () {
             };
-            var expected = [new WidgetFilterModel({
+            var expected = new WidgetFilterModel({
                 "step_type": "filter",
                 "field": "TheArea",
                 "operator": "contains",
                 "arguments": []
-            }, false)];
+            }, false);
 
             // Act
-            var actuals = target.AddFilters(fields, enumHandlers.FILTERTYPE.FILTER);
+            target.AddFieldFilter(field);
 
             // Assert
-            for (var index = 0; index < actuals.length; index++) {
-                expect(JSON.stringify(actuals[index])).toBe(JSON.stringify(expected[index]));
-            }
+            expect(JSON.stringify(target.Data()[0])).toBe(JSON.stringify(expected));
         });
 
         it("Add filters from field chooser (have execution parameter)", function () {
@@ -266,27 +258,25 @@ describe("Widget Filter Handler", function () {
             var querySteps = [];
             var target = new WidgetFilterHandler(container, querySteps);
             target.HasExecutionParameter(true);
-            var fields = [
-                {
-                    "short_name": "Area",
-                    "long_name": "Area of the country",
-                    "id": "TheArea",
-                    "uri": "/models/1/instances/1/fields/996",
-                    "source": "/models/1/field_sources/1",
-                    "fieldtype": "text",
-                    "category": "/fieldcategories/1",
-                    "technical_info": "CountriesPerAreaDateTime-AREA",
-                    "helpid": "EA_PROPERTY_Area",
-                    "helptext": "/models/1/helptexts/244",
-                    "user_specific": {
-                        "is_starred": false
-                    },
-                    "fieldlength": 8
-                }
-            ];
+            var field = {
+                "short_name": "Area",
+                "long_name": "Area of the country",
+                "id": "TheArea",
+                "uri": "/models/1/instances/1/fields/996",
+                "source": "/models/1/field_sources/1",
+                "fieldtype": "text",
+                "category": "/fieldcategories/1",
+                "technical_info": "CountriesPerAreaDateTime-AREA",
+                "helpid": "EA_PROPERTY_Area",
+                "helptext": "/models/1/helptexts/244",
+                "user_specific": {
+                    "is_starred": false
+                },
+                "fieldlength": 8
+            };
             target.View.Toggle = function () {
             };
-            var expected = [new WidgetFilterModel({
+            var expected = new WidgetFilterModel({
                 "step_type": "filter",
                 "field": "TheArea",
                 "operator": "contains",
@@ -294,18 +284,18 @@ describe("Widget Filter Handler", function () {
                 "execution_parameter_id": 0,
                 "valid": true,
                 "is_adhoc_filter": false
-            }, false)];
+            }, false);
 
             // Act
-            var actuals = target.AddFilters(fields, enumHandlers.FILTERTYPE.FILTER);
+            target.AddFieldFilter(field);
 
             // Assert
-            for (var index = 0; index < actuals.length; index++) {
-                expect(JSON.stringify(actuals[index])).toBe(JSON.stringify(expected[index]));
-            }
+            expect(JSON.stringify(target.Data()[0])).toBe(JSON.stringify(expected));
         });
+    });
 
-        it("Add filters from fields (compair field)", function () {
+    describe(".SetCompareFieldFilter", function () {
+        it("Add filters from fields (compare field)", function () {
             // Arrange
             var container = "<div><div id='Operator-0-DropdownList'></div></div>";
             var querySteps = [{
@@ -343,113 +333,79 @@ describe("Widget Filter Handler", function () {
             };
             target.View.UpdateWidgetFilterText = $.noop;
             target.AdjustLayout = $.noop;
-            var fields = [
-                {
-                    "short_name": "Account group",
-                    "long_name": "Vendor account group",
-                    "id": "Vendor__KTOKK",
-                    "uri": "/models/1/instances/1/fields/1079",
-                    "source": "/models/1/field_sources/29",
-                    "fieldtype": "enumerated",
-                    "domain": "/models/1/field_domains/134",
-                    "category": "/fieldcategories/2",
-                    "technical_info": "LFA1-KTOKK",
-                    "helpid": "KTOKK",
-                    "helptext": "/models/1/helptexts/749",
-                    "user_specific": {
-                        "is_starred": false
-                    },
-                    "fieldlength": 4
-                }
-            ];
+            var field = {
+                "short_name": "Account group",
+                "long_name": "Vendor account group",
+                "id": "Vendor__KTOKK",
+                "uri": "/models/1/instances/1/fields/1079",
+                "source": "/models/1/field_sources/29",
+                "fieldtype": "enumerated",
+                "domain": "/models/1/field_domains/134",
+                "category": "/fieldcategories/2",
+                "technical_info": "LFA1-KTOKK",
+                "helpid": "KTOKK",
+                "helptext": "/models/1/helptexts/749",
+                "user_specific": {
+                    "is_starred": false
+                },
+                "fieldlength": 4
+            };
 
             // Act
-            var actuals = target.AddFilters(fields, enumHandlers.FILTERTYPE.FILTER);
+            target.SetCompareFieldFilter(field, target.CompareInfo.Index);
 
             // Assert
-            expect(actuals[0].arguments[0].argument_type).toBe(enumHandlers.FILTERARGUMENTTYPE.FIELD);
-            expect(actuals[0].arguments[0].field).toBe('FIELD_B');
+            expect(target.Data()[0].arguments[0].argument_type).toBe(enumHandlers.FILTERARGUMENTTYPE.FIELD);
+            expect(target.Data()[0].arguments[0].field).toBe('FIELD_B');
         });
+    });
 
-        it("Show error popup after add compair field when field is 'enumerated' and don't have field.domain", function () {
-            // Arrange
-            var container = null;
-            var querySteps = [];
-            var target = new WidgetFilterHandler(container, querySteps);
-            target.CompareInfo = { Index: 0 };
-            var fields = [
-                {
-                    "short_name": "Account group",
-                    "long_name": "Vendor account group",
-                    "id": "Vendor__KTOKK",
-                    "uri": "/models/1/instances/1/fields/1079",
-                    "source": "/models/1/field_sources/29",
-                    "fieldtype": "enumerated",
-                    "category": "/fieldcategories/2",
-                    "technical_info": "LFA1-KTOKK",
-                    "helpid": "KTOKK",
-                    "helptext": "/models/1/helptexts/749",
-                    "user_specific": {
-                        "is_starred": false
-                    },
-                    "fieldlength": 4
-                }
-            ];
-
-            // Act
-            var actuals = target.AddFilters(fields, enumHandlers.FILTERTYPE.FILTER);
-
-            // Assert
-            expect(actuals[0]).toBe(null);
-        });
-
+    describe(".AddFieldFollowup", function () {
         it("Add Jumps from field chooser", function () {
             // Arrange
             var container = null;
             var querySteps = [];
             var target = new WidgetFilterHandler(container, querySteps);
-            var jumps = [
-                {
-                    "short_name": "Material Requirements - ML",
-                    "long_name": "Material requirements - multi level (ML)",
-                    "id": "FU_REQUIREMENTS",
-                    "uri": "/models/1/instances/1/followups/13",
-                    "resulting_classes": [
-                        "ReservationLine",
-                        "SalesDocumentScheduleLine",
-                        "SafetyStockDemand",
-                        "PlanOrder",
-                        "IndependentRequirement",
-                        "PurchaseRequisition",
-                        "ForecastRequirement",
-                        "Stockbatch",
-                        "DeliveryNoteLine",
-                        "PurchaseOrderScheduleLine"
-                    ],
-                    "category": "downmultilevel",
-                    "helpid": "EA_FU_RequirementsMultiLevel"
-                }
-            ];
+            var jump = {
+                "short_name": "Material Requirements - ML",
+                "long_name": "Material requirements - multi level (ML)",
+                "id": "FU_REQUIREMENTS",
+                "uri": "/models/1/instances/1/followups/13",
+                "resulting_classes": [
+                    "ReservationLine",
+                    "SalesDocumentScheduleLine",
+                    "SafetyStockDemand",
+                    "PlanOrder",
+                    "IndependentRequirement",
+                    "PurchaseRequisition",
+                    "ForecastRequirement",
+                    "Stockbatch",
+                    "DeliveryNoteLine",
+                    "PurchaseOrderScheduleLine"
+                ],
+                "category": "downmultilevel",
+                "helpid": "EA_FU_RequirementsMultiLevel"
+            };
             target.View.Toggle = function () {
             };
-            var expected = [new WidgetFilterModel({
+            var expected = new WidgetFilterModel({
                 "step_type": "followup",
                 "followup": "FU_REQUIREMENTS",
                 "uri": "/models/1/instances/1/followups/13",
                 "valid": true,
                 "is_adhoc_filter": false,
                 "execution_parameter_id": 0
-            }, false)];
+            }, false);
 
             // Act
-            var actuals = target.AddFilters(jumps, enumHandlers.FILTERTYPE.FOLLOWUP);
+            var result = target.AddFieldFollowup(jump);
 
             // Assert
-            for (var index = 0; index < actuals.length; index++) {
-                expect(JSON.stringify(actuals[index])).toBe(JSON.stringify(expected[index]));
-            }
+            expect(JSON.stringify(result)).toBe(JSON.stringify(expected));
         });
+    });
 
+    describe(".RemoveFilter", function () {
         it("Remove filter or jump", function (done) {
             // Arrange
             var container = '<div id="FilterWrapper"></div>';;
@@ -489,7 +445,9 @@ describe("Widget Filter Handler", function () {
                 done();
             }, 200);
         });
+    });
 
+    describe(".ShowCompareFilterPopup", function () {
         it("Show compare field popup", function () {
             // Arrange
             var container = '<div id="FilterWrapper"><div id="Operator-0-DropdownList"></div></div>';
@@ -503,8 +461,47 @@ describe("Widget Filter Handler", function () {
             // Assert
             expect(actual).toBe("Operator-0-DropdownList");
         });
+    });
 
-        it("Set field choooser info", function () {
+    describe(".SetFieldChoooserInfo", function () {
+        it("Set field choooser info for Angle", function () {
+            // Arrange
+            var container = null;
+            var querySteps = [
+                {
+                    "field": "DelivRelAsPercentage",
+                    "operator": "greater_than",
+                    "arguments": [
+                        {
+                            "argument_type": "value",
+                            "value": 0.5
+                        }
+                    ],
+                    "step_type": "filter",
+                    "valid": true,
+                    "is_adhoc_filter": false,
+                    "execution_parameter_id": ""
+                }
+            ];
+            var baseClasses = [
+                "PurchaseOrderScheduleLine",
+                "PurchaseOrder"
+            ];
+            var target = new WidgetFilterHandler(container, querySteps);
+            target.ModelUri = '/models/1';
+            target.FilterFor = target.FILTERFOR.ANGLE;
+
+            // Act
+            var actual = target.SetFieldChoooserInfo(baseClasses);
+
+            // Assert
+            expect(actual.ModelUri).toBe("/models/1");
+            expect(actual.AngleClasses).toBe(baseClasses);
+            expect(JSON.stringify(actual.AngleSteps)).toBe(JSON.stringify(querySteps));
+            expect(actual.DisplaySteps.length).toBe(0);
+        });
+
+        it("Set field choooser info for Display", function () {
             // Arrange
             var container = null;
             var querySteps = [
@@ -543,28 +540,20 @@ describe("Widget Filter Handler", function () {
             ];
             var target = new WidgetFilterHandler(container, querySteps);
             target.ModelUri = '/models/1';
-            target.FilterFor = target.FILTERFOR.ANGLE;
-
-            // Act
-            var actual_1 = target.SetFieldChoooserInfo(baseClasses, angleQuerySteps);
-
-            // Assert
-            expect(actual_1.ModelUri).toBe("/models/1");
-            expect(actual_1.AngleClasses).toBe(baseClasses);
-            expect(JSON.stringify(actual_1.AngleSteps)).toBe(JSON.stringify(querySteps));
-            expect(actual_1.DisplaySteps.length).toBe(0);
-
-            // Act
             target.FilterFor = target.FILTERFOR.DISPLAY;
-            var actual_2 = target.SetFieldChoooserInfo(baseClasses, angleQuerySteps);
+
+            // Act
+            var actual = target.SetFieldChoooserInfo(baseClasses, angleQuerySteps);
 
             // Assert
-            expect(actual_2.ModelUri).toBe("/models/1");
-            expect(actual_2.AngleClasses).toBe(baseClasses);
-            expect(JSON.stringify(actual_2.AngleSteps)).toBe(JSON.stringify(angleQuerySteps));
-            expect(JSON.stringify(actual_1.DisplaySteps)).toBe(JSON.stringify(querySteps));
+            expect(actual.ModelUri).toBe("/models/1");
+            expect(actual.AngleClasses).toBe(baseClasses);
+            expect(JSON.stringify(actual.AngleSteps)).toBe(JSON.stringify(angleQuerySteps));
+            expect(JSON.stringify(actual.DisplaySteps)).toBe(JSON.stringify(querySteps));
         });
+    });
 
+    describe(".ShowFieldInfo", function () {
         it("Show field info", function () {
             // Arrange
             var container = null;
@@ -604,7 +593,9 @@ describe("Widget Filter Handler", function () {
             expect(actual.HelpType).toBe("followup");
             expect(actual.ModelUri).toBe("/models/1");
         });
+    });
 
+    describe(".HasDefinition", function () {
         it("Check definition has filer(s) or jump(s)", function () {
             // Arrange
             var container = null;
@@ -662,8 +653,10 @@ describe("Widget Filter Handler", function () {
             // Assert
             expect(actual).toBe(false);
         });
+    });
 
-        it("Check authorization when edit filter or jump", function () {
+    describe(".CanChange", function () {
+        it("CanChange filter or jump", function () {
             // Arrange
             var actual, actual_1, actual_2;
             var container = null;
@@ -889,8 +882,10 @@ describe("Widget Filter Handler", function () {
             expect(actual_1).toBe(true);
             expect(actual_2).toBe(true);
         });
+    });
 
-        it("Check authorization when remove filter or jump", function () {
+    describe(".CanRemove", function () {
+        it("CanRemove filter or jump", function () {
             // Arrange
             var actual, actual_1, actual_2;
             var container = null;
@@ -1145,8 +1140,10 @@ describe("Widget Filter Handler", function () {
             expect(actual_1).toBe(true);
             expect(actual_2).toBe(true);
         });
+    });
 
-        it("Get template name", function () {
+    describe(".GetTemplateName", function () {
+        it("should get correct template", function () {
             // Arrange
             var actual_1, actual_2, actual_3, actual_4, actual_5;
             var container = null;
@@ -1219,8 +1216,10 @@ describe("Widget Filter Handler", function () {
             // Assert
             expect(actual_1).toBe('COMPAREFIELD');
         });
+    });
 
-        it("Sending data for request", function () {
+    describe(".RenderView", function () {
+        it("should send data for request", function () {
             // Arrange
             var container = null;
             var querySteps = [{
@@ -1397,7 +1396,9 @@ describe("Widget Filter Handler", function () {
             // Assert
             expect(actual.length).toBe(0);
         });
+    });
 
+    describe(".CreateFromQuerySteps", function () {
         it("CreateFromQuerySteps have correct number of filters", function () {
 
             var widgetFilterHandler = new WidgetFilterHandler(null, []);
@@ -1426,7 +1427,9 @@ describe("Widget Filter Handler", function () {
             var actualControls = widgetFilterHandler.CreateFromQuerySteps(querySteps);
             expect(actualControls.length).toBe(1);
         });
+    });
 
+    describe(".ApplyFilterParameterise", function () {
         it("ApplyFilterParameterise return correct data", function () {
 
             var widgetFilterHandler = new WidgetFilterHandler(null, []);
@@ -1470,8 +1473,10 @@ describe("Widget Filter Handler", function () {
             expect(actualData).toBe(true);
 
         });
+    });
 
-        it("HandleParameterize return correct data", function () {
+    describe(".ApplyFilterWhenAction", function () {
+        it("ApplyFilterWhenAction return correct data", function () {
 
             var widgetFilterHandler = new WidgetFilterHandler(null, []);
 
@@ -1554,7 +1559,9 @@ describe("Widget Filter Handler", function () {
             expect(actualData.arguments[1].value).toBe(1);
 
         });
+    });
 
+    describe(".ApplyFilterWhenAction", function () {
         it("ApplyFilterWhenAction with argument type field (compare field)", function () {
 
             var querySteps = [{
@@ -1596,7 +1603,9 @@ describe("Widget Filter Handler", function () {
             expect(actualData.step_type).toBe("filter");
             expect(actualData.is_adhoc_filter).toBe(false);
         });
+    });
 
+    describe(".IsEqualGroupOperator", function () {
         it("IsEqualGroupOperator get correct data", function () {
 
             var widgetFilterHandler = new WidgetFilterHandler(null, []);
@@ -1611,7 +1620,9 @@ describe("Widget Filter Handler", function () {
             expect(widgetFilterHandler.IsEqualGroupOperator(enumHandlers.OPERATOR.RELATIVEBEFORE.Value)).toBe(true);
             expect(widgetFilterHandler.IsEqualGroupOperator(enumHandlers.OPERATOR.INLIST.Value)).toBe(false);
         });
+    });
 
+    describe(".IsListGroupOperator", function () {
         it("IsListGroupOperator get correct data", function () {
 
             var widgetFilterHandler = new WidgetFilterHandler(null, []);
@@ -1628,8 +1639,10 @@ describe("Widget Filter Handler", function () {
             expect(widgetFilterHandler.IsListGroupOperator(enumHandlers.OPERATOR.NOTMATCHPATTERN.Value)).toBe(true);
             expect(widgetFilterHandler.IsListGroupOperator(enumHandlers.OPERATOR.BETWEEN.Value)).toBe(false);
         });
+    });
 
-        it("IsBetweenGroupOperator get correct data", function () {
+    describe(".IsBetweenGroupOperator", function () {
+        it("IsBetweenGroupOperator get correct between operator data", function () {
 
             var widgetFilterHandler = new WidgetFilterHandler(null, []);
 
@@ -1639,7 +1652,9 @@ describe("Widget Filter Handler", function () {
             expect(widgetFilterHandler.IsBetweenGroupOperator(enumHandlers.OPERATOR.NOTRELATIVEBETWEEN.Value)).toBe(true);
             expect(widgetFilterHandler.IsBetweenGroupOperator(enumHandlers.OPERATOR.NOTMATCHPATTERN.Value)).toBe(false);
         });
+    });
 
+    describe(".GetFilterElements", function () {
         it("GetFilterElements get correct elements", function () {
 
             var widgetFilterHandler = new WidgetFilterHandler(null, []);
@@ -1705,7 +1720,9 @@ describe("Widget Filter Handler", function () {
             actualData = widgetFilterHandler.GetFilterElements(0, enumHandlers.FIELDTYPE.TIME, "unknowoperator");
             expect(actualData.length).toBe(0);
         });
+    });
 
+    describe(".GetFilterArguments", function () {
         it("GetFilterArguments get correct amount of data", function () {
 
             var widgetFilterHandler = new WidgetFilterHandler(null, []);
@@ -1729,10 +1746,9 @@ describe("Widget Filter Handler", function () {
             expect(actualData).toBe(2);
 
         });
-
     });
 
-    describe("call HaveJumpAfterIndex", function () {
+    describe(".HaveJumpAfterIndex", function () {
 
         var tests = [
             { index: 1, expected: true },
@@ -1760,7 +1776,7 @@ describe("Widget Filter Handler", function () {
         });
     });
 
-    describe("call GetAdvanceTemplateName", function () {
+    describe(".GetAdvanceTemplateName", function () {
 
         var tests = [
             { argument: 'field', expected: 'CRITERIAADVANCE_FIELD' },
@@ -1777,7 +1793,7 @@ describe("Widget Filter Handler", function () {
 
     });
 
-    describe("call GetMaxArgumentsCount", function () {
+    describe(".GetMaxArgumentsCount", function () {
 
         var noArgumentTests = ["has_value", "has_no_value"];
         $.each(noArgumentTests, function (index, operator) {
@@ -1808,7 +1824,7 @@ describe("Widget Filter Handler", function () {
         });
     });
 
-    describe("call GetSwitchedAdvanceArguments", function () {
+    describe(".GetSwitchedAdvanceArguments", function () {
 
         beforeEach(function () {
             widgetFilterHandler.SwitchOperator = true;
@@ -1866,7 +1882,7 @@ describe("Widget Filter Handler", function () {
 
     });
 
-    describe("call IsCompareField", function () {
+    describe(".IsCompareField", function () {
 
         it("should be 'true' when argument is defined", function () {
             var stepArguments = [{ argument_type: 'field', field: 'fake' }];
@@ -1884,7 +1900,7 @@ describe("Widget Filter Handler", function () {
         });
     });
 
-    describe("call GetAdvanceElementIndex", function () {
+    describe(".GetAdvanceElementIndex", function () {
 
         it("should get index", function () {
             var elementLastPart = '1_10';
@@ -1893,7 +1909,7 @@ describe("Widget Filter Handler", function () {
 
     });
 
-    describe("call GetAdvanceElementData", function () {
+    describe(".GetAdvanceElementData", function () {
 
         it("should get index and row if contains '_'", function () {
             var elementLastPart = '1_10';
@@ -1911,7 +1927,7 @@ describe("Widget Filter Handler", function () {
         });
     });
 
-    describe("call GetFilterEnumOption", function () {
+    describe(".GetFilterEnumOption", function () {
 
         var item;
         beforeEach(function () {
@@ -1945,7 +1961,7 @@ describe("Widget Filter Handler", function () {
 
     });
 
-    describe("call IsTreeViewHeader", function () {
+    describe(".ShowAddFilterFromJumpPopup", function () {
 
         var testCases;
 
@@ -2009,4 +2025,52 @@ describe("Widget Filter Handler", function () {
 
     });
 
+    describe(".ShowAddFilterFromJumpPopup", function () {
+        it("should set FollowupInfo", function () {
+            spyOn(fieldsChooserHandler, 'ShowPopup').and.callFake($.noop);
+            widgetFilterHandler.ShowAddFilterFromJumpPopup({});
+            expect(widgetFilterHandler.FollowupInfo).not.toEqual(null);
+            expect(fieldsChooserHandler.ShowPopup).toHaveBeenCalled();
+        });
+    });
+
+    describe(".IsReadOnly", function () {
+        var tests = [
+            { canChange: true, canRemove: true, expected: false },
+            { canChange: true, canRemove: false, expected: false },
+            { canChange: false, canRemove: true, expected: false },
+            { canChange: false, canRemove: false, expected: true }
+        ];
+
+        $.each(tests, function (index, test) {
+            it("should get correct readonly status (canChange=" + test.canChange + ", canRemove=" + test.canRemove + ")", function () {
+                spyOn(widgetFilterHandler, 'CanChange').and.returnValue(test.canChange);
+                spyOn(widgetFilterHandler, 'CanRemove').and.returnValue(test.canRemove);
+                var result = widgetFilterHandler.IsReadOnly();
+                expect(result).toEqual(test.expected);
+            });
+        });
+    });
+
+    describe(".CanAddFilterFromJump", function () {
+        var tests = [
+            { canChange: true, stepType: 'followup', viewMode: 'listview', expected: true },
+            { canChange: false, stepType: 'followup', viewMode: 'listview', expected: false },
+            { canChange: true, stepType: 'filter', viewMode: 'listview', expected: false },
+            { canChange: true, stepType: 'followup', viewMode: 'treeview', expected: false },
+            { canChange: false, stepType: 'filter', viewMode: 'treeview', expected: false }
+        ];
+
+        $.each(tests, function (index, test) {
+            it("should get correct status for add filter from jump (canChange=" + test.canChange + ", stepType=" + test.stepType + ", viewMode=" + test.viewMode + ")", function () {
+                spyOn(widgetFilterHandler, 'CanChange').and.returnValue(test.canChange);
+                widgetFilterHandler.ViewMode(test.viewMode);
+                var data = {
+                    step_type: test.stepType
+                };
+                var result = widgetFilterHandler.CanAddFilterFromJump(data);
+                expect(result).toEqual(test.expected);
+            });
+        });
+    });
 });

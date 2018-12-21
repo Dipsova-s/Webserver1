@@ -91,7 +91,7 @@ function QuickFilterHandler() {
             };
 
             var angleBaseClassBlock = _self.handler.Models.Angle.Data().query_definition.findObject('queryblock_type', enumHandlers.QUERYBLOCKTYPE.BASE_CLASSES);
-            self.HandlerFilter.SetFieldChoooserInfo(angleBaseClassBlock ? angleBaseClassBlock.base_classes : [], angleQueryStepModel.QuerySteps());
+            self.HandlerFilter.SetFieldChoooserInfo(angleBaseClassBlock ? angleBaseClassBlock.base_classes : [], angleQueryStepModel.QuerySteps(), displayQueryBlockModel.TempQuerySteps());
 
             self.ShowAddFilterPopupCallback(e, field);
         };
@@ -102,7 +102,7 @@ function QuickFilterHandler() {
     };
     self.ShowAddFilterPopupCallback = function (e, field) {
         self.HandlerFilter.ApplyHandler();
-        self.HandlerFilter.AddFilter(field, enumHandlers.FILTERTYPE.FILTER);
+        self.HandlerFilter.AddFieldFilter(field);
         self.HandlerFilter.Element.find('.FilterHeader').addClass('Disabled');
 
         setTimeout(function () {

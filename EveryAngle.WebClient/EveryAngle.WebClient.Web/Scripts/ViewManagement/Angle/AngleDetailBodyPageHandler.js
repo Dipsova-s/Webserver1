@@ -716,7 +716,7 @@ function AngleDetailPageHandler() {
     };
     self.ShowFollowupPopup = function (option, model, event) {
         if (!jQuery(event.currentTarget).hasClass('disabled')) {
-            followupPageHandler.HandlerFilter = self.HandlerFilter;
+            followupPageHandler.SetHandlerValues(self.HandlerFilter, self.HandlerFilter.GetData(), []);
             followupPageHandler.ShowPopup(option);
         }
     };

@@ -17,9 +17,34 @@
     max-height: 300px;
 }
 
+.filterItem {
+    position: relative;
+    margin-right: 50px;
+}
+.readonly .filterItem {
+    margin-right: 0;
+}
 .treeview .filterItem {
     margin-left: 40px;
+    margin-right: 0;
     box-sizing: border-box;
+}
+
+.filterItem .btnAddFilterFromJump {
+    position: absolute;
+    right: -50px;
+    top: 3px;
+    width: 40px;
+    min-width: 0;
+    height: 40px;
+    margin: 0;
+    box-sizing: border-box;
+    overflow: hidden;
+    text-indent: -1000px;
+}
+.filterItem .btnAddFilterFromJump:after {
+    background-image: url('../../images/icons/icon_add_filter_before_jump.png');
+    right: 3px;
 }
 
 .definitionList .NoticeIcon {
@@ -36,6 +61,7 @@
 
 .definitionList .filterItem.filterHint {
     cursor: move;
+    margin-right: 0;
 }
 
 .definitionList.filtersSorting .filterItem.filterHint .handler {

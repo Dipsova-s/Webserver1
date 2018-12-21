@@ -161,7 +161,6 @@ function ModelsHandler() {
         else {
             var model = self.GetModelByUri(angleData.model);
             var query = {};
-            //query[enumHandlers.PARAMETERS.VIEWMODE] = enumHandlers.VIEWMODETYPE.BASIC;
             followupUri = model.fields + '?' + jQuery.param(query);
         }
         return directoryHandler.ResolveDirectoryUri(followupUri);
@@ -171,19 +170,10 @@ function ModelsHandler() {
         var currentInstance = modelCurrentInstanceHandler.GetCurrentModelInstance(modelUri);
         var rootFollowupUri = currentInstance ? currentInstance.followups : self.GetModelByUri(modelUri).followups;
 
-        /* BOF: M4-13243: Fixed incorrect result classes when add filter after added follow-up */
-        var followupIndex = -1;
-        jQuery.each(followupPageHandler.HandlerFilter.Data(), function (index, queryStep) {
-            if (queryStep.step_type === enumHandlers.FILTERTYPE.FOLLOWUP) {
-                followupIndex++;
-            }
-        });
-        /* EOF: M4-13243: Fixed incorrect result classes when add filter after added follow-up */
-
         var followupClass = self.GetLatestFollowupQuery(
                                 fieldsChooserHandler.AngleClasses,
                                 fieldsChooserHandler.AngleSteps,
-                                followupPageHandler.HandlerFilter.Data(), target + ',' + followupIndex,
+                                followupPageHandler.HandlerFilter.Data(), target + ',' + fieldsChooserHandler.FOLLOWUPINDEX.LAST,
                                 modelUri);
 
         var followupUri;
@@ -200,62 +190,53 @@ function ModelsHandler() {
         return directoryHandler.ResolveDirectoryUri(followupUri);
     };
     self.GetLatestFollowupQuery = function (baseClasses, angleSteps, displaySteps, config, modelUri) {
-        // M4-12025: WC: Filter will be invalid if select field for "Select value"
-        // refactor to make more readable
-        var getResultClass = function (followupSteps, index) {
-            var followup = null;
-            if (followupSteps.length) {
-                var lastFollowup = followupSteps[index === -1 ? followupSteps.length - 1 : index];
-                followup = modelFollowupsHandler.GetFollowupByQueryStep(lastFollowup, modelUri);
-            }
-            return followup;
-        };
-
+        var followupInfo = self.GetFollowupInfo(angleSteps, displaySteps, config);
+        var resultingClasses = self.GetResultClassesFromFollowupInfo(followupInfo, modelUri, baseClasses);
+        return '?classes=' + resultingClasses.join(',');
+    };
+    self.GetFollowupInfo = function (angleSteps, displaySteps, config) {
         // config = target,followupIndex
+        // -1 = no followup, display -> check angles' followup then base classes, angles use base classes
+        // followupIndex = 'last', means use the last one
         var metadata = config.split(',');
         var target = metadata[0];
-        var followupIndex = parseInt(metadata[1] || -1, 10);
+        var followupIndex = metadata[1] || fieldsChooserHandler.FOLLOWUPINDEX.LAST;
+
+        // get followups from configs
         var followups = [];
         var angleFollowups = angleSteps.findObjects('step_type', enumHandlers.FILTERTYPE.FOLLOWUP);
         if (target === enumHandlers.ANGLEPOPUPTYPE.ANGLE) {
             followups = angleFollowups;
         }
         else if (target === enumHandlers.ANGLEPOPUPTYPE.DISPLAY) {
-            /* M4-13217: fixed error 422 when "select field" in "select value" at ask@execution */
-            if (followupIndex === -1) {
-                followups = [];
+            // combine angle with display
+            var displayFollowups = displaySteps.findObjects('step_type', enumHandlers.FILTERTYPE.FOLLOWUP);
+            jQuery.merge(followups, angleFollowups);
+            jQuery.merge(followups, displayFollowups);
+
+            // re-index for display
+            if (followupIndex === fieldsChooserHandler.FOLLOWUPINDEX.NO) {
+                followupIndex = angleFollowups.length - 1;
             }
-            else {
-                followups = displaySteps.findObjects('step_type', enumHandlers.FILTERTYPE.FOLLOWUP);
+            else if (followupIndex !== fieldsChooserHandler.FOLLOWUPINDEX.LAST) {
+                followupIndex = angleFollowups.length + parseInt(followupIndex);
             }
         }
 
-        var followupQueryUri = '';
-        var resultingClass = getResultClass(followups, followupIndex);
-        if (resultingClass) {
-            followupQueryUri = '?classes=' + resultingClass.resulting_classes.join(',');
+        return {
+            followups: followups,
+            followupIndex: followupIndex.toString()
+        };
+    };
+    self.GetResultClassesFromFollowupInfo = function (followupInfo, modelUri, fallback) {
+        var followupData = null;
+        var followupSteps = followupInfo.followups;
+        var followupIndex = followupInfo.followupIndex;
+        if (followupSteps.length && followupIndex !== fieldsChooserHandler.FOLLOWUPINDEX.NO) {
+            var followupStep = followupSteps[followupIndex === fieldsChooserHandler.FOLLOWUPINDEX.LAST ? followupSteps.length - 1 : parseInt(followupIndex)];
+            followupData = modelFollowupsHandler.GetFollowupByQueryStep(followupStep, modelUri);
         }
-        else {
-            //Added condition to fixed the problem M4-11320 WC: [Chart/Pivot]Send incorrect classes when display didn't have followup but angle had followup
-            //Checked if display didn't have followup => check angle had followup or not if had use followup but not use angle base calsses
-            if (angleFollowups.length) {
-                resultingClass = getResultClass(angleFollowups, -1);
-                if (resultingClass) {
-                    followupQueryUri = '?classes=' + resultingClass.resulting_classes.join(',');
-                }
-                else {
-                    var lastFollowup = angleFollowups[angleFollowups.length - 1];
-                    followupQueryUri = '?classes=' + (lastFollowup.followup || lastFollowup.id);
-                }
-            }
-            else {
-                if (baseClasses.length) {
-                    followupQueryUri = '?classes=' + baseClasses.join(',');
-                }
-            }
-        }
-
-        return followupQueryUri;
+        return followupData ? followupData.resulting_classes : fallback;
     };
     self.FindClasses = function (resultData, angleData, classes) {
         if (resultData && resultData.actual_classes) {

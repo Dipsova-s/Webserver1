@@ -98,6 +98,11 @@ Add Filter From Angle Details Popup
     Click Add Filter In Definition Tab
     Add Field By Search From Field Chooser    ${fieldKeyword}    ${fieldId}
 
+Add Filter Before Jump From Angle Details Popup
+    [Arguments]   ${panelIndex}    ${fieldKeyword}    ${fieldId}
+    Click Add Filter From Jump    ${panelIndex}
+    Add Field By Search From Field Chooser    ${fieldKeyword}    ${fieldId}
+
 Add Compare Filter From Angle Details Popup
     [Arguments]   ${fieldKeyword}    ${fieldId}
     Click Select Existing Field In Definition Tab

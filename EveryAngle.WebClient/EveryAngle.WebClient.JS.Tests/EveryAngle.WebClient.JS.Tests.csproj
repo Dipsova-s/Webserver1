@@ -94,6 +94,10 @@
       <Link>SharedDependencies\ClassesChooser.js</Link>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="..\EveryAngle.WebClient.Web\Scripts\Helper\HtmlHelper.Tooltip.js">
+      <Link>WebClient\Dependencies\Helper\HtmlHelper.Tooltip.js</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="..\EveryAngle.WebClient.Web\Scripts\ViewManagement\Angle\FollowupPageHandler.js">
       <Link>WebClient\Dependencies\ViewManagement\Angles\FollowupPageHandler.js</Link>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>

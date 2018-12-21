@@ -272,7 +272,7 @@ function AngleActionMenuHandler(base) {
         filterHandler.ModelUri = angleInfoModel.Data().model;
         filterHandler.Data(displayQueryBlockModel.TempQuerySteps());
         filterHandler.FilterFor = filterHandler.FILTERFOR.DISPLAY;
-        followupPageHandler.HandlerFilter = filterHandler;
+        followupPageHandler.SetHandlerValues(filterHandler, angleQueryStepModel.QuerySteps(), displayQueryBlockModel.TempQuerySteps());
 
         if (WC.Utility.UrlParameter(enumHandlers.ANGLEPARAMETER.LISTDRILLDOWN)) {
             /*

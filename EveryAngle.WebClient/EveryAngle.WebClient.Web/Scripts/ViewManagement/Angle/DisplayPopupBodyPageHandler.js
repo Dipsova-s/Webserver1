@@ -815,7 +815,7 @@ function DisplayDetailPageHandler() {
     };
     self.ShowFollowupPopup = function (option, model, event) {
         if (!jQuery(event.currentTarget).hasClass('disabled')) {
-            followupPageHandler.HandlerFilter = self.HandlerFilter;
+            followupPageHandler.SetHandlerValues(self.HandlerFilter, angleQueryStepModel.QuerySteps(), self.HandlerFilter.GetData());
             followupPageHandler.ShowPopup(option);
         }
     };

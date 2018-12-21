@@ -6,6 +6,7 @@ ${gridJumpReferences}       css=#popupFollowup .followupBlock.up
 ${gridJumpLists}            css=#popupFollowup .followupBlock.down
 ${gridJumpPrevious}         css=#popupFollowup .followupBlock.left
 ${gridJumpNext}             css=#popupFollowup .followupBlock.right
+${tdJumpItem}               css=#popupFollowup .k-grid-content td
 
 *** Keywords ***
 Wait Until Add Jump Popup Loaded
@@ -31,3 +32,7 @@ Click Add Jump Button
 Click Close Add Jump Popup
     Wait Until Element Is Visible    ${btnCloseAddjumpPopup}
     Click Element    ${btnCloseAddjumpPopup}
+
+Jump Should Be Existed In Popup
+    [Arguments]    ${jumpName}
+    Page Should Contain Element    ${tdJumpItem}[title="${jumpName}"]

@@ -176,3 +176,13 @@ Add Jump From Display Details Popup
 Move First Filter To Angle Definition
     Move Display Filter To Angle Definition By Index    0
     Confirm To Move Filter To Angle Definition
+
+Add Filter From Display Details Popup
+    [Arguments]   ${fieldKeyword}    ${fieldId}
+    Click Add Filter In Display Filter And Jumps Tab
+    Add Field By Search From Field Chooser    ${fieldKeyword}    ${fieldId}
+
+Add Filter Before Jump From Display Details Popup
+    [Arguments]   ${panelIndex}    ${fieldKeyword}    ${fieldId}
+    Click Add Filter From Jump    ${panelIndex}
+    Add Field By Search From Field Chooser    ${fieldKeyword}    ${fieldId}
