@@ -1074,12 +1074,12 @@
                 parameters: { modelServerUri: self.ModelServerUri },
                 type: 'GET'
             }).done(function (response) {
-                if (response.IsExtracting) {
+                if (response.ExtractorUri) {
                     $('#btnViewExtraction')
                         .removeClass('disabled')
                         .data('parameters', { modelServerUri: response.ExtractorUri, isCurrentInstance: false })
                         .on('click', function (event) {
-                            MC.Models.RefreshCycle.ShowModelServerInfo(event, this);
+                            self.ShowModelServerInfo(event, this);
                         });
                 }
             });

@@ -15,6 +15,7 @@ using Newtonsoft.Json;
 
 using EveryAngle.WebClient.Service.Security;
 using EveryAngle.Core.ViewModels;
+using EveryAngle.WebClient.Domain.Enums;
 
 namespace EveryAngle.ManagementConsole.Controllers
 {
@@ -93,15 +94,13 @@ namespace EveryAngle.ManagementConsole.Controllers
 
         public ActionResult CheckExtractor(string modelServerUri)
         {
-            bool isExtracting = false;
             string extractorUri = string.Empty;
             try
             {
                 ModelServerViewModel modelExtractor = _modelService.GetModelServers(modelServerUri)
-                    .Data.FirstOrDefault(model => model.type.Equals("Extractor"));
+                    .Data.FirstOrDefault(model => model.Type == ModelAgentType.Extractor);
                 if (modelExtractor != null)
                 {
-                    isExtracting = modelExtractor.status.Equals("Extracting");
                     extractorUri = modelExtractor.Uri.ToString();
                 }
             }
@@ -111,7 +110,6 @@ namespace EveryAngle.ManagementConsole.Controllers
             }
             return Json(new
             {
-                IsExtracting = isExtracting,
                 ExtractorUri = extractorUri
             }, JsonRequestBehavior.AllowGet);
         }
