@@ -1,4 +1,5 @@
 ﻿using EveryAngle.Logging;
+using EveryAngle.Security.Certificates;
 using EveryAngle.Shared.Globalization.Helpers;
 using EveryAngle.WebClient.Service.LogHandlers;
 using Newtonsoft.Json;
@@ -11,6 +12,7 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Net.Http.Headers;
+using System.Security.Cryptography.X509Certificates;
 using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
@@ -23,16 +25,17 @@ namespace EveryAngle.WebClient.Service.HttpHandlers
 {
     public class RequestManager
     {
-        private RestClient _client { get; set; }
+        private const string CSM_URI = "csm/componentservices";
+        private RestClient client { get; set; }
         public RestClient Client
         {
             get
             {
-                return _client;
+                return client;
             }
         }
 
-        private List<string> requestUrlList { get; set; }
+        private string uri { get; set; }
         private HttpStatusCode responseStatus { get; set; }
 
         public HttpStatusCode ResponseStatus
@@ -40,39 +43,72 @@ namespace EveryAngle.WebClient.Service.HttpHandlers
             get { return responseStatus; }
         }
 
-        private RequestManager(List<string> requestUrlList)
+        private RequestManager(string uri)
         {
-            if (_client == null)
+            this.uri = uri;
+            if (client == null)
             {
-                string webServerBackendUrl = Shared.Helpers.UrlHelper.GetWebServerBackendUrl();
-                string webServiceBackendNOAPort = WebConfigurationManager.AppSettings["WebServiceBackendNOAPort"];
-                int restClientTimeout = int.Parse(WebConfigurationManager.AppSettings["RestClientTimeout"]);
+                bool.TryParse(WebConfigurationManager.AppSettings["WebServiceBackendEnableSSL"], out bool isHttps);
+                int timeout = int.Parse(WebConfigurationManager.AppSettings["RestClientTimeout"]);
+                string appserverUrl = Shared.Helpers.UrlHelper.GetWebServerBackendUrl();
+                string appserverPort = GetASPort(uri, isHttps);
+                string webServerBackendUrlWithPort = string.Format("{0}:{1}", appserverUrl, appserverPort);
 
-                string webServerBackendUrlWithPort = string.Format("{0}:{1}", webServerBackendUrl, webServiceBackendNOAPort);
-                _client = new RestClient(webServerBackendUrlWithPort)
+                client = new RestClient(webServerBackendUrlWithPort)
                 {
-                    Timeout = restClientTimeout
+                    Timeout = timeout
                 };
+
+                AttachClientCert(isHttps);
+            }
+        }
+
+        private string GetASPort(string uri, bool isHttps)
+        {
+            string port = WebConfigurationManager.AppSettings["WebServiceBackendNOAPort"];
+         
+            if (IsCSMUri(uri) && isHttps)
+            {
+                //when websites are running on the ssl, all of the csm uri has to be comunicate over NOA+(csmPort) 
+                int csmPort = 1;
+                port = (int.Parse(port) + csmPort).ToString();
             }
 
-            this.requestUrlList = requestUrlList;
+            return port;
+        }
+
+        private bool IsCSMUri(string uri)
+        {
+            return !string.IsNullOrEmpty(uri) && uri.Equals(CSM_URI, StringComparison.InvariantCultureIgnoreCase);
+        }
+
+        private void AttachClientCert(bool isHttps)
+        {
+            //the request to csm must always included client cert
+            if (IsCSMUri(uri) && isHttps)
+            {
+                string thumbprint = WebConfigurationManager.AppSettings["WebServiceCertificateThumbPrint"];
+                X509Certificate certificate = CertificateUtils.GetCertificateFromStore(thumbprint);
+
+                if (certificate == null)
+                    throw new HttpException(422, $"Could not find the certificate {thumbprint} from the store.");
+
+                client.ClientCertificates = new X509CertificateCollection();
+                client.ClientCertificates.Add(certificate);
+            }
         }
 
         #region "Public"
 
         public void InitializeRequestClient(RestClient restClient)
         {
-            _client = restClient;
+            client = restClient;
         }
 
-        public static RequestManager Initialize(List<string> requestUrlList)
-        {
-            return new RequestManager(requestUrlList);
-        }
 
         public static RequestManager Initialize(string requestUrl)
         {
-            return new RequestManager(new List<string> { requestUrl });
+            return new RequestManager(requestUrl);
         }
 
         public static string GetProxyRequestUrl()
@@ -95,7 +131,7 @@ namespace EveryAngle.WebClient.Service.HttpHandlers
 
         public Task<JObject> GetAsync(bool thrownException)
         {
-            string requestUrl = requestUrlList[0];
+            string requestUrl = this.uri;
             requestUrl = VerifyURL(requestUrl);
 
             var request = new RestRequest(requestUrl, Method.GET);
@@ -105,7 +141,7 @@ namespace EveryAngle.WebClient.Service.HttpHandlers
             LogManager.WriteLogRequestContent(Method.GET, requestUrl, request);
 
             var completeResult = new TaskCompletionSource<JObject>();
-            _client.ExecuteAsync(request, response =>
+            client.ExecuteAsync(request, response =>
             {
                 try
                 {
@@ -137,7 +173,7 @@ namespace EveryAngle.WebClient.Service.HttpHandlers
 
         public Task<JObject> DeleteAsync(HttpContext context, bool thrownException)
         {
-            string requestUrl = requestUrlList[0];
+            string requestUrl = this.uri;
             requestUrl = VerifyURL(requestUrl);
 
             var request = new RestRequest(requestUrl, Method.DELETE);
@@ -147,7 +183,7 @@ namespace EveryAngle.WebClient.Service.HttpHandlers
             LogManager.WriteLogRequestContent(Method.DELETE, requestUrl, request);
 
             var completeResult = new TaskCompletionSource<JObject>();
-            _client.ExecuteAsync(request, response =>
+            client.ExecuteAsync(request, response =>
             {
                 try
                 {
@@ -177,7 +213,7 @@ namespace EveryAngle.WebClient.Service.HttpHandlers
 
         public byte[] PostBinary(string content)
         {
-            string requestUrl = requestUrlList[0];
+            string requestUrl = this.uri;
             requestUrl = VerifyURL(requestUrl);
             var request = new RestRequest(requestUrl, Method.POST);
             CloneRequestHeader(request);
@@ -186,7 +222,7 @@ namespace EveryAngle.WebClient.Service.HttpHandlers
             AddContentToBodyRequest(Method.POST, content, request);
 
             LogManager.WriteLogRequestContent(Method.POST, requestUrl, request);
-            var response = _client.Execute(request);
+            var response = client.Execute(request);
             LogManager.WriteLogResponseContent(Method.POST, requestUrl, response);
 
             VerifyResponseStatus(response);
@@ -196,7 +232,7 @@ namespace EveryAngle.WebClient.Service.HttpHandlers
 
         public JObject PostBinary(byte[] packageFile, string fileName)
         {
-            string requestUrl = requestUrlList[0];
+            string requestUrl = this.uri;
             requestUrl = VerifyURL(requestUrl);
             var request = new RestRequest(requestUrl, Method.POST);
             CloneRequestHeader(request);
@@ -209,7 +245,7 @@ namespace EveryAngle.WebClient.Service.HttpHandlers
             }
 
             LogManager.WriteLogRequestContent(Method.POST, requestUrl, request);
-            var response = _client.Execute(request);
+            var response = client.Execute(request);
             LogManager.WriteLogResponseContent(Method.POST, requestUrl, response);
 
             VerifyResponseStatus(response);
@@ -219,7 +255,7 @@ namespace EveryAngle.WebClient.Service.HttpHandlers
 
         public JObject Run(Method method, string content, DataFormat requestFormat)
         {
-            return Execute(requestFormat, requestUrlList[0], method, content);
+            return Execute(requestFormat, uri, method, content);
         }
         public JObject Run(Method method, string content)
         {
@@ -240,70 +276,12 @@ namespace EveryAngle.WebClient.Service.HttpHandlers
         }
         public JArray RunArray(Method method, string content, DataFormat requestFormat)
         {
-            return ExecuteArray(requestFormat, requestUrlList[0], method, content);
-        }
-
-        public List<JObject> Runs(Method method, List<string> contentList, DataFormat requestFormat)
-        {
-            List<string> newContentList = contentList ?? new List<string>();
-
-            List<JObject> resultObjectList = new List<JObject>();
-            int index = 0;
-
-            foreach (var requestUrl in requestUrlList)
-            {
-                string content = "";
-                if (newContentList.Count > 0)
-                {
-                    content = newContentList[index];
-                }
-
-                var jsonResult = Execute(requestFormat, requestUrl, method, content);
-                resultObjectList.Add(jsonResult);
-
-                index++;
-            }
-            return resultObjectList;
-        }
-        public List<JObject> Runs(Method method, List<string> contentList)
-        {
-            return Runs(method, contentList, DataFormat.Json);
-        }
-        public List<JObject> Runs(Method method)
-        {
-            return Runs(method, null, DataFormat.Json);
-        }
-        public List<JObject> Runs()
-        {
-            return Runs(Method.GET, null, DataFormat.Json);
-        }
-
-        public List<JObject> GetParallel(DataFormat requestFormat)
-        {
-            List<JObject> resultObjectList = new List<JObject>();
-            try
-            {
-                Parallel.ForEach(requestUrlList, (requestUrl) =>
-                {
-                    var jsonResult = Execute(requestFormat, requestUrl, Method.GET);
-                    resultObjectList.Add(jsonResult);
-                });
-            }
-            catch (AggregateException ae)
-            {
-                throw ae;
-            }
-
-            return resultObjectList;
-        }
-        public List<JObject> GetParallel()
-        {
-            return GetParallel(DataFormat.Json);
+            return ExecuteArray(requestFormat, uri, method, content);
         }
 
         public byte[] GetBinary()
         {
-            string requestUrl = requestUrlList[0];
+            string requestUrl = this.uri;
             requestUrl = VerifyURL(requestUrl);
 
             var request = new RestRequest(requestUrl, Method.GET);
@@ -311,7 +289,7 @@ namespace EveryAngle.WebClient.Service.HttpHandlers
             request.RequestFormat = DataFormat.Json;
 
             LogManager.WriteLogRequestContent(Method.GET, requestUrl, request);
-            var response = _client.Execute(request);
+            var response = client.Execute(request);
             LogManager.WriteLogResponseContent(Method.GET, requestUrl, response);
 
             VerifyResponseStatus(response);
@@ -327,7 +305,7 @@ namespace EveryAngle.WebClient.Service.HttpHandlers
         }
         public byte[] GetBinary(ref string contentDisposition)
         {
-            string requestUrl = requestUrlList[0];
+            string requestUrl = this.uri;
             requestUrl = VerifyURL(requestUrl);
 
             var request = new RestRequest(requestUrl, Method.GET);
@@ -335,7 +313,7 @@ namespace EveryAngle.WebClient.Service.HttpHandlers
             request.RequestFormat = DataFormat.Json;
 
             LogManager.WriteLogRequestContent(Method.GET, requestUrl, request);
-            var response = _client.Execute(request);
+            var response = client.Execute(request);
             LogManager.WriteLogResponseContent(Method.GET, requestUrl, response);
 
             VerifyResponseStatus(response);
@@ -375,7 +353,7 @@ namespace EveryAngle.WebClient.Service.HttpHandlers
 
         private JArray ExecuteArray(DataFormat requestFormat, string requestUrl, Method method, string content)
         {
-            string responseContent = ExecuteForContent(requestFormat, requestUrl, method, content); 
+            string responseContent = ExecuteForContent(requestFormat, requestUrl, method, content);
             return !string.IsNullOrEmpty(responseContent) ? JArray.Parse(responseContent) : new JArray();
         }
 
@@ -390,12 +368,12 @@ namespace EveryAngle.WebClient.Service.HttpHandlers
             AddContentToBodyRequest(method, content, request);
 
             LogManager.WriteLogRequestContent(method, newRequestUrl, request);
-            var response = _client.Execute(request);
+            var response = client.Execute(request);
             LogManager.WriteLogResponseContent(method, newRequestUrl, response);
-
             VerifyResponseStatus(response);
 
             return response?.Content;
+
         }
 
         private JObject Execute(DataFormat requestFormat, string requestUrl, Method method)

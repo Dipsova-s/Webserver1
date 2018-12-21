@@ -166,6 +166,9 @@ Source: "{src}\*.mp4"; DestDir: "{src}"; Flags: external onlyifdoesntexist; Comp
 ; Escape/Unescape
 Source: "Resources\EveryAngle.EncryptionDecryption32-2.3\EveryAngle.EncryptionDecryption32.dll";Flags: dontcopy; Components: OData
 
+; PowerShell Scripts
+Source: "SetupFiles\PowerShellScripts\SetCertificatePermissions.ps1"; Flags: dontcopy noencryption
+
 [Dirs]
 Name: "{code:DataPath|log}";
 
@@ -958,6 +961,41 @@ begin
   MSDeployParameters := Format('-verb:delete -dest:iisapp="%s"', [aSite]);
   ExecuteAndLog(MsDeployLocation, MSDeployExe, MSDeployParameters);
 end;
+
+procedure AssignPermissionToAppPoolUser(IISPhysicalPath: string);
+var 
+  settings: string;
+  scriptName: string;
+  scriptPath: string;
+  resultCode: integer;  
+  thumbprint:string;
+  apppoolName:string;
+  webConfig : variant;
+  parameters : string;
+
+begin 
+
+  scriptName := 'SetCertificatePermissions.ps1';
+  scriptPath := ExpandConstant('{tmp}') + '\' + scriptName;
+  
+  ExtractTemporaryFile(scriptName);
+  LoadXMLConfigFileEx(IISPhysicalPath, 'web.config', false, {out}webConfig);
+  apppoolName := getIISApplicationPool()
+  thumbprint :=  GetAppSetting(WebConfig,'WebServiceCertificateThumbPrint');
+
+  parameters :=  ' -Thumbprint '  + thumbprint + ' -AppPoolName ' + apppoolName ;
+  settings := '-ExecutionPolicy Bypass -NoLogo -NonInteractive -NoProfile -WindowStyle Hidden ';
+  
+  Log(Format('[i] Giving read permissions to "IIS AppPool\%s" for the certificate with thumbprint "%s"', [apppoolName, thumbprint]));
+  resultCode := ExecuteAndLogPSFile(settings, scriptPath, parameters);  
+
+  if resultCode <> 0 then
+   begin
+     ShowError('Deployment of the WebServer failed. The setup cannot continue!'#13
+     'More information can be found in ''powershell.exe.log'' in the log directory.', mbError, MB_OK);
+     DoAbort();
+   end;
+end;
  
 function MoveCsmFiles(): boolean;
 var
@@ -1084,24 +1122,31 @@ begin
     begin
       ExitCode := ExecuteAndLogEx(DataPath('Tools'), 'EveryAngle.CustomerCertificates.Installer.console.exe', Format('-a -i %s -p %s -f %s', [Target, CertificatePassword.Text, IISPhysicalPath]), ToSetupLog);
       Log('EveryAngle.CustomerCertificates.Installer.console.exe exited with code ' + IntToStr(ExitCode));
-      if ExitCode <> 0 then
-      begin
-        if WizardForm.Visible then
-        begin
-          ShowError(Format('Error during installing HTTPS certificate (exit code %d): Installation interrupted.' + #13#10 + #13#10 + 'Please check CustomerCertificates.Installer.console log for details', [ExitCode]), mbCriticalError, MB_OK)
-          WizardForm.Close;
-        end
-        else
-        begin
-          Log(Format('ERROR!: Error during installing HTTPS certificate (exit code %d).', [ExitCode]));
-        end;
-      end;
+		  if ExitCode <> 0 then
+		  begin
+			if WizardForm.Visible then
+			begin
+			  ShowError(Format('Error during installing HTTPS certificate (exit code %d): Installation interrupted.' + #13#10 + #13#10 + 'Please check CustomerCertificates.Installer.console log for details', [ExitCode]), mbCriticalError, MB_OK)
+			  WizardForm.Close;
+			end
+			else
+			begin
+			  Log(Format('ERROR!: Error during installing HTTPS certificate (exit code %d).', [ExitCode]));
+			end;
+		  end
+		  else
+			begin
+				//only grant the permission to apppool user when the installation of the certificate success
+				AssignPermissionToAppPoolUser(IISPhysicalPath);
+			end;
+		end;
+
       if not DeleteFile(Target) then
       begin
           Log(Format('Can not delete HTTPS certificate file in: %s', [Target]));
       end;
     end;
-  end;
+  
 end;
 
 procedure UpgradeEnvironment(IISPhysicalPath: string);
@@ -1422,7 +1467,7 @@ begin
   begin
       if not FileExists(CertificatePage.Values[0]) then
       begin
-        ShowError('No valid file has been selcted.', mbError, MB_OK);
+        ShowError('No valid file has been selected.', mbError, MB_OK);
         Result := False;
       end
       else if CertificatePassword.Text = '' then

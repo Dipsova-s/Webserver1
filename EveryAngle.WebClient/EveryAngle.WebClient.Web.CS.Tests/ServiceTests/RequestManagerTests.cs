@@ -51,5 +51,12 @@ namespace EveryAngle.WebClient.Web.CSTests.ServiceTests
 
             manager.PostBinary(longText);
         }
+
+        [Test]
+        [ExpectedException(typeof(HttpException))]
+        public void CanNot_Call_To_CSM_When_ThumbPrint_Is_Invalid()
+        {
+            RequestManager manager = RequestManager.Initialize("csm/componentservices");
+        }
     }
 }

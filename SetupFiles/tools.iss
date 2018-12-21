@@ -30,6 +30,7 @@ begin
   end;
 end;
 
+
 function ShowError(const Text: String; const Typ: TMsgBoxType; const Buttons: Integer): Integer;
 begin
   Result := 1;
@@ -825,4 +826,14 @@ begin
       break;
     end;
   end;
+end;
+
+
+function ExecuteAndLogPSFile(aSettings, aFilePath, aFileParameters: string): integer;
+var
+  PSPath, PSParameters: string;
+begin
+  PSParameters := aSettings + ' -File ' + aFilePath + aFileParameters;
+  PSPath := ExpandConstant('{sys}\WindowsPowerShell\v1.0');
+  Result := ExecuteAndLogEx(PSPath, 'powershell.exe', PSParameters, ToFileAppend);
 end;
