@@ -212,7 +212,7 @@ var
   AppConstantInitialized,
   ComponentsPageInitialized : Boolean; 
   AppServerUrl: string;
-
+ 
 procedure RegisterDiagramFile();
 begin
   DiagramFiles.Add(ExpandConstant(CurrentFileName));
@@ -458,7 +458,7 @@ begin
     'applicationPool');
 end;
 
-function GetIISPhysicalPath(): string;
+function GetIISPhysicalPath(site:string; path:string; isSetVirtualPathText:boolean): string;
 var
   xmlQuery : string;
   Paths : TStringList;
@@ -466,14 +466,15 @@ var
   VirtualPath : string;
 
 begin
-  VirtualPath := Lowercase(IISVirtualPath.Text);
-  xmlQuery := '/system.applicationHost/sites/site[@name="' + IISSite.Text + '"]/application'; 
+ 
+  xmlQuery := '/system.applicationHost/sites/site[@name="' + site  + '"]/application'; 
+  VirtualPath := Lowercase(path);
   Paths := xmlGetAttributes(IISConfigSites, xmlQuery , 'path');
   i := Paths.IndexOf(VirtualPath);
 
   if i < 0 then
   begin
-    Log(Format('[i]Applications in IIS: [Site: %s, Applications: %s', [IISSite.Text, Paths.CommaText])); 
+    Log(Format('[i]Applications in IIS: [Site: %s, Applications: %s', [site, Paths.CommaText])); 
     result := '';
     exit;
   end;
@@ -481,7 +482,12 @@ begin
   if VirtualPath <> Paths[i] then
   begin
     VirtualPath := Paths[i];
-    IISVirtualPath.Text := Paths[i];
+
+    if isSetVirtualPathText then
+    begin  
+        IISVirtualPath.Text := Paths[i];
+    end;
+
     Log('[W]Application virtual path should be lowercase only: ' + VirtualPath);
   end;
 
@@ -589,6 +595,18 @@ var
 begin
     Protocol := 'http://';
     if IsHTTPSCertificateComponentSelected then
+      begin
+        Protocol := 'https://';
+      end;
+    Result := Protocol + UrlRemoveProtocol(aUrl);
+end;
+
+function AddProtocolUrlFromPreviousData(aUrl: string): string;
+var
+  Protocol: string;
+begin
+    Protocol := 'http://';
+    if StrToBool(GetPreviousData('IsHttps', '')) then
       begin
         Protocol := 'https://';
       end;
@@ -703,7 +721,7 @@ procedure LoadWebConfig;
 var 
   IISPhysicalPath: string;                      
 begin
-  IISPhysicalPath := GetIISPhysicalPath();
+  IISPhysicalPath := GetIISPhysicalPath(IISSite.Text, IISVirtualPath.Text,true);
   if IISPhysicalPath = '' then
   begin
     Log(Format('[i]Previous installation not found [site:%s, path:%s]', [IISSite.Text, IISVirtualPath.Text]))
@@ -763,7 +781,7 @@ var
 begin
   ODataModelIds := '';
   ODataSettings := EmptyJsonObject();
-  IISPhysicalPath := GetIISPhysicalPath();
+  IISPhysicalPath := GetIISPhysicalPath(IISSite.Text, IISVirtualPath.Text,true);
 
   if IISPhysicalPath <> '' then
   begin
@@ -1043,11 +1061,11 @@ begin
   MachineName := GetComputerNameString;
   LoadXMLConfigFileEx(IISPhysicalPath, 'web.config', false, {out}WebConfig);
 
-
+                
    if IsHTTPSCertificateComponentSelected then
       begin
        Thumbprint :=  GetAppSetting(WebConfig,'WebServiceCertificateThumbPrint');
-       CmdParams := Format('--appserveruri=%s --action=Register --type=WebServer --uri=%s --version=%s --machine=%s --appserverthumbprint=%s', [AppServerUrl, WebServerUrl, AppVersion, MachineName, Thumbprint]);
+	     CmdParams := Format('--appserveruri=%s --action=Register --type=WebServer --uri=%s --version=%s --machine=%s --appserverthumbprint=%s', [AppServerUrl, WebServerUrl, AppVersion, MachineName, Thumbprint]);
       end 
    else
       begin
@@ -1084,12 +1102,32 @@ var
   AppServerUrl: string;
   WebServerUrl: string;
   CmdParams: string; 
+  SSL: boolean;
+  WebConfig : variant;
+  Thumbprint : string;
 begin  
-  AppServerUrl := GetAppServerUrlWithPort(GetPreviousData('AppServerUrl', ''), GetPreviousData('BasePort', ''), StrToBool(GetPreviousData('IsHttps', '')));  
-  WebServerUrl := GetPreviousData('WebServerUrl', '');
+ 
+  IISConfigSites := LoadIISConfig('sites'); 
+  LoadXMLConfigFileEx(GetIISPhysicalPath(GetPreviousData('Site', ''),GetPreviousData('Path', ''),false), 'web.config', false, {out}WebConfig);
+
+
+
+  SSL := StrToBool(GetPreviousData('IsHttps', ''));
+  AppServerUrl := AddProtocolUrlFromPreviousData(GetAppServerUrlWithPort(GetPreviousData('AppServerUrl', ''), GetPreviousData('BasePort', ''), StrToBool(GetPreviousData('IsHttps', ''))));  
+  WebServerUrl := AddProtocolUrlFromPreviousData(GetPreviousData('WebServerUrl', ''));
   AppVersion := '{#MyAppVersion}';
   MachineName := GetComputerNameString;
-  CmdParams := Format('--appserveruri=%s --action=Deregister --type=WebServer --uri=%s --version=%s --machine=%s', [AppServerUrl, WebServerUrl, AppVersion, MachineName]);  
+ 
+   if SSL then
+      begin
+       Thumbprint :=  GetAppSetting(WebConfig,'WebServiceCertificateThumbPrint');
+       CmdParams := Format('--appserveruri=%s --action=Deregister --type=WebServer --uri=%s --version=%s --machine=%s --appserverthumbprint=%s', [AppServerUrl, WebServerUrl, AppVersion, MachineName, Thumbprint]);
+      end 
+   else
+      begin
+        CmdParams := Format('--appserveruri=%s --action=Deregister --type=WebServer --uri=%s --version=%s --machine=%s', [AppServerUrl, WebServerUrl, AppVersion, MachineName]);
+      end;
+
   result := ExecuteAndLogEx(DataPath('AppServerReg'), 'EveryAngle.CSM.Reg.exe', CmdParams, ToSetupLog) = 0 
 end;
 
@@ -1298,7 +1336,7 @@ begin
   IISConfigSites := LoadIISConfig('sites'); 
 
   // Update IIS Physical path to what it is now, after the web-deploy has taken place
-  IISPhysicalPath := GetIISPhysicalPath();
+  IISPhysicalPath := GetIISPhysicalPath(IISSite.Text, IISVirtualPath.Text,true);
 
   // Make sure this path is now known
   CheckIISPhysicalPath(IISPhysicalPath);
@@ -1540,6 +1578,8 @@ begin
   SetPreviousData(PreviousDataKey, 'AppServerUrl', WebClientConfigPage.Values[1]);
   SetPreviousData(PreviousDataKey, 'BasePort', WebClientConfigPage.Values[2]);
   SetPreviousData(PreviousDataKey, 'IsHttps', BoolToStr(IsHTTPSCertificateComponentSelected));
+  
+ 
 
   // TODO: if new installation AND datapath.endswith 'WebClient', Shared datapath is datapath - 'WebClient'
   // SetEASharedRegistryKey('Data', DataPath(''));
@@ -1600,15 +1640,17 @@ procedure CurUninstallStepChanged(CurUninstallStep: TUninstallStep);
 begin
   if CurUninstallStep = usUninstall then
   begin 
-    // WebClient / Management Console
 
     if DeregisterWebServer then 
     begin
       ExecuteWebUndeploy; 
+	  
     end
     else
     begin
-      ShowError('WebServer cannot be deregistered, uninstallation failed.', mbError, MB_OK);
+      log('[E]msgbox: WebServer cannot be deregistered, uninstallation failed.');
+      if not UninstallSilent then
+	    MsgBox('WebServer cannot be deregistered, uninstallation failed.', mbError, MB_OK);
       Abort;
     end;
 
