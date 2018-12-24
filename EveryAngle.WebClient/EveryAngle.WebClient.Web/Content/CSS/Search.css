@@ -102,7 +102,6 @@
 #ActionSelect.compactMode {
     top: 8px;
     right: 133px;
-    z-index: 2;
 }
 
 #ActionSelect .actionDropdownItem {

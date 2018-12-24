@@ -94,6 +94,10 @@
       <Link>SharedDependencies\ClassesChooser.js</Link>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="..\EveryAngle.WebClient.Web\Scripts\Helper\HtmlHelper.ActionMenu.js">
+      <Link>WebClient\Dependencies\Helper\HtmlHelper.ActionMenu.js</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="..\EveryAngle.WebClient.Web\Scripts\Helper\HtmlHelper.Tooltip.js">
       <Link>WebClient\Dependencies\Helper\HtmlHelper.Tooltip.js</Link>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
@@ -693,6 +697,7 @@
     <Content Include="WebClient\Tests\Embedded\FieldsChooserTest.js" />
     <Content Include="WebClient\Tests\Embedded\ClassesChooserTest.js" />
     <Content Include="WebClient\Tests\Embedded\SharedTest.js" />
+    <Content Include="WebClient\Tests\Helper\HtmlHelper.ActionMenu.Test.js" />
     <Content Include="WebClient\Tests\Helper\KendoCoreExtensionTest.js" />
     <Content Include="WebClient\Tests\Helper\ErrorHandlerTest.js" />
     <Content Include="WebClient\Tests\Helper\HtmlHelper.MenuNavigatableTest.js" />

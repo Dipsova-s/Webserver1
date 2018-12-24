@@ -574,6 +574,7 @@ if %25ERRORLEVEL%25 LEQ 1 exit 0 else exit %25ERRORLEVEL%25</PreBuildEvent>
     <Content Include="Images\Icons\icon_item_dashboard.svg" />
     <Content Include="Images\Icons\icon_list_addnew.svg" />
     <Content Include="Images\Icons\icon_mass_change.svg" />
+    <Content Include="Images\Icons\icon_meatballs.svg" />
     <Content Include="Images\Icons\icon_open_new_window.svg" />
     <Content Include="Images\Icons\icon_pivot_addnew.png" />
     <Content Include="Images\Icons\icon_pivot_addnew.svg" />
@@ -659,6 +660,7 @@ if %25ERRORLEVEL%25 LEQ 1 exit 0 else exit %25ERRORLEVEL%25</PreBuildEvent>
     <Content Include="Resources\Help\help.txt" />
     <Content Include="Resources\Movies\movies.txt" />
     <Content Include="Scripts\ContextMenu\clipboard.js" />
+    <Content Include="Scripts\Helper\HtmlHelper.ActionMenu.js" />
     <Content Include="Scripts\Helper\HtmlHelper.MenuNavigatable.js" />
     <Content Include="Scripts\Helper\HtmlHelper.js" />
     <Content Include="Scripts\Helper\HtmlHelper.Tooltip.js" />

@@ -1600,6 +1600,22 @@ function DashboardHandler() {
             menuHtml[index] = '<a class="actionDropdownItem ' + action.Id + (action.Enable ? '' : ' disabled') + '" onclick="dashboardHandler.CallActionDropdownFunction(this, \'' + action.Id + '\')">' + action.Text + '</a>';
         });
         jQuery('#ActionDropdownListPopup .k-window-content').html(menuHtml.join(''));
+
+        // action menu responsive
+        WC.HtmlHelper.ActionMenu('#ActionSelect', function (target) {
+            // pre-value use for reserve margin or white-spacing
+            var result = 10, dashboardNameWidth = 0;
+            var sublingsElements = target.siblings();
+
+            // left element
+            sublingsElements.siblings('#DashboardName').children().each(function () {
+                dashboardNameWidth += jQuery(this).outerWidth();
+            });
+            var noteWidth = sublingsElements.siblings('#YourNote').eq(0).outerWidth();
+
+            result += Math.max(dashboardNameWidth, noteWidth);
+            return result;
+        });
     };
     self.CallActionDropdownFunction = function (obj, selectedValue) {
         if (!jQuery(obj).hasClass('disabled')) {

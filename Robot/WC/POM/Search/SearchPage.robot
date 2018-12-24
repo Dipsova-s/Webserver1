@@ -104,8 +104,7 @@ ${btnCloseCopyAngleReportPopup}         btn-popupReport0
 ${divCopyAngleProgress}                 css=.k-overlay
 
 #Action dropdown
-${btnSearchAction}                      ActionDropdownList
-${ddlSearchActionList}                  css=#ActionDropdownListPopup
+${btnSearchActionMeatBalls}             css=#ActionDropdownList
 ${ddlSearchActionMassChange}            css=#ActionDropdownListPopup .massChange
 ${ddlSearchActionDeleteAngle}           css=#ActionDropdownListPopup .delete
 ${ddlSearchActionCopyAngle}             css=#ActionDropdownListPopup .copyAngle
@@ -164,6 +163,8 @@ Click Search Button
 #******** Search Action  ***************
 Click Search Action
   [Arguments]    ${actionSelector}
+    ${isMeatBallsVisibled}=  Run Keyword And Return Status    Element Should Be Visible    ${btnSearchActionMeatBalls}
+    Run keyword if    ${isMeatBallsVisibled}    Click Element    ${btnSearchActionMeatBalls}
     Click Element    ${actionSelector}
 
 Click Search Action Mass Change

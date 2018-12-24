@@ -33,12 +33,12 @@ ${divPanelDisplayFilters}               jquery=#DisplayDescriptionWrapper
 ${divPanelDisplayFilterItems}           jquery=#DisplayDescriptionWrapper .detailDefinitionList li
 ${divPrivateNote}                       YourNote
 
-${ddlAngleActionDropdownList}                       ActionDropdownList
+${btnAngleActionMeatBalls}                          css=#ActionDropdownList
 ${ddlAngleActionDropdownListCreateNewDisplay}       css=#ActionDropdownListPopup .newDisplay
 ${ddlAngleActionDropdownListSaveDisplay}            css=#ActionDropdownListPopup .save
 ${ddlAngleActionDropdownListSaveDisplayAs}          css=#ActionDropdownListPopup .saveAs
 ${ddlAngleActionDropdownListCopyDisplay}            css=#ActionDropdownListPopup .copydisplay
-${ddlAngleActionDropdownListPasteDisplay}            css=#ActionDropdownListPopup .pastedisplay
+${ddlAngleActionDropdownListPasteDisplay}           css=#ActionDropdownListPopup .pastedisplay
 ${ddlAngleActionDropdownListExportToExcel}          css=#ActionDropdownListPopup .exportToExcel
 ${ddlAngleActionDropdownListExportToCSV}            css=#ActionDropdownListPopup .exportToCSV
 ${ddlAngleActionDropdownListAddToDashboard}         css=#ActionDropdownListPopup .addToDashboard
@@ -88,52 +88,57 @@ Click Remove Last Adhoc Filter
     Click Element   ${divLastRemovableDisplayFilter}
     Wait Progress Bar Closed
 
+Click Angle Action
+    [Arguments]    ${actionSelector}
+    ${isMeatBallsVisibled}=  Run Keyword And Return Status    Element Should Be Visible    ${btnAngleActionMeatBalls}
+    Run keyword if    ${isMeatBallsVisibled}    Click Element    ${btnAngleActionMeatBalls}
+    Click Element    ${actionSelector}
 
 Click Angle Dropdown Actions Create New Display
-    Click Element    ${ddlAngleActionDropdownListCreateNewDisplay}
+    Click Angle Action    ${ddlAngleActionDropdownListCreateNewDisplay}
 
 Click Angle Dropdown Actions Save Display As
-    Click Element    ${ddlAngleActionDropdownListSaveDisplayAs}
+    Click Angle Action    ${ddlAngleActionDropdownListSaveDisplayAs}
 
 Click Angle Dropdown Actions Copy Display
-    Click Element    ${ddlAngleActionDropdownListCopyDisplay}
+    Click Angle Action    ${ddlAngleActionDropdownListCopyDisplay}
 
 Click Angle Dropdown Actions Paste Display
-    Click Element    ${ddlAngleActionDropdownListPasteDisplay}
+    Click Angle Action    ${ddlAngleActionDropdownListPasteDisplay}
 
 Click Angle Dropdown Actions Save Adhoc Display
-    Click Element    ${ddlAngleActionDropdownListSaveDisplay}
+    Click Angle Action    ${ddlAngleActionDropdownListSaveDisplay}
     Wait Until Page Contains    Save Display as...
     Wait Until Page Contains Element    ${txtSaveAsDisplayName}
     Wait Until Page Contains Element    ${btnSubmitSaveAsDisplay}
 
 Click Angle Dropdown Actions Save Existing Display
-    Click Element    ${ddlAngleActionDropdownListSaveDisplay}
+    Click Angle Action    ${ddlAngleActionDropdownListSaveDisplay}
     Wait Progress Bar Closed
 
 Click Angle Dropdown Actions Edit Display
-    Click Element    ${ddlAngleActionDropdownListEditDisplay}
+    Click Angle Action    ${ddlAngleActionDropdownListEditDisplay}
     Wait Display Detail Document Loaded
 
 Click Angle Dropdown Actions Create List
-    Click Element    ${ddlAngleActionDropdownListCreateList}
+    Click Angle Action    ${ddlAngleActionDropdownListCreateList}
     Wait Progress Bar Closed
     Wait Until List Display Loaded
 
 Click Angle Dropdown Add Jump
-    Click Element    ${ddlAngleActionDropdownAddJump}
+    Click Angle Action    ${ddlAngleActionDropdownAddJump}
     Wait Until Add Jump Popup Loaded
 
 Click Angle Dropdown Actions Add To Dashboard
-    Click Element    ${ddlAngleActionDropdownListAddToDashboard}
+    Click Angle Action    ${ddlAngleActionDropdownListAddToDashboard}
     Wait Add To Dashboard Popup Load
 
 Click Angle Dropdown To Export Excel
-    Click Element    ${ddlAngleActionDropdownListExportToExcel}
+    Click Angle Action    ${ddlAngleActionDropdownListExportToExcel}
     Wait Until Export To Excel Popup Loaded
 
 Click Angle Dropdown To Export Drilldown To Excel
-    Click Element    ${ddlAngleActionDropdownListExportToExcel}
+    Click Angle Action    ${ddlAngleActionDropdownListExportToExcel}
     Wait Until Export Drilldown To Excel Popup Loaded
 
 Get Display Type

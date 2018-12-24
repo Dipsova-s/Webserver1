@@ -83,6 +83,16 @@ function SearchPageHandler() {
             WC.HtmlHelper.MenuNavigatable('#Help', '#HelpMenu', '.actionDropdownItem');
             WC.HtmlHelper.MenuNavigatable('#SelectModelCreateNewAngle', '#PopupSelectModelCreateNewAngle', '.k-item', 'k-state-selected');
 
+            // action menu responsive
+            WC.HtmlHelper.ActionMenu('#ActionSelect', function (target) {
+                // pre-value use for subtraction margin or white-spacing
+                var result = -300;
+                target.siblings().each(function () {
+                    result += jQuery(this).outerWidth();
+                });
+                return result;
+            });
+
             //Binding knockout
             WC.HtmlHelper.ApplyKnockout(Localization, jQuery('#HelpMenu .k-window-content'));
             WC.HtmlHelper.ApplyKnockout(Localization, jQuery('#UserMenu .k-window-content'));
@@ -1095,7 +1105,7 @@ function SearchPageHandler() {
         }
     };
     self.UpdateActionMenuState = function () {
-        jQuery('#ActionDropdownList').removeClass('disabled');
+        jQuery('#ActionSelect').removeClass('disabled');
 
         var canCreateAngle = privilegesViewModel.IsAllowCreateAngle();
         var ddlList = jQuery('#ActionDropdownListPopup .actionDropdownItem').addClass('disabled');

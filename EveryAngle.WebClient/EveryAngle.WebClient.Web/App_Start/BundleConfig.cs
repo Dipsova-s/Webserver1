@@ -110,6 +110,7 @@ namespace EveryAngle.WebClient.Web
                 "~/scripts/helper/htmlhelper.js",
                 "~/scripts/helper/htmlhelper.tooltip.js",
                 "~/scripts/helper/htmlhelper.menunavigatable.js",
+                "~/scripts/helper/htmlhelper.actionmenu.js",
                 "~/scripts/helper/globalfunction.js",
                 "~/scripts/helper/viewengine.js",
                 "~/scripts/helper/modelhelper.js",

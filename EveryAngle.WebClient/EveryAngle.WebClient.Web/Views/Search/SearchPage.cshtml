@@ -63,12 +63,12 @@
                     <input id="SearchInput" type="text" />
                 </div>
 
-                <div id="ActionSelect" class="compactMode">
-                    <div id="ActionDropdownList" class="btn btnDefault btnTools disabled"><span data-bind="text: Localization.SearchPageAngleAction">@Resource.SearchPageAngleAction</span></div>
-                    <div class="k-window-titleless k-window-custom k-window-arrow-n popupAction popupActionSearch" id="ActionDropdownListPopup">
-                        <div class="k-window-content k-content"></div>
-                    </div>
+            <div id="ActionSelect" class="compactMode disabled">
+                <div id="ActionDropdownList" class="btnTools"></div>
+                <div class="k-window-titleless k-window-custom k-window-arrow-n popupAction popupActionSearch" id="ActionDropdownListPopup">
+                    <div class="k-window-content k-content"></div>
                 </div>
+            </div>
 
                 <div id="SearchResultView">
                     @{Html.RenderPartial("~/Views/Search/PartialViews/TotalSearchResult.cshtml");}

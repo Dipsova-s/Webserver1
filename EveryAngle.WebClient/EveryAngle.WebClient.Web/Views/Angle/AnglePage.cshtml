@@ -46,7 +46,7 @@
 }
 @section UnderTopHeader 
 {
-    <div id="AngleField" class="detailsWrapper">
+    <div id="AngleField" class="detailsWrapper top">
         <div class="Wrapper">
             <div id="AngleSetting">
                 <div id="AngleName" class="angleInformation informationDetailPanel">
@@ -61,7 +61,7 @@
                 <span id="ExecutionResults" class="executionResults" data-bind="html: $root.GetExecutionResultText(), attr: { title: $root.GetExecutionResultText(true) }"></span>
                 <!-- /ko -->
                 <div id="ActionSelect" class="compactMode">
-                    <div id="ActionDropdownList" class="btn btnDefault btnTools"><span data-bind="text: Localization.Tools">@Resource.Tools</span></div>
+                    <div id="ActionDropdownList" class="btnTools"></div>
                     <div class="k-window-titleless k-window-custom k-window-arrow-n popupAction popupActionAngle" id="ActionDropdownListPopup">
                         <div class="k-window-content k-content"></div>
                     </div>

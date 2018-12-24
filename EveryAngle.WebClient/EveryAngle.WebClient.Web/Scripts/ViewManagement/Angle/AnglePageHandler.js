@@ -1528,14 +1528,12 @@ function AnglePageHandler() {
             jQuery('#DisplayItemList').removeClass('DisplayItemListContainerWithKeepFilter');
 
         if (forceHide || isOpened) {
-            jQuery('#AngleField').removeClass('top');
             jQuery('#DisplayListSelection, #SelectedDisplay').removeClass('open');
             jQuery('#DisplayListSelection .DisplayItemListContainer').animate({ top: -maxH }, 100, function () {
                 displayListElement.hide();
             });
         }
         else {
-            jQuery('#AngleField').addClass('top');
             jQuery('#DisplayListSelection').show();
             self.UpdateDisplaysDropdownLayout();
             jQuery('#DisplayListSelection .DisplayItemListContainer').animate({ top: 0 }, 200, function () {
