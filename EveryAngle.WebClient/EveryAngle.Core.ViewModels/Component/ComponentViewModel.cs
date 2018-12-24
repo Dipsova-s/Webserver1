@@ -22,6 +22,11 @@ namespace EveryAngle.Core.ViewModels
             }
         }
 
+        public string TypeName
+        {
+            get { return Type.ToString(); }
+        }
+
         /// <summary>
         /// </summary>
         [JsonProperty(PropertyName = "uri")]

@@ -174,13 +174,6 @@
             clearInterval(MC.util.showClockTimer);
             setClock();
             MC.util.showClockTimer = setInterval(setClock, 1000);
-        },
-        getDisplayDateTime: function (seconds, emptyValue) {
-            if (!seconds)
-                return emptyValue ? emptyValue : '';
-
-            var serverDate = MC.util.unixtimeToServerTime(seconds);
-            return kendo.format('{0:MM/dd/yyyy HH:mm}', serverDate);
         }
     };
     $.extend(win.MC.util, date);

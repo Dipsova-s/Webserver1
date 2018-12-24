@@ -823,7 +823,6 @@
     <Content Include="Views\Model\RefreshCycle\RefreshCycleForm.cshtml" />
     <Content Include="Views\GlobalSettings\UploadEASets\ExportPackageForm.cshtml" />
     <Content Include="Views\Component\SystemComponent.cshtml" />
-    <Content Include="Views\Component\ModelComponent.cshtml" />
     <Content Include="Views\Component\ComponentGrid.cshtml" />
   </ItemGroup>
   <PropertyGroup>

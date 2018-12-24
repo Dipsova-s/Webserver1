@@ -9,7 +9,7 @@
             setTimeout(function () {
                 var grid = jQuery('#ComponentsGrid').data('kendoGrid');
                 if (grid) {
-                    grid.bind('dataBound', self.GridDataBound);
+                    grid.bind('dataBound', self.ComponentGridDataBound);
                     grid.dataSource.read();
                 }
             }, 1);
@@ -59,12 +59,17 @@
                 MC.util.modelServerInfo.showInfoPopup(e, $(obj));
             });
         };
-
-        self.GetModelServerInfoTitle = function (type) {
-            var grid = $('#ComponentsGrid').data('kendoGrid');
-            var typeValues = grid.columns[0].values;
-            return typeValues.findObject('value', type).text;
+         
+        self.ComponentGridDataBound = function (e) {
+            MC.ui.btnGroup();
+            MC.ui.localize();
+            MC.ui.popup();
+            var dataItems = e.sender.dataItems();
+            e.sender.items().not('.k-no-data').each(function (index, item) {
+                $(item).attr('id', 'row-' + dataItems[index].Id);
+            });
         };
+
     }
 
     win.MC.GlobalSettings = globalSettings || {};

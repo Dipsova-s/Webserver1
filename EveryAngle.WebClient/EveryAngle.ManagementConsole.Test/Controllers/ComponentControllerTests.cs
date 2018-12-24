@@ -119,29 +119,16 @@ namespace EveryAngle.ManagementConsole.Test.Controllers
 
         #region GetComponents
         [TestCase]
-        public void GetComponents_Should_ReturnComponentsWithoutModelId_When_ModelIdIsNotSet()
+        public void GetComponents_Should_ReturnComponents_When_Called()
         {
             ComponentController controller = new ComponentController(
                componentService.Object, modelService.Object, sessionHelper.Object);
-            JsonResult jsonResult = controller.GetComponents(null);
+            JsonResult jsonResult = controller.GetComponents();
 
             string json = JsonConvert.SerializeObject(jsonResult.Data);
             ComponentsResult result = JsonConvert.DeserializeObject<ComponentsResult>(json);
 
-            Assert.AreEqual(3, result.Total);
-        }
-
-        [TestCase]
-        public void GetComponents_Should_ReturnComponentsWithModelId_When_ModelIdIsSet()
-        {
-            ComponentController controller = new ComponentController(
-               componentService.Object, modelService.Object, sessionHelper.Object);
-            JsonResult jsonResult = controller.GetComponents("EA2_800");
-
-            string json = JsonConvert.SerializeObject(jsonResult.Data);
-            ComponentsResult result = JsonConvert.DeserializeObject<ComponentsResult>(json);
-
-            Assert.AreEqual(2, result.Total);
+            Assert.AreEqual(6, result.Total);
         }
         #endregion
     }

@@ -38,12 +38,6 @@ namespace EveryAngle.ManagementConsole.Controllers
             return PartialView("~/Views/Component/SystemComponent.cshtml");
         }
 
-        public ActionResult ModelComponents(string modelId)
-        {
-            ViewBag.ModelId = modelId;
-            return PartialView("~/Views/Component/ModelComponent.cshtml");
-        }
-
         public FileResult DownloadMetadata(string modelId, string componentUri)
         {
             ModelViewModel model = SessionHelper.GetModelById(modelId);
@@ -69,10 +63,9 @@ namespace EveryAngle.ManagementConsole.Controllers
             }, JsonRequestBehavior.AllowGet);
         }
 
-        public JsonResult GetComponents(string modelId)
+        public JsonResult GetComponents()
         {
-            IEnumerable<ComponentViewModel> components = _componentService.GetItems()
-                .Where(x => string.IsNullOrEmpty(modelId) ? string.IsNullOrEmpty(x.ModelId) : modelId.Equals(x.ModelId));
+            IEnumerable<ComponentViewModel> components = _componentService.GetItems().OrderBy(x => x.ModelId);
 
             DataSourceResult result = new DataSourceResult
             {

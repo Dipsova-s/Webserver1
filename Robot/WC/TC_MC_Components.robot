@@ -25,7 +25,3 @@ Force Tags                MC    acc_mc
 Verify System Components Page
     Go To System Components Page
     Check System Components
-
-Verify Model Components Page
-    Go To EA2_800 Model Components Page
-    Check EA2_800 Model Components
