@@ -23,17 +23,14 @@
         var tooltipHeight = tooltip.outerHeight();
         var tooltipLeft;
         var tooltipTop;
-        var target = jQuery(e.target);
-        var targetOffset = target.offset();
-
         var target = jQuery(e.currentTarget);
         var targetOffset = target.offset();
-        if (e.data.position === TOOLTIP_POSITION.BOTTOM) {
+        if (e.data && e.data.position === TOOLTIP_POSITION.BOTTOM) {
             // show at bottom
             tooltipLeft = targetOffset.left + (target.outerWidth() / 2) - (tooltipWidth / 2);
             tooltipTop = targetOffset.top + target.outerHeight();
         }
-        else if (e.data.position === TOOLTIP_POSITION.RIGHT) {
+        else if (e.data && e.data.position === TOOLTIP_POSITION.RIGHT) {
             // show at right
             tooltipLeft = targetOffset.left + target.outerWidth() + 10;
             tooltipTop = targetOffset.top - 4;
