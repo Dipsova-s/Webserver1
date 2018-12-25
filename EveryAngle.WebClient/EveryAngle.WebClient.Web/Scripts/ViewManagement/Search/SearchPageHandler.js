@@ -48,7 +48,7 @@ function SearchPageHandler() {
             .done(function () {
                 jQuery('html').addClass('initialized');
                 self.InitialSearchPageCallback(callback);
-            });
+            }); 
     };
     self.InitialSearchPageCallback = function (callback) {
         userSettingsView.UpdateUserMenu();
@@ -70,7 +70,7 @@ function SearchPageHandler() {
             self.BindSortingDropdown();
 
             // tooltip
-            WC.HtmlHelper.Tooltip.Create('searchfacet', '#LeftMenu .name', true); 
+            WC.HtmlHelper.Tooltip.Create('searchfacet', '#LeftMenu .name', true);
             WC.HtmlHelper.Tooltip.Create('BusinessProcessFacet', '#LeftMenu .BusinessProcessFacet', false, TOOLTIP_POSITION.RIGHT, 'BusinessProcessFacet-tooltip k-window-arrow-w');
             WC.HtmlHelper.Tooltip.Create('actionmenu', '#ActionDropdownListPopup .actionDropdownItem', false, TOOLTIP_POSITION.BOTTOM, 'tooltipActionmenu k-window-arrow-n');
             WC.HtmlHelper.Tooltip.Create('searchbar', '#SearchBar .searchBoxWrapper > a', false, TOOLTIP_POSITION.BOTTOM, 'tooltipActionmenu k-window-arrow-n');
@@ -642,7 +642,7 @@ function SearchPageHandler() {
             dataBound: function (e) {
                 if (!e.sender.dataItems().length)
                     return;
-                
+
                 WC.HtmlHelper.AdjustNameContainer(e.sender.element.find('.ResultContent'));
 
                 jQuery.each(searchModel.SelectedItems(), function (idx, item) {
@@ -719,12 +719,12 @@ function SearchPageHandler() {
 
         if (jQuery.browser.msie) {
             grid.content
-            .off('mousewheel.iefix')
-            .on('mousewheel.iefix', function (e) {
-                if (!grid.content.find('.k-loading-mask').length) {
-                    virtualScroll.verticalScrollbar.scrollTop(virtualScroll.verticalScrollbar.scrollTop() - (e.deltaFactor * e.deltaY));
-                }
-            });
+                .off('mousewheel.iefix')
+                .on('mousewheel.iefix', function (e) {
+                    if (!grid.content.find('.k-loading-mask').length) {
+                        virtualScroll.verticalScrollbar.scrollTop(virtualScroll.verticalScrollbar.scrollTop() - (e.deltaFactor * e.deltaY));
+                    }
+                });
         }
 
         // prefetching
@@ -824,7 +824,7 @@ function SearchPageHandler() {
         userModel.SetManagementControlButton();
 
         if (!privilegesViewModel.IsAllowAdvanceSearch())
-            jQuery('#AdvancedFilters').hide();
+            jQuery('#SearchButton').addClass('alwaysHide');
     };
 
     // action dropdown
@@ -838,7 +838,7 @@ function SearchPageHandler() {
     self.CallActionDropdownFunction = function (element, selectedValue) {
         if (jQuery(element).hasClass('disabled'))
             return;
-        
+
         switch (selectedValue) {
             case enumHandlers.SEARCHACTION.DELETE.Id:
                 self.DeleteItems();
@@ -933,10 +933,10 @@ function SearchPageHandler() {
             }
 
             return jQuery.when(
-                    isCancel && canCancel
+                isCancel && canCancel
                     ? jQuery.Deferred().reject({}, Localization.AbortStatus, Localization.CancelledByUser)
                     : searchModel.DeleteItemByUrl(item.uri, forced)
-                )
+            )
                 .done(function (data, status, xhr) {
                     reports.last_xhr = xhr;
                     reports.delete_done.push('- [' + item.type + '] ' + WC.HtmlHelper.StripHTML(item.name) + ': <em class="ok">' + Localization.Successful + '</em><br/>');
@@ -1116,14 +1116,14 @@ function SearchPageHandler() {
 
         if (searchModel.SelectedItems().length) {
             ddlList.filter('.deSelect').removeClass('disabled');
-            
+
             var allowedMenuList = ['.executeDashboard', '.massChange', '.delete', '.createEAPackage', '.copyAngle'];
 
             if (!canCreateAngle) {
                 // not allow copy angle and delete item menu when no permission to create a new angle
                 var copyAngleIndex = allowedMenuList.indexOf('.copyAngle');
                 allowedMenuList.splice(copyAngleIndex, 1);
-                
+
                 if (!self.IsDeleteMenuEnabled()) {
                     var deleteItemIndex = allowedMenuList.indexOf('.delete');
                     allowedMenuList.splice(deleteItemIndex, 1);
@@ -1358,19 +1358,19 @@ function SearchPageHandler() {
             display.__angle_uri = angle.uri;
             display.__angle_is_template = angle.is_template;
             var template = [
-                '<li class="displayNameContainer cursorPointer ' + extraCssClass +'" onclick="searchPageHandler.ClickDisplay(event)">',
-                    '<div class="front">',
-                        '<i class="icon #= searchPageHandler.GetDisplayTypeCSSClass(data) #"></i>',
-                    '</div>',
-                    '<a class="name nameLink displayName"',
-                        ' title="#:data.name #"',
-                        ' href="#= searchModel.GetDisplayHrefUri(data.__angle_uri, data.uri, data.__angle_is_template) #"',
-                        ' onclick="return searchModel.ItemLinkClicked(event, \'#: data.__angle_uri #\', null, \'#: data.uri #\')">',
-                        '#: data.name #</a>',
-                    '<div class="rear">',
-                        '<i class="icon #= searchPageHandler.GetParameterizeCSSClass(data) #"></i>',
-                        '<i class="icon #= searchPageHandler.GetWarnningClass(data) #"></i>',
-                    '</div>',
+                '<li class="displayNameContainer cursorPointer ' + extraCssClass + '" onclick="searchPageHandler.ClickDisplay(event)">',
+                '<div class="front">',
+                '<i class="icon #= searchPageHandler.GetDisplayTypeCSSClass(data) #"></i>',
+                '</div>',
+                '<a class="name nameLink displayName"',
+                ' title="#:data.name #"',
+                ' href="#= searchModel.GetDisplayHrefUri(data.__angle_uri, data.uri, data.__angle_is_template) #"',
+                ' onclick="return searchModel.ItemLinkClicked(event, \'#: data.__angle_uri #\', null, \'#: data.uri #\')">',
+                '#: data.name #</a>',
+                '<div class="rear">',
+                '<i class="icon #= searchPageHandler.GetParameterizeCSSClass(data) #"></i>',
+                '<i class="icon #= searchPageHandler.GetWarnningClass(data) #"></i>',
+                '</div>',
                 '</li>'
             ].join('');
             var templateFunction = kendo.template(template);
@@ -1680,22 +1680,22 @@ function SearchPageHandler() {
                 var isFF = !!jQuery.browser.mozilla;
                 if (
                     !(
-                    // allow 0 - 9 (keyboard)
+                        // allow 0 - 9 (keyboard)
                         (!e.shiftKey && e.keyCode >= 48 && e.keyCode <= 57)
 
-                    // allow 0 - 9 (numpad)
+                        // allow 0 - 9 (numpad)
                         || (!e.shiftKey && e.keyCode >= 96 && e.keyCode <= 105)
 
-                    // allow _ (keyboard)
+                        // allow _ (keyboard)
                         || (e.shiftKey && ((!isFF && e.keyCode === 189) || (isFF && e.keyCode === 173)))
 
-                    // allow * (keyboard)
+                        // allow * (keyboard)
                         || (e.shiftKey && e.keyCode === 56)
 
-                    // allow * (numpad)
+                        // allow * (numpad)
                         || (e.keyCode === 106)
 
-                    // allow a - z (keyboard)
+                        // allow a - z (keyboard)
                         || (e.keyCode >= 65 && e.keyCode <= 90)
                     )
                 ) {

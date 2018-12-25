@@ -1,5 +1,6 @@
 ﻿/// <reference path="../../../Dependencies/ViewModels/Models/User/usermodel.js" />
 /// <reference path="../../../Dependencies/ViewModels/Models/User/usersettingmodel.js" />
+/// <reference path="../../../Dependencies/ViewModels/Models/User/privileges.js" />
 /// <reference path="../../../Dependencies/ViewModels/Models/Search/searchmodel.js" />
 /// <reference path="../../../Dependencies/ViewManagement/Search/SearchPageHandler.js" />
 
@@ -65,10 +66,10 @@ describe('SearchPageHandler', function () {
                 "registered_on": 1514284342,
                 "last_logon": 1514886174,
                 "assigned_roles": [
-                   {
-                       "role_id": "EA2_800_VIEWER",
-                       "model_id": "EA2_800"
-                   }
+                    {
+                        "role_id": "EA2_800_VIEWER",
+                        "model_id": "EA2_800"
+                    }
                 ]
             };
             userModel.Data(mockCurrentUser);
@@ -286,4 +287,27 @@ describe('SearchPageHandler', function () {
 
     });
 
+    describe('.InitialUserPrivileges', function () {
+
+        beforeEach(function () {
+            $('body').append('<input id="SearchButton" type="button">');
+        });
+
+        it('should show search button when has advance search privilege', function () {
+            spyOn(userModel, 'SetCreateAngleButton').and.callFake($.noop);
+            spyOn(userModel, 'SetManagementControlButton').and.callFake($.noop);
+            spyOn(privilegesViewModel, 'IsAllowAdvanceSearch').and.returnValue(true);
+            searchPageHandler.InitialUserPrivileges();
+            expect($('#SearchButton').attr('class')).not.toEqual('alwaysHide');
+        });
+
+        it('should hide search button when has no advance search privilege', function () {
+            spyOn(userModel, 'SetCreateAngleButton').and.callFake($.noop);
+            spyOn(userModel, 'SetManagementControlButton').and.callFake($.noop);
+            spyOn(privilegesViewModel, 'IsAllowAdvanceSearch').and.returnValue(false);
+            searchPageHandler.InitialUserPrivileges();
+            expect($('#SearchButton').attr('class')).toEqual('alwaysHide');
+        });
+
+    });
 });
