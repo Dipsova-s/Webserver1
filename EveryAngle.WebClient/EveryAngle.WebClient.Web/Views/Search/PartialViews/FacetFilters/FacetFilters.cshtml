@@ -18,7 +18,7 @@
                                     click: function (data, event) { return facetFiltersViewModel.FilterItems(data, event, $parent) }, 
                                     Indeterminatable: filter.checked" />
                         <span class="label" 
-                              data-bind="html: $root.GetFilterText(filter, facet.type), 
+                              data-bind="html: $root.GetFilterText(filter, facet.type, facet.id), 
                                 attr: { 'alt': filter.id }, 
                                 css: { negative: filter.negative }"></span>
                     </label>

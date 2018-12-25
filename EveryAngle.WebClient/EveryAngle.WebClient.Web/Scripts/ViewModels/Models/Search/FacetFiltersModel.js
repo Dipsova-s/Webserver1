@@ -15,6 +15,7 @@ function FacetFiltersViewModel() {
     self.GroupGeneral = 'item_property';
     self.GroupBusinessProcess = 'business_process';
     self.GroupCannotNegativeFilter = 'facetcat_admin';
+    self.GroupModels = 'facetcat_models';
     self.GroupGeneralOrder = ['facetcat_bp', 'facetcat_itemtype', 'facetcat_characteristics', 'facetcat_models', 'facetcat_admin'];
     self.FilterExclusionList = ['facet_executeonlogin'];
     self.ShowOtherFacetFilterProperties = ko.observable(false);
@@ -429,7 +430,7 @@ function FacetFiltersViewModel() {
                 html += '<img src="' + icon.path + '" height="' + icon.dimension.height + '" width="' + icon.dimension.width + '" style="' + (icon.style || '') + '" />';
                 html += '<span class="name withIcon">';
             }
-            else if (facetcat === 'facetcat_models') {
+            else if (facetcat === self.GroupModels) {
                 html += '<span class="name" data-type="html" data-tooltip-function="GetRefreshTime" data-tooltip-argument="' + filter.id + '">';
             }
             else {

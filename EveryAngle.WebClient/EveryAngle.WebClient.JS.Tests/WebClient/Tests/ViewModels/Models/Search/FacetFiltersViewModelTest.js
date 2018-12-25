@@ -204,4 +204,49 @@ describe("FacetFiltersViewModel", function () {
         });
 
     });
+
+    describe(".GetFilterText", function () {
+        var spySetIcon;
+        var filter = {
+            id: 'EA2_800',
+            name: 'EA2_800',
+            description: 'EA2_800',
+            index: 20,
+            enabled: function () { return true; },
+            checked: function () { return false; }
+        };
+        var iconResult = {
+            path: '/image/test.png',
+            dimension: {
+                width: 150,
+                height: 150
+            },
+            style: 'overflow: auto'
+        };
+        beforeEach(function () {
+            spySetIcon = spyOn(facetFiltersViewModel, 'SetIcon').and.returnValue('');
+        });
+
+        it("should display business process label style when facet category is business process", function () {
+            var result = facetFiltersViewModel.GetFilterText(filter, 'business_process', '');
+            expect(result).toEqual('<span class="label"> <span class="BusinessProcessBadge BusinessProcessBadgeItem2 EA2_800"></span><span class="BusinessProcessFacet " data-tooltip-text="EA2_800">EA2_800</span></span>');
+        });
+
+        it("should display icon in front of label when facet id is in icon list", function () {
+            spySetIcon.and.returnValue(iconResult);
+            var result = facetFiltersViewModel.GetFilterText(filter, '', 'facetcat_models');
+            expect(result).toEqual('<img src="/image/test.png" height="150" width="150" style="overflow: auto" /><span class="name withIcon">EA2_800</span>');
+        });
+
+        it("should display model age when facet category is models", function () {
+            var result = facetFiltersViewModel.GetFilterText(filter, '', 'facetcat_models');
+            expect(result).toEqual('<span class="name" data-type="html" data-tooltip-function="GetRefreshTime" data-tooltip-argument="EA2_800">EA2_800</span>');
+        });
+
+        it("should display only label when facet id is not in icon list", function () {
+            var result = facetFiltersViewModel.GetFilterText(filter, '', '');
+            expect(result).toEqual('<span class="name">EA2_800</span>');
+        });
+
+    });
 });
