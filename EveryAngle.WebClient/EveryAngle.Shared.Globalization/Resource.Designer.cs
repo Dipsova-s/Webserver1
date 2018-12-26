@@ -12513,7 +12513,8 @@ namespace EveryAngle.Shared.Globalization {
         
         /// <summary>
         ///   Looks up a localized string similar to Add arguments to pass to the script.&lt;br&gt;
-        ///The syntax depends on the type of script that is used in this action..
+        ///The syntax depends on the type of script that is used in this action.&lt;br&gt;
+        ///Use {alloutput} to pass a list of output files coming from other datastore actions in this task..
         /// </summary>
         public static string MC_TaskAction_DescriptionParameters {
             get {

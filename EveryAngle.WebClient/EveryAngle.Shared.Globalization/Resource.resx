@@ -5892,7 +5892,8 @@ When unchecked, the Task will continue and complete itself when this action fail
   </data>
   <data name="MC_TaskAction_DescriptionParameters" xml:space="preserve">
     <value>Add arguments to pass to the script.&lt;br&gt;
-The syntax depends on the type of script that is used in this action.</value>
+The syntax depends on the type of script that is used in this action.&lt;br&gt;
+Use {alloutput} to pass a list of output files coming from other datastore actions in this task.</value>
   </data>
   <data name="MC_TaskAction_DescriptionPassword" xml:space="preserve">
     <value>The password of the Run user for the program/script.&lt;br&gt;

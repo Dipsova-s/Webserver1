@@ -2534,34 +2534,40 @@
             $.each(taskActionsGrid.items(), function (index, task) {
                 task = $(task);
                 var dataItem = taskActionsGrid.dataSource.getByUid(task.data('uid'));
-                if (dataItem) {
-                    if (task.hasClass('rowMaskAsRemove')) {
+                if (!dataItem) {
+                    return;
+                }
+
+                if (task.hasClass('rowMaskAsRemove')) {
+                    // if task action is new, it no need for request to delete on the server
+                    if (dataItem.uri) {
                         data.actionsDelete.push(dataItem.uri);
                     }
-                    else {
-                        var notification = dataItem.notification;
-                        if (notification) {
-                            if (!notification.recipients.length) {
-                                notification = null;
-                            }
-                            else if (notification.toJSON) {
-                                notification = notification.toJSON();
-                            }
-                        }
-
-                        var action = {
-                            "action_type": dataItem.action_type,
-                            "arguments": dataItem.arguments,
-                            'approval_state': dataItem.approval_state,
-                            "notification": notification,
-                            "Uri": dataItem.uri,
-                            "order": sortIndex
-                        };
-                        sortIndex++;
-
-                        data.actions.push(action);
-                    }
                 }
+                else {
+                    var notification = dataItem.notification;
+                    if (notification) {
+                        if (!notification.recipients.length) {
+                            notification = null;
+                        }
+                        else if (notification.toJSON) {
+                            notification = notification.toJSON();
+                        }
+                    }
+
+                    var action = {
+                        "action_type": dataItem.action_type,
+                        "arguments": dataItem.arguments,
+                        'approval_state': dataItem.approval_state,
+                        "notification": notification,
+                        "Uri": dataItem.uri,
+                        "order": sortIndex
+                    };
+                    sortIndex++;
+
+                    data.actions.push(action);
+                }
+                
             });
             return data;
         };
