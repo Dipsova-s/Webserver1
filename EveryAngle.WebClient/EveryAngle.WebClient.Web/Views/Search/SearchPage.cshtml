@@ -28,8 +28,11 @@
 {
     <div id="TopBar">
         <div class="Wrapper Shadow">
-            <a id="Logo" href="@Url.Action("SearchPage", "Search")"><img alt="" src="@Url.Content("~/images/master/ealogo.svg")" width="175" height="29" /></a>
-            @{Html.RenderPartial("~/Views/Shared/Menus/Top/UserPanel.cshtml");}
+            <a id="Logo" href="@Url.Action("SearchPage", "Search")">
+                <img alt="" src="@Url.Content("~/images/master/ealogo.svg")" width="175" height="29" />
+            </a>
+            @{Html.RenderPartial("~/Views/Shared/Top/BusinessProcessBadge.cshtml");}
+            @{Html.RenderPartial("~/Views/Shared/Top/UserPanel.cshtml");}
         </div>
     </div>
 }
@@ -44,10 +47,10 @@
         <div id="SearchBar">
             <div class="Wrapper">
                 <div id="CreateNewAngleButtonWrapper" class="createNewAngleButtonWrapper alwaysHide">
+                    <a id="SelectModelCreateNewAngle" class="btn btnSelectModelCreateNewAngle alwaysHide" onclick="createNewAngleViewManagementModel.ToggleModelsList()"></a>
                     <a id="CreateNewAngle" class="btn btnCreateNewAngle" onclick="createNewAngleViewManagementModel.CheckModelAvailable()">
                         <span data-bind="html: Captions.Button_CreateNewAngle + '<br/><i>' + Captions.Button_CreateNewAngle_NoModel + '</i>'"></span>
                     </a>
-                    <a id="SelectModelCreateNewAngle" class="btn btnSelectModelCreateNewAngle" onclick="createNewAngleViewManagementModel.ToggleModelsList()"></a>
                     <div class="k-list-container k-popup k-group k-reset k-list-large-container popupSelectModelCreateNewAngle" id="PopupSelectModelCreateNewAngle">
                         <ul class="k-list k-reset"></ul>
                     </div>

@@ -15,7 +15,7 @@
 }
 
 .popupUserSetting .hasSubMenu.Selected {
-    background-image: url('../../images/icons/icon_arrow_down_white.png');
+    background-image: url('../../images/icons/icon_arrow_down.svg');
     background-position: 98% 15px;
     height: auto;
 }
@@ -26,16 +26,17 @@
 
 .popupUserSetting .subMenu li {
     position: relative;
-    background: #efefef none;
+    background: #fbfbfb none;
     height: 27px;
 }
 
-.popupUserSetting .subMenu .Selected {
-    background-color: #d6d6d6;
+.popupUserSetting .subMenu li:hover {
+    background: #ffffff none;
 }
 
-.popupUserSetting .subMenu li:hover {
-    background-color: #ffffff;
+.popupUserSetting .subMenu .Selected,
+.popupUserSetting .subMenu .Selected:hover {
+    background: #f1f1f1 none;
 }
 
 .popupUserSetting .subMenu a {

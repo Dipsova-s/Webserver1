@@ -58,10 +58,11 @@
     padding-right: 10px;
 }
 .dashboardFilterToolButtons .btnToggleFilter {
-    background-image: url(../../images/icons/icon_arrow_up.png);
+    background-image: url(../../images/icons/icon_arrow_up.svg);
+    background-size: 14px 14px;
 }
 .collapsed .dashboardFilterToolButtons .btnToggleFilter {
-    background-image: url(../../images/icons/icon_arrow_down.png);
+    background-image: url(../../images/icons/icon_arrow_down.svg);
 }
 .dashboardFilterToolButtons .btnEditFilter {
     background-image: url(../../images/icons/icon_edit_filter.svg);
@@ -161,13 +162,12 @@
     top: 0;
     height: 100%;
     width: 10px;
-    background: #cecece url(../../images/icons/icon_arrow_black_left_black.png) -2px center no-repeat;
+    background: #cecece url(../../images/icons/icon_arrow_left.svg) center center no-repeat;
     z-index: 2;
-    transition: all .3s cubic-bezier(.25,.8,.25,1);
+    transition: background-color .3s cubic-bezier(.25,.8,.25,1);
 }
 .close .dashboardFilterToggle {
-    background-image: url(../../images/icons/icon_arrow_right_black.png);
-    background-position: -4px center;
+    background-image: url(../../images/icons/icon_arrow_right.svg);
 }
 .dashboardFilterToggle:hover {
     background-color: #b7b7b7;

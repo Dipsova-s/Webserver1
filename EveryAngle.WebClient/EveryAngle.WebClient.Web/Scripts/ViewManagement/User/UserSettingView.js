@@ -36,8 +36,6 @@ function UserSettingsView() {
     };
     self.ToggleMenuHelp = function () {
         if (jQuery('#HelpMenu').is(':hidden')) {
-            var position = jQuery("#Help").position().left;
-            jQuery('#HelpMenu').css('left', position - 140);
             jQuery('#HelpMenu').show();
             jQuery('#UserMenu').hide();
         }

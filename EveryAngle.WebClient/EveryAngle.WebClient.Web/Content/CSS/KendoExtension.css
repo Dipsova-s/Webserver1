@@ -175,7 +175,7 @@ div.k-grid tbody tr.k-row-selected:hover {
 }
 
 div.k-grid-header .k-header.k-column-active {
-    background: #d3d3d3 url('../../images/grid_header_active_bg.png') left bottom repeat-x !important;
+    background: #d3d3d3 none !important;
     border-top-color: #006f9b !important;
 }
 
@@ -613,7 +613,7 @@ span.eaColorPicker .k-picker-wrap .k-select {
     width: 32px;
     border-left: 1px solid #c5c5c5;
     border-right: 1px solid #c5c5c5;
-    background: transparent url('../../images/control_bg.png') right bottom no-repeat;
+    background: #ddd none;
     text-align: center;
     margin-top: 0;
     margin-right: 0;
@@ -781,7 +781,7 @@ span.eaDropdown .k-dropdown-wrap .k-select {
     height: 100%;
     width: 32px;
     border-left: 1px solid #c5c5c5;
-    background: transparent url('../../images/control_bg.png') right bottom no-repeat;
+    background: #ddd none;
     text-align: center;
     margin-top: 0;
     margin-right: 0;
@@ -789,16 +789,15 @@ span.eaDropdown .k-dropdown-wrap .k-select {
 }
 
 span.eaDropdown .k-dropdown-wrap .k-icon {
-    background-image: url('../../images/custom_sprite.png');
-    background-position: 0 0;
-    background-size: auto !important;
-    margin-top: -4px;
-    margin-left: -5px;
     position: absolute;
+    background-image: url('../../images/icons/icon_arrow_down.svg');
+    background-position: center center;
+    width: 10px;
+    height: 10px;
     left: 50%;
     top: 50%;
-    width: 11px;
-    height: 8px;
+    margin-top: -5px;
+    margin-left: -5px;
 }
 
 span.eaDropdownSize40 .k-dropdown-wrap {
@@ -966,7 +965,7 @@ span.eaDatepicker .k-picker-wrap .k-select {
     padding: 0;
     width: 32px;
     border-left: 1px solid #c5c5c5;
-    background: transparent url('../../images/control_bg.png') right bottom no-repeat;
+    background: #ddd none;
     text-align: center;
     border-radius: 0;
 }
@@ -1097,7 +1096,7 @@ span.eaTimepicker .k-picker-wrap .k-select {
     padding: 0;
     width: 32px;
     border-left: 1px solid #c5c5c5;
-    background: transparent url('../../images/control_bg.png') right bottom no-repeat;
+    background: #ddd none;
     text-align: center;
     margin-top: 0;
     margin-right: 0;
@@ -1105,7 +1104,7 @@ span.eaTimepicker .k-picker-wrap .k-select {
 }
 
 span.eaTimepicker .k-picker-wrap .k-icon {
-    margin-top: 6px;
+    margin-top: 3px;
     opacity: 1;
 }
 
@@ -1183,7 +1182,7 @@ span.eaTimepickerSize40 .k-picker-wrap .k-icon {
     height: 28px;
     width: 32px;
     border-left: 1px solid #c5c5c5;
-    background: transparent url('../../images/control_bg.png') right bottom no-repeat;
+    background: #ddd none;
     text-align: center;
     margin-top: 0;
     margin-right: 0;
@@ -1192,7 +1191,7 @@ span.eaTimepickerSize40 .k-picker-wrap .k-icon {
 
 .eaNumeric .k-numeric-wrap .k-link {
     height: 12px;
-    padding-top: 2px;
+    padding-top: 1px;
 }
 
 .eaNumericSize40 .k-numeric-wrap {

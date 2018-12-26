@@ -6,57 +6,52 @@
     string helpUri = "~/Data/Help/" + defaultLanguage + "/index.htm";
     var FileVersion = AssemblyInfoHelper.GetFileVersion();
 
-    //if (user != null)
-    //{
-    //    defaultLanguage = user.Settings.default_language;
-    //}
     if (user != null)
     {
         string webClientUrl = "";
 
-        if (SessionHelper.Initialize().CurrentUser != null &&
-                 SessionHelper.Initialize().CurrentUser.ModelPrivileges != null)
+        if (SessionHelper.Initialize().CurrentUser != null && SessionHelper.Initialize().CurrentUser.ModelPrivileges != null)
         {
             var isPossibleToAccessWC = SessionHelper.Initialize().Session.ModelPrivileges.Where(filter => filter.Privileges.access_data_via_webclient.HasValue &&
                 filter.Privileges.access_data_via_webclient.Value == true).FirstOrDefault();
-
             if (isPossibleToAccessWC != null)
             {
                 webClientUrl = EveryAngle.Shared.Helpers.UtilitiesHelper.GetWebClientUrl(defaultLanguage + System.Configuration.ConfigurationManager.AppSettings["WebClientUrl"]);
             }
         }
 
-
-        <a id="HelpMenuControl" class="linkHelp" onclick="MC.topMenu.clickHelp();">
-            <span class="helpIcon"></span>
-        </a>
-        <a id="UserMenuControl" class="linkUser" onclick="MC.topMenu.clickUser();">
-            @user.Fullname
-            <span class="downChevron"></span>
-        </a>
-
-    <div class="k-window-titleless k-window-custom k-window-arrow-n popupUserMenu" id="UserMenu" style="display: none;">
-        <div class="k-window-content k-content">
-            @if (!string.IsNullOrEmpty(webClientUrl))
-            {
-                <a href="@webClientUrl.ToLower()" class="actionDropdownItem btnWC" target="_blank"><span>@Resource.OpenWebclient</span></a>
-            }
-            <form id="logoutForm" action="@Url.Content("~/Security/Logout")">
-                <a class="actionDropdownItem btnLogout" onclick="jQuery('#logoutForm').submit();"><span>@Resource.Logout</span></a>
-            </form>
-        </div>
-    </div>
-
-    <div class="k-window-titleless k-window-custom k-window-arrow-n popupHelpMenu" id="HelpMenu" style="display: none;">
-        <div class="k-window-content k-content">
-            <a class="actionDropdownItem btnHelp" target="_blank" href="@Url.Content(helpUri)"><span>@EveryAngle.Shared.Globalization.Resource.Helppage</span></a>
-            <a id="btnAbout" data-role="mcPopup" onclick="MC.util.showPopupAbout('@Url.Action("AboutInformation", "Home")');" data-title="@Resource.AboutEveryAngle" data-target="#popupAbout" data-scrollable="false" data-resizable="false" data-width="561" data-height="272" class="actionDropdownItem btnAbout">
-                <span>@Html.Raw(Resource.AboutEveryAngle)</span>
+        <div class="menuItem">
+            <a id="HelpMenuControl" class="linkHelp" onclick="MC.topMenu.clickHelp();">
+                <span class="helpIcon"></span>
             </a>
-            <div class="popup global" id="popupAbout"></div>
         </div>
-    </div>
+        <div class="menuItem">
+            <a id="UserMenuControl" class="linkUser" onclick="MC.topMenu.clickUser();">
+                @user.Fullname<span class="downArrow"></span>
+            </a>
+        </div>
 
-}
+        <div class="k-window-titleless k-window-custom k-window-arrow-n popupUserMenu" id="UserMenu" style="display: none;">
+            <div class="k-window-content k-content">
+                @if (!string.IsNullOrEmpty(webClientUrl))
+                {
+                    <a href="@webClientUrl.ToLower()" class="actionDropdownItem btnWC" target="_blank"><span>@Resource.OpenWebclient</span></a>
+                }
+                <form id="logoutForm" action="@Url.Content("~/Security/Logout")">
+                    <a class="actionDropdownItem btnLogout" onclick="jQuery('#logoutForm').submit();"><span>@Resource.Logout</span></a>
+                </form>
+            </div>
+        </div>
 
+        <div class="k-window-titleless k-window-custom k-window-arrow-n popupHelpMenu" id="HelpMenu" style="display: none;">
+            <div class="k-window-content k-content">
+                <a class="actionDropdownItem btnHelp" target="_blank" href="@Url.Content(helpUri)"><span>@EveryAngle.Shared.Globalization.Resource.Helppage</span></a>
+                <a id="btnAbout" data-role="mcPopup" onclick="MC.util.showPopupAbout('@Url.Action("AboutInformation", "Home")');" data-title="@Resource.AboutEveryAngle" data-target="#popupAbout" data-scrollable="false" data-resizable="false" data-width="561" data-height="272" class="actionDropdownItem btnAbout">
+                    <span>@Html.Raw(Resource.AboutEveryAngle)</span>
+                </a>
+                <div class="popup global" id="popupAbout"></div>
+            </div>
+        </div>
+
+    }
 }

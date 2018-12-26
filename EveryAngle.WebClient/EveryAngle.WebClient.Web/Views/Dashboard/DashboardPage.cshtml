@@ -33,13 +33,16 @@
 @section TopBar
 {
     <div id="AngleTopBar" class="topBarWrapper">
-        <div class="Wrapper">
+        <div class="Wrapper Shadow">
             <a id="Logo" href="@Url.Action("SearchPage", "Search")">
-                <img alt="" src="@Url.Content("~/images/master/ealogo.svg")" width="175" height="29"/></a>
+                <img alt="" src="@Url.Content("~/images/master/ealogo.svg")" width="175" height="29" />
+            </a>
             <a id="BackToSearch" onclick="dashboardHandler.BackToSearch()">
-                <img alt="" src="@Url.Content("~/images/angle/back2search.svg")"  width="27" height="27" />@Resource.BackToSearch</a>
-         @*   @{Html.RenderAction("UserPanel", "Menu");}*@
-            @{Html.RenderPartial("~/Views/Shared/Menus/Top/UserPanel.cshtml");}
+                <img alt="" src="@Url.Content("~/images/angle/back2search.svg")" width="27" height="27" /><span data-bind="text: Localization.BackToSearch">@Resource.BackToSearch</span>
+            </a>
+
+            @{Html.RenderPartial("~/Views/Shared/Top/BusinessProcessBadge.cshtml");}
+            @{Html.RenderPartial("~/Views/Shared/Top/UserPanel.cshtml");}
         </div>
     </div>
 }

@@ -12,7 +12,10 @@
 {
     <div id="TopBar">
         <div class="Wrapper">
-            <a id="Logo" href="@Url.Action("SearchPage", "Search")"><img alt="" src="@Url.Content("~/images/master/ealogo.svg")" width="175" height="29"/></a>
+            <a id="Logo" href="@Url.Action("SearchPage", "Search")">
+                <img alt="" src="@Url.Content("~/images/master/ealogo.svg")" width="175" height="29" />
+            </a>
+            @{Html.RenderPartial("~/Views/Shared/Top/BusinessProcessBadge.cshtml");}
         </div>
     </div>
 }

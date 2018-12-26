@@ -176,7 +176,7 @@
     font-size: 12px;
     padding: 5px 5px 0 5px;
     border: 1px solid #8a8e8d;
-    background: transparent url(../../images/definition_bg.png) left top repeat-x;
+    background: #f3f3f3 none;
 }
 
 .detailDefinitionList.hint:before {

@@ -27,9 +27,6 @@
             MC.topMenu.click(jQuery('#UserMenu'), jQuery('#HelpMenu'));
         },
         clickHelp: function () {
-            var left = jQuery("#HelpMenuControl").position().left - 134;
-            jQuery("#HelpMenu").css("left", left);
-
             MC.topMenu.click(jQuery('#HelpMenu'), jQuery('#UserMenu'));
         }
     };

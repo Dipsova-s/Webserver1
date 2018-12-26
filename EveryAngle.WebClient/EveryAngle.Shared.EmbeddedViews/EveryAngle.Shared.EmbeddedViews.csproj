@@ -136,8 +136,6 @@
   <ItemGroup>
     <EmbeddedResource Include="Resource\FieldsChooser\filter_nav_bg.png" />
     <EmbeddedResource Include="Resource\FieldsChooser\grid_header_bg.png" />
-    <EmbeddedResource Include="Resource\FieldsChooser\icon_arrow_down.png" />
-    <EmbeddedResource Include="Resource\FieldsChooser\icon_arrow_up.png" />
     <EmbeddedResource Include="Resource\FieldsChooser\icon_starred_active.png" />
     <EmbeddedResource Include="Resource\FieldsChooser\icon_starred_inactive.png" />
     <EmbeddedResource Include="Resource\FieldsChooser\icon_suggest.png" />

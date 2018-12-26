@@ -256,7 +256,6 @@ if %25ERRORLEVEL%25 LEQ 1 exit 0 else exit %25ERRORLEVEL%25</PreBuildEvent>
     <Compile Include="Controllers\DashboardController.cs" />
     <Compile Include="Controllers\ErrorController.cs" />
     <Compile Include="Controllers\HelpController.cs" />
-    <Compile Include="Controllers\MenuController.cs" />
     <Compile Include="Controllers\PivotController.cs" />
     <Compile Include="Controllers\PopupController.cs" />
     <Compile Include="Controllers\ResourcesController.cs" />
@@ -515,9 +514,6 @@ if %25ERRORLEVEL%25 LEQ 1 exit 0 else exit %25ERRORLEVEL%25</PreBuildEvent>
     <Content Include="Images\Angle\AngleDetail\btn_selectall.svg" />
     <Content Include="Images\Angle\back2search.svg" />
     <Content Include="Images\Angle\btn_addcolumn.svg" />
-    <Content Include="Images\Angle\DescribeListImage2.svg" />
-    <Content Include="Images\Angle\icn_header_SAP.svg" />
-    <Content Include="Images\Angle\icon_template.svg" />
     <Content Include="Images\Angle\pivotchart.png" />
     <Content Include="Images\Domains\InvItemTypes\InvItemTypesInvoiceItemType0PO.png" />
     <Content Include="Images\Domains\InvItemTypes\InvItemTypesInvoiceItemType1NoPO.png" />
@@ -532,22 +528,13 @@ if %25ERRORLEVEL%25 LEQ 1 exit 0 else exit %25ERRORLEVEL%25</PreBuildEvent>
     <Content Include="Images\Domains\LogisticsBehaviour\logisticsbehaviourls2delivering.png" />
     <Content Include="Images\Domains\LogisticsBehaviour\logisticsbehaviourls3transferwithinplant.png" />
     <Content Include="Images\Domains\LogisticsBehaviour\logisticsbehaviourls4transferbetweenplants.png" />
-    <Content Include="Images\dropdown_check.svg" />
-    <Content Include="Images\dropdown_check_active.svg" />
     <Content Include="Images\Icons\icon_about.png" />
     <Content Include="Images\Icons\icon_add_filter_before_jump.png" />
     <Content Include="Images\Icons\icon_adv_filter.svg" />
-    <Content Include="Images\Icons\icon_arrow_black_down_black.png" />
-    <Content Include="Images\Icons\icon_arrow_black_up_black.png" />
+    <Content Include="Images\Icons\icon_arrow_left.svg" />
     <Content Include="Images\Icons\icon_arrow_down.svg" />
-    <Content Include="Images\Icons\icon_arrow_down_white.png" />
-    <Content Include="Images\Icons\icon_arrow_white_left.svg" />
-    <Content Include="Images\Icons\icon_arrow_right_black.svg" />
+    <Content Include="Images\Icons\icon_arrow_right.svg" />
     <Content Include="Images\Icons\icon_arrow_up.svg" />
-    <Content Include="Images\Icons\icon_arrow_white_down.png" />
-    <Content Include="Images\Icons\icon_arrow_white_down.svg" />
-    <Content Include="Images\Icons\icon_arrow_white_right.svg" />
-    <Content Include="Images\Icons\icon_arrow_white_up.svg" />
     <Content Include="Images\Icons\icon_change_password.png" />
     <Content Include="Images\Icons\icon_chart_addnew.png" />
     <Content Include="Images\Icons\icon_chart_addnew.svg" />
@@ -639,10 +626,6 @@ if %25ERRORLEVEL%25 LEQ 1 exit 0 else exit %25ERRORLEVEL%25</PreBuildEvent>
     <Content Include="Images\Master\help.svg" />
     <Content Include="Images\Master\helpuser.svg" />
     <Content Include="Images\Master\usercontrol.svg" />
-    <Content Include="Images\Popup\Error\icn_alert.svg" />
-    <Content Include="Images\Popup\Error\icn_error.svg" />
-    <Content Include="Images\Popup\Error\icn_info.svg" />
-    <Content Include="Images\Popup\Error\icn_question.svg" />
     <Content Include="Images\search-grey.svg" />
     <Content Include="Images\search-white.svg" />
     <Content Include="Images\SearchPage\icn_clock.svg" />
@@ -651,7 +634,6 @@ if %25ERRORLEVEL%25 LEQ 1 exit 0 else exit %25ERRORLEVEL%25</PreBuildEvent>
     <Content Include="Images\SearchPage\icn_item_template.svg" />
     <Content Include="Images\SearchPage\icn_private.svg" />
     <Content Include="Images\SearchPage\icn_public.svg" />
-    <Content Include="Images\SearchPage\icn_recently_used.png" />
     <Content Include="Images\SearchPage\icn_recently_used.svg" />
     <Content Include="Images\SearchPage\icn_starred_active.svg" />
     <Content Include="Images\SearchPage\icn_validated.svg" />
@@ -714,7 +696,6 @@ if %25ERRORLEVEL%25 LEQ 1 exit 0 else exit %25ERRORLEVEL%25</PreBuildEvent>
     <Content Include="Images\Angle\create_new_from_template.png" />
     <Content Include="Images\Angle\create_new_business_schema.png" />
     <Content Include="Images\Angle\create_new_full_list.png" />
-    <Content Include="Images\Angle\backgroundLeftColumn.png" />
     <Content Include="Images\Angle\Chart\charttype.png" />
     <Content Include="Images\Angle\Followups\followups_category.png" />
     <Content Include="Images\Angle\Followups\followups_flow.png" />
@@ -722,32 +703,18 @@ if %25ERRORLEVEL%25 LEQ 1 exit 0 else exit %25ERRORLEVEL%25</PreBuildEvent>
     <Content Include="Images\Angle\Followups\followups_relation_indicator.png" />
     <Content Include="Images\Angle\Pivot\ui1.png" />
     <Content Include="Images\Angle\Pivot\ui2.png" />
-    <Content Include="Images\back_buttons.png" />
-    <Content Include="Images\btn_options_state.png" />
-    <Content Include="Images\btn_schema_type.png" />
-    <Content Include="Images\grid_header_active_bg.png" />
-    <Content Include="Images\grid_header_hover_bg.png" />
     <Content Include="Images\Icons\icon_angle_to_template.png" />
-    <Content Include="Images\Icons\icon_arrow_black_left_black.png" />
     <Content Include="Images\Icons\icon_authorization.png" />
     <Content Include="Images\Icons\icon_clearformat.png" />
     <Content Include="Images\Icons\icon_close.png" />
-    <Content Include="Images\btn_bg.png" />
-    <Content Include="Images\btn_primary_bg.png" />
-    <Content Include="Images\definition_bg.png" />
-    <Content Include="Images\filter_nav_bg.png" />
     <Content Include="Images\Icons\icon_add_filter.png" />
     <Content Include="Images\Icons\icon_add_followup.png" />
     <Content Include="Images\Icons\icon_adv_filter.png" />
-    <Content Include="Images\Icons\icon_arrow_right_black.png" />
-    <Content Include="Images\Icons\icon_arrow_right_white.png" />
-    <Content Include="Images\Icons\icon_arrow_up.png" />
     <Content Include="Images\Icons\icon_bin.png" />
     <Content Include="Images\Icons\icon_column_addnew.png" />
     <Content Include="Images\Icons\icon_column_remove.png" />
     <Content Include="Images\Icons\icon_copy.png" />
     <Content Include="Images\Icons\icon_create_angle.png" />
-    <Content Include="Images\Icons\icon_arrow_down.png" />
     <Content Include="Images\Icons\icon_dashboard.png" />
     <Content Include="Images\Icons\icon_def_filter.png" />
     <Content Include="Images\Icons\icon_def_followup.png" />
@@ -783,14 +750,8 @@ if %25ERRORLEVEL%25 LEQ 1 exit 0 else exit %25ERRORLEVEL%25</PreBuildEvent>
     <Content Include="Images\Icons\icon_viewmode.png" />
     <Content Include="Images\Popup\popup_left_bottom_arrow.png" />
     <Content Include="Images\Popup\popup_top_arrow.png" />
-    <Content Include="Images\Angle\icon_template.jpg" />
-    <Content Include="Images\SearchPage\icn_item_angle.png" />
-    <Content Include="Images\SearchPage\icn_item_template.png" />
-    <Content Include="Images\SearchPage\icn_starred_active.png" />
     <Content Include="Images\SearchPage\icn_suggest.png" />
     <Content Include="Images\SearchPage\icon_followup.png" />
-    <Content Include="Images\control_bg.png" />
-    <Content Include="Images\custom_sprite.png" />
     <Content Include="Images\Domains\DeliveryStatus\DeliveryStatusds0None.png" />
     <Content Include="Images\Domains\DeliveryStatus\DeliveryStatusds1NotCritical.png" />
     <Content Include="Images\Domains\DeliveryStatus\DeliveryStatusds2Critical.png" />
@@ -811,25 +772,16 @@ if %25ERRORLEVEL%25 LEQ 1 exit 0 else exit %25ERRORLEVEL%25</PreBuildEvent>
     <Content Include="Images\Domains\LogisticBehaviour\LogisticsBehaviourls3TransferWithinPlant.png" />
     <Content Include="Images\dropdown_check.png" />
     <Content Include="Images\dropdown_check_active.png" />
-    <Content Include="Images\grid_header_bg.png" />
     <Content Include="Images\Icons\icon_webclient.png" />
     <Content Include="Images\Icons\icon_sort_asc.png" />
     <Content Include="Images\Icons\icon_sort_desc.png" />
     <Content Include="Images\Popup\popup_right_arrow.png" />
-    <Content Include="Images\icon_left_arrow.png" />
-    <Content Include="Images\icon_right_arrow.png" />
     <Content Include="Images\loading-image.gif" />
     <Content Include="Images\loading.gif" />
-    <Content Include="Images\Master\SeparateLine.png" />
-    <Content Include="Images\Master\TopBar_BG.png" />
     <Content Include="Images\Popup\popup_left_arrow.png" />
     <Content Include="Images\Popup\ProgressBar\ajax-loader.gif" />
     <Content Include="Images\SearchPage\icn_execute.png" />
-    <Content Include="Images\SearchPage\icn_item_dashboard.png" />
-    <Content Include="Images\SearchPage\icn_private.png" />
-    <Content Include="Images\SearchPage\icn_public.png" />
     <Content Include="Images\SearchPage\icn_starred_inactive.png" />
-    <Content Include="Images\SearchPage\icn_validated.png" />
     <Content Include="EveryAngle.WebClient.Web.wpp.targets" />
     <Content Include="Content\VideoPlayer\video-js.css" />
     <Content Include="Content\VideoPlayer\video-js.min.css" />
@@ -892,23 +844,14 @@ if %25ERRORLEVEL%25 LEQ 1 exit 0 else exit %25ERRORLEVEL%25</PreBuildEvent>
     <None Include="Properties\PublishProfiles\Publishing.pubxml">
       <SubType>Designer</SubType>
     </None>
-    <Content Include="Images\Angle\AngleTopBG.jpg" />
     <Content Include="Images\Angle\btn_ToggleDown.png" />
     <Content Include="Images\Angle\btn_ToggleUp.png" />
-    <Content Include="Images\Angle\DescribeListImage1.png" />
-    <Content Include="Images\Angle\DescribeListImage2.png" />
     <Content Include="Images\SearchPage\icn_new.png" />
-    <Content Include="Images\Angle\Dotted.png" />
-    <Content Include="Images\Angle\icn_header_order.png" />
-    <Content Include="Images\Angle\icn_header_SAP.png" />
-    <Content Include="Images\Angle\icn_header_schedule.png" />
-    <Content Include="Images\Angle\tableHeader.jpg" />
     <Content Include="Images\favicon.ico" />
     <Content Include="Images\Popup\Error\icn_alert.png" />
     <Content Include="Images\Popup\Error\icn_error.png" />
     <Content Include="Images\Popup\Error\icn_info.png" />
     <Content Include="Images\Popup\Error\icn_question.png" />
-    <Content Include="Images\tabbar_bg.png" />
     <Content Include="Scripts\KendoUI\cultures\kendo.culture.en-GB.min.js" />
     <Content Include="Scripts\ViewManagement\Shared\ModelFieldsHandler.js" />
     <Content Include="Scripts\ViewManagement\Shared\ModelFollowupsHandler.js" />
@@ -1099,9 +1042,8 @@ if %25ERRORLEVEL%25 LEQ 1 exit 0 else exit %25ERRORLEVEL%25</PreBuildEvent>
       <SubType>Code</SubType>
     </Content>
     <Content Include="Views\Search\PartialViews\TotalSearchResult.cshtml" />
-    <Content Include="Views\Shared\Menus\Top\UserMenu.cshtml" />
     <Content Include="Views\Angle\AnglePage.cshtml" />
-    <Content Include="Views\Shared\Menus\Top\UserPanel.cshtml" />
+    <Content Include="Views\Shared\Top\UserPanel.cshtml" />
     <Content Include="Views\Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -1132,6 +1074,7 @@ if %25ERRORLEVEL%25 LEQ 1 exit 0 else exit %25ERRORLEVEL%25</PreBuildEvent>
     <Content Include="Views\Shared\EditorTemplates\Plugins.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\EnumTemplate.cshtml" />
     <Content Include="Views\Angle\PartialViews\Pivot\PivotGridScript.cshtml" />
+    <Content Include="Views\Shared\Top\BusinessProcessBadge.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

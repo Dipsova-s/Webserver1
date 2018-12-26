@@ -139,7 +139,8 @@
 .filtersSorting .filterItem .FilterHeader:after {
     left: auto;
     right: 0;
-    background-image: url('../../images/icons/icon_arrow_down.png');
+    background-image: url('../../images/icons/icon_arrow_down.svg');
+    background-size: 18px 18px;
     z-index: 9;
 }
 
@@ -168,7 +169,7 @@
 }
 
 .FilterHeader.Expand:after {
-    background-image: url('../../images/icons/icon_arrow_up.png');
+    background-image: url('../../images/icons/icon_arrow_up.svg');
     z-index: 9;
 }
 

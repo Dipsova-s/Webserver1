@@ -333,7 +333,16 @@ function FacetFiltersViewModel() {
                 dimension: {
                     width: 20,
                     height: 20
-                }
+                },
+                style: 'left:-2px;bottom:1px;'
+            },
+            facet_template: {
+                path: GetImageFolderPath() + 'searchpage/icn_item_template.svg',
+                dimension: {
+                    width: 20,
+                    height: 20
+                },
+                style: 'left:-2px;bottom:1px;'
             },
             facet_dashboard: {
                 path: GetImageFolderPath() + 'searchpage/icn_item_dashboard.svg',
@@ -341,42 +350,47 @@ function FacetFiltersViewModel() {
                     width: 16,
                     height: 16
                 },
-                style: 'left:3px;bottom:2px;'
-            },
-            facet_template: {
-                path: GetImageFolderPath() + 'searchpage/icn_item_template.svg',
-                dimension: {
-                    width: 20,
-                    height: 20
-                }
+                style: 'left:1px;bottom:2px;'
             },
             facet_isprivate: {
                 path: GetImageFolderPath() + 'searchpage/icn_private.svg',
                 dimension: {
                     width: 20,
                     height: 20
-                }
+                },
+                style: 'left:-2px;'
+            },
+            with_private_display: {
+                path: GetImageFolderPath() + 'icons/icon_private_display.png',
+                dimension: {
+                    width: 17,
+                    height: 17
+                },
+                style: 'bottom:2px;'
             },
             facet_isvalidated: {
                 path: GetImageFolderPath() + 'searchpage/icn_validated.svg',
                 dimension: {
                     width: 20,
                     height: 20
-                }
+                },
+                style: 'left:-2px;'
             },
             facet_isstarred: {
                 path: GetImageFolderPath() + 'searchpage/icn_starred_active.svg',
                 dimension: {
                     width: 20,
                     height: 20
-                }
+                },
+                style: 'left:-2px;bottom:1px;'
             },
             facet_ispublished: {
                 path: GetImageFolderPath() + 'searchpage/icn_public.svg',
                 dimension: {
                     width: 20,
                     height: 20
-                }
+                },
+                style: 'bottom:1px;'
             },
             facet_has_warnings: {
                 path: GetImageFolderPath() + 'icons/icon_warning.svg',
@@ -384,14 +398,7 @@ function FacetFiltersViewModel() {
                     width: 16,
                     height: 16
                 },
-                style: 'left:2px;bottom:2px;'
-            },
-            with_private_display: {
-                path: GetImageFolderPath() + 'icons/icon_private_display.png',
-                dimension: {
-                    width: 20,
-                    height: 20
-                }
+                style: 'left:0;bottom:2px;'
             },
             icon_clock: {
                 path: GetImageFolderPath() + 'searchpage/icn_clock.svg',
@@ -418,12 +425,10 @@ function FacetFiltersViewModel() {
         var isBusinessProcessGroup = self.GroupBusinessProcess === facetType;
 
         if (isBusinessProcessGroup) {
-            var extraCss = filter.enabled() ? '' : 'disabled';
+            var extraCss = filter.enabled() ? '' : ' disabled';
             var filterNumber = filter.index % 9;
-            html += '<span class="label"> ' +
-                '<span class="BusinessProcessBadge BusinessProcessBadgeItem' + filterNumber + ' ' + filter.name + '"></span>' +
-                '<span class="BusinessProcessFacet ' + extraCss + '" data-tooltip-text="' + filter.description + '">' + filter.name + '</span>' +
-                '</span>';
+            html += '<span class="BusinessProcessBadge BusinessProcessBadgeItem' + filterNumber + ' ' + filter.name + '"></span>' +
+                '<span class="BusinessProcessBadgeLabel' + extraCss + '" data-tooltip-text="' + filter.description + '">' + filter.name + '</span>';
         }
         else {
             if (icon) {

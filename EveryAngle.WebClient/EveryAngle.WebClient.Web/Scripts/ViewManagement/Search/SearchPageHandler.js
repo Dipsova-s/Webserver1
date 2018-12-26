@@ -71,7 +71,7 @@ function SearchPageHandler() {
 
             // tooltip
             WC.HtmlHelper.Tooltip.Create('searchfacet', '#LeftMenu .name', true);
-            WC.HtmlHelper.Tooltip.Create('BusinessProcessFacet', '#LeftMenu .BusinessProcessFacet', false, TOOLTIP_POSITION.RIGHT, 'BusinessProcessFacet-tooltip k-window-arrow-w');
+            WC.HtmlHelper.Tooltip.Create('BusinessProcessFacet', '#LeftMenu .BusinessProcessBadgeLabel', false, TOOLTIP_POSITION.RIGHT, 'BusinessProcessFacet-tooltip k-window-arrow-w');
             WC.HtmlHelper.Tooltip.Create('actionmenu', '#ActionDropdownListPopup .actionDropdownItem', false, TOOLTIP_POSITION.BOTTOM, 'tooltipActionmenu k-window-arrow-n');
             WC.HtmlHelper.Tooltip.Create('searchbar', '#SearchBar .searchBoxWrapper > a', false, TOOLTIP_POSITION.BOTTOM, 'tooltipActionmenu k-window-arrow-n');
 

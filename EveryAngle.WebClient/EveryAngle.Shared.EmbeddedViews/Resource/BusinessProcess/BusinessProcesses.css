@@ -398,15 +398,14 @@
     border-bottom-color: transparent;
 }
 
-
-
+/* checkbox style */
 .businessProcessesCheckBoxList {
     height: auto;
     width: 720px;
 }
 
 .businessProcesses.businessProcessesCheckBoxList:before {
-    width: 0px;
+    width: 0;
 }
 
 .BusinessProcessCheckBox {

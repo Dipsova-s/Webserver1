@@ -1143,7 +1143,7 @@ function CreateNewAngleViewManagementModel() {
         }
 
         // clear all
-        jQuery('#SelectModelCreateNewAngle').hide();
+        jQuery('#SelectModelCreateNewAngle').addClass('alwaysHide');
         jQuery('#CreateNewAngle').addClass('disabled');
         jQuery('#CreateNewAngle i').hide().text(Captions.Button_CreateNewAngle_NoModel);
         var modelsListElement = jQuery('#PopupSelectModelCreateNewAngle .k-list').empty();
@@ -1186,7 +1186,7 @@ function CreateNewAngleViewManagementModel() {
                     });
                 jQuery('#CreateNewAngle, #SelectModelCreateNewAngle').removeClass('disabled');
                 if (models.length > 1) {
-                    jQuery('#SelectModelCreateNewAngle').show();
+                    jQuery('#SelectModelCreateNewAngle').removeClass('alwaysHide');
                     jQuery('#CreateNewAngle i').css('display', 'block');
                 }
             }

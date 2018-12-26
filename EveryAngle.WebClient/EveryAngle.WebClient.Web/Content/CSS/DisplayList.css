@@ -7,12 +7,7 @@
 
 .grid .headerBarLeft {
     position: absolute;
-    background-image: url(../kendoui/textures/highlight.png);
-    background-image: none,-webkit-gradient(linear,left top,left bottom,from(rgba(255,255,255,.6)),to(rgba(255,255,255,0)));
-    background-image: none,-webkit-linear-gradient(top,rgba(255,255,255,.6) 0,rgba(255,255,255,0) 100%);
-    background-image: none,linear-gradient(to bottom,rgba(255,255,255,.6) 0,rgba(255,255,255,0) 100%);
-    background-position: 50% 50%;
-    background-color: #fdfdfd;
+    background: #fdfdfd none;
     height: 25px;
     width: 46px;
     left: 0;
@@ -41,6 +36,7 @@
 
 .grid .k-grid-header-locked {
     border-color: #ddd;
+    box-shadow: none;
     z-index: 101;
 }
 
@@ -104,7 +100,7 @@
 }
 
 #AngleGrid.grid .k-grid-header-wrap .k-header:hover {
-    background: #e5e5e5 url('../../images/grid_header_hover_bg.png') left bottom repeat-x;
+    background: #e5e5e5 none;
 }
 
 #AngleGrid.grid .k-grid-header .k-header,
@@ -143,7 +139,7 @@
     position: absolute;
     left: 0;
     width: 100%;
-    z-index: 1000;
+    z-index: 10000;
     background-color: #000;
     opacity: .7;
     box-sizing: border-box;

@@ -231,9 +231,8 @@
     <Content Include="Images\Icons\icon_add_blue.svg" />
     <Content Include="Images\Icons\icon_angle_error.png" />
     <Content Include="Images\Icons\icon_angle_warning.png" />
-    <Content Include="Images\Icons\icon_arrow_right.svg" />
-    <Content Include="Images\Icons\icon_arrow_white_down.svg" />
-    <Content Include="Images\Icons\icon_arrow_white_up.svg" />
+    <Content Include="Images\Icons\icon_arrow_left.svg" />
+    <Content Include="Images\Icons\icon_arrow_down.svg" />
     <Content Include="Images\Icons\icon_chart.png" />
     <Content Include="Images\Icons\icon_check.svg" />
     <Content Include="Images\Icons\icon_close.svg" />
@@ -361,7 +360,6 @@
     <Content Include="Images\favicon.ico" />
     <Content Include="Images\Icons\icon_alert.png" />
     <Content Include="Images\Icons\icon_arrow_down.png" />
-    <Content Include="Images\Icons\icon_arrow_down_small.png" />
     <Content Include="Images\Icons\icon_edit_cancel.png" />
     <Content Include="Images\Icons\icon_checked.png" />
     <Content Include="Images\Icons\icon_disabled.png" />
@@ -383,7 +381,6 @@
     <Content Include="Images\model_status_bg.png" />
     <Content Include="Images\UI\btn_primary_bg.png" />
     <Content Include="Images\UI\input_bg.png" />
-    <Content Include="Images\Icons\icon_arrow_white_down.png" />
     <Content Include="Images\Icons\icon_delete.png" />
     <Content Include="Images\Icons\icon_edit.png" />
     <Content Include="Images\Icons\icon_filter.png" />

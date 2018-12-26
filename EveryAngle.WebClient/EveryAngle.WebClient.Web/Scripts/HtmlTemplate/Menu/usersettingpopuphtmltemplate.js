@@ -92,7 +92,7 @@ var userSettingHtmlTemplate = function () {
                             '<label>',
                                 '<input id="DefaultStarredfields" type="checkbox" />',
                                 '<span id="DefaultStarredfieldsLabel" class="label" >',
-                                    '<img src="' + GetImageFolderPath() + 'searchpage/icn_starred_active.png" alt="' + Localization.DefaultStarredfieldsLabel + '" height="20" width="20" />',
+                                    '<img src="' + GetImageFolderPath() + 'searchpage/icn_starred_active.svg" alt="' + Localization.DefaultStarredfieldsLabel + '" height="20" width="20" />',
                                     '<span>' + Localization.DefaultStarredfieldsLabel + '</span>',
                                 '</span>',
                             '</label>',
