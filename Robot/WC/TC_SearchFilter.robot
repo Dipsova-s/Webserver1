@@ -22,31 +22,31 @@ Verify Add Or Remove Starred Via Search Page
     Should Not Be Equal    ${countIsStarredBeforeAdd}    ${countIsStarredAfterAdd}
     Run Keyword If    '${countIsStarredAfterAdd}'!='Starred (0)'    Click Starred First Item
 
-#Verify Warning Status In Advance Filter
-#    Search By Text And Expect In Search Result    ${TEST_WARNING_STATUS_ANGLE_NAME}
-#    Set Show Angle Warning In Facet Filters
-#    Facet "Warning" Should Be In Facet Filters
-#    Open Advance Filters Popup
-#    Select Advance Filter Publication Status Dropdown By Status Name    Published
-#    Select Advance Filter Warining Status Dropdown By Status Name    Does not contain warnings
-#    Submit Advance Filters Search
-#    Search Result Should Be Empty
-#    Facet "Private" Should Filter As "Show Public"
-#    Facet "Warning" Should Filter As "Show No Warning"
-#    Button Remove Advance Filters Should Not Be Visible
-#    Open Advance Filters Popup
-#    Publication Status Should Be "Published"
-#    Warning Status Should Be "Does not contain warnings"
-#    Close Advance Filters Popup
-#    Log    First click will remove negative    level=HTML
-#    Click Search Filter Has Warning
-#    Log    Second click will check the checkbox    level=HTML
-#    Click Search Filter Has Warning
-#    Check Existing Angle From Search Result    ${TEST_WARNING_STATUS_ANGLE_NAME}
-#    Open Advance Filters Popup
-#    Publication Status Should Be "Published"
-#    Warning Status Should Be "Contains warnings"
-#    Close Advance Filters Popup
-#    Set Hide Angle Warning In Facet Filters
-#    Facet "Warning" Should Not Be In Facet Filters
-#    Button Remove Advance Filters Should Be Visible
+Verify Warning Status In Advance Filter
+   Search By Text And Expect In Search Result    ${TEST_WARNING_STATUS_ANGLE_NAME}
+   Set Show Angle Warning In Facet Filters
+   Facet "Warning" Should Be In Facet Filters
+   Open Advance Filters Popup
+   Select Advance Filter Publication Status Dropdown By Status Name    Published
+   Select Advance Filter Warining Status Dropdown By Status Name    Does not contain warnings
+   Submit Advance Filters Search
+   Search Result Should Be Empty
+   Facet "Private" Should Filter As "Show Public"
+   Facet "Warning" Should Filter As "Show No Warning"
+   Button Remove Advance Filters Should Not Be Visible
+   Open Advance Filters Popup
+   Publication Status Should Be "Published"
+   Warning Status Should Be "Does not contain warnings"
+   Close Advance Filters Popup
+   Log    First click will remove negative    level=HTML
+   Click Search Filter Has Warning
+   Log    Second click will check the checkbox    level=HTML
+   Click Search Filter Has Warning
+   Check Existing Angle From Search Result    ${TEST_WARNING_STATUS_ANGLE_NAME}
+   Open Advance Filters Popup
+   Publication Status Should Be "Published"
+   Warning Status Should Be "Contains warnings"
+   Close Advance Filters Popup
+   Set Hide Angle Warning In Facet Filters
+   Facet "Warning" Should Not Be In Facet Filters
+   Button Remove Advance Filters Should Be Visible
