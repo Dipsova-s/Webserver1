@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Web;
 using System.Web.Mvc;
 
 namespace EveryAngle.ManagementConsole.Test.Controllers
@@ -69,6 +70,14 @@ namespace EveryAngle.ManagementConsole.Test.Controllers
             _testingController.AddSwitchWhenPostprocessingSetting(modelServerSettings, modelViewModel);
 
             Assert.AreEqual(modelServerSettings.SettingList.Count, expectedResult);
+        }
+
+        [TestCase]
+        public void Should_ThrowExceptionIfNotPassValidation_When_DeleteModel_HasBeenCalled()
+        {
+            modelService.Setup(x => x.DeleteModel(It.IsAny<string>())).Throws<HttpException>();
+            _testingController = GetController();
+            Assert.That(() => _testingController.DeleteModel(string.Empty), Throws.TypeOf<HttpException>());
         }
 
         #endregion

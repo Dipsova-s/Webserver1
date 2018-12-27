@@ -48,7 +48,7 @@
                             element: obj,
                             type: 'Delete'
                         })
-                        .always(function () {
+                        .done(function () {
                             MC.storage.clean();
                             document.location.reload();
                         });

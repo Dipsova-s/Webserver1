@@ -459,25 +459,13 @@ namespace EveryAngle.ManagementConsole.Controllers
         public ActionResult DeleteModel(string modelUri)
         {
             if (!modelUri.Contains("?"))
-            {
-                modelUri = modelUri + "?are_you_sure=true";
-            }
+                modelUri = string.Format("{0}?are_you_sure=true", modelUri);
 
-            try
-            {
-                modelService.DeleteModel(modelUri);
-            }
-            catch
-            {
-                // do nothing
-            }
-            finally
-            {
-                Thread.Sleep(2000);
-                SessionHelper.Initialize().DestroyAllSession();
-            }
-            return JsonHelper.GetJsonResult(true, null, null, null,
-                MessageType.SUCCESS_UPDATED);
+            modelService.DeleteModel(modelUri);
+            Thread.Sleep(2000);
+            SessionHelper.Initialize().DestroyAllSession();
+
+            return JsonHelper.GetJsonResult(true, null, null, null, MessageType.SUCCESS_UPDATED);
         }
 
         public ActionResult RenderModelServerSettings(string modelUri)
