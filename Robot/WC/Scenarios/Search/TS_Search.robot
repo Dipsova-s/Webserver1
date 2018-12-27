@@ -31,8 +31,8 @@ Search Filter By Item IDS
 
 Search Filter By Query String
     [Arguments]    ${queryString}
-    ${searchPageUrl}    Execute Javascript    return window.searchPageUrl;
-    Go To    http://${URL}${searchPageUrl}#/?${queryString}
+    ${searchUrl}    Execute Javascript    return window.searchPageUrl + '#/?' + ('${queryString}' || 'fq=facetcat_itemtype:(facet_angle facet_template)');
+    Go To    http://${URL}${searchUrl}
     Click Search Button
     Wait Progress Bar Search Closed
 

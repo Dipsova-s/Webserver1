@@ -1,32 +1,34 @@
 ::::::::::::::::::::::::::::::::::
 :: specify host name
 ::::::::::::::::::::::::::::::::::
-:: th-eatst01.theatst.org
-:: th-eatst02.theatst.org
+:: nl-webmb01.everyangle.org
 :: nl-eatst026.everyangle.org
 :: localhost:xxxxx
-set SERVER=nl-eatst026.everyangle.org
+set SERVER=nl-webmb01.everyangle.org
 
 ::::::::::::::::::::::::::::::::::
 :: specify sub directory
 ::::::::::::::::::::::::::::::::::
 :: sub10,sub20,sub30 or empty no sub directory
-set BRANCH=release2017_acc
+set BRANCH=master
 
 ::::::::::::::::::::::::::::::::::
 :: for perforance testing, it will use for compare between 2 servers
 ::::::::::::::::::::::::::::::::::
-:: PREF_SERVER_CURRENT is a a current version you are using
-:: PREF_SERVER_BASE is a version to compare with
-:: PREF_SERVER_CURRENT performance should not decrease more than xx% compared to PREF_SERVER_BASE
-set PREF_SERVER_CURRENT=http://th-weblb02.theatst.org:58102
-set PREF_SERVER_BASE=http://th-weblb02.theatst.org:58112
+:: BRANCH performance should not decrease more than xx% compared to COMPARE_BRANCH
+set COMPARE_BRANCH=master
 
 ::::::::::::::::::::::::::::::::::
 :: specify test tag
 ::::::::::::::::::::::::::::::::::
-:: allangles,audit,performance,smk_wc,acc_wc,smk_mc,acc_mc,test,intermittent
+:: allangles,performance,audit,smk_wc,acc_wc,smk_mc,acc_mc,intermittent,webhelp,webhelp_wc,webhelp_mc
 set TAG=allangles
+
+::::::::::::::::::::::::::::::::::
+:: specify webhelp languages
+::::::::::::::::::::::::::::::::::
+:: en,nl,de,es,fr
+set LANGUAGES=en
 
 ::::::::::::::::::::::::::::::::::
 :: specify a query for "allangles" tag
@@ -34,7 +36,7 @@ set TAG=allangles
 :: - empty means load all Angles, equal to "fq=facetcat_itemtype:(facet_angle facet_template)"
 :: - url: http://host/branch/en/search/searchpage#/?sort=name&dir=&fq=facetcat_bp:(P2P S2D O2C F2R PM HCM)
 ::   a query -> sort=name&dir=&fq=facetcat_bp:(P2P S2D O2C F2R PM HCM)
-set "QUERY="
+set "QUERY=fq=facetcat_itemtype:(facet_angle facet_template)"
 
 ::::::::::::::::::::::::::::::::::
 :: specify path to copy test to other place, prevent command too long exception

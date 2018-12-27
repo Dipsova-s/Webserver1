@@ -8,69 +8,58 @@ if not exist "%logFolder%" md "%logFolder%"
 if exist "C:\Python27\" echo %date% %time% "C:\Python27" found. &goto python_installed
 	ECHO ###### Setup Robot Framework  ######
 	ECHO  %date% %time% c:\python27 not found, downloading and installing python
-
-
 	bitsadmin.exe /transfer "Download Python" https://www.python.org/ftp/python/2.7.10/python-2.7.10.msi "%~dp0python-2.7.10.msi" >> "%logFolder%\bitsadmin.log" 2>&1
 	if not exist "%~dp0python-2.7.10.msi" Echo Download "%~dp0python-2.7.10.msi" failed& exit /b
-
 	ECHO  %date% %time% Successfully Downloaded Python-2.7.10.msi....
-
 	start /wait "" %~dp0python-2.7.10.msi /passive  >> "%logFolder%\python-2.7.10.msi.log" 2>&1
-
 	if not exist "C:\Python27\" Echo Installing python failed& exit /b
-
 	ECHO  %date% %time% Successfully Installed Python 2.7.10....
-
-	pip install robotframework >> "%logFolder%\pip_robotframework.log" 2>&1
-	Echo "pip install robotframework" finished [%errorlevel%]
-
-	pip install robotframework-selenium2library >> "%logFolder%\pip_robotframework-selenium2library.log" 2>&1
-	Echo "pip install robotframework-selenium2library" finished [%errorlevel%]
-
-	pip install robotframework-pabot >> "%logFolder%\pip_robotframework-pabot.log" 2>&1
-	Echo "pip install robotframework-pabot" finished [%errorlevel%]
-
-	pip install robotframework-httplibrary >> "%logFolder%\pip_robotframework-httplibrary.log" 2>&1
-	Echo "pip install robotframework-httplibrary" finished [%errorlevel%]
-
 	del  %~dp0python-2.7.10.msi >nul 2>&1
-
 	ECHO %date% %time% Finished installing Robot Framework....
-
 :python_installed
 
 echo Check Robot Framework version...
 set updateRobot=yes
-set updateRobotVersion="robotframework==3.0"
-set updateSelenium2Library=yes
-set updateSelenium2LibraryVersion="robotframework-selenium2library==1.8.0"
+set updateRobotVersion="robotframework==3.0.4"
+set updateSeleniumLibrary=yes
+set updateSeleniumLibraryVersion="robotframework-selenium2library==3.0.0"
+set updateSelenium2screenshots=yes
+set updateSelenium2screenshotsVersion="robotframework-selenium2screenshots==0.8.1"
 set updatePabot=yes
 set updatePabotVersion="robotframework-pabot==0.31"
 set updateHttpLibrary=yes
 set updateHttpLibraryVersion="robotframework-httplibrary==0.4.2"
+set updatePillow=yes
+set updatePillowVersion="Pillow==5.2.0"
 for /F %%i in ('pip freeze --local') do (
 	if "%%i"==%updateRobotVersion% set updateRobot=no
-	if "%%i"==%updateSelenium2LibraryVersion% set updateSelenium2Library=no
+	if "%%i"==%updateSeleniumLibraryVersion% set updateSeleniumLibrary=no
 	if "%%i"==%updatePabotVersion% set updatePabot=no
 	if "%%i"==%updateHttpLibraryVersion% set updateHttpLibrary=no
+	if "%%i"==%updateSelenium2screenshotsVersion% set updateSelenium2screenshots=no
+	if "%%i"==%updatePillowVersion% set updatePillow=no
 )
 if "%updateRobot%"=="yes" pip install %updateRobotVersion%
-if "%updateSelenium2Library%"=="yes" pip install %updateSelenium2LibraryVersion%
+if "%updateSeleniumLibrary%"=="yes" pip install %updateSeleniumLibraryVersion%
 if "%updatePabot%"=="yes" pip install %updatePabotVersion%
 if "%updateHttpLibrary%"=="yes" pip install %updateHttpLibraryVersion%
+if "%updateSelenium2screenshots%"=="yes" if not "%7"=="" pip install %updateSelenium2screenshotsVersion%
+if "%updatePillow%"=="yes" if not "%7"=="" pip install %updatePillowVersion%
 
 ECHO.
 ECHO ###### Running Robot Framework Information  ######
 ECHO Server: %1
 ECHO Branch: %2
 ECHO Tag: %3
-ECHO QueryString: %4
+ECHO QueryString: %5
+ECHO CompareBranch: %6
+ECHO WebHelpLanguage: %7
 
 :: **************** Global Setting ***********************
 SET URL=%1
-if not defined URL set URL=th-eatst02.theatst.org
+if not defined URL set URL=nl-webmb01.everyangle.org
 
-SET QueryString=%4
+SET QueryString=%5
 
 ::* or specific testcase filename
 set TestCaseFile=*
@@ -112,7 +101,7 @@ set BROWSER=chrome
 
 ::Branch
 set Branch=%2
-if not defined Branch set Branch=sub10
+if not defined Branch set Branch=master
 
 ::Timeout
 Set Timeout=30s
@@ -123,8 +112,11 @@ Set Username=\EAPower
 ::Password
 Set Password=P@ssw0rd
 
-Set PrefServerCurrent=%5
-Set PrefServerBase=%6
+Set CompareBranch=%6
+if not defined CompareBranch set CompareBranch=master
+
+Set WebHelpLanguage=%7
+if not defined WebHelpLanguage set WebHelpLanguage=en
 
 ECHO ###### Running Robot Framework ######
 call :executeRobot 
@@ -146,8 +138,8 @@ exit /b 0
 					--variable URL:%URL% ^
 					--variable BROWSER:%BROWSER% ^
 					--variable QueryString:%QueryString% ^
-					--variable PREF_SERVER_CURRENT:%PrefServerCurrent% ^
-					--variable PREF_SERVER_BASE:%PrefServerBase%
+					--variable CompareBranch:%CompareBranch% ^
+					--variable WebHelpLanguage:%WebHelpLanguage%
 
 	:: **************** Run setup ***********************
 	ECHO Executing "%TestCategory%_i" tests
@@ -155,7 +147,7 @@ exit /b 0
 		-i %TestCategory%_i ^
 		-d %~dp0%ReportFolderSetup% ^
 		%parameters% ^
-		%~dp0%RunTestCaseFolder%/%TestCaseFile%.robot
+		%~dp0%RunTestCaseFolder%\%TestCaseFile%.robot
 
 	:: **************** Run parallel ***********************
 	ECHO Executing "%TestCategory%" tests
@@ -163,7 +155,7 @@ exit /b 0
 		-i %TestCategory% ^
 		-d %~dp0%ReportFolderParallel% ^
 		%parameters% ^
-		--randomize test %~dp0%RunTestCaseFolder%/%TestCaseFile%.robot
+		--randomize test %~dp0%RunTestCaseFolder%\%TestCaseFile%.robot
 
 	:: **************** Run single ***********************
 	ECHO Executing "%TestCategory%_s" tests
@@ -171,7 +163,7 @@ exit /b 0
 	    -i %TestCategory%_s ^
 	    -d %~dp0%ReportFolderSingle% ^
 		%parameters% ^
-		--randomize test %~dp0%RunTestCaseFolder%/%TestCaseFile%.robot
+		--randomize test %~dp0%RunTestCaseFolder%\%TestCaseFile%.robot
 
 	:: **************** Report ***********************
 	:createReport

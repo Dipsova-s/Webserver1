@@ -1,4 +1,18 @@
 *** Keywords ***
+Set Server Context Variables
+    Open Browser in Sandbox Mode
+    Go To    ${URL_WC}
+    Wait Login Page Document Loaded
+    ${url}    Execute JavaScript    return window.webAPIUrl;
+    Set Suite Variable    ${CurrentServerUrl}    ${url}
+
+    Go To    ${URL_WC_COMPARE}
+    Wait Login Page Document Loaded
+    ${url}    Execute JavaScript    return window.webAPIUrl;
+    Set Suite Variable    ${CompareServerUrl}    ${url}
+
+    Close Browser
+
 Create Context
     [Arguments]   ${url}    ${user}    ${pwd}
     ${parts}     Split String     ${url}    ://
@@ -25,11 +39,11 @@ Create Context: MC
 
 Create Context: Current Server
     [Arguments]    ${user}=${AdminUsername}    ${pwd}=${Password}
-    Create Context    ${PREF_SERVER_CURRENT}    ${user}    ${pwd}
+    Create Context    ${CurrentServerUrl}    ${user}    ${pwd}
 
 Create Context: Base Server
     [Arguments]    ${user}=${AdminUsername}    ${pwd}=${Password}
-    Create Context    ${PREF_SERVER_BASE}    ${user}    ${pwd}
+    Create Context    ${CompareServerUrl}    ${user}    ${pwd}
 
 Set Next Request Expectation
     [Arguments]    ${success}

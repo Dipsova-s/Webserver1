@@ -33,7 +33,6 @@ Verify Execute Jump Display
     Open Angle Popup And Save ID    EA_CLASS_TPL_StorageLocation_unused
     Back To Search
     Create Adhoc Angle And Execute Jump    Material
-    Capture Page Screenshot
     First List Column Should Be    ID
     Back To Search
     Search Filter By Item IDS    EA_CLASS_TPL_StorageLocation_unused

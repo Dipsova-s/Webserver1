@@ -53,6 +53,7 @@ Resource            ${EXECDIR}/WC/Scenarios/ManagementConsole/AutomationTasks/Ta
 
 *** Variables ***
 ${URL_WC}    http://${URL}/${Branch}
+${URL_WC_COMPARE}    http://${URL}/${CompareBranch}
 ${URL_MC}    http://${URL}/${Branch}/admin
 ${TIMEOUT_AJAX_COMPLETE}    1000
 ${TIMEOUT_DROPDOWN}    0.7s
@@ -64,6 +65,8 @@ ${TIMEOUT_MC_PROGRESS_BAR}    210s
 ${RunAllAngleName}    TC_RunAllAngles_
 ${RunAllAngleTemplateFile}    ${EXECDIR}/WC/TC_RunAllAnglesTemplate.robot
 ${SPACE4}    ${SPACE}${SPACE}${SPACE}${SPACE}
+${WC_HELP_IMAGE_PATH}    ${EXECDIR}/webhelp/wc
+${MC_HELP_IMAGE_PATH}    ${EXECDIR}/webhelp/mc
 
 # Users
 ${AdminUsername}            \\eaadmin

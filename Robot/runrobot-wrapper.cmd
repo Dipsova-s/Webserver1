@@ -9,8 +9,8 @@ if not exist "chromedriver.exe" echo chromedriver.exe does not exists in %cd%, d
 :: check TAG
 if not defined TAG echo please input TAG &pause &exit
 
-:: QUERY
-if not defined QUERY set "QUERY=fq=facetcat_itemtype:(facet_angle facet_template)"
+:: check LANGUAGES
+if not defined LANGUAGES set LANGUAGES=en
 
 :: check COPYTO
 if not defined COPYTO goto show_warning
@@ -46,7 +46,9 @@ cls
 ::::::::::::::::::::::::::::::::
 :: run robot
 ::::::::::::::::::::::::::::::::
-call %COPYTO%runrobot "%SERVER%" "%BRANCH%" %TAG% "%QUERY%" "%PREF_SERVER_CURRENT%" "%PREF_SERVER_BASE%"
+for %%a in ("%LANGUAGES:,=" "%") do (
+    call %COPYTO%runrobot "%SERVER%" "%BRANCH%" %TAG% "WS" "%QUERY%" "%COMPARE_BRANCH%" "%%~a"
+)
 
 :open_report
 ::::::::::::::::::::::::::::::::

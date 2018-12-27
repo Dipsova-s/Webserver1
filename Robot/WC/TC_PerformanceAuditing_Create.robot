@@ -2,6 +2,7 @@
 Resource            ${EXECDIR}/resources/WCSettings.robot
 Resource            ${EXECDIR}/WC/API/API_Angle.robot
 Resource            ${EXECDIR}/WC/API/API_Display.robot
+Suite Setup         Set Server Context Variables
 Force Tags          performance_s    audit_s
 
 *** Test Cases ***

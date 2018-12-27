@@ -61,7 +61,6 @@ Click Minimize Dashboard
     Click Element   ${linkMinimizeDashboard}:eq(${index})
 
 Click Link Go To Angle
-    Capture Page Screenshot
     Click Element    ${lnkWidgetOpenNewWindow}
 
 Click Add Note On Dashboard
