@@ -1,6 +1,7 @@
 *** Variables ***
 ${btnSaveRefreshCycle}             css=.btnSave
 
+${pgbRefreshCycle}                 jquery=#RefreshCycleContainer > div.k-loading-mask
 ${trRowInRefreshCycleGrid}         jquery=#TaskDetailGrid tbody tr
 
 ${txtRefreshCycleName}             input[name=TaskName]
@@ -93,12 +94,14 @@ Click Test Extraction
 Wait Until Refresh Cycle Page Loaded
     Wait Until Ajax Complete
     Sleep    ${TIMEOUT_GENERAL}
+    Wait Until Page Does Not Contain Element    ${pgbRefreshCycle}
     Wait Until Element Is Visible    ${headRowInRefreshCycleGrid}
 
 Click Save Refresh Cycle Form
     Wait Until Element Is Visible    ${btnSaveRefreshCycleForm}
     Click Element    ${btnSaveRefreshCycleForm}
     Wait MC Progress Bar Closed
+    Wait Until Refresh Cycle Page Loaded
 
 Click Cancel Refresh Cycle Form
     Wait Until Element Is Visible    ${btnCancelRefreshCycleForm}
