@@ -41,9 +41,6 @@
             <div class="contentSectionInfoItem">
                 <label>@Resource.MC_ModelShortName:</label>
                 <p>@Html.TextBoxFor(model => model.short_name, new { @class = "required", @name = "short_name", maxlength = 256 })
-                    <span class="modelColorPickerButton" onclick="MC.Models.Model.ToggleModelColorPickerPopup()">
-                        <span class="modalColorPickerIcon"></span>
-                    </span>
                 </p>
                 <input type="hidden" name="color" value="@Model.color" />
             </div>

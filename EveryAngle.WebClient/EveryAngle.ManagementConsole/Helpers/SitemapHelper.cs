@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using System.Web;
 using System.Web.Mvc;
 using EveryAngle.Core.Interfaces.Services;
@@ -73,7 +74,7 @@ namespace EveryAngle.ManagementConsole.Helpers
         public static string ActionHash(string path)
         {
             string[] list = path.Split('/');
-            string actionResult = "#/";
+            StringBuilder actionResult = new StringBuilder("#/");
 
             List<SiteMapModel.SiteMap> sitemapQuery = GetSiteMap(true);
             if (sitemapQuery != null)
@@ -81,10 +82,10 @@ namespace EveryAngle.ManagementConsole.Helpers
                 foreach (string id in list)
                 {
                     var query = sitemapQuery.Where(sitemap => sitemap.Id == id);
-                    if (query.Count() > 0)
+                    if (query.Any())
                     {
-                        actionResult += query.First().Name.Trim() + "/";
-                        sitemapQuery = (List<SiteMapModel.SiteMap>)query.First().Childs;
+                        actionResult.Append(query.First().Name.Trim() + "/");
+                        sitemapQuery = query.First().Childs;
                     }
                     else
                     {
@@ -93,7 +94,7 @@ namespace EveryAngle.ManagementConsole.Helpers
                 }
             }
 
-            return actionResult;
+            return actionResult.ToString();
         }
 
         /// <summary>
@@ -104,48 +105,47 @@ namespace EveryAngle.ManagementConsole.Helpers
         /// <returns></returns>
         public static MvcHtmlString RenderItem(SiteMapModel.SiteMap model, int level)
         {
-            string html = "<li id=\"sideMenu-" + model.HashPath.Replace("/", "-") + "\" class=\"" + (model.IsText ? "sideMenuLevel" + level + "Category" : "") + (model.Childs != null && model.ChildsVisible.Value ? " sideMenuWithChild" : "") + (model.Visible.Value == true ? "" : " alwaysHidden") + "\">";
-            TryGetBadgeStyle(model, out string badgeClassname, out string badgeColor);
-
+            StringBuilder htmlBuilder = new StringBuilder();
+            htmlBuilder.AppendFormat("<li id=\"sideMenu-{0}\" class=\"{1} {2} {3}\">",
+                model.HashPath.Replace("/", "-").Replace(" ", ""),
+                model.IsText ? $"sideMenuLevel{level}Category" : string.Empty,
+                model.Childs != null && model.ChildsVisible.GetValueOrDefault() ? "sideMenuWithChild" : string.Empty,
+                model.Visible.GetValueOrDefault() ? string.Empty : "alwaysHidden");
             if (model.IsText)
             {
-                html += "<span class=\"sideMenuLabel\">" + model.Name + "</span>";
+                htmlBuilder.AppendFormat("<span class=\"sideMenuLabel\">{0}</span>", model.Name);
             }
             else
             {
-                html += "<a href=\"" + ActionHash(model.HashPath) + "\" data-url=\"" + (model.Uri == null ? "" : VirtualPathUtility.ToAbsolute(model.Uri)) + "\"" + (model.Parameters == null ? "" : " data-parameters='" + Newtonsoft.Json.JsonConvert.SerializeObject(model.Parameters) + "'") + " onclick=\"MC.sideMenu.click(event, this);\">"
+                htmlBuilder.AppendFormat("<a href=\"{0}\" data-url=\"{1}\" {2} onclick=\"MC.sideMenu.click(event, this);\">"
                             + "<span class=\"icon\"></span>"
-                            + "<span class=\"sideMenuLabel" + badgeClassname + "\" " + badgeColor + ">" + model.Name + "</span>"
-                        + "</a>";
+                            + "<span class=\"sideMenuLabel\">{3}</span>"
+                        + "</a>",
+                        ActionHash(model.HashPath),
+                        model.Uri == null ? "" : VirtualPathUtility.ToAbsolute(model.Uri),
+                        model.Parameters == null ?
+                            string.Empty :
+                            $"data-parameters='{Newtonsoft.Json.JsonConvert.SerializeObject(model.Parameters)}'",
+                        model.Name);
             }
 
             if (model.Childs != null)
             {
-                html += "<ul id=\"sideMenu-" + model.HashPath.Replace("/", "-") + "-childs\" class=\"unstyled sideMenuLevel" + (level + 1) + (model.ChildsVisible.Value ? "" : " alwaysHidden") + "\">";
+                htmlBuilder.AppendFormat(
+                    "<ul id=\"sideMenu-{0}-childs\" class=\"unstyled sideMenuLevel{1} {2}\">",
+                    model.HashPath.Replace("/", "-"),
+                    level + 1,
+                    model.ChildsVisible.Value ? "" : "alwaysHidden");
                 foreach (var item in model.Childs)
                 {
-                    html += RenderItem(item, level + 1);
+                    htmlBuilder.Append(RenderItem(item, level + 1));
                 }
-                html += "</ul>";
+                htmlBuilder.Append("</ul>");
             }
 
-            html += "</li>";
+            htmlBuilder.Append("</li>");
 
-            return MvcHtmlString.Create(html);
-        }
-
-        private static bool TryGetBadgeStyle(SiteMapModel.SiteMap model, out string badgeClassname, out string badgeColor)
-        {
-            bool hasBadgeStyle = false;
-            badgeClassname = string.Empty;
-            badgeColor = string.Empty;
-            if (!string.IsNullOrEmpty(model.Color))
-            {
-                hasBadgeStyle = true;
-                badgeClassname = " badge";
-                badgeColor = string.Format("style=\"background-color: {0}\"", model.Color);
-            }
-            return hasBadgeStyle;
+            return MvcHtmlString.Create(htmlBuilder.ToString());
         }
     }
 }

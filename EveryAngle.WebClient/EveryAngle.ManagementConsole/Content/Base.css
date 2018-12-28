@@ -3367,19 +3367,6 @@ form#ExportPackageForm .packageInfo .packageVersion input {
     padding-right: 30px;
 }
 
-.pageModelEdit .modelColorPickerButton {
-    cursor: pointer;
-    position: absolute;
-    top: 4px;
-    left: 175px;
-    padding: 1px 2px;
-    box-sizing: border-box;
-}
-
-.pageModelEdit .modelColorPickerButton.hasColor {
-    border: 1px solid #fff;
-}
-
 .pageModelEdit .modalColorPickerIcon {
     background-image: url(../images/icons/black_arrow_down.svg);
     background-size: 10px;

@@ -38,7 +38,6 @@ namespace EveryAngle.ManagementConsole.Models
         public class SiteMap
         {
             public string Id { get; set; }
-            public string Color { get; set; }
             public string Name { get; set; }
             public string Uri { get; set; }
             public string HashPath { get; set; }
@@ -223,7 +222,6 @@ namespace EveryAngle.ManagementConsole.Models
             SiteMap siteMap = new SiteMap
             {
                 Id = item.id,
-                Color = item.color,
                 Name = String.IsNullOrEmpty(item.short_name) ? item.id : item.short_name,
                 Uri = "~/Model/GetModelServers",
                 HashPath = modelPath,

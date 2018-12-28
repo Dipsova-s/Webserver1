@@ -15,11 +15,7 @@ Check Model Id DropdownList
 Verify Model Id DropdownList
     Wait Until Page Contains Element    ${ddlModelId}
     Page Should Contain Element    ${ddlModelId}
-
-Verify Model Color Picker
-    Wait Until Page Contains Element     ${btnModelColorPicker}
-    Page Should Contain Element    ${btnModelColorPicker}
-
+    
 Verify Model Short Name
     Wait Until Page Contains Element     ${txtModelShortName}
     Page Should Contain Element    ${txtModelShortName}
