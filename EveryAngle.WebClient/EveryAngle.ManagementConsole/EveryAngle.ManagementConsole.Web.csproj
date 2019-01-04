@@ -459,6 +459,8 @@
     <Content Include="UploadedResources\CompanyLogo\ea_logo.png" />
     <Content Include="UploadedResources\ExtraFiles\EA_16.png" />
     <Content Include="UploadedResources\ExtraFiles\EA_32.png" />
+    <Content Include="UploadedResources\ExtraFiles\Fico_16.png" />
+    <Content Include="UploadedResources\ExtraFiles\Fico_32.png" />
     <Content Include="UploadedResources\ExtraFiles\reference_16.png" />
     <Content Include="UploadedResources\ExtraFiles\reference_32.png" />
     <Content Include="UploadedResources\ExtraFiles\SAP_16.png" />
