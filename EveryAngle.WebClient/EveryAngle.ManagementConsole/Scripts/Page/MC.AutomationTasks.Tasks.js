@@ -1260,6 +1260,10 @@
                     self.SetEditScriptActionType(dataItem);
                 }
 
+                // abort_task_when_error
+                var abortTaskWhenError = self.GetArgumentValueByName(dataItem.arguments, 'abort_task_when_error');
+                jQuery('#abort_task_when_error').prop('checked', abortTaskWhenError);
+
                 // notification
                 self.SetEmailNotification(dataItem.notification);
 
@@ -1474,10 +1478,6 @@
 
             // password
             // password always leave as empty
-
-            // abort_task_when_error
-            var abortTaskWhenError = self.GetArgumentValueByName(dataItem.arguments, 'abort_task_when_error');
-            jQuery('#abort_task_when_error').prop('checked', abortTaskWhenError);
         };
         self.IsDatastoreAction = function () {
             var actionType = $('#action_type').data('kendoDropDownList').value();
@@ -2250,6 +2250,9 @@
                 actionData.arguments = self.GetScriptActionArgumentsFromUI();
             }
 
+            // action arguments for all action type
+            actionData.arguments.push(self.GetAbortTaskWhenErrorActionArgumentResult());
+
             // notification
             actionData.notification = self.GetEmailNotificationDataFromUI();
 
@@ -2262,7 +2265,6 @@
             var displayId = $('#display_id').data('kendoDropDownList').value();
             var conditionOperator = $('#condition_operator').data('kendoDropDownList').value();
             var conditionValue = $('#condition_value').val();
-
             var actionArguments = [
                 {
                     "name": "datastore",
@@ -2281,6 +2283,7 @@
                     "value": displayId
                 }
             ];
+            
             switch (conditionOperator) {
                 case Localization.MC_Exactly:
                     actionArguments.push({ 'name': 'condition_minimum_rows', 'value': parseInt(conditionValue, 10) });
@@ -2304,8 +2307,7 @@
             var parameters = $('#parameters').val();
             var runAsUser = $('#run_as_user').val();
             var password = $('#password').val();
-            var abortTaskWhenError = $('#abort_task_when_error').prop('checked');
-            return [
+            var actionArguments = [
                 {
                     "name": "script",
                     "value": scriptId
@@ -2321,12 +2323,17 @@
                 {
                     "name": "password",
                     "value": password
-                },
-                {
-                    "name": "abort_task_when_error",
-                    "value": abortTaskWhenError
                 }
             ];
+            
+            return actionArguments;
+        };
+        self.GetAbortTaskWhenErrorActionArgumentResult = function () {
+            var abortTaskWhenError = $('#abort_task_when_error').prop('checked');
+            return {
+                "name": "abort_task_when_error",
+                "value": abortTaskWhenError
+            };
         };
         self.GetEmailNotificationDataFromUI = function () {
             var notification = null;

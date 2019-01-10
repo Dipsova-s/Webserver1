@@ -705,9 +705,15 @@ describe("MC.AutomationTasks.Tasks", function () {
                 return { uri: 'uri', name: 'name' };
             }
         };
+        var datastoreArguments = [
+            { name: 'action_type', value: 'datastore'}
+        ];
+        var programScriptArguments = [
+            { name: 'action_type', value: 'script' }
+        ];
         beforeEach(function () {
-            spyOn(automationTask, 'GetDatastoreActionArgumentsFromUI').and.returnValue('datastore');
-            spyOn(automationTask, 'GetScriptActionArgumentsFromUI').and.returnValue('script');
+            spyOn(automationTask, 'GetDatastoreActionArgumentsFromUI').and.returnValue(datastoreArguments);
+            spyOn(automationTask, 'GetScriptActionArgumentsFromUI').and.returnValue(programScriptArguments);
             spyOn(automationTask, 'GetEmailNotificationDataFromUI').and.returnValue('notification');
             automationTask.CurrentAngle = {};
 
@@ -727,7 +733,7 @@ describe("MC.AutomationTasks.Tasks", function () {
             var result = automationTask.GetActionData();
 
             // assert
-            expect(result.arguments).toEqual('datastore');
+            expect(result.arguments.findObject('action_type').value).toEqual('datastore');
         });
 
         it("should get data if action type is not datastore", function () {
@@ -736,7 +742,7 @@ describe("MC.AutomationTasks.Tasks", function () {
             var result = automationTask.GetActionData();
 
             // assert
-            expect(result.arguments).toEqual('script');
+            expect(result.arguments.findObject('action_type').value).toEqual('script');
         });
 
     });

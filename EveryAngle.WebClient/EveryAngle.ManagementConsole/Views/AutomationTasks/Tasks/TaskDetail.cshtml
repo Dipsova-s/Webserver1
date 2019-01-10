@@ -207,15 +207,6 @@
                     </p>
                 </div>
 
-                <div class="contentSectionInfoItem rowAbortTaskWhenError scriptActionType">
-                    <label>@Captions.MC_Label_ScriptAbortTaskWhenError</label>
-                    <p>
-                        <label><input type="checkbox" id="abort_task_when_error" name="abort_task_when_error" /><span class="label"> </span></label>
-                        <a data-target="#popupDescriptionTemplate" title="Description" data-width="600" data-min-height="100" data-role="mcPopup" class="btn btnInfo" onclick='MC.util.showDescriptionPopup(this)'></a>
-                        &lt;textarea class="alwaysHidden"&gt;@Resource.MC_TaskAction_DescriptionAbortWhenError&lt;/textarea&gt;
-                    </p>
-                </div>
-
                 <div class="contentSectionInfoItem datastoreActionType">
                     <label>@Resource.Model</label>
                     <p><input type="hidden" id="model_id" /><label id="model_name"></label></p>
@@ -239,6 +230,15 @@
                     <label>@Resource.Display</label>
                     <p><input type="text" id="display_id" name="display_id" class="required" /><a class="btn btnOpenWindow btnLink" target="_blank" id="linkDisplay"></a></p>
                     <input type="hidden" id="hdnDisplayId" />
+                </div>
+
+                <div class="contentSectionInfoItem rowAbortTaskWhenError datastoreActionType scriptActionType">
+                    <label>@Captions.MC_Label_ScriptAbortTaskWhenError</label>
+                    <p>
+                        <label><input type="checkbox" id="abort_task_when_error" name="abort_task_when_error" /><span class="label"> </span></label>
+                        <a data-target="#popupDescriptionTemplate" title="Description" data-width="600" data-min-height="100" data-role="mcPopup" class="btn btnInfo" onclick='MC.util.showDescriptionPopup(this)'></a>
+                        &lt;textarea class="alwaysHidden"&gt;@Resource.MC_TaskAction_DescriptionAbortWhenError&lt;/textarea&gt;
+                    </p>
                 </div>
 
                 <div class="contentSectionInfoItem contentSectionInfoItemDropdown datastoreActionType scriptActionType">
