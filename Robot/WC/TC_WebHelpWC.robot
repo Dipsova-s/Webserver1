@@ -3,7 +3,7 @@ Library             Selenium2Screenshots
 Resource            ${EXECDIR}/resources/WCSettings.robot
 Resource            ${EXECDIR}/WC/Scenarios/WebHelp/TS_WebHelpWC.robot
 Suite Setup         Initialize WC WebHelp
-Suite Teardown      Logout WC Then Close Browser
+Suite Teardown      Teardown WC WebHelp
 Force Tags          webhelp  webhelp_wc
 
 *** Test Cases ***

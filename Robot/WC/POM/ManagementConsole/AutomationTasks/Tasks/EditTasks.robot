@@ -10,16 +10,16 @@ ${ddlTaskEventType}          css=.k-dropdown[aria-owns=event_type_listbox]
 ${txtTaskTimeStop}           css=[name="TimeStop"]
 ${txtTaskStartTime}          css=[name="StartTime"]
 ${chkTaskIsEnabled}          css=#IsEnabled
-${divScheduleSection}    css=#ScheduleSection
-${divEventSection}       css=#EventSection
+${divScheduleSection}        css=#ScheduleSection
+${divEventSection}           css=#EventSection
 
-${btnTaskAddAction}          css=#AddActionButton
-${btnCloseAddActionPopup}    css=#AddActionPopup .btnClose
-${ddlTaskActionType}         css=.k-dropdown[aria-owns="action_type_listbox"]
-${chkTaskEnableEmail}        css=#email_enable
-${btnTaskAddRecipient}       css=.btnAddRecipient
-${thRecipientsResult}    css=#RecipientsGrid .k-header[data-field="result"]
-${tdRecipientsResult}    css=#RecipientsGrid .columnEmailResult
+${btnTaskAddAction}            css=#AddActionButton
+${btnCloseAddActionPopup}      css=#AddActionPopup .btnClose
+${ddlTaskActionType}           css=.k-dropdown[aria-owns="action_type_listbox"]
+${chkTaskEnableEmail}          css=#email_enable
+${btnTaskAddRecipient}         css=.btnAddRecipient
+${thRecipientsResult}          jquery=#RecipientsGrid .k-header[data-field="result"]
+${tdRecipientsResult}          jquery=#RecipientsGrid .columnEmailResult
 ${chkTaskActionAttachResult}   css=#email_attach_result
 ${lblTaskActionModelName}      css=#model_name
 ${txtTaskActionAngleId}        css=#angle_id
@@ -28,12 +28,20 @@ ${ddlTaskActionDisplayId}      css=#display_id
 ${ddlTaskActionApproval}       css=#approvalddl
 ${ddlTaskActionConditionOperator}   css=#condition_operator
 ${txtTaskActionConditionValue}      css=#condition_value
-${ddlTaskActionDatastore}      css=#datastore
+${ddlTaskActionDatastore}      css=.k-dropdown[aria-owns="datastore_listbox"]
 ${ddlTaskActionScript}         css=#script
 ${txtTaskActionParameters}     css=#parameters
 ${txtTaskActionUsername}       css=#run_as_user
 ${txtTaskActionPassword}       css=#password
 ${chkTaskActionAbortError}     css=#abort_task_when_error
+${txtEmailRecipient}           jquery=[name^=email_address]
+${chkEmailResult}              jquery=[name^=is_result]
+${chkEmailSuccess}             jquery=[name^=is_success]
+${chkEmailFailure}             jquery=[name^=is_failed]
+${txtEmailDescription}         jquery=#email_body
+
+${txtDatastoreFileName}        css=#file_name
+${chkDatastoreAppendResult}    css=#append
 
 *** Keywords ***
 Wait Edit Tasks Page Ready
@@ -94,11 +102,69 @@ Select Action Type Datastore
 Select Action Type Program/script
     Select Dropdown By InnerText    ${ddlTaskActionType}  Program/script
 
+Select Dropdown Datastore
+    [Arguments]    ${text}
+    Select Dropdown By InnerText    ${ddlTaskActionDatastore}  ${text}
+    Sleep   ${TIMEOUT_DROPDOWN}
+    Wait Until Ajax Complete
+
 Enable Send Email Notification
     Select Checkbox      ${chkTaskEnableEmail}
 
 Disable Send Email Notification
     Unselect Checkbox    ${chkTaskEnableEmail}
 
+Enable Send Email Attach result
+    Select Checkbox      ${chkTaskActionAttachResult}
+
+Disable Send Email Attach result
+    Unselect Checkbox    ${chkTaskActionAttachResult}
+
 Click Add Recipient Button
     Click Element    ${btnTaskAddRecipient}
+
+Input Task Action Email Recipient
+    [Arguments]    ${index}    ${email}
+    Input Text    ${txtEmailRecipient}:eq(${index})     ${email}
+
+Select Task Action Email Result
+    [Arguments]    ${index}
+    Select Checkbox      ${chkEmailResult}:eq(${index})
+
+Unselect Task Action Email Result
+    [Arguments]    ${index}
+    Unselect Checkbox      ${chkEmailResult}:eq(${index})
+
+Select Task Action Email Success
+    [Arguments]    ${index}
+    Select Checkbox      ${chkEmailSuccess}:eq(${index})
+
+Unselect Task Action Email Success
+    [Arguments]    ${index}
+    Unselect Checkbox      ${chkEmailSuccess}:eq(${index})
+
+Select Task Action Email Failure
+    [Arguments]    ${index}
+    Select Checkbox      ${chkEmailFailure}:eq(${index})
+
+Unselect Task Action Email Failure
+    [Arguments]    ${index}
+    Unselect Checkbox      ${chkEmailFailure}:eq(${index})
+
+Input Task Action Email Description
+    [Arguments]    ${text}
+    Input kendo Text Editor    ${txtEmailDescription}    ${text}
+
+Get Number Of Task Action Email Notification
+    ${count}    Get Elements Count    ${chkEmailResult}
+    [Return]    ${count}
+
+Select Datastore Append Result
+    Select Checkbox      ${chkDatastoreAppendResult}
+
+Unselect Datastore Append Result
+    Unselect Checkbox      ${chkDatastoreAppendResult}
+
+Input Datastore Filename
+    [Arguments]    ${value}
+    Input Text    ${txtDatastoreFileName}    ${value}

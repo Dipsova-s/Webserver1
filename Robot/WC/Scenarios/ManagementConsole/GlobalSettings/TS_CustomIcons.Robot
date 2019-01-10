@@ -3,11 +3,8 @@ Resource            ${EXECDIR}/WC/POM/ManagementConsole/GlobalSettings/CustomIco
 
 *** Keywords ***
 Go To Custom Icons Page
-    Wait Side Menu Ready
-    Click Side Menu Global Settings
-    Click Side Menu Custom Icons
+    Go To MC Page    /Global%20settings/Custom%20icons/
     Wait Until Custom Icons Page Loaded
-
 
 Add New Custom Icons And Save
     [Arguments]    ${fieldType}

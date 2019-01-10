@@ -5,8 +5,6 @@ Resource            ${EXECDIR}/WC/POM/WebHelp/WebHelp.robot
 Crop Logo
     Crop WebHelp Image With Dimensions    wc_logo.png    css=#TopBar .Wrapper    15    0    180    44
 
-
-
 Crop Business Processes
     Execute JavaScript    $('#SearchFacetBusinessProcesses .businessProcessesItem:not(.businessProcessesItemMore)').addClass('active');
     Crop WebHelp Image    wc_businessprocess.png    css=#SearchFacetBusinessProcesses .businessProcesses
@@ -23,7 +21,7 @@ Crop Search Result
     Click Search Filter Template
     Click Search Filter Dashboard
     Wait Progress Bar Search Closed
-    Wait Until Ajax Complete 
+    Wait Until Ajax Complete
     Crop WebHelp Image With Dimensions    wc_search_result.png    css=#MainContainer    191   54   1716    927
 
 Crop Mode Button
