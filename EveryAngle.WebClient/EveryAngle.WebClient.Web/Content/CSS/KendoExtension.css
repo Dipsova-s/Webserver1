@@ -1008,6 +1008,10 @@ span.eaDatepickerSize40 .k-picker-wrap .k-icon {
     margin-top: 12px;
 }
 
+.k-calendar td.k-state-focused.k-state-selected {
+    background-color: #025e7f;
+}
+
 /* .k-datepicker-light
 =================================== */
 .k-widget.k-datepicker-light {
