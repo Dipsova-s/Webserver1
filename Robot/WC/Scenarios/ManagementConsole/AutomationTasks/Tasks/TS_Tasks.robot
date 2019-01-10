@@ -8,12 +8,6 @@ Go To Tasks Page With Admin User
     Go To All Tasks Page
 
 Go To All Tasks Page
-    Wait Side Menu Ready
-    Click Side Menu Automation Tasks
-    Click Side Menu Automation Tasks and Tasks
-    Wait All Tasks Page Ready
-
-Reload Tasks Page
     Go To MC Page    /Automation%20tasks/Tasks/
     Wait All Tasks Page Ready
 
@@ -40,6 +34,16 @@ Create Task By Copy Action
     [Arguments]    ${taskName}    ${newTaskName}
     Create Task By Copy Task    ${taskName}    ${newTaskName}
     Page Should Contain      ${newTaskName}
+
+Add Task Action Email Notification
+    [Arguments]    ${email}    ${result}    ${success}    ${failure}
+    Click Add Recipient Button
+    ${emailCount}    Get Number Of Task Action Email Notification
+    ${index}    Execute JavaScript    return ${emailCount} - 1;
+    Input Task Action Email Recipient    ${index}    ${email}
+    Run Keyword    ${result} Task Action Email Result     ${index}
+    Run Keyword    ${success} Task Action Email Success    ${index}
+    Run Keyword    ${failure} Task Action Email Failure    ${index}
 
 Verify Add Task Action Popup
     Click Add Action Button

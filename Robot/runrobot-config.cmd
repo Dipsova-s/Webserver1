@@ -25,7 +25,7 @@ set COMPARE_BRANCH=master
 set TAG=allangles
 
 ::::::::::::::::::::::::::::::::::
-:: specify webhelp languages
+:: specify webhelp languages, use "," separator
 ::::::::::::::::::::::::::::::::::
 :: en,nl,de,es,fr
 set LANGUAGES=en

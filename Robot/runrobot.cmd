@@ -68,32 +68,11 @@ set TestCaseFile=*
 SET TestCategory=%3
 if not defined TestCategory set TestCategory=*
 
-::Report folder
-if "%TestCategory%"=="*" goto :set_dev_report
-if "%3"=="" goto :set_dev_report
-
-:set_prod_report
-	set ReportFolder=\report\%TestCategory%
-	set ReportFolderParallel=%ReportFolder%_parallel
-	set ReportFolderSingle=%ReportFolder%_single
-	set ReportFolderSetup=%ReportFolder%_setup
-	goto exit_set_report
-
-:set_dev_report
-	set ReportFolder=\report
-	set ReportFolderParallel=%ReportFolder%\_parallel
-	set ReportFolderSingle=%ReportFolder%\_single
-	set ReportFolderSetup=%ReportFolder%\_setup
-
-:exit_set_report
-
-
 ::\WC,\AppServer
 set RunTestCaseFolder=\WC
 
 ::Test name
 set TestName=Test_Suit_%TestCategory%
-
 
 :: **************** WC Setting ***********************
 ::chrome,firefox,ie,phantomjs
@@ -117,6 +96,27 @@ if not defined CompareBranch set CompareBranch=master
 
 Set WebHelpLanguage=%7
 if not defined WebHelpLanguage set WebHelpLanguage=en
+
+::Report folder
+Set BaseReportFolder=\report
+if not "%WebHelpLanguage%"=="en" set BaseReportFolder=\report_%WebHelpLanguage%
+if "%TestCategory%"=="*" goto :set_dev_report
+if "%3"=="" goto :set_dev_report
+
+:set_prod_report
+	set ReportFolder=%BaseReportFolder%\%TestCategory%
+	set ReportFolderParallel=%ReportFolder%_parallel
+	set ReportFolderSingle=%ReportFolder%_single
+	set ReportFolderSetup=%ReportFolder%_setup
+	goto exit_set_report
+
+:set_dev_report
+	set ReportFolder=%BaseReportFolder%
+	set ReportFolderParallel=%ReportFolder%\_parallel
+	set ReportFolderSingle=%ReportFolder%\_single
+	set ReportFolderSetup=%ReportFolder%\_setup
+
+:exit_set_report
 
 ECHO ###### Running Robot Framework ######
 call :executeRobot 

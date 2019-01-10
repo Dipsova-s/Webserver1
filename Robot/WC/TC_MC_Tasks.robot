@@ -11,7 +11,7 @@ Test Verify Task UI
     Click Button To Add New Task
     Verify Edit Task Page
     Verify Add Task Action Popup
-    [Teardown]  Reload Tasks Page
+    [Teardown]  Go To All Tasks Page
 
 Verify Copy Task
     @{cleanUpItems}    Create List
@@ -23,8 +23,8 @@ Verify Copy Task
     Create Context: Web
     Create Task    TaskForCopy.json
 
-    Reload Tasks Page
+    Go To All Tasks Page
     Create Task By Copy Action   TaskForCopy    TestCopyTask
 
     [Teardown]  Run Keywords  Clean Up Items     Web    ${cleanUpItems}
-    ...         AND           Reload Tasks Page
+    ...         AND           Go To All Tasks Page

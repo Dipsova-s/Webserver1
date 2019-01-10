@@ -34,25 +34,30 @@ if not "%COPYTO:~-1%"=="\" set "COPYTO=%COPYTO%\"
 
 :: clean up directory
 if not exist "%COPYTO%" mkdir "%COPYTO%"
-if exist "%COPYTO%report" rmdir "%COPYTO%report" /s /q
-if exist "%COPYTO%resources" rmdir "%COPYTO%resources" /s /q
-if exist "%COPYTO%WC" rmdir "%COPYTO%WC" /s /q
+if exist "%COPYTO%report*" for /d %%x in ("%COPYTO%report*") do rd /s /q "%%x"
+if exist "%COPYTO%resources" rd "%COPYTO%resources" /s /q
+if exist "%COPYTO%WC" rd "%COPYTO%WC" /s /q
 
 :: copy all
 xcopy * %COPYTO% /E /S /Y /Q
-cls
 
 :run_test
 ::::::::::::::::::::::::::::::::
 :: run robot
 ::::::::::::::::::::::::::::::::
+cls
 for %%a in ("%LANGUAGES:,=" "%") do (
-    call %COPYTO%runrobot "%SERVER%" "%BRANCH%" %TAG% "WS" "%QUERY%" "%COMPARE_BRANCH%" "%%~a"
+    call %COPYTO%runrobot "%SERVER%" "%BRANCH%" %TAG% "WS" "%QUERY%" "%COMPARE_BRANCH%" %%~a
+    call :open_report %%~a
 )
+exit /b 0
 
 :open_report
-::::::::::::::::::::::::::::::::
-:: open report file
-::::::::::::::::::::::::::::::::
-echo Opening report...
-start chrome "%COPYTO%report\%TAG%\report.html"
+    ::::::::::::::::::::::::::::::::
+    :: open report file
+    ::::::::::::::::::::::::::::::::
+    echo Opening report...
+    set ReportFolder=%COPYTO%report_%~1
+    if "%~1"=="en" set ReportFolder=%COPYTO%report
+    start chrome "%ReportFolder%\%TAG%\report.html"
+exit /b 0

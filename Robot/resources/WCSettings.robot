@@ -43,6 +43,7 @@ Resource            ${EXECDIR}/WC/Scenarios/ManagementConsole/Models/Roles/TS_Ro
 Resource            ${EXECDIR}/WC/Scenarios/ManagementConsole/Models/Users/TS_Users.robot
 Resource            ${EXECDIR}/WC/Scenarios/ManagementConsole/Models/Users/TS_UserDefaults.robot
 Resource            ${EXECDIR}/WC/Scenarios/ManagementConsole/Models/TS_AllModels.robot
+Resource            ${EXECDIR}/WC/Scenarios/ManagementConsole/Models/TS_ModelOverview.robot
 Resource            ${EXECDIR}/WC/Scenarios/ManagementConsole/Models/TS_SetupNewModel.robot
 Resource            ${EXECDIR}/WC/Scenarios/ManagementConsole/Models/TS_ModelServer.robot
 Resource            ${EXECDIR}/WC/Scenarios/ManagementConsole/Models/TS_ModelEA4IT.robot
@@ -65,8 +66,8 @@ ${TIMEOUT_MC_PROGRESS_BAR}    210s
 ${RunAllAngleName}    TC_RunAllAngles_
 ${RunAllAngleTemplateFile}    ${EXECDIR}/WC/TC_RunAllAnglesTemplate.robot
 ${SPACE4}    ${SPACE}${SPACE}${SPACE}${SPACE}
-${WC_HELP_IMAGE_PATH}    ${EXECDIR}/webhelp/wc
-${MC_HELP_IMAGE_PATH}    ${EXECDIR}/webhelp/mc
+${WC_HELP_IMAGE_PATH}    ${EXECDIR}/webhelp/wc/${WebHelpLanguage}
+${MC_HELP_IMAGE_PATH}    ${EXECDIR}/webhelp/mc/${WebHelpLanguage}
 
 # Users
 ${AdminUsername}            \\eaadmin

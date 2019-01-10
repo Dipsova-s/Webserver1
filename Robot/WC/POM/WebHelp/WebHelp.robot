@@ -9,10 +9,23 @@ Initialize WebHelp
 Initialize WC WebHelp
     Initialize WebHelp    ${WC_HELP_IMAGE_PATH}
     Go to WC Then Login With Admin User
+    Change User Language by Id    ${WebHelpLanguage}
+
+Teardown WC WebHelp
+    Run Keyword If    '${WebHelpLanguage}' != 'en'    Change User Language by Id    en
+    Logout WC Then Close Browser
 
 Initialize MC WebHelp
+    Check MC Support Language
     Initialize WebHelp    ${MC_HELP_IMAGE_PATH}
     Go to MC Then Login With Admin User
+
+Teardown MC WebHelp
+    Check MC Support Language
+    Force Logout MC Then Close Browser
+
+Check MC Support Language
+    Pass Execution If    '${WebHelpLanguage}' != 'en'    Skip! Management console does not support "${WebHelpLanguage}" language
 
 Crop WebHelp Image
     [Arguments]    ${filename}    ${selector}
@@ -36,14 +49,15 @@ Highlight WebHelp Element
     ...                     var fontColor = '${fontColor}';
     ...                     var fontSize = '${fontSize}';
     ...                     var fontWeight = '${fontWeight}';
-    ...                     var boxder = '${boxder}';
-    ...                     var boxStyle = 'position:absolute;z-index:100000;box-sizing:border-box;border:'+boxder+';color:'+fontColor+';font-size:'+fontSize+';font-weight:'+fontWeight+';';
-    ...                     var box = $('<div robot-box style="'+boxStyle+'"><span style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);">'+text+'</span></div>').appendTo('body');
+    ...                     var border = '${border}';
+    ...                     var textPosition = !'${textPosition}'||'${textPosition}'=='center'?'top:50%;left:50%;transform:translate(-50%,-50%);':'${textPosition}';
+    ...                     var boxStyle = 'position:absolute;z-index:100000;box-sizing:border-box;border:'+border+';color:'+fontColor+';font-size:'+fontSize+';font-weight:'+fontWeight+';';
+    ...                     var box = $('<div robot-box style="'+boxStyle+'"><span style="position:absolute;line-height:normal;'+textPosition+'">'+text+'</span></div>').appendTo('body');
     ...                     box.css(element.offset()).css({width:element.outerWidth(),height:element.outerHeight()});
     ...                 })();
-    [Arguments]    ${selector}   ${text}=${EMPTY}    ${border}=3px solid #ff0000    ${fontColor}=#ff0000    ${fontSize}=30px    ${fontWeight}=bold
+    [Arguments]    ${selector}   ${text}=${EMPTY}    ${textPosition}=center    ${border}=3px solid #ff0000    ${fontColor}=#ff0000    ${fontSize}=30px    ${fontWeight}=bold
     ${jQuerySelector}    Get JQuery Selector    ${selector}
-    Execute JavaScript    (function(){var a=$('${jQuerySelector}');var b='${text}';var c='${fontColor}';var d='${fontSize}';var e='${fontWeight}';var f='${border}';var g='position:absolute;z-index:100000;box-sizing:border-box;border:'+f+';color:'+c+';font-size:'+d+';font-weight:'+e+';';var h=$('<div robot-box style="'+g+'"><span style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);">'+b+'</span></div>').appendTo('body');h.css(a.offset()).css({width:a.outerWidth(),height:a.outerHeight()})})();
+    Execute JavaScript    (function(){var a=$('${jQuerySelector}');var b='${text}';var c='${fontColor}';var d='${fontSize}';var e='${fontWeight}';var f='${border}';var g=!'${textPosition}'||'${textPosition}'=='center'?'top:50%;left:50%;transform:translate(-50%,-50%);':'${textPosition}';var h='position:absolute;z-index:100000;box-sizing:border-box;border:'+f+';color:'+c+';font-size:'+d+';font-weight:'+e+';';var i=$('<div robot-box style="'+h+'"><span style="position:absolute;line-height:normal;'+g+'">'+b+'</span></div>').appendTo('body');i.css(a.offset()).css({width:a.outerWidth(),height:a.outerHeight()})})();
 
 Clear WebHelp Highlights
     Execute JavaScript    $('[robot-box]').remove();
