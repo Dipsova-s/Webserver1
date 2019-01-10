@@ -28,6 +28,13 @@ Change User Language
     Select User Setting Language Dropdown    ${languageText}
     Click Save User Settings Via Search Page
 
+Change User Language by Id
+    [Arguments]    ${languageId}
+    Open User Settings Popup
+    Click System Settings Tab
+    Select User Setting Language By Id    ${languageId}
+    Click Save User Settings Via Search Page
+
 Set Show Angle Warning In Facet Filters
     Open User Settings Popup
     Click System Settings Tab

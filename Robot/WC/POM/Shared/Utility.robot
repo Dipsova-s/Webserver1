@@ -69,6 +69,13 @@ Get Number From Element Text
     ${number}    Execute Javascript    return parseFloat($('${jquerySelector}').text().replace(/,/g,''))
     [Return]    ${number}
 
+Get Zoomed Element Size
+    [Arguments]    ${element}    ${zoom}
+    ${width}    ${height}    Get Element Size    ${element}
+    ${newWidth}    Execute JavaScript    return ${width}*${zoom};
+    ${newHeight}    Execute JavaScript    return ${height}*${zoom};
+    [Return]    ${newWidth}    ${newHeight}
+
 Get Elements Count
     [Arguments]  ${selector}
     ${jquerySelector}    Get JQuery Selector    ${selector}
@@ -143,7 +150,7 @@ Input kendo Text Editor
 
 Select Dropdown By Kendo
     [Arguments]  ${elementId}    ${value}
-    Execute Javascript     jQuery("#${elementId}").data('kendoDropDownList').value('${valueText}')
+    Execute Javascript     jQuery("#${elementId}").data('kendoDropDownList').value('${value}')
     Execute Javascript     jQuery("#${elementId}").data('kendoDropDownList').trigger('change')
 
 Select Dropdown By Selector

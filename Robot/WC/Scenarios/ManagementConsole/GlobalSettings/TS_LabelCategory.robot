@@ -5,9 +5,7 @@ Resource            ${EXECDIR}/WC/POM/ManagementConsole/Overview.robot
 
 *** Keywords ***
 Go To Label Category Setting Page
-    Wait Side Menu Ready
-    Click Side Menu Global Settings
-    Click Side Menu Label Categories
+    Go To MC Page    /Global%20settings/Label%20categories/
     Wait Until Label Categories Page Loaded
 
 Create Label Category Setting
