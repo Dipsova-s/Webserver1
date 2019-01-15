@@ -48,9 +48,12 @@
         .Columns(columns =>
         {
             columns.Bound(model => model.TypeName)
-                    .Title(Resource.Name);
+                .Title(Resource.Name);
             columns.Bound(model => model.Version)
                 .Title(Resource.MC_Version);
+            columns.Bound(model => model.ModelId)
+                .ClientTemplate("<span>#= data.ModelId || 'n/a' # </span>")
+                .Title(Resource.MC_ModelID);
             columns.Bound(model => model.Uri)
                 .Title(Resource.MC_Uri);
             columns.Bound(model => model.MachineName)
