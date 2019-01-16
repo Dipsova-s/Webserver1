@@ -7,23 +7,9 @@
 ;Inno Source: http://www.hackchina.com/en/cont/123128 
 ;DotNet Libraries: http://www.codeproject.com/KB/install/dotnetfx_innosetup_instal.aspx
 
-#define RemoteSource = ".\.."
+#define SourceDir AddBackslash(SourcePath) + ".\.."
 #define VersionFile = "EveryAngle.WebClient\EveryAngle.WebClient.Web\bin\EveryAngle.WebClient.Web.dll"
-
-;If no sourceDir specified, try .\..\.., else use RemoteSource
-#ifndef SourceDir
-  #define SourceDir AddBackslash(SourcePath) + "..\.."
-  #if FileExists(AddBackslash(SourceDir) + VersionFile) == 0
-    #define SourceDir RemoteSource
-  #endif                                                                                           
-#endif
-            
-;Initialize contentDir: Same as SourceDir, or specified by environment 'ContentPath'
-#define ContentDir = GetEnv("SC_BranchPath")
-#if ContentDir == "" 
-   #define ContentDir = SourceDir
-#endif
-            
+       
 #if FileExists(AddBackslash(SourceDir) + VersionFile) == 0
   #pragma error "FILE: " + AddBackslash(SourceDir) + VersionFile + " NOT FOUND"
 #endif
@@ -1056,7 +1042,7 @@ var
   WebConfig : variant;
 begin
   AppServerUrl := AddProtocolUrl(GetAppServerUrlWithPort(WebClientConfigPage.Values[1], WebClientConfigPage.Values[2], IsHTTPSCertificateComponentSelected));
-  WebServerUrl := AddProtocolUrl(WebClientConfigPage.Values[0]);  
+  WebServerUrl := AddProtocolUrl(WebClientConfigPage.Values[0] + IISVirtualPath.Text);  
   AppVersion := '{#MyAppVersion}';
   MachineName := GetComputerNameString;
   LoadXMLConfigFileEx(IISPhysicalPath, 'web.config', false, {out}WebConfig);
@@ -1286,8 +1272,8 @@ begin
   ODataPassword := ODataSettingsPage.Values[2];
 
   ODataPath := IISPhysicalPath + '\OData';
-  AppServerUrl := WebClientConfigPage.Values[1] + ':' + WebClientConfigPage.Values[2];
-  WebServerUrl := WebClientConfigPage.Values[0] + ':' + WebClientConfigPage.Values[2];
+  AppServerUrl := AddProtocolUrl(GetAppServerUrlWithPort(WebClientConfigPage.Values[1], WebClientConfigPage.Values[2], false));
+  WebServerUrl := AddProtocolUrl(WebSite_FQDN + IISVirtualPath.Text);
 
 // TODO: Progress updates
 
@@ -1303,7 +1289,7 @@ begin
     ExecuteODataServiceDeploy(ODataModels[i]);
     
     // Write updated json settings
-    WriteODataConfigForModel(ODataPath, ODataModels[i], WebSite_FQDN, AppServerUrl, ODataUser, ODataPassword, ODataConfig); 
+    WriteODataConfigForModel(ODataPath, ODataModels[i], WebServerUrl, AppServerUrl, ODataUser, ODataPassword, ODataConfig); 
   end;
 
   HideProgress();
@@ -1336,7 +1322,7 @@ begin
   IISConfigSites := LoadIISConfig('sites'); 
 
   // Update IIS Physical path to what it is now, after the web-deploy has taken place
-  IISPhysicalPath := GetIISPhysicalPath(IISSite.Text, IISVirtualPath.Text,true);
+  IISPhysicalPath := GetIISPhysicalPath(IISSite.Text, IISVirtualPath.Text, true);
 
   // Make sure this path is now known
   CheckIISPhysicalPath(IISPhysicalPath);
@@ -1534,7 +1520,6 @@ begin
 
       if IsComponentSelected('OData') then
       begin
-        WebSite_FQDN := WebSite_FQDN +  IISVirtualPath.Text;
         ODataAfterInstall(IISPhysicalPath, WebSite_FQDN);
       end;
 
