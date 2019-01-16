@@ -3951,9 +3951,6 @@ After selecting an object, click the Continue button to start setting the sugges
   <data name="AboutEveryAngleDetails" xml:space="preserve">
     <value>Si desea conocer la información más reciente sobre el producto,&lt;br/&gt; visítenos en &lt;a href="http://www.everyangle.com" target="_blank"&gt;www.everyangle.com&lt;/a&gt;&lt;br/&gt;&lt;br/&gt; Copyright © {0}</value>
   </data>
-  <data name="AboutClientVersion" xml:space="preserve">
-    <value>Cliente:</value>
-  </data>
   <data name="AboutModelInfo" xml:space="preserve">
     <value>Información de Modelo</value>
   </data>
@@ -5823,5 +5820,11 @@ Are you sure you want to delete this role?</value>
   </data>
   <data name="AddFilterBeforeJump" xml:space="preserve">
     <value>Add filter before jump</value>
+  </data>
+  <data name="AboutClientVersion" xml:space="preserve">
+    <value>Cliente:</value>
+  </data>
+  <data name="RunningRealTime" xml:space="preserve">
+    <value>Running in real time</value>
   </data>
 </root>

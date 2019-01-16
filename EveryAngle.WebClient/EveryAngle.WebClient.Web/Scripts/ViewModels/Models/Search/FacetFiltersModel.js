@@ -326,7 +326,7 @@ function FacetFiltersViewModel() {
             return facetVisibility;
         }
     };
-    self.SetIcon = function (id) {
+    self.GetIconInfo = function (id) {
         var iconsMapping = {
             facet_angle: {
                 path: GetImageFolderPath() + 'searchpage/icn_item_angle.svg',
@@ -400,13 +400,13 @@ function FacetFiltersViewModel() {
                 },
                 style: 'left:0;bottom:2px;'
             },
-            icon_clock: {
+            realtime: {
                 path: GetImageFolderPath() + 'searchpage/icn_clock.svg',
                 dimension: {
-                    width: 15,
-                    height: 15
+                    width: 16,
+                    height: 16
                 },
-                style: 'float:left;margin:-1px 2px 0 0;'
+                style: 'left:-1px;bottom:2px;'
             }
         };
         return iconsMapping[id.toLowerCase()];
@@ -419,37 +419,45 @@ function FacetFiltersViewModel() {
         return tooltip;
     };
     self.GetFilterText = function (filter, facetType, facetcat) {
-        var icon = self.SetIcon(filter.id);
         var html = '';
-        var isGeneralGroup = self.GroupGeneral === facetType;
         var isBusinessProcessGroup = self.GroupBusinessProcess === facetType;
-
         if (isBusinessProcessGroup) {
             var extraCss = filter.enabled() ? '' : ' disabled';
             var filterNumber = filter.index % 9;
-            html += '<span class="BusinessProcessBadge BusinessProcessBadgeItem' + filterNumber + ' ' + filter.name + '"></span>' +
-                '<span class="BusinessProcessBadgeLabel' + extraCss + '" data-tooltip-text="' + filter.description + '">' + filter.name + '</span>';
+            html += '<span class="BusinessProcessBadge BusinessProcessBadgeItem' + filterNumber + ' ' + filter.name + '"></span>';
+            html += '<span class="BusinessProcessBadgeLabel' + extraCss + '" data-tooltip-text="' + filter.description + '">' + filter.name + '</span>';
         }
         else {
-            if (icon) {
-                html += '<img src="' + icon.path + '" height="' + icon.dimension.height + '" width="' + icon.dimension.width + '" style="' + (icon.style || '') + '" />';
-                html += '<span class="name withIcon">';
-            }
-            else if (facetcat === self.GroupModels) {
-                html += '<span class="name" data-type="html" data-tooltip-function="GetRefreshTime" data-tooltip-argument="' + filter.id + '">';
-            }
-            else {
+            var icon = self.GetIconInfo(filter.id);
+            if (facetcat === self.GroupModels)
+                html += self.GetModelFilterText(filter);
+            else if (icon)
+                html += kendo.format('{0}<span class="name withIcon">', self.GetFilterIconHtml(icon));
+            else
                 html += '<span class="name">';
-            }
-
+            
+            var isGeneralGroup = self.GroupGeneral === facetType;
             html += (isGeneralGroup ? '' : filter.description) || filter.name || filter.id;
             if (filter.checked()) {
                 html += ' (' + filter.count() + ')';
             }
             html += '</span>';
         }
-
         return html;
+    };
+    self.GetFilterIconHtml = function (icon) {
+        return kendo.format('<img src="{0}" height="{1}" width="{2}" style="{3}" />', icon.path, icon.dimension.height, icon.dimension.width, icon.style || '');
+    };
+    self.GetModelFilterText = function (filter) {
+        var tooltipAttributes = kendo.format('data-type="html" data-tooltip-function="GetRefreshTime" data-tooltip-argument="{0}"', filter.id);
+        var aboutInfo = aboutSystemHandler.GetModelInfoById(filter.id);
+        if (aboutInfo && aboutInfo.is_real_time) {
+            var realTimeIcon = self.GetIconInfo('realtime');
+            return kendo.format('{0}<span class="name withIcon" {1}">', self.GetFilterIconHtml(realTimeIcon), tooltipAttributes);
+        }
+        else {
+            return kendo.format('<span class="name" {0}">', tooltipAttributes);
+        }
     };
     self.ToggleCategory = function (data, event) {
         var element = jQuery(event.currentTarget),
@@ -562,17 +570,15 @@ function FacetFiltersViewModel() {
         return kendo.format(Localization.SinceLastRefresh, duration);
     };
     self.GetRefreshTime = function (modelId) {
-        var icon = self.SetIcon('icon_clock');
         var aboutInfo = aboutSystemHandler.GetModelInfoById(modelId);
-        var refreshTime = aboutInfo ? (aboutInfo.date() ? self.GetTimeAgoByTimestamp(aboutInfo.modeldata_timestamp) : aboutInfo.info()) : '';
-        var html = '';
+        if (!aboutInfo)
+            return '';
 
-        if (refreshTime) {
-            html += '<img src="' + icon.path + '" height="' + icon.dimension.height + '" width="' + icon.dimension.width + '" style="' + (icon.style || '') + '" />';
-            html += '<span style="">' + refreshTime + '</span>';
-        }
-
-        return html;
+        // show info/status if it's not available
+        if (!aboutInfo.available())
+            return aboutInfo.info();
+        
+        return aboutInfo.is_real_time ? Localization.RunningRealTime : self.GetTimeAgoByTimestamp(aboutInfo.modeldata_timestamp);
     };
     self.IsFacetChecked = function (filter, facet) {
         /* at landing page; check if default business process */
