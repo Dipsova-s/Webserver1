@@ -50,30 +50,42 @@ describe("AboutSystemHandler", function () {
 
         var tests = [
             {
-                title: 'should get full information #1',
-                modeldata_timestamp: 1073041200,
-                status: "Up",
-                expectedHasDate: true,
-                expectedHasFullInfo: true
-            },
-            {
-                title: 'should get full information #2',
+                title: 'should get full information if status is not Down',
                 modeldata_timestamp: 1073041200,
                 status: "any",
+                is_real_time: false,
                 expectedHasDate: true,
                 expectedHasFullInfo: true
             },
             {
-                title: 'should get minimal information #1',
+                title: 'should get minimal information if status is Down with model timestamp',
                 modeldata_timestamp: 1073041200,
                 status: "Down",
+                is_real_time: false,
                 expectedHasDate: false,
                 expectedHasFullInfo: false
             },
             {
-                title: 'should get minimal information #2',
+                title: 'should get minimal information if status is Down without model timestamp',
                 modeldata_timestamp: null,
                 status: "Down",
+                is_real_time: false,
+                expectedHasDate: false,
+                expectedHasFullInfo: false
+            },
+            {
+                title: 'should get full information if status is Up and is realtime model',
+                modeldata_timestamp: 1073041200,
+                status: "Up",
+                is_real_time: true,
+                expectedHasDate: true,
+                expectedHasFullInfo: true
+            },
+            {
+                title: 'should get minimal information if status is not Up and is realtime model',
+                modeldata_timestamp: 1073041200,
+                status: "any",
+                is_real_time: true,
                 expectedHasDate: false,
                 expectedHasFullInfo: false
             }
@@ -87,7 +99,8 @@ describe("AboutSystemHandler", function () {
                         {
                             model_id: 'EA2_800',
                             modeldata_timestamp: test.modeldata_timestamp,
-                            status: test.status
+                            status: test.status,
+                            is_real_time: test.is_real_time
                         }
                     ]
                 });

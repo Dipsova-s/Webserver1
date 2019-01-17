@@ -15,8 +15,15 @@ function AboutSystemModel(model) {
             return modelsHandler.GetModelNameById(this.model_id);
         };
 
-        var hasInfo = data.status.toLowerCase() !== 'down' && data.modeldata_timestamp;
-        if (hasInfo) {
+        data.available = function () {
+            var modelStatus = this.status.toLowerCase();
+            if (this.is_real_time)
+                return modelStatus === AboutSystemModel.STATUS.UP;
+            else
+                return modelStatus !== AboutSystemModel.STATUS.DOWN && this.modeldata_timestamp;
+        };
+        
+        if (data.available()) {
             data.date = function () {
                 return WC.FormatHelper.GetFormattedValue(enumHandlers.FIELDTYPE.DATETIME_WC, this.modeldata_timestamp);
             };
@@ -34,6 +41,11 @@ function AboutSystemModel(model) {
         }
     });
 }
+
+AboutSystemModel.STATUS = {
+    UP: 'up',
+    DOWN: 'down'
+};
 
 function AboutSystemHandler() {
     "use strict";

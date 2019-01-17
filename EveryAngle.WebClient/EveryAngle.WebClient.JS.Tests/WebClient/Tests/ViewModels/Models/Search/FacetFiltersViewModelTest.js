@@ -12,7 +12,7 @@ describe("FacetFiltersViewModel", function () {
         facetFiltersViewModel = new FacetFiltersViewModel();
     });
 
-    describe("call GetDuration", function () {
+    describe(".GetDuration", function () {
         it("should return 11h 15m when send seconds equal 40500", function () {
             var duration = facetFiltersViewModel.GetDuration(40500);
             expect(duration).toEqual("11h 15m ");
@@ -29,7 +29,7 @@ describe("FacetFiltersViewModel", function () {
         });
     });
 
-    describe("call GetTimeAgoByTimestamp", function () {
+    describe(".GetTimeAgoByTimestamp", function () {
         it("should return 2h 20m since last refresh when send timestamp", function () {
             var date = new Date();
             date.setHours(date.getHours() - 2, date.getMinutes() - 20);
@@ -55,7 +55,7 @@ describe("FacetFiltersViewModel", function () {
         });
     });
 
-    describe("call GetRefreshTime", function () {
+    describe(".GetRefreshTime", function () {
         beforeEach(function () {
             window.GetImageFolderPath = function () {
                 return '';
@@ -69,30 +69,42 @@ describe("FacetFiltersViewModel", function () {
             expect(html).toEqual('');
         });
 
-        it("should return status down when aboutInfo is Down", function () {
+        it("should return status down when aboutInfo is not available", function () {
             spyOn(aboutSystemHandler, 'GetModelInfoById').and.returnValue({
-                date: function () { return null; },
+                available: function () { return false; },
                 info: function () { return 'down'; }
             });
 
             var html = facetFiltersViewModel.GetRefreshTime('EA2_800');
-            expect(html).toContain('down');
+            expect(html).toEqual('down');
         });
 
-        it("should return correct html when aboutInfo has date and modeldata_timestamp", function () {
+        it("should get correct info if it's realtime model", function () {
             spyOn(aboutSystemHandler, 'GetModelInfoById').and.returnValue({
-                date: function () { return 'date'; },
-                modeldata_timestamp: '1537500432'
+                is_real_time: true,
+                available: function () { return true; }
             });
 
             spyOn(facetFiltersViewModel, 'GetTimeAgoByTimestamp').and.returnValue('2h 20m since last refresh');
 
             var html = facetFiltersViewModel.GetRefreshTime('EA2_800');
-            expect(html).toContain('2h 20m since last refresh');
+            expect(html).toEqual(Localization.RunningRealTime);
+        });
+
+        it("should get correct info if it's normal model", function () {
+            spyOn(aboutSystemHandler, 'GetModelInfoById').and.returnValue({
+                is_real_time: false,
+                available: function () { return true; },
+                date: function () { return 'date'; },
+                modeldata_timestamp: '1537500432'
+            });
+            
+            var html = facetFiltersViewModel.GetRefreshTime('EA2_800');
+            expect(html).not.toEqual(Localization.RunningRealTime);
         });
     });
 
-    describe("call IsFacetChecked", function () {
+    describe(".IsFacetChecked", function () {
 
         it("should return true when facet is [Business Process], on [landing page] and facet is [default business process]", function () {
 
@@ -206,7 +218,7 @@ describe("FacetFiltersViewModel", function () {
     });
 
     describe(".GetFilterText", function () {
-        var spySetIcon;
+        var spyGetIcon;
         var filter = {
             id: 'EA2_800',
             name: 'EA2_800',
@@ -224,7 +236,7 @@ describe("FacetFiltersViewModel", function () {
             style: 'overflow: auto'
         };
         beforeEach(function () {
-            spySetIcon = spyOn(facetFiltersViewModel, 'SetIcon').and.returnValue('');
+            spyGetIcon = spyOn(facetFiltersViewModel, 'GetIconInfo').and.returnValue('');
         });
 
         it("should display business process label style when facet category is business process", function () {
@@ -232,20 +244,47 @@ describe("FacetFiltersViewModel", function () {
             expect(result).toEqual('<span class="BusinessProcessBadge BusinessProcessBadgeItem2 EA2_800"></span><span class="BusinessProcessBadgeLabel" data-tooltip-text="EA2_800">EA2_800</span>');
         });
 
-        it("should display icon in front of label when facet id is in icon list", function () {
-            spySetIcon.and.returnValue(iconResult);
-            var result = facetFiltersViewModel.GetFilterText(filter, '', 'facetcat_models');
-            expect(result).toEqual('<img src="/image/test.png" height="150" width="150" style="overflow: auto" /><span class="name withIcon">EA2_800</span>');
+        it("should call method GetModelFilterText if facetcat_models", function () {
+            spyOn(facetFiltersViewModel, 'GetModelFilterText');
+            facetFiltersViewModel.GetFilterText(filter, 'EA2_800', 'facetcat_models');
+            expect(facetFiltersViewModel.GetModelFilterText).toHaveBeenCalled();
         });
 
-        it("should display model age when facet category is models", function () {
-            var result = facetFiltersViewModel.GetFilterText(filter, '', 'facetcat_models');
-            expect(result).toEqual('<span class="name" data-type="html" data-tooltip-function="GetRefreshTime" data-tooltip-argument="EA2_800">EA2_800</span>');
+        it("should display icon if it exists", function () {
+            spyGetIcon.and.returnValue(iconResult);
+            var result = facetFiltersViewModel.GetFilterText(filter, '', 'facetcat_characteristics');
+            expect(result).toContain('/image/test.png');
         });
 
         it("should display only label when facet id is not in icon list", function () {
             var result = facetFiltersViewModel.GetFilterText(filter, '', '');
             expect(result).toEqual('<span class="name">EA2_800</span>');
+        });
+
+    });
+
+    describe(".GetModelFilterText", function () {
+
+        it("should show realtime icon for realtime model", function () {
+            spyOn(aboutSystemHandler, 'GetModelInfoById').and.returnValue({
+                is_real_time: true
+            });
+            var result = facetFiltersViewModel.GetModelFilterText({ id: 'RTMS' });
+            expect(result).toContain('searchpage/icn_clock.svg');
+        });
+
+        it("should not show icon if no data", function () {
+            spyOn(aboutSystemHandler, 'GetModelInfoById').and.returnValue(null);
+            var result = facetFiltersViewModel.GetModelFilterText({ id: 'EA2_800' });
+            expect(result).not.toContain('searchpage/icn_clock.svg');
+        });
+
+        it("should not show icon for normal model", function () {
+            spyOn(aboutSystemHandler, 'GetModelInfoById').and.returnValue({
+                is_real_time: false
+            });
+            var result = facetFiltersViewModel.GetModelFilterText({ id: 'EA2_800' });
+            expect(result).not.toContain('searchpage/icn_clock.svg');
         });
 
     });
