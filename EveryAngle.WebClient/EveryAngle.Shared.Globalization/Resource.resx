@@ -5953,4 +5953,7 @@ Attention: The specified location must be a full file path on the Application se
   <data name="AddFilterBeforeJump" xml:space="preserve">
     <value>Add filter before jump</value>
   </data>
+  <data name="RunningRealTime" xml:space="preserve">
+    <value>Running in real time</value>
+  </data>
 </root>

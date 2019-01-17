@@ -5824,4 +5824,7 @@ Are you sure you want to delete this role?</value>
   <data name="AddFilterBeforeJump" xml:space="preserve">
     <value>Add filter before jump</value>
   </data>
+  <data name="RunningRealTime" xml:space="preserve">
+    <value>Running in real time</value>
+  </data>
 </root>

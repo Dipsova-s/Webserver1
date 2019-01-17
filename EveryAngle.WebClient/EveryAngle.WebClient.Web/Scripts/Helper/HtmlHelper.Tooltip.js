@@ -75,6 +75,7 @@
 
     var getTooltipInfo = function (e, ui) {
         var target = jQuery(e.currentTarget);
+        var showWhenNeed = e.data.showWhenNeed;
         var text, renderAs;
 
         if (target.is('[data-tooltip-function]')) {
@@ -82,6 +83,7 @@
             var tooltipArgument = target.attr('data-tooltip-argument');
             text = tooltipFunction.call(target, tooltipArgument);
             renderAs = target.data('type');
+            showWhenNeed = false;
         }
         else if (target.is('[data-tooltip-title]')) {
             text = target.data('tooltip-title');
@@ -99,7 +101,7 @@
             renderAs = target.data('type');
         }
 
-        if (e.data.showWhenNeed) {
+        if (showWhenNeed) {
             var font = WC.HtmlHelper.GetFontCss(target);
             var textSize = WC.Utility.MeasureText(text, font);
             if (textSize <= target.width()) {
