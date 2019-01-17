@@ -95,10 +95,10 @@ function PivotPageHandler(elementId, container) {
         else {
             container.html([
                 '<div id="PivotMainWrapper" class="displayWrapper">',
-                    '<div class="fieldListToggleButton" onclick="fieldSettingsHandler.ToggleFieldListArea();"></div>',
-                    '<div id="PivotArea" class="displayArea">',
-                        '<div class="pivotAreaContainer"></div>',
-                    '</div>',
+                '<div class="fieldListToggleButton" onclick="fieldSettingsHandler.ToggleFieldListArea();"></div>',
+                '<div id="PivotArea" class="displayArea">',
+                '<div class="pivotAreaContainer"></div>',
+                '</div>',
                 '</div>'
             ].join(''));
         }
@@ -227,7 +227,7 @@ function PivotPageHandler(elementId, container) {
         var currentModel = modelsHandler.GetModelByUri(self.Models.Angle.Data().model);
         var timeout = undefined;
         if (currentModel && currentModel.id === 'EA4IT') timeout = 0;
-        return PostAjaxHtmlResult(redirectUrl, postData,undefined,timeout);
+        return PostAjaxHtmlResult(redirectUrl, postData, undefined, timeout);
     };
     self.ShowLoadingIndicator = function () {
         jQuery(self.Container).find('.pivotAreaContainer').busyIndicator(true);
@@ -587,7 +587,7 @@ function PivotPageHandler(elementId, container) {
             }
         }
     };
-    self.HighlightingColumnIndex = -1;
+    self.HighlightingColumn = {};
     self.ShowPivotCustomSortPopup = function (element) {
         self.ClosePivotCustomSortPopup();
         fieldSettingsHandler.HideFieldOptionsMenu();
@@ -638,7 +638,7 @@ function PivotPageHandler(elementId, container) {
                 self.ShowPivotCustomSortPopupCallback(e, element);
             },
             close: function (e) {
-                self.SetActiveColumn(-1);
+                self.SetActiveColumn(null);
                 jQuery(window).off('resize.pivotcustomsort');
                 jQuery('#' + self.PivotId + '_HSBCCell_SCVPDiv').off('scroll');
                 e.sender.destroy();
@@ -670,7 +670,7 @@ function PivotPageHandler(elementId, container) {
         });
     };
     self.ShowPivotCustomSortPopupCallback = function (e, element) {
-        self.SetActiveColumn(element.prevAll().length);
+        self.SetActiveColumn(element.attr('id'));
         // render html
         var areaId, labelTemplate, fieldElements;
         var isSortingCell = element.children('.dxPivotGrid_pgSortByColumn').length;
@@ -687,15 +687,15 @@ function PivotPageHandler(elementId, container) {
         var fields = self.FieldSettings.GetFields(areaId);
         var html = [];
         jQuery.each(fields, function (index, field) {
-			html.push([
-				(index !== 0 ? '<div class="StatSeparate"></div>' : ''),
+            html.push([
+                (index !== 0 ? '<div class="StatSeparate"></div>' : ''),
                 '<div class="label">' + kendo.format(labelTemplate, field.Caption) + '</div>',
                 '<div class="field">',
-                    '<select data-field="' + field.FieldName + '" class="eaDropdown eaDropdownSize40" id="PivotCustomSortField' + index + '">',
-                        '<option value="">' + Captions.Label_Unsorted + '</option>',
-                        '<option value="' + enumHandlers.SORTDIRECTION.ASC + '">' + Captions.Label_Sort_Ascending + '</option>',
-                        '<option value="' + enumHandlers.SORTDIRECTION.DESC + '">' + Captions.Label_Sort_Descending + '</option>',
-                    '</select>',
+                '<select data-field="' + field.FieldName + '" class="eaDropdown eaDropdownSize40" id="PivotCustomSortField' + index + '">',
+                '<option value="">' + Captions.Label_Unsorted + '</option>',
+                '<option value="' + enumHandlers.SORTDIRECTION.ASC + '">' + Captions.Label_Sort_Ascending + '</option>',
+                '<option value="' + enumHandlers.SORTDIRECTION.DESC + '">' + Captions.Label_Sort_Descending + '</option>',
+                '</select>',
                 '</div>'
             ].join(''));
         });
@@ -729,21 +729,29 @@ function PivotPageHandler(elementId, container) {
     self.ClosePivotCustomSortPopup = function () {
         popup.Close('#PivotCustomSortPopup');
     };
-    self.SetActiveColumn = function (activeColumn) {
+    self.SetActiveColumn = function (headerId) {
         var headerTarget, elementTargetIndex;
-        if (activeColumn !== -1) {
-            headerTarget = jQuery('#' + self.PivotId + '_CVSCell_SCDTable tr:last').find('td:eq(' + activeColumn + ')');
+        if (headerId) {
+            headerTarget = jQuery(self.Container).find('[id="' + headerId + '"]');
             elementTargetIndex = self.GetCellCoords(headerTarget).x;
             headerTarget.addClass('pivot-column-active');
             jQuery('#' + self.PivotId + '_DCSCell_SCDTable tr').find('td:eq(' + elementTargetIndex + ')').addClass('pivot-column-active');
+
+            self.HighlightingColumn = {
+                header: headerId,
+                index: elementTargetIndex
+            };
         }
         else {
-            headerTarget = jQuery('#' + self.PivotId + '_CVSCell_SCDTable tr:last').find('td:eq(' + self.HighlightingColumnIndex + ')');
-            elementTargetIndex = self.GetCellCoords(headerTarget).x;
-            headerTarget.removeClass('pivot-column-active');
-            jQuery('#' + self.PivotId + '_DCSCell_SCDTable tr').find('td:eq(' + elementTargetIndex + ')').removeClass('pivot-column-active');
+            headerTarget = jQuery(self.Container).find('[id="' + self.HighlightingColumn.header + '"]');
+            elementTargetIndex = self.HighlightingColumn.index;
+            if (headerTarget.length) {
+                headerTarget.removeClass('pivot-column-active');
+                jQuery('#' + self.PivotId + '_DCSCell_SCDTable tr').find('td:eq(' + elementTargetIndex + ')').removeClass('pivot-column-active');
+
+            }
+            self.HighlightingColumn = {};
         }
-        self.HighlightingColumnIndex = activeColumn;
     };
     self.ClearPivotCustomSort = function () {
         jQuery('#PivotCustomSortPopup select.eaDropdown').val('');
@@ -783,7 +791,7 @@ function PivotPageHandler(elementId, container) {
         var columnFields = self.FieldSettings.GetFields(enumHandlers.FIELDSETTINGAREA.COLUMN);
         var dataFields = self.FieldSettings.GetFields(enumHandlers.FIELDSETTINGAREA.DATA).findObjects('IsSelected', true);
         var columnMultiply = self.FieldSettings.PercentageSummaryType === 0 ? 1 : 2;
-        var summaryField = dataFields[Math.floor(self.HighlightingColumnIndex / columnMultiply) % dataFields.length].FieldName;
+        var summaryField = dataFields[Math.floor(self.HighlightingColumn.index / columnMultiply) % dataFields.length].FieldName;
         var elementTargetIndex = self.GetCellCoords(jQuery('#' + self.PivotId + '_CVSCell_SCDTable .pivot-column-active')).x;
         if (typeof window[self.PivotId].adjustingManager === 'undefined') {
             return sortingOptions;
@@ -917,7 +925,7 @@ function PivotPageHandler(elementId, container) {
                 self.Models.Result.LoadSuccess(oldDisplayModel.results);
                 historyModel.Save();
                 self.Models.Result.GetResult(self.Models.Result.Data().uri)
-                .then(self.Models.Result.LoadResultFields)
+                    .then(self.Models.Result.LoadResultFields)
                     .done(function () {
                         self.Models.Result.ApplyResult();
                     });
@@ -981,7 +989,7 @@ function PivotPageHandler(elementId, container) {
         self.UpdateSortDataFromPivotTable();
         fieldSettingsHandler.IsNeedResetLayout = false;
 
-        self.SetActiveColumn(self.HighlightingColumnIndex);
+        self.SetActiveColumn(self.HighlightingColumn.header);
 
         clearInterval(fnCheckCurrentScrollbar);
         if (self.ScrollbarPosition.X != null) {
@@ -1393,7 +1401,7 @@ function PivotPageHandler(elementId, container) {
 
         var testElementsize = jQuery('#' + self.PivotId + '_DataArea .dxpgHeaderText:first');
         var font = testElementsize.css('font-style') + ' ' + testElementsize.css('font-variant') + ' ' + testElementsize.css('font-weight')
-                   + ' ' + Math.ceil(parseFloat(testElementsize.css('font-size'))) + 'px ' + testElementsize.css('font-family');
+            + ' ' + Math.ceil(parseFloat(testElementsize.css('font-size'))) + 'px ' + testElementsize.css('font-family');
 
         if (self.ColumnSize && self.ColumnSize.header && self.ColumnSize.data
             && self.ColumnSize.header.length === headerCount
@@ -1496,8 +1504,8 @@ function PivotPageHandler(elementId, container) {
                 height: th.outerHeight(),
                 width: indicatorWidth * 3
             })
-            .data('th', th)
-            .show();
+                .data('th', th)
+                .show();
 
             return resizeHandler;
         };
@@ -1858,7 +1866,7 @@ function PivotPageHandler(elementId, container) {
                             }
 
                             // M4-33093 add more space for domain icon
-                            if(cell.find('.domainIcon').length) {
+                            if (cell.find('.domainIcon').length) {
                                 matrixText[k][l] += '___';
                             }
 
