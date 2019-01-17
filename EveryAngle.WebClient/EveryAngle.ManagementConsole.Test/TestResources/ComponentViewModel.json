@@ -1,0 +1,86 @@
+[
+    {
+      "registration_id": "987cdaff-1583-426e-bf54-a2d906954e0e",
+      "type": "RealtimeModelQueryService",
+      "uri": "http://nl-webmb01.everyangle.org:23006/",
+      "model_id": "AuthTest",
+      "version": "19.999.99.1",
+      "machine_name": "NL-WEBMB01",
+      "status": {
+        "available": true,
+        "last_event": "Failed",
+        "timestamp": 1547679836
+      },
+      "registered_on": 1546577625,
+      "last_successful_heartbeat": 1547700570
+    },
+    {
+        "registration_id": "1049669c-9034-4f06-8028-25a6b392dd94",
+        "type": "ModelAgentService",
+        "uri": "http://nl-webmb01.everyangle.org:23005/",
+        "model_id": "EA2_800",
+        "version": "1.0.0.0",
+        "machine_name": "NL-WEBMB01",
+        "status": {
+            "available": true,
+            "last_event": "Ready",
+            "timestamp": 1547697596
+        },
+        "registered_on": 1546577576,
+        "last_successful_heartbeat": 1547700570
+    },
+    {
+        "registration_id": "addf197b-b89a-4d0c-bacf-f49122b75cf4",
+        "type": "ExtractionService",
+        "uri": "http://nl-webmb01.everyangle.org:8081/clover/data-service/Extractor",
+        "model_id": "EA2_800",
+        "version": "19.000.00.1937",
+        "machine_name": "NL-WEBMB01",
+        "status": {
+            "available": true,
+            "timestamp": 1547700284
+        },
+        "registered_on": 1546577585,
+        "last_successful_heartbeat": 1547700571
+    },
+    {
+        "registration_id": "0b7aa17d-5cef-43e2-ae2b-b6a4e0c0418a",
+        "type": "ModelAgentService",
+        "uri": "http://nl-webmb01.everyangle.org:23006/agent",
+        "model_id": "AuthTest",
+        "version": "19.999.99.1",
+        "machine_name": "NL-WEBMB01",
+        "status": {
+            "available": true,
+            "timestamp": 1547621060
+        },
+        "registered_on": 1546577626,
+        "last_successful_heartbeat": 1547700571
+    },
+    {
+        "registration_id": "a7989ec9-03f2-468d-8227-3dfba7dad24c",
+        "type": "WebServer",
+        "uri": "http://nl-webmb01.everyangle.org/",
+        "version": "2019.999.99.116",
+        "machine_name": "NL-WEBMB01",
+        "status": {
+            "available": true
+        },
+        "registered_on": 1546577650
+    },
+    {
+        "registration_id": "4dc1183a-31b8-4a0e-94f7-76d4b8b1e9e6",
+        "type": "ClassicModelQueryService",
+        "uri": "http://NL-WEBMB01.everyangle.org:62029",
+        "model_id": "EA2_800",
+        "version": "19.000.00.1937",
+        "machine_name": "NL-WEBMB01",
+        "status": {
+            "available": true,
+            "last_event": "Queryable",
+            "timestamp": 1547698804
+        },
+        "registered_on": 1547697520,
+        "last_successful_heartbeat": 1547700571
+    }
+]
