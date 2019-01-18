@@ -2,6 +2,7 @@ using EveryAngle.Core.Interfaces.Services;
 using EveryAngle.Core.ViewModels;
 using EveryAngle.Core.ViewModels.Model;
 using EveryAngle.Core.ViewModels.ModelServer;
+using EveryAngle.WebClient.Domain.Enums;
 using EveryAngle.WebClient.Service.HttpHandlers;
 using EveryAngle.WebClient.Service.Security;
 using Kendo.Mvc.UI;
@@ -50,22 +51,16 @@ namespace EveryAngle.ManagementConsole.Controllers
             return File(downloadFileByte, MediaTypeNames.Application.Octet, downloadFilename);
         }
 
-        public JsonResult GetComponentInfo(string modelId, string componentUri)
-        {
-            ModelViewModel model = SessionHelper.GetModelById(modelId);
-            ListViewModel<ModelServerViewModel> modelServers = _modelService.GetModelServers(model?.ServerUri?.ToString());
-            ModelServerViewModel modelServer = modelServers.Data.FirstOrDefault(x => new Uri(x.server_uri).ToString() == new Uri(componentUri).ToString());
-
-            return Json(new
-            {
-                modelServerUri = modelServer.Uri,
-                isCurrentInstance = model.current_instance != null && model.current_instance == modelServer.instance
-            }, JsonRequestBehavior.AllowGet);
-        }
-
         public JsonResult GetComponents()
         {
+            List<ModelViewModel> models = SessionHelper.Models;
+            List<ModelServerViewModel> modelServers = SessionHelper.GetModelServers(models);
+
             IEnumerable<ComponentViewModel> components = _componentService.GetItems().OrderBy(x => x.ModelId);
+
+            // M4-53574 : Fast fix for get information
+            components.Where(x => x.Type.Equals(ComponentServiceManagerType.ClassicModelQueryService)).ToList()
+                .ForEach(x => x.SetModelServerInfo(modelServers, models.FirstOrDefault(y => y.id == x.ModelId)?.current_instance));
 
             DataSourceResult result = new DataSourceResult
             {
