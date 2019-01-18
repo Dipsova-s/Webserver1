@@ -44,20 +44,7 @@
         };
 
         self.ShowModelServerInfo = function (e, obj) {
-            var parameters = $(obj).data('parameters');
-            MC.ui.popup('requestStart');
-            MC.ajax.request({
-                url: $(obj).data('componentInfoUrl'),
-                parameters: parameters
-            })
-            .done(function (data) {
-                parameters.modelServerUri = data.modelServerUri;
-                parameters.isCurrentInstance = data.isCurrentInstance;
-                $(obj).data({
-                    parameters: parameters
-                });
-                MC.util.modelServerInfo.showInfoPopup(e, $(obj));
-            });
+            MC.util.modelServerInfo.showInfoPopup(e, obj);
         };
          
         self.ComponentGridDataBound = function (e) {

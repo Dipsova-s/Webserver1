@@ -1,6 +1,9 @@
+using EveryAngle.Core.ViewModels.ModelServer;
 using EveryAngle.WebClient.Domain.Enums;
 using Newtonsoft.Json;
 using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace EveryAngle.Core.ViewModels
 {
@@ -62,6 +65,14 @@ namespace EveryAngle.Core.ViewModels
         [JsonProperty(PropertyName = "last_successful_heartbeat")]
         public long? LastSuccessfulHeartbeat { get; set; }
 
+        /// <summary>
+        /// </summary>
+        public bool IsCurrentInstance { get; set; }
+
+        /// <summary>
+        /// </summary>
+        public string ModelServerUri { get; set; }
+
         public bool IsDeletable
         {
             get
@@ -88,6 +99,14 @@ namespace EveryAngle.Core.ViewModels
                     || Type == ComponentServiceManagerType.DataDiscoveryService
                     || Type == ComponentServiceManagerType.ExtractionService;
             }
+        }
+
+        public void SetModelServerInfo(List<ModelServerViewModel> modelServers, Uri currentInstance)
+        {
+            ModelServerViewModel modelServer = modelServers.FirstOrDefault(x => new Uri(x.server_uri).ToString() == new Uri(Uri).ToString());
+
+            ModelServerUri = modelServer?.Uri.ToString();
+            IsCurrentInstance = currentInstance != null && currentInstance == modelServer?.instance;
         }
     }
 }
