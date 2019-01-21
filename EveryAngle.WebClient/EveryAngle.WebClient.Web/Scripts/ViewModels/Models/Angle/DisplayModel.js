@@ -837,9 +837,9 @@ function DisplayModel(model) {
         }
 
         var drillDownDisplay = handler.Models.Angle.Data().display_definitions.findObject('id', displayDetails.drilldown_display);
-
         if (displayDetails.drilldown_display && drillDownDisplay) {
-            jQuery.when(self.AdhocDrilldown(drillDownDisplay.uri, querySteps, drillDownDisplay, isDashboardDrilldown, handler.Models.Angle.Data(), true))
+            var angleData = handler.Models.Angle.Data();
+            jQuery.when(self.AdhocDrilldown(querySteps, drillDownDisplay, isDashboardDrilldown, angleData, false, angleData.model))
                 .done(function () {
                     if (!isDashboardDrilldown) {
                         progressbarModel.KeepCancelFunction = true;
@@ -963,12 +963,12 @@ function DisplayModel(model) {
         }
     };
 
-    self.CleanNotAcceptedExecutionParameter = function (queryBlocks) {
+    self.CleanNotAcceptedExecutionParameter = function (queryBlocks, modelUri) {
         if (queryBlocks && queryBlocks.length) {
             var newFiltersQuerySteps = [];
             jQuery.each(queryBlocks[0].query_steps, function (index, filterItem) {
                 if (filterItem.step_type === enumHandlers.FILTERTYPE.FILTER) {
-                    var validationParameterResult = validationHandler.CheckValidExecutionParameters([filterItem], '');
+                    var validationParameterResult = validationHandler.CheckValidExecutionParameters([filterItem], modelUri);
                     if (validationParameterResult.IsAllValidArgument)
                         newFiltersQuerySteps.push(filterItem);
                 }
@@ -1003,129 +1003,29 @@ function DisplayModel(model) {
         }
         return fieldsWithoutFormat;
     };
-    self.AdhocDrilldown = function (uri, querySteps, basicDisplay, isDashboardDrilldown, angleData, notKeepDisplayFilters) {
-        if (typeof isDashboardDrilldown === 'undefined') {
-            isDashboardDrilldown = false;
-        }
-        if (typeof angleData === 'undefined') {
-            angleData = null;
-        }
-
-        var switchDisplay = ko.toJS(basicDisplay || historyModel.Get(uri, false));
-        var queryStepBlock = switchDisplay.query_blocks.length !== 0 ? jQuery.grep(switchDisplay.query_blocks, function (queryBlock) {
-            return queryBlock.queryblock_type === enumHandlers.QUERYBLOCKTYPE.QUERY_STEPS;
-        })[0].query_steps : [];
-        var switchDisplayFilters = [];
-        var switchDisplayAggs = [];
-        var currentDisplayFilters = [];
-        var newSwitchDisplayQueryBlock = [{
-            queryblock_type: enumHandlers.QUERYBLOCKTYPE.QUERY_STEPS,
-            query_steps: []
-        }];
-        var defaultLanguage = userSettingModel.GetByName(enumHandlers.USERSETTINGS.DEFAULT_LANGUAGES).toLowerCase();
-
-        // set multilang if need
-        if (isDashboardDrilldown) {
-            if (!(switchDisplay.multi_lang_name instanceof Array)) {
-                switchDisplay.multi_lang_name = [{
-                    lang: defaultLanguage,
-                    text: switchDisplay.name || Localization.DefaultDisplayListName
-                }];
-                delete switchDisplay.name;
-            }
-            if (!(switchDisplay.multi_lang_description instanceof Array)) {
-                switchDisplay.multi_lang_description = [{
-                    lang: defaultLanguage,
-                    text: WC.Utility.ToString(switchDisplay.description)
-                }];
-                delete switchDisplay.description;
-            }
-            if (!self.DisplayInfo.Displays().length) {
-                jQuery.each(switchDisplay.multi_lang_name, function (index, name) {
-                    self.DisplayInfo.Displays.push({ Name: name.text });
-                });
-            }
-        }
-
-        // get new name
-        var nameText = WC.Utility.GetDefaultMultiLangText(switchDisplay.multi_lang_name);
-        var name = self.GetAdhocDisplayName(nameText);
+    self.AdhocDrilldown = function (querySteps, switchDisplay, isDashboardDrilldown, angleData, keepDisplayFilters, modelUri) {
+        switchDisplay = ko.toJS(switchDisplay);
 
         // set new name
-        jQuery.each(switchDisplay.multi_lang_name, function (index) {
-            switchDisplay.multi_lang_name[index].text = name;
-        });
+        self.SetSwitchDisplayName(switchDisplay, isDashboardDrilldown);
 
-        if (queryStepBlock.length) {
-            switchDisplayFilters = displayQueryBlockModel.GetQueryStepByNotInType(enumHandlers.FILTERTYPE.AGGREGATION, queryStepBlock);
-            switchDisplayAggs = displayQueryBlockModel.GetQueryStepByType(enumHandlers.FILTERTYPE.AGGREGATION, queryStepBlock);
-        }
+        // get query steps of current display
+        var currentDisplayFilters = self.GetCurrentDisplayQuerySteps(querySteps, isDashboardDrilldown);
 
-        // use custom query steps
-        if (typeof querySteps === 'object') {
-            jQuery.each(querySteps, function (index, queryStep) {
-                if (queryStep.step_type === enumHandlers.FILTERTYPE.FILTER) {
-                    currentDisplayFilters.push({
-                        step_type: queryStep.step_type,
-                        field: queryStep.field,
-                        operator: queryStep.operator,
-                        arguments: queryStep.arguments,
-                        is_adhoc_filter: queryStep.is_adhoc_filter
-                    });
-                }
-                else if (queryStep.step_type === enumHandlers.FILTERTYPE.FOLLOWUP)
-                    currentDisplayFilters.push(queryStep);
-            });
-        }
-        else if (displayQueryBlockModel.QuerySteps().length) {
-            currentDisplayFilters = displayQueryBlockModel.GetQueryStepByNotInType(enumHandlers.FILTERTYPE.AGGREGATION);
-        }
+        // get query steps of switching display
+        var switchDisplayQuerySteps = (switchDisplay.query_blocks.findObject('queryblock_type', enumHandlers.QUERYBLOCKTYPE.QUERY_STEPS) || { query_steps: [] }).query_steps;
+        var newSwitchDisplayQuerySteps = self.GetSwitchDisplayQuerySteps(currentDisplayFilters, switchDisplayQuerySteps, keepDisplayFilters);
+        var newSwitchDisplayQueryBlock = [{
+            queryblock_type: enumHandlers.QUERYBLOCKTYPE.QUERY_STEPS,
+            query_steps: newSwitchDisplayQuerySteps
+        }];
 
-        // clear custom properties
-        jQuery.each(switchDisplayFilters, function (index, step) {
-            step.is_adhoc_filter = true;
-            step.is_execution_parameter = WC.Utility.ToBoolean(step.is_execution_parameter);
-            step.execution_parameter_id = WC.Utility.ToString(self.execution_parameter_id);
-        });
-        jQuery.each(currentDisplayFilters, function (index, step) {
-            //M4-14667: Do not clear the valid steps
-            step.is_adhoc_filter = true;
-            step.is_execution_parameter = WC.Utility.ToBoolean(step.is_execution_parameter);
-            step.execution_parameter_id = WC.Utility.ToString(self.execution_parameter_id);
-        });
-
-        /* BOF: M4-11731: Check if keep filter from list drilldown add query steps to current display */
-        if (!isDashboardDrilldown && typeof WC.Utility.UrlParameter(enumHandlers.ANGLEPARAMETER.LISTDRILLDOWN) !== 'undefined' && self.KeepFilter()) {
-            var listDrillDown = JSON.parse(WC.Utility.UrlParameter(enumHandlers.ANGLEPARAMETER.LISTDRILLDOWN));
-            jQuery.each(listDrillDown, function (key, value) {
-                currentDisplayFilters.push({
-                    step_type: enumHandlers.FILTERTYPE.FILTER,
-                    field: key,
-                    operator: enumHandlers.OPERATOR.EQUALTO.Value,
-                    arguments: [WC.WidgetFilterHelper.ArgumentObject(value, enumHandlers.FILTERARGUMENTTYPE.VALUE)],
-                    is_adhoc_filter: true,
-                    is_execution_parameter: false,
-                    execution_parameter_id: ''
-                });
-            });
-        }
-        /* EOF: M4-11731: Check if keep filter from list drilldown add query steps to current display */
-
-        // merge query steps
-        newSwitchDisplayQueryBlock[0].query_steps = notKeepDisplayFilters === true ?
-                                                    currentDisplayFilters :
-                                                    UnionObjectArrays(currentDisplayFilters, switchDisplayFilters, false);
-
-
-        if (!isDashboardDrilldown && displayQueryBlockModel.GetQueryStepByType(enumHandlers.FILTERTYPE.FOLLOWUP, newSwitchDisplayQueryBlock[0].query_steps).length)
+        // turn off keep filter if there are jump
+        if (!isDashboardDrilldown && displayQueryBlockModel.GetQueryStepByType(enumHandlers.FILTERTYPE.FOLLOWUP, newSwitchDisplayQuerySteps).length)
             self.KeepFilter(false);
 
-        // add aggregation query step
-        if (switchDisplayAggs.length)
-            newSwitchDisplayQueryBlock[0].query_steps.push(switchDisplayAggs[0]);
-
         var angleUri = switchDisplay.uri.substr(0, switchDisplay.uri.indexOf('/displays'));
-        switchDisplay.query_blocks = self.CleanNotAcceptedExecutionParameter(newSwitchDisplayQueryBlock);
+        switchDisplay.query_blocks = self.CleanNotAcceptedExecutionParameter(newSwitchDisplayQueryBlock, modelUri);
         switchDisplay.KeepFilter = self.KeepFilter();
         delete switchDisplay.id;
         delete switchDisplay.uri;
@@ -1169,6 +1069,108 @@ function DisplayModel(model) {
                 query[enumHandlers.ANGLEPARAMETER.STARTTIMES] = jQuery.now();
                 self.GotoTemporaryDisplay(data.uri, query, isDashboardDrilldown);
             });
+    };
+    self.SetSwitchDisplayName = function (switchDisplay, isDashboardDrilldown) {
+        // set multilang if need
+        if (isDashboardDrilldown) {
+            var defaultLanguage = userSettingModel.GetByName(enumHandlers.USERSETTINGS.DEFAULT_LANGUAGES).toLowerCase();
+            if (!(switchDisplay.multi_lang_name instanceof Array)) {
+                switchDisplay.multi_lang_name = [{
+                    lang: defaultLanguage,
+                    text: switchDisplay.name || Localization.DefaultDisplayListName
+                }];
+                delete switchDisplay.name;
+            }
+            if (!(switchDisplay.multi_lang_description instanceof Array)) {
+                switchDisplay.multi_lang_description = [{
+                    lang: defaultLanguage,
+                    text: WC.Utility.ToString(switchDisplay.description)
+                }];
+                delete switchDisplay.description;
+            }
+            if (!self.DisplayInfo.Displays().length) {
+                jQuery.each(switchDisplay.multi_lang_name, function (index, name) {
+                    self.DisplayInfo.Displays.push({ Name: name.text });
+                });
+            }
+        }
+
+        // get new name
+        var nameText = WC.Utility.GetDefaultMultiLangText(switchDisplay.multi_lang_name);
+        var name = self.GetAdhocDisplayName(nameText);
+
+        // set new name
+        jQuery.each(switchDisplay.multi_lang_name, function (index) {
+            switchDisplay.multi_lang_name[index].text = name;
+        });
+    };
+    self.GetCurrentDisplayQuerySteps = function (querySteps, isDashboardDrilldown) {
+        // collect filter and jump
+        var newQuerySteps = [];
+        jQuery.each(querySteps, function (index, queryStep) {
+            if (queryStep.step_type === enumHandlers.FILTERTYPE.FILTER) {
+                newQuerySteps.push({
+                    step_type: queryStep.step_type,
+                    field: queryStep.field,
+                    operator: queryStep.operator,
+                    arguments: queryStep.arguments
+                });
+            }
+            else if (queryStep.step_type === enumHandlers.FILTERTYPE.FOLLOWUP) {
+                newQuerySteps.push({
+                    step_type: queryStep.step_type,
+                    followup: queryStep.followup
+                });
+            }
+        });
+
+        // clean properties
+        jQuery.each(newQuerySteps, function (index, step) {
+            step.is_adhoc_filter = true;
+            step.is_execution_parameter = WC.Utility.ToBoolean(step.is_execution_parameter);
+            step.execution_parameter_id = WC.Utility.ToString(self.execution_parameter_id);
+        });
+        
+        /* BOF: M4-11731: Check if keep filter from list drilldown add query steps to current display */
+        if (!isDashboardDrilldown && typeof WC.Utility.UrlParameter(enumHandlers.ANGLEPARAMETER.LISTDRILLDOWN) !== 'undefined' && self.KeepFilter()) {
+            var listDrillDown = JSON.parse(WC.Utility.UrlParameter(enumHandlers.ANGLEPARAMETER.LISTDRILLDOWN));
+            jQuery.each(listDrillDown, function (key, value) {
+                newQuerySteps.push({
+                    step_type: enumHandlers.FILTERTYPE.FILTER,
+                    field: key,
+                    operator: enumHandlers.OPERATOR.EQUALTO.Value,
+                    arguments: [WC.WidgetFilterHelper.ArgumentObject(value, enumHandlers.FILTERARGUMENTTYPE.VALUE)],
+                    is_adhoc_filter: true,
+                    is_execution_parameter: false,
+                    execution_parameter_id: ''
+                });
+            });
+        }
+        /* EOF: M4-11731: Check if keep filter from list drilldown add query steps to current display */
+
+        return newQuerySteps;
+    };
+    self.GetSwitchDisplayQuerySteps = function (currentDisplayFilters, switchDisplayQuerySteps, keepDisplayFilters) {
+        // collect query steps from switching display
+        var switchDisplayWithoutAggration = displayQueryBlockModel.GetQueryStepByNotInType(enumHandlers.FILTERTYPE.AGGREGATION, switchDisplayQuerySteps);
+        var switchDisplayWithAggrations = displayQueryBlockModel.GetQueryStepByType(enumHandlers.FILTERTYPE.AGGREGATION, switchDisplayQuerySteps);
+        var switchDisplaySorts = displayQueryBlockModel.GetQueryStepByType(enumHandlers.FILTERTYPE.SORTING, switchDisplayQuerySteps);
+
+        // clean properties
+        jQuery.each(switchDisplayWithoutAggration, function (index, step) {
+            step.is_adhoc_filter = true;
+            step.is_execution_parameter = WC.Utility.ToBoolean(step.is_execution_parameter);
+            step.execution_parameter_id = WC.Utility.ToString(self.execution_parameter_id);
+        });
+
+        var switchDisplayFilters = keepDisplayFilters ? switchDisplayWithoutAggration : switchDisplaySorts;
+        var querySteps = UnionObjectArrays(currentDisplayFilters, switchDisplayFilters, false);
+
+        // add aggregation query step
+        if (switchDisplayWithAggrations.length)
+            querySteps.push(switchDisplayWithAggrations[0]);
+
+        return querySteps;
     };
     self.GetAdhocDisplayName = function (name) {
         name = name.replace(/ ?\(\d+\)$/, '');

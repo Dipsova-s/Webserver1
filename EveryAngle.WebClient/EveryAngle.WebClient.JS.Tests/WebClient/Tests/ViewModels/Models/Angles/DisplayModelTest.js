@@ -1,7 +1,10 @@
 /// <reference path="/Dependencies/ViewManagement/Shared/WidgetFilter/WidgetFilterHelper.js" />
 /// <reference path="/Dependencies/ViewModels/Shared/DataType/DataType.js" />
+/// <reference path="/Dependencies/ViewModels/Models/User/usersettingmodel.js" />
+/// <reference path="/Dependencies/ViewModels/Models/Angle/displayqueryblockmodel.js" />
 /// <reference path="/Dependencies/ViewModels/Models/Angle/displaymodel.js" />
 /// <reference path="/Dependencies/ViewManagement/Angles/FieldSettingsHandler.js" />
+/// <reference path="/Dependencies/ViewManagement/Shared/validationHandler.js" />
 
 describe("DisplayModel", function () {
     var displayModel;
@@ -10,15 +13,7 @@ describe("DisplayModel", function () {
         displayModel = new DisplayModel();
     });
 
-    describe("when create new instance", function () {
-
-        it("should be defined", function () {
-            expect(displayModel).toBeDefined();
-        });
-
-    });
-
-    describe("It should get correct drilldown value", function () {
+    describe(".GetCellDrillDownValue", function () {
 
         it("should have same value after call 'GetCellDrillDownValue' method", function () {
             for (var i = 0; i < cellDrillDownItems.length; i++) {
@@ -28,7 +23,7 @@ describe("DisplayModel", function () {
 
     });
 
-    describe("call UpdatePublicationsWatcher", function () {
+    describe(".UpdatePublicationsWatcher", function () {
 
         beforeEach(function () {
             displayModel.Data({
@@ -66,7 +61,7 @@ describe("DisplayModel", function () {
 
     });
 
-    describe("call GetTimeBucketSize", function () {
+    describe(".GetTimeBucketSize", function () {
 
         it("time bucket size should be 3600 if it is less than max value", function () {
             var bucketSize = displayModel.GetTimeBucketSize(0);
@@ -85,7 +80,7 @@ describe("DisplayModel", function () {
 
     });
 
-    describe("when drill down on a null value ", function () {
+    describe(".GetDrilldownQueryStepOperator", function () {
 
         it("should apply equal to operator", function () {
             var result = displayModel.GetDrilldownQueryStepOperator(null, enumHandlers.FIELDTYPE.ENUM, "individual","");
@@ -93,7 +88,7 @@ describe("DisplayModel", function () {
         });
     });
 
-    describe('when create argument values', function () {
+    describe('.GetBetweenArgumentValues', function () {
         var testObjects = [
             {
                 arguments: {
@@ -128,6 +123,227 @@ describe("DisplayModel", function () {
                 expect(testObject.expectedResult.upperBound).toEqual(actualResult[1].value);
             });
         });
+    });
+
+    describe('.CleanNotAcceptedExecutionParameter', function () {
+        it('should return empty array when queryBlocks is empty array', function () {
+            var queryBlocks = [];
+            var modelUri = '/models/1';
+            var result = displayModel.CleanNotAcceptedExecutionParameter(queryBlocks, modelUri);
+            expect(result).toEqual([]);
+        });
+
+        it('should return null when queryBlocks is null', function () {
+            var queryBlocks = null;
+            var modelUri = '/models/1';
+            var result = displayModel.CleanNotAcceptedExecutionParameter(queryBlocks, modelUri);
+            expect(result).toEqual(null);
+        });
+
+        it('should return undefined array when queryBlocks is undefined', function () {
+            var queryBlocks = undefined;
+            var modelUri = '/models/1';
+            var result = displayModel.CleanNotAcceptedExecutionParameter(queryBlocks, modelUri);
+            expect(result).toEqual(undefined);
+        });
+
+        it('should return all parameter but type is Filter', function () {
+            spyOn(validationHandler, 'CheckValidExecutionParameters').and.returnValue({ IsAllValidArgument: false });
+            var queryBlocks = [{
+                query_steps: [
+                    {
+                        step_type: enumHandlers.FILTERTYPE.FILTER
+                    },
+                    {
+                        step_type: enumHandlers.FILTERTYPE.SQLFILTER
+                    },
+                    {
+                        step_type: enumHandlers.FILTERTYPE.FOLLOWUP
+                    },
+                    {
+                        step_type: enumHandlers.FILTERTYPE.AGGREGATION
+                    },
+                    {
+                        step_type: enumHandlers.FILTERTYPE.EXPRESSION_AGGREGATION
+                    },
+                    {
+                        step_type: enumHandlers.FILTERTYPE.SORTING
+                    }
+                ]
+            }];
+            var modelUri = '/models/1';
+            var result = displayModel.CleanNotAcceptedExecutionParameter(queryBlocks, modelUri);
+            expect(result[0].query_steps.length).toEqual(5);
+        });
+
+        it('should return Filter parameter when Filter parameter is valid', function () {
+            spyOn(validationHandler, 'CheckValidExecutionParameters').and.returnValue({ IsAllValidArgument: true });
+            var queryBlocks = [{
+                query_steps: [
+                    {
+                        step_type: enumHandlers.FILTERTYPE.FILTER
+                    }
+                ]
+            }];
+            var modelUri = '/models/1';
+            var result = displayModel.CleanNotAcceptedExecutionParameter(queryBlocks, modelUri);
+            expect(result[0].query_steps.length).toEqual(1);
+        });
+    });
+
+    describe(".SetSwitchDisplayName", function () {
+
+        it("should set name if drilldown from Angle page", function () {
+            var switchDisplay = {
+                multi_lang_name: [{}],
+                multi_lang_description: [{}]
+            };
+            spyOn(displayModel, 'GetAdhocDisplayName').and.returnValue('name1 (1)');
+
+            displayModel.SetSwitchDisplayName(switchDisplay, false);
+            
+            expect(displayModel.DisplayInfo.Displays().length).toEqual(0);
+            expect($.isArray(switchDisplay.multi_lang_name)).toEqual(true);
+            expect(switchDisplay.multi_lang_name.length).toEqual(1);
+            expect(switchDisplay.multi_lang_name[0].text).toEqual('name1 (1)');
+
+            expect($.isArray(switchDisplay.multi_lang_description)).toEqual(true);
+            expect(switchDisplay.multi_lang_description.length).toEqual(1);
+        });
+
+        it("should set name if drilldown from Dashboard page", function () {
+            var switchDisplay = {
+                name: 'name1',
+                description: 'description1'
+            };
+            spyOn(userSettingModel, 'GetByName').and.returnValue('en');
+            spyOn(displayModel, 'GetAdhocDisplayName').and.returnValue('name1 (1)');
+
+            displayModel.SetSwitchDisplayName(switchDisplay, true);
+            
+            expect(displayModel.DisplayInfo.Displays().length).toEqual(1);
+            expect(displayModel.DisplayInfo.Displays()[0].Name).toEqual('name1');
+            expect(switchDisplay.name).not.toBeDefined();
+            expect($.isArray(switchDisplay.multi_lang_name)).toEqual(true);
+            expect(switchDisplay.multi_lang_name.length).toEqual(1);
+            expect(switchDisplay.multi_lang_name[0].lang).toEqual('en');
+            expect(switchDisplay.multi_lang_name[0].text).toEqual('name1 (1)');
+
+            expect(switchDisplay.description).not.toBeDefined();
+            expect($.isArray(switchDisplay.multi_lang_description)).toEqual(true);
+            expect(switchDisplay.multi_lang_description.length).toEqual(1);
+            expect(switchDisplay.multi_lang_description[0].lang).toEqual('en');
+            expect(switchDisplay.multi_lang_description[0].text).toEqual('description1');
+        });
+
+    });
+
+    describe(".GetCurrentDisplayQuerySteps", function () {
+
+        var tests = [
+            {
+                title: 'should get 4 filters and jumps from Angle page',
+                keepFilter: true,
+                isDashboardDrilldown: false,
+                listFilters: {
+                    'test1': 0,
+                    'test2': 1
+                },
+                expected: 4
+            },
+            {
+                title: 'should get 2 filters and jumps from Angle page (keepFilter=false)',
+                keepFilter: false,
+                isDashboardDrilldown: true,
+                listFilters: {
+                    'test1': 0,
+                    'test2': 1
+                },
+                expected: 2
+            },
+            {
+                title: 'should get 2 filters and jumps from Angle page (listFilters=undefined)',
+                keepFilter: true,
+                isDashboardDrilldown: false,
+                listFilters: undefined,
+                expected: 2
+            },
+            {
+                title: 'should get 2 filters and jumps from Dashboard page',
+                keepFilter: true,
+                isDashboardDrilldown: true,
+                listFilters: {
+                    'test1': 0,
+                    'test2': 1
+                },
+                expected: 2
+            }
+        ];
+
+        $.each(tests, function (index, test) {
+            it(test.title, function () {
+                var querySteps = [
+                    { step_type: enumHandlers.FILTERTYPE.FILTER },
+                    { step_type: enumHandlers.FILTERTYPE.FOLLOWUP },
+                    { step_type: enumHandlers.FILTERTYPE.AGGREGATION },
+                    { step_type: enumHandlers.FILTERTYPE.SORTING },
+                    { step_type: 'any' }
+                ];
+                spyOn(WC.Utility, 'UrlParameter').and.returnValue(JSON.stringify(test.listFilters));
+                displayModel.KeepFilter(test.keepFilter);
+
+                var newQuerySteps = displayModel.GetCurrentDisplayQuerySteps(querySteps, test.isDashboardDrilldown);
+            
+                expect(newQuerySteps.length).toEqual(test.expected);
+            });
+        });
+
+    });
+
+    describe(".GetSwitchDisplayQuerySteps", function () {
+
+        var currentDisplayFilters;
+        var switchDisplayQuerySteps;
+
+        beforeEach(function () {
+            currentDisplayFilters = [
+                {
+                    execution_parameter_id: '',
+                    field: 'f1',
+                    is_adhoc_filter: true,
+                    is_execution_parameter: false,
+                    step_type: enumHandlers.FILTERTYPE.FILTER
+                }
+            ];
+            switchDisplayQuerySteps = [
+                { step_type: enumHandlers.FILTERTYPE.FILTER, field: 'f1' },
+                { step_type: enumHandlers.FILTERTYPE.FOLLOWUP, field: 'j1' },
+                { step_type: enumHandlers.FILTERTYPE.AGGREGATION },
+                { step_type: enumHandlers.FILTERTYPE.SORTING }
+            ];
+        });
+
+        it("should get correct query steps (keepDisplayFilters=false)", function () {
+            var keepDisplayFilters = false;
+            var newQuerySteps = displayModel.GetSwitchDisplayQuerySteps(currentDisplayFilters, switchDisplayQuerySteps, keepDisplayFilters);
+            
+            expect(newQuerySteps.length).toEqual(3);
+            expect(newQuerySteps[0].step_type).toEqual(enumHandlers.FILTERTYPE.FILTER);
+            expect(newQuerySteps[1].step_type).toEqual(enumHandlers.FILTERTYPE.SORTING);
+            expect(newQuerySteps[2].step_type).toEqual(enumHandlers.FILTERTYPE.AGGREGATION);
+        });
+
+        it("should get correct query steps (keepDisplayFilters=true)", function () {
+            var keepDisplayFilters = true;
+            var newQuerySteps = displayModel.GetSwitchDisplayQuerySteps(currentDisplayFilters, switchDisplayQuerySteps, keepDisplayFilters);
+            
+            expect(newQuerySteps.length).toEqual(4);
+            expect(newQuerySteps[0].step_type).toEqual(enumHandlers.FILTERTYPE.FILTER);
+            expect(newQuerySteps[1].step_type).toEqual(enumHandlers.FILTERTYPE.FOLLOWUP);
+            expect(newQuerySteps[2].step_type).toEqual(enumHandlers.FILTERTYPE.SORTING);
+            expect(newQuerySteps[3].step_type).toEqual(enumHandlers.FILTERTYPE.AGGREGATION);
+        });
+
     });
 
 });

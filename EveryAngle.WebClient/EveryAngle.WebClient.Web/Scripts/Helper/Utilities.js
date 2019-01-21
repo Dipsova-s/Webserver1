@@ -377,23 +377,13 @@
         };
 
         for (loop = 0; loop < arr1.length; loop++) {
-            if (!unions.length) {
+            if (!isDuplicate(arr1))
                 unions.push(arr1[loop]);
-            }
-            else {
-                if (!isDuplicate(arr1))
-                    unions.push(arr1[loop]);
-            }
         }
 
         for (loop = 0; loop < arr2.length; loop++) {
-            if (!unions.length) {
+            if (!isDuplicate(arr2))
                 unions.push(arr2[loop]);
-            }
-            else {
-                if (!isDuplicate(arr2))
-                    unions.push(arr2[loop]);
-            }
         }
 
         return unions;

@@ -1559,7 +1559,9 @@ function AnglePageHandler() {
             // clear data
             fieldSettingsHandler.ClearFieldSettings();
 
-            displayModel.AdhocDrilldown(display.Uri);
+            var switchDisplay = historyModel.Get(display.Uri, false);
+            var querySteps = displayQueryBlockModel.QuerySteps();
+            displayModel.AdhocDrilldown(querySteps, switchDisplay, false, null, true, angleInfoModel.Data().model);
 
             return;
         }

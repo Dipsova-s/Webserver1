@@ -298,3 +298,7 @@ __pycache__/
 !/EveryAngle.WebClient/EveryAngle.ManagementConsole/UploadedResources/Packages/**
 !/Robot/**/Packages/**
 /Robot/chromedriver.exe
+/Robot/report/**
+/Robot/webhelp/**
+/NET/Frontend/WebDeploy
+/SetupFiles/ThirdParty/7-Zip
