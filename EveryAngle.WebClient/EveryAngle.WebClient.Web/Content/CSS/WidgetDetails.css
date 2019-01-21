@@ -212,7 +212,7 @@
     vertical-align: middle;
 }
 
-.detailDefinitionList .removable {
+.detailDefinitionList .removable .front {
     cursor: pointer;
 }
 
@@ -264,9 +264,9 @@
     top: 4px;
 }
 
-.displayNameContainer.removable:hover .filter:before,
+.displayNameContainer.removable .front:hover .filter:before,
 .touch .displayNameContainer.removable .filter:before,
-.displayNameContainer.removable:hover .followup:before,
+.displayNameContainer.removable .front:hover .followup:before,
 .touch .displayNameContainer.removable .followup:before {
     background: transparent url(../../images/icons/icon_delete_transparent.png) 3px center no-repeat;
     width: 16px;
