@@ -81,7 +81,7 @@ function FormatHelper() {
 
     self.CacheFormat = {};
     self.Captions = {
-        PeriodDays: 'days',
+        PeriodDays: Localization.Days,
         PeriodWeeks: 'weeks'
     };
 
@@ -279,7 +279,6 @@ function FormatHelper() {
         else if (format.indexOf(self.Captions.PeriodDays) !== -1 || format.indexOf(self.Captions.PeriodWeeks) !== -1) {
             // period
             value = _self.GetFormattedPeriodValue(format, value);
-            format = '#';
         }
         else if (format.indexOf('M') !== -1 && format.indexOf('yy') !== -1 && value !== null) {
             // date or datetime
