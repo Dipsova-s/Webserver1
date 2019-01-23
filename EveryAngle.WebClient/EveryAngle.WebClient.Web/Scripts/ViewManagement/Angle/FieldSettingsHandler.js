@@ -2679,7 +2679,7 @@ function FieldSettingsHandler() {
 					{ id: 'week', name: Localization.Pivot_Bucket_PerWeek },
 					{ id: 'month', name: Localization.Pivot_Bucket_PerMonth },
 					{ id: 'quarter', name: Localization.Pivot_Bucket_PerQuarter },
-					{ id: 'trimester', name: Localization.Pivot_Bucket_PerTrimester },
+					
 					{ id: 'semester', name: Localization.Pivot_Bucket_PerSemester },
 					{ id: 'year', name: Localization.Pivot_Bucket_PerYear }
 				];
@@ -2691,7 +2691,7 @@ function FieldSettingsHandler() {
 					{ id: 'week', name: Localization.Pivot_Bucket_PerWeek },
 					{ id: 'month', name: Localization.Pivot_Bucket_PerMonth },
 					{ id: 'quarter', name: Localization.Pivot_Bucket_PerQuarter },
-					{ id: 'trimester', name: Localization.Pivot_Bucket_PerTrimester },
+				
 					{ id: 'semester', name: Localization.Pivot_Bucket_PerSemester },
 					{ id: 'year', name: Localization.Pivot_Bucket_PerYear }
 				];
