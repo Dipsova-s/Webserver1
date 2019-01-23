@@ -107,22 +107,23 @@ function ListSortHandler() {
                 return step.step_type === enumHandlers.FILTERTYPE.SORTING;
             });
 
+            var queryBlocks = [];
             if (angleInfoModel.IsTemporaryAngle()) {
-                var queryBlocks = jQuery.grep(displayModel.Data().query_blocks, function (queryBlock) { return queryBlock.queryblock_type === enumHandlers.QUERYBLOCKTYPE.QUERY_STEPS });
-                if (queryBlocks.length > 0) {
+                queryBlocks = jQuery.grep(displayModel.Data().query_blocks, function (queryBlock) { return queryBlock.queryblock_type === enumHandlers.QUERYBLOCKTYPE.QUERY_STEPS; });
+                if (queryBlocks.length) {
                     queryBlocks[0].query_steps.removeObject('step_type', enumHandlers.FILTERTYPE.SORTING);
                 }
             }
 
             if (!self.IsClearSortingStep()) {
-                var queryStep = new WidgetFilterModel(self.QuerySteps()[0]),
-                    queryStepTemp = new WidgetFilterModel(self.QuerySteps()[0]);
+                var queryStep = new WidgetFilterModel(self.QuerySteps()[0]);
+                var queryStepTemp = new WidgetFilterModel(self.QuerySteps()[0]);
 
                 displayQueryBlockModel.QuerySteps.push(queryStep);
                 displayQueryBlockModel.TempQuerySteps.push(queryStepTemp);
 
                 if (angleInfoModel.IsTemporaryAngle()) {
-                    if (queryBlocks.length > 0) {
+                    if (queryBlocks.length) {
                         queryBlocks[0].query_steps.push({
                             step_type: queryStep.step_type,
                             sorting_fields: queryStep.sorting_fields
@@ -151,21 +152,7 @@ function ListSortHandler() {
                 progressbarModel.ShowStartProgressBar(Localization.ProgressBar_PostResult, false);
                 progressbarModel.CancelCustomHandler = true;
                 progressbarModel.CancelFunction = function () {
-                    self.CloseCustomPopup();
-                    displayQueryBlockModel.QuerySteps(oldQueryStep);
-                    displayQueryBlockModel.TempQuerySteps(oldQueryStepTemp);
-                    self.QuerySteps(oldSort);
-
-                    WC.Ajax.AbortAll();
-                    displayModel.LoadSuccess(oldDisplayModel);
-                    resultModel.LoadSuccess(oldDisplayModel.results);
-                    historyModel.Save();
-
-                    resultModel.GetResult(resultModel.Data().uri)
-                        .then(resultModel.LoadResultFields)
-                        .done(function () {
-                            resultModel.ApplyResult();
-                        });
+                    self.RollbackSorting(oldSort, oldQueryStep, oldQueryStepTemp, oldDisplayModel);
                 };
 
                 jQuery.when(resultModel.PostResult({ useExecuteStep: true, customExecuteStep: self.QuerySteps() }))
@@ -174,27 +161,62 @@ function ListSortHandler() {
                         return resultModel.GetResult(resultModel.Data().uri);
                     })
                     .then(resultModel.LoadResultFields)
+                    .fail(function () {
+                        self.ApplyFail(oldSort, oldQueryStep, oldQueryStepTemp, oldDisplayModel);
+                    })
                     .done(function () {
-                        if (resultModel.Data() && resultModel.Data().sorting_limit_exceeded) {
-                            popup.Alert(Localization.Warning_Title, kendo.format(Localization.Info_DisplaySortingReachedLimitation, resultModel.Data().sorting_limit_exceeded));
-                        }
-
-                        jQuery('#AngleGrid .k-scrollbar-vertical').scrollTop(0);
-                        resultModel.ApplyResult();
+                        self.ApplyDone(resultModel.Data().sorting_limit_exceeded, oldSort, oldQueryStep, oldQueryStepTemp, oldDisplayModel);
                     });
             }
         }
-        else {
-            if (!isEditMode) {
-                progressbarModel.ShowStartProgressBar(Localization.ProgressBar_PostResult, false);
-                progressbarModel.SetDisableProgressBar();
+        else if (!isEditMode) {
+            progressbarModel.ShowStartProgressBar(Localization.ProgressBar_PostResult, false);
+            progressbarModel.SetDisableProgressBar();
 
-                jQuery('.k-scrollbar-vertical').scrollTop(0);
-                setTimeout(function () {
-                    progressbarModel.EndProgressBar();
-                }, 100);
-            }
+            jQuery('.k-scrollbar-vertical').scrollTop(0);
+            setTimeout(function () {
+                progressbarModel.EndProgressBar();
+            }, 100);
         }
+    };
+    self.ApplyFail = function (oldSort, oldQueryStep, oldQueryStepTemp, oldDisplayModel) {
+        // error popup will be shown after this block, so add delay before set close event
+        setTimeout(function () {
+            popup.OnCloseCallback = function () {
+                self.RollbackSorting(oldSort, oldQueryStep, oldQueryStepTemp, oldDisplayModel);
+            };
+        }, 100);
+    };
+    self.ApplyDone = function (sortingLimit, oldSort, oldQueryStep, oldQueryStepTemp, oldDisplayModel) {
+        if (sortingLimit) {
+            // don't apply sorting result of this error
+            popup.Alert(Localization.Warning_Title, kendo.format(Localization.Info_DisplaySortingReachedLimitation, sortingLimit));
+            popup.OnCloseCallback = function () {
+                self.RollbackSorting(oldSort, oldQueryStep, oldQueryStepTemp, oldDisplayModel);
+            };
+        }
+        else {
+            jQuery('#AngleGrid .k-scrollbar-vertical').scrollTop(0);
+            resultModel.ApplyResult();
+        }
+    };
+    self.RollbackSorting = function (oldSort, oldQueryStep, oldQueryStepTemp, oldDisplayModel) {
+        self.CloseCustomPopup();
+        WC.Ajax.AbortAll();
+
+        displayQueryBlockModel.QuerySteps(oldQueryStep);
+        displayQueryBlockModel.TempQuerySteps(oldQueryStepTemp);
+        self.QuerySteps(oldSort);
+
+        displayModel.LoadSuccess(oldDisplayModel);
+        resultModel.LoadSuccess(oldDisplayModel.results);
+        historyModel.Save();
+
+        resultModel.GetResult(resultModel.Data().uri)
+            .then(resultModel.LoadResultFields)
+            .done(function () {
+                resultModel.ApplyResult();
+            });
     };
     self.Clear = function () {
         var oldSort = ko.toJS(self.QuerySteps());
