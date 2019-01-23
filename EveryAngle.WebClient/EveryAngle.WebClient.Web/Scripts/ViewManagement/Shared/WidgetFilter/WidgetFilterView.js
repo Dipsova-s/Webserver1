@@ -8,58 +8,58 @@
     self.Template = [
         '<!-- ko stopBinding: true -->',
         '<div class="definitionList" data-bind="foreach: { data: Data, as: \'query\' }, css: { sortable: $root.Sortable() && !$root.IsReadOnly(), movable: $root.CanFiltersMovable(), no: !$root.HasDefinition(Data()), treeview: $root.ViewMode() === $root.VIEWMODE.TREEVIEW, readonly: $root.IsReadOnly() }">',
-            '<!-- ko if: $root.IsFilterOrJumpQueryStep(query.step_type) -->',
-            '<!-- ko if: $root.IsTreeViewHeader(query) -->',
-            '<div class="FilterHeader Collapse treeViewHeader" data-bind="click: $root.View.ToggleTreeViewHeader">',
-                '<p>',
-                    '<label class="filterText" data-bind="text: $root.GetFilterFieldName(query.field, $root.ModelUri)"></label>',
-                '</p>',
-                '<a class="btnInfo" data-bind="click: $root.ShowFieldInfo, clickBubble: false"></a>',
-                '<a class="btnAddFilter" data-bind="click: $root.AddFilterFromTreeHeader, clickBubble: false, visible: $root.CanChange(query)"></a>',
-                '<a class="btnDelete" data-bind="click: $root.RemoveTreeViewHeader, clickBubble: false, visible: $root.CanRemove(query)"></a>',
-            '</div>',
-            '<!-- /ko -->',
-            '<div class="filterItem" data-bind="attr: { index: $index() }, css: { movable: $root.CanFilterMoveToAngle(query, $index()), noBorderBottom: $root.IsNextElementIsTreeViewHeader($element) }">',
-                '<div class="FilterHeader Collapse" data-bind="attr: { id: \'FilterHeader-\' + $index() }, css: { Followup: query.step_type == enumHandlers.FILTERTYPE.FOLLOWUP, Filter: query.step_type == enumHandlers.FILTERTYPE.FILTER, Disabled: !$root.CanChange(query), Unsave: query.is_adhoc_filter }, click: $root.View.Toggle">',
-                    '<p data-bind="SetInvalidQuery: query">',
-                        '<label class="filterText" data-bind="text: $root.GetFilterText(query, $root.ModelUri, $root.ViewMode() === $root.VIEWMODE.TREEVIEW), css: query.step_type"></label>',
-                        '<!-- ko if: $root.HasExecutionParameter() && query.step_type != enumHandlers.FILTERTYPE.FOLLOWUP -->',
-                        '<span data-bind="visible: query.is_execution_parameter, css: { NoticeIcon: query.is_execution_parameter }, attr: {id: \'FilterHeader-\' + $index() + \'-Parameter\' }"></span>',
-                        '<!-- /ko -->',
-                        '<label class="validWarningText"></label>',
-                    '</p>',
-                    '<a class="btnInfo" data-bind="click: $root.ShowFieldInfo, clickBubble: false, css: { alwaysHide: $root.ViewMode() === $root.VIEWMODE.TREEVIEW }"></a>',
-                    '<a class="btnDelete" data-bind="click: $root.RemoveFilter, clickBubble: false, visible: $root.CanRemove(query)"></a>',
-                    '<div class="handler"></div>',
-                '</div>',
-                '<!-- ko if: query.step_type != enumHandlers.FILTERTYPE.FOLLOWUP -->',
-                '<div class="FilterDetail Hide" data-bind="attr: { id: \'FilterDetail-\' + $index() }, visible: $root.CanChange(query)">',
-                    '<div class="FilterWrapper">',
-                        '<div class="filterLabel filterLabelName" data-bind="text: $root.GetFilterFieldName(query.field, $root.ModelUri)"></div>',
-                        '<div class="filterInput filterInputOperator">',
-                          '<div data-bind="attr: { id: \'Operator-\' + $index() + (query.step_type == enumHandlers.FILTERTYPE.SQLFILTER ? \'-TextBox\' : \'-DropdownList\') }, css: query.step_type == enumHandlers.FILTERTYPE.SQLFILTER ? \'eaText\' : \'eaDropdown\'"></div>',
-                        '</div>',
-                    '</div>',
-                    '<div class="StatSeparate"></div>',
-                    '<div data-bind="attr: { id: \'FilterDetail-\' + $index() + \'-PlaceHolder\' }" class="FilterCriteriaPlaceHolder"></div>',
-                    '<!-- ko if: $root.HasExecutionParameter() && query.step_type != enumHandlers.FILTERTYPE.FOLLOWUP -->',
-                    '<div class="StatSeparate"></div>',
-                    '<div class="AskForValue">',
-                        '<label><span class="NoticeIcon" data-bind="text: $root.FilterFor == $root.FILTERFOR.ANGLE ? Localization.AskForValueWhenTheAngleOpens : Localization.AskForValueWhenTheDisplayOpens"></span></label>',
-                        '<label><input type="radio" value="true" data-bind="attr: { id: \'AskValue-\' + $index() + \'-Yes\', name: \'AskValue-\' + $index(), checked: query.is_execution_parameter() }, click: $root.ApplyFilterParameterise"/><span class="label" data-bind="text: Localization.Yes"></span></label>',
-                        '<label><input type="radio" value="false" data-bind="attr: { id: \'AskValue-\' + $index() + \'-No\', name: \'AskValue-\' + $index(), checked: !query.is_execution_parameter() }, click: $root.ApplyFilterParameterise"/><span class="label" data-bind="text: Localization.No"></span></label>',
-                    '</div>',
-                    '<!-- /ko -->',
-                '</div>',
-                '<!-- /ko -->',
-                '<!-- ko if: $root.CanAddFilterFromJump(query) -->',
-                '<a class="btn btnDefault btnAddFilterFromJump" data-role="tooltip" data-bind="click: $root.ShowAddFilterFromJumpPopup, text: Localization.AddFilterBeforeJump"></a>',
-                '<!-- /ko -->',
-            '</div>',
-            '<!-- /ko -->',
-            '<!-- ko if: !$root.IsFilterOrJumpQueryStep(query.step_type) -->',
-            '<div class="filterItem alwaysHide" data-bind="attr: { index: $index() }"></div>',
-            '<!-- /ko -->',
+        '<!-- ko if: $root.IsFilterOrJumpQueryStep(query.step_type) -->',
+        '<!-- ko if: $root.IsTreeViewHeader(query) -->',
+        '<div class="FilterHeader Collapse treeViewHeader" data-bind="click: $root.View.ToggleTreeViewHeader">',
+        '<p>',
+        '<label class="filterText" data-bind="text: $root.GetFilterFieldName(query.field, $root.ModelUri)"></label>',
+        '</p>',
+        '<a class="btnInfo" data-bind="click: $root.ShowFieldInfo, clickBubble: false"></a>',
+        '<a class="btnAddFilter" data-bind="click: $root.AddFilterFromTreeHeader, clickBubble: false, visible: $root.CanChange(query)"></a>',
+        '<a class="btnDelete" data-bind="click: $root.RemoveTreeViewHeader, clickBubble: false, visible: $root.CanRemove(query)"></a>',
+        '</div>',
+        '<!-- /ko -->',
+        '<div class="filterItem" data-bind="attr: { index: $index() }, css: { movable: $root.CanFilterMoveToAngle(query, $index()), noBorderBottom: $root.IsNextElementIsTreeViewHeader($element) }">',
+        '<div class="FilterHeader Collapse" data-bind="attr: { id: \'FilterHeader-\' + $index() }, css: { Followup: query.step_type == enumHandlers.FILTERTYPE.FOLLOWUP, Filter: query.step_type == enumHandlers.FILTERTYPE.FILTER, Disabled: !$root.CanChange(query), Unsave: query.is_adhoc_filter }, click: $root.View.Toggle">',
+        '<p data-bind="SetInvalidQuery: query">',
+        '<label class="filterText" data-bind="text: $root.GetFilterText(query, $root.ModelUri, $root.ViewMode() === $root.VIEWMODE.TREEVIEW), css: query.step_type"></label>',
+        '<!-- ko if: $root.HasExecutionParameter() && query.step_type != enumHandlers.FILTERTYPE.FOLLOWUP -->',
+        '<span data-bind="visible: query.is_execution_parameter, css: { NoticeIcon: query.is_execution_parameter }, attr: {id: \'FilterHeader-\' + $index() + \'-Parameter\' }"></span>',
+        '<!-- /ko -->',
+        '<label class="validWarningText"></label>',
+        '</p>',
+        '<a class="btnInfo" data-bind="click: $root.ShowFieldInfo, clickBubble: false, css: { alwaysHide: $root.ViewMode() === $root.VIEWMODE.TREEVIEW }"></a>',
+        '<a class="btnDelete" data-bind="click: $root.RemoveFilter, clickBubble: false, visible: $root.CanRemove(query)"></a>',
+        '<div class="handler"></div>',
+        '</div>',
+        '<!-- ko if: query.step_type != enumHandlers.FILTERTYPE.FOLLOWUP -->',
+        '<div class="FilterDetail Hide" data-bind="attr: { id: \'FilterDetail-\' + $index() }, visible: $root.CanChange(query)">',
+        '<div class="FilterWrapper">',
+        '<div class="filterLabel filterLabelName" data-bind="text: $root.GetFilterFieldName(query.field, $root.ModelUri)"></div>',
+        '<div class="filterInput filterInputOperator">',
+        '<div data-bind="attr: { id: \'Operator-\' + $index() + (query.step_type == enumHandlers.FILTERTYPE.SQLFILTER ? \'-TextBox\' : \'-DropdownList\') }, css: query.step_type == enumHandlers.FILTERTYPE.SQLFILTER ? \'eaText\' : \'eaDropdown\'"></div>',
+        '</div>',
+        '</div>',
+        '<div class="StatSeparate"></div>',
+        '<div data-bind="attr: { id: \'FilterDetail-\' + $index() + \'-PlaceHolder\' }" class="FilterCriteriaPlaceHolder"></div>',
+        '<!-- ko if: $root.HasExecutionParameter() && query.step_type != enumHandlers.FILTERTYPE.FOLLOWUP -->',
+        '<div class="StatSeparate"></div>',
+        '<div class="AskForValue">',
+        '<label><span class="NoticeIcon" data-bind="text: $root.FilterFor == $root.FILTERFOR.ANGLE ? Localization.AskForValueWhenTheAngleOpens : Localization.AskForValueWhenTheDisplayOpens"></span></label>',
+        '<label><input type="radio" value="true" data-bind="attr: { id: \'AskValue-\' + $index() + \'-Yes\', name: \'AskValue-\' + $index(), checked: query.is_execution_parameter() }, click: $root.ApplyFilterParameterise"/><span class="label" data-bind="text: Localization.Yes"></span></label>',
+        '<label><input type="radio" value="false" data-bind="attr: { id: \'AskValue-\' + $index() + \'-No\', name: \'AskValue-\' + $index(), checked: !query.is_execution_parameter() }, click: $root.ApplyFilterParameterise"/><span class="label" data-bind="text: Localization.No"></span></label>',
+        '</div>',
+        '<!-- /ko -->',
+        '</div>',
+        '<!-- /ko -->',
+        '<!-- ko if: $root.CanAddFilterFromJump(query) -->',
+        '<a class="btn btnDefault btnAddFilterFromJump" data-role="tooltip" data-bind="click: $root.ShowAddFilterFromJumpPopup, text: Localization.AddFilterBeforeJump"></a>',
+        '<!-- /ko -->',
+        '</div>',
+        '<!-- /ko -->',
+        '<!-- ko if: !$root.IsFilterOrJumpQueryStep(query.step_type) -->',
+        '<div class="filterItem alwaysHide" data-bind="attr: { index: $index() }"></div>',
+        '<!-- /ko -->',
         '</div>',
         '<!-- /ko -->'
     ].join('');
@@ -68,149 +68,149 @@
         DEFAULTCRITERIA: '<div class="FilterWrapper"></div>',
         BOOLEANTYPECRITERIA: [
             '<div class="FilterWrapper FilterWrapperBool">',
-                '<div class="filterLabel" id="InputTitle-{Index}">' + Localization.InputTitleSelectValue + '</div>',
-                '<div class="filterInput filterInputData">',
-                    '<div class="filterInputGroupOther" data-visible="$root.CanUseCompareField()">',
-                        '<input id="CompareButton-{Index}" class="btn btnDefault btnCompare" type="button" value="' + Localization.CompairValue + '" data-click="$root.ShowCompareFilterPopup(\'{DataType}\', {Index});" />',
-                    '</div>',
-                    '<div class="filterInputGroup1">',
-                        '<label><input id="YesChoice-{Index}" type="radio" name="Boolean-{Index}" value="True" data-click="$root.ApplyFilterWhenAction({Index})" /><span class="label" id="InputYes-{Index}">' + Localization.Yes + '</span></label>',
-                        '<label><input id="NoChoice-{Index}" type="radio" name="Boolean-{Index}" value="False" data-click="$root.ApplyFilterWhenAction({Index})" /><span class="label" id="InputNo-{Index}">' + Localization.No + '</span></label>',
-                    '</div>',
-                '</div>',
+            '<div class="filterLabel" id="InputTitle-{Index}">' + Localization.InputTitleSelectValue + '</div>',
+            '<div class="filterInput filterInputData">',
+            '<div class="filterInputGroupOther" data-visible="$root.CanUseCompareField()">',
+            '<input id="CompareButton-{Index}" class="btn btnDefault btnCompare" type="button" value="' + Localization.CompairValue + '" data-click="$root.ShowCompareFilterPopup(\'{DataType}\', {Index});" />',
+            '</div>',
+            '<div class="filterInputGroup1">',
+            '<label><input id="YesChoice-{Index}" type="radio" name="Boolean-{Index}" value="True" data-click="$root.ApplyFilterWhenAction({Index})" /><span class="label" id="InputYes-{Index}">' + Localization.Yes + '</span></label>',
+            '<label><input id="NoChoice-{Index}" type="radio" name="Boolean-{Index}" value="False" data-click="$root.ApplyFilterWhenAction({Index})" /><span class="label" id="InputNo-{Index}">' + Localization.No + '</span></label>',
+            '</div>',
+            '</div>',
             '</div>'
         ].join(''),
         COMPAREFIELD: [
             '<div class="FilterWrapper FilterWrapperCompare">',
-                '<div class="filterLabel" id="InputTitle-{Index}">' + Localization.InputTitleSelectValue + '</div>',
-                '<div class="filterInput filterInputData">',
-                    '<div class="filterInputGroupOther" data-visible="$root.CanUseCompareField()">',
-                        '<input id="UncompareButton-{Index}" type="button" class="btn btnUncompare" value="' + Localization.CompairValue + '" data-click="$root.ShowCompareFilterPopup(\'{DataType}\', {Index});" />',
-                    '</div>',
-                    '<div class="filterInputGroup1 filterInputGroupAutoResizing">',
-                        '<div class="k-widget filterLabel filterLabelCompare" id="FieldCompare-{Index}" data-click="$root.View.RenderCriteriaView(\'{DataType}\', {Index});">',
-                            '<input type="hidden" id="InputFieldValue-{Index}" />',
-                            '<span class="filterLabelCompareName"></span>',
-                        '</div>',
-                    '</div>',
-                '</div>',
+            '<div class="filterLabel" id="InputTitle-{Index}">' + Localization.InputTitleSelectValue + '</div>',
+            '<div class="filterInput filterInputData">',
+            '<div class="filterInputGroupOther" data-visible="$root.CanUseCompareField()">',
+            '<input id="UncompareButton-{Index}" type="button" class="btn btnUncompare" value="' + Localization.CompairValue + '" data-click="$root.ShowCompareFilterPopup(\'{DataType}\', {Index});" />',
+            '</div>',
+            '<div class="filterInputGroup1 filterInputGroupAutoResizing">',
+            '<div class="k-widget filterLabel filterLabelCompare" id="FieldCompare-{Index}" data-click="$root.View.RenderCriteriaView(\'{DataType}\', {Index});">',
+            '<input type="hidden" id="InputFieldValue-{Index}" />',
+            '<span class="filterLabelCompareName"></span>',
+            '</div>',
+            '</div>',
+            '</div>',
             '</div>'
         ].join(''),
         CRITERIAGROUPONE: [
             '<div class="FilterWrapper FilterWrapper1">',
-                '<div class="filterLabel" id="InputTitle-{Index}">' + Localization.InputTitleSelectValue + '</div>',
-                '<div class="filterInput filterInputData">',
-                    '<div class="filterInputGroupOther" data-visible="$root.CanUseCompareField()">',
-                        '<input id="CompareButton-{Index}" class="btn btnDefault btnCompare" type="button" value="' + Localization.CompairValue + '" data-click="$root.ShowCompareFilterPopup(\'{DataType}\', {Index});" />',
-                    '</div>',
-                    '<div class="filterInputGroup1 filterInputGroupAutoResizing">',
-                        '<input id="InputValue-{Index}" />',
-                        '<span id="InputUnit-{Index}" class="labelSign fixedSize"></span>',
-                    '</div>',
-                '</div>',
+            '<div class="filterLabel" id="InputTitle-{Index}">' + Localization.InputTitleSelectValue + '</div>',
+            '<div class="filterInput filterInputData">',
+            '<div class="filterInputGroupOther" data-visible="$root.CanUseCompareField()">',
+            '<input id="CompareButton-{Index}" class="btn btnDefault btnCompare" type="button" value="' + Localization.CompairValue + '" data-click="$root.ShowCompareFilterPopup(\'{DataType}\', {Index});" />',
+            '</div>',
+            '<div class="filterInputGroup1 filterInputGroupAutoResizing">',
+            '<input id="InputValue-{Index}" />',
+            '<span id="InputUnit-{Index}" class="labelSign fixedSize"></span>',
+            '</div>',
+            '</div>',
             '</div>'
         ].join(''),
         CRITERIAGROUPTWO: [
             '<div class="FilterWrapper FilterWrapper2">',
-                '<div class="filterLabel" id="InputTitle-{Index}">' + Localization.InputTitleSelectValue + '</div>',
-                '<div class="filterInput filterInputData">',
-                    '<div class="filterInputGroupOther" data-visible="$root.CanUseCompareField()">',
-                        '<input id="CompareButton-{Index}" class="btn btnDefault btnCompare" type="button" value="' + Localization.CompairValue + '" data-click="$root.ShowCompareFilterPopup(\'{DataType}\', {Index});" />',
-                    '</div>',
-                    '<div class="filterInputGroup1 filterInputGroupAutoResizing">',
-                        '<input id="FirstInput-{Index}" />',
-                        '<div id="FirstInputUnit-{Index}" class="eaDropdown fixedSize"></div>',
-                        '<span class="labelSign fixedSize lastBreakPoint" id="InputAnd-{Index}">' + Localization.And + ' </span>',
-                        '<input id="SecondInput-{Index}" />',
-                        '<div id="SecondInputUnit-{Index}" class="eaDropdown fixedSize"></div>',
-                    '</div>',
-                    '<div id="InputExample-{Index}" class="ExampleDate">',
-                        '<span id="ExampleText-{Index}" class="ExampleText"></span>',
-                    '</div>',
-                '</div>',
+            '<div class="filterLabel" id="InputTitle-{Index}">' + Localization.InputTitleSelectValue + '</div>',
+            '<div class="filterInput filterInputData">',
+            '<div class="filterInputGroupOther" data-visible="$root.CanUseCompareField()">',
+            '<input id="CompareButton-{Index}" class="btn btnDefault btnCompare" type="button" value="' + Localization.CompairValue + '" data-click="$root.ShowCompareFilterPopup(\'{DataType}\', {Index});" />',
+            '</div>',
+            '<div class="filterInputGroup1 filterInputGroupAutoResizing">',
+            '<input id="FirstInput-{Index}" />',
+            '<div id="FirstInputUnit-{Index}" class="eaDropdown fixedSize"></div>',
+            '<span class="labelSign fixedSize lastBreakPoint" id="InputAnd-{Index}">' + Localization.And + ' </span>',
+            '<input id="SecondInput-{Index}" />',
+            '<div id="SecondInputUnit-{Index}" class="eaDropdown fixedSize"></div>',
+            '</div>',
+            '<div id="InputExample-{Index}" class="ExampleDate">',
+            '<span id="ExampleText-{Index}" class="ExampleText"></span>',
+            '</div>',
+            '</div>',
             '</div>'
         ].join(''),
         CRITERIAGROUPTHREE: [
             '<div class="FilterWrapper FilterWrapper3">',
-                '<div class="filterLabel" id="InputTitle-{Index}">' + Localization.InputTitleSelectValue + '</div>',
-                '<div class="filterInput filterInputData">',
-                    '<div class="filterInputGroupOther">',
-                        '<input id="AddSelectedValue-{Index}" type="button" value="Add" class="btn btnAdd" title="Add" data-click="$root.View.AddSelectedValue({Index}, \'{DataType}\');" />',
-                        '<input id="RemoveSelectedValue-{Index}" type="button" value="Remove" class="btn btnRemove" title="Remove" data-click="$root.View.RemoveSelectedValue({Index}, \'{DataType}\');" />',
-                        '<input id="RemoveAllSelectedValue-{Index}"type="button" value="RemveAll" class="btn btnRemoveAll" title="Remove all" data-click="$root.View.RemoveAllSelectedValue({Index});" />',
-                    '</div>',
-                    '<div class="filterInputGroup1 filterInputGroupAutoResizing">',
-                        '<input id="SelectedValue-{Index}" />',
-                        '<div id="ValueUnit-{Index}" class="eaDropdown fixedSize"></div>',
-                        '<span id="SelectedUnit-{Index}"class="labelSign fixedSize"></span>',
-                    '</div>',
-                '</div>',
-                '<div id="ValueList-{Index}"></div>',
+            '<div class="filterLabel" id="InputTitle-{Index}">' + Localization.InputTitleSelectValue + '</div>',
+            '<div class="filterInput filterInputData">',
+            '<div class="filterInputGroupOther">',
+            '<input id="AddSelectedValue-{Index}" type="button" value="Add" class="btn btnAdd" title="Add" data-click="$root.View.AddSelectedValue({Index}, \'{DataType}\');" />',
+            '<input id="RemoveSelectedValue-{Index}" type="button" value="Remove" class="btn btnRemove" title="Remove" data-click="$root.View.RemoveSelectedValue({Index}, \'{DataType}\');" />',
+            '<input id="RemoveAllSelectedValue-{Index}"type="button" value="RemveAll" class="btn btnRemoveAll" title="Remove all" data-click="$root.View.RemoveAllSelectedValue({Index});" />',
+            '</div>',
+            '<div class="filterInputGroup1 filterInputGroupAutoResizing">',
+            '<input id="SelectedValue-{Index}" />',
+            '<div id="ValueUnit-{Index}" class="eaDropdown fixedSize"></div>',
+            '<span id="SelectedUnit-{Index}"class="labelSign fixedSize"></span>',
+            '</div>',
+            '</div>',
+            '<div id="ValueList-{Index}"></div>',
             '</div>'
         ].join(''),
         CRITERIAGROUPFOUR: [
             '<div class="FilterWrapper FilterWrapper4">',
-                '<div class="filterLabel" id="InputTitle-{Index}">' + Localization.InputTitleSelectValue + '</div>',
-                '<div class="filterInput filterInputData">',
-                    '<div class="filterInputGroupOther">',
-                        '<a id="OpenEnumPopup-{Index}" type="button" class="btn btnDefault btnEnumPopup" title="Open new window" data-click="$root.View.ShowEnumurateEnlargePopup({Index});"></a>',
-                    '</div>',
-                    '<div class="filterInputGroup1">',
-                        '<div id="ValueList-{Index}"></div>',
-                    '</div>',
-                '</div>',
+            '<div class="filterLabel" id="InputTitle-{Index}">' + Localization.InputTitleSelectValue + '</div>',
+            '<div class="filterInput filterInputData">',
+            '<div class="filterInputGroupOther">',
+            '<a id="OpenEnumPopup-{Index}" type="button" class="btn btnDefault btnEnumPopup" title="Open new window" data-click="$root.View.ShowEnumurateEnlargePopup({Index});"></a>',
+            '</div>',
+            '<div class="filterInputGroup1">',
+            '<div id="ValueList-{Index}"></div>',
+            '</div>',
+            '</div>',
             '</div>'
         ].join(''),
         CRITERIAGROUPFOUR_POPUP: [
             '<div class="FilterWrapper FilterWrapper4">',
-                '<div class="filterLabel" id="InputTitle-{Index}">' + Localization.InputTitleSelectValue + '</div>',
-                '<div class="filterInput filterInputData">',
-                    '<div class="filterInputGroupOther">',
-                        '<input id="SellectAll-{Index}" type="button" class="btn btnSelectAll" title="Select all" data-click="$root.View.SelectAllList({Index});" />',
-                        '<input id="DeselectAll-{Index}" type="button" class="btn btnDeselectAll" title="Deselect all" data-click="$root.View.DeselectAllList({Index});" />',
-                        '<input id="InvertSelect-{Index}" type="button" class="btn btnInvertSelect" title="Invert selection" data-click="$root.View.InvertSelectList({Index});" />',
-                    '</div>',
-                    '<div class="filterInputGroup1">',
-                            '<div class="searchBoxWrapper" id="enumListFilter">',
-                                '<input id="txtFitlerEnum" type="text" placeholder="' + Localization.DomainElementFilter + '">',
-                                '<a id="btnFitlerEnum"></a>',
-                             '</div>',
-                             '<input id="EnumDropdown-{Index}" class="eaDropdown eaDropdownSize40" />',
-                        '<div id="ValueListEnlarge-{Index}"></div>',
-                    '</div>',
-                '</div>',
+            '<div class="filterLabel" id="InputTitle-{Index}">' + Localization.InputTitleSelectValue + '</div>',
+            '<div class="filterInput filterInputData">',
+            '<div class="filterInputGroupOther">',
+            '<input id="SellectAll-{Index}" type="button" class="btn btnSelectAll" title="Select all" data-click="$root.View.SelectAllList({Index});" />',
+            '<input id="DeselectAll-{Index}" type="button" class="btn btnDeselectAll" title="Deselect all" data-click="$root.View.DeselectAllList({Index});" />',
+            '<input id="InvertSelect-{Index}" type="button" class="btn btnInvertSelect" title="Invert selection" data-click="$root.View.InvertSelectList({Index});" />',
+            '</div>',
+            '<div class="filterInputGroup1">',
+            '<div class="searchBoxWrapper" id="enumListFilter">',
+            '<input id="txtFitlerEnum" type="text" placeholder="' + Localization.DomainElementFilter + '">',
+            '<a id="btnFitlerEnum"></a>',
+            '</div>',
+            '<input id="EnumDropdown-{Index}" class="eaDropdown eaDropdownSize40" />',
+            '<div id="ValueListEnlarge-{Index}"></div>',
+            '</div>',
+            '</div>',
             '</div>'
         ].join(''),
 
         CRITERIAADVANCE: [
             '<div class="FilterWrapper FilterWrapperAdvance">',
-                '<div class="filterLabel" id="InputTitle-{Index}">',
-                    '<input class="eaDropdown" id="InputType-{Index}" />',
-                '</div>',
-                '<div class="filterInput filterInputData"></div>',
+            '<div class="filterLabel" id="InputTitle-{Index}">',
+            '<input class="eaDropdown" id="InputType-{Index}" />',
+            '</div>',
+            '<div class="filterInput filterInputData"></div>',
             '</div>'
         ].join(''),
         CRITERIAADVANCE_VALUE: [
             '<div class="filterInputGroup1 filterInputGroupValue filterInputGroupAutoResizing">',
-                '<input id="InputValue-{Index}" />',
+            '<input id="InputValue-{Index}" />',
             '</div>'
         ].join(''),
         CRITERIAADVANCE_FUNCTION: [
             '<div class="filterInputGroup1 filterInputGroupFunction filterInputGroupAutoResizing">',
-                '<div class="inputFunctionValue">',
-                    '<input id="InputFunctionValue-{Index}" />',
-                '</div>',
-                '<input class="eaDropdown fixedSize" id="InputFunctionUnit-{Index}" />',
+            '<div class="inputFunctionValue">',
+            '<input id="InputFunctionValue-{Index}" />',
+            '</div>',
+            '<input class="eaDropdown fixedSize" id="InputFunctionUnit-{Index}" />',
             '</div>'
         ].join(''),
         CRITERIAADVANCE_FIELD: [
             '<div class="filterInputGroup1 filterInputGroupField filterInputGroupAutoResizing">',
-                '<div class="k-widget filterLabel filterLabelCompare" id="FieldCompare-{Index}">',
-                    '<input type="hidden" id="InputFieldValue-{Index}" />',
-                    '<span class="filterLabelCompareName"></span>',
-                    '<a class="btnDeleteField" data-click="$root.View.RenderCriteriaView(\'{DataType}\', \'{Index}\');" data-visible="$root.CanUseCompareField()"></a>',
-                '</div>',
-                '<input id="CompareButton-{Index}" class="btn btnDefault btnCompare fixedSize" type="button" value="' + Localization.CompairValue + '" data-click="$root.ShowCompareFilterPopup(\'{DataType}\', \'{Index}\');" data-visible="$root.CanUseCompareField()" />',
+            '<div class="k-widget filterLabel filterLabelCompare" id="FieldCompare-{Index}">',
+            '<input type="hidden" id="InputFieldValue-{Index}" />',
+            '<span class="filterLabelCompareName"></span>',
+            '<a class="btnDeleteField" data-click="$root.View.RenderCriteriaView(\'{DataType}\', \'{Index}\');" data-visible="$root.CanUseCompareField()"></a>',
+            '</div>',
+            '<input id="CompareButton-{Index}" class="btn btnDefault btnCompare fixedSize" type="button" value="' + Localization.CompairValue + '" data-click="$root.ShowCompareFilterPopup(\'{DataType}\', \'{Index}\');" data-visible="$root.CanUseCompareField()" />',
             '</div>'
         ].join('')
     };
@@ -1277,7 +1277,6 @@
             { Id: Captions.WidgetFilter_PeriodType_Weeks, Value: 7 },
             { Id: Captions.WidgetFilter_PeriodType_Months, Value: 30 },
             { Id: Captions.WidgetFilter_PeriodType_Quarters, Value: 91 },
-            { Id: Captions.WidgetFilter_PeriodType_Trimesters, Value: 121 },
             { Id: Captions.WidgetFilter_PeriodType_Semesters, Value: 182 },
             { Id: Captions.WidgetFilter_PeriodType_Years, Value: 365 }
         ];
@@ -1584,11 +1583,10 @@
         var ui = WC.HtmlHelper.DropdownList(self.GetHtmlElementById('InputFunctionUnit-' + elementKey), enumHandlers.FILTERPERIODTYPES, {
             dataValueField: 'Value',
             dataTextField: 'Text',
-            value: functionUnit,
             change: self.OnInputFunctionValueChanged
         });
-        if (ui && ui.value() == null)
-            ui.value(enumHandlers.FILTERPERIODTYPES[0].Value);
+
+        ui.value(functionUnit);
     };
     self.GetArgumentType = function (elementKey) {
         return WC.HtmlHelper.DropdownList(self.GetHtmlElementById('InputType-' + elementKey)).value();
@@ -1662,7 +1660,7 @@
             var elementIndex = elementId.split('-')[1];
             self.Handler.ApplyFilterWhenAction(elementIndex);
         };
-        
+
         //set options for kendo combo box
         var options = {
             dataTextField: "smart_name",
@@ -1692,7 +1690,7 @@
             },
             select: function (e) {
                 // check if value not in the list
-                if(!e.sender.dataItem()) {
+                if (!e.sender.dataItem()) {
                     setTimeout(function () {
                         e.sender.trigger('change');
                     }, 100);
@@ -1849,7 +1847,7 @@
             if (tempObj.noValue.id !== -1 && tempObj.notInSet.id !== -1)
                 return;
         });
-        
+
         //remove elements by condition (if not no value and not in set)
         var filteredElements = elements.filter(function (element, index) {
             return (element.id !== null && element.id !== '~NotInSet');
@@ -1858,7 +1856,7 @@
         //add not in set element from temp object to first elements
         if (tempObj.notInSet.id !== -1)
             filteredElements.unshift(tempObj.notInSet.el);
-        
+
         //add no value elemet from temp object to first elements
         if (tempObj.noValue.id !== -1)
             filteredElements.unshift(tempObj.noValue.el);
@@ -1872,7 +1870,7 @@
             element.checked = false;
             element.smart_name = jQuery('<div/>').html(smartName).text();
         });
-        
+
         //create datasource object
         var dataSource = {
             data: filteredElements,
@@ -2341,7 +2339,7 @@
                 }, 1);
             }
         }
-        
+
         valueElement.removeData('paste');
 
         self.Handler.ApplyFilterWhenAction(index);
@@ -2415,9 +2413,9 @@
                     }
                 }
                 else if (jQuery.inArray(fieldType, [
-                        enumHandlers.FIELDTYPE.DOUBLE, enumHandlers.FIELDTYPE.INTEGER,
-                        enumHandlers.FIELDTYPE.CURRENCY, enumHandlers.FIELDTYPE.PERCENTAGE,
-                        enumHandlers.FIELDTYPE.TIMESPAN
+                    enumHandlers.FIELDTYPE.DOUBLE, enumHandlers.FIELDTYPE.INTEGER,
+                    enumHandlers.FIELDTYPE.CURRENCY, enumHandlers.FIELDTYPE.PERCENTAGE,
+                    enumHandlers.FIELDTYPE.TIMESPAN
                 ]) !== -1) {
                     var criteriaElement = firstElement.data('handler');
                     if (criteriaElement.value() !== null) {
@@ -2469,9 +2467,9 @@
                     }
                 }
                 else if (jQuery.inArray(fieldType, [
-                        enumHandlers.FIELDTYPE.DOUBLE, enumHandlers.FIELDTYPE.INTEGER,
-                        enumHandlers.FIELDTYPE.CURRENCY, enumHandlers.FIELDTYPE.PERCENTAGE,
-                        enumHandlers.FIELDTYPE.TIMESPAN
+                    enumHandlers.FIELDTYPE.DOUBLE, enumHandlers.FIELDTYPE.INTEGER,
+                    enumHandlers.FIELDTYPE.CURRENCY, enumHandlers.FIELDTYPE.PERCENTAGE,
+                    enumHandlers.FIELDTYPE.TIMESPAN
                 ]) !== -1) {
                     firstCriteriaElement = firstElement.data('handler');
                     secondCriteriaElement = secondElement.data('handler');
