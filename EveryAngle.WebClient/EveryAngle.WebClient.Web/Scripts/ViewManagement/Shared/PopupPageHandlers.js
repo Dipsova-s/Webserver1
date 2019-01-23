@@ -9,17 +9,19 @@ function Popup() {
     self.OnCloseCallback = jQuery.noop;
 
     self.Initial = function () {
-        if (jQuery(document).data('popup-initialzed')) return;
+        if (jQuery(document).data('popup-initialzed'))
+            return;
 
         jQuery(document).data('popup-initialzed', true);
 
         self.PageResize();
         jQuery(window).on('resize.popup', function () {
             self.PageResize();
-        })
+        });
     };
     self.PageResize = function () {
-        if (!jQuery.isReady) return;
+        if (!jQuery.isReady)
+            return;
 
         var wh = WC.Window.Height,
             ww = WC.Window.Width,
@@ -217,9 +219,10 @@ function Popup() {
         }
     };
     self.SetButtons = function (win, buttons) {
-        if (!win || !buttons) return;
+        if (!win || !buttons)
+            return;
 
-        if (buttons !== null && buttons.length > 0) {
+        if (buttons.length > 0) {
             var wrapper = jQuery('.k-window-buttons', win.wrapper).length === 0 ? jQuery('<div class="k-window-buttons" />') : jQuery('.k-window-buttons', win.wrapper).empty(),
                 inner = wrapper.append('<div class="k-window-buttons-inner" />').children(),
                 winId = win.element.attr('id') || '';

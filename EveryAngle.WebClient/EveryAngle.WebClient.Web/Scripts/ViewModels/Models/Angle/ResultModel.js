@@ -600,16 +600,13 @@ function ResultViewModel() {
 
         // data fields
         var loadDataFields = function () {
-            if (isPostResult && self.Data()) {
-                if (!self.Data().is_aggregated) {
-                    var fields = [];
-                    jQuery.each(self.Data().display_fields, function (index, displayField) {
-                        if (displayField.valid) {
-                            fields.push(displayField.field);
-                        }
-                    });
-                    return modelInstanceFieldsHandler.LoadFieldsByIds(self.Data().query_fields, fields);
-                }
+            if (isPostResult && self.Data() && !self.Data().is_aggregated) {
+                var fields = [];
+                jQuery.each(self.Data().display_fields, function (index, displayField) {
+                    if (displayField.valid)
+                        fields.push(displayField.field);
+                });
+                return modelInstanceFieldsHandler.LoadFieldsByIds(self.Data().query_fields, fields);
             }
 
             return null;
