@@ -106,6 +106,10 @@
       <Link>WebClient\Dependencies\ViewManagement\Angles\FollowupPageHandler.js</Link>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="..\EveryAngle.WebClient.Web\Scripts\ViewManagement\Angle\ListSortHandler.js">
+      <Link>WebClient\Dependencies\ViewManagement\Angles\ListSortHandler.js</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="..\EveryAngle.WebClient.Web\Scripts\ViewManagement\Angle\QuickFilterHandler.js">
       <Link>WebClient\Dependencies\ViewManagement\Angles\QuickFilterHandler.js</Link>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
@@ -704,6 +708,7 @@
     <Content Include="WebClient\Tests\Helper\ModelHelperTest.js" />
     <Content Include="WebClient\Tests\ViewManagement\Angles\AngleDetailBodyPageHandlerTest.js" />
     <Content Include="WebClient\Tests\ViewManagement\Angles\ChartHandlerTest.js" />
+    <Content Include="WebClient\Tests\ViewManagement\Angles\ListSortHandlerTest.js" />
     <Content Include="WebClient\Tests\ViewManagement\Angles\FollowupPageHandlerTest.js" />
     <Content Include="WebClient\Tests\ViewManagement\Angles\DisplayCopyHandlerTest.js" />
     <Content Include="WebClient\Tests\ViewManagement\Angles\DisplayUpgradeHandlerTest.js" />
