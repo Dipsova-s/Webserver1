@@ -1272,7 +1272,6 @@
             { Id: Captions.WidgetFilter_PeriodType_Weeks, Value: 7 },
             { Id: Captions.WidgetFilter_PeriodType_Months, Value: 30 },
             { Id: Captions.WidgetFilter_PeriodType_Quarters, Value: 91 },
-            { Id: Captions.WidgetFilter_PeriodType_Trimesters, Value: 121 },
             { Id: Captions.WidgetFilter_PeriodType_Semesters, Value: 182 },
             { Id: Captions.WidgetFilter_PeriodType_Years, Value: 365 }
         ];
@@ -1579,11 +1578,9 @@
         var ui = WC.HtmlHelper.DropdownList(self.GetHtmlElementById('InputFunctionUnit-' + elementKey), enumHandlers.FILTERPERIODTYPES, {
             dataValueField: 'Value',
             dataTextField: 'Text',
-            value: functionUnit,
             change: self.OnInputFunctionValueChanged
         });
-        if (ui && ui.value() == null)
-            ui.value(enumHandlers.FILTERPERIODTYPES[0].Value);
+        ui.value(functionUnit);
     };
     self.GetArgumentType = function (elementKey) {
         return WC.HtmlHelper.DropdownList(self.GetHtmlElementById('InputType-' + elementKey)).value();

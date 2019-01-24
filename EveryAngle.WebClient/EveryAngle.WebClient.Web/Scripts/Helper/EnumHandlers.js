@@ -892,7 +892,6 @@ function EnumHandlers() {
         { Value: self.FILTERPERIODTYPE.WEEK, Text: Captions.WidgetFilter_PeriodType_Weeks },
         { Value: self.FILTERPERIODTYPE.MONTH, Text: Captions.WidgetFilter_PeriodType_Months },
         { Value: self.FILTERPERIODTYPE.QUARTER, Text: Captions.WidgetFilter_PeriodType_Quarters },
-        { Value: self.FILTERPERIODTYPE.TRIMESTER, Text: Captions.WidgetFilter_PeriodType_Trimesters },
         { Value: self.FILTERPERIODTYPE.SEMESTER, Text: Captions.WidgetFilter_PeriodType_Semesters },
         { Value: self.FILTERPERIODTYPE.YEAR, Text: Captions.WidgetFilter_PeriodType_Years }
     ];
