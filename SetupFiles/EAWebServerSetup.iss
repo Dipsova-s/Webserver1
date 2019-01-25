@@ -957,12 +957,22 @@ end;
 procedure ExecuteWebsiteUndeploy(aSite: string);
 var
   MSDeployExe,
-  MSDeployLocation,
+  MSDeployLocation,       
+  iisSite : string;
   MSDeployParameters : string;
-begin
+  iisSitePath : TArrayOfString;
+begin     
+  iisSite := StringReplace(aSite, '//', '/');
+  iisSitePath := StrSplit(iisSite, '/');
+
+  if GetArrayLength(iisSitePath) = 1 then
+  begin
+    iisSite := iisSitePath[0];
+  end;
+
   MSDeployExe := ExtractFileName(MsDeployPath);
   MSDeployLocation := ExtractFilePath(MsDeployPath);
-  MSDeployParameters := Format('-verb:delete -dest:iisapp="%s"', [aSite]);
+  MSDeployParameters := Format('-verb:delete -dest:apphostconfig="%s" -skip:objectname=machineconfig -skip:objectname=rootwebconfig', [iisSite]);
   ExecuteAndLog(MsDeployLocation, MSDeployExe, MSDeployParameters);
 end;
 
@@ -1118,11 +1128,27 @@ begin
 end;
 
 Procedure ExecuteWebUndeploy;
+var 
+  sitePath,
+  directory : string;
 begin
   if IISPathWC <> '' then
   begin
-    ExecuteWebsiteUndeploy(IISPathMC);
-    ExecuteWebsiteUndeploy(IISPathWC);
+    IISConfigSites := LoadIISConfig('sites'); 
+    sitePath := GetIISPhysicalPath(GetPreviousData('Site', ''),GetPreviousData('Path', ''), false)
+    directory := ExtractFileName(sitePath);
+    // if in wwwroot directory; skip this process
+    if directory <> 'wwwroot' then
+    begin   
+      ExecuteWebsiteUndeploy(IISPathMC);
+      ExecuteWebsiteUndeploy(IISPathWC);
+    end
+    else
+    begin
+      log('[i]msgbox: Files will not be removed during uninstall because the Webserver is installed in the wwwroot. The uninstall will proceed but the files and the IIS application need to be removed manually.');
+      if not UninstallSilent then
+        Msgbox('Files will not be removed during uninstall because the Webserver is installed in the wwwroot. The uninstall will proceed but the files and the IIS application need to be removed manually.', mbInformation, MB_OK);
+    end;
   end;
 end;
 
