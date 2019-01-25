@@ -7,23 +7,9 @@
 ;Inno Source: http://www.hackchina.com/en/cont/123128 
 ;DotNet Libraries: http://www.codeproject.com/KB/install/dotnetfx_innosetup_instal.aspx
 
-#define RemoteSource = "\\NL-EABLD001\Perforce\M4\Releases\Release2017_Sub10"
+#define SourceDir AddBackslash(SourcePath) + ".\.."
 #define VersionFile = "EveryAngle.WebClient\EveryAngle.WebClient.Web\bin\EveryAngle.WebClient.Web.dll"
-
-;If no sourceDir specified, try .\..\.., else use RemoteSource
-#ifndef SourceDir
-  #define SourceDir AddBackslash(SourcePath) + "..\.."
-  #if FileExists(AddBackslash(SourceDir) + VersionFile) == 0
-    #define SourceDir RemoteSource
-  #endif                                                                                           
-#endif
-            
-;Initialize contentDir: Same as SourceDir, or specified by environment 'ContentPath'
-#define ContentDir = GetEnv("SC_BranchPath")
-#if ContentDir == "" 
-   #define ContentDir = SourceDir
-#endif
-            
+       
 #if FileExists(AddBackslash(SourceDir) + VersionFile) == 0
   #pragma error "FILE: " + AddBackslash(SourceDir) + VersionFile + " NOT FOUND"
 #endif
@@ -115,7 +101,7 @@ Source: "NET\Frontend\WebDeploy\EveryAngle.WebClient.Web.zip"; DestDir: "{code:D
 Source: "NET\Frontend\WebDeploy\EveryAngle.WebClient.Web.SetParameters.xml"; DestDir: "{code:DataPath|WebDeploy}"; Components: webclient
 Source: "NET\Frontend\WebDeploy\EveryAngle.WebClient.Web.deploy.cmd"; DestDir: "{code:DataPath|WebDeploy}"; Flags: ignoreversion; Components: webclient
 ;Diagrams
-Source: "{#ContentDir}\Content\Diagrams\*.*"; DestDir: "{code:DataPath|WebDeploy\Diagrams}"; Flags: recursesubdirs ignoreversion deleteafterinstall; BeforeInstall: RegisterDiagramFile(); Components: webclient
+Source: "Content\Diagrams\*.*"; DestDir: "{code:DataPath|WebDeploy\Diagrams}"; Flags: recursesubdirs ignoreversion deleteafterinstall; BeforeInstall: RegisterDiagramFile(); Components: webclient
 ;ManagementConsole
 Source: "NET\Frontend\WebDeploy\EveryAngle.ManagementConsole.Web.deploy-readme.txt"; DestDir: "{code:DataPath|WebDeploy}"; Flags: ignoreversion; Components: webclient
 Source: "NET\Frontend\WebDeploy\EveryAngle.ManagementConsole.Web.SourceManifest.xml"; DestDir: "{code:DataPath|WebDeploy}"; Flags: ignoreversion; Components: webclient
@@ -807,21 +793,48 @@ end;
 procedure ExecuteWebsiteUndeploy(aSite: string);
 var
   MSDeployExe,
-  MSDeployLocation,
+  MSDeployLocation,       
+  iisSite : string;
   MSDeployParameters : string;
-begin
+  iisSitePath : TArrayOfString;
+begin    
+  iisSite := aSite;
+  StringChangeEx(iisSite, '//', '/', true);
+  iisSitePath := StrSplit(iisSite, '/');
+
+  if GetArrayLength(iisSitePath) = 1 then
+  begin
+    iisSite := iisSitePath[0];
+  end;
+
   MSDeployExe := ExtractFileName(MsDeployPath);
   MSDeployLocation := ExtractFilePath(MsDeployPath);
-  MSDeployParameters := Format('-verb:delete -dest:iisapp="%s"', [aSite]);
+  MSDeployParameters := Format('-verb:delete -dest:apphostconfig="%s" -skip:objectname=machineconfig -skip:objectname=rootwebconfig', [iisSite]);
   ExecuteAndLog(MsDeployLocation, MSDeployExe, MSDeployParameters);
 end;
 
 Procedure ExecuteWebUndeploy;
+var 
+  sitePath,
+  directory : string;
 begin
   if IISPathWC <> '' then
   begin
-    ExecuteWebsiteUndeploy(IISPathMC);
-    ExecuteWebsiteUndeploy(IISPathWC);
+    IISConfigSites := LoadIISConfig('sites'); 
+    sitePath := GetPreviousData('IISPathPhysical','');
+    directory := ExtractFileName(sitePath);
+    // if in wwwroot directory; skip this process
+    if directory <> 'wwwroot' then
+    begin   
+      ExecuteWebsiteUndeploy(IISPathMC);
+      ExecuteWebsiteUndeploy(IISPathWC);
+    end
+    else
+    begin
+      log('[i]msgbox: Files will not be removed during uninstall because the Webserver is installed in the wwwroot. The uninstall will proceed but the files and the IIS application need to be removed manually.');
+      if not UninstallSilent then
+        Msgbox('Files will not be removed during uninstall because the Webserver is installed in the wwwroot. The uninstall will proceed but the files and the IIS application need to be removed manually.', mbInformation, MB_OK);
+    end;
   end;
 end;
 
@@ -1168,6 +1181,7 @@ begin
   SetPreviousData(PreviousDataKey, 'Data', DataPath(''));
   SetPreviousData(PreviousDataKey, 'Site', IISSite.Text);
   SetPreviousData(PreviousDataKey, 'Path', IISVirtualPath.Text);
+  SetPreviousData(PreviousDataKey, 'IISPathPhysical', GetIISPhysicalPath());
 
   // TODO: if new installation AND datapath.endswith 'WebClient', Shared datapath is datapath - 'WebClient'
   // SetEASharedRegistryKey('Data', DataPath(''));
