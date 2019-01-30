@@ -56,7 +56,20 @@ namespace EveryAngle.WebClient.Web.CSTests.ServiceTests
         [ExpectedException(typeof(HttpException))]
         public void CanNot_Call_To_CSM_When_ThumbPrint_Is_Invalid()
         {
-            RequestManager manager = RequestManager.Initialize("csm/componentservices");
+            RequestManager.Initialize("csm/componentservices");
+        }
+
+        [TestCase("csm/componentservices", true)]
+        [TestCase("csm/componentservices/xxxxxx", true)]
+        [TestCase("/csm/componentservices", true)]
+        [TestCase("/csm/componentservices/xxxxxx", true)]
+        [TestCase(null, false)]
+        [TestCase("models/1", false)]
+        public void Can_Check_IsCSMUri(string uri, bool expected)
+        {
+            RequestManager manager = RequestManager.Initialize(string.Empty);
+            bool result = manager.IsCSMUri(uri);
+            Assert.AreEqual(expected, result);
         }
     }
 }

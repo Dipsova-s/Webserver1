@@ -77,9 +77,12 @@ namespace EveryAngle.WebClient.Service.HttpHandlers
             return port;
         }
 
-        private bool IsCSMUri(string uri)
+        internal bool IsCSMUri(string uri)
         {
-            return !string.IsNullOrEmpty(uri) && uri.Equals(CSM_URI, StringComparison.InvariantCultureIgnoreCase);
+            string checkUri = uri ?? string.Empty;
+            if (checkUri.StartsWith("/"))
+                checkUri = checkUri.Substring(1);
+            return checkUri.StartsWith(CSM_URI, StringComparison.InvariantCultureIgnoreCase);
         }
 
         private void AttachClientCert(bool isHttps)
