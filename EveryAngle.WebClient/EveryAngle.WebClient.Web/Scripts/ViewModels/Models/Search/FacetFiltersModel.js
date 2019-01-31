@@ -35,19 +35,39 @@ function FacetFiltersViewModel() {
 
         return GetDataFromWebService(uri, query)
             .done(function (data, status, xhr) {
-
-
                 self.SetFacetAndSort(data);
             });
     };
     self.SetFacetAndSort = function (data) {
         self.SetSortOptions(data.sort_options);
+        self.PrepareBusinessProcesses(data.facets);
         self.SetFacetExclusionList(data.facets);
         self.SetFacet(data.facets);
     };
     self.SetSortOptions = function (sortOptions) {
         self.SortOptions = WC.Utility.ToArray(ko.toJS(sortOptions));
         self.SortOptions.removeObject('id', self.SortRelevancyId);
+    };
+    self.PrepareBusinessProcesses = function (facets) {
+        var facetBusinessProcesses = WC.Utility.ToArray(facets).findObject('id', 'facetcat_bp');
+        if (facetBusinessProcesses) {
+            var filters = facetBusinessProcesses.filters;
+
+            var globalBusinessProcesses = businessProcessesModel.General.Data()
+                .sort(function (a, b) {
+                    return a.order > b.order ? 1 : -1;
+                });
+
+            var refilters = [];
+            globalBusinessProcesses.forEach(function (item) {
+                var filter = filters.findObject('id', item.id);
+                if (filter) {
+                    refilters.push(filter);
+                }
+            });
+
+            facetBusinessProcesses.filters = refilters;
+        }
     };
     self.SetFacetExclusionList = function (facets) {
         // check with_private_display visibility
@@ -423,8 +443,8 @@ function FacetFiltersViewModel() {
         var isBusinessProcessGroup = self.GroupBusinessProcess === facetType;
         if (isBusinessProcessGroup) {
             var extraCss = filter.enabled() ? '' : ' disabled';
-            var filterNumber = filter.index % 9;
-            html += '<span class="BusinessProcessBadge BusinessProcessBadgeItem' + filterNumber + ' ' + filter.name + '"></span>';
+            var filterNumber = filter.index % 8;
+            html += '<span class="BusinessProcessBadge BusinessProcessBadgeItem' + filterNumber + ' ' + filter.id + '"></span>';
             html += '<span class="BusinessProcessBadgeLabel' + extraCss + '" data-tooltip-text="' + filter.description + '">' + filter.name + '</span>';
         }
         else {
@@ -435,7 +455,7 @@ function FacetFiltersViewModel() {
                 html += kendo.format('{0}<span class="name withIcon">', self.GetFilterIconHtml(icon));
             else
                 html += '<span class="name">';
-            
+
             var isGeneralGroup = self.GroupGeneral === facetType;
             html += (isGeneralGroup ? '' : filter.description) || filter.name || filter.id;
             if (filter.checked()) {
@@ -577,7 +597,7 @@ function FacetFiltersViewModel() {
         // show info/status if it's not available
         if (!aboutInfo.available())
             return aboutInfo.info();
-        
+
         return aboutInfo.is_real_time ? Localization.RunningRealTime : self.GetTimeAgoByTimestamp(aboutInfo.modeldata_timestamp);
     };
     self.IsFacetChecked = function (filter, facet) {

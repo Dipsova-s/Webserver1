@@ -17,7 +17,7 @@ var businessProcessBarHtmlTemplate = function () {
                             'enable: $data.is_allowed, ',
                             'attr: { id: $data.id }">',
                         '<span class="label">',
-                            '<span class="BusinessProcessBadge" data-bind="css: $root.BindCss($data)"></span>',
+                            '<span class="BusinessProcessBadge" data-bind="css: $root.BindCss($data, $index())"></span>',
                             '<span class="BusinessProcessBadgeLabel" data-bind="html: $root.BindName($data), css: $root.CssClassDisabled($data)"></span>',
                         '</span>',
                     '</label>',
@@ -359,8 +359,8 @@ function BusinessProcessesViewModel(externalData) {
             return self.GetSmartName(words, wordsLength);
         }
     };
-    self.BindCss = function (data) {
-        return self.BindName(data) + ' BusinessProcessBadgeItem' + (data.order - 1) % 9;
+    self.BindCss = function (data, index) {
+        return 'BusinessProcessBadgeItem' + (index % 8) + ' ' + data.id;
     };
     self.GetSmartName = function (words, wordsLength) {
         var eaTextMeasure = self.GetTextMeasureElement();

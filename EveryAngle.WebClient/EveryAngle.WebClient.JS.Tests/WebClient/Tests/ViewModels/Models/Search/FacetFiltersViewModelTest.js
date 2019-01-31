@@ -1,4 +1,5 @@
 
+/// <reference path="/../SharedDependencies/BusinessProcessesModel.js" />
 /// <reference path="/Dependencies/ViewModels/Models/User/usersettingmodel.js" />
 /// <reference path="/Dependencies/ViewModels/Models/User/usermodel.js" />
 /// <reference path="/Dependencies/ViewModels/Models/Search/searchquery.js" />
@@ -98,7 +99,7 @@ describe("FacetFiltersViewModel", function () {
                 date: function () { return 'date'; },
                 modeldata_timestamp: '1537500432'
             });
-            
+
             var html = facetFiltersViewModel.GetRefreshTime('EA2_800');
             expect(html).not.toEqual(Localization.RunningRealTime);
         });
@@ -177,7 +178,7 @@ describe("FacetFiltersViewModel", function () {
         });
 
         it("should return false when facet is not [Business Process], on [landing page] and filter.checked is false", function () {
-            spyOn(searchQueryModel, 'HasSearchQuery').and.returnValue(null); 
+            spyOn(searchQueryModel, 'HasSearchQuery').and.returnValue(null);
 
             var filter = {
                 id: '1',
@@ -240,8 +241,9 @@ describe("FacetFiltersViewModel", function () {
         });
 
         it("should display business process label style when facet category is business process", function () {
+            debugger;
             var result = facetFiltersViewModel.GetFilterText(filter, 'business_process', '');
-            expect(result).toEqual('<span class="BusinessProcessBadge BusinessProcessBadgeItem2 EA2_800"></span><span class="BusinessProcessBadgeLabel" data-tooltip-text="EA2_800">EA2_800</span>');
+            expect(result).toEqual('<span class="BusinessProcessBadge BusinessProcessBadgeItem4 EA2_800"></span><span class="BusinessProcessBadgeLabel" data-tooltip-text="EA2_800">EA2_800</span>');
         });
 
         it("should call method GetModelFilterText if facetcat_models", function () {
@@ -287,5 +289,69 @@ describe("FacetFiltersViewModel", function () {
             expect(result).not.toContain('searchpage/icn_clock.svg');
         });
 
+    });
+
+    describe(".PrepareBusinessProcesses", function () { 
+
+        beforeEach(function () {
+            spyOn(businessProcessesModel.General, 'Data').and.callFake(function () {
+                return [
+                    { id: "IT", order: 5 },
+                    { id: "PM", order: 4 },
+                    { id: "O2C", order: 3 },
+                    { id: "F2R", order: 2 },
+                    { id: "HCM", order: 1 }
+                ];
+            });
+        });
+
+        it("should show business processes fitlers by general business processes", function () {
+
+            var data = [{
+                id: "facetcat_bp",
+                filters:
+                    [
+                        { id: "HCM" },
+                        { id: "PM" },
+                        { id: "P2P" },
+                        { id: "O2C" }
+                    ]
+            }];
+            facetFiltersViewModel.PrepareBusinessProcesses(data);
+
+            var filters = data[0].filters;
+            expect(filters.length).toEqual(3);
+            expect(filters[0].id).toEqual("HCM");
+            expect(filters[1].id).toEqual("O2C");
+            expect(filters[2].id).toEqual("PM");
+        });
+
+        it("should order business processes filters by general business processes", function () {
+            var data = [{
+                id: "facetcat_bp",
+                filters:
+                    [
+                        { id: "IT" },
+                        { id: "PM" },
+                        { id: "O2C" },
+                        { id: "F2R" },
+                        { id: "HCM" }
+                    ]
+            }];
+
+            spyOn(businessProcessesModel, 'General').and.returnValue({
+                Data: function () { return generalBusinessProcesses; }
+            });
+
+            facetFiltersViewModel.PrepareBusinessProcesses(data);
+
+            var filters = data[0].filters;
+            expect(filters.length).toEqual(5);
+            expect(filters[0].id).toEqual("HCM");
+            expect(filters[1].id).toEqual("F2R");
+            expect(filters[2].id).toEqual("O2C");
+            expect(filters[3].id).toEqual("PM");
+            expect(filters[4].id).toEqual("IT");
+        });
     });
 });
