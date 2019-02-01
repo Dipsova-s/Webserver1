@@ -141,7 +141,8 @@
                 'sync_roles_to_groups': formAuthenticationProvider.find('[name="sync_roles_to_groups"]').is(':checked'),
                 'identity': formAuthenticationProvider.find('[name="identity"]').val(),
                 'type': formAuthenticationProvider.find('[name="authenticationProviderTypes"]').val(),
-                'default_roles': default_roles_data
+                'default_roles': default_roles_data,
+                'container': formAuthenticationProvider.find('[name="container"]').val()
             };
 
             var isNew = $('input[name=Id]').is('[readonly]') == false ? true : false;
