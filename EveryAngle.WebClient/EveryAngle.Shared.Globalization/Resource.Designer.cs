@@ -7978,6 +7978,15 @@ namespace EveryAngle.Shared.Globalization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to User container (DN).
+        /// </summary>
+        public static string MC_Container {
+            get {
+                return ResourceManager.GetString("MC_Container", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Content parameters.
         /// </summary>
         public static string MC_ContentParameters {

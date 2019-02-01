@@ -45,7 +45,7 @@
                 <p>
                     @if (Model.Uri != null)
                     {
-                        @Html.TextBoxFor(model => model.Id, new { @class = "required", @readonly = "readonly", @Style = "color:#aaa;" , @name = "Id", maxlength = 25 })
+                        @Html.TextBoxFor(model => model.Id, new { @class = "required", @readonly = "readonly", @Style = "color:#aaa;", @name = "Id", maxlength = 25 })
                     }
                     else
                     {
@@ -75,7 +75,8 @@
                 <label>@Resource.MC_Provider:</label>
                 <p>
                     <label>
-                        <input id="is_enabled" name="is_enabled" type="checkbox"  @(Model.IsEnabled ? "checked=\"checked\"" : "") /><span class="label"></span></label>
+                        <input id="is_enabled" name="is_enabled" type="checkbox" @(Model.IsEnabled ? "checked=\"checked\"" : "") /><span class="label"></span>
+                    </label>
                 </p>
             </div>
 
@@ -83,7 +84,8 @@
                 <label>@Resource.MC_AutocreateUsers:*</label>
                 <p>
                     <label>
-                        <input id="auto_create_users"  @(authenticationProviderTypesId == "ADFS" ? "disabled=\"disabled\"" : "") name="auto_create_users" type="checkbox"  @(Model.autoCreateUsers ? "checked=\"checked\"" : "")  /><span class="label"></span></label>
+                        <input id="auto_create_users" @(authenticationProviderTypesId == "ADFS" ? "disabled=\"disabled\"" : "") name="auto_create_users" type="checkbox" @(Model.autoCreateUsers ? "checked=\"checked\"" : "") /><span class="label"></span>
+                    </label>
                 </p>
             </div>
 
@@ -93,26 +95,20 @@
                     <label>
                         @{
                             var syncRolesToGroups = false;
-                            if(Model.syncRolesToGroups.HasValue)
+                            if (Model.syncRolesToGroups.HasValue)
                             {
                                 syncRolesToGroups = Model.syncRolesToGroups.Value;
                             }
                         }
-                        <input id="sync_roles_to_groups" name="sync_roles_to_groups" type="checkbox"  @(syncRolesToGroups ? "checked=\"checked\"" : "")  /><span class="label"></span></label>
+                        <input id="sync_roles_to_groups" name="sync_roles_to_groups" type="checkbox" @(syncRolesToGroups ? "checked=\"checked\"" : "") /><span class="label"></span>
+                    </label>
                 </p>
             </div>
 
-             <div class="contentSectionInfoItem">
+            <div class="contentSectionInfoItem">
                 <label>@Resource.MC_DefaultRoles:</label>
                 <p>
-                        <select name="DefaultSystemRoles" id="DefaultSystemRoles" class="required_default_roles DefaultRoles DefaultSystemRoles"></select>
-                       @* @{
-                            if(Model.default_roles !=null && Model.default_roles.Count > 0)
-                            {
-                                string default_roles = string.Join(", ", Model.default_roles.ToArray());
-                                Response.Write(default_roles);
-                            }
-                        }*@
+                    <select name="DefaultSystemRoles" id="DefaultSystemRoles" class="required_default_roles DefaultRoles DefaultSystemRoles"></select>
                 </p>
             </div>
 
@@ -120,6 +116,14 @@
                 <label>@Resource.MC_Domain:</label>
                 <p>
                     @Html.TextBoxFor(model => model.domain_name, new { @class = "required txtLarge", @name = "domain_name", maxlength = 200 })
+                </p>
+
+            </div>
+
+            <div class="contentSectionInfoItem" style="display:@showAD">
+                <label>@Resource.MC_Container:</label>
+                <p>
+                    @Html.TextBoxFor(model => model.container, new { @class = "txtLarge", @name = "container", maxlength = 200 })
                 </p>
 
             </div>
