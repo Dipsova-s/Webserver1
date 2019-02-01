@@ -31,7 +31,7 @@
                           + "# } else { #"
                           + "<a href=\"\\" + SiteMapHelper.ActionHash("Users/AllUsers/EditUser") + "\" onclick=\"MC.util.redirect(event, this)\" class=\"btn btnEdit\" data-parameters='{\"userUri\":\"#= data.Uri #\"}'>" + Resource.View + "</a>"
                           + "<a class=\"btn btnOpenWindow\" onclick=\"MC.Users.User.ShowConsolidatedRolePopup('#=data.Uri #')\" data-grid=\"SubRolesGrid\" data-target=\"\\#ConsoliDatedRolePopup\" title=\"" + Resource.MC_ShowConsolidatedRole + "\" data-width=\"700\" data-height=\"600\" data-min-height=\"400\" data-role=\"mcPopup\">" + Resource.MC_ShowConsolidatedRole + "</a>"
-                          + "# if (data.Id == '" + currentUserID + "' || data.Id.toLowerCase() == '" + adminUser + "){ #"
+                          + "# if (data.Id == '" + currentUserID + "' || data.Id.toLowerCase() == '" + adminUser + "'){ #"
                           + "<a class=\"btn btnDelete disabled\">" + Resource.Delete + "</a>"
                           + "# } else { #"
                           + "<a href=\"" + Url.Content("~/Users/DeleteUser") + "\" onclick=\"MC.Users.User.DeleteUser(event, this)\" class=\"btn btnDelete\" data-parameters='{\"userUri\":\"#= data.Uri #\"}' data-delete-template=\"" + Resource.MC_DeleteUserConfirm + "\" data-delete-field-index=\"0\">" + Resource.Delete + "</a>"

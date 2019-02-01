@@ -5956,4 +5956,7 @@ Attention: The specified location must be a full file path on the Application se
   <data name="RunningRealTime" xml:space="preserve">
     <value>Running in real time</value>
   </data>
+  <data name="MC_Container" xml:space="preserve">
+    <value>User container (DN)</value>
+  </data>
 </root>
