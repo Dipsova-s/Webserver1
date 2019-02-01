@@ -62,6 +62,9 @@ namespace EveryAngle.Core.ViewModels.Users
             }
         }
 
+        [JsonProperty(PropertyName = "container")]
+        public string container { get; set; }
+
         public object Clone()
         {
             return this.MemberwiseClone();
