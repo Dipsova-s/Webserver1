@@ -8,54 +8,33 @@ if not exist "%logFolder%" md "%logFolder%"
 if exist "C:\Python27\" echo %date% %time% "C:\Python27" found. &goto python_installed
 	ECHO ###### Setup Robot Framework  ######
 	ECHO  %date% %time% c:\python27 not found, downloading and installing python
-
-
 	bitsadmin.exe /transfer "Download Python" https://www.python.org/ftp/python/2.7.10/python-2.7.10.msi "%~dp0python-2.7.10.msi" >> "%logFolder%\bitsadmin.log" 2>&1
 	if not exist "%~dp0python-2.7.10.msi" Echo Download "%~dp0python-2.7.10.msi" failed& exit /b
-
 	ECHO  %date% %time% Successfully Downloaded Python-2.7.10.msi....
-
 	start /wait "" %~dp0python-2.7.10.msi /passive  >> "%logFolder%\python-2.7.10.msi.log" 2>&1
-
 	if not exist "C:\Python27\" Echo Installing python failed& exit /b
-
 	ECHO  %date% %time% Successfully Installed Python 2.7.10....
-
-	pip install robotframework >> "%logFolder%\pip_robotframework.log" 2>&1
-	Echo "pip install robotframework" finished [%errorlevel%]
-
-	pip install robotframework-selenium2library >> "%logFolder%\pip_robotframework-selenium2library.log" 2>&1
-	Echo "pip install robotframework-selenium2library" finished [%errorlevel%]
-
-	pip install robotframework-pabot >> "%logFolder%\pip_robotframework-pabot.log" 2>&1
-	Echo "pip install robotframework-pabot" finished [%errorlevel%]
-
-	pip install robotframework-httplibrary >> "%logFolder%\pip_robotframework-httplibrary.log" 2>&1
-	Echo "pip install robotframework-httplibrary" finished [%errorlevel%]
-
 	del  %~dp0python-2.7.10.msi >nul 2>&1
-
 	ECHO %date% %time% Finished installing Robot Framework....
-
 :python_installed
 
 echo Check Robot Framework version...
 set updateRobot=yes
-set updateRobotVersion="robotframework==3.0"
-set updateSelenium2Library=yes
-set updateSelenium2LibraryVersion="robotframework-selenium2library==1.8.0"
+set updateRobotVersion="robotframework==3.0.4"
+set updateSeleniumLibrary=yes
+set updateSeleniumLibraryVersion="robotframework-selenium2library==3.0.0"
 set updatePabot=yes
 set updatePabotVersion="robotframework-pabot==0.31"
 set updateHttpLibrary=yes
 set updateHttpLibraryVersion="robotframework-httplibrary==0.4.2"
 for /F %%i in ('pip freeze --local') do (
 	if "%%i"==%updateRobotVersion% set updateRobot=no
-	if "%%i"==%updateSelenium2LibraryVersion% set updateSelenium2Library=no
+	if "%%i"==%updateSeleniumLibraryVersion% set updateSeleniumLibrary=no
 	if "%%i"==%updatePabotVersion% set updatePabot=no
 	if "%%i"==%updateHttpLibraryVersion% set updateHttpLibrary=no
 )
 if "%updateRobot%"=="yes" pip install %updateRobotVersion%
-if "%updateSelenium2Library%"=="yes" pip install %updateSelenium2LibraryVersion%
+if "%updateSeleniumLibrary%"=="yes" pip install %updateSeleniumLibraryVersion%
 if "%updatePabot%"=="yes" pip install %updatePabotVersion%
 if "%updateHttpLibrary%"=="yes" pip install %updateHttpLibraryVersion%
 
