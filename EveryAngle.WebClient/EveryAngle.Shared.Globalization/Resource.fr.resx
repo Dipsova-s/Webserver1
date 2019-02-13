@@ -3469,7 +3469,7 @@
     <value>Edit models</value>
   </data>
   <data name="MC_Setup_New_Model" xml:space="preserve">
-    <value>Setup a new model</value>
+    <value>Set up a new model</value>
   </data>
   <data name="ValidateExportExcel_SpecialCharacter" xml:space="preserve">
     <value>La valeur « {0} » pour le paramètre « {1} » ne peut pas contenir de caractères spéciaux ({2})</value>

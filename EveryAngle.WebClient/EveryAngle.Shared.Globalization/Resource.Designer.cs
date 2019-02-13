@@ -11766,7 +11766,7 @@ namespace EveryAngle.Shared.Globalization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Setup a new model.
+        ///   Looks up a localized string similar to Set up a new model.
         /// </summary>
         public static string MC_Setup_New_Model {
             get {
