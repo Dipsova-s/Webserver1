@@ -3472,7 +3472,7 @@
     <value>Edit models</value>
   </data>
   <data name="MC_Setup_New_Model" xml:space="preserve" translate="no">
-    <value>Setup a new model</value>
+    <value>Set up a new model</value>
   </data>
   <data name="ValidateExportExcel_SpecialCharacter" xml:space="preserve">
     <value>El valor “{0}” para la configuración “{1}” no debe contener caracteres especiales ({2})</value>

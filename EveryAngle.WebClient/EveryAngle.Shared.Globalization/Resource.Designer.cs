@@ -8032,6 +8032,15 @@ namespace EveryAngle.Shared.Globalization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Copy task.
+        /// </summary>
+        public static string MC_CopyTask {
+            get {
+                return ResourceManager.GetString("MC_CopyTask", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Country.
         /// </summary>
         public static string MC_Country {
@@ -10482,6 +10491,15 @@ namespace EveryAngle.Shared.Globalization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to New task name.
+        /// </summary>
+        public static string MC_NewTaskName {
+            get {
+                return ResourceManager.GetString("MC_NewTaskName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to No Access.
         /// </summary>
         public static string MC_NoAccess {
@@ -11640,7 +11658,7 @@ namespace EveryAngle.Shared.Globalization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Setup a new model.
+        ///   Looks up a localized string similar to Set up a new model.
         /// </summary>
         public static string MC_Setup_New_Model {
             get {
@@ -15853,6 +15871,15 @@ namespace EveryAngle.Shared.Globalization {
         public static string Since {
             get {
                 return ResourceManager.GetString("Since", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0}since last refresh.
+        /// </summary>
+        public static string SinceLastRefresh {
+            get {
+                return ResourceManager.GetString("SinceLastRefresh", resourceCulture);
             }
         }
         
