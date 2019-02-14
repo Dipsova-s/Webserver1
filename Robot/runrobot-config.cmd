@@ -25,7 +25,7 @@ set PREF_SERVER_BASE=http://th-weblb02.theatst.org:58112
 ::::::::::::::::::::::::::::::::::
 :: specify test tag
 ::::::::::::::::::::::::::::::::::
-:: allangles,audit,performance,smk_wc,acc_wc,smk_mc,acc_mc,test
+:: allangles,audit,performance,smk_wc,acc_wc,smk_mc,acc_mc,test,intermittent
 set TAG=allangles
 
 ::::::::::::::::::::::::::::::::::

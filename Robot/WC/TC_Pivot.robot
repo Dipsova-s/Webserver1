@@ -3,7 +3,7 @@ Resource            ${EXECDIR}/resources/WCSettings.robot
 Suite Setup         Go to WC Then Login With EAPower User
 Suite Teardown      Logout WC Then Close Browser
 Test Teardown       Go to Search Page
-Force Tags          acceptance    acc_wc
+Force Tags          intermittent
 
 *** Variables ***
 ${TEST_VERIFY_PIVOT_DRILLDOWN_NAME}    [ROBOT] Test Verify Pivot Drilldown
