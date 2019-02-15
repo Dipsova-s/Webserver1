@@ -2,6 +2,7 @@ using EveryAngle.Core.Interfaces.Services;
 using EveryAngle.Core.ViewModels;
 using EveryAngle.Core.ViewModels.Model;
 using EveryAngle.Core.ViewModels.ModelServer;
+using EveryAngle.ManagementConsole.Helpers;
 using EveryAngle.WebClient.Domain.Enums;
 using EveryAngle.WebClient.Service.HttpHandlers;
 using EveryAngle.WebClient.Service.Security;
@@ -10,6 +11,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Mime;
+using System.Web;
 using System.Web.Mvc;
 
 namespace EveryAngle.ManagementConsole.Controllers
@@ -39,16 +41,19 @@ namespace EveryAngle.ManagementConsole.Controllers
             return PartialView("~/Views/Component/SystemComponent.cshtml");
         }
 
-        public FileResult DownloadMetadata(string modelId, string componentUri)
+        public ActionResult DownloadMetadata(string metadataUri, string metadataName)
         {
-            ModelViewModel model = SessionHelper.GetModelById(modelId);
-            ListViewModel<ModelServerViewModel> modelServers = _modelService.GetModelServers(model.ServerUri.ToString());
-            ModelServerViewModel modelServer = modelServers.Data.FirstOrDefault(x => new Uri(x.server_uri).ToString() == new Uri(componentUri).ToString());
-
-            string downloadFilename = string.Format("metadata_{0}_{1}.json", modelServer.id, modelServer.instance_id);
-            RequestManager requestManager = RequestManager.Initialize(modelServer.metadata);
-            byte[] downloadFileByte = requestManager.GetBinary();
-            return File(downloadFileByte, MediaTypeNames.Application.Octet, downloadFilename);
+            try
+            {
+                string downloadFilename = $"metadata_{metadataName}.json";
+                RequestManager requestManager = RequestManager.Initialize(metadataUri);
+                byte[] downloadFileByte = requestManager.GetBinary();
+                return File(downloadFileByte, MediaTypeNames.Application.Octet, downloadFilename);
+            }
+            catch (HttpException ex)
+            {
+                return JsonHelper.GetJsonStringResult(false, ex.GetHttpCode(), ex.Message, MessageType.DEFAULT, null);
+            }
         }
 
         public JsonResult GetComponents()
@@ -58,8 +63,8 @@ namespace EveryAngle.ManagementConsole.Controllers
 
             IEnumerable<ComponentViewModel> components = _componentService.GetItems().OrderBy(x => x.ModelId);
 
-            // M4-53574 : Fast fix for get information
-            components.Where(x => x.Type.Equals(ComponentServiceManagerType.ClassicModelQueryService)).ToList()
+            // Set information
+            components.Where(x => x.IsInfoEnabled).ToList()
                 .ForEach(x => x.SetModelServerInfo(modelServers, models.FirstOrDefault(y => y.id == x.ModelId)?.current_instance));
 
             DataSourceResult result = new DataSourceResult

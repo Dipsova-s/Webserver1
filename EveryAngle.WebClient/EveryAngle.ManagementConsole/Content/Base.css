@@ -951,6 +951,7 @@ div.tagsinput .not_valid {
 .k-window .k-link .k-icon {
     width: 14px;
     height: 14px;
+    background-size: 14px 14px;
 }
 
 .k-window .k-link .k-i-close,

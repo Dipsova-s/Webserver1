@@ -7,77 +7,62 @@ namespace EveryAngle.Core.ViewModels.Tests.Component
     public class ComponentViewModelTest
     {
         #region IsDeletable
-        [TestCase(ComponentServiceManagerType.ApplicationServer)]
-        [TestCase(ComponentServiceManagerType.WebServer)]
-        public void ComponentViewModel_Should_UnDeletable(ComponentServiceManagerType type)
+        [TestCase(ComponentServiceManagerType.ApplicationServer, false)]
+        [TestCase(ComponentServiceManagerType.WebServer, false)]
+        [TestCase(ComponentServiceManagerType.ClassicModelQueryService, true)]
+        [TestCase(ComponentServiceManagerType.DataDiscoveryService, true)]
+        [TestCase(ComponentServiceManagerType.ExtractionService, true)]
+        [TestCase(ComponentServiceManagerType.ModelAgentService, true)]
+        [TestCase(ComponentServiceManagerType.ModelRepositoryService, true)]
+        [TestCase(ComponentServiceManagerType.RealtimeModelQueryService, true)]
+        [TestCase(ComponentServiceManagerType.Unknown, true)]
+        public void ComponentViewModel_IsDeletable(ComponentServiceManagerType type, bool expected)
         {
             string jsonString = $"{{type:'{type}'}}";
             ComponentViewModel viewModel = JsonConvert.DeserializeObject<ComponentViewModel>(jsonString);
-            Assert.AreEqual(false, viewModel.IsDeletable);
-        }
-
-        [TestCase(ComponentServiceManagerType.ClassicModelQueryService)]
-        [TestCase(ComponentServiceManagerType.DataDiscoveryService)]
-        [TestCase(ComponentServiceManagerType.ExtractionService)]
-        [TestCase(ComponentServiceManagerType.ModelAgentService)]
-        [TestCase(ComponentServiceManagerType.ModelRepositoryService)]
-        [TestCase(ComponentServiceManagerType.RealtimeModelQueryService)]
-        [TestCase(ComponentServiceManagerType.Unknown)]
-        public void ComponentViewModel_Should_Deletable(ComponentServiceManagerType type)
-        {
-            string jsonString = $"{{type:'{type}'}}";
-            ComponentViewModel viewModel = JsonConvert.DeserializeObject<ComponentViewModel>(jsonString);
-            Assert.AreEqual(true, viewModel.IsDeletable);
+            Assert.AreEqual(expected, viewModel.IsDeletable);
         }
         #endregion
 
         #region IsDownloadMetadataEnabled 
-        [TestCase(ComponentServiceManagerType.ClassicModelQueryService)]
-        [TestCase(ComponentServiceManagerType.DataDiscoveryService)]
-        public void ComponentViewModel_Should_AbleToDownloadMetadata(ComponentServiceManagerType type)
+        [TestCase(ComponentServiceManagerType.ClassicModelQueryService, true, "/metadata", true)]
+        [TestCase(ComponentServiceManagerType.ClassicModelQueryService, false, "/metadata", false)]
+        [TestCase(ComponentServiceManagerType.ClassicModelQueryService, true, null, false)]
+        [TestCase(ComponentServiceManagerType.RealtimeModelQueryService, true, "/metadata", true)]
+        [TestCase(ComponentServiceManagerType.RealtimeModelQueryService, false, "/metadata", false)]
+        [TestCase(ComponentServiceManagerType.RealtimeModelQueryService, true, null, false)]
+        [TestCase(ComponentServiceManagerType.ApplicationServer, true, "/metadata", false)]
+        [TestCase(ComponentServiceManagerType.WebServer, true, "/metadata", false)]
+        [TestCase(ComponentServiceManagerType.ExtractionService, true, "/metadata", false)]
+        [TestCase(ComponentServiceManagerType.ModelAgentService, true, "/metadata", false)]
+        [TestCase(ComponentServiceManagerType.ModelRepositoryService, true, "/metadata", false)]
+        [TestCase(ComponentServiceManagerType.DataDiscoveryService, true, "/metadata", false)]
+        [TestCase(ComponentServiceManagerType.Unknown, true, "/metadata", false)]
+        public void ComponentViewModel_DownloadMetadata(ComponentServiceManagerType type, bool available, string metadataUri, bool expected)
         {
             string jsonString = $"{{type:'{type}'}}";
             ComponentViewModel viewModel = JsonConvert.DeserializeObject<ComponentViewModel>(jsonString);
-            Assert.AreEqual(true, viewModel.IsDownloadMetadataEnabled);
-        }
-
-        [TestCase(ComponentServiceManagerType.ApplicationServer)]
-        [TestCase(ComponentServiceManagerType.WebServer)]
-        [TestCase(ComponentServiceManagerType.ExtractionService)]
-        [TestCase(ComponentServiceManagerType.ModelAgentService)]
-        [TestCase(ComponentServiceManagerType.ModelRepositoryService)]
-        [TestCase(ComponentServiceManagerType.RealtimeModelQueryService)]
-        [TestCase(ComponentServiceManagerType.Unknown)]
-        public void ComponentViewModel_Should_NotAbleToDownloadMetadata(ComponentServiceManagerType type)
-        {
-            string jsonString = $"{{type:'{type}'}}";
-            ComponentViewModel viewModel = JsonConvert.DeserializeObject<ComponentViewModel>(jsonString);
-            Assert.AreEqual(false, viewModel.IsDownloadMetadataEnabled);
+            viewModel.Status = new RegistrationStatus { Available = available };
+            viewModel.ModelServer = new ModelServerInfoViewModel { MetadataUri = metadataUri };
+            Assert.AreEqual(expected, viewModel.IsDownloadMetadataEnabled);
         }
         #endregion
 
         #region IsInfoEnabled
-        [TestCase(ComponentServiceManagerType.ClassicModelQueryService)]
-        [TestCase(ComponentServiceManagerType.DataDiscoveryService)]
-        [TestCase(ComponentServiceManagerType.ExtractionService)]
-        public void ComponentViewModel_Should_AbleToShowInfo(ComponentServiceManagerType type)
+        [TestCase(ComponentServiceManagerType.ClassicModelQueryService, true)]
+        [TestCase(ComponentServiceManagerType.RealtimeModelQueryService, true)]
+        [TestCase(ComponentServiceManagerType.ExtractionService, true)]
+        [TestCase(ComponentServiceManagerType.ApplicationServer, false)]
+        [TestCase(ComponentServiceManagerType.WebServer, false)]
+        [TestCase(ComponentServiceManagerType.ModelAgentService, false)]
+        [TestCase(ComponentServiceManagerType.ModelRepositoryService, false)]
+        [TestCase(ComponentServiceManagerType.DataDiscoveryService, false)]
+        [TestCase(ComponentServiceManagerType.Unknown, false)]
+        public void ComponentViewModel_IsInfoEnabled(ComponentServiceManagerType type, bool expected)
         {
             string jsonString = $"{{type:'{type}'}}";
             ComponentViewModel viewModel = JsonConvert.DeserializeObject<ComponentViewModel>(jsonString);
-            Assert.AreEqual(true, viewModel.IsInfoEnabled);
-        }
-
-        [TestCase(ComponentServiceManagerType.ApplicationServer)]
-        [TestCase(ComponentServiceManagerType.WebServer)]
-        [TestCase(ComponentServiceManagerType.ModelAgentService)]
-        [TestCase(ComponentServiceManagerType.ModelRepositoryService)]
-        [TestCase(ComponentServiceManagerType.RealtimeModelQueryService)]
-        [TestCase(ComponentServiceManagerType.Unknown)]
-        public void ComponentViewModel_Should_NotAbleToShowInfo(ComponentServiceManagerType type)
-        {
-            string jsonString = $"{{type:'{type}'}}";
-            ComponentViewModel viewModel = JsonConvert.DeserializeObject<ComponentViewModel>(jsonString);
-            Assert.AreEqual(false, viewModel.IsInfoEnabled);
+            Assert.AreEqual(expected, viewModel.IsInfoEnabled);
         }
 
         #endregion
