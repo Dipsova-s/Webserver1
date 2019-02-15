@@ -3,16 +3,27 @@
 @using EveryAngle.Shared.Globalization
 
 @{
-    List<PageToolbarButtonModel> buttons = new List<PageToolbarButtonModel>();
-    buttons.Add(new PageToolbarButtonModel
-    {
-        Type = PageToolbarButtonType.GridEditDelete,
-        Privilege = PrivilegeType.System,
-        DisableTemplate = "",
-        EnableTemplate = "# if(data.IsDeletable === true) { #"
-                            + "<a href=\"" + Url.Content("~/Component/DeleteComponent") + "\" onclick=\"MC.GlobalSettings.Components.DeleteComponent(event, this)\" class=\"btn btnDelete\" data-parameters='{\"registrationId\":\"#= data.RegistrationId #\"}' data-delete-template=\"" + Resource.MC_DeleteComponentConfirm + "\" data-delete-field-index=\"0\">" + Resource.Delete + "</a>"
+            List<PageToolbarButtonModel> buttons = new List<PageToolbarButtonModel>();
+            buttons.Add(new PageToolbarButtonModel
+            {
+                Type = PageToolbarButtonType.GridEditDelete,
+                Privilege = PrivilegeType.System,
+                DisableTemplate = "",
+                EnableTemplate = "# if(data.IsDeletable) { #"
+                                    + "<a href=\"" + Url.Content("~/Component/DeleteComponent") + "\" onclick=\"MC.GlobalSettings.Components.DeleteComponent(event, this)\" class=\"btn btnDelete\" data-parameters='{\"registrationId\":\"#= data.RegistrationId #\"}' data-delete-template=\"" + Resource.MC_DeleteComponentConfirm + "\" data-delete-field-index=\"0\">" + Resource.Delete + "</a>"
+                                    + "# } else { #"
+                                    + "<a class='btn btnDelete disabled'>" + Resource.Delete + "</a>"
+                                    + "# } #"
+            });
+
+            buttons.Add(new PageToolbarButtonModel
+            {
+                Type = PageToolbarButtonType.GridEditDelete,
+                Privilege = PrivilegeType.None,
+                EnableTemplate = "# if(data.IsDownloadMetadataEnabled) { #"
+                            + "<a href=\"" + Url.Content("~/component/downloadmetadata") + "\" class=\"btn btnDownload\" onclick=\"MC.GlobalSettings.Components.DownloadModelServerMetaData(event, this)\" data-parameters='{\"MetadataName\":\"#= data.ModelServer.MetadataName #\",\"MetadataUri\":\"#= data.ModelServer.MetadataUri #\"}'>" + Resource.MC_DownloadMetadata + "</a>"
                             + "# } else { #"
-                            + "<a href='' class='btn btnDelete disabled'>" + Resource.Delete + "</a>"
+                            + "<a class=\"btn btnDownload disabled\">" + Resource.MC_DownloadMetadata + "</a>"
                             + "# } #"
     });
 
@@ -20,19 +31,8 @@
     {
         Type = PageToolbarButtonType.GridEditDelete,
         Privilege = PrivilegeType.None,
-        EnableTemplate = "# if(data.ModelId && data.IsDownloadMetadataEnabled) { #"
-                    + "<a href=\"" + Url.Content("~/Component/DownloadMetadata") + "\" class=\"btn btnDownload\" onclick=\"MC.GlobalSettings.Components.DownloadModelServerMetaData(event, this)\" data-parameters='{\"componentUri\":\"#= data.Uri #\",\"modelId\":\"#=data.ModelId#\"}'>" + Resource.MC_DownloadMetadata + "</a>"
-                    + "# } else { #"
-                    + "<a class=\"btn btnDownload disabled\">" + Resource.MC_DownloadMetadata + "</a>"
-                    + "# } #"
-    });
-
-    buttons.Add(new PageToolbarButtonModel
-    {
-        Type = PageToolbarButtonType.GridEditDelete,
-        Privilege = PrivilegeType.None,
-        EnableTemplate = "# if(data.ModelId && data.IsInfoEnabled) { #"
-                    + "<a data-target=\"\\#popupModelServer\" class=\"btn btnInfo\" onclick=\"MC.GlobalSettings.Components.ShowModelServerInfo(event, this)\" data-parameters='{\"modelServerUri\" : \"#= data.ModelServerUri #\", \"isCurrentInstance\" : #= data.IsCurrentInstance # }' data-title=\"#= data.TypeName #\" data-role=\"mcPopup\" data-width=\"80%\" data-min-width=\"760\" data-height=\"80%\">" + Resource.Info + "</a>"
+        EnableTemplate = "# if(data.IsInfoEnabled && data.ModelServer.Uri) { #"
+                    + "<a data-target=\"\\#popupModelServer\" class=\"btn btnInfo\" onclick=\"MC.GlobalSettings.Components.ShowModelServerInfo(event, this)\" data-parameters='{\"modelServerUri\": \"#= data.ModelServer.Uri #\", \"isCurrentInstance\": #= data.ModelServer.IsCurrentInstance # }' data-title=\"#= data.TypeName #\" data-role=\"mcPopup\" data-width=\"80%\" data-min-width=\"760\" data-height=\"80%\">" + Resource.Info + "</a>"
                     + "# } else { #"
                     + "<a class=\"btn btnInfo disabled\">" + Resource.Info + "</a>"
                     + "# } #"
@@ -48,7 +48,7 @@
         .Columns(columns =>
         {
             columns.Bound(model => model.TypeName)
-                .ClientTemplate("<label class='#= data.IsCurrentInstance ? 'currentInstance' : '' #'>#= data.TypeName #</label>")
+                .ClientTemplate("<label class='#= data.ModelServer.IsCurrentInstance ? 'currentInstance' : '' #'>#= data.TypeName #</label>")
                 .Title(Resource.Name);
             columns.Bound(model => model.Version)
                 .Title(Resource.MC_Version);

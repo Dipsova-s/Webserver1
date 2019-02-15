@@ -34,12 +34,28 @@
         self.DownloadModelServerMetaData = function (e, obj) {
             var jsondata = jQuery.parseJSON(obj.dataset.parameters);
             var url = kendo.format(
-                '{0}?modelId={1}&componentUri={2}',
+                '{0}?metadataName={1}&metadataUri={2}',
                 obj.href,
-                jsondata.modelId,
-                jsondata.componentUri);
+                jsondata.MetadataName,
+                jsondata.MetadataUri);
+            
+            $('<iframe/>')
+                .on('load', function () {
+                    // error will call this event
+                    var data = JSON.parse($(this).contents().find('body').text());
+                    var xhr = {
+                        status: data.status,
+                        responseText: data.message
+                    };
+                    var errorMessage = MC.ajax.getErrorMessage(xhr, null, null);
+                    MC.ui.loading.show();
+                    MC.ui.loading.setError(errorMessage);
+                    $(this).remove();
+                })
+                .hide()
+                .attr('src', url)
+                .appendTo('body');
 
-            location.href = url;
             MC.util.preventDefault(e);
         };
 
