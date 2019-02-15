@@ -867,6 +867,12 @@ img {
     background-position: 8px center;
 }
 
+.popupUserMenu .actionDropdownItem.btnWorkbench:before{
+    background-image: url('../../images/icons/icon_workbench.svg');
+    background-position: 4px center;
+    width: 32px;
+}
+
 .popupUserMenu .actionDropdownItem.btnSettings:before {
     background-image: url('../../images/icons/icon_gear.png');
 }

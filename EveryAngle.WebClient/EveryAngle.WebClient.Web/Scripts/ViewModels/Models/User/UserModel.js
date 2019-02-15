@@ -33,11 +33,11 @@ function UserViewModel() {
             setting.callback();
             return jQuery.when(self.Data());
         }
-        
+
         return GetDataFromWebService(uri)
             .done(function (data, status, xhr) {
                 /* M4-11442: Use privileges in session */
-                self.Privileges.SystemPrivileges = jQuery.extend({}, sessionModel.Data().system_privileges);                
+                self.Privileges.SystemPrivileges = jQuery.extend({}, sessionModel.Data().system_privileges);
                 self.LoadSuccess(data, status, xhr);
                 setting.callback();
             });
@@ -90,7 +90,7 @@ function UserViewModel() {
 
         return isAuthorizes.length === 0 ? false : true;
     };
-    self.GetCreateAngleAuthorizationByModelUri = function(modelUri) {
+    self.GetCreateAngleAuthorizationByModelUri = function (modelUri) {
         var isValids = jQuery.grep(self.Privileges.ModelPrivileges, function (modelPrivilege) {
             return modelPrivilege.model === modelUri && modelPrivilege.privileges.create_angles;
         });
@@ -129,6 +129,13 @@ function UserViewModel() {
         }
 
         return hasPrivillage;
+    };
+    self.IsPossibleToManageModel = function () {
+        var availableModels = jQuery.grep(self.Privileges.ModelPrivileges, function (modelPrivilege) {
+            return modelPrivilege.privileges.manage_model;
+        });
+
+        return availableModels.length > 0;
     };
     self.ShowCreateAngleButton = function () {
         jQuery('#CreateNewAngleButtonWrapper').removeClass('alwaysHide');
@@ -194,6 +201,23 @@ function UserViewModel() {
         else
             self.HideManagementControlButton();
     };
+    self.SetWorkbenchButton = function () {
+        if (self.IsPossibleToManageModel()) {
+            GetDataFromWebService('/csm/componentservices', {}, false)
+                .done(function (result) {
+                    var workbench = result.findObject('type', 'ModellingWorkbench');
+                    if (workbench) {
+                        jQuery("#btnWorkbench").attr("href", workbench.uri);
+                    }
+                    else {
+                        jQuery("#btnWorkbench").hide();
+                    }
+                });
+        }
+        else {
+            jQuery("#btnWorkbench").hide();
+        }
+    };
     self.GetAngleFollowupAuthorization = function (angleUri) {
         var isAuthorizes = jQuery.grep(self.Privileges.AnglePrivileges, function (anglePrivilege) {
             return anglePrivilege.uri === angleUri && anglePrivilege.allow_followups;
@@ -210,7 +234,7 @@ function UserViewModel() {
     };
     self.UpdateAnglePrivilege = function (angle) {
         var anglePrivilege = self.GetAnglePrivilegeByUri(angle.uri);
-        
+
         if (!IsNullOrEmpty(anglePrivilege)) {
             anglePrivilege.allow_more_details = angle.allow_more_details;
             anglePrivilege.allow_followups = angle.allow_followups;
@@ -277,7 +301,7 @@ function UserViewModel() {
             return [];
         }
     };
-    self.GetAssignRoleDisplay = function (roleObj) {        
+    self.GetAssignRoleDisplay = function (roleObj) {
         if ((typeof roleObj) == "object") {
             if (roleObj.model_id)
                 return roleObj.model_id + ': ' + roleObj.role_id;

@@ -241,7 +241,6 @@ describe("FacetFiltersViewModel", function () {
         });
 
         it("should display business process label style when facet category is business process", function () {
-            debugger;
             var result = facetFiltersViewModel.GetFilterText(filter, 'business_process', '');
             expect(result).toEqual('<span class="BusinessProcessBadge BusinessProcessBadgeItem4 EA2_800"></span><span class="BusinessProcessBadgeLabel" data-tooltip-text="EA2_800">EA2_800</span>');
         });

@@ -37,6 +37,12 @@
                 {
                     <a href="@webClientUrl.ToLower()" class="actionDropdownItem btnWC" target="_blank"><span>@Resource.OpenWebclient</span></a>
                 }
+                @if (SessionHelper.Initialize().Session.IsValidToManageModelPrivilege())
+                {
+                    <a id="btnWorkbench" href="" class="actionDropdownItem btnWorkbench" target="_blank">
+                        <span>@Resource.Workbench</span>
+                    </a>
+                }
                 <form id="logoutForm" action="@Url.Content("~/Security/Logout")">
                     <a class="actionDropdownItem btnLogout" onclick="jQuery('#logoutForm').submit();"><span>@Resource.Logout</span></a>
                 </form>

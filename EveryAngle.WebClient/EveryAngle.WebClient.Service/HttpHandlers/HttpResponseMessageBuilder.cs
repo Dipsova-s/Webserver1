@@ -1,11 +1,8 @@
+using Newtonsoft.Json.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web;
 using System.Web.Http;
-using Newtonsoft.Json.Linq;
-using System.Web.Security;
-using System.Net.Http.Headers;
-using EveryAngle.WebClient.Service.Security;
 
 
 namespace EveryAngle.WebClient.Service.HttpHandlers
@@ -34,6 +31,11 @@ namespace EveryAngle.WebClient.Service.HttpHandlers
             HttpResponseMessage responseMessage = controller.Request.CreateResponse(status, jsonResult);
             return responseMessage;
 
+        }
+
+        public static HttpResponseMessage GetHttpResponseMessage(ApiController controller, JArray jsonResult, int statusCode)
+        {
+            return controller.Request.CreateResponse((HttpStatusCode)statusCode, jsonResult);
         }
     }
 }

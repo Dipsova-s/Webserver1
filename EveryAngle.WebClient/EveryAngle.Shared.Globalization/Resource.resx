@@ -5959,4 +5959,7 @@ Attention: The specified location must be a full file path on the Application se
   <data name="MC_Container" xml:space="preserve">
     <value>User container (DN)</value>
   </data>
+  <data name="Workbench" xml:space="preserve">
+    <value>Workbench</value>
+  </data>
 </root>

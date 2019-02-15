@@ -35,7 +35,6 @@ namespace EveryAngle.ManagementConsole
                 "~/Scripts/Custom/MC.js",
                 "~/Scripts/Custom/MC.system.js",
                 "~/Scripts/Custom/MC.storage.js",
-                "~/Scripts/Custom/MC.topmenu.js",
                 "~/Scripts/Custom/MC.messages.js",
                 "~/Scripts/Custom/MC.util.js",
                 "~/Scripts/Custom/MC.util.date.js",
@@ -59,6 +58,7 @@ namespace EveryAngle.ManagementConsole
                 "~/Scripts/Custom/MC.form.template.js",
                 "~/Scripts/Custom/MC.form.page.js",
                 "~/Scripts/Custom/MC.ajax.js",
+                "~/Scripts/Custom/MC.topmenu.js",
                 "~/Scripts/Custom/MC.sidemenu.js",
                 "~/Scripts/Custom/MC.content.js"
                 ));

@@ -10,6 +10,7 @@
         RealtimeModelQueryService,
         DataDiscoveryService,
         WebServer,
-        ApplicationServer
+        ApplicationServer,
+        ModellingWorkbench
     }
 }

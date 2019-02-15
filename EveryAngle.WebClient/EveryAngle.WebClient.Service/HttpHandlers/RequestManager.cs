@@ -77,14 +77,6 @@ namespace EveryAngle.WebClient.Service.HttpHandlers
             return port;
         }
 
-        internal bool IsCSMUri(string uri)
-        {
-            string checkUri = uri ?? string.Empty;
-            if (checkUri.StartsWith("/"))
-                checkUri = checkUri.Substring(1);
-            return checkUri.StartsWith(CSM_URI, StringComparison.InvariantCultureIgnoreCase);
-        }
-
         private void AttachClientCert(bool isHttps)
         {
             //the request to csm must always included client cert
@@ -107,18 +99,24 @@ namespace EveryAngle.WebClient.Service.HttpHandlers
         {
             client = restClient;
         }
-
-
+        
         public static RequestManager Initialize(string requestUrl)
         {
             return new RequestManager(requestUrl);
+        }
+
+        public bool IsCSMUri(string uri)
+        {
+            string checkUri = uri ?? string.Empty;
+            if (checkUri.StartsWith("/"))
+                checkUri = checkUri.Substring(1);
+            return checkUri.StartsWith(CSM_URI, StringComparison.InvariantCultureIgnoreCase);
         }
 
         public static string GetProxyRequestUrl()
         {
             return GetProxyRequestUrl(null);
         }
-
         public static string GetProxyRequestUrl(HttpContext context)
         {
             HttpContext currentContext = context ?? HttpContext.Current;
@@ -168,7 +166,6 @@ namespace EveryAngle.WebClient.Service.HttpHandlers
 
             return completeResult.Task;
         }
-
         public Task<JObject> GetAsync()
         {
             return GetAsync(false);
@@ -208,7 +205,6 @@ namespace EveryAngle.WebClient.Service.HttpHandlers
 
             return completeResult.Task;
         }
-
         public Task<JObject> DeleteAsync()
         {
             return DeleteAsync(HttpContext.Current, true);
@@ -232,7 +228,6 @@ namespace EveryAngle.WebClient.Service.HttpHandlers
 
             return response.RawBytes;
         }
-
         public JObject PostBinary(byte[] packageFile, string fileName)
         {
             string requestUrl = this.uri;

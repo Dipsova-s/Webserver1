@@ -168,13 +168,16 @@
                         }
                     }
                 });
+
+                xhr.skipAbort = options.skipAbort;
                 this.xhr.push(xhr);
                 return xhr;
             }
         },
         abortAll: function () {
             jQuery.each(this.xhr, function (idx, xhr) {
-                xhr.abort();
+                if (!xhr.skipAbort)
+                    xhr.abort();
             });
             this.xhr = [];
         },
