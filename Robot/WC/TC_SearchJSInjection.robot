@@ -11,4 +11,4 @@ ${JS_INJECTION_SCRIPT}            <script>alert("1")</script>
 *** Test Cases ***
 Search Item By Text "<script>alert(1)</script>"
   Search By Text    ${JS_INJECTION_SCRIPT}
-  Page Should Contain    Bad Request
+  Page Should Contain    potentially dangerous
