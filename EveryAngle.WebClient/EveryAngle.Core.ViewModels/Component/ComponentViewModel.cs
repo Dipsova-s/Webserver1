@@ -27,7 +27,7 @@ namespace EveryAngle.Core.ViewModels
 
         public string TypeName
         {
-            get { return Type.ToString(); }
+            get { return type; }
         }
 
         /// <summary>
@@ -65,20 +65,18 @@ namespace EveryAngle.Core.ViewModels
         [JsonProperty(PropertyName = "last_successful_heartbeat")]
         public long? LastSuccessfulHeartbeat { get; set; }
 
-        /// <summary>
-        /// </summary>
-        public bool IsCurrentInstance { get; set; }
-
-        /// <summary>
-        /// </summary>
-        public string ModelServerUri { get; set; }
+        public ModelServerInfoViewModel ModelServer { get; internal set; } = new ModelServerInfoViewModel();
 
         public bool IsDeletable
         {
             get
             {
-                return Type != ComponentServiceManagerType.ApplicationServer
-                    && Type != ComponentServiceManagerType.WebServer;
+                ComponentServiceManagerType[] checkTypes = new ComponentServiceManagerType[]
+                {
+                    ComponentServiceManagerType.ApplicationServer,
+                    ComponentServiceManagerType.WebServer
+                };
+                return !checkTypes.Contains(Type);
             }
         }
 
@@ -86,8 +84,12 @@ namespace EveryAngle.Core.ViewModels
         {
             get
             {
-                return Type == ComponentServiceManagerType.ClassicModelQueryService
-                    || Type == ComponentServiceManagerType.DataDiscoveryService;
+                ComponentServiceManagerType[] checkTypes = new ComponentServiceManagerType[]
+                {
+                    ComponentServiceManagerType.ClassicModelQueryService,
+                    ComponentServiceManagerType.RealtimeModelQueryService
+                };
+                return checkTypes.Contains(Type) && Equals(true, Status.Available) && !string.IsNullOrEmpty(ModelServer.MetadataUri);
             }
         }
 
@@ -95,18 +97,34 @@ namespace EveryAngle.Core.ViewModels
         {
             get
             {
-                return Type == ComponentServiceManagerType.ClassicModelQueryService
-                    || Type == ComponentServiceManagerType.DataDiscoveryService
-                    || Type == ComponentServiceManagerType.ExtractionService;
+                ComponentServiceManagerType[] checkTypes = new ComponentServiceManagerType[]
+                {
+                    ComponentServiceManagerType.ClassicModelQueryService,
+                    ComponentServiceManagerType.RealtimeModelQueryService,
+                    ComponentServiceManagerType.ExtractionService
+                };
+                return checkTypes.Contains(Type);
             }
         }
 
         public void SetModelServerInfo(List<ModelServerViewModel> modelServers, Uri currentInstance)
         {
-            ModelServerViewModel modelServer = modelServers.FirstOrDefault(x => new Uri(x.server_uri).ToString() == new Uri(Uri).ToString());
-
-            ModelServerUri = modelServer?.Uri.ToString();
-            IsCurrentInstance = currentInstance != null && currentInstance == modelServer?.instance;
+            ModelServerViewModel modelServer = modelServers.FirstOrDefault(x => new Uri(x.server_uri) == new Uri(Uri));
+            if (modelServer != null)
+            {
+                ModelServer.Uri = modelServer.Uri.ToString();
+                ModelServer.MetadataUri = modelServer.metadata;
+                ModelServer.MetadataName = $"{modelServer.id}_{modelServer.instance_id}";
+                ModelServer.IsCurrentInstance = currentInstance != null && currentInstance == modelServer.instance;
+            }
         }
+    }
+
+    public class ModelServerInfoViewModel
+    {
+        public string Uri { get; set; }
+        public string MetadataUri { get; set; }
+        public string MetadataName { get; set; }
+        public bool IsCurrentInstance { get; set; }
     }
 }

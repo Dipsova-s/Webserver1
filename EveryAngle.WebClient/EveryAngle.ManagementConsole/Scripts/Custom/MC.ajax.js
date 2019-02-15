@@ -212,13 +212,11 @@
                     message += MC.messages.getMessage(data.reason);
                 }
                 else {
-                    if (data.reason && data.reason != title) {
+                    if (data.reason && data.reason !== title) {
                         message = data.reason + ', ';
                     }
                     message += MC.messages.getMessage(data.message);
                 }
-
-
 
                 if (settings && settings.url) {
                     message += '<br /><br /><i>' + (settings.type || 'unknown').toUpperCase() + ' ' + unescape(settings.url) + '</i>';
@@ -234,7 +232,7 @@
                 template = template.replace('{code}', xhr.status);
             else
                 template = template.replace('{code}: ', '');
-            template = template.replace('{title}', error);
+            template = template.replace('{title}', error || data.reason);
             template = template.replace('{message}', message);
 
             return template;

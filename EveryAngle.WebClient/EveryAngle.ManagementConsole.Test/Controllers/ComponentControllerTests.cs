@@ -70,8 +70,8 @@ namespace EveryAngle.ManagementConsole.Test.Controllers
             ComponentsResult result = JsonConvert.DeserializeObject<ComponentsResult>(json);
             ComponentViewModel component = result.Data.FirstOrDefault(x => x.Type.Equals(ComponentServiceManagerType.ClassicModelQueryService));
 
-            Assert.AreEqual(true, component.IsCurrentInstance);
-            Assert.AreEqual(modelServers[0].Uri, component.ModelServerUri);
+            Assert.AreEqual(true, component.ModelServer.IsCurrentInstance);
+            Assert.AreEqual(modelServers[0].Uri, component.ModelServer.Uri);
         }
 
         [TestCase]
@@ -107,8 +107,8 @@ namespace EveryAngle.ManagementConsole.Test.Controllers
             ComponentsResult result = JsonConvert.DeserializeObject<ComponentsResult>(json);
             ComponentViewModel component = result.Data.FirstOrDefault(x => x.Type.Equals(ComponentServiceManagerType.ClassicModelQueryService));
 
-            Assert.AreEqual(false, component.IsCurrentInstance);
-            Assert.AreEqual(modelServers[0].Uri, component.ModelServerUri);
+            Assert.AreEqual(false, component.ModelServer.IsCurrentInstance);
+            Assert.AreEqual(modelServers[0].Uri, component.ModelServer.Uri);
         }
 
         [TestCase]
