@@ -1398,6 +1398,7 @@ function AnglePageHandler() {
     };
     self.InitialUserPrivileges = function () {
         userModel.SetManagementControlButton();
+        userModel.SetWorkbenchButton();
     };
 
     // execution parameters

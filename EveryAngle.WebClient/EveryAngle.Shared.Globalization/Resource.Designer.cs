@@ -17153,6 +17153,15 @@ namespace EveryAngle.Shared.Globalization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Workbench.
+        /// </summary>
+        public static string Workbench {
+            get {
+                return ResourceManager.GetString("Workbench", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Write.
         /// </summary>
         public static string Write {

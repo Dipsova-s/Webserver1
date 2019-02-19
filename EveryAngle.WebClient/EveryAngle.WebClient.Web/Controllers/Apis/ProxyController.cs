@@ -1,13 +1,9 @@
-using EveryAngle.Shared.Helpers;
 using EveryAngle.WebClient.Service.HttpHandlers;
 using Newtonsoft.Json.Linq;
+using RestSharp;
 using System.Net;
 using System.Net.Http;
 using System.Net.Http.Headers;
-using System.Web.Http;
-using System.Net.Mime;
-using RestSharp;
-using System;
 
 namespace EveryAngle.WebClient.Web.Controllers.Apis
 {
@@ -16,8 +12,7 @@ namespace EveryAngle.WebClient.Web.Controllers.Apis
         public HttpResponseMessage Get()
         {
             string requestUrl = RequestManager.GetProxyRequestUrl();
-            RequestManager requestManager = RequestManager.Initialize("/" + requestUrl);
-            JObject jsonResult = new JObject();
+            RequestManager requestManager = RequestManager.Initialize($"/{requestUrl}");
 
             if (requestUrl.EndsWith("/file") || requestUrl.Contains("/download"))
             {
@@ -32,12 +27,17 @@ namespace EveryAngle.WebClient.Web.Controllers.Apis
 
                 return httpResponseMessage;
             }
+            else if (requestManager.IsCSMUri(requestUrl))
+            {
+                JArray jsonResult = requestManager.RunArray(Method.GET);
+                return HttpResponseMessageBuilder.GetHttpResponseMessage(this, jsonResult, requestManager.ResponseStatus.GetHashCode());
+
+            }
             else
             {
-                jsonResult = requestManager.Run();
+                JObject jsonResult = requestManager.Run();
+                return HttpResponseMessageBuilder.GetHttpResponseMessage(this, jsonResult, requestManager.ResponseStatus.GetHashCode());
             }
-
-            return HttpResponseMessageBuilder.GetHttpResponseMessage(this, jsonResult, requestManager.ResponseStatus.GetHashCode());
         }
 
         public HttpResponseMessage Put()

@@ -266,6 +266,7 @@ function DashboardHandler() {
     };
     self.InitialUserPrivileges = function () {
         userModel.SetManagementControlButton();
+        userModel.SetWorkbenchButton();
     };
     self.IsEditMode = function () {
         return !!WC.Utility.UrlParameter(enumHandlers.DASHBOARDPARAMETER.EDITMODE);

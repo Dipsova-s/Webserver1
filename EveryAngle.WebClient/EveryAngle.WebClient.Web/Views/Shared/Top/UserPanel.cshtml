@@ -27,6 +27,9 @@
                 }
                 <a class="actionDropdownItem btnMC" target="_blank" href="@administratorPath.ToLower()"><span data-bind="text: Localization.SearchPageManagementConsole"></span></a>
             }
+            <a id="btnWorkbench" class="actionDropdownItem btnWorkbench" href="" target="_blank">
+                <span data-bind="text: Localization.Workbench"></span>
+            </a>
             <a class="actionDropdownItem btnSettings" onclick="userSettingsHandler.ShowPopup()"><span data-bind="text: Localization.Settings"></span></a>
             <a class="actionDropdownItem btnChangePassword" onclick="userPasswordHandler.ShowPopup()"><span data-bind="text: Localization.ChangePassword"></span></a>
             <a class="actionDropdownItem btnLogout" onclick="WC.Authentication.Logout()"><span data-bind="text: Localization.Logout"></span></a>
@@ -44,4 +47,4 @@
             <a class="actionDropdownItem btnAbout" onclick="aboutSystemHandler.ShowAboutSystemPopup()"><span data-bind="html: Localization.AboutEveryAngle"></span></a>
         </div>
     </div>
-</div>
+</div> 
