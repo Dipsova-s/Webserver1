@@ -1,5 +1,6 @@
 using EveryAngle.WebClient.Service.HttpHandlers;
 using EveryAngle.WebClient.Service.Security;
+using EveryAngle.WebClient.Web.Helpers;
 using Newtonsoft.Json.Linq;
 using System.Net;
 using System.Net.Http;
@@ -15,7 +16,8 @@ namespace EveryAngle.WebClient.Web.Controllers.Apis
         [AllowAnonymous]
         public HttpResponseMessage Post()
         {
-            JObject token = JObject.Parse(this.Body);
+            JObject token = SessionControllerHelper.GetTokenWithClientIp(this.Body, Shared.EmbeddedViews.Util.GetIPAddress());
+
             var clientSession = new JObject();
             if (token.SelectToken("authorization") == null)
             {
@@ -23,7 +25,7 @@ namespace EveryAngle.WebClient.Web.Controllers.Apis
             }
             else
             {
-                clientSession = accountService.LoginWithAuthorizationAttribute(this.Body, false);
+                clientSession = accountService.LoginWithAuthorizationAttribute(token.ToString(), false);
             }
             return HttpResponseMessageBuilder.GetHttpResponseMessage(this, clientSession, accountService.ResponseStatus, true);
         }

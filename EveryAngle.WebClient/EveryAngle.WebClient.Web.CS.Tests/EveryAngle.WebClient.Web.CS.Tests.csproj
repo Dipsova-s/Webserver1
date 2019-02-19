@@ -132,6 +132,7 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
+    <Compile Include="HelperTests\SessionControllerHelperTests.cs" />
     <Compile Include="ControllerTest\PivotControllerTests.cs" />
     <Compile Include="ControllerTest\HelpApiControllerTests.cs" />
     <Compile Include="HelperTests\VideoHelperTests.cs" />
