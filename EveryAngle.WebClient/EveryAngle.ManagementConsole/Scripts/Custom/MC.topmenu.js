@@ -13,6 +13,7 @@
                     jQuery('#HelpMenu').hide();
                 }
             });
+            MC.addPageReadyFunction(MC.topMenu.setWorkbenchUri);
         },
         click: function (showTarget, hideTarget) {
             if (showTarget.is(':hidden')) {
@@ -28,6 +29,27 @@
         },
         clickHelp: function () {
             MC.topMenu.click(jQuery('#HelpMenu'), jQuery('#UserMenu'));
+        },
+        setWorkbenchUri: function () {
+            if (jQuery("#btnWorkbench").length) {
+                MC.ajax
+                    .request({
+                        url: componentUrl,
+                        skipAbort: true
+                    })
+                    .done(function (result) {
+                        var workbench = result.Data.findObject('TypeName', 'ModellingWorkbench');
+                        if (workbench) {
+                            jQuery("#btnWorkbench").attr('href', workbench.Uri);
+                        }
+                        else {
+                            jQuery("#btnWorkbench").hide();
+                        }
+                    })
+                    .fail(function (err) {
+                        jQuery("#btnWorkbench").hide();
+                    });
+            }
         }
     };
     MC.topMenu = topMenu;

@@ -822,6 +822,7 @@ function SearchPageHandler() {
     self.InitialUserPrivileges = function () {
         userModel.SetCreateAngleButton();
         userModel.SetManagementControlButton();
+        userModel.SetWorkbenchButton();
 
         if (!privilegesViewModel.IsAllowAdvanceSearch())
             jQuery('#SearchButton').addClass('alwaysHide');

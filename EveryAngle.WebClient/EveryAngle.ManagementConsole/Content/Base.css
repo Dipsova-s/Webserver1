@@ -4867,8 +4867,15 @@ a.mailto {
     background: transparent none center center no-repeat;
 }
 
+.popupUserMenu a.btnWorkbench {
+    background-image: url(../../images/icons/icon_workbench.svg);
+    background-position: 4px center;
+    background-size: 32px;
+}
+
 .popupUserMenu a.btnWC {
     background-image: url(../../images/icons/icon_webclient.png);
+    background-position: 8px center;
 }
 
 .popupUserMenu a.btnLogout {
