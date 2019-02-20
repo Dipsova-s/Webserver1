@@ -232,7 +232,7 @@ function Authentication() {
             loginDeferred.promise();
 
             var checkCredential = function (mainDeferred) {
-                var encodedPassword = { 'authorization': $.base64.encode(username + ":" + password), 'client_ip': jQuery("#UserIp").val() };
+                var encodedPassword = { 'authorization': $.base64.encode(username + ":" + password) };
                 var loginUrl = 'sessions';
                 var deferred = jQuery.Deferred();
 

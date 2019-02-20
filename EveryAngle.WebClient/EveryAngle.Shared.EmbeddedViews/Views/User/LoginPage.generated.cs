@@ -217,25 +217,9 @@ WriteLiteral(">");
             
             #line default
             #line hidden
-WriteLiteral("</a>\r\n        </div>\r\n\r\n        <input");
+WriteLiteral("</a>\r\n        </div>\r\n\r\n");
 
-WriteLiteral(" id=\"UserIp\"");
-
-WriteLiteral(" name=\"wc_ip\"");
-
-WriteLiteral(" type=\"hidden\"");
-
-WriteAttribute("value", Tuple.Create(" value=\"", 1489), Tuple.Create("\"", 1549)
-            
-            #line 15 "..\..\Views\User\LoginPage.cshtml"
-, Tuple.Create(Tuple.Create("", 1497), Tuple.Create<System.Object, System.Int32>(EveryAngle.Shared.EmbeddedViews.Util.GetIPAddress()
-            
-            #line default
-            #line hidden
-, 1497), false)
-);
-
-WriteLiteral(" />\r\n        <div");
+WriteLiteral("<div");
 
 WriteLiteral(" class=\"LogoContainer\"");
 

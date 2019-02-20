@@ -1,6 +1,5 @@
 using EveryAngle.WebClient.Service.ErrorHandlers;
 using EveryAngle.WebClient.Service.LogHandlers;
-using System.Threading.Tasks;
 using System.Web.Http;
 
 namespace EveryAngle.WebClient.Web.Controllers
