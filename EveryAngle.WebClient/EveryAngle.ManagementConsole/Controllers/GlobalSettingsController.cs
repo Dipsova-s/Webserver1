@@ -68,7 +68,7 @@ namespace EveryAngle.ManagementConsole.Controllers
                 return directoryInfo;
             }
         }
-        
+
         private readonly IGlobalSettingService globalSettingService;
         private readonly IModelService modelService;
         private readonly IUserService userService;
@@ -281,7 +281,7 @@ namespace EveryAngle.ManagementConsole.Controllers
             uriList.Add("/system/authenticationprovider_types/");
 
             var taskIndex = 0;
-            UrlHelperExtension.ParallelRequest(uriList).ForEach(delegate(Task<JObject> task)
+            UrlHelperExtension.ParallelRequest(uriList).ForEach(delegate (Task<JObject> task)
             {
                 if (taskIndex == 0)
                 {
@@ -850,8 +850,18 @@ namespace EveryAngle.ManagementConsole.Controllers
                     return JsonHelper.GetJsonStringResult(true, null, error,
                         MessageType.DEFAULT, parameters);
                 }
-                return JsonHelper.GetJsonStringResult(false, ex.GetHttpCode(),
-                    error.Substring(1), MessageType.DEFAULT, parameters);
+
+                string errorMessage = error;
+                try
+                {
+                    JObject.Parse(error);
+                }
+                catch
+                {
+                    errorMessage = error.Substring(1);
+                }
+
+                return JsonHelper.GetJsonStringResult(false, ex.GetHttpCode(), errorMessage, MessageType.DEFAULT, parameters);
             }
         }
 
@@ -932,7 +942,7 @@ namespace EveryAngle.ManagementConsole.Controllers
             else if (logType == SystemLogType.ModelServer)
             {
                 files = GetModelServerLog(request, modelService, modelUri, ref total);
-                
+
                 return Json(new MSLogDataSourceResult
                 {
                     Data = files,
@@ -960,7 +970,7 @@ namespace EveryAngle.ManagementConsole.Controllers
                     { SystemLogType.ManagementConsole, WebConfigHelper.ManagementConsoleSearchPatterns }
                 };
             }
-            
+
             return _webLogFilters[logType];
         }
 
@@ -1243,7 +1253,7 @@ namespace EveryAngle.ManagementConsole.Controllers
 
             if (!fileInfo.FullName.StartsWith(logDirectoryInfo.FullName, StringComparison.InvariantCultureIgnoreCase))
             {
-                throw new HttpException((int) HttpStatusCode.Forbidden, JsonConvert.SerializeObject(new
+                throw new HttpException((int)HttpStatusCode.Forbidden, JsonConvert.SerializeObject(new
                 {
                     reason = HttpStatusCode.Forbidden.ToString(),
                     message = Resource.MC_AccessRequestedPathDenied
