@@ -11,6 +11,10 @@
         DataDiscoveryService,
         WebServer,
         ApplicationServer,
-        ModellingWorkbench
+        ModellingWorkbench,
+        SecurityTokenService,
+        ITManagementConsole,
+        ODataService
+
     }
 }
