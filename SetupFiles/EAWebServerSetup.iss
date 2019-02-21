@@ -174,6 +174,11 @@ Type: filesandordirs; Name: "{code:DataPath|AppServerReg}"
 const 
   BULLET = #$20#$20#$2022#$20#$20;
   EASUFFIX_NONE = '<NONE>';
+  DEREGISTERCMD = 'Deregister';
+  REGISTERCMD = 'Register';
+  ODATA_COMPONENT = 'ODataService';
+  WEBSERVER_COMPONENT = 'WebServer';
+  ITMANAGEMENTCONSOLE_COMPONENT = 'ITManagementConsole';
 
 var
   EASuffixLabel : TLabel;
@@ -198,6 +203,7 @@ var
   AppConstantInitialized,
   ComponentsPageInitialized : Boolean; 
   AppServerUrl: string;
+  
  
 procedure RegisterDiagramFile();
 begin
@@ -1041,32 +1047,8 @@ begin
   end;
 end;
 
-function RegisterWebServer(IISPhysicalPath: string): boolean;
-var
-  AppVersion: string;
-  MachineName: string;
-  AppServerUrl: string;
-  WebServerUrl: string;
-  CmdParams: string;
-  Thumbprint: string;
-  WebConfig : variant;
+procedure ExtractCSMFiles();                                   
 begin
-  AppServerUrl := AddProtocolUrl(GetAppServerUrlWithPort(WebClientConfigPage.Values[1], WebClientConfigPage.Values[2], IsHTTPSCertificateComponentSelected));
-  WebServerUrl := AddProtocolUrl(WebClientConfigPage.Values[0] + IISVirtualPath.Text);  
-  AppVersion := '{#MyAppVersion}';
-  MachineName := GetComputerNameString;
-  LoadXMLConfigFileEx(IISPhysicalPath, 'web.config', false, {out}WebConfig);
-
-                
-   if IsHTTPSCertificateComponentSelected then
-      begin
-       Thumbprint :=  GetAppSetting(WebConfig,'WebServiceCertificateThumbPrint');
-	     CmdParams := Format('--appserveruri=%s --action=Register --type=WebServer --uri=%s --version=%s --machine=%s --appserverthumbprint=%s', [AppServerUrl, WebServerUrl, AppVersion, MachineName, Thumbprint]);
-      end 
-   else
-      begin
-        CmdParams := Format('--appserveruri=%s --action=Register --type=WebServer --uri=%s --version=%s --machine=%s', [AppServerUrl, WebServerUrl, AppVersion, MachineName]);
-      end;
 
   ExtractTemporaryFile('CommandLine.dll');
   ExtractTemporaryFile('EveryAngle.CSM.AppServerAPI.dll');
@@ -1080,51 +1062,159 @@ begin
   ExtractTemporaryFile('Ionic.Zip.dll');
   ExtractTemporaryFile('Microsoft.Rest.ClientRuntime.dll');
   ExtractTemporaryFile('Newtonsoft.Json.dll');
-  
-  if MoveCsmFiles and (DirExists(LogFolder) or CreateDir(LogFolder)) then
-  begin
-    Result := ExecuteAndLogEx(DataPath('AppServerReg'), 'EveryAngle.CSM.Reg.exe', CmdParams, ToSetupLog) = 0;  
-  end 
-  else 
-  begin
-    Result := False;
-  end;
+
 end;
 
-function DeregisterWebServer() : boolean;
+procedure ExtractOdataCSMFiles(odataFolder:string);       
+var
+  FindRec: TFindRec;
+  IsMovable: boolean;                            
+begin
+
+  if DirExists(odataFolder) or ForceDirectories(odataFolder) then
+  begin
+      FileCopy(ExpandConstant('{code:DataPath|AppServerReg}\CommandLine.dll'), odataFolder + '\CommandLine.dll' , False);
+      FileCopy(ExpandConstant('{code:DataPath|AppServerReg}\EveryAngle.CSM.AppServerAPI.dll'), odataFolder + '\EveryAngle.CSM.AppServerAPI.dll' , False);
+      FileCopy(ExpandConstant('{code:DataPath|AppServerReg}\EveryAngle.CSM.Client.dll'), odataFolder + '\EveryAngle.CSM.Client.dll' , False);
+      FileCopy(ExpandConstant('{code:DataPath|AppServerReg}\EveryAngle.CSM.Client.Interfaces.dll'), odataFolder + '\EveryAngle.CSM.Client.Interfaces.dll' , False);
+      FileCopy(ExpandConstant('{code:DataPath|AppServerReg}\EveryAngle.CSM.Reg.exe'), odataFolder + '\EveryAngle.CSM.Reg.exe' , False);
+      FileCopy(ExpandConstant('{code:DataPath|AppServerReg}\EveryAngle.CSM.Reg.exe.config'), odataFolder + '\EveryAngle.CSM.Reg.exe.config' , False);
+      FileCopy(ExpandConstant('{code:DataPath|AppServerReg}\EveryAngle.CSM.Shared.dll'), odataFolder + '\EveryAngle.CSM.Shared.dll' , False);
+      FileCopy(ExpandConstant('{code:DataPath|AppServerReg}\EveryAngle.Security.dll'), odataFolder + '\EveryAngle.Security.dll' , False);
+      FileCopy(ExpandConstant('{code:DataPath|AppServerReg}\EveryAngle.Utilities.dll'), odataFolder + '\EveryAngle.Utilities.dll' , False);
+      FileCopy(ExpandConstant('{code:DataPath|AppServerReg}\Ionic.Zip.dll'), odataFolder + '\Ionic.Zip.dll' , False);
+      FileCopy(ExpandConstant('{code:DataPath|AppServerReg}\Microsoft.Rest.ClientRuntime.dll'), odataFolder + '\Microsoft.Rest.ClientRuntime.dll' , False);
+      FileCopy(ExpandConstant('{code:DataPath|AppServerReg}\Newtonsoft.Json.dll'), odataFolder + '\Newtonsoft.Json.dll' , False);
+  end; 
+end;
+
+function HandleCSMComponent(baseIISPhysicalPath,commandType, componentType,uri, modelid,executePath:string): boolean;
 var
   AppVersion: string;
-  MachineName: string;  
+  MachineName: string;
   AppServerUrl: string;
+  CmdParams: string;
+  Thumbprint: string;
+  OdataCmd: string;
   WebServerUrl: string;
-  CmdParams: string; 
-  SSL: boolean;
   WebConfig : variant;
-  Thumbprint : string;
-begin  
- 
-  IISConfigSites := LoadIISConfig('sites'); 
-  LoadXMLConfigFileEx(GetIISPhysicalPath(GetPreviousData('Site', ''),GetPreviousData('Path', ''),false), 'web.config', false, {out}WebConfig);
+  SSL: boolean;
 
-
-
-  SSL := StrToBool(GetPreviousData('IsHttps', ''));
-  AppServerUrl := AddProtocolUrlFromPreviousData(GetAppServerUrlWithPort(GetPreviousData('AppServerUrl', ''), GetPreviousData('BasePort', ''), StrToBool(GetPreviousData('IsHttps', ''))));  
-  WebServerUrl := AddProtocolUrlFromPreviousData(GetPreviousData('WebServerUrl', ''));
+begin
   AppVersion := '{#MyAppVersion}';
   MachineName := GetComputerNameString;
- 
+
+   if componentType = ODATA_COMPONENT then
+      begin
+         OdataCmd := Format('--modelid=%s', [modelid]);
+      end;
+
+   if commandType = DEREGISTERCMD  then
+    begin
+       IISConfigSites := LoadIISConfig('sites'); 
+       LoadXMLConfigFileEx(GetIISPhysicalPath(GetPreviousData('Site', ''),GetPreviousData('Path', ''),false), 'web.config', false, {out}WebConfig);
+       SSL := StrToBool(GetPreviousData('IsHttps', ''));
+       AppServerUrl := AddProtocolUrlFromPreviousData(GetAppServerUrlWithPort(GetPreviousData('AppServerUrl', ''), GetPreviousData('BasePort', ''), StrToBool(GetPreviousData('IsHttps', ''))));  
+       WebServerUrl := AddProtocolUrlFromPreviousData(GetPreviousData(componentType, ''));
+        
+    end
+   else 
+    begin
+        SSL:= IsHTTPSCertificateComponentSelected;
+        AppServerUrl := AddProtocolUrl(GetAppServerUrlWithPort(WebClientConfigPage.Values[1], WebClientConfigPage.Values[2], IsHTTPSCertificateComponentSelected));
+        LoadXMLConfigFileEx(baseIISPhysicalPath, 'web.config', false, {out}WebConfig);
+    end;
+
+                
    if SSL then
       begin
        Thumbprint :=  GetAppSetting(WebConfig,'WebServiceCertificateThumbPrint');
-       CmdParams := Format('--appserveruri=%s --action=Deregister --type=WebServer --uri=%s --version=%s --machine=%s --appserverthumbprint=%s', [AppServerUrl, WebServerUrl, AppVersion, MachineName, Thumbprint]);
+	     CmdParams := Format('--appserveruri=%s --action=%s --type=%s --uri=%s --version=%s --machine=%s --appserverthumbprint=%s %s', [AppServerUrl,commandType, componentType, uri, AppVersion, MachineName, Thumbprint,OdataCmd]);
       end 
    else
       begin
-        CmdParams := Format('--appserveruri=%s --action=Deregister --type=WebServer --uri=%s --version=%s --machine=%s', [AppServerUrl, WebServerUrl, AppVersion, MachineName]);
+        CmdParams := Format('--appserveruri=%s --action=%s  --type=%s --uri=%s --version=%s --machine=%s %s', [AppServerUrl,commandType, componentType, uri, AppVersion, MachineName,OdataCmd]);
       end;
+ 
+    Result := ExecuteAndLogEx(executePath, 'EveryAngle.CSM.Reg.exe', CmdParams, ToSetupLog) = 0;    
+end;
 
-  result := ExecuteAndLogEx(DataPath('AppServerReg'), 'EveryAngle.CSM.Reg.exe', CmdParams, ToSetupLog) = 0 
+
+function RegisterComponents(baseIISPhysicalPath:string): boolean;
+var  
+  ODataIds : string;
+  WebServerUrl:string;
+  ODataModels : TArrayOfString;
+  i: integer;
+ begin
+    WebServerUrl := AddProtocolUrl(WebClientConfigPage.Values[0] + IISVirtualPath.Text);
+    if LastChar(WebServerUrl) = '/' then
+      WebServerUrl := Copy(WebServerUrl, 0, Length(WebServerUrl) - 1);
+   
+    Result := HandleCSMComponent(baseIISPhysicalPath,REGISTERCMD, WEBSERVER_COMPONENT  , WebServerUrl,'',DataPath('AppServerReg')) 
+    if Result then
+    begin
+      Result := HandleCSMComponent(baseIISPhysicalPath,REGISTERCMD, ITMANAGEMENTCONSOLE_COMPONENT  , WebServerUrl +'/admin','',DataPath('AppServerReg')) 
+      if IsComponentSelected('OData') then
+      begin
+      
+        ODataIds := ODataSettingsPage.Values[0];
+        StringChangeEx({var}ODataIds, ' ', '', true);
+        ODataModels := StrSplit(ODataIds, ',');
+        for i := 0 to Length(ODataModels) - 1 do
+        begin
+           if Result then
+           begin
+           //Extract CSM to specific odata model
+           Result := HandleCSMComponent(baseIISPhysicalPath,REGISTERCMD,ODATA_COMPONENT,WebServerUrl+'/odata/'+ODataModels[i],ODataModels[i],baseIISPhysicalPath + '\odata\' +ODataModels[i]+ '\bin');
+           end;
+        end;
+      end; 
+      end;          
+end;
+
+function DeregisterOdata():boolean;        
+var
+  ODataIds : string;
+  WebServerUrl:string;
+  ODataModels : TArrayOfString;
+  i: integer;
+  IISPhysicalPath: string;
+begin
+  Result := True;
+  WebServerUrl := GetPreviousData(WEBSERVER_COMPONENT, '');
+  IISPhysicalPath := GetPreviousData('IISPhysicalPath', ''); 
+  ODataIds := GetPreviousData(ODATA_COMPONENT, '');
+  StringChangeEx({var}ODataIds, ' ', '', true);
+  ODataModels := StrSplit(ODataIds, ',');
+  for i := 0 to Length(ODataModels) - 1 do
+  begin
+    if Result then
+    begin
+     Result := HandleCSMComponent('',DEREGISTERCMD,ODATA_COMPONENT,WebServerUrl+'/odata/'+ODataModels[i],ODataModels[i],IISPhysicalPath +'\odata\'+ODataModels[i]+'\bin');
+    end;
+  end;
+
+end;
+
+function DeRegisterComponents(): boolean;
+var 
+ODataIds : string;
+
+begin
+    Result := HandleCSMComponent('',DEREGISTERCMD,WEBSERVER_COMPONENT  ,GetPreviousData(WEBSERVER_COMPONENT, ''),'',DataPath('AppServerReg'));
+    if Result then
+    begin
+      Result := HandleCSMComponent('',DEREGISTERCMD,ITMANAGEMENTCONSOLE_COMPONENT  , GetPreviousData(ITMANAGEMENTCONSOLE_COMPONENT, ''),'',DataPath('AppServerReg'));
+      ODataIds := GetPreviousData(ODATA_COMPONENT, '');
+      if not (ODataIds = '') then
+      begin
+         if Result then
+         begin
+            Result := DeregisterOdata();
+         end;
+      end;    
+    end;
 end;
 
 Procedure ExecuteWebUndeploy;
@@ -1313,6 +1403,8 @@ begin
 
     // Deploy OData Service using MSDeploy
     ExecuteODataServiceDeploy(ODataModels[i]);
+
+    ExtractOdataCSMFiles(ODataPath + '\' +ODataModels[i] + '\bin'); 
     
     // Write updated json settings
     WriteODataConfigForModel(ODataPath, ODataModels[i], WebServerUrl, AppServerUrl, ODataUser, ODataPassword, ODataConfig); 
@@ -1370,11 +1462,16 @@ begin
   //Upgrade environment
   ShowProgressAndText(88, msg1, 'Updating Environment');
   UpgradeEnvironment(IISPhysicalPath);
+    
 
-  //Register to CSM after register the cert as discuss
-  if not RegisterWebServer(IISPhysicalPath) then 
+  if IsComponentSelected('OData') then
   begin
-      // Log(Format('[i]Applications in IIS: [Site: %s, Applications: %s', [IISSite.Text, Paths.CommaText])); 
+        ODataAfterInstall(IISPhysicalPath, WebSite_FQDN);
+  end;
+  
+  //Register to CSM after register the cert as discuss
+  if not RegisterComponents(IISPhysicalPath)  then 
+  begin
       AppServerUrl := AddProtocolUrl(GetAppServerUrlWithPort(WebClientConfigPage.Values[1], WebClientConfigPage.Values[2], IsHTTPSCertificateComponentSelected));
       ShowError(Format('The Web Server failed to register on the AppServer(%s)',[AppServerUrl]), mbError, MB_OK);
   end;
@@ -1544,10 +1641,7 @@ begin
 
       IISPhysicalPath := WebClientAfterInstall(WebSite_FQDN {, IISVirtualPath});
 
-      if IsComponentSelected('OData') then
-      begin
-        ODataAfterInstall(IISPhysicalPath, WebSite_FQDN);
-      end;
+    
 
       if (IsComponentSelected('codesite')) then
         CodeSiteAfterInstall(DataPath('Setup')); 
@@ -1580,7 +1674,12 @@ end;
 procedure RegisterPreviousData(PreviousDataKey: Integer);
 // To store user settings entered on custom wizard pages, place a RegisterPreviousData event function in the Pascal script and call 
 // SetPreviousData(PreviousDataKey, ...) inside it, once per setting.
+var WebServerUrl:string;
 begin
+  WebServerUrl := AddProtocolUrl(WebClientConfigPage.Values[0] + IISVirtualPath.Text);
+    if LastChar(WebServerUrl) = '/' then
+      WebServerUrl := Copy(WebServerUrl, 0, Length(WebServerUrl) - 1);
+
   SetPreviousData(PreviousDataKey, 'EASuffix', GetEASuffix(''));
   SetPreviousData(PreviousDataKey, 'Data', DataPath(''));
   SetPreviousData(PreviousDataKey, 'Site', IISSite.Text);
@@ -1589,8 +1688,14 @@ begin
   SetPreviousData(PreviousDataKey, 'AppServerUrl', WebClientConfigPage.Values[1]);
   SetPreviousData(PreviousDataKey, 'BasePort', WebClientConfigPage.Values[2]);
   SetPreviousData(PreviousDataKey, 'IsHttps', BoolToStr(IsHTTPSCertificateComponentSelected));
-  
+  SetPreviousData(PreviousDataKey, WEBSERVER_COMPONENT, WebServerUrl);
+  SetPreviousData(PreviousDataKey, ITMANAGEMENTCONSOLE_COMPONENT, WebServerUrl + '/admin');
+  SetPreviousData(PreviousDataKey, 'IISPhysicalPath', GetIISPhysicalPath(IISSite.Text, IISVirtualPath.Text, true));
  
+   if IsComponentSelected('OData') then
+      begin
+        SetPreviousData(PreviousDataKey, ODATA_COMPONENT, ODataSettingsPage.Values[0]);
+      end;
 
   // TODO: if new installation AND datapath.endswith 'WebClient', Shared datapath is datapath - 'WebClient'
   // SetEASharedRegistryKey('Data', DataPath(''));
@@ -1652,7 +1757,8 @@ begin
   if CurUninstallStep = usUninstall then
   begin 
 
-    if DeregisterWebServer then 
+    if DeRegisterComponents()  then 
+   
     begin
       ExecuteWebUndeploy; 
 	  
