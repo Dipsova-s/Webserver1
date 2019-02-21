@@ -1,5 +1,5 @@
 *** Variables ***
-${btnAddNewTasks}              css=#mainContent > div > div.contentSection.contentSectionGrid.contentSectionGridTasks > div > a
+${btnAddNewTasks}              css=.pageRefreshCycle .btnAdd
 ${gridTaskRoleContainEvent}    jquery=#TasksGrid > div.k-grid-content > table:contains(event)
 
 ${trRowTaskGrid}               jquery=#TaskDetailsGridContainer tbody tr
@@ -11,6 +11,7 @@ ${btnSaveDeleteTask}           css=#popupConfirmation .btnSubmit
 *** Keywords ***
 Wait All Tasks Page Ready
       Wait Until Page Contains    Automation tasks
+      Wait Until Page Contains Element     ${btnAddNewTasks}
       Wait MC Progress Bar Closed
 
 #Create New Task

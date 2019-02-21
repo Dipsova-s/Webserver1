@@ -19,8 +19,10 @@
     };
 
     var ajaxUploadStart = function (settings) {
-        if (settings.loader)
+        if (settings.loader) {
+            MC.ui.loading.hide(true);
             MC.ui.loading.show();
+        }
     };
 
     var ajaxUploadCallback = function (data) {

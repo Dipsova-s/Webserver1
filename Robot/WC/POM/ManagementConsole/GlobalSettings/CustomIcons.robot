@@ -20,7 +20,8 @@ ${btnConfirmDeleteCustomIcons}               css=#popupConfirmAction .btnSubmit
 
 *** Keywords ***
 Wait Until Custom Icons Page Loaded
-    Sleep    ${TIMEOUT_GENERAL}
+    Wait MC Progress Bar Closed
+    Wait Until Ajax Complete
     Wait Custom Icons By Field Type    EA
 
 Wait Custom Icons By Field Type
@@ -71,18 +72,14 @@ Click Delete Custom Icons Action By Field Name
     Click Action In Grid By Name     ${fieldType}    ${trRowInCustomIconsGrid}    ${btnActionDeleteCustomIcons}
 
 Click Save Custom Icons
-    Wait Until Page Contains Element    ${btnSaveCustomIcons}
+    Sleep    ${TIMEOUT_LARGEST}
     Click Element    ${btnSaveCustomIcons}
-    Wait MC Progress Bar Closed
-    Wait Until Ajax Complete
     Wait Until Custom Icons Page Loaded
 
 Click Save Custom Icons With Delete Exist Icons
-    Wait Until Page Contains Element    ${btnSaveCustomIcons}
+    Sleep    ${TIMEOUT_LARGEST}
     Click Element    ${btnSaveCustomIcons}
     Wait Until Page Contains    Deleted Icons
     Wait Until Page Contains Element    ${btnConfirmDeleteCustomIcons}
     Click Element    ${btnConfirmDeleteCustomIcons}
-    Wait MC Progress Bar Closed
-    Wait Until Ajax Complete
     Wait Until Custom Icons Page Loaded
