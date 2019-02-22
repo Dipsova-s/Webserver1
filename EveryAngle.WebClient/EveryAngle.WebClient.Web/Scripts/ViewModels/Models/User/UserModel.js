@@ -202,17 +202,9 @@ function UserViewModel() {
             self.HideManagementControlButton();
     };
     self.SetWorkbenchButton = function () {
-        if (self.IsPossibleToManageModel()) {
-            GetDataFromWebService('/csm/componentservices', {}, false)
-                .done(function (result) {
-                    var workbench = result.findObject('type', 'ModellingWorkbench');
-                    if (workbench) {
-                        jQuery("#btnWorkbench").attr("href", workbench.uri);
-                    }
-                    else {
-                        jQuery("#btnWorkbench").hide();
-                    }
-                });
+        var workbenchUrl = componentServicesHandler.GetModellingWorkbenchUrl();
+        if (self.IsPossibleToManageModel() && workbenchUrl) {
+            jQuery("#btnWorkbench").attr("href", workbenchUrl);
         }
         else {
             jQuery("#btnWorkbench").hide();

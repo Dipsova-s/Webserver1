@@ -132,6 +132,7 @@ namespace EveryAngle.WebClient.Web
                 "~/scripts/viewmanagement/shared/systemcurrencyhandler.js",
                 "~/scripts/viewmanagement/shared/systemdefaultusersettinghandler.js",
                 "~/scripts/viewmanagement/shared/aboutsystemhandler.js",
+                "~/scripts/viewmanagement/shared/componentserviceshandler.js",
                 "~/scripts/viewmanagement/shared/userfriendlynamehandler.js",
                 "~/scripts/viewmanagement/shared/businessprocesshandler.js",
                 "~/scripts/viewmanagement/shared/modelshandler.js",
@@ -429,7 +430,6 @@ namespace EveryAngle.WebClient.Web
                     "~/scripts/viewmanagement/angle/anglepageretainsurl.js",
                     "~/scripts/viewmanagement/angle/fieldsettingshandler.js",
                     "~/scripts/viewmanagement/angle/quickfilterhandler.js",
-                    "~/scripts/viewmanagement/angle/anglehandler.js",
                     "~/scripts/viewmanagement/angle/angleactionmenuhandler.js",
                     "~/scripts/viewmanagement/angle/anglepagehandler.js"));
 
@@ -446,7 +446,7 @@ namespace EveryAngle.WebClient.Web
                     "~/scripts/viewmodels/models/angle/resultmodel.js",
                     "~/scripts/viewmodels/models/angle/displayqueryblockmodel.js",
 
-                    "~/scripts/viewmanagement/angle/DisplayUpgradeHandler.js",
+                    "~/scripts/viewmanagement/angle/displayupgradehandler.js",
                     "~/scripts/viewmanagement/angle/listhandler.js",
                     "~/scripts/viewmanagement/angle/charthandler.js",
                     "~/scripts/viewmanagement/angle/pivothandler.js",
