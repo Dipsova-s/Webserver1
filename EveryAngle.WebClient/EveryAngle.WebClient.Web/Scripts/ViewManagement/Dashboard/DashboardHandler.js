@@ -41,7 +41,8 @@ function DashboardHandler() {
                     userModel.Load(),
                     systemInformationHandler.LoadSystemInformation(),
                     systemCurrencyHandler.LoadCurrencies(),
-                    aboutSystemHandler.LoadAboutSystem()
+                    aboutSystemHandler.LoadAboutSystem(),
+                    componentServicesHandler.LoadComponentServices()
                );
             })
             .then(function () {

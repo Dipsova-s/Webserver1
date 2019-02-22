@@ -3603,4 +3603,7 @@ Copyright © {0}</value>
   <data name="RunningRealTime" xml:space="preserve">
     <value>Running in real time</value>
   </data>
+  <data name="Workbench" xml:space="preserve">
+    <value>Modeling Workbench</value>
+  </data>
 </root>

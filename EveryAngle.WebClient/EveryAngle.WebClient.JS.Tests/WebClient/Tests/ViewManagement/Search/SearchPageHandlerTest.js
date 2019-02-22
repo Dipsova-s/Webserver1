@@ -1,8 +1,9 @@
-﻿/// <reference path="../../../Dependencies/ViewModels/Models/User/usermodel.js" />
-/// <reference path="../../../Dependencies/ViewModels/Models/User/usersettingmodel.js" />
-/// <reference path="../../../Dependencies/ViewModels/Models/User/privileges.js" />
-/// <reference path="../../../Dependencies/ViewModels/Models/Search/searchmodel.js" />
-/// <reference path="../../../Dependencies/ViewManagement/Search/SearchPageHandler.js" />
+﻿/// <reference path="/Dependencies/ViewModels/Models/User/usermodel.js" />
+/// <reference path="/Dependencies/ViewModels/Models/User/usersettingmodel.js" />
+/// <reference path="/Dependencies/ViewModels/Models/User/privileges.js" />
+/// <reference path="/Dependencies/ViewModels/Models/Search/searchmodel.js" />
+/// <reference path="/Dependencies/ViewManagement/Shared/ComponentServicesHandler.js" />
+/// <reference path="/Dependencies/ViewManagement/Search/SearchPageHandler.js" />
 
 describe('SearchPageHandler', function () {
 
