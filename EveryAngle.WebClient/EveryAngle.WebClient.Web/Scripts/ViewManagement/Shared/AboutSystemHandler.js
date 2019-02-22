@@ -22,7 +22,7 @@ function AboutSystemModel(model) {
             else
                 return modelStatus !== AboutSystemModel.STATUS.DOWN && this.modeldata_timestamp;
         };
-        
+
         if (data.available()) {
             data.date = function () {
                 return WC.FormatHelper.GetFormattedValue(enumHandlers.FIELDTYPE.DATETIME_WC, this.modeldata_timestamp);

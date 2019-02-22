@@ -67,19 +67,16 @@ namespace EveryAngle.WebClient.Service.ApiServices
 
         public AboutViewModel GetAbout(string uri)
         {
-            var requestManager = RequestManager.Initialize(uri);
-            var jsonResult = requestManager.Run();
-            AboutViewModel result = null;
+            RequestManager requestManager = RequestManager.Initialize(uri);
+            JObject jsonResult = requestManager.Run();
             if (requestManager.ResponseStatus.GetHashCode() == 440)
             {
-                result = new AboutViewModel();
+                return new AboutViewModel();
             }
             else
             {
-                result = JsonConvert.DeserializeObject<AboutViewModel>(jsonResult.ToString());
+                return JsonConvert.DeserializeObject<AboutViewModel>(jsonResult.ToString());
             }
-
-            return result;
         }
     }
 }

@@ -52,7 +52,7 @@ function AnglePageHandler() {
         }
 
         var display = WC.Utility.UrlParameter(enumHandlers.ANGLEPARAMETER.DISPLAY);
-        if (display !== 'null' && displayModel.IsTemporaryDisplay(display) && displayModel.GetTemporaryDisplay(display) == null) {
+        if (display !== 'null' && displayModel.IsTemporaryDisplay(display) && displayModel.GetTemporaryDisplay(display) === null) {
             self.BackToSearch(false);
             return false;
         }
@@ -496,7 +496,7 @@ function AnglePageHandler() {
         var forceEditId = WC.Utility.UrlParameter(enumHandlers.ANGLEPARAMETER.EDITID) || null;
         var query = {};
 
-        if (forceEditId != null) {
+        if (forceEditId) {
             self.CanEditId(forceEditId === 'true');
             jQuery.localStorage('can_edit_id', self.CanEditId());
             jQuery.each($.address.parameterNames(), function (index, name) {
@@ -575,7 +575,7 @@ function AnglePageHandler() {
         // - user do not send (KeepHistory = false)
         // - have displays
         // - do not from list-drilldown
-        if (self.KeepHistory && displayData && displayData.display_type != null && !jQuery('html').hasClass('listDrilldown')) {
+        if (self.KeepHistory && displayData && displayData.display_type && !jQuery('html').hasClass('listDrilldown')) {
             historyModel.Save();
 
             // clean field settings
@@ -595,7 +595,7 @@ function AnglePageHandler() {
                 historyModel.Set(displayParameter, tempDisplay);
             }
 
-            if (typeof angleData === 'undefined' || angleData == null) {
+            if (!angleData) {
                 if (jQuery('#DisplayItemList .ItemListSelected').length) {
                     displayModel.DeleteTemporaryDisplay(displayParameter, jQuery('#DisplayItemList .ItemListSelected').attr('alt'));
                 }
@@ -633,7 +633,7 @@ function AnglePageHandler() {
         displayData = displayModel.Data();
 
         // display not set = refresh page
-        if (displayData == null || historyModel.LastDisplayUri() == null || (angleData && angleParameter !== angleData.uri)) {
+        if (!displayData || !historyModel.LastDisplayUri() || (angleData && angleParameter !== angleData.uri)) {
             self.UseHistory = false;
         }
 
@@ -895,7 +895,7 @@ function AnglePageHandler() {
                 else {
                     // get display info from angle def.
                     var currentDisplay = historyModel.Get(displayParameter, self.UseLastestVersion);
-                    if (currentDisplay == null) {
+                    if (!currentDisplay) {
                         self.IsExecuted = true;
 
                         angleInfoModel.Data().display_definitions.removeObject('uri', displayParameter);
@@ -1031,7 +1031,7 @@ function AnglePageHandler() {
         return angleInfoModel.LoadMetadata(angleData, displayData)
             .fail(function (xhr, status) {
                 popup.Close('#popupAngleDetail');
-                if (status == null) {
+                if (status === null) {
                     errorHandlerModel.ShowCustomError(xhr);
                 }
 
@@ -1080,7 +1080,7 @@ function AnglePageHandler() {
     self.HandleNoneExistDisplay = function () {
         // find default display
         var currentDisplay = displayModel.GetDefaultDisplay();
-        if (currentDisplay == null) {
+        if (!currentDisplay) {
             // still does not found then back to search page
             self.HandleExecutionFailure(Localization.ErrorDisplayNotExistsThenGotoSearchPage, false);
         }
@@ -1748,7 +1748,7 @@ function AnglePageHandler() {
     self.ShowAddToDashboardPopup = function () {
         requestHistoryModel.SaveLastExecute(self, self.ShowAddToDashboardPopup, arguments);
         requestHistoryModel.ClearPopupBeforeExecute = true;
-        
+
         var popupName = 'AddToDashboard',
             popupSettings = {
                 title: Localization.AddToDashboard,
@@ -1838,7 +1838,7 @@ function AnglePageHandler() {
         var selectingDashboard = null;
         var isDashboardCreated = jQuery.localStorage('is_dashboard_created');
 
-        if (data != null) {
+        if (data) {
             // find name to increase 'name' property
             jQuery.each(data.dashboards, function (index, dashboard) {
                 var isPublishedDashboardWithPublicDisplay = dashboard.is_published && displayModel.Data().is_public;
@@ -1920,7 +1920,7 @@ function AnglePageHandler() {
                 return false;
             }
 
-            if (dashboard && dashboard.widget_definitions.length >= maxNumberOfDashboard) {
+            if (dashboard.widget_definitions.length >= maxNumberOfDashboard) {
                 popup.Info(Localization.Info_WarningCannotAddMoreDashboard);
                 return false;
             }
@@ -2128,7 +2128,7 @@ function AnglePageHandler() {
     // initialize method
     if (typeof isLoginPage === 'undefined') {
         var canEditId = jQuery.localStorage('can_edit_id');
-        self.CanEditId = ko.observable(canEditId == null ? window.showAngleAndDisplayID : canEditId);
+        self.CanEditId = ko.observable(canEditId === null ? window.showAngleAndDisplayID : canEditId);
 
         self.InitialAnglePage();
         jQuery(function () {

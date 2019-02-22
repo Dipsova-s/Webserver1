@@ -59,7 +59,7 @@ function DashboardDetailsHandler() {
             element: '#popup' + self.ID,
             title: Localization.DashboardDetails,
             html: dashboardDetailBodyHtmlTemplate(),
-			className: 'popup' + self.ID + ' popupWithTabMenu',
+            className: 'popup' + self.ID + ' popupWithTabMenu',
             width: 880,
             minWidth: 748,
             minHeight: 300,
@@ -488,7 +488,7 @@ function DashboardDetailsHandler() {
             var validationResults = self.HandlerLabels.GetValidationResults();
             var requiredLabelNames = [];
             var tabPublishTarget = null;
-         
+
             // check privilege labels
             jQuery.each(validationResults[self.HandlerLabels.LABELTYPE.PRIVILEGE].UnassignedCategories, function (index, categoryName) {
                 tabPublishTarget = self.HandlerLabels.LABELTYPE.PRIVILEGE;
@@ -546,9 +546,9 @@ function DashboardDetailsHandler() {
         //Check minimum valid widget
         var numberOfValidWidgets = 0;
         var numberOfPrivateDisplay = 0;
-        jQuery.each(self.Model.Data().widget_definitions, function (index, display) {
-            var display = self.Model.Data().widget_definitions[index].GetDisplay();
-            var angle = self.Model.Data().widget_definitions[index].GetAngle();
+        jQuery.each(self.Model.Data().widget_definitions, function (index, widget) {
+            var display = widget.GetDisplay();
+            var angle = widget.GetAngle();
 
             if (!display.is_public) {
                 numberOfPrivateDisplay++;
@@ -659,7 +659,7 @@ function DashboardDetailsHandler() {
     };
     self.ResetDetails = function () {
         var defaultData = dashboardModel.GetData();
-        if (self.Model.Data() != null && self.Model.Data().layout) {
+        if (self.Model.Data() && self.Model.Data().layout) {
             defaultData.layout = JSON.stringify(self.Model.Data().layout);
             self.Model.SetData(defaultData);
         }
@@ -712,15 +712,17 @@ function DashboardDetailsHandler() {
         businessProcessHandler.ManageBPAuthorization(businessProcessesModel.General, modelPrivileges, dashboardModel.Data().is_published());
         businessProcessesModel.General.MultipleActive(true);
         businessProcessesModel.General.CanEmpty(false);
-        businessProcessesModel.General.ClickCallback(function (data, event, changed) {
+        businessProcessesModel.General.ClickCallback(function () {
             self.Model.Data().assigned_labels = self.HandlerLabels.GetAssignedLabels();
         });
-        businessProcessesModel.General.ClickHeaderCallback(function (data, event, changed) {
+        businessProcessesModel.General.ClickHeaderCallback(function () {
             self.Model.Data().assigned_labels = self.HandlerLabels.GetAssignedLabels();
         });
         var activeBusinessProcessBars = {};
         jQuery.each(self.Model.Data().assigned_labels, function (index, label) {
-            var businessProcessData = jQuery.grep(businessProcessesModel.General.Data(), function (businessProcess) { return businessProcess.id.toLowerCase() === label.toLowerCase() });
+            var businessProcessData = jQuery.grep(businessProcessesModel.General.Data(), function (businessProcess) {
+                return businessProcess.id.toLowerCase() === label.toLowerCase();
+            });
             if (businessProcessData.length && businessProcessData[0].is_allowed !== false) {
                 activeBusinessProcessBars[label] = true;
             }
@@ -882,15 +884,15 @@ function DashboardDetailsHandler() {
                 full_name: DashboardWidgetViewModel.prototype.GetAngleDisplayName(angle.name, displayObject.name, angle.model),
                 name_html: [
                     '<div class="front">',
-                        '<i class="icon ' + (displayObject.is_public ? 'public' : 'private') + '"></i>',
-                        '<i class="icon ' + displayObject.display_type + (displayObject.is_angle_default ? ' default' : '') + (displayObject.used_in_task ? ' schedule' : '') + '"></i>',
-                        '<i class="icon ' + (hasJump ? 'followup' : (hasFilter ? 'filter' : 'noFilter')) + '"></i>',
+                    '<i class="icon ' + (displayObject.is_public ? 'public' : 'private') + '"></i>',
+                    '<i class="icon ' + displayObject.display_type + (displayObject.is_angle_default ? ' default' : '') + (displayObject.used_in_task ? ' schedule' : '') + '"></i>',
+                    '<i class="icon ' + (hasJump ? 'followup' : (hasFilter ? 'filter' : 'noFilter')) + '"></i>',
                     '</div>',
                     '<span class="name" title="' + displayObject.name + '">' + displayObject.name + '</span>',
                     '<div class="rear">',
-                        '<i class="icon ' + (displayObject.is_parameterized ? 'parameterized' : 'none') + '"></i>',
-                        '<i class="icon ' + (isError ? 'validError' : (isWarning ? 'validWarning' : 'none')) + '"></i>',
-                        '<a class="icon link" href="' + link + '" target="_blank" data-parameterized="' + parameterizeInfo + '" onclick="dashboardDetailsHandler.DefinitionOpenDisplay(event, \'' + displayObject.uri + '\', ' + displayObject.is_public + ')"></a>',
+                    '<i class="icon ' + (displayObject.is_parameterized ? 'parameterized' : 'none') + '"></i>',
+                    '<i class="icon ' + (isError ? 'validError' : (isWarning ? 'validWarning' : 'none')) + '"></i>',
+                    '<a class="icon link" href="' + link + '" target="_blank" data-parameterized="' + parameterizeInfo + '" onclick="dashboardDetailsHandler.DefinitionOpenDisplay(event, \'' + displayObject.uri + '\', ' + displayObject.is_public + ')"></a>',
                     '</div>'
                 ].join('')
             };
@@ -943,8 +945,8 @@ function DashboardDetailsHandler() {
         if (isHtml) {
             return [
                 '<div class="front">',
-                    '<i class="icon ' + (display.is_public ? 'public' : 'private') + '"></i>',
-                    '<i class="icon ' + display.type + '"></i>',
+                '<i class="icon ' + (display.is_public ? 'public' : 'private') + '"></i>',
+                '<i class="icon ' + display.type + '"></i>',
                 '</div>',
                 '<span class="name">' + model.widget_name() + '</span>'
             ].join('');
@@ -961,13 +963,13 @@ function DashboardDetailsHandler() {
         var angleName = modelsHandler.GetModelName(angle.model) + ' - ' + angle.name;
         return [
             '<div class="front">',
-                '<i class="icon ' + (angle.is_published ? 'public' : 'private') + '"></i>',
-                '<i class="icon ' + (angle.is_template ? 'template' : 'angle') + '"></i>',
+            '<i class="icon ' + (angle.is_published ? 'public' : 'private') + '"></i>',
+            '<i class="icon ' + (angle.is_template ? 'template' : 'angle') + '"></i>',
             '</div>',
             '<span class="name" title="' + angleName + '">' + angleName + '</span>',
             '<div class="rear">',
-                '<i class="icon ' + (angle.is_parameterized ? 'parameterized' : 'none') + '"></i>',
-                '<i class="icon ' + (!isValidAngle ? 'validError' : 'none') + '"></i>',
+            '<i class="icon ' + (angle.is_parameterized ? 'parameterized' : 'none') + '"></i>',
+            '<i class="icon ' + (!isValidAngle ? 'validError' : 'none') + '"></i>',
             '</div>'
         ].join('');
     };
@@ -1165,9 +1167,9 @@ function DashboardDetailsHandler() {
         self.PublishingModel.private_displays.removeAll();
         self.PublishingModel.public_displays.removeAll();
 
-        jQuery.each(self.Model.Data().widget_definitions, function (index, display) {
-            var display = self.Model.Data().widget_definitions[index].GetDisplay();
-            if (display != null && display.is_public) {
+        jQuery.each(self.Model.Data().widget_definitions, function (index, widget) {
+            var display = widget.GetDisplay();
+            if (display && display.is_public) {
                 self.PublishingModel.public_displays.push(display);
             }
             else {
@@ -1211,8 +1213,8 @@ function DashboardDetailsHandler() {
             });
     };
     self.UnPublishDashboard = function () {
-        var btnPublish = jQuery('.popupDashboardDetails .btnPublish'),
-            btnSave = jQuery('.popupDashboardDetails .k-window-buttons .btnPrimary');
+        var btnPublish = jQuery('.popupDashboardDetails .btnPublish');
+        var btnSave = jQuery('.popupDashboardDetails .k-window-buttons .btnPrimary');
         btnPublish.addClass('disabled loading16x16');
         btnSave.addClass('disabled');
 
@@ -1220,16 +1222,15 @@ function DashboardDetailsHandler() {
             is_published: false
         };
         jQuery.when(dashboardModel.SaveDashboard(dashboardData))
-           .done(function (data) {
-               self.Model.SetData(data);
-           })
-           .always(function () {
-               btnPublish.removeClass('disabled loading16x16');
-               btnSave.removeClass('disabled');
-               self.PrepareDefinitions();
-           });
-
-    }
+            .done(function (data) {
+                self.Model.SetData(data);
+            })
+            .always(function () {
+                btnPublish.removeClass('disabled loading16x16');
+                btnSave.removeClass('disabled');
+                self.PrepareDefinitions();
+            });
+    };
 
     self.SetFavorite = function (model, event) {
         dashboardHandler.SetFavorite(model.Model, event);
@@ -1379,7 +1380,7 @@ function DashboardDetailsHandler() {
 
                     progressbarModel.SetProgressBarText(null, null, Localization.ProgressBar_PUTDashboardDetails);
 
-                    
+
 
                     // handle update widgets
                     var widgetDerferred = [];
@@ -1420,9 +1421,9 @@ function DashboardDetailsHandler() {
                     }, function () {
                         self.IsSubmit = false;
                     }, {
-                        title: Localization.Warning_Title,
-                        icon: 'alert'
-                    });
+                            title: Localization.Warning_Title,
+                            icon: 'alert'
+                        });
                 }
                 else {
                     saveDashboard();
@@ -1459,7 +1460,7 @@ function DashboardDetailsHandler() {
             return;
 
         // viewer user only allow to update user_specific property
-        jQuery.each(data, function (name, value) {
+        jQuery.each(data, function (name) {
             if (name !== 'user_specific')
                 delete data[name];
         });

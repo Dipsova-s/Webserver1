@@ -63,7 +63,7 @@
 
             var labelsUrl = [];
             jQuery.each(e.sender.dataItems() || [], function (index, category) {
-                if (typeof self.LabelsData[category.labels] == 'undefined') {
+                if (typeof self.LabelsData[category.labels] === 'undefined') {
                     self.LabelsData[category.labels] = null;
 
                     labelsUrl.push(category.labels);
@@ -124,20 +124,21 @@
             if (grid) {
                 var saveLabelCategoryOrder = function (name, uri, data, reportIndex) {
                     var deferred = jQuery.Deferred();
-                    MC.ajax.request({
-                        url: self.SaveLabelCategoryUri,
-                        parameters: { labelCategoryUri: uri, labelCategoryOrderData: JSON.stringify(data) },
-                        type: 'PUT'
-                    })
-                    .done(function (data, status, xhr) {
-                        MC.util.massReport.onDone(arguments, deferred, Localization.Username, name, reportIndex);
-                    })
-                    .fail(function (xhr, status, error) {
-                        MC.util.massReport.onFail(arguments, deferred, Localization.Username, name, reportIndex);
-                    });
+                    MC.ajax
+                        .request({
+                            url: self.SaveLabelCategoryUri,
+                            parameters: { labelCategoryUri: uri, labelCategoryOrderData: JSON.stringify(data) },
+                            type: 'PUT'
+                        })
+                        .done(function (data, status, xhr) {
+                            MC.util.massReport.onDone(arguments, deferred, Localization.Username, name, reportIndex);
+                        })
+                        .fail(function (xhr, status, error) {
+                            MC.util.massReport.onFail(arguments, deferred, Localization.Username, name, reportIndex);
+                        });
 
                     return deferred.promise();
-                }
+                };
 
                 var requests = [];
                 $('#Grid .k-grid-content tr').each(function (index, row) {
@@ -203,7 +204,7 @@
                             var query = {}, i;
                             for (i = 0; i < self.LanguageInfo.VirtualCount; i++) {
                                 var cbo = jQuery('#cboLanguage' + i).get(0);
-                                if (!!cbo) {
+                                if (cbo) {
                                     query['value' + i] = cbo.value;
                                 }
                             }
@@ -242,38 +243,9 @@
                 && self.LanguageInfo.Languages.length > self.LanguageInfo.VirtualCount;
         };
 
-        self.SetGridColumnSize = function (gridElement, spaceSize) {
-            var grid = jQuery(gridElement).data('kendoGrid'), cellSize = 0;
+        self.SetGridColumnSize = function (gridElement) {
+            var grid = jQuery(gridElement).data('kendoGrid');
             if (grid) {
-                //if (typeof spaceSize != 'undefined') cellSize += spaceSize;
-
-                //var start, end;
-                //if (self.UseVirtualUI()) {
-                //    start = self.LanguageInfo.IndexVirtualStart;
-                //    end = self.LanguageInfo.IndexVirtualEnd;
-                //    showLanguageCount = self.LanguageInfo.VirtualCount;
-                //}
-                //else {
-                //    start = self.LanguageInfo.IndexStart;
-                //    end = self.LanguageInfo.IndexEnd;
-                //    showLanguageCount = self.LanguageInfo.Languages.lengt;
-                //}
-
-                //var contentSize = grid.wrapper.find('.k-grid-header-wrap').width();
-                //grid.content.find('col').each(function (index, col) {
-                //    //if (index < start || index > end) {
-                //    //    cellSize += ($(col).width() || 0);
-                //    //}
-                //    cellSize += ($(col).width() || 0);
-                //});
-
-                //var columnSize = Math.floor((contentSize - cellSize) / showLanguageCount);
-                //var i;
-                //for (i = 0; i < showLanguageCount; i++) {
-                //    MC.util.setGridWidth(grid, start + i, columnSize);
-                //}
-                //grid.content.find('table').width(grid.wrapper.find('.k-grid-header-wrap > table').width());
-
                 var showLanguageCount, start, i;
                 if (self.UseVirtualUI()) {
                     start = self.LanguageInfo.IndexVirtualStart;
@@ -292,7 +264,7 @@
         self.GetLanguageById = function (id) {
             var lang = null;
             $.each(self.LanguageInfo.Languages, function (index, language) {
-                if (language.id == id) {
+                if (language.id === id) {
                     lang = language;
                     return false;
                 }
@@ -305,7 +277,6 @@
 
             var grid = jQuery('#LabelCategoryGrid');
             var gridObject = grid.data('kendoGrid');
-            var avaliableLanguages = self.LanguageInfo.Languages.length;
             var start = self.LanguageInfo.IndexVirtualStart;
             var end = self.LanguageInfo.IndexVirtualEnd;
             var i;
@@ -320,7 +291,7 @@
                 // hide other languages
                 var startHide = self.LanguageInfo.IndexStart;
                 var endHide = self.LanguageInfo.IndexEnd;
-                for (var i = startHide; i <= endHide; i++) {
+                for (i = startHide; i <= endHide; i++) {
                     gridObject.hideColumn(i);
                 }
 
@@ -340,7 +311,7 @@
                 });
             }
 
-            self.SetGridColumnSize(grid, 75);
+            self.SetGridColumnSize(grid);
         };
 
         self.InitialLabelGrid = function () {
@@ -392,9 +363,7 @@
                     var obj = jQuery('#cboLanguage' + index);
                     if (obj.length) {
                         var lang = obj[0].value;
-                        var header = obj.parents('.k-header:first');
-
-                        header.attr('data-field', lang).data('field', lang);
+                        obj.parents('.k-header:first').attr('data-field', lang).data('field', lang);
                     }
                 });
             }
@@ -462,7 +431,7 @@
             var visibleLangs = getAllVisibleLanguages();
 
             // if already shown then do nothing
-            if (jQuery.inArray(language.id, visibleLangs) != -1) {
+            if (jQuery.inArray(language.id, visibleLangs) !== -1) {
                 obj.value = currentLang;
                 return false;
             }
@@ -486,12 +455,12 @@
                 });
 
             visibleLangs = getAllVisibleLanguages();
-            if (visibleLangs.length == self.LanguageInfo.VirtualCount) {
+            if (visibleLangs.length === self.LanguageInfo.VirtualCount) {
                 var i;
                 for (i = 0; i < self.LanguageInfo.VirtualCount; i++) {
                     jQuery('#cboLanguage' + i + ' option').removeAttr('disabled')
                         .filter(function () {
-                            return $.inArray($(this).attr('value'), visibleLangs) != -1;
+                            return $.inArray($(this).attr('value'), visibleLangs) !== -1;
                         }).attr('disabled', 'disabled');
                 }
             }
@@ -511,9 +480,8 @@
         };
 
         self.BindNewRowEvent = function (obj) {
-            var lang = obj.value,
-                header = jQuery(obj).parents('.k-header:first'),
-                currentLang = header.data('lang');
+            var lang = obj.value;
+            var header = jQuery(obj).parents('.k-header:first');
 
             var currentIndex = header.prevAll().length,
                 targetIndex = jQuery('#LabelCategoryGrid .k-header[data-field="' + lang + '"]').prevAll().length;
@@ -588,7 +556,7 @@
                 multi_lang_name: getLanguageFromRow(categoryGrid),
                 contains_businessprocesses: false
             };
-            var isNew = $('#categoryUri').val() == '';
+            var isNew = $('#categoryUri').val() === '';
             if (!isNew) {
                 categoryData.uri = categoryGrid.find('input[type="hidden"]:first').val();
             }
@@ -625,7 +593,7 @@
                 category: categoryData,
                 labels: labels,
                 deleteList: self.DeleteList.slice()
-            }
+            };
         };
 
         self.SaveAll = function () {

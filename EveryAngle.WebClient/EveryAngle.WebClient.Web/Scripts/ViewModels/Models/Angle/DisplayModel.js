@@ -67,7 +67,7 @@ function DisplayModel(model) {
     self.UpdatePublicationsWatcher = function (state) {
         // update publiactions watcher
         var watcherPublicationKey = enumHandlers.STORAGE.WATCHER_DASHBOARD_PUBLICATIONS.replace('{uri}', self.Data().uri);
-        if (jQuery.storageWatcher(watcherPublicationKey) != null) {
+        if (jQuery.storageWatcher(watcherPublicationKey) !== null) {
             jQuery.storageWatcher(watcherPublicationKey, typeof state !== 'undefined' ? state : self.Data().is_public);
         }
     };
@@ -647,12 +647,12 @@ function DisplayModel(model) {
 
         if (queryFieldUri) {
             return jQuery.when(
-                    // get default field info from AS (ID, ObjectType)
-                    modelFieldsHandler.LoadDefaultFields(queryFieldUri),
+                // get default field info from AS (ID, ObjectType)
+                modelFieldsHandler.LoadDefaultFields(queryFieldUri),
 
-                    // M4-34474: response fake result if not includeSuggestedFields
-                    includeSuggestedFields ? modelFieldsHandler.LoadSuggestedFields(queryFieldUri) : [{ fields: [] }]
-                )
+                // M4-34474: response fake result if not includeSuggestedFields
+                includeSuggestedFields ? modelFieldsHandler.LoadSuggestedFields(queryFieldUri) : [{ fields: [] }]
+            )
                 .then(function (defaultField, suggesFields) {
                     var fields = jQuery.merge(defaultField[0].fields, suggesFields[0].fields);
                     var fieldsMetadata = [];
@@ -708,9 +708,8 @@ function DisplayModel(model) {
         jQuery.localStorage(self.TemporaryDisplayName, data);
     };
     self.GetTemporaryDisplay = function (display) {
-        var data = self.TemporaryDisplay();
-
-        return historyModel.Data()[display] || (data != null ? (data[display] || null) : null);
+        var data = self.TemporaryDisplay() || {};
+        return historyModel.Data()[display] || data[display] || null;
     };
     self.GetTemporaryDisplayType = function () {
         return self.IsNewDisplay() ? WC.HtmlHelper.DropdownList('#tempDisplayType').value() : self.Data().display_type;
@@ -1130,7 +1129,7 @@ function DisplayModel(model) {
             step.is_execution_parameter = WC.Utility.ToBoolean(step.is_execution_parameter);
             step.execution_parameter_id = WC.Utility.ToString(self.execution_parameter_id);
         });
-        
+
         /* BOF: M4-11731: Check if keep filter from list drilldown add query steps to current display */
         if (!isDashboardDrilldown && typeof WC.Utility.UrlParameter(enumHandlers.ANGLEPARAMETER.LISTDRILLDOWN) !== 'undefined' && self.KeepFilter()) {
             var listDrillDown = JSON.parse(WC.Utility.UrlParameter(enumHandlers.ANGLEPARAMETER.LISTDRILLDOWN));
@@ -1290,7 +1289,7 @@ function DisplayModel(model) {
     self.ConvertPivotBucketToOperator = function (bucket, fieldType, value) {
         var operator;
 
-        if (bucket === 'individual' && (jQuery.inArray(fieldType, [enumHandlers.FIELDTYPE.DOUBLE, enumHandlers.FIELDTYPE.CURRENCY, enumHandlers.FIELDTYPE.PERCENTAGE]) === -1)) {
+        if (bucket === 'individual' && jQuery.inArray(fieldType, [enumHandlers.FIELDTYPE.DOUBLE, enumHandlers.FIELDTYPE.CURRENCY, enumHandlers.FIELDTYPE.PERCENTAGE]) === -1) {
             operator = enumHandlers.OPERATOR.EQUALTO.Value;
         }
         else {
@@ -1550,8 +1549,8 @@ function DisplayModel(model) {
         else if (operator === enumHandlers.OPERATOR.BETWEEN.Value) {
             argumentValues = self.GetBetweenArgumentValues(value, fieldType, bucketOperator);
         }
-        else if ((operator === enumHandlers.OPERATOR.EQUALTO.Value && fieldType === enumHandlers.FIELDTYPE.ENUM)
-            || (operator === enumHandlers.OPERATOR.EQUALTO.Value && fieldType === enumHandlers.FIELDTYPE.BOOLEAN)) {
+        else if (operator === enumHandlers.OPERATOR.EQUALTO.Value
+            && (fieldType === enumHandlers.FIELDTYPE.ENUM || fieldType === enumHandlers.FIELDTYPE.BOOLEAN)) {
             if (isPivot || fieldType === enumHandlers.FIELDTYPE.BOOLEAN) {
                 argumentValues = [WC.WidgetFilterHelper.ArgumentObject(self.ConvertPivotCellValue(value, fieldType, bucketOperator), enumHandlers.FILTERARGUMENTTYPE.VALUE)];
             }
@@ -1840,7 +1839,7 @@ function DisplayModel(model) {
     };
 
     var storage = jQuery.localStorage(self.TemporaryDisplayName);
-    if (storage != null) {
+    if (storage) {
         self.TemporaryDisplay(storage);
     }
     if (typeof model !== 'undefined') {

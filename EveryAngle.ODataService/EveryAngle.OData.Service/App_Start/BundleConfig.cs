@@ -10,7 +10,7 @@ namespace EveryAngle.OData
             #region base components
 
             bundles.Add(new ScriptBundle("~/bundles/jquery").Include(
-                        "~/Scripts/jquery-{version}.js"));
+                        "~/Scripts/jquery-1.10.2.min.js"));
 
             // angularJS 
             bundles.Add(new ScriptBundle("~/bundles/angularjs").Include(
@@ -23,7 +23,7 @@ namespace EveryAngle.OData
 
             // signal r component
             bundles.Add(new ScriptBundle("~/bundles/signalrComponent").Include(
-                        "~/Scripts/jquery.signalR-{version}.js"));
+                        "~/Scripts/jquery.signalR-2.2.1.min.js"));
 
             #endregion
 
@@ -50,7 +50,7 @@ namespace EveryAngle.OData
 
             bundles.Add(new ScriptBundle("~/bundles/bootstrap").Include(
                       "~/Scripts/bootstrap.min.js",
-                      "~/Scripts/respond.js"));
+                      "~/Scripts/respond.min.js"));
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.min.css",

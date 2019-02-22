@@ -36,10 +36,10 @@ namespace EveryAngle.Core.Interfaces.Services
         List<ClassViewModel> GetClasses(string uri);
         ListViewModel<ModelServerViewModel> GetModelServers(string uri);
         List<EventLogViewModel> GetEventLog(string modelServerUri);
-        List<SystemRoleViewModel> GetSystemRoles(string uri);
-        FieldViewModel GetModelFields(string uri);
-        FieldCategoryViewModel GetFieldCategory(string uri);
-        InstanceViewModel GetInstance(string uri);
+        List<SystemRoleViewModel> GetSystemRoles(string systemRoleUri);
+        FieldViewModel GetModelFields(string fieldUri);
+        FieldCategoryViewModel GetFieldCategory(string fieldCategoryUri);
+        InstanceViewModel GetInstance(string instanceUri);
         ListViewModel<ModelServerReportViewModel> GetReports(string reportUri);
         string GetModelServerReport(string reportUri);
         void UpdateModelActiveLanguages(string uri, string activeLanguages);

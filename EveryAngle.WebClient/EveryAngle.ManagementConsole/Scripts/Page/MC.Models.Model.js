@@ -29,7 +29,7 @@
 
             setTimeout(function () {
                 $("#breadcrumbList li").last().replaceWith('<li><a class="noLink">' + self.PageTitle + '</a></li>');
-                self.InitialModelId(); 
+                self.InitialModelId();
                 MC.form.page.init(self.GetData);
             }, 1);
         };
@@ -41,26 +41,26 @@
                 url: self.ModelIdDropdownItemsUri,
                 type: 'GET'
             })
-            .done(function (items) {
-                if (items.length) {
-                    dropdown.kendoDropDownList({
-                        dataTextField: 'id',
-                        dataValueField: 'id',
-                        dataSource: items,
-                        change: function () {
-                            var modelId = this.value();
-                            $("input[name='id']").val(modelId);
-                        }
-                    });
-                    dropdown.data('kendoDropDownList').trigger('change');
-                    dropdown.removeClass('hidden');
-                }
-                else {
-                    self.UpdateModelIdAsText(dropdown, Localization.MC_NoModelsAvailable);
-                    $("input[name='short_name'], input[name='long_name'], input[name='environment']").prop('disabled', true);
-                    $(".btnSave").addClass('disabled').removeAttr('onclick');
-                }
-            });
+                .done(function (items) {
+                    if (items.length) {
+                        dropdown.kendoDropDownList({
+                            dataTextField: 'id',
+                            dataValueField: 'id',
+                            dataSource: items,
+                            change: function () {
+                                var modelId = this.value();
+                                $("input[name='id']").val(modelId);
+                            }
+                        });
+                        dropdown.data('kendoDropDownList').trigger('change');
+                        dropdown.removeClass('hidden');
+                    }
+                    else {
+                        self.UpdateModelIdAsText(dropdown, Localization.MC_NoModelsAvailable);
+                        $("input[name='short_name'], input[name='long_name'], input[name='environment']").prop('disabled', true);
+                        $(".btnSave").addClass('disabled').removeAttr('onclick');
+                    }
+                });
         };
         self.UpdateModelIdAsText = function (dropdown, text) {
             var container = dropdown.parent();
@@ -94,7 +94,7 @@
             }
 
             var data = self.GetData();
-            if (data.type == "POST") {
+            if (data.type === "POST") {
                 var confirmMessage = kendo.format(Localization.MC_ConfirmAddModel, data.modelData.id);
                 MC.util.showPopupConfirmation(confirmMessage, function () {
                     self.SaveUpdateMode(data);
@@ -115,24 +115,24 @@
                 parameters: { jsonData: JSON.stringify(data.modelData), modelUri: data.modelUri },
                 type: data.type
             })
-            .done(function (response) {
-                  
-                if (data.type == "POST") {
-                    logoutToOverviewPage();
-                }
-                else {
-                    location.hash = self.AllModelsPageUri;
-                    var target = '#sideContent',
-                        url = self.SideMenuUri;
-                    self.UpdateSideMenu(target, url);
-                    self.UpdateTopMenu();
-                }
-            })
-            .fail(function (xhr) {
-                if (xhr.status == 401) {
-                    logoutToOverviewPage();
-                }
-            });
+                .done(function (response) {
+
+                    if (data.type === "POST") {
+                        logoutToOverviewPage();
+                    }
+                    else {
+                        location.hash = self.AllModelsPageUri;
+                        var target = '#sideContent',
+                            url = self.SideMenuUri;
+                        self.UpdateSideMenu(target, url);
+                        self.UpdateTopMenu();
+                    }
+                })
+                .fail(function (xhr) {
+                    if (xhr.status === 401) {
+                        logoutToOverviewPage();
+                    }
+                });
         };
 
         self.UpdateSideMenu = function (target, url) {
@@ -141,16 +141,18 @@
                 target: target,
                 url: url
             })
-            .fail(function (xhr, status, error) {
-                if (xhr.status == 409) {
-                    setTimeout(function () { self.UpdateSideMenu(target, url) }, 3000);
-                }
-            })
-            .done(function (data, status, xhr) {
-                MC.ui.loading.setLoader('hidePopupError');
-                MC.sideMenu.expand($('a[data-url$="Model/GetAllModels"]', '#sideMenu').get(0), true);
-                MC.sideMenu.setActive($('a[data-url$="Model/GetAllModels"]', '#sideMenu').get(0));
-            });
+                .fail(function (xhr) {
+                    if (xhr.status === 409) {
+                        setTimeout(function () {
+                            self.UpdateSideMenu(target, url);
+                        }, 3000);
+                    }
+                })
+                .done(function () {
+                    MC.ui.loading.setLoader('hidePopupError');
+                    MC.sideMenu.expand($('a[data-url$="Model/GetAllModels"]', '#sideMenu').get(0), true);
+                    MC.sideMenu.setActive($('a[data-url$="Model/GetAllModels"]', '#sideMenu').get(0));
+                });
         };
         self.UpdateTopMenu = function () {
             disableLoading();
@@ -159,11 +161,11 @@
                 type: 'Get',
                 dataType: 'html'
             })
-            .done(function (data, status, xhr) {
-                MC.ui.loading.setLoader('hidePopupError');
-                $('#topMenu').html(data);
-                MC.storage.clean();
-            });
+                .done(function (data, status, xhr) {
+                    MC.ui.loading.setLoader('hidePopupError');
+                    $('#topMenu').html(data);
+                    MC.storage.clean();
+                });
         };
         /* end - model page */
 
@@ -205,38 +207,37 @@
                     url: self.ModelGraphDataUri,
                     parameters: { eventLogUri: modelServer.event_log, modelServerId: modelServer.id }
                 })
-                .done(function (data, status, xhr) {
-                    self.ModelServersData[data.id] = data.logs;
+                    .done(function (data, status) {
+                        self.ModelServersData[data.id] = data.logs;
 
-                    var html = '', status, size;
-                    jQuery.each(data.graph || [], function (index, graphData) {
-                        status = graphData.Legend ? ' status' + graphData.Legend : '';
-                        size = (graphData.Value + 'px').replace(/,/g, '.');
-                        html += '<div class="modelStatus ' + status + '" style="width: ' + size + '"></div>';
+                        var html = '', size;
+                        jQuery.each(data.graph || [], function (index, graphData) {
+                            var className = graphData.Legend ? ' status' + graphData.Legend : '';
+                            size = (graphData.Value + 'px').replace(/,/g, '.');
+                            html += '<div class="modelStatus ' + className + '" style="width: ' + size + '"></div>';
+                        });
+                        jQuery('#modelInfoStatusGraphItem' + data.id + ' .modelInfoStatusGraph').html(html);
+                    })
+                    .always(function () {
+                        requestCount--;
+                        if (!requestCount) {
+                            MC.ui.popup('requestEnd');
+                            setTimeout(function () {
+                                jQuery('#modelInfoStatus').busyIndicator(false);
+                            }, 100);
+                            jQuery('#graph .modelInfoStatusGraph').removeClass('loadingGraph');
+                            deferred.resolve();
+                        }
                     });
-                    jQuery('#modelInfoStatusGraphItem' + data.id + ' .modelInfoStatusGraph').html(html);
-                })
-                .always(function () {
-                    requestCount--;
-                    if (!requestCount) {
-                        MC.ui.popup('requestEnd');
-                        setTimeout(function () {
-                            jQuery('#modelInfoStatus').busyIndicator(false);
-                        }, 100);
-                        jQuery('#graph .modelInfoStatusGraph').removeClass('loadingGraph');
-                        deferred.resolve();
-                    }
-                });
             });
 
             return deferred.promise();
         };
 
         self.GetServerStatusName = function (status) {
-            if ($.inArray(status.toLowerCase(), ['initializing', 'loading', 'extract', 'restructure']) !== -1) {
+            if ($.inArray(status.toLowerCase(), ['initializing', 'loading', 'extract', 'restructure']) !== -1)
                 return 'Loading';
-            }
-            if (status.toLowerCase() == 'postprocessing')
+            if (status.toLowerCase() === 'postprocessing')
                 return 'Up';
             return status;
         };
@@ -250,7 +251,7 @@
                         currentStatus.timestamp = data.timestamp;
                     }
                     else if (currentStatus.status !== data.status || currentStatus.IsProcessing !== data.IsProcessing) {
-                        if (currentStatus.IsProcessing != data.IsProcessing && currentStatus.IsProcessing && currentStatus.status === 'Up')
+                        if (currentStatus.IsProcessing !== data.IsProcessing && currentStatus.IsProcessing && currentStatus.status === 'Up')
                             currentStatus.status = 'Postprocessing';
                         else
                             currentStatus.status = modelServerData[index - 1].status;
@@ -286,7 +287,7 @@
             var hasStatus = false;
             jQuery.each(self.ModelServers, function (index, server) {
                 var isServer = server.type === 'ModelServer' || server.type === 'HanaServer';
-                if (server.available && server.type == 'ModelServer') {
+                if (server.available && server.type === 'ModelServer') {
                     // status in type ModelServer is the most priority
                     currentStatus = getServerStatus(server);
                     return false;
@@ -317,7 +318,7 @@
                     var statusTime = MC.util.readableDate(liveTime);
 
                     divServerTime.attr('title', liveTimeText).html(liveTimeText);
-                    if (serverType == 'ModelServer') {
+                    if (serverType === 'ModelServer') {
                         var serverStatusClassName = self.GetServerStatusName(currentStatus.status);
 
                         divServerTime.closest('.modelInfoStatusReport')
@@ -347,8 +348,8 @@
             });
         };
 
-        self.UpdateInstance = function (id, newStatus, modelId) {         
-           
+        self.UpdateInstance = function (id, newStatus, modelId) {
+
             var confirmMessage = kendo.format(newStatus ? Localization.MC_ConfirmStartServer : Localization.MC_ConfirmStopServer, modelId);
             MC.util.showPopupConfirmation(confirmMessage, function () {
                 MC.ajax.request({
@@ -356,11 +357,11 @@
                     parameters: { id: id, status: newStatus },
                     type: 'POST'
                 })
-                .done(function () {
-                    MC.ajax.reloadMainContent();
-                });
-            });           
-       
+                    .done(function () {
+                        MC.ajax.reloadMainContent();
+                    });
+            });
+
         };
 
         self.ShowLogTable = function (e) {

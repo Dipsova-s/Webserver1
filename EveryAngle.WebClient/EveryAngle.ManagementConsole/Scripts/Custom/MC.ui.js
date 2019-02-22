@@ -10,7 +10,7 @@
             var btns = element.find('.btn');
             if (btns.length > 1) {
                 var cBtns = element.children('.btnGroupContainer').length ? element.find('.btnGroupInner .btn').clone(true) : btns.clone(true);
-                var cBtnFirst = cBtns.filter(':not(.disabled)').length == 0 ? cBtns[0] : cBtns.filter(':not(.disabled)')[0];
+                var cBtnFirst = !cBtns.filter(':not(.disabled)').length ? cBtns[0] : cBtns.filter(':not(.disabled)')[0];
                 element.find('.btn, .btnGroupContainer').remove();
 
                 var fnDocumentClick = function (e) {
@@ -192,7 +192,7 @@
                     .wrap('<div class="k-button k-upload-button btn ' + (element.prop('disabled') ? ' disabled' : '') +'" />')
                     .after('<span>' + settings.textBrowse + '</span>')
                     .change(function (e) {
-                        if (typeof e.target.files == 'undefined') {
+                        if (typeof e.target.files === 'undefined') {
                             var mime = {
                                 '.txt': 'text/plain',
                                 '.html': 'text/html',
@@ -209,10 +209,10 @@
                             var value = e.target.value;
                             var file = {};
                             file.lastModifiedDate = null;
-                            file.name = value.substr(value.lastIndexOf('/') == -1 ? value.lastIndexOf('\\') + 1 : value.lastIndexOf('/'));
+                            file.name = value.substr(value.lastIndexOf('/') === -1 ? value.lastIndexOf('\\') + 1 : value.lastIndexOf('/'));
                             file.size = -1;
                             file.type = mime[file.name.substr(file.name.lastIndexOf('.'))] || 'unknown';
-                            e.target.files = []
+                            e.target.files = [];
                             e.target.files.push(file);
                         }
                         if (!e.data)
@@ -220,7 +220,8 @@
                         e.data.file = e.target.files[0];
 
                         jQuery(this).parent('.k-upload-button').next('.k-upload-status').text(e.data.file ? e.data.file.name : '');
-                        if (settings.onSelect != null) window[settings.onSelect](e);
+                        if ($.isFunction(window[settings.onSelect]))
+                            window[settings.onSelect](e);
                     })
                     .parent('.k-upload-button').after('<span class="k-upload-status" />');
             });
@@ -238,9 +239,9 @@
                     format: kendo.culture().calendar.patterns.d,
                     value: new Date(value)
                 }, element.data());
-                if (typeof settings.min != 'undefined')
+                if ($.isFunction(window[settings.min]))
                     settings.min = window[settings.min]();
-                if (typeof settings.max != 'undefined')
+                if ($.isFunction(window[settings.max]))
                     settings.max = window[settings.max]();
                 element.data('kendoDatePicker').setOptions(settings);
             });
@@ -325,7 +326,7 @@
                         fnCheckRequest: null
                     }, self.data());
 
-                    if ((q == self.data('defaultValue') && e.keyCode != 13) || (qLength > 0 && qLength <= settings.min))
+                    if ((q === self.data('defaultValue') && e.keyCode !== 13) || (qLength > 0 && qLength <= settings.min))
                         return false;
 
                     self.data('defaultValue', q);
@@ -381,14 +382,15 @@
                             self.next('.icon').removeClass('iconLoading');
 
                             MC.util.getController(settings.callback)();
-                        }, e.keyCode == 13 ? 1 : settings.delay);
+                        }, e.keyCode === 13 ? 1 : settings.delay);
                         self.data('fnChecker', settings.fnChecker);
                     }
                 });
             });
         },
         gridfilter: function (obj) {
-            if (typeof (obj) == 'undefined') obj = '[data-role="gridfilter"]';
+            if (typeof (obj) === 'undefined')
+                obj = '[data-role="gridfilter"]';
             jQuery(obj).each(function (k, v) {
                 if (jQuery(v).data('gridfilter')) return;
 
@@ -410,11 +412,11 @@
                             fnCheckRequest: null
                         }, jQuery(self).data());
 
-                    if (q == jQuery(self).data('defaultValue') && e.keyCode != 13)
+                    if (q === jQuery(self).data('defaultValue') && e.keyCode !== 13)
                         return false;
 
                     jQuery(self).data('defaultValue', q);
-                    if (settings.method == 'remote') {
+                    if (settings.method === 'remote') {
                         var grid;
                         var target = jQuery(settings.target);
                         if (target.hasClass('k-grid')) {
@@ -431,14 +433,14 @@
                         clearInterval(settings.fnCheckRequest);
                         settings.fnChecker = setTimeout(function () {
                             if (grid && (
-                                (grid.dataSource.options.transport && typeof grid.dataSource.options.transport.read == 'function')
+                                (grid.dataSource.options.transport && $.isFunction(grid.dataSource.options.transport.read))
                                 || (grid.dataSource.transport.options && grid.dataSource.transport.options.read.url))) {
-                                if (!(grid.dataSource.options.transport && typeof grid.dataSource.options.transport.read == 'function')) {
+                                if (!(grid.dataSource.options.transport && $.isFunction(grid.dataSource.options.transport.read))) {
                                     grid.dataSource.transport.options.read.data = function () {
                                         return {
                                             q: encodeURIComponent(q)
                                         };
-                                    }
+                                    };
                                 }
 
                                 MC.util.getController(settings.start)(grid);
@@ -461,9 +463,10 @@
                                     element: self,
                                     ajaxStart: function (metadata) {
                                         metadata.type = 'get';
-                                        if (q != '') {
-                                            if (typeof metadata.parameters == 'undefined') metadata.parameters = { q: encodeURIComponent(q) };
-                                            else metadata.parameters.q = encodeURIComponent(q);
+                                        if (q) {
+                                            if (!metadata.parameters)
+                                                metadata.parameters = {};
+                                            metadata.parameters.q = encodeURIComponent(q);
                                         }
 
                                         MC.util.getController(settings.start)(metadata);
@@ -478,7 +481,7 @@
                                     }
                                 });
                             }
-                        }, e.keyCode == 13 ? 1 : settings.delay);
+                        }, e.keyCode === 13 ? 1 : settings.delay);
                         jQuery(self).data('fnChecker', settings.fnChecker);
                     }
                     else {
@@ -494,7 +497,7 @@
                                 grid = target.find('.k-grid').data('kendoGrid');
                             }
 
-                            if (typeof settings.start != 'undefined') {
+                            if ($.isFunction(window[settings.start])) {
                                 window[settings.start](metadata);
                             }
 
@@ -508,14 +511,14 @@
                                     if (settings.filter) {
                                         var columns = settings.filter.split(',');
                                         $.each(columns, function (index, filterIndex) {
-                                            if (grid.columns[filterIndex] && grid.columns[filterIndex].title != Localization.MC_Action) {
+                                            if (grid.columns[filterIndex] && grid.columns[filterIndex].title !== Localization.MC_Action) {
                                                 filters.push({ field: grid.columns[filterIndex].field, operator: filterContainText, value: q });
                                             }
                                         });
                                     }
                                     else {
                                         $.each(grid.columns, function (index, column) {
-                                            if (column.title != Localization.MC_Action) {
+                                            if (column.title !== Localization.MC_Action) {
                                                 filters.push({
                                                     field: column.field, operator: filterContainText, value: q
                                                 });
@@ -547,7 +550,7 @@
                                     grid.wrapper.find('.k-grid-content tr').each(function (index, row) {
                                         row = jQuery(row);
                                         highlightingRow = row.find('.highlight');
-                                        if (highlightingRow.length != 0) {
+                                        if (highlightingRow.length) {
                                             result[0].rows.push(this);
                                         }
                                     });
@@ -555,14 +558,15 @@
                             }
 
                             MC.util.getController(settings.callback)(result);
-                        }, e.keyCode == 13 ? 1 : settings.delay);
+                        }, e.keyCode === 13 ? 1 : settings.delay);
                         jQuery(self).data('fnChecker', settings.fnChecker);
                     }
                 });
             });
         },
         localize: function (obj) {
-            if (typeof (obj) == 'undefined') obj = '[data-role="localize"]';
+            if (typeof obj === 'undefined')
+                obj = '[data-role="localize"]';
 
             var localizeType, localizeValue, isInput;
             jQuery(obj).each(function (k, v) {
@@ -595,12 +599,14 @@
                             break;
                     }
                 }
-                if (isInput) jQuery(v).val(localizeValue);
-                else jQuery(v).html(localizeValue);
+                if (isInput)
+                    jQuery(v).val(localizeValue);
+                else
+                    jQuery(v).html(localizeValue);
             });
         },
         timezoneinfo: function (obj) {
-            if (typeof (obj) == 'undefined')
+            if (typeof obj === 'undefined')
                 obj = '[data-role="timezoneinfo"]';
 
             jQuery(obj).each(function (k, v) {
@@ -641,7 +647,8 @@
             });
         },
         customcheckbox: function (obj) {
-            if (typeof (obj) == 'undefined') obj = '[data-role="customcheckbox"]';
+            if (typeof obj === 'undefined')
+                obj = '[data-role="customcheckbox"]';
             jQuery(obj).each(function (k, v) {
                 v = jQuery(v);
                 if (v.data('customcheckbox') || !v.children(':checkbox').length) return;
@@ -676,20 +683,22 @@
             });
         },
         textarea: function (obj) {
-            if (!Modernizr.textareamaxlength) {
-                if (typeof (obj) == 'undefined') obj = '[maxlength]';
-                jQuery(obj).each(function (k, v) {
-                    v = jQuery(v);
-                    if (v.data('maxlength'))
-                        return;
+            if (Modernizr.textareamaxlength)
+                return;
 
-                    v.data('maxlength', true).limitMaxlength();
-                });
-            }
+            if (typeof (obj) === 'undefined')
+                obj = '[maxlength]';
+            jQuery(obj).each(function (k, v) {
+                v = jQuery(v);
+                if (v.data('maxlength'))
+                    return;
+
+                v.data('maxlength', true).limitMaxlength();
+            });
         },
         commentbox: function (action, option) {
 
-            var setScrollablePopup = function (win) {
+            var setScrollablePopup = function () {
                 MC.ui.popup('setScrollable', {
                     element: '#popupCommentForm',
                     onResize: function (win) {
@@ -795,7 +804,8 @@
             }
         },
         percentage: function (obj) {
-            if (typeof (obj) == 'undefined') obj = '[data-role="percentagetextbox"]';
+            if (typeof obj === 'undefined')
+                obj = '[data-role="percentagetextbox"]';
 
             jQuery(obj).each(function (k, v) {
                 if (jQuery(v).data('kendoPercentageTextBox')) return;
@@ -809,7 +819,7 @@
         autosyncinput: function (obj) {
             // sync input if it's a same id
 
-            if (typeof (obj) == 'undefined')
+            if (typeof obj === 'undefined')
                 obj = '.autosyncinput';
 
             jQuery(obj).each(function (k, v) {
@@ -822,7 +832,7 @@
 
                 v.data('autosyncinput', true);
 
-                if (settings.type.indexOf('kendo') != -1) {
+                if (settings.type.indexOf('kendo') !== -1) {
                     var kendoUI = v.data(settings.type);
                     if (!kendoUI) {
                         // find the same ui
@@ -843,12 +853,12 @@
                         });
                     }
                 }
-                else if (settings.type == 'checkbox') {
+                else if (settings.type === 'checkbox') {
                     v.on('change.autosyncinput', function (e) {
                         jQuery('[id="' + v.attr('id') + '"]').not(this).prop('checked', this.checked);
                     });
                 }
-                else if (settings.type == 'textbox') {
+                else if (settings.type === 'textbox') {
                     v.on('change.autosyncinput', function (e) {
                         jQuery('[id="' + v.attr('id') + '"]').not(this).val(jQuery(this).val());
                     });

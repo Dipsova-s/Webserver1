@@ -8,11 +8,9 @@
         };
 
         self.SetAbilityToEditControl = function (data, modelID) {
-            var actionList = data.ActionList;
             var currentStatus = data.status;
 
             var id = data.id;
-            var name = data.name;
             var uri = data.Uri;
 
             var isTestExtractor = id === 'EATest_' + modelID;
@@ -44,8 +42,7 @@
             return template;
         };
 
-        self.SetDisableToEditControl = function (data, modelID) {
-            var actionList = data.ActionList;
+        self.SetDisableToEditControl = function (data) {
             var uri = data.Uri;
 
             var template = "<input type=\"hidden\" name=\"uri\" value=\"" + uri + "\" />";

@@ -31,7 +31,7 @@ function WidgetLabelsHandler(container, defaultLabels, businessProcessesHandler)
             self.Element.html(self.View.Template());
             applyHandlerElement = self.Element.find('.tab');
             var currentBinding = ko.dataFor(applyHandlerElement.get(0));
-            if (!currentBinding || (currentBinding && currentBinding.Identity !== self.Identity)) {
+            if (!currentBinding || currentBinding.Identity !== self.Identity) {
                 ko.applyBindings(self, applyHandlerElement.get(0));
             }
 

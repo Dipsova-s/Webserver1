@@ -36,7 +36,7 @@ function WidgetLanguagesHandler(container, multiLangNames, multiLangDescriptions
         self.PrepareLanguages();
 
         var currentBinding = ko.dataFor(self.Element.get(0));
-        if (!currentBinding || (currentBinding && currentBinding.Identity !== self.Identity)) {
+        if (!currentBinding || currentBinding.Identity !== self.Identity) {
             var bindingTarget = self.Element.find('.widgetLanguagesWrapper');
             if (!bindingTarget.length) {
                 bindingTarget = self.Element;

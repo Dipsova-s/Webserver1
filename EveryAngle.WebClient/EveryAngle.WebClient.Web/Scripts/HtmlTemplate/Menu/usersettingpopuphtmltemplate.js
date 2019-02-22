@@ -63,7 +63,7 @@ var userSettingHtmlTemplate = function () {
                 '<div class="row">',
                     '<div class="field" id="UserSettingsBusinessProcessesLabel">' + Localization.SystemSettingLabelDefaultBusinessProcess + '</div>',
                     '<div class="input inputBusinessProcesses">',
-                        '<div id="UserSettingsBusinessProcesses"></div>', 
+                        '<div id="UserSettingsBusinessProcesses"></div>',
                     '</div>',
                 '</div>',
                 '<div class="row rowLanguage">',

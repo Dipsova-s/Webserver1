@@ -48,8 +48,8 @@
                         return {
                             selector: '#PackageGrid',
                             query: {
-                                page: grid ? (grid.dataSource.page() || 1) : 1,
-                                sort: grid ? (grid.dataSource.sort() || []) : [],
+                                page: grid ? grid.dataSource.page() || 1 : 1,
+                                sort: grid ? grid.dataSource.sort() || [] : [],
                                 q: encodeURIComponent(jQuery('#PackagesGridFilterBox').val() || ''),
                                 activeStatus: jQuery('input[name="FilterPackages"]:checked').val()
                             }
@@ -198,11 +198,11 @@
             return data.active && data.active_version === data.Version;
         };
         self.CanUpdatePackage = function (data) {
-            return !data.active && data.active_version != null && data.active_version !== data.Version;
+            return !data.active && data.active_version !== null && data.active_version !== data.Version;
         };
         self.CanDownloadPackage = function (enable) {
             // enable and not safari on touch devices
-            return enable && (!Modernizr.touch || !$.browser.safari)
+            return enable && (!Modernizr.touch || !$.browser.safari);
         };
 
         self.GetPackageNameTooltip = function (element) {
@@ -232,7 +232,7 @@
         self.PackagesGridBeforeFilter = function (grid) {
             var url = grid.dataSource.transport.options.read.url;
             var queryIndex = url.indexOf('?') + 1;
-            var query, url;
+            var query, sourceUrl;
             if (queryIndex === 0) {
                 query = {};
                 sourceUrl = url;

@@ -37,8 +37,8 @@
                         return {
                             selector: '#PackageGrid',
                             query: {
-                                page: grid ? (grid.dataSource.page() || 1) : 1,
-                                sort: grid ? (grid.dataSource.sort() || []) : [],
+                                page: grid ? grid.dataSource.page() || 1 : 1,
+                                sort: grid ? grid.dataSource.sort() || [] : [],
                                 q: encodeURIComponent(jQuery('#GlobalPackagesGridFilterBox').val() || '')
                             }
                         };
@@ -149,7 +149,7 @@
         self.PackagesGridBeforeFilter = function (grid) {
             var url = grid.dataSource.transport.options.read.url;
             var queryIndex = url.indexOf('?') + 1;
-            var query;
+            var query, sourceUrl;
             if (queryIndex === 0) {
                 query = {};
                 sourceUrl = url;

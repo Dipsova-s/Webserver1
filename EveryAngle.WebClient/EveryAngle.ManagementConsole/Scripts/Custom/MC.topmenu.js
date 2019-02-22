@@ -46,7 +46,7 @@
                             jQuery("#btnWorkbench").hide();
                         }
                     })
-                    .fail(function (err) {
+                    .fail(function () {
                         jQuery("#btnWorkbench").hide();
                     });
             }

@@ -99,7 +99,7 @@
             sender = $(sender);
             self.SelectedRow = '';
             $('#SystemLogDetails .logDetails').removeClass('fail').empty();
-            var fullPath = typeof correlation_id == 'undefined' ? $(sender).parent("div").parent("div").prev('input').val() : MC.ui.logpopup.TaskHistoryUri + '?correlation_id=' + correlation_id;
+            var fullPath = typeof correlation_id === 'undefined' ? $(sender).parent("div").parent("div").prev('input').val() : MC.ui.logpopup.TaskHistoryUri + '?correlation_id=' + correlation_id;
             var win = $(sender.data('target')).data('kendoWindow');
 
             if (win && !win.__bind_resize_event) {
@@ -121,9 +121,10 @@
             }
 
             // initial filter
-            if (MC.ui.logpopup.LogType == 'SystemLog') {
+            var ddlMsgType;
+            if (MC.ui.logpopup.LogType === 'SystemLog') {
                 var filterTextbox = $('#FilterLogTableTextbox');
-                var ddlMsgType = $('#FilterLogTableType').data('kendoDropDownList');
+                ddlMsgType = $('#FilterLogTableType').data('kendoDropDownList');
                 if (!ddlMsgType) {
                     var ddlMsgTypeData = _self.MSGTPYE.slice();
                     ddlMsgTypeData.splice(0, 0, Localization.All);
@@ -145,7 +146,7 @@
             // iniital splitter
             var splitter = $('#popupLogTable .gridContainer').data('kendoSplitter');
             if (!splitter) {
-                var splitter = $('#popupLogTable .gridContainer').kendoSplitter({
+                $('#popupLogTable .gridContainer').kendoSplitter({
                     orientation: 'vertical',
                     panes: [
                         { collapsible: false, min: 100 },
@@ -166,14 +167,14 @@
             var setEnableLogPopup = function (enable) {
                 if (enable) {
                     grid.content.find('.k-grid-error').remove();
-                    if (MC.ui.logpopup.LogType == 'SystemLog') {
+                    if (MC.ui.logpopup.LogType === 'SystemLog') {
                         ddlMsgType.enable(true);
                         filterTextbox.removeAttr('disabled').next().removeClass('iconLoading');
                     }
                 }
                 else {
                     grid.content.busyIndicator(false);
-                    if (MC.ui.logpopup.LogType == 'SystemLog') {
+                    if (MC.ui.logpopup.LogType === 'SystemLog') {
                         ddlMsgType.enable(false);
                         filterTextbox.attr('disabled', 'disabled');
                     }
@@ -184,7 +185,7 @@
             _self.logDetailCache = {};
             setEnableLogPopup(true);
 
-            if (MC.ui.logpopup.LogType == 'SystemLog') {
+            if (MC.ui.logpopup.LogType === 'SystemLog') {
                 ddlMsgType.value(Localization.All);
                 filterTextbox.val('');
             }
@@ -197,22 +198,22 @@
                 transport: {
                     read: function (option) {
                         setEnableLogPopup(true);
-                        if (xhrLog && xhrLog.readyState != 4 && xhrLog.abort) {
+                        if (xhrLog && xhrLog.readyState !== 4 && xhrLog.abort) {
                             xhrLog.abort();
                             onKendoGridPagingStart();
                         }
 
                         var query;
-                        if (MC.ui.logpopup.LogType == 'SystemLog') {
+                        if (MC.ui.logpopup.LogType === 'SystemLog') {
                             query = {
                                 fullPath: fullPath,
                                 q: encodeURIComponent(filterTextbox.val()),
-                                type: ddlMsgType.value() == Localization.All ? '' : ddlMsgType.value(),
+                                type: ddlMsgType.value() === Localization.All ? '' : ddlMsgType.value(),
                                 offset: option.data.skip,
                                 limit: option.data.take,
                                 target: MC.ui.logpopup.Target
                             };
-                            if (query.type == Localization.All) {
+                            if (query.type === Localization.All) {
                                 query.type = '';
                             }
                         }
@@ -234,7 +235,7 @@
                             timeout: 300000
                         })
                         .fail(function (xhr, status, error) {
-                            if (error != 'abort') {
+                            if (error !== 'abort') {
                                 setEnableLogPopup(false);
                                 var msg = $(MC.ajax.getErrorMessage(xhr, null, error));
                                 msg.filter('p').append(
@@ -254,7 +255,7 @@
                         .done(function (response) {
                             // add row number
                             var number;
-                            if (MC.ui.logpopup.LogType == 'SystemLog') {
+                            if (MC.ui.logpopup.LogType === 'SystemLog') {
                                 number = response.header.offset + 1;
                                 $.each(response.messages, function (index, log) {
                                     log['RowNumber'] = number + index;
@@ -275,7 +276,7 @@
                 requestStart: onKendoGridPagingStart,
                 schema: {
                     data: function (response) {
-                        if (MC.ui.logpopup.LogType == 'SystemLog') {
+                        if (MC.ui.logpopup.LogType === 'SystemLog') {
                             return response.messages || [];
                         }
                         else {
@@ -283,7 +284,7 @@
                         }
                     },
                     total: function (response) {
-                        if (MC.ui.logpopup.LogType == 'SystemLog') {
+                        if (MC.ui.logpopup.LogType === 'SystemLog') {
                             return response.header ? response.header.total : 0;
                         }
                         else {
@@ -310,9 +311,9 @@
                         virtual: true
                     },
                     selectable: 'row',
-                    columns: MC.ui.logpopup.LogType == 'SystemLog' ? _self.SystemLogColumns : _self.EventLogColumns,
+                    columns: MC.ui.logpopup.LogType === 'SystemLog' ? _self.SystemLogColumns : _self.EventLogColumns,
                     dataBound: function (e) {
-                        if (MC.ui.logpopup.SelectedRow != '') {
+                        if (MC.ui.logpopup.SelectedRow !== '') {
                             jQuery('tr[data-uid="' + self.SelectedRow + '"]').addClass('k-state-selected').attr('aria-selected', true);
                         }
                     },
@@ -322,7 +323,7 @@
                             var dataItem = e.sender.dataSource.getByUid(row.data('uid'));
                             MC.ui.logpopup.SelectedRow = row.data('uid');
                             if (dataItem) {
-                                if (MC.ui.logpopup.LogType == 'SystemLog') {
+                                if (MC.ui.logpopup.LogType === 'SystemLog') {
                                     MC.ui.logpopup.ShowLogDetail(dataItem.DetailsUri || null);
                                 }
                                 else {
@@ -359,7 +360,7 @@
                                 fullPath: _self.lastLogFile,
                                 detailUri: detailUri,
                                 q: encodeURIComponent(filterTextbox.val()),
-                                type: ddlMsgType ? ddlMsgType.value() == Localization.All ? '' : ddlMsgType.value() : ''
+                                type: ddlMsgType ? ddlMsgType.value() === Localization.All ? '' : ddlMsgType.value() : ''
                             }
                         })
                         .done(function (detail) {
@@ -402,13 +403,13 @@
 
                         MC.ui.logpopup.UpdateLogDetailsLayout();
 
-                        if (MC.ui.logpopup.LogType != 'SystemLog') {
+                        if (MC.ui.logpopup.LogType !== 'SystemLog') {
                             MC.ui.tab();
                             element.find('.tabNav a:visible').first().trigger('click');
                         }
                     })
                     .fail(function (xhr, status, error) {
-                        if (error != 'abort') {
+                        if (error !== 'abort') {
                             element.addClass('fail').html(MC.ajax.getErrorMessage(xhr, null, error));
 
                             MC.ajax.setErrorDisable(xhr, status, error, null);

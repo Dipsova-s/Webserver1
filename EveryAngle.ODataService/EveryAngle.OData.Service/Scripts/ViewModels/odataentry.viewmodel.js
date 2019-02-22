@@ -48,7 +48,7 @@
                     url: api_destination + '/entry',
                     dataType: "json"
                 },
-                parameterMap: function (data, type) {
+                parameterMap: function (data) {
                     // send request parameters as json
                     return kendo.stringify(data);
                 }
@@ -99,13 +99,13 @@
             ]
         };
 
-        // generate paging 
+        // generate paging
         $scope.pagerOptions = {
             autoBind: false,
             dataSource: $scope.treeListDataSource,
             info: true,
             pageSizes: [30, 50, 100, 'all'],
-            refresh: true,
+            refresh: true
         };
 
         // generate wc link
@@ -130,7 +130,7 @@
             return element.dataItem.item_type !== "template" && element.dataItem.item_type !== "angle";
         };
 
-        // tooltip 
+        // tooltip
         $scope.tooltip;
         $scope.initializeTooltip = function () {
             $scope.tooltip = $(".odata-tooltip-copied").kendoTooltip({
@@ -146,9 +146,9 @@
         };
 
         // search box binding
-        $scope.searchInput = ''
+        $scope.searchInput = '';
         $scope.filterTextTimeout;
-        $scope.$watch('searchInput', function (val) {
+        $scope.$watch('searchInput', function () {
 
             if ($scope.filterTextTimeout)
                 $timeout.cancel($scope.filterTextTimeout);

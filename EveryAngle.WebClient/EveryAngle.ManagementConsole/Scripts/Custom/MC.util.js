@@ -1,4 +1,3 @@
-// util
 MC.util = {
     init: function () {
         MC.addPageReadyFunction(this.window.setSize);
@@ -22,7 +21,7 @@ MC.util = {
             var reader = new FileReader();
             reader.onload = function (e) {
                 target.attr('src', e.target.result);
-            }
+            };
             reader.readAsDataURL(input.files[0]);
         }
         else {
@@ -53,7 +52,7 @@ MC.util = {
 
         var scope = window;
         var scopeSplit = name.split('.');
-        for (i = 0; i < scopeSplit.length; i++) {
+        for (var i = 0; i < scopeSplit.length; i++) {
             scope = scope[scopeSplit[i]];
             if (typeof scope === 'undefined') {
                 scope = null;
@@ -80,13 +79,11 @@ MC.util = {
         }
 
         var scriptCount = scripts.length;
-        var scriptOptions = [],
-            scriptCount = scripts.length,
-            lastSciriptIndex = scriptCount - 1;
+        var lastSciriptIndex = scriptCount - 1;
         var lastScriptCallback = function () {
             jQuery('#mainContent').removeClass('loadingMainContent');
 
-            if (typeof scripts[lastSciriptIndex].callback == 'function') {
+            if (typeof scripts[lastSciriptIndex].callback === 'function') {
                 scripts[lastSciriptIndex].callback();
             }
 
@@ -123,19 +120,18 @@ MC.util = {
             return (((1 + Math.random()) * 0x10000) | 0).toString(16).substring(1);
         }
         function guid() {
-            //  return (S4() + S4() + '-' + S4() + '-' + S4() + '-' + S4() + '-' + S4() + S4() + S4());
-            return (S4() + S4() + '-' + S4() + '-' + S4() + '-' + S4() + '-' + new Date().getTime().toString().substring(1));
+            return S4() + S4() + '-' + S4() + '-' + S4() + '-' + S4() + '-' + new Date().getTime().toString().substring(1);
         }
 
         if (window.crypto) {
             return 'xxxxxxxx_xxxx_4xxx_yxxx_xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
-                var r = crypto.getRandomValues(new Uint8Array(1))[0] % 16 | 0, v = c == 'x' ? r : (r & 0x3 | 0x8);
+                var r = crypto.getRandomValues(new Uint8Array(1))[0] % 16 | 0, v = c === 'x' ? r : (r & 0x3 | 0x8);
                 return v.toString(16);
             });
-        } else {
+        }
+        else {
             return guid();
         }
-
     },
 	hideErrorContainerIfOpenTimePicker: function (element) {
 		var timePicker = element.data('kendoTimePicker');

@@ -11,7 +11,6 @@ namespace EveryAngle.WebClient.Web.App_Start
         {
             viewEngines.Clear();
             ViewEngines.Engines.Add(new RazorViewEngine());
-            //   viewEngines.Add(new EmbeddedResourceViewEngine());
 
             var engine = new PrecompiledMvcEngine(typeof(System.Web.Mvc.PreApplicationStartCode).Assembly);
             viewEngines.Add(engine);

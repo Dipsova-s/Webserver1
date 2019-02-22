@@ -101,7 +101,7 @@ namespace EveryAngle.WebClient.Service.Aggregation
             if (HttpContext.Current.Session["DomainElements"] != null)
             {
                 var domainElementsList = ((List<dynamic>)HttpContext.Current.Session["DomainElements"]);
-                dynamic domainElement = domainElementsList.Where(x => x.uri == uri).FirstOrDefault();
+                dynamic domainElement = domainElementsList.FirstOrDefault(x => x.uri == uri);
 
                 if (domainElement != null)
                     return domainElement;
@@ -159,7 +159,7 @@ namespace EveryAngle.WebClient.Service.Aggregation
 
         public DataTable GetCacheDataTable(PivotSettings fieldSettings)
         {
-            DataTable pivotDataTable = null;
+            DataTable pivotDataTable;
 
             string cacheKey = GetCacheKeyBy(fieldSettings);
 
@@ -693,21 +693,14 @@ namespace EveryAngle.WebClient.Service.Aggregation
 
         private PivotSortOrder GetSortDirection(string sorting)
         {
-            if (sorting == "1" || sorting == "desc")
-            {
-                return PivotSortOrder.Descending;
-            }
-            else
-            {
-                return PivotSortOrder.Ascending;
-            }
+            return sorting == "1" || sorting == "desc" ? PivotSortOrder.Descending : PivotSortOrder.Ascending;
         }
 
         private void GetAreaCount(List<EAPivotField> fields, out int rowAreaCount, out int dataAreaCount)
         {
-            rowAreaCount = fields.Count(c => c.IsSelected && (DevExpress.XtraPivotGrid.PivotArea)c.Area == DevExpress.XtraPivotGrid.PivotArea.RowArea);
+            rowAreaCount = fields.Count(c => c.IsSelected && (PivotArea)c.Area == PivotArea.RowArea);
             rowAreaCount = rowAreaCount == 0 ? 1 : rowAreaCount;
-            dataAreaCount = fields.Count(c => c.IsSelected && (DevExpress.XtraPivotGrid.PivotArea)c.Area == DevExpress.XtraPivotGrid.PivotArea.DataArea);
+            dataAreaCount = fields.Count(c => c.IsSelected && (PivotArea)c.Area == PivotArea.DataArea);
             if (FieldSetting.PercentageSummaryType != PivotEnums.PercentageSummaryType.None)
             {
                 dataAreaCount *= 2;
@@ -878,7 +871,7 @@ namespace EveryAngle.WebClient.Service.Aggregation
             summaryField.AreaIndex = areaIndex;
             summaryField.CellStyle.CssClass = "PercentageSummaryCell";
             
-            switch (FieldSetting.PercentageSummaryType)
+            switch (percentageSummaryType)
             {
                 case PivotEnums.PercentageSummaryType.Row:
                     summaryField.SummaryDisplayType = PivotSummaryDisplayType.PercentOfRowGrandTotal;

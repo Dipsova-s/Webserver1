@@ -58,7 +58,7 @@ function WidgetDetailsHandler(container, description, queryblocks, modelRoles, d
         DisplayDefinitions: ko.observableArray(WC.Utility.ToArray(displayDefinitions)),
         Labels: ko.observableArray(WC.Utility.ToArray(labels)),
         Widgets: ko.observableArray([]),
-        
+
         AngleName: ko.observable(''),
         DisplayName: ko.observable(''),
         AngleDescription: ko.observable(''),
@@ -80,7 +80,7 @@ function WidgetDetailsHandler(container, description, queryblocks, modelRoles, d
         self.Element.html(template);
 
         var currentBinding = ko.dataFor(self.Element.get(0));
-        if (!currentBinding || (currentBinding && currentBinding.Identity !== self.Identity)) {
+        if (!currentBinding || currentBinding.Identity !== self.Identity) {
             var bindingTarget = self.Element.find('.widgetDetailsWrapper');
             if (!bindingTarget.length) {
                 bindingTarget = self.Element;

@@ -101,7 +101,7 @@ function BusinessProcessesViewModel(externalData) {
 
             var bindElement = container.find('.businessProcesses').get(0);
             var currentBinding = ko.dataFor(bindElement);
-            if (!currentBinding || (currentBinding && currentBinding.Identity !== self.Identity)) {
+            if (!currentBinding || currentBinding.Identity !== self.Identity) {
                 ko.applyBindings(self, bindElement);
             }
         }

@@ -18,7 +18,7 @@ html, body, input, textarea {
     scrollbar-face-color: #c1c1c1;
     scrollbar-shadow-color: #c1c1c1;
     scrollbar-highlight-color: #c1c1c1;
-    scrollbar-3dlight-color: #c1c1c1;
+    scrollbar-3dlight-color: #c1c1c1;   /* NOSONAR: acceptable */
     scrollbar-darkshadow-color: #c1c1c1;
 }
 
@@ -308,10 +308,9 @@ img {
     cursor: pointer;
     height: 40px;
     line-height: 12px;
-    background-image: none;
     outline: none;
     box-sizing: border-box;
-    background: #fff;
+    background: #fff none;
     border: 1px solid #0a6088;
     color: #0a6088;
     font-size: 13px;
@@ -331,7 +330,6 @@ img {
 .btnPrimary:link,
 .btnPrimary:visited {
     background-color: #0a6088;
-    background-image: none !important;
     color: white !important;
     font-weight: normal;
     font-size: 13px;
@@ -963,7 +961,7 @@ img {
 
 .searchBoxWrapper:hover {
     border-color: #025e7f;
-    transition: 0.15s ease-in;
+    transition: .15s ease-in;
 }
 
 .searchBoxWrapper:focus {

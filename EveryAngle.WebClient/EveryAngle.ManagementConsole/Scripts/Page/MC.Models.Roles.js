@@ -82,7 +82,7 @@
 
             var isInRolesUser = false;
             $.each(MC.Models.Roles.CurrentAssignedRolesUser, function (i, item) {
-                if (deleteRole == item) {
+                if (deleteRole === item) {
                     isInRolesUser = true;
                     return false;
                 }
@@ -99,10 +99,10 @@
                     element: obj,
                     type: 'delete'
                 })
-                .done(function () {
-                    obj.parents('tr:first').remove();
-                    MC.util.resetGridRows($('#Grid tbody tr'));
-                });
+                    .done(function () {
+                        obj.parents('tr:first').remove();
+                        MC.util.resetGridRows($('#Grid tbody tr'));
+                    });
             });
 
             MC.util.preventDefault(e);
@@ -133,29 +133,29 @@
                     url: self.GetModelsNameUri,
                     parameters: "modelUri=" + self.ModelUri + "&roleUri=" + roleUri
                 })
-                .done(function (data, status, xhr) {
-                    var ddlHtml = [];
-                    if (data && data.length > 0) {
-                        jQuery.each(data, function (index, model) {
-                            ddlHtml[index] = '<option value="' + model.Item2 + '"' + (self.CurrentCopyModel == model.Item2 ? ' selected="selected"' : '') + '>' + model.Item1 + '</option>';
-                        });
-                    } else {
-                        MC.util.showPopupOK("No models available", 'Please check models status or models privilege.', "", 450, 150);
-                    }
-                    $('#modelName')
-                        .removeAttr('disabled')
-                        .html(ddlHtml.join(''))
-                        .kendoDropDownList({
-                            change: function (e) {
-                                self.CurrentCopyModel = e.sender.value();
-                            }
-                        });
-                })
-                .always(function () {
-                    setTimeout(function () {
-                        MC.ui.popup('requestEnd');
-                    }, 100);
-                });
+                    .done(function (data, status, xhr) {
+                        var ddlHtml = [];
+                        if (data && data.length > 0) {
+                            jQuery.each(data, function (index, model) {
+                                ddlHtml[index] = '<option value="' + model.Item2 + '"' + (self.CurrentCopyModel === model.Item2 ? ' selected="selected"' : '') + '>' + model.Item1 + '</option>';
+                            });
+                        } else {
+                            MC.util.showPopupOK("No models available", 'Please check models status or models privilege.', "", 450, 150);
+                        }
+                        $('#modelName')
+                            .removeAttr('disabled')
+                            .html(ddlHtml.join(''))
+                            .kendoDropDownList({
+                                change: function (e) {
+                                    self.CurrentCopyModel = e.sender.value();
+                                }
+                            });
+                    })
+                    .always(function () {
+                        setTimeout(function () {
+                            MC.ui.popup('requestEnd');
+                        }, 100);
+                    });
             }
         };
         self.GetRoleCopyData = function () {
@@ -170,7 +170,7 @@
             return data;
         };
         self.CheckCopyRoleToModel = function (e, obj) {
-            if (self.SubRoles > 0 && self.ModelUri != $('#modelName').val()) {
+            if (self.SubRoles > 0 && self.ModelUri !== $('#modelName').val()) {
                 MC.util.showPopupConfirmation(Localization.MC_ShowWarningPopupCopyRole, function () {
                     self.DoCheckCopyRoleToModel(e, obj);
                 });
@@ -180,7 +180,7 @@
             }
         };
 
-        self.DoCheckCopyRoleToModel = function (e, object) {
+        self.DoCheckCopyRoleToModel = function () {
             MC.form.clean();
 
             if (!jQuery('#formCopyRoleToModel').valid()) return;
@@ -189,55 +189,50 @@
 
             var data = self.GetRoleCopyData();
 
-            //MC.ui.popup('requestStart');
             $('#popupCopyRole').busyIndicator(true);
             MC.ajax.request({
                 url: self.CheckCopyRoleUri,
                 parameters: "destinationModelUri=" + data.destinationModelUri + "&oldModelUri=" + data.oldModelUri + "&roleUri=" + data.roleUri + "&roleName=" + data.roleName,
                 type: 'POST'
             })
-            .done(function (response, status, xhr) {
-                self.CopyRoleData = self.SetAccessDataViaOdata(response.roleData);
+                .done(function (response, status, xhr) {
+                    self.CopyRoleData = self.SetAccessDataViaOdata(response.roleData);
 
-                if (response.removedData) {
-                    var text = '<p>' + Localization.MC_FollowingSecurablesNotExist + ' ' + response.removedData.modelId + '</p>',
-                        removeCount = 0;
+                    if (response.removedData) {
+                        var text = '<p>' + Localization.MC_FollowingSecurablesNotExist + ' ' + response.removedData.modelId + '</p>',
+                            removeCount = 0;
 
-                    if (response.removedData.label.length) {
-                        removeCount += response.removedData.label.length;
-                        text += '<div class="contentSectionInfoItem"><label>' + Localization.MC_RemovedLabels + '</label><p>' + response.removedData.label.join(', ') + ' </p></div>';
-                    }
-                    if (response.removedData.objectClass.length) {
-                        removeCount += response.removedData.objectClass.length;
-                        text += '<div class="contentSectionInfoItem"><label>' + Localization.MC_RemovedObjects + '</label><p>' + response.removedData.objectClass.join(', ') + ' </p></div>';
-                    }
-                    if (response.removedData.objectClass.length) {
-                        removeCount += response.removedData.referenceField.length;
-                        text += '<div class="contentSectionInfoItem"><label>' + Localization.MC_RemovedReferenceFields + '</label><p>' + response.removedData.referenceField.join(', ') + ' </p></div>';
-                    }
+                        if (response.removedData.label.length) {
+                            removeCount += response.removedData.label.length;
+                            text += '<div class="contentSectionInfoItem"><label>' + Localization.MC_RemovedLabels + '</label><p>' + response.removedData.label.join(', ') + ' </p></div>';
+                        }
+                        if (response.removedData.objectClass.length) {
+                            removeCount += response.removedData.objectClass.length;
+                            text += '<div class="contentSectionInfoItem"><label>' + Localization.MC_RemovedObjects + '</label><p>' + response.removedData.objectClass.join(', ') + ' </p></div>';
+                        }
+                        if (response.removedData.objectClass.length) {
+                            removeCount += response.removedData.referenceField.length;
+                            text += '<div class="contentSectionInfoItem"><label>' + Localization.MC_RemovedReferenceFields + '</label><p>' + response.removedData.referenceField.join(', ') + ' </p></div>';
+                        }
 
-                    if (removeCount == 0) {
-                        self.CopyRoleToModel();
+                        if (removeCount === 0) {
+                            self.CopyRoleToModel();
+                        }
+                        else {
+                            $('#popupConfirmCopy .popupContent').html(text);
+                            $('#btnConfirmCopy').trigger('click');
+                        }
                     }
                     else {
-                        $('#popupConfirmCopy .popupContent').html(text);
-                        $('#btnConfirmCopy').trigger('click');
+                        self.CopyRoleToModel();
                     }
-                }
-                else {
-                    self.CopyRoleToModel();
-                }
-            })
-            //.fail(function (xhr, status, error) {
-            //    MC.ui.loading.setError(MC.ajax.getErrorMessage(xhr, null, error));
-            //})
-            .always(function () {
-                setTimeout(function () {
-                    $('#popupCopyRole').busyIndicator(false);
-                    jQuery('#popupCopyRole .btnClose').trigger('click');
-                    //MC.ui.popup('requestEnd');
-                }, 100);
-            });
+                })
+                .always(function () {
+                    setTimeout(function () {
+                        $('#popupCopyRole').busyIndicator(false);
+                        jQuery('#popupCopyRole .btnClose').trigger('click');
+                    }, 100);
+                });
         };
 
         self.SetAccessDataViaOdata = function (roleData) {
@@ -253,7 +248,7 @@
         };
 
         self.CopyRoleToModel = function (e, obj) {
-            
+
             MC.ajax.request({
                 url: self.CopyRoleUri,
                 parameters: { roleData: self.CopyRoleData },
@@ -299,9 +294,7 @@
         self.DeleteListSubRoles = [];
         self.AllowObject = [];
         self.DenyObject = [];
-        var objectMetadata = { classes: {}, fiels: {} };
         var fieldsData = {};
-        var fieldsSourceData = {};
         var labelsData = {};
         var labelCategoriesData = {};
         var selectingFields = [];
@@ -418,22 +411,19 @@
             }
         };
         self.ObjectGridFilterCallback = function () {
-
-            var objectsGrid = jQuery('#objectsGrid').data('kendoGrid');
-            jQuery('#objectsGrid input:radio[value="undefied"]').prop('checked', true)
+            jQuery('#objectsGrid input:radio[value="undefied"]').prop('checked', true);
 
             $.each(self.AllowObject, function (index, item) {
-                jQuery('#objectsGrid input:radio[value="true"][name=' + item + '_accessObjectRadio]').prop('checked', true)
+                jQuery('#objectsGrid input:radio[value="true"][name=' + item + '_accessObjectRadio]').prop('checked', true);
             });
 
             $.each(self.DenyObject, function (index, item) {
-                jQuery('#objectsGrid input:radio[value="false"][name=' + item + '_accessObjectRadio]').prop('checked', true)
+                jQuery('#objectsGrid input:radio[value="false"][name=' + item + '_accessObjectRadio]').prop('checked', true);
             });
         };
         self.RemoveObjectsTemporary = function (obj, isRemove) {
             obj = $(obj);
             var data = obj.data('parameters');
-            var table
             var row = obj.parents('tr:first');
 
 
@@ -442,8 +432,8 @@
 
             $('#objectsGrid tr').each(function (index, element) {
                 element = $(element);
-                if (element.find('td:first').text() == removedObject) {
-                    if (removedClass == 'rowMaskAsRemove') {
+                if (element.find('td:first').text() === removedObject) {
+                    if (removedClass === 'rowMaskAsRemove') {
                         element.addClass('rowMaskAsRemove');
                     }
                     else {
@@ -453,7 +443,7 @@
             });
 
 
-            var obj = {
+            var objClass = {
                 "className": data.className,
                 "toClassName": data.toClassName,
                 "objectIndex": data.objectIndex,
@@ -462,23 +452,23 @@
                 'IsAnyObjectToClass': data.IsAnyObjectToClass
             };
             var index = -1;
-
             for (var i = 0; i < self.DeleteListObjects.length; i++) {
-                if (self.DeleteListObjects[i].className == obj.className && self.DeleteListObjects[i].isAllowedClasses == obj.isAllowedClasses &&
-                    self.DeleteListObjects[i].objectIndex == obj.objectIndex && self.DeleteListObjects[i].referenceIndex == obj.referenceIndex) {
+                if (self.DeleteListObjects[i].className === objClass.className
+                    && self.DeleteListObjects[i].isAllowedClasses === objClass.isAllowedClasses
+                    && self.DeleteListObjects[i].objectIndex === objClass.objectIndex
+                    && self.DeleteListObjects[i].referenceIndex === objClass.referenceIndex) {
                     index = i;
                     break;
                 }
             }
 
-            //  self.IndexOfObject(obj);
             if (isRemove) {
-                if (index == -1) {
-                    self.DeleteListObjects.push(obj);
+                if (index === -1) {
+                    self.DeleteListObjects.push(objClass);
                 }
             }
             else {
-                if (index != -1) {
+                if (index !== -1) {
                     self.DeleteListObjects.splice(index, 1);
                 }
             }
@@ -490,7 +480,7 @@
                 row = $(row).removeClass('k-alt');
 
                 if (!row.children('td:first').find('.hidden').length) {
-                    rowClass = rowClass == 'k-alt' ? '' : 'k-alt';
+                    rowClass = rowClass === 'k-alt' ? '' : 'k-alt';
                 }
                 row.addClass(rowClass);
             });
@@ -498,7 +488,9 @@
         self.IndexOfObject = function (obj) {
             var result = -1;
             for (var i = 0, l = self.DeleteListObjects.length; i < l; i++) {
-                if (typeof self.DeleteListObjects[i] == "object" && self.DeleteListObjects[i].objectIndex === obj.referenceIndex && self.DeleteListObjects[i].referenceIndex === obj.referenceIndex) {
+                if (typeof self.DeleteListObjects[i] === "object"
+                    && self.DeleteListObjects[i].objectIndex === obj.referenceIndex
+                    && self.DeleteListObjects[i].referenceIndex === obj.referenceIndex) {
                     result = i;
                     break;
                 }
@@ -514,32 +506,31 @@
             MC.util.preventDefault(e);
         };
         self.ChangeAccessType = function (obj) {
-            var objectName = $(obj).attr('name')
+            var objectName = $(obj).attr('name');
             var objectID = $(obj).closest('tr').find("td").eq(2).text().trim();
             var allowButton = $('input[name=' + objectName + '][value=true]');
             var denyButton = $('input[name=' + objectName + '][value=false]');
-            var undefinedButton = $('input[name=' + objectName + '][value=undefied]');
             if (allowButton.is(":checked")) {
                 self.AllowObject.push(objectID);
                 self.DenyObject = jQuery.grep(self.DenyObject, function (value) {
-                    return value != objectID;
+                    return value !== objectID;
                 });
             }
             else if (denyButton.is(":checked")) {
                 self.DenyObject.push(objectID);
                 self.AllowObject = jQuery.grep(self.AllowObject, function (value) {
-                    return value != objectID;
+                    return value !== objectID;
                 });
             }
             else {
                 self.DenyObject = jQuery.grep(self.DenyObject, function (value) {
-                    return value != objectID;
+                    return value !== objectID;
                 });
                 self.AllowObject = jQuery.grep(self.AllowObject, function (value) {
-                    return value != objectID;
+                    return value !== objectID;
                 });
             }
-        }
+        };
 
         // fields tab
         self.InitialFieldsTab = function () {
@@ -557,11 +548,11 @@
                             'sourcename',
                             'field',
                             'technical_info',
-                             {
-                                 field: 'access',
-                                 width: 205,
-                                 sortable: false
-                             },
+                            {
+                                field: 'access',
+                                width: 205,
+                                sortable: false
+                            },
                             {
                                 field: 'action',
                                 attributes: {
@@ -592,16 +583,16 @@
                 ele.find('select[name="SourcePropertyObject"]').kendoDropDownList({
                     change: function (e) {
                         var value = e.sender.value();
-                        if (value == '') {
+                        if (value === '') {
                             e.sender.element.closest('tr').find("input[name^='txtField']").attr('disabled', 'disabled');
                             e.sender.element.closest('tr').find("input[name^='txtField']").val('');
                             e.sender.element.closest('tr').find("input[name^='hdnFieldId']").val('');
                         }
-                        else if (value == 'select_object') {
+                        else if (value === 'select_object') {
                             e.sender.element.closest('tr').find("input[name^='sourceClassField']").click();
                         }
                         else {
-                            if (e.sender.element.closest('tr').find("input[name^='txtField']").val() != '') {
+                            if (e.sender.element.closest('tr').find("input[name^='txtField']").val() !== '') {
                                 e.sender.element.closest('tr').find("input[name^='txtField']").val('');
                                 e.sender.element.closest('tr').find("input[name^='hdnFieldId']").val('');
 
@@ -615,33 +606,30 @@
                     var sourceId = ele.find('input[name="sourceClassFieldId"]').val();
                     var sourceName = ele.find('input[name="sourceClassFieldName"]').val();
                     var newDataSource = [];
-                    if (sourceId != '*') {
+                    if (sourceId !== '*') {
                         newDataSource =
-                               [
-                                    { text: Localization.PleaseSelect, value: "" },
-                                    { text: Localization.MC_AllObjects, value: "*" },
-                                    { text: sourceName, value: sourceId },
-                                    { text: Localization.MC_SelectObject, value: "select_object" }
+                            [
+                                { text: Localization.PleaseSelect, value: "" },
+                                { text: Localization.MC_AllObjects, value: "*" },
+                                { text: sourceName, value: sourceId },
+                                { text: Localization.MC_SelectObject, value: "select_object" }
 
-                               ];
+                            ];
                     }
                     else {
                         newDataSource =
-                               [
-                                    { text: Localization.PleaseSelect, value: "" },
-                                    { text: Localization.MC_AllObjects, value: "*" },
-                                    { text: Localization.MC_SelectObject, value: "select_object" }
-                               ];
+                            [
+                                { text: Localization.PleaseSelect, value: "" },
+                                { text: Localization.MC_AllObjects, value: "*" },
+                                { text: Localization.MC_SelectObject, value: "select_object" }
+                            ];
                     }
                     ele.find('select[name="SourcePropertyObject"]').data("kendoDropDownList").dataSource.data(newDataSource);
                     ele.find('select[name="SourcePropertyObject"]').data("kendoDropDownList").value(sourceId);
                 }
             });
 
-
-
             function getFieldsByIds(ids) {
-
                 var fields = [], requestIds = [];
                 jQuery.each(ids, function (index, id) {
                     if (!fieldsData[id]) {
@@ -666,25 +654,9 @@
                 }
             }
 
-            function getFieldSource(field) {
-                if (fieldsSourceData[field.source]) {
-                    return jQuery.when(fieldsSourceData[field.source]);
-                }
-                else {
-                    return jQuery.when(self.GetFieldSource(field.source))
-                        .done(function (response) {
-                            if (response) {
-                                fieldsSourceData[response.uri] = response;
-                            }
-                        });
-                }
-            }
-
             setTimeout(function () {
-
-                var ids = [], fieldId, deferred = [], requestingSource = {};
+                var ids = [], fieldId, deferred = [];
                 jQuery.each(e.sender.dataSource.data(), function (index, value) {
-
                     fieldId = jQuery(value.field).filter('[name="hdnFieldId"]').val();
                     if (fieldId) {
                         ids.push(fieldId);
@@ -696,14 +668,11 @@
 
                 jQuery.when.apply(jQuery, deferred)
                     .done(function () {
-                        var datas = Array.prototype.slice.call(arguments), row;
+                        var datas = Array.prototype.slice.call(arguments);
                         jQuery.each(datas, function (index, fields) {
                             jQuery.each(fields, function (indexField, field) {
-                                row = e.sender.content.find('[name="hdnFieldId"][value="' + field.id + '"]').parents('tr:first');
-
+                                var row = e.sender.content.find('[name="hdnFieldId"][value="' + field.id + '"]').parents('tr:first');
                                 row.children('td:eq(2)').text(field.technical_info || '');
-
-
                             });
                         });
                     });
@@ -720,12 +689,12 @@
             var self = this;
             disableLoading();
             return MC.ajax.request({
-                url: self.GetFieldsUri + '?fieldsUri=' + escape(uri + (uri.indexOf('?') == -1 ? '?' : '&') + jQuery.param(params))
+                url: self.GetFieldsUri + '?fieldsUri=' + escape(uri + (uri.indexOf('?') === -1 ? '?' : '&') + jQuery.param(params))
             });
         };
         self.GetFieldSource = function (uri) {
             var self = this;
-            if (uri == 'all') {
+            if (uri === 'all') {
                 var deferred = new jQuery.Deferred();
                 setTimeout(function () {
                     deferred.resolve({ uri: 'all', id: 'all', short_name: 'All' });
@@ -780,7 +749,7 @@
         self.AddRolePropertiesCallback = function (row) {
             var data = null;
             jQuery.each(selectingFields, function (k, v) {
-                if (typeof v.is_added == 'undefined') {
+                if (typeof v.is_added === 'undefined') {
                     v.is_added = true;
                     data = v;
                     return false;
@@ -788,10 +757,10 @@
             });
             if (data) {
                 var fieldType = data.fieldtype;
-                if (fieldType == 'boolean') {
+                if (fieldType === 'boolean') {
                     fieldType = fieldsChooserModel.Captions.FieldTypeBoolean;
                 }
-                else if (fieldType == 'enumerated') {
+                else if (fieldType === 'enumerated') {
                     fieldType = fieldsChooserModel.Captions.FieldTypeEnum;
                 }
 
@@ -844,7 +813,7 @@
                 });
             }
         };
-        
+
 
         // labels tab
         self.InitialLabelGrid = function () {
@@ -917,7 +886,7 @@
             var currentValue = dropdown.value();
             var obj = dropdown.wrapper.parents('tr:first').find('[name="LabelCategory"]');
             var categoryUri = obj.children('option:selected').data('parameters').categoryUri.split('/');
-            var dataLabel = $.grep(self.LabelsData.Data, function (label) { return label.category == '/' + categoryUri[3] + '/' + categoryUri[4] });
+            var dataLabel = $.grep(self.LabelsData.Data, function (label) { return label.category === '/' + categoryUri[3] + '/' + categoryUri[4]; });
 
             $.each(dataLabel, function (index, label) {
                 label.label = (label.abbreviation || label.id) + ' (' + label.name + ')';
@@ -925,7 +894,7 @@
 
             var currentLabelsData = self.GetPrivilegeData(true);
             for (var i = dataLabel.length - 1; i >= 0; i--) {
-                if (dataLabel[i].id != dropdown.value() && currentLabelsData.hasObject('Name', dataLabel[i].id)) {
+                if (dataLabel[i].id !== dropdown.value() && currentLabelsData.hasObject('Name', dataLabel[i].id)) {
                     dataLabel.splice(i, 1);
                 }
             }
@@ -1044,7 +1013,7 @@
         self.CollapseOrExpandAllLabels = function (type) {
 
             var treeList = $('#treelist').data('kendoTreeList');
-            if (typeof treeList[type] == 'function') {
+            if (typeof treeList[type] === 'function') {
                 treeList.unbind('dataBound', self.TreeListDataBound);
                 treeList.content.find('tr .k-i-' + type).each(function () {
                     var row = jQuery(this).parents('tr:first');
@@ -1104,12 +1073,10 @@
             }, 200);
         };
         self.ResizeTreeListColumn = function (grid, columnIndex, newWidth) {
-            var headerWrapper, column, columnSize, columnOffset,
-            headerWrapper = grid.wrapper.find('.k-grid-header-wrap');
-            headerWrapperSpace = headerWrapper.width(),
-            column = headerWrapper.find('th').eq(columnIndex);
-            columnSize = column.outerWidth();
-            columnOffset = column.offset();
+            var headerWrapper = grid.wrapper.find('.k-grid-header-wrap');
+            var column = headerWrapper.find('th').eq(columnIndex);
+            var columnSize = column.outerWidth();
+            var columnOffset = column.offset();
 
             if (grid._positionResizeHandle) {
                 grid._positionResizeHandle({ currentTarget: column.get(0), clientX: columnOffset.left + columnSize });
@@ -1153,7 +1120,7 @@
         self.BindSubRolesDropdown = function (obj) {
             var assignSubRoleId = $(obj).val(),
                 parent = $(obj).parents('tr:first');
-            if (assignSubRoleId == '') {
+            if (assignSubRoleId === '') {
                 $('td:eq(1)', parent).empty();
                 return;
             }
@@ -1205,11 +1172,11 @@
             }
             self.DisableDrilldown();
         };
-        
+
         // M4-27236 disable 'Drilldown to item in a list Display' + set value to 'Undefined' if 'Obtain more details' is set to 'deny'
         self.DisableDrilldown = function () {
             $('input[type=radio][name=AllowMoreDetails]').change(function () {
-                if (this.value == 'False') {
+                if (this.value === 'False') {
                     $('input[type=radio][name="AllowSingleItemView"]').val(['Undefined']);
                     $('input[type=radio][name="AllowSingleItemView"]').attr('disabled', true);
                 }
@@ -1242,34 +1209,34 @@
                 url: self.GetFieldDomainUri + '?fieldsDomainUri=' + escape(e.domain),
                 type: 'GET'
             })
-            .done(function (field) {
-                var enumInput = parentCell.find('.enumerated');
-                var guid = MC.util.GUID();
+                .done(function (field) {
+                    var enumInput = parentCell.find('.enumerated');
+                    var guid = MC.util.GUID();
 
-                enumInput.addClass(guid);
+                    enumInput.addClass(guid);
 
-                $(enumInput).kendoMultiSelect({
-                    dataSource: field.elements,
-                    placeholder: "Add values",
-                    dataTextField: "short_name",
-                    dataValueField: "id",
-                    headerTemplate: '<div class="dropdown-header k-widget k-header multipleSelectHeader">'
-                                  + '<a class="btn btnSelectAll" onclick="MC.Models.Roles.BatchParameters(\'' + guid + '\', MC.Models.Roles.BATCHPARAMETERSTYPE.SELECTALL)" title="Select all"></a>'
-                                  + '<a class="btn btnClearAll" onclick="MC.Models.Roles.BatchParameters(\'' + guid + '\', MC.Models.Roles.BATCHPARAMETERSTYPE.CLEARALL)" title="Deselect all"></a>'
-                                  + '<a class="btn btnInvert" onclick="MC.Models.Roles.BatchParameters(\'' + guid + '\', MC.Models.Roles.BATCHPARAMETERSTYPE.INVERT)" title="Invert selection"></a>'
-                                  + '</div>',
-                    tagTemplate: '#= (short_name == long_name ? short_name : short_name + " (" + long_name + ")") #',
-                    template: '#= (short_name == long_name ? short_name : short_name + " (" + long_name + ")") #',
-                    filter: 'startswith',
-                    autoClose: false,
+                    $(enumInput).kendoMultiSelect({
+                        dataSource: field.elements,
+                        placeholder: "Add values",
+                        dataTextField: "short_name",
+                        dataValueField: "id",
+                        headerTemplate: '<div class="dropdown-header k-widget k-header multipleSelectHeader">'
+                            + '<a class="btn btnSelectAll" onclick="MC.Models.Roles.BatchParameters(\'' + guid + '\', MC.Models.Roles.BATCHPARAMETERSTYPE.SELECTALL)" title="Select all"></a>'
+                            + '<a class="btn btnClearAll" onclick="MC.Models.Roles.BatchParameters(\'' + guid + '\', MC.Models.Roles.BATCHPARAMETERSTYPE.CLEARALL)" title="Deselect all"></a>'
+                            + '<a class="btn btnInvert" onclick="MC.Models.Roles.BatchParameters(\'' + guid + '\', MC.Models.Roles.BATCHPARAMETERSTYPE.INVERT)" title="Invert selection"></a>'
+                            + '</div>',
+                        tagTemplate: '#= (short_name === long_name ? short_name : short_name + " (" + long_name + ")") #',
+                        template: '#= (short_name === long_name ? short_name : short_name + " (" + long_name + ")") #',
+                        filter: 'startswith',
+                        autoClose: false,
 
-                    change: self.onMultiSelectChange
+                        change: self.onMultiSelectChange
+                    });
+
+
+                    var generatedControl = enumInput.prev();
+                    generatedControl.insertAfter(enumInput);
                 });
-
-
-                var generatedControl = enumInput.prev();
-                generatedControl.insertAfter(enumInput);
-            });
         };
         self.BatchParameters = function (guid, todo) {
             var input = $('#ReferenceFilterGrid .k-grid-content tr').find('input.' + guid);
@@ -1283,18 +1250,18 @@
                         inputData.dataSource.filter({});
 
                         var values;
-                        if (todo == self.BATCHPARAMETERSTYPE.SELECTALL) {
+                        if (todo === self.BATCHPARAMETERSTYPE.SELECTALL) {
                             values = $.map(inputData.dataSource.data(), function (data) {
                                 return data[inputData.options.dataValueField];
                             });
                         }
-                        else if (todo == self.BATCHPARAMETERSTYPE.CLEARALL) {
+                        else if (todo === self.BATCHPARAMETERSTYPE.CLEARALL) {
                             values = [];
                         }
                         else {
                             values = [];
                             $.each(inputData.dataSource.data(), function (index, data) {
-                                if ($.inArray(data[inputData.options.dataValueField], selectedValues) == -1) {
+                                if ($.inArray(data[inputData.options.dataValueField], selectedValues) === -1) {
                                     values.push(data[inputData.options.dataValueField]);
                                 }
                             });
@@ -1317,7 +1284,7 @@
                     catch (ex) {
                         setTimeout(fnUpdateBatch, 10);
                     }
-                }
+                };
                 fnUpdateBatch();
             }
         };
@@ -1359,11 +1326,11 @@
 
                 var selectedVal = $(this).find("input[type='radio']:checked").val();
 
-                if (selectedVal == 'true') {
+                if (selectedVal === 'true') {
                     if (isallowed)
                         datas.push($(this).find("td").eq(2).text().trim());
                 }
-                else if (selectedVal == 'false') {
+                else if (selectedVal === 'false') {
                     if (!isallowed)
                         datas.push($(this).find("td").eq(2).text().trim());
                 }
@@ -1371,7 +1338,7 @@
 
             });
             return datas;
-        }
+        };
         self.GetFieldsData = function () {
             var datas = [];
 
@@ -1386,7 +1353,7 @@
                     fieldAuthorize.classes.push(sourceObject);
                     var fieldsId = $(this).find('input[name="hdnFieldId"]').val();
                     var isAcess = $(this).find('td:eq(3) input[name^="AllowedFields"]').prop('checked');
-                    if (fieldsId != '') {
+                    if (fieldsId !== '') {
                         if (isAcess) {
                             fieldAuthorize.allowed_fields.push(fieldsId);
                         }
@@ -1405,7 +1372,7 @@
                 if (!$(this).hasClass('rowMaskAsRemove')) {
                     var isNew = $(this).hasClass('newRow');
                     var subRoleId = isNew ? $(this).find("td:eq(0) select").val() : $(this).find("td").eq(0).text().trim();
-                    if (subRoleId != '') {
+                    if (subRoleId !== '') {
                         datas.push(subRoleId);
                     }
                 }
@@ -1413,7 +1380,7 @@
             return datas;
         };
         self.GetPrivilegeData = function (includeMaskAsRemove) {
-            if (typeof includeMaskAsRemove == 'undefined') includeMaskAsRemove = false;
+            if (typeof includeMaskAsRemove === 'undefined') includeMaskAsRemove = false;
 
             var datas = [];
             $('#treelist tbody tr').each(function (index, row) {
@@ -1423,19 +1390,19 @@
 
                     var selectedPvl = $(row).find('input[type=radio]:checked');
                     var privilege = selectedPvl.val();
-                    if (privilege && privilege != 'undefined') {
+                    if (privilege && privilege !== 'undefined') {
                         var labelId = $.trim(selectedPvl.attr('name').replace('_rdoLabelPvls', ''));
 
-                        if (privilege == 'deny') {
+                        if (privilege === 'deny') {
                             privilege = 4;
-                        } else if (privilege == 'validate') {
+                        } else if (privilege === 'validate') {
                             privilege = 3;
-                        } else if (privilege == 'manage') {
+                        } else if (privilege === 'manage') {
                             privilege = 2;
-                        } else if (privilege == 'assign') {
+                        } else if (privilege === 'assign') {
                             privilege = 1;
                         }
-                        else if (privilege == 'view') {
+                        else if (privilege === 'view') {
                             privilege = 0;
                         }
 
@@ -1478,7 +1445,7 @@
                 jQuery('#EditRoleForm').valid();
                 return false;
             }
-            
+
             jQuery('#EditRoleForm .tabPanel').removeAttr('style');
             var data = self.GetRoleData();
             var frm = jQuery('#EditRoleForm');
@@ -1501,33 +1468,33 @@
                     + '&objectFilters=' + encodeURIComponent(JSON.stringify(data.object_filters)),
                 type: frm.attr('method')
             })
-            .done(function (response) {
-                if (response.session_needs_update) {
-                    MC.util.showPopupConfirmation(Localization.MC_ConfirmChangePrivileges, function () {
-                        jQuery('#logoutForm').submit();
-                    }, function () {
+                .done(function (response) {
+                    if (response.session_needs_update) {
+                        MC.util.showPopupConfirmation(Localization.MC_ConfirmChangePrivileges, function () {
+                            jQuery('#logoutForm').submit();
+                        }, function () {
+                            self.SaveEditRoleCallback(response.parameters);
+                        });
+                    }
+                    else {
                         self.SaveEditRoleCallback(response.parameters);
-                    });
-                }
-                else {
-                    self.SaveEditRoleCallback(response.parameters);
-                }
-            });
+                    }
+                });
         };
         self.SaveEditRoleCallback = function (params) {
             MC.ajax.request({
                 target: '#sideContent',
                 url: self.SideMenuUri
             })
-            .done(function () {
-                var isNew = !self.RoleUri;
-                if (isNew) {
-                    location.hash = self.RolePageUri + '?parameters=' + JSON.stringify(params);
-                }
-                else {
-                    location.hash = self.AllRolesPageUri;
-                }
-            });
+                .done(function () {
+                    var isNew = !self.RoleUri;
+                    if (isNew) {
+                        location.hash = self.RolePageUri + '?parameters=' + JSON.stringify(params);
+                    }
+                    else {
+                        location.hash = self.AllRolesPageUri;
+                    }
+                });
         };
         /* end - role page */
 
@@ -1557,7 +1524,7 @@
         self.FromObjectSelect = function (e) {
             var dataItem = e.item ? e.sender.dataSource.view()[e.item.index()] : e.sender.dataItems()[0],
                 values = e.sender.value();
-            if (dataItem.Value == self.AnyObjectValue) {
+            if (dataItem.Value === self.AnyObjectValue) {
                 e.sender.value([dataItem.Value]);
                 e.preventDefault();
 
@@ -1568,7 +1535,7 @@
                 self.SetRequiredFields();
             }
             else {
-                e.sender.value(jQuery.grep(values, function (value, index) { return value != self.AnyObjectValue }));
+                e.sender.value(jQuery.grep(values, function (value, index) { return value !== self.AnyObjectValue; }));
 
                 $('#allowedClasses, #denyClasses').removeAttr('disabled');
                 if (!$('[name="AccessType"]:checked').length) {
@@ -1600,7 +1567,7 @@
                         select: function (e) {
                             var dataItem = this.dataItem(e.item.index());
                             var value = dataItem.value;
-                            if (value == '') {
+                            if (value === '') {
                                 e.sender.element.closest('tr').find("input[name^='txtField']").attr('disabled', 'disabled');
                                 e.sender.element.closest('tr').find("input[name^='txtField']").val('');
                                 e.sender.element.closest('tr').find("input[name^='hdnFieldId']").val('');
@@ -1616,12 +1583,12 @@
                                 e.sender.element.closest('tr').find("input[name^=txtFilterValues]").removeTag([]);
 
                             }
-                            else if (value == 'select_object') {
+                            else if (value === 'select_object') {
                                 e.sender.element.closest('tr').find("input[name^='sourceClassField']").click();
                             }
                             else {
 
-                                if (e.sender.element.closest('tr').find("input[name^='txtField']").val() != '') {
+                                if (e.sender.element.closest('tr').find("input[name^='txtField']").val() !== '') {
                                     e.sender.element.closest('tr').find("input[name^='txtField']").val('');
                                     e.sender.element.closest('tr').find("input[name^='hdnFieldId']").val('');
 
@@ -1629,12 +1596,12 @@
                                 e.sender.element.closest('tr').find("input[name^='txtField']").removeAttr('disabled');
 
                                 var newTargetDataSource =
-                               [
-                                    { text: Localization.PleaseSelect, value: "" },
-                                    { text: "(Self)", value: "(self)" },
-                                    { text: MC_SelectObject, value: "select_object" }
+                                    [
+                                        { text: Localization.PleaseSelect, value: "" },
+                                        { text: "(Self)", value: "(self)" },
+                                        { text: MC_SelectObject, value: "select_object" }
 
-                               ];
+                                    ];
 
                                 e.sender.element.closest('tr').find('select[name="refrencedObject"]').data("kendoDropDownList").dataSource.data(newTargetDataSource);
                                 e.sender.element.closest('tr').find('select[name="refrencedObject"]').data("kendoDropDownList").value('');
@@ -1649,7 +1616,7 @@
                             }
                         }
                     }
-                    );
+                );
 
                 if (ele.find('select[name="SourceObject"]').length) {
                     var sourceId = ele.find('input[name="sourceClassField"]').val();
@@ -1657,24 +1624,24 @@
                     var newDataSource = null;
 
 
-                    if (sourceId != '*') {
+                    if (sourceId !== '*') {
                         newDataSource =
-                               [
-                                    { text: Localization.PleaseSelect, value: "" },
-                                    { text: Localization.MC_AllObjects, value: "*" },
-                                    { text: sourceName, value: sourceId },
-                                    { text: Localization.MC_SelectObject, value: "select_object" }
+                            [
+                                { text: Localization.PleaseSelect, value: "" },
+                                { text: Localization.MC_AllObjects, value: "*" },
+                                { text: sourceName, value: sourceId },
+                                { text: Localization.MC_SelectObject, value: "select_object" }
 
-                               ];
+                            ];
 
                     }
                     else {
                         newDataSource =
-                               [
-                                    { text: Localization.PleaseSelect, value: "" },
-                                    { text: Localization.MC_AllObjects, value: "*" },
-                                    { text: Localization.MC_SelectObject, value: "select_object" }
-                               ];
+                            [
+                                { text: Localization.PleaseSelect, value: "" },
+                                { text: Localization.MC_AllObjects, value: "*" },
+                                { text: Localization.MC_SelectObject, value: "select_object" }
+                            ];
                     }
 
 
@@ -1685,54 +1652,54 @@
                 }
 
                 ele.find('select[name="refrencedObject"]').kendoDropDownList(
-                     {
-                         select: function (e) {
-                             var dataItem = this.dataItem(e.item.index());
-                             var value = dataItem.value;
-                             if (value == '') {
-                                 e.sender.element.closest('tr').find("input[name^='txtField']").attr('disabled', 'disabled');
-                                 e.sender.element.closest('tr').find("input[name^='txtField']").val('');
-                                 e.sender.element.closest('tr').find("input[name^='hdnFieldId']").val('');
+                    {
+                        select: function (e) {
+                            var dataItem = this.dataItem(e.item.index());
+                            var value = dataItem.value;
+                            if (value === '') {
+                                e.sender.element.closest('tr').find("input[name^='txtField']").attr('disabled', 'disabled');
+                                e.sender.element.closest('tr').find("input[name^='txtField']").val('');
+                                e.sender.element.closest('tr').find("input[name^='hdnFieldId']").val('');
 
-                             }
-                             else if (value == 'select_object') {
-                                 e.sender.element.closest('tr').find("input[name^='targetClassField']").click();
-                                 e.sender.element.closest('tr').find("input[type=checkbox]").attr('disabled', 'disabled');
-                                 e.sender.element.closest('tr').find("input[type=checkbox]").prop('checked', false);
-
-
-                             }
-                             else if (value == '(self)') {
-
-                                 e.sender.element.closest('tr').find("input[name^='txtField']").removeAttr('disabled');
-                                 e.sender.element.closest('tr').find("input[name^='txtField']").addClass('required');
-
-                                 e.sender.element.closest('tr').find("input[type=checkbox]").attr('disabled', 'disabled');
-                                 e.sender.element.closest('tr').find("input[type=checkbox]").prop('checked', false);
-
-                                 if (e.sender.element.closest('tr').find("input[name^='txtField']").val() != '') {
-                                     e.sender.element.closest('tr').find("input[name^='txtField']").val('');
-                                     e.sender.element.closest('tr').find("input[name^='hdnFieldId']").val('');
-
-                                 }
-                             }
-
-                             else {
-                                 if (e.sender.element.closest('tr').find("input[name^='txtField']").val() != '') {
-                                     e.sender.element.closest('tr').find("input[name^='txtField']").val('');
-                                     e.sender.element.closest('tr').find("input[name^='hdnFieldId']").val('');
-
-                                 }
-                                 e.sender.element.closest('tr').find("input[name^='txtField']").removeAttr('disabled');
-                                 e.sender.element.closest('tr').find("input[name^='txtField']").addClass('required');
+                            }
+                            else if (value === 'select_object') {
+                                e.sender.element.closest('tr').find("input[name^='targetClassField']").click();
+                                e.sender.element.closest('tr').find("input[type=checkbox]").attr('disabled', 'disabled');
+                                e.sender.element.closest('tr').find("input[type=checkbox]").prop('checked', false);
 
 
+                            }
+                            else if (value === '(self)') {
 
-                                 e.sender.element.closest('tr').find("input[type=checkbox]").removeAttr('disabled');
-                             }
-                         }
-                     }
-                     );
+                                e.sender.element.closest('tr').find("input[name^='txtField']").removeAttr('disabled');
+                                e.sender.element.closest('tr').find("input[name^='txtField']").addClass('required');
+
+                                e.sender.element.closest('tr').find("input[type=checkbox]").attr('disabled', 'disabled');
+                                e.sender.element.closest('tr').find("input[type=checkbox]").prop('checked', false);
+
+                                if (e.sender.element.closest('tr').find("input[name^='txtField']").val() !== '') {
+                                    e.sender.element.closest('tr').find("input[name^='txtField']").val('');
+                                    e.sender.element.closest('tr').find("input[name^='hdnFieldId']").val('');
+
+                                }
+                            }
+
+                            else {
+                                if (e.sender.element.closest('tr').find("input[name^='txtField']").val() !== '') {
+                                    e.sender.element.closest('tr').find("input[name^='txtField']").val('');
+                                    e.sender.element.closest('tr').find("input[name^='hdnFieldId']").val('');
+
+                                }
+                                e.sender.element.closest('tr').find("input[name^='txtField']").removeAttr('disabled');
+                                e.sender.element.closest('tr').find("input[name^='txtField']").addClass('required');
+
+
+
+                                e.sender.element.closest('tr').find("input[type=checkbox]").removeAttr('disabled');
+                            }
+                        }
+                    }
+                );
 
                 if (ele.find('select[name="refrencedObject"]').length) {
 
@@ -1740,28 +1707,28 @@
 
                     var targetName = ele.find('input[name="targetClassFieldName"]').val();
                     var targetnewDataSource = [];
-                    if (targetId != '(self)') {
+                    if (targetId !== '(self)') {
 
                         targetnewDataSource =
-                       [
-                            { text: Localization.PleaseSelect, value: "" },
-                            { text: "(Self)", value: "(self)" },
-                            { text: targetName, value: targetId },
-                            { text: Localization.MC_SelectObject, value: "select_object" }
+                            [
+                                { text: Localization.PleaseSelect, value: "" },
+                                { text: "(Self)", value: "(self)" },
+                                { text: targetName, value: targetId },
+                                { text: Localization.MC_SelectObject, value: "select_object" }
 
-                       ];
+                            ];
 
 
                     }
                     else {
 
                         targetnewDataSource =
-                      [
-                            { text: Localization.PleaseSelect, value: "" },
-                            { text: "(Self)", value: "(self)" },
-                            { text: Localization.MC_SelectObject, value: "select_object" }
+                            [
+                                { text: Localization.PleaseSelect, value: "" },
+                                { text: "(Self)", value: "(self)" },
+                                { text: Localization.MC_SelectObject, value: "select_object" }
 
-                      ];
+                            ];
                         ele.find("input[type=checkbox]").attr('disabled', 'disabled');
                     }
 
@@ -1778,34 +1745,34 @@
                         url: self.GetFieldDomainUri + '?fieldsDomainUri=' + escape(domainUri),
                         type: 'GET'
                     })
-                    .done(function (field) {
-                        var enumInput = ele.find('.enumerated');
-                        var guid = MC.util.GUID();
+                        .done(function (field) {
+                            var enumInput = ele.find('.enumerated');
+                            var guid = MC.util.GUID();
 
-                        enumInput.addClass(guid);
+                            enumInput.addClass(guid);
 
 
-                        $(enumInput).kendoMultiSelect({
-                            dataSource: field.elements,
-                            placeholder: "Add values",
-                            dataTextField: "short_name",
-                            dataValueField: "id",
-                            headerTemplate: '<div class="dropdown-header k-widget k-header multipleSelectHeader">'
-                                          + '<a class="btn btnSelectAll" onclick="MC.Models.Roles.BatchParameters(\'' + guid + '\', MC.Models.Roles.BATCHPARAMETERSTYPE.SELECTALL)" title="Select all"></a>'
-                                          + '<a class="btn btnClearAll" onclick="MC.Models.Roles.BatchParameters(\'' + guid + '\', MC.Models.Roles.BATCHPARAMETERSTYPE.CLEARALL)" title="Deselect all"></a>'
-                                          + '<a class="btn btnInvert" onclick="MC.Models.Roles.BatchParameters(\'' + guid + '\', MC.Models.Roles.BATCHPARAMETERSTYPE.INVERT)" title="Invert selection"></a>'
-                                          + '</div>',
-                            tagTemplate: '#= (short_name == long_name ? short_name : short_name + " (" + long_name + ")") #',
-                            template: '#= (short_name == long_name ? short_name : short_name + " (" + long_name + ")") #',
-                            value: enumInput.val().split(','),
-                            filter: 'startswith',
-                            autoClose: false,
-                            change: self.onMultiSelectChange
+                            $(enumInput).kendoMultiSelect({
+                                dataSource: field.elements,
+                                placeholder: "Add values",
+                                dataTextField: "short_name",
+                                dataValueField: "id",
+                                headerTemplate: '<div class="dropdown-header k-widget k-header multipleSelectHeader">'
+                                    + '<a class="btn btnSelectAll" onclick="MC.Models.Roles.BatchParameters(\'' + guid + '\', MC.Models.Roles.BATCHPARAMETERSTYPE.SELECTALL)" title="Select all"></a>'
+                                    + '<a class="btn btnClearAll" onclick="MC.Models.Roles.BatchParameters(\'' + guid + '\', MC.Models.Roles.BATCHPARAMETERSTYPE.CLEARALL)" title="Deselect all"></a>'
+                                    + '<a class="btn btnInvert" onclick="MC.Models.Roles.BatchParameters(\'' + guid + '\', MC.Models.Roles.BATCHPARAMETERSTYPE.INVERT)" title="Invert selection"></a>'
+                                    + '</div>',
+                                tagTemplate: '#= (short_name === long_name ? short_name : short_name + " (" + long_name + ")") #',
+                                template: '#= (short_name === long_name ? short_name : short_name + " (" + long_name + ")") #',
+                                value: enumInput.val().split(','),
+                                filter: 'startswith',
+                                autoClose: false,
+                                change: self.onMultiSelectChange
+                            });
+
+                            var generatedControl = enumInput.prev();
+                            generatedControl.insertAfter(enumInput);
                         });
-
-                        var generatedControl = enumInput.prev();
-                        generatedControl.insertAfter(enumInput);
-                    });
                 }
             });
         };
@@ -1830,14 +1797,11 @@
         };
 
         self.ShowFilterDescriptionPopup = function (e) {
-
             e = $(e);
-
-            var trRecord = $(e).closest('tr');
             var isAllow = e.closest('tr').find("input[type=radio]").prop('checked');
             var isCheckEmptly = e.closest('tr').find("input[type=checkbox]").prop('checked');
 
-            var sourceObjectMessage = '<' + ($(e).closest('tr').find("select[name='SourceObject']").val() == "*" ? 'All objects' : $(e).closest('tr').find("select[name='SourceObject']").val()) + '> is ';
+            var sourceObjectMessage = '<' + ($(e).closest('tr').find("select[name='SourceObject']").val() === "*" ? 'All objects' : $(e).closest('tr').find("select[name='SourceObject']").val()) + '> is ';
             var allowedMessage = isAllow ? '<allowed> when ' : '<denied> when ';
             var targetObjectMessage = '<' + $(e).closest('tr').find("select[name='refrencedObject']").val() + '>';
 
@@ -1858,19 +1822,19 @@
                     select: function (e) {
                         var dataItem = this.dataItem(e.item.index());
                         var value = dataItem.value;
-                        if (value == '') {
+                        if (value === '') {
                             e.sender.element.closest('tr').find("input[name^='txtField']").attr('disabled', 'disabled');
                             e.sender.element.closest('tr').find("input[name^='txtField']").val('');
                             e.sender.element.closest('tr').find("td:eq(2)").text('');
                             e.sender.element.closest('tr').find("input[name^='hdnFieldId']").val('');
                             e.sender.element.closest('tr').find("input[type=radio]").attr('disabled', 'disabled');
                         }
-                        else if (value == 'select_object') {
+                        else if (value === 'select_object') {
                             e.sender.element.closest('tr').find("input[name^='sourceClassField']").click();
                             e.sender.element.closest('tr').find("input[type=radio]").removeAttr('disabled');
                         }
                         else {
-                            if (e.sender.element.closest('tr').find("input[name^='txtField']").val() != '') {
+                            if (e.sender.element.closest('tr').find("input[name^='txtField']").val() !== '') {
                                 e.sender.element.closest('tr').find("input[name^='txtField']").val('');
                                 e.sender.element.closest('tr').find("input[name^='hdnFieldId']").val('');
 
@@ -1881,7 +1845,7 @@
                         }
                     }
                 }
-                );
+            );
 
 
             self.SetRequiredFieldsForProperty(row);
@@ -1892,7 +1856,7 @@
             //    row = jQuery(row);
             if (row.find('select[name=SourcePropertyObject]').length > 0) {
 
-                if (row.find('select[name=SourcePropertyObject]').data("kendoDropDownList").value() != '') {
+                if (row.find('select[name=SourcePropertyObject]').data("kendoDropDownList").value() !== '') {
 
                     row.find("input[name^='txtField']").removeAttr('disabled').addClass('required');
                     row.find("input[name^='txtField']").val('');
@@ -1939,7 +1903,7 @@
                         var dataItem = this.dataItem(e.item.index());
                         var value = dataItem.value;
 
-                        if (value == '') {
+                        if (value === '') {
                             e.sender.element.closest('tr').find("input[type=radio]").attr('disabled', 'disabled');
                             e.sender.element.closest('tr').find("select[name='refrencedObject']").data("kendoDropDownList").enable(false);
                             e.sender.element.closest('tr').find("select[name='refrencedObject']").data("kendoDropDownList").value('');
@@ -1953,7 +1917,7 @@
                             e.sender.element.closest('tr').find("input[name^=txtFilterValues]").removeTag([]);
 
                         }
-                        else if (value == 'select_object') {
+                        else if (value === 'select_object') {
                             e.sender.element.closest('tr').find("input[name^='sourceClassField']").click();
                         }
 
@@ -1967,7 +1931,7 @@
                             e.sender.element.closest('tr').find("input[type=radio]").removeAttr('disabled');
                             e.sender.element.closest('tr').find("select[name='refrencedObject']").data("kendoDropDownList").enable(true);
 
-                            if (e.sender.element.closest('tr').find("input[name^='txtField']").val() != '') {
+                            if (e.sender.element.closest('tr').find("input[name^='txtField']").val() !== '') {
                                 e.sender.element.closest('tr').find("input[name^='txtField']").val('');
                                 e.sender.element.closest('tr').find("input[name^='hdnFieldId']").val('');
 
@@ -1975,12 +1939,12 @@
                             e.sender.element.closest('tr').find("input[name^='txtField']").removeAttr('disabled');
 
                             var newTargetDataSource =
-                           [
-                                { text: Localization.PleaseSelect, value: "" },
-                                { text: "(Self)", value: "(self)" },
-                                { text: Localization.MC_SelectObject, value: "select_object" }
+                                [
+                                    { text: Localization.PleaseSelect, value: "" },
+                                    { text: "(Self)", value: "(self)" },
+                                    { text: Localization.MC_SelectObject, value: "select_object" }
 
-                           ];
+                                ];
 
                             e.sender.element.closest('tr').find('select[name="refrencedObject"]').data("kendoDropDownList").dataSource.data(newTargetDataSource);
                             e.sender.element.closest('tr').find('select[name="refrencedObject"]').data("kendoDropDownList").value('');
@@ -1995,50 +1959,50 @@
                         }
                     }
                 }
-                );
+            );
 
             row.find('select[name="refrencedObject"]').kendoDropDownList(
-          {
-              select: function (e) {
+                {
+                    select: function (e) {
 
-                  var dataItem = this.dataItem(e.item.index());
-                  var value = dataItem.value;
-                  if (value == '') {
-                      e.sender.element.closest('tr').find("input[type=checkbox]").attr('disabled', 'disabled');
-                      e.sender.element.closest('tr').find("input[type=checkbox]").prop('checked', false);
-                      e.sender.element.closest('tr').find("input[name^='txtField']").attr('disabled', 'disabled');
-                      e.sender.element.closest('tr').find("input[name^='txtField']").val('');
-                      e.sender.element.closest('tr').find("input[name^='hdnFieldId']").val('');
-                      //e.sender.element.closest('tr').find("input[name^='txtFilterValues']").val('');
-                      //e.sender.element.closest('tr').find("input[name^='txtFilterValues']").prop('disabled', true);
-                  }
-                  else if (value == 'select_object') {
-                      e.sender.element.closest('tr').find("input[name^='targetClass']").click();
-                      e.sender.element.closest('tr').find("input[type=checkbox]").attr('disabled', 'disabled');
-                      e.sender.element.closest('tr').find("input[type=checkbox]").prop('checked', false);
-                  }
-                  else if (value == '(self)') {
-
-
-                      e.sender.element.closest('tr').find("input[name^='txtField']").removeAttr('disabled');
-                      e.sender.element.closest('tr').find("input[name^='txtField']").val('');
-
-                      e.sender.element.closest('tr').find("input[type=checkbox]").attr('disabled', 'disabled');
-                      e.sender.element.closest('tr').find("input[type=checkbox]").prop('checked', false);
-                  }
-                  else {
-                      e.sender.element.closest('tr').find("input[type=radio]").removeAttr('disabled');
-                      e.sender.element.closest('tr').find("input[name^='txtField']").removeAttr('disabled');
-                      e.sender.element.closest('tr').find("input[name^='txtField']").val('');
+                        var dataItem = this.dataItem(e.item.index());
+                        var value = dataItem.value;
+                        if (value === '') {
+                            e.sender.element.closest('tr').find("input[type=checkbox]").attr('disabled', 'disabled');
+                            e.sender.element.closest('tr').find("input[type=checkbox]").prop('checked', false);
+                            e.sender.element.closest('tr').find("input[name^='txtField']").attr('disabled', 'disabled');
+                            e.sender.element.closest('tr').find("input[name^='txtField']").val('');
+                            e.sender.element.closest('tr').find("input[name^='hdnFieldId']").val('');
+                            //e.sender.element.closest('tr').find("input[name^='txtFilterValues']").val('');
+                            //e.sender.element.closest('tr').find("input[name^='txtFilterValues']").prop('disabled', true);
+                        }
+                        else if (value === 'select_object') {
+                            e.sender.element.closest('tr').find("input[name^='targetClass']").click();
+                            e.sender.element.closest('tr').find("input[type=checkbox]").attr('disabled', 'disabled');
+                            e.sender.element.closest('tr').find("input[type=checkbox]").prop('checked', false);
+                        }
+                        else if (value === '(self)') {
 
 
-                      e.sender.element.closest('tr').find("input[type=checkbox]").removeAttr('disabled');
-                      e.sender.element.closest('tr').find("input[type=checkbox]").prop('checked', false);
+                            e.sender.element.closest('tr').find("input[name^='txtField']").removeAttr('disabled');
+                            e.sender.element.closest('tr').find("input[name^='txtField']").val('');
 
-                  }
-              }
-          }
-                );
+                            e.sender.element.closest('tr').find("input[type=checkbox]").attr('disabled', 'disabled');
+                            e.sender.element.closest('tr').find("input[type=checkbox]").prop('checked', false);
+                        }
+                        else {
+                            e.sender.element.closest('tr').find("input[type=radio]").removeAttr('disabled');
+                            e.sender.element.closest('tr').find("input[name^='txtField']").removeAttr('disabled');
+                            e.sender.element.closest('tr').find("input[name^='txtField']").val('');
+
+
+                            e.sender.element.closest('tr').find("input[type=checkbox]").removeAttr('disabled');
+                            e.sender.element.closest('tr').find("input[type=checkbox]").prop('checked', false);
+
+                        }
+                    }
+                }
+            );
 
             self.SetRequiredFields(row);
         };
@@ -2063,12 +2027,12 @@
 
             var index = self.RemovedAllowValue.indexOf(value);
             if (isRemove) {
-                if (index == -1) {
+                if (index === -1) {
                     self.RemovedAllowValue.push(value);
                 }
             }
             else {
-                if (index != -1) {
+                if (index !== -1) {
                     self.RemovedAllowValue.splice(index, 1);
                 }
             }
@@ -2079,12 +2043,12 @@
 
             var index = self.RemovedDisAllowValue.indexOf(value);
             if (isRemove) {
-                if (index == -1) {
+                if (index === -1) {
                     self.RemovedDisAllowValue.push(value);
                 }
             }
             else {
-                if (index != -1) {
+                if (index !== -1) {
                     self.RemovedDisAllowValue.splice(index, 1);
                 }
             }
@@ -2093,7 +2057,7 @@
             $('#btnRemoveField').hide();
             $('#SelectedField').val("");
         };
-        self.ChooseDenyClass = function (isDisabledRequired) {
+        self.ChooseDenyClass = function () {
             $('#btnAddFilter').addClass('disabled');
             self.SetRequiredFields();
         };
@@ -2102,16 +2066,16 @@
             self.SetRequiredFields();
         };
         self.EditObjectValue = function (obj) {
-            var row = $(obj).parents('tr:first'),
-                cell = row.find('td:first'),
-                cellValue = $.trim(cell.text());
+            var row = $(obj).parents('tr:first');
+            var cell = row.find('td:first');
+            var cellValue = $.trim(cell.text());
 
             cell.data('defaultValue', cellValue).html('<input type="text" maxlength="50" value="' + cellValue + '" />');
 
             var btnMain = row.find('.btn:first');
             if (btnMain.hasClass('btnEdit')) {
                 btnMain.removeClass('btnEdit').addClass('btnCancel');
-                btnMain.data('clickTarget', btnMain.next('.btnGroupInner').find('.btnCancel'))
+                btnMain.data('clickTarget', btnMain.next('.btnGroupInner').find('.btnCancel'));
             }
         };
         self.CancelObjectValue = function (obj) {
@@ -2123,7 +2087,7 @@
             if (btnMain.hasClass('btnCancel')) {
                 btnMain.removeClass('btnCancel').addClass('btnEdit');
                 cell.data('defaultValue', cellValue).html('' + cellValue + '');
-                btnMain.data('clickTarget', btnMain.next('.btnGroupInner').find('.btnEdit'))
+                btnMain.data('clickTarget', btnMain.next('.btnGroupInner').find('.btnEdit'));
             }
         };
         self.SubmitObjectPropertyFieldsChooser = function () {
@@ -2135,9 +2099,10 @@
                     $(self.CurrentGridField).val(source ? source.short_name + " - " + v.short_name : v.short_name);
                     $($(self.CurrentGridField).next()[0]).val(v.id);
 
-                    if (fieldsChooserModel.SelectedItems()[0].fieldtype == 'enumerated') {
+                    if (fieldsChooserModel.SelectedItems()[0].fieldtype === 'enumerated') {
                         self.BindEnumControl(fieldsChooserModel.SelectedItems()[0]);
-                    } else {
+                    }
+                    else {
                         self.BindMultiInputControl(fieldsChooserModel.SelectedItems()[0]);
                     }
 
@@ -2158,7 +2123,7 @@
             data.referenceIndex = self.ReferenceIndex;
 
             var isAllowAccessType = $('input:radio[name=AccessType]:checked').val();
-            data.isAllowAccessType = isAllowAccessType == "true" ? true : (isAllowAccessType == 'false' ? false : null);
+            data.isAllowAccessType = isAllowAccessType === "true" ? true : (isAllowAccessType === 'false' ? false : null);
             data.IsAnyObjectToClass = self.IsAnyObjectToClass;
 
             data.objectData = self.GetReferenceFiltersDataFromGrid();
@@ -2167,11 +2132,7 @@
         };
         self.GetReferenceFiltersDataFromGrid = function () {
             var values = [];
-
-
-
             jQuery('#ReferenceFilterGrid .k-grid-content tr').each(function (index, row) {
-
                 row = jQuery(row);
                 if (!row.hasClass('rowMaskAsRemove') && !row.hasClass('k-no-data')) {
 
@@ -2181,9 +2142,7 @@
                     filters.classes = [];
                     filters.classes.push(sourceObject);
 
-                    var isSelf = (row.find('select[name=refrencedObject]').val() == "(self)");
-
-
+                    var isSelf = row.find('select[name=refrencedObject]').val() === "(self)";
                     var fieldFilter = {};
                     fieldFilter.field = row.find('input[name=hdnFieldId]').val();
 
@@ -2192,11 +2151,12 @@
                         if (row.find('input[name^="txtFilterValues"]').data('kendoMultiSelect')) {
                             filterValues = row.find('input[name^="txtFilterValues"]').data('kendoMultiSelect').value();
                         }
-                    } else {
+                    }
+                    else {
                         filterValues = row.find('input[name^="txtFilterValues"]').val().split(',');
                     }
 
-                    if (row.find('input[name^="filterType"]').prop('checked') == true) {
+                    if (row.find('input[name^="filterType"]').prop('checked')) {
                         fieldFilter.allowed_values = filterValues;
                     }
                     else {
@@ -2220,7 +2180,6 @@
 
                         filters.reference_filters = [];
                         filters.reference_filters.push(filter);
-                        //  filter.index = parseInt(row.find('input[name=hiddenId]').val());
                     }
 
                     values.push(filters);
@@ -2228,7 +2187,6 @@
                 }
             });
 
-            //filters.reference_filters = values;
             return values;
         };
         self.SaveReferenceFilters = function () {
@@ -2263,7 +2221,7 @@
                             jQuery('#logoutForm').submit();
                         }, function () {
                             location.hash = self.RolePageUri + '?parameters=' + JSON.stringify(data.parameters);
-                        })
+                        });
                     }
                     else {
                         location.hash = self.RolePageUri + '?parameters=' + JSON.stringify(data.parameters);
@@ -2299,7 +2257,7 @@
             // functions
             fieldsChooserModel.BindDataGridStart = jQuery.noop;
             fieldsChooserModel.GetFieldSourceFunction = function (uri) {
-                if (uri == 'all') {
+                if (uri === 'all') {
                     var deferred = new jQuery.Deferred();
                     setTimeout(function () {
                         deferred.resolve({ uri: 'all', id: 'all', short_name: 'Unknown' });
@@ -2314,7 +2272,7 @@
                 }
             };
             fieldsChooserModel.CheckFieldIsExistsFunction = function (fieldId) {
-                return jQuery.inArray(fieldId, addedFields) != -1;
+                return jQuery.inArray(fieldId, addedFields) !== -1;
             };
             fieldsChooserModel.GetFieldChooserButtons = function () {
                 return [
@@ -2337,7 +2295,7 @@
                 ];
             };
             fieldsChooserModel.OnGridSelectionChanged = function (selectedItems) {
-                if (fieldsChooserFor == self.FIELDSCHOOSER_FOR.PROPERTY) {
+                if (fieldsChooserFor === self.FIELDSCHOOSER_FOR.PROPERTY) {
                     jQuery('#selectedItems').text(selectedItems.length ? kendo.format(Localization.NumberSelectingItems + ', ', selectedItems.length) : '');
                 }
             };
@@ -2351,14 +2309,9 @@
                 };
 
                 var query = fieldsChooserModel.GetKeywordQuery();
-                if (fieldsChooserFor == self.FIELDSCHOOSER_FOR.PROPERTY) {
-                    /*
-                    if (!query.q) {
-                        query.q = '*';
-                    }*/
-
+                if (fieldsChooserFor === self.FIELDSCHOOSER_FOR.PROPERTY) {
                     var selectedClass = jQuery($(self.CurrentGridField).closest('tr').find('td:eq(0) select[name="SourcePropertyObject"]')).data('kendoDropDownList').value();
-                    if (selectedClass != '*') {
+                    if (selectedClass !== '*') {
                         request.data.classes = selectedClass;
                         fieldsChooserModel.FacetsHidden = ['classes'];
                     }
@@ -2368,18 +2321,14 @@
                     }
                 }
                 else {
-
-                    var isSelf = (jQuery($(self.CurrentGridField).parent().prev('td').prev('td').find('select[name="refrencedObject"]')).data('kendoDropDownList').value() == "(self)") ||
-                        (jQuery($(self.CurrentGridField).parent().prev('td').prev('td').find('select[name="refrencedObject"]')).data('kendoDropDownList').value() == jQuery($(self.CurrentGridField).closest('tr').find('td:eq(0) select[name="SourceObject"]')).data('kendoDropDownList').value());
-                    if (isSelf) {
-                        request.data.classes = jQuery($(self.CurrentGridField).closest('tr').find('td:eq(0) select[name="SourceObject"]')).data('kendoDropDownList').value();
-
+                    var refrencedObjectValue = $(self.CurrentGridField).parent().prev('td').prev('td').find('select[name="refrencedObject"]').data('kendoDropDownList').value();
+                    var sourceObjectValue = $(self.CurrentGridField).closest('tr').find('td:eq(0) select[name="SourceObject"]').data('kendoDropDownList').value();
+                    if (refrencedObjectValue === "(self)" || refrencedObjectValue === sourceObjectValue) {
+                        request.data.classes = sourceObjectValue;
                     }
                     else {
-                        request.data.classes = jQuery($(self.CurrentGridField).parent().prev('td').prev('td').find('select[name="refrencedObject"]')).data('kendoDropDownList').value();
+                        request.data.classes = refrencedObjectValue;
                     }
-
-
                 }
 
                 jQuery.extend(
@@ -2395,7 +2344,7 @@
             fieldsChooserModel.OnSubmit = function () {
                 if (jQuery.active) return;
 
-                if (fieldsChooserFor == self.FIELDSCHOOSER_FOR.PROPERTY) {
+                if (fieldsChooserFor === self.FIELDSCHOOSER_FOR.PROPERTY) {
                     self.SubmitRolePropertyFieldsChooser();
                 }
                 else {
@@ -2408,10 +2357,10 @@
                 self.ClientSettings = clientSettings;
             };
 
-            
+
 
             // map popup fields
-            if (fieldsChooserFor == self.FIELDSCHOOSER_FOR.PROPERTY) {
+            if (fieldsChooserFor === self.FIELDSCHOOSER_FOR.PROPERTY) {
                 addedFields = jQuery('#propertiesGrid tbody tr').find('input[name="id"]').map(function () { return this.value; }).get();
             }
             else {
@@ -2419,16 +2368,13 @@
             }
 
             // set property popup case by case
-            if (fieldsChooserFor == self.FIELDSCHOOSER_FOR.PROPERTY) {
+            if (fieldsChooserFor === self.FIELDSCHOOSER_FOR.PROPERTY) {
                 fieldsChooserModel.FacetsHidden = [];
                 fieldsChooserModel.ShowSourceField = true;
                 fieldsChooserModel.ShowTechnicalInfo = true;
                 fieldsChooserModel.AllowMultipleSelection = false;
             }
-            else if (fieldsChooserFor == self.FIELDSCHOOSER_FOR.CLASSES) {
-
-            }
-            else {
+            else if (fieldsChooserFor !== self.FIELDSCHOOSER_FOR.CLASSES) {
                 fieldsChooserModel.FacetsHidden = ['classes'];
                 fieldsChooserModel.ShowSourceField = true;
                 fieldsChooserModel.ShowTechnicalInfo = true;
@@ -2437,7 +2383,7 @@
 
             // set title to popup
             var title;
-            if (fieldsChooserFor == self.FIELDSCHOOSER_FOR.OBJECT) {
+            if (fieldsChooserFor === self.FIELDSCHOOSER_FOR.OBJECT) {
                 var objectName = jQuery(self.CurrentGridField).parents('tr:first').find('select[name="refrencedObject"]').data('kendoDropDownList').value();
                 title = kendo.format(Localization.MC_SelectAFieldFromObject, objectName);
             }
@@ -2449,7 +2395,7 @@
             MC.ui.fieldschooser.showFieldsChooserPopup(title);
 
             // set element
-            if (fieldsChooserFor == self.FIELDSCHOOSER_FOR.PROPERTY) {
+            if (fieldsChooserFor === self.FIELDSCHOOSER_FOR.PROPERTY) {
                 jQuery('#selectedItems').text('');
                 jQuery('#popupFieldChooser input[name="AddPropertyType"][value="False"]').prop('checked', true);
             }
@@ -2488,7 +2434,7 @@
                 self.ClassesChooserHandler.FilterClasses();
             });
             self.ClassesChooserHandler.BusinessProcessHandler.ClickHeaderCallback(function (oldList, newList) {
-                if (oldList.length == newList.length) {
+                if (oldList.length === newList.length) {
                     var list = {};
                     jQuery.each(newList, function (index, bp) {
                         list[bp] = false;
@@ -2596,9 +2542,9 @@
                 url: self.GetModelAnglesUri,
                 parameters: { modelAnglesUri: uri + '?' + jQuery.param(query) }
             })
-            .then(function (items) {
-                return $.when({ items: items });
-            });
+                .then(function (items) {
+                    return $.when({ items: items });
+                });
         };
         self.LoadAllClasses = function (uri) {
             disableLoading();
@@ -2612,9 +2558,9 @@
                 url: self.GetModelClassesUri,
                 parameters: { modelClassesUri: classUri }
             })
-            .then(function (classes) {
-                return $.when({ classes: classes });
-            });
+                .then(function (classes) {
+                    return $.when({ classes: classes });
+                });
         };
         self.SetDisableUI = function (disable) {
             if (disable) {
@@ -2627,38 +2573,29 @@
         self.ShowHelpText = function (classId) {
             var helpTemplate = [
                 '<div id="helpText">',
-                    '<div class="helpHeaderContainer"></div>',
-                    '<div class="helpTextContainer"></div>',
-                    '<div class="helpAdditionalContainer"></div>',
+                '<div class="helpHeaderContainer"></div>',
+                '<div class="helpTextContainer"></div>',
+                '<div class="helpAdditionalContainer"></div>',
                 '</div>'
             ].join('');
             var helpContainer = $('#popupClassesChooser .Description').html(helpTemplate);
-
-            if (!classId) {
-                var helpHtml;
-
-                helpHtml = Localization.MC_SingleObject_Instruction;
-
-            }
-            else {
-                var grid = $('#ObjectsGrid').data('kendoGrid');
-                if (grid) {
-                    var classesData = JSON.parse(JSON.stringify(grid.dataSource.data()));
-                    var classData = classesData.findObject('id', classId);
-                    if (classData) {
-                        disableLoading();
-                        helpContainer.busyIndicator(true);
-                        var helpUri = webAPIUrl + classData.helptext + '?viewmode=details';
-                        if (!classData.helptext) {
-                            cacheHelps[helpUri] = { html_help: '' };
-                        }
-                        $.when(cacheHelps[helpUri] || MC.ajax.request({
+            var grid = $('#ObjectsGrid').data('kendoGrid');
+            if (classId && grid) {
+                var classesData = JSON.parse(JSON.stringify(grid.dataSource.data()));
+                var classData = classesData.findObject('id', classId);
+                if (classData) {
+                    disableLoading();
+                    helpContainer.busyIndicator(true);
+                    var helpUri = webAPIUrl + classData.helptext + '?viewmode=details';
+                    if (!classData.helptext) {
+                        cacheHelps[helpUri] = { html_help: '' };
+                    }
+                    $.when(cacheHelps[helpUri] || MC.ajax.request({
                             url: self.GetHelpTextUri,
                             parameters: { helpTextUri: helpUri }
                         }))
                         .done(function (data, status, xhr) {
                             cacheHelps[helpUri] = data;
-
                             if (data.html_help) {
                                 helpContainer.find('.helpTextContainer').html(data.html_help);
                             }
@@ -2666,7 +2603,6 @@
                         .always(function () {
                             helpContainer.busyIndicator(false);
                         });
-                    }
                 }
             }
         };
@@ -2680,75 +2616,63 @@
         };
         self.OnSubmitClasses = function (classes) {
             if (classes.length) {
-
-                if ($(self.CurrentGridField).attr('name') == 'targetClassField') {
-                    var newDataSource =
-                         [
-                            { text: Localization.PleaseSelect, value: "" },
-                            { text: "(Self)", value: "(self)" },
-                            { text: MC.Models.Roles.ClassesChooserHandler.GetAllSelectedClassesName()[0], value: classes[0] },
-                            { text: Localization.MC_SelectObject, value: "select_object" }
-
-                         ];
-
-                    $(self.CurrentGridField).closest('tr').find('select[name="refrencedObject"]').data("kendoDropDownList").dataSource.data(newDataSource);
-                    $(self.CurrentGridField).closest('tr').find('select[name="refrencedObject"]').data("kendoDropDownList").value(classes[0]);
-
-
-                    $(self.CurrentGridField).closest('tr').find("input[name^='txtField']").removeAttr('disabled');
-                    $(self.CurrentGridField).closest('tr').find("input[name^='txtField']").val('');
-
-                    $(self.CurrentGridField).closest('tr').find("input[type=checkbox]").removeAttr('disabled');
-
-
-                }
-                else if ($(self.CurrentGridField).attr('name') == 'sourceClassFieldId') {
-                    var newDataSource =
-                    [
+                var newDataSource;
+                var row = $(self.CurrentGridField).closest('tr');
+                if ($(self.CurrentGridField).attr('name') === 'targetClassField') {
+                    newDataSource = [
                         { text: Localization.PleaseSelect, value: "" },
-                        { text: Localization.MC_AllObjects, value: "*" },
+                        { text: "(Self)", value: "(self)" },
                         { text: MC.Models.Roles.ClassesChooserHandler.GetAllSelectedClassesName()[0], value: classes[0] },
                         { text: Localization.MC_SelectObject, value: "select_object" }
-
                     ];
 
-                    $(self.CurrentGridField).closest('tr').find('select[name="SourcePropertyObject"]').data("kendoDropDownList").dataSource.data(newDataSource);
-                    $(self.CurrentGridField).closest('tr').find('select[name="SourcePropertyObject"]').data("kendoDropDownList").value(classes[0]);
+                    row.find('select[name="refrencedObject"]').data("kendoDropDownList").dataSource.data(newDataSource);
+                    row.find('select[name="refrencedObject"]').data("kendoDropDownList").value(classes[0]);
 
-                    $(self.CurrentGridField).closest('tr').find("input[name^='txtField']").removeAttr('disabled');
-                    $(self.CurrentGridField).closest('tr').find("input[name^='txtField']").addClass('required');
-                    $(self.CurrentGridField).closest('tr').find("input[name^='txtField']").val('');
-                    $(self.CurrentGridField).closest('tr').find("td:eq(2)").text('');
+                    row.find("input[name^='txtField']").removeAttr('disabled');
+                    row.find("input[name^='txtField']").val('');
 
+                    row.find("input[type=checkbox]").removeAttr('disabled');
                 }
-                else {
-
-                    var newDataSource =
-                      [
+                else if ($(self.CurrentGridField).attr('name') === 'sourceClassFieldId') {
+                    newDataSource = [
                         { text: Localization.PleaseSelect, value: "" },
                         { text: Localization.MC_AllObjects, value: "*" },
                         { text: MC.Models.Roles.ClassesChooserHandler.GetAllSelectedClassesName()[0], value: classes[0] },
                         { text: Localization.MC_SelectObject, value: "select_object" }
+                    ];
 
-                      ];
+                    row.find('select[name="SourcePropertyObject"]').data("kendoDropDownList").dataSource.data(newDataSource);
+                    row.find('select[name="SourcePropertyObject"]').data("kendoDropDownList").value(classes[0]);
 
-                    $(self.CurrentGridField).closest('tr').find('select[name="SourceObject"]').data("kendoDropDownList").dataSource.data(newDataSource);
-                    $(self.CurrentGridField).closest('tr').find('select[name="SourceObject"]').data("kendoDropDownList").value(classes[0]);
+                    row.find("input[name^='txtField']").removeAttr('disabled');
+                    row.find("input[name^='txtField']").addClass('required');
+                    row.find("input[name^='txtField']").val('');
+                    row.find("td:eq(2)").text('');
+                }
+                else {
+                    newDataSource = [
+                        { text: Localization.PleaseSelect, value: "" },
+                        { text: Localization.MC_AllObjects, value: "*" },
+                        { text: MC.Models.Roles.ClassesChooserHandler.GetAllSelectedClassesName()[0], value: classes[0] },
+                        { text: Localization.MC_SelectObject, value: "select_object" }
+                    ];
 
-                    $(self.CurrentGridField).closest('tr').find("input[type=radio]").removeAttr('disabled');
-                    $(self.CurrentGridField).closest('tr').find('select[name="refrencedObject"]').data("kendoDropDownList").enable(true);
+                    row.find('select[name="SourceObject"]').data("kendoDropDownList").dataSource.data(newDataSource);
+                    row.find('select[name="SourceObject"]').data("kendoDropDownList").value(classes[0]);
 
-                    $(self.CurrentGridField).closest('tr').find('select[name="refrencedObject"]').data("kendoDropDownList").value('');
+                    row.find("input[type=radio]").removeAttr('disabled');
+                    row.find('select[name="refrencedObject"]').data("kendoDropDownList").enable(true);
 
-                    $(self.CurrentGridField).closest('tr').find("input[name^='txtField']").val('');
-                    $(self.CurrentGridField).closest('tr').find("input[name^='txtField']").attr('disabled', 'disabled');
-                    $(self.CurrentGridField).closest('tr').find("input[type=checkbox]").attr('disabled', 'disabled');
-                    $(self.CurrentGridField).closest('tr').find("input[type=checkbox]").prop('checked', false);
+                    row.find('select[name="refrencedObject"]').data("kendoDropDownList").value('');
 
-
-                    $(self.CurrentGridField).closest('tr').find("input[name^=txtFilterValues]").val('');
-                    $(self.CurrentGridField).closest('tr').find("input[name^=txtFilterValues]").removeTag([]);
-
+                    row.find("input[name^='txtField']").val('');
+                    row.find("input[name^='txtField']").attr('disabled', 'disabled');
+                    row.find("input[type=checkbox]").attr('disabled', 'disabled');
+                    row.find("input[type=checkbox]").prop('checked', false);
+                    
+                    row.find("input[name^=txtFilterValues]").val('');
+                    row.find("input[name^=txtFilterValues]").removeTag([]);
                 }
             }
             jQuery('#popupClassesChooser').data('kendoWindow').close();

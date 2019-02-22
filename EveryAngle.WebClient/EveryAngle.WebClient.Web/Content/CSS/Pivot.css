@@ -936,8 +936,8 @@ li.dxm-item /*Bootstrap correction*/ {
 
 .dxpgCell {
     text-align: right;
-    background-color: #FFFFFF;
-    border-color: #E3E3E3;
+    background-color: #ffffff;
+    border-color: #e3e3e3;
     border-width: 1px;
     border-top-style: Solid;
     border-left-style: Solid;
@@ -954,7 +954,7 @@ li.dxm-item /*Bootstrap correction*/ {
 }
 
 .dxpgTotalCell {
-    background-color: #F8F8F8;
+    background-color: #f8f8f8;
 }
 
 .dxpgGrandTotalCell {
@@ -2537,7 +2537,7 @@ a.dxbButton.dxbDisabled {
     font-family: Tahoma, Geneva, sans-serif;
     text-decoration: none;
     color: #92110e;
-    background-color: #FFFFFF;
+    background-color: #ffffff;
 }
 
 .dxccControl a {

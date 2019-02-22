@@ -50,8 +50,8 @@ namespace EveryAngle.WebClient.Service.ApiServices
                             result.ModelPrivilegesUri + "?" +
                             UtilitiesHelper.GetOffsetLimitQueryString(1, systemSettings.max_pagesize));
                     jsonResult = requestManager.Run();
-                    //next step get user privileges
 
+                    //next step get user privileges
                     if (jsonResult.SelectToken("model_privileges") != null)
                     {
                         result.ModelPrivileges =
@@ -68,14 +68,11 @@ namespace EveryAngle.WebClient.Service.ApiServices
             return GetUser(uri, true);
         }
 
-        public List<ModelPrivilegeViewModel> GetUserModelPrivilege(string uri)
+        public List<ModelPrivilegeViewModel> GetUserModelPrivilege(string modelPrivilegesUri)
         {
-            var requestManager = RequestManager.Initialize(uri);
+            var requestManager = RequestManager.Initialize(modelPrivilegesUri);
             var jsonResult = requestManager.Run();
-            var result =
-                JsonConvert.DeserializeObject<List<ModelPrivilegeViewModel>>(
-                    jsonResult.SelectToken("model_privileges").ToString());
-            return result;
+            return JsonConvert.DeserializeObject<List<ModelPrivilegeViewModel>>(jsonResult.SelectToken("model_privileges").ToString());
         }
 
         public ModelAuthorizationsViewModel GetModelAuthorizations(string uri)
@@ -115,23 +112,20 @@ namespace EveryAngle.WebClient.Service.ApiServices
                     jsonResult.SelectToken("users").ToString());
         }
 
-        public void UpdateAuthentication(string uri, string jsonData)
+        public void UpdateAuthentication(string authenticationProviderUri, string authenticationProviderData)
         {
-            var requestManager = RequestManager.Initialize(uri);
-            requestManager.Run(Method.PUT, jsonData);
+            var requestManager = RequestManager.Initialize(authenticationProviderUri);
+            requestManager.Run(Method.PUT, authenticationProviderData);
         }
 
         public IEnumerable<SystemAuthenticationProviderViewModel> GetSystemAuthenticationProviders(string uri)
         {
             var systemSettings = SessionHelper.Initialize().SystemSettings;
-            uri = string.Format("{0}?{1}", uri,
-                UtilitiesHelper.GetOffsetLimitQueryString(1, systemSettings.max_pagesize));
-            var requestManager = RequestManager.Initialize(uri);
+            string query = UtilitiesHelper.GetOffsetLimitQueryString(1, systemSettings.max_pagesize);
+            var requestManager = RequestManager.Initialize($"{uri}?{query}");
             var jsonResult = requestManager.Run();
-            var model =
-                JsonConvert.DeserializeObject<IEnumerable<SystemAuthenticationProviderViewModel>>(
+            return JsonConvert.DeserializeObject<IEnumerable<SystemAuthenticationProviderViewModel>>(
                     jsonResult.SelectToken("authentication_providers").ToString());
-            return model;
         }
 
         public UserSettingsViewModel GetUserSetting(string uri)
@@ -181,17 +175,17 @@ namespace EveryAngle.WebClient.Service.ApiServices
             return result;
         }
 
-        public string UpdateUserRole(string uri, string jsonData)
+        public string UpdateUserRole(string userRoleUri, string jsonData)
         {
-            var requestManager = RequestManager.Initialize(uri);
+            var requestManager = RequestManager.Initialize(userRoleUri);
             var jsonResult = requestManager.Run(Method.PUT, jsonData);
 
             return jsonResult.ToString();
         }
 
-        public string UpdateUser(string uri, string jsonData)
+        public string UpdateUser(string userUri, string jsonData)
         {
-            var requestManager = RequestManager.Initialize(uri);
+            var requestManager = RequestManager.Initialize(userUri);
             var jsonResult = requestManager.Run(Method.PUT, jsonData);
 
             return jsonResult.ToString();

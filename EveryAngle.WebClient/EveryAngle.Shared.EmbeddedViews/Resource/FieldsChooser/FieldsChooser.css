@@ -107,7 +107,7 @@
     margin: 0 0 -1px 0;
     position: relative;
     height: auto;
-    background-color: #FFFFFF;
+    background-color: #ffffff;
     border-bottom: 1px solid #b3b3b3;
     z-index: 10;
 }
@@ -206,7 +206,7 @@
 
 .fieldChooserProperties:hover {
     border-color: #025e7f;
-    transition: 0.15s ease-in;
+    transition: .15s ease-in;
 }
 
 .fieldChooserProperties:focus {

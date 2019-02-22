@@ -184,7 +184,7 @@
     right: 3px;
     top: 2px;
     border-radius: 2px;
-    background-color: #DA1717;
+    background-color: #da1717;
     color: #fff;
     font-weight: bold;
     font-size: 10px;
@@ -226,14 +226,11 @@
 
 .businessProcessesCompact .businessProcessesItem > a {
     padding: 3px 5px 4px 5px;
+    text-align: center;
 }
 
 .businessProcesses .businessProcessesItem > a:hover {
     color: #fff;
-}
-
-.businessProcessesCompact .businessProcessesItem > a {
-    text-align: center;
 }
 
 /* default theme */

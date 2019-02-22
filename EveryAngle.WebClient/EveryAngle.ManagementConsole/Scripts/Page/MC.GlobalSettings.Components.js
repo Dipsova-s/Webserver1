@@ -1,7 +1,7 @@
 ﻿(function (win, globalSettings) {
 
     function Components() {
-        var self = this; 
+        var self = this;
 
         self.InitialComponents = function (data) {
             jQuery.extend(self, data || {});
@@ -38,7 +38,7 @@
                 obj.href,
                 jsondata.MetadataName,
                 jsondata.MetadataUri);
-            
+
             $('<iframe/>')
                 .on('load', function () {
                     // error will call this event
@@ -62,7 +62,7 @@
         self.ShowModelServerInfo = function (e, obj) {
             MC.util.modelServerInfo.showInfoPopup(e, obj);
         };
-         
+
         self.ComponentGridDataBound = function (e) {
             MC.ui.btnGroup();
             MC.ui.localize();

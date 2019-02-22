@@ -12,14 +12,14 @@ namespace EveryAngle.Core.Interfaces.Services
         ListViewModel<UserViewModel> GetUsers(string uri);
 
         UserSettingsViewModel GetUserSetting(string uri);
-        SystemRoleViewModel GetRole(string uri);
-        string UpdateUserRole(string userUri, string jsonData);
+        SystemRoleViewModel GetRole(string roleUri);
+        string UpdateUserRole(string userRoleUri, string jsonData);
         string UpdateUser(string userUri, string jsonData);
-        List<SystemRoleViewModel> GetSystemRoles(string uri);
+        List<SystemRoleViewModel> GetSystemRoles(string systemRoleUri);
         void DeleteSession(string userUri);
         void DeleteUser(string uri);
         List<AuthenticatedUserViewModel> GetUserAuthenticated(string uri);
-        ConsolidatedRoleViewModel GetConsolidatedRole(string uri);
+        ConsolidatedRoleViewModel GetConsolidatedRole(string consolidatedRoleUri);
         ListViewModel<AuthenticationProviderUserViewModel> GetUnableUsers(string uri);
         IEnumerable<SystemAuthenticationProviderViewModel> GetSystemAuthenticationProviders(string uri);
         AuthenticationProviderUserViewModel GetUserAuthentication(string uri);

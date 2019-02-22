@@ -1,5 +1,4 @@
-﻿
-angular.module('odataService', ['kendo.directives'])
+﻿angular.module('odataService', ['kendo.directives'])
     .controller('monitoringController', ['$scope', '$http', function ($scope, $http) {
 
         $scope.syncing = true;
@@ -218,7 +217,7 @@ angular.module('odataService', ['kendo.directives'])
                     template: "#= series.name #: #= value #"
                 }
             });
-        }
+        };
 
         $(document).bind("kendo:skinChange", $scope.createAngleChart);
     }]);

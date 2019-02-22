@@ -281,7 +281,8 @@ function SearchQueryViewModel() {
         return facetQuery;
     };
     self.ElementIsInFacet = function (subElement) {
-        return (subElement.id === 'facet_isprivate' || subElement.id === 'facet_isvalidated' || subElement.id === 'facet_isstarred' || subElement.id === 'facet_has_warnings');
+        var faceList = ['facet_isprivate', 'facet_isvalidated', 'facet_isstarred', 'facet_has_warnings'];
+        return jQuery.inArray(subElement.id, faceList) !== -1;
     };
     self.BuildSearchQueryForPagination = function (currentPage, pageSize) {
         var businessQuestionValue = WC.Utility.UrlParameter(enumHandlers.SEARCHPARAMETER.Q);
@@ -398,7 +399,7 @@ function SearchQueryViewModel() {
         else {
             startDate = '*';
         }
-                            
+
         if (finishDate) {
             finishDate = kendo.date.toUtcTime(kendo.date.getDate(finishDate)) / 1000;
             finishDate += lastTimeOfDay;
@@ -674,6 +675,7 @@ function SearchQueryViewModel() {
         var datepickerFrom = jQuery(tag + ' .datepickerFrom:eq(1)').data(enumHandlers.KENDOUITYPE.DATEPICKER);
         var datepickerTo = jQuery(tag + ' .datepickerTo:eq(1)').data(enumHandlers.KENDOUITYPE.DATEPICKER);
         var operatorNumber = parseInt(operator);
+        var maxDate, newDate;
         if (operatorNumber === 0) {
             // nothing
             datepickerFrom.value('');
@@ -700,7 +702,7 @@ function SearchQueryViewModel() {
             datepickerFrom.element.prop('disabled', true);
             datepickerFrom.min(new Date(1900, 1, 1));
 
-            var maxDate = new Date();
+            maxDate = new Date();
             datepickerFrom.max(new Date(maxDate.getFullYear(), maxDate.getMonth(), maxDate.getDate(), 23, 59, 59, 0));
 
             datepickerTo.enable(false);
@@ -712,12 +714,12 @@ function SearchQueryViewModel() {
             // between
             var from = WC.DateHelper.UnixTimeToLocalDate(parseInt(dates[0]));
             var to = WC.DateHelper.UnixTimeToLocalDate(parseInt(dates[1]) - 86399);
-            var maxDate = new Date();
+            maxDate = new Date();
 
             datepickerFrom.enable(true);
 
             if (from !== 'Invalid Date') {
-                var newDate = new Date(from.getFullYear(), from.getMonth(), from.getDate(), 0, 0, 0, 0);
+                newDate = new Date(from.getFullYear(), from.getMonth(), from.getDate(), 0, 0, 0, 0);
                 datepickerTo.min(newDate);
 
                 if (to !== 'Invalid Date') {
@@ -732,7 +734,7 @@ function SearchQueryViewModel() {
 
             datepickerTo.max(new Date(maxDate.getFullYear(), maxDate.getMonth(), maxDate.getDate(), 23, 59, 59, 0));
             if (to !== 'Invalid Date') {
-                var newDate = new Date(to.getFullYear(), to.getMonth(), to.getDate(), 23, 59, 59, 0);
+                newDate = new Date(to.getFullYear(), to.getMonth(), to.getDate(), 23, 59, 59, 0);
                 datepickerFrom.max(newDate);
             }
 
@@ -854,7 +856,7 @@ function SearchQueryViewModel() {
     self.ShowAngleWarningInFacet = function () {
         var clientSetting = jQuery.parseJSON(userSettingModel.Data().client_settings);
         return clientSetting[enumHandlers.CLIENT_SETTINGS_PROPERTY.SHOW_FACET_ANGLE_WARNINGS];
-    }
+    };
 
     self.GetOperatorValueFromFacet = function (facet) {
         var fq = self.GetParams().fq;
