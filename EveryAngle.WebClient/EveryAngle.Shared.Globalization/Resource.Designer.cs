@@ -17153,7 +17153,7 @@ namespace EveryAngle.Shared.Globalization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Workbench.
+        ///   Looks up a localized string similar to Modeling Workbench.
         /// </summary>
         public static string Workbench {
             get {
