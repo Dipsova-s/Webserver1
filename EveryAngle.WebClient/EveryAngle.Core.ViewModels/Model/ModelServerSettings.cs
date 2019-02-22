@@ -8,10 +8,10 @@ namespace EveryAngle.Core.ViewModels.Model
     public class ModelServerSettings
     {
         [JsonProperty(PropertyName = "setting_groups")]
-        public List<SettingGroup> SettingsGroup { get; set; }
+        public virtual List<SettingGroup> SettingsGroup { get; set; }
 
         [JsonProperty(PropertyName = "setting_list")]
-        public List<Setting> SettingList { get; set; }
+        public virtual List<Setting> SettingList { get; set; }
 
         public Setting GetSettingById(string id)
         {
