@@ -57,10 +57,10 @@ namespace EveryAngle.Core.ViewModels.DataStore
         }
 
         [JsonProperty(PropertyName = "connection_settings")]
-        public ModelServerSettings connection_settings { get; set; }
+        public virtual ModelServerSettings connection_settings { get; set; }
 
         [JsonProperty(PropertyName = "data_settings")]
-        public ModelServerSettings data_settings { get; set; }
+        public virtual ModelServerSettings data_settings { get; set; }
 
         [JsonProperty(PropertyName = "is_file_based")]
         public virtual bool? is_file_based { get; set; }

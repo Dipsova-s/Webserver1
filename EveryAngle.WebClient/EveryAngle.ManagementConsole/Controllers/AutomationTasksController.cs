@@ -6,6 +6,7 @@ using EveryAngle.Core.ViewModels.Model;
 using EveryAngle.ManagementConsole.Helpers;
 using EveryAngle.Shared.Globalization;
 using EveryAngle.Shared.Helpers;
+using EveryAngle.WebClient.Domain.Constants;
 using EveryAngle.WebClient.Service.HttpHandlers;
 using EveryAngle.WebClient.Service.Security;
 using Kendo.Mvc.UI;
@@ -324,41 +325,8 @@ namespace EveryAngle.ManagementConsole.Controllers
 
         public ActionResult EditDatastore(string datastoreUri, string pluginUri, string plugin)
         {
-            var dataStore = new DataStoresViewModel();
-            var datastorePlugin = pluginUri == "" ? null : GetDatastorePlugin(pluginUri);
-            var datastorePlugins = new List<Tuple<string, string, string, bool?>>();
-
-            if (datastoreUri != "")
-            {
-                dataStore = _automationTaskService.GetDatastore(datastoreUri);
-                if (datastorePlugin != null)
-                {
-                    dataStore.supports_append = datastorePlugin.supports_append;
-                }
-                else
-                {
-                    datastorePlugins = GetDatastorePlugins(false);
-                    dataStore.supports_append = datastorePlugins.FirstOrDefault(x => x.Item3 == plugin).Item4;
-                }
-            }
-            else
-            {
-                if (datastorePlugin != null)
-                {
-                    dataStore.datastore_plugin = datastorePlugin.id;
-                    dataStore.supports_write = datastorePlugin.supports_write;
-                    dataStore.connection_settings = datastorePlugin.connection_settings_template;
-                    dataStore.data_settings = datastorePlugin.data_settings_template;
-                    dataStore.supports_append = datastorePlugin.supports_append;
-                }
-            }
-            ViewBag.DatastorePlugin = datastorePlugin != null
-                ? datastorePlugin.description
-                : datastorePlugins.FirstOrDefault(x => x.Item3 == plugin).Item2;
-            ViewBag.PluginUri = datastorePlugin != null
-                ? datastorePlugin.Uri.ToString()
-                : datastorePlugins.FirstOrDefault(x => x.Item3 == plugin).Item1;
-            ViewBag.DatastoreUri = dataStore.id != null ? dataStore.Uri.ToString() : datastoreUri;
+            DataStoresViewModel dataStore = GetDataStoreViewModel(datastoreUri, pluginUri, plugin);
+            
             return PartialView("~/Views/AutomationTasks/DataStores/EditDatastore.cshtml", dataStore);
         }
 
@@ -606,6 +574,63 @@ namespace EveryAngle.ManagementConsole.Controllers
                 name = Resource.PleaseSelect
             });
             return scripts;
+        }
+
+        private DataStoresViewModel GetDataStoreViewModel(string datastoreUri, string pluginUri, string plugin)
+        {
+            DataStoresViewModel dataStore = new DataStoresViewModel();
+            DataStorePluginsViewModel datastorePlugin = string.IsNullOrEmpty(pluginUri) ? null : GetDatastorePlugin(pluginUri);
+            IList<Tuple<string, string, string, bool?>> datastorePlugins = new List<Tuple<string, string, string, bool?>>();
+
+            if (!string.IsNullOrEmpty(datastoreUri))
+            {
+                dataStore = _automationTaskService.GetDatastore(datastoreUri);
+
+                if (datastorePlugin != null)
+                {
+                    dataStore.supports_append = datastorePlugin.supports_append;
+                }
+                else
+                {
+                    datastorePlugins = GetDatastorePlugins(false);
+                    dataStore.supports_append = datastorePlugins.FirstOrDefault(x => x.Item3 == plugin).Item4;
+                }
+            }
+            else if (datastorePlugin != null)
+            {
+                dataStore.datastore_plugin = datastorePlugin.id;
+                dataStore.supports_write = datastorePlugin.supports_write;
+                dataStore.connection_settings = datastorePlugin.connection_settings_template;
+                dataStore.data_settings = datastorePlugin.data_settings_template;
+                dataStore.supports_append = datastorePlugin.supports_append;
+            }
+
+            ClearConnectionPasswordValue(dataStore);
+
+            #region view bags
+            ViewBag.DatastorePlugin = datastorePlugin != null
+                ? datastorePlugin.description
+                : datastorePlugins.FirstOrDefault(x => x.Item3 == plugin).Item2;
+            ViewBag.PluginUri = datastorePlugin != null
+                ? datastorePlugin.Uri.ToString()
+                : datastorePlugins.FirstOrDefault(x => x.Item3 == plugin).Item1;
+            ViewBag.DatastoreUri = dataStore.id != null ? dataStore.Uri.ToString() : datastoreUri;
+            #endregion
+
+            return dataStore;
+        }
+
+        internal void ClearConnectionPasswordValue(DataStoresViewModel dataStore)
+        {
+            if(dataStore.connection_settings != null && dataStore.connection_settings.SettingList != null)
+            {
+                Setting connectionPassword = dataStore.connection_settings.SettingList
+                                            .FirstOrDefault(x => DatastoreSettingConstant.ConnectionPasswordId.Equals(x.Id));
+
+                if (connectionPassword != null)
+                    connectionPassword.Value = string.Empty;
+            }
+
         }
 
         /// <summary>

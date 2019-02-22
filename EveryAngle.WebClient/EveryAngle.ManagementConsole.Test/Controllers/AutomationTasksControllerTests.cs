@@ -1,11 +1,14 @@
 ﻿using EveryAngle.Core.ViewModels.Cycle;
+using EveryAngle.Core.ViewModels.DataStore;
+using EveryAngle.Core.ViewModels.Model;
 using EveryAngle.Core.ViewModels.SystemSettings;
 using EveryAngle.Core.ViewModels.Users;
 using EveryAngle.ManagementConsole.Controllers;
+using EveryAngle.WebClient.Domain.Constants;
 using Moq;
 using NUnit.Framework;
 using System.Collections.Generic;
-using System.Web.Mvc;
+using System.Linq;
 
 namespace EveryAngle.ManagementConsole.Test.Controllers
 {
@@ -127,6 +130,28 @@ namespace EveryAngle.ManagementConsole.Test.Controllers
 
             modelService.Verify(x =>
                 x.GetTask(taskUri));
+        }
+
+        [TestCase("password", "")]
+        [TestCase("", "")]
+        public void Should_ClearConnectionPasswordField_When_HasValue(string passwordValue, string expectedValue)
+        {
+            Mock<DataStoresViewModel> mockDataStore = new Mock<DataStoresViewModel>();
+            Mock<ModelServerSettings> mockConnectionSettings = new Mock<ModelServerSettings>();
+            List<Setting> settings = new List<Setting>
+            {
+                new Setting
+                {
+                    Id = DatastoreSettingConstant.ConnectionPasswordId,
+                    Value = passwordValue
+                }
+            };
+            mockConnectionSettings.SetupGet(x => x.SettingList).Returns(settings);
+            mockDataStore.SetupGet(x => x.connection_settings).Returns(mockConnectionSettings.Object);
+            _testingController.ClearConnectionPasswordValue(mockDataStore.Object);
+
+            Assert.IsTrue(
+                ((string)mockDataStore.Object.connection_settings.SettingList.FirstOrDefault(x => x.Id == DatastoreSettingConstant.ConnectionPasswordId).Value) == expectedValue);
         }
 
         #endregion
