@@ -617,7 +617,7 @@ namespace EveryAngle.ManagementConsole.Controllers
                 modelServerViewModel.ModelServerId = string.Empty;
                 modelServerViewModel.IsActiveServer = false;
 
-                AgentModelInfoViewModel agentModelInfo = agentModelInfoViewModels.Where(item => modelServerViewModel.id.Contains(item.id)).FirstOrDefault();
+                AgentModelInfoViewModel agentModelInfo = agentModelInfoViewModels.FirstOrDefault(item => modelServerViewModel.id.Contains(item.id));
 
                 if (agentModelInfo != null)
                 {

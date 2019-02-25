@@ -107,9 +107,9 @@ namespace EveryAngle.WebClient.Service.ApiServices
             return EventDataTable;
         }
 
-        public DataTable GetAvailabelRolesTable(string roleModelUri)
+        public DataTable GetAvailabelRolesTable(string roleUri)
         {
-            var roles = GetRoles(roleModelUri);
+            var roles = GetRoles(roleUri);
 
             //Created Table
             var AvailabelRolesDataTable = new DataTable();
@@ -131,7 +131,7 @@ namespace EveryAngle.WebClient.Service.ApiServices
 
                 if (modelUri != "")
                 {
-                    var model = modelUri != "" ? models.Where(m => m.Uri.ToString() == modelUri).FirstOrDefault() : null;
+                    var model = modelUri != "" ? models.FirstOrDefault(m => m.Uri.ToString() == modelUri) : null;
                     if (model == null)
                     {
                         record["model"] = "No privilege for model:" + modelUri;
@@ -193,17 +193,16 @@ namespace EveryAngle.WebClient.Service.ApiServices
             return AvailabelRolesDataTable;
         }
 
-        public ModelServerViewModel CreateModelServer(string modelServerUri, string newModel)
+        public ModelServerViewModel CreateModelServer(string modelServerUri, string modelServersData)
         {
             var requestManager = RequestManager.Initialize(modelServerUri);
-            var jsonResult = requestManager.Run(Method.POST, newModel);
-            var result = JsonConvert.DeserializeObject<ModelServerViewModel>(jsonResult.ToString());
-            return result;
+            var jsonResult = requestManager.Run(Method.POST, modelServersData);
+            return JsonConvert.DeserializeObject<ModelServerViewModel>(jsonResult.ToString());
         }
 
-        public void DeleteModelServer(string uri)
+        public void DeleteModelServer(string modelServerUri)
         {
-            var requestManager = RequestManager.Initialize(uri);
+            var requestManager = RequestManager.Initialize(modelServerUri);
             var jsonResult = requestManager.Run(Method.DELETE);
 
             if (requestManager.ResponseStatus != HttpStatusCode.NoContent)
@@ -216,36 +215,23 @@ namespace EveryAngle.WebClient.Service.ApiServices
         {
             var requestManager = RequestManager.Initialize(uri);
             var jsonResult = requestManager.Run();
-            var models = JsonConvert.DeserializeObject<List<ModelViewModel>>(
-                jsonResult.SelectToken("models").ToString(), new UnixDateTimeConverter());
-            return models;
+            return JsonConvert.DeserializeObject<List<ModelViewModel>>(jsonResult.SelectToken("models").ToString(), new UnixDateTimeConverter());
         }
 
         public ModelViewModel GetModel(string modelUri)
         {
             var requestManager = RequestManager.Initialize(modelUri);
-
-            ModelViewModel model = null;
-
             var jsonResult = requestManager.Run();
-            model = JsonConvert.DeserializeObject<ModelViewModel>(jsonResult.ToString(), new UnixDateTimeConverter());
-
-            return model;
+            return JsonConvert.DeserializeObject<ModelViewModel>(jsonResult.ToString(), new UnixDateTimeConverter());
         }
 
         public List<ModelViewModel> GetSessionModels(string uri)
         {
-            var models = new List<ModelViewModel>();
-            var results = new List<ModelViewModel>();
-            var requestManager = RequestManager.Initialize(uri);
-            var jsonResult = requestManager.Run();
-            models = JsonConvert.DeserializeObject<List<ModelViewModel>>(jsonResult.SelectToken("models").ToString(),
-                new UnixDateTimeConverter());
-
-            for (var loop = 0; loop < models.Count; loop++)
+            List<ModelViewModel> results = new List<ModelViewModel>();
+            List<ModelViewModel> models = GetModels(uri);
+            foreach (ModelViewModel model in models)
             {
-                var model = GetModel(models[loop].Uri.ToString());
-                results.Add(model);
+                results.Add(GetModel(model.Uri.ToString()));
             }
 
             return results;
@@ -324,17 +310,9 @@ namespace EveryAngle.WebClient.Service.ApiServices
             return modelFields;
         }
 
-        public FieldViewModel GetModelJumps(string fieldUri)
+        public FieldDomainViewModel GetFieldDomain(string fieldsDomainUri)
         {
-            var requestManager = RequestManager.Initialize(fieldUri);
-            var jsonResult = requestManager.Run();
-            var modelFields = JsonConvert.DeserializeObject<FieldViewModel>(jsonResult.ToString());
-            return modelFields;
-        }
-
-        public FieldDomainViewModel GetFieldDomain(string fieldUri)
-        {
-            var requestManager = RequestManager.Initialize(fieldUri);
+            var requestManager = RequestManager.Initialize(fieldsDomainUri);
             var jsonResult = requestManager.Run();
             var modelFields = JsonConvert.DeserializeObject<FieldDomainViewModel>(jsonResult.ToString());
             return modelFields;
@@ -409,7 +387,7 @@ namespace EveryAngle.WebClient.Service.ApiServices
                 {
                     // update status
                     var data = "{\"servers\":[{\"id\":\"" + id + "\",\"is_active\":" +
-                               Convert.ToString(status).ToLower() + "}]}";
+                               Convert.ToString(status).ToLowerInvariant() + "}]}";
                     requestManager = RequestManager.Initialize(modelInfoUri);
                     requestManager.Run(Method.PUT, data);
                 }
@@ -425,10 +403,10 @@ namespace EveryAngle.WebClient.Service.ApiServices
             return package;
         }
 
-        public void UpdatePackage(string packageUri, string updatedPackage)
+        public void UpdatePackage(string packageUri, string updatePackage)
         {
             var requestManager = RequestManager.Initialize(packageUri);
-            requestManager.Run(Method.PUT, updatedPackage);
+            requestManager.Run(Method.PUT, updatePackage);
         }
 
         public SystemRoleViewModel CreateRole(string modelUri, string newModel)
@@ -509,11 +487,11 @@ namespace EveryAngle.WebClient.Service.ApiServices
                             allLabels =
                                 labelservice.GetLabels(version.GetEntryByName("labels").Uri + "?" + offsetLimitQuery);
 
-                        var label = allLabels.Data.Find(item => item.id == privillageLabel.Name);
+                        var label = allLabels.Data.FirstOrDefault(item => item.id == privillageLabel.Name);
                         if (label != null)
                         {
-                            var category = allCategories.Data.Find(item => item.uri == label.category);
-                            privillageLabel.LabelCategory = category != null ? category.id : "";
+                            var labelCategory = allCategories.Data.FirstOrDefault(item => item.uri == label.category);
+                            privillageLabel.LabelCategory = labelCategory != null ? labelCategory.id : "";
                         }
                     }
                 }
@@ -570,6 +548,9 @@ namespace EveryAngle.WebClient.Service.ApiServices
 
                             case PrivilegeType.Manage:
                                 roleModel.ModelPrivilege.LabelAuthorizations[label.Name] = "manage";
+                                break;
+
+                            default:
                                 break;
                         }
                     }
@@ -635,9 +616,9 @@ namespace EveryAngle.WebClient.Service.ApiServices
             return suggestedFieldsSummary;
         }
 
-        public FieldCategoryViewModel GetFieldName(string uri)
+        public FieldCategoryViewModel GetFieldName(string fieldsUri)
         {
-            var requestManager = RequestManager.Initialize(uri);
+            var requestManager = RequestManager.Initialize(fieldsUri);
             var jsonResult = requestManager.Run();
             var fieldCategory =
                 JsonConvert.DeserializeObject<List<FieldCategoryViewModel>>(jsonResult.SelectToken("fields").ToString());
@@ -658,10 +639,10 @@ namespace EveryAngle.WebClient.Service.ApiServices
             return modelInfoResult.ToString();
         }
         
-        public void UpdateModelActiveLanguages(string uri, string updatelanguage)
+        public void UpdateModelActiveLanguages(string uri, string activeLanguages)
         {
             var requestManager = RequestManager.Initialize(uri);
-            requestManager.Run(Method.PUT, updatelanguage);
+            requestManager.Run(Method.PUT, activeLanguages);
         } 
         
         public ModelServerSettings GetModelSettings(string uri)

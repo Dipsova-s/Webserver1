@@ -22,11 +22,10 @@ namespace EveryAngle.WebClient.Web.Controllers.Apis
         public HttpResponseMessage GetVideos(string lang)
         {
             string userLanguage = lang ?? VideoHelper.VideoDefaultLanguage;
-            string videoDirectory = string.Empty;
             string videoServerPath = HttpContext.Current.Server.MapPath(@"~" + VideoHelper.VideoResourcePath + userLanguage).ToLowerInvariant();
             string videoWebPath = (HttpContext.Current.Request.ApplicationPath + @"" + VideoHelper.VideoResourcePath + userLanguage).Replace("//", "/");
 
-            VideoHelper.TryParseVideoDirectory(videoServerPath, userLanguage, out videoDirectory);
+            VideoHelper.TryParseVideoDirectory(videoServerPath, userLanguage, out string videoDirectory);
             IList<VideoPlayList> videosPlayList = VideoHelper.GetAllVideoPlayList(videoDirectory, videoWebPath);
             JArray videosPlayListAsJArray = JArray.FromObject(videosPlayList);
 

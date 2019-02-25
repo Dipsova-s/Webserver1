@@ -9,7 +9,7 @@ function QuickFilterHandler() {
     /*BOF: Model Properties*/
     _self.handler = null;
     _self.popupName = 'ListFilter';
-    
+
     self.HandlerFilter = null;
     /*EOF: Model Properties*/
 
@@ -163,7 +163,7 @@ function QuickFilterHandler() {
             return false;
         }
         else {
-            return true
+            return true;
         }
     };
     self.GetFilterStep = function () {

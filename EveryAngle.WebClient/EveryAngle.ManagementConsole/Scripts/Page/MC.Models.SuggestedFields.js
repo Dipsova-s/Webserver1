@@ -834,7 +834,6 @@
                             clearInterval(fnCheckGetAllItems);
 
                             // set is_suggested
-                            //fieldsChooserModel.Fields = [];
                             suggestionsList = [];
                             jQuery.each(grid.dataSource._ranges, function (index, range) {
                                 jQuery.each(range.data, function (index, item) {

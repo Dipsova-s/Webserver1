@@ -166,7 +166,7 @@ function DashboardHandler() {
                          .keydown(function (event) {
                              if (event.keyCode === 13) {
                                  // enter
-								 self.HideEditNote(true);
+                                self.HideEditNote(true);
                              }
                              else if (event.keyCode === 27) {
                                  // esc
@@ -381,7 +381,7 @@ function DashboardHandler() {
         var model = dashboardModel.Data();
 
         var forceEditId = WC.Utility.UrlParameter(enumHandlers.DASHBOARDPARAMETER.EDITID) || null;
-        if (forceEditId != null) {
+        if (forceEditId) {
             self.CanEditId(forceEditId === 'true');
             jQuery.localStorage('can_edit_id', self.CanEditId());
             var query = {};
@@ -933,7 +933,7 @@ function DashboardHandler() {
             if (!model) {
                 self.SetInvalidatedWidget(columnElement, '<li>No active model instance for model uri: ' + angle.model + '</li>');
             }
-            else if (model && !model.available) {
+            else if (!model.available) {
                 self.SetInvalidatedWidget(columnElement, '<li>No active model instance for model ID: ' + model.id + '</li>');
             }
             else {
@@ -1039,19 +1039,19 @@ function DashboardHandler() {
     };
 
     self.CreateSplitter = function (structure) {
-        var container = jQuery('#dashboardWrapper'),
-            splitter, panes = [], config, index,
-            rowsCount = container.find('.widgetDisplayRow').length, columnCount;
+        var container = jQuery('#dashboardWrapper');
+        var panes = [], config, index;
 
+        var rowsCount = container.find('.widgetDisplayRow').length;
         for (index = 0; index < rowsCount; index++) {
-            config = (structure[index] || structure[structure.length - 1]);
+            config = structure[index] || structure[structure.length - 1];
             panes[index] = {
                 min: self.MinSize + 30,
                 size: config.height.toString().indexOf('%') !== -1 ? config.height : parseFloat(config.height) + 'px'
             };
         }
 
-        splitter = container.kendoSplitter({
+        var splitter = container.kendoSplitter({
             orientation: 'vertical',
             panes: panes
         }).data(enumHandlers.KENDOUITYPE.SPLITTER);
@@ -1059,8 +1059,8 @@ function DashboardHandler() {
         splitter.bind('resize', self.SplitterResized);
 
         container.find('.widgetDisplayRow').each(function (rowIndex, row) {
-            columnCount = jQuery(row).find('.widgetDisplayColumn').length;
-            config = (structure[rowIndex] || structure[structure.length - 1]);
+            var columnCount = jQuery(row).find('.widgetDisplayColumn').length;
+            config = structure[rowIndex] || structure[structure.length - 1];
             panes = [];
 
             for (index = 0; index < columnCount; index++) {
@@ -1250,33 +1250,34 @@ function DashboardHandler() {
             dropIndex = dropTarget.data('index'),
             dragIndex = dragTarget.data('index'),
             dragIndexInRow = dragTarget.prevAll('.k-pane').length,
-            rowSplitter, columnSplitter, parentRow = dragTarget.parent();
+            parentRow = dragTarget.parent();
         if (dropTarget.hasClass('dropToRow') || dropTarget.hasClass('dropToColumn')) {
             // row splitter
-            rowSplitter = jQuery('#dashboardWrapper').data(enumHandlers.KENDOUITYPE.SPLITTER);
+            var rowSplitter = jQuery('#dashboardWrapper').data(enumHandlers.KENDOUITYPE.SPLITTER);
 
             // drag from?
-            columnSplitter = parentRow.data(enumHandlers.KENDOUITYPE.SPLITTER);
+            var columnSplitter = parentRow.data(enumHandlers.KENDOUITYPE.SPLITTER);
 
+            var columns, rows, size;
             if (dropTarget.hasClass('dropToRow')) {
                 dragTarget.removeAttr('style');
 
-                var config = dashboardModel.GetDefaultLayoutConfig(1).structure[0],
-                    newRow = rowSplitter[insertType]({ min: self.MinSize }, jQuery('#dashboardWrapper .widgetDisplayRow').eq(dropIndex)).html(dragTarget),
-                    newSplitter = jQuery(newRow).addClass('widgetDisplayRow')
-                        .data('config', config)
-                        .kendoSplitter({
-                            panes: [{ min: self.MinSize, size: config.items[0] }]
-                        })
-                        .data(enumHandlers.KENDOUITYPE.SPLITTER);
+                var config = dashboardModel.GetDefaultLayoutConfig(1).structure[0];
+                var newRow = rowSplitter[insertType]({ min: self.MinSize }, jQuery('#dashboardWrapper .widgetDisplayRow').eq(dropIndex)).html(dragTarget);
+                var newSplitter = jQuery(newRow).addClass('widgetDisplayRow')
+                    .data('config', config)
+                    .kendoSplitter({
+                        panes: [{ min: self.MinSize, size: config.items[0] }]
+                    })
+                    .data(enumHandlers.KENDOUITYPE.SPLITTER);
 
                 newSplitter.bind('resize', self.SplitterResized);
 
                 // adjust column size for dragging place
                 // - if widget is exists then try to adjust size of widget in row
                 // - else remove row
-                var columns = columnSplitter.element.children('.k-pane'),
-                    size = (100 / columns.length) + '%';
+                columns = columnSplitter.element.children('.k-pane');
+                size = (100 / columns.length) + '%';
                 if (columns.length !== 0) {
                     columnSplitter.options.panes.splice(dragIndexInRow, 1);
                     columnSplitter._removeSplitBars();
@@ -1290,23 +1291,20 @@ function DashboardHandler() {
                 }
 
                 // reset vertical spliter
-                var rows = rowSplitter.element.children('.k-pane');
+                rows = rowSplitter.element.children('.k-pane');
                 size = (100 / rows.length) + '%';
                 rows.each(function (index, element) {
                     rowSplitter.size(element, size);
                 });
             }
             else {
-                var columns = jQuery('#dashboardWrapper .widgetDisplayColumn'),
-                    dropColumnSplitter;
-
-
-                var dropParent = columns.eq(dropIndex).parent(),
-                    dropIndexInRow = columns.eq(dropIndex).prevAll('.k-pane').length;
+                columns = jQuery('#dashboardWrapper .widgetDisplayColumn');
+                var dropParent = columns.eq(dropIndex).parent();
+                var dropIndexInRow = columns.eq(dropIndex).prevAll('.k-pane').length;
                 if (insertType === 'insertAfter') {
                     dropIndexInRow++;
                 }
-                dropColumnSplitter = dropParent.data(enumHandlers.KENDOUITYPE.SPLITTER);
+                var dropColumnSplitter = dropParent.data(enumHandlers.KENDOUITYPE.SPLITTER);
                 if (dragIndex >= dropParent.find('.k-pane:first').data('index') && dragIndex <= dropParent.find('.k-pane:last').data('index')) {
                     // do not reset sizing if move to same row
                     dragTarget[insertType](columns.eq(dropIndex));
@@ -1315,7 +1313,7 @@ function DashboardHandler() {
                 }
                 else {
                     // reset sizing if move to other row
-                    var size = (100 / (dropParent.children('.k-pane').length + 1)) + '%';
+                    size = (100 / (dropParent.children('.k-pane').length + 1)) + '%';
                     dragTarget[insertType](columns.eq(dropIndex));
                     dropColumnSplitter._removeSplitBars();
                     dropColumnSplitter._addPane({ min: self.MinSize }, dropIndexInRow, dragTarget);
@@ -1324,7 +1322,7 @@ function DashboardHandler() {
                     });
 
                     // adjust size of widget in row
-                    var columns = columnSplitter.element.children('.k-pane');
+                    columns = columnSplitter.element.children('.k-pane');
                     if (columns.length === 0) {
                         rowSplitter.remove(parentRow);
                     }

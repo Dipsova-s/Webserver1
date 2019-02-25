@@ -842,9 +842,6 @@ if %25ERRORLEVEL%25 LEQ 1 exit 0 else exit %25ERRORLEVEL%25</PreBuildEvent>
     <Content Include="Content\kendoui\fonts\DejaVu\DejaVuSerif-Italic.ttf" />
     <Content Include="Content\kendoui\fonts\DejaVu\DejaVuSerif.ttf" />
     <Content Include="Content\kendoui\fonts\DejaVu\LICENSE" />
-    <None Include="Properties\PublishProfiles\Publishing.pubxml">
-      <SubType>Designer</SubType>
-    </None>
     <Content Include="Images\Angle\btn_ToggleDown.png" />
     <Content Include="Images\Angle\btn_ToggleUp.png" />
     <Content Include="Images\SearchPage\icn_new.png" />

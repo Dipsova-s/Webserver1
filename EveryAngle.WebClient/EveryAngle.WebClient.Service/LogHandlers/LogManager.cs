@@ -168,18 +168,19 @@ namespace EveryAngle.WebClient.Service.LogHandlers
         }
         public static string ParseBodyContentLogging(string url, string body, Method method)
         {
+            string loggingBody = body;
             if (body.Contains("authorization"))
             {
-                body = "{\"authorization\":\"xxxxxxxxxxxxxxxxx\"}";
+                loggingBody = "{\"authorization\":\"xxxxxxxxxxxxxxxxx\"}";
             }
             else if (method == Method.PUT &&
                 url.Equals("password/changepassword"))
             {
                 var separators = new List<string> { ":", "," };
-                body = AnonymizeField("oldpassword", separators, body);
-                body = AnonymizeField("newpassword", separators, body);
+                loggingBody = AnonymizeField("oldpassword", separators, loggingBody);
+                loggingBody = AnonymizeField("newpassword", separators, loggingBody);
             }
-            return body;
+            return loggingBody;
         }
         #endregion
 

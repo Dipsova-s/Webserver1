@@ -1,42 +1,42 @@
 var fieldschooserHtmlTemplate = function () {
     return [
         '<div class="fieldChooserContainer">',
-            '<div id="NewColumnFilter" class="fieldChooserFilter">',
-                '<div data-bind="foreach: { data: FacetItems, as: \'facet\' }">',
-                    '<!-- ko if: ($index() === 0 && $root.IsGeneralGroup(facet.id)) || !$root.IsGeneralGroup(facet.id) -->',
-                    '<div data-bind="attr: { id: facet.id }, css: \'FilterTab-\' + ($root.IsGeneralGroup(facet.id) ? $root.GroupGeneral : facet.type) + \' \' + (facet.panel_opened() ? \'Expand\' : \'\'), click: $root.ToggleCategory" class="FilterTab">',
-                        '<span class="FilterTitle" data-bind="text: $root.IsGeneralGroup(facet.id) ? Localization.GeneralFilters : facet.name"></span>',
-                        '<span class="preferenceText" data-bind="text: facet.preference_text || Localization.SearchPageNoPerferences, attr: { title: facet.preference_text || Localization.SearchPageNoPerferences }"></span>',
-                    '</div>',
-                    '<!-- /ko -->',
-                    '<div data-bind="attr: { id: facet.id + \'_Checkbox\' }, css: \'FilterCheckBox-\' + ($root.IsGeneralGroup(facet.id) ? $root.GroupGeneral + \' FilterCheckBox-general\' : facet.type), visible: facet.panel_opened" class="FilterCheckBox OptionalFilter">',
-                        '<ul data-bind="foreach: { data: facet.filters, as: \'filter\' }, attr: { \'class\': facet.id }">',
-                            '<li data-bind="css: $root.ItemCssClass(facet, $index()), attr: { title: $root.GetTitle(facet, filter)}, visible: !$root.HideFacetsFunction(facet.id, filter.id)">',
-                                '<label>',
-                                    '<input type="checkbox" data-bind="checked: filter.checked, disable: filter.disabled, Indeterminatable: filter.checked, attr: { id: filter.id, alt: filter.name }, click: $root.FilterFacet" />',
-                                    '<span class="label" data-bind="html: $root.GetFilterText(filter)"></span>',
-                                '</label>',
-                            '</li>',
-                        '</ul>',
-                    '</div>',
-                '</div>',
-            '</div>',
-            '<div id="NewColumnProperty" class="fieldChooserContent compactDetail">',
-                '<div id="FilterProperties" class="fieldChooserProperties">',
-                    '<input id="txtFitlerAvailableProperties" type="text" placeholder="' + Localization.FiledChooserFilterProperties + '" />',
-                    '<a id="btnFitlerAvailableProperties" onclick="fieldsChooserModel.Filter()"></a>',
-                '</div>',
-                '<div class="fieldChooserTotals">',
-                    '<span id="totalDisplayFieldsDatarow">0</span> <span>' + Localization.Items + '</span>',
-                '</div>',
-                '<div id="ViewProperty" class="fieldChooserViewType viewType viewTypeCompact">',
-                    '<a id="LongProperty" onclick="fieldsChooserModel.SwitchDisplay(fieldsChooserModel.DISPLAY_TYPE.FULL)" class="typeFull" title="' + Localization.ViewDetailsMode + '"></a>',
-                    '<a id="ShortProperty" onclick="fieldsChooserModel.SwitchDisplay(fieldsChooserModel.DISPLAY_TYPE.COMPACT)" class="typeCompact"  title="' + Localization.ViewCompactMode + '"></a>',
-                '</div>',
-                '<div id="PropertyTable" class="fieldChooserGridContainer">',
-                    '<div id="DisplayPropertiesGrid"></div>',
-                '</div>',
-            '</div>',
+        '<div id="NewColumnFilter" class="fieldChooserFilter">',
+        '<div data-bind="foreach: { data: FacetItems, as: \'facet\' }">',
+        '<!-- ko if: ($index() === 0 && $root.IsGeneralGroup(facet.id)) || !$root.IsGeneralGroup(facet.id) -->',
+        '<div data-bind="attr: { id: facet.id }, css: \'FilterTab-\' + ($root.IsGeneralGroup(facet.id) ? $root.GroupGeneral : facet.type) + \' \' + (facet.panel_opened() ? \'Expand\' : \'\'), click: $root.ToggleCategory" class="FilterTab">',
+        '<span class="FilterTitle" data-bind="text: $root.IsGeneralGroup(facet.id) ? Localization.GeneralFilters : facet.name"></span>',
+        '<span class="preferenceText" data-bind="text: facet.preference_text || Localization.SearchPageNoPerferences, attr: { title: facet.preference_text || Localization.SearchPageNoPerferences }"></span>',
+        '</div>',
+        '<!-- /ko -->',
+        '<div data-bind="attr: { id: facet.id + \'_Checkbox\' }, css: \'FilterCheckBox-\' + ($root.IsGeneralGroup(facet.id) ? $root.GroupGeneral + \' FilterCheckBox-general\' : facet.type), visible: facet.panel_opened" class="FilterCheckBox OptionalFilter">',
+        '<ul data-bind="foreach: { data: facet.filters, as: \'filter\' }, attr: { \'class\': facet.id }">',
+        '<li data-bind="css: $root.ItemCssClass(facet, $index()), attr: { title: $root.GetTitle(facet, filter)}, visible: !$root.HideFacetsFunction(facet.id, filter.id)">',
+        '<label>',
+        '<input type="checkbox" data-bind="checked: filter.checked, disable: filter.disabled, Indeterminatable: filter.checked, attr: { id: filter.id, alt: filter.name }, click: $root.FilterFacet" />',
+        '<span class="label" data-bind="html: $root.GetFilterText(filter)"></span>',
+        '</label>',
+        '</li>',
+        '</ul>',
+        '</div>',
+        '</div>',
+        '</div>',
+        '<div id="NewColumnProperty" class="fieldChooserContent compactDetail">',
+        '<div id="FilterProperties" class="fieldChooserProperties">',
+        '<input id="txtFitlerAvailableProperties" type="text" placeholder="' + Localization.FiledChooserFilterProperties + '" />',
+        '<a id="btnFitlerAvailableProperties" onclick="fieldsChooserModel.Filter()"></a>',
+        '</div>',
+        '<div class="fieldChooserTotals">',
+        '<span id="totalDisplayFieldsDatarow">0</span> <span>' + Localization.Items + '</span>',
+        '</div>',
+        '<div id="ViewProperty" class="fieldChooserViewType viewType viewTypeCompact">',
+        '<a id="LongProperty" onclick="fieldsChooserModel.SwitchDisplay(fieldsChooserModel.DISPLAY_TYPE.FULL)" class="typeFull" title="' + Localization.ViewDetailsMode + '"></a>',
+        '<a id="ShortProperty" onclick="fieldsChooserModel.SwitchDisplay(fieldsChooserModel.DISPLAY_TYPE.COMPACT)" class="typeCompact"  title="' + Localization.ViewCompactMode + '"></a>',
+        '</div>',
+        '<div id="PropertyTable" class="fieldChooserGridContainer">',
+        '<div id="DisplayPropertiesGrid"></div>',
+        '</div>',
+        '</div>',
         '</div>',
         '<div class="fieldChooserButtons"></div>'
     ].join('');
@@ -59,7 +59,7 @@ if (typeof enumHandlers.FRIENDLYNAMEMODE === 'undefined') {
     });
 }
 // M4-26202: Added this charttype for MC because MC don't have enumHandlers
-if (typeof (enumHandlers.CHARTTYPE === 'undefined')) {
+if (typeof enumHandlers.CHARTTYPE === 'undefined') {
     enumHandlers.CHARTTYPE = {
         AREACHART: { Value: 3, Name: Localization.ChartAreaLabel, Code: 'area', Usage: 3 },
         BARCHART: { Value: 0, Name: Localization.ChartBarLabel, Code: 'bar', Usage: 2 },
@@ -307,7 +307,7 @@ function FieldsChooserModel() {
         if (fieldSourceLongName !== fieldSourceShortName) {
             target.attr('data-tooltip-title', fieldSourceLongName);
         }
-        
+
         self.SetHightlightText(rows.find('.FieldSource'));
     };
 
@@ -395,7 +395,7 @@ function FieldsChooserModel() {
 
             target.text(domains.join(', ')).parent().addClass('withDomain');
         }
-        
+
         self.SetHightlightText(rows.find('.detailDomain'));
     };
 
@@ -660,16 +660,16 @@ function FieldsChooserModel() {
 
                             options.success(result.fields);
                         })
-                        .fail(function (xhr, status, error) {
-                            if (options.error) {
-                                options.error(xhr, status, error);
-                            }
-                            else if (typeof requestHistoryModel !== 'undefined') {
-                                var grid = jQuery('#' + self.GridName).data('kendoGrid');
-                                if (grid)
-                                    requestHistoryModel.SaveLastExecute(grid.dataSource, grid.dataSource.options.transport.read, [options]);
-                            }
-                        })
+                            .fail(function (xhr, status, error) {
+                                if (options.error) {
+                                    options.error(xhr, status, error);
+                                }
+                                else if (typeof requestHistoryModel !== 'undefined') {
+                                    var grid = jQuery('#' + self.GridName).data('kendoGrid');
+                                    if (grid)
+                                        requestHistoryModel.SaveLastExecute(grid.dataSource, grid.dataSource.options.transport.read, [options]);
+                                }
+                            })
                     });
                 }
             },
@@ -850,14 +850,14 @@ function FieldsChooserModel() {
                 .on('mousewheel', '.k-loading-mask', function (e) {
                     virtualScroll.verticalScrollbar.scrollTop(virtualScroll.verticalScrollbar.scrollTop() - (e.deltaFactor * e.deltaY));
                 });
-            if (!!jQuery.browser.msie) {
+            if (jQuery.browser.msie) {
                 grid.content
-                .off('mousewheel.iefix')
-                .on('mousewheel.iefix', function (e) {
-                    if (!grid.content.find('.k-loading-mask').length) {
-                        virtualScroll.verticalScrollbar.scrollTop(virtualScroll.verticalScrollbar.scrollTop() - (e.deltaFactor * e.deltaY));
-                    }
-                });
+                    .off('mousewheel.iefix')
+                    .on('mousewheel.iefix', function (e) {
+                        if (!grid.content.find('.k-loading-mask').length) {
+                            virtualScroll.verticalScrollbar.scrollTop(virtualScroll.verticalScrollbar.scrollTop() - (e.deltaFactor * e.deltaY));
+                        }
+                    });
             }
         }
     };
@@ -868,15 +868,15 @@ function FieldsChooserModel() {
         name = name.replace(/\//g, 'OslashO');
         return name;
     };
-	self.SetNoData = function (nodata) {
-		jQuery('.fieldChooserContainer').removeClass('no-data');
+    self.SetNoData = function (nodata) {
+        jQuery('.fieldChooserContainer').removeClass('no-data');
         jQuery('#NewColumnProperty').next('.grid-no-data').remove();
 
         if (nodata) {
             jQuery('.fieldChooserFilter').parent()
                 .children('.grid-no-data').remove().end()
-				.append('<div class="grid-no-data">' + Localization.MC_NoFieldAvailable + '</div>');
-			jQuery('.fieldChooserContainer').addClass('no-data');
+                .append('<div class="grid-no-data">' + Localization.MC_NoFieldAvailable + '</div>');
+            jQuery('.fieldChooserContainer').addClass('no-data');
         }
     };
     self.AdjustColumn = function (grid) {
@@ -1216,51 +1216,51 @@ function FieldsChooserModel() {
 
         if (typeof fieldCategoryHandler !== 'undefined') {
             var icon = '',
-            fixedIconPath = (typeof rootWebsitePath === 'undefined' ? '' : rootWebsitePath) + 'resources/embedded/',
-            fixedIcons = {
-                'suggested': 'icon_suggest.png',
-                'issuggested': 'icon_suggest.png',
-                'facet_issuggested': 'icon_suggest.png',
-                'starred': 'icon_starred_active.png',
-                'isstarred': 'icon_starred_active.png',
-                'facet_isstarred': 'icon_starred_active.png'
+                fixedIconPath = (typeof rootWebsitePath === 'undefined' ? '' : rootWebsitePath) + 'resources/embedded/',
+                fixedIcons = {
+                    'suggested': 'icon_suggest.png',
+                    'issuggested': 'icon_suggest.png',
+                    'facet_issuggested': 'icon_suggest.png',
+                    'starred': 'icon_starred_active.png',
+                    'isstarred': 'icon_starred_active.png',
+                    'facet_isstarred': 'icon_starred_active.png'
 
-            };
-            var fieldTypeIcons =
-                {
-                    'boolean': 'icon_yes_no.png',
-                    'time': 'icon_time.png',
-                    'text': 'icon_text.png',
-                    'enumerated': 'icon_set.png',
-                    'period': 'icon_period.png',
-                    'percentage': 'icon_percentage.png',
-                    'number': 'icon_number.png',
-                    'int': 'icon_number.png',
-                    'double': 'icon_number.png',
-                    'date': 'icon_date.png',
-                    'datetime': 'icon_datetime.png',
-                    'timespan': 'icon_period.png',
-                    'currency': 'icon_currency.png'
                 };
+            var fieldTypeIcons =
+            {
+                'boolean': 'icon_yes_no.png',
+                'time': 'icon_time.png',
+                'text': 'icon_text.png',
+                'enumerated': 'icon_set.png',
+                'period': 'icon_period.png',
+                'percentage': 'icon_percentage.png',
+                'number': 'icon_number.png',
+                'int': 'icon_number.png',
+                'double': 'icon_number.png',
+                'date': 'icon_date.png',
+                'datetime': 'icon_datetime.png',
+                'timespan': 'icon_period.png',
+                'currency': 'icon_currency.png'
+            };
 
             if (fixedIcons[id]) {
                 return {
                     path: fixedIconPath + fixedIcons[id],
                     dimension:
-                        {
-                            width: 20,
-                            height: 20
-                        }
+                    {
+                        width: 20,
+                        height: 20
+                    }
                 };
             }
             else if (fieldTypeIcons[id]) {
                 return {
                     path: fixedIconPath + fieldTypeIcons[id],
                     dimension:
-                        {
-                            width: 16,
-                            height: 16
-                        }
+                    {
+                        width: 16,
+                        height: 16
+                    }
                 };
             }
 
@@ -1678,7 +1678,7 @@ function FieldsChooserModel() {
         }
 
         target.text(self.StripHTML(data.html_help, true));
-        
+
         self.SetHightlightText(rows.find('.detailHelp'));
     };
     self.LoadHelpText = function (helpIds, needUpdateHelp) {
@@ -1694,18 +1694,18 @@ function FieldsChooserModel() {
         if (self.GetHelpTextFunction !== null) {
             fnGetHelps = function (ids) {
                 return jQuery.when(self.GetHelpTextFunction.call(self, uriParameter + ids.join(',')))
-                .done(function (response) {
-                    jQuery.each(response, function (index, helpText) {
-                        var helpKey = helpText.uri;
-                        if (helpText.uri.substr(0, 4) === 'http') {
-                            helpKey = helpText.uri.substr(helpText.uri.indexOf('/models/'));
-                        }
-                        self.HelpTexts[helpKey] = helpText;
-                        if (needUpdateHelp) {
-                            self.SetHelpText(helpText);
-                        }
+                    .done(function (response) {
+                        jQuery.each(response, function (index, helpText) {
+                            var helpKey = helpText.uri;
+                            if (helpText.uri.substr(0, 4) === 'http') {
+                                helpKey = helpText.uri.substr(helpText.uri.indexOf('/models/'));
+                            }
+                            self.HelpTexts[helpKey] = helpText;
+                            if (needUpdateHelp) {
+                                self.SetHelpText(helpText);
+                            }
+                        });
                     });
-                });
             };
         }
         else {
@@ -1984,8 +1984,8 @@ function FieldsChooserModel() {
             var gridOffsetTop = jQuery('#PropertyTable').position().top;
             var buttonsHeight = jQuery('.fieldChooserButtons').outerHeight();
 
-			jQuery('#NewColumnFilter').height(popupHeight - buttonsHeight - 30);
-			jQuery('#DisplayPropertiesGrid').height(popupHeight - gridOffsetTop - buttonsHeight - 18);
+            jQuery('#NewColumnFilter').height(popupHeight - buttonsHeight - 30);
+            jQuery('#DisplayPropertiesGrid').height(popupHeight - gridOffsetTop - buttonsHeight - 18);
         }
     };
     self.BindFieldChooserHtmlToDocumentBody = function (id, html) {

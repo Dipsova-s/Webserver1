@@ -30,7 +30,7 @@
         if (!currentBinding || currentBinding.Identity !== self.Identity) {
             _self.Element.html(_self.GetView());
             ko.applyBindings(self, _self.Element.get(0));
-            
+
             // set open panel state
             self.IsOpen(self.GetFiltersCount() > 0);
         }
@@ -87,7 +87,7 @@
         filterObject.field = fieldId;
         filterObject.step_type = enumHandlers.FILTERTYPE.FILTER;
         var filterViewModel = new WidgetFilterModel(filterObject);
-        
+
         quickFilterHandler.ShowEditDashboardFilterPopup(filterViewModel, modelUri, function (updateFilter) {
             self.ApplyFilter(filter, updateFilter);
             quickFilterHandler.CloseAddFilterPopup();

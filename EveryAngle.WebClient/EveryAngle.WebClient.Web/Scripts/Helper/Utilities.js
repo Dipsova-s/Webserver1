@@ -137,7 +137,7 @@
     };
     window.WC.Utility.MeasureText.cache = {};
     window.WC.Utility.OpenUrlNewWindow = function (url) {
-        if (!!jQuery.browser.chrome) {
+        if (jQuery.browser.chrome) {
             var evt = document.createEvent('MouseEvents');
             if (evt && evt.initMouseEvent) {
                 var a = document.createElement('a');
@@ -704,13 +704,10 @@
                 jQuery(document).data('clickOutsideInitial', true);
 
                 jQuery(document).on('click.outside touchend.outside', function (e) {
-                    var clickOutsideElements = WC.Utility.ToArray(jQuery(document).data('clickOutsideElements')),
-                        clickOutsideElement,
-                        handleChecker,
-                        handleCheckBy;
+                    var clickOutsideElements = WC.Utility.ToArray(jQuery(document).data('clickOutsideElements'));
 
                     jQuery.each(clickOutsideElements, function (k, v) {
-                        clickOutsideElement = jQuery(v.selector);
+                        var clickOutsideElement = jQuery(v.selector);
 
                         if (clickOutsideElement.length) {
                             // check bind event.stopPropagation();
@@ -742,15 +739,29 @@
                                 }
                             }
                             else {
+                                var getCheckBy = function () {
+                                    var checker = v.checker.split(' ');
+                                    checker = checker[checker.length - 1].charAt(0);
+                                    return checker === '#' ? 'id' : checker === '.' ? 'class' : 'tag';
+                                };
+                                var checkId = function (by) {
+                                    return by === 'id' && e.target.id !== v.checker.substr(1);
+                                };
+                                var checkClass = function (by) {
+                                    return by === 'class' && !jQuery(e.target).hasClass(v.checker.substr(1));
+                                };
+                                var checkTag = function (by) {
+                                    return by === 'tag' && !jQuery(e.target).is(v.checker);
+                                };
+                                var checkHandle = function (by) {
+                                    return checkId(by) || checkClass(by) || checkTag(by);
+                                };
+
                                 // check visibility by handle
-                                handleChecker = v.checker.split(' ');
-                                handleChecker = handleChecker[handleChecker.length - 1].charAt(0);
-                                handleCheckBy = handleChecker === '#' ? 'id' : (handleChecker === '.' ? 'class' : 'tag');
+                                var handleCheckBy = getCheckBy();
                                 if (!jQuery(e.target).parents(v.selector).length
                                     && !jQuery(e.target).parents(v.checker).length
-                                    && ((handleCheckBy === 'id' && e.target.id !== v.checker.substr(1))
-                                        || (handleCheckBy === 'class' && !jQuery(e.target).hasClass(v.checker.substr(1)))
-                                        || (handleCheckBy === 'tag' && !jQuery(e.target).is(v.checker)))) {
+                                    && checkHandle(handleCheckBy)) {
                                     var elementHidden = handleCheckBy === 'id' ? jQuery('[id="' + clickOutsideElement.attr('id') + '"]') : clickOutsideElement;
                                     if (e.type === 'click') {
                                         elementHidden.hide();

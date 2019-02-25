@@ -784,8 +784,6 @@
     <None Include="packages.config">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
-    <None Include="Properties\PublishProfiles\MC.pubxml" />
     <Content Include="Views\AutomationTasks\DataStores\AllDataStores.cshtml" />
     <Content Include="Views\AutomationTasks\DataStores\DataStoresGrid.cshtml" />
     <Content Include="Views\AutomationTasks\DataStores\EditDatastore.cshtml" />

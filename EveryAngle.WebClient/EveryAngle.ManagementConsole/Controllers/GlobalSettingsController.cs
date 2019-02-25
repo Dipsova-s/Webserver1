@@ -667,9 +667,10 @@ namespace EveryAngle.ManagementConsole.Controllers
                         var version = SessionHelper.Version;
                         var uri = version.GetEntryByName("packages").Uri.ToString();
 
-                        var zipFile = new byte[file.ContentLength];
-                        file.InputStream.Read(zipFile, 0, zipFile.Length);
-                        globalSettingService.CreatePackage(uri, zipFile, file.FileName, file.ContentType);
+                        MemoryStream target = new MemoryStream();
+                        file.InputStream.CopyTo(target);
+                        
+                        globalSettingService.CreatePackage(uri, target.ToArray(), file.FileName, file.ContentType);
                         return JsonHelper.GetJsonStringResult(true, null,
                             null, MessageType.DEFAULT, null);
                     }

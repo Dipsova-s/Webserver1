@@ -100,9 +100,7 @@
             var isExternal = this.isTriggerExternal(data);
             var uri = getTriggerValue(data, 'TriggerUri');
             var token = getTriggerValue(data, 'token');
-            if (isExternal && token && token)
-                return kendo.format('{0}?token={1}', uri, token);
-            return '';
+            return isExternal && uri && token ? kendo.format('{0}?token={1}', uri, token) : '';
         },
         isContinuous: function (data) {
             /// <summary>get trigger continuous from task data</summary>

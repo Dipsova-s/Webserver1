@@ -35,7 +35,7 @@
     color: #fff;
     font-weight: bold;
     font-size: 13px;
-    background-color: #8197c8;
+    background: #8197c8 none;
     background: linear-gradient(to bottom, #8197c8 0,#5a7193 100%);
 }
 

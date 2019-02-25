@@ -125,36 +125,6 @@
         self.SetGridColumnSize = function (gridElement, spaceSize) {
             var grid = jQuery(gridElement).data('kendoGrid');
             if (grid) {
-                //var cellSize = 0;
-                //if (typeof spaceSize != 'undefined') cellSize += spaceSize;
-
-                //var start, end, showLanguageCount;
-                //if (self.UseVirtualUI()) {
-                //    start = self.LanguageInfo.IndexVirtualStart;
-                //    end = self.LanguageInfo.IndexVirtualEnd;
-                //    showLanguageCount = self.LanguageInfo.VirtualCount;
-                //}
-                //else {
-                //    start = self.LanguageInfo.IndexStart;
-                //    end = self.LanguageInfo.IndexEnd;
-                //    showLanguageCount = self.LanguageInfo.Languages.length;
-                //}
-
-                //var contentSize = grid.wrapper.find('.k-grid-header-wrap').width();
-                //grid.content.find('col').each(function (index, col) {
-                //    //if (index < start || index > end) {
-                //    //    cellSize += ($(col).width() || 0);
-                //    //}
-                //    cellSize += ($(col).width() || 0);
-                //});
-
-                //var columnSize = Math.floor((contentSize - cellSize) / showLanguageCount);
-                //var i;
-                //for (i = 0; i < showLanguageCount; i++) {
-                //    MC.util.setGridWidth(grid, start + i, columnSize);
-                //}
-                //grid.content.find('table').width(grid.wrapper.find('.k-grid-header-wrap > table').width());
-
                 var showLanguageCount, start, i;
                 if (self.UseVirtualUI()) {
                     start = self.LanguageInfo.IndexVirtualStart;
@@ -173,7 +143,7 @@
         self.GetLanguageById = function (id) {
             var lang = null;
             $.each(self.LanguageInfo.Languages, function (index, language) {
-                if (language.id == id) {
+                if (language.id === id) {
                     lang = language;
                     return false;
                 }
@@ -212,7 +182,6 @@
         self.InitialBusinessProcessCategoryGrid = function () {
             var grid = jQuery('#BusinessProcessesCategoryGrid');
             var gridObject = grid.data('kendoGrid');
-            var avaliableLanguages = self.LanguageInfo.Languages.length;
             var start = self.LanguageInfo.IndexVirtualStart;
             var end = self.LanguageInfo.IndexVirtualEnd;
             var i;
@@ -227,7 +196,7 @@
                 // hide other languages
                 var startHide = self.LanguageInfo.IndexStart;
                 var endHide = self.LanguageInfo.IndexEnd;
-                for (var i = startHide; i <= endHide; i++) {
+                for (i = startHide; i <= endHide; i++) {
                     gridObject.hideColumn(i);
                 }
 
@@ -278,9 +247,7 @@
                     var obj = jQuery('#cboLanguage' + index);
                     if (obj.length) {
                         var lang = obj[0].value;
-                        var header = obj.parents('.k-header:first');
-
-                        header.attr('data-field', lang).data('field', lang);
+                        obj.parents('.k-header:first').attr('data-field', lang).data('field', lang);
                     }
                 });
             }
@@ -305,7 +272,7 @@
             var visibleLangs = getAllVisibleLanguages();
 
             // if already shown then do nothing
-            if (jQuery.inArray(language.id, visibleLangs) != -1) {
+            if (jQuery.inArray(language.id, visibleLangs) !== -1) {
                 obj.value = currentLang;
                 return false;
             }
@@ -321,7 +288,7 @@
             jQuery(obj).next('input').val(language.text);
 
             jQuery('#BusinessProcessesCategoryGrid, #BusinessProcessesGrid')
-                .find('tbody tr').find('td:eq(' + currentIndex + ')').html(function (index, ohtml) {
+                .find('tbody tr').find('td:eq(' + currentIndex + ')').html(function () {
                     return jQuery(this).parent('tr').find('td').eq(targetIndex).html();
                 })
                 .find('input:not([readonly])').data('target', targetIndex).blur(function () {
@@ -329,12 +296,12 @@
                 });
 
             visibleLangs = getAllVisibleLanguages();
-            if (visibleLangs.length == self.LanguageInfo.VirtualCount) {
+            if (visibleLangs.length === self.LanguageInfo.VirtualCount) {
                 var i;
                 for (i = 0; i < self.LanguageInfo.VirtualCount; i++) {
                     jQuery('#cboLanguage' + i + ' option').removeAttr('disabled')
                         .filter(function () {
-                            return $.inArray($(this).attr('value'), visibleLangs) != -1;
+                            return $.inArray($(this).attr('value'), visibleLangs) !== -1;
                         }).attr('disabled', 'disabled');
                 }
             }
@@ -358,8 +325,6 @@
 
             // generate data & tab label
             var data = {};
-            var start = self.LanguageInfo.IndexVirtualStart;
-            var end = self.LanguageInfo.IndexVirtualEnd;
             var startHide = self.LanguageInfo.IndexStart;
             var endHide = self.LanguageInfo.IndexEnd;
 
@@ -393,8 +358,8 @@
                                 is_allowed: true
                             });
                         }
-                    })
-                };
+                    });
+                }
             });
 
             // create tab & business processes
@@ -449,7 +414,7 @@
         };
 
         self.SetGridDeleteButton = function () {
-            if ($('#BusinessProcessesGrid .k-grid-content tbody tr:not(.newRow)').length == 1) {
+            if ($('#BusinessProcessesGrid .k-grid-content tbody tr:not(.newRow)').length === 1) {
                 $('#BusinessProcessesGrid .k-grid-content tbody tr:first').find('.btnDelete').addClass('disabled');
             }
         };
@@ -470,10 +435,9 @@
         };
 
         self.BindBusinessProcessNewRowEvent = function (obj) {
-            if (obj != null) {
-                var lang = obj.value,
-                        header = jQuery(obj).parents('.k-header:first'),
-                        currentLang = header.data('lang');
+            if (obj !== null) {
+                var lang = obj.value;
+                var header = jQuery(obj).parents('.k-header:first');
 
                 var currentIndex = header.prevAll().length,
                     targetIndex = jQuery('#BusinessProcessesCategoryGrid .k-header[data-field="' + lang + '"]').prevAll().length;
@@ -625,19 +589,19 @@
                 },
                 type: 'POST'
             })
-            .done(function (data, status, xhr) {
-                if (data.removedData.length > 0 || !($.isEmptyObject(data.un_removeData))) {
+            .done(function (data) {
+                if (data.removedData.length || !$.isEmptyObject(data.un_removeData)) {
                     var text = '';
                     if (data.removedData.length > 0) {
-                        text += '<p>' + Localization.MC_RemovedLabelsList + '</p>'
+                        text += '<p>' + Localization.MC_RemovedLabelsList + '</p>';
                         $.each(data.removedData, function (index, item) {
-                            text += '<p>' + item + '</p>'
+                            text += '<p>' + item + '</p>';
                         });
                     }
                     if (!$.isEmptyObject(data.un_removeData)) {
-                        text += '<p>' + Localization.MC_UnRemovedLabelsList + '</p>'
+                        text += '<p>' + Localization.MC_UnRemovedLabelsList + '</p>';
                         $.each(data.un_removeData, function (key, value) {
-                            text += '<p>' + key + ', ' + value + '</p>'
+                            text += '<p>' + key + ', ' + value + '</p>';
                         });
                     }
                     MC.util.showPopupOK(Localization.MC_DeletedLabels, text, "MC.ajax.reloadMainContent()");
@@ -646,8 +610,6 @@
                     MC.ajax.reloadMainContent();
                 }
             });
-
-            return null;
         };
     }
 

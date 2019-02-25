@@ -50,9 +50,9 @@ namespace EveryAngle.WebClient.Service.ApiServices
             return JsonConvert.DeserializeObject<LabelCategoryViewModel>(jsonResult.ToString());
         }
 
-        public void DeleteLabelCategory(string labelUri)
+        public void DeleteLabelCategory(string labelCategoryUri)
         {
-            var requestManager = RequestManager.Initialize(labelUri);
+            var requestManager = RequestManager.Initialize(labelCategoryUri);
             requestManager.Run(Method.DELETE);
         }
 
@@ -111,9 +111,9 @@ namespace EveryAngle.WebClient.Service.ApiServices
             return JsonConvert.DeserializeObject<LabelViewModel>(jsonResult.ToString());
         }
 
-        public LabelCategoryViewModel UpdateNewCategoryLabel(string ModelUri, string updatedLabel)
+        public LabelCategoryViewModel UpdateNewCategoryLabel(string modelUri, string updatedLabel)
         {
-            var requestManager = RequestManager.Initialize(ModelUri);
+            var requestManager = RequestManager.Initialize(modelUri);
             var jsonResult = requestManager.Run(Method.POST,updatedLabel);
             return JsonConvert.DeserializeObject<LabelCategoryViewModel>(jsonResult.ToString());
         }
@@ -134,35 +134,32 @@ namespace EveryAngle.WebClient.Service.ApiServices
         public DataTable GetMultilingualLabelCategory(string categoryUri, LabelCategoryViewModel labelCategory = null,
             List<SystemLanguageViewModel> languages = null)
         {
-            var labelsDataTable = new DataTable();
-            var labelCategoryViewModel = new LabelCategoryViewModel();
-            var systemLanguages = languages == null ? GetSystemLanguages() : languages;
+            DataTable labelsDataTable = new DataTable();
+            LabelCategoryViewModel labelCategoryViewModel;
+            List<SystemLanguageViewModel> systemLanguages = languages ?? GetSystemLanguages();
 
             if (categoryUri != null)
             {
-                if (labelCategory == null)
-                {
-                    labelCategoryViewModel = GetLabelCategory(categoryUri);
-                }
-                else
-                {
-                    labelCategoryViewModel = labelCategory;
-                }
+                labelCategoryViewModel = labelCategory ?? GetLabelCategory(categoryUri);
             }
             else
             {
-                var multilingualLabel = new List<MultilingualLabelCategory>();
-                var multilangCategory = new MultilingualLabelCategory();
-                multilangCategory.lang = "en";
-                multilangCategory.text = "New label category";
+                List<MultilingualLabelCategory> multilingualLabel = new List<MultilingualLabelCategory>();
+                MultilingualLabelCategory multilangCategory = new MultilingualLabelCategory
+                {
+                    lang = "en",
+                    text = "New label category"
+                };
                 multilingualLabel.Add(multilangCategory);
 
-                var newLabelCategory = new LabelCategoryViewModel();
-                newLabelCategory.id = "";
-                newLabelCategory.name = "New label category";
-                newLabelCategory.contains_businessprocesses = false;
-                newLabelCategory.used_for_authorization = false;
-                newLabelCategory.multi_lang_name = multilingualLabel;
+                var newLabelCategory = new LabelCategoryViewModel
+                {
+                    id = "",
+                    name = "New label category",
+                    contains_businessprocesses = false,
+                    used_for_authorization = false,
+                    multi_lang_name = multilingualLabel
+                };
                 labelCategoryViewModel = newLabelCategory;
             }
 
@@ -182,7 +179,7 @@ namespace EveryAngle.WebClient.Service.ApiServices
                 }
             }
 
-            var record = labelsDataTable.NewRow();
+            DataRow record = labelsDataTable.NewRow();
             record["id"] = labelCategoryViewModel.id;
             record["uri"] = labelCategoryViewModel.uri;
             foreach (var text in systemLanguages)
@@ -214,38 +211,15 @@ namespace EveryAngle.WebClient.Service.ApiServices
 
             if (!string.IsNullOrEmpty(labelsUri))
             {
-                var labelService = new LabelService();
-                if (!labelsUri.Contains("multilingual=yes"))
-                {
-                    if (!labelsUri.Contains("?"))
-                    {
-                        labelsUri = labelsUri + "?multilingual=yes" + "&limit=" + pagesize + "&offset=" +
-                                    UtilitiesHelper.CalculateOffset(page, pagesize);
-                    }
-                    else
-                    {
-                        labelsUri = labelsUri + "&multilingual=yes" + "&limit=" + pagesize + "&offset=" +
-                                    UtilitiesHelper.CalculateOffset(page, pagesize);
-                    }
-                }
-                else
-                {
-                    if (!labelsUri.Contains("?"))
-                    {
-                        labelsUri = labelsUri + "?limit=" + pagesize + "&offset=" +
-                                    UtilitiesHelper.CalculateOffset(page, pagesize);
-                    }
-                    else
-                    {
-                        labelsUri = labelsUri + "&limit=" + pagesize + "&offset=" +
-                                    UtilitiesHelper.CalculateOffset(page, pagesize);
-                    }
-                }
+                string newLabelsUri = labelsUri;
+                newLabelsUri += !newLabelsUri.Contains("?") ? "?" : "&";
+                newLabelsUri += UtilitiesHelper.GetOffsetLimitQueryString(page, pagesize);
+                newLabelsUri += !newLabelsUri.Contains("multilingual=yes") ? "&multilingual=yes" : "";
 
-                var labelsModels = labelService.GetLabels(labelsUri);
-                IEnumerable<SystemLanguageViewModel> systemLanguages = languages == null
-                    ? GetSystemLanguages()
-                    : languages;
+                LabelService labelService = new LabelService();
+                ListViewModel<LabelViewModel> labelsModels = labelService.GetLabels(newLabelsUri);
+                IEnumerable<SystemLanguageViewModel> systemLanguages = languages ?? GetSystemLanguages()
+;
                 labelsDataTable.Columns.Add("lang_en");
                 foreach (var language in systemLanguages)
                 {
@@ -282,32 +256,6 @@ namespace EveryAngle.WebClient.Service.ApiServices
             }
 
             return labelsDataTable;
-        }
-
-        private static SystemInformationViewModel GetSystemInformation()
-        {
-            var version = SessionHelper.Initialize().Version;
-            var systemInformationService = new SystemInformationService();
-            return systemInformationService.GetSystemInformation(
-                    version.GetEntryByName("system_information").Uri.ToString());
-        }
-
-        private List<string> SortAvailableLanguages(List<string> activeLanguages)
-        {
-            var dafaultLanguage = new List<string>();
-            var languages = new List<string>();
-            var systemLanguages = GetSystemLanguages();
-            if (activeLanguages == null)
-            {
-                dafaultLanguage = systemLanguages.Where(l => l.Id == "en").Select(c => c.Id).ToList();
-                languages = systemLanguages.Select(s => s.Id).ToList();
-            }
-            else
-            {
-                dafaultLanguage = activeLanguages.Where(e => e == "en").ToList();
-                languages = activeLanguages.Except(dafaultLanguage).OrderBy(q => q).ToList();
-            }
-            return dafaultLanguage.Union(languages).ToList();
         }
     }
 }

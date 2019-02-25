@@ -119,7 +119,7 @@
         request: function (options) {
             var metadata = typeof options === 'undefined' ? {} : jQuery.extend(true, {
                     type: 'get'
-                }, options, (typeof options.element !== 'undefined' ? jQuery(options.element).data() : {}));
+                }, options, jQuery(options.element).data() || {});
 
             if (metadata.target === '#mainContent') {
                 // clear something on leave a page
@@ -149,9 +149,9 @@
                 var xhr = jQuery.ajax({
                     url: url,
                     data: metadata.parameters || {},
-                    type: options.type,
+                    type: metadata.type,
                     xhrFields: typeof (metadata.xhrFields) === 'undefined' ? {} : metadata.xhrFields,
-                    timeout: options.timeout,
+                    timeout: metadata.timeout,
                     success: function (data, status, xhr) {
                         if (typeof data === 'string' && data.indexOf('id="LoginForm"') !== -1) {
                             location.reload();
@@ -169,7 +169,7 @@
                     }
                 });
 
-                xhr.skipAbort = options.skipAbort;
+                xhr.skipAbort = metadata.skipAbort;
                 this.xhr.push(xhr);
                 return xhr;
             }

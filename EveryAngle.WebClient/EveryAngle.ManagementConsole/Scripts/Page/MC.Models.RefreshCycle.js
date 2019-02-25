@@ -52,25 +52,26 @@
                 MC.util.showServerClock('#ServerTimeInfo', ', {0:HH:mm:ss}');
                 disableLoading();
                 pageContainer.busyIndicator(true);
-                self.LoadActionList().then(function () {
-                    pageContainer.find('> .k-loading-mask >.k-loading-image').hide();
-                    return $.when(
-                        self.CheckViewExtractionButton(),
-                        self.InitialRefreshCycleForm(),
-                        self.InitialRefreshCycleGrid(),
-                        self.InitialRefreshCycleHistoryGrid()
-                    );
-                })
-                .always(function () {
-                    self.InitialCopyToClipboard();
-                    MC.form.page.init($.noop);
-                    pageContainer.busyIndicator(false);
-                });
+                self.LoadActionList()
+                    .then(function () {
+                        pageContainer.find('> .k-loading-mask >.k-loading-image').hide();
+                        return $.when(
+                            self.CheckViewExtractionButton(),
+                            self.InitialRefreshCycleForm(),
+                            self.InitialRefreshCycleGrid(),
+                            self.InitialRefreshCycleHistoryGrid()
+                        );
+                    })
+                    .always(function () {
+                        self.InitialCopyToClipboard();
+                        MC.form.page.init($.noop);
+                        pageContainer.busyIndicator(false);
+                    });
             }, 1);
         };
         self.InitialRefreshCycleForm = function () {
             self.RefreshCycleForm = self.GetRefreshCycleForm();
-             
+
             // days field
             MC.ui.customcheckbox(self.RefreshCycleForm.find('[data-role="customcheckbox"]'));
 
@@ -224,7 +225,7 @@
             self.RefreshCycleForm.find('[name="IsEnabled"]').prop('checked', data.enabled);
 
             // action list 
-            self.RefreshCycleForm.find('[name="Action"]').val(data.ActionList); 
+            self.RefreshCycleForm.find('[name="Action"]').val(data.ActionList);
 
             // delta
             var deltaElement = self.RefreshCycleForm.find('[name="IsDelta"]');
@@ -266,7 +267,7 @@
                     endTime.trigger('change');
                 }
             }
-            
+
             // maximum run time
             if (jQuery.isNumeric(data.max_run_time)) {
                 var timeStopPickerValue = MC.util.unixtimeToTimePicker(data.max_run_time, true);
@@ -280,19 +281,19 @@
             self.RefreshCycleForm.find('[name="Uri"]').val(data.Uri);
 
         };
-        self.BindingSpecifyTablesDataToForm = function (data) { 
+        self.BindingSpecifyTablesDataToForm = function (data) {
             var tableList = data.SpecifyTables.split(' ');
 
             // parameters [action list = 'tables']
             self.RefreshCycleForm.find('[name="Parameters"]').val(tableList.join(' '));
             self.RefreshCycleForm.find('.specifyTablesCountItems').text(data.SpecifyTables ? tableList.length : 0);
 
-            var specifyTablesLabel = self.RefreshCycleForm.find('#SelectedTableList'); 
+            var specifyTablesLabel = self.RefreshCycleForm.find('#SelectedTableList');
             specifyTablesLabel.text(tableList.join(', '));
-             
-            self.UpdateSpecifyTableLabelVisible(specifyTablesLabel, data.ActionList); 
+
+            self.UpdateSpecifyTableLabelVisible(specifyTablesLabel, data.ActionList);
         };
-        self.UpdateSpecifyTableLabelVisible = function (specifyTablesLabel, value) { 
+        self.UpdateSpecifyTableLabelVisible = function (specifyTablesLabel, value) {
             // if value of action list = 'tables' it will show textbox label
             if (specifyTablesLabel.text() && value && value.toLowerCase() === 'tables') {
                 specifyTablesLabel.removeClass('hidden');
@@ -318,7 +319,7 @@
             self.RefreshCycleForm.find('input[name="TaskName"]').val('');
 
             // action list 
-            self.RefreshCycleForm.find('[name="Action"]').val(''); 
+            self.RefreshCycleForm.find('[name="Action"]').val('');
 
             // delta
             var deltaElement = self.RefreshCycleForm.find('input[name="IsDelta"]');
@@ -374,9 +375,9 @@
             return $.when(MC.ajax.request({
                 url: self.GetActionListUri
             }))
-            .done(function (actionList) {
-                self.ActionsList = actionList;
-            });
+                .done(function (actionList) {
+                    self.ActionsList = actionList;
+                });
         };
         self.GetActionList = function (preValue) {
             var actionList = jQuery.extend([], self.ActionsList);
@@ -396,12 +397,12 @@
         self.OnActionListChanged = function (element) {
             self.RefreshCycleForm = self.GetRefreshCycleForm();
 
-            var actionListContainer = self.RefreshCycleForm.find('[name="Action"]').closest('.contentSectionInfoItem'); 
+            var actionListContainer = self.RefreshCycleForm.find('[name="Action"]').closest('.contentSectionInfoItem');
             var specifyTablesLabel = actionListContainer.find('#SelectedTableList');
             var value = element.value;
 
             self.UpdateSpecifyTableLabelVisible(specifyTablesLabel, value);
-        }
+        };
         self.CreateActionListDropdown = function (dropdownElement) {
             var preValue = {
                 id: '',
@@ -420,7 +421,7 @@
                 open: self.onOpenActionListDropdown,
                 change: self.onChangeActionListDropdown
             })
-            .data('kendoDropDownList');
+                .data('kendoDropDownList');
 
             return kendoDropdown;
         };
@@ -455,7 +456,7 @@
             if (!actionListPopupElement || !actionListGridElement) {
                 return;
             }
-            
+
             var actionListPopup = actionListPopupElement.data('kendoWindow');
             var actionListGrid = actionListGridElement.data('kendoGrid');
             var dataSource = self.GetActionList();
@@ -573,7 +574,7 @@
                     // change button behavior to [edit button]
                     if (btnMain.hasClass('btnCancel')) {
                         btnMain.removeClass('btnCancel').addClass('btnEdit');
-                        btnMain.data('clickTarget', btnMain.next('.btnGroupInner').find('.btnEdit'))
+                        btnMain.data('clickTarget', btnMain.next('.btnGroupInner').find('.btnEdit'));
                     }
 
                     // trigger change grid elements
@@ -693,7 +694,7 @@
             taskModel.triggers.push(triggerData);
             taskModel.actions.push(actionModel);
 
-            if (maxRuntime.val() != '' || maxRuntime.val() == '00:00')
+            if (maxRuntime.val() !== '')
                 taskModel.max_run_time = MC.util.timePickerToUnixTime(maxRuntime.data('kendoTimePicker').value(), true);
 
             // if edit mode
@@ -771,14 +772,14 @@
                 },
                 type: 'POST'
             })
-            .done(function () {
-                MC.ajax.reloadMainContent();
-            })
-            .fail(function () {
-                $('#loading .loadingClose').one('click.close', function () {
+                .done(function () {
                     MC.ajax.reloadMainContent();
+                })
+                .fail(function () {
+                    $('#loading .loadingClose').one('click.close', function () {
+                        MC.ajax.reloadMainContent();
+                    });
                 });
-            });
 
         };
         self.DeleteTask = function (event, button) {
@@ -791,13 +792,13 @@
                         type: 'Delete',
                         url: self.DeleteUri
                     })
-                    .done(function () {
-                        var grid = jQuery('#TaskDetailGrid').data('kendoGrid');
-                        if (grid) {
-                            grid.dataSource.read();
-                        }
-                        self.ResetFormData();
-                    });
+                        .done(function () {
+                            var grid = jQuery('#TaskDetailGrid').data('kendoGrid');
+                            if (grid) {
+                                grid.dataSource.read();
+                            }
+                            self.ResetFormData();
+                        });
                 });
             }
             MC.util.preventDefault(event);
@@ -877,7 +878,7 @@
                 grid.bind('dataBound', function (e) {
                     var dataItems = e.sender.dataItems();
                     $.each(dataItems, function (key, value) {
-                        var table = self.TableList.findObject('local_name', value.local_name)
+                        var table = self.TableList.findObject('local_name', value.local_name);
                         if (table)
                             value.set("specify_tables", table.specify_tables);
                         else
@@ -938,10 +939,11 @@
             MC.util.preventDefault(e);
         };
         self.ReloadTestExtraction = function (todo) {
-            if (typeof todo == 'undefined') todo = 'reload';
+            if (typeof todo === 'undefined')
+                todo = 'reload';
 
             var testExecution = function (todo) {
-                if (todo == 'reload') {
+                if (todo === 'reload') {
                     return MC.ajax.request({
                         url: self.ReloadTestExtractionUri,
                         parameters: { "modelId": self.ModelId, "modelServerUri": self.ModelServerUri },
@@ -1027,8 +1029,6 @@
             $('#popupTestExtraction').removeClass('popupError');
             $('#TestExtractionContainer').empty();
 
-            //MC.ui.popup('requestStart');
-
             var deferred = $.Deferred();
             testExecution(todo)
                 .done(function (data, status, xhr) {
@@ -1059,15 +1059,11 @@
 
                     setTimeout(function () {
                         MC.ui.popup('requestEnd');
-
-                        //fnCheckTestExtraction = setTimeout(function () {
-                        //    self.ReloadTestExtraction('reload');
-                        //}, 30 * 1000);
                     }, 100);
                 });
 
             deferred.promise();
-        }
+        };
         self.CheckViewExtractionButton = function () {
             return MC.ajax.request({
                 url: self.CheckExtractorUri,

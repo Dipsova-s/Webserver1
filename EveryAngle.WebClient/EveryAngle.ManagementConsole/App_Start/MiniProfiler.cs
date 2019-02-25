@@ -47,8 +47,6 @@ namespace EveryAngle.ManagementConsole.App_Start
             {
                 context.BeginRequest += (sender, e) =>
                 {
-                    var request = ((HttpApplication) sender).Request;
-
                     var response = HttpContext.Current.Response;
                     var filter = new OutputFilterStream(response.Filter);
                     response.Filter = filter;

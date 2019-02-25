@@ -23,7 +23,7 @@ namespace EveryAngle.WebClient.Web.App_Start
               
                 Log.Initialize(logFolder, maxLogFileSize, maxLogFileNumber, Debugger.IsAttached, "EveryAngle_WebClient");
 
-                EventLog.WriteEntry("Application", "Application: " + DateTime.Now.ToString(), EventLogEntryType.Information, 1);
+                EventLog.WriteEntry("Application", "Application: " + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"), EventLogEntryType.Information, 1);
             }
             catch (Exception ex)
             {
@@ -48,7 +48,7 @@ namespace EveryAngle.WebClient.Web.App_Start
             if (enabled)
             {
                 Profiler.Initialize();
-                Log.SendInfo("Initial request and response log at {0}. " + DateTime.Now.ToString());
+                Log.SendInfo("Initial request and response log at {0}. " + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"));
                 string logPath = ConfigurationManager.AppSettings["LogFileFolder"].ToString();
                 var dirInfo = new DirectoryInfo(logPath);
                 if (dirInfo.Exists)

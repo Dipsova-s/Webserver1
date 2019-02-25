@@ -9,16 +9,13 @@
             });
         },
         sortableGrid: function (gridId, dragEndCallback) {
-            if (typeof dragEndCallback == 'undefined')
+            if (typeof dragEndCallback === 'undefined')
                 dragEndCallback = jQuery.noop;
 
             var selectedClass = 'k-state-selected';
             var gridElement = jQuery(gridId);
             var grid = gridElement.data('kendoGrid');
             if (grid) {
-                var gridDataSource = grid.dataSource;
-                var isSorting;
-
                 grid.table.kendoDraggable({
                     filter: 'tbody tr .btnMove',
                     axis: 'y',
@@ -57,7 +54,7 @@
                         jQuery('tr:eq(' + (dropIndicator.hasClass('revert') ? (dropIndex - 1) : dropIndex) + ') td:eq(0)', tbody).prepend(dropIndicator);
                         grid.element.data('dropIndex', dropIndex);
                     },
-                    dragend: function (e) {
+                    dragend: function () {
                         var data = grid.element.data(),
                             rows = grid.content.find('tr');
 
@@ -65,7 +62,7 @@
                         rows.removeClass(selectedClass);
                         jQuery('#dragHelper').hide();
 
-                        if (data.dragIndex != data.dropIndex && data.dragIndex != data.dropIndex - 1) {
+                        if (data.dragIndex !== data.dropIndex && data.dragIndex !== data.dropIndex - 1) {
                             var movedRow = rows.eq(data.dragIndex).css('opacity', 0);
                             if (data.dropIndex === rows.length) {
                                 rows.eq(data.dropIndex - 1).after(movedRow).next()

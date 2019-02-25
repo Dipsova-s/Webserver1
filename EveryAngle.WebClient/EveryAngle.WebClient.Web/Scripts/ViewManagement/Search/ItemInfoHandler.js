@@ -1,6 +1,4 @@
-var itemInfoHandler = new ItemInfoHandler();
-
-function ItemInfoHandler() {
+window.ItemInfoHandler = function () {
     "use strict";
 
     var self = this;
@@ -152,7 +150,7 @@ function ItemInfoHandler() {
                                     labels.push(value);
                                 }
                             });
-                            
+
                             self.HandlerInfoDetails.ShowExecutionParameterPopup = function (angle, display, event) {
                                 return self.ShowAngleExecutionParameterPopupFunction(angle, display, event);
                             };
@@ -236,11 +234,10 @@ function ItemInfoHandler() {
                             angleList.sortObject('angleName', enumHandlers.SORTDIRECTION.ASC, false);
                             for (var i = 0; i < angleList.length; i++) {
                                 angleList[i].displays.sortObject('name', enumHandlers.SORTDIRECTION.ASC, false);
-                            };
+                            }
 
-                            //group by model
+                            //group by model then sort them
                             var modelList = self.CreateModelListInDashboardInfo(angleList);
-                            //set sort model
                             modelList.sortObject('modelName', enumHandlers.SORTDIRECTION.ASC, false);
 
                             self.HandlerInfoDetails.SetWidget(labels, true, modelList);
@@ -327,7 +324,7 @@ function ItemInfoHandler() {
         container.html('<div class="k-window-content k-content" />');
         container.removeClass('k-window-arrow-n k-window-arrow-s');
         container.show();
-        
+
         var settings = self.GetDisplaysElementSettings(container.width(), target, totalDisplays);
         container.addClass(settings.arrow);
         container.css(settings.offset);
@@ -362,9 +359,9 @@ function ItemInfoHandler() {
         jQuery.each(widgets, function (index, widget) {
             var angleInDashboard;
 
-            var angle = $.grep(angleList, function (e) { return e.angle.uri === widget.angle; });
-            if (angle.length === 0) {
-                angleInDashboard = $.grep(dashboardModel.Angles, function (e) { return e.uri === widget.angle; })[0];
+            var angle = jQuery.grep(angleList, function (e) { return e.angle.uri === widget.angle; });
+            if (!angle.length) {
+                angleInDashboard = jQuery.grep(dashboardModel.Angles, function (e) { return e.uri === widget.angle; })[0];
                 angle = {
                     modelName: modelsHandler.GetModelName(angleInDashboard.model),
                     angleName: angleInDashboard.name,
@@ -376,9 +373,11 @@ function ItemInfoHandler() {
             else
                 angle = angle[0];
 
-            var display = $.grep(angle.angle.display_definitions, function (e) { return e.uri === widget.display; });
-            var existingDisplay = $.grep(angle.displays, function (e) { return (display.length > 0 && e.uri === display[0].uri); });
-            if (existingDisplay.length === 0 && display.length > 0)
+            var display = jQuery.grep(angle.angle.display_definitions, function (e) { return e.uri === widget.display; });
+            var existingDisplay = jQuery.grep(angle.displays, function (e) {
+                return display.length && e.uri === display[0].uri;
+            });
+            if (!existingDisplay.length && display.length)
                 angle.displays.push(display[0]);
         });
 
@@ -471,4 +470,5 @@ function ItemInfoHandler() {
         };
         executionParameter.CancelExecutionParameters = jQuery.noop;
     };
-}
+};
+var itemInfoHandler = new ItemInfoHandler();

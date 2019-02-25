@@ -15,7 +15,7 @@ namespace EveryAngle.Core.Interfaces.Services
 
         LabelCategoryViewModel GetLabelCategory(string labelUri);
 
-        void DeleteLabelCategory(string labelUri);
+        void DeleteLabelCategory(string labelCategoryUri);
     
         ListViewModel<LabelViewModel> GetLabels(string uri);
 

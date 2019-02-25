@@ -1,7 +1,6 @@
 var numberListFormatHtmlPartialTemplate = function (dataType) {
 
-    var numberListFormatHtmlPartialTemplate = "";
-    numberListFormatHtmlPartialTemplate += "<div class=\"FieldFormatList\">";
+    var numberListFormatHtmlPartialTemplate = "<div class=\"FieldFormatList\">";
     numberListFormatHtmlPartialTemplate += "    <div class=\"row\">";
     numberListFormatHtmlPartialTemplate += "        <div class=\"field\"><span>" + Localization.FormatSettingDisplayUnits + "<\/span><\/div>";
     numberListFormatHtmlPartialTemplate += "        <div class=\"input\"><input id=\"FormatDisplayUnitSelect\" class=\"eaDropdown eaDropdownSize40\" \/><\/div>";
@@ -19,8 +18,7 @@ var numberListFormatHtmlPartialTemplate = function (dataType) {
 
 var normalListFormatHtmlPartialTemplate = function () {
 
-    var normalListFormatHtmlPartialTemplate = "";
-    normalListFormatHtmlPartialTemplate += "<div class=\"FieldFormatList\">";
+    var normalListFormatHtmlPartialTemplate = "<div class=\"FieldFormatList\">";
     normalListFormatHtmlPartialTemplate += "    <div class=\"row\">";
     normalListFormatHtmlPartialTemplate += "        <div class=\"field\"><span>" + Captions.FieldFormat_Notation + "<\/span><\/div>";
     normalListFormatHtmlPartialTemplate += "        <div class=\"input\"><input id=\"format\" class=\"eaDropdown eaDropdownSize40\" \/><\/div>";
@@ -31,23 +29,17 @@ var normalListFormatHtmlPartialTemplate = function () {
 };
 
 var timeListFormatHtmlPartialTemplate = function () {
-
-    var timeListFormatHtmlPartialTemplate = "";
-    timeListFormatHtmlPartialTemplate += "<div class=\"FieldFormatList\">";
+    var timeListFormatHtmlPartialTemplate = "<div class=\"FieldFormatList\">";
     timeListFormatHtmlPartialTemplate += "    <div class=\"row\">";
     timeListFormatHtmlPartialTemplate += "        <div class=\"field\"><span>" + Captions.Label_FieldFormat_Seconds + "<\/span><\/div>";
     timeListFormatHtmlPartialTemplate += "        <div class=\"input\"><input id=\"FormatSecondsSelect\" class=\"eaDropdown eaDropdownSize40\" \/><\/div>";
     timeListFormatHtmlPartialTemplate += "    <\/div>";
     timeListFormatHtmlPartialTemplate += "<\/div>";
-
     return timeListFormatHtmlPartialTemplate;
 };
 
 var listFormatHtmlTemplate = function (dataType) {
-
-    var listFormatHtmlTemplate = "";
-    listFormatHtmlTemplate += "<form>";
-
+    var listFormatHtmlTemplate = "<form>";
     listFormatHtmlTemplate += "<div class=\"FieldFormatList FieldFormatAlias\">";
     listFormatHtmlTemplate += "    <div class=\"row\">";
     listFormatHtmlTemplate += "        <label class=\"field\">Name<\/label>";
@@ -56,17 +48,16 @@ var listFormatHtmlTemplate = function (dataType) {
     listFormatHtmlTemplate += "<\/div>";
 
     var separator = "<div class=\"StatSeparate\"><\/div>";
-
     if (WC.FormatHelper.IsNumberFieldType(dataType)) {
-        listFormatHtmlTemplate += separator
+        listFormatHtmlTemplate += separator;
         listFormatHtmlTemplate += numberListFormatHtmlPartialTemplate(dataType);
     }
     else if (WC.FormatHelper.IsFieldTypeHasTime(dataType)) {
-        listFormatHtmlTemplate += separator
+        listFormatHtmlTemplate += separator;
         listFormatHtmlTemplate += timeListFormatHtmlPartialTemplate();
     }
     else if (dataType === enumHandlers.FIELDTYPE.ENUM) {
-        listFormatHtmlTemplate += separator
+        listFormatHtmlTemplate += separator;
         listFormatHtmlTemplate += normalListFormatHtmlPartialTemplate();
     }
 

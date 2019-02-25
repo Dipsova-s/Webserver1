@@ -6,9 +6,10 @@
             if (MC.ajax)
                 MC.ajax.abortAll();
 
-            for (var seed in MC.system.__timeout)
+            var seed;
+            for (seed in MC.system.__timeout)
                 win.__clearTimeout(seed);
-            for (var seed in MC.system.__interval)
+            for (seed in MC.system.__interval)
                 win.__clearInterval(seed);
 
             MC.system.__timeout = {};

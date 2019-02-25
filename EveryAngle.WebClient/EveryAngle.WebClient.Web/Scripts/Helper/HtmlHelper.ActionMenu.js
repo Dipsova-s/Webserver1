@@ -23,7 +23,7 @@
     var onPageResized = function (e) {
         // always reset expanded state
         $(e.data.itemContainer).removeClass('open');
-        
+
         // get size of sibling elements
         var target = jQuery(e.data.target);
         var siblingsWidth = e.data.calculateSiblingsWidth(target);

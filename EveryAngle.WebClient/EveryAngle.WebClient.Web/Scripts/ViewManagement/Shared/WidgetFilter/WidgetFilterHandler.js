@@ -32,7 +32,7 @@ function WidgetFilterHandler(container, models) {
         // clean element
         self.View.CleanHtmlElements();
         self.View.BindingAndSortingElementFilter();
-        
+
         // tooltips
         WC.HtmlHelper.Tooltip.Create('tooltip.widgetfilter', '.btnAddFilterFromJump');
 
@@ -106,7 +106,7 @@ function WidgetFilterHandler(container, models) {
             self.View.ToggleTreeViewHeader('FilterHeader-' + insertIndex);
             self.View.Toggle('FilterHeader-' + insertIndex);
         };
-        
+
         modelFieldsHandler.LoadFieldsMetadata([field])
             .done(function () {
                 self.AddFilterModelFromField(field, enumHandlers.FILTERTYPE.FILTER, insertIndex);
@@ -117,7 +117,7 @@ function WidgetFilterHandler(container, models) {
     };
     self.SetCompareFieldFilter = function (field, targetIndex) {
         modelFieldsHandler.SetFields([field], self.ModelUri);
-        
+
         targetIndex += '';
         modelFieldsHandler.LoadFieldsMetadata([field])
             .done(function () {
@@ -248,7 +248,7 @@ function WidgetFilterHandler(container, models) {
     };
     self.GetData = function () {
         var querySteps = [];
-        jQuery.each(ko.toJS(self.Data()), function (index , data) {
+        jQuery.each(ko.toJS(self.Data()), function (index, data) {
             if (data.step_type === enumHandlers.FILTERTYPE.FILTER) {
                 data.arguments = WC.WidgetFilterHelper.AdjustFilterArguments(data.operator, data.arguments, self.ModelUri);
             }

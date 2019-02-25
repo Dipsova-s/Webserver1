@@ -105,7 +105,7 @@ function ScheduleAngleHandler() {
         ddlTasks.trigger('change');
     };
 
-    self.GetTasks = function () { 
+    self.GetTasks = function () {
         var uri = directoryHandler.GetDirectoryUri(enumHandlers.ENTRIESNAME.TASKS);
         return GetDataFromWebService(uri, { type: "export_angle_to_datastore", offset: 0, limit: systemSettingHandler.GetMaxPageSize() }, false);
     };

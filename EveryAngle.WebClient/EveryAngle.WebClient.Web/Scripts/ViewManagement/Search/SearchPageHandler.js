@@ -1,4 +1,4 @@
-function SearchPageHandler() {
+window.SearchPageHandler = function () {
     "use strict";
 
     var self = this;
@@ -49,7 +49,7 @@ function SearchPageHandler() {
             .done(function () {
                 jQuery('html').addClass('initialized');
                 self.InitialSearchPageCallback(callback);
-            }); 
+            });
     };
     self.InitialSearchPageCallback = function (callback) {
         userSettingsView.UpdateUserMenu();
@@ -1801,6 +1801,5 @@ function SearchPageHandler() {
             return;
         });
     }
-}
-
+};
 var searchPageHandler = new SearchPageHandler();

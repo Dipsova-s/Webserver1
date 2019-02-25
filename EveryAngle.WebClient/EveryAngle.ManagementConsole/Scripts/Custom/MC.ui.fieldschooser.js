@@ -4,12 +4,11 @@
 
     var bindDataGridStart = function () {
         var self = this;
-        suggestionsList = [];
         self.OnGridSelectionChanged([]);
     };
 
     var getDataFail = function (xhr, status, error) {
-        if (status != 'abort') {
+        if (status !== 'abort') {
             var win = jQuery('#popupFieldChooser').data('kendoWindow');
             if (win) win.close();
         }
@@ -18,31 +17,33 @@
     var getFieldsFunction = function (uri, params, callback) {
         var self = this;
         disableLoading();
-        return MC.ajax.request({
-            url: self.GetFieldsUri + '?fieldsUri=' + escape(uri + (uri.indexOf('?') == -1 ? '?' : '&') + jQuery.param(params))
-        })
-		.fail(getDataFail)
-		.done(function (data, status, xhr) {
-		    callback(data);
-		});
+        return MC.ajax
+            .request({
+                url: self.GetFieldsUri + '?fieldsUri=' + escape(uri + (uri.indexOf('?') === -1 ? '?' : '&') + jQuery.param(params))
+            })
+            .fail(getDataFail)
+            .done(function (data) {
+                callback(data);
+            });
     };
 
     var setFieldsFunction = function (result) {
         var grid = jQuery('#DisplayPropertiesGrid').data('kendoGrid');
-        if (grid) {
+        if (grid)
             grid.table.focus();
-        }
 
-        jQuery.each(result.fields, function (k, v) {
-            if (typeof v.source == 'undefined' || v.source == null) v.source = 'all';
-            if (typeof v.technical_info == 'undefined') v.technical_info = null;
+        jQuery.each(result.fields, function (index, field) {
+            if (!field.source)
+                field.source = 'all';
+            if (!field.technical_info)
+                field.technical_info = null;
         });
         return result;
     };
 
     var getFieldSourceFunction = function (uri) {
         var self = this;
-        if (uri == 'all') {
+        if (uri === 'all') {
             var deferred = new jQuery.Deferred();
             setTimeout(function () {
                 deferred.resolve({ uri: 'all', id: 'all', short_name: 'All' });
@@ -78,23 +79,24 @@
         var image = {
             path: fieldsChooserModel.BlankImage,
             dimension:
-				{
-				    width: 16,
-				    height: 16
-				}
+            {
+                width: 16,
+                height: 16
+            }
         };
-        if (typeof showSmallIcon == 'undefined') showSmallIcon = true;
+        if (typeof showSmallIcon === 'undefined')
+            showSmallIcon = true;
         var iconSuffix = showSmallIcon ? '_16' : '_32';
         jQuery.each(self.FieldCategoriesData, function (k, v) {
-            if (v.uri.toLowerCase() == (item.category || '').toLowerCase()) {
+            if (v.uri.toLowerCase() === (item.category || '').toLowerCase()) {
                 var url = self.FieldCategoriesIconPath;
                 image = {
                     path: url + v.id + iconSuffix + '.png',
                     dimension:
-						{
-						    width: showSmallIcon ? 16 : 32,
-						    height: showSmallIcon ? 16 : 32
-						}
+                    {
+                        width: showSmallIcon ? 16 : 32,
+                        height: showSmallIcon ? 16 : 32
+                    }
                 };
                 return false;
             }
@@ -104,64 +106,63 @@
 
     var getCategoryIconByIdFunction = function (id) {
         var self = this;
-        var icon = '',
-			fixedIconPath = self.ResourceIconPath,
-		fixedIcons = {
-		    'suggested': 'icon_suggest.png',
-		    'issuggested': 'icon_suggest.png',
-		    'facet_issuggested': 'icon_suggest.png',
-		    'starred': 'icon_starred_active.png',
-		    'isstarred': 'icon_starred_active.png',
-		    'facet_isstarred': 'icon_starred_active.png'
-		};
+        var fixedIconPath = self.ResourceIconPath;
+        var fixedIcons = {
+            'suggested': 'icon_suggest.png',
+            'issuggested': 'icon_suggest.png',
+            'facet_issuggested': 'icon_suggest.png',
+            'starred': 'icon_starred_active.png',
+            'isstarred': 'icon_starred_active.png',
+            'facet_isstarred': 'icon_starred_active.png'
+        };
         var fieldTypeIcons =
-	  {
-	      'boolean': 'icon_yes_no.png',
-	      'time': 'icon_time.png',
-	      'text': 'icon_text.png',
-	      'enumerated': 'icon_set.png',
-	      'period': 'icon_period.png',
-	      'percentage': 'icon_percentage.png',
-	      'number': 'icon_number.png',
-	      'date': 'icon_date.png',
-	      'datetime': 'icon_datetime.png',
-	      'timespan': 'icon_period.png',
-	      'currency': 'icon_currency.png',
-	      'int': 'icon_number.png',
-	      'double': 'icon_number.png',
-	      'unknown': 'icon_unknown.png'
-	  };
+        {
+            'boolean': 'icon_yes_no.png',
+            'time': 'icon_time.png',
+            'text': 'icon_text.png',
+            'enumerated': 'icon_set.png',
+            'period': 'icon_period.png',
+            'percentage': 'icon_percentage.png',
+            'number': 'icon_number.png',
+            'date': 'icon_date.png',
+            'datetime': 'icon_datetime.png',
+            'timespan': 'icon_period.png',
+            'currency': 'icon_currency.png',
+            'int': 'icon_number.png',
+            'double': 'icon_number.png',
+            'unknown': 'icon_unknown.png'
+        };
         if (fixedIcons[id]) {
             return {
                 path: fixedIconPath + fixedIcons[id],
                 dimension:
-				{
-				    width: 20,
-				    height: 20
-				}
+                {
+                    width: 20,
+                    height: 20
+                }
             };
         }
         else if (fieldTypeIcons[id]) {
             return {
                 path: fixedIconPath + fieldTypeIcons[id],
                 dimension:
-					{
-					    width: 16,
-					    height: 16
-					}
+                {
+                    width: 16,
+                    height: 16
+                }
             };
         }
         var image = '';
         jQuery.each(self.FieldCategoriesData, function (k, v) {
-            if (v.id.toLowerCase() == id.toLowerCase()) {
+            if (v.id.toLowerCase() === id.toLowerCase()) {
                 var url = self.FieldCategoriesIconPath;
                 image = {
                     path: url + v.id + "_16.png",
                     dimension:
-						{
-						    width: 16,
-						    height: 16
-						}
+                    {
+                        width: 16,
+                        height: 16
+                    }
                 };
                 return false;
             }
@@ -194,11 +195,11 @@
         helpHeaderText += '<p><img src="' + fieldCategoryIconLarge.path + '" />' + field.short_name + ' (' + field.long_name + ')</p>';
 
         var helpTemplate = [
-			'<div id="helpText">',
-				'<div class="helpHeaderContainer"></div>',
-				'<div class="helpTextContainer"></div>',
-				'<div class="helpAdditionalContainer"></div>',
-			'</div>'
+            '<div id="helpText">',
+            '<div class="helpHeaderContainer"></div>',
+            '<div class="helpTextContainer"></div>',
+            '<div class="helpAdditionalContainer"></div>',
+            '</div>'
         ].join('');
 
         var helpPopupElement = jQuery('#helpText');
@@ -258,30 +259,30 @@
 
         helpPopup.element.css({ overflow: 'hidden', padding: 0 }).busyIndicator(true);
         jQuery.when.apply(jQuery, deferred)
-			.done(function () {
-			    helpPopup.element.find('.helpHeaderContainer').html(helpHeaderText);
+            .done(function () {
+                helpPopup.element.find('.helpHeaderContainer').html(helpHeaderText);
 
-			    if (!helpData) {
-			        helpData = self.HelpTexts[field.helptext] || {};
-			    }
-			    helpPopup.element.find('.helpTextContainer').html(helpData.html_help || '');
+                if (!helpData) {
+                    helpData = self.HelpTexts[field.helptext] || {};
+                }
+                helpPopup.element.find('.helpTextContainer').html(helpData.html_help || '');
 
-			    if (!domainData) {
-			        domainData = self.GetFieldsDomainByUri(field.domain);
-			    }
-			    if (domainData) {
-			        var domainText = '<h4 class="sectiontitle">Set values:</h4>';
-			        domainText += '<ul>';
-			        jQuery.each(domainData.elements || [], function (index, value) {
-			            domainText += '<li>' + value.short_name + ' (' + value.long_name + ')' + '</li>';
-			        });
-			        domainText += '</ul>';
-			        helpPopup.element.find('.helpAdditionalContainer').html(domainText);
-			    }
-			})
-			.always(function () {
-			    helpPopup.element.css({ overflow: '', padding: '' }).busyIndicator(false);
-			});
+                if (!domainData) {
+                    domainData = self.GetFieldsDomainByUri(field.domain);
+                }
+                if (domainData) {
+                    var domainText = '<h4 class="sectiontitle">Set values:</h4>';
+                    domainText += '<ul>';
+                    jQuery.each(domainData.elements || [], function (index, value) {
+                        domainText += '<li>' + value.short_name + ' (' + value.long_name + ')' + '</li>';
+                    });
+                    domainText += '</ul>';
+                    helpPopup.element.find('.helpAdditionalContainer').html(domainText);
+                }
+            })
+            .always(function () {
+                helpPopup.element.css({ overflow: '', padding: '' }).busyIndicator(false);
+            });
     };
 
     var saveUserSettingsViewMode = function (viewMode) {

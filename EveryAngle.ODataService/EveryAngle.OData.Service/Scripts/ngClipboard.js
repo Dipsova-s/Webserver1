@@ -1,48 +1,46 @@
 angular.module('ngClipboard', [])
 
-    .factory('ngClipboard', function($compile,$rootScope,$document) {
+    .factory('ngClipboard', function ($compile, $rootScope, $document) {
         return {
-            toClipboard: function(element){
+            toClipboard: function (element) {
 
-            var copyElement = angular.element('<span id="ngClipboardCopyId">'+element+'</span>');
-            var body = $document.find('body').eq(0);
-            body.append($compile(copyElement)($rootScope));
-            
-            var ngClipboardElement = angular.element(document.getElementById('ngClipboardCopyId'));
-            var range = document.createRange();
+                var copyElement = angular.element('<span id="ngClipboardCopyId">' + element + '</span>');
+                var body = $document.find('body').eq(0);
+                body.append($compile(copyElement)($rootScope));
 
-            range.selectNode(ngClipboardElement[0]);
+                var ngClipboardElement = angular.element(document.getElementById('ngClipboardCopyId'));
+                var range = document.createRange();
 
-            window.getSelection().removeAllRanges();
-            window.getSelection().addRange(range);
+                range.selectNode(ngClipboardElement[0]);
 
-            var successful = document.execCommand('copy');
+                window.getSelection().removeAllRanges();
+                window.getSelection().addRange(range);
 
-            var msg = successful ? 'successful' : 'unsuccessful';
-            window.getSelection().removeAllRanges();
+                document.execCommand('copy');
 
-            copyElement.remove();
-        }
-    }
+                window.getSelection().removeAllRanges();
+
+                copyElement.remove();
+            }
+        };
     })
 
-    .directive('ngCopyable', function() {
+    .directive('ngCopyable', function () {
         return {
             restrict: 'A',
-            link:link
+            link: link
         };
-        function link(scope, element, attrs) {
-            element.bind('click',function(){
+        function link(scope, element) {
+            element.bind('click', function () {
 
                 var range = document.createRange();
                 range.selectNode(element[0]);
                 window.getSelection().removeAllRanges();
                 window.getSelection().addRange(range);
-                var successful = document.execCommand('copy');
 
-                var msg = successful ? 'successful' : 'unsuccessful';
+                document.execCommand('copy');
+
                 window.getSelection().removeAllRanges();
             });
         }
-
     });

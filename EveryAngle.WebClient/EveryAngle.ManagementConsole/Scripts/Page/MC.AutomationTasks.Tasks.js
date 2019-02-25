@@ -117,9 +117,8 @@
             var currentStatus = data.status;
             var name = data.name;
             var uri = data.Uri;
-            var taskOwner = data.run_as_user;
 
-            var canManageTask = manageSystemPrivilege || (canScheduleAngles && currentUser === taskOwner);
+            var canManageTask = self.CanManageTask(manageSystemPrivilege, canScheduleAngles, currentUser, data.run_as_user);
             var isExecuting = currentStatus === 'running' || currentStatus === 'queued';
             var template = '';
 
@@ -140,15 +139,20 @@
             else {
                 template += "<a href=\"" + MC.AutomationTasks.Tasks.EditTaskPage + "\"  onclick=\"MC.AutomationTasks.Tasks.EditTask(event, this)\" data-parameters='{\"tasksUri\":\"" + uri + "\"}' class=\"btn btnEdit\">" + Localization.View + "</a>";
             }
-            template += "<a  data-parameters='{\"taskUri\":\"" + uri + "\", \"name\":\"" + name + "\"}' data-delete-template=\"" + Localization.MC_DeleteTaskConfirm + "\" data-delete-field-index=\"0\" onclick=\"MC.AutomationTasks.Tasks.DeleteTask(event,this)\" class=\"btn btnDelete" + (isExecuting || !manageSystemPrivilege ? ' disabled' : '') + "\">" + Localization.Delete + "</a>";
+            template += "<a data-parameters='{\"taskUri\":\"" + uri + "\", \"name\":\"" + name + "\"}' data-delete-template=\"" + Localization.MC_DeleteTaskConfirm + "\" data-delete-field-index=\"0\" onclick=\"MC.AutomationTasks.Tasks.DeleteTask(event,this)\" class=\"btn btnDelete" + (isExecuting || !manageSystemPrivilege ? ' disabled' : '') + "\">" + Localization.Delete + "</a>";
             return template;
         };
+        self.CanManageTask = function (manageSystemPrivilege, canScheduleAngles, currentUser, taskOwner) {
+            var canSchedule = canScheduleAngles && currentUser === taskOwner;
+            return manageSystemPrivilege || canSchedule;
+        };
         self.EditTask = function (event, obj, uri) {
-            MC.ajax.request({
-                url: self.VerifyModelPriviledgeUri,
-                parameters: { taskUri: uri },
-                type: 'GET'
-            })
+            MC.ajax
+                .request({
+                    url: self.VerifyModelPriviledgeUri,
+                    parameters: { taskUri: uri },
+                    type: 'GET'
+                })
                 .done(function () {
                     MC.util.redirect(event, obj);
                 });
@@ -176,25 +180,26 @@
                 e.preventDefault();
             });
         };
-        self.CopyTask = function (e, obj) {
-
+        self.CopyTask = function () {
             if (!jQuery('#formCopyTask').valid())
                 return;
 
             var taskUri = $("#TaskUri").val();
             var taskName = $("#TaskName").val();
 
-            MC.ajax.request({
-                url: self.CopyTaskUri,
-                parameters: { taskUri: taskUri, taskName: taskName },
-                type: 'POST'
-            }).done(function () {
-                jQuery('#popupCopyTask').data('kendoWindow').close();
-
-                MC.ajax.reloadMainContent();
-            }).error(function () {
-                $('#popupCopyTask .btnClose').trigger('click');
-            });
+            MC.ajax
+                .request({
+                    url: self.CopyTaskUri,
+                    parameters: { taskUri: taskUri, taskName: taskName },
+                    type: 'POST'
+                })
+                .done(function () {
+                    jQuery('#popupCopyTask').data('kendoWindow').close();
+                    MC.ajax.reloadMainContent();
+                })
+                .error(function () {
+                    $('#popupCopyTask .btnClose').trigger('click');
+                });
         };
 
         self.ExecuteTask = function (obj, uri) {
@@ -519,7 +524,7 @@
             }
 
             triggerTypeDropdown.value(triggerType);
-            
+
             if (startTimeValue !== null) {
                 startTimePicker.value(MC.util.unixtimeToTimePicker(startTimeValue, false));
                 startTimePicker.trigger('change');
@@ -663,7 +668,7 @@
                     return 1;
                 else return 0;
             });
-            
+
             var sortIndex = 0;
             jQuery.each(actions, function (index, action) {
                 var angleId = self.GetArgumentValueByName(action.arguments, 'angle_id');
@@ -931,7 +936,7 @@
                 self.SetRecipientsData([]);
                 self.SetEnableEmailNotification(false);
             }
-            
+
             self.SetEmailRecipientsColumns();
         };
         self.SetEnableEmailNotification = function (isChecked) {
@@ -1260,6 +1265,10 @@
                     self.SetEditScriptActionType(dataItem);
                 }
 
+                // abort_task_when_error
+                var abortTaskWhenError = self.GetArgumentValueByName(dataItem.arguments, 'abort_task_when_error');
+                jQuery('#abort_task_when_error').prop('checked', abortTaskWhenError);
+
                 // notification
                 self.SetEmailNotification(dataItem.notification);
 
@@ -1474,10 +1483,6 @@
 
             // password
             // password always leave as empty
-
-            // abort_task_when_error
-            var abortTaskWhenError = self.GetArgumentValueByName(dataItem.arguments, 'abort_task_when_error');
-            jQuery('#abort_task_when_error').prop('checked', abortTaskWhenError);
         };
         self.IsDatastoreAction = function () {
             var actionType = $('#action_type').data('kendoDropDownList').value();
@@ -2262,7 +2267,6 @@
             var displayId = $('#display_id').data('kendoDropDownList').value();
             var conditionOperator = $('#condition_operator').data('kendoDropDownList').value();
             var conditionValue = $('#condition_value').val();
-
             var actionArguments = [
                 {
                     "name": "datastore",
@@ -2281,6 +2285,7 @@
                     "value": displayId
                 }
             ];
+
             switch (conditionOperator) {
                 case Localization.MC_Exactly:
                     actionArguments.push({ 'name': 'condition_minimum_rows', 'value': parseInt(conditionValue, 10) });
@@ -2304,8 +2309,7 @@
             var parameters = $('#parameters').val();
             var runAsUser = $('#run_as_user').val();
             var password = $('#password').val();
-            var abortTaskWhenError = $('#abort_task_when_error').prop('checked');
-            return [
+            var actionArguments = [
                 {
                     "name": "script",
                     "value": scriptId
@@ -2321,12 +2325,17 @@
                 {
                     "name": "password",
                     "value": password
-                },
-                {
-                    "name": "abort_task_when_error",
-                    "value": abortTaskWhenError
                 }
             ];
+
+            return actionArguments;
+        };
+        self.GetAbortTaskWhenErrorActionArgumentResult = function () {
+            var abortTaskWhenError = $('#abort_task_when_error').prop('checked');
+            return {
+                "name": "abort_task_when_error",
+                "value": abortTaskWhenError
+            };
         };
         self.GetEmailNotificationDataFromUI = function () {
             var notification = null;
@@ -2567,7 +2576,7 @@
 
                     data.actions.push(action);
                 }
-                
+
             });
             return data;
         };

@@ -48,7 +48,7 @@
 
 .CreateNewAngleContainer .searchBoxWrapper:hover {
     border-color: #025e7f;
-    transition: 0.15s ease-in;
+    transition: .15s ease-in;
 }
 
 .CreateNewAngleContainer .searchBoxWrapper:focus {

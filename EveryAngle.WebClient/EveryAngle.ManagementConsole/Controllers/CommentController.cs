@@ -138,7 +138,7 @@ namespace EveryAngle.ManagementConsole.Controllers
     #region TODO: this class need to move it out to a lower layer
 
     // need to move this class to lower layer to make it testable.
-    public class AttachFileHelper
+    public static class AttachFileHelper
     {
         private static string[] validExtensions = new string[]
         {
@@ -158,8 +158,9 @@ namespace EveryAngle.ManagementConsole.Controllers
                 {
                     File.Delete(HttpContext.Current.Request.MapPath(ItemUploadFolderPath + renamedFile));
                 }
-                catch (IOException)
+                catch
                 {
+                    // do nothing
                 }
             }
             return UploadFile(file, renamedFile);
@@ -174,17 +175,14 @@ namespace EveryAngle.ManagementConsole.Controllers
 
             path = path + extension;
             if (!ValidateExtension(extension))
-            {
                 return false;
-            }
 
             try
             {
                 file.SaveAs(path);
-                var imgOriginal = Image.FromFile(path);
                 return true;
             }
-            catch (Exception)
+            catch
             {
                 return false;
             }

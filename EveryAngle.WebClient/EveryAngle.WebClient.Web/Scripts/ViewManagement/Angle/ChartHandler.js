@@ -1,5 +1,3 @@
-var chartHandler = new ChartHandler();
-
 function ChartHandler(elementId, container) {
     "use strict";
 
@@ -88,8 +86,8 @@ function ChartHandler(elementId, container) {
     if (window.kendo && window.kendo.dataviz.ui.themes[window.kendoTheme]) {
         kendo.dataviz.ui.themes[window.kendoTheme].gauge.pointer.color = '#333333';
         kendo.dataviz.ui.themes[window.kendoTheme].chart.seriesColors = seriesColors;
-        self.THEME.POINTERCOLOR = kendo.dataviz.ui.themes[window.kendoTheme].gauge.pointer.color || '#f35800',
-            self.THEME.COLOURS = kendo.dataviz.ui.themes[window.kendoTheme].chart.seriesColors;
+        self.THEME.POINTERCOLOR = kendo.dataviz.ui.themes[window.kendoTheme].gauge.pointer.color || '#f35800';
+        self.THEME.COLOURS = kendo.dataviz.ui.themes[window.kendoTheme].chart.seriesColors;
         if (kendo.dataviz.ui.themes[window.kendoTheme].chart.chartArea
             && kendo.dataviz.ui.themes[window.kendoTheme].chart.chartArea.background) {
             self.THEME.BACKGROUND = kendo.dataviz.ui.themes[window.kendoTheme].chart.chartArea.background || '#ffffff';
@@ -470,7 +468,7 @@ function ChartHandler(elementId, container) {
                     return;
                 }
 
-                if (state.drop.area != null && state.drop.area !== state.drag.area) {
+                if (state.drop.area !== null && state.drop.area !== state.drag.area) {
                     // update layout
                     var area0 = jQuery('#FieldListArea .rowArea li'),
                         area1 = jQuery('#FieldListArea .columnArea li');
@@ -580,11 +578,6 @@ function ChartHandler(elementId, container) {
             self.CategoryField = rowAreas.length ? rowAreas[0].FieldName : '';
             self.GroupField = columnAreas.length ? columnAreas[0].FieldName : '';
             self.AggergateFields = aggrStep.aggregation_fields.slice();
-
-            var seriesIndexs = [];
-            jQuery.each(aggrStep.aggregation_fields, function (i, aggField) {
-                seriesIndexs.push(self.GetMultiAxisDetail(aggField.field, aggrStep, data.fields, i));
-            });
 
             var categoryFieldName = WC.Utility.ConvertFieldName(self.CategoryField);
             var sortCategoryFieldName = categoryFieldName + '_sortindex';
@@ -829,9 +822,9 @@ function ChartHandler(elementId, container) {
                 var x = a[fieldName + '_label'];
                 var y = b[fieldName + '_label'];
                 if (x !== y) {
-                    if (x == 'null')
+                    if (x === 'null')
                         return -1;
-                    if (y == 'null')
+                    if (y === 'null')
                         return 1;
 
                     if (x === '~NotInSet')
@@ -941,22 +934,23 @@ function ChartHandler(elementId, container) {
         };
     };
     self.GetFormattedValue = function (metadata, value) {
-        if (value !== null && metadata.bucket.indexOf('power10') === 0) {
-            return self.GetRangeBucketLabel(metadata.formatter, metadata.bucket, value);
+        if (value !== null) {
+            if (metadata.bucket.indexOf('power10') === 0) {
+                return self.GetRangeBucketLabel(metadata.formatter, metadata.bucket, value);
+            }
+            else if (metadata.bucket === 'week'
+                && (metadata.formatter.type === enumHandlers.FIELDTYPE.DATE || metadata.formatter.type === enumHandlers.FIELDTYPE.DATETIME)) {
+                var yearFormat = metadata.formatter.format.indexOf('yyyy') !== -1 ? 'yyyy' : 'yy';
+                return self.GetWeekOfYear(value, yearFormat);
+            }
+            else if (metadata.formatter.type === enumHandlers.FIELDTYPE.PERIOD) {
+                return self.GetPeriodRangeBucketLabel(metadata.formatter.format, metadata.bucket, value);
+            }
         }
-        else if (value == null && metadata.formatter.type === enumHandlers.FIELDTYPE.ENUM) {
+        else if (metadata.formatter.type === enumHandlers.FIELDTYPE.ENUM) {
             return 'null';
         }
-        else if (value != null && (metadata.formatter.type === enumHandlers.FIELDTYPE.DATE || metadata.formatter.type === enumHandlers.FIELDTYPE.DATETIME) && metadata.bucket === 'week') {
-            var yearFormat = metadata.formatter.format.indexOf('yyyy') !== -1 ? 'yyyy' : 'yy';
-            return self.GetWeekOfYear(value, yearFormat);
-        }
-        else if (value !== null && metadata.formatter.type === enumHandlers.FIELDTYPE.PERIOD) {
-            return self.GetPeriodRangeBucketLabel(metadata.formatter.format, metadata.bucket, value);
-        }
-        else {
-            return WC.FormatHelper.GetFormattedValue(metadata.formatter, value);
-        }
+        return WC.FormatHelper.GetFormattedValue(metadata.formatter, value);
     };
     self.GetDomainElementColor = function (color) {
         return color ? '#' + color.substr(2) : '';
@@ -974,10 +968,10 @@ function ChartHandler(elementId, container) {
     self.GetPeriodRangeBucketLabel = function (format, bucket, value) {
         var label;
         var periodRangeFormatSetting = self.GetPeriodRangeFormatSetting(bucket);
-        
+
         value /= periodRangeFormatSetting.divide;
         var lowerValue = kendo.toString(value, format);
-        
+
         if (periodRangeFormatSetting.supportRange) {
             var upperValue = kendo.toString(value + 1, format);
             label = kendo.format('[{0} {2}..{1} {2}>', lowerValue, upperValue, periodRangeFormatSetting.unitText);
@@ -985,7 +979,7 @@ function ChartHandler(elementId, container) {
         else {
             label = kendo.format('{0} {1}', lowerValue, periodRangeFormatSetting.unitText);
         }
-        
+
         return label;
     };
     self.GetPeriodRangeFormatSetting = function (bucket) {
@@ -1487,10 +1481,9 @@ function ChartHandler(elementId, container) {
     };
     _self.CreateCustomChartLegend = function (cleanElement) {
         var chart = this;
-        var plotArea = (chart._plotArea || chart.plotArea);
-        if (typeof cleanElement === 'undefined') {
+        var plotArea = chart._plotArea || chart.plotArea;
+        if (typeof cleanElement === 'undefined')
             cleanElement = true;
-        }
 
         var chartSettings = self.GetChartSettings();
         if (!chartSettings) {
@@ -1726,7 +1719,7 @@ function ChartHandler(elementId, container) {
                 }
             }
         });
-        options.categoryAxis = jQuery.extend({}, (options.categoryAxis instanceof Array ? options.categoryAxis[1] || options.categoryAxis[0] : options.categoryAxis), {
+        options.categoryAxis = jQuery.extend({}, options.categoryAxis instanceof Array ? options.categoryAxis[1] || options.categoryAxis[0] : options.categoryAxis, {
             categories: jQuery.map(self.Categories, function (e) { return e.value; }),
             title: { visible: false },
             labels: { visible: false },
@@ -2974,7 +2967,7 @@ function ChartHandler(elementId, container) {
         var fields = self.Models.Display.CleanNotAffectPostNewResultFieldProperties(self.Models.Display.Data().fields);
         var postedFields = self.Models.Display.CleanNotAffectPostNewResultFieldProperties(self.Models.Result.Data().display_fields);
 
-        return (!jQuery.deepCompare(stepsFilterFollowup, stepsPostedFilterFollowup, false, false) || !jQuery.deepCompare(fields, postedFields, false));
+        return !jQuery.deepCompare(stepsFilterFollowup, stepsPostedFilterFollowup, false, false) || !jQuery.deepCompare(fields, postedFields, false);
     };
     self.GetChartResult = function (isResetZoom) {
         // apply new chart
@@ -3064,31 +3057,6 @@ function ChartHandler(elementId, container) {
             self.GenerateChart();
             container.busyIndicator(false);
         }, 100);
-    };
-    self.GetMultiAxisDetail = function (name, aggrStep, dataFields, index) {
-        var temps = name.split('_');
-        var isCountField = enumHandlers.AGGREGATION.COUNT.Value === name;
-        var result = {
-            Index: jQuery.inArray(aggrStep.aggregation_fields[index].field, dataFields),
-            Name: temps[0].charAt(0).toUpperCase() + temps[0].substr(1, temps[0].length - 1),
-            FieldName: temps.length === 2 ? temps[1] : temps[0],
-            FieldType: isCountField ? enumHandlers.FIELDTYPE.NUMBER : '',
-            SourceFieldName: name,
-            SourceFieldType: isCountField ? enumHandlers.FIELDTYPE.INTEGER : ''
-        };
-
-        if (temps.length === 2) {
-            var modelUri = self.Models.Angle.Data().model;
-            var field = modelFieldsHandler.GetFieldById(temps[1], modelUri);
-
-            if (field) {
-                result.Name += ' ' + field.short_name;
-                result.FieldType = self.ConvertCategoryFieldType(field.fieldtype);
-                result.SourceFieltType = field.fieldtype;
-            }
-        }
-
-        return result;
     };
     self.GetMultiAxisChartType = function (index, chartType) {
         var result = '';
@@ -4243,7 +4211,6 @@ function ChartHandler(elementId, container) {
         }
     };
     self.GetCategoriesLabelData = function (chart) {
-
         var i, text = '', category;
         var labels = [];
         var categryCount;
@@ -4309,7 +4276,8 @@ function ChartHandler(elementId, container) {
             data[index] = {};
             data[index].labels = [];
             data[index].values = [];
-            while (true) {
+            var isBreak = false;
+            while (!isBreak) {
                 data[index].values.push(axisValueSettings.min);
                 if (templates[index].labels.template) {
                     data[index].labels.push(kendo.template(templates[index].labels.template).call(kendo, axisValueSettings.min));
@@ -4333,7 +4301,7 @@ function ChartHandler(elementId, container) {
                     else {
                         data[index].labels.push(axisValueSettings.min);
                     }
-                    break;
+                    isBreak = true;
                 }
             }
             data[index].size = WC.Utility.MeasureText(data[index].labels.join('\n'), self.FontDefault) + 3;
@@ -4608,3 +4576,4 @@ function ChartHandler(elementId, container) {
 
     /*EOF: Model Methods*/
 }
+var chartHandler = new ChartHandler();

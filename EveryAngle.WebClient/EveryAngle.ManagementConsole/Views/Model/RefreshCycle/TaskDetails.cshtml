@@ -8,7 +8,7 @@
     {
         ModelUri = ViewBag.ModelUri,
         EnableTemplate = "#= MC.Models.RefreshCycleTemplate.SetAbilityToEditControl(data, \"" + @ViewBag.ModelId + "\"" + ") #",
-        DisableTemplate = "#= MC.Models.RefreshCycleTemplate.SetDisableToEditControl(data, \"" + @ViewBag.ModelId + "\"" + ") #",
+        DisableTemplate = "#= MC.Models.RefreshCycleTemplate.SetDisableToEditControl(data) #",
         Type = PageToolbarButtonType.GridEditDelete,
         Privilege = PrivilegeType.Model
     });

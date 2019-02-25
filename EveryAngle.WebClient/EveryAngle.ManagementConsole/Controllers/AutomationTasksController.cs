@@ -688,7 +688,7 @@ namespace EveryAngle.ManagementConsole.Controllers
                 var model = action.arguments.FirstOrDefault(filter => filter.name == "model");
                 if (arg != null)
                 {
-                    JObject angle = GetAngleById(arg.value.ToString(), model.value);
+                    GetAngleById(arg.value.ToString(), model.value);
                 }
             }
         }
