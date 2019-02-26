@@ -5845,4 +5845,42 @@ Are you sure you want to delete this role?</value>
   <data name="MC_Container" xml:space="preserve">
     <value>User container (DN)</value>
   </data>
+  <data name="MC_AuthenticationProvidersHelpAutoCreateUsers" xml:space="preserve">
+    <value>If this setting is selected, a new Every Angle user account is automatically created when a user from this authentication provider logs in to Every Angle for the first time. This Every Angle user will then be assigned the default roles as defined on this page. For ADFS, this option is selected by default.</value>
+  </data>
+  <data name="MC_AuthenticationProvidersHelpContainer" xml:space="preserve">
+    <value>In a default Active Directory hierarchy structure, users are located in the "Users" container. This container is always on the main level of your domain. When leaving this field empty, the Ever Angle Application Server will retrieve users from this default location.&lt;br&gt;
+In case you want to have the users retrieved from a different container, enter the Distinguished Name (DN) of this container here.&lt;br&gt;
+An Active Directory browsing tool can help you find the correct DN syntax for the container. For example, Ldap Admin is a free Windows LDAP client that lets you browse the Active Directory and copy the DN. Example DN: &lt;strong&gt;CN=External Users, DC=Contoso, DC=com&lt;/strong&gt;</value>
+  </data>
+  <data name="MC_AuthenticationProvidersHelpDefaultRoles" xml:space="preserve">
+    <value>These roles will be assigned to new user accounts from this authentication provider. Setting a default role is mandatory unless you use &lt;strong&gt;Sync roles to groups&lt;/strong&gt;. Click the cell to add or remove roles by selecting or deselecting roles in the drop-down list. The drop-down list contains all available system and model roles. Hover over a role to see which model it belongs to.</value>
+  </data>
+  <data name="MC_AuthenticationProvidersHelpDescription" xml:space="preserve">
+    <value>Enter a description for the authentication provider.</value>
+  </data>
+  <data name="MC_AuthenticationProvidersHelpDomain" xml:space="preserve">
+    <value>Enter the domain name of the active directory.</value>
+  </data>
+  <data name="MC_AuthenticationProvidersHelpId" xml:space="preserve">
+    <value>Enter an ID for the authentication provider. The ID is used by the Application Server for the authentication provider.</value>
+  </data>
+  <data name="MC_AuthenticationProvidersHelpIdentity" xml:space="preserve">
+    <value>Enter the identity of the ADFS.&lt;br&gt;
+The identity consists of the elements &amp;lt;service&amp;gt; and &amp;lt;address of service&amp;gt;, for example: https://ea2auth.&amp;lt;client-domain name&amp;gt;.</value>
+  </data>
+  <data name="MC_AuthenticationProvidersHelpProvider" xml:space="preserve">
+    <value>This setting indicates whether the authentication provider is an active provider or not.</value>
+  </data>
+  <data name="MC_AuthenticationProvidersHelpSyncRoles" xml:space="preserve">
+    <value>If this setting is selected, the Application Server will always check AD group membership when a user logs in. When an AD group exists as a role in Every Angle, this role will be assigned to the user during the session. Note that the group name may not contain any spaces.</value>
+  </data>
+  <data name="MC_AuthenticationProvidersHelpTarget" xml:space="preserve">
+    <value>Enter the target of the ADFS.&lt;br&gt;
+During a login challenge resulting from a URL link into the instance that requires an Single Sign-On session, often times, the referring URL needs to be supplied to the Single Sign-On provider so that after authentication, it can be passed back to our instance and linked to the correct resource. The target consists of the elements: &amp;lt;Service&amp;gt;&amp;lt;address of service&amp;gt;, for example, https://adfs.example.com/adfs/identity/</value>
+  </data>
+  <data name="MC_AuthenticationProvidersHelpType" xml:space="preserve">
+    <value>The type of the authentication provider.&lt;br&gt;
+Only Active Directory (AD) and Active Directory Federation (ADFS) services are supported.</value>
+  </data>
 </root>
