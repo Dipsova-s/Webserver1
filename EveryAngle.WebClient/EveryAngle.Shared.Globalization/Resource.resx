@@ -5994,7 +5994,7 @@ The identity consists of the elements &amp;lt;service&amp;gt; and &amp;lt;addres
   </data>
   <data name="MC_AuthenticationProvidersHelpTarget" xml:space="preserve">
     <value>Enter the target of the ADFS.&lt;br&gt;
-During a login challenge resulting from a URL link into the instance that requires an Single Sign-On session, often times, the referring URL needs to be supplied to the Single Sign-On provider so that after authentication, it can be passed back to our instance and linked to the correct resource. The target consists of the elements: &amp;lt;Service&amp;gt;&amp;lt;adress of service&amp;gt;, for example, https://adfs.example.com/adfs/identity/</value>
+During a login challenge resulting from a URL link into the instance that requires an Single Sign-On session, often times, the referring URL needs to be supplied to the Single Sign-On provider so that after authentication, it can be passed back to our instance and linked to the correct resource. The target consists of the elements: &amp;lt;Service&amp;gt;&amp;lt;address of service&amp;gt;, for example, https://adfs.example.com/adfs/identity/</value>
   </data>
   <data name="MC_AuthenticationProvidersHelpType" xml:space="preserve">
     <value>The type of the authentication provider.&lt;br&gt;

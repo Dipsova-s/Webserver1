@@ -7541,7 +7541,7 @@ namespace EveryAngle.Shared.Globalization {
         
         /// <summary>
         ///   Looks up a localized string similar to Enter the target of the ADFS.&lt;br&gt;
-        ///During a login challenge resulting from a URL link into the instance that requires an Single Sign-On session, often times, the referring URL needs to be supplied to the Single Sign-On provider so that after authentication, it can be passed back to our instance and linked to the correct resource. The target consists of the elements: &amp;lt;Service&amp;gt;&amp;lt;adress of service&amp;gt;, for example, https://adfs.example.com/adfs/identity/.
+        ///During a login challenge resulting from a URL link into the instance that requires an Single Sign-On session, often times, the referring URL needs to be supplied to the Single Sign-On provider so that after authentication, it can be passed back to our instance and linked to the correct resource. The target consists of the elements: &amp;lt;Service&amp;gt;&amp;lt;address of service&amp;gt;, for example, https://adfs.example.com/adfs/identity/.
         /// </summary>
         public static string MC_AuthenticationProvidersHelpTarget {
             get {
