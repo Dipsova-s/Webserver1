@@ -5009,8 +5009,13 @@ a.mailto {
 }
 
 /* Authentication Page */
-.DefaultSystemRoles {
-    width: 90%;
+.pageAuthenticationProviderEdit .contentSectionInfoItem > p {
+    padding-right: 30px;
+    min-height: 30px;
+}
+.pageAuthenticationProviderEdit .contentSectionInfoItem p > .txtLarge,
+.pageAuthenticationProviderEdit .contentSectionInfoItem .k-multiselect {
+    width: 100%;
 }
 
 #popupClassReport,
