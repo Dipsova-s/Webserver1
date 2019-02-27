@@ -7456,6 +7456,110 @@ namespace EveryAngle.Shared.Globalization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to If this setting is selected, a new Every Angle user account is automatically created when a user from this authentication provider logs in to Every Angle for the first time. This Every Angle user will then be assigned the default roles as defined on this page. For ADFS, this option is selected by default..
+        /// </summary>
+        public static string MC_AuthenticationProvidersHelpAutoCreateUsers {
+            get {
+                return ResourceManager.GetString("MC_AuthenticationProvidersHelpAutoCreateUsers", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to In a default Active Directory hierarchy structure, users are located in the &quot;Users&quot; container. This container is always on the main level of your domain. When leaving this field empty, the Ever Angle Application Server will retrieve users from this default location.&lt;br&gt;
+        ///In case you want to have the users retrieved from a different container, enter the Distinguished Name (DN) of this container here.&lt;br&gt;
+        ///An Active Directory browsing tool can help you find the correct DN syntax for the container. For example [rest of string was truncated]&quot;;.
+        /// </summary>
+        public static string MC_AuthenticationProvidersHelpContainer {
+            get {
+                return ResourceManager.GetString("MC_AuthenticationProvidersHelpContainer", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to These roles will be assigned to new user accounts from this authentication provider. Setting a default role is mandatory unless you use &lt;strong&gt;Sync roles to groups&lt;/strong&gt;. Click the cell to add or remove roles by selecting or deselecting roles in the drop-down list. The drop-down list contains all available system and model roles. Hover over a role to see which model it belongs to..
+        /// </summary>
+        public static string MC_AuthenticationProvidersHelpDefaultRoles {
+            get {
+                return ResourceManager.GetString("MC_AuthenticationProvidersHelpDefaultRoles", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Enter a description for the authentication provider..
+        /// </summary>
+        public static string MC_AuthenticationProvidersHelpDescription {
+            get {
+                return ResourceManager.GetString("MC_AuthenticationProvidersHelpDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Enter the domain name of the active directory..
+        /// </summary>
+        public static string MC_AuthenticationProvidersHelpDomain {
+            get {
+                return ResourceManager.GetString("MC_AuthenticationProvidersHelpDomain", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Enter an ID for the authentication provider. The ID is used by the Application Server for the authentication provider..
+        /// </summary>
+        public static string MC_AuthenticationProvidersHelpId {
+            get {
+                return ResourceManager.GetString("MC_AuthenticationProvidersHelpId", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Enter the identity of the ADFS.&lt;br&gt;
+        ///The identity consists of the elements &amp;lt;service&amp;gt; and &amp;lt;address of service&amp;gt;, for example: https://ea2auth.&amp;lt;client-domain name&amp;gt;..
+        /// </summary>
+        public static string MC_AuthenticationProvidersHelpIdentity {
+            get {
+                return ResourceManager.GetString("MC_AuthenticationProvidersHelpIdentity", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to This setting indicates whether the authentication provider is an active provider or not..
+        /// </summary>
+        public static string MC_AuthenticationProvidersHelpProvider {
+            get {
+                return ResourceManager.GetString("MC_AuthenticationProvidersHelpProvider", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to If this setting is selected, the Application Server will always check AD group membership when a user logs in. When an AD group exists as a role in Every Angle, this role will be assigned to the user during the session. Note that the group name may not contain any spaces..
+        /// </summary>
+        public static string MC_AuthenticationProvidersHelpSyncRoles {
+            get {
+                return ResourceManager.GetString("MC_AuthenticationProvidersHelpSyncRoles", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Enter the target of the ADFS.&lt;br&gt;
+        ///During a login challenge resulting from a URL link into the instance that requires an Single Sign-On session, often times, the referring URL needs to be supplied to the Single Sign-On provider so that after authentication, it can be passed back to our instance and linked to the correct resource. The target consists of the elements: &amp;lt;Service&amp;gt;&amp;lt;address of service&amp;gt;, for example, https://adfs.example.com/adfs/identity/.
+        /// </summary>
+        public static string MC_AuthenticationProvidersHelpTarget {
+            get {
+                return ResourceManager.GetString("MC_AuthenticationProvidersHelpTarget", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The type of the authentication provider.&lt;br&gt;
+        ///Only Active Directory (AD) and Active Directory Federation (ADFS) services are supported..
+        /// </summary>
+        public static string MC_AuthenticationProvidersHelpType {
+            get {
+                return ResourceManager.GetString("MC_AuthenticationProvidersHelpType", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Authentication Provider Types.
         /// </summary>
         public static string MC_AuthenticationProviderTypes {
