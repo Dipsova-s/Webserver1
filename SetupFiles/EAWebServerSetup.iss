@@ -382,6 +382,13 @@ begin
     '/site[@name="' + IISSite.Text + '"]' + 
     '/application[@path="' + IISVirtualPath.Text + '"]',
     'applicationPool');
+    if Result = '' then
+    begin
+        // use default instead
+        Result := xmlGetAttribute(IISConfigSites, 
+          '/system.applicationHost/sites/applicationDefaults',
+          'applicationPool');
+    end;
 end;
 
 function GetIISPhysicalPath(): string;
