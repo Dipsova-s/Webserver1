@@ -15,22 +15,27 @@ Login And Expected Result
     Login    ${username}  ${password}
     Wait Until Login Page Contains Text    ${expectedResult}
 
-Login To WC By Power User
+Login To WC
+    [Arguments]   ${username}  ${password}
     Login    ${Username}    ${Password}
     Wait Search Page Document Loaded
-    Maximize Browser window
+
+Login To WC By Power User
+    Login To WC    ${Username}    ${Password}
 
 Login To WC By Admin User
-    Login    ${AdminUsername}    ${Password}
-    Wait Search Page Document Loaded
+    Login To WC    ${AdminUsername}    ${Password}
 
 Login To WC By Test Role User
-    Login    ${TestPrivilegesUser}    ${Password}
-    Wait Search Page Document Loaded
+    Login To WC    ${TestPrivilegesUser}    ${Password}
+
+Login To MC
+    [Arguments]   ${username}  ${password}
+    Login    ${Username}    ${Password}
+    Wait Side Menu Ready
 
 Login To MC By Admin User
-    Login    ${AdminUsername}    ${Password}
-    Wait Side Menu Ready
+    Login To MC    ${AdminUsername}    ${Password}
 
 Logout
     [Arguments]

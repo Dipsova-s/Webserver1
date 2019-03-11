@@ -28,13 +28,6 @@ Change User Language
     Select User Setting Language Dropdown    ${languageText}
     Click Save User Settings Via Search Page
 
-Change User Language by Id
-    [Arguments]    ${languageId}
-    Open User Settings Popup
-    Click System Settings Tab
-    Select User Setting Language By Id    ${languageId}
-    Click Save User Settings Via Search Page
-
 Set Show Angle Warning In Facet Filters
     Open User Settings Popup
     Click System Settings Tab
@@ -51,7 +44,7 @@ Get Number Of Execute At Login Items
     Open User Settings Popup
     Click Actions at login Tab
     ${count}    Count Execute At Login Items
-    Cancel User Setting
+    Click Close User Setting Popup
     [Return]    ${count}
 
 Set Checkbox Repeat Last Executed Search Status

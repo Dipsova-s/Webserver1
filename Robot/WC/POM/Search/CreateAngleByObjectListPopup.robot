@@ -27,8 +27,6 @@ Wait Create Angle Popup Option Object List Loaded
 Open Create Angle By Object List Popup
     Click Create Angle Button
     Click Object List Button
-    Wait Until Ajax Complete
-    Wait Create Angle Popup Option Object List Loaded
 
 Click Back Create Angle Popup Option Object List Loaded
     Click Link    ${btnObjectListBack}

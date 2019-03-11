@@ -18,8 +18,6 @@ Wait Create Angle Popup Option Object Diagram Loaded
 Open Create Angle By Object Diagram Popup
     Click Create Angle Button
     Click Object Diagram Button
-    Wait Until Ajax Complete
-    Wait Create Angle Popup Option Object Diagram Loaded
 
 Click Back Create Angle Popup Option Object Diagram Loaded
     Click Link    ${btnObjectDiagramBack}

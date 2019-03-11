@@ -13,7 +13,6 @@ ${chkSapFieldsInHeader}                 SapFieldsInHeader
 ${divUserSettingsBusinessProcess}       UserSettingsBusinessProcesses
 ${divUserSettingsBusinessProcessItems}       jquery=#UserSettingsBusinessProcesses .BusinessProcessCheckBox
 ${ddlLanguage}                          LanguageSelect_ddlWrapper
-${ddlLanguageId}                        LanguageSelect
 ${ddlDefaultRowsExportExcel}            ExcelRowSelect_ddlWrapper
 
 #Field formats Tabs
@@ -129,10 +128,6 @@ Click Dropdown Language
 Select User Setting Language Dropdown
     [Arguments]    ${language}
     Select Dropdown By Text    ${ddlLanguage}    ${language}
-
-Select User Setting Language By Id
-    [Arguments]    ${languageId}
-    Select Dropdown By Kendo    ${ddlLanguageId}    ${languageId}
 
 Get Selecting Business Processes
     ${BPs}    Execute JavaScript    return businessProcessesModel.UserSetting.GetActive();
@@ -316,5 +311,5 @@ Click Save User Settings Via Search Page
     Click Element    ${btnSaveUserSettings}
     Wait Search Page Document Loaded
 
-Cancel User Setting
+Click Close User Setting Popup
     Click Element     ${btnCancelUserSetting}

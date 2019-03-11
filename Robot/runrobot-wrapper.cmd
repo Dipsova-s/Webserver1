@@ -9,9 +9,6 @@ if not exist "chromedriver.exe" echo chromedriver.exe does not exists in %cd%, d
 :: check TAG
 if not defined TAG echo please input TAG &pause &exit
 
-:: check LANGUAGES
-if not defined LANGUAGES set LANGUAGES=en
-
 :: check COPYTO
 if not defined COPYTO goto show_warning
 if defined COPYTO goto copy_test
@@ -46,10 +43,8 @@ xcopy * %COPYTO% /E /S /Y /Q
 :: run robot
 ::::::::::::::::::::::::::::::::
 cls
-for %%a in ("%LANGUAGES:,=" "%") do (
-    call %COPYTO%runrobot "%SERVER%" "%BRANCH%" %TAG% "WS" "%QUERY%" "%COMPARE_BRANCH%" %%~a
-    call :open_report %%~a
-)
+call %COPYTO%runrobot "%SERVER%" "%BRANCH%" %TAG% "WS" "%QUERY%" "%COMPARE_BRANCH%" "webhelp"
+call :open_report
 exit /b 0
 
 :open_report
@@ -57,7 +52,5 @@ exit /b 0
     :: open report file
     ::::::::::::::::::::::::::::::::
     echo Opening report...
-    set ReportFolder=%COPYTO%report_%~1
-    if "%~1"=="en" set ReportFolder=%COPYTO%report
-    start chrome "%ReportFolder%\%TAG%\report.html"
+    start chrome "%COPYTO%report\%TAG%\report.html"
 exit /b 0

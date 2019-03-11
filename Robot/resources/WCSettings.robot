@@ -46,7 +46,6 @@ Resource            ${EXECDIR}/WC/Scenarios/ManagementConsole/Models/TS_AllModel
 Resource            ${EXECDIR}/WC/Scenarios/ManagementConsole/Models/TS_ModelOverview.robot
 Resource            ${EXECDIR}/WC/Scenarios/ManagementConsole/Models/TS_SetupNewModel.robot
 Resource            ${EXECDIR}/WC/Scenarios/ManagementConsole/Models/TS_ModelServer.robot
-Resource            ${EXECDIR}/WC/Scenarios/ManagementConsole/Models/TS_ModelEA4IT.robot
 Resource            ${EXECDIR}/WC/Scenarios/ManagementConsole/Models/TS_Modules.robot
 Resource            ${EXECDIR}/WC/Scenarios/ManagementConsole/Models/TS_SuggestedFields.robot
 Resource            ${EXECDIR}/WC/Scenarios/ManagementConsole/Models/TS_RefreshCycle.robot
@@ -66,9 +65,9 @@ ${TIMEOUT_MC_PROGRESS_BAR}    210s
 ${RunAllAngleName}    TC_RunAllAngles_
 ${RunAllAngleTemplateFile}    ${EXECDIR}/WC/TC_RunAllAnglesTemplate.robot
 ${SPACE4}    ${SPACE}${SPACE}${SPACE}${SPACE}
-${WC_HELP_IMAGE_PATH}    ${EXECDIR}/webhelp/wc/${WebHelpLanguage}
-${MC_HELP_IMAGE_PATH}    ${EXECDIR}/webhelp/mc/${WebHelpLanguage}
-
+${WEBHELP_COMMON_FOLDER}    idsfigures_lowres
+${WC_HELP_IMAGE_PATH}    ${EXECDIR}/webhelp/${WEBHELP_COMMON_FOLDER}/Webclient
+${MC_HELP_IMAGE_PATH}    ${EXECDIR}/webhelp/${WEBHELP_COMMON_FOLDER}/EA2_ManagementConsole
 # Users
 ${AdminUsername}            \\eaadmin
 ${TestPrivilegesUser}       \\EATestUserRole

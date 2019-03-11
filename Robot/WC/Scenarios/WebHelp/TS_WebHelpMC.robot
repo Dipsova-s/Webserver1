@@ -2,14 +2,27 @@
 Resource            ${EXECDIR}/WC/POM/WebHelp/WebHelp.robot
 
 *** Keywords ***
-Set Webhelp Username
+Suite Setup MC WebHelp
+    Initialize WebHelp    ${MC_HELP_IMAGE_PATH}
+
+Test Setup MC WebHelp
+    # output by specific language
+    Set Test Variable    ${WEB_HELP_LANGUAGE_OUTPUT}    ${MC_HELP_IMAGE_PATH}
+
+    # login
+    Go to MC Then Login With Admin User
+
+Test Teardown MC WebHelp
+    Force Logout MC Then Close Browser
+
+Set WebHelp Username
     Execute JavaScript    $('#UserMenuControl').contents().get(0).textContent='[USERNAME]';
 
 Crop Overview Page
     Highlight WebHelp Element    css=#topWrapper        text=1    fontSize=45px    fontWeight=normal
     Highlight WebHelp Element    css=#sideContent       text=2    fontSize=45px    fontWeight=normal
     Highlight WebHelp Element    css=#mainContainer     text=3    fontSize=45px    fontWeight=normal
-    Set Webhelp Username
+    Set WebHelp Username
     Execute JavaScript    var breadcrumbHeight=$('#breadcrumb').height();var box3=$('[robot-box]').eq(2);box3.css('top', box3.offset().top-breadcrumbHeight).css('height', box3.outerHeight()+breadcrumbHeight);
     Crop WebHelp Image    MC_Overview.png    css=body
     Clear WebHelp Highlights
