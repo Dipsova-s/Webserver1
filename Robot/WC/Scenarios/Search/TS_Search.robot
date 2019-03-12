@@ -78,6 +78,14 @@ Find And Execute Angle
     Check If Angle Is A Template Then Close The Popup
     Execute All Displays In Angle
 
+Find Angle By ID Then Execute The First Angle
+    [Arguments]    ${angleId}
+    Search Filter By Query String    ids=${angleId}
+    Click Link First Item From Search Result
+    Wait Angle Page Document Loaded
+    Check If Angle Or Display Has A Warning Then Close The Popup
+    Check If Angle Is A Template Then Close The Popup
+
 Execute First Search Item In Edit Mode
     Click First Item Info Button
     Click Edit Mode Button Via Item Info Popup

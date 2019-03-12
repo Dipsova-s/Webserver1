@@ -229,8 +229,30 @@ Click Facet Checkbox
     Wait Until Ajax Complete
     Wait Progress Bar Search Closed
 
+Select Facet Checkbox
+    [Arguments]    ${checkbox}
+    Wait Until Page Contains Element    ${checkbox}
+    Select Checkbox    ${checkbox}
+    Sleep    ${TIMEOUT_GENERAL}
+    Wait Until Ajax Complete
+    Wait Progress Bar Search Closed
+
+Unselect Facet Checkbox
+    [Arguments]    ${checkbox}
+    Wait Until Page Contains Element    ${checkbox}
+    Unselect Checkbox    ${checkbox}
+    Sleep    ${TIMEOUT_GENERAL}
+    Wait Until Ajax Complete
+    Wait Progress Bar Search Closed
+
 Click Search Filter Angle
     Click Facet Checkbox    ${chkFacetAngle}
+
+Select Search Filter Angle
+    Select Facet Checkbox    ${chkFacetAngle}
+
+Unselect Search Filter Angle
+    Unselect Facet Checkbox    ${chkFacetAngle}
 
 Click Search Filter Template
     Click Facet Checkbox    ${chkFacetTemplate}
@@ -263,6 +285,12 @@ Get Is Starred Count
 Click Search Filter Has Warning
     Click Facet Checkbox    ${chkFacetHasWarning}
 
+Select Search Filter Has Warning
+    Select Facet Checkbox    ${chkFacetHasWarning}
+
+Unselect Search Filter Has Warning
+    Unselect Facet Checkbox    ${chkFacetHasWarning}
+
 Facet "Warning" Should Filter As "Show Warning"
     Checkbox Should Be Selected    ${chkFacetHasWarning}
 
@@ -291,37 +319,35 @@ Click Search Filter Model
     Click Facet Checkbox    ${chkFacetModel}
 
 #Search Business Process
+Click Search Business Process
+    [Arguments]    ${element}
+    Wait Until Element Is Visible    ${element}
+    Click Element    ${element}
+    Wait Progress Bar Search Closed
+
 Click Search Business Process P2P
-    Wait Until Element Is Visible    ${divBusinessprocessP2P}
-    Click Element    ${divBusinessprocessP2P}
+    Click Search Business Process    ${divBusinessprocessP2P}
 
 Click Search Business Process S2D
-    Wait Until Element Is Visible    ${divBusinessprocessS2D}
-    Click Element    ${divBusinessprocessS2D}
+    Click Search Business Process    ${divBusinessprocessS2D}
 
 Click Search Business Process O2C
-    Wait Until Element Is Visible    ${divBusinessprocessO2C}
-    Click Element    ${divBusinessprocessO2C}
+    Click Search Business Process    ${divBusinessprocessO2C}
 
 Click Search Business Process F2R
-    Wait Until Element Is Visible    ${divBusinessprocessF2R}
-    Click Element    ${divBusinessprocessF2R}
+    Click Search Business Process    ${divBusinessprocessF2R}
 
 Click Search Business Process PM
-    Wait Until Element Is Visible    ${divBusinessprocessPM}
-    Click Element    ${divBusinessprocessPM}
+    Click Search Business Process    ${divBusinessprocessPM}
 
 Click Search Business Process HCM
-    Wait Until Element Is Visible    ${divBusinessprocessHCM}
-    Click Element    ${divBusinessprocessHCM}
+    Click Search Business Process    ${divBusinessprocessHCM}
 
 Click Search Business Process GRC
-    Wait Until Element Is Visible    ${divBusinessprocessGRC}
-    Click Element    ${divBusinessprocessGRC}
+    Click Search Business Process    ${divBusinessprocessGRC}
 
 Click Search Business Process IT
-    Wait Until Element Is Visible    ${divBusinessprocessIT}
-    Click Element    ${divBusinessprocessIT}
+    Click Search Business Process    ${divBusinessprocessIT}
 
 Check Existing Angle From Search Result
     [Arguments]    ${angleName}

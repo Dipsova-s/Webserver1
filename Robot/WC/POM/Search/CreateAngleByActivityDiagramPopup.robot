@@ -18,8 +18,6 @@ Wait Create Angle Popup Option Activity Diagram Loaded
 Open Create Angle By Activity Diagram Popup
     Click Create Angle Button
     Click Object Activity Diagram Button
-    Wait Until Ajax Complete
-    Wait Create Angle Popup Option Activity Diagram Loaded
 
 Click Back Create Angle Popup Option Activity Diagram Loaded
     Click Link    ${btnActivityDiagramBack}

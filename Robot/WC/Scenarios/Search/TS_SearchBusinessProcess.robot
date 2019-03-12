@@ -12,7 +12,6 @@ Search Business Process
     Run Keyword If    '${business_process_name}' == 'HCM'    Click Search Business Process HCM
     Run Keyword If    '${business_process_name}' == 'GRC'    Click Search Business Process GRC
     Run Keyword If    '${business_process_name}' == 'IT'    Click Search Business Process IT
-    Wait Progress Bar Search Closed
     ${result_total_after_cick}    Get Text     SearchTotal
     ${result_total_after_cick_integer}    Convert To Integer    ${result_total_after_cick}
     Should Be True    ${result_total_after_cick_integer} >= 0

@@ -43,8 +43,8 @@ if "%updateRobot%"=="yes" pip install %updateRobotVersion%
 if "%updateSeleniumLibrary%"=="yes" pip install %updateSeleniumLibraryVersion%
 if "%updatePabot%"=="yes" pip install %updatePabotVersion%
 if "%updateHttpLibrary%"=="yes" pip install %updateHttpLibraryVersion%
-if "%updateSelenium2screenshots%"=="yes" if not "%7"=="" pip install %updateSelenium2screenshotsVersion%
-if "%updatePillow%"=="yes" if not "%7"=="" pip install %updatePillowVersion%
+if "%updateSelenium2screenshots%"=="yes" if "%7"=="webhelp" pip install %updateSelenium2screenshotsVersion%
+if "%updatePillow%"=="yes" if "%7"=="webhelp" pip install %updatePillowVersion%
 
 ECHO.
 ECHO ###### Running Robot Framework Information  ######
@@ -53,7 +53,6 @@ ECHO Branch: %2
 ECHO Tag: %3
 ECHO QueryString: %5
 ECHO CompareBranch: %6
-ECHO WebHelpLanguage: %7
 
 :: **************** Global Setting ***********************
 SET URL=%1
@@ -94,12 +93,8 @@ Set Password=P@ssw0rd
 Set CompareBranch=%6
 if not defined CompareBranch set CompareBranch=master
 
-Set WebHelpLanguage=%7
-if not defined WebHelpLanguage set WebHelpLanguage=en
-
 ::Report folder
 Set BaseReportFolder=\report
-if not "%WebHelpLanguage%"=="en" set BaseReportFolder=\report_%WebHelpLanguage%
 if "%TestCategory%"=="*" goto :set_dev_report
 if "%3"=="" goto :set_dev_report
 
@@ -138,8 +133,7 @@ exit /b 0
 					--variable URL:%URL% ^
 					--variable BROWSER:%BROWSER% ^
 					--variable QueryString:%QueryString% ^
-					--variable CompareBranch:%CompareBranch% ^
-					--variable WebHelpLanguage:%WebHelpLanguage%
+					--variable CompareBranch:%CompareBranch%
 
 	:: **************** Run setup ***********************
 	ECHO Executing "%TestCategory%_i" tests

@@ -16,7 +16,7 @@ Verify User Settings Details
     Verify System Settings
     Verify field formats
     Verify Actions at Login
-    Cancel User Setting
+    Click Close User Setting Popup
 
 Verify Change User Setings: System Settings Tab
     [tags]    smoke_s    smk_wc_s

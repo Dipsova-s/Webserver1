@@ -4,7 +4,7 @@
 :: nl-webmb01.everyangle.org
 :: nl-eatst026.everyangle.org
 :: localhost:xxxxx
-set SERVER=nl-webmb01.everyangle.org
+set SERVER=nl-eatst026.everyangle.org
 
 ::::::::::::::::::::::::::::::::::
 :: specify sub directory
@@ -23,12 +23,6 @@ set COMPARE_BRANCH=master
 ::::::::::::::::::::::::::::::::::
 :: allangles,performance,audit,smk_wc,acc_wc,smk_mc,acc_mc,intermittent,webhelp,webhelp_wc,webhelp_mc
 set TAG=allangles
-
-::::::::::::::::::::::::::::::::::
-:: specify webhelp languages, use "," separator
-::::::::::::::::::::::::::::::::::
-:: en,nl,de,es,fr
-set LANGUAGES=en
 
 ::::::::::::::::::::::::::::::::::
 :: specify a query for "allangles" tag
