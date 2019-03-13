@@ -309,6 +309,8 @@ if %25ERRORLEVEL%25 LEQ 1 exit 0 else exit %25ERRORLEVEL%25</PreBuildEvent>
     <Content Include="Content\CSS\WidgetLanguages.css" />
     <Content Include="Content\CSS\KendoExtension.css" />
     <Content Include="Content\CSS\Pivot.css" />
+    <Content Include="Content\ExternalResource\notificationsfeed.css" />
+    <Content Include="Content\ExternalResource\notificationsfeed.js" />
     <Content Include="Content\kendoui\Black\editor.png" />
     <Content Include="Content\kendoui\Black\imagebrowser.png" />
     <Content Include="Content\kendoui\Black\indeterminate.gif" />
@@ -796,6 +798,7 @@ if %25ERRORLEVEL%25 LEQ 1 exit 0 else exit %25ERRORLEVEL%25</PreBuildEvent>
     <Content Include="Scripts\ViewManagement\Angle\ResolveAngleDisplayHandler.js" />
     <Content Include="Scripts\ViewManagement\Angle\ScheduleAngleHandler.js" />
     <Content Include="Scripts\ViewManagement\Dashboard\DashboardFiltersHandler.js" />
+    <Content Include="Scripts\ViewManagement\Shared\NotificationsFeedHandler.js" />
     <Content Include="Scripts\ViewManagement\Search\angledownloadhandler.js" />
     <Content Include="Scripts\ViewManagement\Search\AngleExportHandler.js" />
     <Content Include="Scripts\ViewManagement\Search\ImportAngleHandler.js" />

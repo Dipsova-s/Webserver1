@@ -61,6 +61,10 @@ namespace EveryAngle.WebClient.Service.EmbededResource
                 {
                     folderName = "Resource.ClassesChooser";
                 }
+                else if (fileNameWithExtension.Contains("notificationsfeed"))
+                {
+                    folderName = "Resource.NotificationsFeed";
+                }
                 else
                 {
                     folderName = "Resource.Shared";

@@ -14242,6 +14242,24 @@ namespace EveryAngle.Shared.Globalization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Updates.
+        /// </summary>
+        public static string NotificationsFeed_Updates {
+            get {
+                return ResourceManager.GetString("NotificationsFeed_Updates", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to View all.
+        /// </summary>
+        public static string NotificationsFeed_ViewAll {
+            get {
+                return ResourceManager.GetString("NotificationsFeed_ViewAll", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Not implemented.
         /// </summary>
         public static string NotImplement {
@@ -17163,6 +17181,15 @@ namespace EveryAngle.Shared.Globalization {
         public static string WelcomeAllMoviesLink {
             get {
                 return ResourceManager.GetString("WelcomeAllMoviesLink", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Messages.
+        /// </summary>
+        public static string WelcomeMessages {
+            get {
+                return ResourceManager.GetString("WelcomeMessages", resourceCulture);
             }
         }
         

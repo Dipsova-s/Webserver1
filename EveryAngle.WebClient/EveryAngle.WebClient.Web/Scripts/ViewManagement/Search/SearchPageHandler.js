@@ -107,6 +107,7 @@ window.SearchPageHandler = function () {
 
             jQuery.clickOutside('#UserMenu', '#UserControl');
             jQuery.clickOutside('#HelpMenu', '#Help');
+            jQuery.clickOutside('#NotificationsFeedMenu', '#NotificationsFeed');
             jQuery.clickOutside('#PopupSelectModelCreateNewAngle', '#SelectModelCreateNewAngle');
 
             // load auto execute list
@@ -126,6 +127,8 @@ window.SearchPageHandler = function () {
 
             // update layout
             self.UpdateLayout();
+
+            notificationsFeedHandler.LoadFeeds(true);
         }
 
         // callback
@@ -191,9 +194,12 @@ window.SearchPageHandler = function () {
         }
     };
     self.ShowLandingPage = function () {
-        jQuery('#SearchResultList').hide();
         jQuery('#Content').busyIndicator(false);
         jQuery('#LandingPage').show().css('opacity', 0).stop();
+        jQuery('#ActionSelect').addClass('disabled');
+        jQuery('#SearchResultView').hide();
+        jQuery('#SearchResultList').hide();
+        notificationsFeedHandler.HideTopMenuIcon();
         welcomeModel.Initial()
             .always(function () {
                 jQuery('#LandingPage').animate({ opacity: 1 }, 'fast');
@@ -203,6 +209,7 @@ window.SearchPageHandler = function () {
         welcomeModel.StopPlayingVideo();
         jQuery('#LandingPage').hide();
         jQuery('#SearchResultList').show();
+        notificationsFeedHandler.ShowTopMenuIcon();
         self.BindSearchResultGrid();
     };
     self.InitialSearchBox = function () {
@@ -280,7 +287,7 @@ window.SearchPageHandler = function () {
     self.UpdateLayout = function () {
         var h = WC.Window.Height - jQuery('#MainContent').offset().top;
         jQuery('#LeftMenu, #Content').height(h);
-        jQuery('#LandingPage').outerHeight(h);
+        jQuery('#LandingPage').outerHeight(h - jQuery('#SearchBar').outerHeight());
 
         var innerResultWrapperHeight = WC.Window.Height - jQuery('#InnerResultWrapper').offset().top;
         jQuery('#InnerResultWrapper').height(innerResultWrapperHeight);

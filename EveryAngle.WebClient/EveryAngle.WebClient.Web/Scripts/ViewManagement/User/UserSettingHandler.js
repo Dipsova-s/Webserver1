@@ -130,7 +130,7 @@ function UserSettingsHandler() {
         self.UpdateSampleDateSettings();
         userSettingsView.UserSettingTabClick(self.TAB.USERSETTING);
 
-        jQuery('#UserMenu, #HelpMenu').hide();
+        userSettingsView.HideAllMenus();
         e.sender.element.busyIndicator(true);
         e.sender.element.find('.popupTabMenu,.popupTabPanel').css('opacity', 0);
 
@@ -161,6 +161,7 @@ function UserSettingsHandler() {
             }, 1);
         });
     };
+
 
     self.SetLabel = function (isLoadAllLabels) {
         if (isLoadAllLabels) {

@@ -154,6 +154,7 @@ function AnglePageHandler() {
             };
             jQuery.clickOutside('#UserMenu', '#UserControl');
             jQuery.clickOutside('#HelpMenu', '#Help');
+            jQuery.clickOutside('#NotificationsFeedMenu', '#NotificationsFeed');
             jQuery.clickOutside('.languageAvailableList', '.btnAddLanguage');
             jQuery.clickOutside('#DisplayListSelection', function (e) {
                 if (!jQuery(e.target).hasClass('SelectedDisplayPointer'))
@@ -235,6 +236,8 @@ function AnglePageHandler() {
             });
 
             self.InitialEditNote();
+
+            notificationsFeedHandler.LoadFeeds(true);
         }
 
         if (typeof callback === 'function')

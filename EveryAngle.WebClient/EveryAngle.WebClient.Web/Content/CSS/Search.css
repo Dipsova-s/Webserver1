@@ -555,30 +555,95 @@
     display: none;
     padding: 30px 37px 0 37px;
     overflow: auto;
+    background-color: #fafafa;
 }
 
 .sectionWelcomeRow {
     float: left;
-    width: 50%;
-    min-width: 565px;
+    width: 100%;
     overflow: hidden;
-    padding-top: 20px;
-    padding-bottom: 20px;
+    padding-top: 50px;
+    padding-bottom: 50px;
     border-top: 1px solid #e0e0e0;
 }
 
 .sectionWelcomeRow:first-child {
     padding-top: 0;
     border-top-width: 0;
-    float: none;
+}
+
+.sectionWelcomeRow:last-child {
+    padding-bottom: 0;
+}
+
+.sectionWelcomeRow .row {
+    overflow: hidden;
+    margin-left: -25px;
+    margin-right: -25px;
+}
+
+.sectionWelcomeRow .col {
+    float: left;
+    width: 50%;
+    padding-left: 25px;
+    padding-right: 25px;
+    box-sizing: border-box;
+    margin-bottom: 50px;
+}
+
+.sectionWelcomeRow .col:nth-child(3) {
     width: 100%;
 }
 
-@media (max-width: 1399px) {
-    .sectionWelcomeRow {
-        float: none;
-        width: 100%;
+.sectionWelcomeSecondRow .sectionWelcome {
+    min-height: 394px;
+    border-radius: 4px;
+    border: solid 1px #e1e8ee;
+    position: relative;
+    background-color: #ffffff;
+}
+
+.sectionWelcomeSecondRow .header {
+    border-bottom: solid 1px #e1e8ee;
+}
+
+.sectionWelcomeSecondRow .header strong {
+    margin: 16px 12px;
+    display: inline-block;
+}
+
+.sectionWelcomeSecondRow .content {
+    padding: 12px;
+    height: 323px;
+    overflow-x: hidden;
+}
+
+@media screen and (max-width: 1365px) {
+    .sectionWelcomeSecondRow .sectionWelcomeMovie {
+        min-height: 0;
     }
+
+    .sectionWelcomeSecondRow .sectionWelcomeMovie .content {
+        height: auto;
+    }
+
+    .sectionWelcomeMovie .welcomeMovie.noVideo {
+        height: 299px;
+    }
+}
+
+@media screen and (min-width: 1366px) {
+    .sectionWelcomeRow .col {
+        width: 25%;
+    }
+
+    .sectionWelcomeRow .col:nth-child(3) {
+        width: 50%;
+    }
+}
+
+.sectionWelcomeSecondRow .header strong {
+    margin-right: 10px;
 }
 
 .sectionWelcome {
@@ -604,18 +669,16 @@
 }
 
 .sectionWelcomeDetail1 {
-    margin-right: 250px;
+    margin-right: 230px;
     overflow: hidden;
 }
 
-.sectionWelcomeMovie .welcomeMovieTitle {
-    margin: 0 0 5px 0;
-    padding: 0;
-    font-size: 16px;
+.sectionWelcomeDetail1 .content {
+    padding-right: 50px;
 }
 
-.sectionWelcomeMovie .welcomeMovie {
-    margin-bottom: 10px;
+.sectionWelcome.notificationsFeed .list {
+    padding-right: 1px;
 }
 
 .sectionWelcomeMovie .welcomeMovie.hasVideo {
@@ -627,10 +690,7 @@
     cursor: default;
     color: #999;
     font-style: italic;
-    border: 1px solid #aaa;
-    padding: 70px 0;
     text-align: center;
-    box-sizing: content-box;
 }
 
 .sectionWelcomeMovie .video-js,

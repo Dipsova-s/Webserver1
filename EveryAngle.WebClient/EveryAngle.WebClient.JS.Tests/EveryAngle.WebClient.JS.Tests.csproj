@@ -82,6 +82,10 @@
       <Link>SharedDependencies\FieldsChooser.js</Link>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="..\EveryAngle.Shared.EmbeddedViews\Resource\NotificationsFeed\notificationsfeed.js">
+      <Link>SharedDependencies\notificationsfeed.js</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="..\EveryAngle.Shared.EmbeddedViews\Resource\Shared\shared.js">
       <Link>SharedDependencies\shared.js</Link>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
@@ -125,6 +129,9 @@
     <Content Include="..\EveryAngle.WebClient.Web\Scripts\ViewManagement\Shared\ComponentServicesHandler.js">
       <Link>WebClient\Dependencies\ViewManagement\Shared\ComponentServicesHandler.js</Link>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\EveryAngle.WebClient.Web\Scripts\ViewManagement\Shared\NotificationsFeedHandler.js">
+      <Link>WebClient\Dependencies\ViewManagement\Shared\NotificationsFeedHandler.js</Link>
     </Content>
     <Content Include="ManagementConsole\Tests\Custom\MC.AjaxTest.js" />
     <Content Include="ManagementConsole\Tests\Custom\MC.Test.js" />
@@ -704,6 +711,7 @@
     <Content Include="WebClient\Tests\Embedded\BusinessProcessesModelTest.js" />
     <Content Include="WebClient\Tests\Embedded\FieldsChooserTest.js" />
     <Content Include="WebClient\Tests\Embedded\ClassesChooserTest.js" />
+    <Content Include="WebClient\Tests\Embedded\NotificationsFeedTest.js" />
     <Content Include="WebClient\Tests\Embedded\SharedTest.js" />
     <Content Include="WebClient\Tests\Helper\HtmlHelper.ActionMenu.Test.js" />
     <Content Include="WebClient\Tests\Helper\KendoCoreExtensionTest.js" />

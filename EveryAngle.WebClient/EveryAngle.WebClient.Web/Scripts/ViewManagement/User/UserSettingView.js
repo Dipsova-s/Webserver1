@@ -4,7 +4,7 @@ function UserSettingsView() {
     "use strict";
 
     var self = this;
-
+    var menus = ['#UserMenu', '#HelpMenu', '#NotificationsFeedMenu'];
 
     self.UpdateUserMenu = function () {
         var name = userModel.DisplayName();
@@ -26,22 +26,27 @@ function UserSettingsView() {
 
     };
     self.ToggleMenu = function () {
-        if (jQuery('#UserMenu').is(':hidden')) {
-            jQuery('#UserMenu').show();
-            jQuery('#HelpMenu').hide();
-        }
-        else {
-            jQuery('#UserMenu').hide();
-        }
+        self.ToggleMenuByIndex(0);
     };
     self.ToggleMenuHelp = function () {
-        if (jQuery('#HelpMenu').is(':hidden')) {
-            jQuery('#HelpMenu').show();
-            jQuery('#UserMenu').hide();
+        self.ToggleMenuByIndex(1);
+    };
+    self.ToggleMenuNotificationsFeed = function () {
+        self.ToggleMenuByIndex(2);
+    };
+    self.ToggleMenuByIndex = function (index) {
+        var targetMenu = jQuery(menus[index]);
+        
+        if (targetMenu.is(':hidden')) {
+            self.HideAllMenus();
+            targetMenu.show();
         }
         else {
-            jQuery('#HelpMenu').hide();
+            targetMenu.hide();
         }
+    };
+    self.HideAllMenus = function () {
+        jQuery(menus.join(',')).hide();
     };
     self.UserSettingTabClick = function (elementId) {
         var element = jQuery('#' + elementId);

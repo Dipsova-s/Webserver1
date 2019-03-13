@@ -310,6 +310,7 @@ namespace EveryAngle.WebClient.Web
                     "~/scripts/viewmodels/models/dashboard/dashboardmodel.js",
                     "~/scripts/viewmanagement/angle/fieldsettingshandler.js",
                     "~/scripts/viewmanagement/shared/fieldchooserhandler.js",
+                    "~/scripts/viewmanagement/shared/notificationsfeedhandler.js",
                     "~/scripts/viewmodels/models/angle/angleinfomodel.js",
                     "~/scripts/viewmodels/models/angle/anglequerystepmodel.js",
                     "~/scripts/viewmodels/models/angle/resultmodel.js",
@@ -370,6 +371,7 @@ namespace EveryAngle.WebClient.Web
                     "~/scripts/viewmodels/models/angle/resultmodel.js",
                     "~/scripts/viewmanagement/angle/displaycopyhandler.js",
                     "~/scripts/viewmanagement/shared/fieldchooserhandler.js",
+                    "~/scripts/viewmanagement/shared/notificationsfeedhandler.js",
                     "~/scripts/viewmanagement/angle/ResolveAngleDisplayHandler.js",
                     "~/scripts/viewmanagement/angle/DisplayUpgradeHandler.js",
                     
@@ -458,6 +460,7 @@ namespace EveryAngle.WebClient.Web
                     "~/scripts/viewmanagement/angle/fieldsettingshandler.js",
                     "~/scripts/viewmanagement/angle/quickfilterhandler.js",
                     "~/scripts/viewmanagement/shared/fieldchooserhandler.js",
+                    "~/scripts/viewmanagement/shared/notificationsfeedhandler.js",
                     "~/scripts/viewmodels/models/dashboard/dashboardwidgetmodel.js",
                     "~/scripts/viewmodels/models/dashboard/dashboardmodel.js",
                     "~/scripts/viewmodels/models/dashboard/dashboardresultmodel.js",
@@ -482,12 +485,14 @@ namespace EveryAngle.WebClient.Web
             bundles.Add(new ScriptBundle("~/resources/embedded/js")
                 .Include("~/resources/embedded/businessprocessesmodel.js")
                 .Include("~/resources/embedded/classeschooser.js")
-                .Include("~/resources/embedded/fieldschooser.js"));
+                .Include("~/resources/embedded/fieldschooser.js")
+                .Include("~/resources/embedded/notificationsfeed.js"));
 
             bundles.Add(new StyleBundle("~/content/externalresource/externalresource.css")
                 .Include("~/content/externalresource/businessprocesses.css")
                 .Include("~/content/externalresource/fieldschooser.css")
                 .Include("~/Content/externalresource/classeschooser.css")
+                .Include("~/content/externalresource/notificationsfeed.css")
                 .Include("~/content/externalresource/shared.css"));
 
             BundleTable.EnableOptimizations = Convert.ToBoolean(ConfigurationManager.AppSettings["EnableOptimizations"]);

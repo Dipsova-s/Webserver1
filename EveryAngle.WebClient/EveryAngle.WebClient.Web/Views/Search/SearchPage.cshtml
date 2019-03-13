@@ -87,18 +87,43 @@
                 </div>
 
                 <div class="sectionWelcome sectionWelcomeDetail1">
-                    <div data-bind="html: Data().introductiontext"></div>
+                    <div class="content" data-bind="html: Data().introductiontext"></div>
                 </div>
             </div>
-            <div class="sectionWelcomeRow">
-                <div class="sectionWelcome sectionWelcomeDetail2">
-                    <div data-bind="html: Data().newstext"></div>
-                </div>
-            </div>
-            <div class="sectionWelcomeRow">
-                <div class="sectionWelcome sectionWelcomeMovie">
-                    <h3 class="welcomeMovieTitle" data-bind="text: Captions.Label_Search_WelcomeMovieTitle"></h3>
-                    <div id="WelcomePlayer" class="welcomeMovie">@Resource.Message_NoMovieAvailable</div>
+            <div class="sectionWelcomeRow sectionWelcomeSecondRow">
+                <div class="row">
+                    <div class="col">
+                        <div class="sectionWelcome sectionWelcomeDetail2">
+                            <div class="header">
+                                <strong>@Resource.WelcomeMessages</strong>
+                            </div>
+                            <div class="content">
+                                <div data-bind="html: Data().newstext"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <!-- ko stopBinding: true -->
+                        <div class="sectionWelcome notificationsFeed">
+                            <div class="header">
+                            </div>
+                            <div class="content">
+                            </div>
+                            <div class="footer">
+                            </div>
+                        </div>
+                        <!-- /ko -->
+                    </div>
+                    <div class="col">
+                        <div class="sectionWelcome sectionWelcomeMovie">
+                            <div class="header">
+                                <strong class="welcomeMovieTitle" data-bind="text: Captions.Label_Search_WelcomeMovieTitle"></strong>
+                            </div>
+                            <div class="content">
+                                <div id="WelcomePlayer" class="welcomeMovie">@Resource.Message_NoMovieAvailable</div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

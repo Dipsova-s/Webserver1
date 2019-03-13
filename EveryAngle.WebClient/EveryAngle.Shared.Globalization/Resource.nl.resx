@@ -3606,4 +3606,13 @@ Copyright © {0}</value>
   <data name="Workbench" xml:space="preserve">
     <value>Modeling Workbench</value>
   </data>
+  <data name="NotificationsFeed_Updates" xml:space="preserve">
+    <value>Updates</value>
+  </data>
+  <data name="NotificationsFeed_ViewAll" xml:space="preserve">
+    <value>Bekijk alles</value>
+  </data>
+  <data name="WelcomeMessages" xml:space="preserve">
+    <value>Berichten</value>
+  </data>
 </root>
