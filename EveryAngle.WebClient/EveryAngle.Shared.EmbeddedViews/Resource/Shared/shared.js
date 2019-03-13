@@ -413,11 +413,25 @@
     };
 
     // remove all
-    var removeAll = function (storage) {
+    var removeAll = function (storage, excludeKeys) {
         jQuery.each(storage, function (key) {
-            if (typeof key === 'string' && key.indexOf(window.storagePrefix) === 0)
+            if (isValidStorageKey(key, excludeKeys))
                 storage.removeItem(key);
         });
+    };
+
+    var isValidStorageKey = function (key, excludeKeys) {
+        if (!excludeKeys) {
+            excludeKeys = [];
+        }
+        
+        excludeKeys = jQuery.map(excludeKeys, function (excludeKey) {
+            return window.storagePrefix + excludeKey;
+        });
+        
+        return typeof key === 'string' &&
+                        key.indexOf(window.storagePrefix) === 0 &&
+                        excludeKeys.indexOf(key) === -1;
     };
 
     jQuery.extend(jQuery, {
@@ -456,7 +470,8 @@
         removeItem(localStorage, key);
     };
     jQuery.localStorage.removeAll = function () {
-        removeAll(localStorage);
+        removeAll(localStorage,
+            [NotificationsFeedRepository.StorageKey]);
     };
     jQuery.localStorage.adjust = function () {
         clearLargeStorages(localStorage);

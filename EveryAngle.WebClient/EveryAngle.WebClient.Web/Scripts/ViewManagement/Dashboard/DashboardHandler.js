@@ -113,6 +113,7 @@ function DashboardHandler() {
             // click outside objects
             jQuery.clickOutside('#UserMenu', '#UserControl');
             jQuery.clickOutside('#HelpMenu', '#Help');
+            jQuery.clickOutside('#NotificationsFeedMenu', '#NotificationsFeed');
             jQuery.clickOutside('.languageAvailableList', '.btnAddLanguage');
             jQuery.clickOutside('.HeaderPopup', function (e) {
                 var target = jQuery(e.target);
@@ -142,6 +143,8 @@ function DashboardHandler() {
             });
 
             self.InitialEditNote();
+
+            notificationsFeedHandler.LoadFeeds(true);
         }
 
         if (typeof callback === 'function') callback();

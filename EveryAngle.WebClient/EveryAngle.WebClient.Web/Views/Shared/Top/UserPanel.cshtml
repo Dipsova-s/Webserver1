@@ -3,6 +3,11 @@
 
 <div id="UserPanel">
     <ul>
+        <li class="disabled">
+            <a id="NotificationsFeed" href="javascript:void(0)">
+            </a>
+        </li>
+
         <li>
             <a id="Help" onclick="userSettingsView.ToggleMenuHelp();">
                 <span id="HelpIcon"></span>
@@ -47,4 +52,16 @@
             <a class="actionDropdownItem btnAbout" onclick="aboutSystemHandler.ShowAboutSystemPopup()"><span data-bind="html: Localization.AboutEveryAngle"></span></a>
         </div>
     </div>
+
+    <div class="k-window-titleless k-window-custom k-window-arrow-n popupNotificationsFeedMenu" id="NotificationsFeedMenu">
+        <div class="k-window-content k-content notificationsFeed">
+            <div class="header">
+            </div>
+            <div class="content">
+            </div>
+            <div class="footer">
+            </div>
+        </div>
+    </div>
+
 </div> 

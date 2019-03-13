@@ -184,6 +184,10 @@
   <ItemGroup>
     <Content Include="Resource\ClassesChooser\search-white.svg" />
     <Content Include="Resource\FieldsChooser\search-white.svg" />
+    <EmbeddedResource Include="Resource\NotificationsFeed\icon_notifications.svg" />
+    <EmbeddedResource Include="Resource\NotificationsFeed\icon_clock.svg" />
+    <EmbeddedResource Include="Resource\NotificationsFeed\notificationsfeed.css" />
+    <EmbeddedResource Include="Resource\NotificationsFeed\notificationsfeed.js" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\EveryAngle.Shared.Globalization\EveryAngle.Shared.Globalization.csproj">

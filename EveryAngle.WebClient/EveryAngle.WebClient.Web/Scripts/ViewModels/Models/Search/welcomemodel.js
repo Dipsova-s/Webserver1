@@ -12,7 +12,13 @@ function WelcomeViewModel() {
     self.Initial = function () {
         errorHandlerModel.Enable(false);
         var requests = self.CreateParallelRequests();
-        return jQuery.whenAll(requests).done(self.ParallelRequestsCallback);
+        return jQuery.whenAll(requests)
+            .done(self.ParallelRequestsCallback)
+            .always(function () {
+                setTimeout(function () {
+                    errorHandlerModel.Enable(true);
+                }, 100);
+            });
     };
 
     self.CreateParallelRequests = function () {
@@ -25,17 +31,14 @@ function WelcomeViewModel() {
         return deferred;
     };
     self.ParallelRequestsCallback = function (xhrWelcome, xhrMovie) {
-        setTimeout(function () {
-            errorHandlerModel.Enable(true);
-        }, 100);
-
         self.SetParallelData(xhrWelcome, xhrMovie);
-
-        if (!self.IsKnockoutInitialized()) {
+        
+        if (self.IsNoApplyBinding()) {
             self.CreateVideoPlayer();
             self.SetCompanyLogo();
-            WC.HtmlHelper.ApplyKnockout(self, jQuery('#LandingPage'));
+            WC.HtmlHelper.ApplyKnockout(self, self.GetContainerElement());
         }
+
     };
 
     self.SetParallelData = function (xhrWelcome, xhrMovie) {
@@ -43,8 +46,8 @@ function WelcomeViewModel() {
         data.videos = xhrMovie[0];
         self.SetData(data);
     };
-    self.IsKnockoutInitialized = function () {
-        return typeof ko.dataFor(jQuery('#LandingPage').get(0)) !== 'undefined';
+    self.IsNoApplyBinding = function () {
+        return typeof ko.dataFor(self.GetContainerElement().get(0)) === 'undefined';
     };
 
     self.SetCompanyLogo = function () {
@@ -129,5 +132,9 @@ function WelcomeViewModel() {
         delete data.last_logon;
 
         return data;
+    };
+
+    self.GetContainerElement = function () {
+        return jQuery('#LandingPage');
     };
 }

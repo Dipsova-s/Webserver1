@@ -788,6 +788,10 @@ img {
     color: #666;
 }
 
+#UserPanel .disabled {
+    visibility: hidden;
+}
+
 #AngleTopBar #UserPanel {
     padding-right: 5px;
 }
@@ -796,6 +800,9 @@ img {
     min-width: 50px;
     max-width: 100px;
     padding-right: 3px;
+    line-height: 1.38;
+    letter-spacing: 0.2px;
+    color: #3d4852;
     box-sizing: border-box;
     display: inline-block;
 }
@@ -808,7 +815,7 @@ img {
     display: block;
     margin-top: -6px;
     background: transparent url('../../images/master/help.svg') left center no-repeat;
-    width: 20px;
+    width: 22px;
     height: 20px;
 }
 
@@ -893,7 +900,7 @@ img {
 ============================================ */
 .popupHelpMenu {
     top: 48px;
-    left: -135px;
+    left: -80px;
     width: 200px;
     display: none;
     border-color: #c5c5c5;

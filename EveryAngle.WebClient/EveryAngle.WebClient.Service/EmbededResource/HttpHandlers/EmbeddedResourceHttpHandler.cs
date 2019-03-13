@@ -42,6 +42,10 @@ namespace EveryAngle.WebClient.Service.EmbededResource.HttpHandlers
                 {
                     folderName = "Resource.ClassesChooser";
                 }
+                else if (fileName.Contains("notificationsfeed"))
+                {
+                    folderName = "Resource.NotificationsFeed";
+                }
                 else {
                     folderName = "Resource.Shared";
                 }
@@ -66,6 +70,13 @@ namespace EveryAngle.WebClient.Service.EmbededResource.HttpHandlers
                 if (stream == null)
                 {
                     folderName = "Resource.ClassesChooser";
+                    embededFilePath = string.Format("{0}.{1}.{2}.{3}", nameSpace, folderName, fileName, fileExtension);
+                    stream = resources.GetManifestResourceStream(embededFilePath);
+                }
+
+                if (stream == null)
+                {
+                    folderName = "Resource.NotificationsFeed";
                     embededFilePath = string.Format("{0}.{1}.{2}.{3}", nameSpace, folderName, fileName, fileExtension);
                     stream = resources.GetManifestResourceStream(embededFilePath);
                 }
