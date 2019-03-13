@@ -1422,7 +1422,7 @@ namespace EveryAngle.Shared.Globalization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Back to search.
+        ///   Looks up a localized string similar to Back to search results.
         /// </summary>
         public static string BackToSearch {
             get {
