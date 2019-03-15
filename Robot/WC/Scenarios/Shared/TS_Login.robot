@@ -23,6 +23,11 @@ Login To WC
 Login To WC By Power User
     Login To WC    ${Username}    ${Password}
 
+Login To WC By Viewer User
+    Login    ${ViewerUsername}    ${Password}
+    Wait Search Page Document Loaded
+    Maximize Browser window
+
 Login To WC By Admin User
     Login To WC    ${AdminUsername}    ${Password}
 
@@ -50,6 +55,11 @@ Go to WC Then Login With EAPower User
     Open Browser in Sandbox Mode
     Go To    ${URL_WC}
     Login To WC By Power User
+
+Go to WC Then Login With EAViewer User
+    Open Browser in Sandbox Mode
+    Go To    ${URL_WC}
+    Login To WC By Viewer User
 
 Go to WC Then Login With Admin User
     Open Browser in Sandbox Mode
