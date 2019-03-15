@@ -46,7 +46,6 @@ Resource            ${EXECDIR}/WC/Scenarios/ManagementConsole/Models/TS_AllModel
 Resource            ${EXECDIR}/WC/Scenarios/ManagementConsole/Models/TS_ModelOverview.robot
 Resource            ${EXECDIR}/WC/Scenarios/ManagementConsole/Models/TS_SetupNewModel.robot
 Resource            ${EXECDIR}/WC/Scenarios/ManagementConsole/Models/TS_ModelServer.robot
-Resource            ${EXECDIR}/WC/Scenarios/ManagementConsole/Models/TS_Modules.robot
 Resource            ${EXECDIR}/WC/Scenarios/ManagementConsole/Models/TS_SuggestedFields.robot
 Resource            ${EXECDIR}/WC/Scenarios/ManagementConsole/Models/TS_RefreshCycle.robot
 Resource            ${EXECDIR}/WC/Scenarios/ManagementConsole/AutomationTasks/Tasks/TS_Tasks.robot

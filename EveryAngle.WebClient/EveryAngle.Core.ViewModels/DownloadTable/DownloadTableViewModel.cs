@@ -6,15 +6,12 @@ namespace EveryAngle.Core.ViewModels.DownloadTable
         public virtual string uri { get; set; }
         public virtual string local_name { get; set; }
         public virtual string external_name { get; set; }
-        public virtual string description { get; set; }
         public virtual string table_group { get; set; }
         public virtual string condition { get; set; }
-        public virtual string custom_condition { get; set; }
-        public virtual bool delta_download { get; set; }
+        public virtual bool? delta_download { get; set; }
         public virtual string delta_condition { get; set; }
-        public virtual bool download_all_fields { get; set; }
+        public virtual bool? download_all_fields { get; set; }
         public virtual string fields_uri { get; set; }
-        public virtual int total_field_count { get; set; }
         public virtual int enabled_field_count { get; set; }
         public virtual bool? specify_tables { get; set; }
     }

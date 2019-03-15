@@ -214,7 +214,7 @@ namespace EveryAngle.Core.ViewModels.Cycle
             get
             {
                 var parameter = GetDataFromArgument("parameters");
-                return (parameter != null) ? parameter.ToString() : string.Empty;
+                return Convert.ToString(parameter);
             }
         }
     }

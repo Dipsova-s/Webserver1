@@ -42,7 +42,9 @@ namespace EveryAngle.ManagementConsole
             LogConfig.Initial();
             LogConfig.InitialRequestLog(Convert.ToBoolean(ConfigurationManager.AppSettings["EnableMiniprofiler"]));
 
+#if !DEVMODE
             CustomIConConfig.InitialCustomImages();
+#endif
         }
 
         public static void RegisterGlobalFilters(GlobalFilterCollection filters)

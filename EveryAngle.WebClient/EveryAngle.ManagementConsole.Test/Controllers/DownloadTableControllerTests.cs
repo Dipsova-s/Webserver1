@@ -37,7 +37,6 @@ namespace EveryAngle.ManagementConsole.Test.Controllers
             _testingAgent = new AgentViewModel { DownloadTables = new Uri("/tables/test", UriKind.Relative) };
             _downloadTable = new DownloadTableViewModel
             {
-                custom_condition = "custom_condition",
                 delta_condition = "delta_condition",
                 delta_download = true,
                 download_all_fields = false,
@@ -110,17 +109,17 @@ namespace EveryAngle.ManagementConsole.Test.Controllers
             Assert.AreEqual(30, _testingController.ViewData["DefaultPageSize"]);
         }
 
-        [TestCase("EA2_800", "/models/1/agent", "/models/1", "")]
-        [TestCase("EA3_800", "/models/2/agent", "/models/2", "ea3_800")]
-        public void Can_GetSpecifyTablesGrid(string modelId, string modelAgent, string modelUri, string query)
+        [TestCase("EA2_800", "/models/1/downloadtables_uri", "/models/1", "")]
+        [TestCase("EA3_800", "/models/2/downloadtables_uri", "/models/2", "ea3_800")]
+        public void Can_GetSpecifyTablesGrid(string modelId, string downloadTablesUri, string modelUri, string query)
         {
             // execute
-            _testingController.GetSpecifyTablesGrid(modelId, modelAgent, modelUri, query);
+            _testingController.GetSpecifyTablesGrid(modelId, downloadTablesUri, modelUri, query);
 
             // assert
             Assert.AreEqual(modelUri, _testingController.ViewBag.ModelUri);
             Assert.AreEqual(modelId, _testingController.ViewBag.ModelId);
-            Assert.AreEqual(_testingAgent.DownloadTables.ToString(), _testingController.ViewBag.DownloadTableUri);
+            Assert.AreEqual(downloadTablesUri, _testingController.ViewBag.DownloadTableUri);
             Assert.AreEqual(query, _testingController.ViewData["Keyword"]);
             Assert.AreEqual(30, _testingController.ViewData["DefaultPageSize"]);
         }
@@ -132,7 +131,7 @@ namespace EveryAngle.ManagementConsole.Test.Controllers
         public void Can_ReadDownloadTable(string downloadTableUri, string query, bool createRequest)
         {
             // execute
-            ActionResult actionResult = null;
+            ActionResult actionResult;
             if (createRequest)
                 actionResult = _testingController.ReadDownloadTable(null, downloadTableUri, query);
             else
@@ -166,7 +165,6 @@ namespace EveryAngle.ManagementConsole.Test.Controllers
             _testingController.EditDownloadTable(downloadTableUri, downloadTableName, modelId, modelUri, query);
 
             // assert
-            Assert.AreEqual(_downloadTable.custom_condition, _testingController.ViewBag.CustomCondition);
             Assert.AreEqual(_downloadTable.delta_condition, _testingController.ViewBag.DeltaCondition);
             Assert.AreEqual(_downloadTable.delta_download, _testingController.ViewBag.DeltaDownload);
             Assert.AreEqual(_downloadTable.download_all_fields, _testingController.ViewBag.DownloadAllFields);

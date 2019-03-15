@@ -6,7 +6,7 @@ namespace EveryAngle.Core.ViewModels
     [Serializable]
     public class ListViewModel<T>
     {
-       public List<T> Data { get; set; }
-       public HeaderViewModel Header { get; set; }
+        public List<T> Data { get; set; } = new List<T>();
+        public HeaderViewModel Header { get; set; } = new HeaderViewModel();
     }
 }
