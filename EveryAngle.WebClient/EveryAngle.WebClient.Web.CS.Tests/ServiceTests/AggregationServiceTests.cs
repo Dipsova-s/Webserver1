@@ -202,7 +202,7 @@ namespace EveryAngle.WebClient.Web.CSTests.ServiceTests
         }
 
         [TestCase(typeof(PeriodFormatter))]
-        public void ShouldSetCellFormatAsExpectedWhenFieldDataTypeMatched(Type expectedType)
+        public void TestSetPivotGridSettingsFormat(Type expectedType)
         {
             var fieldName = "espresso";
             var mockPivotGridSettings = new PivotGridSettings();
@@ -233,7 +233,7 @@ namespace EveryAngle.WebClient.Web.CSTests.ServiceTests
         [TestCase("max", PivotSummaryType.Max)]
         [TestCase("average", PivotSummaryType.Average)]
         [TestCase("average_valid", PivotSummaryType.Average)]
-        public void PivotControlBuilder_GetPivotSummaryType(string bucket, PivotSummaryType expected)
+        public void TestGetPivotSummaryType(string bucket, PivotSummaryType expected)
         {
             PivotSummaryType result = AggregationService.GetPivotSummaryType(bucket);
 
@@ -251,12 +251,47 @@ namespace EveryAngle.WebClient.Web.CSTests.ServiceTests
         [TestCase("date", "any", typeof(DateTime))]
         [TestCase("datetime", "any", typeof(DateTime))]
         [TestCase("time", "any", typeof(DateTime))]
-        public void PivotControlBuilder_GetDataType(string type, string bucket, Type expected)
+        public void TestGetDataType(string type, string bucket, Type expected)
         {
             Type result = AggregationService.GetDataType(type, bucket);
             
             Assert.AreEqual(expected, result);
         }
 
+        [TestCase(PivotEnums.TotalForType.None, false, false)]
+        [TestCase(PivotEnums.TotalForType.RowAndColumn, true, true)]
+        [TestCase(PivotEnums.TotalForType.Row, true, false)]
+        [TestCase(PivotEnums.TotalForType.Column, false, true)]
+        public void TestSetGrandTotalsManagement_TotalForType(PivotEnums.TotalForType totalForType, bool expectShowColumnGrandTotals, bool expectShowRowGrandTotals)
+        {
+            PivotGridSettings settings = new PivotGridSettings();
+            _aggregationService.FieldSetting = new PivotSettings
+            {
+                TotalForType = totalForType
+            };
+            _aggregationService.SetGrandTotalsManagement(settings);
+
+            Assert.AreEqual(expectShowColumnGrandTotals, settings.OptionsView.ShowColumnGrandTotals);
+            Assert.AreEqual(expectShowRowGrandTotals, settings.OptionsView.ShowRowGrandTotals);
+        }
+
+        [TestCase(PivotEnums.TotalsLocation.Far, false, false, PivotTotalsLocation.Far)]
+        [TestCase(PivotEnums.TotalsLocation.Near, true, true, PivotTotalsLocation.Near)]
+        public void TestSetGrandTotalsManagement_Others(PivotEnums.TotalsLocation totalsLocation, bool isIncludeSubTotals, bool expectShowTotals, PivotTotalsLocation expectTotalsLocation)
+        {
+            PivotGridSettings settings = new PivotGridSettings();
+            _aggregationService.FieldSetting = new PivotSettings
+            {
+                TotalsLocation = totalsLocation,
+                IsIncludeSubTotals = isIncludeSubTotals
+            };
+            _aggregationService.SetGrandTotalsManagement(settings);
+
+            Assert.AreEqual(true, settings.OptionsView.ShowGrandTotalsForSingleValues);
+            Assert.AreEqual(expectShowTotals, settings.OptionsView.ShowColumnTotals);
+            Assert.AreEqual(expectShowTotals, settings.OptionsView.ShowRowTotals);
+            Assert.AreEqual(expectTotalsLocation.ToString(), settings.OptionsView.ColumnTotalsLocation.ToString());
+            Assert.AreEqual(expectTotalsLocation.ToString(), settings.OptionsView.RowTotalsLocation.ToString());
+        }
     }
 }

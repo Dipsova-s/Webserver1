@@ -467,14 +467,18 @@ function FieldSettingsHandler() {
         template = template.concat([
             '<label class="Title">' + Captions.Pivot_Option_Totals + '</label>',
             '<div class="ChartOption">',
-            '<span id="ShowTotalFor" class="eaDropdown eaDropdownSize40"></span>',
+                '<span id="ShowTotalFor" class="eaDropdown eaDropdownSize40"></span>',
             '</div>',
-            '<div class="ChartOption">',
-            '<label><input type="checkbox" id="chkIncludeSubtotal" onclick="fieldSettingsHandler.ChangeIncludeSubtotals()" name="thousandseparator" value="true"><span class="label">' + Captions.Pivot_Option_IncludeSubtotals + '</span></label>',
+            '<div class="ChartOption" id="TotalsLocationControl">',
+                '<label><input type="radio" id="rdoTotalsLocationNear" onclick="fieldSettingsHandler.ChangeTotalsLocation()" name="totalsLocation" value="' + enumHandlers.PIVOTTOTALSLOCATION.NEAR.Value + '"><span class="label">' + enumHandlers.PIVOTTOTALSLOCATION.NEAR.Name + '</span></label>',
+                '<label><input type="radio" id="rdoTotalsLocationFar" onclick="fieldSettingsHandler.ChangeTotalsLocation()" name="totalsLocation" value="' + enumHandlers.PIVOTTOTALSLOCATION.FAR.Value + '"><span class="label">' + enumHandlers.PIVOTTOTALSLOCATION.FAR.Name + '</span></label>',
+            '</div>',
+            '<div class="ChartOption" id="IncludeSubtotalControl">',
+                '<label><input type="checkbox" id="chkIncludeSubtotal" onclick="fieldSettingsHandler.ChangeIncludeSubtotals()" name="thousandseparator" value="true"><span class="label">' + Captions.Pivot_Option_IncludeSubtotals + '</span></label>',
             '</div>',
             '<label class="Title">' + Captions.Pivot_Option_Percentages + '</label>',
             '<div class="ChartOption">',
-            '<span id="PercentageSummaryDropDown" class="eaDropdown eaDropdownSize40"></span>',
+                '<span id="PercentageSummaryDropDown" class="eaDropdown eaDropdownSize40"></span>',
             '</div>'
         ]);
 
@@ -496,18 +500,32 @@ function FieldSettingsHandler() {
     };
 
     // public method
-    self.ChangeIncludeSubtotals = function () {
-        var isTrue = jQuery("#chkIncludeSubtotal").prop('checked');
-        self.FieldSettings.SetDisplayDetails({ include_subtotals: isTrue });
+    self.ChangeTotalsLocation = function () {
+        var totalsLocation = parseInt(jQuery('#TotalsLocationControl [name="totalsLocation"]:checked').val());
+        self.FieldSettings.SetDisplayDetails({ totals_location: totalsLocation });
         self.SetApplyButtonStatus(true);
     };
-    self.ChangeIncludeSubtotalsControlStatus = function (isEnable) {
-        if (isEnable) {
+    self.ChangeTotalsLocationControlStatus = function (disableTotals) {
+        if (disableTotals) {
+            jQuery("#TotalsLocationControl").hide();
+        }
+        else {
+            jQuery("#TotalsLocationControl").show();
+        }
+    };
+    self.ChangeIncludeSubtotals = function () {
+        var includeSubtotal = jQuery("#chkIncludeSubtotal").prop('checked');
+        self.FieldSettings.SetDisplayDetails({ include_subtotals: includeSubtotal });
+        self.SetApplyButtonStatus(true);
+    };
+    self.ChangeIncludeSubtotalsControlStatus = function (disableTotals) {
+        if (disableTotals) {
             jQuery("#chkIncludeSubtotal").prop('checked', false);
-            jQuery("#chkIncludeSubtotal").attr("disabled", true);
+            jQuery("#IncludeSubtotalControl").hide();
             self.ChangeIncludeSubtotals();
-        } else {
-            jQuery("#chkIncludeSubtotal").removeAttr("disabled");
+        }
+        else {
+            jQuery("#IncludeSubtotalControl").show();
         }
     };
     self.SetTemplate = function (type) {
@@ -1421,7 +1439,10 @@ function FieldSettingsHandler() {
         var anglePrivilege = JSON.stringify(userModel.GetAnglePrivilegeByUri(self.Handler.Models.Angle.Data().uri));
         var aggregationQuerySteps = self.Handler.Models.DisplayQueryBlock.GetQueryStepByType(enumHandlers.FILTERTYPE.AGGREGATION);
         var sortbySummaryInfo = [];
-        var isUseSavedDisplayData = false;
+        var showTotalFor;
+        var percentageSummaryType;
+        var isIncludeSubtotals = false;
+        var totalsLocation;
 
         // display_details
         var displayDetails = WC.Utility.ParseJSON(self.Handler.Models.Display.Data().display_details);
@@ -1430,40 +1451,27 @@ function FieldSettingsHandler() {
             displayTypeEnum = 1;
             componentId = self.Handler.PivotId;
             isReadOnly = self.Handler.ReadOnly();
-
-            if (typeof displayDetails.show_total_for === 'undefined')
-                displayDetails.show_total_for = 1;
-            var showTotalFor = displayDetails.show_total_for;
-
-            if (typeof displayDetails.percentage_summary_type === 'undefined')
-                displayDetails.percentage_summary_type = 0;
-            var percentageSummaryType = displayDetails.percentage_summary_type;
-
-            if (typeof displayDetails.include_subtotals === 'undefined')
-                displayDetails.include_subtotals = false;
-            var isIncludeSubtotals = displayDetails.include_subtotals;
-
-            if (displayDetails.sort_by_summary_info !== undefined) {
-                sortbySummaryInfo = JSON.parse(displayDetails.sort_by_summary_info);
-            }
-
-            isUseSavedDisplayData = !pivotPageHandler.IsUnSavePivot;
+            
+            showTotalFor = self.GetShowTotalForSetting(displayDetails);
+            percentageSummaryType = self.GetPercentageSummaryTypeSetting(displayDetails);
+            isIncludeSubtotals = self.GetIncludeSubtotalsSetting(displayDetails);
+            totalsLocation = self.GetTotalsLocationSetting(displayDetails);
+            sortbySummaryInfo = WC.Utility.ParseJSON(displayDetails.sort_by_summary_info, []);
         }
         else if (displayType === enumHandlers.DISPLAYTYPE.CHART) {
             displayTypeEnum = 0;
-        }
 
-        if (self.Handler.Models.Display.Data().display_type === enumHandlers.DISPLAYTYPE.CHART && !displayDetails.chart_type) {
-            displayDetails = {
-                chart_type: enumHandlers.CHARTTYPE.COLUMNCHART.Code,
-                stack: false,
-                multi_axis: false
-            };
+            if (!displayDetails.chart_type) {
+                displayDetails = {
+                    chart_type: enumHandlers.CHARTTYPE.COLUMNCHART.Code,
+                    stack: false,
+                    multi_axis: false
+                };
+            }
         }
-
-        if (!displayDetails.count_index) {
+        
+        if (!displayDetails.count_index)
             displayDetails.count_index = 0;
-        }
 
         var layout = self.IsNeedResetLayout ? null : displayDetails.layout || null;
         var fieldSettingsModel = new FieldSettingsModel();
@@ -1488,10 +1496,10 @@ function FieldSettingsHandler() {
         fieldSettingsModel.Layout = layout;
         fieldSettingsModel.IsNeedResetLayout = self.IsNeedResetLayout;
         fieldSettingsModel.SortBySummaryInfo = sortbySummaryInfo;
-        fieldSettingsModel.IsUseSavedDisplayData = isUseSavedDisplayData;
         fieldSettingsModel.MaxPageSize = self.DetermineMaxPageSize(self.Handler.Models.Angle.Data().model, displayType);
         fieldSettingsModel.RequestsPerGroup = self.GetRequestsPerGroup(self.Handler.Models.Angle.Data().model);
         fieldSettingsModel.FirstDayOfWeek = WC.DateHelper.GetFirstDayOfWeek(self.Handler.Models.Angle.Data().model);
+        fieldSettingsModel.TotalsLocation = totalsLocation;
 
         if (options) {
             jQuery.extend(fieldSettingsModel, options);
@@ -1592,6 +1600,26 @@ function FieldSettingsHandler() {
 
         //To disable display Options button
         self.SetDisplayOptionsButtonStatus();
+    };
+    self.GetShowTotalForSetting = function (displayDetails) {
+        var showTotalFor = IsUndefindedOrNull(displayDetails.show_total_for)
+            ? enumHandlers.PIVOTSHOWTOTALMODES[1].id
+            : displayDetails.show_total_for;
+        return parseInt(showTotalFor);
+    };
+    self.GetPercentageSummaryTypeSetting = function (displayDetails) {
+        var percentageSummaryType = IsUndefindedOrNull(displayDetails.percentage_summary_type)
+            ? enumHandlers.PERCENTAGESUMMARYTYPES[0].id
+            : displayDetails.percentage_summary_type;
+        return parseInt(percentageSummaryType);
+    };
+    self.GetIncludeSubtotalsSetting = function (displayDetails) {
+        return displayDetails.include_subtotals || false;
+    };
+    self.GetTotalsLocationSetting = function (displayDetails) {
+        return IsUndefindedOrNull(displayDetails.totals_location)
+            ? enumHandlers.PIVOTTOTALSLOCATION.FAR.Value
+            : displayDetails.totals_location;
     };
     self.GetRequestsPerGroup = function (modelUri) {
         // EA4IT model need to specific number of requests per group
@@ -3092,34 +3120,42 @@ function FieldSettingsHandler() {
         self.CleanFieldSettingsPopup('#PopupChartOptions');
     };
     self.CreatePivotDisplayOptions = function () {
-
         var displayDetails = self.FieldSettings.GetDisplayDetails();
+        var showTotalFor = self.GetShowTotalForSetting(displayDetails);
+        var disableTotals = showTotalFor === 0;
 
         WC.HtmlHelper.DropdownList('#ShowTotalFor', enumHandlers.PIVOTSHOWTOTALMODES, {
-            value: (!IsUndefindedOrNull(displayDetails.show_total_for) ? displayDetails.show_total_for : 1) + '',
+            value: showTotalFor + '',
             change: self.ShowTotalForChanged,
             enable: true
         });
 
         // Percentage drpodown
         WC.HtmlHelper.DropdownList('#PercentageSummaryDropDown', enumHandlers.PERCENTAGESUMMARYTYPES, {
-            value: (displayDetails.percentage_summary_type || 0) + '',
+            value: self.GetPercentageSummaryTypeSetting(displayDetails) + '',
             change: self.PercentageSummaryChanged,
             enable: true
         });
 
         // set include subtotal
-        if (typeof displayDetails.show_total_for !== 'undefined' && displayDetails.show_total_for === 0) {
-            jQuery('#chkIncludeSubtotal').prop('disabled', true);
-        }
-        jQuery('#chkIncludeSubtotal').prop('checked', displayDetails.include_subtotals !== undefined ? displayDetails.include_subtotals : false);
+        var includeSubtotals = self.GetIncludeSubtotalsSetting(displayDetails);
+        jQuery('#chkIncludeSubtotal').prop('checked', includeSubtotals);
+        if (disableTotals)
+            jQuery("#IncludeSubtotalControl").hide();
 
+        // totals location
+        var totalsLocation = self.GetTotalsLocationSetting(displayDetails);
+        jQuery('#TotalsLocationControl [name="totalsLocation"]').val([totalsLocation]);
+        self.ChangeTotalsLocationControlStatus(disableTotals);
     };
     self.ShowTotalForChanged = function (e) {
         self.SetApplyButtonStatus(true);
         var showTotalForDropdownValue = parseInt(e.sender.value());
         self.FieldSettings.SetDisplayDetails({ show_total_for: showTotalForDropdownValue });
-        self.ChangeIncludeSubtotalsControlStatus(showTotalForDropdownValue === 0);
+
+        var disableTotals = showTotalForDropdownValue === 0;
+        self.ChangeIncludeSubtotalsControlStatus(disableTotals);
+        self.ChangeTotalsLocationControlStatus(disableTotals);
     };
     self.PercentageSummaryChanged = function (e) {
         self.SetApplyButtonStatus(true);

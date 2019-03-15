@@ -1,7 +1,9 @@
 ﻿/// <reference path="/Dependencies/ViewModels/Models/User/usersettingmodel.js" />
 /// <reference path="/Dependencies/ViewModels/Models/Angle/AngleInfoModel.js" />
 /// <reference path="/Dependencies/ViewModels/Shared/DataType/DataType.js" />
-/// <reference path="/Dependencies/ViewManagement/shared/ModelFieldsHandler.js" />
+/// <reference path="/Dependencies/ViewModels/Models/FieldSettings/fieldsettingsmodel.js" />
+/// <reference path="/Dependencies/ViewManagement/Shared/SystemSettingHandler.js" />
+/// <reference path="/Dependencies/ViewManagement/Shared/ModelFieldsHandler.js" />
 /// <reference path="/Dependencies/ViewManagement/Angles/FieldSettingsHandler.js" />
 
 describe("FieldSettingsHandler", function () {
@@ -57,7 +59,7 @@ describe("FieldSettingsHandler", function () {
         };
     });
 
-    describe("When set format to count field in chart or pivot data area", function () {
+    describe(".GetBucketOptions", function () {
 
         it("must return the format options", function () {
             var angle = new AngleInfoViewModel().Data({ model: 'MODEL_A' });
@@ -90,7 +92,7 @@ describe("FieldSettingsHandler", function () {
 
     });
 
-    describe("When set bucket to day for datetime field type in chart or pivot data area", function () {
+    describe(".SetFieldFormat", function () {
 
         it("must return only date format without time", function () {
             var angle = new AngleInfoViewModel().Data({ model: 'MODEL_A' });
@@ -111,7 +113,7 @@ describe("FieldSettingsHandler", function () {
 
     });
 
-    describe("When get template options", function () {
+    describe(".GetBoxChartTemplateOptions", function () {
 
         it("box chart template must have check box show as percentage", function () {
 
@@ -121,7 +123,7 @@ describe("FieldSettingsHandler", function () {
         });
     });
 
-    describe("Chart can show as percentage", function () {
+    describe(".ChartCanShowAsPercentage", function () {
 
         it("stack barchart can show as percentage", function () {
             var option = {
@@ -578,7 +580,7 @@ describe("FieldSettingsHandler", function () {
 
         it("a container should contains caption text and suffix", function () {
             var container = $('<div />');
-            var element = fieldSettingsHandler.CreateChartScaleElement(container, 0, 'MY_CAPTION', 'MY_SUFFIX');
+            fieldSettingsHandler.CreateChartScaleElement(container, 0, 'MY_CAPTION', 'MY_SUFFIX');
             var result = container[0].innerHTML;
 
             expect(result).toContain('MY_CAPTION');
@@ -588,7 +590,7 @@ describe("FieldSettingsHandler", function () {
 
         it("a container should contains caption text but no suffix", function () {
             var container = $('<div />');
-            var element = fieldSettingsHandler.CreateChartScaleElement(container, 0, 'MY_CAPTION', '');
+            fieldSettingsHandler.CreateChartScaleElement(container, 0, 'MY_CAPTION', '');
             var result = container[0].innerHTML;
 
             expect(result).toContain('MY_CAPTION');
@@ -622,7 +624,7 @@ describe("FieldSettingsHandler", function () {
         });
     });
 
-    describe(".ChangeIncludeSubtotals()", function () {
+    describe(".ChangeIncludeSubtotals", function () {
 
         it("should not reset layout", function () {
             fieldSettingsHandler.IsNeedResetLayout = false;
@@ -633,7 +635,7 @@ describe("FieldSettingsHandler", function () {
 
     });
 
-    describe(".ShowTotalForChanged(e)", function () {
+    describe(".ShowTotalForChanged", function () {
 
         it("should not reset layout", function () {
             fieldSettingsHandler.IsNeedResetLayout = false;
@@ -644,7 +646,7 @@ describe("FieldSettingsHandler", function () {
 
     });
 
-    describe(".PercentageSummaryChanged(e)", function () {
+    describe(".PercentageSummaryChanged", function () {
 
         it("should not reset layout", function () {
             fieldSettingsHandler.IsNeedResetLayout = false;
@@ -655,7 +657,7 @@ describe("FieldSettingsHandler", function () {
 
     });
 
-    describe(".SelectedCountCheckbox()", function () {
+    describe(".SelectedCountCheckbox", function () {
 
         it("should not reset layout", function () {
             spyOn(fieldSettingsHandler, 'SetSorting').and.callFake($.noop);
@@ -671,6 +673,95 @@ describe("FieldSettingsHandler", function () {
             expect(fieldSettingsHandler.IsNeedResetLayout).toEqual(false);
         });
 
+    });
+
+    describe(".PivotTemplateOptions", function () {
+        it("should contain a correct controls", function () {
+            var result = fieldSettingsHandler.PivotTemplateOptions();
+            expect(result).toContain('id="ShowTotalFor"');
+            expect(result).toContain('id="TotalsLocationControl"');
+            expect(result).toContain('id="IncludeSubtotalControl"');
+            expect(result).toContain('id="PercentageSummaryDropDown"');
+        });
+    });
+
+    describe(".ChangeTotalsLocation", function () {
+        it("should call SetApplyButtonStatus function", function () {
+            fieldSettingsHandler.FieldSettings = new FieldSettingsModel();
+            spyOn(fieldSettingsHandler, 'SetApplyButtonStatus');
+            fieldSettingsHandler.ChangeTotalsLocation();
+            expect(fieldSettingsHandler.SetApplyButtonStatus).toHaveBeenCalled();
+        });
+    });
+
+    describe(".ChangeTotalsLocationControlStatus", function () {
+        it("should hide this setting if disable totals setting", function () {
+            spyOn($.fn, 'hide');
+            fieldSettingsHandler.ChangeTotalsLocationControlStatus(true);
+            expect($.fn.hide).toHaveBeenCalled();
+        });
+
+        it("should show this setting if disable totals setting", function () {
+            spyOn($.fn, 'show');
+            fieldSettingsHandler.ChangeTotalsLocationControlStatus(false);
+            expect($.fn.show).toHaveBeenCalled();
+        });
+    });
+
+    describe(".GetShowTotalForSetting", function () {
+        it("should get default value if nothing", function () {
+            var settngs = {};
+            var result = fieldSettingsHandler.GetShowTotalForSetting(settngs);
+            expect(result).toEqual(parseInt(enumHandlers.PIVOTSHOWTOTALMODES[1].id));
+        });
+
+        it("should get a correct value if set", function () {
+            var settngs = { show_total_for: 3 };
+            var result = fieldSettingsHandler.GetShowTotalForSetting(settngs);
+            expect(result).toEqual(3);
+        });
+    });
+
+    describe(".GetPercentageSummaryTypeSetting", function () {
+        it("should get default value if nothing", function () {
+            var settngs = {};
+            var result = fieldSettingsHandler.GetPercentageSummaryTypeSetting(settngs);
+            expect(result).toEqual(parseInt(enumHandlers.PERCENTAGESUMMARYTYPES[0].id));
+        });
+
+        it("should get a correct value if set", function () {
+            var settngs = { percentage_summary_type: 3 };
+            var result = fieldSettingsHandler.GetPercentageSummaryTypeSetting(settngs);
+            expect(result).toEqual(3);
+        });
+    });
+
+    describe(".GetIncludeSubtotalsSetting", function () {
+        it("should get default value if nothing", function () {
+            var settngs = {};
+            var result = fieldSettingsHandler.GetIncludeSubtotalsSetting(settngs);
+            expect(result).toEqual(false);
+        });
+
+        it("should get a correct value if set", function () {
+            var settngs = { include_subtotals: true };
+            var result = fieldSettingsHandler.GetIncludeSubtotalsSetting(settngs);
+            expect(result).toEqual(true);
+        });
+    });
+
+    describe(".GetTotalsLocationSetting", function () {
+        it("should get default value if nothing", function () {
+            var settngs = {};
+            var result = fieldSettingsHandler.GetTotalsLocationSetting(settngs);
+            expect(result).toEqual(enumHandlers.PIVOTTOTALSLOCATION.FAR.Value);
+        });
+
+        it("should get a correct value if set", function () {
+            var settngs = { totals_location: 0 };
+            var result = fieldSettingsHandler.GetTotalsLocationSetting(settngs);
+            expect(result).toEqual(0);
+        });
     });
 
 });

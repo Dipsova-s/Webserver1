@@ -954,22 +954,19 @@ namespace EveryAngle.WebClient.Service.Aggregation
         {
             e.Cell.Style.Clear();
 
-            // set caption by remove encoded html
-            if (e.Cell.Controls.Count != 0 && e.Cell.Controls[0] is LiteralControl)
+            int literalControlIndex = GetLiteralControlControlIndex(e.Cell.Controls);
+            if (literalControlIndex != -1)
             {
-                string caption = EncodeCaption(e);
-                SetHtmlFieldIcon(e, caption, 0);
-            }
-            else if (e.Cell.Controls[0] is DevExpress.Web.Internal.InternalImage &&
-                e.ValueType == DevExpress.XtraPivotGrid.PivotGridValueType.Value)
-            {
-                string caption = ((LiteralControl)e.Cell.Controls[1]).Text;
-                SetHtmlFieldIcon(e, caption, 1);
+                // set caption by remove encoded html
+                string caption = EncodeCaption(e, literalControlIndex);
+
+                // set domain element icon
+                SetHtmlFieldIcon(e, caption, literalControlIndex);
             }
 
             // set data-value attribute
-            if (e.ValueType == DevExpress.XtraPivotGrid.PivotGridValueType.Value
-                || e.ValueType == DevExpress.XtraPivotGrid.PivotGridValueType.Total)
+            if (e.ValueType == PivotGridValueType.Value
+                || e.ValueType == PivotGridValueType.Total)
             {
                 string dataValue;
                 if (e.Value == null)
@@ -988,8 +985,22 @@ namespace EveryAngle.WebClient.Service.Aggregation
             }
         }
 
-        // cannot just pass the PivotGridCellItem object incase of testable function
-        public string GetCellBackgroundColor(
+        private int GetLiteralControlControlIndex(ControlCollection controls)
+        {
+            int index = -1;
+            for(int loop = 0; loop < controls.Count; loop++)
+            {
+                if (controls[loop] is LiteralControl)
+                {
+                    index = loop;
+                    break;
+                }
+            }
+            return index;
+        }
+
+
+        internal string GetCellBackgroundColor(
             bool isTotalAppearance,
             bool isGrandTotalAppearance,
             bool isColumnFieldValueItemTotal,
@@ -1021,14 +1032,14 @@ namespace EveryAngle.WebClient.Service.Aggregation
             return isGrandTotalAppearance && isColumnFieldValueItemTotal && isRowFieldValueItemTotal;
         }
 
-        private static string EncodeCaption(PivotHtmlFieldValuePreparedEventArgs e)
+        private static string EncodeCaption(PivotHtmlFieldValuePreparedEventArgs e, int index)
         {
-            string caption = ((LiteralControl)e.Cell.Controls[0]).Text;
+            string caption = ((LiteralControl)e.Cell.Controls[index]).Text;
             string endcodeCaption = HttpUtility.HtmlEncode(REPLACE_CAPTION_HEADER);
             if (caption.Contains(endcodeCaption))
             {
-                e.Cell.Controls.RemoveAt(0);
-                e.Cell.Controls.AddAt(0, new LiteralControl(caption.Replace(endcodeCaption, REPLACE_CAPTION_DATA)));
+                e.Cell.Controls.RemoveAt(index);
+                e.Cell.Controls.AddAt(index, new LiteralControl(caption.Replace(endcodeCaption, REPLACE_CAPTION_DATA)));
             }
             return caption;
         }
@@ -1052,7 +1063,7 @@ namespace EveryAngle.WebClient.Service.Aggregation
             e.Cell.Controls.AddAt(index, new LiteralControl(string.Format("<span class=\"domainIcon {0}\"></span>{1}", className, caption)));
         }
 
-        public string GetDomainImageFolder(EAPivotField field, string[] domainImageFolderList)
+        internal string GetDomainImageFolder(EAPivotField field, string[] domainImageFolderList)
         {
             if (IsCustomEnumerated(field))
             {
@@ -1320,7 +1331,7 @@ namespace EveryAngle.WebClient.Service.Aggregation
             }
         }
 
-        private void SetGrandTotalsManagement(PivotGridSettings settings)
+        internal void SetGrandTotalsManagement(PivotGridSettings settings)
         {
             switch (FieldSetting.TotalForType)
             {
@@ -1347,6 +1358,10 @@ namespace EveryAngle.WebClient.Service.Aggregation
 
             settings.OptionsView.ShowColumnTotals = FieldSetting.IsIncludeSubTotals;
             settings.OptionsView.ShowRowTotals = FieldSetting.IsIncludeSubTotals;
+
+            // total position
+            PivotTotalsLocation totalsLocation = (PivotTotalsLocation)FieldSetting.TotalsLocation;
+            settings.OptionsView.SetBothTotalsLocation(totalsLocation);
         }
 
         #region Get data from UserSetting
