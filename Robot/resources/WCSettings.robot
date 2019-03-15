@@ -71,6 +71,7 @@ ${MC_HELP_IMAGE_PATH}    ${EXECDIR}/webhelp/${WEBHELP_COMMON_FOLDER}/EA2_Managem
 # Users
 ${AdminUsername}            \\eaadmin
 ${TestPrivilegesUser}       \\EATestUserRole
+${ViewerUsername}           \\eaviewer
 
 # Performance
 ${API_SLA}     0.5      # SLA time
