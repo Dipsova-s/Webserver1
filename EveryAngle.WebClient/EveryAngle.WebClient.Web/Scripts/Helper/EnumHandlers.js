@@ -501,13 +501,19 @@ function EnumHandlers() {
         CHART: 'chart'
     };
 
-    // display type
+    // pivot totals
     self.PIVOTSHOWTOTALMODES = [
         { id: '0', name: Captions.Pivot_Option_DoNotShowTotals },
         { id: '1', name: Captions.Pivot_Option_ShowForRowsAndColumns },
         { id: '2', name: Captions.Pivot_Option_ShowForRows },
         { id: '3', name: Captions.Pivot_Option_ShowForColumns }
     ];
+
+    // pivot totals location
+    self.PIVOTTOTALSLOCATION = {
+        NEAR: { Value: 0, Name: Captions.Pivot_Option_TotalsLocation_Near },
+        FAR: { Value: 1, Name: Captions.Pivot_Option_TotalsLocation_Far }
+    };
 
     //Chart display
     self.CHARTTYPE = {

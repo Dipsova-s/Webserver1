@@ -778,8 +778,6 @@ function PivotPageHandler(elementId, container) {
             var sortSummaryInfoOptions = { SortBySummaryInfo: newsortingOptions };
             if (self.DashBoardMode()) {
                 self.FieldSettings.IsNeedResetLayout = true;
-                self.FieldSettings.IsUseSavedDisplayData = false;
-                jQuery.extend(sortSummaryInfoOptions, { IsUseSavedDisplayData: false });
             }
 
             self.GetPivotDisplay(null, sortSummaryInfoOptions);

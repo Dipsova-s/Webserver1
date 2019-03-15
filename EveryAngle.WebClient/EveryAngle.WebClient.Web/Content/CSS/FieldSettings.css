@@ -468,6 +468,11 @@
     width: 100%;
 }
 
+#TotalsLocationControl label {
+    display: inline-block;
+    width: 50%;
+}
+
 /* #ChartType
 ============================================ */
 .displayOptionsWrapper {

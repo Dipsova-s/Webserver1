@@ -1708,6 +1708,24 @@ namespace EveryAngle.Shared.Globalization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Bottom/right.
+        /// </summary>
+        public static string Pivot_Option_TotalsLocation_Far {
+            get {
+                return ResourceManager.GetString("Pivot_Option_TotalsLocation_Far", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Top/left.
+        /// </summary>
+        public static string Pivot_Option_TotalsLocation_Near {
+            get {
+                return ResourceManager.GetString("Pivot_Option_TotalsLocation_Near", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to % of column {0}.
         /// </summary>
         public static string Pivot_PercentOfColumn {

@@ -774,4 +774,10 @@
   <data name="Label_CSV_Export_ModelDate_Placeholder" xml:space="preserve">
     <value>Selecteer kolom</value>
   </data>
+  <data name="Pivot_Option_TotalsLocation_Far" xml:space="preserve">
+    <value>Onder/rechts</value>
+  </data>
+  <data name="Pivot_Option_TotalsLocation_Near" xml:space="preserve">
+    <value>Boven/links</value>
+  </data>
 </root>

@@ -804,4 +804,10 @@
   <data name="MC_Label_ScriptParameters" xml:space="preserve">
     <value>Add arguments&lt;br /&gt;(optional)</value>
   </data>
+  <data name="Pivot_Option_TotalsLocation_Far" xml:space="preserve">
+    <value>Bottom/right</value>
+  </data>
+  <data name="Pivot_Option_TotalsLocation_Near" xml:space="preserve">
+    <value>Top/left</value>
+  </data>
 </root>
