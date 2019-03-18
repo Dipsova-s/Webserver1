@@ -3704,15 +3704,8 @@ form#ExportPackageForm .packageInfo .packageVersion input {
 }
 
 .contentSectionGridActionList .actionListDescription {
-    margin: 0 55px 0 150px;
+    margin: 0 0 0 150px;
     font-style: italic;
-}
-
-.contentSectionGridActionList .actionListParams {
-    position: absolute;
-    width: 50px;
-    right: 0;
-    top: 0;
 }
 
 .contentSectionGridActionList .actionListActions {
@@ -3735,8 +3728,7 @@ form#ExportPackageForm .packageInfo .packageVersion input {
     margin-bottom: 20px;
 }
 
-#refreshCycleFormContainer .columnTaskName,
-#refreshCycleFormContainer .columnActionList {
+#refreshCycleFormContainer .columnTaskName {
     min-width: 150px;
     width: 150px;
 }
@@ -3778,6 +3770,10 @@ form#ExportPackageForm .packageInfo .packageVersion input {
 
 #RefreshCycleContainer .gridToolbarBottom .btn {
     margin-bottom: 10px;
+}
+
+#popupSpecifyTables .gridContainer {
+    margin-bottom: 0;
 }
 
 /* .pageSuggestedFields

@@ -100,47 +100,6 @@ describe("MC.Models.RefreshCycle", function () {
         });
     });
 
-    describe("UpdateSpecifyTableLabelVisible", function () {
-
-        var selectedTableListElement;
-
-        beforeEach(function () { 
-            selectedTableListElement = $('<div id="SelectedTableList" class="hidden"></div>');
-        });
-
-        it("Hide SpecifiTableLabel when input empty", function () {
-            var input = '';
-            selectedTableListElement.text('TableName');
-
-            refreshCycle.UpdateSpecifyTableLabelVisible(selectedTableListElement, input);
-            expect(selectedTableListElement.hasClass('hidden')).toEqual(true);
-        });
-
-        it("Hide SpecifiTableLabel when input other than Tables", function () {
-            var input = 'Something else';
-            selectedTableListElement.text('TableName');
-            
-            refreshCycle.UpdateSpecifyTableLabelVisible(selectedTableListElement, input);
-            expect(selectedTableListElement.hasClass('hidden')).toEqual(true);
-        });
-
-        it("Hide SpecifiTableLabel when SpecifiTableLabel is empty", function () {
-            var input = 'Tables';
-            selectedTableListElement.text('');
-
-            refreshCycle.UpdateSpecifyTableLabelVisible(selectedTableListElement, input);
-            expect(selectedTableListElement.hasClass('hidden')).toEqual(true);
-        });
-
-        it("Show SpecifiTableLabel when input Tables", function () {
-            var input = 'Tables';
-            selectedTableListElement.text('TableName');
-
-            refreshCycle.UpdateSpecifyTableLabelVisible(selectedTableListElement, input);
-            expect(selectedTableListElement.hasClass('hidden')).toEqual(false);
-        });
-    });
-
     describe(".DeltaChange", function () {
         
         var form;

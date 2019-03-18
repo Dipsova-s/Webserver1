@@ -39,7 +39,8 @@ namespace EveryAngle.ManagementConsole.Controllers
             ViewBag.ModelServerUri = model.ServerUri.ToString();
             ViewBag.TasksUri = version.GetEntryByName("tasks").Uri.ToString();
             ViewBag.TaskHistoryUri = version.GetEntryByName("eventlog").Uri.ToString();
-            ViewBag.ModelAgent = model.Agent.ToString();
+            ViewBag.ActionListsUri = model.ActionLists.ToString();
+            ViewBag.DownloadTablesUri = model.TableDefinitions.ToString();
             ViewBag.ModelName = model.short_name;
             return PartialView("~/Views/Model/RefreshCycle/RefreshCycle.cshtml");
         }
@@ -120,20 +121,20 @@ namespace EveryAngle.ManagementConsole.Controllers
             var taskName = "EATest_" + modelId;
             var tasksDetailUri = string.Format("{0}?model={1}&type=refresh_model&{2}", tasksUri, modelId, OffsetLimitQuery);
             var tasks = _taskService.GetTasks(tasksDetailUri).OrderByDescending(order => order.created.Created).ToList();
-            var task = tasks.Where(x => x.ActionList == "EATest" && x.id == taskName).FirstOrDefault();
+            var task = tasks.FirstOrDefault(x => x.ActionList == "EATest" && x.id == taskName);
 
             if (task != null)
             {
                 if (task.status != "running" && task.status != "queued")
                 {
-                    _modelService.CreateTask(task.Uri + "/execution",
+                    _modelService.CreateTask($"{task.Uri}/execution",
                         "{\"start\":true,\"reason\":\"Manual execute from MC\"}");
                 }
             }
             else
             {
                 task = _modelService.CreateTask(tasksUri, tasksData);
-                _modelService.CreateTask(task.Uri + "/execution",
+                _modelService.CreateTask($"{task.Uri}/execution",
                     "{\"start\":true,\"reason\":\"Manual execute from MC\"}");
             }
 
@@ -141,7 +142,7 @@ namespace EveryAngle.ManagementConsole.Controllers
             var modelServers =
                 _modelService.GetModelServers(modelServerUri + "?" +
                                              UtilitiesHelper.GetOffsetLimitQueryString(1, MaxPageSize));
-            var modelServer = modelServers.Data.FirstOrDefault(server => server.type == "Extractor");
+            var modelServer = modelServers.Data.FirstOrDefault(server => server.Type == ModelAgentType.Extractor);
             ViewBag.ModelServerID = modelServer.id;
             if (modelServer.status != "Down")
             {
@@ -177,8 +178,7 @@ namespace EveryAngle.ManagementConsole.Controllers
         [AcceptVerbs(HttpVerbs.Post)]
         public ActionResult AbortTask(string tasksUri, string data)
         {
-            tasksUri += "/execution";
-            _modelService.CreateTask(tasksUri, data);
+            _modelService.CreateTask($"{tasksUri}/execution", data);
 
             return new JsonResult
             {
@@ -190,8 +190,7 @@ namespace EveryAngle.ManagementConsole.Controllers
         [AcceptVerbs(HttpVerbs.Post)]
         public ActionResult ExecuteTask(string tasksUri, string data)
         {
-            tasksUri += "/execution";
-            _modelService.CreateTask(tasksUri, data);
+            _modelService.CreateTask($"{tasksUri}/execution", data);
 
             return new JsonResult
             {
@@ -228,11 +227,10 @@ namespace EveryAngle.ManagementConsole.Controllers
             return PartialView("~/Views/Model/RefreshCycle/ShowActionLists.cshtml", new List<ActionListViewModel>());
         }
 
-        public ActionResult GetActionList(string modelAgentUri)
+        public ActionResult GetActionList(string actionListsUri)
         {
-            AgentViewModel agentModel = _modelService.GetModelAgent(modelAgentUri);
-            string actionListUri = string.Format("{0}?{1}", agentModel.ActionLists, OffsetLimitQuery);
-            return Json(_taskService.GetActionList(actionListUri), JsonRequestBehavior.AllowGet);
+            List<ActionListViewModel> actionLists = _taskService.GetActionList($"{actionListsUri}?{OffsetLimitQuery}");
+            return Json(actionLists, JsonRequestBehavior.AllowGet);
         }
     }
 }

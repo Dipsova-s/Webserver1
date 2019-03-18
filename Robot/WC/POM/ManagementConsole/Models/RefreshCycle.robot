@@ -44,7 +44,7 @@ ${contentSectionInfo}              css=.contentSectionInfo
 ${btnSaveRefreshCycleForm}         css=.btnSaveForm
 ${btnCancelRefreshCycleForm}       css=.btnSaveForm + .btn
 ${headRowInRefreshCycleGrid}       jquery=#TaskDetailGrid thead tr
-${actionList}                      input[name=Action]
+${actionList}                      .k-dropdown.actionList
 ${newChkDaySunday}                 .checkbox [value=S] + .input
 ${newChkDayMonday}                 .checkbox [value=M] + .input
 ${confirmationDelete}              jquery=#popupConfirmation .btnSubmit
@@ -123,7 +123,7 @@ Click Enabled Refresh Cycle
 
 Set Refresh Cycle Action List
     [Arguments]    ${actionName}
-    Input Text     ${contentSectionInfo} ${actionList}     ${actionName}
+    Select Dropdown By InnerText     ${contentSectionInfo} ${actionList}     ${actionName}
 
 Click Refresh Cycle Sunday
     Wait Until Page Contains Element    ${contentSectionInfo} ${newChkDaySunday}

@@ -17,13 +17,9 @@ ${divSideMenuModels}                        sideMenu-Models
 ${divSideMenuModelsAllModels}               sideMenu-Models-AllModels
 ${divSideMenuModelsEA2_800}                 sideMenu-Models-EA2_800
 ${divSideMenuModelsEA2_800Roles}            jquery=#sideMenu-Models-EA2_800-Roles>a
-${divSideMenuModules}                       sideMenu-Models-EA2_800-Modules
 ${divSideMenuModelLanguages}                sideMenu-Models-EA2_800-Languages
 ${divSideMenuSuggestedFields}               sideMenu-Models-EA2_800-SuggestedFields
 ${divSideMenuRefreshCycle}                  sideMenu-Models-EA2_800-RefreshCycle
-
-${divSideMenuModelsEA4IT}                   sideMenu-Models-EA4IT
-${divSideMenuModelsEA4ITRoles}              sideMenu-Models-EA4IT-Roles
 
 ${divSideMenuUsers}                         sideMenu-Users
 ${divSideMenuUsersAllUsers}                 sideMenu-Users-AllUsers
@@ -151,27 +147,6 @@ Click Side Menu Models EA2_800
     Wait Until Page Contains    Roles
     Sleep    ${TIMEOUT_GENERAL}
 
-Click Side Menu Models EA4IT
-    Wait MC Progress Bar Closed
-    Wait Until Page Contains Element    ${divSideMenuModelsEA4IT}
-    Click Element    ${divSideMenuModelsEA4IT}
-    Wait MC Progress Bar Closed
-    Wait Until Ajax Complete
-    Wait Until Page Contains    Content settings
-    Wait Until Page Contains    Languages
-    Wait Until Page Contains    Tables & fields
-    Wait Until Page Contains    Roles
-    Sleep    ${TIMEOUT_GENERAL}
-
-Click Side Menu Modules
-    Wait MC Progress Bar Closed
-    Sleep    ${TIMEOUT_GENERAL}
-    Wait Until Page Contains Element    ${divSideMenuModules}
-    Click Element    ${divSideMenuModules}
-    Wait MC Progress Bar Closed
-    Wait Until Page Contains    All modules
-    Sleep    ${TIMEOUT_GENERAL}
-
 Click Side Menu Model Languages
     Wait MC Progress Bar Closed
     Wait Until Page Contains Element    ${divSideMenuModelLanguages}
@@ -198,17 +173,6 @@ Click Side Menu Models EA2_800 Roles
     Click Element    ${divSideMenuModelsEA2_800Roles}
     Wait MC Progress Bar Closed
     Wait Until Page Contains   All available roles
-
-Click Side Menu Models EA4IT Roles
-    Wait MC Progress Bar Closed
-    Wait Until Page Contains Element    ${divSideMenuModelsEA4ITRoles}
-    Click Element    ${divSideMenuModelsEA4ITRoles}
-    Sleep    ${TIMEOUT_LARGEST}
-    Wait MC Progress Bar Closed
-    Wait Until Ajax Complete
-    Wait Until Page Contains   All available roles
-    Wait Until Page Contains Element    ${trRowInRolesGrid}
-    Sleep    ${TIMEOUT_GENERAL}
 
 Click Side Menu Users
     Wait Until Page Contains Element    ${divSideMenuUsers}

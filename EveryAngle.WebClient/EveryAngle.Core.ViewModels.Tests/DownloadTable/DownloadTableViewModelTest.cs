@@ -17,15 +17,12 @@ namespace EveryAngle.Core.ViewModels.Tests
                 uri = "/test",
                 local_name = "local",
                 external_name = "external",
-                description = "description",
                 table_group = "table",
                 condition = "condition",
-                custom_condition = "custom condition",
                 delta_condition = "condition",
                 delta_download = true,
                 download_all_fields = true,
                 fields_uri = "/fields",
-                total_field_count = 20,
                 enabled_field_count = 20,
                 specify_tables = true
             };
@@ -35,15 +32,12 @@ namespace EveryAngle.Core.ViewModels.Tests
             Assert.AreEqual(viewModel.uri.GetType(), typeof(string));
             Assert.AreEqual(viewModel.local_name.GetType(), typeof(string));
             Assert.AreEqual(viewModel.external_name.GetType(), typeof(string));
-            Assert.AreEqual(viewModel.description.GetType(), typeof(string));
             Assert.AreEqual(viewModel.table_group.GetType(), typeof(string));
             Assert.AreEqual(viewModel.condition.GetType(), typeof(string));
-            Assert.AreEqual(viewModel.custom_condition.GetType(), typeof(string));
             Assert.AreEqual(viewModel.delta_condition.GetType(), typeof(string));
             Assert.AreEqual(viewModel.delta_download.GetType(), typeof(bool));
             Assert.AreEqual(viewModel.download_all_fields.GetType(), typeof(bool));
             Assert.AreEqual(viewModel.fields_uri.GetType(), typeof(string));
-            Assert.AreEqual(viewModel.total_field_count.GetType(), typeof(int));
             Assert.AreEqual(viewModel.enabled_field_count.GetType(), typeof(int));
             Assert.AreEqual(viewModel.specify_tables.GetType(), typeof(bool));
 
@@ -54,15 +48,12 @@ namespace EveryAngle.Core.ViewModels.Tests
             Assert.IsTrue(viewModelSerialize.Contains("uri"));
             Assert.IsTrue(viewModelSerialize.Contains("local_name"));
             Assert.IsTrue(viewModelSerialize.Contains("external_name"));
-            Assert.IsTrue(viewModelSerialize.Contains("description"));
             Assert.IsTrue(viewModelSerialize.Contains("table_group"));
             Assert.IsTrue(viewModelSerialize.Contains("condition"));
-            Assert.IsTrue(viewModelSerialize.Contains("custom_condition"));
             Assert.IsTrue(viewModelSerialize.Contains("delta_download"));
             Assert.IsTrue(viewModelSerialize.Contains("delta_condition"));
             Assert.IsTrue(viewModelSerialize.Contains("download_all_fields"));
             Assert.IsTrue(viewModelSerialize.Contains("fields_uri"));
-            Assert.IsTrue(viewModelSerialize.Contains("total_field_count"));
             Assert.IsTrue(viewModelSerialize.Contains("enabled_field_count"));
             Assert.IsTrue(viewModelSerialize.Contains("specify_tables"));
         }
