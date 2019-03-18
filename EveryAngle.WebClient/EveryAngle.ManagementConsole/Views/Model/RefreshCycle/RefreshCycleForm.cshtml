@@ -23,10 +23,7 @@
             <div class="contentSectionInfoItem">
                 <label>@Resource.MC_Actionlist:</label>
                 <p>
-                    <input type="text" name="Action"
-                           onchange="MC.Models.RefreshCycle.OnActionListChanged(this)"
-                           onkeyup="MC.Models.RefreshCycle.OnActionListChanged(this)"
-                           class="columnActionList required error" placeholder="@Resource.MC_Actionlist" maxlength="100" />
+                    <select class="actionList required error" name="Action"></select>
                     <span class="descriptionLabel hidden">
                         <a onclick="MC.Models.RefreshCycle.ShowSpecifyTablesPopup()" class="btn btnSpecifyTables" data-target="#popupSpecifyTables" title="@Resource.MC_SpecifyTables" data-role="mcPopup" data-width="1000" data-height="700">
                             @Resource.MC_SpecifyTables

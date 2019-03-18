@@ -20,7 +20,7 @@
         self.GetTaskHistoryUri = '';
         self.TaskHistoryUri = '';
         self.GetActionListUri = '';
-        self.TableList = [];
+        self.TableList = {};
         self.CurrentTaskRow = '';
         self.RefreshCycleForm = null;
         self.Timer = null;
@@ -71,6 +71,9 @@
         };
         self.InitialRefreshCycleForm = function () {
             self.RefreshCycleForm = self.GetRefreshCycleForm();
+
+            // action list field
+            self.CreateActionListDropdown(self.RefreshCycleForm.find('.actionList'));
 
             // days field
             MC.ui.customcheckbox(self.RefreshCycleForm.find('[data-role="customcheckbox"]'));
@@ -224,8 +227,10 @@
             // enabled
             self.RefreshCycleForm.find('[name="IsEnabled"]').prop('checked', data.enabled);
 
-            // action list 
-            self.RefreshCycleForm.find('[name="Action"]').val(data.ActionList);
+            // action list
+            var actionList = self.RefreshCycleForm.find('[name="Action"]').data('handler');
+            actionList.value(data.ActionList);
+            actionList.trigger('change');
 
             // delta
             var deltaElement = self.RefreshCycleForm.find('[name="IsDelta"]');
@@ -275,32 +280,21 @@
             }
 
             // parameters [action list = 'tables']
-            self.BindingSpecifyTablesDataToForm(data);
+            self.BindingSpecifyTablesDataToForm(data.SpecifyTables);
 
             // task uri
             self.RefreshCycleForm.find('[name="Uri"]').val(data.Uri);
 
         };
-        self.BindingSpecifyTablesDataToForm = function (data) {
-            var tableList = data.SpecifyTables.split(' ');
+        self.BindingSpecifyTablesDataToForm = function (specifyTables) {
+            var tableList = specifyTables ? specifyTables.split(' ') : [];
 
             // parameters [action list = 'tables']
-            self.RefreshCycleForm.find('[name="Parameters"]').val(tableList.join(' '));
-            self.RefreshCycleForm.find('.specifyTablesCountItems').text(data.SpecifyTables ? tableList.length : 0);
+            self.RefreshCycleForm.find('[name="Parameters"]').val(specifyTables);
+            self.RefreshCycleForm.find('.specifyTablesCountItems').text(tableList.length);
 
             var specifyTablesLabel = self.RefreshCycleForm.find('#SelectedTableList');
             specifyTablesLabel.text(tableList.join(', '));
-
-            self.UpdateSpecifyTableLabelVisible(specifyTablesLabel, data.ActionList);
-        };
-        self.UpdateSpecifyTableLabelVisible = function (specifyTablesLabel, value) {
-            // if value of action list = 'tables' it will show textbox label
-            if (specifyTablesLabel.text() && value && value.toLowerCase() === 'tables') {
-                specifyTablesLabel.removeClass('hidden');
-            }
-            else {
-                specifyTablesLabel.addClass('hidden');
-            }
         };
         self.ResetFormData = function () {
             self.RefreshCycleForm = self.GetRefreshCycleForm();
@@ -319,7 +313,9 @@
             self.RefreshCycleForm.find('input[name="TaskName"]').val('');
 
             // action list 
-            self.RefreshCycleForm.find('[name="Action"]').val('');
+            var actionList = self.RefreshCycleForm.find('[name="Action"]').data('handler');
+            actionList.value('');
+            actionList.trigger('change');
 
             // delta
             var deltaElement = self.RefreshCycleForm.find('input[name="IsDelta"]');
@@ -372,16 +368,16 @@
                 return $.when();
             }
 
-            return $.when(MC.ajax.request({
-                url: self.GetActionListUri
-            }))
+            return MC.ajax
+                .request({
+                    url: self.GetActionListUri
+                })
                 .done(function (actionList) {
                     self.ActionsList = actionList;
                 });
         };
-        self.GetActionList = function (preValue) {
-            var actionList = jQuery.extend([], self.ActionsList);
-            return actionList;
+        self.GetActionList = function () {
+            return jQuery.extend([], self.ActionsList);
         };
         self.SetPreValueActionList = function (actionList, preValue) {
             actionList.unshift(preValue);
@@ -394,15 +390,6 @@
                 self.ActionsList = [];
             }
         };
-        self.OnActionListChanged = function (element) {
-            self.RefreshCycleForm = self.GetRefreshCycleForm();
-
-            var actionListContainer = self.RefreshCycleForm.find('[name="Action"]').closest('.contentSectionInfoItem');
-            var specifyTablesLabel = actionListContainer.find('#SelectedTableList');
-            var value = element.value;
-
-            self.UpdateSpecifyTableLabelVisible(specifyTablesLabel, value);
-        };
         self.CreateActionListDropdown = function (dropdownElement) {
             var preValue = {
                 id: '',
@@ -413,34 +400,29 @@
 
             var kendoDropdown = dropdownElement.kendoDropDownList({
                 dataValueField: 'id',
-                valueTemplate: '#: name #',
-                template: '#: name #',
+                dataTextField: 'name',
                 dataSource: {
                     data: dataSource
                 },
-                open: self.onOpenActionListDropdown,
-                change: self.onChangeActionListDropdown
+                open: self.OnOpenActionListDropdown,
+                change: self.OnChangeActionListDropdown
             })
                 .data('kendoDropDownList');
 
             return kendoDropdown;
         };
-        self.onOpenActionListDropdown = function (e) {
-            if (e.sender.element.filter('[name="Action"]').length) {
-                e.sender.list.width(145);
-                MC.form.validator.hideErrorMessage();
-            }
+        self.OnOpenActionListDropdown = function () {
+            MC.form.validator.hideErrorMessage();
         };
-        self.onChangeActionListDropdown = function (e) {
+        self.OnChangeActionListDropdown = function (e) {
             self.RefreshCycleForm = self.GetRefreshCycleForm();
 
             var actionListContainer = self.RefreshCycleForm.find('[name="Action"]').closest('.contentSectionInfoItem');
             var specifyTablesButton = actionListContainer.find('.descriptionLabel');
             var specifyTablesLabel = actionListContainer.find('#SelectedTableList');
-            var value = this.value();
-
+            
             // if value of action list = 'tables' it will show button
-            if (value === 'tables') {
+            if (self.IsTablesAction(e.sender.value())) {
                 specifyTablesButton.removeClass('hidden');
                 specifyTablesLabel.removeClass('hidden');
             }
@@ -448,6 +430,9 @@
                 specifyTablesButton.addClass('hidden');
                 specifyTablesLabel.addClass('hidden');
             }
+        };
+        self.IsTablesAction = function (action) {
+            return action.toLowerCase() === 'tables';
         };
         self.ShowActionLists = function () {
             var actionListPopupElement = $('#popupActionLists');
@@ -686,7 +671,7 @@
             var changedTablesOnly = !changedTablesOnlyElement.prop('disabled') && changedTablesOnlyElement.prop('checked');
             actionModel.arguments.push(self.CreateArgumentModel('new_and_changed_tables_only', changedTablesOnly));
 
-            if (actionList.val() === 'tables')
+            if (self.IsTablesAction(actionList.val()))
                 actionModel.arguments.push(self.CreateArgumentModel('parameters', jQuery.trim(actionListParams.val())));
 
             taskModel.name = self.RefreshCycleForm.find('[name^="TaskName"]').val();
@@ -845,48 +830,53 @@
         /* start specify table functions */
         self.ShowSpecifyTablesPopup = function () {
             var win = $('#popupSpecifyTables').data('kendoWindow');
+            if (!win)
+                return;
+            
+            var gridElement = win.element.find('.k-grid');
+            var grid = gridElement.data('kendoGrid');
+            if (!grid)
+                return;
 
-            if (win) {
-                var gridElement = win.element.find('.k-grid');
-                var grid = gridElement.data('kendoGrid');
+            // clear grid
+            grid.dataSource.data([]);
 
-                self.CurrentTaskRow = $('#TaskDetailGrid').find('tr.editRow');
+            self.CurrentTaskRow = $('#TaskDetailGrid').find('tr.editRow');
 
-                setTimeout(function () {
-                    MC.ui.popup('setScrollable', { element: '#popupSpecifyTables' });
-                    self.SetSpecifyTablesToTableList();
-                    self.SetTableListToGrid();
-                    grid.resize(true);
-                    self.ClearSpecifyTableGridLayout();
-                }, 1);
-            }
+            setTimeout(function () {
+                MC.ui.popup('setScrollable', {
+                    element: '#popupSpecifyTables',
+                    onResize: function () {
+                        $('#Grid .k-grid-content').height(win.element.find('.popupContent').height() - 75);
+                    }
+                });
+                self.SetSpecifyTablesToTableList();
+                self.SetTableListToGrid(grid);
+                grid.resize(true);
+                self.ClearSpecifyTableGridLayout();
+            }, 1);
         };
         self.SetSpecifyTablesToTableList = function () {
-            self.TableList = [];
+            self.TableList = {};
             self.RefreshCycleForm = self.GetRefreshCycleForm();
             var specifyTablesParams = self.RefreshCycleForm.find('input[name="Parameters"]').val();
             var parameters = specifyTablesParams ? specifyTablesParams.split(' ') : [];
 
             $.each(parameters, function (index, parameter) {
-                self.TableList.push({ local_name: parameter, specify_tables: true });
+                self.TableList[parameter] = true;
             });
         };
-        self.SetTableListToGrid = function () {
-            var grid = $("#Grid").data("kendoGrid");
-            if (grid && !grid.__bind_databound) {
-                grid.dataSource.data([]);
-                grid.bind('dataBound', function (e) {
-                    var dataItems = e.sender.dataItems();
-                    $.each(dataItems, function (key, value) {
-                        var table = self.TableList.findObject('local_name', value.local_name);
-                        if (table)
-                            value.set("specify_tables", table.specify_tables);
-                        else
-                            value.set("specify_tables", false);
-                    });
+        self.SetTableListToGrid = function (grid) {
+            if (!grid || grid.__bind_databound)
+                return;
+            
+            grid.__bind_databound = true;
+            grid.bind('dataBinding', function (e) {
+                $.each(e.sender.dataSource.data(), function (key, value) {
+                    var isSelected = self.TableList[value.local_name];
+                    value["specify_tables"] = isSelected;
                 });
-                grid.__bind_databound = true;
-            }
+            });
         };
         self.ClearSpecifyTableGridLayout = function () {
             $('#popupSpecifyTables .k-scrollbar-vertical').scrollTop(0);
@@ -896,13 +886,8 @@
             var grid = $("#Grid").data("kendoGrid");
             var tr = $(obj).closest('tr')[0];
             var data = grid.dataItem(tr);
-            var table = self.TableList.findObject('local_name', data.local_name);
-            var isSpecifyTables = $(obj).is(':checked');
-
-            if (table)
-                table.specify_tables = isSpecifyTables;
-            else
-                self.TableList.push({ local_name: data.local_name, specify_tables: isSpecifyTables });
+            var isSpecifyTables = $(obj).prop('checked');
+            self.TableList[data.local_name] = isSpecifyTables;
         };
         self.SetSpecifyTables = function () {
             var grid = jQuery('#TaskDetailGrid').data('kendoGrid');
@@ -911,17 +896,15 @@
 
             self.RefreshCycleForm = self.GetRefreshCycleForm();
 
-            var taskData = { SpecifyTables: [] };
-
             // refresh checkbox state
-            $.each(self.TableList, function (key, value) {
-                if (value.specify_tables)
-                    taskData.SpecifyTables.push(value.local_name);
+            var tables = [];
+            $.each(self.TableList, function (table, isSelected) {
+                if (isSelected)
+                    tables.push(table);
             });
 
             // update form data
-            taskData.SpecifyTables = taskData.SpecifyTables.join(' ');
-            self.BindingSpecifyTablesDataToForm(taskData);
+            self.BindingSpecifyTablesDataToForm(tables.join(' '));
 
             // close popup
             setTimeout(function () {

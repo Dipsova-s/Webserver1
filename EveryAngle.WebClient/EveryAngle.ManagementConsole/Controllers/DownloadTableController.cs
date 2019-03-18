@@ -72,31 +72,32 @@ namespace EveryAngle.ManagementConsole.Controllers
             return PartialView("~/Views/DownloadTable/DownloadTableGrid.cshtml");
         }
 
-        public ActionResult GetSpecifyTablesGrid(string modelId, string modelAgent, string modelUri, string q = "")
+        public ActionResult GetSpecifyTablesGrid(string modelId, string downloadTablesUri, string modelUri, string q = "")
         {
             ViewBag.ModelUri = modelUri;
-            AgentViewModel agent = _modelService.GetModelAgent(modelAgent);
             ViewData["DefaultPageSize"] = DefaultPageSize;
             ViewData["Keyword"] = q;
             ViewBag.ModelId = modelId;
-            ViewBag.DownloadTableUri = agent.DownloadTables.ToString();
+            ViewBag.DownloadTableUri = downloadTablesUri;
             return PartialView("~/Views/DownloadTable/SpecifyTablesGrid.cshtml");
         }
 
         [AcceptVerbs(HttpVerbs.Post)]
         public ActionResult ReadDownloadTable([DataSourceRequest] DataSourceRequest request, string downloadTableUri, string q)
         {
+            string uri = downloadTableUri;
             if (request != null)
             {
-                downloadTableUri += "?" + UtilitiesHelper.GetOffsetLimitQueryString(request.Page, request.PageSize, q);
-                downloadTableUri += PageHelper.GetQueryString(request, QueryString.DownloadTable);
+                string offsetLimit = UtilitiesHelper.GetOffsetLimitQueryString(request.Page, request.PageSize, q);
+                string query = PageHelper.GetQueryString(request, QueryString.DownloadTable);
+                uri = $"{downloadTableUri}?{offsetLimit}{query}";
             }
-
-            ListViewModel<DownloadTableViewModel> downloadTables = GetDownloadTable(downloadTableUri);
+            
+            ListViewModel<DownloadTableViewModel> downloadTables = _downloadTableService.GetDownloadTables(uri);
             DataSourceResult result = new DataSourceResult
             {
                 Data = downloadTables.Data,
-                Total = downloadTables.Header != null ? downloadTables.Header.Total : 0
+                Total = downloadTables.Header.Total
             };
             return Json(result);
         }
@@ -105,8 +106,7 @@ namespace EveryAngle.ManagementConsole.Controllers
         {
             string requestUri = UrlHelper.GetRequestUrl(URLType.NOA);
             DownloadTableViewModel downloadTable = _downloadTableService.GetDownloadTable(requestUri + downloadTableUri);
-
-            ViewBag.CustomCondition = downloadTable.custom_condition;
+            
             ViewBag.DeltaCondition = downloadTable.delta_condition;
             ViewBag.DeltaDownload = downloadTable.delta_download;
             ViewBag.DownloadAllFields = downloadTable.download_all_fields;
@@ -121,7 +121,7 @@ namespace EveryAngle.ManagementConsole.Controllers
             ViewBag.TableName = downloadTableName;
             ViewBag.DownloadTableUri = requestUri + downloadTableUri;
             ViewBag.DownloadTableFieldUri = requestUri + downloadTable.fields_uri;
-            ViewData["Total"] = downloadTableFields != null ? downloadTableFields.Data.Count() : 0;
+            ViewData["Total"] = downloadTableFields.Data.Count;
             ViewData["DefaultPageSize"] = DefaultPageSize;
             return PartialView("~/Views/DownloadTable/DowloadTableFieldsGrid.cshtml", downloadTableFields.Data);
         }
@@ -157,7 +157,6 @@ namespace EveryAngle.ManagementConsole.Controllers
             DownloadTableViewModel table = _downloadTableService.GetDownloadTable(tableUri);
             table.delta_download = deltaDownload;
             table.delta_condition = HttpUtility.UrlDecode(deltaCondition.Trim());
-            table.custom_condition = HttpUtility.UrlDecode(customCondition.Trim());
             table.download_all_fields = downloadAllFields;
 
             _downloadTableService.UpdateDownloadTableField(tableUri, JsonConvert.SerializeObject(table, new JsonSerializerSettings
@@ -220,7 +219,7 @@ namespace EveryAngle.ManagementConsole.Controllers
             DataSourceResult result = new DataSourceResult
             {
                 Data = downloadTables,
-                Total = downloadTables == null ? 0 : downloadTables.Count()
+                Total = downloadTables == null ? 0 : downloadTables.Count
             };
 
             return Json(result);
@@ -236,20 +235,11 @@ namespace EveryAngle.ManagementConsole.Controllers
 
             List<DownloadTableFieldViewModel> downloadTables = _downloadTableService.GetDownloadTableFields(fieldsUri + queryString, isEnable).Data;
             ViewData["Keyword"] = q;
-            ViewData["Total"] = downloadTables == null ? 0 : downloadTables.Count();
+            ViewData["Total"] = downloadTables == null ? 0 : downloadTables.Count;
             ViewData["DefaultPageSize"] = DefaultPageSize;
             ViewBag.DownloadTablefieldUri = fieldsUri;
 
             return PartialView("~/Views/DownloadTable/DowloadTableAvailableFieldsGrid.cshtml", downloadTables);
-        }
-
-        #endregion
-
-        #region "Private"
-
-        private ListViewModel<DownloadTableViewModel> GetDownloadTable(string downloadTableUri)
-        {
-            return _downloadTableService.GetDownloadTables(downloadTableUri);
         }
 
         #endregion

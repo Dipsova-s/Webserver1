@@ -264,6 +264,28 @@ namespace EveryAngle.Core.ViewModels.Model
 
         [JsonProperty(PropertyName = "is_modelserver_switchable")]
         public bool IsModelserverSwitchable { get; set; }
+
+        private Uri download_tables_uri;
+        [JsonProperty(PropertyName = "tabledefinitions")]
+        public virtual Uri TableDefinitions
+        {
+            get { return download_tables_uri; }
+            set
+            {
+                download_tables_uri = new Uri(UrlHelper.GetRequestUrl(URLType.NOA) + value);
+            }
+        }
+
+        private Uri action_lists_uri;
+        [JsonProperty(PropertyName = "actionlists")]
+        public virtual Uri ActionLists
+        {
+            get { return action_lists_uri; }
+            set
+            {
+                action_lists_uri = new Uri(UrlHelper.GetRequestUrl(URLType.NOA) + value);
+            }
+        }
     }
 
     public class CompanyInformationViewModel

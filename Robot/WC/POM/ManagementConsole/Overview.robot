@@ -17,7 +17,6 @@ ${divSideMenuModels}                        sideMenu-Models
 ${divSideMenuModelsAllModels}               sideMenu-Models-AllModels
 ${divSideMenuModelsEA2_800}                 sideMenu-Models-EA2_800
 ${divSideMenuModelsEA2_800Roles}            jquery=#sideMenu-Models-EA2_800-Roles>a
-${divSideMenuModules}                       sideMenu-Models-EA2_800-Modules
 ${divSideMenuModelLanguages}                sideMenu-Models-EA2_800-Languages
 ${divSideMenuSuggestedFields}               sideMenu-Models-EA2_800-SuggestedFields
 ${divSideMenuRefreshCycle}                  sideMenu-Models-EA2_800-RefreshCycle
@@ -146,15 +145,6 @@ Click Side Menu Models EA2_800
     Wait Until Page Contains    Content settings
     Wait Until Page Contains    Languages
     Wait Until Page Contains    Roles
-    Sleep    ${TIMEOUT_GENERAL}
-
-Click Side Menu Modules
-    Wait MC Progress Bar Closed
-    Sleep    ${TIMEOUT_GENERAL}
-    Wait Until Page Contains Element    ${divSideMenuModules}
-    Click Element    ${divSideMenuModules}
-    Wait MC Progress Bar Closed
-    Wait Until Page Contains    All modules
     Sleep    ${TIMEOUT_GENERAL}
 
 Click Side Menu Model Languages

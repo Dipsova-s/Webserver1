@@ -9,7 +9,7 @@ using RestSharp;
 
 namespace EveryAngle.WebClient.Service.ApiServices
 {
-    public class DownloadTableService : IDownloadTableService
+    public class DownloadTableService : BaseService, IDownloadTableService
     {
         #region Contructor
 
@@ -27,18 +27,15 @@ namespace EveryAngle.WebClient.Service.ApiServices
 
         public ListViewModel<DownloadTableViewModel> GetDownloadTables(string uri)
         {
-            var result = new ListViewModel<DownloadTableViewModel>();
-            var requestManager = RequestManager.Initialize(uri);
-            var downloadTablesResult = requestManager.Run();
-            if (downloadTablesResult.SelectToken("tables") != null)
+            List<DownloadTableViewModel> tables = GetArrayItems<DownloadTableViewModel>(uri).ToList();
+            return new ListViewModel<DownloadTableViewModel>
             {
-                result.Data =
-                    JsonConvert.DeserializeObject<List<DownloadTableViewModel>>(
-                        downloadTablesResult.SelectToken("tables").ToString());
-                result.Header =
-                    JsonConvert.DeserializeObject<HeaderViewModel>(downloadTablesResult.SelectToken("header").ToString());
-            }
-            return result;
+                Data = tables,
+                Header = new HeaderViewModel
+                {
+                    Total = tables.Count
+                }
+            };
         }
 
         public ListViewModel<DownloadTableFieldViewModel> GetDownloadTableFields(string uri, bool isEnabled)

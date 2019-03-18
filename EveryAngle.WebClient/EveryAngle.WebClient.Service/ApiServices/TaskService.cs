@@ -14,7 +14,6 @@ namespace EveryAngle.WebClient.Service.ApiServices
 
         private const string ATTRIBUTE_TASKS = "tasks";
         private const string ATTRIBUTE_TASKHIROTIES = "event_log";
-        private const string ATTRIBUTE_ACTIONLIST = "actionlists";
 
         #endregion
 
@@ -130,7 +129,7 @@ namespace EveryAngle.WebClient.Service.ApiServices
         public List<ActionListViewModel> GetActionList(string actionListUri)
         {
             // order by name for using in dropdown list
-            return GetItems<ActionListViewModel>(actionListUri, ATTRIBUTE_ACTIONLIST)
+            return GetArrayItems<ActionListViewModel>(actionListUri)
                 .OrderBy(o => o.name).ToList();
         }
 
