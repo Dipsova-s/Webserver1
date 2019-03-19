@@ -4,9 +4,15 @@ Create Context
     ${parts}     Split String     ${url}    ://
     ${scheme}    Get From List    ${parts}    0
     ${host}      Get From List    ${parts}    1
+	${host}      Remove String    ${host}    /
     Create Http Context    ${host}    ${scheme}
     Set Basic Auth    ${user}    ${pwd}
 
+Create Context: Web
+    [Arguments]    ${user}=${AdminUsername}    ${pwd}=${Password}
+    ${url}    Execute JavaScript    return window.webAPIUrl;
+    Create Context    ${url}    ${user}    ${pwd}	
+	
 Create Context: Current Server
     [Arguments]    ${user}=${AdminUsername}    ${pwd}=${Password}
     Create Context    ${PREF_SERVER_CURRENT}    ${user}    ${pwd}
@@ -30,6 +36,7 @@ Send GET
 Send PUT
     [Arguments]   ${path}    ${data}    ${success}=True
     Set Next Request Expectation    ${success}
+	Set Request Header    Content-Type    application/json
     ${body}    Get Request Body    ${data}
     Set Request Body    ${body}
     PUT     ${path}
@@ -137,3 +144,4 @@ Clean Up Items
     : FOR    ${item}    IN   @{items}
     \    Run Keyword    Run Keyword    Create Context: ${target}
     \    Send DELETE    ${item}
+
