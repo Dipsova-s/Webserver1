@@ -479,41 +479,32 @@ namespace EveryAngle.ManagementConsole.Controllers
 
         public ActionResult GetWelcomePage()
         {
-            var version = SessionHelper.Version;
-            var webClientSetting =
-                globalSettingService.GetWebClientSettings(version.GetEntryByName("webclient_settings").Uri +
-                                                          "?multilingual=yes");
-            var systemLanguages = GetLanguages(true).Data;
-            var languagesList = new List<Tuple<string, string, int>>();
-            foreach (var systemLanguage in systemLanguages)
-            {
-                languagesList.Add(Tuple.Create(systemLanguage.Id, systemLanguage.Name, systemLanguage.Id == "en" ? 0 : 1));
-            }
+            // request to appserver
+            string requestUri = $"{SessionHelper.Version.GetEntryByName("webclient_settings").Uri}?multilingual=yes";
+            WebClientSettingViewModel webClientSetting = globalSettingService.GetWebClientSettings(requestUri);
 
-            ViewData["EnabledLanguages"] = languagesList.OrderBy(lang => lang.Item3).ToList();
+            // languages
+            List<Tuple<string, string, int>> languages = new List<Tuple<string, string, int>>();
+            IList<SystemLanguageViewModel> systemLanguages = GetLanguages(true).Data;
+            foreach (SystemLanguageViewModel systemLanguage in systemLanguages)
+                languages.Add(Tuple.Create(systemLanguage.Id, systemLanguage.Name, "en".Equals(systemLanguage.Id) ? 0 : 1));
 
-            if (!string.IsNullOrEmpty(webClientSetting.companylogo) &&
-                webClientSetting.companylogo != "http://www.yahoo.com/" &&
-                webClientSetting.companylogo != "http://www.everyangle.com/")
-            {
-                ViewBag.CompanyLogo = webClientSetting.companylogo;
-            }
-            else
-            {
-                ViewBag.CompanyLogo = "";
-            }
+            // company logo
+            IList<string> backlistCompanyLogoUrls = new List<string> { "http://www.yahoo.com/", "http://www.everyangle.com/" };
+            bool isInvalidCompanyLogo = string.IsNullOrEmpty(webClientSetting.companylogo) && backlistCompanyLogoUrls.Contains(webClientSetting.companylogo);
 
-            // check videos which are missing thumbnail
+            // training videos
             string rootPath = UtilitiesHelper.GetWebClientPath();
             string videoPath = rootPath + @"resources\movies\";
-            List<string> videosList = VideoHelper.GetVideosNoThumbnailFromDirectory(videoPath, true);
-            int loop;
-            int loopCount = videosList.Count;
-            for (loop = 0; loop < loopCount; loop++)
-            {
-                videosList[loop] = UtilitiesHelper.GetWebClientUrl(videosList[loop].Substring(rootPath.Length).Replace("\\", "/"));
-            }
-            ViewData["VideosNoThumbnail"] = videosList;
+            IList<string> videos = VideoHelper.GetVideosNoThumbnailFromDirectory(videoPath, true)
+                                        .Select(x => UtilitiesHelper.GetWebClientUrl(x.Substring(rootPath.Length).Replace("\\", "/")))
+                                        .ToList();
+
+            // viewbags
+            ViewBag.VideosNoThumbnail = videos;
+            ViewBag.EnabledLanguages = languages.OrderBy(lang => lang.Item3).ToList();
+            ViewBag.CompanyLogoUrl = isInvalidCompanyLogo ? string.Empty : $"{webClientSetting.companylogo}?v={DateTime.Now}";
+            ViewBag.CompanyLogoDefaultUrl = isInvalidCompanyLogo ? string.Empty : webClientSetting.companylogo;
 
             return PartialView("~/Views/GlobalSettings/WelcomePage/WelcomePage.cshtml", webClientSetting);
         }

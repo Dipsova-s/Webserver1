@@ -597,14 +597,14 @@
 
 .sectionWelcomeSecondRow .sectionWelcome {
     min-height: 394px;
-    border-radius: 4px;
+    border-radius: 2px;
     border: solid 1px #e1e8ee;
     position: relative;
     background-color: #ffffff;
 }
 
 .sectionWelcomeSecondRow .header {
-    border-bottom: solid 1px #e1e8ee;
+    border-bottom: 1px solid #f5f5f5;
 }
 
 .sectionWelcomeSecondRow .header strong {
@@ -675,6 +675,11 @@
 
 .sectionWelcomeDetail1 .content {
     padding-right: 50px;
+}
+
+.sectionWelcome.notificationsFeed .content {
+    padding: 0;
+    height: auto;
 }
 
 .sectionWelcome.notificationsFeed .list {

@@ -1,30 +1,35 @@
 ﻿
-function WCNotificationsFeedModel(notificationsFeedRepository, notificationsOpeningFunction) {
+function WCNotificationsFeedCreator() {
+    "use strict";
+}
+WCNotificationsFeedCreator.Create = function (userId) {
+    NotificationsFeedRepository.UserId = userId;
+    NotificationsFeedRepository.Init();
+    notificationsFeedHandler.IsTouchDevice = Modernizr.touch;
+    notificationsFeedHandler.LoadFeeds(true);
+};
+
+function WCNotificationsFeedModel(notificationsFeedRepository, notificationsOpeningFunction, setTimeoutFunction) {
     "use strict";
 
-    NotificationsFeedModel.call(this, notificationsFeedRepository, notificationsOpeningFunction);
+    NotificationsFeedModel.call(this, notificationsFeedRepository, notificationsOpeningFunction, setTimeoutFunction);
 }
 WCNotificationsFeedModel.prototype = Object.create(NotificationsFeedModel.prototype);
 WCNotificationsFeedModel.prototype.constructor = WCNotificationsFeedModel;
 
-WCNotificationsFeedModel.prototype.StripHTML = function (html) {
-    return WC.HtmlHelper.StripHTML(html);
-};
-WCNotificationsFeedModel.prototype.ConvertDateToTimestamp = function (dateGmt) {
+WCNotificationsFeedModel.prototype.ConvertDateGmtToTimestamp = function (dateGmt) {
     return dateGmt ? WC.DateHelper.LocalDateToUnixTime(new Date(dateGmt)) : '';
 };
 WCNotificationsFeedModel.prototype.ConvertTimestampToLocalDate = function (timestamp) {
     return WC.DateHelper.UnixTimeToLocalDate(timestamp);
 };
-WCNotificationsFeedModel.prototype.ConvertLocalDateToDateView = function (localDate) {
-    return localDate ? kendo.toString(localDate, 'dd-MM-yyyy, HH:mm') : 'n/a';
+WCNotificationsFeedModel.prototype.ConvertTimestampToDateView = function (timestamp) {
+    return WC.FormatHelper.GetFormattedValue(enumHandlers.FIELDTYPE.DATETIME_WC, timestamp);
 };
 
-var notificationsFeedHandler = new NotificationsFeedHandler(
+var notificationsFeedHandler = notificationsFeedHandler = new NotificationsFeedHandler(
     new WCNotificationsFeedModel(
-        new NotificationsFeedRepository(
-            userModel && userModel.Data() && userModel.Data().id ? userModel.Data().id : null
-        ),
+        new NotificationsFeedRepository(),
         userSettingsView.ToggleMenuNotificationsFeed
     )
 );

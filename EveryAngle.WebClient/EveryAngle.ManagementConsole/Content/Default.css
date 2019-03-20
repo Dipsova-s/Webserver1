@@ -137,6 +137,12 @@ button:disabled {
     color: #ccc;
 }
 
+.textEllipsis {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
 /* scrollbar
 ================================== */
 ::-webkit-scrollbar {
@@ -470,43 +476,57 @@ textarea.error {
 .topMenu {
     float: right;
     position: relative;
-    display: table;
-    margin-top: 12px;
-    margin-right: 28px;
-    font-size: 12px;
-    height: 20px;
-    line-height: 20px;
+    box-sizing: border-box;
+    padding-top: 14px;
+    padding-right: 28px;
+    height: 100%;
+    line-height: normal;
 }
 
 .topMenu .menuItem {
     display: table-cell;
     vertical-align: middle;
-    padding-left: 32px;
+    padding-left: 10px;
 }
 
 .topMenu .menuItem a {
     display: block;
     color: #333;
+    font-size: 12px;
 }
 .topMenu .menuItem a:hover {
     color: #666;
 }
 
-.helpIcon {
+#UserControlName {
+    color: #3d4852;
+    letter-spacing: 0.2px;
+    padding-right: 3px;
+    min-width: 50px;
+    max-width: 100px;
+    box-sizing: border-box;
+    display: inline-block;
+}
+
+#UserMenuControl .icon {
+    float: right;
+}
+
+.menuItem a:not(#UserMenuControl) .icon {
     display: block;
+    margin-top: -5px;
+    width: 24px;
+    height: 24px;
+}
+
+.helpIcon {
     background: transparent url('../images/icons/help.svg') left center no-repeat;
-    width: 20px;
-    height: 20px;
 }
 
 .downArrow {
-    position: relative;
-    top: 1px;
-    display: inline-block;
-    background: transparent url(../images/icons/icon_arrow_down.svg) left center no-repeat;
+    background: transparent url(../images/icons/icon_arrow_down.svg) center center no-repeat;
     width: 12px;
     height: 12px;
-    margin-left: 3px;
 }
 
 .systemInfo {

@@ -27,7 +27,7 @@
         var logoutPageUrl = '@Url.Action("Logout", "User").ToLower()';
         var ClientVersion = '@EveryAngle.Shared.Helpers.AssemblyInfoHelper.GetFileVersion()';
         var videoRepoPath = '@Url.Content("~/Scripts/VideoPlayer/").ToLower()';
-        var NotificationsFeed = {
+        var notificationsFeed = {
             dataUrl: '@Html.Raw(EveryAngle.Shared.Helpers.WebConfigHelper.GetAppSettingByKey("NotificationsFeedDataUrl"))',
             viewAllUrl: '@EveryAngle.Shared.Helpers.WebConfigHelper.GetAppSettingByKey("NotificationsFeedViewAllUrl")'
         };

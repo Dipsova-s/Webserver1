@@ -1,4 +1,6 @@
 ﻿/// <reference path="/Dependencies/ViewModels/Models/User/usermodel.js" />
+/// <reference path="/Dependencies/ViewModels/Models/User/usersettingmodel.js" />
+/// <reference path="/Dependencies/ViewModels/Shared/DataType/DataType.js" />
 /// <reference path="/Dependencies/ViewManagement/User/UserSettingView.js" />
 /// <reference path="/../SharedDependencies/notificationsfeed.js" />
 /// <reference path="/Dependencies/ViewManagement/Shared/NotificationsFeedHandler.js" />
@@ -23,7 +25,8 @@ describe("NotificationsFeed", function () {
         var userId = 'localhost\HeroJa';
         var toggleMenuFunction = function () { };
 
-        notificationsFeedRepository = new NotificationsFeedRepository(userId);
+        NotificationsFeedRepository.UserId = userId;
+        notificationsFeedRepository = new NotificationsFeedRepository();
 
         notificationsFeedModel = new WCNotificationsFeedModel(
             notificationsFeedRepository,
@@ -159,6 +162,7 @@ describe("NotificationsFeed", function () {
 
         it(".ToggleNotificationsMenu", function () {
             spyOn(notificationsFeedModel, 'MarkAndUpdateAllAsNotified');
+            spyOn(notificationsFeedModel, 'DisplayRadialClickedEffect').and.callFake(jQuery.noop);
             notificationsFeedModel.ToggleNotificationsMenu();
             expect(notificationsFeedModel.MarkAndUpdateAllAsNotified).toHaveBeenCalled();
         });

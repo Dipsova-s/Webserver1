@@ -61,6 +61,15 @@
             }
         },
 
+        // date utilities
+        localDateToUnixTimestamp: function (localDate) {
+            var kendoDate = kendo.date.getDate(localDate);
+            return kendo.date.toUtcTime(kendoDate) / 1000;
+        },
+        unixTimestampToDate: function (unixTimestamp) {
+            return new Date(unixTimestamp * 1000);
+        },
+
         // display
         getDisplayTimeUTC: function (seconds) {
             if (seconds == null)

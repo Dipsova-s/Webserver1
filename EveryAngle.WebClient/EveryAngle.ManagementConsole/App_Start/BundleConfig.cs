@@ -60,7 +60,8 @@ namespace EveryAngle.ManagementConsole
                 "~/Scripts/Custom/MC.ajax.js",
                 "~/Scripts/Custom/MC.topmenu.js",
                 "~/Scripts/Custom/MC.sidemenu.js",
-                "~/Scripts/Custom/MC.content.js"
+                "~/Scripts/Custom/MC.content.js",
+                "~/Scripts/Custom/MC.ui.notificationsfeed.js"
                 ));
 
 
@@ -95,6 +96,7 @@ namespace EveryAngle.ManagementConsole
                 .Include("~/content/login.css"));
 
             bundles.Add(new ScriptBundle("~/resources/embedded/sharedjs")
+                .Include("~/resources/embedded/notificationsfeed.js")
                 .Include("~/resources/embedded/shared.js")
                 .Include("~/resources/embedded/customkendogridui.js"));
 
@@ -109,6 +111,7 @@ namespace EveryAngle.ManagementConsole
                 .Include("~/Content/ExternalResource/businessprocesses.css")
                 .Include("~/Content/ExternalResource/fieldschooser.css")
                 .Include("~/Content/ExternalResource/classeschooser.css")
+                .Include("~/Content/ExternalResource/notificationsfeed.css")
                 .Include("~/Content/ExternalResource/shared.css")
                 );
             bundles.Add(new CustomScriptBundle("~/bundles/automationtasks/tasks")

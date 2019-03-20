@@ -3,19 +3,6 @@
 @using EveryAngle.Shared.Globalization
 @model EveryAngle.Core.ViewModels.SystemSettings.WebClientSettingViewModel
 
-<script>
-    MC.util.loadScript({
-        test: MC.GlobalSettings && MC.GlobalSettings.WelcomePage,
-        url: '@Scripts.Url("~/bundles/globalsettings/welcomepage")',
-        callback: function () {
-            MC.GlobalSettings.WelcomePage.Initial({
-                SaveVideoThumbnailUri: '@Url.Action("SaveVideoThumbnail", "GlobalSettings")',
-                WelcomeData: @Html.Raw(Json.Encode(Model)),
-                VideosNoThumbnailData: @Html.Raw(Json.Encode(ViewData["VideosNoThumbnail"]))
-            });
-        }
-    });
-</script>
 @{
     List<PageToolbarButtonModel> buttons = new List<PageToolbarButtonModel>();
        
@@ -27,6 +14,7 @@
         CssClass = "btnGenerateThumbnails",
         Privilege = PrivilegeType.System
     });
+
     buttons.Add(new PageToolbarButtonModel
     {
         Type = PageToolbarButtonType.Save,
@@ -42,78 +30,98 @@
     @Html.RenderPageToolbar(buttons)
 }
 
+<script>
+    MC.util.loadScript({
+        test: MC.GlobalSettings && MC.GlobalSettings.WelcomePage,
+        url: '@Scripts.Url("~/bundles/globalsettings/welcomepage")',
+        callback: function () {
+            MC.GlobalSettings.WelcomePage.Initial({
+                SaveVideoThumbnailUri: '@Url.Action("SaveVideoThumbnail", "GlobalSettings")',
+                WelcomeData: @Html.Raw(Json.Encode(Model)),
+                VideosNoThumbnailData: @Html.Raw(Json.Encode(ViewBag.VideosNoThumbnail))
+            });
+        }
+    });
+</script>
+
 <form action="@Url.Action("SaveWelcomePage", "GlobalSettings", new { lang = "en" })" data-role="validator" enctype="multipart/form-data" id="WelcomPageForm" method="post">
     <div class="content pageWelcome">
+
         <div class="contentSection contentSectionInfo">
             <h2>@Resource.Language</h2>
             <div class="contentSectionInfoItem">
                 <label>@Resource.Select @Resource.Language</label>
                 <p>
                     <select id="SelectWelcomeLanguage" onchange="MC.GlobalSettings.WelcomePage.ChangeWelcomeLanguage(this)" data-default="en">
-                        @foreach (var language in ViewData["EnabledLanguages"] as List<Tuple<string, string, int>>)
-                        {
-                            <option value="@language.Item1">@language.Item2</option>
-                    }
+                        @foreach (var language in ViewBag.EnabledLanguages as List<Tuple<string, string, int>>)
+                        { <option value="@language.Item1">@language.Item2</option> }
                     </select>
                 </p>
             </div>
         </div>
-        <!--/.contentSectionInfo-->
 
-        <div class="contentSection contentSectionWelcomeLogo">
-            <h2>@Resource.MC_UploadCustomerLogo</h2>
-            <div class="contentSectionWelcomeLogoItem">
-                <img src="@(ViewBag.CompanyLogo != "" ? ViewBag.CompanyLogo + "?v=" + DateTime.Now : ViewBag.CompanyLogo)" data-default="@ViewBag.CompanyLogo" alt="Customer logo" id="CompanyLogoPreview" />
-                <div class="k-widget k-upload">
-                    <div class="k-upload-button">
-                        <input type="file" id="companyLogo" name="file" title="Upload logo" onchange="MC.GlobalSettings.WelcomePage.ShowLogoPreview(event)" data-rule-extension="jpg|jpeg|png" autocomplete="off" />
+        <div class="imageAndTextSection">
+            <div class="contentSection contentSectionWelcomeLogo">
+                <h2>@Resource.MC_UploadCustomerLogo</h2>
+                <div class="contentSectionWelcomeLogoItem">
+                    <img src="@ViewBag.CompanyLogoUrl" data-default="@ViewBag.CompanyLogoDefaultUrl" alt="Customer logo" id="CompanyLogoPreview" />
+                    <div class="k-widget k-upload">
+                        <div class="k-upload-button">
+                            <input type="file" id="companyLogo" name="file" title="Upload logo" onchange="MC.GlobalSettings.WelcomePage.ShowLogoPreview(event)" data-rule-extension="jpg|jpeg|png" autocomplete="off" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="contentSection contentSectionWelcomeDetail1">
+                <h2>@Resource.Textbox1</h2>
+                <div class="contentSectionWelcomeDetail1Item">
+                    @(
+                        Html.Kendo().Editor()
+                            .Name("IntroductionText")
+                            .Resizable(resizable => resizable.Content(true))
+                            .HtmlAttributes(new { maxlength = 1048576 })
+                    )
+                </div>
+            </div>
+        </div>
+
+        <div class="newsSection">
+            <div class="row">
+                <div class="column6 columnExtraLarge3">
+                    <div class="contentSection">
+                        <h2>@Resource.WelcomeMessages</h2>
+
+                        <div class="columnContent contentSectionWelcomeDetail2Item">
+                            @(
+                                Html.Kendo().Editor()
+                                    .Name("NewsText")
+                                    .HtmlAttributes(new { maxlength = 1048576, style = "height: 100%" })
+                            )
+                        </div>
+                    </div>
+                </div>
+
+                <div class="column6 columnExtraLarge3">
+                    <div class="contentSection">
+                        <h2>@Resource.NotificationsFeed_Updates</h2>
+                        <div class="columnContent contentSectionWelcomeMovieItem">
+                            <div class="contentSectionWelcomePreviewModule"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="column12 columnExtraLarge6">
+                    <div class="contentSection">
+                        <h2>@Resource.Training @Resource.Movies</h2>
+                        <div class="columnContent contentSectionWelcomeMovieItem">
+                            <div class="contentSectionWelcomePreviewModule"></div>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-        <!--/.contentSectionWelcomeLogo-->
 
-        <div class="contentSection contentSectionWelcomeDetail1">
-            <h2>@Resource.Textbox1</h2>
-            <div class="contentSectionWelcomeDetail1Item">
-                @Html.Kendo().Editor().Name("IntroductionText").HtmlAttributes(new { maxlength = 1048576 })
-            </div>
-        </div>
-        <!--/.contentSectionWelcomeDetail1-->
-
-        <div class="clearfix"></div>
-        <div class="contentSection contentSectionWelcomeDetail2">
-            <h2>@Resource.Textbox2</h2>
-            
-            <div class="contentSectionWelcomeDetail2Item">
-                @Html.Kendo().Editor().Name("NewsText").HtmlAttributes(new { maxlength = 1048576 })
-            </div>
-        </div>
-        <!--/.contentSectionWelcomeDetail2-->
-
-        <div class="clearfix"></div>
-        <div class="contentSection contentSectionWelcomeMovie">
-            <h2>@Resource.Training @Resource.Movies</h2>
-            <div class="contentSectionWelcomeMovieItem">
-                <div class="contentSectionWelcomeMoviePreview"></div>
-                @*@(Html.Kendo().DropDownList()
-                .Name("MovieSet")
-                .Enable(false))*@
-            </div>
-           @* <div class="contentSectionWelcomeMovieItem">
-                <h4>@Resource.Link</h4>
-                <p>
-                    <label>@Resource.Address:</label>
-                    <input type="text" name="MovieLinkUrl" id="MovieLinkUrl" />
-                </p>
-                <p>
-                    <label>@Resource.Name:</label>
-                    <input type="text" name="MovieLinkTitle" id="MovieLinkTitle" />
-
-                </p>
-            </div>*@
-        </div>
-        <!--/.contentSectionWelcomeMovie-->
     </div>
     <input type="hidden" id="WebclientsettingsData" name="WebclientsettingsData" value="" />
 </form>

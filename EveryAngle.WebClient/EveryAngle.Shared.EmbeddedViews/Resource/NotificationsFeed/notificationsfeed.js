@@ -1,5 +1,5 @@
 ﻿
-function NotificationsFeedHandler(notificationsFeedModel) {
+function NotificationsFeedHandler(notificationsFeedModel, setTimeoutFunction, clearTimeoutFunction) {
     "use strict";
 
     var self = this;
@@ -10,10 +10,14 @@ function NotificationsFeedHandler(notificationsFeedModel) {
     var htmlClassnameDisable = 'disabled';
 
     var _model = notificationsFeedModel;
+    var _setTimeout = setTimeoutFunction || window.setTimeout;
+    var _clearTimeout = clearTimeoutFunction || window.clearTimeout;
+
+    self.IsTouchDevice = false;
 
     self.OnFeedLoaded = function (response) {
         _model.SetDataFeeds(response);
-        _model.SetDataViewAllUrl(NotificationsFeed.viewAllUrl);
+        _model.SetDataViewAllUrl(notificationsFeed.viewAllUrl);
     };
 
     self.OnFeedCannotLoaded = function (error) {
@@ -23,7 +27,7 @@ function NotificationsFeedHandler(notificationsFeedModel) {
         var feeds = _model.GetFeedsHistory();
         if (feeds.length) {
             _model.SetOfflineDataFeeds(feeds);
-            _model.SetDataViewAllUrl(NotificationsFeed.viewAllUrl);
+            _model.SetDataViewAllUrl(notificationsFeed.viewAllUrl);
         }
     };
 
@@ -83,10 +87,10 @@ function NotificationsFeedHandler(notificationsFeedModel) {
     };
 
     self.RequestFeedsHandling = function () {
-        setTimeout(function () {
+        _setTimeout(function () {
             // IMPORTANT: https://developer.wordpress.org/rest-api/using-the-rest-api/global-parameters/
             jQuery.ajax({
-                url: NotificationsFeed.dataUrl,
+                url: notificationsFeed.dataUrl,
                 type: 'get',
                 dataType: 'jsonp',
                 jsonp: '_jsonp',
@@ -123,19 +127,25 @@ function NotificationsFeedHandler(notificationsFeedModel) {
     };
 
     var applyScrollEventHandling = function () {
-        getContainerElement().find('.list').off('scroll').on('scroll', function () {
-            clearTimeout(scrollTimeout);
+        var listContainer = getContainerElement().find('.list');
 
-            scrollTimeout = setTimeout(function () {
+        listContainer.off('scroll').on('scroll', function () {
+            _clearTimeout(scrollTimeout);
+
+            scrollTimeout = _setTimeout(function () {
                 _model.MarkAndUpdateAllAsNotified();
                 _model.UpdateAllNewFeedsState();
             }, delay);
         });
+
+        if (self.IsTouchDevice) {
+            listContainer.addClass('scroll');
+        }
     };
 
 }
 
-function NotificationsFeedModel(notificationsFeedRepository, toggleNotificationsMenuFunction) {
+function NotificationsFeedModel(notificationsFeedRepository, toggleNotificationsMenuFunction, setTimeoutFunction) {
     "use strict";
 
     var self = this;
@@ -143,11 +153,16 @@ function NotificationsFeedModel(notificationsFeedRepository, toggleNotifications
     var negativeNumberOfMonth = 2;
 
     var _repository = notificationsFeedRepository;
+    var _setTimeout = setTimeoutFunction || window.setTimeout;
     var _toggleNotificationsMenuFunction = toggleNotificationsMenuFunction;
 
     var updateNumberOfNotify = function (feedIds) {
         var numberOfNotified = _repository.CountNumberOfNotify(feedIds);
         self.ViewModel.NumberOfNotify(numberOfNotified);
+    };
+
+    var stripHTML = function (html) {
+        return jQuery('<span/>').html(html).text();
     };
 
     self.ViewModel = {
@@ -164,11 +179,11 @@ function NotificationsFeedModel(notificationsFeedRepository, toggleNotifications
     self.SetDataFeeds = function (response) {
         if (jQuery.isArray(response)) {
             var feeds = self.MapFeedsView(response);
-            self.RebuildFeeds();
             self.SaveFeedsHistory(feeds);
             self.UpdateRepository(feeds);
             self.MapFeedsDateView(feeds);
             self.ViewModel.Feeds(feeds);
+            self.RebuildFeeds();
         }
     };
 
@@ -186,10 +201,10 @@ function NotificationsFeedModel(notificationsFeedRepository, toggleNotifications
             result = jQuery.map(response, function (data) {
                 return {
                     id: data.id,
-                    title: self.StripHTML(data.title.rendered),
-                    content: self.StripHTML(data.excerpt.rendered),
+                    title: stripHTML(data.title.rendered),
+                    content: stripHTML(data.excerpt.rendered),
                     url: data.link,
-                    createDate: self.ConvertDateToTimestamp(data.date_gmt),
+                    createDate: self.ConvertDateGmtToTimestamp(data.date_gmt),
                     isUnReadState: ko.observable(self.IsUnReadState(data.id)),
                     isNewState: ko.observable(self.IsNewState(data.id))
                 };
@@ -204,9 +219,7 @@ function NotificationsFeedModel(notificationsFeedRepository, toggleNotifications
 
     self.MapFeedsDateView = function (feeds) {
         jQuery.each(feeds, function (i, feed) {
-            feed.createDate = self.ConvertLocalDateToDateView(
-                self.ConvertTimestampToLocalDate(feed.createDate)
-            );
+            feed.createDate = self.ConvertTimestampToDateView(feed.createDate);
         });
     };
 
@@ -253,7 +266,9 @@ function NotificationsFeedModel(notificationsFeedRepository, toggleNotifications
         return true;
     };
 
-    self.ToggleNotificationsMenu = function () {
+    self.ToggleNotificationsMenu = function (data, event) {
+        self.DisplayRadialClickedEffect(event);
+
         if (_toggleNotificationsMenuFunction) {
             self.MarkAndUpdateAllAsNotified();
 
@@ -261,12 +276,23 @@ function NotificationsFeedModel(notificationsFeedRepository, toggleNotifications
                 self.UpdateAllNewFeedsState();
             }
 
-            setTimeout(function () {
+            _setTimeout(function () {
                 _toggleNotificationsMenuFunction();
             }, 0);
             
             isBellIconClicked = true;
         }
+    };
+
+    self.DisplayRadialClickedEffect = function (event) {
+        var bell = jQuery(event.currentTarget).parent().find('#NotificationsFeedIcon');
+        if (bell.hasClass('active'))
+            return;
+
+        bell.addClass('active');
+        _setTimeout(function () {
+            bell.removeClass('active');
+        }, 200);
     };
 
     self.MarkAndUpdateAllAsNotified = function () {
@@ -289,14 +315,13 @@ function NotificationsFeedModel(notificationsFeedRepository, toggleNotifications
 
     self.RebuildFeeds = function () {
         var newContents = {};
-        var now = new Date();
-        now.setMonth(new Date().getMonth() - negativeNumberOfMonth);
+        var twoMonthsDateAgo = self.GetTwoMonthsDateAgo();
         var contents = _repository.GetFeeds();
         jQuery.each(contents, function (contentId) {
             var content = contents[contentId];
             if (content.createDate) {
                 var contentDate = self.ConvertTimestampToLocalDate(content.createDate);
-                if (now > contentDate) {
+                if (contentDate > twoMonthsDateAgo) {
                     newContents[contentId] = content;
                 }
             }
@@ -304,10 +329,18 @@ function NotificationsFeedModel(notificationsFeedRepository, toggleNotifications
         _repository.SaveFeeds(newContents);
     };
 
+    self.GetTwoMonthsDateAgo = function () {
+        var twoMonthsDateAgo = new Date();
+        var currentMonth = new Date().getMonth();
+        twoMonthsDateAgo.setMonth(currentMonth - negativeNumberOfMonth);
+
+        return twoMonthsDateAgo;
+    };
+
     self.ReBuildReadState = function (ids) {
         var result = [];
         var history = _repository.GetCurrentUserFeedsHistory();
-        var feedIds = history[_repository.ReadStateIdsIndex];
+        var feedIds = history[NotificationsFeedRepository.ReadStateIdsIndex];
 
         jQuery.each(ids, function (i, id) {
             var isFeedStillRemain = jQuery.inArray(id, feedIds) !== -1;
@@ -317,7 +350,7 @@ function NotificationsFeedModel(notificationsFeedRepository, toggleNotifications
             }
         });
 
-        history[_repository.ReadStateIdsIndex] = result;
+        history[NotificationsFeedRepository.ReadStateIdsIndex] = result;
         _repository.SaveCurrentUserFeedsHistory(history);
     };
 
@@ -348,34 +381,27 @@ function NotificationsFeedModel(notificationsFeedRepository, toggleNotifications
             feed.isNewState(isNewState);
         });
     };
-
+    
 }
-NotificationsFeedModel.prototype.StripHTML = function (html) {
-    return html;
-};
-NotificationsFeedModel.prototype.ConvertDateToTimestamp = function (dateGmt) {
+NotificationsFeedModel.prototype.ConvertDateGmtToTimestamp = function (dateGmt) {
     return dateGmt;
 };
 NotificationsFeedModel.prototype.ConvertTimestampToLocalDate = function (timestamp) {
     return timestamp;
 };
-NotificationsFeedModel.prototype.ConvertLocalDateToDateView = function (localDate) {
-    return localDate;
+NotificationsFeedModel.prototype.ConvertTimestampToDateView = function (timestamp) {
+    return timestamp;
 };
 
-function NotificationsFeedRepository(userId) {
+function NotificationsFeedRepository() {
     "use strict";
 
     var self = this;
-    var _userId = userId;
-    
-    self.NotifiedIdsIndex = 'notified_ids';
-    self.ReadStateIdsIndex = 'read_state_ids';
 
     //#region count new coming feed
     self.MarkAsNotified = function (ids) {
         var history = self.GetCurrentUserFeedsHistory();
-        history[self.NotifiedIdsIndex] = ids;
+        history[NotificationsFeedRepository.NotifiedIdsIndex] = ids;
         self.SaveCurrentUserFeedsHistory(history);
     };
     self.CountNumberOfNotify = function (ids) {
@@ -398,7 +424,7 @@ function NotificationsFeedRepository(userId) {
     };
     self.GetNotifiedIds = function () {
         var history = self.GetCurrentUserFeedsHistory();
-        var feedIds = history[self.NotifiedIdsIndex];
+        var feedIds = history[NotificationsFeedRepository.NotifiedIdsIndex];
         return feedIds;
     };
     //#end region count new coming feed
@@ -406,7 +432,7 @@ function NotificationsFeedRepository(userId) {
     // #region read state
     self.IsReadState = function (id) {
         var history = self.GetCurrentUserFeedsHistory();
-        var feedIds = history[self.ReadStateIdsIndex];
+        var feedIds = history[NotificationsFeedRepository.ReadStateIdsIndex];
         var isRead = jQuery.inArray(id, feedIds) !== -1;
         return isRead;
     };
@@ -414,7 +440,7 @@ function NotificationsFeedRepository(userId) {
     self.MarkAsRead = function (id) {
         if (!self.IsReadState(id)) {
             var history = self.GetCurrentUserFeedsHistory();
-            history[self.ReadStateIdsIndex].push(id);
+            history[NotificationsFeedRepository.ReadStateIdsIndex].push(id);
             self.SaveCurrentUserFeedsHistory(history);
         }
     };
@@ -423,19 +449,12 @@ function NotificationsFeedRepository(userId) {
     //#region per user
     self.GetCurrentUserFeedsHistory = function () {
         var storage = jQuery.localStorage(NotificationsFeedRepository.StorageKey);
-        var result = storage.users[encodeURIComponent(_userId)];
+        var result = storage.users[encodeURIComponent(NotificationsFeedRepository.UserId)];
         return result;
     };
     self.SaveCurrentUserFeedsHistory = function (userFeedsHistory) {
         var storage = jQuery.localStorage(NotificationsFeedRepository.StorageKey);
-        storage.users[encodeURIComponent(_userId)] = userFeedsHistory;
-        jQuery.localStorage(NotificationsFeedRepository.StorageKey, storage);
-    };
-    var createNewCurrentUserFeedsHistory = function (storage) {
-        storage.users[encodeURIComponent(_userId)] = {};
-        var user = storage.users[encodeURIComponent(_userId)];
-        user[self.NotifiedIdsIndex] = [];
-        user[self.ReadStateIdsIndex] = [];
+        storage.users[encodeURIComponent(NotificationsFeedRepository.UserId)] = userFeedsHistory;
         jQuery.localStorage(NotificationsFeedRepository.StorageKey, storage);
     };
     //#end region per user
@@ -452,28 +471,36 @@ function NotificationsFeedRepository(userId) {
     };
     //#end region content
 
-    var installNewStorage = function () {
-        var storage = {
-            contents: {},
-            users: {}
-        };
-        jQuery.localStorage(NotificationsFeedRepository.StorageKey, storage);
-    };
-
-    var init = function () {
-        var storage = jQuery.localStorage(NotificationsFeedRepository.StorageKey);
-        if (!storage) {
-            installNewStorage();
-            storage = jQuery.localStorage(NotificationsFeedRepository.StorageKey);
-        }
-        if (_userId && !storage.users[encodeURIComponent(_userId)]) {
-            createNewCurrentUserFeedsHistory(storage);
-        }
-    };
-
-    init();
+    NotificationsFeedRepository.Init();
 }
 NotificationsFeedRepository.StorageKey = 'notifications_feed';
+NotificationsFeedRepository.NotifiedIdsIndex = 'notified_ids';
+NotificationsFeedRepository.ReadStateIdsIndex = 'read_state_ids';
+NotificationsFeedRepository.UserId = '';
+NotificationsFeedRepository.Init = function () {
+    var storage = jQuery.localStorage(NotificationsFeedRepository.StorageKey);
+    if (!storage) {
+        NotificationsFeedRepository.InstallNewStorage();
+        storage = jQuery.localStorage(NotificationsFeedRepository.StorageKey);
+    }
+    if (NotificationsFeedRepository.UserId && !storage.users[encodeURIComponent(NotificationsFeedRepository.UserId)]) {
+        NotificationsFeedRepository.CreateNewCurrentUserFeedsHistory(storage);
+    }
+};
+NotificationsFeedRepository.InstallNewStorage = function () {
+    var storage = {
+        contents: {},
+        users: {}
+    };
+    jQuery.localStorage(NotificationsFeedRepository.StorageKey, storage);
+};
+NotificationsFeedRepository.CreateNewCurrentUserFeedsHistory = function (storage) {
+    storage.users[encodeURIComponent(NotificationsFeedRepository.UserId)] = {};
+    var user = storage.users[encodeURIComponent(NotificationsFeedRepository.UserId)];
+    user[NotificationsFeedRepository.NotifiedIdsIndex] = [];
+    user[NotificationsFeedRepository.ReadStateIdsIndex] = [];
+    jQuery.localStorage(NotificationsFeedRepository.StorageKey, storage);
+};
 
 var notificationsFeedHeaderHtmlTemplate = function () {
     return [
@@ -500,14 +527,16 @@ var notificationsFeedPopOverHeaderTemplate = function () {
 
 var notificationsFeedTopMenuIconTemplate = function () {
     return [
+        '<span id="NotificationsFeedIcon" class="icon" data-bind="click: $root.ToggleNotificationsMenu">',
+            '<div class="animation"></div>',
+        '</span >',
         '<!-- ko if: ViewModel.NumberOfNotify -->',
         '<div class="notificationsFeedBadge hide" data-bind="click: $root.ToggleNotificationsMenu">',
             '<span class="number">',
                 '<span data-bind="text: ViewModel.NumberOfNotify"></span>',
             '</span>',
         '</div>',
-        '<!-- /ko -->',
-        '<span id="NotificationsFeedIcon" data-bind="click: $root.ToggleNotificationsMenu"></span>'
+        '<!-- /ko -->'
     ].join('');
 };
 
@@ -521,7 +550,7 @@ var notificationsFeedHtmlTemplate = function () {
                             '<div class="infoWrapper">',
                                 '<strong class="textEllipsis" data-bind="html: $data.title"></strong>',
                                 '<p class="truncatable" data-bind="html: $data.content"></p>',
-                                '<span class="icon"></span> <span class="createAt" data-bind="text: $data.createDate"></span>',
+                                '<span class="icon"></span> <span class="createAt" data-bind="text: $data.createDate" data-role="localize"></span>',
                             '</div>',
                         '</div>',
                     '</a>',
@@ -534,7 +563,9 @@ var notificationsFeedHtmlTemplate = function () {
 var notificationsFeedFooterHtmlTemplate = function () {
     return [
         '<!-- ko if: ViewModel.ViewAllUrl -->',
-        '<a data-bind="attr: {href: ViewModel.ViewAllUrl}" target="_blank">' + Localization.NotificationsFeed_ViewAll + '</a>',
+        '<div class="inner">',
+            '<a data-bind="attr: {href: ViewModel.ViewAllUrl}" target="_blank">' + Localization.NotificationsFeed_ViewAll + '</a>',
+        '</div>',
         '<!-- /ko -->'
     ].join('');
 };

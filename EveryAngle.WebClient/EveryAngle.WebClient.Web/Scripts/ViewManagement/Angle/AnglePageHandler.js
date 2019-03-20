@@ -237,7 +237,7 @@ function AnglePageHandler() {
 
             self.InitialEditNote();
 
-            notificationsFeedHandler.LoadFeeds(true);
+            WCNotificationsFeedCreator.Create(userModel.Data().id);
         }
 
         if (typeof callback === 'function')

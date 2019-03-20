@@ -599,8 +599,7 @@ img {
 }
 
 .icon.arrowDown {
-    background-image: url('../../images/icons/icon_arrow_down.svg');
-    background-position: center center;
+    background: url('../../images/icons/icon_arrow_down.svg') center center no-repeat;
     width: 12px;
     height: 12px;
 }
@@ -762,6 +761,7 @@ img {
     float: right;
     height: 100%;
     padding-top: 6px;
+    padding-right: 28px;
     box-sizing: border-box;
 }
 
@@ -776,7 +776,14 @@ img {
 #UserPanel li {
     vertical-align: middle;
     display: table-cell;
-    padding: 0 16px;
+    padding: 0 5px;
+}
+
+#UserPanel li > a:not(#UserControl) .icon {
+    display: block;
+    margin-top: -5px;
+    width: 24px;
+    height: 24px;
 }
 
 #UserPanel a {
@@ -800,11 +807,14 @@ img {
     min-width: 50px;
     max-width: 100px;
     padding-right: 3px;
-    line-height: 1.38;
     letter-spacing: 0.2px;
     color: #3d4852;
     box-sizing: border-box;
     display: inline-block;
+}
+
+#UserControl {
+    display: block;
 }
 
 #UserControl .icon {
@@ -812,11 +822,7 @@ img {
 }
 
 #HelpIcon {
-    display: block;
-    margin-top: -6px;
     background: transparent url('../../images/master/help.svg') left center no-repeat;
-    width: 22px;
-    height: 20px;
 }
 
 /* .popupUserMenu
@@ -900,7 +906,7 @@ img {
 ============================================ */
 .popupHelpMenu {
     top: 48px;
-    left: -80px;
+    left: -110px;
     width: 200px;
     display: none;
     border-color: #c5c5c5;

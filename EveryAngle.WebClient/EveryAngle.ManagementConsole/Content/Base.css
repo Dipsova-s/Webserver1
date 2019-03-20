@@ -568,7 +568,7 @@ div.tagsinput .not_valid {
 }
 
 .k-upload-button input {
-    font-size: 500px;
+    font-size: 500px !important;
 }
 
 .k-upload-button.disabled input {
@@ -2451,12 +2451,6 @@ form#ExportPackageForm .packageInfo .packageVersion input {
     line-height: normal;
 }
 
-.pageWelcome .contentSection {
-    border-width: 0;
-    padding: 5px;
-    border: 2px dashed #eee;
-}
-
 .pageWelcome .contentSection h2 {
     font-size: 14px;
     margin-bottom: 5px;
@@ -2473,118 +2467,114 @@ form#ExportPackageForm .packageInfo .packageVersion input {
     z-index: 1001;
 }
 
-.pageWelcome .contentSectionInfo {
-    border-color: transparent;
-    padding-bottom: 0;
-}
-
 .pageWelcome .contentSectionInfoItem > label {
     width: 100px;
 }
 
-.pageWelcome .contentSectionInfoItem > p {
-    margin-left: 120px;
+
+.pageWelcome .imageAndTextSection {
+    overflow: hidden;
 }
 
-.contentSectionWelcomeLogo {
+.pageWelcome .contentSectionWelcomeLogo {
     float: right;
     width: 230px;
+    margin-left: 20px;
 }
 
-.contentSectionWelcomeLogoItem {
+.pageWelcome .contentSectionWelcomeLogoItem {
     position: relative;
-    margin-bottom: 10px;
-    margin-right: 5px;
+    display: inline-block;
 }
 
-.contentSectionWelcomeLogoItem > img {
-    border: 2px solid #eee;
-    min-height: 50px;
-}
-
-.contentSectionWelcomeLogoItem .k-upload {
+.pageWelcome .contentSectionWelcomeLogoItem .k-upload {
     position: absolute;
     left: 0;
     top: 0;
     width: 100%;
     height: 100%;
-    border: 2px solid transparent;
     z-index: 2;
 }
 
-.contentSectionWelcomeLogoItem .k-upload-button {
+.pageWelcome .contentSectionWelcomeLogoItem .k-upload-button {
     width: 100%;
     height: 100%;
 }
 
-.contentSectionWelcomeDetail1 {
-    margin-right: 250px;
+
+.pageWelcome .contentSectionWelcomeDetail1 {
+    margin-right: 230px;
+    overflow: hidden;
 }
 
-.contentSectionWelcomeDetail1Item {
+.pageWelcome .contentSectionWelcomeDetail1Item {
     position: relative;
 }
 
-.contentSectionWelcomeMovie {
-    margin-right: 250px;
+.pageWelcome .contentSectionWelcomeDetail1Item table.k-editor {
+    min-height: 340px;
 }
 
-.contentSectionWelcomeMovie h4 {
-    font-size: 12px;
-    margin-bottom: 10px;
+.pageWelcome .contentSectionWelcomeDetail1Item .k-editor .k-resize-handle {
+    bottom: -5px;
+    right: -5px;
+    padding: 0;
 }
 
-.contentSectionWelcomeMovieItem,
-.contentSectionWelcomeMovieItem p {
-    margin-bottom: 10px;
+
+.pageWelcome .newsSection {
+    overflow: hidden;
 }
 
-.contentSectionWelcomeMoviePreview {
-    background-color: #eee;
-    min-height: 180px;
+.pageWelcome .newsSection .columnContent {
+    height: 323px;
 }
 
-.contentSectionWelcomeMovieItem .k-dropdown {
+.pageWelcome .contentSectionWelcomeDetail2Item {
+    position: relative;
+}
+
+.pageWelcome .contentSectionWelcomePreviewModule {
+    background-color: #fafafa;
+    height: 100%;
+}
+
+
+.pageWelcome .imageAndTextSection .contentSection,
+.pageWelcome .newsSection .contentSection {
+    border: 2px dashed #eee;
+    padding: 5px;
+}
+
+
+.pageWelcome .row {
+    margin-left: -10px;
+    margin-right: -10px;
+}
+
+.pageWelcome .row > div {
+    float: left;
+    padding-left: 10px;
+    padding-right: 10px;
+    box-sizing: border-box;
+}
+
+.pageWelcome .row .column6 {
+    width: 50%;
+}
+
+.pageWelcome .row .column12 {
     width: 100%;
 }
 
-.contentSectionWelcomeMovieItem p > label {
-    width: 60px;
-    display: inline-block;
-}
+@media screen and (min-width: 1366px) {
+    .pageWelcome .row .columnExtraLarge3 {
+        width: 25%;
+    }
 
-.contentSectionWelcomeMovieItem p > input {
-    width: 180px;
-}
-
-.contentSectionWelcomeDetail2 {
-    /*margin-left: 290px;*/
-    margin-right: 250px;
-}
-
-.contentSectionWelcomeDetail2 .details2Title {
-    width: 99.8%;
-    padding-left: 0;
-    padding-right: 0;
-    text-indent: 5px;
-}
-
-.contentSectionWelcomeDetail2Item {
-    position: relative;
-}
-
-.contentSectionWelcomeDetail2Item,
-.contentSectionWelcomeDetail2Item p {
-    margin-bottom: 10px;
-}
-
-.contentSectionWelcomeDetail2Item p > label {
-    margin-right: 10px;
-    display: inline-block;
-}
-
-.contentSectionWelcomeDetail2Item p > .k-widget {
-    width: 120px !important;
+    .pageWelcome .row .columnExtraLarge6 {
+        width: 50%;
+    }
 }
 
 /* .pageOVerview
@@ -4775,14 +4765,16 @@ a.mailto {
 }
 
 .popupUserMenu {
-    text-align: left;
-    top: 40px;
-    left: -40px;
-    width: 200px;
+    top: 48px;
+    right: 5px;
+    left: auto;
+    width: auto;
+    min-width: 200px;
+    max-width: 280px;
     display: none;
     position: absolute;
     z-index: 1002;
-    border: 1px solid #9c9c9c;
+    border: 1px solid #c5c5c5;
 }
 
 .popupUserMenu:before,
@@ -4838,14 +4830,13 @@ a.mailto {
 }
 
 .popupHelpMenu {
-    text-align: left;
-    top: 40px;
-    left: -118px;
+    top: 48px;
+    left: -105px;
     width: 200px;
     display: none;
     position: absolute;
     z-index: 1002;
-    border: 1px solid #9c9c9c;
+    border: 1px solid #c5c5c5;
 }
 
 .popupHelpMenu:before,
@@ -4894,6 +4885,17 @@ a.mailto {
 .popupHelpMenu a span {
     padding-left: 0;
 }
+
+
+.popupNotificationsFeedMenu {
+    left: -315px;
+}
+
+.popupNotificationsFeedMenu .header {
+    background-color: #fff;
+    box-shadow: none;
+}
+
 
 .iconDisplay {
     display: block;
