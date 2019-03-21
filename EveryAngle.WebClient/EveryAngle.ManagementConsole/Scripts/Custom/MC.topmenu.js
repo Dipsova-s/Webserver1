@@ -1,34 +1,52 @@
 (function (win) {
 
     var topMenu = {
+        menuIds: {
+            notifications: 'NotificationsFeedMenu',
+            help: 'HelpMenu',
+            user: 'UserMenu'
+        },
         init: function () {
-            jQuery('html').click(function (e) {
-                var isInUserMenu = $("#UserMenuControl").has(e.target).attr('class') === 'linkUser';
-                if (e.target.id !== 'UserMenuControl' && !isInUserMenu) {
-                    jQuery('#UserMenu').hide();
-                }
-
-                var isInHelpMenu = $("#HelpMenuControl").has(e.target).attr('class') === 'linkHelp';
-                if (e.target.id !== 'HelpMenuControl' && !isInHelpMenu) {
-                    jQuery('#HelpMenu').hide();
-                }
+            jQuery('html').on('click', function (event) {
+                MC.topMenu.setClickOutsideEvent(event, MC.topMenu.menuIds.user, 'UserMenuControl', 'linkUser');
+                MC.topMenu.setClickOutsideEvent(event, MC.topMenu.menuIds.help, 'HelpMenuControl', 'linkHelp');
+                MC.topMenu.setClickOutsideEventAndPreventClosedAfterClicked(event, MC.topMenu.menuIds.notifications, 'NotificationsFeed', 'linkNotificationsFeed');
             });
+
             MC.addPageReadyFunction(MC.topMenu.setWorkbenchUri);
         },
-        click: function (showTarget, hideTarget) {
-            if (showTarget.is(':hidden')) {
-                showTarget.show();
-                hideTarget.hide();
+        setClickOutsideEvent: function (event, menuId, menuButtonId, menuButtonClass) {
+            var isInMenu = jQuery("#" + menuButtonId).has(event.target).attr('class') === menuButtonClass;
+            if (!isInMenu && event.target.id !== menuButtonId) {
+                jQuery('#' + menuId).hide();
             }
-            else {
-                showTarget.hide();
+        },
+        setClickOutsideEventAndPreventClosedAfterClicked: function (event, menuId, menuButtonId, menuButtonClass) {
+            var isSelf = jQuery(event.target).closest('#' + menuId);
+            if (!isSelf.length) {
+                MC.topMenu.setClickOutsideEvent(event, menuId, menuButtonId, menuButtonClass);
             }
+        },
+        click: function (menuId) {
+            var menuIds = jQuery.map(MC.topMenu.menuIds, function (id) { return '#' + id; }).join(',');
+            var targetMenu = jQuery('#' + menuId);
+            var isOpen = !targetMenu.is(':hidden');
+
+            jQuery(menuIds).hide();
+
+            if (isOpen)
+                targetMenu.hide();
+            else
+                targetMenu.show();
         },
         clickUser: function () {
-            MC.topMenu.click(jQuery('#UserMenu'), jQuery('#HelpMenu'));
+            MC.topMenu.click(MC.topMenu.menuIds.user);
         },
         clickHelp: function () {
-            MC.topMenu.click(jQuery('#HelpMenu'), jQuery('#UserMenu'));
+            MC.topMenu.click(MC.topMenu.menuIds.help);
+        },
+        clickNotificationsFeed: function () {
+            MC.topMenu.click(MC.topMenu.menuIds.notifications);
         },
         setWorkbenchUri: function () {
             if (jQuery("#btnWorkbench").length) {

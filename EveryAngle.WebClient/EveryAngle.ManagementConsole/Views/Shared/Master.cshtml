@@ -3,6 +3,11 @@
 @{
     Layout = null;
     var FileVersion = AssemblyInfoHelper.GetFileVersion();
+    string configFilePath = EveryAngle.Shared.Helpers.WebConfigHelper.GetWebClientFilePathBy("web.config");
+    if (!Request.PhysicalPath.Contains("EveryAngle.ManagementConsole"))
+    {
+        configFilePath = configFilePath.Replace(@"EveryAngle.WebClient.Web\", "");
+    }
 
     EveryAngle.Core.ViewModels.Users.UserViewModel user = SessionHelper.Initialize().CurrentUser;
 }
@@ -114,6 +119,11 @@
         var timezoneOffsetWithDst = @(TimeZone.CurrentTimeZone.GetUtcOffset(DateTime.Now).TotalMinutes * -1);
         var currentTimestamp = @((int)(DateTime.UtcNow.Subtract(new DateTime(1970, 1, 1))).TotalSeconds);
         var modelColors = '@System.Configuration.ConfigurationManager.AppSettings["ModelColors"]';
+        var notificationsFeed = {
+            dataUrl: '@Html.Raw(EveryAngle.Shared.Helpers.WebConfigHelper.GetAppSettingsValueFromWebConfig(configFilePath, "NotificationsFeedDataUrl"))',
+            viewAllUrl: '@EveryAngle.Shared.Helpers.WebConfigHelper.GetAppSettingsValueFromWebConfig(configFilePath, "NotificationsFeedViewAllUrl")'
+        };
+
         setInterval(function() {
             currentTimestamp++;
         }, 1000);
@@ -184,11 +194,6 @@
             </script>
         }
 
-        string configFilePath = EveryAngle.Shared.Helpers.WebConfigHelper.GetWebClientFilePathBy("web.config");
-        if (!Request.PhysicalPath.Contains("EveryAngle.ManagementConsole"))
-        {
-            configFilePath = configFilePath.Replace(@"EveryAngle.WebClient.Web\", "");
-        }
         string googleAnalyticsId = EveryAngle.Shared.Helpers.WebConfigHelper.GetAppSettingsValueFromWebConfig(configFilePath, "GoogleAnalyticsId");
         if (!string.IsNullOrEmpty(googleAnalyticsId))
         {

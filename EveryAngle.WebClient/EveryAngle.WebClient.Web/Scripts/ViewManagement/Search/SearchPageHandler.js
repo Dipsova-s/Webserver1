@@ -128,7 +128,7 @@ window.SearchPageHandler = function () {
             // update layout
             self.UpdateLayout();
 
-            notificationsFeedHandler.LoadFeeds(true);
+            WCNotificationsFeedCreator.Create(userModel.Data().id);
         }
 
         // callback
