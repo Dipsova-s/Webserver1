@@ -508,6 +508,10 @@ textarea.error {
     display: inline-block;
 }
 
+#UserMenuControl {
+    margin-left: 5px;
+}
+
 #UserMenuControl .icon {
     float: right;
 }

@@ -479,14 +479,14 @@ namespace EveryAngle.WebClient.Web
 
             /*Embeded Bundle*/
             bundles.Add(new ScriptBundle("~/resources/embedded/sharedjs")
+                .Include("~/resources/embedded/notificationsfeed.js")
                 .Include("~/resources/embedded/shared.js")
                 .Include("~/resources/embedded/customkendogridui.js"));
 
             bundles.Add(new ScriptBundle("~/resources/embedded/js")
                 .Include("~/resources/embedded/businessprocessesmodel.js")
                 .Include("~/resources/embedded/classeschooser.js")
-                .Include("~/resources/embedded/fieldschooser.js")
-                .Include("~/resources/embedded/notificationsfeed.js"));
+                .Include("~/resources/embedded/fieldschooser.js"));
 
             bundles.Add(new StyleBundle("~/content/externalresource/externalresource.css")
                 .Include("~/content/externalresource/businessprocesses.css")
