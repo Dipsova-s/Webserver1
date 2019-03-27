@@ -11,7 +11,7 @@ function AngleActionMenuHandler(base) {
             data = self.GetEditModeMenu();
         else if (WC.Utility.UrlParameter(enumHandlers.ANGLEPARAMETER.LISTDRILLDOWN))
             data = self.GetListDrilldownMenu();
-        else if (angleInfoModel.Data() != null && angleInfoModel.Data().uri === WC.Utility.UrlParameter(enumHandlers.ANGLEPARAMETER.ANGLE))
+        else if (angleInfoModel.Data() && angleInfoModel.Data().uri === WC.Utility.UrlParameter(enumHandlers.ANGLEPARAMETER.ANGLE))
             data = self.GetDisplayMenu([]);
 
         // render html
@@ -104,7 +104,7 @@ function AngleActionMenuHandler(base) {
         privileges[enumHandlers.ANGLEACTION.EXPORTTOEXCEL.Id] = { Enable: canExportItem, Visible: true };
 
         // find only available in list display
-        privileges[enumHandlers.ANGLEACTION.FIND.Id] = { Enable: self.CanFindRow(), Visible: true };
+        privileges[enumHandlers.ANGLEACTION.FIND.Id] = { Enable: self.CanFindRow(), Visible: self.IsFindOptionVisible() };
 
         privileges[enumHandlers.ANGLEACTION.NEWDISPLAY.Id] = { Enable: self.CanCreateNewDisplay(), Visible: true };
         privileges[enumHandlers.ANGLEACTION.PASTEDISPLAY.Id] = { Enable: self.CanPasteDisplay(), Visible: true };
@@ -133,6 +133,10 @@ function AngleActionMenuHandler(base) {
         // find only available in list display
         var isList = displayModel.Data().display_type === enumHandlers.DISPLAYTYPE.LIST;
         return isList && self.IsDisplayExecuted();
+    };
+    self.IsFindOptionVisible = function () {
+        var model = modelsHandler.GetModelByUri(angleInfoModel.Data().model);
+        return !aboutSystemHandler.IsRealTimeModel(model.id);
     };
     self.CanQuickSave = function () {
         return displayModel.Data().authorizations.update;
