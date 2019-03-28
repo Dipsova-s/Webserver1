@@ -112,6 +112,7 @@
     <Compile Include="Controllers\GlobalSettingsControllerTests.cs" />
     <Compile Include="Controllers\ModelControllerTests.cs" />
     <Compile Include="Controllers\PackagesControllerTests.cs" />
+    <Compile Include="Controllers\RefreshCycleControllerTests.cs" />
     <Compile Include="Controllers\SystemRoleControllerTest.cs" />
     <Compile Include="Controllers\ErrorControllerTests.cs" />
     <Compile Include="Controllers\ModelServersControllerTests.cs" />

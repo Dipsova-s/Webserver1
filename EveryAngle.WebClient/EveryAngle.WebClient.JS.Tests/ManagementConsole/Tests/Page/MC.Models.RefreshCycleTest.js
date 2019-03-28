@@ -101,7 +101,7 @@ describe("MC.Models.RefreshCycle", function () {
     });
 
     describe(".DeltaChange", function () {
-        
+
         var form;
 
         beforeEach(function () {
@@ -158,4 +158,30 @@ describe("MC.Models.RefreshCycle", function () {
 
     });
 
+    describe(".SetViewExtractionEvent", function () {
+
+        beforeEach(function () {
+            $('<div id="btnViewExtraction" class="disabled" />').appendTo('body');
+        });
+
+        afterEach(function () {
+            $('#btnViewExtraction').remove();
+        });
+
+        it("should set event to view extractor button if there is extractor uri", function () {
+            var data = {
+                ExtractorUri: 'uri/1'
+            };
+            refreshCycle.SetViewExtractionEvent(data);
+
+            expect($('#btnViewExtraction').hasClass('disabled')).toEqual(false);
+        });
+
+        it("should not set event to view extractor button if there is no extractor uri", function () {
+            var data = {};
+            refreshCycle.SetViewExtractionEvent(data);
+
+            expect($('#btnViewExtraction').hasClass('disabled')).toEqual(true);
+        });
+    });
 });

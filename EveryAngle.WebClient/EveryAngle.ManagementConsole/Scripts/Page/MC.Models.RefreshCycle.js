@@ -420,7 +420,7 @@
             var actionListContainer = self.RefreshCycleForm.find('[name="Action"]').closest('.contentSectionInfoItem');
             var specifyTablesButton = actionListContainer.find('.descriptionLabel');
             var specifyTablesLabel = actionListContainer.find('#SelectedTableList');
-            
+
             // if value of action list = 'tables' it will show button
             if (self.IsTablesAction(e.sender.value())) {
                 specifyTablesButton.removeClass('hidden');
@@ -832,7 +832,7 @@
             var win = $('#popupSpecifyTables').data('kendoWindow');
             if (!win)
                 return;
-            
+
             var gridElement = win.element.find('.k-grid');
             var grid = gridElement.data('kendoGrid');
             if (!grid)
@@ -869,7 +869,7 @@
         self.SetTableListToGrid = function (grid) {
             if (!grid || grid.__bind_databound)
                 return;
-            
+
             grid.__bind_databound = true;
             grid.bind('dataBinding', function (e) {
                 $.each(e.sender.dataSource.data(), function (key, value) {
@@ -915,7 +915,8 @@
 
         /* start refresh cycle testing functions */
         self.ShowModelServerInfo = function (e, obj) {
-            MC.util.modelServerInfo.showInfoPopup(e, obj);
+            if (!$(obj).hasClass('disabled'))
+                MC.util.modelServerInfo.showInfoPopup(e, obj);
         };
         self.TestExtraction = function (e) {
             self.ReloadTestExtraction('test');
@@ -1048,20 +1049,25 @@
             deferred.promise();
         };
         self.CheckViewExtractionButton = function () {
+            if (!$('#btnViewExtraction').length)
+                return $.when();
+            disableLoading();
+            $('#btnViewExtraction').addClass('disabled');
             return MC.ajax.request({
                 url: self.CheckExtractorUri,
                 parameters: { modelServerUri: self.ModelServerUri },
                 type: 'GET'
-            }).done(function (response) {
-                if (response.ExtractorUri) {
-                    $('#btnViewExtraction')
-                        .removeClass('disabled')
-                        .data('parameters', { modelServerUri: response.ExtractorUri, isCurrentInstance: false })
-                        .on('click', function (event) {
-                            self.ShowModelServerInfo(event, this);
-                        });
-                }
-            });
+            }).done(self.SetViewExtractionEvent);
+        };
+        self.SetViewExtractionEvent = function (data) {
+            if (data.ExtractorUri) {
+                $('#btnViewExtraction')
+                    .removeClass('disabled')
+                    .data('parameters', { modelServerUri: data.ExtractorUri, isCurrentInstance: false })
+                    .on('click', function (event) {
+                        self.ShowModelServerInfo(event, this);
+                    });
+            }
         };
         /* end refresh cycle testing functions */
     }
