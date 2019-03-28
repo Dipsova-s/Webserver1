@@ -915,7 +915,8 @@
 
         /* start refresh cycle testing functions */
         self.ShowModelServerInfo = function (e, obj) {
-            MC.util.modelServerInfo.showInfoPopup(e, obj);
+            if (!$(obj).hasClass('disabled'))
+                MC.util.modelServerInfo.showInfoPopup(e, obj);
         };
         self.TestExtraction = function (e) {
             self.ReloadTestExtraction('test');
@@ -1048,20 +1049,26 @@
             deferred.promise();
         };
         self.CheckViewExtractionButton = function () {
+            if (!$('#btnViewExtraction').length)
+                return $.when();
+
+            disableLoading();
+            $('#btnViewExtraction').addClass('disabled');
             return MC.ajax.request({
                 url: self.CheckExtractorUri,
                 parameters: { modelServerUri: self.ModelServerUri },
                 type: 'GET'
-            }).done(function (response) {
-                if (response.ExtractorUri) {
-                    $('#btnViewExtraction')
-                        .removeClass('disabled')
-                        .data('parameters', { modelServerUri: response.ExtractorUri, isCurrentInstance: false })
-                        .on('click', function (event) {
-                            self.ShowModelServerInfo(event, this);
-                        });
-                }
-            });
+            }).done(self.SetViewExtractionEvent);
+        };
+        self.SetViewExtractionEvent = function (data) {
+            if (data.ExtractorUri) {
+                $('#btnViewExtraction')
+                    .removeClass('disabled')
+                    .data('parameters', { modelServerUri: data.ExtractorUri, isCurrentInstance: false })
+                    .on('click', function (event) {
+                        self.ShowModelServerInfo(event, this);
+                    });
+            }
         };
         /* end refresh cycle testing functions */
     }

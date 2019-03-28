@@ -7,7 +7,7 @@ using EveryAngle.Core.ViewModels.ModelServer;
 
 namespace EveryAngle.ManagementConsole.Test.Controllers
 {
-    public class ModelServersControllerTests: UnitTestBase
+    public class ModelServersControllerTests : UnitTestBase
     {
         #region setup/teardown
         [SetUp]

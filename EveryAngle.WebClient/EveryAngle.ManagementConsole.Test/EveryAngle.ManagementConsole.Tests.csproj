@@ -109,6 +109,7 @@
     <Compile Include="Controllers\CommentControllerTests.cs" />
     <Compile Include="Controllers\ComponentControllerTests.cs" />
     <Compile Include="Controllers\DownloadTableControllerTests.cs" />
+    <Compile Include="Controllers\RefreshCycleControllerTests.cs" />
     <Compile Include="Controllers\GlobalSettingsControllerTests.cs" />
     <Compile Include="Controllers\ModelControllerTests.cs" />
     <Compile Include="Controllers\PackagesControllerTests.cs" />

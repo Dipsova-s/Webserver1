@@ -232,7 +232,7 @@ namespace EveryAngle.ManagementConsole.Controllers
             parentDetails.Add(reportTreeView);
         }
 
-       
+
 
         public FileResult GetModelServerMetaDataFile(string fullPath, string modelServerId, string instanceid)
         {

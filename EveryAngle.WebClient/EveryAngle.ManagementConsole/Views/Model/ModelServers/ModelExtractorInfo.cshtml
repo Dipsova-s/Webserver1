@@ -18,30 +18,44 @@
             }
             <div class="contentSectionInfoItem">
                 <label>@Resource.Version</label>
-                <p>@if (Model.application_version != null)
-                { @Model.application_version } api @if (Model.api_version != null)
-                { @Model.api_version }</p>
+                <p>
+                    @if (Model.application_version != null)
+                    {@Model.application_version} api @if (Model.api_version != null)
+                    {@Model.api_version}
+                </p>
             </div>
             <div class="contentSectionInfoItem">
                 <label>@Resource.Status</label>
-                <p>@if (Model.status != null)
-                {@Model.status} <span data-role='localize'>@if (Model.status_timestamp != null)
-                { @Model.status_timestamp } </span></p>
+                <p>
+                    @if (Model.status != null)
+                    {@Model.status} <span data-role='localize'>
+                        @if (Model.status_timestamp != null)
+                        {@Model.status_timestamp}
+                    </span>
+                </p>
             </div>
             <div class="contentSectionInfoItem">
                 <label>@Resource.MC_XtractorStarted</label>
-                <p><span data-role='localize'>@if (Model.instance_created != null)
-                {@Model.instance_created}</span></p>
+                <p>
+                    <span data-role='localize'>
+                        @if (Model.instance_created != null)
+                        {@Model.instance_created}
+                    </span>
+                </p>
             </div>
             <div class="contentSectionInfoItem">
                 <label>@Resource.MC_Errors</label>
-                <p>@if (Model.error_count != null)
-                {@Model.error_count}</p>
+                <p>
+                    @if (Model.error_count != null)
+                    {@Model.error_count}
+                </p>
             </div>
             <div class="contentSectionInfoItem">
                 <label>@Resource.Warnings</label>
-                <p>@if (Model.warning_count != null)
-                {@Model.warning_count}</p>
+                <p>
+                    @if (Model.warning_count != null)
+                    {@Model.warning_count}
+                </p>
             </div>
         </div>
         <div class="contentSection contentSectionInfo contentSectionInfoModelServer">
@@ -49,13 +63,13 @@
             <div class="contentSectionInfoItem">
                 <label>@Resource.MC_Actionlist</label>
                 <p>
-                    @(Model.task_details == null ? string.Empty : !string.IsNullOrEmpty(Model.task_details.action_list.id)  ? Model.task_details.action_list.id + " (" + Model.task_details.action_list.description + ")" : string.Empty)
+                    @( (Model.task_details != null && Model.task_details.action_list != null) ? !string.IsNullOrEmpty(Model.task_details.action_list.id) ? Model.task_details.action_list.id + " (" + Model.task_details.action_list.description + ")" : string.Empty : string.Empty )
                 </p>
             </div>
             <div class="contentSectionInfoItem">
                 <label>@Resource.MC_CurrentAction</label>
                 <p>
-                    @(Model.task_details == null ? string.Empty : !string.IsNullOrEmpty(Model.task_details.current_action.id) ? Model.task_details.current_action.id + " (" + Model.task_details.current_action.description + ")" : string.Empty)
+                    @( (Model.task_details != null && Model.task_details.current_action != null) ? !string.IsNullOrEmpty(Model.task_details.current_action.id) ? Model.task_details.current_action.id + " (" + Model.task_details.current_action.description + ")" : string.Empty : string.Empty )
                 </p>
             </div>
         </div>
