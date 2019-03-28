@@ -13,7 +13,7 @@ ${btnSubmitConfirm}                     .btnSubmit
 
 ${btnEA2800InFo}                        jquery=.modelInfoInstance a[data-title="Model server"]
 ${btnEA2800XtractorInFo}                jquery=.modelInfoInstance a[data-title="EA ETL Sandbox"]
-${btnClosePopUp}                        jquery=.k-window-actions a:eq(5)
+${btnCloseModelPopUp}                   jquery=.k-window-actions a:eq(5)
 ${btnStopServer}                        jquery=.modelInfoInstance .btn:eq(1)
 ${popupConfirmationStopServer}          css=#popupConfirmation
 ${btnCloseStopServerPopUp}              jquery=#popupConfirmation .btnConfirmCancel
@@ -48,7 +48,7 @@ Verify Status And Report EA2_800_Xtractor PopUp
     Wait Until Page contains    Extractor
 
 Click Close Model Report PopUp
-    Click Element    ${btnClosePopUp}
+    Click Element    ${btnCloseModelPopUp}
 
 Click Create Models
     Click Element    ${btnCreateModels}

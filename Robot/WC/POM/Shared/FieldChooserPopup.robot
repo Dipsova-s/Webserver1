@@ -5,6 +5,7 @@ ${btnFieldChooser}    css=#btn-popupFieldChooser1 > span
 ${tblFieldList}    jquery=#DisplayPropertiesGrid .k-grid-content
 ${pgbFieldChooser}    jquery=#DisplayPropertiesGrid .k-loading-mask
 ${popupFieldChooser}    css=#popupFieldChooser
+${btnCloseFieldChooser}    css=#popupFieldChooser_wnd_title + .k-window-actions .k-i-close
 
 ${btnFieldChooserFullMode}      LongProperty
 ${btnFiedlChooserCompactMode}     ShortProperty
@@ -14,8 +15,13 @@ ${divFieldSource}                jquery=#NewColumnFilter .FilterTab-metadata:eq(
 ${chkSourceSelf}                 jquery=#source_Checkbox input:eq(0)
 
 *** Keywords ***
-Wait Progress Bar Field Chooser Search Closed
+Wait Until Field Chooser Loaded
+    Sleep    ${TIMEOUT_GENERAL}
+    Wait Until Ajax Complete
     Wait Until Page Does Not Contain Element    ${pgbFieldChooser}
+
+Close Field Chooser Popup
+    Click Element    ${btnCloseFieldChooser}
 
 Click Insert Field From Field Chooser
     Wait Until Ajax Complete
@@ -26,9 +32,7 @@ Fill In Search Field Chooser
     [Arguments]   ${searchText}
     Input Text By JQuery   ${txtFitlerAvailableProperties}    ${searchText}
     Press Key    ${txtFitlerAvailableProperties}    \\13
-    Sleep    ${TIMEOUT_GENERAL}
-    Wait Until Ajax Complete
-    Wait Progress Bar Field Chooser Search Closed
+    Wait Until Field Chooser Loaded
 
 Choose Field Chooser From Search Result
     [Arguments]   ${fieldId}

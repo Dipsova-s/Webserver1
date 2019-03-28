@@ -82,6 +82,12 @@ Get Elements Count
     ${count}    Execute Javascript    return $('${jquerySelector}').length
     [Return]    ${count}
 
+Get Element Offset
+    [Arguments]  ${selector}
+    ${jquerySelector}    Get JQuery Selector    ${selector}
+    ${left}    ${top}    Execute Javascript    var offset=$('${jquerySelector}').offset();return [offset.left, offset.top];
+    [Return]    ${left}    ${top}
+
 Get Element Index
     [Arguments]  ${selector}
     ${jquerySelector}    Get JQuery Selector    ${selector}

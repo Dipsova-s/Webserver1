@@ -2,6 +2,7 @@
 Screenshot "WC_User_settings" page
     Go to Search Page
     Open User Settings Popup
+    Update Popup Position    css=.popupUserSetting
     Click System Settings Tab
     Crop System Settings Popup
     Click Close User Setting Popup

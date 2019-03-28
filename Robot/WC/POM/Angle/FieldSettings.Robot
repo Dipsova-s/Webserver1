@@ -7,7 +7,8 @@ Resource            ${EXECDIR}/WC/POM/Angle/FieldSettings.FieldFormatsPopup.Robo
 *** Variables ***
 #General
 ${pgbFieldSettings}             css=#FieldListArea .k-loading-mask
-${btnFieldSettingOptions}       ButtonDisplayOptions
+${btnFieldSettingOptions}       css=#ButtonDisplayOptions
+${btnCloseFieldSettingOptions}  css=#PopupChartOptions .k-window-action
 ${btnAddRowAreaField}           AddRowAreaField
 ${divFieldRowArea}              jquery=#FieldListRowArea ul
 ${divFieldListRowArea}          jquery=#FieldListRowArea li
@@ -55,6 +56,9 @@ Click Show Display Option
     Wait Until Field Settings Loaded
     Click Element    ${btnFieldSettingOptions}
     Sleep    ${TIMEOUT_GENERAL}    Wait for rendering
+
+Click Hide Display Option
+    Click Element    ${btnCloseFieldSettingOptions}
 
 Click Apply Field Setting
     Sleep    ${TIMEOUT_GENERAL}    Wait for rendering

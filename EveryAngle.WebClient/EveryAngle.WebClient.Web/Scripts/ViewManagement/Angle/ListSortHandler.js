@@ -293,9 +293,7 @@ function ListSortHandler() {
             draggable: false,
             resizable: false,
             actions: ["Close"],
-            open: function (e) {
-                self.ShowCustomPopupCallback(e);
-            },
+            open: self.ShowCustomPopupCallback,
             close: function (e) {
                 WC.HtmlHelper.MenuNavigatable.prototype.UnlockMenu('.HeaderPopup');
                 popup.Destroy(e);

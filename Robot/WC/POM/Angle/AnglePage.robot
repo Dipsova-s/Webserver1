@@ -14,6 +14,7 @@ Resource            ${EXECDIR}/WC/POM/Angle/FieldSettings.Robot
 Resource            ${EXECDIR}/WC/POM/Angle/SaveDisplayAsPopup.Robot
 Resource            ${EXECDIR}/WC/POM/Angle/AddJumpPopup.robot
 Resource            ${EXECDIR}/WC/POM/Angle/ExportToExcelPopup.robot
+Resource            ${EXECDIR}/WC/POM/Angle/ExportToCSVPopup.robot
 
 *** Variables ***
 ${spanSelectedDisplay}                  css=.SelectedDisplayItem .name
@@ -136,6 +137,10 @@ Click Angle Dropdown Actions Add To Dashboard
 Click Angle Dropdown To Export Excel
     Click Angle Action    ${ddlAngleActionDropdownListExportToExcel}
     Wait Until Export To Excel Popup Loaded
+
+Click Angle Dropdown To Export CSV
+    Click Angle Action    ${ddlAngleActionDropdownListExportToCSV}
+    Wait Until Export To CSV Popup Loaded
 
 Click Angle Dropdown To Export Drilldown To Excel
     Click Angle Action    ${ddlAngleActionDropdownListExportToExcel}

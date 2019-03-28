@@ -4,7 +4,14 @@ Initialize WebHelp
     Create Directory     ${directory}
     Empty Directory      ${directory}
     Set Suite Variable    ${WEB_HELP_OUTPUT}    ${directory}
-    Set Suite Variable    ${CROP_MARGIN}    0
+    Restore Crop Margin
+
+Set Crop Margin
+    [Arguments]    ${margin}
+    Set Suite Variable    ${CROP_MARGIN}    ${margin}
+
+Restore Crop Margin
+    Set Crop Margin    1
 
 Get Images In Test Scenario
     [Arguments]    ${robotFile}
@@ -22,6 +29,17 @@ Get WebHelp Output Folder
     ${output}    Set Variable If   ${languageDependent} == True    ${WEB_HELP_LANGUAGE_OUTPUT}    ${WEB_HELP_OUTPUT}
     [Return]    ${output}
 
+Update Popup Position
+    [Arguments]    ${selector}
+    ${jQuerySelector}    Get JQuery Selector    ${selector}
+    Execute JavaScript
+    ...    var element=$('${jQuerySelector}');
+    ...    var offset=element.offset();
+    ...    var newLeft=Math.round(offset.left/2)*2;
+    ...    var newTop=Math.round(offset.top/2)*2;
+    ...    var newOffset={left:newLeft,top:newTop};
+    ...    element.offset(newOffset);
+
 Crop WebHelp Image
     [Arguments]    ${filename}    ${selector}    ${languageDependent}=${True}
     ${output}    Get WebHelp Output Folder   ${languageDependent}
@@ -36,7 +54,6 @@ Crop WebHelp Image With Dimensions
     Crop Image        ${output}    ${filename}    @{dimensions}
 
 Highlight WebHelp Element
-    [Documentation]     Create border box by using javascript
     [Arguments]    ${selector}   ${text}=${EMPTY}    ${textPosition}=center    ${border}=3px solid #ff0000    ${fontColor}=#ff0000    ${fontSize}=30px    ${fontWeight}=bold
     ${jQuerySelector}    Get JQuery Selector    ${selector}
     Execute javascript
@@ -56,27 +73,32 @@ Highlight WebHelp Element
 Clear WebHelp Highlights
     Execute JavaScript    $('[robot-box]').remove();
 
-Drag List Display Column To Drop Column Area
-    [Documentation]     Drag column of list Display to drop zone
-    [Arguments]    ${selector}    ${left}=275    ${top}=60
-    ${jQuerySelector}    Get JQuery Selector    ${selector}
+Drag WebHelp Element To Location
+    [Arguments]    ${draggableSelector}   ${elementSelector}  ${handleClass}=${EMPTY}    ${left}=0    ${top}=0
+    ${draggable}    Get JQuery Selector    ${draggableSelector}
+    ${element}    Get JQuery Selector    ${elementSelector}
     Execute JavaScript
     ...    (function(){
-    ...        var target=$('${jQuerySelector}');
-    ...        var offset={ left: ${left}, top: ${top} };
-    ...        var grid=$('#AngleGrid').data('kendoGrid');
-    ...        var hint=grid._draggableInstance.options.hint(target).css(offset).appendTo('body');
-    ...        grid._draggableInstance.hint=hint;
-    ...        grid._draggableInstance.currentTarget = target;
-    ...        grid._draggableInstance.trigger('dragstart', { x: { location: 0 } });
-    ...        grid._draggableInstance.trigger('drag', { x: { loaction: 0 }, y: { location: 0 }});
+    ...        var target=$('${element}');
+    ...        var handle=$('${element} ${handleClass}');
+    ...        var offset=target.offset();
+    ...        offset.left+=${left};
+    ...        offset.top+=${top};
+    ...        var css={position:'absolute','z-index':100000,left:offset.left,top:offset.top};
+    ...        var draggable=$('${draggable}').data('kendoDraggable');
+    ...        var hint=draggable.options.hint(target).css(css).appendTo('body');
+    ...        draggable.hint=hint;
+    ...        draggable.currentTarget=target;
+    ...        draggable.trigger('dragstart', { x: { location: 0 }, currentTarget: target, initialTarget: handle });
+    ...        draggable.trigger('drag', { x: { loaction: 0 }, y: { location: 0 }});
     ...    })();
 
-Clear Dragging List Display Column
-    [Documentation]     Drag column of list Display to drop zone
+Clear Dragging WebHelp Element
+    [Arguments]    ${draggableSelector}
+    ${draggable}    Get JQuery Selector    ${draggableSelector}
     Execute JavaScript
     ...    (function(){
-    ...        var grid=$('#AngleGrid').data('kendoGrid');
-    ...        grid._draggableInstance.trigger('dragend', { y: { location: 1000 } });
-    ...        grid._draggableInstance.hint.remove();
+    ...        var draggable=$('${draggable}').data('kendoDraggable');
+    ...        draggable.trigger('dragend', { y: { location: 1000 } });
+    ...        draggable.hint.remove();
     ...    })();

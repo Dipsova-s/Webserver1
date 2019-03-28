@@ -6,6 +6,7 @@ ${btnAddColumnToListDisplay}        AddNewColumn
 ${pgbListDisplay}                   css=#AngleGrid .k-loading-mask
 ${btnSortAscendingToList}           jquery=.HeaderPopup .sortAsc:visible
 ${btnSortDescendingToList}          jquery=.HeaderPopup .sortDesc:visible
+${btnSortCustomToList}              jquery=.HeaderPopup .sortCustom:visible
 ${btnAddFilterToList}               jquery=.HeaderPopup .addFilter:visible
 ${btnCreateChartFromList}           jquery=.HeaderPopup .createChart:visible
 ${btnCreatePivotFromList}           jquery=.HeaderPopup .createPivot:visible
@@ -46,7 +47,7 @@ Wait Until List Display Loaded
 Click Add New Column To List
     Wait Until List Display Loaded
     Click Element    ${btnAddColumnToListDisplay}
-    Wait Until Ajax Complete
+    Wait Until Field Chooser Loaded
 
 Click Header by Data Field Angle Grid List Display
     [Arguments]   ${datafield}
@@ -65,6 +66,9 @@ Click Sort Descending From Head Column to List
     Wait Progress Bar Closed
     Wait Until List Display Loaded
     Sleep    ${TIMEOUT_GENERAL}
+
+Click Sort Custom From List Header Column
+    Click Element    ${btnSortCustomToList}
 
 Click Show Add Filter Popup From List Header Column
     Wait Until Element Is Visible    ${btnAddFilterToList}

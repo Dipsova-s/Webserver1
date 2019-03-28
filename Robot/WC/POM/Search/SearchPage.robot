@@ -30,6 +30,12 @@ ${lblModelForCreateNewAngle}    CreateNewAngle i
 #Text filter
 ${txtSearchInput}           css=#SearchInput
 
+#Toggle panel
+${divBusinessProcessPanel}      css=#facetcat_bp
+${divGeneralPanel}              css=#facetcat_itemtype
+${divAngleTypePanel}            css=#facetcat_AngleType
+${divAnglePurposePanel}         css=#facetcat_AnglePurpose
+
 #General Filter
 ${chkFacetAngle}            css=#facet_angle
 ${lblCountAngle}            css=#facet_angle + .label > .name
@@ -348,6 +354,42 @@ Click Search Business Process GRC
 
 Click Search Business Process IT
     Click Search Business Process    ${divBusinessprocessIT}
+    
+Expand Search Filter Panel
+    [Arguments]    ${selector}
+    ${isExpanded}   Is Element Has CssClass    ${selector}    Expand
+    Run KeyWord If    ${isExpanded} == False    Click Element    ${selector}
+    Sleep    ${TIMEOUT_GENERAL}
+
+Collapse Search Filter Panel
+    [Arguments]    ${selector}
+    ${isExpanded}   Is Element Has CssClass    ${selector}    Expand
+    Run KeyWord If    ${isExpanded} == True    Click Element    ${selector}
+    Sleep    ${TIMEOUT_GENERAL}
+
+Expand Search Filter "Business Processes" Panel
+    Expand Search Filter Panel    ${divBusinessProcessPanel}
+
+Collapse Search Filter "Business Processes" Panel
+    Collapse Search Filter Panel    ${divBusinessProcessPanel}
+
+Expand Search Filter "General" Panel
+    Expand Search Filter Panel    ${divGeneralPanel}
+
+Collapse Search Filter "General" Panel
+    Collapse Search Filter Panel    ${divGeneralPanel}
+
+Expand Search Filter "Angle type" Panel
+    Expand Search Filter Panel    ${divAngleTypePanel}
+
+Collapse Search Filter "Angle type" Panel
+    Collapse Search Filter Panel    ${divAngleTypePanel}
+
+Expand Search Filter "Angle purpose" Panel
+    Expand Search Filter Panel    ${divAnglePurposePanel}
+
+Collapse Search Filter "Angle purpose" Panel
+    Collapse Search Filter Panel    ${divAnglePurposePanel}
 
 Check Existing Angle From Search Result
     [Arguments]    ${angleName}
@@ -522,7 +564,6 @@ Check Hightlight On Compact Mode
     Page Should Not Contain Element    jquery=.SearchResult .highlight
 
 Open Dashboard From First Dashboard in Search Page
-    [Arguments]    ${dashboardName}
     Click Link First Item From Search Result
     Sleep    2s
 
@@ -530,4 +571,4 @@ Search Dashboard From Search Page And Open It
     [Arguments]    ${fieldKeyword}
     Search By Text    ${fieldKeyword}  
     Click Select First Item From Search Result
-    Open Dashboard From First Dashboard in Search Page    ${fieldKeyword}  
+    Open Dashboard From First Dashboard in Search Page

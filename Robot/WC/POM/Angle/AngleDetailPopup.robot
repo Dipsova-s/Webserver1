@@ -206,6 +206,7 @@ Click Angle Set to Validate
 Click Add Filter In Definition Tab
     Wait Until Element Is Visible    ${btnAddFilter}
     Click Element    ${btnAddFilter}
+    Wait Until Field Chooser Loaded
 
 Click Add Jump In Definition Tab
     Wait Until Element Is Visible    ${btnAddJump}

@@ -27,6 +27,9 @@ ${btnLanguage}    css=.btnAddLanguage
 ${dashboardLanguageItem}    css=.LanguageItem a
 ${txtDashboardName}    css=#DashboardArea .languageName
 
+#Definition tab elements
+${divDashboardDefinitionHeader}   jquery=#FilterWrapper .FilterHeader
+
 #Statistic tab elements
 ${lblCreatedBy}    jquery=#DashboardArea .statisticArea .input:eq(0) span:eq(1)
 ${lblLastChangedBy}    jquery=#DashboardArea .statisticArea .input:eq(1) span:eq(1)
@@ -44,7 +47,7 @@ ${btnAddDashboardFilter}        css=#DashboardAddfilter
 ${ddlValueList}                 jquery=#InputValue-0_listbox li[data-offset-index=0]
 ${ddSelectValueDropdownList}    css=#FilterDetail-0-PlaceHolder  .k-input
 ${spanDateField}                css=#InputValue-
-${divAddFieldFilter}            jquery=#FieldsFiltersWrapper .FilterHeader
+${divFieldFilter}            jquery=#FieldsFiltersWrapper .FilterHeader
 ${chkValueInFilter}             jquery=#FilterDetail-3-PlaceHolder
 
 
@@ -106,6 +109,15 @@ Close Dashboard Detail Popup
     Click Element    ${btnCloseDashboardDetailsPopup}
     Wait Until Ajax Complete
 
+Open Dashboard Definition Widget Panel
+    [Arguments]   ${index}
+    ${isPanelClosed}  Is Element Has CssClass  ${divDashboardDefinitionHeader}  Collapse
+    Run Keyword If   ${isPanelClosed}   Click Element   ${divDashboardDefinitionHeader}:eq(${index})
+
+Close Dashboard Definition Widget Panel
+    [Arguments]   ${index}
+    ${isPanelOpened}  Is Element Has CssClass  ${divDashboardDefinitionHeader}  Expand
+    Run Keyword If   ${isPanelOpened}   Click Element   ${divDashboardDefinitionHeader}:eq(${index})
 
 Click Confirm Publish Dashboard
     Wait Until Element Is Visible    ${btnConfirmPublishDashboard}
@@ -133,8 +145,8 @@ Input Date Value
 
 Click Add Filter From Field
     [Arguments]    ${index}
-    Mouse Over    ${divAddFieldFilter}:eq(${index})
-    Click Element    ${divAddFieldFilter}:eq(${index}) .btnAddFilter
+    Mouse Over    ${divFieldFilter}:eq(${index})
+    Click Element    ${divFieldFilter}:eq(${index}) .btnAddFilter
 
 Select Checkbox Value List
     [Arguments]    ${index}
@@ -142,8 +154,8 @@ Select Checkbox Value List
 
 Remove Field In Fields Tab
     [Arguments]    ${index}
-    Mouse Over    ${divAddFieldFilter}:eq(${index})
-    Click Element    ${divAddFieldFilter}:eq(${index}) .btnDelete
+    Mouse Over    ${divFieldFilter}:eq(${index})
+    Click Element    ${divFieldFilter}:eq(${index}) .btnDelete
 
 
     

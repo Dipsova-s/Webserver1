@@ -5,11 +5,13 @@ ${btnButtonCreateAngleFromSchemaSimple}    ButtonCreateAngleFromSchemaSimple
 ${btnButtonCreateAngleFromSchemaDetailed}    ButtonCreateAngleFromSchemaDetailed
 ${btnButtonCreateAngleFromObjects}    ButtonCreateAngleFromObjects
 ${btnBackToCreateAngleOptions}    btn-popupCreateNewAngleBySchema2
-${p2pBusinessProcess}		css=.businessProcessesItem.P2P		
+${p2pBusinessProcess}		css=.businessProcessesItem.P2P	
+${s2dBusinessProcess}		css=.businessProcessesItem.S2D		
 
 ${imgCreateAngleFromSchemaSimple}    jquery=#ChooseNewAngleOption img:eq(0)
 ${imgCreateAngleFromSchemaDetailed}    jquery=#ChooseNewAngleOption img:eq(1)
 ${imgCreateAngleFromObjects}    jquery=#ChooseNewAngleOption img:eq(2)
+
 
 *** Keywords ***
 Wait Create Angle Popup Document Loaded
@@ -38,6 +40,4 @@ Click Back Button To Back To Create Angle Options
 	Click Element   ${btnBackToCreateAngleOptions}
 	Wait Until Ajax Complete
 
-Click P2P Business Processes On Create Angle Diagram Options
-	Click Element    ${p2pBusinessProcess}
-	Wait Until Ajax Complete
+

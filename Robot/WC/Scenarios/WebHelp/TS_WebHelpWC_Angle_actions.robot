@@ -3,13 +3,13 @@ Screenshot "WC_Angle_actions" page
     Go to Search Page
     Search By Text    a
     Click Select First Item From Search Result
-    Crop Angle Action Buttons
+    Crop Search Action Buttons
 
     Open Mass Change Popup
     Crop Mass Change Unchange State Checkbox
     Click Close Mass Change Popup
 
-Crop Angle Action Buttons
+Crop Search Action Buttons
     Crop WebHelp Image     WC_Select_All_Icon.png               css=#ActionDropdownListPopup .selectAll    ${False}
     Crop WebHelp Image     WC_Clear_Selection_Icon.png          css=#ActionDropdownListPopup .deSelect    ${False}
     Crop WebHelp Image     WC_Execute_As_Dashboard_Icon.png     css=#ActionDropdownListPopup .executeDashboard    ${False}

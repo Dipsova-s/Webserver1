@@ -128,6 +128,10 @@ Execute Display From Display Dropdown
     Select Display From Display Dropdown    ${displayItem}
     Wait Display Executed
 
+Change Display By Index
+    [Arguments]    ${index}
+    Execute Display From Display Dropdown    ${ddlSelectDisplayItems}:eq(${index})
+
 Change Display By Name
     [Arguments]    ${displayName}
     Execute Display From Display Dropdown    ${ddlSelectDisplayItems}[title="${displayName}"]
@@ -145,6 +149,11 @@ Change Display To First Pivot
     ${firstPivotSelector}    Get JQuery Selector    ${ddlSelectDisplayItems} .icon.pivot:first
     ${firstPivotIndex}       Execute JavaScript     return $('${firstPivotSelector}').parents('.ItemList').index()
     Execute Display From Display Dropdown    ${ddlSelectDisplayItems}:eq(${firstPivotIndex})
+
+Change Display To First Chart
+    ${firstChartSelector}    Get JQuery Selector    ${ddlSelectDisplayItems} .icon.chart:first
+    ${firstChartIndex}       Execute JavaScript     return $('${firstChartSelector}').parents('.ItemList').index()
+    Execute Display From Display Dropdown    ${ddlSelectDisplayItems}:eq(${firstChartIndex})
 
 Delete Current Display
     Open Display Dropdown

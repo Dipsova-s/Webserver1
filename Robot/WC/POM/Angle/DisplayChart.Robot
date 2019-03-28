@@ -5,6 +5,8 @@ ${svgChart}                     jquery=#ChartWrapper svg
 ${svgFirstBarColumnChart}       jquery=#chart > svg > g > g:nth-child(3) > g:nth-child(5) > g > g:nth-child(1)
 ${divChartTooltip}              .k-chart-tooltip
 ${liSecondLegend}               jquery=.k-legend-custom li[data-index="1"]
+${divNavigatorWrapper}          css=#ChartWrapper .navigatorWrapper
+${btnNavigator}                 css=#ChartWrapper .toggleButton
 
 *** Keywords ***
 Wait Until Chart Display Loaded
@@ -36,3 +38,13 @@ Get Expect Filter Of Second Legend
     ${filterValue}    Get Element Attribute    ${liSecondLegend}@title
     ${expectFilter}    Execute Javascript    return "is equal to ${filterValue}"
     [Return]    ${expectFilter}
+
+Open Chart Navigator
+    ${isClosed}    Is Element Has CssClass   ${divNavigatorWrapper}   hidden
+    Run Keyword If   ${isClosed} == True   Click Element   ${btnNavigator}
+    Sleep   ${TIMEOUT_GENERAL}
+
+Close Chart Navigator
+    ${isClosed}    Is Element Has CssClass   ${divNavigatorWrapper}   hidden
+    Run Keyword If   ${isClosed} == False   Click Element   ${btnNavigator}
+    Sleep   ${TIMEOUT_GENERAL}
