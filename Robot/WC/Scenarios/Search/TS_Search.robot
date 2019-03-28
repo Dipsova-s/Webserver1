@@ -86,6 +86,12 @@ Find Angle By ID Then Execute The First Angle
     Check If Angle Or Display Has A Warning Then Close The Popup
     Check If Angle Is A Template Then Close The Popup
 
+Find Dashboard By ID Then Execute The First Dashboard
+    [Arguments]    ${angleId}
+    Search Filter By Query String    ids=${angleId}
+    Open Dashboard From First Dashboard in Search Page
+    Wait Dashboard Document Loaded
+
 Execute First Search Item In Edit Mode
     Click First Item Info Button
     Click Edit Mode Button Via Item Info Popup

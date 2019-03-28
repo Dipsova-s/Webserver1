@@ -158,10 +158,24 @@ Pivot Should Store A Default Collapse State
     ${layout}    Get Pivot Layout
     Should Be Equal    ${layout}    ${defaultLayout}
 
-Click Collapse "None" Value
-    Click Element    ${tdNoneValue}
+Click Collapse/Expand Pivot Cell
+    [Arguments]   ${cell}
+    Click Element    ${cell}
     Sleep    ${TIMEOUT_GENERAL}
     Wait Until Pivot Display Loaded
+
+Click Collapse Pivot Cell
+    [Arguments]   ${cell}
+    ${isExpanded}    Is Element Has CssClass   ${cell}    dxPivotGrid_pgExpandedButton
+    Run Keyword If   ${isExpanded}   Click Collapse/Expand Pivot Cell  ${cell}
+
+Click Expand Pivot Cell
+    [Arguments]   ${cell}
+    ${isCollapsed}    Is Element Has CssClass   ${cell}    dxPivotGrid_pgCollapsedButton
+    Run Keyword If   ${isCollapsed}   Click Collapse/Expand Pivot Cell  ${cell}
+
+Click Collapse "None" Value
+    Click Collapse Pivot Cell    ${tdNoneValue}
 
 Pivot Should Update A Collapse State
     ${layout}    Get Pivot Layout
@@ -181,3 +195,4 @@ Submit Sort By Summary
 Get Sort Summary Test Data
     ${data}   Execute JavaScript    return $.map($('#${pivotResultTable} tr:lt(5)').find('td:first'), function(element) { return parseInt($(element).text()); });
     [return]    ${data}
+    

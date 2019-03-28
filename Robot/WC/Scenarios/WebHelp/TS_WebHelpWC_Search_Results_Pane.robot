@@ -41,6 +41,7 @@ Crop Search Result Icons
     Crop WebHelp Image    WC_i_Icon.png   jquery=.SearchResult:first .ResultContent .btnInfo    ${False}
 
 Crop Display Type Icons
+    Execute JavaScript    $('.ResultView .icon.default').removeClass('default');
     Crop WebHelp Image   WC_Table_Icon.png   jquery=.ResultView .icon.list:not(.default):eq(0)    ${False}
     Crop WebHelp Image   WC_Graph_Icon.png   jquery=.ResultView .icon.chart:not(.default):eq(0)    ${False}
     Crop WebHelp Image   WC_Pivot_Icon.png   jquery=.ResultView .icon.pivot:not(.default):eq(0)    ${False}

@@ -28,6 +28,7 @@ ${btnCancelEditDashboard}    css=#btn-popupListFilter0
 Wait Dashboard Document Loaded
     Wait Until Page Initialized
     Wait Progress Bar Closed
+    Wait Until Ajax Complete
 
 Click Toggle the Dashboard
     Click Element   ${btnToggleDashboard}
@@ -40,12 +41,15 @@ Click Dashboard Name
     Click Element   ${lnkDashboardName}
     Wait Dashboard Detail Document Loaded
 
-Open Dashboard Windget Menu
+Show Dashboard Widget Menu
     [Arguments]    ${index}
     Sleep    ${TIMEOUT_GENERAL}
     Wait Until Page Does Not Contain Element    ${divWidgets}:eq(${index}) .k-loading-mask
     Mouse Over    ${divWidgetDisplayHeader}:eq(${index})
     Sleep    ${TIMEOUT_GENERAL}
+
+Open Dashboard Widget Menu
+    [Arguments]    ${index}
     ${isMenuShown}    Is Element Visible    ${divWidgets}:eq(${index}) .widgetToolbarActions
     Run Keyword If    ${isMenuShown} == False    Click Element    ${btnWidgetButtonMenu}:eq(${index})
     Sleep    ${TIMEOUT_GENERAL}

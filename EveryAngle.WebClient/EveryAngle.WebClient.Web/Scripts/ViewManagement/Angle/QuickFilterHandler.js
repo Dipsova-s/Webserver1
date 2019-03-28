@@ -59,20 +59,16 @@ function QuickFilterHandler() {
     };
     self.ShowAddFilterPopup = function (fieldId, handler) {
         self.SetViewHandler(handler);
-
-        var fieldElementId = WC.Utility.ConvertFieldName(fieldId);
+        
         var modelUri = _self.handler.Models.Angle.Data().model;
         var field = modelFieldsHandler.GetFieldById(fieldId, modelUri);
         if (!field)
             return;
 
-        jQuery('#PopupHeader' + fieldElementId).hide();
-
         requestHistoryModel.SaveLastExecute(self, self.ShowCustomPopup, arguments);
         requestHistoryModel.ClearPopupBeforeExecute = true;
 
-        listSortHandler.CloseCustomPopup();
-        listFormatSettingHandler.CloseCustomPopup();
+        listHandler.HideHeaderPopup();
 
         var popupSettings = self.GetPopupSettings(Localization.ListHeaderPopupAddFilter, function () {
             self.ApplyFilter();

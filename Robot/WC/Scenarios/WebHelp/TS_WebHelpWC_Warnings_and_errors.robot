@@ -1,5 +1,5 @@
 *** Keywords ***
-Screenshot "Warnings and errors" page
+Screenshot "WC_Warnings_and_errors" page
     Go to Search Page
     Set Show Angle Warning In Facet Filters
     

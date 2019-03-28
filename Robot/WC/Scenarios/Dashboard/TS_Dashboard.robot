@@ -71,7 +71,8 @@ Input Filter Value For Is In List For Third Dashboard Filter
 Open Angle In Dashboard Widget
     [Arguments]    ${index}
     ${angleTitleName}    Get Widget Title For Angle Page    ${index}
-    Open Dashboard Windget Menu    ${index}
+    Show Dashboard Widget Menu    ${index}
+    Open Dashboard Widget Menu    ${index}
     Click Link Go To Angle
     Wait Until Keyword Succeeds    30 sec    1 sec    Select Window    ${angleTitleName}
     Wait Angle Page Document Loaded
