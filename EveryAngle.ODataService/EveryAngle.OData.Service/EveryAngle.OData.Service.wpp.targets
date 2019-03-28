@@ -3,6 +3,7 @@
 
   <PropertyGroup>
     <IncludeSetAclProviderOnDestination>false</IncludeSetAclProviderOnDestination>
+    <OnBeforePackageUsingManifest>AddCustomSkipRules</OnBeforePackageUsingManifest>
     <AfterAddDeclareParametersItemsForContentPath>CreateEmptyDirectories</AfterAddDeclareParametersItemsForContentPath>
   </PropertyGroup>
 
@@ -40,6 +41,24 @@
     </ItemGroup>
   </Target>
 
+  <!--Skip file(s) before install-->
+  <Target Name="AddCustomSkipRules">
+    <ItemGroup>
+      <MsDeploySkipRules Include="SkipCsmFiles">
+        <SkipAction>Delete</SkipAction>
+        <ObjectName>filePath</ObjectName>
+        <AbsolutePath>$(_Escaped_PackageTempDir)\\bin\\Storage$</AbsolutePath>
+        <XPath></XPath>
+      </MsDeploySkipRules>
+      <MsDeploySkipRules Include="SkipCsmFolder">
+        <SkipAction>Delete</SkipAction>
+        <ObjectName>dirPath</ObjectName>
+        <AbsolutePath>$(_Escaped_PackageTempDir)\\bin\\Storage$</AbsolutePath>
+        <XPath></XPath>
+      </MsDeploySkipRules>
+    </ItemGroup>
+  </Target>
+  
   <!--Create a package condition when publishing a web deployment-->
   <Choose>
     <When Condition=" '$(Configuration)'=='Debug'">
