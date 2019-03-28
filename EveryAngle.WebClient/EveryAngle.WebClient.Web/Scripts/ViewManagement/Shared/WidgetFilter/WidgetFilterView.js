@@ -1466,9 +1466,23 @@
             var itemNotEqualTo = ddlData.findObject(enumHandlers.PROPERTIESNAME.VALUE, enumHandlers.OPERATOR.NOTEQUALTO.Value);
             itemNotEqualTo.Text = enumHandlers.OPERATOR.ISNOTIN.Text;
         }
+
+        ddlData = self.UpdateDropdownOperatorForRTMS(ddlData);
+
         ddlOperator.setDataSource(ddlData);
         ddlOperator.value(operator);
         ddlOperator.refresh();
+    };
+    self.UpdateDropdownOperatorForRTMS = function (ddlData) {
+        var model = modelsHandler.GetModelByUri(self.Handler.ModelUri);
+        var isRealTimeModel = aboutSystemHandler.IsRealTimeModel(model.id);
+        if (isRealTimeModel) {
+            ddlData.removeObject(enumHandlers.PROPERTIESNAME.VALUE, enumHandlers.OPERATOR.RELATIVEBEFORE.Value);
+            ddlData.removeObject(enumHandlers.PROPERTIESNAME.VALUE, enumHandlers.OPERATOR.RELATIVEAFTER.Value);
+            ddlData.removeObject(enumHandlers.PROPERTIESNAME.VALUE, enumHandlers.OPERATOR.RELATIVEBETWEEN.Value);
+            ddlData.removeObject(enumHandlers.PROPERTIESNAME.VALUE, enumHandlers.OPERATOR.NOTRELATIVEBETWEEN.Value);
+        }
+        return ddlData;
     };
     self.UpdateWidgetFilterText = function (data, index) {
         var filterText = self.Handler.GetFilterText(data, self.Handler.ModelUri, self.Handler.ViewMode() === self.Handler.VIEWMODE.TREEVIEW);

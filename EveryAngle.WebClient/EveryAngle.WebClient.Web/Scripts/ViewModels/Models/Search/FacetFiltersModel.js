@@ -470,8 +470,8 @@ function FacetFiltersViewModel() {
     };
     self.GetModelFilterText = function (filter) {
         var tooltipAttributes = kendo.format('data-type="html" data-tooltip-function="GetRefreshTime" data-tooltip-argument="{0}"', filter.id);
-        var aboutInfo = aboutSystemHandler.GetModelInfoById(filter.id);
-        if (aboutInfo && aboutInfo.is_real_time) {
+        var isRealTimeModel = aboutSystemHandler.IsRealTimeModel(filter.id);
+        if (isRealTimeModel) {
             var realTimeIcon = self.GetIconInfo('realtime');
             return kendo.format('{0}<span class="name withIcon" {1}">', self.GetFilterIconHtml(realTimeIcon), tooltipAttributes);
         }

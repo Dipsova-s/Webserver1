@@ -718,6 +718,7 @@
     <Content Include="WebClient\Tests\Helper\ErrorHandlerTest.js" />
     <Content Include="WebClient\Tests\Helper\HtmlHelper.MenuNavigatableTest.js" />
     <Content Include="WebClient\Tests\Helper\ModelHelperTest.js" />
+    <Content Include="WebClient\Tests\ViewManagement\Angles\AngleActionMenuHandlerTest.js" />
     <Content Include="WebClient\Tests\ViewManagement\Angles\AngleDetailBodyPageHandlerTest.js" />
     <Content Include="WebClient\Tests\ViewManagement\Angles\ChartHandlerTest.js" />
     <Content Include="WebClient\Tests\ViewManagement\Angles\ListSortHandlerTest.js" />
