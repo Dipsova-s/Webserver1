@@ -98,6 +98,11 @@ function AboutSystemHandler() {
         return ClientVersion;
     };
 
+    self.IsRealTimeModel = function (modelId) {
+        var data = self.GetModelInfoById(modelId);
+        return data && data.is_real_time;
+    };
+
     self.ShowAboutSystemPopup = function () {
         jQuery('#HelpMenu').hide();
         var popupName = 'AboutResultSummary',

@@ -10,7 +10,7 @@ describe("AboutSystemHandler", function () {
         aboutSystemHandler = new AboutSystemHandler();
     });
 
-    describe(".GetModelInfoById(id)", function () {
+    describe(".GetModelInfoById", function () {
 
         it("should not get info if no data", function () {
             spyOn(aboutSystemHandler, 'GetData').and.returnValue({});
@@ -46,7 +46,38 @@ describe("AboutSystemHandler", function () {
 
     });
 
-    describe(".GetData()", function () {
+    describe(".IsRealTimeModel", function () {
+
+        var tests = [
+            {
+                title: 'should be realtime model (is_real_time = true)',
+                data: { is_real_time: true },
+                expected: true
+            },
+            {
+                title: 'should be realtime model (is_real_time = false)',
+                data: { is_real_time: false },
+                expected: false
+            },
+            {
+                title: 'should not be realtime model if model does not exist',
+                data: null,
+                expected: false
+            }
+        ];
+
+        $.each(tests, function (index, test) {
+            it(test.title, function () {
+                spyOn(aboutSystemHandler, 'GetModelInfoById').and.returnValue(test.data);
+
+                var result = aboutSystemHandler.IsRealTimeModel();
+
+                expect(!!result).toEqual(test.expected);
+            });
+        });
+    });
+
+    describe(".GetData", function () {
 
         var tests = [
             {

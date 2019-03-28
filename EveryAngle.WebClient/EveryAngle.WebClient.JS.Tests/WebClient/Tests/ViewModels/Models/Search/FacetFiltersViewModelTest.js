@@ -1,4 +1,3 @@
-
 /// <reference path="/../SharedDependencies/BusinessProcessesModel.js" />
 /// <reference path="/Dependencies/ViewModels/Models/User/usersettingmodel.js" />
 /// <reference path="/Dependencies/ViewModels/Models/User/usermodel.js" />
