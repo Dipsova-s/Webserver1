@@ -65,7 +65,7 @@ namespace EveryAngle.Core.ViewModels.ModelServer
             get
             {
                 bool isBusy = false;
-                if(task_details != null)
+                if (task_details != null)
                 {
                     isBusy = task_details.extracting_tables.summary.busy > 0;
                 }

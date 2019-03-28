@@ -1,21 +1,17 @@
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.Mvc;
 using EveryAngle.Core.Interfaces.Services;
+using EveryAngle.Core.ViewModels;
 using EveryAngle.Core.ViewModels.Cycle;
 using EveryAngle.Core.ViewModels.Model;
 using EveryAngle.Core.ViewModels.ModelServer;
-using EveryAngle.Shared.Helpers;
 using EveryAngle.Shared.Globalization;
-using EveryAngle.WebClient.Service;
-
+using EveryAngle.Shared.Helpers;
+using EveryAngle.WebClient.Domain.Enums;
+using EveryAngle.WebClient.Service.Security;
 using Kendo.Mvc.UI;
 using Newtonsoft.Json;
-
-using EveryAngle.WebClient.Service.Security;
-using EveryAngle.Core.ViewModels;
-using EveryAngle.WebClient.Domain.Enums;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web.Mvc;
 
 namespace EveryAngle.ManagementConsole.Controllers
 {
@@ -44,7 +40,7 @@ namespace EveryAngle.ManagementConsole.Controllers
             ViewBag.ModelName = model.short_name;
             return PartialView("~/Views/Model/RefreshCycle/RefreshCycle.cshtml");
         }
-        
+
         public ActionResult GetTaskDetail(string modelId, string tasksUri, string modelUri)
         {
             ViewBag.ModelId = modelId;
@@ -74,7 +70,7 @@ namespace EveryAngle.ManagementConsole.Controllers
         {
             TaskViewModel savedTask;
             TaskViewModel task = JsonConvert.DeserializeObject<TaskViewModel>(tasksData);
-            
+
             if (task.Uri == null)
                 savedTask = _taskService.CreateTask(tasksUri, task);
             else
@@ -100,7 +96,7 @@ namespace EveryAngle.ManagementConsole.Controllers
             {
                 ModelServerViewModel modelExtractor = _modelService.GetModelServers(modelServerUri)
                     .Data.FirstOrDefault(model => model.Type == ModelAgentType.Extractor);
-                if (modelExtractor != null)
+                if (modelExtractor != null && modelExtractor.Status.Equals(ModelServerStatus.Extracting))
                 {
                     extractorUri = modelExtractor.Uri.ToString();
                 }
@@ -182,7 +178,7 @@ namespace EveryAngle.ManagementConsole.Controllers
 
             return new JsonResult
             {
-                Data = new {success = true, message = Resource.MC_ItemSuccesfullyUpdated},
+                Data = new { success = true, message = Resource.MC_ItemSuccesfullyUpdated },
                 JsonRequestBehavior = JsonRequestBehavior.AllowGet
             };
         }
@@ -194,7 +190,7 @@ namespace EveryAngle.ManagementConsole.Controllers
 
             return new JsonResult
             {
-                Data = new {success = true, message = Resource.MC_ItemSuccesfullyUpdated},
+                Data = new { success = true, message = Resource.MC_ItemSuccesfullyUpdated },
                 JsonRequestBehavior = JsonRequestBehavior.AllowGet
             };
         }
