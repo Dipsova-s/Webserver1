@@ -10,32 +10,45 @@ Login
     Fill in Password    ${password}
     Click Login Button
 
+Retry Login
+    [Arguments]   ${username}  ${password}
+    Delete Cookie   EASECTOKEN
+    Reload Page
+    Login    ${username}    ${password}
+
 Login And Expected Result
     [Arguments]    ${username}    ${password}  ${expectedResult}
     Login    ${username}  ${password}
     Wait Until Login Page Contains Text    ${expectedResult}
 
+Login To WC
+    [Arguments]   ${username}  ${password}
+    Login    ${username}    ${password}
+    ${result}   Run Keyword And Return Status    Check Login Successful
+    Run Keyword If   ${result} == ${False}   Retry Login    ${username}    ${password}
+    Wait Search Page Document Loaded
+
 Login To WC By Power User
-    Login    ${Username}    ${Password}
-    Wait Search Page Document Loaded
-    Maximize Browser Window
-	
+    Login To WC    ${Username}    ${Password}
+
 Login To WC By Viewer User
-    Login    ${ViewerUsername}    ${Password}
-    Wait Search Page Document Loaded
-    Maximize Browser window		
+    Login To WC    ${ViewerUsername}    ${Password}
 
 Login To WC By Admin User
-    Login    ${AdminUsername}    ${Password}
-    Wait Search Page Document Loaded
+    Login To WC    ${AdminUsername}    ${Password}
 
 Login To WC By Test Role User
-    Login    ${TestPrivilegesUser}    ${Password}
-    Wait Search Page Document Loaded
+    Login To WC    ${TestPrivilegesUser}    ${Password}
+
+Login To MC
+    [Arguments]   ${username}  ${password}
+    Login    ${username}    ${password}
+    ${result}   Run Keyword And Return Status    Check Login Successful
+    Run Keyword If   ${result} == ${False}   Retry Login    ${username}    ${password}
+    Wait Side Menu Ready
 
 Login To MC By Admin User
-    Login    ${AdminUsername}    ${Password}
-    Wait Side Menu Ready
+    Login To MC    ${AdminUsername}    ${Password}
 
 Logout
     [Arguments]
@@ -50,7 +63,7 @@ Go to WC Then Login With EAPower User
     Open Browser in Sandbox Mode
     Go To    ${URL_WC}
     Login To WC By Power User
-	
+
 Go to WC Then Login With EAViewer User
     Open Browser in Sandbox Mode
     Go To    ${URL_WC}
@@ -78,6 +91,10 @@ Force Logout WC
     Go to    ${URL_WC}/en/search/searchpage
     Wait Search Page Document Loaded
     Logout
+
+Force Logout MC Then Close Browser
+    Go to    ${URL_MC}/security/logout
+    Close Browser
 
 Get MC Language Page Url
     ${languagePageUrl}    Execute JavaScript    return window.location.origin + "/${Branch}/admin/home/index#/Global settings/Languages/"

@@ -106,7 +106,8 @@ Set PrefServerCurrent=%5
 Set PrefServerBase=%6
 
 ECHO ###### Running Robot Framework ######
-call :executeRobot 
+call :executeRobot
+call :cleanupChromeDriver
 exit /b 0
 
 ::=========================================
@@ -173,5 +174,14 @@ exit /b 0
 	call rebot --merge -d %~dp0%ReportFolder% ^
 		--output %~dp0%ReportFolder%/output.xml ^
 		%reports%
+
+exit /b 0
+
+:cleanupChromeDriver
+
+	setlocal
+	cd /d %~dp0
+
+	call powershell -file "%~dp0%cleanup.ps1"
 
 exit /b 0
