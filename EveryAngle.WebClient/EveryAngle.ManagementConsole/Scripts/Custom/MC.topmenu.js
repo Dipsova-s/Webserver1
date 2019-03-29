@@ -31,6 +31,7 @@
             MC.topMenu.click(jQuery('#HelpMenu'), jQuery('#UserMenu'));
         },
         setWorkbenchUri: function () {
+            return;
             if (jQuery("#btnWorkbench").length) {
                 MC.ajax
                     .request({

@@ -39,7 +39,8 @@
                 }
                 @if (SessionHelper.Initialize().Session.IsValidToManageModelPrivilege())
                 {
-                    <a id="btnWorkbench" href="" class="actionDropdownItem btnWorkbench" target="_blank">
+                    string workbenchUri = EveryAngle.Shared.Helpers.UtilitiesHelper.GetWebClientUrl("") + "workbench";
+                    <a id="btnWorkbench" href="@workbenchUri" class="actionDropdownItem btnWorkbench" target="_blank">
                         <span>@Resource.Workbench</span>
                     </a>
                 }
