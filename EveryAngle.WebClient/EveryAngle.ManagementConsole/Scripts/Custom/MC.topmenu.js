@@ -49,6 +49,7 @@
             MC.topMenu.click(MC.topMenu.menuIds.notifications);
         },
         setWorkbenchUri: function () {
+            return;
             if (jQuery("#btnWorkbench").length) {
                 MC.ajax
                     .request({

@@ -20,60 +20,61 @@
             }
         }
 
-    <div class="menuItem">
-        <a id="NotificationsFeed" class="linkNotificationsFeed" href="javascript:void(0)">
-        </a>
-    </div>
-    <div class="menuItem">
-        <a id="HelpMenuControl" class="linkHelp" onclick="MC.topMenu.clickHelp();">
-            <span class="icon helpIcon"></span>
-        </a>
-    </div>
-    <div class="menuItem">
-        <a id="UserMenuControl" class="linkUser" onclick="MC.topMenu.clickUser();">
-            <span class="icon downArrow"></span>
-            <span id="UserControlName" data-userid="@user.Id" class="textEllipsis">@user.Fullname</span>
-        </a>
-    </div>
-
-    <div class="k-window-titleless k-window-custom k-window-arrow-n popupUserMenu" id="UserMenu" style="display: none;">
-        <div class="k-window-content k-content">
-            @if (!string.IsNullOrEmpty(webClientUrl))
-            {
-                <a href="@webClientUrl.ToLower()" class="actionDropdownItem btnWC" target="_blank"><span>@Resource.OpenWebclient</span></a>
-            }
-            @if (SessionHelper.Initialize().Session.IsValidToManageModelPrivilege())
-            {
-                <a id="btnWorkbench" href="" class="actionDropdownItem btnWorkbench" target="_blank">
-                    <span>@Resource.Workbench</span>
-                </a>
-            }
-            <form id="logoutForm" action="@Url.Content("~/Security/Logout")">
-                <a class="actionDropdownItem btnLogout" onclick="jQuery('#logoutForm').submit();"><span>@Resource.Logout</span></a>
-            </form>
-        </div>
-    </div>
-
-    <div class="k-window-titleless k-window-custom k-window-arrow-n popupHelpMenu" id="HelpMenu" style="display: none;">
-        <div class="k-window-content k-content">
-            <a class="actionDropdownItem btnHelp" target="_blank" href="@Url.Content(helpUri)"><span>@EveryAngle.Shared.Globalization.Resource.Helppage</span></a>
-            <a id="btnAbout" data-role="mcPopup" onclick="MC.util.showPopupAbout('@Url.Action("AboutInformation", "Home")');" data-title="@Resource.AboutEveryAngle" data-target="#popupAbout" data-scrollable="false" data-resizable="false" data-width="561" data-height="272" class="actionDropdownItem btnAbout">
-                <span>@Html.Raw(Resource.AboutEveryAngle)</span>
+        <div class="menuItem">
+            <a id="NotificationsFeed" class="linkNotificationsFeed" href="javascript:void(0)">
             </a>
-            <div class="popup global" id="popupAbout"></div>
         </div>
-    </div>
+        <div class="menuItem">
+            <a id="HelpMenuControl" class="linkHelp" onclick="MC.topMenu.clickHelp();">
+                <span class="icon helpIcon"></span>
+            </a>
+        </div>
+        <div class="menuItem">
+            <a id="UserMenuControl" class="linkUser" onclick="MC.topMenu.clickUser();">
+                <span class="icon downArrow"></span>
+                <span id="UserControlName" data-userid="@user.Id" class="textEllipsis">@user.Fullname</span>
+            </a>
+        </div>
 
-    <div class="k-window-titleless k-window-custom k-window-arrow-n popupNotificationsFeedMenu" id="NotificationsFeedMenu">
-        <div class="k-window-content k-content notificationsFeed">
-            <div class="header">
-            </div>
-            <div class="content">
-            </div>
-            <div class="footer">
+        <div class="k-window-titleless k-window-custom k-window-arrow-n popupUserMenu" id="UserMenu" style="display: none;">
+            <div class="k-window-content k-content">
+                @if (!string.IsNullOrEmpty(webClientUrl))
+                {
+                    <a href="@webClientUrl.ToLower()" class="actionDropdownItem btnWC" target="_blank"><span>@Resource.OpenWebclient</span></a>
+                }
+                @if (SessionHelper.Initialize().Session.IsValidToManageModelPrivilege())
+                {
+                    string workbenchUri = EveryAngle.Shared.Helpers.UtilitiesHelper.GetWebClientUrl("") + "workbench";
+                    <a id="btnWorkbench" href="@workbenchUri" class="actionDropdownItem btnWorkbench" target="_blank">
+                        <span>@Resource.Workbench</span>
+                    </a>
+                }
+                <form id="logoutForm" action="@Url.Content("~/Security/Logout")">
+                    <a class="actionDropdownItem btnLogout" onclick="jQuery('#logoutForm').submit();"><span>@Resource.Logout</span></a>
+                </form>
             </div>
         </div>
-    </div>
+
+        <div class="k-window-titleless k-window-custom k-window-arrow-n popupHelpMenu" id="HelpMenu" style="display: none;">
+            <div class="k-window-content k-content">
+                <a class="actionDropdownItem btnHelp" target="_blank" href="@Url.Content(helpUri)"><span>@EveryAngle.Shared.Globalization.Resource.Helppage</span></a>
+                <a id="btnAbout" data-role="mcPopup" onclick="MC.util.showPopupAbout('@Url.Action("AboutInformation", "Home")');" data-title="@Resource.AboutEveryAngle" data-target="#popupAbout" data-scrollable="false" data-resizable="false" data-width="561" data-height="272" class="actionDropdownItem btnAbout">
+                    <span>@Html.Raw(Resource.AboutEveryAngle)</span>
+                </a>
+                <div class="popup global" id="popupAbout"></div>
+            </div>
+        </div>
+
+        <div class="k-window-titleless k-window-custom k-window-arrow-n popupNotificationsFeedMenu" id="NotificationsFeedMenu">
+            <div class="k-window-content k-content notificationsFeed">
+                <div class="header">
+                </div>
+                <div class="content">
+                </div>
+                <div class="footer">
+                </div>
+            </div>
+        </div>
 
     }
 }
