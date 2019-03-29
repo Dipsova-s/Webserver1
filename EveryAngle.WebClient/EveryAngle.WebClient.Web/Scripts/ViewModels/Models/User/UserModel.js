@@ -202,6 +202,14 @@ function UserViewModel() {
             self.HideManagementControlButton();
     };
     self.SetWorkbenchButton = function () {
+        if (self.IsPossibleToManageModel()) {
+            jQuery("#btnWorkbench").show();
+        }
+        else {
+            jQuery("#btnWorkbench").hide();
+        }
+        return;
+
         var workbenchUrl = componentServicesHandler.GetModellingWorkbenchUrl();
         if (self.IsPossibleToManageModel() && workbenchUrl) {
             jQuery("#btnWorkbench").attr("href", workbenchUrl);

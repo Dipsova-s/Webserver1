@@ -32,7 +32,10 @@
                 }
                 <a class="actionDropdownItem btnMC" target="_blank" href="@administratorPath.ToLower()"><span data-bind="text: Localization.SearchPageManagementConsole"></span></a>
             }
-            <a id="btnWorkbench" class="actionDropdownItem btnWorkbench" href="" target="_blank">
+            @{
+                string workbenchUri = EveryAngle.Shared.Helpers.UtilitiesHelper.GetWebClientUrl("") + "workbench";
+            }
+            <a id="btnWorkbench" class="actionDropdownItem btnWorkbench" href="@workbenchUri" target="_blank">
                 <span data-bind="text: Localization.Workbench"></span>
             </a>
             <a class="actionDropdownItem btnSettings" onclick="userSettingsHandler.ShowPopup()"><span data-bind="text: Localization.Settings"></span></a>
