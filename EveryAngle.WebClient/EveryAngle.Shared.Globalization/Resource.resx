@@ -5883,4 +5883,7 @@ During a login challenge resulting from a URL link into the instance that requir
     <value>The type of the authentication provider.&lt;br&gt;
 Only Active Directory (AD) and Active Directory Federation (ADFS) services are supported.</value>
   </data>
+  <data name="RunningRealTime" xml:space="preserve">
+    <value>Running in real time</value>
+  </data>
 </root>

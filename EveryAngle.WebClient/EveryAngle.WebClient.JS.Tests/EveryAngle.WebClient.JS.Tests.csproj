@@ -101,6 +101,10 @@
       <Link>WebClient\Dependencies\ViewManagement\Dashboard\DashboardFiltersHandler.js</Link>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="..\EveryAngle.WebClient.Web\Scripts\ViewManagement\Shared\AboutSystemHandler.js">
+      <Link>WebClient\Dependencies\ViewManagement\Shared\AboutSystemHandler.js</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="ManagementConsole\Tests\Custom\MC.AjaxTest.js" />
     <Content Include="ManagementConsole\Tests\Custom\MC.Test.js" />
     <Content Include="ManagementConsole\Tests\Custom\MC.UITest.js" />
@@ -687,6 +691,7 @@
     <Content Include="WebClient\Tests\Helper\ErrorHandlerTest.js" />
     <Content Include="WebClient\Tests\Helper\HtmlHelper.MenuNavigatableTest.js" />
     <Content Include="WebClient\Tests\Helper\ModelHelperTest.js" />
+    <Content Include="WebClient\Tests\ViewManagement\Angles\AngleActionMenuHandlerTest.js" />
     <Content Include="WebClient\Tests\ViewManagement\Angles\AngleDetailBodyPageHandlerTest.js" />
     <Content Include="WebClient\Tests\ViewManagement\Angles\ChartHandlerTest.js" />
     <Content Include="WebClient\Tests\ViewManagement\Angles\ListSortHandlerTest.js" />
@@ -713,6 +718,7 @@
     <Content Include="WebClient\Tests\ViewManagement\Search\ImportAngleHandlerTest.js" />
     <Content Include="WebClient\Tests\ViewManagement\Search\ItemInfoHandlerTest.js" />
     <Content Include="WebClient\Tests\ViewManagement\Search\SearchPageHandlerTest.js" />
+    <Content Include="WebClient\Tests\ViewManagement\Shared\AboutSystemHandlerTest.js" />
     <Content Include="WebClient\Tests\ViewManagement\Shared\ModelLabelCategoryHandlerTest.js" />
     <Content Include="WebClient\Tests\ViewManagement\Shared\ProgressBarTest.js" />
     <Content Include="WebClient\Tests\ViewManagement\Shared\ModelsHandlerTest.js" />

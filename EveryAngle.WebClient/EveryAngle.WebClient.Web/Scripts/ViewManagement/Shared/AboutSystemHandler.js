@@ -8,7 +8,44 @@ function AboutSystemModel(model) {
         app_server_version: '',
         models: []
     }, model);
+
+    // add extra info
+    jQuery.each(this.models, function (index, data) {
+        data.name = function () {
+            return modelsHandler.GetModelNameById(this.model_id);
+        };
+
+        data.available = function () {
+            var modelStatus = this.status.toLowerCase();
+            if (this.is_real_time)
+                return modelStatus === AboutSystemModel.STATUS.UP;
+            else
+                return modelStatus !== AboutSystemModel.STATUS.DOWN && this.modeldata_timestamp;
+        };
+
+        if (data.available()) {
+            data.date = function () {
+                return WC.FormatHelper.GetFormattedValue(enumHandlers.FIELDTYPE.DATETIME_WC, this.modeldata_timestamp);
+            };
+            data.info = function () {
+                return kendo.format('{0}, {1}', this.status, this.date());
+            };
+        }
+        else {
+            data.date = function () {
+                return '';
+            };
+            data.info = function () {
+                return this.status;
+            };
+        }
+    });
 }
+
+AboutSystemModel.STATUS = {
+    UP: 'up',
+    DOWN: 'down'
+};
 
 function AboutSystemHandler() {
     "use strict";
@@ -52,8 +89,18 @@ function AboutSystemHandler() {
         return self.Load(uri);
     };
 
+    self.GetModelInfoById = function (id) {
+        var data = self.GetData();
+        return data.models ? data.models.findObject('model_id', id) : null;
+    };
+
     self.GetWebClientVersion = function () {
         return ClientVersion;
+    };
+
+    self.IsRealTimeModel = function (modelId) {
+        var data = self.GetModelInfoById(modelId);
+        return data && data.is_real_time;
     };
 
     self.ShowAboutSystemPopup = function () {

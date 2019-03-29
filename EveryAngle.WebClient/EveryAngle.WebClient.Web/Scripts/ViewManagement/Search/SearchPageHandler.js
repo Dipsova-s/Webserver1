@@ -39,6 +39,7 @@ function SearchPageHandler() {
                     fieldCategoryHandler.LoadFieldCategories(),
                     privilegesViewModel.Load(),
                     userSettingModel.Load(),
+                    aboutSystemHandler.LoadAboutSystem(),
                     facetFiltersViewModel.Load()
                 );
             })

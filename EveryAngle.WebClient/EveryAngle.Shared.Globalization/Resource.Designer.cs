@@ -15628,6 +15628,15 @@ namespace EveryAngle.Shared.Globalization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Running in real time.
+        /// </summary>
+        public static string RunningRealTime {
+            get {
+                return ResourceManager.GetString("RunningRealTime", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to SAP system.
         /// </summary>
         public static string SAPSystem {

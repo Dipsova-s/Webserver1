@@ -14,6 +14,7 @@ function FacetFiltersViewModel() {
     self.GroupExceptions = ['business_process'];  
     self.GroupGeneral = 'item_property';
     self.GroupCannotNegativeFilter = 'facetcat_admin';
+    self.GroupModels = 'facetcat_models';
     self.GroupGeneralOrder = ['facetcat_itemtype', 'facetcat_characteristics', 'facetcat_models', 'facetcat_admin'];
     self.FilterExclusionList = ['facet_executeonlogin'];
     self.ShowOtherFacetFilterProperties = ko.observable(false);
@@ -314,7 +315,7 @@ function FacetFiltersViewModel() {
             return facetVisibility;
         }
     };
-	self.SetIcon = function (id) {
+    self.GetIconInfo = function (id) {
 		var iconsMapping = {
 			facet_angle: {
 				path: GetImageFolderPath() + 'searchpage/icn_item_angle.svg',
@@ -380,7 +381,15 @@ function FacetFiltersViewModel() {
 					width: 20,
 					height: 20
 				}
-			}
+            },
+            realtime: {
+                path: GetImageFolderPath() + 'searchpage/icn_clock.svg',
+                dimension: {
+                    width: 16,
+                    height: 16
+                },
+                style: 'left:-1px;bottom:2px;'
+            }
 		};
 		return iconsMapping[id.toLowerCase()];
     };
@@ -391,17 +400,17 @@ function FacetFiltersViewModel() {
         }
         return tooltip;
     };
-    self.GetFilterText = function (filter, isGeneralGroup) {
-		var icon = self.SetIcon(filter.id);
+    self.GetFilterText = function (filter, isGeneralGroup, facetcat) {
+        var icon = self.GetIconInfo(filter.id);
 		var html = '';
 
-        if (icon) {
-            html += '<img src="' + icon.path + '" height="' + icon.dimension.height + '" width="' + icon.dimension.width + '" style="' + (icon.style || '') + '" />';
-            html += '<span class="name withIcon">';
-        }
-        else {
+        if (facetcat === self.GroupModels)
+            html += self.GetModelFilterText(filter);
+        else if (icon)
+            html += kendo.format('{0}<span class="name withIcon">', self.GetFilterIconHtml(icon));
+        else
             html += '<span class="name">';
-        }
+        
         html += (isGeneralGroup ? '' : filter.description) || filter.name || filter.id;
         if (filter.checked()) {
             html += ' (' + filter.count() + ')';
@@ -409,6 +418,20 @@ function FacetFiltersViewModel() {
         html += '</span>';
 
         return html;
+    };
+    self.GetFilterIconHtml = function (icon) {
+        return kendo.format('<img src="{0}" height="{1}" width="{2}" style="{3}" />', icon.path, icon.dimension.height, icon.dimension.width, icon.style || '');
+    };
+    self.GetModelFilterText = function (filter) {
+        var tooltipAttributes = kendo.format('data-type="html" data-tooltip-function="GetRefreshTime" data-tooltip-argument="{0}"', filter.id);
+        var isRealTimeModel = aboutSystemHandler.IsRealTimeModel(filter.id);
+        if (isRealTimeModel) {
+            var realTimeIcon = self.GetIconInfo('realtime');
+            return kendo.format('{0}<span class="name withIcon" {1}">', self.GetFilterIconHtml(realTimeIcon), tooltipAttributes);
+        }
+        else {
+            return kendo.format('<span class="name" {0}">', tooltipAttributes);
+        }
     };
     self.ToggleCategory = function (data, event) {
         var element = jQuery(event.currentTarget),
@@ -465,4 +488,51 @@ function FacetFiltersViewModel() {
 
         return true;
     };
+    self.GetDuration = function (seconds) {
+        var duration = "";
+        var epoch, interval;
+        var duration_in_seconds = {
+            epochs: ['y', 'd', 'h', 'm'],
+            y: 31536000,
+            d: 86400,
+            h: 3600,
+            m: 60
+        };
+
+        for (var i = 0; i < duration_in_seconds.epochs.length; i++) {
+            epoch = duration_in_seconds.epochs[i];
+            interval = Math.floor(seconds / duration_in_seconds[epoch]);
+            if (interval >= 1) {
+                duration += interval + epoch + ' ';
+                if (epoch !== 'y') {
+                    seconds -= interval * duration_in_seconds[epoch];
+                }
+                else {
+                    return duration;
+                }
+            }
+        }
+
+        return duration;
+    };
+    self.GetTimeAgoByTimestamp = function (timestamp) {
+        var now = new Date();
+        var ts = new Date(timestamp * 1000);
+        var seconds = (now.getTime() - ts.getTime()) / 1000;
+        var duration = self.GetDuration(seconds);
+        return kendo.format(Localization.SinceLastRefresh, duration);
+    };
+    self.GetRefreshTime = function (modelId) {
+        var aboutInfo = aboutSystemHandler.GetModelInfoById(modelId);
+
+        if (!aboutInfo)
+            return '';
+
+        // show info/status if it's not available
+        if (!aboutInfo.available())
+            return aboutInfo.info();
+
+        return aboutInfo.is_real_time ? Localization.RunningRealTime : self.GetTimeAgoByTimestamp(aboutInfo.modeldata_timestamp);
+    };
+    window.GetRefreshTime = self.GetRefreshTime;
 }

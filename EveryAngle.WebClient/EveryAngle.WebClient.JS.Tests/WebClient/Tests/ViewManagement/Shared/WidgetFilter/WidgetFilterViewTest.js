@@ -1,5 +1,7 @@
 ﻿/// <reference path="/Dependencies/ViewManagement/Shared/WidgetFilter/WidgetFilterView.js" />
 /// <reference path="/Dependencies/ViewManagement/Shared/WidgetFilter/WidgetFilterHandler.js" />
+/// <reference path="/Dependencies/ViewManagement/Shared/ModelsHandler.js" />
+/// <reference path="/Dependencies/ViewManagement/Shared/AboutSystemHandler.js" />
 
 describe("WidgetFilterView", function () {
 
@@ -39,6 +41,33 @@ describe("WidgetFilterView", function () {
                 else
                     expect(widgetFilterView.CollapseAllAndExpandSelectedPanel).toHaveBeenCalled();
             });
+        });
+
+    });
+
+    describe(".UpdateDropdownOperatorForRTMS", function () {
+        var ddlData = ko.toJS(enumHandlers.QUERYSTEPOPERATOR.SIMPLIFYDATE);
+
+        it("should return dropdown list without relative filter when model is rtms", function () {
+            spyOn(modelsHandler, 'GetModelByUri').and.returnValue({
+                id: "EA2_800"
+            });
+
+            spyOn(aboutSystemHandler, 'IsRealTimeModel').and.returnValue(true);
+
+            var expectedData = widgetFilterView.UpdateDropdownOperatorForRTMS(ddlData);
+            expect(expectedData.length).toEqual(12);
+        });
+
+        it("should return dropdown list with relative filter when model is not rtms", function () {
+            spyOn(modelsHandler, 'GetModelByUri').and.returnValue({
+                id: "EA2_800"
+            });
+
+            spyOn(aboutSystemHandler, 'IsRealTimeModel').and.returnValue(false);
+
+            var expectedData = widgetFilterView.UpdateDropdownOperatorForRTMS(ddlData);
+            expect(expectedData.length).toEqual(ddlData.length);
         });
 
     });

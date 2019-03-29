@@ -8,7 +8,7 @@
 
 describe("AngleDetailBodyPageHandler", function () {
 
-    describe("call ApplyResult", function () {
+    describe(".ApplyResult", function () {
 
         beforeEach(function () {
             //initial
