@@ -28,6 +28,11 @@ Click Login Button
     Wait Until Page Contains Element    ${btnLogin}
     Click Button  ${btnLogin}
 
+Check Login Successful
+    ${isRedirected}   Run Keyword And Return Status    Wait Until Page Does Not Contain Element    ${btnLogin}   20s
+    ${hasCookie}      Run Keyword And Return Status    Get Cookie   EASECTOKEN
+    Run Keyword If  ${isRedirected} == ${False} and ${hasCookie} == ${False}   Fail   Stuck at login page!
+
 Wait Until Login Page Contains Text
     [Arguments]   ${expectedResult}
     Wait Progress Bar Closed

@@ -10,6 +10,12 @@ Login
     Fill in Password    ${password}
     Click Login Button
 
+Retry Login
+    [Arguments]   ${username}  ${password}
+    Delete Cookie   EASECTOKEN
+    Reload Page
+    Login    ${username}    ${password}
+
 Login And Expected Result
     [Arguments]    ${username}    ${password}  ${expectedResult}
     Login    ${username}  ${password}
@@ -17,16 +23,16 @@ Login And Expected Result
 
 Login To WC
     [Arguments]   ${username}  ${password}
-    Login    ${Username}    ${Password}
+    Login    ${username}    ${password}
+    ${result}   Run Keyword And Return Status    Check Login Successful
+    Run Keyword If   ${result} == ${False}   Retry Login    ${username}    ${password}
     Wait Search Page Document Loaded
 
 Login To WC By Power User
     Login To WC    ${Username}    ${Password}
 
 Login To WC By Viewer User
-    Login    ${ViewerUsername}    ${Password}
-    Wait Search Page Document Loaded
-    Maximize Browser window
+    Login To WC    ${ViewerUsername}    ${Password}
 
 Login To WC By Admin User
     Login To WC    ${AdminUsername}    ${Password}
@@ -37,6 +43,8 @@ Login To WC By Test Role User
 Login To MC
     [Arguments]   ${username}  ${password}
     Login    ${Username}    ${Password}
+    ${result}   Run Keyword And Return Status    Check Login Successful
+    Run Keyword If   ${result} == ${False}   Retry Login    ${username}    ${password}
     Wait Side Menu Ready
 
 Login To MC By Admin User
