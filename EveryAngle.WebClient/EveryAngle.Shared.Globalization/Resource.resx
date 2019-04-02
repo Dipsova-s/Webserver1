@@ -5849,7 +5849,7 @@ Are you sure you want to delete this role?</value>
     <value>If this setting is selected, a new Every Angle user account is automatically created when a user from this authentication provider logs in to Every Angle for the first time. This Every Angle user will then be assigned the default roles as defined on this page. For ADFS, this option is selected by default.</value>
   </data>
   <data name="MC_AuthenticationProvidersHelpContainer" xml:space="preserve">
-    <value>In a default Active Directory hierarchy structure, users are located in the "Users" container. This container is always on the main level of your domain. When leaving this field empty, the Ever Angle Application Server will retrieve users from this default location.&lt;br&gt;
+    <value>In a default Active Directory hierarchy structure, users are located in the "Users" container. This container is always on the main level of your domain. When leaving this field empty, the Every Angle Application Server will retrieve users from this default location.&lt;br&gt;
 In case you want to have the users retrieved from a different container, enter the Distinguished Name (DN) of this container here.&lt;br&gt;
 An Active Directory browsing tool can help you find the correct DN syntax for the container. For example, Ldap Admin is a free Windows LDAP client that lets you browse the Active Directory and copy the DN. Example DN: &lt;strong&gt;CN=External Users, DC=Contoso, DC=com&lt;/strong&gt;</value>
   </data>
@@ -5876,8 +5876,11 @@ The identity consists of the elements &amp;lt;service&amp;gt; and &amp;lt;addres
     <value>If this setting is selected, the Application Server will always check AD group membership when a user logs in. When an AD group exists as a role in Every Angle, this role will be assigned to the user during the session. Note that the group name may not contain any spaces.</value>
   </data>
   <data name="MC_AuthenticationProvidersHelpTarget" xml:space="preserve">
-    <value>Enter the target of the ADFS.&lt;br&gt;
-During a login challenge resulting from a URL link into the instance that requires an Single Sign-On session, often times, the referring URL needs to be supplied to the Single Sign-On provider so that after authentication, it can be passed back to our instance and linked to the correct resource. The target consists of the elements: &amp;lt;Service&amp;gt;&amp;lt;address of service&amp;gt;, for example, https://adfs.example.com/adfs/identity/</value>
+    <value>Holds the target of the ADFS.&lt;br&gt;&lt;br&gt;
+
+During a login challenge resulting from a URL link into the instance that requires a Single Sign-On session, the referring URL often needs to be supplied to the Single Sign-On provider so that after authentication, it can be passed back to our instance and linked to the correct resource.&lt;br&gt;&lt;br&gt;
+
+The target is built with the elements:  &amp;lt;Service&amp;gt;&amp;lt;address of service&amp;gt;, for example, https://adfs.example.com/adfs/identity/.</value>
   </data>
   <data name="MC_AuthenticationProvidersHelpType" xml:space="preserve">
     <value>The type of the authentication provider.&lt;br&gt;

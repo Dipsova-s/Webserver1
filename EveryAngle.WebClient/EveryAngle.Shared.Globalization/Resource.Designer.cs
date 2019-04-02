@@ -7456,9 +7456,9 @@ namespace EveryAngle.Shared.Globalization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to In a default Active Directory hierarchy structure, users are located in the &quot;Users&quot; container. This container is always on the main level of your domain. When leaving this field empty, the Ever Angle Application Server will retrieve users from this default location.&lt;br&gt;
+        ///   Looks up a localized string similar to In a default Active Directory hierarchy structure, users are located in the &quot;Users&quot; container. This container is always on the main level of your domain. When leaving this field empty, the Every Angle Application Server will retrieve users from this default location.&lt;br&gt;
         ///In case you want to have the users retrieved from a different container, enter the Distinguished Name (DN) of this container here.&lt;br&gt;
-        ///An Active Directory browsing tool can help you find the correct DN syntax for the container. For example [rest of string was truncated]&quot;;.
+        ///An Active Directory browsing tool can help you find the correct DN syntax for the container. For exampl [rest of string was truncated]&quot;;.
         /// </summary>
         public static string MC_AuthenticationProvidersHelpContainer {
             get {
@@ -7531,8 +7531,11 @@ namespace EveryAngle.Shared.Globalization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Enter the target of the ADFS.&lt;br&gt;
-        ///During a login challenge resulting from a URL link into the instance that requires an Single Sign-On session, often times, the referring URL needs to be supplied to the Single Sign-On provider so that after authentication, it can be passed back to our instance and linked to the correct resource. The target consists of the elements: &amp;lt;Service&amp;gt;&amp;lt;address of service&amp;gt;, for example, https://adfs.example.com/adfs/identity/.
+        ///   Looks up a localized string similar to Holds the target of the ADFS.&lt;br&gt;&lt;br&gt;
+        ///
+        ///During a login challenge resulting from a URL link into the instance that requires a Single Sign-On session, the referring URL often needs to be supplied to the Single Sign-On provider so that after authentication, it can be passed back to our instance and linked to the correct resource.&lt;br&gt;&lt;br&gt;
+        ///
+        ///The target is built with the elements:  &amp;lt;Service&amp;gt;&amp;lt;address of service&amp;gt;, for example, https://adfs.example.com/adfs/identity/..
         /// </summary>
         public static string MC_AuthenticationProvidersHelpTarget {
             get {
