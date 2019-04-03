@@ -4,7 +4,7 @@ Suite Setup         Initialize Download Path And Login With Admin User
 Suite Teardown      Logout WC Then Close Browser
 Test Setup          Empty Download Directory
 Test Teardown       Go to Search Page
-Force Tags          acceptance
+Force Tags          acc_wc
 
 *** Variables ***
 ${TEST_VERIFY_EXPORT_TO_PACKAGE}     Angle For General Test

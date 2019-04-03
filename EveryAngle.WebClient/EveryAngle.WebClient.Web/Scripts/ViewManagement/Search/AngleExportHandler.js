@@ -1,6 +1,6 @@
-var angleExportHandler = new AngleExportHandler(new AngleDownloadHandler());
+var angleExportHandler = new AngleExportHandler(new AngleDownloadHandler(), new EAPackageHandler());
 
-function AngleExportHandler(angleDownloadHandler) {
+function AngleExportHandler(angleDownloadHandler, eaPackageHandler) {
     "use strict";
 
     var self = this;
@@ -8,11 +8,24 @@ function AngleExportHandler(angleDownloadHandler) {
 
     // BOF: Properties
     _self.angleDownloadHandler = angleDownloadHandler;
-    
+    _self.eaPackageHandler = eaPackageHandler;
+
+    self.IsPackageVisible = ko.observable(true);
     self.Handler = ko.observable(_self.angleDownloadHandler);
+    self.ANGLEEXPORTTYPE = {
+        DONWLOAD: 'download',
+        PACKAGE: 'package'
+    };
+    self.AngleExportType = ko.observable(self.ANGLEEXPORTTYPE.DONWLOAD);
     // EOF: Properties
 
     // BOF: Methods
+    self.OnChangeAngleExportType = function (newValue) {
+        if (newValue === self.ANGLEEXPORTTYPE.PACKAGE)
+            self.Handler(_self.eaPackageHandler);
+        else
+            self.Handler(_self.angleDownloadHandler);
+    };
     self.ShowAngleExportPopup = function () {
         if (self.ValidateAngleExport()) {
             var popupSettings = self.GetAngleExportSettings();
@@ -24,7 +37,11 @@ function AngleExportHandler(angleDownloadHandler) {
         self.ApplyHandler(e);
     };
     self.InitialHandler = function (e) {
+        self.IsPackageVisible(userModel.IsPossibleToHaveManagementAccess());
+        self.AngleExportType(self.ANGLEEXPORTTYPE.DONWLOAD);
+
         _self.angleDownloadHandler.SetSelectedItems(searchModel.SelectedItems());
+        _self.eaPackageHandler.SetSelectedItems(searchModel.SelectedItems());
 
         e.sender.element.busyIndicator(true);
         e.sender.element.find('.k-loading-color').css({
@@ -98,12 +115,18 @@ function AngleExportHandler(angleDownloadHandler) {
     self.CloseAngleExportPopup = function () {
         popup.Close('#popupCreateEaPackagePopup');
     };
+    self.GetAllWarningMessages = function () {
+        return _self.angleDownloadHandler.GetWarningMessage() + (self.IsPackageVisible() ? _self.eaPackageHandler.GetWarningMessage() : '');
+    };
     self.CanAngleExport = function () {
         var items = ko.toJS(searchModel.SelectedItems());
         return !items.hasObject('type', enumHandlers.ITEMTYPE.DASHBOARD);
     };
     self.CanDownloadAngle = function () {
         return true;
+    };
+    self.CanExportPackage = function () {
+        return self.IsPackageVisible() && !_self.eaPackageHandler.GetWarningMessage();
     };
     self.GetDownloadAnglesCount = function () {
         return _self.angleDownloadHandler.SelectedItems.length;
@@ -114,5 +137,7 @@ function AngleExportHandler(angleDownloadHandler) {
     // EOF: Methods
 
     // contructor
+    self.AngleExportType.subscribe(self.OnChangeAngleExportType);
     _self.angleDownloadHandler.CloseAngleExportPopup = self.CloseAngleExportPopup;
+    _self.eaPackageHandler.CloseAngleExportPopup = self.CloseAngleExportPopup;
 }
