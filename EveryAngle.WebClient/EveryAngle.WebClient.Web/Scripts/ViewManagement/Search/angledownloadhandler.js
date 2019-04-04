@@ -1,3 +1,5 @@
+var angleDownloadHandler = new AngleDownloadHandler();
+
 function AngleDownloadHandler() {
     "use strict";
 
@@ -8,6 +10,9 @@ function AngleDownloadHandler() {
     // EOF: Properties
 
     // BOF: Methods
+    self.GetWarningMessage = function () {
+        return '';
+    };
     self.GetSelectData = function () {
         var urls = [];
         jQuery.each(self.SelectedItems, function (index, item) {

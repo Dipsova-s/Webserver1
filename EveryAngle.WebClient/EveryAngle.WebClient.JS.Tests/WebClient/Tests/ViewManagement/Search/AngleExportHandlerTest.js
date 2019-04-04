@@ -1,5 +1,6 @@
 ﻿/// <reference path="/Dependencies/ViewModels/Models/Search/searchmodel.js" />
 /// <reference path="/Dependencies/ViewManagement/Search/AngleDownloadHandler.js" />
+/// <reference path="/Dependencies/ViewManagement/Search/EAPackageHandler.js" />
 /// <reference path="/Dependencies/ViewManagement/Search/AngleExportHandler.js" />
 
 describe("AngleExportHandler", function () {
@@ -7,13 +8,31 @@ describe("AngleExportHandler", function () {
     var angleExportHandler;
 
     beforeEach(function () {
-        angleExportHandler = new AngleExportHandler(new AngleDownloadHandler());
+        angleExportHandler = new AngleExportHandler(new AngleDownloadHandler(), new EAPackageHandler());
     });
 
     describe("when create new instance", function () {
 
         it("should be defined", function () {
             expect(angleExportHandler).toBeDefined();
+        });
+
+    });
+
+    describe("call OnChangeAngleExportType", function () {
+
+        it("should set EAPackageHandler if newValue is package", function () {
+            angleExportHandler.AngleExportType(angleExportHandler.ANGLEEXPORTTYPE.DOWNLOAD);
+
+            angleExportHandler.OnChangeAngleExportType(angleExportHandler.ANGLEEXPORTTYPE.PACKAGE);
+            expect(angleExportHandler.Handler() instanceof EAPackageHandler).toEqual(true);
+        });
+
+        it("should set AngleDownloadHandler if newValue is download", function () {
+            angleExportHandler.AngleExportType(angleExportHandler.ANGLEEXPORTTYPE.DOWNLOAD);
+
+            angleExportHandler.OnChangeAngleExportType(angleExportHandler.ANGLEEXPORTTYPE.DOWNLOAD);
+            expect(angleExportHandler.Handler() instanceof AngleDownloadHandler).toEqual(true);
         });
 
     });
@@ -51,6 +70,23 @@ describe("AngleExportHandler", function () {
 
             angleExportHandler.ShowAngleExportPopupCallback({});
             expect(angleExportHandler.ApplyHandler).toHaveBeenCalled();
+        });
+
+    });
+
+    describe("call InitialHandler", function () {
+
+        window.userModel = window.userModel || {};
+        window.userModel.IsPossibleToHaveManagementAccess = $.noop;
+
+        it("should set AngleExportType = 'download'", function () {
+            var e = {
+                sender: {
+                    element: $()
+                }
+            };
+            angleExportHandler.InitialHandler(e);
+            expect(angleExportHandler.AngleExportType()).toEqual(angleExportHandler.ANGLEEXPORTTYPE.DONWLOAD);
         });
 
     });
@@ -154,6 +190,32 @@ describe("AngleExportHandler", function () {
 
     });
 
+    describe("call GetAllWarningMessages", function () {
+
+        beforeEach(function () {
+            angleExportHandler.AngleExportType(angleExportHandler.ANGLEEXPORTTYPE.DONWLOAD);
+            angleExportHandler.Handler().GetWarningMessage = function () { return 'message1'; };
+
+            angleExportHandler.AngleExportType(angleExportHandler.ANGLEEXPORTTYPE.PACKAGE);
+            angleExportHandler.Handler().GetWarningMessage = function () { return 'message2'; };
+        });
+
+        it("should show messages from download and package if package is visible", function () {
+            spyOn(angleExportHandler, 'IsPackageVisible').and.callFake(function () { return true; });
+
+            var result = angleExportHandler.GetAllWarningMessages();
+            expect(result).toEqual('message1message2');
+        });
+
+        it("should show messages from download if package is not visible", function () {
+            spyOn(angleExportHandler, 'IsPackageVisible').and.callFake(function () { return false; });
+
+            var result = angleExportHandler.GetAllWarningMessages();
+            expect(result).toEqual('message1');
+        });
+
+    });
+
     describe("call CanAngleExport", function () {
 
         it("should get 'true' if searchModel.SelectedItems do not have dashboard", function () {
@@ -181,9 +243,39 @@ describe("AngleExportHandler", function () {
 
     });
 
+    describe("call CanExportPackage", function () {
+
+        beforeEach(function () {
+            angleExportHandler.AngleExportType(angleExportHandler.ANGLEEXPORTTYPE.PACKAGE);
+            angleExportHandler.IsPackageVisible = function () { return true; };
+            angleExportHandler.Handler().GetWarningMessage = function () { return ''; };
+        });
+
+        it("should get 'true' if IsPackageVisible and no a warning message", function () {
+            var result = angleExportHandler.CanExportPackage();
+            expect(result).toEqual(true);
+        });
+
+        it("should get 'false' if not IsPackageVisible", function () {
+            angleExportHandler.IsPackageVisible = function () { return false; };
+
+            var result = angleExportHandler.CanExportPackage();
+            expect(result).toEqual(false);
+        });
+
+        it("should get 'false' if have a warning message", function () {
+            angleExportHandler.Handler().GetWarningMessage = function () { return 'xxx'; };
+
+            var result = angleExportHandler.CanExportPackage();
+            expect(result).toEqual(false);
+        });
+
+    });
+
     describe("call GetDownloadAnglesCount", function () {
 
         it("should call handler StartExportAngle", function () {
+            angleExportHandler.AngleExportType(angleExportHandler.ANGLEEXPORTTYPE.DOWNLOAD);
             angleExportHandler.Handler().SelectedItems = [{}, {}];
 
             var result = angleExportHandler.GetDownloadAnglesCount();

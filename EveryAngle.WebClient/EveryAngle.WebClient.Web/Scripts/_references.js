@@ -90,6 +90,7 @@
 /// <reference path="ViewManagement/Search/anglecopyhandler.js" />
 /// <reference path="ViewManagement/Search/angledownloadhandler.js" />
 /// <reference path="ViewManagement/Search/AngleExportHandler.js" />
+/// <reference path="ViewManagement/Search/EAPackageHandler.js" />
 /// <reference path="ViewManagement/Search/importAngleHandler.js" />
 /// <reference path="ViewManagement/Search/ItemInfoHandler.js" />
 /// <reference path="ViewManagement/Search/SearchPageHandler.js" />

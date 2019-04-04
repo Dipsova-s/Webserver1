@@ -6003,6 +6003,9 @@ The target is built with the elements:  &amp;lt;Service&amp;gt;&amp;lt;address o
     <value>The type of the authentication provider.&lt;br&gt;
 Only Active Directory (AD) and Active Directory Federation (ADFS) services are supported.</value>
   </data>
+  <data name="Download_Type" xml:space="preserve">
+    <value>Download type</value>
+  </data>
   <data name="NotificationsFeed_Updates" xml:space="preserve">
     <value>Updates</value>
   </data>

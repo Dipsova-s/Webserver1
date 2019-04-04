@@ -22,6 +22,16 @@ describe("AngleDownloadHandler", function () {
 
     });
 
+    describe("call GetWarningMessage", function () {
+
+        it("should not get a warning message", function () {
+            var result = angleDownloadHandler.GetWarningMessage();
+            expect(result).toEqual('');
+        });
+
+    });
+
+
     describe("call GetSelectData", function () {
         it("should get a list of urls", function () {
             angleDownloadHandler.SelectedItems = [{

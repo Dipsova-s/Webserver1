@@ -3195,6 +3195,15 @@ namespace EveryAngle.Shared.Globalization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Download type.
+        /// </summary>
+        public static string Download_Type {
+            get {
+                return ResourceManager.GetString("Download_Type", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Requested item was not found..
         /// </summary>
         public static string DrilldownErrorItemNotFound {
