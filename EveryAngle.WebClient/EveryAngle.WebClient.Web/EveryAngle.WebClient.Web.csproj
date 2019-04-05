@@ -525,9 +525,9 @@ if %25ERRORLEVEL%25 LEQ 1 exit 0 else exit %25ERRORLEVEL%25</PreBuildEvent>
     <Content Include="Images\Domains\InvoiceReceiptStatusSimple\InvoiceReceiptStatusSimpleEx3Closed.png" />
     <Content Include="Images\Domains\InvoiceReceiptStatusSimple\InvoiceReceiptStatusSimpleEx4DUMMY.png" />
     <Content Include="Images\Domains\LogisticsBehaviour\logisticsbehaviourls0nologisticsbehaviour.png" />
-    <Content Include="Images\Domains\LogisticsBehaviour\logisticsbehaviourls1consuming.png" />
-    <Content Include="Images\Domains\LogisticsBehaviour\logisticsbehaviourls2delivering.png" />
-    <Content Include="Images\Domains\LogisticsBehaviour\logisticsbehaviourls3transferwithinplant.png" />
+    <Content Include="Images\Domains\LogisticsBehaviour\logisticsbehaviourls2consuming.png" />
+    <Content Include="Images\Domains\LogisticsBehaviour\logisticsbehaviourls3delivering.png" />
+    <Content Include="Images\Domains\LogisticsBehaviour\logisticsbehaviourls5transferwithinplant.png" />
     <Content Include="Images\Domains\LogisticsBehaviour\logisticsbehaviourls4transferbetweenplants.png" />
     <Content Include="Images\Icons\icon_about.png" />
     <Content Include="Images\Icons\icon_add_filter_before_jump.png" />
@@ -768,10 +768,10 @@ if %25ERRORLEVEL%25 LEQ 1 exit 0 else exit %25ERRORLEVEL%25</PreBuildEvent>
     <Content Include="Images\Domains\ExecutionStatus\ExecutionStatuses3Cancelled.png" />
     <Content Include="Images\Domains\ExecutionStatus\ExecutionStatuses4None.png" />
     <Content Include="Images\Domains\LogisticBehaviour\LogisticsBehaviourls0NoLogisticsBehaviour.png" />
-    <Content Include="Images\Domains\LogisticBehaviour\LogisticsBehaviourls1Consuming.png" />
-    <Content Include="Images\Domains\LogisticBehaviour\LogisticsBehaviourls2Delivering.png" />
+    <Content Include="Images\Domains\LogisticBehaviour\LogisticsBehaviourls2Consuming.png" />
+    <Content Include="Images\Domains\LogisticBehaviour\LogisticsBehaviourls3Delivering.png" />
     <Content Include="Images\Domains\LogisticBehaviour\LogisticsBehaviourls4TransferBetweenPlants.png" />
-    <Content Include="Images\Domains\LogisticBehaviour\LogisticsBehaviourls3TransferWithinPlant.png" />
+    <Content Include="Images\Domains\LogisticBehaviour\LogisticsBehaviourls5TransferWithinPlant.png" />
     <Content Include="Images\dropdown_check.png" />
     <Content Include="Images\dropdown_check_active.png" />
     <Content Include="Images\Icons\icon_webclient.png" />
