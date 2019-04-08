@@ -82,9 +82,9 @@ namespace EveryAngle.ManagementConsole.Controllers
             return PartialView("~/Views/AutomationTasks/Tasks/TasksGrid.cshtml");
         }
 
-        public ActionResult ReadTasksGrid([DataSourceRequest] DataSourceRequest request, string tasksUri)
+        public ActionResult ReadTasksGrid([DataSourceRequest] DataSourceRequest request, string tasksUri, string q = "")
         {
-            string fullTasksUri = string.Format("{0}?types=export_angle_to_datastore,run_external_command&{1}", tasksUri, OffsetLimitQuery);
+            string fullTasksUri = string.Format("{0}?types=export_angle_to_datastore,run_external_command&{1}{2}", tasksUri, OffsetLimitQuery, string.IsNullOrEmpty(q) ? "" : "&q=" + q);
             var tasks = _taskService.GetTasks(fullTasksUri);
 
             return Json(new DataSourceResult
@@ -326,7 +326,7 @@ namespace EveryAngle.ManagementConsole.Controllers
         public ActionResult EditDatastore(string datastoreUri, string pluginUri, string plugin)
         {
             DataStoresViewModel dataStore = GetDataStoreViewModel(datastoreUri, pluginUri, plugin);
-            
+
             return PartialView("~/Views/AutomationTasks/DataStores/EditDatastore.cshtml", dataStore);
         }
 
@@ -622,7 +622,7 @@ namespace EveryAngle.ManagementConsole.Controllers
 
         internal void ClearConnectionPasswordValue(DataStoresViewModel dataStore)
         {
-            if(dataStore.connection_settings != null && dataStore.connection_settings.SettingList != null)
+            if (dataStore.connection_settings != null && dataStore.connection_settings.SettingList != null)
             {
                 Setting connectionPassword = dataStore.connection_settings.SettingList
                                             .FirstOrDefault(x => DatastoreSettingConstant.ConnectionPasswordId.Equals(x.Id));
