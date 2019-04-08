@@ -43,6 +43,11 @@
 <div class="content pageRefreshCycle">
 
     <div class="contentSection contentSectionGrid contentSectionGridTasks">
+        <div class="gridToolbar gridToolbarTop">
+            <div class="gridToolbarFilter">
+                <input type="text" id="TasksFilterTextbox" placeholder="@Resource.MC_Filter" data-role="gridfilter" data-method="remote" data-target="#TaskDetailsGridContainer" /><span class="icon"></span>
+            </div>
+        </div>
         <h2>@Resource.MC_AutomationTasks</h2>
         <form id="TaskForm" data-role="validator">
             <div class="gridContainer" id="TaskDetailsGridContainer">
@@ -51,17 +56,17 @@
         </form>
 
         <div class="gridToolbar gridToolbarBottom">
-        @{
-            List<PageToolbarButtonModel> gridButtons = new List<PageToolbarButtonModel>();
-            gridButtons.Add(new PageToolbarButtonModel
-            {
-                EnableTemplate = "<a href=\"" + SiteMapHelper.ActionHash("AutomationTasks/Tasks/CreateNewTask") + "\" class=\"btn btnPrimary btnAdd\" onclick=\"MC.AutomationTasks.Tasks.CreateNewTaskUri(event, this)\">" + Resource.MC_AddTask + "</a>",
-                DisableTemplate = "<a class=\"btn btnPrimary btnAdd disabled\">" + Resource.MC_AddTask + "</a>",
-                Type = PageToolbarButtonType.Custom,
-                Privilege = PrivilegeType.System
-            });
-            @Html.RenderPageToolbarBottom(gridButtons)
-        }
+            @{
+                List<PageToolbarButtonModel> gridButtons = new List<PageToolbarButtonModel>();
+                gridButtons.Add(new PageToolbarButtonModel
+                {
+                    EnableTemplate = "<a href=\"" + SiteMapHelper.ActionHash("AutomationTasks/Tasks/CreateNewTask") + "\" class=\"btn btnPrimary btnAdd\" onclick=\"MC.AutomationTasks.Tasks.CreateNewTaskUri(event, this)\">" + Resource.MC_AddTask + "</a>",
+                    DisableTemplate = "<a class=\"btn btnPrimary btnAdd disabled\">" + Resource.MC_AddTask + "</a>",
+                    Type = PageToolbarButtonType.Custom,
+                    Privilege = PrivilegeType.System
+                });
+                @Html.RenderPageToolbarBottom(gridButtons)
+            }
         </div>
     </div>
     <hr/>
