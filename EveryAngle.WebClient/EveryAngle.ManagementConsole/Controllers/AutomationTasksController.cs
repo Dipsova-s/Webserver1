@@ -75,9 +75,9 @@ namespace EveryAngle.ManagementConsole.Controllers
             return PartialView("~/Views/AutomationTasks/Tasks/TasksGrid.cshtml");
         }
 
-        public ActionResult ReadTasksGrid([DataSourceRequest] DataSourceRequest request, string tasksUri)
+        public ActionResult ReadTasksGrid([DataSourceRequest] DataSourceRequest request, string tasksUri, string q = "")
         {
-            string fullTasksUri = string.Format("{0}?type=export_angle_to_datastore&{1}", tasksUri, OffsetLimitQuery);
+            string fullTasksUri = string.Format("{0}?types=export_angle_to_datastore,run_external_command&{1}{2}", tasksUri, OffsetLimitQuery, string.IsNullOrEmpty(q) ? "" : "&q=" + q);
             var tasks = _taskService.GetTasks(fullTasksUri);
 
             return Json(new DataSourceResult
