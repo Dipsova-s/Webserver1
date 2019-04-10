@@ -5909,7 +5909,7 @@ You can only select .cmd, .exe, .ps1 and .bat files that are located in the desi
   <data name="MC_SystemSettingsHelpScriptLocation" xml:space="preserve">
     <value>The location of the folder for program/script files for use in Automation Tasks.&lt;br&gt;
 Any file in this folder of type .cmd, .exe, .ps1 and .bat will become available in the dropdown when setting up an Action of type Program/script.&lt;br&gt;
-Attention: The specified location must be a full file path on the Application server.</value>
+Attention: The specified location must be a full file path on the Application Server.</value>
   </data>
   <data name="ViewDisplaysMode" xml:space="preserve">
     <value>Displays mode</value>
@@ -5951,7 +5951,7 @@ Attention: The specified location must be a full file path on the Application se
     <value>Clear filter(s)</value>
   </data>
   <data name="AddFilterBeforeJump" xml:space="preserve">
-    <value>Add filter before jump</value>
+    <value>Add filter before Jump</value>
   </data>
   <data name="RunningRealTime" xml:space="preserve">
     <value>Running in real time</value>

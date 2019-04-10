@@ -313,7 +313,7 @@
     <value>Laatst gewijzigd door</value>
   </data>
   <data name="LastExecutedBy" xml:space="preserve">
-    <value>Laatste uitgevoerd door</value>
+    <value>Laatst uitgevoerd door</value>
   </data>
   <data name="Location" xml:space="preserve">
     <value>Locatie</value>
@@ -3592,16 +3592,31 @@ Copyright © {0}</value>
     <value>Select this option to extract only newly added and changed tables. This option cannot be used together with Delta.</value>
   </data>
   <data name="ViewDisplaysMode" xml:space="preserve">
-    <value>Displays modus</value>
+    <value>Displaymodus</value>
   </data>
   <data name="ClearAdvancedFilters" xml:space="preserve">
-    <value>Clear filter(s)</value>
+    <value>Wis filter(s)</value>
   </data>
   <data name="AddFilterBeforeJump" xml:space="preserve">
-    <value>Add filter before jump</value>
+    <value>Voeg filter toe voor Jump</value>
   </data>
   <data name="RunningRealTime" xml:space="preserve">
-    <value>Running in real time</value>
+    <value>Draait in real-time</value>
+  </data>
+  <data name="MC_Container" xml:space="preserve">
+    <value>User container (DN)</value>
+  </data>
+  <data name="Workbench" xml:space="preserve">
+    <value>Modeling Workbench</value>
+  </data>
+  <data name="NotificationsFeed_Updates" xml:space="preserve">
+    <value>Updates</value>
+  </data>
+  <data name="NotificationsFeed_ViewAll" xml:space="preserve">
+    <value>Bekijk alles</value>
+  </data>
+  <data name="WelcomeMessages" xml:space="preserve">
+    <value>Berichten</value>
   </data>
   <data name="Workbench" xml:space="preserve">
     <value>Modeling Workbench</value>

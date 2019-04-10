@@ -586,7 +586,7 @@
     <value>Settings for model:</value>
   </data>
   <data name="AdhocEnableSummarySheet" xml:space="preserve">
-    <value>Not available for adhoc display</value>
+    <value>Not available for ad hoc Display</value>
   </data>
   <data name="Button_Search" xml:space="preserve">
     <value>Search</value>

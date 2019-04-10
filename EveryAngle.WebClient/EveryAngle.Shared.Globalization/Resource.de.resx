@@ -5806,26 +5806,155 @@ Are you sure you want to delete this role?</value>
   <data name="Period_Unit_year" xml:space="preserve">
     <value>Jahre</value>
   </data>
-  <data name="SinceLastRefresh" xml:space="preserve">
-    <value>{0}since last refresh</value>
-  </data>
   <data name="MC_ChangedTablesOnly" xml:space="preserve">
     <value>New and changed tables only</value>
   </data>
   <data name="MC_ChangedTablesOnly_Description" xml:space="preserve">
     <value>Select this option to extract only newly added and changed tables. This option cannot be used together with Delta.</value>
   </data>
+  <data name="MC_AccessRequestedPathDenied" xml:space="preserve">
+    <value>Access to the requested path denied</value>
+  </data>
+  <data name="SinceLastRefresh" xml:space="preserve">
+    <value>{0}seit letzter Aktualisierung</value>
+  </data>
+  <data name="MC_CopyTask" xml:space="preserve">
+    <value>Copy task</value>
+  </data>
+  <data name="MC_NewTaskName" xml:space="preserve">
+    <value>New task name</value>
+  </data>
+  <data name="MC_ActionType_Datastore" xml:space="preserve">
+    <value>Datastore</value>
+  </data>
+  <data name="MC_ActionType_Script" xml:space="preserve">
+    <value>Program/script</value>
+  </data>
+  <data name="MC_TaskAction_ColumnAction" xml:space="preserve">
+    <value>Action</value>
+  </data>
+  <data name="MC_TaskAction_ColumnAngle" xml:space="preserve">
+    <value>Angle</value>
+  </data>
+  <data name="MC_TaskAction_ColumnApprovalState" xml:space="preserve">
+    <value>Approval state</value>
+  </data>
+  <data name="MC_TaskAction_ColumnCondition" xml:space="preserve">
+    <value>Condition</value>
+  </data>
+  <data name="MC_TaskAction_ColumnDetail" xml:space="preserve">
+    <value>Detail</value>
+  </data>
+  <data name="MC_TaskAction_ColumnDisplay" xml:space="preserve">
+    <value>Display</value>
+  </data>
+  <data name="MC_TaskAction_ColumnModel" xml:space="preserve">
+    <value>Model</value>
+  </data>
+  <data name="MC_TaskAction_TitleAddAction" xml:space="preserve">
+    <value>Add action</value>
+  </data>
+  <data name="MC_TaskAction_TitleEditAction" xml:space="preserve">
+    <value>Edit action</value>
+  </data>
+  <data name="MC_TaskCheckAction_Failure" xml:space="preserve">
+    <value>Action was validated, result Failure.</value>
+  </data>
+  <data name="MC_TaskCheckAction_Success" xml:space="preserve">
+    <value>Action was validated, result OK.</value>
+  </data>
+  <data name="MC_TaskEmail_TooltipFailure" xml:space="preserve">
+    <value>Send notification on failure</value>
+  </data>
+  <data name="MC_TaskEmail_TooltipResult" xml:space="preserve">
+    <value>Send message with the result when all conditions are met</value>
+  </data>
+  <data name="MC_TaskEmail_TooltipSuccess" xml:space="preserve">
+    <value>Send notification on success</value>
+  </data>
+  <data name="MC_TaskEvent_CurrentinstanceChanged" xml:space="preserve">
+    <value>When new model available</value>
+  </data>
+  <data name="MC_TaskAction_DescriptionUsername" xml:space="preserve">
+    <value>The username of the Run user for the program/script.&lt;br&gt;
+This must be a valid Windows user with sufficient permissions.&lt;br&gt;
+Prefix the username with "domain\" to use a domain user.</value>
+  </data>
+  <data name="MC_TaskAction_DescriptionAbortWhenError" xml:space="preserve">
+    <value>When checked, the Task will fail when this action fails.&lt;br&gt;
+When unchecked, the Task will continue and complete itself when this action fails.</value>
+  </data>
+  <data name="MC_TaskAction_DescriptionParameters" xml:space="preserve">
+    <value>Add arguments to pass to the script.&lt;br&gt;
+The syntax depends on the type of script that is used in this action.&lt;br&gt;
+Use {alloutput} to pass a list of output files coming from other datastore actions in this task.</value>
+  </data>
+  <data name="MC_TaskAction_DescriptionPassword" xml:space="preserve">
+    <value>The password of the Run user for the program/script.&lt;br&gt;
+For security reasons, the password must always be reentered before saving the action.</value>
+  </data>
+  <data name="MC_TaskAction_DescriptionScript" xml:space="preserve">
+    <value>Select the program or script file for this action.&lt;br&gt;
+You can only select .cmd, .exe, .ps1 and .bat files that are located in the designated folder. The location of this folder can be configured under system settings.</value>
+  </data>
+  <data name="MC_ScriptLocation" xml:space="preserve">
+    <value>Program/scripts folder</value>
+  </data>
+  <data name="MC_SystemSettingsHelpScriptLocation" xml:space="preserve">
+    <value>The location of the folder for program/script files for use in Automation Tasks.&lt;br&gt;
+Any file in this folder of type .cmd, .exe, .ps1 and .bat will become available in the dropdown when setting up an Action of type Program/script.&lt;br&gt;
+Attention: The specified location must be a full file path on the Application Server.</value>
+  </data>
   <data name="ViewDisplaysMode" xml:space="preserve">
-    <value>Displays mode</value>
+    <value>Displays-Modus</value>
+  </data>
+  <data name="MC_Available" xml:space="preserve">
+    <value>Available</value>
+  </data>
+  <data name="MC_Components" xml:space="preserve">
+    <value>Components</value>
+  </data>
+  <data name="MC_DeleteComponentConfirm" xml:space="preserve">
+    <value>Deleting a component can cause further operations to fail. Are you sure you want to delete this component?</value>
+  </data>
+  <data name="MC_NoModelsAvailable" xml:space="preserve">
+    <value>No models available</value>
+  </data>
+  <data name="MC_ResendLicense" xml:space="preserve">
+    <value>Resend license</value>
+  </data>
+  <data name="MC_Components_GridTitle" xml:space="preserve">
+    <value>All registered component services</value>
+  </data>
+  <data name="MC_DownloadMetadata" xml:space="preserve">
+    <value>Download metadata</value>
+  </data>
+  <data name="MC_LastEvent" xml:space="preserve">
+    <value>Last event</value>
+  </data>
+  <data name="MC_LastHeartbeat" xml:space="preserve">
+    <value>Last heartbeat</value>
+  </data>
+  <data name="MC_RegisteredOn" xml:space="preserve">
+    <value>Registered on</value>
+  </data>
+  <data name="MC_RegistrationId" xml:space="preserve">
+    <value>Registration ID</value>
   </data>
   <data name="ClearAdvancedFilters" xml:space="preserve">
-    <value>Clear filter(s)</value>
+    <value>Filter löschen</value>
   </data>
   <data name="AddFilterBeforeJump" xml:space="preserve">
-    <value>Add filter before jump</value>
+    <value>Vor Jump Filter hinzufügen</value>
   </data>
   <data name="RunningRealTime" xml:space="preserve">
-    <value>Running in real time</value>
+    <value>Ausführung in Echtzeit</value>
+  </data>
+  <data name="MC_Container" xml:space="preserve">
+    <value>User container (DN)</value>
+  </data>
+  <data name="Workbench" xml:space="preserve">
+    <value>Modeling Workbench</value>
   </data>
   <data name="Workbench" xml:space="preserve">
     <value>Modeling Workbench</value>
