@@ -223,7 +223,7 @@
     <value>Modeldatum toevoegen</value>
   </data>
   <data name="Label_CSV_Export_BoolChars" xml:space="preserve">
-    <value>Ja/Nee-karakter</value>
+    <value>Ja-/Nee-karakter</value>
   </data>
   <data name="Label_CSV_Export_DateFormat" xml:space="preserve">
     <value>Datumformaat</value>
@@ -286,7 +286,7 @@
     <value>Aantal Displays op Dashboard</value>
   </data>
   <data name="Label_Dashboard_PrivateDisplays" xml:space="preserve">
-    <value>Privé Displays</value>
+    <value>Privédisplays</value>
   </data>
   <data name="Label_Dashboard_PublicDisplays" xml:space="preserve">
     <value>Gepubliceerde Displays</value>

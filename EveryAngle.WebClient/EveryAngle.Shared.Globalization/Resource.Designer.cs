@@ -261,7 +261,7 @@ namespace EveryAngle.Shared.Globalization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Add filter before jump.
+        ///   Looks up a localized string similar to Add filter before Jump.
         /// </summary>
         public static string AddFilterBeforeJump {
             get {
@@ -12456,7 +12456,7 @@ namespace EveryAngle.Shared.Globalization {
         /// <summary>
         ///   Looks up a localized string similar to The location of the folder for program/script files for use in Automation Tasks.&lt;br&gt;
         ///Any file in this folder of type .cmd, .exe, .ps1 and .bat will become available in the dropdown when setting up an Action of type Program/script.&lt;br&gt;
-        ///Attention: The specified location must be a full file path on the Application server..
+        ///Attention: The specified location must be a full file path on the Application Server..
         /// </summary>
         public static string MC_SystemSettingsHelpScriptLocation {
             get {
