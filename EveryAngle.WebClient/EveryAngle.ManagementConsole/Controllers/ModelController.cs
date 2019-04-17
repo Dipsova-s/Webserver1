@@ -4,6 +4,7 @@ using EveryAngle.Core.ViewModels.DataTransferObject;
 using EveryAngle.Core.ViewModels.Directory;
 using EveryAngle.Core.ViewModels.Model;
 using EveryAngle.Core.ViewModels.ModelServer;
+using EveryAngle.Logging;
 using EveryAngle.ManagementConsole.Helpers;
 using EveryAngle.Shared.Globalization;
 using EveryAngle.Shared.Helpers;
@@ -26,28 +27,28 @@ namespace EveryAngle.ManagementConsole.Controllers
 {
     public class ModelController : BaseController
     {
-        private readonly IGlobalSettingService globalSettingService;
         private readonly IModelService modelService;
+        private readonly IModelAgentService modelAgentService;
         private readonly IComponentService componentService;
 
         public ModelController(
             IModelService service,
-            IGlobalSettingService globalSettingService,
+            IModelAgentService modelAgentService,
             IComponentService componentService,
             SessionHelper sessionHelper)
         {
             this.modelService = service;
-            this.globalSettingService = globalSettingService;
+            this.modelAgentService = modelAgentService;
             this.componentService = componentService;
             this.SessionHelper = sessionHelper;
         }
         public ModelController(
             IModelService service,
-            IGlobalSettingService globalSettingService,
+            IModelAgentService modelAgentService,
             IComponentService componentService)
         {
             this.modelService = service;
-            this.globalSettingService = globalSettingService;
+            this.modelAgentService = modelAgentService;
             this.componentService = componentService;
             this.SessionHelper = SessionHelper.Initialize();
         }
@@ -125,6 +126,7 @@ namespace EveryAngle.ManagementConsole.Controllers
 
             ViewBag.ModelId = modelId;
             ViewBag.ModelUri = modelUri;
+            ViewBag.AgentUri = modelViewModel.Agent.ToString();
             ViewBag.LicensesData = SessionHelper.GetModelLicense(SessionHelper.GetSystemLicenseUri());
             ViewBag.LicenseDate = SessionHelper.GetModelLicenseDate(modelId, ViewBag.LicensesData);
             // M4-13788: Error 500 when created second model and then click model menu immediately
@@ -449,10 +451,11 @@ namespace EveryAngle.ManagementConsole.Controllers
             }
         }
 
-        public void ReloadModels()
+        [AcceptVerbs(HttpVerbs.Put)]
+        public void ReloadHanaModel(string agentUri)
         {
-            HttpContext.Session["ModelViewModelList"] = null;
-            SessionHelper.Initialize().ReloadModels();
+            Log.SendInfo("Reload model agent");
+            modelAgentService.Reload(agentUri);
         }
 
         [AcceptVerbs(HttpVerbs.Delete)]

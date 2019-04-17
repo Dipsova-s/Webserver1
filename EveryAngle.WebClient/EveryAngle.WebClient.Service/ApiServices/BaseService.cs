@@ -1,4 +1,3 @@
-using EveryAngle.Core.Interfaces.Services;
 using EveryAngle.Core.ViewModels;
 using EveryAngle.Utilities;
 using EveryAngle.WebClient.Service.HttpHandlers;
@@ -219,6 +218,11 @@ namespace EveryAngle.WebClient.Service.ApiServices
         public T Update<T>(string uri, string body)
         {
             return Request<T>(Method.PUT, uri, body, null);
+        }
+
+        public void Update(string uri)
+        {
+            RequestManager.Initialize(uri).Run(Method.PUT);
         }
         #endregion
 

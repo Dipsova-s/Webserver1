@@ -49,6 +49,7 @@
             MC.Models.Model.InitialMainModelPage({
                 ModelServers: @(Html.Raw(new System.Web.Script.Serialization.JavaScriptSerializer().Serialize(Model))),
                 UpdateModelInfoUri: '@Url.Action("UpdateModelInfo", "Model", new { modelUri = @ViewBag.ModelUri })',
+                ReloadModelUri: '@Url.Action("ReloadHanaModel", "Model", new { agentUri = @ViewBag.AgentUri })',
                 ModelGraphDataUri: '@Url.Action("GetModelServerGraphData", "Model")',
                 IsOverviewPage: false
 
@@ -197,17 +198,17 @@
 
                     if (item.IsModelServer)
                     {
-                        string text = string.Empty;
-                        bool? updateStatus;
+                        string text;
+                        string updateStatus;
                         if (item.IsActiveServer)
                         {
                             text = Resource.StopServer;
-                            updateStatus = false;
+                            updateStatus = "false";
                         }
                         else
                         {
                             text = Resource.StartServer;
-                            updateStatus = true;
+                            updateStatus = "true";
                         }
 
                         buttons.Add(new PageToolbarButtonModel
@@ -215,8 +216,19 @@
                             ModelUri = ViewBag.ModelUri,
                             Privilege = PrivilegeType.Model,
                             Type = PageToolbarButtonType.Custom,
-                            EnableTemplate = infoButton + (updateStatus == null ? "<a class=\"btn btnNext btnStartStopModelServer disabled\" >" + text + "</a>" : "<a class=\"btn btnNext btnStartStopModelServer\" onclick=\"MC.Models.Model.UpdateInstance('" + item.ModelServerId + "'," + Convert.ToString(updateStatus).ToLower() + ",'"+ item.id +"')\">" + text + "</a>"),
+                            EnableTemplate = infoButton + "<a class=\"btn btnNext btnStartStopModelServer\" onclick=\"MC.Models.Model.UpdateInstance('" + item.ModelServerId + "'," + updateStatus + ",'" + item.id + "')\">" + text + "</a>",
                             DisableTemplate = "<a class=\"btn disabled\" >" + text + "</a>"
+                        });
+                    }
+                    else if (item.IsHanaServer)
+                    {
+                        buttons.Add(new PageToolbarButtonModel
+                        {
+                            ModelUri = ViewBag.ModelUri,
+                            Privilege = PrivilegeType.Model,
+                            Type = PageToolbarButtonType.Custom,
+                            EnableTemplate = infoButton + "<a class=\"btn btnNext btnStartStopModelServer\" onclick=\"MC.Models.Model.ReloadHanaModel()\">" + Resource.MC_Reload + "</a>",
+                            DisableTemplate = "<a class=\"btn disabled\" >" + Resource.MC_Reload + "</a>"
                         });
                     }
                     else

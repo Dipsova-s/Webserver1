@@ -10,6 +10,7 @@
         self.PageTitle = '';
         self.ModelUri = '';
         self.UpdateModelInfoUri = '';
+        self.ReloadModelUri = '';
         self.TopMenuUri = '';
         self.IsOverviewPage = false;
         self.ModelIdDropdownItemsUri = '';
@@ -21,6 +22,7 @@
             self.PageTitle = '';
             self.ModelUri = '';
             self.UpdateModelInfoUri = '';
+            self.ReloadModelUri = '';
             self.IsOverviewPage = false;
             self.TopMenuUri = '';
             self.ModelIdDropdownItemsUri = '';
@@ -349,19 +351,29 @@
         };
 
         self.UpdateInstance = function (id, newStatus, modelId) {
-
             var confirmMessage = kendo.format(newStatus ? Localization.MC_ConfirmStartServer : Localization.MC_ConfirmStopServer, modelId);
             MC.util.showPopupConfirmation(confirmMessage, function () {
-                MC.ajax.request({
-                    url: self.UpdateModelInfoUri,
-                    parameters: { id: id, status: newStatus },
-                    type: 'POST'
-                })
+                MC.ajax
+                    .request({
+                        url: self.UpdateModelInfoUri,
+                        parameters: { id: id, status: newStatus },
+                        type: 'POST'
+                    })
                     .done(function () {
                         MC.ajax.reloadMainContent();
                     });
             });
+        };
 
+        self.ReloadHanaModel = function () {
+            MC.ajax
+                .request({
+                    url: self.ReloadModelUri,
+                    type: 'PUT'
+                })
+                .done(function () {
+                    MC.ajax.reloadMainContent();
+                });
         };
 
         self.ShowLogTable = function (e) {

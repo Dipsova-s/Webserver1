@@ -1,34 +1,33 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web.Mvc;
-using System.Text;
-using System.IO;
-using System.Net.Mime;
-using Kendo.Mvc.UI;
-using Newtonsoft.Json.Linq;
-using EveryAngle.WebClient.Service.HttpHandlers;
-using EveryAngle.WebClient.Service.Security;
-using EveryAngle.ManagementConsole.Helpers;
-using EveryAngle.Logging;
 using EveryAngle.Core.Interfaces.Services;
 using EveryAngle.Core.ViewModels;
 using EveryAngle.Core.ViewModels.Model;
 using EveryAngle.Core.ViewModels.ModelServer;
+using EveryAngle.Logging;
+using EveryAngle.ManagementConsole.Helpers;
+using EveryAngle.Shared.Globalization;
 using EveryAngle.Shared.Helpers;
 using EveryAngle.Utilities;
-using EveryAngle.Shared.Globalization;
 using EveryAngle.WebClient.Domain.Enums;
+using EveryAngle.WebClient.Service.HttpHandlers;
+using EveryAngle.WebClient.Service.Security;
+using Kendo.Mvc.UI;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Net.Mime;
+using System.Web.Mvc;
 
 namespace EveryAngle.ManagementConsole.Controllers
 {
     public class ModelServersController : BaseController
     {
         private readonly IModelService _modelService;
+        private readonly IModelAgentService _modelAgentService;
 
-        public ModelServersController(IModelService service)
+        public ModelServersController(IModelService service, IModelAgentService modelAgentService)
         {
             _modelService = service;
+            _modelAgentService = modelAgentService;
         }
 
         #region "Public"
@@ -150,33 +149,30 @@ namespace EveryAngle.ManagementConsole.Controllers
         }
 
         [AcceptVerbs(HttpVerbs.Post)]
-        public ActionResult KillSAPJobs(string modelServerUri, string body)
+        public void KillSAPJobs(string modelServerUri, string body)
         {
-            JObject response = new JObject();
             ModelServerViewModel modelServer = _modelService.GetModelServer(modelServerUri);
-            string requestUrl = string.Format("{0}/agent/killsapjobs", modelServer.model);
 
-            Log.SendInfo("[KillSapJobs] Model Server Status: {0}", modelServer.status);
-            Log.SendInfo("[KillSapJobs] Request Url: {0}", requestUrl);
-            Log.SendInfo("[KillSapJobs] Request Body: {0}", body);
+            Log.SendInfo("[KillSapJobs] Extractor: id = {0}, status = {1}", modelServer.id, modelServer.status);
+            Log.SendInfo("[KillSapJobs] Request body: {0}", body);
 
             if (modelServer.Status == ModelServerStatus.Extracting)
             {
                 try
                 {
-                    response = RequestManager.Initialize(requestUrl).Run(RestSharp.Method.POST, body, RestSharp.DataFormat.Json);
-                    Log.SendInfo("[KillSapJobs] Kill Sap Jobs Successfully");
+                    ModelViewModel model = SessionHelper.Models.FirstOrDefault(x => x.Uri == modelServer.model);
+                    _modelAgentService.KillSapJob(model.Agent.ToString(), body);
+                    Log.SendInfo("[KillSapJobs] Success");
                 }
                 catch (Exception ex)
                 {
-                    Log.SendWarning("[KillSapJobs] Failed to Kill Sap Jobs, because {0}", ex.Message);
+                    Log.SendWarning("[KillSapJobs] Failed: {0}", ex.Message);
                 }
             }
             else
             {
-                Log.SendWarning("[KillSapJobs] Failed to Kill Sap Jobs, because Extractor Server Status: Idle");
+                Log.SendWarning("[KillSapJobs] Skipped! the status is not applicable");
             }
-            return Json(response.ToObject<Dictionary<string, object>>(), JsonRequestBehavior.AllowGet);
         }
 
         #endregion
@@ -186,7 +182,7 @@ namespace EveryAngle.ManagementConsole.Controllers
         private ListViewModel<ModelServerViewModel> GetModelServers(string q, string modelUri, int page, int pagesize)
         {
             var models = SessionHelper.Initialize().Models;
-            var model = models.Where(eachModel => eachModel.Uri.ToString() == modelUri).FirstOrDefault();
+            var model = models.FirstOrDefault(eachModel => eachModel.Uri.ToString() == modelUri);
             var modelServer = new ListViewModel<ModelServerViewModel>();
             if (model.ServerUri != null)
             {
@@ -196,7 +192,7 @@ namespace EveryAngle.ManagementConsole.Controllers
                 foreach (var item in modelServer.Data)
                 {
                     item.modelId =
-                        models.Where(eachModel => eachModel.Uri.ToString() == item.model.ToString()).FirstOrDefault().id;
+                        models.FirstOrDefault(eachModel => eachModel.Uri.ToString() == item.model.ToString()).id;
                     item.instance_status = item.instance_status != null
                         ? _modelService.GetInstance(item.instance.ToString()).status
                         : "";
@@ -208,7 +204,6 @@ namespace EveryAngle.ManagementConsole.Controllers
         private void CreateReportTreeView(List<TreeViewItemModel> parentDetails,
             List<ModelServerReportViewModel> reports, string reportName)
         {
-            var reportNode = JToken.FromObject(reports);
             var reportDetails = new List<TreeViewItemModel>();
 
             foreach (var item in reports)

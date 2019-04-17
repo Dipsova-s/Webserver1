@@ -3,12 +3,10 @@
     function AllModels() {
         var self = this;
         self.SideMenuUri = '';
-        self.ReloadModelsUri = '';
         self.FindAmountOfAngleAndDashboardUri = '';
 
         self.Initial = function (data) {
             self.SideMenuUri = '';
-            self.ReloadModelsUri = '';
             self.FindAmountOfAngleAndDashboardUri = '';
 
             jQuery.extend(self, data || {});

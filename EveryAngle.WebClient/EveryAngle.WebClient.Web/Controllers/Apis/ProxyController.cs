@@ -27,7 +27,7 @@ namespace EveryAngle.WebClient.Web.Controllers.Apis
 
                 return httpResponseMessage;
             }
-            else if (requestManager.IsCSMUri(requestUrl))
+            else if (RequestManager.IsCSMUri(requestUrl))
             {
                 JArray jsonResult = requestManager.RunArray(Method.GET);
                 return HttpResponseMessageBuilder.GetHttpResponseMessage(this, jsonResult, requestManager.ResponseStatus.GetHashCode());

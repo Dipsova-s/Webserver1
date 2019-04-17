@@ -29,7 +29,7 @@ namespace EveryAngle.WebClient.Web.CSTests.ServiceTests
         [Test]
         public void Can_Initialize_RequestManager()
         {
-            RequestManager manager = RequestManager.Initialize(string.Empty);
+            RequestManager manager = RequestManager.Initialize("url");
             manager.InitializeRequestClient(new RestClient());
 
             Assert.IsNotNull(manager.Client);
@@ -37,12 +37,19 @@ namespace EveryAngle.WebClient.Web.CSTests.ServiceTests
 
         [Test]
         [ExpectedException(typeof(HttpException))]
-        public void CanNot_Execute_When_ContentLengthExceeded()
+        public void Cannot_Execute_When_NoUrl()
         {
-            RequestManager manager = RequestManager.Initialize(string.Empty);
+            RequestManager.Initialize(string.Empty);
+        }
+
+        [Test]
+        [ExpectedException(typeof(HttpException))]
+        public void Cannot_Execute_When_ContentLengthExceeded()
+        {
+            RequestManager manager = RequestManager.Initialize("url");
             manager.InitializeRequestClient(new RestClient());
 
-            JavaScriptSerializer serializer = new JavaScriptSerializer();
+            JavaScriptSerializer serializer = new JavaScriptSerializer { MaxJsonLength = 100 };
             string longText = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
             do
             {
@@ -54,7 +61,7 @@ namespace EveryAngle.WebClient.Web.CSTests.ServiceTests
 
         [Test]
         [ExpectedException(typeof(HttpException))]
-        public void CanNot_Call_To_CSM_When_ThumbPrint_Is_Invalid()
+        public void Cannot_Call_To_CSM_When_ThumbPrint_Is_Invalid()
         {
             RequestManager.Initialize("csm/componentservices");
         }
@@ -63,12 +70,10 @@ namespace EveryAngle.WebClient.Web.CSTests.ServiceTests
         [TestCase("csm/componentservices/xxxxxx", true)]
         [TestCase("/csm/componentservices", true)]
         [TestCase("/csm/componentservices/xxxxxx", true)]
-        [TestCase(null, false)]
         [TestCase("models/1", false)]
         public void Can_Check_IsCSMUri(string uri, bool expected)
         {
-            RequestManager manager = RequestManager.Initialize(string.Empty);
-            bool result = manager.IsCSMUri(uri);
+            bool result = RequestManager.IsCSMUri(uri);
             Assert.AreEqual(expected, result);
         }
     }

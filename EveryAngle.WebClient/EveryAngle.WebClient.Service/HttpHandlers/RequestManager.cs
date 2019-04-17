@@ -45,6 +45,9 @@ namespace EveryAngle.WebClient.Service.HttpHandlers
 
         private RequestManager(string uri)
         {
+            if (string.IsNullOrEmpty(uri))
+                throw new HttpException(400, "Request url is required");
+
             this.uri = uri;
             if (client == null)
             {
@@ -105,7 +108,7 @@ namespace EveryAngle.WebClient.Service.HttpHandlers
             return new RequestManager(requestUrl);
         }
 
-        public bool IsCSMUri(string uri)
+        public static bool IsCSMUri(string uri)
         {
             string checkUri = uri ?? string.Empty;
             if (checkUri.StartsWith("/"))
