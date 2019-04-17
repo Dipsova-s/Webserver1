@@ -65,6 +65,7 @@ namespace EveryAngle.ManagementConsole.App_Start
             kernel.Bind<IUserService>()
                 .To<UserService>()
                 .WithPropertyValue("WebServiceUri", UrlHelper.GetRequestUrl(URLType.NOA));
+            kernel.Bind<IModelAgentService>().To<ModelAgentService>();
             kernel.Bind<ICommentService>().To<CommentService>();
             kernel.Bind<IGlobalSettingService>().To<GlobalSettingService>();
             kernel.Bind<ILabelService>().To<LabelService>();

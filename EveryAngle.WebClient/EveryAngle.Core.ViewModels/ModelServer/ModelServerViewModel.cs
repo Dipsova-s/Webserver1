@@ -54,9 +54,9 @@ namespace EveryAngle.Core.ViewModels.ModelServer
                 return agentType;
             }
         }
-		
-		public virtual string status { get; set; }
-		
+
+        public virtual string status { get; set; }
+
         public ModelServerStatus Status
         {
             get
@@ -94,7 +94,8 @@ namespace EveryAngle.Core.ViewModels.ModelServer
         [LocalizedDisplayName("MC_ModelSize")]
         public virtual string size { get; set; }
 
-        public string FormattedSize {
+        public string FormattedSize
+        {
             get
             {
                 if (!string.IsNullOrEmpty(size))
@@ -207,7 +208,7 @@ namespace EveryAngle.Core.ViewModels.ModelServer
         public bool IsCaching { get; set; }
 
         public string ModelServerName
-        {            
+        {
             get
             {
                 if (IsModelServer)
@@ -225,14 +226,21 @@ namespace EveryAngle.Core.ViewModels.ModelServer
             {
                 return Type == ModelAgentType.ModelServer;
             }
-        } 
+        }
+
+        public bool IsHanaServer
+        {
+            get
+            {
+                return Type == ModelAgentType.HanaServer;
+            }
+        }
 
         public bool IsPrimaryType
         {
             get
             {
-                return Type == ModelAgentType.ModelServer
-                    || Type == ModelAgentType.HanaServer;
+                return IsModelServer || IsHanaServer;
             }
         }
     }

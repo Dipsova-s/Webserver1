@@ -88,7 +88,7 @@ namespace EveryAngle.ManagementConsole.Test.Controllers
         {
             return new ModelController(
                 modelService.Object,
-                globalSettingService.Object,
+                modelAgentService.Object,
                 componentService.Object,
                 sessionHelper.Object
             );

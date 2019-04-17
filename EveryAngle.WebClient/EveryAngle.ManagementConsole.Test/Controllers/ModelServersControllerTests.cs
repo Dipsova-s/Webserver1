@@ -52,7 +52,7 @@ namespace EveryAngle.ManagementConsole.Test.Controllers
         #region private
         private ModelServersController GetController()
         {
-            return new ModelServersController(modelService.Object);
+            return new ModelServersController(modelService.Object, modelAgentService.Object);
         }
         #endregion
     }
