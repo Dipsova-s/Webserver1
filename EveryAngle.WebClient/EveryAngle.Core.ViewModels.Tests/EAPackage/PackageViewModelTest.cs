@@ -68,13 +68,15 @@ namespace EveryAngle.Core.ViewModels.Tests
             Assert.AreEqual(viewModel.ReContentsList.GetType(), typeof(string));
         }
 
-        [TestCase("", false)]
-        [TestCase("2018.1", true)]
-        public void PackageViewModelType_TEST(string sourceVersion, bool expectedResult)
+        [TestCase("ManagementConsole", "", false)]
+        [TestCase("WebClient", "2018.1", false)]
+        [TestCase("ManagementConsole", "2018.1", true)]
+        public void PackageViewModelType_TEST(string source, string sourceVersion, bool expectedResult)
         {
             //arrange
-            PackageViewModel viewModel = new PackageViewModel
+            PackageViewModel viewModel = new PackageViewModel("ManagementConsole", "2018.1")
             {
+                source = source,
                 source_version = sourceVersion
             };
 
