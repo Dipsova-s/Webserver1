@@ -61,12 +61,13 @@ namespace EveryAngle.ManagementConsole.Test.Controllers
         [TestCase]
         public void Can_GetPackageTaskViewModel()
         {
-            modelService.Setup(x => x.GetModelPackage(It.IsAny<string>())).Returns(new PackageViewModel
+            modelService.Setup(x => x.GetModelPackage(It.IsAny<string>())).Returns(new PackageViewModel("ManagementConsole", "2018.1")
             {
                 Id = "EA2_800",
                 Name = "EA2_800",
                 Uri = new System.Uri("http://everyangle.com"),
-                source_version = "2018.1"
+                source_version = "2018.1",
+                source = "ManagementConsole"
             });
 
             ActivePackageQueryViewModel activePackageQueryViewModel = new ActivePackageQueryViewModel
