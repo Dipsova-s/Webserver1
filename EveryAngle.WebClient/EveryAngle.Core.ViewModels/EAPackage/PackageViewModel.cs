@@ -9,6 +9,21 @@ namespace EveryAngle.Core.ViewModels.EAPackage
 {
     public class PackageViewModel
     {
+        private readonly string _exportPackageSource;
+        private readonly string _exportPackageSourceVersion;
+
+        public PackageViewModel()
+        {
+            _exportPackageSource = WebConfigHelper.GetAppSettingByKey("ExportPackageSource");
+            _exportPackageSourceVersion = WebConfigHelper.GetAppSettingByKey("ExportPackageSourceVersion");
+        }
+
+        public PackageViewModel(string source, string version)
+        {
+            _exportPackageSource = source;
+            _exportPackageSourceVersion = version;
+        }
+        
         [JsonProperty(PropertyName = "active")]
         public bool active { get; set; }
 
@@ -80,7 +95,8 @@ namespace EveryAngle.Core.ViewModels.EAPackage
         {
             get
             {
-                return "2018.1".Equals(source_version, StringComparison.InvariantCultureIgnoreCase);
+                return _exportPackageSource.Equals(source, StringComparison.InvariantCultureIgnoreCase)
+                    && _exportPackageSourceVersion.Equals(source_version, StringComparison.InvariantCultureIgnoreCase);
             }
         }
 
