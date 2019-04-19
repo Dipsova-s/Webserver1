@@ -323,7 +323,7 @@ img {
 .btn.active,
 .btn:hover {
     border: 1px solid #0a6088;
-    background: rgba(32, 168, 230, 0.11);
+    background-color: rgba(32, 168, 230, 0.11);
 }
 
 .btnPrimary,
@@ -344,7 +344,7 @@ img {
 .btnPrimary.active,
 .btnPrimary:hover {
     color: #fff;
-    background: #0d80b5 !important;
+    background-color: #0d80b5 !important;
 }
 
 .btnDefault {
@@ -810,7 +810,7 @@ img {
     letter-spacing: 0.2px;
     color: #3d4852;
     box-sizing: border-box;
-    display: inline-block;
+    float: left;
 }
 
 #UserControl {

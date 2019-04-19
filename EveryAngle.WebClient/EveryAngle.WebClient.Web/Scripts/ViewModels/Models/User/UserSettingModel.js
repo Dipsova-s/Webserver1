@@ -139,30 +139,20 @@ function UserSettingViewModel() {
         var url = WC.HtmlHelper.GetInternalUri('updateusersetting', 'user');
         return UpdateDataToWebService(url, null, true);
     };
-    self.SaveLastSearch = function () {
-        if (!self.IsLoaded() || typeof anglePageHandler !== 'undefined')
-            return;
+    self.GetLastSearchData = function () {
+        if (!window.SearchPageHandler || !self.Data())
+            return null;
 
-        requestHistoryModel.SaveLastExecute(self, self.SaveLastSearch, arguments);
-
-        // use transparentproxy because not required async
         var lastSearch = jQuery.address.value();
-        var url = directoryHandler.ResolveDirectoryUri(userModel.Data().user_settings);
-
         var prevLastSearch = self.GetClientSettingByPropertyName(enumHandlers.CLIENT_SETTINGS_PROPERTY.LAST_SEARCH_URL);
-        if (prevLastSearch === lastSearch) {
-            return;
-        }
+        if (prevLastSearch === lastSearch)
+            return null;
 
         var clientSettings = JSON.parse(self.GetByName(enumHandlers.USERSETTINGS.CLIENT_SETTINGS));
         clientSettings[enumHandlers.CLIENT_SETTINGS_PROPERTY.LAST_SEARCH_URL] = lastSearch;
-
         var data = {};
         data[enumHandlers.USERSETTINGS.CLIENT_SETTINGS] = JSON.stringify(clientSettings);
-        return UpdateDataToWebService(url, data, false, false)
-            .done(function (data) {
-                self.LoadSuccess(data);
-            });
+        return new RequestModel(RequestModel.METHOD.PUT, userModel.Data().user_settings, data);
     };
     self.CheckExecuteAutoWhenLogon = function () {
         return self.GetByName(enumHandlers.USERSETTINGS.AUTO_EXECUTE_ITEMS_ON_LOGIN) && jQuery.localStorage('firstLogin') === 1;

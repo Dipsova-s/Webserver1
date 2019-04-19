@@ -197,6 +197,10 @@
     background-repeat: no-repeat;
     background-position: center center;
     margin-top: -2px;
+    box-shadow: none;
+}
+.contentSectionInfoItem .btnInfo:hover {
+    background-color: transparent;
 }
 
 /* popupAngleCopy
