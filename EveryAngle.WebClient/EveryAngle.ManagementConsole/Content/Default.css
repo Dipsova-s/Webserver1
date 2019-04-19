@@ -505,7 +505,7 @@ textarea.error {
     min-width: 50px;
     max-width: 100px;
     box-sizing: border-box;
-    display: inline-block;
+    float: left;
 }
 
 #UserMenuControl {

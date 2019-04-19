@@ -130,7 +130,7 @@ function Authentication() {
     self.ShowLoginPopup = function () {
         DeleteCookie('EASECTOKEN', rootWebsitePath);
         if (requestHistoryModel.ClearPopupBeforeExecute) {
-            if (popup.Current != null) {
+            if (popup.Current) {
                 popup.Current.destroy();
             }
             popup.CloseAll();
@@ -478,17 +478,22 @@ function Authentication() {
     };
 
     self.Logout = function () {
-        if (typeof directoryHandler !== "undefined") {
-            userSettingModel.SaveLastSearch();
+        if (typeof directoryHandler === 'undefined')
+            return;
+
+        progressbarModel.ShowStartProgressBar();
+        progressbarModel.SetDisableProgressBar();
+        setTimeout(function () {
+            var lastSearchRequest = userSettingModel.GetLastSearchData();
+            WC.Ajax.ExecuteBeforeExit(lastSearchRequest ? [lastSearchRequest] : [], false);
             jQuery('html').addClass('noPopup');
 
             window.location = logoutPageUrl;
-        }
+        }, 500);
     };
 
     self.ClearAuthorizedData = function (redirect) {
         jQuery.localStorage.removeItem('session_uri');
-        jQuery.localStorage.removeItem('page_changed');
 
         if (redirect === false) {
             self.ClearUserStorage();

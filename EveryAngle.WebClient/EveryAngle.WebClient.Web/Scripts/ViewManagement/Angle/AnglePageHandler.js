@@ -724,7 +724,6 @@ function AnglePageHandler() {
                 }
             })
             .then(function () {
-                jQuery.localStorage('page_changed', false);
                 var modelUri = angleInfoModel.Data().model;
                 var model = modelsHandler.GetModelByUri(modelUri);
                 if (!model || model.available !== true || model.model_status !== 'Up')
@@ -2153,9 +2152,7 @@ function AnglePageHandler() {
             }
         });
         jQuery(window).off('beforeunload.angle').on('beforeunload.angle', function () {
-            jQuery.localStorage('page_changed', true);
-            WC.Ajax.AbortLongRunningRequest();
-            WC.Ajax.DeleteResult();
+            WC.Ajax.ExecuteBeforeExit([], true);
             return;
         });
     }
