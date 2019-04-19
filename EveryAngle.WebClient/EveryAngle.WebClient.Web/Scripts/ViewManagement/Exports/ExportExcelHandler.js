@@ -82,9 +82,8 @@ function ExportExcelHandler() {
                     progressbarModel.SetProgressBarText(kendo.toString(response.progress * 100, 'n0'), null, Localization.ProgressBar_CurrentRetrievingExcelFileFromApplicationServer);
                     if (response.status.toLowerCase() === "finished") {
 
-                        WC.Ajax.EnableDeleteResult = false;
+                        WC.Ajax.EnableBeforeExit = false;
                         WC.Utility.DownloadFile(WC.Ajax.BuildRequestUrl(response.file_uri, false));
-
                         fnCheckExportProgress = setTimeout(function () {
                             self.DoneToGenerateExcel(false);
                         }, 2000);

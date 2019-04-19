@@ -24,6 +24,9 @@
         return lab;
     };
 
+    // navigator.sendBeacon support
+    Modernizr.addTest('sendbeacon', function () { return 'sendBeacon' in navigator; });
+
     // mouse support
     var mouseTestResult = jQuery.localStorage('mouse');
     if (mouseTestResult === null) {

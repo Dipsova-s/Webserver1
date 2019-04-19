@@ -559,10 +559,6 @@ function DashboardHandler() {
                 else {
                     self.EnableDashboardPage(false);
                 }
-
-                setTimeout(function () {
-                    jQuery.localStorage('page_changed', false);
-                }, 1000);
             });
     };
     self.CheckUpdateModelCurrentInstance = function () {
@@ -1805,9 +1801,7 @@ function DashboardHandler() {
         });
 
         jQuery(window).off('beforeunload.dashboard').on('beforeunload.dashboard', function () {
-            jQuery.localStorage('page_changed', true);
-            WC.Ajax.AbortLongRunningRequest();
-            WC.Ajax.DeleteResult();
+            WC.Ajax.ExecuteBeforeExit([], true);
             return;
         });
     }

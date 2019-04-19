@@ -1,6 +1,96 @@
-﻿describe("WC.Ajax test", function () {
+﻿describe("WC.Ajax", function () {
 
-    describe("AbortAll", function () {
+    describe(".ExecuteBeforeExit", function () {
+
+        it("should not process requests if disabled then the state is reset", function () {
+            spyOn(WC.Ajax, 'SendExitRequests').and.callFake($.noop);
+
+            WC.Ajax.EnableBeforeExit = false;
+            WC.Ajax.ExecuteBeforeExit();
+
+            expect(WC.Ajax.SendExitRequests).not.toHaveBeenCalled();
+            expect(WC.Ajax.EnableBeforeExit).toEqual(true);
+        });
+
+        it("should not process requests if enabled", function () {
+            spyOn(WC.Ajax, 'SendExitRequests').and.callFake($.noop);
+
+            WC.Ajax.EnableBeforeExit = true;
+            WC.Ajax.ExecuteBeforeExit();
+
+            expect(WC.Ajax.SendExitRequests).toHaveBeenCalled();
+        });
+
+    });
+
+    describe(".GetAbortingRequestsData", function () {
+
+        it("should get aborting requests", function () {
+            spyOn(WC.Ajax, 'SendExitRequests').and.callFake($.noop);
+
+            var urls = [
+                '/results/1',
+                '/results/2',
+                '/results/1',
+                '/results/3'
+            ];
+            var requests = WC.Ajax.GetAbortingRequestsData(urls);
+
+            expect(requests.length).toEqual(3);
+            expect(requests[0].method).toEqual(RequestModel.METHOD.DELETE);
+            expect(requests[0].data).toEqual('');
+            expect(requests[0].url).toEqual('/results/1');
+            expect(requests[1].url).toEqual('/results/2');
+            expect(requests[2].url).toEqual('/results/3');
+        });
+
+    });
+
+    describe(".SendExitRequests", function () {
+
+        beforeEach(function () {
+            spyOn(WC.HtmlHelper, 'GetInternalUri').and.returnValue('url');
+            spyOn(window, 'CreateDataToWebService').and.callFake($.noop);
+            spyOn(WC.Ajax, 'SendBeacon').and.callFake($.noop);
+        });
+
+        it("should not process requests if no data", function () {
+            var data = [];
+            WC.Ajax.SendExitRequests(data);
+
+            expect(WC.HtmlHelper.GetInternalUri).not.toHaveBeenCalled();
+        });
+
+        it("should use navigator.sendBeacon if supported", function () {
+            Modernizr.sendbeacon = true;
+            var data = [{}];
+            WC.Ajax.SendExitRequests(data, true);
+
+            expect(WC.Ajax.SendBeacon).toHaveBeenCalled();
+            expect(window.CreateDataToWebService).not.toHaveBeenCalled();
+        });
+
+        it("should use CreateDataToWebService if navigator.sendBeacon does not support", function () {
+            Modernizr.sendbeacon = false;
+            var data = [{}];
+            WC.Ajax.SendExitRequests(data, true);
+            
+            expect(WC.Ajax.SendBeacon).not.toHaveBeenCalled();
+            expect(window.CreateDataToWebService).toHaveBeenCalled();
+        });
+
+        it("should use CreateDataToWebService if prefer to use", function () {
+            Modernizr.sendbeacon = true;
+            var data = [{}];
+            WC.Ajax.SendExitRequests(data, false);
+            
+            expect(WC.Ajax.SendBeacon).not.toHaveBeenCalled();
+            expect(window.CreateDataToWebService).toHaveBeenCalled();
+        });
+
+    });
+
+    describe(".AbortAll", function () {
 
         beforeEach(function () {
             // setup xhr
@@ -18,7 +108,7 @@
         });
     });
 
-    describe("BuildRequestUrl", function () {
+    describe(".BuildRequestUrl", function () {
 
         it("Should get proxy url when specific is proxy", function () {
 
@@ -35,9 +125,7 @@
         });
     });
 
-
-
-    describe("Cancel Long Running", function () {
+    describe(".GetLongRunUrls", function () {
 
         beforeEach(function () {
             WC.Ajax.XHR = [];
@@ -79,28 +167,7 @@
 
     });
 
-    describe("call DeleteResult", function () {
-
-        beforeEach(function () {
-            spyOn(WC.HtmlHelper, "GetInternalUri").and.callFake(function () { return ''; });
-            spyOn(window, "DeleteDataToWebService").and.callFake($.noop);
-        });
-
-        it("when not have result url, DeleteDataToWebService should not been called", function () {
-
-            WC.Ajax.DeleteResult();
-            expect(window.DeleteDataToWebService).not.toHaveBeenCalled();
-        });
-
-        it("when have result url, DeleteDataToWebService have been called", function () {
-
-            WC.Ajax.ResultURL = ['/results/1', 'api/proxy/results/2'];
-            WC.Ajax.DeleteResult();
-            expect(window.DeleteDataToWebService).toHaveBeenCalled();
-        });
-    });
-
-    describe("call Request", function () {
+    describe(".Request", function () {
 
         it("when request result url, url should store in WC.Ajax.ResultURL", function () {
             spyOn($, 'ajax').and.callFake($.noop);
@@ -114,6 +181,5 @@
             expect(WC.Ajax.ResultURL.length).toBe(3);
         });
     });
-
 
 });

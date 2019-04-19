@@ -2,11 +2,24 @@
 (function (window, helper) {
     "use strict";
 
+    function RequestModel(method, url, data) {
+        this.method = method;
+        this.url = url;
+        this.data = jQuery.isPlainObject(data) ? JSON.stringify(data) : '';
+    }
+    RequestModel.METHOD = {
+        GET: 'GET',
+        PUT: 'PUT',
+        POST: 'POST',
+        DELETE: 'DELETE'
+    };
+    window.RequestModel = RequestModel;
+
     function Ajax() {
         var self = this;
         self.XHR = [];
         self.ResultURL = [];
-        self.EnableDeleteResult = true;
+        self.EnableBeforeExit = true;
 
         self.Initial = function () {
             jQuery(document).ajaxSend(function (event, jqxhr, settings) {
@@ -18,6 +31,47 @@
             .ajaxComplete(function (e, jqxhr) {
                 self.XHR = jQuery.grep(self.XHR, function (xhr) { return xhr !== jqxhr; });
             });
+        };
+
+        self.ExecuteBeforeExit = function (additionalRequests, useBeacon) {
+            if (!self.EnableBeforeExit) {
+                self.EnableBeforeExit = true;
+                return;
+            }
+
+            var data = WC.Utility.ToArray(additionalRequests);
+
+            // create model for results/x
+            var resultUrls = self.GetLongRunUrls();
+            jQuery.merge(resultUrls, self.ResultURL);
+            self.ResultURL = [];
+            jQuery.merge(data, self.GetAbortingRequestsData(resultUrls));
+
+            // send request to server side
+            self.SendExitRequests(data, useBeacon);
+        };
+
+        self.GetAbortingRequestsData = function (urls) {
+            var data = [];
+            jQuery.each(urls.distinct(), function (index, resultUrl) {
+                data.push(new RequestModel(RequestModel.METHOD.DELETE, resultUrl));
+            });
+            return data;
+        };
+
+        self.SendExitRequests = function (data, useBeacon) {
+            if (!data.length)
+                return;
+
+            var url = WC.HtmlHelper.GetInternalUri('exit', 'page');
+            if (Modernizr.sendbeacon && useBeacon)
+                self.SendBeacon(url, JSON.stringify(data));
+            else
+                CreateDataToWebService(url, JSON.stringify(data), true, false);
+        };
+
+        self.SendBeacon = function (url, data) {
+            navigator.sendBeacon(url, data);
         };
 
         self.AbortAll = function () {
@@ -45,18 +99,8 @@
         };
 
         self.AbortLongRunningRequest = function () {
-            self.SendAbortRequests(self.GetLongRunUrls());
-        };
-
-        self.DeleteResult = function () {
-            if (self.EnableDeleteResult)
-                self.SendAbortRequests(self.ResultURL);
-            self.EnableDeleteResult = true;
-        };
-
-        self.SendAbortRequests = function (data) {
-            if (data.length)
-                DeleteDataToWebService(WC.HtmlHelper.GetInternalUri('abortall', 'cancel'), data.distinct(), true, false);
+            var data = self.GetAbortingRequestsData(self.GetLongRunUrls());
+            self.SendExitRequests(data, true);
         };
 
         self.Request = function (url, type, data, options) {
