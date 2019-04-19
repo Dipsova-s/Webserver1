@@ -1,5 +1,9 @@
 ﻿@using EveryAngle.Shared.Globalization
 @using EveryAngle.ManagementConsole.Models
+@{
+    int pageSize = (int)ViewData["DefaultPageSize"];
+    int gridHeight = Math.Min(pageSize, 8) * 37;
+}
 
 @(Html.Kendo().Grid<EveryAngle.Core.ViewModels.Cycle.TaskViewModel>()
     .Name("TasksGrid")
@@ -23,10 +27,9 @@
                 + "# } #"
                 + "<span class=\"label\"></span></label>");
 
-        columns.Bound(model => model.Triggers)
+        columns.Bound(model => model.trigger_type)
             .Title(Resource.Type)
-            .Width(100)
-            .ClientTemplate("#= data.Triggers && data.Triggers.length && data.Triggers[0].trigger_type ? data.Triggers[0].trigger_type :'' #");
+            .Width(100);
 
         columns.Bound(model => model.action_count)
             .Width(60)
@@ -37,6 +40,7 @@
         columns.Bound(model => model.RefreshCycleTrigger.days)
             .ClientTemplate("#= data.Triggers && data.Triggers.length && data.Triggers[0].trigger_type !== 'schedule' ? '' : MC.AutomationTasks.Tasks.GetDaysCheckbox(data) #")
             .Width(135)
+            .Sortable(false)
             .Title(Resource.Day);
 
         columns.Bound(model => model.RefreshCycleTrigger.start_time)
@@ -44,6 +48,7 @@
             .ClientTemplate("#= data.RefreshCycleTrigger == null ? '' : MC.util.getDisplayTimeLocal(data.RefreshCycleTrigger.start_time) #")
             .HeaderHtmlAttributes(new { @class = "columnDate" })
             .HtmlAttributes(new { @class = "columnDate" })
+            .Sortable(false)
             .Width(115);
 
         columns.Bound(model => model.max_run_time)
@@ -51,10 +56,12 @@
             .HeaderHtmlAttributes(new { @class = "columnDate" })
             .HtmlAttributes(new { @class = "columnDate" })
             .Width(90)
+            .Sortable(false)
             .ClientTemplate("#= MC.util.getDisplayTimeUTC(data.max_run_time) #");
 
         columns.Bound(model => model.status)
             .Width(50)
+            .Sortable(false)
             .Title(Resource.Status);
 
         columns.Bound(model => model.id)
@@ -62,14 +69,17 @@
             .HeaderHtmlAttributes(new { @class = "gridColumnToolbar" })
             .HtmlAttributes(new { @class = "gridColumnToolbar" })
             .Width(75)
+            .Sortable(false)
             .Title(Resource.MC_Action);
     })
-    .AutoBind(false)
-    .Scrollable(scroll => scroll.Virtual(false).Height(37 * 8))
+    .Scrollable(scroll => scroll.Virtual(true).Height(gridHeight))
     .Resizable(resize => resize.Columns(true))
+    .Sortable(sortable => sortable.AllowUnsort(false))
     .DataSource(dataSource => dataSource
         .Ajax().Events(e => e.RequestStart("onKendoGridPagingStart"))
-        .Read(read => read.Action("ReadTasksGrid", "AutomationTasks", new { tasksUri = ViewBag.TasksUri }))
-        .ServerOperation(false)
+        .Read(read => read.Action("ReadTasksGrid", "AutomationTasks", new { tasksUri = ViewBag.TasksUri, q = @ViewBag.Query }))
+        .PageSize(pageSize)
     )
+    .EnableCustomBinding(true)
+    .AutoBind(false)
 )
