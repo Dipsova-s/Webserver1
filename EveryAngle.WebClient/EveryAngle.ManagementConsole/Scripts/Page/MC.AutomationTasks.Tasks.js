@@ -59,6 +59,7 @@
 
                 var tasksGrid = jQuery('#TasksGrid').data('kendoGrid');
                 if (tasksGrid) {
+                    tasksGrid.bind('dataBound', self.TaskActionsGridDataBound);
                     tasksGrid.dataSource.read();
                 }
 

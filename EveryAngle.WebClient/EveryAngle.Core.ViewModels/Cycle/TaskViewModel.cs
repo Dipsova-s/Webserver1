@@ -130,6 +130,19 @@ namespace EveryAngle.Core.ViewModels.Cycle
         [JsonProperty(PropertyName = "triggers")]
         public List<TriggerViewModel> Triggers { get; set; }
 
+        [JsonProperty(PropertyName = "trigger_type")]
+        public string trigger_type
+        {
+            get
+            {
+                if (Triggers == null || Triggers.Count == 0)
+                {
+                    return string.Empty;
+                }
+                return Triggers[0].trigger_type;
+            }
+        }
+
         public TriggerViewModel RefreshCycleTrigger
         {
             get

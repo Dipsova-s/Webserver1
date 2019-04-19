@@ -14,6 +14,7 @@ using Newtonsoft.Json.Linq;
 using RestSharp;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Web.Mvc;
 using UrlHelper = EveryAngle.Shared.Helpers.UrlHelper;
@@ -65,12 +66,16 @@ namespace EveryAngle.ManagementConsole.Controllers
             return PartialView("~/Views/AutomationTasks/Tasks/AllTasks.cshtml");
         }
 
-        public ActionResult GetTasksGrid(string tasksUri)
+        public ActionResult GetTasksGrid(string tasksUri, string q = "")
         {
+            ViewData["DefaultPageSize"] = DefaultPageSize;
+
             ViewBag.TasksUri = tasksUri;
             ViewBag.ManageSystemPrivilege = Convert.ToString(SessionHelper.Session.IsValidToManageSystemPrivilege()).ToLower();
             ViewBag.CanScheduleAngles = Convert.ToString(SessionHelper.Session.IsValidToScheduleAngles()).ToLower();
             ViewBag.UserId = SessionHelper.CurrentUser.Id.Replace("\\", "\\\\");
+
+            ViewBag.Query = q;
 
             return PartialView("~/Views/AutomationTasks/Tasks/TasksGrid.cshtml");
         }
@@ -78,6 +83,7 @@ namespace EveryAngle.ManagementConsole.Controllers
         public ActionResult ReadTasksGrid([DataSourceRequest] DataSourceRequest request, string tasksUri, string q = "")
         {
             string fullTasksUri = string.Format("{0}?types=export_angle_to_datastore,run_external_command&{1}{2}", tasksUri, OffsetLimitQuery, string.IsNullOrEmpty(q) ? "" : "&q=" + q);
+            fullTasksUri += GetTaskQueryString(request);
             var tasks = _taskService.GetTasks(fullTasksUri);
 
             return Json(new DataSourceResult
@@ -521,6 +527,28 @@ namespace EveryAngle.ManagementConsole.Controllers
 
         #region private methods
 
+        private string GetTaskQueryString(DataSourceRequest request)
+        {
+            string query = string.Empty;
+            if (request != null && request.Sorts != null && request.Sorts.Count > 0)
+            {
+                string sortingKey = request.Sorts[0].Member;
+                Dictionary<string, string> sorting = new Dictionary<string, string>
+                {
+                    { "name", "name" },
+                    { "run_as_user", "run_as_user" },
+                    { "enabled", "enabled" },
+                    { "action_count", "action_count" },
+                    { "trigger_type", "trigger_type" }
+                };
+                if (sorting.ContainsKey(sortingKey))
+                {
+                    string sortDirection = request.Sorts[0].SortDirection == ListSortDirection.Descending ? "desc" : "asc";
+                    query += string.Format("&sort={0}&dir={1}", sorting[sortingKey], sortDirection);
+                }
+            }
+            return query;
+        }
         private List<DataStoresViewModel> GetAllDataStores()
         {
             List<DataStoresViewModel> dataStores = _automationTaskService.GetDatastores(GetDataStoresUri()).Data.ToList();
