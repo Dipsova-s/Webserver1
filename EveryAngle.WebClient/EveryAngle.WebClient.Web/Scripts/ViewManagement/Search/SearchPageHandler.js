@@ -59,8 +59,6 @@ function SearchPageHandler() {
         if (!jQuery.isReady || !jQuery('html').hasClass('initialized'))
             return;
 
-        jQuery.localStorage('page_changed', false);
-
         if (!self.IsPageInitialized) {
             self.IsPageInitialized = true;
             progressbarModel.InitialProgressBar();
@@ -1706,9 +1704,13 @@ function SearchPageHandler() {
         });
 
         jQuery(window).off('beforeunload.search').on('beforeunload.search', function () {
-            jQuery.localStorage('page_changed', true);
-            userSettingModel.SaveLastSearch();
-            WC.Ajax.DeleteResult();
+            var lastSearchRequest = userSettingModel.GetLastSearchData();
+            var additionalRequests = [];
+            if (lastSearchRequest) {
+                jQuery.localStorage.removeItem('settings');
+                additionalRequests = [lastSearchRequest];
+            }
+            WC.Ajax.ExecuteBeforeExit(additionalRequests, true);
             return;
         });
     }
