@@ -2,9 +2,7 @@
 
 :: load configuration
 call runrobot-config.cmd
-
-:: check chromedriver.exe
-if not exist "chromedriver.exe" echo chromedriver.exe does not exists in %cd%, download from https://sites.google.com/a/chromium.org/chromedriver/downloads &pause &exit
+set "CURRENT=%~dp0%"
 
 :: check TAG
 if not defined TAG echo please input TAG &pause &exit
@@ -44,6 +42,7 @@ xcopy * %COPYTO% /E /S /Y /Q
 ::::::::::::::::::::::::::::::::
 cls
 call %COPYTO%runrobot "%SERVER%" "%BRANCH%" %TAG% "WS" "%QUERY%" "%COMPARE_BRANCH%" "webhelp"
+if not "%CURRENT%"=="%COPYTO%" xcopy "%COPYTO%chromedriver.exe" "%CURRENT%" /E /S /Y /Q
 call :open_report
 exit /b 0
 
