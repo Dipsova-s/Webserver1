@@ -38,6 +38,9 @@ if "%updateSeleniumLibrary%"=="yes" pip install %updateSeleniumLibraryVersion%
 if "%updatePabot%"=="yes" pip install %updatePabotVersion%
 if "%updateHttpLibrary%"=="yes" pip install %updateHttpLibraryVersion%
 
+ECHO ###### Checking Chrome Driver  ######
+call :downloadChromeDriver
+
 ECHO.
 ECHO ###### Running Robot Framework Information  ######
 ECHO Server: %1
@@ -174,6 +177,15 @@ exit /b 0
 	call rebot --merge -d %~dp0%ReportFolder% ^
 		--output %~dp0%ReportFolder%/output.xml ^
 		%reports%
+
+exit /b 0
+
+:downloadChromeDriver
+
+	setlocal
+	cd /d %~dp0
+
+	call powershell -file "%~dp0%download.ps1"
 
 exit /b 0
 
