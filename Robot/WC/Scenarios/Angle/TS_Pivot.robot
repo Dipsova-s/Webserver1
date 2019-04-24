@@ -46,10 +46,19 @@ Pivot Display Drilldown
     [Arguments]    ${angleJsonFilename}    ${angleName}    ${modelName}
     Upload Angle    ${angleJsonFilename}    ${angleName}    ${modelName}
     Open Angle From First Angle in Search Page    ${angleName}
-    ${numberOfNull}    Get Pivot Total Cell Value By Row Index    0
+
+    # drilldown null value
+    ${drilldownValue1}    Get Pivot Total Cell Value By Row Index    0
     Drilldown Pivot Total Cell Value By Row Index    0
-    ${numberOfObject}    Get Number Of Object
-    Should Be True    ${numberOfObject}==${numberOfNull}
+    ${drilldownResult1}    Get Number Of Object
+    Should Be True    ${drilldownResult1}==${drilldownValue1}
+
+    # drilldown cell before grand total
+    Change Display By Name    pivot2
+    ${numberOfDrillDown2}    Get Pivot Cell Value Before Grand Total Cell    0
+    Drilldown Pivot Cell Value Before Grand Total Cell   0
+    ${drilldownResult2}    Get Number Of Object
+    Should Be True    ${drilldownResult2}==${numberOfDrillDown2}
 
 Pivot Percentages
     Go To Pivot Percentage Test Display
@@ -163,12 +172,6 @@ Pivot First Row Set Bucket Options Should Not Contain "Last xx characters"
     ${count}    Get Elements Count    jquery=#BucketOptionDropDown_listbox > li > span:contains("Last")
     Should Be True    ${count}==0
     Save Field Format
-
-Drilldown Pivot Cell Nearly Grand Total And Result Should Be Corrected
-    ${pivotLastLineValue}    Get Pivot Nearly Grand Total Cell Value
-    Drilldown Pivot Nearly Grand Total Cell
-    ${numberOfDrilldownObject}    Get Number Of Object
-    Should Be True    ${pivotLastLineValue}==${numberOfDrilldownObject}
 
 Go To Pivot Percentage Test Display
     Search By Text And Expect In Search Result    ${TEST_VERIFY_PIVOT_ANGLE_NAME}

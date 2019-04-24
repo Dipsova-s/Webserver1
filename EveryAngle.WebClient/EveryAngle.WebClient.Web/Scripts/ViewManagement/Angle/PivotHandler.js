@@ -1061,8 +1061,14 @@ function PivotPageHandler(elementId, container) {
             }
             self.IsDrilldown = true;
             window[self.PivotId].PerformCallback({
-                "isDrilldown": true, 'rowIndex': e.RowIndex, 'columnIndex': e.ColumnIndex, 'rowValueType': e.RowValueType,
-                'columnValueType': e.ColumnValueType, 'rowValue': e.RowValue, 'columnValue': e.ColumnValue, 'rowFieldName': e.RowFieldName,
+                "isDrilldown": true,
+                'rowIndex': e.RowIndex,
+                'columnIndex': s.cpAbsoluteColumnIndex + e.ColumnIndex,
+                'rowValueType': e.RowValueType,
+                'columnValueType': e.ColumnValueType,
+                'rowValue': e.RowValue,
+                'columnValue': e.ColumnValue,
+                'rowFieldName': e.RowFieldName,
                 'columnFieldName': e.ColumnFieldName
             });
         }
@@ -1082,138 +1088,144 @@ function PivotPageHandler(elementId, container) {
         self.CustomizeCollectionBase();
     };
     self.CustomizePerformControlCallback = function () {
-        if (typeof MVCx.__PerformControlCallback !== 'function') {
-            MVCx.__PerformControlCallback = MVCx.PerformControlCallback;
-            MVCx.PerformControlCallback = function (name, url, arg, params, customParams) {
-                var checkArg = arg || '';
-                var isVirtualPage = checkArg.indexOf(':VS|') !== -1;
-                if (!isVirtualPage || (isVirtualPage && checkArg.indexOf('|-1|') === -1)) {
-                    var handler = window['pivot_' + name];
-                    if (!handler)
-                        handler = window[name.replace('pivotGrid_', '')];
-                    if (handler && handler.CachePages[arg]) {
-                        var ctrl = ASPx.GetControlCollection().Get(name);
-                        if (ctrl && (!window[name].LastCallbackArgument || window[name].LastCallbackArgument !== arg))
-                            ctrl.DoCallback(handler.CachePages[arg]);
-                    }
-                    else {
-                        MVCx.__PerformControlCallback(name, url, arg, params, customParams);
-                    }
+        if (typeof MVCx.__PerformControlCallback === 'function')
+            return;
+
+        MVCx.__PerformControlCallback = MVCx.PerformControlCallback;
+        MVCx.PerformControlCallback = function (name, url, arg, params, customParams) {
+            var checkArg = arg || '';
+            var isVirtualPage = checkArg.indexOf(':VS|') !== -1;
+            if (!isVirtualPage || checkArg.indexOf('|-1|') === -1) {
+                var handler = window['pivot_' + name];
+                if (!handler)
+                    handler = window[name.replace('pivotGrid_', '')];
+                if (handler && handler.CachePages[arg]) {
+                    var ctrl = ASPx.GetControlCollection().Get(name);
+                    if (ctrl && (!window[name].LastCallbackArgument || window[name].LastCallbackArgument !== arg))
+                        ctrl.DoCallback(handler.CachePages[arg]);
                 }
                 else {
-                    window[name].HideLoadingPanel();
-                    jQuery('#' + name + '_LD').hide();
+                    MVCx.__PerformControlCallback(name, url, arg, params, customParams);
                 }
-            };
-        }
+            }
+            else {
+                window[name].HideLoadingPanel();
+                jQuery('#' + name + '_LD').hide();
+            }
+        };
     };
     self.CustomizeDoCallback = function () {
-        if (typeof window[self.PivotId].__DoCallback !== 'function') {
-            window[self.PivotId].__DoCallback = window[self.PivotId].DoCallback;
-            window[self.PivotId].DoCallback = function (results) {
-                var matchCallbackArgs = results.match(/\/\*callback=(.+)\*\//);
-                if (matchCallbackArgs && matchCallbackArgs.length) {
-                    this.CallbackArgument = matchCallbackArgs[matchCallbackArgs.length - 1];
+        if (typeof window[self.PivotId].__DoCallback === 'function')
+            return;
+
+        window[self.PivotId].__DoCallback = window[self.PivotId].DoCallback;
+        window[self.PivotId].DoCallback = function (results) {
+            var matchCallbackArgs = results.match(/\/\*callback=(.+)\*\//);
+            if (matchCallbackArgs && matchCallbackArgs.length) {
+                this.CallbackArgument = matchCallbackArgs[matchCallbackArgs.length - 1];
+            }
+            else {
+                this.CallbackArgument = null;
+            }
+            if (this.CallbackArgument) {
+                if (this.CallbackArgument.indexOf(':VS|') !== -1) {
+                    if (!self.CachePages[this.CallbackArgument]) {
+                        self.CachePages[this.CallbackArgument] = results;
+                    }
                 }
                 else {
-                    this.CallbackArgument = null;
+                    self.CachePages = {};
                 }
-                if (this.CallbackArgument) {
-                    if (this.CallbackArgument.indexOf(':VS|') !== -1) {
-                        if (!self.CachePages[this.CallbackArgument]) {
-                            self.CachePages[this.CallbackArgument] = results;
-                        }
-                    }
-                    else {
-                        self.CachePages = {};
-                    }
-                }
-                this.LastCallbackArgument = this.CallbackArgument;
-                this.__DoCallback(results);
-            };
-        }
+            }
+            this.LastCallbackArgument = this.CallbackArgument;
+            this.__DoCallback(results);
+        };
     };
     self.CustomizeGetAreaLocation = function () {
-        if (typeof window[self.PivotId].adjustingManager.pivotTableWrapper.__getAreaLocation !== 'function') {
-            window[self.PivotId].adjustingManager.pivotTableWrapper.__getAreaLocation = window[self.PivotId].adjustingManager.pivotTableWrapper.getAreaLocation;
-            window[self.PivotId].adjustingManager.pivotTableWrapper.getAreaLocation = function (sizeInfo, offset) {
-                try {
-                    return this.__getAreaLocation(sizeInfo, offset);
-                }
-                catch (ex) {
-                    return {
-                        index: -1,
-                        offset: 0
-                    };
-                }
+        if (typeof window[self.PivotId].adjustingManager.pivotTableWrapper.__getAreaLocation === 'function')
+            return;
+
+        window[self.PivotId].adjustingManager.pivotTableWrapper.__getAreaLocation = window[self.PivotId].adjustingManager.pivotTableWrapper.getAreaLocation;
+        window[self.PivotId].adjustingManager.pivotTableWrapper.getAreaLocation = function (sizeInfo, offset) {
+            try {
+                return this.__getAreaLocation(sizeInfo, offset);
             }
-        }
+            catch (ex) {
+                return {
+                    index: -1,
+                    offset: 0
+                };
+            }
+        };
     };
     self.CustomizeGetScrollOffset = function () {
-        if (typeof window[self.PivotId].adjustingManager.pivotTableWrapper.__getScrollOffset !== 'function') {
-            window[self.PivotId].adjustingManager.pivotTableWrapper.__getScrollOffset = window[self.PivotId].adjustingManager.pivotTableWrapper.getScrollOffset;
-            window[self.PivotId].adjustingManager.pivotTableWrapper.getScrollOffset = function (sizeInfo, scrollLocation) {
-                try {
-                    return this.__getScrollOffset(sizeInfo, scrollLocation);
-                }
-                catch (ex) {
-                    return scrollLocation.offset;
-                }
+        if (typeof window[self.PivotId].adjustingManager.pivotTableWrapper.__getScrollOffset === 'function')
+            return;
+
+        window[self.PivotId].adjustingManager.pivotTableWrapper.__getScrollOffset = window[self.PivotId].adjustingManager.pivotTableWrapper.getScrollOffset;
+        window[self.PivotId].adjustingManager.pivotTableWrapper.getScrollOffset = function (sizeInfo, scrollLocation) {
+            try {
+                return this.__getScrollOffset(sizeInfo, scrollLocation);
             }
-        }
+            catch (ex) {
+                return scrollLocation.offset;
+            }
+        };
     };
     self.CustomizeGetBoundingClientRect = function () {
-        if (!!jQuery.browser.msie && typeof HTMLElement.prototype.__getBoundingClientRect !== 'function') {
-            HTMLElement.prototype.__getBoundingClientRect = HTMLElement.prototype.getBoundingClientRect;
-            HTMLElement.prototype.getBoundingClientRect = function () {
-                try {
-                    return this.__getBoundingClientRect.apply(this, arguments);
-                }
-                catch (e) {
-                    return {
-                        left: 0,
-                        right: 0,
-                        top: 0,
-                        bottom: 0
-                    };
-                }
-            };
-        }
+        if (!jQuery.browser.msie || typeof HTMLElement.prototype.__getBoundingClientRect === 'function')
+            return;
+
+        HTMLElement.prototype.__getBoundingClientRect = HTMLElement.prototype.getBoundingClientRect;
+        HTMLElement.prototype.getBoundingClientRect = function () {
+            try {
+                return this.__getBoundingClientRect.apply(this, arguments);
+            }
+            catch (e) {
+                return {
+                    left: 0,
+                    right: 0,
+                    top: 0,
+                    bottom: 0
+                };
+            }
+        };
     };
     self.CustomizeMeasureElements = function (font) {
-        if (typeof window[self.PivotId].adjustingManager.pivotTableWrapper.__measureElements !== 'function') {
-            window[self.PivotId].adjustingManager.pivotTableWrapper.__measureElements = window[self.PivotId].adjustingManager.pivotTableWrapper.measureElements;
-            window[self.PivotId].adjustingManager.pivotTableWrapper.measureElements = function (cell) {
-                var sizes = this.__measureElements(cell);
+        if (typeof window[self.PivotId].adjustingManager.pivotTableWrapper.__measureElements === 'function')
+            return;
 
-                var horizontalInfo = this.opts.Horz;
-                var pageOptions = horizontalInfo.PagingOptions;
+        window[self.PivotId].adjustingManager.pivotTableWrapper.__measureElements = window[self.PivotId].adjustingManager.pivotTableWrapper.measureElements;
+        window[self.PivotId].adjustingManager.pivotTableWrapper.measureElements = function (cell) {
+            var sizes = this.__measureElements(cell);
 
-                if (self.ColumnSize && self.ColumnSize.header.length && self.ColumnSize.data.length) {
-                    var columnsSize;
-                    if (horizontalInfo.VirtualPagingEnabled) {
-                        self.MeasureDataColumnsSize(pageOptions, font);
-                        self.SaveColumnResizing();
+            var horizontalInfo = this.opts.Horz;
+            var pageOptions = horizontalInfo.PagingOptions;
 
-                        columnsSize = self.ColumnSize.data.slice(self.StartDataIndex, self.StartDataIndex + sizes.columnAreaColumnWidths.length);
-                    }
-                    else {
-                        columnsSize = self.ColumnSize.data.slice();
-                    }
+            if (self.ColumnSize && self.ColumnSize.header.length && self.ColumnSize.data.length) {
+                var columnsSize;
+                if (horizontalInfo.VirtualPagingEnabled) {
+                    self.MeasureDataColumnsSize(pageOptions, font);
+                    self.SaveColumnResizing();
 
-                    sizes.rowTotalWidth = self.ColumnSize.header.sum();
-                    sizes.rowHeaderWidths = self.ColumnSize.header.slice();
-                    sizes.rowAreaColWidths = self.ColumnSize.header.slice();
-
-                    sizes.columnAreaColumnWidths = columnsSize.slice();
-                    sizes.columnCellsTotalWidth = sizes.columnAreaColumnWidths.sum();
-                    sizes.dataCellWidths = columnsSize.slice();
-                    sizes.dataCellsTotalWidth = sizes.columnCellsTotalWidth;
+                    columnsSize = self.ColumnSize.data.slice(self.StartDataIndex, self.StartDataIndex + sizes.columnAreaColumnWidths.length);
+                }
+                else {
+                    columnsSize = self.ColumnSize.data.slice();
                 }
 
-                return sizes;
-            };
-        }
+                sizes.rowTotalWidth = self.ColumnSize.header.sum();
+                sizes.rowHeaderWidths = self.ColumnSize.header.slice();
+                sizes.rowAreaColWidths = self.ColumnSize.header.slice();
+
+                sizes.columnAreaColumnWidths = columnsSize.slice();
+                sizes.columnCellsTotalWidth = sizes.columnAreaColumnWidths.sum();
+                sizes.dataCellWidths = columnsSize.slice();
+                sizes.dataCellsTotalWidth = sizes.columnCellsTotalWidth;
+            }
+
+            return sizes;
+        };
     };
     self.CustomizeCollectionBase = function () {
         ASPx.CollectionBase.prototype.Get = function (key) {

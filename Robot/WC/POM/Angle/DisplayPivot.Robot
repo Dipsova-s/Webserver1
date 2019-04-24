@@ -54,24 +54,26 @@ Pivot Scroll To Grand Total
 
 Get Grand Total
     Pivot Scroll To Grand Total
-    ${groundTotalValue}    Execute Javascript    return parseInt($('#${grandTotal}').text())
+    ${groundTotalValue}    Execute Javascript    return parseFloat($('#${grandTotal}').text())
     Pivot Scroll Vertical    0
     Pivot Scroll Horizontal    0
     [return]    ${groundTotalValue}
 
-Get Pivot Nearly Grand Total Cell Value
+Get Pivot Cell Value Before Grand Total Cell
+    [Arguments]    ${index}
     Pivot Scroll To Grand Total
-    ${cellValue}    Execute Javascript    return parseInt($('#${grandTotal}').parent().prev().children().last().text())
+    ${cellValue}    Execute Javascript    return parseFloat($('#${grandTotal}').prevAll().eq(${index}).text())
     [return]    ${cellValue}
 
 Get Pivot Above Grand Total Cell Value By Index
     [Arguments]    ${negativeIndex}
-    ${cellValue}    Execute Javascript    return parseInt($('#${grandTotal}').parent().siblings().eq(${negativeIndex}).children().last().text())
+    ${cellValue}    Execute Javascript    return parseFloat($('#${grandTotal}').parent().siblings().eq(${negativeIndex}).children().last().text())
     [return]    ${cellValue}
 
-Drilldown Pivot Nearly Grand Total Cell
+Drilldown Pivot Cell Value Before Grand Total Cell
+    [Arguments]    ${index}
     Pivot Scroll To Grand Total
-    Execute Javascript    $('#${grandTotal}').parent().prev().children().last().click()
+    Execute Javascript    $('#${grandTotal}').prevAll().eq(${index}).click()
     Wait Progress Bar Closed
 
 Drilldown Pivot Above Grand Total Cell
