@@ -592,7 +592,7 @@ var
   IISPhysicalPath: string;
   ODataModels : TStringList;
   ODataSettings : TJsonParserOutput;
-                           
+  WebServiceBackendUrl: string;
 begin
   ODataModelIds := '';
   ODataSettings := EmptyJsonObject();
@@ -623,14 +623,18 @@ begin
 
   local_FQDN := GetComputerName(ComputerNameDnsFullyQualified);
   WebSite_FQDN := LowerCase(GetAppSettingOrOverride(WebClientConfig, 'RedirectUrl', local_FQDN, {skipIf}IsNewInstall));
-  
+  WebServiceBackendUrl := LowerCase(pri_GetOverrideValue('WebServiceBackendUrl'));
+
   // The testserver sends the hostname only. therefore protocol needs to be added...
   if not validateUrl(WebSite_FQDN) then
       WebSite_FQDN := 'http://' + WebSite_FQDN;
   
   // Show config in the Gui
   WebClientConfigPage.Values[0] := WebSite_FQDN;
-  WebClientConfigPage.Values[1] := GetAppSettingOrOverride(WebClientConfig, 'WebServerBackendUrl', WebSite_FQDN, {skipIf}IsNewInstall);
+  if (WebServiceBackendUrl = '') then
+    WebClientConfigPage.Values[1] := GetAppSettingOrOverride(WebClientConfig, 'WebServerBackendUrl', WebSite_FQDN, {skipIf}IsNewInstall)
+  else
+    WebClientConfigPage.Values[1] := WebServiceBackendUrl;
   WebClientConfigPage.Values[2] := GetAppSettingOrOverride(WebClientConfig, 'WebServiceBackendNOAPort', '9080', {skipIf}IsNewInstall);
   
   WebClientOptionPage.Values[0] := StrToBool(GetAppSettingOrOverride(WebClientConfig, 'TrustAllCertificate', 'false', {skipIf}IsNewInstall));
@@ -698,9 +702,6 @@ begin
   setAppSetting(WebClientConfig, 'LogFileFolder', LogFolder);
   setAppSetting(WebClientConfig, 'TrustAllCertificate', BoolToStr(WebClientOptionPage.Values[0]));
 
-  if isNewInstall then
-    setAppSetting(WebClientConfig, 'UseCors', BoolToStr(false));
-  
   // Merge the new webclient web.config with the existing one.
   if not LoadXMLConfigFileEx(IISPhysicalPath, 'web.config', false, {out}NewWCConfig) then
   begin
