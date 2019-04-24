@@ -740,12 +740,20 @@ procedure UpdateWebClientConfig;
 var
   LocalFQDN: string;
   WebSiteFQDN: string;
+  WebServiceBackendUrl: string;
 begin
   LocalFQDN := GetComputerName(ComputerNameDnsFullyQualified);
   WebSiteFQDN := LowerCase(GetAppSettingOrOverride(WebClientConfig, 'RedirectUrl', LocalFQDN, {skipIf}IsNewInstall));
+  WebServiceBackendUrl := pri_GetOverrideValue('WebServiceBackendUrl');
+
   // Show config in the Gui
   WebClientConfigPage.Values[0] := UrlRemoveProtocol(WebSiteFQDN);
-  WebClientConfigPage.Values[1] := UrlRemoveProtocol(GetAppSettingOrOverride(WebClientConfig, 'WebServerBackendUrl', WebSiteFQDN, {skipIf}IsNewInstall));
+
+  if (WebServiceBackendUrl = '') then
+    WebClientConfigPage.Values[1] := UrlRemoveProtocol(GetAppSettingOrOverride(WebClientConfig, 'WebServerBackendUrl', WebSiteFQDN, {skipIf}IsNewInstall))
+  else
+    WebClientConfigPage.Values[1] := UrlRemoveProtocol(WebServiceBackendUrl);
+
   WebClientConfigPage.Values[2] := GetAppSettingOrOverride(WebClientConfig, 'WebServiceBackendNOAPort', '9080', {skipIf}IsNewInstall);
 end;
 
@@ -862,9 +870,6 @@ begin
   setAppSetting(WebClientConfig, 'WebServerBackendUrl', AddProtocolUrl(WebClientConfigPage.Values[1]));
   setAppSetting(WebClientConfig, 'WebServiceBackendNOAPort', WebClientConfigPage.Values[2]);
   setAppSetting(WebClientConfig, 'LogFileFolder', LogFolder);
-
-  if isNewInstall then
-    setAppSetting(WebClientConfig, 'UseCors', BoolToStr(false));
   
   // Merge the new webclient web.config with the existing one.
   if not LoadXMLConfigFileEx(IISPhysicalPath, 'web.config', false, {out}NewWCConfig) then
