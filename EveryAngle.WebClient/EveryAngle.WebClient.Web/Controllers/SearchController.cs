@@ -4,7 +4,6 @@ using EveryAngle.Shared.Helpers;
 using System.Web;
 using System.Collections.Generic;
 using Newtonsoft.Json.Linq;
-using System;
 using EveryAngle.Shared.Globalization;
 
 namespace EveryAngle.WebClient.Web.Controllers
@@ -40,7 +39,7 @@ namespace EveryAngle.WebClient.Web.Controllers
                         try
                         {
                             string text = (new StreamReader(file.InputStream)).ReadToEnd();
-                            json = JObject.Parse(text);
+                            json = JObject.Parse(EAHtmlSanitizer.Sanitize(text));
                         }
                         catch
                         {

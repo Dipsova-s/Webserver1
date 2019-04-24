@@ -132,6 +132,7 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
+    <Compile Include="ControllerTest\SearchControllerTests.cs" />
     <Compile Include="HelperTests\SessionControllerHelperTests.cs" />
     <Compile Include="ControllerTest\PivotControllerTests.cs" />
     <Compile Include="ControllerTest\HelpApiControllerTests.cs" />
@@ -182,6 +183,9 @@
     <None Include="GenerateUnitTestMetrics.cmd" />
     <None Include="packages.config">
       <SubType>Designer</SubType>
+    </None>
+    <None Include="TestResources\dangerous-package.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
   </ItemGroup>
   <Choose>
