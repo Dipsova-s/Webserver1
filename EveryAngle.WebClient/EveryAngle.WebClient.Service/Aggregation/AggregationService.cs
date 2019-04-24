@@ -324,8 +324,10 @@ namespace EveryAngle.WebClient.Service.Aggregation
 
             settings.CustomJsProperties = (sender, e) =>
             {
+                MVCxPivotGrid pivot = (MVCxPivotGrid)sender;
                 string layoutId = GetLayoutId(FieldSetting.Id.ToString());
                 e.Properties["cpLayout"] = HttpContext.Current.Session[layoutId];
+                e.Properties["cpAbsoluteColumnIndex"] = pivot.GetAbsoluteColumnIndex(0);
             };
 
             return settings;

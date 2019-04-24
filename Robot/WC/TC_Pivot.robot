@@ -9,7 +9,7 @@ Verify Pivot Settings Result
     Pivot Settings Subtotal / Percentages Column / Custom Name / Field Icons / Collapse
     [Teardown]    Go to Search Page
 
-Verify Pivot Display Drilldown Null Value Test
+Verify Pivot Display Drilldown Test
     Pivot Display Drilldown    PIVOT_DEFAULT_DRILLDOWN_DISPLAY.json    Pivot default drilldown test    EA2_800
     [Teardown]    Back To Search And Delete Angle Are Created    Pivot default drilldown test
 
