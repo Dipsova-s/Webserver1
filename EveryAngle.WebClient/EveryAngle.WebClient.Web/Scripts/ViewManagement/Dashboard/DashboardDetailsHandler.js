@@ -1460,9 +1460,15 @@ function DashboardDetailsHandler() {
             return;
 
         // viewer user only allow to update user_specific property
-        jQuery.each(data, function (name) {
-            if (name !== 'user_specific')
-                delete data[name];
+        var ignoredProperties = ['user_specific'];
+
+        if (dashboardModel.Data().authorizations.unvalidate) {
+            ignoredProperties.push('is_validated');
+        }
+        
+        jQuery.each(data, function (propertyName) {
+            if (jQuery.inArray(propertyName, ignoredProperties) === -1)
+                delete data[propertyName];
         });
     };
     self.GetConfirmMessageBeforeSave = function (isValidatedDashboard, updateData) {
