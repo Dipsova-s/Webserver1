@@ -1,21 +1,10 @@
-using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace EveryAngle.Core.ViewModels.WebClientSettings
 {
     public class WebClientConfigViewModel
     {
         #region General
-
-        [Display(Name = "Use HTTPS")]
-        public bool WebServiceBackendEnableSSL { get; set; }
-
-        [Display(Name = "Ignore certificate errors")]
-        public bool TrustAllCertificate { get; set; }
 
         [Display(Name = "Application server timeout")]
         public int AjaxTimeoutExpirationInSeconds { get; set; }

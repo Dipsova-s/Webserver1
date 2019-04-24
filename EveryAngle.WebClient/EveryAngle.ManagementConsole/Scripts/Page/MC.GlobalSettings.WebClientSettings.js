@@ -39,8 +39,6 @@
 
         self.GetData = function () {
             MC.form.clean();
-            var webServiceBackendEnableSSL = $('#WebServiceBackendEnableSSL').is(':checked');
-            var trustAllCertificate = $('#TrustAllCertificate').is(':checked');
             var ajaxTimeoutExpirationInSeconds = $('#AjaxTimeoutExpirationInSeconds').val();
             var showAngleAndDisplayID = $('#ShowAngleAndDisplayID').is(':checked');
             var maxNumberOfMassChangeItems = $('#MaxNumberOfMassChangeItems').val();
@@ -53,8 +51,6 @@
             var googleAnalyticsId = $.trim($('#GoogleAnalyticsId').val());
 
             var webClientSettingsData = {
-                'WebServiceBackendEnableSSL': webServiceBackendEnableSSL,
-                'TrustAllCertificate': trustAllCertificate,
                 'AjaxTimeoutExpirationInSeconds': ajaxTimeoutExpirationInSeconds,
                 'ShowAngleAndDisplayID': showAngleAndDisplayID,
                 'MaxNumberOfMassChangeItems': maxNumberOfMassChangeItems,
