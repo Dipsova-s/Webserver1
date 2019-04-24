@@ -182,7 +182,7 @@ namespace EveryAngle.WebClient.Web.Controllers
             return PartialView("~/Views/Angle/PartialViews/Pivot/PivotGridPartial.cshtml", pivotDataTable);
         }
 
-        public ActionResult PivotGridCallBackPartial(string fieldSettingsData, bool CanDrilldown, string DXCallbackArgument, bool? isDrilldown, int? rowIndex, int? columnIndex, string rowValueType, string columnValueType, string rowFieldName, string columnFieldName)
+        public ActionResult PivotGridCallBackPartial(string fieldSettingsData, bool CanDrilldown, string __DXCallbackArgument, bool? isDrilldown, int? rowIndex, int? columnIndex, string rowValueType, string columnValueType, string rowFieldName, string columnFieldName)
         {
             // fieldSettingsData will be encoded as base64
             PivotSettings fieldSettings = JsonConvert.DeserializeObject<PivotSettings>(Base64Helper.Decode(fieldSettingsData));
@@ -197,7 +197,7 @@ namespace EveryAngle.WebClient.Web.Controllers
             {
                 ViewBag.PivotSettings = pivotGridSettings;
                 ViewBag.Handler = pivotGridSettings.Name;
-                ViewBag.CallbackArgument = DXCallbackArgument;
+                ViewBag.CallbackArgument = __DXCallbackArgument;
                 return PartialView("~/Views/Angle/PartialViews/Pivot/PivotGridCallBackPartial.cshtml", pivotDataTable);
             }
             else
