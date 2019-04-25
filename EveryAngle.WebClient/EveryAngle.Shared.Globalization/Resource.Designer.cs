@@ -13732,15 +13732,6 @@ namespace EveryAngle.Shared.Globalization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Use SSL encrypted connections for communication with the Application Server..
-        /// </summary>
-        public static string MC_WebClientSettingsHelpEnableSsl {
-            get {
-                return ResourceManager.GetString("MC_WebClientSettingsHelpEnableSsl", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to ID which you receive from Google Analytics..
         /// </summary>
         public static string MC_WebClientSettingsHelpGoogleAnalyticsCode {
@@ -13800,15 +13791,6 @@ namespace EveryAngle.Shared.Globalization {
         public static string MC_WebClientSettingsHelpShowErrorSourceUri {
             get {
                 return ResourceManager.GetString("MC_WebClientSettingsHelpShowErrorSourceUri", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Ignore errors detected in SSL certificates received from the Application Server..
-        /// </summary>
-        public static string MC_WebClientSettingsHelpTrustAllCertificate {
-            get {
-                return ResourceManager.GetString("MC_WebClientSettingsHelpTrustAllCertificate", resourceCulture);
             }
         }
         

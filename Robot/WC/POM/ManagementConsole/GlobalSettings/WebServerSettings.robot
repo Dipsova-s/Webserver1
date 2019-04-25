@@ -2,8 +2,6 @@
 ${btnSaveWebServerSetting}        css=.btnSave
 ${btnLoadingClose}                css=#loading .loadingClose
 
-${chkUseHTTPS}                    WebServiceBackendEnableSSL
-${chkIgnoreCertificateError}      TrustAllCertificate
 ${txtApplicationServerTimeout}    AjaxTimeoutExpirationInSeconds
 ${chkShowItemID}                  ShowAngleAndDisplayID
 ${txtItemInMassChange}            MaxNumberOfMassChangeItems
@@ -16,10 +14,12 @@ ${chkEnableOptimizations}         EnableOptimizations
 ${txtMaxLogfiles}                 MaxLogFileNumber
 ${txtMaxSizeOfLogfile}            MaxLogFileSize
 
+${lblApplicationServerTimeout}    Application server timeout
+
 *** Keywords ***
 Wait Web Server Settings Page Ready
     Wait MC Progress Bar Closed
-    Wait Until Page Contains    Use HTTPS
+    Wait Until Page Contains    ${lblApplicationServerTimeout}
     Sleep    ${TIMEOUT_GENERAL}
 
 Click Save Web Server Setting
@@ -36,14 +36,6 @@ Click Save Web Server Setting And Expect Error
     Click Element    ${btnLoadingClose}
 
 #General
-Click Web Server Settings Use HTTPS
-    Wait Until Page Contains Element    ${chkUseHTTPS}
-    Click Element    ${chkUseHTTPS}
-
-Click Web Server Settings Ignore Certificate Error
-    Wait Until Page Contains Element    ${chkIgnoreCertificateError}
-    Click Element    ${chkIgnoreCertificateError}
-
 Input Web Server Settings Application Server Timeout
     [Arguments]    ${applicationServerTimeout}
     Input kendo Numeric TextBox    ${txtApplicationServerTimeout}    ${applicationServerTimeout}

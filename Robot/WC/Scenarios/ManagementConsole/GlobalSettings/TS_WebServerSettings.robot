@@ -9,8 +9,6 @@ Go To Web Server Settings Page
     Wait Web Server Settings Page Ready
 
 Verify Web Server Settings Page Is Ready
-    Page Should Contain Element    ${chkUseHTTPS}
-    Page Should Contain Element    ${chkIgnoreCertificateError}
     Page Should Contain Element    ${txtApplicationServerTimeout}
     Page Should Contain Element    ${chkShowItemID}
     Page Should Contain Element    ${txtItemInMassChange}

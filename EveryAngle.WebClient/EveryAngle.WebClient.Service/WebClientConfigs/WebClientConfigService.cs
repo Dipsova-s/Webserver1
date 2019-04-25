@@ -23,16 +23,6 @@ namespace EveryAngle.WebClient.Service.WebClientConfigs
 
                     switch (configKey)
                     {
-                        case "webservicebackendenablessl":
-                            bool webServiceBackendEnableSSL;
-                            bool.TryParse(configValue, out webServiceBackendEnableSSL);
-                            webClientConfigViewModel.WebServiceBackendEnableSSL = webServiceBackendEnableSSL;
-                            break;
-                        case "trustallcertificate":
-                            bool trustAllCertificate;
-                            bool.TryParse(configValue, out trustAllCertificate);
-                            webClientConfigViewModel.TrustAllCertificate = trustAllCertificate;
-                            break;
                         case "ajax-timeout-expiration-in-seconds":
                             int ajaxTimeoutExpirationInSeconds = 60;
                             int.TryParse(configValue, out ajaxTimeoutExpirationInSeconds);
@@ -97,14 +87,6 @@ namespace EveryAngle.WebClient.Service.WebClientConfigs
 
             #region General
 
-            bool webServiceBackendEnableSSL;
-            Boolean.TryParse(WebConfigHelper.GetNoneExecutingWebConfigBy("WebServiceBackendEnableSSL"), out webServiceBackendEnableSSL);
-            webClientConfigViewModel.WebServiceBackendEnableSSL = webServiceBackendEnableSSL;
-
-            bool trustAllCertificate;
-            Boolean.TryParse(WebConfigHelper.GetNoneExecutingWebConfigBy("TrustAllCertificate"), out trustAllCertificate);
-            webClientConfigViewModel.TrustAllCertificate = trustAllCertificate;
-
             int ajaxTimeoutExpirationInSeconds = 60;
             Int32.TryParse(WebConfigHelper.GetNoneExecutingWebConfigBy("Ajax-Timeout-Expiration-In-Seconds"), out ajaxTimeoutExpirationInSeconds);
             webClientConfigViewModel.AjaxTimeoutExpirationInSeconds = ajaxTimeoutExpirationInSeconds;
@@ -163,7 +145,7 @@ namespace EveryAngle.WebClient.Service.WebClientConfigs
             XmlDocument xmlDocument = new XmlDocument();
             xmlDocument.Load(overideFilePath);
 
-            string MCWebConfigKeys = @"WebServiceBackendEnableSSL|TrustAllCertificate|Ajax-Timeout-Expiration-In-Seconds|ShowAngleAndDisplayID|MaxNumberOfMassChangeItems|MaxNumberOfDashboard|ShowErrorSourceUri|EnableOptimizations|MaxLogFileNumber|MaxLogFileSize|DashboardRefreshIntervalTime|GoogleAnalyticsId";
+            string MCWebConfigKeys = @"Ajax-Timeout-Expiration-In-Seconds|ShowAngleAndDisplayID|MaxNumberOfMassChangeItems|MaxNumberOfDashboard|ShowErrorSourceUri|EnableOptimizations|MaxLogFileNumber|MaxLogFileSize|DashboardRefreshIntervalTime|GoogleAnalyticsId";
 
             if (MCWebConfigKeys != "")
             {

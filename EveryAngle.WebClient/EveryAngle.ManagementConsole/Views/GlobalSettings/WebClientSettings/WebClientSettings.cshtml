@@ -35,28 +35,7 @@
     <form id="WebClientSettingsForm" data-role="validator" autocomplete="off">
         <div class="contentSection contentSectionInfo">
             <h2>@Resource.General</h2>
-            <div class="contentSectionInfoItem">
-                <label>
-                    @Html.LabelFor(model => model.WebServiceBackendEnableSSL)
-                </label>
-                <p>
-                    <label>
-                        <input data-val="true" id="WebServiceBackendEnableSSL" name="WebServiceBackendEnableSSL" type="checkbox" value="true"@(Model.WebServiceBackendEnableSSL ? " checked='checked'" : "") /><span class="label"></span></label>
-                    <a data-target="#popupDescriptionTemplate" title="Description" data-width="600" data-min-height="100" data-role="mcPopup" class="btn btnInfo" onclick="MC.util.showDescriptionPopup(this)"></a>
-                    <textarea class="alwaysHidden">@Resource.MC_WebClientSettingsHelpEnableSsl</textarea>
-                </p>
-            </div>
-            <div class="contentSectionInfoItem">
-                <label>
-                    @Html.LabelFor(model => model.TrustAllCertificate)
-                </label>
-                <p>
-                    <label>
-                        <input data-val="true" id="TrustAllCertificate" name="TrustAllCertificate" type="checkbox" value="true"@(Model.TrustAllCertificate ? " checked='checked'" : "") /><span class="label"></span></label>
-                    <a data-target="#popupDescriptionTemplate" title="Description" data-width="600" data-min-height="100" data-role="mcPopup" class="btn btnInfo" onclick="MC.util.showDescriptionPopup(this)"></a>
-                    <textarea class="alwaysHidden">@Resource.MC_WebClientSettingsHelpTrustAllCertificate</textarea>
-                </p>
-            </div>
+
             <div class="contentSectionInfoItem">
                 <label>
                     @Html.LabelFor(model => model.AjaxTimeoutExpirationInSeconds)

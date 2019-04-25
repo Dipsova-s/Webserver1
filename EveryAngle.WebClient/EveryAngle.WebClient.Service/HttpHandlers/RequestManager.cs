@@ -11,7 +11,6 @@ using System.Configuration;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
-using System.Net.Http.Headers;
 using System.Security.Cryptography.X509Certificates;
 using System.Text.RegularExpressions;
 using System.Threading;
@@ -51,9 +50,9 @@ namespace EveryAngle.WebClient.Service.HttpHandlers
             this.uri = uri;
             if (client == null)
             {
-                bool.TryParse(WebConfigurationManager.AppSettings["WebServiceBackendEnableSSL"], out bool isHttps);
                 int timeout = int.Parse(WebConfigurationManager.AppSettings["RestClientTimeout"]);
                 string appserverUrl = Shared.Helpers.UrlHelper.GetWebServerBackendUrl();
+                bool isHttps = appserverUrl.StartsWith("https://");
                 string appserverPort = GetASPort(uri, isHttps);
                 string webServerBackendUrlWithPort = string.Format("{0}:{1}", appserverUrl, appserverPort);
 
