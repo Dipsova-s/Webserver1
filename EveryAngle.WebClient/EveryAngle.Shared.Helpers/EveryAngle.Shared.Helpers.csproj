@@ -40,11 +40,17 @@
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="AngleSharp, Version=0.9.9.0, Culture=neutral, PublicKeyToken=e83494dcdc6d31ea, processorArchitecture=MSIL">
+      <HintPath>..\packages\AngleSharp.0.9.11\lib\net45\AngleSharp.dll</HintPath>
+    </Reference>
     <Reference Include="EveryAngle.Threading, Version=2.4.1.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\EveryAngle.Threading.2.4.1\lib\net45\EveryAngle.Threading.dll</HintPath>
     </Reference>
     <Reference Include="EveryAngle.Utilities, Version=2.4.4.6, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\EveryAngle.Utilities.2.4.4.9\lib\net45\EveryAngle.Utilities.dll</HintPath>
+    </Reference>
+    <Reference Include="HtmlSanitizer, Version=4.0.0.0, Culture=neutral, PublicKeyToken=61c49a1a9e79cc28, processorArchitecture=MSIL">
+      <HintPath>..\packages\HtmlSanitizer.4.0.210\lib\net45\HtmlSanitizer.dll</HintPath>
     </Reference>
     <Reference Include="Ionic.Zip, Version=1.9.1.8, Culture=neutral, PublicKeyToken=edbe51ad942a3f5c, processorArchitecture=MSIL">
       <HintPath>..\packages\Ionic.Zip.1.9.1.8\lib\Ionic.Zip.dll</HintPath>
@@ -89,6 +95,7 @@
     <Compile Include="Base64Helper.cs" />
     <Compile Include="EnumHelper.cs" />
     <Compile Include="ExceptionExtensions.cs" />
+    <Compile Include="EAHtmlSanitizer.cs" />
     <Compile Include="HttpModules\RemoveServerHeaderModule.cs" />
     <Compile Include="IPAddressHelper.cs" />
     <Compile Include="LicenseHelper.cs" />

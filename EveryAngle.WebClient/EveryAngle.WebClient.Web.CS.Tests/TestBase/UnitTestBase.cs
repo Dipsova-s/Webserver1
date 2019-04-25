@@ -26,6 +26,7 @@ namespace EveryAngle.WebClient.Web.CSTests.TestBase
         #region variables
 
         protected const string _testingUri = "http://127.0.0.1";
+        protected readonly string _testResourcesPath = $"{AppDomain.CurrentDomain.BaseDirectory}{ConfigurationManager.AppSettings["TestResourcesPath"]}";
 
         protected IModelService _modelService;
         protected AggregationService _aggregationService;
