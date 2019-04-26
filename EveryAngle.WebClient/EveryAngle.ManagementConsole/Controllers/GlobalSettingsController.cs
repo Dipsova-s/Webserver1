@@ -202,8 +202,18 @@ namespace EveryAngle.ManagementConsole.Controllers
                 "default_authentication_provider",
                 "max_pagesize"
             };
+
+            // check changing password
+            string passwordPlaceHolder = ConfigurationManager.AppSettings["PasswordPlaceHolder"];
+            if (systemSettings.EmailSettings.password == passwordPlaceHolder)
+            {
+                cleanupProperties.Add("password");
+            }
+
+            // check privilege of setting script_location
             if (!SessionHelper.Info.AngleAutomation)
                 cleanupProperties.Add("script_location");
+
             SystemSettingViewModel savedSystemSettings =
                 globalSettingService.UpdateSystemSetting(version.GetEntryByName("system_settings").Uri.ToString(),
                     JsonConvert.SerializeObject(updatedSystemSettings, new JsonSerializerSettings
