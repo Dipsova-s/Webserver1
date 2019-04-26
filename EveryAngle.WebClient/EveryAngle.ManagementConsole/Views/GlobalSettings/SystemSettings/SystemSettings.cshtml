@@ -240,7 +240,7 @@
                 <p>
                     @Html.TextBox("EmailSettings.password.inputfake", string.Empty, new { @class = "hidden" })
                     @Html.Password("EmailSettings.password.fake", string.Empty, new { @class = "hidden" })
-                    @Html.Password("EmailSettings.password", string.Empty, new { autocomplete = "off", @class = "required" })
+                    @Html.Password("EmailSettings.password", string.Empty, new { autocomplete = "off", data_role="password", data_has_password = Model.EmailSettings.has_password.ToString().ToLower() })
                     <a data-target="#popupDescriptionTemplate" title="Description" data-width="600" data-min-height="100" data-role="mcPopup" class="btn btnInfo" onclick="MC.util.showDescriptionPopup(this)"></a>
                     <textarea class="alwaysHidden">@Resource.MC_SystemSettingsHelpEmailPassword</textarea>
                 </p>

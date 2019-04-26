@@ -155,6 +155,8 @@ namespace EveryAngle.Core.ViewModels.SystemSettings
         [LocalizedDisplayName("Password")]
         public string password { get; set; }
 
+        public bool has_password => !string.IsNullOrEmpty(password);
+
         public SystemEmailSettingsViewModel()
         {
             this.smtp_port = 25;

@@ -123,6 +123,7 @@
             dataUrl: '@Html.Raw(EveryAngle.Shared.Helpers.WebConfigHelper.GetAppSettingsValueFromWebConfig(configFilePath, "NotificationsFeedDataUrl"))',
             viewAllUrl: '@EveryAngle.Shared.Helpers.WebConfigHelper.GetAppSettingsValueFromWebConfig(configFilePath, "NotificationsFeedViewAllUrl")'
         };
+        var passwordPlaceHolder = '@System.Configuration.ConfigurationManager.AppSettings["PasswordPlaceHolder"]';
 
         setInterval(function() {
             currentTimestamp++;

@@ -53,6 +53,7 @@ namespace EveryAngle.ManagementConsole
                 "~/Scripts/Custom/MC.ui.logpopup.js",
                 "~/Scripts/Custom/MC.ui.masschangeuser.js",
                 "~/Scripts/Custom/MC.ui.fieldschooser.js",
+                "~/Scripts/Custom/MC.ui.password.js",
                 "~/Scripts/Custom/MC.form.js",
                 "~/Scripts/Custom/MC.form.validator.js",
                 "~/Scripts/Custom/MC.form.template.js",
