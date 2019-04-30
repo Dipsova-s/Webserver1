@@ -148,17 +148,7 @@
             return manageSystemPrivilege || canSchedule;
         };
         self.EditTask = function (event, obj, uri) {
-            MC.ajax
-                .request({
-                    url: self.VerifyModelPriviledgeUri,
-                    parameters: { taskUri: uri },
-                    type: 'GET'
-                })
-                .done(function () {
-                    MC.util.redirect(event, obj);
-                });
-
-            event.preventDefault();
+            MC.util.redirect(event, obj);
         };
 
         self.CopyTaskPopup = function (taskUri, taskName) {
@@ -679,7 +669,7 @@
                     angle_name: action.AngleName || angleId,
                     display_name: action.DisplayName || displayId,
                     display_uri: '',
-                    Angle: action.Angle,
+                    AngleUri: action.AngleUri,
                     approval_state: action.approval_state,
                     notification: action.notification,
                     arguments: action.arguments,
@@ -1238,6 +1228,23 @@
                 $('#AddActionPopup .popupContent').scrollTop(0);
             }, 1);
         };
+        self.GetAngleByUri = function (uri) {
+            if (!uri) {
+                self.CurrentAngle = null;
+                return $.when(null);
+            }
+
+            disableLoading();
+
+            return $.when(MC.ajax.request({
+                url: self.FindAngleUri,
+                parameters: { "angleUri": uri },
+                type: 'GET'
+            }))
+                .done(function (data) {
+                    self.CurrentAngle = data;
+                });
+        };
         self.ShowEditActionPopup = function (uid, canEdit) {
             _self.canSetAction = canEdit;
             _self.uid = uid;
@@ -1260,7 +1267,9 @@
                 jQuery('#approvalddl').data('kendoDropDownList').value(dataItem.approval_state);
 
                 if (dataItem.action_type === self.ACTION_TYPE_ID.DATASTORE) {
-                    self.SetEditDatastoreActionType(dataItem);
+                    self.GetAngleByUri(dataItem.AngleUri).done(function () {
+                        self.SetEditDatastoreActionType(dataItem);
+                    });
                 }
                 else if (dataItem.action_type === self.ACTION_TYPE_ID.SCRIPT) {
                     self.SetEditScriptActionType(dataItem);
@@ -1386,14 +1395,6 @@
             }
         };
         self.SetEditDatastoreActionType = function (dataItem) {
-            // parse angle data
-            try {
-                self.CurrentAngle = JSON.parse(dataItem.Angle);
-            }
-            catch (ex) {
-                self.CurrentAngle = null;
-            }
-
             // model_id
             var modelId = self.GetArgumentValueByName(dataItem.arguments, 'model');
             _self.modelId = modelId;
@@ -2159,14 +2160,8 @@
             ddlDisplays.enable(true);
 
             var deferred = jQuery.Deferred();
-            disableLoading();
-            MC.ajax.request({
-                url: self.FindAngleUri,
-                parameters: { "angleUri": angleUrl },
-                type: 'GET'
-            })
+            self.GetAngleByUri(angleUrl)
                 .done(function (data) {
-                    self.CurrentAngle = data;
                     _self.modelId = data.modelId;
 
                     var modelName = self.GetModelName(_self.modelId);
@@ -2380,7 +2375,7 @@
             dataItem.set("angle_name", data.angle_name);
             dataItem.set("display_name", data.display_name);
             dataItem.set("display_uri", data.display_uri);
-            dataItem.set("Angle", data.Angle);
+            dataItem.set("AngleUri", data.AngleUri);
             dataItem.set("approval_state", data.approval_state);
             dataItem.set('notification', data.notification);
             dataItem.set('arguments', data.arguments);

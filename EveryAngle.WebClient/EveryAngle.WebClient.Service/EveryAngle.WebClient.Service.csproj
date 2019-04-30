@@ -158,6 +158,7 @@
     <Compile Include="ApiServices\CommentService.cs" />
     <Compile Include="ApiServices\BaseService.cs" />
     <Compile Include="ApiServices\ComponentService.cs" />
+    <Compile Include="ApiServices\ItemService.cs" />
     <Compile Include="ApiServices\ModelAgentService.cs" />
     <Compile Include="ApiServices\FacetService.cs" />
     <Compile Include="ApiServices\PackageService.cs" />

@@ -84,6 +84,7 @@
     <Compile Include="FieldCategory\FieldCategoryViewModel.cs" />
     <Compile Include="HeaderViewModel.cs" />
     <Compile Include="EAPackage\ExportDownloadPackageViewModel.cs" />
+    <Compile Include="Item\ItemViewModel.cs" />
     <Compile Include="LabelCategory\LabelCategoryViewModel.cs" />
     <Compile Include="Label\LabelViewModel.cs" />
     <Compile Include="ListViewModel.cs" />
