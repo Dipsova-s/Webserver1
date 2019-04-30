@@ -2,7 +2,7 @@
 ${txtUsername}          UserName
 ${txtPassword}          Password
 ${btnLogin}             LoginButton
-${btnUserMenu}          UserControl
+${btnUserMenu}          UserControlName
 ${btnUserMenuMC}          UserMenuControl
 ${btnLogout}            css=#UserMenu .btnLogout
 ${btnUserSetting}       css=#UserMenu .actionDropdownItem.btnSettings
