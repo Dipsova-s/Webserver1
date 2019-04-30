@@ -41,7 +41,7 @@ xcopy * %COPYTO% /E /S /Y /Q
 :: run robot
 ::::::::::::::::::::::::::::::::
 cls
-call %COPYTO%runrobot "%SERVER%" "%BRANCH%" %TAG% "WS" "%QUERY%" "%COMPARE_BRANCH%" "webhelp"
+call %COPYTO%runrobot "%SERVER%" "%BRANCH%" %TAG% "WS" "%QUERY%" "%COMPARE_BRANCH%" webhelp
 if not "%CURRENT%"=="%COPYTO%" xcopy "%COPYTO%chromedriver.exe" "%CURRENT%" /E /S /Y /Q
 call :open_report
 exit /b 0
