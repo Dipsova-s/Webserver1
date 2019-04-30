@@ -18,6 +18,8 @@ if exist "C:\Python27\" echo %date% %time% "C:\Python27" found. &goto python_ins
 	ECHO %date% %time% Finished installing Robot Framework....
 :python_installed
 
+if "%7"=="webhelp" echo Check pip version... &python -m pip install pip==10.0.0
+
 echo Check Robot Framework version...
 set updateRobot=yes
 set updateRobotVersion="robotframework==3.0.4"
