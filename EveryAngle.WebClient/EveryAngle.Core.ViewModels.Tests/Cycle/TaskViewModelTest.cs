@@ -99,7 +99,7 @@ namespace EveryAngle.Core.ViewModels.Tests
                 notification = new Notification(),
                 AngleName = "angle name",
                 DisplayName = "display name",
-                Angle = "angle"
+                AngleUri = "/models/1/angles/1"
             };
 
             AssertAction(viewModel);
@@ -218,7 +218,7 @@ namespace EveryAngle.Core.ViewModels.Tests
             Assert.AreEqual(viewModel.notification.GetType(), typeof(Notification));
             Assert.AreEqual(viewModel.AngleName.GetType(), typeof(string));
             Assert.AreEqual(viewModel.DisplayName.GetType(), typeof(string));
-            Assert.AreEqual(viewModel.Angle.GetType(), typeof(string));
+            Assert.AreEqual(viewModel.AngleUri.GetType(), typeof(string));
 
             //assert json serialize
             var viewModelSerialize = JsonConvert.SerializeObject(viewModel);

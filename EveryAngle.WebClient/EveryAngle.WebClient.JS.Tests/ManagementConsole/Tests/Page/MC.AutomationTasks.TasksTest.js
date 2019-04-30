@@ -496,6 +496,7 @@ describe("MC.AutomationTasks.Tasks", function () {
                 // full information
                 action_type: 'action_type2',
                 AngleName: 'AngleName2',
+                AngleUri: '/models/1/angles/2',
                 DisplayName: 'DisplayName2',
                 approval_state: 'approval_state2',
                 notification: 'notification2',
@@ -511,6 +512,7 @@ describe("MC.AutomationTasks.Tasks", function () {
                 // no Angle information
                 action_type: 'action_type1',
                 AngleName: '',
+                AngleUri: '/models/1/angles/1',
                 DisplayName: '',
                 approval_state: 'approval_state1',
                 notification: 'notification1',
@@ -519,13 +521,13 @@ describe("MC.AutomationTasks.Tasks", function () {
                     { name: 'display_id', value: 'display11' }
                 ],
                 uri: '/tasks/1',
-                order: 3,
-                Angle: null
+                order: 3
             },
             {
                 // no Angle information
                 action_type: 'action_type3',
                 AngleName: '',
+                AngleUri: '/models/1/angles/3',
                 DisplayName: '',
                 approval_state: 'approval_state3',
                 notification: 'notification3',
@@ -534,8 +536,7 @@ describe("MC.AutomationTasks.Tasks", function () {
                     { name: 'display_id', value: 'display12' }
                 ],
                 uri: '/tasks/3',
-                order: 5,
-                Angle: null
+                order: 5
             }
         ];
 
@@ -552,7 +553,7 @@ describe("MC.AutomationTasks.Tasks", function () {
             expect(result.data[0].notification).toEqual('notification1');
             expect(result.data[0].uri).toEqual('/tasks/1');
             expect(result.data[0].order).toEqual(0);
-            expect(result.data[0].Angle).toEqual(null);
+            expect(result.data[0].AngleUri).toEqual('/models/1/angles/1');
 
             expect(result.data[1].action_type).toEqual('action_type2');
             expect(result.data[1].angle_name).toEqual('AngleName2');
@@ -562,7 +563,7 @@ describe("MC.AutomationTasks.Tasks", function () {
             expect(result.data[1].notification).toEqual('notification2');
             expect(result.data[1].uri).toEqual('/tasks/2');
             expect(result.data[1].order).toEqual(1);
-            expect(result.data[1].Angle).not.toEqual(null);
+            expect(result.data[1].AngleUri).toEqual('/models/1/angles/2');
 
             expect(result.data[2].action_type).toEqual('action_type3');
             expect(result.data[2].angle_name).toEqual('angle1');
@@ -572,7 +573,7 @@ describe("MC.AutomationTasks.Tasks", function () {
             expect(result.data[2].notification).toEqual('notification3');
             expect(result.data[2].uri).toEqual('/tasks/3');
             expect(result.data[2].order).toEqual(2);
-            expect(result.data[2].Angle).toEqual(null);
+            expect(result.data[2].AngleUri).toEqual('/models/1/angles/3');
 
             expect(result.sort.field).toEqual('order');
             expect(result.sort.dir).toEqual('asc');
