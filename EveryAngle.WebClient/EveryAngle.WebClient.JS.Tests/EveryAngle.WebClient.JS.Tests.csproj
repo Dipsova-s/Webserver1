@@ -58,6 +58,10 @@
       <Link>ManagementConsole\Dependencies\custom\MC.form.js</Link>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="..\EveryAngle.ManagementConsole\Scripts\Custom\MC.ui.gridsorting.js">
+      <Link>ManagementConsole\Dependencies\custom\MC.ui.gridsorting.js</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="..\EveryAngle.ManagementConsole\Scripts\Custom\MC.ui.password.js">
       <Link>ManagementConsole\Dependencies\custom\MC.ui.password.js</Link>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
@@ -139,6 +143,7 @@
     </Content>
     <Content Include="ManagementConsole\Tests\Custom\MC.AjaxTest.js" />
     <Content Include="ManagementConsole\Tests\Custom\MC.Test.js" />
+    <Content Include="ManagementConsole\Tests\Custom\MC.UI.GridSortingTest.js" />
     <Content Include="ManagementConsole\Tests\Custom\MC.UI.PasswordTest.js" />
     <Content Include="ManagementConsole\Tests\Custom\MC.UITest.js" />
     <Content Include="ManagementConsole\Tests\Custom\MC.UtilModelServerInfoTest.js" />
