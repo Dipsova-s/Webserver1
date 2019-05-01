@@ -587,7 +587,7 @@
                     condition: { operator: conditionOperator, value: self.GetArgumentConditionValue(action.arguments, conditionOperator) },
                     condition_name: conditionOperator,
                     condition_value: self.GetArgumentConditionValue(action.arguments, conditionOperator),
-                    Angle: action.Angle,
+                    AngleUri: action.AngleUri,
                     approval_state: action.approval_state,
                     model_timestamp: false,
                     notification: action.notification,
@@ -1162,6 +1162,23 @@
                 }
             }, 1);
         };
+        self.GetAngleByUri = function (uri) {
+            if (!uri) {
+                self.CurrentAngle = null;
+                return $.when(null);
+            }
+
+            disableLoading();
+
+            return $.when(MC.ajax.request({
+                url: self.FindAngleUri,
+                parameters: { "angleUri": uri },
+                type: 'GET'
+            }))
+                .done(function (data) {
+                    self.CurrentAngle = data;
+                });
+        };
         self.ShowEditActionPopup = function (uid, canEdit) {
             _self.canSetAction = canEdit;
             _self.uid = uid;
@@ -1175,97 +1192,93 @@
                 var grid = $('#TaskActionsGrid').data('kendoGrid');
                 var dataItem = grid.dataSource.getByUid(_self.uid);
 
-                try {
-                    self.CurrentAngle = JSON.parse(dataItem.Angle);
-                }
-                catch (ex) {
-                    self.CurrentAngle = null;
-                }
-
-                // model_id
-                _self.modelId = dataItem.model;
-                jQuery('#model_id').val(dataItem.model);
-                jQuery('#model_name').text(dataItem.model_name);
-
-                // angle_id + display_id
-                var getAccessDeniedText = function (name) {
-                    return kendo.format('{0} ({1})', name, Localization.MC_AccessDenied.toLowerCase());
-                };
-                var setDisplayInfo = function (dataSource, display, displayId, angleUri) {
-                    var ddlDisplays = $('#display_id').data('kendoDropDownList');
-                    if (display && dataSource.length) {
-                        jQuery('#angle_id').val(display.uri);
-
-                        ddlDisplays.setDataSource(dataSource);
-                        ddlDisplays.enable(true);
-
-                        // set link
-                        self.SetLinkToDisplay(display.uri, _self.modelId);
-                    }
-                    else {
-                        jQuery('#angle_id').val(angleUri);
-
-                        dataSource.push({ id: displayId, name: getAccessDeniedText(displayId), display_type: 'no' });
-                        ddlDisplays.setDataSource(dataSource);
-                        ddlDisplays.enable(false);
-
-                        // set link
-                        self.SetLinkToDisplay(null, null);
-                    }
-                    ddlDisplays.value(displayId);
-                };
-                var angleName = dataItem.angle_name || dataItem.angle_id;
-                if (self.CurrentAngle) {
-                    // set angle name
-                    jQuery('#angle_name').text(angleName);
-
-                    var display = self.CurrentAngle.display_definitions.findObject('id', dataItem.display_id);
-                    self.CurrentAngle.display_definitions.sortObject('name', -1, false);
-
-                    // set info + link
-                    setDisplayInfo(self.CurrentAngle.display_definitions, display, dataItem.display_id, self.CurrentAngle.uri);
-
-                    // parameterized
-                    self.SetAngleParametersData(self.CurrentAngle, JSON.parse(JSON.stringify(dataItem.arguments)));
-                }
-                else {
-                    // set angle name
-                    jQuery('#angle_name').text(getAccessDeniedText(angleName));
-
-                    // set info + link
-                    setDisplayInfo([], null, dataItem.display_id, null);
-                }
-
-                // approval
-                jQuery('#approvalddl').data('kendoDropDownList').value(dataItem.approval_state);
-
-                // condition
-                var conditionOperatorSection = $('#condition_operator').data('kendoDropDownList');
-                conditionOperatorSection.value(dataItem.condition.operator);
-                conditionOperatorSection.trigger('change');
-                if (dataItem.condition.operator !== 'Always') {
-                    $('#condition_value').val(dataItem.condition.value);
-                    $('#condition_value').removeAttr('disabled');
-                }
-                else {
-                    $('#condition_value').attr('disabled', 'disabled');
-                }
-
-                // datastore
-                var ddlDatastore = jQuery('#datastore').data('kendoDropDownList');
-                ddlDatastore.value(dataItem.datastore);
-
-                self.SetDatastoreSettings(ddlDatastore.dataItem(), dataItem.arguments);
+                self.GetAngleByUri(dataItem.AngleUri).done(function () {
+                    self.SetEditDatastoreActionType(dataItem);
+                });
 
                 // notification
                 self.SetEmailNotification(dataItem.notification);
 
                 // set buttons
                 self.SetActionButtons(_self.uid);
-
-                self.HideOrShowFormat();
-                self.HideOrShowAttachResult(ddlDatastore.dataItem());
             }, 1);
+        };
+        self.SetEditDatastoreActionType = function (dataItem) {
+            // model_id
+            _self.modelId = dataItem.model;
+            jQuery('#model_id').val(dataItem.model);
+            jQuery('#model_name').text(dataItem.model_name);
+
+            // angle_id + display_id
+            var getAccessDeniedText = function (name) {
+                return kendo.format('{0} ({1})', name, Localization.MC_AccessDenied.toLowerCase());
+            };
+            var setDisplayInfo = function (dataSource, display, displayId, angleUri) {
+                var ddlDisplays = $('#display_id').data('kendoDropDownList');
+                if (display && dataSource.length) {
+                    jQuery('#angle_id').val(display.uri);
+
+                    ddlDisplays.setDataSource(dataSource);
+                    ddlDisplays.enable(true);
+
+                    // set link
+                    self.SetLinkToDisplay(display.uri, _self.modelId);
+                }
+                else {
+                    jQuery('#angle_id').val(angleUri);
+
+                    dataSource.push({ id: displayId, name: getAccessDeniedText(displayId), display_type: 'no' });
+                    ddlDisplays.setDataSource(dataSource);
+                    ddlDisplays.enable(false);
+
+                    // set link
+                    self.SetLinkToDisplay(null, null);
+                }
+                ddlDisplays.value(displayId);
+            };
+            var angleName = dataItem.angle_name || dataItem.angle_id;
+            if (self.CurrentAngle) {
+                // set angle name
+                jQuery('#angle_name').text(angleName);
+
+                var display = self.CurrentAngle.display_definitions.findObject('id', dataItem.display_id);
+                self.CurrentAngle.display_definitions.sortObject('name', -1, false);
+
+                // set info + link
+                setDisplayInfo(self.CurrentAngle.display_definitions, display, dataItem.display_id, self.CurrentAngle.uri);
+
+                // parameterized
+                self.SetAngleParametersData(self.CurrentAngle, JSON.parse(JSON.stringify(dataItem.arguments)));
+            }
+            else {
+                // set angle name
+                jQuery('#angle_name').text(getAccessDeniedText(angleName));
+
+                // set info + link
+                setDisplayInfo([], null, dataItem.display_id, null);
+            }
+
+            // approval
+            jQuery('#approvalddl').data('kendoDropDownList').value(dataItem.approval_state);
+
+            // condition
+            var conditionOperatorSection = $('#condition_operator').data('kendoDropDownList');
+            conditionOperatorSection.value(dataItem.condition.operator);
+            conditionOperatorSection.trigger('change');
+            if (dataItem.condition.operator !== 'Always') {
+                $('#condition_value').val(dataItem.condition.value);
+                $('#condition_value').removeAttr('disabled');
+            }
+            else {
+                $('#condition_value').attr('disabled', 'disabled');
+            }
+
+            // datastore
+            var ddlDatastore = jQuery('#datastore').data('kendoDropDownList');
+            ddlDatastore.value(dataItem.datastore);
+            self.SetDatastoreSettings(ddlDatastore.dataItem(), dataItem.arguments);
+            self.HideOrShowAttachResult(ddlDatastore.dataItem());
+            self.HideOrShowFormat();
         };
         self.CanCheckAction = function () {
             return self.TaskUri && self.CanSetAction();
@@ -1923,12 +1936,7 @@
             ddlDisplays.enable(true);
 
             var deferred = jQuery.Deferred();
-            disableLoading();
-            MC.ajax.request({
-                url: self.FindAngleUri,
-                parameters: { "angleUri": angleUrl },
-                type: 'GET'
-            })
+            self.GetAngleByUri(angleUrl)
                 .done(function (data) {
 
                     var modelName = (self.AllModels.findObject('id', data.modelId) || { short_name: data.modelId }).short_name;
@@ -1936,7 +1944,6 @@
                     jQuery('#model_name').text(modelName);
                     jQuery('#hdnAngleId').val(data.id);
                     jQuery('#angle_name').removeClass('textInfo').attr('title', data.name).text(data.name);
-                    self.CurrentAngle = data;
                     _self.modelId = data.modelId;
 
                     var ddlDisplays = $('#display_id').data('kendoDropDownList');
@@ -2074,14 +2081,14 @@
             dataItem.set("datastore_name", data.datastore_name);
             dataItem.set("model", data.model);
             dataItem.set("model_name", data.model_name),
-                dataItem.set("angle_id", data.angle_id);
+            dataItem.set("angle_id", data.angle_id);
             dataItem.set("angle_name", data.angle_name);
             dataItem.set("display_id", data.display_id);
             dataItem.set("display_name", data.display_name);
             dataItem.set('condition', data.condition);
             dataItem.set("condition_name", data.condition_name);
             dataItem.set("condition_value", data.condition_value);
-            dataItem.set("Angle", JSON.stringify(self.CurrentAngle));
+            dataItem.set("AngleUri", data.AngleUri);
             dataItem.set("approval_state", data.approval_state);
             dataItem.set('notification', data.notification);
             dataItem.set('arguments', data.arguments);

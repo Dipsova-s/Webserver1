@@ -341,7 +341,7 @@ namespace EveryAngle.Core.ViewModels.Cycle
 
         public string DisplayName { get; set; }
 
-        public string Angle { get; set; }
+        public string AngleUri { get; set; }
 
     }
 

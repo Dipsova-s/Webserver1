@@ -81,6 +81,7 @@
     <Compile Include="FieldCategory\FieldCategoryViewModel.cs" />
     <Compile Include="HeaderViewModel.cs" />
     <Compile Include="EAPackage\ExportDownloadPackageViewModel.cs" />
+    <Compile Include="Item\ItemViewModel.cs" />
     <Compile Include="LabelCategory\LabelCategoryViewModel.cs" />
     <Compile Include="Label\LabelViewModel.cs" />
     <Compile Include="ListViewModel.cs" />
@@ -168,7 +169,6 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Item\" />
     <Folder Include="Package\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

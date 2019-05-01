@@ -1,10 +1,6 @@
 ﻿using EveryAngle.Core.Interfaces.Services;
 using EveryAngle.Core.ViewModels.Model;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace EveryAngle.WebClient.Service.ApiServices
 {

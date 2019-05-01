@@ -1,7 +1,15 @@
-﻿using EveryAngle.Core.ViewModels.SystemSettings;
+﻿using EveryAngle.Core.ViewModels.Cycle;
+using EveryAngle.Core.ViewModels.Item;
+using EveryAngle.Core.ViewModels.Model;
+using EveryAngle.Core.ViewModels.Privilege;
+using EveryAngle.Core.ViewModels.SystemSettings;
 using EveryAngle.Core.ViewModels.Users;
 using EveryAngle.ManagementConsole.Controllers;
+using Moq;
 using NUnit.Framework;
+using System;
+using System.Collections.Generic;
+using System.Web;
 
 namespace EveryAngle.ManagementConsole.Test.Controllers
 {
@@ -22,9 +30,33 @@ namespace EveryAngle.ManagementConsole.Test.Controllers
             base.Setup();
 
             // session helper
-            sessionHelper.SetupGet(x => x.Session).Returns(GetMockViewModel<SessionViewModel>());
+            SessionViewModel sessionViewModel = GetMockViewModel<SessionViewModel>();
+            sessionViewModel.ModelPrivileges = new List<ModelPrivilegeViewModel>()
+            {
+                new ModelPrivilegeViewModel()
+                {
+                    model = new Uri("/models/1", UriKind.Relative),
+                    Privileges = new PrivilegesForModelViewModel()
+                    {
+                        manage_model = true
+                    }
+                }
+            };
+            sessionHelper.SetupGet(x => x.Session).Returns(sessionViewModel);
+            sessionHelper.SetupGet(x => x.Models).Returns(new List<ModelViewModel>()
+            {
+                new ModelViewModel(){
+                    id = "EA2_800",
+                    Uri = new Uri("/models/1", UriKind.Relative)
+                }
+            });
 
-            _testingController = new AutomationTasksController(modelService.Object, taskService.Object, automationTaskService.Object, sessionHelper.Object);
+            _testingController = new AutomationTasksController(
+                modelService.Object,
+                taskService.Object,
+                automationTaskService.Object,
+                itemService.Object,
+                sessionHelper.Object);
         }
 
         #endregion
@@ -72,6 +104,150 @@ namespace EveryAngle.ManagementConsole.Test.Controllers
 
             // assert 
             Assert.That(dataStoresUri.Contains(expectedLimit));
+        }
+
+        [Test]
+        [ExpectedException(typeof(HttpException))]
+        public void VerifyPriviledge_ThrowsHttpException_WhenModelPrivilegeHasNoManageModel()
+        {
+            // mock
+            SessionViewModel sessionViewModel = GetMockViewModel<SessionViewModel>();
+            sessionViewModel.ModelPrivileges = new List<ModelPrivilegeViewModel>()
+            {
+                new ModelPrivilegeViewModel()
+                {
+                    model = new Uri("/models/1", UriKind.Relative),
+                    Privileges = new PrivilegesForModelViewModel()
+                    {
+                        manage_model = false
+                    }
+                }
+            };
+            sessionHelper.SetupGet(x => x.Session).Returns(sessionViewModel);
+
+            TaskViewModel task = new TaskViewModel()
+            {
+                actions = new List<TaskAction>()
+                {
+                    new TaskAction()
+                    {
+                        arguments = new List<Core.ViewModels.Cycle.Argument>()
+                        {
+                            new Core.ViewModels.Cycle.Argument()
+                            {
+                                name = "model",
+                                value = "EA2_800"
+                            }
+                        }
+                    }
+                }
+            };
+
+            // action
+            _testingController.VerifyPriviledge(task);
+        }
+
+        [TestCase]
+        public void Can_CallItemService()
+        {
+            // mock
+            List<ItemViewModel> items = new List<ItemViewModel>()
+            {
+                new ItemViewModel()
+                {
+                    id = "angle123",
+                    name = "angle name",
+                    Model = new Uri("/models/1", UriKind.Relative),
+                    uri = "/models/1/angles/2",
+                    displays = new List<ItemDisplayViewModel>()
+                    {
+                        new ItemDisplayViewModel()
+                        {
+                            id = "display123",
+                            name = "display name"
+                        }
+                    }
+                }
+            };
+
+            itemService.Setup(x => x.Get(It.IsAny<string>())).Returns(items);
+
+            List<string> angleList = new List<string>() { "angle123", "angle456", "angle789", "angle123" };
+            List<string> modelList = new List<string>() { "EA2_800", "IT4IT", "EA2_800" };
+
+            // execute
+            List<ItemViewModel> result = _testingController.CallItemService(angleList, modelList);
+
+            // assert
+            itemService.Verify(x => x.Get(
+                "fq=facetcat_itemtype:(facet_angle facet_template) AND facetcat_models:(EA2_800 IT4IT)&include_facets=false&offset=0&limit=30&caching=false&viewmode=schema&ids=angle123,angle456,angle789"
+                ), Times.Once);
+
+            Assert.AreEqual("angle123", result[0].id);
+            Assert.AreEqual("angle name", result[0].name);
+            Assert.AreEqual("http://th-eatst01.everyangle.org:30500//models/1", result[0].Model.ToString());
+            Assert.AreEqual("/models/1/angles/2", result[0].uri.ToString());
+            Assert.AreEqual("display123", result[0].displays[0].id);
+            Assert.AreEqual("display name", result[0].displays[0].name.ToString());
+        }
+
+        [TestCase]
+        public void Can_MapAngleDisplayToTaskAction()
+        {
+            // mock
+            List<TaskAction> taskActions = new List<TaskAction>()
+            {
+                new TaskAction() {
+                    arguments = new List<Core.ViewModels.Cycle.Argument>()
+                    {
+                        new Core.ViewModels.Cycle.Argument()
+                        {
+                            name = "angle_id",
+                            value = "angle123"
+                        },
+                        new Core.ViewModels.Cycle.Argument()
+                        {
+                            name = "display_id",
+                            value = "display123"
+                        },
+                        new Core.ViewModels.Cycle.Argument()
+                        {
+                            name = "model",
+                            value = "EA2_800"
+                        }
+                    }
+                }
+            };
+            List<ItemViewModel> items = new List<ItemViewModel>()
+            {
+                new ItemViewModel()
+                {
+                    id = "angle123",
+                    name = "angle name",
+                    Model = new Uri("/models/1", UriKind.Relative),
+                    uri = "/models/1/angles/2",
+                    displays = new List<ItemDisplayViewModel>()
+                    {
+                        new ItemDisplayViewModel()
+                        {
+                            id = "display123",
+                            name = "display name"
+                        }
+                    }
+                }
+            };
+
+            Assert.IsNullOrEmpty(taskActions[0].AngleName);
+            Assert.IsNullOrEmpty(taskActions[0].AngleUri);
+            Assert.IsNullOrEmpty(taskActions[0].DisplayName);
+
+            // execute
+            _testingController.MapAngleDisplayToTaskAction(taskActions, items);
+
+            // assert
+            Assert.AreEqual("angle name", taskActions[0].AngleName);
+            Assert.AreEqual("/models/1/angles/2", taskActions[0].AngleUri);
+            Assert.AreEqual("display name", taskActions[0].DisplayName);
         }
 
         #endregion

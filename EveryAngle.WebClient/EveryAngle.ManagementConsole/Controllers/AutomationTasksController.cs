@@ -2,7 +2,9 @@
 using EveryAngle.Core.ViewModels;
 using EveryAngle.Core.ViewModels.Cycle;
 using EveryAngle.Core.ViewModels.DataStore;
+using EveryAngle.Core.ViewModels.Item;
 using EveryAngle.Core.ViewModels.Model;
+using EveryAngle.Core.ViewModels.Privilege;
 using EveryAngle.ManagementConsole.Helpers;
 using EveryAngle.Shared.Globalization;
 using EveryAngle.Shared.Helpers;
@@ -16,6 +18,8 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
+using System.Net;
+using System.Web;
 using System.Web.Mvc;
 using UrlHelper = EveryAngle.Shared.Helpers.UrlHelper;
 
@@ -28,6 +32,7 @@ namespace EveryAngle.ManagementConsole.Controllers
         private readonly IAutomationTaskService _automationTaskService;
         private readonly IModelService _modelService;
         private readonly ITaskService _taskService;
+        private readonly IItemService _itemService;
 
         #endregion
 
@@ -36,23 +41,28 @@ namespace EveryAngle.ManagementConsole.Controllers
         // testsability only 
         public AutomationTasksController(
             IModelService modelService,
-           ITaskService taskService,
-           IAutomationTaskService automationTaskService,
-           SessionHelper sessionHelper)
+            ITaskService taskService,
+            IAutomationTaskService automationTaskService,
+            IItemService itemService,
+            SessionHelper sessionHelper)
         {
             SessionHelper = sessionHelper;
             _modelService = modelService;
             _taskService = taskService;
             _automationTaskService = automationTaskService;
+            _itemService = itemService;
         }
 
-        public AutomationTasksController(IModelService modelService,
+        public AutomationTasksController(
+            IModelService modelService,
             ITaskService tasklService,
-            IAutomationTaskService automationTaskService)
+            IAutomationTaskService automationTaskService,
+            IItemService itemService)
         {
             _modelService = modelService;
             _taskService = tasklService;
             _automationTaskService = automationTaskService;
+            _itemService = itemService;
         }
 
         #endregion
@@ -201,31 +211,9 @@ namespace EveryAngle.ManagementConsole.Controllers
             if (!string.IsNullOrEmpty(tasksUri))
             {
                 taskActions = _modelService.GetActionsTask(string.Format("{0}/actions?{1}", tasksUri, OffsetLimitQuery));
-                foreach (TaskAction action in taskActions)
-                {
-                    var arg = action.arguments.FirstOrDefault(filter => filter.name == "angle_id");
-                    var displayId = action.arguments.FirstOrDefault(filter => filter.name == "display_id");
-                    var model = action.arguments.FirstOrDefault(filter => filter.name == "model");
-                    if (arg != null)
-                    {
-                        JObject angle = GetAngleById(arg.value.ToString(), model.value);
-                        if (angle != null)
-                        {
-                            action.Angle = angle.ToString();
-                            action.AngleName = angle.SelectToken("name").ToString();
+                List<ItemViewModel> items = GetItemViewModels(taskActions);
 
-                            JToken displays = angle.SelectToken("display_definitions");
-                            foreach (JToken display in displays)
-                            {
-                                if (Convert.ToString(displayId.value) == display.SelectToken("id").ToString())
-                                {
-                                    action.DisplayName = display.SelectToken("name").ToString();
-                                    break;
-                                }
-                            }
-                        }
-                    }
-                }
+                MapAngleDisplayToTaskAction(taskActions, items);
             }
 
             return Content(JsonConvert.SerializeObject(taskActions), "application/json");
@@ -407,44 +395,6 @@ namespace EveryAngle.ManagementConsole.Controllers
             };
         }
 
-        private JObject GetAngleById(string angleId, string model)
-        {
-            JObject output = null;
-            var findModel = SessionHelper.Models.FirstOrDefault(filter => filter.id == model);
-            if (findModel != null)
-            {
-                // find from /models/x/angles?ids=xxx
-                var userSettings = SessionHelper.GetUserSettings();
-                var userLanguage = string.IsNullOrEmpty(userSettings.default_language) ? "en" : userSettings.default_language;
-                var findAngleUrl = string.Format("{0}/angles?lang={1}&ids={2}", findModel.Uri, userLanguage, angleId);
-                var requestManager = RequestManager.Initialize(findAngleUrl);
-                var allAngles = requestManager.Run();
-
-                var angles = allAngles.SelectToken("angles");
-                if (angles.Any())
-                {
-                    output = GetAngle(angles[0].SelectToken("uri").ToString());
-                }
-            }
-
-            return output;
-        }
-
-        private JObject GetAngle(string angleUri)
-        {
-            var userSettings = SessionHelper.GetUserSettings();
-            var userLanguage = string.IsNullOrEmpty(userSettings.default_language) ? "en" : userSettings.default_language;
-            var angleUrl = string.Format("{0}?lang={1}", UrlHelper.GetRequestUrl(URLType.NOA) + angleUri, userLanguage);
-            var requestManager = RequestManager.Initialize(angleUrl);
-            JObject output = requestManager.Run();
-            var model = SessionHelper.GetModel(UrlHelper.GetRequestUrl(URLType.NOA) + output.SelectToken("model"));
-            if (model != null)
-            {
-                output.Add("modelId", model.id);
-            }
-            return output;
-        }
-
         [AcceptVerbs(HttpVerbs.Get)]
         public ContentResult FindAngle(string angleUri)
         {
@@ -526,6 +476,20 @@ namespace EveryAngle.ManagementConsole.Controllers
         #endregion
 
         #region private methods
+        private JObject GetAngle(string angleUri)
+        {
+            var userSettings = SessionHelper.GetUserSettings();
+            var userLanguage = string.IsNullOrEmpty(userSettings.default_language) ? "en" : userSettings.default_language;
+            var angleUrl = string.Format("{0}?lang={1}", UrlHelper.GetRequestUrl(URLType.NOA) + angleUri, userLanguage);
+            var requestManager = RequestManager.Initialize(angleUrl);
+            JObject output = requestManager.Run();
+            var model = SessionHelper.GetModel(UrlHelper.GetRequestUrl(URLType.NOA) + output.SelectToken("model"));
+            if (model != null)
+            {
+                output.Add("modelId", model.id);
+            }
+            return output;
+        }
 
         private string GetTaskQueryString(DataSourceRequest request)
         {
@@ -621,6 +585,106 @@ namespace EveryAngle.ManagementConsole.Controllers
                 task = _modelService.GetTask(taskUri);
             }
             return task;
+        }
+
+        /// <summary>
+        /// try get all angle in actions in order to verify ModelPriviledge
+        /// </summary>
+        /// <param name="task">task to verify</param>
+        internal void VerifyPriviledge(TaskViewModel task)
+        {
+            List<ModelViewModel> models = SessionHelper.Models.ToList();
+            List<ModelPrivilegeViewModel> modelPrivileges = SessionHelper.Session.ModelPrivileges.ToList();
+            foreach (TaskAction action in task.actions)
+            {
+                string modelId = action.arguments.FirstOrDefault(filter => filter.name == "model")?.value?.ToString();
+                if (modelId != null)
+                {
+                    var model = models.FirstOrDefault(x => x.id == modelId);
+                    var modelPrivilege = modelPrivileges.FirstOrDefault(x => x.model == model.Uri);
+                    if (modelPrivilege == null || !(bool)modelPrivilege.Privileges.manage_model)
+                    {
+                        throw new HttpException((int)HttpStatusCode.Forbidden, JsonConvert.SerializeObject(new
+                        {
+                            reason = HttpStatusCode.Forbidden.ToString(),
+                            message = "User has no access to any model."
+                        }));
+                    }
+                }
+            }
+        }
+
+        internal List<ItemViewModel> GetItemViewModels(List<TaskAction> taskActions)
+        {
+            List<string> angleList = new List<string>();
+            List<string> modelList = new List<string>();
+            foreach (TaskAction action in taskActions)
+            {
+                var argumentAngle = action.arguments.FirstOrDefault(filter => filter.name == "angle_id");
+                if (argumentAngle != null)
+                {
+                    angleList.Add(argumentAngle.value.ToString());
+                    modelList.Add(action.arguments.FirstOrDefault(filter => filter.name == "model").value.ToString());
+                }
+            }
+
+            return CallItemService(angleList, modelList);
+        }
+
+        internal List<ItemViewModel> CallItemService(List<string> angleList, List<string> modelList)
+        {
+            List<ItemViewModel> items = new List<ItemViewModel>();
+
+            angleList = angleList.Distinct().ToList();
+            string modelIds = string.Join(" ", modelList.Distinct().ToArray());
+
+            while (angleList.Any())
+            {
+                string angleIds = String.Join(",", angleList.Take(30));
+
+                var query = $"fq=facetcat_itemtype:(facet_angle facet_template) AND facetcat_models:({modelIds})&include_facets=false&offset=0&limit=30&caching=false&viewmode=schema&ids={angleIds}";
+
+                items.AddRange(_itemService.Get(query));
+
+                angleList = angleList.Skip(30).ToList();
+            }
+
+            return items;
+        }
+
+        internal void MapAngleDisplayToTaskAction(List<TaskAction> taskActions, List<ItemViewModel> items)
+        {
+            var models = SessionHelper.Models.ToList();
+            foreach (TaskAction action in taskActions)
+            {
+                var angleId = action.arguments.FirstOrDefault(filter => filter.name == "angle_id");
+                var displayId = action.arguments.FirstOrDefault(filter => filter.name == "display_id");
+                var modelId = action.arguments.FirstOrDefault(filter => filter.name == "model");
+
+                if (angleId != null)
+                {
+                    var model = models.FirstOrDefault(x => x.id == modelId.value.ToString());
+
+                    ItemViewModel angle = items.FirstOrDefault(x =>
+                    x.id == angleId.value.ToString() &&
+                    x.Model == model.Uri);
+
+                    if (angle != null)
+                    {
+                        action.AngleName = angle.name;
+                        action.AngleUri = angle.uri;
+
+                        foreach (ItemDisplayViewModel display in angle.displays)
+                        {
+                            if (Convert.ToString(displayId.value) == display.id)
+                            {
+                                action.DisplayName = display.name;
+                                break;
+                            }
+                        }
+                    }
+                }
+            }
         }
 
         #endregion
