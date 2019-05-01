@@ -270,6 +270,7 @@
     <Content Include="parameters.xml" />
     <Content Include="Scripts\Clipboard\clipboard.js" />
     <Content Include="Scripts\Custom\MC.ui.fieldschooser.js" />
+    <Content Include="Scripts\Custom\MC.ui.gridsorting.js" />
     <Content Include="Scripts\Custom\MC.ui.password.js" />
     <Content Include="Scripts\Custom\MC.ui.notificationsfeed.js" />
     <Content Include="Scripts\Custom\MC.util.task.js" />
