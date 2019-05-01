@@ -264,6 +264,7 @@
     <Content Include="parameters.xml" />
     <Content Include="Scripts\Clipboard\clipboard.js" />
     <Content Include="Scripts\Custom\MC.ui.fieldschooser.js" />
+    <Content Include="Scripts\Custom\MC.ui.gridsorting.js" />
     <Content Include="Scripts\Custom\MC.util.task.js" />
     <Content Include="Scripts\Custom\MC.util.upload.js" />
     <Content Include="Scripts\Custom\MC.util.popup.js" />
