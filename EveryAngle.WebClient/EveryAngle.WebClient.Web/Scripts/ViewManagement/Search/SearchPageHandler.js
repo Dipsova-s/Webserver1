@@ -30,8 +30,7 @@ window.SearchPageHandler = function () {
                     systemSettingHandler.LoadSystemSettings(),
                     userModel.Load(),
                     systemInformationHandler.LoadSystemInformation(),
-                    systemCurrencyHandler.LoadCurrencies(),
-                    componentServicesHandler.LoadComponentServices()
+                    systemCurrencyHandler.LoadCurrencies()
                 );
             })
             .then(function () {
