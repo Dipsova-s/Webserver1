@@ -1485,7 +1485,7 @@ begin
   if not RegisterComponents(IISPhysicalPath)  then 
   begin
       AppServerUrl := AddProtocolUrl(GetAppServerUrlWithPort(WebClientConfigPage.Values[1], WebClientConfigPage.Values[2], IsHTTPSCertificateComponentSelected));
-      ShowError(Format('The Web Server failed to register on the AppServer(%s)',[AppServerUrl]), mbError, MB_OK);
+      ShowError(Format('The WebServer failed to register on the AppServer (%s)',[AppServerUrl]) + #13#10 + 'Click OK to continue the installation without registration', mbError, MB_OK);
   end;
 
   // Upgrade environment
@@ -1769,19 +1769,14 @@ begin
   if CurUninstallStep = usUninstall then
   begin 
 
-    if DeRegisterComponents()  then 
-   
+    if not DeRegisterComponents()  then 
     begin
-      ExecuteWebUndeploy; 
-	  
-    end
-    else
-    begin
-      log('[E]msgbox: WebServer cannot be deregistered, uninstallation failed.');
+      log('[E]msgbox: WebServer cannot be deregistered.');
       if not UninstallSilent then
-	    MsgBox('WebServer cannot be deregistered, uninstallation failed.', mbError, MB_OK);
-      Abort;
+	    MsgBox('WebServer cannot be deregistered.' + #13#10 + 'Click OK to continue the uninstall without deregistration', mbError, MB_OK);
     end;
+
+    ExecuteWebUndeploy; 
 
   end;
 end;   

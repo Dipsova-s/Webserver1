@@ -2,6 +2,7 @@
 using EveryAngle.WebClient.Web.CSTests.TestBase;
 using NUnit.Framework;
 using RestSharp;
+using System.Configuration;
 using System.Web;
 using System.Web.Script.Serialization;
 
@@ -10,10 +11,10 @@ namespace EveryAngle.WebClient.Web.CSTests.ServiceTests
     [TestFixture]
     public class RequestManagerTests : UnitTestBase
     {
-        [TestFixtureSetUp]
-        public void Initialize()
+        [SetUp]
+        public void Setup()
         {
-
+            SetupConfiguration();
         }
 
         [Test]
@@ -53,6 +54,8 @@ namespace EveryAngle.WebClient.Web.CSTests.ServiceTests
         [ExpectedException(typeof(HttpException))]
         public void Cannot_Call_To_CSM_When_ThumbPrint_Is_Invalid()
         {
+            ConfigurationManager.AppSettings.Set("WebServerBackendUrl", "https://127.0.0.1");
+
             RequestManager.Initialize("csm/componentservices");
         }
 
