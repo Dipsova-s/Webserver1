@@ -17,8 +17,8 @@ Select Angle Json File
     [Arguments]    ${angleJsonFilename}
     Choose File    ${fileUploadAngles}    ${EXECDIR}/resources/${angleJsonFilename}
 
-Wait Upload Angles Successful
+Wait Upload Items Successful
     [Arguments]    ${angleName}
-    Wait Until Page Contains    Upload Angles successful
+    Wait Until Page Contains    Upload successful
     Click Element    ${btnCloseUploadanglesReport}
     Check Existing Angle From Search Result    ${angleName}

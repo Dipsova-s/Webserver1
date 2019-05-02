@@ -1206,7 +1206,97 @@ namespace EveryAngle.Shared.Globalization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Package download is not available, because the selection contains:.
+        ///   Looks up a localized string similar to Package download is not available, because the user is not allowed to manage this model..
+        /// </summary>
+        public static string AngleExport_TypePackage_Angle_ManageRequired {
+            get {
+                return ResourceManager.GetString("AngleExport_TypePackage_Angle_ManageRequired", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Package download is not available, because the selection contains Angle/Templates from multiple models..
+        /// </summary>
+        public static string AngleExport_TypePackage_Angle_MultipleModel {
+            get {
+                return ResourceManager.GetString("AngleExport_TypePackage_Angle_MultipleModel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Package download is not available, because the selection contains private Angles/Templates..
+        /// </summary>
+        public static string AngleExport_TypePackage_Angle_Private {
+            get {
+                return ResourceManager.GetString("AngleExport_TypePackage_Angle_Private", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Package download is not available, because the selection contains private items..
+        /// </summary>
+        public static string AngleExport_TypePackage_Both_Private {
+            get {
+                return ResourceManager.GetString("AngleExport_TypePackage_Both_Private", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Dashboards cannot be downloaded individually..
+        /// </summary>
+        public static string AngleExport_TypePackage_Dashboard_Cannot_Individually {
+            get {
+                return ResourceManager.GetString("AngleExport_TypePackage_Dashboard_Cannot_Individually", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Download is not available, because user is not allowed to manage this model..
+        /// </summary>
+        public static string AngleExport_TypePackage_Dashboard_ManageRequired {
+            get {
+                return ResourceManager.GetString("AngleExport_TypePackage_Dashboard_ManageRequired", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Download is not available, because the selection contains dashboards from multiple models..
+        /// </summary>
+        public static string AngleExport_TypePackage_Dashboard_MultipleModel {
+            get {
+                return ResourceManager.GetString("AngleExport_TypePackage_Dashboard_MultipleModel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Download is not available, because the selection contains private dashboard(s)..
+        /// </summary>
+        public static string AngleExport_TypePackage_Dashboard_Private {
+            get {
+                return ResourceManager.GetString("AngleExport_TypePackage_Dashboard_Private", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Package download is not available, because the selection contains private item(s)..
+        /// </summary>
+        public static string AngleExport_TypePackage_Dashboard_WarningTitle {
+            get {
+                return ResourceManager.GetString("AngleExport_TypePackage_Dashboard_WarningTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Click OK to download the selected Angles/Templates individually..
+        /// </summary>
+        public static string AngleExport_TypePackage_Download_Angle_Individually {
+            get {
+                return ResourceManager.GetString("AngleExport_TypePackage_Download_Angle_Individually", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Package download is not available, because the selection contains private .
         /// </summary>
         public static string AngleExport_TypePackage_PackageDownload_Not_Available {
             get {
@@ -2412,7 +2502,7 @@ namespace EveryAngle.Shared.Globalization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Download Angles.
+        ///   Looks up a localized string similar to Download Items.
         /// </summary>
         public static string CreateEAPackage {
             get {
@@ -15640,7 +15730,7 @@ namespace EveryAngle.Shared.Globalization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Uploading Angles.
+        ///   Looks up a localized string similar to Uploading Items.
         /// </summary>
         public static string ProgressBar_UploadingAngles {
             get {
@@ -16819,7 +16909,7 @@ namespace EveryAngle.Shared.Globalization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Upload Angles.
+        ///   Looks up a localized string similar to Upload Items.
         /// </summary>
         public static string UploadAngles {
             get {
@@ -16855,7 +16945,7 @@ namespace EveryAngle.Shared.Globalization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Select Angle files to upload or drop here....
+        ///   Looks up a localized string similar to Select files to upload or drop here....
         /// </summary>
         public static string UploadAngles_SelectFile {
             get {
@@ -16864,7 +16954,7 @@ namespace EveryAngle.Shared.Globalization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Upload Angles successful {0} of {1}.
+        ///   Looks up a localized string similar to Upload successful {0} of {1}.
         /// </summary>
         public static string UploadAngles_SuccessfulMessage {
             get {
@@ -16873,7 +16963,7 @@ namespace EveryAngle.Shared.Globalization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Upload Angles report.
+        ///   Looks up a localized string similar to Upload report.
         /// </summary>
         public static string UploadAnglesReport {
             get {

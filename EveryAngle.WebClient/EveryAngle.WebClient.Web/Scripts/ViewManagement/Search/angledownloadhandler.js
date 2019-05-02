@@ -46,6 +46,7 @@ function AngleDownloadHandler() {
                 self.DownloadAngleDone();
             }
             else {
+                WC.Ajax.EnableBeforeExit = false;
                 WC.Utility.DownloadFile(urls.splice(0, 1)[0]);
                 progressbarModel.SetProgressBarText(kendo.toString((angleCount - urls.length) / angleCount * 100, 'n0'), null, Localization.ProgressBar_DownloadAngle);
                 setTimeout(function () {

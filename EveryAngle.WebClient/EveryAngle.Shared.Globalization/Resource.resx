@@ -1276,7 +1276,7 @@
     <value>Dashboard privileges</value>
   </data>
   <data name="CreateEAPackage" xml:space="preserve">
-    <value>Download Angles</value>
+    <value>Download Items</value>
   </data>
   <data name="FileName" xml:space="preserve">
     <value>File name</value>
@@ -5360,7 +5360,7 @@ Are you sure you want to delete this role?</value>
     <value>Individual Angles will be downloaded.</value>
   </data>
   <data name="AngleExport_TypePackage_PackageDownload_Not_Available" xml:space="preserve">
-    <value>Package download is not available, because the selection contains:</value>
+    <value>Package download is not available, because the selection contains private </value>
   </data>
   <data name="AngleExport_TypePackage_WarningModel" xml:space="preserve">
     <value>- Angles and/or Templates from different models.</value>
@@ -5375,13 +5375,13 @@ Are you sure you want to delete this role?</value>
     <value>Are you sure you want to download {0} individual Angles?</value>
   </data>
   <data name="UploadAngles" xml:space="preserve">
-    <value>Upload Angles</value>
+    <value>Upload Items</value>
   </data>
   <data name="UploadAnglesReport" xml:space="preserve">
-    <value>Upload Angles report</value>
+    <value>Upload report</value>
   </data>
   <data name="ProgressBar_UploadingAngles" xml:space="preserve">
-    <value>Uploading Angles</value>
+    <value>Uploading Items</value>
   </data>
   <data name="UploadAngles_InvalideExtension" xml:space="preserve">
     <value>invalid file extension</value>
@@ -5393,10 +5393,10 @@ Are you sure you want to delete this role?</value>
     <value>invalid uploaded file</value>
   </data>
   <data name="UploadAngles_SelectFile" xml:space="preserve">
-    <value>Select Angle files to upload or drop here...</value>
+    <value>Select files to upload or drop here...</value>
   </data>
   <data name="UploadAngles_SuccessfulMessage" xml:space="preserve">
-    <value>Upload Angles successful {0} of {1}</value>
+    <value>Upload successful {0} of {1}</value>
   </data>
   <data name="FormatSetting_UseDefault" xml:space="preserve">
     <value>Use default</value>
@@ -6008,5 +6008,35 @@ Only Active Directory (AD) and Active Directory Federation (ADFS) services are s
   </data>
   <data name="WelcomeMessages" xml:space="preserve">
     <value>Messages</value>
+  </data>
+  <data name="AngleExport_TypePackage_Dashboard_Private" xml:space="preserve">
+    <value>Download is not available, because the selection contains private dashboard(s).</value>
+  </data>
+  <data name="AngleExport_TypePackage_Dashboard_Cannot_Individually" xml:space="preserve">
+    <value>Dashboards cannot be downloaded individually.</value>
+  </data>
+  <data name="AngleExport_TypePackage_Dashboard_ManageRequired" xml:space="preserve">
+    <value>Download is not available, because user is not allowed to manage this model.</value>
+  </data>
+  <data name="AngleExport_TypePackage_Dashboard_MultipleModel" xml:space="preserve">
+    <value>Download is not available, because the selection contains dashboards from multiple models.</value>
+  </data>
+  <data name="AngleExport_TypePackage_Download_Angle_Individually" xml:space="preserve">
+    <value>Click OK to download the selected Angles/Templates individually.</value>
+  </data>
+  <data name="AngleExport_TypePackage_Dashboard_WarningTitle" xml:space="preserve">
+    <value>Package download is not available, because the selection contains private item(s).</value>
+  </data>
+  <data name="AngleExport_TypePackage_Angle_ManageRequired" xml:space="preserve">
+    <value>Package download is not available, because the user is not allowed to manage this model.</value>
+  </data>
+  <data name="AngleExport_TypePackage_Angle_MultipleModel" xml:space="preserve">
+    <value>Package download is not available, because the selection contains Angle/Templates from multiple models.</value>
+  </data>
+  <data name="AngleExport_TypePackage_Angle_Private" xml:space="preserve">
+    <value>Package download is not available, because the selection contains private Angles/Templates.</value>
+  </data>
+  <data name="AngleExport_TypePackage_Both_Private" xml:space="preserve">
+    <value>Package download is not available, because the selection contains private items.</value>
   </data>
 </root>

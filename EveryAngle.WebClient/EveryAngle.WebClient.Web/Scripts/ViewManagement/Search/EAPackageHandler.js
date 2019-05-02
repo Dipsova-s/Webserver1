@@ -38,10 +38,7 @@ function EAPackageHandler() {
         self.ContainsOnlyPublicItems = true;
         self.FromTheSameModel = true;
         jQuery.each(ko.toJS(items), function (index, item) {
-            //check if the item is angle/template
-            if (item.type === enumHandlers.ITEMTYPE.DASHBOARD)
-                return;
-
+         
             // check for a warning message (private)
             if (!item.is_published)
                 self.ContainsOnlyPublicItems = false;
@@ -53,7 +50,7 @@ function EAPackageHandler() {
                     self.FromTheSameModel = false;
             }
 
-            if (self.IsExportableItem(item.type, item.is_published))
+            if (item.is_published)
                 self.SelectedItems.push(item);
         });
     };
@@ -66,9 +63,6 @@ function EAPackageHandler() {
 
     self.IsNotPublishedAngle = function (itemType, isPublished) {
         return itemType === enumHandlers.ITEMTYPE.ANGLE && !isPublished;
-    };
-    self.IsExportableItem = function (itemType, isPublished) {
-        return itemType !== enumHandlers.ITEMTYPE.DASHBOARD && isPublished;
     };
     self.GetPackageName = function () {
         var packageName = jQuery.trim(jQuery('#PackageName').val());

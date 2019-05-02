@@ -105,7 +105,7 @@ describe("EAPackageHandler", function () {
                 model: '/models/2'
             }];
             eaPackageHandler.SetSelectedItems(items);
-            expect(eaPackageHandler.SelectedItems.length).toEqual(4);
+            expect(eaPackageHandler.SelectedItems.length).toEqual(5);
             expect(eaPackageHandler.ModelUris).toEqual(['/models/1', '/models/2']);
             expect(eaPackageHandler.ContainsOnlyPublicItems).toEqual(false);
         });
@@ -150,26 +150,7 @@ describe("EAPackageHandler", function () {
         });
 
     });
-
-    describe("call IsExportableItem", function () {
-
-        it("should get true if is angle and is_published", function () {
-            var result = eaPackageHandler.IsExportableItem('angle', true);
-            expect(result).toEqual(true);
-        });
-
-        it("should get true if is not dashboard", function () {
-            var result = eaPackageHandler.IsExportableItem('dashboard', true);
-            expect(result).toEqual(false);
-        });
-
-        it("should get false if is angle but is not is_published", function () {
-            var result = eaPackageHandler.IsExportableItem('angle', false);
-            expect(result).toEqual(false);
-        });
-
-    });
-
+    
     describe("call GetPackageName", function () {
 
         beforeEach(function () {

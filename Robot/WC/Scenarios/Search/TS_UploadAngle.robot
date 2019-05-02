@@ -8,4 +8,4 @@ Upload Angle
     Click Search Action Upload Angles
     Select Model To Upload    ${modelName}
     Select Angle Json File    ${angleJsonFilename}
-    Wait Upload Angles Successful    ${angleName}
+    Wait Upload Items Successful    ${angleName}

@@ -1,7 +1,8 @@
 var angleExportHtmlTemplate = function () {
     return [
         '<div class="popupTabPanel" id="CreateEAPackageArea">',
-        '<div class="row rowExportType" data-bind="visible: $root.CanExportPackage()">',
+
+        '<div class="row rowExportType" data-bind="visible: $root.CanExportPackage() && $root.SelectType() === $root.SELECTTYPE.ANGLE">',
         '<div class="field" data-bind="text: Localization.Download_Type"></div>',
         '<div class="input">',
         '<label>',
@@ -14,8 +15,8 @@ var angleExportHtmlTemplate = function () {
         '</label>',
         '</div>',
         '</div>',
-        '<div class="row rowExportTypeDownload" data-bind="visible: !$root.IsPackageVisible(), text: kendo.format(Localization.AngleExport_DownloadAngleConfirmation, $root.GetDownloadAnglesCount())"></div>',
-        '<div class="rowExportTypePackage" data-bind="visible: $root.AngleExportType() === $root.ANGLEEXPORTTYPE.PACKAGE">',
+
+        '<div data-bind="css: $root.GetRowExportTypeCss(), visible: $root.AngleExportType() === $root.ANGLEEXPORTTYPE.PACKAGE && $root.IsAllPublish()">',
         '<div class="row">',
         '<div class="field" data-bind="text: Localization.Name"></div>',
         '<div class="input">',
@@ -37,11 +38,15 @@ var angleExportHtmlTemplate = function () {
         '</div>',
         '</div>',
         '</div>',
-        '<!-- ko if: $root.GetAllWarningMessages() -->',
-        '<div class="row" data-bind="text: Localization.AngleExport_TypePackage_WarningTitle"></div>',
-        '<div class="row" data-bind="text: Localization.AngleExport_TypePackage_PackageDownload_Not_Available"></div>',
-        '<div class="row" data-bind="html: $root.GetAllWarningMessages()"></div>',
+
+        '<!-- ko if: $root.WarningTitle() -->',
+        '<div class="row" data-bind="text: $root.WarningTitle()"></div>',
+        '<!-- ko if: $root.WarningDesc() -->',
+        '<div class="row" data-bind="text: $root.WarningDesc()"></div>',
         '<!-- /ko -->',
+        '<div class="row" data-bind="text: Localization.AngleExport_TypePackage_Download_Angle_Individually"></div>',
+        '<!-- /ko -->',
+
         '</div>'
     ].join('');
 };

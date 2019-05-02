@@ -1,6 +1,7 @@
 ﻿/// <reference path="/Dependencies/ViewModels/Models/Search/searchmodel.js" />
 /// <reference path="/Dependencies/ViewManagement/Search/AngleDownloadHandler.js" />
 /// <reference path="/Dependencies/ViewManagement/Search/EAPackageHandler.js" />
+/// <reference path="/Dependencies/Helper/EnumHandlers.js" />
 /// <reference path="/Dependencies/ViewManagement/Search/AngleExportHandler.js" />
 
 describe("AngleExportHandler", function () {
@@ -9,14 +10,6 @@ describe("AngleExportHandler", function () {
 
     beforeEach(function () {
         angleExportHandler = new AngleExportHandler(new AngleDownloadHandler(), new EAPackageHandler());
-    });
-
-    describe("when create new instance", function () {
-
-        it("should be defined", function () {
-            expect(angleExportHandler).toBeDefined();
-        });
-
     });
 
     describe("call OnChangeAngleExportType", function () {
@@ -33,31 +26,6 @@ describe("AngleExportHandler", function () {
 
             angleExportHandler.OnChangeAngleExportType(angleExportHandler.ANGLEEXPORTTYPE.DOWNLOAD);
             expect(angleExportHandler.Handler() instanceof AngleDownloadHandler).toEqual(true);
-        });
-
-    });
-
-    describe("call ShowAngleExportPopup", function () {
-
-        window.popup = window.popup || {};
-        window.popup.Show = $.noop;
-
-        it("should not call popup.Show method if not ValidateAngleExport", function () {
-            spyOn(angleExportHandler, 'GetAngleExportSettings').and.callFake($.noop);
-            spyOn(angleExportHandler, 'ValidateAngleExport').and.callFake(function () { return false; });
-            spyOn(popup, 'Show');
-
-            angleExportHandler.ShowAngleExportPopup();
-            expect(popup.Show).not.toHaveBeenCalled();
-        });
-
-        it("should call popup.Show method if ValidateAngleExport", function () {
-            spyOn(angleExportHandler, 'GetAngleExportSettings').and.callFake($.noop);
-            spyOn(angleExportHandler, 'ValidateAngleExport').and.callFake(function () { return true; });
-            spyOn(popup, 'Show');
-
-            angleExportHandler.ShowAngleExportPopup();
-            expect(popup.Show).toHaveBeenCalled();
         });
 
     });
@@ -91,24 +59,31 @@ describe("AngleExportHandler", function () {
 
     });
 
-    describe("call ValidateAngleExport", function () {
+    describe("call GetRowExportTypeCss", function () {
 
         window.popup = window.popup || {};
         window.popup.Alert = $.noop;
         window.popup.Close = $.noop;
 
-        it("should get 'true' if validated", function () {
-            spyOn(angleExportHandler, 'CanAngleExport').and.callFake(function () { return true; });
+        it("should get 'rowExportTypePackage' if select type is angle", function () {
+            spyOn(angleExportHandler, 'SelectType').and.callFake(function () { return angleExportHandler.SELECTTYPE.ANGLE; });
 
-            var result = angleExportHandler.ValidateAngleExport();
-            expect(result).toEqual(true);
+            var result = angleExportHandler.GetRowExportTypeCss();
+            expect(result).toEqual('rowExportTypePackage');
         });
 
-        it("should get 'false' if invalidated", function () {
-            spyOn(angleExportHandler, 'CanAngleExport').and.callFake(function () { return false; });
+        it("should get '' if select type is dashboard", function () {
+            spyOn(angleExportHandler, 'SelectType').and.callFake(function () { return angleExportHandler.SELECTTYPE.DASHBOARD; });
 
-            var result = angleExportHandler.ValidateAngleExport();
-            expect(result).toEqual(false);
+            var result = angleExportHandler.GetRowExportTypeCss();
+            expect(result).toEqual('');
+        });
+
+        it("should get '' if select type is both angle and dashboard", function () {
+            spyOn(angleExportHandler, 'SelectType').and.callFake(function () { return angleExportHandler.SELECTTYPE.BOTH; });
+
+            var result = angleExportHandler.GetRowExportTypeCss();
+            expect(result).toEqual('');
         });
 
     });
@@ -216,19 +191,27 @@ describe("AngleExportHandler", function () {
 
     });
 
-    describe("call CanAngleExport", function () {
+    describe("call CheckIsAllSameModel", function () {
 
-        it("should get 'true' if searchModel.SelectedItems do not have dashboard", function () {
-            searchModel.SelectedItems([]);
+        it("should get 'true' when all model in items are same", function () {
+            var items = [
+                { model: "model_a" },
+                { model: "model_a" },
+                { model: "model_a" }
+            ];
 
-            var result = angleExportHandler.CanAngleExport();
+            var result = angleExportHandler.CheckIsAllSameModel(items);
             expect(result).toEqual(true);
         });
 
-        it("should get 'false' if searchModel.SelectedItems do not have dashboard", function () {
-            searchModel.SelectedItems([{ type: enumHandlers.ITEMTYPE.DASHBOARD }]);
+        it("should get 'false' when all model in items are not all same", function () {
+            var items = [
+                { model: "model_a" },
+                { model: "model_a" },
+                { model: "model_b" }
+            ];
 
-            var result = angleExportHandler.CanAngleExport();
+            var result = angleExportHandler.CheckIsAllSameModel(items);
             expect(result).toEqual(false);
         });
 
@@ -251,23 +234,34 @@ describe("AngleExportHandler", function () {
             angleExportHandler.Handler().GetWarningMessage = function () { return ''; };
         });
 
-        it("should get 'true' if IsPackageVisible and no a warning message", function () {
+        it("should get 'false' when selected items are not same model", function () {
+            angleExportHandler.IsAllSameModel = function () { return false; };
+
             var result = angleExportHandler.CanExportPackage();
-            expect(result).toEqual(true);
+            expect(result).toEqual(false);
         });
 
-        it("should get 'false' if not IsPackageVisible", function () {
+        it("should get 'false' when selected items are not all publish", function () {
+            angleExportHandler.IsAllPublish = function () { return false; };
+            
+            var result = angleExportHandler.CanExportPackage();
+            expect(result).toEqual(false);
+        });
+
+        it("should get 'false' when user has no manage access privilege", function () {
             angleExportHandler.IsPackageVisible = function () { return false; };
 
             var result = angleExportHandler.CanExportPackage();
             expect(result).toEqual(false);
         });
 
-        it("should get 'false' if have a warning message", function () {
-            angleExportHandler.Handler().GetWarningMessage = function () { return 'xxx'; };
+        it("should get 'true' when selected items are not something wrong", function () {
+            angleExportHandler.IsAllSameModel = function () { return true; };
+            angleExportHandler.IsAllPublish = function () { return true; };
+            angleExportHandler.IsPackageVisible = function () { return true; };
 
             var result = angleExportHandler.CanExportPackage();
-            expect(result).toEqual(false);
+            expect(result).toEqual(true);
         });
 
     });
@@ -291,6 +285,126 @@ describe("AngleExportHandler", function () {
 
             angleExportHandler.StartExportAngle();
             expect(angleExportHandler.Handler().StartExportAngle).toHaveBeenCalled();
+        });
+
+    });
+
+    describe("call SetSelectTypeByItems", function () {
+
+        it("should set SelectType to Dashboard when every item's type is dashboard ", function () {
+
+            var items = [
+                { type: enumHandlers.ITEMTYPE.DASHBOARD },
+                { type: enumHandlers.ITEMTYPE.DASHBOARD },
+                { type: enumHandlers.ITEMTYPE.DASHBOARD }
+            ];
+
+            angleExportHandler.SetSelectTypeByItems(items);
+            expect(angleExportHandler.SelectType()).toEqual(angleExportHandler.SELECTTYPE.DASHBOARD);
+        });
+
+        it("should set SelectType to Angle when every item's type is angle ", function () {
+
+            var items = [
+                { type: enumHandlers.ITEMTYPE.ANGLE },
+                { type: enumHandlers.ITEMTYPE.ANGLE },
+                { type: enumHandlers.ITEMTYPE.ANGLE }
+            ];
+
+            angleExportHandler.SetSelectTypeByItems(items);
+            expect(angleExportHandler.SelectType()).toEqual(angleExportHandler.SELECTTYPE.ANGLE);
+        });
+
+        it("should set SelectType to Both when every item's type are angle and dashboard", function () {
+
+            var items = [
+                { type: enumHandlers.ITEMTYPE.ANGLE },
+                { type: enumHandlers.ITEMTYPE.DASHBOARD },
+                { type: enumHandlers.ITEMTYPE.ANGLE }
+            ];
+
+            angleExportHandler.SetSelectTypeByItems(items);
+            expect(angleExportHandler.SelectType()).toEqual(angleExportHandler.SELECTTYPE.BOTH);
+        });
+
+
+    });
+
+    describe("call IsDownloadable", function () {
+
+        it("should has no warning or error messages when Dashboards are ok", function () {
+            var result = angleExportHandler.IsDownloadable(angleExportHandler.SELECTTYPE.DASHBOARD, true, true, true);
+            expect(result).toEqual(true);
+            expect(angleExportHandler.AngleExportType(angleExportHandler.ANGLEEXPORTTYPE.PACKAGE));
+        });
+
+        it("should has no warning or error messages when Angles are ok", function () {
+            var result = angleExportHandler.IsDownloadable(angleExportHandler.SELECTTYPE.ANGLE, true, true, true);
+            expect(result).toEqual(true);
+            expect(angleExportHandler.AngleExportType(angleExportHandler.ANGLEEXPORTTYPE.DOWNLOAD));
+        });
+
+        it("should has no warning or error messages when Both are ok", function () {
+            var result = angleExportHandler.IsDownloadable(angleExportHandler.SELECTTYPE.BOTH, true, true, true);
+            expect(result).toEqual(true);
+            expect(angleExportHandler.AngleExportType(angleExportHandler.ANGLEEXPORTTYPE.PACKAGE));
+        });
+
+        it("should show error message when Dashboard has multi model", function () {
+            var result = angleExportHandler.IsDownloadable(angleExportHandler.SELECTTYPE.DASHBOARD, false, true, true);
+            expect(result).toEqual(false);
+        });
+
+        it("should show error message when Dashboard is not published", function () {
+            var result = angleExportHandler.IsDownloadable(angleExportHandler.SELECTTYPE.DASHBOARD, true, false, true);
+            expect(result).toEqual(false);
+        });
+
+        it("should show error message when Dashboard has no privilege", function () {
+            var result = angleExportHandler.IsDownloadable(angleExportHandler.SELECTTYPE.DASHBOARD, true, true, false);
+            expect(result).toEqual(false);
+        });
+
+        it("show show warning message when Angle has multi model", function () {
+            var result = angleExportHandler.IsDownloadable(angleExportHandler.SELECTTYPE.ANGLE, false, true, true);
+            expect(result).toEqual(true);
+            expect(angleExportHandler.WarningTitle()).not.toBeNull();
+            expect(angleExportHandler.WarningTitle()).not.toEqual('');
+            expect(angleExportHandler.AngleExportType(angleExportHandler.ANGLEEXPORTTYPE.DOWNLOAD));
+        });
+
+        it("show show warning message when Angle is not published", function () {
+            var result = angleExportHandler.IsDownloadable(angleExportHandler.SELECTTYPE.ANGLE, true, false, true);
+            expect(result).toEqual(true);
+            expect(angleExportHandler.WarningTitle()).not.toBeNull();
+            expect(angleExportHandler.WarningTitle()).not.toEqual('');
+            expect(angleExportHandler.AngleExportType(angleExportHandler.ANGLEEXPORTTYPE.DOWNLOAD));
+        });
+
+        it("show show warning message when Angle has no privilege", function () {
+            var result = angleExportHandler.IsDownloadable(angleExportHandler.SELECTTYPE.ANGLE, true, true, false);
+            expect(result).toEqual(true);
+            expect(angleExportHandler.WarningTitle()).not.toBeNull();
+            expect(angleExportHandler.WarningTitle()).not.toEqual('');
+            expect(angleExportHandler.AngleExportType(angleExportHandler.ANGLEEXPORTTYPE.DOWNLOAD));
+        });
+
+        it("show show warning message when Both has multi model", function () {
+            var result = angleExportHandler.IsDownloadable(angleExportHandler.SELECTTYPE.BOTH, false, true, true);
+            expect(result).toEqual(false);
+        });
+
+        it("show show warning message when Both is not published", function () {
+            var result = angleExportHandler.IsDownloadable(angleExportHandler.SELECTTYPE.BOTH, true, false, true);
+            expect(result).toEqual(true);
+            expect(angleExportHandler.WarningTitle()).not.toBeNull();
+            expect(angleExportHandler.WarningTitle()).not.toEqual('');
+            expect(angleExportHandler.AngleExportType(angleExportHandler.ANGLEEXPORTTYPE.DOWNLOAD));
+        });
+
+        it("should show error message when Both has no privilege", function () {
+            var result = angleExportHandler.IsDownloadable(angleExportHandler.SELECTTYPE.BOTH, true, true, false);
+            expect(result).toEqual(false);
         });
 
     });
