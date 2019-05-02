@@ -4,13 +4,7 @@ using EveryAngle.WebClient.Web.Controllers.Apis;
 using EveryAngle.WebClient.Web.CSTests.TestBase;
 using NUnit.Framework;
 using RestSharp;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Net.Http;
-using System.Text;
-using System.Threading.Tasks;
+using System.Configuration;
 using System.Web;
 using System.Web.Configuration;
 using System.Web.Script.Serialization;
@@ -20,10 +14,10 @@ namespace EveryAngle.WebClient.Web.CSTests.ServiceTests
     [TestFixture]
     public class RequestManagerTests : UnitTestBase
     {
-        [TestFixtureSetUp]
-        public void Initialize()
+        [SetUp]
+        public void Setup()
         {
-
+            SetupConfiguration();
         }
 
         [Test]
@@ -56,6 +50,8 @@ namespace EveryAngle.WebClient.Web.CSTests.ServiceTests
         [ExpectedException(typeof(HttpException))]
         public void CanNot_Call_To_CSM_When_ThumbPrint_Is_Invalid()
         {
+            ConfigurationManager.AppSettings.Set("WebServiceBackendEnableSSL", "true");
+
             RequestManager.Initialize("csm/componentservices");
         }
 

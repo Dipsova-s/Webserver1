@@ -122,10 +122,7 @@
       <Link>WebClient\Dependencies\ViewManagement\Shared\AboutSystemHandler.js</Link>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="..\EveryAngle.WebClient.Web\Scripts\ViewManagement\Shared\ComponentServicesHandler.js">
-      <Link>WebClient\Dependencies\ViewManagement\Shared\ComponentServicesHandler.js</Link>
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
+
     <Content Include="ManagementConsole\Tests\Custom\MC.AjaxTest.js" />
     <Content Include="ManagementConsole\Tests\Custom\MC.Test.js" />
     <Content Include="ManagementConsole\Tests\Custom\MC.UITest.js" />
