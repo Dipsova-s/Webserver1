@@ -208,6 +208,15 @@ function UserViewModel() {
         else {
             jQuery("#btnWorkbench").hide();
         }
+        return;
+
+        var workbenchUrl = componentServicesHandler.GetModellingWorkbenchUrl();
+        if (self.IsPossibleToManageModel() && workbenchUrl) {
+            jQuery("#btnWorkbench").attr("href", workbenchUrl);
+        }
+        else {
+            jQuery("#btnWorkbench").hide();
+        }
     };
     self.GetAngleFollowupAuthorization = function (angleUri) {
         var isAuthorizes = jQuery.grep(self.Privileges.AnglePrivileges, function (anglePrivilege) {

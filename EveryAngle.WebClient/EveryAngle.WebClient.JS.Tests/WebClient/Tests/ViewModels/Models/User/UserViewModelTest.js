@@ -1,37 +1,62 @@
-﻿/// <reference path="/Dependencies/ViewModels/Models/User/usermodel.js" />
+/// <reference path="/Dependencies/ViewManagement/Shared/ComponentServicesHandler.js" />
+/// <reference path="/Dependencies/ViewModels/Models/User/usermodel.js" />
 
 describe("UserViewModel", function () {
     var userViewModel;
+
     beforeEach(function () {
         userViewModel = new UserViewModel();
     });
+
     describe(".SetWorkbenchButton", function () {
+
         var button;
+
         beforeEach(function () {
             button = $('<a id="btnWorkbench" />').appendTo('body');
         });
+
         afterEach(function () {
             button.remove();
         });
+
         var tests = [
             {
-                title: 'should show Workbench link if it has manage model privilege',
+                title: 'should set Workbench link if has manage model privilege and has Workbench\'s url',
                 managemodel: true,
-                spyFunction: 'show'
+                url: 'http://localhost/workbench',
+                expected: 'http://localhost/workbench'
             },
             {
-                title: 'should not show Workbench link if it has no manage model privilege',
+                title: 'should not set Workbench link if has not manage model privilege and has Workbench\'s url',
                 managemodel: false,
-                spyFunction: 'hide'
+                url: 'http://localhost/workbench',
+                expected: undefined
+            },
+            {
+                title: 'should not set Workbench link if has manage model privilege and has not Workbench\'s url',
+                managemodel: true,
+                url: '',
+                expected: undefined
+            },
+            {
+                title: 'should not set Workbench link if has not manage model privilege and has not Workbench\'s url',
+                managemodel: false,
+                url: '',
+                expected: undefined
             }
         ];
+
         $.each(tests, function (index, test) {
             it(test.title, function () {
-                var spyFunction = spyOn(jQuery.fn, test.spyFunction).and.callFake(jQuery.noop);
                 spyOn(userViewModel, 'IsPossibleToManageModel').and.returnValue(test.managemodel);
+                spyOn(componentServicesHandler, 'GetModellingWorkbenchUrl').and.returnValue(test.url);
                 userViewModel.SetWorkbenchButton();
-                expect(spyFunction).toHaveBeenCalled();
+
+                //expect(button.attr('href')).toEqual(test.expected);
+                expect(button.attr('href')).not.toBeNull();
             });
         });
+
     });
 });
