@@ -149,10 +149,10 @@ namespace EveryAngle.WebClient.Web.CSTests.TestBase
             ViewEngines.Engines.Add(engine.Object);
         }
 
-        protected void SetupConfiguration()
+        private void SetupConfiguration()
         {
             // Just mock
-            ConfigurationManager.AppSettings.Set("WebServerBackendUrl", "http://127.0.0.1");
+            ConfigurationManager.AppSettings.Set("WebServerBackendUrl", "https://127.0.0.1");
             ConfigurationManager.AppSettings.Set("WebServiceBackendNOAPort", "9080");
             ConfigurationManager.AppSettings.Set("RestClientTimeout", "10000");
 

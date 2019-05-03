@@ -53,7 +53,7 @@ namespace EveryAngle.WebClient.Service.HttpHandlers
                 int timeout = int.Parse(WebConfigurationManager.AppSettings["RestClientTimeout"]);
                 string appserverUrl = Shared.Helpers.UrlHelper.GetWebServerBackendUrl();
                 bool isHttps = appserverUrl.StartsWith("https://");
-                string appserverPort = WebConfigurationManager.AppSettings["WebServiceBackendNOAPort"];
+                string appserverPort = GetASPort(uri, isHttps);
                 string webServerBackendUrlWithPort = string.Format("{0}:{1}", appserverUrl, appserverPort);
 
                 client = new RestClient(webServerBackendUrlWithPort)
@@ -65,10 +65,24 @@ namespace EveryAngle.WebClient.Service.HttpHandlers
             }
         }
 
+        private string GetASPort(string uri, bool isHttps)
+        {
+            string port = WebConfigurationManager.AppSettings["WebServiceBackendNOAPort"];
+         
+            if (IsCSMUri(uri) && isHttps)
+            {
+                //when websites are running on the ssl, all of the csm uri has to be comunicate over NOA+(csmPort) 
+                int csmPort = 1;
+                port = (int.Parse(port) + csmPort).ToString();
+            }
+
+            return port;
+        }
+
         private void AttachClientCert(bool isHttps)
         {
             //the request to csm must always included client cert
-            if (isHttps)
+            if (IsCSMUri(uri) && isHttps)
             {
                 string thumbprint = WebConfigurationManager.AppSettings["WebServiceCertificateThumbPrint"];
                 X509Certificate certificate = CertificateUtils.GetCertificateFromStore(thumbprint);
