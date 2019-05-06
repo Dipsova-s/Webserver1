@@ -192,7 +192,7 @@ function ImportAngleHandler() {
             ErrorMessage: ''
         };
 
-        if (e && e.response && e.response.angle) {
+        if (e && e.response && e.response.Result) {
             self.UploadAngleToWebService(e, file);
         }
         else {
@@ -210,7 +210,7 @@ function ImportAngleHandler() {
     self.UploadAngleToWebService = function (e, file) {
         var modelUri = WC.HtmlHelper.DropdownList('#ddlModelImportAngle').value();
         var fileName = e.files[0].name;
-        var angle = e.response.angle;
+        var angle = e.response.Result.angle;
         var uri = self.GetUploadAngleUri(modelUri);
 
         angle = self.SetAngleForUpload(angle, modelUri, fileName);

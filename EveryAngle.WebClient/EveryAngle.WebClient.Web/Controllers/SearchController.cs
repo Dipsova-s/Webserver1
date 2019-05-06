@@ -1,10 +1,14 @@
+using System;
 using System.IO;
 using System.Web.Mvc;
-using EveryAngle.Shared.Helpers;
 using System.Web;
 using System.Collections.Generic;
-using Newtonsoft.Json.Linq;
+using System.Linq;
+using Newtonsoft.Json;
 using EveryAngle.Shared.Globalization;
+using EveryAngle.Core.ViewModels.EAPackage;
+using EveryAngle.Shared.Helpers;
+using Newtonsoft.Json.Linq;
 
 namespace EveryAngle.WebClient.Web.Controllers
 {
@@ -25,35 +29,48 @@ namespace EveryAngle.WebClient.Web.Controllers
         }
 
         [AcceptVerbs(HttpVerbs.Post)]
-        public JObject ImportAngle(IEnumerable<HttpPostedFileBase> ImportAngle)
+        public ContentResult ImportAngle(IEnumerable<HttpPostedFileBase> ImportAngle)
         {
-            JObject json = new JObject();
+            ImportResultViewModel<JObject> viewModel = GetImportAnglePackageViewModel(ImportAngle.FirstOrDefault());
 
-            if (ImportAngle != null)
+            string viewModelAsJsonString = JsonConvert.SerializeObject(viewModel,
+                                new JsonSerializerSettings { NullValueHandling = NullValueHandling.Ignore });
+
+            return Content(viewModelAsJsonString, "application/json", System.Text.Encoding.UTF8);
+        }
+
+        #region private
+
+        private ImportResultViewModel<JObject> GetImportAnglePackageViewModel(HttpPostedFileBase angleJson)
+        {
+            ImportResultViewModel<JObject> viewModel = new ImportResultViewModel<JObject>();
+
+            try
             {
-                foreach (var file in ImportAngle)
+                if (!Path.GetExtension(angleJson.FileName).Equals(".json", StringComparison.InvariantCultureIgnoreCase))
                 {
-                    string extension = Path.GetExtension(file.FileName);
-                    if (extension == ".json")
-                    {
-                        try
-                        {
-                            string text = (new StreamReader(file.InputStream)).ReadToEnd();
-                            json = JObject.Parse(EAHtmlSanitizer.Sanitize(text));
-                        }
-                        catch
-                        {
-                            json["ErrorMessage"] = Resource.UploadAngles_InvalideParseJson;
-                        }
-                    }
-                    else
-                    {
-                        json["ErrorMessage"] = Resource.UploadAngles_InvalideExtension;
-                    }
+                    throw new Exception(Resource.UploadAngles_InvalideExtension);
                 }
+
+                string angleJsonAsString = new StreamReader(angleJson.InputStream).ReadToEnd();
+
+                // if json has contains invalid html tags then throw an error
+                if (!PotentiallyTagsHelper.IsSafeContent(angleJsonAsString))
+                {
+                    throw new Exception(Resource.UploadAngles_InvalideParseJson);
+                }
+
+                viewModel.Result = JObject.Parse(angleJsonAsString);
+            }
+            catch (Exception ex)
+            {
+                viewModel.ErrorMessage = ex.Message;
             }
 
-            return json;
+            return viewModel;
         }
+
+        #endregion
+
     }
 }

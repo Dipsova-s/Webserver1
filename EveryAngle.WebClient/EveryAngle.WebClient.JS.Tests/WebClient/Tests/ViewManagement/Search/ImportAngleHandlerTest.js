@@ -271,7 +271,7 @@ describe("ImportAngleHandler", function () {
             var e = {
                 files: [{ name: 'ROBOT_ANGLE_GENERAL_TEST.ANGLE' }],
                 response: {
-                    angle: {}
+                    Result: { angle: {} }
                 }
             };
             importAngleHandler.UploadSuccess(e);
@@ -318,7 +318,7 @@ describe("ImportAngleHandler", function () {
             e = {
                 files: [{ name: 'ROBOT_ANGLE_GENERAL_TEST.ANGLE' }],
                 response: {
-                    angle: {}
+                    Result: { angle: {} }
                 }
             };
         });

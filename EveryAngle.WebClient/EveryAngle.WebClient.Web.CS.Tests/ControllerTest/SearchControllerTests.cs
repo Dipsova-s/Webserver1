@@ -3,13 +3,8 @@ using EveryAngle.WebClient.Web.CSTests.TestBase;
 using Moq;
 using Newtonsoft.Json.Linq;
 using NUnit.Framework;
-using System;
 using System.Collections.Generic;
-using System.Configuration;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Web;
 
 namespace EveryAngle.WebClient.Web.CS.Tests.ControllerTest
@@ -32,8 +27,8 @@ namespace EveryAngle.WebClient.Web.CS.Tests.ControllerTest
             file.Setup(x => x.ContentLength).Returns((int)stream.Length);
             file.Setup(x => x.FileName).Returns(stream.Name);
  
-            JObject result = _controller.ImportAngle(new List<HttpPostedFileBase> { file.Object });
-            Assert.AreEqual("{\r\n  \"search\": \"name\",\r\n  \"value\": \"\"\r\n}", result.ToString());
+            var result = _controller.ImportAngle(new List<HttpPostedFileBase> { file.Object });
+            Assert.IsNotNull(JObject.Parse(result.Content)["ErrorMessage"].ToString());
         }
 
     }
