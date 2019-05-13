@@ -201,6 +201,7 @@ function NotificationsFeedModel(notificationsFeedRepository, toggleNotifications
             result = jQuery.map(response, function (data) {
                 return {
                     id: data.id,
+                    thumbnail: self.GetFeedThumbnail(data),
                     title: stripHTML(data.title.rendered),
                     content: stripHTML(data.excerpt.rendered),
                     url: data.link,
@@ -215,6 +216,16 @@ function NotificationsFeedModel(notificationsFeedRepository, toggleNotifications
         }
 
         return result;
+    };
+
+    self.GetFeedThumbnail = function (data) {
+        var thumbnail;
+        try {
+            thumbnail = data._embedded['wp:featuredmedia']['0'].media_details.sizes.thumbnail.source_url;
+        } catch (e) {
+            thumbnail = null;
+        }
+        return thumbnail;
     };
 
     self.MapFeedsDateView = function (feeds) {
@@ -546,6 +557,11 @@ var notificationsFeedHtmlTemplate = function () {
             '<!-- ko foreach: { data: ViewModel.Feeds, afterRender: $root.OnFeedsRendered } -->',
                 '<div class="item" data-bind="{ css: { \'unread\': $data.isUnReadState, \'new\': $data.isNewState }, click: $root.MarkAsRead.bind(this, $data.id) }">',
                     '<a data-bind="attr: {\'href\': $data.url}" target="_blank">',
+                        '<div class="image">',
+                            '<div class="imageWrapper">',
+                                '<img data-bind="attr:{src: $data.thumbnail}">',
+                            '</div>',
+                        '</div>',
                         '<div class="info">',
                             '<div class="infoWrapper">',
                                 '<strong class="textEllipsis" data-bind="html: $data.title"></strong>',

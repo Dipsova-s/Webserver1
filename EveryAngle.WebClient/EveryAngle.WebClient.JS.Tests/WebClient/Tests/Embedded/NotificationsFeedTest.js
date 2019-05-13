@@ -17,7 +17,7 @@ describe("NotificationsFeed", function () {
             title: { rendered: 'hero' },
             excerpt: { rendered: 'hero hero' },
             link: 'https://www.manaosoftware.com',
-            date_gmt: '2019-03-05T13:54:12'
+            date_gmt: '2099-03-05T13:54:12'
         }
     ];
 
@@ -33,7 +33,14 @@ describe("NotificationsFeed", function () {
             toggleMenuFunction
         );
 
+        spyOn(notificationsFeedModel, 'GetFeedThumbnail').and.callFake(function () {
+            return 'test.jpg';
+        });
+
         notificationsFeedHandler = new NotificationsFeedHandler(notificationsFeedModel);
+
+        jQuery.localStorage.removeItem(NotificationsFeedRepository.StorageKey);
+        NotificationsFeedRepository.Init();
     });
 
     describe("NotificationsFeedHandler", function () {
@@ -99,7 +106,7 @@ describe("NotificationsFeed", function () {
                         title: 'hero',
                         content: 'hero hero',
                         url: 'https://www.manaosoftware.com',
-                        createDate: 1552275763
+                        createDate: 4081720149
                     }
                 ];
 
