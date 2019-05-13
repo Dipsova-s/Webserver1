@@ -880,6 +880,10 @@ begin
     DoAbort();
   end;
 
+  // Update notifications feed info from the new web.config
+  setAppSetting(WebClientConfig, 'NotificationsFeedDataUrl', GetAppSetting(NewWCConfig, 'NotificationsFeedDataUrl'));
+  setAppSetting(WebClientConfig, 'NotificationsFeedViewAllUrl',GetAppSetting(NewWCConfig, 'NotificationsFeedViewAllUrl'));
+
   // Copy appSettings in GUI and old web.config to new appSettings
   WebClientConfig := MergeAppSettings(WebClientConfig, NewWCConfig);
 

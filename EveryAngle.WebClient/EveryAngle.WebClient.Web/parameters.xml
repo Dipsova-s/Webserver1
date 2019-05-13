@@ -29,5 +29,5 @@
     defaultValue="false">
     <parameterEntry kind="XmlFile" scope="Web.config" match="/configuration/location/system.web/httpCookies/@requireSSL" />
   </parameter>
-
+  
 </parameters>

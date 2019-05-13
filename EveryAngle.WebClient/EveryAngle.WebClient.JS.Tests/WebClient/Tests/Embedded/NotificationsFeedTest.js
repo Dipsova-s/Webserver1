@@ -33,6 +33,10 @@ describe("NotificationsFeed", function () {
             toggleMenuFunction
         );
 
+        spyOn(notificationsFeedModel, 'GetFeedThumbnail').and.callFake(function () {
+            return 'test.jpg';
+        });
+
         notificationsFeedHandler = new NotificationsFeedHandler(notificationsFeedModel);
 
         jQuery.localStorage.removeItem(NotificationsFeedRepository.StorageKey);
