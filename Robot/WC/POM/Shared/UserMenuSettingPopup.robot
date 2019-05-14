@@ -82,6 +82,10 @@ Wait User Menu Settings Document Loaded
     Wait Until Page Contains Element    ${tabActionSetting}
     Wait Until Ajax Complete
 
+Get User Setting Language
+    ${language}   Execute JavaScript   return userSettingModel.Data().default_language;
+    [Return]    ${language}
+
 Click User Information Tab
     Click Element    ${tabUserDetailSetting}
 

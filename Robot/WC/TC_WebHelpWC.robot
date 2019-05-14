@@ -46,23 +46,23 @@ Force Tags          webhelp  webhelp_wc
 # - Parameters are "USERNAME" "PASSWORD" "FOLDER"
 # - Each users must set the system language manually
 WebHelp WC English
-    [Setup]    Test Setup WC WebHelp    \webhelp_en    P@ssw0rd    idsfigures_lowres_en-US
+    [Setup]    Test Setup WC WebHelp    \msmith    P@ssw0rd    idsfigures_lowres_en-US
     WebHelp WC
 
 WebHelp WC Dutch
-    [Setup]    Test Setup WC WebHelp    \webhelp_nl    P@ssw0rd    idsfigures_lowres_nl-NL
+    [Setup]    Test Setup WC WebHelp    \edejong    P@ssw0rd    idsfigures_lowres_nl-NL
     WebHelp WC
 
 WebHelp WC French
-    [Setup]    Test Setup WC WebHelp    \webhelp_fr    P@ssw0rd    idsfigures_lowres_fr-FR
+    [Setup]    Test Setup WC WebHelp    \adubois    P@ssw0rd    idsfigures_lowres_fr-FR
     WebHelp WC
 
 WebHelp WC German
-    [Setup]    Test Setup WC WebHelp    \webhelp_de    P@ssw0rd    idsfigures_lowres_de-DE
+    [Setup]    Test Setup WC WebHelp    \cmueller    P@ssw0rd    idsfigures_lowres_de-DE
     WebHelp WC
 
 WebHelp WC Spanish
-    [Setup]    Test Setup WC WebHelp    \webhelp_es    P@ssw0rd    idsfigures_lowres_es-ES
+    [Setup]    Test Setup WC WebHelp    \jgarcia    P@ssw0rd    idsfigures_lowres_es-ES
     WebHelp WC
 
 *** Keywords ***

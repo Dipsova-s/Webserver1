@@ -5,8 +5,6 @@ Screenshot "WC_How_to_filter_the_Angles" page
     Go to Search Page
     Crop Filter example2
 
-
-
 Crop Filter example
     Select Search Filter Angle
     Click Search Filter Is Validated

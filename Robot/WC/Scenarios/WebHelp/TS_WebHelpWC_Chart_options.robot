@@ -39,8 +39,6 @@ Crop Chart Data Field Area
 Crop Chart Display
     ${width}   ${height}    Get Element Size   css=#chart
     Crop WebHelp Image With Dimensions  WC_chart_dr.png  css=#chart   0  5   ${width}   ${height - 5}
-    Maximize Browser Window
-    Sleep    ${TIMEOUT_LARGEST}
 
 Crop Chart Sort Icon
     Mouse Over   jquery=#FieldListDataArea .fieldListAreaBody li:eq(1)

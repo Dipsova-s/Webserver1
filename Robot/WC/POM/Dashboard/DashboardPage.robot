@@ -29,6 +29,14 @@ Wait Dashboard Document Loaded
     Wait Until Page Initialized
     Wait Progress Bar Closed
     Wait Until Ajax Complete
+    Wait Dashboard Widgets Loaded
+
+Wait Dashboard Widgets Loaded
+    Sleep    ${TIMEOUT_LARGEST}
+    ${widgetCount}    Get Elements Count    ${divWidgets}
+    : FOR    ${INDEX}    IN RANGE    0    ${widgetCount}
+    \   Wait Until Page Does Not Contain Element    ${divWidgets}:eq(${INDEX}) .k-loading-mask
+    \   Sleep    ${TIMEOUT_GENERAL}
 
 Click Toggle the Dashboard
     Click Element   ${btnToggleDashboard}

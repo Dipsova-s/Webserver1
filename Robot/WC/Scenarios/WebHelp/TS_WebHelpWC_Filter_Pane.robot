@@ -30,15 +30,29 @@ Crop Business Process Filters
     Crop WebHelp Image    WC_IT_Icon.png     jquery=#facetcat_bp_Checkbox .label[alt="IT"]     ${False}
 
 Crop Item Type Filters
-    Crop WebHelp Image With Dimensions  WC_EA_filter.png  css=#facetcat_itemtype_Checkbox  34  9  60  20  ${False}
-    Crop WebHelp Image With Dimensions  WC_Template_filter.png  css=#facetcat_itemtype_Checkbox  34  34  80  20  ${False}
-    Crop WebHelp Image With Dimensions  WC_Dashboard_filter.png  css=#facetcat_itemtype_Checkbox  34  59  90  20  ${False}
+    ${sizes}   Execute JavaScript
+    ...     return [
+    ...         $('.label[alt="facet_angle"]').width() + 2,
+    ...         $('.label[alt="facet_template"]').width() + 2,
+    ...         $('.label[alt="facet_dashboard"]').width() + 2,
+    ...     ];
+    Crop WebHelp Image With Dimensions  WC_EA_filter.png  css=#facetcat_itemtype_Checkbox  34  9  @{sizes}[0]  20  ${False}
+    Crop WebHelp Image With Dimensions  WC_Template_filter.png  css=#facetcat_itemtype_Checkbox  34  34  @{sizes}[1]  20  ${False}
+    Crop WebHelp Image With Dimensions  WC_Dashboard_filter.png  css=#facetcat_itemtype_Checkbox  34  59  @{sizes}[2]  20  ${False}
 
 Crop Characteristic Filters
-    Crop WebHelp Image With Dimensions  WC_Private_filter.png  css=#facetcat_characteristics_Checkbox  34  9  65  20  ${False}
-    Crop WebHelp Image With Dimensions  WC_private_display.png  css=#facetcat_characteristics_Checkbox  34  34  110  20  ${False}
-    Crop WebHelp Image With Dimensions  WC_Validated_filter.png  css=#facetcat_characteristics_Checkbox  34  59  80  20  ${False}
-    Crop WebHelp Image With Dimensions  WC_Starred_filter.png  css=#facetcat_characteristics_Checkbox  34  84  70  20  ${False}
+    Execute JavaScript    $('#with_private_display').closest('li').show();
+    ${sizes}   Execute JavaScript
+    ...     return [
+    ...         $('.label[alt="facet_isprivate"]').width() + 2,
+    ...         $('.label[alt="with_private_display"]').width() + 2,
+    ...         $('.label[alt="facet_isvalidated"]').width() + 2,
+    ...         $('.label[alt="facet_isstarred"]').width() + 2
+    ...     ];
+    Crop WebHelp Image With Dimensions  WC_Private_filter.png  css=#facetcat_characteristics_Checkbox  34  9  @{sizes}[0]  20
+    Crop WebHelp Image With Dimensions  WC_private_display.png  css=#facetcat_characteristics_Checkbox  34  34  @{sizes}[1]  20
+    Crop WebHelp Image With Dimensions  WC_Validated_filter.png  css=#facetcat_characteristics_Checkbox  34  59  @{sizes}[2]  20
+    Crop WebHelp Image With Dimensions  WC_Starred_filter.png  css=#facetcat_characteristics_Checkbox  34  84  @{sizes}[3]  20
 
 Crop Additional Filters
     ${widthFilters}   ${heightFilters}      Get Element Size    css=#LeftMenu .facetFilter

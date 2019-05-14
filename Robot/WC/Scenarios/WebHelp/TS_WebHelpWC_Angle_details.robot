@@ -21,7 +21,8 @@ Screenshot "WC_Angle_details" page
     Close Field Chooser Popup
 
     Click Add Jump In Definition Tab
-    Click Select Jump by Name    Material
+    ${jump}    Get Localization Text    Material  Artikel  Material  Material  Article
+    Click Select Jump by Name    ${jump}
     Click Add Jump Button
     Crop Add Filter Before Jump Button
 

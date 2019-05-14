@@ -6,8 +6,12 @@ Screenshot "WC_Warnings_and_errors" page
     Select Search Filter Angle
     Select Search Filter Has Warning
 
+    Set Window Size    1300   ${WINDOW_HEIGHT}
+    Sleep    ${TIMEOUT_LARGEST}
     Crop Search Warning Result
     Crop Warning Icons
+    Maximize Browser window
+    Sleep    ${TIMEOUT_LARGEST}
 
     Set Hide Angle Warning In Facet Filters
 

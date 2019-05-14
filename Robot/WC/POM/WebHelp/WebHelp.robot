@@ -29,6 +29,16 @@ Get WebHelp Output Folder
     ${output}    Set Variable If   ${languageDependent} == True    ${WEB_HELP_LANGUAGE_OUTPUT}    ${WEB_HELP_OUTPUT}
     [Return]    ${output}
 
+Get Localization Text
+    [Arguments]    ${en}  ${nl}  ${de}  ${es}  ${fr}
+    ${language}    Get User Setting Language
+    ${text}   Set Variable If
+    ...   '${language}'=='nl'    ${nl}
+    ...   '${language}'=='de'    ${de}
+    ...   '${language}'=='es'    ${es}
+    ...   '${language}'=='fr'    ${fr}    ${en}
+    [Return]    ${text}
+
 Update Popup Position
     [Arguments]    ${selector}
     ${jQuerySelector}    Get JQuery Selector    ${selector}

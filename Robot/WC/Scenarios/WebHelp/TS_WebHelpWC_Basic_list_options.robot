@@ -4,8 +4,12 @@ Screenshot "WC_Basic_list_options" page
 
     Find Angle By ID Then Execute The First Angle    ${AngleId}
 
+    Set Window Size    1300   ${WINDOW_HEIGHT}
+    Sleep    ${TIMEOUT_LARGEST}
     Crop Remove List Display Column
     Crop Add New Column Button
+    Maximize Browser window
+    Sleep    ${TIMEOUT_LARGEST}
 
     Click Add New Column To List
     Crop Suggested Filter

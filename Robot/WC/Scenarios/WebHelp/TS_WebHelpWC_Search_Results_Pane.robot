@@ -3,7 +3,12 @@ Screenshot "WC_Search_Results_Pane" page
     Search Filter By Query String    sort=name&dir=asc&fq=facetcat_bp:(S2D)%20AND%20-facetcat_characteristics:(facet_has_warnings)
     Click Change View To Displays Mode
     
+    Set Window Size    1600   700
+    Sleep    ${TIMEOUT_LARGEST}
     Crop Search Result
+    Maximize Browser window
+    Sleep    ${TIMEOUT_LARGEST}
+
     Crop Search Result Icons
     Crop Display Type Icons
 
@@ -16,6 +21,9 @@ Crop Search Result
     Crop WebHelp Image With Dimensions    WC_Search_Result.png    css=#Content    0   0   ${width}    660
 
 Crop Search Result Icons
+    Execute JavaScript    $('#with_private_display').closest('li').show();
+    Crop WebHelp Image   WC_Private_Display_Icon.png   jquery=.label[alt="with_private_display"] img    ${False}
+
     Execute JavaScript    $('.SearchResult:first .SignFavoriteDisable,.SearchResult:first .SignFavorite').attr('class', 'SignFavorite').attr('style', 'width:22px;height:25px;background-position:center center;');
     Crop WebHelp Image   WC_Starred.png   jquery=.SearchResult:first .SignFavorite    ${False}
 
@@ -41,10 +49,14 @@ Crop Search Result Icons
     Crop WebHelp Image    WC_i_Icon.png   jquery=.SearchResult:first .ResultContent .btnInfo    ${False}
 
 Crop Display Type Icons
-    Execute JavaScript    $('.ResultView .icon.default').removeClass('default');
-    Crop WebHelp Image   WC_Table_Icon.png   jquery=.ResultView .icon.list:not(.default):eq(0)    ${False}
-    Crop WebHelp Image   WC_Graph_Icon.png   jquery=.ResultView .icon.chart:not(.default):eq(0)    ${False}
-    Crop WebHelp Image   WC_Pivot_Icon.png   jquery=.ResultView .icon.pivot:not(.default):eq(0)    ${False}
+    Execute JavaScript    $('.ResultView .icon:eq(0)').attr('class', 'icon list');
+    Crop WebHelp Image   WC_Table_Icon.png   jquery=.ResultView .icon:eq(0)    ${False}
+
+    Execute JavaScript    $('.ResultView .icon:eq(0)').attr('class', 'icon chart');
+    Crop WebHelp Image   WC_Graph_Icon.png   jquery=.ResultView .icon:eq(0)    ${False}
+
+    Execute JavaScript    $('.ResultView .icon:eq(0)').attr('class', 'icon pivot');
+    Crop WebHelp Image   WC_Pivot_Icon.png   jquery=.ResultView .icon:eq(0)    ${False}
 
 Crop Show Display Button
     ${left}    Execute JavaScript   return $('.ResultView').position().left+5;

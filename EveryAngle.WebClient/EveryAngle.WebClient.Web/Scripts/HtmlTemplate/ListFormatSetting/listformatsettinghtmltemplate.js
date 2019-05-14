@@ -42,7 +42,7 @@ var listFormatHtmlTemplate = function (dataType) {
     var listFormatHtmlTemplate = "<form>";
     listFormatHtmlTemplate += "<div class=\"FieldFormatList FieldFormatAlias\">";
     listFormatHtmlTemplate += "    <div class=\"row\">";
-    listFormatHtmlTemplate += "        <label class=\"field\">Name<\/label>";
+    listFormatHtmlTemplate += "        <label class=\"field\">" + Localization.Name + "<\/label>";
     listFormatHtmlTemplate += "        <div class=\"input\"><input id=\"AliasName\" type=\"text\" class=\"eaText eaTextSize40\" maxlength=\"255\" \/><\/div>";
     listFormatHtmlTemplate += "    <\/div>";
     listFormatHtmlTemplate += "<\/div>";
