@@ -1120,25 +1120,31 @@ function PivotPageHandler(elementId, container) {
 
         window[self.PivotId].__DoCallback = window[self.PivotId].DoCallback;
         window[self.PivotId].DoCallback = function (results) {
-            var matchCallbackArgs = results.match(/\/\*callback=(.+)\*\//);
-            if (matchCallbackArgs && matchCallbackArgs.length) {
-                this.CallbackArgument = matchCallbackArgs[matchCallbackArgs.length - 1];
-            }
-            else {
-                this.CallbackArgument = null;
-            }
-            if (this.CallbackArgument) {
-                if (this.CallbackArgument.indexOf(':VS|') !== -1) {
-                    if (!self.CachePages[this.CallbackArgument]) {
-                        self.CachePages[this.CallbackArgument] = results;
-                    }
+            try {
+                var matchCallbackArgs = results.match(/\/\*callback=(.+)\*\//);
+                if (matchCallbackArgs && matchCallbackArgs.length) {
+                    this.CallbackArgument = matchCallbackArgs[matchCallbackArgs.length - 1];
                 }
                 else {
-                    self.CachePages = {};
+                    this.CallbackArgument = null;
                 }
+                if (this.CallbackArgument) {
+                    if (this.CallbackArgument.indexOf(':VS|') !== -1) {
+                        if (!self.CachePages[this.CallbackArgument]) {
+                            self.CachePages[this.CallbackArgument] = results;
+                        }
+                    }
+                    else {
+                        self.CachePages = {};
+                    }
+                }
+                this.LastCallbackArgument = this.CallbackArgument;
+                this.__DoCallback(results);
             }
-            this.LastCallbackArgument = this.CallbackArgument;
-            this.__DoCallback(results);
+            catch (ex) {
+                // M4-61129: TC Pivot . Verify Pivot Display Drilldown Test Failes
+                // prevent error, timing issue, __DoCallback is called after drilldowned pivot
+            }
         };
     };
     self.CustomizeGetAreaLocation = function () {
