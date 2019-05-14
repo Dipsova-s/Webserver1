@@ -3,8 +3,14 @@ Screenshot "WC_Angle_results_page" page
     ${AngleId}    Set Variable    WEBHELP_WC_Angle_results_page
 
     Find Angle By ID Then Execute The First Angle    ${AngleId}
+
+    Set Window Size    1300   ${WINDOW_HEIGHT}
+    Sleep    ${TIMEOUT_LARGEST}
     
     Crop Angle Result Page
+
+    Maximize Browser window
+    Sleep    ${TIMEOUT_LARGEST}
 
 Crop Angle Result Page
     # Create 2 boxes

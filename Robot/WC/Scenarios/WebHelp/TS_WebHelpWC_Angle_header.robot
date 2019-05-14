@@ -4,6 +4,9 @@ Screenshot "WC_Angle_header" page
 
     Find Angle By ID Then Execute The First Angle    ${AngleId}
 
+    Set Window Size    1600   700
+    Sleep    ${TIMEOUT_LARGEST}
+
     Crop Angle Toggle Button
 
     Click Toggle Angle
@@ -13,6 +16,9 @@ Screenshot "WC_Angle_header" page
     Open Display Dropdown
     Crop Displays Dropdown
     Crop Delete Display Button
+
+    Maximize Browser window
+    Sleep    ${TIMEOUT_LARGEST}
 
 Crop Angle Toggle Button
     Crop WebHelp Image  WC_Expand_button.png  css=#ToggleAngle  ${False}

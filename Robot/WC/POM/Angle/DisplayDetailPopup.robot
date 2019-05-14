@@ -34,11 +34,8 @@ ${btnSubmitJumpConfirmation}      btn-popupNotification1
 *** Keywords ***
 Wait Display Detail Document Loaded
     Wait Until Ajax Complete
-    Wait Until Page Contains    Display details
-    Wait Until Page Contains    Save
-    Wait Until Page Contains    Cancel
-    Wait Until Element Is Visible    ${tabDisplayGeneral}
-    Wait Until Element Is Visible    ${tabDisplayFilterAndJumps}
+    Wait Until Page Contains Element    ${tabDisplayGeneral}
+    Wait Until Element Is Visible       ${tabDisplayGeneral}
 
 Close Display Detail Popup
     Wait Until Element Is Visible    ${btnCloseDisplayDetailPopup}

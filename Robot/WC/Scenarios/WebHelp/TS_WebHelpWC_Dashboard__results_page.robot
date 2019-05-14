@@ -5,7 +5,7 @@ Screenshot "WC_Dashboard__results_page" page
     Find Dashboard By ID Then Execute The First Dashboard    ${DashboardId}
 
     Set Window Size    1100   700
-    Sleep    ${TIMEOUT_LARGEST}
+    Sleep    3s
     Crop Dashboard Results
 
     Maximize Browser window

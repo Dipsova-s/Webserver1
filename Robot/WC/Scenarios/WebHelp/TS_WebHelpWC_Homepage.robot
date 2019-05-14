@@ -3,8 +3,14 @@ Screenshot "WC_Homepage" page
     Search Filter By Query String    sort=name&dir=asc&fq=facetcat_bp:(S2D)%20AND%20-facetcat_characteristics:(facet_has_warnings)
     Click Change View To Displays Mode
 
+    Set Window Size    1600   700
+    Sleep    ${TIMEOUT_LARGEST}
+
     Crop Logo
     Crop Panes Homepage
+
+    Maximize Browser window
+    Sleep    ${TIMEOUT_LARGEST}
 
 Crop Logo
     # the same image as WC_Action_Button_Logo.png

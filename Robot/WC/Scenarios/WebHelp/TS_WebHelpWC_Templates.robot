@@ -1,13 +1,14 @@
 *** Keywords ***
 Screenshot "WC_Templates" page
     ${AngleId}    Set Variable    WEBHELP_WC_Templates
-    
+
     Go to Search Page
 
     Click Search Business Process GRC
     Click Search Business Process S2D
     Click Search Filter Template
-    Search By Text          unposted
+    ${searchText}    Get Localization Text  unposted  niet-geboekte  unbebuchte  No Contabilizados  Non Imputées
+    Search By Text    ${searchText}
     Crop Template Unposted FI Docs
     
     Set Window Size    1300   700
