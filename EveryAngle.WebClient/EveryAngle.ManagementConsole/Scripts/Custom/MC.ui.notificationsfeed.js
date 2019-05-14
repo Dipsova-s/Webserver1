@@ -9,10 +9,7 @@
     MCNotificationsFeedModel.prototype.constructor = MCNotificationsFeedModel;
 
     MCNotificationsFeedModel.prototype.ConvertDateGmtToTimestamp = function (dateGmt) {
-        return dateGmt ? MC.util.localDateToUnixTimestamp(new Date(dateGmt)) : '';
-    };
-    MCNotificationsFeedModel.prototype.ConvertTimestampToLocalDate = function (timestamp) {
-        return MC.util.unixTimestampToDate(timestamp);
+        return MC.util.dateStringToTimestamp(dateGmt);
     };
 
     NotificationsFeedRepository.UserId = jQuery('#UserControlName').data('userid');

@@ -146,4 +146,21 @@
 
     });
 
+    describe("MC.util.dateStringToTimestamp", function () {
+
+        var tests = [
+            { testcase: 'should return timestamp correctly, when is not null', input: '2019-04-02T07:41:11', isNull: false },
+            { testcase: 'should return null, when is empty', input: '', isNull: true },
+            { testcase: 'should return null, when is null', input: null, isNull: true }
+        ];
+
+        $.each(tests, function (index, test) {
+            it(test.testcase, function () {
+                var result = MC.util.dateStringToTimestamp(test.input);
+                test.isNull ? expect(result).toBeNull() : expect(result).not.toBeNull();
+            });
+        });
+
+    });
+
 });

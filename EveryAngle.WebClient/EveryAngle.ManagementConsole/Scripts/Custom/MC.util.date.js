@@ -61,13 +61,10 @@
             }
         },
 
-        // date utilities
-        localDateToUnixTimestamp: function (localDate) {
-            var kendoDate = kendo.date.getDate(localDate);
-            return kendo.date.toUtcTime(kendoDate) / 1000;
-        },
-        unixTimestampToDate: function (unixTimestamp) {
-            return new Date(unixTimestamp * 1000);
+        dateStringToTimestamp: function (dateString) {
+            var date = new Date(dateString ? dateString : '');
+            var timestamp = kendo.date.toUtcTime(date);
+            return !isNaN(timestamp) ? timestamp / 1000 : null;
         },
 
         // display
