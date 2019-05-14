@@ -109,58 +109,67 @@ namespace EveryAngle.ManagementConsole.Controllers
         [AcceptVerbs(HttpVerbs.Post)]
         public void SaveAuthentication(string systemSettingsData, string authenticationProviderData)
         {
-            var version = SessionHelper.Version;
-            var SystemSettings = JsonConvert.DeserializeObject<SystemSettingViewModel>(systemSettingsData);
-            var updatedSystemSettings = (SystemSettingViewModel)SessionHelper.SystemSettings.Clone();
+            // income from GUI
+            SystemSettingViewModel inputSystemSettingsViewModel = JsonConvert.DeserializeObject<SystemSettingViewModel>(systemSettingsData);
+            List<SystemAuthenticationProviderViewModel> inputSystemAuthenticationProviders = JsonConvert.DeserializeObject<List<SystemAuthenticationProviderViewModel>>(authenticationProviderData);
 
-            //Update Authentication Provider on Grid
-            var existProviders = userService.GetSystemAuthenticationProviders(version.GetEntryByName("authentication_providers").Uri.ToString());
-            var updateSystemAuthenticationProvider = JsonConvert.DeserializeObject<List<SystemAuthenticationProviderViewModel>>(authenticationProviderData);
+            // old data from the system
+            VersionViewModel version = SessionHelper.Version;
+            IEnumerable<SystemAuthenticationProviderViewModel> existingSystemAuthenticationProviders = userService.GetSystemAuthenticationProviders(version.GetEntryByName("authentication_providers").Uri.ToString());
 
-            updateSystemAuthenticationProvider.ForEach(provider =>
-            {
-                var existProviderItem = existProviders.FirstOrDefault(s => s.Uri.ToString() == provider.Uri.AbsolutePath.TrimStart('/'));
-
-                existProviderItem.IsEnabled = provider.IsEnabled;
-                if (SystemSettings.DefaultAuthenticationProvider.Contains(provider.Uri.ToString()))
+            // contract resolvers
+            CleanUpPropertiesResolver systemAuthenticationProviderContractResolver = new CleanUpPropertiesResolver(new List<string>
                 {
-                    existProviderItem.IsEnabled = true;
+                    "id", "uri", "type", "sync_roles_to_groups", "users", "user_groups", "mandatory_groups"
+                });
+
+            #region update system authentication providers
+            inputSystemAuthenticationProviders.ForEach(provider =>
+            {
+                SystemAuthenticationProviderViewModel existingProviderItem = existingSystemAuthenticationProviders.FirstOrDefault(s => provider.Uri.AbsolutePath.TrimStart('/').Equals(s.Uri.ToString(), StringComparison.InvariantCultureIgnoreCase));
+
+                existingProviderItem.IsEnabled = provider.IsEnabled;
+                if (inputSystemSettingsViewModel.DefaultAuthenticationProvider.Contains(provider.Uri.ToString()))
+                {
+                    existingProviderItem.IsEnabled = true;
                 }
 
-                userService.UpdateAuthentication(provider.Uri.AbsolutePath.TrimStart('/').ToString(),
-                    JsonConvert.SerializeObject(existProviderItem, new JsonSerializerSettings
-                    {
-                        ContractResolver =
-                            new CleanUpPropertiesResolver(new List<string>
-                            {
-                                "id",
-                                "uri",
-                                "type",
-                                "sync_roles_to_groups",
-                                "users",
-                                "user_groups",
-                                "mandatory_groups"
-                            })
-                    }));
+                string existingProviderItemAsString = JsonConvert.SerializeObject(existingProviderItem, new JsonSerializerSettings
+                {
+                    ContractResolver = systemAuthenticationProviderContractResolver
+                });
+
+                userService.UpdateAuthentication(provider.Uri.AbsolutePath.TrimStart('/').ToString(), existingProviderItemAsString);
+            });
+            #endregion
+
+            #region update system settings
+            string existingSystemSettingsViewModelAsString = GetAuthenticationSystemSettingsAsJsonString(SessionHelper, inputSystemSettingsViewModel);
+
+            SystemSettingViewModel systemSettingsUpdatedViewModel = globalSettingService.UpdateSystemSetting(version.GetEntryByName("system_settings").Uri.ToString(), existingSystemSettingsViewModelAsString);
+            #endregion
+
+            SessionHelper.ReloadSystemSetting(systemSettingsUpdatedViewModel);
+        }
+
+        public string GetAuthenticationSystemSettingsAsJsonString(SessionHelper helper, SystemSettingViewModel inputSystemSettingsViewModel)
+        {
+            SystemSettingViewModel existingSystemSettingsViewModel = (SystemSettingViewModel)helper.SystemSettings.Clone();
+
+            AcceptancePropertiesResolver systemSettingsContractResolver = new AcceptancePropertiesResolver(new List<string>
+                {
+                    "trusted_webservers", "default_authentication_provider"
+                });
+
+            existingSystemSettingsViewModel.DefaultAuthenticationProvider = inputSystemSettingsViewModel.DefaultAuthenticationProvider;
+            existingSystemSettingsViewModel.trusted_webservers = inputSystemSettingsViewModel.trusted_webservers;
+
+            string existingSystemSettingsViewModelAsString = JsonConvert.SerializeObject(existingSystemSettingsViewModel, new JsonSerializerSettings
+            {
+                ContractResolver = systemSettingsContractResolver
             });
 
-
-            //Update System Setting
-            List<string> cleanupProperties = new List<string>
-            {
-                "remote_certificates"
-            };
-            if (!SessionHelper.Info.AngleAutomation)
-                cleanupProperties.Add("script_location");
-            updatedSystemSettings.DefaultAuthenticationProvider = SystemSettings.DefaultAuthenticationProvider;
-            updatedSystemSettings.trusted_webservers = SystemSettings.trusted_webservers;
-            var savedSystemSettings = globalSettingService.UpdateSystemSetting(version.GetEntryByName("system_settings").Uri.ToString(),
-                                        JsonConvert.SerializeObject(updatedSystemSettings, new JsonSerializerSettings
-                                        {
-                                            ContractResolver = new CleanUpPropertiesResolver(cleanupProperties)
-                                        }));
-
-            SessionHelper.ReloadSystemSetting(savedSystemSettings);
+            return existingSystemSettingsViewModelAsString;
         }
 
         [AcceptVerbs(HttpVerbs.Post)]
