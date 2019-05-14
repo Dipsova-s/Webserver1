@@ -30,6 +30,7 @@
         self.GetFieldDomainUri = '';
         self.WebClientAngleUrl = '';
         self.VerifyModelPriviledgeUri = '';
+        self.IsTaskActionsSorted = false;
 
         self.InitialAllTasks = function (data) {
 
@@ -579,6 +580,7 @@
             });
 
             MC.util.sortableGrid('#TaskActionsGrid', function () {
+                self.IsTaskActionsSorted = true;
                 var taskActionsGrid = jQuery('#TaskActionsGrid').data("kendoGrid");
                 jQuery.each(taskActionsGrid.items(), function (index, action) {
                     var uid = jQuery(action).data("uid");
@@ -2361,6 +2363,7 @@
             var datasource = kendoGrid.dataSource;
             var data = self.GetActionData();
             data.order = datasource.data().length;
+            data.is_edited = true;
             datasource.add(data);
 
             var win = $('#AddActionPopup').data('kendoWindow');
@@ -2382,6 +2385,7 @@
             dataItem.set("approval_state", data.approval_state);
             dataItem.set('notification', data.notification);
             dataItem.set('arguments', data.arguments);
+            dataItem.set('is_edited', true);
 
             var win = $('#AddActionPopup').data('kendoWindow');
             win.close();
@@ -2538,7 +2542,7 @@
             if (!taskActionsGrid)
                 return data;
 
-            var sortIndex = 0;
+            var sortIndex = -1;
             $.each(taskActionsGrid.items(), function (index, task) {
                 task = $(task);
                 var dataItem = taskActionsGrid.dataSource.getByUid(task.data('uid'));
@@ -2553,6 +2557,13 @@
                     }
                 }
                 else {
+                    sortIndex++;
+
+                    if (!self.IsTaskActionsSorted && !dataItem.is_edited) {
+                        // skip to adding task actions if it unsort or unedited
+                        return true;
+                    }
+
                     var notification = dataItem.notification;
                     if (notification) {
                         if (!notification.recipients.length) {
@@ -2571,7 +2582,6 @@
                         "Uri": dataItem.uri,
                         "order": sortIndex
                     };
-                    sortIndex++;
 
                     data.actions.push(action);
                 }
