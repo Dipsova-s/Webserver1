@@ -51,6 +51,7 @@
             self.GetFieldsUri = '';
             self.CopyTaskUri = '';
             self.VerifyModelPriviledgeUri = '';
+            self.IsTaskActionsSorted = false;
 
             jQuery.extend(self, data || {});
 
