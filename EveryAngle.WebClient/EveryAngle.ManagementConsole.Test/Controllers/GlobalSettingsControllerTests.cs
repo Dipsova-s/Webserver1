@@ -1,4 +1,5 @@
-﻿using EveryAngle.ManagementConsole.Controllers;
+﻿using EveryAngle.Core.ViewModels.SystemSettings;
+using EveryAngle.ManagementConsole.Controllers;
 using Newtonsoft.Json;
 using NUnit.Framework;
 using System.Configuration;
@@ -47,6 +48,19 @@ namespace EveryAngle.ManagementConsole.Test.Controllers
 
             Assert.AreEqual("Forbidden", result.reason);
             Assert.AreEqual("Access to the requested path denied", result.message);
+        }
+
+        [Test]
+        public void GetAuthenticationSystemSettingsAsJsonString_ShouldReturnCorrectJsonString_WhenItHasBeenUsed()
+        {
+            _testingController = GetController();
+            SystemSettingViewModel viewModel = new SystemSettingViewModel();
+            viewModel.DefaultAuthenticationProvider = "everyangle";
+            viewModel.trusted_webservers = new System.Collections.Generic.List<string> { "192.168.1.1", "127.0.0.1" };
+
+            string result = _testingController.GetAuthenticationSystemSettingsAsJsonString(sessionHelper.Object, viewModel);
+
+            Assert.AreEqual("{\"trusted_webservers\":[\"192.168.1.1\",\"127.0.0.1\"],\"default_authentication_provider\":\"everyangle\"}", result);
         }
 
         #endregion

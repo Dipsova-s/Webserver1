@@ -238,4 +238,22 @@ namespace EveryAngle.WebClient.Service
 
         }
     }
+
+    public class AcceptancePropertiesResolver : DefaultContractResolver
+    {
+        private readonly IList<string> _acceptanceProperties;
+        public AcceptancePropertiesResolver(IList<string> acceptanceProperties)
+        {
+            _acceptanceProperties = acceptanceProperties;
+        }
+
+        protected override IList<JsonProperty> CreateProperties(Type type, MemberSerialization memberSerialization)
+        {
+            IList<JsonProperty> jsonProperties = base.CreateProperties(type, memberSerialization);
+            IList<JsonProperty> acceptanceJsonProperties = jsonProperties.Where(x => _acceptanceProperties.Contains(x.PropertyName)).ToList();
+
+            return acceptanceJsonProperties;
+        }
+    }
+
 }
