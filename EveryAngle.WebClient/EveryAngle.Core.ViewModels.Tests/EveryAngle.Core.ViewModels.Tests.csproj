@@ -63,6 +63,7 @@
     <Compile Include="EAPackage\PackageViewModelTest.cs" />
     <Compile Include="EAPackage\ActivePackageQueryViewModelTest.cs" />
     <Compile Include="EAPackage\ExportPackageQueryViewModelTest.cs" />
+    <Compile Include="Kendo\MultiSelect\RoleKendoMultiSelectViewModelTest.cs" />
     <Compile Include="Model\ModelSiteMapViewModelTest.cs" />
     <Compile Include="Model\ActionListViewModelTest.cs">
       <SubType>Code</SubType>
