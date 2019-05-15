@@ -29,6 +29,7 @@
         self.GetFieldSourceUri = '';
         self.GetFieldDomainUri = '';
         self.WebClientAngleUrl = '';
+        self.IsTaskActionsSorted = false;
 
         self.TASK_TYPES = {
             EVENT: 'event',
@@ -53,6 +54,7 @@
             self.TasksActionsUri = '';
             self.CheckTaskActionUri = '';
             self.GetFieldsUri = '';
+            self.IsTaskActionsSorted = false;
             jQuery.extend(self, data || {});
 
             setTimeout(function () {
@@ -510,6 +512,7 @@
             });
 
             MC.util.sortableGrid('#TaskActionsGrid', function () {
+                self.IsTaskActionsSorted = true;
                 var taskActionsGrid = jQuery('#TaskActionsGrid').data("kendoGrid");
                 jQuery.each(taskActionsGrid.items(), function (index, action) {
                     var uid = jQuery(action).data("uid");
@@ -2064,6 +2067,7 @@
             var datasource = kendoGrid.dataSource;
             var data = self.GetActionData();
             data.order = datasource.data().length;
+            data.is_edited = true;
             datasource.add(data);
 
             var win = $('#AddActionPopup').data('kendoWindow');
@@ -2092,6 +2096,7 @@
             dataItem.set("approval_state", data.approval_state);
             dataItem.set('notification', data.notification);
             dataItem.set('arguments', data.arguments);
+            dataItem.set('is_edited', true);
 
             var win = $('#AddActionPopup').data('kendoWindow');
             win.close();
@@ -2275,8 +2280,8 @@
             var actionsDelete = [];
             var taskActionsGrid = $('#TaskActionsGrid').data('kendoGrid');
             if (taskActionsGrid) {
-                var sortIndex = 0;
-                taskActionsGrid.items().each(function (index, task) {
+                var sortIndex = -1;
+                jQuery.each(taskActionsGrid.items(), function (index, task) {
                     task = $(task);
                     var dataItem = taskActionsGrid.dataSource.getByUid(task.data('uid'));
                     if (dataItem) {
@@ -2284,6 +2289,13 @@
                             actionsDelete.push(dataItem.uri);
                         }
                         else {
+                            sortIndex++;
+
+                            if (!self.IsTaskActionsSorted && !dataItem.is_edited) {
+                                // skip to adding task actions if it unsort or unedited
+                                return true;
+                            }
+
                             var notification = dataItem.notification;
                             if (notification) {
                                 if (!notification.subject || !notification.recipients.length || !notification.body) {
@@ -2319,7 +2331,6 @@
                                 "Uri": dataItem.uri,
                                 "order": sortIndex
                             };
-                            sortIndex++;
 
                             switch (dataItem.condition_name) {
                                 case Localization.MC_Exactly:

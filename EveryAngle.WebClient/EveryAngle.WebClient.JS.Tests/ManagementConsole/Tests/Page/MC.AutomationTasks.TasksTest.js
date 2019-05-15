@@ -262,4 +262,57 @@ describe("MC.AutomationTasks.Tasks => Task get correct argument data for executi
 
     });
 
+    describe("call GetData", function () {
+
+        var uid;
+        var dataItems = {
+            1: { is_edited: false },
+            2: { is_edited: false },
+            3: { is_edited: true }
+        };
+
+        beforeEach(function () {
+            uid = 0;
+            automationTask.IsTaskActionsSorted = false;
+            spyOn(automationTask, 'GetTaskData').and.returnValue({});
+            spyOn(jQuery.fn, 'hasClass').and.returnValue(false);
+            spyOn(jQuery.fn, 'data').and.callFake(function (dataId) {
+                if (dataId === 'uid') {
+                    uid++;
+                    return uid;
+                }
+                else if (dataId === 'kendoGrid') {
+                    return {
+                        items: function () {
+                            var items = [];
+                            for (var i = 0; i < Object.keys(dataItems).length; i++) {
+                                items.push(i);
+                            }
+                            return items;
+                        },
+                        dataSource: {
+                            getByUid: function (uid) {
+                                return dataItems[uid];
+                            }
+                        }
+                    };
+                }
+            });
+        });
+
+        it("should PUT task action(s) that only contains 'is_edited'", function () {
+            var result = automationTask.GetData();
+            expect(result.actions.length).toEqual(1);
+
+            // verify sort index as well
+            expect(result.actions[0].order).toEqual(2);
+        });
+        it("should PUT all task actions when task action has the sorting", function () {
+            automationTask.IsTaskActionsSorted = true;
+            var result = automationTask.GetData();
+            expect(result.actions.length).toEqual(3);
+        });
+
+    });
+
 });
