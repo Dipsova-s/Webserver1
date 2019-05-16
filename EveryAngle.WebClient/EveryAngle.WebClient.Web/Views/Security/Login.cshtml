@@ -23,8 +23,6 @@
     <link rel="shortcut icon" href="@Url.Content("~/images/favicon.ico")" />
     <script type="text/javascript">
         var webLanguage = '@Thread.CurrentThread.CurrentUICulture.TwoLetterISOLanguageName';
-        var webAPIUrl = '@EveryAngle.Shared.Helpers.UrlHelper.GetRequestUrl(EveryAngle.Shared.Helpers.URLType.NOA)';
-        var webLoginUrl = '@EveryAngle.Shared.Helpers.UrlHelper.GetRequestUrl(EveryAngle.Shared.Helpers.URLType.HBA)';
         var ajaxTimeoutExpirationInSeconds = parseInt('@EveryAngle.Shared.Helpers.WebConfigHelper.GetAppSettingByKey("Ajax-Timeout-Expiration-In-Seconds")', 10);
         var webApiVersion = '@EveryAngle.Shared.Helpers.WebConfigHelper.GetAppSettingByKey("WebApiVersion")';
         var imageFolderPath = '@Url.Content("~/images/").ToLower()';

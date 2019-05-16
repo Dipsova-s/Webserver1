@@ -146,7 +146,7 @@
                 return rootWebsitePath + 'api/session/';
             }
             else {
-                return rootWebsitePath + 'api/proxy/' + originalUrl.replace(webAPIUrl, '').replace('//', '/');
+                return rootWebsitePath + 'api/proxy/' + originalUrl.replace('//', '/');
             }
         };
 

@@ -569,9 +569,7 @@ function Authentication() {
             }
         }
         else {
-            var parser = document.createElement('a');
-            parser.href = webAPIUrl;
-            errorMessage = 'Application server \'' + parser.host + '\' could not be reached';
+            errorMessage = 'Application server could not be reached';
         }
 
         return errorMessage;
