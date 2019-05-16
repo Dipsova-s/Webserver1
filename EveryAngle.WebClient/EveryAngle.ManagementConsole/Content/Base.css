@@ -596,6 +596,20 @@ div.tagsinput .not_valid {
     background-position: -48px -16px;
 }
 
+.k-multiselect .k-button.readonly {
+    padding-right: .4em;
+    cursor: not-allowed;
+    background-color: #fff;
+    opacity: .5;
+}
+.k-multiselect .k-button.readonly:active{
+    border-color: #c5c5c5;
+    color: #2e2e2e;
+}
+.k-multiselect .k-button.readonly .k-i-close {
+    display: none;
+}
+
 .k-multiselect .k-multiselect-wrap,
 .k-multiselect.k-state-border-down .k-multiselect-wrap {
     position: relative;

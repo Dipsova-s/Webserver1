@@ -64,7 +64,8 @@
     <Compile Include="EAPackage\PackageViewModelTest.cs" />
     <Compile Include="EAPackage\ActivePackageQueryViewModelTest.cs" />
     <Compile Include="EAPackage\ExportPackageQueryViewModelTest.cs" />
-    <Compile Include="ModelServer\ModelServerViewModelTest.cs" />
+    <Compile Include="Kendo\MultiSelect\RoleKendoMultiSelectViewModelTest.cs" />
+    <Compile Include="Model\ModelSiteMapViewModelTest.cs" />
     <Compile Include="Model\ActionListViewModelTest.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -74,7 +75,6 @@
     <Compile Include="Model\FacetViewModelTest.cs" />
     <Compile Include="Model\FieldDomainViewModelTest.cs" />
     <Compile Include="Model\FieldViewModelTest.cs" />
-    <Compile Include="Model\ModelSiteMapViewModelTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SystemSettings\SystemSettingViewModelTest.cs" />
     <Compile Include="UnitTestBase.cs" />
