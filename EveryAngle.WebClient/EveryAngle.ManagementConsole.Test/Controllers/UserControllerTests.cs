@@ -14,15 +14,14 @@ using System;
 using System.Linq;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Dynamic;
 using System.Web.Mvc;
 using Newtonsoft.Json;
-using EveryAngle.Shared.Helpers;
 using EveryAngle.ManagementConsole.Models;
 using System.Web;
 using EveryAngle.Core.ViewModels.Label;
 using EveryAngle.Core.ViewModels.BusinessProcesses;
 using EveryAngle.Core.ViewModels.SystemCurrencies;
+using EveryAngle.Core.ViewModels.Kendo;
 
 namespace EveryAngle.ManagementConsole.Test.Controllers
 {
@@ -172,11 +171,13 @@ namespace EveryAngle.ManagementConsole.Test.Controllers
 
             // execute
             ActionResult result = _testingController.GetNewUsers(fullUsersUri);
+            var defaultRoles = JsonConvert.DeserializeObject<IList<KendoMultiSelectViewModel>>(_testingController.ViewData["DefaultRoles"] as string);
+            var systemRoles = JsonConvert.DeserializeObject<IList<KendoMultiSelectViewModel>>(_testingController.ViewData["SystemRoles"] as string);
 
             // assert
-            Assert.AreEqual(expectedDefaultRoles, _testingController.ViewBag.DefaultRoles.Count);
-            Assert.AreEqual(expectedSystemRoles, _testingController.ViewBag.SystemRoles.Count);
-            Assert.AreEqual(fullUsersUri, _testingController.ViewBag.SystemAuthenticationProviderUri);
+            Assert.AreEqual(expectedDefaultRoles, defaultRoles.Count);
+            Assert.AreEqual(expectedSystemRoles, systemRoles.Count);
+            Assert.AreEqual(fullUsersUri, _testingController.ViewData["SystemAuthenticationProviderUri"] as string);
         }
 
         [TestCase("/system/authenticationproviders/1")]
@@ -262,12 +263,20 @@ namespace EveryAngle.ManagementConsole.Test.Controllers
 
             // execute
             JsonResult result = _testingController.GetRolesID() as JsonResult;
-            List<dynamic> dataSourceResult = result.Data as List<dynamic>;
-            
+            var dataSourceResult = result.Data as List<RoleKendoMultiSelectViewModel>;
+
             // assert
-            Assert.AreEqual(JsonConvert.SerializeObject(new { Text = "SYSTEM_ALL", Value = "SYSTEM_ALL", Tooltip = "System role" }), JsonConvert.SerializeObject(dataSourceResult[0]));
-            Assert.AreEqual(JsonConvert.SerializeObject(new { Text = "EA2_800_ALL", Value = "EA2_800:EA2_800_ALL", Tooltip = "EA2_800 model role" }), JsonConvert.SerializeObject(dataSourceResult[1]));
-            Assert.AreEqual(JsonConvert.SerializeObject(new { Text = "EA2_800_BASIC", Value = "EA2_800:EA2_800_BASIC", Tooltip = "EA2_800 model role" }), JsonConvert.SerializeObject(dataSourceResult[2]));
+            Assert.AreEqual("SYSTEM_ALL", dataSourceResult[0].Text);
+            Assert.AreEqual("EA2_800_ALL", dataSourceResult[1].Text);
+            Assert.AreEqual("EA2_800_BASIC", dataSourceResult[2].Text);
+
+            Assert.AreEqual("SYSTEM_ALL", dataSourceResult[0].Value);
+            Assert.AreEqual("EA2_800:EA2_800_ALL", dataSourceResult[1].Value);
+            Assert.AreEqual("EA2_800:EA2_800_BASIC", dataSourceResult[2].Value);
+
+            Assert.AreEqual("System role", dataSourceResult[0].Tooltip);
+            Assert.AreEqual("EA2_800 model role", dataSourceResult[1].Tooltip);
+            Assert.AreEqual("EA2_800 model role", dataSourceResult[2].Tooltip);
         }
 
         [TestCase("")]

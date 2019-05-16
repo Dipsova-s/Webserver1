@@ -86,6 +86,7 @@
     <Compile Include="HeaderViewModel.cs" />
     <Compile Include="EAPackage\ExportDownloadPackageViewModel.cs" />
     <Compile Include="Item\ItemViewModel.cs" />
+    <Compile Include="Kendo\MultiSelect\KendoMultiSelectViewModel.cs" />
     <Compile Include="LabelCategory\LabelCategoryViewModel.cs" />
     <Compile Include="Label\LabelViewModel.cs" />
     <Compile Include="ListViewModel.cs" />
@@ -139,6 +140,7 @@
     <Compile Include="Users\FieldAuthorizationViewModel.cs" />
     <Compile Include="Users\ObjectFilterViewModel.cs" />
     <Compile Include="Users\PropertyName.cs" />
+    <Compile Include="Kendo\MultiSelect\RoleKendoMultiSelectViewModel.cs" />
     <Compile Include="Users\SessionViewModel.cs" />
     <Compile Include="Users\SystemAuthenticationProviderViewModel.cs" />
     <Compile Include="Users\SystemRoleViewModel.cs" />

@@ -1,6 +1,7 @@
 ﻿@using EveryAngle.ManagementConsole.Models
 @using EveryAngle.ManagementConsole.Helpers
 @using EveryAngle.Shared.Globalization
+@using EveryAngle.Core.ViewModels.Kendo
 
 <script>
     MC.util.loadScript({
@@ -39,18 +40,15 @@
         <div class="contentSectionInfoItem contentSectionInfoItemRole">
             <label>@Resource.MC_SetRoles</label>
             <p>
-                @(Html.Kendo().MultiSelect()
-                .Name("UserRoles")             
-                .DataValueField("Value")     
-                .DataTextField("Text") 
-                .ItemTemplate("<span data-tooltip-title=\"#: Tooltip #\">#: Text # </span>")
-                .TagTemplate("<span title=\"#: Tooltip #\">#: Text #</span>")
-                .Value(ViewBag.DefaultRoles)
-                .BindTo(ViewBag.SystemRoles))
+                <select id="UserRoles" multiple="multiple" name="UserRoles" 
+                        data-datasource="@ViewData["SystemRoles"]" 
+                        data-value="@ViewData["DefaultRoles"]" 
+                        style="display: none">
+                </select>
             </p>
         </div>
     </div>
 
-    @{Html.RenderAction("RenderImportUserGrid", "Users", new { uri = ViewBag.SystemAuthenticationProviderUri });}
+    @{Html.RenderAction("RenderImportUserGrid", "Users", new { uri = ViewData["SystemAuthenticationProviderUri"] });}
 </div>
 <!--/.content-->
