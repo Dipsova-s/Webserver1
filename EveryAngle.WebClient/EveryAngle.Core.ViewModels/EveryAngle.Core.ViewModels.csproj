@@ -78,6 +78,7 @@
     <Compile Include="DataTransferObject\BarGraphData.cs" />
     <Compile Include="EAPackage\ExportPackageQueryViewModel.cs" />
     <Compile Include="EAPackage\ExportPackageModelViewModel.cs" />
+    <Compile Include="EAPackage\ImportPackageResultViewModel.cs" />
     <Compile Include="EAPackage\ImportResultViewModel.cs" />
     <Compile Include="EAPackage\PackageViewModel.cs" />
     <Compile Include="EAPackage\ActivePackageQueryViewModel.cs" />

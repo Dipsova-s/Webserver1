@@ -547,8 +547,12 @@ function DashboardDetailsHandler() {
         var numberOfValidWidgets = 0;
         var numberOfPrivateDisplay = 0;
         jQuery.each(self.Model.Data().widget_definitions, function (index, widget) {
-            var display = widget.GetDisplay();
             var angle = widget.GetAngle();
+            var display = widget.GetDisplay();
+
+            // skip
+            if (!angle || !display)
+                return true;
 
             if (!display.is_public) {
                 numberOfPrivateDisplay++;
@@ -810,7 +814,7 @@ function DashboardDetailsHandler() {
                     id: widgetId,
                     selected: ko.observable("{}"),
                     displays: ko.observableArray([]),
-                    widget_name: ko.observable(''),
+                    widget_name: ko.observable(widgetId),
                     default_name: widget.name(),
                     is_readonly: dashboardModel.CanUpdateDashboard('widget_definitions'),
                     angle_name: '',

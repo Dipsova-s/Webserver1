@@ -459,6 +459,11 @@ Get Number Of Search Results
     ${itemCount}    Execute Javascript     return parseInt($('#${lblSearchTotal}').text())
     [return]   ${itemCount}
 
+Number Of Search Results Should Be
+    [Arguments]    ${expected}
+    ${count}    Get Number Of Search Results
+    Should Be True    ${count} == ${expected}
+
 Get Number Display Of Selected Item From Search Result
     ${displayNumber}    Get Elements Count     ${btnDisplaysSelectedItem}
     [Return]    ${displayNumber}

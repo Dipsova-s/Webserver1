@@ -2,7 +2,8 @@
 ${divItemInfoPopup}                 css=#popupImportAngle
 ${ddlModelImportAngle}              css=#ddlModelImportAngle_ddlWrapper
 ${fileUploadAngles}                 css=#ImportAngle
-${btnCloseUploadanglesReport}       jquery=.popupCompleteUploadReport .k-link:contains(Close)
+${divPopupUploadReport}             css=#popupCompleteUploadReport
+${btnCloseUploadAnglesReport}       jquery=.popupCompleteUploadReport .k-i-close
 
 *** Keywords ***
 Wait Upload Angles Popup Loaded
@@ -13,12 +14,17 @@ Select Model To Upload
     [Arguments]    ${modelName}
     Select Dropdown By Text    ${ddlModelImportAngle}    ${modelName}
 
-Select Angle Json File
-    [Arguments]    ${angleJsonFilename}
-    Choose File    ${fileUploadAngles}    ${EXECDIR}/resources/${angleJsonFilename}
+Select Upload Item File
+    [Arguments]    ${filename}
+    Choose File    ${fileUploadAngles}    ${EXECDIR}/resources/${filename}
 
-Wait Upload Angles Successful
-    [Arguments]    ${angleName}
-    Wait Until Page Contains    Upload Angles successful
-    Click Element    ${btnCloseUploadanglesReport}
-    Check Existing Angle From Search Result    ${angleName}
+Wait Upload Items Successful
+    Wait Until Page Contains Element    ${btnCloseUploadAnglesReport}
+    Sleep    3s
+
+Close Upload Item Report Popup
+    Click Element    ${btnCloseUploadAnglesReport}
+
+Upload Item Report Should Contain
+    [Arguments]   ${text}
+    Element Should Contain   ${divPopupUploadReport}  ${text}

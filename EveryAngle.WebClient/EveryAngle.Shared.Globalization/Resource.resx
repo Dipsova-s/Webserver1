@@ -6074,4 +6074,13 @@ Only Active Directory (AD) and Active Directory Federation (ADFS) services are s
   <data name="AngleExport_TypePackage_Both_Private" xml:space="preserve">
     <value>Package download is not available, because the selection contains private items.</value>
   </data>
+  <data name="UploadAngles_ItemPackageReportTitle" xml:space="preserve">
+    <value>{0} (Angles: {1}/{2}, Dashboards: {3}/{4})</value>
+  </data>
+  <data name="UploadAngles_ItemPackageDashboardsExceedMaximum" xml:space="preserve">
+    <value>Dashboards exceed maximum number of Angles on Dashboard</value>
+  </data>
+  <data name="UploadAngles_ItemPackageSourceInvalid" xml:space="preserve">
+    <value>Invalid package source, only Webclient packages can be uploaded</value>
+  </data>
 </root>
