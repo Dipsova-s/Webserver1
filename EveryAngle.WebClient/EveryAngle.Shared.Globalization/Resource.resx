@@ -4837,99 +4837,127 @@ Are you sure you want to delete this role?</value>
     <value>Scheduled</value>
   </data>
   <data name="MC_SystemSettingsHelpActiveDirectorySizeLimit" xml:space="preserve">
-    <value>Maximum number of users or user groups that are returned when querying an authentication provider. Value may not exceed 999.</value>
+    <value>The maximum number of users or user groups that are returned when querying an authentication provider. 
+&lt;br&gt;
+The number of users may be very large. Therefore, use this setting to limit the number of users requested per query to keep the load under control.
+&lt;br&gt;
+The value may not exceed 999.</value>
   </data>
   <data name="MC_SystemSettingsHelpCheckExpiredSessionsMinutes" xml:space="preserve">
-    <value>Sessions will expire if no request is received within this time.</value>
+    <value>The number of minutes after which the system will check if there are any inactive sessions. 
+&lt;br&gt;
+Example&lt;br&gt;
+If you set this setting to 2 minutes and the 'Session timeout' to 5 minutes, the system will check every 2 minutes if a session has been inactive for more than 5 minutes.</value>
   </data>
   <data name="MC_SystemSettingsHelpDefaultExportMaxPageSize" xml:space="preserve">
-    <value>Maximum page size while exporting (Value may not exceed 999999).</value>
+    <value>The maximum page size used when exporting to Excel or CSV.
+&lt;br&gt;
+The value may not exceed 999999.</value>
   </data>
   <data name="MC_SystemSettingsHelpDefaultCacheMinutes" xml:space="preserve">
-    <value>Default time for cached items to remain valid.</value>
+    <value>The default time in minutes during which cached items remain valid. After this time, cached items will be removed from cache and will have to be loaded again.</value>
   </data>
   <data name="MC_SystemSettingsHelpDefaultPageSize" xml:space="preserve">
-    <value>The default number of items returned when a list is requested.</value>
+    <value>The default number of rows that is fetched when no page size is specified by the Application Server. You can leave this at its default value of 30.</value>
   </data>
   <data name="MC_SystemSettingsHelpEmailPassword" xml:space="preserve">
     <value>This password will be used when the SMTP server requires authentication.</value>
   </data>
   <data name="MC_SystemSettingsHelpEmailSmtpPort" xml:space="preserve">
-    <value>Port of the SMTP server.</value>
+    <value>The port number of the SMTP server.</value>
   </data>
   <data name="MC_SystemSettingsHelpEmailSmtpSender" xml:space="preserve">
-    <value>Sender of the SMTP server.</value>
+    <value>The email address of the sender of the SMTP server.</value>
   </data>
   <data name="MC_SystemSettingsHelpEmailSmtpServer" xml:space="preserve">
-    <value>Address of the SMTP server.</value>
+    <value>The Fully qualified domain name (FQDN) of the SMTP server.</value>
   </data>
   <data name="MC_SystemSettingsHelpEmailSmtpUseSsl" xml:space="preserve">
-    <value>Indicates whether SSL will be enabled.</value>
+    <value>Check this field to enable SSL.
+&lt;br&gt;
+When selected, the Application Server will connect to the SMTP server using the SSL protocol, which means authentication is done securely based on certificates.</value>
   </data>
   <data name="MC_SystemSettingsHelpEmailUsername" xml:space="preserve">
     <value>This username will be used when the SMTP server requires authentication.</value>
   </data>
   <data name="MC_SystemSettingsHelpInstancesPerModel" xml:space="preserve">
-    <value>Number of instances that are kept as a history. If this number of instances is reached the import of a new instance will cause the instance with the least recent modeldata_timestamp to be automatically deleted.</value>
+    <value>The number of model instances that are kept in the database (as history). 
+&lt;br&gt;
+When this number of instances is reached, the import of a new instance will cause the instance with the oldest modeldata_timestamp to be automatically deleted.</value>
   </data>
   <data name="MC_SystemSettingsHelpMaxDomainElementsSearch" xml:space="preserve">
-    <value>Maximum number of domain size for search.</value>
+    <value>This setting is related to fields of type 'set' in the field chooser and determines how many elements (enumerated values)  are retrieved when executing an Angle. 
+&lt;br&gt;
+Use this setting to prevent the system from overloading, as many elements can exist in a domain (field).</value>
   </data>
   <data name="MC_SystemSettingsHelpMaxPageSize" xml:space="preserve">
-    <value>The maximum number of items returned when a list is requested.</value>
+    <value>The maximum number of rows that is fetched when no page size is specified by the Application Server.
+You cannot change this setting.</value>
   </data>
   <data name="MC_SystemSettingsHelpMinlabelcategoriesPublish" xml:space="preserve">
-    <value>Publishing an Angle or Dashboard is only allowed if the assigned privilege labels originate from at least this amount of label categories. The minimum is 1, because the default label category Business Process is mandatory.</value>
+    <value>Publishing an Angle or Dashboard is only allowed if the assigned privilege labels originate from at least this number of label categories. The minimum is 1, because the default label category Business Process is mandatory.
+&lt;br&gt;&lt;br&gt;
+Example: if you set the number of label categories to 2, users must assign at least 2 labels, and these labels must be in 2 different label categories.</value>
   </data>
   <data name="MC_SystemSettingsHelpModelserverCheckSeconds" xml:space="preserve">
-    <value>Interval between automatic checks for the status of the Model Server.</value>
+    <value>The interval between automatic checks for the status of the Model Server by the Application Server.</value>
   </data>
   <data name="MC_SystemSettingsHelpModelserverMetadataTimeout" xml:space="preserve">
-    <value>Number of seconds before a timeout occurs when data has been requested from the model server.
-	Interval between application server and model server metadata.</value>
+    <value>The number of seconds before a timeout occurs during retrieval of Model Server metadata by the Application Server.</value>
   </data>
   <data name="MC_SystemSettingsHelpModelserverTimeout" xml:space="preserve">
-    <value>Number of seconds before a timeout occurs when the status of the Model Server has been requested.
-	Interval to check the presence of the Model Server between Application Server and Model Server.</value>
+    <value>The number of seconds before a timeout occurs when the status of the Model Server has been requested by the Application Server.</value>
   </data>
   <data name="MC_SystemSettingsHelpRememberExpiredSessionsMinutes" xml:space="preserve">
-    <value>Session history will be kept during this time.</value>
+    <value>The session history of an expired session will be saved during the specified number of minutes. After this time, the session history of an expired session will be deleted.</value>
   </data>
   <data name="MC_SystemSettingsHelpSessionExpiryMinutes" xml:space="preserve">
-    <value>Number of minutes before a session expires if no request is received within this time.</value>
+    <value>The maximum number of minutes a user can remain logged in, while not being active. Users will be asked to login again when this time expires.</value>
   </data>
   <data name="MC_WebClientSettingsHelpApplicationTimeout" xml:space="preserve">
-    <value>Number of seconds before a timeout occurs when data has been requested from the Application Server.</value>
+    <value>When data is requested from the Application Server, a timeout will occur after this number of seconds. The user will have to request the data again.</value>
   </data>
   <data name="MC_WebClientSettingsHelpDashboardRefreshIntervalTime" xml:space="preserve">
     <value>Interval between automatic check model instance on Dashboard page.</value>
   </data>
   <data name="MC_WebClientSettingsHelpEnableOptimizations" xml:space="preserve">
-    <value>This is a debug setting. When set to True, all javascript code is optimized and thus unreadable. When set to False, all javascript code is sent to the Web Client in a readable form and can be used for browser debugging.</value>
+    <value>This is a debug setting.
+&lt;br&gt;
+When selected, all javascript code is optimized and thus unreadable. 
+&lt;br&gt;
+When not selected, all javascript code is sent to the Web Client in a readable form and can be used for browser debugging.</value>
   </data>
   <data name="MC_WebClientSettingsHelpGoogleAnalyticsCode" xml:space="preserve">
-    <value>ID which you receive from Google Analytics.</value>
+    <value>The ID you receive from Google Analytics, when using this service. 
+&lt;br&gt;
+Leave this field empty if you do not use Google Analytics.</value>
   </data>
   <data name="MC_Validation_GoogleAnalyticsId" xml:space="preserve">
     <value>Invalid Google Analytics ID.</value>
   </data>
   <data name="MC_WebClientSettingsHelpMaxLogFileNumber" xml:space="preserve">
-    <value>Maximum number of logfiles.</value>
+    <value>The maximum number of .csl log files. When the number of log files exceeds this maximum, the oldest log file will be deleted.</value>
   </data>
   <data name="MC_WebClientSettingsHelpMaxLogFileSize" xml:space="preserve">
-    <value>Maximum size of a logfile.</value>
+    <value>The maximum size of a log file. When a log file size exceeds this maximum, logging will continue in a new log file.</value>
   </data>
   <data name="MC_WebClientSettingsHelpMaxNumberOfDashboard" xml:space="preserve">
     <value>Maximum number of Angles that can be added to a Dashboard.</value>
   </data>
   <data name="MC_WebClientSettingsHelpMaxNumberOfMassChange" xml:space="preserve">
-    <value>Maximum number of items that can be selected for a mass change.</value>
+    <value>The maximum number of items that can be selected for a mass change.
+&lt;br&gt;
+The maximum number is 1800.</value>
   </data>
   <data name="MC_WebClientSettingsHelpShowAngleAndDisplayID" xml:space="preserve">
-    <value>Show Angle, Display or Dashboard ID in the General tab of the item details pop-up window.</value>
+    <value>Angle, Display and Dashboard IDs are automatically generated. 
+&lt;br&gt;
+Check this field if you want to show these IDs in the General tab of the item details window and allow users to change these IDs.
+&lt;br&gt;
+Deselect this field if you do not want to show the IDs. Users will not be able to change them. This way the automatically generated IDs are always used.</value>
   </data>
   <data name="MC_WebClientSettingsHelpShowErrorSourceUri" xml:space="preserve">
-    <value>Show the uri of the request causing the error.</value>
+    <value>Select this field to show the URI of the request causing the error. The URI will be shown in the error popup window.</value>
   </data>
   <data name="MC_AllowImpersonationDescription" xml:space="preserve">
     <value>User can impersonate other users. Used by the ZEA03n SAP transaction. Not allowed in combination with any other privileges.</value>
@@ -4950,7 +4978,7 @@ Are you sure you want to delete this role?</value>
     <value>Application server</value>
   </data>
   <data name="MC_SystemSettingsHelpApplicationServer" xml:space="preserve">
-    <value>Application server url</value>
+    <value>The URL that is used for internal communication with the Application Server. The URL and its port are set during installation and cannot be changed. </value>
   </data>
   <data name="CancelledByUser" xml:space="preserve">
     <value>Cancelled by user</value>
@@ -5273,7 +5301,9 @@ Are you sure you want to delete this role?</value>
     <value>Max event log stored records</value>
   </data>
   <data name="MC_SystemSettingsHelpMaxEventLogStoredRecords" xml:space="preserve">
-    <value>Maximum quantity of stored records in Event log after the refresh cycle has completed.&lt;br&gt;Value 0 means the setting is off, no clearing of the log file.&lt;br&gt;The recommended setting is 10000.</value>
+    <value>The maximum number of stored records in the Event log, which are saved in the database. Use this setting to clean up old log records automatically after every refresh cycle. 
+&lt;br&gt;
+The value 0 means the setting is off, so the log file will not be cleaned up. The recommended setting is 10000.</value>
   </data>
   <data name="ExportCSVEnumFormatLongName" xml:space="preserve">
     <value>Long name</value>
@@ -5282,7 +5312,9 @@ Are you sure you want to delete this role?</value>
     <value>Include Self in export headers</value>
   </data>
   <data name="MC_SystemSettingsHelpIncludeSelfInExportHeaders" xml:space="preserve">
-    <value>Indicates whether "Include Self in export headers" will be enabled.</value>
+    <value>Check this field to include 'Self' in the export headers. 
+&lt;br&gt;
+This setting is valid for both Export to Excel and Export to CSV, manually from the Web Client and automatically using an Automation Task.</value>
   </data>
   <data name="AdvanceFilterUsageOperatorNotWarning" xml:space="preserve">
     <value>Does not contain warnings</value>
@@ -5744,7 +5776,9 @@ Are you sure you want to delete this role?</value>
     <value>Max audit log history [months]</value>
   </data>
   <data name="MC_SystemSettingsHelpTextMaxAuditLogHistory" xml:space="preserve">
-    <value>Maximum stored history of Audit Log records in months after the refresh cycle has completed.&lt;br&gt;Value 0 means the setting is off, no clearing of the Audit Log.&lt;br&gt;The maximum value is 120 months.</value>
+    <value>The maximum number of months during which the history of Audit Log records is saved after the refresh cycle has completed. Use this setting to clean up old Audit Log records.
+&lt;br&gt;
+The value 0 means the setting is off, so the Audit Log will not be cleaned up. The maximum value is 120 months.</value>
   </data>
   <data name="JSONLengthExceeded" xml:space="preserve">
     <value>Maximum length exceeded (MaxJsonLength). This can occur when, for example, copying a large amount of items and/or items containing lengthy names, helptexts etc.</value>
@@ -5901,9 +5935,10 @@ You can only select .cmd, .exe, .ps1 and .bat files that are located in the desi
     <value>Program/scripts folder</value>
   </data>
   <data name="MC_SystemSettingsHelpScriptLocation" xml:space="preserve">
-    <value>The location of the folder for program/script files for use in Automation Tasks.&lt;br&gt;
-Any file in this folder of type .cmd, .exe, .ps1 and .bat will become available in the dropdown when setting up an Action of type Program/script.&lt;br&gt;
-Attention: The specified location must be a full file path on the Application Server.</value>
+    <value>The location of the folder for program/script files for use in Automation Tasks. Any file in this folder of type .cmd, .exe, .ps1 and .bat will become available in the dropdown when setting up an Action of type Program/script. 
+&lt;br&gt;
+&lt;br&gt;
+Note: the specified location must be a full file path on the Application server.</value>
   </data>
   <data name="ViewDisplaysMode" xml:space="preserve">
     <value>Displays mode</value>

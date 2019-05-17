@@ -12344,7 +12344,11 @@ namespace EveryAngle.Shared.Globalization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Maximum number of users or user groups that are returned when querying an authentication provider. Value may not exceed 999..
+        ///   Looks up a localized string similar to The maximum number of users or user groups that are returned when querying an authentication provider. 
+        ///&lt;br&gt;
+        ///The number of users may be very large. Therefore, use this setting to limit the number of users requested per query to keep the load under control.
+        ///&lt;br&gt;
+        ///The value may not exceed 999..
         /// </summary>
         public static string MC_SystemSettingsHelpActiveDirectorySizeLimit {
             get {
@@ -12353,7 +12357,7 @@ namespace EveryAngle.Shared.Globalization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Application server url.
+        ///   Looks up a localized string similar to The URL that is used for internal communication with the Application Server. The URL and its port are set during installation and cannot be changed. .
         /// </summary>
         public static string MC_SystemSettingsHelpApplicationServer {
             get {
@@ -12362,7 +12366,10 @@ namespace EveryAngle.Shared.Globalization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Sessions will expire if no request is received within this time..
+        ///   Looks up a localized string similar to The number of minutes after which the system will check if there are any inactive sessions. 
+        ///&lt;br&gt;
+        ///Example&lt;br&gt;
+        ///If you set this setting to 2 minutes and the &apos;Session timeout&apos; to 5 minutes, the system will check every 2 minutes if a session has been inactive for more than 5 minutes..
         /// </summary>
         public static string MC_SystemSettingsHelpCheckExpiredSessionsMinutes {
             get {
@@ -12371,7 +12378,7 @@ namespace EveryAngle.Shared.Globalization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Default time for cached items to remain valid..
+        ///   Looks up a localized string similar to The default time in minutes during which cached items remain valid. After this time, cached items will be removed from cache and will have to be loaded again..
         /// </summary>
         public static string MC_SystemSettingsHelpDefaultCacheMinutes {
             get {
@@ -12380,7 +12387,9 @@ namespace EveryAngle.Shared.Globalization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Maximum page size while exporting (Value may not exceed 999999)..
+        ///   Looks up a localized string similar to The maximum page size used when exporting to Excel or CSV.
+        ///&lt;br&gt;
+        ///The value may not exceed 999999..
         /// </summary>
         public static string MC_SystemSettingsHelpDefaultExportMaxPageSize {
             get {
@@ -12389,7 +12398,7 @@ namespace EveryAngle.Shared.Globalization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The default number of items returned when a list is requested..
+        ///   Looks up a localized string similar to The default number of rows that is fetched when no page size is specified by the Application Server. You can leave this at its default value of 30..
         /// </summary>
         public static string MC_SystemSettingsHelpDefaultPageSize {
             get {
@@ -12407,7 +12416,7 @@ namespace EveryAngle.Shared.Globalization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Port of the SMTP server..
+        ///   Looks up a localized string similar to The port number of the SMTP server..
         /// </summary>
         public static string MC_SystemSettingsHelpEmailSmtpPort {
             get {
@@ -12416,7 +12425,7 @@ namespace EveryAngle.Shared.Globalization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Sender of the SMTP server..
+        ///   Looks up a localized string similar to The email address of the sender of the SMTP server..
         /// </summary>
         public static string MC_SystemSettingsHelpEmailSmtpSender {
             get {
@@ -12425,7 +12434,7 @@ namespace EveryAngle.Shared.Globalization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Address of the SMTP server..
+        ///   Looks up a localized string similar to The Fully qualified domain name (FQDN) of the SMTP server..
         /// </summary>
         public static string MC_SystemSettingsHelpEmailSmtpServer {
             get {
@@ -12434,7 +12443,9 @@ namespace EveryAngle.Shared.Globalization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Indicates whether SSL will be enabled..
+        ///   Looks up a localized string similar to Check this field to enable SSL.
+        ///&lt;br&gt;
+        ///When selected, the Application Server will connect to the SMTP server using the SSL protocol, which means authentication is done securely based on certificates..
         /// </summary>
         public static string MC_SystemSettingsHelpEmailSmtpUseSsl {
             get {
@@ -12452,7 +12463,9 @@ namespace EveryAngle.Shared.Globalization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Indicates whether &quot;Include Self in export headers&quot; will be enabled..
+        ///   Looks up a localized string similar to Check this field to include &apos;Self&apos; in the export headers. 
+        ///&lt;br&gt;
+        ///This setting is valid for both Export to Excel and Export to CSV, manually from the Web Client and automatically using an Automation Task..
         /// </summary>
         public static string MC_SystemSettingsHelpIncludeSelfInExportHeaders {
             get {
@@ -12461,7 +12474,9 @@ namespace EveryAngle.Shared.Globalization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Number of instances that are kept as a history. If this number of instances is reached the import of a new instance will cause the instance with the least recent modeldata_timestamp to be automatically deleted..
+        ///   Looks up a localized string similar to The number of model instances that are kept in the database (as history). 
+        ///&lt;br&gt;
+        ///When this number of instances is reached, the import of a new instance will cause the instance with the oldest modeldata_timestamp to be automatically deleted..
         /// </summary>
         public static string MC_SystemSettingsHelpInstancesPerModel {
             get {
@@ -12470,7 +12485,9 @@ namespace EveryAngle.Shared.Globalization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Maximum number of domain size for search..
+        ///   Looks up a localized string similar to This setting is related to fields of type &apos;set&apos; in the field chooser and determines how many elements (enumerated values)  are retrieved when executing an Angle. 
+        ///&lt;br&gt;
+        ///Use this setting to prevent the system from overloading, as many elements can exist in a domain (field)..
         /// </summary>
         public static string MC_SystemSettingsHelpMaxDomainElementsSearch {
             get {
@@ -12479,7 +12496,9 @@ namespace EveryAngle.Shared.Globalization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Maximum quantity of stored records in Event log after the refresh cycle has completed.&lt;br&gt;Value 0 means the setting is off, no clearing of the log file.&lt;br&gt;The recommended setting is 10000..
+        ///   Looks up a localized string similar to The maximum number of stored records in the Event log, which are saved in the database. Use this setting to clean up old log records automatically after every refresh cycle. 
+        ///&lt;br&gt;
+        ///The value 0 means the setting is off, so the log file will not be cleaned up. The recommended setting is 10000..
         /// </summary>
         public static string MC_SystemSettingsHelpMaxEventLogStoredRecords {
             get {
@@ -12488,7 +12507,8 @@ namespace EveryAngle.Shared.Globalization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The maximum number of items returned when a list is requested..
+        ///   Looks up a localized string similar to The maximum number of rows that is fetched when no page size is specified by the Application Server.
+        ///You cannot change this setting..
         /// </summary>
         public static string MC_SystemSettingsHelpMaxPageSize {
             get {
@@ -12497,7 +12517,9 @@ namespace EveryAngle.Shared.Globalization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Publishing an Angle or Dashboard is only allowed if the assigned privilege labels originate from at least this amount of label categories. The minimum is 1, because the default label category Business Process is mandatory..
+        ///   Looks up a localized string similar to Publishing an Angle or Dashboard is only allowed if the assigned privilege labels originate from at least this number of label categories. The minimum is 1, because the default label category Business Process is mandatory.
+        ///&lt;br&gt;&lt;br&gt;
+        ///Example: if you set the number of label categories to 2, users must assign at least 2 labels, and these labels must be in 2 different label categories..
         /// </summary>
         public static string MC_SystemSettingsHelpMinlabelcategoriesPublish {
             get {
@@ -12506,7 +12528,7 @@ namespace EveryAngle.Shared.Globalization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Interval between automatic checks for the status of the Model Server..
+        ///   Looks up a localized string similar to The interval between automatic checks for the status of the Model Server by the Application Server..
         /// </summary>
         public static string MC_SystemSettingsHelpModelserverCheckSeconds {
             get {
@@ -12515,8 +12537,7 @@ namespace EveryAngle.Shared.Globalization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Number of seconds before a timeout occurs when data has been requested from the model server.
-        ///	Interval between application server and model server metadata..
+        ///   Looks up a localized string similar to The number of seconds before a timeout occurs during retrieval of Model Server metadata by the Application Server..
         /// </summary>
         public static string MC_SystemSettingsHelpModelserverMetadataTimeout {
             get {
@@ -12525,8 +12546,7 @@ namespace EveryAngle.Shared.Globalization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Number of seconds before a timeout occurs when the status of the Model Server has been requested.
-        ///	Interval to check the presence of the Model Server between Application Server and Model Server..
+        ///   Looks up a localized string similar to The number of seconds before a timeout occurs when the status of the Model Server has been requested by the Application Server..
         /// </summary>
         public static string MC_SystemSettingsHelpModelserverTimeout {
             get {
@@ -12535,7 +12555,7 @@ namespace EveryAngle.Shared.Globalization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Session history will be kept during this time..
+        ///   Looks up a localized string similar to The session history of an expired session will be saved during the specified number of minutes. After this time, the session history of an expired session will be deleted..
         /// </summary>
         public static string MC_SystemSettingsHelpRememberExpiredSessionsMinutes {
             get {
@@ -12544,9 +12564,10 @@ namespace EveryAngle.Shared.Globalization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The location of the folder for program/script files for use in Automation Tasks.&lt;br&gt;
-        ///Any file in this folder of type .cmd, .exe, .ps1 and .bat will become available in the dropdown when setting up an Action of type Program/script.&lt;br&gt;
-        ///Attention: The specified location must be a full file path on the Application Server..
+        ///   Looks up a localized string similar to The location of the folder for program/script files for use in Automation Tasks. Any file in this folder of type .cmd, .exe, .ps1 and .bat will become available in the dropdown when setting up an Action of type Program/script. 
+        ///&lt;br&gt;
+        ///&lt;br&gt;
+        ///Note: the specified location must be a full file path on the Application server..
         /// </summary>
         public static string MC_SystemSettingsHelpScriptLocation {
             get {
@@ -12555,7 +12576,7 @@ namespace EveryAngle.Shared.Globalization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Number of minutes before a session expires if no request is received within this time..
+        ///   Looks up a localized string similar to The maximum number of minutes a user can remain logged in, while not being active. Users will be asked to login again when this time expires..
         /// </summary>
         public static string MC_SystemSettingsHelpSessionExpiryMinutes {
             get {
@@ -12564,7 +12585,9 @@ namespace EveryAngle.Shared.Globalization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Maximum stored history of Audit Log records in months after the refresh cycle has completed.&lt;br&gt;Value 0 means the setting is off, no clearing of the Audit Log.&lt;br&gt;The maximum value is 120 months..
+        ///   Looks up a localized string similar to The maximum number of months during which the history of Audit Log records is saved after the refresh cycle has completed. Use this setting to clean up old Audit Log records.
+        ///&lt;br&gt;
+        ///The value 0 means the setting is off, so the Audit Log will not be cleaned up. The maximum value is 120 months..
         /// </summary>
         public static string MC_SystemSettingsHelpTextMaxAuditLogHistory {
             get {
@@ -13795,7 +13818,7 @@ namespace EveryAngle.Shared.Globalization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Number of seconds before a timeout occurs when data has been requested from the Application Server..
+        ///   Looks up a localized string similar to When data is requested from the Application Server, a timeout will occur after this number of seconds. The user will have to request the data again..
         /// </summary>
         public static string MC_WebClientSettingsHelpApplicationTimeout {
             get {
@@ -13813,7 +13836,11 @@ namespace EveryAngle.Shared.Globalization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to This is a debug setting. When set to True, all javascript code is optimized and thus unreadable. When set to False, all javascript code is sent to the Web Client in a readable form and can be used for browser debugging..
+        ///   Looks up a localized string similar to This is a debug setting.
+        ///&lt;br&gt;
+        ///When selected, all javascript code is optimized and thus unreadable. 
+        ///&lt;br&gt;
+        ///When not selected, all javascript code is sent to the Web Client in a readable form and can be used for browser debugging..
         /// </summary>
         public static string MC_WebClientSettingsHelpEnableOptimizations {
             get {
@@ -13822,7 +13849,9 @@ namespace EveryAngle.Shared.Globalization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to ID which you receive from Google Analytics..
+        ///   Looks up a localized string similar to The ID you receive from Google Analytics, when using this service. 
+        ///&lt;br&gt;
+        ///Leave this field empty if you do not use Google Analytics..
         /// </summary>
         public static string MC_WebClientSettingsHelpGoogleAnalyticsCode {
             get {
@@ -13831,7 +13860,7 @@ namespace EveryAngle.Shared.Globalization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Maximum number of logfiles..
+        ///   Looks up a localized string similar to The maximum number of .csl log files. When the number of log files exceeds this maximum, the oldest log file will be deleted..
         /// </summary>
         public static string MC_WebClientSettingsHelpMaxLogFileNumber {
             get {
@@ -13840,7 +13869,7 @@ namespace EveryAngle.Shared.Globalization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Maximum size of a logfile..
+        ///   Looks up a localized string similar to The maximum size of a log file. When a log file size exceeds this maximum, logging will continue in a new log file..
         /// </summary>
         public static string MC_WebClientSettingsHelpMaxLogFileSize {
             get {
@@ -13858,7 +13887,9 @@ namespace EveryAngle.Shared.Globalization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Maximum number of items that can be selected for a mass change..
+        ///   Looks up a localized string similar to The maximum number of items that can be selected for a mass change.
+        ///&lt;br&gt;
+        ///The maximum number is 1800..
         /// </summary>
         public static string MC_WebClientSettingsHelpMaxNumberOfMassChange {
             get {
@@ -13867,7 +13898,11 @@ namespace EveryAngle.Shared.Globalization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Show Angle, Display or Dashboard ID in the General tab of the item details pop-up window..
+        ///   Looks up a localized string similar to Angle, Display and Dashboard IDs are automatically generated. 
+        ///&lt;br&gt;
+        ///Check this field if you want to show these IDs in the General tab of the item details window and allow users to change these IDs.
+        ///&lt;br&gt;
+        ///Deselect this field if you do not want to show the IDs. Users will not be able to change them. This way the automatically generated IDs are always used..
         /// </summary>
         public static string MC_WebClientSettingsHelpShowAngleAndDisplayID {
             get {
@@ -13876,7 +13911,7 @@ namespace EveryAngle.Shared.Globalization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Show the uri of the request causing the error..
+        ///   Looks up a localized string similar to Select this field to show the URI of the request causing the error. The URI will be shown in the error popup window..
         /// </summary>
         public static string MC_WebClientSettingsHelpShowErrorSourceUri {
             get {
