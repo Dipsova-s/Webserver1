@@ -28,7 +28,7 @@ function ErrorHandlerViewModel() {
     self.OnClickRetryErrorCallback = jQuery.noop;
 
     self.SetSource = function (url, isXHR) {
-        if (url.indexOf(webAPIUrl) !== -1)
+        if (url.indexOf('api/proxy/') !== -1)
             self.Source(self.SourceType.APPSERVER);
         else if (!isXHR)
             self.Source(self.SourceType.WEBCLIENT);
