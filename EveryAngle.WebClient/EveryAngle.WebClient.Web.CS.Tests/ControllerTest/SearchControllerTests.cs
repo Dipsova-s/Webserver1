@@ -27,7 +27,7 @@ namespace EveryAngle.WebClient.Web.CS.Tests.ControllerTest
             file.Setup(x => x.ContentLength).Returns((int)stream.Length);
             file.Setup(x => x.FileName).Returns(stream.Name);
  
-            var result = _controller.ImportAngle(new List<HttpPostedFileBase> { file.Object });
+            var result = _controller.ImportItem(new List<HttpPostedFileBase> { file.Object });
             Assert.IsNotNull(JObject.Parse(result.Content)["ErrorMessage"].ToString());
         }
 

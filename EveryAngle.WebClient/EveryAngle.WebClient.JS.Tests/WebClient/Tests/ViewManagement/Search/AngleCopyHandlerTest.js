@@ -10,14 +10,7 @@ describe("AngleCopyHandler", function () {
         angleCopyHandler = new AngleCopyHandler();
     });
 
-
-    describe("when create new instance", function () {
-        it("should be defined", function () {
-            expect(angleCopyHandler).toBeDefined();
-        });
-    });
-
-    describe("call GetCopyAngleData", function () {
+    describe(".GetCopyAngleData", function () {
 
         var angle;
 

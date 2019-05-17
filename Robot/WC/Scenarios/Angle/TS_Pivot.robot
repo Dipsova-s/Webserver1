@@ -44,7 +44,7 @@ Pivot Settings Subtotal / Percentages Column / Custom Name / Field Icons / Colla
 
 Pivot Display Drilldown
     [Arguments]    ${angleJsonFilename}    ${angleName}    ${modelName}
-    Upload Angle    ${angleJsonFilename}    ${angleName}    ${modelName}
+    Upload Item And Check From Search Result    ${angleJsonFilename}    ${modelName}    ${angleName}
     Open Angle From First Angle in Search Page    ${angleName}
 
     # drilldown null value

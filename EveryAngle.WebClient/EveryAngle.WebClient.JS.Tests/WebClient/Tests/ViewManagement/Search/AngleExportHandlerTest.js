@@ -12,25 +12,25 @@ describe("AngleExportHandler", function () {
         angleExportHandler = new AngleExportHandler(new AngleDownloadHandler(), new EAPackageHandler());
     });
 
-    describe("call OnChangeAngleExportType", function () {
+    describe(".OnChangeAngleExportType", function () {
 
         it("should set EAPackageHandler if newValue is package", function () {
-            angleExportHandler.AngleExportType(angleExportHandler.ANGLEEXPORTTYPE.DOWNLOAD);
+            angleExportHandler.AngleExportType(AngleExportHandler.ANGLEEXPORTTYPE.DOWNLOAD);
 
-            angleExportHandler.OnChangeAngleExportType(angleExportHandler.ANGLEEXPORTTYPE.PACKAGE);
+            angleExportHandler.OnChangeAngleExportType(AngleExportHandler.ANGLEEXPORTTYPE.PACKAGE);
             expect(angleExportHandler.Handler() instanceof EAPackageHandler).toEqual(true);
         });
 
         it("should set AngleDownloadHandler if newValue is download", function () {
-            angleExportHandler.AngleExportType(angleExportHandler.ANGLEEXPORTTYPE.DOWNLOAD);
+            angleExportHandler.AngleExportType(AngleExportHandler.ANGLEEXPORTTYPE.DOWNLOAD);
 
-            angleExportHandler.OnChangeAngleExportType(angleExportHandler.ANGLEEXPORTTYPE.DOWNLOAD);
+            angleExportHandler.OnChangeAngleExportType(AngleExportHandler.ANGLEEXPORTTYPE.DOWNLOAD);
             expect(angleExportHandler.Handler() instanceof AngleDownloadHandler).toEqual(true);
         });
 
     });
 
-    describe("call ShowAngleExportPopupCallback", function () {
+    describe(".ShowAngleExportPopupCallback", function () {
 
         it("should call ApplyHandler method", function () {
             spyOn(angleExportHandler, 'InitialHandler').and.callFake($.noop);
@@ -42,7 +42,7 @@ describe("AngleExportHandler", function () {
 
     });
 
-    describe("call InitialHandler", function () {
+    describe(".InitialHandler", function () {
 
         window.userModel = window.userModel || {};
         window.userModel.IsPossibleToHaveManagementAccess = $.noop;
@@ -54,12 +54,12 @@ describe("AngleExportHandler", function () {
                 }
             };
             angleExportHandler.InitialHandler(e);
-            expect(angleExportHandler.AngleExportType()).toEqual(angleExportHandler.ANGLEEXPORTTYPE.DONWLOAD);
+            expect(angleExportHandler.AngleExportType()).toEqual(AngleExportHandler.ANGLEEXPORTTYPE.DONWLOAD);
         });
 
     });
 
-    describe("call GetRowExportTypeCss", function () {
+    describe(".GetRowExportTypeCss", function () {
 
         window.popup = window.popup || {};
         window.popup.Alert = $.noop;
@@ -88,7 +88,7 @@ describe("AngleExportHandler", function () {
 
     });
 
-    describe("call ApplyHandler", function () {
+    describe(".ApplyHandler", function () {
 
         it("should call WC.HtmlHelper.ApplyKnockout method", function () {
             $('<input id="PackageName">').hide().appendTo('body');
@@ -109,7 +109,7 @@ describe("AngleExportHandler", function () {
 
     });
 
-    describe("call GetAngleExportSettings", function () {
+    describe(".GetAngleExportSettings", function () {
 
         it("should get settings", function () {
             window.angleExportHtmlTemplate = $.noop;
@@ -119,7 +119,7 @@ describe("AngleExportHandler", function () {
 
     });
 
-    describe("call GetAngleExportButtons", function () {
+    describe(".GetAngleExportButtons", function () {
 
         it("should get buttons", function () {
             var result = angleExportHandler.GetAngleExportButtons();
@@ -128,7 +128,7 @@ describe("AngleExportHandler", function () {
 
     });
 
-    describe("call SubmitAngleExport", function () {
+    describe(".SubmitAngleExport", function () {
 
         window.popup = window.popup || {};
         window.popup.CanButtonExecute = $.noop;
@@ -151,7 +151,7 @@ describe("AngleExportHandler", function () {
 
     });
 
-    describe("call CloseAngleExportPopup", function () {
+    describe(".CloseAngleExportPopup", function () {
 
         window.popup = window.popup || {};
         window.popup.Close = $.noop;
@@ -165,13 +165,13 @@ describe("AngleExportHandler", function () {
 
     });
 
-    describe("call GetAllWarningMessages", function () {
+    describe(".GetAllWarningMessages", function () {
 
         beforeEach(function () {
-            angleExportHandler.AngleExportType(angleExportHandler.ANGLEEXPORTTYPE.DONWLOAD);
+            angleExportHandler.AngleExportType(AngleExportHandler.ANGLEEXPORTTYPE.DONWLOAD);
             angleExportHandler.Handler().GetWarningMessage = function () { return 'message1'; };
 
-            angleExportHandler.AngleExportType(angleExportHandler.ANGLEEXPORTTYPE.PACKAGE);
+            angleExportHandler.AngleExportType(AngleExportHandler.ANGLEEXPORTTYPE.PACKAGE);
             angleExportHandler.Handler().GetWarningMessage = function () { return 'message2'; };
         });
 
@@ -191,7 +191,7 @@ describe("AngleExportHandler", function () {
 
     });
 
-    describe("call CheckIsAllSameModel", function () {
+    describe(".CheckIsAllSameModel", function () {
 
         it("should get 'true' when all model in items are same", function () {
             var items = [
@@ -217,7 +217,7 @@ describe("AngleExportHandler", function () {
 
     });
 
-    describe("call CanDownloadAngle", function () {
+    describe(".CanDownloadAngle", function () {
 
         it("should get 'true'", function () {
             var result = angleExportHandler.CanDownloadAngle();
@@ -226,10 +226,10 @@ describe("AngleExportHandler", function () {
 
     });
 
-    describe("call CanExportPackage", function () {
+    describe(".CanExportPackage", function () {
 
         beforeEach(function () {
-            angleExportHandler.AngleExportType(angleExportHandler.ANGLEEXPORTTYPE.PACKAGE);
+            angleExportHandler.AngleExportType(AngleExportHandler.ANGLEEXPORTTYPE.PACKAGE);
             angleExportHandler.IsPackageVisible = function () { return true; };
             angleExportHandler.Handler().GetWarningMessage = function () { return ''; };
         });
@@ -266,10 +266,10 @@ describe("AngleExportHandler", function () {
 
     });
 
-    describe("call GetDownloadAnglesCount", function () {
+    describe(".GetDownloadAnglesCount", function () {
 
         it("should call handler StartExportAngle", function () {
-            angleExportHandler.AngleExportType(angleExportHandler.ANGLEEXPORTTYPE.DOWNLOAD);
+            angleExportHandler.AngleExportType(AngleExportHandler.ANGLEEXPORTTYPE.DOWNLOAD);
             angleExportHandler.Handler().SelectedItems = [{}, {}];
 
             var result = angleExportHandler.GetDownloadAnglesCount();
@@ -278,7 +278,7 @@ describe("AngleExportHandler", function () {
 
     });
 
-    describe("call StartExportAngle", function () {
+    describe(".StartExportAngle", function () {
 
         it("should call handler StartExportAngle", function () {
             spyOn(angleExportHandler.Handler(), 'StartExportAngle').and.callFake($.noop);
@@ -289,7 +289,7 @@ describe("AngleExportHandler", function () {
 
     });
 
-    describe("call SetSelectTypeByItems", function () {
+    describe(".SetSelectTypeByItems", function () {
 
         it("should set SelectType to Dashboard when every item's type is dashboard ", function () {
 
@@ -330,24 +330,24 @@ describe("AngleExportHandler", function () {
 
     });
 
-    describe("call IsDownloadable", function () {
+    describe(".IsDownloadable", function () {
 
         it("should has no warning or error messages when Dashboards are ok", function () {
             var result = angleExportHandler.IsDownloadable(angleExportHandler.SELECTTYPE.DASHBOARD, true, true, true);
             expect(result).toEqual(true);
-            expect(angleExportHandler.AngleExportType(angleExportHandler.ANGLEEXPORTTYPE.PACKAGE));
+            expect(angleExportHandler.AngleExportType(AngleExportHandler.ANGLEEXPORTTYPE.PACKAGE));
         });
 
         it("should has no warning or error messages when Angles are ok", function () {
             var result = angleExportHandler.IsDownloadable(angleExportHandler.SELECTTYPE.ANGLE, true, true, true);
             expect(result).toEqual(true);
-            expect(angleExportHandler.AngleExportType(angleExportHandler.ANGLEEXPORTTYPE.DOWNLOAD));
+            expect(angleExportHandler.AngleExportType(AngleExportHandler.ANGLEEXPORTTYPE.DOWNLOAD));
         });
 
         it("should has no warning or error messages when Both are ok", function () {
             var result = angleExportHandler.IsDownloadable(angleExportHandler.SELECTTYPE.BOTH, true, true, true);
             expect(result).toEqual(true);
-            expect(angleExportHandler.AngleExportType(angleExportHandler.ANGLEEXPORTTYPE.PACKAGE));
+            expect(angleExportHandler.AngleExportType(AngleExportHandler.ANGLEEXPORTTYPE.PACKAGE));
         });
 
         it("should show error message when Dashboard has multi model", function () {
@@ -370,7 +370,7 @@ describe("AngleExportHandler", function () {
             expect(result).toEqual(true);
             expect(angleExportHandler.WarningTitle()).not.toBeNull();
             expect(angleExportHandler.WarningTitle()).not.toEqual('');
-            expect(angleExportHandler.AngleExportType(angleExportHandler.ANGLEEXPORTTYPE.DOWNLOAD));
+            expect(angleExportHandler.AngleExportType(AngleExportHandler.ANGLEEXPORTTYPE.DOWNLOAD));
         });
 
         it("show show warning message when Angle is not published", function () {
@@ -378,7 +378,7 @@ describe("AngleExportHandler", function () {
             expect(result).toEqual(true);
             expect(angleExportHandler.WarningTitle()).not.toBeNull();
             expect(angleExportHandler.WarningTitle()).not.toEqual('');
-            expect(angleExportHandler.AngleExportType(angleExportHandler.ANGLEEXPORTTYPE.DOWNLOAD));
+            expect(angleExportHandler.AngleExportType(AngleExportHandler.ANGLEEXPORTTYPE.DOWNLOAD));
         });
 
         it("show show warning message when Angle has no privilege", function () {
@@ -386,7 +386,7 @@ describe("AngleExportHandler", function () {
             expect(result).toEqual(true);
             expect(angleExportHandler.WarningTitle()).not.toBeNull();
             expect(angleExportHandler.WarningTitle()).not.toEqual('');
-            expect(angleExportHandler.AngleExportType(angleExportHandler.ANGLEEXPORTTYPE.DOWNLOAD));
+            expect(angleExportHandler.AngleExportType(AngleExportHandler.ANGLEEXPORTTYPE.DOWNLOAD));
         });
 
         it("show show warning message when Both has multi model", function () {
@@ -399,7 +399,7 @@ describe("AngleExportHandler", function () {
             expect(result).toEqual(true);
             expect(angleExportHandler.WarningTitle()).not.toBeNull();
             expect(angleExportHandler.WarningTitle()).not.toEqual('');
-            expect(angleExportHandler.AngleExportType(angleExportHandler.ANGLEEXPORTTYPE.DOWNLOAD));
+            expect(angleExportHandler.AngleExportType(AngleExportHandler.ANGLEEXPORTTYPE.DOWNLOAD));
         });
 
         it("should show error message when Both has no privilege", function () {

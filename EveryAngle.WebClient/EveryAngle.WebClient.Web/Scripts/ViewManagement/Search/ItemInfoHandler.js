@@ -357,6 +357,10 @@ window.ItemInfoHandler = function () {
         var angleList = [];
 
         jQuery.each(widgets, function (index, widget) {
+            // skip
+            if (!widget.angle)
+                return true;
+
             var angleInDashboard;
 
             var angle = jQuery.grep(angleList, function (e) { return e.angle.uri === widget.angle; });

@@ -16980,6 +16980,33 @@ namespace EveryAngle.Shared.Globalization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Dashboards exceed maximum number of Angles on Dashboard.
+        /// </summary>
+        public static string UploadAngles_ItemPackageDashboardsExceedMaximum {
+            get {
+                return ResourceManager.GetString("UploadAngles_ItemPackageDashboardsExceedMaximum", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0} (Angles: {1}/{2}, Dashboards: {3}/{4}).
+        /// </summary>
+        public static string UploadAngles_ItemPackageReportTitle {
+            get {
+                return ResourceManager.GetString("UploadAngles_ItemPackageReportTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Invalid package source, only Webclient packages can be uploaded.
+        /// </summary>
+        public static string UploadAngles_ItemPackageSourceInvalid {
+            get {
+                return ResourceManager.GetString("UploadAngles_ItemPackageSourceInvalid", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Select files to upload or drop here....
         /// </summary>
         public static string UploadAngles_SelectFile {

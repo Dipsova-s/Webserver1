@@ -1,5 +1,3 @@
-var angleExportHandler = new AngleExportHandler(new AngleDownloadHandler(), new EAPackageHandler());
-
 function AngleExportHandler(angleDownloadHandler, eaPackageHandler) {
     "use strict";
 
@@ -12,11 +10,8 @@ function AngleExportHandler(angleDownloadHandler, eaPackageHandler) {
 
     self.IsPackageVisible = ko.observable(true);
     self.Handler = ko.observable(_self.angleDownloadHandler);
-    self.ANGLEEXPORTTYPE = {
-        DONWLOAD: 'download',
-        PACKAGE: 'package'
-    };
-    self.AngleExportType = ko.observable(self.ANGLEEXPORTTYPE.DONWLOAD);
+    
+    self.AngleExportType = ko.observable(AngleExportHandler.ANGLEEXPORTTYPE.DONWLOAD);
 
     self.SELECTTYPE = {
         ANGLE: 'angle_only',
@@ -33,7 +28,7 @@ function AngleExportHandler(angleDownloadHandler, eaPackageHandler) {
 
     // BOF: Methods
     self.OnChangeAngleExportType = function (newValue) {
-        if (newValue === self.ANGLEEXPORTTYPE.PACKAGE)
+        if (newValue === AngleExportHandler.ANGLEEXPORTTYPE.PACKAGE)
             self.Handler(_self.eaPackageHandler);
         else
             self.Handler(_self.angleDownloadHandler);
@@ -88,7 +83,7 @@ function AngleExportHandler(angleDownloadHandler, eaPackageHandler) {
                     return false;
                 }
 
-                self.AngleExportType(self.ANGLEEXPORTTYPE.PACKAGE);
+                self.AngleExportType(AngleExportHandler.ANGLEEXPORTTYPE.PACKAGE);
                 break;
             case self.SELECTTYPE.ANGLE:
 
@@ -104,7 +99,7 @@ function AngleExportHandler(angleDownloadHandler, eaPackageHandler) {
                     self.WarningTitle(Localization.AngleExport_TypePackage_Angle_Private);
                 }
 
-                self.AngleExportType(self.ANGLEEXPORTTYPE.DONWLOAD);
+                self.AngleExportType(AngleExportHandler.ANGLEEXPORTTYPE.DONWLOAD);
                 break;
             case self.SELECTTYPE.BOTH:
 
@@ -124,9 +119,10 @@ function AngleExportHandler(angleDownloadHandler, eaPackageHandler) {
                 }
 
                 if (isAllPublish) {
-                    self.AngleExportType(self.ANGLEEXPORTTYPE.PACKAGE);
-                } else {
-                    self.AngleExportType(self.ANGLEEXPORTTYPE.DONWLOAD);
+                    self.AngleExportType(AngleExportHandler.ANGLEEXPORTTYPE.PACKAGE);
+                }
+                else {
+                    self.AngleExportType(AngleExportHandler.ANGLEEXPORTTYPE.DONWLOAD);
                 }
                 break;
         }
@@ -252,3 +248,10 @@ function AngleExportHandler(angleDownloadHandler, eaPackageHandler) {
     _self.angleDownloadHandler.CloseAngleExportPopup = self.CloseAngleExportPopup;
     _self.eaPackageHandler.CloseAngleExportPopup = self.CloseAngleExportPopup;
 }
+
+AngleExportHandler.ANGLEEXPORTTYPE = {
+    DONWLOAD: 'download',
+    PACKAGE: 'package'
+};
+
+var angleExportHandler = new AngleExportHandler(new AngleDownloadHandler(), new EAPackageHandler());

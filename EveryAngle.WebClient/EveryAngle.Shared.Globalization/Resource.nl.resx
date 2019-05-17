@@ -3622,4 +3622,43 @@ The value 0 means the setting is off, so the Audit Log will not be cleaned up. T
   <data name="WelcomeMessages" xml:space="preserve">
     <value>Berichten</value>
   </data>
+  <data name="AngleExport_TypePackage_Dashboard_Private" xml:space="preserve">
+    <value>Download is not available, because the selection contains private dashboard(s).</value>
+  </data>
+  <data name="AngleExport_TypePackage_Dashboard_Cannot_Individually" xml:space="preserve">
+    <value>Dashboards cannot be downloaded individually.</value>
+  </data>
+  <data name="AngleExport_TypePackage_Dashboard_ManageRequired" xml:space="preserve">
+    <value>Download is not available, because user is not allowed to manage this model.</value>
+  </data>
+  <data name="AngleExport_TypePackage_Dashboard_MultipleModel" xml:space="preserve">
+    <value>Download is not available, because the selection contains dashboards from multiple models.</value>
+  </data>
+  <data name="AngleExport_TypePackage_Download_Angle_Individually" xml:space="preserve">
+    <value>Click OK to download the selected Angles/Templates individually.</value>
+  </data>
+  <data name="AngleExport_TypePackage_Dashboard_WarningTitle" xml:space="preserve">
+    <value>Package download is not available, because the selection contains private item(s).</value>
+  </data>
+  <data name="AngleExport_TypePackage_Angle_ManageRequired" xml:space="preserve">
+    <value>Package download is not available, because the user is not allowed to manage this model.</value>
+  </data>
+  <data name="AngleExport_TypePackage_Angle_MultipleModel" xml:space="preserve">
+    <value>Package download is not available, because the selection contains Angle/Templates from multiple models.</value>
+  </data>
+  <data name="AngleExport_TypePackage_Angle_Private" xml:space="preserve">
+    <value>Package download is not available, because the selection contains private Angles/Templates.</value>
+  </data>
+  <data name="AngleExport_TypePackage_Both_Private" xml:space="preserve">
+    <value>Package download is not available, because the selection contains private items.</value>
+  </data>
+  <data name="UploadAngles_ItemPackageReportTitle" xml:space="preserve">
+    <value>{0} (Angles: {1}/{2}, Dashboards: {3}/{4})</value>
+  </data>
+  <data name="UploadAngles_ItemPackageDashboardsExceedMaximum" xml:space="preserve">
+    <value>Dashboards exceed maximum number of Angles on Dashboard</value>
+  </data>
+  <data name="UploadAngles_ItemPackageSourceInvalid" xml:space="preserve">
+    <value>Invalid package source, only Webclient packages can be uploaded</value>
+  </data>
 </root>

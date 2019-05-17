@@ -25,7 +25,7 @@ Add Or Change Filter And Get Correct Result
 
 Verify Add Filter Before Jump
     # prepare stuff
-    Upload Angle    ANGLE_FILTER_BEFORE_JUMP.json    Add filter before jump test    EA2_800
+    Upload Item And Check From Search Result  ANGLE_FILTER_BEFORE_JUMP.json    EA2_800    Add filter before jump test
     Open Angle From First Angle in Search Page    Add filter before jump test
 
     # check add filter/jump from Angle popup

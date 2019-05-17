@@ -16,7 +16,7 @@ var angleExportHtmlTemplate = function () {
         '</div>',
         '</div>',
 
-        '<div data-bind="css: $root.GetRowExportTypeCss(), visible: $root.AngleExportType() === $root.ANGLEEXPORTTYPE.PACKAGE && $root.IsAllPublish()">',
+        '<div data-bind="css: $root.GetRowExportTypeCss(), visible: $root.AngleExportType() === AngleExportHandler.ANGLEEXPORTTYPE.PACKAGE && $root.IsAllPublish()">',
         '<div class="row">',
         '<div class="field" data-bind="text: Localization.Name"></div>',
         '<div class="input">',
@@ -40,11 +40,18 @@ var angleExportHtmlTemplate = function () {
         '</div>',
 
         '<!-- ko if: $root.WarningTitle() -->',
+
+        '<div class="popupNotification ">',
+        '<div class="notificationIcon alert"></div>',
+        '<div class="notificationMessages">',
         '<div class="row" data-bind="text: $root.WarningTitle()"></div>',
         '<!-- ko if: $root.WarningDesc() -->',
         '<div class="row" data-bind="text: $root.WarningDesc()"></div>',
         '<!-- /ko -->',
         '<div class="row" data-bind="text: Localization.AngleExport_TypePackage_Download_Angle_Individually"></div>',
+        '</div>',
+        '</div>',
+
         '<!-- /ko -->',
 
         '</div>'

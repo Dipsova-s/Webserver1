@@ -2,10 +2,16 @@
 Resource            ${EXECDIR}/WC/POM/Search/SearchPage.robot
 
 *** Keywords ***
-Upload Angle
-    [Arguments]    ${angleJsonFilename}    ${angleName}    ${modelName}
-    Search By Text    ${angleName}
+Upload Item
+    [Arguments]    ${filename}    ${modelName}
     Click Search Action Upload Angles
     Select Model To Upload    ${modelName}
-    Select Angle Json File    ${angleJsonFilename}
-    Wait Upload Items Successful    ${angleName}
+    Select Upload Item File    ${filename}
+    Wait Upload Items Successful
+
+Upload Item And Check From Search Result
+    [Arguments]    ${filename}    ${modelName}    ${itemName}  
+    Search By Text    ${itemName}
+    Upload Item    ${filename}    ${modelName}
+    Close Upload Item Report Popup
+    Check Existing Angle From Search Result    ${itemName}

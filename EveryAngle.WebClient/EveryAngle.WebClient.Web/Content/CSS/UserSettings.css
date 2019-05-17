@@ -366,6 +366,7 @@
     width: 25px;
     height: 25px;
     z-index: 10;
+    background-size: 20px 20px;
 }
 
 .ActionItem .linkDisplay:after {

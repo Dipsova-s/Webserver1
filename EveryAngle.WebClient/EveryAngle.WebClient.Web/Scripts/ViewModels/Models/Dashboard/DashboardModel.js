@@ -722,11 +722,11 @@ function DashboardViewModel() {
         var requests = {}, deferred = [];
 
         jQuery.each(self.Data().widget_definitions, function (index, widget) {
-            if (!requests[widget.widget_details.model]) requests[widget.widget_details.model] = [];
+            if (!requests[widget.widget_details.model])
+                requests[widget.widget_details.model] = [];
 
-            if (jQuery.inArray(widget.angle, requests[widget.widget_details.model] === -1)) {
+            if (widget.angle && jQuery.inArray(widget.angle, requests[widget.widget_details.model] === -1))
                 requests[widget.widget_details.model].push(widget.angle);
-            }
         });
 
         var query = {};
@@ -742,7 +742,7 @@ function DashboardViewModel() {
                             self.Angles.push(data);
                         })
                 );
-            })
+            });
         });
 
         return jQuery.whenAll(deferred);
