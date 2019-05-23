@@ -2254,6 +2254,9 @@
                 actionData.arguments = self.GetScriptActionArgumentsFromUI();
             }
 
+            // action arguments for all action type
+            actionData.arguments.push(self.GetAbortTaskWhenErrorActionArgumentResult());
+
             // notification
             actionData.notification = self.GetEmailNotificationDataFromUI();
 
