@@ -65,6 +65,7 @@ ${RunAllAngleName}    TC_RunAllAngles_
 ${RunAllAngleTemplateFile}    ${EXECDIR}/WC/TC_RunAllAnglesTemplate.robot
 ${SPACE4}    ${SPACE}${SPACE}${SPACE}${SPACE}
 ${WEBHELP_COMMON_FOLDER}    idsfigures_lowres
+${WEBHELP_ITEM_PATH}    ${EXECDIR}/webhelp_items
 ${WC_HELP_IMAGE_PATH}    ${EXECDIR}/webhelp/${WEBHELP_COMMON_FOLDER}/Webclient
 ${MC_HELP_IMAGE_PATH}    ${EXECDIR}/webhelp/${WEBHELP_COMMON_FOLDER}/EA2_ManagementConsole
 # Users

@@ -103,3 +103,4 @@ Crop Edit Automation Task Page
     Add Task Action Email Notification    m.smith@everyangle.org    Select    Unselect    Unselect
     Input Task Action Email Description    <p>New daily export of {anglename}</p><p>Model timestamp: {modeltimestamp}</p><p>Displayname: {displayname}</p>
     Crop WebHelp Image With Dimensions    MC_AutoTask_MacroExample.png    jquery=#AddActionPopup .popupContent    0    2    700    550
+    Copy Image To Webhelp Folder    images/MC_AutoTask_MacroResult.png

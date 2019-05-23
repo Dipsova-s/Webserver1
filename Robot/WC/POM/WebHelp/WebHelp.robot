@@ -50,6 +50,11 @@ Update Popup Position
     ...    var newOffset={left:newLeft,top:newTop};
     ...    element.offset(newOffset);
 
+Copy Image To Webhelp Folder
+    [Arguments]    ${path}    ${languageDependent}=${True}
+    ${output}    Get WebHelp Output Folder   ${languageDependent}
+    Copy File    ${WEBHELP_ITEM_PATH}${/}${path}    ${output}
+
 Crop WebHelp Image
     [Arguments]    ${filename}    ${selector}    ${languageDependent}=${True}
     ${output}    Get WebHelp Output Folder   ${languageDependent}
