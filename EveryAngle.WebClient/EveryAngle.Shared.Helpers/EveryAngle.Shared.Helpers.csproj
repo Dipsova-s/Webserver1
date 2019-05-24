@@ -98,7 +98,6 @@
     <Compile Include="Base64Helper.cs" />
     <Compile Include="EnumHelper.cs" />
     <Compile Include="ExceptionExtensions.cs" />
-    <Compile Include="PotentiallyTagsHelper.cs" />
     <Compile Include="HttpModules\RemoveServerHeaderModule.cs" />
     <Compile Include="IPAddressHelper.cs" />
     <Compile Include="LicenseHelper.cs" />

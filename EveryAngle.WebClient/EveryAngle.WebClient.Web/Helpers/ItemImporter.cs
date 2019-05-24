@@ -36,16 +36,9 @@ namespace EveryAngle.WebClient.Web.Helpers
             return contents;
         }
 
-        public static T GetObjectFromStream<T>(Stream stream, bool checkHtml = true) where T : class
+        public static T GetObjectFromStream<T>(Stream stream) where T : class
         {
             string content = new StreamReader(stream).ReadToEnd();
-
-            // if json has contains invalid html tags then throw an error
-            if (checkHtml && !PotentiallyTagsHelper.IsSafeContent(content))
-            {
-                throw new Exception(Resource.UploadAngles_InvalideParseJson);
-            }
-
             return JsonConvert.DeserializeObject<T>(content);
         }
     }
