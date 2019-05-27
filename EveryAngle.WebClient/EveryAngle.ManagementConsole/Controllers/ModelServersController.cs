@@ -93,34 +93,22 @@ namespace EveryAngle.ManagementConsole.Controllers
 
         public ActionResult GetAllModelServerReport(string modelServerUri, bool isCurrentInstance)
         {
-            var modelServer = _modelService.GetModelServer(modelServerUri);
+            ModelServerViewModel modelServerViewModel = _modelService.GetModelServer(modelServerUri);
+
+            ListViewModel<ModelServerReportViewModel> modelServerReportListView = new ListViewModel<ModelServerReportViewModel>();
+            string modelServerReportUri = modelServerViewModel?.reports?.ToString();
+            
+            if(!string.IsNullOrEmpty(modelServerReportUri))
+                modelServerReportListView = _modelService.GetReports(modelServerReportUri);
+
+            IList<TreeViewItemModel> treeListView = GetModelServerReportTreeViewItemModel(modelServerReportListView);
+
             ViewBag.ModelServerUri = modelServerUri;
-            ViewBag.ModelServerID = modelServer.id;
+            ViewBag.ModelServerID = modelServerViewModel.id;
             ViewBag.IsCurrentInstance = isCurrentInstance;
-            var parentDetails = new List<TreeViewItemModel>();
+            ViewBag.TaskDetails = treeListView;
 
-            var reportUri = modelServer.reports == null ? "" : modelServer.reports.ToString();
-            var reports = string.IsNullOrEmpty(reportUri)
-                ? new ListViewModel<ModelServerReportViewModel>()
-                : _modelService.GetReports(reportUri);
-
-            var status = new TreeViewItemModel();
-            status.Text = Resource.MC_Status;
-            parentDetails.Add(status);
-
-            if (reports.Data != null)
-            {
-                var generalReports =
-                    reports.Data.Where(x => !x.id.StartsWith("Class") && !x.id.StartsWith("Enum")).ToList();
-                var classesReports = reports.Data.Where(x => x.id.StartsWith("Class")).ToList();
-                var enumReports = reports.Data.Where(x => x.id.StartsWith("Enum")).ToList();
-                CreateReportTreeView(parentDetails, generalReports, Resource.MC_GeneralReport);
-                CreateReportTreeView(parentDetails, classesReports, Resource.MC_ClassReport);
-                CreateReportTreeView(parentDetails, enumReports, Resource.MC_EnumReport);
-                ViewBag.TaskDetails = parentDetails;
-            }
-
-            return PartialView("~/Views/Model/ModelServers/ModelServerReport.cshtml", parentDetails);
+            return PartialView("~/Views/Model/ModelServers/ModelServerReport.cshtml", treeListView);
         }
 
         public ContentResult GetModelServerReport(string modelServerUri, string reportUri)
@@ -175,6 +163,16 @@ namespace EveryAngle.ManagementConsole.Controllers
             }
         }
 
+        public FileResult GetModelServerMetaDataFile(string fullPath, string modelServerId, string instanceid)
+        {
+            string requestUrl = string.Format("{0}/metadata", Base64Helper.Decode(fullPath));
+            string downloadFilename = string.Format("metadata_{0}_{1}.json", modelServerId, instanceid);
+
+            RequestManager requestManager = RequestManager.Initialize(requestUrl);
+            byte[] downloadFileByte = requestManager.GetBinary();
+            return File(downloadFileByte, MediaTypeNames.Application.Octet, downloadFilename);
+        }
+
         #endregion
 
         #region "Private"
@@ -225,18 +223,6 @@ namespace EveryAngle.ManagementConsole.Controllers
             reportTreeView.Text = reportName;
             reportTreeView.Items.AddRange(reportDetails);
             parentDetails.Add(reportTreeView);
-        }
-
-
-
-        public FileResult GetModelServerMetaDataFile(string fullPath, string modelServerId, string instanceid)
-        {
-            string requestUrl = string.Format("{0}/metadata", Base64Helper.Decode(fullPath));
-            string downloadFilename = string.Format("metadata_{0}_{1}.json", modelServerId, instanceid);
-
-            RequestManager requestManager = RequestManager.Initialize(requestUrl);
-            byte[] downloadFileByte = requestManager.GetBinary();
-            return File(downloadFileByte, MediaTypeNames.Application.Octet, downloadFilename);
         }
 
         private PartialViewResult GetModelServerInfoPartialView(ModelServerViewModel modelServerViewModel)
@@ -296,6 +282,27 @@ namespace EveryAngle.ManagementConsole.Controllers
                 extractorViewModel = _modelService.GetModelExtractor(modelServerViewModel.info.ToString());
             }
             return PartialView("~/Views/Model/ModelServers/ModelExtractorInfo.cshtml", extractorViewModel);
+        }
+
+        private IList<TreeViewItemModel> GetModelServerReportTreeViewItemModel(ListViewModel<ModelServerReportViewModel> modelServerReportListView)
+        {
+            List<TreeViewItemModel> treeListView = new List<TreeViewItemModel>
+            {
+                new TreeViewItemModel { Text = Resource.MC_Status }
+            };
+
+            if (modelServerReportListView.Data.Any())
+            {
+                List<ModelServerReportViewModel> generalsReport = modelServerReportListView.Data.Where(x => !x.id.StartsWith("Class") && !x.id.StartsWith("Enum")).ToList();
+                List<ModelServerReportViewModel> classesReport = modelServerReportListView.Data.Where(x => x.id.StartsWith("Class")).ToList();
+                List<ModelServerReportViewModel> enumsReport = modelServerReportListView.Data.Where(x => x.id.StartsWith("Enum")).ToList();
+
+                CreateReportTreeView(treeListView, generalsReport, Resource.MC_GeneralReport);
+                CreateReportTreeView(treeListView, classesReport, Resource.MC_ClassReport);
+                CreateReportTreeView(treeListView, enumsReport, Resource.MC_EnumReport);
+            }
+
+            return treeListView;
         }
 
         #endregion
