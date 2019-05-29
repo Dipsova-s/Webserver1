@@ -354,7 +354,7 @@ function CreateNewAngleViewManagementModel() {
             var maps = area.Details;
             for (var index = 0; index < maps.length; index++) {
                 var element = jQuery('<div />');
-                var elementInner = jQuery('<a><span class="inprogress"></span></a>')
+                var elementInner = jQuery('<a><span class="inprogress"></span></a>');
 
                 var borderColor = 'transparent';
                 if (maps[index].AreaStyle.BorderColor !== '#ffffff') {
@@ -427,7 +427,9 @@ function CreateNewAngleViewManagementModel() {
                     });
                 self.SetSchemaHelpTexts();
             }
-            catch (err) { }
+            catch (err) {
+                // prevent error
+            }
 
             jQuery('#mapImageSource').attr('src', picture);
 
@@ -487,7 +489,7 @@ function CreateNewAngleViewManagementModel() {
         }
     };
     self.SetSchemaName = function (helptexts) {
-        if (helptexts != null && helptexts.length !== 0) {
+        if (helptexts && helptexts.length !== 0) {
             jQuery('#Schema > div').each(function (index, value) {
                 var schemaObject = jQuery(value),
                     element = helptexts.findObject('id', schemaObject.attr('name').toLowerCase().replace('classid_', ''), false);
@@ -817,7 +819,7 @@ function CreateNewAngleViewManagementModel() {
                         self.ClassesChooserHandler.OnSubmitClasses = self.CreateNewAngleFromObjects;
                         self.ClassesChooserHandler.SetSelectedClassesCallback = self.SetSelectedClassesCallback;
                     }
-
+                    
                     self.ShowCreateAngleByObjectCallback(e);
 
                     e.sender.trigger('resize');
@@ -828,10 +830,10 @@ function CreateNewAngleViewManagementModel() {
         popup.Show(popupSettings);
     };
     self.ShowCreateAngleByObjectCallback = function (e) {
-
         self.ClassesChooserHandler.CurrentModelData = self.CurrentModelData;
         self.ClassesChooserHandler.Element = e.sender.element;
         self.ClassesChooserHandler.ApplyHandler();
+        self.SetCreateAngleByObjectSelectionMode(self.CurrentModelData.id);
         jQuery('.skipTemplate').show();
 
         var modelPrivileges = privilegesViewModel.GetModelPrivilegesByUri(self.CreateAngleSettings.model);
@@ -841,7 +843,7 @@ function CreateNewAngleViewManagementModel() {
         jQuery.each(self.CreateAngleSettings.createby_object.bp, function (index, bp) {
             if (modelPrivileges.length > 0) {
                 jQuery.each(modelPrivileges[0].label_authorizations, function (index2, bp2) {
-                    if ((index2 === bp) && (bp2 !== "deny")) {
+                    if (index2 === bp && bp2 !== "deny") {
                         currentBP[bp] = true;
                     }
                 });
@@ -854,7 +856,7 @@ function CreateNewAngleViewManagementModel() {
         if (modelPrivileges.length > 0) {
             jQuery.each(modelPrivileges[0].label_authorizations, function (index2, bp2) {
                 if (bp2 === "deny") {
-                    var lengthOfStack = self.CreateAngleSettings.createby_object.bp_stack.length
+                    var lengthOfStack = self.CreateAngleSettings.createby_object.bp_stack.length;
                     for (var index = 0; index < lengthOfStack; index++) {
                         var bp = self.CreateAngleSettings.createby_object.bp_stack[index];
                         if (index2 === bp) {
@@ -873,7 +875,7 @@ function CreateNewAngleViewManagementModel() {
         jQuery('#txtFitlerObjects').val(self.CreateAngleSettings.createby_object.q);
         businessProcessesModel.CreateNewAngleBusinessProcess.CurrentActive(currentBP);
        
-        var modelPrivileges = privilegesViewModel.GetModelPrivilegesByUri(self.CreateAngleSettings.model);
+        modelPrivileges = privilegesViewModel.GetModelPrivilegesByUri(self.CreateAngleSettings.model);
         businessProcessHandler.ManageBPAuthorization(businessProcessesModel.CreateNewAngleBusinessProcess, modelPrivileges);
 
         var helpIds = [];
@@ -888,6 +890,12 @@ function CreateNewAngleViewManagementModel() {
                 }, 100);
             });
     };
+    self.SetCreateAngleByObjectSelectionMode = function (modelId) {
+        // M4-43508: Prevent selection of multiple classes for RMS-based model
+        var isRealTimeModel = aboutSystemHandler.IsRealTimeModel(modelId);
+        self.ClassesChooserHandler.MultipleSelection = !isRealTimeModel;
+    };
+
     self.CloseCreateAngleByObject = function () {
         popup.Close('#popupCreateNewAngle');
     };
