@@ -282,7 +282,7 @@ function ImportAngleHandler() {
 
         if (response.Result) {
             var modelUri = WC.HtmlHelper.DropdownList('#ddlModelImportAngle').value();
-            if (response.Result.type === AngleExportHandler.ANGLEEXPORTTYPE.DONWLOAD)
+            if (response.Result.type === AngleExportHandler.ANGLEEXPORTTYPE.DOWNLOAD)
                 self.UploadIndividualAngle(e, modelUri, file);
             else
                 self.UploadPackageItems(e, modelUri, file);
