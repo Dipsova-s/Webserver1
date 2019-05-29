@@ -102,12 +102,12 @@ describe("ItemInfoHandler", function () {
             {
                 title: 'should show display list at bottom if it has enough space',
                 totalDisplays: 1,
-                expectedArrow: 'k-window-arrow-n'
+                expectedArrow: 'k-window-arrow-e'
             },
             {
                 title: 'should show display list at top if no space at bottom',
                 totalDisplays: 10,
-                expectedArrow: 'k-window-arrow-s'
+                expectedArrow: 'k-window-arrow-e bottom'
             }
         ];
 

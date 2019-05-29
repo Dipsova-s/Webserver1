@@ -779,10 +779,8 @@ if %25ERRORLEVEL%25 LEQ 1 exit 0 else exit %25ERRORLEVEL%25</PreBuildEvent>
     <Content Include="Images\Icons\icon_webclient.png" />
     <Content Include="Images\Icons\icon_sort_asc.png" />
     <Content Include="Images\Icons\icon_sort_desc.png" />
-    <Content Include="Images\Popup\popup_right_arrow.png" />
     <Content Include="Images\loading-image.gif" />
     <Content Include="Images\loading.gif" />
-    <Content Include="Images\Popup\popup_left_arrow.png" />
     <Content Include="Images\Popup\ProgressBar\ajax-loader.gif" />
     <Content Include="Images\SearchPage\icn_execute.png" />
     <Content Include="Images\SearchPage\icn_starred_inactive.png" />

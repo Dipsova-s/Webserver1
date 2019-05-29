@@ -257,8 +257,8 @@ div.k-grid .k-grid-content tr td.last.k-column-active {
 .k-window-custom {
     background: #efefef none;
     border-radius: 2px;
-    border: 1px solid #c1c1c1;
-    box-shadow: 0 1px 0 rgba(0,0,0,.1), inset 0 0 0 rgba(0,0,0,.1);
+    border: 1px solid #e6e6e6;
+    box-shadow: 0 3px 8px 0px rgba(0, 0, 0, 0.3);
     left: 0;
     top: 0;
 }
@@ -289,7 +289,7 @@ div.k-grid .k-grid-content tr td.last.k-column-active {
 .k-window-arrow-w:after,
 .k-window-arrow-sw:after {
     z-index: 11;
-    border-color: #c1c1c1;
+    border-color: #e6e6e6;
 }
 
 .k-window-arrow-n:before,
@@ -305,7 +305,7 @@ div.k-grid .k-grid-content tr td.last.k-column-active {
 
 .k-window-arrow-n:after {
     top: -11px;
-    border-bottom-color: #c1c1c1;
+    border-bottom-color: #e6e6e6;
 }
 
 .k-window-arrow-s:before,
@@ -323,7 +323,7 @@ div.k-grid .k-grid-content tr td.last.k-column-active {
 .k-window-arrow-s:after {
     top: auto;
     bottom: -10px;
-    border-top-color: #c1c1c1;
+    border-top-color: #e6e6e6;
 }
 
 .k-window-arrow-e:before,
@@ -339,9 +339,8 @@ div.k-grid .k-grid-content tr td.last.k-column-active {
 }
 
 .k-window-arrow-e:after {
-    top: 0;
     right: -11px;
-    border-left-color: #c1c1c1;
+    border-left-color: #e6e6e6;
 }
 
 .k-window-arrow-w:before,
@@ -361,13 +360,13 @@ div.k-grid .k-grid-content tr td.last.k-column-active {
 .k-window-arrow-sw:after {
     top: auto;
     bottom: 0;
-    border-right-color: #efefef;
+    border-right-color: #e6e6e6;
 }
 
 .k-window-arrow-w:after,
 .k-window-arrow-sw:after {
     left: -11px;
-    border-right-color: #c1c1c1;
+    border-right-color: #e6e6e6;
 }
 
 .eaPopup {

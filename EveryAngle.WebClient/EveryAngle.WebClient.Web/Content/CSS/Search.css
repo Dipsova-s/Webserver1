@@ -1237,14 +1237,11 @@
     width: 600px;
 }
 
-#popupDisplays.k-window-arrow-n:before,
-#popupDisplays.k-window-arrow-n:after,
-#popupDisplays.k-window-arrow-s:before,
-#popupDisplays.k-window-arrow-s:after {
-    left: auto;
-    right: 10px;
+#popupDisplays.k-window-arrow-e.bottom:before,
+#popupDisplays.k-window-arrow-e.bottom:after {
+    top: auto;
+    bottom: 10px;
 }
-
 #popupDisplays .k-window-content {
     min-height: 35px;
 }
@@ -1263,11 +1260,12 @@
 
 #popupDisplays .displayNameContainer {
     font-size: 12px;
-    border-bottom: 1px solid #c5c5c5;
+    border-bottom: 1px solid #f3f4f7;
+    background-color: #fdfdfd;
 }
 
 #popupDisplays .displayNameContainer:hover {
-    background-color: #ebebeb;
+    background-color: #f3f4f7;
 }
 
 #popupDisplays .detailDefinitionList .displayNameContainer .front,

@@ -10,24 +10,13 @@
     top: 24px !important;   /* NOSONAR: override runtime css */
 }
 
-.customSortPopup.inside:before {
-    content: '';
-    position: absolute;
-    left: -14px;
+.customSortPopup.inside:before,
+.customSortPopup.inside:after {
     top: 90px;
-    background: transparent url('../../images/popup/popup_left_arrow.png') left top no-repeat;
-    width: 15px;
-    height: 21px;
 }
 
 .customSortPopupLeft.inside {
-    left: -365px !important;    /* NOSONAR: override runtime css */
-}
-
-.customSortPopupLeft.inside:before {
-    background: transparent url('../../images/popup/popup_right_arrow.png') left top no-repeat;
-    left: auto;
-    right: -14px;
+    left: -415px !important;    /* NOSONAR: override runtime css */
 }
 
 .customSortPopup div.k-window-content {

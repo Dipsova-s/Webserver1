@@ -314,7 +314,7 @@ window.ItemInfoHandler = function () {
     self.CreateShowDisplaysElement = function (target, totalDisplays) {
         var container = jQuery('#popupDisplays');
         if (!container.length) {
-            container = jQuery('<div class="k-window-titleless k-window-custom k-window-arrow-n" id="popupDisplays" />');
+            container = jQuery('<div class="k-window-titleless k-window-custom" id="popupDisplays" />');
             container.appendTo('body');
             jQuery.clickOutside('#popupDisplays', '.btnShowDisplays');
             jQuery(window).off('resize.showdisplays').on('resize.showdisplays', function () {
@@ -322,7 +322,7 @@ window.ItemInfoHandler = function () {
             });
         }
         container.html('<div class="k-window-content k-content" />');
-        container.removeClass('k-window-arrow-n k-window-arrow-s');
+        container.removeClass('bottom');
         container.show();
 
         var settings = self.GetDisplaysElementSettings(container.width(), target, totalDisplays);
@@ -333,19 +333,18 @@ window.ItemInfoHandler = function () {
         return container;
     };
     self.GetDisplaysElementSettings = function (contentWidth, target, totalDisplays) {
-        var settings = { offset: {}, height: 0, arrow: 'k-window-arrow-n' };
+        var settings = { offset: {}, height: 0, arrow: 'k-window-arrow-e' };
         var arrowSize = 12;
         var maxDisplays = Math.min(self.MaxDisplays, totalDisplays);
         var contentHeight = maxDisplays * 35;
-        var targetHeight = target.height() + arrowSize;
         var offset = target.offset();
-        offset.left -= contentWidth - target.width() - arrowSize;
-        offset.top += targetHeight;
+        offset.left = offset.left - contentWidth - arrowSize;
+        offset.top = offset.top - 13;
 
         // position top top of target if no space at bottom
         if (offset.top + contentHeight > WC.Window.Height) {
-            settings.arrow = 'k-window-arrow-s';
-            offset.top -= contentHeight + targetHeight + arrowSize;
+            settings.arrow += ' bottom';
+            offset.top -= contentHeight - 40;
         }
 
         settings.offset = offset;

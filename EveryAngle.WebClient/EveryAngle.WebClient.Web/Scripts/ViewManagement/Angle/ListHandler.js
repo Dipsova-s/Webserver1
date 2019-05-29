@@ -1290,20 +1290,26 @@ function ListHandler(elementId, container) {
     self.UpdateCustomSortPopupLayout = function (obj) {
         var customSorting = obj.find('.customSortPopup');
         if (customSorting.is(':visible')) {
-            customSorting.removeClass('customSortPopupLeft');
+            customSorting.removeClass('customSortPopupLeft k-window-arrow-e k-window-arrow-w');
 
             if (customSorting.offset().left + customSorting.outerWidth(true) + 20 > WC.Window.Width) {
-				customSorting.addClass('customSortPopupLeft');
+                customSorting.addClass('customSortPopupLeft k-window-arrow-e');
+            }
+            else {
+                customSorting.addClass('k-window-arrow-w');
             }
         }
     };
     self.UpdateCustomFormatPopupLayout = function (obj) {
         var customFormat = obj.find('.listFormatSettingPopup');
         if (customFormat.is(':visible')) {
-            customFormat.removeClass('listFormatSettingPopupLeft');
+            customFormat.removeClass('listFormatSettingPopupLeft k-window-arrow-e k-window-arrow-w');
 
             if (customFormat.offset().left + customFormat.outerWidth(true) + 20 > WC.Window.Width) {
-                customFormat.addClass('listFormatSettingPopupLeft');
+                customFormat.addClass('listFormatSettingPopupLeft k-window-arrow-e');
+            }
+            else {
+                customFormat.addClass('k-window-arrow-w');
             }
         }
     };

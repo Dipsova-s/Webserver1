@@ -270,24 +270,13 @@
     height: auto;
 }
 
-.listFormatSettingPopup.inside:before {
-    content: '';
-    position: absolute;
-    left: -14px;
+.listFormatSettingPopup.inside:before,
+.listFormatSettingPopup.inside:after {
     top: 188px;
-    background: transparent url('../../images/popup/popup_left_arrow.png') left top no-repeat;
-    width: 15px;
-    height: 21px;
 }
 
 .listFormatSettingPopupLeft.inside {
-    left: -365px !important; /* NOSONAR: override runtime css */
-}
-
-.listFormatSettingPopupLeft.inside:before {
-    background: transparent url('../../images/popup/popup_right_arrow.png') left top no-repeat;
-    left: auto;
-    right: -14px;
+    left: -380px !important; /* NOSONAR: override runtime css */
 }
 
 .listFormatSettingPopup div.k-window-content {
