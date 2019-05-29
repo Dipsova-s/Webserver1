@@ -54,7 +54,7 @@ describe("AngleExportHandler", function () {
                 }
             };
             angleExportHandler.InitialHandler(e);
-            expect(angleExportHandler.AngleExportType()).toEqual(AngleExportHandler.ANGLEEXPORTTYPE.DONWLOAD);
+            expect(angleExportHandler.AngleExportType()).toEqual(AngleExportHandler.ANGLEEXPORTTYPE.DOWNLOAD);
         });
 
     });
@@ -168,7 +168,7 @@ describe("AngleExportHandler", function () {
     describe(".GetAllWarningMessages", function () {
 
         beforeEach(function () {
-            angleExportHandler.AngleExportType(AngleExportHandler.ANGLEEXPORTTYPE.DONWLOAD);
+            angleExportHandler.AngleExportType(AngleExportHandler.ANGLEEXPORTTYPE.DOWNLOAD);
             angleExportHandler.Handler().GetWarningMessage = function () { return 'message1'; };
 
             angleExportHandler.AngleExportType(AngleExportHandler.ANGLEEXPORTTYPE.PACKAGE);
@@ -332,79 +332,48 @@ describe("AngleExportHandler", function () {
 
     describe(".IsDownloadable", function () {
 
-        it("should has no warning or error messages when Dashboards are ok", function () {
+        it("should get error message (type=DASHBOARD)", function () {
             var result = angleExportHandler.IsDownloadable(angleExportHandler.SELECTTYPE.DASHBOARD, true, true, true);
-            expect(result).toEqual(true);
-            expect(angleExportHandler.AngleExportType(AngleExportHandler.ANGLEEXPORTTYPE.PACKAGE));
+            expect(result).toEqual(false);
+            expect(angleExportHandler.AngleExportType()).toEqual(AngleExportHandler.ANGLEEXPORTTYPE.DOWNLOAD);
         });
 
-        it("should has no warning or error messages when Angles are ok", function () {
+        it("should get error message (type=BOTH)", function () {
+            var result = angleExportHandler.IsDownloadable(angleExportHandler.SELECTTYPE.BOTH, true, true, true);
+            expect(result).toEqual(false);
+            expect(angleExportHandler.AngleExportType()).toEqual(AngleExportHandler.ANGLEEXPORTTYPE.DOWNLOAD);
+        });
+
+        it("should ok (type=ANGLE, same_model=true, all_published=true, privilege=true)", function () {
             var result = angleExportHandler.IsDownloadable(angleExportHandler.SELECTTYPE.ANGLE, true, true, true);
             expect(result).toEqual(true);
-            expect(angleExportHandler.AngleExportType(AngleExportHandler.ANGLEEXPORTTYPE.DOWNLOAD));
+            expect(angleExportHandler.WarningTitle()).toEqual('');
+            expect(angleExportHandler.WarningDesc()).toEqual('');
+            expect(angleExportHandler.AngleExportType()).toEqual(AngleExportHandler.ANGLEEXPORTTYPE.DOWNLOAD);
         });
 
-        it("should has no warning or error messages when Both are ok", function () {
-            var result = angleExportHandler.IsDownloadable(angleExportHandler.SELECTTYPE.BOTH, true, true, true);
-            expect(result).toEqual(true);
-            expect(angleExportHandler.AngleExportType(AngleExportHandler.ANGLEEXPORTTYPE.PACKAGE));
-        });
-
-        it("should show error message when Dashboard has multi model", function () {
-            var result = angleExportHandler.IsDownloadable(angleExportHandler.SELECTTYPE.DASHBOARD, false, true, true);
-            expect(result).toEqual(false);
-        });
-
-        it("should show error message when Dashboard is not published", function () {
-            var result = angleExportHandler.IsDownloadable(angleExportHandler.SELECTTYPE.DASHBOARD, true, false, true);
-            expect(result).toEqual(false);
-        });
-
-        it("should show error message when Dashboard has no privilege", function () {
-            var result = angleExportHandler.IsDownloadable(angleExportHandler.SELECTTYPE.DASHBOARD, true, true, false);
-            expect(result).toEqual(false);
-        });
-
-        it("show show warning message when Angle has multi model", function () {
+        it("show get a warning message (type=ANGLE, same_model=false, all_published=true, privilege=true)", function () {
             var result = angleExportHandler.IsDownloadable(angleExportHandler.SELECTTYPE.ANGLE, false, true, true);
             expect(result).toEqual(true);
-            expect(angleExportHandler.WarningTitle()).not.toBeNull();
-            expect(angleExportHandler.WarningTitle()).not.toEqual('');
-            expect(angleExportHandler.AngleExportType(AngleExportHandler.ANGLEEXPORTTYPE.DOWNLOAD));
+            expect(angleExportHandler.WarningTitle()).toEqual(Localization.AngleExport_TypePackage_Angle_MultipleModel);
+            expect(angleExportHandler.WarningDesc()).toEqual('');
+            expect(angleExportHandler.AngleExportType()).toEqual(AngleExportHandler.ANGLEEXPORTTYPE.DOWNLOAD);
         });
 
-        it("show show warning message when Angle is not published", function () {
+        it("show get a warning message (type=ANGLE, same_model=true, all_published=false, privilege=true)", function () {
             var result = angleExportHandler.IsDownloadable(angleExportHandler.SELECTTYPE.ANGLE, true, false, true);
             expect(result).toEqual(true);
-            expect(angleExportHandler.WarningTitle()).not.toBeNull();
-            expect(angleExportHandler.WarningTitle()).not.toEqual('');
-            expect(angleExportHandler.AngleExportType(AngleExportHandler.ANGLEEXPORTTYPE.DOWNLOAD));
+            expect(angleExportHandler.WarningTitle()).toEqual(Localization.AngleExport_TypePackage_Angle_Private);
+            expect(angleExportHandler.WarningDesc()).toEqual('');
+            expect(angleExportHandler.AngleExportType()).toEqual(AngleExportHandler.ANGLEEXPORTTYPE.DOWNLOAD);
         });
 
-        it("show show warning message when Angle has no privilege", function () {
+        it("show get a warning message (type=ANGLE, same_model=true, all_published=true, privilege=false)", function () {
             var result = angleExportHandler.IsDownloadable(angleExportHandler.SELECTTYPE.ANGLE, true, true, false);
             expect(result).toEqual(true);
-            expect(angleExportHandler.WarningTitle()).not.toBeNull();
-            expect(angleExportHandler.WarningTitle()).not.toEqual('');
-            expect(angleExportHandler.AngleExportType(AngleExportHandler.ANGLEEXPORTTYPE.DOWNLOAD));
-        });
-
-        it("show show warning message when Both has multi model", function () {
-            var result = angleExportHandler.IsDownloadable(angleExportHandler.SELECTTYPE.BOTH, false, true, true);
-            expect(result).toEqual(false);
-        });
-
-        it("show show warning message when Both is not published", function () {
-            var result = angleExportHandler.IsDownloadable(angleExportHandler.SELECTTYPE.BOTH, true, false, true);
-            expect(result).toEqual(true);
-            expect(angleExportHandler.WarningTitle()).not.toBeNull();
-            expect(angleExportHandler.WarningTitle()).not.toEqual('');
-            expect(angleExportHandler.AngleExportType(AngleExportHandler.ANGLEEXPORTTYPE.DOWNLOAD));
-        });
-
-        it("should show error message when Both has no privilege", function () {
-            var result = angleExportHandler.IsDownloadable(angleExportHandler.SELECTTYPE.BOTH, true, true, false);
-            expect(result).toEqual(false);
+            expect(angleExportHandler.WarningTitle()).toEqual(Localization.AngleExport_TypePackage_Angle_ManageRequired);
+            expect(angleExportHandler.WarningDesc()).toEqual('');
+            expect(angleExportHandler.AngleExportType()).toEqual(AngleExportHandler.ANGLEEXPORTTYPE.DOWNLOAD);
         });
 
     });

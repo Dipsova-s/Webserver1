@@ -11,7 +11,7 @@ function AngleExportHandler(angleDownloadHandler, eaPackageHandler) {
     self.IsPackageVisible = ko.observable(true);
     self.Handler = ko.observable(_self.angleDownloadHandler);
     
-    self.AngleExportType = ko.observable(AngleExportHandler.ANGLEEXPORTTYPE.DONWLOAD);
+    self.AngleExportType = ko.observable(AngleExportHandler.ANGLEEXPORTTYPE.DOWNLOAD);
 
     self.SELECTTYPE = {
         ANGLE: 'angle_only',
@@ -43,91 +43,40 @@ function AngleExportHandler(angleDownloadHandler, eaPackageHandler) {
     };
 
     self.SetSelectTypeByItems = function (items) {
-        if (items.every(function (item) {
-            return item.type === enumHandlers.ITEMTYPE.DASHBOARD;
-        })) {
-            self.SelectType(self.SELECTTYPE.DASHBOARD);
-        } else if (items.every(function (item) {
-            return item.type === enumHandlers.ITEMTYPE.ANGLE;
-        })) {
-            self.SelectType(self.SELECTTYPE.ANGLE);
-        } else {
+        var hasDashboard = items.hasObject('type', enumHandlers.ITEMTYPE.DASHBOARD);
+        var hasAngle = items.hasObject('type', enumHandlers.ITEMTYPE.ANGLE);
+        if (hasDashboard && hasAngle)
             self.SelectType(self.SELECTTYPE.BOTH);
-        }
+        else if (hasDashboard)
+            self.SelectType(self.SELECTTYPE.DASHBOARD);
+        else
+            self.SelectType(self.SELECTTYPE.ANGLE);
     };
 
     self.IsDownloadable = function (selectType, isAllSameModel, isAllPublish, hasPrivilege) {
-
         self.WarningTitle('');
         self.WarningDesc('');
 
-        switch (selectType) {
-            case self.SELECTTYPE.DASHBOARD:
+        if (selectType === self.SELECTTYPE.ANGLE) {
+            if (!hasPrivilege) {
+                self.WarningTitle(Localization.AngleExport_TypePackage_Angle_ManageRequired);
+            }
 
-                var errorMessage = '';
+            if (!isAllSameModel) {
+                self.WarningTitle(Localization.AngleExport_TypePackage_Angle_MultipleModel);
+            }
 
-                if (!isAllSameModel) {
-                    errorMessage = Localization.AngleExport_TypePackage_Dashboard_MultipleModel;
-                }
+            if (!isAllPublish) {
+                self.WarningTitle(Localization.AngleExport_TypePackage_Angle_Private);
+            }
 
-                if (!hasPrivilege) {
-                    errorMessage = Localization.AngleExport_TypePackage_Dashboard_ManageRequired;
-                }
-
-                if (!isAllPublish) {
-                    errorMessage = Localization.AngleExport_TypePackage_Dashboard_Private;
-                }
-
-                if (errorMessage) {
-                    popup.Alert(Localization.CreateEAPackage, errorMessage, Localization.Ok);
-                    return false;
-                }
-
-                self.AngleExportType(AngleExportHandler.ANGLEEXPORTTYPE.PACKAGE);
-                break;
-            case self.SELECTTYPE.ANGLE:
-
-                if (!hasPrivilege) {
-                    self.WarningTitle(Localization.AngleExport_TypePackage_Angle_ManageRequired);
-                }
-
-                if (!isAllSameModel) {
-                    self.WarningTitle(Localization.AngleExport_TypePackage_Angle_MultipleModel);
-                }
-
-                if (!isAllPublish) {
-                    self.WarningTitle(Localization.AngleExport_TypePackage_Angle_Private);
-                }
-
-                self.AngleExportType(AngleExportHandler.ANGLEEXPORTTYPE.DONWLOAD);
-                break;
-            case self.SELECTTYPE.BOTH:
-
-                if (!hasPrivilege) {
-                    popup.Alert(Localization.CreateEAPackage, Localization.AngleExport_TypePackage_Dashboard_ManageRequired, Localization.Ok);
-                    return false;
-                }
-
-                if (!isAllSameModel) {
-                    popup.Alert(Localization.CreateEAPackage, Localization.AngleExport_TypePackage_Dashboard_ManageRequired, Localization.Ok);
-                    return false;
-                }
-
-                if (!isAllPublish) {
-                    self.WarningTitle(Localization.AngleExport_TypePackage_Both_Private);
-                    self.WarningDesc(Localization.AngleExport_TypePackage_Dashboard_Cannot_Individually);
-                }
-
-                if (isAllPublish) {
-                    self.AngleExportType(AngleExportHandler.ANGLEEXPORTTYPE.PACKAGE);
-                }
-                else {
-                    self.AngleExportType(AngleExportHandler.ANGLEEXPORTTYPE.DONWLOAD);
-                }
-                break;
+            self.AngleExportType(AngleExportHandler.ANGLEEXPORTTYPE.DOWNLOAD);
+            return true;
         }
-
-        return true;
+        else {
+            popup.Alert(Localization.CreateEAPackage, Localization.AngleExport_WarningNoExportItem, Localization.Ok);
+            return false;
+        }
     };
     self.ShowAngleExportPopup = function () {
 
@@ -250,7 +199,7 @@ function AngleExportHandler(angleDownloadHandler, eaPackageHandler) {
 }
 
 AngleExportHandler.ANGLEEXPORTTYPE = {
-    DONWLOAD: 'download',
+    DOWNLOAD: 'download',
     PACKAGE: 'package'
 };
 

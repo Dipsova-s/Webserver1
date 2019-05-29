@@ -352,7 +352,7 @@ describe("ImportAngleHandler", function () {
             var e = {
                 files: [{ name: 'ROBOT_ANGLE_GENERAL_TEST.angle.json' }],
                 response: {
-                    Result: { type: AngleExportHandler.ANGLEEXPORTTYPE.DONWLOAD, angle: {} }
+                    Result: { type: AngleExportHandler.ANGLEEXPORTTYPE.DOWNLOAD, angle: {} }
                 }
             };
             importAngleHandler.UploadSuccess(e);
