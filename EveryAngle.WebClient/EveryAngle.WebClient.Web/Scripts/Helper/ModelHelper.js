@@ -44,7 +44,6 @@
                     lang: defaultLanguage,
                     text: data.name
                 }];
-                delete data.name;
             }
             jQuery.each(data.multi_lang_name, function (index, name) {
                 name.text = WC.Utility.ToString(name.text);
@@ -59,7 +58,6 @@
                     lang: defaultLanguage,
                     text: data.description
                 }];
-                delete data.description;
             }
             data.multi_lang_description = [];
             jQuery.each(avaliableLanguages, function (index, lang) {
