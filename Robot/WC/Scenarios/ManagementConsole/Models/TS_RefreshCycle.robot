@@ -55,3 +55,19 @@ Delete Refresh Cycle
     Click Action Delete Refresh Cycle By Name           ${refreshCycleName}
     Click Delete Refresh Cycle By Name                  ${refreshCycleName}
     Click Confirm Delete Refresh Cycle
+
+Check Field Elements
+    Click Add Refresh Cycle
+    Page Should Contain Name Field
+    Page Should Contain External Field
+    Page Should Contain Action List Field
+    Page Should Contain Delta Field
+    Page Should Contain New And Changed Tables Only Field
+    Page Should Contain Day Field
+    Page Should Contain Start Time Field
+    Page Should Contain Delay Model Server Stop Field
+    Page Should Contain Continuous Field
+    Page Should Contain Restart Delay Field
+    Page Should Contain Until Field
+    Page Should Contain Maximum Run Time Field
+    Page Should Contain Enabled Field

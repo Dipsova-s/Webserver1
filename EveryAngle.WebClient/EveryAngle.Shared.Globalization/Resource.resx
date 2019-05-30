@@ -6083,4 +6083,7 @@ Only Active Directory (AD) and Active Directory Federation (ADFS) services are s
   <data name="UploadAngles_ItemPackageSourceInvalid" xml:space="preserve">
     <value>Invalid package source, only Webclient packages can be uploaded</value>
   </data>
+  <data name="MC_DelayModelserverStop" xml:space="preserve">
+    <value>Delay model server stop</value>
+  </data>
 </root>

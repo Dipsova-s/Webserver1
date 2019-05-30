@@ -8706,6 +8706,15 @@ namespace EveryAngle.Shared.Globalization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Delay model server stop.
+        /// </summary>
+        public static string MC_DelayModelserverStop {
+            get {
+                return ResourceManager.GetString("MC_DelayModelserverStop", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Delete action: {reference}?.
         /// </summary>
         public static string MC_DeleteActionConfirm {

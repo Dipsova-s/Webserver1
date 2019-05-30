@@ -7,8 +7,11 @@ ${trRowInRefreshCycleGrid}         jquery=#TaskDetailGrid tbody tr
 ${txtRefreshCycleName}             input[name=TaskName]
 ${chkEnabled}                      input[name^=IsEnabled]
 ${chkContinuous}                   input[name^=IsContinuous]
-${ddlActionList}                   input[name^=Action]
+${ddlActionList}                   select[name^=Action]
 ${chkDelta}                        input[name^=IsDelta]
+${chkExternal}                     input[name^=IsExternal]
+${chkNewAndChangedTablesOnly}      input[name^=ChangedTablesOnly]
+${chkDelayModelServerStop}         input[name^=DelayModelserverStop]
 
 ${chkDaySunday}                    .checkbox [value=S]
 ${chkDayMonday}                    .checkbox [value=M]
@@ -183,3 +186,73 @@ Click Action Delete Refresh Cycle By Name
 Click Confirm Delete Refresh Cycle
     Wait Until Element Is Visible    ${confirmationDelete}
     Click Element    ${confirmationDelete}
+
+Page Should Contain Name Field
+    Wait Until Page Contains Element    ${contentSectionInfo} ${txtRefreshCycleName}
+    Page Should Contain Element    ${contentSectionInfo} ${txtRefreshCycleName}
+
+Page Should Contain External Field
+    Wait Until Page Contains Element    ${contentSectionInfo} ${chkExternal}
+    Page Should Contain Element    ${contentSectionInfo} ${chkExternal}
+
+Page Should Contain Action List Field
+    Wait Until Page Contains Element    ${contentSectionInfo} ${ddlActionList}
+    Page Should Contain Element    ${contentSectionInfo} ${ddlActionList}
+
+Page Should Contain Delta Field
+    Wait Until Page Contains Element    ${contentSectionInfo} ${chkDelta}
+    Page Should Contain Element    ${contentSectionInfo} ${chkDelta}
+
+Page Should Contain New And Changed Tables Only Field
+    Wait Until Page Contains Element    ${contentSectionInfo} ${chkNewAndChangedTablesOnly}
+    Page Should Contain Element    ${contentSectionInfo} ${chkNewAndChangedTablesOnly}
+
+Page Should Contain Day Field
+    Wait Until Page Contains Element    ${contentSectionInfo} ${chkDaySunday}
+    Page Should Contain Element    ${contentSectionInfo} ${chkDaySunday}
+
+    Wait Until Page Contains Element    ${contentSectionInfo} ${chkDayMonday}
+    Page Should Contain Element    ${contentSectionInfo} ${chkDayMonday}
+
+    Wait Until Page Contains Element    ${contentSectionInfo} ${chkDayThueseday}
+    Page Should Contain Element    ${contentSectionInfo} ${chkDayThueseday}
+
+    Wait Until Page Contains Element    ${contentSectionInfo} ${chkDayWednesday}
+    Page Should Contain Element    ${contentSectionInfo} ${chkDayWednesday}
+
+    Wait Until Page Contains Element    ${contentSectionInfo} ${chkDayThursday}
+    Page Should Contain Element    ${contentSectionInfo} ${chkDayThursday}
+
+    Wait Until Page Contains Element    ${contentSectionInfo} ${chkDayFriday}
+    Page Should Contain Element    ${contentSectionInfo} ${chkDayFriday}
+
+    Wait Until Page Contains Element    ${contentSectionInfo} ${chkDaySaturday}
+    Page Should Contain Element    ${contentSectionInfo} ${chkDaySaturday}
+
+Page Should Contain Start Time Field
+    Wait Until Page Contains Element    ${contentSectionInfo} ${txtStartTime}
+    Page Should Contain Element    ${contentSectionInfo} ${txtStartTime}
+
+Page Should Contain Delay Model Server Stop Field
+    Wait Until Page Contains Element    ${contentSectionInfo} ${chkDelayModelServerStop}
+    Page Should Contain Element    ${contentSectionInfo} ${chkDelayModelServerStop}
+
+Page Should Contain Continuous Field
+    Wait Until Page Contains Element    ${contentSectionInfo} ${chkContinuous}
+    Page Should Contain Element    ${contentSectionInfo} ${chkContinuous}
+
+Page Should Contain Restart Delay Field
+    Wait Until Page Contains Element    ${contentSectionInfo} ${txtRestartDelay}
+    Page Should Contain Element    ${contentSectionInfo} ${txtRestartDelay}
+
+Page Should Contain Until Field
+    Wait Until Page Contains Element    ${contentSectionInfo} ${txtUntil}
+    Page Should Contain Element    ${contentSectionInfo} ${txtUntil}
+
+Page Should Contain Maximum Run Time Field
+    Wait Until Page Contains Element    ${contentSectionInfo} ${txtMaximumRunTime}
+    Page Should Contain Element    ${contentSectionInfo} ${txtMaximumRunTime}
+
+Page Should Contain Enabled Field
+    Wait Until Page Contains Element    ${contentSectionInfo} ${chkEnabled}
+    Page Should Contain Element    ${contentSectionInfo} ${chkEnabled}

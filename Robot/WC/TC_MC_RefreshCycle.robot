@@ -30,3 +30,6 @@ Test Refresh Cycle For Validate Time
     # Delete Test Refresh Cycle
     Click Cancel Refresh Cycle Form
     Delete Refresh Cycle                ${RefreshCycleNameForAfterMidNight}
+
+Refresh Cycle Form Test
+    Check Field Elements
