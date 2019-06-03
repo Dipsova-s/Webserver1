@@ -101,7 +101,7 @@
             else {
                 $('#updatedFields').val(editIndex + ":" + uri);
             }
-            
+
             MC.ui.btnGroup(row.find('.gridColumnToolbar'));
         };
 
@@ -112,7 +112,7 @@
 
             var updatedItems = $('#updatedFields').val().split('#,#');
             var newValues = '';
-            
+
             for (var index = 0; index < updatedItems.length; index++) {
                 if (updatedItems[index] !== editIndex + ":" + uri && updatedItems[index] !== '#,#') {
                     newValues = newValues ? newValues + '#,#' + updatedItems[index] : updatedItems[index];
@@ -151,7 +151,7 @@
 
             var updatedItems = $('#updatedFields').val().split('#,#');
             var newValues = '';
-            
+
             for (var index = 0; index < updatedItems.length; index++) {
                 if (updatedItems[index] !== editIndex + ":" + uri && updatedItems[index] !== '#,#') {
                     newValues = newValues ? newValues + '#,#' + updatedItems[index] : updatedItems[index];

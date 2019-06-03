@@ -12,13 +12,13 @@ namespace EveryAngle.OData.Tests.UtilsTests.Exceptions
         [SetUp]
         public void Setup()
         {
-
+            // setup
         }
 
         [TearDown]
         public void TearDown()
         {
-
+            // tear down
         }
 
         #endregion

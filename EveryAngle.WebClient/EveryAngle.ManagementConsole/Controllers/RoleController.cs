@@ -33,32 +33,33 @@ namespace EveryAngle.ManagementConsole.Controllers
 {
     public class RoleController : BaseController
     {
-        private readonly IGlobalSettingService globalSettingService;
-        private readonly ILabelService labelService;
-        private readonly IModelService modelService;
-        private readonly IUserService userService;
+        private readonly ILabelService _labelService;
+        private readonly IModelService _modelService;
+        private readonly IUserService _userService;
+        private readonly ITaskService _taskService;
 
-        private ListViewModel<LabelViewModel> allLabelsList = new ListViewModel<LabelViewModel>();
-        private ListViewModel<LabelCategoryViewModel> allCategoriesList = new ListViewModel<LabelCategoryViewModel>();
+        private readonly ListViewModel<LabelViewModel> allLabelsList = new ListViewModel<LabelViewModel>();
+        private readonly ListViewModel<LabelCategoryViewModel> allCategoriesList = new ListViewModel<LabelCategoryViewModel>();
         private List<Tuple<string, string, string, bool, string>> fieldsList = new List<Tuple<string, string, string, bool, string>>();
 
-        public RoleController(IModelService service, ILabelService labelService,
-            IGlobalSettingService globalSettingService, IUserService userService)
+        public RoleController(IModelService modelService,
+            ILabelService labelService,
+            IUserService userService,
+            ITaskService taskService)
         {
-            modelService = service;
-            this.labelService = labelService;
-            this.globalSettingService = globalSettingService;
-            this.userService = userService;
+            _modelService = modelService;
+            _labelService = labelService;
+            _userService = userService;
+            _taskService = taskService;
         }
 
         #region "public"
-
-        //[OutputCache(Duration=30, VaryByParam="none")]
+        
         public ActionResult GetAllRolesPage(string modelUri)
         {
             var userIndentity = SessionHelper.Initialize();
             var version = userIndentity.Version;
-            var existProviders = userService.GetSystemAuthenticationProviders(version.GetEntryByName("authentication_providers").Uri.ToString());
+            var existProviders = _userService.GetSystemAuthenticationProviders(version.GetEntryByName("authentication_providers").Uri.ToString());
             var model = GetModel(modelUri);
             ViewBag.AuthenticationProviders = existProviders;
             ViewBag.ModelId = model.id;
@@ -74,7 +75,7 @@ namespace EveryAngle.ManagementConsole.Controllers
         {
             string queryString = UtilitiesHelper.GetOffsetLimitQueryString(1, 1000, filter);
             string requestUrl = string.Format("/users?{0}", queryString);
-            ListViewModel<UserViewModel> userViewModel = userService.GetUsers(requestUrl);
+            ListViewModel<UserViewModel> userViewModel = _userService.GetUsers(requestUrl);
             return Json(userViewModel.Data, JsonRequestBehavior.AllowGet);
         }
 
@@ -82,7 +83,7 @@ namespace EveryAngle.ManagementConsole.Controllers
         {
             string queryString = UtilitiesHelper.GetOffsetLimitQueryString(1, 1000);
             string requestUrl = string.Format("{0}/users?{1}", roleUri, queryString);
-            ListViewModel<UserViewModel> userViewModel = userService.GetUsers(requestUrl);
+            ListViewModel<UserViewModel> userViewModel = _userService.GetUsers(requestUrl);
             return Json(userViewModel.Data, JsonRequestBehavior.AllowGet);
         }
 
@@ -100,39 +101,31 @@ namespace EveryAngle.ManagementConsole.Controllers
             taskViewModel.delete_after_completion = true;
             taskViewModel.start_immediately = true;
             taskViewModel.actions = new List<Core.ViewModels.Cycle.TaskAction>();
-
-
+            
             // This should be refactored to use just ONE action
             // PBI M4-26020 is for refactoring this code
-            if (assignUserInRoleList.Count() > 0)
+            if (assignUserInRoleList.Any())
                 AddTaskAction(roleId, modelId, taskViewModel, assignUserInRoleList, "assign");
 
-            if (unAssignUserInRoleList.Count() > 0)
+            if (unAssignUserInRoleList.Any())
                 AddTaskAction(roleId, modelId, taskViewModel, unAssignUserInRoleList, "unassign");
 
-            var taskViewModelData = JsonConvert.SerializeObject(taskViewModel);
-
-            var requestManager = RequestManager.Initialize("/tasks");
-            var jsonResult = requestManager.Run(Method.POST, taskViewModelData);
-            taskViewModel = JsonConvert.DeserializeObject<TaskViewModel>(jsonResult.ToString());
+            string taskUri = SessionHelper.Version.GetEntryByName("tasks").Uri.ToString();
+            taskViewModel = _taskService.CreateTask(taskUri, taskViewModel);
 
             var breakLoop = false;
-            var taskHistory = new List<TaskHistoryViewModel>();
+            var taskHistories = new List<TaskHistoryViewModel>();
             while (!breakLoop)
             {
-                requestManager = RequestManager.Initialize(taskViewModel.History.ToString());
-                jsonResult = requestManager.Run();
-                var taskHistoryViewModelList = JsonConvert.DeserializeObject<List<TaskHistoryViewModel>>(jsonResult.SelectToken("event_log").ToString());
-                var taskHistoryViewModel = taskHistoryViewModelList.Where(item => item.category == "201" || item.category == "202").ToList();
-                if (taskHistoryViewModel.Count == taskViewModel.actions.Count)
+                List<TaskHistoryViewModel> taskHistoryItems = _taskService.GetTaskHistories(taskViewModel.History.ToString())
+                                        .Data.Where(item => item.category == "201" || item.category == "202").ToList();
+                if (taskHistoryItems.Count == taskViewModel.actions.Count)
                 {
-                    foreach (var taskHistoryItem in taskHistoryViewModel)
+                    foreach (TaskHistoryViewModel taskHistoryItem in taskHistoryItems)
                     {
-                        requestManager = RequestManager.Initialize(taskHistoryItem.Uri.ToString());
-                        jsonResult = requestManager.Run();
-                        taskHistory.Add(JsonConvert.DeserializeObject<TaskHistoryViewModel>(jsonResult.ToString()));
+                        TaskHistoryViewModel taskHistory = _taskService.GetTaskHistory(taskHistoryItem.Uri.ToString());
+                        taskHistories.Add(taskHistory);
                     }
-
                     breakLoop = true;
                 }
                 else
@@ -141,37 +134,42 @@ namespace EveryAngle.ManagementConsole.Controllers
                 }
             }
 
-            return Json(taskHistory, JsonRequestBehavior.AllowGet);
+            return Json(taskHistories, JsonRequestBehavior.AllowGet);
         }
 
         private static void AddTaskAction(string roleId, string modelId, TaskViewModel taskViewModel, string[] userInRoleList, string massUpdateType)
         {
-            var action = new Core.ViewModels.Cycle.TaskAction();
-            action.action_type = "mass_update_assigned_roles";
+            var action = new Core.ViewModels.Cycle.TaskAction
+            {
+                action_type = "mass_update_assigned_roles",
+                arguments = new List<Core.ViewModels.Cycle.Argument>()
+            };
 
-            action.arguments = new List<Core.ViewModels.Cycle.Argument>();
+            action.arguments.Add(new Core.ViewModels.Cycle.Argument
+            {
+                name = "role",
+                value = roleId
+            });
 
-            var argument = new Core.ViewModels.Cycle.Argument();
-            argument.name = "role";
-            argument.value = roleId;
-            action.arguments.Add(argument);
-
-            argument = new Core.ViewModels.Cycle.Argument();
-            argument.name = "mass_update_type";
-            argument.value = massUpdateType;
-            action.arguments.Add(argument);
-
-            argument = new Core.ViewModels.Cycle.Argument();
-            argument.name = "users";
-            argument.value = userInRoleList;
-            action.arguments.Add(argument);
+            action.arguments.Add(new Core.ViewModels.Cycle.Argument
+            {
+                name = "mass_update_type",
+                value = massUpdateType
+            });
+            
+            action.arguments.Add(new Core.ViewModels.Cycle.Argument
+            {
+                name = "users",
+                value = userInRoleList
+            });
 
             if (!string.IsNullOrEmpty(modelId))
             {
-                argument = new Core.ViewModels.Cycle.Argument();
-                argument.name = "model";
-                argument.value = modelId;
-                action.arguments.Add(argument);
+                action.arguments.Add(new Core.ViewModels.Cycle.Argument
+                {
+                    name = "model",
+                    value = modelId
+                });
             }
 
             taskViewModel.actions.Add(action);
@@ -179,29 +177,26 @@ namespace EveryAngle.ManagementConsole.Controllers
 
         public ActionResult GetFieldSource(string fieldsSourceUri)
         {
-            fieldsSourceUri = Uri.UnescapeDataString(fieldsSourceUri);
-            var fieldsList = modelService.GetFieldCategory(fieldsSourceUri);
-            return Json(fieldsList, JsonRequestBehavior.AllowGet);
+            var fieldsSource = _modelService.GetFieldCategory(Uri.UnescapeDataString(fieldsSourceUri));
+            return Json(fieldsSource, JsonRequestBehavior.AllowGet);
         }
 
         public ActionResult GetModelField(string fieldsUri)
         {
-            var fieldsList = new FieldViewModel();
-            fieldsUri = Uri.UnescapeDataString(fieldsUri) + "&viewmode=basic";
+            var fields = new FieldViewModel();
             if (fieldsUri != "")
             {
-                fieldsList = modelService.GetModelFields(fieldsUri);
+                fields = _modelService.GetModelFields(Uri.UnescapeDataString(fieldsUri) + "&viewmode=basic");
             }
-            return Json(fieldsList, JsonRequestBehavior.AllowGet);
+            return Json(fields, JsonRequestBehavior.AllowGet);
         }
 
         public ActionResult GetFieldDomain(string fieldsDomainUri)
         {
             var fieldDomain = new FieldDomainViewModel();
-            fieldsDomainUri = Uri.UnescapeDataString(fieldsDomainUri);
             if (fieldsDomainUri != "")
             {
-                fieldDomain = modelService.GetFieldDomain(fieldsDomainUri);
+                fieldDomain = _modelService.GetFieldDomain(Uri.UnescapeDataString(fieldsDomainUri));
             }
             return Json(fieldDomain, JsonRequestBehavior.AllowGet);
         }
@@ -209,10 +204,9 @@ namespace EveryAngle.ManagementConsole.Controllers
         public ActionResult GetHelpTexts(string helpTextUri)
         {
             var helpTextModel = new List<HelpTextsViewModel>();
-            helpTextUri = Uri.UnescapeDataString(helpTextUri);
             if (helpTextUri != "")
             {
-                helpTextModel = modelService.GetModelFieldsHelpTexts(helpTextUri);
+                helpTextModel = _modelService.GetModelFieldsHelpTexts(Uri.UnescapeDataString(helpTextUri));
             }
             return Json(helpTextModel, JsonRequestBehavior.AllowGet);
         }
@@ -220,10 +214,9 @@ namespace EveryAngle.ManagementConsole.Controllers
         public ActionResult GetHelpText(string helpTextUri)
         {
             var helpTextModel = new HelpTextsViewModel();
-            helpTextUri = Uri.UnescapeDataString(helpTextUri);
             if (helpTextUri != "")
             {
-                helpTextModel = modelService.GetModelFieldsHelpText(helpTextUri);
+                helpTextModel = _modelService.GetModelFieldsHelpText(Uri.UnescapeDataString(helpTextUri));
             }
             return Json(helpTextModel, JsonRequestBehavior.AllowGet);
         }
@@ -231,28 +224,22 @@ namespace EveryAngle.ManagementConsole.Controllers
         public ActionResult GetLabelDropdown(ListViewModel<LabelViewModel> labelDatas = null)
         {
             var version = SessionHelper.Initialize().Version;
-
-            if (labelDatas == null)
-            {
-                labelDatas =
-                    labelService.GetLabels(version.GetEntryByName("labels").Uri + "?" +
+            var viewmodel = labelDatas ?? _labelService.GetLabels(version.GetEntryByName("labels").Uri + "?" +
                                            UtilitiesHelper.GetOffsetLimitQueryString(1, MaxPageSize));
-            }
-            return Json(labelDatas.Data.OrderBy(l => l.id).ToList(), JsonRequestBehavior.AllowGet);
+            return Json(viewmodel.Data.OrderBy(l => l.id).ToList(), JsonRequestBehavior.AllowGet);
         }
 
         public ActionResult GetAvailableSubRoles(string modelUri)
         {
             var model = GetModel(modelUri);
-            //SessionHelper.Initialize().GetModel(modelUri);
             var subRoles =
-                modelService.GetRoles(model.ModelRolesUri.ToString()).Data.Select(selector => selector.Id).ToList();
+                _modelService.GetRoles(model.ModelRolesUri.ToString()).Data.Select(selector => selector.Id).ToList();
             return Json(subRoles, JsonRequestBehavior.AllowGet);
         }
 
         public ActionResult GetConsolidatedRole(string roleUri)
         {
-            var role = userService.GetRole(roleUri);
+            var role = _userService.GetRole(roleUri);
             var consolidatedRole = GetShortNameToConsolidateRoles(role);
 
             var consolidatedRoleData = new List<TreeViewItemModel>();
@@ -306,15 +293,7 @@ namespace EveryAngle.ManagementConsole.Controllers
                                     Text =
                                         string.Format("{0}: <i class=\"{2}\">{1}</i>",
                                             JsonResourceHandler.GetResource<ConsolidatedRoleViewModel>(child.Name),
-                                            value, value.ToLower()),
-                                    Items = WalkNode(child.Value, flatObjects, action)
-                                });
-                            }
-                            else if (child.Value.Type == JTokenType.Array)
-                            {
-                                recursiveObjects.Add(new TreeViewItemModel
-                                {
-                                    Text = JsonResourceHandler.GetResource<ConsolidatedRoleViewModel>(child.Name),
+                                            value, value.ToLowerInvariant()),
                                     Items = WalkNode(child.Value, flatObjects, action)
                                 });
                             }
@@ -334,7 +313,7 @@ namespace EveryAngle.ManagementConsole.Controllers
                     action((JArray)node);
                     foreach (var token in node)
                     {
-                        if (token.Children<JProperty>().Count() > 0)
+                        if (token.Children<JProperty>().Any())
                         {
                             var allProperties = token.Children<JProperty>();
 
@@ -353,19 +332,10 @@ namespace EveryAngle.ManagementConsole.Controllers
                                             node, child);
                                         recursiveObjects.Add(new TreeViewItemModel
                                         {
-                                            Text =
-                                                string.Format("{0}: <i class=\"{2}\">{1}</i>",
-                                                    JsonResourceHandler.GetResource<ConsolidatedRoleViewModel>(
-                                                        child.Name), value, value.ToLower()),
-                                            Items = WalkNode(child.Value, flatObjects, action)
-                                        });
-                                    }
-                                    else if (child.Value.Type == JTokenType.Array)
-                                    {
-                                        recursiveObjects.Add(new TreeViewItemModel
-                                        {
-                                            Text =
-                                                JsonResourceHandler.GetResource<ConsolidatedRoleViewModel>(child.Name),
+                                            Text = string.Format("{0}: <i class=\"{2}\">{1}</i>",
+                                                    JsonResourceHandler.GetResource<ConsolidatedRoleViewModel>(child.Name),
+                                                    value,
+                                                    value.ToLower()),
                                             Items = WalkNode(child.Value, flatObjects, action)
                                         });
                                     }
@@ -373,8 +343,7 @@ namespace EveryAngle.ManagementConsole.Controllers
                                     {
                                         recursiveObjects.Add(new TreeViewItemModel
                                         {
-                                            Text =
-                                                JsonResourceHandler.GetResource<ConsolidatedRoleViewModel>(child.Name),
+                                            Text = JsonResourceHandler.GetResource<ConsolidatedRoleViewModel>(child.Name),
                                             Items = WalkNode(child.Value, flatObjects, action)
                                         });
                                     }
@@ -383,16 +352,13 @@ namespace EveryAngle.ManagementConsole.Controllers
                         }
                         else
                         {
-                            if (token.Type == JTokenType.String)
+                            if (token.Type == JTokenType.String && !string.IsNullOrEmpty(token.ToString()))
                             {
-                                if (!string.IsNullOrEmpty(token.ToString()))
+                                recursiveObjects.Add(new TreeViewItemModel
                                 {
-                                    recursiveObjects.Add(new TreeViewItemModel
-                                    {
-                                        Text = token.ToString(),
-                                        Items = null
-                                    });
-                                }
+                                    Text = token.ToString(),
+                                    Items = null
+                                });
                             }
                         }
                     }
@@ -403,7 +369,7 @@ namespace EveryAngle.ManagementConsole.Controllers
 
         public ActionResult DeleteRole(string modelUri, string roleUri)
         {
-            modelService.DeleteRole(roleUri);
+            _modelService.DeleteRole(roleUri);
             return new JsonResult
             {
                 Data = new { success = true, message = Resource.MC_ItemSuccesfullyUpdated },
@@ -413,12 +379,12 @@ namespace EveryAngle.ManagementConsole.Controllers
 
         public ActionResult GetFilterLabels(string modelUri, string roleUri, string q = "")
         {
-            q = q.ToLower();
-            var role = modelService.GetRole(modelUri, roleUri);
+            string query = q.ToLower();
+            var role = _modelService.GetRole(modelUri, roleUri);
             var labels = new List<PrivilegeLabel>();
             role.PrivilegeLabels.ForEach(label =>
             {
-                if (label.LabelCategory.ToLower().Contains(q) || label.Name.ToLower().Contains(q))
+                if (label.LabelCategory.ToLowerInvariant().Contains(query) || label.Name.ToLowerInvariant().Contains(query))
                 {
                     labels.Add(label);
                 }
@@ -429,7 +395,7 @@ namespace EveryAngle.ManagementConsole.Controllers
 
         public ActionResult GetSubRoleFilters(string modelUri, string roleUri, string q = "")
         {
-            var role = modelService.GetRole(modelUri, roleUri);
+            var role = _modelService.GetRole(modelUri, roleUri);
             var subRoles = new List<SystemRoleViewModel>();
             if (role.SubRoles != null)
             {
@@ -448,11 +414,11 @@ namespace EveryAngle.ManagementConsole.Controllers
         [AcceptVerbs(HttpVerbs.Post)]
         public ActionResult GetObjectMetadata(string modelUri, string classes)
         {
-            var model = GetModel(modelUri); //sessionHelper.GetModel(modelUri);
+            var model = GetModel(modelUri);
 
             // classes
             var classesNameList =
-                modelService.GetClasses(model.ClassesUri + "?ids=" + classes + "&" +
+                _modelService.GetClasses(model.ClassesUri + "?ids=" + classes + "&" +
                                         UtilitiesHelper.GetOffsetLimitQueryString(1, MaxPageSize));
 
             return Json(classesNameList, JsonRequestBehavior.AllowGet);
@@ -460,11 +426,11 @@ namespace EveryAngle.ManagementConsole.Controllers
 
         public ActionResult EditRole(string modelUri, string roleUri)
         {
-            var role = new SystemRoleViewModel() { Id = "", Description = "" };
+            var role = new SystemRoleViewModel { Id = "", Description = "" };
             var sessionHelper = SessionHelper.Initialize();
             var version = sessionHelper.Version;
             var model = GetModel(modelUri);
-            List<ModelServerViewModel> modelServers = modelService.GetModelServers(model.ServerUri.ToString()).Data;
+            List<ModelServerViewModel> modelServers = _modelService.GetModelServers(model.ServerUri.ToString()).Data;
 
             LoadParallelDataForEditRole(version, model, sessionHelper);
 
@@ -488,9 +454,8 @@ namespace EveryAngle.ManagementConsole.Controllers
         public ActionResult CheckCopyRole(string destinationModelUri, string oldModelUri, string roleUri,
             string roleName)
         {
-            var version = SessionHelper.Initialize().Version;
             var model = SessionHelper.Initialize().GetModel(destinationModelUri);
-            var role = modelService.GetRole(destinationModelUri, roleUri);
+            var role = _modelService.GetRole(destinationModelUri, roleUri);
 
             if (destinationModelUri != oldModelUri)
             {
@@ -563,7 +528,7 @@ namespace EveryAngle.ManagementConsole.Controllers
         {
             /// Create role
             var version = SessionHelper.Initialize().Version;
-            modelService.CreateRole(version.GetEntryByName("system_roles").Uri.ToString(), roleData);
+            _modelService.CreateRole(version.GetEntryByName("system_roles").Uri.ToString(), roleData);
 
             return new JsonResult
             {
@@ -637,7 +602,6 @@ namespace EveryAngle.ManagementConsole.Controllers
         public ActionResult ReadRoles([DataSourceRequest] DataSourceRequest request, string modelUri, string q)
         {
             var model = GetModel(modelUri);
-            //SessionHelper.Initialize().GetModel(modelUri);
             var roles = GetRoles(model.ModelRolesUri.ToString(), request.Page, request.PageSize, q,
                 PageHelper.GetQueryString(request, QueryString.Role));
             var result = new DataSourceResult
@@ -681,8 +645,7 @@ namespace EveryAngle.ManagementConsole.Controllers
                 LoadAllClasses(model);
                 filters = LoadAllObjectFilter(modelUri, roleUri);
 
-                var fieldIds = new List<string>();
-                fieldIds = filters.SelectMany(se => se.AllFields).Distinct().ToList();
+                var fieldIds = filters.SelectMany(se => se.AllFields).Distinct().ToList();
                 LoadObjectFilter(ref filters, fieldIds, model);
             }
 
@@ -700,11 +663,11 @@ namespace EveryAngle.ManagementConsole.Controllers
         [AcceptVerbs(HttpVerbs.Post)]
         public JsonResult ReadLabels([DataSourceRequest] DataSourceRequest request, string modelUri, string roleUri)
         {
-            var systemrole = modelService.GetRoleById(roleUri);
+            var systemrole = _modelService.GetRoleById(roleUri);
             var model = SessionHelper.Initialize().GetModel(modelUri);
             var offsetLimitQuery = UtilitiesHelper.GetOffsetLimitQueryString(1, MaxPageSize);
-            var allCategories = labelService.GetLabelCategories(model.label_categories.ToString() + "?" + offsetLimitQuery);
-            var allLabels = labelService.GetLabels(model.labels + "?" + offsetLimitQuery);
+            var allCategories = _labelService.GetLabelCategories(model.label_categories.ToString() + "?" + offsetLimitQuery);
+            var allLabels = _labelService.GetLabels(model.labels + "?" + offsetLimitQuery);
 
             int fakeId = 1;
             List<LabelDtoViewModel> labelsDto = new List<LabelDtoViewModel>();
@@ -716,33 +679,25 @@ namespace EveryAngle.ManagementConsole.Controllers
                     dto.Id = category.id;
                     dto.Name = category.name;
                     dto.FakeId = fakeId;
-                    //dto.Items = new List<LabelDtoViewModel>();
                     labelsDto.Add(dto);
                     int subFakeId = fakeId * 1000;
 
                     foreach (var label in allLabels.Data.Where(filter => filter.category + "/labels" == category.labels).ToList())
                     {
-                        LabelDtoViewModel subDto = new LabelDtoViewModel();
-                        subDto.Id = label.id;
-                        subDto.Name = label.name;
-                        subDto.Abbreviation = label.abbreviation;
-                        if (systemrole.ModelPrivilege.LabelAuthorizations.ContainsKey(label.id))
+                        LabelDtoViewModel subDto = new LabelDtoViewModel
                         {
-                            subDto.Authorization = systemrole.ModelPrivilege.LabelAuthorizations[label.id];
-                        }
-                        else
-                        {
-                            subDto.Authorization = "undefined";
-                        }
-
-                        subDto.FakeId = subFakeId;
-                        subDto.ParentFakeId = fakeId;
-
-                        subFakeId++;
-
+                            Id = label.id,
+                            Name = label.name,
+                            Abbreviation = label.abbreviation,
+                            Authorization = systemrole.ModelPrivilege.LabelAuthorizations.ContainsKey(label.id)
+                                            ? systemrole.ModelPrivilege.LabelAuthorizations[label.id]
+                                            : "undefined",
+                            FakeId = subFakeId,
+                            ParentFakeId = fakeId
+                        };
                         labelsDto.Add(subDto);
+                        subFakeId++;
                     }
-
                     fakeId++;
                 }
             }
@@ -774,27 +729,11 @@ namespace EveryAngle.ManagementConsole.Controllers
             return roles;
         }
 
-        private bool IsAnotherObjectFilterReferToTheClass(ObjectFilterViewModel skipObject, string removeName,
-            List<ObjectFilterViewModel> objectFilters)
-        {
-            var result = false;
-            for (var i = 0; i < objectFilters.Count; i++)
-            {
-                if ((skipObject != objectFilters[i]) && objectFilters[i].Classes.Contains(removeName))
-                {
-                    return result = true;
-                }
-            }
-
-            return result;
-        }
-
         private List<string> GetModelClassesName(string modelUri, ModelViewModel modelData = null)
         {
-            var model = modelData == null ? GetModel(modelUri) : modelData;
-            //SessionHelper.Initialize().GetModel(modelUri) : modelData;
+            var model = modelData ?? GetModel(modelUri);
             var classesName =
-                modelService.GetClassesId(model.ClassesUri + "?" +
+                _modelService.GetClassesId(model.ClassesUri + "?" +
                                           UtilitiesHelper.GetOffsetLimitQueryString(1, MaxPageSize));
 
             return classesName.OrderBy(c => c).ToList();
@@ -802,19 +741,14 @@ namespace EveryAngle.ManagementConsole.Controllers
 
         private ModelViewModel GetModel(string modelUri, bool forceGetNew = false)
         {
-            var model = new ModelViewModel();
-            var isNeedLoadNew = false;
+            ModelViewModel model;
+            bool isNeedLoadNew = TempData["ModelViewModelData"] == null
+                || (((ModelViewModel)TempData["ModelViewModelData"]).Uri.ToString() != modelUri);
 
-            isNeedLoadNew = TempData["ModelViewModelData"] == null ? true
-                : (((ModelViewModel)TempData["ModelViewModelData"]).Uri.ToString() != modelUri) ? true : false;
-
-            isNeedLoadNew = forceGetNew ? true : isNeedLoadNew;
-
-            if (isNeedLoadNew)
+            if (isNeedLoadNew || forceGetNew)
             {
                 var taskList = UrlHelperExtension.ParallelRequest(new List<string>() { modelUri });
-                model = JsonConvert.DeserializeObject<ModelViewModel>(taskList[0].Result.ToString(),
-                                                                            new UnixDateTimeConverter());
+                model = JsonConvert.DeserializeObject<ModelViewModel>(taskList[0].Result.ToString(), new UnixDateTimeConverter());
 
                 TempData["ModelViewModelData"] = model;
             }
@@ -837,12 +771,8 @@ namespace EveryAngle.ManagementConsole.Controllers
 
                 for (var i = 0; i < consolidatedRole.ModelPrivilege.AllowedClasses.Count; i++)
                 {
-                    var currentClass =
-                        availableClasses.Where(f => f.id == consolidatedRole.ModelPrivilege.AllowedClasses[i])
-                            .FirstOrDefault();
-                    consolidatedRole.ModelPrivilege.AllowedClasses[i] = currentClass != null &&
-                                                                        !string.IsNullOrEmpty(
-                                                                            currentClass.short_name)
+                    var currentClass = availableClasses.FirstOrDefault(f => f.id == consolidatedRole.ModelPrivilege.AllowedClasses[i]);
+                    consolidatedRole.ModelPrivilege.AllowedClasses[i] = currentClass != null && !string.IsNullOrEmpty(currentClass.short_name)
                         ? currentClass.short_name
                         : consolidatedRole.ModelPrivilege.AllowedClasses[i];
                 }
@@ -851,12 +781,11 @@ namespace EveryAngle.ManagementConsole.Controllers
             return consolidatedRole;
         }
 
-        private List<ObjectFilterViewModel> SetShortNameToObjectFileterClass(ConsolidatedRoleViewModel consolidatedRole
-                                                    , List<string> objectFilterClasses
+        private List<ObjectFilterViewModel> SetShortNameToObjectFileterClass(List<string> objectFilterClasses
                                                     , List<ObjectFilterViewModel> objectFilterList
                                                     , ModelViewModel model)
         {
-            if (objectFilterClasses.Count > 0)
+            if (objectFilterClasses.Any())
             {
                 var availableClassesInObjectFilter = ParallelRequestHelper.GetObjectListByIds(model, objectFilterClasses);
 
@@ -864,11 +793,8 @@ namespace EveryAngle.ManagementConsole.Controllers
                 {
                     for (var j = 0; j < objectFilterList[i].Classes.Count; j++)
                     {
-                        var currentClass =
-                            availableClassesInObjectFilter.Where(f => f.id == objectFilterList[i].Classes[j])
-                                .FirstOrDefault();
-                        objectFilterList[i].Classes[j] = currentClass != null &&
-                                                         !string.IsNullOrEmpty(currentClass.short_name)
+                        var currentClass = availableClassesInObjectFilter.FirstOrDefault(f => f.id == objectFilterList[i].Classes[j]);
+                        objectFilterList[i].Classes[j] = currentClass != null && !string.IsNullOrEmpty(currentClass.short_name)
                             ? currentClass.short_name
                             : objectFilterList[i].Classes[j];
                     }
@@ -904,12 +830,8 @@ namespace EveryAngle.ManagementConsole.Controllers
                     {
                         for (var j = 0; j < objectFilterList[i].field_filters.Count; j++)
                         {
-                            var currentField =
-                                availableFields.Where(f => f.id == objectFilterList[i].field_filters[j].field)
-                                    .FirstOrDefault();
-                            objectFilterList[i].field_filters[j].field = currentField != null &&
-                                                                         !string.IsNullOrEmpty(
-                                                                             currentField.short_name)
+                            var currentField = availableFields.FirstOrDefault(f => f.id == objectFilterList[i].field_filters[j].field);
+                            objectFilterList[i].field_filters[j].field = currentField != null && !string.IsNullOrEmpty(currentField.short_name)
                                 ? currentField.short_name
                                 : objectFilterList[i].Classes[j];
                         }
@@ -920,14 +842,13 @@ namespace EveryAngle.ManagementConsole.Controllers
             return objectFilterList;
         }
 
-        private List<FieldAuthorizationViewModel> SetShortNameToFieldAuthorizationsClass(ConsolidatedRoleViewModel consolidatedRole
-                                        , List<FieldAuthorizationViewModel> fieldList
+        private List<FieldAuthorizationViewModel> SetShortNameToFieldAuthorizationsClass(List<FieldAuthorizationViewModel> fieldList
                                         , ModelViewModel model)
         {
             var fieldClasses = new List<string>();
             fieldClasses.AddRange(fieldList.SelectMany(x => x.FieldAuthorizationClasses));
 
-            if (fieldClasses.Count > 0)
+            if (fieldClasses.Any())
             {
                 var availableClassesInField = ParallelRequestHelper.GetObjectListByIds(model, fieldClasses);
 
@@ -935,11 +856,8 @@ namespace EveryAngle.ManagementConsole.Controllers
                 {
                     for (var j = 0; j < fieldList[i].FieldAuthorizationClasses.Count; j++)
                     {
-                        var currentClass =
-                            availableClassesInField.Where(f => f.id == fieldList[i].FieldAuthorizationClasses[j])
-                                .FirstOrDefault();
-                        fieldList[i].FieldAuthorizationClasses[j] = currentClass != null &&
-                                                                    !string.IsNullOrEmpty(currentClass.short_name)
+                        var currentClass = availableClassesInField.FirstOrDefault(f => f.id == fieldList[i].FieldAuthorizationClasses[j]);
+                        fieldList[i].FieldAuthorizationClasses[j] = currentClass != null && !string.IsNullOrEmpty(currentClass.short_name)
                             ? currentClass.short_name
                             : fieldList[i].FieldAuthorizationClasses[j];
                     }
@@ -953,10 +871,10 @@ namespace EveryAngle.ManagementConsole.Controllers
                                                                                         , ModelViewModel model)
         {
             var fieldAuthorizations = new List<string>();
-            fieldAuthorizations.AddRange(fieldList.Where(x => x.AllowedFields.Count > 0).SelectMany(x => x.AllowedFields));
-            fieldAuthorizations.AddRange(fieldList.Where(x => x.AllowedFields.Count > 0).SelectMany(x => x.AllowedFields));
+            fieldAuthorizations.AddRange(fieldList.Where(x => x.AllowedFields.Any()).SelectMany(x => x.AllowedFields));
+            fieldAuthorizations.AddRange(fieldList.Where(x => x.AllowedFields.Any()).SelectMany(x => x.AllowedFields));
 
-            if (fieldAuthorizations.Count > 0)
+            if (fieldAuthorizations.Any())
             {
                 var availableAllowedFields = ParallelRequestHelper.GetFieldListByIds(model, fieldAuthorizations);
 
@@ -973,22 +891,16 @@ namespace EveryAngle.ManagementConsole.Controllers
         {
             for (var j = 0; j < fieldList[i].AllowedFields.Count; j++)
             {
-                var currentField =
-                    availableAllowedFields.Where(f => f.id == fieldList[i].AllowedFields[j])
-                        .FirstOrDefault();
-                fieldList[i].AllowedFields[j] = currentField != null &&
-                                                !string.IsNullOrEmpty(currentField.short_name)
+                var currentField = availableAllowedFields.FirstOrDefault(f => f.id == fieldList[i].AllowedFields[j]);
+                fieldList[i].AllowedFields[j] = currentField != null && !string.IsNullOrEmpty(currentField.short_name)
                     ? currentField.short_name
                     : fieldList[i].AllowedFields[j];
             }
 
             for (var j = 0; j < fieldList[i].DisallowedFields.Count; j++)
             {
-                var currentField =
-                    availableAllowedFields.Where(f => f.id == fieldList[i].DisallowedFields[j])
-                        .FirstOrDefault();
-                fieldList[i].DisallowedFields[j] = currentField != null &&
-                                                   !string.IsNullOrEmpty(currentField.short_name)
+                var currentField = availableAllowedFields.FirstOrDefault(f => f.id == fieldList[i].DisallowedFields[j]);
+                fieldList[i].DisallowedFields[j] = currentField != null && !string.IsNullOrEmpty(currentField.short_name)
                     ? currentField.short_name
                     : fieldList[i].DisallowedFields[j];
             }
@@ -996,7 +908,7 @@ namespace EveryAngle.ManagementConsole.Controllers
 
         private ConsolidatedRoleViewModel GetShortNameToConsolidateRoles(SystemRoleViewModel role)
         {
-            var consolidatedRole = userService.GetConsolidatedRole(role.Consolidated_role.ToString());
+            var consolidatedRole = _userService.GetConsolidatedRole(role.Consolidated_role.ToString());
 
             if (consolidatedRole != null && consolidatedRole.ModelPrivilege != null)
             {
@@ -1013,7 +925,7 @@ namespace EveryAngle.ManagementConsole.Controllers
                 {
                     objectFilterClasses.AddRange(objectFilter.Classes);
                 }
-                objectFilterList = SetShortNameToObjectFileterClass(consolidatedRole, objectFilterClasses, objectFilterList, model);
+                objectFilterList = SetShortNameToObjectFileterClass(objectFilterClasses, objectFilterList, model);
 
 
                 //set short name to Object Fileter Field
@@ -1021,7 +933,7 @@ namespace EveryAngle.ManagementConsole.Controllers
 
                 //set short name to Field Authorizations Class
                 var fieldList = consolidatedRole.ModelPrivilege.FieldAuthorizations;
-                fieldList = SetShortNameToFieldAuthorizationsClass(consolidatedRole, fieldList, model);
+                fieldList = SetShortNameToFieldAuthorizationsClass(fieldList, model);
 
                 //set short name to Field Authorizations Field
                 fieldList = SetShortNameToFieldAuthorizationsField(fieldList, model);
@@ -1064,7 +976,7 @@ namespace EveryAngle.ManagementConsole.Controllers
         {
             var availableRoles = new List<Tuple<string, string>>();
             var modelRolesUri = string.Format("{0}{1}{2}", model.ModelRolesUri, "&", UtilitiesHelper.GetOffsetLimitQueryString(1, MaxPageSize));
-            var rolesList = modelService.GetRoles(modelRolesUri).Data;
+            var rolesList = _modelService.GetRoles(modelRolesUri).Data;
 
             rolesList.ForEach(subRole =>
             {
@@ -1103,16 +1015,13 @@ namespace EveryAngle.ManagementConsole.Controllers
                                                 , ModelViewModel model
                                                 , SystemRoleViewModel role)
         {
-            fieldIds = fieldIds.Distinct().ToList();
-            if (fieldIds.Count > 0)
+            if (fieldIds.Any())
             {
-                var fieldUri = string.Format("{0}?ids={1}&{2}", model.FieldsUri, string.Join(",", fieldIds),
-                    UtilitiesHelper.GetOffsetLimitQueryString(1, MaxPageSize));
-                var fieldFilter = ParallelRequestHelper.GetFieldListByIds(model, fieldIds);
+                List<string> ids = fieldIds.Distinct().ToList();
+                var fieldFilter = ParallelRequestHelper.GetFieldListByIds(model, ids);
                 ViewData["fieldFilter"] = fieldFilter;
-
-                var fieldCount = role.ModelPrivilege.FieldAuthorizations.Count;
-                if (fieldCount > 0)
+                
+                if (role.ModelPrivilege.FieldAuthorizations.Any())
                 {
                     LoadFieldAuthorizations(role, fieldFilter, true);
                     LoadFieldAuthorizations(role, fieldFilter, false);
@@ -1138,12 +1047,12 @@ namespace EveryAngle.ManagementConsole.Controllers
             foreach (var allowedDisallowedField in allowedDisallowedFieldsList)
             {
                 var fieldName = allowedDisallowedField;
-                var field = fieldFilter.Where(filter => filter.id == allowedDisallowedField).FirstOrDefault();
+                var field = fieldFilter.FirstOrDefault(filter => filter.id == allowedDisallowedField);
                 if (field != null)
                 {
                     if (field.source != null)
                     {
-                        var fieldSource = modelService.GetFieldCategory(field.source.ToString());
+                        var fieldSource = _modelService.GetFieldCategory(field.source.ToString());
                         fieldName = string.Format("{0} - {1}", fieldSource.short_name, field.short_name);
                     }
                     else
@@ -1158,7 +1067,7 @@ namespace EveryAngle.ManagementConsole.Controllers
             }
         }
 
-        private ListViewModel<LabelViewModel> BindAllLabels(Task<JObject> task)
+        private void BindAllLabels(Task<JObject> task)
         {
             var jsonResult = task.Result;
             var token = jsonResult.SelectToken("labels");
@@ -1175,17 +1084,15 @@ namespace EveryAngle.ManagementConsole.Controllers
             }
 
             allLabelsList.Header = JsonConvert.DeserializeObject<HeaderViewModel>(jsonResult.SelectToken("header").ToString());
-            return allLabelsList;
         }
 
-        private ListViewModel<LabelCategoryViewModel> BindAllCategories(Task<JObject> task)
+        private void BindAllCategories(Task<JObject> task)
         {
             var jsonResult = task.Result;
             allCategoriesList.Data = JsonConvert.DeserializeObject<List<LabelCategoryViewModel>>(
                                         jsonResult.SelectToken("label_categories").ToString()).ToList();
             allCategoriesList.Header = JsonConvert.DeserializeObject<HeaderViewModel>(jsonResult.SelectToken("header").ToString());
-            allCategoriesList.Header.Total = allCategoriesList.Data.Count();
-            return allCategoriesList;
+            allCategoriesList.Header.Total = allCategoriesList.Data.Count;
         }
 
         private void BindFieldCategories(Task<JObject> task)
@@ -1288,8 +1195,7 @@ namespace EveryAngle.ManagementConsole.Controllers
 
         public SystemRoleViewModel LoadRole(string modelUri, string roleUri, ModelViewModel model)
         {
-            var role = new SystemRoleViewModel() { Id = "", Description = "" };
-            role = modelService.GetRole(modelUri, roleUri, model, allCategoriesList, allLabelsList);
+            var role = _modelService.GetRole(modelUri, roleUri, model, allCategoriesList, allLabelsList);
             Session["Role"] = role;
             return role;
         }
@@ -1333,7 +1239,7 @@ namespace EveryAngle.ManagementConsole.Controllers
                                                             JsonConvert.DeserializeObject<List<string>>(deleteLabelPrivillage)
                                                             : new List<string>();
 
-                for (var labelIndex = 0; labelIndex < deleteLabelPrivillageList.Count(); labelIndex++)
+                for (var labelIndex = 0; labelIndex < deleteLabelPrivillageList.Count; labelIndex++)
                 {
                     var label = deleteLabelPrivillageList[labelIndex];
                     if (systemRoleViewModel.ModelPrivilege.LabelAuthorizations.ContainsKey(label))
@@ -1427,7 +1333,7 @@ namespace EveryAngle.ManagementConsole.Controllers
 
             var createdRole = JsonConvert.SerializeObject(roleModel,
                 new JsonSerializerSettings { ContractResolver = new CleanUpPropertiesResolver(null) });
-            var newRole = modelService.CreateRole(version.GetEntryByName("system_roles").Uri.ToString(),
+            var newRole = _modelService.CreateRole(version.GetEntryByName("system_roles").Uri.ToString(),
                 createdRole);
 
             roleUri = newRole.Uri.ToString();
@@ -1497,7 +1403,7 @@ namespace EveryAngle.ManagementConsole.Controllers
             , SystemRoleViewModel roleModel)
         {
             var labels = JsonConvert.DeserializeObject<List<PrivilegeLabel>>(privilegeLabels);
-            var existingRoleModel = modelService.GetRole(modelUri, roleModel.Uri.ToString());
+            var existingRoleModel = _modelService.GetRole(modelUri, roleModel.Uri.ToString());
             existingRoleModel.CreatedBy = null;
             existingRoleModel.ModelPrivilege.ObjectFilter = null;
 
@@ -1572,7 +1478,7 @@ namespace EveryAngle.ManagementConsole.Controllers
                                 })
                 });
 
-            var updateResult = modelService.SaveRole(modelUri, roleModel.Uri.ToString(), updatedRole);
+            var updateResult = _modelService.SaveRole(modelUri, roleModel.Uri.ToString(), updatedRole);
             roleUri = roleModel.Uri.ToString();
 
             CheckSessionNeedsUpdate(ref session_needs_update, updateResult);
@@ -1642,7 +1548,7 @@ namespace EveryAngle.ManagementConsole.Controllers
             if (ViewBag.AllClasses == null)
             {
                 var allClasses = Session["AllClasses"] == null
-                    ? modelService.GetClasses(model.ClassesUri + "?" +
+                    ? _modelService.GetClasses(model.ClassesUri + "?" +
                                               UtilitiesHelper.GetOffsetLimitQueryString(1, MaxPageSize))
                         .OrderBy(o => o.id).ToList()
                     : (List<ClassViewModel>)Session["AllClasses"];
@@ -1653,29 +1559,22 @@ namespace EveryAngle.ManagementConsole.Controllers
 
         private List<ObjectFilterViewModel> LoadAllObjectFilter(string modelUri, string roleUri)
         {
-            var filters = new List<ObjectFilterViewModel>();
-
             var role = Session["Role"] == null
-                   ? modelService.GetRole(modelUri, roleUri)
+                   ? _modelService.GetRole(modelUri, roleUri)
                    : (SystemRoleViewModel)Session["Role"];
-
-            filters = role.ModelPrivilege.ObjectFilter;
-
-            return filters;
+            return role.ModelPrivilege.ObjectFilter;
         }
 
         private void LoadObjectFilter(ref List<ObjectFilterViewModel> filters, List<string> fieldIds, ModelViewModel model)
         {
-            var fieldUri = "";
             var allRequiredFields = new FieldViewModel();
-
             if (fieldIds.Count > 0)
             {
-                fieldUri = string.Format("{0}?ids={1}&{2}", model.FieldsUri, string.Join(",", fieldIds),
+                var fieldUri = string.Format("{0}?ids={1}&{2}", model.FieldsUri, string.Join(",", fieldIds),
                     UtilitiesHelper.GetOffsetLimitQueryString(1, MaxPageSize));
 
                 allRequiredFields = ViewBag.fieldFilter == null
-                    ? modelService.GetModelFields(fieldUri)
+                    ? _modelService.GetModelFields(fieldUri)
                     : (FieldViewModel)ViewBag.fieldFilter;
             }
 
@@ -1716,19 +1615,18 @@ namespace EveryAngle.ManagementConsole.Controllers
         {
             foreach (var fieldFilter in filter.field_filters)
             {
-                var field = allRequiredFields.fields.FirstOrDefault(o => o.id == fieldFilter.field);
-                var fieldSource = modelService.GetFieldCategory(field.source.ToString());
-
-                if (field != null && field.fieldtype == "enumerated")
+                Field field = allRequiredFields.fields.FirstOrDefault(o => o.id == fieldFilter.field);
+                FieldCategoryViewModel fieldSource = null;
+                string shortName = fieldFilter.field;
+                if (field != null)
                 {
-                    fieldFilter.DomainUri = field.domain.ToString();
+                    if (field.source != null)
+                        fieldSource = _modelService.GetFieldCategory(field.source.ToString());
+                    if (field.fieldtype == "enumerated")
+                        fieldFilter.DomainUri = field.domain.ToString();
+                    shortName = !string.IsNullOrEmpty(field.short_name) ? field.short_name : fieldFilter.field;
                 }
-
-                string shortName = allRequiredFields.fields.Where(o => o.id == fieldFilter.field)
-                                                .Select(v => v.short_name)
-                                                .FirstOrDefault();
-
-                fieldFilter.FieldShortName = (fieldSource != null) ? string.Format("{0}-{1}", fieldSource.short_name, shortName) : shortName;
+                fieldFilter.FieldShortName = fieldSource != null ? string.Format("{0}-{1}", fieldSource.short_name, shortName) : shortName;
             }
         }
 
@@ -1736,7 +1634,7 @@ namespace EveryAngle.ManagementConsole.Controllers
         {
             foreach (var allowedObject in role.ModelPrivilege.DeniedClasses)
             {
-                var updatedValue = availableObjects.Where(filter => filter.id == allowedObject).FirstOrDefault();
+                var updatedValue = availableObjects.FirstOrDefault(filter => filter.id == allowedObject);
                 if (updatedValue != null)
                     updatedValue.Allowed = false;
             }
@@ -1746,7 +1644,7 @@ namespace EveryAngle.ManagementConsole.Controllers
         {
             foreach (var allowedObject in role.ModelPrivilege.AllowedClasses)
             {
-                var updatedValue = availableObjects.Where(filter => filter.id == allowedObject).FirstOrDefault();
+                var updatedValue = availableObjects.FirstOrDefault(filter => filter.id == allowedObject);
                 if (updatedValue != null)
                     updatedValue.Allowed = true;
             }
@@ -1755,7 +1653,7 @@ namespace EveryAngle.ManagementConsole.Controllers
         private SystemRoleViewModel LoadRole(string modelUri, string roleUri)
         {
             var role = Session["Role"] == null
-                ? modelService.GetRole(modelUri, roleUri)
+                ? _modelService.GetRole(modelUri, roleUri)
                 : (SystemRoleViewModel)Session["Role"];
             return role;
         }
@@ -1763,7 +1661,7 @@ namespace EveryAngle.ManagementConsole.Controllers
         private List<ClassViewModel> LoadAvailableObjectsAllClasses(ModelViewModel model)
         {
             var availableObjects = Session["AllClasses"] == null
-                ? modelService.GetClasses(model.ClassesUri + "?" +
+                ? _modelService.GetClasses(model.ClassesUri + "?" +
                                           UtilitiesHelper.GetOffsetLimitQueryString(1, MaxPageSize))
                     .OrderBy(o => o.id).ToList()
                 : (List<ClassViewModel>)Session["AllClasses"];
@@ -1803,7 +1701,7 @@ namespace EveryAngle.ManagementConsole.Controllers
                 filters.ForEach(fieldFilter =>
                 {
                     var modelField =
-                        modelService.GetModelFields(model.FieldsUri.ToString() + "?ids=" + fieldFilter.field);
+                        _modelService.GetModelFields(model.FieldsUri.ToString() + "?ids=" + fieldFilter.field);
                     if (modelField.header.total == 1)
                     {
                         modelFields.Add(fieldFilter.field);
@@ -1835,7 +1733,7 @@ namespace EveryAngle.ManagementConsole.Controllers
             foreach (var x in role.ModelPrivilege.ObjectFilter)
             {
                 // ONLY copy object filters of known classes
-                if (x.Classes.Intersect(availableClasses).Count() == x.Classes.Count())
+                if (x.Classes.Intersect(availableClasses).Count() == x.Classes.Count)
                 {
                     newObjectFilters.Add(x);
                 }
@@ -1896,15 +1794,15 @@ namespace EveryAngle.ManagementConsole.Controllers
         {
             ///label
             var newLabelsAuthorization = new Dictionary<string, string>();
-            var existLabels = labelService.GetLabels(model.labels.ToString()).Data.Select(d => d.id).ToList();
-            if (existLabels.Count() > 0)
+            var existLabels = _labelService.GetLabels(model.labels.ToString()).Data.Select(d => d.id).ToList();
+            if (existLabels.Any())
             {
                 existLabels.ForEach(filterLabel =>
                 {
                     var label =
                         role.ModelPrivilege.LabelAuthorizations.Where(p => p.Key == filterLabel)
                             .ToDictionary(a => a.Key, a => a.Value);
-                    if (label.Count() > 0)
+                    if (label.Any())
                     {
                         newLabelsAuthorization.Add(label.First().Key, label.First().Value);
                     }
@@ -1916,8 +1814,6 @@ namespace EveryAngle.ManagementConsole.Controllers
 
         private void CopyRoleModelPrivilegeInformation(ModelViewModel model, SystemRoleViewModel role, SystemRoleViewModel Newrole)
         {
-            /// Copy role's ModelPrivilege information
-
             Newrole.ModelPrivilege.model = model.Uri;
             Newrole.ModelPrivilege.Privileges = role.ModelPrivilege.Privileges;
             Newrole.ModelPrivilege.DefaultClassAuthorization = role.ModelPrivilege.DefaultClassAuthorization;
@@ -1926,12 +1822,13 @@ namespace EveryAngle.ManagementConsole.Controllers
 
         private SystemRoleViewModel CopyRoleGeneralInformation(string roleName, SystemRoleViewModel role)
         {
-            var Newrole = new SystemRoleViewModel();
-            /// Copy role's general informatio
-            Newrole.Id = roleName;
-            Newrole.Description = role.Description;
-            Newrole.Subrole_ids = null;
-            Newrole.SystemPrivileges = role.SystemPrivileges;
+            var Newrole = new SystemRoleViewModel
+            {
+                Id = roleName,
+                Description = role.Description,
+                Subrole_ids = null,
+                SystemPrivileges = role.SystemPrivileges
+            };
             return Newrole;
         }
 

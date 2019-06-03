@@ -26,14 +26,21 @@ var MC = {
     browserDetector: function () {
         // browser detector
         jQuery('html').removeClass('no-js');
-        jQuery.each(jQuery.browser, function (a, b) {
-            if (a != 'version') {
-                if (a == 'msie') {
-                    var v = Math.floor(jQuery.browser.version);
-                    jQuery('html').addClass('ie ie' + v);
-                    for (var i = v; i <= 10; i++) if (v < i) jQuery('html').addClass('lt-ie' + i);
+        jQuery.each(jQuery.browser, function (a) {
+            // skip
+            if (a === 'version')
+                return true;
+
+            if (a === 'msie') {
+                var v = Math.floor(jQuery.browser.version);
+                jQuery('html').addClass('ie ie' + v);
+                for (var i = v; i <= 10; i++) {
+                    if (v < i)
+                        jQuery('html').addClass('lt-ie' + i);
                 }
-                else jQuery('html').addClass(a + (a == 'webkit' ? '' : ' ' + a + parseInt(jQuery.browser.version, 10)));
+            }
+            else {
+                jQuery('html').addClass(a + (a === 'webkit' ? '' : ' ' + a + parseInt(jQuery.browser.version, 10)));
             }
         });
     },

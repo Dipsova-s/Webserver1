@@ -16,7 +16,7 @@ MC.content = {
             left: 0,
             top: 0
         };
-        jQuery(window).scroll(function (e) {
+        jQuery(window).scroll(function () {
             if (jQuery('#loading:visible,.k-overlay:visible').length) {
                 window.scrollTo(currentScollPosition.left, currentScollPosition.top);
             }

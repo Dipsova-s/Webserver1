@@ -9,11 +9,11 @@ using System.Linq;
 
 namespace EveryAngle.ManagementConsole.Helpers
 {
-    public class ConsolidateRoleHelper
+    public static class ConsolidateRoleHelper
     {
         public static JEnumerable<JProperty> CreatePrivilegeProperty(JToken node, JEnumerable<JProperty> allProperties)
         {
-            JProperty privilegeChild = node.Children<JProperty>().Where(f => f.Name.ToLower() == "manage_model").FirstOrDefault();
+            JProperty privilegeChild = node.Children<JProperty>().FirstOrDefault(f => f.Name.ToLower() == "manage_model");
             if (privilegeChild != null)
             {
                 string privilegeNode = @"{
@@ -48,7 +48,7 @@ namespace EveryAngle.ManagementConsole.Helpers
 
         public static string GetJsonStringOfPrivilegeProperty(JToken node, string propertyName)
         {
-            JProperty property = node.Children<JProperty>().Where(f => f.Name == propertyName).FirstOrDefault();
+            JProperty property = node.Children<JProperty>().FirstOrDefault(f => f.Name == propertyName);
             string viewModelResource = JsonResourceHandler.GetResource<ConsolidatedRoleViewModel>(property.Name);
             string viewModelValue = string.IsNullOrEmpty(property.Value.ToString()) ? "null" : 
                                     property.Value.ToString().ToLower();
@@ -98,20 +98,22 @@ namespace EveryAngle.ManagementConsole.Helpers
         public static string ChangePriviledgeState(string state, JToken node, JProperty property)
         {
             //check label, return its own state.
-            var businessProcessLabel = node.Children<JProperty>().Where(f => f.Name.ToLower() == "p2p").FirstOrDefault();
+            string currentState = (state ?? string.Empty).ToLowerInvariant();
+            var businessProcessLabel = node.Children<JProperty>().FirstOrDefault(f => f.Name.ToLowerInvariant() == "p2p");
             if (businessProcessLabel == null && property.Name != "default_label_authorization")
             {
-                if (state != null && (state.ToLower() == "true" || state.ToLower() == "allowed"))
+                if (currentState == "true" || currentState == "allowed")
                     return "allowed";
-                else if (state != null && (state.ToLower() == "false" || state.ToLower() == "disallowed" || state.ToLower() == "denied"))
+                else if (currentState == "false" || currentState == "disallowed" || currentState == "denied")
                     return "denied";
-                else if (state != null && state.ToLower() == "unspecified")
+                else if (currentState == "unspecified")
                     return "unspecified";
-                else
-                    return state;
             }
-            else if (state.ToLower() == "deny")
+            else if (currentState == "deny")
+            {
                 return "denied";
+            }
+
             return state;
         }
 
@@ -124,7 +126,6 @@ namespace EveryAngle.ManagementConsole.Helpers
                 if (item.Name.ToLower() == "classes")
                 {
                     JObject newClassNode = new JObject();
-                    JEnumerable<JProperty> childInClasses = item.Children<JProperty>();
                     newFieldNode.Add("Classes: " + (item.Value).First().ToString(), newClassNode);
                 }
                 else
@@ -152,7 +153,7 @@ namespace EveryAngle.ManagementConsole.Helpers
 
         public static string GetFieldNameWithFieldSource(List<Field> fieldList, string fieldId, List<FieldCategoryViewModel> fieldSourceList)
         {
-            Field currentField = fieldList.Where(f => f.id == fieldId).FirstOrDefault();
+            Field currentField = fieldList.FirstOrDefault(f => f.id == fieldId);
             string fieldName = currentField != null && !string.IsNullOrEmpty(currentField.short_name) ?
                                currentField.short_name : 
                                fieldId;

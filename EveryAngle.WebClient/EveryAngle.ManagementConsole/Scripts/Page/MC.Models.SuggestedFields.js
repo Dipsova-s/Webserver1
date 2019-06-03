@@ -112,7 +112,7 @@
             self.CloseConfirmPopup();
 
             var suggestedFieldsData = $('#selectedClasses').val();
-            if (self.ClassesChooserFor == self.SUGGEST_FOR.SINGLE_OBJECT) {
+            if (self.ClassesChooserFor === self.SUGGEST_FOR.SINGLE_OBJECT) {
                 var suggestedFieldsDataList = suggestedFieldsData.split(',');
                 var saveSuggestedSingleObjectFields = function (suggestedFieldUri, isSuggested, fieldName, reportIndex) {
                     var deferred = jQuery.Deferred();
@@ -160,11 +160,11 @@
             else {
                 var deferred = $.Deferred();
                 var checkProgress = function (response) {
-                    if (response.status == 'finished') {
+                    if (response.status === 'finished') {
                         MC.util.massReport.reports[0] = '<li class="success">' + Localization.MC_TaskSuccess + '</li>';
                         deferred.resolve();
                     }
-                    else if (response.status == 'failed') {
+                    else if (response.status === 'failed') {
                         MC.util.massReport.reports[0] = '<li class="fail">' + Localization.MC_TaskFailed + '</li>';
                         deferred.resolve();
                     }
@@ -285,7 +285,7 @@
                 self.ClassesChooserHandler.FilterClasses();
             });
             self.ClassesChooserHandler.BusinessProcessHandler.ClickHeaderCallback(function (oldList, newList) {
-                if (oldList.length == newList.length) {
+                if (oldList.length === newList.length) {
                     var list = {};
                     jQuery.each(newList, function (index, bp) {
                         list[bp] = false;
@@ -353,7 +353,7 @@
             win.wrapper.addClass('k-wc');
 
             // set options
-            if (self.ClassesChooserFor == self.SUGGEST_FOR.SINGLE_OBJECT) {
+            if (self.ClassesChooserFor === self.SUGGEST_FOR.SINGLE_OBJECT) {
                 self.ClassesChooserHandler.MultipleSelection = false;
 
                 win.element.find('.btnSelectAll, .btnClearAll').addClass('alwaysHidden');
@@ -401,8 +401,7 @@
 
                 grid.element.find(':checkbox').prop('checked', true);
                 $.each(grid.dataSource.data(), function (index, data) {
-                    if (($('#objectId' + data.id).length > 0)) {
-
+                    if ($('#objectId' + data.id).length) {
                         data.checked = true;
                         self.ClassesChooserHandler.SelectingClasses.push(data.id);
                     }
@@ -529,7 +528,7 @@
         };
         self.OnSubmitClasses = function (classes) {
             if (classes.length) {
-                if (self.ClassesChooserFor == self.SUGGEST_FOR.SINGLE_OBJECT) {
+                if (self.ClassesChooserFor === self.SUGGEST_FOR.SINGLE_OBJECT) {
                     self.ShowFieldsChooser(classes);
                 }
                 else {
@@ -576,7 +575,7 @@
                             title = Localization.MC_ClearAllSuggestedFieldsForObject;
                             break;
                     }
-                    var title = kendo.format(title, $('#suggestedIconTemplate').val());
+                    title = kendo.format(title, $('#suggestedIconTemplate').val());
                     self.ShowConfirmPopup(title);
                 }
             }
@@ -590,7 +589,7 @@
 
             // private functions
             var getDataFail = function (xhr, status, error) {
-                if (status != 'abort') {
+                if (status !== 'abort') {
                     self.CloseFieldChooser();
                 }
             };
@@ -651,9 +650,8 @@
 
                         // update changed list
                         var existingListIndex = suggestionsList.indexOfObject('id', field.id);
-                        if (existingListIndex != -1) {
+                        if (existingListIndex !== -1) {
                             suggestionsList.splice(existingListIndex, 1);
-                            //suggestionsList[existingListIndex] = field;
                         }
                         else {
                             suggestionsList.push(field);

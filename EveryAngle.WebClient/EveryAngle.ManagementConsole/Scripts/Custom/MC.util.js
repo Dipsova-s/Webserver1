@@ -116,11 +116,11 @@ MC.util = {
         /// <summary>Generate GUID</summary>
         /// <returns type="String">randomly GUID</returns>
 
-        function S4() {
+        function s4() {
             return (((1 + Math.random()) * 0x10000) | 0).toString(16).substring(1);
         }
         function guid() {
-            return S4() + S4() + '-' + S4() + '-' + S4() + '-' + S4() + '-' + new Date().getTime().toString().substring(1);
+            return s4() + s4() + '-' + s4() + '-' + s4() + '-' + s4() + '-' + new Date().getTime().toString().substring(1);
         }
 
         if (window.crypto) {
@@ -133,16 +133,16 @@ MC.util = {
             return guid();
         }
     },
-	hideErrorContainerIfOpenTimePicker: function (element) {
-		var timePicker = element.data('kendoTimePicker');
+    hideErrorContainerIfOpenTimePicker: function (element) {
+        var timePicker = element.data('kendoTimePicker');
 
-		// prevent this was called during page changing
-		if (!timePicker)
-			return;
+        // prevent this was called during page changing
+        if (!timePicker)
+            return;
 
-		// hide error on open the time picker
+        // hide error on open the time picker
         var timeout;
-		timePicker.bind('open', function (e) {
+        timePicker.bind('open', function () {
             clearTimeout(timeout);
             timeout = setTimeout(function () {
                 MC.form.validator.hideErrorMessage();
@@ -186,10 +186,10 @@ MC.util = {
 
         return !value || !jQuery.isArray(JSON.parse(JSON.stringify(value))) ? [] : value;
     },
-	getTemplate: function (id, data) {
-		var template = kendo.template($('#' + id).html());
-		return template(data);
-	}
+    getTemplate: function (id, data) {
+        var template = kendo.template($('#' + id).html());
+        return template(data);
+    }
 };
 
 MC.util.init();

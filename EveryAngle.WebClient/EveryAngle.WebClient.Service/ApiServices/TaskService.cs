@@ -117,9 +117,14 @@ namespace EveryAngle.WebClient.Service.ApiServices
 
         #region TaskHistory
 
-        public ListViewModel<TaskHistoryViewModel> GetTaskHistories(string taskHistoryUri)
+        public ListViewModel<TaskHistoryViewModel> GetTaskHistories(string taskHistoriesUri)
         {
-            return GetPagableItems<TaskHistoryViewModel>(taskHistoryUri, ATTRIBUTE_TASKHIROTIES);
+            return GetPagableItems<TaskHistoryViewModel>(taskHistoriesUri, ATTRIBUTE_TASKHIROTIES);
+        }
+
+        public TaskHistoryViewModel GetTaskHistory(string taskHistoryUri)
+        {
+            return Get<TaskHistoryViewModel>(taskHistoryUri);
         }
 
         #endregion

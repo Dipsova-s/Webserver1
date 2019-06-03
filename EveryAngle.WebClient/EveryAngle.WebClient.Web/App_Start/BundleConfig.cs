@@ -4,7 +4,7 @@ using System.Web.Optimization;
 
 namespace EveryAngle.WebClient.Web
 {
-    public class BundleConfig
+    public static class BundleConfig
     {
         public static void RegisterBundles(BundleCollection bundles)
         {

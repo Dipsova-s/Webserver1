@@ -107,7 +107,7 @@
                 MC.util.disableMobileScroller(win);
 
                 win.__bind_resize_event = true;
-                win.bind('resize', function (e) {
+                win.bind('resize', function () {
                     var toolbarSize = $('#popupLogTable .gridToolbarTop').hasClass('hidden') ? 0 : 44;
                     $('#popupLogTable .gridContainer').height(win.element.height() - toolbarSize);
                     kendo.resize($('#popupLogTable .gridContainer'));
@@ -115,7 +115,7 @@
                     MC.ui.logpopup.UpdateLogDetailsLayout();
                 });
 
-                win.bind('close', function (e) {
+                win.bind('close', function () {
                     MC.ajax.abortAll();
                 });
             }
@@ -133,7 +133,7 @@
                         dataSource: ddlMsgTypeData,
                         valueTemplate: '<span class="#= data #"></span> #= data #',
                         template: '<span class="#= data #"></span> #= data #',
-                        change: function (e) {
+                        change: function () {
                             filterTextbox.removeData('defaultValue').trigger('keyup');
                         }
                     }).data('kendoDropDownList');
@@ -152,7 +152,7 @@
                         { collapsible: false, min: 100 },
                         { collapsible: false, min: 200, size: 300 }
                     ],
-                    resize: function (e) {
+                    resize: function () {
                         var win = $('#popupLogTable').data('kendoWindow');
                         if (win) {
                             win.trigger('resize');
@@ -167,14 +167,14 @@
             var setEnableLogPopup = function (enable) {
                 if (enable) {
                     grid.content.find('.k-grid-error').remove();
-                    if (MC.ui.logpopup.LogType === 'SystemLog') {
+                    if (ddlMsgType) {
                         ddlMsgType.enable(true);
                         filterTextbox.removeAttr('disabled').next().removeClass('iconLoading');
                     }
                 }
                 else {
                     grid.content.busyIndicator(false);
-                    if (MC.ui.logpopup.LogType === 'SystemLog') {
+                    if (ddlMsgType) {
                         ddlMsgType.enable(false);
                         filterTextbox.attr('disabled', 'disabled');
                     }
@@ -185,7 +185,7 @@
             _self.logDetailCache = {};
             setEnableLogPopup(true);
 
-            if (MC.ui.logpopup.LogType === 'SystemLog') {
+            if (ddlMsgType) {
                 ddlMsgType.value(Localization.All);
                 filterTextbox.val('');
             }
@@ -234,42 +234,42 @@
                             parameters: query,
                             timeout: 300000
                         })
-                        .fail(function (xhr, status, error) {
-                            if (error !== 'abort') {
-                                setEnableLogPopup(false);
-                                var msg = $(MC.ajax.getErrorMessage(xhr, null, error));
-                                msg.filter('p').append(
-                                    $('<a class="btnRetry" />')
-                                    .text(Localization.Retry)
-                                    .on('click', function (e) {
-                                        delete cacheLogs[queryString];
-                                        grid.dataSource._requestInProgress = false;
-                                        grid.dataSource.read();
-                                    })
-                                );
-                                grid.content.prepend($('<div class="k-grid-error" />').html(msg));
+                            .fail(function (xhr, status, error) {
+                                if (error !== 'abort') {
+                                    setEnableLogPopup(false);
+                                    var msg = $(MC.ajax.getErrorMessage(xhr, null, error));
+                                    msg.filter('p').append(
+                                        $('<a class="btnRetry" />')
+                                            .text(Localization.Retry)
+                                            .on('click', function () {
+                                                delete cacheLogs[queryString];
+                                                grid.dataSource._requestInProgress = false;
+                                                grid.dataSource.read();
+                                            })
+                                    );
+                                    grid.content.prepend($('<div class="k-grid-error" />').html(msg));
 
-                                MC.ajax.setErrorDisable(xhr, status, error, null);
-                            }
-                        })
-                        .done(function (response) {
-                            // add row number
-                            var number;
-                            if (MC.ui.logpopup.LogType === 'SystemLog') {
-                                number = response.header.offset + 1;
-                                $.each(response.messages, function (index, log) {
-                                    log['RowNumber'] = number + index;
-                                });
-                            }
-                            else {
-                                number = response.Header.offset + 1;
-                                $.each(response.Data, function (index, log) {
-                                    log['RowNumber'] = number + index;
-                                });
-                            }
-                            cacheLogs[queryString] = response;
-                            option.success(response);
-                        });
+                                    MC.ajax.setErrorDisable(xhr, status, error, null);
+                                }
+                            })
+                            .done(function (response) {
+                                // add row number
+                                var number;
+                                if (MC.ui.logpopup.LogType === 'SystemLog') {
+                                    number = response.header.offset + 1;
+                                    $.each(response.messages, function (index, log) {
+                                        log['RowNumber'] = number + index;
+                                    });
+                                }
+                                else {
+                                    number = response.Header.offset + 1;
+                                    $.each(response.Data, function (index, log) {
+                                        log['RowNumber'] = number + index;
+                                    });
+                                }
+                                cacheLogs[queryString] = response;
+                                option.success(response);
+                            });
                     }
                 },
                 serverPaging: true,
@@ -312,24 +312,26 @@
                     },
                     selectable: 'row',
                     columns: MC.ui.logpopup.LogType === 'SystemLog' ? _self.SystemLogColumns : _self.EventLogColumns,
-                    dataBound: function (e) {
+                    dataBound: function () {
                         if (MC.ui.logpopup.SelectedRow !== '') {
                             jQuery('tr[data-uid="' + self.SelectedRow + '"]').addClass('k-state-selected').attr('aria-selected', true);
                         }
                     },
                     change: function (e) {
                         var row = e.sender.select();
-                        if (row.length) {
-                            var dataItem = e.sender.dataSource.getByUid(row.data('uid'));
-                            MC.ui.logpopup.SelectedRow = row.data('uid');
-                            if (dataItem) {
-                                if (MC.ui.logpopup.LogType === 'SystemLog') {
-                                    MC.ui.logpopup.ShowLogDetail(dataItem.DetailsUri || null);
-                                }
-                                else {
-                                    MC.ui.logpopup.ShowLogDetail(dataItem.uri || null);
-                                }
-                            }
+                        if (!row.length)
+                            return;
+
+                        var dataItem = e.sender.dataSource.getByUid(row.data('uid'));
+                        MC.ui.logpopup.SelectedRow = row.data('uid');
+                        if (!dataItem)
+                            return;
+
+                        if (MC.ui.logpopup.LogType === 'SystemLog') {
+                            MC.ui.logpopup.ShowLogDetail(dataItem.DetailsUri || null);
+                        }
+                        else {
+                            MC.ui.logpopup.ShowLogDetail(dataItem.uri || null);
                         }
                     }
                 }).data('kendoGrid');
@@ -363,16 +365,16 @@
                                 type: ddlMsgType ? ddlMsgType.value() === Localization.All ? '' : ddlMsgType.value() : ''
                             }
                         })
-                        .done(function (detail) {
-                            dfd.resolve(detail);
-                        })
-                        .fail(function (xhr, status, error) {
-                            dfd.reject(xhr, status, error);
-                        });
+                            .done(function (detail) {
+                                dfd.resolve(detail);
+                            })
+                            .fail(function (xhr, status, error) {
+                                dfd.reject(xhr, status, error);
+                            });
                     }
                 }, 10);
                 return dfd.promise();
-            }
+            };
             if (detailUri) {
                 disableLoading();
                 element.busyIndicator(true);
@@ -439,12 +441,12 @@
                 kendo.resize(logDetailTable, true);
             }
 
-            var logDetailTable = $('#customLogTable:visible');
-            if (logDetailTable.length) {
-                var logDetailTableHeight = $('#SystemLogDetails').height() - (logDetailTable.offset().top - $('#SystemLogDetails').offset().top);
-                logDetailTable = $('#customLogTable').data('kendoGrid');
-                logDetailTable.wrapper.height(logDetailTableHeight);
-                logDetailTable.resize(true);
+            var customLogDetailTable = $('#customLogTable:visible');
+            if (customLogDetailTable.length) {
+                var customLogDetailTableHeight = $('#SystemLogDetails').height() - (customLogDetailTable.offset().top - $('#SystemLogDetails').offset().top);
+                customLogDetailTable = $('#customLogTable').data('kendoGrid');
+                customLogDetailTable.wrapper.height(customLogDetailTableHeight);
+                customLogDetailTable.resize(true);
             }
         },
         LogTabShown: function (targetElement) {

@@ -10,7 +10,7 @@ namespace EveryAngle.WebClient.Web.Controllers
 {
     public class UserController : Controller
     {
-        [IsUserLogedInAction()]
+        [IsUserLogedInAction]
         public ActionResult Login(bool popup = false)
         {
             if (popup)
@@ -57,7 +57,7 @@ namespace EveryAngle.WebClient.Web.Controllers
         public ActionResult Logout()
         {
             SessionHelper.Initialize().Logout();
-            return new RedirectResult(HttpContext.Request.ApplicationPath.ToLower());
+            return new RedirectResult(HttpContext.Request.ApplicationPath.ToLowerInvariant());
         }
 
         public void DestroyAllSession()

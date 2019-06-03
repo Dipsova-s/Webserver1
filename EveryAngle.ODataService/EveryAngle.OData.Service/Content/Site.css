@@ -1,4 +1,4 @@
-﻿body {
+body {
     padding-top: 50px;
     padding-bottom: 20px;
 }
@@ -41,13 +41,13 @@ textarea {
 /* sync button in search bar */
 .sync-textbox-container {
     text-align: left;
-    padding: 5px 0px;
+    padding: 5px 0;
 }
 
 /* search bar */
 .search-textbox-container {
     text-align: right;
-    padding: 5px 0px;
+    padding: 5px 0;
     width: 100%;
 }
 
@@ -84,23 +84,11 @@ textarea {
 
 .chromium-panel {
     background: rgba(255,255,255,1);
-    background: -moz-linear-gradient(top, rgba(255,255,255,1) 0%, rgba(235,235,235,1) 49%, rgba(245,245,245,1) 50%, rgba(255,255,255,1) 100%);
-    background: -webkit-gradient(left top, left bottom, color-stop(0%, rgba(255,255,255,1)), color-stop(49%, rgba(235,235,235,1)), color-stop(50%, rgba(245,245,245,1)), color-stop(100%, rgba(255,255,255,1)));
-    background: -webkit-linear-gradient(top, rgba(255,255,255,1) 0%, rgba(235,235,235,1) 49%, rgba(245,245,245,1) 50%, rgba(255,255,255,1) 100%);
-    background: -o-linear-gradient(top, rgba(255,255,255,1) 0%, rgba(235,235,235,1) 49%, rgba(245,245,245,1) 50%, rgba(255,255,255,1) 100%);
-    background: -ms-linear-gradient(top, rgba(255,255,255,1) 0%, rgba(235,235,235,1) 49%, rgba(245,245,245,1) 50%, rgba(255,255,255,1) 100%);
-    background: linear-gradient(to bottom, rgba(255,255,255,1) 0%, rgba(235,235,235,1) 49%, rgba(245,245,245,1) 50%, rgba(255,255,255,1) 100%);
-    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#ffffff', GradientType=0 );
+    background: linear-gradient(to bottom, rgba(255,255,255,1) 0, rgba(235,235,235,1) 49%, rgba(245,245,245,1) 50%, rgba(255,255,255,1) 100%);
 
     border-left: 3px solid #189adc;
     border-left-width: 10px;
     border-radius: 3px;
-}
-
-.sync-panel {
-}
-
-.memory-panel {
 }
 
 .appserver-panel {
@@ -132,12 +120,6 @@ textarea {
     font-weight: bold;
 }
 
-.monitoring-section-one {
-}
-
-.monitoring-section-two {
-}
-
 .progress {
     height: 3px;
 }
@@ -146,13 +128,7 @@ textarea {
     position: relative;
     height: 3px;
     background: rgb(255, 0, 0);
-    background: -moz-linear-gradient(left, rgba(255, 125, 78, 1) 0%, rgba(0, 255, 0, 1) 100%);
-    background: -webkit-gradient(linear, left top, right top, color-stop(0%, rgba(255, 125, 78, 1)), color-stop(100%, rgba(0, 255, 0, 1)));
-    background: -webkit-linear-gradient(left, rgba(255, 125, 78, 1) 0%, rgba(0, 255, 0, 1) 100%);
-    background: -o-linear-gradient(left, rgba(255, 125, 78, 1) 0%, rgba(0, 255, 0, 1) 100%);
-    background: -ms-linear-gradient(left, rgba(255, 125, 78, 1) 0%, rgba(0, 255, 0, 1) 100%);
-    background: linear-gradient(to right, rgba(255, 125, 78, 1) 0%, rgba(0, 255, 0, 1) 100%);
-    filter: progid: DXImageTransform.Microsoft.gradient(startColorstr='#fc7e4d', endColorstr='#00ff00', GradientType=1);
+    background: linear-gradient(to right, rgba(255, 125, 78, 1) 0, rgba(0, 255, 0, 1) 100%);
 }
 
 .panel-body {

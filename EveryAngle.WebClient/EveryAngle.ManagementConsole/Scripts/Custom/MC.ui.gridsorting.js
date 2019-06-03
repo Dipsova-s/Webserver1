@@ -15,7 +15,7 @@
             // not server sorting
             || !grid.dataSource.options.serverSorting);
     };
-    
+
     var isSortingIssue = function (gridSortId, grid) {
         return window[gridSortId] && grid.dataSource.totalPages() > 1;
     };
@@ -51,7 +51,7 @@
             });
         });
     };
-    
+
     win.MC.ui.gridSorting = gridSorting;
 
     // for unit testing

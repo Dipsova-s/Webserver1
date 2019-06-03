@@ -185,7 +185,7 @@
         var seen = {};
         return this.filter(function (item) {
             var k = converter(item);
-            return seen.hasOwnProperty(k) ? false : (seen[k] = true);
+            return seen.hasOwnProperty(k) ? false : seen[k] = true;
         });
     };
 

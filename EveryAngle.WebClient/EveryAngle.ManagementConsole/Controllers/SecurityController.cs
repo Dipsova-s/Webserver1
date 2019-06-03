@@ -43,7 +43,7 @@ namespace EveryAngle.ManagementConsole.Controllers
 #if DEVMODE
             return RedirectToAction("Index", "Security");
 #else
-            return new RedirectResult(HttpContext.Request.ApplicationPath.ToLower());
+            return new RedirectResult(HttpContext.Request.ApplicationPath.ToLowerInvariant());
 #endif
         }
 

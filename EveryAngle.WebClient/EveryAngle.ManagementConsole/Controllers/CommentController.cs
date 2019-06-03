@@ -14,6 +14,7 @@ using EveryAngle.Shared.Helpers;
 using Kendo.Mvc.UI;
 using EveryAngle.ManagementConsole.Helpers;
 using EveryAngle.Core.ViewModels.Directory;
+using Newtonsoft.Json;
 
 namespace EveryAngle.ManagementConsole.Controllers
 {
@@ -66,6 +67,7 @@ namespace EveryAngle.ManagementConsole.Controllers
             else
             {
                 VersionViewModel version = SessionHelper.Version;
+                string uri = version.GetEntryByName("comments").Uri.ToString();
                 if (file != null && file.ContentLength > 0)
                 {
                     string fileName = Path.GetFileName(file.FileName);
@@ -79,12 +81,10 @@ namespace EveryAngle.ManagementConsole.Controllers
                 {
                     comment.attachment = "Null";
                 }
-
+                
                 comment.comment_type = formCollection["commentType"];
                 comment.comment = formCollection["message"];
-                CommentViewModel commented = _commentService.AddComment(
-                                                version.GetEntryByName("comments").Uri.ToString(),
-                                                new JavaScriptSerializer().Serialize(comment));
+                _commentService.AddComment(uri, JsonConvert.SerializeObject(comment));
             }
             return JsonHelper.GetJsonStringResult(
                                 true, null, null, MessageType.DEFAULT,
@@ -117,9 +117,9 @@ namespace EveryAngle.ManagementConsole.Controllers
 
         #region private methods
 
-        private ListViewModel<CommentViewModel> GetComments(string commentType, int page, int DefaultPageSize)
+        private ListViewModel<CommentViewModel> GetComments(string commentType, int page, int pageSize)
         {
-            var uri = GenerateUri(commentType, 1, MaxPageSize);
+            var uri = GenerateUri(commentType, page, pageSize);
             var comments = _commentService.GetCommentsByType(uri);
             return comments;
         }
@@ -190,7 +190,7 @@ namespace EveryAngle.ManagementConsole.Controllers
 
         private static bool ValidateExtension(string extension)
         {
-            return validExtensions.Contains(extension.ToLower());
+            return validExtensions.Contains(extension.ToLowerInvariant());
         }
     }
 

@@ -15,15 +15,6 @@ namespace EveryAngle.OData.Tests.ContextTests
 
         #endregion
 
-        #region constructors
-
-        public ContextTests()
-        {
-
-        }
-
-        #endregion
-
         #region setup/teardown
 
         [SetUp]

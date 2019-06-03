@@ -41,6 +41,25 @@ var tooltip = {
                 tooltip.stop(true, true).hide();
         };
 
+        var getTooltipInfo = function (target) {
+            var info = {};
+            if (target.find('[data-tooltip-title]').length) {
+                var dataTooltip = target.find('[data-tooltip-title]');
+                var dataTitle = dataTooltip.data('tooltip-title');
+                info.text = MC.util.getController(dataTitle)(dataTooltip) || dataTitle;
+                info.renderAs = dataTooltip.data('type');
+            }
+            else if (!target.is('[data-role="tooltip"]') && target.find(ui.except).length) {
+                info.text = '';
+                info.renderAs = 'text';
+            }
+            else {
+                info.text = jQuery.trim(target.text());
+                info.renderAs = target.data('type');
+            }
+            return info;
+        };
+
         if (!tooltip.length) {
             tooltip = jQuery('<div class="k-tooltip-custom" />').attr('id', ui.element.substr(1)).appendTo('body');
             tooltip.on('mouseover', function () {
@@ -51,24 +70,11 @@ var tooltip = {
             .on('mouseover', ui.target, function (e) {
                 clearTimeout(fnCheckTooltip);
 
-                var target = jQuery(e.currentTarget),
-                    text, renderAs;
-                if (target.find('[data-tooltip-title]').length) {
-                    var dataTooltip = target.find('[data-tooltip-title]');
-                    var dataTitle = dataTooltip.data('tooltip-title');
-                    text = MC.util.getController(dataTitle)(dataTooltip) || dataTitle;
-                    renderAs = dataTooltip.data('type');
-                }
-                else if (!target.is('[data-role="tooltip"]') && target.find(ui.except).length) {
-                    text = '';
-                }
-                else {
-                    text = jQuery.trim(target.text());
-                    renderAs = target.data('type');
-                }
-                tooltip[renderAs === 'html' ? 'html' : 'text'](ui.maxchars && text.length > ui.maxchars - 4 ? text.substr(0, ui.maxchars - 4) + '...' : text);
+                var target = jQuery(e.currentTarget);
+                var info = getTooltipInfo(target);
+                tooltip[info.renderAs === 'html' ? 'html' : 'text'](ui.maxchars && info.text.length > ui.maxchars - 4 ? info.text.substr(0, ui.maxchars - 4) + '...' : info.text);
 
-                if (!text || target.find(ui.target).length) {
+                if (!info.text || target.find(ui.target).length) {
                     hideTooltip(false);
                     return;
                 }

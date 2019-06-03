@@ -4,8 +4,6 @@ namespace EveryAngle.OData.ViewModel.Settings
 {
     public class ODataSettingsViewModel
     {
-        public ODataSettingsViewModel() { }
-
         public string host { get; set; } = "http://th-eatst02.everyangle.org:57110";
         public string user { get; set; } = "eaadmin";
         public string password { get; set; } = "P@ssw0rd";

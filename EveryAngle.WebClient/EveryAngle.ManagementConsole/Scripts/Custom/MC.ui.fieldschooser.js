@@ -7,9 +7,9 @@
         self.OnGridSelectionChanged([]);
     };
 
-    var getDataFail = function (xhr, status, error) {
+    var getDataFail = function (xhr, status) {
         if (status !== 'abort') {
-            var win = jQuery('#popupFieldChooser').data('kendoWindow');
+            var win = $('#popupFieldChooser').data('kendoWindow');
             if (win) win.close();
         }
     };
@@ -19,7 +19,7 @@
         disableLoading();
         return MC.ajax
             .request({
-                url: self.GetFieldsUri + '?fieldsUri=' + escape(uri + (uri.indexOf('?') === -1 ? '?' : '&') + jQuery.param(params))
+                url: self.GetFieldsUri + '?fieldsUri=' + escape(uri + (uri.indexOf('?') === -1 ? '?' : '&') + $.param(params))
             })
             .fail(getDataFail)
             .done(function (data) {
@@ -28,11 +28,11 @@
     };
 
     var setFieldsFunction = function (result) {
-        var grid = jQuery('#DisplayPropertiesGrid').data('kendoGrid');
+        var grid = $('#DisplayPropertiesGrid').data('kendoGrid');
         if (grid)
             grid.table.focus();
 
-        jQuery.each(result.fields, function (index, field) {
+        $.each(result.fields, function (index, field) {
             if (!field.source)
                 field.source = 'all';
             if (!field.technical_info)
@@ -44,7 +44,7 @@
     var getFieldSourceFunction = function (uri) {
         var self = this;
         if (uri === 'all') {
-            var deferred = new jQuery.Deferred();
+            var deferred = new $.Deferred();
             setTimeout(function () {
                 deferred.resolve({ uri: 'all', id: 'all', short_name: 'All' });
             }, 300);
@@ -87,7 +87,7 @@
         if (typeof showSmallIcon === 'undefined')
             showSmallIcon = true;
         var iconSuffix = showSmallIcon ? '_16' : '_32';
-        jQuery.each(self.FieldCategoriesData, function (k, v) {
+        $.each(self.FieldCategoriesData, function (k, v) {
             if (v.uri.toLowerCase() === (item.category || '').toLowerCase()) {
                 var url = self.FieldCategoriesIconPath;
                 image = {
@@ -153,7 +153,7 @@
             };
         }
         var image = '';
-        jQuery.each(self.FieldCategoriesData, function (k, v) {
+        $.each(self.FieldCategoriesData, function (k, v) {
             if (v.id.toLowerCase() === id.toLowerCase()) {
                 var url = self.FieldCategoriesIconPath;
                 image = {
@@ -179,6 +179,8 @@
             case enumHandlers.FRIENDLYNAMEMODE.LONGNAME:
                 friendlyName = fieldObject.long_name || fieldObject.short_name || fieldObject.id;
                 break;
+            default:
+                break;
         }
         return friendlyName;
     };
@@ -189,9 +191,8 @@
         var fieldCategoryIconLarge = self.GetCategoryIconByField(field, false);
 
         var helpHeaderText = '';
-        if (field.technical_info) {
+        if (field.technical_info)
             helpHeaderText += '<p>' + field.technical_info + '</p>';
-        }
         helpHeaderText += '<p><img src="' + fieldCategoryIconLarge.path + '" />' + field.short_name + ' (' + field.long_name + ')</p>';
 
         var helpTemplate = [
@@ -202,14 +203,14 @@
             '</div>'
         ].join('');
 
-        var helpPopupElement = jQuery('#helpText');
+        var helpPopupElement = $('#helpText');
         if (!helpPopupElement.length) {
-            helpPopupElement = jQuery(helpTemplate);
-            jQuery('body').append(helpPopupElement);
+            helpPopupElement = $(helpTemplate);
+            $('body').append(helpPopupElement);
         }
 
         var popupTitle = field.long_name || field.id;
-        var helpPopupHandle = jQuery('<a />', {
+        var helpPopupHandle = $('<a />', {
             attr: {
                 href: '#helpText',
                 title: popupTitle
@@ -237,7 +238,7 @@
         popupTitleElement.before('<div class="icon iconStatus ' + self.GetIsStarredCssClass(field) + '"></div>');
         popupTitleElement.before('<div class="icon iconCategory"><img src="' + fieldCategoryIconSmall.path + '" /></div>');
 
-        jQuery('#helpTextFootNote').remove();
+        $('#helpTextFootNote').remove();
         helpPopup.wrapper.find('.helpTextContainer, .helpHeaderContainer, .helpAdditionalContainer').empty();
         helpPopup.element.after('<div id="helpTextFootNote">' + field.id + '</div>');
 
@@ -246,34 +247,30 @@
         var deferred = [];
         if (field.helptext) {
             helpData = self.HelpTexts[field.helptext];
-            if (!helpData) {
+            if (!helpData)
                 deferred.push(self.LoadHelpText([field.helpid], false));
-            }
         }
         if (field.domain) {
             domainData = self.GetFieldsDomainByUri(field.domain);
-            if (!domainData) {
+            if (!domainData)
                 deferred.push(self.LoadFieldDomain(field.domain));
-            }
         }
 
         helpPopup.element.css({ overflow: 'hidden', padding: 0 }).busyIndicator(true);
-        jQuery.when.apply(jQuery, deferred)
+        $.when.apply($, deferred)
             .done(function () {
                 helpPopup.element.find('.helpHeaderContainer').html(helpHeaderText);
 
-                if (!helpData) {
+                if (!helpData)
                     helpData = self.HelpTexts[field.helptext] || {};
-                }
                 helpPopup.element.find('.helpTextContainer').html(helpData.html_help || '');
 
-                if (!domainData) {
+                if (!domainData)
                     domainData = self.GetFieldsDomainByUri(field.domain);
-                }
                 if (domainData) {
                     var domainText = '<h4 class="sectiontitle">Set values:</h4>';
                     domainText += '<ul>';
-                    jQuery.each(domainData.elements || [], function (index, value) {
+                    $.each(domainData.elements || [], function (index, value) {
                         domainText += '<li>' + value.short_name + ' (' + value.long_name + ')' + '</li>';
                     });
                     domainText += '</ul>';
@@ -287,7 +284,7 @@
 
     var saveUserSettingsViewMode = function (viewMode) {
         var self = this;
-        var clientSetting = jQuery.parseJSON(self.ClientSettings);
+        var clientSetting = $.parseJSON(self.ClientSettings);
         clientSetting['field_chooser_view_mode'] = viewMode;
         var data = { clientSetting: JSON.stringify(clientSetting) };
 
@@ -334,7 +331,7 @@
             return fieldsChooserModel;
         },
         showFieldsChooserPopup: function (title) {
-            var popupOptions = jQuery.extend(fieldsChooserModel.GetPopupFieldCooserOptions(), { title: title });
+            var popupOptions = $.extend(fieldsChooserModel.GetPopupFieldCooserOptions(), { title: title });
 
             var fieldsChooserPopup = fieldsChooserModel.DisplayFieldChooserPopup(popupOptions);
 
@@ -345,9 +342,9 @@
         checkFieldsChooserButtons: function (buttonsSelector) {
             clearInterval(fnCheckFieldChooserLoaded);
             fnCheckFieldChooserLoaded = setInterval(function () {
-                if (!jQuery.active) {
+                if (!$.active) {
                     clearInterval(fnCheckFieldChooserLoaded);
-                    jQuery('#popupFieldChooser').find(buttonsSelector).removeClass('disabled');
+                    $('#popupFieldChooser').find(buttonsSelector).removeClass('disabled');
                 }
             }, 500);
         }

@@ -12,7 +12,7 @@ namespace EveryAngle.ManagementConsole.Test.Helpers
         #region private variables
 
         private readonly string _mockJSONString = "{\"string\":\"text\",\"number\":1,\"boolean\":true,\"array\":[\"array1\", \"array2\", \"array3\"],\"object\":{ \"object1\": \"object1\" },\"arrayobject\":[{ \"arrayobject1\": \"arrayobject1\" }]}";
-        private List<TreeViewItemModel> _treeViewItemModelList = null;
+        private List<TreeViewItemModel> _treeViewItemModelList;
         private IList<TreeViewItemModel> _testingViewModel = new List<TreeViewItemModel>();
 
         #endregion

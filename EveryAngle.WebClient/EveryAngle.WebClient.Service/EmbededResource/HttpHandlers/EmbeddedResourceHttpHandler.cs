@@ -8,7 +8,7 @@ namespace EveryAngle.WebClient.Service.EmbededResource.HttpHandlers
 {
     public class EmbeddedResourceHttpHandler : IHttpHandler
     {
-        private RouteData _routeData;
+        private readonly RouteData _routeData;
         public EmbeddedResourceHttpHandler(RouteData routeData)
         {
             _routeData = routeData;
@@ -25,78 +25,84 @@ namespace EveryAngle.WebClient.Service.EmbededResource.HttpHandlers
 
             var resources = Assembly.Load("EveryAngle.Shared.EmbeddedViews");
             string nameSpace = resources.GetName().Name;
-            string folderName = string.Empty;
-            Stream stream = null;
+            Stream stream;
             string embededFilePath = string.Empty;
-            if (fileExtension.ToLower() == "js" || fileExtension.ToLower() == "css")
+            if (fileExtension.ToLowerInvariant() == "js" || fileExtension.ToLowerInvariant() == "css")
             {
-                if (fileName.Contains("businessprocesses"))
-                {
-                    folderName = "Resource.BusinessProcess";
-                }
-                else if (fileName.Contains("fieldschooser"))
-                {
-                    folderName = "Resource.FieldsChooser";
-                }
-                else if (fileName.Contains("classeschooser"))
-                {
-                    folderName = "Resource.ClassesChooser";
-                }
-                else if (fileName.Contains("notificationsfeed"))
-                {
-                    folderName = "Resource.NotificationsFeed";
-                }
-                else {
-                    folderName = "Resource.Shared";
-                }
-
-                embededFilePath = string.Format("{0}.{1}.{2}.{3}", nameSpace, folderName, fileName, fileExtension);
+                // js or css
+                string scriptFolderName = GetScriptResourceFolderName(fileName);
+                embededFilePath = string.Format("{0}.{1}.{2}.{3}", nameSpace, scriptFolderName, fileName, fileExtension);
                 stream = resources.GetManifestResourceStream(embededFilePath);
             }
             else
             {
                 //images
-                folderName = "Resource.BusinessProcess";
-                embededFilePath = string.Format("{0}.{1}.{2}.{3}", nameSpace, folderName, fileName, fileExtension);
-                stream = resources.GetManifestResourceStream(embededFilePath);
-
-                if (stream == null)
-                {
-                    folderName = "Resource.FieldsChooser";
-                    embededFilePath = string.Format("{0}.{1}.{2}.{3}", nameSpace, folderName, fileName, fileExtension);
-                    stream = resources.GetManifestResourceStream(embededFilePath);
-                }
-
-                if (stream == null)
-                {
-                    folderName = "Resource.ClassesChooser";
-                    embededFilePath = string.Format("{0}.{1}.{2}.{3}", nameSpace, folderName, fileName, fileExtension);
-                    stream = resources.GetManifestResourceStream(embededFilePath);
-                }
-
-                if (stream == null)
-                {
-                    folderName = "Resource.NotificationsFeed";
-                    embededFilePath = string.Format("{0}.{1}.{2}.{3}", nameSpace, folderName, fileName, fileExtension);
-                    stream = resources.GetManifestResourceStream(embededFilePath);
-                }
-
-                if (stream == null)
-                {
-                    folderName = "Resource.Shared";
-                    embededFilePath = string.Format("{0}.{1}.{2}.{3}", nameSpace, folderName, fileName, fileExtension);
-                    stream = resources.GetManifestResourceStream(embededFilePath);
-                }
+                TryGetImageResourceStream(fileName, fileExtension, resources, nameSpace, out stream, out embededFilePath);
             }
-
-
 
             context.Response.Clear();
 
             MimeTypeUtilities memTypeUtilities = new MimeTypeUtilities();
-            context.Response.ContentType = memTypeUtilities.GetMimeType(embededFilePath);// default
+            context.Response.ContentType = memTypeUtilities.GetMimeType(embededFilePath);
 
             stream.CopyTo(context.Response.OutputStream);
+        }
+
+        private static void TryGetImageResourceStream(string fileName, string fileExtension, Assembly resources, string nameSpace, out Stream stream, out string embededFilePath)
+        {
+            embededFilePath = string.Format("{0}.{1}.{2}.{3}", nameSpace, "Resource.BusinessProcess", fileName, fileExtension);
+            stream = resources.GetManifestResourceStream(embededFilePath);
+
+            if (stream == null)
+            {
+                embededFilePath = string.Format("{0}.{1}.{2}.{3}", nameSpace, "Resource.FieldsChooser", fileName, fileExtension);
+                stream = resources.GetManifestResourceStream(embededFilePath);
+            }
+
+            if (stream == null)
+            {
+                embededFilePath = string.Format("{0}.{1}.{2}.{3}", nameSpace, "Resource.ClassesChooser", fileName, fileExtension);
+                stream = resources.GetManifestResourceStream(embededFilePath);
+            }
+
+            if (stream == null)
+            {
+                embededFilePath = string.Format("{0}.{1}.{2}.{3}", nameSpace, "Resource.NotificationsFeed", fileName, fileExtension);
+                stream = resources.GetManifestResourceStream(embededFilePath);
+            }
+
+            if (stream == null)
+            {
+                embededFilePath = string.Format("{0}.{1}.{2}.{3}", nameSpace, "Resource.Shared", fileName, fileExtension);
+                stream = resources.GetManifestResourceStream(embededFilePath);
+            }
+        }
+
+        private static string GetScriptResourceFolderName(string fileName)
+        {
+            string folderName = string.Empty;
+            if (fileName.Contains("businessprocesses"))
+            {
+                folderName = "Resource.BusinessProcess";
+            }
+            else if (fileName.Contains("fieldschooser"))
+            {
+                folderName = "Resource.FieldsChooser";
+            }
+            else if (fileName.Contains("classeschooser"))
+            {
+                folderName = "Resource.ClassesChooser";
+            }
+            else if (fileName.Contains("notificationsfeed"))
+            {
+                folderName = "Resource.NotificationsFeed";
+            }
+            else
+            {
+                folderName = "Resource.Shared";
+            }
+
+            return folderName;
         }
     }
 }

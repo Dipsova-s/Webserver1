@@ -5,7 +5,7 @@
             MC.addAjaxDoneFunction(this.autoTemplate);
         },
         autoTemplate: function (obj) {
-            var ui = jQuery(obj || '[data-role="auto-template"]')
+            var ui = jQuery(obj || '[data-role="auto-template"]');
             ui.each(function () {
                 var element = jQuery(this);
                 if (element.data('auto-template'))
@@ -46,7 +46,7 @@
             }
 
             jQuery.each(customFields, function (key, template) {
-                if (key == 'last')
+                if (key === 'last')
                     key = cells.length - 1;
                 cells.eq(key).html(template);
             });
@@ -117,7 +117,7 @@
         getRemoveMessage: function (obj) {
             var reference = jQuery(obj).parents('tr:first').children('td').eq(jQuery(obj).data('delete-field-index') || 0);
             var referenceForm = reference.find('input:visible,select,textarea');
-            var referenceText = MC.util.encodeHtml(jQuery.trim(referenceForm.length ? (referenceForm.is('select') ? referenceForm.find('option:selected').text() : referenceForm.val()) : reference.text()));
+            var referenceText = MC.util.encodeHtml(jQuery.trim(referenceForm.length ? referenceForm.is('select') ? referenceForm.find('option:selected').text() : referenceForm.val() : reference.text()));
             var confirmMessage = jQuery(obj).data('delete-template') || Localization.MC_DeleteTemplate;
             confirmMessage = confirmMessage.replace('{reference}', "\'" + referenceText + "\'");
             return confirmMessage;

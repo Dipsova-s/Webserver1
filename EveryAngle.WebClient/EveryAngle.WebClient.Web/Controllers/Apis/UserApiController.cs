@@ -54,7 +54,7 @@ namespace EveryAngle.WebClient.Web.Controllers.Apis
                         if (propName == "AreaStyle")
                         {
                             JObject newAreaStyle = new JObject();
-                            foreach (JProperty areaStyle in detail[propName])
+                            foreach (JProperty areaStyle in detail[propName].OfType<JProperty>())
                             {
                                 string value = areaStyle.Value.ToString();
                                 if (!string.IsNullOrEmpty(value))
@@ -107,11 +107,12 @@ namespace EveryAngle.WebClient.Web.Controllers.Apis
             {
                 try
                 {
-                    var fileContents = System.IO.File.ReadLines(file);
-                    AngleSchemaResource sce = new AngleSchemaResource();
-                    sce.Key = Path.GetFileNameWithoutExtension(file);
-                    sce.ModelName = modelName;
-                    schema.Add(sce);
+                    var fileContents = File.ReadLines(file);
+                    AngleSchemaResource sce = new AngleSchemaResource
+                    {
+                        Key = Path.GetFileNameWithoutExtension(file),
+                        ModelName = modelName
+                    };
                     foreach (string line in fileContents)
                     {
                         string rec = line.Trim().ToLowerInvariant();
@@ -122,28 +123,28 @@ namespace EveryAngle.WebClient.Web.Controllers.Apis
                         }
                         else if (rec.IndexOf("textid", StringComparison.InvariantCulture) == 0)
                         {
+                            // set help
                             string[] values = rec.Split('=');
                             if (values.Length > 1)
                                 sce.DefaultHelp = values[1].Trim();
                         }
                         else if (rec.IndexOf("imagefile", StringComparison.InvariantCulture) == 0)
                         {
+                            // set picture
                             string path = HttpContext.Current.Request.ApplicationPath + imageDefaultPath + rec.Split('=')[1].Trim();
-                            schema[schema.Count - 1].Picture = path;
+                            sce.Picture = path;
                         }
-                        else if (!string.IsNullOrEmpty(rec)
-                            && rec.IndexOf('[') == -1
-                            && rec.LastIndexOf(']') == -1
-                            && !rec.Contains("[areas]"))
+                        else if (IsDetails(rec))
                         {
-                            //value
-                            if (schema[schema.Count - 1].Details == null)
-                                schema[schema.Count - 1].Details = new List<AreaCoordinate>();
+                            // details
+                            if (sce.Details == null)
+                                sce.Details = new List<AreaCoordinate>();
 
                             string[] values = rec.Split(';');
-                            schema[schema.Count - 1].Details.Add(GetAreaCoordinate(values));
+                            sce.Details.Add(GetAreaCoordinate(values));
                         }
                     }
+                    schema.Add(sce);
 
                     //restructure parents
                     SetParent(schema);
@@ -153,6 +154,14 @@ namespace EveryAngle.WebClient.Web.Controllers.Apis
                     // do nothing
                 }
             }
+        }
+
+        private bool IsDetails(string line)
+        {
+            return !string.IsNullOrEmpty(line)
+                && line.IndexOf('[') == -1
+                && line.LastIndexOf(']') == -1
+                && !line.Contains("[areas]");
         }
 
         private AreaCoordinate GetAreaCoordinate(string[] values)
@@ -340,16 +349,16 @@ namespace EveryAngle.WebClient.Web.Controllers.Apis
 
         private string FindParent(AreaCoordinate currentCoordinate, List<AreaCoordinate> allCoordinates)
         {
-            allCoordinates = allCoordinates.Where(filter => filter.Name != currentCoordinate.Name).ToList();
+            List<AreaCoordinate> filteredCoordinates = allCoordinates.Where(filter => filter.Name != currentCoordinate.Name).ToList();
 
             Rectangle currentRectangle = new Rectangle(currentCoordinate.Coordinate[0], currentCoordinate.Coordinate[1], currentCoordinate.Coordinate[2], currentCoordinate.Coordinate[3]);
 
-            foreach (var coor in allCoordinates)
+            foreach (var coordinate in filteredCoordinates)
             {
-                Rectangle rectangle = new Rectangle(coor.Coordinate[0], coor.Coordinate[1], coor.Coordinate[2], coor.Coordinate[3]);
+                Rectangle rectangle = new Rectangle(coordinate.Coordinate[0], coordinate.Coordinate[1], coordinate.Coordinate[2], coordinate.Coordinate[3]);
                 if (rectangle.Contains(currentRectangle))
                 {
-                    currentCoordinate.ParentName = coor.Name;
+                    currentCoordinate.ParentName = coordinate.Name;
                     currentCoordinate.CSSClass = "SubClass";
                     break;
                 }

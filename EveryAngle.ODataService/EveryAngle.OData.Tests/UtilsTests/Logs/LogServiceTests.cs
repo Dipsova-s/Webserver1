@@ -13,13 +13,13 @@ namespace EveryAngle.OData.Tests.UtilsTests.Logs
         [SetUp]
         public void Setup()
         {
-
+            // do nothing
         }
 
         [TearDown]
         public void TearDown()
         {
-
+            // do nothing
         }
 
         #endregion

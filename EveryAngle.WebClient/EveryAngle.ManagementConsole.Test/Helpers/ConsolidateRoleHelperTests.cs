@@ -16,7 +16,7 @@ namespace EveryAngle.ManagementConsole.Test.Helpers
         #region private variables
 
         private JToken _testingToken;
-        private ConsolidatedRoleViewModel _testingViewModel = new ConsolidatedRoleViewModel();
+        private readonly ConsolidatedRoleViewModel _testingViewModel = new ConsolidatedRoleViewModel();
 
         #endregion
 
@@ -134,7 +134,7 @@ namespace EveryAngle.ManagementConsole.Test.Helpers
         {
             JEnumerable<JProperty> properties = new JEnumerable<JProperty>();
             _testingToken = JToken.FromObject(_testingViewModel.ModelPrivilege.Privileges);
-            properties = ConsolidateRoleHelper.CreatePrivilegeProperty(_testingToken, properties);
+            ConsolidateRoleHelper.CreatePrivilegeProperty(_testingToken, properties);
 
             JProperty property = new JProperty("default_label_authorization");
             string privillegeState = ConsolidateRoleHelper.ChangePriviledgeState(state, _testingToken, property);

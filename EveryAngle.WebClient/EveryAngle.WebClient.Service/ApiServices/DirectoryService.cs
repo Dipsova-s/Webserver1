@@ -19,14 +19,9 @@ namespace EveryAngle.WebClient.Service.ApiServices
         {
             var requestManager = RequestManager.Initialize(uri);
             var jsonResult = requestManager.Run();
-            if (requestManager.ResponseStatus.GetHashCode() == 440)
-            {
-                return new VersionViewModel();
-            }
-            else
-            {
-                return JsonConvert.DeserializeObject<VersionViewModel>(jsonResult.ToString());
-            }
+            return requestManager.ResponseStatus.GetHashCode() == 440
+                ? new VersionViewModel()
+                : JsonConvert.DeserializeObject<VersionViewModel>(jsonResult.ToString());
         }
 
         public VersionViewModel GetVersion()
@@ -69,14 +64,9 @@ namespace EveryAngle.WebClient.Service.ApiServices
         {
             RequestManager requestManager = RequestManager.Initialize(uri);
             JObject jsonResult = requestManager.Run();
-            if (requestManager.ResponseStatus.GetHashCode() == 440)
-            {
-                return new AboutViewModel();
-            }
-            else
-            {
-                return JsonConvert.DeserializeObject<AboutViewModel>(jsonResult.ToString());
-            }
+            return requestManager.ResponseStatus.GetHashCode() == 440
+                ? new AboutViewModel()
+                : JsonConvert.DeserializeObject<AboutViewModel>(jsonResult.ToString());
         }
     }
 }

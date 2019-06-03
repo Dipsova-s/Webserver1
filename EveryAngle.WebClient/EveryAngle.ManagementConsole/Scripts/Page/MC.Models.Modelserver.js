@@ -53,7 +53,7 @@
             return data;
         };
         self.DownloadModelServerMetaData = function (e, obj) {
-            var jsondata = jQuery.parseJSON(obj.dataset.parameters)
+            var jsondata = jQuery.parseJSON(obj.dataset.parameters);
             var fullPath = jQuery.base64.encode(jsondata.modelServerUri);
             var modelServerId = jsondata.modelServerId;
             var url = kendo.format(
@@ -151,19 +151,19 @@
 
             jQuery('.content .contentSectionInfoItem').each(function (index, element) {
                 var inputs = jQuery(this).find("input[type!='hidden']");
-                var input, i;
+                var input, i, dropdown;
                 for (i = 0; i < inputs.length; i++) {
                     input = jQuery(inputs[i]);
                     var setting = { 'id': input.attr('id'), 'value': null, 'type': null };
                     if (setting.id && !data.settingList.hasObject('id', setting.id)) {
                         if (input.hasClass('enum')) {
-                            var dropdown = input.data("kendoDropDownList");
+                            dropdown = input.data("kendoDropDownList");
                             setting.value = dropdown.value();
                             setting.type = 'enum';
                             pushSettingToList(setting);
                         }
                         else if (input.hasClass('currency_symbol')) {
-                            var dropdown = input.data("kendoDropDownList");
+                            dropdown = input.data("kendoDropDownList");
                             setting.value = dropdown.value();
                             setting.type = 'currency_symbol';
                             pushSettingToList(setting);
@@ -175,7 +175,7 @@
                         }
                         else if (input.hasClass('date')) {
                             var currentTime = new Date(input.val());
-                            var utcTime = currentTime == 'Invalid Date' ? '0' : kendo.toString(currentTime, 'yyyyMMdd')
+                            var utcTime = currentTime.toString() === 'Invalid Date' ? '0' : kendo.toString(currentTime, 'yyyyMMdd');
                             setting.value = parseInt(utcTime);
                             setting.type = 'date';
                             pushSettingToList(setting);
@@ -186,7 +186,7 @@
                             if (isNaN(setting.value)) setting.value = null;
                             setting.type = 'double';
 
-                            if (setting.value != null) {
+                            if (setting.value !== null) {
                                 pushSettingToList(setting);
                             }
                         }
@@ -195,17 +195,17 @@
                             if (isNaN(setting.value)) setting.value = null;
                             setting.type = 'integer';
 
-                            if (setting.value != null) {
+                            if (setting.value !== null) {
                                 pushSettingToList(setting);
                             }
                         }
                         else if (input.hasClass('percentage')) {
-                            var dropdown = input.data("kendoPercentageTextBox");
+                            dropdown = input.data("kendoPercentageTextBox");
                             setting.value = parseFloat(dropdown.value());
                             if (isNaN(setting.value)) setting.value = null;
                             setting.type = 'percentage';
 
-                            if (setting.value != null) {
+                            if (setting.value !== null) {
                                 pushSettingToList(setting);
                             }
                         }
@@ -225,7 +225,7 @@
             var element = jQuery(elementId);
             if (element.length > 0) {
                 if (!element.valid()) {
-                    element.find('.error').first().focus()
+                    element.find('.error').first().focus();
                     return false;
                 }
             }
@@ -255,13 +255,13 @@
         self.SaveServerSettings = function () {
             if (!self.ValidEmailInput('#company_settings'))
                 return false;
-            
+
             if (!self.ValidEmailInput('#email_settings'))
                 return false;
 
             if (!self.ValidEmailInput('#sap_settings'))
                 return false;
-            
+
             var data = self.GetData();
 
             MC.ajax.request({
@@ -274,12 +274,12 @@
                     switchWhenPostprocessing: data.switchWhenPostprocessing
                 }
             })
-            .done(function () {
-                MC.ajax.reloadMainContent();
-            });
+                .done(function () {
+                    MC.ajax.reloadMainContent();
+                });
 
             return false;
-        }
+        };
         /* end - modelserver setting page */
 
         /* begin - modelserver Content parameters page */

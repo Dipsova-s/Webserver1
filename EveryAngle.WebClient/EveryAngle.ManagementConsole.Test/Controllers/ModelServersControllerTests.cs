@@ -55,7 +55,6 @@ namespace EveryAngle.ManagementConsole.Test.Controllers
         [TestCase(false, 1)]
         public void Should_GetAllModelServerReport_When_ItHasBeenUsed(bool hasReportUri, int totalReportTreeView)
         {
-            List<ModelServerReportViewModel> reportViewModel = new List<ModelServerReportViewModel>();
             ModelServerViewModel modelServerViewModel = new ModelServerViewModel();
 
             if (hasReportUri)

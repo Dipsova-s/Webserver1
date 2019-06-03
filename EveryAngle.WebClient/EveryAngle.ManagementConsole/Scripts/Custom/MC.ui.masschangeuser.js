@@ -1,5 +1,5 @@
 ﻿(function (win) {
-    function Masschangeuser() {
+    win.Masschangeuser = function () {
 
         // initial variables
         var self = this;
@@ -630,7 +630,6 @@
                 MC.ajax.reloadMainContent();
             }
         };
-
     };
 
     win.MC.ui.masschangeuser = new Masschangeuser();

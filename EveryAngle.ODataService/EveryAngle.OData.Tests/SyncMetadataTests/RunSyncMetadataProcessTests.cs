@@ -21,16 +21,7 @@ namespace EveryAngle.OData.Tests.SyncMetadataTests
 
         private Angles _existingAngles;
         private IAngleDataCollector _testingCollector;
-        private Mock<IAppServerProxy> _appServerProxy = new Mock<IAppServerProxy>();
-
-        #endregion
-
-        #region construcrors
-
-        public RunSyncMetadataProcessTests()
-        {
-
-        }
+        private readonly Mock<IAppServerProxy> _appServerProxy = new Mock<IAppServerProxy>();
 
         #endregion
 

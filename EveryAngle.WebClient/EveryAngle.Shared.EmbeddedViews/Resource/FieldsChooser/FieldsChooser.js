@@ -610,13 +610,13 @@ function FieldsChooserModel() {
                         return;
                     }
 
-                    self.AjaxRequest = ({
+                    self.AjaxRequest = {
                         url: request.url,
                         request: self.GetFields(request.url, request.data, function (result) {
                             if (self.SetFieldsFunction !== null) {
                                 result = self.SetFieldsFunction.call(self, result);
                             }
-                            self.SortingList = (result.sort_options || []);
+                            self.SortingList = result.sort_options || [];
 
                             // Merge new display field to model
                             var fields = typeof resultModel !== 'undefined' ? resultModel.Fields : self.Fields;
@@ -670,7 +670,7 @@ function FieldsChooserModel() {
                                         requestHistoryModel.SaveLastExecute(grid.dataSource, grid.dataSource.options.transport.read, [options]);
                                 }
                             })
-                    });
+                    };
                 }
             },
             error: function (e) {
@@ -889,7 +889,7 @@ function FieldsChooserModel() {
             // set last column width
             var headerWrapperSpace = headerWrapper.width();
             var lastColumn = headerWrapper.find('th:last');
-            var newWidth = Math.max(self.ShowTechnicalInfo ? 70 : 50, (headerWrapperSpace - lastColumn.position().left));
+            var newWidth = Math.max(self.ShowTechnicalInfo ? 70 : 50, headerWrapperSpace - lastColumn.position().left);
             jQuery.setGridWidth(grid, lastColumn.index(), newWidth);
 
             // set detail size
@@ -993,7 +993,7 @@ function FieldsChooserModel() {
             // if user setting set technical_info to true
             tpl.push({
                 field: 'technical_info',
-                width: (columnsWidth.technical_info) ? columnsWidth.technical_info.width : 70,
+                width: columnsWidth.technical_info ? columnsWidth.technical_info.width : 70,
                 headerTemplate: self.GetHeaderTemplate('tech_info', Localization.TechnicalInfo),
                 template: function (dataItem) {
                     return dataItem.technical_info || '';
@@ -1334,7 +1334,7 @@ function FieldsChooserModel() {
         jQuery('.fieldChooserFilter').busyIndicator(true);
         jQuery('.fieldChooserFilter .k-loading-mask').height(jQuery('.fieldChooserFilter .k-loading-mask').height() - 1);
 
-        if ($("#txtFitlerAvailableProperties") && (self.IsAutoFocus))
+        if ($("#txtFitlerAvailableProperties") && self.IsAutoFocus)
             $("#txtFitlerAvailableProperties").focus();
 
         self.BindDataGrid();
@@ -1991,7 +1991,7 @@ function FieldsChooserModel() {
     self.BindFieldChooserHtmlToDocumentBody = function (id, html) {
         var fieldChooser = jQuery(id);
         if (!fieldChooser.length) {
-            id = (typeof id === 'string' && id.charAt(0) === '#') ? id.substr(1) : 'popup' + jQuery.now();
+            id = typeof id === 'string' && id.charAt(0) === '#' ? id.substr(1) : 'popup' + jQuery.now();
 
             fieldChooser = jQuery('<div id="' + id + '" />').appendTo(document.body);
             fieldChooser.html(html);

@@ -49,7 +49,7 @@ namespace EveryAngle.ManagementConsole.Test.Helpers
             string testFilePath = AppDomain.CurrentDomain.BaseDirectory + "TestResources\\test_image.png";
             using (Image image = Image.FromFile(testFilePath))
             {
-                Image scaledImage = ImageHelper.ScaleBySize(image, 100, isLogo);
+                ImageHelper.ScaleBySize(image, 100, isLogo);
             }
         }
 

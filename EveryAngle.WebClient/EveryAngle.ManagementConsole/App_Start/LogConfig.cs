@@ -12,7 +12,7 @@ using EveryAngle.ManagementConsole.Helpers;
 
 namespace EveryAngle.ManagementConsole.App_Start
 {
-    public class LogConfig
+    public static class LogConfig
     {
         public static void Initial()
         {

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace EveryAngle.OData.BackgroundWorkers
 {
-    public class SyncMetadataProcess
+    public static class SyncMetadataProcess
     {
         #region private variables
 

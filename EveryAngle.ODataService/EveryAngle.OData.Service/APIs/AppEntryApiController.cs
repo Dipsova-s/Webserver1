@@ -17,7 +17,7 @@ namespace EveryAngle.OData.Service.APIs
     [RoutePrefix("api")]
     public class AppEntryApiController : BaseApiController
     {
-        IMasterEdmModelBusinessLogic _edmBusinessLogic;
+        private readonly IMasterEdmModelBusinessLogic _edmBusinessLogic;
 
         public AppEntryApiController(IMasterEdmModelBusinessLogic edmBusinessLogic)
         {
@@ -53,25 +53,26 @@ namespace EveryAngle.OData.Service.APIs
 
         private IEnumerable<Angle> DetermineFiltering(KendoUIGridQueryViewModel query, IEnumerable<Angle> angles)
         {
+            IEnumerable<Angle> filteredAngles = angles;
             if (query.filter != null && query.filter.filters.Any())
             {
                 SubFilterQueryViewModel filter = query.filter.filters[0];
-                angles = angles.Where(x => x.name.ToLowerInvariant().Contains(filter.value.ToLowerInvariant())).ToList();
+                filteredAngles = filteredAngles.Where(x => x.name.ToLowerInvariant().Contains(filter.value.ToLowerInvariant())).ToList();
             }
 
-            return angles;
+            return filteredAngles;
         }
         private IEnumerable<Angle> DetermineSorting(KendoUIGridQueryViewModel query, IEnumerable<Angle> angles)
         {
+            IEnumerable<Angle> sortedAngles = angles;
             if (query.sort != null && query.sort.Any())
             {
-                if (query.sort[0].dir == "desc")
-                    angles = angles.OrderByDescending(x => x.name).ToList();
-                else 
-                    angles = angles.OrderBy(x => x.name).ToList();
+                sortedAngles = query.sort[0].dir == "desc"
+                                ? sortedAngles.OrderByDescending(x => x.name).ToList()
+                                : sortedAngles.OrderBy(x => x.name).ToList();
             }
 
-            return angles;
+            return sortedAngles;
         }
     }
 }

@@ -45,7 +45,6 @@
                     MC.util.sortableGrid('#Grid', self.LabelcategoryDragend);
                 }
 
-                //MC.form.page.init(self.GetData);
             }, 1);
         };
         self.AllLabelCategoryGridDataBound = function (e) {
@@ -75,18 +74,19 @@
 
             if (labelsUrl.length) {
                 disableLoading();
-                MC.ajax.request({
-                    url: self.GetLabelsUri,
-                    parameters: { labelsUrl: labelsUrl.join(',') },
-                    type: 'POST'
-                })
-                .done(function (data, status, xhr) {
-                    jQuery.each(data, function (index, category) {
-                        self.LabelsData[category.uri] = category.labels || [];
+                MC.ajax
+                    .request({
+                        url: self.GetLabelsUri,
+                        parameters: { labelsUrl: labelsUrl.join(',') },
+                        type: 'POST'
+                    })
+                    .done(function (data) {
+                        jQuery.each(data, function (index, category) {
+                            self.LabelsData[category.uri] = category.labels || [];
 
-                        setLabelsText(category.uri);
+                            setLabelsText(category.uri);
+                        });
                     });
-                });
             }
         };
         self.LabelcategoryDragend = function (row, oldIndex, newIndex) {
@@ -108,15 +108,16 @@
 
                 disableLoading();
                 grid.element.busyIndicator(true);
-                MC.ajax.request({
-                    url: self.SaveLabelCategoryUri,
-                    parameters: { labelCategoryUri: dataItem.uri, labelCategoryOrderData: JSON.stringify(sortData) },
-                    type: 'PUT'
-                })
-                .always(function () {
-                    grid.element.busyIndicator(false);
-                    grid.dataSource.read();
-                });
+                MC.ajax
+                    .request({
+                        url: self.SaveLabelCategoryUri,
+                        parameters: { labelCategoryUri: dataItem.uri, labelCategoryOrderData: JSON.stringify(sortData) },
+                        type: 'PUT'
+                    })
+                    .always(function () {
+                        grid.element.busyIndicator(false);
+                        grid.dataSource.read();
+                    });
             }
         };
         self.SaveLabelCategoryOrder = function () {
@@ -359,7 +360,7 @@
                     gridObject.hideColumn(i);
                 }
 
-                grid.find('thead tr').between('th', start, end).each(function (index, header) {
+                grid.find('thead tr').between('th', start, end).each(function (index) {
                     var obj = jQuery('#cboLanguage' + index);
                     if (obj.length) {
                         var lang = obj[0].value;
@@ -383,9 +384,6 @@
         };
 
         self.CheckGridColumns = function () {
-            //self.InitialLabelCategoryGrid();
-            //self.InitialLabelGrid();
-
             if (self.UseVirtualUI()) {
                 var i;
                 for (i = 0; i < self.LanguageInfo.VirtualCount; i++) {
@@ -447,7 +445,7 @@
             jQuery(obj).next('input').val(language.text);
 
             jQuery('#LabelCategoryGrid, #Grid')
-                .find('tbody tr').find('td:eq(' + currentIndex + ')').html(function (index, ohtml) {
+                .find('tbody tr').find('td:eq(' + currentIndex + ')').html(function () {
                     return jQuery(this).parent('tr').find('td').eq(targetIndex).html();
                 })
                 .find('input:not([readonly])').data('target', targetIndex).blur(function () {
@@ -487,7 +485,7 @@
                 targetIndex = jQuery('#LabelCategoryGrid .k-header[data-field="' + lang + '"]').prevAll().length;
 
             jQuery('#Grid')
-                .find('tbody tr').find('td:eq(' + currentIndex + ')').html(function (index, ohtml) {
+                .find('tbody tr').find('td:eq(' + currentIndex + ')').html(function () {
                     return jQuery(this).parent('tr').find('td').eq(targetIndex).html();
                 })
                 .find('input:not([readonly])').data('target', targetIndex).blur(function () {
@@ -526,15 +524,6 @@
 
             var start = self.LanguageInfo.IndexStart;
             var end = self.LanguageInfo.IndexEnd;
-            //var start, end;
-            //if (self.UseVirtualUI()) {
-            //    start = self.LanguageInfo.IndexVirtualStart;
-            //    end = self.LanguageInfo.IndexVirtualEnd;
-            //}
-            //else {
-            //    start = self.LanguageInfo.IndexStart;
-            //    end = self.LanguageInfo.IndexEnd;
-            //}
             var getLanguageFromRow = function (row) {
                 var languages = [];
                 var columns = row.children().eq(self.LanguageInfo.IndexEN);
@@ -605,44 +594,42 @@
                 return false;
             }
 
-            else {
-                if (self.UseVirtualUI()) {
-                    var start = self.LanguageInfo.IndexVirtualStart;
-                    var end = self.LanguageInfo.IndexVirtualEnd;
-                    var startHide = self.LanguageInfo.IndexStart;
-                    var endHide = self.LanguageInfo.IndexEnd;
-                    var i;
-                    var categoryGrid = jQuery('#LabelCategoryGrid').data('kendoGrid');
-                    var labelGrid = jQuery('#Grid').data('kendoGrid');
-                    for (i = startHide; i <= endHide; i++) {
-                        categoryGrid.showColumn(i);
+            else if (self.UseVirtualUI()) {
+                var start = self.LanguageInfo.IndexVirtualStart;
+                var end = self.LanguageInfo.IndexVirtualEnd;
+                var startHide = self.LanguageInfo.IndexStart;
+                var endHide = self.LanguageInfo.IndexEnd;
+                var i;
+                var categoryGrid = jQuery('#LabelCategoryGrid').data('kendoGrid');
+                var labelGrid = jQuery('#Grid').data('kendoGrid');
+                for (i = startHide; i <= endHide; i++) {
+                    categoryGrid.showColumn(i);
+                }
+                if (labelGrid) {
+                    for (i = start; i <= end; i++) {
+                        labelGrid.hideColumn(i);
                     }
-                    if (labelGrid) {
-                        for (i = start; i <= end; i++) {
-                            labelGrid.hideColumn(i);
-                        }
-                    }
+                }
 
-                    var invalid = !$('#LabelCategoryForm').valid() || !$('#LabelForm').valid();
-                    if (invalid) {
-                        var lang = forms.find('.error:first').attr('name');
-                        jQuery('#cboLanguage0').val(lang);
-                    }
+                var invalid = !$('#LabelCategoryForm').valid() || !$('#LabelForm').valid();
+                if (invalid) {
+                    var lang = forms.find('.error:first').attr('name');
+                    jQuery('#cboLanguage0').val(lang);
+                }
 
-                    for (i = startHide; i <= endHide; i++) {
-                        categoryGrid.hideColumn(i);
+                for (i = startHide; i <= endHide; i++) {
+                    categoryGrid.hideColumn(i);
+                }
+                if (labelGrid) {
+                    for (i = start; i <= end; i++) {
+                        labelGrid.showColumn(i);
                     }
-                    if (labelGrid) {
-                        for (i = start; i <= end; i++) {
-                            labelGrid.showColumn(i);
-                        }
-                    }
+                }
 
-                    if (invalid) {
-                        self.SwitchLanguage(jQuery('#cboLanguage0').get(0));
-                        forms.find('.error:first').focus();
-                        return false;
-                    }
+                if (invalid) {
+                    self.SwitchLanguage(jQuery('#cboLanguage0').get(0));
+                    forms.find('.error:first').focus();
+                    return false;
                 }
             }
 
@@ -669,23 +656,24 @@
                 $('#btnAddComment').trigger('click');
             }
 
-            MC.ajax.request({
-                url: self.SaveUri,
-                parameters: updatedData,
-                type: data.type
-            })
-            .fail(function () {
-                $('#loading .loadingClose').one('click.close', MC.ajax.reloadMainContent);
-            })
-            .done(function (response, status, xhr) {
-                location.hash = self.AllModelsLabelCategoriesPageUri;
-                if (data.isNew) {
-                    location.hash = self.EditPageUri + '?parameters=' + JSON.stringify(response.parameters);
-                }
-                else {
+            MC.ajax
+                .request({
+                    url: self.SaveUri,
+                    parameters: updatedData,
+                    type: data.type
+                })
+                .fail(function () {
+                    $('#loading .loadingClose').one('click.close', MC.ajax.reloadMainContent);
+                })
+                .done(function (response) {
                     location.hash = self.AllModelsLabelCategoriesPageUri;
-                }
-            });
+                    if (data.isNew) {
+                        location.hash = self.EditPageUri + '?parameters=' + JSON.stringify(response.parameters);
+                    }
+                    else {
+                        location.hash = self.AllModelsLabelCategoriesPageUri;
+                    }
+                });
         };
 
         self.DeleteLabelCategory = function (obj, labelUri) {
@@ -697,9 +685,9 @@
                     parameters: { labelUri: labelUri },
                     type: 'delete'
                 })
-                .done(function () {
-                    MC.ajax.reloadMainContent();
-                });
+                    .done(function () {
+                        MC.ajax.reloadMainContent();
+                    });
             });
         };
     }

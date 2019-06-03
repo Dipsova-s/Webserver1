@@ -268,10 +268,10 @@
     };
 
     window.IsNullOrEmpty = function (data) {
-        return typeof data === 'undefined' || data == null || data === '';
+        return typeof data === 'undefined' || data === null || data === '';
     };
     window.IsUndefindedOrNull = function (data) {
-        return typeof data === 'undefined' || data == null;
+        return typeof data === 'undefined' || data === null;
     };
     window.GenerateDecimalPlaces = function (placesNumber) {
         var decimalFormat = '#.';

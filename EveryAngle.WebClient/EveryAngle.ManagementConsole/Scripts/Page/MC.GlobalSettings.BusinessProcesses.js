@@ -122,7 +122,7 @@
             }, 1);
         };
 
-        self.SetGridColumnSize = function (gridElement, spaceSize) {
+        self.SetGridColumnSize = function (gridElement) {
             var grid = jQuery(gridElement).data('kendoGrid');
             if (grid) {
                 var showLanguageCount, start, i;
@@ -243,7 +243,7 @@
                     gridObject.hideColumn(i);
                 }
 
-                grid.find('thead tr').between('th', start, end).each(function (index, header) {
+                grid.find('thead tr').between('th', start, end).each(function (index) {
                     var obj = jQuery('#cboLanguage' + index);
                     if (obj.length) {
                         var lang = obj[0].value;
@@ -307,112 +307,6 @@
             }
         };
 
-        self.PreviewBar = function () {
-            // initial popup event
-            var win = $('#popupPreview').data('kendoWindow');
-            if (win) {
-                win.wrapper.addClass('popupPreview');
-                if (!win.__bind_resize_event) {
-                    win.__bind_resize_event = true;
-                    win.bind('resize', function (e) {
-                        jQuery('#tab .tabNav a.active').trigger('click.bp_layout');
-                    });
-                }
-            }
-            setTimeout(function () {
-                win.trigger('resize');
-            }, 100);
-
-            // generate data & tab label
-            var data = {};
-            var startHide = self.LanguageInfo.IndexStart;
-            var endHide = self.LanguageInfo.IndexEnd;
-
-            var label = {};
-            var enHeader = $('#BusinessProcessesCategoryGrid .k-header').eq(self.LanguageInfo.IndexEN);
-            label[enHeader.data('field')] = enHeader.data('title');
-            jQuery.each(self.LanguageInfo.Languages, function (index, language) {
-                label[language.id] = language.text;
-            });
-
-            jQuery('#BusinessProcessesGrid tbody tr').each(function (indexRow, row) {
-                row = $(row);
-                if (!row.hasClass('rowMaskAsRemove') && row.find(':checkbox:checked').length) {
-                    var id = row.find('td:eq(1)').attr('id');
-                    var abbreviation = row.find('input[name="abbreviation"]').val();
-
-                    var columns = row.children('td:eq(' + self.LanguageInfo.IndexEN + ')');
-                    columns = columns.add(row.between('td', startHide, endHide));
-
-                    columns.each(function (indexColumn, column) {
-                        column = $(column);
-                        var input = column.find('input[type="text"]');
-                        if (input.length) {
-                            var lang = input.attr('name');
-                            if (!data[lang]) data[lang] = [];
-
-                            data[lang].push({
-                                id: id,
-                                name: input.val() || '&nbsp;',
-                                abbreviation: abbreviation || '&nbsp;',
-                                is_allowed: true
-                            });
-                        }
-                    });
-                }
-            });
-
-            // create tab & business processes
-            var tpl = businessProcessBarHtmlTemplate();
-            jQuery('#tab').removeData().empty();
-            jQuery('#tab').append('<div class="tabNav" />');
-            jQuery.each(data, function (k, v) {
-                var bpCompact = new BusinessProcessesViewModel(v);
-                bpCompact.MultipleActive(true);
-
-                var bpFull = new BusinessProcessesViewModel(v);
-                bpFull.Mode(bpFull.MODE.FULL);
-                bpFull.MultipleActive(true);
-
-                jQuery('<a />')
-                    .attr('id', 'tabNav-' + k)
-                    .data({ compact: bpCompact, full: bpFull })
-                    .html(label[k])
-                    .appendTo('#tab .tabNav');
-
-                jQuery('<div class="tabPanel" />')
-                    .attr('id', 'tabPanel-' + k)
-                    .append('<div class="previewArea" />')
-                    .append(tpl)
-                    .append(tpl)
-                    .appendTo('#tab');
-
-                var compactElement = jQuery('#tab .tabPanel:last .businessProcesses:eq(0)');
-                compactElement.on('click', '.businessProcessesItemMore', function (e) {
-                    jQuery(e.delegateTarget).css('z-index', 101)
-                        .next().removeClass('expand').css('z-index', 100);
-                });
-                var fullElement = jQuery('#tab .tabPanel:last .businessProcesses:eq(1)');
-                fullElement.on('click', '.businessProcessesItemMore', function (e) {
-                    jQuery(e.delegateTarget).css('z-index', 101)
-                        .prev().removeClass('expand').css('z-index', 100);
-                });
-
-                ko.applyBindings(bpCompact, compactElement.get(0));
-                ko.applyBindings(bpFull, fullElement.get(0));
-            });
-            MC.ui.tab('#tab');
-            jQuery('#tab .tabNav a:first').trigger('click');
-
-            jQuery('#tab .tabNav a').on('click.bp_layout', function (e) {
-                var bpData = jQuery(e.currentTarget).data();
-                var bpElements = jQuery('#tab .tabPanel.active .businessProcesses');
-                var maxWidth = jQuery('#tab .tabPanel.active').width();
-                bpData.compact.UpdateLayout(bpElements.eq(0).css('max-width', maxWidth));
-                bpData.full.UpdateLayout(bpElements.eq(1).css('max-width', maxWidth));
-            });
-        };
-
         self.SetGridDeleteButton = function () {
             if ($('#BusinessProcessesGrid .k-grid-content tbody tr:not(.newRow)').length === 1) {
                 $('#BusinessProcessesGrid .k-grid-content tbody tr:first').find('.btnDelete').addClass('disabled');
@@ -443,7 +337,7 @@
                     targetIndex = jQuery('#BusinessProcessesCategoryGrid .k-header[data-field="' + lang + '"]').prevAll().length;
 
                 jQuery('#BusinessProcessesGrid')
-                    .find('tbody tr').find('td:eq(' + currentIndex + ')').html(function (index, ohtml) {
+                    .find('tbody tr').find('td:eq(' + currentIndex + ')').html(function () {
                         return jQuery(this).parent('tr').find('td').eq(targetIndex).html();
                     })
                     .find('input:not([readonly])').data('target', targetIndex).blur(function () {
@@ -540,40 +434,38 @@
                 forms.find('.error:first').focus();
                 return false;
             }
-            else {
-                if (self.UseVirtualUI()) {
-                    var start = self.LanguageInfo.IndexVirtualStart;
-                    var end = self.LanguageInfo.IndexVirtualEnd;
-                    var startHide = self.LanguageInfo.IndexStart;
-                    var endHide = self.LanguageInfo.IndexEnd;
-                    var i;
-                    var categoryGrid = jQuery('#BusinessProcessesCategoryGrid').data('kendoGrid');
-                    var labelGrid = jQuery('#BusinessProcessesGrid').data('kendoGrid');
-                    for (i = startHide; i <= endHide; i++) {
-                        categoryGrid.showColumn(i);
-                    }
-                    for (i = start; i <= end; i++) {
-                        labelGrid.hideColumn(i);
-                    }
+            else if (self.UseVirtualUI()) {
+                var start = self.LanguageInfo.IndexVirtualStart;
+                var end = self.LanguageInfo.IndexVirtualEnd;
+                var startHide = self.LanguageInfo.IndexStart;
+                var endHide = self.LanguageInfo.IndexEnd;
+                var i;
+                var categoryGrid = jQuery('#BusinessProcessesCategoryGrid').data('kendoGrid');
+                var labelGrid = jQuery('#BusinessProcessesGrid').data('kendoGrid');
+                for (i = startHide; i <= endHide; i++) {
+                    categoryGrid.showColumn(i);
+                }
+                for (i = start; i <= end; i++) {
+                    labelGrid.hideColumn(i);
+                }
 
-                    var invalid = !$('#BusinessProcessesCategoryForm').valid() || !$('#BusinessProcessLabelForm').valid();
-                    if (invalid) {
-                        var lang = forms.find('.error:first').attr('name');
-                        jQuery('#cboLanguage0').val(lang);
-                    }
+                var invalid = !$('#BusinessProcessesCategoryForm').valid() || !$('#BusinessProcessLabelForm').valid();
+                if (invalid) {
+                    var lang = forms.find('.error:first').attr('name');
+                    jQuery('#cboLanguage0').val(lang);
+                }
 
-                    for (i = startHide; i <= endHide; i++) {
-                        categoryGrid.hideColumn(i);
-                    }
-                    for (i = start; i <= end; i++) {
-                        labelGrid.showColumn(i);
-                    }
+                for (i = startHide; i <= endHide; i++) {
+                    categoryGrid.hideColumn(i);
+                }
+                for (i = start; i <= end; i++) {
+                    labelGrid.showColumn(i);
+                }
 
-                    if (invalid) {
-                        self.SwitchBusinessProcessLanguage(jQuery('#cboLanguage0').get(0));
-                        forms.find('.error:first').focus();
-                        return false;
-                    }
+                if (invalid) {
+                    self.SwitchBusinessProcessLanguage(jQuery('#cboLanguage0').get(0));
+                    forms.find('.error:first').focus();
+                    return false;
                 }
             }
 
@@ -589,27 +481,28 @@
                 },
                 type: 'POST'
             })
-            .done(function (data) {
-                if (data.removedData.length || !$.isEmptyObject(data.un_removeData)) {
-                    var text = '';
-                    if (data.removedData.length > 0) {
-                        text += '<p>' + Localization.MC_RemovedLabelsList + '</p>';
-                        $.each(data.removedData, function (index, item) {
-                            text += '<p>' + item + '</p>';
-                        });
-                    }
-                    if (!$.isEmptyObject(data.un_removeData)) {
-                        text += '<p>' + Localization.MC_UnRemovedLabelsList + '</p>';
-                        $.each(data.un_removeData, function (key, value) {
-                            text += '<p>' + key + ', ' + value + '</p>';
-                        });
-                    }
-                    MC.util.showPopupOK(Localization.MC_DeletedLabels, text, "MC.ajax.reloadMainContent()");
+            .done(self.SaveBusinessProcessCallback);
+        };
+        self.SaveBusinessProcessCallback = function (data) {
+            if (data.removedData.length || !$.isEmptyObject(data.un_removeData)) {
+                var text = '';
+                if (data.removedData.length > 0) {
+                    text += '<p>' + Localization.MC_RemovedLabelsList + '</p>';
+                    $.each(data.removedData, function (index, item) {
+                        text += '<p>' + item + '</p>';
+                    });
                 }
-                else {
-                    MC.ajax.reloadMainContent();
+                if (!$.isEmptyObject(data.un_removeData)) {
+                    text += '<p>' + Localization.MC_UnRemovedLabelsList + '</p>';
+                    $.each(data.un_removeData, function (key, value) {
+                        text += '<p>' + key + ', ' + value + '</p>';
+                    });
                 }
-            });
+                MC.util.showPopupOK(Localization.MC_DeletedLabels, text, "MC.ajax.reloadMainContent()");
+            }
+            else {
+                MC.ajax.reloadMainContent();
+            }
         };
     }
 

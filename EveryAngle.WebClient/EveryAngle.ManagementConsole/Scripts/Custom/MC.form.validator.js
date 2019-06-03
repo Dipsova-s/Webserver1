@@ -3,8 +3,8 @@
     var checkForm = function () {
         //overriden in a specific page
         this.prepareForm();
-        for (var i = 0, elements = (this.currentElements = this.elements()) ; elements[i]; i++) {
-            if (this.findByName(elements[i].name).length != undefined && this.findByName(elements[i].name).length > 1) {
+        for (var i = 0, elements = this.currentElements = this.elements(); elements[i]; i++) {
+            if (this.findByName(elements[i].name).length > 1) {
                 for (var cnt = 0; cnt < this.findByName(elements[i].name).length; cnt++) {
                     this.check(this.findByName(elements[i].name)[cnt]);
                 }
@@ -16,13 +16,13 @@
         return this.valid();
     };
 
-    var validatorFocusOut = function (element, event) {
+    var validatorFocusOut = function (element) {
         if (!this.checkable(element) && (element.name in this.submitted || !this.optional(element))) {
             this.element(element);
         }
         jQuery('.error', this.settings.errorLabelContainer).hide();
     };
-    var validatorFocusIn = function (element, event) {
+    var validatorFocusIn = function (element) {
         this.lastActive = element;
 
         // hide error label and remove error class on focus if enabled
@@ -43,7 +43,7 @@
         var container = this.settings.errorLabelContainer;
         jQuery(container).empty();
         jQuery.each(errorList, function (idx, error) {
-            var e = jQuery(error.element).parent('.btn').length != 0 ? jQuery(error.element).parent('.btn') : error.element,
+            var e = jQuery(error.element).parent('.btn').length ? jQuery(error.element).parent('.btn') : error.element,
                 p = jQuery(e).offset(),
                 h = jQuery(e).outerHeight(true);
             jQuery('<span class="error" />').css({
@@ -74,7 +74,7 @@
             MC.addAjaxDoneFunction(this.autoValidator);
         },
         autoValidator: function (obj) {
-            if (typeof (jQuery('html').data('validator-initialized')) == 'undefined') {
+            if (typeof jQuery('html').data('validator-initialized') === 'undefined') {
                 // override checkForm
                 jQuery.validator.prototype.checkForm = checkForm;
 

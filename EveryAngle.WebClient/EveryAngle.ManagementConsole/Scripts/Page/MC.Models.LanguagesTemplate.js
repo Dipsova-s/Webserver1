@@ -5,7 +5,7 @@
 
         self.GetColumnActionHtml = function (data) {
             var html = '';
-            if (data.Id == 'en') {
+            if (data.Id === 'en') {
                 html += '<label><input value="True" name="' + data.Id + '" type="radio" checked="checked" disabled="disabled" /><span class="label">Enable</span></label>';
             }
             else if (MC.Models.Languages.IsContainLanguage(data.Id)) {

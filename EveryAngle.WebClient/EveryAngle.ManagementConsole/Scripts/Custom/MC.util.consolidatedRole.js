@@ -8,7 +8,7 @@
                 parameters: query,
                 type: 'GET'
             })
-            .done(function (response, status, xhr) {
+            .done(function (response) {
                 if ($(response).filter('.contentSectionInfoItem').length) {
                     $('#ConsoliDatedRolePopup .popupContent').html(response);
                 }
@@ -16,9 +16,9 @@
                     $('#ConsoliDatedRolePopup .popupContent').html('<div class="contentSectionInfoItem">' + response + '</div>');
                 }
 
-                if ($('.btnCollapse').length == 0)
+                if ($('.btnCollapse').length === 0)
                     $('#ConsoliDatedRolePopup .popupToolbar').append('<a class="btn btnPrimary btnCollapse btnLeft" onclick="MC.util.consolidatedRole.collapseAll()" data-role="popup-close">' + Localization.MC_CollapseAll + '</a>');
-                if ($('.btnExpand').length == 0)
+                if ($('.btnExpand').length === 0)
                     $('#ConsoliDatedRolePopup .popupToolbar').append('<a class="btn btnPrimary btnExpand btnLeft" onclick="MC.util.consolidatedRole.expandAll()" data-role="popup-close">' + Localization.MC_ExpandAll + '</a>');
 
                 MC.util.consolidatedRole.checkExpandCollapseVisible();
@@ -33,7 +33,7 @@
                     MC.util.disableMobileScroller(win);
 
                     if (!win.__scrollable_resize) {
-                        win.bind('resize', function (e) {
+                        win.bind('resize', function () {
                             var contentSectionElement = win.element.find('.contentSectionInfoItem');
                             if (contentSectionElement.length) {
                                 var dropdownHeight = win.element.find('.k-dropdown.UserModelPrivileges').outerHeight() || 0;
@@ -48,7 +48,7 @@
         },
         checkExpandCollapseVisible: function () {
             var showexpandbutton = $("#ConsoliDatedRolePopup").find(".k-plus:visible").length + $("#ConsoliDatedRolePopup").find(".k-minus:visible").length;
-            if (showexpandbutton == 0)
+            if (showexpandbutton === 0)
                 $("#ConsoliDatedRolePopup .btnCollapse, #ConsoliDatedRolePopup .btnExpand").hide();
             else
                 $("#ConsoliDatedRolePopup .btnCollapse, #ConsoliDatedRolePopup .btnExpand").show();
@@ -56,7 +56,7 @@
         changeModelPrivilege: function (e) {
 
             $('#ConsoliDatedRolePopup .contentSectionInfoItem').addClass('hidden');
-            if (e.sender.dataItem() == 'System privileges') {
+            if (e.sender.dataItem() === 'System privileges') {
                 $('#system_privileges').removeClass('hidden');
             }
             else {

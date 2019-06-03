@@ -35,7 +35,7 @@
                 element = that.element,
                 value = that._parse(element.val()) || 0;
 
-            if (activeElement() != element[0]) {
+            if (activeElement() !== element[0]) {
                 that._focusin();
             }
 
@@ -51,12 +51,15 @@
 
         value: function (value) {
             var that = this;
-            if (typeof value == 'undefined') {
+            var decimals;
+            var result;
+            if (typeof value === 'undefined') {
                 // getter
                 var currentValue = Widget.fn.value.call(that);
-                if (currentValue === null || typeof currentValue == 'undefined') return null;
-                var decimals = currentValue.getSafeDecimals(2);
-                var result = currentValue / 100;
+                if (currentValue === null || typeof currentValue === 'undefined')
+                    return null;
+                decimals = currentValue.getSafeDecimals(2);
+                result = currentValue / 100;
                 return result.safeParse(decimals);
             }
             else {
@@ -67,8 +70,8 @@
                     Widget.fn.value.call(that, null);
                 }
                 else {
-                    var decimals = value.getSafeDecimals(-2);
-                    var result = value * 100;
+                    decimals = value.getSafeDecimals(-2);
+                    result = value * 100;
                     Widget.fn.value.call(that, result.safeParse(decimals));
                 }
             }

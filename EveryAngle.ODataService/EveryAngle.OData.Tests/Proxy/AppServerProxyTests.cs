@@ -1,11 +1,8 @@
 ﻿using EveryAngle.OData.DTO;
-using EveryAngle.OData.EAContext;
 using EveryAngle.OData.Proxy;
-using EveryAngle.OData.Settings;
 using Moq;
 using NUnit.Framework;
 using RestSharp;
-using System.Collections.Generic;
 using System.Net;
 
 namespace EveryAngle.OData.Tests.Proxy
@@ -16,16 +13,7 @@ namespace EveryAngle.OData.Tests.Proxy
         #region private variables
 
         private IAppServerProxyPrivateAccess _testingProxy;
-        private Mock<IEARestClient> _restClient = new Mock<IEARestClient>();
-
-        #endregion
-
-        #region constructors
-
-        public AppServerProxyTests()
-        {
-
-        }
+        private readonly Mock<IEARestClient> _restClient = new Mock<IEARestClient>();
 
         #endregion
 
@@ -41,7 +29,7 @@ namespace EveryAngle.OData.Tests.Proxy
         [TearDown]
         public void TearDown()
         {
-
+            // tear down
         }
 
         #endregion

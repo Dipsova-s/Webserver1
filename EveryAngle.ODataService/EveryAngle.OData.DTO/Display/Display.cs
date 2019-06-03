@@ -5,11 +5,6 @@ namespace EveryAngle.OData.DTO
 {
     public class Display : BaseDTO<DisplayCompositeKey>, IBaseDTO<DisplayCompositeKey>, IMetadata
     {
-        public Display()
-        {
-
-        }
-
         public void SetAngle (Angle angle)
         {
             this.Angle = angle;

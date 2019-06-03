@@ -213,14 +213,15 @@
 
             var deferred = jQuery.Deferred();
             disableLoading();
-            MC.ajax.request({
-                url: self.TestConnectionUri,
-                parameters: {
-                    "testconnectionUri": self.PluginUri + '/check_connection',
-                    'jsonData': JSON.stringify(self.GetTestConnectionData())
-                },
-                type: 'POST'
-            })
+            MC.ajax
+                .request({
+                    url: self.TestConnectionUri,
+                    parameters: {
+                        "testconnectionUri": self.PluginUri + '/check_connection',
+                        'jsonData': JSON.stringify(self.GetTestConnectionData())
+                    },
+                    type: 'POST'
+                })
                 .done(function () {
                     jQuery('#row-test-connection .statusInfo').text(Localization.MC_Info_TestConnectionSuccess);
                     deferred.resolve();
@@ -240,7 +241,7 @@
             return { setting_list: data };
         };
     };
-    
+
     win.MC.AutomationTasks = automationTasks || {};
     jQuery.extend(win.MC.AutomationTasks, {
         DataStores: new DataStores()

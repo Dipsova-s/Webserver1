@@ -206,14 +206,8 @@ namespace EveryAngle.WebClient.Service.ApiServices
         public void UpdateDebugLogging(string sessionUri, bool isDebugLogging)
         {
             var requestManager = RequestManager.Initialize(sessionUri);
-            if (isDebugLogging)
-            {
-                requestManager.Run(Method.PUT, "{'debug_logging':true}");
-            }
-            else
-            {
-                requestManager.Run(Method.PUT, "{'debug_logging':false}");
-            }
+            string body = isDebugLogging ? "{'debug_logging':true}" : "{'debug_logging':false}";
+            requestManager.Run(Method.PUT, body);
         }
 
         public List<AuthenticatedUserViewModel> GetUserAuthenticated(string uri)

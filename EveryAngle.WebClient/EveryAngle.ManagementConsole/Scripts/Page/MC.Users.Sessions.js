@@ -18,7 +18,6 @@
             jQuery.extend(self, data || {});
 
             setTimeout(function () {
-
                 var grid = jQuery('#SessionsGrid').data('kendoGrid');
                 if (grid) {
                     MC.util.gridScrollFixed(grid);
@@ -30,8 +29,6 @@
                         grid.trigger('dataBound');
                     }
                 }
-
-                //MC.form.page.init(self.GetData);
             }, 1);
         };
 
@@ -43,13 +40,13 @@
 
             var usersUrl = [];
             jQuery.each(e.sender.dataItems() || [], function (index, session) {
-                if (self.CurrentUserUri != session.UserUri) {
-                    if (typeof self.UsersData[session.UserUri] == 'undefined') {
+                if (self.CurrentUserUri !== session.UserUri) {
+                    if (typeof self.UsersData[session.UserUri] === 'undefined') {
                         self.UsersData[session.UserUri] = null;
 
                         usersUrl.push(session.UserUri);
                     }
-                    else if (typeof self.UsersData[session.UserUri] == 'object') {
+                    else if (typeof self.UsersData[session.UserUri] === 'object') {
                         setUserText(session.UserUri);
                     }
                 }

@@ -56,9 +56,9 @@
             MC.form.clean();
 
             var data = {};
-            var disabled = jQuery('#formAccessManagementConsole').find(':input:disabled').removeAttr('disabled');
+            jQuery('#formAccessManagementConsole').find(':input:disabled').removeAttr('disabled');
             jQuery.each(jQuery('#formAccessManagementConsole').serializeObject(), function (key, value) {
-                data[key] = value == 'null' ? null : value == 'true';
+                data[key] = value === 'null' ? null : value === 'true';
             });
 
             var systemRoleData = $('#formSystemRoleInfo').serializeObject();
@@ -115,42 +115,42 @@
                     element: obj,
                     type: 'delete'
                 })
-                .done(function () {
-                    obj.parents('tr:first').remove();
-                    MC.util.resetGridRows($('#SystemRolesGrid tbody tr'));
-                });
-            })
+                    .done(function () {
+                        obj.parents('tr:first').remove();
+                        MC.util.resetGridRows($('#SystemRolesGrid tbody tr'));
+                    });
+            });
 
             MC.util.preventDefault(e);
         };
 
         self.ChangeManageUser = function () {
-            self.SetAllowImpersonattion()
+            self.SetAllowImpersonattion();
             self.SetManagementAccess();
         };
 
         self.ChangeManageSystem = function () {
-            self.SetAllowImpersonattion()
+            self.SetAllowImpersonattion();
             self.SetManagementAccess();
         };
 
         self.SetAllowImpersonattion = function () {
-            if ($('input[name=manage_system]:checked').val() == "true" || $('input[name=manage_users]:checked').val() == "true") {
+            if ($('input[name=manage_system]:checked').val() === "true" || $('input[name=manage_users]:checked').val() === "true") {
                 $('input[name=allow_impersonation][value=false]').prop("checked", true);
             }
             else {
                 $('input[name=allow_impersonation][value=true]').prop("checked", true);
             }
-        }
+        };
 
         self.SetManagementAccess = function () {
-            if ($('input[name=manage_system]:checked').val() == "true" || $('input[name=manage_users]:checked').val() == "true") {
+            if ($('input[name=manage_system]:checked').val() === "true" || $('input[name=manage_users]:checked').val() === "true") {
                 $('input[name=has_management_access][value=true]').prop("checked", true);
             }
             else {
                 $('input[name=has_management_access][value=false]').prop("checked", true);
             }
-        }
+        };
     }
 
     win.MC.GlobalSettings = globalSettings || {};

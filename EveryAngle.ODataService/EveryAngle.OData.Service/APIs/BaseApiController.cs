@@ -24,8 +24,6 @@ namespace EveryAngle.OData.Service.APIs
             get { return GetProperty<Context>(EAContext.Context.Key_eaac); }
         }
 
-        public BaseApiController() { }
-
         protected HttpResponseMessage CreateResponse(object value)
         {
             return CreateResponse(HttpStatusCode.OK, value);
@@ -47,16 +45,28 @@ namespace EveryAngle.OData.Service.APIs
         protected T GetQueryArgsAsViewModel<T>()
         {
             string requestString = HttpUtility.UrlDecode(HttpContext.Current.Request.QueryString.ToString());
-            try { return JsonConvert.DeserializeObject<T>(requestString); }
-            catch { return default(T); }
+            try
+            {
+                return JsonConvert.DeserializeObject<T>(requestString);
+            }
+            catch
+            {
+                return default(T);
+            }
         }
 
         protected T GetViewModel<T>() where T : new()
         {
             HttpContent requestContent = Request.Content;
             string requestString = requestContent.ReadAsStringAsync().Result;
-            try { return JsonConvert.DeserializeObject<T>(requestString); }
-            catch { return new T(); }
+            try
+            {
+                return JsonConvert.DeserializeObject<T>(requestString);
+            }
+            catch
+            {
+                return new T();
+            }
         }
 
         private T GetProperty<T>(string tag) where T : class

@@ -10,8 +10,8 @@ namespace EveryAngle.OData.Builder.ControllerSelectors
 {
     public class RoutingControllerSelector : DefaultHttpControllerSelector, IRoutingControllerSelector
     {
-        IMasterEdmModelBusinessLogic _edmModelBusinessLogic;
-        HttpConfiguration _configuration;
+        private readonly IMasterEdmModelBusinessLogic _edmModelBusinessLogic;
+        private readonly HttpConfiguration _configuration;
 
         public RoutingControllerSelector(
             IMasterEdmModelBusinessLogic edmModelBusinessLogic,

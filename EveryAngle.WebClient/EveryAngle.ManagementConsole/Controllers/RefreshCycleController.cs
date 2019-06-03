@@ -70,13 +70,10 @@ namespace EveryAngle.ManagementConsole.Controllers
         [AcceptVerbs(HttpVerbs.Post)]
         public ActionResult SaveRefreshCycle(string tasksUri, string tasksData)
         {
-            TaskViewModel savedTask;
             TaskViewModel task = JsonConvert.DeserializeObject<TaskViewModel>(tasksData);
-
-            if (task.Uri == null)
-                savedTask = _taskService.CreateTask(tasksUri, task);
-            else
-                savedTask = _taskService.UpdateTask(task);
+            TaskViewModel savedTask = task.Uri == null
+                ? _taskService.CreateTask(tasksUri, task)
+                : _taskService.UpdateTask(task);
 
             return new JsonResult
             {

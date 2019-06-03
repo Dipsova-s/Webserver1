@@ -13,27 +13,18 @@ namespace EveryAngle.OData.Tests.Proxy
 
         #endregion
 
-        #region constructors
-
-        public EARestClientTests()
-        {
-
-        }
-
-        #endregion
-
         #region setup/teardown
 
         [SetUp]
         public void Setup()
         {
-
+            // setup
         }
 
         [TearDown]
         public void TearDown()
         {
-           
+            // tear down
         }
 
         #endregion

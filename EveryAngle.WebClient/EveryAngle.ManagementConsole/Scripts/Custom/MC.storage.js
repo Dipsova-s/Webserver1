@@ -1,4 +1,4 @@
-(function (win) {
+(function () {
 
     var storage = {
         checker: null,
@@ -6,17 +6,17 @@
             jQuery(window).on('storage', MC.storage.changed);
         },
         changed: function (e) {
-            if (!window.sessionStateChanged) {
-                if (e.originalEvent && e.originalEvent.key === window.storagePrefix + 'session_uri') {
-                    jQuery(window).one('focus', function () {
-                        MC.storage.check(e);
-                    });
+            if (!window.sessionStateChanged
+                && e.originalEvent
+                && e.originalEvent.key === window.storagePrefix + 'session_uri') {
+                jQuery(window).one('focus', function () {
+                    MC.storage.check(e);
+                });
 
-                    clearTimeout(MC.storage.checker);
-                    MC.storage.checker = setTimeout(function () {
-                        MC.storage.check(e);
-                    }, 3000);
-                }
+                clearTimeout(MC.storage.checker);
+                MC.storage.checker = setTimeout(function () {
+                    MC.storage.check(e);
+                }, 3000);
             }
         },
         check: function (e) {
@@ -60,4 +60,4 @@
     MC.storage = storage;
     MC.storage.init();
 
-})(window);
+})();

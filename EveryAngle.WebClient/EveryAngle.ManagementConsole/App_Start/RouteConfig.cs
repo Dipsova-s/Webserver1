@@ -4,7 +4,7 @@ using EveryAngle.WebClient.Service.EmbededResource.HttpHandlers;
 
 namespace EveryAngle.ManagementConsole
 {
-    public class RouteConfig
+    public static class RouteConfig
     {
         public static void RegisterRoutes(RouteCollection routes)
         {

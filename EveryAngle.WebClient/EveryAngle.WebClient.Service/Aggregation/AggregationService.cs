@@ -42,7 +42,6 @@ namespace EveryAngle.WebClient.Service.Aggregation
         private const string REPLACE_CAPTION_HEADER = "<br>&nbsp;";
         private const string REPLACE_CAPTION_DATA = "<br>";
         private const string NON_BRAKING_SPACE = "&nbsp;";
-        private const int EA4IT_REQUESTS_PER_GROUP = 4;
 
         private string[] _domainImageFolderList;
 
@@ -55,20 +54,6 @@ namespace EveryAngle.WebClient.Service.Aggregation
         {
             var requestManager = RequestManager.Initialize(requestUrl);
             JObject jsonResult = requestManager.Run();
-            return jsonResult;
-        }
-
-        public JObject Put(string requestUrl, string Body)
-        {
-            var requestManager = RequestManager.Initialize(requestUrl);
-            JObject jsonResult = requestManager.Run(Method.PUT, Body);
-            return jsonResult;
-        }
-
-        public JObject Post(string requestUrl, string Body)
-        {
-            var requestManager = RequestManager.Initialize(requestUrl);
-            JObject jsonResult = requestManager.Run(Method.POST, Body);
             return jsonResult;
         }
 
@@ -660,36 +645,41 @@ namespace EveryAngle.WebClient.Service.Aggregation
 
         public void SetSortBySummaryField(MVCxPivotGridFieldCollection fields)
         {
-            if (FieldSetting.SortBySummaryInfo != null)
+            if (FieldSetting.SortBySummaryInfo == null)
+                return;
+
+            foreach (SortBySummary sortInfo in FieldSetting.SortBySummaryInfo)
             {
-                foreach (SortBySummary sortInfo in FieldSetting.SortBySummaryInfo)
+                PivotGridField sortField = fields[sortInfo.sort_field.ToLowerInvariant()];
+                if (sortField != null)
                 {
-                    PivotGridField sortField = fields[sortInfo.sort_field.ToLowerInvariant()];
-                    if (sortField != null)
+                    bool hasSortDirection = !string.IsNullOrEmpty(sortInfo.sort_direction);
+                    bool canSortBySummary = !sortInfo.clear_all && hasSortDirection;
+                    PivotGridField summaryField = !canSortBySummary ? null : fields[sortInfo.summary_field.ToLowerInvariant()];
+
+                    sortField.SortBySummaryInfo.Conditions.Clear();
+                    sortField.SortBySummaryInfo.Field = summaryField;
+
+                    if (canSortBySummary && sortInfo.summary_conditions != null)
                     {
-                        bool hasSortDirection = !string.IsNullOrEmpty(sortInfo.sort_direction);
-                        bool canSortBySummary = !sortInfo.clear_all && hasSortDirection;
-                        PivotGridField summaryField = !canSortBySummary ? null : fields[sortInfo.summary_field.ToLowerInvariant()];
+                        SetSortBySummaryConditionFields(fields, sortField, sortInfo.summary_conditions);
+                    }
 
-                        sortField.SortBySummaryInfo.Conditions.Clear();
-                        sortField.SortBySummaryInfo.Field = summaryField;
-
-                        if (canSortBySummary && sortInfo.summary_conditions != null)
-                        {
-                            foreach (SortBySummaryConditionField sortBySummaryConditionField in sortInfo.summary_conditions)
-                            {
-                                object sortSummaryValue = sortBySummaryConditionField.value == "null" ? null : sortBySummaryConditionField.value;
-                                PivotGridFieldSortCondition sortCondition = new PivotGridFieldSortCondition(fields[sortBySummaryConditionField.fieldname.ToLowerInvariant()], sortSummaryValue);
-                                sortField.SortBySummaryInfo.Conditions.Add(sortCondition);
-                            }
-                        }
-
-                        if (hasSortDirection)
-                        {
-                            sortField.SortOrder = GetSortDirection(sortInfo.sort_direction);
-                        }
+                    if (hasSortDirection)
+                    {
+                        sortField.SortOrder = GetSortDirection(sortInfo.sort_direction);
                     }
                 }
+            }
+        }
+
+        private void SetSortBySummaryConditionFields(MVCxPivotGridFieldCollection fields, PivotGridField sortField, List<SortBySummaryConditionField> conditionFields)
+        {
+            foreach (SortBySummaryConditionField sortBySummaryConditionField in conditionFields)
+            {
+                object sortSummaryValue = sortBySummaryConditionField.value == "null" ? null : sortBySummaryConditionField.value;
+                PivotGridFieldSortCondition sortCondition = new PivotGridFieldSortCondition(fields[sortBySummaryConditionField.fieldname.ToLowerInvariant()], sortSummaryValue);
+                sortField.SortBySummaryInfo.Conditions.Add(sortCondition);
             }
         }
 
@@ -1299,7 +1289,6 @@ namespace EveryAngle.WebClient.Service.Aggregation
         }
         private int GetSortResult(Dictionary<object, string> displayElementNames, object value1, object value2)
         {
-            /* TODO: refactor needs, move to NET\Shared\EveryAngle.Shared project */
             // M4-33287: null element id will show empty text
             if (value1 != value2)
             {

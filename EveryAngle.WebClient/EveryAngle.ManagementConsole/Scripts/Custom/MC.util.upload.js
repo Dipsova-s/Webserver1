@@ -18,35 +18,8 @@
         return $.ajaxFileUpload(settings);
     };
 
-    var ajaxUploadStart = function (settings) {
-        if (settings.loader) {
-            MC.ui.loading.hide(true);
-            MC.ui.loading.show();
-        }
-    };
-
-    var ajaxUploadCallback = function (data) {
-        var settings = this;
-        try {
-            data = ajaxUploadData(data);
-        }
-        catch (e) {
-            data = {
-                status: 500,
-                message: {
-                    reason: Localization.MC_InternalError,
-                    message: Localization.MC_ErrorOccured
-                }
-            };
-        }
-        if (data.success)
-            ajaxUploadSuccess(settings, data);
-        else
-            ajaxUploadError(settings, data);
-    };
-
     var ajaxUploadData = function (responseText) {
-        if (responseText.indexOf('<pre') != -1)
+        if (responseText.indexOf('<pre') !== -1)
             responseText = responseText.replace(/<pre(.*)>(.+)<\/pre>/gi, '$2');
         return $.parseJSON(responseText);
     };
@@ -83,6 +56,33 @@
         setTimeout(function () {
             settings.errorCallback(xhr);
         }, 100);
+    };
+
+    var ajaxUploadStart = function (settings) {
+        if (settings.loader) {
+            MC.ui.loading.hide(true);
+            MC.ui.loading.show();
+        }
+    };
+
+    var ajaxUploadCallback = function (data) {
+        var settings = this;
+        try {
+            data = ajaxUploadData(data);
+        }
+        catch (e) {
+            data = {
+                status: 500,
+                message: {
+                    reason: Localization.MC_InternalError,
+                    message: Localization.MC_ErrorOccured
+                }
+            };
+        }
+        if (data.success)
+            ajaxUploadSuccess(settings, data);
+        else
+            ajaxUploadError(settings, data);
     };
 
     var ajaxUploadComplete = function () {

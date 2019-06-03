@@ -1,8 +1,5 @@
-using System;
-using System.IO;
-using System.Drawing;
-using System.Drawing.Imaging;
 using System.Collections.Generic;
+using System.IO;
 
 namespace EveryAngle.Shared.Helpers
 {

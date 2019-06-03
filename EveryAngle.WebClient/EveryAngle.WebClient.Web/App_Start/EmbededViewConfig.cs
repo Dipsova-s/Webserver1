@@ -5,7 +5,7 @@ using System.Web.WebPages;
 
 namespace EveryAngle.WebClient.Web.App_Start
 {
-    public class EmbededViewConfig
+    public static class EmbededViewConfig
     {
         public static void RegisterCustomViewEngines(ViewEngineCollection viewEngines)
         {

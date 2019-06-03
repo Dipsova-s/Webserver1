@@ -1,5 +1,3 @@
-var listHandler = new ListHandler();
-
 function ListHandler(elementId, container) {
     "use strict";
 
@@ -1468,20 +1466,21 @@ function ListHandler(elementId, container) {
         jQuery.each(newItems, function (i, item) {
             fieldIndex = self.Models.Display.Data().fields.indexOfObject('field', item.id);
             var fieldDetail = JSON.stringify({ width: self.DefaultColumnWidth });
+            var field;
 
             if (fieldIndex !== -1) {
-                var field = self.Models.Display.Data().fields.findObject('field', WC.Utility.RevertFieldName(item.id));
+                field = self.Models.Display.Data().fields.findObject('field', WC.Utility.RevertFieldName(item.id));
                 fieldDetail = field.field_details;
                 self.Models.Display.Data().fields.removeObject('field', item.id);
             }
 
-            var field = resultModel.GetResultDisplayFieldByFieldId(item.id);
+            field = resultModel.GetResultDisplayFieldByFieldId(item.id);
             var fieldDetails = {
                 field: field.id,
                 field_details: fieldDetail,
                 valid: true
             };
-            if (self.AddColumnIndex != null) {
+            if (self.AddColumnIndex !== null) {
                 self.Models.Display.Data().fields.splice(self.AddColumnIndex, 0, fieldDetails);
                 self.AddColumnIndex++;
             }
@@ -1609,7 +1608,7 @@ function ListHandler(elementId, container) {
                 fieldObject.AddBaseField(self.ColumnDefinitions[fieldId]);
 
                 // M4-33287: null element id will show empty text
-                value += htmlEncode(!nullableElement && cellValue == null ? '' : WC.FormatHelper.GetFormattedValue(fieldObject, cellValue, true));
+                value += htmlEncode(!nullableElement && cellValue === null ? '' : WC.FormatHelper.GetFormattedValue(fieldObject, cellValue, true));
             }
             else {
                 value += cellValue;
@@ -2330,3 +2329,4 @@ function ListHandler(elementId, container) {
 
     /*EOF: Model Methods*/
 }
+var listHandler = new ListHandler();

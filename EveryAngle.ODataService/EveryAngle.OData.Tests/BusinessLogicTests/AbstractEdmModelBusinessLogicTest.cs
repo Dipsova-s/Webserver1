@@ -23,21 +23,12 @@ namespace EveryAngle.OData.Tests.BusinessLogicTests
     {
         #region private variables
 
-        private Mock<IContext> _context = new Mock<IContext>();
-        private Mock<IAppServerProxy> _appServerProxy = new Mock<IAppServerProxy>();
+        private readonly Mock<IContext> _context = new Mock<IContext>();
+        private readonly Mock<IAppServerProxy> _appServerProxy = new Mock<IAppServerProxy>();
 
         private Angle _testingAngle = new Angle();
         private AngleCompositeKey _testingCompositeKey;
         private MasterEdmModelBusinessLogic _testingBusinessLogic;
-
-        #endregion
-
-        #region constructors
-
-        public AbstractEdmModelBusinessLogicTest()
-        {
-
-        }
 
         #endregion
 
@@ -104,8 +95,7 @@ namespace EveryAngle.OData.Tests.BusinessLogicTests
         [TestCase]
         public void Can_SetCurrentInstance()
         {
-            string currentInstance = string.Empty;
-            Assert.IsTrue(_testingBusinessLogic.TrySetMetadataCurrentInstance(_context.Object.User, out currentInstance),
+            Assert.IsTrue(_testingBusinessLogic.TrySetMetadataCurrentInstance(_context.Object.User, out string currentInstance),
                 "Can set current instance properly");
             Assert.AreEqual(currentInstance, EdmModelContainer.Metadata[ModelType.Master].CurrentInstance,
                 "Current instance should setup correctly");
@@ -114,8 +104,7 @@ namespace EveryAngle.OData.Tests.BusinessLogicTests
         [TestCase]
         public void Can_GetCurrentInstance()
         {
-            string currentInstance = string.Empty;
-            Assert.IsTrue(_testingBusinessLogic.TrySetMetadataCurrentInstance(_context.Object.User, out currentInstance),
+            Assert.IsTrue(_testingBusinessLogic.TrySetMetadataCurrentInstance(_context.Object.User, out string currentInstance),
                 "Can set current instance properly");
 
             string gettingInstance = _testingBusinessLogic.GetCurrentInstance();
@@ -151,10 +140,7 @@ namespace EveryAngle.OData.Tests.BusinessLogicTests
         public void Can_GetUnavailableItems()
         {
             Angle angle = new Angle { uri = "models/1/angles/123" };
-            AngleCompositeKey angleKey = angle.CompositeKey;
-
             Display display = new Display { uri = "models/1/angles/123/displays/321" };
-            DisplayCompositeKey displayKey = display.CompositeKey;
 
             display.SetAsUnavailable();
             angle.SetAsUnavailable();
@@ -303,10 +289,9 @@ namespace EveryAngle.OData.Tests.BusinessLogicTests
         {
             Field field = new Field { uri = "models/1/instances/1/fields/321", id = "testing_field_Can_GetField" };
             FieldCompositeKey fieldKey = field.CompositeKey;
-
-            Field gettingField = null;
+            
             _testingBusinessLogic.TrySaveField(fieldKey, field);
-            Assert.IsTrue(_testingBusinessLogic.TryGetField(fieldKey, out gettingField));
+            Assert.IsTrue(_testingBusinessLogic.TryGetField(fieldKey, out Field gettingField));
             Assert.IsNotNull(gettingField);
         }
 
@@ -326,13 +311,11 @@ namespace EveryAngle.OData.Tests.BusinessLogicTests
 
             _testingBusinessLogic.TrySaveField(fieldDashKey, fieldDash);
             _testingBusinessLogic.TrySaveField(fieldColonKey, fieldColon);
-
-            Field testingFieldDash = null;
-            Assert.AreEqual(true, _testingBusinessLogic.TryGetField(fieldDashKey, out testingFieldDash));
+            
+            Assert.AreEqual(true, _testingBusinessLogic.TryGetField(fieldDashKey, out Field testingFieldDash));
             Assert.IsNotNull(testingFieldDash);
-
-            Field testingfieldColon = null;
-            Assert.AreEqual(true, _testingBusinessLogic.TryGetField(fieldColonKey, out testingfieldColon));
+            
+            Assert.AreEqual(true, _testingBusinessLogic.TryGetField(fieldColonKey, out Field testingfieldColon));
             Assert.IsNotNull(testingfieldColon);
 
             Assert.AreEqual("testing-field-Can-GetField", testingFieldDash.id);

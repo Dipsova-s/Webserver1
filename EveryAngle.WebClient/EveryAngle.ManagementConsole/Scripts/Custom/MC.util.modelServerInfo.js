@@ -73,61 +73,61 @@
                 parameters: "modelServerUri=" + data['server-info-url'] + "&isCurrentInstance=" + data['server-info-is-current'],
                 type: 'GET'
             })
-            .done(function (data, status, xhr) {
-                $('#ModelServerInfo').html(data);
+                .done(function (data, status, xhr) {
+                    $('#ModelServerInfo').html(data);
 
-                deferred.resolve(data, status, xhr);
-            })
-            .fail(function (xhr, status, error) {
-                self.showAjaxErrorDetail(xhr, status, error, deferred, self.modelServerInfoId);
-            })
-            .always(function () {
-                if ($('#ModelServerInfo .btnRetry').length) {
-                    $('#popupModelServer').addClass('popupError');
+                    deferred.resolve(data, status, xhr);
+                })
+                .fail(function (xhr, status, error) {
+                    self.showAjaxErrorDetail(xhr, status, error, deferred, self.modelServerInfoId);
+                })
+                .always(function () {
+                    if ($('#ModelServerInfo .btnRetry').length) {
+                        $('#popupModelServer').addClass('popupError');
 
-                    $('#ModelServerInfo .btnRetry').click(function () {
-                        MC.util.modelServerInfo.loadInfoHtml();
-                    });
-                }
-                else {
-                    $('#popupModelServer').removeClass('popupError');
-
-                    var treeview = $('#ServerStatusMenu').data('kendoTreeView');
-                    if (treeview) {
-                        treeview.wrapper.on('click', '.k-item', function (e) {
-                            e.stopPropagation();
-
-                            var item = $(this);
-                            if (item.find('.k-plus,.k-minus').length) {
-                                treeview.toggle(item);
-                            }
-                            treeview.trigger('select');
+                        $('#ModelServerInfo .btnRetry').click(function () {
+                            MC.util.modelServerInfo.loadInfoHtml();
                         });
                     }
-
-                    $('#ModelServerInfo').kendoSplitter({
-                        panes: [
-                            { collapsible: true, min: '100px', size: '365px' },
-                            { collapsible: false }
-                        ]
-                    });
-                    $('#ModelServerInfo').removeClass('compact');
-
-                    if ($('#ServerStatusMenu .k-item').length > 1) {
-                        MC.util.modelServerInfo.setPanelState('expand');
-                    }
                     else {
-                        MC.util.modelServerInfo.setPanelState('collapse');
-                        $('#ModelServerInfo').addClass('compact');
+                        $('#popupModelServer').removeClass('popupError');
+
+                        var treeview = $('#ServerStatusMenu').data('kendoTreeView');
+                        if (treeview) {
+                            treeview.wrapper.on('click', '.k-item', function (e) {
+                                e.stopPropagation();
+
+                                var item = $(this);
+                                if (item.find('.k-plus,.k-minus').length) {
+                                    treeview.toggle(item);
+                                }
+                                treeview.trigger('select');
+                            });
+                        }
+
+                        $('#ModelServerInfo').kendoSplitter({
+                            panes: [
+                                { collapsible: true, min: '100px', size: '365px' },
+                                { collapsible: false }
+                            ]
+                        });
+                        $('#ModelServerInfo').removeClass('compact');
+
+                        if ($('#ServerStatusMenu .k-item').length > 1) {
+                            MC.util.modelServerInfo.setPanelState('expand');
+                        }
+                        else {
+                            MC.util.modelServerInfo.setPanelState('collapse');
+                            $('#ModelServerInfo').addClass('compact');
+                        }
+
+                        MC.util.modelServerInfo.showReportInfo();
                     }
 
-                    MC.util.modelServerInfo.showReportInfo();
-                }
-
-                setTimeout(function () {
-                    MC.ui.popup('requestEnd');
-                }, 100);
-            });
+                    setTimeout(function () {
+                        MC.ui.popup('requestEnd');
+                    }, 100);
+                });
 
             deferred.promise();
         },
@@ -136,7 +136,7 @@
             if (button.hasClass('disabled')) {
                 return;
             }
-                
+
             var modelServerUrl = $('#ModelServerUri').val();
             var killSapJobsUrl = $('#KillSapJobsUri').val();
 
@@ -149,20 +149,20 @@
                     body: JSON.stringify({ with_retries: isRetries })
                 }
             })
-            .always(function () {
-                setTimeout(function () {
-                    MC.util.modelServerInfo.showReportInfo();
-                }, 3000);
-            });
-		},
-		getPopupTitle: function (type) {
-			if (type === 'ModelServer')
-				return Localization.MC_ModelServer;
-			else if (type === 'Extractor')
-				return Localization.MC_EAXtractor;
-			else
-				return type;
-		},
+                .always(function () {
+                    setTimeout(function () {
+                        MC.util.modelServerInfo.showReportInfo();
+                    }, 3000);
+                });
+        },
+        getPopupTitle: function (type) {
+            if (type === 'ModelServer')
+                return Localization.MC_ModelServer;
+            else if (type === 'Extractor')
+                return Localization.MC_EAXtractor;
+            else
+                return type;
+        },
         showReport: function (e) {
             clearTimeout(MC.util.modelServerInfo.fnCheckMenuClick);
             MC.util.modelServerInfo.fnCheckMenuClick = setTimeout(function () {
@@ -175,6 +175,52 @@
                 }
             }, 10);
         },
+        getReportColumns: function () {
+            return [
+                {
+                    field: 'progress',
+                    width: 200,
+                    attributes: { 'class': 'columnNumber noTooltip' },
+                    template: function (data) {
+                        var ui = $('<div/>').kendoProgressBar({
+                            min: 0,
+                            max: 1,
+                            value: data.progress,
+                            type: "percent"
+                        });
+                        return $('<div/>').html(ui).html();
+                    }
+                },
+                {
+                    field: 'total',
+                    width: 50,
+                    attributes: { 'class': 'columnNumber' }
+                },
+                {
+                    field: 'busy',
+                    width: 50,
+                    attributes: { 'class': 'columnNumber' }
+                },
+                {
+                    field: 'todo',
+                    width: 50,
+                    attributes: { 'class': 'columnNumber' }
+                },
+                {
+                    field: 'done',
+                    width: 50,
+                    attributes: { 'class': 'columnNumber' }
+                },
+                {
+                    field: 'replaceTables'
+                },
+                {
+                    field: 'action',
+                    width: 220,
+                    attributes: { 'class': 'noTooltip' }
+                }
+            ];
+        },
         showReportInfo: function () {
             var self = this;
             var deferred = $.Deferred();
@@ -185,103 +231,61 @@
 
             clearTimeout(MC.util.modelServerInfo.fnCheckInfo);
             MC.ui.popup('requestStart');
-            MC.ajax.request({
-                url: infoData.infoUrl,
-                parameters: "modelServerUri=" + uri + "&isCurrentInstance=" + isCurrentInstance,
-                type: 'GET'
-            })
-            .done(function (data, status, xhr) {
-                $(self.reportSectionId).html(data);
-                deferred.resolve(data, status, xhr);
-            })
-            .fail(function (xhr, status, error) {
-                self.showAjaxErrorDetail(xhr, status, error, deferred, self.reportSectionId);
-            })
-            .always(function () {
-                if ($(self.reportSectionId + ' .btnRetry').length) {
-                    $(self.reportSectionId).addClass('popupError');
+            MC.ajax
+                .request({
+                    url: infoData.infoUrl,
+                    parameters: "modelServerUri=" + uri + "&isCurrentInstance=" + isCurrentInstance,
+                    type: 'GET'
+                })
+                .done(function (data, status, xhr) {
+                    $(self.reportSectionId).html(data);
+                    deferred.resolve(data, status, xhr);
+                })
+                .fail(function (xhr, status, error) {
+                    self.showAjaxErrorDetail(xhr, status, error, deferred, self.reportSectionId);
+                })
+                .always(function () {
+                    if ($(self.reportSectionId + ' .btnRetry').length) {
+                        $(self.reportSectionId).addClass('popupError');
 
-                    $(self.reportSectionId + ' .btnRetry').click(function () {
-                        MC.util.modelServerInfo.showReportInfo();
-                    });
-                }
-                else {
-                    var columns = [
-                            {
-                                field: 'progress',
-                                width: 200,
-                                attributes: { 'class': 'columnNumber noTooltip' },
-                                template: function (data) {
-                                    var ui = $('<div/>').kendoProgressBar({
-                                        min: 0,
-                                        max: 1,
-                                        value: data.progress,
-                                        type: "percent"
-                                    });
-                                    return $('<div/>').html(ui).html();
-                                }
-                            },
-                            {
-                                field: 'total',
-                                width: 50,
-                                attributes: { 'class': 'columnNumber' }
-                            },
-                            {
-                                field: 'busy',
-                                width: 50,
-                                attributes: { 'class': 'columnNumber' }
-                            },
-                            {
-                                field: 'todo',
-                                width: 50,
-                                attributes: { 'class': 'columnNumber' }
-                            },
-                            {
-                                field: 'done',
-                                width: 50,
-                                attributes: { 'class': 'columnNumber' }
-                            },
-                            {
-                                field: 'replaceTables'
-                            },
-                            {
-                                field: 'action',
-                                width: 220,
-                                attributes: { 'class': 'noTooltip' }
-                            }
-                    ];
-                    $(self.reportSectionId).removeClass('popupError');
-                    var extractingTable = $('#ModelServerInfo table#ExtractingTables');
-                    var noneExtractingTables = $('#ModelServerInfo table:not(#ExtractingTables)');
-                    extractingTable.kendoGrid({
-                        columns: columns,
-                        scrollable: true
-                    });
-                    noneExtractingTables.kendoGrid({
-                        columns: columns.slice(0, columns.length - 1),
-                        scrollable: true
-                    });
-                }
+                        $(self.reportSectionId + ' .btnRetry').click(function () {
+                            MC.util.modelServerInfo.showReportInfo();
+                        });
+                    }
+                    else {
+                        var columns = self.getReportColumns();
+                        $(self.reportSectionId).removeClass('popupError');
+                        var extractingTable = $('#ModelServerInfo table#ExtractingTables');
+                        var noneExtractingTables = $('#ModelServerInfo table:not(#ExtractingTables)');
+                        extractingTable.kendoGrid({
+                            columns: columns,
+                            scrollable: true
+                        });
+                        noneExtractingTables.kendoGrid({
+                            columns: columns.slice(0, columns.length - 1),
+                            scrollable: true
+                        });
+                    }
 
-                var callbackData = $('#ModelServerInfoData').data('callback');
-                if (typeof callbackData !== 'object') {
-                    callbackData = {
-                        id: '',
-                        uri: uri,
-                        status: 'down'
-                    };
-                }
-                if (typeof callback === 'function') {
-                    callback(callbackData);
-                }
+                    var callbackData = $('#ModelServerInfoData').data('callback');
+                    if (typeof callbackData !== 'object') {
+                        callbackData = {
+                            id: '',
+                            uri: uri,
+                            status: 'down'
+                        };
+                    }
+                    if (typeof callback === 'function') {
+                        callback(callbackData);
+                    }
 
-                setTimeout(function () {
-                    MC.ui.popup('requestEnd');
-                    MC.util.modelServerInfo.fnCheckInfo = setTimeout(function () {
-                        MC.util.modelServerInfo.showReportInfo();
-                    }, MC.util.modelServerInfo.REFRESH_TIMEOUT);
-                }, 100);
-            });
+                    setTimeout(function () {
+                        MC.ui.popup('requestEnd');
+                        MC.util.modelServerInfo.fnCheckInfo = setTimeout(function () {
+                            MC.util.modelServerInfo.showReportInfo();
+                        }, MC.util.modelServerInfo.REFRESH_TIMEOUT);
+                    }, 100);
+                });
 
             return deferred.promise();
         },
@@ -299,7 +303,7 @@
                     var width = 0;
                     var maxWidth = 0;
                     for (var k = 0; k < data.reports[i].rows.length; k++) {
-                        width = data.reports[i].rows[k].field_values[j] == null ? 0 : data.reports[i].rows[k].field_values[j].toString().length;
+                        width = data.reports[i].rows[k].field_values[j] === null ? 0 : data.reports[i].rows[k].field_values[j].toString().length;
                         if (width > maxWidth) {
                             maxWidth = width;
                         }
@@ -309,8 +313,7 @@
                         width = maxWidth;
                     else
                         width = data.reports[i].fields[j].title.length;
-
-
+                    
                     maxwidthlist[i][j] = (width + 3) * 7;
                 }
             }
@@ -330,45 +333,46 @@
             $("#popupModelServer_wnd_title").html(className);
 
             MC.ui.popup('requestStart');
-            MC.ajax.request({
-                url: infoData.reportUrl,
-                parameters: {
-                    modelServerUri: modelServerUri,
-                    reportUri: reportUri
-                },
-                type: 'GET'
-            })
-            .done(function (reportInfo, status, xhr) {
-                var objectParameters = self.createReportObjectParameters(reportInfo, reportUri, infoData, modelServerUri, className);
-                self.createReportGridData(objectParameters);
-                deferred.resolve(reportInfo, status, xhr);
-            })
-            .fail(function (xhr, status, error) {
-                self.showAjaxErrorDetail(xhr, status, error, deferred, self.reportSectionId);
-            })
-            .always(function () {
-                clearTimeout(MC.util.modelServerInfo.fnCheckInfo);
+            MC.ajax
+                .request({
+                    url: infoData.reportUrl,
+                    parameters: {
+                        modelServerUri: modelServerUri,
+                        reportUri: reportUri
+                    },
+                    type: 'GET'
+                })
+                .done(function (reportInfo, status, xhr) {
+                    var objectParameters = self.createReportObjectParameters(reportInfo, reportUri, infoData, modelServerUri, className);
+                    self.createReportGridData(objectParameters);
+                    deferred.resolve(reportInfo, status, xhr);
+                })
+                .fail(function (xhr, status, error) {
+                    self.showAjaxErrorDetail(xhr, status, error, deferred, self.reportSectionId);
+                })
+                .always(function () {
+                    clearTimeout(MC.util.modelServerInfo.fnCheckInfo);
 
-                if ($(self.reportSectionId + ' .btnRetry').length) {
-                    $(self.reportSectionId).addClass('popupError');
+                    if ($(self.reportSectionId + ' .btnRetry').length) {
+                        $(self.reportSectionId).addClass('popupError');
 
-                    $(self.reportSectionId + ' .btnRetry').on('click', { evt: e }, function (e) {
-                        MC.util.modelServerInfo.showReportServer(e.data.evt);
-                    });
-                }
-                else {
-                    $(self.reportSectionId).removeClass('popupError');
-                }
-
-                setTimeout(function () {
-                    var win = $('#popupModelServer').data('kendoWindow');
-                    if (win) {
-                        win.trigger('resize');
+                        $(self.reportSectionId + ' .btnRetry').on('click', { evt: e }, function (e) {
+                            MC.util.modelServerInfo.showReportServer(e.data.evt);
+                        });
+                    }
+                    else {
+                        $(self.reportSectionId).removeClass('popupError');
                     }
 
-                    MC.ui.popup('requestEnd');
-                }, 100);
-            });
+                    setTimeout(function () {
+                        var win = $('#popupModelServer').data('kendoWindow');
+                        if (win) {
+                            win.trigger('resize');
+                        }
+
+                        MC.ui.popup('requestEnd');
+                    }, 100);
+                });
 
             return deferred.promise();
         },
@@ -561,9 +565,9 @@
         createFilterTextboxOnReportGrid: function (elementId) {
             jQuery(elementId).prepend('<div class="gridToolbar gridToolbarTop">'
                 + '<div class="gridToolbarFilter">'
-                    + '<input type="text" id="ReportGridFilterBox" placeholder="Filter" data-role="gridfilter" data-method="local" data-target="' + elementId + ' .k-grid:visible"><span class="icon"></span>'
+                + '<input type="text" id="ReportGridFilterBox" placeholder="Filter" data-role="gridfilter" data-method="local" data-target="' + elementId + ' .k-grid:visible"><span class="icon"></span>'
                 + '</div>'
-            + '</div>');
+                + '</div>');
             MC.ui.gridfilter('#ReportGridFilterBox');
         },
         addEventOnClickToReportTab: function () {
@@ -593,38 +597,38 @@
                 },
                 type: 'GET'
             })
-            .done(function (reportInfo) {
-                if (typeof reportInfo === 'string') {
-                    return false;
-                }
-
-                jQuery.each(reportInfo.reports, function (reportIndex, reportData) {
-                    var fieldTitle = self.parseReportFieldTitle(reportData.title);
-                    if (fieldTitle === objectParameters.tabs) {
-                        var reportFields = reportData.fields;
-                        var popupTitleText = kendo.format('{0} - {1}', objectParameters.classes.replace('_', ''), fieldTitle);
-                        var datasource = self.getKendoDatasourceByReportData(reportData);
-                        var fieldsModelSchema = self.getKendoFieldsModelSchemaByReportData(fieldTitle, reportFields);
-                        var columnsDefination = self.getKendoColumnsDefinationByReportData(reportIndex, reportInfo, reportData, reportFields);
-                        self.initializeReportGrid(tabId, datasource, fieldsModelSchema, columnsDefination);
-                        jQuery(popupTitleId).text(popupTitleText);
+                .done(function (reportInfo) {
+                    if (typeof reportInfo === 'string') {
+                        return false;
                     }
+
+                    jQuery.each(reportInfo.reports, function (reportIndex, reportData) {
+                        var fieldTitle = self.parseReportFieldTitle(reportData.title);
+                        if (fieldTitle === objectParameters.tabs) {
+                            var reportFields = reportData.fields;
+                            var popupTitleText = kendo.format('{0} - {1}', objectParameters.classes.replace('_', ''), fieldTitle);
+                            var datasource = self.getKendoDatasourceByReportData(reportData);
+                            var fieldsModelSchema = self.getKendoFieldsModelSchemaByReportData(fieldTitle, reportFields);
+                            var columnsDefination = self.getKendoColumnsDefinationByReportData(reportIndex, reportInfo, reportData, reportFields);
+                            self.initializeReportGrid(tabId, datasource, fieldsModelSchema, columnsDefination);
+                            jQuery(popupTitleId).text(popupTitleText);
+                        }
+                    });
+
+                    self.createFilterTextboxOnReportGrid(self.reportPageId);
+
+                    jQuery(window).off(resizeEventName).on(resizeEventName, function () {
+                        var kendoGridContainer = jQuery('.k-grid');
+                        // 140 is a magic number
+                        kendoGridContainer.height(MC.util.window.height - 140);
+                        kendo.resize(kendoGridContainer);
+                    }).trigger('resize');
+
+                    setTimeout(function () {
+                        jQuery(self.reportPageId).css('opacity', 1);
+                        jQuery(window).trigger('resize');
+                    }, 1000);
                 });
-
-                self.createFilterTextboxOnReportGrid(self.reportPageId);
-
-                jQuery(window).off(resizeEventName).on(resizeEventName, function () {
-                    var kendoGridContainer = jQuery('.k-grid');
-                    // 140 is a magic number
-                    kendoGridContainer.height(MC.util.window.height - 140);
-                    kendo.resize(kendoGridContainer);
-                }).trigger('resize');
-
-                setTimeout(function () {
-                    jQuery(self.reportPageId).css('opacity', 1);
-                    jQuery(window).trigger('resize');
-                }, 1000);
-            });
         },
         setPanelState: function (state) {
             var splitter = $('#ModelServerInfo').data('kendoSplitter');

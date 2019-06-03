@@ -131,21 +131,13 @@ namespace EveryAngle.WebClient.Service.ApiServices
 
                 if (modelUri != "")
                 {
-                    var model = modelUri != "" ? models.FirstOrDefault(m => m.Uri.ToString() == modelUri) : null;
-                    if (model == null)
-                    {
-                        record["model"] = "No privilege for model:" + modelUri;
-                    }
-                    else
-                    {
-                        record["model"] = model.short_name;
-                    }
+                    var model = models.FirstOrDefault(m => m.Uri.ToString() == modelUri);
+                    record["model"] = model == null ? $"No privilege for model: {modelUri}" : model.short_name;
                 }
                 else
                 {
                     record["model"] = "No data";
                 }
-
 
                 AvailabelRolesDataTable.Rows.Add(record);
             }
@@ -173,21 +165,12 @@ namespace EveryAngle.WebClient.Service.ApiServices
                 if (!string.IsNullOrEmpty(modelUri))
                 {
                     var model = GetModel(modelUri);
-                    if (model == null)
-                    {
-                        record["model"] = "No privilege for model:" + modelUri;
-                    }
-                    else
-                    {
-                        record["model"] = model.short_name;
-                    }
+                    record["model"] = model == null ? $"No privilege for model: {modelUri}" : model.short_name;
                 }
                 else
                 {
                     record["model"] = "No data";
                 }
-
-
                 AvailabelRolesDataTable.Rows.Add(record);
             }
             return AvailabelRolesDataTable;
@@ -448,55 +431,46 @@ namespace EveryAngle.WebClient.Service.ApiServices
             var roleModel = JsonConvert.DeserializeObject<SystemRoleViewModel>(jsonResult.ToString(),
                 new UnixDateTimeConverter());
 
+            var version = SessionHelper.Initialize().Version;
             var systemSettings = SessionHelper.Initialize().SystemSettings;
             var offsetLimitQuery = UtilitiesHelper.GetOffsetLimitQueryString(1, systemSettings.max_pagesize);
 
             if (modelUri != null)
             {
                 var labelservice = new LabelService();
-                var model = modelData == null ? GetModel(modelUri) : modelData;
-                var modelLabels = modelLabelDatas == null
-                    ? labelservice.GetLabels(model.labels + "?" + offsetLimitQuery)
-                    : modelLabelDatas;
-                var modelCategories = modelLabelCategoryDatas == null
-                    ? labelservice.GetLabelCategories(model.label_categories + "?" + offsetLimitQuery)
-                    : modelLabelCategoryDatas;
+                var model = modelData ?? GetModel(modelUri);
+                var modelLabels = modelLabelDatas ?? labelservice.GetLabels(model.labels + "?" + offsetLimitQuery);
+                var modelCategories = modelLabelCategoryDatas ?? labelservice.GetLabelCategories(model.label_categories + "?" + offsetLimitQuery);
                 var allCategories = new ListViewModel<LabelCategoryViewModel>();
                 var allLabels = new ListViewModel<LabelViewModel>();
+                if (roleModel.PrivilegeLabels.Any())
+                {
+                    allCategories = labelservice.GetLabelCategories(version.GetEntryByName("labelcategories").Uri + "?" + offsetLimitQuery);
+                    allLabels = labelservice.GetLabels(version.GetEntryByName("labels").Uri + "?" + offsetLimitQuery);
+                }
 
                 foreach (var privillageLabel in roleModel.PrivilegeLabels)
                 {
-                    var modelLabel = modelLabels.Data.Find(label => label.id == privillageLabel.Name);
+                    var modelLabel = modelLabels.Data.FirstOrDefault(label => label.id == privillageLabel.Name);
                     if (modelLabel != null)
                     {
-                        var modelCategory =
-                            modelCategories.Data.Find(
-                                category => category.labels.Replace("/labels", "") == modelLabel.category);
-                        privillageLabel.LabelCategory = modelCategory != null ? modelCategory.id : "";
+                        var modelCategory = modelCategories.Data
+                                            .FirstOrDefault(category => category.labels.Replace("/labels", string.Empty) == modelLabel.category);
+                        privillageLabel.LabelCategory = modelCategory?.id ?? string.Empty;
                     }
                     else
                     {
-                        var version = SessionHelper.Initialize().Version;
-
-                        if (allCategories.Data == null)
-                            allCategories =
-                                labelservice.GetLabelCategories(version.GetEntryByName("labelcategories").Uri + "?" +
-                                                                offsetLimitQuery);
-
-                        if (allLabels.Data == null)
-                            allLabels =
-                                labelservice.GetLabels(version.GetEntryByName("labels").Uri + "?" + offsetLimitQuery);
-
                         var label = allLabels.Data.FirstOrDefault(item => item.id == privillageLabel.Name);
                         if (label != null)
                         {
-                            var labelCategory = allCategories.Data.FirstOrDefault(item => item.uri == label.category);
-                            privillageLabel.LabelCategory = labelCategory != null ? labelCategory.id : "";
+                            var labelCategory = allCategories.Data
+                                                .FirstOrDefault(item => item.uri == label.category);
+                            privillageLabel.LabelCategory = labelCategory?.id ?? string.Empty;
                         }
                     }
                 }
 
-                roleModel.PrivilegeLabels.Sort((x, y) => string.Compare(x.LabelCategory, y.LabelCategory));
+                roleModel.PrivilegeLabels.Sort((x, y) => string.Compare(x.LabelCategory, y.LabelCategory, StringComparison.InvariantCulture));
             }
 
 

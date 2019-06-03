@@ -237,7 +237,7 @@ jQuery.validator.addMethod("agent_url", function (value, element) {
 
 jQuery.validator.addMethod("email", function (value, element) {
 
-    if (value == '')
+    if (value === '')
         return true;
 
     return checkEmailAddress(value);
@@ -246,12 +246,12 @@ jQuery.validator.addMethod("email", function (value, element) {
 
 jQuery.validator.addMethod("phoneNumber", function (value, element) {
     
-    if (value == '') return true;
+    if (value === '') return true;
  
     if (!/^(?:(?:\(?(?:00|\+)([1-4]\d\d|[1-9]\d?)\)?)?[\-\.\ \\\/]?)?((?:\(?\d{1,}\)?[\-\.\ \\\/]?){0,})(?:[\-\.\ \\\/]?(?:#|ext\.?|extension|x)[\-\.\ \\\/]?(\d+))?$/i.test(value)) return false;
 
     return true;
-    //return value == '' || /^([a-z])([a-z0-9._+-]*)([a-z0-9])@[a-z0-9][a-z0-9.-]+\.[a-z]{2,4}$/gi.test(value);
+    //return value === '' || /^([a-z])([a-z0-9._+-]*)([a-z0-9])@[a-z0-9][a-z0-9.-]+\.[a-z]{2,4}$/gi.test(value);
 }, Localization.MC_Validation_PhoneNumber);
 
 jQuery.validator.addMethod("required_default_roles", function (value, element) {
@@ -274,7 +274,7 @@ jQuery.validator.addMethod("valid_default_pagesize", function (value, element) {
             maxPageSizeElement.addClass('error');
         }
     }
-    return value == '' || isValid;
+    return value === '' || isValid;
 }, Localization.MC_Validation_ValidDefaultPageSize);
 
 jQuery.validator.addMethod("valid_action_email", function (value, element) {
@@ -313,7 +313,7 @@ jQuery.validator.addMethod("continue_with_days", function (value, element) {
 }, jQuery.validator.messages.required);
 
 jQuery.validator.addMethod("required_comment_when_attachedfile", function (value, element) {
-    if (jQuery('#CommentForm .k-upload-status').text() == "") return true;
+    if (jQuery('#CommentForm .k-upload-status').text() === "") return true;
     if (jQuery('#CommentForm .k-upload-status').text() != "" && $('#CommentText').val() != "") return true;
 }, jQuery.validator.messages.required);
 
@@ -361,7 +361,7 @@ jQuery.validator.addMethod("existing_username", function (value, element) {
         }
         value = value.toLowerCase();
         $.each(data, function (i, d) {
-            if (d.Id.toLowerCase() == value) {
+            if (d.Id.toLowerCase() === value) {
                 isExistUserName = true;
                 return false;
             }

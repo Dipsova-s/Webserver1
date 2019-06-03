@@ -147,7 +147,6 @@ namespace EveryAngle.ManagementConsole.Controllers
         public ActionResult GetFilterTemplateAngles(string modelUri, string activeStatus, string q = "")
         {
             var model = SessionHelper.GetModel(modelUri);
-
             var packageUri = model.PackagesUri != null ? model.PackagesUri.ToString() : string.Empty;
 
             ViewData["DefaultPageSize"] = DefaultPageSize;
@@ -155,8 +154,8 @@ namespace EveryAngle.ManagementConsole.Controllers
             ViewBag.PackageUri = packageUri;
             ViewBag.ModelUri = modelUri;
             ViewBag.ModelId = model.id;
-            ViewBag.ActiveStatus = activeStatus == null ? "active" : activeStatus;
-            return PartialView("~/Views/Model/TemplateAngles/TemplateAnglesGrid.cshtml" /*, packages.Data*/);
+            ViewBag.ActiveStatus = activeStatus ?? "active";
+            return PartialView("~/Views/Model/TemplateAngles/TemplateAnglesGrid.cshtml");
         }
 
         [AcceptVerbs(HttpVerbs.Post)]

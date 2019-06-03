@@ -19,15 +19,6 @@ namespace EveryAngle.OData.Tests.BusinessLogicTests
 
         #endregion
 
-        #region construcrors
-
-        public MasterEdmModelBusinessLogicTest()
-        {
-
-        }
-
-        #endregion
-
         #region setup/teardown
 
         [SetUp]

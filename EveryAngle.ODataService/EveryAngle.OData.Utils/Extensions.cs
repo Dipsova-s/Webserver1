@@ -18,8 +18,7 @@ namespace EveryAngle.OData.Utils
 
         public static string Truncate(this string value, int maxLength)
         {
-            if (string.IsNullOrEmpty(value)) return value;
-            return value.Length <= maxLength ? value : value.Substring(0, maxLength);
+            return string.IsNullOrEmpty(value) || value.Length <= maxLength ? value : value.Substring(0, maxLength);
         }
 
         public static T As<T>(this object obj)
@@ -89,7 +88,7 @@ namespace EveryAngle.OData.Utils
             string elementName = Regex.Replace(text, @"[^0-9a-zA-Z_]+", "_");
 
             // xml element does not allow the element which is started by "xml", replace to "_"
-            if (elementName.ToLower().StartsWith("xml"))
+            if (elementName.ToLowerInvariant().StartsWith("xml"))
                 elementName = "_" + elementName;
 
             return elementName;
@@ -99,7 +98,7 @@ namespace EveryAngle.OData.Utils
         {
             // Make sure the angle has an unique id by adding the model:angle:display id's as suffix
             string[] uriParts = display.uri.Split('/');
-            string uniqueId = string.Format("{0}{1}_{2}_{3}", display.display_type.ToUpper().FirstOrDefault(), uriParts[2], uriParts[4], uriParts[6]);
+            string uniqueId = string.Format("{0}{1}_{2}_{3}", display.display_type.ToUpperInvariant().FirstOrDefault(), uriParts[2], uriParts[4], uriParts[6]);
             
             // The max length of the identifier is 128 minus the separators "[][]_" minus the length of the model:angle:display id's
             int maxLen = 128 - 4 - uniqueId.Length;
@@ -273,15 +272,9 @@ namespace EveryAngle.OData.Utils
         public static DateTime ConvertFromGMTTimestamp(this long timestamp, bool observeDaylightSavings)
         {
             long ts = Convert.ToInt64(timestamp);
-            DateTime dt;
-            if (observeDaylightSavings)
-            {
-                dt = ConvertFromUnixTimestamp(ts).ToLocalDSTTime();
-            }
-            else
-            {
-                dt = ConvertFromUnixTimestamp(ts).ToLocalTime();
-            }
+            DateTime dt = observeDaylightSavings
+                ? ConvertFromUnixTimestamp(ts).ToLocalDSTTime()
+                : ConvertFromUnixTimestamp(ts).ToLocalTime();
             return dt;
         }
 

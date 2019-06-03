@@ -19,7 +19,7 @@ namespace EveryAngle.OData.Tests.UtilsTests
         [SetUp]
         public void Setup()
         {
-            
+            // do nothing
         }
 
         [TearDown]
@@ -43,7 +43,7 @@ namespace EveryAngle.OData.Tests.UtilsTests
         [TestCase("duration", EdmPrimitiveTypeKind.DateTime)]
         [TestCase("period", EdmPrimitiveTypeKind.Int64)]
         [TestCase("boolean", EdmPrimitiveTypeKind.Boolean)]
-        [TestCase("null", EdmPrimitiveTypeKind.String)]
+        [TestCase(null, EdmPrimitiveTypeKind.String)]
         [TestCase("text", EdmPrimitiveTypeKind.String)]
         [TestCase("I_AM_UNKNOWN", EdmPrimitiveTypeKind.String)]
         public void Can_ConvertFieldTypeToPrimitiveFromField(string fieldType, EdmPrimitiveTypeKind expectedKind)

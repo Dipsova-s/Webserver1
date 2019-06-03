@@ -71,7 +71,7 @@
 
             var labels = [];
             $('#Grid tbody tr').each(function (k, v) {
-                if (jQuery('[name="contains_businessprocesses"]', v).val() != 'true') {
+                if (jQuery('[name="contains_businessprocesses"]', v).val() !== 'true') {
                     labels.push({
                         id: jQuery('[name="categoryId"]', v).text(),
                         uri: jQuery('[name="categoryUri"]', v).val(),

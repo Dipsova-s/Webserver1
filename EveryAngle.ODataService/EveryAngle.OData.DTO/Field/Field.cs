@@ -2,7 +2,11 @@
 {
     public class Field : BaseDTO<FieldCompositeKey>, IBaseDTO<FieldCompositeKey>, IMetadata
     {
-        public string field { get { return id; } set { id = value; } }
+        public string field
+        {
+            get { return id; }
+            set { id = value; }
+        }
         public string short_name { get; set; }
         public string long_name { get; set; }
         public UserSpecific user_specific { get; set; }

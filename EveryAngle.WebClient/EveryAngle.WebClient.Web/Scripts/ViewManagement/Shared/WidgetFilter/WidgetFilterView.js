@@ -20,10 +20,10 @@
         '</div>',
         '<!-- /ko -->',
         '<div class="filterItem" data-bind="attr: { index: $index() }, css: { movable: $root.CanFilterMoveToAngle(query, $index()), noBorderBottom: $root.IsNextElementIsTreeViewHeader($element) }">',
-        '<div class="FilterHeader Collapse" data-bind="attr: { id: \'FilterHeader-\' + $index() }, css: { Followup: query.step_type == enumHandlers.FILTERTYPE.FOLLOWUP, Filter: query.step_type == enumHandlers.FILTERTYPE.FILTER, Disabled: !$root.CanChange(query), Unsave: query.is_adhoc_filter }, click: $root.View.Toggle">',
+        '<div class="FilterHeader Collapse" data-bind="attr: { id: \'FilterHeader-\' + $index() }, css: { Followup: query.step_type === enumHandlers.FILTERTYPE.FOLLOWUP, Filter: query.step_type === enumHandlers.FILTERTYPE.FILTER, Disabled: !$root.CanChange(query), Unsave: query.is_adhoc_filter }, click: $root.View.Toggle">',
         '<p data-bind="SetInvalidQuery: query">',
         '<label class="filterText" data-bind="text: $root.GetFilterText(query, $root.ModelUri, $root.ViewMode() === $root.VIEWMODE.TREEVIEW), css: query.step_type"></label>',
-        '<!-- ko if: $root.HasExecutionParameter() && query.step_type != enumHandlers.FILTERTYPE.FOLLOWUP -->',
+        '<!-- ko if: $root.HasExecutionParameter() && query.step_type !== enumHandlers.FILTERTYPE.FOLLOWUP -->',
         '<span data-bind="visible: query.is_execution_parameter, css: { NoticeIcon: query.is_execution_parameter }, attr: {id: \'FilterHeader-\' + $index() + \'-Parameter\' }"></span>',
         '<!-- /ko -->',
         '<label class="validWarningText"></label>',
@@ -32,20 +32,20 @@
         '<a class="btnDelete" data-bind="click: $root.RemoveFilter, clickBubble: false, visible: $root.CanRemove(query)"></a>',
         '<div class="handler"></div>',
         '</div>',
-        '<!-- ko if: query.step_type != enumHandlers.FILTERTYPE.FOLLOWUP -->',
+        '<!-- ko if: query.step_type !== enumHandlers.FILTERTYPE.FOLLOWUP -->',
         '<div class="FilterDetail Hide" data-bind="attr: { id: \'FilterDetail-\' + $index() }, visible: $root.CanChange(query)">',
         '<div class="FilterWrapper">',
         '<div class="filterLabel filterLabelName" data-bind="text: $root.GetFilterFieldName(query.field, $root.ModelUri)"></div>',
         '<div class="filterInput filterInputOperator">',
-        '<div data-bind="attr: { id: \'Operator-\' + $index() + (query.step_type == enumHandlers.FILTERTYPE.SQLFILTER ? \'-TextBox\' : \'-DropdownList\') }, css: query.step_type == enumHandlers.FILTERTYPE.SQLFILTER ? \'eaText\' : \'eaDropdown\'"></div>',
+        '<div data-bind="attr: { id: \'Operator-\' + $index() + (query.step_type === enumHandlers.FILTERTYPE.SQLFILTER ? \'-TextBox\' : \'-DropdownList\') }, css: query.step_type === enumHandlers.FILTERTYPE.SQLFILTER ? \'eaText\' : \'eaDropdown\'"></div>',
         '</div>',
         '</div>',
         '<div class="StatSeparate"></div>',
         '<div data-bind="attr: { id: \'FilterDetail-\' + $index() + \'-PlaceHolder\' }" class="FilterCriteriaPlaceHolder"></div>',
-        '<!-- ko if: $root.HasExecutionParameter() && query.step_type != enumHandlers.FILTERTYPE.FOLLOWUP -->',
+        '<!-- ko if: $root.HasExecutionParameter() && query.step_type !== enumHandlers.FILTERTYPE.FOLLOWUP -->',
         '<div class="StatSeparate"></div>',
         '<div class="AskForValue">',
-        '<label><span class="NoticeIcon" data-bind="text: $root.FilterFor == $root.FILTERFOR.ANGLE ? Localization.AskForValueWhenTheAngleOpens : Localization.AskForValueWhenTheDisplayOpens"></span></label>',
+        '<label><span class="NoticeIcon" data-bind="text: $root.FilterFor === $root.FILTERFOR.ANGLE ? Localization.AskForValueWhenTheAngleOpens : Localization.AskForValueWhenTheDisplayOpens"></span></label>',
         '<label><input type="radio" value="true" data-bind="attr: { id: \'AskValue-\' + $index() + \'-Yes\', name: \'AskValue-\' + $index(), checked: query.is_execution_parameter() }, click: $root.ApplyFilterParameterise"/><span class="label" data-bind="text: Localization.Yes"></span></label>',
         '<label><input type="radio" value="false" data-bind="attr: { id: \'AskValue-\' + $index() + \'-No\', name: \'AskValue-\' + $index(), checked: !query.is_execution_parameter() }, click: $root.ApplyFilterParameterise"/><span class="label" data-bind="text: Localization.No"></span></label>',
         '</div>',
@@ -368,7 +368,7 @@
                 }
             },
             move: function (e) {
-                if (fnCheckAutoScroll == null) {
+                if (fnCheckAutoScroll === null) {
                     var newIndex = this.indexOf(e.list.placeholder);
                     var placeholderPosition = e.list.placeholder.position().top;
                     var itemSize = 44;
@@ -762,7 +762,7 @@
                             uiName = inputElement.data('role') === 'numerictextbox' ? enumHandlers.KENDOUITYPE.NUMERICTEXT : enumHandlers.KENDOUITYPE.PERCENTAGETEXT;
                             if (self.IsQueryFilterHasValue(queryFilter)) {
                                 if (fieldType === enumHandlers.FIELDTYPE.CURRENCY
-                                    && queryFilter[0].value != null
+                                    && queryFilter[0].value !== null
                                     && typeof queryFilter[0].value === 'object') {
                                     inputElement.data(uiName).value(queryFilter[0].value.a);
                                 }
@@ -1786,7 +1786,7 @@
 
         var grid = gridElement.data(enumHandlers.KENDOUITYPE.GRID);
 
-        if (!!jQuery.browser.msie) {
+        if (jQuery.browser.msie) {
             var virtualScroll = grid.content.data('kendoVirtualScrollable');
             grid.content
                 .off('mousewheel.iefix')
@@ -1864,7 +1864,7 @@
 
         //remove elements by condition (if not no value and not in set)
         var filteredElements = elements.filter(function (element, index) {
-            return (element.id !== null && element.id !== '~NotInSet');
+            return element.id !== null && element.id !== '~NotInSet';
         });
 
         //add not in set element from temp object to first elements
@@ -2108,7 +2108,7 @@
             change: self.BindingListGridCheckButtons
         }).data(enumHandlers.KENDOUITYPE.GRID);
 
-        if (!!jQuery.browser.msie) {
+        if (jQuery.browser.msie) {
             var virtualScroll = grid.content.data('kendoVirtualScrollable');
             grid.content
                 .off('mousewheel.iefix')
@@ -2318,7 +2318,6 @@
         if (ui) {
             // collect old data
             var newData = jQuery.map(currentValues, function (data) { return data.toJSON(); });
-            var pasteValues = [];
             if (valueElement.data('paste')) {
                 // get value form pasting
                 var pasteValues = valueElement.data('paste');
@@ -2388,6 +2387,7 @@
         var values = [];
         var firstElement = self.GetHtmlElementById(firstElementId);
         var secondElement = self.GetHtmlElementById(secondElementId);
+        var criteriaElement, elementValue, elementIndex, firstCriteriaElement, secondCriteriaElement, unitDay;
 
         switch (operator) {
             case enumHandlers.OPERATOR.EQUALTO.Value:
@@ -2400,14 +2400,14 @@
                     // do nothing: move to ConvertUIToAdvanceArguments
                 }
                 else if (fieldType === enumHandlers.FIELDTYPE.TEXT) {
-                    var criteriaElement = firstElement;
+                    criteriaElement = firstElement;
 
                     if (criteriaElement.val()) {
                         values.push(criteriaElement.val());
                     }
                 }
                 else if (fieldType === enumHandlers.FIELDTYPE.BOOLEAN) {
-                    var criteriaElement = firstElement;
+                    criteriaElement = firstElement;
                     var criteriaElement2 = secondElement;
 
                     if (criteriaElement.is(':checked')) {
@@ -2418,11 +2418,11 @@
                     }
                 }
                 else if (fieldType === enumHandlers.FIELDTYPE.PERIOD) {
-                    var elementIndex = firstElementId.split('-')[1];
-                    var criteriaElement = firstElement.data(enumHandlers.KENDOUITYPE.NUMERICTEXT);
+                    elementIndex = firstElementId.split('-')[1];
+                    criteriaElement = firstElement.data(enumHandlers.KENDOUITYPE.NUMERICTEXT);
                     if (criteriaElement.value() !== null) {
-                        var unitDay = WC.HtmlHelper.DropdownList(self.GetHtmlElementById('FirstInputUnit-' + elementIndex)).value();
-                        var elementValue = parseInt(criteriaElement.value()) * unitDay;
+                        unitDay = WC.HtmlHelper.DropdownList(self.GetHtmlElementById('FirstInputUnit-' + elementIndex)).value();
+                        elementValue = parseInt(criteriaElement.value()) * unitDay;
                         values.push(elementValue);
                     }
                 }
@@ -2431,7 +2431,7 @@
                     enumHandlers.FIELDTYPE.CURRENCY, enumHandlers.FIELDTYPE.PERCENTAGE,
                     enumHandlers.FIELDTYPE.TIMESPAN
                 ]) !== -1) {
-                    var criteriaElement = firstElement.data('handler');
+                    criteriaElement = firstElement.data('handler');
                     if (criteriaElement.value() !== null) {
                         values.push(criteriaElement.value());
                     }
@@ -2444,7 +2444,7 @@
                         values.push(handler.value());
                 }
                 else if (fieldType === enumHandlers.FIELDTYPE.TIME) {
-                    var criteriaElement = firstElement.data(enumHandlers.KENDOUITYPE.TIMEPICKER);
+                    criteriaElement = firstElement.data(enumHandlers.KENDOUITYPE.TIMEPICKER);
                     if (criteriaElement.value() !== null) {
                         values.push(WC.WidgetFilterHelper.ConvertTimePickerToUnixTime(criteriaElement.value()));
                     }
@@ -2452,7 +2452,6 @@
                 break;
             case enumHandlers.OPERATOR.BETWEEN.Value:
             case enumHandlers.OPERATOR.NOTBETWEEN.Value:
-                var firstCriteriaElement, secondCriteriaElement;
                 if (WC.FormatHelper.IsDateOrDateTime(fieldType)) {
                     // do nothing: move to ConvertUIToAdvanceArguments
                 }
@@ -2463,10 +2462,9 @@
                     values.push(secondCriteriaElement.val());
                 }
                 else if (fieldType === enumHandlers.FIELDTYPE.PERIOD) {
-                    var elementIndex = firstElementId.split('-')[1];
+                    elementIndex = firstElementId.split('-')[1];
                     firstCriteriaElement = firstElement.data(enumHandlers.KENDOUITYPE.NUMERICTEXT);
-                    var unitDay = WC.HtmlHelper.DropdownList(self.GetHtmlElementById('FirstInputUnit-' + elementIndex)).value();
-                    var elementValue;
+                    unitDay = WC.HtmlHelper.DropdownList(self.GetHtmlElementById('FirstInputUnit-' + elementIndex)).value();
 
                     if (firstCriteriaElement.value() !== null) {
                         elementValue = parseInt(firstCriteriaElement.value()) * unitDay;
@@ -2552,23 +2550,22 @@
                 break;
             case enumHandlers.OPERATOR.RELATIVEBEFORE.Value:
             case enumHandlers.OPERATOR.RELATIVEAFTER.Value:
-                var elementIndex = firstElementId.split('-')[1];
-                var criteriaElement = firstElement.data(enumHandlers.KENDOUITYPE.NUMERICTEXT);
-                var unitDay = WC.HtmlHelper.DropdownList(self.GetHtmlElementById('FirstInputUnit-' + elementIndex)).value();
+                elementIndex = firstElementId.split('-')[1];
+                criteriaElement = firstElement.data(enumHandlers.KENDOUITYPE.NUMERICTEXT);
+                unitDay = WC.HtmlHelper.DropdownList(self.GetHtmlElementById('FirstInputUnit-' + elementIndex)).value();
 
                 if (criteriaElement.value() !== null) {
-                    var elementValue = parseInt(criteriaElement.value()) * unitDay;
+                    elementValue = parseInt(criteriaElement.value()) * unitDay;
                     values.push(elementValue);
                 }
                 break;
             case enumHandlers.OPERATOR.RELATIVEBETWEEN.Value:
             case enumHandlers.OPERATOR.NOTRELATIVEBETWEEN.Value:
                 if (WC.FormatHelper.IsDateOrDateTime(fieldType)) {
-                    var elementIndex = firstElementId.split('-')[1];
-                    var firstCriteriaElement = firstElement.data(enumHandlers.KENDOUITYPE.NUMERICTEXT);
-                    var secondCriteriaElement = secondElement.data(enumHandlers.KENDOUITYPE.NUMERICTEXT);
-                    var unitDay = WC.HtmlHelper.DropdownList(self.GetHtmlElementById('FirstInputUnit-' + elementIndex)).value();
-                    var elementValue;
+                    elementIndex = firstElementId.split('-')[1];
+                    firstCriteriaElement = firstElement.data(enumHandlers.KENDOUITYPE.NUMERICTEXT);
+                    secondCriteriaElement = secondElement.data(enumHandlers.KENDOUITYPE.NUMERICTEXT);
+                    unitDay = WC.HtmlHelper.DropdownList(self.GetHtmlElementById('FirstInputUnit-' + elementIndex)).value();
 
                     if (firstCriteriaElement.value() !== null) {
                         elementValue = parseInt(firstCriteriaElement.value()) * unitDay;
@@ -2612,7 +2609,7 @@
 
                 default:
                     var compareValue = self.GetArgumentValue(elementKey);
-                    if (compareValue != null)
+                    if (compareValue !== null)
                         argumentValues.push(WC.WidgetFilterHelper.ArgumentObject(compareValue, argumentType));
                     break;
             }

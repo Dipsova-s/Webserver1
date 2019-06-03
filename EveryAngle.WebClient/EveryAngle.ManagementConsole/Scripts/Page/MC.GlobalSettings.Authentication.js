@@ -18,41 +18,18 @@
 
             setTimeout(function () {
                 $('#AuthenticationProviderTypesSelect').width(300).kendoDropDownList();
-                if (self.SaveAuthenticationProviderUri == "") {
-                    /*$('#SystemAuthenticationGrid .DefaultRoles').each(function (index, element) {
-                        $(element).kendoMultiSelect({
-                            dataSource: self.SystemRolesData.slice(),
-                            change: function (e) {
-                                e.sender.element.valid();
-                            }
-                        })
-                    });
-
-                    var grid = $('#SystemAuthenticationGrid').data('kendoGrid');
-                    if (grid) {
-                        jQuery.each(grid.dataSource.data(), function (index, data) {
-                            var multiSelect = $('#SystemAuthenticationGrid select.DefaultRoles').eq(index).data('kendoMultiSelect');
-                            if (multiSelect) {
-                                multiSelect.value(data.default_roles);
-                            }
-                        });
-                    }*/
+                if (!self.SaveAuthenticationProviderUri) {
                     MC.form.page.init(self.GetData);
                 }
                 else {
-                    
-                    var defaultRoles = [];
-                    if (self.SystemAuthenticationProviderData.default_roles != null) {
-                        defaultRoles = self.SystemAuthenticationProviderData.default_roles;
-                    }
-
+                    var defaultRoles = self.SystemAuthenticationProviderData.default_roles || [];
                     var defaultRolesValue = [];
                     $.each(defaultRoles, function (idx, item) {
                         if (item.ModelId)
                             defaultRolesValue.push({ role: item.RoleId, value: item.ModelId + ":" + item.RoleId, tooltip: item.ModelId + " model role" });
                         else
                             defaultRolesValue.push({ role: item.RoleId, value: item.RoleId, tooltip: "System role" });
-                    })
+                    });
 
                     var systemRolesValue = [];
                     $.each(self.SystemRolesData, function (idx, item) {
@@ -145,7 +122,7 @@
                 'container': formAuthenticationProvider.find('[name="container"]').val()
             };
 
-            var isNew = $('input[name=Id]').is('[readonly]') == false ? true : false;
+            var isNew = $('input[name=Id]').is('[readonly]') === false ? true : false;
             MC.ajax.request({
                 url: self.SaveAuthenticationProviderUri,
                 parameters: { isNewAuthenticationProvider: isNew, authenticationProviderData: JSON.stringify(data.authenticationProvider), updateAuthenticationProviderUri: formAuthenticationProvider.find('[name="Uri"]').val() },
@@ -188,7 +165,7 @@
             var authenticationProviderData = [];
             $('#SystemAuthenticationGrid .k-grid-content tr').each(function (k, provider) {
                 if ($(provider).find('[name="IsDefaultProvider"]').is(':checked')) {
-                    defaultProvider = $(provider).find('[name="IsDefaultProvider"]').val()
+                    defaultProvider = $(provider).find('[name="IsDefaultProvider"]').val();
                 }
                 authenticationProviderData.push({
                     'uri': $(provider).find('[name="IsEnabled"]').val(),

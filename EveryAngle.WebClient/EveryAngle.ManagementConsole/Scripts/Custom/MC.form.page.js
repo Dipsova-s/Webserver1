@@ -8,9 +8,9 @@
             SERVER: 'server'
         },
         _data_initial: null,
-        _function_getdata: function () { return null },
+        _function_getdata: function () { return null; },
         init: function (getDataFunction) {
-            if (typeof getDataFunction == 'function') {
+            if (typeof getDataFunction === 'function') {
                 this._function_getdata = getDataFunction;
                 this._data_initial = this._function_getdata();
             }
@@ -22,7 +22,7 @@
             this._data_initial = this._function_getdata();
         },
         checkChange: function (callback) {
-            if (JSON.stringify(this._data_initial) != JSON.stringify(this._function_getdata())) {
+            if (JSON.stringify(this._data_initial) !== JSON.stringify(this._function_getdata())) {
                 MC.util.showPopupConfirmation(Localization.MC_CheckChangePage.replace('\\n', '\n'), callback);
             }
             else {
@@ -83,45 +83,45 @@
             });
         },
         executeState: function (state) {
-            switch (state.target) {
-                case 'grid':
-                    var grid = jQuery(state.options.selector).data('kendoGrid');
-                    if (grid && !grid.wrapper.parents('.popup').length) {
-                        if (state.options.query.q) {
-                            grid.wrapper.parents('.gridContainer:first').prevAll('.gridToolbar')
-                                .find('input[data-role="gridfilter"]')
-                                    .data('defaultValue', decodeURIComponent(state.options.query.q))
-                                    .val(decodeURIComponent(state.options.query.q));
+            var self = this;
+            if (state.target === 'grid')
+                self.executeGridState(state);
+        },
+        executeGridState: function (state) {
+            var grid = jQuery(state.options.selector).data('kendoGrid');
 
-                            if (grid.dataSource.transport.options && grid.dataSource.transport.options.read) {
-                                grid.dataSource.transport.options.read.data = function () {
-                                    return {
-                                        q: function () {
-                                            return encodeURIComponent(grid.wrapper.parents('.gridContainer:first').prevAll('.gridToolbar').find('input[data-role="gridfilter"]').val());
-                                        }
-                                    };
-                                };
-                            }
-                        }
+            if (!grid || grid.wrapper.parents('.popup').length)
+                return;
 
-                        var queryable = grid.options.pageable || grid.options.sortable;
-                        var isVirtualScroll = typeof grid.options.scrollable == 'object' && grid.options.scrollable.virtual;
-                        if (queryable || isVirtualScroll) {
-                            if (isVirtualScroll) {
-                                state.options.query.page = 1;
+            var input = grid.wrapper.parents('.gridContainer:first').prevAll('.gridToolbar')
+                            .find('input[data-role="gridfilter"]');
+
+            if (state.options.query.q) {
+                input.data('defaultValue', decodeURIComponent(state.options.query.q))
+                    .val(decodeURIComponent(state.options.query.q));
+
+                if (grid.dataSource.transport.options && grid.dataSource.transport.options.read) {
+                    grid.dataSource.transport.options.read.data = function () {
+                        return {
+                            q: function () {
+                                return encodeURIComponent(input.val());
                             }
-                            state.options.query.pageSize = grid.dataSource.pageSize();
-                            grid.dataSource.query(state.options.query);
-                        }
-                        else {
-                            if (state.options.query.q) {
-                                grid.wrapper.parents('.gridContainer:first').prevAll('.gridToolbar')
-                                    .find('input[data-role="gridfilter"]')
-                                    .trigger('keyup');
-                            }
-                        }
-                    }
-                    break;
+                        };
+                    };
+                }
+            }
+
+            var queryable = grid.options.pageable || grid.options.sortable;
+            var isVirtualScroll = typeof grid.options.scrollable === 'object' && grid.options.scrollable.virtual;
+            if (queryable || isVirtualScroll) {
+                if (isVirtualScroll) {
+                    state.options.query.page = 1;
+                }
+                state.options.query.pageSize = grid.dataSource.pageSize();
+                grid.dataSource.query(state.options.query);
+            }
+            else if (state.options.query.q) {
+                input.trigger('keyup');
             }
         },
         executeStates: function () {
@@ -137,7 +137,7 @@
         getStateBySelector: function (selector) {
             var existState = null;
             jQuery.each(this._states, function (index, state) {
-                if (state.options.selector == selector) {
+                if (state.options.selector === selector) {
                     existState = state;
                     return false;
                 }

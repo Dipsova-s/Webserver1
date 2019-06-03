@@ -27,7 +27,10 @@ namespace EveryAngle.WebClient.Web.Controllers
                     ViewBag.Title = result.reason.Value;
                     ViewBag.Description = UtilitiesHelper.StripHTML(result.message.Value, true);
                 }
-                catch (Exception) { }
+                catch
+                {
+                    // no error
+                }
             }
             else if (Response.StatusCode == 404)
             {

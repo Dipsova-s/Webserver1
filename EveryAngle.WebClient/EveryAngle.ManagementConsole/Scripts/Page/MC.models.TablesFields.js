@@ -79,7 +79,7 @@
                 //            { field: sortField, dir: sortDir }
                 //        ]);
                 //        grid.wrapper.find('.k-header .k-icon').remove();
-                //        element.children('.k-link').append('<span class="k-icon k-i-arrow-' + (sortDir == 'asc' ? 'n' : 's') + '"></span>');
+                //        element.children('.k-link').append('<span class="k-icon k-i-arrow-' + (sortDir === 'asc' ? 'n' : 's') + '"></span>');
                 //    });
             }
         };
@@ -172,7 +172,7 @@
             grid.content.find('tr').removeClass('k-state-selected k-state-disabled');
 
             $.each(grid.dataSource.data(), function (index, item) {
-                if ($.inArray(item.name, self.AssignedRoles) != -1) {
+                if ($.inArray(item.name, self.AssignedRoles) !== -1) {
                     grid.tbody.find('tr[data-uid="' + item.uid + '"]').addClass('k-state-disabled');
                 }
                 else if (self.SelectingRoles[item.name]) {
@@ -245,7 +245,7 @@
             var countNewRole = 0;
             $.each(self.SelectingRoles, function () {
 
-                if ($.inArray(this.name, self.AssignedRoles) == -1) {
+                if ($.inArray(this.name, self.AssignedRoles) === -1) {
                     countNewRole = countNewRole + 1;
                     self.AssignedRoles.push(this.name);
                     MC.form.template.addRow($('<div />', {
@@ -255,7 +255,7 @@
                         }
                     }));
 
-                    var isChecked = this.key_field == true ? 'checked="checked"' : '';
+                    var isChecked = this.key_field === true ? 'checked="checked"' : '';
 
                     row = grid.children(':last');
                     row.children(':eq(0)').html(this.name);
@@ -268,14 +268,12 @@
                     row.children(':eq(7)').find('input').val(this.id);
                 }
             });
-
-            var total = 0;
-            var count = 0;
+            
             var existLabel = $("#DownloadTableGrid .k-pager-info").text().split(" ");
-            if (existLabel.length == 6) {
+            if (existLabel.length === 6) {
                 $("#DownloadTableGrid .k-pager-info").text($("#DownloadTableGrid .k-pager-info").text() + " ( " + countNewRole + " " + Localization.MC_ItemsAdded + " )");
             }
-            else if (existLabel.length == 11) {
+            else if (existLabel.length === 11) {
                 existLabel[7] = parseInt(existLabel[7]) + countNewRole;
                 $("#DownloadTableGrid .k-pager-info").text(existLabel.join(" "));
             }
@@ -285,7 +283,7 @@
         };
 
         self.CheckDeltaDownload = function (obj) {
-            if (obj.value != "") {
+            if (obj.value !== "") {
                 jQuery('#deltaDownload').prop("disabled", false);
             }
             else {
@@ -295,16 +293,14 @@
         };
 
         self.RemoveNewItem = function (obj) {
-            var total = 0;
-            var count = 0;
-            MC.form.template.remove(obj)
+            MC.form.template.remove(obj);
 
             var existLabel = $("#DownloadTableGrid .k-pager-info").text().split(" ");
-            if (existLabel.length == 6) {
+            if (existLabel.length === 6) {
                 existLabel[4] = parseInt(existLabel[4]) - 1;
                 $("#DownloadTableGrid .k-pager-info").text(existLabel.join(" "));
             }
-            else if (existLabel.length == 11) {
+            else if (existLabel.length === 11) {
                 existLabel[7] = parseInt(existLabel[7]) - 1;
                 $("#DownloadTableGrid .k-pager-info").text(existLabel.join(" "));
             }
@@ -338,10 +334,10 @@
             });
             $.each(self.DeleteList, function (index, item) {
                 var row = { 'fields': [{ 'id': item, 'is_enabled': false }] };
-                datas.push(row)
+                datas.push(row);
             });
 
-            return datas.length == 0 ? "" : JSON.stringify(datas);
+            return datas.length === 0 ? "" : JSON.stringify(datas);
         };
 
         self.SaveFields = function () {
@@ -370,18 +366,18 @@
             })
             .done(function (response) {
                 self.DeleteList = [];
-                if (response.removedData.length > 0 || !($.isEmptyObject(response.un_removeData))) {
+                if (response.removedData.length > 0 || !$.isEmptyObject(response.un_removeData)) {
                     var text = '';
                     if (response.removedData.length > 0) {
-                        text += '<p>' + MC_RemovedFieldsList + '</p>'
+                        text += '<p>' + MC_RemovedFieldsList + '</p>';
                         $.each(response.removedData, function (index, item) {
-                            text += '<p>' + item + '</p>'
+                            text += '<p>' + item + '</p>';
                         });
                     }
                     if (!$.isEmptyObject(response.un_removeData)) {
-                        text += '<p>' + MC_UnRemovedFieldsList + '</p>'
+                        text += '<p>' + MC_UnRemovedFieldsList + '</p>';
                         $.each(response.un_removeData, function (key, value) {
-                            text += '<p>' + key + ', ' + value + '</p>'
+                            text += '<p>' + key + ', ' + value + '</p>';
                         });
                     }
                     MC.util.showPopupOK(Localization.MC_DeletedTableFieldsTitle, text, "MC.ajax.reloadMainContent()");

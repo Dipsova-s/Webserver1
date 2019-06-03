@@ -22,13 +22,13 @@ namespace EveryAngle.OData.Tests.UtilsTests
         [SetUp]
         public void Setup()
         {
-
+            // setup
         }
 
         [TearDown]
         public void TearDown()
         {
-
+            // tear down
         }
 
         #endregion
@@ -161,7 +161,7 @@ namespace EveryAngle.OData.Tests.UtilsTests
             };
             Angle angle = new Angle { name = angleName };
             testingDisplay.SetAngle(angle);
-            Assert.AreEqual(expectedEntityName + displayType.ToUpper().First() + "1_10_100", testingDisplay.UniqueEntityName());
+            Assert.AreEqual(expectedEntityName + displayType.ToUpperInvariant().First() + "1_10_100", testingDisplay.UniqueEntityName());
         }
 
         [TestCase(1)]

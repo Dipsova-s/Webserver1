@@ -37,7 +37,7 @@
 
     var setScrollableResize = function (win, options) {
         if (!win.__scrollable_resize) {
-            win.bind('resize', function (e) {
+            win.bind('resize', function () {
                 if (win.options.isMaximized === true && win.restoreOptions && !win.restoreOptions.height) {
                     var contentHeight = parseInt(win.element.find('.popupContent').css('height')) || 100;
                     var height = contentHeight + win.element.find('.popupToolbar').outerHeight() - 2;
@@ -87,10 +87,10 @@
     };
 
     var popup = function (obj) {
-        if (typeof obj == 'undefined')
+        if (typeof obj === 'undefined')
             obj = '[data-role="mcPopup"]';
 
-        
+
         switch (obj) {
             case 'center':
                 setCenter();
@@ -117,29 +117,29 @@
                 kPopup.wrapper.find('.k-i-maximize').attr('title', Localization.Maximize);
                 kPopup.wrapper.find('.k-i-close').attr('title', Localization.Close);
                 break;
-            
+
             default:
                 jQuery(obj).each(function (k, v) {
                     if (jQuery(v).data('popup')) return;
 
                     jQuery(v)
-                    .data('popup', true)
-                    .click(function () {
-                        var element = jQuery(this);
-                        if (!element.hasClass('disabled')) {
-                            var target = element.attr('href') || element.data('target');
-                            var kPopup = jQuery(target).data('kendoWindow');
-                            if (kPopup) {
-                                kPopup.setOptions({
-                                    title: element.data('title') || element.attr('title') || ''
-                                });
-                                kPopup.center().open();
-                                kPopup.wrapper.find('.k-i-maximize').attr('title', Localization.Maximize);
-                                kPopup.wrapper.find('.k-i-close').attr('title', Localization.Close);
+                        .data('popup', true)
+                        .click(function () {
+                            var element = jQuery(this);
+                            if (!element.hasClass('disabled')) {
+                                var target = element.attr('href') || element.data('target');
+                                var kPopup = jQuery(target).data('kendoWindow');
+                                if (kPopup) {
+                                    kPopup.setOptions({
+                                        title: element.data('title') || element.attr('title') || ''
+                                    });
+                                    kPopup.center().open();
+                                    kPopup.wrapper.find('.k-i-maximize').attr('title', Localization.Maximize);
+                                    kPopup.wrapper.find('.k-i-close').attr('title', Localization.Close);
+                                }
                             }
-                        }
-                        return false;
-                    });
+                            return false;
+                        });
 
                     var metadata = jQuery(v).data();
                     var settings = jQuery.extend({
@@ -156,7 +156,7 @@
                         }
 
                     }, metadata);
-                    if (typeof jQuery(settings.target).data('kendoWindow') == 'undefined') {
+                    if (typeof jQuery(settings.target).data('kendoWindow') === 'undefined') {
                         jQuery(settings.target).addClass('popup').kendoWindow(settings);
                         var p = jQuery('.popup[id="' + settings.target.substr(1) + '"]');
                         if (p.length > 1) {

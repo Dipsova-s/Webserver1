@@ -5,12 +5,6 @@ namespace EveryAngle.ManagementConsole.Test.Helpers
 {
     public class PackageHelperTests : UnitTestBase
     {
-        #region private variables
-
-        private PackageHelper _helper = new PackageHelper();
-
-        #endregion
-
         #region tests
 
         [TestCase("WC-TEST01-1.eapackage", "WC", "TEST01", "1")]

@@ -127,7 +127,7 @@
 
             template += "<input type=\"hidden\" name=\"uri\" value=\"" + uri + "\" />";
             if (canManageTask) {
-                template += "<a href=\"" + MC.AutomationTasks.Tasks.EditTaskPage + "\"  onclick=\"MC.AutomationTasks.Tasks.EditTask(event, this, '" + uri + "')\" data-parameters='{\"tasksUri\":\"" + uri + "\"}' class=\"btn btnEdit\">" + Localization.Edit + "</a>";
+                template += "<a href=\"" + MC.AutomationTasks.Tasks.EditTaskPage + "\"  onclick=\"MC.AutomationTasks.Tasks.EditTask(event, this')\" data-parameters='{\"tasksUri\":\"" + uri + "\"}' class=\"btn btnEdit\">" + Localization.Edit + "</a>";
                 if (manageSystemPrivilege) {
                     template += "<a href=\"#popupCopyTask\" onclick=\"MC.AutomationTasks.Tasks.CopyTaskPopup('" + uri + "','" + data.name + "')\" data-role=\"mcPopup\" title=\"" + Localization.MC_CopyTask + "\" data-width=\"500\" data-min-height=\"180\" data-min-width=\"475\" class=\"btn btnCopy\">" + Localization.Copy + "</a>";
                 }
@@ -149,7 +149,7 @@
             var canSchedule = canScheduleAngles && currentUser === taskOwner;
             return manageSystemPrivilege || canSchedule;
         };
-        self.EditTask = function (event, obj, uri) {
+        self.EditTask = function (event, obj) {
             MC.util.redirect(event, obj);
         };
 
@@ -1869,33 +1869,34 @@
                 $.merge(blocks, display.query_blocks);
 
             $.each(blocks, function (index, query) {
-                if (query.query_steps) {
-                    $.each(query.query_steps, function (index, step) {
-                        if (step.is_execution_parameter) {
-                            if (!(step.arguments instanceof Array))
-                                step.arguments = [];
+                if (!query.query_steps)
+                    return;
+                
+                $.each(query.query_steps, function (index, step) {
+                    if (!step.is_execution_parameter)
+                        return;
+                    
+                    if (!(step.arguments instanceof Array))
+                        step.arguments = [];
 
-                            // is value and not empty operator type
-                            if ($.inArray(step.operator, self.NoAgruments) === -1
-                                && (!step.arguments.length || step.arguments[0].argument_type === 'value')) {
-                                var exisitngParameter = existExecutionParameterList.findObject('execution_parameter_id', step.execution_parameter_id);
-                                executionParameterList.push({
-                                    execution_parameter_id: step.execution_parameter_id,
-                                    arguments: exisitngParameter ? exisitngParameter.arguments : step.arguments,
-                                    field: step.field,
-                                    name: step.field,
-                                    operator: step.operator,
-                                    fieldtype: 'text',
-                                    domains: []
-                                });
+                    // is value and not empty operator type
+                    if ($.inArray(step.operator, self.NoAgruments) === -1
+                        && (!step.arguments.length || step.arguments[0].argument_type === 'value')) {
+                        var exisitngParameter = existExecutionParameterList.findObject('execution_parameter_id', step.execution_parameter_id);
+                        executionParameterList.push({
+                            execution_parameter_id: step.execution_parameter_id,
+                            arguments: exisitngParameter ? exisitngParameter.arguments : step.arguments,
+                            field: step.field,
+                            name: step.field,
+                            operator: step.operator,
+                            fieldtype: 'text',
+                            domains: []
+                        });
 
-                                if (!fieldsData[angle.model][step.field.toLowerCase()])
-                                    executionFields.push(step.field);
-                            }
-                        }
-
-                    });
-                }
+                        if (!fieldsData[angle.model][step.field.toLowerCase()])
+                            executionFields.push(step.field);
+                    }
+                });
             });
             executionFields = executionFields.distinct();
 
@@ -1972,7 +1973,7 @@
                         });
                         return $.when.apply($, requests);
                     })
-                    .done(function (fields) {
+                    .done(function () {
                         var executionParameterData = [];
                         var allowedFieldTypes = ['enumerated', 'text', 'number', 'int', 'double', 'percentage', 'period'];
                         $.each(executionParameterList, function (index, executionParameter) {

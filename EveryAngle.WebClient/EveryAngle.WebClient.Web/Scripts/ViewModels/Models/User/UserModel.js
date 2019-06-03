@@ -302,7 +302,7 @@ function UserViewModel() {
         }
     };
     self.GetAssignRoleDisplay = function (roleObj) {
-        if ((typeof roleObj) == "object") {
+        if (typeof roleObj === "object") {
             if (roleObj.model_id)
                 return roleObj.model_id + ': ' + roleObj.role_id;
             else

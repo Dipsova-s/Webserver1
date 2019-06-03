@@ -47,7 +47,7 @@ namespace EveryAngle.ManagementConsole.Test.Controllers
                 current_instance = new Uri("http://NL-WEBMB01.everyangle.org:62029/models/1/instances/1")
             };
 
-            sessionHelper.Setup(x => x.Models).Returns(new List<ModelViewModel>() { model });
+            sessionHelper.Setup(x => x.Models).Returns(new List<ModelViewModel> { model });
 
             List<ModelServerViewModel> modelServers = new List<ModelServerViewModel>
             {
@@ -84,7 +84,7 @@ namespace EveryAngle.ManagementConsole.Test.Controllers
                 current_instance = new Uri("http://NL-WEBMB01.everyangle.org:62029/models/1/instances/1")
             };
 
-            sessionHelper.Setup(x => x.Models).Returns(new List<ModelViewModel>() { model });
+            sessionHelper.Setup(x => x.Models).Returns(new List<ModelViewModel> { model });
 
             List<ModelServerViewModel> modelServers = new List<ModelServerViewModel>
             {

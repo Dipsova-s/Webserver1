@@ -103,24 +103,24 @@ describe("QueryBlocksModel", function () {
 
     describe("call GetQueryBlocks", function () {
 
-        it("should return inititated query blocks if filter is not defined with clean flag == 'true'", function () {
+        it("should return inititated query blocks if filter is not defined with clean flag = 'true'", function () {
             var fakeFilter;
             var queryBlocks = queryBlocksModel.GetQueryBlocks(fakeFilter, true);
             expect(ko.toJS(queryBlocksModel.QueryBlocks)).toEqual(queryBlocks);
         });
 
-        it("should return inititated query blocks if filter is not defined with clean flag == 'false'", function () {
+        it("should return inititated query blocks if filter is not defined with clean flag = 'false'", function () {
             var fakeFilter;
             var queryBlocks = queryBlocksModel.GetQueryBlocks(fakeFilter, false);
             expect(queryBlocksModel.QueryBlocks).toEqual(queryBlocks);
         });
 
-        it("should return filtered queryblock if filter is specified with clean flag == 'true'", function () {
+        it("should return filtered queryblock if filter is specified with clean flag = 'true'", function () {
             var queryBlocks = queryBlocksModel.GetQueryBlocks(testFilter, true);
             expect(ko.toJS(queryBlocksModel.QueryBlocks[0])).toEqual(queryBlocks[0]);
         });
 
-        it("should return filtered queryblock if filter is specified with clean flag == 'false'", function () {
+        it("should return filtered queryblock if filter is specified with clean flag = 'false'", function () {
             var queryBlocks = queryBlocksModel.GetQueryBlocks(testFilter, false);
             expect(queryBlocksModel.QueryBlocks[0]).toEqual(queryBlocks[0]);
         });
@@ -128,24 +128,24 @@ describe("QueryBlocksModel", function () {
 
     describe("call GetQuerySteps", function () {
 
-        it("should return inititated first's query steps if filter is not defined with clean flag == 'true'", function () {
+        it("should return inititated first's query steps if filter is not defined with clean flag = 'true'", function () {
             var fakeFilter;
             var querySteps = queryBlocksModel.GetQuerySteps(fakeFilter, true);
             expect(ko.toJS(testQueryBlock[0].query_steps)).toEqual(querySteps);
         });
 
-        it("should return inititated first's query steps if filter is not defined with clean flag == 'false'", function () {
+        it("should return inititated first's query steps if filter is not defined with clean flag = 'false'", function () {
             var fakeFilter;
             var querySteps = queryBlocksModel.GetQuerySteps(fakeFilter, false);
             expect(testQueryBlock[0].query_steps).toEqual(querySteps);
         });
 
-        it("should return filtered query steps if filter is not defined with clean flag == 'true'", function () {
+        it("should return filtered query steps if filter is not defined with clean flag = 'true'", function () {
             var querySteps = queryBlocksModel.GetQuerySteps(testFilter, true);
             expect(ko.toJS(testQueryBlock[0].query_steps)).toEqual(querySteps);
         });
 
-        it("should return filtered query steps if filter is not defined with clean flag == 'false'", function () {
+        it("should return filtered query steps if filter is not defined with clean flag = 'false'", function () {
             var querySteps = queryBlocksModel.GetQuerySteps(testFilter, false);
             expect(testQueryBlock[0].query_steps).toEqual(querySteps);
         });

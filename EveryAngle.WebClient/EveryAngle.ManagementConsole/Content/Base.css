@@ -326,7 +326,7 @@ input[type="password"]:focus,
 textarea:focus,
 .tagsinput:focus,
 .labelinput:focus {
-    border-color: rgba(82,168,236,0.8);
+    border-color: rgba(82,168,236,.8);
     outline: 0;
 }
 
@@ -602,10 +602,12 @@ div.tagsinput .not_valid {
     background-color: #fff;
     opacity: .5;
 }
-.k-multiselect .k-button.readonly:active{
+
+.k-multiselect .k-button.readonly:active {
     border-color: #c5c5c5;
     color: #2e2e2e;
 }
+
 .k-multiselect .k-button.readonly .k-i-close {
     display: none;
 }
@@ -2607,7 +2609,7 @@ form#ExportPackageForm .packageInfo .packageVersion input {
     margin-left: 15px;
     margin-bottom: 15px;
     padding-bottom: 60px;
-    box-shadow: 0 2px 2px 0 rgba(0,0,0,0.14), 0 1px 5px 0 rgba(0,0,0,0.12), 0 3px 1px -2px rgba(0,0,0,0.2);
+    box-shadow: 0 2px 2px 0 rgba(0,0,0,.14), 0 1px 5px 0 rgba(0,0,0,.12), 0 3px 1px -2px rgba(0,0,0,.2);
     transition: all .3s cubic-bezier(.25,.8,.25,1);
 }
 
@@ -3743,7 +3745,7 @@ form#ExportPackageForm .packageInfo .packageVersion input {
 
 #TaskDetailsGridContainer .inactiveRow {
     background: #eee;
-    opacity: 0.3;
+    opacity: .3;
 }
 
 #RefreshCycleContainer .slideToggleFormArea {
@@ -4979,6 +4981,7 @@ a.mailto {
     padding-right: 30px;
     min-height: 30px;
 }
+
 .pageAuthenticationProviderEdit .contentSectionInfoItem p > .txtLarge,
 .pageAuthenticationProviderEdit .contentSectionInfoItem .k-multiselect {
     width: 100%;
@@ -5020,11 +5023,30 @@ a.mailto {
     top: 10px;
 }
 
-.k-delete, .k-group-delete, .k-i-close {
+.k-delete,
+.k-group-delete,
+.k-i-close {
     background-position: -32px -18px;
 }
 
-.k-button:active .k-delete, .k-button:active .k-group-delete, .k-button:active .k-i-close, .k-button:not(.k-state-disabled):hover .k-delete, .k-button:not(.k-state-disabled):hover .k-group-delete, .k-button:not(.k-state-disabled):hover .k-i-close, .k-link:not(.k-state-disabled):hover > .k-delete, .k-link:not(.k-state-disabled):hover > .k-group-delete, .k-link:not(.k-state-disabled):hover > .k-i-close, .k-state-hover > * > .k-delete, .k-state-hover > * > .k-group-delete, .k-state-hover > * > .k-i-close, .k-state-hover > .k-delete, .k-state-hover > .k-group-delete, .k-state-hover > .k-i-close, .k-textbox:hover .k-delete, .k-textbox:hover .k-group-delete, .k-textbox:hover .k-i-close {
+.k-button:active .k-delete,
+.k-button:active .k-group-delete,
+.k-button:active .k-i-close,
+.k-button:not(.k-state-disabled):hover .k-delete,
+.k-button:not(.k-state-disabled):hover .k-group-delete,
+.k-button:not(.k-state-disabled):hover .k-i-close,
+.k-link:not(.k-state-disabled):hover > .k-delete,
+.k-link:not(.k-state-disabled):hover > .k-group-delete,
+.k-link:not(.k-state-disabled):hover > .k-i-close,
+.k-state-hover > * > .k-delete,
+.k-state-hover > * > .k-group-delete,
+.k-state-hover > * > .k-i-close,
+.k-state-hover > .k-delete,
+.k-state-hover > .k-group-delete,
+.k-state-hover > .k-i-close,
+.k-textbox:hover .k-delete,
+.k-textbox:hover .k-group-delete,
+.k-textbox:hover .k-i-close {
     background-position: -48px -18px;
 }
 

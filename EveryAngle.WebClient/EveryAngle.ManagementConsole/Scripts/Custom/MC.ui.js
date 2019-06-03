@@ -189,7 +189,7 @@
                     .attr('autocomplete', 'off')
                     .data('uploader', true)
                     .wrap('<div class="k-widget k-upload" />')
-                    .wrap('<div class="k-button k-upload-button btn ' + (element.prop('disabled') ? ' disabled' : '') +'" />')
+                    .wrap('<div class="k-button k-upload-button btn ' + (element.prop('disabled') ? ' disabled' : '') + '" />')
                     .after('<span>' + settings.textBrowse + '</span>')
                     .change(function (e) {
                         if (typeof e.target.files === 'undefined') {
@@ -263,7 +263,7 @@
                     jQuery('.tabPanel', parent)
                         .removeClass('active')
                         .eq(idx)
-                            .addClass('active');
+                        .addClass('active');
 
                     var callback = element.data('callback');
                     MC.util.getController(callback)(jQuery('.tabPanel', parent).eq(idx));
@@ -321,12 +321,13 @@
                         delay: 500,
 
                         filter: '',
-						min: 1,
+                        min: 1,
                         fnChecker: null,
                         fnCheckRequest: null
                     }, self.data());
 
-                    if ((q === self.data('defaultValue') && e.keyCode !== 13) || (qLength > 0 && qLength <= settings.min))
+                    if ((q === self.data('defaultValue') && e.keyCode !== 13)
+                        || (qLength > 0 && qLength <= settings.min))
                         return false;
 
                     self.data('defaultValue', q);
@@ -339,52 +340,53 @@
                         treeList = target.find('.k-treelist').data('kendoTreeList');
                     }
 
-                    if (treeList) {
-                        MC.util.getController(settings.start)();
+                    if (!treeList)
+                        return;
 
-                        self.next('.icon').addClass('iconLoading');
-                        clearTimeout(settings.fnChecker);
-                        settings.fnChecker = setTimeout(function () {
-                            treeList.content.removeHighlight();
-                            if (settings.filter) {
-                                treeList.content.find('tr').find(settings.filter).highlight(q);
+                    MC.util.getController(settings.start)();
+
+                    self.next('.icon').addClass('iconLoading');
+                    clearTimeout(settings.fnChecker);
+                    settings.fnChecker = setTimeout(function () {
+                        treeList.content.removeHighlight();
+                        if (settings.filter)
+                            treeList.content.find('tr').find(settings.filter).highlight(q);
+                        else
+                            treeList.content.highlight(q);
+
+                        var highlighting = treeList.content.find('.highlight');
+                        var highlightingCount = highlighting.length;
+                        var i, row, expandedRowCache = {};
+                        var fnExpandParents = function (row, data) {
+                            var dataItem = data || treeList.dataSource.getByUid(row.data('uid'));
+                            if (!dataItem)
+                                return;
+                                
+                            expandedRowCache[dataItem.uid] = true;
+                            if (dataItem.parentId === null)
+                                return;
+
+                            var dataItemParent = treeList.dataSource.get(dataItem.parentId);
+                            if (!dataItemParent)
+                                return;
+
+                            var rowParent = treeList.content.find('[data-uid="' + dataItemParent.uid + '"]');
+                            if (rowParent.has('.k-i-expand')) {
+                                treeList.expand(rowParent);
                             }
-                            else {
-                                treeList.content.highlight(q);
-                            }
+                            fnExpandParents(rowParent, dataItemParent);
+                        };
+                        for (i = highlightingCount - 1; i >= 0; i--) {
+                            row = jQuery(highlighting[i]).parents('tr:first');
+                            if (!expandedRowCache[row.data('uid')])
+                                fnExpandParents(row, null);
+                        }
 
-                            var highlighting = treeList.content.find('.highlight');
-                            var highlightingCount = highlighting.length;
-                            var i, row, dataItem, expandedRowCache = {};
-                            var fnExpandParents = function (row, data) {
-                                var dataItem = data || treeList.dataSource.getByUid(row.data('uid'));
-                                if (dataItem) {
-                                    expandedRowCache[dataItem.uid] = true;
-                                    if (dataItem.parentId !== null) {
-                                        var dataItemParent = treeList.dataSource.get(dataItem.parentId);
-                                        if (dataItemParent) {
-                                            var rowParent = treeList.content.find('[data-uid="' + dataItemParent.uid + '"]');
-                                            if (rowParent.has('.k-i-expand')) {
-                                                treeList.expand(rowParent);
-                                            }
-                                            fnExpandParents(rowParent, dataItemParent);
-                                        }
-                                    }
-                                }
-                            };
-                            for (i = highlightingCount - 1; i >= 0; i--) {
-                                row = jQuery(highlighting[i]).parents('tr:first');
-                                if (!expandedRowCache[row.data('uid')]) {
-                                    fnExpandParents(row, null);
-                                }
-                            }
+                        self.next('.icon').removeClass('iconLoading');
 
-                            self.next('.icon').removeClass('iconLoading');
-
-                            MC.util.getController(settings.callback)();
-                        }, e.keyCode === 13 ? 1 : settings.delay);
-                        self.data('fnChecker', settings.fnChecker);
-                    }
+                        MC.util.getController(settings.callback)();
+                    }, e.keyCode === 13 ? 1 : settings.delay);
+                    self.data('fnChecker', settings.fnChecker);
                 });
             });
         },
@@ -392,25 +394,26 @@
             if (typeof (obj) === 'undefined')
                 obj = '[data-role="gridfilter"]';
             jQuery(obj).each(function (k, v) {
-                if (jQuery(v).data('gridfilter')) return;
+                if (jQuery(v).data('gridfilter'))
+                    return;
 
                 jQuery(v).data({ 'gridfilter': true, defaultValue: '' }).keyup(function (e) {
-                    var self = this,
-                        q = jQuery.trim(jQuery(self).val()),
-                        settings = jQuery.extend({
+                    var self = this;
+                    var q = jQuery.trim(jQuery(self).val());
+                    var settings = jQuery.extend({
 
-                            // local | remote
-                            method: 'local',
+                        // local | remote
+                        method: 'local',
 
-                            // display | highlight
-                            type: 'display',
+                        // display | highlight
+                        type: 'display',
 
-                            // delay time for request
-                            delay: 500,
-                            filter: '',
-                            fnChecker: null,
-                            fnCheckRequest: null
-                        }, jQuery(self).data());
+                        // delay time for request
+                        delay: 500,
+                        filter: '',
+                        fnChecker: null,
+                        fnCheckRequest: null
+                    }, jQuery(self).data());
 
                     if (q === jQuery(self).data('defaultValue') && e.keyCode !== 13)
                         return false;
@@ -570,8 +573,8 @@
 
             var localizeType, localizeValue, isInput;
             jQuery(obj).each(function (k, v) {
-				if (jQuery(v).data('localized'))
-					return;
+                if (jQuery(v).data('localized'))
+                    return;
 
                 jQuery(v).data('localized', true);
                 isInput = jQuery(v).is('input');
@@ -596,6 +599,9 @@
                             var localDateOffset = localizeValue.getTimezoneOffset();
                             var serverValue = kendo.timezone.convert(localizeValue, localDateOffset, window.timezoneOffsetWithDst);
                             localizeValue = kendo.format('{0} {1:HH:mm:ss}', serverValue.toLocaleDateString(), serverValue);
+                            break;
+
+                        default:
                             break;
                     }
                 }
@@ -663,23 +669,23 @@
                 });
 
                 v.data('customcheckbox', true)
-                .addClass('checkbox')
-                .on('click', '.input', function (e) {
-                    var ui = jQuery(e.currentTarget),
-                        checkbox = ui.prev(':checkbox');
-                    if (!checkbox.is(':disabled')) {
-                        if (!checkbox.is(':checked')) {
-                            ui.addClass('checked');
-                            checkbox.prop('checked', true);
+                    .addClass('checkbox')
+                    .on('click', '.input', function (e) {
+                        var ui = jQuery(e.currentTarget),
+                            checkbox = ui.prev(':checkbox');
+                        if (!checkbox.is(':disabled')) {
+                            if (!checkbox.is(':checked')) {
+                                ui.addClass('checked');
+                                checkbox.prop('checked', true);
+                            }
+                            else {
+                                ui.removeClass('checked');
+                                checkbox.prop('checked', false);
+                            }
                         }
-                        else {
-                            ui.removeClass('checked');
-                            checkbox.prop('checked', false);
-                        }
-                    }
 
-                    MC.util.getController(settings.callback)(checkbox, ui);
-                });
+                        MC.util.getController(settings.callback)(checkbox, ui);
+                    });
             });
         },
         textarea: function (obj) {
@@ -724,7 +730,7 @@
                     jQuery('#contentSectionComment').busyIndicator(true);
                     MC.util.ajaxUpload('#CommentForm', {
                         loader: false,
-                        successCallback: function (data) {
+                        successCallback: function () {
                             jQuery('#CommentText').val('');
                             jQuery('#CommentForm .k-upload-status').text('');
                             jQuery('#fileAttached').replaceWith(jQuery('#fileAttached').clone(true));
@@ -741,6 +747,7 @@
                         }
                     });
                     break;
+
                 case 'editPopup':
                     setScrollablePopup();
                     var grid = jQuery('#GridComment').data('kendoGrid');
@@ -750,16 +757,18 @@
                             jQuery('#CommentText').val(MC.util.decodeHtml(dataItem.comment));
                             $('.fieldFile').hide();
                             $('#commentUri').val(dataItem.Uri);
-                            $('#SaveCommentBtn').attr("onclick", "MC.ui.commentbox('edit')")
+                            $('#SaveCommentBtn').attr("onclick", "MC.ui.commentbox('edit')");
                         }
                     }
                     break;
+
                 case 'popup':
                     setScrollablePopup();
                     $('#commentUri').val('');
                     $('.fieldFile').show();
-                    $('#SaveCommentBtn').attr("onclick", "MC.ui.commentbox('add')")
+                    $('#SaveCommentBtn').attr("onclick", "MC.ui.commentbox('add')");
                     break;
+
                 case 'delete':
                     var confirmMessage = MC.form.template.getRemoveMessage(option.obj);
                     MC.util.showPopupConfirmation(confirmMessage, function () {
@@ -769,15 +778,16 @@
                             element: option.obj,
                             type: 'DELETE'
                         })
-                        .done(function () {
-                            jQuery('#GridComment').data('kendoGrid').dataSource.read();
-                        })
-                        .always(function () {
-                            jQuery('#contentSectionComment').busyIndicator(false);
-                        });
+                            .done(function () {
+                                jQuery('#GridComment').data('kendoGrid').dataSource.read();
+                            })
+                            .always(function () {
+                                jQuery('#contentSectionComment').busyIndicator(false);
+                            });
                     });
                     MC.util.preventDefault(option.event);
                     break;
+
                 case 'initial':
                     setTimeout(function () {
                         var grid = jQuery('#GridComment').data('kendoGrid');
@@ -800,6 +810,9 @@
                             }
                         }
                     }, 1);
+                    break;
+
+                default:
                     break;
             }
         },
@@ -854,12 +867,12 @@
                     }
                 }
                 else if (settings.type === 'checkbox') {
-                    v.on('change.autosyncinput', function (e) {
+                    v.on('change.autosyncinput', function () {
                         jQuery('[id="' + v.attr('id') + '"]').not(this).prop('checked', this.checked);
                     });
                 }
                 else if (settings.type === 'textbox') {
-                    v.on('change.autosyncinput', function (e) {
+                    v.on('change.autosyncinput', function () {
                         jQuery('[id="' + v.attr('id') + '"]').not(this).val(jQuery(this).val());
                     });
                 }
@@ -867,7 +880,7 @@
         },
         hideErrorMessageOnScroll: function () {
             $('#mainContent').on('scroll.validation touchstart.validation', function () {
-                win.MC.form.validator.hideErrorMessage()
+                win.MC.form.validator.hideErrorMessage();
             });
         }
     };

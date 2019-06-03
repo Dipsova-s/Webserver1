@@ -18,16 +18,7 @@ namespace EveryAngle.OData.Tests.CollectorsTests
 
         private Angles _existingAngles;
         private IAngleDataCollector _testingCollector;
-        private Mock<IAppServerProxy> _appServerProxy = new Mock<IAppServerProxy>();
-
-        #endregion
-
-        #region constructors
-
-        public AngleDataCollectorTests()
-        {
-
-        }
+        private readonly Mock<IAppServerProxy> _appServerProxy = new Mock<IAppServerProxy>();
 
         #endregion
 

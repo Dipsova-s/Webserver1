@@ -23,7 +23,7 @@
         reloadMainContent: function () {
             var self = this;
             self.isReloadMainContent = true;
-            if (self.lastMainContentRequest != null) {
+            if (self.lastMainContentRequest !== null) {
                 MC.form.page.clear();
                 MC.form.page.collectStates();
 
@@ -38,7 +38,7 @@
             var self = this;
             var defaultSettings = {
                 timeout: MC.ajax.timeout,
-                dataFilter: function (data, type) {
+                dataFilter: function (data) {
                     // prevent json parse error if no data
                     if ($.inArray('json', this.dataTypes) !== -1 && data === '') {
                         data = null;
@@ -47,7 +47,7 @@
                 }
             };
             // disable cache for IE
-            if (!!jQuery.browser.msie)
+            if (jQuery.browser.msie)
                 defaultSettings.cache = false;
             jQuery.ajaxSetup(defaultSettings);
 
@@ -55,7 +55,7 @@
             jQuery(document).ajaxStart(function () {
                 MC.ui.loading.show();
             })
-            .ajaxSend(function (e, xhr, settings) {
+            .ajaxSend(function (e, xhr) {
                 if (xhr && xhr.setRequestHeader)
                     xhr.setRequestHeader('Accept-Language', '');
             })
@@ -69,7 +69,7 @@
             })
             .ajaxComplete(function (e, jqxhr) {
                 MC.ajax.xhr = jQuery.grep(MC.ajax.xhr, function (xhr) {
-                    return xhr != jqxhr;
+                    return xhr !== jqxhr;
                 });
 
                 setTimeout(function () {
@@ -78,7 +78,7 @@
             });
         },
         onAjaxError: function (e, xhr, settings, error) {
-            if (typeof error === 'string' && error.toLowerCase().indexOf('timeout') != -1) {
+            if (typeof error === 'string' && error.toLowerCase().indexOf('timeout') !== -1) {
                 error = Localization.MC_Ajax_RequestTimeout;
                 xhr.status = 408;
                 xhr.responseText = JSON.stringify({
@@ -150,7 +150,7 @@
                     url: url,
                     data: metadata.parameters || {},
                     type: metadata.type,
-                    xhrFields: typeof (metadata.xhrFields) === 'undefined' ? {} : metadata.xhrFields,
+                    xhrFields: typeof metadata.xhrFields === 'undefined' ? {} : metadata.xhrFields,
                     timeout: metadata.timeout,
                     success: function (data, status, xhr) {
                         if (typeof data === 'string' && data.indexOf('id="LoginForm"') !== -1) {
@@ -163,7 +163,7 @@
 
                             jQuery(metadata.target).empty().html(data);
 
-                            if (typeof (metadata.ajaxSuccess) === 'function')
+                            if (typeof metadata.ajaxSuccess === 'function')
                                 metadata.ajaxSuccess(metadata, data, status, xhr);
                         }
                     }
@@ -188,34 +188,16 @@
             }
         },
         getErrorMessage: function (xhr, settings, error) {
-            var title = error, message = '';
+            var message = '';
             try {
-                var data = {};
-                if (xhr.responseText) {
-                    try {
-                        data = jQuery.parseJSON(xhr.responseText);
-                    }
-                    catch (e) {
-                        var responseHtml = jQuery(xhr.responseText);
-                        data = {
-                            reason: responseHtml.find('h1:first').text(),
-                            message: responseHtml.find('h2:first').text()
-                        };
-                    }
-                }
-                else {
-                    data = {
-                        reason: title,
-                        message: title
-                    };
-                }
+                var data = MC.ajax.getErrorData(xhr, error);
 
                 if (!data.reason || xhr.status === 500) {
                     data.reason = Captions.Generic_Error_Message;
                     message += MC.messages.getMessage(data.reason);
                 }
                 else {
-                    if (data.reason && data.reason !== title) {
+                    if (data.reason && data.reason !== error) {
                         message = data.reason + ', ';
                     }
                     message += MC.messages.getMessage(data.message);
@@ -229,19 +211,41 @@
                 if (settings && settings.url)
                     message += (settings.type || 'unknown').toUpperCase() + ' ' + unescape(settings.url);
             }
-
+            return MC.ajax.getErrorMessageFromTemplate(xhr.status, error, data.reason, message);
+        },
+        getErrorData: function (xhr, error) {
+            var data = {};
+            if (xhr.responseText) {
+                try {
+                    data = jQuery.parseJSON(xhr.responseText);
+                }
+                catch (e) {
+                    var responseHtml = jQuery(xhr.responseText);
+                    data = {
+                        reason: responseHtml.find('h1:first').text(),
+                        message: responseHtml.find('h2:first').text()
+                    };
+                }
+            }
+            else {
+                data = {
+                    reason: error,
+                    message: error
+                };
+            }
+            return data;
+        },
+        getErrorMessageFromTemplate: function (status, error, reason, message) {
             var template = '<h1>{code}: {title}</h1><p>{message}</p>';
-            if (xhr.status)
-                template = template.replace('{code}', xhr.status);
+            if (status)
+                template = template.replace('{code}', status);
             else
                 template = template.replace('{code}: ', '');
-            template = template.replace('{title}', error || data.reason);
+            template = template.replace('{title}', error || reason);
             template = template.replace('{message}', message);
-
             return template;
         }
     };
-
 
     win.MC.ajax = ajax;
     win.MC.ajax.init();

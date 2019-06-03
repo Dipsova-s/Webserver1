@@ -116,7 +116,7 @@ namespace EveryAngle.WebClient.Service.ApiServices
         {
             Func<JObject, string> resolver = delegate (JObject result)
             {
-                return ListViewModelResolver<T>(result, PAGABLE_HEADER_ATTRIBUTE, dataAttribute);
+                return ListViewModelResolver(result, PAGABLE_HEADER_ATTRIBUTE, dataAttribute);
             };
             return GetPagableItems<T>(uri, resolver);
         }
@@ -269,12 +269,12 @@ namespace EveryAngle.WebClient.Service.ApiServices
         /// <param name="headerAttribute">Attribute which needs to return as header</param>
         /// <param name="dataAttribute">Attribute which needs to return as response</param>
         /// <returns></returns>
-        public string ListViewModelResolver<T>(JObject result, string headerAttribute, string dataAttribute) where T : class
+        public string ListViewModelResolver(JObject result, string headerAttribute, string dataAttribute)
         {
-            ListViewModel<T> listView = new ListViewModel<T>
+            ListViewModel<dynamic> listView = new ListViewModel<dynamic>
             {
                 Header = DeserializeObject<HeaderViewModel>(ResultResolver(result, headerAttribute)),
-                Data = DeserializeObject<List<T>>(ResultResolver(result, dataAttribute))
+                Data = DeserializeObject<List<dynamic>>(ResultResolver(result, dataAttribute))
             };
             return JsonConvert.SerializeObject(listView);
         }

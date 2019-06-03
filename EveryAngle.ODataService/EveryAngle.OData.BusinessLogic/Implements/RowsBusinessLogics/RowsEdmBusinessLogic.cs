@@ -153,16 +153,18 @@ namespace EveryAngle.OData.BusinessLogic.Rows
             if (string.IsNullOrEmpty(resultId))
                 return _appServerProxy.ExecuteAngleDisplay(context.User, display);
 
+            string resultUri = $"/results/{resultId}";
+
             // if Skip is null(pre-request), get a prepared result.
             if (queryOptions.Skip == null)
-                return _appServerProxy.GetResult(context.User, "/results/" + resultId);
+                return _appServerProxy.GetResult(context.User, resultUri);
 
             // if result's datarows is available, return successfully_completed with a datarows uri.
             return new QueryResult
             {
                 successfully_completed = true,
-                uri = string.Format("/results/{0}", resultId),
-                data_rows = string.Format("/results/{0}/datarows", resultId)
+                uri = resultUri,
+                data_rows = $"{resultUri}/datarows"
             };
         }
 

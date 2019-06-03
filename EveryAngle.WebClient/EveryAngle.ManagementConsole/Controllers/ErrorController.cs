@@ -20,8 +20,9 @@ namespace EveryAngle.ManagementConsole.Controllers
                     ViewBag.ErrorTitle = result.reason.Value;
                     ViewBag.ErrorMessage = result.message.Value;
                 }
-                catch (Exception)
+                catch
                 {
+                    // no error
                 }
             }
             else if (Response.StatusCode == 404)

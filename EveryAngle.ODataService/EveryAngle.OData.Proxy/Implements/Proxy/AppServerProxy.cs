@@ -17,9 +17,9 @@ namespace EveryAngle.OData.Proxy
     {
         #region private variables
 
-        private IEARestClient _client;
+        private readonly IEARestClient _client;
         private int _model = -1;
-        private User _systemUser;
+        private readonly User _systemUser;
         private readonly HttpStatusCode[] _postAcceptedStatusCodes = new HttpStatusCode[] { HttpStatusCode.Created, HttpStatusCode.OK };
 
         #endregion
@@ -154,12 +154,12 @@ namespace EveryAngle.OData.Proxy
         public virtual QueryResult ExecuteAngleDisplay(User user, Display display)
         {
             // Create ExecuteAngle query
-            QueryRequest query = new QueryRequest()
+            QueryRequest query = new QueryRequest
             {
                 query_definition = new List<QueryBlock>
                 {
-                    new QueryBlock() { queryblock_type = "base_angle", base_angle = display.angle_uri },
-                    new QueryBlock() { queryblock_type = "base_display", base_display = display.uri }
+                    new QueryBlock { queryblock_type = "base_angle", base_angle = display.angle_uri },
+                    new QueryBlock { queryblock_type = "base_display", base_display = display.uri }
                 }
             };
 
@@ -201,11 +201,10 @@ namespace EveryAngle.OData.Proxy
 
             // Re-login when the security token or session has expired
             // 440 session timeout is custom status returned by AS
-            if (response.StatusCode == HttpStatusCode.Unauthorized ||
-                response.StatusCode == (HttpStatusCode)440)
+            if ((response.StatusCode == HttpStatusCode.Unauthorized || response.StatusCode == (HttpStatusCode)440)
+                && LoginUser(user))
             {
-                if (LoginUser(user))
-                    response = _Get<T>(resourceUrl, user);
+                response = _Get<T>(resourceUrl, user);
             }
 
             // in case of AS returns 422-Unprocessable entity or Forbidden return with default object's value
@@ -222,10 +221,10 @@ namespace EveryAngle.OData.Proxy
 
             // Re-login when the security token or session has expired
             // 440 session timeout is custom status returned by AS
-            if (response.StatusCode == HttpStatusCode.Unauthorized || response.StatusCode == (HttpStatusCode)440)
+            if ((response.StatusCode == HttpStatusCode.Unauthorized || response.StatusCode == (HttpStatusCode)440)
+                && LoginUser(user))
             {
-                if (LoginUser(user))
-                    response = _Post<T>(resourceUrl, obj, user, redirect);
+                response = _Post<T>(resourceUrl, obj, user, redirect);
             }
 
             // in case of AS returns 422-Unprocessable entity or Forbidden return with object's default value

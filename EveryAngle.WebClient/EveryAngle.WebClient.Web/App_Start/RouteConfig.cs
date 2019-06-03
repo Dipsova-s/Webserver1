@@ -5,7 +5,7 @@ using System.Web.Routing;
 
 namespace EveryAngle.WebClient.Web
 {
-    public class RouteConfig
+    public static class RouteConfig
     {
         public static void RegisterRoutes(RouteCollection routes)
         {

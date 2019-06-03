@@ -20,8 +20,7 @@ namespace EveryAngle.ManagementConsole.Test.Controllers
         #region private variables
 
         private AngleWarningsController _testingController;
-        private Mock<SessionViewModel> _sessionViewmodel = new Mock<SessionViewModel>();
-        private TaskViewModel _taskViewmodel = new TaskViewModel();
+        private readonly Mock<SessionViewModel> _sessionViewmodel = new Mock<SessionViewModel>();
 
         #endregion
 
@@ -34,17 +33,17 @@ namespace EveryAngle.ManagementConsole.Test.Controllers
             base.Setup();
 
             // global service
-            globalSettingService.Setup(x => x.GetFieldCategories(It.IsAny<string>())).Returns(new ListViewModel<FieldCategoryViewModel>() {  Data = new List<FieldCategoryViewModel>() });
+            globalSettingService.Setup(x => x.GetFieldCategories(It.IsAny<string>())).Returns(new ListViewModel<FieldCategoryViewModel> {  Data = new List<FieldCategoryViewModel>() });
             globalSettingService.Setup(x => x.GetBusinessProcesses(It.IsAny<string>())).Returns(new List<BusinessProcessViewModel>());
 
             // model service
-            _taskViewmodel = new TaskViewModel { id = "test_task" };
+            TaskViewModel taskViewmodel = new TaskViewModel { id = "test_task" };
             modelService.Setup(x => x.GetFollowups(It.IsAny<string>())).Returns(new List<FollowupViewModel>
             {
                 new FollowupViewModel { id = "test_followup" }
             });
-            modelService.Setup(x => x.CreateTask(It.IsAny<string>(), It.IsAny<string>())).Returns(_taskViewmodel);
-            modelService.Setup(x => x.GetTask(It.IsAny<string>())).Returns(_taskViewmodel);
+            modelService.Setup(x => x.CreateTask(It.IsAny<string>(), It.IsAny<string>())).Returns(taskViewmodel);
+            modelService.Setup(x => x.GetTask(It.IsAny<string>())).Returns(taskViewmodel);
             modelService.Setup(x => x.GetTaskHistories(It.IsAny<string>())).Returns(new ListViewModel<TaskHistoryViewModel>
             {
                 Data = new List<TaskHistoryViewModel>

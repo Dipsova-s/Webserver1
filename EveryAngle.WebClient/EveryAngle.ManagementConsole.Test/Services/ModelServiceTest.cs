@@ -144,47 +144,6 @@ namespace EveryAngle.ManagementConsole.Services.Test
             result.Data = roles;
             return result;
         }
-
-        private SystemRoleViewModel GetRoleMockData()
-        {
-            SystemRoleViewModel roles = new SystemRoleViewModel();
-
-            SystemRoleViewModel modelServer = new SystemRoleViewModel
-            {
-                Id = "SystemRolesId",
-                Description = "Description",
-                Uri = new Uri("http://testuri.com/"),
-                Consolidated_role = new Uri("http://testuri.com/"),
-                SubRolesUri = new Uri("http://testuri.com/")
-            };
-            modelServer.SystemPrivileges = new SystemPrivilegeViewModel
-            {
-                manage_system = true
-            };
-            modelServer.ModelPrivilege = new ModelPrivilegeViewModel
-            {
-                AllowedClasses = new List<string> { "Class1", "Class2" },
-                DeniedClasses = new List<string> { "Class3", "Class4" },
-                DefaultClassAuthorization = true,
-                LabelAuthorizations = new Dictionary<string, string>
-                {
-                    { "ao", "validate" },
-                    { "SC", "validate" }
-                },
-                roles = new List<AssignedRoleViewModel>
-                {
-                    new AssignedRoleViewModel
-                    {
-                        RoleId = "Class3"
-                    },
-                    new AssignedRoleViewModel
-                    {
-                        RoleId = "Class4"
-                    }
-                }
-            };
-            return modelServer;
-        }
         
         [SetUp]
         public void Initialize()

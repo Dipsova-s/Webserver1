@@ -18,8 +18,9 @@
         start: function (requests, callback, count) {
             MC.util.massReport.initial();
 
-            if (typeof count != 'number') count = 6;
-            var isCustomDeferrred = requests.length && typeof requests[0] == 'object' && typeof requests[0].fn == 'function';
+            if (typeof count !== 'number')
+                count = 6;
+            var isCustomDeferrred = requests.length && typeof requests[0] === 'object' && typeof requests[0].fn === 'function';
             if (isCustomDeferrred) {
                 var sendAync = function () {
                     return jQuery.when.apply(jQuery, jQuery.map(requests.splice(0, count), function (d) {
@@ -88,7 +89,7 @@
             msg = msg.replace('<p></p>', '<ul>' + MC.util.massReport.reports.join('') + '</ul>');
             MC.ui.loading.setInfo(msg);
             $('#loading .loadingClose').off('click.close').on('click.close', function () {
-                if (typeof onClose == 'function') {
+                if (typeof onClose === 'function') {
                     onClose();
                 }
                 else {

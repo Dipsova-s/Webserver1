@@ -20,7 +20,8 @@ namespace EveryAngle.Core.Interfaces.Services
         void DeleteTaskAction(string taskActionUri);
 
         // history
-        ListViewModel<TaskHistoryViewModel> GetTaskHistories(string taskHistoryUri);
+        ListViewModel<TaskHistoryViewModel> GetTaskHistories(string taskHistoriesUri);
+        TaskHistoryViewModel GetTaskHistory(string taskHistoryUri);
 
         // action list
         List<ActionListViewModel> GetActionList(string actionListUri);

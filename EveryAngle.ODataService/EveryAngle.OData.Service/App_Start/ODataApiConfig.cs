@@ -133,12 +133,12 @@ namespace EveryAngle.OData.App_Start
 
             // create an API descriptor with extra properties that the controller needs
             // should move this one to other place, maybe SettingsApi.Resgister + SyncMetadataApi.Register
-            SetRoutingDescriptor(typeof(ODataSettingsApiController), "settings", registerEntry);
-            SetRoutingDescriptor(typeof(SyncMetadataApiController), "metadata", registerEntry);
-            SetRoutingDescriptor(typeof(AppEntryApiController), "entry", registerEntry);
+            SetRoutingDescriptor(typeof(ODataSettingsApiController), "settings");
+            SetRoutingDescriptor(typeof(SyncMetadataApiController), "metadata");
+            SetRoutingDescriptor(typeof(AppEntryApiController), "entry");
         }
 
-        private static void SetRoutingDescriptor(Type apiControllerType, string controllerName, bool registerEntry)
+        private static void SetRoutingDescriptor(Type apiControllerType, string controllerName)
         {
             HttpControllerDescriptor descriptor = new HttpControllerDescriptor(_configuration, controllerName, apiControllerType);
             _masterEdmModelBusinessLogic.SetAngleDisplayDescriptor(controllerName, descriptor);

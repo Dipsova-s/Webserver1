@@ -68,18 +68,6 @@ namespace EveryAngle.OData.Service.Attributes
             return contentLength;
         }
 
-        //protected static string GetHeader(HttpRequestHeaders headers, string key)
-        //{
-        //    string output = null;
-        //    key = key.Trim().ToLower();
-        //    KeyValuePair<string, IEnumerable<string>> header = headers.FirstOrDefault(h => h.Key.Trim().ToLower() == key);
-        //    if (header.Value != null)
-        //    {
-        //        output = header.Value.FirstOrDefault();
-        //    }
-        //    return output;
-        //}
-
         protected static void StartPerformanceMeasurement(HttpRequestMessage request)
         {
             // start requesting performance measure

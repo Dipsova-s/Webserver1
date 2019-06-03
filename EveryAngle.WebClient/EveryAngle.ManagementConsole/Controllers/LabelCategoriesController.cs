@@ -222,18 +222,9 @@ namespace EveryAngle.ManagementConsole.Controllers
         public ActionResult EditLabelCategoryGrid(string categoryUri, List<SystemLanguageViewModel> enabledLanguagesList,
             LabelCategoryViewModel labelCategory = null)
         {
-            var labelsTable = new DataTable();
-
-            if (categoryUri == "")
-            {
-                labelsTable = labelService.GetMultilingualLabelCategory(null);
-            }
-            else
-            {
-                labelsTable =
-                    labelService.GetMultilingualLabelCategory(UrlHelper.GetRequestUrl(URLType.NOA) + categoryUri,
-                        labelCategory, enabledLanguagesList);
-            }
+            DataTable labelsTable = categoryUri == ""
+                    ? labelService.GetMultilingualLabelCategory(null)
+                    : labelService.GetMultilingualLabelCategory(UrlHelper.GetRequestUrl(URLType.NOA) + categoryUri, labelCategory, enabledLanguagesList);
 
             ViewData["LanguagesList"] = enabledLanguagesList;
             return PartialView("~/Views/GlobalSettings/Labels/LabelCategoryEditGrid.cshtml", labelsTable);
@@ -553,8 +544,7 @@ namespace EveryAngle.ManagementConsole.Controllers
 
                     for (var i = 0; i < modelLabelCategoryCount; i++)
                     {
-                        var labelCategory = new LabelCategoryViewModel();
-                        modelLabelCategory.TryGetValue(systemCategory.labels, out labelCategory);
+                        modelLabelCategory.TryGetValue(systemCategory.labels, out LabelCategoryViewModel labelCategory);
 
                         if (labelCategory != null)
                         {
@@ -605,7 +595,7 @@ namespace EveryAngle.ManagementConsole.Controllers
                 }
                 else
                 {
-                    if (modelLabelCategory.Data.Where(m => m.uri.Contains(category.uri)).Count() != 0)
+                    if (modelLabelCategory.Data.Any(m => m.uri.Contains(category.uri)))
                     {
                         labelService.UpdateLabelCategory(UrlHelper.GetRequestUrl(URLType.NOA) + category.uri,
                             JsonConvert.SerializeObject(category,

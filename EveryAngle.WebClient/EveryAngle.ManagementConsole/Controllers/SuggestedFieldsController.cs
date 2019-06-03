@@ -46,8 +46,8 @@ namespace EveryAngle.ManagementConsole.Controllers
             var summary = modelService.GetSuggestedFieldsSummary(model.suggested_fields_summary.ToString());
             summary.suggested_fields_timestamp = eventlog != null ? eventlog.timestamp : (long?) null;
             summary.suggested_fields_last_change = eventlog != null
-                ? eventlog.arguments.Where(x => x.name == "manually_started_by").FirstOrDefault() != null
-                    ? Convert.ToString(eventlog.arguments.Where(x => x.name == "manually_started_by").First().value)
+                ? eventlog.arguments.FirstOrDefault(x => x.name == "manually_started_by") != null
+                    ? Convert.ToString(eventlog.arguments.FirstOrDefault(x => x.name == "manually_started_by").value)
                     : "-"
                 : "-";
 
@@ -78,7 +78,7 @@ namespace EveryAngle.ManagementConsole.Controllers
             var version = SessionHelper.Initialize().Version;
             var modelSuggestedFields = modelService.CreateTask(version.GetEntryByName("tasks").Uri.ToString(), taskData);
 
-            modelSuggestedFields = modelService.CreateTask(modelSuggestedFields.Uri + "/execution",
+            modelSuggestedFields = modelService.CreateTask($"{modelSuggestedFields.Uri}/execution",
                 "{\"start\":true,\"reason\":\"Manual execute from MC\"}");
             return Json(modelSuggestedFields, JsonRequestBehavior.AllowGet);
         }

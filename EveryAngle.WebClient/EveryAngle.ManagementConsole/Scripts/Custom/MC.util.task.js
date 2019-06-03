@@ -1,4 +1,4 @@
-(function (win, $) {
+(function (win) {
 
     var getTriggerValue = function (data, property) {
         /// <summary>get trigger value from task data</summary>
@@ -7,7 +7,7 @@
         /// <returns type="Object"></returns>
 
         var trigger = MC.util.task.getTrigger(data);
-        if (trigger && trigger[property] != null)
+        if (trigger && trigger[property] !== null)
             return trigger[property];
         return null;
     };
@@ -151,4 +151,4 @@
     };
     win.MC.util.task = task;
 
-})(window, window.jQuery);
+})(window);

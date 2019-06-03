@@ -62,7 +62,7 @@ namespace EveryAngle.ManagementConsole.Test.Controllers
             _testingController = GetTestController();
 
             // execute
-            ActionResult result = _testingController.GetAllUsers();
+            _testingController.GetAllUsers();
 
             // assert
             Assert.IsTrue(_testingController.ViewBag.CurrentUser.EndsWith(userUri));
@@ -87,7 +87,7 @@ namespace EveryAngle.ManagementConsole.Test.Controllers
             // assert
             Assert.AreEqual(userId, _testingController.ViewBag.CurrentUserID);
             Assert.IsTrue(_testingController.ViewBag.CurrentUserUri.EndsWith(userUri));
-            Assert.AreEqual(_testingController.ViewData["DefaultPageSize"], 30);
+            Assert.AreEqual(30, _testingController.ViewData["DefaultPageSize"]);
             Assert.AreEqual(query, _testingController.ViewBag.Query);
         }
 
@@ -170,7 +170,7 @@ namespace EveryAngle.ManagementConsole.Test.Controllers
             _testingController = GetTestController();
 
             // execute
-            ActionResult result = _testingController.GetNewUsers(fullUsersUri);
+            _testingController.GetNewUsers(fullUsersUri);
             var defaultRoles = JsonConvert.DeserializeObject<IList<KendoMultiSelectViewModel>>(_testingController.ViewData["DefaultRoles"] as string);
             var systemRoles = JsonConvert.DeserializeObject<IList<KendoMultiSelectViewModel>>(_testingController.ViewData["SystemRoles"] as string);
 
@@ -188,7 +188,7 @@ namespace EveryAngle.ManagementConsole.Test.Controllers
             _testingController = GetTestController();
 
             // execute
-            ActionResult result = _testingController.RenderImportUserGrid(providerUri);
+            _testingController.RenderImportUserGrid(providerUri);
 
             // assert
             Assert.AreEqual(_testingController.ViewBag.SystemAuthenticationProviderUri, providerUri);
@@ -305,7 +305,7 @@ namespace EveryAngle.ManagementConsole.Test.Controllers
             _testingController = GetTestController();
 
             // execute
-            ActionResult result = _testingController.EditUser(userUri);
+            _testingController.EditUser(userUri);
             List<string> assignedRoles = ((List<SystemRoleViewModel>)_testingController.ViewData["AssignedRoles"]).Select(x => x.Id).ToList();
             List<string> availableRoles = ((List<SystemRoleViewModel>)_testingController.ViewData["AvailableRoles"]).Select(x => x.Id).ToList();
             List<string> authenticationProvidersList = (List<string>)_testingController.ViewData["AuthenticationProvidersList"];
@@ -326,7 +326,7 @@ namespace EveryAngle.ManagementConsole.Test.Controllers
             _testingController = GetTestController();
 
             // execute
-            ActionResult result = _testingController.AssignedRolesGrid("/users/1", null);
+            _testingController.AssignedRolesGrid("/users/1", null);
 
             // assert
             Assert.AreEqual("/users/1", _testingController.ViewBag.UserUri);
@@ -376,7 +376,7 @@ namespace EveryAngle.ManagementConsole.Test.Controllers
             _testingController = GetTestController();
 
             // execute
-            ActionResult result = _testingController.GetAllSessions();
+            _testingController.GetAllSessions();
 
             // assert
             Assert.AreEqual(sessionHelper.Object.CurrentUser.Uri.ToString(), _testingController.ViewBag.CurrentUserUri);
@@ -390,7 +390,7 @@ namespace EveryAngle.ManagementConsole.Test.Controllers
             _testingController = GetTestController();
 
             // execute
-            ActionResult result = _testingController.GetFilterSessions(query);
+            _testingController.GetFilterSessions(query);
 
             // assert
             Assert.AreEqual(30, _testingController.ViewData["DefaultPageSize"]);
@@ -477,7 +477,7 @@ namespace EveryAngle.ManagementConsole.Test.Controllers
             _testingController = GetTestController();
 
             // execute
-            ActionResult result = _testingController.GetUserDefaultSetting();
+            _testingController.GetUserDefaultSetting();
 
             // assert
             Assert.AreEqual(2, ((List<SystemLanguageViewModel>)_testingController.ViewData["Languages"]).Count);

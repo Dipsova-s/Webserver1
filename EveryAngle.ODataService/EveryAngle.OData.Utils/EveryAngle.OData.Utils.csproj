@@ -68,7 +68,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Constants\CookieName.cs" />
-    <Compile Include="Constants\HeaderName.cs" />
     <Compile Include="EdmPrimitiveConvert.cs" />
     <Compile Include="Exceptions\ExceptionCodeHelper.cs" />
     <Compile Include="Exceptions\ExceptionReasonMessageHelper.cs" />

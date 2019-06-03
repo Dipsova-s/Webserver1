@@ -5,10 +5,6 @@ namespace EveryAngle.OData.Tests
     public abstract class UnitTestBase
     {
         protected MockEdmModelContainer MockEdmModelContainer { get; set; }
-        public UnitTestBase()
-        {
-
-        }
 
         public virtual void Initialize()
         {

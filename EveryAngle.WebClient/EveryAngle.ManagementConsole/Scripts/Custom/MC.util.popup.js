@@ -5,9 +5,9 @@
         var popup = $('#' + popupId).data('kendoWindow');
         if (!popup) {
             $('body').append('<div class="popup" id="' + popupId + '">'
-                   + '<div class="popupContent"></div>'
-                   + '<div class="popupToolbar"></div>'
-                   + '</div>');
+                + '<div class="popupContent"></div>'
+                + '<div class="popupToolbar"></div>'
+                + '</div>');
             popup = $('#' + popupId).kendoWindow().data('kendoWindow');
         }
         return popup;
@@ -72,36 +72,37 @@
 
             var popupElement = jQuery('#popupAbout');
             popupElement.empty().busyIndicator(true);
-            MC.ajax.request({
-                url: aboutUri
-            })
-            .fail(function () {
-                var kPopup = popupElement.data('kendoWindow');
-                if (kPopup)
-                    kPopup.close();
-            })
-            .done(function (data, status, xhr) {
-                popupElement.html(data);
-
-                var kPopup = jQuery('#popupAbout').data('kendoWindow');
-                if (kPopup) {
-                    kPopup.setOptions({
-                        resizable: false,
-                        actions: ["Close"]
-                    });
-
-                    kPopup.bind('close', function () {
-                        $('.k-overlay').off('click.close');
-                    });
-
-                    jQuery('.k-overlay').one('click.close', function () {
+            MC.ajax
+                .request({
+                    url: aboutUri
+                })
+                .fail(function () {
+                    var kPopup = popupElement.data('kendoWindow');
+                    if (kPopup)
                         kPopup.close();
-                    });
-                }
-            })
-            .always(function () {
-                popupElement.busyIndicator(false);
-            });
+                })
+                .done(function (data) {
+                    popupElement.html(data);
+
+                    var kPopup = jQuery('#popupAbout').data('kendoWindow');
+                    if (kPopup) {
+                        kPopup.setOptions({
+                            resizable: false,
+                            actions: ["Close"]
+                        });
+
+                        kPopup.bind('close', function () {
+                            $('.k-overlay').off('click.close');
+                        });
+
+                        jQuery('.k-overlay').one('click.close', function () {
+                            kPopup.close();
+                        });
+                    }
+                })
+                .always(function () {
+                    popupElement.busyIndicator(false);
+                });
         },
         showPopupOK: function (title, message, eventOkButton, width, height) {
             var popupId = 'popupConfirmAction';
@@ -176,7 +177,7 @@
             var submitButton = $('<a class="btn btnPrimary btnSubmit">' + Localization.Ok + '</a>');
             setButtonHandler(submitButton, eventOkButton);
 
-            //add cancel button 
+            //add cancel button
             var cancelButton = $('<a class="btn btnConfirmCancel">' + Localization.Cancel + '</a>');
             setButtonHandler(cancelButton, eventCancelButton);
 

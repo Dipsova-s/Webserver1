@@ -1,4 +1,4 @@
-(function (win) {
+(function () {
 
     var topMenu = {
         menuIds: {
@@ -74,4 +74,4 @@
     MC.topMenu = topMenu;
     MC.topMenu.init();
 
-})(window);
+})();

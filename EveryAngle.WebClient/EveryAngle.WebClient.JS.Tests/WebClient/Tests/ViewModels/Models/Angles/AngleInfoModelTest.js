@@ -112,8 +112,8 @@ describe("AngleInfoModel test", function () {
 
             var executedBy = angleInfoModel.ExecutedBy();
 
-            expect(executedBy.datetime == null).toEqual(true);
-            expect(executedBy.full_name == null).toEqual(true);
+            expect(executedBy.datetime).not.toBeDefined();
+            expect(executedBy.full_name).not.toBeDefined();
         });
 
         it("can get executed if it is defined", function () {

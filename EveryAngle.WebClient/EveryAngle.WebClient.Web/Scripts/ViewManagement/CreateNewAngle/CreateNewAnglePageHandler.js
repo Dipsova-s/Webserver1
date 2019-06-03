@@ -428,7 +428,7 @@ function CreateNewAngleViewManagementModel() {
                 self.SetSchemaHelpTexts();
             }
             catch (err) {
-                // prevent error
+                // no error
             }
 
             jQuery('#mapImageSource').attr('src', picture);
@@ -489,7 +489,7 @@ function CreateNewAngleViewManagementModel() {
         }
     };
     self.SetSchemaName = function (helptexts) {
-        if (helptexts && helptexts.length !== 0) {
+        if (helptexts !== null && helptexts.length !== 0) {
             jQuery('#Schema > div').each(function (index, value) {
                 var schemaObject = jQuery(value),
                     element = helptexts.findObject('id', schemaObject.attr('name').toLowerCase().replace('classid_', ''), false);

@@ -8,15 +8,6 @@ namespace EveryAngle.OData.Tests.RepositoryTests
     [TestFixture(Category = "Repository")]
     public class EdmModelContainerTests : UnitTestBase
     {
-        #region constructors
-
-        public EdmModelContainerTests()
-        {
-
-        }
-
-        #endregion
-
         #region setup/teardown
 
         [SetUp]

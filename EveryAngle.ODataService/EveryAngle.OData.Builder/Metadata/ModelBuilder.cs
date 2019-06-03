@@ -222,7 +222,7 @@ namespace EveryAngle.OData.Builder.Metadata
                     result.Add(modelField);
                 else
                 {
-                    result.Add(new Field() { id = fieldId });
+                    result.Add(new Field { id = fieldId });
                     missingFields.Add(fieldId);
                 }
             }
@@ -241,7 +241,7 @@ namespace EveryAngle.OData.Builder.Metadata
                     LogService.Info(String.Format("Unknown fields: {0}", string.Join(",", unknownFieldIds)));
                     foreach (string unknownFieldId in unknownFieldIds)
                     {
-                        Field unknownField = new Field() { id = unknownFieldId, uri = string.Format("/unknowns/{0}", unknownFieldId.GetHashCode()) };
+                        Field unknownField = new Field { id = unknownFieldId, uri = string.Format("/unknowns/{0}", unknownFieldId.GetHashCode()) };
                         unknownField.SetAsUnavailable();
                         unknownField.UpdateUniqueXMLElementKey(unknownField.AsXMLElementName());
                         _edmModelBusinessLogic.TrySaveField(unknownField.CompositeKey, unknownField);
@@ -383,7 +383,7 @@ namespace EveryAngle.OData.Builder.Metadata
         }
         private bool ContainsInvalidDefaultDisplay(Angle angle)
         {
-            Display defaultDisplay = angle.display_definitions.First(display => display.is_angle_default == true);
+            Display defaultDisplay = angle.display_definitions.First(display => display.is_angle_default);
             bool containsValidDisplayField = defaultDisplay.fields.Any(field => field.valid);
             if (!containsValidDisplayField)
             {
@@ -397,7 +397,7 @@ namespace EveryAngle.OData.Builder.Metadata
             if (angle.displays_summary == null)
                 return false;
 
-            bool containsPublicDisplays = angle.displays_summary.Any(display => display.is_public == true);
+            bool containsPublicDisplays = angle.displays_summary.Any(display => display.is_public);
             if (!containsPublicDisplays)
             {
                 LogService.Warn(string.Format("WARN: [angle:{0}  message: contains no public display(s)]", angle.name));

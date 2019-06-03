@@ -1,12 +1,4 @@
-using EveryAngle.Core.ViewModels.Angle;
-using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
-using System.Drawing;
-using System.IO;
-using System.Linq;
 using System.Web.Mvc;
-using System.Text.RegularExpressions;
 
 namespace EveryAngle.WebClient.Web.Controllers
 {
@@ -16,22 +8,13 @@ namespace EveryAngle.WebClient.Web.Controllers
         [OutputCache(Duration = 0, NoStore = false)]
         public ActionResult Get(string id)
         {
-            string view = String.Empty;
-
-            switch (id.ToLower())
+            if (id.ToLowerInvariant() == "loginpopup")
             {
-                case "loginpopup":
-                    view = @"~/Views/User/PartialViews/UserLoginBodyPage.cshtml";
-                    break;
-            }
-
-            if (view == string.Empty)
-            {
-                return Content("Popup: " + id + " does not exists.");
+                return PartialView(@"~/Views/User/PartialViews/UserLoginBodyPage.cshtml");
             }
             else
             {
-                return PartialView(view);
+                return Content("Popup: " + id + " does not exists.");
             }
         }
     }

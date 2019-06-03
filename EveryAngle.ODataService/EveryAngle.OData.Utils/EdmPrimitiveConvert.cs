@@ -1,10 +1,32 @@
 ﻿using EveryAngle.OData.DTO;
 using Microsoft.Data.Edm;
+using System;
+using System.Collections.Generic;
 
 namespace EveryAngle.OData.Utils
 {
-    public class EdmPrimitiveConvert
+    public static class EdmPrimitiveConvert
     {
+        static Dictionary<string, EdmPrimitiveTypeKind> EdmPrimitiveTypeMapper = new Dictionary<string, EdmPrimitiveTypeKind>
+        {
+            { "int", EdmPrimitiveTypeKind.Int64 },
+            { "period", EdmPrimitiveTypeKind.Int64 },
+            
+            { "percentage", EdmPrimitiveTypeKind.Double },
+            { "double", EdmPrimitiveTypeKind.Double },
+            { "timespan", EdmPrimitiveTypeKind.Double },
+
+            { "currency", EdmPrimitiveTypeKind.Decimal },
+
+            { "date", EdmPrimitiveTypeKind.DateTime },
+            { "datetime", EdmPrimitiveTypeKind.DateTime },
+            { "duration", EdmPrimitiveTypeKind.DateTime },
+
+            { "time", EdmPrimitiveTypeKind.Time },
+
+            { "boolean", EdmPrimitiveTypeKind.Boolean },
+        };
+
         // determine Edm kind from field type
         public static EdmPrimitiveTypeKind? GetKind(Field field)
         {
@@ -13,31 +35,11 @@ namespace EveryAngle.OData.Utils
 
         public static EdmPrimitiveTypeKind? GetKind(string field)
         {
-            switch (field)
+            if (field ==null || !EdmPrimitiveTypeMapper.TryGetValue(field, out EdmPrimitiveTypeKind type))
             {
-                case "int":
-                case "period":
-                    return EdmPrimitiveTypeKind.Int64;
-                case "percentage":
-                case "double":
-                case "timespan":
-                    return EdmPrimitiveTypeKind.Double;
-                case "currency":
-                    return EdmPrimitiveTypeKind.Decimal;
-                case "date":
-                case "datetime":
-                    return EdmPrimitiveTypeKind.DateTime;
-                case "time":
-                    return EdmPrimitiveTypeKind.Time;
-                case "duration":
-                    return EdmPrimitiveTypeKind.DateTime;
-                case "boolean":
-                    return EdmPrimitiveTypeKind.Boolean;
-                case "text":
-                case null:
-                default:
-                    return EdmPrimitiveTypeKind.String;
+                type = EdmPrimitiveTypeKind.String;
             }
+            return type;
         }
     }
 }

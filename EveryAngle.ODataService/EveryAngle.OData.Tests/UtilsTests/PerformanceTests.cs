@@ -15,19 +15,20 @@ namespace EveryAngle.OData.Tests.UtilsTests
         [SetUp]
         public void Setup()
         {
-
+            // setup
         }
 
         [TearDown]
         public void TearDown()
         {
-
+            // tear down
         }
 
         #endregion
 
         #region tests
 
+        [Ignore("Unstable test, it depends on running machine.")]
         [TestCase]
         [Timeout(1000)]
         public void Can_SurpressListPerformance()
@@ -47,7 +48,7 @@ namespace EveryAngle.OData.Tests.UtilsTests
             AngleCompositeKey key = new AngleCompositeKey { InternalId = 499, Uri = "models/1/angles/499" };
 
             listWatch.Start();
-            Angle getListAngle = listAngles.Where(x => x.uri == key.Uri).First();
+            Angle getListAngle = listAngles.First(x => x.uri == key.Uri);
             listWatch.Stop();
 
             concurrentWatch.Start();

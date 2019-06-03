@@ -62,7 +62,7 @@
     // extend kendo core
     var formatRegExp = /\{(\d+)(:[^\}]+)?\}/g;
     var isDurationFormat = function (fmt) {
-        return typeof fmt == 'string' && fmt.toLowerCase().indexOf('h]') !== -1;
+        return typeof fmt === 'string' && fmt.toLowerCase().indexOf('h]') !== -1;
     };
     var formatDuration = function (value, fmt, culture) {
         if (!isNaN(parseFloat(value))) {

@@ -15,10 +15,10 @@ namespace EveryAngle.OData.Service.Hubs
     public class MetadataMonitoringHub : Hub
     {
         // just instantiate it first, don't create everytime we call.
-        private ItemMonitoringViewModel _angleMonitoring = new ItemMonitoringViewModel();
-        private ItemMonitoringViewModel _displayMonitoring = new ItemMonitoringViewModel();
-        private ItemMonitoringViewModel _fieldMonitoring = new ItemMonitoringViewModel();
-        private MetadataMonitoringViewModel _metadataMonitoringViewModel = new MetadataMonitoringViewModel(ODataSettings.ViewModel, 0);
+        private readonly ItemMonitoringViewModel _angleMonitoring = new ItemMonitoringViewModel();
+        private readonly ItemMonitoringViewModel _displayMonitoring = new ItemMonitoringViewModel();
+        private readonly ItemMonitoringViewModel _fieldMonitoring = new ItemMonitoringViewModel();
+        private readonly MetadataMonitoringViewModel _metadataMonitoringViewModel = new MetadataMonitoringViewModel(ODataSettings.ViewModel, 0);
 
         private readonly IMasterEdmModelBusinessLogic _edmModelBusinessLogic = ObjectFactory.GetInstance<IMasterEdmModelBusinessLogic>();
 

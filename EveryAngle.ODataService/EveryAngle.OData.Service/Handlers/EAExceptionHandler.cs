@@ -11,7 +11,7 @@ using System.Web.Http.OData.Extensions;
 namespace EveryAngle.OData.Service.Handlers
 {
     // Copy from AS EAExceptionHandler, this should be implement on share components 
-    internal class EAExceptionHandler
+    internal static class EAExceptionHandler
     {
         public static HttpResponseMessage CreateResponse(HttpRequestMessage requestMessage, Exception exception)
         {
@@ -44,7 +44,7 @@ namespace EveryAngle.OData.Service.Handlers
             return response;
         }
 
-        private static HttpResponseMessage CreateResponse(HttpRequestMessage requestmessage, HttpStatusCode statusCode, string returnReason, string returnMessage, Dictionary<string, string> headers, int? eaErrorCode = null)
+        private static HttpResponseMessage CreateResponse(HttpRequestMessage requestmessage, HttpStatusCode statusCode, string returnReason, string returnMessage, Dictionary<string, string> headers)
         {
             HttpResponseMessage response = requestmessage.CreateResponse(statusCode, new ResponseStatusViewModel(returnReason, returnMessage));
             response.Headers.Add("ContentType", "application/vnd.everyangle.ErrorMessage+json");

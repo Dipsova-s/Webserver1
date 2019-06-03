@@ -16,15 +16,6 @@ namespace EveryAngle.OData.Tests.BusinessLogicTests
 
         #endregion
 
-        #region construcrors
-
-        public OdataAuthorizationsTest()
-        {
-
-        }
-
-        #endregion
-
         #region setup/teardown
 
         [SetUp]
@@ -56,7 +47,7 @@ namespace EveryAngle.OData.Tests.BusinessLogicTests
         [TearDown]
         public void TearDown()
         {
-
+            // tear down
         }
 
         #endregion

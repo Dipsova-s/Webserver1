@@ -64,7 +64,7 @@
         var firstThursday = target.valueOf();
         target.setMonth(0, 1);
         var offset = firstDayOfWeek + 3;
-        if (target.getDay() != offset) {
+        if (target.getDay() !== offset) {
             target.setMonth(0, 1 + ((offset - target.getDay()) + 7) % 7);
         }
         return {

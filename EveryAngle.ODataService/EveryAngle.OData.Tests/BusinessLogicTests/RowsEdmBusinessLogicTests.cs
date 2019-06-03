@@ -23,17 +23,16 @@ namespace EveryAngle.OData.Tests.BusinessLogicTests
         #region private variables
 
         private RowsEdmBusinessLogic _testingBusinessLogic;
-        private NameValueCollection _nameValueCollection = new NameValueCollection();
+        private readonly NameValueCollection _nameValueCollection = new NameValueCollection();
 
         private DataRows _testingDataRows;
         private QueryResult _testingQueryResult;
-        private Session _testingSession = new Session { security_token = "session_abc" };
 
-        private Mock<IEdmCollectionType> _collectionType = new Mock<IEdmCollectionType>();
-        private Mock<IContext> _context = new Mock<IContext>();
-        private Mock<Display> _testingDisplay = new Mock<Display>();
-        private Mock<IAppServerProxy> _appServerProxy = new Mock<IAppServerProxy>();
-        private Mock<HttpRequestMessage> _requestMessage = new Mock<HttpRequestMessage>();
+        private readonly Mock<IEdmCollectionType> _collectionType = new Mock<IEdmCollectionType>();
+        private readonly Mock<IContext> _context = new Mock<IContext>();
+        private readonly Mock<Display> _testingDisplay = new Mock<Display>();
+        private readonly Mock<IAppServerProxy> _appServerProxy = new Mock<IAppServerProxy>();
+        private readonly Mock<HttpRequestMessage> _requestMessage = new Mock<HttpRequestMessage>();
 
         private IEnumerable<TestCaseData> TestingFieldMaps
         {
@@ -51,15 +50,6 @@ namespace EveryAngle.OData.Tests.BusinessLogicTests
                 yield return new TestCaseData(0.001, new FieldMap { IsTime = true, NeedsConversion = true }, typeof(TimeSpan));
                 yield return new TestCaseData(81200, new FieldMap { IsTime = true, NeedsConversion = true }, typeof(TimeSpan));
             }
-        }
-
-        #endregion
-
-        #region constructors
-
-        public RowsEdmBusinessLogicTests()
-        {
-
         }
 
         #endregion
@@ -111,7 +101,6 @@ namespace EveryAngle.OData.Tests.BusinessLogicTests
 
             // path
             KeyValuePathSegment segment = new KeyValuePathSegment("/path");
-            ODataPath odataPath = new ODataPath(segment);
 
             User testUser = new User("username", "password");
             testUser.RegisterSecurityToken("old_token");
@@ -339,7 +328,7 @@ namespace EveryAngle.OData.Tests.BusinessLogicTests
 
             RowsEdmBusinessLogic testingBusinessLogic = new RowsEdmBusinessLogic(_appServerProxy.Object);
             IEdmCollectionTypeReference collectionRef = testingBusinessLogic.GetEdmCollectionTypeReference(new EdmCollectionType(typeReference), true);
-            EdmEntityObjectCollection products = testingBusinessLogic.GetEdmEntityObjectCollection(collectionRef, new List<IEdmEntityObject>());
+            testingBusinessLogic.GetEdmEntityObjectCollection(collectionRef, new List<IEdmEntityObject>());
         }
 
         [TestCase]
@@ -365,7 +354,7 @@ namespace EveryAngle.OData.Tests.BusinessLogicTests
         {
             RowsEdmBusinessLogic testingBusinessLogic = new RowsEdmBusinessLogic(_appServerProxy.Object);
             IEdmCollectionTypeReference reference = testingBusinessLogic.GetEdmCollectionTypeReference(new Mock<IEdmCollectionType>().Object, true);
-            EdmEntityObjectCollection collection = testingBusinessLogic.GetEdmEntityObjectCollection(reference, new Mock<IList<IEdmEntityObject>>().Object);
+            testingBusinessLogic.GetEdmEntityObjectCollection(reference, new Mock<IList<IEdmEntityObject>>().Object);
         }
 
         #endregion

@@ -69,14 +69,14 @@
 
         // display
         getDisplayTimeUTC: function (seconds) {
-            if (seconds == null)
+            if (seconds === null)
                 return '';
 
             var date = new Date(seconds * 1000);
             return kendo.format('{0:00}:{1:00}', date.getUTCHours(), date.getUTCMinutes());
         },
         getDisplayTimeLocal: function (seconds) {
-            if (seconds == null)
+            if (seconds === null)
                 return '';
 
             var serverDate = MC.util.unixtimeToServerTime(seconds);

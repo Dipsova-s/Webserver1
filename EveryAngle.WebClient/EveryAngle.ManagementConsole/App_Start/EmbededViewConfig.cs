@@ -5,7 +5,7 @@ using PreApplicationStartCode = System.Web.Mvc.PreApplicationStartCode;
 
 namespace EveryAngle.ManagementConsole.App_Start
 {
-    public class EmbededViewConfig
+    public static class EmbededViewConfig
     {
         public static void RegisterCustomViewEngines(ViewEngineCollection viewEngines)
         {

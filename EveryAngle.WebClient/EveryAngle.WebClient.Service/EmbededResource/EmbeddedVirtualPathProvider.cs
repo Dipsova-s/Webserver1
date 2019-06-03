@@ -15,21 +15,11 @@ namespace EveryAngle.WebClient.Service.EmbededResource
         }
         public override bool FileExists(string virtualPath)
         {
-            if (IsEmbeddedPath(virtualPath))
-                return true;
-            else
-                return _previous.FileExists(virtualPath);
+            return IsEmbeddedPath(virtualPath) ? true : _previous.FileExists(virtualPath);
         }
         public override CacheDependency GetCacheDependency(string virtualPath, IEnumerable virtualPathDependencies, DateTime utcStart)
-       { 
-            if (IsEmbeddedPath(virtualPath))
-            {
-                return null;
-            }
-            else
-            {
-                return _previous.GetCacheDependency(virtualPath, virtualPathDependencies, utcStart);
-            }
+       {
+            return IsEmbeddedPath(virtualPath) ? null : _previous.GetCacheDependency(virtualPath, virtualPathDependencies, utcStart);
         }
         public override VirtualDirectory GetDirectory(string virtualDir)
         {
@@ -43,7 +33,7 @@ namespace EveryAngle.WebClient.Service.EmbededResource
         {
             if (IsEmbeddedPath(virtualPath))
             {
-                string fileNameWithExtension = virtualPath.Substring(virtualPath.LastIndexOf("/") + 1);
+                string fileNameWithExtension = virtualPath.Substring(virtualPath.LastIndexOf("/", StringComparison.InvariantCulture) + 1);
 
                 var resources = Assembly.Load("EveryAngle.Shared.EmbeddedViews");
                 string nameSpace = resources.GetName().Name;

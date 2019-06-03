@@ -86,8 +86,8 @@ namespace EveryAngle.ManagementConsole.Controllers
         {
             ViewData["DefaultPageSize"] = DefaultPageSize;
             ViewBag.TasksUri = tasksUri;
-            ViewBag.ManageSystemPrivilege = Convert.ToString(SessionHelper.Session.IsValidToManageSystemPrivilege()).ToLower();
-            ViewBag.CanScheduleAngles = Convert.ToString(SessionHelper.Session.IsValidToScheduleAngles()).ToLower();
+            ViewBag.ManageSystemPrivilege = Convert.ToString(SessionHelper.Session.IsValidToManageSystemPrivilege()).ToLowerInvariant();
+            ViewBag.CanScheduleAngles = Convert.ToString(SessionHelper.Session.IsValidToScheduleAngles()).ToLowerInvariant();
             ViewBag.UserId = SessionHelper.CurrentUser.Id.Replace("\\", "\\\\");
 
             ViewBag.Query = q;
@@ -421,8 +421,8 @@ namespace EveryAngle.ManagementConsole.Controllers
         [AcceptVerbs(HttpVerbs.Post)]
         public ActionResult ExecuteTask(string tasksUri, string data)
         {
-            tasksUri += "/execution";
-            _modelService.CreateTask(tasksUri, data);
+            string executeTasksUri = $"{tasksUri}/execution";
+            _modelService.CreateTask(executeTasksUri, data);
 
             return new JsonResult
             {

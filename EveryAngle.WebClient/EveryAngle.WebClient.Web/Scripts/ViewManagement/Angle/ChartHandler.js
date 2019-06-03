@@ -3166,14 +3166,14 @@ function ChartHandler(elementId, container) {
             if (chartType === enumHandlers.CHARTTYPE.BUBBLECHART.Code && self.AggergateFields.length === 2) {
                 if (showValues) {
                     results = [
-                        '# if (dataItem["' + agg1FieldName + '"] != null || dataItem["' + agg2FieldName + '"] != null) { #',
+                        '# if (dataItem["' + agg1FieldName + '"] !== null || dataItem["' + agg2FieldName + '"] !== null) { #',
                         '#: dataItem["' + agg1FieldName + '_label"] + \' : \' + dataItem["' + agg2FieldName + '_label"] #',
                         '# } #'
                     ];
                 }
                 else {
                     results = [
-                        '# if (dataItem["' + agg1FieldName + '"] != null || dataItem["' + agg2FieldName + '"] != null) { #',
+                        '# if (dataItem["' + agg1FieldName + '"] !== null || dataItem["' + agg2FieldName + '"] !== null) { #',
                         '#: window[\'' + self.ModelId + '\'].ConvertAggregateValue(value.x, "' + self.VALUETYPE.CATEGORY + '")',
                         ' + \': \' + dataItem["' + agg1FieldName + '_label"]',
                         ' + \': \' + dataItem["' + agg2FieldName + '_label"] #',
@@ -3185,14 +3185,14 @@ function ChartHandler(elementId, container) {
                 aggField = WC.Utility.ConvertFieldName(aggField);
                 if (showValues) {
                     results = [
-                        '# if (dataItem["' + aggField + '"] != null) { #',
+                        '# if (dataItem["' + aggField + '"] !== null) { #',
                         '#: dataItem["' + aggField + '_label"] #',
                         '# } #'
                     ];
                 }
                 else {
                     results = [
-                        '# if (dataItem["' + aggField + '"] != null) { #',
+                        '# if (dataItem["' + aggField + '"] !== null) { #',
                         '#: dataItem["' + categoryField + '_label"]',
                         ' + \': \' + dataItem["' + aggField + '_label"] #',
                         '# } #'
@@ -3204,14 +3204,14 @@ function ChartHandler(elementId, container) {
             if (self.IsDonutOrPieChartType(chartType)) {
                 if (showValues) {
                     results = [
-                        '# if (dataItem["' + agg1FieldName + '"] != null) { #',
+                        '# if (dataItem["' + agg1FieldName + '"] !== null) { #',
                         '#: dataItem["' + agg1FieldName + '_label"] #',
                         '# } #'
                     ];
                 }
                 else {
                     results = [
-                        '# if (dataItem["' + agg1FieldName + '"] != null) { #',
+                        '# if (dataItem["' + agg1FieldName + '"] !== null) { #',
                         '#: dataItem["' + categoryField + '_label"]',
                         ' + \', \' + dataItem["' + groupFieldName + '_label"]',
                         ' + \': \' + dataItem["' + agg1FieldName + '_label"] #',
@@ -3223,7 +3223,7 @@ function ChartHandler(elementId, container) {
                 if (chartType === enumHandlers.CHARTTYPE.BUBBLECHART.Code && self.AggergateFields.length === 2) {
                     if (showValues) {
                         results = [
-                            '# if (dataItem["' + agg1FieldName + '"] != null || dataItem["' + agg2FieldName + '"] != null) { #',
+                            '# if (dataItem["' + agg1FieldName + '"] !== null || dataItem["' + agg2FieldName + '"] !== null) { #',
                             '#: window[\'' + self.ModelId + '\'].ConvertAggregateValue(dataItem["' + agg1FieldName + '"], "' + self.VALUETYPE.VALUE + '", series.yField)',
                             ' + \': \' + window[\'' + self.ModelId + '\'].ConvertAggregateValue(dataItem["' + agg2FieldName + '"], "' + self.VALUETYPE.VALUE + '", "' + agg1FieldName + '") #',
                             '# } #'
@@ -3231,7 +3231,7 @@ function ChartHandler(elementId, container) {
                     }
                     else {
                         results = [
-                            '# if (dataItem["' + agg1FieldName + '"] != null || dataItem["' + agg2FieldName + '"] != null) { #',
+                            '# if (dataItem["' + agg1FieldName + '"] !== null || dataItem["' + agg2FieldName + '"] !== null) { #',
                             '#: window[\'' + self.ModelId + '\'].ConvertAggregateValue(value.x, "' + self.VALUETYPE.CATEGORY + '")',
                             ' + \', \' + window[\'' + self.ModelId + '\'].ConvertAggregateValue(dataItem["' + groupFieldName + '"], "' + self.VALUETYPE.GROUP + '")',
                             ' + \': \' + window[\'' + self.ModelId + '\'].ConvertAggregateValue(dataItem["' + agg1FieldName + '"], "' + self.VALUETYPE.VALUE + '", series.yField)',
@@ -3243,14 +3243,14 @@ function ChartHandler(elementId, container) {
                 else {
                     if (showValues) {
                         results = [
-                            '# if (value.y != null) { #',
+                            '# if (value.y !== null) { #',
                             '#: window[\'' + self.ModelId + '\'].ConvertAggregateValue(value.y, "' + self.VALUETYPE.VALUE + '", series.yField) #',
                             '# } #'
                         ];
                     }
                     else {
                         results = [
-                            '# if (value.y != null) { #',
+                            '# if (value.y !== null) { #',
                             '#: window[\'' + self.ModelId + '\'].ConvertAggregateValue(value.x, "' + self.VALUETYPE.CATEGORY + '")',
                             ' + \': \' + window[\'' + self.ModelId + '\'].ConvertAggregateValue(dataItem["' + groupFieldName + '"], "' + self.VALUETYPE.GROUP + '")',
                             ' + \': \' + window[\'' + self.ModelId + '\'].ConvertAggregateValue(value.y, "' + self.VALUETYPE.VALUE + '", series.yField) #',
@@ -3262,14 +3262,14 @@ function ChartHandler(elementId, container) {
             else if (chartType === enumHandlers.CHARTTYPE.RADARCHART.Code && !self.FieldSettings.GetDisplayDetails().stack) {
                 if (showValues) {
                     results = [
-                        '# if (value != null) { #',
+                        '# if (value !== null) { #',
                         '#: window[\'' + self.ModelId + '\'].ConvertAggregateValue(value, "' + self.VALUETYPE.VALUE + '", series.field) #',
                         '# } #'
                     ];
                 }
                 else {
                     results = [
-                        '# if (value != null) { #',
+                        '# if (value !== null) { #',
                         '#: (dataItem ? dataItem["' + categoryField + '_label"] : \'\')',
                         ' + \', \' + window[\'' + self.ModelId + '\'].ConvertAggregateValue(series.name, "' + self.VALUETYPE.GROUP + '")',
                         ' + \': \' + window[\'' + self.ModelId + '\'].ConvertAggregateValue(value, "' + self.VALUETYPE.VALUE + '", series.field) #',
@@ -3280,14 +3280,14 @@ function ChartHandler(elementId, container) {
             else {
                 if (showValues) {
                     results = [
-                        '# if (value != null) { #',
+                        '# if (value !== null) { #',
                         '#: window[\'' + self.ModelId + '\'].ConvertAggregateValue(value, "' + self.VALUETYPE.VALUE + '", series.field) #',
                         '# } #'
                     ];
                 }
                 else {
                     results = [
-                        '# if (value != null) { #',
+                        '# if (value !== null) { #',
                         '#: window[\'' + self.ModelId + '\'].ConvertAggregateValue(category, "' + self.VALUETYPE.CATEGORY + '")',
                         ' + \', \' + window[\'' + self.ModelId + '\'].ConvertAggregateValue(series.name, "' + self.VALUETYPE.GROUP + '")',
                         ' + \': \' + window[\'' + self.ModelId + '\'].ConvertAggregateValue(value, "' + self.VALUETYPE.VALUE + '", series.field) #',

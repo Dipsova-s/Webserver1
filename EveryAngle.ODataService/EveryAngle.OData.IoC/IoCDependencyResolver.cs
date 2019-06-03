@@ -42,13 +42,8 @@ namespace EveryAngle.OData.IoC
             return container.IsRegistered(serviceType) ? container.ResolveAll(serviceType) : new List<object>();
         }
 
-        static void Dispose(bool disposing)
-        {
-        }
-
         public void Dispose()
         {
-            Dispose(true);
             GC.SuppressFinalize(this);
             container.Dispose();
         }

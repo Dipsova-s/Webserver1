@@ -93,7 +93,7 @@ namespace EveryAngle.OData.Proxy
         #region Private Token cache
         private static class TokenCache
         {
-            internal static ConcurrentDictionary<string, User> _cachedUserTokens = new ConcurrentDictionary<string, User>();
+            internal readonly static ConcurrentDictionary<string, User> _cachedUserTokens = new ConcurrentDictionary<string, User>();
             internal static void SaveToken(string key, User token)
             {
                 _cachedUserTokens.AddOrUpdate(key, token, (k, v) => token);

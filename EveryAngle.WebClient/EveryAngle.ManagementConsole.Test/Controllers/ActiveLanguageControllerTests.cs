@@ -59,7 +59,7 @@ namespace EveryAngle.ManagementConsole.Test.Controllers
             _testingController = new ActiveLanguageController(modelService.Object, labelService.Object, globalSettingService.Object, sessionHelper.Object);
 
             // execute
-            ActionResult result = _testingController.GetModelLanguages(modelUri);
+            _testingController.GetModelLanguages(modelUri);
 
             // assert
             Assert.AreEqual(modelId, _testingController.ViewBag.ModelId);

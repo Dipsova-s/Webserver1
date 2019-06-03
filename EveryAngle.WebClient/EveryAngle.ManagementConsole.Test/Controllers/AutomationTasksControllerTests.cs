@@ -34,21 +34,22 @@ namespace EveryAngle.ManagementConsole.Test.Controllers
 
             // session helper
             SessionViewModel sessionViewModel = GetMockViewModel<SessionViewModel>();
-            sessionViewModel.ModelPrivileges = new List<ModelPrivilegeViewModel>()
+            sessionViewModel.ModelPrivileges = new List<ModelPrivilegeViewModel>
             {
-                new ModelPrivilegeViewModel()
+                new ModelPrivilegeViewModel
                 {
                     model = new Uri("/models/1", UriKind.Relative),
-                    Privileges = new PrivilegesForModelViewModel()
+                    Privileges = new PrivilegesForModelViewModel
                     {
                         manage_model = true
                     }
                 }
             };
             sessionHelper.SetupGet(x => x.Session).Returns(sessionViewModel);
-            sessionHelper.SetupGet(x => x.Models).Returns(new List<ModelViewModel>()
+            sessionHelper.SetupGet(x => x.Models).Returns(new List<ModelViewModel>
             {
-                new ModelViewModel(){
+                new ModelViewModel
+                {
                     id = "EA2_800",
                     Uri = new Uri("/models/1", UriKind.Relative)
                 }
@@ -189,12 +190,12 @@ namespace EveryAngle.ManagementConsole.Test.Controllers
         {
             // mock
             SessionViewModel sessionViewModel = GetMockViewModel<SessionViewModel>();
-            sessionViewModel.ModelPrivileges = new List<ModelPrivilegeViewModel>()
+            sessionViewModel.ModelPrivileges = new List<ModelPrivilegeViewModel>
             {
-                new ModelPrivilegeViewModel()
+                new ModelPrivilegeViewModel
                 {
                     model = new Uri("/models/1", UriKind.Relative),
-                    Privileges = new PrivilegesForModelViewModel()
+                    Privileges = new PrivilegesForModelViewModel
                     {
                         manage_model = false
                     }
@@ -202,15 +203,15 @@ namespace EveryAngle.ManagementConsole.Test.Controllers
             };
             sessionHelper.SetupGet(x => x.Session).Returns(sessionViewModel);
 
-            TaskViewModel task = new TaskViewModel()
+            TaskViewModel task = new TaskViewModel
             {
-                actions = new List<TaskAction>()
+                actions = new List<TaskAction>
                 {
-                    new TaskAction()
+                    new TaskAction
                     {
-                        arguments = new List<Core.ViewModels.Cycle.Argument>()
+                        arguments = new List<Core.ViewModels.Cycle.Argument>
                         {
-                            new Core.ViewModels.Cycle.Argument()
+                            new Core.ViewModels.Cycle.Argument
                             {
                                 name = "model",
                                 value = "EA2_800"
@@ -228,17 +229,17 @@ namespace EveryAngle.ManagementConsole.Test.Controllers
         public void Can_CallItemService()
         {
             // mock
-            List<ItemViewModel> items = new List<ItemViewModel>()
+            List<ItemViewModel> items = new List<ItemViewModel>
             {
-                new ItemViewModel()
+                new ItemViewModel
                 {
                     id = "angle123",
                     name = "angle name",
                     Model = new Uri("/models/1", UriKind.Relative),
                     uri = "/models/1/angles/2",
-                    displays = new List<ItemDisplayViewModel>()
+                    displays = new List<ItemDisplayViewModel>
                     {
-                        new ItemDisplayViewModel()
+                        new ItemDisplayViewModel
                         {
                             id = "display123",
                             name = "display name"
@@ -249,8 +250,8 @@ namespace EveryAngle.ManagementConsole.Test.Controllers
 
             itemService.Setup(x => x.Get(It.IsAny<string>())).Returns(items);
 
-            List<string> angleList = new List<string>() { "angle123", "angle456", "angle789", "angle123" };
-            List<string> modelList = new List<string>() { "EA2_800", "IT4IT", "EA2_800" };
+            List<string> angleList = new List<string> { "angle123", "angle456", "angle789", "angle123" };
+            List<string> modelList = new List<string> { "EA2_800", "IT4IT", "EA2_800" };
 
             // execute
             List<ItemViewModel> result = _testingController.CallItemService(angleList, modelList);
@@ -272,22 +273,23 @@ namespace EveryAngle.ManagementConsole.Test.Controllers
         public void Can_MapAngleDisplayToTaskAction()
         {
             // mock
-            List<TaskAction> taskActions = new List<TaskAction>()
+            List<TaskAction> taskActions = new List<TaskAction>
             {
-                new TaskAction() {
-                    arguments = new List<Core.ViewModels.Cycle.Argument>()
+                new TaskAction
+                {
+                    arguments = new List<Core.ViewModels.Cycle.Argument>
                     {
-                        new Core.ViewModels.Cycle.Argument()
+                        new Core.ViewModels.Cycle.Argument
                         {
                             name = "angle_id",
                             value = "angle123"
                         },
-                        new Core.ViewModels.Cycle.Argument()
+                        new Core.ViewModels.Cycle.Argument
                         {
                             name = "display_id",
                             value = "display123"
                         },
-                        new Core.ViewModels.Cycle.Argument()
+                        new Core.ViewModels.Cycle.Argument
                         {
                             name = "model",
                             value = "EA2_800"
@@ -295,17 +297,17 @@ namespace EveryAngle.ManagementConsole.Test.Controllers
                     }
                 }
             };
-            List<ItemViewModel> items = new List<ItemViewModel>()
+            List<ItemViewModel> items = new List<ItemViewModel>
             {
-                new ItemViewModel()
+                new ItemViewModel
                 {
                     id = "angle123",
                     name = "angle name",
                     Model = new Uri("/models/1", UriKind.Relative),
                     uri = "/models/1/angles/2",
-                    displays = new List<ItemDisplayViewModel>()
+                    displays = new List<ItemDisplayViewModel>
                     {
-                        new ItemDisplayViewModel()
+                        new ItemDisplayViewModel
                         {
                             id = "display123",
                             name = "display name"

@@ -10,6 +10,7 @@ using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
 using System.Web.Mvc;
 
@@ -62,7 +63,7 @@ namespace EveryAngle.ManagementConsole.Controllers
             ViewBag.DefaultPagesize = DefaultPageSize;
             ViewBag.MaxPageSize = MaxPageSize;
             ViewBag.MaxDomainElementsForSearch = SessionHelper.SystemSettings.max_domainelements_for_search;
-            ViewBag.CanAccessViaWebClient = SessionHelper.Session.IsValidToAccessWebClient(modelUri).ToString().ToLower();
+            ViewBag.CanAccessViaWebClient = SessionHelper.Session.IsValidToAccessWebClient(modelUri).ToString().ToLowerInvariant();
             ViewBag.ClientSettings = SessionHelper.CurrentUser.Settings.client_settings;
 
             var offsetLimitQuery = UtilitiesHelper.GetOffsetLimitQueryString(1, MaxPageSize);
@@ -132,7 +133,7 @@ namespace EveryAngle.ManagementConsole.Controllers
                 var data = JsonConvert.DeserializeObject<List<AngleWarningThirdLevelViewmodel>>(angleWarningsResult.SelectToken("data").ToString());
                 var angleWarningViewModelList = new List<AngleWarningsViewModel>();
                 List<dynamic> angleNameList = GetAngleNameList(model, data);
-                List<dynamic> displayNameLIst = GetDisplayNameList(model, data);
+                List<dynamic> displayNameLIst = GetDisplayNameList(data);
                 MapWarningThirdLevel(formData, data, angleWarningViewModelList, angleNameList, displayNameLIst);
 
                 result = new AngleWarningsDataSourceResult
@@ -156,9 +157,9 @@ namespace EveryAngle.ManagementConsole.Controllers
             var version = SessionHelper.Version;
             var angleWarningTask = _modelService.CreateTask(version.GetEntryByName("tasks").Uri.ToString(), taskData);
 
-            angleWarningTask = _modelService.CreateTask(angleWarningTask.Uri + "/execution",
+            var executionTask = _modelService.CreateTask($"{angleWarningTask.Uri}/execution",
                 "{\"start\":true,\"reason\":\"Manual execute from MC\"}");
-            return Json(angleWarningTask, JsonRequestBehavior.AllowGet);
+            return Json(executionTask, JsonRequestBehavior.AllowGet);
         }
 
         public ActionResult CheckExecuteAngleWarnings(string uri)
@@ -203,27 +204,22 @@ namespace EveryAngle.ManagementConsole.Controllers
 
         private string GetAngleWarningNameFirstLevel(string id)
         {
-            switch (id)
+            Dictionary<string, string> angleWarningMappers = new Dictionary<string, string>
             {
-                case "unsupported_start_object":
-                    return Resource.MC_UnsupportedStartObject;
-                case "unsupported_jump":
-                    return Resource.MC_UnsupportedJump;
-                case "unsupported_filter_field":
-                    return Resource.MC_UnsupportedFilterField;
-                case "unsupported_display_field":
-                    return Resource.MC_UnsupportedDisplayField;
-                case "unsupported_grouping_field":
-                    return Resource.MC_UnsupportedGroupingField;
-                case "unsupported_aggregation_field":
-                    return Resource.MC_UnsupportedAggregationField;
-                case "unsupported_sorting_field":
-                    return Resource.MC_UnsupportedSortingField;
-                case "other_warnings":
-                    return Resource.MC_OtherWarnings;
-                default:
-                    return id;
+                { "unsupported_start_object", Resource.MC_UnsupportedStartObject },
+                { "unsupported_jump", Resource.MC_UnsupportedJump },
+                { "unsupported_filter_field", Resource.MC_UnsupportedFilterField },
+                { "unsupported_display_field", Resource.MC_UnsupportedDisplayField },
+                { "unsupported_grouping_field", Resource.MC_UnsupportedGroupingField },
+                { "unsupported_aggregation_field", Resource.MC_UnsupportedAggregationField },
+                { "unsupported_sorting_field", Resource.MC_UnsupportedSortingField },
+                { "other_warnings", Resource.MC_OtherWarnings },
+            };
+            if (!angleWarningMappers.TryGetValue(id, out string name))
+            {
+                name = id;
             }
+            return name;
         }
 
         private List<dynamic> GetAngleNameList(ModelViewModel model, List<AngleWarningThirdLevelViewmodel> data)
@@ -235,8 +231,9 @@ namespace EveryAngle.ManagementConsole.Controllers
             for (int i = 0; i < Math.Ceiling(data.Count / (decimal)numberOfAnglePerRequest); i++)
             {
                 List<string> angles = angleIdList.Skip(i * numberOfAnglePerRequest).Take(numberOfAnglePerRequest).ToList();
-                string output = string.Join(",", angles);
-                string uri = model.Uri.ToString() + "/angles?lang=en&ids=" + output + "&" + UtilitiesHelper.GetOffsetLimitQueryString(1, numberOfAnglePerRequest);
+                string ids = string.Join(",", angles);
+                string offsetLimit = UtilitiesHelper.GetOffsetLimitQueryString(1, numberOfAnglePerRequest);
+                string uri = $"{model.Uri}/angles?lang=en&ids={ids}&{offsetLimit}";
                 uriList.Add(uri);
             }
 
@@ -252,7 +249,7 @@ namespace EveryAngle.ManagementConsole.Controllers
             return angleNameList;
         }
 
-        private List<dynamic> GetDisplayNameList(ModelViewModel model, List<AngleWarningThirdLevelViewmodel> data)
+        private List<dynamic> GetDisplayNameList(List<AngleWarningThirdLevelViewmodel> data)
         {
             var displayUriList = data.Where(x => !string.IsNullOrEmpty(x.DisplayId)).Select(x => EveryAngle.Shared.Helpers.UrlHelper.GetRequestUrl(URLType.NOA) + x.DisplayUri + "?lang=en").Distinct().ToList();
 
@@ -336,15 +333,15 @@ namespace EveryAngle.ManagementConsole.Controllers
             if (warningType == WarningType.StartObject)
             {
                 dynamic objectData = objectNameList.FirstOrDefault(x => x.id == item.Object);
-                string objectName = objectData != null && !string.IsNullOrEmpty(objectData.name) ? objectData.name : item.Object;
+                string objectName = GetWarningItemName(objectData?.name, item.Object);
                 return string.Format("Start-Object: {0}", objectName);
             }
             else if (warningType == WarningType.Jump)
             {
                 dynamic objectData = objectNameList.FirstOrDefault(x => x.id == item.Object);
-                string objectName = objectData != null && !string.IsNullOrEmpty(objectData.name) ? objectData.name : item.Object;
+                string objectName = GetWarningItemName(objectData?.name, item.Object);
                 FollowupViewModel jump = jumpNameList.FirstOrDefault(x => x.id == item.Jump);
-                string jumpName = jump != null && !string.IsNullOrEmpty(jump.short_name) ? jump.short_name : item.Jump;
+                string jumpName = GetWarningItemName(jump?.short_name, item.Jump);
                 return string.Format("Object-Jump: {0}-{1}", objectName, jumpName);
             }
             else if (warningType == WarningType.Warning)
@@ -372,12 +369,17 @@ namespace EveryAngle.ManagementConsole.Controllers
             else
             {
                 dynamic objectData = objectNameList.FirstOrDefault(x => x.id == item.Object);
-                string objectName = objectData != null && !string.IsNullOrEmpty(objectData.name) ? objectData.short_name : item.Object;
+                string objectName = GetWarningItemName(objectData?.name, item.Object);
                 dynamic field = fieldNameList.FirstOrDefault(x => x.id == item.Field);
-                string sourceName = (field != null && field.source != null) ? sourceList.FirstOrDefault(x => field.source.ToString().Contains(x.uri.ToString())).short_name + "-" : string.Empty;
-                string fieldName = field != null && !string.IsNullOrEmpty(field.short_name) ? field.short_name : item.Field;
+                string sourceName = field?.source != null ? sourceList.FirstOrDefault(x => field.source.ToString().Contains(x.uri.ToString())).short_name + "-" : string.Empty;
+                string fieldName = GetWarningItemName(field?.short_name, item.Field);
                 return string.Format("Object-> Source-Field: {0}-> {1}{2}", objectName, sourceName, fieldName);
             }
+        }
+
+        private string GetWarningItemName(string name, string fallback)
+        {
+            return !string.IsNullOrEmpty(name) ? name : fallback;
         }
 
         private void GetDataForSecondLevelWarningName(ModelViewModel model, List<AngleWarningSecondLevelViewmodel> data, ref List<dynamic> objectNameList, ref List<FollowupViewModel> jumpNameList, List<Field> fieldNameList, List<dynamic> sourceList, ref WarningType warningType)
@@ -413,22 +415,24 @@ namespace EveryAngle.ManagementConsole.Controllers
             int index = 1;
             foreach (var item in data)
             {
-                dynamic angleObject = angleNameList.SingleOrDefault(x => x.id == item.AngleId);
-                var angleWarningViewModel = new AngleWarningsViewModel();
+                StringBuilder name = new StringBuilder();
+                dynamic angleObject = angleNameList.FirstOrDefault(x => x.id == item.AngleId);
+                AngleWarningsViewModel angleWarningViewModel = new AngleWarningsViewModel();
                 angleWarningViewModel.Level = 3;
                 angleWarningViewModel.fakeId = (angleWarningViewModel.ParentId * 1000) + index;
 
                 if (angleObject != null)
                 {
                     item.Type = Convert.ToBoolean(angleObject.is_template) ? "template" : "angle";
-                    angleWarningViewModel.Name = angleObject.name;
+                    name.Append(angleObject.name);
                 }
                 else
                 {
                     item.Type = "angle";
                     item.AngleUri = null;
-                    angleWarningViewModel.Name = item.AngleId;
+                    name.Append(item.AngleId);
                 }
+
                 if (!string.IsNullOrEmpty(item.DisplayId))
                 {
                     item.Type = "list";
@@ -437,19 +441,20 @@ namespace EveryAngle.ManagementConsole.Controllers
                     if (displayObject != null)
                     {
                         item.Type = displayObject.display_type.ToString().ToLower();
-                        angleWarningViewModel.Name += "\\" + displayObject.name;
+                        name.AppendFormat("\\{0}", displayObject.name);
                     }
                     else
                     {
                         item.DisplayUri = null;
-                        angleWarningViewModel.Name += "\\" + item.DisplayId;
+                        name.AppendFormat("\\{0}", item.DisplayId);
                     }
                 }
 
                 // set access denied if no Angle and Display
                 if (item.AngleUri == null && item.DisplayUri == null)
-                    angleWarningViewModel.Name += string.Format(" ({0})", Resource.MC_AccessDenied.ToLowerInvariant());
-
+                    name.AppendFormat(" ({0})", Resource.MC_AccessDenied.ToLowerInvariant());
+                
+                angleWarningViewModel.Name = name.ToString();
                 angleWarningViewModel.DataThirdLevel = item;
                 angleWarningViewModel.ParentId = int.Parse(formData["id"]);
                 angleWarningViewModel.Uri = item.AngleUri;
@@ -458,7 +463,14 @@ namespace EveryAngle.ManagementConsole.Controllers
             }
         }
 
-        private void MapWarningSecondLevel(FormCollection formData, List<AngleWarningSecondLevelViewmodel> data, List<AngleWarningsViewModel> angleWarningViewModelList, List<dynamic> objectNameList, List<FollowupViewModel> jumpNameList, List<Field> fieldNameList, List<dynamic> sourceList, WarningType warningType)
+        private void MapWarningSecondLevel(FormCollection formData,
+            List<AngleWarningSecondLevelViewmodel> data,
+            List<AngleWarningsViewModel> angleWarningViewModelList,
+            List<dynamic> objectNameList,
+            List<FollowupViewModel> jumpNameList,
+            List<Field> fieldNameList,
+            List<dynamic> sourceList,
+            WarningType warningType)
         {
             int index = 1;
             foreach (var item in data)
@@ -474,7 +486,7 @@ namespace EveryAngle.ManagementConsole.Controllers
                 angleWarningViewModelList.Add(angleWarningViewModel);
                 index++;
             }
-            angleWarningViewModelList.Sort((x, y) => x.Name.ToLower().CompareTo(y.Name.ToLower()));
+            angleWarningViewModelList.Sort((x, y) => string.Compare(x.Name, y.Name, StringComparison.InvariantCultureIgnoreCase));
         }
 
         private void MapWarningFirstLevel(List<AngleWarningFirstLevelViewmodel> data, List<AngleWarningsViewModel> angleWarningViewModelList, bool includeAngles, bool includTemplates)

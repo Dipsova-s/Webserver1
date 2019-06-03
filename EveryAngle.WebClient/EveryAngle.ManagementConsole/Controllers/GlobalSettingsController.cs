@@ -257,14 +257,8 @@ namespace EveryAngle.ManagementConsole.Controllers
             webClientConfigService.SaveWebClientWebConfig(webClientConfigViewModel);
         }
 
-        private void LoadSystemRolesToSessionAndViewBag(VersionViewModel version = null, SystemSettingViewModel systemSettingModel = null)
+        private void LoadSystemRolesToSessionAndViewBag(VersionViewModel version, SystemSettingViewModel systemSettingModel)
         {
-            if (version == null)
-                version = SessionHelper.Version;
-
-            if (systemSettingModel == null)
-                systemSettingModel = SessionHelper.SystemSettings;
-
             string uriSystemRoles = string.Format("{0}?{1}", version.GetEntryByName("system_roles").Uri
                                                            , UtilitiesHelper.GetOffsetLimitQueryString(1, systemSettingModel.max_pagesize));
 
@@ -275,7 +269,7 @@ namespace EveryAngle.ManagementConsole.Controllers
             ViewBag.SystemRoles = systemRoles
                                     .OrderBy(x => x.Id)
                                     .Select(role =>
-                                        new AssignedRoleViewModel()
+                                        new AssignedRoleViewModel
                                         {
                                             RoleId = role.Id,
                                             ModelId = role.ModelPrivilege != null && role.ModelPrivilege.model_id != null
@@ -356,7 +350,8 @@ namespace EveryAngle.ManagementConsole.Controllers
 
                 authenticationProviderTypes = authenticationProviderTypesList.FirstOrDefault(x => x.Id == systemAuthenticationProvider.Type);
             }
-            LoadSystemRolesToSessionAndViewBag();
+            
+            LoadSystemRolesToSessionAndViewBag(SessionHelper.Version, SessionHelper.SystemSettings);
             ViewBag.AuthenticationProviderTypes = authenticationProviderTypes;
             ViewBag.SystemAuthenticationProvider = systemAuthenticationProvider;
             return PartialView("~/Views/GlobalSettings/Authentication/EditAuthentication.cshtml", systemAuthenticationProvider);
@@ -366,7 +361,7 @@ namespace EveryAngle.ManagementConsole.Controllers
         public void SaveAuthenticationProvider(bool isNewAuthenticationProvider, string authenticationProviderData, string updateAuthenticationProviderUri)
         {
             RestSharp.Method method;
-            string url = "";
+            string url;
             if (isNewAuthenticationProvider)
             {
                 method = RestSharp.Method.POST;
@@ -391,16 +386,9 @@ namespace EveryAngle.ManagementConsole.Controllers
             var version = SessionHelper.Version;
             List<SystemRoleViewModel> systemRoles;
             var systemrolesEntry = version.GetEntryByName("system_roles");
-            if (systemrolesEntry == null)
-            {
-                systemRoles = new List<SystemRoleViewModel>();
-            }
-            else
-            {
-                systemRoles =
-                    modelService.GetSystemRoles(systemrolesEntry.Uri + "?" +
-                                                UtilitiesHelper.GetOffsetLimitQueryString(1, MaxPageSize));
-            }
+            systemRoles = systemrolesEntry == null
+                ? new List<SystemRoleViewModel>()
+                : modelService.GetSystemRoles(systemrolesEntry.Uri + "?" + UtilitiesHelper.GetOffsetLimitQueryString(1, MaxPageSize));
             var subRoles = systemRoles.Select(selector => selector.Id).ToList();
             return Json(subRoles, JsonRequestBehavior.AllowGet);
         }
@@ -464,7 +452,7 @@ namespace EveryAngle.ManagementConsole.Controllers
                             ContractResolver =
                                 new UpdatedPropertiesResolver<SystemLanguageViewModel>(updatedLanguage, existLanguage)
                         }));
-                    if (updatedLanguage.Enabled == false)
+                    if (!updatedLanguage.Enabled)
                     {
                         removedData.Add(language.Name);
                     }
@@ -473,7 +461,7 @@ namespace EveryAngle.ManagementConsole.Controllers
                 {
                     dynamic errorResult = JsonConvert.DeserializeObject(ex.Message);
                     string message = errorResult.message;
-                    if (updatedLanguage.Enabled == false)
+                    if (!updatedLanguage.Enabled)
                     {
                         un_removeData.Add(language.Name, message);
                     }
@@ -583,7 +571,7 @@ namespace EveryAngle.ManagementConsole.Controllers
             var bytes = Convert.FromBase64String(dataImage.Replace(" ", "+"));
             using (var ms = new MemoryStream(bytes))
             {
-                var imageFile = string.Empty;
+                string imageFile;
 #if DEVMODE
                 imageFile = VideoHelper.GetImageFileFromVideoFile(UtilitiesHelper.GetWebClientPath() + pathVideo);
 #else
@@ -847,8 +835,7 @@ namespace EveryAngle.ManagementConsole.Controllers
                         }
                     }
                 }
-                return JsonHelper.GetJsonStringResult(true, null, null, MessageType.DEFAULT,
-                    parameters);
+                return JsonHelper.GetJsonStringResult(true, null, null, MessageType.DEFAULT, parameters);
             }
             catch (HttpException ex)
             {
@@ -858,8 +845,7 @@ namespace EveryAngle.ManagementConsole.Controllers
                 var error = ex.Message;
                 if (ex.Source != "EveryAngle.WebClient.Service")
                 {
-                    return JsonHelper.GetJsonStringResult(true, null, error,
-                        MessageType.DEFAULT, parameters);
+                    return JsonHelper.GetJsonStringResult(true, null, error, MessageType.DEFAULT, parameters);
                 }
 
                 string errorMessage = error;
@@ -1060,11 +1046,7 @@ namespace EveryAngle.ManagementConsole.Controllers
                 sortDirection = request.Sorts[0].SortDirection;
             }
 
-            string sortOption = string.Empty;
-            if (sortDirection == ListSortDirection.Ascending)
-                sortOption += "&dir=asc";
-            else
-                sortOption += "&dir=desc";
+            string sortOption = string.Format("&dir={0}", sortDirection == ListSortDirection.Ascending ? "asc" : "desc");
 
             if (sortMappers.ContainsKey(sortBy))
                 sortOption += sortMappers[sortBy];
@@ -1160,23 +1142,8 @@ namespace EveryAngle.ManagementConsole.Controllers
                 MessageType = type
             };
 
-            if (!offset.HasValue)
-            {
-                para.Offset = 0;
-            }
-            else
-            {
-                para.Offset = offset.Value;
-            }
-
-            if (!limit.HasValue)
-            {
-                para.Limit = DefaultPageSize;
-            }
-            else
-            {
-                para.Limit = limit.Value;
-            }
+            para.Offset = offset ?? 0 ;
+            para.Limit = limit ?? DefaultPageSize;
 
             var executeResult = UtilitiesHelper.GetJsonFromCsl(para);
 

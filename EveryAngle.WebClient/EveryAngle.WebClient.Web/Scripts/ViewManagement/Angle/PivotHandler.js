@@ -990,7 +990,7 @@ function PivotPageHandler(elementId, container) {
         self.SetActiveColumn(self.HighlightingColumn.header);
 
         clearInterval(fnCheckCurrentScrollbar);
-        if (self.ScrollbarPosition.X != null) {
+        if (self.ScrollbarPosition.X !== null) {
             var seed = 0;
             fnCheckCurrentScrollbar = setInterval(function () {
                 if (seed <= 100 && self.ScrollbarPosition.X !== jQuery('#' + self.PivotId + '_CVSCell_SCVPDiv').scrollLeft()) {

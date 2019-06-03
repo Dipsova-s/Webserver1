@@ -85,6 +85,7 @@ namespace EveryAngle.OData.Service.Modules
 
         public void Dispose()
         {
+            // do nothing
         }
     }
 }

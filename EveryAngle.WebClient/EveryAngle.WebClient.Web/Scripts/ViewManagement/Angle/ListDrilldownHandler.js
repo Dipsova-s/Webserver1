@@ -402,8 +402,8 @@ function ListDrilldownHandler() {
                                         var resultfacetitemhasvalue = resultfacetitem.length > 0 ? resultfacetitem[0] : null;
 
                                         jQuery.each(selffacetItem.filters(), function (index, selffacetfilter) {
-                                            var resultfacetfilter = resultfacetitemhasvalue != null ? jQuery.grep(resultfacetitemhasvalue.filters, function (facetfilter) { return facetfilter.id === selffacetfilter.id; }) : null;
-                                            if (resultfacetfilter != null && resultfacetfilter.length > 0) {
+                                            var resultfacetfilter = resultfacetitemhasvalue !== null ? jQuery.grep(resultfacetitemhasvalue.filters, function (facetfilter) { return facetfilter.id === selffacetfilter.id; }) : null;
+                                            if (resultfacetfilter !== null && resultfacetfilter.length > 0) {
                                                 selffacetfilter.count(resultfacetfilter[0].count);
                                             }
                                             else {
@@ -872,7 +872,7 @@ function ListDrilldownHandler() {
     };
     self.GetHeaderTemplate = function (sortingId, headerText) {
         var sort = '';
-        if (self.CurrentSort != null && self.CurrentSort.sort.indexOf(sortingId) !== -1) {
+        if (self.CurrentSort !== null && self.CurrentSort.sort.indexOf(sortingId) !== -1) {
             sort = self.CurrentSort.dir;
         }
         return '<a class="DisplayAvaliablePropertiesHeaderGrid ' + sort + '"  id="' + sortingId + '" onclick="listDrilldownHandler.Sort(this)"> ' + headerText + ' </a>';
@@ -898,7 +898,7 @@ function ListDrilldownHandler() {
             if (sortOptions.length) {
                 sortId = jQuery.map(sortOptions, function (sortOption) { return sortOption.id; }).join(',');
 
-                if (self.CurrentSort != null && sortId === self.CurrentSort.sort) {
+                if (self.CurrentSort !== null && sortId === self.CurrentSort.sort) {
                     self.CurrentSort = { sort: sortId, dir: self.CurrentSort.dir === 'asc' ? 'desc' : 'asc' };
                 }
                 else {

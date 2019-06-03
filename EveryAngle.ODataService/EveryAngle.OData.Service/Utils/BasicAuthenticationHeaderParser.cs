@@ -9,7 +9,7 @@ using System.Web;
 
 namespace EveryAngle.OData.Service.Utils
 {
-    internal class BasicAuthenticationHeaderParser
+    internal static class BasicAuthenticationHeaderParser
     {
         private const string _authorizationHeaderName = "Authorization";
         private const string _basicAuthenticationSchemeName = "basic";

@@ -1,5 +1,5 @@
 (function (win) {
-    
+
     var init = function () {
         MC.addPageReadyFunction(MC.ui.password);
         MC.addAjaxDoneFunction(MC.ui.password);

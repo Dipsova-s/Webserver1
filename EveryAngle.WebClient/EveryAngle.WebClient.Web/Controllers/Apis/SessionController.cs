@@ -11,22 +11,17 @@ namespace EveryAngle.WebClient.Web.Controllers.Apis
 
     public class SessionController : BaseApiController
     {
-        private AccountService accountService = new AccountService();
+        private readonly AccountService accountService = new AccountService();
 
         [AllowAnonymous]
         public HttpResponseMessage Post()
         {
-            JObject token = SessionControllerHelper.GetTokenWithClientIp(this.Body, Shared.EmbeddedViews.Util.GetIPAddress());
+            JObject token = SessionControllerHelper.GetTokenWithClientIp(Body, Shared.EmbeddedViews.Util.GetIPAddress());
 
-            var clientSession = new JObject();
-            if (token.SelectToken("authorization") == null)
-            {
-                clientSession = accountService.Login(token.SelectToken("user").ToString(), token.SelectToken("password").ToString(), true);
-            }
-            else
-            {
-                clientSession = accountService.LoginWithAuthorizationAttribute(token.ToString(), false);
-            }
+            var clientSession = token.SelectToken("authorization") == null
+                ? accountService.Login(token.SelectToken("user").ToString(), token.SelectToken("password").ToString(), true)
+                : accountService.LoginWithAuthorizationAttribute(token.ToString(), false);
+            
             return HttpResponseMessageBuilder.GetHttpResponseMessage(this, clientSession, accountService.ResponseStatus, true);
         }
 

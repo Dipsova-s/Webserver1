@@ -20,7 +20,7 @@ namespace EveryAngle.OData.BusinessLogic.Abstracts
     {
         #region private variables
 
-        private ModelType _processingToModel;
+        private readonly ModelType _processingToModel;
 
         private readonly IAppServerProxy _appServerProxy;
         private readonly IAngleDataCollector _angleCollector;
@@ -189,12 +189,11 @@ namespace EveryAngle.OData.BusinessLogic.Abstracts
             {
                 // first try to get and assign the current instance to our storage.
                 // after try to set a current instance, if it's still empty, retry
-                string currentInstance = string.Empty;
-                if (TrySetMetadataCurrentInstance(user, out currentInstance))
+                if (TrySetMetadataCurrentInstance(user, out string currentInstance))
                 {
                     // if current instance is returned, break the loop with return true.
                     if (retryChecking)
-                        LogService.Info(string.Format("Application Server: connection established."));
+                        LogService.Info("Application Server: connection established.");
 
                     return true;
                 }

@@ -22,7 +22,7 @@ namespace EveryAngle.WebClient.Web.Controllers
     {
         #region Variable
 
-        AggregationService aggregationService;
+        private readonly AggregationService aggregationService;
 
         #endregion Variable
 
@@ -56,18 +56,12 @@ namespace EveryAngle.WebClient.Web.Controllers
         {
             if (dataObject != null && dataObject[0] != null && dataObject.RowCount > 0)
             {
-                List<EAPivotField> rows = null;
                 ClientPivotDrillDownDataSource clientDataSource = ((ClientPivotDrillDownDataSource)dataObject[0].DataSource);
                 if (clientDataSource != null && clientDataSource.RowCount > 0)
                 {
-                    if (filterArea != null)
-                    {
-                        rows = aggregationService.FieldSetting.GetFields().Where(filter => filter.Area == filterArea.GetHashCode()).ToList();
-                    }
-                    else
-                    {
-                        rows = aggregationService.FieldSetting.GetFields();
-                    }
+                    List<EAPivotField> rows = filterArea != null
+                            ? aggregationService.FieldSetting.GetFields().Where(filter => filter.Area == filterArea.GetHashCode()).ToList()
+                            : aggregationService.FieldSetting.GetFields();
 
                     foreach (EAPivotField field in rows)
                     {
@@ -100,16 +94,11 @@ namespace EveryAngle.WebClient.Web.Controllers
             {
                 SetQueryFromDimensions(rowFieldName, querySteps, dataObject, PivotArea.RowArea);
             }
-            else if (rowValueType == "GrandTotal" && columnValueType == "Value")
+            else if (rowValueType == "GrandTotal" && (columnValueType == "Value" || columnValueType == "Total"))
             {
                 SetQueryFromDimensions(columnFieldName, querySteps, dataObject, PivotArea.ColumnArea);
             }
-            else if (rowValueType == "Total" && columnValueType == "Value")
-            {
-                SetQueryFromDimensions(rowFieldName, querySteps, dataObject, PivotArea.RowArea);
-                SetQueryFromDimensions(columnFieldName, querySteps, dataObject, PivotArea.ColumnArea);
-            }
-            else if (rowValueType == "Total" && columnValueType == "Total")
+            else if (rowValueType == "Total" && (columnValueType == "Value" || columnValueType == "Total"))
             {
                 SetQueryFromDimensions(rowFieldName, querySteps, dataObject, PivotArea.RowArea);
                 SetQueryFromDimensions(columnFieldName, querySteps, dataObject, PivotArea.ColumnArea);
@@ -122,10 +111,6 @@ namespace EveryAngle.WebClient.Web.Controllers
             {
                 //no need to filter
                 dimensions.Type = PivotEnums.RowType.GrandTotal;
-            }
-            else if (rowValueType == "GrandTotal" && columnValueType == "Total")
-            {
-                SetQueryFromDimensions(columnFieldName, querySteps, dataObject, PivotArea.ColumnArea);
             }
             else
             {
@@ -182,7 +167,11 @@ namespace EveryAngle.WebClient.Web.Controllers
             return PartialView("~/Views/Angle/PartialViews/Pivot/PivotGridPartial.cshtml", pivotDataTable);
         }
 
-        public ActionResult PivotGridCallBackPartial(string fieldSettingsData, bool CanDrilldown, string __DXCallbackArgument, bool? isDrilldown, int? rowIndex, int? columnIndex, string rowValueType, string columnValueType, string rowFieldName, string columnFieldName)
+        public ActionResult PivotGridCallBackPartial(string fieldSettingsData,
+            bool CanDrilldown, string __DXCallbackArgument, bool? isDrilldown,
+            int? rowIndex, int? columnIndex,
+            string rowValueType, string columnValueType,
+            string rowFieldName, string columnFieldName)
         {
             // fieldSettingsData will be encoded as base64
             PivotSettings fieldSettings = JsonConvert.DeserializeObject<PivotSettings>(Base64Helper.Decode(fieldSettingsData));
@@ -209,7 +198,7 @@ namespace EveryAngle.WebClient.Web.Controllers
                 dimensions.ColumnIndex = columnIndex;
                 GetFieldValues(rowValueType, columnValueType, rowFieldName, columnFieldName, querySteps, dimensions, dataObject);
 
-                return new JsonResult() { Data = dimensions };
+                return new JsonResult { Data = dimensions };
             }
         }
 

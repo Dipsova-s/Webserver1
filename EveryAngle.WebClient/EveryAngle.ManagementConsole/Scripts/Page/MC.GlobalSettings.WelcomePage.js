@@ -197,8 +197,10 @@
                 preview = jQuery(input).parents('.contentSectionWelcomeLogoItem').children('img'),
                 defaultImage = preview.data('default') || 'data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==';
             if (!input.value || (jQuery.validator && !jQuery(input).valid())) {
-                if (window.FileReader) preview.attr('src', defaultImage);
-                else preview[0].filters.item("DXImageTransform.Microsoft.AlphaImageLoader").src = '';
+                if (window.FileReader)
+                    preview.attr('src', defaultImage);
+                else
+                    preview[0].filters.item("DXImageTransform.Microsoft.AlphaImageLoader").src = '';
                 jQuery(input).replaceWith(jQuery(input).clone(true));
                 event.preventDefault();
                 return false;
@@ -268,7 +270,8 @@
                 }
             };
             var nextVideo = function (delay) {
-                if (typeof delay == 'undefined') delay = 0;
+                if (typeof delay === 'undefined')
+                    delay = 0;
 
                 setTimeout(function () {
                     var videoObject = jQuery(video);
@@ -319,14 +322,15 @@
                 nextVideo(delayTime);
             };
             var getThumb = function () {
-                if (reports[index - 1]) return;
+                if (reports[index - 1])
+                    return;
 
                 var filename = video.getAttribute('src').split('/');
                 filename = '/' + filename.slice(filename.length - 4).join('/');
                 var reportIndex = index - 1;
                 var maxW = 500;
                 var w = maxW;
-                var h = (maxW * video.videoHeight) / video.videoWidth;
+                var h = maxW * video.videoHeight / video.videoWidth;
                 var canvas = document.createElement('canvas');
 
                 canvas.width = w;

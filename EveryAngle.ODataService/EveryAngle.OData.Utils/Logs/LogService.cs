@@ -2,7 +2,7 @@
 
 namespace EveryAngle.OData.Utils.Logs
 {
-    public class LogService
+    public static class LogService
     {
         private static readonly log4net.ILog logger = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 
@@ -24,6 +24,8 @@ namespace EveryAngle.OData.Utils.Logs
                     break;
                 case LogLevel.WARN:
                     Warn(message, ex);
+                    break;
+                default:
                     break;
             }
         }

@@ -35,7 +35,7 @@
         };
 
         self.IsContainLanguage = function (id) {
-            return jQuery.inArray(id, self.ActiveLanguages) != -1;
+            return jQuery.inArray(id, self.ActiveLanguages) !== -1;
         };
 
         self.GetData = function () {
@@ -43,7 +43,9 @@
 
             var data = {};
             data.modelUri = self.ModelUri;
-            data.activeLanguages = { "active_languages": $('#ActiveLanguagesGrid input:checked[value="True"]').map(function () { return this.name }).get() };
+            data.activeLanguages = {
+                "active_languages": $('#ActiveLanguagesGrid input:checked[value="True"]').map(function () { return this.name; }).get()
+            };
 
             return data;
         };

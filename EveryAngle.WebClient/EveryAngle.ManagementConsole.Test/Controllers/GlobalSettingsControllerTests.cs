@@ -54,9 +54,15 @@ namespace EveryAngle.ManagementConsole.Test.Controllers
         public void GetAuthenticationSystemSettingsAsJsonString_ShouldReturnCorrectJsonString_WhenItHasBeenUsed()
         {
             _testingController = GetController();
-            SystemSettingViewModel viewModel = new SystemSettingViewModel();
-            viewModel.DefaultAuthenticationProvider = "everyangle";
-            viewModel.trusted_webservers = new System.Collections.Generic.List<string> { "192.168.1.1", "127.0.0.1" };
+            SystemSettingViewModel viewModel = new SystemSettingViewModel
+            {
+                DefaultAuthenticationProvider = "everyangle",
+                trusted_webservers = new System.Collections.Generic.List<string>
+                {
+                    "192.168.1.1",  //NOSONAR
+                    "127.0.0.1"     //NOSONAR
+                }
+            };
 
             string result = _testingController.GetAuthenticationSystemSettingsAsJsonString(sessionHelper.Object, viewModel);
 
