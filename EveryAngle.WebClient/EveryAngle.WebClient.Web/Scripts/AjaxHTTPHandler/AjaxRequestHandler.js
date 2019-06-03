@@ -24,6 +24,7 @@
         self.Initial = function () {
             jQuery(document).ajaxSend(function (event, jqxhr, settings) {
                 // http://www.w3.org/TR/XMLHttpRequest/#the-setrequestheader()-method
+                ValidationRequestService.setSecurityHeader(jqxhr);
                 jqxhr.setRequestHeader('Accept-Language', '');
                 jqxhr.settings = settings;
                 self.XHR.push(jqxhr);
@@ -127,7 +128,7 @@
 
             return jQuery.ajax(ajaxOptions);
         };
-
+        
         self.BuildRequestUrl = function (originalUrl, isLocalApi) {
             originalUrl = originalUrl || '';
             if (originalUrl.charAt(0) === '/') {

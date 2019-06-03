@@ -261,6 +261,7 @@ if %25ERRORLEVEL%25 LEQ 1 exit 0 else exit %25ERRORLEVEL%25</PreBuildEvent>
     <Compile Include="Controllers\SharedComponentController.cs" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Filters\ActionFilters\IsUserLogedInAction.cs" />
+    <Compile Include="Filters\ActionFilters\ValidationRequestActionFilter.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -1077,6 +1078,7 @@ if %25ERRORLEVEL%25 LEQ 1 exit 0 else exit %25ERRORLEVEL%25</PreBuildEvent>
     <Content Include="Views\Shared\EditorTemplates\EnumTemplate.cshtml" />
     <Content Include="Views\Angle\PartialViews\Pivot\PivotGridScript.cshtml" />
     <Content Include="Views\Shared\Top\BusinessProcessBadge.cshtml" />
+    <Content Include="Views\Shared\Top\ValidationRequestHeader.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

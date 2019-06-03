@@ -115,6 +115,18 @@ namespace EveryAngle.WebClient.Service.HttpHandlers
             return checkUri.StartsWith(CSM_URI, StringComparison.InvariantCultureIgnoreCase);
         }
 
+        public bool IsDownloadUri()
+        {
+            string requestUrl = uri.Clone().ToString();
+            int queryStringIndex = requestUrl.IndexOf('?');
+            string queryString = queryStringIndex != -1 ? requestUrl.Substring(queryStringIndex) : string.Empty;
+
+            if (!string.IsNullOrEmpty(queryString))
+                requestUrl = requestUrl.Replace(queryString, string.Empty);
+
+            return requestUrl.EndsWith("/file") || requestUrl.Contains("/download");
+        }
+
         public static string GetProxyRequestUrl()
         {
             return GetProxyRequestUrl(null);

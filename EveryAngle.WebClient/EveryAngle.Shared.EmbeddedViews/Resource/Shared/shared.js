@@ -593,3 +593,28 @@
     };
 
 })(window, window.jQuery);
+
+// Validation Request Service
+window.ValidationRequestService = {};
+(function (window, security) {
+
+    "use strict";
+    var self = {};
+    self.tokenHeaderId = 'Request-Verification-Token';
+    self.TokenQueryStringId = 'request_verification_token';
+    
+    self.setSecurityHeader = function (xhr) {
+        xhr.setRequestHeader(self.tokenHeaderId, self.getVerificationToken());
+    };
+
+    self.getVerificationToken = function () {
+        return jQuery('meta[name="' + self.tokenHeaderId + '"]').attr('content');
+    };
+
+    self.getVerificationTokenAsQueryString = function () {
+        return self.TokenQueryStringId + '=' + self.getVerificationToken();
+    };
+
+    jQuery.extend(security, self);
+
+})(window, window.ValidationRequestService);

@@ -13,6 +13,7 @@
     <meta name="Description" content="Every Angle" />
     <meta name="Keywords" content="Every Angle" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    @RenderPage("~/Views/Shared/Top/ValidationRequestHeader.cshtml")
     <link rel="shortcut icon" href="@Url.Content("~/images/favicon.ico")" />
 
     <script src='@Url.Content("~/resources/index?lang=" + Thread.CurrentThread.CurrentUICulture.TwoLetterISOLanguageName)' type="text/javascript"></script>
@@ -69,11 +70,9 @@
     @Styles.Render("~/content/kendoui/kendoui.common.css")
     @Styles.Render("~/content/kendoui/kendoui.default.css")
     <![endif]-->
-
     <!--[if gte IE 10]>
     @Styles.Render("~/content/kendoui/kendoui.css")
     <![endif]-->
-
     <!--[if !IE]> -->
     @Styles.Render("~/content/kendoui/kendoui.css")
     <!-- <![endif]-->
@@ -94,19 +93,19 @@
         {
             kendoMessageBundle = "~/bundles/kendoui_messages_en";
         }
-            
+
         if (!BundleTable.EnableOptimizations)
         {
             @Styles.Render("~/content/externalresource/externalresource.css")
-            
+
             <script src='@Scripts.Url("~/bundles/kendoui_core.js")' type="text/javascript"></script>
             <script src='@Scripts.Url("~/bundles/kendoui_cultures.js")' type="text/javascript"></script>
             <script src='@Scripts.Url(kendoMessageBundle)' type="text/javascript"></script>
-        
+
             @Scripts.Render("~/bundles/login",
                 "~/bundles/main",
                 "~/resources/embedded/js")
-            
+
             <script type="text/javascript">
                 InitialKendo();
                 SetUICuture(userCulture);

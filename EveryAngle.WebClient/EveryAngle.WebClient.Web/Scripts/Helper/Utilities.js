@@ -152,7 +152,8 @@
         window.open(url);
     };
     window.WC.Utility.RedirectUrl = function (url) {
-        window.location = url;
+        var queryStringSymbol = url.indexOf('?') !== -1 ? '&' : '?';
+        window.location = url + queryStringSymbol + ValidationRequestService.getVerificationTokenAsQueryString();
     };
     window.WC.Utility.DownloadFile = function (url) {
         WC.Utility.RedirectUrl(url);

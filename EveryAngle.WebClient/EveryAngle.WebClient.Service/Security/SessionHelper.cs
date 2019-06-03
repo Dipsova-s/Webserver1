@@ -1,20 +1,15 @@
-﻿using EveryAngle.Core.Interfaces.Services;
-using EveryAngle.Core.ViewModels.Directory;
+﻿using EveryAngle.Core.ViewModels.Directory;
 using EveryAngle.Core.ViewModels.Model;
 using EveryAngle.Core.ViewModels.ModelServer;
 using EveryAngle.Core.ViewModels.SystemInformation;
 using EveryAngle.Core.ViewModels.SystemSettings;
 using EveryAngle.Core.ViewModels.Users;
 using EveryAngle.Logging;
-using EveryAngle.Utilities;
 using EveryAngle.WebClient.Service.ApiServices;
 using EveryAngle.WebClient.Service.HttpHandlers;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 using System.Web;
 
 namespace EveryAngle.WebClient.Service.Security
@@ -274,7 +269,7 @@ namespace EveryAngle.WebClient.Service.Security
                 Log.SendException("Logout", ex);
             }
         }
-
+        
         #endregion
 
         #region private functions

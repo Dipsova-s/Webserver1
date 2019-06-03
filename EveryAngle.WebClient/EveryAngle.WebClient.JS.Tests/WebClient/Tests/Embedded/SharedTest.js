@@ -42,53 +42,53 @@
         }];
 
         object2 = [
-        {
-            "short_name": "1111",
-            "long_name": "1111",
-            "id": "es0ToBeExecuted",
-            "pattern": "/",
-            "color": "FF22B900"
-        },
-        {
-            "short_name": "0000",
-            "long_name": "0000",
-            "id": "es1PartiallyExecuted",
-            "pattern": "\\",
-            "color": "FF99CCFF"
-        },
-        {
-            "short_name": "<no value>",
-            "long_name": "<no value>",
-            "id": null,
-            "pattern": "/",
-            "color": "FF000000"
-        },
-        {
-            "short_name": "<not in set>",
-            "long_name": "<not in set>",
-            "id": "~NotInSet",
-            "pattern": "/",
-            "color": "FF000000"
-        },
-        {
-            "short_name": "Closed",
-            "long_name": "Closed",
-            "id": "es2FullyExecuted",
-            "color": "FFEDA100"
-        },
-        {
-            "short_name": "Cancelled",
-            "long_name": "Cancelled",
-            "id": "es3Cancelled",
-            "color": "FFED0000"
-        },
-        {
-            "short_name": "N/a",
-            "long_name": "Not applicable",
-            "id": "es4None",
-            "pattern": "/",
-            "color": "FFC2C2C2"
-        }];
+            {
+                "short_name": "1111",
+                "long_name": "1111",
+                "id": "es0ToBeExecuted",
+                "pattern": "/",
+                "color": "FF22B900"
+            },
+            {
+                "short_name": "0000",
+                "long_name": "0000",
+                "id": "es1PartiallyExecuted",
+                "pattern": "\\",
+                "color": "FF99CCFF"
+            },
+            {
+                "short_name": "<no value>",
+                "long_name": "<no value>",
+                "id": null,
+                "pattern": "/",
+                "color": "FF000000"
+            },
+            {
+                "short_name": "<not in set>",
+                "long_name": "<not in set>",
+                "id": "~NotInSet",
+                "pattern": "/",
+                "color": "FF000000"
+            },
+            {
+                "short_name": "Closed",
+                "long_name": "Closed",
+                "id": "es2FullyExecuted",
+                "color": "FFEDA100"
+            },
+            {
+                "short_name": "Cancelled",
+                "long_name": "Cancelled",
+                "id": "es3Cancelled",
+                "color": "FFED0000"
+            },
+            {
+                "short_name": "N/a",
+                "long_name": "Not applicable",
+                "id": "es4None",
+                "pattern": "/",
+                "color": "FFC2C2C2"
+            }];
     });
 
     describe("Array.sortObject", function () {
@@ -141,7 +141,7 @@
     });
 
     describe('jQuery.highlighter.getWords', function () {
-        
+
         var tests = [
             {
                 text: '',
@@ -181,4 +181,33 @@
         });
 
     });
+
+    describe('ValidationRequestService', function () {
+
+        beforeEach(function () {
+            $('<meta name="Request-Verification-Token" content="tokenValue" />').appendTo('head');
+        });
+
+        afterEach(function () {
+            $('meta[name="Request-Verification-Token"]').remove();
+        });
+
+        it('.setSecurityHeader ', function () {
+            var xhr = { setRequestHeader: $.noop };
+            spyOn(xhr, 'setRequestHeader');
+
+            ValidationRequestService.setSecurityHeader(xhr);
+            expect(xhr.setRequestHeader).toHaveBeenCalled();
+        });
+
+        it('.getVerificationToken', function () {
+            expect(ValidationRequestService.getVerificationToken()).toEqual('tokenValue');
+        });
+
+        it('.getVerificationTokenAsQueryString', function () {
+            expect(ValidationRequestService.getVerificationTokenAsQueryString()).toEqual('request_verification_token=tokenValue');
+        });
+
+    });
+
 });

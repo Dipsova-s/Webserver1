@@ -14,7 +14,7 @@ namespace EveryAngle.WebClient.Web.Controllers.Apis
             string requestUrl = RequestManager.GetProxyRequestUrl();
             RequestManager requestManager = RequestManager.Initialize($"/{requestUrl}");
 
-            if (requestUrl.EndsWith("/file") || requestUrl.Contains("/download"))
+            if (requestManager.IsDownloadUri())
             {
                 HttpResponseMessage httpResponseMessage = new HttpResponseMessage(HttpStatusCode.OK);
 

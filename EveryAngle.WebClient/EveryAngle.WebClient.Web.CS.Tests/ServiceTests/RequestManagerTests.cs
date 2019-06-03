@@ -66,5 +66,16 @@ namespace EveryAngle.WebClient.Web.CSTests.ServiceTests
             bool result = RequestManager.IsCSMUri(uri);
             Assert.AreEqual(expected, result);
         }
+
+
+        [TestCase("1/download", true)]
+        [TestCase("items_export/1/file", true)]
+        [TestCase("file", false)]
+        [TestCase("download", false)]
+        public void Can_Check_IsDownloadUri(string requestUri, bool isDownloadUri)
+        {
+            RequestManager manager = RequestManager.Initialize(requestUri);
+            Assert.AreEqual(isDownloadUri, manager.IsDownloadUri());
+        }
     }
 }
