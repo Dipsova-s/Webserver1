@@ -1,4 +1,0 @@
-{
-  "search": "name",
-  "value": "<script>alert(‘XSS aanval’)</script>"
-}
