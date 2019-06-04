@@ -179,7 +179,7 @@ namespace EveryAngle.WebClient.Service.Aggregation
 
             int itemsPerPage = FieldSetting.MaxPageSize;
             int totalPage = (fieldSettings.RowCount + itemsPerPage - 1) / itemsPerPage;
-         
+
             AddGroupRequests(uriGroups, fieldSettings.DataRowsUri, fieldSettings.RequestsPerGroup, itemsPerPage, totalPage);
 
             try
@@ -271,6 +271,7 @@ namespace EveryAngle.WebClient.Service.Aggregation
             SetCallbackRouteValues(settings);
             SetHtmlCellPrepared(settings);
             SetHtmlFieldValuePrepared(settings);
+
             SetCustomCellDisplayText(settings);
             SetContextMenu(settings);
             SetPivotGridField(fields, settings);
@@ -369,7 +370,8 @@ namespace EveryAngle.WebClient.Service.Aggregation
         private static bool IsIntegerDataType(EveryAngleEnums.FIELDTYPE fieldType)
         {
             return EveryAngleEnums.FIELDTYPE.PERIOD == fieldType
-                || EveryAngleEnums.FIELDTYPE.INT == fieldType;
+                || EveryAngleEnums.FIELDTYPE.INT == fieldType
+                || EveryAngleEnums.FIELDTYPE.TIME == fieldType;
         }
         private static bool IsDoubleDataType(EveryAngleEnums.FIELDTYPE fieldType)
         {
@@ -381,8 +383,8 @@ namespace EveryAngle.WebClient.Service.Aggregation
         private static bool IsDateTimeDataType(EveryAngleEnums.FIELDTYPE fieldType)
         {
             return EveryAngleEnums.FIELDTYPE.DATE == fieldType
-                || EveryAngleEnums.FIELDTYPE.DATETIME == fieldType
-                || EveryAngleEnums.FIELDTYPE.TIME == fieldType;
+                || EveryAngleEnums.FIELDTYPE.DATETIME == fieldType;
+
         }
 
         private static List<string> AddDefaultFields(PivotSettings fieldSettings)
@@ -589,8 +591,8 @@ namespace EveryAngle.WebClient.Service.Aggregation
 
                 field.ValueFormat.Format = new EnumFormatter(enumMapper, false);
                 field.CellFormat.Format = new EnumFormatter(enumMapper, false);
-
                 field.SortMode = PivotSortMode.Custom;
+
             }
             else if (dataField.CellFormat.Contains("h]"))
             {
@@ -603,6 +605,12 @@ namespace EveryAngle.WebClient.Service.Aggregation
                 PeriodFormatter periodFormatter = new PeriodFormatter(dataField.CellFormat, dataField.Bucket.Operator, unitText);
                 field.ValueFormat.Format = periodFormatter;
                 field.CellFormat.Format = periodFormatter;
+            }
+            else if (EveryAngleEnums.FIELDTYPE.TIME.ToString().Equals(dataField.DataType, StringComparison.InvariantCultureIgnoreCase))
+            {
+                TimeFormatter timeFormatter = new TimeFormatter(true);
+                field.ValueFormat.Format = timeFormatter;
+                field.CellFormat.Format = timeFormatter;
             }
         }
 
@@ -862,7 +870,7 @@ namespace EveryAngle.WebClient.Service.Aggregation
             MVCxPivotGridField summaryField = new MVCxPivotGridField(sourceField.FieldName, PivotArea.DataArea);
             summaryField.AreaIndex = areaIndex;
             summaryField.CellStyle.CssClass = "PercentageSummaryCell";
-            
+
             switch (percentageSummaryType)
             {
                 case PivotEnums.PercentageSummaryType.Row:
@@ -890,7 +898,7 @@ namespace EveryAngle.WebClient.Service.Aggregation
             // To format summary cell
             summaryField.CellFormat.FormatType = FormatType.Numeric;
             summaryField.CellFormat.FormatString = String.Format("p{0}", decimalsPercentageFormat);
-            
+
             // adjust caption for html
             SetFieldCaption(eaField, summaryField);
 
@@ -980,7 +988,7 @@ namespace EveryAngle.WebClient.Service.Aggregation
         private int GetLiteralControlControlIndex(ControlCollection controls)
         {
             int index = -1;
-            for(int loop = 0; loop < controls.Count; loop++)
+            for (int loop = 0; loop < controls.Count; loop++)
             {
                 if (controls[loop] is LiteralControl)
                 {
@@ -1048,7 +1056,7 @@ namespace EveryAngle.WebClient.Service.Aggregation
             string folder = GetDomainImageFolder(field, _domainImageFolderList);
             if (folder == null)
                 return;
-            
+
             var className = $"icon-{folder}{e.Value}";
 
             e.Cell.Controls.RemoveAt(index);
@@ -1133,12 +1141,6 @@ namespace EveryAngle.WebClient.Service.Aggregation
                 if (IsEmptyCellValue(e))
                 {
                     e.DisplayText = string.Empty;
-                }
-                else if (e.DataField.CellFormat.FormatType == FormatType.DateTime)
-                {
-                    PivotDrillDownDataSource ds = e.CreateDrillDownDataSource();
-                    object value = ds.RowCount == 0 ? null : ds[0][e.DataField.FieldName];
-                    e.DisplayText = e.DataField.CellFormat.GetDisplayText(value);
                 }
             };
         }
@@ -1489,4 +1491,6 @@ namespace EveryAngle.WebClient.Service.Aggregation
         #endregion
 
     }
+
+
 }

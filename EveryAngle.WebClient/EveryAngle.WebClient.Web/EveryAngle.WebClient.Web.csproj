@@ -32,7 +32,8 @@
     <WebGreaseLibPath>..\packages\WebGrease.1.5.2\lib</WebGreaseLibPath>
     <UseGlobalApplicationHostFile />
     <TargetFrameworkProfile />
-    <Use64BitIISExpress>true</Use64BitIISExpress>
+    <Use64BitIISExpress>
+    </Use64BitIISExpress>
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
   </PropertyGroup>
@@ -119,8 +120,8 @@ if %25ERRORLEVEL%25 LEQ 1 exit 0 else exit %25ERRORLEVEL%25</PreBuildEvent>
     <Reference Include="EveryAngle.Security, Version=2.4.3.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\EveryAngle.CSM.Client.0.0.92\lib\net461\EveryAngle.Security.dll</HintPath>
     </Reference>
-    <Reference Include="EveryAngle.Shared.Formatter, Version=2.4.4.2, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\EveryAngle.Shared.Formatter.2.4.4.2\lib\net45\EveryAngle.Shared.Formatter.dll</HintPath>
+    <Reference Include="EveryAngle.Shared.Formatter, Version=2.4.4.12, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\EveryAngle.Shared.Formatter.2.4.4.12\lib\net461\EveryAngle.Shared.Formatter.dll</HintPath>
     </Reference>
     <Reference Include="EveryAngle.Shared.Pivot, Version=2.4.4.10, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\EveryAngle.Shared.Pivot.2.4.4.10\lib\net45\EveryAngle.Shared.Pivot.dll</HintPath>
@@ -128,8 +129,8 @@ if %25ERRORLEVEL%25 LEQ 1 exit 0 else exit %25ERRORLEVEL%25</PreBuildEvent>
     <Reference Include="EveryAngle.Threading, Version=2.4.1.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\EveryAngle.Threading.2.4.1\lib\net45\EveryAngle.Threading.dll</HintPath>
     </Reference>
-    <Reference Include="EveryAngle.Utilities, Version=2.4.2.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\EveryAngle.CSM.Client.0.0.92\lib\net461\EveryAngle.Utilities.dll</HintPath>
+    <Reference Include="EveryAngle.Utilities, Version=2.4.4.10, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\EveryAngle.Utilities.2.4.4.10\lib\net45\EveryAngle.Utilities.dll</HintPath>
     </Reference>
     <Reference Include="Ionic.Zip, Version=1.9.1.8, Culture=neutral, PublicKeyToken=edbe51ad942a3f5c, processorArchitecture=MSIL">
       <HintPath>..\packages\EveryAngle.CSM.Client.0.0.92\lib\net461\Ionic.Zip.dll</HintPath>
@@ -1142,11 +1143,11 @@ if %25ERRORLEVEL%25 LEQ 1 exit 0 else exit %25ERRORLEVEL%25</PreBuildEvent>
     <VisualStudio>
       <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
         <WebProjectProperties>
-          <UseIIS>False</UseIIS>
+          <UseIIS>True</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>33986</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://localhost:55555/</IISUrl>
+          <IISUrl>http://localhost:33987/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>

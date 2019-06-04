@@ -1153,7 +1153,7 @@ function FieldSettingsHandler() {
         var fieldTimeSettings = WC.FormatHelper.GetFieldFormatSettings(fieldTimeFormatter, true);
         var timeFormat = WC.FormatHelper.GetFormatter(fieldTimeSettings);
 
-        field.CellFormatType = enumHandlers.DEVXPRESSFORMATTYPE.DATETIME;
+        field.CellFormatType = enumHandlers.DEVXPRESSFORMATTYPE.CUSTOM;
         field.CellFormat = timeFormat;
     };
 

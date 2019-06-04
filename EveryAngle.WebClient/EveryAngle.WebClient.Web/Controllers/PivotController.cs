@@ -45,8 +45,7 @@ namespace EveryAngle.WebClient.Web.Controllers
             {
                 if (fieldType == EveryAngleEnums.FIELDTYPE.DATE || fieldType == EveryAngleEnums.FIELDTYPE.DATETIME)
                     fieldValue = DateTimeUtils.DateTimeToUnixTimestamp((DateTime)clientDataSourceValue);
-                else if (fieldType == EveryAngleEnums.FIELDTYPE.TIME)
-                    fieldValue = ((DateTime)clientDataSourceValue).Hour * 3600;
+                
             }
 
             return fieldValue;

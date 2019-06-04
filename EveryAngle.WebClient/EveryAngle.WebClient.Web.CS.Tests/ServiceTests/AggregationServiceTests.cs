@@ -250,7 +250,7 @@ namespace EveryAngle.WebClient.Web.CSTests.ServiceTests
         [TestCase("timespan", "any", typeof(Double))]
         [TestCase("date", "any", typeof(DateTime))]
         [TestCase("datetime", "any", typeof(DateTime))]
-        [TestCase("time", "any", typeof(DateTime))]
+        [TestCase("time", "any", typeof(Int64))]
         public void TestGetDataType(string type, string bucket, Type expected)
         {
             Type result = AggregationService.GetDataType(type, bucket);

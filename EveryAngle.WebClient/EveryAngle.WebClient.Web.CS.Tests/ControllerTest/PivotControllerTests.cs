@@ -28,10 +28,8 @@ namespace EveryAngle.WebClient.Web.CSTests.ControllerTest
         [Test]
         public void Pivot_Get_Field_Value_With_Fieldtype_Time()
         {
-            //Mock datetime 01/01/2016 5.00.00 am
-            DateTime datetime = new DateTime(2016, 1, 1, 5, 0, 0);
-
-            object value = controller.GetFieldValue(datetime, EveryAngleEnums.FIELDTYPE.TIME);
+            
+            object value = controller.GetFieldValue(18000, EveryAngleEnums.FIELDTYPE.TIME);
 
             //Assertion : Expected result is 18000
             Assert.AreEqual(18000, Convert.ToInt32(value),
