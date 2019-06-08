@@ -127,7 +127,7 @@
 
             template += "<input type=\"hidden\" name=\"uri\" value=\"" + uri + "\" />";
             if (canManageTask) {
-                template += "<a href=\"" + MC.AutomationTasks.Tasks.EditTaskPage + "\"  onclick=\"MC.AutomationTasks.Tasks.EditTask(event, this')\" data-parameters='{\"tasksUri\":\"" + uri + "\"}' class=\"btn btnEdit\">" + Localization.Edit + "</a>";
+                template += "<a href=\"" + MC.AutomationTasks.Tasks.EditTaskPage + "\"  onclick=\"MC.AutomationTasks.Tasks.EditTask(event, this)\" data-parameters='{\"tasksUri\":\"" + uri + "\"}' class=\"btn btnEdit\">" + Localization.Edit + "</a>";
                 if (manageSystemPrivilege) {
                     template += "<a href=\"#popupCopyTask\" onclick=\"MC.AutomationTasks.Tasks.CopyTaskPopup('" + uri + "','" + data.name + "')\" data-role=\"mcPopup\" title=\"" + Localization.MC_CopyTask + "\" data-width=\"500\" data-min-height=\"180\" data-min-width=\"475\" class=\"btn btnCopy\">" + Localization.Copy + "</a>";
                 }

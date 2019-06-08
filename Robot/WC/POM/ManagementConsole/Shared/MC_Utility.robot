@@ -7,6 +7,7 @@ ${btnShowMenu}    css=.textShowMenu
 ${btnReload}      css=#pageToolbarButton .btnReload
 
 ${scrollBarGrid}            css=.k-scrollbar
+${scrollBarHorizontalGrid}  css=.k-virtual-scrollable-wrap
 ${btnAction}                .btnGroupContainer a:first
 ${btnView}                  .btn btnInfo.first
 ${btnDelete}                .btnDelete.first
@@ -45,18 +46,21 @@ Click Reload MC Page
 Click Show Action Dropdown In Grid By Name
     [Arguments]    ${name}    ${trRowInGrid}
     Wait Until Page Contains Element    ${trRowInGrid}:contains(${name}) ${btnAction}
+    Scroll Horizontal  ${scrollBarHorizontalGrid}  2000
     Scroll Vertical To Element    ${scrollBarGrid}    ${trRowInGrid}:contains(${name})
     Click Element At Coordinates   ${trRowInGrid}:contains(${name}) ${btnAction}    10    0
 
 Click Show Action Dropdown In Grid By Index
     [Arguments]    ${index}    ${trRowInGrid}
     Wait Until Page Contains Element    ${trRowInGrid}:eq(${index}) ${btnAction}
+    Scroll Horizontal  ${scrollBarHorizontalGrid}  2000
     Scroll Vertical To Element    ${scrollBarGrid}    ${trRowInGrid}:eq(${index})
     Click Element At Coordinates   ${trRowInGrid}:eq(${index}) ${btnAction}    10    0
 
 Click Main Action In Grid By Name
     [Arguments]    ${name}    ${trRowInGrid}    ${btnAction}
     Wait Until Page Contains Element    ${trRowInGrid}:contains(${name}) ${btnAction}
+    Scroll Horizontal  ${scrollBarHorizontalGrid}  2000
     Scroll Vertical To Element    ${scrollBarGrid}    ${trRowInGrid}:contains(${name})
     Click Element    ${trRowInGrid}:contains(${name}) ${btnAction}
 
