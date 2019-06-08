@@ -1,4 +1,6 @@
 ﻿using EveryAngle.OData.Service.Attributes;
+using Microsoft.AspNet.WebApi.Extensions.Compression.Server;
+using System.Net.Http.Extensions.Compression.Core.Compressors;
 using System.Web.Http;
 
 namespace EveryAngle.OData
@@ -13,6 +15,7 @@ namespace EveryAngle.OData
             config.Filters.Clear();
             config.Filters.Add(new ContextAttribute());
             config.Filters.Add(new AsyncLoggingFilter());
+            config.MessageHandlers.Insert(0, new ServerCompressionHandler(new GZipCompressor(), new DeflateCompressor()));
 
             config.Routes.MapHttpRoute(
                 name: "DefaultApi",
