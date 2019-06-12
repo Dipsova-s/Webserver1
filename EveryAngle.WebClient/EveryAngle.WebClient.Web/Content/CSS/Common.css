@@ -478,7 +478,7 @@ img {
 .icon.dashboard {
     width: 25px;
     height: 25px;
-    background-image: url('../../images/icons/icon_item_dashboard.png');
+    background-image: url('../../images/icons/icon_item_dashboard.svg');
 }
 
 .icon.public {
