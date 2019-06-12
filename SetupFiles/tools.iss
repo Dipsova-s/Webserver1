@@ -203,7 +203,15 @@ begin
 
     Log('[i]Executing: ' + command);
     Exec('cmd.exe', '/C "' + command + '"', '', SW_HIDE, ewWaitUntilTerminated, ResultCode);
-    ErrorMessage := 'Ok';
+    
+    if ResultCode <> 0 then
+       begin
+       ErrorMessage := 'Error';
+       end
+    else
+       ErrorMessage := 'Ok';
+    
+
   except
     ErrorMessage := 'Execution error: ' + GetExceptionMessage;
     if ResultCode = 0 then 

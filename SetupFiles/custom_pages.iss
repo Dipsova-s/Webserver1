@@ -2,6 +2,7 @@
 // ***** Custom Progress page ***************************************************
 var
   ProgressPage: TOutputProgressWizardPage;
+  CustomExitCode: integer;
 
 Procedure ShowProgressAndText(progress: integer; msg1, msg2: string);
 begin
@@ -27,13 +28,15 @@ end;
 
 Procedure HideProgress;
 begin
-  ProgressPage.Hide
+  if Assigned(ProgressPage) then
+    ProgressPage.Hide
 end;
 
 Procedure DoAbort;
 begin
   Log('[E]DoAbort');
   HideProgress;
+  CustomExitCode := -1;
   Abort;
 end;
 

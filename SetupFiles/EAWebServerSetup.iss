@@ -951,10 +951,9 @@ begin
   ExecutePath :=   MSDeployParameters +' &call ' + ExecutePath+'';
  
   log(ExecutePath);
-  ExecuteWebDeploy(ExecutePath,commandName);
 
-  if ResultCode <> 0 then
-    DoAbort;
+  if ExecuteWebDeploy(ExecutePath,commandName) <> 0 then
+    AbortWithError('Setup failed:' + #13#10#13#10 + 'Please check the WebDeploy.cmd.log for details.');
 end;
 
 procedure ExecuteM4ManagementConsoleDeploy();
@@ -1747,6 +1746,14 @@ begin
             Space + 'Data: ' + DataPath('') + NewLine + NewLine +
             MemoComponentsInfo + NewLine + NewLine +
             Settings + NewLine;
+end;
+
+// Return a non zero number to instruct Setup to return a custom exit code.
+// This function is only called if Setup was successfully run to completion and the exit code would have been 0.
+// Also see Setup Exit Codes.
+function GetCustomSetupExitCode: Integer;
+begin
+  result := {custom_pages.}CustomExitCode;
 end;
 
 // Called just before Setup terminates. Note that this function is called even if the user exits Setup before anything is installed.
