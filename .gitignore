@@ -304,3 +304,4 @@ __pycache__/
 /NET/Frontend/WebDeploy
 /SetupFiles/ThirdParty/7-Zip
 /.scannerwork
+/.sonar
