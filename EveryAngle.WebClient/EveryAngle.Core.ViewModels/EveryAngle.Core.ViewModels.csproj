@@ -101,9 +101,7 @@
     <Compile Include="ModelServer\ModelServerViewModel.cs" />
     <Compile Include="Model\ActionListViewModel.cs" />
     <Compile Include="Model\AgentModelInfoViewModel.cs" />
-    <Compile Include="Model\ModelSiteMapHanaServerViewModel.cs" />
     <Compile Include="Model\ModelSiteMapSlaveViewModel.cs" />
-    <Compile Include="Model\ModelSiteMapEA4ITViewModel.cs" />
     <Compile Include="Model\ModelSiteMapBaseViewModel.cs" />
     <Compile Include="Model\AgentViewModel.cs" />
     <Compile Include="Model\ClassViewModel.cs" />

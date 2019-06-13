@@ -280,27 +280,9 @@ namespace EveryAngle.ManagementConsole.Models
 
         public Type GetModelSiteMapType(string modelId, bool hasModelServer, bool hasHanaServer)
         {
-            Type siteMapType;
-            if (!hasModelServer && !hasHanaServer)
-            {
-                // Slave: no hana & model server
-                siteMapType = typeof(ModelSiteMapSlaveViewModel);
-            }
-            else if (hasHanaServer && modelId == MODEL_EA4IT)
-            {
-                // EA4IT model: is hana server
-                siteMapType = typeof(ModelSiteMapEA4ITViewModel);
-            }
-            else if (hasHanaServer)
-            {
-                // Hana server
-                siteMapType = typeof(ModelSiteMapHanaServerViewModel);
-            }
-            else
-            {
-                // Model server
-                siteMapType = typeof(ModelSiteMapBaseViewModel);
-            }
+            // slave model have to disable some menu
+            bool isSlaveModel = !hasModelServer && !hasHanaServer;
+            Type siteMapType = isSlaveModel ? typeof(ModelSiteMapSlaveViewModel) : typeof(ModelSiteMapBaseViewModel);
             return siteMapType;
         }
 
