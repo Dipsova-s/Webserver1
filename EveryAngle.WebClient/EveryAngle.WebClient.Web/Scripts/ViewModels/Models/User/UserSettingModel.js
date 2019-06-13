@@ -145,7 +145,7 @@ function UserSettingViewModel() {
 
         var lastSearch = jQuery.address.value();
         var prevLastSearch = self.GetClientSettingByPropertyName(enumHandlers.CLIENT_SETTINGS_PROPERTY.LAST_SEARCH_URL);
-        if (prevLastSearch === lastSearch)
+        if (prevLastSearch === lastSearch || lastSearch === '/')
             return null;
 
         var clientSettings = JSON.parse(self.GetByName(enumHandlers.USERSETTINGS.CLIENT_SETTINGS));
@@ -255,11 +255,11 @@ function UserSettingViewModel() {
         });
 
         return jQuery.whenAll(deferred)
-                .done(function () {
-                    self.TempRemoveList.removeAll();
-                    self.OriginalAutoExecuteList.removeAll();
-                    self.OriginalAutoExecuteList.push.apply(self.OriginalAutoExecuteList, self.AutoExecuteList());
-                });
+            .done(function () {
+                self.TempRemoveList.removeAll();
+                self.OriginalAutoExecuteList.removeAll();
+                self.OriginalAutoExecuteList.push.apply(self.OriginalAutoExecuteList, self.AutoExecuteList());
+            });
     };
     self.GenerateLabelAuthorisations = function (modelUri) {
         self.LabelAuthorisations.removeAll();

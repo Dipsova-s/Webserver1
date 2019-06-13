@@ -3,7 +3,7 @@ Resource            ${EXECDIR}/resources/WCSettings.robot
 Suite Setup         Open Browser in Sandbox Mode
 Suite Teardown      Close Browser
 Test teardown       Run Keyword If Test Failed    Force Logout WC
-Force Tags          smk_wc
+Force Tags          smk_wc_s
 
 *** Test Cases ***
 EAPower is redirected to searchpage after logging in to MC or deeplink URL to MC

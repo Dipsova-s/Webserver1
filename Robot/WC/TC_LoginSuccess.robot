@@ -3,7 +3,7 @@ Resource            ${EXECDIR}/resources/WCSettings.robot
 Suite Setup         Open Browser in Sandbox Mode
 Suite Teardown      Close Browser
 Test Setup          Go To               ${URL_WC}
-Force Tags          smoke    smk_wc
+Force Tags          smoke    smk_wc_s
 
 
 *** Test Cases ***
