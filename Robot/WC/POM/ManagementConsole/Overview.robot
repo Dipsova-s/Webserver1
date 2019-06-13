@@ -217,5 +217,6 @@ Click Open Model EA2_800 From Overview Page
     Wait Until Page Contains Element    ${btnOpenModelEA2_800}
     Click Element    ${btnOpenModelEA2_800}
     Wait MC Progress Bar Closed
+    Wait Until Ajax Complete
     Page Should Contain Element    ${btnEA2800InFo}
     Page Should Contain Element    ${btnEA2800XtractorInFo}
