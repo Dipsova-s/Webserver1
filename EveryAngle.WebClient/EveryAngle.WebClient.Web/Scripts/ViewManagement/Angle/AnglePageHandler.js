@@ -711,7 +711,8 @@ function AnglePageHandler() {
                 self.EnableAnglePage(false);
                 progressbarModel.EndProgressBar();
 
-                // M4-8676: WC: "Forbidden, User is not allowed to access this angle.". error display if user open unauthorized angle. 
+                // M4-8676: WC: Forbidden, User is not allowed to access this angle.
+                // error display if user open unauthorized angle.
                 if (xhr.status === 403) {
                     setTimeout(function () {
                         popup.OnCloseCallback = function () {

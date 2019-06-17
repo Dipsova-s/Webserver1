@@ -504,7 +504,7 @@ window.SearchPageHandler = function () {
                         searchQueryModel.Search();
                     }
                 },
-                change: function (e) {
+                change: function () {
                     self.ClearAllSelectedRows();
                     searchQueryModel.Search();
                 }
@@ -529,7 +529,7 @@ window.SearchPageHandler = function () {
                 .on('click', sort, function (e) {
 
                     if (e.data.id !== facetFiltersViewModel.SortRelevancyId
-                        || (e.data.id === facetFiltersViewModel.SortRelevancyId && ddlSort.value() !== facetFiltersViewModel.SortRelevancyId)) {
+                        || e.data.id === facetFiltersViewModel.SortRelevancyId && ddlSort.value() !== facetFiltersViewModel.SortRelevancyId) {
                         var dir = '';
                         if (e.data.id !== ddlSort.value() && e.data.id !== 'name')
                             dir = 'asc';
@@ -554,88 +554,11 @@ window.SearchPageHandler = function () {
         WC.Ajax.AbortAll();
         jQuery('#Content').busyIndicator(true);
         searchModel.ClearSelectedRow();
-
-        var dataSourceTmp = {};
-        var fnCheckRequestEnd;
-        var tempAjaxRequests = {};
-
-        // M4-12030: WC: When default page size set to less than number of objects/angles, no way to get to the objects not shown on search page.
-        var containerHeight = jQuery('#Content').height();
-        var pageSize = Math.min(Math.max(systemSettingHandler.GetDefaultPageSize(), Math.ceil(containerHeight / 46)), systemSettingHandler.GetMaxPageSize());
-
         searchModel.Items([]);
-        var searchItemDataSource = new kendo.data.DataSource({
-            transport: {
-                read: function (options) {
-                    var requestUrl = directoryHandler.GetDirectoryUri(enumHandlers.ENTRIESNAME.ITEMS);
-                    requestUrl += '?' + searchQueryModel.BuildSearchQueryForPagination(options.data.page, options.data.pageSize);
-                    requestUrl += '&caching=false&viewmode=basic';
-
-                    if (tempAjaxRequests.request && tempAjaxRequests.request.readyState !== 4) {
-                        tempAjaxRequests.request.abort();
-                    }
-
-                    if (typeof dataSourceTmp[options.data.page] !== 'undefined') {
-                        options.success(dataSourceTmp[options.data.page]);
-                        return;
-                    }
-
-                    var getData = function () {
-                        return GetDataFromWebService(requestUrl)
-                            .fail(function (xhr, status, error) {
-                                self.SearchItemFail();
-
-                                var gridObject = jQuery('#InnerResultWrapper').data(enumHandlers.KENDOUITYPE.GRID);
-                                if (options.error) {
-                                    options.error(xhr, status, error);
-                                }
-                                else if (gridObject) {
-                                    requestHistoryModel.SaveLastExecute(gridObject.dataSource, gridObject.dataSource.options.transport.read, [options]);
-                                }
-                            })
-                            .done(function (result) {
-                                var newdataRows = result.items;
-                                jQuery.each(newdataRows, function (index, item) {
-                                    WC.ModelHelper.ExtendAuthorization(item);
-                                });
-
-                                if (result.header.total && WC.Utility.UrlParameter(enumHandlers.SEARCHPARAMETER.SORT) === "executed") {
-                                    var amountPage = Math.ceil(result.header.total / 30);
-                                    if (options.data.page === amountPage)
-                                        newdataRows.push({});
-                                }
-
-                                searchModel.Items.push.apply(searchModel.Items, newdataRows);
-
-                                self.SearchItemSuccess(result);
-
-                                dataSourceTmp[options.data.page] = newdataRows;
-
-                                options.success(newdataRows);
-                            });
-                    };
-
-                    tempAjaxRequests = {
-                        url: requestUrl,
-                        request: getData()
-                    };
-                }
-            },
-            error: function (e) {
-                requestHistoryModel.SaveLastExecute(e.sender, e.sender.read, []);
-            },
-            schema: {
-                total: function () {
-                    return searchModel.TotalItems();
-                }
-            },
-            pageSize: pageSize,
-            serverPaging: true
-        });
-
+        var searchItemDataSource = self.GetSearchResultGridDataSource();
 
         // Bind data source with kendo grid
-        var fnCheckFetching, fnCheckRequestIndicator;
+        var fnCheckFetching, fnCheckRequestIndicator, fnCheckRequestEnd;
         var grid = jQuery('#InnerResultWrapper').empty().kendoGrid({
             dataSource: searchItemDataSource,
             columns: ['id'],
@@ -712,7 +635,7 @@ window.SearchPageHandler = function () {
         grid.content
             .off('mousewheel', '.k-loading-mask')
             .on('mousewheel', '.k-loading-mask', function (e) {
-                virtualScroll.verticalScrollbar.scrollTop(virtualScroll.verticalScrollbar.scrollTop() - (e.deltaFactor * e.deltaY));
+                virtualScroll.verticalScrollbar.scrollTop(virtualScroll.verticalScrollbar.scrollTop() - e.deltaFactor * e.deltaY);
 
                 clearInterval(fnCheckRequestIndicator);
                 fnCheckRequestIndicator = setInterval(function () {
@@ -728,7 +651,7 @@ window.SearchPageHandler = function () {
                 .off('mousewheel.iefix')
                 .on('mousewheel.iefix', function (e) {
                     if (!grid.content.find('.k-loading-mask').length) {
-                        virtualScroll.verticalScrollbar.scrollTop(virtualScroll.verticalScrollbar.scrollTop() - (e.deltaFactor * e.deltaY));
+                        virtualScroll.verticalScrollbar.scrollTop(virtualScroll.verticalScrollbar.scrollTop() - e.deltaFactor * e.deltaY);
                     }
                 });
         }
@@ -743,7 +666,7 @@ window.SearchPageHandler = function () {
                         numberItemInView = Math.floor(virtualScroll.wrapper.height() / virtualScroll.itemHeight);
 
                         var prefetchSkip;
-                        var scrollTop = !virtualScroll.itemHeight || !virtualScroll._scrollbarTop ? 0 : virtualScroll._scrollbarTop - (e.deltaFactor * e.deltaY);
+                        var scrollTop = !virtualScroll.itemHeight || !virtualScroll._scrollbarTop ? 0 : virtualScroll._scrollbarTop - e.deltaFactor * e.deltaY;
                         var currentRow = !virtualScroll.itemHeight ? 1 : Math.ceil(scrollTop / virtualScroll.itemHeight) + 1;
 
                         if (e.deltaY === -1) {
@@ -758,10 +681,87 @@ window.SearchPageHandler = function () {
                         prefetchSkip = Math.max(0, prefetchSkip);
                         grid.dataSource.prefetch(prefetchSkip, grid.dataSource.take());
 
-                        virtualScroll.verticalScrollbar.scrollTop(virtualScroll.verticalScrollbar.scrollTop() - (e.deltaFactor * e.deltaY));
+                        virtualScroll.verticalScrollbar.scrollTop(virtualScroll.verticalScrollbar.scrollTop() - e.deltaFactor * e.deltaY);
                     }, 10);
                 }
             });
+    };
+    self.GetSearchResultGridDataSource = function () {
+        var dataSourceTmp = {};
+        var tempAjaxRequests = {};
+
+        // M4-12030: WC: When default page size set to less than number of objects/angles, no way to get to the objects not shown on search page.
+        var containerHeight = jQuery('#Content').height();
+        var pageSize = Math.min(Math.max(systemSettingHandler.GetDefaultPageSize(), Math.ceil(containerHeight / 46)), systemSettingHandler.GetMaxPageSize());
+
+        return new kendo.data.DataSource({
+            transport: {
+                read: function (options) {
+                    var requestUrl = directoryHandler.GetDirectoryUri(enumHandlers.ENTRIESNAME.ITEMS);
+                    requestUrl += '?' + searchQueryModel.BuildSearchQueryForPagination(options.data.page, options.data.pageSize);
+                    requestUrl += '&caching=false&viewmode=basic';
+
+                    if (tempAjaxRequests.request && tempAjaxRequests.request.readyState !== 4) {
+                        tempAjaxRequests.request.abort();
+                    }
+
+                    if (dataSourceTmp[options.data.page]) {
+                        options.success(dataSourceTmp[options.data.page]);
+                        return;
+                    }
+
+                    var getData = function () {
+                        return GetDataFromWebService(requestUrl)
+                            .fail(function (xhr, status, error) {
+                                self.SearchItemFail();
+
+                                var gridObject = jQuery('#InnerResultWrapper').data(enumHandlers.KENDOUITYPE.GRID);
+                                if (options.error) {
+                                    options.error(xhr, status, error);
+                                }
+                                else if (gridObject) {
+                                    requestHistoryModel.SaveLastExecute(gridObject.dataSource, gridObject.dataSource.options.transport.read, [options]);
+                                }
+                            })
+                            .done(function (result) {
+                                var newdataRows = result.items;
+                                jQuery.each(newdataRows, function (index, item) {
+                                    WC.ModelHelper.ExtendAuthorization(item);
+                                });
+
+                                if (result.header.total && WC.Utility.UrlParameter(enumHandlers.SEARCHPARAMETER.SORT) === "executed") {
+                                    var amountPage = Math.ceil(result.header.total / 30);
+                                    if (options.data.page === amountPage)
+                                        newdataRows.push({});
+                                }
+
+                                searchModel.Items.push.apply(searchModel.Items, newdataRows);
+
+                                self.SearchItemSuccess(result);
+
+                                dataSourceTmp[options.data.page] = newdataRows;
+
+                                options.success(newdataRows);
+                            });
+                    };
+
+                    tempAjaxRequests = {
+                        url: requestUrl,
+                        request: getData()
+                    };
+                }
+            },
+            error: function (e) {
+                requestHistoryModel.SaveLastExecute(e.sender, e.sender.read, []);
+            },
+            schema: {
+                total: function () {
+                    return searchModel.TotalItems();
+                }
+            },
+            pageSize: pageSize,
+            serverPaging: true
+        });
     };
     self.SearchItemFail = function () {
         searchQueryModel.SetUIControlFromUrl();
@@ -801,7 +801,7 @@ window.SearchPageHandler = function () {
         jQuery('#Content').busyIndicator(false);
     };
     self.SetResultViewEvent = function (element) {
-        if (self.DisplayType() !== searchPageHandler.DISPLAY_TYPE.DISPLAYS)
+        if (self.DisplayType() !== self.DISPLAY_TYPE.DISPLAYS)
             return;
 
         WC.HtmlHelper.AdjustNameContainer(element.find('.ResultView'));
@@ -1458,48 +1458,11 @@ window.SearchPageHandler = function () {
         if (jQuery('#createdFilter').hasClass('k-input'))
             return;
 
-        jQuery('.popupAdvFiltering .Datepicker').each(function (idx, obj) {
-            obj = jQuery(obj);
-            obj.kendoDatePicker({
-                open: function (e) {
-                    e.sender.dateView.div.addClass('k-calendar-container-light');
-                },
-                change: function (e) {
-                    var currentDate = new Date();
-                    var currentInput = e.sender.element;
-                    if (currentInput.hasClass('datepickerFrom')) {
-                        var datepickerTo = e.sender.element.closest('.popupAdvFilteringContent').find('input.datepickerTo').data(enumHandlers.KENDOUITYPE.DATEPICKER);
-                        if (currentInput.val()) {
-                            datepickerTo.min(currentInput.val());
-                        }
-                        else {
-                            datepickerTo.min(new Date(1900, 1, 1));
-                        }
-                    }
-                    else {
-                        var datepickerFrom = e.sender.element.closest('.popupAdvFilteringContent').find('input.datepickerFrom').data(enumHandlers.KENDOUITYPE.DATEPICKER);
-                        if (currentInput.val()) {
-                            datepickerFrom.max(currentInput.val());
-                        }
-                        else {
-                            datepickerFrom.max(currentDate);
-                        }
-                    }
-                },
-                max: new Date()
-            }).closest('.k-widget').addClass(obj.data('datepicker-class'));
-
-            var datepicker = obj.data(enumHandlers.KENDOUITYPE.DATEPICKER);
-            if (datepicker) {
-                datepicker.enable(false);
-            }
-        });
-
+        self.InitialAdvSearchDatepicker();
         self.InitialCreatorAutoComplete();
         self.InitialLastChangedAutoComplete();
         self.InitialLastExecutorAutoComplete();
         self.InitialValidatorAutoComplete();
-
         self.InitialIdsTextbox();
         self.InitialTextboxes();
 
@@ -1584,6 +1547,44 @@ window.SearchPageHandler = function () {
         });
 
         WC.HtmlHelper.ApplyKnockout(self, e.sender.wrapper);
+    };
+    self.InitialAdvSearchDatepicker = function () {
+        jQuery('.popupAdvFiltering .Datepicker').each(function (idx, obj) {
+            obj = jQuery(obj);
+            obj.kendoDatePicker({
+                open: function (e) {
+                    e.sender.dateView.div.addClass('k-calendar-container-light');
+                },
+                change: function (e) {
+                    var currentDate = new Date();
+                    var currentInput = e.sender.element;
+                    if (currentInput.hasClass('datepickerFrom')) {
+                        var datepickerTo = e.sender.element.closest('.popupAdvFilteringContent').find('input.datepickerTo').data(enumHandlers.KENDOUITYPE.DATEPICKER);
+                        if (currentInput.val()) {
+                            datepickerTo.min(currentInput.val());
+                        }
+                        else {
+                            datepickerTo.min(new Date(1900, 1, 1));
+                        }
+                    }
+                    else {
+                        var datepickerFrom = e.sender.element.closest('.popupAdvFilteringContent').find('input.datepickerFrom').data(enumHandlers.KENDOUITYPE.DATEPICKER);
+                        if (currentInput.val()) {
+                            datepickerFrom.max(currentInput.val());
+                        }
+                        else {
+                            datepickerFrom.max(currentDate);
+                        }
+                    }
+                },
+                max: new Date()
+            }).closest('.k-widget').addClass(obj.data('datepicker-class'));
+
+            var datepicker = obj.data(enumHandlers.KENDOUITYPE.DATEPICKER);
+            if (datepicker) {
+                datepicker.enable(false);
+            }
+        });
     };
     self.InitialAdvSearchDropdown = function (target, data, options) {
         options.__open = options.open || jQuery.noop;
@@ -1672,40 +1673,44 @@ window.SearchPageHandler = function () {
 
         jQuery('#ids')
             .on('keydown', function (e) {
-                // Allow: backspace, delete, tab, escape
-                if (jQuery.inArray(e.keyCode, [46, 8, 9, 27]) !== -1 ||
-                    // Allow: Ctrl+A, Ctrl+C, Ctrl+V, Ctrl+X
-                    (jQuery.inArray(e.keyCode, [65, 67, 86, 88]) !== -1 && e.ctrlKey === true) ||
-                    // Allow: home, end, left, right, down, up
-                    (e.keyCode >= 35 && e.keyCode <= 40)) {
+                var keySets = [
+                    // Allow: backspace, delete, tab, escape
+                    jQuery.inArray(e.keyCode, [46, 8, 9, 27]) !== -1,
 
+                    // Allow: Ctrl+A, Ctrl+C, Ctrl+V, Ctrl+X
+                    jQuery.inArray(e.keyCode, [65, 67, 86, 88]) !== -1 && e.ctrlKey,
+
+                    // Allow: home, end, left, right, down, up
+                    e.keyCode >= 35 && e.keyCode <= 40
+                ];
+                if (WC.Utility.MatchAny(true, keySets)) {
                     // let it happen, don't do anything
                     return;
                 }
 
                 // Ensure that it is a alphanumeric and stop the keypress
-                var isFF = !!jQuery.browser.mozilla;
-                if (
-                    !(
-                        // allow 0 - 9 (keyboard)
-                        (!e.shiftKey && e.keyCode >= 48 && e.keyCode <= 57)
+                var isFF = jQuery.browser.mozilla;
+                var isUnderScore = !isFF && e.keyCode === 189 || isFF && e.keyCode === 173;
+                var allowKeySets = [
+                    // allow 0 - 9 (keyboard)
+                    !e.shiftKey && e.keyCode >= 48 && e.keyCode <= 57,
 
-                        // allow 0 - 9 (numpad)
-                        || (!e.shiftKey && e.keyCode >= 96 && e.keyCode <= 105)
+                    // allow 0 - 9 (numpad)
+                    !e.shiftKey && e.keyCode >= 96 && e.keyCode <= 105,
 
-                        // allow _ (keyboard)
-                        || (e.shiftKey && ((!isFF && e.keyCode === 189) || (isFF && e.keyCode === 173)))
+                    // allow _ (keyboard)
+                    e.shiftKey && isUnderScore,
 
-                        // allow * (keyboard)
-                        || (e.shiftKey && e.keyCode === 56)
+                    // allow * (keyboard)
+                    e.shiftKey && e.keyCode === 56,
 
-                        // allow * (numpad)
-                        || (e.keyCode === 106)
+                    // allow * (numpad)
+                    e.keyCode === 106,
 
-                        // allow a - z (keyboard)
-                        || (e.keyCode >= 65 && e.keyCode <= 90)
-                    )
-                ) {
+                    // allow a - z (keyboard)
+                    e.keyCode >= 65 && e.keyCode <= 90
+                ];
+                if (!WC.Utility.MatchAny(true, allowKeySets)) {
                     e.preventDefault();
                 }
             })

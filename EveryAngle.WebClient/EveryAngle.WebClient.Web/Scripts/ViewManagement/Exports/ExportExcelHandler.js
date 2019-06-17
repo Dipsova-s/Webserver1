@@ -59,17 +59,6 @@ function ExportExcelHandler() {
     self.GetDisplaySummary = function () {
         return {};
     };
-    self.GetDefinitionsForExportToExcel = function (elementListId, filterType) {
-        var results = [];
-        var querySteps = elementListId === 'AngleQueryStepsList' ? ko.toJS(angleQueryStepModel.QuerySteps()) : ko.toJS(displayQueryBlockModel.QuerySteps());
-        querySteps = jQuery.grep(querySteps, function (queryStep) { return (queryStep.step_type !== enumHandlers.FILTERTYPE.AGGREGATION && queryStep.step_type !== enumHandlers.FILTERTYPE.SORTING) && queryStep.step_type === filterType; });
-
-        jQuery.each(querySteps, function (index, queryStep) {
-            results.push(WC.WidgetFilterHelper.GetFilterText(queryStep, resultModel.Data().model));
-        });
-
-        return results;
-    };
     self.GetCurrentDisplayField = function (displayType) {
         return exportHandler.GetCurrentDisplayField(displayType);
     };
@@ -267,7 +256,7 @@ function ExportExcelHandler() {
             objectShortName = !classObject ? '' : classObject.short_name;
         }
 
-        var workbookName = objectShortName ? (objectShortName + ' #' + listDrilldown.ID) : angleInfoModel.Name();
+        var workbookName = objectShortName ? objectShortName + ' #' + listDrilldown.ID : angleInfoModel.Name();
         var sheetName = objectShortName ? 'Sheet1' : displayModel.Name();
         // EOF: M4-10439: FB: Excel single item export
 
@@ -310,7 +299,7 @@ function ExportExcelHandler() {
         var element = jQuery('[id="NumberOfItems"]:visible');
         if (element.length) {
             var v = element.val().replace(/\D/g, '');
-            if (v === '' || isNaN(v) || (!isNaN(v) && parseInt(v, 10) === 0)) {
+            if (v === '' || isNaN(v) || !isNaN(v) && parseInt(v, 10) === 0) {
                 var exportRow = userSettingModel.GetByName(enumHandlers.USERSETTINGS.DEFAULT_EXPORT_LINES);
                 if (!exportRow) {
                     exportRow = 70;
@@ -462,7 +451,7 @@ function ExportExcelHandler() {
         var request = resultModel.Data().uri + '/exports/?redirect=no';
         progressbarModel.SetProgressBarText(0, null, Localization.ProgressBar_CurrentRetrievingExcelFileFromApplicationServer);
         CreateDataToWebService(request, exportOptions)
-            .done(function (data, textStatus, xmlHttpRequest) {
+            .done(function (data) {
                 progressbarModel.IsCancelPopup = false;
                 self.GenerateExcelUri = data.uri;
                 self.GenerateExcel();
@@ -520,7 +509,7 @@ function ExportExcelHandler() {
         var request = resultModel.Data().uri + '/exports/?redirect=no';
         progressbarModel.SetProgressBarText(0, null, Localization.ProgressBar_CurrentRetrievingExcelFileFromApplicationServer);
         CreateDataToWebService(request, exportOptions)
-            .done(function (data, textStatus, xmlHttpRequest) {
+            .done(function (data) {
                 progressbarModel.IsCancelPopup = false;
                 self.GenerateExcelUri = data.uri;
                 self.GenerateExcel();
@@ -622,7 +611,7 @@ function ExportExcelHandler() {
         var request = resultModel.Data().uri + '/exports/?redirect=no';
         progressbarModel.SetProgressBarText(0, null, Localization.ProgressBar_CurrentRetrievingExcelFileFromApplicationServer);
         CreateDataToWebService(request, self.GenerateExceljsonData)
-            .done(function (data, textStatus, xmlHttpRequest) {
+            .done(function (data) {
                 progressbarModel.IsCancelPopup = false;
                 self.GenerateExcelUri = data.uri;
                 self.GenerateExcel();
@@ -686,7 +675,7 @@ function ExportExcelHandler() {
         var request = resultModel.Data().uri + '/exports/?redirect=no';
         progressbarModel.SetProgressBarText(0, null, Localization.ProgressBar_CurrentRetrievingExcelFileFromApplicationServer);
         CreateDataToWebService(request, self.GenerateExceljsonData)
-            .done(function (data, textStatus, xmlHttpRequest) {
+            .done(function (data) {
                 progressbarModel.IsCancelPopup = false;
                 self.GenerateExcelUri = data.uri;
                 self.GenerateExcel();

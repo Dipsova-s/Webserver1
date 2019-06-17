@@ -27,7 +27,7 @@ function AngleQueryStepModel() {
         });
     };
     self.GetQueryStep = function (querySteps) {
-        var querySteps = ko.toJS(typeof querySteps === 'undefined' ? self.QuerySteps() : querySteps);
+        querySteps = ko.toJS(typeof querySteps === 'undefined' ? self.QuerySteps() : querySteps);
         var queryDefinition = { queryblock_type: enumHandlers.QUERYBLOCKTYPE.QUERY_STEPS, query_steps: [] };
 
         jQuery.each(querySteps, function (index, queryStep) {
@@ -133,7 +133,7 @@ function AngleQueryStepModel() {
         var querySteps = isTemp === true ? self.TempQuerySteps() : self.QuerySteps();
         return jQuery.grep(querySteps, function (queryStep) {
             return queryStep.step_type === enumHandlers.FILTERTYPE.FOLLOWUP
-                && (!followup || (followup && queryStep.followup === followup.id));
+                && (!followup || followup && queryStep.followup === followup.id);
         });
     };
     self.GetModelAuthorization = function () {
@@ -141,7 +141,9 @@ function AngleQueryStepModel() {
         jQuery.each(userModel.Privileges.ModelPrivileges, function (k, v) {
             if (v.model === angleInfoModel.Data().model) {
                 jQuery.each(v.roles, function (index, role) {
-                    var checkDuplicated = jQuery.grep(autorizations, function (autorization) { return autorization.toLowerCase() === role.toLowerCase(); });
+                    var checkDuplicated = jQuery.grep(autorizations, function (autorization) {
+                        return autorization.toLowerCase() === role.toLowerCase();
+                    });
 
                     if (checkDuplicated.length === 0)
                         autorizations.push(role);

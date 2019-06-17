@@ -1,4 +1,76 @@
-﻿
+﻿var notificationsFeedHeaderHtmlTemplate = function () {
+    return [
+        '<strong>' + Localization.NotificationsFeed_Updates + '</strong>',
+        '<!-- ko if: ViewModel.NumberOfNotify -->',
+        '<div class="notificationsFeedBadge hide">',
+        '<span class="number">',
+        '<span data-bind="text: ViewModel.NumberOfNotify"></span>',
+        '</span>',
+        '</div>',
+        '<!-- /ko -->'
+    ].join('');
+};
+
+var notificationsFeedPopOverHeaderTemplate = function () {
+    return [
+        '<strong> ' + Localization.NotificationsFeed_Updates,
+        '<!-- ko if: ViewModel.NumberOfNotify -->',
+        '<span data-bind="text: GetNumberOfNotifyForPopOver"></span>',
+        '<!-- /ko -->',
+        '</strong >'
+    ].join('');
+};
+
+var notificationsFeedTopMenuIconTemplate = function () {
+    return [
+        '<span id="NotificationsFeedIcon" class="icon" data-bind="click: $root.ToggleNotificationsMenu">',
+        '<div class="animation"></div>',
+        '</span >',
+        '<!-- ko if: ViewModel.NumberOfNotify -->',
+        '<div class="notificationsFeedBadge hide" data-bind="click: $root.ToggleNotificationsMenu">',
+        '<span class="number">',
+        '<span data-bind="text: ViewModel.NumberOfNotify"></span>',
+        '</span>',
+        '</div>',
+        '<!-- /ko -->'
+    ].join('');
+};
+
+var notificationsFeedHtmlTemplate = function () {
+    return [
+        '<div class="list">',
+        '<!-- ko foreach: { data: ViewModel.Feeds, afterRender: $root.OnFeedsRendered } -->',
+        '<div class="item" data-bind="{ css: { \'unread\': $data.isUnReadState, \'new\': $data.isNewState }, click: $root.MarkAsRead.bind(this, $data.id) }">',
+        '<a data-bind="attr: {\'href\': $data.url}" target="_blank">',
+        '<div class="image">',
+        '<div class="imageWrapper">',
+        '<img data-bind="attr:{src: $data.thumbnail}">',
+        '</div>',
+        '</div>',
+        '<div class="info">',
+        '<div class="infoWrapper">',
+        '<strong class="textEllipsis" data-bind="html: $data.title"></strong>',
+        '<p class="truncatable" data-bind="html: $data.content"></p>',
+        '<span class="icon"></span> <span class="createAt" data-bind="text: $data.createDate" data-role="localize"></span>',
+        '</div>',
+        '</div>',
+        '</a>',
+        '</div>',
+        '<!-- /ko -->',
+        '</div>'
+    ].join('');
+};
+
+var notificationsFeedFooterHtmlTemplate = function () {
+    return [
+        '<!-- ko if: ViewModel.ViewAllUrl -->',
+        '<div class="inner">',
+        '<a data-bind="attr: {href: ViewModel.ViewAllUrl}" target="_blank">' + Localization.NotificationsFeed_ViewAll + '</a>',
+        '</div>',
+        '<!-- /ko -->'
+    ].join('');
+};
+
 function NotificationsFeedHandler(notificationsFeedModel, setTimeoutFunction, clearTimeoutFunction) {
     "use strict";
 
@@ -9,6 +81,7 @@ function NotificationsFeedHandler(notificationsFeedModel, setTimeoutFunction, cl
     var delay = 100;
     var htmlClassnameDisable = 'disabled';
 
+    var _self = {};
     var _model = notificationsFeedModel;
     var _setTimeout = setTimeoutFunction || window.setTimeout;
     var _clearTimeout = clearTimeoutFunction || window.clearTimeout;
@@ -32,31 +105,30 @@ function NotificationsFeedHandler(notificationsFeedModel, setTimeoutFunction, cl
     };
 
     self.ShowTopMenuIcon = function () {
-        getTopMenuContainerElement().removeClass(htmlClassnameDisable);
+        _self.getTopMenuContainerElement().removeClass(htmlClassnameDisable);
     };
 
     self.HideTopMenuIcon = function () {
-        getTopMenuContainerElement().addClass(htmlClassnameDisable);
+        _self.getTopMenuContainerElement().addClass(htmlClassnameDisable);
         jQuery('#NotificationsFeedMenu').css('display', 'none');
     };
 
     self.ProcessElements = function () {
-        var topmenu = getTopMenuElement();
-        var container = getContainerElement();
-        
+        var topmenu = _self.getTopMenuElement();
+        var container = _self.getContainerElement();
         topmenu.html(notificationsFeedTopMenuIconTemplate());
         container.filter('.sectionWelcome').find('.header').html(notificationsFeedHeaderHtmlTemplate());
         container.filter('.k-window-content').find('.header').html(notificationsFeedPopOverHeaderTemplate());
         container.find('.content').html(notificationsFeedHtmlTemplate());
         container.find('.footer').html(notificationsFeedFooterHtmlTemplate());
 
-        applyScrollEventHandling();
-        applyBindings();
+        _self.applyScrollEventHandling();
+        _self.applyBindings();
     };
 
     self.CleanUpElements = function () {
-        var topmenu = getTopMenuElement();
-        var container = getContainerElement();
+        var topmenu = _self.getTopMenuElement();
+        var container = _self.getContainerElement();
 
         topmenu.empty();
         container.find('.header').empty();
@@ -83,21 +155,21 @@ function NotificationsFeedHandler(notificationsFeedModel, setTimeoutFunction, cl
         else {
             self.CleanUpElements();
         }
-        
     };
 
     self.RequestFeedsHandling = function () {
         _setTimeout(function () {
             // IMPORTANT: https://developer.wordpress.org/rest-api/using-the-rest-api/global-parameters/
-            jQuery.ajax({
-                url: notificationsFeed.dataUrl,
-                type: 'get',
-                dataType: 'jsonp',
-                jsonp: '_jsonp',
-                cache: false,
-                success: self.OnFeedLoaded.bind(this),
-                error: self.OnFeedCannotLoaded.bind(this)
-            })
+            jQuery
+                .ajax({
+                    url: notificationsFeed.dataUrl,
+                    type: 'get',
+                    dataType: 'jsonp',
+                    jsonp: '_jsonp',
+                    cache: false,
+                    success: self.OnFeedLoaded.bind(this),
+                    error: self.OnFeedCannotLoaded.bind(this)
+                })
                 .always(function () {
                     if (isForceRender) {
                         isForceRender = false;
@@ -107,27 +179,27 @@ function NotificationsFeedHandler(notificationsFeedModel, setTimeoutFunction, cl
         }, 250);
     };
 
-    var getContainerElement = function () {
+    _self.getContainerElement = function () {
         return jQuery('.notificationsFeed');
     };
 
-    var getTopMenuElement = function () {
+    _self.getTopMenuElement = function () {
         return jQuery('#NotificationsFeed');
     };
 
-    var getTopMenuContainerElement = function () {
-        return getTopMenuElement().parent();
+    _self.getTopMenuContainerElement = function () {
+        return _self.getTopMenuElement().parent();
     };
 
-    var applyBindings = function () {
-        var elements = jQuery.merge(getTopMenuElement(), getContainerElement());
+    _self.applyBindings = function () {
+        var elements = jQuery.merge(_self.getTopMenuElement(), _self.getContainerElement());
         jQuery.each(elements, function (index, element) {
             ko.applyBindings(_model, element);
         });
     };
 
-    var applyScrollEventHandling = function () {
-        var listContainer = getContainerElement().find('.list');
+    _self.applyScrollEventHandling = function () {
+        var listContainer = _self.getContainerElement().find('.list');
 
         listContainer.off('scroll').on('scroll', function () {
             _clearTimeout(scrollTimeout);
@@ -175,7 +247,7 @@ function NotificationsFeedModel(notificationsFeedRepository, toggleNotifications
         jQuery('#NotificationsFeed').find('.hide').removeClass('hide');
         jQuery('.notificationsFeed').find('.hide').removeClass('hide');
     };
-    
+
     self.SetDataFeeds = function (response) {
         if (jQuery.isArray(response)) {
             var feeds = self.MapFeedsView(response);
@@ -282,15 +354,12 @@ function NotificationsFeedModel(notificationsFeedRepository, toggleNotifications
 
         if (_toggleNotificationsMenuFunction) {
             self.MarkAndUpdateAllAsNotified();
-
             if (isBellIconClicked && $('#NotificationsFeedMenu').is(':hidden')) {
                 self.UpdateAllNewFeedsState();
             }
-
             _setTimeout(function () {
                 _toggleNotificationsMenuFunction();
             }, 0);
-            
             isBellIconClicked = true;
         }
     };
@@ -386,13 +455,11 @@ function NotificationsFeedModel(notificationsFeedRepository, toggleNotifications
 
     self.UpdateAllNewFeedsState = function () {
         var notifiedIds = _repository.GetNotifiedIds();
-
         jQuery.each(self.ViewModel.Feeds(), function (i, feed) {
             var isNewState = jQuery.inArray(feed.id, notifiedIds) === -1;
             feed.isNewState(isNewState);
         });
     };
-    
 }
 NotificationsFeedModel.prototype.ConvertDateGmtToTimestamp = function (dateGmt) {
     return dateGmt;
@@ -511,77 +578,4 @@ NotificationsFeedRepository.CreateNewCurrentUserFeedsHistory = function (storage
     user[NotificationsFeedRepository.NotifiedIdsIndex] = [];
     user[NotificationsFeedRepository.ReadStateIdsIndex] = [];
     jQuery.localStorage(NotificationsFeedRepository.StorageKey, storage);
-};
-
-var notificationsFeedHeaderHtmlTemplate = function () {
-    return [
-        '<strong>' + Localization.NotificationsFeed_Updates + '</strong>',
-        '<!-- ko if: ViewModel.NumberOfNotify -->',
-        '<div class="notificationsFeedBadge hide">',
-            '<span class="number">',
-                '<span data-bind="text: ViewModel.NumberOfNotify"></span>',
-            '</span>',
-        '</div>',
-        '<!-- /ko -->'
-    ].join('');
-};
-
-var notificationsFeedPopOverHeaderTemplate = function () {
-    return [
-        '<strong> ' + Localization.NotificationsFeed_Updates,
-        '<!-- ko if: ViewModel.NumberOfNotify -->',
-        '<span data-bind="text: GetNumberOfNotifyForPopOver"></span>',
-        '<!-- /ko -->',
-        '</strong >'
-    ].join('');
-};
-
-var notificationsFeedTopMenuIconTemplate = function () {
-    return [
-        '<span id="NotificationsFeedIcon" class="icon" data-bind="click: $root.ToggleNotificationsMenu">',
-            '<div class="animation"></div>',
-        '</span >',
-        '<!-- ko if: ViewModel.NumberOfNotify -->',
-        '<div class="notificationsFeedBadge hide" data-bind="click: $root.ToggleNotificationsMenu">',
-            '<span class="number">',
-                '<span data-bind="text: ViewModel.NumberOfNotify"></span>',
-            '</span>',
-        '</div>',
-        '<!-- /ko -->'
-    ].join('');
-};
-
-var notificationsFeedHtmlTemplate = function () {
-    return [
-        '<div class="list">',
-            '<!-- ko foreach: { data: ViewModel.Feeds, afterRender: $root.OnFeedsRendered } -->',
-                '<div class="item" data-bind="{ css: { \'unread\': $data.isUnReadState, \'new\': $data.isNewState }, click: $root.MarkAsRead.bind(this, $data.id) }">',
-                    '<a data-bind="attr: {\'href\': $data.url}" target="_blank">',
-                        '<div class="image">',
-                            '<div class="imageWrapper">',
-                                '<img data-bind="attr:{src: $data.thumbnail}">',
-                            '</div>',
-                        '</div>',
-                        '<div class="info">',
-                            '<div class="infoWrapper">',
-                                '<strong class="textEllipsis" data-bind="html: $data.title"></strong>',
-                                '<p class="truncatable" data-bind="html: $data.content"></p>',
-                                '<span class="icon"></span> <span class="createAt" data-bind="text: $data.createDate" data-role="localize"></span>',
-                            '</div>',
-                        '</div>',
-                    '</a>',
-                '</div>',
-            '<!-- /ko -->',
-        '</div>'
-    ].join('');
-};
-
-var notificationsFeedFooterHtmlTemplate = function () {
-    return [
-        '<!-- ko if: ViewModel.ViewAllUrl -->',
-        '<div class="inner">',
-            '<a data-bind="attr: {href: ViewModel.ViewAllUrl}" target="_blank">' + Localization.NotificationsFeed_ViewAll + '</a>',
-        '</div>',
-        '<!-- /ko -->'
-    ].join('');
 };

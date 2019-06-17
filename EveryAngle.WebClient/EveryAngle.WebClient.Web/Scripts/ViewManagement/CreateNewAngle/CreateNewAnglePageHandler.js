@@ -77,7 +77,7 @@ function CreateNewAngleViewManagementModel() {
     };
     self.ShowCreateOptionCallback = function (e) {
         e.sender.wrapper.height('auto');
-      
+
         jQuery('#ButtonCreateAngleFromSchemaSimple, #ButtonCreateAngleFromSchemaDetailed').addClass('disabled');
         jQuery('#ChooseNewAngleOption .content').not(':last').busyIndicator(true);
         var blankImage = self.GetPictureFromSchemaData(null);
@@ -160,7 +160,7 @@ function CreateNewAngleViewManagementModel() {
                     },
                     {
                         text: '<i class="iconBack">&lsaquo;</i>' + Localization.BackToCreateOptions,
-                        click: function (e, obj) {
+                        click: function (e) {
                             self.ShowCreateOption();
                             setTimeout(function () {
                                 e.kendoWindow.close();
@@ -198,11 +198,11 @@ function CreateNewAngleViewManagementModel() {
                     businessProcessesModel.CreateNewAngleSchemaBusinessProcess = new BusinessProcessesViewModel();
                     businessProcessesModel.CreateNewAngleSchemaBusinessProcess.Theme('flat');
                     businessProcessesModel.CreateNewAngleSchemaBusinessProcess.MultipleActive(false);
-					businessProcessesModel.CreateNewAngleSchemaBusinessProcess.CanEmpty(false);
-                    businessProcessesModel.CreateNewAngleSchemaBusinessProcess.ClickCallback(function (data, e, changed) {
-						if (data.is_allowed) {
-							self.SetSchemaDiagram();
-						}
+                    businessProcessesModel.CreateNewAngleSchemaBusinessProcess.CanEmpty(false);
+                    businessProcessesModel.CreateNewAngleSchemaBusinessProcess.ClickCallback(function (data) {
+                        if (data.is_allowed) {
+                            self.SetSchemaDiagram();
+                        }
                     });
                     businessProcessesModel.CreateNewAngleSchemaBusinessProcess.ApplyHandler('#CreateAngleBySchemaBusinessProcess');
 
@@ -345,8 +345,7 @@ function CreateNewAngleViewManagementModel() {
         var area = self.GetSchemaData(currentSelectedBusinessProcess, currentSchemaMode);
         var picture = self.GetPictureFromSchemaData(area);
         if (area && area.Details) {
-
-            // test border size        
+            // test border size
             container.append('<div />');
             var borderWidth = parseInt(container.children('div').css('border-width'), 10) || 3;
 
@@ -378,20 +377,20 @@ function CreateNewAngleViewManagementModel() {
                     'name': ('ClassId_' + maps[index].ClassId).toLowerCase(),
                     'class': cssClass + ' disabled'
                 })
-                .data('details', maps[index])
-                .css({
-                    left: maps[index].Coordinate[0] - borderWidth,
-                    top: maps[index].Coordinate[1] - borderWidth,
-                    width: maps[index].Coordinate[2],
-                    height: maps[index].Coordinate[3],
-                    'border-color': borderColor
-                })
-                .click(function (e) {
-                    mapItemClick(e, false);
-                })
-                .dblclick(function (e) {
-                    mapItemClick(e, true);
-                });
+                    .data('details', maps[index])
+                    .css({
+                        left: maps[index].Coordinate[0] - borderWidth,
+                        top: maps[index].Coordinate[1] - borderWidth,
+                        width: maps[index].Coordinate[2],
+                        height: maps[index].Coordinate[3],
+                        'border-color': borderColor
+                    })
+                    .click(function (e) {
+                        mapItemClick(e, false);
+                    })
+                    .dblclick(function (e) {
+                        mapItemClick(e, true);
+                    });
 
                 elementInner
                     .css({
@@ -535,7 +534,7 @@ function CreateNewAngleViewManagementModel() {
 
 
         jQuery.when(template ? { angles: [template] } : GetDataFromWebService(requestUrl, requestParams))
-            .done(function (responseModel, textStatus, xmlHttpRequest) {
+            .done(function (responseModel) {
                 if (responseModel && responseModel.angles.length === 1) {
                     template = responseModel.angles[0];
                     if (template.displays_summary.length > 0) {
@@ -606,7 +605,7 @@ function CreateNewAngleViewManagementModel() {
             requestParams[enumHandlers.PARAMETERS.CACHING] = false;
             requestParams[enumHandlers.PARAMETERS.VIEWMODE] = enumHandlers.VIEWMODETYPE.SCHEMA;
             return GetDataFromWebService(requestUrl, requestParams)
-                .done(function (response, textStatus, xmlHttpRequest) {
+                .done(function (response) {
 
                     // add to cache
                     jQuery.each(response.angles, function (index, angle) {
@@ -644,7 +643,7 @@ function CreateNewAngleViewManagementModel() {
             if (angles && angles.length) {
                 var angle = angles.findObject('id', value.id.substr(angleIdPosition), false);
 
-                if (self.CanUseTemplate(angle)) 
+                if (self.CanUseTemplate(angle))
                     jQuery(this).data('angle', angle).parent().removeClass('disabled');
             }
         });
@@ -819,7 +818,7 @@ function CreateNewAngleViewManagementModel() {
                         self.ClassesChooserHandler.OnSubmitClasses = self.CreateNewAngleFromObjects;
                         self.ClassesChooserHandler.SetSelectedClassesCallback = self.SetSelectedClassesCallback;
                     }
-                    
+
                     self.ShowCreateAngleByObjectCallback(e);
 
                     e.sender.trigger('resize');
@@ -874,7 +873,7 @@ function CreateNewAngleViewManagementModel() {
 
         jQuery('#txtFitlerObjects').val(self.CreateAngleSettings.createby_object.q);
         businessProcessesModel.CreateNewAngleBusinessProcess.CurrentActive(currentBP);
-       
+
         modelPrivileges = privilegesViewModel.GetModelPrivilegesByUri(self.CreateAngleSettings.model);
         businessProcessHandler.ManageBPAuthorization(businessProcessesModel.CreateNewAngleBusinessProcess, modelPrivileges);
 
@@ -948,7 +947,7 @@ function CreateNewAngleViewManagementModel() {
                 .fail(function () {
                     self.SetDisableCreateFromObjectUI(false);
                 })
-                .done(function (responseModel, textStatus, xmlHttpRequest) {
+                .done(function (responseModel) {
 
                     if (!skipTemplate && responseModel && responseModel.angles.length) {
                         // first match with class id
@@ -1174,12 +1173,11 @@ function CreateNewAngleViewManagementModel() {
 
                     if (canCreateAngle) {
                         // set default select model
-                        if (!findSelected) {
-                            if (!self.CreateAngleSettings.model || (modelObject && modelObject.uri === self.CreateAngleSettings.model)) {
-                                jQuery('#CreateNewAngle i').text(modelName);
-                                findSelected = true;
-                                isSelected = true;
-                            }
+                        var isTheSameModel = modelObject && modelObject.uri === self.CreateAngleSettings.model;
+                        if (!findSelected && (!self.CreateAngleSettings.model || isTheSameModel)) {
+                            jQuery('#CreateNewAngle i').text(modelName);
+                            findSelected = true;
+                            isSelected = true;
                         }
                         modelsHtml[index] = kendo.format('<li class="k-item{2}" title="{1}" data-id="{0}" onclick="createNewAngleViewManagementModel.CheckModelAvailable(\'{0}\')">{1}</li>', model.id, modelName, isSelected ? ' k-state-selected' : '');
                     }
@@ -1204,7 +1202,7 @@ function CreateNewAngleViewManagementModel() {
         // no model in facet then exit
         var facets = WC.Utility.ToArray(ko.toJS(facetFiltersViewModel.Data()));
         var facetModel = facets.findObject('id', 'facetcat_models');
-        if (!facetModel || (facetModel && !facetModel.filters.length)) {
+        if (!facetModel || !facetModel.filters.length) {
             return;
         }
 
@@ -1240,7 +1238,7 @@ function CreateNewAngleViewManagementModel() {
         progressbarModel.ShowStartProgressBar(Localization.ProgressBar_CheckingModel, false);
         var modelObject = modelsHandler.GetModelById(modelId);
         jQuery.when(modelObject ? true : modelsHandler.LoadModels(true))
-            .then(function (models) {
+            .then(function () {
                 // load fully model info.
                 var modelObject = modelsHandler.GetModelById(modelId);
                 return modelsHandler.LoadModelInfo(modelObject.uri);
@@ -1287,7 +1285,7 @@ function CreateNewAngleViewManagementModel() {
         if (ids.length) {
             var modelUri = self.CreateAngleSettings.model;
             return helpTextHandler.LoadHelpTextByIds(ids, modelUri)
-                .then(function (data, status, xhr) {
+                .then(function () {
                     var helps = [];
                     jQuery.each(ids, function (index, id) {
                         var help = helpTextHandler.GetHelpTextById(id, modelUri);

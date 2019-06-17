@@ -6,7 +6,7 @@
     };
 
     window.GetScriptFolderPath = function () {
-		return scriptFolderPath.toLowerCase();
+        return scriptFolderPath.toLowerCase();
     };
 
     window.SetLoadingVisibility = function (target, visible) {

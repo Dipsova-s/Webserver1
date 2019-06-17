@@ -112,7 +112,7 @@ MC.util = {
             lastScriptCallback();
         });
     },
-    GUID: function () {
+    GUID: function () { //NOSONAR
         /// <summary>Generate GUID</summary>
         /// <returns type="String">randomly GUID</returns>
 

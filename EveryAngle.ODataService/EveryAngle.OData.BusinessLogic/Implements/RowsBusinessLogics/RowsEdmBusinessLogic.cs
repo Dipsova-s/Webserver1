@@ -220,10 +220,7 @@ namespace EveryAngle.OData.BusinessLogic.Rows
                     IsPeriod = field != null && field.fieldtype == "period",
                 };
 
-                fieldMap.NeedsConversion =
-                    fieldMap.IsDate || fieldMap.IsDouble ||
-                    fieldMap.IsPeriod || fieldMap.IsDecimal ||
-                    fieldMap.IsTime || fieldMap.IsEnumerated;
+                fieldMap.SetConversionNeeded();
 
                 results.Add(fieldMap);
             }
@@ -247,7 +244,7 @@ namespace EveryAngle.OData.BusinessLogic.Rows
                 if (fieldMap.IsDecimal && value is Dictionary<string, object>)
                     return Extensions.ConvertCurrencyDataObject(value, fieldMap.IsDecimal);
 
-                // TODO: enumerated type will be implement later
+                // TODO: enumerated type will be implement later //NOSONAR
                 if (value == null || !fieldMap.NeedsConversion || fieldMap.IsEnumerated)
                     result = value;
                 else if (fieldMap.IsDate)

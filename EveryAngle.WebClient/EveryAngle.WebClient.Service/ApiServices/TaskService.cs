@@ -47,10 +47,9 @@ namespace EveryAngle.WebClient.Service.ApiServices
         public override string GetUri(object model)
         {
             Type modelType = model.GetType();
-            if (modelType.Equals(typeof(TaskAction)))
-                return ((TaskAction)model).Uri.AbsolutePath.Remove(0, 1);
-            else
-                return ((TaskViewModel)model).Uri.AbsolutePath.Remove(0, 1);
+            return modelType.Equals(typeof(TaskAction))
+                ? ((TaskAction)model).Uri.AbsolutePath.Remove(0, 1)
+                : ((TaskViewModel)model).Uri.AbsolutePath.Remove(0, 1);
         }
 
         public List<TaskViewModel> GetTasks(string tasksUri)

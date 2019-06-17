@@ -148,11 +148,8 @@ describe("EAPackageHandler", function () {
             var result = eaPackageHandler.IsNotPublishedAngle('angle', true);
             expect(result).toEqual(false);
         });
-
     });
-    
     describe("call GetPackageName", function () {
-
         beforeEach(function () {
             $('<input id="PackageName">').hide().appendTo('body');
         });

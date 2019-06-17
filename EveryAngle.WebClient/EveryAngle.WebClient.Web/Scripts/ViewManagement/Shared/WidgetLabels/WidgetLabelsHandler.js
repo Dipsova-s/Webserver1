@@ -262,23 +262,20 @@ function WidgetLabelsHandler(container, defaultLabels, businessProcessesHandler)
             var selectingLabels = ko.toJS(category.Labels).findObjects('IsSelected', true);
 
             // check required labels
-            if (category.IsRequired && !selectingLabels.length) {
+            if (category.IsRequired && !selectingLabels.length)
                 validation[category.CategoryIndex].UnassignedCategories.push(category.CategoryName);
-            }
 
             // total assigned labels
             validation[category.CategoryIndex].AssignedLabelsCount += selectingLabels.length;
 
             // total assigned categories
-            if (selectingLabels.length) {
+            if (selectingLabels.length)
                 validation[category.CategoryIndex].AssignedCategoriesCount++;
-            }
-            
+
             // check un-authorized labels
             jQuery.each(selectingLabels, function (indexLabel, label) {
-                if (jQuery.inArray(label.PrivilegeStatus, ['validate', 'assign', 'manage']) === -1) {
+                if (jQuery.inArray(label.PrivilegeStatus, ['validate', 'assign', 'manage']) === -1)
                     validation[category.CategoryIndex].UnauthorizedLabels.push(label.LabelName);
-                }
             });
         });
 

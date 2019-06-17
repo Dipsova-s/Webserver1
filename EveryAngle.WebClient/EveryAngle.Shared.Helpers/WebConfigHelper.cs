@@ -99,7 +99,7 @@ namespace EveryAngle.Shared.Helpers
             string keyValue = string.Empty;
             foreach (XmlNode xnn in nodelist)
             {
-                if (xnn.Attributes != null && xnn.Attributes[0].Value.ToLower() == keyName.ToLower())
+                if (xnn.Attributes != null && xnn.Attributes[0].Value.ToLower() == keyName.ToLowerInvariant())
                 { 
                         keyValue = xnn.Attributes[1].Value; 
                         break;

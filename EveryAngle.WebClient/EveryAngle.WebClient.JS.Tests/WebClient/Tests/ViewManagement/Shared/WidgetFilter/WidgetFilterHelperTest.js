@@ -9,13 +9,11 @@
 
 describe("WidgetFilterHelper", function () {
     var widgetFilterHelper;
-    var testIsBetweenArgumentComparable;
 
     beforeEach(function () {
         widgetFilterHelper = new WidgetFilterHelper();
         $.extend(widgetFilterHelper, WC.WidgetFilterHelper);
         WC.FormatHelper = new FormatHelper();
-        testIsBetweenArgumentComparable = enumHandlers.IsBetweenArgumentComparable;
     });
 
     //Define new WidgetFilterHelper

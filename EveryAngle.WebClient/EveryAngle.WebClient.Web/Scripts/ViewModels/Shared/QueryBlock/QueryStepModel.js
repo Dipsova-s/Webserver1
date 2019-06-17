@@ -21,7 +21,6 @@ function QueryStepModel(model, isCheckValidate) {
         defaultModelName = enumHandlers.VIEWMODELNAME.AGGREGATIONSTEP;
     }
     defaultValueHandler.CheckAndExtendProperties(self, defaultModelName);
-    
     if (self.step_type === enumHandlers.FILTERTYPE.AGGREGATION
         && self.step_type.grouping_fields && !self.step_type.grouping_fields.length) {
         delete self.step_type.grouping_fields;
@@ -45,8 +44,9 @@ function QueryStepModel(model, isCheckValidate) {
             else if (self.operator === enumHandlers.OPERATOR.BETWEEN.Value || self.operator === enumHandlers.OPERATOR.NOTBETWEEN.Value
                 || self.operator === enumHandlers.OPERATOR.RELATIVEBETWEEN.Value || self.operator === enumHandlers.OPERATOR.NOTRELATIVEBETWEEN.Value) {
                 var argsCount = self.arguments.length;
-                if ((self.is_execution_parameter && !(argsCount === 0 || argsCount === 2))
-                    || (!self.is_execution_parameter && argsCount !== 2)) {
+                var isInvalidExecutionParameter = self.is_execution_parameter && !(argsCount === 0 || argsCount === 2);
+                var isInvalidArgument = !self.is_execution_parameter && argsCount !== 2;
+                if (isInvalidExecutionParameter || isInvalidArgument) {
                     self.valid = false;
                     self.validation_details = {
                         field: self.field,
@@ -57,8 +57,7 @@ function QueryStepModel(model, isCheckValidate) {
             }
         }
     }
-    else if (self.step_type === enumHandlers.FILTERTYPE.FOLLOWUP) {
-        if (typeof self.valid === 'undefined')
-            self.valid = true;
+    else if (self.step_type === enumHandlers.FILTERTYPE.FOLLOWUP && typeof self.valid === 'undefined') {
+        self.valid = true;
     }
 }

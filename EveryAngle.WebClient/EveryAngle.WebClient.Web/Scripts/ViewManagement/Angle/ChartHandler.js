@@ -1223,7 +1223,7 @@ function ChartHandler(elementId, container) {
 
             //scroll area can use on touch device only (because laptop and pc can scroll by wheel mouse)
             if (Modernizr.touch) {
-                new kendo.UserEvents(element, {
+                new kendo.UserEvents(element, { //NOSONAR
                     global: true,
                     move: function (e) {
                         element.scrollTop(element.scrollTop() - e.y.delta);
@@ -2092,7 +2092,7 @@ function ChartHandler(elementId, container) {
 
             var groupFieldSortDir = 'asc';
             var isColumnOrAreaChart = setting.Type === enumHandlers.CHARTTYPE.COLUMNCHART.Code || setting.Type === enumHandlers.CHARTTYPE.AREACHART.Code;
-            if ((setting.Type === enumHandlers.CHARTTYPE.COLUMNCHART.Code && setting.Stack) || (isColumnOrAreaChart && setting.MultiAxis)) {
+            if (setting.Type === enumHandlers.CHARTTYPE.COLUMNCHART.Code && setting.Stack || isColumnOrAreaChart && setting.MultiAxis) {
                 groupFieldSortDir = 'desc';
             }
 
@@ -2365,7 +2365,7 @@ function ChartHandler(elementId, container) {
 
                 // remove undefined order
                 chartOptions.seriesColors = chartOptions.seriesColors.filter(function (color) {
-                    return typeof color !== 'undefined'
+                    return typeof color !== 'undefined';
                 });
 
                 if (!groupField) {
@@ -2695,10 +2695,10 @@ function ChartHandler(elementId, container) {
         var result = { min: 0, max: 0, majorUnit: majorUnit };
         while (result.min > minValue) {
             result.min -= result.majorUnit;
-        };
+        }
         while (result.max < maxValue) {
             result.max += result.majorUnit;
-        };
+        }
         if (result.min === result.max)
             result.max += result.majorUnit;
 
@@ -2726,7 +2726,7 @@ function ChartHandler(elementId, container) {
         var dateDiff = new Date(result.max - result.min);
 
         var getMonthMajorUnit = function (interval) {
-            var monthCount = ((dateDiff.getFullYear() - 1970) * 12) + dateDiff.getMonth() + 1;
+            var monthCount = (dateDiff.getFullYear() - 1970) * 12 + dateDiff.getMonth() + 1;
             var monthStep = Math.ceil(monthCount / labelCount / interval);
             if (monthStep > 1) {
                 if (interval === 3 && monthStep % 2 !== 0)
@@ -3831,7 +3831,7 @@ function ChartHandler(elementId, container) {
         self.SetChartPatternStyle(chart);
     };
     self.UpdateDonutOrPieChartType = function (charts, chartSettings, css, legendSize) {
-        var areaSize = (chartSettings.datalabel.show) ? 400 : 200,
+        var areaSize = chartSettings.datalabel.show ? 400 : 200,
             chartPerRow = 1;
 
         if (charts.length > 1) {
@@ -3935,7 +3935,7 @@ function ChartHandler(elementId, container) {
                     chartObject.options.title.margin = { left: 0 };
                 }
                 var titleSize = WC.Utility.MeasureText(chartObject.options.title.text, chartObject.options.title.font);
-                chartObject.options.title.margin.left = Math.max(-5, ((css.width - titleSize) / 2) - 10);
+                chartObject.options.title.margin.left = Math.max(-5, (css.width - titleSize) / 2 - 10);
             }
         });
     };
@@ -4217,7 +4217,7 @@ function ChartHandler(elementId, container) {
         if (self.IsScatterOrBubbleChartType(chart.options.seriesDefaults.type)) {
             var categories = self.CalculateScatterAndBubbleBoundary();
             if (typeof categories.min === 'number' && typeof categories.max === 'number') {
-                categryCount = ((categories.max - categories.min) / categories.majorUnit) + 1;
+                categryCount = (categories.max - categories.min) / categories.majorUnit + 1;
             }
             else if (typeof categories.labelCount === 'number') {
                 categryCount = categories.labelCount;

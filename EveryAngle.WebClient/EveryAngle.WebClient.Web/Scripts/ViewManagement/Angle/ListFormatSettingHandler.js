@@ -114,12 +114,12 @@ function ListFormatSettingHandler() {
 
         jQuery('.UseAsDefaultWrapper #FieldName').text(field.short_name);
         if (isNumberDataType) {
-            var prefix = (typeof fieldDetails.prefix === 'undefined') ? enumHandlers.FIELDSETTING.USEDEFAULT : (fieldDetails.prefix === null) ? enumHandlers.DISPLAYUNITSFORMAT.NONE : fieldDetails.prefix;
+            var prefix = typeof fieldDetails.prefix === 'undefined' ? enumHandlers.FIELDSETTING.USEDEFAULT : fieldDetails.prefix === null ? enumHandlers.DISPLAYUNITSFORMAT.NONE : fieldDetails.prefix;
             var displayUnitDropdown = self.AddUseDefaulToFormatList(fieldType, ko.toJS(enumHandlers.DISPLAYUNITS));
             userSettingsHandler.RenderFormatSettingDropdownlist('FormatDisplayUnitSelect', displayUnitDropdown, prefix);
 
             if (isSupportDecimal) {
-                var decimals = (typeof fieldDetails.decimals !== 'undefined') ? fieldDetails.decimals : enumHandlers.FIELDSETTING.USEDEFAULT;
+                var decimals = typeof fieldDetails.decimals !== 'undefined' ? fieldDetails.decimals : enumHandlers.FIELDSETTING.USEDEFAULT;
                 var decimalDropdown = self.AddUseDefaulToFormatList(fieldType, ko.toJS(enumHandlers.LISTFORMATDECIMALS));
                 userSettingsHandler.RenderFormatSettingDropdownlist('FormatDecimalSelect', decimalDropdown, decimals);
             }
@@ -149,17 +149,15 @@ function ListFormatSettingHandler() {
                 if (defaultName !== currentName) {
                     aliasInputElement.removeClass('placeholder');
                 }
-            });;
-
+            });
 
         if (WC.FormatHelper.IsSupportThousandSeparator(fieldType)) {
-            var thousandseparator = (fieldDetails && typeof fieldDetails.thousandseparator === 'boolean') ? fieldDetails.thousandseparator : null;
+            var thousandseparator = fieldDetails && typeof fieldDetails.thousandseparator === 'boolean' ? fieldDetails.thousandseparator : null;
             self.ThousandSeparator(thousandseparator);
         }
         else {
             e.sender.element.find('.ThousandSeperateWrapper').remove();
         }
-
 
         if (!self.CanFormatField(fieldType))
             e.sender.element.find('.FieldFormatCheckDefault').hide();
@@ -241,14 +239,15 @@ function ListFormatSettingHandler() {
     };
     self.ResetSetListFormatDisplay = function (field) {
         listHandler.HideHeaderPopup();
-        // set UI to default   
-        var displayField = jQuery.grep(displayModel.Data().fields, function (fieldItem) { return (fieldItem.field.toLowerCase() === field.id.toLowerCase()); })[0];
+        // set UI to default
+        var displayField = jQuery.grep(displayModel.Data().fields, function (fieldItem) {
+            return fieldItem.field.toLowerCase() === field.id.toLowerCase();
+        })[0];
         var detail = displayModel.GetFieldSettings(displayField);
         delete detail[enumHandlers.FIELDDETAILPROPERTIES.THOUSANDSEPARATE];
         delete detail[enumHandlers.FIELDDETAILPROPERTIES.FORMAT];
         delete detail[enumHandlers.FIELDDETAILPROPERTIES.DECIMALS];
         delete detail[enumHandlers.FIELDDETAILPROPERTIES.PREFIX];
-
         displayField.field_details = JSON.stringify(detail);
 
         var applySetting = function () {
@@ -290,8 +289,7 @@ function ListFormatSettingHandler() {
             applySetting();
         }
     };
-    self.SetListFormatDisplay = function (formValues, field, isNumberDataType) {
-
+    self.SetListFormatDisplay = function (formValues, field) {
         requestHistoryModel.SaveLastExecute(self, self.SetListFormatDisplay, arguments);
 
         var displayField = displayModel.Data().fields.findObject('field', field.id, false);

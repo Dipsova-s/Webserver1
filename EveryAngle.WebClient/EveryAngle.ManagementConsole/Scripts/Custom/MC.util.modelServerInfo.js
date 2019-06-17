@@ -304,16 +304,10 @@
                     var maxWidth = 0;
                     for (var k = 0; k < data.reports[i].rows.length; k++) {
                         width = data.reports[i].rows[k].field_values[j] === null ? 0 : data.reports[i].rows[k].field_values[j].toString().length;
-                        if (width > maxWidth) {
+                        if (width > maxWidth)
                             maxWidth = width;
-                        }
                     }
-
-                    if (maxWidth >= data.reports[i].fields[j].title.length)
-                        width = maxWidth;
-                    else
-                        width = data.reports[i].fields[j].title.length;
-                    
+                    width = Math.max(maxWidth, data.reports[i].fields[j].title.length);
                     maxwidthlist[i][j] = (width + 3) * 7;
                 }
             }

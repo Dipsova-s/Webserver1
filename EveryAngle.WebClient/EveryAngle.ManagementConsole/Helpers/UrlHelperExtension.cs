@@ -26,8 +26,7 @@ namespace EveryAngle.ManagementConsole.Helpers
             var requestManager = RequestManager.Initialize(requestUrl);
             if (requestManager != null)
             {
-                JObject jsonResult = null;
-                jsonResult = requestManager.Run();
+                JObject jsonResult = requestManager.Run();
                 return jsonResult;
             }
 

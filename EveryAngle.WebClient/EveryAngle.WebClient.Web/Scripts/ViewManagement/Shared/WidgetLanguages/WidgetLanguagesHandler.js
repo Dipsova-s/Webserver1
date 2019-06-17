@@ -84,10 +84,10 @@ function WidgetLanguagesHandler(container, multiLangNames, multiLangDescriptions
     };
     self.InitialElements = function () {
         self.ElementName = self.Element.find('.languageName')
-                                .off('keyup.validator')
-                                .on('keyup.validator', function () {
-                                    jQuery(this).removeClass('k-invalid');
-                                });
+            .off('keyup.validator')
+            .on('keyup.validator', function () {
+                jQuery(this).removeClass('k-invalid');
+            });
         self.ElementDescription = self.Element.find('.languageDescription');
 
         // description
@@ -120,9 +120,9 @@ function WidgetLanguagesHandler(container, multiLangNames, multiLangDescriptions
                     .off('change.language_description')
                     .on('change.language_description', function () {
                         self.Languages.Selected().language_description(self.ElementDescription.val());
-					})
-					.closest('.row')
-						.hide();
+                    })
+                    .closest('.row')
+                    .hide();
             }
         }
         else {
@@ -204,9 +204,9 @@ function WidgetLanguagesHandler(container, multiLangNames, multiLangDescriptions
             var elementTargetWidth = elementTarget.width();
             var position = element.position();
             if (position.left + elementTargetWidth > containerWidth) {
-                position.left -= (elementTargetWidth - element.width());
+                position.left -= elementTargetWidth - element.width();
             }
-            position.top += (element.height() + 1);
+            position.top += element.height() + 1;
             elementTarget.show().css(position);
         }
         else {
@@ -252,7 +252,7 @@ function WidgetLanguagesHandler(container, multiLangNames, multiLangDescriptions
             });
         }
     };
-    self.LanguageDelete = function (model, event) {
+    self.LanguageDelete = function (model) {
         model.is_selected(false);
 
         self.LanguageDeleteCallback(model);
@@ -267,7 +267,7 @@ function WidgetLanguagesHandler(container, multiLangNames, multiLangDescriptions
             self.Model.multi_lang_description.remove(function (dataModel) { return dataModel.lang === model.id; });
         }
 
-        
+
     };
     self.LanguageNameFocus = function () {
         if (!jQuery.browser.mozilla) {

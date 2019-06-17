@@ -10,7 +10,7 @@ function AngleExportHandler(angleDownloadHandler, eaPackageHandler) {
 
     self.IsPackageVisible = ko.observable(true);
     self.Handler = ko.observable(_self.angleDownloadHandler);
-    
+
     self.AngleExportType = ko.observable(AngleExportHandler.ANGLEEXPORTTYPE.DOWNLOAD);
 
     self.SELECTTYPE = {
@@ -93,7 +93,7 @@ function AngleExportHandler(angleDownloadHandler, eaPackageHandler) {
 
         // set Manage Access Privilege
         self.IsPackageVisible(userModel.IsPossibleToHaveManagementAccess());
-        
+
         if (self.IsDownloadable(self.SelectType(), self.IsAllSameModel(), self.IsAllPublish(), self.IsPackageVisible())) {
             var popupSettings = self.GetAngleExportSettings();
             popup.Show(popupSettings);
@@ -104,7 +104,7 @@ function AngleExportHandler(angleDownloadHandler, eaPackageHandler) {
         self.ApplyHandler(e);
     };
     self.InitialHandler = function (e) {
-        _self.angleDownloadHandler.SetSelectedItems(searchModel.SelectedItems()); 
+        _self.angleDownloadHandler.SetSelectedItems(searchModel.SelectedItems());
         _self.eaPackageHandler.SetSelectedItems(searchModel.SelectedItems());
 
         e.sender.element.busyIndicator(true);

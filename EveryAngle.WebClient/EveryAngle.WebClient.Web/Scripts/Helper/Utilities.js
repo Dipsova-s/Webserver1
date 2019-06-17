@@ -188,7 +188,11 @@
         return dashboardPageUrl + '#/?' + queryString;
     };
     window.WC.Utility.Compare = function (value1, value2, sensitive) {
-        return (value1 === value2 || (!sensitive && ('' + value1).toLowerCase() === ('' + value2).toLowerCase()));
+        if (!sensitive) {
+            value1 = ('' + value1).toLowerCase();
+            value2 = ('' + value2).toLowerCase();
+        }
+        return value1 === value2;
     };
     window.WC.Utility.GetParameterByName = function (name, url) {
         if (!url) {
@@ -204,11 +208,6 @@
             return '';
         }
         return decodeURIComponent(results[2].replace(/\+/g, " "));
-    };
-    window.WC.Utility.SetTimeout = function (callback, delay, args) {
-        return setTimeout((function (args) {
-            return function () { callback.apply(this, args); };
-        })(args), 200);
     };
     window.WC.Utility.ParseJSON = function (string, fallback) {
         /// <summary>parse string to json object</summary>
@@ -266,6 +265,19 @@
     };
     window.WC.Utility.IfNothing = function (value, fallback) {
         return value ? value : fallback;
+    };
+    window.WC.Utility.MatchAll = function (expected, values) {
+        var found = false;
+        jQuery.each(values, function (index, value) {
+            if (value !== expected) {
+                found = true;
+                return false;
+            }
+        });
+        return !found;
+    };
+    window.WC.Utility.MatchAny = function (expected, values) {
+        return jQuery.inArray(expected, values) !== -1;
     };
 
     window.IsNullOrEmpty = function (data) {
@@ -460,11 +472,11 @@
                 // Works in case when functions are created in constructor.
                 // Comparing dates is a common scenario. Another built-ins?
                 // We can even handle functions passed across iframes
-                if ((typeof x === 'function' && typeof y === 'function') ||
-                    (x instanceof Date && y instanceof Date) ||
-                    (x instanceof RegExp && y instanceof RegExp) ||
-                    (x instanceof String && y instanceof String) ||
-                    (x instanceof Number && y instanceof Number)) {
+                if ((typeof x === 'function' && typeof y === 'function') ||     //NOSONAR
+                    (x instanceof Date && y instanceof Date) ||                 //NOSONAR
+                    (x instanceof RegExp && y instanceof RegExp) ||             //NOSONAR
+                    (x instanceof String && y instanceof String) ||             //NOSONAR
+                    (x instanceof Number && y instanceof Number)) {             //NOSONAR
                     return x.toString() === y.toString();
                 }
 
@@ -564,14 +576,14 @@
                         a = typeof a === 'string' ? a.toLowerCase() : a;
                         b = typeof b === 'string' ? b.toLowerCase() : b;
                     }
-                    return typeof a === 'string' ? a.localeCompare(b) : (a < b ? -1 : (a > b ? 1 : 0));
+                    return typeof a === 'string' ? a.localeCompare(b) : a < b ? -1 : a > b ? 1 : 0;
                 });
             }
 
             return compare2Objects(obj1, obj2);
         },
 
-        GUID: function () {
+        GUID: function () { //NOSONAR
             /// <summary>Generate GUID</summary>
             /// <returns type="String">randomly GUID</returns>
 

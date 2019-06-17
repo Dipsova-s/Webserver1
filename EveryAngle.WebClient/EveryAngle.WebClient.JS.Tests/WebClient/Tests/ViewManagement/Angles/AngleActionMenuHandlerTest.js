@@ -4,12 +4,10 @@
 /// <reference path="/Dependencies/ViewManagement/Angles/AngleActionMenuHandler.js" />
 
 describe("AngleActionMenuHandler", function () {
-
     var AngleActionMenuHandlerTest = function () {
         var self = this;
         jQuery.extend(self, new AngleActionMenuHandler(self));
     };
-    
     var angleActionMenuHandler;
     beforeEach(function () {
         angleActionMenuHandler = new AngleActionMenuHandlerTest();

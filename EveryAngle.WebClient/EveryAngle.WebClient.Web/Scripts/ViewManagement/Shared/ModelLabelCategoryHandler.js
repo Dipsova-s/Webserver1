@@ -62,20 +62,16 @@ function ModelLabelHandler() {
     self.GetEnabledLabelsByCategory = function (modelLabelCategory) {
         var enabledLabels = [];
         var labelCategoryUri = self.GetLabelCategoryUri(modelLabelCategory);
-        
         jQuery.each(self.GetData(), function (index, label) {
             var isLabelEnabled = !modelLabelCategory.contains_businessprocesses || label.enabled;
-           
-            if (isLabelEnabled && label.category === labelCategoryUri) {
+            if (isLabelEnabled && label.category === labelCategoryUri)
                 enabledLabels.push(label);
-            }
         });
         return enabledLabels;
     };
     self.GetLabelCategoryUri = function (modelLabelCategory) {
         var labelCategoryUri;
         var modelLabelCategoryUri = modelLabelCategory.uri;
-        
         // clean categoryUri (/models/x/labelcategories/y -> /labelcategories/y)
         if (modelLabelCategoryUri.split('/').length !== 3) {
             var modelUri = WC.HtmlHelper.GetModelUriFromMetadataUri(modelLabelCategoryUri);

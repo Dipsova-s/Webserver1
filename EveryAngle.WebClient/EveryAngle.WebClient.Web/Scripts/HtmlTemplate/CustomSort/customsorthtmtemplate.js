@@ -39,4 +39,4 @@ var customeSortHtmlTemplate = function () {
             '</label>',
         '</div>'
     ].join('');
-}
+};

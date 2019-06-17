@@ -176,7 +176,7 @@ function DashboardResultViewModel(elementId, model, dashboardViewModel, executeP
             .fail(self.ApplyResultFail)
             .done(self.GetResultSuccess);
     };
-    self.GetResultSuccess = function (response, textStatus, xmlHttpRequest) {
+    self.GetResultSuccess = function (response) {
         if (response.status !== enumHandlers.POSTRESULTSTATUS.FINISHED.Value) {
             window.setTimeout(function () {
                 // Call to serve again is data not success
@@ -271,9 +271,13 @@ function DashboardResultViewModel(elementId, model, dashboardViewModel, executeP
                 model.Models.Result = self;
                 model.GetListDisplay();
                 break;
+
+            default:
+                break;
         }
 
-        if (model) jQuery(container).data('Model', model);
+        if (model)
+            jQuery(container).data('Model', model);
     };
     self.SetNotSuccessfullyCompleted = function () {
         var response = {
@@ -312,13 +316,13 @@ function DashboardResultViewModel(elementId, model, dashboardViewModel, executeP
 
         var request = modelsHandler.GetQueryFieldsUri(self.Data(), self.Angle, true);
         return modelFieldsHandler.LoadFieldsByIds(request, fields)
-            .then(function (data, status, xhr) {
+            .then(function (data) {
                 return modelFieldsHandler.LoadFieldsMetadata(data.fields);
             });
     };
     self.LoadDataFields = function () {
         return GetDataFromWebService(directoryHandler.ResolveDirectoryUri(self.Data().data_fields))
-            .done(function (data, status, xhr) {
+            .done(function (data) {
                 jQuery.each(data.fields, function (index, field) {
                     if (!self.GetDataFieldById(field.id)) {
                         self.DataFields.push(field);

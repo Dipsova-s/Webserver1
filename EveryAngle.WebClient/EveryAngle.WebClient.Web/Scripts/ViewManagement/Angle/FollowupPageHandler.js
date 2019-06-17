@@ -79,9 +79,10 @@ function FollowupPageHandler() {
             .done(function (data) {
                 self.DataFollowup[followupUrl] = data;
 
-                var followupsData = WC.Utility.ToArray(data.followups), grid, isShowHelp = false;
-                grid = self.BindGridData(self.CATEGORY.UP, followupsData);
-                if (!isShowHelp && grid.items().length) {
+                var followupsData = WC.Utility.ToArray(data.followups);
+                var isShowHelp = false;
+                var grid = self.BindGridData(self.CATEGORY.UP, followupsData);
+                if (grid.items().length) {
                     isShowHelp = true;
                     grid.items().first().trigger('click');
                 }
@@ -123,7 +124,7 @@ function FollowupPageHandler() {
     };
     self.AdjustLayout = function () {
         var popupBody = jQuery('#popupFollowup'),
-            popupBodyHeight = popupBody.height() - (16 * 4) - 1,
+            popupBodyHeight = popupBody.height() - 16 * 4 - 1,
             areaParent = jQuery('#popupFollowup .followupsArea'),
             area = jQuery('#popupFollowup .followupsAreaInner'),
             areaRecommentHeight,
@@ -183,7 +184,7 @@ function FollowupPageHandler() {
             else {
                 block.css(position);
             }
-        }
+        };
 
         blockUpPosition = {
             top: 0,
@@ -214,11 +215,11 @@ function FollowupPageHandler() {
             left: blockClassPosition.left + blockClass.outerWidth()
         };
         blockLeftPosition = {
-            top: blockFlowPosition1.top - ((blockLeft.outerHeight() - blockFlows.outerHeight()) / 2),
+            top: blockFlowPosition1.top - (blockLeft.outerHeight() - blockFlows.outerHeight()) / 2,
             left: blockFlowPosition1.left - blockLeft.outerWidth()
         };
         blockRightPosition = {
-            top: blockFlowPosition2.top - ((blockRight.outerHeight() - blockFlows.outerHeight()) / 2),
+            top: blockFlowPosition2.top - (blockRight.outerHeight() - blockFlows.outerHeight()) / 2,
             left: blockFlowPosition2.left + blockFlows.outerWidth()
         };
         blockIndicatorPosition = {

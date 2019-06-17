@@ -332,76 +332,17 @@ function DashboardDetailsHandler() {
                     isPrimary: true,
                     className: 'executing',
                     click: function (e, obj) {
-                        if (popup.CanButtonExecute(obj)) {
-                            if (self.CheckSaveAsValidation()) {
-                                self.SaveAsDashboard(isQuickSave);
-                                e.kendoWindow.close();
-                            }
+                        if (popup.CanButtonExecute(obj) && self.CheckSaveAsValidation()) {
+                            self.SaveAsDashboard(isQuickSave);
+                            e.kendoWindow.close();
                         }
                     }
                 }
             ],
             resizable: false,
-            actions: ["Close"],
+            actions: ['Close'],
             open: function (e) {
-                var deferred = [systemLanguageHandler.LoadLanguages()];
-                jQuery.whenAll(deferred)
-                    .done(function () {
-                        // collect data
-                        var multiLangNames = [];
-                        var multiLangDescriptions = [];
-                        if (isQuickSave) {
-                            jQuery.each(self.Model.Data().multi_lang_name(), function (index, name) {
-                                multiLangNames.push({
-                                    text: appendCopytext ? name.text.substr(0, 248) + ' (copy)' : name.text.substr(0, 255),
-                                    lang: name.lang
-                                });
-
-                                var description = self.Model.Data().multi_lang_description().findObject('lang', name.lang);
-                                if (!description) {
-                                    multiLangDescriptions.push({
-                                        text: '',
-                                        lang: name.lang
-                                    });
-                                }
-                                else {
-                                    multiLangDescriptions.push({
-                                        text: description.text,
-                                        lang: description.lang
-                                    });
-                                }
-                            });
-                        }
-                        else {
-                            var baseLanguages = ko.toJS(self.HandlerLanguages.Languages.List);
-                            jQuery.each(baseLanguages, function (index, lang) {
-                                if (lang.is_selected || (!lang.is_selected && lang.language_name)) {
-                                    multiLangNames.push({
-                                        text: appendCopytext ? lang.language_name.substr(0, 248) + ' (copy)' : lang.language_name.substr(0, 255),
-                                        lang: lang.id
-                                    });
-                                    multiLangDescriptions.push({
-                                        text: lang.language_description,
-                                        lang: lang.id
-                                    });
-                                }
-                            });
-                        }
-
-                        // bind template & knockout
-                        self.HandlerLanguagesSaveAs = new WidgetLanguagesHandler('#popupSaveAs', multiLangNames, multiLangDescriptions);
-                        self.HandlerLanguagesSaveAs.ShowDescription(false);
-                        self.HandlerLanguagesSaveAs.Labels.LabelLanguageName = Localization.DashboardName;
-                        self.HandlerLanguagesSaveAs.ApplyHandler();
-
-                        if (!isQuickSave) {
-                            jQuery.each(self.HandlerLanguagesSaveAs.Languages.List(), function (index, lang) {
-                                lang.is_selected(baseLanguages[index].is_selected);
-                            });
-                        }
-
-                        e.sender.wrapper.find('.k-window-buttons .btn').removeClass('executing');
-                    });
+                self.ShowSaveAsPopupCallback(e, isQuickSave, appendCopytext);
             },
             close: function (e) {
                 setTimeout(function () {
@@ -411,6 +352,66 @@ function DashboardDetailsHandler() {
         };
 
         popup.Show(popupSettings);
+    };
+    self.ShowSaveAsPopupCallback = function (e, isQuickSave, appendCopytext) {
+        var deferred = [systemLanguageHandler.LoadLanguages()];
+        jQuery.whenAll(deferred)
+            .done(function () {
+                // collect data
+                var multiLangNames = [];
+                var multiLangDescriptions = [];
+                if (isQuickSave) {
+                    jQuery.each(self.Model.Data().multi_lang_name(), function (index, name) {
+                        multiLangNames.push({
+                            text: appendCopytext ? name.text.substr(0, 248) + ' (copy)' : name.text.substr(0, 255),
+                            lang: name.lang
+                        });
+
+                        var description = self.Model.Data().multi_lang_description().findObject('lang', name.lang);
+                        if (!description) {
+                            multiLangDescriptions.push({
+                                text: '',
+                                lang: name.lang
+                            });
+                        }
+                        else {
+                            multiLangDescriptions.push({
+                                text: description.text,
+                                lang: description.lang
+                            });
+                        }
+                    });
+                }
+                else {
+                    var baseLanguages = ko.toJS(self.HandlerLanguages.Languages.List);
+                    jQuery.each(baseLanguages, function (index, lang) {
+                        if (lang.is_selected || (!lang.is_selected && lang.language_name)) {
+                            multiLangNames.push({
+                                text: appendCopytext ? lang.language_name.substr(0, 248) + ' (copy)' : lang.language_name.substr(0, 255),
+                                lang: lang.id
+                            });
+                            multiLangDescriptions.push({
+                                text: lang.language_description,
+                                lang: lang.id
+                            });
+                        }
+                    });
+                }
+
+                // bind template & knockout
+                self.HandlerLanguagesSaveAs = new WidgetLanguagesHandler('#popupSaveAs', multiLangNames, multiLangDescriptions);
+                self.HandlerLanguagesSaveAs.ShowDescription(false);
+                self.HandlerLanguagesSaveAs.Labels.LabelLanguageName = Localization.DashboardName;
+                self.HandlerLanguagesSaveAs.ApplyHandler();
+
+                if (!isQuickSave) {
+                    jQuery.each(self.HandlerLanguagesSaveAs.Languages.List(), function (index, lang) {
+                        lang.is_selected(baseLanguages[index].is_selected);
+                    });
+                }
+
+                e.sender.wrapper.find('.k-window-buttons .btn').removeClass('executing');
+            });
     };
     self.CloseSaveAsPopup = function () {
         popup.Close('#popup' + self.ID + 'SaveAs');
@@ -435,7 +436,6 @@ function DashboardDetailsHandler() {
             self.TabClick(self.TAB.GENERAL);
 
             return false;
-
         }
 
         // bp
@@ -1128,9 +1128,6 @@ function DashboardDetailsHandler() {
                                 clearInterval(fnCheckLabelLoaded);
                             }
                         }, 100);
-                    },
-                    close: function (e) {
-
                     }
                 };
 
@@ -1465,11 +1462,9 @@ function DashboardDetailsHandler() {
 
         // viewer user only allow to update user_specific property
         var ignoredProperties = ['user_specific'];
-
         if (dashboardModel.Data().authorizations.unvalidate) {
             ignoredProperties.push('is_validated');
         }
-        
         jQuery.each(data, function (propertyName) {
             if (jQuery.inArray(propertyName, ignoredProperties) === -1)
                 delete data[propertyName];

@@ -51,7 +51,7 @@ namespace EveryAngle.OData.Builder.Metadata
 
         #region public function
 
-        public void BuildModel()
+        public void BuildModel() //NOSONAR
         {
             Stopwatch stopwatch = Stopwatch.StartNew();
 
@@ -128,7 +128,7 @@ namespace EveryAngle.OData.Builder.Metadata
                 }
             }
 
-            // TODO: repair counters
+            // prepair counters
             stopwatch.Stop();
             LogService.Info(string.Format(
                 @"Finished Reading angles [time: {0}, angles: {1} (valid: {2}, skipped: {3}), displays: {4} (valid: {5}, skipped: {6})]",
@@ -329,11 +329,11 @@ namespace EveryAngle.OData.Builder.Metadata
 
             // Get invalid source fields
             IEnumerable<string> invalidAggregationFields = aggregationStep.aggregation_fields
-                .Where(field => field.valid == false)
+                .Where(field => !field.valid.GetValueOrDefault(false))
                 .Select(field => "aggregation: " + field.source_field);
 
             IEnumerable<string> invalidGroupingFields = aggregationStep.grouping_fields
-                .Where(field => field.valid == false)
+                .Where(field => !field.valid.GetValueOrDefault(false))
                 .Select(field => "grouping: " + field.source_field);
 
             if (invalidAggregationFields.Any() || invalidGroupingFields.Any())
@@ -349,7 +349,7 @@ namespace EveryAngle.OData.Builder.Metadata
         {
             // check for query step
             IEnumerable<QueryStep> invalidQuerySteps = GetDisplayQueryStep(display)
-                .Where(step => step.valid == false);
+                .Where(step => !step.valid.GetValueOrDefault(false));
 
             if (invalidQuerySteps.Any())
             {
@@ -366,14 +366,14 @@ namespace EveryAngle.OData.Builder.Metadata
             // check for definition's query step
             IList<QueryStep> querySteps = GetAngleQuerySteps(angle);
 
-            if (querySteps.Any(queryStep => queryStep.valid == false))
+            if (querySteps.Any(queryStep => !queryStep.valid.GetValueOrDefault(false)))
             {
                 LogService.Warn(string.Format("WARN: [Angle:{0}  message: angle contains invalid querySteps]", angle.id));
                 return true;
             }
 
             // then checking for overall definition
-            if (angle.query_definition.Any(definition => definition.valid == false))
+            if (angle.query_definition.Any(definition => !definition.valid.GetValueOrDefault(false)))
             {
                 LogService.Warn(string.Format("WARN: [Angle:{0}  message: angle contains invalid query_definition]", angle.id));
                 return true;

@@ -87,7 +87,6 @@ describe("ItemInfoHandler", function () {
                 return 'data_new';
             };
             itemInfoHandler.CacheItems[uri] = 'data_old';
-            
             itemInfoHandler.LoadItem(fnGetData, uri)
                 .done(function () {
                     expect(itemInfoHandler.CacheItems[uri]).toBe('data_old');

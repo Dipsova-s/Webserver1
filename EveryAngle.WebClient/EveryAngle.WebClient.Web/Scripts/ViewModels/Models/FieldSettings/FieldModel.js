@@ -8,15 +8,13 @@ function FieldModel() {
     self.CellFormat = '';
     self.CellFormatType = enumHandlers.DEVXPRESSFORMATTYPE.NONE;
     self.Area = 3;
-
     self.SourceField ='';
     self.Caption = false;
     self.DefaultCaption = false;
     self.FieldName = '';
     self.Operator = enumHandlers.AGGREGATION.COUNT.Value;
-    self.CssClass = false;   
+    self.CssClass = false;
     self.InternalID = '';
-
     self.DataType = '';
     self.IsDomain = false;
     self.DomainURI = '';
@@ -25,9 +23,6 @@ function FieldModel() {
     self.FieldDetails = null;
     self.MultiLangAlias = [];
     self.IsSelected = true;
-
     self.Valid = true;
     self.ValidError = '';
-
-    //EOF: View modle methods
 }

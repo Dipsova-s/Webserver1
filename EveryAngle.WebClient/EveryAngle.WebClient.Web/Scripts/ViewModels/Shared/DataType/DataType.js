@@ -302,8 +302,7 @@ function FormatHelper() {
             }
         }
         else if (format.indexOf('[h]') !== -1) {
-            // timespan
-            // handle in kendo.core.extension.js
+            // timespan type will be handled in kendo.core.extension.js
         }
         else if (format.toLowerCase().indexOf('h') !== -1 && format.indexOf('mm') !== -1 && value !== null) {
             // time
@@ -315,11 +314,9 @@ function FormatHelper() {
             // currency
             value = value.a;
         }
-        else if (format.indexOf('\\%') !== -1) {
+        else if (format.indexOf('\\%') !== -1 && typeof value === 'number') {
             // percentage
-            if (typeof value === 'number') {
-                value = self.NumberToPercentages(value);
-            }
+            value = self.NumberToPercentages(value);
         }
 
         // K & M

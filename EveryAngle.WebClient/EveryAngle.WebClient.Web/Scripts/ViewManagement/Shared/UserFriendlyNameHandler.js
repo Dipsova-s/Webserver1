@@ -6,7 +6,6 @@ function UserFriendlyNameHandler() {
     var self = this;
     self.GetFieldSourceByFieldObject = function (fieldObject) {
         var fieldSourceFriendlyName = '';
-        
         if (fieldObject.source) {
             var fieldSource = modelFieldSourceHandler.GetFieldSourceByUri(fieldObject.source);
             if (fieldSource) {
@@ -49,8 +48,10 @@ function UserFriendlyNameHandler() {
                 friendlyName = self.GetFieldSourceByFieldObject(fieldObject);
                 friendlyName += self.GetFriendlyName(fieldObject, enumHandlers.FRIENDLYNAMEMODE.LONGNAME);
                 break;
+
+            default:
+                break;
         }
         return friendlyName;
     };
- 
 }

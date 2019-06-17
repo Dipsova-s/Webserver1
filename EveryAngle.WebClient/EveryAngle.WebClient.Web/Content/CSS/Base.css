@@ -199,6 +199,7 @@
     margin-top: -2px;
     box-shadow: none;
 }
+
 .contentSectionInfoItem .btnInfo:hover {
     background-color: transparent;
 }
@@ -510,6 +511,7 @@
     box-sizing: border-box;
     padding: 0 5px;
 }
+
 #txtYourNote:focus {
     outline: none;
     border-bottom: 1px dotted #333;
@@ -545,6 +547,7 @@
     left: 0;
     height: 232px;
 }
+
 #ToggleWrapper .DottedVertical:before {
     content: '';
     position: absolute;
@@ -703,6 +706,7 @@
 .angleInformation > .SignPublic {
     margin-top: -3px;
 }
+
 .angleInformation > .SignType3 {
     margin-top: -2px;
 }

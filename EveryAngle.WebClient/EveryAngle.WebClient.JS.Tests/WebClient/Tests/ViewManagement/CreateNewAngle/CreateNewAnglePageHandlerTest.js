@@ -51,7 +51,6 @@ describe("CreateNewAnglePageHandlerTest", function () {
             expect(displayModel.GetDefaultListFields).toHaveBeenCalled();
         });
     });
-    
     describe(".SetCreateAngleByObjectSelectionMode", function () {
 
         beforeEach(function () {

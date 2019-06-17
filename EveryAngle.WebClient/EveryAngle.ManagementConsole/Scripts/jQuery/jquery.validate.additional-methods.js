@@ -220,7 +220,7 @@ jQuery.validator.addMethod("restricted_ids", function (value, element) {
 
 jQuery.validator.addMethod("date-localized", function (value, element) {
     var obj = jQuery(element).data('kendoDatePicker');
-    return this.optional(element) || (typeof obj != 'undeined' && obj.value() != null);
+    return this.optional(element) || (typeof obj !== 'undeined' && obj.value() !== null);
 }, Localization.MC_Validation_DateLocalized);
 
 jQuery.validator.addMethod("packagename", function (value, element) {
@@ -230,13 +230,10 @@ jQuery.validator.addMethod("packagename", function (value, element) {
 }, Localization.MC_Validation_Packagename);
 
 jQuery.validator.addMethod("agent_url", function (value, element) {
-    //return this.optional(element) || /(http|https):\/\/(\w+:{0,1}\w*@)?(\S+)(:[0-9]+)?(\/|\/([\w#!:.?+=&%@!\-\/]))?/g.test(value);
-    //return this.optional(element) || /(ftp|http)s?:\/\/([a-z0-9][a-z0-9\.\-]*[a-z0-9]+)(:[0-9]+)?\/?$/ig.test(value);
     return this.optional(element) || /https?:\/\/([a-z0-9][a-z0-9\.\-_]*[a-z0-9]+)(:[0-9]+)?(.*)$/ig.test(value);
 }, Localization.MC_Validation_AgentUrl);
 
-jQuery.validator.addMethod("email", function (value, element) {
-
+jQuery.validator.addMethod("email", function (value) {
     if (value === '')
         return true;
 
@@ -244,21 +241,20 @@ jQuery.validator.addMethod("email", function (value, element) {
 
 }, Localization.MC_Validation_Email);
 
-jQuery.validator.addMethod("phoneNumber", function (value, element) {
-    
-    if (value === '') return true;
+jQuery.validator.addMethod("phoneNumber", function (value) {
+    if (value === '')
+        return true;
  
-    if (!/^(?:(?:\(?(?:00|\+)([1-4]\d\d|[1-9]\d?)\)?)?[\-\.\ \\\/]?)?((?:\(?\d{1,}\)?[\-\.\ \\\/]?){0,})(?:[\-\.\ \\\/]?(?:#|ext\.?|extension|x)[\-\.\ \\\/]?(\d+))?$/i.test(value)) return false;
+    if (!/^(?:(?:\(?(?:00|\+)([1-4]\d\d|[1-9]\d?)\)?)?[\-\.\ \\\/]?)?((?:\(?\d{1,}\)?[\-\.\ \\\/]?){0,})(?:[\-\.\ \\\/]?(?:#|ext\.?|extension|x)[\-\.\ \\\/]?(\d+))?$/i.test(value))
+        return false;
 
     return true;
-    //return value === '' || /^([a-z])([a-z0-9._+-]*)([a-z0-9])@[a-z0-9][a-z0-9.-]+\.[a-z]{2,4}$/gi.test(value);
 }, Localization.MC_Validation_PhoneNumber);
 
 jQuery.validator.addMethod("required_default_roles", function (value, element) {
     var isAutoCreate = jQuery('[name="auto_create_users"]').prop('checked');
     var isSyncRolesToGroups = jQuery('#sync_roles_to_groups').prop('checked');
-
-    return !isAutoCreate || (isAutoCreate && value && value.length) || isSyncRolesToGroups;
+    return !isAutoCreate || (value && value.length) || isSyncRolesToGroups;
 }, Localization.MC_Validation_RequiredDefaultRoles);
 
 jQuery.validator.addMethod("valid_default_pagesize", function (value, element) {
@@ -267,12 +263,10 @@ jQuery.validator.addMethod("valid_default_pagesize", function (value, element) {
     var maxPageSizeElement = $('#max_pagesize');
     var maxPageSizeValue = maxPageSizeElement.val();
     var isValid = true;
-    if (defaultPageValue && maxPageSizeValue) {
-        if (parseInt(defaultPageValue, 10) > parseInt(maxPageSizeValue, 10)) {
-            isValid = false;
-            defaultPageElement.addClass('error');
-            maxPageSizeElement.addClass('error');
-        }
+    if (defaultPageValue && maxPageSizeValue && parseInt(defaultPageValue, 10) > parseInt(maxPageSizeValue, 10)) {
+        isValid = false;
+        defaultPageElement.addClass('error');
+        maxPageSizeElement.addClass('error');
     }
     return value === '' || isValid;
 }, Localization.MC_Validation_ValidDefaultPageSize);
@@ -288,7 +282,7 @@ jQuery.validator.addMethod("valid_action_email", function (value, element) {
         if (!subject) jQuery('#email_subject').addClass('error');
         if (!body) jQuery('#email_body').addClass('error');
 
-        return jQuery(element).val() != '';
+        return jQuery(element).val() !== '';
     }
 
     return true;
@@ -314,7 +308,7 @@ jQuery.validator.addMethod("continue_with_days", function (value, element) {
 
 jQuery.validator.addMethod("required_comment_when_attachedfile", function (value, element) {
     if (jQuery('#CommentForm .k-upload-status').text() === "") return true;
-    if (jQuery('#CommentForm .k-upload-status').text() != "" && $('#CommentText').val() != "") return true;
+    if (jQuery('#CommentForm .k-upload-status').text() !== "" && $('#CommentText').val() !== "") return true;
 }, jQuery.validator.messages.required);
 
 jQuery.validator.addMethod("parameterized_between", function (value, element) {

@@ -1,13 +1,13 @@
 (function (win, globalSettings) {
 
-	function SystemSettings() {
+    function SystemSettings() {
         var self = this;
         self.SaveUri = '';
 
-		self.Initial = function (data) {
+        self.Initial = function (data) {
             jQuery.extend(self, data || {});
 
-            setTimeout(function() {
+            setTimeout(function () {
                 MC.form.page.init(self.GetData);
             }, 1);
         };
@@ -37,43 +37,43 @@
 
                 MC.ui.popup('requestStart');
             }
-			var data = self.GetData();
+            var data = self.GetData();
 
             MC.ajax.request({
                 type: "POST",
                 url: self.SaveUri,
                 parameters: { systemSettingsData: JSON.stringify(data.systemSettings), recipient: recipientData }
             })
-            .fail(function () {
-                var win = $('#TestEmailResult').data('kendoWindow');
-                if (win) {
-                    win.close();
-                }
-            })
-            .done(function (data, status, xhr) {
-                jQuery.when(MC.ajax.reloadMainContent())
-                    .done(function () {
-                        if (recipient) {
-                            MC.ui.popup('requestEnd');
+                .fail(function () {
+                    var win = $('#TestEmailResult').data('kendoWindow');
+                    if (win) {
+                        win.close();
+                    }
+                })
+                .done(function (data) {
+                    jQuery.when(MC.ajax.reloadMainContent())
+                        .done(function () {
+                            if (recipient) {
+                                MC.ui.popup('requestEnd');
 
-                            MC.ui.popup();
-                            $('#btnShowTestEmailResult').trigger('click');
+                                MC.ui.popup();
+                                $('#btnShowTestEmailResult').trigger('click');
 
-                            var response = JSON.parse(data);
-                            var title = response.success ? Localization.MC_TestResultSuccessful : Localization.MC_TestResultFailure;
-                            var message = '';
-                            if (!response.success) {
-                                message += response.result;
-                                if (response.log) {
-                                    message += '\n\nTechnical info.\n' + response.log.join('\n');
+                                var response = JSON.parse(data);
+                                var title = response.success ? Localization.MC_TestResultSuccessful : Localization.MC_TestResultFailure;
+                                var message = '';
+                                if (!response.success) {
+                                    message += response.result;
+                                    if (response.log) {
+                                        message += '\n\nTechnical info.\n' + response.log.join('\n');
+                                    }
                                 }
+                                jQuery('#TestEmailResult h3').text(title);
+                                jQuery('#TestEmailResult pre').html(message);
+                                jQuery('#TestEmailResult').prev().find('.k-i-close').show();
                             }
-                            jQuery('#TestEmailResult h3').text(title);
-                            jQuery('#TestEmailResult pre').html(message);
-                            jQuery('#TestEmailResult').prev().find('.k-i-close').show();
-                        }
-                    });
-            });
+                        });
+                });
             return false;
         };
 
@@ -108,15 +108,15 @@
         };
 
         self.GetData = function () {
-			MC.form.clean();
-			
+            MC.form.clean();
+
             var sessionExpiryMinutes = $('#session_expiry_minutes').val();
             var modelserverCheckSeconds = $('#modelserver_check_seconds').val();
             var defaultCacheMinutes = $('#default_cache_minutes').val();
             var minLabelcategoriesToPublish = $('#min_labelcategories_to_publish').val();
             var checkExpiredEessionsMinutes = $('#check_expired_sessions_minutes').val();
             var instancesPerModel = $('#instances_per_model').val();
-            var isAutoCreateUsers = $('#auto_create_users').is(':checked');            
+            var isAutoCreateUsers = $('#auto_create_users').is(':checked');
             var defaultSystemRoles = $('#DefaultSystemRoles').val();
             var defaultPagesize = $('#default_pagesize').val();
             var maxPagesize = $('#max_pagesize_appserver').val();
@@ -132,19 +132,19 @@
             var ssl = $('#smtp_use_ssl').is(':checked');
             var username = $('#EmailSettings_username').val();
             var password = $('#EmailSettings_password').val();
-			var maxEventlogStoredRecords = $('#max_event_log_stored_records').val();
-			var maxAuditLogHistory = $('#max_audit_log_history').val();
+            var maxEventlogStoredRecords = $('#max_event_log_stored_records').val();
+            var maxAuditLogHistory = $('#max_audit_log_history').val();
             var includeSelfInExportHeaders = $('#include_self_in_export_headers').is(':checked');
             var scriptLocation = $('#script_location').val();
 
             var emailSettings = {
                 "smtp_server": smtpServer,
                 "smtp_user": username,
-                "smtp_password": password, //encodeURIComponent(password),
+                "smtp_password": password,
                 "smtp_use_ssl": ssl,
                 "smtp_port": smtpPort,
                 "smtp_sender": smtpSender
-            };         
+            };
 
             var systemSettingsData = {
                 'session_expiry_minutes': sessionExpiryMinutes,
@@ -163,8 +163,8 @@
                 'max_domainelements_for_search': maxDomainelementsForSearch,
                 'email_settings': emailSettings,
                 'active_directory_size_limit': directorySizeLimit,
-				'max_event_log_stored_records': maxEventlogStoredRecords,
-				'max_audit_log_history': maxAuditLogHistory,
+                'max_event_log_stored_records': maxEventlogStoredRecords,
+                'max_audit_log_history': maxAuditLogHistory,
                 'include_self_in_export_headers': includeSelfInExportHeaders,
                 'default_max_export_page_size': defaultMaxExportPageSize,
                 'script_location': scriptLocation

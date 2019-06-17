@@ -397,6 +397,5 @@ describe("DashboardDetailsHandler", function () {
                 expect(JSON.stringify(test.expected)).toEqual(JSON.stringify(test.input));
             });
         });
-        
     });
 });

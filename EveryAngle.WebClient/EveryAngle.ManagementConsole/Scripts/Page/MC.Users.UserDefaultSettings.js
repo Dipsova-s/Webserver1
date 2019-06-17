@@ -16,7 +16,6 @@
             jQuery.extend(self, data || {});
 
             setTimeout(function () {
-
                 $('#GeneralDecimalSeperatorDropdown').kendoDropDownList();
                 $('#GeneralThousandSeperatorDropdown').kendoDropDownList();
                 $('#DefaultLanguages').kendoDropDownList();
@@ -28,7 +27,7 @@
                 $('#DecimalsPercentagesPrefix').kendoDropDownList();
                 $('#DefaultExportLines').kendoDropDownList();
                 $('#DefaultEnum').kendoDropDownList();
-                $('#DefaultPeriod').kendoDropDownList();             
+                $('#DefaultPeriod').kendoDropDownList();
                 $('#FormatLocale').kendoDropDownList();
                 $('#DateOrderDropdown').kendoDropDownList();
                 $('#DateDayDropdown').kendoDropDownList();
@@ -65,8 +64,8 @@
             var data = {
                 'default_language': $('#DefaultLanguages').val(),
                 'default_currency': $('#DefaultCurrency').val(),
-                'format_numbers': JSON.stringify({'decimals': parseInt($('#DecimalsNumbers').val()), 'prefix': $('#DecimalsNumbersPrefix').val() === "" ? null : $('#DecimalsNumbersPrefix').val(), 'thousandseparator': $('#DecimalsNumbersThousandSeparator').is(':checked') }), 
-                'format_currencies': JSON.stringify({'decimals': parseInt($('#DecimalsCurrencies').val()), 'prefix': $('#DecimalsCurrenciesPrefix').val() === "" ? null: $('#DecimalsCurrenciesPrefix').val(), 'thousandseparator': $('#DecimalsCurrenciesThousandSeparator').is(':checked') }), 
+                'format_numbers': JSON.stringify({'decimals': parseInt($('#DecimalsNumbers').val()), 'prefix': $('#DecimalsNumbersPrefix').val() === "" ? null : $('#DecimalsNumbersPrefix').val(), 'thousandseparator': $('#DecimalsNumbersThousandSeparator').is(':checked') }),
+                'format_currencies': JSON.stringify({'decimals': parseInt($('#DecimalsCurrencies').val()), 'prefix': $('#DecimalsCurrenciesPrefix').val() === "" ? null: $('#DecimalsCurrenciesPrefix').val(), 'thousandseparator': $('#DecimalsCurrenciesThousandSeparator').is(':checked') }),
                 'format_percentages': JSON.stringify({ 'decimals': parseInt($('#DecimalsPercentages').val()), 'prefix': $('#DecimalsPercentagesPrefix').val() === "" ? null : $('#DecimalsPercentagesPrefix').val(), 'thousandseparator': $('#DecimalsPercentagesThousandSeparator').is(':checked') }),
                 'default_export_lines': parseInt($('#DefaultExportLines').val()),
                 'sap_fields_in_chooser': $('#sap_fields_in_chooser').is(':checked'),
@@ -80,11 +79,10 @@
                 'format_enum': $('#DefaultEnum').val(),
                 'format_locale': $('#FormatLocale').val(),
                 'general_decimal_seperator': $('#GeneralDecimalSeperatorDropdown').val(),
-                'general_thousand_seperator': $('#GeneralThousandSeperatorDropdown').val(),              
+                'general_thousand_seperator': $('#GeneralThousandSeperatorDropdown').val(),
                 'format_time': JSON.stringify({ hour: $('#TimeHourFormatDropdown').val(), separator: $('#TimeSeparatorDropdown').val() }),
                 'format_date': JSON.stringify({ order: $('#DateOrderDropdown').val(), day: $('#DateDayDropdown').val(), month: $('#DateMonthDropdown').val(), year: $('#DateYearDropdown').val(), separator: $('#DateSeparatorDropdown').val() })
             };
-
             return data;
         };
 
@@ -97,17 +95,17 @@
             }
 
             var data = self.GetData();
-
-            MC.ajax.request({
-                type: "POST",
-                url: self.SaveUri,
-                parameters: {
-                    userDefaultsSettingsData: JSON.stringify(data)
-                },
-                ajaxSuccess: function (metadata, data, status, xhr) {
+            MC.ajax
+                .request({
+                    type: "POST",
+                    url: self.SaveUri,
+                    parameters: {
+                        userDefaultsSettingsData: JSON.stringify(data)
+                    }
+                })
+                .done(function () {
                     MC.ajax.reloadMainContent();
-                }
-            });
+                });
             return false;
         };
     }

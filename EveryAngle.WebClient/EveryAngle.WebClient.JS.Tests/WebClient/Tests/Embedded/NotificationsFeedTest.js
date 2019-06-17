@@ -82,7 +82,6 @@ describe("NotificationsFeed", function () {
                 notificationsFeedModel.SetDataFeeds(mockWellResponse);
             });
 
-            
             it(".GetFeedsHistory", function () {
                 var feeds = notificationsFeedModel.GetFeedsHistory();
                 expect(feeds.length).toEqual(1);
@@ -139,7 +138,6 @@ describe("NotificationsFeed", function () {
                 expect(watchFeed.isUnReadState()).toBe(false);
                 expect(watchFeed.isNewState()).toBe(false);
             });
-            
         });
 
         it(".SetDataViewAllUrl", function () {
@@ -191,9 +189,7 @@ describe("NotificationsFeed", function () {
         });
 
         it(".GetFeeds, .SaveFeeds", function () {
-            var contents = notificationsFeedRepository.GetFeeds();
-
-            contents = {};
+            var contents = {};
             contents['1111'] = { test: 'abc' };
 
             notificationsFeedRepository.SaveFeeds(contents);
@@ -221,8 +217,5 @@ describe("NotificationsFeed", function () {
 
             expect(isRead).toBe(true);
         });
-
     });
-    
-
 });

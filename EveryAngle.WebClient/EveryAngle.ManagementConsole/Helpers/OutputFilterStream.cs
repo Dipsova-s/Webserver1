@@ -37,7 +37,11 @@ namespace EveryAngle.ManagementConsole.Helpers
         public override long Position
         {
             get { return InnerStream.Position; }
-            set { CopyStream.Position = InnerStream.Position = value; }
+            set
+            {
+                CopyStream.Position = value;
+                InnerStream.Position = value;
+            }
         }
 
         public string ReadStream()
@@ -65,6 +69,7 @@ namespace EveryAngle.ManagementConsole.Helpers
                     }
                     catch
                     {
+                        // prevent error
                     }
                 }
             }

@@ -14,8 +14,6 @@ namespace EveryAngle.WebClient.Web.Helpers
     {
         public  static string GetDomainImageFolderList()
         {
-            string domainImageFolders = string.Empty;
-
             string defualtDomainImageFolder = "Domains";
             string webconfigDomainImageFolder = WebConfigHelper.GetAppSettingByKey("DomainImageFolderName");
             string domainImagefolder = string.IsNullOrEmpty(webconfigDomainImageFolder) ? defualtDomainImageFolder : webconfigDomainImageFolder;
@@ -32,9 +30,7 @@ namespace EveryAngle.WebClient.Web.Helpers
                 foldersName.Add(dInfo.Name);                
             }
 
-            domainImageFolders = String.Join(",", foldersName.ToArray());
-
-            return domainImageFolders;
+            return string.Join(",", foldersName.ToArray());
         }
     }
 }

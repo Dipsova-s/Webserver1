@@ -69,26 +69,26 @@ function FieldCategoryHandler() {
     };
 
     self.GetCategoryIconByField = function (field, showSmallIcon) {
-		var imageDetail = {};
+        var imageDetail = {};
         if (typeof showSmallIcon === 'undefined')
             showSmallIcon = true;
         var category = self.GetFieldCategoryByUri(field.category);
         var iconSize = showSmallIcon ? 16 : 32;
         if (category) {
-			imageDetail.path = kendo.format('{0}{1}_{2}.png', fieldCategoryIconPath, category.id, iconSize).toLowerCase();
+            imageDetail.path = kendo.format('{0}{1}_{2}.png', fieldCategoryIconPath, category.id, iconSize).toLowerCase();
         }
         else {
-			imageDetail.path = kendo.format('{0}searchpage/icn_item_angle.svg', GetImageFolderPath()).toLowerCase();
-		}
-		imageDetail.dimension = {
-			width: iconSize,
-			height: iconSize
-		};
+            imageDetail.path = kendo.format('{0}searchpage/icn_item_angle.svg', GetImageFolderPath()).toLowerCase();
+        }
+        imageDetail.dimension = {
+            width: iconSize,
+            height: iconSize
+        };
         return imageDetail;
     };
 
-    self.GetCssClassCategoryIconByField = function (field) {
-		return 'SignType1';
+    self.GetCssClassCategoryIconByField = function () {
+        return 'SignType1';
     };
     /*================================================*/
     //EOF: Methods

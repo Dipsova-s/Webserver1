@@ -261,7 +261,7 @@ function Authentication() {
                         deferred.reject(xhr, status, error);
 
                     })
-                    .done(function (data, status, xhr) {
+                    .done(function (data) {
                         jQuery.localStorage('loginfailcount', 0);
 
                         /*
@@ -363,7 +363,7 @@ function Authentication() {
             // load models
             .then(modelsHandler.LoadModelsInfo);
     };
-    _self.LoadPart1 = function (mainDeferred, data) {
+    _self.LoadPart1 = function (mainDeferred) {
         mainDeferred.notify('Loading system information');
         return directoryHandler.LoadDirectory();
     };
@@ -573,7 +573,7 @@ function Authentication() {
         }
 
         return errorMessage;
-    }
+    };
 
     _self.ShowErrorMessage = function (xhr, status, error) {
         var errorMessage = self.GetErrorMessage(xhr, status, error);
@@ -637,17 +637,17 @@ function Authentication() {
     _self.CheckSessionPrivileges = function () {
         var privilegeDeferred = jQuery.Deferred();
         jQuery.when(privilegesViewModel.Load(true))
-            .done(function (privilegeData) {
+            .done(function () {
                 var canLoginWebClient = userModel.IsPossibleToAccessWebClient();
                 var canAccessManagementConsole = userModel.IsPossibleToHaveManagementAccess() || userModel.IsPossibleToScheduleAngles();
                 if (canLoginWebClient && canAccessManagementConsole) {
                     // do nothing
                 }
-                else if (canLoginWebClient && !canAccessManagementConsole) {
+                else if (canLoginWebClient) {
                     /* M4-11410: Fixed when user can used WC but cannot use MC => redirect to WC */
                     _self.redirectToWC = true;
                 }
-                else if (!canLoginWebClient && canAccessManagementConsole) {
+                else if (canAccessManagementConsole) {
                     // redirect to MC if has_management_access or schedule_angles
                     _self.redirectToMC = true;
                 }

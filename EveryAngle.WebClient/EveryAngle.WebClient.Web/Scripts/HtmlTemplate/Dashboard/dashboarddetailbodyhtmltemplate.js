@@ -141,4 +141,4 @@ var dashboardDetailBodyHtmlTemplate = function () {
             '</div>',
         '</div>'
     ].join('');
-}
+};

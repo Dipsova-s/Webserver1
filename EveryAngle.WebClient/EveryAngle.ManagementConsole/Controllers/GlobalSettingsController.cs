@@ -19,6 +19,7 @@ using EveryAngle.WebClient.Service;
 using EveryAngle.WebClient.Service.HttpHandlers;
 using EveryAngle.WebClient.Service.LogHandlers;
 using EveryAngle.WebClient.Service.Security;
+using Kendo.Mvc;
 using Kendo.Mvc.UI;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
@@ -1033,25 +1034,22 @@ namespace EveryAngle.ManagementConsole.Controllers
 
             Dictionary<string, string> sortMappers = new Dictionary<string, string>
             {
-                {  "Modified", "&sort=modified" },
-                {  "Name", "&sort=file" },
-                {  "Size", "&sort=size" }
+                {  "modified", "&sort=modified" },
+                {  "name", "&sort=file" },
+                {  "size", "&sort=size" }
             };
-            string sortByDefault = "Modified";
-            string sortBy = sortByDefault;
-            ListSortDirection sortDirection = ListSortDirection.Descending;
-            if (request.Sorts != null && request.Sorts.Count > 0)
+            SortDescriptor sortDescriptor = new SortDescriptor
             {
-                sortBy = request.Sorts[0].Member;
-                sortDirection = request.Sorts[0].SortDirection;
+                Member = "Modified",
+                SortDirection = ListSortDirection.Descending
+            };
+            if (request.Sorts != null
+                && request.Sorts.Any()
+                && sortMappers.ContainsKey(request.Sorts[0].Member.ToLowerInvariant()))
+            {
+                sortDescriptor = request.Sorts[0];
             }
-
-            string sortOption = string.Format("&dir={0}", sortDirection == ListSortDirection.Ascending ? "asc" : "desc");
-
-            if (sortMappers.ContainsKey(sortBy))
-                sortOption += sortMappers[sortBy];
-            else
-                sortOption += sortMappers[sortByDefault];
+            string sortOption = PageHelper.GetSortingQuery(sortDescriptor, sortMappers);
 
             #endregion
 

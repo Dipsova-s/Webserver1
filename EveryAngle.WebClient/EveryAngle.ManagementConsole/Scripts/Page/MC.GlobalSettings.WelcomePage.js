@@ -247,14 +247,8 @@
         };
 
         self.GenerateVideoThumbnails = function () {
-            if (!self.VideosNoThumbnailData.length)
+            if (!CheckGenerateVideoThumbnails())
                 return;
-
-            MC.ui.loading.show();
-            if (!Modernizr.video.h264 || !Modernizr.canvas) {
-                MC.ui.loading.setError(MC.util.massReport.createMessage(Localization.MC_BrowserNotSupport, ''));
-                return;
-            }
 
             var video;
             var reports = [];
@@ -298,27 +292,9 @@
                 var filename = video.getAttribute('src').split('/');
                 filename = '/' + filename.slice(filename.length - 4).join('/');
                 var reportIndex = reports.length;
-
-                switch (e.target.error.code) {
-                    case e.target.error.MEDIA_ERR_ABORTED:
-                        MC.util.massReport.setReport(reportIndex, false, filename, Localization.MC_AbortedVideoPlayback);
-                        break;
-                    case e.target.error.MEDIA_ERR_NETWORK:
-                        MC.util.massReport.setReport(reportIndex, false, filename, Localization.MC_VideoDownloadFail);
-                        break;
-                    case e.target.error.MEDIA_ERR_DECODE:
-                        MC.util.massReport.setReport(reportIndex, false, filename, Localization.MC_VideoPlaybackAborted);
-                        break;
-                    case e.target.error.MEDIA_ERR_SRC_NOT_SUPPORTED:
-                        MC.util.massReport.setReport(reportIndex, false, filename, Localization.MC_VideoNotLoaded);
-                        break;
-                    default:
-                        MC.util.massReport.setReport(reportIndex, false, filename, Localization.MC_VideoUnknownError);
-                        break;
-                }
-
+                var errorMessage = self.GetGenerateVideoThumbnailErrorMessage(e.target.error);
+                MC.util.massReport.setReport(reportIndex, false, filename, errorMessage);
                 MC.util.massReport.setStatus(Localization.MC_File, filename, 'fail');
-
                 nextVideo(delayTime);
             };
             var getThumb = function () {
@@ -350,15 +326,16 @@
 
                     var data = matches[2];
                     var deferred = jQuery.Deferred();
-                    MC.ajax.request({
-                        url: self.SaveVideoThumbnailUri,
-                        type: 'POST',
-                        parameters: { dataImage: data, pathVideo: video.getAttribute('src') }
-                    })
-                        .done(function (data, status, xhr) {
+                    MC.ajax
+                        .request({
+                            url: self.SaveVideoThumbnailUri,
+                            type: 'POST',
+                            parameters: { dataImage: data, pathVideo: video.getAttribute('src') }
+                        })
+                        .done(function () {
                             MC.util.massReport.onDone(arguments, deferred, Localization.MC_File, filename, reportIndex);
                         })
-                        .fail(function (xhr, status, error) {
+                        .fail(function () {
                             MC.util.massReport.onFail(arguments, deferred, Localization.MC_File, filename, reportIndex);
                         })
                         .always(function () {
@@ -377,6 +354,28 @@
 
             MC.util.massReport.initial();
             nextVideo();
+        };
+
+        self.CheckGenerateVideoThumbnails = function () {
+            if (!self.VideosNoThumbnailData.length)
+                return false;
+
+            MC.ui.loading.show();
+            if (!Modernizr.video.h264 || !Modernizr.canvas) {
+                MC.ui.loading.setError(MC.util.massReport.createMessage(Localization.MC_BrowserNotSupport, ''));
+                return false;
+            }
+
+            return true;
+        };
+
+        self.GetGenerateVideoThumbnailErrorMessage = function (error) {
+            var messages = {};
+            messages[error.MEDIA_ERR_ABORTED] = Localization.MC_AbortedVideoPlayback;
+            messages[error.MEDIA_ERR_NETWORK] = Localization.MC_VideoDownloadFail;
+            messages[error.MEDIA_ERR_DECODE] = Localization.MC_VideoPlaybackAborted;
+            messages[error.MEDIA_ERR_SRC_NOT_SUPPORTED] = Localization.MC_VideoNotLoaded;
+            return messages[error.code] || Localization.MC_VideoUnknownError;
         };
     }
 

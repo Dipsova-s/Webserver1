@@ -13,20 +13,15 @@ namespace EveryAngle.ManagementConsole.Helpers.Controls
 
         public override string ToString()
         {
-            var source = Source == null ? string.Empty : Source;
-            var name = Name == null ? string.Empty : Name;
-            var version = Version == null ? string.Empty : Version;
-
             return string.Format("{0}-{1}-{2}.{3}", Source, Name, Version, EXTENSION);
         }
 
         public static PackageHelper Parse(string filename)
         {
-            //remove the extension 
+            // remove the extension 
             var dotIndex = filename.LastIndexOf('.');
-            filename = filename.Remove(dotIndex, filename.Length - dotIndex);
-
-            var parts = filename.Split('-');
+            string name = filename.Remove(dotIndex, filename.Length - dotIndex);
+            string[] parts = name.Split('-');
 
             var output = new PackageHelper();
             if (parts.Length > 0)
@@ -44,12 +39,6 @@ namespace EveryAngle.ManagementConsole.Helpers.Controls
         //Show error for each case
         public bool IsValid()
         {
-            if (this == null)
-            {
-                ErrorMessage = Resource.MC_PackageFilenameCannotBeNull;
-                return false;
-            }
-
             if (Name == null)
             {
                 ErrorMessage = Resource.MC_PackageNameMustBeSpecified;

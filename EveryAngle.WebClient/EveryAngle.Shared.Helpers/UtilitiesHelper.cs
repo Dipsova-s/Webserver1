@@ -85,7 +85,7 @@ namespace EveryAngle.Shared.Helpers
             string parentPath = Uri.UnescapeDataString(parrantDir);
             string fullFilePath = parentPath;
             string hostUri = System.Web.HttpContext.Current.Request.UrlReferrer == null ? "" : System.Web.HttpContext.Current.Request.UrlReferrer.AbsoluteUri;
-            if (!hostUri.ToLower().Contains("/admin/"))
+            if (!hostUri.ToLowerInvariant().Contains("/admin/"))
             {
                 fullFilePath += @"EveryAngle.WebClient.Web\";
             }
@@ -96,13 +96,13 @@ namespace EveryAngle.Shared.Helpers
         public static string GetWebClientUrl(string fileOrFolder)
         {
             string rootPath = System.Web.HttpContext.Current.Request.ApplicationPath;
-            rootPath = rootPath.ToLower().Replace("/admin", "/");
+            rootPath = rootPath.ToLowerInvariant().Replace("/admin", "/");
 
             // Add trailing '/'
             if (!rootPath.EndsWith("/"))
                 rootPath += "/";
 
-            string path = fileOrFolder.Replace("//", "/").Replace("~", "").ToLower();
+            string path = fileOrFolder.Replace("//", "/").Replace("~", "").ToLowerInvariant();
 
             // Remove a leading '/'
             if (path.StartsWith("/"))
@@ -146,7 +146,7 @@ namespace EveryAngle.Shared.Helpers
                 throw new ArgumentException(
                     string.Format("Unable to determine file extension for fileName: {0}", fileName));
 
-            switch (extension.ToLower())
+            switch (extension.ToLowerInvariant())
             {
                 case @".bmp":
                     return "image/bmp";
@@ -196,7 +196,7 @@ namespace EveryAngle.Shared.Helpers
                 throw new ArgumentException(
                     string.Format("Unable to determine file extension for fileName: {0}", fileName));
 
-            switch (extension.ToLower())
+            switch (extension.ToLowerInvariant())
             {
                 case @".bmp":
                     return ImageFormat.Bmp;
@@ -330,7 +330,7 @@ namespace EveryAngle.Shared.Helpers
             List<string> filters = new List<string>();
             if (!string.IsNullOrEmpty(executeParameters.Q))
             {
-                filters.Add(string.Format("contains(translate(@ProcessID,'ABCDEFGHJIKLMNOPQRSTUVWXYZ', 'abcdefghjiklmnopqrstuvwxyz'),'{0}') or contains(translate(@ThreadName,'ABCDEFGHJIKLMNOPQRSTUVWXYZ', 'abcdefghjiklmnopqrstuvwxyz'),'{0}') or contains(translate(@MsgText,'ABCDEFGHJIKLMNOPQRSTUVWXYZ', 'abcdefghjiklmnopqrstuvwxyz'),'{0}')", executeParameters.Q.ToLower()));
+                filters.Add(string.Format("contains(translate(@ProcessID,'ABCDEFGHJIKLMNOPQRSTUVWXYZ', 'abcdefghjiklmnopqrstuvwxyz'),'{0}') or contains(translate(@ThreadName,'ABCDEFGHJIKLMNOPQRSTUVWXYZ', 'abcdefghjiklmnopqrstuvwxyz'),'{0}') or contains(translate(@MsgText,'ABCDEFGHJIKLMNOPQRSTUVWXYZ', 'abcdefghjiklmnopqrstuvwxyz'),'{0}')", executeParameters.Q.ToLowerInvariant()));
             }
 
             if (!string.IsNullOrEmpty(executeParameters.MessageType))

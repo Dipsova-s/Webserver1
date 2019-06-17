@@ -144,7 +144,7 @@ function ExecutionParameterHandler(angle, display) {
         self.WidgetFilterAngle.ModelUri = self.ModelUri;
         self.WidgetFilterAngle.HasExecutionParameter(true);
         self.WidgetFilterAngle.FilterFor = self.WidgetFilterAngle.FILTERFOR.ANGLE;
-        self.WidgetFilterAngle.CanRemove = function (data) {
+        self.WidgetFilterAngle.CanRemove = function () {
             return false;
         };
         self.WidgetFilterAngle.CanChange = function (data) {
@@ -165,7 +165,7 @@ function ExecutionParameterHandler(angle, display) {
         self.WidgetFilterDisplay.ModelUri = self.ModelUri;
         self.WidgetFilterDisplay.HasExecutionParameter(true);
         self.WidgetFilterDisplay.FilterFor = self.WidgetFilterDisplay.FILTERFOR.DISPLAY;
-        self.WidgetFilterDisplay.CanRemove = function (data) {
+        self.WidgetFilterDisplay.CanRemove = function () {
             return false;
         };
         self.WidgetFilterDisplay.CanChange = function (data) {
@@ -329,8 +329,6 @@ function ExecutionParameterHandler(angle, display) {
                 }
             }
         }
-        
-
         return postOptions;
     };
 

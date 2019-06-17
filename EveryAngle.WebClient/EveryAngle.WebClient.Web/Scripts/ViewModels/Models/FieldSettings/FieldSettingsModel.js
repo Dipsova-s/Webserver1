@@ -7,7 +7,7 @@ function FieldSettingsModel(data) {
     self.ComponentType = {
         CHART: 0,
         PIVOT: 1
-    }
+    };
 
     // Properties
     self.Id = jQuery.GUID();
@@ -27,9 +27,7 @@ function FieldSettingsModel(data) {
     self.Fields = '';
     self.IsUseSavedData = false;
     self.MaxPageSize = systemSettingHandler.GetMaxPageSize();
-    //self.PivotWidth = '600px';
     self.DisplayDetails = JSON.stringify({});
-    
     if (data) {
         jQuery.extend(self, data);
     }
@@ -68,23 +66,20 @@ function FieldSettingsModel(data) {
     self.GetDisplayDetails = function () {
        return WC.Utility.ParseJSON(self.DisplayDetails);
     };
-    self.SetDisplayDetails = function (details, replace) {    
+
+    self.SetDisplayDetails = function (details, replace) {
         self.DisplayDetails = JSON.stringify(typeof replace === 'undefined' || !replace ? jQuery.extend({}, WC.Utility.ParseJSON(self.DisplayDetails), details) : details);
     };
 
     self.CanSortDataField = function () {
         var displayDetails = self.GetDisplayDetails();
-        if (displayDetails.chart_type && (
-            displayDetails.chart_type === enumHandlers.CHARTTYPE.AREACHART.Code
-            || displayDetails.chart_type === enumHandlers.CHARTTYPE.BARCHART.Code
-            || displayDetails.chart_type === enumHandlers.CHARTTYPE.COLUMNCHART.Code
-            || displayDetails.chart_type === enumHandlers.CHARTTYPE.LINECHART.Code
-            )) {
-            return true;
-        }
-        else {
-            return false;
-        }
+        var validTypes = [
+            enumHandlers.CHARTTYPE.AREACHART.Code,
+            enumHandlers.CHARTTYPE.BARCHART.Code,
+            enumHandlers.CHARTTYPE.COLUMNCHART.Code,
+            enumHandlers.CHARTTYPE.LINECHART.Code
+        ];
+        return jQuery.inArray(displayDetails.chart_type, validTypes) !== -1;
     };
     //EOF: View modle methods
 }

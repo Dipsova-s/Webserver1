@@ -92,7 +92,7 @@ namespace EveryAngle.Shared.Helpers
 
         public static string GetLoginPath(bool forceToWC)
         {
-            string redirectResult = string.Empty;
+            string redirectResult;
 #if DEVMODE
             redirectResult = "~/security/index?redirect=/home/index";
 #else

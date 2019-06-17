@@ -196,7 +196,7 @@ function InitialKendo() {
         var that = this;
         var lockedHead = that.lockedHeader ? that.lockedHeader.find("thead:first") : $();
 
-        that.thead.add(lockedHead).on("mousemove.kendoGrid", "th", function (e) {
+        that.thead.add(lockedHead).on("mousemove.kendoGrid", "th", function () {
             var th = $(this);
             if (th.hasClass("k-group-cell") || th.hasClass("k-hierarchy-cell")) {
                 return;

@@ -48,11 +48,11 @@ namespace EveryAngle.OData.Tests.UtilsTests
             AngleCompositeKey key = new AngleCompositeKey { InternalId = 499, Uri = "models/1/angles/499" };
 
             listWatch.Start();
-            Angle getListAngle = listAngles.First(x => x.uri == key.Uri);
+            Angle getListAngle = listAngles.First(x => x.uri == key.Uri); //NOSONAR
             listWatch.Stop();
 
             concurrentWatch.Start();
-            Angle getConcurrentAngle = concurrentAngles[key];
+            Angle getConcurrentAngle = concurrentAngles[key]; //NOSONAR
             concurrentWatch.Stop();
 
             // basically 1 millisecond == 10,000 ticks.

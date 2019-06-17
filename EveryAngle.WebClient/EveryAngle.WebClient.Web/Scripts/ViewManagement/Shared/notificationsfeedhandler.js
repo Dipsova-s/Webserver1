@@ -1,15 +1,4 @@
-﻿
-function WCNotificationsFeedCreator() {
-    "use strict";
-}
-WCNotificationsFeedCreator.Create = function (userId) {
-    NotificationsFeedRepository.UserId = userId;
-    NotificationsFeedRepository.Init();
-    notificationsFeedHandler.IsTouchDevice = Modernizr.touch;
-    notificationsFeedHandler.LoadFeeds(true);
-};
-
-function WCNotificationsFeedModel(notificationsFeedRepository, notificationsOpeningFunction, setTimeoutFunction) {
+﻿function WCNotificationsFeedModel(notificationsFeedRepository, notificationsOpeningFunction, setTimeoutFunction) {
     "use strict";
 
     NotificationsFeedModel.call(this, notificationsFeedRepository, notificationsOpeningFunction, setTimeoutFunction);
@@ -27,9 +16,18 @@ WCNotificationsFeedModel.prototype.ConvertTimestampToDateView = function (timest
     return WC.FormatHelper.GetFormattedValue(enumHandlers.FIELDTYPE.DATETIME_WC, timestamp);
 };
 
-var notificationsFeedHandler = notificationsFeedHandler = new NotificationsFeedHandler(
+var notificationsFeedHandler = new NotificationsFeedHandler(
     new WCNotificationsFeedModel(
         new NotificationsFeedRepository(),
         userSettingsView.ToggleMenuNotificationsFeed
     )
 );
+function WCNotificationsFeedCreator() {
+    "use strict";
+}
+WCNotificationsFeedCreator.Create = function (userId) {
+    NotificationsFeedRepository.UserId = userId;
+    NotificationsFeedRepository.Init();
+    notificationsFeedHandler.IsTouchDevice = Modernizr.touch;
+    notificationsFeedHandler.LoadFeeds(true);
+};

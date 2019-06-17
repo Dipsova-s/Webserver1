@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Drawing.Imaging;
@@ -29,7 +30,10 @@ namespace EveryAngle.ManagementConsole.Helpers
                     File.Move(HttpContext.Current.Request.MapPath(itemUploadFolderPath + oldFinalFileName),
                               HttpContext.Current.Request.MapPath(itemUploadFolderPath + newFinalFIleName));
                 }
-                catch (IOException) { }
+                catch
+                {
+                    // prevent error
+                }
             }
         }
 
@@ -51,8 +55,7 @@ namespace EveryAngle.ManagementConsole.Helpers
         {
             float sourceWidth = imgPhoto.Width;
             float sourceHeight = imgPhoto.Height;
-            float destHeight = 0;
-            float destWidth = 0;
+            float destHeight, destWidth;
 
             int sourceX = 0;
             int sourceY = 0;
@@ -100,19 +103,8 @@ namespace EveryAngle.ManagementConsole.Helpers
 
         public static bool ValidateExtension(string extension)
         {
-            switch (extension.ToLower())
-            {
-                case ".jpg":
-                    return true;
-                case ".png":
-                    return true;
-                case ".gif":
-                    return true;
-                case ".jpeg":
-                    return true;
-                default:
-                    return false;
-            }
+            List<string> validExtensions = new List<string> { ".jpg", ".jpeg", ".png", ".gif" };
+            return validExtensions.Contains(extension.ToLowerInvariant());
         }
 
         #endregion
@@ -127,7 +119,10 @@ namespace EveryAngle.ManagementConsole.Helpers
                 {
                     File.Delete(filePath);
                 }
-                catch (IOException) { }
+                catch
+                {
+                    // prevent error
+                }
             }
         }
 
@@ -154,7 +149,7 @@ namespace EveryAngle.ManagementConsole.Helpers
                 imgActual.Dispose();
                 return true;
             }
-            catch (Exception)
+            catch
             {
                 return false;
             }

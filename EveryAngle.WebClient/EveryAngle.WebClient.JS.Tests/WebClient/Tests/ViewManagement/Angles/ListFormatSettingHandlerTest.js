@@ -7,7 +7,7 @@
 /// <reference path="/Dependencies/ViewManagement/Shared/ModelFieldDomainHandler.js" />
 /// <reference path="/Dependencies/ViewManagement/Angles/FieldSettingsHandler.js" />
 /// <reference path="/Dependencies/ViewManagement/Shared/ValidationHandler.js" />
-/// <reference path="/Dependencies/ViewManagement/Angles/ListHandler.js" /> 
+/// <reference path="/Dependencies/ViewManagement/Angles/ListHandler.js" />
 /// <reference path="/Dependencies/ViewManagement/Angles/ListFormatSettingHandler.js" />
 
 describe("ListFormatSettingHandler", function () {
@@ -24,7 +24,6 @@ describe("ListFormatSettingHandler", function () {
             Text: 'Sort Name',
             Value: 'shn'
         }];
-
         beforeEach(function () {
             formatList = [{
                 Text: 'Test',

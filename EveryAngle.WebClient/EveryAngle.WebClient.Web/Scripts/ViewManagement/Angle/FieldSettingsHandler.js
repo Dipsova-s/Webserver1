@@ -774,7 +774,7 @@ function FieldSettingsHandler() {
         fieldDetails[enumHandlers.FIELDDETAILPROPERTIES.PIVOTAREA] = currentArea;
 
         self.SetFieldDomain(fieldModel, fieldJSON);
-        self.SetFieldModel(fieldModel, caption, caption, sourceField, operatorValue, fieldName, cssClassField, pivotArea, "", dataType);
+        self.SetFieldModel(fieldModel, caption, caption, sourceField, operatorValue, fieldName, cssClassField, pivotArea, '', dataType);
         self.SetFieldFormat(fieldModel, fieldDetails);
         return fieldModel;
 
@@ -1305,7 +1305,7 @@ function FieldSettingsHandler() {
         }
     };
 
-    self.SetFieldModel = function (field, defaultCaption, caption, sourceField, operatorValue, fieldName, cssClass, area, defaultOperator, fieldType, isIncludedInPivotSettings, isSelected) {
+    self.SetFieldModel = function (field, defaultCaption, caption, sourceField, operatorValue, fieldName, cssClass, area, defaultOperator, fieldType, isSelected) { //NOSONAR
         field.Area = area;
         field.SourceField = sourceField;
         field.InternalID = jQuery.GUID();
@@ -1411,7 +1411,7 @@ function FieldSettingsHandler() {
 
         fieldModel.Index = index;
         fieldModel.FieldDetails = JSON.stringify(fieldDetailObject);
-        self.SetFieldModel(fieldModel, defaultCaption, caption, sourceField, operatorValue, fieldName, cssClassField, fieldArea, '', dataType, true, true);
+        self.SetFieldModel(fieldModel, defaultCaption, caption, sourceField, operatorValue, fieldName, cssClassField, fieldArea, '', dataType, true);
         self.SetFieldFormat(fieldModel, fieldDetailObject);
         self.SetSorting(fieldModel, fieldDetailObject.sorting);
         if (displayField) {
@@ -1451,7 +1451,6 @@ function FieldSettingsHandler() {
             displayTypeEnum = 1;
             componentId = self.Handler.PivotId;
             isReadOnly = self.Handler.ReadOnly();
-            
             showTotalFor = self.GetShowTotalForSetting(displayDetails);
             percentageSummaryType = self.GetPercentageSummaryTypeSetting(displayDetails);
             isIncludeSubtotals = self.GetIncludeSubtotalsSetting(displayDetails);
@@ -1469,7 +1468,6 @@ function FieldSettingsHandler() {
                 };
             }
         }
-        
         if (!displayDetails.count_index)
             displayDetails.count_index = 0;
 
@@ -1532,7 +1530,7 @@ function FieldSettingsHandler() {
             var fieldCaption = enumHandlers.AGGREGATION.COUNT.Text;
             var operatorValue = enumHandlers.AGGREGATION.COUNT.Value;
 
-            self.SetFieldModel(fieldModel, fieldCaption, fieldCaption, sourceField, operatorValue, fieldName, 'data', enumHandlers.FIELDSETTINGAREA.DATA, '', enumHandlers.FIELDTYPE.INTEGER, false, false);
+            self.SetFieldModel(fieldModel, fieldCaption, fieldCaption, sourceField, operatorValue, fieldName, 'data', enumHandlers.FIELDSETTINGAREA.DATA, '', enumHandlers.FIELDTYPE.INTEGER, false);
             self.SetFieldFormat(fieldModel, {});
             fields.splice(Math.min(groupFieldCount + displayDetails.count_index, fields.length), 0, fieldModel);
         }
@@ -2728,6 +2726,8 @@ function FieldSettingsHandler() {
                     { id: 'hour', name: Localization.Pivot_Bucket_PerHour }
                 ];
                 break;
+            default:
+                break;
         }
         return options;
     };
@@ -3254,11 +3254,11 @@ function FieldSettingsHandler() {
         // reset chart options if switch to a difference type
         var previousChartGroup = self.GetChartTypeGroup(previousChartType);
         var currentChartGroup = self.GetChartTypeGroup(currentChartType);
-        if ((previousChartGroup !== self.CHARTGROUP.GAUGE || currentChartGroup !== self.CHARTGROUP.GAUGE)
-            && (previousChartGroup !== self.CHARTGROUP.RADAR || currentChartGroup !== self.CHARTGROUP.RADAR)
-            && (previousChartGroup !== self.CHARTGROUP.PIE || currentChartGroup !== self.CHARTGROUP.PIE)
-            && (previousChartGroup !== self.CHARTGROUP.BOX || currentChartGroup !== self.CHARTGROUP.BOX)) {
-
+        var checkGauge = previousChartGroup !== self.CHARTGROUP.GAUGE || currentChartGroup !== self.CHARTGROUP.GAUGE;
+        var checkRadar = previousChartGroup !== self.CHARTGROUP.RADAR || currentChartGroup !== self.CHARTGROUP.RADAR;
+        var checkPie = previousChartGroup !== self.CHARTGROUP.PIE || currentChartGroup !== self.CHARTGROUP.PIE;
+        var checkBox = previousChartGroup !== self.CHARTGROUP.BOX || currentChartGroup !== self.CHARTGROUP.BOX;
+        if (WC.Utility.MatchAll(true, [checkGauge, checkRadar, checkPie, checkBox])) {
             // clear exisitng chart options
             var displayDetails = self.FieldSettings.GetDisplayDetails();
             jQuery.each(displayDetails, function (key) {

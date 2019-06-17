@@ -1871,11 +1871,11 @@
             $.each(blocks, function (index, query) {
                 if (!query.query_steps)
                     return;
-                
+
                 $.each(query.query_steps, function (index, step) {
                     if (!step.is_execution_parameter)
                         return;
-                    
+
                     if (!(step.arguments instanceof Array))
                         step.arguments = [];
 

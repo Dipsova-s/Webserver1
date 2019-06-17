@@ -169,7 +169,7 @@
             ddlModelService.dataSource.data(modelServiceDataSource);
             ddlModelService.value(self.Category || ddlModelService.dataSource.data()[0].id);
 
-            // triger function ModelServiceDropdownChanged 
+            // triger function ModelServiceDropdownChanged
             ddlModelService.trigger("change");
         };
         self.CreateModelServerLogsState = function () {

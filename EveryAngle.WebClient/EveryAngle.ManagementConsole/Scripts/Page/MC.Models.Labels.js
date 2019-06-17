@@ -8,7 +8,7 @@
         self.LabelsData = {};
 
         self.Initial = function (data) {
-            
+
             self.SaveUri = '';
             self.ModelUri = '';
             self.GetLabelsUri = '';
@@ -19,7 +19,7 @@
             setTimeout(function () {
 
                 self.InitialLabelsGrid();
-                
+
                 var grid = jQuery('#Grid').data('kendoGrid');
                 if (grid) {
                     MC.util.gridScrollFixed(grid);
@@ -31,7 +31,6 @@
                         grid.trigger('dataBound');
                     }
                 }
-                //MC.form.page.init(self.GetData);
             }, 1);
         };
 
@@ -94,7 +93,7 @@
 
             MC.ajax.request({
                 url: self.SaveUri,
-                parameters: { 
+                parameters: {
                     labelCategoryData: JSON.stringify(data.labels),
                     modelUri: data.modelUri
                 },

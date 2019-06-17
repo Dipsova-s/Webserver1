@@ -173,7 +173,6 @@ function DashboardWidgetViewModel(model) {
         var widgetQuerySteps = widgetQueryBlock.findObject('queryblock_type', enumHandlers.QUERYBLOCKTYPE.QUERY_STEPS);
         return widgetQuerySteps;
     };
-    
     self.GetBlockQueryStepsWithNewFilters = function (filters) {
         var querySteps = ko.toJS(self.GetBlockQuerySteps());
         if (!querySteps) {
@@ -193,7 +192,6 @@ function DashboardWidgetViewModel(model) {
             querySteps.query_steps.removeObject('step_type', enumHandlers.FILTERTYPE.AGGREGATION);
             querySteps.query_steps.push(aggregationStep);
         }
-        
         return querySteps;
     };
 

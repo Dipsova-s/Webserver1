@@ -56,30 +56,30 @@
 
             if (usersUrl.length) {
                 disableLoading();
-                MC.ajax.request({
-                    url: self.GetUsersByUri,
-                    parameters: { usersUrl: usersUrl.join(',') },
-                    type: 'POST'
-                })
-                .done(function (data, status, xhr) {
-                    jQuery.each(data, function (index, user) {
-
-                        self.UsersData[user.Uri] = user;
-
-                        setUserText(user.Uri);
+                MC.ajax
+                    .request({
+                        url: self.GetUsersByUri,
+                        parameters: { usersUrl: usersUrl.join(',') },
+                        type: 'POST'
+                    })
+                    .done(function (data) {
+                        jQuery.each(data, function (index, user) {
+                            self.UsersData[user.Uri] = user;
+                            setUserText(user.Uri);
+                        });
                     });
-                });
             }
         };
 
         self.UpdateDebugLogging = function (obj) {
-             MC.ajax.request({
+            MC.ajax
+                .request({
                     url: self.UpdateDebugLoggingUri,
                     parameters: { sessionUri: obj.value, isDebugLogging: obj.checked },
-                    type: "Post",
-                    ajaxSuccess: function () {
-                        MC.ajax.reloadMainContent();
-                    }
+                    type: "Post"
+                })
+                .done(function () {
+                    MC.ajax.reloadMainContent();
                 });
         };
 
@@ -90,16 +90,17 @@
             var confirmMessage = MC.form.template.getRemoveMessage(obj);
 
             MC.util.showPopupConfirmation(confirmMessage, function () {
-                MC.ajax.request({
-                    url:self.DeleteUri ,
-                    parameters: { sessionUri: sessionUri },
-                    type: 'delete'
-                })
-                .done(function () {
-                    $(obj).parents('tr:first').remove();
-                    MC.util.resetGridRows($('#SessionsGrid tbody tr'));
-                });
-            })
+                MC.ajax
+                    .request({
+                        url: self.DeleteUri,
+                        parameters: { sessionUri: sessionUri },
+                        type: 'delete'
+                    })
+                    .done(function () {
+                        $(obj).parents('tr:first').remove();
+                        MC.util.resetGridRows($('#SessionsGrid tbody tr'));
+                    });
+            });
         };
     }
 

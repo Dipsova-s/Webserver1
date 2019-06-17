@@ -20,4 +20,4 @@ var exportDrilldownExcelHtmlTemplate = function () {
             '</div>',
         '</div>'
     ].join('');
-}
+};

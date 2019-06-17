@@ -848,14 +848,14 @@ function FieldsChooserModel() {
             grid.content
                 .off('mousewheel', '.k-loading-mask')
                 .on('mousewheel', '.k-loading-mask', function (e) {
-                    virtualScroll.verticalScrollbar.scrollTop(virtualScroll.verticalScrollbar.scrollTop() - (e.deltaFactor * e.deltaY));
+                    virtualScroll.verticalScrollbar.scrollTop(virtualScroll.verticalScrollbar.scrollTop() - e.deltaFactor * e.deltaY);
                 });
             if (jQuery.browser.msie) {
                 grid.content
                     .off('mousewheel.iefix')
                     .on('mousewheel.iefix', function (e) {
                         if (!grid.content.find('.k-loading-mask').length) {
-                            virtualScroll.verticalScrollbar.scrollTop(virtualScroll.verticalScrollbar.scrollTop() - (e.deltaFactor * e.deltaY));
+                            virtualScroll.verticalScrollbar.scrollTop(virtualScroll.verticalScrollbar.scrollTop() - e.deltaFactor * e.deltaY);
                         }
                     });
             }
@@ -1662,7 +1662,7 @@ function FieldsChooserModel() {
         return list.sort(function (a, b) {
             var x = convertor(a[sortBy]),
                 y = convertor(b[sortBy]);
-            return (x < y ? -1 : (x > y ? 1 : 0)) * (direction === 'DESC' ? -1 : 1);
+            return (x < y ? -1 : x > y ? 1 : 0) * (direction === 'DESC' ? -1 : 1);
         });
     };
     self.SetHelpText = function (data, currentRow) {
@@ -1865,12 +1865,10 @@ function FieldsChooserModel() {
             maximize: self.OnMaximizePopupDefault,
             dragend: self.OnDragEndPopupDefault
         };
-
         if (self.LayoutSettings.position) {
-            // add position to the popup option if localstorage has this value 
+            // add position to the popup option if localstorage has this value
             options.position = { top: self.LayoutSettings.position.top, left: self.LayoutSettings.position.left };
         }
-
         return options;
     };
 
@@ -2015,7 +2013,6 @@ function FieldsChooserModel() {
         return buttonElement;
     };
     self.GetDefaultFieldChooserLayoutSettings = function () {
-
         var defaultColumnSettings = function () {
             return {
                 id: { width: 42 },

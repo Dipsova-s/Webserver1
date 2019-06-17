@@ -151,7 +151,7 @@ function SearchViewModel() {
     self.CheckNoDisplay = function (selectedSearchResultItem) {
         if (selectedSearchResultItem.type === enumHandlers.ITEMTYPE.ANGLE) {
             if (typeof selectedSearchResultItem.displays !== 'undefined' && selectedSearchResultItem.displays.length > 0) {
-                var checkDisplays = jQuery.grep(selectedSearchResultItem.displays, function (display, index) { return display.display_type; });
+                var checkDisplays = jQuery.grep(selectedSearchResultItem.displays, function (display) { return display.display_type; });
 
                 if (!checkDisplays || checkDisplays.length === 0) {
                     return false;
@@ -194,8 +194,9 @@ function SearchViewModel() {
 
                     var angleValidation = validationHandler.GetAngleValidation(angle);
                     var displayValidation = validationHandler.GetAngleValidation(displayObject);
-                    if (angleValidation.CanPostResult && displayValidation.CanPostResult
-                        && (angle.is_parameterized || (displayObject && displayObject.is_parameterized))) {
+                    var canPostResult = angleValidation.CanPostResult && displayValidation.CanPostResult;
+                    var isParameterized = angle.is_parameterized || (displayObject || {}).is_parameterized;
+                    if (canPostResult && isParameterized) {
                         progressbarModel.EndProgressBar();
                         itemInfoHandler.ShowAngleExecutionParameterPopup(angle, displayObject.uri);
                     }
@@ -236,9 +237,9 @@ function SearchViewModel() {
     self.IsValidClickItemLink = function (event) {
         var isTriggerClick = event.isTrigger;
         var isLtIE9 = jQuery.browser.msie && parseFloat(jQuery.browser.version) < 9;
-        var isLeftClick = (isLtIE9 && event.button === 1) || (!isLtIE9 && event.button === 0);
+        var isLeftClick = isLtIE9 && event.button === 1 || !isLtIE9 && event.button === 0;
         var isNormalClick = !event.ctrlKey && !event.shiftKey;
-        return isTriggerClick || (isLeftClick && isNormalClick);
+        return isTriggerClick || isLeftClick && isNormalClick;
     };
     self.SetValidDeleteItems = function (angles, dashboards) {
         jQuery.each(self.SelectedItems(), function (index, item) {

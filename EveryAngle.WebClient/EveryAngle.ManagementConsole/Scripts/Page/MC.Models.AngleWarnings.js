@@ -137,15 +137,13 @@
                     var events = $._data(treelist.element.get(0), 'events');
                     if (events && events.mousedown) {
                         var indexEvent = events.mousedown.indexOfObject('namespace', 'kendoTreeList');
-                        if (indexEvent !== -1) {
-                            if (!events.mousedown[indexEvent].__handler) {
-                                events.mousedown[indexEvent].__handler = events.mousedown[indexEvent].handler;
-                                events.mousedown[indexEvent].handler = function (e) {
-                                    treelist.content.find('tr').removeClass('active');
-                                    $(this).parents('tr:first').addClass('active');
-                                    return events.mousedown[indexEvent].__handler.call(this, e);
-                                };
-                            }
+                        if (indexEvent !== -1 && !events.mousedown[indexEvent].__handler) {
+                            events.mousedown[indexEvent].__handler = events.mousedown[indexEvent].handler;
+                            events.mousedown[indexEvent].handler = function (e) {
+                                treelist.content.find('tr').removeClass('active');
+                                $(this).parents('tr:first').addClass('active');
+                                return events.mousedown[indexEvent].__handler.call(this, e);
+                            };
                         }
                     }
 
@@ -593,35 +591,34 @@
             if (!treelist) return false;
 
             var dataItem = treelist.dataSource.getByUid(row.attr('data-uid'));
-            if (dataItem) {
-                if (dataItem.loaded()) {
-                    // all childs checkbox unchecked
-                    if (!treelist.content.find('input[name="item_' + dataItem.id + '"]:checked').length) {
-                        MC.util.showPopupAlert(Localization.MC_AngeWarningsNoItemSelect);
-                        return false;
-                    }
+            if (dataItem && dataItem.loaded()) {
+                // all childs checkbox unchecked
+                if (!treelist.content.find('input[name="item_' + dataItem.id + '"]:checked').length) {
+                    MC.util.showPopupAlert(Localization.MC_AngeWarningsNoItemSelect);
+                    return false;
+                }
 
-                    // action = delete_xxx but no matched item
-                    var solution = self.Solution[dataItem.parentId].findObject('Action', row.find('select').val());
-                    if (solution.Action === self.SOLUTIONACTION.DELETE_ANGLE || solution.Action === self.SOLUTIONACTION.DELETE_DISPLAY) {
-                        var dataAngle = [];
-                        var dataDisplay = [];
-                        $.each(treelist.content.find('input[name="item_' + dataItem.id + '"]:checked'), function (index, item) {
-                            var uid = $(item).parents('tr:first').attr('data-uid');
-                            var data = treelist.dataSource.getByUid(uid).DataThirdLevel;
-                            if (data.DisplayId) {
-                                dataDisplay.push(data);
-                            }
-                            else {
-                                dataAngle.push(data);
-                            }
-                        });
-
-                        if ((solution.Action === self.SOLUTIONACTION.DELETE_ANGLE && !dataAngle.length)
-                            || (solution.Action === self.SOLUTIONACTION.DELETE_DISPLAY && !dataDisplay.length)) {
-                            MC.util.showPopupAlert(Localization.MC_AngeWarningsNoBeExecuted);
-                            return false;
+                // action = delete_xxx but no matched item
+                var solution = self.Solution[dataItem.parentId].findObject('Action', row.find('select').val());
+                if (solution.Action === self.SOLUTIONACTION.DELETE_ANGLE || solution.Action === self.SOLUTIONACTION.DELETE_DISPLAY) {
+                    var dataAngle = [];
+                    var dataDisplay = [];
+                    $.each(treelist.content.find('input[name="item_' + dataItem.id + '"]:checked'), function (index, item) {
+                        var uid = $(item).parents('tr:first').attr('data-uid');
+                        var data = treelist.dataSource.getByUid(uid).DataThirdLevel;
+                        if (data.DisplayId) {
+                            dataDisplay.push(data);
                         }
+                        else {
+                            dataAngle.push(data);
+                        }
+                    });
+
+                    var invalidDeleteAngleSolution = solution.Action === self.SOLUTIONACTION.DELETE_ANGLE && !dataAngle.length;
+                    var invalidDeleteDisplaySolution = solution.Action === self.SOLUTIONACTION.DELETE_DISPLAY && !dataDisplay.length;
+                    if (invalidDeleteAngleSolution || invalidDeleteDisplaySolution) {
+                        MC.util.showPopupAlert(Localization.MC_AngeWarningsNoBeExecuted);
+                        return false;
                     }
                 }
             }
@@ -824,9 +821,10 @@
                                 };
 
                                 $.each(dataIds, function (index, data) {
-                                    if ((!isDeleteAngle && !isDeleteDisplay)
-                                        || (isDeleteAngle && !data.DisplayId)
-                                        || (isDeleteDisplay && data.DisplayId)) {
+                                    var isDeleteSolution = isDeleteAngle || isDeleteDisplay;
+                                    var isDeleteAngleWithoutDisplayId = isDeleteAngle && !data.DisplayId;
+                                    var isDeleteDisplayWithDisplayId = isDeleteDisplay && data.DisplayId;
+                                    if (!isDeleteSolution || isDeleteAngleWithoutDisplayId || isDeleteDisplayWithDisplayId) {
                                         var arg = {
                                             angle_id: data.AngleId
                                         };
@@ -904,11 +902,11 @@
                                     return deferred.promise();
                                 }
                             })
-                            .then(function (data, status, xhr) {
+                            .then(function (data) {
                                 // check result
                                 return self.CheckExecutionAngleWarning(data.Uri);
                             })
-                            .then(function (data, status) {
+                            .then(function (data) {
                                 // delete task
                                 self.DeleteAngleWarningTask(data.Uri);
                                 self.SearchAngleWarnings();
@@ -934,7 +932,7 @@
             var deferred = $.Deferred();
             var query = {};
             query['uri'] = uri;
-            
+
             var checkExecution = function () {
                 MC.ajax
                     .request({
@@ -944,7 +942,7 @@
                     .fail(function (xhr, status, error) {
                         MC.ajax.setErrorDisable(xhr, status, error, deferred);
                     })
-                    .done(function (data, status, xhr) {
+                    .done(function (data, status) {
                         if (data.status === 'finished') {
                             deferred.resolve(data, status);
                         }
@@ -1106,18 +1104,21 @@
 
             if (solution.Action === self.SOLUTIONACTION.REPLACE_START_OBJECT) {
                 actionArgumentParameter = {
-                    objects: [dataItem.DataSecondLevel.Object],     //current angle base_classes
-                    replace_with: [replaceValue],                   //replace angle base_classes
-                    //type: 'base_classes'
+                    // current angle base_classes
+                    objects: [dataItem.DataSecondLevel.Object],
+                    // replace angle base_classes
+                    replace_with: [replaceValue],
                     types: solution.WarningTypes
                 };
             }
             else if (solution.Action === self.SOLUTIONACTION.REPLACE_JUMP) {
                 actionArgumentParameter = {
-                    objects: [dataItem.DataSecondLevel.Object],     //current angle base_classes
-                    jump: dataItem.DataSecondLevel.Jump,            //target jump
-                    replace_with: replaceValue,                     //replace jump
-                    //type: 'jump'
+                    //current angle base_classes
+                    objects: [dataItem.DataSecondLevel.Object],
+                    //target jump
+                    jump: dataItem.DataSecondLevel.Jump,
+                    //replace jump
+                    replace_with: replaceValue,
                     types: solution.WarningTypes
                 };
             }
@@ -1183,11 +1184,11 @@
             MC.util.massReport.setStatus(Localization.MC_CurrentProgress, 'executing', '');
 
             executeTask(task)
-                .then(function (data, status, xhr) {
+                .then(function (data) {
                     // check result
                     return self.CheckExecutionAngleWarning(data.Uri);
                 })
-                .then(function (data, status) {
+                .then(function (data) {
                     // delete task
                     self.DeleteAngleWarningTask(data.Uri);
                     self.SearchAngleWarnings();
@@ -1396,7 +1397,7 @@
             self.ClassesChooserHandler.BusinessProcessHandler.Theme('flat');
             self.ClassesChooserHandler.BusinessProcessHandler.MultipleActive(true);
             self.ClassesChooserHandler.BusinessProcessHandler.CanEmpty(true);
-            self.ClassesChooserHandler.BusinessProcessHandler.ClickCallback(function (data, e, status) {
+            self.ClassesChooserHandler.BusinessProcessHandler.ClickCallback(function () {
                 self.ClassesChooserHandler.FilterClasses();
             });
             self.ClassesChooserHandler.BusinessProcessHandler.ClickHeaderCallback(function (oldList, newList) {
@@ -1411,7 +1412,6 @@
             });
 
             self.ClassesChooserHandler.AbortAll = function () {
-                //MC.system.abort();
                 MC.ajax.abortAll();
             };
             self.ClassesChooserHandler.AbortAllRequest = function () {
@@ -1481,7 +1481,7 @@
 
             //submit button
             self.SetSelectedClassesCallback([]);
-            jQuery('#popupClassesChooser .btnSubmit').off('click').on('click', function (e) {
+            jQuery('#popupClassesChooser .btnSubmit').off('click').on('click', function () {
                 self.ClassesChooserHandler.OnSubmitClasses(self.ClassesChooserHandler.GetAllSelectedClasses());
             });
 
@@ -1529,7 +1529,7 @@
                             url: self.GetHelpTextUri,
                             parameters: { helpTextUri: helpUri }
                         }))
-                            .done(function (data, status, xhr) {
+                            .done(function (data) {
                                 cacheHelps[helpUri] = data;
 
                                 if (data.html_help) {
@@ -1647,7 +1647,7 @@
             fieldsChooserModel.ClientSettings = self.ClientSettings;
 
             // functions
-            fieldsChooserModel.HideFacetsFunction = function (category, id) {
+            fieldsChooserModel.HideFacetsFunction = function () {
                 return false;
             };
             fieldsChooserModel.OnGridSelectionChanged = function (selectedItems) {
@@ -1719,7 +1719,7 @@
             var title = Localization.MC_SelectFieldToReplace;
             MC.ui.fieldschooser.showFieldsChooserPopup(title);
 
-            // add element for show number of selected item(s) 
+            // add element for show number of selected item(s)
             var selectedIndicator = jQuery('<span id="selectedItems"></span>');
             jQuery('#popupFieldChooser .fieldChooserTotals').prepend(selectedIndicator);
 

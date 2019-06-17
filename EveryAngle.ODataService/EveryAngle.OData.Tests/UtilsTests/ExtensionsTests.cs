@@ -111,31 +111,6 @@ namespace EveryAngle.OData.Tests.UtilsTests
             Assert.AreEqual(null, nonExisting_value);
             Assert.AreEqual(null, empty_value);
         }
-        //TODO: Move to User Tests
-        //[TestCase("Basic ZWFhZG1pbjpQQHNzdzByZA==", "ZWFhZG1pbjpQQHNzdzByZA==")]
-        //[TestCase("Content-Type: application/json,Basic ZWFhZG1pbjpQQHNzdzByZA==", "ZWFhZG1pbjpQQHNzdzByZA==")]
-        //[TestCase("Bearer-123456798101112131415", null)]
-        //[TestCase("__", null)]
-        //[TestCase("", null)]
-        //[TestCase(null, null)]
-        //public void Can_GetAuthenticationParameter(string authorization, string expectedValue)
-        //{
-        //    NameValueCollection valueCollection = new NameValueCollection();
-        //    valueCollection.Add(HeaderName.AUTHORIZATION, authorization);
-
-        //    string authenticationParam = valueCollection.GetAuthenticationParameter();
-        //    Assert.AreEqual(expectedValue, authenticationParam);
-        //}
-
-        //[TestCase("ZWFhZG1pbjpQQHNzdzByZA==")]
-        //public void Can_GetUserFromEncryptedBasicAuth(string encryptedString)
-        //{
-        //    User decryptedUser = encryptedString.GetUserFromEncryptedBasicAuth();
-
-        //    Assert.IsNotNull(decryptedUser);
-        //    Assert.AreEqual("eaadmin", decryptedUser.username);
-        //    Assert.AreEqual("P@ssw0rd", decryptedUser.password);
-        //}
 
         // angle: 10, display: 10 => angle: 10, display: 10
         [TestCase("1234567890", "1234567890", "list", "1234567890_1234567890_")]

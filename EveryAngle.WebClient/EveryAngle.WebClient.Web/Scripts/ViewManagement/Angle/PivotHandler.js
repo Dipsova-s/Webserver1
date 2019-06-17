@@ -654,7 +654,7 @@ function PivotPageHandler(elementId, container) {
                 var elementWidth = element.width() + 20;
                 popupPosition.top -= 50;
                 if (popupPosition.left + elementWidth + popupWidth > WC.Window.Width - 10) {
-                    popupPosition.left -= (popupWidth + 10);
+                    popupPosition.left -= popupWidth + 10;
                     popupElement.removeClass('k-window-arrow-w').addClass('k-window-arrow-e');
                 }
                 else {
@@ -688,7 +688,7 @@ function PivotPageHandler(elementId, container) {
         var html = [];
         jQuery.each(fields, function (index, field) {
             html.push([
-                (index !== 0 ? '<div class="StatSeparate"></div>' : ''),
+                index !== 0 ? '<div class="StatSeparate"></div>' : '',
                 '<div class="label">' + kendo.format(labelTemplate, field.Caption) + '</div>',
                 '<div class="field">',
                 '<select data-field="' + field.FieldName + '" class="eaDropdown eaDropdownSize40" id="PivotCustomSortField' + index + '">',
@@ -1282,7 +1282,7 @@ function PivotPageHandler(elementId, container) {
             }
         };
         var updateLayout = function () {
-            if (!window[self.PivotId] || !self.IsReady || (window[self.PivotId] && !window[self.PivotId].GetMainElement()))
+            if (!window[self.PivotId] || !self.IsReady || window[self.PivotId] && !window[self.PivotId].GetMainElement())
                 return;
 
             var currentHeight = getPivotHeight();
@@ -1419,7 +1419,8 @@ function PivotPageHandler(elementId, container) {
         var font = testElementsize.css('font-style') + ' ' + testElementsize.css('font-variant') + ' ' + testElementsize.css('font-weight')
             + ' ' + Math.ceil(parseFloat(testElementsize.css('font-size'))) + 'px ' + testElementsize.css('font-family');
 
-        if (self.ColumnSize && self.ColumnSize.header && self.ColumnSize.data
+        var hasColumnSize = self.ColumnSize && self.ColumnSize.header && self.ColumnSize.data;
+        if (hasColumnSize
             && self.ColumnSize.header.length === headerCount
             && self.ColumnSize.data.length === dataCount) {
             self.SaveColumnResizing();
@@ -1436,18 +1437,18 @@ function PivotPageHandler(elementId, container) {
 
             // header
             var headerTexts = self.GetCellTextMatrix(jQuery('#' + self.PivotId + '_RVSCell_SCDTable'));
+            var getHeaderMaxWidth = function (textIndex) {
+                var testHtml = [];
+                jQuery.each(headerTexts, function (index, texts) {
+                    if (texts[textIndex]) {
+                        testHtml.push(texts[textIndex]);
+                    }
+                });
+                return WC.Utility.MeasureText(testHtml.join('\n'), font);
+            };
             for (var i = 0; i < headerCount; i++) {
                 if (!self.ColumnSize.header[i]) {
-                    var testHtml = [];
-
-                    jQuery.each(headerTexts, function (index, texts) {
-                        if (texts[i]) {
-                            testHtml.push(texts[i]);
-                        }
-                    });
-
-                    var maxWidth = WC.Utility.MeasureText(testHtml.join('\n'), font);
-
+                    var maxWidth = getHeaderMaxWidth(i);
                     self.ColumnSize.header[i] = Math.min(self.DEFAULT_SIZES.HEADER, Math.max(self.DEFAULT_SIZES.HEADER_MIN, maxWidth + additionalSize + (headerCount > 1 && i !== headerCount - 1 ? 20 : 0)));
                 }
             }
@@ -1463,21 +1464,21 @@ function PivotPageHandler(elementId, container) {
         self.CustomizeMeasureElements(font);
     };
     self.MeasureDataColumnsSize = function (pageOptions, font) {
+        var getHeaderMaxWidth = function (textIndex) {
+            var testHtml = [];
+            jQuery.each(dataHeaderTexts, function (index, texts) {
+                testHtml.push(texts[textIndex] || '');
+            });
+            jQuery.each(dataTexts, function (index, texts) {
+                if (texts[textIndex]) {
+                    testHtml.push(texts[textIndex]);
+                }
+            });
+            return WC.Utility.MeasureText(testHtml.join('\n'), font);
+        };
         for (var i = 0; i < pageOptions.RowsCount; i++) {
             if (!self.ColumnSize.data[self.StartDataIndex + i]) {
-                var testHtml = [];
-
-                jQuery.each(dataHeaderTexts, function (index, texts) {
-                    testHtml.push(texts[i] || '');
-                });
-
-                jQuery.each(dataTexts, function (index, texts) {
-                    if (texts[i]) {
-                        testHtml.push(texts[i]);
-                    }
-                });
-
-                var maxWidth = WC.Utility.MeasureText(testHtml.join('\n'), font);
+                var maxWidth = getHeaderMaxWidth(i);
                 self.ColumnSize.data[self.StartDataIndex + i] = Math.min(self.DEFAULT_SIZES.DATA, Math.max(self.DEFAULT_SIZES.DATA_MIN, maxWidth + additionalSize));
             }
         }
@@ -1506,7 +1507,7 @@ function PivotPageHandler(elementId, container) {
         var indicatorWidth = 3, resizeHandler, th;
 
         var createResizeHandler = function (container, th) {
-            if (!resizeHandler || !resizeHandler.length || (resizeHandler.length && !resizeHandler.parent().length)) {
+            if (!resizeHandler || !resizeHandler.length || resizeHandler.length && !resizeHandler.parent().length) {
                 resizeHandler = jQuery('<div class="k-resize-handle"><div class="k-resize-handle-inner"></div></div>');
                 container.append(resizeHandler);
             }
@@ -1529,7 +1530,7 @@ function PivotPageHandler(elementId, container) {
         if (!container.children('.k-resize-handle').length) {
             if (Modernizr.touch && !Modernizr.mouse) {
                 jQuery(self.Container).find('.pivotAreaContainer').addClass('k-grid-mobile');
-                new kendo.UserEvents(container, {
+                new kendo.UserEvents(container, {   //NOSONAR
                     filter: filter,
                     threshold: 10,
                     hold: function (e) {
@@ -1568,7 +1569,7 @@ function PivotPageHandler(elementId, container) {
         }
 
         return createResizeHandler;
-    }
+    };
     self.HideResizeHandler = function (resizeHandle) {
         if (resizeHandle.data('th')) {
             resizeHandle.data('th').removeClass('k-column-active');
@@ -1678,8 +1679,6 @@ function PivotPageHandler(elementId, container) {
             dataAreaSize,
             minColumnSize = 30,
             th,
-            maxPivotSize,
-            headerAreaSize,
             lastColumn,
             scrollElement,
             scrollPosition;
@@ -1711,12 +1710,9 @@ function PivotPageHandler(elementId, container) {
                     var containerCols = jQuery('#' + self.PivotId + '_CVSCell_SCDTable_CG  > col');
 
                     dataAreaSize = jQuery('#' + self.PivotId + '_DCSCell_SCSDiv').width();
-                    headerAreaSize = jQuery('#' + self.PivotId + '_RVSCell_SCDTable').width();
 
                     scrollElement = jQuery('#' + self.PivotId + '_HSBCCell_SCVPDiv');
                     scrollPosition = scrollElement.scrollLeft() || 0;
-
-                    maxPivotSize = jQuery('#' + self.PivotId + '_MTD').width();
 
                     var colIndex = self.GetCellCoords(th).x;
                     var col = jQuery('#' + self.PivotId + '_CVSCell_SCDTable_CG, #' + self.PivotId + '_DCSCell_SCDTable_CG').find('col:eq(' + colIndex + ')');
@@ -1809,9 +1805,9 @@ function PivotPageHandler(elementId, container) {
                 matrix[rowIndex] = WC.Utility.ToArray(matrix[rowIndex]);
 
                 var colIndex = null;
-                for (var l = 0; l <= matrix[rowIndex].length && colIndex === null; l++) {
-                    if (!matrix[rowIndex][l])
-                        colIndex = l;
+                for (var k = 0; k <= matrix[rowIndex].length && colIndex === null; k++) {
+                    if (!matrix[rowIndex][k])
+                        colIndex = k;
                 }
 
                 // Short circuit if possible.
@@ -1825,10 +1821,10 @@ function PivotPageHandler(elementId, container) {
                     break;
                 }
 
-                for (var k = rowIndex; k < rowIndex + rowspan; k++) {
-                    for (var l = colIndex; l < colIndex + colspan; l++) {
-                        matrix[k] = WC.Utility.ToArray(matrix[k]);
-                        matrix[k][l] = 1;
+                for (var l = rowIndex; l < rowIndex + rowspan; l++) {
+                    for (var m = colIndex; m < colIndex + colspan; m++) {
+                        matrix[l] = WC.Utility.ToArray(matrix[l]);
+                        matrix[l][m] = 1;
                     }
                 }
             }
@@ -1980,7 +1976,7 @@ function PivotPageHandler(elementId, container) {
                 row.find('.k-dirty').remove();
                 jQuery('#draggingField').hide();
 
-                if (state.drag.area !== state.drop.area || (state.drag.area === state.drop.area && state.drag.index !== state.drop.index)) {
+                if (state.drag.area !== state.drop.area || state.drag.area === state.drop.area && state.drag.index !== state.drop.index) {
                     var dragElement = state.element;
                     dragElement.find('li').removeClass('row column data').addClass(areaName).end();
 

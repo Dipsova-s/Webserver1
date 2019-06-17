@@ -101,13 +101,9 @@ describe("MC.Models.RefreshCycle", function () {
     });
 
     describe(".DeltaChange", function () {
-        
         var form;
-
         beforeEach(function () {
-
             form = $('<form />', { html: '<input type="checkbox" name="ChangedTablesOnly" />' });
-
             spyOn(refreshCycle, 'GetRefreshCycleForm').and.returnValue(form);
         });
 

@@ -2,9 +2,7 @@
 /// <reference path="/Dependencies/custom/MC.ui.gridsorting.js" />
 
 describe("MC.ui.gridsorting.js", function () {
-
     describe("MC.ui.gridsorting.isGridServerSortingIssue", function () {
-        
         var tests = [
             {
                 title: 'should be the grid sorting issue',

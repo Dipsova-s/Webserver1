@@ -1,6 +1,6 @@
 (function (win, models) {
 
-    function Packages () {
+    function Packages() {
         var self = this;
         self.ModelId = '';
         self.ShowPackageErrorMessageUri = '';
@@ -245,7 +245,7 @@
             grid.dataSource.transport.options.read.url = sourceUrl + '?' + jQuery.param(query);
         };
 
-        self.PackagesGridFilter = function (element) {
+        self.PackagesGridFilter = function () {
             $('#PackagesGridFilterBox').data('defaultValue', '***********').trigger('keyup');
         };
 
@@ -253,7 +253,7 @@
             var win = $('#popupPackageErrorMessage').data('kendoWindow');
             if (win && !win.__bind_resize_event) {
                 win.__bind_resize_event = true;
-                win.bind('resize', function (e) {
+                win.bind('resize', function () {
                     var grid = win.element.find('.k-grid');
                     grid.height(win.element.height() - 2);
                     kendo.resize(grid, true);
@@ -261,25 +261,26 @@
             }
             MC.ui.popup('requestStart');
 
-            MC.ajax.request({
-                url: self.ShowPackageErrorMessageUri,
-                parameters: "packageUri=" + $(obj).data('parameters').packageUri,
-                type: 'POST',
-                ajaxSuccess: function (metadata, data, status, xhr) {
+            MC.ajax
+                .request({
+                    url: self.ShowPackageErrorMessageUri,
+                    parameters: "packageUri=" + $(obj).data('parameters').packageUri,
+                    type: 'POST'
+                })
+                .done(function (data) {
                     $('#GridPackageErrorMessage').html(data);
 
                     setTimeout(function () {
                         var win = $('#popupPackageErrorMessage').data('kendoWindow');
                         win.trigger('resize');
                     }, 100);
-                }
-            })
-            .fail(function () {
-                MC.ui.popup('close');
-            })
-            .always(function () {
-                MC.ui.popup('requestEnd');
-            });
+                })
+                .fail(function () {
+                    MC.ui.popup('close');
+                })
+                .always(function () {
+                    MC.ui.popup('requestEnd');
+                });
 
             MC.util.preventDefault(e);
         };
@@ -300,7 +301,6 @@
             }
             else {
                 var confirmMessage = MC.form.template.getRemoveMessage(element);
-
                 MC.util.showPopupConfirmation(confirmMessage, function () {
                     self.PostPackage(element);
                 });

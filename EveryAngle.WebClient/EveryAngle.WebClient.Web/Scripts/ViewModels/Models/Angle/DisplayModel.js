@@ -1473,7 +1473,7 @@ function DisplayModel(model) {
         }
         return bucketSize;
     };
-    self.ConvertPivotCellValue = function (value, fieldType, operator) {
+    self.ConvertPivotCellValue = function (value, fieldType) {
         var result = value;
 
         if (!IsNullOrEmpty(value)) {
@@ -1506,7 +1506,6 @@ function DisplayModel(model) {
                     break;
             }
         }
-
         return result;
     };
     self.GetDrilldownQueryStepOperator = function (value, fieldType, operator, domainUri) {
@@ -1552,7 +1551,7 @@ function DisplayModel(model) {
         else if (operator === enumHandlers.OPERATOR.EQUALTO.Value
             && (fieldType === enumHandlers.FIELDTYPE.ENUM || fieldType === enumHandlers.FIELDTYPE.BOOLEAN)) {
             if (isPivot || fieldType === enumHandlers.FIELDTYPE.BOOLEAN) {
-                argumentValues = [WC.WidgetFilterHelper.ArgumentObject(self.ConvertPivotCellValue(value, fieldType, bucketOperator), enumHandlers.FILTERARGUMENTTYPE.VALUE)];
+                argumentValues = [WC.WidgetFilterHelper.ArgumentObject(self.ConvertPivotCellValue(value, fieldType), enumHandlers.FILTERARGUMENTTYPE.VALUE)];
             }
             else {
                 var element = modelFieldDomainHandler.GetDomainElementByName(domainUri, value);
@@ -1565,7 +1564,7 @@ function DisplayModel(model) {
             }
         }
         else {
-            argumentValues = [WC.WidgetFilterHelper.ArgumentObject(self.ConvertPivotCellValue(value, fieldType, bucketOperator), enumHandlers.FILTERARGUMENTTYPE.VALUE)];
+            argumentValues = [WC.WidgetFilterHelper.ArgumentObject(self.ConvertPivotCellValue(value, fieldType), enumHandlers.FILTERARGUMENTTYPE.VALUE)];
         }
 
         return argumentValues;
@@ -1590,7 +1589,7 @@ function DisplayModel(model) {
     self.GetBetweenArgumentValues = function (value, fieldType, bucketOperator) {
         var upperBoundValue = 0;
         var upperBoundArgument = null;
-        var lowerBoundValue = self.ConvertPivotCellValue(value, fieldType, bucketOperator);
+        var lowerBoundValue = self.ConvertPivotCellValue(value, fieldType);
         var lowerBoundArgument = WC.WidgetFilterHelper.ArgumentObject(lowerBoundValue, enumHandlers.FILTERARGUMENTTYPE.VALUE);
         var bucketValue = self.CalculateBucketSize(bucketOperator, fieldType, value);
 
@@ -1679,13 +1678,11 @@ function DisplayModel(model) {
 
                             var details = jQuery.extend(WC.Utility.ParseJSON(displayField.field_details), defalutFieldDetails);
                             jQuery.each(details, function (key) {
-
                                 var fieldData = fieldSettingsHandler.FieldSettings.GetFields().findObject("FieldName", aggregation.field);
                                 var fieldType = fieldData ? fieldData.DataType : '';
-
-                                if ((key !== 'width' && key !== 'format' && key !== 'thousandseparator' && key !== 'prefix' && key !== 'decimals') || fieldType === enumHandlers.FIELDTYPE.PERIOD) {
+                                var validProperties = ['width', 'format', 'thousandseparator', 'prefix', 'decimals'];
+                                if (jQuery.inArray(key, validProperties) !== -1 || fieldType === enumHandlers.FIELDTYPE.PERIOD)
                                     delete details[key];
-                                }
                                 if (key === 'prefix' && details[key] === 'N')
                                     details[key] = null;
                             });

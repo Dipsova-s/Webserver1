@@ -93,7 +93,7 @@ function HelpPopupPageHandler() {
                         }
                         else if (valueElement.hasClass(enumHandlers.FIELDTYPE.PERCENTAGE)) {
                             formatter = new Formatter({ prefix: false }, enumHandlers.FIELDTYPE.PERCENTAGE);
-                            valueElement.text(WC.FormatHelper.GetFormattedValue(formatter, value))
+                            valueElement.text(WC.FormatHelper.GetFormattedValue(formatter, value));
                         }
                         else if (valueElement.hasClass(enumHandlers.FIELDTYPE.DATE) && value) {
                             var strDate = value.substr(0, 4) + '/' + value.substr(4, 2) + '/' + value.substr(6, 2);
@@ -154,8 +154,7 @@ function HelpPopupPageHandler() {
             };
 
         popup.Show(popupSettings);
-    }
-
+    };
 }
 
 var helpPopupPageHandler = new HelpPopupPageHandler();

@@ -59,7 +59,6 @@ function QuickFilterHandler() {
     };
     self.ShowAddFilterPopup = function (fieldId, handler) {
         self.SetViewHandler(handler);
-        
         var modelUri = _self.handler.Models.Angle.Data().model;
         var field = modelFieldsHandler.GetFieldById(fieldId, modelUri);
         if (!field)

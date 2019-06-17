@@ -255,11 +255,9 @@ namespace EveryAngle.WebClient.Web.Helpers
         protected void RenderViewToWriterInternal(string viewPath, TextWriter writer, object model = null, bool partial = false)
         {
             // first find the ViewEngine for this view
-            ViewEngineResult viewEngineResult = null;
-            if (partial)
-                viewEngineResult = ViewEngines.Engines.FindPartialView(Context, viewPath);
-            else
-                viewEngineResult = ViewEngines.Engines.FindView(Context, viewPath, null);
+            ViewEngineResult viewEngineResult = partial
+                ? ViewEngines.Engines.FindPartialView(Context, viewPath)
+                : ViewEngines.Engines.FindView(Context, viewPath, null);
 
             if (viewEngineResult == null)
                 throw new FileNotFoundException();
@@ -290,11 +288,9 @@ namespace EveryAngle.WebClient.Web.Helpers
                                                     bool partial = false)
         {
             // first find the ViewEngine for this view
-            ViewEngineResult viewEngineResult = null;
-            if (partial)
-                viewEngineResult = ViewEngines.Engines.FindPartialView(Context, viewPath);
-            else
-                viewEngineResult = ViewEngines.Engines.FindView(Context, viewPath, null);
+            ViewEngineResult viewEngineResult = partial
+                ? ViewEngines.Engines.FindPartialView(Context, viewPath)
+                : ViewEngines.Engines.FindView(Context, viewPath, null);
 
             if (viewEngineResult == null || viewEngineResult.View == null)
                 throw new FileNotFoundException();
@@ -303,7 +299,7 @@ namespace EveryAngle.WebClient.Web.Helpers
             var view = viewEngineResult.View;
             Context.Controller.ViewData.Model = model;
 
-            string result = null;
+            string result;
 
             using (var sw = new StringWriter())
             {
@@ -333,7 +329,7 @@ namespace EveryAngle.WebClient.Web.Helpers
             T controller = new T();
 
             // get context wrapper from HttpContext if available
-            HttpContextBase wrapper = null;
+            HttpContextBase wrapper;
             if (HttpContext.Current != null)
                 wrapper = new HttpContextWrapper(System.Web.HttpContext.Current);
             else
@@ -345,9 +341,7 @@ namespace EveryAngle.WebClient.Web.Helpers
 
             // add the controller routing if not existing
             if (!routeData.Values.ContainsKey("controller") && !routeData.Values.ContainsKey("Controller"))
-                routeData.Values.Add("controller", controller.GetType().Name
-                                                            .ToLower()
-                                                            .Replace("controller", ""));
+                routeData.Values.Add("controller", controller.GetType().Name.ToLowerInvariant().Replace("controller", ""));
 
             controller.ControllerContext = new ControllerContext(wrapper, routeData, controller);
             return controller;

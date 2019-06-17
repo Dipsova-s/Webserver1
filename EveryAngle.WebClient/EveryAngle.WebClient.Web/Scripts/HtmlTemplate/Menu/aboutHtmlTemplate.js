@@ -21,4 +21,4 @@ var aboutHtmlTemplate = function () {
             '</div>',
         '</div>'
     ].join('');
-}
+};

@@ -637,7 +637,7 @@ function ListHandler(elementId, container) {
             var fnCheckDragHold;
             var scrollSpeed = 10;
             var resizeValues = { areaRight: 0, scrollRight: 0 };
-            grid.resizable.bind('start', function (e) {
+            grid.resizable.bind('start', function () {
                 resizeValues.areaRight = grid.wrapper.offset().left + grid.wrapper.width() - WC.Window.ScrollBarWidth - 50;
                 resizeValues.scrollRight = grid.virtualScrollable.content.width();
             });
@@ -653,7 +653,7 @@ function ListHandler(elementId, container) {
                     }
                 }, 50);
             });
-            grid.resizable.bind('resizeend', function (e) {
+            grid.resizable.bind('resizeend', function () {
                 clearInterval(fnCheckDragHold);
             });
         }
@@ -666,7 +666,7 @@ function ListHandler(elementId, container) {
             .off('mousewheel', '.k-loading-mask')
             .on('mousewheel', '.k-loading-mask', function (e) {
                 clearTimeout(_self.CheckScrollingTimeout);
-                virtualScroll.verticalScrollbar.scrollTop(virtualScroll.verticalScrollbar.scrollTop() - (e.deltaFactor * e.deltaY));
+                virtualScroll.verticalScrollbar.scrollTop(virtualScroll.verticalScrollbar.scrollTop() - e.deltaFactor * e.deltaY);
             });
 
         // prefetching
@@ -679,7 +679,7 @@ function ListHandler(elementId, container) {
                     prefetchChecker = setTimeout(function () {
                         var numberItemInView = Math.floor(virtualScroll.wrapper.height() / virtualScroll.itemHeight);
                         var prefetchSkip;
-                        var scrollTop = !virtualScroll.itemHeight || !virtualScroll._scrollbarTop ? 0 : virtualScroll._scrollbarTop - (e.deltaFactor * e.deltaY);
+                        var scrollTop = !virtualScroll.itemHeight || !virtualScroll._scrollbarTop ? 0 : virtualScroll._scrollbarTop - e.deltaFactor * e.deltaY;
                         var currentRow = !virtualScroll.itemHeight ? 1 : Math.ceil(scrollTop / virtualScroll.itemHeight) + 1;
 
                         if (e.deltaY === -1) {
@@ -694,7 +694,7 @@ function ListHandler(elementId, container) {
                         prefetchSkip = Math.max(0, prefetchSkip);
                         grid.dataSource.prefetch(prefetchSkip, grid.dataSource.take());
 
-                        virtualScroll.verticalScrollbar.scrollTop(virtualScroll.verticalScrollbar.scrollTop() - (e.deltaFactor * e.deltaY));
+                        virtualScroll.verticalScrollbar.scrollTop(virtualScroll.verticalScrollbar.scrollTop() - e.deltaFactor * e.deltaY);
                     }, 10);
                 }
             });
@@ -992,17 +992,28 @@ function ListHandler(elementId, container) {
             template = template.replace(/#CanViewInfo#/g, isFieldValid ? '' : ' disabled');
         }
         else {
-            template = template.replace(/#CanSort#/g, !self.Models.Result.Data().authorizations.sort
-                                                            || self.HandlerValidation.Angle.InvalidQueryStepsAll ? ' disabled' : '');
-            template = template.replace(/#CanAddFilter#/g, !self.Models.Result.Data().authorizations.add_filter
-                                                            || self.HandlerValidation.Angle.InvalidQueryStepsAll ? ' disabled' : '');
-            template = template.replace(/#CanCreateDisplay#/g, !self.Models.Result.Data().authorizations.change_field_collection
-                                                            || self.HandlerValidation.Angle.InvalidQueryStepsAll
-                                                            || (typeof anglePageHandler !== 'undefined' && anglePageHandler.IsEditMode()) ? ' disabled' : '');
-            template = template.replace(/#CanAddRemoveColumn#/g, self.Models.Result.Data().authorizations.change_field_collection ? '' : ' disabled');
-            template = template.replace(/#CanFormat#/g, !(self.HandlerValidation.Angle.InvalidBaseClasses
-                                                            || self.HandlerValidation.Angle.InvalidFollowups
-                                                            || self.HandlerValidation.Display.InvalidFieldsAll) ? '' : ' disabled');
+            var canSort = self.Models.Result.Data().authorizations.sort
+                            && !self.HandlerValidation.Angle.InvalidQueryStepsAll;
+            template = template.replace(/#CanSort#/g, canSort ? '' : ' disabled');
+
+            var canAddFilter = self.Models.Result.Data().authorizations.add_filter
+                            && !self.HandlerValidation.Angle.InvalidQueryStepsAll;
+            template = template.replace(/#CanAddFilter#/g, canAddFilter ? '' : ' disabled');
+
+            var isAngleEditMode = typeof anglePageHandler !== 'undefined' && anglePageHandler.IsEditMode();
+            var canCreateDisplay = self.Models.Result.Data().authorizations.change_field_collection
+                            && !self.HandlerValidation.Angle.InvalidQueryStepsAll
+                            && !isAngleEditMode;
+            template = template.replace(/#CanCreateDisplay#/g, canCreateDisplay ? '' : ' disabled');
+
+            var canAddRemoveColumn = self.Models.Result.Data().authorizations.change_field_collection;
+            template = template.replace(/#CanAddRemoveColumn#/g, canAddRemoveColumn ? '' : ' disabled');
+
+            var canFormat = !self.HandlerValidation.Angle.InvalidBaseClasses
+                            && !self.HandlerValidation.Angle.InvalidFollowups
+                            && !self.HandlerValidation.Display.InvalidFieldsAll;
+            template = template.replace(/#CanFormat#/g, canFormat ? '' : ' disabled');
+
             template = template.replace(/#CanViewInfo#/g, '');
         }
 
@@ -1274,10 +1285,9 @@ function ListHandler(elementId, container) {
                 popupLeft = leftSpace + popupSpace;
             }
         }
-        else if (popupLeft + popupSize > WC.Window.Width - rightSpace) {
-            if (gridHeaderColumnOffset.left + popupSpace < WC.Window.Width - rightSpace) {
-                popupLeft = WC.Window.Width - rightSpace - popupSize - popupSpace;
-            }
+        else if (popupLeft + popupSize > WC.Window.Width - rightSpace
+            && gridHeaderColumnOffset.left + popupSpace < WC.Window.Width - rightSpace) {
+            popupLeft = WC.Window.Width - rightSpace - popupSize - popupSpace;
         }
         obj.css('left', popupLeft);
 
@@ -1499,7 +1509,7 @@ function ListHandler(elementId, container) {
         var scrollPosition = {};
         scrollPosition.top = gridElement.find('.k-scrollbar-vertical').scrollTop();
         if (self.AddColumnIndex) {
-            scrollPosition.left = gridElement.find('.k-virtual-scrollable-wrap').scrollLeft() + (self.ActiveColumnList.length * self.DefaultColumnWidth);
+            scrollPosition.left = gridElement.find('.k-virtual-scrollable-wrap').scrollLeft() + self.ActiveColumnList.length * self.DefaultColumnWidth;
         }
         else {
             scrollPosition.left = gridElement.find('.k-virtual-scrollable-wrap > table').width();
@@ -1691,7 +1701,7 @@ function ListHandler(elementId, container) {
             dataItem = grid.dataSource.view()[cell.closest('tr').index()];
 
         var displayField = self.Models.Display.GetDisplayByFieldName(column.field, self.Models.Display.Data().fields);
-        if (!displayField || (displayField && (displayField.valid === false || displayField.denied))) {
+        if (!displayField || displayField.valid === false || displayField.denied) {
             self.HideContextMenu();
             grid.clearSelection();
             return false;

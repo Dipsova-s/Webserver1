@@ -29,7 +29,7 @@ function UserViewModel() {
     self.Load = function (options) {
         var uri = directoryHandler.ResolveDirectoryUri(directoryHandler.Data.user);
         var setting = jQuery.extend({ force: false, callback: jQuery.noop }, options);
-        if ((!setting.force && self.IsLoaded()) || !uri) {
+        if (!setting.force && self.IsLoaded() || !uri) {
             setting.callback();
             return jQuery.when(self.Data());
         }
@@ -43,8 +43,7 @@ function UserViewModel() {
             });
     };
 
-    self.LoadSuccess = function (data, status, xhr) {
-
+    self.LoadSuccess = function (data) {
         defaultValueHandler.CheckAndExtendProperties(data, enumHandlers.VIEWMODELNAME.USERMODEL, true);
         self.Data(data);
         jQuery.localStorage(self.DirectoryName, self.Data());
@@ -57,10 +56,10 @@ function UserViewModel() {
     };
 
     self.FullnameWithId = function () {
-        return self.Data() ? (self.Data().id + ' (' + self.Data().full_name + ')') : '';
+        return self.Data() ? self.Data().id + ' (' + self.Data().full_name + ')' : '';
     };
     self.DisplayName = function () {
-        return self.Data() ? (self.Data().full_name !== '' ? self.Data().full_name : self.Data().id) : '';
+        return self.Data() ? self.Data().full_name !== '' ? self.Data().full_name : self.Data().id : '';
     };
     self.GetAnglePrivilegeByUri = function (uri) {
         var results = jQuery.grep(self.Privileges.AnglePrivileges, function (anglePrivilege) {
@@ -259,14 +258,14 @@ function UserViewModel() {
         var isSaveDisplay = self.CanSaveDisplays(angle.model);
         var allowMoreDetails = self.GetAngleAllowMoreDetailsAuthorization(angle.uri);
         var allowFollowups = self.GetAngleFollowupAuthorization(angle.uri);
-        var result = {};
-        var angle = {
+        var resultObject = {};
+        var angleObject = {
             CreateAngle: ko.observable(isCreateAngle),
             ChangeAngleDetails: ko.observable(allowMoreDetails),
             AddAngleFilters: ko.observable(allowMoreDetails),
             AddAngleFollowups: ko.observable(allowMoreDetails && allowFollowups)
         };
-        var display = {
+        var displayObject = {
             ShowCreateDisplay: ko.observable(isSaveDisplay && allowMoreDetails),
             ChangePrivateDisplay: ko.observable(isSaveDisplay && allowMoreDetails),
             ChangePublicDisplay: ko.observable(isSaveDisplay && isCreateAngle && allowMoreDetails),
@@ -276,7 +275,7 @@ function UserViewModel() {
             AddDisplayFollowups: ko.observable(isSaveDisplay && allowMoreDetails && allowFollowups)
         };
 
-        return jQuery.extend(result, angle, display);
+        return jQuery.extend(resultObject, angleObject, displayObject);
     };
     self.GetModelPrivilegeByUri = function (modelUri) {
         var modelPrivilege = jQuery.grep(self.Privileges.ModelPrivileges, function (modelPrivilege) {
@@ -306,7 +305,7 @@ function UserViewModel() {
             if (roleObj.model_id)
                 return roleObj.model_id + ': ' + roleObj.role_id;
             else
-                return roleObj.role_id
+                return roleObj.role_id;
         } else
             return roleObj;
     };

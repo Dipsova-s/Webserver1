@@ -54,7 +54,6 @@ function ComponentServicesHandler() {
     self.LoadComponentServices = function () {
         /// <summary locid="M:HandlerHelper.Load"></summary>
         /// <returns type="Deferred"></returns>
-        
         return self.Load('/csm/componentservices', {}, false);
     };
 

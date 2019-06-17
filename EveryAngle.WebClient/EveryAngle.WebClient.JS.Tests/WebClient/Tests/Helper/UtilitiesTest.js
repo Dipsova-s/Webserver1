@@ -1,12 +1,12 @@
-﻿describe("Utilities test", function () {
+﻿describe("WC.Utility", function () {
 
-    describe("The GUID generator should work as expect", function () {
+    describe(".GUID", function () {
 
-        it("It is possible to generate the GUID", function () {
+        it("should create the GUID", function () {
             expect(jQuery.GUID()).not.toBeUndefined();
         });
 
-        it("It is possible to generate the different of GUID", function () {
+        it("should create the different of GUID", function () {
             var guid1 = jQuery.GUID();
             var guid2 = jQuery.GUID();
             var guid3 = jQuery.GUID();
@@ -16,7 +16,7 @@
             expect(guid1).not.toEqual(guid3);
         });
 
-        it("It must have 36 chars", function () {
+        it("must have 36 chars", function () {
             var expectLength = 36;
             var guid = jQuery.GUID();
             expect(guid.length).toEqual(expectLength);
@@ -24,9 +24,9 @@
 
     });
 
-    describe("The HTML Encode should work as expect", function () {
+    describe("htmlEncode", function () {
 
-        it("It is possible to Encode the html", function () {
+        it("should encode the html", function () {
             var text = 'Foo © bar 𝌆 baz ☃ qux > < "';
             var encodedText = htmlEncode(text);
             expect(encodedText).not.toContain('©');
@@ -37,7 +37,7 @@
             expect(encodedText).not.toContain('"');
         });
 
-        it("It is still have the valid words", function () {
+        it("should have the valid words", function () {
             var text = 'Foo © bar 𝌆 baz ☃ qux > < "';
             var encodedText = htmlEncode(text);
             expect(encodedText).toContain('Foo');
@@ -47,7 +47,7 @@
         });
     });
 
-    describe("The name of the excel should work as expect", function () {
+    describe("CleanSheetName", function () {
 
         it("It is possible to get the valid sheet name", function () {
             var text = 'Foo © bar 𝌆 baz ☃ qux > < "';
@@ -70,7 +70,9 @@
             expect(actualText).not.toContain('<');
             expect(actualText).not.toContain('"');
         });
+    });
 
+    describe("IsValidSheetName", function () {
         it("It is a valid sheet name", function () {
             var sheetname = 'Foo © bar 𝌆 baz ☃ qux > < "';
             var actual = IsValidSheetName(sheetname);
@@ -96,11 +98,9 @@
 
             expect(actual).toEqual(false);
         });
-
-
     });
 
-    describe("call ToArray", function () {
+    describe(".ToArray", function () {
 
         it("should get empty array if parse fail", function () {
             var result1 = WC.Utility.ToArray();
@@ -120,7 +120,7 @@
 
     });
 
-    describe("call ToNumber", function () {
+    describe(".ToNumber", function () {
 
         it("should get expecting number if parse success", function () {
             var result1 = WC.Utility.ToNumber('50.2');
@@ -142,7 +142,7 @@
 
     });
 
-    describe("call ToBoolean", function () {
+    describe(".ToBoolean", function () {
 
         it("should get true", function () {
             var result1 = WC.Utility.ToBoolean('test');
@@ -166,7 +166,19 @@
 
     });
 
-    describe("call ConvertFieldName", function () {
+    describe(".MatchAll", function () {
+        it("should get true", function () {
+            var result = WC.Utility.MatchAll('test', ['test', 'test', 'test', 'test']);
+            expect(result).toEqual(true);
+        });
+
+        it("should get false", function () {
+            var result = WC.Utility.MatchAll('test', ['test', 'test1', 'test', 'test']);
+            expect(result).toEqual(false);
+        });
+    });
+
+    describe(".ConvertFieldName", function () {
 
         var tests = [
             { input: 'xx@xx@xx', expected: 'xxOatOxxOatOxx' },
@@ -187,7 +199,7 @@
 
     });
 
-    describe("call RevertFieldName", function () {
+    describe(".RevertFieldName", function () {
 
         var tests = [
             { input: 'xxOatOxxOatOxx', expected: 'xx@xx@xx' },
@@ -208,7 +220,7 @@
 
     });
 
-    describe("call RevertBackSlashFieldName", function () {
+    describe(".RevertBackSlashFieldName", function () {
 
         it("should revert and escape backslash 'xxObackslashOxxObackslashOxx' -> 'xx\\\\xx\\\\xx'", function () {
             var result = WC.Utility.RevertBackSlashFieldName('xxObackslashOxxObackslashOxx');

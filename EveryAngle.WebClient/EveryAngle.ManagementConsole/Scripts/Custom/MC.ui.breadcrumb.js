@@ -7,7 +7,7 @@
         render: function (obj) {
             var self = this;
             self.data = [];
-            jQuery(this.target).empty();
+            jQuery(self.target).empty();
             jQuery(obj).parents('li.active').each(function (k, v) {
                 var label = jQuery('>a .sideMenuLabel', v).text(),
                     data = {
@@ -28,12 +28,10 @@
 
             // prevent click the last item
 
-            if (jQuery.address.parameter('parameters')) {
-                jQuery(this.target).find('a:last').addClass('noLink');
-            }
+            if (jQuery.address.parameter('parameters'))
+                jQuery(self.target).find('a:last').addClass('noLink');
         },
         add: function (data, addType) {
-
             if (typeof data === 'undefined')
                 return;
             if (typeof addType === 'undefined')
@@ -53,9 +51,9 @@
                 .click(function () {
                     if (jQuery(this).hasClass('noLink'))
                         return false;
-                    
+
                     MC.ui.breadcrumb.current = jQuery(this).data('source');
-                    var onClick = function (data) {
+                    var onClick = function () {
                         MC.form.page.clear();
                         MC.form.page.clearStates();
 
@@ -87,8 +85,10 @@
                     return false;
                 });
 
-            if (addType === 'last') jQuery(this.target).append(jQuery('<li />').html(link));
-            else jQuery(this.target).prepend(jQuery('<li />').html(link));
+            if (addType === 'last')
+                jQuery(this.target).append(jQuery('<li />').html(link));
+            else
+                jQuery(this.target).prepend(jQuery('<li />').html(link));
         },
         remove: function (index) {
             this.data.splice(index, 1);

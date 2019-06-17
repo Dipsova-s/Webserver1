@@ -129,11 +129,15 @@
 
             if (jQuery('#modelName').is(':disabled')) {
                 MC.ui.popup('requestStart');
-                MC.ajax.request({
-                    url: self.GetModelsNameUri,
-                    parameters: "modelUri=" + self.ModelUri + "&roleUri=" + roleUri
-                })
-                    .done(function (data, status, xhr) {
+                MC.ajax
+                    .request({
+                        url: self.GetModelsNameUri,
+                        parameters: {
+                            modelUri: self.ModelUri,
+                            roleUri: roleUri
+                        }
+                    })
+                    .done(function (data) {
                         var ddlHtml = [];
                         if (data && data.length > 0) {
                             jQuery.each(data, function (index, model) {
@@ -190,12 +194,18 @@
             var data = self.GetRoleCopyData();
 
             $('#popupCopyRole').busyIndicator(true);
-            MC.ajax.request({
-                url: self.CheckCopyRoleUri,
-                parameters: "destinationModelUri=" + data.destinationModelUri + "&oldModelUri=" + data.oldModelUri + "&roleUri=" + data.roleUri + "&roleName=" + data.roleName,
-                type: 'POST'
-            })
-                .done(function (response, status, xhr) {
+            MC.ajax
+                .request({
+                    url: self.CheckCopyRoleUri,
+                    parameters: {
+                        destinationModelUri: data.destinationModelUri,
+                        oldModelUri: data.oldModelUri,
+                        roleUri: data.roleUri,
+                        roleName: data.roleName
+                    },
+                    type: 'POST'
+                })
+                .done(function (response) {
                     self.CopyRoleData = self.SetAccessDataViaOdata(response.roleData);
 
                     if (response.removedData) {
@@ -236,7 +246,7 @@
         };
 
         self.SetAccessDataViaOdata = function (roleData) {
-            //if the license support OData, set access_data_via_odata as true 
+            //if the license support OData, set access_data_via_odata as true
             //otherwise set access_data_via_odata to null
             if (!self.SupportOData) {
                 var roleJson = jQuery.parseJSON(roleData);
@@ -247,18 +257,18 @@
             return roleData;
         };
 
-        self.CopyRoleToModel = function (e, obj) {
-
-            MC.ajax.request({
-                url: self.CopyRoleUri,
-                parameters: { roleData: self.CopyRoleData },
-                type: 'POST',
-                ajaxSuccess: function (metadata, data, status, xhr) {
+        self.CopyRoleToModel = function () {
+            MC.ajax
+                .request({
+                    url: self.CopyRoleUri,
+                    parameters: { roleData: self.CopyRoleData },
+                    type: 'POST'
+                })
+                .done(function () {
                     jQuery('#popupConfirmCopy').data('kendoWindow').close();
 
                     MC.ajax.reloadMainContent();
-                }
-            });
+                });
         };
         self.ShowConsolidatedRolePopup = function (roleUri) {
             MC.util.consolidatedRole.showPopup(self.ConsolidatedRoleUri, { roleUri: roleUri });
@@ -347,7 +357,7 @@
                 }
             }, 1);
         };
-        self.RoleTabShown = function (tabContent) {
+        self.RoleTabShown = function () {
             var treelist = $('#treelist:visible');
             if (treelist.length) {
                 kendo.resize(treelist, true);
@@ -578,7 +588,6 @@
 
             MC.ui.popup();
             $(e.sender.content).find('tr').each(function (index, ele) {
-
                 ele = $(ele);
                 ele.find('select[name="SourcePropertyObject"]').kendoDropDownList({
                     change: function (e) {
@@ -852,7 +861,7 @@
                     }
                 });
 
-                treeList.wrapper.on('click', '.k-i-collapse, .k-i-expand', function (e) {
+                treeList.wrapper.on('click', '.k-i-collapse, .k-i-expand', function () {
                     treeList.trigger('dataBound');
                 });
 
@@ -1114,7 +1123,7 @@
                 }
             }
         };
-        self.SubRolesGridDataBound = function (e) {
+        self.SubRolesGridDataBound = function () {
             jQuery('#SubRolesGrid .k-no-data').remove();
         };
         self.BindSubRolesDropdown = function (obj) {
@@ -1288,7 +1297,7 @@
                 fnUpdateBatch();
             }
         };
-        self.BindMultiInputControl = function (e) {
+        self.BindMultiInputControl = function () {
 
             var parentCell = $(self.CurrentGridField).closest('tr').find("input[name^=txtFilterValues]").closest('td');
             parentCell = $(parentCell);
@@ -1322,27 +1331,22 @@
         };
         self.GetAccessToObjectsData = function (isallowed) {
             var datas = [];
-            $('#objectsGrid').find('tbody').find('tr').each(function (index) {
-
+            $('#objectsGrid').find('tbody').find('tr').each(function () {
                 var selectedVal = $(this).find("input[type='radio']:checked").val();
-
                 if (selectedVal === 'true') {
                     if (isallowed)
                         datas.push($(this).find("td").eq(2).text().trim());
                 }
-                else if (selectedVal === 'false') {
-                    if (!isallowed)
-                        datas.push($(this).find("td").eq(2).text().trim());
+                else if (selectedVal === 'false' && !isallowed) {
+                    datas.push($(this).find("td").eq(2).text().trim());
                 }
-
-
             });
             return datas;
         };
         self.GetFieldsData = function () {
             var datas = [];
 
-            $('#propertiesGrid').find('tbody').find('tr').each(function (index) {
+            $('#propertiesGrid').find('tbody').find('tr').each(function () {
                 if (!$(this).hasClass('rowMaskAsRemove')) {
                     var fieldAuthorize = {};
                     fieldAuthorize.classes = [];
@@ -1368,7 +1372,7 @@
         };
         self.GetSubRolesData = function () {
             var datas = [];
-            $('#SubRolesGrid').find('tbody').find('tr').each(function (index) {
+            $('#SubRolesGrid').find('tbody').find('tr').each(function () {
                 if (!$(this).hasClass('rowMaskAsRemove')) {
                     var isNew = $(this).hasClass('newRow');
                     var subRoleId = isNew ? $(this).find("td:eq(0) select").val() : $(this).find("td").eq(0).text().trim();
@@ -1522,8 +1526,8 @@
             }
         };
         self.FromObjectSelect = function (e) {
-            var dataItem = e.item ? e.sender.dataSource.view()[e.item.index()] : e.sender.dataItems()[0],
-                values = e.sender.value();
+            var dataItem = e.item ? e.sender.dataSource.view()[e.item.index()] : e.sender.dataItems()[0];
+            var values = e.sender.value();
             if (dataItem.Value === self.AnyObjectValue) {
                 e.sender.value([dataItem.Value]);
                 e.preventDefault();
@@ -1535,7 +1539,9 @@
                 self.SetRequiredFields();
             }
             else {
-                e.sender.value(jQuery.grep(values, function (value, index) { return value !== self.AnyObjectValue; }));
+                e.sender.value(jQuery.grep(values, function (value) {
+                    return value !== self.AnyObjectValue;
+                }));
 
                 $('#allowedClasses, #denyClasses').removeAttr('disabled');
                 if (!$('[name="AccessType"]:checked').length) {
@@ -1543,7 +1549,6 @@
                     $('#denyClasses').prop('checked', true);
                 }
                 $('#btnAddFilter').addClass('disabled');
-
                 $('[name="AccessType"]:checked').trigger('click');
             }
         };
@@ -1560,175 +1565,133 @@
             MC.ui.multipleinput();
 
             $(e.sender.content).find('tr').each(function (index, ele) {
-
                 ele = $(ele);
-                ele.find('select[name="SourceObject"]').kendoDropDownList(
-                    {
-                        select: function (e) {
-                            var dataItem = this.dataItem(e.item.index());
-                            var value = dataItem.value;
-                            if (value === '') {
-                                e.sender.element.closest('tr').find("input[name^='txtField']").attr('disabled', 'disabled');
+                ele.find('select[name="SourceObject"]').kendoDropDownList({
+                    select: function (e) {
+                        var dataItem = this.dataItem(e.item.index());
+                        var value = dataItem.value;
+                        if (value === '') {
+                            e.sender.element.closest('tr').find("input[name^='txtField']").attr('disabled', 'disabled');
+                            e.sender.element.closest('tr').find("input[name^='txtField']").val('');
+                            e.sender.element.closest('tr').find("input[name^='hdnFieldId']").val('');
+
+                            e.sender.element.closest('tr').find('select[name="refrencedObject"]').data("kendoDropDownList").value('');
+                            e.sender.element.closest('tr').find('select[name="refrencedObject"]').data("kendoDropDownList").enable(false);
+                            e.sender.element.closest('tr').find("input[name^='txtField']").attr('disabled', 'disabled');
+                            e.sender.element.closest('tr').find("input[type=checkbox]").attr('disabled', 'disabled');
+                            e.sender.element.closest('tr').find("input[type=checkbox]").prop('checked', false);
+
+                            e.sender.element.closest('tr').find("input[name^=txtFilterValues]").val('');
+                            e.sender.element.closest('tr').find("input[name^=txtFilterValues]").removeTag([]);
+                        }
+                        else if (value === 'select_object') {
+                            e.sender.element.closest('tr').find("input[name^='sourceClassField']").click();
+                        }
+                        else {
+                            if (e.sender.element.closest('tr').find("input[name^='txtField']").val() !== '') {
                                 e.sender.element.closest('tr').find("input[name^='txtField']").val('');
                                 e.sender.element.closest('tr').find("input[name^='hdnFieldId']").val('');
-
-
-                                e.sender.element.closest('tr').find('select[name="refrencedObject"]').data("kendoDropDownList").value('');
-                                e.sender.element.closest('tr').find('select[name="refrencedObject"]').data("kendoDropDownList").enable(false);
-                                e.sender.element.closest('tr').find("input[name^='txtField']").attr('disabled', 'disabled');
-                                e.sender.element.closest('tr').find("input[type=checkbox]").attr('disabled', 'disabled');
-                                e.sender.element.closest('tr').find("input[type=checkbox]").prop('checked', false);
-
-                                e.sender.element.closest('tr').find("input[name^=txtFilterValues]").val('');
-                                e.sender.element.closest('tr').find("input[name^=txtFilterValues]").removeTag([]);
-
                             }
-                            else if (value === 'select_object') {
-                                e.sender.element.closest('tr').find("input[name^='sourceClassField']").click();
-                            }
-                            else {
+                            e.sender.element.closest('tr').find("input[name^='txtField']").removeAttr('disabled');
 
-                                if (e.sender.element.closest('tr').find("input[name^='txtField']").val() !== '') {
-                                    e.sender.element.closest('tr').find("input[name^='txtField']").val('');
-                                    e.sender.element.closest('tr').find("input[name^='hdnFieldId']").val('');
+                            var newTargetDataSource = [
+                                { text: Localization.PleaseSelect, value: "" },
+                                { text: "(Self)", value: "(self)" },
+                                { text: MC_SelectObject, value: "select_object" }
+                            ];
 
-                                }
-                                e.sender.element.closest('tr').find("input[name^='txtField']").removeAttr('disabled');
+                            e.sender.element.closest('tr').find('select[name="refrencedObject"]').data("kendoDropDownList").dataSource.data(newTargetDataSource);
+                            e.sender.element.closest('tr').find('select[name="refrencedObject"]').data("kendoDropDownList").value('');
+                            e.sender.element.closest('tr').find('select[name="refrencedObject"]').data("kendoDropDownList").enable(true);
+                            e.sender.element.closest('tr').find("input[name^='txtField']").attr('disabled', 'disabled');
+                            e.sender.element.closest('tr').find("input[type=checkbox]").attr('disabled', 'disabled');
+                            e.sender.element.closest('tr').find("input[type=checkbox]").prop('checked', false);
 
-                                var newTargetDataSource =
-                                    [
-                                        { text: Localization.PleaseSelect, value: "" },
-                                        { text: "(Self)", value: "(self)" },
-                                        { text: MC_SelectObject, value: "select_object" }
-
-                                    ];
-
-                                e.sender.element.closest('tr').find('select[name="refrencedObject"]').data("kendoDropDownList").dataSource.data(newTargetDataSource);
-                                e.sender.element.closest('tr').find('select[name="refrencedObject"]').data("kendoDropDownList").value('');
-                                e.sender.element.closest('tr').find('select[name="refrencedObject"]').data("kendoDropDownList").enable(true);
-                                e.sender.element.closest('tr').find("input[name^='txtField']").attr('disabled', 'disabled');
-                                e.sender.element.closest('tr').find("input[type=checkbox]").attr('disabled', 'disabled');
-                                e.sender.element.closest('tr').find("input[type=checkbox]").prop('checked', false);
-
-                                e.sender.element.closest('tr').find("input[name^=txtFilterValues]").val('');
-                                e.sender.element.closest('tr').find("input[name^=txtFilterValues]").removeTag([]);
-
-                            }
+                            e.sender.element.closest('tr').find("input[name^=txtFilterValues]").val('');
+                            e.sender.element.closest('tr').find("input[name^=txtFilterValues]").removeTag([]);
                         }
                     }
-                );
+                });
 
                 if (ele.find('select[name="SourceObject"]').length) {
                     var sourceId = ele.find('input[name="sourceClassField"]').val();
                     var sourceName = ele.find('input[name="sourceClassFieldName"]').val();
                     var newDataSource = null;
 
-
                     if (sourceId !== '*') {
-                        newDataSource =
-                            [
-                                { text: Localization.PleaseSelect, value: "" },
-                                { text: Localization.MC_AllObjects, value: "*" },
-                                { text: sourceName, value: sourceId },
-                                { text: Localization.MC_SelectObject, value: "select_object" }
-
-                            ];
-
+                        newDataSource = [
+                            { text: Localization.PleaseSelect, value: "" },
+                            { text: Localization.MC_AllObjects, value: "*" },
+                            { text: sourceName, value: sourceId },
+                            { text: Localization.MC_SelectObject, value: "select_object" }
+                        ];
                     }
                     else {
-                        newDataSource =
-                            [
-                                { text: Localization.PleaseSelect, value: "" },
-                                { text: Localization.MC_AllObjects, value: "*" },
-                                { text: Localization.MC_SelectObject, value: "select_object" }
-                            ];
+                        newDataSource = [
+                            { text: Localization.PleaseSelect, value: "" },
+                            { text: Localization.MC_AllObjects, value: "*" },
+                            { text: Localization.MC_SelectObject, value: "select_object" }
+                        ];
                     }
-
-
                     ele.find('select[name="SourceObject"]').data("kendoDropDownList").dataSource.data(newDataSource);
                     ele.find('select[name="SourceObject"]').data("kendoDropDownList").value(sourceId);
-
-
                 }
 
-                ele.find('select[name="refrencedObject"]').kendoDropDownList(
-                    {
-                        select: function (e) {
-                            var dataItem = this.dataItem(e.item.index());
-                            var value = dataItem.value;
-                            if (value === '') {
-                                e.sender.element.closest('tr').find("input[name^='txtField']").attr('disabled', 'disabled');
+                ele.find('select[name="refrencedObject"]').kendoDropDownList({
+                    select: function (e) {
+                        var dataItem = this.dataItem(e.item.index());
+                        var value = dataItem.value;
+                        if (value === '') {
+                            e.sender.element.closest('tr').find("input[name^='txtField']").attr('disabled', 'disabled');
+                            e.sender.element.closest('tr').find("input[name^='txtField']").val('');
+                            e.sender.element.closest('tr').find("input[name^='hdnFieldId']").val('');
+                        }
+                        else if (value === 'select_object') {
+                            e.sender.element.closest('tr').find("input[name^='targetClassField']").click();
+                            e.sender.element.closest('tr').find("input[type=checkbox]").attr('disabled', 'disabled');
+                            e.sender.element.closest('tr').find("input[type=checkbox]").prop('checked', false);
+                        }
+                        else if (value === '(self)') {
+                            e.sender.element.closest('tr').find("input[name^='txtField']").removeAttr('disabled');
+                            e.sender.element.closest('tr').find("input[name^='txtField']").addClass('required');
+                            e.sender.element.closest('tr').find("input[type=checkbox]").attr('disabled', 'disabled');
+                            e.sender.element.closest('tr').find("input[type=checkbox]").prop('checked', false);
+
+                            if (e.sender.element.closest('tr').find("input[name^='txtField']").val() !== '') {
                                 e.sender.element.closest('tr').find("input[name^='txtField']").val('');
                                 e.sender.element.closest('tr').find("input[name^='hdnFieldId']").val('');
-
-                            }
-                            else if (value === 'select_object') {
-                                e.sender.element.closest('tr').find("input[name^='targetClassField']").click();
-                                e.sender.element.closest('tr').find("input[type=checkbox]").attr('disabled', 'disabled');
-                                e.sender.element.closest('tr').find("input[type=checkbox]").prop('checked', false);
-
-
-                            }
-                            else if (value === '(self)') {
-
-                                e.sender.element.closest('tr').find("input[name^='txtField']").removeAttr('disabled');
-                                e.sender.element.closest('tr').find("input[name^='txtField']").addClass('required');
-
-                                e.sender.element.closest('tr').find("input[type=checkbox]").attr('disabled', 'disabled');
-                                e.sender.element.closest('tr').find("input[type=checkbox]").prop('checked', false);
-
-                                if (e.sender.element.closest('tr').find("input[name^='txtField']").val() !== '') {
-                                    e.sender.element.closest('tr').find("input[name^='txtField']").val('');
-                                    e.sender.element.closest('tr').find("input[name^='hdnFieldId']").val('');
-
-                                }
-                            }
-
-                            else {
-                                if (e.sender.element.closest('tr').find("input[name^='txtField']").val() !== '') {
-                                    e.sender.element.closest('tr').find("input[name^='txtField']").val('');
-                                    e.sender.element.closest('tr').find("input[name^='hdnFieldId']").val('');
-
-                                }
-                                e.sender.element.closest('tr').find("input[name^='txtField']").removeAttr('disabled');
-                                e.sender.element.closest('tr').find("input[name^='txtField']").addClass('required');
-
-
-
-                                e.sender.element.closest('tr').find("input[type=checkbox]").removeAttr('disabled');
                             }
                         }
+                        else {
+                            if (e.sender.element.closest('tr').find("input[name^='txtField']").val() !== '') {
+                                e.sender.element.closest('tr').find("input[name^='txtField']").val('');
+                                e.sender.element.closest('tr').find("input[name^='hdnFieldId']").val('');
+                            }
+                            e.sender.element.closest('tr').find("input[name^='txtField']").removeAttr('disabled');
+                            e.sender.element.closest('tr').find("input[name^='txtField']").addClass('required');
+                            e.sender.element.closest('tr').find("input[type=checkbox]").removeAttr('disabled');
+                        }
                     }
-                );
+                });
 
                 if (ele.find('select[name="refrencedObject"]').length) {
-
                     var targetId = ele.find('input[name="targetClassField"]').val();
-
                     var targetName = ele.find('input[name="targetClassFieldName"]').val();
                     var targetnewDataSource = [];
                     if (targetId !== '(self)') {
-
-                        targetnewDataSource =
-                            [
-                                { text: Localization.PleaseSelect, value: "" },
-                                { text: "(Self)", value: "(self)" },
-                                { text: targetName, value: targetId },
-                                { text: Localization.MC_SelectObject, value: "select_object" }
-
-                            ];
-
-
+                        targetnewDataSource = [
+                            { text: Localization.PleaseSelect, value: "" },
+                            { text: "(Self)", value: "(self)" },
+                            { text: targetName, value: targetId },
+                            { text: Localization.MC_SelectObject, value: "select_object" }
+                        ];
                     }
                     else {
-
-                        targetnewDataSource =
-                            [
-                                { text: Localization.PleaseSelect, value: "" },
-                                { text: "(Self)", value: "(self)" },
-                                { text: Localization.MC_SelectObject, value: "select_object" }
-
-                            ];
+                        targetnewDataSource = [
+                            { text: Localization.PleaseSelect, value: "" },
+                            { text: "(Self)", value: "(self)" },
+                            { text: Localization.MC_SelectObject, value: "select_object" }
+                        ];
                         ele.find("input[type=checkbox]").attr('disabled', 'disabled');
                     }
 
@@ -1741,17 +1704,15 @@
                     var domainUri = ele.find('input[name="hdnDomainUri"]').val();
 
                     disableLoading();
-                    MC.ajax.request({
-                        url: self.GetFieldDomainUri + '?fieldsDomainUri=' + escape(domainUri),
-                        type: 'GET'
-                    })
+                    MC.ajax
+                        .request({
+                            url: self.GetFieldDomainUri + '?fieldsDomainUri=' + escape(domainUri),
+                            type: 'GET'
+                        })
                         .done(function (field) {
                             var enumInput = ele.find('.enumerated');
                             var guid = MC.util.GUID();
-
                             enumInput.addClass(guid);
-
-
                             $(enumInput).kendoMultiSelect({
                                 dataSource: field.elements,
                                 placeholder: "Add values",
@@ -1778,7 +1739,6 @@
         };
 
         self.onMultiSelectChange = function (e) {
-
             var sender = e.sender;
             $(sender.element).val(sender.value().join(','));
         };
@@ -1786,14 +1746,10 @@
         self.GetFilterDescriptionIsEmptlyMessage = function (isAllow, isCheckEmptly) {
             var isEmptyOr = ' <is empty> or ';
             var isNotEmptlyAnd = ' <is not empty> and ';
-            var isEmptyMessage = '';
-
             if (isAllow)
-                isEmptyMessage = isCheckEmptly ? isEmptyOr : isNotEmptlyAnd;
+                return isCheckEmptly ? isEmptyOr : isNotEmptlyAnd;
             else
-                isEmptyMessage = isCheckEmptly ? isNotEmptlyAnd : isEmptyOr;
-
-            return isEmptyMessage;
+                return isCheckEmptly ? isNotEmptlyAnd : isEmptyOr;
         };
 
         self.ShowFilterDescriptionPopup = function (e) {
@@ -1811,203 +1767,160 @@
             var txtFiltersMessage = e.closest('tr').find("input[name^='txtFilterValues']").val();
 
             $('#popupFilterDescriptionTemplate .popupContent').text(sourceObjectMessage + allowedMessage + targetObjectMessage + isEmptyMessage + txtFieldMessage + txtFiltersMessage);
-
         };
 
         self.AddPropertyCallback = function (row) {
             MC.ui.popup();
 
-            row.find('select[name="SourcePropertyObject"]').kendoDropDownList(
-                {
-                    select: function (e) {
-                        var dataItem = this.dataItem(e.item.index());
-                        var value = dataItem.value;
-                        if (value === '') {
-                            e.sender.element.closest('tr').find("input[name^='txtField']").attr('disabled', 'disabled');
+            row.find('select[name="SourcePropertyObject"]').kendoDropDownList({
+                select: function (e) {
+                    var dataItem = this.dataItem(e.item.index());
+                    var value = dataItem.value;
+                    if (value === '') {
+                        e.sender.element.closest('tr').find("input[name^='txtField']").attr('disabled', 'disabled');
+                        e.sender.element.closest('tr').find("input[name^='txtField']").val('');
+                        e.sender.element.closest('tr').find("td:eq(2)").text('');
+                        e.sender.element.closest('tr').find("input[name^='hdnFieldId']").val('');
+                        e.sender.element.closest('tr').find("input[type=radio]").attr('disabled', 'disabled');
+                    }
+                    else if (value === 'select_object') {
+                        e.sender.element.closest('tr').find("input[name^='sourceClassField']").click();
+                        e.sender.element.closest('tr').find("input[type=radio]").removeAttr('disabled');
+                    }
+                    else {
+                        if (e.sender.element.closest('tr').find("input[name^='txtField']").val() !== '') {
                             e.sender.element.closest('tr').find("input[name^='txtField']").val('');
-                            e.sender.element.closest('tr').find("td:eq(2)").text('');
                             e.sender.element.closest('tr').find("input[name^='hdnFieldId']").val('');
-                            e.sender.element.closest('tr').find("input[type=radio]").attr('disabled', 'disabled');
                         }
-                        else if (value === 'select_object') {
-                            e.sender.element.closest('tr').find("input[name^='sourceClassField']").click();
-                            e.sender.element.closest('tr').find("input[type=radio]").removeAttr('disabled');
-                        }
-                        else {
-                            if (e.sender.element.closest('tr').find("input[name^='txtField']").val() !== '') {
-                                e.sender.element.closest('tr').find("input[name^='txtField']").val('');
-                                e.sender.element.closest('tr').find("input[name^='hdnFieldId']").val('');
-
-                            }
-                            e.sender.element.closest('tr').find("td:eq(2)").text('');
-                            e.sender.element.closest('tr').find("input[type=radio]").removeAttr('disabled');
-                            e.sender.element.closest('tr').find("input[name^='txtField']").removeAttr('disabled').addClass('required');
-                        }
+                        e.sender.element.closest('tr').find("td:eq(2)").text('');
+                        e.sender.element.closest('tr').find("input[type=radio]").removeAttr('disabled');
+                        e.sender.element.closest('tr').find("input[name^='txtField']").removeAttr('disabled').addClass('required');
                     }
                 }
-            );
-
-
+            });
             self.SetRequiredFieldsForProperty(row);
         };
         self.SetRequiredFieldsForProperty = function (row) {
-
-            //jQuery('#propertiesGrid').find('tr').each(function (index, row) {
-            //    row = jQuery(row);
-            if (row.find('select[name=SourcePropertyObject]').length > 0) {
-
+            if (row.find('select[name=SourcePropertyObject]').length) {
                 if (row.find('select[name=SourcePropertyObject]').data("kendoDropDownList").value() !== '') {
-
                     row.find("input[name^='txtField']").removeAttr('disabled').addClass('required');
                     row.find("input[name^='txtField']").val('');
                     row.find("input[name^='hdnFieldId']").val('');
                     row.find("input[type=radio]").removeAttr('disabled');
                 }
                 else {
-
                     row.find("input[name^='txtField']").attr('disabled', 'disabled');
                     row.find("input[name^='txtField']").val('');
                     row.find("input[name^='hdnFieldId']").val('');
                     row.find("input[type=radio]").attr('disabled', 'disabled');
                 }
             }
-            // });
-
         };
         self.RemoveFilterCallback = function (row, isRemoved) {
-
             if (isRemoved) {
                 $(row).closest('tr').find("select[name='SourceObject']").removeClass('required');
                 $(row).closest('tr').find("select[name='refrencedObject']").removeClass('required');
                 $(row).closest('tr').find("input[name^='txtField']").removeClass('required');
                 $(row).closest('tr').find("input[name^='txtFilterValues']").removeClass('required');
-
             }
             else {
                 $(row).closest('tr').find("select[name='SourceObject']").addClass('required');
                 $(row).closest('tr').find("select[name='refrencedObject']").addClass('required');
                 $(row).closest('tr').find("input[name^='txtField']").addClass('required');
                 $(row).closest('tr').find("input[name^='txtFilterValues']").removeClass('required');
-
             }
         };
 
         self.AddReferenceFilterCallback = function (row) {
-
             MC.ui.popup();
             MC.ui.multipleinput();
 
-            row.find('select[name="SourceObject"]').kendoDropDownList(
-                {
-                    select: function (e) {
-                        var dataItem = this.dataItem(e.item.index());
-                        var value = dataItem.value;
+            row.find('select[name="SourceObject"]').kendoDropDownList({
+                select: function (e) {
+                    var dataItem = this.dataItem(e.item.index());
+                    var value = dataItem.value;
 
-                        if (value === '') {
-                            e.sender.element.closest('tr').find("input[type=radio]").attr('disabled', 'disabled');
-                            e.sender.element.closest('tr').find("select[name='refrencedObject']").data("kendoDropDownList").enable(false);
-                            e.sender.element.closest('tr').find("select[name='refrencedObject']").data("kendoDropDownList").value('');
-                            e.sender.element.closest('tr').find("input[type=checkbox]").attr('disabled', 'disabled');
-                            e.sender.element.closest('tr').find("input[type=checkbox]").prop('checked', false);
-                            e.sender.element.closest('tr').find("input[name^='txtField']").attr('disabled', 'disabled');
+                    if (value === '') {
+                        e.sender.element.closest('tr').find("input[type=radio]").attr('disabled', 'disabled');
+                        e.sender.element.closest('tr').find("select[name='refrencedObject']").data("kendoDropDownList").enable(false);
+                        e.sender.element.closest('tr').find("select[name='refrencedObject']").data("kendoDropDownList").value('');
+                        e.sender.element.closest('tr').find("input[type=checkbox]").attr('disabled', 'disabled');
+                        e.sender.element.closest('tr').find("input[type=checkbox]").prop('checked', false);
+                        e.sender.element.closest('tr').find("input[name^='txtField']").attr('disabled', 'disabled');
+                        e.sender.element.closest('tr').find("input[name^='txtField']").val('');
+                        e.sender.element.closest('tr').find("input[name^='hdnFieldId']").val('');
+
+                        e.sender.element.closest('tr').find("input[name^=txtFilterValues]").val('');
+                        e.sender.element.closest('tr').find("input[name^=txtFilterValues]").removeTag([]);
+                    }
+                    else if (value === 'select_object') {
+                        e.sender.element.closest('tr').find("input[name^='sourceClassField']").click();
+                    }
+                    else {
+                        e.sender.element.closest('tr').find("input[type=radio]").removeAttr('disabled');
+                        e.sender.element.closest('tr').find("select[name='refrencedObject']").data("kendoDropDownList").enable(true);
+
+                        if (e.sender.element.closest('tr').find("input[name^='txtField']").val() !== '') {
                             e.sender.element.closest('tr').find("input[name^='txtField']").val('');
                             e.sender.element.closest('tr').find("input[name^='hdnFieldId']").val('');
-
-                            e.sender.element.closest('tr').find("input[name^=txtFilterValues]").val('');
-                            e.sender.element.closest('tr').find("input[name^=txtFilterValues]").removeTag([]);
-
                         }
-                        else if (value === 'select_object') {
-                            e.sender.element.closest('tr').find("input[name^='sourceClassField']").click();
-                        }
+                        e.sender.element.closest('tr').find("input[name^='txtField']").removeAttr('disabled');
 
-                        else {
-                            /* e.sender.element.closest('tr').find("input[type=checkbox]").attr('disabled', 'disabled');
-                             e.sender.element.closest('tr').find("input[type=checkbox]").prop('checked', false);
-                          
-                           
-                             e.sender.element.closest('tr').find("input[name^=txtFilterValues]").val('');
-                             e.sender.element.closest('tr').find("input[name^=txtFilterValues]").removeTag([]);*/
-                            e.sender.element.closest('tr').find("input[type=radio]").removeAttr('disabled');
-                            e.sender.element.closest('tr').find("select[name='refrencedObject']").data("kendoDropDownList").enable(true);
+                        var newTargetDataSource = [
+                            { text: Localization.PleaseSelect, value: "" },
+                            { text: "(Self)", value: "(self)" },
+                            { text: Localization.MC_SelectObject, value: "select_object" }
+                        ];
 
-                            if (e.sender.element.closest('tr').find("input[name^='txtField']").val() !== '') {
-                                e.sender.element.closest('tr').find("input[name^='txtField']").val('');
-                                e.sender.element.closest('tr').find("input[name^='hdnFieldId']").val('');
+                        e.sender.element.closest('tr').find('select[name="refrencedObject"]').data("kendoDropDownList").dataSource.data(newTargetDataSource);
+                        e.sender.element.closest('tr').find('select[name="refrencedObject"]').data("kendoDropDownList").value('');
+                        e.sender.element.closest('tr').find("input[name^='txtField']").attr('disabled', 'disabled');
+                        e.sender.element.closest('tr').find("input[type=checkbox]").attr('disabled', 'disabled');
+                        e.sender.element.closest('tr').find("input[type=checkbox]").prop('checked', false);
 
-                            }
-                            e.sender.element.closest('tr').find("input[name^='txtField']").removeAttr('disabled');
-
-                            var newTargetDataSource =
-                                [
-                                    { text: Localization.PleaseSelect, value: "" },
-                                    { text: "(Self)", value: "(self)" },
-                                    { text: Localization.MC_SelectObject, value: "select_object" }
-
-                                ];
-
-                            e.sender.element.closest('tr').find('select[name="refrencedObject"]').data("kendoDropDownList").dataSource.data(newTargetDataSource);
-                            e.sender.element.closest('tr').find('select[name="refrencedObject"]').data("kendoDropDownList").value('');
-                            //  e.sender.element.closest('tr').find('select[name="refrencedObject"]').data("kendoDropDownList").enable(false);
-                            e.sender.element.closest('tr').find("input[name^='txtField']").attr('disabled', 'disabled');
-                            e.sender.element.closest('tr').find("input[type=checkbox]").attr('disabled', 'disabled');
-                            e.sender.element.closest('tr').find("input[type=checkbox]").prop('checked', false);
-
-                            e.sender.element.closest('tr').find("input[name^=txtFilterValues]").val('');
-                            e.sender.element.closest('tr').find("input[name^=txtFilterValues]").removeTag([]);
-
-                        }
+                        e.sender.element.closest('tr').find("input[name^=txtFilterValues]").val('');
+                        e.sender.element.closest('tr').find("input[name^=txtFilterValues]").removeTag([]);
                     }
                 }
-            );
+            });
 
-            row.find('select[name="refrencedObject"]').kendoDropDownList(
-                {
-                    select: function (e) {
+            row.find('select[name="refrencedObject"]').kendoDropDownList({
+                select: function (e) {
+                    var dataItem = this.dataItem(e.item.index());
+                    var value = dataItem.value;
+                    if (value === '') {
+                        e.sender.element.closest('tr').find("input[type=checkbox]").attr('disabled', 'disabled');
+                        e.sender.element.closest('tr').find("input[type=checkbox]").prop('checked', false);
+                        e.sender.element.closest('tr').find("input[name^='txtField']").attr('disabled', 'disabled');
+                        e.sender.element.closest('tr').find("input[name^='txtField']").val('');
+                        e.sender.element.closest('tr').find("input[name^='hdnFieldId']").val('');
+                    }
+                    else if (value === 'select_object') {
+                        e.sender.element.closest('tr').find("input[name^='targetClass']").click();
+                        e.sender.element.closest('tr').find("input[type=checkbox]").attr('disabled', 'disabled');
+                        e.sender.element.closest('tr').find("input[type=checkbox]").prop('checked', false);
+                    }
+                    else if (value === '(self)') {
+                        e.sender.element.closest('tr').find("input[name^='txtField']").removeAttr('disabled');
+                        e.sender.element.closest('tr').find("input[name^='txtField']").val('');
 
-                        var dataItem = this.dataItem(e.item.index());
-                        var value = dataItem.value;
-                        if (value === '') {
-                            e.sender.element.closest('tr').find("input[type=checkbox]").attr('disabled', 'disabled');
-                            e.sender.element.closest('tr').find("input[type=checkbox]").prop('checked', false);
-                            e.sender.element.closest('tr').find("input[name^='txtField']").attr('disabled', 'disabled');
-                            e.sender.element.closest('tr').find("input[name^='txtField']").val('');
-                            e.sender.element.closest('tr').find("input[name^='hdnFieldId']").val('');
-                            //e.sender.element.closest('tr').find("input[name^='txtFilterValues']").val('');
-                            //e.sender.element.closest('tr').find("input[name^='txtFilterValues']").prop('disabled', true);
-                        }
-                        else if (value === 'select_object') {
-                            e.sender.element.closest('tr').find("input[name^='targetClass']").click();
-                            e.sender.element.closest('tr').find("input[type=checkbox]").attr('disabled', 'disabled');
-                            e.sender.element.closest('tr').find("input[type=checkbox]").prop('checked', false);
-                        }
-                        else if (value === '(self)') {
+                        e.sender.element.closest('tr').find("input[type=checkbox]").attr('disabled', 'disabled');
+                        e.sender.element.closest('tr').find("input[type=checkbox]").prop('checked', false);
+                    }
+                    else {
+                        e.sender.element.closest('tr').find("input[type=radio]").removeAttr('disabled');
+                        e.sender.element.closest('tr').find("input[name^='txtField']").removeAttr('disabled');
+                        e.sender.element.closest('tr').find("input[name^='txtField']").val('');
 
-
-                            e.sender.element.closest('tr').find("input[name^='txtField']").removeAttr('disabled');
-                            e.sender.element.closest('tr').find("input[name^='txtField']").val('');
-
-                            e.sender.element.closest('tr').find("input[type=checkbox]").attr('disabled', 'disabled');
-                            e.sender.element.closest('tr').find("input[type=checkbox]").prop('checked', false);
-                        }
-                        else {
-                            e.sender.element.closest('tr').find("input[type=radio]").removeAttr('disabled');
-                            e.sender.element.closest('tr').find("input[name^='txtField']").removeAttr('disabled');
-                            e.sender.element.closest('tr').find("input[name^='txtField']").val('');
-
-
-                            e.sender.element.closest('tr').find("input[type=checkbox]").removeAttr('disabled');
-                            e.sender.element.closest('tr').find("input[type=checkbox]").prop('checked', false);
-
-                        }
+                        e.sender.element.closest('tr').find("input[type=checkbox]").removeAttr('disabled');
+                        e.sender.element.closest('tr').find("input[type=checkbox]").prop('checked', false);
                     }
                 }
-            );
+            });
 
             self.SetRequiredFields(row);
         };
         self.SetRequiredFields = function (row) {
-
             row = $(row);
             row.find("input[type=radio]").attr('disabled', 'disabled');
             row.find("select[name='refrencedObject']").data("kendoDropDownList").enable(false);
@@ -2017,13 +1930,11 @@
             row.find("input[name^='txtField']").attr('disabled', 'disabled');
             row.find("input[name^='txtField']").val('');
             row.find("input[name^='hdnFieldId']").val('');
-            /*   row.find("input[name^='txtFilterValues']").val('');
-               row.find("input[name^='txtFilterValues']").prop('disabled', true);*/
         };
 
         self.RemoveAllowValueTemporary = function (obj, isRemove) {
-            var data = $(obj).data('parameters'),
-                value = jQuery.trim(data.allowValue);
+            var data = $(obj).data('parameters');
+            var value = jQuery.trim(data.allowValue);
 
             var index = self.RemovedAllowValue.indexOf(value);
             if (isRemove) {
@@ -2038,8 +1949,8 @@
             }
         };
         self.RemoveDisAllowValueTemporary = function (obj, isRemove) {
-            var data = $(obj).data('parameters'),
-                value = jQuery.trim(data.disAllowValue);
+            var data = $(obj).data('parameters');
+            var value = jQuery.trim(data.disAllowValue);
 
             var index = self.RemovedDisAllowValue.indexOf(value);
             if (isRemove) {
@@ -2055,7 +1966,7 @@
         };
         self.DeleteField = function () {
             $('#btnRemoveField').hide();
-            $('#SelectedField').val("");
+            $('#SelectedField').val('');
         };
         self.ChooseDenyClass = function () {
             $('#btnAddFilter').addClass('disabled');
@@ -2092,8 +2003,7 @@
         };
         self.SubmitObjectPropertyFieldsChooser = function () {
 
-            if (fieldsChooserModel.SelectedItems().length > 0) {
-
+            if (fieldsChooserModel.SelectedItems().length) {
                 jQuery.each(fieldsChooserModel.SelectedItems(), function (k, v) {
                     var source = fieldsChooserModel.GetFieldSourceByUri(v.source);
                     $(self.CurrentGridField).val(source ? source.short_name + " - " + v.short_name : v.short_name);
@@ -2105,7 +2015,6 @@
                     else {
                         self.BindMultiInputControl(fieldsChooserModel.SelectedItems()[0]);
                     }
-
                 });
                 $('#gridDisabled').remove();
             }
@@ -2123,7 +2032,7 @@
             data.referenceIndex = self.ReferenceIndex;
 
             var isAllowAccessType = $('input:radio[name=AccessType]:checked').val();
-            data.isAllowAccessType = isAllowAccessType === "true" ? true : (isAllowAccessType === 'false' ? false : null);
+            data.isAllowAccessType = isAllowAccessType === "true" ? true : isAllowAccessType === 'false' ? false : null;
             data.IsAnyObjectToClass = self.IsAnyObjectToClass;
 
             data.objectData = self.GetReferenceFiltersDataFromGrid();
@@ -2135,7 +2044,6 @@
             jQuery('#ReferenceFilterGrid .k-grid-content tr').each(function (index, row) {
                 row = jQuery(row);
                 if (!row.hasClass('rowMaskAsRemove') && !row.hasClass('k-no-data')) {
-
                     var sourceObject = row.find('select[name=SourceObject]').val();
 
                     var filters = {};
@@ -2168,7 +2076,6 @@
                         filters.field_filters = [];
                         filters.allow_all_null = row.find("input[name^='IsAllow']").prop('checked');
                         filters.field_filters.push(fieldFilter);
-
                     }
                     else {
                         var filter = {};
@@ -2183,7 +2090,6 @@
                     }
 
                     values.push(filters);
-
                 }
             });
 
@@ -2202,20 +2108,20 @@
             }
 
             var data = self.GetRoleObjectData();
-
-            MC.ajax.request({
-                url: self.SaveObjectUri,
-                parameters: {
-                    objectIndex: data.objectIndex,
-                    roleUri: data.roleUri,
-                    modelUri: data.modelUri,
-                    modelId: data.modelId,
-                    referenceFilter: JSON.stringify(data.objectData),
-                    isAllowAccessType: data.isAllowAccessType
-                },
-                type: 'POST',
-                ajaxSuccess: function (metadata, data, status, xhr) {
-
+            MC.ajax
+                .request({
+                    url: self.SaveObjectUri,
+                    parameters: {
+                        objectIndex: data.objectIndex,
+                        roleUri: data.roleUri,
+                        modelUri: data.modelUri,
+                        modelId: data.modelId,
+                        referenceFilter: JSON.stringify(data.objectData),
+                        isAllowAccessType: data.isAllowAccessType
+                    },
+                    type: 'POST'
+                })
+                .done(function (data) {
                     if (data.session_needs_update) {
                         MC.util.showPopupConfirmation(Localization.MC_ConfirmChangePrivileges, function () {
                             jQuery('#logoutForm').submit();
@@ -2226,8 +2132,7 @@
                     else {
                         location.hash = self.RolePageUri + '?parameters=' + JSON.stringify(data.parameters);
                     }
-                }
-            });
+                });
         };
         /* end - role object page */
 
@@ -2357,8 +2262,6 @@
                 self.ClientSettings = clientSettings;
             };
 
-
-
             // map popup fields
             if (fieldsChooserFor === self.FIELDSCHOOSER_FOR.PROPERTY) {
                 addedFields = jQuery('#propertiesGrid tbody tr').find('input[name="id"]').map(function () { return this.value; }).get();
@@ -2409,7 +2312,6 @@
         self.ClassesChooserHandler = null;
         self.ClassesChooserFor = null;
         self.InitialClassesChooser = function () {
-
             var settings = {
                 model: self.ModelUri,
                 createby_object: {
@@ -2430,7 +2332,7 @@
             self.ClassesChooserHandler.BusinessProcessHandler.Theme('flat');
             self.ClassesChooserHandler.BusinessProcessHandler.MultipleActive(true);
             self.ClassesChooserHandler.BusinessProcessHandler.CanEmpty(true);
-            self.ClassesChooserHandler.BusinessProcessHandler.ClickCallback(function (data, e, status) {
+            self.ClassesChooserHandler.BusinessProcessHandler.ClickCallback(function () {
                 self.ClassesChooserHandler.FilterClasses();
             });
             self.ClassesChooserHandler.BusinessProcessHandler.ClickHeaderCallback(function (oldList, newList) {
@@ -2445,7 +2347,6 @@
             });
 
             self.ClassesChooserHandler.AbortAll = function () {
-                //MC.system.abort();
                 MC.ajax.abortAll();
             };
             self.ClassesChooserHandler.AbortAllRequest = function () {
@@ -2517,7 +2418,7 @@
 
             //submit button
             self.SetSelectedClassesCallback([]);
-            $('#ButtonContinue').off('click').on('click', function (e) {
+            $('#ButtonContinue').off('click').on('click', function () {
                 self.ClassesChooserHandler.OnSubmitClasses(self.ClassesChooserHandler.GetAllSelectedClasses());
             });
 
@@ -2538,10 +2439,11 @@
         };
         self.LoadAngleRelateBusinessProcesses = function (uri, query) {
             disableLoading();
-            return MC.ajax.request({
-                url: self.GetModelAnglesUri,
-                parameters: { modelAnglesUri: uri + '?' + jQuery.param(query) }
-            })
+            return MC.ajax
+                .request({
+                    url: self.GetModelAnglesUri,
+                    parameters: { modelAnglesUri: uri + '?' + jQuery.param(query) }
+                })
                 .then(function (items) {
                     return $.when({ items: items });
                 });
@@ -2554,10 +2456,11 @@
             query['limit'] = self.MaxPageSize;
             query['viewmode'] = 'basic';
             var classUri = uri + '?' + jQuery.param(query);
-            return MC.ajax.request({
-                url: self.GetModelClassesUri,
-                parameters: { modelClassesUri: classUri }
-            })
+            return MC.ajax
+                .request({
+                    url: self.GetModelClassesUri,
+                    parameters: { modelClassesUri: classUri }
+                })
                 .then(function (classes) {
                     return $.when({ classes: classes });
                 });
@@ -2594,7 +2497,7 @@
                             url: self.GetHelpTextUri,
                             parameters: { helpTextUri: helpUri }
                         }))
-                        .done(function (data, status, xhr) {
+                        .done(function (data) {
                             cacheHelps[helpUri] = data;
                             if (data.html_help) {
                                 helpContainer.find('.helpTextContainer').html(data.html_help);
@@ -2670,7 +2573,7 @@
                     row.find("input[name^='txtField']").attr('disabled', 'disabled');
                     row.find("input[type=checkbox]").attr('disabled', 'disabled');
                     row.find("input[type=checkbox]").prop('checked', false);
-                    
+
                     row.find("input[name^=txtFilterValues]").val('');
                     row.find("input[name^=txtFilterValues]").removeTag([]);
                 }

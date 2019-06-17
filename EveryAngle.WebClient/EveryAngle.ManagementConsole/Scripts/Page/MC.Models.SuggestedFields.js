@@ -124,12 +124,12 @@
                             suggestedFieldData: JSON.stringify({ is_suggested: isSuggested })
                         }
                     })
-                    .done(function (data, status, xhr) {
-                        MC.util.massReport.onDone(arguments, deferred, Localization.MC_Field, fieldName, reportIndex);
-                    })
-                    .fail(function (xhr, status, error) {
-                        MC.util.massReport.onFail(arguments, deferred, Localization.MC_Field, fieldName, reportIndex);
-                    });
+                        .done(function (data, status, xhr) {
+                            MC.util.massReport.onDone(arguments, deferred, Localization.MC_Field, fieldName, reportIndex);
+                        })
+                        .fail(function (xhr, status, error) {
+                            MC.util.massReport.onFail(arguments, deferred, Localization.MC_Field, fieldName, reportIndex);
+                        });
 
                     return deferred.promise();
                 };
@@ -170,20 +170,21 @@
                     }
                     else {
                         setTimeout(function () {
-                            MC.ajax.request({
-                                url: self.GetModelSuggestedUri,
-                                parameters: {
-                                    modelSuggestedUri: response.Uri
-                                }
-                            })
-                            .fail(function (xhr, status, error) {
-                                self.ShowAjaxErrorDetail(xhr, status, error, deferred);
-                            })
-                            .done(function (data, status, xhr) {
-                                MC.util.massReport.setStatus(Localization.MC_CurrentProgress, data.status, '');
+                            MC.ajax
+                                .request({
+                                    url: self.GetModelSuggestedUri,
+                                    parameters: {
+                                        modelSuggestedUri: response.Uri
+                                    }
+                                })
+                                .fail(function (xhr, status, error) {
+                                    self.ShowAjaxErrorDetail(xhr, status, error, deferred);
+                                })
+                                .done(function (data) {
+                                    MC.util.massReport.setStatus(Localization.MC_CurrentProgress, data.status, '');
 
-                                checkProgress(data);
-                            });
+                                    checkProgress(data);
+                                });
                         }, 1000);
                     }
                 };
@@ -221,25 +222,23 @@
                     "last_run_result": "not_started",
                     "last_run_time": null,
                     "max_run_time": 0,
-                    //"deleteoncompletion": true,
                     "name": "Mass change of suggested fields type " + self.ClassesChooserFor,
                     "next_run_time": null,
                     "status": "not_started"
                 };
 
-                MC.ajax.request({
-                    url: self.SaveSuggestedByClassessUri,
-                    type: 'POST',
-                    parameters: {
-                        taskData: JSON.stringify(data)
-                    }
-                })
-                .fail(function (xhr, status, error) {
-                    self.ShowAjaxErrorDetail(xhr, status, error, deferred);
-                })
-                .done(function (data, status, xhr) {
-                    checkProgress(data);
-                });
+                MC.ajax
+                    .request({
+                        url: self.SaveSuggestedByClassessUri,
+                        type: 'POST',
+                        parameters: {
+                            taskData: JSON.stringify(data)
+                        }
+                    })
+                    .fail(function (xhr, status, error) {
+                        self.ShowAjaxErrorDetail(xhr, status, error, deferred);
+                    })
+                    .done(checkProgress);
 
                 deferred.always(function () {
                     MC.util.massReport.showReport('Manage suggested fields report', function () {
@@ -281,7 +280,7 @@
             self.ClassesChooserHandler.BusinessProcessHandler.Theme('flat');
             self.ClassesChooserHandler.BusinessProcessHandler.MultipleActive(true);
             self.ClassesChooserHandler.BusinessProcessHandler.CanEmpty(true);
-            self.ClassesChooserHandler.BusinessProcessHandler.ClickCallback(function (data, e, status) {
+            self.ClassesChooserHandler.BusinessProcessHandler.ClickCallback(function () {
                 self.ClassesChooserHandler.FilterClasses();
             });
             self.ClassesChooserHandler.BusinessProcessHandler.ClickHeaderCallback(function (oldList, newList) {
@@ -296,7 +295,6 @@
             });
 
             self.ClassesChooserHandler.AbortAll = function () {
-                //MC.system.abort();
                 MC.ajax.abortAll();
             };
             self.ClassesChooserHandler.AbortAllRequest = function () {
@@ -375,7 +373,7 @@
 
             //submit button
             self.SetSelectedClassesCallback([]);
-            $('#ButtonContinue').off('click').on('click', function (e) {
+            $('#ButtonContinue').off('click').on('click', function () {
                 self.ClassesChooserHandler.OnSubmitClasses(self.ClassesChooserHandler.GetAllSelectedClasses());
             });
 
@@ -427,9 +425,9 @@
         self.ShowHelpText = function (classId) {
             var helpTemplate = [
                 '<div id="helpText">',
-                    '<div class="helpHeaderContainer"></div>',
-                    '<div class="helpTextContainer"></div>',
-                    '<div class="helpAdditionalContainer"></div>',
+                '<div class="helpHeaderContainer"></div>',
+                '<div class="helpTextContainer"></div>',
+                '<div class="helpAdditionalContainer"></div>',
                 '</div>'
             ].join('');
             var helpContainer = $('#popupClassesChooser .Description').html(helpTemplate);
@@ -451,6 +449,8 @@
                     case self.SUGGEST_FOR.CLEAR_ALL:
                         helpHtml = Localization.MC_ClearAll_Instruction;
                         break;
+                    default:
+                        break;
                 }
                 helpContainer.find('.helpTextContainer').html(helpHtml);
             }
@@ -467,19 +467,19 @@
                             cacheHelps[helpUri] = { html_help: '' };
                         }
                         $.when(cacheHelps[helpUri] || MC.ajax.request({
-                            url: self.GetHelpTextUri,
-                            parameters: { helpTextUri: helpUri }
-                        }))
-                        .done(function (data, status, xhr) {
-                            cacheHelps[helpUri] = data;
+                                url: self.GetHelpTextUri,
+                                parameters: { helpTextUri: helpUri }
+                            }))
+                            .done(function (data) {
+                                cacheHelps[helpUri] = data;
 
-                            if (data.html_help) {
-                                helpContainer.find('.helpTextContainer').html(data.html_help);
-                            }
-                        })
-                        .always(function () {
-                            helpContainer.busyIndicator(false);
-                        });
+                                if (data.html_help) {
+                                    helpContainer.find('.helpTextContainer').html(data.html_help);
+                                }
+                            })
+                            .always(function () {
+                                helpContainer.busyIndicator(false);
+                            });
                     }
                 }
             }
@@ -506,9 +506,9 @@
                 url: self.GetModelAnglesUri,
                 parameters: { modelAnglesUri: uri + '?' + jQuery.param(query) }
             })
-            .then(function (items) {
-                return $.when({ items: items });
-            });
+                .then(function (items) {
+                    return $.when({ items: items });
+                });
         };
         self.LoadAllClasses = function (uri) {
             disableLoading();
@@ -522,9 +522,9 @@
                 url: self.GetModelClassesUri,
                 parameters: { modelClassesUri: classUri }
             })
-            .then(function (classes) {
-                return $.when({ classes: classes });
-            });
+                .then(function (classes) {
+                    return $.when({ classes: classes });
+                });
         };
         self.OnSubmitClasses = function (classes) {
             if (classes.length) {
@@ -574,6 +574,8 @@
                         case self.SUGGEST_FOR.CLEAR_ALL:
                             title = Localization.MC_ClearAllSuggestedFieldsForObject;
                             break;
+                        default:
+                            break;
                     }
                     title = kendo.format(title, $('#suggestedIconTemplate').val());
                     self.ShowConfirmPopup(title);
@@ -588,7 +590,7 @@
         self.InitialFieldsChooser = function () {
 
             // private functions
-            var getDataFail = function (xhr, status, error) {
+            var getDataFail = function (xhr, status) {
                 if (status !== 'abort') {
                     self.CloseFieldChooser();
                 }
@@ -613,7 +615,7 @@
             fieldsChooserModel.GetFieldDomainUri = self.GetFieldDomainUri;
             fieldsChooserModel.ModelUri = self.ModelUri;
             fieldsChooserModel.ClientSettings = self.ClientSettings;
-            
+
             // functions
             fieldsChooserModel.SetMarkSelectedItem = function (grid) {
                 var rows = grid.tbody.children();
@@ -629,18 +631,21 @@
             };
             fieldsChooserModel.GetFieldsFunction = function (uri, params, callback) {
                 disableLoading();
-                return MC.ajax.request({
-                    url: self.GetFieldsUri + '?fieldsUri=' + escape(uri + '?' + jQuery.param(params))
-                })
-                .fail(getDataFail)
-                .done(function (data, status, xhr) {
-                    updateFieldStarred(data);
-                    callback(data);
-                });
+                return MC.ajax
+                    .request({
+                        url: self.GetFieldsUri + '?fieldsUri=' + escape(uri + '?' + jQuery.param(params))
+                    })
+                    .fail(getDataFail)
+                    .done(function (data) {
+                        updateFieldStarred(data);
+                        callback(data);
+                    });
             };
             fieldsChooserModel.SetIsStarred = function (e, obj, uid) {
-                if (e.stopPropagation) e.stopPropagation();
-                else e.cancelBubble = true;
+                if (e.stopPropagation)
+                    e.stopPropagation();
+                else
+                    e.cancelBubble = true;
 
                 var grid = jQuery('#DisplayPropertiesGrid').data('kendoGrid');
                 if (grid) {
@@ -671,7 +676,7 @@
             fieldsChooserModel.HideFacetsFunction = function (category, id) {
                 return category === 'facetcat_characteristics' && (id === 'starred' || id === 'facet_isstarred' || id === 'isstarred');
             };
-            fieldsChooserModel.OnGridSelectionChanged = function (selectedItems) {
+            fieldsChooserModel.OnGridSelectionChanged = function () {
                 // update default selected list
                 fieldsChooserModel.SelectedItems(suggestionsList.slice());
 
@@ -749,9 +754,8 @@
             fieldsChooserModel.UpdateClientSettings = function (clientSettings) {
                 self.ClientSettings = clientSettings;
             };
-
         };
-        
+
         self.GetFieldsChooserPopupTitle = function (classes) {
             // start set popup title
             var classNames = classes.slice();
@@ -768,22 +772,19 @@
             // end set popup title
         };
         self.ShowFieldsChooser = function (classes) {
-
             fieldsChooserClasses = classes;
-
             suggestionsList = [];
 
             // get title
             var title = self.GetFieldsChooserPopupTitle(classes);
             MC.ui.fieldschooser.showFieldsChooserPopup(title);
 
-            // add element for show number of selected item(s) 
+            // add element for show number of selected item(s)
             var selectedIndicator = jQuery('<span id="selectedItems"></span>');
             jQuery('#popupFieldChooser .fieldChooserTotals').prepend(selectedIndicator);
 
             // enabled buttons after everything loaded
             MC.ui.fieldschooser.checkFieldsChooserButtons('.btnPropertyCancel, .btnSelectAll, .btnClearAll');
-            
         };
         self.CloseFieldChooser = function () {
             if (fieldsChooserModel.FieldChooserPopup) {
@@ -845,11 +846,10 @@
                                     if (item.is_suggested !== isSuggested) {
                                         item.is_suggested = isSuggested;
                                     }
-                                    if (modelField.is_suggested !== isSuggested) {
-                                        if (suggestionsList.findObject('id', dataItem.id) === null) {
-                                            item.is_suggested = isSuggested;
-                                            suggestionsList.push(item.toJSON ? item.toJSON() : ko.toJS(item));
-                                        }
+                                    if (modelField.is_suggested !== isSuggested
+                                        && !suggestionsList.findObject('id', dataItem.id)) {
+                                        item.is_suggested = isSuggested;
+                                        suggestionsList.push(item.toJSON ? item.toJSON() : ko.toJS(item));
                                     }
                                 });
                             });

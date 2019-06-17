@@ -85,7 +85,6 @@ describe("ModelsHandler", function () {
     });
 
     describe(".GetResultClassesFromFollowupInfo", function () {
-
         var tests = [
             {
                 title: 'should use fallback if no followup steps',
@@ -116,15 +115,13 @@ describe("ModelsHandler", function () {
                 expected: 'f1,f2'
             }
         ];
-
-        $.each(tests, function (index, test) { 
+        $.each(tests, function (index, test) {
             it(test.title, function () {
                 spyOn(modelFollowupsHandler, 'GetFollowupByQueryStep').and.returnValue(test.followupData);
                 var result = modelsHandler.GetResultClassesFromFollowupInfo(test.followupInfo, '', test.fallback);
                 expect(result.join(',')).toEqual(test.expected);
             });
         });
-
     });
 
 });

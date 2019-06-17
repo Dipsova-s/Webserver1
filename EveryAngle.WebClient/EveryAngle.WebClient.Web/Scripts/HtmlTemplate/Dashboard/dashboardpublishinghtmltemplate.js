@@ -33,4 +33,4 @@ var dashboardPublishingHtmlTemplate = function () {
     dashboardPublishingHtmlTemplate += "    <\/div>";
     dashboardPublishingHtmlTemplate += "<\/div>";
     return dashboardPublishingHtmlTemplate;
-}
+};

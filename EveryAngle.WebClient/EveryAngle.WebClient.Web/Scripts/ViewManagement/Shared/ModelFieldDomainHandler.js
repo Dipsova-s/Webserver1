@@ -62,18 +62,18 @@ function ModelFieldDomainHandler() {
     self.SetData(data, [storage=true])          [void] set data to cache
     self.GetModelUriFromData(data)              [string] get model's uri by model data
     ==================================================*/
-    
+
     /*=============== custom functions ===============*/
     self.LoadFieldDomain = function (uri) {
-        if (!uri) return jQuery.when(null);
+        if (!uri)
+            return jQuery.when(null);
 
         var data = self.GetFieldDomainByUri(uri);
-        if (data) {
+        if (data)
             return jQuery.when(data);
-        }
 
         return jQuery.when(GetDataFromWebService(directoryHandler.ResolveDirectoryUri(uri)))
-            .done(function (data, status, xhr) {
+            .done(function (data) {
                 self.SetData([data]);
             });
     };
@@ -133,18 +133,11 @@ function ModelFieldDomainHandler() {
         if (domain && name) {
             name = name.toLowerCase();
             jQuery.each(domain.elements, function (index, element) {
-                if (element.long_name) {
-                    if (element.long_name.toLowerCase() === name) {
-                        result = element;
-                        return false;
-                    }
-                }
-
-                if (element.short_name) {
-                    if (element.short_name.toLowerCase() === name) {
-                        result = element;
-                        return false;
-                    }
+                var matchLongName = element.long_name && element.long_name.toLowerCase() === name;
+                var matchShortName = element.short_name && element.short_name.toLowerCase() === name;
+                if (matchLongName || matchShortName) {
+                    result = element;
+                    return false;
                 }
             });
         }

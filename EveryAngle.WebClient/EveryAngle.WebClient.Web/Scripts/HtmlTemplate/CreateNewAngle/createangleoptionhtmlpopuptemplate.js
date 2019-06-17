@@ -26,14 +26,14 @@ var createAngleOptionHtmlTemplate = function () {
     createAngleOptionHtmlTemplate += "            <div class=\"buttonContainer\">";
     createAngleOptionHtmlTemplate += "                <div class=\"dropdownList\"><\/div>";
     createAngleOptionHtmlTemplate += "                <div class=\"showObjectButton\">";
-	createAngleOptionHtmlTemplate += "                    <a class=\"btn btnRight btnCreateFromSchema\" id=\"ButtonCreateAngleFromSchemaDetailed\" onclick=\"createNewAngleViewManagementModel.ShowCreateAngleBySchema(createNewAngleViewManagementModel.SCHEMAVIEWTYPE.DETAILED)\"><span>" + Captions.Button_Continue + "<\/span><\/a>";
+    createAngleOptionHtmlTemplate += "                    <a class=\"btn btnRight btnCreateFromSchema\" id=\"ButtonCreateAngleFromSchemaDetailed\" onclick=\"createNewAngleViewManagementModel.ShowCreateAngleBySchema(createNewAngleViewManagementModel.SCHEMAVIEWTYPE.DETAILED)\"><span>" + Captions.Button_Continue + "<\/span><\/a>";
     createAngleOptionHtmlTemplate += "                <\/div>";
     createAngleOptionHtmlTemplate += "            <\/div>";
     createAngleOptionHtmlTemplate += "        <\/div>";
     createAngleOptionHtmlTemplate += "    <\/div>";
     createAngleOptionHtmlTemplate += "    <div class=\"content\">";
     createAngleOptionHtmlTemplate += "        <div class=\"imageSection\">";
-	createAngleOptionHtmlTemplate += "            <img alt=\"" + Localization.CreateFromObjects + "\" src=\"" + GetImageFolderPath() + "angle\/create_new_full_list.png\" onclick=\"createNewAngleViewManagementModel.ShowCreateAngleByObject()\" height=\"122\" width=\"167\"\/>";
+    createAngleOptionHtmlTemplate += "            <img alt=\"" + Localization.CreateFromObjects + "\" src=\"" + GetImageFolderPath() + "angle\/create_new_full_list.png\" onclick=\"createNewAngleViewManagementModel.ShowCreateAngleByObject()\" height=\"122\" width=\"167\"\/>";
     createAngleOptionHtmlTemplate += "        <\/div>";
     createAngleOptionHtmlTemplate += "        <div class=\"contentSection\">";
     createAngleOptionHtmlTemplate += "            <h2>" + Localization.CreateFromObjects + "<\/h2>";
@@ -41,7 +41,7 @@ var createAngleOptionHtmlTemplate = function () {
     createAngleOptionHtmlTemplate += "            <div class=\"buttonContainer\">";
     createAngleOptionHtmlTemplate += "                <div class=\"dropdownList\"><\/div>";
     createAngleOptionHtmlTemplate += "                <div class=\"showObjectButton\">";
-	createAngleOptionHtmlTemplate += "                    <a class=\"btn btnRight btnCreateFromObject\" id=\"ButtonCreateAngleFromObjects\" onclick=\"createNewAngleViewManagementModel.ShowCreateAngleByObject()\"><span>" + Captions.Button_Continue + "<\/span><\/a>";
+    createAngleOptionHtmlTemplate += "                    <a class=\"btn btnRight btnCreateFromObject\" id=\"ButtonCreateAngleFromObjects\" onclick=\"createNewAngleViewManagementModel.ShowCreateAngleByObject()\"><span>" + Captions.Button_Continue + "<\/span><\/a>";
     createAngleOptionHtmlTemplate += "                <\/div>";
     createAngleOptionHtmlTemplate += "            <\/div>";
     createAngleOptionHtmlTemplate += "        <\/div>";
@@ -49,5 +49,4 @@ var createAngleOptionHtmlTemplate = function () {
     createAngleOptionHtmlTemplate += "<\/div>";
 
     return createAngleOptionHtmlTemplate;
-}
-
+};

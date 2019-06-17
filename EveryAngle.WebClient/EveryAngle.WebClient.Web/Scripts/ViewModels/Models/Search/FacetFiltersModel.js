@@ -34,7 +34,7 @@ function FacetFiltersViewModel() {
         query[enumHandlers.SEARCHPARAMETER.VIEWMODE] = enumHandlers.VIEWMODETYPE.BASIC;
 
         return GetDataFromWebService(uri, query)
-            .done(function (data, status, xhr) {
+            .done(function (data) {
                 self.SetFacetAndSort(data);
             });
     };
@@ -224,24 +224,22 @@ function FacetFiltersViewModel() {
                         facetData.filters.push(filter);
                     }
                     else {
-                        // get facet detail from cach   
+                        // get facet detail from cach
                         // Fix M4-14475: WC: Facet name will change when I select many facets
                         var cachFacetName = filterId;
                         var cachDescription = filterId;
-                        if (facetsCache) {
-                            var cachFacetItem = facetsCache.findObject('id', facetId, false);
-                            if (cachFacetItem) {
+                        var cachFacetItem = facetsCache.findObject('id', facetId, false);
+                        if (cachFacetItem) {
 
-                                filterItemList = [];
-                                jQuery.each(cachFacetItem.filters, function (index, filterItem) {
-                                    filterItemList.push(filterItem);
-                                });
+                            filterItemList = [];
+                            jQuery.each(cachFacetItem.filters, function (index, filterItem) {
+                                filterItemList.push(filterItem);
+                            });
 
-                                var cachFilterItem = filterItemList.findObject('id', filterId, false);
-                                if (cachFilterItem) {
-                                    cachFacetName = cachFilterItem.name;
-                                    cachDescription = cachFilterItem.description;
-                                }
+                            var cachFilterItem = filterItemList.findObject('id', filterId, false);
+                            if (cachFilterItem) {
+                                cachFacetName = cachFilterItem.name;
+                                cachDescription = cachFilterItem.description;
                             }
                         }
                         facetData.filters.push({
@@ -296,7 +294,7 @@ function FacetFiltersViewModel() {
         });
     };
     self.GetCategoryById = function (id) {
-        return jQuery.grep(self.Data(), function (obj, idx) { return obj.id === id; });
+        return jQuery.grep(self.Data(), function (obj) { return obj.id === id; });
     };
     self.IsFacetVisible = function (facet) {
         var isGeneralGroup = self.GroupGeneral === facet.type || self.GroupBusinessProcess === facet.type;
@@ -320,13 +318,8 @@ function FacetFiltersViewModel() {
             return false;
         }
         else if (id === 'facet_has_warnings') {
-            if (userModel.IsPossibleToCreateAngle()
-                && userSettingModel.GetClientSettingByPropertyName(enumHandlers.CLIENT_SETTINGS_PROPERTY.SHOW_FACET_ANGLE_WARNINGS)) {
-                return true;
-            }
-            else {
-                return false;
-            }
+            return userModel.IsPossibleToCreateAngle()
+                && userSettingModel.GetClientSettingByPropertyName(enumHandlers.CLIENT_SETTINGS_PROPERTY.SHOW_FACET_ANGLE_WARNINGS);
         }
         else {
             var canCreateAngle = privilegesViewModel.IsAllowCreateAngle();
@@ -517,7 +510,7 @@ function FacetFiltersViewModel() {
             });
         }
     };
-    self.SetFacetFilterFromUrlToUI = function (facetFilterParameter) {
+    self.SetFacetFilterFromUrlToUI = function () {
         self.UpdatePreferenceText();
     };
     self.SortFacetFilter = function (list, sortBy, convertor, direction) {
@@ -525,7 +518,7 @@ function FacetFiltersViewModel() {
         return jQuery(list).sort(function (a, b) {
             var x = convertor(a[sortBy]),
                 y = convertor(b[sortBy]);
-            return (x < y ? -1 : (x > y ? 1 : 0)) * (direction === 'DESC' ? -1 : 1);
+            return (x < y ? -1 : x > y ? 1 : 0) * (direction === 'DESC' ? -1 : 1);
         });
     };
     self.FilterItems = function (model, event, parent) {

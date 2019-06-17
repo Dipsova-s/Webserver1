@@ -34,15 +34,15 @@
         self.DeletionCheckMark = function (obj, isRemove) {
             var data = $(obj).data('parameters');
             var languageUri = self.GetCleanLanguageUri(data.languageUri);
-            var index = $.inArray(languageUri, self.DeleteList);
+            var itemIndex = $.inArray(languageUri, self.DeleteList);
             if (isRemove) {
-                if (index === -1) {
+                if (itemIndex === -1) {
                     self.DeleteList.push(languageUri);
                 }
             }
             else {
-                if (index !== -1) {
-                    self.DeleteList.splice(index, 1);
+                if (itemIndex !== -1) {
+                    self.DeleteList.splice(itemIndex, 1);
                 }
             }
         };
@@ -80,7 +80,7 @@
         self.GetData = function () {
             MC.form.clean();
             var languagesData = [];
-            $('#AvailableLanguagesGrid').find('tbody').find('tr').each(function (index) {
+            $('#AvailableLanguagesGrid').find('tbody').find('tr').each(function () {
                 var isNew = $(this).hasClass('newRow');
                 var languageUri = self.GetCleanLanguageUri($(this).find("input[name=uri]").val());
                 if (languageUri) {
@@ -89,9 +89,9 @@
                     var langName = $.trim(isNew ? $(this).find('.k-input').text() : $(this).find("td:first").text());
                     if (isMarkAsRemove) {
                         row = { 'Uri': languageUri, 'Enabled': false, 'Name': langName };
-                        var index = $.inArray(languageUri, self.DeleteList);
-                        if (index !== -1)
-                            self.DeleteList.splice(index, 1);
+                        var deleteIndex = $.inArray(languageUri, self.DeleteList);
+                        if (deleteIndex !== -1)
+                            self.DeleteList.splice(deleteIndex, 1);
                     }
                     else {
                         row = { 'Uri': languageUri, 'Enabled': true, 'Name': langName };
@@ -114,7 +114,7 @@
         };
 
         self.SaveLanguageSettings = function () {
-            
+
             MC.form.clean();
 
             if (!jQuery('#LanguageSettingsForm').valid()) {
@@ -132,31 +132,31 @@
                     languagesData: JSON.stringify(languagesData.languages)
                 }
             })
-            .fail(function () {
-                $('#loading .loadingClose').one('click.close', MC.ajax.reloadMainContent);
-            })
-            .done(function (data, status, xhr) {
-                if (data.removedData.length > 0 || !($.isEmptyObject(data.un_removeData))) {
-                    var text = '';
-                    if (data.removedData.length > 0) {
-                        text += '<p>' + Localization.MC_RemovedLanguagesList + '</p>'
-                        $.each(data.removedData, function (index, item) {
-                            text += '<p>' + item + '</p>'
-                        });
-                    }
-                    if (!$.isEmptyObject(data.un_removeData)) {
-                        text += '<p>' + Localization.MC_UnRemovedLanguagesList + '</p>'
-                        $.each(data.un_removeData, function (key, value) {
-                            text += '<p>' + key + ', ' + value + '</p>'
-                        });
-                    }
+                .fail(function () {
+                    $('#loading .loadingClose').one('click.close', MC.ajax.reloadMainContent);
+                })
+                .done(function (data) {
+                    if (data.removedData.length > 0 || !($.isEmptyObject(data.un_removeData))) {
+                        var text = '';
+                        if (data.removedData.length > 0) {
+                            text += '<p>' + Localization.MC_RemovedLanguagesList + '</p>';
+                            $.each(data.removedData, function (index, item) {
+                                text += '<p>' + item + '</p>';
+                            });
+                        }
+                        if (!$.isEmptyObject(data.un_removeData)) {
+                            text += '<p>' + Localization.MC_UnRemovedLanguagesList + '</p>';
+                            $.each(data.un_removeData, function (key, value) {
+                                text += '<p>' + key + ', ' + value + '</p>';
+                            });
+                        }
 
-                    MC.util.showPopupOK(Localization.MC_DeletedLanguagesTitle, text, "MC.ajax.reloadMainContent()");
-                }
-                else {
-                    MC.ajax.reloadMainContent();
-                }
-            });
+                        MC.util.showPopupOK(Localization.MC_DeletedLanguagesTitle, text, "MC.ajax.reloadMainContent()");
+                    }
+                    else {
+                        MC.ajax.reloadMainContent();
+                    }
+                });
             return false;
         };
     }

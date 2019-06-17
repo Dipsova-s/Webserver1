@@ -20,6 +20,14 @@
 
     "use strict";
 
+    var compare = function (value, filter, sensitive) {
+        if (sensitive === false) {
+            filter = ('' + filter).toLowerCase();
+            value = ('' + value).toLowerCase();
+        }
+        return filter === value;
+    };
+
     // Array.sum
     // e.g. -> [2,3,4,5,6].sum()
     Array.prototype.sum = function () {
@@ -46,19 +54,14 @@
     // - sensitive (optional), default = true, is case sensitive or not?
     // @return - index of array (-1 if not found)
     Array.prototype.indexOfObject = function (name, filter, sensitive) {
-        var i = -1, isFunction = typeof filter === 'function';
+        var i = -1;
+        var fnFilter = typeof filter === 'function' ? filter : function (value) {
+            return compare(value, filter, sensitive);
+        };
         for (var index = 0; index < this.length; index++) {
-            if (isFunction) {
-                if (filter(this[index][name])) {
-                    i = index;
-                    break;
-                }
-            }
-            else {
-                if (this[index][name] === filter || (sensitive === false && ('' + this[index][name]).toLowerCase() === ('' + filter).toLowerCase())) {
-                    i = index;
-                    break;
-                }
+            if (fnFilter(this[index][name])) {
+                i = index;
+                break;
             }
         }
         return i;
@@ -91,17 +94,13 @@
     // - sensitive (optional), default = true, is case sensitive or not?
     // @return - finding json objects
     Array.prototype.findObjects = function (name, filter, sensitive) {
-        var result = [], isFunction = typeof filter === 'function';
+        var result = [];
+        var fnFilter = typeof filter === 'function' ? filter : function (value) {
+            return compare(value, filter, sensitive);
+        };
         for (var index = 0; index < this.length; index++) {
-            if (isFunction) {
-                if (filter(this[index][name])) {
-                    result.push(this[index]);
-                }
-            }
-            else {
-                if (this[index][name] === filter || (sensitive === false && ('' + this[index][name]).toLowerCase() === ('' + filter).toLowerCase())) {
-                    result.push(this[index]);
-                }
+            if (fnFilter(this[index][name])) {
+                result.push(this[index]);
             }
         }
         return result;
@@ -114,17 +113,12 @@
     // - sensitive (optional), default = true, is case sensitive or not?
     // @return - [nothing]
     Array.prototype.removeObject = function (name, filter, sensitive) {
-        var isFunction = typeof filter === 'function';
+        var fnFilter = typeof filter === 'function' ? filter : function (value) {
+            return compare(value, filter, sensitive);
+        };
         for (var index = this.length - 1; index >= 0; index--) {
-            if (isFunction) {
-                if (filter(this[index][name])) {
-                    this.splice(index, 1);
-                }
-            }
-            else {
-                if (this[index][name] === filter || (sensitive === false && ('' + this[index][name]).toLowerCase() === ('' + filter).toLowerCase())) {
-                    this.splice(index, 1);
-                }
+            if (fnFilter(this[index][name])) {
+                this.splice(index, 1);
             }
         }
     };
@@ -281,7 +275,7 @@
                     .css(position)
                     .on('click', { value: value }, function (e) {
                         if (jQuery(this).next(':disabled').length === 0) {
-                            e.data.value(value() === null ? true : (value() ? false : null));
+                            e.data.value(value() === null ? true : value() ? false : null);
                         }
                     })
             );
@@ -352,12 +346,6 @@
 
     // clear specific storage if QuotaExceededError
     var clearStorageKeys = ['classes', 'fields', 'fields_instance', 'field_sources', 'field_domains'];
-    var clearLargeStorages = function (storage) {
-        jQuery.each(storage, function (key) {
-            if (isClearStorageKey(key))
-                storage.removeItem(key);
-        });
-    };
     var isClearStorageKey = function (key) {
         var result = false;
         jQuery.each(clearStorageKeys, function (index, clearKey) {
@@ -367,6 +355,12 @@
             }
         });
         return result;
+    };
+    var clearLargeStorages = function (storage) {
+        jQuery.each(storage, function (key) {
+            if (isClearStorageKey(key))
+                storage.removeItem(key);
+        });
     };
 
     // get all storage keys
@@ -413,25 +407,22 @@
     };
 
     // remove all
+    var isValidStorageKey = function (key, excludeKeys) {
+        if (!excludeKeys) {
+            excludeKeys = [];
+        }
+        excludeKeys = jQuery.map(excludeKeys, function (excludeKey) {
+            return window.storagePrefix + excludeKey;
+        });
+        return typeof key === 'string' &&
+                        key.indexOf(window.storagePrefix) === 0 &&
+                        excludeKeys.indexOf(key) === -1;
+    };
     var removeAll = function (storage, excludeKeys) {
         jQuery.each(storage, function (key) {
             if (isValidStorageKey(key, excludeKeys))
                 storage.removeItem(key);
         });
-    };
-
-    var isValidStorageKey = function (key, excludeKeys) {
-        if (!excludeKeys) {
-            excludeKeys = [];
-        }
-        
-        excludeKeys = jQuery.map(excludeKeys, function (excludeKey) {
-            return window.storagePrefix + excludeKey;
-        });
-        
-        return typeof key === 'string' &&
-                        key.indexOf(window.storagePrefix) === 0 &&
-                        excludeKeys.indexOf(key) === -1;
     };
 
     jQuery.extend(jQuery, {
@@ -597,12 +588,12 @@
 // Validation Request Service
 window.ValidationRequestService = {};
 (function (window, security) {
-
     "use strict";
+
     var self = {};
     self.tokenHeaderId = 'Request-Verification-Token';
     self.TokenQueryStringId = 'request_verification_token';
-    
+
     self.setSecurityHeader = function (xhr) {
         xhr.setRequestHeader(self.tokenHeaderId, self.getVerificationToken());
     };

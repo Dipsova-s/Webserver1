@@ -61,19 +61,11 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
-  <PropertyGroup Condition=" '$(SC_BranchPath)' == '' ">
-    <SC_BranchPath Condition="  Exists('..\..\..\..\..\Content')">$(MSBuildProjectDirectory)\..\..\..\..\..</SC_BranchPath>
-    <SC_BranchPath Condition=" !Exists('..\..\..\..\..\Content')">$(MSBuildProjectDirectory)\..\..\..\..\..\..\Acceptatie</SC_BranchPath>
-  </PropertyGroup>
   <PropertyGroup>
     <PreBuildEvent>robocopy "..\..\..\Content\Diagrams" "$(MSBuildProjectDirectory)\Resources\CreateNewAngleBySchema" /MIR /NP
 REM exit code 1 means 'files are copied, everything Ok'
 if %25ERRORLEVEL%25 LEQ 1 exit 0 else exit %25ERRORLEVEL%25</PreBuildEvent>
   </PropertyGroup>
-  <Target Name="TestMessage" BeforeTargets="Build">
-    <!--Use $(Property Name) to reference a property-->
-    <Message Text="SC_BranchPath= $(SC_BranchPath)" Importance="high" />
-  </Target>
   <ItemGroup>
     <Reference Include="Antlr3.Runtime, Version=3.4.1.9004, Culture=neutral, PublicKeyToken=eb42632606e9261f, processorArchitecture=MSIL">
       <HintPath>..\packages\Antlr.3.4.1.9004\lib\Antlr3.Runtime.dll</HintPath>

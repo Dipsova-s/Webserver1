@@ -8,21 +8,21 @@
             SERVER: 'server'
         },
         _data_initial: null,
-        _function_getdata: function () { return null; },
+        getdata: function () { return null; },
         init: function (getDataFunction) {
             if (typeof getDataFunction === 'function') {
-                this._function_getdata = getDataFunction;
-                this._data_initial = this._function_getdata();
+                this.getdata = getDataFunction;
+                this._data_initial = this.getdata();
             }
             else {
                 this.clear();
             }
         },
         resetInitialData: function () {
-            this._data_initial = this._function_getdata();
+            this._data_initial = this.getdata();
         },
         checkChange: function (callback) {
-            if (JSON.stringify(this._data_initial) !== JSON.stringify(this._function_getdata())) {
+            if (JSON.stringify(this._data_initial) !== JSON.stringify(this.getdata())) {
                 MC.util.showPopupConfirmation(Localization.MC_CheckChangePage.replace('\\n', '\n'), callback);
             }
             else {
@@ -31,7 +31,7 @@
             }
         },
         clear: function () {
-            this._function_getdata = function () { return null; };
+            this.getdata = function () { return null; };
             this._data_initial = null;
             this._states = [];
         },

@@ -1127,9 +1127,8 @@ function DisplayDetailPageHandler() {
 
             // remove duplicated properties
             if (!displayModel.IsTemporaryDisplay()) {
-                // if user didn't have save display privilege remove all data except personal display and execute at login                 
+                // if user didn't have save display privilege remove all data except personal display and execute at login
                 if (!displayModel.Data().authorizations.update) {
-
                     // only user_specific can be saved
                     updateDisplayJSON = {
                         user_specific: updateDisplayJSON.user_specific
@@ -1196,7 +1195,7 @@ function DisplayDetailPageHandler() {
                 displayModel.Data.commit();
                 self.ClosePopup();
 
-                // refresh resule grid after add query step 
+                // refresh resule grid after add query step
                 progressbarModel.ShowStartProgressBar(Localization.ProgressBar_PostResult, false);
                 progressbarModel.CancelCustomHandler = true;
                 progressbarModel.SetDisableProgressBar();

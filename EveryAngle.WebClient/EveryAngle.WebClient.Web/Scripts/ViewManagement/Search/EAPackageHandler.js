@@ -1,6 +1,4 @@
-﻿var eaPackageHandler = new EAPackageHandler();
-
-function EAPackageHandler() {
+﻿function EAPackageHandler() {
     "use strict";
 
     var self = this;
@@ -38,7 +36,7 @@ function EAPackageHandler() {
         self.ContainsOnlyPublicItems = true;
         self.FromTheSameModel = true;
         jQuery.each(ko.toJS(items), function (index, item) {
-         
+
             // check for a warning message (private)
             if (!item.is_published)
                 self.ContainsOnlyPublicItems = false;
@@ -231,3 +229,5 @@ function EAPackageHandler() {
     };
     // EOF: Methods
 }
+
+var eaPackageHandler = new EAPackageHandler();

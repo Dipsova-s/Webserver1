@@ -2,18 +2,6 @@
     "use strict";
 
     window.WC.ViewEngine = function (handler) {
-        var getHandlerParts = function (element, handlerString) {
-            var parts = null;
-            if (handlerString.indexOf('$root') !== -1) {
-                var fn = handlerString.replace('$root.', '');
-                var indexOfEndMethod = fn.indexOf('(');
-                parts = {};
-                parts.methods = fn.substr(0, indexOfEndMethod).split('.');
-                parts.arguments = getHandlerArgumentsPart(element, fn.substr(indexOfEndMethod));
-            }
-            return parts;
-        };
-
         var getHandlerArgumentsPart = function (element, arg) {
             var args = [];
 
@@ -43,6 +31,18 @@
             }
 
             return args;
+        };
+
+        var getHandlerParts = function (element, handlerString) {
+            var parts = null;
+            if (handlerString.indexOf('$root') !== -1) {
+                var fn = handlerString.replace('$root.', '');
+                var indexOfEndMethod = fn.indexOf('(');
+                parts = {};
+                parts.methods = fn.substr(0, indexOfEndMethod).split('.');
+                parts.arguments = getHandlerArgumentsPart(element, fn.substr(indexOfEndMethod));
+            }
+            return parts;
         };
 
         var callHandlerParts = function (handlerParts) {

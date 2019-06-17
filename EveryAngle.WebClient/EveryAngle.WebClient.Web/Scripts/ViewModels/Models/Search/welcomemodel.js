@@ -32,13 +32,11 @@ function WelcomeViewModel() {
     };
     self.ParallelRequestsCallback = function (xhrWelcome, xhrMovie) {
         self.SetParallelData(xhrWelcome, xhrMovie);
-        
         if (self.IsNoApplyBinding()) {
             self.CreateVideoPlayer();
             self.SetCompanyLogo();
             WC.HtmlHelper.ApplyKnockout(self, self.GetContainerElement());
         }
-
     };
 
     self.SetParallelData = function (xhrWelcome, xhrMovie) {

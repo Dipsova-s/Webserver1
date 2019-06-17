@@ -42,13 +42,13 @@ namespace EveryAngle.ManagementConsole.Controllers
 
         public ActionResult GetFilterModelServers(string modelUri, string q = "")
         {
-            modelUri = modelUri.ToLower();
+            string modelUriLower = modelUri.ToLower();
             var sessionHelper = SessionHelper.Initialize();
-            var currentModel = sessionHelper.GetModel(modelUri);
-            var modelServers = GetModelServers(q, modelUri, 1, MaxPageSize);
+            var currentModel = sessionHelper.GetModel(modelUriLower);
+            var modelServers = GetModelServers(q, modelUriLower, 1, MaxPageSize);
             var currentInstanceModelServerId = string.Empty;
 
-            if (modelServers != null && modelServers.Data.Count() > 0)
+            if (modelServers != null && modelServers.Data.Any())
             {
                 modelServers.Data = modelServers.Data.Where(model => model.id != "EA4IT_Xtractor").ToList();
                 modelServers.Header.Total = modelServers.Header.Total - 1;
@@ -73,7 +73,7 @@ namespace EveryAngle.ManagementConsole.Controllers
             ViewData["Total"] = modelServers.Header.Total;
             ViewData["SearchKeyword"] = string.IsNullOrEmpty(q) ? string.Empty : q;
             ViewData["DefaultPageSize"] = MaxPageSize;
-            ViewBag.ModelUri = modelUri;
+            ViewBag.ModelUri = modelUriLower;
             return PartialView("~/Views/Model/ModelServers/ModelServerGrid.cshtml", modelServers.Data);
         }
 

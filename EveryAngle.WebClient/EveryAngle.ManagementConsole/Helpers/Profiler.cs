@@ -24,7 +24,8 @@ namespace EveryAngle.ManagementConsole.Helpers
         {
             MiniProfiler.Settings.Storage = new Log4NetStorage();
 
-            if (MiniProfiler.Settings.IgnoredPaths == null) return;
+            if (MiniProfiler.Settings.IgnoredPaths == null)
+                return;
 
             // add partials of the URLs that you don't want to profile
             var ignored = MiniProfiler.Settings.IgnoredPaths.ToList();
@@ -56,12 +57,15 @@ namespace EveryAngle.ManagementConsole.Helpers
                 return;
 
             string user = context.Session[SESSION_KEY_CURRENT_USER] as string;
-            if (string.IsNullOrEmpty(user)) return;
+            if (string.IsNullOrEmpty(user))
+                return;
 
-            if (!ProfilerSetting.CheckUser(user)) return;
+            if (!ProfilerSetting.CheckUser(user))
+                return;
             MiniProfiler.Start();
 
-            if (MiniProfiler.Current == null) return;
+            if (MiniProfiler.Current == null)
+                return;
             MiniProfiler.Current.User = user;
         }
 
@@ -83,7 +87,7 @@ namespace EveryAngle.ManagementConsole.Helpers
         /// <summary>
         ///     The profiler setting.
         /// </summary>
-        public class ProfilerSetting
+        public static class ProfilerSetting
         {
             /// <summary>
             ///     The AppSetting key for list of user login IDs to run profile.
@@ -109,7 +113,8 @@ namespace EveryAngle.ManagementConsole.Helpers
                         CONFIG_KEY_PROFILER_TARGET_LOGIN_LIST), anyError);
                 }
 
-                if (appSettingValue != null) ProfilerTargetLoginCommaSeparatedList = appSettingValue.Split(',');
+                if (appSettingValue != null)
+                    ProfilerTargetLoginCommaSeparatedList = appSettingValue.Split(',');
             }
 
             /// <summary>
@@ -128,7 +133,8 @@ namespace EveryAngle.ManagementConsole.Helpers
             /// </returns>
             public static bool CheckUser(string user)
             {
-                if (user == null || ProfilerTargetLoginCommaSeparatedList == null) return false;
+                if (user == null || ProfilerTargetLoginCommaSeparatedList == null)
+                    return false;
                 return
                     ProfilerTargetLoginCommaSeparatedList.Any(
                         loginIdToCheck =>

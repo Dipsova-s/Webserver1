@@ -3,7 +3,6 @@ function FollowupsTemplate(handler) {
 
     var self = this;
     self.Handler = handler;
-    
     self.TemplatePopup = [
         '<div class="followupsArea initializing">',
             '<div class="followupsAreaInner">',

@@ -41,11 +41,10 @@ function PrivilegesViewModel() {
         privilegeParams[enumHandlers.PARAMETERS.CACHING] = false;
         privilegeParams[enumHandlers.PARAMETERS.OFFSET] = 0;
         privilegeParams[enumHandlers.PARAMETERS.LIMIT] = systemSettingHandler.GetMaxPageSize();
-        
         return GetDataFromWebService(privilegeUri, privilegeParams)
             .done(self.LoadSuccess);
     };
-    self.LoadSuccess = function (data, status, xhr) {
+    self.LoadSuccess = function (data) {
         userModel.Privileges.ModelPrivileges = data.model_privileges.slice(0);
         jQuery.localStorage(userModel.UserPrivilegeName, userModel.Privileges);
         self.Data(data.model_privileges);

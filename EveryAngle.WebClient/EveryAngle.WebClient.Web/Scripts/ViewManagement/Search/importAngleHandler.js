@@ -1,6 +1,6 @@
 function ImportAngleHandler() {
     "use strict";
-    
+
     var self = this;
     self.Data = ko.observableArray([]);
     self.SuccessItems = ko.observableArray([]);
@@ -15,13 +15,13 @@ function ImportAngleHandler() {
 
     self.UploadAngleTemplate = [
         '<div class="popupTabPanel popupImportAngleContainer">',
-            '<div class="row">',
-                '<div class="field" data-bind="text: Localization.Model">' + Localization.Model + '</div>',
-                '<div class="input"><div class="eaDropdown" id="ddlModelImportAngle"></div></div>',
-            '</div>',
-            '<div class="row rowUpload">',
-                '<div class="input"><input name="file" id="ImportAngle" type="file" value="import angle" accept="' + self.AllowedExtensions.join(',') + '"/></div>',
-            '</div>',
+        '<div class="row">',
+        '<div class="field" data-bind="text: Localization.Model">' + Localization.Model + '</div>',
+        '<div class="input"><div class="eaDropdown" id="ddlModelImportAngle"></div></div>',
+        '</div>',
+        '<div class="row rowUpload">',
+        '<div class="input"><input name="file" id="ImportAngle" type="file" value="import angle" accept="' + self.AllowedExtensions.join(',') + '"/></div>',
+        '</div>',
         '</div>'
     ].join('');
 
@@ -30,12 +30,12 @@ function ImportAngleHandler() {
         '<br>',
         '<br>',
         '<ul data-bind="foreach: $root.SuccessItems()">',
-            '<!-- ko if: ErrorMessage -->',
-            '<li class="fail" data-bind="html: Name + \'<em>\' + ErrorMessage + \'</em>\'"></li>',
-            '<!-- /ko -->',
+        '<!-- ko if: ErrorMessage -->',
+        '<li class="fail" data-bind="html: Name + \'<em>\' + ErrorMessage + \'</em>\'"></li>',
+        '<!-- /ko -->',
         '</ul>',
         '<ul data-bind="foreach: $root.FailItems()">',
-            '<li class="fail" data-bind="html: Name + \'<em>\' + ErrorMessage + \'</em>\'"></li>',
+        '<li class="fail" data-bind="html: Name + \'<em>\' + ErrorMessage + \'</em>\'"></li>',
         '</ul>'
     ].join('');
 
@@ -198,7 +198,7 @@ function ImportAngleHandler() {
             'multi_lang_description',
             'widget_definitions'
         ];
-        jQuery.each(dashboard, function (name, value) {
+        jQuery.each(dashboard, function (name) {
             if (jQuery.inArray(name, validDashboardProperties) === -1)
                 delete dashboard[name];
         });
@@ -220,7 +220,7 @@ function ImportAngleHandler() {
         jQuery.each(dashboard.widget_definitions, function (index, widget) {
             jQuery.each(widget, function (name) {
                 if (jQuery.inArray(name, validWidgetProperties) === -1)
-                delete widget[name];
+                    delete widget[name];
             });
 
             var widgetDetails = WC.Utility.ParseJSON(widget.widget_details);
@@ -348,7 +348,7 @@ function ImportAngleHandler() {
     self.CreateDashboard = function (dashboard, modelUri, file) {
         var uri = self.GetUploadDashboardUri(modelUri);
         self.SetDashboardForUpload(dashboard, modelUri);
-        
+
         if (dashboard.widget_definitions.length > maxNumberOfDashboard) {
             var name = WC.Utility.GetDefaultMultiLangText(dashboard.multi_lang_name);
             file.Results.push({ name: name, type: enumHandlers.ITEMTYPE.DASHBOARD, error: Localization.UploadAngles_ItemPackageDashboardsExceedMaximum });
@@ -449,14 +449,14 @@ function ImportAngleHandler() {
             return e.responseText;
     };
 
-    self.UploadComplete = function() {
+    self.UploadComplete = function () {
         var showCompleteReport = setInterval(function () {
             if (self.UploadCount >= self.NumberOfUploadedFile) {
                 errorHandlerModel.Enable(true);
                 progressbarModel.CancelCustomHandler = false;
                 progressbarModel.EndProgressBar();
                 self.ShowCompleteUploadReport();
-                
+
                 searchModel.ClearSelectedRow();
                 setTimeout(function () {
                     searchPageHandler.BindSearchResultGrid(0);
@@ -466,7 +466,7 @@ function ImportAngleHandler() {
         }, 100);
     };
 
-    self.SelectFileUpload = function(e) {
+    self.SelectFileUpload = function (e) {
         errorHandlerModel.Enable(false);
         self.SuccessItems([]);
         self.FailItems([]);

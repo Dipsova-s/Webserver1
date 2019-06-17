@@ -68,7 +68,7 @@
         self.ShowModelServerInfo = function (e, obj) {
             MC.util.modelServerInfo.showInfoPopup(e, obj);
         };
-        self.AbortServer = function (uri) {
+        self.AbortServer = function () {
             MC.util.showPopupAlert(Localization.Resource.MC_NotImplemented);
         };
         self.DeletionCheckMark = function (obj, isRemove) {
@@ -136,6 +136,11 @@
             jQuery('.' + selectedItem.id).show();
         };
         self.GetData = function () {
+            MC.form.clean();
+            var data = {
+                switchWhenPostprocessing: null,
+                settingList: []
+            };
             var pushSettingToList = function (setting) {
                 if (setting.id === 'switchWhenPostprocessing')
                     data.switchWhenPostprocessing = setting.value;
@@ -143,13 +148,7 @@
                     data.settingList.push(setting);
             };
 
-            MC.form.clean();
-            var data = {
-                switchWhenPostprocessing: null,
-                settingList: []
-            };
-
-            jQuery('.content .contentSectionInfoItem').each(function (index, element) {
+            jQuery('.content .contentSectionInfoItem').each(function () {
                 var inputs = jQuery(this).find("input[type!='hidden']");
                 var input, i, dropdown;
                 for (i = 0; i < inputs.length; i++) {
@@ -157,13 +156,13 @@
                     var setting = { 'id': input.attr('id'), 'value': null, 'type': null };
                     if (setting.id && !data.settingList.hasObject('id', setting.id)) {
                         if (input.hasClass('enum')) {
-                            dropdown = input.data("kendoDropDownList");
+                            dropdown = input.data("handler");
                             setting.value = dropdown.value();
                             setting.type = 'enum';
                             pushSettingToList(setting);
                         }
                         else if (input.hasClass('currency_symbol')) {
-                            dropdown = input.data("kendoDropDownList");
+                            dropdown = input.data("handler");
                             setting.value = dropdown.value();
                             setting.type = 'currency_symbol';
                             pushSettingToList(setting);
@@ -183,7 +182,8 @@
                         }
                         else if (input.hasClass('double')) {
                             setting.value = parseFloat(input.val());
-                            if (isNaN(setting.value)) setting.value = null;
+                            if (isNaN(setting.value))
+                                setting.value = null;
                             setting.type = 'double';
 
                             if (setting.value !== null) {
@@ -192,28 +192,27 @@
                         }
                         else if (input.hasClass('integer')) {
                             setting.value = parseInt(input.val());
-                            if (isNaN(setting.value)) setting.value = null;
+                            if (isNaN(setting.value))
+                                setting.value = null;
                             setting.type = 'integer';
 
-                            if (setting.value !== null) {
+                            if (setting.value !== null)
                                 pushSettingToList(setting);
-                            }
                         }
                         else if (input.hasClass('percentage')) {
                             dropdown = input.data("kendoPercentageTextBox");
                             setting.value = parseFloat(dropdown.value());
-                            if (isNaN(setting.value)) setting.value = null;
+                            if (isNaN(setting.value))
+                                setting.value = null;
                             setting.type = 'percentage';
 
-                            if (setting.value !== null) {
+                            if (setting.value !== null)
                                 pushSettingToList(setting);
-                            }
                         }
                         else if (input.hasClass('text') || input.hasClass('password') || input.hasClass('email')) {
                             setting.value = input.val();
                             setting.type = 'text';
                             pushSettingToList(setting);
-
                         }
                     }
                 }
@@ -221,15 +220,12 @@
             return data;
         };
         self.ValidEmailInput = function (elementId) {
-            var isvalid = true;
             var element = jQuery(elementId);
-            if (element.length > 0) {
-                if (!element.valid()) {
-                    element.find('.error').first().focus();
-                    return false;
-                }
+            if (element.length && !element.valid()) {
+                element.find('.error').first().focus();
+                return false;
             }
-            return isvalid;
+            return true;
         };
         self.ValidCopyMethod = function (elementId) {
             var isvalid = true;
@@ -253,27 +249,24 @@
             return isvalid;
         };
         self.SaveServerSettings = function () {
-            if (!self.ValidEmailInput('#company_settings'))
-                return false;
-
-            if (!self.ValidEmailInput('#email_settings'))
-                return false;
-
-            if (!self.ValidEmailInput('#sap_settings'))
+            if (!self.ValidEmailInput('#company_settings')
+                || !self.ValidEmailInput('#email_settings')
+                || !self.ValidEmailInput('#sap_settings'))
                 return false;
 
             var data = self.GetData();
 
-            MC.ajax.request({
-                url: self.SaveUri,
-                type: 'PUT',
-                parameters: {
-                    modelUri: self.ModelUri,
-                    agentUri: self.AgentUri,
-                    settingList: JSON.stringify(data.settingList),
-                    switchWhenPostprocessing: data.switchWhenPostprocessing
-                }
-            })
+            MC.ajax
+                .request({
+                    url: self.SaveUri,
+                    type: 'PUT',
+                    parameters: {
+                        modelUri: self.ModelUri,
+                        agentUri: self.AgentUri,
+                        settingList: JSON.stringify(data.settingList),
+                        switchWhenPostprocessing: data.switchWhenPostprocessing
+                    }
+                })
                 .done(function () {
                     MC.ajax.reloadMainContent();
                 });

@@ -36,7 +36,6 @@ function UserSettingsView() {
     };
     self.ToggleMenuByIndex = function (index) {
         var targetMenu = jQuery(menus[index]);
-        
         if (targetMenu.is(':hidden')) {
             self.HideAllMenus();
             targetMenu.show();

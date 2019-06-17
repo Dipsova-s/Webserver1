@@ -21,10 +21,11 @@ function SessionViewModel() {
         var requestUri = directoryHandler.Data.session || '';
         var setting = jQuery.extend({ RequestUri: requestUri, Callback: jQuery.noop }, option);
 
-        if (self.IsLoaded() || !setting.RequestUri) return jQuery.when(self.Data());
+        if (self.IsLoaded() || !setting.RequestUri)
+            return jQuery.when(self.Data());
 
         return GetDataFromWebService(setting.RequestUri)
-            .done(function (data, status, xhr) {
+            .done(function (data) {
                 self.SetData(data);
                 jQuery.localStorage(self.DirectoryName, self.Data());
                 self.IsLoaded(true);

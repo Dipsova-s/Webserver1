@@ -60,7 +60,7 @@ function UserSettingsHandler() {
                 title: Localization.Settings,
                 element: '#popup' + popupName,
                 html: userSettingHtmlTemplate(),
-				className: 'popup' + popupName + ' popupWithTabMenu',
+                className: 'popup' + popupName + ' popupWithTabMenu',
                 minWidth: 720,
                 minHeight: 420,
                 buttons: self.GetUserSettingButtons(),
@@ -141,25 +141,25 @@ function UserSettingsHandler() {
             businessProcessesModel.General.Load(),
             modelsHandler.LoadModels()
         )
-        .then(function () {
-            var isLoadAllLabels = self.SetDataModel();
-            return self.SetLabel(isLoadAllLabels);
-        })
-        .always(function () {
-            setTimeout(function () {
-                e.sender.element.find('.popupTabMenu,.popupTabPanel').animate({ opacity: 1 }, 'fast');
-                e.sender.element.busyIndicator(false);
-                SetLoadingVisibility('.popupUserSetting .loading16x16', false);
+            .then(function () {
+                var isLoadAllLabels = self.SetDataModel();
+                return self.SetLabel(isLoadAllLabels);
+            })
+            .always(function () {
+                setTimeout(function () {
+                    e.sender.element.find('.popupTabMenu,.popupTabPanel').animate({ opacity: 1 }, 'fast');
+                    e.sender.element.busyIndicator(false);
+                    SetLoadingVisibility('.popupUserSetting .loading16x16', false);
 
-                // apply handler
-                WC.HtmlHelper.ApplyKnockout(userSettingModel, e.sender.wrapper);
-                userSettingsView.UserFieldSettingTabClick(self.TABFORMAT.NUMBER);
-                self.InitialControls();
-                self.InitialExampleFormat();
-                self.AutoExecuteXhr = userSettingModel.LoadAutoExecuteList();
-                e.sender.wrapper.find('.k-window-buttons .btn').removeClass('executing');
-            }, 1);
-        });
+                    // apply handler
+                    WC.HtmlHelper.ApplyKnockout(userSettingModel, e.sender.wrapper);
+                    userSettingsView.UserFieldSettingTabClick(self.TABFORMAT.NUMBER);
+                    self.InitialControls();
+                    self.InitialExampleFormat();
+                    self.AutoExecuteXhr = userSettingModel.LoadAutoExecuteList();
+                    e.sender.wrapper.find('.k-window-buttons .btn').removeClass('executing');
+                }, 1);
+            });
     };
 
 
@@ -672,7 +672,7 @@ function UserSettingsHandler() {
         // get all keys in storage
         var storageKeys = jQuery.localStorage.getAllKeys();
 
-        // tell the browser, please don't remove storage that contain in this array 
+        // tell the browser to innore removing storage that contain in this array
         var whiteList = [
             userModel.DirectoryName,
             systemInformationHandler.Id,

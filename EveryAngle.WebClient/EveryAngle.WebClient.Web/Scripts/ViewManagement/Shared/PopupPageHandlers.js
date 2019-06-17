@@ -180,14 +180,15 @@ function Popup() {
             win.wrapper.find('.k-i-maximize').attr('title', Localization.Maximize);
             win.wrapper.find('.k-i-close').attr('title', Localization.Close);
 
-            if (typeof settings.content !== 'undefined') win.element.busyIndicator(true);
-            else popup.PageResize();
-            
+            if (typeof settings.content !== 'undefined')
+                win.element.busyIndicator(true);
+            else
+                popup.PageResize();
+
             if (settings.center && win) {
                 win.wrapper.css('top', 0);
                 win.center();
             }
-            
         }
         else {
             win.wrapper.css('opacity', 0);
@@ -335,7 +336,6 @@ function Popup() {
             var messageElement = win.wrapper.find('.notificationMessages');
             messageElement.html(message || '');
             self.SetRemberSessionHtml(messageElement, settings.session_name);
-            
             win.setOptions(settings);
             if (settings.buttons) {
                 popup.SetButtons(win, settings.buttons);
@@ -343,7 +343,6 @@ function Popup() {
             else {
                 popup.SetButtons(win, popupSettings.buttons);
             }
-
             win.wrapper.find('.notificationIcon').attr('class', 'notificationIcon ' + settings.icon);
         }
         return win;

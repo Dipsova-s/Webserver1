@@ -385,9 +385,8 @@ namespace EveryAngle.ManagementConsole.Controllers
             DataStoresViewModel datastore;
             if (isNewDatastore)
             {
-                var version = SessionHelper.Version;
-                datastoreUri = version.GetEntryByName("system_datastores").Uri.ToString();
-                datastore = _automationTaskService.CreateDataStore(datastoreUri, datastoreData);
+                string createDatastoreUri = SessionHelper.Version.GetEntryByName("system_datastores").Uri.ToString();
+                datastore = _automationTaskService.CreateDataStore(createDatastoreUri, datastoreData);
             }
             else
             {
@@ -716,19 +715,15 @@ namespace EveryAngle.ManagementConsole.Controllers
         internal List<ItemViewModel> CallItemService(List<string> angleList, List<string> modelList)
         {
             List<ItemViewModel> items = new List<ItemViewModel>();
-
-            angleList = angleList.Distinct().ToList();
+            List<string> angles = angleList.Distinct().ToList();
             string modelIds = string.Join(" ", modelList.Distinct().ToArray());
 
-            while (angleList.Any())
+            while (angles.Any())
             {
-                string angleIds = String.Join(",", angleList.Take(30));
-
-                var query = $"fq=facetcat_itemtype:(facet_angle facet_template) AND facetcat_models:({modelIds})&include_facets=false&offset=0&limit=30&caching=false&viewmode=basic&ids={angleIds}";
-
+                string angleIds = string.Join(",", angles.Take(30));
+                string query = $"fq=facetcat_itemtype:(facet_angle facet_template) AND facetcat_models:({modelIds})&include_facets=false&offset=0&limit=30&caching=false&viewmode=basic&ids={angleIds}";
                 items.AddRange(_itemService.Get(query));
-
-                angleList = angleList.Skip(30).ToList();
+                angles = angles.Skip(30).ToList();
             }
 
             return items;

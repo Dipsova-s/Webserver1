@@ -69,11 +69,11 @@ function DashboardViewModel() {
         if (widgetCount === 1)
             structure = [{ items: ['100%'], height: '100%' }];
         else if (widgetCount === 2 || widgetCount === 4)
-            structure = [{ items: ['50%', '50%'], height: (2 / widgetCount * 100) + '%' }];
+            structure = [{ items: ['50%', '50%'], height: 2 / widgetCount * 100 + '%' }];
         else if (widgetCount === 3 || widgetCount === 5 || widgetCount === 6 || widgetCount === 9)
-            structure = [{ items: ['33.4%', '33.3%', '33.3%'], height: (3 / (Math.ceil(widgetCount / 3) * 3) * 100) + '%' }];
+            structure = [{ items: ['33.4%', '33.3%', '33.3%'], height: 3 / (Math.ceil(widgetCount / 3) * 3) * 100 + '%' }];
         else
-            structure = [{ items: ['25%', '25%', '25%', '25%'], height: (4 / (Math.ceil(widgetCount / 4) * 4) * 100) + '%' }];
+            structure = [{ items: ['25%', '25%', '25%', '25%'], height: 4 / (Math.ceil(widgetCount / 4) * 4) * 100 + '%' }];
 
         return { structure: structure };
     };
@@ -132,19 +132,18 @@ function DashboardViewModel() {
         // make sure that is js not knockout
         data = ko.toJS(data);
 
-        data.angles = (data.angles || data.uri + '/angles');
+        data.angles = data.angles || data.uri + '/angles';
         data.id = ko.observable(data.id);
         data.assigned_labels = WC.Utility.ToArray(data.assigned_labels);
 
         if (data.multi_lang_name.length !== data.multi_lang_description.length) {
 
-            var oriDescriptions = ko.toJS(data.multi_lang_description);
+            var oriDescriptions = data.multi_lang_description.slice();
             data.multi_lang_description = [];
 
             for (var i = 0; i < data.multi_lang_name.length; i++) {
-
-                var oriDesptionByLang = jQuery.grep(oriDescriptions, function (des) { return des.lang === data.multi_lang_name[i].lang; });
-                var newDesption = oriDesptionByLang.length ? oriDesptionByLang[0].text : "";
+                var oriDesptionByLang = oriDescriptions.findObject('lang', data.multi_lang_name[i].lang);
+                var newDesption = oriDesptionByLang ? oriDesptionByLang.text : '';
 
                 data.multi_lang_description[i] = {
                     lang: data.multi_lang_name[i].lang,
@@ -483,7 +482,7 @@ function DashboardViewModel() {
     };
     self.UpdateState = function (uri, updateState) {
         return UpdateDataToWebService(uri.substr(1), updateState)
-            .then(function (data) {
+            .then(function () {
                 //M4-12831: Fixed error message when angle is uppublished
                 if (updateState.is_published === false && dashboardModel.Data().created.user() !== userModel.Data().uri)
                     dashboardHandler.BackToSearch();
@@ -623,18 +622,13 @@ function DashboardViewModel() {
             }
         }
         else {
-            if (forceLoad) {
-                isLoadAllAngle = false;
-            }
-            else {
-                isLoadAllAngle = true;
-                jQuery.each(self.Data().widget_definitions, function (index, widget) {
-                    if (!widget.GetAngle()) {
-                        isLoadAllAngle = false;
-                        return false;
-                    }
-                });
-            }
+            isLoadAllAngle = true;
+            jQuery.each(self.Data().widget_definitions, function (index, widget) {
+                if (!widget.GetAngle()) {
+                    isLoadAllAngle = false;
+                    return false;
+                }
+            });
 
             var deferred = jQuery.Deferred();
             if (isLoadAllAngle) {
@@ -804,7 +798,6 @@ function DashboardViewModel() {
                 }
             });
         });
-        
         jQuery.extend(angle, WC.ModelHelper.ExtendAngleData(angle));
     };
 

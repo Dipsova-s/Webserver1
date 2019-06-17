@@ -544,7 +544,6 @@ describe("UserSettingHandler", function () {
             expect(businessProcessesModel.UserSetting.CurrentActive().O2C).toEqual(false);
         });
     });
-    
     describe("call InitialControlsLanguage ", function () {
 
         beforeEach(function () {
@@ -1161,11 +1160,8 @@ describe("UserSettingHandler", function () {
             userSettingsHandler.SetDefaultBusinessProcess(defaultUserSetting, userSettings);
             expect(userSettings[enumHandlers.USERSETTINGS.DEFAULT_BUSINESS_PROCESSES]).toEqual(undefined);
         });
-
     });
-    
     describe("call SetLanguage", function () {
-
         beforeEach(function () {
             spyOn(WC.HtmlHelper, "DropdownList").and.callFake(function () {
                 var value = {
@@ -1706,7 +1702,6 @@ describe("UserSettingHandler", function () {
             expect(jQuery.localStorage('mouse')).toEqual(null);
         });
     });
-    
     describe("call RenderDisplayView", function () {
 
         beforeEach(function () {
@@ -2381,6 +2376,4 @@ describe("UserSettingHandler", function () {
         });
 
     });
-
 });
-

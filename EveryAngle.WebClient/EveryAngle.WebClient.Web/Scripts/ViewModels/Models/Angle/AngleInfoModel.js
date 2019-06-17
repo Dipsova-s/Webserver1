@@ -48,7 +48,7 @@ function AngleInfoViewModel(model) {
         var query = {};
         query[enumHandlers.PARAMETERS.CACHING] = false;
         query[enumHandlers.PARAMETERS.MULTILINGUAL] = 'yes';
-        return jQuery.when(isTemporary ? self.GetTemporaryAngle() : (setting.IsHistory ? self.Data() : GetDataFromWebService(directoryHandler.ResolveDirectoryUri(angleUri), query)))
+        return jQuery.when(isTemporary ? self.GetTemporaryAngle() : setting.IsHistory ? self.Data() : GetDataFromWebService(directoryHandler.ResolveDirectoryUri(angleUri), query))
             .then(function (data) {
                 self.SetData(data);
 
@@ -108,8 +108,9 @@ function AngleInfoViewModel(model) {
         fields = fields.distinct();
         sources = sources.distinct();
 
-        var model = modelsHandler.GetModelByUri(angle.model);
-        return jQuery.when(!model || (model && (!model.fields || !model.followups || !model.classes || !model.fieldsources)) ? modelsHandler.LoadModelInfo(angle.model) : null)
+        var model = modelsHandler.GetModelByUri(angle.model) || {};
+        var shouldLoadInfo = WC.Utility.MatchAny(true, [!model.fields, !model.followups, !model.classes, !model.fieldsources]);
+        return jQuery.when(shouldLoadInfo ? modelsHandler.LoadModelInfo(angle.model) : null)
             .then(function () {
                 model = modelsHandler.GetModelByUri(angle.model);
                 var requestFieldUrl = modelsHandler.GetQueryFieldsUri(null, angle, true);
@@ -118,7 +119,7 @@ function AngleInfoViewModel(model) {
                         .then(function (data) {
                             return modelFieldsHandler.LoadFieldsMetadata(data.fields);
                         })
-                        .then(function (data) {
+                        .then(function () {
                             return modelFieldSourceHandler.LoadFieldSourcesByIds(model.fieldsources, sources);
                         });
                 };
@@ -132,12 +133,12 @@ function AngleInfoViewModel(model) {
     /*  M4-10057: Implement state transfers for angles/displays/dashboards
         5.GET angle for updated client view model
     */
-    self.LoadAngle = function (angleUri, options) {
+    self.LoadAngle = function (angleUri) {
         var query = {};
         query[enumHandlers.PARAMETERS.CACHING] = false;
         query[enumHandlers.PARAMETERS.MULTILINGUAL] = 'yes';
         return GetDataFromWebService(directoryHandler.ResolveDirectoryUri(angleUri), query)
-            .then(function (data, status, xhr) {
+            .then(function (data) {
                 self.SetData(data);
                 //update data after set state to history model
                 jQuery.each(data.display_definitions, function (index, display) {
@@ -234,7 +235,7 @@ function AngleInfoViewModel(model) {
         // update publiactions watcher
         jQuery.each(self.Data().display_definitions, function (index, display) {
             var watcherPublicationKey = enumHandlers.STORAGE.WATCHER_DASHBOARD_PUBLICATIONS.replace('{uri}', display.uri);
-            if (jQuery.storageWatcher(watcherPublicationKey) != null) {
+            if (jQuery.storageWatcher(watcherPublicationKey) !== null) {
                 jQuery.storageWatcher(watcherPublicationKey, typeof state !== 'undefined' ? state : display.is_public);
             }
         });
@@ -251,7 +252,7 @@ function AngleInfoViewModel(model) {
             params[enumHandlers.PARAMETERS.FORCED] = true;
 
         return UpdateDataToWebService(uri + '?' + jQuery.param(params), updateAngle)
-            .then(function (data, status, xhr) {
+            .then(function (data) {
                 //update history
                 if (historyModel) {
                     jQuery.each(data.display_definitions, function (index, display) {
@@ -284,7 +285,6 @@ function AngleInfoViewModel(model) {
         var getUpdateFilter = function (displayQuerySteps) {
             var hasChanges = false;
             var i;
-
             jQuery.each(filters, function (indexFilter, filter) {
                 var compareFilter = ko.toJS(filter);
                 WC.ModelHelper.RemoveReadOnlyQueryStep(compareFilter);
@@ -299,7 +299,6 @@ function AngleInfoViewModel(model) {
                     }
                 }
             });
-            
             var updateDisplayData;
             if (hasChanges) {
                 if (displayQuerySteps.length) {
@@ -319,7 +318,6 @@ function AngleInfoViewModel(model) {
             else {
                 updateDisplayData = null;
             }
-
             return updateDisplayData;
         };
         var updateDisplayFilter = function (displayUri, displayData) {
@@ -327,10 +325,8 @@ function AngleInfoViewModel(model) {
             params[enumHandlers.PARAMETERS.ACCEPT_WARNINGS] = true;
             params[enumHandlers.PARAMETERS.MULTILINGUAL] = 'yes';
             params[enumHandlers.PARAMETERS.FORCED] = !!forced;
-
             return UpdateDataToWebService(displayUri + '?' + jQuery.param(params), displayData);
         };
-
         return self.UpdateAngle(self.Data().uri, data, forced)
             .then(function (response) {
                 // remove duplicate query step
@@ -339,7 +335,7 @@ function AngleInfoViewModel(model) {
                     if (display.query_blocks.length && display.uri !== currentDisplayUri) {
                         var updateDisplayData = getUpdateFilter(display.query_blocks[0].query_steps);
                         if (updateDisplayData) {
-                            displaysDeferred.pushDeferred(updateDisplayFilter, [display.uri, updateDisplayData])
+                            displaysDeferred.pushDeferred(updateDisplayFilter, [display.uri, updateDisplayData]);
                         }
                     }
                 });
@@ -374,7 +370,7 @@ function AngleInfoViewModel(model) {
                             historyModel.Set(display.uri, historyData);
                         }
                     }
-                };
+                }
 
                 // remove posted result history
                 jQuery.each(self.Data().display_definitions, function (index, display) {
@@ -407,7 +403,7 @@ function AngleInfoViewModel(model) {
             params[enumHandlers.PARAMETERS.FORCED] = true;
 
         return UpdateDataToWebService(uri.substr(1) + '?' + jQuery.param(params), updateState)
-            .then(function (data, status, xhr) {
+            .then(function (data) {
                 self.Data().is_published = data.is_published;
                 self.Data().is_template = data.is_template;
                 self.Data().is_validated = data.is_validated;
@@ -461,7 +457,7 @@ function AngleInfoViewModel(model) {
                 var query = {};
                 query[enumHandlers.PARAMETERS.FORCED] = true;
                 jQuery.when(UpdateDataToWebService(self.Data().uri + '?' + jQuery.param(query), data))
-                    .done(function (response, status, xhr) {
+                    .done(function (response) {
                         self.IsStarred(response.user_specific.is_starred);
                         self.Data().user_specific.is_starred = response.user_specific.is_starred;
                         self.Data.commit();
@@ -535,7 +531,9 @@ function AngleInfoViewModel(model) {
         }
     };
     self.GetAngleBaseClasses = function () {
-        return jQuery.grep(self.Data().query_definition, function (queryDefinition) { return queryDefinition.queryblock_type === enumHandlers.QUERYBLOCKTYPE.BASE_CLASSES });
+        return jQuery.grep(self.Data().query_definition, function (queryDefinition) {
+            return queryDefinition.queryblock_type === enumHandlers.QUERYBLOCKTYPE.BASE_CLASSES;
+        });
     };
     self.GetAngleDescription = function (detail) {
         var html = '<a class="btnInfo" onclick="angleDetailPageHandler.ShowInfoPopup()"></a>';
@@ -551,7 +549,7 @@ function AngleInfoViewModel(model) {
 
         return self.CreateTempAngle(model);
     };
-    self.CreateTempAngle = function (model) {
+    self.CreateTempAngle = function () {
         var newAngle = self.GetTemporaryAngle(),
             displayUri = WC.Utility.UrlParameter(enumHandlers.ANGLEPARAMETER.DISPLAY),
             editmode = WC.Utility.UrlParameter(enumHandlers.ANGLEPARAMETER.EDITMODE),
@@ -663,7 +661,7 @@ function AngleInfoViewModel(model) {
                 var field = fields[j];
 
                 // check valid fields for each display
-                if (!field.valid || (displayType === enumHandlers.DISPLAYTYPE.LIST && field.denied === enumHandlers.DENYTYPE.DENY.Value)) {
+                if (!field.valid || displayType === enumHandlers.DISPLAYTYPE.LIST && field.denied === enumHandlers.DENYTYPE.DENY.Value) {
                     fields.splice(j, 1);
                 }
             }
@@ -673,7 +671,7 @@ function AngleInfoViewModel(model) {
         for (var i = value.display_definitions.length - 1; i >= 0; i--) {
             var display = value.display_definitions[i];
             var displayValidation = validationHandler.GetDisplayValidation(display, value.model);
-            var valid = (displayValidation.InvalidFilters || displayValidation.InvalidFollowups || displayValidation.InvalidAggregates);
+            var valid = displayValidation.InvalidFilters || displayValidation.InvalidFollowups || displayValidation.InvalidAggregates;
             if (valid) {
                 value.display_definitions.splice(i, 1);
             }
@@ -770,11 +768,11 @@ function AngleInfoViewModel(model) {
 
     //BOF: View model initial
     var storage = jQuery.localStorage(self.TemporaryAngleName);
-    if (storage != null) {
+    if (storage !== null) {
         self.TemporaryAngle(storage);
     }
     storage = jQuery.localStorage(self.AngleName);
-    if (storage != null) {
+    if (storage !== null) {
         self.Data(storage);
         self.Data.commit();
     }

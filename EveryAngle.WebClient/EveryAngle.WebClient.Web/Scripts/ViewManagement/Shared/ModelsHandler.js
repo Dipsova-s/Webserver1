@@ -57,7 +57,7 @@ function ModelsHandler() {
 
             self.Data = {};
             return self.Load(uri, query, false)
-                .done(function (data, status, xhr) {
+                .done(function (data) {
                     var models = [];
                     var privileges = WC.Utility.ToArray(privilegesViewModel.Data());
                     jQuery.each(data[self.ResponseKey], function (index, model) {
@@ -78,7 +78,7 @@ function ModelsHandler() {
         query[enumHandlers.PARAMETERS.CACHING] = false;
 
         return GetDataFromWebService(modelUri, query)
-            .done(function (data, status, xhr) {
+            .done(function (data) {
                 self.SetData([data]);
             });
     };
@@ -93,18 +93,21 @@ function ModelsHandler() {
         var query = {};
         query[enumHandlers.PARAMETERS.CACHING] = false;
         return GetDataFromWebService(serverUri, query)
-            .done(function (data, status, xhr) {
+            .done(function (data) {
                 jQuery.merge(self.DataModelServer, data.model_servers);
             });
     };
     self.GetAvailabelModels = function (checker) {
-        if (typeof checker !== 'function')
-            checker = function (model) { return true; };
+        if (typeof checker !== 'function') {
+            checker = function (uri) {  //NOSONAR
+                return true;
+            };
+        }
 
         var list = [];
         jQuery.each(self.Data, function (key, model) {
             if (model.available && checker(model.uri)) {
-                list.push(model)
+                list.push(model);
             }
         });
         return list;
@@ -251,7 +254,7 @@ function ModelsHandler() {
             }
         }
 
-        return (classes.length ? '?classes=' + classes[classes.length - 1] : '');
+        return classes.length ? '?classes=' + classes[classes.length - 1] : '';
     };
     /*================================================*/
     //EOF: Methods

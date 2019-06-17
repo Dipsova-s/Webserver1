@@ -578,9 +578,8 @@ describe("MC.AutomationTasks.Tasks", function () {
             expect(result.sort.field).toEqual('order');
             expect(result.sort.dir).toEqual('asc');
         });
-
     });
-    
+
     describe(".SetEmailRecipientsColumns", function () {
 
         var grid;

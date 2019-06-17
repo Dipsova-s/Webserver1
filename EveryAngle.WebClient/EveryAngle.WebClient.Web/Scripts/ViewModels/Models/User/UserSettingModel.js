@@ -88,7 +88,7 @@ function UserSettingViewModel() {
     };
     self.GetByName = function (name) {
         var getByName = function () {
-            return self.IsLoaded() ? (typeof self.Data()[name] === 'undefined' ? null : self.Data()[name]) : null;
+            return self.IsLoaded() ? typeof self.Data()[name] === 'undefined' ? null : self.Data()[name] : null;
         };
         if (enumHandlers.USERSETTINGS.DEFAULT_LANGUAGES === name) {
             var language = getByName();
@@ -170,7 +170,7 @@ function UserSettingViewModel() {
 
         self.IsAutoExecuteListLoaded(false);
         return GetDataFromWebService(uri, params)
-            .then(function (data, status, xhr) {
+            .then(function (data) {
                 self.IsAutoExecuteListLoaded(true);
                 self.TempRemoveList.removeAll();
                 self.OriginalAutoExecuteList.removeAll();
@@ -179,7 +179,7 @@ function UserSettingViewModel() {
                 var list;
                 jQuery.each(data.items, function (itemIndex, item) {
                     var model = modelsHandler.GetModelByUri(item.model);
-                    var modelName = !model ? item.id : (model.short_name || model.id);
+                    var modelName = !model ? item.id : model.short_name || model.id;
 
                     if (item.type === enumHandlers.ITEMTYPE.DASHBOARD) {
                         list = {
@@ -280,7 +280,9 @@ function UserSettingViewModel() {
                     if (authorizeLabel) {
                         var category = modelLabelCategoryHandler.GetLabelCategoryByUri(authorizeLabel.category);
                         if (category) {
-                            var labelCategories = jQuery.grep(statuses[0].LabelCategories(), function (labelCategory) { return labelCategory.CategoryName().toLowerCase() === category.name.toLowerCase() });
+                            var labelCategories = jQuery.grep(statuses[0].LabelCategories(), function (labelCategory) {
+                                return labelCategory.CategoryName().toLowerCase() === category.name.toLowerCase();
+                            });
                             var label = {
                                 LabelName: ko.observable(authorizeLabel.name),
                                 LabelId: ko.observable(authorizeLabel.id)

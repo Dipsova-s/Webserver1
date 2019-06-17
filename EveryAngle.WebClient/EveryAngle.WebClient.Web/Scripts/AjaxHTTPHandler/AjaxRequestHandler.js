@@ -128,7 +128,6 @@
 
             return jQuery.ajax(ajaxOptions);
         };
-        
         self.BuildRequestUrl = function (originalUrl, isLocalApi) {
             originalUrl = originalUrl || '';
             if (originalUrl.charAt(0) === '/') {

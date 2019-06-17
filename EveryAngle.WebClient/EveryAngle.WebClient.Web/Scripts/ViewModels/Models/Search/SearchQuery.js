@@ -15,9 +15,9 @@ function SearchQueryViewModel() {
 
     self.GetParams = function () {
         var data = {};
-        jQuery.each(enumHandlers.SEARCHPARAMETER, function (k, v) {
-            var query = WC.Utility.UrlParameter(v) || null;
-            switch (v) {
+        jQuery.each(enumHandlers.SEARCHPARAMETER, function (key, value) {
+            var query = WC.Utility.UrlParameter(value) || null;
+            switch (value) {
                 case enumHandlers.SEARCHPARAMETER.SORT:
                 case enumHandlers.SEARCHPARAMETER.SORT_DIR:
                 case enumHandlers.SEARCHPARAMETER.PAGE:
@@ -25,7 +25,7 @@ function SearchQueryViewModel() {
                 case enumHandlers.SEARCHPARAMETER.OFFSET:
                 case enumHandlers.SEARCHPARAMETER.LIMIT:
                 case enumHandlers.SEARCHPARAMETER.Q:
-                    data[v] = query || null;
+                    data[value] = query || null;
                     break;
                 case enumHandlers.SEARCHPARAMETER.FQ:
                     var raw = decodeURIComponent(query).replace(/\)/g, '').replace(/\(/g, '').replace(/"/g, '').split(/ and /ig),
@@ -33,18 +33,18 @@ function SearchQueryViewModel() {
                         fqDataChecked = [],
                         fqDataUnchecked = [],
                         facet;
-                    jQuery.each(raw, function (k2, v2) {
-                        if (v2.indexOf(':') !== -1) {
+                    jQuery.each(raw, function (key2, value2) {
+                        if (value2.indexOf(':') !== -1) {
 
                             // temporary fixed facetcat_admin
-                            if (v2.toLowerCase().indexOf(' or ') !== -1) {
-                                var category = v2.split(':')[0] + ':',
+                            if (value2.toLowerCase().indexOf(' or ') !== -1) {
+                                var category = value2.split(':')[0] + ':',
                                     regexpr = new RegExp(category, 'gi'),
-                                    items = v2.replace(regexpr, '').split(/ or /gi);
-                                v2 = category + items.join(' ');
+                                    items = value2.replace(regexpr, '').split(/ or /gi);
+                                value2 = category + items.join(' ');
                             }
 
-                            facet = v2.split(':');
+                            facet = value2.split(':');
                             if (fqData[facet[0]]) {
                                 jQuery.merge(fqData[facet[0]], facet[1].split(' '));
                             }
@@ -58,7 +58,9 @@ function SearchQueryViewModel() {
                             }
                         }
                     });
-                    data[v] = { json: fqData, checked: fqDataChecked, unchecked: fqDataUnchecked };
+                    data[value] = { json: fqData, checked: fqDataChecked, unchecked: fqDataUnchecked };
+                    break;
+                default:
                     break;
             }
         });

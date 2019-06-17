@@ -7,20 +7,9 @@
     /// </summary>
     public class DisplayCompositeKey : BaseCompositeKey, IBaseCompositeKey
     {
-        public DisplayCompositeKey()
+        public DisplayCompositeKey() //NOSONAR
         {
 
-        }
-
-        /// <summary>
-        /// Query matching keys
-        /// </summary>
-        /// <param name="internalId">Saving or matching 'internalId'</param>
-        /// <param name="uri">Saving or matching 'uri'</param>
-        public DisplayCompositeKey(int? internalId = null, string uri = "")
-        {
-            InternalId = internalId;
-            Uri = uri;
         }
 
         public override bool Equals(object obj)
@@ -33,7 +22,7 @@
         }
         public override int GetHashCode()
         {
-            unchecked
+            unchecked //NOSONAR
             {
                 // we only get/addnew object, don't need to bother with update.
                 return 1;

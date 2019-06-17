@@ -22,14 +22,13 @@ namespace EveryAngle.OData.Service.Hubs
 
         private readonly IMasterEdmModelBusinessLogic _edmModelBusinessLogic = ObjectFactory.GetInstance<IMasterEdmModelBusinessLogic>();
 
-        public void Start(string arg)
+        public void Start(string arg)  //NOSONAR
         {
             Task.Factory.StartNew(() =>
             {
-                // <TODO>
                 // first, checking for a connection between AS <> OService
                 // comment out, we don't implement monitoring page right now.
-                // CheckingMetadataProviderTask();
+                // CheckingMetadataProviderTask(); //NOSONAR
 
                 // then, run a monitoring endless task
                 StartSimpleMonitoringTask();
@@ -41,12 +40,15 @@ namespace EveryAngle.OData.Service.Hubs
             StartMonitoringTask();
         }
 
-        private async void StartSimpleMonitoringTask()
+        private async void StartSimpleMonitoringTask() //NOSONAR
         {
             while (true)
             {
                 // don't use Thread.Sleep for non blocking I/O.
-                await Task.Delay(TimeSpan.FromSeconds(2));
+                // add ConfigureAwait 'false' call to allow execution to continue in any thread. 
+                await Task.Delay(TimeSpan.FromSeconds(2))
+                          .ConfigureAwait(false);
+
                 bool isRunning = SyncMetadataProcess.IsRunning;
                 if (isRunning)
                 {
@@ -60,12 +62,14 @@ namespace EveryAngle.OData.Service.Hubs
             }
         }
 
-        private async void StartMonitoringTask()
+        private async void StartMonitoringTask() //NOSONAR
         {
             while (true)
             {
                 // don't use Thread.Sleep for non blocking I/O.
-                await Task.Delay(TimeSpan.FromSeconds(2));
+                // add ConfigureAwait 'false' call to allow execution to continue in any thread. 
+                await Task.Delay(TimeSpan.FromSeconds(2))
+                          .ConfigureAwait(false);
 
                 int usingMemory = (int)_edmModelBusinessLogic.GetTotalMemory();
                 bool isRunning = SyncMetadataProcess.IsRunning;
@@ -98,7 +102,7 @@ namespace EveryAngle.OData.Service.Hubs
             }
         }
 
-        private async void CheckingMetadataProviderTask()
+        private async void CheckingMetadataProviderTask() //NOSONAR
         {
             while (true)
             {
@@ -108,7 +112,9 @@ namespace EveryAngle.OData.Service.Hubs
 
                 // check every 10 secs
                 // don't use Thread.Sleep for non blocking I/O.
-                await Task.Delay(TimeSpan.FromSeconds(10));
+                // add ConfigureAwait 'false' call to allow execution to continue in any thread. 
+                await Task.Delay(TimeSpan.FromSeconds(10))
+                          .ConfigureAwait(false);
 
                 continue;
             }

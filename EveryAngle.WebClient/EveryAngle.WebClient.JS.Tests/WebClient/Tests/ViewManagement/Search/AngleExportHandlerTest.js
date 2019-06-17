@@ -243,7 +243,6 @@ describe("AngleExportHandler", function () {
 
         it("should get 'false' when selected items are not all publish", function () {
             angleExportHandler.IsAllPublish = function () { return false; };
-            
             var result = angleExportHandler.CanExportPackage();
             expect(result).toEqual(false);
         });

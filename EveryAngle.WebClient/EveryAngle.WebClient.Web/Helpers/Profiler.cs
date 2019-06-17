@@ -10,7 +10,7 @@ namespace EveryAngle.WebClient.Web.Helpers
     /// <summary>
     ///     The profiler.
     /// </summary>
-    public class Profiler
+    public static class Profiler
     {
         /// <summary>
         /// The key to obtain current user's login ID.
@@ -25,7 +25,8 @@ namespace EveryAngle.WebClient.Web.Helpers
         {
             MiniProfiler.Settings.Storage = new Log4NetStorage();
 
-            if (MiniProfiler.Settings.IgnoredPaths == null) return;
+            if (MiniProfiler.Settings.IgnoredPaths == null)
+                return;
 
             // add partials of the URLs that you don't want to profile
             List<string> ignored = MiniProfiler.Settings.IgnoredPaths.ToList();
@@ -53,14 +54,18 @@ namespace EveryAngle.WebClient.Web.Helpers
         /// </remarks>
         public static void Start(HttpContext context)
         {
-            if (context == null || context.Session == null) return;
+            if (context == null || context.Session == null)
+                return;
             var user = context.Session[SESSION_KEY_CURRENT_USER] as string;
-            if (string.IsNullOrEmpty(user)) return;
+            if (string.IsNullOrEmpty(user))
+                return;
 
-            if (!ProfilerSetting.CheckUser(user)) return;
+            if (!ProfilerSetting.CheckUser(user))
+                return;
             MiniProfiler.Start();
 
-            if (MiniProfiler.Current == null) return;
+            if (MiniProfiler.Current == null)
+                return;
             MiniProfiler.Current.User = user;
         }
 
@@ -82,7 +87,7 @@ namespace EveryAngle.WebClient.Web.Helpers
         /// <summary>
         ///     The profiler setting.
         /// </summary>
-        public class ProfilerSetting
+        public static class ProfilerSetting
         {
             /// <summary>
             ///     The AppSetting key for list of user login IDs to run profile.
@@ -108,7 +113,8 @@ namespace EveryAngle.WebClient.Web.Helpers
                         CONFIG_KEY_PROFILER_TARGET_LOGIN_LIST), anyError);
                 }
 
-                if (appSettingValue != null) ProfilerTargetLoginCommaSeparatedList = appSettingValue.Split(',');
+                if (appSettingValue != null)
+                    ProfilerTargetLoginCommaSeparatedList = appSettingValue.Split(',');
             }
 
             /// <summary>
@@ -127,7 +133,8 @@ namespace EveryAngle.WebClient.Web.Helpers
             /// </returns>
             public static bool CheckUser(string user)
             {
-                if (user == null || ProfilerTargetLoginCommaSeparatedList == null) return false;
+                if (user == null || ProfilerTargetLoginCommaSeparatedList == null)
+                    return false;
                 return
                     ProfilerTargetLoginCommaSeparatedList.Any(
                         loginIdToCheck =>

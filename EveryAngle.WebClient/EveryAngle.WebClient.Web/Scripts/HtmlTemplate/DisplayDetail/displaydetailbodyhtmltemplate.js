@@ -101,4 +101,4 @@ var displayDetailHtmlTemplate = function () {
             '</div>',
         '</div>'
     ].join('');
-}
+};

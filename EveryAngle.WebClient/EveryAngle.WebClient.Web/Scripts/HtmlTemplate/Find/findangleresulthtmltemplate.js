@@ -65,4 +65,4 @@ var findAngleResultHtmlTemplate = function () {
             '</fieldset>',
         '</div>'
     ].join('');
-}
+};

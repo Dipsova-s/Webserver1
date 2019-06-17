@@ -26,8 +26,8 @@ namespace EveryAngle.WebClient.Web.Helpers
             ci.NumberFormat.PercentGroupSeparator = numberGroupSeparator;
             ci.NumberFormat.CurrencyGroupSeparator = numberGroupSeparator;
 
-            ci.DateTimeFormat.AMDesignator = ci.DateTimeFormat.AMDesignator.ToLower();
-            ci.DateTimeFormat.PMDesignator = ci.DateTimeFormat.PMDesignator.ToLower();
+            ci.DateTimeFormat.AMDesignator = ci.DateTimeFormat.AMDesignator.ToLowerInvariant();
+            ci.DateTimeFormat.PMDesignator = ci.DateTimeFormat.PMDesignator.ToLowerInvariant();
 
             Thread.CurrentThread.CurrentCulture = ci;
             Thread.CurrentThread.CurrentUICulture = ci;

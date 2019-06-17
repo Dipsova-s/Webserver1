@@ -17,7 +17,7 @@ namespace EveryAngle.ManagementConsole.Helpers
         COMMENT_LIMIT = 4
     }
 
-    public class ManagementConsoleEnumHelper
+    public static class ManagementConsoleEnumHelper
     {
         public static string GetMessage(MessageType type)
         {

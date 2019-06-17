@@ -121,10 +121,10 @@ function ResultViewModel() {
             // - has display
             // - saved display or unsave display & angle is_template & never post result
             // - customQueryBlocks not null (check for pivot grant totals drilldown)
-            // ex
-            if (settings.currentDisplay !== null && (!displayModel.IsTemporaryDisplay() || (displayModel.IsTemporaryDisplay() && !self.TemporaryAnglePosted))
-                && settings.customQueryBlocks && settings.customQueryBlocks.length) {
-                if (jQuery.deepCompare(settings.currentDisplay.query_blocks, settings.customQueryBlocks, false, false)) {
+            var checkDisplay = settings.currentDisplay && (!displayModel.IsTemporaryDisplay() || displayModel.IsTemporaryDisplay() && !self.TemporaryAnglePosted);
+            if (checkDisplay) {
+                var hasCustomQueryBlocks = settings.customQueryBlocks && settings.customQueryBlocks.length;
+                if (!hasCustomQueryBlocks || jQuery.deepCompare(settings.currentDisplay.query_blocks, settings.customQueryBlocks, false, false)) {
                     settings.data.query_definition.push({
                         queryblock_type: enumHandlers.QUERYBLOCKTYPE.BASE_DISPLAY,
                         base_display: displayModel.IsTemporaryDisplay(settings.currentDisplay.uri) ? displayModel.Data().uri_template : settings.currentDisplay.uri
@@ -141,7 +141,6 @@ function ResultViewModel() {
                         }
 
                         var isDuplicate = false;
-
                         jQuery.each(jQuery.grep(settings.data.query_definition, function (definition) { return definition.queryblock_type === enumHandlers.QUERYBLOCKTYPE.QUERY_STEPS; }), function (index, definitionType) {
                             jQuery.each(definitionType.query_steps, function (dIndex, dStep) {
                                 jQuery.each(v.query_steps, function (vIndex, step) {
@@ -151,15 +150,8 @@ function ResultViewModel() {
                             });
                         });
 
-                        if (!isDuplicate) settings.data.query_definition.push(v);
-                    });
-                }
-            }
-            else {
-                if (settings.currentDisplay && (!displayModel.IsTemporaryDisplay() || (displayModel.IsTemporaryDisplay() && !self.TemporaryAnglePosted))) {
-                    settings.data.query_definition.push({
-                        queryblock_type: enumHandlers.QUERYBLOCKTYPE.BASE_DISPLAY,
-                        base_display: displayModel.IsTemporaryDisplay(settings.currentDisplay.uri) ? displayModel.Data().uri_template : settings.currentDisplay.uri
+                        if (!isDuplicate)
+                            settings.data.query_definition.push(v);
                     });
                 }
             }
@@ -306,7 +298,7 @@ function ResultViewModel() {
             }, 100);
         }
     };
-    self.LoadSuccess = function (data, status, xhr) {
+    self.LoadSuccess = function (data) {
         if (displayModel.Data() === null) {
             data.display_type = null;
             data.display_uri = null;
@@ -345,11 +337,10 @@ function ResultViewModel() {
     };
     self.SetBaseClassName = function (data) {
         /*  M4-10057: Implement state transfers for angles/displays/dashboards
-            AS59 got rid of 'results/xxx/classes', 
-            WC changed to use 'results/xxx/actual_classes' 
-            and if actual_classes is nothing, used potential_classes instead  
+            AS59 got rid of 'results/xxx/classes',
+            WC changed to use 'results/xxx/actual_classes'
+            and if actual_classes is nothing, used potential_classes instead
         */
-
         var classes = [];
         if (data.actual_classes && data.actual_classes.length) {
             classes = data.actual_classes;
@@ -469,7 +460,7 @@ function ResultViewModel() {
             }
         });
         promise.fail(self.ApplyResultFail);
-        promise.done(function (data, status, xhr) {
+        promise.done(function (data) {
             if (data !== false) {
                 defaultValueHandler.CheckAndExtendProperties(data, enumHandlers.VIEWMODELNAME.RESULTMODEL, true);
                 self.LoadSuccess(data);
@@ -480,7 +471,7 @@ function ResultViewModel() {
     self.RequestDataField = function () {
         return jQuery.when(self.Data().is_aggregated ? self.LoadDataFields() : null);
     };
-    self.GetResult = function (request, callback) {
+    self.GetResult = function (request) {
         return jQuery.when(self.RequestResult(request), self.RequestDataField());
     };
     self.SetLatestRenderInfo = function () {
@@ -502,10 +493,11 @@ function ResultViewModel() {
             case enumHandlers.DISPLAYTYPE.CHART:
                 chartHandler.GetChartDisplay();
                 break;
-
             case enumHandlers.DISPLAYTYPE.LIST:
                 listHandler.GetListDisplay(true);
                 progressbarModel.EndProgressBar();
+                break;
+            default:
                 break;
         }
     };
@@ -557,7 +549,7 @@ function ResultViewModel() {
         }
     };
     self.GetResultDisplayFieldByFieldId = function (fieldId) {
-        var displayField = jQuery.grep(self.Fields, function (field, index) {
+        var displayField = jQuery.grep(self.Fields, function (field) {
             return field.id === fieldId;
         });
         return displayField.length > 0 ? displayField[0] : null;
@@ -640,10 +632,10 @@ function ResultViewModel() {
     };
     self.LoadDataFields = function () {
         return jQuery.when(cacheDataField[self.Data().data_fields] || GetDataFromWebService(directoryHandler.ResolveDirectoryUri(self.Data().data_fields)))
-            .fail(function (xhr, status, error) {
+            .fail(function () {
                 errorHandlerModel.OnClickRetryErrorCallback = self.RetryPostResult;
             })
-            .done(function (data, status, xhr) {
+            .done(function (data) {
                 jQuery.each(data.fields, function (index, field) {
                     if (!self.GetDataFieldById(field.id)) {
                         self.DataFields.push(field);
@@ -654,7 +646,7 @@ function ResultViewModel() {
     self.GetDataFieldById = function (fieldId) {
         return self.DataFields.findObject('id', fieldId, false);
     };
-    self.CalculateChangeFieldCollection = function (modelUri, angleUri) {
+    self.CalculateChangeFieldCollection = function (modelUri) {
         var sessionPrivileges = privilegesViewModel.GetModelPrivilegesByUri(modelUri);
         var privilageAllowMoreDetail = sessionPrivileges.length === 0 ? false : sessionPrivileges[0].privileges.allow_more_details;
 

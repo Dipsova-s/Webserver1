@@ -113,4 +113,4 @@ var exportCSVHtmlTemplate = function () {
             '</fieldset>',
     '</div>'
     ].join('');
-}
+};

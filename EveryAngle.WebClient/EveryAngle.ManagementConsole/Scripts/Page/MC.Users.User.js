@@ -12,7 +12,6 @@
         self.AllRoles = [];
         self.UserModelPrivileges = '';
         self.UserGridSelection = null;
-      
 
         self.InitialAllUsersPage = function (data) {
             self.AllUserPageUri = '';
@@ -295,11 +294,9 @@
                         grid.trigger('dataBound');
                     }
                 }
-                
                 self.InitialGridSelectedUser();
                 self.InitialImportUserButtons();
                 self.InitialUserRolesMultiSelect();
-                
                 MC.form.page.init(self.GetImportUsersData);
             }, 1);
         };
@@ -547,7 +544,7 @@
                             var item = availableRoleGrid.dataSource.getByUid(row.data('uid'));
                             if (row.hasClass('k-state-selected')) {
                                 if (item.ModelRole)
-                                    delete self.SelectingRoles[item.Id + ":" + item.ModelRole]
+                                    delete self.SelectingRoles[item.Id + ":" + item.ModelRole];
                                 else
                                     delete self.SelectingRoles[item.Id];
                                 row.removeClass('k-state-selected');

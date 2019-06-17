@@ -15,4 +15,4 @@ var createAngleSchemaHtmlTemplate = function () {
     createAngleSchemaHtmlTemplate += "<\/div>";
 
     return createAngleSchemaHtmlTemplate;
-}
+};

@@ -87,7 +87,6 @@
     });
 
     describe("MC.util.timePickerToUnixTime", function () {
-        
         var tests = [
             { offset: 0, date: new Date(1970, 0, 1, 0, 0, 0), utc: true, expected: 0 },
             { offset: 0, date: new Date(1970, 0, 1, 1, 0, 0), utc: true, expected: 3600 }

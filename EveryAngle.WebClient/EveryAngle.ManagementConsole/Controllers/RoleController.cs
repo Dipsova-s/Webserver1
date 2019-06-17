@@ -379,7 +379,7 @@ namespace EveryAngle.ManagementConsole.Controllers
 
         public ActionResult GetFilterLabels(string modelUri, string roleUri, string q = "")
         {
-            string query = q.ToLower();
+            string query = q.ToLowerInvariant();
             var role = _modelService.GetRole(modelUri, roleUri);
             var labels = new List<PrivilegeLabel>();
             role.PrivilegeLabels.ForEach(label =>
@@ -1298,7 +1298,6 @@ namespace EveryAngle.ManagementConsole.Controllers
         {
             if (!string.IsNullOrEmpty(subRoleIds))
             {
-                if (systemRoleViewModel.Subrole_ids == null) systemRoleViewModel.Subrole_ids = new List<string>();
                 systemRoleViewModel.Subrole_ids = JsonConvert.DeserializeObject<List<string>>(subRoleIds);
             }
         }

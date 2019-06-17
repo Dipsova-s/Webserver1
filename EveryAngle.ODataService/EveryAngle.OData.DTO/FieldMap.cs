@@ -10,5 +10,12 @@
         public bool IsTime;
         public bool IsEnumerated;
         public bool NeedsConversion;
+
+        public void SetConversionNeeded()
+        {
+            NeedsConversion = IsDate    ||  IsDouble     ||
+                              IsPeriod  ||  IsDecimal    ||
+                              IsTime    ||  IsEnumerated;
+        }
     }
 }

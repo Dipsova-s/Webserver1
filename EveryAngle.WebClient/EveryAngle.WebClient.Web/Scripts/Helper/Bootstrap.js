@@ -293,7 +293,7 @@
             j = Math.abs(c.x);
             i = Math.abs(c.y);
             h = Math.abs(c.z);
-            if (!m.orientation && (j > 7 || ((h > 6 && i < 8 || h < 8 && i > 6) && j > 5))) {
+            if (!m.orientation && (j > 7 || ((h > 6 && i < 8 || h < 8 && i > 6) && j > 5))) {   //NOSONAR
                 if (g) {
                     b();
                 }

@@ -26,4 +26,4 @@ var addToDashboardHtmlTemplate = function () {
     addToDashboardHtmlTemplate += "<\/div>";
     addToDashboardHtmlTemplate += "";
     return addToDashboardHtmlTemplate;
-}
+};

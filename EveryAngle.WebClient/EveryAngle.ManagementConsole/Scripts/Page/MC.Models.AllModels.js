@@ -30,9 +30,6 @@
                 var reference = jQuery(obj).parents('tr:first').children('td').eq(jQuery(obj).data('delete-field-index') || 0);
                 var deleteModel = reference.text();
                 var deleteDescription = jQuery("#row-" + deleteModel + " > td:nth-child(2)").text();
-                var logoutToThisPage = function () {
-                    MC.ajax.reloadMainContent();
-                };
 
                 MC.ajax.request({
                     url: self.FindAmountOfAngleAndDashboardUri,

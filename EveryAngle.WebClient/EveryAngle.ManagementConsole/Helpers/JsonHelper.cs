@@ -5,7 +5,7 @@ using System.Web.Mvc;
 
 namespace EveryAngle.ManagementConsole.Helpers
 {
-    public class JsonHelper
+    public static class JsonHelper
     {
         public static JsonResult GetJsonResult(
             bool isSuccess,
@@ -30,9 +30,7 @@ namespace EveryAngle.ManagementConsole.Helpers
                 Data = new
                 {
                     success = isSuccess,
-                    message = errorMessageFromSystem == null ? 
-                              ManagementConsoleEnumHelper.GetMessage(customErrorMessage) : 
-                              errorMessageFromSystem,
+                    message = errorMessageFromSystem ?? ManagementConsoleEnumHelper.GetMessage(customErrorMessage),
                     status = statusCode.HasValue ? statusCode : null,
                     parameters,
                     session_needs_update

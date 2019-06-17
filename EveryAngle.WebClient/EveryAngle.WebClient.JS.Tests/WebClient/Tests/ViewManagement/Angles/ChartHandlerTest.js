@@ -711,7 +711,6 @@ describe("ChartHandler", function () {
                 });
             });
         });
-        
         describe("should get expected unit text", function () {
             this.bucketOperators = [
                 { type: 'day', operator: enumHandlers.FILTERPERIODTYPE.DAY, expectedUnitText: 'days' },

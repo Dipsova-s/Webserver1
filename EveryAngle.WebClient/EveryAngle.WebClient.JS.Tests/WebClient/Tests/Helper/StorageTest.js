@@ -27,7 +27,7 @@ describe("Storage test", function () {
         sessionStorage.clear();
     });
 
-    describe("call window.getStoragePrefix", function () {
+    describe("window.getStoragePrefix", function () {
 
         var tests = [
             { path: '/en/search/searchpage', 'prefix': '_' },
@@ -48,7 +48,7 @@ describe("Storage test", function () {
 
     });
 
-    describe("call jQuery.localStorage", function () {
+    describe("jQuery.localStorage", function () {
         jQuery.each(keys, function (index, key) {
             it("should get localStorage from key '" + key + "' of sub10", function () {
                 window.storagePrefix = 'sub10_';
@@ -65,8 +65,8 @@ describe("Storage test", function () {
 
         it("should handle correctly when localStorage reached limitation", function () {
 
-            var text = '';
-            for (var i = 0; i < 1000000; i++)
+            var text = '', i;
+            for (i = 0; i < 1000000; i++)
                 text += '0';
 
             // 5 items should have a value
@@ -77,7 +77,7 @@ describe("Storage test", function () {
             expect($.localStorage('field_domains')).not.toEqual(null);
 
             // add another
-            for (var i = 0; i < 10; i++)
+            for (i = 0; i < 10; i++)
                 $.localStorage('test' + i, text);
 
             // 5 specific keys from sub10 should be removed
@@ -97,10 +97,9 @@ describe("Storage test", function () {
             expect($.localStorage('field_domains')).toEqual(null);
 
         });
-
     });
 
-    describe("call jQuery.localStorage.removeItem", function () {
+    describe("jQuery.localStorage.removeItem", function () {
         jQuery.each(keys, function (index, key) {
             it("should remove localStorage from key '" + key + "' of sub10 but sub20", function () {
                 window.storagePrefix = 'sub10_';
@@ -113,7 +112,7 @@ describe("Storage test", function () {
         });
     });
 
-    describe("call jQuery.localStorage.removeAll", function () {
+    describe("jQuery.localStorage.removeAll", function () {
         it("should remove all localStorage fromn sub10 but sub20", function () {
             jQuery.localStorage.removeAll();
             jQuery.each(keys, function (index, key) {
@@ -127,7 +126,7 @@ describe("Storage test", function () {
         });
     });
 
-    describe("call jQuery.localStorage.adjust", function () {
+    describe("jQuery.localStorage.adjust", function () {
         it("should adjust localStorage if got QuotaExceededError error", function () {
             jQuery.localStorage.adjust();
 
@@ -149,15 +148,15 @@ describe("Storage test", function () {
         });
     });
 
-    describe("Session Storage", function () {
-        it("Can get value from Session Storage correctly", function () {
+    describe("jQuery.sessionStorage", function () {
+        it("can get value from Session Storage correctly", function () {
             jQuery.sessionStorage(key1, window.storagePrefix + key1);
             expect(jQuery.sessionStorage(key1)).toBe(window.storagePrefix + key1);
         });
     });
 
-    describe("Storage Watcher", function () {
-        it("Remove key from Local Storage, if value is undefined", function () {
+    describe("jQuery.storageWatcher", function () {
+        it("remove key from Local Storage, if value is undefined", function () {
             jQuery.storageWatcher(key1, window.storagePrefix + key1);
             jQuery.storageWatcher(key1, undefined);
             expect(jQuery.localStorage(key1)).toBe(null);

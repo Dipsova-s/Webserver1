@@ -315,7 +315,7 @@
             // name
             self.RefreshCycleForm.find('input[name="TaskName"]').val('');
 
-            // action list 
+            // action list
             var actionList = self.RefreshCycleForm.find('[name="Action"]').data('handler');
             actionList.value('');
             actionList.trigger('change');
@@ -425,7 +425,7 @@
             var actionListContainer = self.RefreshCycleForm.find('[name="Action"]').closest('.contentSectionInfoItem');
             var specifyTablesButton = actionListContainer.find('.descriptionLabel');
             var specifyTablesLabel = actionListContainer.find('#SelectedTableList');
-            
+
             // if value of action list = 'tables' it will show button
             if (self.IsTablesAction(e.sender.value())) {
                 specifyTablesButton.removeClass('hidden');
@@ -456,7 +456,7 @@
             if (!actionListPopup.__bind_resize_event) {
                 actionListPopup.__bind_resize_event = true;
 
-                actionListPopup.bind('resize', function (e) {
+                actionListPopup.bind('resize', function () {
                     actionListGridElement.height(actionListPopup.element.outerHeight() - 2);
                     actionListGrid.resize(true);
                 });
@@ -759,14 +759,15 @@
                 return;
             }
 
-            MC.ajax.request({
-                url: self.SaveUri,
-                parameters: {
-                    'tasksUri': self.TasksUri,
-                    'tasksData': self.GetTaskData()
-                },
-                type: 'POST'
-            })
+            MC.ajax
+                .request({
+                    url: self.SaveUri,
+                    parameters: {
+                        'tasksUri': self.TasksUri,
+                        'tasksData': self.GetTaskData()
+                    },
+                    type: 'POST'
+                })
                 .done(function () {
                     MC.ajax.reloadMainContent();
                 })
@@ -842,7 +843,7 @@
             var win = $('#popupSpecifyTables').data('kendoWindow');
             if (!win)
                 return;
-            
+
             var gridElement = win.element.find('.k-grid');
             var grid = gridElement.data('kendoGrid');
             if (!grid)
@@ -879,7 +880,7 @@
         self.SetTableListToGrid = function (grid) {
             if (!grid || grid.__bind_databound)
                 return;
-            
+
             grid.__bind_databound = true;
             grid.bind('dataBinding', function (e) {
                 $.each(e.sender.dataSource.data(), function (key, value) {
@@ -945,73 +946,15 @@
                     });
                 }
                 else {
-                    var tasksData = {
-                        "id": "EATest_" + self.ModelId,
-                        "name": "Test_" + self.ModelId,
-                        "actions": [
-                            {
-                                "action_type": "refresh_model",
-                                "arguments": [
-                                    {
-                                        "name": "model",
-                                        "value": self.ModelId
-                                    },
-                                    {
-                                        "name": "action_list",
-                                        "value": "EATest"
-                                    },
-                                    {
-                                        "name": "delta",
-                                        "value": false
-                                    }
-                                ]
-                            }
-                        ],
-                        "delete_after_completion": false,
-                        "triggers": [
-                            {
-                                "days": [
-                                    {
-                                        "day": 0,
-                                        "active": false
-                                    },
-                                    {
-                                        "day": 1,
-                                        "active": false
-                                    },
-                                    {
-                                        "day": 2,
-                                        "active": false
-                                    },
-                                    {
-                                        "day": 3,
-                                        "active": false
-                                    },
-                                    {
-                                        "day": 4,
-                                        "active": false
-                                    },
-                                    {
-                                        "day": 5,
-                                        "active": false
-                                    },
-                                    {
-                                        "day": 6,
-                                        "active": false
-                                    }
-                                ],
-                                "frequency": "Weekly",
-                                "continuous": false,
-                                "trigger_type": "schedule",
-                                "start_time": 0,
-                                "restart_delay": 0
-                            }
-                        ]
-                    };
-
+                    var tasksData = self.GetEATestData();
                     return MC.ajax.request({
                         url: self.TestExtractionUri,
-                        parameters: { "modelId": self.ModelId, "modelServerUri": self.ModelServerUri, "tasksUri": self.TasksUri, "tasksData": JSON.stringify(tasksData) },
+                        parameters: {
+                            "modelId": self.ModelId,
+                            "modelServerUri": self.ModelServerUri,
+                            "tasksUri": self.TasksUri,
+                            "tasksData": JSON.stringify(tasksData)
+                        },
                         type: 'POST'
                     });
                 }
@@ -1047,7 +990,7 @@
                 .always(function () {
                     MC.ajax.reloadMainContent();
 
-                    $('#TestExtractionContainer .btnRetry').click(function (e) {
+                    $('#TestExtractionContainer .btnRetry').click(function () {
                         self.ReloadTestExtraction('reload');
                     });
 
@@ -1057,6 +1000,71 @@
                 });
 
             deferred.promise();
+        };
+        self.GetEATestData = function () {
+            return {
+                "id": "EATest_" + self.ModelId,
+                "name": "Test_" + self.ModelId,
+                "actions": [
+                    {
+                        "action_type": "refresh_model",
+                        "arguments": [
+                            {
+                                "name": "model",
+                                "value": self.ModelId
+                            },
+                            {
+                                "name": "action_list",
+                                "value": "EATest"
+                            },
+                            {
+                                "name": "delta",
+                                "value": false
+                            }
+                        ]
+                    }
+                ],
+                "delete_after_completion": false,
+                "triggers": [
+                    {
+                        "days": [
+                            {
+                                "day": 0,
+                                "active": false
+                            },
+                            {
+                                "day": 1,
+                                "active": false
+                            },
+                            {
+                                "day": 2,
+                                "active": false
+                            },
+                            {
+                                "day": 3,
+                                "active": false
+                            },
+                            {
+                                "day": 4,
+                                "active": false
+                            },
+                            {
+                                "day": 5,
+                                "active": false
+                            },
+                            {
+                                "day": 6,
+                                "active": false
+                            }
+                        ],
+                        "frequency": "Weekly",
+                        "continuous": false,
+                        "trigger_type": "schedule",
+                        "start_time": 0,
+                        "restart_delay": 0
+                    }
+                ]
+            };
         };
         self.CheckViewExtractionButton = function () {
             if (!$('#btnViewExtraction').length)

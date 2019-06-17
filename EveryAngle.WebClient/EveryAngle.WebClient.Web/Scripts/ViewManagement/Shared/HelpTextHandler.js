@@ -63,17 +63,17 @@ function HelpTextHandler() {
         ].join('');
     };
     self.LoadHelpTextByUri = function (uri) {
-        if (!uri) return jQuery.when(null);
+        if (!uri)
+            return jQuery.when(null);
 
         var data = self.GetHelpTextByUri(uri);
         if (data) {
             return jQuery.when(data);
         }
-        
         var query = {};
         query[enumHandlers.PARAMETERS.VIEWMODE] = enumHandlers.VIEWMODETYPE.DETAILS;
         return jQuery.when(GetDataFromWebService(directoryHandler.ResolveDirectoryUri(uri), query))
-            .done(function (data, status, xhr) {
+            .done(function (data) {
                 self.SetData([data]);
             });
     };
@@ -188,13 +188,13 @@ function HelpTextHandler() {
         popup.Close('.helpTextPopup:visible .k-window-content');
     };
     self.ShowHelpTextInArea = function (objectId, areaSelector, helpType, modelUri) {
-        if (!objectId) return;
+        if (!objectId)
+            return;
 
         var target = jQuery(areaSelector);
         if (!target.find('.helpTextContainer').length) {
             target.html(self.GetTemplate());
         }
-        
         self.SetHelpSourceField(objectId, helpType, modelUri);
         jQuery.when(self.SetHelpTextHtml(target, modelUri))
             .always(function () {
@@ -285,8 +285,6 @@ function HelpTextHandler() {
                             if (url.indexOf(keyword) > 0) {
                                 var startIndex = url.indexOf(keyword) + keyword.length;
                                 var targetUri = url.substring(startIndex);
-
-
                                 var helptextId = '';
                                 if (targetUri.indexOf('.html#') > -1) {
                                     helptextId = targetUri.substring(0, targetUri.indexOf('.html#'));

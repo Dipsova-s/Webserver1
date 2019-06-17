@@ -3,21 +3,21 @@
 function ModelFieldModel(model) {
     "use strict";
 
+    model = model || {};
+
     // check invalid domain field
-    if (typeof model !== 'undefined') {
-        if ((model.domain && model.fieldtype !== enumHandlers.FIELDTYPE.ENUM)
-            || (!model.domain && model.fieldtype === enumHandlers.FIELDTYPE.ENUM)
-            || model.fieldtype === 'unknown') {
-            delete model.domain;
-            model.fieldtype = enumHandlers.FIELDTYPE.TEXT;
-        }
+    var isDomainNotEnum = model.domain && model.fieldtype !== enumHandlers.FIELDTYPE.ENUM;
+    var isEnumNotDomain = !model.domain && model.fieldtype === enumHandlers.FIELDTYPE.ENUM;
+    if (isDomainNotEnum || isEnumNotDomain || model.fieldtype === 'unknown') {
+        delete model.domain;
+        model.fieldtype = enumHandlers.FIELDTYPE.TEXT;
     }
 
     jQuery.extend(true, this, {
         id: '',
         uri: '',
-        short_name: model ? model.id : '',
-        long_name: model ? model.id : '',
+        short_name: model.id || '',
+        long_name: model.id || '',
         source: '',
         fieldtype: enumHandlers.FIELDTYPE.TEXT,
         domain: '',
@@ -25,8 +25,7 @@ function ModelFieldModel(model) {
         technical_info: '',
         helpid: '',
         helptext: '',
-        user_specific: {
-        }
+        user_specific: {}
     }, model);
 }
 
@@ -70,7 +69,6 @@ function ModelFieldsHandler() {
     /*=============== custom functions ===============*/
     self.LoadFields = function (uri, params, store) {
         var query = {};
-        //query[enumHandlers.PARAMETERS.VIEWMODE] = enumHandlers.VIEWMODETYPE.BASIC; /* M4-13164: used viewmode=basic to classes & fields request */
         jQuery.extend(query, params);
 
         return self.Load(uri, query, store);
@@ -85,7 +83,7 @@ function ModelFieldsHandler() {
         }
 
         return self.LoadByIds(uri, ids, query)
-            .done(function (fields) {
+            .done(function () {
                 // add missing fields to cache
                 jQuery.each(ids, function (index, id) {
                     if (!self.GetFieldById(id, modelUri)) {

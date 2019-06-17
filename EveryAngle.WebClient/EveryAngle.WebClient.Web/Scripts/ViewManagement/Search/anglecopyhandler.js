@@ -8,8 +8,8 @@ function AngleCopyHandler() {
     // BOF: Properties
     self.Template = [
         '<div class="popupAngleCopyContainer">',
-            '<div class="copyAngleLabel"></div>',
-            '<div class="eaDropdown" id="ddlModelCopyAngle"></div>',
+        '<div class="copyAngleLabel"></div>',
+        '<div class="eaDropdown" id="ddlModelCopyAngle"></div>',
         '</div>'
     ].join('');
     self.Angles = [];
@@ -18,7 +18,6 @@ function AngleCopyHandler() {
     // BOF: Methods
     self.ShowAngleCopyPopup = function () {
         self.Angles = [];
-        var angle;
         jQuery.each(searchModel.SelectedItems(), function (index, item) {
             if (item && item.type === enumHandlers.ITEMTYPE.ANGLE) {
                 self.Angles.push(ko.toJS(item));
@@ -163,7 +162,6 @@ function AngleCopyHandler() {
         var getAngleName = function (angle) {
             return angle.name || WC.Utility.GetDefaultMultiLangText(angle.multi_lang_name);
         };
-
         var showCopyAnglesReport = function () {
             var message = '';
             message += '<strong>' + kendo.format(Localization.CopyAngleReportHeader, reports.post_done.length, self.Angles.length) + '</strong><br />';
@@ -186,7 +184,7 @@ function AngleCopyHandler() {
                 });
             }
 
-            self.ShowCopyAngleReportPopup(message, reports.get_error.length + reports.post_error.length);
+            self.ShowCopyAngleReportPopup(message);
 
             progressbarModel.EndProgressBar();
 
@@ -196,39 +194,13 @@ function AngleCopyHandler() {
                 searchPageHandler.BindSearchResultGrid(0);
             }, 500);
         };
-
-        var copyAngle = function (angle, isBeginSession) {
-            if (isCancel && isBeginSession) {
-                canCancel = true;
+        var updateCreateAngleProgress = function () {
+            if (!isCancel || canCancel) {
+                var angleCount = self.Angles.length;
+                var currentAngleCount = reports.post_done.length;
+                progressbarModel.SetProgressBarText((currentAngleCount / angleCount * 100).toFixed(2), currentAngleCount + '/' + angleCount, Localization.ProgressBar_CopyingAngles);
             }
-
-            var angleParams = {};
-            angleParams[enumHandlers.PARAMETERS.CACHING] = false;
-            angleParams[enumHandlers.PARAMETERS.MULTILINGUAL] = 'yes';
-
-            return jQuery.when(
-                isCancel && canCancel
-                ? jQuery.Deferred().reject({}, Localization.AbortStatus, Localization.CancelledByUser)
-                : (
-                    angle.displays && angle.displays.length
-                    ? GetDataFromWebService(angle.uri, angleParams)
-                    : jQuery.Deferred().reject({ responseText: JSON.stringify({ reason: Localization.ErrorAngleNoDisplay, message: Localization.ErrorAngleNoDisplayReason }) })
-                    )
-                )
-                .fail(function (xhr, status, error) {
-                    var response = WC.Utility.ParseJSON(xhr.responseText, { reason: status, message: error });
-                    reports.post_error.push({ angle: angle, response: response });
-                })
-                .then(function (angle, status, xhr) {
-
-                    reports.get_done.push(angle);
-
-                    angle = self.GetCopyAngleData(angle, modelUri);
-
-                    return createCopyAngle(angle);
-                });
         };
-
         var createCopyAngle = function (angle) {
             var params = {};
             params[enumHandlers.PARAMETERS.MULTILINGUAL] = 'yes';
@@ -239,33 +211,46 @@ function AngleCopyHandler() {
                     var response = WC.Utility.ParseJSON(xhr.responseText, { reason: status, message: error });
                     reports.post_error.push({ angle: angle, response: response });
                 })
-                .done(function (data, status, xhr) {
+                .done(function (data) {
                     reports.post_done.push(data);
                 })
                 .always(function () {
                     updateCreateAngleProgress();
                 });
         };
+        var copyAngle = function (angle, isBeginSession) {
+            if (isCancel && isBeginSession)
+                canCancel = true;
 
-        var updateGetAngleProgress = function () {
-            var angleCount = angleData.length;
-            var currentAngleCount = reports.get_done.length;
-            progressbarModel.SetProgressBarText((currentAngleCount / angleCount * 100).toFixed(2), currentAngleCount + '/' + angleCount, Localization.ProgressBar_GettingAngles);
-        };
+            var angleParams = {};
+            angleParams[enumHandlers.PARAMETERS.CACHING] = false;
+            angleParams[enumHandlers.PARAMETERS.MULTILINGUAL] = 'yes';
 
-        var updateCreateAngleProgress = function () {
-            if (!isCancel || canCancel) {
-                var angleCount = self.Angles.length;
-                var currentAngleCount = reports.post_done.length;
-                progressbarModel.SetProgressBarText((currentAngleCount / angleCount * 100).toFixed(2), currentAngleCount + '/' + angleCount, Localization.ProgressBar_CopyingAngles);
-            }
+            var cancelling = isCancel && canCancel;
+            var hasDisplay = angle.displays && angle.displays.length;
+            return jQuery.when(
+                    cancelling
+                    ? jQuery.Deferred().reject({}, Localization.AbortStatus, Localization.CancelledByUser)
+                    : hasDisplay
+                        ? GetDataFromWebService(angle.uri, angleParams)
+                        : jQuery.Deferred().reject({ responseText: JSON.stringify({ reason: Localization.ErrorAngleNoDisplay, message: Localization.ErrorAngleNoDisplayReason }) })
+                )
+                .fail(function (xhr, status, error) {
+                    var response = WC.Utility.ParseJSON(xhr.responseText, { reason: status, message: error });
+                    reports.post_error.push({ angle: angle, response: response });
+                })
+                .then(function (angle) {
+                    reports.get_done.push(angle);
+
+                    angle = self.GetCopyAngleData(angle, modelUri);
+
+                    return createCopyAngle(angle);
+                });
         };
 
         self.Angles = [];
-     
         jQuery.each(angleData, function (index, angle) {
             angleDeferred.pushDeferred(copyAngle, [angle, index % angleCopyPerSession === 0]);
-
             self.Angles.push(angle);
         });
 
@@ -286,15 +271,15 @@ function AngleCopyHandler() {
         };
 
         jQuery.whenAllSet(angleDeferred, angleCopyPerSession)
-          .always(function () {
-              clearTimeout(fnCheckCancelAbort);
-              setTimeout(function () {
-                  errorHandlerModel.Enable(true);
-                  showCopyAnglesReport();
-              }, 500);
-          });
+            .always(function () {
+                clearTimeout(fnCheckCancelAbort);
+                setTimeout(function () {
+                    errorHandlerModel.Enable(true);
+                    showCopyAnglesReport();
+                }, 500);
+            });
     };
-    self.ShowCopyAngleReportPopup = function (message, hasError) {
+    self.ShowCopyAngleReportPopup = function (message) {
         var popupName = 'Report',
             popupSettings = {
                 title: Localization.CopyAngleReport,

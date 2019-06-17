@@ -361,7 +361,7 @@
                             var dataItem = data || treeList.dataSource.getByUid(row.data('uid'));
                             if (!dataItem)
                                 return;
-                                
+
                             expandedRowCache[dataItem.uid] = true;
                             if (dataItem.parentId === null)
                                 return;
@@ -371,9 +371,8 @@
                                 return;
 
                             var rowParent = treeList.content.find('[data-uid="' + dataItemParent.uid + '"]');
-                            if (rowParent.has('.k-i-expand')) {
+                            if (rowParent.has('.k-i-expand'))
                                 treeList.expand(rowParent);
-                            }
                             fnExpandParents(rowParent, dataItemParent);
                         };
                         for (i = highlightingCount - 1; i >= 0; i--) {

@@ -12,7 +12,7 @@ namespace EveryAngle.ManagementConsole.Helpers
 {
     // [TODO] This class should be refactored, called a UrlHelperExtension.ParallelRequest which is not testable.
     // this ParallelRequest extesion should be a new instantiate creation with requestManager as a ctor's param to make it testable.
-    public class ParallelRequestHelper
+    public static class ParallelRequestHelper
     {
         public static List<Field> GetFieldListByIds(ModelViewModel model, List<string> data)
         {

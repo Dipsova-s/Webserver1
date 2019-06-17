@@ -112,13 +112,16 @@
                 document.location = document.location.pathname;
             };
 
-            MC.ajax.request({
-                url: self.SaveUri,
-                parameters: { jsonData: JSON.stringify(data.modelData), modelUri: data.modelUri },
-                type: data.type
-            })
-                .done(function (response) {
-
+            MC.ajax
+                .request({
+                    url: self.SaveUri,
+                    parameters: {
+                        jsonData: JSON.stringify(data.modelData),
+                        modelUri: data.modelUri
+                    },
+                    type: data.type
+                })
+                .done(function () {
                     if (data.type === "POST") {
                         logoutToOverviewPage();
                     }
@@ -139,10 +142,11 @@
 
         self.UpdateSideMenu = function (target, url) {
             disableLoading();
-            MC.ajax.request({
-                target: target,
-                url: url
-            })
+            MC.ajax
+                .request({
+                    target: target,
+                    url: url
+                })
                 .fail(function (xhr) {
                     if (xhr.status === 409) {
                         setTimeout(function () {
@@ -158,12 +162,13 @@
         };
         self.UpdateTopMenu = function () {
             disableLoading();
-            MC.ajax.request({
-                url: self.TopMenuUri,
-                type: 'Get',
-                dataType: 'html'
-            })
-                .done(function (data, status, xhr) {
+            MC.ajax
+                .request({
+                    url: self.TopMenuUri,
+                    type: 'Get',
+                    dataType: 'html'
+                })
+                .done(function (data) {
                     MC.ui.loading.setLoader('hidePopupError');
                     $('#topMenu').html(data);
                     MC.storage.clean();
@@ -205,11 +210,12 @@
             jQuery('#modelInfoStatus').busyIndicator(true);
             jQuery('#graph .modelInfoStatusGraph').addClass('loadingGraph');
             jQuery.each(self.ModelServers, function (index, modelServer) {
-                MC.ajax.request({
-                    url: self.ModelGraphDataUri,
-                    parameters: { eventLogUri: modelServer.event_log, modelServerId: modelServer.id }
-                })
-                    .done(function (data, status) {
+                MC.ajax
+                    .request({
+                        url: self.ModelGraphDataUri,
+                        parameters: { eventLogUri: modelServer.event_log, modelServerId: modelServer.id }
+                    })
+                    .done(function (data,) {
                         self.ModelServersData[data.id] = data.logs;
 
                         var html = '', size;
@@ -275,7 +281,7 @@
             var setServerStatus = function (currentStatus) {
                 var currentDate = new Date();
                 var serverStatusClassName = self.GetServerStatusName(currentStatus.status);
-                var liveTime = currentDate.getTime() - ((currentStatus.timestamp * 1000) + currentDate.getTimezoneOffset());
+                var liveTime = currentDate.getTime() - (currentStatus.timestamp * 1000 + currentDate.getTimezoneOffset());
                 var liveTimeText = currentStatus.status + ' for ' + MC.util.readableDate(liveTime);
                 jQuery('#modelInfoStatusReport').attr('class', 'modelInfoStatusReport modelInfoStatus' + serverStatusClassName);
                 jQuery('#modelInfoStatusReport strong').attr('title', liveTimeText).html(liveTimeText);
@@ -315,7 +321,7 @@
                 var spanServerTime = $('span.' + serverId + '_time');
                 if (currentStatus.timestamp) {
                     var currentDate = new Date();
-                    var liveTime = currentDate.getTime() - ((currentStatus.timestamp * 1000) + currentDate.getTimezoneOffset());
+                    var liveTime = currentDate.getTime() - (currentStatus.timestamp * 1000 + currentDate.getTimezoneOffset());
                     var liveTimeText = ' for ' + MC.util.readableDate(liveTime);
                     var statusTime = MC.util.readableDate(liveTime);
 
@@ -400,7 +406,7 @@
 
                     if (win && !win.__bind_resize_event) {
                         win.__bind_resize_event = true;
-                        win.bind('resize', function (e) {
+                        win.bind('resize', function () {
                             gridElement.height(win.element.height() - 2);
                             grid.resize(true);
                         });
@@ -465,18 +471,18 @@
 
             initialEventLogGrid();
         };
-        self.LogTableDatabound = function (e) {
+        self.LogTableDatabound = function () {
             MC.ui.localize();
         };
 
         self.ShowModelServerInfo = function (e, obj) {
             MC.util.modelServerInfo.showInfoPopup(e, obj);
         };
-        self.ShowModelServerInfoCallback = function (data) {
+        self.ShowModelServerInfoCallback = function () {
             // no callback
         };
 
-        self.ShowGlobalSettings = function (e, link) {
+        self.ShowGlobalSettings = function (e) {
             if (!$('#sideMenu-GlobalSettings').hasClass('active')) {
                 $('#sideMenu-GlobalSettings > a').trigger('click');
             }

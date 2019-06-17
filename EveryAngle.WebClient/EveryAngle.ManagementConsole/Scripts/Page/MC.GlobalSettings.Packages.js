@@ -52,7 +52,7 @@
                     });
                 }, 10);
             }, 1);
-            
+
         };
 
         self.PackageGridDataBound = function (e) {
@@ -84,7 +84,7 @@
             }
             if (!jQuery('#file').val())
                 return false;
-         
+
             if (!Modernizr.xhr2)
                 MC.ui.loading.setUpload(null);
 
@@ -131,9 +131,9 @@
                         element: obj,
                         type: 'POST'
                     })
-                    .done(function () {
-                        MC.ajax.reloadMainContent();
-                    });
+                        .done(function () {
+                            MC.ajax.reloadMainContent();
+                        });
                 });
             }
             MC.util.preventDefault(e);
@@ -161,7 +161,7 @@
             grid.dataSource.transport.options.read.url = sourceUrl + '?' + jQuery.param(query);
         };
 
-        self.PackagesGridFilter = function (element) {
+        self.PackagesGridFilter = function () {
             $('#GlobalPackagesGridFilterBox').data('defaultValue', '***********').trigger('keyup');
         };
 
@@ -234,7 +234,7 @@
                     }
                 });
             }
-            
+
             return $.when(filterItems);
         };
         self.InitialExportPackageFilter = function (checkboxes) {
@@ -340,9 +340,9 @@
                 checkboxItemSummary.hide();
             }
         };
-        
+
         // on click export package
-        self.ExportPackage = function (submitButton) {
+        self.ExportPackage = function () {
             if (self.ExportFormIsValid()) {
                 clearTimeout(timeoutId);
                 MC.ui.popup('close');
@@ -364,7 +364,7 @@
                 var invalidField = form.find('.error:first');
                 invalidField.focus();
 
-                form.off('scroll.validation').on('scroll.validation', function (e) {
+                form.off('scroll.validation').on('scroll.validation', function () {
                     MC.form.validator.hideErrorMessage();
                 });
 
@@ -403,14 +403,14 @@
         self.GetFacetQueryString = function (facetParameters) {
             var queryTemplate = 'facetcat_itemtype:({0}) AND facetcat_models:({1}){2}';
             var characteristicsQuery = {
-                 // 'private,published,validated'
-                 'true,true,true': '' ,
-                 'false,true,true': ' AND (facetcat_characteristics:(facet_isvalidated) -facetcat_characteristics:(facet_isprivate))' ,
-                 'true,true,false': ' AND -facetcat_characteristics:(facet_isvalidated)' ,
-                 'false,false,true': ' AND (facetcat_characteristics:(facet_isprivate facet_isvalidated) AND -facetcat_characteristics:(facet_isprivate))' ,
-                 'true,false,false': ' AND (facetcat_characteristics:(facet_isprivate) AND -facetcat_characteristics:(facet_isvalidated))' ,
-                 'false,true,false': ' AND -facetcat_characteristics:(facet_isprivate facet_isvalidated)' ,
-                 'false,false,false': ' AND (facetcat_characteristics:(facet_isprivate) AND -facetcat_characteristics:(facet_isprivate facet_isvalidated))'
+                // 'private,published,validated'
+                'true,true,true': '',
+                'false,true,true': ' AND (facetcat_characteristics:(facet_isvalidated) -facetcat_characteristics:(facet_isprivate))',
+                'true,true,false': ' AND -facetcat_characteristics:(facet_isvalidated)',
+                'false,false,true': ' AND (facetcat_characteristics:(facet_isprivate facet_isvalidated) AND -facetcat_characteristics:(facet_isprivate))',
+                'true,false,false': ' AND (facetcat_characteristics:(facet_isprivate) AND -facetcat_characteristics:(facet_isvalidated))',
+                'false,true,false': ' AND -facetcat_characteristics:(facet_isprivate facet_isvalidated)',
+                'false,false,false': ' AND (facetcat_characteristics:(facet_isprivate) AND -facetcat_characteristics:(facet_isprivate facet_isvalidated))'
             };
 
             var key = kendo.format('{0},{1},{2}', facetParameters.includePrivate, facetParameters.includePublished, facetParameters.includeValidated);
@@ -453,7 +453,7 @@
                 parameters: {
                     itemIds: $(self.ItemExportSelectorId).data('kendoDropDownList').value(),
                     facetQueryString: facetQuery
-                }, 
+                },
                 type: 'GET'
             };
 

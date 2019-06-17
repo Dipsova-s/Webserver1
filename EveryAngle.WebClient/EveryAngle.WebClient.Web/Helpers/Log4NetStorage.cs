@@ -43,7 +43,6 @@ namespace EveryAngle.WebClient.Web.Helpers
         /// </returns>
         public List<Guid> GetUnviewedIds(string user)
         {
-            //throw new NotSupportedException("This method should never run");
             return new List<Guid>();
         }
 
@@ -69,7 +68,6 @@ namespace EveryAngle.WebClient.Web.Helpers
         public IEnumerable<Guid> List(int maxResults, DateTime? start = null, DateTime? finish = null,
             ListResultsOrder orderBy = ListResultsOrder.Descending)
         {
-            //throw new NotSupportedException("This method should never run");
             return new List<Guid>();
         }
 
@@ -90,7 +88,6 @@ namespace EveryAngle.WebClient.Web.Helpers
         /// </returns>
         public MiniProfiler Load(Guid id)
         {
-            //throw new NotSupportedException("This method should never run");
             return new MiniProfiler(HttpContext.Current.Request.Url.ToString());
         }
 
@@ -108,7 +105,8 @@ namespace EveryAngle.WebClient.Web.Helpers
         public void Save(MiniProfiler profiler)
         {
 
-            if (profiler == null || Log4NetLogger == null) return;
+            if (profiler == null || Log4NetLogger == null)
+                return;
 
             if (HttpContext.Current.Response.Filter is OutputFilterStream || HttpContext.Current.Response.Filter.GetType().ToString().Equals("System.Web.HttpResponseStreamFilterSink"))
             {
@@ -162,7 +160,7 @@ namespace EveryAngle.WebClient.Web.Helpers
         /// </param>
         public void SetViewed(string user, Guid id)
         {
-            //throw new NotSupportedException("This method should never run");
+            // do nothing
         }
     }
 }

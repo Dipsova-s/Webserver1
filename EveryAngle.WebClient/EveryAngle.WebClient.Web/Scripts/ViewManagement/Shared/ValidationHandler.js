@@ -200,22 +200,37 @@ function ValidationHandler() {
             }
 
             // check valid
-            if (result.InvalidFields || result.InvalidFilters
-                || result.InvalidFollowups || result.InvalidAggregates
-                || result.InvalidSortings) {
+            var invalidResults = [
+                result.InvalidFields,
+                result.InvalidFilters,
+                result.InvalidFollowups,
+                result.InvalidAggregates,
+                result.InvalidSortings
+            ];
+            if (WC.Utility.MatchAny(true, invalidResults)) {
                 result.Valid = false;
             }
 
             // check can post result
-            if (result.InvalidFieldsAll || result.InvalidFilters
-                || result.InvalidFollowups || result.InvalidAggregates) {
+            var invalidPostResults = [
+                result.InvalidFieldsAll,
+                result.InvalidFilters,
+                result.InvalidFollowups,
+                result.InvalidAggregates
+            ];
+            if (WC.Utility.MatchAny(true, invalidPostResults)) {
                 result.CanPostResult = false;
             }
         }
 
         if (!result.Valid) {
-            if (result.InvalidAggregates || result.InvalidFollowups
-                || result.InvalidFieldsAll || result.InvalidQueryStepsAll) {
+            var errorResults = [
+                result.InvalidAggregates,
+                result.InvalidFollowups,
+                result.InvalidFieldsAll,
+                result.InvalidQueryStepsAll
+            ];
+            if (WC.Utility.MatchAny(true, errorResults)) {
                 result.Level = self.VALIDATIONLEVEL.ERROR;
             }
             else {
@@ -362,7 +377,7 @@ function ValidationHandler() {
         }
     };
     self.GetValidationError = function (model, modelUri, isHtml) {
-        var message = '';
+        var message = '', classesName, template;
         if (model.validation_details) {
             if (model.validation_details.warning_type === self.WARNINGTYPE.CUSTOM) {
                 message = model.validation_details.template;
@@ -371,7 +386,7 @@ function ValidationHandler() {
                 message = self.GetClassValidationError(model, null, modelUri, isHtml);
             }
             else if (model.validation_details.warning_type === self.WARNINGTYPE.FOLLOWUP) {
-                var classesName = _self.GetFriendlyClassesName(model.validation_details.classes, modelUri);
+                classesName = _self.GetFriendlyClassesName(model.validation_details.classes, modelUri);
 
                 var followupName;
                 var followup = modelFollowupsHandler.GetFollowupById(model.followup, modelUri);
@@ -381,16 +396,16 @@ function ValidationHandler() {
                 else {
                     followupName = model.followup;
                 }
-                var template = model.validation_details.template || Localization.Error_FollowupNotAvailableInObjects;
+                template = model.validation_details.template || Localization.Error_FollowupNotAvailableInObjects;
                 message = kendo.format(template, followupName, classesName.join(', '));
             }
             else {
-                var classesName = _self.GetFriendlyClassesName(model.validation_details.classes, modelUri);
+                classesName = _self.GetFriendlyClassesName(model.validation_details.classes, modelUri);
 
-                var fieldName = '';
+                var fieldName = '', fieldSource;
                 if (model.validation_details.source) {
                     // source field
-                    var fieldSource = modelFieldSourceHandler.GetFieldSourceById(model.validation_details.source, modelUri);
+                    fieldSource = modelFieldSourceHandler.GetFieldSourceById(model.validation_details.source, modelUri);
                     fieldName += fieldSource ? userFriendlyNameHandler.GetFriendlyName(fieldSource, enumHandlers.FRIENDLYNAMEMODE.SHORTNAME) : model.validation_details.source;
                     fieldName += ' - ';
                 }
@@ -400,7 +415,7 @@ function ValidationHandler() {
                     if (field) {
                         if (!model.validation_details.source && field.source) {
                             // re-check source field
-                            var fieldSource = modelFieldSourceHandler.GetFieldSourceByUri(field.source);
+                            fieldSource = modelFieldSourceHandler.GetFieldSourceByUri(field.source);
                             if (fieldSource) {
                                 fieldName += userFriendlyNameHandler.GetFriendlyName(fieldSource, enumHandlers.FRIENDLYNAMEMODE.SHORTNAME);
                                 fieldName += ' - ';
@@ -413,7 +428,7 @@ function ValidationHandler() {
                     }
                 }
 
-                var template = model.validation_details.template || Localization.Error_FieldNotAvailableInObjects;
+                template = model.validation_details.template || Localization.Error_FieldNotAvailableInObjects;
                 message = kendo.format(template, fieldName, classesName.join(', '));
             }
         }
@@ -423,11 +438,11 @@ function ValidationHandler() {
         return message;
     };
     self.GetClassValidationError = function (baseClassBlock, classId, modelUri, isHtml) {
-        var message = '';
+        var message = '', classesName;
         if (baseClassBlock.valid === false && baseClassBlock.validation_details) {
             if (classId === null) {
                 // combine all objects to one
-                var classesName = _self.GetFriendlyClassesName(baseClassBlock.validation_details.classes, modelUri);
+                classesName = _self.GetFriendlyClassesName(baseClassBlock.validation_details.classes, modelUri);
                 if (classesName.length > 1) {
                     message = kendo.format(baseClassBlock.validation_details.template || Localization.Error_ObjectsAreNotAvailable, classesName.join(', '));
                 }
@@ -437,7 +452,7 @@ function ValidationHandler() {
             }
             else if (jQuery.inArray(classId, baseClassBlock.validation_details.classes) !== -1) {
                 // specific object
-                var classesName = _self.GetFriendlyClassesName([classId], modelUri);
+                classesName = _self.GetFriendlyClassesName([classId], modelUri);
                 message = kendo.format(baseClassBlock.validation_details.template || Localization.Error_ObjectIsNotAvailable, classesName[0]);
             }
         }

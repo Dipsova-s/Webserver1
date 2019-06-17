@@ -71,7 +71,7 @@
             e.sender.items().not('.k-no-data').each(function (index, item) {
                 $(item).attr('id', 'row-' + dataItems[index].Id);
             });
-            
+
             for (var i = 0; i < e.sender.columns.length; i++) {
                 e.sender.autoFitColumn(i);
             }

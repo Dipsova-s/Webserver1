@@ -28,7 +28,7 @@
                 "city": $('#CompanyInformation_city').val(),
                 "country": $('#CompanyInformation_country').val(),
                 "telephone": $('#CompanyInformation_telephone').val(),
-                "email": $('#CompanyInformation_email').val()                
+                "email": $('#CompanyInformation_email').val()
             };
 
             data.emailSettingsData = {
@@ -42,7 +42,7 @@
         };
 
         self.SaveModelCommunication = function () {
-            MC.form.clean();            
+            MC.form.clean();
             if (!$('#CompanyInformationForm').valid() || !$('#EmailSettingsForm').valid()) {
                 $('#CompanyInformationForm,#EmailSettingsForm').find('.error:first').focus();
                 return false;
@@ -55,9 +55,9 @@
                 parameters: { modelUri: self.ModelUri, companyInformationsData: JSON.stringify(data.companyInformationData), emailSettingsData: JSON.stringify(data.emailSettingsData) },
                 type: 'POST'
             })
-            .done(function () {
-                MC.ajax.reloadMainContent();
-            });
+                .done(function () {
+                    MC.ajax.reloadMainContent();
+                });
             return false;
         };
     }

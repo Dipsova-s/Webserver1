@@ -43,7 +43,7 @@ namespace EveryAngle.Shared.Helpers
         public static string GetImageFileFromVideoFile(string videoFile)
         {
             FileInfo file = new FileInfo(videoFile);
-            string imageFileName = string.Format(@"{0}/{1}.jpg", file.Directory.ToString().ToLower(), file.Name.Substring(0, file.Name.Length - 4).Replace(" ", ""));
+            string imageFileName = string.Format(@"{0}/{1}.jpg", file.Directory.ToString().ToLowerInvariant(), file.Name.Substring(0, file.Name.Length - 4).Replace(" ", ""));
 
             return imageFileName;
         }

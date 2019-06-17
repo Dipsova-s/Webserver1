@@ -154,66 +154,67 @@ function DisplayQueryBlockModel(model) {
         var querySteps = isTemp === true ? self.TempQuerySteps() : self.QuerySteps();
         return jQuery.grep(querySteps, function (queryStep) {
             return queryStep.step_type === enumHandlers.FILTERTYPE.FOLLOWUP
-                && (!followup || (followup && queryStep.followup === followup.id));
+                && (!followup || followup && queryStep.followup === followup.id);
         });
     };
     self.GetSortingQueryStep = function () {
-        return jQuery.grep(self.QuerySteps(), function (queryStep) { return queryStep.step_type === enumHandlers.FILTERTYPE.SORTING });
+        return jQuery.grep(self.QuerySteps(), function (queryStep) {
+            return queryStep.step_type === enumHandlers.FILTERTYPE.SORTING;
+        });
     };
     self.GetQueryStepByType = function (type, querySteps) {
         var steps = IsNullOrEmpty(querySteps) ? self.QuerySteps() : querySteps;
 
-        return jQuery.grep(steps, function (queryStep) { return queryStep.step_type === type });
+        return jQuery.grep(steps, function (queryStep) { return queryStep.step_type === type; });
     };
     self.GetQueryStepByNotInType = function (type, querySteps) {
         var steps = IsNullOrEmpty(querySteps) ? self.QuerySteps() : querySteps;
 
-        return jQuery.grep(steps, function (queryStep) { return queryStep.step_type !== type });
+        return jQuery.grep(steps, function (queryStep) { return queryStep.step_type !== type; });
     };
     self.GetPostedQueryStepByType = function (type) {
         var postedQueryBlocks = self.CollectQueryBlocks();
-        return postedQueryBlocks.lenght === 0 ? [] : jQuery.grep(postedQueryBlocks[0].query_steps, function (queryStep) { return queryStep.step_type === type });
+        return postedQueryBlocks.lenght === 0 ? [] : jQuery.grep(postedQueryBlocks[0].query_steps, function (queryStep) { return queryStep.step_type === type; });
     };
     self.GetAggregationStepByFieldSetting = function (fieldSettings) {
         var fieldSettingObject = JSON.parse(fieldSettings.Fields);
         var grouping_fields_section = [];
         var aggregation_fields_section = [];
         jQuery.each(fieldSettingObject, function (index, fieldSettingElement) {
-            if (fieldSettingElement.IsSelected) {
-                var existingQuerystepField = self.GetAggregationQueryStepByFieldId(fieldSettingElement.FieldName);
-                if (fieldSettingElement.Area !== enumHandlers.FIELDSETTINGAREA.DATA) {
-                    // grouping section    
-                    if (existingQuerystepField !== null) {
-                        existingQuerystepField.field = fieldSettingElement.FieldName;
-                        existingQuerystepField.operator = fieldSettingElement.Bucket.Operator;
-                        grouping_fields_section.push(existingQuerystepField);
-                    }
-                    else {
-                        grouping_fields_section.push({
-                            field: fieldSettingElement.FieldName,
-                            operator: fieldSettingElement.Bucket.Operator,
-                            source_field: fieldSettingElement.Bucket.source_field
-                        });
-                    }
+            if (!fieldSettingElement.IsSelected)
+                return;
+            var existingQuerystepField = self.GetAggregationQueryStepByFieldId(fieldSettingElement.FieldName);
+            if (fieldSettingElement.Area !== enumHandlers.FIELDSETTINGAREA.DATA) {
+                // grouping fields section
+                if (existingQuerystepField !== null) {
+                    existingQuerystepField.field = fieldSettingElement.FieldName;
+                    existingQuerystepField.operator = fieldSettingElement.Bucket.Operator;
+                    grouping_fields_section.push(existingQuerystepField);
                 }
                 else {
-                    // aggreagation section 
-                    if (existingQuerystepField !== null) {
-                        existingQuerystepField.field = fieldSettingElement.FieldName;
-                        existingQuerystepField.operator = fieldSettingElement.Bucket.Operator;
-                        aggregation_fields_section.push(existingQuerystepField);
-                    }
-                    else {
-                        aggregation_fields_section.push({
-                            field: fieldSettingElement.FieldName,
-                            operator: fieldSettingElement.Bucket.Operator,
-                            source_field: fieldSettingElement.Bucket.source_field
-                        });
-                    }
+                    grouping_fields_section.push({
+                        field: fieldSettingElement.FieldName,
+                        operator: fieldSettingElement.Bucket.Operator,
+                        source_field: fieldSettingElement.Bucket.source_field
+                    });
+                }
+            }
+            else {
+                // aggreagation fields section
+                if (existingQuerystepField !== null) {
+                    existingQuerystepField.field = fieldSettingElement.FieldName;
+                    existingQuerystepField.operator = fieldSettingElement.Bucket.Operator;
+                    aggregation_fields_section.push(existingQuerystepField);
+                }
+                else {
+                    aggregation_fields_section.push({
+                        field: fieldSettingElement.FieldName,
+                        operator: fieldSettingElement.Bucket.Operator,
+                        source_field: fieldSettingElement.Bucket.source_field
+                    });
                 }
             }
         });
-       
         var aggregationJson = {
             step_type: enumHandlers.FILTERTYPE.AGGREGATION,
             aggregation_fields: aggregation_fields_section
@@ -229,15 +230,14 @@ function DisplayQueryBlockModel(model) {
         var aggregationQuerySteps = self.GetQueryStepByType(enumHandlers.FILTERTYPE.AGGREGATION);
         var existingQueryStep = null;
         if (aggregationQuerySteps.length > 0) {
-
-            var existingQuerySteps = jQuery.grep(aggregationQuerySteps[0].aggregation_fields, function (step, index) {
+            var existingQuerySteps = jQuery.grep(aggregationQuerySteps[0].aggregation_fields, function (step) {
                 return step.field.toLowerCase() === fieldId.toLowerCase();
             });
             if (existingQuerySteps.length > 0) {
                 existingQueryStep = existingQuerySteps[0];
             } else {
                 if (!IsNullOrEmpty(aggregationQuerySteps[0].grouping_fields)) {
-                    existingQuerySteps = jQuery.grep(aggregationQuerySteps[0].grouping_fields, function (step, index) {
+                    existingQuerySteps = jQuery.grep(aggregationQuerySteps[0].grouping_fields, function (step) {
                         return step.field.toLowerCase() === fieldId.toLowerCase();
                     });
                     if (existingQuerySteps.length > 0) {
@@ -251,8 +251,7 @@ function DisplayQueryBlockModel(model) {
     self.GetAllFollowupSteps = function (isTemp) {
         return self.GetFollowupQueryStep(null, isTemp);
     };
-    self.DeleteQueryStep = function (index, queryStep, event) {
-        
+    self.DeleteQueryStep = function (index, queryStep) {
         if (queryStep.is_adhoc_filter) {
             var oldQueryStep = [];
             jQuery.each(self.QuerySteps(), function (index, step) {
@@ -283,16 +282,15 @@ function DisplayQueryBlockModel(model) {
             self.CommitAll();
 
             if (angleInfoModel.IsTemporaryAngle()) {
-                var queryBlocks = jQuery.grep(displayModel.Data().query_blocks, function (queryBlock) { return queryBlock.queryblock_type === enumHandlers.QUERYBLOCKTYPE.QUERY_STEPS });
+                var queryBlocks = jQuery.grep(displayModel.Data().query_blocks, function (queryBlock) {
+                    return queryBlock.queryblock_type === enumHandlers.QUERYBLOCKTYPE.QUERY_STEPS;
+                });
                 if (queryBlocks.length > 0) {
                     queryBlocks[0].query_steps.splice(index, 1);
-
                     if (queryBlocks[0].query_steps.length === 0) {
                         displayModel.Data().query_blocks = [];
                         /* M4-11731: Always set 'Keep active display filters' checked when display as ad-hoc display (still don't show if display had jump) */
-                        
                     }
-
                     displayModel.Data.commit();
                 }
             }
@@ -320,14 +318,14 @@ function DisplayQueryBlockModel(model) {
             var queryblocks = self.CollectQueryBlocks();
             if (queryblocks !== null && queryblocks.length > 0) {
                 queryblocks =  jQuery.grep(queryblocks[0].query_steps, function (n) {
-                    return (n.valid !== false);
+                    return n.valid !== false;
                 });
                 queryblocks = [
                     {
                         queryblock_type: enumHandlers.QUERYBLOCKTYPE.QUERY_STEPS,
                         query_steps: queryblocks
                     }
-                ]
+                ];
             }
 
             var lastFollowup = null;
@@ -353,7 +351,7 @@ function DisplayQueryBlockModel(model) {
                     displayData.display_type = jumpDisplay.display_type;
                     displayData.fields = jumpDisplay.fields;
                     delete displayData.results;
-                    
+
                     historyModel.Set(displayModel.Data().uri, displayData);
                     historyModel.Set(displayModel.Data().uri + historyModel.OriginalVersionSuffix, displayData);
 

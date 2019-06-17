@@ -71,6 +71,7 @@
     </Reference>
     <Reference Include="EveryAngle.Logging, Version=2.4.2.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\EveryAngle.Logging.2.4.2\lib\net45\EveryAngle.Logging.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
     </Reference>
     <Reference Include="EveryAngle.Security, Version=2.4.3.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\EveryAngle.Security.2.4.4.9\lib\net45\EveryAngle.Security.dll</HintPath>

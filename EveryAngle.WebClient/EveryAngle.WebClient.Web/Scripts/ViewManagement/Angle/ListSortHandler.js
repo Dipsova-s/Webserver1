@@ -269,9 +269,8 @@ function ListSortHandler() {
                     text: Localization.Ok,
                     className: 'executing',
                     click: function (e, obj) {
-                        if (popup.CanButtonExecute(obj)) {
+                        if (popup.CanButtonExecute(obj))
                             self.SortCustom();
-                        }
                     },
                     isPrimary: true,
                     position: 'right'
@@ -280,10 +279,9 @@ function ListSortHandler() {
                     text: Localization.ClearAll,
                     className: 'executing',
                     click: function (e, obj) {
-                        if (popup.CanButtonExecute(obj)) {
+                        if (popup.CanButtonExecute(obj))
                             self.Clear();
-                        }
-                    },                       
+                    },
                     position: 'left'
                 }
             ],
@@ -346,10 +344,9 @@ function ListSortHandler() {
                     change: function () {
                         var popup = self.CustomCurrent.wrapper.addClass('alwaysVisible');
                         var headerPopup = jQuery(popup).parents('.HeaderPopup:first').addClass('alwaysVisible');
-
                         setTimeout(function () {
                             popup.show().removeClass('alwaysVisible');
-                            headerPopup.show().removeClass('alwaysVisible');     
+                            headerPopup.show().removeClass('alwaysVisible');
                         }, 500);
                     }
                 });
@@ -357,9 +354,9 @@ function ListSortHandler() {
         }
 
         // set default value
-        var querySteps = self.QuerySteps(),
-            ddl = jQuery('[data-role="dropdownlist"]', e.sender.element),
-            sortStepIndex;
+        var querySteps = self.QuerySteps();
+        var ddl = jQuery('[data-role="dropdownlist"]', e.sender.element);
+        var sortStepIndex;
         if (querySteps.length > 0 && ddl.length > 0) {
             jQuery(querySteps[0].sorting_fields).each(function (k, v) {
                 sortStepIndex = typeof v.sort_index === 'undefined' ? k : v.sort_index - 1;
@@ -367,11 +364,9 @@ function ListSortHandler() {
                 jQuery(ddl).eq(v.sort_index - 1).parents('.field:first').find('input:radio').val([v.sort_order]);
             });
         }
-
         setTimeout(function () {
-            listHandler.UpdateAngleGridHeaderPopup();          
+            listHandler.UpdateAngleGridHeaderPopup();
         }, 1);
-
         setTimeout(function () {
             e.sender.wrapper.find('.k-window-buttons .btn').removeClass('executing');
         }, 10);

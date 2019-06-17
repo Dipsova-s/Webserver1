@@ -44,18 +44,18 @@ function ModelFieldSourceHandler() {
     self.SetData(data, [storage=true])          [void] set data to cache
     self.GetModelUriFromData(data)              [string] get model's uri by model data
     ==================================================*/
-    
+
     /*=============== custom functions ===============*/
     self.LoadFieldSource = function (uri) {
-        if (!uri) return jQuery.when(null);
+        if (!uri)
+            return jQuery.when(null);
 
         var data = self.GetFieldSourceByUri(uri);
-        if (data) {
+        if (data)
             return jQuery.when(data);
-        }
 
         return jQuery.when(GetDataFromWebService(directoryHandler.ResolveDirectoryUri(uri)))
-            .done(function (data, status, xhr) {
+            .done(function (data) {
                 self.SetData([data]);
             });
     };
@@ -69,7 +69,7 @@ function ModelFieldSourceHandler() {
         }
 
         return self.LoadByIds(uri, ids, query)
-            .done(function (fields) {
+            .done(function () {
                 // add missing fields to cache
                 jQuery.each(ids, function (index, id) {
                     if (!self.GetFieldSourceById(id, modelUri)) {

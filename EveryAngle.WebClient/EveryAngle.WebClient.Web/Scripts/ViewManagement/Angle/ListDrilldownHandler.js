@@ -617,10 +617,10 @@ function ListDrilldownHandler() {
             })
             .on('touchend.drilldown', '.k-grid-content', function (e) {
                 clearTimeout(fnCheckTouchEvent);
-                if (currentScrollTop > 0 && currentScrollTop === grid.virtualScrollable._scrollbarTop
-                    && !grid.dataSource._requestInProgress
-                    && (Math.abs(xStart - Math.abs(e.originalEvent.changedTouches[0].screenX)) > 50
-                        || Math.abs(yStart - Math.abs(e.originalEvent.changedTouches[0].screenY)) > 50)) {
+                var checkScrollTop = currentScrollTop > 0 && currentScrollTop === grid.virtualScrollable._scrollbarTop;
+                var checkTouchMoved = Math.abs(xStart - Math.abs(e.originalEvent.changedTouches[0].screenX)) > 50
+                                    || Math.abs(yStart - Math.abs(e.originalEvent.changedTouches[0].screenY)) > 50;
+                if (checkScrollTop && !grid.dataSource._requestInProgress && checkTouchMoved) {
                     fnCheckTouchEvent = setTimeout(function () {
                         grid.dataSource.read();
                     }, 1000);

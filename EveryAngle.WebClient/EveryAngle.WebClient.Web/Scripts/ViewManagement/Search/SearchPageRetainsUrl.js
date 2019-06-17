@@ -8,27 +8,27 @@ function SearchRetainUrlViewModel() {
     self.LastUri = '';
     self.IsEnableRetailUrl = true;
 
-    self.Initial = function (event) {
+    self.Initial = function () {
         progressbarModel.ReferenceUri = WC.Page.GetPreviousPageUrl();
 
         if (typeof jQuery('#MainContainer').data('address') === 'undefined') {
-            $.address.init(function (event) {
-                jQuery('#MainContainer').data('address', true);
-            })
-            .change(function (event) {
-                if (self.LastUri && self.LastUri !== location.hash) {
-                    progressbarModel.ReferenceUri = '';
-                }
-                self.LastUri = location.hash;
+            $.address
+                .init(function () {
+                    jQuery('#MainContainer').data('address', true);
+                })
+                .change(function () {
+                    if (self.LastUri && self.LastUri !== location.hash) {
+                        progressbarModel.ReferenceUri = '';
+                    }
+                    self.LastUri = location.hash;
 
-                self.IsInitial = true;
-                self.UriChange();
-            })
+                    self.IsInitial = true;
+                    self.UriChange();
+                });
             setTimeout(function () {
                 if (!self.IsInitial) {
                     searchRetainUrlModel.UriChange();
                 }
-
                 progressbarModel.ReferenceUri = '';
             }, 50);
         }

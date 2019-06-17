@@ -82,7 +82,7 @@ function WidgetFilterHelper() {
     };
 
     self.GetDefaultFilterOperator = function (fieldType) {
-        var defaultFilterOperator = enumHandlers.OPERATOR.HASVALUE;
+        var defaultFilterOperator;
         switch (fieldType) {
             case enumHandlers.FIELDTYPE.BOOLEAN:
                 defaultFilterOperator = enumHandlers.OPERATOR.EQUALTO;
@@ -114,7 +114,7 @@ function WidgetFilterHelper() {
 
             default:
                 defaultFilterOperator = enumHandlers.OPERATOR.HASVALUE;
-
+                break;
         }
         return defaultFilterOperator;
     };

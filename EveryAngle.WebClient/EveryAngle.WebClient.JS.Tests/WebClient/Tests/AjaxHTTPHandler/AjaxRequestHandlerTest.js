@@ -74,7 +74,6 @@
             Modernizr.sendbeacon = false;
             var data = [{}];
             WC.Ajax.SendExitRequests(data, true);
-            
             expect(WC.Ajax.SendBeacon).not.toHaveBeenCalled();
             expect(window.CreateDataToWebService).toHaveBeenCalled();
         });
@@ -83,11 +82,9 @@
             Modernizr.sendbeacon = true;
             var data = [{}];
             WC.Ajax.SendExitRequests(data, false);
-            
             expect(WC.Ajax.SendBeacon).not.toHaveBeenCalled();
             expect(window.CreateDataToWebService).toHaveBeenCalled();
         });
-
     });
 
     describe(".AbortAll", function () {

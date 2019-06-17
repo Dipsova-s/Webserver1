@@ -199,9 +199,7 @@ describe("DisplayModel", function () {
                 multi_lang_description: [{}]
             };
             spyOn(displayModel, 'GetAdhocDisplayName').and.returnValue('name1 (1)');
-
             displayModel.SetSwitchDisplayName(switchDisplay, false);
-            
             expect(displayModel.DisplayInfo.Displays().length).toEqual(0);
             expect($.isArray(switchDisplay.multi_lang_name)).toEqual(true);
             expect(switchDisplay.multi_lang_name.length).toEqual(1);
@@ -218,9 +216,7 @@ describe("DisplayModel", function () {
             };
             spyOn(userSettingModel, 'GetByName').and.returnValue('en');
             spyOn(displayModel, 'GetAdhocDisplayName').and.returnValue('name1 (1)');
-
             displayModel.SetSwitchDisplayName(switchDisplay, true);
-            
             expect(displayModel.DisplayInfo.Displays().length).toEqual(1);
             expect(displayModel.DisplayInfo.Displays()[0].Name).toEqual('name1');
             expect(switchDisplay.name).not.toBeDefined();
@@ -293,7 +289,6 @@ describe("DisplayModel", function () {
                 displayModel.KeepFilter(test.keepFilter);
 
                 var newQuerySteps = displayModel.GetCurrentDisplayQuerySteps(querySteps, test.isDashboardDrilldown);
-            
                 expect(newQuerySteps.length).toEqual(test.expected);
             });
         });
@@ -326,7 +321,6 @@ describe("DisplayModel", function () {
         it("should get correct query steps (keepDisplayFilters=false)", function () {
             var keepDisplayFilters = false;
             var newQuerySteps = displayModel.GetSwitchDisplayQuerySteps(currentDisplayFilters, switchDisplayQuerySteps, keepDisplayFilters);
-            
             expect(newQuerySteps.length).toEqual(3);
             expect(newQuerySteps[0].step_type).toEqual(enumHandlers.FILTERTYPE.FILTER);
             expect(newQuerySteps[1].step_type).toEqual(enumHandlers.FILTERTYPE.SORTING);
@@ -336,7 +330,6 @@ describe("DisplayModel", function () {
         it("should get correct query steps (keepDisplayFilters=true)", function () {
             var keepDisplayFilters = true;
             var newQuerySteps = displayModel.GetSwitchDisplayQuerySteps(currentDisplayFilters, switchDisplayQuerySteps, keepDisplayFilters);
-            
             expect(newQuerySteps.length).toEqual(4);
             expect(newQuerySteps[0].step_type).toEqual(enumHandlers.FILTERTYPE.FILTER);
             expect(newQuerySteps[1].step_type).toEqual(enumHandlers.FILTERTYPE.FOLLOWUP);

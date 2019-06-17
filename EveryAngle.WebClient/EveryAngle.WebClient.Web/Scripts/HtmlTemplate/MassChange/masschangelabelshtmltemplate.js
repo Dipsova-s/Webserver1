@@ -17,4 +17,4 @@ var massChangeLabelsHtmlTemplate = function () {
         '</div>',
         '<!-- /ko -->'
     ].join('');
-}
+};

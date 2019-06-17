@@ -10,19 +10,19 @@ function QueryBlocksModel(queryblocks, parent) {
         return {
             base_classes: WC.Utility.ToArray(classes),
             queryblock_type: enumHandlers.QUERYBLOCKTYPE.BASE_CLASSES
-        }
+        };
     };
     self.GetBaseAngleTemplate = function (angle) {
         return {
             base_angle: angle || '',
             queryblock_type: enumHandlers.QUERYBLOCKTYPE.BASE_ANGLE
-        }
+        };
     };
     self.GetBaseDisplayTemplate = function (display) {
         return {
             base_display: display || '',
             queryblock_type: enumHandlers.QUERYBLOCKTYPE.BASE_DISPLAY
-        }
+        };
     };
     self.GetQueryStepTemplate = function (steps) {
         return {

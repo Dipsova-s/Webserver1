@@ -1,11 +1,3 @@
-/* 
-    M4-10056: Implement 'Find' in angle result
-    Implemented date: 21-11-2014
-    Implemented by: Akkaradate (Date) Somwong
-    Implemented for: control management of popup 'Find' GUI
-    Parameters: 
-    Call from: 1.anglePageHandler.ShowFindPopup
-*/
 function FindPopupHandler() {
     "use strict";
 
@@ -22,15 +14,8 @@ function FindPopupHandler() {
     };
     /*  EOF: Properties */
 
-
-
-
     /*  BOF: Methods */
-    /*
-        ShowPopup: used for initialization for open find popup
-        Parameters: 
-    */
-    self.ShowPopup = function (option) {
+    self.ShowPopup = function () {
         if (jQuery('#popupFindAngleResult').is(':visible')) {
             jQuery('#findText').focus();
             return;
@@ -41,7 +26,7 @@ function FindPopupHandler() {
         // initial popup settings
         var popupName = 'FindAngleResult';
         var popupSettings = {
-            title: Localization.Find, 
+            title: Localization.Find,
             element: '#popup' + popupName,
             html:findAngleResultHtmlTemplate(),
             className: 'popup' + popupName,
@@ -143,7 +128,6 @@ function FindPopupHandler() {
             });
         }
         else {
-            var fieldDropdownList = jQuery('#fieldDropdownList').data(enumHandlers.KENDOUITYPE.DROPDOWNLIST);
             fields.push(fieldDropdownList.value());
         }
         query[enumHandlers.FINDPARAMETER.FIELDS] = fields.join(',');
@@ -203,7 +187,8 @@ function FindPopupHandler() {
                 delete query[enumHandlers.FINDPARAMETER.DIRECTION];
                 delete query[enumHandlers.FINDPARAMETER.STARTROW];
 
-                if (data.row_id === -1 || (listHandler.SelectingRowId === 1 && data.dir === enumHandlers.FINDPARAMETER.BACKWARD)) {
+                var isBackward = listHandler.SelectingRowId === 1 && data.dir === enumHandlers.FINDPARAMETER.BACKWARD;
+                if (data.row_id === -1 || isBackward) {
                     delete query[enumHandlers.FINDPARAMETER.STARTROW];
                     self.LastSearchQuery.query = null;
                     popup.Info(Localization.Info_SearchResultDoesNotExists);
@@ -214,7 +199,7 @@ function FindPopupHandler() {
                     self.StartRow = data.row_id;
 
                     var startViewItem = Math.ceil(grid.virtualScrollable.verticalScrollbar.scrollTop() / grid.virtualScrollable.itemHeight);
-                    var endViewItem = Math.floor(startViewItem + (grid.content.height() / grid.virtualScrollable.itemHeight));
+                    var endViewItem = Math.floor(startViewItem + grid.content.height() / grid.virtualScrollable.itemHeight);
                     if (listHandler.SelectingRowId <= startViewItem || listHandler.SelectingRowId >= endViewItem) {
                         submitButton.addClass('executing');
 

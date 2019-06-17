@@ -288,9 +288,7 @@ describe("FacetFiltersViewModel", function () {
         });
 
     });
-
-    describe(".PrepareBusinessProcesses", function () { 
-
+    describe(".PrepareBusinessProcesses", function () {
         beforeEach(function () {
             spyOn(businessProcessesModel.General, 'Data').and.callFake(function () {
                 return [

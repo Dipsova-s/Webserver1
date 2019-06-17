@@ -7,10 +7,16 @@
                 MC.ajax.abortAll();
 
             var seed;
-            for (seed in MC.system.__timeout)
-                win.__clearTimeout(seed);
-            for (seed in MC.system.__interval)
-                win.__clearInterval(seed);
+            for (seed in MC.system.__timeout) {
+                if (MC.system.__timeout.hasOwnProperty(seed)) {
+                    win.__clearTimeout(seed);
+                }
+            }
+            for (seed in MC.system.__interval) {
+                if (MC.system.__interval.hasOwnProperty(seed)) {
+                    win.__clearInterval(seed);
+                }
+            }
 
             MC.system.__timeout = {};
             MC.system.__interval = {};

@@ -69,7 +69,6 @@ namespace EveryAngle.ManagementConsole.Controllers
         public ActionResult GetModelOverview(string modelUri, SystemLicenseViewModel licensesData, string modelServersUri)
         {
             var model = SessionHelper.Initialize().GetModel(modelUri);
-            var modelServerList = new ListViewModel<ModelServerViewModel>();
             ViewBag.ConnectedUser = "0";
             ViewBag.ActiveUsersThisWeek = "0";
             ViewBag.ActiveUsersThisMonth = "0";
@@ -93,7 +92,7 @@ namespace EveryAngle.ManagementConsole.Controllers
 
                 if (model.ServerUri != null)
                 {
-                    modelServerList = modelService.GetModelServers(model.ServerUri.ToString());
+                    var modelServerList = modelService.GetModelServers(model.ServerUri.ToString());
                     var modelServerCount = modelServerList.Data.Count;
                     for (var i = 0; i < modelServerCount; i++)
                     {
@@ -199,9 +198,7 @@ namespace EveryAngle.ManagementConsole.Controllers
             int recordsOfTheDays = Convert.ToInt32(daysInHistory * 24 / 0.5);
             double halfHour = 30;
             int pageSize = Math.Min(MaxPageSize, 1000);
-
-            DateTime lastTwoDay = DateTime.Now.AddDays(-daysInHistory).ToUniversalTime();
-            DateTime dateFormat = new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc);
+            
             List<EventLogViewModel> eventlogs = modelService.GetEventLog(eventLogUri + "?" + UtilitiesHelper.GetOffsetLimitQueryString(1, pageSize));
 
             IList<BarGraphData> bargraphs = new List<BarGraphData>();
@@ -323,13 +320,12 @@ namespace EveryAngle.ManagementConsole.Controllers
         public ActionResult GetModelsName(string ModelUri, string roleUri)
         {
             var modelInfoList = new List<Tuple<string, string, string>>();
-            var version = SessionHelper.Initialize().Version;
             var currentUser = SessionHelper.Initialize().CurrentUser;
             var userPrivilegedModels =
                 currentUser.ModelPrivileges.Where(v => v.Privileges.manage_model == true)
                     .Select(u => u.model.ToString())
                     .ToList();
-            if (userPrivilegedModels.Count() > 0)
+            if (userPrivilegedModels.Any())
             {
                 userPrivilegedModels.ForEach(privilegedmodel =>
                 {
@@ -509,7 +505,7 @@ namespace EveryAngle.ManagementConsole.Controllers
             if (!modelViewModel.IsModelserverSwitchable)
                 return;
 
-            bool switchWhenPostprocessingValue = modelViewModel != null && bool.Equals(modelViewModel.SwitchWhenPostprocessing, true);
+            bool switchWhenPostprocessingValue = Equals(modelViewModel.SwitchWhenPostprocessing, true);
 
             SettingGroup refreshSettingGroup = new SettingGroup
             {
@@ -567,22 +563,19 @@ namespace EveryAngle.ManagementConsole.Controllers
         [AcceptVerbs(HttpVerbs.Get)]
         public ContentResult FindAmountOfAngleAndDashboard(string modelUri)
         {
-            var result = "";
-            var modelViewModel = new ModelViewModel();
-            if ((modelUri != null) && (modelUri != ""))
+            var result = string.Empty;
+            if (!string.IsNullOrEmpty(modelUri))
             {
-                modelViewModel = SessionHelper.Initialize().GetModel(modelUri);
+                var modelViewModel = SessionHelper.Initialize().GetModel(modelUri);
 
 
                 var uriList = new List<string>();
                 var uri = UrlHelper.GetRequestUrl(URLType.NOA);
                 //Get Amount of Angle
-                uriList.Add(uri + "items?fq=facetcat_itemtype:(facet_angle) AND facetcat_models:(" + modelViewModel.id +
-                            ")&limit=0");
+                uriList.Add($"{uri}items?fq=facetcat_itemtype:(facet_angle) AND facetcat_models:({modelViewModel.id})&limit=0");
 
                 //Get Amount of Dashboard
-                uriList.Add(uri + "items?fq=facetcat_itemtype:(facet_dashboard) AND facetcat_models:(" +
-                            modelViewModel.id + ")&limit=0");
+                uriList.Add($"{uri}items?fq=facetcat_itemtype:(facet_dashboard) AND facetcat_models:({modelViewModel.id})&limit=0");
 
                 var taskIndex = 0;
                 var amountofAngle = 0;
@@ -603,8 +596,12 @@ namespace EveryAngle.ManagementConsole.Controllers
                     taskIndex++;
                 });
 
-                result = "{\"AmountofAngle\":\"" + amountofAngle + "\", \"AmountofDashboard\":\"" + amountofDashboard +
-                         "\", \"ConnectedUsers\":\"" + modelViewModel.connected_users + "\"}";
+                result = JsonConvert.SerializeObject(new
+                {
+                    AmountofAngle = amountofAngle,
+                    AmountofDashboard = amountofDashboard,
+                    ConnectedUsers = modelViewModel.connected_users
+                });
             }
             return Content(result, "application/json");
         }

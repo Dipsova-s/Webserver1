@@ -1,13 +1,13 @@
 using EveryAngle.Core.ViewModels.About;
-using EveryAngle.Core.ViewModels.Privilege;
 using EveryAngle.ManagementConsole.Models;
-using EveryAngle.Shared.Globalization;
 using EveryAngle.Shared.Globalization.Helpers;
 using EveryAngle.Shared.Helpers;
 using EveryAngle.WebClient.Service.Security;
+using Kendo.Mvc;
 using Kendo.Mvc.UI;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Configuration;
 using System.IO;
 using System.Linq;
@@ -53,161 +53,96 @@ namespace EveryAngle.ManagementConsole.Helpers
 
         public static string GetQueryString([DataSourceRequest] DataSourceRequest request, QueryString queryString)
         {
-            string query = string.Empty;
-            if (request.Sorts.Count > 0)
+            if (request.Sorts.Any())
             {
+                SortDescriptor sortDescriptor = request.Sorts[0];
                 if (QueryString.DownloadTable == queryString)
                 {
-                    query = "&sort=" + request.Sorts[0].Member.ToLower();
+                    string sortKey = sortDescriptor.Member.ToLowerInvariant();
+                    string sortDirectrion = GetSortDirectionQuery(sortDescriptor.SortDirection);
+                    return $"&sort={sortKey}{sortDirectrion}";
                 }
                 else if (QueryString.LabelCategories == queryString)
                 {
-                    switch (request.Sorts[0].Member.ToLower())
+                    Dictionary<string, string> sortLabelCategoryMappers = new Dictionary<string, string>
                     {
-                        case "id":
-                            query = "&sort=id";
-                            break;
-
-                        case "name":
-                            query = "&sort=name";
-                            break;
-
-                        case "abbreviation":
-                            query = "&sort=abbreviation";
-                            break;
-
-                        case "createdby.fullname":
-                            query = "&sort=created_by";
-                            break;
-
-                        case "createdby.created":
-                            query = "&sort=created_on";
-                            break;
-
-                        case "description":
-                            query = "&sort=description";
-                            break;
-                    }
+                        { "id", "&sort=id" },
+                        { "name", "&sort=name" },
+                        { "abbreviation", "&sort=abbreviation" },
+                        { "createdby.fullname", "&sort=created_by" },
+                        { "createdby.created", "&sort=created_on" },
+                        { "description", "&sort=description" }
+                    };
+                    return GetSortingQuery(sortDescriptor, sortLabelCategoryMappers);
                 }
                 else if (QueryString.Users == queryString)
                 {
-                    switch (request.Sorts[0].Member)
+                    Dictionary<string, string> sortUserMappers = new Dictionary<string, string>
                     {
-                        case "UserID":
-                            query = "&sort=user";
-                            break;
-
-                        case "ReanableIpAddresses":
-                            query = "&sort=ip_addresses";
-                            break;
-
-                        case "IsActive":
-                            query = "&sort=last_activity";
-                            break;
-
-                        case "Created":
-                            query = "&sort=created";
-                            break;
-
-                        case "ExpirationTime":
-                            query = "&sort=expiration_time";
-                            break;
-
-                        case "Ip":
-                            query = "&sort=ip_addresses";
-                            break;
-                    }
+                        { "userid", "&sort=user" },
+                        { "reanableipaddresses", "&sort=ip_addresses" },
+                        { "ip", "&sort=ip_addresses" },
+                        { "isactive", "&sort=last_activity" },
+                        { "created", "&sort=created" },
+                        { "expirationtime", "&sort=expiration_time" }
+                    };
+                    return GetSortingQuery(sortDescriptor, sortUserMappers);
                 }
-                else if (QueryString.SystemRole == queryString ||
-                         QueryString.Role == queryString)
+                else if (QueryString.SystemRole == queryString || QueryString.Role == queryString)
                 {
-                    switch (request.Sorts[0].Member)
+                    Dictionary<string, string> sortRoleMappers = new Dictionary<string, string>
                     {
-                        case "Id":
-                            query = "&sort=id";
-                            break;
-                        case "CreatedBy.Created":
-                            query = "&sort=created_on";
-                            break;
-                        case "Description":
-                            query = "&sort=description";
-                            break;
-
-                        case "CreatedBy.Fullname":
-                            query = "&sort=created_by";
-                            break;
-                    }
+                        { "id", "&sort=id" },
+                        { "description", "&sort=description" },
+                        { "createdby.created", "&sort=created_on" },
+                        { "createdby.fullname", "&sort=created_by" }
+                    };
+                    return GetSortingQuery(sortDescriptor, sortRoleMappers);
                 }
                 else if (QueryString.Datastores == queryString)
                 {
-                    switch (request.Sorts[0].Member)
+                    Dictionary<string, string> sortDatastoreMappers = new Dictionary<string, string>
                     {
-                        case "name":
-                            query = "&sort=name";
-                            break;
-                        case "plugin_name":
-                            query = "&sort=type";
-                            break;
-                        case "allow_write":
-                            query = "&sort=allow_write";
-                            break;
-                    }
+                        { "name", "&sort=name" },
+                        { "plugin_name", "&sort=type" },
+                        { "allow_write", "&sort=allow_write" }
+                    };
+                    return GetSortingQuery(sortDescriptor, sortDatastoreMappers);
                 }
-
-                if (!string.IsNullOrEmpty(query))
-                {
-                    if (request.Sorts[0].SortDirection == System.ComponentModel.ListSortDirection.Descending)
-                    {
-                        query += "&dir=desc";
-                    }
-                    else
-                    {
-                        query += "&dir=asc";
-                    }
-                }
-
             }
-
-            return query;
+            return string.Empty;
         }
 
         public static string GetPackagesQueryString([DataSourceRequest] DataSourceRequest request)
         {
-            string query = string.Empty;
-            if (request.Sorts.Count > 0)
+            if (!request.Sorts.Any())
+                return string.Empty;
+
+            Dictionary<string, string> sortMappers = new Dictionary<string, string>
             {
-                switch (request.Sorts[0].Member)
-                {
-                    case "Name":
-                        query = "&sort=name";
-                        break;
+                { "name", "&sort=name" },
+                { "createddate", "&sort=created" },
+                { "description", "&sort=description" },
+                { "status", "&sort=status" }
+            };
+            return GetSortingQuery(request.Sorts[0], sortMappers);
+        }
 
-                    case "CreatedDate":
-                        query = "&sort=created";
-                        break;
-                    case "Description":
-                        query = "&sort=description";
-                        break;
-                    case "status":
-                        query = "&sort=status";
-                        break;
-                }
-
-                if (!string.IsNullOrEmpty(query))
-                {
-                    if (request.Sorts[0].SortDirection.Equals(System.ComponentModel.ListSortDirection.Descending))
-                    {
-                        query += "&dir=desc";
-                    }
-                    else
-                    {
-                        query += "&dir=asc";
-                    }
-                }
-
+        public static string GetSortingQuery(SortDescriptor sortDescriptor, Dictionary<string, string> sortMappers)
+        {
+            string query = string.Empty;
+            string sortKey = sortDescriptor.Member.ToLowerInvariant();
+            if (sortMappers.ContainsKey(sortKey))
+            {
+                query += sortMappers[sortKey];
+                query += GetSortDirectionQuery(sortDescriptor.SortDirection);
             }
-
             return query;
+        }
+
+        private static string GetSortDirectionQuery(ListSortDirection sortDirection)
+        {
+            return sortDirection == ListSortDirection.Descending ? "&dir=desc" : "&dir=asc";
         }
 
         public static string GetWebclientUrl()
@@ -265,7 +200,7 @@ namespace EveryAngle.ManagementConsole.Helpers
             string modelDataTimestamp = string.Empty;
             if (!aboutModel.status.Equals("down", StringComparison.InvariantCultureIgnoreCase) && aboutModel.modeldata_timestamp > 0)
             {
-                modelDataTimestamp = string.Format(", <span data-role=localize>{1}</span>", aboutModel.status, aboutModel.modeldata_timestamp);
+                modelDataTimestamp = $", <span data-role=localize>{aboutModel.modeldata_timestamp}</span>";
             }
             string modelStatus = string.Format("({0}{1})", aboutModel.status, modelDataTimestamp);
             return modelStatus;
@@ -337,6 +272,8 @@ namespace EveryAngle.ManagementConsole.Helpers
                         if (!canScheduleTask)
                             SetDisabledButton(buttons[index]);
                         break;
+                    default:
+                        break;
                 }
             }
         }
@@ -375,14 +312,9 @@ namespace EveryAngle.ManagementConsole.Helpers
                 builder.AppendFormat(" {0}", button.Attributes);
 
             string attributes = builder.ToString();
-            if (button.ButtonType == PopupChooserButtonType.Button)
-            {
-                return string.Format("<a{0}>{1}</a>", attributes, button.Caption);
-            }
-            else
-            {
-                return string.Format("<input{0} type=\"text\" value=\"{1}\" />", attributes, button.Caption);
-            }
+            return button.ButtonType == PopupChooserButtonType.Button
+                ? string.Format("<a{0}>{1}</a>", attributes, button.Caption)
+                : string.Format("<input{0} type=\"text\" value=\"{1}\" />", attributes, button.Caption);
         }
 
         #endregion

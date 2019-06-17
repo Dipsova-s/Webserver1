@@ -670,7 +670,7 @@
                     if (uiExtraMinWidth < autoSizeUIWidth)
                         uiExtraAutoSizeCount = 0;
 
-                    if (lastBreakPoint.length && autoSizeUIWidth * (uiAutoSizeCount + uiExtraAutoSizeCount) > autoSizeSpace - (uiMargin * uiAutoSizeCount)) {
+                    if (lastBreakPoint.length && autoSizeUIWidth * (uiAutoSizeCount + uiExtraAutoSizeCount) > autoSizeSpace - uiMargin * uiAutoSizeCount) {
                         autoSizeSpace = size;
                         uiAutoSizeCount = 0;
                         uiExtraAutoSizeCount = 0;
@@ -1019,10 +1019,10 @@
                     self.GetHtmlElementById('SecondInput-' + elementIndex).hide();
                     self.GetHtmlElementById('SecondInputUnit-' + elementIndex).hide();
 
-                    var exampleDate = WC.WidgetFilterHelper.GetDefaultModelDataDate(self.Handler.ModelUri);
+                    var exampleDateRelative = WC.WidgetFilterHelper.GetDefaultModelDataDate(self.Handler.ModelUri);
                     var inputDate = self.GetHtmlElementById('FirstInput-' + elementIndex).data(enumHandlers.KENDOUITYPE.NUMERICTEXT);
                     if (self.IsQueryFilterHasValue(queryFilter)) {
-                        exampleDate.setDate(exampleDate.getDate() + parseFloat(queryFilter[0].value));
+                        exampleDateRelative.setDate(exampleDateRelative.getDate() + parseFloat(queryFilter[0].value));
                         inputDate.value(queryFilter[0].value);
                     }
                     inputDate.trigger('change');
@@ -1303,7 +1303,9 @@
         }).data(enumHandlers.KENDOUITYPE.TIMEPICKER);
         timePicker.wrapper.addClass('eaTimepicker');
         timePicker.element.on('blur keydown', function (e) {
-            if ((e.type === 'blur' && !jQuery(this).data('paste')) || (e.type === 'keydown' && e.keyCode === 13)) {
+            var isBlurInput = e.type === 'blur' && !jQuery(this).data('paste');
+            var isEnterInput = e.type === 'keydown' && e.keyCode === 13;
+            if (isBlurInput || isEnterInput) {
                 self.FriendlyInputTimePicker(this);
             }
         });
@@ -1335,7 +1337,9 @@
         timespanPicker.dayPicker.wrapper.css('float', '').addClass('eaNumeric');
         timespanPicker.timePicker.wrapper.addClass('eaTimepicker');
         timespanPicker.timePicker.element.on('blur keydown', function (e) {
-            if ((e.type === 'blur' && !jQuery(this).data('paste')) || (e.type === 'keydown' && e.keyCode === 13)) {
+            var isBlurInput = e.type === 'blur' && !jQuery(this).data('paste');
+            var isEnterInput = e.type === 'keydown' && e.keyCode === 13;
+            if (isBlurInput || isEnterInput) {
                 self.FriendlyInputTimePicker(this);
             }
         });
@@ -1366,10 +1370,13 @@
                     if (typeof inputParts[i] === 'undefined')
                         inputParts[i] = '00';
                     inputParts[i] = parseInt(inputParts[i], 10);
-                    if (isNaN(inputParts[i])
-                        || inputParts[i] < 0
-                        || (i === 0 && inputParts[i] >= 24)
-                        || (i !== 0 && inputParts[i] >= 60)) {
+                    var checkInputParts = [
+                        isNaN(inputParts[i]),
+                        inputParts[i] < 0,
+                        i === 0 && inputParts[i] >= 24,
+                        i !== 0 && inputParts[i] >= 60
+                    ];
+                    if (WC.Utility.MatchAny(true, checkInputParts)) {
                         inputParts[i] = '--';
                         break;
                     }
@@ -1740,7 +1747,7 @@
             }
             else {
                 modelFieldDomainHandler.LoadFieldDomain(field.domain)
-                    .done(function (response, status, xhr) {
+                    .done(function (response) {
                         self.GetEnumListGridSuccess(response, elementId, isPopup, defaultFilters);
                     });
             }
@@ -1792,7 +1799,7 @@
                 .off('mousewheel.iefix')
                 .on('mousewheel.iefix', function (e) {
                     if (!grid.content.find('.k-loading-mask').length) {
-                        virtualScroll.verticalScrollbar.scrollTop(virtualScroll.verticalScrollbar.scrollTop() - (e.deltaFactor * e.deltaY));
+                        virtualScroll.verticalScrollbar.scrollTop(virtualScroll.verticalScrollbar.scrollTop() - e.deltaFactor * e.deltaY);
                     }
                 });
         }
@@ -1863,7 +1870,7 @@
         });
 
         //remove elements by condition (if not no value and not in set)
-        var filteredElements = elements.filter(function (element, index) {
+        var filteredElements = elements.filter(function (element) {
             return element.id !== null && element.id !== '~NotInSet';
         });
 
@@ -2114,7 +2121,7 @@
                 .off('mousewheel.iefix')
                 .on('mousewheel.iefix', function (e) {
                     if (!grid.content.find('.k-loading-mask').length) {
-                        virtualScroll.verticalScrollbar.scrollTop(virtualScroll.verticalScrollbar.scrollTop() - (e.deltaFactor * e.deltaY));
+                        virtualScroll.verticalScrollbar.scrollTop(virtualScroll.verticalScrollbar.scrollTop() - e.deltaFactor * e.deltaY);
                     }
                 });
         }
@@ -2232,6 +2239,7 @@
         var ui = self.GetInputValueUI(valueElement, dataType);
         var grid = self.GetHtmlElementById('ValueList-' + index).data(enumHandlers.KENDOUITYPE.GRID);
         var currentValues = grid.dataSource.data();
+        var duplicateValues = {};
         var getKey = function (value) {
             // get key of the value
 
@@ -2308,7 +2316,6 @@
         };
 
         // collect currect value for checking a duplcating values
-        var duplicateValues = {};
         jQuery.each(currentValues, function (index, currentValue) {
             duplicateValues[getKey(currentValue.value)] = true;
         });
@@ -2357,7 +2364,7 @@
 
         self.Handler.ApplyFilterWhenAction(index);
     };
-    self.RemoveSelectedValue = function (index, dataType) {
+    self.RemoveSelectedValue = function (index) {
         var grid = self.GetHtmlElementById('ValueList-' + index).data(enumHandlers.KENDOUITYPE.GRID);
         var selectingRows = grid.select();
 

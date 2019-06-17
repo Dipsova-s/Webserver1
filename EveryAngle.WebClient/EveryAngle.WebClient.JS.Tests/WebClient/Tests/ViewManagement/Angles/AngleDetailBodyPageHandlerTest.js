@@ -26,7 +26,7 @@ describe("AngleDetailBodyPageHandler", function () {
             spyOn(jQuery, 'deepCompare').and.callFake(function () { return false; });
             anglePageHandler.HandlerValidation.Angle.Valid = true;
 
-            spyOn(angleDetailPageHandler, 'CheckExecuteAngle').and.callFake(function () { return false });
+            spyOn(angleDetailPageHandler, 'CheckExecuteAngle').and.returnValue(false);
 
             //process
             angleDetailPageHandler.ApplyResult();
@@ -45,7 +45,7 @@ describe("AngleDetailBodyPageHandler", function () {
             spyOn(jQuery, 'deepCompare').and.callFake(function () { return true; });
             anglePageHandler.HandlerValidation.Angle.Valid = false;
 
-            spyOn(angleDetailPageHandler, 'CheckExecuteAngle').and.callFake(function () { return true });
+            spyOn(angleDetailPageHandler, 'CheckExecuteAngle').and.returnValue(true);
 
             //process
             angleDetailPageHandler.ApplyResult();
@@ -64,7 +64,7 @@ describe("AngleDetailBodyPageHandler", function () {
             spyOn(jQuery, 'deepCompare').and.callFake(function () { return true; });
             anglePageHandler.HandlerValidation.Angle.Valid = false;
 
-            spyOn(angleDetailPageHandler, 'CheckExecuteAngle').and.callFake(function () { return false });
+            spyOn(angleDetailPageHandler, 'CheckExecuteAngle').and.returnValue(false);
 
             //process
             angleDetailPageHandler.ApplyResult();

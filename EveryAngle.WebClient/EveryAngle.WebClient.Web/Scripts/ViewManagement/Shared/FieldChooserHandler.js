@@ -100,7 +100,7 @@ function FieldsChooserHandler() {
         };
 
         // initialize popup
-        fieldsChooserModel.DisplayFieldChooserPopup(popupSettings)
+        fieldsChooserModel.DisplayFieldChooserPopup(popupSettings);
     };
     self.InitializePopupSettingsByName = function (popupName, popupSettings, handler) {
         switch (popupName) {
@@ -359,7 +359,7 @@ function FieldsChooserHandler() {
         popupTitle.before(isStarred);
         popupTitle.before(categoryIcon);
 
-        popup.wrapper.find('.iconStatus').data('field', field).on('click', function (e) {
+        popup.wrapper.find('.iconStatus').data('field', field).on('click', function () {
             var that = jQuery(this);
             var field = that.data('field');
             var selectedRows = jQuery('#DisplayPropertiesGrid tr[data-uid="' + field.uid + '"]');

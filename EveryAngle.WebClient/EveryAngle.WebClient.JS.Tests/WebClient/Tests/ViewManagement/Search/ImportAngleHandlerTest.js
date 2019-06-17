@@ -204,7 +204,6 @@ describe("ImportAngleHandler", function () {
                 }]
             };
             importAngleHandler.SetAngleForUpload(angle, modelUri);
-            
             expect(angle.id).not.toBeDefined();
             expect(angle.any).not.toBeDefined();
             expect(angle.is_published).toEqual(false);
@@ -258,27 +257,26 @@ describe("ImportAngleHandler", function () {
             };
             importAngleHandler.SetDashboardForUpload(dashboard, modelUri);
 
-            // assert
-            // dashboard
+            // check dashboard
             expect(dashboard.id).not.toBeDefined();
             expect(dashboard.any).not.toBeDefined();
             expect(dashboard.is_published).toEqual(false);
             expect(dashboard.is_validated).toEqual(false);
             expect(dashboard.model).toEqual(modelUri);
 
-            // widget #1
+            // check widget #1
             expect(dashboard.widget_definitions[0].any).not.toBeDefined();
             expect(dashboard.widget_definitions[0].angle).toEqual('/models/1/angles/1');
             expect(dashboard.widget_definitions[0].display).toEqual('/models/1/angles/1/displays/1');
             expect(dashboard.widget_definitions[0].widget_details).toContain(modelUri);
 
-            // widget #2
+            // check widget #2
             expect(dashboard.widget_definitions[1].any).not.toBeDefined();
             expect(dashboard.widget_definitions[1].angle).not.toBeDefined();
             expect(dashboard.widget_definitions[1].display).not.toBeDefined();
             expect(dashboard.widget_definitions[1].widget_details).toContain(modelUri);
 
-            // widget #3
+            // check widget #3
             expect(dashboard.widget_definitions[2].any).not.toBeDefined();
             expect(dashboard.widget_definitions[2].angle).not.toBeDefined();
             expect(dashboard.widget_definitions[2].display).not.toBeDefined();
@@ -621,7 +619,6 @@ describe("ImportAngleHandler", function () {
             expect(importAngleHandler.UpdateProgressBar).toHaveBeenCalledTimes(2);
         });
     });
-    
     describe(".UploadPackageItems", function () {
 
         var e, file;
@@ -839,8 +836,9 @@ describe("ImportAngleHandler", function () {
                 ]
             };
             importAngleHandler.SelectFileUpload(e);
-            
             progressbarModel.CancelFunction();
+
+            // assert
             expect(WC.Ajax.AbortAll).toHaveBeenCalled();
         });
     });

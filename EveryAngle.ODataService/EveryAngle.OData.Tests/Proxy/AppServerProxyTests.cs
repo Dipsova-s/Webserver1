@@ -72,21 +72,21 @@ namespace EveryAngle.OData.Tests.Proxy
         [Ignore]
         public void Can_Execute_GenericPost(string securityToken, HttpStatusCode returnStatus)
         {
-            // TODO: Implement
+            // TODO: Implement //NOSONAR
         }
 
         [TestCase]
         [Ignore]
         public void Can_Execute_GenericPost_Unauthorized()
         {
-            // TODO: Implement
+            // TODO: Implement //NOSONAR
         }
 
         [TestCase]
         [Ignore]
         public void Can_Execute_NewRestRequest()
         {
-            // TODO: Implement
+            // TODO: Implement //NOSONAR
         }
 
 

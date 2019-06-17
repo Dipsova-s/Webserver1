@@ -38,7 +38,6 @@ function BusinessProcessHandler() {
             }
 
             model.Data(bpData);
-           
         }
     };
 }

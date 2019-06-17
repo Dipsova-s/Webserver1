@@ -56,7 +56,7 @@ function ExportHandler() {
                     position: 'right'
                 }
             ],
-            open: function (e) {
+            open: function () {
                 self.ShowExportPopupCallback(option);
             }
         };
@@ -249,7 +249,11 @@ function ExportHandler() {
         jQuery('a[id*=btn-popupExportToCSV]').removeClass('executing');
     };
     self.CreateAddModelDateUI = function () {
+        var addModelDateUI;
         var defaultValue = self.GetModelDateDefaultValue(self.CurrentExportModel.AddModelDateAtColumn);
+        var setInputValue = function (value) {
+            self.SetModelDateInputValue(addModelDateUI, value);
+        };
         var valueChanged = function (e, setInput) {
             var value = e.sender.value();
             var fieldCount = displayModel.Data().fields.length;
@@ -257,10 +261,7 @@ function ExportHandler() {
             if (setInput !== false)
                 setInputValue(value);
         };
-        var setInputValue = function (value) {
-            self.SetModelDateInputValue(addModelDateUI, value);
-        };
-        var addModelDateUI = jQuery('#add-model-date-at-column').kendoNumericTextBox({
+        addModelDateUI = jQuery('#add-model-date-at-column').kendoNumericTextBox({
             min: 0,
             max: 2147483646,
             step: 1,
@@ -290,7 +291,7 @@ function ExportHandler() {
         addModelDateUI.element.on('keypress', function (e) {
             var character = String.fromCharCode(e.which).toLowerCase();
             var noneChar = Captions.Label_CSV_Export_ModelDate_None.charAt(0).toLowerCase();
-            if (character === noneChar || (!$(this).val().length && character === '0')) {
+            if (character === noneChar || !$(this).val().length && character === '0') {
                 setInputValue(0);
                 e.preventDefault();
             }
@@ -381,7 +382,7 @@ function ExportHandler() {
         var defaultExportSettings = {};
         var currentExportSettings = JSON.parse(JSON.stringify(ko.toJS(self.CurrentExportModel)));
         var keyName;
-        jQuery.each(currentExportSettings, function (key, value) {
+        jQuery.each(currentExportSettings, function (key) {
             if (key.toLowerCase().substr(0, 7) === 'default') {
                 keyName = key.substr(7);
                 if (keyName === 'BoolChars') {
@@ -394,7 +395,7 @@ function ExportHandler() {
                 }
             }
         });
-        jQuery.each(currentExportSettings, function (key, value) {
+        jQuery.each(currentExportSettings, function (key) {
             if (currentExportSettings[key] === '')
                 delete currentExportSettings[key];
         });
@@ -496,14 +497,11 @@ function ExportHandler() {
         clearTimeout(fnCheckExportProgress);
 
         CreateDataToWebService(request, self.GenerateCSVjsonData)
-        .done(function (data, textStatus, xmlHttpRequest) {
-
-            progressbarModel.IsCancelPopup = false;
-            self.GenerateCSVUri = data.uri;
-            self.GenerateCSV();
-
-        });
-
+            .done(function (data) {
+                progressbarModel.IsCancelPopup = false;
+                self.GenerateCSVUri = data.uri;
+                self.GenerateCSV();
+            });
     };
 
     self.GenerateCSV = function () {

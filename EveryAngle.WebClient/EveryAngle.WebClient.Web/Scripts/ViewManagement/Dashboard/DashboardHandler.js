@@ -43,7 +43,7 @@ function DashboardHandler() {
                     systemCurrencyHandler.LoadCurrencies(),
                     aboutSystemHandler.LoadAboutSystem(),
                     componentServicesHandler.LoadComponentServices()
-               );
+                );
             })
             .then(function () {
                 return jQuery.when(
@@ -162,21 +162,21 @@ function DashboardHandler() {
                     }
 
                     var yourNoteInput = jQuery('<input id="txtYourNote" maxlength="100" class="eaText eaTextSize40" type="text" />')
-                         .val(lastvalue)
-                         .blur(function () {
-                             self.HideEditNote(true);
-                         })
-                         .keydown(function (event) {
-                             if (event.keyCode === 13) {
-                                 // enter
+                        .val(lastvalue)
+                        .blur(function () {
+                            self.HideEditNote(true);
+                        })
+                        .keydown(function (event) {
+                            if (event.keyCode === 13) {
+                                // enter
                                 self.HideEditNote(true);
-                             }
-                             else if (event.keyCode === 27) {
-                                 // esc
-                                 yourNoteInput.val(dashboardModel.Data().user_specific.private_note());
-                                 self.HideEditNote(false);
-                             }
-                         });
+                            }
+                            else if (event.keyCode === 27) {
+                                // esc
+                                yourNoteInput.val(dashboardModel.Data().user_specific.private_note());
+                                self.HideEditNote(false);
+                            }
+                        });
                     yourNoteContainer.html(yourNoteInput);
                     yourNoteInput.focus();
 
@@ -188,7 +188,7 @@ function DashboardHandler() {
                     setTimeout(function () {
                         jQuery(document).on('click.yournote touchstart.yournote', function (e) {
                             if (e.target.id !== 'txtYourNote') {
-								self.HideEditNote(true);
+                                self.HideEditNote(true);
                             }
                         });
                         jQuery(window).trigger('resize.yournote');
@@ -201,7 +201,7 @@ function DashboardHandler() {
         jQuery(window).off('resize.yournote');
         jQuery(document).off('click.yournote touchstart.yournote');
 
-		var yourNoteInput = jQuery("#txtYourNote").off('blur keydown');
+        var yourNoteInput = jQuery("#txtYourNote").off('blur keydown');
         if (yourNoteInput.length) {
             var resetYourNote = function () {
                 var oldNote = dashboardDetailsHandler.Model.Data().user_specific.private_note();
@@ -209,8 +209,8 @@ function DashboardHandler() {
                 dashboardDetailsHandler.Model.Data().user_specific.private_note(oldNote);
 
                 var oldNote2 = dashboardModel.Data().user_specific.private_note();
-				dashboardModel.Data().user_specific.private_note(oldNote2 + 1);
-				dashboardModel.Data().user_specific.private_note(oldNote2);
+                dashboardModel.Data().user_specific.private_note(oldNote2 + 1);
+                dashboardModel.Data().user_specific.private_note(oldNote2);
             };
             var yourNoteContainer = jQuery("#YourNote");
             var yourNote = jQuery.trim(yourNoteInput.val());
@@ -239,26 +239,27 @@ function DashboardHandler() {
         progressbarModel.ReferenceUri = WC.Page.GetPreviousPageUrl();
 
         if (typeof jQuery('#MainContainer').data('address') === 'undefined') {
-            $.address.init(function (event) {
-                jQuery('#MainContainer').data('address', true);
-            })
-            .change(function (event) {
-                self.SetResultViewType();
+            $.address
+                .init(function () {
+                    jQuery('#MainContainer').data('address', true);
+                })
+                .change(function (event) {
+                    self.SetResultViewType();
 
-                self.IsInitialRetainUrl = true;
-                if (event.value !== '/') {
-                    var hashUrl = '#' + event.value;
-                    if (self.LastUri && self.LastUri !== hashUrl) {
-                        progressbarModel.ReferenceUri = '';
+                    self.IsInitialRetainUrl = true;
+                    if (event.value !== '/') {
+                        var hashUrl = '#' + event.value;
+                        if (self.LastUri && self.LastUri !== hashUrl) {
+                            progressbarModel.ReferenceUri = '';
+                        }
+
+                        if (self.LastUri !== hashUrl) {
+                            self.LastUri = hashUrl;
+
+                            self.ExecuteDashboard();
+                        }
                     }
-
-                    if (self.LastUri !== hashUrl) {
-                        self.LastUri = hashUrl;
-
-                        self.ExecuteDashboard();
-                    }
-                }
-            });
+                });
             setTimeout(function () {
                 if (!self.IsInitialRetainUrl) {
                     self.LastUri = location.hash;
@@ -320,7 +321,7 @@ function DashboardHandler() {
     self.UpdateDetailSection = function () {
         var nameSize = jQuery('#DashboardName').width();
         jQuery('#DashboardName .Name').css({ 'max-width': nameSize - 110 });
-        jQuery('#YourNote').width((nameSize / 2) - 60);
+        jQuery('#YourNote').width(nameSize / 2 - 60);
     };
     self.TriggerWatcher = function (e) {
         var refreshDashboard = function () {
@@ -406,7 +407,7 @@ function DashboardHandler() {
 
         self.EnableDashboardPage(true);
         jQuery.when(!forceReload && model && model.uri === dashboardUri ? true : dashboardModel.LoadDashboard(dashboardUri))
-            .fail(function (xhr, status, error) {
+            .fail(function (xhr, status) {
                 self.EnableDashboardPage(false);
 
                 if (status === null) {
@@ -427,9 +428,11 @@ function DashboardHandler() {
             })
             .then(function () {
                 return dashboardModel.LoadAngles(dashboardModel.keyName, false, false)
-                    .fail(function (xhr, status, error) {
-                        if (xhr instanceof Array) xhr = xhr[0];
-                        if (xhr instanceof Array) xhr = xhr[0];
+                    .fail(function (xhr) {
+                        if (xhr instanceof Array)
+                            xhr = xhr[0];
+                        if (xhr instanceof Array)
+                            xhr = xhr[0];
                         if (xhr.status === 404) {
                             errorHandlerModel.Enable(false);
                             setTimeout(function () {
@@ -438,7 +441,7 @@ function DashboardHandler() {
                         }
                     });
             })
-            .then(function (response, status, xhr) {
+            .then(function () {
                 WC.HtmlHelper.SetPageTitle(dashboardModel.Data().name() || 'Dashboard');
 
                 // set publication status
@@ -553,7 +556,7 @@ function DashboardHandler() {
                 // check current model instace
                 self.CheckUpdateModelCurrentInstance();
             })
-            .always(function (canRender, status, xhr) {
+            .always(function (canRender) {
                 if (canRender !== false) {
                     self.IsCheckExecuteParameters = true;
                     self.EnableDashboardPage(true);
@@ -574,7 +577,7 @@ function DashboardHandler() {
                 }
 
                 // if updating current_instance not null and current_instance changed then set refresh flag
-                if (!model || (model.current_instance && self.ModelCurrentInfo[widget.widget_details.model].Uri !== model.current_instance)) {
+                if (!model || model.current_instance && self.ModelCurrentInfo[widget.widget_details.model].Uri !== model.current_instance) {
                     self.ModelCurrentInfo[widget.widget_details.model].IsUpdate = true;
                     self.ModelCurrentInfo[widget.widget_details.model].Uri = model ? model.current_instance : null;
                 }
@@ -654,22 +657,21 @@ function DashboardHandler() {
     self.ExecuteAllWidgets = function () {
         self.PreExecuteWidgetsHandler();
         jQuery.each(dashboardModel.Data().widget_definitions, function (index, widget) {
-            if (widget) {
-                var display = widget.GetDisplay(),
-                    angle = widget.GetAngle();
+            if (!widget)
+                return;
 
-                if (angle && display) {
-                    if (!self.IsEditMode() && self.CheckInvalidAngleAndDisplay(angle, display).Valid && modelsHandler.GetModelByUri(angle.model).available) {
-                        if (display) {
-                            var widgetElement = jQuery('#' + self.ElementPrefix + widget.id + '-container');
-                            if (!widgetElement.data('Model')) {
-                                self.CreateWidgetBusyIndicator(widgetElement);
-                                var model = new DashboardResultViewModel('#' + self.ElementPrefix + widget.id, widget, dashboardDetailsHandler.Model, dashboardModel.ExecuteParameters);
-                                widgetElement.data('ResultModel', model);
-                                model.Execute();
-                            }
-                        }
-                    }
+            var display = widget.GetDisplay();
+            var angle = widget.GetAngle();
+            if (!angle || !display)
+                return;
+
+            if (!self.IsEditMode() && self.CheckInvalidAngleAndDisplay(angle, display).Valid && modelsHandler.GetModelByUri(angle.model).available) {
+                var widgetElement = jQuery('#' + self.ElementPrefix + widget.id + '-container');
+                if (!widgetElement.data('Model')) {
+                    self.CreateWidgetBusyIndicator(widgetElement);
+                    var model = new DashboardResultViewModel('#' + self.ElementPrefix + widget.id, widget, dashboardDetailsHandler.Model, dashboardModel.ExecuteParameters);
+                    widgetElement.data('ResultModel', model);
+                    model.Execute();
                 }
             }
         });
@@ -788,7 +790,7 @@ function DashboardHandler() {
                             'widget-id': widget.id,
                             'display': widget.display
                         })
-                        .attr('id', self.ElementPrefix + widget.id + '-container');
+                            .attr('id', self.ElementPrefix + widget.id + '-container');
                         self.SetWidgetName(widgetElement, widget);
                     }
                 }
@@ -799,33 +801,33 @@ function DashboardHandler() {
         var display = widget.GetDisplay(),
             angle = widget.GetAngle(),
             columnElement = jQuery('<div class="widgetDisplayColumn" id="' + self.ElementPrefix + widget.id + '-container">'
-                                     + '<div class="widgetDisplayHeader">'
-                                         + '<span class="widgetName"></span>'
-                                         + '<a class="btnInfo btnWidgetInfo"></a>'
-                                         + '<div class="widgetToolbar">'
-                                            + '<a class="btn btnDefault widgetButtonMenu"></a>'
-                                            + '<div class="k-window-titleless k-window-custom k-window-arrow-n widgetToolbarActions">'
-                                                + '<div class="k-window-content k-content">'
-                                                    + '<a class="widgetButtonMaximize">' + Captions.Button_Dashboard_WidgetMaximize + '</a>'
-                                                    + '<a class="widgetButtonMinimize">' + Captions.Button_Dashboard_WidgetMinimize + '</a>'
-                                                    + '<a class="widgetButtonOpenNewWindow" target="_blank">' + Captions.Button_Dashboard_WidgetGotoAngle + '</a>'
-                                                    + '<a class="widgetButtonDelete">' + Captions.Button_Dashboard_WidgetDelete + '</a>'
-                                                + '</div>'
-                                            + '</div>'
-                                         + '</div>'
-                                     + '</div>'
-                                     + '<div id="' + self.ElementPrefix + widget.id + '" class="widgetDisplay"></div>'
-                                 + '</div>');
+                + '<div class="widgetDisplayHeader">'
+                + '<span class="widgetName"></span>'
+                + '<a class="btnInfo btnWidgetInfo"></a>'
+                + '<div class="widgetToolbar">'
+                + '<a class="btn btnDefault widgetButtonMenu"></a>'
+                + '<div class="k-window-titleless k-window-custom k-window-arrow-n widgetToolbarActions">'
+                + '<div class="k-window-content k-content">'
+                + '<a class="widgetButtonMaximize">' + Captions.Button_Dashboard_WidgetMaximize + '</a>'
+                + '<a class="widgetButtonMinimize">' + Captions.Button_Dashboard_WidgetMinimize + '</a>'
+                + '<a class="widgetButtonOpenNewWindow" target="_blank">' + Captions.Button_Dashboard_WidgetGotoAngle + '</a>'
+                + '<a class="widgetButtonDelete">' + Captions.Button_Dashboard_WidgetDelete + '</a>'
+                + '</div>'
+                + '</div>'
+                + '</div>'
+                + '</div>'
+                + '<div id="' + self.ElementPrefix + widget.id + '" class="widgetDisplay"></div>'
+                + '</div>');
         columnElement.data({
             'index': index,
             'widget-id': widget.id,
             'display': widget.display
         })
-        .attr('id', self.ElementPrefix + widget.id + '-container');
+            .attr('id', self.ElementPrefix + widget.id + '-container');
 
         // menu
         columnElement.find('.widgetButtonMenu')
-            .on('click', { widget: widget }, function (e) {
+            .on('click', { widget: widget }, function () {
                 var element = jQuery(this);
                 var isOpen = element.hasClass('open');
 
@@ -922,7 +924,7 @@ function DashboardHandler() {
 
                     // get valid filters
                     self.SetValidFilters(widgetElement);
-                    
+
                     element.parents('.widgetDisplayColumn:first').find('.widgetButtonMenu').trigger('close');
                 });
 
@@ -1140,11 +1142,11 @@ function DashboardHandler() {
             if (!dashboardModel.IsTemporaryDashboard())
                 leftOffset -= 10;
 
-            if (canAddNewRowNearby || (!canAddNewRowNearby && (rowIndex < currentRowIndex || rowIndex > currentRowIndex + 1))) {
+            if (canAddNewRowNearby || !canAddNewRowNearby && (rowIndex < currentRowIndex || rowIndex > currentRowIndex + 1)) {
                 jQuery('<div class="droppable dropToRow" />')
                     .css({
                         left: leftOffset,
-                        top: rowIndex === 0 ? 0 : topOffset - (dropAreaSize / 2),
+                        top: rowIndex === 0 ? 0 : topOffset - dropAreaSize / 2,
                         height: rowIndex === 0 ? Math.max(topOffset, dropAreaSize) : dropAreaSize
                     })
                     .data({
@@ -1154,7 +1156,7 @@ function DashboardHandler() {
                     .appendTo(dropArea);
             }
 
-            if (rowIndex === rowCount - 1 && (canAddNewRowNearby || (!canAddNewRowNearby && rowIndex !== currentRowIndex))) {
+            if (rowIndex === rowCount - 1 && (canAddNewRowNearby || !canAddNewRowNearby && rowIndex !== currentRowIndex)) {
                 var bottomOffset = topOffset + row.height() - dropAreaSize;
                 jQuery('<div class="droppable dropToRow" />')
                     .css({
@@ -1182,7 +1184,7 @@ function DashboardHandler() {
                     if (allColumnIndex - 1 !== currentWidgetIndex || isDifferenceRow) {
                         jQuery('<div class="droppable dropToColumn" />')
                             .css({
-                                left: Math.max(leftOffset - (dropAreaSize / 2), 0),
+                                left: Math.max(leftOffset - dropAreaSize / 2, 0),
                                 top: topOffset,
                                 height: column.height(),
                                 width: dropAreaSize
@@ -1276,7 +1278,7 @@ function DashboardHandler() {
                 // - if widget is exists then try to adjust size of widget in row
                 // - else remove row
                 columns = columnSplitter.element.children('.k-pane');
-                size = (100 / columns.length) + '%';
+                size = 100 / columns.length + '%';
                 if (columns.length !== 0) {
                     columnSplitter.options.panes.splice(dragIndexInRow, 1);
                     columnSplitter._removeSplitBars();
@@ -1291,7 +1293,7 @@ function DashboardHandler() {
 
                 // reset vertical spliter
                 rows = rowSplitter.element.children('.k-pane');
-                size = (100 / rows.length) + '%';
+                size = 100 / rows.length + '%';
                 rows.each(function (index, element) {
                     rowSplitter.size(element, size);
                 });
@@ -1312,7 +1314,7 @@ function DashboardHandler() {
                 }
                 else {
                     // reset sizing if move to other row
-                    size = (100 / (dropParent.children('.k-pane').length + 1)) + '%';
+                    size = 100 / (dropParent.children('.k-pane').length + 1) + '%';
                     dragTarget[insertType](columns.eq(dropIndex));
                     dropColumnSplitter._removeSplitBars();
                     dropColumnSplitter._addPane({ min: self.MinSize }, dropIndexInRow, dragTarget);
@@ -1326,7 +1328,7 @@ function DashboardHandler() {
                         rowSplitter.remove(parentRow);
                     }
                     else {
-                        size = (100 / columns.length) + '%';
+                        size = 100 / columns.length + '%';
 
                         columnSplitter.options.panes = [];
                         columnSplitter._removeSplitBars();
@@ -1557,46 +1559,16 @@ function DashboardHandler() {
         }
         else {
             errorHandlerModel.ShowCustomError(Localization.ErrorObjectNotFound.replace('{value}', id), null,
-                                                errorHandlerModel.SetErrorInfo('DashboardHandler.DeleteWidget(id)',
-                                                                                Localization.ErrorInfoObjectNotFound.replace('{property}', 'id').replace('{value}', id)));
+                errorHandlerModel.SetErrorInfo('DashboardHandler.DeleteWidget(id)',
+                    Localization.ErrorInfoObjectNotFound.replace('{property}', 'id').replace('{value}', id)));
         }
     };
 
-    /*
-    BOF: M4-9737: Dashboard: Add actions menu button
-    1.Add actions menu button - same location as on angle page
-    1.1.Save dashboard => Quick save dashboard
-    1.2.Edit dashboard => Open Dashboard details>Definition pop-up
-    2.Both options are always visible 
-    2.1.Enabled see the M4 Authorisations and priviliges document
-    */
     self.RenderActionDropdownList = function () {
-        var data = [],
-            isEnable = false,
-            isQuickSave, isQuickSaveAs, isEdit, isExecuteDashboard,
-            isEditMode = self.IsEditMode(),
-            allowQuickSave = dashboardModel.CanUpdateDashboard('layout'),
-            allowQuickSaveAs = !dashboardModel.IsTemporaryDashboard() && privilegesViewModel.IsAllowExecuteDashboard();
-
-        jQuery.each(enumHandlers.DASHBOARDACTION, function (key, action) {
-            isQuickSave = action.Id === enumHandlers.DASHBOARDACTION.SAVE.Id;
-            isQuickSaveAs = action.Id === enumHandlers.DASHBOARDACTION.SAVEAS.Id;
-            isEdit = action.Id === enumHandlers.DASHBOARDACTION.EDIT.Id;
-            isExecuteDashboard = action.Id === enumHandlers.DASHBOARDACTION.EXECUTEDASHBOARD.Id;
-
-            isEnable = false;
-            if ((isEditMode && isExecuteDashboard) || !isExecuteDashboard) {
-                if ((isQuickSave && allowQuickSave) || (isQuickSaveAs && allowQuickSaveAs) || isEdit || isExecuteDashboard) {
-                    isEnable = true;
-                }
-
-                data.push(jQuery.extend({ Enable: isEnable }, action));
-            }
-        });
-
+        var data = self.GetActionDropdownItems();
         var menuHtml = [];
         jQuery.each(data, function (index, action) {
-            menuHtml[index] = '<a class="actionDropdownItem ' + action.Id + (action.Enable ? '' : ' disabled') + '" onclick="dashboardHandler.CallActionDropdownFunction(this, \'' + action.Id + '\')">' + action.Text + '</a>';
+            menuHtml[index] = '<a class="actionDropdownItem ' + action.Id + (action.Enable ? '' : ' disabled') + (action.Visible ? '' : ' alwaysHide') + '" onclick="dashboardHandler.CallActionDropdownFunction(this, \'' + action.Id + '\')">' + action.Text + '</a>';
         });
         jQuery('#ActionDropdownListPopup .k-window-content').html(menuHtml.join(''));
 
@@ -1615,6 +1587,26 @@ function DashboardHandler() {
             result += Math.max(dashboardNameWidth, noteWidth);
             return result;
         });
+    };
+    self.GetActionDropdownItems = function () {
+        var data = [];
+        var isEditMode = self.IsEditMode();
+        var allowQuickSave = dashboardModel.CanUpdateDashboard('layout');
+        var allowQuickSaveAs = !dashboardModel.IsTemporaryDashboard() && privilegesViewModel.IsAllowExecuteDashboard();
+
+        // check privilege
+        var privileges = {};
+        privileges[enumHandlers.DASHBOARDACTION.SAVE.Id] = { Enable: allowQuickSave, Visible: true };
+        privileges[enumHandlers.DASHBOARDACTION.SAVEAS.Id] = { Enable: allowQuickSaveAs, Visible: true };
+        privileges[enumHandlers.DASHBOARDACTION.EDIT.Id] = { Enable: true, Visible: true };
+        privileges[enumHandlers.DASHBOARDACTION.EXECUTEDASHBOARD.Id] = { Enable: true, Visible: isEditMode };
+
+        // define menu
+        jQuery.each(enumHandlers.DASHBOARDACTION, function (key, action) {
+            data.push(jQuery.extend({ Enable: false }, action, privileges[action.Id]));
+        });
+
+        return data;
     };
     self.CallActionDropdownFunction = function (obj, selectedValue) {
         if (!jQuery(obj).hasClass('disabled')) {
@@ -1754,7 +1746,7 @@ function DashboardHandler() {
             // do execute again
             self.ExecuteDashboard();
         };
-        executionParameter.CancelExecutionParameters = function (option) {
+        executionParameter.CancelExecutionParameters = function () {
             self.BackToSearch(true);
         };
     };

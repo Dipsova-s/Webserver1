@@ -133,7 +133,7 @@
                 if (!availableGrid._set_custom_handler) {
                     availableGrid._set_custom_handler = true;
 
-                    availableGrid.content.on('dblclick', 'tr', function (e) {
+                    availableGrid.content.on('dblclick', 'tr', function () {
                         var row = $(this),
                             item;
 
@@ -146,7 +146,7 @@
                         }
                     });
 
-                    availableGrid.content.on('click', 'tr', function (e) {
+                    availableGrid.content.on('click', 'tr', function () {
                         var row = $(this),
                             uid = row.data('uid'),
                             item = availableGrid.dataSource.getByUid(uid);
@@ -202,19 +202,19 @@
                     element: '#btnAddFields',
                     target: '#AvailableFieldsGridContainer'
                 })
-                .fail(function () {
-                    $('#popupDownloadTableFields').data('kendoWindow').close();
-                })
-                .done(function () {
-                    self.InitialAvailableTableGrid();
+                    .fail(function () {
+                        $('#popupDownloadTableFields').data('kendoWindow').close();
+                    })
+                    .done(function () {
+                        self.InitialAvailableTableGrid();
 
-                    initShowAvailableGrid();
-                })
-                .always(function () {
-                    setTimeout(function () {
-                        MC.ui.popup('requestEnd');
-                    }, 100);
-                });
+                        initShowAvailableGrid();
+                    })
+                    .always(function () {
+                        setTimeout(function () {
+                            MC.ui.popup('requestEnd');
+                        }, 100);
+                    });
             }
             else {
                 initShowAvailableGrid();
@@ -268,7 +268,6 @@
                     row.children(':eq(7)').find('input').val(this.id);
                 }
             });
-            
             var existLabel = $("#DownloadTableGrid .k-pager-info").text().split(" ");
             if (existLabel.length === 6) {
                 $("#DownloadTableGrid .k-pager-info").text($("#DownloadTableGrid .k-pager-info").text() + " ( " + countNewRole + " " + Localization.MC_ItemsAdded + " )");
@@ -328,7 +327,7 @@
             $('#DownloadTableGrid tr.newRow').each(function () {
                 if (!$(this).hasClass('rowMaskAsRemove')) {
                     var id = $(this).find("td:eq(7) input").val();
-                    var row = {'fields':[{ 'id': id, 'is_enabled': true }]};
+                    var row = { 'fields': [{ 'id': id, 'is_enabled': true }] };
                     datas.push(row);
                 }
             });
@@ -349,47 +348,46 @@
             }
 
             var data = self.GetData();
-
-            MC.ajax.request({
-                
-                url: self.SaveUri,
-                parameters: {
-                    tableUri: data.tableUri,
-                    tableFieldsUri: data.tableFieldsUri,
-                    customCondition: data.customCondition,
-                    deltaCondition: data.deltaCondition,
-                    deltaDownload: data.detaDownload,
-                    downloadAllFields: data.downloadAllFields,
-                    fieldsData: data.fieldsData
-                },
-                type: "PUT"
-            })
-            .done(function (response) {
-                self.DeleteList = [];
-                if (response.removedData.length > 0 || !$.isEmptyObject(response.un_removeData)) {
-                    var text = '';
-                    if (response.removedData.length > 0) {
-                        text += '<p>' + MC_RemovedFieldsList + '</p>';
-                        $.each(response.removedData, function (index, item) {
-                            text += '<p>' + item + '</p>';
-                        });
+            MC.ajax
+                .request({
+                    url: self.SaveUri,
+                    parameters: {
+                        tableUri: data.tableUri,
+                        tableFieldsUri: data.tableFieldsUri,
+                        customCondition: data.customCondition,
+                        deltaCondition: data.deltaCondition,
+                        deltaDownload: data.detaDownload,
+                        downloadAllFields: data.downloadAllFields,
+                        fieldsData: data.fieldsData
+                    },
+                    type: "PUT"
+                })
+                .done(function (response) {
+                    self.DeleteList = [];
+                    if (response.removedData.length > 0 || !$.isEmptyObject(response.un_removeData)) {
+                        var text = '';
+                        if (response.removedData.length > 0) {
+                            text += '<p>' + MC_RemovedFieldsList + '</p>';
+                            $.each(response.removedData, function (index, item) {
+                                text += '<p>' + item + '</p>';
+                            });
+                        }
+                        if (!$.isEmptyObject(response.un_removeData)) {
+                            text += '<p>' + MC_UnRemovedFieldsList + '</p>';
+                            $.each(response.un_removeData, function (key, value) {
+                                text += '<p>' + key + ', ' + value + '</p>';
+                            });
+                        }
+                        MC.util.showPopupOK(Localization.MC_DeletedTableFieldsTitle, text, "MC.ajax.reloadMainContent()");
                     }
-                    if (!$.isEmptyObject(response.un_removeData)) {
-                        text += '<p>' + MC_UnRemovedFieldsList + '</p>';
-                        $.each(response.un_removeData, function (key, value) {
-                            text += '<p>' + key + ', ' + value + '</p>';
-                        });
-                    }
-                    MC.util.showPopupOK(Localization.MC_DeletedTableFieldsTitle, text, "MC.ajax.reloadMainContent()");
-                }
 
-                MC.ajax.reloadMainContent();
-            })
-            .fail(function () {
-                $('#loading .loadingClose').one('click.close', function () {
                     MC.ajax.reloadMainContent();
+                })
+                .fail(function () {
+                    $('#loading .loadingClose').one('click.close', function () {
+                        MC.ajax.reloadMainContent();
+                    });
                 });
-            });
         };
     }
 

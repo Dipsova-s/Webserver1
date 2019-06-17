@@ -161,92 +161,30 @@ function MassChangeModel() {
         });
     };
     self.SetMassChange = function () {
-        self.SetPropertyValue(self.MASSNAME.NOTE);
+        self.PrivateNote(null);
         self.IsStarred(null);
         self.IsPublished(null);
         self.IsValidated(null);
         self.IsTemplate(null);
     };
-    self.ComparedProperties = function (propertyName) {
-        var isequal = true;
-        var latestValue = null;
-        for (var index = 0; index < self.Angles.length; index++) {
-            if (index !== 0) {
-                if (!IsUndefindedOrNull(self.Angles[index][propertyName])) {
-                    if (latestValue !== self.Angles[index][propertyName]) {
-                        isequal = false;
-                        if (typeof self.Angles[index][propertyName] === "boolean") {
-                            latestValue = null;
-                        }
-                        else {
-                            latestValue = '';
-                        }
-                        break;
-                    }
-                }
-                else {
-                    if (latestValue !== null) {
-                        isequal = false;
-                        if (typeof self.Angles[index][propertyName] === "boolean") {
-                            latestValue = null;
-                        }
-                        else {
-                            latestValue = '';
-                        }
-                        break;
-                    }
-                }
-            }
-            else {
-                if (!IsUndefindedOrNull(self.Angles[index][propertyName])) {
-                    latestValue = self.Angles[index][propertyName];
-                }
-            }
-        }
-
-        return { 'isequal': isequal, 'value': latestValue };
-
-    };
-    self.SetPropertyValue = function (propertyName) {
-        var result = self.ComparedProperties(propertyName);
-        switch (propertyName) {
-            case self.MASSNAME.NOTE:
-                self.PrivateNote(result.value);
-                break;
-            case self.MASSNAME.VALIDATED:
-                self.IsValidated(result.value);
-                break;
-            case self.MASSNAME.STARRED:
-                self.IsStarred(result.value);
-                break;
-            case self.MASSNAME.PUBLISHED:
-                self.IsPublished(result.value);
-                break;
-            case self.MASSNAME.TEMPLATE:
-                self.IsTemplate(result.value);
-                break;
-            default:
-                break;
-        }
-    };
     self.ShowMassChangeReportPopup = function () {
-        var popupName = 'MassChangeReport',
-            popupSettings = {
-                title: Localization.MassChangeReportTitle,
-                element: '#popup' + popupName,
-                className: 'popup' + popupName,
-                width: 450,
-                minWidth: 450,
-                height: 300,
-                buttons: [
-                    {
-                        text: Localization.Ok,
-                        position: 'right',
-                        isPrimary: true,
-                        click: 'close'
-                    }
-                ]
-            };
+        var popupName = 'MassChangeReport';
+        var popupSettings = {
+            title: Localization.MassChangeReportTitle,
+            element: '#popup' + popupName,
+            className: 'popup' + popupName,
+            width: 450,
+            minWidth: 450,
+            height: 300,
+            buttons: [
+                {
+                    text: Localization.Ok,
+                    position: 'right',
+                    isPrimary: true,
+                    click: 'close'
+                }
+            ]
+        };
 
         // M4-33531: fixed safari issue
         var win = popup.Show(popupSettings);
@@ -289,11 +227,9 @@ function MassChangeModel() {
     };
     self.PropertyStatusAll = function () {
         var status = {};
-
         jQuery.each(self.MASSNAME, function (index, name) {
             status[name] = self.PropertyStatus(name);
         });
-
         return status;
     };
     self.IsAllAnglesBelongToCurentUser = function () {
@@ -308,14 +244,14 @@ function MassChangeModel() {
         return isAllAnglesBelongToCurentUser;
     };
     self.Save = function () {
-        var status = self.PropertyStatusAll(),
-            reports = {
-                header: {
-                    cancelled: false,
-                    total: 0,
-                    count: 0
-                }
-            };
+        var status = self.PropertyStatusAll();
+        var reports = {
+            header: {
+                cancelled: false,
+                total: 0,
+                count: 0
+            }
+        };
 
         reports[self.MASSNAME.NOTE] = {
             text: Localization.MassChangeStatusPrivateNote,
@@ -367,7 +303,7 @@ function MassChangeModel() {
                     var win = self.ShowMassChangeReportPopup();
                     win.content(self.GetSaveReportStatus(reports));
                 }, 200);
-            };
+            }
         };
 
         //generate report
@@ -712,7 +648,7 @@ function MassChangeModel() {
                     text = status ? Captions.MassChange_Label_SetToValidated : Captions.MassChange_Label_SetToNotValidated;
                     break;
                 case 'is_starred':
-                    text = status ? Captions.MassChange_Label_SetToStarred : Captions.MassChange_Label_SetToNotStarred ;
+                    text = status ? Captions.MassChange_Label_SetToStarred : Captions.MassChange_Label_SetToNotStarred;
                     break;
                 case 'is_published':
                     text = status ? Captions.MassChange_Label_SetToPublished : Captions.MassChange_Label_SetToPrivate;

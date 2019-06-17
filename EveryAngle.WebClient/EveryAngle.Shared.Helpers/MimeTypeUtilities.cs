@@ -13,7 +13,7 @@ namespace EveryAngle.Shared.Helpers
         
         public string GetMimeType(string filename)
         {
-            return GetRetval(System.IO.Path.GetExtension(filename).ToLower());
+            return GetRetval(System.IO.Path.GetExtension(filename).ToLowerInvariant());
         }
 
         private void PrepareMimeTypeDics()

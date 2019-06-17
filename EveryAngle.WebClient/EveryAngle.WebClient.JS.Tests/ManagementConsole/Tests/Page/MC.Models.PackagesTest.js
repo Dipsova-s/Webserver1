@@ -2,12 +2,6 @@
 
 describe("MC.Models.Packages.js", function () {
 
-    var modelPackages;
-
-    beforeEach(function () {
-        modelPackages = MC.Models.Packages;
-    });
-
     describe("MC.Models.Packages", function () {
 
         it("should be defined", function () {
