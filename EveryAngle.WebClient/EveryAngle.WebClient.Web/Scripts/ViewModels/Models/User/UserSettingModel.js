@@ -145,7 +145,7 @@ function UserSettingViewModel() {
 
         var lastSearch = jQuery.address.value();
         var prevLastSearch = self.GetClientSettingByPropertyName(enumHandlers.CLIENT_SETTINGS_PROPERTY.LAST_SEARCH_URL);
-        if (prevLastSearch === lastSearch || lastSearch === '/')
+        if (prevLastSearch === lastSearch)
             return null;
 
         var clientSettings = JSON.parse(self.GetByName(enumHandlers.USERSETTINGS.CLIENT_SETTINGS));
