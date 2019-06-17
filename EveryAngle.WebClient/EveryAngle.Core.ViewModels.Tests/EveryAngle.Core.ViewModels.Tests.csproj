@@ -64,6 +64,7 @@
     <Compile Include="EAPackage\ActivePackageQueryViewModelTest.cs" />
     <Compile Include="EAPackage\ExportPackageQueryViewModelTest.cs" />
     <Compile Include="Kendo\MultiSelect\RoleKendoMultiSelectViewModelTest.cs" />
+    <Compile Include="ModelServer\ModelServerViewModelTest.cs" />
     <Compile Include="Model\ModelSiteMapViewModelTest.cs" />
     <Compile Include="Model\ActionListViewModelTest.cs">
       <SubType>Code</SubType>
@@ -111,6 +112,10 @@
     <ProjectReference Include="..\EveryAngle.Shared.Helpers\EveryAngle.Shared.Helpers.csproj">
       <Project>{25ef80a0-14d8-4efc-9ad2-265ef87b2429}</Project>
       <Name>EveryAngle.Shared.Helpers</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\EveryAngle.WebClient.Domain\EveryAngle.WebClient.Domains.csproj">
+      <Project>{EC17ECC9-7496-4B25-B524-348E6C3C6E15}</Project>
+      <Name>EveryAngle.WebClient.Domains</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
