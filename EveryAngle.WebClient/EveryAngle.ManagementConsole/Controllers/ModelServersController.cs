@@ -81,23 +81,15 @@ namespace EveryAngle.ManagementConsole.Controllers
         public ActionResult GetAllModelServer(string modelServerUri, bool isCurrentInstance)
         {
             // model instances
-            PartialViewResult partialViewResult;
             ModelServerViewModel modelServerViewModel = _modelService.GetModelServer(modelServerUri);
 
             // shared view bag
             ViewBag.ModelServerUri = modelServerUri;
             ViewBag.IsCurrentInstance = isCurrentInstance;
 
-            if (modelServerViewModel.IsModelServer)
-            {
-                partialViewResult = GetModelServerInfoPartialView(modelServerViewModel);
-            }
-            else
-            {
-                partialViewResult = GetModelExtractorInfoPartialView(modelServerViewModel);
-            }
-
-            return partialViewResult;
+            return modelServerViewModel.Type == ModelAgentType.Extractor
+                ? GetModelExtractorInfoPartialView(modelServerViewModel)
+                : GetModelServerInfoPartialView(modelServerViewModel);
         }
 
         public ActionResult GetAllModelServerReport(string modelServerUri, bool isCurrentInstance)
@@ -254,37 +246,42 @@ namespace EveryAngle.ManagementConsole.Controllers
 
         private PartialViewResult GetModelServerInfoPartialView(ModelServerViewModel modelServerViewModel)
         {
-            if (modelServerViewModel.Status != ModelServerStatus.Down)
+            // if MS down then use info from AS
+            if (modelServerViewModel.Status == ModelServerStatus.Down)
+                return PartialView("~/Views/Model/ModelServers/ModelServerInfo.cshtml", modelServerViewModel);
+
+            InstanceViewModel instanceViewModel;
+            ModelServerViewModel modelServerInfoViewModel = _modelService.GetModelServer(modelServerViewModel.info.ToString());
+
+            // set type, in /info use application_type
+            modelServerInfoViewModel.type = modelServerViewModel.type;
+
+            // is post processing status
+            if (modelServerInfoViewModel.IsProcessing.GetValueOrDefault())
             {
-                InstanceViewModel instanceViewModel;
-                modelServerViewModel = _modelService.GetModelServer(modelServerViewModel.info.ToString());
-
-                // is post processing status
-                if (modelServerViewModel.IsProcessing.GetValueOrDefault())
-                {
-                    modelServerViewModel.status = ModelServerStatus.Postprocessing.ToString();
-                }
-
-                // model server view bag
-                if (modelServerViewModel.task_details != null)
-                {
-                    ViewBag.TaskDetails = new List<TreeViewItemModel>
-                    {
-                        new TreeViewItemModel
-                        {
-                            Text = Resource.MC_Status,
-                            Items = EventLogHelper.GetTreeViewItemModelList(modelServerViewModel.task_details)
-                        }
-                    };
-                }
-
-                if (modelServerViewModel.instance != null)
-                {
-                    instanceViewModel = _modelService.GetInstance(modelServerViewModel.instance.ToString());
-                    ViewBag.ModelInstance = instanceViewModel.created.ToUnixTime();
-                }
+                modelServerInfoViewModel.status = ModelServerStatus.Postprocessing.ToString();
             }
-            return PartialView("~/Views/Model/ModelServers/ModelServerInfo.cshtml", modelServerViewModel);
+
+            // model server view bag
+            if (modelServerInfoViewModel.task_details != null)
+            {
+                ViewBag.TaskDetails = new List<TreeViewItemModel>
+                {
+                    new TreeViewItemModel
+                    {
+                        Text = Resource.MC_Status,
+                        Items = EventLogHelper.GetTreeViewItemModelList(modelServerInfoViewModel.task_details)
+                    }
+                };
+            }
+
+            if (modelServerInfoViewModel.instance != null)
+            {
+                instanceViewModel = _modelService.GetInstance(modelServerInfoViewModel.instance.ToString());
+                ViewBag.ModelInstance = instanceViewModel.created.ToUnixTime();
+            }
+
+            return PartialView("~/Views/Model/ModelServers/ModelServerInfo.cshtml", modelServerInfoViewModel);
         }
 
         private PartialViewResult GetModelExtractorInfoPartialView(ModelServerViewModel modelServerViewModel)
