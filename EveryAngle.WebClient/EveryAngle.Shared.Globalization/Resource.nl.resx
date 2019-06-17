@@ -475,7 +475,7 @@
     <value>Laatste {0} karakters</value>
   </data>
   <data name="SearchPageManagementConsole" xml:space="preserve">
-    <value>IT Beheerconsole</value>
+    <value>IT Management Console</value>
   </data>
   <data name="SearchPageNoPerferences" xml:space="preserve">
     <value>Geen voorkeuren</value>
@@ -1270,7 +1270,7 @@
     <value>Dashboardprivileges</value>
   </data>
   <data name="CreateEAPackage" xml:space="preserve">
-    <value>Download Items</value>
+    <value>Download Angles</value>
   </data>
   <data name="FileName" xml:space="preserve">
     <value>Bestandsnaam</value>
@@ -2335,7 +2335,7 @@
     <value>Onderhoud</value>
   </data>
   <data name="ManagementConsoleSystem" xml:space="preserve">
-    <value>IT Beheerconsole</value>
+    <value>IT Management Console</value>
   </data>
   <data name="Million" xml:space="preserve">
     <value>M (1M)</value>
@@ -3157,13 +3157,13 @@ Copyright © {0}</value>
     <value>Weet u zeker dat u {0} individuele Angles wilt downloaden?</value>
   </data>
   <data name="UploadAngles" xml:space="preserve">
-    <value>Items uploaden</value>
+    <value>Angles uploaden</value>
   </data>
   <data name="UploadAnglesReport" xml:space="preserve">
-    <value>Upload rapport</value>
+    <value>Upload Angles rapport</value>
   </data>
   <data name="ProgressBar_UploadingAngles" xml:space="preserve">
-    <value>Items uploaden</value>
+    <value>Angles uploaden</value>
   </data>
   <data name="UploadAngles_InvalideExtension" xml:space="preserve">
     <value>ongeldige bestandsextensie</value>
@@ -3175,10 +3175,10 @@ Copyright © {0}</value>
     <value>ongeldig geüpload bestand</value>
   </data>
   <data name="UploadAngles_SelectFile" xml:space="preserve">
-    <value>Selecteer bestanden om te uploaden of zet hier neer...</value>
+    <value>Selecteer Angle bestanden om te uploaden of zet hier neer...</value>
   </data>
   <data name="UploadAngles_SuccessfulMessage" xml:space="preserve">
-    <value>Items upload geslaagd {0} van {1}</value>
+    <value>Angles upload geslaagd {0} van {1}</value>
   </data>
   <data name="FormatSetting_UseDefault" xml:space="preserve">
     <value>Gebruik default</value>
@@ -3617,6 +3617,9 @@ Copyright © {0}</value>
   </data>
   <data name="WelcomeMessages" xml:space="preserve">
     <value>Berichten</value>
+  </data>
+  <data name="Download_Type" xml:space="preserve">
+    <value>Download type</value>
   </data>
   <data name="AngleExport_TypePackage_Dashboard_Private" xml:space="preserve">
     <value>Download is not available, because the selection contains private dashboard(s).</value>

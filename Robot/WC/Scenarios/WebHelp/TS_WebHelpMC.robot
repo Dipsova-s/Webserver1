@@ -59,6 +59,10 @@ Crop Action Icons
     Sleep    1s
     Crop WebHelp Image    MC_View_More.png    jquery=#Grid .btnGroupContainer
 
+    Execute JavaScript    $('#Grid .btnGroupContainer > .btn').attr('class', 'btn btnCopy');
+    Sleep    1s
+    Crop WebHelp Image With Dimensions    MC_Copy.png    jquery=#Grid .btnGroupContainer    0    0    32    26
+
 Crop Model Overview Page
     Go To EA2_800 Model Overview Page
     Prepare Model Overview Page

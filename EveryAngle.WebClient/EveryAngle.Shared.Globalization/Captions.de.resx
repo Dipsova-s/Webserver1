@@ -633,7 +633,7 @@
   <data name="Popup_ModelParameters_Title" xml:space="preserve">
     <value>Modellparameter</value>
   </data>
-  <data name="MC_GlobalSetting_SystemLog_Title" xml:space="preserve" translate="no">
+  <data name="MC_GlobalSetting_SystemLog_Title" xml:space="preserve">
     <value>System log</value>
   </data>
   <data name="Drop_Here_To_Remove_This_Column" xml:space="preserve">
@@ -768,22 +768,22 @@
   <data name="WidgetFilter_PeriodType_Years" xml:space="preserve">
     <value>Jahr(e)</value>
   </data>
-  <data name="MC_SAP_Jobs_Cancel_And_Retry" xml:space="preserve" translate="no">
+  <data name="MC_SAP_Jobs_Cancel_And_Retry" xml:space="preserve">
     <value>Cancel and retry</value>
   </data>
-  <data name="MC_SAP_Jobs_Extractor_Status" xml:space="preserve" translate="no">
+  <data name="MC_SAP_Jobs_Extractor_Status" xml:space="preserve">
     <value>Extractor status</value>
   </data>
-  <data name="MC_Label_AngleAutomation" xml:space="preserve" translate="no">
+  <data name="MC_Label_AngleAutomation" xml:space="preserve">
     <value>Angle automation</value>
   </data>
-  <data name="MC_Label_ODataService" xml:space="preserve" translate="no">
+  <data name="MC_Label_ODataService" xml:space="preserve">
     <value>OData service</value>
   </data>
   <data name="Label_Angle_Export_HeaderFormat" xml:space="preserve">
     <value>Kopfzeilenformat</value>
   </data>
-  <data name="MC_Button_OpenErrorWarningLog" xml:space="preserve" translate="no">
+  <data name="MC_Button_OpenErrorWarningLog" xml:space="preserve">
     <value>Errors and warnings</value>
   </data>
   <data name="Label_CSV_Export_ModelDate_None" xml:space="preserve">
@@ -792,13 +792,22 @@
   <data name="Label_CSV_Export_ModelDate_Placeholder" xml:space="preserve">
     <value>Spalte auswählen</value>
   </data>
-  <data name="MC_Label_ETLDesigner" xml:space="preserve" translate="no">
+  <data name="MC_Label_ETLDesigner" xml:space="preserve">
     <value>ETL Designer</value>
   </data>
+  <data name="MC_Label_ScriptAbortTaskWhenError" xml:space="preserve">
+    <value>Fail task if this action fails</value>
+  </data>
+  <data name="MC_Label_ScriptName" xml:space="preserve">
+    <value>Program/script</value>
+  </data>
+  <data name="MC_Label_ScriptParameters" xml:space="preserve">
+    <value>Add arguments&lt;br /&gt;(optional)</value>
+  </data>
   <data name="Pivot_Option_TotalsLocation_Far" xml:space="preserve">
-    <value>Bottom/right</value>
+    <value>Unten/rechts</value>
   </data>
   <data name="Pivot_Option_TotalsLocation_Near" xml:space="preserve">
-    <value>Top/left</value>
+    <value>Oben/links</value>
   </data>
 </root>
