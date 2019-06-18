@@ -209,13 +209,12 @@ namespace EveryAngle.ManagementConsole.Models
             bool hasHanaServer = modelServers.Any(x => x.Type == ModelAgentType.HanaServer);
             Type modelSiteMapType = GetModelSiteMapType(item.id, hasModelServer, hasHanaServer);
             ModelSiteMapBaseViewModel modelSiteMap = _modelService.GetModelSiteMap(item.Agent.ToString(), modelSiteMapType);
-            
+
             string modelPath = string.Format("Models/{0}", item.id);
             dynamic parameters = new
             {
                 modelUri = item.Uri,
-                modelId = item.id,
-                haveModelServer = hasModelServer
+                modelId = item.id
             };
 
             SiteMap siteMap = new SiteMap
@@ -267,7 +266,7 @@ namespace EveryAngle.ManagementConsole.Models
                         ChildsVisible = false,
                         Childs = new List<SiteMap>
                         {
-                            new SiteMap { Id = "CreateNewRole", Name = Resource.MC_CreateNewRole, Uri = "~/Role/EditRole", HashPath = string.Format("{0}/Roles/CreateNewRole", modelPath), Parameters = new { roleUri = "", modelUri = item.Uri, haveModelServer = hasModelServer} },
+                           new SiteMap { Id = "CreateNewRole", Name = Resource.MC_CreateNewRole, Uri = "~/Role/EditRole", HashPath = string.Format("{0}/Roles/CreateNewRole", modelPath), Parameters = new { roleUri = "", modelUri = item.Uri } },
                             new SiteMap { Id = "EditRole", Name = Resource.MC_EditRole, Uri = "~/Role/EditRole", HashPath = string.Format("{0}/Roles/EditRole", modelPath) },
                             new SiteMap { Id = "CreateObject", Name = Resource.MC_CreateObject, Uri = "~/Role/EditObject", HashPath = string.Format("{0}/Roles/CreateObject", modelPath) },
                             new SiteMap { Id = "EditObject", Name = Resource.MC_EditObject, Uri = "~/Role/EditObject", HashPath = string.Format("{0}/Roles/EditObject", modelPath) }
