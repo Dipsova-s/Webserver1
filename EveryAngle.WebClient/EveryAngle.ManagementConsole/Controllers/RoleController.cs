@@ -7,6 +7,7 @@ using EveryAngle.Core.ViewModels.FieldCategory;
 using EveryAngle.Core.ViewModels.Label;
 using EveryAngle.Core.ViewModels.LabelCategory;
 using EveryAngle.Core.ViewModels.Model;
+using EveryAngle.Core.ViewModels.ModelServer;
 using EveryAngle.Core.ViewModels.Users;
 using EveryAngle.ManagementConsole.Helpers;
 using EveryAngle.Shared.Globalization;
@@ -53,7 +54,7 @@ namespace EveryAngle.ManagementConsole.Controllers
         #region "public"
 
         //[OutputCache(Duration=30, VaryByParam="none")]
-        public ActionResult GetAllRolesPage(string modelUri, bool haveModelServer)
+        public ActionResult GetAllRolesPage(string modelUri)
         {
             var userIndentity = SessionHelper.Initialize();
             var version = userIndentity.Version;
@@ -63,7 +64,7 @@ namespace EveryAngle.ManagementConsole.Controllers
             ViewBag.ModelId = model.id;
             ViewBag.ModelUri = modelUri;
             ViewBag.ModelName = model.short_name != "" ? model.short_name : model.id;
-            ViewBag.HaveModelServer = haveModelServer;
+     
             ViewData["DefaultPageSize"] = DefaultPageSize;
             ViewBag.SupportOData = userIndentity.Info.ODataService;
 
@@ -458,16 +459,18 @@ namespace EveryAngle.ManagementConsole.Controllers
             return Json(classesNameList, JsonRequestBehavior.AllowGet);
         }
 
-        public ActionResult EditRole(string modelUri, string roleUri, bool? haveModelServer)
+        public ActionResult EditRole(string modelUri, string roleUri)
         {
             var role = new SystemRoleViewModel() { Id = "", Description = "" };
             var sessionHelper = SessionHelper.Initialize();
             var version = sessionHelper.Version;
             var model = GetModel(modelUri);
+            List<ModelServerViewModel> modelServers = modelService.GetModelServers(model.ServerUri.ToString()).Data;
+
 
             LoadParallelDataForEditRole(version, model, sessionHelper);
 
-            InitilViewBagForEditRole(modelUri, roleUri, haveModelServer, model, sessionHelper);
+            InitialViewBagForEditRole(modelUri, roleUri,  model, sessionHelper, modelServers);
 
             if (!string.IsNullOrEmpty(roleUri))
             {
@@ -578,7 +581,7 @@ namespace EveryAngle.ManagementConsole.Controllers
             string deleteLabelPrivillage, string subRoleIds,
             string field_authorizations, string allowedObjects,
             string denyObjects, string objectFilters,
-            FormCollection formCollection, bool? haveModelServer)
+            FormCollection formCollection)
         {
             var roleUri = string.Empty;
             var session_needs_update = false;
@@ -625,7 +628,7 @@ namespace EveryAngle.ManagementConsole.Controllers
                         success = true,
                         message = Resource.MC_ItemSuccesfullyUpdated,
                         session_needs_update,
-                        parameters = new { modelUri, roleUri, modelId, haveModelServer }
+                        parameters = new { modelUri, roleUri, modelId }
                     },
                 JsonRequestBehavior = JsonRequestBehavior.AllowGet
             };
@@ -1265,8 +1268,11 @@ namespace EveryAngle.ManagementConsole.Controllers
             }
         }
 
-        public void InitilViewBagForEditRole(string modelUri, string roleUri, bool? haveModelServer, ModelViewModel model, SessionHelper sessionHelper)
+        public void InitialViewBagForEditRole(string modelUri, string roleUri, ModelViewModel model, SessionHelper sessionHelper, List<ModelServerViewModel> modelServers)
         {
+            // slave model server will show in compact details mode
+            ViewData["ShowFullRoleDetails"] = modelServers.Any(x => x.IsPrimaryType);
+
             ViewData["ModelUri"] = modelUri;
             ViewData["RoleUri"] = roleUri;
             ViewData["ModelId"] = model.id;
@@ -1275,11 +1281,10 @@ namespace EveryAngle.ManagementConsole.Controllers
             ViewData["DefaultPagesize"] = DefaultPageSize;
             ViewData["MaxPageSize"] = MaxPageSize;
             ViewData["MaxDomainElementsForSearch"] = sessionHelper.SystemSettings.max_domainelements_for_search;
-            ViewData["HaveModelServer"] = haveModelServer;
             ViewData["labelCategoriesList"] = allCategoriesList.Data.Where(x => x.used_for_authorization).ToList();
             ViewData["labelsList"] = GetLabelDropdown(allLabelsList);
             ViewData["ModelData"] = model;
-            ViewData["FieldsUri"] = model != null ? model.FieldsUri.ToString() : "";
+            ViewData["FieldsUri"] = model.FieldsUri.ToString();
             ViewData["SupportODataService"] = sessionHelper.Info.ODataService;
             ViewData["ClientSettings"] = sessionHelper.CurrentUser.Settings.client_settings;
         }
