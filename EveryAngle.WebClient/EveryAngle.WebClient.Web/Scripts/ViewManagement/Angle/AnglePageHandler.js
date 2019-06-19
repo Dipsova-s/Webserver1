@@ -18,6 +18,7 @@ function AnglePageHandler() {
     self.OpenAngleDetailPopupAfterExecuted = false;
     self.DisableProgressbarCancelling = false;
     self.AdhocFilters = [];
+    self.LastSearchUrl = '';
 
     // use historyModel on ExecuteAngle?
     self.UseHistory = true;
@@ -45,6 +46,9 @@ function AnglePageHandler() {
     /*BOF: Model Methods*/
     self.InitialAnglePage = function (callback) {
         requestHistoryModel.SaveLastExecute(self, self.InitialAnglePage, arguments);
+
+        // try to set last search on page load
+        self.LastSearchUrl = userSettingModel.GetLastSearchUrl();
 
         if (typeof WC.Utility.UrlParameter(enumHandlers.ANGLEPARAMETER.ANGLE) === 'undefined') {
             self.BackToSearch(false);
@@ -98,6 +102,10 @@ function AnglePageHandler() {
 
         if (!self.IsPageInitialized) {
             self.IsPageInitialized = true;
+
+            // 2nd try, last search should valid
+            if (!self.LastSearchUrl)
+                self.LastSearchUrl = userSettingModel.GetLastSearchUrl();
 
             progressbarModel.InitialProgressBar();
             userSettingsView.UpdateUserMenu();
@@ -350,14 +358,8 @@ function AnglePageHandler() {
             progressbarModel.ShowStartProgressBar(Localization.Redirecting, false);
             progressbarModel.CancelForceStop = true;
         }
-
-        var lastSearchUrl = userSettingModel.GetClientSettingByPropertyName(enumHandlers.CLIENT_SETTINGS_PROPERTY.LAST_SEARCH_URL);
-        if (!lastSearchUrl || lastSearchUrl === '/') {
-            window.location = searchPageUrl;
-        }
-        else {
-            window.location = searchPageUrl + '#' + lastSearchUrl;
-        }
+        
+        window.location = searchPageUrl + self.LastSearchUrl;
     };
     self.TogglePanel = function (animation) {
         if (jQuery('#ToggleAngle').hasClass('disabled'))

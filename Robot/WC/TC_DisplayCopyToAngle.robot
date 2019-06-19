@@ -22,37 +22,31 @@ ${INVALID_SORTING_STEP_DISPLAY_ANGLE_NAME}              Angle which display has 
 
 *** Test Cases ***
 Verify Copy Display Test
-    Search By Text And Expect In Search Result    ${TEST_COPY_DISPLAY_TO_ANGLE_NAME_COPIED_ANGLE}
-    Open Angle From First Angle in Search Page    ${TEST_COPY_DISPLAY_TO_ANGLE_NAME_COPIED_ANGLE}
+    Search Angle From Search Page And Execute Angle    ${TEST_COPY_DISPLAY_TO_ANGLE_NAME_COPIED_ANGLE}
     Wait Angle Page Document Loaded
     Click Angle Dropdown Actions Copy Display
-    Back To Search
-    Search By Text And Expect In Search Result    ${TEST_COPY_DISPLAY_TO_ANGLE_NAME_PASTED_ANGLE}
-    Open Angle From First Angle in Search Page    ${TEST_COPY_DISPLAY_TO_ANGLE_NAME_PASTED_ANGLE}
+    Go to Search Page
+    Search Angle From Search Page And Execute Angle    ${TEST_COPY_DISPLAY_TO_ANGLE_NAME_PASTED_ANGLE}
     Click Angle Dropdown Actions Paste Display
     Wait Angle Page Document Loaded
     Check If Angle Or Display Has A Warning Then Close The Popup
 
 Verify Copy Display When Angle Invalid Test
-    Search By Text And Expect In Search Result    ${TEST_COPY_DISPLAY_TO_INVALIE_ANGLE_NAME}
-    Open Angle From First Angle in Search Page    ${TEST_COPY_DISPLAY_TO_INVALIE_ANGLE_NAME}
+    Search Angle From Search Page And Execute Angle    ${TEST_COPY_DISPLAY_TO_INVALIE_ANGLE_NAME}
     Wait Angle Page Document Loaded
     Click Angle Dropdown Actions Copy Display
-    Back To Search
-    Search By Text And Expect In Search Result    ${INVALIE_ANGLE_NAME}
-    Open Angle From First Angle in Search Page    ${INVALIE_ANGLE_NAME}
+    Go to Search Page
+    Search Angle From Search Page And Execute Angle    ${INVALIE_ANGLE_NAME}
     Check If Angle Or Display Has A Warning Then Close The Popup
     Is Element Has CssClass    ${ddlAngleActionDropdownListPasteDisplay}    disabled
 
 Verify Copy Display When Display Invalid Field Test
-    Search By Text And Expect In Search Result    ${INVALID_FIELDS_DISPLAY_ANGLE_NAME}
-    Open Angle From First Angle in Search Page    ${INVALID_FIELDS_DISPLAY_ANGLE_NAME}
+    Search Angle From Search Page And Execute Angle    ${INVALID_FIELDS_DISPLAY_ANGLE_NAME}
     Wait Angle Page Document Loaded
     Check If Angle Or Display Has A Warning Then Close The Popup
     Click Angle Dropdown Actions Copy Display
-    Back To Search
-    Search By Text And Expect In Search Result    ${TEST_COPY_INVALID_FIELD_DISPLAY_ANGLE_NAME}
-    Open Angle From First Angle in Search Page    ${TEST_COPY_INVALID_FIELD_DISPLAY_ANGLE_NAME}
+    Go to Search Page
+    Search Angle From Search Page And Execute Angle    ${TEST_COPY_INVALID_FIELD_DISPLAY_ANGLE_NAME}
     Wait Progress Bar Closed
     Check If Angle Or Display Has A Warning Then Close The Popup
     Wait Progress Bar Closed
@@ -61,14 +55,12 @@ Verify Copy Display When Display Invalid Field Test
     Check If Angle Or Display Has A Warning Then Close The Popup
 
 Verify Copy Display When Display Invalid Query Step Test
-    Search By Text And Expect In Search Result    ${INVALID_QUERY_STEP_DISPLAY_ANGLE_NAME}
-    Open Angle From First Angle in Search Page    ${INVALID_QUERY_STEP_DISPLAY_ANGLE_NAME}
+    Search Angle From Search Page And Execute Angle    ${INVALID_QUERY_STEP_DISPLAY_ANGLE_NAME}
     Wait Angle Page Document Loaded
     Check If Angle Or Display Has A Warning Then Close The Popup
     Click Angle Dropdown Actions Copy Display
-    Back To Search
-    Search By Text And Expect In Search Result    ${TEST_COPY_INVALID_QUERY_STEP_DISPLAY_ANGLE_NAME}
-    Open Angle From First Angle in Search Page    ${TEST_COPY_INVALID_QUERY_STEP_DISPLAY_ANGLE_NAME}
+    Go to Search Page
+    Search Angle From Search Page And Execute Angle    ${TEST_COPY_INVALID_QUERY_STEP_DISPLAY_ANGLE_NAME}
     Wait Progress Bar Closed
     Check If Angle Or Display Has A Warning Then Close The Popup
     Wait Progress Bar Closed
@@ -78,14 +70,12 @@ Verify Copy Display When Display Invalid Query Step Test
     Click Close Info Button
 
 Verify Copy Display When Display Invalid Sorting Step Test
-    Search By Text And Expect In Search Result    ${INVALID_SORTING_STEP_DISPLAY_ANGLE_NAME}
-    Open Angle From First Angle in Search Page    ${INVALID_SORTING_STEP_DISPLAY_ANGLE_NAME}
+    Search Angle From Search Page And Execute Angle    ${INVALID_SORTING_STEP_DISPLAY_ANGLE_NAME}
     Wait Angle Page Document Loaded
     Check If Angle Or Display Has A Warning Then Close The Popup
     Click Angle Dropdown Actions Copy Display
-    Back To Search
-    Search By Text And Expect In Search Result    ${TEST_COPY_INVALID_SORTING_STEP_DISPLAY_ANGLE_NAME}
-    Open Angle From First Angle in Search Page    ${TEST_COPY_INVALID_SORTING_STEP_DISPLAY_ANGLE_NAME}
+    Go to Search Page
+    Search Angle From Search Page And Execute Angle    ${TEST_COPY_INVALID_SORTING_STEP_DISPLAY_ANGLE_NAME}
     Wait Progress Bar Closed
     Check If Angle Or Display Has A Warning Then Close The Popup
     Wait Progress Bar Closed

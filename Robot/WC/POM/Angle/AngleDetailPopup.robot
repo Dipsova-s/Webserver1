@@ -120,14 +120,6 @@ Click Set Angle to Template
     Wait Until Element Is Visible    ${btnSetToTemplate}
     Click Element    ${btnSetToTemplate}
 
-Open Angle From First Angle in Search Page
-    [Arguments]    ${angleName}
-    Click Link First Item From Search Result
-    Sleep    2s
-    Wait Angle Page Document Loaded
-    Wait Until Page Contains    ${angleName}
-    Wait Until Element Is Visible    ${lnkAngleName}
-
 Click Angle Detail General Tab
     Wait Until Element Is Visible    ${tabAngleGeneral}
     Click Element    ${tabAngleGeneral}

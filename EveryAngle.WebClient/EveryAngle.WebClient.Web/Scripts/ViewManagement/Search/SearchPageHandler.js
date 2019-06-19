@@ -1808,7 +1808,7 @@ window.SearchPageHandler = function () {
             var lastSearchRequest = userSettingModel.GetLastSearchData();
             var additionalRequests = [];
             if (lastSearchRequest) {
-                jQuery.localStorage.removeItem('settings');
+                userSettingModel.UpdateLastSearch(JSON.parse(lastSearchRequest.data));
                 additionalRequests = [lastSearchRequest];
             }
             WC.Ajax.ExecuteBeforeExit(additionalRequests, true);

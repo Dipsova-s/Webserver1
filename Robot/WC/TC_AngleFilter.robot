@@ -6,8 +6,7 @@ Force Tags        	acceptance    acc_wc
 
 *** Test Cases ***
 Verify All Operators For All Field Type
-    Search By Text And Expect In Search Result    Test Angle Filter
-    Open Angle From First Angle in Search Page    Test Angle Filter
+    Search Angle From Search Page And Execute Angle    Test Angle Filter
     Verify Operators Currency Field     OrderedValue     ordered value
     Verify Operators Date Field     CreationDate     Created on
     Verify Operators Enumerated Field    PurchaseOrganization__PurchaseOrganization     Purchase Org.
@@ -18,8 +17,7 @@ Verify All Operators For All Field Type
     [Teardown]  Run Keyword    Go to Search Page
 
 Add Or Change Filter And Get Correct Result
-    Search By Text And Expect In Search Result    Test Angle Filter
-    Open Angle From First Angle in Search Page    Test Angle Filter
+    Search Angle From Search Page And Execute Angle    Test Angle Filter
     Add Or Change Currency Filter    OrderedValue     ordered value
     [Teardown]  Run Keyword    Go to Search Page
 

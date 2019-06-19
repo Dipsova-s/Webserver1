@@ -32,8 +32,7 @@ Publish Dashboard
 Add Display To Dashboard Dashboard
     Create Dashboard With 2 Angles    ${dashboardName}
     Back to Search
-    Search By Text And Expect In Search Result    Angle For General Test
-    Open Angle From First Angle in Search Page    Angle For General Test
+    Search Angle From Search Page And Execute Angle    Angle For General Test
     Click Angle Dropdown Actions Add To Dashboard
     Click Add To Existing Dashboard
     Click Save Dashboard Button

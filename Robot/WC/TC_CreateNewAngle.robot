@@ -14,7 +14,7 @@ Verify Create New Angle From Full Object List Test
     ${angleName}    Set Variable    [ROBOT] Test Create New Angle From Full Object List
     ${objectName}    Set Variable    PD
     Create Angle From Object List And Save    ${objectName}    ${angleName}
-    Back To Search
+    Go To Search Page
     Search By Text And Expect In Search Result    ${angleName}
     Click Sort By Created On Search Page
     Click Select First Item From Search Result

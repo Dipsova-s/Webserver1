@@ -5,8 +5,7 @@ Resource    		${EXECDIR}/WC/POM/Angle/AnglePage.robot
 *** Keywords ***
 Verify Angle Details
     [Arguments]    ${angleName}
-    Search By Text And Expect In Search Result    ${angleName}
-    Open Angle From First Angle in Search Page    ${angleName}
+    Search Angle From Search Page And Execute Angle    ${angleName}
     Open Angle Detail Popup
     Verify Angle Details General Tab
     Verify Angle Details Definition Tab
@@ -82,8 +81,7 @@ Open Angle Popup And Save Name
 Verify Validate Angle Via Angle Detail Popup
     [Arguments]       ${angleName}
     Login To WC By Power User
-    Search By Text And Expect In Search Result    ${angleName}
-    Open Angle From First Angle in Search Page    ${angleName}
+    Search Angle From Search Page And Execute Angle    ${angleName}
     Open Angle Detail Popup
     Click Angle Detail Publishing Tab
     Click Angle Set to Validate

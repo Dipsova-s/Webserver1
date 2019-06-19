@@ -53,11 +53,6 @@ Create Pivot From List Header Column
     Click Header by Data Field Angle Grid List Display    ${fieldId}
     Click Create Pivot From Header Column
 
-Search Angle From Search Page And Execute Angle
-    [Arguments]    ${keyword}
-    Search By Text And Expect In Search Result    ${keyword}
-    Open Angle From First Angle in Search Page    ${keyword}
-
 Edit Format Field From Field Header
     [Arguments]    ${fieldName}
     Click Header by Data Field Angle Grid List Display    ${fieldName}    

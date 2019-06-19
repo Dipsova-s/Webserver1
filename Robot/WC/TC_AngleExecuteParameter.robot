@@ -18,9 +18,8 @@ Verify Execution Parameters When Argument Contains Space Test
     Verify Filter With Execute Parameter To List Display    text    is equal to    Vendor__NameAndDescription    Description
     ${numberOfObject}    Get Number Of Object
     Click Angle Dropdown Actions Save Existing Display
-    Back To Search
-    Search By Text And Expect In Search Result    ${TEST_ANGLE_EXECUTE_PARAMETER}
-    Open Angle From First Angle in Search Page    ${TEST_ANGLE_EXECUTE_PARAMETER}
+    Go to Search Page
+    Search Angle From Search Page And Execute Angle    ${TEST_ANGLE_EXECUTE_PARAMETER}
     Wait Angle Page Document Loaded
     ${numberOfObjectAfterExecuteParameter}    Get Number Of Object
     Should Be True    ${numberOfObject}==${numberOfObjectAfterExecuteParameter}
@@ -34,7 +33,7 @@ Verify Execution Parameters When Argument Is Empty
     Choose Dropdown Filter Operator In Definition Tab    is in list
     Click Execute Parameter To Filter
     Click Save Angle
-    Back To Search
+    Go to Search Page
     Search By Text And Expect In Search Result    ${TEST_ANGLE_EXECUTE_PARAMETER2}
     Execute First Search Item In Edit Mode
     Back To Search And Delete Angle Are Created    ${TEST_ANGLE_EXECUTE_PARAMETER2}
@@ -48,7 +47,7 @@ Verify Execution Parameters With Compare Field Test
     Add Field By Search From Field Chooser    Invoiced    InvoicedValue
     Click Execute Parameter To Filter
     Click Save Angle
-    Back To Search
+    Go to Search Page
     Search By Text And Expect In Search Result    ${TEST_ANGLE_EXECUTE_PARAMETER3}
     Click Link Item From Search Result Not Execute Popup    ${TEST_ANGLE_EXECUTE_PARAMETER3}
     Wait Until Angle Execute Parameters Popup Loaded
@@ -65,7 +64,7 @@ Verify Execution Parameters With & Char
     Input Filter Input Text In List    0    TEST&TEST
     Click Execute Parameter To Filter
     Click Save Angle
-    Back To Search
+    Go to Search Page
     Search By Text And Expect In Search Result    ${TEST_ANGLE_EXECUTE_PARAMETER4}
     Click Link Item From Search Result Not Execute Popup    ${TEST_ANGLE_EXECUTE_PARAMETER4}
     Click Submit Angle Execution Parameters

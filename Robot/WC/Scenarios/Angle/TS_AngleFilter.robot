@@ -16,8 +16,7 @@ Resource    		${EXECDIR}/WC/POM/Angle/AnglePage.robot
 *** Keywords ***
 Verify Angle Filter On List Display
     [Arguments]    ${angleName}    ${fieldType}    ${operator}
-    Search By Text And Expect In Search Result    ${angleName}
-    Open Angle From First Angle in Search Page    ${angleName}
+    Search Angle From Search Page And Execute Angle    ${angleName}
     Verify Filter To List Display    ${fieldType}    ${operator}
 
 Verify Filter To List Display

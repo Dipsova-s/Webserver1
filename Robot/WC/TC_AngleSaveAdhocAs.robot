@@ -24,9 +24,8 @@ Verify Save Adhoc Angle As
     Click Un-check Add To New Angle Checkbox
     Click Save Display As Button
     Set Angle to Template
-    Back To Search
-    Search By Text And Expect In Search Result    ${TEST_VERIFY_SAVE_ANGLE_ADHOC_AS_NAME}
-    Open Angle From First Angle in Search Page    ${TEST_VERIFY_SAVE_ANGLE_ADHOC_AS_NAME}
+    Go to Search Page
+    Search Angle From Search Page And Execute Angle    ${TEST_VERIFY_SAVE_ANGLE_ADHOC_AS_NAME}
     Wait Angle Page Document Loaded
     Wait Angle Detail Document Loaded
     Close Angle Detail Popup

@@ -46,8 +46,7 @@ Drilldown Chart Display
 #####################################################################################################
 
 Go To Chart Test Display
-    Search By Text And Expect In Search Result    ${TEST_VERIFY_CHART_ANGLE_NAME}
-    Open Angle From First Angle in Search Page    ${TEST_VERIFY_CHART_ANGLE_NAME}
+    Search Angle From Search Page And Execute Angle    ${TEST_VERIFY_CHART_ANGLE_NAME}
     Change Display By Name    ${TEST_VERIFY_CHART_DISPLAY_NAME}
 
 Setup Field Settings For Chart Drilldown
