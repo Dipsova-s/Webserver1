@@ -136,30 +136,26 @@
             jQuery('.' + selectedItem.id).show();
         };
         self.GetData = function () {
-            MC.form.clean();
-
             var pushSettingToList = function (setting) {
-                if (setting.id === 'switchWhenProcessing') {
-                    data.SwitchWhenPostprocessing = setting.value;
-                    data.isEAXtractor = false;
-                }
-                else {
-                    data.settingList.setting_list.push(setting);
-                }
+                if (setting.id === 'switchWhenPostprocessing')
+                    data.switchWhenPostprocessing = setting.value;
+                else
+                    data.settingList.push(setting);
+            }
+
+            MC.form.clean();
+            var data = {
+                switchWhenPostprocessing: null,
+                settingList: []
             };
 
-            var data = {};
-            data.agentUri = self.AgentUri;
-            data.settingList = { setting_list: [] };
-            data.SwitchWhenPostprocessing = false;
-            data.isEAXtractor = true;
             jQuery('.content .contentSectionInfoItem').each(function (index, element) {
                 var inputs = jQuery(this).find("input[type!='hidden']");
                 var input, i;
                 for (i = 0; i < inputs.length; i++) {
                     input = jQuery(inputs[i]);
                     var setting = { 'id': input.attr('id'), 'value': null, 'type': null };
-                    if (setting.id && !data.settingList.setting_list.hasObject('id', setting.id)) {
+                    if (setting.id && !data.settingList.hasObject('id', setting.id)) {
                         if (input.hasClass('enum')) {
                             var dropdown = input.data("kendoDropDownList");
                             setting.value = dropdown.value();
@@ -257,36 +253,32 @@
             return isvalid;
         };
         self.SaveServerSettings = function () {
-            if (!self.ValidEmailInput('#company_settings')) {
+            if (!self.ValidEmailInput('#company_settings'))
                 return false;
-            }
-            if (!self.ValidEmailInput('#email_settings')) {
-                return false;
-            }
 
-            if (!self.ValidEmailInput('#sap_settings')) {
+            if (!self.ValidEmailInput('#email_settings'))
                 return false;
-            }
 
-            MC.form.clean();
+            if (!self.ValidEmailInput('#sap_settings'))
+                return false;
+
             var data = self.GetData();
-            var switchWhenPostprocessing = data.SwitchWhenPostprocessing;
+
             MC.ajax.request({
                 url: self.SaveUri,
+                type: 'PUT',
                 parameters: {
-                    agentUri: self.AgentUri,
-                    jsonData: JSON.stringify(data.settingList),
-                    switchWhenPostprocessing: switchWhenPostprocessing,
                     modelUri: self.ModelUri,
-                    isEAXtractor: data.isEAXtractor
-                },
-                type: 'PUT'
+                    agentUri: self.AgentUri,
+                    settingList: JSON.stringify(data.settingList),
+                    switchWhenPostprocessing: data.switchWhenPostprocessing
+                }
             })
-                .done(function () {
-                    MC.ajax.reloadMainContent();
-                });
+            .done(function () {
+                MC.ajax.reloadMainContent();
+            });
             return false;
-        }
+        };
         /* end - modelserver setting page */
 
         /* begin - modelserver Content parameters page */
