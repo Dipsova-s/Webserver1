@@ -41,6 +41,7 @@ namespace EveryAngle.ManagementConsole.Test
         protected readonly Mock<ITaskService> taskService = new Mock<ITaskService>();
         protected readonly Mock<ICommentService> commentService = new Mock<ICommentService>();
         protected readonly Mock<IDownloadTableService> downloadTableService = new Mock<IDownloadTableService>();
+        protected readonly Mock<ISystemInformationService> systemInformationService = new Mock<ISystemInformationService>();
         protected readonly Mock<IPackageService> packageService = new Mock<IPackageService>();
         protected readonly Mock<IFacetService> facetService = new Mock<IFacetService>();
         protected readonly Mock<IItemService> itemService = new Mock<IItemService>();

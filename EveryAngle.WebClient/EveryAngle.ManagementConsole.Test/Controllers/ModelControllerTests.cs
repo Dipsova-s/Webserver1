@@ -1,14 +1,9 @@
 ﻿using EveryAngle.Core.ViewModels.Model;
 using EveryAngle.Core.ViewModels.ModelServer;
 using EveryAngle.ManagementConsole.Controllers;
-using Moq;
 using NUnit.Framework;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Web.Mvc;
 
 namespace EveryAngle.ManagementConsole.Test.Controllers
 {
@@ -48,6 +43,26 @@ namespace EveryAngle.ManagementConsole.Test.Controllers
             _testingController = GetController();
             _testingController.SetModelServersActiveStatus(modelServerViewModels, agentModelInfoViewModels);
             Assert.AreEqual(expectedResult, modelServerViewModels.Single().IsActiveServer);
+        }
+
+        [TestCase(true, 1)]
+        [TestCase(false, 0)]
+        public void Can_AddSwitchWhenProcessingSetting(bool isModelserverSwitchable, int expectedResult)
+        {
+            ModelServerSettings modelServerSettings = new ModelServerSettings
+            {
+                SettingsGroup = new List<SettingGroup>(),
+                SettingList = new List<Setting>()
+            };
+
+            ModelViewModel modelViewModel = new ModelViewModel
+            {
+                IsModelserverSwitchable = isModelserverSwitchable
+            };
+
+            GetController().AddSwitchWhenPostprocessingSetting(modelServerSettings, modelViewModel);
+
+            Assert.AreEqual(modelServerSettings.SettingList.Count, expectedResult);
         }
 
         #endregion
