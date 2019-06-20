@@ -4,7 +4,7 @@ Resource            ${EXECDIR}/WC/POM/Search/SearchPage.robot
 *** Keywords ***
 Set Personal Note To Angle Via Search Page
     [Arguments]       ${angleName}
-    ${privateNote} =    Set Variable    ข้อความส่วนตัว จาก แนมนะจ๊ะ
+    ${privateNote}    Set Variable    ข้อความส่วนตัว จาก แนมนะจ๊ะ
     Search By Text And Expect In Search Result    ${angleName}
     Click Select First Item From Search Result
     Open Mass Change Popup
@@ -43,7 +43,7 @@ Set Starred To Angle Via Search Page
 Set Template To Angle Via Search Page
     [Arguments]    ${objectName}    ${angleName}
     Create Angle From Object List And Save   ${objectName}    ${angleName}
-    Back To Search
+    Go to Search Page
     Search By Text And Expect In Search Result    ${angleName}
     Click Select First Item From Search Result
     Open Mass Change Popup
@@ -67,7 +67,7 @@ Set Template To Angle Via Search Page
 Set Publish To Angle Via Search Page
     [Arguments]    ${objectName}    ${angleName}
     Create Angle From Object List And Save   ${objectName}    ${angleName}
-    Back To Search
+    Go to Search Page
     Search By Text And Expect In Search Result    ${angleName}
     Click Select First Item From Search Result
     Open Mass Change Popup
@@ -89,7 +89,7 @@ Set Publish To Angle Via Search Page
 Set Validate To Angle Via Search Page
     [Arguments]    ${objectName}    ${angleName}
     Create Angle From Object List And Save   ${objectName}    ${angleName}
-    Back To Search
+    Go to Search Page
     Search By Text And Expect In Search Result    ${angleName}
     Click Select First Item From Search Result
     Open Mass Change Popup

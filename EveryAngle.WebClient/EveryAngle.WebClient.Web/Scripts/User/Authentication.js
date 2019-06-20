@@ -488,6 +488,7 @@ function Authentication() {
             WC.Ajax.ExecuteBeforeExit(lastSearchRequest ? [lastSearchRequest] : [], false);
             jQuery('html').addClass('noPopup');
 
+            WC.Ajax.EnableBeforeExit = false;
             window.location = logoutPageUrl;
         }, 500);
     };

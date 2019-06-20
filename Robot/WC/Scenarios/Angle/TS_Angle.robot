@@ -68,15 +68,11 @@ Create Template from Angle
 
 Verify Last Execute Time Angle
     [Arguments]     ${angleName}
-    Search By Text And Expect In Search Result    ${angleName}
-    ${now} =    Get Time    epoch
-    ${now} =    Execute Javascript     return ${now} - 120
-    Open Angle From First Angle in Search Page    ${angleName}
-    Wait Angle Page Document Loaded
-    Back To Search
-    Wait Search Page Document Loaded
-    Click Link First Item From Search Result
-    Wait Angle Page Document Loaded
+    ${now}    Get Time    epoch
+    ${now}    Execute Javascript     return ${now} - 120
+    Search Angle From Search Page And Execute Angle    ${angleName}
+    Go To Search Page
+    Search Angle From Search Page And Execute Angle    ${angleName}
     Open Angle Detail Popup
     ${lastExecuteDateTimeString}    Get Last Execute Angle Date
     ${lastExecuteTime}    Get Time From Date String    ${lastExecuteDateTimeString}
@@ -184,8 +180,7 @@ Create Adhoc Angle And Execute Jump
 
 Check Warning And Error Displays In Display Dropdown
     [Arguments]         ${angleName}
-    Search By Text And Expect In Search Result    ${angleName}
-    Open Angle From First Angle in Search Page    ${angleName}
+    Search Angle From Search Page And Execute Angle    ${angleName}
     Wait Angle Detail Document Loaded
     Close Angle Detail Popup
     Open Display Dropdown

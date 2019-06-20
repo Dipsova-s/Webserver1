@@ -14,8 +14,7 @@ ${ERROR_MESSAGE}     Full name of the file exceeds Windows limitations (260 char
 
 *** Test Cases ***
 Verify Export To Excel From Action Menu
-    Search By Text And Expect In Search Result    ${TEST_VERIFY_EXPORT_TO_EXCEL_NAME}
-    Open Angle From First Angle in Search Page    ${TEST_VERIFY_EXPORT_TO_EXCEL_NAME}
+    Search Angle From Search Page And Execute Angle    ${TEST_VERIFY_EXPORT_TO_EXCEL_NAME}
     Wait Progress Bar Closed
     Check If Angle Or Display Has A Warning Then Close The Popup
     Wait Progress Bar Closed
@@ -39,8 +38,7 @@ Verify Export Item Drilldown To Excel From Action Menu
     Back To Search And Delete Angle Are Created    ${TEST_VERIFY_EXPORT_DRILLDOWN_TO_EXCEL_NAME}
 
 Verify Error Message If A Filename Is Too Long
-    Search By Text And Expect In Search Result    ${TEST_VERIFY_EXPORT_TO_EXCEL_NAME}
-    Open Angle From First Angle in Search Page    ${TEST_VERIFY_EXPORT_TO_EXCEL_NAME}
+    Search Angle From Search Page And Execute Angle    ${TEST_VERIFY_EXPORT_TO_EXCEL_NAME}
     Wait Progress Bar Closed
     Check If Angle Or Display Has A Warning Then Close The Popup
     Wait Progress Bar Closed

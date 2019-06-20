@@ -10,8 +10,7 @@ ${ANGLE_FILTER_NAME}        Test Angle Filter
 
 *** Test Cases ***
 Verify All Operators For All Field Type
-    Search By Text And Expect In Search Result    ${ANGLE_FILTER_NAME}
-    Open Angle From First Angle in Search Page    ${ANGLE_FILTER_NAME}
+    Search Angle From Search Page And Execute Angle    Test Angle Filter
     Verify Operators Currency Field     OrderedValue     ordered value
     Verify Operators Date Field     CreationDate     Created on
     Verify Operators Enumerated Field    PurchaseOrganization__PurchaseOrganization     Purchase Org.
@@ -21,6 +20,5 @@ Verify All Operators For All Field Type
     Verify Operators DateTime Field     Material___prop_moment    prop_moment
 
 Add Or Change Filter And Get Correct Result
-    Search By Text And Expect In Search Result    ${ANGLE_FILTER_NAME}
-    Open Angle From First Angle in Search Page    ${ANGLE_FILTER_NAME}
+    Search Angle From Search Page And Execute Angle    Test Angle Filter
     Add Or Change Currency Filter    OrderedValue     ordered value

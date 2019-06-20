@@ -143,16 +143,28 @@ function UserSettingViewModel() {
         if (!window.SearchPageHandler || !self.Data())
             return null;
 
-        var lastSearch = jQuery.address.value();
-        var prevLastSearch = self.GetClientSettingByPropertyName(enumHandlers.CLIENT_SETTINGS_PROPERTY.LAST_SEARCH_URL);
-        if (prevLastSearch === lastSearch)
+        var lastSearchUrl = jQuery.address.value();
+        var prevLastSearchUrl = self.GetClientSettingByPropertyName(enumHandlers.CLIENT_SETTINGS_PROPERTY.LAST_SEARCH_URL);
+        if (prevLastSearchUrl === lastSearchUrl || lastSearchUrl === '/')
             return null;
 
         var clientSettings = JSON.parse(self.GetByName(enumHandlers.USERSETTINGS.CLIENT_SETTINGS));
-        clientSettings[enumHandlers.CLIENT_SETTINGS_PROPERTY.LAST_SEARCH_URL] = lastSearch;
+        clientSettings[enumHandlers.CLIENT_SETTINGS_PROPERTY.LAST_SEARCH_URL] = lastSearchUrl;
         var data = {};
         data[enumHandlers.USERSETTINGS.CLIENT_SETTINGS] = JSON.stringify(clientSettings);
         return new RequestModel(RequestModel.METHOD.PUT, userModel.Data().user_settings, data);
+    };
+    self.GetLastSearchUrl = function () {
+        var lastSearchUrl = self.GetClientSettingByPropertyName(enumHandlers.CLIENT_SETTINGS_PROPERTY.LAST_SEARCH_URL);
+        return !lastSearchUrl || lastSearchUrl === '/' ? '' : '#' + lastSearchUrl;
+    };
+    self.UpdateLastSearch = function (clientSettings) {
+        var data = self.Data();
+        if (!data)
+            return;
+
+        jQuery.extend(data, clientSettings);
+        self.LoadSuccess(data);
     };
     self.CheckExecuteAutoWhenLogon = function () {
         return self.GetByName(enumHandlers.USERSETTINGS.AUTO_EXECUTE_ITEMS_ON_LOGIN) && jQuery.localStorage('firstLogin') === 1;

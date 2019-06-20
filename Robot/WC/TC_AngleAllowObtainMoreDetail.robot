@@ -12,8 +12,7 @@ ${fieldId}          MaterialOnPlantLevel__OpenGRValuePlanned
 
 *** Test Cases ***
 Verify Angle For Allow Obtain More Details Test
-    Search By Text And Expect In Search Result    ${angleName}
-    Open Angle From First Angle in Search Page    ${angleName}
+    Search Angle From Search Page And Execute Angle    ${angleName}
     Element Should Be Visible    ${btnAddColumnToListDisplay}
     Click Toggle Angle
     Verify Disable Add Filter And Jump Button In Display Popup    False

@@ -55,6 +55,13 @@ describe("UserSettingViewModel", function () {
                 expectNull: true
             },
             {
+                title: 'should not get last search data if no url',
+                searchHandler: true,
+                settingData: {},
+                url: '/',
+                expectNull: true
+            },
+            {
                 title: 'should get last search data if url is changed',
                 searchHandler: true,
                 settingData: {},
@@ -75,6 +82,46 @@ describe("UserSettingViewModel", function () {
                 else
                     expect(result).not.toEqual(null);
             });
+        });
+    });
+
+    describe(".GetLastSearchUrl", function () {
+        var tests = [
+            {
+                last_search: '',
+                expected: ''
+            },
+            {
+                last_search: '/',
+                expected: ''
+            },
+            {
+                last_search: '/?q=test',
+                expected: '#/?q=test'
+            }
+        ];
+
+        $.each(tests, function (index, test) {
+            it("should get a correct last search url ('" + test.last_search + "' -> '" + test.expected + "')", function () {
+                spyOn(userSettingViewModel, "GetClientSettingByPropertyName").and.returnValue(test.last_search);
+                var result = userSettingViewModel.GetLastSearchUrl();
+                expect(result).toEqual(test.expected);
+            });
+        });
+    });
+
+    describe(".UpdateLastSearch", function () {
+        it("should not update to storage if no data", function () {
+            spyOn(userSettingViewModel, "Data").and.returnValue(null);
+            spyOn(userSettingViewModel, "LoadSuccess");
+            userSettingViewModel.UpdateLastSearch({});
+            expect(userSettingViewModel.LoadSuccess).not.toHaveBeenCalled();
+        });
+        it("should update to storage if has data", function () {
+            spyOn(userSettingViewModel, "Data").and.returnValue({});
+            spyOn(userSettingViewModel, "LoadSuccess");
+            userSettingViewModel.UpdateLastSearch({});
+            expect(userSettingViewModel.LoadSuccess).toHaveBeenCalled();
         });
     });
 

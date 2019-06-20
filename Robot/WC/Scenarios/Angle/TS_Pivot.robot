@@ -89,8 +89,7 @@ Pivot Percentages
 ######################################################################################
 
 Go To Pivot Test Display
-    Search By Text And Expect In Search Result    ${TEST_VERIFY_PIVOT_ANGLE_NAME}
-    Open Angle From First Angle in Search Page    ${TEST_VERIFY_PIVOT_ANGLE_NAME}
+    Search Angle From Search Page And Execute Angle    ${TEST_VERIFY_PIVOT_ANGLE_NAME}
     Change Display By Name    ${TEST_VERIFY_PIVOT_DISPLAY_NAME}
 
 Go Back To Pivot after Drilldown
@@ -164,8 +163,7 @@ Drilldown Pivot Cell Nearly Grand Total And Result Should Be Corrected
     Should Be True    ${pivotLastLineValue}==${numberOfDrilldownObject}
 
 Go To Pivot Percentage Test Display
-    Search By Text And Expect In Search Result    ${TEST_VERIFY_PIVOT_ANGLE_NAME}
-    Open Angle From First Angle in Search Page    ${TEST_VERIFY_PIVOT_ANGLE_NAME}
+    Search Angle From Search Page And Execute Angle    ${TEST_VERIFY_PIVOT_ANGLE_NAME}
     Change Display By Name    ${TEST_VERIFY_PIVOT_PERCENTAGE_DISPLAY_NAME}
 
 Set Pivot Sort By Summary

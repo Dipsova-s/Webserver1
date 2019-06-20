@@ -102,6 +102,19 @@ Find And Execute Angle
     Check If Angle Is A Template Then Close The Popup
     Execute All Displays In Angle
 
+Search Angle From Search Page And Execute Angle
+    [Arguments]    ${keyword}
+    Search By Text And Expect In Search Result    ${keyword}
+    Open Angle From First Angle in Search Page    ${keyword}
+
+Open Angle From First Angle in Search Page
+    [Arguments]    ${angleName}
+    Click Link First Item From Search Result
+    Sleep    2s
+    Wait Angle Page Document Loaded
+    Wait Until Page Contains    ${angleName}
+    Wait Until Element Is Visible    ${lnkAngleName}
+
 Execute First Search Item In Edit Mode
     Click First Item Info Button
     Click Edit Mode Button Via Item Info Popup
