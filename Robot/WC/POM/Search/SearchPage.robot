@@ -182,6 +182,10 @@ Click Search Action Delete Items
 Click Search Action Copy Angle
     Click Search Action    ${ddlSearchActionCopyAngle}
 
+Click Search Action Download Angle
+    Click Search Action    ${ddlSearchActionCreateEAPackage}
+    Wait Until Export To Angle Popup Loaded
+
 Click Search Action Create EA Package
     Click Search Action    ${ddlSearchActionCreateEAPackage}
     Wait Until Export To Package Popup Loaded

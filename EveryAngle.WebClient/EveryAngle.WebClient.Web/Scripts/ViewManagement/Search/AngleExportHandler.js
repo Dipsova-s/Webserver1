@@ -79,22 +79,7 @@ function AngleExportHandler(angleDownloadHandler, eaPackageHandler) {
         }
     };
     self.ShowAngleExportPopup = function () {
-
-        var items = ko.toJS(searchModel.SelectedItems());
-
-        // set select type
-        self.SetSelectTypeByItems(items);
-
-        // set is all items are same model
-        self.IsAllSameModel(self.CheckIsAllSameModel(items));
-
-        // set is all items are published
-        self.IsAllPublish(items.every(function (item) { return item.is_published; }));
-
-        // set Manage Access Privilege
-        self.IsPackageVisible(userModel.IsPossibleToHaveManagementAccess());
-        
-        if (self.IsDownloadable(self.SelectType(), self.IsAllSameModel(), self.IsAllPublish(), self.IsPackageVisible())) {
+        if (self.ValidateAngleExport()) {
             var popupSettings = self.GetAngleExportSettings();
             popup.Show(popupSettings);
         }
@@ -113,8 +98,18 @@ function AngleExportHandler(angleDownloadHandler, eaPackageHandler) {
             'background-color': '#efefef'
         });
     };
+    self.ValidateAngleExport = function () {
+        if (!self.CanAngleExport()) {
+            self.CloseAngleExportPopup();
+            popup.Alert(Localization.Warning_Title, Localization.AngleExport_WarningNoExportItem);
+            return false;
+        }
+        else {
+            return true;
+        }
+    };
     self.ApplyHandler = function (e) {
-        jQuery('#PackageName').val('ItemExport');
+        jQuery('#PackageName').val('AngleExport');
         jQuery('#PackageID').val('');
         jQuery('#PackageVersion').val('1.0');
         jQuery('#PackageDescription').val('');
@@ -168,6 +163,10 @@ function AngleExportHandler(angleDownloadHandler, eaPackageHandler) {
     };
     self.CloseAngleExportPopup = function () {
         popup.Close('#popupCreateEaPackagePopup');
+    };
+    self.CanAngleExport = function () {
+        var items = ko.toJS(searchModel.SelectedItems());
+        return !items.hasObject('type', enumHandlers.ITEMTYPE.DASHBOARD);
     };
     self.GetAllWarningMessages = function () {
         return _self.angleDownloadHandler.GetWarningMessage() + (self.IsPackageVisible() ? _self.eaPackageHandler.GetWarningMessage() : '');

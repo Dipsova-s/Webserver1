@@ -11,6 +11,11 @@ ${btnCancelExportPackage}       btn-popupCreateEaPackagePopup0
 ${btnOKExportPackage}           btn-popupCreateEaPackagePopup1
 
 *** Keywords ***
+Wait Until Export To Angle Popup Loaded
+    Wait Until Page Contains Element    ${popupCreatePackagePopup}
+    Wait Until Page Contains Element    ${btnOKExportPackage}
+    Wait Until Element Is Visible    ${btnOKExportPackage}
+
 Wait Until Export To Package Popup Loaded
     Wait Until Page Contains Element    ${rdoExportType}
     Wait Until Page Contains Element    ${btnOKExportPackage}
