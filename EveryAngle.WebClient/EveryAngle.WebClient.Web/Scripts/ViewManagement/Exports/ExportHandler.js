@@ -382,7 +382,7 @@ function ExportHandler() {
         var defaultExportSettings = {};
         var currentExportSettings = JSON.parse(JSON.stringify(ko.toJS(self.CurrentExportModel)));
         var keyName;
-        jQuery.each(currentExportSettings, function (key) {
+        jQuery.each(currentExportSettings, function (key, value) {
             if (key.toLowerCase().substr(0, 7) === 'default') {
                 keyName = key.substr(7);
                 if (keyName === 'BoolChars') {
