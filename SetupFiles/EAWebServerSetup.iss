@@ -20,10 +20,7 @@
   #define OutputDir "c:\t\innosetup"
 #endif                                              
 
-#define MyAppVersion = GetEnv("EAFullVer")
-#if MyAppVersion == ""
-  #define MyAppVersion GetFileVersion(AddBackslash(SourceDir) + VersionFile)
-#endif
+#define MyAppVersion GetFileVersion(AddBackslash(SourceDir) + VersionFile)
 #define MyAppName "Every Angle Web Server"
 #define MyAppPublisher "Every Angle Software Solutions BV"                            
 #define MyAppURL "http://www.everyangle.com"
@@ -1313,33 +1310,35 @@ end;
 
 procedure DeployDiagramFiles(IISPhysicalPath: string);
 var
-  SourceFolder,
+  ZipFile,
   TargetFile,
   TargetFolder : string;
   CopySuccess : boolean;
   i : integer;
 begin
-  SourceFolder := DataPath('WebDeploy\Diagrams\');
+  ZipFile := ExpandConstant('{src}\Diagrams.zip');
   TargetFolder := IISPhysicalPath + '\Resources\CreateNewAngleBySchema\';
-
-  // Make sure the target images directory exists
-  CreateDir(TargetFolder + 'Images\');
-  
-  // *.ini files + images
-  for i := 0 to DiagramFiles.Count - 1 do
+  if FileExists(ZipFile) then
   begin
-    TargetFile := DiagramFiles[i];
+     // Unzip diagrams.zip in same folder as setup.exe to targetFolder
+    ExecuteAndLogEx(DataPath('WebDeploy'), '7za.exe', 'x -y "-o' + TargetFolder + '" "' + ZipFile + '"', ToSetupLog);
+  end
+  else
+  begin
+    // Copy *.ini files + images
+    for i := 0 to DiagramFiles.Count - 1 do
+    begin
+      // Build TargetFileName
+      TargetFile := TargetFolder + ExtractFileName(DiagramFiles[i]);
 
-    // Determine target file: replace source folder with target folder in the registered file path
-    StringChangeEx(TargetFile, SourceFolder, TargetFolder, {SupportDBCS:}true); 
+      // Make sure the target directory exists
+      CreateDir(ExtractFilePath(TargetFile));
 
-    // Make sure the target directory exists
-    CreateDir(ExtractFilePath(TargetFile));
+      // Copy the Diagram file, overwrite an existing files
+      CopySuccess := FileCopy(DiagramFiles[i], TargetFile, {FailIfExists:} false);
 
-    // Copy the Diagram file, overwrite an existing files
-    CopySuccess := FileCopy(DiagramFiles[i], TargetFile, {FailIfExists:} false);
-
-    Log(Format('[i]Copy Diagram File [Source: "%s", target: "%s", success: "%s"]"',[DiagramFiles[i], TargetFile, BoolToStr(CopySuccess)]));
+      Log(Format('[i]Copy Diagram File [Source: "%s", target: "%s", success: "%s"]"',[DiagramFiles[i], TargetFile, BoolToStr(CopySuccess)]));
+    end;
   end;
 end;
 

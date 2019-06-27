@@ -61,11 +61,7 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
-  <PropertyGroup>
-    <PreBuildEvent>robocopy "..\..\..\Content\Diagrams" "$(MSBuildProjectDirectory)\Resources\CreateNewAngleBySchema" /MIR /NP
-REM exit code 1 means 'files are copied, everything Ok'
-if %25ERRORLEVEL%25 LEQ 1 exit 0 else exit %25ERRORLEVEL%25</PreBuildEvent>
-  </PropertyGroup>
+  
   <ItemGroup>
     <Reference Include="Antlr3.Runtime, Version=3.4.1.9004, Culture=neutral, PublicKeyToken=eb42632606e9261f, processorArchitecture=MSIL">
       <HintPath>..\packages\Antlr.3.4.1.9004\lib\Antlr3.Runtime.dll</HintPath>
