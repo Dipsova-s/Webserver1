@@ -170,7 +170,7 @@ div.k-grid tbody tr.k-row-selected:hover {
     border-bottom: 1px solid #d3d6d9;
     border-color: #d3d6d9;
     padding: 0 5px;
-    white-space: nowrap;
+    white-space: pre;
 }
 
 div.k-grid-header .k-header.k-column-active {
