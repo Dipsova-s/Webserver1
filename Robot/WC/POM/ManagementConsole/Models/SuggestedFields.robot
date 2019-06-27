@@ -29,6 +29,8 @@ ${btnCancelPopup}                        jquery=#popupFieldChooser .btnPropertyC
 ${btnCloseSuggestedReport}               jquery=#loading .loadingClose
 ${txtSuggestedResult}                    jquery=#loading .fail
 
+${txtSuccess}                            jquery=.loadingContentText .success
+
 #Amount of Items
 ${txtSelectedItem}                       selectedItems
 ${txtTotalItem}                          css=#totalDisplayFieldsDatarow
@@ -102,6 +104,7 @@ Click Save Confirm Suggestion Field
 Wait Until Suggested Report Loaded
     Wait Until Ajax Complete
     Wait Until Page Contains    Manage suggested fields report
+    Page Should Contain Element      ${txtSuccess}   
     Wait Until Element Is Visible    ${btnCloseSuggestedReport}
 
 Verify "undefined" Word On SuggestedFields Report
