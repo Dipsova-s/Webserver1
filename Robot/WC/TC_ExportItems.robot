@@ -7,19 +7,15 @@ Test Teardown       Go to Search Page
 Force Tags          acc_wc
 
 *** Variables ***
-${TEST_VERIFY_EXPORT_TO_PACKAGE}     Angle For General Test
-${PACKAGE_NAME}     Test_Export_Angle_To_Package
+${TEST_VERIFY_EXPORT_TO_ITEM}     Angle For General Test
 
 *** Test Cases ***
-Verify Export Package From Action Menu
-    Search By Text And Expect In Search Result    ${TEST_VERIFY_EXPORT_TO_PACKAGE}
-    Check Existing Angle From Search Result    ${TEST_VERIFY_EXPORT_TO_PACKAGE}
+Verify Export Item From Action Menu
+    Search By Text And Expect In Search Result    ${TEST_VERIFY_EXPORT_TO_ITEM}
+    Check Existing Angle From Search Result    ${TEST_VERIFY_EXPORT_TO_ITEM}
     Check First Angle From Search Result Is Public
     Click Search Filter Model
     Click Select First Item From Search Result
     Wait Until Element Contains    ${lblSearchResult}    1 item(s) selected
-    Click Search Action Create EA Package
-    Select Export As Package
-    Input Package Name    ${PACKAGE_NAME}
-    Click Export Button
+    Click Search Action Download Items
     ${file}    Wait Until Keyword Succeeds    1 min    2 sec    Download should be done    ${DOWNLOAD_DIRECTORY}

@@ -7,7 +7,6 @@ Resource            ${EXECDIR}/WC/POM/Search/CreateAngleByObjectDiagramPopup.rob
 Resource            ${EXECDIR}/WC/POM/Search/CreateAngleByObjectListPopup.robot
 Resource            ${EXECDIR}/WC/POM/Search/CreateAngleByObjectListWarningPopup.robot
 Resource            ${EXECDIR}/WC/POM/Search/ItemInfoPopup.robot
-Resource            ${EXECDIR}/WC/POM/Search/CreatePackagePopup.robot
 Resource            ${EXECDIR}/WC/POM/Search/UploadAnglesPopup.robot
 
 *** Variables ***
@@ -182,9 +181,8 @@ Click Search Action Delete Items
 Click Search Action Copy Angle
     Click Search Action    ${ddlSearchActionCopyAngle}
 
-Click Search Action Create EA Package
+Click Search Action Download Items
     Click Search Action    ${ddlSearchActionCreateEAPackage}
-    Wait Until Export To Package Popup Loaded
 
 Click Search Action Select All
     Click Search Action    ${ddlSearchActionSelectAll}

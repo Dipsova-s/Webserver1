@@ -1,10 +1,10 @@
 ﻿var notificationsFeedHeaderHtmlTemplate = function () {
     return [
         '<strong>' + Localization.NotificationsFeed_Updates + '</strong>',
-        '<!-- ko if: ViewModel.NumberOfNotify -->',
+        '<!-- ko if: $root.ViewModel.NumberOfNotify -->',
         '<div class="notificationsFeedBadge hide">',
         '<span class="number">',
-        '<span data-bind="text: ViewModel.NumberOfNotify"></span>',
+        '<span data-bind="text: $root.ViewModel.NumberOfNotify"></span>',
         '</span>',
         '</div>',
         '<!-- /ko -->'
@@ -14,7 +14,7 @@
 var notificationsFeedPopOverHeaderTemplate = function () {
     return [
         '<strong> ' + Localization.NotificationsFeed_Updates,
-        '<!-- ko if: ViewModel.NumberOfNotify -->',
+        '<!-- ko if: $root.ViewModel.NumberOfNotify -->',
         '<span data-bind="text: GetNumberOfNotifyForPopOver"></span>',
         '<!-- /ko -->',
         '</strong >'
@@ -26,10 +26,10 @@ var notificationsFeedTopMenuIconTemplate = function () {
         '<span id="NotificationsFeedIcon" class="icon" data-bind="click: $root.ToggleNotificationsMenu">',
         '<div class="animation"></div>',
         '</span >',
-        '<!-- ko if: ViewModel.NumberOfNotify -->',
+        '<!-- ko if: $root.ViewModel.NumberOfNotify -->',
         '<div class="notificationsFeedBadge hide" data-bind="click: $root.ToggleNotificationsMenu">',
         '<span class="number">',
-        '<span data-bind="text: ViewModel.NumberOfNotify"></span>',
+        '<span data-bind="text: $root.ViewModel.NumberOfNotify"></span>',
         '</span>',
         '</div>',
         '<!-- /ko -->'
@@ -39,7 +39,7 @@ var notificationsFeedTopMenuIconTemplate = function () {
 var notificationsFeedHtmlTemplate = function () {
     return [
         '<div class="list">',
-        '<!-- ko foreach: { data: ViewModel.Feeds, afterRender: $root.OnFeedsRendered } -->',
+        '<!-- ko foreach: { data: $root.ViewModel.Feeds, afterRender: $root.OnFeedsRendered } -->',
         '<div class="item" data-bind="{ css: { \'unread\': $data.isUnReadState, \'new\': $data.isNewState }, click: $root.MarkAsRead.bind(this, $data.id) }">',
         '<a data-bind="attr: {\'href\': $data.url}" target="_blank">',
         '<div class="image">',
@@ -63,9 +63,9 @@ var notificationsFeedHtmlTemplate = function () {
 
 var notificationsFeedFooterHtmlTemplate = function () {
     return [
-        '<!-- ko if: ViewModel.ViewAllUrl -->',
+        '<!-- ko if: $root.ViewModel.ViewAllUrl -->',
         '<div class="inner">',
-        '<a data-bind="attr: {href: ViewModel.ViewAllUrl}" target="_blank">' + Localization.NotificationsFeed_ViewAll + '</a>',
+        '<a data-bind="attr: {href: $root.ViewModel.ViewAllUrl}" target="_blank">' + Localization.NotificationsFeed_ViewAll + '</a>',
         '</div>',
         '<!-- /ko -->'
     ].join('');
@@ -87,6 +87,7 @@ function NotificationsFeedHandler(notificationsFeedModel, setTimeoutFunction, cl
     var _clearTimeout = clearTimeoutFunction || window.clearTimeout;
 
     self.IsTouchDevice = false;
+    self.JsonpCallback = 'notificationsFeedHandler.OnFeedLoaded';
 
     self.OnFeedLoaded = function (response) {
         _model.SetDataFeeds(response);
@@ -166,8 +167,8 @@ function NotificationsFeedHandler(notificationsFeedModel, setTimeoutFunction, cl
                     type: 'get',
                     dataType: 'jsonp',
                     jsonp: '_jsonp',
+                    jsonpCallback: self.JsonpCallback,
                     cache: false,
-                    success: self.OnFeedLoaded.bind(this),
                     error: self.OnFeedCannotLoaded.bind(this)
                 })
                 .always(function () {

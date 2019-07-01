@@ -45,7 +45,6 @@
 /// <reference path="HtmlTemplate/Menu/usersettingpopuphtmltemplate.js" />
 /// <reference path="HtmlTemplate/ResultSummary/resultsummaryhtmltemplate.js" />
 /// <reference path="HtmlTemplate/ScheduleAngle/scheduleanglehtmltemplate.js" />
-/// <reference path="HtmlTemplate/Search/angleexporthtmltemplate.js" />
 /// <reference path="jQuery/jquery.address.js" />
 /// <reference path="jQuery/jquery.base64.min.js" />
 /// <reference path="jQuery/jquery.cookie-1.4.1.min.js" />

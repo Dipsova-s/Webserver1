@@ -331,7 +331,6 @@ namespace EveryAngle.WebClient.Web
                     "~/scripts/viewmodels/models/search/masschangemodel.js",
 
                     // angle export (eapackage + download)
-                    "~/scripts/htmltemplate/search/angleexporthtmltemplate.js",
                     "~/scripts/viewmanagement/search/eapackagehandler.js",
                     "~/scripts/viewmanagement/search/angledownloadhandler.js",
                     "~/scripts/viewmanagement/search/angleexporthandler.js",

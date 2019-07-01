@@ -14,11 +14,7 @@ function AngleDownloadHandler() {
         return '';
     };
     self.GetSelectData = function () {
-        var urls = [];
-        jQuery.each(self.SelectedItems, function (index, item) {
-            urls.push(WC.Ajax.BuildRequestUrl(item.uri + '/download?show_angle_display_id=' + window.showAngleAndDisplayID, false));
-        });
-        return urls;
+        return self.SelectedItems;
     };
     self.SetSelectedItems = function (items) {
         self.SelectedItems = [];
@@ -28,39 +24,73 @@ function AngleDownloadHandler() {
             }
         });
     };
+    self.GetDownloadUrls = function (items) {
+        var deferred = [];
+        var urls = [];
+        var loadDashboard = function (uri, dashboardId) {
+            return dashboardModel.LoadDashboard(uri)
+                .done(function () {
+                    // get angle for dashboard from widget definitions
+                    var dashboardAngles = [];
+                    jQuery.each(dashboardModel.Data().widget_definitions, function (index, widget) {
+                        dashboardAngles.push(widget.angle);
+                    });
+
+                    var distinctDashboardAngles = dashboardAngles.distinct();
+                    jQuery.each(distinctDashboardAngles, function (index, angle) {
+                        urls.push(WC.Ajax.BuildRequestUrl(angle
+                            + '/download?show_angle_display_id=' + window.showAngleAndDisplayID
+                            + '&as_widget=true&dashboard_id=' + dashboardId, false));
+                    });
+                });
+        };
+        jQuery.each(items, function (index, item) {
+            urls.push(WC.Ajax.BuildRequestUrl(item.uri + '/download?show_angle_display_id=' + window.showAngleAndDisplayID, false));
+            if (item.type === enumHandlers.ITEMTYPE.DASHBOARD) {
+                deferred.pushDeferred(loadDashboard, [item.uri, item.uri.split("/").pop()]);
+            }
+        });
+        return jQuery.whenAll(deferred)
+            .then(function () {
+                return jQuery.when(urls);
+            });
+    };
     self.StartExportAngle = function () {
-        self.DownloadAngles(self.GetSelectData());
+        self.GetDownloadUrls(self.SelectedItems)
+            .done(function (urls) {
+                self.DownloadItems(urls);
+            });
     };
     self.CloseAngleExportPopup = jQuery.noop;
 
     self.IsDownloadableItem = function (itemType) {
-        return itemType === enumHandlers.ITEMTYPE.ANGLE;
+        return itemType === enumHandlers.ITEMTYPE.ANGLE || itemType === enumHandlers.ITEMTYPE.DASHBOARD;
     };
-    self.DownloadAngles = function (angleUrls) {
+    self.DownloadItems = function (itemUrls) {
         progressbarModel.ShowStartProgressBar(Localization.ProgressBar_DownloadAngle, false);
         progressbarModel.IsCancelPopup = false;
 
-        var angleCount = angleUrls.length;
-        var downloadAngle = function (urls) {
-            if (self.IsDownloadAngleDone(urls.length)) {
-                self.DownloadAngleDone();
+        var itemCount = itemUrls.length;
+        var downloadItem = function (urls) {
+            if (self.IsDownloadItemDone(urls.length)) {
+                self.DownloadItemDone();
             }
             else {
                 WC.Ajax.EnableBeforeExit = false;
                 WC.Utility.DownloadFile(urls.splice(0, 1)[0]);
-                progressbarModel.SetProgressBarText(kendo.toString((angleCount - urls.length) / angleCount * 100, 'n0'), null, Localization.ProgressBar_DownloadAngle);
+                progressbarModel.SetProgressBarText(kendo.toString((itemCount - urls.length) / itemCount * 100, 'n0'), null, Localization.ProgressBar_DownloadAngle);
                 setTimeout(function () {
-                    downloadAngle(urls);
+                    downloadItem(urls);
                 }, 500);
             }
         };
 
-        downloadAngle(angleUrls);
+        downloadItem(itemUrls);
     };
-    self.IsDownloadAngleDone = function (remainUrl) {
+    self.IsDownloadItemDone = function (remainUrl) {
         return !remainUrl || progressbarModel.IsCancelPopup;
     };
-    self.DownloadAngleDone = function () {
+    self.DownloadItemDone = function () {
         progressbarModel.IsCancelPopup = false;
         progressbarModel.EndProgressBar();
         self.CloseAngleExportPopup();

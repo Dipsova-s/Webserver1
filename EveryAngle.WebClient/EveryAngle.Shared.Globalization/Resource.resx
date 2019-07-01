@@ -1276,7 +1276,7 @@
     <value>Dashboard privileges</value>
   </data>
   <data name="CreateEAPackage" xml:space="preserve">
-    <value>Download Angles</value>
+    <value>Download Items</value>
   </data>
   <data name="FileName" xml:space="preserve">
     <value>File name</value>
@@ -5413,7 +5413,7 @@ This setting is valid for both Export to Excel and Export to CSV, manually from 
     <value>Are you sure you want to download {0} individual Angles?</value>
   </data>
   <data name="UploadAngles" xml:space="preserve">
-    <value>Upload Angles</value>
+    <value>Upload Items</value>
   </data>
   <data name="UploadAnglesReport" xml:space="preserve">
     <value>Upload Angles report</value>

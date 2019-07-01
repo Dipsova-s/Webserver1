@@ -317,7 +317,7 @@ function ErrorHandlerViewModel() {
             if (self.IsRequiredToRedirectToLoginPage(xhr)) {
                 self.RedirectToLoginPage();
             }
-            else {
+            else if(!settings.crossDomain) {
                 if (self.Enable() && error !== 'abort') {
                     jQuery('.k-loading-mask').remove();
                     jQuery('.popupProgressBar,.k-overlay').hide();

@@ -1,6 +1,7 @@
 ﻿/// <reference path="/Dependencies/ViewManagement/Shared/DirectoryHandler.js" />
 /// <reference path="/Dependencies/ViewManagement/Shared/SystemSettingHandler.js" />
 /// <reference path="/Dependencies/viewmanagement/Search/AngleDownloadHandler.js" />
+/// <reference path="/Dependencies/ViewModels/Models/Dashboard/dashboardmodel.js" />
 
 describe("AngleDownloadHandler", function () {
 
@@ -31,14 +32,32 @@ describe("AngleDownloadHandler", function () {
 
     });
 
+    describe("call GetDownloadUrls", function () {
+
+        it("should call GetDownloadUrls method", function () {
+            var items = [
+                {
+                    type: 'angle',
+                    uri: '/angles/1'
+                }
+            ];
+            spyOn(dashboardModel, 'LoadDashboard').and.callFake($.noop);
+
+            angleDownloadHandler.GetDownloadUrls(items)
+                .done(function (urls) {
+                    expect(urls.length).toEqual(1);
+                });
+        });
+
+    });
 
     describe("call GetSelectData", function () {
-        it("should get a list of urls", function () {
+        it("should get a list of selected", function () {
             angleDownloadHandler.SelectedItems = [{
                 uri: '/angles/1'
             }];
             var result = angleDownloadHandler.GetSelectData();
-            expect(result[0].indexOf('api/proxy/angles/1/download') !== -1).toBe(true);
+            expect(result[0].uri.indexOf('/angles/1') !== -1).toBe(true);
         });
 
     });
@@ -52,19 +71,19 @@ describe("AngleDownloadHandler", function () {
                 type: 'dashboard'
             }];
             angleDownloadHandler.SetSelectedItems(items);
-            expect(angleDownloadHandler.SelectedItems.length).toEqual(1);
+            expect(angleDownloadHandler.SelectedItems.length).toEqual(2);
         });
 
     });
 
     describe("call StartExportAngle", function () {
 
-        it("should call DownloadAngles method", function () {
+        it("should call DownloadItems method", function () {
             spyOn(angleDownloadHandler, 'GetSelectData').and.callFake($.noop);
-            spyOn(angleDownloadHandler, 'DownloadAngles').and.callFake($.noop);
+            spyOn(angleDownloadHandler, 'DownloadItems').and.callFake($.noop);
 
             angleDownloadHandler.StartExportAngle();
-            expect(angleDownloadHandler.DownloadAngles).toHaveBeenCalled();
+            expect(angleDownloadHandler.DownloadItems).toHaveBeenCalled();
         });
 
     });
@@ -83,26 +102,26 @@ describe("AngleDownloadHandler", function () {
 
     });
 
-    describe("call DownloadAngles", function () {
+    describe("call DownloadItems", function () {
 
-        it("should call DownloadAngleDone when finished", function (done) {
+        it("should call DownloadItemDone when finished", function (done) {
             window.progressbarModel = window.progressbarModel || {};
             window.progressbarModel.ShowStartProgressBar = $.noop;
             window.progressbarModel.SetProgressBarText = $.noop;
 
             spyOn(WC.Utility, 'DownloadFile').and.callFake($.noop);
-            spyOn(angleDownloadHandler, 'DownloadAngleDone').and.callFake($.noop);
+            spyOn(angleDownloadHandler, 'DownloadItemDone').and.callFake($.noop);
 
-            angleDownloadHandler.DownloadAngles(['/angles/1/download']);
+            angleDownloadHandler.DownloadItems(['/angles/1/download']);
             setTimeout(function () {
-                expect(angleDownloadHandler.DownloadAngleDone).toHaveBeenCalled();
+                expect(angleDownloadHandler.DownloadItemDone).toHaveBeenCalled();
                 done();
             }, 600);
         });
 
     });
 
-    describe("call DownloadAngleDone", function () {
+    describe("call DownloadItemDone", function () {
 
         it("should call ClearAllSelectedRows when finished", function () {
             window.searchPageHandler = window.searchPageHandler || {};
@@ -113,11 +132,11 @@ describe("AngleDownloadHandler", function () {
 
             spyOn(searchPageHandler, 'ClearAllSelectedRows');
 
-            angleDownloadHandler.DownloadAngleDone();
+            angleDownloadHandler.DownloadItemDone();
             expect(searchPageHandler.ClearAllSelectedRows).toHaveBeenCalled();
         });
 
     });
-
+    
 });
 

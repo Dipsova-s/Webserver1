@@ -665,7 +665,6 @@
     <Content Include="Scripts\HtmlTemplate\Menu\usersettingpopuphtmltemplate.js" />
     <Content Include="Scripts\HtmlTemplate\ResultSummary\resultsummaryhtmltemplate.js" />
     <Content Include="Scripts\HtmlTemplate\ScheduleAngle\scheduleanglehtmltemplate.js" />
-    <Content Include="Scripts\HtmlTemplate\Search\angleexporthtmltemplate.js" />
     <None Include="packages.config">
       <SubType>Designer</SubType>
     </None>
@@ -791,7 +790,6 @@
     <Content Include="Scripts\ViewManagement\Shared\NotificationsFeedHandler.js" />
     <Content Include="Scripts\ViewManagement\Search\angledownloadhandler.js" />
     <Content Include="Scripts\ViewManagement\Search\AngleExportHandler.js" />
-    <Content Include="Scripts\ViewManagement\Search\EAPackageHandler.js" />
     <Content Include="Scripts\ViewManagement\Search\ImportAngleHandler.js" />
     <Content Include="Scripts\ViewManagement\Search\ItemInfoHandler.js" />
     <Content Include="Scripts\ViewManagement\Help\HelpPopupPageHandler.js" />

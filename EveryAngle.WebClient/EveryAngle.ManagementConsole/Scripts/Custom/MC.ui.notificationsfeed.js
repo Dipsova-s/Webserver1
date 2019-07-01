@@ -24,6 +24,7 @@
     );
 
     MC.ui.notificationsFeed.IsTouchDevice = Modernizr.touch;
+    MC.ui.notificationsFeed.JsonpCallback = 'MC.ui.notificationsFeed.OnFeedLoaded';
     MC.addPageReadyFunction(MC.ui.notificationsFeed.LoadFeeds.bind(win, true));
 
 })(window);

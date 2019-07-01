@@ -5,7 +5,6 @@
 /// <reference path="/Dependencies/ViewManagement/Shared/ModelsHandler.js" />
 /// <reference path="/Dependencies/ViewManagement/Shared/ProgressBar.js" />
 /// <reference path="/Dependencies/ViewManagement/Search/AngleDownloadHandler.js" />
-/// <reference path="/Dependencies/ViewManagement/Search/EAPackageHandler.js" />
 /// <reference path="/Dependencies/ViewManagement/Search/AngleExportHandler.js" />
 /// <reference path="/Dependencies/ViewManagement/Search/importAngleHandler.js" />
 

@@ -871,7 +871,7 @@ window.SearchPageHandler = function () {
                 importAngleHandler.ShowImportAnglePopup();
                 break;
             case enumHandlers.SEARCHACTION.CREATEEAPACKAGE.Id:
-                angleExportHandler.ShowAngleExportPopup();
+                angleExportHandler.DownloadItems();
                 break;
 
             case enumHandlers.SEARCHACTION.COPYANGLE.Id:

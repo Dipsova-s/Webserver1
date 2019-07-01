@@ -1296,7 +1296,7 @@ namespace EveryAngle.Shared.Globalization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Package download is not available, because the selection contains private .
+        ///   Looks up a localized string similar to Package download is not available, because the selection contains:.
         /// </summary>
         public static string AngleExport_TypePackage_PackageDownload_Not_Available {
             get {
@@ -7564,9 +7564,9 @@ namespace EveryAngle.Shared.Globalization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to In a default Active Directory hierarchy structure, users are located in the &quot;Users&quot; container. This container is always on the main level of your domain. When leaving this field empty, the Every Angle Application Server will retrieve users from this default location.&lt;br&gt;
+        ///   Looks up a localized string similar to In a default Active Directory hierarchy structure, users are located in the &quot;Users&quot; container. This container is always on the main level of your domain. When leaving this field empty, the Ever Angle Application Server will retrieve users from this default location.&lt;br&gt;
         ///In case you want to have the users retrieved from a different container, enter the Distinguished Name (DN) of this container here.&lt;br&gt;
-        ///An Active Directory browsing tool can help you find the correct DN syntax for the container. For exampl [rest of string was truncated]&quot;;.
+        ///An Active Directory browsing tool can help you find the correct DN syntax for the container. For example [rest of string was truncated]&quot;;.
         /// </summary>
         public static string MC_AuthenticationProvidersHelpContainer {
             get {
@@ -7639,11 +7639,8 @@ namespace EveryAngle.Shared.Globalization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Holds the target of the ADFS.&lt;br&gt;&lt;br&gt;
-        ///
-        ///During a login challenge resulting from a URL link into the instance that requires a Single Sign-On session, the referring URL often needs to be supplied to the Single Sign-On provider so that after authentication, it can be passed back to our instance and linked to the correct resource.&lt;br&gt;&lt;br&gt;
-        ///
-        ///The target is built with the elements:  &amp;lt;Service&amp;gt;&amp;lt;address of service&amp;gt;, for example, https://adfs.example.com/adfs/identity/..
+        ///   Looks up a localized string similar to Enter the target of the ADFS.&lt;br&gt;
+        ///During a login challenge resulting from a URL link into the instance that requires an Single Sign-On session, often times, the referring URL needs to be supplied to the Single Sign-On provider so that after authentication, it can be passed back to our instance and linked to the correct resource. The target consists of the elements: &amp;lt;Service&amp;gt;&amp;lt;address of service&amp;gt;, for example, https://adfs.example.com/adfs/identity/.
         /// </summary>
         public static string MC_AuthenticationProvidersHelpTarget {
             get {
@@ -10344,7 +10341,7 @@ namespace EveryAngle.Shared.Globalization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Allowed to access the management console. Management access is allowed when one of the following privileges is assigned: &quot;Manage system&quot;, &quot;Manage users&quot; or &quot;Manage model&quot;..
+        ///   Looks up a localized string similar to Allowed to access the IT Management Console. Management access is allowed when one of the following privileges is assigned: &quot;Manage system&quot;, &quot;Manage users&quot; or &quot;Manage model&quot;..
         /// </summary>
         public static string MC_ManagementAccessDescription {
             get {
@@ -10362,7 +10359,7 @@ namespace EveryAngle.Shared.Globalization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Allowed to manage the settings of this model within the management console​. Also allowed to create EA packages..
+        ///   Looks up a localized string similar to Allowed to manage the settings of this model within the IT Management Console​. Also allowed to create EA packages..
         /// </summary>
         public static string MC_ManageModelDescription {
             get {
@@ -13858,6 +13855,15 @@ namespace EveryAngle.Shared.Globalization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Use SSL encrypted connections for communication with the Application Server..
+        /// </summary>
+        public static string MC_WebClientSettingsHelpEnableSsl {
+            get {
+                return ResourceManager.GetString("MC_WebClientSettingsHelpEnableSsl", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to The ID you receive from Google Analytics, when using this service. 
         ///&lt;br&gt;
         ///Leave this field empty if you do not use Google Analytics..
@@ -13925,6 +13931,15 @@ namespace EveryAngle.Shared.Globalization {
         public static string MC_WebClientSettingsHelpShowErrorSourceUri {
             get {
                 return ResourceManager.GetString("MC_WebClientSettingsHelpShowErrorSourceUri", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Ignore errors detected in SSL certificates received from the Application Server..
+        /// </summary>
+        public static string MC_WebClientSettingsHelpTrustAllCertificate {
+            get {
+                return ResourceManager.GetString("MC_WebClientSettingsHelpTrustAllCertificate", resourceCulture);
             }
         }
         
@@ -15774,7 +15789,7 @@ namespace EveryAngle.Shared.Globalization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Uploading Items.
+        ///   Looks up a localized string similar to Uploading Angles.
         /// </summary>
         public static string ProgressBar_UploadingAngles {
             get {
@@ -17016,7 +17031,7 @@ namespace EveryAngle.Shared.Globalization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Select files to upload or drop here....
+        ///   Looks up a localized string similar to Select Angle files to upload or drop here....
         /// </summary>
         public static string UploadAngles_SelectFile {
             get {
@@ -17025,7 +17040,7 @@ namespace EveryAngle.Shared.Globalization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Upload successful {0} of {1}.
+        ///   Looks up a localized string similar to Upload Angles successful {0} of {1}.
         /// </summary>
         public static string UploadAngles_SuccessfulMessage {
             get {
@@ -17034,7 +17049,7 @@ namespace EveryAngle.Shared.Globalization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Upload report.
+        ///   Looks up a localized string similar to Upload Angles report.
         /// </summary>
         public static string UploadAnglesReport {
             get {

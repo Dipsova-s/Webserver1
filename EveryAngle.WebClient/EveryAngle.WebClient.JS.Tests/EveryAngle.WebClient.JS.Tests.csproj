@@ -478,10 +478,6 @@
       <Link>WebClient\Dependencies\ViewManagement\Search\AngleExportHandler.js</Link>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="..\EveryAngle.WebClient.Web\Scripts\ViewManagement\Search\EAPackageHandler.js">
-      <Link>WebClient\Dependencies\ViewManagement\Search\EAPackageHandler.js</Link>
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
     <Content Include="..\EveryAngle.WebClient.Web\Scripts\ViewManagement\Search\importAngleHandler.js">
       <Link>WebClient\Dependencies\ViewManagement\Search\importAngleHandler.js</Link>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
@@ -757,7 +753,6 @@
     <Content Include="WebClient\Tests\ViewManagement\Search\AngleCopyHandlerTest.js" />
     <Content Include="WebClient\Tests\ViewManagement\Search\AngleDownloadHandlerTest.js" />
     <Content Include="WebClient\Tests\ViewManagement\Search\AngleExportHandlerTest.js" />
-    <Content Include="WebClient\Tests\ViewManagement\Search\EAPackageHandlerTest.js" />
     <Content Include="WebClient\Tests\ViewManagement\Search\ImportAngleHandlerTest.js" />
     <Content Include="WebClient\Tests\ViewManagement\Search\ItemInfoHandlerTest.js" />
     <Content Include="WebClient\Tests\ViewManagement\Search\SearchPageHandlerTest.js" />
