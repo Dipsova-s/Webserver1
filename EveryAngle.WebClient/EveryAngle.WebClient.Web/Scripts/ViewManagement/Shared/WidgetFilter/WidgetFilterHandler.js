@@ -413,7 +413,7 @@ function WidgetFilterHandler(container, models) {
                 foundFirstFilterOrJump = true;
             }
 
-            if (queryStep.step_type === enumHandlers.FILTERTYPE.FILTER) {
+            if (queryStep.step_type === enumHandlers.FILTERTYPE.FILTER && self.CanChange(queryStep)) {
                 var element = self.View.GetOperatorElement(index);
                 if (element.length && queryStep.valid) {
                     var field = modelFieldsHandler.GetFieldById(queryStep.field, self.ModelUri);

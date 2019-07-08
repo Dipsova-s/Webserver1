@@ -10,6 +10,7 @@ ${TEST_ANGLE_EXECUTE_PARAMETER}      [ROBOT] Verify Execution Parameters When Ar
 ${TEST_ANGLE_EXECUTE_PARAMETER2}     [ROBOT] Verify Execution Parameters When Argument Is Empty
 ${TEST_ANGLE_EXECUTE_PARAMETER3}     [ROBOT] Verify Execution Parameters With Compare Field
 ${TEST_ANGLE_EXECUTE_PARAMETER4}     [ROBOT] Verify Execution Parameters With & Char
+${TEST_ANGLE_EXECUTE_PARAMETER5}     [ROBOT] Angle with invalid argument values
 
 
 *** Test Cases ***
@@ -69,3 +70,11 @@ Verify Execution Parameters With & Char
     Click Link Item From Search Result Not Execute Popup    ${TEST_ANGLE_EXECUTE_PARAMETER4}
     Click Submit Angle Execution Parameters
     Back To Search And Delete Angle Are Created    ${TEST_ANGLE_EXECUTE_PARAMETER4}
+
+Verify Invalid Argument values
+    Upload Item And Check From Search Result  angle_with_invalid_argument_values.angle.json    EA2_800    ${TEST_ANGLE_EXECUTE_PARAMETER5}
+    Click Link Item From Search Result Not Execute Popup    ${TEST_ANGLE_EXECUTE_PARAMETER5}
+    Wait Until Angle Execute Parameters Popup Loaded
+    Click Submit Angle Execution Parameters
+    [Teardown]    Back To Search And Delete Angle Are Created    ${TEST_ANGLE_EXECUTE_PARAMETER5}
+
