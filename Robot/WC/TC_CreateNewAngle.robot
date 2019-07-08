@@ -48,7 +48,7 @@ Verify Element Create New Angle Basic: Select a Template Angle from the Activity
     Click Back Create Angle Popup Option Activity Diagram Loaded
 
 Verify Element Create New Angle Advanced: Select a Template Angle from the Object Diagram
-    [Tags]    intermittent
+    [Tags]    acceptance     acc_wc
     Open Create Angle By Object Diagram Popup
     Page Should Contain     Object Diagram
     Page Should Contain Element     ${divObjectDiagramDescriptionSection}

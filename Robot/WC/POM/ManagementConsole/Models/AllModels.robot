@@ -18,6 +18,8 @@ ${btnStopServer}                        jquery=.modelInfoInstance .btn:eq(1)
 ${popupConfirmationStopServer}          css=#popupConfirmation
 ${btnCloseStopServerPopUp}              jquery=#popupConfirmation .btnConfirmCancel
 
+${serverStatusMenu}                     jquery=#ServerStatusMenu
+
 #Tree Server Status
 ${btnTreeClsReport}                     jquery=li[data-id="Enum Report"]
 ${btnChildDeliNoteLine}                 jquery=li[data-id="Enum Report"] li:eq(0)
@@ -39,13 +41,12 @@ Wait Until Models Info Loaded
 Verify Status And Report EA2_800 PopUp
     Click Element    ${btnEA2800InFo}
     Wait Until Ajax Complete
-    Wait Until Page contains    Model server
-    Wait Until Page Contains    EA2_800_Server1
+    Wait Until Page Contains Element     ${serverStatusMenu}
 
 Verify Status And Report EA2_800_Xtractor PopUp
     Click Element    ${btnEA2800XtractorInFo}
     Wait Until Ajax Complete
-    Wait Until Page contains    Extractor
+    Wait Until Page Contains Element     ${serverStatusMenu}
 
 Click Close Model Report PopUp
     Click Element    ${btnCloseModelPopUp}

@@ -4,6 +4,7 @@ Resource            ${EXECDIR}/WC/API/API_UserSettings.robot
 Suite Setup         Go to WC Then Login With EAPower User
 Suite Teardown      Logout WC Then Close Browser
 Test Teardown       Go to Search Page
+Force Tags          smoke_s    smk_wc_s
 
 *** Variables ***
 ${NL_LANGUAGE_TEXT}                        Dutch
@@ -11,7 +12,6 @@ ${EN_LANGUAGE_TEXT}                        English
 
 *** Test Cases ***
 Verify User Settings Details
-    [tags]    smoke_s    smk_wc_s
     Open User Settings Popup
     Verify User Information
     Verify System Settings
@@ -20,7 +20,6 @@ Verify User Settings Details
     Click Close User Setting Popup
 
 Verify Change User Setings: System Settings Tab
-    [tags]    smoke_s    smk_wc_s
     Open User Settings Popup
     Click System Settings Tab
 
@@ -63,7 +62,6 @@ Verify Change User Setings: System Settings Tab
     Click Save User Settings Via Search Page
 
 Verify Change User Language
-    [tags]      intermittent_s
     [Setup]     Go to WC Then Login With EAViewer User
     Change User Language    ${EN_LANGUAGE_TEXT}
     ${en_caption}           Execute Javascript    return Captions.Drop_Here_To_Remove_This_Column
