@@ -134,11 +134,11 @@ describe("WidgetFilterHandler", function () {
 
         it("should not re-apply filter steps when CanChange is false", function () {
             spyOn(handler, 'CanChange').and.callFake(function () {
-                return true;
+                return false;
             });
 
             var result = handler.ReApplyHandler();
-            expect(result.length).toBe(1);
+            expect(result.length).toBe(0);
         });
     });
 
