@@ -15,6 +15,7 @@ Resource            ${EXECDIR}/WC/Scenarios/Search/TS_Search.robot
 Resource            ${EXECDIR}/WC/Scenarios/Search/TS_SearchFilter.robot
 Resource            ${EXECDIR}/WC/Scenarios/Search/TS_SearchBusinessProcess.robot
 Resource            ${EXECDIR}/WC/Scenarios/Search/TS_MassChange.robot
+Resource            ${EXECDIR}/WC/Scenarios/Search/TS_UploadAngle.robot
 Resource            ${EXECDIR}/WC/Scenarios/Angle/TS_Angle.robot
 Resource            ${EXECDIR}/WC/Scenarios/Angle/TS_AngleDetail.robot
 Resource            ${EXECDIR}/WC/Scenarios/Angle/TS_AngleFilter.robot

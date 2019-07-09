@@ -1,0 +1,220 @@
+{
+  "source": {
+    "system": "nl-webmb04-ns.everyangle.org:21000",
+    "version": "19.999.99.603",
+    "datetime": "2019-07-05T05:49+02:00",
+    "user": "local\\EAAdmin",
+    "model": "EA2_800"
+  },
+  "angle": {
+    "assigned_labels": [
+      "F2R",
+      "GRC",
+      "HCM",
+      "IT",
+      "O2C",
+      "P2P",
+      "PM",
+      "S2D"
+    ],
+    "multi_lang_name": [
+      {
+        "lang": "en",
+        "text": "[ROBOT] Angle with invalid argument values"
+      }
+    ],
+    "multi_lang_description": [
+      {
+        "lang": "en",
+        "text": "<div id=\"summary\"><div class=\" section\" id=\"S1436272899908944\"><h2 class=\" topictitle2\" id=\"Hidelem4x51625\">&nbsp;</h2><p id=\"Pidelem4x51636\"></p></div></div>"
+      }
+    ],
+    "query_definition": [
+      {
+        "queryblock_type": "base_classes",
+        "base_classes": [
+          "MaterialOnPlantLevel"
+        ]
+      }
+    ],
+    "display_definitions": [
+      {
+        "id": "ea1caa3064dbff40b39382eb07715423ff",
+        "display_type": "list",
+        "is_angle_default": true,
+        "multi_lang_name": [
+          {
+            "lang": "en",
+            "text": "List view"
+          }
+        ],
+        "multi_lang_description": [
+          {
+            "lang": "en",
+            "text": "<div id=\"summary\" /><div class=\" section\" id=\"S1438245613828933\"><p class=\"\" id=\"P1438245613828814\" /></div>"
+          }
+        ],
+        "display_details": "{}",
+        "query_blocks": [
+          {
+            "queryblock_type": "query_steps",
+            "query_steps": [
+              {
+                "step_type": "filter",
+                "field": "DISMM",
+                "tech_info": "MARC-DISMM",
+                "operator": "in_set",
+                "arguments": [
+                  {
+                    "argument_type": "value",
+                    "value": "Pikachu"
+                  },
+                  {
+                    "argument_type": "value",
+                    "value": "HelloKitty"
+                  }
+                ]
+              },
+              {
+                "step_type": "filter",
+                "field": "DISLS",
+                "tech_info": "MARC-DISLS",
+                "operator": "in_set",
+                "execution_parameter_id": {
+                  "Value": "ea5222a08056c64e89868aa12eb2dc6f6f"
+                },
+                "is_execution_parameter": true,
+                "arguments": [
+                  {
+                    "argument_type": "value",
+                    "value": "DragonKnight"
+                  },
+                  {
+                    "argument_type": "value",
+                    "value": "SoundOfSlient"
+                  }
+                ]
+              }
+            ]
+          }
+        ],
+        "fields": [
+          {
+            "field": "ObjectType",
+            "tech_info": "",
+            "multi_lang_alias": [],
+            "field_details": "{\"width\":107,\"format\":\"shn\"}"
+          },
+          {
+            "field": "Material__Material",
+            "tech_info": "",
+            "multi_lang_alias": [],
+            "field_details": "{\"width\":83}"
+          },
+          {
+            "field": "Material__Description",
+            "tech_info": "MAKT-MAKTX",
+            "multi_lang_alias": [],
+            "field_details": "{\"width\":206}"
+          },
+          {
+            "field": "Plant__Plant",
+            "tech_info": "T001W-WERKS",
+            "multi_lang_alias": [],
+            "field_details": "{\"width\":68,\"format\":\"shn\"}"
+          },
+          {
+            "field": "LVOWK",
+            "tech_info": "MARC-LVORM",
+            "multi_lang_alias": [],
+            "field_details": "{\"width\":99}"
+          },
+          {
+            "field": "FiscalYearVariant",
+            "tech_info": "MARC-PERIV",
+            "multi_lang_alias": [],
+            "field_details": "{\"width\":120}"
+          },
+          {
+            "field": "DISLS",
+            "tech_info": "MARC-DISLS",
+            "multi_lang_alias": [],
+            "field_details": "{\"width\":120}"
+          },
+          {
+            "field": "DISPR",
+            "tech_info": "MARC-DISPR",
+            "multi_lang_alias": [],
+            "field_details": "{\"width\":120}"
+          },
+          {
+            "field": "MMSTA",
+            "tech_info": "MARC-MMSTA",
+            "multi_lang_alias": [],
+            "field_details": "{\"width\":118}"
+          },
+          {
+            "field": "Material__MSTAE",
+            "tech_info": "MARA-MSTAE",
+            "multi_lang_alias": [],
+            "field_details": "{\"width\":102}"
+          },
+          {
+            "field": "DISMM",
+            "tech_info": "MARC-DISMM",
+            "multi_lang_alias": [],
+            "field_details": "{\"width\":130}"
+          },
+          {
+            "field": "DISPO",
+            "tech_info": "MARC-WERKS;MARC-DISPO",
+            "multi_lang_alias": [],
+            "field_details": "{\"width\":97}"
+          },
+          {
+            "field": "EKGRP",
+            "tech_info": "MARC-EKGRP",
+            "multi_lang_alias": [],
+            "field_details": "{\"width\":102}"
+          },
+          {
+            "field": "ProcurementTypePlanning",
+            "tech_info": "T460A-BESKZ/MARC-BESKZ",
+            "multi_lang_alias": [],
+            "field_details": "{\"width\":112}"
+          },
+          {
+            "field": "SOBSL",
+            "tech_info": "MARC-WERKS;MARC-SOBSL",
+            "multi_lang_alias": [],
+            "field_details": "{\"width\":115}"
+          },
+          {
+            "field": "StockValueValuated",
+            "tech_info": "",
+            "multi_lang_alias": [],
+            "field_details": "{\"width\":113}"
+          },
+          {
+            "field": "StockQuantityTotal",
+            "tech_info": "",
+            "multi_lang_alias": [],
+            "field_details": "{\"width\":117}"
+          },
+          {
+            "field": "Material__BaseUnitOfMeasure",
+            "tech_info": "MARA-MEINS",
+            "multi_lang_alias": [],
+            "field_details": "{\"width\":28,\"format\":\"shn\"}"
+          },
+          {
+            "field": "PurchaseOrganization__PurchaseOrganization",
+            "tech_info": "T024E-EKORG",
+            "multi_lang_alias": [],
+            "field_details": "{\"width\":94}"
+          }
+        ]
+      }
+    ]
+  }
+}

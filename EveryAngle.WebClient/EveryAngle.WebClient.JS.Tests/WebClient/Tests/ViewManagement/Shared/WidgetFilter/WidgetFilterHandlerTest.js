@@ -58,73 +58,87 @@ describe("Widget Filter Handler", function () {
 
     });
 
-    describe("Widget filter should", function () {
+    describe(".ApplyHandler", function () {
+        var handler;
+        var container = '<div id="FilterWrapper"></div>';
+        var querySteps = [{
+            "valid": true,
+            "field": "ExecutionStatus",
+            "operator": "in_set",
+            "arguments": [{
+                "argument_type": "value",
+                "value": "es0ToBeExecuted"
+            }],
+            "step_type": "filter"
+        }];
 
-        it("Create an instance", function () {
-            // Arrange
-            var container = null;
-            var querySteps = [];
-            // Act
-            var actual = new WidgetFilterHandler(container, querySteps);
-
-            // Assert
-            expect(actual instanceof WidgetFilterHandler).toBeTruthy();
-            expect(actual.Identity).toBe("WidgetFilterHandler");
-        });
-
-        it("Apply filter steps", function () {
-            // Arrange
-            var container = '<div id="FilterWrapper"></div>';
-            var querySteps = [{
-                "valid": true,
-                "field": "ExecutionStatus",
-                "operator": "in_set",
-                "arguments": [{
-                    "argument_type": "value",
-                    "value": "es0ToBeExecuted"
-                }],
-                "step_type": "filter"
-            }];
-
-            var target = new WidgetFilterHandler(container, querySteps);
-            target.View.GetHtmlElementById = function (id) {
+        beforeEach(function () {
+            handler = new WidgetFilterHandler(container, querySteps);
+            handler.View.GetHtmlElementById = function (id) {
                 return jQuery('<div />').attr('id', id);
             };
-            target.View.BindingDropdownOperator = $.noop;
-            target.View.BindingAndSortingElementFilter = $.noop;
-
-            // Act
-            var actual = target.ApplyHandler();
-
-            // Assert
-            expect(actual.length).toBe(1);
+            handler.View.BindingDropdownOperator = $.noop;
+            handler.View.BindingAndSortingElementFilter = $.noop;
         });
 
-        it("Reapply filter steps", function () {
-            // Arrange
-            var container = '<div id="FilterWrapper"><div class="definitionList"></div></div>';
-            var querySteps = [{
-                "valid": true,
-                "field": "ExecutionStatus",
-                "operator": "in_set",
-                "arguments": [{
-                    "argument_type": "value",
-                    "value": "es0ToBeExecuted"
-                }],
-                "step_type": "filter"
-            }];
-            var target = new WidgetFilterHandler(container, querySteps);
-            target.View.GetHtmlElementById = function (id) {
+        it("should apply handler when CanChange is true", function () {
+            spyOn(handler, 'CanChange').and.callFake(function () {
+                return true;
+            });
+
+            var result = handler.ApplyHandler();
+            expect(result.length).toBe(1);
+        });
+
+        it("should not apply handler when CanChange is false", function () {
+            spyOn(handler, 'CanChange').and.callFake(function () {
+                return false;
+            });
+
+            var result = handler.ApplyHandler();
+            expect(result.length).toBe(0);
+        });
+    });
+
+    describe(".ReApplyHandler", function () {
+        var handler;
+        var container = '<div id="FilterWrapper"><div class="definitionList"></div></div>';
+        var querySteps = [{
+            "valid": true,
+            "field": "ExecutionStatus",
+            "operator": "in_set",
+            "arguments": [{
+                "argument_type": "value",
+                "value": "es0ToBeExecuted"
+            }],
+            "step_type": "filter"
+        }];
+
+        beforeEach(function () {
+            handler = new WidgetFilterHandler(container, querySteps);
+            handler.View.GetHtmlElementById = function (id) {
                 return jQuery('<div />').attr('id', id);
             };
-            target.View.BindingDropdownOperator = $.noop;
-            target.View.BindingAndSortingElementFilter = $.noop;
+            handler.View.BindingDropdownOperator = $.noop;
+            handler.View.BindingAndSortingElementFilter = $.noop;
+        });
 
-            // Act
-            var actual = target.ReApplyHandler();
+        it("should re-apply filter steps when CanChange is true", function () {
+            spyOn(handler, 'CanChange').and.callFake(function () {
+                return true;
+            });
 
-            // Assert
-            expect(actual.length).toBe(1);
+            var result = handler.ReApplyHandler();
+            expect(result.length).toBe(1);
+        });
+
+        it("should not re-apply filter steps when CanChange is false", function () {
+            spyOn(handler, 'CanChange').and.callFake(function () {
+                return false;
+            });
+
+            var result = handler.ReApplyHandler();
+            expect(result.length).toBe(0);
         });
 
         it("Check filter moveable area", function () {
@@ -1398,33 +1412,49 @@ describe("Widget Filter Handler", function () {
             expect(actual.length).toBe(0);
         });
 
-        it("CreateFromQuerySteps have correct number of filters", function () {
+    describe(".CreateFromQuerySteps", function () {
+        var handler;
+        var querySteps = [{
+            "valid": true,
+            "field": "ExecutionStatus",
+            "operator": "in_set",
+            "arguments": [{
+                "argument_type": "value",
+                "value": "es0ToBeExecuted"
+            }],
+            "step_type": "filter"
+        }];
 
-            var widgetFilterHandler = new WidgetFilterHandler(null, []);
-
-            widgetFilterHandler.View.BindingDropdownOperator = $.noop;
-            modelFieldsHandler.GetFieldById = function () {
+        beforeEach(function () {
+            handler = new WidgetFilterHandler(null, []);
+            handler.View.BindingDropdownOperator = $.noop;
+            handler.GetFieldById = function () {
                 return { fieldtype: 'int' };
             };
-            widgetFilterHandler.View.GetOperatorElement = function () {
+            handler.View.GetOperatorElement = function () {
                 return jQuery('<div />');
             };
-            widgetFilterHandler.View.GetHtmlElementById = function (id) {
+            handler.View.GetHtmlElementById = function (id) {
                 return jQuery('<div />').attr('id', id);
             };
-            var querySteps = [{
-                "valid": true,
-                "field": "ExecutionStatus",
-                "operator": "in_set",
-                "arguments": [{
-                    "argument_type": "value",
-                    "value": "es0ToBeExecuted"
-                }],
-                "step_type": "filter"
-            }];
+        });
 
-            var actualControls = widgetFilterHandler.CreateFromQuerySteps(querySteps);
-            expect(actualControls.length).toBe(1);
+        it("should create element inside accordion from all querysteps when CanChange is true", function () {
+            spyOn(handler, 'CanChange').and.callFake(function () {
+                return true;
+            });
+            
+            var result = handler.CreateFromQuerySteps(querySteps);
+            expect(result.length).toBe(1);
+        });
+
+        it("should not create element inside accordion from all querysteps when CanChange is false", function () {
+            spyOn(handler, 'CanChange').and.callFake(function () {
+                return false;
+            });
+
+            var result = handler.CreateFromQuerySteps(querySteps);
+            expect(result.length).toBe(0);
         });
 
         it("ApplyFilterParameterise return correct data", function () {
