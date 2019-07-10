@@ -32,6 +32,10 @@
 #define coTrainingMovies = "Training movies"
 
 [code]
+var
+  IsCleanInstall: boolean;
+  IsUnsecureUpgrade: boolean;
+
 function LogFolder: string; // Used in Tools.iss ?
 begin
   Result := ExpandConstant('{code:DataPath|Log}'); 
@@ -89,7 +93,6 @@ Name: WebClient; Description: "Web Client"; Types: full; Flags: fixed
 Name: OData; Description: "OData service";
 Name: Movies; Description: "{#coTrainingMovies}"; Types: full; Flags: disablenouninstallwarning
 Name: codesite; Description: "CodeSite logging"; Types: full; Flags: disablenouninstallwarning
-Name: HTTPSCertificate; Description: "Secured environment certificate"; Types: Full; Flags: disablenouninstallwarning
 
 [Files]
 ;WebClient
@@ -193,12 +196,12 @@ var
   IISVirtualPath: TEdit;
 
   CertificatePassword: TPasswordEdit;
+  CertificateCheckbox: TCheckBox;
 
   DiagramFiles: Tstringlist;
   MoviesSelected,
   IsNewInstall,
-  AppConstantInitialized,
-  ComponentsPageInitialized : Boolean; 
+  AppConstantInitialized : Boolean; 
   AppServerUrl: string;
   
  
@@ -346,7 +349,7 @@ end;
 
 function IsHTTPSCertificateComponentSelected(): boolean;
 begin
-  Result := IsComponentSelected('HTTPSCertificate');
+  Result := true
 end;
 
 function UpdateDefaultInstallCertificate(): boolean;
@@ -512,31 +515,66 @@ end;
 
 // ****************************************************************************
 // ****************************************************************************
-// Settings for components page
-procedure SetComponent(const aComponentName: string; const aSelected: Boolean);
-var
-  i: Integer;
-begin
-  i := WizardForm.ComponentsList.Items.IndexOf(aComponentName);
-  if i = -1 then
-  begin
-    Log(Format('[i]Component "%s" not found', [aComponentName]));
-    Exit;
-  end;
 
-  Log(Format('[i]Selecting component "%s": %s', [aComponentName, BoolToStr(aSelected)]));
-  WizardForm.ComponentsList.Checked[i] := aSelected;
+function LoadWebConfig(): boolean;
+var 
+  IISPhysicalPath: string;                      
+begin
+  IISPhysicalPath := GetIISPhysicalPath(IISSite.Text, IISVirtualPath.Text,true);
+  if IISPhysicalPath = '' then
+  begin
+    Log(Format('[i]Previous installation not found [site:%s, path:%s]', [IISSite.Text, IISVirtualPath.Text]))
+    WebClientConfig := emptyAppSettings();
+    ManagementConsoleConfig := emptyAppSettings();
+    Result := true;
+  end
+  else
+  begin
+    if not LoadXMLConfigFileEx(IISPhysicalPath, 'web.config', false, WebClientConfig) then
+    begin
+      WebClientConfig := emptyAppSettings();
+      Result := true;
+    end;
+    if not LoadXMLConfigFileEx(IISPhysicalPath + '\admin', 'web.config', false, ManagementConsoleConfig) then
+    begin
+      ManagementConsoleConfig := emptyAppSettings();
+      Result := true;
+    end;
+  end;
 end;
 
-procedure ReadComponentsPageFromExistingInstallation;
+procedure SetEnabledCertificatePage(isEnabled: boolean);
+var
+  i: integer;
 begin
-  SetComponent('Secured environment certificate', UpdateDefaultInstallCertificate);
+
+  CertificatePage.Buttons[0].Enabled := isEnabled;
+  CertificatePassword.Enabled := isEnabled;
+
+  for i := 0 to CertificatePage.ComponentCount - 1 do
+  begin
+    if (CertificatePage.Components[i]) is TEdit then
+      TEdit(CertificatePage.Components[i]).Enabled := isEnabled;
+  end;
+
+  if isEnabled = false then
+  begin
+    CertificatePage.Values[0] := '';
+    CertificatePassword.Text := '';
+  end;
+
+end;
+
+procedure OnHTTPSCheckboxClick(Sender: TObject);
+begin
+  SetEnabledCertificatePage(CertificateCheckbox.Checked);
 end;
 
 procedure CreateConfigPages;
 var
   SelectDirPage : TWizardPage;
   Site, Path: string;
+  AppSetting: string;
 begin
   SelectDirPage := PageFromID(wpSelectDir);
   
@@ -572,10 +610,36 @@ begin
   WebClientConfigPage.Add('BasePort:', False); //2: noaport
   // RespaceQueryPage(WebClientConfigPage, -5, 0);
 
-  CertificatePage := CreateInputFilePage(WebClientConfigPage.ID, 'Installing certificates for secured environment', 'Select the certificates archive that will be installed', '');
+  CertificatePage := CreateInputFilePage(WebClientConfigPage.ID, 'Security', 'Select certificates archive file and enter password', '');
   CertificatePage.Add('Certificates archive:', 'EA Certificate archive files|*.eacert', '*.eacert');
   CertificatePassword := addPasswordEditBox(CertificatePage, 0, 70, 'Password:', '');
   CertificatePassword.Width := 332;
+  
+  IsCleanInstall := LoadWebConfig();
+  IsUnsecureUpgrade := GetAppSetting(WebClientConfig,'WebServiceCertificateThumbPrint') = '';
+  
+  if IsCleanInstall or IsUnsecureUpgrade then
+  begin 
+    if IsCleanInstall then 
+    begin
+      Log('[i]Previous installation not found, start clean install');
+    end
+    else if IsUnsecureUpgrade then
+      Log('[i]Previous unsecured installation found, start secured upgrade');
+    begin
+    end;
+    CertificateCheckbox := addCheckBox(CertificatePage, 0, 200, 'Install or update security certificates', true);
+    CertificateCheckbox.Enabled := false;
+  end
+  else
+  begin
+    Log('[i]Previous secured installation found, user may update certificate');
+    CertificateCheckbox := addCheckBox(CertificatePage, 0, 200, 'Install or update security certificates', false);
+    SetEnabledCertificatePage(false);
+  end;
+
+  CertificateCheckbox.OnClick := @OnHTTPSCheckboxClick;
+ 
 end;
 
 function UrlRemoveProtocol(aUrl: string): string;
@@ -713,26 +777,6 @@ begin
   JsonString.SaveToFile(SettingsPath);  
 end;
 
-procedure LoadWebConfig;
-var 
-  IISPhysicalPath: string;                      
-begin
-  IISPhysicalPath := GetIISPhysicalPath(IISSite.Text, IISVirtualPath.Text,true);
-  if IISPhysicalPath = '' then
-  begin
-    Log(Format('[i]Previous installation not found [site:%s, path:%s]', [IISSite.Text, IISVirtualPath.Text]))
-    WebClientConfig := emptyAppSettings();
-    ManagementConsoleConfig := emptyAppSettings();
-  end
-  else
-  begin
-    if not LoadXMLConfigFileEx(IISPhysicalPath, 'web.config', false, WebClientConfig) then
-      WebClientConfig := emptyAppSettings();
-    if not LoadXMLConfigFileEx(IISPhysicalPath + '\admin', 'web.config', false, ManagementConsoleConfig) then
-      ManagementConsoleConfig := emptyAppSettings();
-  end;
-end;
-
 procedure UpdateWebClientConfig;
 var
   LocalFQDN: string;
@@ -807,7 +851,7 @@ end;
 
 procedure ReadConfigFiles;
 begin
-  LoadWebConfig;
+  LoadWebConfig();
   UpdateWebClientConfig;
   UpdateODataConfig;
 end;
@@ -1262,9 +1306,9 @@ var
   Target: string;
   ExitCode: Integer;
 begin
-  if IsHTTPSCertificateComponentSelected then
+  Source := CertificatePage.Values[0];
+  if (IsHTTPSCertificateComponentSelected = true) and (Source <> '') and (CertificatePassword.Text <> '') then
   begin
-    Source := CertificatePage.Values[0];
     Target := Format('%s\%s', [IISPhysicalPath, ExtractFileName(Source)]);
     if not FileCopy(Source, Target, False) then
     begin
@@ -1318,7 +1362,8 @@ var
 begin
   ZipFile := ExpandConstant('{src}\Diagrams.zip');
   TargetFolder := IISPhysicalPath + '\Resources\CreateNewAngleBySchema\';
-  if FileExists(ZipFile) then
+
+  if FileExists(ZipFile) then
   begin
      // Unzip diagrams.zip in same folder as setup.exe to targetFolder
     ExecuteAndLogEx(DataPath('WebDeploy'), '7za.exe', 'x -y "-o' + TargetFolder + '" "' + ZipFile + '"', ToSetupLog);
@@ -1573,7 +1618,7 @@ begin
     Result := not IsComponentSelected('WebClient')
   else if (PageID = ODataSettingsPage.ID) then
     Result := not IsComponentSelected('OData')
-  else if (PageID = CertificatePage.ID) then
+  else if (PageID = CertificatePage.ID) then 
     Result := not IsHTTPSCertificateComponentSelected
   else 
     Result := False;
@@ -1582,14 +1627,7 @@ end;
 procedure CurPageChanged(CurPageID: Integer);
 begin
   // Called after a new wizard page (specified by CurPageID) is shown.
-  // Initialize components
-  if (CurPageID = wpSelectComponents) 
-  and not ComponentsPageInitialized then
-  begin
-    ComponentsPageInitialized := True;
-    ReadComponentsPageFromExistingInstallation;
-  end;
-
+  
   // Initialize webclient config page
   if (CurPageID = WebClientConfigPage.ID) then
   begin
@@ -1626,15 +1664,18 @@ begin
   end
   else if CurPageId = CertificatePage.ID then
   begin
-      if not FileExists(CertificatePage.Values[0]) then
+      if CertificateCheckbox.Checked then
       begin
-        ShowError('No valid file has been selected.', mbError, MB_OK);
-        Result := False;
-      end
-      else if CertificatePassword.Text = '' then
-      begin
-        ShowError('No password is provided.', mbError, MB_OK);
-        Result := False;
+        if not FileExists(CertificatePage.Values[0]) then 
+        begin
+          ShowError('No valid file has been selected.', mbError, MB_OK);
+          Result := False;
+        end
+        else if CertificatePassword.Text = '' then
+        begin
+          ShowError('No password is provided.', mbError, MB_OK);
+          Result := False;
+        end
       end
   end
 end;
@@ -1732,7 +1773,7 @@ begin
   if not ShouldSkipPage(WebClientConfigPage.ID) then
     AddPageSettings(WebClientConfigPage, Space, NewLine, {var}Settings);
 
-  if not ShouldSkipPage(CertificatePage.ID) then
+  if CertificateCheckbox.Checked then
   begin
     Settings := Settings + Space + 'Certificate file: ' + CertificatePage.Values[0] + NewLine;
     Settings := Settings + Space + 'Certificate password: *********' + NewLine;

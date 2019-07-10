@@ -187,7 +187,7 @@ begin
   Result.Parent := aPage.Surface;
   Result.Left := Left;
   Result.Top := Top + 6;  
-  Result.Width := 220;
+  Result.Width := 280;
   Result.Caption := aLabelText;
   Result.Checked := aDefault;
 end;
