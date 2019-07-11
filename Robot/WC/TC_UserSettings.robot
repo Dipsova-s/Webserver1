@@ -4,14 +4,10 @@ Resource            ${EXECDIR}/WC/API/API_UserSettings.robot
 Suite Setup         Go to WC Then Login With EAPower User
 Suite Teardown      Logout WC Then Close Browser
 Test Teardown       Go to Search Page
-
-*** Variables ***
-${NL_LANGUAGE_TEXT}                        Dutch
-${EN_LANGUAGE_TEXT}                        English
+Force Tags          smoke_s    smk_wc_s
 
 *** Test Cases ***
 Verify User Settings Details
-    [Tags]    smoke_s    smk_wc_s
     Open User Settings Popup
     Verify User Information
     Verify System Settings
@@ -20,7 +16,6 @@ Verify User Settings Details
     Cancel User Setting
 
 Verify Change User Setings: System Settings Tab
-    [Tags]    smoke_s    smk_wc_s
     Open User Settings Popup
     Click System Settings Tab
 
@@ -65,19 +60,3 @@ Verify Change User Setings: System Settings Tab
     ...    ELSE    Unselect Checkbox In Column Headers Of Lists
 
     Click Save User Settings Via Search Page
-
-Verify Change User Language
-    [Setup]     Go to WC Then Login With EAViewer User
-    Change User Language    ${EN_LANGUAGE_TEXT}
-    ${en_caption}           Execute Javascript    return Captions.Drop_Here_To_Remove_This_Column
-    Change User Language    ${NL_LANGUAGE_TEXT}
-    ${nl_caption}           Execute Javascript    return Captions.Drop_Here_To_Remove_This_Column
-    Should Be True          '${en_caption}' != '${nl_caption}'
-    Change User Language    ${EN_LANGUAGE_TEXT}
-	[Teardown]  Run Keyword     Reset UserSettings Language
-
-*** Keywords ***
-Reset UserSettings Language
-    Create Context: Web
-    ${path}    Execute JavaScript    return userModel.Data().user_settings;
-    Update UserSettings Language    ${path}     USER_SETTINGS.json
