@@ -458,15 +458,15 @@ function FacetFiltersViewModel() {
         }
         return html;
     };
-    self.GetFilterIconHtml = function (icon) {
-        return kendo.format('<img src="{0}" height="{1}" width="{2}" style="{3}" />', icon.path, icon.dimension.height, icon.dimension.width, icon.style || '');
+    self.GetFilterIconHtml = function (icon, tooltipAttributes) {
+        return kendo.format('<img class="name-icon" src="{0}" height="{1}" width="{2}" style="{3}" {4}/>', icon.path, icon.dimension.height, icon.dimension.width, icon.style || '', tooltipAttributes || '');
     };
     self.GetModelFilterText = function (filter) {
         var tooltipAttributes = kendo.format('data-type="html" data-tooltip-function="GetRefreshTime" data-tooltip-argument="{0}"', filter.id);
         var isRealTimeModel = aboutSystemHandler.IsRealTimeModel(filter.id);
         if (isRealTimeModel) {
             var realTimeIcon = self.GetIconInfo('realtime');
-            return kendo.format('{0}<span class="name withIcon" {1}">', self.GetFilterIconHtml(realTimeIcon), tooltipAttributes);
+            return kendo.format('{0}<span class="name withIcon" {1}">', self.GetFilterIconHtml(realTimeIcon, tooltipAttributes), tooltipAttributes);
         }
         else {
             return kendo.format('<span class="name" {0}">', tooltipAttributes);
