@@ -804,6 +804,8 @@ function DashboardViewModel() {
                 }
             });
         });
+        
+        jQuery.extend(angle, WC.ModelHelper.ExtendAngleData(angle));
     };
 
     // GetBusinessProcesses: get all business process
