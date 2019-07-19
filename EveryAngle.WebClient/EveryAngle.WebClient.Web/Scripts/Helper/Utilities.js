@@ -361,34 +361,7 @@
 
         return name.substr(0, maxLength);
     };
-
-    window.UnionObjectArrays = function (arr1, arr2, isCaseSensitive) {
-        var unions = [];
-        var loop, i;
-        var isDuplicate = function (arr) {
-            var duplicate = false;
-            for (i = 0; i < unions.length; i++) {
-                if (jQuery.deepCompare(unions[i], arr[loop], isCaseSensitive)) {
-                    duplicate = true;
-                    break;
-                }
-            }
-            return duplicate;
-        };
-
-        for (loop = 0; loop < arr1.length; loop++) {
-            if (!isDuplicate(arr1))
-                unions.push(arr1[loop]);
-        }
-
-        for (loop = 0; loop < arr2.length; loop++) {
-            if (!isDuplicate(arr2))
-                unions.push(arr2[loop]);
-        }
-
-        return unions;
-    };
-
+    
     // extending jQuery.fn
     jQuery.extend(jQuery.fn, {
 

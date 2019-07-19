@@ -337,11 +337,12 @@ describe("DisplayModel", function () {
             var keepDisplayFilters = true;
             var newQuerySteps = displayModel.GetSwitchDisplayQuerySteps(currentDisplayFilters, switchDisplayQuerySteps, keepDisplayFilters);
             
-            expect(newQuerySteps.length).toEqual(4);
+            expect(newQuerySteps.length).toEqual(5);
             expect(newQuerySteps[0].step_type).toEqual(enumHandlers.FILTERTYPE.FILTER);
-            expect(newQuerySteps[1].step_type).toEqual(enumHandlers.FILTERTYPE.FOLLOWUP);
-            expect(newQuerySteps[2].step_type).toEqual(enumHandlers.FILTERTYPE.SORTING);
-            expect(newQuerySteps[3].step_type).toEqual(enumHandlers.FILTERTYPE.AGGREGATION);
+            expect(newQuerySteps[1].step_type).toEqual(enumHandlers.FILTERTYPE.FILTER);
+            expect(newQuerySteps[2].step_type).toEqual(enumHandlers.FILTERTYPE.FOLLOWUP);
+            expect(newQuerySteps[3].step_type).toEqual(enumHandlers.FILTERTYPE.SORTING);
+            expect(newQuerySteps[4].step_type).toEqual(enumHandlers.FILTERTYPE.AGGREGATION);
         });
 
     });

@@ -1164,7 +1164,7 @@ function DisplayModel(model) {
         });
 
         var switchDisplayFilters = keepDisplayFilters ? switchDisplayWithoutAggration : switchDisplaySorts;
-        var querySteps = UnionObjectArrays(currentDisplayFilters, switchDisplayFilters, false);
+        var querySteps = currentDisplayFilters.concat(switchDisplayFilters);
 
         // add aggregation query step
         if (switchDisplayWithAggrations.length)
