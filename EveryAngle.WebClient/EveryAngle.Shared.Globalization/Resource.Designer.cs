@@ -14385,7 +14385,7 @@ namespace EveryAngle.Shared.Globalization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Updates.
+        ///   Looks up a localized string similar to Notifications.
         /// </summary>
         public static string NotificationsFeed_Updates {
             get {

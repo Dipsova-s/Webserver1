@@ -6030,7 +6030,7 @@ During a login challenge resulting from a URL link into the instance that requir
 Only Active Directory (AD) and Active Directory Federation (ADFS) services are supported.</value>
   </data>
   <data name="NotificationsFeed_Updates" xml:space="preserve">
-    <value>Actualizaciones</value>
+    <value>Notifications</value>
   </data>
   <data name="NotificationsFeed_ViewAll" xml:space="preserve">
     <value>Ver todo</value>

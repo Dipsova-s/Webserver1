@@ -3614,7 +3614,7 @@ The value 0 means the setting is off, so the Audit Log will not be cleaned up. T
     <value>Modeling Workbench</value>
   </data>
   <data name="NotificationsFeed_Updates" xml:space="preserve">
-    <value>Updates</value>
+    <value>Notifications</value>
   </data>
   <data name="NotificationsFeed_ViewAll" xml:space="preserve">
     <value>Bekijk alles</value>
