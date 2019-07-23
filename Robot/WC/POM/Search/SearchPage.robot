@@ -10,6 +10,7 @@ Resource            ${EXECDIR}/WC/POM/Search/ItemInfoPopup.robot
 Resource            ${EXECDIR}/WC/POM/Search/UploadAnglesPopup.robot
 
 *** Variables ***
+${Logo}                     Logo
 ${lblSearchTotal}           SearchTotal
 ${pgbSearchResults}         css=#MainContent .k-loading-mask
 ${divWelcomeVideo}          WelcomePlayer
@@ -145,6 +146,11 @@ Wait Progress Bar Search Closed
 Wait Welcome Page Loaded
     Wait Until Element Is Visible    ${divWelcomeVideo}
 
+Open New Seach Page
+    Execute JavaScript    $('#${Logo}').attr('target', '_blank');
+    Click Element    ${Logo}
+    Execute JavaScript    $('#${Logo}').removeAttr('target');
+
 Search Result Should Be Empty
     Wait Until Element Is Visible    ${divSearchResultNoData}
 
@@ -157,9 +163,10 @@ Input Search Text
     Sleep    ${TIMEOUT_GENERAL}
     Input Text By JQuery    ${txtSearchInput}    ${text}
 
-Get Search Input Text
+Search Input Should Be
+    [Arguments]    ${expected}
     ${text}    Get Value    ${txtSearchInput}
-    [Return]    ${text}
+    Should Be True    '${expected}'=='${text}'
 
 Click Search Button
     Press Key   ${txtSearchInput}    \\13 
@@ -279,6 +286,15 @@ Click Search Filter Is Validated
 
 Click Search Filter Is Starred
     Click Facet Checkbox    ${chkFacetIsStarred}
+
+Select Search Filter Is Starred
+    Select Facet Checkbox    ${chkFacetIsStarred}
+
+Unselect Search Filter Is Starred
+    Unselect Facet Checkbox    ${chkFacetIsStarred}
+
+Checkbox Is Starred Should Not Be Selected
+    Checkbox Should Not Be Selected   ${chkFacetIsStarred}
 
 Get Is Starred Count
     Click Search Filter Is Starred

@@ -18,8 +18,7 @@ Verify Execute Last Search
     Search By Text    ${randomText}
     Logout
     Login To WC By Power User
-    ${searchText}    Get Search Input Text
-    Should Be True    '"${randomText}"'=='${searchText}'
+    Search Input Should Be    "${randomText}"
     Open User Settings Popup
     Click Actions At Login Tab
     Set Checkbox Repeat Last Executed Search Status    ${lastSearchStatus}

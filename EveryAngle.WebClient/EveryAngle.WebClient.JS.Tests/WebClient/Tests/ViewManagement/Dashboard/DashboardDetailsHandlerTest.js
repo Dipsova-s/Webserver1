@@ -1,5 +1,6 @@
 ﻿/// <reference path="/Dependencies/ViewModels/Models/User/usersettingmodel.js" />
 /// <reference path="/Dependencies/ViewModels/Models/Dashboard/dashboardmodel.js" />
+/// <reference path="/Dependencies/ViewManagement/Shared/SearchStorageHandler.js" />
 /// <reference path="/Dependencies/ViewManagement/Shared/WidgetFilter/WidgetFilterHelper.js" />
 /// <reference path="/Dependencies/ViewManagement/Shared/ValidationHandler.js" />
 /// <reference path="/Dependencies/ViewManagement/Shared/ModelsHandler.js" />

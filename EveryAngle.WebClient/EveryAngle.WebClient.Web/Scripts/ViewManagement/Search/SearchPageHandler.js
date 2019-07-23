@@ -20,6 +20,9 @@ window.SearchPageHandler = function () {
     /*BOF: Model Methods*/
     self.InitialSearchPage = function (callback) {
         requestHistoryModel.SaveLastExecute(self, self.InitialSearchPage, arguments);
+
+        searchStorageHandler.Initial(true, true, true);
+
         directoryHandler.LoadDirectory()
             .then(function () {
                 return jQuery.when(sessionModel.Load());
@@ -110,19 +113,15 @@ window.SearchPageHandler = function () {
             jQuery.clickOutside('#PopupSelectModelCreateNewAngle', '#SelectModelCreateNewAngle');
 
             // load auto execute list
-            var isExecuteAutoWhenLogon = userSettingModel.CheckExecuteAutoWhenLogon();
             var isExecuteSearchWhenLogon = userSettingModel.CheckExecuteSearchWhenLogon();
+            var isExecuteAutoWhenLogon = userSettingModel.CheckExecuteAutoWhenLogon();
+            var hasExecuteAutoWhenLogon = self.HasAutoExecuteList();
             jQuery.localStorage('firstLogin', 0);
-
-            if (isExecuteAutoWhenLogon) {
-                self.AutoExecuteList(isExecuteSearchWhenLogon);
-            }
-            else if (isExecuteSearchWhenLogon) {
+            searchRetainUrlModel.Initial();
+            if (isExecuteSearchWhenLogon)
                 self.AutoExecuteSearch();
-            }
-            else {
-                searchRetainUrlModel.Initial();
-            }
+            if (isExecuteAutoWhenLogon && hasExecuteAutoWhenLogon)
+                self.AutoExecuteList();
 
             // update layout
             self.UpdateLayout();
@@ -134,40 +133,32 @@ window.SearchPageHandler = function () {
         if (typeof callback === 'function')
             callback();
     };
-    self.AutoExecuteList = function (isExecuteSearchWhenLogon) {
-        // check count of facet_executeonlogin
-        var hasExecuteonlogin = true;
-        var facetCharacteristics = ko.toJS(facetFiltersViewModel.Data()).findObject('id', 'facetcat_characteristics');
-        if (facetCharacteristics) {
-            var filterExecuteonlogin = facetCharacteristics.filters.findObject('id', 'facet_executeonlogin');
-            if (filterExecuteonlogin && !filterExecuteonlogin.count) {
-                hasExecuteonlogin = false;
-            }
-        }
-
-        jQuery.when(hasExecuteonlogin ? userSettingModel.LoadAutoExecuteList() : null)
-            .then(function () {
-                if (!isExecuteSearchWhenLogon) {
-                    searchRetainUrlModel.Initial();
-                }
-                else {
-                    self.AutoExecuteSearch();
-                }
-
+    self.AutoExecuteSearch = function () {
+        var lastSearch = userSettingModel.GetClientSettingByPropertyName(enumHandlers.CLIENT_SETTINGS_PROPERTY.LAST_SEARCH_URL);
+        if (lastSearch)
+            jQuery.address.value(lastSearch);
+    };
+    self.AutoExecuteList = function () {
+        jQuery.when(userSettingModel.LoadAutoExecuteList())
+            .done(function () {
                 jQuery.each(userSettingModel.AutoExecuteList(), function (index, autoExecuteList) {
                     setTimeout(function () {
-                        WC.Utility.OpenUrlNewWindow(autoExecuteList.link);
-                    }, 3000);
+                        var params = {};
+                        params[enumHandlers.ANGLEPARAMETER.STARTTIMES] = jQuery.now();
+                        WC.Utility.OpenUrlNewWindow(autoExecuteList.link + '&' + jQuery.param(params));
+                    }, 3000 + index * 100);
                 });
             });
     };
-    self.AutoExecuteSearch = function () {
-        searchRetainUrlModel.Initial();
-
-        var lastSearch = userSettingModel.GetClientSettingByPropertyName(enumHandlers.CLIENT_SETTINGS_PROPERTY.LAST_SEARCH_URL);
-        if (lastSearch) {
-            jQuery.address.value(lastSearch);
+    self.HasAutoExecuteList = function () {
+        var facetCharacteristics = ko.toJS(facetFiltersViewModel.Data()).findObject('id', 'facetcat_characteristics');
+        if (facetCharacteristics) {
+            var filterExecuteonlogin = facetCharacteristics.filters.findObject('id', 'facet_executeonlogin');
+            if (filterExecuteonlogin && filterExecuteonlogin.count) {
+                return true;
+            }
         }
+        return false;
     };
     self.ExecuteSearchPage = function () {
 
@@ -306,13 +297,6 @@ window.SearchPageHandler = function () {
         if (searchGrid) {
             searchGrid.refresh();
         }
-    };
-    self.OpenNewTabInWebKit = function (url) {
-        var a = document.createElement("a");
-        a.href = url;
-        var evt = document.createEvent("MouseEvents");
-        evt.initMouseEvent("click", true, true, window, 0, 0, 0, 0, 0, true, false, false, false, 0, null);
-        a.dispatchEvent(evt);
     };
     self.GetPrivateNoteByUserSpecific = function (data, isTitle) {
         if (data.user_specific && data.user_specific.private_note) {
@@ -1800,12 +1784,14 @@ window.SearchPageHandler = function () {
             self.InitialSearchPageCallback();
         });
         jQuery(window).off('resize.search').on('resize.search', function () {
-            if (!jQuery.isReady) return;
+            if (!jQuery.isReady)
+                return;
 
             self.UpdateLayout();
         });
 
         jQuery(window).off('beforeunload.search').on('beforeunload.search', function () {
+            // save last search to user settings
             var lastSearchRequest = userSettingModel.GetLastSearchData();
             var additionalRequests = [];
             if (lastSearchRequest) {
