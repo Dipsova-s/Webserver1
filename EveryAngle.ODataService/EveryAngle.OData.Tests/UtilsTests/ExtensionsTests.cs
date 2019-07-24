@@ -253,6 +253,7 @@ namespace EveryAngle.OData.Tests.UtilsTests
             internalSetting.timeout = 6;
             internalSetting.user = "";
             internalSetting.web_client_uri = "";
+            internalSetting.enable_compression = true;
 
             Assert.IsAssignableFrom(typeof(string), internalSetting.angles_query);
             Assert.IsAssignableFrom(typeof(string), internalSetting.host);
@@ -264,6 +265,7 @@ namespace EveryAngle.OData.Tests.UtilsTests
             Assert.IsAssignableFrom(typeof(int), internalSetting.timeout);
             Assert.IsAssignableFrom(typeof(string), internalSetting.user);
             Assert.IsAssignableFrom(typeof(string), internalSetting.web_client_uri);
+            Assert.IsAssignableFrom(typeof(bool), internalSetting.enable_compression);
         }
 
         [TestCase]
@@ -282,6 +284,7 @@ namespace EveryAngle.OData.Tests.UtilsTests
             Assert.AreEqual(internalSetting.timeout, settingDto.TimeOut);
             Assert.AreEqual(internalSetting.user, settingDto.User);
             Assert.AreEqual(internalSetting.web_client_uri, settingDto.WebClientUri);
+            Assert.AreEqual(internalSetting.enable_compression, settingDto.EnableCompression);
         }
 
         [TestCase]
