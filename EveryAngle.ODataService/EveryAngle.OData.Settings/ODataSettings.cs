@@ -65,6 +65,8 @@ namespace EveryAngle.OData.Settings
                 _settingsViewModel.user = newSettings.user;
             if (newSettings.web_client_uri != null)
                 _settingsViewModel.web_client_uri = newSettings.web_client_uri;
+            if (newSettings.enable_compression != null)
+                _settingsViewModel.enable_compression = newSettings.enable_compression;
 
             CreateJSONSettingFile(_settingsViewModel);
         }        

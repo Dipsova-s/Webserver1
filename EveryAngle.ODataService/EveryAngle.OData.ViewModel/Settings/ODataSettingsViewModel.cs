@@ -14,6 +14,7 @@ namespace EveryAngle.OData.ViewModel.Settings
         public int? max_angles { get; set; } = 500;
         public int? metadata_resync_minutes { get; set; } = 10;
         public string web_client_uri { get; set; } = "http://th-eatst02.theatst.org/release2017_sub11";
+        public bool enable_compression { get; set; } = true;
 
         public SettingsDTO Convert()
         {
@@ -28,7 +29,8 @@ namespace EveryAngle.OData.ViewModel.Settings
                 TimeOut = timeout.Value,
                 PageSize = page_size.Value,
                 MaxAngles = max_angles,
-                MetadataResyncMinutes = metadata_resync_minutes.Value
+                MetadataResyncMinutes = metadata_resync_minutes.Value,
+                EnableCompression = enable_compression
             };
         }
     }

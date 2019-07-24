@@ -13,5 +13,6 @@
         public int PageSize { get; set; }
         public int? MaxAngles { get; set; }
         public int MetadataResyncMinutes { get; set; }
+        public bool EnableCompression { get; set; }
     }
 }
