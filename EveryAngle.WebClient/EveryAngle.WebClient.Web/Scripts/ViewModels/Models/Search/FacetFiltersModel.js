@@ -525,23 +525,11 @@ function FacetFiltersViewModel() {
         var chkState = event.currentTarget.checked;
         model.checked(chkState);
 
-        /* for business process only */
-        if (parent.type === self.GroupBusinessProcess) {
-            /* at landing page; when uncheck a checkbox, revert action */
-            var isSearchResultActive = searchQueryModel.HasSearchQuery();
-            if (!isSearchResultActive && !chkState) {
-                model.checked(!chkState);
-                event.currentTarget.checked = !chkState;
-            }
-            else {
-                /* when uncheck a checkbox cause nothing checked, revert action */
-                var filters = ko.toJS(jQuery(parent.filters()).get());
-                if (!filters.findObjects('checked', true).length) {
-                    model.checked(!chkState);
-                    event.currentTarget.checked = !chkState;
-                    return false;
-                }
-            }
+        // for business process only
+        // at landing page; when uncheck a checkbox then revert checkbox state
+        if (parent.type === self.GroupBusinessProcess && !searchQueryModel.HasSearchQuery() && !chkState) {
+            model.checked(!chkState);
+            event.currentTarget.checked = !chkState;
         }
         searchQueryModel.ClearCharacteristicInAdvanceSearch(model.id);
         searchModel.FilterItems(model, event, parent.type === self.GroupGeneral && parent.id !== self.GroupCannotNegativeFilter);

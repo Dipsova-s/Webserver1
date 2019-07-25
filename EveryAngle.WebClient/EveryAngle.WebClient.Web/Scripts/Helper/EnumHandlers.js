@@ -166,7 +166,6 @@ function EnumHandlers() {
         SAP_FIELDS_IN_CHOOSER: 'sap_fields_in_chooser',
         SAP_FIELDS_IN_HEADER: 'sap_fields_in_header',
         COMPRESSED_LIST_HEADER: 'compressed_list_header',
-        COMPRESSED_BP_BAR: 'compressed_bp_bar',
         DEFAULT_BUSINESS_PROCESSES: 'default_business_processes',
         AUTO_EXECUTE_ITEMS_ON_LOGIN: 'auto_execute_items_on_login',
         AUTO_EXECUTE_LAST_SEARCH: 'auto_execute_last_search',

@@ -73,7 +73,6 @@
                 'default_Starred_Fields': $('#default_Starred_Fields').is(':checked'),
                 'default_Suggested_Fields': $('#default_Suggested_Fields').is(':checked'),
                 'compressed_list_header': $('#compressed_list_header').is(':checked'),
-                'compressed_bp_bar': $('#compressed_bp_bar').is(':checked'),
                 'default_business_processes': self.BusinessProcessesHandler.GetActive(),
                 'auto_execute_items_on_login': $('#auto_execute_items_on_login').is(':checked'),
                 'format_enum': $('#DefaultEnum').val(),

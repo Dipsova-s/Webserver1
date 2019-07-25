@@ -281,17 +281,9 @@
                 </p>
             </div>
             <div class="contentSectionInfoItem">
-                @Html.LabelFor(model => model.compressed_bp_bar)
-                <p>
-                    <label>
-                        <input data-val="true" data-val-required="The Compressed business process bar is required." id="compressed_bp_bar" name="compressed_bp_bar" type="checkbox" value="true"@(Model.compressed_bp_bar ? " checked='checked'" : "") /><span class="label"></span></label>
-                </p>
-            </div>
-            <div class="contentSectionInfoItem">
                 @Html.LabelFor(model => model.default_business_processes)
                 <p>
                     <div id="UserDefaulBusinessProcess">
-                        @*@{Html.RenderAction("BusinessProcessBar", "SharedComponent");}*@
                     </div>
                 </p>
             </div>

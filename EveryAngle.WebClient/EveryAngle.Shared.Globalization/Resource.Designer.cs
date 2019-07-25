@@ -8037,15 +8037,6 @@ namespace EveryAngle.Shared.Globalization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Compressed Business Process bar.
-        /// </summary>
-        public static string MC_CompressedBusinessProcessBar {
-            get {
-                return ResourceManager.GetString("MC_CompressedBusinessProcessBar", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Compressed list header.
         /// </summary>
         public static string MC_CompressedListHeader {

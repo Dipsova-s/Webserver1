@@ -45,10 +45,7 @@ namespace EveryAngle.Core.ViewModels.Users
 
         [LocalizedDisplayName("MC_CompressedListHeader")]
         public bool compressed_list_header { get; set; }
-
-        [LocalizedDisplayName("MC_CompressedBusinessProcessBar")]
-        public bool compressed_bp_bar { get; set; }
-
+        
         [LocalizedDisplayName("MC_DefaultSettingBusinessProcesses")]
         public List<string> default_business_processes { get; set; }
 

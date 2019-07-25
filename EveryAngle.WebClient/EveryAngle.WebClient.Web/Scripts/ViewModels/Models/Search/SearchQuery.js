@@ -69,7 +69,7 @@ function SearchQueryViewModel() {
     };
     self.HasSearchQuery = function () {
         var params = self.GetParams();
-        return !jQuery.isEmptyObject(params.fq.json) || params.q;
+        return !jQuery.isEmptyObject(params.fq.json) || params.q || params.sort;
     };
 
     self.GetSearchQueryFromUI = function (isRelevancy) {
@@ -115,7 +115,6 @@ function SearchQueryViewModel() {
         var facetQuery = [];
 
         if (facetParameter) {
-
             facetQuery.push(facetParameter);
         }
 
@@ -123,12 +122,11 @@ function SearchQueryViewModel() {
             facetQuery.push(advanceCharacteristicSearch);
         }
 
+        if (facetQuery.length)
+            query += '&' + enumHandlers.SEARCHPARAMETER.FQ + '=' + facetQuery.join(' AND ');
 
-        query += '&' + enumHandlers.SEARCHPARAMETER.FQ + '=' + facetQuery.join(' AND ');
-
-        if (WC.Utility.UrlParameter(enumHandlers.SEARCHPARAMETER.VIEWMODE)) {
+        if (WC.Utility.UrlParameter(enumHandlers.SEARCHPARAMETER.VIEWMODE))
             query += '&' + enumHandlers.SEARCHPARAMETER.VIEWMODE + '=' + searchPageHandler.DisplayType();
-        }
 
 
         return query;
@@ -195,7 +193,7 @@ function SearchQueryViewModel() {
             else {
                 sortOptions[enumHandlers.SEARCHPARAMETER.SORT] = sortUI.value() || 'name';
                 if (sortUI.dataItem()) {
-                    sortOptions[enumHandlers.SEARCHPARAMETER.SORT_DIR] = sortUI.dataItem().dir();
+                    sortOptions[enumHandlers.SEARCHPARAMETER.SORT_DIR] = sortUI.dataItem().dir() || 'asc';
                 }
                 else {
                     sortOptions[enumHandlers.SEARCHPARAMETER.SORT_DIR] = sortOptions[enumHandlers.SEARCHPARAMETER.SORT] === 'name' ? 'asc' : 'desc';

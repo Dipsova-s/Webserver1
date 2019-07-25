@@ -103,7 +103,6 @@ namespace EveryAngle.ManagementConsole.Services.Test
                 .Setup(v => v.GetUserSetting(It.Is<string>(s => s == "TestGetUserSetting")))
                 .Returns(new UserSettingsViewModel
                 {
-                    compressed_bp_bar = true,
                     compressed_list_header = true,
                     sap_fields_in_chooser = true,
                     sap_fields_in_header = true,

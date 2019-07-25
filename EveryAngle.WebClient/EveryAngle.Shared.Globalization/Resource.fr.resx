@@ -4137,9 +4137,6 @@ After selecting an object, click the Continue button to start setting the sugges
   <data name="MC_City" xml:space="preserve">
     <value>City</value>
   </data>
-  <data name="MC_CompressedBusinessProcessBar" xml:space="preserve">
-    <value>Compressed Business Process bar</value>
-  </data>
   <data name="MC_CompressedListHeader" xml:space="preserve">
     <value>Compressed list header</value>
   </data>

@@ -1,6 +1,7 @@
 /// <reference path="/../SharedDependencies/BusinessProcessesModel.js" />
 /// <reference path="/Dependencies/ViewModels/Models/User/usersettingmodel.js" />
 /// <reference path="/Dependencies/ViewModels/Models/User/usermodel.js" />
+/// <reference path="/Dependencies/ViewModels/Models/Search/searchmodel.js" />
 /// <reference path="/Dependencies/ViewModels/Models/Search/searchquery.js" />
 /// <reference path="/Dependencies/ViewModels/Models/Search/facetfiltersmodel.js" />
 /// <reference path="/Dependencies/ViewManagement/Shared/AboutSystemHandler.js" />
@@ -348,6 +349,85 @@ describe("FacetFiltersViewModel", function () {
             expect(filters[2].id).toEqual("O2C");
             expect(filters[3].id).toEqual("PM");
             expect(filters[4].id).toEqual("IT");
+        });
+    });
+
+    describe(".FilterItems", function () {
+        beforeEach(function () {
+            spyOn(searchQueryModel, 'ClearCharacteristicInAdvanceSearch').and.callFake($.noop);
+            spyOn(searchModel, 'FilterItems').and.callFake($.noop);
+        });
+
+        var tests = [
+            {
+                title: 'should get true if type is not business_process',
+                has_search_query: true,
+                model_checked: false,
+                element_checked: false,
+                type: 'any',
+                expected: {
+                    result: true,
+                    model_checked: false,
+                    element_checked: false
+                }
+            },
+            {
+                title: 'should get true if query exists',
+                has_search_query: true,
+                model_checked: false,
+                element_checked: false,
+                type: 'business_process',
+                expected: {
+                    result: true,
+                    model_checked: false,
+                    element_checked: false
+                }
+            },
+            {
+                title: 'should get true if checkbox is checked',
+                has_search_query: false,
+                model_checked: false,
+                element_checked: true,
+                type: 'business_process',
+                expected: {
+                    result: true,
+                    model_checked: true,
+                    element_checked: true
+                }
+            },
+            {
+                title: 'should get false',
+                has_search_query: false,
+                model_checked: false,
+                element_checked: false,
+                type: 'business_process',
+                expected: {
+                    result: false,
+                    model_checked: true,
+                    element_checked: true
+                }
+            }
+        ];
+
+        $.each(tests, function (index, test) {
+            it(test.title, function () {
+                spyOn(searchQueryModel, 'HasSearchQuery').and.returnValue(test.has_search_query);
+                var model = {
+                    checked: ko.observable(test.model_checked)
+                };
+                var event = {
+                    currentTarget: { checked: test.element_checked }
+                };
+                var parent = {
+                    type: test.type
+                };
+                var result = facetFiltersViewModel.FilterItems(model, event, parent);
+
+                // assert
+                expect(result).toEqual(test.expected.result);
+                expect(model.checked()).toEqual(test.expected.model_checked);
+                expect(event.currentTarget.checked).toEqual(test.expected.element_checked);
+            });
         });
     });
 });

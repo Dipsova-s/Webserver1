@@ -992,7 +992,6 @@ namespace EveryAngle.ManagementConsole.Controllers
             updateduserDefaults.sap_fields_in_chooser = userDefaults.sap_fields_in_chooser;
             updateduserDefaults.sap_fields_in_header = userDefaults.sap_fields_in_header;
             updateduserDefaults.compressed_list_header = userDefaults.compressed_list_header;
-            updateduserDefaults.compressed_bp_bar = userDefaults.compressed_bp_bar;
             updateduserDefaults.default_business_processes = userDefaults.default_business_processes;
             updateduserDefaults.auto_execute_items_on_login = userDefaults.auto_execute_items_on_login;
             updateduserDefaults.format_enum = userDefaults.format_enum;

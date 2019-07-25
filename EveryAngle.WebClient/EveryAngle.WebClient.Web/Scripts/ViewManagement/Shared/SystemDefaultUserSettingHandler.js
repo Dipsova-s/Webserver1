@@ -14,7 +14,6 @@ function SystemDefaultUserSettingModel(model) {
         sap_fields_in_chooser: false,
         sap_fields_in_header: false,
         compressed_list_header: false,
-        compressed_bp_bar: false,
         default_business_processes: [],
         auto_execute_items_on_login: false,
         default_enum: '',

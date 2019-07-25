@@ -6,7 +6,6 @@
     "sap_fields_in_chooser": true,
     "sap_fields_in_header": true,
     "compressed_list_header": false,
-    "compressed_bp_bar": false,
     "default_business_processes": [
         "S2D"
     ],
