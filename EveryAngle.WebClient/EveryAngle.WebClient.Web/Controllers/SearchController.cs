@@ -53,10 +53,6 @@ namespace EveryAngle.WebClient.Web.Controllers
                 {
                     viewModel.Result = GetImportIndividualResult(source.InputStream);
                 }
-                else if (extension.Equals(".eapackage", StringComparison.InvariantCultureIgnoreCase))
-                {
-                    viewModel.Result = GetImportPackageResult(source.InputStream);
-                }
                 else
                 {
                     throw new Exception(Resource.UploadAngles_InvalideExtension);

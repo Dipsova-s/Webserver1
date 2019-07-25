@@ -8,11 +8,13 @@ function ImportAngleHandler() {
     self.OverwriteAngle = ko.observableArray([]);
     self.NumberOfUploadedFile = 0;
     self.UploadCount = 0;
-    self.AllowedExtensions = ['.json', '.eapackage'];
+    self.AllowedExtensions = ['.json'];
+
+    self.ResultUploadSuccess = [];
 
     // use for mapping old and new Angles
     self.Angles = {};
-
+    
     self.UploadAngleTemplate = [
         '<div class="popupTabPanel popupImportAngleContainer">',
         '<div class="row">',
@@ -217,7 +219,10 @@ function ImportAngleHandler() {
             'widget_details',
             'widget_type'
         ];
-        jQuery.each(dashboard.widget_definitions, function (index, widget) {
+
+        for (var index = dashboard.widget_definitions.length - 1; index >= 0; index--) {
+
+            var widget = dashboard.widget_definitions[index];
             jQuery.each(widget, function (name) {
                 if (jQuery.inArray(name, validWidgetProperties) === -1)
                     delete widget[name];
@@ -227,7 +232,7 @@ function ImportAngleHandler() {
             widgetDetails.model = modelUri;
             widget.widget_details = JSON.stringify(widgetDetails);
 
-            // mapping with old Angle
+            // cleaning and mapping with old Angle
             var widgetAngleId = widget.angle;
             var widgetDisplayId = widget.display;
             var sourceInfo = self.Angles[widgetAngleId];
@@ -237,7 +242,10 @@ function ImportAngleHandler() {
                 widget.angle = sourceInfo.uri;
                 widget.display = sourceInfo.displays[widgetDisplayId];
             }
-        });
+            else {
+                dashboard.widget_definitions.splice(index, 1);
+            }
+        }
     };
 
     self.RemoveDenyLabel = function (angle, modelUri) {
@@ -278,14 +286,17 @@ function ImportAngleHandler() {
             Results: [],
             ErrorMessage: ''
         };
+
         var response = e && e.response ? e.response : {};
 
         if (response.Result) {
-            var modelUri = WC.HtmlHelper.DropdownList('#ddlModelImportAngle').value();
-            if (response.Result.type === AngleExportHandler.ANGLEEXPORTTYPE.DOWNLOAD)
-                self.UploadIndividualAngle(e, modelUri, file);
-            else
-                self.UploadPackageItems(e, modelUri, file);
+            // get group of file
+            var name = e.files[0].name;
+            var type = /^.+(\.dashboard\.json)$/.test(name) ? 'dashboard' : 'angle';
+            
+            // add item
+            self.ResultUploadSuccess.push({ type: type, item: e });
+
         }
         else {
             if (response.ErrorMessage)
@@ -352,16 +363,19 @@ function ImportAngleHandler() {
         if (dashboard.widget_definitions.length > maxNumberOfDashboard) {
             var name = WC.Utility.GetDefaultMultiLangText(dashboard.multi_lang_name);
             file.Results.push({ name: name, type: enumHandlers.ITEMTYPE.DASHBOARD, error: Localization.UploadAngles_ItemPackageDashboardsExceedMaximum });
-            return jQuery.Deferred().reject().promise();
+            return jQuery.Deferred().reject(
+                {
+                    responseText: Localization.UploadAngles_ItemPackageDashboardsExceedMaximum
+                });
         }
         else {
             return self.CreateItem(uri, dashboard, file, enumHandlers.ITEMTYPE.DASHBOARD);
         }
     };
 
-    self.UploadIndividualAngle = function (e, modelUri, file) {
+    self.UploadItem = function (handler, item, modelUri, file) {
         self.UpdateProgressBar(file.Name);
-        self.CreateAngle(e.response.Result.angle, modelUri, file)
+        return handler(item, modelUri, file)
             .fail(function (e, status, error) {
                 var errorMessage = self.GetErrorMessage(e, error);
                 file.ErrorMessage = errorMessage;
@@ -376,68 +390,12 @@ function ImportAngleHandler() {
             });
     };
 
-    self.UploadPackageItems = function (e, modelUri, file) {
-        self.UpdateProgressBar(file.Name);
-        self.UploadPackageAngles(e.response.Result.angles, modelUri, file)
-            .then(function () {
-                return self.UploadPackageDashboards(e.response.Result.dashboards, modelUri, file);
-            })
-            .done(function () {
-                var report = self.GetUploadPackageItemsReport(file);
-                file.Name = kendo.format(Localization.UploadAngles_ItemPackageReportTitle,
-                    file.Name,
-                    report[enumHandlers.ITEMTYPE.ANGLE],
-                    report.total_angles,
-                    report[enumHandlers.ITEMTYPE.DASHBOARD],
-                    report.total_dashboards);
-                file.ErrorMessage = report.errors.join('<br>');
-
-                var totolItems = report.total_angles + report.total_dashboards;
-                if (report.errors.length < totolItems) {
-                    self.SuccessItems.push(file);
-                }
-                else {
-                    self.FailItems.push(file);
-                }
-            })
-            .always(function () {
-                self.UploadCount++;
-                self.UpdateProgressBar(file.Name);
-            });
-    };
-    self.GetUploadPackageItemsReport = function (file) {
-        var report = {
-            errors: [],
-            total_angles: file.Results.findObjects('type', enumHandlers.ITEMTYPE.ANGLE).length,
-            total_dashboards: file.Results.findObjects('type', enumHandlers.ITEMTYPE.DASHBOARD).length
-        };
-        report[enumHandlers.ITEMTYPE.ANGLE] = 0;
-        report[enumHandlers.ITEMTYPE.DASHBOARD] = 0;
-        jQuery.each(file.Results, function (index, result) {
-            if (result.error) {
-                report.errors.push(kendo.format('[{0}] {1}, {2}', result.type, result.name, result.error));
-            }
-            else {
-                report[result.type]++;
-            }
-        });
-        return report;
+    self.UploadAngle = function (angle, modelUri, file) {
+        return self.UploadItem(self.CreateAngle, angle, modelUri, file);
     };
 
-    self.UploadPackageAngles = function (angles, modelUri, file) {
-        var deferred = [];
-        jQuery.each(angles, function (index, angle) {
-            deferred.pushDeferred(self.CreateAngle, [angle, modelUri, file]);
-        });
-        return jQuery.whenAllSet(deferred, 5);
-    };
-
-    self.UploadPackageDashboards = function (dashboards, modelUri, file) {
-        var deferred = [];
-        jQuery.each(dashboards, function (index, dashboard) {
-            deferred.pushDeferred(self.CreateDashboard, [dashboard, modelUri, file]);
-        });
-        return jQuery.whenAllSet(deferred, 5);
+    self.UploadDashboard = function (dashboard, modelUri, file) {
+        return self.UploadItem(self.CreateDashboard, dashboard, modelUri, file);
     };
 
     self.GetErrorMessage = function (e, error) {
@@ -448,8 +406,43 @@ function ImportAngleHandler() {
         else
             return e.responseText;
     };
+    
+    self.GetDashboardAndAngleDeferred = function () {
+        // mapping angle and dashboard in self.ResultUploadSuccess
+        var modelUri = WC.HtmlHelper.DropdownList('#ddlModelImportAngle').value();
+
+        var results = self.ResultUploadSuccess;
+        var itemDeferred = {
+            angleDeferred: [],
+            dashboardDeferred: []
+        };
+        jQuery.each(results, function (index, result) {
+            var file = {
+                Name: result.item.files[0].name,
+                Results: [],
+                ErrorMessage: ''
+            };
+            if (result.type === 'dashboard') {
+                // upload dashboard
+                itemDeferred.dashboardDeferred.pushDeferred(self.UploadDashboard, [result.item.response.Result, modelUri, file]);
+            }
+            else {
+                // upload angle
+                itemDeferred.angleDeferred.pushDeferred(self.UploadAngle, [result.item.response.Result.angle, modelUri, file]);
+            }
+        });
+
+        return itemDeferred;
+    };
 
     self.UploadComplete = function () {
+        var itemDeferred = self.GetDashboardAndAngleDeferred();
+
+        jQuery.whenAllSet(itemDeferred.angleDeferred, 5)
+            .always(function () {
+                jQuery.whenAllSet(itemDeferred.dashboardDeferred, 5);
+            });
+
         var showCompleteReport = setInterval(function () {
             if (self.UploadCount >= self.NumberOfUploadedFile) {
                 errorHandlerModel.Enable(true);
@@ -466,6 +459,39 @@ function ImportAngleHandler() {
         }, 100);
     };
 
+    self.CheckFileExtension = function (e) {
+        for (var index = e.files.length - 1; index >= 0; index--) {
+            if (jQuery.inArray(e.files[index].extension, self.AllowedExtensions) === -1) {
+                self.UploadCount++;
+                self.FailItems.push({
+                    Name: e.files[index].name,
+                    ErrorMessage: Localization.UploadAngles_InvalideExtension
+                });
+                e.files.splice(index, 1);
+            }
+        }
+    };
+
+    self.ValidUploadedFile = function (e) {
+        var dashboardFilePattern = /^.+(\.dashboard\.json)$/;
+
+        for (var index = e.files.length - 1; index >= 0; index--) {
+            if (dashboardFilePattern.test(e.files[index].name)) {
+                var stringAngleDashboardFilePattern = "^" + e.files[index].name.replace(e.files[index].extension, '') + ".+(\.angle\.json)$";
+                var angleDashboardFilePattern = new RegExp(stringAngleDashboardFilePattern, 'g');
+
+                if (!e.files.hasObject('name', function (name) { return angleDashboardFilePattern.test(name); })) {
+                    self.UploadCount++;
+                    self.FailItems.push({
+                        Name: e.files[index].name,
+                        ErrorMessage: Localization.UploadDashboard_InvalidReferencedAngles
+                    });
+                    e.files.splice(index, 1);
+                }
+            }
+        }
+    };
+
     self.SelectFileUpload = function (e) {
         errorHandlerModel.Enable(false);
         self.SuccessItems([]);
@@ -473,22 +499,12 @@ function ImportAngleHandler() {
         self.UploadCount = 0;
         self.NumberOfUploadedFile = e.files.length;
         self.Angles = {};
+        self.ResultUploadSuccess = [];
 
         // check file extensions
-        var files = [];
-        jQuery.each(e.files, function (index, file) {
-            if (jQuery.inArray(file.extension, self.AllowedExtensions) !== -1) {
-                files.push(file);
-            }
-            else {
-                self.UploadCount++;
-                self.FailItems.push({
-                    Name: file.name,
-                    ErrorMessage: Localization.UploadAngles_InvalideExtension
-                });
-            }
-        });
-        e.files = files;
+        self.CheckFileExtension(e);
+        // check uploaded dashboard files at least one of the linked Angles is uploaded
+        self.ValidUploadedFile(e);
 
         if (!e.files.length) {
             self.UploadComplete();

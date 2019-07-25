@@ -11,14 +11,16 @@
 describe("ImportAngleHandler", function () {
 
     var importAngleHandler;
-    $.fn.kendoUpload = function () {
-        var element = $(this);
-        element.data('kendoUpload', {});
-        return element;
-    };
 
     beforeEach(function () {
         importAngleHandler = new ImportAngleHandler();
+
+        jQuery.fn.kendoUpload = jQuery.noop;
+        spyOn(jQuery.fn, 'kendoUpload').and.callFake(function () {
+            var element = $(this);
+            element.data('kendoUpload', {});
+            return element;
+        });
     });
 
     describe(".GetUploadMessage", function () {
@@ -111,7 +113,7 @@ describe("ImportAngleHandler", function () {
             spyOn(modelsHandler, "HasData").and.callFake(function () { return true; });
             spyOn(modelsHandler, "GetData").and.callFake(function () {
                 return [{ short_name: 'EA2_800', uri: '/models/1' },
-                        { short_name: 'EA3_800', uri: '/models/2' }];
+                { short_name: 'EA3_800', uri: '/models/2' }];
             });
 
             var dropdownlist = importAngleHandler.SetModelsDropdown();
@@ -225,7 +227,8 @@ describe("ImportAngleHandler", function () {
 
             importAngleHandler.Angles = {
                 'angle1': {
-                    uri: '/models/1/angles/1', displays: {
+                    uri: '/models/1/angles/1',
+                    displays: {
                         'angle1_display1': '/models/1/angles/1/displays/1'
                     }
                 }
@@ -263,23 +266,13 @@ describe("ImportAngleHandler", function () {
             expect(dashboard.is_validated).toEqual(false);
             expect(dashboard.model).toEqual(modelUri);
 
-            // check widget #1
+            // check valid widget
+            expect(dashboard.widget_definitions.length).toEqual(1);
+
             expect(dashboard.widget_definitions[0].any).not.toBeDefined();
             expect(dashboard.widget_definitions[0].angle).toEqual('/models/1/angles/1');
             expect(dashboard.widget_definitions[0].display).toEqual('/models/1/angles/1/displays/1');
             expect(dashboard.widget_definitions[0].widget_details).toContain(modelUri);
-
-            // check widget #2
-            expect(dashboard.widget_definitions[1].any).not.toBeDefined();
-            expect(dashboard.widget_definitions[1].angle).not.toBeDefined();
-            expect(dashboard.widget_definitions[1].display).not.toBeDefined();
-            expect(dashboard.widget_definitions[1].widget_details).toContain(modelUri);
-
-            // check widget #3
-            expect(dashboard.widget_definitions[2].any).not.toBeDefined();
-            expect(dashboard.widget_definitions[2].angle).not.toBeDefined();
-            expect(dashboard.widget_definitions[2].display).not.toBeDefined();
-            expect(dashboard.widget_definitions[2].widget_details).toContain(modelUri);
         });
     });
 
@@ -292,8 +285,8 @@ describe("ImportAngleHandler", function () {
                 return {
                     label_authorizations: {
                         O2C: "validate",
-                        HCM:"validate",
-                        IT:"deny"
+                        HCM: "validate",
+                        IT: "deny"
                     }
                 };
             });
@@ -339,13 +332,14 @@ describe("ImportAngleHandler", function () {
         beforeEach(function () {
             importAngleHandler.UploadCount = 0;
             importAngleHandler.FailItems([]);
-            spyOn(importAngleHandler, "UploadIndividualAngle").and.callFake($.noop);
-            spyOn(importAngleHandler, "UploadPackageItems").and.callFake($.noop);
+            ImportAngleHandler.ResultUploadSuccess = [];
+            spyOn(importAngleHandler, "UploadAngle").and.callFake($.noop);
+            spyOn(importAngleHandler, "UploadDashboard").and.callFake($.noop);
             spyOn(importAngleHandler, "UpdateProgressBar").and.callFake($.noop);
             spyOn(WC.HtmlHelper, "DropdownList").and.returnValue({ value: $.noop });
         });
 
-        it("type = download, UploadIndividualAngle have been called", function () {
+        it("type = angle, ResultUploadSuccess for angle have been added", function () {
             var e = {
                 files: [{ name: 'ROBOT_ANGLE_GENERAL_TEST.angle.json' }],
                 response: {
@@ -357,16 +351,15 @@ describe("ImportAngleHandler", function () {
             // assert
             expect(importAngleHandler.UploadCount).toEqual(0);
             expect(importAngleHandler.FailItems().length).toEqual(0);
-            expect(importAngleHandler.UploadIndividualAngle).toHaveBeenCalled();
-            expect(importAngleHandler.UploadPackageItems).not.toHaveBeenCalled();
-            expect(importAngleHandler.UpdateProgressBar).not.toHaveBeenCalled();
+            expect(importAngleHandler.ResultUploadSuccess.length).toEqual(1);
+            expect(importAngleHandler.ResultUploadSuccess[0].type).toEqual('angle');
         });
 
-        it("type = package, UploadPackageItems have been called", function () {
+        it("type = dashboard, ResultUploadSuccess for dashboard have been added", function () {
             var e = {
-                files: [{ name: 'WebClient-ItemExport-1.0.eapackage' }],
+                files: [{ name: 'DASHBOARD_TEST.dashboard.json' }],
                 response: {
-                    Result: { type: AngleExportHandler.ANGLEEXPORTTYPE.PACKAGE, angles: [], dashboards: [] }
+                    Result: { type: AngleExportHandler.ANGLEEXPORTTYPE.DOWNLOAD, angles: [], dashboards: [] }
                 }
             };
             importAngleHandler.UploadSuccess(e);
@@ -374,9 +367,8 @@ describe("ImportAngleHandler", function () {
             // assert
             expect(importAngleHandler.UploadCount).toEqual(0);
             expect(importAngleHandler.FailItems().length).toEqual(0);
-            expect(importAngleHandler.UploadIndividualAngle).not.toHaveBeenCalled();
-            expect(importAngleHandler.UploadPackageItems).toHaveBeenCalled();
-            expect(importAngleHandler.UpdateProgressBar).not.toHaveBeenCalled();
+            expect(importAngleHandler.ResultUploadSuccess.length).toEqual(1);
+            expect(importAngleHandler.ResultUploadSuccess[0].type).toEqual('dashboard');
         });
 
         it("no Result, should set error message", function () {
@@ -392,8 +384,6 @@ describe("ImportAngleHandler", function () {
             expect(importAngleHandler.UploadCount).toEqual(1);
             expect(importAngleHandler.FailItems().length).toEqual(1);
             expect(importAngleHandler.FailItems()[0].ErrorMessage).toEqual('invalid file');
-            expect(importAngleHandler.UploadIndividualAngle).not.toHaveBeenCalled();
-            expect(importAngleHandler.UploadPackageItems).not.toHaveBeenCalled();
             expect(importAngleHandler.UpdateProgressBar).toHaveBeenCalled();
         });
 
@@ -407,8 +397,8 @@ describe("ImportAngleHandler", function () {
             expect(importAngleHandler.UploadCount).toEqual(1);
             expect(importAngleHandler.FailItems().length).toEqual(1);
             expect(importAngleHandler.FailItems()[0].ErrorMessage).toEqual(Localization.UploadAngles_InvalideUploadedFile);
-            expect(importAngleHandler.UploadIndividualAngle).not.toHaveBeenCalled();
-            expect(importAngleHandler.UploadPackageItems).not.toHaveBeenCalled();
+            expect(importAngleHandler.UploadAngle).not.toHaveBeenCalled();
+            expect(importAngleHandler.UploadDashboard).not.toHaveBeenCalled();
             expect(importAngleHandler.UpdateProgressBar).toHaveBeenCalled();
         });
     });
@@ -564,7 +554,61 @@ describe("ImportAngleHandler", function () {
         });
     });
 
-    describe(".UploadIndividualAngle", function () {
+    describe(".UploadItem", function () {
+        var mockFile;
+        var setupAndTeardown = function () {
+            mockFile = { Name: 'pikachu.angle.json', ErrorMessage: '' };
+            importAngleHandler.SuccessItems = [];
+            importAngleHandler.FailItems = [];
+            importAngleHandler.UploadCount = 0;
+        };
+
+        beforeEach(function () {
+            setupAndTeardown();
+            
+            spyOn(importAngleHandler, 'UpdateProgressBar').and.callFake(jQuery.noop);
+        });
+
+        afterEach(function () {
+            setupAndTeardown();
+        });
+
+        it("should upload success", function () {
+            var handler = function () {
+                return jQuery.Deferred().resolve().promise();
+            };
+
+            importAngleHandler.UploadItem(handler, null, null, mockFile);
+
+            expect(importAngleHandler.SuccessItems.length).toEqual(1);
+            expect(importAngleHandler.FailItems.length).toEqual(0);
+            expect(importAngleHandler.UpdateProgressBar).toHaveBeenCalled();
+            expect(importAngleHandler.UploadCount).toEqual(1);
+        });
+
+        it("should upload fail", function () {
+            var errorMsg = 'throw an error from api';
+            spyOn(importAngleHandler, 'GetErrorMessage').and.callFake(function () {
+                return errorMsg;
+            });
+
+            var handler = function () {
+                return jQuery.Deferred().reject().promise();
+            };
+
+            importAngleHandler.UploadItem(handler, null, null, mockFile);
+
+            expect(importAngleHandler.SuccessItems.length).toEqual(0);
+            expect(importAngleHandler.FailItems.length).toEqual(1);
+            expect(importAngleHandler.UpdateProgressBar).toHaveBeenCalled();
+            expect(importAngleHandler.UploadCount).toEqual(1);
+
+            expect(mockFile.ErrorMessage).toEqual(errorMsg);
+        });
+
+    });
+
+    describe(".UploadAngle", function () {
         var e;
         beforeEach(function () {
             importAngleHandler.UploadCount = 0;
@@ -592,7 +636,7 @@ describe("ImportAngleHandler", function () {
                 return $.Deferred().reject().promise();
             });
             var file = {};
-            importAngleHandler.UploadIndividualAngle(e, '/models/1', file);
+            importAngleHandler.UploadAngle(e, '/models/1', file);
 
             // assert
             expect(importAngleHandler.UploadCount).toEqual(1);
@@ -608,7 +652,7 @@ describe("ImportAngleHandler", function () {
                 return $.Deferred().resolve().promise();
             });
             var file = {};
-            importAngleHandler.UploadIndividualAngle(e, '/models/1', file);
+            importAngleHandler.UploadAngle(e, '/models/1', file);
 
             // assert
             expect(importAngleHandler.UploadCount).toEqual(1);
@@ -618,101 +662,20 @@ describe("ImportAngleHandler", function () {
             expect(importAngleHandler.UpdateProgressBar).toHaveBeenCalledTimes(2);
         });
     });
-    describe(".UploadPackageItems", function () {
 
-        var e, file;
-        beforeEach(function () {
-            e = {
-                response: {
-                    Result: {
-                        angles: [],
-                        dashboards: []
-                    }
-                }
-            };
-            file = {};
-            importAngleHandler.UploadCount = 0;
-            importAngleHandler.FailItems([]);
-            importAngleHandler.SuccessItems([]);
-            spyOn(importAngleHandler, 'UpdateProgressBar').and.callFake($.noop);
-            spyOn(importAngleHandler, 'UploadPackageAngles').and.returnValue($.when());
-            spyOn(importAngleHandler, 'UploadPackageDashboards').and.returnValue($.when());
-        });
+    describe(".UploadDashboard", function () {
 
-        it("should get a fail result", function () {
-            spyOn(importAngleHandler, 'GetUploadPackageItemsReport').and.returnValue({
-                errors: ['error1', 'error2'],
-                angle: 0,
-                dashboard: 0,
-                total_angles: 1,
-                total_dashboards: 1
+        it(".UploadItem should be called", function () {
+            spyOn(importAngleHandler, 'UploadItem').and.callFake(function () {
+                return jQuery.Deferred().resolve('success').promise();
             });
-            importAngleHandler.UploadPackageItems(e, '', file);
+            spyOn(importAngleHandler, 'CreateDashboard').and.callFake(jQuery.noop);
 
-            // assert
-            expect(file.ErrorMessage).not.toEqual('');
-            expect(importAngleHandler.FailItems().length).toEqual(1);
-            expect(importAngleHandler.SuccessItems().length).toEqual(0);
-            expect(importAngleHandler.UploadCount).toEqual(1);
+            importAngleHandler.UploadDashboard(null, null, null);
+
+            expect(importAngleHandler.UploadItem).toHaveBeenCalled();
         });
 
-        it("should get a success result", function () {
-            spyOn(importAngleHandler, 'GetUploadPackageItemsReport').and.returnValue({
-                errors: [],
-                angle: 1,
-                dashboard: 1,
-                total_angles: 1,
-                total_dashboards: 1
-            });
-            importAngleHandler.UploadPackageItems(e, '', file);
-
-            // assert
-            expect(file.ErrorMessage).toEqual('');
-            expect(importAngleHandler.FailItems().length).toEqual(0);
-            expect(importAngleHandler.SuccessItems().length).toEqual(1);
-            expect(importAngleHandler.UploadCount).toEqual(1);
-        });
-    });
-
-    describe(".GetUploadPackageItemsReport", function () {
-        it("should get upload reports", function () {
-            var file = {
-                Results: [
-                    { type: enumHandlers.ITEMTYPE.ANGLE },
-                    { type: enumHandlers.ITEMTYPE.ANGLE },
-                    { type: enumHandlers.ITEMTYPE.ANGLE, error: 'error' },
-                    { type: enumHandlers.ITEMTYPE.DASHBOARD }
-                ]
-            };
-            var result = importAngleHandler.GetUploadPackageItemsReport(file);
-
-            // assert
-            expect(result.errors.length).toEqual(1);
-            expect(result.total_angles).toEqual(3);
-            expect(result.total_dashboards).toEqual(1);
-            expect(result.angle).toEqual(2);
-            expect(result.dashboard).toEqual(1);
-        });
-    });
-
-    describe(".UploadPackageAngles", function () {
-        it("should no error", function () {
-            spyOn($, 'whenAllSet').and.callFake($.noop);
-            importAngleHandler.UploadPackageAngles([{}, {}], '', {});
-
-            // assert
-            expect($.whenAllSet).toHaveBeenCalled();
-        });
-    });
-
-    describe(".UploadPackageDashboards", function () {
-        it("should no error", function () {
-            spyOn($, 'whenAllSet').and.callFake($.noop);
-            importAngleHandler.UploadPackageDashboards([{}, {}], '', {});
-
-            // assert
-            expect($.whenAllSet).toHaveBeenCalled();
-        });
     });
 
     describe(".GetErrorMessage", function () {
@@ -742,6 +705,27 @@ describe("ImportAngleHandler", function () {
         });
     });
 
+    describe(".GetDashboardAndAngleDeferred", function () {
+
+        it("result should be correctly", function () {
+            spyOn(WC.HtmlHelper, 'DropdownList').and.callFake(function () {
+                return { value: jQuery.noop };
+            });
+
+            importAngleHandler.ResultUploadSuccess = [
+                { type: 'dashboard', item: { files: [{ name: 'dashboard1.dashboard.json' }], response: { Result: {} } } },
+                { type: 'angle', item: { files: [{ name: 'dashboard1.dashboard.angle1.angle.json' }], response: { Result: { angle: {} } } } },
+                { type: 'angle', item: { files: [{ name: 'dashboard1.dashboard.angle2.angle.json' }], response: { Result: { angle: {} } } } }
+            ];
+
+            var result = importAngleHandler.GetDashboardAndAngleDeferred();
+
+            expect(result.dashboardDeferred.length).toEqual(1);
+            expect(result.angleDeferred.length).toEqual(2);
+        });
+
+    });
+
     describe(".UploadComplete", function () {
         beforeEach(function () {
             window.searchPageHandler = window.searchPageHandler || {
@@ -751,6 +735,12 @@ describe("ImportAngleHandler", function () {
                 Enable: $.noop
             };
             spyOn(progressbarModel, "EndProgressBar").and.callFake($.noop);
+            spyOn(importAngleHandler, "GetDashboardAndAngleDeferred").and.callFake(function () {
+                return {};
+            });
+            spyOn(jQuery, 'whenAllSet').and.callFake(function () {
+                return { always: $.noop };
+            });
             spyOn(importAngleHandler, "ShowCompleteUploadReport").and.callFake($.noop);
             spyOn(searchModel, "ClearSelectedRow").and.callFake($.noop);
             spyOn(window.searchPageHandler, "BindSearchResultGrid").and.callFake($.noop);
@@ -759,9 +749,11 @@ describe("ImportAngleHandler", function () {
         });
 
         it("ShowCompleteUploadReport have been called", function (done) {
+            
             importAngleHandler.UploadComplete();
 
             // assert
+            expect(importAngleHandler.GetDashboardAndAngleDeferred).toHaveBeenCalled();
             // delay 100ms before call these functions
             expect(searchModel.ClearSelectedRow).not.toHaveBeenCalled();
             expect(importAngleHandler.ShowCompleteUploadReport).not.toHaveBeenCalled();
@@ -779,11 +771,105 @@ describe("ImportAngleHandler", function () {
 
     });
 
+    describe(".CheckFileExtension", function () {
+        beforeEach(function () {
+            ImportAngleHandler.UploadCount = 0;
+            ImportAngleHandler.FailItems = [];
+        });
+
+        it("Invalid extension files", function () {
+            var e = {
+                files: [
+                    { name: 'test 1.txt', extension: '.txt' },
+                    { name: 'test 2.png', extension: '.png' }
+                ]
+            };
+            importAngleHandler.CheckFileExtension(e);
+
+            // assert
+            expect(importAngleHandler.UploadCount).toEqual(2);
+            expect(importAngleHandler.FailItems().length).toEqual(2);
+            expect(importAngleHandler.FailItems()[0].ErrorMessage).toEqual(Localization.UploadAngles_InvalideExtension);
+            expect(e.files.length).toEqual(0);
+        });
+
+        it("Valid extension files", function () {
+            var e = {
+                files: [
+                    { name: 'test 1.json', extension: '.json' }
+                ]
+            };
+            importAngleHandler.CheckFileExtension(e);
+
+            // assert
+            expect(importAngleHandler.UploadCount).toEqual(0);
+            expect(importAngleHandler.FailItems().length).toEqual(0);
+            expect(e.files.length).toEqual(1);
+        });
+
+    });
+
+    describe(".ValidUploadedFile", function () {
+        beforeEach(function () {
+            ImportAngleHandler.UploadCount = 0;
+            ImportAngleHandler.FailItems = [];
+        });
+
+        it("Invalid uploaded only dashboard file", function () {
+            var e = {
+                files: [
+                    { name: 'dashboard1.dashboard.json', extension: '.json' }
+                ]
+            };
+            importAngleHandler.ValidUploadedFile(e);
+
+            // assert
+            expect(importAngleHandler.UploadCount).toEqual(1);
+            expect(importAngleHandler.FailItems().length).toEqual(1);
+            expect(importAngleHandler.FailItems()[0].ErrorMessage).toEqual(Localization.UploadDashboard_InvalidReferencedAngles);
+            expect(e.files.length).toEqual(0);
+        });
+
+        it("Invalid uploaded dashboard referenced wrong angle files", function () {
+            var e = {
+                files: [
+                    { name: 'dashboard1.dashboard.json', extension: '.json' },
+                    { name: 'dashboard.dashboard.angle1.angle.json', extension: '.json' }
+                ]
+            };
+            importAngleHandler.ValidUploadedFile(e);
+
+            // assert
+            expect(importAngleHandler.UploadCount).toEqual(1);
+            expect(importAngleHandler.FailItems().length).toEqual(1);
+            expect(importAngleHandler.FailItems()[0].ErrorMessage).toEqual(Localization.UploadDashboard_InvalidReferencedAngles);
+            expect(e.files.length).toEqual(1);
+        });
+
+        it("Valid uploaded dashboard referenced correct angle files", function () {
+            var e = {
+                files: [
+                    { name: 'dashboard1.dashboard.json', extension: '.json' },
+                    { name: 'dashboard1.dashboard.angle1.angle.json', extension: '.json' }
+                ]
+            };
+            importAngleHandler.ValidUploadedFile(e);
+
+            // assert
+            expect(importAngleHandler.UploadCount).toEqual(0);
+            expect(importAngleHandler.FailItems().length).toEqual(0);
+            expect(e.files.length).toEqual(2);
+        });
+
+    });
+
     describe(".SelectFileUpload", function () {
         beforeEach(function () {
             window.errorHandlerModel = window.errorHandlerModel || {
                 Enable: $.noop
             };
+            ImportAngleHandler.ResultUploadSuccess = [];
+
             spyOn(importAngleHandler, "UploadComplete").and.callFake($.noop);
             spyOn(progressbarModel, "ShowStartProgressBar").and.callFake($.noop);
             spyOn(progressbarModel, "SetProgressBarText").and.callFake($.noop);
@@ -794,14 +880,15 @@ describe("ImportAngleHandler", function () {
         it("no valid file, ShowStartProgressBar have not been called", function () {
             var e = {
                 files: [
-                    { extension: '.txt' },
-                    { extension: '.png' }
+                    { name: 'test 1.txt', extension: '.txt' },
+                    { name: 'test 2.png', extension: '.png' }
                 ],
                 preventDefault: $.noop
             };
             importAngleHandler.SelectFileUpload(e);
 
             // assert
+            expect(importAngleHandler.ResultUploadSuccess.length).toEqual(0);
             expect(importAngleHandler.NumberOfUploadedFile).toEqual(2);
             expect(importAngleHandler.UploadCount).toEqual(2);
             expect(importAngleHandler.FailItems().length).toEqual(2);
@@ -812,17 +899,18 @@ describe("ImportAngleHandler", function () {
         it("valid files, ShowStartProgressBar have been called", function () {
             var e = {
                 files: [
-                    { extension: '.txt' },
-                    { extension: '.json' },
-                    { extension: '.eapackage' }
+                    { name: 'test 1.txt', extension: '.txt' },
+                    { name: 'test 2.json', extension: '.json' },
+                    { name: 'test 3.eapackage', extension: '.eapackage' }
                 ]
             };
             importAngleHandler.SelectFileUpload(e);
 
             // assert
+            expect(importAngleHandler.ResultUploadSuccess.length).toEqual(0);
             expect(importAngleHandler.NumberOfUploadedFile).toEqual(3);
-            expect(importAngleHandler.UploadCount).toEqual(1);
-            expect(importAngleHandler.FailItems().length).toEqual(1);
+            expect(importAngleHandler.UploadCount).toEqual(2);
+            expect(importAngleHandler.FailItems().length).toEqual(2);
             expect(importAngleHandler.UploadComplete).not.toHaveBeenCalled();
             expect(progressbarModel.ShowStartProgressBar).toHaveBeenCalled();
         });
@@ -841,5 +929,5 @@ describe("ImportAngleHandler", function () {
             expect(WC.Ajax.AbortAll).toHaveBeenCalled();
         });
     });
-});
 
+});

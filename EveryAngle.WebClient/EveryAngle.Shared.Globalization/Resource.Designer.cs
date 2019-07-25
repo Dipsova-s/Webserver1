@@ -15780,7 +15780,7 @@ namespace EveryAngle.Shared.Globalization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Uploading Angles.
+        ///   Looks up a localized string similar to Uploading Items.
         /// </summary>
         public static string ProgressBar_UploadingAngles {
             get {
@@ -17022,7 +17022,7 @@ namespace EveryAngle.Shared.Globalization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Select Angle files to upload or drop here....
+        ///   Looks up a localized string similar to Select Item files to upload or drop here....
         /// </summary>
         public static string UploadAngles_SelectFile {
             get {
@@ -17031,7 +17031,7 @@ namespace EveryAngle.Shared.Globalization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Upload Angles successful {0} of {1}.
+        ///   Looks up a localized string similar to Upload Items successful {0} of {1}.
         /// </summary>
         public static string UploadAngles_SuccessfulMessage {
             get {
@@ -17040,11 +17040,20 @@ namespace EveryAngle.Shared.Globalization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Upload Angles report.
+        ///   Looks up a localized string similar to Upload Items report.
         /// </summary>
         public static string UploadAnglesReport {
             get {
                 return ResourceManager.GetString("UploadAnglesReport", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Dashboard cannot be uploaded without referenced Angles. Please make sure at least of the referenced Angles is also uploaded..
+        /// </summary>
+        public static string UploadDashboard_InvalidReferencedAngles {
+            get {
+                return ResourceManager.GetString("UploadDashboard_InvalidReferencedAngles", resourceCulture);
             }
         }
         

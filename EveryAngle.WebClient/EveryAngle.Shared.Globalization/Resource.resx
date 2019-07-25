@@ -5413,10 +5413,10 @@ This setting is valid for both Export to Excel and Export to CSV, manually from 
     <value>Upload Items</value>
   </data>
   <data name="UploadAnglesReport" xml:space="preserve">
-    <value>Upload Angles report</value>
+    <value>Upload Items report</value>
   </data>
   <data name="ProgressBar_UploadingAngles" xml:space="preserve">
-    <value>Uploading Angles</value>
+    <value>Uploading Items</value>
   </data>
   <data name="UploadAngles_InvalideExtension" xml:space="preserve">
     <value>invalid file extension</value>
@@ -5428,10 +5428,10 @@ This setting is valid for both Export to Excel and Export to CSV, manually from 
     <value>invalid uploaded file</value>
   </data>
   <data name="UploadAngles_SelectFile" xml:space="preserve">
-    <value>Select Angle files to upload or drop here...</value>
+    <value>Select Item files to upload or drop here...</value>
   </data>
   <data name="UploadAngles_SuccessfulMessage" xml:space="preserve">
-    <value>Upload Angles successful {0} of {1}</value>
+    <value>Upload Items successful {0} of {1}</value>
   </data>
   <data name="FormatSetting_UseDefault" xml:space="preserve">
     <value>Use default</value>
@@ -6085,5 +6085,8 @@ Only Active Directory (AD) and Active Directory Federation (ADFS) services are s
   </data>
   <data name="MC_DelayModelserverStop" xml:space="preserve">
     <value>Delay model server stop</value>
+  </data>
+  <data name="UploadDashboard_InvalidReferencedAngles" xml:space="preserve">
+    <value>Dashboard cannot be uploaded without referenced Angles. Please make sure at least of the referenced Angles is also uploaded.</value>
   </data>
 </root>

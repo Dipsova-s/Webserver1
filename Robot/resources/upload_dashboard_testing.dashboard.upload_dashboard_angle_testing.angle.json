@@ -1,0 +1,128 @@
+{
+  "source": {
+    "system": "nl-webmb03.everyangle.org:60020",
+    "version": "19.999.99.683",
+    "datetime": "2019-07-24T10:25+02:00",
+    "user": "local\\EAAdmin",
+    "model": "EA2_800"
+  },
+  "angle": {
+    "assigned_labels": [
+      "F2R",
+      "GRC",
+      "HCM",
+      "IT",
+      "O2C",
+      "P2P",
+      "PM",
+      "S2D"
+    ],
+    "multi_lang_name": [
+      {
+        "lang": "en",
+        "text": "[Robot] Upload Dashboard Angle Testing"
+      }
+    ],
+    "multi_lang_description": [],
+    "query_definition": [
+      {
+        "queryblock_type": "base_classes",
+        "base_classes": [
+          "PurchaseOrder",
+          "PurchaseOrderScheduleLine"
+        ]
+      }
+    ],
+    "display_definitions": [
+      {
+        "id": "d2ec7ae6881459b70cd99563956375147",
+        "display_type": "list",
+        "is_angle_default": true,
+        "multi_lang_name": [
+          {
+            "lang": "en",
+            "text": "New Display"
+          }
+        ],
+        "multi_lang_description": [],
+        "display_details": "{}",
+        "query_blocks": [],
+        "fields": [
+          {
+            "field": "ObjectType",
+            "tech_info": "",
+            "multi_lang_alias": [],
+            "field_details": "{\"width\":81,\"format\":\"shn\"}"
+          },
+          {
+            "field": "ID",
+            "tech_info": "",
+            "multi_lang_alias": [],
+            "field_details": "{\"width\":97}"
+          },
+          {
+            "field": "Vendor__Vendor",
+            "tech_info": "LFA1-LIFNR",
+            "multi_lang_alias": [],
+            "field_details": "{\"width\":80}"
+          },
+          {
+            "field": "Vendor__Description",
+            "tech_info": "LFA1-NAME1",
+            "multi_lang_alias": [],
+            "field_details": "{\"width\":168}"
+          },
+          {
+            "field": "PurchasingDocumentCategory",
+            "tech_info": "EKKO-BSTYP",
+            "multi_lang_alias": [],
+            "field_details": "{\"width\":105,\"format\":\"shnln\"}"
+          },
+          {
+            "field": "CompanyCode__CompanyCode",
+            "tech_info": "T001-BUKRS",
+            "multi_lang_alias": [],
+            "field_details": "{\"width\":92,\"format\":\"shn\"}"
+          },
+          {
+            "field": "PurchaseOrganization__PurchaseOrganization",
+            "tech_info": "T024E-EKORG",
+            "multi_lang_alias": [],
+            "field_details": "{\"width\":93}"
+          },
+          {
+            "field": "ExecutionStatus",
+            "tech_info": "",
+            "multi_lang_alias": [],
+            "field_details": "{\"width\":97,\"format\":\"shn\"}"
+          },
+          {
+            "field": "CreationDate",
+            "tech_info": "EKKO-AEDAT",
+            "multi_lang_alias": [],
+            "field_details": "{\"width\":84}"
+          },
+          {
+            "field": "DeliveryStatus",
+            "tech_info": "",
+            "multi_lang_alias": [],
+            "field_details": "{\"width\":89,\"format\":\"shn\"}"
+          },
+          {
+            "field": "OrderedValue",
+            "tech_info": "",
+            "multi_lang_alias": [],
+            "field_details": "{\"width\":97}"
+          },
+          {
+            "field": "BKGRP",
+            "tech_info": "EKKO-EKGRP",
+            "multi_lang_alias": [],
+            "field_details": "{\"width\":120}"
+          }
+        ]
+      }
+    ],
+    "id": "upload_dashboard_angle_testing"
+  }
+}
