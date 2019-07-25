@@ -14,13 +14,6 @@ describe("PivotPageHandler", function () {
         pivotPageHandler = new PivotPageHandler();
     });
 
-
-    describe("when create new instance", function () {
-        it("should be defined", function () {
-            expect(pivotPageHandler).toBeDefined();
-        });
-    });
-
     describe("call CanDrilldown", function () {
 
         it("should get true", function () {
@@ -312,5 +305,18 @@ describe("PivotPageHandler", function () {
 
     });
 
+    describe(".ShowPivotCustomSortPopup", function () {
+        it("should select a correct element", function () {
+            spyOn(pivotPageHandler, 'ClosePivotCustomSortPopup').and.callFake($.noop);
+            spyOn(fieldSettingsHandler, 'HideFieldOptionsMenu').and.callFake($.noop);
+            window.popup = { Show: $.noop };
+            spyOn($.fn, 'trigger').and.callFake($.noop);
+            spyOn($.fn, 'closest').and.returnValue($());
+            var element = $();
+            pivotPageHandler.ShowPivotCustomSortPopup(element);
+
+            expect($.fn.closest).toHaveBeenCalled();
+        });
+    });
 });
 
