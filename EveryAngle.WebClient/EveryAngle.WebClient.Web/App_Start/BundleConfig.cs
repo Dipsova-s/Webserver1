@@ -121,6 +121,7 @@ namespace EveryAngle.WebClient.Web
             };
 
             var shareScripts = new string[] {
+                "~/scripts/viewmanagement/shared/searchstoragehandler.js",
                 "~/scripts/viewmanagement/shared/directoryhandler.js",
                 "~/scripts/viewmanagement/shared/validationhandler.js",
                 "~/scripts/viewmanagement/shared/internalresourcehandler.js",

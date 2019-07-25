@@ -4,6 +4,7 @@
 /// <reference path="/Dependencies/ViewModels/Models/Angle/DisplayModel.js" />
 /// <reference path="/Dependencies/ViewModels/Models/Dashboard/dashboardmodel.js" />
 /// <reference path="/Dependencies/viewmanagement/Angles/FieldSettingsHandler.js" />
+/// <reference path="/Dependencies/ViewManagement/Shared/SearchStorageHandler.js" />
 /// <reference path="/Dependencies/viewmanagement/Search/ItemInfoHandler.js" />
 /// <reference path="/Dependencies/ViewManagement/Shared/WidgetDetails/WidgetDetailsHandler.js" />
 /// <reference path="/Dependencies/ViewManagement/Shared/WidgetDetails/WidgetDetailsView.js" />

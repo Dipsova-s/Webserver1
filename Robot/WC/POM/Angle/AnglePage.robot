@@ -66,6 +66,10 @@ Wait Display Executed
     ...    ELSE IF    '${displayType}' == 'pivot'    Wait Until Pivot Display Loaded
     ...    ELSE IF    '${displayType}' == 'chart'    Wait Until Chart Display Loaded
 
+Reload Angle Page
+    Reload Page
+    Wait Angle Page Document Loaded
+
 Click Toggle Angle
     Click Element   ${btnToggleAnglePanel}
     Sleep    ${TIMEOUT_GENERAL}

@@ -18,7 +18,6 @@ function AnglePageHandler() {
     self.OpenAngleDetailPopupAfterExecuted = false;
     self.DisableProgressbarCancelling = false;
     self.AdhocFilters = [];
-    self.LastSearchUrl = '';
 
     // use historyModel on ExecuteAngle?
     self.UseHistory = true;
@@ -47,8 +46,7 @@ function AnglePageHandler() {
     self.InitialAnglePage = function (callback) {
         requestHistoryModel.SaveLastExecute(self, self.InitialAnglePage, arguments);
 
-        // try to set last search on page load
-        self.LastSearchUrl = userSettingModel.GetLastSearchUrl();
+        searchStorageHandler.Initial(false, true, false);
 
         if (typeof WC.Utility.UrlParameter(enumHandlers.ANGLEPARAMETER.ANGLE) === 'undefined') {
             self.BackToSearch(false);
@@ -101,10 +99,6 @@ function AnglePageHandler() {
 
         if (!self.IsPageInitialized) {
             self.IsPageInitialized = true;
-
-            // 2nd try, last search should valid
-            if (!self.LastSearchUrl)
-                self.LastSearchUrl = userSettingModel.GetLastSearchUrl();
 
             progressbarModel.InitialProgressBar();
             userSettingsView.UpdateUserMenu();
@@ -360,7 +354,7 @@ function AnglePageHandler() {
             progressbarModel.CancelForceStop = true;
         }
         
-        window.location = searchPageUrl + self.LastSearchUrl;
+        WC.Utility.RedirectUrl(searchStorageHandler.GetSearchUrl());
     };
     self.TogglePanel = function (animation) {
         if (jQuery('#ToggleAngle').hasClass('disabled'))

@@ -11,6 +11,7 @@ Resource            ${EXECDIR}/WC/POM/Search/CreatePackagePopup.robot
 Resource            ${EXECDIR}/WC/POM/Search/UploadAnglesPopup.robot
 
 *** Variables ***
+${Logo}                     Logo
 ${lblSearchTotal}           SearchTotal
 ${pgbSearchResults}         css=#MainContent .k-loading-mask
 ${divWelcomeVideo}          WelcomePlayer
@@ -130,12 +131,21 @@ Wait Search Page Document Loaded
     Wait Until Page Contains Element    ${chkFacetAngle}    120s
     Wait Until Ajax Complete
 
+Reload Search Page
+    Reload Page
+    Wait Search Page Document Loaded
+
 Wait Progress Bar Search Closed
     Wait Until Page Does Not Contain Element    ${pgbSearchResults}
     Sleep    2s    Wait SOLR
 
 Wait Welcome Page Loaded
     Wait Until Element Is Visible    ${divWelcomeVideo}
+
+Open New Seach Page
+    Execute JavaScript    $('#${Logo}').attr('target', '_blank');
+    Click Element    ${Logo}
+    Execute JavaScript    $('#${Logo}').removeAttr('target');
 
 Search Result Should Be Empty
     Wait Until Element Is Visible    ${divSearchResultNoData}
@@ -149,9 +159,10 @@ Input Search Text
     Sleep    ${TIMEOUT_GENERAL}
     Input Text By JQuery    ${txtSearchInput}    ${text}
 
-Get Search Input Text
+Search Input Should Be
+    [Arguments]    ${expected}
     ${text}    Get Value    ${txtSearchInput}
-    [Return]    ${text}
+    Should Be True    '${expected}'=='${text}'
 
 Click Search Button
     Click Link    ${btnSearchButton}
@@ -224,6 +235,22 @@ Click Facet Checkbox
     Wait Until Ajax Complete
     Wait Progress Bar Search Closed
 
+Select Facet Checkbox
+    [Arguments]    ${checkbox}
+    Wait Until Page Contains Element    ${checkbox}
+    Select Checkbox    ${checkbox}
+    Sleep    ${TIMEOUT_GENERAL}
+    Wait Until Ajax Complete
+    Wait Progress Bar Search Closed
+
+Unselect Facet Checkbox
+    [Arguments]    ${checkbox}
+    Wait Until Page Contains Element    ${checkbox}
+    Unselect Checkbox    ${checkbox}
+    Sleep    ${TIMEOUT_GENERAL}
+    Wait Until Ajax Complete
+    Wait Progress Bar Search Closed
+
 Click Search Filter Angle
     Click Facet Checkbox    ${chkFacetAngle}
 
@@ -248,6 +275,15 @@ Click Search Filter Is Validated
 
 Click Search Filter Is Starred
     Click Facet Checkbox    ${chkFacetIsStarred}
+
+Select Search Filter Is Starred
+    Select Facet Checkbox    ${chkFacetIsStarred}
+
+Unselect Search Filter Is Starred
+    Unselect Facet Checkbox    ${chkFacetIsStarred}
+
+Checkbox Is Starred Should Not Be Selected
+    Checkbox Should Not Be Selected   ${chkFacetIsStarred}
 
 Get Is Starred Count
     Click Search Filter Is Starred

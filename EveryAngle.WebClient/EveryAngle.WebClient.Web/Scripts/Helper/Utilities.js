@@ -151,11 +151,20 @@
         // default behavior
         window.open(url);
     };
-    window.WC.Utility.DownloadFile = function (url) {
+    window.WC.Utility.RedirectUrl = function (url) {
         window.location = url;
+    };
+    window.WC.Utility.DownloadFile = function (url) {
+        WC.Utility.RedirectUrl(url);
     };
     window.WC.Utility.UrlParameter = function (name, value, append) {
         return jQuery.address.parameter(name, value, append);
+    };
+    window.WC.Utility.RemoveUrlParameter = function (name) {
+        var history = jQuery.address.history();
+        jQuery.address.history(false);
+        jQuery.address.parameter(name, null);
+        jQuery.address.history(history);
     };
     window.WC.Utility.GetSearchPageUri = function (query) {
         return searchPageUrl + '#/?' + unescape(jQuery.param(query));
@@ -164,7 +173,8 @@
         var params = {};
         params[enumHandlers.ANGLEPARAMETER.ANGLE] = angleUri;
         params[enumHandlers.ANGLEPARAMETER.DISPLAY] = displayUri;
-        jQuery.extend(params, query || {});
+        searchStorageHandler.UpdateAngleQuery(params);
+        jQuery.extend(params, query);
 
         var queryString = jQuery.param(params);
         queryString = queryString.replace(/\+/g, ' ');
@@ -175,7 +185,8 @@
     window.WC.Utility.GetDashboardPageUri = function (dashboardUri, query) {
         var params = {};
         params[enumHandlers.DASHBOARDPARAMETER.DASHBOARD] = dashboardUri;
-        jQuery.extend(params, query || {});
+        searchStorageHandler.UpdateDashboardQuery(params);
+        jQuery.extend(params, query);
 
         var queryString = jQuery.param(params);
         queryString = queryString.replace(/\+/g, ' ');

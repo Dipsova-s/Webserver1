@@ -202,7 +202,9 @@ function SearchViewModel() {
                                 if (displayObject) {
                                     redirectUrl = redirectUrl.replace('display=' + type, 'display=' + displayObject.uri);
                                 }
-                                window.location.href = redirectUrl + "&" + enumHandlers.ANGLEPARAMETER.STARTTIMES + "=" + jQuery.now();
+                                var params = {};
+                                params[enumHandlers.ANGLEPARAMETER.STARTTIMES] = jQuery.now();
+                                WC.Utility.RedirectUrl(redirectUrl + "&" + jQuery.param(params));
                             }
 
                             angleInfoModel.Data(angle);

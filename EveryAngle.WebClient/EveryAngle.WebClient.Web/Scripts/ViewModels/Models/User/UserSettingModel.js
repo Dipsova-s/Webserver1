@@ -193,12 +193,14 @@ function UserSettingViewModel() {
                     var model = modelsHandler.GetModelByUri(item.model);
                     var modelName = !model ? item.id : (model.short_name || model.id);
 
+                    var linkParams = {};
+                    linkParams[SearchStorageHandler.Query] = null;
                     if (item.type === enumHandlers.ITEMTYPE.DASHBOARD) {
                         list = {
                             id: item.id,
                             name: item.name,
                             uri: item.uri,
-                            link: WC.Utility.GetDashboardPageUri(item.uri),
+                            link: WC.Utility.GetDashboardPageUri(item.uri, linkParams),
                             model: modelName,
                             type: item.type,
                             display: {
@@ -211,7 +213,6 @@ function UserSettingViewModel() {
                         self.AutoExecuteList.push(jQuery.extend({}, list));
                     }
                     else {
-                        var linkParams = {};
                         if (item.is_template) {
                             linkParams[enumHandlers.ANGLEPARAMETER.TEMPLATE] = true;
                         }

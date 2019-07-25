@@ -7,7 +7,6 @@ function DashboardHandler() {
     self.IsCompactResult = false;
     self.IsInitialRetainUrl = false;
     self.LastUri = '';
-    self.LastSearchUrl = '';
     self.MinSize = 180;
     self.MaxMinWidgetSpeed = 300;
     self.ElementPrefix = 'widget';
@@ -26,8 +25,7 @@ function DashboardHandler() {
     self.Initial = function (callback) {
         requestHistoryModel.SaveLastExecute(self, self.Initial, arguments);
 
-        // try to set last search on page load
-        self.LastSearchUrl = userSettingModel.GetLastSearchUrl();
+        searchStorageHandler.Initial(false, false, true);
 
         if (typeof WC.Utility.UrlParameter(enumHandlers.DASHBOARDPARAMETER.DASHBOARD) === 'undefined') {
             self.BackToSearch(false);
@@ -71,10 +69,6 @@ function DashboardHandler() {
 
         if (!self.IsPageInitialized) {
             self.IsPageInitialized = true;
-
-            // 2nd try, last search should valid
-            if (!self.LastSearchUrl)
-                self.LastSearchUrl = userSettingModel.GetLastSearchUrl();
 
             progressbarModel.InitialProgressBar();
             userSettingsView.UpdateUserMenu();
@@ -308,7 +302,7 @@ function DashboardHandler() {
             progressbarModel.CancelForceStop = true;
         }
         
-        window.location = searchPageUrl + self.LastSearchUrl;
+        WC.Utility.RedirectUrl(searchStorageHandler.GetSearchUrl());
     };
     self.SetWrapperHeight = function () {
         var wraperHeight = WC.Window.Height;

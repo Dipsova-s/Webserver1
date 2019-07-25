@@ -109,6 +109,10 @@
       <Link>WebClient\Dependencies\ViewManagement\Shared\AboutSystemHandler.js</Link>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="..\EveryAngle.WebClient.Web\Scripts\ViewManagement\Shared\SearchStorageHandler.js">
+      <Link>WebClient\Dependencies\ViewManagement\Shared\SearchStorageHandler.js</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="ManagementConsole\Tests\Custom\MC.AjaxTest.js" />
     <Content Include="ManagementConsole\Tests\Custom\MC.Test.js" />
     <Content Include="ManagementConsole\Tests\Custom\MC.UI.GridSortingTest.js" />
@@ -728,6 +732,7 @@
     <Content Include="WebClient\Tests\ViewManagement\Shared\ModelLabelCategoryHandlerTest.js" />
     <Content Include="WebClient\Tests\ViewManagement\Shared\ProgressBarTest.js" />
     <Content Include="WebClient\Tests\ViewManagement\Shared\ModelsHandlerTest.js" />
+    <Content Include="WebClient\Tests\ViewManagement\Shared\SearchStorageHandlerTest.js" />
     <Content Include="WebClient\Tests\ViewManagement\Shared\WidgetFilter\WidgetFilterHandlerTest.js" />
     <Content Include="WebClient\Tests\ViewManagement\Shared\WidgetFilter\WidgetFilterHelperTest.js" />
     <Content Include="WebClient\Tests\ViewManagement\Shared\WidgetFilter\WidgetFilterViewTest.js" />

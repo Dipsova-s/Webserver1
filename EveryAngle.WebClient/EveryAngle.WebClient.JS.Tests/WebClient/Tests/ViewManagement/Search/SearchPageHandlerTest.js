@@ -1,6 +1,7 @@
 ﻿/// <reference path="../../../Dependencies/ViewModels/Models/User/usermodel.js" />
 /// <reference path="../../../Dependencies/ViewModels/Models/User/usersettingmodel.js" />
 /// <reference path="../../../Dependencies/ViewModels/Models/Search/searchmodel.js" />
+/// <reference path="/Dependencies/ViewManagement/Shared/SearchStorageHandler.js" />
 /// <reference path="../../../Dependencies/ViewManagement/Search/SearchPageHandler.js" />
 
 describe('SearchPageHandler', function () {
@@ -8,12 +9,6 @@ describe('SearchPageHandler', function () {
     var searchPageHandler;
     beforeEach(function () {
         searchPageHandler = new SearchPageHandler();
-    });
-
-    describe('when create new instance', function () {
-        it('should be defined', function () {
-            expect(searchPageHandler).toBeDefined();
-        });
     });
 
     describe('call IsDeleteMenuEnabled', function () {

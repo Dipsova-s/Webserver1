@@ -163,7 +163,11 @@ function ItemInfoHandler() {
                                     self.ShowAngleExecutionParameterPopup(angle, display.uri);
                                 }
                                 else {
-                                    event.currentTarget.href += "&" + enumHandlers.ANGLEPARAMETER.STARTTIMES + "=" + jQuery.now();
+                                    var params = {};
+                                    if (event.currentTarget.href.indexOf(SearchStorageHandler.Query + '=') === -1)
+                                        params[SearchStorageHandler.Query] = searchStorageHandler.Id;
+                                    params[enumHandlers.ANGLEPARAMETER.STARTTIMES] = jQuery.now();
+                                    event.currentTarget.href += "&" + jQuery.param(params);
                                     return true;
                                 }
                             };

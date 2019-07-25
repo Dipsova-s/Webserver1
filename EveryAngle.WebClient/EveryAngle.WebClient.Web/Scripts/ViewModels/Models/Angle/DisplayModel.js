@@ -733,7 +733,7 @@ function DisplayModel(model) {
             WC.Utility.OpenUrlNewWindow(redirectUrl);
         }
         else {
-            location.href = WC.Utility.GetAnglePageUri(angle, display, query);
+            WC.Utility.RedirectUrl(redirectUrl);
         }
     };
     self.IsDisplayWithoutUri = function (displayUri) {
