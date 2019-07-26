@@ -585,7 +585,7 @@ function PivotPageHandler(elementId, container) {
     self.ShowPivotCustomSortPopup = function (element) {
         self.ClosePivotCustomSortPopup();
         fieldSettingsHandler.HideFieldOptionsMenu();
-        element = jQuery(element);
+        element = jQuery(element).closest('td');
 
         // show custom sort menu
         var area = element.hasClass('dxpgColumnFieldValue') ? 'column' : 'row';
