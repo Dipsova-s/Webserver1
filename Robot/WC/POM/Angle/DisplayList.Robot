@@ -194,6 +194,9 @@ First List Column Should Be
 Click Drildown To Item In Menu
     Wait Until Element Is Visible   ${btnCreateDrilldownToItem}
     Click Element   ${btnCreateDrilldownToItem}
+    Wait Until Drilldown Item Loaded
+
+Wait Until Drilldown Item Loaded
     Wait Progress Bar Closed
     Wait Until Ajax Complete
 
@@ -208,6 +211,14 @@ Click Drilldown To Item By Name
     [Arguments]    ${name}
     Click Show Menu In List Display Cell By Name    ${name}
     Click Drildown To Item In Menu
+
+Select Filter "${CheckboxId}" On Drilldown To Item
+    Select Checkbox   ${CheckboxId}
+    Wait Until Drilldown Item Loaded
+
+Unselect Filter "${CheckboxId}" On Drilldown To Item
+    Unselect Checkbox   ${CheckboxId}
+    Wait Until Drilldown Item Loaded
 
 Input Field Name
     [Arguments]    ${fieldName}

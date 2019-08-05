@@ -5,31 +5,30 @@ Suite Teardown      Logout WC Then Close Browser
 Test Teardown       Go to Search Page
 Force Tags          acceptance    acc_wc
 
-*** Variables ***
-${ANGLENAME}                    Plant for Dashboard filter
-${ANGLE_KEYWORD}                For Dashboard Filter
-
-${DASHBOARD_FILTER_CASE#1}      Dashboard Filter Add From Dashboard Name
-${DASHBOARD_FILTER_CASE#2}      Dashboard Filter Add From Filter Panel
-
 *** Test Cases ***
-Verify When Angle That Used In The Dashboard Have Filter, And Dashboard Have Filter Itself#1 (Step10,Step11)
-    Create Dashboard From Specific Angle Name    ${ANGLENAME}    ${DASHBOARD_FILTER_CASE#1}
+Verify When Angle That Used In The Dashboard Have Filter, And Dashboard Have Filter Itself
+    ${searchText}  Set Variable  Plant for Dashboard filter
+    ${dashboardName}  Set Variable  [ROBOT] Dashboard Filter Add From Dashboard Name
+    Create Dashboard From Specific Angle Name    ${searchText}    ${dashboardName}
     Add Dashboard Filter From Dashboard Name
-    Verify Dashboard Filter Showing    ${DASHBOARD_FILTER_CASE#1}
+    Verify Dashboard Filter Showing    ${dashboardName}
     Verify Editing Dashboard Filter
-    Back To Search And Delete Dashboard Are Created    ${DASHBOARD_FILTER_CASE#1} 
+    Back To Search And Delete Dashboard Are Created    ${dashboardName}
 
-Verify Apply Multi Filter To Dashboard (Step9,Step14)
-    Create Dashboard From Many Angles     ${ANGLE_KEYWORD}    ${DASHBOARD_FILTER_CASE#2} 
-    Add Dashboard Filter From Dashboard Filter Panel 
+Verify Apply Multi Filter To Dashboard
+    ${searchText}  Set Variable  For Dashboard Filter
+    ${dashboardName}  Set Variable  [ROBOT] Dashboard Filter Add From Filter Panel
+    Create Dashboard From Many Angles     ${searchText}    ${dashboardName}
+    Add Dashboard Filter From Dashboard Filter Panel
     Verify Dashboard Filters Count    4
     Verify Remove Field In Fields Tab
-    Verify Dashboard Filters Count    3
+    Verify Dashboard Filters Count    2
+
     Open Angle In Dashboard Widget    0
-    Check First Angle Should Apply Dashboard Filters
+    Check Dashboard Filters For Angle #1
     Open Angle In Dashboard Widget    1
-    Check Second Angle Should Apply Dashboard Filters
+    Check Dashboard Filters For Angle #2
     Open Angle In Dashboard Widget    2
-    Check Third Angle Should Apply Dashboard Filters
-    Back To Search And Delete Dashboard Are Created    ${DASHBOARD_FILTER_CASE#2}  
+    Check Dashboard Filters For Angle #3
+
+    Back To Search And Delete Dashboard Are Created    ${dashboardName}

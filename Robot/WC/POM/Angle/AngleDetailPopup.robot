@@ -217,7 +217,6 @@ Choose Dropdown Filter Operator In Definition Tab
     [Arguments]   ${selectText}
     Choose Dropdown Filter Operator    0    ${selectText}
 
-
 Click Do Not Allow User To Obtain More Details
     Select Checkbox    ${chkAllowUserToObtainMoreDetails}
 

@@ -117,19 +117,20 @@ Verify Dashboard Filters Count
     ${filterText}    Get Text    ${ddlDashboardPanel} ${ddlDashboardFilterCount}
     Should Be Equal    ${filterText}    ${expectFilterCount}
 
-Check First Angle Should Apply Dashboard Filters
-    Page Should Contain    (Self) - Creation date is after May/24/2016
-    Page Should Contain    (Self) - Creation date is before Mar/24/2016
+Check Dashboard Filters For Angle #1
+    ${filter}    Get Filter Or Jump Name From Display Panel    0
+    Should Be Equal    ${filter}    Material - Material type is not empty    ignore_case=True
     Close Window
     Select Window
 
-Check Second Angle Should Apply Dashboard Filters
-    Page Should Contain    (Self) - Plant is in list (0001 (Werk 0001), 0052 (Plant 0052))
+Check Dashboard Filters For Angle #2
+    ${filter}    Get Filter Or Jump Name From Display Panel    1
+    Should Be Equal    ${filter}    (Self) - Plant is empty    ignore_case=True
     Close Window
     Select Window
 
-Check Third Angle Should Apply Dashboard Filters
-    Page Should Not Contain    (Self) - Address contains substring(s) (Stress)
+Check Dashboard Filters For Angle #3
+    Display Panel Should Not Have Filter
     Close Window
     Select Window
 
@@ -175,25 +176,33 @@ Create Dashboard From Many Angles
 
 Add Dashboard Filter From Dashboard Filter Panel
     Open Filter From Dashboard Filter Panel
+
+    # filter #1
     Click Add Filter Button In Dashboard Detail Popup
-    Select Field From Filters Tab    "Address"    ADRNR
-    Input Filter Input Text In List    0    Stress
+    Select Field From Filters Tab    "Material type"    Material__MaterialType
+    Choose Dropdown Filter Operator In FilterField In Filters tab   0   is not empty
+
+    # filter #2
     Click Add Filter Button In Dashboard Detail Popup
     Select Field Source(Self)
     Select Field From Filters Tab    "Created on"    ERSDA
     Input Date Value    1_0    May/24/2016
+
+    # filter #3
     Click Add Filter From Field    2
     Choose Dropdown Filter Operator In FilterField In Filters tab    2    is before
     Input Date Value    2_0    Mar/24/2016
+
+    # filter #4
     Click Add Filter Button In Dashboard Detail Popup
     Select Field From Filters Tab    "Plant"    Plant
-    Select Checkbox Value List     2
-    Select Checkbox Value List     3
+    Choose Dropdown Filter Operator In FilterField In Filters tab   3   is empty
+
     Save Dashboard 
 
 Verify Remove Field In Fields Tab
     Open Filter From Dashboard Filter Panel
-    Remove Field In Fields Tab    0
+    Remove Field In Fields Tab    2
     Save Dashboard 
 
 Verify Editing Filter Popup

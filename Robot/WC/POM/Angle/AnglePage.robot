@@ -76,6 +76,9 @@ Click Toggle Angle
     Click Element   ${btnToggleAnglePanel}
     Sleep    ${TIMEOUT_GENERAL}
 
+Display Panel Should Not Have Filter
+    Page Should Not Contain Element    ${divPanelDisplayFilterItems}
+
 Get Filter Or Jump Name From Display Panel
     [Arguments]    ${index}
     ${text}    Get Text   ${divPanelDisplayFilterItems}:eq(${index})

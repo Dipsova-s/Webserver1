@@ -6,8 +6,6 @@ Test Setup                  Go To               ${URL_MC}
 Test Teardown               Logout MC
 Force Tags                  acc_mc_s
 
-*** Variables ***
-
 *** Test Cases ***
 Test Status And Report Button On Model Page
     Login To MC By Admin User

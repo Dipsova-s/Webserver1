@@ -18,6 +18,7 @@ ${btnStopServer}                        jquery=.modelInfoInstance .btn:eq(1)
 ${popupConfirmationStopServer}          css=#popupConfirmation
 ${btnCloseStopServerPopUp}              jquery=#popupConfirmation .btnConfirmCancel
 
+${pgbPopupModelServerReport}            css=#popupModelServer > div.k-loading-mask
 ${serverStatusMenu}                     jquery=#ServerStatusMenu
 
 #Tree Server Status
@@ -42,11 +43,13 @@ Verify Status And Report EA2_800 PopUp
     Click Element    ${btnEA2800InFo}
     Wait Until Ajax Complete
     Wait Until Page Contains Element     ${serverStatusMenu}
+    Wait Until Page Does Not Contain Element    ${pgbPopupModelServerReport}
 
 Verify Status And Report EA2_800_Xtractor PopUp
     Click Element    ${btnEA2800XtractorInFo}
     Wait Until Ajax Complete
     Wait Until Page Contains Element     ${serverStatusMenu}
+    Wait Until Page Does Not Contain Element    ${pgbPopupModelServerReport}
 
 Click Close Model Report PopUp
     Click Element    ${btnCloseModelPopUp}

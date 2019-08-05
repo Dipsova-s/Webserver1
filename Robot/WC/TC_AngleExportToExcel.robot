@@ -27,16 +27,16 @@ Verify Export To Excel From Action Menu
     Should Contain    ${file}    Export Extended Charactor.Béßø.xlsx
 
 Verify Export Item Drilldown To Excel From Action Menu
-    Create Angle From One Object List And Save    PD Header    ${TEST_VERIFY_EXPORT_DRILLDOWN_TO_EXCEL_NAME}
+    Search Angle From Search Page And Execute Angle    Angle For General Test
     Wait Progress Bar Closed
-    Wait Until List Display Loaded
-    Change Display By Name    Basic List
-    Click Drilldown To Item By Name    Aztec Supplies
+    Check If Angle Or Display Has A Warning Then Close The Popup
+    Wait Progress Bar Closed
+    Click Drilldown To Item By Name    IDES Consumer Products
+    Select Filter "Reference" On Drilldown To Item
     Click Angle Dropdown To Export Drilldown To Excel
     Click Export Drilldown To Excel Button
     ${file}    Wait Until Keyword Succeeds    1 min    2 sec    Download should be done    ${DOWNLOAD_DIRECTORY}
     Wait Unit Export Excel Popup Close
-    Back To Search And Delete Angle Are Created    ${TEST_VERIFY_EXPORT_DRILLDOWN_TO_EXCEL_NAME}
 
 Verify Error Message If A Filename Is Too Long
     Search Angle From Search Page And Execute Angle    ${TEST_VERIFY_EXPORT_TO_EXCEL_NAME}

@@ -278,6 +278,9 @@ Facet "Private" Should Filter As "Show Public"
     Checkbox Should Be Selected    ${chkFacetIsPrivate}
     Page Should Contain Element    ${chkFacetIsPrivate} + .negative
 
+Facet "Private" Should Filter As "Show Private"
+    Checkbox Should Be Selected    ${chkFacetIsPrivate}
+
 Click Search Filter Private Display
     Click Facet Checkbox    ${chkFacetPrivateDisplay}
 
