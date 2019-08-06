@@ -1,5 +1,7 @@
 ﻿/// <reference path="/Dependencies/ViewManagement/Shared/WidgetFilter/WidgetFilterView.js" />
 /// <reference path="/Dependencies/ViewManagement/Shared/WidgetFilter/WidgetFilterHandler.js" />
+/// <reference path="/Dependencies/ViewManagement/Shared/WidgetFilter/WidgetFilterHelper.js" />
+/// <reference path="/Dependencies/ViewManagement/Shared/WidgetFilter/WidgetFilterHelper.DateTranslator.js" />
 /// <reference path="/Dependencies/ViewManagement/Shared/ModelsHandler.js" />
 /// <reference path="/Dependencies/ViewManagement/Shared/AboutSystemHandler.js" />
 
@@ -70,5 +72,35 @@ describe("WidgetFilterView", function () {
             expect(expectedData.length).toEqual(ddlData.length);
         });
 
+    });
+
+    describe(".GetFilterPreviewText", function () {
+
+        var data = {};
+        var filedType = "date";
+        var requestDate = new Date(2019, 0, 1, 22, 59, 59);
+        var dateTimeFormat = "MMM/dd/yyyy HH:mm:ss";
+
+        it("should return filter preview text with utc date when preview result is not empty", function () {
+            spyOn(widgetFilterView.Handler, 'GetDateTimeFormat').and.returnValue(dateTimeFormat);
+            spyOn(WC.WidgetFilterHelper, 'GetDefaultModelDataDate').and.returnValue(requestDate);
+            spyOn(WC.WidgetFilterHelper, 'GetTranslatedSettings').and.returnValue({ arguments: ["Dec/31/2018"], template: "Is on {0}" });
+            
+            var previewText = widgetFilterView.GetFilterPreviewText(data, filedType);
+            
+            var expectedDateTime = kendo.toString(WC.DateHelper.LocalDateToUtcDate(requestDate), dateTimeFormat);
+            var expectedResult = 'Filter is applied relative to UTC model timestamp ' + expectedDateTime + '<br/>Result : <span class="ExampleData">Is on Dec/31/2018<span>';
+            expect(expectedResult).toEqual(previewText);
+        });
+
+        it("should return empty when preview result is empty", function () {
+            spyOn(widgetFilterView.Handler, 'GetDateTimeFormat').and.returnValue(dateTimeFormat);
+            spyOn(WC.WidgetFilterHelper, 'GetDefaultModelDataDate').and.returnValue(requestDate);
+            spyOn(WC.WidgetFilterHelper, 'GetTranslatedSettings').and.returnValue({ arguments: [""], template: "" });
+
+            var previewText = widgetFilterView.GetFilterPreviewText(data, filedType);
+
+            expect(null).toEqual(previewText);
+        });
     });
 });

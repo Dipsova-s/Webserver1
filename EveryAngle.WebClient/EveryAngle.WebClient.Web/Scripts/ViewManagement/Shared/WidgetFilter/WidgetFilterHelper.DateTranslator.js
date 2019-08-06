@@ -91,7 +91,7 @@
     var isDayUpperBound = function (isEqualOperator, argValueType) {
         return isEqualOperator && argValueType !== enumHandlers.FILTERPERIODTYPE.DAY;
     };
-    helper.GetTranslatedSettings = function (args, operator, fieldType, modelUri) {
+    helper.GetTranslatedSettings = function (args, operator, fieldType, modelUri, modelDate) {
         var self = this;
         var canShowPreviewText = false;
         var settings = {
@@ -111,8 +111,7 @@
             else if (arg.argument_type === enumHandlers.FILTERARGUMENTTYPE.FUNCTION) {
                 // argument type function need to calculate lower & upper bound
                 canShowPreviewText = true;
-
-                var modelDate = self.GetDefaultModelDataDate(modelUri);
+                
                 var argValueType = self.GetAdvanceArgumentType(arg);
                 var argValueAdd = self.GetAdvanceArgumentValue(arg);
                 var formatCustom = isArgumentTypeFunctionFormat(isEqualOperator, argValueType) ? formatDate : format;

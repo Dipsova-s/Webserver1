@@ -3667,4 +3667,10 @@ The value 0 means the setting is off, so the Audit Log will not be cleaned up. T
   <data name="UploadDashboard_InvalidReferencedAngles" xml:space="preserve">
     <value>Dashboard cannot be uploaded without referenced Angles. Please make sure at least of the referenced Angles is also uploaded.</value>
   </data>
+  <data name="Filter_Example_Desctiption" xml:space="preserve">
+    <value>Filter is applied relative to UTC model timestamp</value>
+  </data>
+  <data name="Filter_Example_Result" xml:space="preserve">
+    <value>Result: </value>
+  </data>
 </root>
