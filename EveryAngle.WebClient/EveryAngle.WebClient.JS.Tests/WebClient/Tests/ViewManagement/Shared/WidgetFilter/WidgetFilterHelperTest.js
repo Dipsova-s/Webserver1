@@ -1203,7 +1203,7 @@ describe("WidgetFilterHelper", function () {
                         }]
                     });
                 });
-                var result = widgetFilterHelper.GetTranslatedSettings(args, test.operator, test.fieldType, '');
+                var result = widgetFilterHelper.GetTranslatedSettings(args, test.operator, test.fieldType, '', new Date(2017, 1, 1));
                 expect(test.expected).toEqual(result.template);
             });
 

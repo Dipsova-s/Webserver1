@@ -5830,4 +5830,10 @@ Are you sure you want to delete this role?</value>
   <data name="RunningRealTime" xml:space="preserve">
     <value>Running in real time</value>
   </data>
+  <data name="Filter_Example_Desctiption" xml:space="preserve">
+    <value>Filter is applied relative to UTC model timestamp </value>
+  </data>
+  <data name="Filter_Example_Result" xml:space="preserve">
+    <value>Result: </value>
+  </data>
 </root>
