@@ -32,7 +32,7 @@ describe("ImportAngleHandler", function () {
 
         it("should retrun correct message", function () {
             var message = importAngleHandler.GetUploadMessage();
-            expect(message).toEqual('Upload successful 2 of 5');
+            expect(message).toEqual('Upload Items successful 2 of 5');
         });
 
     });
