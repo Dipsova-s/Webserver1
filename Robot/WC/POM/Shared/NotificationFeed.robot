@@ -4,10 +4,12 @@ ${divTopbarFeedItems}          css=#NotificationsFeedMenu .notificationsFeed .it
 ${divTopbarFeedLinks}          jquery=#LandingPage .notificationsFeed .item a
 ${btnTopbarFeedButton}         css=#NotificationsFeed
 ${divTopbarFeedPopup}          css=#NotificationsFeedMenu
+${spanNotificationsFeedIcon}    css=#NotificationsFeedIcon
 
 *** Keywords ***
 Wait Notification Feed Loaded
-    Wait Until Page Contains Element    ${divTopbarFeedItems}
+	Wait Until Page Contains Element    ${divTopbarFeedItems}
+
 
 Open Topbar Feed Menu
     ${IsVisible}    Is Element Visible    ${divTopbarFeedPopup}
@@ -30,6 +32,7 @@ Check Notification Feed On Welcome Page
     Element Should Not Be Visible    ${divTopbarFeedItems}
 
 Check Notification Feed On Topbar
+    Wait Until Page Contains Element    ${spanNotificationsFeedIcon}
     Page Should Contain Element      ${divTopbarFeedItems}
     Element Should Not Be Visible    ${divTopbarFeedItems}
     Element Should Be Visible        ${btnTopbarFeedButton}
