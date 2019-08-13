@@ -102,7 +102,7 @@ Is Element Has CssClass
 Input Text By JQuery
     [Arguments]  ${selector}    ${text}
     ${jquerySelector} =    Get JQuery Selector    ${selector}
-    ${status} =    Execute Javascript    return $('${jquerySelector}').val('${text}')
+    Execute Javascript     $('${jquerySelector}').val('${text}')
 
 Input kendo Percentage TextBox
     [Arguments]  ${elementId}    ${valueText}
