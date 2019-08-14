@@ -208,7 +208,7 @@ function FieldsChooserHandler() {
 
         fieldsChooserModel.CanDuplicatedField = false;
         fieldsChooserModel.AllowMultipleSelection = false;
-        fieldsChooserModel.FacetsHidden = [];
+        
         fieldsChooserModel.GetCustomQueryUriFunction = function (page) {
             var request = this.GetQueryFilterDefaultUri(page);
             var dashboardModelData = dashboardModel.Data();
