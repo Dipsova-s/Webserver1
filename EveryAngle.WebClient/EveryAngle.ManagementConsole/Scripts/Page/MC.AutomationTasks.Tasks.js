@@ -407,7 +407,6 @@
             self.TaskData.actions = actions;
             self.SetEditTask(self.TaskData);
             self.InitialActionsGrid(self.TaskData);
-
             // show action popup if AngleUri
             if (self.AngleUri) {
                 var preSelectedAngle = $('td[data-display-uri="' + self.AngleUri + '"]:first').parent().find('.btnEdit:last');
@@ -694,8 +693,10 @@
             };
         };
         self.TaskActionsGridDataBound = function () {
+            MC.ui.customcheckbox();
             MC.ui.btnGroup();
             MC.ui.popup();
+
         };
         self.GetArgumentValueByName = function (args, name) {
             var results = jQuery.grep(args, function (arg) { return arg.name === name; });
