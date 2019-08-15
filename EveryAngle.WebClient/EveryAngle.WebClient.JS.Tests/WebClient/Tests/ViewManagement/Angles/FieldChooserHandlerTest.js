@@ -174,5 +174,17 @@ describe("FieldsChooserHandler", function () {
 
     });
 
+    describe(".FacetsHidden", function () {
+
+        it("The default of 'FacetsHidden' should be 'classes'", function () {
+            expect(fieldsChooserModel.FacetsHidden[0]).toEqual('classes');
+        });
+
+        it("The 'FacetsHidden' should be empty", function () {
+            fieldsChooserModel.FacetsHidden = [];
+            expect(fieldsChooserModel.FacetsHidden).toEqual([]);
+        });
+    });
+
 });
 
