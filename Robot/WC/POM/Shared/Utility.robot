@@ -282,9 +282,8 @@ Open Chrome Browser With Options
 
     # set options
     Call Method    ${options}    add_argument    --no-sandbox
-    Call Method    ${options}    add_argument    --disable-infobars
-    Run Keyword If  ${DevMode}==1   Call Method    ${options}    add_argument    --headless
-    Run Keyword If  ${DevMode}==1   Call Method    ${options}    add_argument    --disable-gpu
+    Run Keyword If  ${DevMode}==0   Call Method    ${options}    add_argument    --headless
+    Run Keyword If  ${DevMode}==0   Call Method    ${options}    add_argument    --disable-gpu
     Call Method    ${options}    add_argument    --window-size\=1366,768
 
     ${status}    ${value}    Run Keyword And Ignore Error    Create WebDriver    Chrome    chrome_options=${options}
