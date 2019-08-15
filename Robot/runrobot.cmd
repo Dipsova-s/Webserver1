@@ -108,6 +108,9 @@ Set Password=P@ssw0rd
 Set PrefServerCurrent=%5
 Set PrefServerBase=%6
 
+set DevMode=0
+if defined PrefServerCurrent set DevMode=1
+
 ECHO ###### Running Robot Framework ######
 call :executeRobot
 call :cleanupChromeDriver
@@ -130,7 +133,8 @@ exit /b 0
 					--variable BROWSER:%BROWSER% ^
 					--variable QueryString:%QueryString% ^
 					--variable PREF_SERVER_CURRENT:%PrefServerCurrent% ^
-					--variable PREF_SERVER_BASE:%PrefServerBase%
+					--variable PREF_SERVER_BASE:%PrefServerBase% ^
+					--variable DevMode:%DevMode%
 
 	:: **************** Run setup ***********************
 	ECHO Executing "%TestCategory%_i" tests
