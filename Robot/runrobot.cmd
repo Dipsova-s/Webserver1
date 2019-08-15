@@ -98,6 +98,9 @@ Set Password=P@ssw0rd
 Set CompareBranch=%6
 if not defined CompareBranch set CompareBranch=master
 
+set DevMode=0
+if "%7"=="webhelp" set DevMode=1
+
 ::Report folder
 Set BaseReportFolder=\report
 if "%TestCategory%"=="*" goto :set_dev_report
@@ -139,7 +142,8 @@ exit /b 0
 					--variable URL:%URL% ^
 					--variable BROWSER:%BROWSER% ^
 					--variable QueryString:%QueryString% ^
-					--variable CompareBranch:%CompareBranch%
+					--variable CompareBranch:%CompareBranch% ^
+					--variable DevMode:%DevMode%
 
 	:: **************** Run setup ***********************
 	ECHO Executing "%TestCategory%_i" tests

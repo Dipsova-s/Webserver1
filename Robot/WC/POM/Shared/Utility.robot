@@ -121,7 +121,7 @@ Is Element Has CssClass
 Input Text By JQuery
     [Arguments]  ${selector}    ${text}
     ${jquerySelector} =    Get JQuery Selector    ${selector}
-    Execute Javascript     $('${jquerySelector}').val('${text}')
+    Execute Javascript    $('${jquerySelector}').val('${text}')
 
 Input kendo Percentage TextBox
     [Arguments]  ${elementId}    ${valueText}
@@ -273,12 +273,19 @@ Set Default Downloading Path And Open Browser
     Call Method    ${options}    add_experimental_option    prefs    ${prefs}
     Open Chrome Browser With Options    ${options}
 
+    ${S2L}           get library instance    Selenium2Library
+    ${webdriver}     Call Method             ${S2L}    _current_browser
+    Enable Download In Headless Chrome    ${webdriver}    ${download directory} 
+
 Open Chrome Browser With Options
     [Arguments]  ${options}
-   
+
     # set options
     Call Method    ${options}    add_argument    --no-sandbox
     Call Method    ${options}    add_argument    --disable-infobars
+    Run Keyword If  ${DevMode}==1   Call Method    ${options}    add_argument    --headless
+    Run Keyword If  ${DevMode}==1   Call Method    ${options}    add_argument    --disable-gpu
+    Call Method    ${options}    add_argument    --window-size\=1366,768
 
     ${status}    ${value}    Run Keyword And Ignore Error    Create WebDriver    Chrome    chrome_options=${options}
     Run Keyword If      '${status}' == 'FAIL'    Sleep    5s

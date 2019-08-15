@@ -6,6 +6,7 @@ Library             DateTime
 Library             String
 Library             Collections
 Library             OperatingSystem
+Library             HeadlessDownload.py
 Resource            ${EXECDIR}/WC/POM/Shared/Utility.robot
 Resource            ${EXECDIR}/WC/POM/ManagementConsole/Shared/MC_Utility.robot
 Resource            ${EXECDIR}/WC/Scenarios/Shared/TS_Login.robot
