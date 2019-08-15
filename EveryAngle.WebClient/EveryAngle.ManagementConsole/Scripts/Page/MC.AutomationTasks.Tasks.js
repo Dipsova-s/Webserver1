@@ -613,6 +613,7 @@
             };
         };
         self.TaskActionsGridDataBound = function () {
+            MC.ui.customcheckbox();
             MC.ui.btnGroup();
             MC.ui.popup();
         };
@@ -2085,7 +2086,7 @@
             dataItem.set("datastore_name", data.datastore_name);
             dataItem.set("model", data.model);
             dataItem.set("model_name", data.model_name),
-            dataItem.set("angle_id", data.angle_id);
+                dataItem.set("angle_id", data.angle_id);
             dataItem.set("angle_name", data.angle_name);
             dataItem.set("display_id", data.display_id);
             dataItem.set("display_name", data.display_name);
