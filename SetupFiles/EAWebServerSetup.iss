@@ -720,8 +720,6 @@ begin
   if not LoadStringFromFile(SettingsPath, {var}jsonString) then
      jsonString := '{}';
   
-  Log('[i]' + jsonString);
-  
   // parse settings file into ODataSettings
   ParseJson(JsonParser, jsonString);
   result := JsonParser.Output;
@@ -772,9 +770,12 @@ begin
   
   Log('[i]Writing OData settings');
   jsonString := JsonToStringList(ODataSettings);
-  Log('[i]Writing OData settings :' + SettingsPath + #10#13 + jsonString.Text);
-
   JsonString.SaveToFile(SettingsPath);  
+
+  // Set to ***** without save
+  SetJsonString(ODataSettings, 'password', '*****');
+  jsonString := JsonToStringList(ODataSettings);
+  Log('[i]OData settings has been written with content :' + SettingsPath + #10#13 + jsonString.Text);
 end;
 
 procedure UpdateWebClientConfig;
