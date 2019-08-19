@@ -545,7 +545,9 @@ begin
   end
   else
   begin
-    Log('[i] Json: Adding ' + Key + ':=' + Value);
+    if Key <> 'password' then
+      Log('[i] Json: Adding ' + Key + ':=' + Value);
+
     N := Length(Output.Strings);
     SetLength(Output.Strings, N + 1);
     Output.Strings[N] := Value;
@@ -578,11 +580,13 @@ begin
   begin
     Result := GetJsonString(json, [], aKey);
     if Result <> '' then
-      log(format('[i]var: %s:=%s (%s)', [aKey, Result, 'json']))
+      if aKey <> 'password' then
+        log(format('[i]var: %s:=%s (%s)', [aKey, Result, 'json']))
     else
     begin
       Result := aDefault;
-      log(format('[i]var: %s:=%s (default)', [aKey, Result]))
+      if aKey <> 'password' then
+        log(format('[i]var: %s:=%s (default)', [aKey, Result]))
     end;
   end;
 end;
