@@ -34,8 +34,13 @@
     });
 
     window.ConvertUnixTimeStampToDateStringInAngleDetails = function (time) {
-        var dateText = WC.FormatHelper.GetFormattedValue(enumHandlers.FIELDTYPE.DATE, time);
-        var timeText = WC.FormatHelper.GetFormattedValue(enumHandlers.FIELDTYPE.TIME, time);
+        if (!time) {
+            return '';
+        }
+
+        var localDate = window.WC.DateHelper.UnixTimeToLocalDate(time);
+        var dateText = WC.FormatHelper.GetFormattedValue(enumHandlers.FIELDTYPE.DATE, localDate);
+        var timeText = WC.FormatHelper.GetFormattedValue(enumHandlers.FIELDTYPE.TIME, localDate);
         if (dateText && timeText) {
             // display as "on DATE at TIME"
             return kendo.format(' ' + Localization.StatisticDateTime, dateText, timeText);

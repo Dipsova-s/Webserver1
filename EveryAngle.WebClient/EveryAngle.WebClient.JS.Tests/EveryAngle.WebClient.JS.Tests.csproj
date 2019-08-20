@@ -728,6 +728,7 @@
     <Content Include="WebClient\Tests\Embedded\ClassesChooserTest.js" />
     <Content Include="WebClient\Tests\Embedded\NotificationsFeedTest.js" />
     <Content Include="WebClient\Tests\Embedded\SharedTest.js" />
+    <Content Include="WebClient\Tests\Helper\DateTimeExtensionTest.js" />
     <Content Include="WebClient\Tests\Helper\HtmlHelper.ActionMenu.Test.js" />
     <Content Include="WebClient\Tests\Helper\KendoCoreExtensionTest.js" />
     <Content Include="WebClient\Tests\Helper\ErrorHandlerTest.js" />
