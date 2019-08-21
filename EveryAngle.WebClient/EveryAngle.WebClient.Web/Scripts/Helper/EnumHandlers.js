@@ -600,10 +600,6 @@ function EnumHandlers() {
         AFTER: { Text: Localization.OperatorIsAfter, Value: 'greater_than' },
         BEFOREORON: { Text: Localization.OperatorIsBeforeOrOn, Value: 'less_than_or_equal' },
         AFTERORON: { Text: Localization.OperatorIsAfterOrOn, Value: 'greater_than_or_equal' },
-        RELATIVEBEFORE: { Text: Localization.OperatorIsRelativeBefore, Value: 'relative_before' },
-        RELATIVEAFTER: { Text: Localization.OperatorIsRelativeAfter, Value: 'relative_after' },
-        RELATIVEBETWEEN: { Text: Localization.OperatorIsRelativeBetween, Value: 'relative_between' },
-        NOTRELATIVEBETWEEN: { Text: Localization.OperatorIsNotRelativeBetween, Value: 'not_relative_between' },
         BEFOREOREQUAL: { Text: Localization.OperatorIsBeforeOrOn, Value: 'less_than_or_equal' },
         AFTEROREQUAL: { Text: Localization.OperatorIsAfterOrOn, Value: 'greater_than_or_equal' }
     };
@@ -643,12 +639,6 @@ function EnumHandlers() {
             { Id: '', Value: self.OPERATOR.BEFOREORON.Value, Text: self.OPERATOR.BEFOREORON.Text },
             { Id: '', Value: self.OPERATOR.AFTERORON.Value, Text: self.OPERATOR.AFTERORON.Text }
         ],
-        DATETWO: [
-            { Id: '', Value: self.OPERATOR.RELATIVEBEFORE.Value, Text: self.OPERATOR.RELATIVEBEFORE.Text },
-            { Id: '', Value: self.OPERATOR.RELATIVEAFTER.Value, Text: self.OPERATOR.RELATIVEAFTER.Text },
-            { Id: '', Value: self.OPERATOR.RELATIVEBETWEEN.Value, Text: self.OPERATOR.RELATIVEBETWEEN.Text },
-            { Id: '', Value: self.OPERATOR.NOTRELATIVEBETWEEN.Value, Text: self.OPERATOR.NOTRELATIVEBETWEEN.Text }
-        ],
         TIMEONE: [
             { Id: '', Value: self.OPERATOR.BEFORE.Value, Text: self.OPERATOR.BEFORE.Text },
             { Id: '', Value: self.OPERATOR.AFTER.Value, Text: self.OPERATOR.AFTER.Text },
@@ -667,9 +657,6 @@ function EnumHandlers() {
               { Id: '', Value: self.OPERATOR.BEFORE.Value, Text: self.OPERATOR.BEFORE.Text },
               { Id: '', Value: self.OPERATOR.AFTER.Value, Text: self.OPERATOR.AFTER.Text },
               { Id: '', Value: self.OPERATOR.BETWEEN.Value, Text: self.OPERATOR.BETWEEN.Text },
-              { Id: '', Value: self.OPERATOR.RELATIVEBEFORE.Value, Text: self.OPERATOR.RELATIVEBEFORE.Text },
-              { Id: '', Value: self.OPERATOR.RELATIVEAFTER.Value, Text: self.OPERATOR.RELATIVEAFTER.Text },
-              { Id: '', Value: self.OPERATOR.RELATIVEBETWEEN.Value, Text: self.OPERATOR.RELATIVEBETWEEN.Text },
               { Id: '', Value: self.OPERATOR.HASNOVALUE.Value, Text: self.OPERATOR.HASNOVALUE.Text },
               { Id: '', Value: self.OPERATOR.HASVALUE.Value, Text: self.OPERATOR.HASVALUE.Text },
               { Id: '', Value: self.OPERATOR.NOTEQUALTO.Value, Text: self.OPERATOR.NOTEQUALTO.Text },
@@ -677,8 +664,7 @@ function EnumHandlers() {
               { Id: '', Value: self.OPERATOR.AFTERORON.Value, Text: self.OPERATOR.AFTERORON.Text },
               { Id: '', Value: self.OPERATOR.INLIST.Value, Text: self.OPERATOR.INLIST.Text },
               { Id: '', Value: self.OPERATOR.NOTINLIST.Value, Text: self.OPERATOR.NOTINLIST.Text },
-              { Id: '', Value: self.OPERATOR.NOTBETWEEN.Value, Text: self.OPERATOR.NOTBETWEEN.Text },
-              { Id: '', Value: self.OPERATOR.NOTRELATIVEBETWEEN.Value, Text: self.OPERATOR.NOTRELATIVEBETWEEN.Text }
+              { Id: '', Value: self.OPERATOR.NOTBETWEEN.Value, Text: self.OPERATOR.NOTBETWEEN.Text }
         ]
 
     };
@@ -913,9 +899,7 @@ function EnumHandlers() {
         self.OPERATOR.SMALLERTHAN.Value,
         self.OPERATOR.GREATERTHAN.Value,
         self.OPERATOR.SMALLERTHANOREQUALTO.Value,
-        self.OPERATOR.GREATERTHANOREQUALTO.Value,
-        self.OPERATOR.RELATIVEAFTER.Value,
-        self.OPERATOR.RELATIVEBEFORE.Value
+        self.OPERATOR.GREATERTHANOREQUALTO.Value
     ];
     self.ListGroupOperator = [
         self.OPERATOR.INLIST.Value,
@@ -931,9 +915,7 @@ function EnumHandlers() {
     ];
     self.BetweenGroupOperator = [
         self.OPERATOR.BETWEEN.Value,
-        self.OPERATOR.NOTBETWEEN.Value,
-        self.OPERATOR.RELATIVEBETWEEN.Value,
-        self.OPERATOR.NOTRELATIVEBETWEEN.Value
+        self.OPERATOR.NOTBETWEEN.Value
     ];
 
     self.DAYOFWEEK = {

@@ -1009,49 +1009,6 @@
                 else
                     self.BindingEnumListGrid('ValueList-' + elementIndex, self.Handler.Data()[elementIndex].field, false, WC.Utility.ToArray(queryFilter));
                 break;
-            case enumHandlers.OPERATOR.RELATIVEBEFORE.Value:
-            case enumHandlers.OPERATOR.RELATIVEAFTER.Value:
-                if (WC.FormatHelper.IsDateOrDateTime(fieldType)) {
-                    self.GetHtmlElementById('CompareButton-' + elementIndex).parents('.filterInput:first').addClass('filterInputWithoutCompare');
-                    self.BindingTextNumeric('FirstInput-' + elementIndex, fieldType);
-                    self.BindingUnitDropdownList('FirstInputUnit-' + elementIndex, fieldType);
-                    self.GetHtmlElementById('InputAnd-' + elementIndex).hide();
-                    self.GetHtmlElementById('SecondInput-' + elementIndex).hide();
-                    self.GetHtmlElementById('SecondInputUnit-' + elementIndex).hide();
-
-                    var exampleDateRelative = WC.WidgetFilterHelper.GetDefaultModelDataDate(self.Handler.ModelUri);
-                    var inputDate = self.GetHtmlElementById('FirstInput-' + elementIndex).data(enumHandlers.KENDOUITYPE.NUMERICTEXT);
-                    if (self.IsQueryFilterHasValue(queryFilter)) {
-                        exampleDateRelative.setDate(exampleDateRelative.getDate() + parseFloat(queryFilter[0].value));
-                        inputDate.value(queryFilter[0].value);
-                    }
-                    inputDate.trigger('change');
-                }
-                break;
-            case enumHandlers.OPERATOR.RELATIVEBETWEEN.Value:
-            case enumHandlers.OPERATOR.NOTRELATIVEBETWEEN.Value:
-                if (WC.FormatHelper.IsDateOrDateTime(fieldType)) {
-                    self.GetHtmlElementById('CompareButton-' + elementIndex).parents('.filterInput:first').addClass('filterInputWithoutCompare');
-                    self.BindingTextNumeric('FirstInput-' + elementIndex, fieldType);
-                    self.BindingUnitDropdownList('FirstInputUnit-' + elementIndex, fieldType);
-                    self.BindingTextNumeric('SecondInput-' + elementIndex, fieldType);
-                    self.BindingUnitDropdownList('SecondInputUnit-' + elementIndex, fieldType);
-
-                    var firstExampleDate = WC.WidgetFilterHelper.GetDefaultModelDataDate(self.Handler.ModelUri);
-                    var secondExampleDate = WC.WidgetFilterHelper.GetDefaultModelDataDate(self.Handler.ModelUri);
-                    var firstInputDate = self.GetHtmlElementById('FirstInput-' + elementIndex).data(enumHandlers.KENDOUITYPE.NUMERICTEXT);
-                    var secondInputDate = self.GetHtmlElementById('SecondInput-' + elementIndex).data(enumHandlers.KENDOUITYPE.NUMERICTEXT);
-                    if (self.IsQueryFilterHasValues(queryFilter)) {
-                        firstExampleDate.setDate(firstExampleDate.getDate() + parseFloat(queryFilter[0].value));
-                        secondExampleDate.setDate(secondExampleDate.getDate() + parseFloat(queryFilter[1].value));
-
-                        firstInputDate.value(queryFilter[0].value);
-                        secondInputDate.value(queryFilter[1].value);
-                    }
-                    firstInputDate.trigger('change');
-                }
-                break;
-
             default:
                 break;
         }
@@ -1235,12 +1192,7 @@
             }
 
             var operator = self.GetDropdownOperatorValue(currentElementIndex);
-            if (operator === enumHandlers.OPERATOR.RELATIVEAFTER.Value || operator === enumHandlers.OPERATOR.RELATIVEBEFORE.Value) {
-                self.GetHtmlElementById('ExampleText-' + currentElementIndex).text(self.CalculateRelativeBeforeOrAfter(elementId, currentElementIndex, formatter, operator));
-            }
-            else {
-                self.GetHtmlElementById('ExampleText-' + currentElementIndex).text(self.CalculateRelativeDateBetween(currentElementIndex, formatter, operator));
-            }
+            self.GetHtmlElementById('ExampleText-' + currentElementIndex).text(self.CalculateRelativeDateBetween(currentElementIndex, formatter, operator));
         }
     };
     self.CalculateRelativeBeforeOrAfter = function (elementId, currentElementIndex, formatter, operator) {
@@ -1251,7 +1203,7 @@
         currentDate.setDate(currentDate.getDate() + allSelectedDay);
 
         var exampleDateText = kendo.toString(currentDate, formatter);
-        var operatorText = operator === enumHandlers.OPERATOR.RELATIVEBEFORE.Value ? Localization.Before : Localization.After;
+        var operatorText = Localization.After;
         return ' ' + operatorText + ' ' + exampleDateText;
     };
     self.CalculateRelativeDateBetween = function (currentElementIndex, formatter, operator) {
@@ -1268,7 +1220,7 @@
         secondDate.setDate(secondDate.getDate() + allSecondDay);
         var firstFormat = kendo.toString(firstDate, formatter);
         var secondFormat = kendo.toString(secondDate, formatter);
-        var operatorText = operator === enumHandlers.OPERATOR.NOTRELATIVEBETWEEN.Value ? Localization.NotBetween : Localization.Between;
+        var operatorText = Localization.Between;
         return ' ' + operatorText + ' ' + firstFormat + ' ' + Localization.And + ' ' + secondFormat;
     };
     self.BindingUnitDropdownList = function (elementId, fieldType) {
@@ -1473,23 +1425,10 @@
             var itemNotEqualTo = ddlData.findObject(enumHandlers.PROPERTIESNAME.VALUE, enumHandlers.OPERATOR.NOTEQUALTO.Value);
             itemNotEqualTo.Text = enumHandlers.OPERATOR.ISNOTIN.Text;
         }
-
-        ddlData = self.UpdateDropdownOperatorForRTMS(ddlData);
-
+        
         ddlOperator.setDataSource(ddlData);
         ddlOperator.value(operator);
         ddlOperator.refresh();
-    };
-    self.UpdateDropdownOperatorForRTMS = function (ddlData) {
-        var model = modelsHandler.GetModelByUri(self.Handler.ModelUri);
-        var isRealTimeModel = aboutSystemHandler.IsRealTimeModel(model.id);
-        if (isRealTimeModel) {
-            ddlData.removeObject(enumHandlers.PROPERTIESNAME.VALUE, enumHandlers.OPERATOR.RELATIVEBEFORE.Value);
-            ddlData.removeObject(enumHandlers.PROPERTIESNAME.VALUE, enumHandlers.OPERATOR.RELATIVEAFTER.Value);
-            ddlData.removeObject(enumHandlers.PROPERTIESNAME.VALUE, enumHandlers.OPERATOR.RELATIVEBETWEEN.Value);
-            ddlData.removeObject(enumHandlers.PROPERTIESNAME.VALUE, enumHandlers.OPERATOR.NOTRELATIVEBETWEEN.Value);
-        }
-        return ddlData;
     };
     self.UpdateWidgetFilterText = function (data, index) {
         var filterText = self.Handler.GetFilterText(data, self.Handler.ModelUri, self.Handler.ViewMode() === self.Handler.VIEWMODE.TREEVIEW);
@@ -2574,37 +2513,6 @@
                                 values.push(data.value);
                             }
                         });
-                    }
-                }
-                break;
-            case enumHandlers.OPERATOR.RELATIVEBEFORE.Value:
-            case enumHandlers.OPERATOR.RELATIVEAFTER.Value:
-                elementIndex = firstElementId.split('-')[1];
-                criteriaElement = firstElement.data(enumHandlers.KENDOUITYPE.NUMERICTEXT);
-                unitDay = WC.HtmlHelper.DropdownList(self.GetHtmlElementById('FirstInputUnit-' + elementIndex)).value();
-
-                if (criteriaElement.value() !== null) {
-                    elementValue = parseInt(criteriaElement.value()) * unitDay;
-                    values.push(elementValue);
-                }
-                break;
-            case enumHandlers.OPERATOR.RELATIVEBETWEEN.Value:
-            case enumHandlers.OPERATOR.NOTRELATIVEBETWEEN.Value:
-                if (WC.FormatHelper.IsDateOrDateTime(fieldType)) {
-                    elementIndex = firstElementId.split('-')[1];
-                    firstCriteriaElement = firstElement.data(enumHandlers.KENDOUITYPE.NUMERICTEXT);
-                    secondCriteriaElement = secondElement.data(enumHandlers.KENDOUITYPE.NUMERICTEXT);
-                    unitDay = WC.HtmlHelper.DropdownList(self.GetHtmlElementById('FirstInputUnit-' + elementIndex)).value();
-
-                    if (firstCriteriaElement.value() !== null) {
-                        elementValue = parseInt(firstCriteriaElement.value()) * unitDay;
-                        values.push(elementValue);
-                    }
-
-                    if (secondCriteriaElement.value() !== null) {
-                        unitDay = WC.HtmlHelper.DropdownList(self.GetHtmlElementById('SecondInputUnit-' + elementIndex)).value();
-                        elementValue = parseInt(secondCriteriaElement.value()) * unitDay;
-                        values.push(elementValue);
                     }
                 }
                 break;

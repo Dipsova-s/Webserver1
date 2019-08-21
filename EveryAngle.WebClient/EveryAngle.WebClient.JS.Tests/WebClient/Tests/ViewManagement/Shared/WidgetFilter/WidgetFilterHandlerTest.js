@@ -1201,15 +1201,11 @@ describe("WidgetFilterHandler", function () {
             actual_1 = target.GetTemplateName(enumHandlers.FIELDTYPE.TEXT, enumHandlers.OPERATOR.BETWEEN.Value);
             actual_2 = target.GetTemplateName(enumHandlers.FIELDTYPE.BOOLEAN, enumHandlers.OPERATOR.NOTBETWEEN.Value);
             actual_3 = target.GetTemplateName(enumHandlers.FIELDTYPE.PERIOD, enumHandlers.OPERATOR.NOTBETWEEN.Value);
-            actual_4 = target.GetTemplateName(enumHandlers.FIELDTYPE.PERCENTAGE, enumHandlers.OPERATOR.RELATIVEBEFORE.Value);
-            actual_5 = target.GetTemplateName(enumHandlers.FIELDTYPE.CURRENCY, enumHandlers.OPERATOR.RELATIVEBETWEEN.Value);
 
             // Assert
             expect(actual_1).toBe('CRITERIAGROUPTWO');
             expect(actual_2).toBe('CRITERIAGROUPTWO');
             expect(actual_3).toBe('CRITERIAGROUPTWO');
-            expect(actual_4).toBe('CRITERIAGROUPTWO');
-            expect(actual_5).toBe('CRITERIAGROUPTWO');
 
             // 4. CRITERIAGROUPTHREE and CRITERIAGROUPFOUR
             // Act
@@ -1298,7 +1294,8 @@ describe("WidgetFilterHandler", function () {
                     "value": null
                 }],
                 "step_type": "filter"
-            }];
+                }];
+
             var target = new WidgetFilterHandler(container, querySteps);
             var sender = {};
             sender.value = function () {
@@ -1655,8 +1652,6 @@ describe("WidgetFilterHandler", function () {
             expect(widgetFilterHandler.IsEqualGroupOperator(enumHandlers.OPERATOR.GREATERTHAN.Value)).toBe(true);
             expect(widgetFilterHandler.IsEqualGroupOperator(enumHandlers.OPERATOR.SMALLERTHANOREQUALTO.Value)).toBe(true);
             expect(widgetFilterHandler.IsEqualGroupOperator(enumHandlers.OPERATOR.GREATERTHANOREQUALTO.Value)).toBe(true);
-            expect(widgetFilterHandler.IsEqualGroupOperator(enumHandlers.OPERATOR.RELATIVEAFTER.Value)).toBe(true);
-            expect(widgetFilterHandler.IsEqualGroupOperator(enumHandlers.OPERATOR.RELATIVEBEFORE.Value)).toBe(true);
             expect(widgetFilterHandler.IsEqualGroupOperator(enumHandlers.OPERATOR.INLIST.Value)).toBe(false);
         });
     });
@@ -1687,8 +1682,6 @@ describe("WidgetFilterHandler", function () {
 
             expect(widgetFilterHandler.IsBetweenGroupOperator(enumHandlers.OPERATOR.BETWEEN.Value)).toBe(true);
             expect(widgetFilterHandler.IsBetweenGroupOperator(enumHandlers.OPERATOR.NOTBETWEEN.Value)).toBe(true);
-            expect(widgetFilterHandler.IsBetweenGroupOperator(enumHandlers.OPERATOR.RELATIVEBETWEEN.Value)).toBe(true);
-            expect(widgetFilterHandler.IsBetweenGroupOperator(enumHandlers.OPERATOR.NOTRELATIVEBETWEEN.Value)).toBe(true);
             expect(widgetFilterHandler.IsBetweenGroupOperator(enumHandlers.OPERATOR.NOTMATCHPATTERN.Value)).toBe(false);
         });
     });
@@ -1744,12 +1737,7 @@ describe("WidgetFilterHandler", function () {
             actualData = widgetFilterHandler.GetFilterElements(0, enumHandlers.FIELDTYPE.DATE, enumHandlers.OPERATOR.GREATERTHAN.Value);
             expect(actualData[0]).toBe("InputValue-0");
             expect(actualData.length).toBe(1);
-
-            //period with relative
-            actualData = widgetFilterHandler.GetFilterElements(0, enumHandlers.FIELDTYPE.PERIOD, enumHandlers.OPERATOR.RELATIVEAFTER.Value);
-            expect(actualData[0]).toBe("FirstInput-0");
-            expect(actualData.length).toBe(1);
-
+            
             //time
             actualData = widgetFilterHandler.GetFilterElements(0, enumHandlers.FIELDTYPE.TIME, enumHandlers.OPERATOR.GREATERTHAN.Value);
             expect(actualData[0]).toBe("InputValue-0");
@@ -1841,14 +1829,14 @@ describe("WidgetFilterHandler", function () {
             });
         });
 
-        var equalGroupOperatorTests = ["equal_to", "not_equal_to", "less_than", "greater_than", "less_than_or_equal", "greater_than_or_equal", "relative_after", "relative_before"];
+        var equalGroupOperatorTests = ["equal_to", "not_equal_to", "less_than", "greater_than", "less_than_or_equal", "greater_than_or_equal"];
         $.each(equalGroupOperatorTests, function (index, operator) {
             it("should get 1 for single operator (" + operator + ")", function () {
                 expect(widgetFilterHandler.GetMaxArgumentsCount(operator)).toEqual(1);
             });
         });
 
-        var betweenGroupOperatorTests = ["between", "not_between", "relative_between", "not_relative_between"];
+        var betweenGroupOperatorTests = ["between", "not_between"];
         $.each(betweenGroupOperatorTests, function (index, operator) {
             it("should get 2 for between operator (" + operator + ")", function () {
                 expect(widgetFilterHandler.GetMaxArgumentsCount(operator)).toEqual(2);

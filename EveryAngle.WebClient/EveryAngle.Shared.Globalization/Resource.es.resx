@@ -783,18 +783,6 @@
   <data name="OperatorIsNotInList" xml:space="preserve">
     <value>no está en la lista</value>
   </data>
-  <data name="OperatorIsNotRelativeBetween" xml:space="preserve">
-    <value>no es relativo entre</value>
-  </data>
-  <data name="OperatorIsRelativeAfter" xml:space="preserve">
-    <value>es relativo después</value>
-  </data>
-  <data name="OperatorIsRelativeBefore" xml:space="preserve">
-    <value>es relativo antes</value>
-  </data>
-  <data name="OperatorIsRelativeBetween" xml:space="preserve">
-    <value>es relativo entre</value>
-  </data>
   <data name="OperatorIsSmallerThan" xml:space="preserve">
     <value>es menor que</value>
   </data>

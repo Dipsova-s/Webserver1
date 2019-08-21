@@ -379,14 +379,6 @@ function WidgetFilterHandler(container, models) {
             case enumHandlers.OPERATOR.NOTMATCHPATTERN.Value:
                 templateName = 'CRITERIAGROUPTHREE';
                 break;
-            case enumHandlers.OPERATOR.RELATIVEBEFORE.Value:
-            case enumHandlers.OPERATOR.RELATIVEAFTER.Value:
-                templateName = 'CRITERIAGROUPTWO';
-                break;
-            case enumHandlers.OPERATOR.RELATIVEBETWEEN.Value:
-            case enumHandlers.OPERATOR.NOTRELATIVEBETWEEN.Value:
-                templateName = 'CRITERIAGROUPTWO';
-                break;
             default:
                 templateName = 'DEFAULTCRITERIA';
                 break;
@@ -481,9 +473,7 @@ function WidgetFilterHandler(container, models) {
             jQuery.merge(commonGroup, self.ContainArguments);
         else
             jQuery.merge(containGroup, self.ContainArguments);
-
-        jQuery.merge(relativeGroup, self.RelativeArguments);
-
+        
         var canSwitchCommonGroup = jQuery.inArray(operator1, commonGroup) !== -1 && jQuery.inArray(operator2, commonGroup) !== -1;
         var canSwitchContainGroup = jQuery.inArray(operator1, containGroup) !== -1 && jQuery.inArray(operator2, containGroup) !== -1;
         var canSwitchRelativeGroup = jQuery.inArray(operator1, relativeGroup) !== -1 && jQuery.inArray(operator2, relativeGroup) !== -1;
@@ -637,8 +627,7 @@ function WidgetFilterHandler(container, models) {
                 filterElements.push('YesChoice-' + index);
                 filterElements.push('NoChoice-' + index);
             }
-            else if (fieldType === enumHandlers.FIELDTYPE.PERIOD
-                || self.IsDateTimeWithRelative(fieldType, operator)) {
+            else if (fieldType === enumHandlers.FIELDTYPE.PERIOD) {
                 filterElements.push('FirstInput-' + index);
             }
             else {

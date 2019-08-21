@@ -312,31 +312,7 @@ describe("WidgetFilterHelper", function () {
                 fieldType = {};
             expect(widgetFilterHelper.ConvertOperatorToCriteria(operator, fieldType)).toBe(enumHandlers.OPERATOR.NOTBETWEEN.Text);
         });
-
-        it("should return 'RELATIVEBEFORE''s text if 'operator' is 'RELATIVEBEFORE'", function () {
-            var operator = enumHandlers.OPERATOR.RELATIVEBEFORE.Value,
-                fieldType = {};
-            expect(widgetFilterHelper.ConvertOperatorToCriteria(operator, fieldType)).toBe(enumHandlers.OPERATOR.RELATIVEBEFORE.Text);
-        });
-
-        it("should return 'RELATIVEAFTER''s text if 'operator' is 'RELATIVEAFTER'", function () {
-            var operator = enumHandlers.OPERATOR.RELATIVEAFTER.Value,
-                fieldType = {};
-            expect(widgetFilterHelper.ConvertOperatorToCriteria(operator, fieldType)).toBe(enumHandlers.OPERATOR.RELATIVEAFTER.Text);
-        });
-
-        it("should return 'RELATIVEBETWEEN''s text if 'operator' is 'RELATIVEBETWEEN'", function () {
-            var operator = enumHandlers.OPERATOR.RELATIVEBETWEEN.Value,
-                fieldType = {};
-            expect(widgetFilterHelper.ConvertOperatorToCriteria(operator, fieldType)).toBe(enumHandlers.OPERATOR.RELATIVEBETWEEN.Text);
-        });
-
-        it("should return 'NOTRELATIVEBETWEEN''s text if 'operator' is 'NOTRELATIVEBETWEEN'", function () {
-            var operator = enumHandlers.OPERATOR.NOTRELATIVEBETWEEN.Value,
-                fieldType = {};
-            expect(widgetFilterHelper.ConvertOperatorToCriteria(operator, fieldType)).toBe(enumHandlers.OPERATOR.NOTRELATIVEBETWEEN.Text);
-        });
-
+        
         it("should return 'INLIST''s text if 'operator' is 'INLIST'", function () {
             var operator = enumHandlers.OPERATOR.INLIST.Value,
                 fieldType = {};
@@ -426,7 +402,7 @@ describe("WidgetFilterHelper", function () {
     });
 
     describe("call IsBetweenArgumentComparable", function () {
-        var testOperators = ["between", "not_between", "relative_between", "not_relative_between"];
+        var testOperators = ["between", "not_between"];
         $.each(testOperators, function (indexOperator, operator) {
             it("should get 'true' if is '" + operator + "' operator and no type field", function () {
                 var validArguments = [
@@ -528,23 +504,13 @@ describe("WidgetFilterHelper", function () {
 
         it("should get empty if not date, datetime or period type", function () {
             var fieldType = enumHandlers.FIELDTYPE.INTEGER;
-            var operator = enumHandlers.OPERATOR.RELATIVEAFTER.Value;
+            var operator = enumHandlers.OPERATOR.AFTER.Value;
             var argumentCount = 1;
             var result = widgetFilterHelper.GetFilterSuffixText(fieldType, operator, argumentCount);
             var expected = '';
             expect(result).toBe(expected);
         });
-
-        it("should get 'DaysFromActualDate' if date or datetime type and relative operator", function () {
-            var fieldType = enumHandlers.FIELDTYPE.DATETIME;
-            var operator = enumHandlers.OPERATOR.RELATIVEAFTER.Value;
-            var argumentCount = 1;
-            var result = widgetFilterHelper.GetFilterSuffixText(fieldType, operator, argumentCount);
-            var expected = ' ' + Localization.DaysFromActualDate;
-
-            expect(result).toBe(expected);
-        });
-
+        
         it("should return 'WidgetFilter_PeriodType_Days' if period type and not list operator", function () {
             var fieldType = enumHandlers.FIELDTYPE.PERIOD;
             var operator = enumHandlers.OPERATOR.EQUALTO.Value;
