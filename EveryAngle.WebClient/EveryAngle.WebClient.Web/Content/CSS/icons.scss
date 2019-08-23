@@ -1,0 +1,388 @@
+﻿/* .icon
+============================================ */
+.icon {
+    display: inline-block;
+    font-family: 'WebClientIco';
+    background: transparent none center top no-repeat;
+    font-style: normal;
+    font-weight: normal;
+    font-variant: normal;
+    text-transform: none;
+    line-height: 1;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-chevron-down:before {
+    content: "\e900";
+}
+
+.icon-chevron-left:before {
+    display: block;
+    content: "\e900";
+    transform: rotate(90deg);
+}
+
+.icon-chevron-up:before {
+    display: block;
+    content: "\e900";
+    transform: rotate(180deg);
+}
+
+.icon-chevron-right:before {
+    display: block;
+    content: "\e900";
+    transform: rotate(270deg);
+}
+
+.icon-caret-down:before {
+    content: "\e901";
+}
+
+.icon-caret-left:before {
+    display: block;
+    content: "\e901";
+    transform: rotate(90deg);
+}
+
+.icon-caret-up:before {
+    display: block;
+    content: "\e901";
+    transform: rotate(180deg);
+}
+
+.icon-caret-right:before {
+    display: block;
+    content: "\e901";
+    transform: rotate(270deg);
+}
+
+.icon-download:before {
+    content: "\e902";
+}
+
+.icon-close:before {
+    content: "\e903";
+}
+
+.icon-link:before {
+    content: "\e904";
+}
+
+.icon-maximize:before {
+    content: "\e905";
+}
+
+.icon-minimize:before {
+    content: "\e906";
+}
+
+.icon-info:before {
+    content: "\e907";
+}
+
+.icon-info {
+    color: #34495e;
+}
+
+.icon-angle:before {
+    content: "\e908";
+}
+
+.icon-template:before {
+    content: '';
+    display: inline-block;
+    background: transparent url('../../images/searchpage/icn_item_template.svg') center center no-repeat;
+    background-size: 19px 19px;
+    width: 14px;
+    height: 14px;
+    margin: auto;
+}
+
+.icon-dashboard:before {
+    content: '';
+    display: inline-block;
+    background: transparent url(../../images/searchpage/icn_item_dashboard.svg) center center no-repeat;
+    background-size: 14px 14px;
+    width: 14px;
+    height: 14px;
+    margin: auto;
+}
+
+.icon-bin:before {
+    content: "\e909";
+}
+
+.icon-parameterized:before {
+    content: "\e90a";
+}
+
+.icon-filter:before {
+    content: "\e90b";
+}
+
+.icon-no-filter:before {
+    content: "\e90b";
+    opacity: .2;
+}
+
+.icon-followup:before {
+    content: "\e90c";
+}
+
+.icon-list:before {
+    content: "\e90d";
+}
+
+.icon-chart:before {
+    content: "\e90e";
+}
+
+.icon-pivot:before {
+    content: "\e90f";
+}
+
+.icon-private:before {
+    content: "\e910";
+}
+
+.icon-public:before {
+    content: "\e911";
+}
+
+.icon-validated:before {
+    content: "\e912";
+}
+
+.icon-plus:before {
+    content: "\e913";
+}
+
+.icon-star-active:before {
+    content: "\e914";
+}
+
+.icon-star-inactive:before {
+    content: "\e915";
+}
+
+.icon.new {
+    width: 25px;
+    background: transparent url(../../images/angle/actiondropdownlist/pastedisplay.svg) center no-repeat;
+    background-size: 18px 18px;
+}
+
+.icon.list,
+.icon.chart,
+.icon.pivot {
+    position: relative;
+    width: 24px;
+    height: 24px;
+    background-position: center center;
+    background-size: 36px 36px;
+}
+
+.icon.list {
+    background-image: url('../../images/icons/icon_display_list.svg');
+}
+
+.icon.chart {
+    background-image: url('../../images/icons/icon_display_chart.svg');
+    background-size: 30px 30px;
+}
+
+.icon.pivot {
+    background-image: url('../../images/icons/icon_display_pivot.svg');
+}
+
+.icon.default:after {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    box-sizing: border-box;
+    box-shadow: inset 0 0 0 1px #78909c;
+}
+
+.icon.schedule:after {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background: transparent url(../../images/icons/icon_schedule_small.png) right bottom no-repeat;
+    background-size: 10px;
+}
+
+.icon.dashboard {
+    width: 25px;
+    height: 25px;
+    background-image: url('../../images/searchpage/icn_item_dashboard.svg');
+}
+
+.icon.public {
+    width: 25px;
+    height: 25px;
+    background-image: url('../../images/searchpage/icn_public.svg');
+    background-size: 20px 20px;
+    background-position-y: 1px;
+}
+
+.icon.private {
+    width: 25px;
+    height: 25px;
+    background-image: url('../../images/searchpage/icn_private.svg');
+    background-size: 16px 16px;
+    background-position-y: 1px;
+    top: -2px;
+}
+
+.icon.filter,
+.icon.noFilter {
+    width: 25px;
+    height: 25px;
+    background-image: url('../../images/icons/icon_filter.svg');
+    background-size: 16px 16px;
+    background-position: center center;
+}
+
+.icon.followup {
+    width: 25px;
+    height: 25px;
+    background-image: url('../../images/icons/icon_followup_addnew.svg');
+    background-size: 14px 16px;
+}
+
+.icon.noFilter {
+    opacity: .2;
+}
+
+.icon.angle {
+    width: 25px;
+    height: 25px;
+    background-image: url('../../images/searchpage/icn_item_angle.svg');
+}
+
+.icon.template {
+    width: 25px;
+    height: 25px;
+    background-image: url('../../images/searchpage/icn_item_template.svg');
+}
+
+.icon.validated {
+    background-image: url('../../images/searchpage/icn_validated.svg');
+}
+
+.icon.parameterized {
+    background-image: url('../../images/icons/icon_execute.svg');
+    background-position: center center;
+    width: 22px;
+    height: 25px;
+}
+
+.icon.validError {
+    background-image: url('../../images/icons/icon_error.png');
+    background-position: center center;
+    width: 22px;
+    height: 25px;
+}
+
+.icon.validWarning {
+    display: inline-flex;
+    width: 22px;
+    height: 25px;
+}
+
+.icon.validWarning:before {
+    content: '';
+    border-radius: 50%;
+    width: 14px;
+    height: 14px;
+    background-image: url('../../images/icons/icon_warnings.svg');
+    background-size: 14px 14px;
+    background-repeat: no-repeat;
+    margin: auto;
+}
+
+.icon.add {
+    background-image: url('../../images/icons/icon_plus.svg');
+    background-position: center center;
+    background-size: 10px 10px;
+    width: 16px;
+    height: 16px;
+}
+
+.icon.remove {
+    background-image: url('../../images/icons/icon_delete.svg');
+    background-position: center center;
+    background-size: 10px 10px;
+    width: 16px;
+    height: 16px;
+}
+
+.icon.delete-red {
+    background: transparent url('../../images/icons/icon_delete_red.svg') center center no-repeat;
+    width: 12px;
+    height: 12px;
+}
+
+.icon.info {
+    background: transparent url('../../images/icons/icon_info.svg') center center no-repeat;
+    width: 12px;
+    height: 12px;
+    background-size: 12px 12px;
+}
+
+.icon.icon-create-angle {
+    background: transparent url('../../images/icons/icon_create_angle_plus.svg') center center no-repeat;
+    width: 16px;
+    height: 16px;
+}
+
+.icon-add-filter {
+    width: 20px;
+    height: 20px;
+}
+
+.icon-add-filter:before {
+    content: '';
+    display: block;
+    margin: auto;
+    background: transparent url('../../images/icons/icon_filter_addnew.svg') center no-repeat;
+    width: 18px;
+    height: 16px;
+}
+
+.icon-drilldown {
+    background: transparent url('../../images/icons/icon_drilldown.svg') center center no-repeat;
+    width: 20px;
+    height: 20px;
+}
+
+.icon-copy {
+    background: transparent url('../../images/icons/icon_copy.svg') center center no-repeat;
+    width: 20px;
+    height: 20px;
+    background-size: 20px 20px;
+}
+
+.icon-sap {
+    background: transparent url('../../images/icons/icon_sap.svg') center center no-repeat;
+    width: 20px;
+    height: 20px;
+}
+
+.icon-home {
+    background: url('../../images/icons/icon_home.svg') center/16px 16px no-repeat;
+    width: 12px;
+    height: 12px;
+}
+
+.icon-loading {
+    background-image: url('../../images/loading.gif');
+    width: 16px;
+    height: 16px;
+}

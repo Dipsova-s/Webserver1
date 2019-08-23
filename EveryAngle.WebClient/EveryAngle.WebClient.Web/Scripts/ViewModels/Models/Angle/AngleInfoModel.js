@@ -13,7 +13,6 @@ function AngleInfoViewModel(model) {
     self.IsTemplate = ko.protectedObservable(false);
     self.IsTempTemplate = ko.observable(false);
     self.IsValidated = ko.protectedObservable(false);
-    self.IsTempValidated = ko.observable(false);
     self.ModelName = ko.observable({
         ShortName: ko.observable(''),
         LongName: ko.observable(''),
@@ -187,7 +186,6 @@ function AngleInfoViewModel(model) {
         self.IsTemplate(data.is_template);
         self.IsTempTemplate(data.is_template);
         self.IsValidated(data.is_validated);
-        self.IsTempValidated(data.is_validated);
         self.PrivateNote(data.user_specific.private_note);
         self.TimeExcuted(data.user_specific.times_executed);
         self.AllowMoreDetails(data.allow_more_details);
@@ -411,7 +409,6 @@ function AngleInfoViewModel(model) {
                 self.IsTemplate(data.is_template);
                 self.IsTempTemplate(data.is_template);
                 self.IsValidated(data.is_validated);
-                self.IsTempValidated(data.is_validated);
                 self.Data.commit();
                 self.IsPublished.commit();
                 self.IsTemplate.commit();
@@ -536,7 +533,7 @@ function AngleInfoViewModel(model) {
         });
     };
     self.GetAngleDescription = function (detail) {
-        var html = '<a class="btnInfo" onclick="angleDetailPageHandler.ShowInfoPopup()"></a>';
+        var html = '<a class="btnInfo icon icon-info" onclick="angleDetailPageHandler.ShowInfoPopup()"></a>';
         if (detail) {
             detail = detail = WC.HtmlHelper.StripHTML(detail, true);
             html = detail + html;
@@ -743,8 +740,8 @@ function AngleInfoViewModel(model) {
             create_private_display: true,
             create_public_display: true,
             'delete': true,
-            mark_template: true,
-            publish: true,
+            mark_template: false,
+            publish: false,
             unmark_template: false,
             unpublish: false,
             unvalidate: false,

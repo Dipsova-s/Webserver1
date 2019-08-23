@@ -4,6 +4,7 @@ Screenshot "WC_Top_Bar" page
     Select Search Filter Angle
     Crop Topbar Logo Button
     Crop Topbar Help Button
+    Crop Topbar User Settings Button
     Crop Topbar User Button
     Crop Topbar Notification Button
 
@@ -14,6 +15,10 @@ Crop Topbar Logo Button
 Crop Topbar Help Button
     ${nodeIndex}   Execute JavaScript    return $('#Help').closest('li').prevAll().length;
     Crop WebHelp Image    WC_Action_Button_Help.png    jquery=#UserPanel li:eq(${nodeIndex})
+
+Crop Topbar User Settings Button
+    ${nodeIndex}   Execute JavaScript    return $('#Settings').closest('li').prevAll().length;
+    Crop WebHelp Image    WC_Settings_Icon.png    jquery=#UserPanel li:eq(${nodeIndex})  ${False}
 
 Crop Topbar User Button
     ${nodeIndex}   Execute JavaScript    return $('#UserControl').closest('li').prevAll().length;

@@ -9,7 +9,6 @@ Verify Angle Details
     Open Angle Detail Popup
     Verify Angle Details General Tab
     Verify Angle Details Definition Tab
-    Verify Angle Details Publishing Tab
     Verify Angle Details Statistics Tab
 
 Verify Angle Details General Tab
@@ -34,15 +33,6 @@ Verify Angle Details Definition Tab
     Wait Until Page Contains Element    ${btnAddjump}
     Wait Until Page Contains Element    ${btnAddFilter}
 
-Verify Angle Details Publishing Tab
-    Click Angle Detail Publishing Tab
-    Wait Until Page Contains Element    ${btnSetToPublish}
-    Wait Until Page Contains Element    ${btnSetToValidate}
-    Wait Until Page Contains Element    ${btnSetToTemplate}
-    Wait Until Page Contains    Privilege labels
-    Click Element    jquery=#${tabSearchLabel}
-
-
 Verify Angle Details Statistics Tab
     Click Angle Detail Statistics Tab
     Wait Until Ajax Complete
@@ -57,13 +47,9 @@ Verify Angle Details Statistics Tab
 
 Set Angle to Template
     Open Angle Detail Popup
-    Click Angle Detail Publishing Tab
+    Click Angle Detail General Tab
     Click Set Angle to Template
     Click Save Angle
-
-Publish Angle Via Angle Publishing Popup
-    Open Angle Publishing Popup
-    Click Publish Angle
 
 Open Angle Popup And Save ID
     [Arguments]    ${id}
@@ -76,19 +62,6 @@ Open Angle Popup And Save Name
     Open Angle Detail Popup
     Click Angle Detail Description Tab
     Input Angle Name    ${name}
-    Click Save Angle
-
-Verify Validate Angle Via Angle Detail Popup
-    [Arguments]       ${angleName}
-    Login To WC By Power User
-    Search Angle From Search Page And Execute Angle    ${angleName}
-    Open Angle Detail Popup
-    Click Angle Detail Publishing Tab
-    Click Angle Set to Validate
-    Click Save Angle
-    Open Angle Detail Popup
-    Click Angle Detail Publishing Tab
-    Click Angle Set to Validate
     Click Save Angle
 
 Add Filter From Angle Details Popup

@@ -127,7 +127,7 @@ function HelpTextHandler() {
         requestHistoryModel.ClearPopupBeforeExecute = true;
 
         // clean popup
-        jQuery('.helpTextPopup .k-window-titlebar .icon, #helpTextFootNote').remove();
+        jQuery('.helpTextPopup .k-window-titlebar > .icon, #helpTextFootNote').remove();
         jQuery('.helpTextPopup .k-window-titlebar .k-window-title').removeAttr('style');
 
         self.SetHelpSourceField(objectId, helpType, modelUri);
@@ -159,6 +159,8 @@ function HelpTextHandler() {
                     position: 'right'
                 }
             ],
+            width: 850,
+            height: 530,
             modal: true,
             center: true,
             draggable: true,

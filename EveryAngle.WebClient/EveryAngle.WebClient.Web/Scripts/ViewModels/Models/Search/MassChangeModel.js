@@ -63,6 +63,8 @@ function MassChangeModel() {
                 html: massChangeHtmlTemplate(),
                 className: 'popup' + popupName,
                 animation: false,
+                width: 850,
+                height: 530,
                 minWidth: 500,
                 open: function (e) {
                     self.ShowMassChangePopupCallback(e);
@@ -130,7 +132,7 @@ function MassChangeModel() {
                 self.SearchCategories = [];
                 self.PrivilegeCategories = [];
                 if (self.CanSetLabels())
-                    return self.GenerateAddRemoveLabelView(enumHandlers.MASSCHANGELABELVIEWTYPE.BP);
+                    return self.GenerateAddRemoveLabelView(enumHandlers.LABELVIEWTYPE.BP);
                 else
                     return jQuery.when();
             })
@@ -695,10 +697,10 @@ function MassChangeModel() {
         return modelsHandler.LoadModelInfo(self.modelData.uri)
             .then(function (data) {
                 self.modelData = data;
-                return modelLabelCategoryHandler.LoadAllLabelCategories(self.modelData.label_categories);
-            })
-            .then(function () {
-                return modelLabelCategoryHandler.LoadAllLabels(self.modelData.labels);
+                var deferred = [];
+                deferred.pushDeferred(modelLabelCategoryHandler.LoadAllLabelCategories, [self.modelData.label_categories]);
+                deferred.pushDeferred(modelLabelCategoryHandler.LoadAllLabels, [self.modelData.labels]);
+                return jQuery.whenAll(deferred);
             });
     };
     self.LoadAllAngles = function () {
@@ -728,13 +730,13 @@ function MassChangeModel() {
             });
     };
     self.GenerateAddRemoveLabelView = function (viewType) {
-        var tabId = viewType === enumHandlers.MASSCHANGELABELVIEWTYPE.BP ? 'BPLabels' : viewType === enumHandlers.MASSCHANGELABELVIEWTYPE.SEARCH ? 'SearchLabels' : 'PrivilegeLabels';
-        jQuery('#PublishTabWrapper .tabMenu li').removeClass('active');
+        var tabId = viewType === enumHandlers.LABELVIEWTYPE.BP ? 'BPLabels' : viewType === enumHandlers.LABELVIEWTYPE.SEARCH ? 'SearchLabels' : 'PrivilegeLabels';
+        jQuery('#LabelTabWrapper .tabMenu li').removeClass('active');
         jQuery('#' + tabId).addClass('active');
         jQuery('#Labels-PlaceHolder').empty().html(massChangeLabelsHtmlTemplate());
 
         var allModelLabelCategories = modelLabelCategoryHandler.GetLabelCategoriesByModelAndViewType(self.modelData.uri, viewType);
-        var currentCategories = viewType === enumHandlers.MASSCHANGELABELVIEWTYPE.BP ? self.BPCategories : viewType === enumHandlers.MASSCHANGELABELVIEWTYPE.SEARCH ? self.SearchCategories : self.PrivilegeCategories;
+        var currentCategories = viewType === enumHandlers.LABELVIEWTYPE.BP ? self.BPCategories : viewType === enumHandlers.LABELVIEWTYPE.SEARCH ? self.SearchCategories : self.PrivilegeCategories;
         var isInitial = false;
         var isCategoryExist = function (categoryId) {
             return jQuery.grep(currentCategories, function (category) { return category.Category.id === categoryId; }).length;
@@ -756,10 +758,10 @@ function MassChangeModel() {
             }
         });
 
-        if (viewType === enumHandlers.MASSCHANGELABELVIEWTYPE.BP) {
+        if (viewType === enumHandlers.LABELVIEWTYPE.BP) {
             ko.applyBindings(self.BPCategories, jQuery('#LabelCategories').get(0));
         }
-        else if (viewType === enumHandlers.MASSCHANGELABELVIEWTYPE.SEARCH) {
+        else if (viewType === enumHandlers.LABELVIEWTYPE.SEARCH) {
             ko.applyBindings(self.SearchCategories, jQuery('#LabelCategories').get(0));
         }
         else {

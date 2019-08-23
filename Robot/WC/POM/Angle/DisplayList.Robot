@@ -35,9 +35,10 @@ ${chkUseAsDefaultFormate}           css=#UseAsDefaultFormat
 ${angleContextMenu}                 jquery=#angleContextMenu
 ${drillDownToItem}                  jquery=#angleContextMenu > li[name=drilldown]
 ${quickFilter}                      jquery=#angleContextMenu > li[name=filter]
+${gotoSAP}                          jquery=#angleContextMenu > li[name=gotosap]
 ${copy}                             jquery=#angleContextMenu > li[name=copy]
-${quickFilterList}                  jquery=ul.context-menu-list.hover
-${quickFilterOptionList}            jquery=ul.context-menu-list.hover > li
+${activeContextMenuList}            jquery=ul.context-menu.hover
+${activeContextMenuListItems}       jquery=ul.context-menu.hover > li
 
 *** Keywords ***
 Wait Until List Display Loaded
@@ -48,6 +49,12 @@ Click Add New Column To List
     Wait Until List Display Loaded
     Click Element    ${btnAddColumnToListDisplay}
     Wait Until Field Chooser Loaded
+
+Add New Column Should Be Visible
+    Element Should Be Visible    ${btnAddColumnToListDisplay}
+
+Add New Column Should Not Be Visible
+    Element Should Not Be Visible    ${btnAddColumnToListDisplay}
 
 Click Header by Data Field Angle Grid List Display
     [Arguments]   ${datafield}
@@ -129,25 +136,35 @@ Click First Row Cell By Column index
     ${index}    Find Column Index By Field Name   ${fieldId}
     Click Element    jquery=#AngleGrid > div.k-grid-content > div.k-virtual-scrollable-wrap > table > tbody > tr:nth-child(1) > td:eq(${index})
 
+Click Row Cell By Column index
+    [Arguments]    ${fieldId}    ${rowNumber}
+    ${columnIndex}    Find Column Index By Field Name   ${fieldId}
+    Click Element    jquery=#AngleGrid > div.k-grid-content > div.k-virtual-scrollable-wrap > table > tbody > tr:nth-child(${rowNumber}) > td:eq(${columnIndex})
 
 Select Quick Filter Options
     Wait Until Element Is Visible   ${angleContextMenu}
     Click Element   ${quickFilter}
 
-Collect Quick Filter Options
-    Wait Until Element Is Visible   ${quickFilterList}
-    ${count}    Get Elements Count    ${quickFilterOptionList}
-    ${quickFilterOptions}   Create List
-    : FOR    ${index}    IN RANGE    0    ${count}
-    \   ${txt}    Execute Javascript    return $("ul.context-menu-list.hover > li:eq(${index})").text()
-    \   Append To List    ${quickFilterOptions}   ${txt}
-    \   Log    ${quickFilterOptions}
-    [Return]    ${quickFilterOptions}
+Select Goto SAP Option
+    Wait Until Element Is Visible   ${angleContextMenu}
+    Click Element   ${gotoSAP}
+    Wait Until Element Is Visible    ${activeContextMenuList}
+    Wait Until Ajax Complete
 
-Quick Filter Options Should Contain Match
+Get Active Context Menu List Items
+    Wait Until Element Is Visible   ${activeContextMenuList}
+    ${totalElements}    Get Elements Count    ${activeContextMenuListItems}
+    ${list}   Create List
+    : FOR    ${index}    IN RANGE    0    ${totalElements}
+    \   ${selector}    Get JQuery Selector    ${activeContextMenuListItems}
+    \   ${menuLabel}    Execute Javascript    return $("${selector}:eq(${index})").text()
+    \   Append To List    ${list}   ${menuLabel}
+    \   Log    ${list}
+    [Return]    ${list}
+
+Active Context Menu Should Contain Match
     [Arguments]    ${list}    ${match}
     Should Contain Match    ${list}    regexp=${match}    msg=None
-
 
 Scroll To Angle Grid Header List Display
     [Arguments]   ${fieldId}

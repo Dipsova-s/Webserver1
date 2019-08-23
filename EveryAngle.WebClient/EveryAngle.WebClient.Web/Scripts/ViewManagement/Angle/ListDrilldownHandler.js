@@ -773,103 +773,6 @@ function ListDrilldownHandler() {
             window.location.replace(WC.Utility.GetAnglePageUri(WC.Utility.UrlParameter(enumHandlers.ANGLEPARAMETER.ANGLE), WC.Utility.UrlParameter(enumHandlers.ANGLEPARAMETER.DISPLAY)));
         };
     };
-    self.InitialContextMenu = function () {
-
-        jQuery(document.body).off('.jeegoocontext');
-        jQuery('#listDrilldownContextMenu').remove();
-        jQuery('<ul id="listDrilldownContextMenu" class="context-menu-list" />').appendTo('body');
-
-        jQuery('#ListDrilldownGrid .k-grid-content td:not(.column1,.column2)').jeegoocontext('listDrilldownContextMenu', {
-            autoAddSubmenuArrows: false,
-            ignoreWidthOverflow: true,
-            ignoreHeightOverflow: true,
-            submenuTopOffset: -30,
-            event: 'click',
-            fadeIn: 0,
-            delay: 0,
-            keyDelay: 500,
-            onShow: function (e, context) {
-                var menu = jQuery(this);
-                var grid = jQuery('#ListDrilldownGrid').data(enumHandlers.KENDOUITYPE.GRID);
-
-                grid.select(context);
-
-                if (jQuery(context).hasClass('Number')) {
-                    self.HideContextMenu();
-                    grid.clearSelection();
-                    return false;
-                }
-                if (menu.children().length
-                   && menu.is(':visible')
-                   && jQuery(context).hasClass('active')) {
-                    self.HideContextMenu();
-                    return false;
-                }
-
-                // re-position
-                setTimeout(function () {
-                    var winSize = { width: WC.Window.Width, height: WC.Window.Height },
-                        parentSize = { width: menu.width(), height: menu.height() },
-                        offset = menu.offset();
-                    if (parentSize.width + offset.left + 20 > winSize.width) {
-                        offset.left = winSize.width - (parentSize.width + 20);
-                    }
-                    if (parentSize.height + offset.top + 20 > winSize.height) {
-                        offset.top = jQuery(context).offset().top - parentSize.height;
-                    }
-                    menu.css(offset);
-                }, 1);
-            },
-            onHover: function () {
-                if (jQuery(this).hasClass('context-menu-submenu')) {
-                    var self = this;
-                    setTimeout(function () {
-                        var parent = jQuery(self).parent('ul'),
-                            subMenu = jQuery('> ul', self),
-                            subMenuWidth = subMenu.width() + 2;
-                        if (subMenuWidth + parent.width() + parent.offset().left > WC.Window.Width) {
-                            subMenu.css('left', -1 * subMenuWidth);
-                        }
-                    }, 1);
-                }
-            },
-            onSelect: function () {
-                if (jQuery(this).hasClass('context-menu-submenu') || jQuery(this).hasClass('disabled')) {
-                    return false;
-                }
-
-                menuOptions.callback(jQuery(this).attr('name'));
-            }
-        });
-    };
-    self.CreateContextMenu = function () {
-        return {
-            callback: function (key) {
-                if (key === 'copy') {
-                    var contentText = jQuery.trim(jQuery('#ListDrilldownGrid').data(enumHandlers.KENDOUITYPE.GRID).select().text());
-                    if (window.clipboardData) {
-                        window.clipboardData.setData('Text', contentText);
-                        popup.Info(Localization.Info_SelectedTextAlreadyCopied);
-                    }
-                    else {
-                        prompt(Localization.Info_PleaseUseTextBelowToCopy, contentText);
-                    }
-                }
-            },
-            items: {
-                copy: {
-                    name: Localization.CellPopupMenuCopy,
-                    icon: 'copy'
-                }
-            }
-        };
-    };
-    self.HideContextMenu = function () {
-        listHandler.HideContextMenu();
-    };
-    self.RenderContextMenu = function (id, menu) {
-        listHandler.RenderContextMenu(id, menu);
-    };
     self.GetHeaderTemplate = function (sortingId, headerText) {
         var sort = '';
         if (self.CurrentSort !== null && self.CurrentSort.sort.indexOf(sortingId) !== -1) {
@@ -878,7 +781,6 @@ function ListDrilldownHandler() {
         return '<a class="DisplayAvaliablePropertiesHeaderGrid ' + sort + '"  id="' + sortingId + '" onclick="listDrilldownHandler.Sort(this)"> ' + headerText + ' </a>';
     };
     self.Sort = function (target) {
-
         var targetId = jQuery(target).attr('id'), sortId;
 
         if (targetId !== '') {

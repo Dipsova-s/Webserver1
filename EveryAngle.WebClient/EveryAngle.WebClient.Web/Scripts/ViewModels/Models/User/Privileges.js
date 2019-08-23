@@ -10,6 +10,7 @@ function PrivilegesViewModel() {
     //** kept current user detail after login **
     self.Data = ko.observableArray();
     self.PRIVILEGESTATUS = {
+        DENY: { Value: 0, Text: Localization.PrivilegeStatusDeny, Code: 'deny' },
         VIEW : { Value: 1, Text: Localization.PrivilegeStatusView, Code: 'view' },
         ASSIGN: { Value: 2, Text: Localization.PrivilegeStatusAssign, Code: 'assign' },
         MANAGE: { Value: 3, Text: Localization.PrivilegeStatusManage, Code: 'manage' },

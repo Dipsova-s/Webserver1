@@ -135,41 +135,17 @@
   <data name="AngleDescription" xml:space="preserve">
     <value>Descripción de Angle</value>
   </data>
-  <data name="AngleDetailPublishTabAddLabel" xml:space="preserve">
-    <value>Agregar etiqueta...</value>
-  </data>
-  <data name="AngleDetailPublishTabAngleNote" xml:space="preserve">
-    <value>Nota: Al menos se debe asignar una etiqueta de cada categoría marcada con (*) antes de publicar.</value>
-  </data>
-  <data name="AngleDetailPublishTabAnglePivilegeLabel" xml:space="preserve">
-    <value>Etiquetas de privilegios de Angle para publicar este Angle:</value>
-  </data>
   <data name="AngleDetailPublishTabAnglePrivileges" xml:space="preserve">
     <value>Etiquetas de privilegio</value>
   </data>
-  <data name="AngleDetailPublishTabHeader" xml:space="preserve">
-    <value>Publicar</value>
-  </data>
   <data name="AngleDetailPublishTabLimitationLabel" xml:space="preserve">
     <value>Limitaciones</value>
-  </data>
-  <data name="AngleDetailPublishTabLocationLabel" xml:space="preserve">
-    <value>Ubicación</value>
-  </data>
-  <data name="AngleDetailPublishTabProductDistributionLabel" xml:space="preserve">
-    <value>Canal de distribución</value>
-  </data>
-  <data name="AngleDetailPublishTabProductGroupLabel" xml:space="preserve">
-    <value>Grupo de productos</value>
   </data>
   <data name="AngleDetailPublishTabSearchLabels" xml:space="preserve">
     <value>Etiquetas de búsqueda</value>
   </data>
   <data name="AngleDetailPublishTabTemplate" xml:space="preserve">
     <value>Definir en Template</value>
-  </data>
-  <data name="AngleDetailPublishTabValidatedAngle" xml:space="preserve">
-    <value>Definir en Validado</value>
   </data>
   <data name="AngleDetails" xml:space="preserve">
     <value>Detalles de Angle</value>
@@ -470,9 +446,6 @@
   </data>
   <data name="Pivot_Bucket_PerHour" xml:space="preserve">
     <value>Por hora</value>
-  </data>
-  <data name="IsPublishInfoMessage" xml:space="preserve">
-    <value>Si cancela la publicación de este Angle, ya no lo tendrá disponible dado que no es el creador del mismo. ¿Desea seguir publicando este Angle?</value>
   </data>
   <data name="Pivot_Bucket_LastCharacter" xml:space="preserve">
     <value>Último carácter</value>
@@ -834,9 +807,6 @@
   <data name="FormatSettingNoDecimal" xml:space="preserve">
     <value>Ninguno</value>
   </data>
-  <data name="FieldFormats" xml:space="preserve">
-    <value>Formatos de campo</value>
-  </data>
   <data name="SystemSettingLabelDefaultBusinessProcess" xml:space="preserve">
     <value>Proceso de negocios predeterminado</value>
   </data>
@@ -848,6 +818,15 @@
   </data>
   <data name="SystemSettingLabelShowSAPPropertyNames" xml:space="preserve">
     <value>Mostrar nombres técnicos</value>
+  </data>
+  <data name="SystemSettingLabelGoToSAP" xml:space="preserve">
+    <value>Go to SAP</value>
+  </data>
+  <data name="SystemSettingLabelGoToSAPDownload" xml:space="preserve">
+    <value>Download launcher</value>
+  </data>
+  <data name="SystemSettingLabelGoToSAPDownload_Info" xml:space="preserve">
+    <value>To use Go to SAP, click to download and install the Go to SAP Launcher on your workstation.</value>
   </data>
   <data name="SystemSettingLabelShowSmallBusinessProcessBar" xml:space="preserve">
     <value>Mostrar barra de Proceso de negocios pequeña</value>
@@ -861,20 +840,11 @@
   <data name="SystemSettings" xml:space="preserve">
     <value>Configuración del sistema</value>
   </data>
-  <data name="UserInformation" xml:space="preserve">
-    <value>Información del usuario</value>
-  </data>
   <data name="UserSettingLabelAuthorisation" xml:space="preserve">
     <value>Autorización</value>
   </data>
   <data name="UserSettingLabelRoles" xml:space="preserve">
     <value>Funciones:</value>
-  </data>
-  <data name="UserSettingLabelUser" xml:space="preserve">
-    <value>Usuario:</value>
-  </data>
-  <data name="UserSettingLabelUserInfo" xml:space="preserve">
-    <value>Información de usuario:</value>
   </data>
   <data name="UserSettingLabelUserParameters" xml:space="preserve">
     <value>Parámetros de usuario:</value>
@@ -1200,9 +1170,6 @@
   <data name="DashboardDetailPublishTabValidated" xml:space="preserve">
     <value>Dashboard validado</value>
   </data>
-  <data name="ErrorPublishAngleWithoutPublicDisplay" xml:space="preserve">
-    <value>Necesita al menos una Display publicada para publicar este Angle.</value>
-  </data>
   <data name="AppliedDashboardDisplays" xml:space="preserve">
     <value>Displays de Dashboard aplicadas</value>
   </data>
@@ -1241,12 +1208,6 @@
   </data>
   <data name="MessageSaveRequiredPublishAngle" xml:space="preserve">
     <value>Guarde todos los cambios antes de publicar este Angle.</value>
-  </data>
-  <data name="AngleDetailPublishTabPublishButton" xml:space="preserve">
-    <value>Definir en Publicar</value>
-  </data>
-  <data name="AngleDetailPublishTabUnpublishButton" xml:space="preserve">
-    <value>Definir en Cancelar publicación</value>
   </data>
   <data name="FormatSettingNoFormat" xml:space="preserve">
     <value>Sin formato</value>
@@ -1521,9 +1482,6 @@
   <data name="AngleDetailPublishTabAngle" xml:space="preserve">
     <value>Definir en Angle</value>
   </data>
-  <data name="AngleDetailPublishTabUnvalidatedAngle" xml:space="preserve">
-    <value>Definir en No validado</value>
-  </data>
   <data name="MessageSaveQuestionPublishAngle" xml:space="preserve">
     <value>Tiene cambios sin guardar en los detalles del Angle. ¿Desea guardar los cambios y continuar publicando?</value>
   </data>
@@ -1708,7 +1666,7 @@
     <value>La tabla dinámica necesita al menos un campo en el área de fila.</value>
   </data>
   <data name="Info_RequiredAtLeastOneLabelBeforePublish" xml:space="preserve">
-    <value>Debe asignar etiquetas desde al menos {0} categorías de etiquetas antes de poder publicar.</value>
+    <value>Debe asignar etiquetas desde al menos {0} categorías de etiquetas antes de poder publicar</value>
   </data>
   <data name="Info_RequiredAtleastOneLabelBeforePublishDashboard" xml:space="preserve">
     <value>Asigne etiquetas de publicación para las categorías marcadas con (*): &lt;ul&gt;{0}&lt;/ul&gt;</value>
@@ -3435,12 +3393,6 @@
   <data name="NameAsShowInChart" xml:space="preserve">
     <value>Nombre (como se muestra en el gráfico)</value>
   </data>
-  <data name="ErrorAllowMoreDetailsAllowFollowupsWithAdhocDisplay" xml:space="preserve">
-    <value>Hay cambios sin guardar en la Display. Aplicando esta configuración, no se podrán volver a guardar estos cambios.</value>
-  </data>
-  <data name="ErrorAllowMoreDetailsAllowFollowupsWithUnsaveDisplay" xml:space="preserve">
-    <value>Hay cambios sin guardar en la Display. Aplicando esta configuración, no se podrán volver a guardar estos cambios.</value>
-  </data>
   <data name="MC_Arguments" xml:space="preserve">
     <value>Arguments</value>
   </data>
@@ -4914,6 +4866,10 @@ When not selected, all javascript code is sent to the Web Client in a readable f
 &lt;br&gt;
 Leave this field empty if you do not use Google Analytics.</value>
   </data>
+  <data name="MC_WebClientSettingsHelpEnableGoToSAP" xml:space="preserve">
+    <value>Select this field to enable the Go to SAP functionality.&lt;br&gt;
+Also the option to download the required Go to SAP launcher will become available in the Settings menu in the Web client.</value>
+  </data>
   <data name="MC_Validation_GoogleAnalyticsId" xml:space="preserve">
     <value>Invalid Google Analytics ID.</value>
   </data>
@@ -5342,18 +5298,6 @@ This setting is valid for both Export to Excel and Export to CSV, manually from 
   </data>
   <data name="FormatSettingGeneralTime" xml:space="preserve">
     <value>Significado de las notaciones: &lt;br/&gt;h = hour; m = minute; s = second&lt;br/&gt;tt = a.m. o p.m.&lt;br/&gt;h/H = 12/24 hour</value>
-  </data>
-  <data name="FormatSettingGeneralCurrency" xml:space="preserve">
-    <value />
-  </data>
-  <data name="FormatSettingGeneralNumber" xml:space="preserve">
-    <value />
-  </data>
-  <data name="FormatSettingGeneralPercentages" xml:space="preserve">
-    <value />
-  </data>
-  <data name="FormatSettingGeneralSet" xml:space="preserve">
-    <value />
   </data>
   <data name="FormatSettingCurrencySymbol" xml:space="preserve">
     <value>Símbolo de la moneda</value>
@@ -6065,13 +6009,121 @@ Only Active Directory (AD) and Active Directory Federation (ADFS) services are s
   <data name="UploadAngles_ItemPackageSourceInvalid" xml:space="preserve">
     <value>Invalid package source, only Webclient packages can be uploaded</value>
   </data>
+  <data name="MC_DelayModelserverStop" xml:space="preserve">
+    <value>Delay model server stop</value>
+  </data>
+  <data name="Saving" xml:space="preserve">
+    <value>Saving...</value>
+  </data>
+  <data name="Button_Publish" xml:space="preserve">
+    <value>Publish</value>
+  </data>
+  <data name="Button_Publishing" xml:space="preserve">
+    <value>Publishing...</value>
+  </data>
+  <data name="Button_Unpublish" xml:space="preserve">
+    <value>Unpublish</value>
+  </data>
+  <data name="Button_Unpublishing" xml:space="preserve">
+    <value>Unpublishing...</value>
+  </data>
+  <data name="Button_Validate" xml:space="preserve">
+    <value>Validate</value>
+  </data>
+  <data name="Button_Validated" xml:space="preserve">
+    <value>Validated</value>
+  </data>
+  <data name="PublishSettings" xml:space="preserve">
+    <value>Publish settings</value>
+  </data>
+  <data name="PublishSettings_Summary" xml:space="preserve">
+    <value>Summary</value>
+  </data>
+  <data name="PublishSettings_LabelRequired" xml:space="preserve">
+    <value>Please assign labels</value>
+  </data>
+  <data name="PublishSettings_LabelInvalid" xml:space="preserve">
+    <value>There are invalid labels</value>
+  </data>
+  <data name="PublishSettings_LabelWarning" xml:space="preserve">
+    <value>This label is not valid for publishing</value>
+  </data>
+  <data name="PublishSettings_PanelDisplays" xml:space="preserve">
+    <value>Displays</value>
+  </data>
+  <data name="PublishSettings_InfoChangeValidatedAngle" xml:space="preserve">
+    <value>You made changes to a Validate Angle</value>
+  </data>
+  <data name="ValidateSetting_AngleValidated" xml:space="preserve">
+    <value>Angle's been validated</value>
+  </data>
+  <data name="ValidateSetting_AngleNotValidated" xml:space="preserve">
+    <value>Angle isn't validated</value>
+  </data>
   <data name="UploadDashboard_InvalidReferencedAngles" xml:space="preserve">
     <value>Dashboard cannot be uploaded without referenced Angles. Please make sure at least of the referenced Angles is also uploaded.</value>
+  </data>
+  <data name="ValidateSetting_DashboardValidated" xml:space="preserve">
+    <value>Dashboard's been validated</value>
+  </data>
+  <data name="ValidateSetting_DashboardNotValidated" xml:space="preserve">
+    <value>Dashboard isn't validated</value>
+  </data>
+  <data name="PublishSettings_PanelWidgets" xml:space="preserve">
+    <value>Displays</value>
+  </data>
+  <data name="PublishSettings_WidgetsInvalid" xml:space="preserve">
+    <value>Can't publish dashboard. Publish all private Displays first</value>
+  </data>
+  <data name="PublishSettings_WidgetLinkGoToDefinition" xml:space="preserve">
+    <value>go to definition</value>
   </data>
   <data name="Filter_Example_Desctiption" xml:space="preserve">
     <value>Filter is applied relative to UTC model timestamp</value>
   </data>
   <data name="Filter_Example_Result" xml:space="preserve">
     <value>Result:</value>
+  </data>
+  <data name="Ascending" xml:space="preserve">
+    <value>ascending</value>
+  </data>
+  <data name="ClearFilters" xml:space="preserve">
+    <value>Clear filters</value>
+  </data>
+  <data name="Descending" xml:space="preserve">
+    <value>descending</value>
+  </data>
+  <data name="SystemSettingLabelGoToSAPLogonLanguage" xml:space="preserve">
+    <value>Logon language</value>
+  </data>
+  <data name="SystemSettingLabelGoToSAPUser" xml:space="preserve">
+    <value>SAP user</value>
+  </data>
+  <data name="DragAndDropWidget" xml:space="preserve">
+    <value>Drag and drop&lt;br&gt;widget</value>
+  </data>
+  <data name="Toast_ChangePassword" xml:space="preserve">
+    <value>Password has been changed!</value>
+  </data>
+  <data name="Toast_PublishItem" xml:space="preserve">
+    <value>'{0}' has been published!</value>
+  </data>
+  <data name="Toast_SaveItem" xml:space="preserve">
+    <value>'{0}' has been saved!</value>
+  </data>
+  <data name="Toast_SavePublishSettings" xml:space="preserve">
+    <value>Publish settings have been saved!</value>
+  </data>
+  <data name="Toast_SaveSettings" xml:space="preserve">
+    <value>Settings have been saved!</value>
+  </data>
+  <data name="Toast_UnpublishItem" xml:space="preserve">
+    <value>'{0}' has been unpublished!</value>
+  </data>
+  <data name="Toast_ValidateItem" xml:space="preserve">
+    <value>'{0}' has been validated!</value>
+  </data>
+  <data name="Toast_UnValidateItem" xml:space="preserve">
+    <value>'{0}' has been unvalidated!</value>
   </data>
 </root>

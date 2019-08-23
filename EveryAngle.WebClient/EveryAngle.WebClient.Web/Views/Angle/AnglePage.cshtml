@@ -7,7 +7,7 @@
 
 @section scripts
 {
-    @{       
+    @{
         @Styles.Render("~/content/css/widgets.css", "~/content/css/anglepage.css")
         if (!BundleTable.EnableOptimizations)
         {
@@ -36,10 +36,7 @@
     <div id="AngleTopBar" class="topBarWrapper">
         <div class="Wrapper Shadow">
             <a id="Logo" href="@Url.Action("SearchPage", "Search")">
-                <img alt="" src="@Url.Content("~/images/master/ealogo.svg")" height="29" width="175" />
-            </a>
-            <a id="BackToSearch" onclick="anglePageHandler.BackToSearch()">
-                <img alt="" src="@Url.Content("~/images/angle/back2search.svg")" height="27" width="27" /><span data-bind="text: Localization.BackToSearch">@Resource.BackToSearch</span>
+                <img alt="" src="@Url.Content("~/images/master/ealogo.svg")" height="29" />
             </a>
 
             @{Html.RenderPartial("~/Views/Shared/Top/BusinessProcessBadge.cshtml");}
@@ -47,31 +44,46 @@
         </div>
     </div>
 }
-@section UnderTopHeader 
+@section UnderTopHeader
 {
     <div id="AngleField" class="detailsWrapper top">
         <div class="Wrapper">
             <div id="AngleSetting">
-                <div id="AngleName" class="angleInformation informationDetailPanel">
-                    <div data-bind="css: { 'SignFavorite': IsStarred(), 'SignFavoriteDisable': !IsStarred(), disabled: Data() && !Data().authorizations.update_user_specific }, click: $root.SetFavoriteItem"></div>
-                    <div data-bind="css: { 'SignPublic': IsPublished(), 'SignPrivate': !IsPublished() }"></div>
-                    <div data-bind="css: { 'SignType2': IsTemplate(), 'SignType1': !IsTemplate() }"></div>
+                <nav class="form-row toolbar">
+                    <div class="form-col col-breadcrumb">
+                        @{Html.RenderPartial("~/Views/Shared/Top/Breadcrumb.cshtml");}
+                    </div>
 
+                    <div class="form-col col-action">
+                        <div id="ActionSelect" class="compactMode">
+                            <div class="visible-medium-viewport">
+                                <div id="ActionDropdownListTablet"></div>
+                            </div>
+                            <div class="hide-medium-viewport">
+                                <div id="ActionDropdownList" class="btnTools"></div>
+                                <div class="k-window-titleless k-window-custom k-window-arrow-n popupAction popupActionAngle" id="ActionDropdownListPopup">
+                                    <div class="k-window-content k-content"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-col col-states" id="AngleStatesWrapper">
+                        @{Html.RenderPartial("~/Views/Shared/Top/ItemState.cshtml");}
+                    </div>
+                </nav>
+                <div id="AngleName" class="angleInformation informationDetailPanel">
+                    <div data-bind="css: { 'SignType2': IsTemplate(), 'SignType1': !IsTemplate() }"></div>
+                    <div data-bind="css: { 'SignFavorite': IsStarred(), 'SignFavoriteDisable': !IsStarred(), disabled: Data() && !Data().authorizations.update_user_specific }, click: $root.SetFavoriteItem"></div>
                     <span onclick="angleDetailPageHandler.ShowPopup()" class="Name" data-bind="text: Name, attr: { title: Name }"></span>
+                    <div data-bind="css: { 'none': IsPublished(), 'SignPrivate': !IsPublished() }"></div>
                     <div class="SignValidated" data-bind="visible: IsValidated" style="display: none"></div>
                 </div>
                 <!-- ko stopBinding: true -->
                 <span id="ExecutionResults" class="executionResults" data-bind="html: $root.GetExecutionResultText(), attr: { title: $root.GetExecutionResultText(true) }"></span>
                 <!-- /ko -->
-                <div id="ActionSelect" class="compactMode">
-                    <div id="ActionDropdownList" class="btnTools"></div>
-                    <div class="k-window-titleless k-window-custom k-window-arrow-n popupAction popupActionAngle" id="ActionDropdownListPopup">
-                        <div class="k-window-content k-content"></div>
-                    </div>
-                </div>
                 <div id="SelectedDisplay" onclick="anglePageHandler.ShowOrHideDisplayList();">
                     @{Html.RenderPartial("~/Views/Angle/PartialViews/DisplayDropdownList/DisplayDropdownList.cshtml");}
-
                 </div>
                 <span id="YourNote" data-bind="text: !PrivateNote() && Data() && Data().authorizations.update_user_specific ? Localization.AddNote : PrivateNote, attr: { title: PrivateNote }, css: { disabled: Data() && !Data().authorizations.update_user_specific }"></span>
             </div>

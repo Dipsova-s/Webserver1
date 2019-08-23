@@ -4,21 +4,20 @@
 /// <reference path="/Dependencies/ViewManagement/Shared/WidgetFilter/WidgetFilterHelper.js" />
 /// <reference path="/Dependencies/ViewManagement/Shared/ValidationHandler.js" />
 /// <reference path="/Dependencies/ViewManagement/Shared/ModelsHandler.js" />
-/// <reference path="/Dependencies/ViewManagement/Dashboard/DashboardDetailsHandler.js" />
 /// <reference path="/Dependencies/ViewManagement/Shared/WidgetFilter/WidgetFilterModel.js" />
-
+/// <reference path="/Dependencies/ViewManagement/Shared/ProgressBar.js" />
+/// <reference path="/Dependencies/ViewManagement/Shared/ItemState/itemstateview.js" />
+/// <reference path="/Dependencies/ViewManagement/Shared/ItemState/itemstatehandler.js" />
+/// <reference path="/Dependencies/ViewManagement/Dashboard/dashboardstateview.js" />
+/// <reference path="/Dependencies/ViewManagement/Dashboard/dashboardstatehandler.js" />
+/// <reference path="/Dependencies/ViewManagement/Dashboard/DashboardHandler.js" />
+/// <reference path="/Dependencies/ViewManagement/Dashboard/DashboardDetailsHandler.js" />
 
 describe("DashboardDetailsHandler", function () {
     var dashboardDetailsHandler;
 
     beforeEach(function () {
         dashboardDetailsHandler = new DashboardDetailsHandler();
-    });
-
-    describe("when create new instance", function () {
-        it("should be defined", function () {
-            expect(dashboardDetailsHandler).toBeDefined();
-        });
     });
 
     describe("call DefinitionGetHeaderName", function () {
@@ -34,8 +33,7 @@ describe("DashboardDetailsHandler", function () {
                 widget_name: function () { return 'widget name'; }
             };
             var name = dashboardDetailsHandler.DefinitionGetHeaderName(model, true);
-            expect(name).toContain('<i class="icon public"></i>');
-            expect(name).toContain('<i class="icon pivot"></i>');
+            expect(name).toContain('<i class="icon icon-pivot"></i>');
         });
 
         it("should get name in html format (private icon)", function () {
@@ -49,8 +47,8 @@ describe("DashboardDetailsHandler", function () {
                 widget_name: function () { return 'widget name'; }
             };
             var name = dashboardDetailsHandler.DefinitionGetHeaderName(model, true);
-            expect(name).toContain('<i class="icon private"></i>');
-            expect(name).toContain('<i class="icon list"></i>');
+            expect(name).toContain('<i class="icon icon-private"></i>');
+            expect(name).toContain('<i class="icon icon-list"></i>');
         });
 
         it("should get name in text format", function () {
@@ -108,9 +106,8 @@ describe("DashboardDetailsHandler", function () {
                 model: ''
             };
             var name = dashboardDetailsHandler.DefinitionGetAngleName(model);
-            expect(name).toContain('icon public');
-            expect(name).toContain('icon template');
-            expect(name).toContain('icon parameterized');
+            expect(name).toContain('icon icon-template');
+            expect(name).toContain('icon icon-parameterized');
             expect(name).toContain('icon validError');
         });
 
@@ -121,8 +118,8 @@ describe("DashboardDetailsHandler", function () {
                 model: ''
             };
             var name = dashboardDetailsHandler.DefinitionGetAngleName(model);
-            expect(name).toContain('icon private');
-            expect(name).toContain('icon angle');
+            expect(name).toContain('icon icon-private');
+            expect(name).toContain('icon icon-angle');
             expect(name).toContain('icon none');
         });
 
@@ -236,12 +233,12 @@ describe("DashboardDetailsHandler", function () {
 
         it("should contain editmode and target to publish", function () {
 
-            var link = dashboardDetailsHandler.DefinitionGetLink(mockAngles[0], mockAngles[0].display_definitions[0]);
+            var link = dashboardDetailsHandler.DefinitionGetLink(mockAngles[0], mockAngles[0].display_definitions[1]);
             var expectEditMode = enumHandlers.ANGLEPARAMETER.EDITMODE + '=true';
-            var expectTargetPublish = enumHandlers.ANGLEPARAMETER.TARGET + '=' + enumHandlers.ANGLETARGET.PUBLISH;
+            var expectTarget = enumHandlers.ANGLEPARAMETER.TARGET + '=' + enumHandlers.ANGLETARGET.PUBLISH;
 
             expect(link).toContain(expectEditMode);
-            expect(link).toContain(expectTargetPublish);
+            expect(link).toContain(expectTarget);
 
         });
 
@@ -399,4 +396,5 @@ describe("DashboardDetailsHandler", function () {
             });
         });
     });
+
 });

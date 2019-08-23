@@ -222,7 +222,17 @@
             var cloneData = ko.toJS(data);
             var isPublic = typeof cloneData.is_published !== 'undefined' ? cloneData.is_published : !!cloneData.is_public;
             var isCreateUser = cloneData.created && cloneData.created.user === userModel.Data().uri;
-            data.authorizations.update_user_specific = isPublic || (!cloneData.uri_template && isCreateUser);
+            var isAdhocItem = self.IsAdhocUri(data.uri);
+            data.authorizations.update_user_specific = !isAdhocItem && (isPublic || isCreateUser);
+        };
+
+        self.IsAdhocUri = function (uri) {
+            var lastUriPart = '';
+            if (uri) {
+                var uriParts = uri.split('/');
+                lastUriPart = uriParts[uriParts.length - 1];
+            }
+            return !/^\d+$/g.test(lastUriPart);
         };
 
         _self.ExtendAngleDefaultDisplay = function (data) {

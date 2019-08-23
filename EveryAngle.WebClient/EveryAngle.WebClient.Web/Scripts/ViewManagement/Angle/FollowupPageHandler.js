@@ -40,12 +40,26 @@ function FollowupPageHandler() {
                 element: '#popup' + popupName,
                 title: Captions.Popup_Followup_Title,
                 className: 'popup' + popupName,
-                buttons: [],
+                width: Math.min(1100, WC.Window.Width - 20),
+                minHeight: 430,
+                buttons: [
+                    {
+                        text: Localization.FollowupsButtonSubmit,
+                        position: 'right',
+                        isPrimary: true,
+                        className: 'executing',
+                        click: function (e, obj) {
+                            followupPageHandler.ApplyFollowup();
+                        }
+                    }
+
+                ],
                 scrollable: false,
-                resize: self.AdjustLayout,
+                resize: self.AdjustAreaLayout,
                 open: self.ShowPopupCallback,
                 close: function (e) {
                     e.sender.element.find('.followupsArea').addClass('initializing');
+                    e.sender.destroy();
                 }
             };
 
@@ -54,7 +68,7 @@ function FollowupPageHandler() {
     };
     self.ShowPopupCallback = function (e) {
         e.sender.content(self.View.TemplatePopup);
-
+        jQuery('.popupFollowup').find('.btn').addClass('disabled');
         var target = self.HandlerFilter.FilterFor === self.HandlerFilter.FILTERFOR.DISPLAY ? enumHandlers.ANGLEPOPUPTYPE.DISPLAY : enumHandlers.ANGLEPOPUPTYPE.ANGLE;
         var followupUrl = modelsHandler.GetFollowupUri(resultModel.Data(), angleInfoModel.Data(), target);
 
@@ -80,34 +94,15 @@ function FollowupPageHandler() {
                 self.DataFollowup[followupUrl] = data;
 
                 var followupsData = WC.Utility.ToArray(data.followups);
-                var isShowHelp = false;
-                var grid = self.BindGridData(self.CATEGORY.UP, followupsData);
-                if (grid.items().length) {
-                    isShowHelp = true;
-                    grid.items().first().trigger('click');
-                }
-
-                grid = self.BindGridData(self.CATEGORY.DOWN, followupsData);
-                if (!isShowHelp && grid.items().length) {
-                    isShowHelp = true;
-                    grid.items().first().trigger('click');
-                }
-
+                self.BindGridData(self.CATEGORY.UP, followupsData);
+                self.BindGridData(self.CATEGORY.DOWN, followupsData);
                 self.BindGridData(self.CATEGORY.LEFT, followupsData);
-                if (!isShowHelp && grid.items().length) {
-                    isShowHelp = true;
-                    grid.items().first().trigger('click');
-                }
-
                 self.BindGridData(self.CATEGORY.RIGHT, followupsData);
-                if (!isShowHelp && grid.items().length) {
-                    grid.items().first().trigger('click');
-                }
 
                 e.sender.wrapper.find('.executing').removeClass('executing');
                 e.sender.element.find('.followupsArea').data('completed', true);
 
-                self.AdjustLayout();
+                self.AdjustAreaLayout();
             });
     };
     self.SetHandlerValues = function (handler, angleSteps, displaySteps) {
@@ -122,29 +117,6 @@ function FollowupPageHandler() {
         fieldsChooserHandler.AngleSteps = angleSteps;
         fieldsChooserHandler.DisplaySteps = displaySteps;
     };
-    self.AdjustLayout = function () {
-        var popupBody = jQuery('#popupFollowup'),
-            popupBodyHeight = popupBody.height() - 16 * 4 - 1,
-            areaParent = jQuery('#popupFollowup .followupsArea'),
-            area = jQuery('#popupFollowup .followupsAreaInner'),
-            areaRecommentHeight,
-            helpParent = popupBody.find('.followupsHelp'),
-            helpMinHeight = 80;
-
-        areaRecommentHeight = area.children('.followupBlock.up, .followupBlock.down, .followupClass, .followupRelation')
-            .map(function (index, block) { return jQuery(block).outerHeight(); }).get().sum();
-
-        if (popupBodyHeight > areaRecommentHeight + helpMinHeight) {
-            areaParent.height(areaRecommentHeight);
-            helpParent.height(popupBodyHeight - areaRecommentHeight);
-        }
-        else {
-            areaParent.height(popupBodyHeight - helpMinHeight);
-            helpParent.height(helpMinHeight);
-        }
-
-        self.AdjustAreaLayout();
-    };
     self.AdjustAreaLayout = function () {
         var parent = jQuery('#popupFollowup .followupsArea'),
             container = jQuery('#popupFollowup .followupsAreaInner'),
@@ -153,8 +125,7 @@ function FollowupPageHandler() {
         if (!parent.data('completed'))
             return;
 
-        var containerSize = { width: container.width(), height: container.height() },
-            blockUp = container.children('.followupBlock.' + self.CATEGORY.UP.Code), blockUpPosition,
+        var blockUp = container.children('.followupBlock.' + self.CATEGORY.UP.Code), blockUpPosition,
             blockDown = container.children('.followupBlock.' + self.CATEGORY.DOWN.Code), blockDownPosition,
             blockLeft = container.children('.followupBlock.' + self.CATEGORY.LEFT.Code), blockLeftPosition,
             blockRight = container.children('.followupBlock.' + self.CATEGORY.RIGHT.Code), blockRightPosition,
@@ -163,6 +134,10 @@ function FollowupPageHandler() {
             blockFlows = container.children('.followupFlow'), blockFlowPosition1, blockFlowPosition2,
             blockIndicator = container.children('.followupsIndicator'), blockIndicatorPosition,
             blockButton = container.children('.followupButton'), blockButtonPosition;
+
+        // set container height
+        container.height(blockUp.outerHeight() + blockDown.outerHeight() + blockClass.outerHeight() + blockRelations.outerHeight() * 2);
+        var containerSize = { width: container.width(), height: container.height() };
 
         if (useAnimate) {
             // set initial position
@@ -186,6 +161,7 @@ function FollowupPageHandler() {
             }
         };
 
+        var boxspace = 10;
         blockUpPosition = {
             top: 0,
             left: (containerSize.width - blockUp.outerWidth()) / 2
@@ -195,7 +171,7 @@ function FollowupPageHandler() {
             left: (containerSize.width - blockRelations.outerWidth()) / 2
         };
         blockClassPosition = {
-            top: blockRelationPosition1.top + blockRelations.outerHeight(),
+            top: blockRelationPosition1.top + blockRelations.outerHeight() - boxspace,
             left: (containerSize.width - blockClass.outerWidth()) / 2
         };
         blockRelationPosition2 = {
@@ -203,24 +179,24 @@ function FollowupPageHandler() {
             left: blockRelationPosition1.left
         };
         blockDownPosition = {
-            top: blockRelationPosition2.top + blockRelations.outerHeight(),
+            top: blockRelationPosition2.top + blockRelations.outerHeight() - boxspace,
             left: (containerSize.width - blockUp.outerWidth()) / 2
         };
         blockFlowPosition1 = {
-            top: blockClassPosition.top,
-            left: blockClassPosition.left - blockFlows.outerWidth()
+            top: blockClassPosition.top - boxspace,
+            left: blockClassPosition.left - blockFlows.outerWidth() - boxspace
         };
         blockFlowPosition2 = {
-            top: blockClassPosition.top,
-            left: blockClassPosition.left + blockClass.outerWidth()
+            top: blockClassPosition.top - boxspace,
+            left: blockClassPosition.left + blockClass.outerWidth() + boxspace
         };
         blockLeftPosition = {
             top: blockFlowPosition1.top - (blockLeft.outerHeight() - blockFlows.outerHeight()) / 2,
-            left: blockFlowPosition1.left - blockLeft.outerWidth()
+            left: blockFlowPosition1.left - blockLeft.outerWidth() - boxspace
         };
         blockRightPosition = {
             top: blockFlowPosition2.top - (blockRight.outerHeight() - blockFlows.outerHeight()) / 2,
-            left: blockFlowPosition2.left + blockFlows.outerWidth()
+            left: blockFlowPosition2.left + blockFlows.outerWidth() + boxspace
         };
         blockIndicatorPosition = {
             top: Math.max(containerSize.height - blockIndicator.outerHeight(), blockLeftPosition.top + blockLeft.outerHeight() + 10),
@@ -268,14 +244,16 @@ function FollowupPageHandler() {
             dataBound: function (e) {
                 if (!e.sender.dataSource.view().length) {
                     var colspan = e.sender.thead.find('th:visible').length,
-                        emptyRow = '<tr><td colspan="' + colspan + '"><div class="grid-no-data">' + Localization.NoSearchResult + '</div></td></tr>';
+                        emptyRow = '<tr><td colspan="' + colspan + '" class="grid-no-data">' + Localization.NoSearchResult + '</td></tr>';
                     e.sender.tbody.parent().width(e.sender.thead.width()).end().html(emptyRow);
+                    e.sender.tbody.parent().parent().height(27);
                 }
                 else {
                     if (self.SelectingFollowup) {
                         jQuery('#popupFollowup .k-grid-content tr[data-uid="' + self.SelectingFollowup.uid + '"]').addClass('k-state-selected');
                     }
                 }
+                e.sender.tbody.parent().parent().addClass('scrollable');
             }
         }).data(enumHandlers.KENDOUITYPE.GRID);
 
@@ -304,17 +282,18 @@ function FollowupPageHandler() {
 
         // click handler
         grid.content.on('click', 'tr', function (e) {
+
             var tr = jQuery(e.currentTarget),
                 isSelected = tr.hasClass('k-state-selected');
             if (tr.find('.grid-no-data').length)
                 return;
 
             jQuery('#popupFollowup').find('.k-grid tr').removeClass('k-state-selected');
-            jQuery('#popupFollowup').find('.btn').addClass('disabled');
+            jQuery('.popupFollowup').find('.btn').addClass('disabled');
             self.SelectingFollowup = null;
             if (!isSelected) {
                 tr.addClass('k-state-selected');
-                jQuery('#popupFollowup').find('.btn').removeClass('disabled');
+                jQuery('.popupFollowup').find('.btn').removeClass('disabled');
                 var dataItem = grid.dataSource.getByUid(tr.data('uid'));
                 dataItem.is_adhoc_filter = self.IsAdHocFollowup;
                 self.SelectingFollowup = dataItem;
@@ -328,6 +307,11 @@ function FollowupPageHandler() {
                         self.ShowHelpText(dataItem);
                     }
                 }, grid.__helpLoaded ? 0 : 100);
+
+                jQuery('#popupFollowup').addClass('with-help');
+            }
+            else {
+                jQuery('#popupFollowup').removeClass('with-help');
             }
         });
 

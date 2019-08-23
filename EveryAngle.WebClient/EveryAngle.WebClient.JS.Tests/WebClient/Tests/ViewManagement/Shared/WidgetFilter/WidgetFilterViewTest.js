@@ -62,7 +62,7 @@ describe("WidgetFilterView", function () {
             var previewText = widgetFilterView.GetFilterPreviewText(data, filedType);
             
             var expectedDateTime = kendo.toString(WC.DateHelper.LocalDateToUtcDate(requestDate), dateTimeFormat);
-            var expectedResult = 'Filter is applied relative to UTC model timestamp ' + expectedDateTime + '<br/>Result : <span class="ExampleData">Is on Dec/31/2018<span>';
+            var expectedResult = 'Filter is applied relative to UTC model timestamp ' + expectedDateTime + '<br/>Result: <span class="ExampleData">Is on Dec/31/2018<span>';
             expect(expectedResult).toEqual(previewText);
         });
 

@@ -30,6 +30,8 @@ function ExecutionParameterHandler(angle, display) {
         _self.isSubmit = false;
         var popupSettings = {
             title: Localization.ExecutionPopupExecutionParameters,
+            width: 850,
+            height: 530,
             element: '#popup' + _self.popupId,
             html: executeParameterHtmlTemplate(),
             className: 'popup' + _self.popupId,
@@ -248,6 +250,8 @@ function ExecutionParameterHandler(angle, display) {
             sender.element.find('[id="FilterAngleWrapper"]').hide();
             sender.element.find('.displayInfo').show();
             sender.element.find('[id="FilterDisplayWrapper"]').show();
+
+            self.WidgetFilterDisplay.View.AdjustLayout();
         }
         else {
             sender.wrapper.find('.btnChangeAngleParameters').addClass('alwaysHide');
@@ -257,6 +261,8 @@ function ExecutionParameterHandler(angle, display) {
             sender.element.find('[id="FilterAngleWrapper"]').show();
             sender.element.find('.displayInfo').hide();
             sender.element.find('[id="FilterDisplayWrapper"]').hide();
+
+            self.WidgetFilterAngle.View.AdjustLayout();
         }
     };
 

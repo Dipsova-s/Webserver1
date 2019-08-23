@@ -705,7 +705,7 @@ function ResultViewModel() {
             }
             else {
                 self.AngleResultSummary = angleResultSummaryModel;
-                return '<span>' + text + '</span><a class="btnInfo" onclick="angleDetailPageHandler.ShowAngleResultSummary()"></a>';
+                return '<span>' + text + '</span><a class="btnInfo icon icon-info" onclick="angleDetailPageHandler.ShowAngleResultSummary()"></a>';
             }
         }
         else {

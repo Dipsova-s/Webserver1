@@ -25,7 +25,7 @@ Set Starred To Angle Via Search Page
     [Arguments]       ${angleName}
     Search By Text And Expect In Search Result    ${angleName}
     ${countIsStarred}    Get Is Starred Count
-    Run Keyword If    '${countIsStarred}'!='Starred (0)'    Click Starred First Item
+    Run Keyword If    '${countIsStarred}'!='0'    Click Starred First Item
     Click Select First Item From Search Result
     Open Mass Change Popup
     Click Set Starred Via Mass Change Popup

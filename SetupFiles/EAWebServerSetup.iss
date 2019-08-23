@@ -144,10 +144,14 @@ Source: "NET\Frontend\WebDeploy\EveryAngle.OData.Service.deploy.cmd"; DestDir: "
 ;Codesite
 Source: "Resources\Raize-{#CodeSiteVersion}\CS5_Tools.exe"; DestDir: "{code:DataPath|Setup}"; Flags: ignoreversion nocompression; Components: codesite
 Source: "Resources\Raize-{#CodeSiteVersion}\CodeSiteToolsSetup.txt"; DestDir: "{code:DataPath|Setup}"; Flags: ignoreversion; Components: codesite
+
 ;Movies
 Source: "SetupFiles\ThirdParty\7-Zip\7za.exe"; DestDir: "{code:DataPath|WebDeploy}"; Flags: ignoreversion overwritereadonly deleteafterinstall;
 Source: "{src}\Movies.zip"; DestDir: "{src}"; Flags: external onlyifdoesntexist; Components: movies
 Source: "{src}\*.mp4"; DestDir: "{src}"; Flags: external onlyifdoesntexist; Components: movies
+
+;SAPLauncher
+Source: "EveryAngle.GoToSAP.Launcher\EveryAngle.GoToSAP.Launcher.exe"; DestDir: "{src}\EveryAngle.GoToSAP.Launcher"; Flags: ignoreversion overwritereadonly deleteafterinstall;
 
 ; Escape/Unescape
 Source: "Resources\EveryAngle.EncryptionDecryption32-2.3\EveryAngle.EncryptionDecryption32.dll";Flags: dontcopy; Components: OData
@@ -1405,6 +1409,18 @@ begin
   CopyFiles(Source, Target, '*.jpg'); 
 end;
 
+procedure InstallSAPLauncher(IISPhysicalPath: string);
+var
+  Source,
+  Target: string;
+begin
+  Source := ExpandConstant('{src}\EveryAngle.GoToSAP.Launcher\');
+  Target := IISPhysicalPath + '\bin\EveryAngle.GoToSAP.Launcher\';
+  CreateDir(Target);
+  Log('[i]Installing SAP launcher');
+  CopyFiles(Source, Target, '*.*'); 
+end;
+
 procedure GrantAppPoolIdentity();
 var 
   applicationPool,
@@ -1513,6 +1529,9 @@ begin
   ShowProgressAndText(80, msg1, 'Installing {#coTrainingMovies}');
   if MoviesSelected then
     InstallMovies(IISPhysicalPath);
+
+  // Copy SAP launcher
+  InstallSAPLauncher(IISPhysicalPath);
 
   // Update the config files
   ShowProgressAndText(85, msg1, 'Updating config files');

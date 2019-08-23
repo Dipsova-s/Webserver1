@@ -92,7 +92,7 @@
     left: 1px;
     top: -5px;
     color: #666666;
-    font-family: Arial;
+    font-family: inherit;
     font-size: 11px;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -172,6 +172,7 @@
     position: absolute;
     left: 0;
     bottom: 1px;
+    margin-left: 30px;
 }
 
 .fieldChooserContent {
@@ -265,12 +266,14 @@
     color: #777;
 }
 
-.fieldChooserViewType {
+.fieldChooserContainer .fieldChooserViewType {
     position: absolute;
     right: 0;
     top: 14px;
     height: auto;
     width: auto;
+    padding: 0;
+    border-width: 0;
     z-index: 2;
 }
 
@@ -286,10 +289,12 @@
 
 .fieldChooserViewType .typeFull:hover {
     background-position: left -90px;
+    background-color: transparent;
 }
 
 .fieldChooserViewType .typeCompact:hover {
     background-position: right -90px;
+    background-color: transparent;
 }
 
 .fieldChooserViewType.viewTypeFull .typeFull {
@@ -308,6 +313,11 @@
 
 .fieldChooserViewType .typeFull {
     background-position: left -45px;
+}
+
+.fieldChooserViewType .typeFull:before,
+.fieldChooserViewType .typeCompact:before {
+    display: none;
 }
 
 .fieldChooserGridContainer {
@@ -435,7 +445,7 @@
 }
 
 .fieldChooserGridContainer div.k-grid tbody td {
-    font-family: verdana;
+    font-family: inherit;
     font-size: 11px;
     border-bottom: 1px solid #d3d6d9;
     border-color: #d3d6d9;
@@ -471,6 +481,7 @@
 
 .fieldChooserGridContainer .btnInfo {
     vertical-align: top;
+    line-height: 16px;
 }
 .chrome .fieldChooserGridContainer .btnInfo {
     display: inline-flex;
@@ -587,6 +598,7 @@
 }
 
 .fieldChooserButtons {
+    display: block;
     overflow: hidden;
     padding: 11px;
     background: #f3f3f3;

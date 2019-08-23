@@ -1,6 +1,5 @@
 *** Settings ***
 Resource            ${EXECDIR}/resources/WCSettings.robot
-Resource            ${EXECDIR}/WC/API/API_UserSettings.robot
 Suite Setup         Go to WC Then Login With EAPower User
 Suite Teardown      Logout WC Then Close Browser
 Test Teardown       Go to Search Page
@@ -8,16 +7,19 @@ Force Tags          smoke_s    smk_wc_s
 
 *** Test Cases ***
 Verify User Settings Details
-    Open User Settings Popup
-    Verify User Information
-    Verify System Settings
-    Verify field formats
-    Verify Actions at Login
-    Click Close User Setting Popup
+    Open User Settings Panel
+    Click User Tab
+    Verify User Tab
+    Click System Tab
+    Verify System Tab
+    UserSettingsPanel.Click Fields Tab
+    Expand All Accordion Fields
+    Verify Fields Tab
+    Close User Settings Panel
 
 Verify Change User Setings: System Settings Tab
-    Open User Settings Popup
-    Click System Settings Tab
+    Open User Settings Panel
+    Click System Tab
 
     # keep current states
     ${rowExportExcel}    Get Default Number Of Rows For Export To Excel
@@ -28,12 +30,13 @@ Verify Change User Setings: System Settings Tab
     ${isShowListHeaderTechField}    Get Checkbox In Column Headers Of Lists Status
 
     # set new states
-    Set User Settings In System Settings Tab
-    Click Save User Settings Via Search Page
+    Update User Settings In System Tab
+    Click Save User Settings
 
     # verify changed the settings
-    Open User Settings Popup
-    Verify Saved System Settings Tab
+    Open User Settings Panel
+    Click System Tab
+    Verify Changed User Settings In System Tab
 
     # restore old states
     Unselect Checkbox    ${divUserSettingsBusinessProcessItems} #GRC
@@ -55,4 +58,4 @@ Verify Change User Setings: System Settings Tab
     Run Keyword If    ${isShowListHeaderTechField} == True    Select Checkbox In Column Headers Of Lists
     ...    ELSE    Unselect Checkbox In Column Headers Of Lists
 
-    Click Save User Settings Via Search Page
+    Click Save User Settings

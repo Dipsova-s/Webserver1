@@ -61,7 +61,7 @@ namespace EveryAngle.Shared.Globalization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Not available for adhoc display.
+        ///   Looks up a localized string similar to Not available for ad hoc Display.
         /// </summary>
         public static string AdhocEnableSummarySheet {
             get {
@@ -84,6 +84,15 @@ namespace EveryAngle.Shared.Globalization {
         public static string AngleExport_TypePackage {
             get {
                 return ResourceManager.GetString("AngleExport_TypePackage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Top/left.
+        /// </summary>
+        public static string Button_ {
+            get {
+                return ResourceManager.GetString("Button_", resourceCulture);
             }
         }
         

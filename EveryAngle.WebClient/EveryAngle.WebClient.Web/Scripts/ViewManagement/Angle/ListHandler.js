@@ -3,6 +3,9 @@ function ListHandler(elementId, container) {
 
     var self = this;
     var _self = {};
+
+    self.SapTransactionFieldCache = {};
+
     /*BOF: Model Properties*/
     _self.CheckScrollingTimeout;
 
@@ -36,52 +39,55 @@ function ListHandler(elementId, container) {
     self.ListViewTemplates = {
         CellHeader: [
             '<div class="angleListHeader #ClassSAP# #ClassCustom#" title="#HoverName#">',
-                '<div class="handler" onclick=\"window[\'' + self.ModelId + '\'].ShowHeaderPopup(\'#FieldId#\')"></div>',
-                '<div class="icon"><img alt="" src="#Icon#" height="16" width="16" /></div>',
-                '<div class="property">',
-                    '<span class="propertyName">#Source#</span>',
-                    '<span class="propertyDescription">#Name#</span>',
-                    '<span class="propertyItem">#Info#</span>',
-                '</div>',
-                '<div class="angleListSort">',
-                    '<span class="sortOrderIndex #SortIndex#">#SortIndex#</span>',
-                    '<span class="sortOrder #SortOrder#"></span>',
-                '</div>',
+            '<div class="handler" onclick=\"window[\'' + self.ModelId + '\'].ShowHeaderPopup(\'#FieldId#\')"></div>',
+            '<div class="icon"><img alt="" src="#Icon#" height="16" width="16" /></div>',
+            '<div class="property">',
+            '<span class="propertyName">#Source#</span>',
+            '<span class="propertyDescription">#Name#</span>',
+            '<span class="propertyItem">#Info#</span>',
+            '</div>',
+            '<div class="angleListSort">',
+            '<span class="sortOrderIndex #SortIndex#">#SortIndex#</span>',
+            '<span class="sortOrder #SortOrder#"></span>',
+            '</div>',
             '</div>'
         ].join(''),
         AddColumnButton: '<a id="AddNewColumn" class="btnAddField" OnClick=\"window[\'' + self.ModelId + '\'].ShowAddColumnsPopup();\"></a>',
         HeaderPopup: [
             '<div class="k-window-custom k-window-titleless HeaderPopup HeaderPopupList" id="#PopupHeaderID#" alt="#FieldId#">',
-                '<div class="k-content k-window-content">',
-                    '<div class="propertyFunction">',
-                        '<a class="sortAsc#CanSort#" onclick="window[\'' + self.ModelId + '\'].HeaderPopupAction(this, \'#FieldId#\')">' + Localization.ListHeaderPopupSortAscending + '</a>',
-                        '<a class="sortDesc#CanSort#" onclick="window[\'' + self.ModelId + '\'].HeaderPopupAction(this, \'#FieldId#\')">' + Localization.ListHeaderPopupSortDecending + '</a>',
-                        '<a class="sortCustom#CanSort#" onclick="window[\'' + self.ModelId + '\'].HeaderPopupAction(this, \'#FieldId#\')">' + Localization.ListHeaderPopupCustomSort + '</a>',
-                    '</div>',
-                    '<div class="propertyFunction">',
-                        '<a class="createPivot#CanCreateDisplay#" onclick="window[\'' + self.ModelId + '\'].HeaderPopupAction(this, \'#FieldId#\');">' + Localization.ListHeaderPopupCreatePivot + '</a>',
-                        '<a class="createChart#CanCreateDisplay#" onclick="window[\'' + self.ModelId + '\'].HeaderPopupAction(this, \'#FieldId#\');">' + Localization.ListHeaderPopupCreateChart + '</a>',
-                    '</div>',
-                    '<div class="propertyFunction">',
-                        '<a class="fieldFormat#CanFormat#" onclick="window[\'' + self.ModelId + '\'].HeaderPopupAction(this, \'#FieldId#\')">' + Localization.ListHeaderPopupFormatFields + '</a>',
-                    '</div>',
-                    '<div class="propertyFunction">',
-                        '<a class="addColumn#CanAddRemoveColumn#" onclick="window[\'' + self.ModelId + '\'].HeaderPopupAction(this, \'#FieldId#\');">' + Localization.ListHeaderPopupInsertColumn + '</a>',
-                        '<a class="removeColumn#CanAddRemoveColumn#" onclick="window[\'' + self.ModelId + '\'].HeaderPopupAction(this, \'#FieldId#\')">' + Localization.ListHeaderPopupRemoveColumn + '</a>',
-                    '</div>',
-                    '<div class="propertyFunction">',
-                        '<a class="addFilter#CanAddFilter#" onclick="window[\'' + self.ModelId + '\'].HeaderPopupAction(this, \'#FieldId#\')">' + Localization.ListHeaderPopupAddFilter + '</a>',
-                    '</div>',
-                    '<div class="propertyFunction">',
-                        '<a class="fieldInfo#CanViewInfo#" onclick="window[\'' + self.ModelId + '\'].HeaderPopupAction(this, \'#FieldId#\')">' + Localization.ListHeaderPopupFieldInfo + '</a>',
-                    '</div>',
-                '</div>',
+            '<div class="k-content k-window-content">',
+            '<div class="propertyFunction">',
+            '<a class="sortAsc#CanSort#" onclick="window[\'' + self.ModelId + '\'].HeaderPopupAction(this, \'#FieldId#\')">' + Localization.ListHeaderPopupSortAscending + '</a>',
+            '<a class="sortDesc#CanSort#" onclick="window[\'' + self.ModelId + '\'].HeaderPopupAction(this, \'#FieldId#\')">' + Localization.ListHeaderPopupSortDecending + '</a>',
+            '<a class="sortCustom#CanSort#" onclick="window[\'' + self.ModelId + '\'].HeaderPopupAction(this, \'#FieldId#\')">' + Localization.ListHeaderPopupCustomSort + '</a>',
+            '</div>',
+            '<div class="propertyFunction">',
+            '<a class="createPivot#CanCreateDisplay#" onclick="window[\'' + self.ModelId + '\'].HeaderPopupAction(this, \'#FieldId#\');">' + Localization.ListHeaderPopupCreatePivot + '</a>',
+            '<a class="createChart#CanCreateDisplay#" onclick="window[\'' + self.ModelId + '\'].HeaderPopupAction(this, \'#FieldId#\');">' + Localization.ListHeaderPopupCreateChart + '</a>',
+            '</div>',
+            '<div class="propertyFunction">',
+            '<a class="fieldFormat#CanFormat#" onclick="window[\'' + self.ModelId + '\'].HeaderPopupAction(this, \'#FieldId#\')">' + Localization.ListHeaderPopupFormatFields + '</a>',
+            '</div>',
+            '<div class="propertyFunction">',
+            '<a class="addColumn#CanAddRemoveColumn#" onclick="window[\'' + self.ModelId + '\'].HeaderPopupAction(this, \'#FieldId#\');">' + Localization.ListHeaderPopupInsertColumn + '</a>',
+            '<a class="removeColumn#CanAddRemoveColumn#" onclick="window[\'' + self.ModelId + '\'].HeaderPopupAction(this, \'#FieldId#\')">' + Localization.ListHeaderPopupRemoveColumn + '</a>',
+            '</div>',
+            '<div class="propertyFunction">',
+            '<a class="addFilter#CanAddFilter#" onclick="window[\'' + self.ModelId + '\'].HeaderPopupAction(this, \'#FieldId#\')">' + Localization.ListHeaderPopupAddFilter + '</a>',
+            '</div>',
+            '<div class="propertyFunction">',
+            '<a class="fieldInfo#CanViewInfo#" onclick="window[\'' + self.ModelId + '\'].HeaderPopupAction(this, \'#FieldId#\')">' + Localization.ListHeaderPopupFieldInfo + '</a>',
+            '</div>',
+            '</div>',
             '</div>'
         ].join('')
     };
     /*EOF: Model Properties*/
 
     /*BOF: Model Methods*/
+    self.GetContainer = function () {
+        return jQuery(self.Container);
+    };
     self.GetGridObject = function () {
         return jQuery(self.ElementId).data(enumHandlers.KENDOUITYPE.GRID);
     };
@@ -192,13 +198,9 @@ function ListHandler(elementId, container) {
         return rowHeight;
     };
     self.PrepareGridContainer = function () {
-        var container = jQuery(self.Container);
-        var header = container.find('.widgetDisplayHeader');
-        if (header.length) {
-            header = header.clone(true);
-        }
-        container.empty()
-            .append(header)
+        var container = self.GetContainer();
+        container
+            .empty()
             .append('<div id="' + self.ElementId.substr(1) + '" class="grid widgetDisplay" />');
         if (self.ReadOnly()) {
             jQuery(self.ElementId).addClass('readOnlyMode');
@@ -279,13 +281,8 @@ function ListHandler(elementId, container) {
         };
     };
     self.GetGridHeight = function () {
-        var container = jQuery(self.Container);
-        var header = container.find('.widgetDisplayHeader');
-        var headerSize = 0;
-        if (header.length) {
-            headerSize = header.height() + WC.Window.ScrollBarWidth;
-        }
-        return container.height() - headerSize;
+        var container = self.GetContainer();
+        return container.height();
     };
     self.GetGridDataSource = function () {
         var fieldsList = self.Models.Display.GetSpecificColumnString(self.Models.Display.Data().fields);
@@ -377,7 +374,7 @@ function ListHandler(elementId, container) {
     };
     self.GetDefaultPageSize = function () {
         var isFullMode = jQuery('#ToggleWrapper').hasClass("fullDetail");
-        var containerHeight = jQuery(self.Container).height();
+        var containerHeight = self.GetContainer().height();
         if (isFullMode && !self.DashBoardMode()) {
             containerHeight = jQuery('#ToggleWrapper').height() + containerHeight;
         }
@@ -993,25 +990,25 @@ function ListHandler(elementId, container) {
         }
         else {
             var canSort = self.Models.Result.Data().authorizations.sort
-                            && !self.HandlerValidation.Angle.InvalidQueryStepsAll;
+                && !self.HandlerValidation.Angle.InvalidQueryStepsAll;
             template = template.replace(/#CanSort#/g, canSort ? '' : ' disabled');
 
             var canAddFilter = self.Models.Result.Data().authorizations.add_filter
-                            && !self.HandlerValidation.Angle.InvalidQueryStepsAll;
+                && !self.HandlerValidation.Angle.InvalidQueryStepsAll;
             template = template.replace(/#CanAddFilter#/g, canAddFilter ? '' : ' disabled');
 
             var isAngleEditMode = typeof anglePageHandler !== 'undefined' && anglePageHandler.IsEditMode();
             var canCreateDisplay = self.Models.Result.Data().authorizations.change_field_collection
-                            && !self.HandlerValidation.Angle.InvalidQueryStepsAll
-                            && !isAngleEditMode;
+                && !self.HandlerValidation.Angle.InvalidQueryStepsAll
+                && !isAngleEditMode;
             template = template.replace(/#CanCreateDisplay#/g, canCreateDisplay ? '' : ' disabled');
 
             var canAddRemoveColumn = self.Models.Result.Data().authorizations.change_field_collection;
             template = template.replace(/#CanAddRemoveColumn#/g, canAddRemoveColumn ? '' : ' disabled');
 
             var canFormat = !self.HandlerValidation.Angle.InvalidBaseClasses
-                            && !self.HandlerValidation.Angle.InvalidFollowups
-                            && !self.HandlerValidation.Display.InvalidFieldsAll;
+                && !self.HandlerValidation.Angle.InvalidFollowups
+                && !self.HandlerValidation.Display.InvalidFieldsAll;
             template = template.replace(/#CanFormat#/g, canFormat ? '' : ' disabled');
 
             template = template.replace(/#CanViewInfo#/g, '');
@@ -1108,17 +1105,17 @@ function ListHandler(elementId, container) {
         self.UpdateAngleGridHeaderPopup();
 
         var updateLayout = function () {
-            var container = jQuery(self.Container);
+            var container = self.GetContainer();
             var containerId = container.attr('id');
             var parent, height;
 
-            if (containerId === 'widgetMaximizeWrapper' || containerId === 'AngleTableWrapper') {
+            if (containerId === 'AngleTableWrapper') {
                 parent = container;
             }
             else {
                 parent = container.parent();
             }
-            height = parent.height() - (parent.find('.widgetDisplayHeader').height() || 0);
+            height = parent.height();
 
             container
                 .height(parent.height())
@@ -1178,7 +1175,7 @@ function ListHandler(elementId, container) {
         var datarows = [];
         jQuery.each(WC.Utility.ToArray(rowsData), function (index, datarow) {
             datarows[index] = jQuery.extend({ row_id: parseInt(datarow[enumHandlers.GENERAL.ROWID], 10) + 1 },
-                                        self.ConvertDataRow(fieldNames, datarow.field_values));
+                self.ConvertDataRow(fieldNames, datarow.field_values));
         });
         return datarows;
     };
@@ -1225,7 +1222,6 @@ function ListHandler(elementId, container) {
 
             // fixed cell popup float over the grid
             jQuery('<div class="headerBarRight" />').prependTo(grid.element);
-            jQuery('<div class="headerBarLeft" />').prependTo(grid.element);
             self.UpdateCustomHeaderBarSize(grid);
 
             // bind scrolling event on k-virtual-scrollable-wrap for HeaderPopup position
@@ -1238,12 +1234,6 @@ function ListHandler(elementId, container) {
             grid.wrapper.find('.headerBarRight').css({
                 width: WC.Window.ScrollBarWidth,
                 height: headerHeight
-            });
-
-            headerHeight = parseInt(headerHeight);
-            grid.wrapper.find('.headerBarLeft').css({
-                height: headerHeight / 2,
-                top: headerHeight / 2
             });
         }
     };
@@ -1277,8 +1267,8 @@ function ListHandler(elementId, container) {
         var popupSpace = 5;
         var popupSize = obj.outerWidth();
         var popupLeft = gridHeaderColumnOffset.left + popupSize + 20 > WC.Window.Width
-                        ? gridHeaderColumnOffset.left + gridHeaderColumnSize - popupSize - popupSpace
-                        : gridHeaderColumnOffset.left;
+            ? gridHeaderColumnOffset.left + gridHeaderColumnSize - popupSize - popupSpace
+            : gridHeaderColumnOffset.left;
 
         if (popupLeft < leftSpace + popupSpace) {
             if (gridHeaderColumnOffset.left + gridHeaderColumnSize - popupSpace > leftSpace) {
@@ -1629,9 +1619,9 @@ function ListHandler(elementId, container) {
     };
     self.GetFormatBooleanValue = function (state) {
         if (state === true)
-            return '<span class="icon check"></span>';
+            return '<span class="chkIndeterminatable yes"></span>';
         else if (state === false) {
-            return '<span class="icon uncheck"></span>';
+            return '<span class="chkIndeterminatable no"></span>';
         }
         else {
             return '';
@@ -1647,7 +1637,7 @@ function ListHandler(elementId, container) {
             if (!self.DashBoardMode()) {
                 // prepare context menu
                 jQuery('#angleContextMenu').remove();
-                jQuery('<ul id="angleContextMenu" class="context-menu-list" />').appendTo('body');
+                jQuery('<ul id="angleContextMenu" class="listview listview-popup context-menu" />').appendTo('body');
 
                 // bind context menu
                 jQuery(self.ElementId + ' .k-grid-content td:not(.Number)').jeegoocontext('angleContextMenu', {
@@ -1714,6 +1704,7 @@ function ListHandler(elementId, container) {
             return false;
         }
 
+
         self.MenuOptions = self.CreateContextMenu(column.field.toLowerCase(), dataItem[column.field.toLowerCase()]);
         self.RenderContextMenu('#' + menu.attr('id'), self.MenuOptions.items);
 
@@ -1730,23 +1721,36 @@ function ListHandler(elementId, container) {
             }
             menu.css(offset);
         }, 1);
-
     };
     self.OnContextMenuHover = function () {
-        if (jQuery(this).hasClass('context-menu-submenu')) {
-            var self = this;
-            setTimeout(function () {
-                var parent = jQuery(self).parent('ul'),
-                    subMenu = jQuery('> ul', self),
-                    subMenuWidth = subMenu.width() + 2,
-                    subMenuHeight = subMenu.height() + 2;
-                if (subMenuWidth + parent.width() + parent.offset().left > WC.Window.Width) {
-                    subMenu.css('left', -1 * subMenuWidth);
-                }
-                if (subMenuHeight + subMenu.offset().top > WC.Window.Height) {
-                    subMenu.css('margin-top', WC.Window.Height - (subMenuHeight + subMenu.offset().top) - 30);
-                }
-            }, 1);
+        var element = jQuery(this);
+        if (!element.hasClass('context-menu-submenu') || element.hasClass('disabled')) {
+            return;
+        }
+
+        if (element.attr('name') === 'gotosap') {
+            self.GenerateGoToSapMenu();
+        }
+
+        self.UpdateContextMenuPosition(element);
+
+        return false;
+    };
+    self.UpdateContextMenuPosition = function (element) {
+        var subMenu = element.children('ul');
+        if (!subMenu.length)
+            return;
+
+        subMenu.show();
+        var parent = element.parent('ul');
+        var parentWidth = parent.outerWidth();
+        var subMenuWidth = subMenu.outerWidth();
+        var subMenuHeight = subMenu.outerHeight();
+        if (subMenuWidth + parentWidth + parent.offset().left > WC.Window.Width) {
+            subMenu.css({ left: 'auto', right: '100%' });
+        }
+        if (subMenuHeight + subMenu.offset().top > WC.Window.Height) {
+            subMenu.css('margin-top', WC.Window.Height - (subMenuHeight + subMenu.offset().top) - 30);
         }
     };
     self.OnContextMenuSelect = function () {
@@ -1754,16 +1758,15 @@ function ListHandler(elementId, container) {
             return false;
         }
 
-        self.MenuOptions.callback(jQuery(this).attr('name'));
+        self.MenuOptions.callback(jQuery(this).attr('name'), jQuery(this).text());
     };
     self.CreateContextMenu = function (fieldId, fieldValue) {
-
         var field = modelFieldsHandler.GetFieldById(fieldId, self.Models.Angle.Data().model);
         if (!field) {
             return;
         }
         return {
-            callback: function (key, options) {
+            callback: function (key, val) {
                 switch (key) {
                     case 'drilldown':
                         var grid = self.GetGridObject();
@@ -1775,7 +1778,24 @@ function ListHandler(elementId, container) {
                         jQuery('#CopyToClipboard').click();
                         break;
                     case 'sap':
-                        popup.Info(Localization.NotImplement);
+
+                        GetDataFromWebService(self.GetSapTransactionDetailsUri(val))
+                            .done(function (data) {
+                                var logonUser = userSettingModel.GetClientSettingByPropertyName(enumHandlers.CLIENT_SETTINGS_PROPERTY.SAP_LOGON_USER) ?
+                                    kendo.format(' -user={0}', userSettingModel.GetClientSettingByPropertyName(enumHandlers.CLIENT_SETTINGS_PROPERTY.SAP_LOGON_USER)) : '';
+
+                                //use english as default
+                                var logonLang = userSettingModel.GetClientSettingByPropertyName(enumHandlers.CLIENT_SETTINGS_PROPERTY.SAP_LOGON_LANGUAGE) ?
+                                    kendo.format(' -language={0}', userSettingModel.GetClientSettingByPropertyName(enumHandlers.CLIENT_SETTINGS_PROPERTY.SAP_LOGON_LANGUAGE)) : ' -language=en';
+
+                                var sapfields = self.GetSapFields(data);
+                                //open sapshotcut
+                                WC.Ajax.EnableBeforeExit = false;
+                                var cmd = kendo.format('ea-gotosap: -command=*{0} {1} -sid={2} -client={3} -type=Transaction -reuse=1 {4}{5} ',
+                                    val, sapfields.join(';'), data.sap_system_id, data.sap_mandant, logonUser, logonLang);
+                                WC.Utility.RedirectUrl(cmd);
+                            });
+
                         break;
                     case enumHandlers.CRITERIA.EMPTY:
                     case enumHandlers.CRITERIA.NOTEMPTY:
@@ -1842,60 +1862,70 @@ function ListHandler(elementId, container) {
         jQuery(document).trigger('click.jeegoocontext');
     };
     self.RenderContextMenu = function (id, menu) {
-        var ul = getContextMenu(menu);
-
-        jQuery(id).empty()
+        var ul = self.GetContextMenu(menu);
+        jQuery(id)
             .addClass('context-menu-root')
             .html(ul.html());
+    };
+    self.GetContextMenu = function (items) {
+        var ul = jQuery('<ul class="listview listview-popup context-menu scrollable" />');
+        jQuery.each(items, function (key, item) {
+            item.id = key;
+            self.AddContextMenuItem(ul, item);
+        });
+        return ul;
+    };
+    self.AddContextMenuItem = function (ul, item) {
+        var li = jQuery('<li />')
+            .attr({
+                'name': item.id,
+                'class': 'listview-item'
+            })
+            .html('<span title="' + (item.description || item.name) + '">' + item.name + '</span>');
 
-        function getContextMenu(items) {
-            var ul = jQuery('<ul class="context-menu-list" />'), li;
-
-            jQuery.each(items, function (k, v) {
-                v.id = k;
-
-                li = jQuery('<li />')
-                        .attr({
-                            'name': k,
-                            'class': 'context-menu-item'
-                        })
-                        .html('<span title="' + v.name + '">' + v.name + '</span>');
-
-                if (v.icon) {
-                    li.addClass('icon icon-' + v.icon);
-                }
-                if (typeof v.disabled === 'function' && v.disabled(k, v)) {
-                    li.addClass('disabled');
-                }
-                if (v.items) {
-                    li.addClass('context-menu-submenu')
-                        .append(getContextMenu(v.items));
-                }
-                ul.append(li);
-            });
-            return ul;
+        if (item.icon) {
+            li.prepend('<i class="icon ' + item.icon + '"></i>');
         }
+
+        var isDisabled = typeof item.disabled === 'function' && item.disabled(item.id, item);
+        if (isDisabled) {
+            li.addClass('disabled');
+        }
+        if (item.items && !isDisabled) {
+            li.addClass('context-menu-submenu')
+                .append('<i class="btn-more icon icon-chevron-right"></i>')
+                .append(self.GetContextMenu(item.items));
+        }
+        ul.append(li);
     };
     self.GenerateMainContextMenu = function (filterSubMenu) {
         var contextMenu = {
             drilldown: {
                 name: Localization.CellPopupMenuDrillDownTo,
-                icon: 'drilldown',
+                icon: 'icon-drilldown',
                 disabled: function () {
                     return !self.Models.Result.Data().authorizations.single_item_view;
                 }
             },
             filter: {
                 name: Localization.CellPopupMenuFilterThisColumn,
-                icon: 'filter',
+                icon: 'icon-add-filter',
                 items: filterSubMenu,
                 disabled: function () {
                     return !self.Models.Result.Data().authorizations.add_filter;
                 }
             },
+            gotosap: {
+                name: Localization.CellPopupMenuGotoSAP,
+                icon: 'icon-sap',
+                items: [],
+                disabled: function () {
+                    return false;
+                }
+            },
             copy: {
                 name: Localization.CellPopupMenuCopy,
-                icon: 'copy',
+                icon: 'icon-copy',
                 disabled: function () {
                     var grid = self.GetGridObject();
                     var isIOS = !!jQuery.browser.safari && Modernizr.touch;
@@ -1913,6 +1943,8 @@ function ListHandler(elementId, container) {
                 }
             }
         };
+        if (!enableGoToSAP)
+            delete contextMenu.gotosap;
 
         return contextMenu;
     };
@@ -2017,6 +2049,79 @@ function ListHandler(elementId, container) {
             enumHandlers.FIELDTYPE.TIMESPAN
         ]) !== -1;
     };
+    self.GenerateGoToSapMenu = function () {
+        var uri = self.GetSapTransactionUri();
+        var data = self.SapTransactionFieldCache[uri];
+        if (!data) {
+            // load transaction
+            self.SapTransactionFieldCache[uri] = { busy: true };
+            var target = jQuery('li[name="gotosap"]');
+            target.children('ul').empty();
+            target.children('.btn-more').addClass('icon-loading');
+            self.GetSapTransaction(uri)
+                .always(function () {
+                    self.GenerateSapSubMenu(self.SapTransactionFieldCache[uri]);
+                    target.children('.btn-more').removeClass('icon-loading');
+                });
+        }
+        else if (!data.busy) {
+            // use cache
+            self.GenerateSapSubMenu(self.SapTransactionFieldCache[uri]);
+        }
+    };
+    self.GenerateSapSubMenu = function (data) {
+        var menu = jQuery('li[name="gotosap"]');
+        if (data && data.sap_transactions) {
+            var ul = menu.children('ul');
+            ul.empty().show();
+
+            jQuery.each(data.sap_transactions, function (i, transaction) {
+                var item = {
+                    id: 'sap',
+                    name: transaction.id,
+                    description: transaction.description
+                };
+                self.AddContextMenuItem(ul, item);
+            });
+            self.UpdateContextMenuPosition(menu);
+        }
+        menu.children('i.btn-more').removeClass('icon-loading').addClass('icon-chevron-right');
+    };
+    self.GetSapTransactionUri = function () {
+        var rowid = self.GetSelectedRow();
+        var field = self.GetSelectedField();
+        return kendo.format('{0}?row_id={1}&fields={2}', self.Models.Result.Data().sap_transactions, rowid, field.id);
+    };
+    self.GetSelectedRow = function () {
+        var grid = self.GetGridObject();
+        return grid.dataSource.view()[grid.select().parent('tr').index()].row_id - 1;
+    };
+    self.GetSelectedField = function () {
+        var grid = self.GetGridObject();
+        var cell = grid.select();
+        var column = grid.columns[cell.index() + 1];
+        return modelFieldsHandler.GetFieldById(column.field, self.Models.Angle.Data().model);
+    };
+    self.GetSapTransactionDetailsUri = function (selectedTransaction) {
+        var rowid = self.GetSelectedRow();
+        var field = self.GetSelectedField();
+        return kendo.format('{0}?row_id={1}&field={2}&transaction_id={3}', self.Models.Result.Data().sap_transactions, rowid, field.id, selectedTransaction);
+    };
+    self.GetSapFields = function (transaction) {
+        var sapfields = [];
+        jQuery.each(transaction.transaction_details, function (index, detail) {
+            if (detail.field_name !== '' && detail.field_value !== '') {
+                sapfields.push(kendo.format('{0}={1}', detail.field_name, detail.field_value));
+            }
+        });
+        return sapfields;
+    };
+    self.GetSapTransaction = function (uri) {
+        return GetDataFromWebService(uri)
+            .done(function (data) {
+                self.SapTransactionFieldCache[uri] = data;
+            });
+    };
     self.GenerateFilterSubMenu = function (field, fieldValue) {
 
         var dataType = field.fieldtype;
@@ -2118,15 +2223,15 @@ function ListHandler(elementId, container) {
                     }
                     else {
                         jQuery.extend(subMenu, {
-                              largerthan: {
-                                  name: Localization.CellPopupSubMenuLargerThan + ' ' + filterText,
-                                  disabled: disableFunction
-                              },
-                              smallerthan: {
-                                  name: Localization.CellPopupSubMenuSmallerThan + ' ' + filterText,
-                                  disabled: disableFunction
-                              }
-                          });
+                            largerthan: {
+                                name: Localization.CellPopupSubMenuLargerThan + ' ' + filterText,
+                                disabled: disableFunction
+                            },
+                            smallerthan: {
+                                name: Localization.CellPopupSubMenuSmallerThan + ' ' + filterText,
+                                disabled: disableFunction
+                            }
+                        });
                     }
                     break;
 

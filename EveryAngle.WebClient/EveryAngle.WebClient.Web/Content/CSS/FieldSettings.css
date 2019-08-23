@@ -20,7 +20,7 @@
 }
 
 .fieldListArea.fieldListAreaPivot .displayOptionsWrapper > label,
-.fieldListArea.fieldListAreaPivot .displayOptionsWrapper > .eaDropdown,
+.fieldListArea.fieldListAreaPivot .displayOptionsWrapper > .k-dropdown,
 .fieldListArea.fieldListAreaPivot .gaugeChartSettingWrapper,
 .fieldListArea.fieldListAreaChart .gaugeChartSettingWrapper,
 .fieldListArea.fieldListAreaChart .pivotTotalForWrapper,
@@ -62,7 +62,7 @@
     width: 16px;
     height: 16px;
     background: transparent url('../../images/angle/pivotchart.png') left top no-repeat;
-}    
+}
 
 #ChartMainWrapper .fieldListAreaHeader h4 {
     padding-left: 0;
@@ -70,11 +70,12 @@
 
 #ChartMainWrapper .fieldListAreaHeader h4:before {
     background: none;
-} 
+}
 
 .fieldListAreaItem.rowArea .fieldListAreaHeader h4:before {
     background-position: 0 0;
 }
+
 .fieldListAreaItem.rowArea.area_area .fieldListAreaHeader h4:before,
 .fieldListAreaItem.rowArea.area_bubble .fieldListAreaHeader h4:before,
 .fieldListAreaItem.rowArea.area_column .fieldListAreaHeader h4:before,
@@ -82,13 +83,16 @@
 .fieldListAreaItem.rowArea.area_scatter .fieldListAreaHeader h4:before {
     background-position: 0 -18px;
 }
+
 .fieldListAreaItem.rowArea.area_bar .fieldListAreaHeader h4:before {
     background-position: 0 -36px;
 }
+
 .fieldListAreaItem.rowArea.area_donut .fieldListAreaHeader h4:before,
 .fieldListAreaItem.rowArea.area_pie .fieldListAreaHeader h4:before {
     background-position: 0 -54px;
 }
+
 .fieldListAreaItem.rowArea.area_radarLine .fieldListAreaHeader h4:before {
     background-position: 0 -72px;
 }
@@ -96,6 +100,7 @@
 .fieldListAreaItem.columnArea .fieldListAreaHeader h4:before {
     background-position: -18px 0;
 }
+
 .fieldListAreaItem.columnArea.area_area .fieldListAreaHeader h4:before,
 .fieldListAreaItem.columnArea.area_bubble .fieldListAreaHeader h4:before,
 .fieldListAreaItem.columnArea.area_column .fieldListAreaHeader h4:before,
@@ -103,13 +108,16 @@
 .fieldListAreaItem.columnArea.area_scatter .fieldListAreaHeader h4:before {
     background-position: -18px -18px;
 }
+
 .fieldListAreaItem.columnArea.area_bar .fieldListAreaHeader h4:before {
     background-position: -18px -36px;
 }
+
 .fieldListAreaItem.columnArea.area_donut .fieldListAreaHeader h4:before,
 .fieldListAreaItem.columnArea.area_pie .fieldListAreaHeader h4:before {
     background-position: -18px -54px;
 }
+
 .fieldListAreaItem.columnArea.area_radarLine .fieldListAreaHeader h4:before {
     background-position: -18px -72px;
 }
@@ -117,6 +125,7 @@
 .fieldListAreaItem.dataArea .fieldListAreaHeader h4:before {
     background-position: -36px 0;
 }
+
 .fieldListAreaItem.dataArea.area_area .fieldListAreaHeader h4:before,
 .fieldListAreaItem.dataArea.area_bubble .fieldListAreaHeader h4:before,
 .fieldListAreaItem.dataArea.area_column .fieldListAreaHeader h4:before,
@@ -124,13 +133,16 @@
 .fieldListAreaItem.dataArea.area_scatter .fieldListAreaHeader h4:before {
     background-position: -36px -18px;
 }
+
 .fieldListAreaItem.dataArea.area_bar .fieldListAreaHeader h4:before {
     background-position: -36px -36px;
 }
+
 .fieldListAreaItem.dataArea.area_donut .fieldListAreaHeader h4:before,
 .fieldListAreaItem.dataArea.area_pie .fieldListAreaHeader h4:before {
     background-position: -36px -54px;
 }
+
 .fieldListAreaItem.dataArea.area_radarLine .fieldListAreaHeader h4:before {
     background-position: -36px -72px;
 }
@@ -149,9 +161,7 @@
 }
 
 .fieldListArea .addFieldButton > span {
-    height: 21px;
-    min-width: 0;
-    display: block;
+    min-width: 21px;
 }
 
 .fieldListAreaBody {
@@ -209,7 +219,8 @@
 }
 
 .fieldListArea .validWarning:after {
-    background-image: url('../../images/icons/icon_warning.svg');
+    background-image: url('../../images/icons/icon_warnings.svg');
+    background-size: 14px 14px;
 }
 
 .fieldListArea .validError:after {
@@ -241,13 +252,6 @@
 .fieldListArea .validError .fieldName,
 .fieldListArea .areaFieldSortable .fieldName {
     max-width: 327px;
-}
-
-.fieldListArea .btnInfo,
-.draggingField .btnInfo {
-    display: none;
-    vertical-align: middle;
-    width: 20px;
 }
 
 .fieldListArea .btnDelete {
@@ -344,7 +348,6 @@
     left: 200px;
     top: 0;
     width: 300px;
-    padding-bottom: 60px;
 }
 
 .popupBucket.k-window-arrow-w:before,
@@ -368,10 +371,6 @@
     top: 60%;
 }
 
-.popupBucket.k-window-arrow-mw:before {
-    border-right-color: #eeeeee;
-}
-
 .popupBucket .Title {
     display: block;
     margin-bottom: 5px;
@@ -390,10 +389,6 @@
     width: 100%;
 }
 
-.popupBucket .k-window-buttons {
-    height: 60px;
-}
-
 /* .popupChartOptions
 ============================================ */
 .popupChartOptions {
@@ -405,7 +400,7 @@
 
 .popupChartOptions.k-window-arrow-w:before,
 .popupChartOptions.k-window-arrow-w:after {
-    top: 10px;
+    top: 4px;
 }
 
 .popupChartOptions.k-window-arrow-sw:before,
@@ -702,7 +697,7 @@
 }
 
 .gaugeSettingRow .k-colorpicker {
-    font-size: 14px;
+    font-size: 12px;
     margin-left: 85px;
     margin-bottom: 0;
 }

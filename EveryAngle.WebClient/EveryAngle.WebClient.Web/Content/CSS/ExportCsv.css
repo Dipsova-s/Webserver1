@@ -75,16 +75,3 @@
 .popupExportToCSV .k-numerictextbox {
     width: 100%;
 }
-
-/* #popupCSVReport
-================================== */
-#popupCSVReport h4 {
-    margin: 0 0 10px;
-    font-size: 14px;
-}
-
-#popupCSVReport pre {
-    font-family: Arial, "Helvetica Neue", Helvetica, sans-serif, Tahoma;
-    font-size: 12px;
-    white-space: pre-wrap;
-}

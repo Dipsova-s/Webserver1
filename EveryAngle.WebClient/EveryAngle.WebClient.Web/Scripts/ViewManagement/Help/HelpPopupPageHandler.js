@@ -22,6 +22,7 @@ function HelpPopupPageHandler() {
                 content: WC.HtmlHelper.GetInternalApiUri('GetModelParameter', 'api/helpapi', { modelServerSettingsUri: modelServerSettingsUri }),
                 className: 'popup' + popupName,
                 width: 600,
+                height: 530,
                 buttons: [
                     {
                         text: Localization.Ok,

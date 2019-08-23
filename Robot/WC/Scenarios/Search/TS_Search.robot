@@ -13,6 +13,8 @@ Search By Text Without Double Quote
     Input Search Text    ${searchText}
     Click Search Button
     Wait Progress Bar Search Closed
+    Wait Search Terms Closed
+	Sleep    ${TIMEOUT_LARGEST}
 
 Search By Text
     [Arguments]    ${searchText}
@@ -33,6 +35,7 @@ Search Filter By Query String
     [Arguments]    ${queryString}
     ${searchUrl}    Execute Javascript    return window.searchPageUrl + '#/?' + ('${queryString}' || 'fq=facetcat_itemtype:(facet_angle facet_template)');
     Go To    http://${URL}${searchUrl}
+    Wait Progress Bar Search Closed
     Click Search Button
     Wait Progress Bar Search Closed
 

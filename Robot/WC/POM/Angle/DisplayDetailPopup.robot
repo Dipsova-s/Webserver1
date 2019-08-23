@@ -96,6 +96,7 @@ Choose Display Type From Display Details Popup
 
 Save Display Detail From Popup
     Click Element    ${btnSaveDisplay}
+    Page Should Contain Toast Success
     Wait Progress Bar Closed
     Wait Until Ajax Complete
 

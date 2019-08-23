@@ -106,6 +106,10 @@ Login And Create Angle By 2 Objects From Object List
 Back To Search And Delete Angle Are Created
     [Arguments]   ${angleName}
     Go to Search Page
+    Delete Item On Search Page    ${angleName}
+
+Delete Item On Search Page
+    [Arguments]   ${angleName}
     Search By Text    ${angleName}
     ${itemCount}    Get Number Of Search Results
     Run Keyword If    ${itemCount}>0    Delete All Search Result Items
@@ -137,17 +141,17 @@ Change Display To List
     Run Keyword If    '${displayType}' != 'list'    Change Display To First List
 
 Change Display To First List
-    ${firstListSelector}    Get JQuery Selector    ${ddlSelectDisplayItems} .icon.list:first
+    ${firstListSelector}    Get JQuery Selector    ${ddlSelectDisplayItems} .icon.icon-list:first
     ${firstListIndex}    Execute JavaScript    return $('${firstListSelector}').parents('.ItemList').index()
     Execute Display From Display Dropdown    ${ddlSelectDisplayItems}:eq(${firstListIndex})
 
 Change Display To First Pivot
-    ${firstPivotSelector}    Get JQuery Selector    ${ddlSelectDisplayItems} .icon.pivot:first
+    ${firstPivotSelector}    Get JQuery Selector    ${ddlSelectDisplayItems} .icon.icon-pivot:first
     ${firstPivotIndex}       Execute JavaScript     return $('${firstPivotSelector}').parents('.ItemList').index()
     Execute Display From Display Dropdown    ${ddlSelectDisplayItems}:eq(${firstPivotIndex})
 
 Change Display To First Chart
-    ${firstChartSelector}    Get JQuery Selector    ${ddlSelectDisplayItems} .icon.chart:first
+    ${firstChartSelector}    Get JQuery Selector    ${ddlSelectDisplayItems} .icon.icon-chart:first
     ${firstChartIndex}       Execute JavaScript     return $('${firstChartSelector}').parents('.ItemList').index()
     Execute Display From Display Dropdown    ${ddlSelectDisplayItems}:eq(${firstChartIndex})
 

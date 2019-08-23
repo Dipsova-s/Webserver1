@@ -116,20 +116,20 @@ function ListFormatSettingHandler() {
         if (isNumberDataType) {
             var prefix = typeof fieldDetails.prefix === 'undefined' ? enumHandlers.FIELDSETTING.USEDEFAULT : fieldDetails.prefix === null ? enumHandlers.DISPLAYUNITSFORMAT.NONE : fieldDetails.prefix;
             var displayUnitDropdown = self.AddUseDefaulToFormatList(fieldType, ko.toJS(enumHandlers.DISPLAYUNITS));
-            userSettingsHandler.RenderFormatSettingDropdownlist('FormatDisplayUnitSelect', displayUnitDropdown, prefix);
+            userSettingsPanelHandler.RenderFormatSettingDropdownlist('FormatDisplayUnitSelect', displayUnitDropdown, prefix);
 
             if (isSupportDecimal) {
                 var decimals = typeof fieldDetails.decimals !== 'undefined' ? fieldDetails.decimals : enumHandlers.FIELDSETTING.USEDEFAULT;
                 var decimalDropdown = self.AddUseDefaulToFormatList(fieldType, ko.toJS(enumHandlers.LISTFORMATDECIMALS));
-                userSettingsHandler.RenderFormatSettingDropdownlist('FormatDecimalSelect', decimalDropdown, decimals);
+                userSettingsPanelHandler.RenderFormatSettingDropdownlist('FormatDecimalSelect', decimalDropdown, decimals);
             }
         }
         else if (isTimeDataType) {
-            var secondsFormat = userSettingsHandler.GetSecondDropdownValue(displayFormat.second);
-            userSettingsHandler.RenderTimeFormatSettingDropdownlist('FormatSecondsSelect', self.FormatList(), secondsFormat);
+            var secondsFormat = userSettingsPanelHandler.GetSecondDropdownValue(displayFormat.second);
+            userSettingsPanelHandler.RenderTimeFormatSettingDropdownlist('FormatSecondsSelect', self.FormatList(), secondsFormat);
         }
         else if (isEnumDataType) {
-            userSettingsHandler.RenderFormatSettingDropdownlist('format', self.FormatList(), displayFormat.format, "Text", "Value");
+            userSettingsPanelHandler.RenderFormatSettingDropdownlist('format', self.FormatList(), displayFormat.format, "Text", "Value");
         }
 
 
@@ -334,7 +334,7 @@ function ListFormatSettingHandler() {
         }
         else if (isTimeDataType) {
             var seconds = WC.HtmlHelper.DropdownList('#FormatSecondsSelect').value();
-            userSettingsHandler.SetSecondFormat(displayFieldDetail, seconds);
+            userSettingsPanelHandler.SetSecondFormat(displayFieldDetail, seconds);
         }
         else if (isEnumDataType) {
             var format = WC.HtmlHelper.DropdownList('#format').value();

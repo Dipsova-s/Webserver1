@@ -1,0 +1,590 @@
+﻿@using EveryAngle.Shared.Globalization;
+
+<div class="settingsPanel hide" id="SettingsPanel">
+    <div class="settingsPanelTabs">
+        <div class="settingsPanelTabsWrapper">
+            <div class="settingsPanelTab">
+                <input class="settingsPanelTabSelector" id="SettingsPanelUserTab"
+                       type="radio" name="settingsPanelTab"
+                       onchange="userSettingsPanelHandler.TabChanged('SettingsPanelUserContent')">
+                <label for="SettingsPanelUserTab">
+                    <span>@Resource.User</span>
+                </label>
+            </div>
+            <div class="settingsPanelTab">
+                <input class="settingsPanelTabSelector" id="SettingsPanelSystemTab"
+                       type="radio" name="settingsPanelTab"
+                       onchange="userSettingsPanelHandler.TabChanged('SettingsPanelSystemContent')">
+                <label for="SettingsPanelSystemTab">
+                    <span>@Resource.System</span>
+                </label>
+            </div>
+            <div class="settingsPanelTab">
+                <input class="settingsPanelTabSelector" id="SettingsPanelFieldsTab"
+                       type="radio" name="settingsPanelTab"
+                       onchange="userSettingsPanelHandler.TabChanged('SettingsPanelFormatContent')">
+                <label for="SettingsPanelFieldsTab">
+                    <span>@Resource.Format</span>
+                </label>
+            </div>
+        </div>
+    </div>
+    <div class="settingsPanelContentsWrapper box-scrollable" tabindex="0">
+        <div class="settingsPanelContents box-scrollable-content">
+            <div class="settingsPanelContent" id="SettingsPanelUserContent">
+
+                <div class="settingsPanelSection">
+                    <div class="card settingsPanelProfile">
+                        <div class="card-body">
+                            <div class="form-row">
+                                <div class="form-col settingsPanelProfilePicture">
+                                    <img src="~/Images/Icons/icon_profile.svg" alt="" />
+                                </div>
+                                <div class="form-col settingsPanelProfileName">
+                                    <strong></strong>
+                                    <span class="greyText"></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card settingsPanelRoles">
+                        <div class="card-header">@Resource.UserSettingLabelRoles</div>
+                        <div class="card-body roles"></div>
+                    </div>
+                    <hr />
+                </div>
+
+                <div class="settingsPanelSection">
+                    <div class="card settingsPanelAuthorisation">
+                        <div class="card-header">@Resource.UserSettingLabelAuthorisation</div>
+                        <div class="card-body">
+                            <div class="form-row">
+                                <div class="form-col form-col-half">
+                                    <span>@Resource.Model</span>
+                                </div>
+                                <div class="form-col form-col-half">
+                                    <input class="k-dropdown"
+                                           id="SystemModel"
+                                           name="settingsPanelModelSelector">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="settingsPanelLabelAuthorisationsWrapper"></div>
+                    <hr />
+                </div>
+
+                <div class="settingsPanelSection">
+                    <div class="card settingsPanelActionsAtLogin">
+                        <div class="card-header">@Resource.ActionsAtLogin</div>
+                        <div class="card-body">
+                            <div class="form-row">
+                                <div class="form-col">
+                                    <label class="checkbox">
+                                        <input type="checkbox" id="autoExecuteLastSearch" />
+                                        <span class="label">@Resource.ActionSettingExecuteLastSearch</span>
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-col">
+                                    <label class="checkbox">
+                                        <input type="checkbox" id="autoExecuteItemsOnLogin" />
+                                        <span class="label">
+                                            <span>@Resource.ActionSettingExecuteAtLogin</span>
+                                            <span class="settingsPanelNoExecuteAtLogin"></span>
+                                        </span>
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="settingsPanelActionsAtLoginDisplaysWrapper"></div>
+                        </div>
+                    </div>
+                    <hr />
+                </div>
+
+            </div>
+            <div class="settingsPanelContent" id="SettingsPanelSystemContent">
+                <div class="settingsPanelSection">
+                    <div class="card settingsPanelDefaultBusinessProcess">
+                        <div class="card-header">@Resource.SystemSettingLabelDefaultBusinessProcess</div>
+                        <div class="card-body" id="UserSettingsBusinessProcesses"></div>
+                    </div>
+                    <hr />
+                </div>
+
+                <div class="settingsPanelSection">
+                    <div class="card settingsPanelGeneral">
+                        <div class="card-header">@Resource.FormatSettingLabelGeneral</div>
+                        <div class="card-body">
+                            <div class="form-row">
+                                <div class="form-col form-col-half">
+                                    <span>@Resource.AdvanceFilterLanguageTitle</span>
+                                </div>
+                                <div class="form-col form-col-half">
+                                    <input class="k-dropdown"
+                                           id="LanguageSelect"
+                                           name="settingsPanelLanguageSelector" />
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-col form-col-half">
+                                    <span>@Resource.SystemSettingLabelDefaultOfRowsExportToExcel</span>
+                                </div>
+                                <div class="form-col form-col-half">
+                                    <input class="k-dropdown"
+                                           id="ExcelRowSelect"
+                                           name="settingsPanelRowForExportToExcelSelector" />
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-col">
+                                    <label class="checkbox">
+                                        <input id="ShowFacetAngleWarnings" type="checkbox" />
+                                        <span id="ShowFacetAngleWarningsLabel" class="label" data-bind="visible: userModel.IsPossibleToCreateAngle()">
+                                            @Html.Raw(Resource.ShowFacetForAngleWarnings)
+                                        </span>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <hr />
+                </div>
+
+                <div class="settingsPanelSection">
+                    <div class="card settingsPanelFieldChooser">
+                        <div class="card-header">@Resource.DefaultFilterSuggestedStarred</div>
+                        <div class="card-body">
+                            <div class="form-row">
+                                <div class="form-col">
+                                    <label class="checkbox">
+                                        <input id="DefaultStarredfields" type="checkbox" />
+                                        <span class="label">@Resource.DefaultStarredfieldsLabel</span>
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-col">
+                                    <label class="checkbox">
+                                        <input id="DefaultSuggestedfields" type="checkbox" />
+                                        <span class="label">@Resource.DefaultSuggestedfieldsLabel</span>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <hr />
+                </div>
+
+                <div class="settingsPanelSection">
+                    <div class="card settingsPanelTechnicalNames">
+                        <div class="card-header">@Resource.SystemSettingLabelShowSAPPropertyNames</div>
+                        <div class="card-body">
+                            <div class="form-row">
+                                <div class="form-col">
+                                    <label class="checkbox">
+                                        <input id="SapFieldsInChooser" type="checkbox" />
+                                        <span class="label">@Resource.SystemSettingLabelWhenSelectingAProperty</span>
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-col">
+                                    <label class="checkbox">
+                                        <input id="SapFieldsInHeader" type="checkbox" />
+                                        <span class="label">@Resource.SystemSettingLabelInColumnHeadersOfLists</span>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <hr />
+                </div>
+
+                <div class="settingsPanelSection" id="GoToSapSection">
+                    <div class="card settingsPanelGoToSap">
+                        <div class="card-header">@Resource.SystemSettingLabelGoToSAP</div>
+                        <div class="card-body">
+                            <div class="form-row">
+                                <div class="form-col">
+                                    <span>
+                                        @Resource.SystemSettingLabelGoToSAPDownload
+                                        <a class="btn-info" onclick="userSettingsPanelHandler.ShowInfoDownloadSAP()"><i class="icon info"></i></a>
+                                    </span>
+                                </div>
+                                <div class="form-col float-right">
+                                    <a onclick="userSettingsPanelHandler.DownloadSAPLauncher('@Url.Content("~/download/gotosap")')"
+                                       class="btn-download"
+                                       data-role="tooltip"
+                                       data-tooltip-title="@Resource.Download"
+                                       data-tooltip-position="bottom">
+                                        <i class="icon icon-download"></i>
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-col form-col-half">
+                                    <span>@Resource.SystemSettingLabelGoToSAPUser</span>
+                                </div>
+                                <div class="form-col form-col-half">
+                                    <input type="text" id="sapusertextbox" />
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-col form-col-half">
+                                    <span>@Resource.SystemSettingLabelGoToSAPLogonLanguage</span>
+                                </div>
+                                <div class="form-col form-col-half">
+                                    <input id="sapLanguageDropdown"
+                                           class="k-dropdown" name="sapLanguageDropdown">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <hr />
+                </div>
+
+            </div>
+            <div class="settingsPanelContent" id="SettingsPanelFormatContent">
+                <div class="settingsPanelSection">
+                    <ul class="accordion accordion-transparent">
+                        <li class="accordion-item">
+                            <div class="accordion-header close" id="SettingsPanelGeneralAccordion" onclick="userSettingsPanelHandler.AccordionChanged(this)">
+                                <i class="open-indicator icon icon-caret-down"></i>
+                                <i class="close-indicator icon icon-caret-right"></i>
+                                @Resource.FormatSettingLabelGeneral
+                            </div>
+                            <div class="accordion-body">
+                                <fieldset>
+                                    <legend>Example</legend>
+                                    <p>@Captions.Label_FieldFormat_Numbers: <span class="exampleGeneralNumber"></span></p>
+                                    <p>@Resource.FormatSettingLabelCurrency: <span class="exampleGeneralNumber"></span> EUR</p>
+                                    <p>@Resource.FormatSettingLabelPercentages: <span class="exampleGeneralNumber"></span></p>
+                                </fieldset>
+                                <div class="form-row">
+                                    <div class="form-col form-col-half">
+                                        <span>@Captions.Label_FieldFormat_DecimalSeparate</span>
+                                    </div>
+                                    <div class="form-col form-col-half">
+                                        <input id="GeneralDecimalSeperatorDropdown"
+                                               class="k-dropdown" name="settingsPanelGeneralDecimalSeperator">
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="form-col form-col-half">
+                                        <span>@Captions.Label_FieldFormat_ThousandSeperator </span>
+                                    </div>
+                                    <div class="form-col form-col-half">
+                                        <input id="GeneralThousandSeperatorDropdown"
+                                               class="k-dropdown" name="settingsPanelGeneralThousandsSeperator">
+                                    </div>
+                                </div>
+                                <small>@Resource.FormatSettingGeneralDescription</small>
+                            </div>
+                            <hr />
+                        </li>
+                        <li class="accordion-item">
+                            <div class="accordion-header close" id="SettingsPanelNumberAccordion" onclick="userSettingsPanelHandler.AccordionChanged(this)">
+                                <i class="open-indicator icon icon-caret-down"></i>
+                                <i class="close-indicator icon icon-caret-right"></i>
+                                @Captions.Label_FieldFormat_Numbers
+                            </div>
+                            <div class="accordion-body">
+                                <fieldset>
+                                    <legend>@Captions.FieldFormat_Example</legend>
+                                    <span class="exampleNumber"></span>
+                                </fieldset>
+                                <div class="form-row">
+                                    <div class="form-col form-col-half">
+                                        <span>@Resource.Decimal</span>
+                                    </div>
+                                    <div class="form-col form-col-half">
+                                        <input id="NumbersSelect"
+                                               class="k-dropdown" name="settingsPanelNumberDecimalSeperator" />
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="form-col form-col-half">
+                                        <span>@Resource.FormatSettingDisplayUnits</span>
+                                    </div>
+                                    <div class="form-col form-col-half">
+                                        <input id="NumberFormatDisplayUnitSelect"
+                                               class="k-dropdown" name="settingsPanelNumberDisplayUnits" />
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="form-col">
+                                        <label class="checkbox">
+                                            <input type="checkbox"
+                                                   id="enable_thousandseparator_for_number"
+                                                   value="number"
+                                                   onchange="userSettingsPanelHandler.ChangeNumberFormat()"
+                                                   name="settingsPanelNumberThousandsSeperator" />
+                                            <span class="label">@Captions.Label_FieldFormat_UseThousandSeperator</span>
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                            <hr />
+                        </li>
+                        <li class="accordion-item">
+                            <div class="accordion-header close" id="SettingsPanelCurrencyAccordion" onclick="userSettingsPanelHandler.AccordionChanged(this)">
+                                <i class="open-indicator icon icon-caret-down"></i>
+                                <i class="close-indicator icon icon-caret-right"></i>
+                                @Resource.FormatSettingLabelCurrency
+                            </div>
+                            <div class="accordion-body">
+                                <fieldset>
+                                    <legend>@Captions.FieldFormat_Example</legend>
+                                    <span class="exampleCurrency"></span>
+                                </fieldset>
+                                <div class="form-row">
+                                    <div class="form-col form-col-half">
+                                        <span>@Resource.FormatSettingCurrencySymbol</span>
+                                    </div>
+                                    <div class="form-col form-col-half">
+                                        <input class="k-dropdown"
+                                               id="DefaultCurrencySelect"
+                                               name="settingsPanelCurrencyCurrencySymbol" />
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="form-col form-col-half">
+                                        <span>@Resource.Decimal</span>
+                                    </div>
+                                    <div class="form-col form-col-half">
+                                        <input class="k-dropdown"
+                                               id="CurrencyUnitSelect"
+                                               name="settingsPanelCurrencyDecimals" />
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="form-col form-col-half">
+                                        <span>@Resource.FormatSettingDisplayUnits</span>
+                                    </div>
+                                    <div class="form-col form-col-half">
+                                        <input class="k-dropdown"
+                                               id="CurrencyFormatDisplayUnitSelect" name="settingsPanelCurrencyDisplayUnits" />
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="form-col">
+                                        <label class="checkbox">
+                                            <input type="checkbox"
+                                                   id="enable_thousandseparator_for_currency"
+                                                   onchange="userSettingsPanelHandler.ChangeCurerncyFormat()"
+                                                   value="currency"
+                                                   name="settingsPanelCurrencyThousandsSeperator" />
+                                            <span class="label">@Captions.Label_FieldFormat_UseThousandSeperator</span>
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                            <hr />
+                        </li>
+                        <li class="accordion-item">
+                            <div class="accordion-header close" id="SettingsPanelPercentagesAccordion" onclick="userSettingsPanelHandler.AccordionChanged(this)">
+                                <i class="open-indicator icon icon-caret-down"></i>
+                                <i class="close-indicator icon icon-caret-right"></i>
+                                @Resource.FormatSettingLabelPercentages
+                            </div>
+                            <div class="accordion-body">
+                                <fieldset>
+                                    <legend>@Captions.FieldFormat_Example</legend>
+                                    <span class="examplePercentages"></span>
+                                </fieldset>
+                                <div class="form-row">
+                                    <div class="form-col form-col-half">
+                                        <span>@Resource.Decimal</span>
+                                    </div>
+                                    <div class="form-col form-col-half">
+                                        <input class="k-dropdown"
+                                               id="PercentagesSelect"
+                                               name="settingsPanelPercentagesDecimals" />
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="form-col form-col-half">
+                                        <span>@Resource.FormatSettingDisplayUnits</span>
+                                    </div>
+                                    <div class="form-col form-col-half">
+                                        <input class="k-dropdown"
+                                               id="PercentagesFormatDisplayUnitSelect"
+                                               name="settingsPanelPercentagesDisplayUnits" />
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="form-col">
+                                        <label class="checkbox">
+                                            <input type="checkbox"
+                                                   id="enable_thousandseparator_for_percentage"
+                                                   value="percentage"
+                                                   onchange="userSettingsPanelHandler.ChangePercentagesFormat()"
+                                                   name="settingsPanelPercentagesThousandsSeperator" />
+                                            <span class="label">@Captions.Label_FieldFormat_UseThousandSeperator</span>
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                            <hr />
+                        </li>
+                        <li class="accordion-item">
+                            <div class="accordion-header close" id="SettingsPanelDateAccordion" onclick="userSettingsPanelHandler.AccordionChanged(this)">
+                                <i class="open-indicator icon icon-caret-down"></i>
+                                <i class="close-indicator icon icon-caret-right"></i>
+                                @Resource.FormatSettingLabelDate
+                            </div>
+                            <div class="accordion-body">
+                                <fieldset>
+                                    <legend>@Captions.FieldFormat_Example</legend>
+                                    <span class="exampleDate"></span>
+                                </fieldset>
+                                <div class="form-row">
+                                    <div class="form-col form-col-half">
+                                        <span>@Captions.Label_FieldFormat_Order</span>
+                                    </div>
+                                    <div class="form-col form-col-half">
+                                        <input class="k-dropdown"
+                                               id="DateFormatOrderDropdown"
+                                               name="settingsPanelDateOrder" />
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="form-col form-col-half">
+                                        <span>@Captions.Label_FieldFormat_Separator</span>
+                                    </div>
+                                    <div class="form-col form-col-half">
+                                        <input class="k-dropdown"
+                                               id="DateFormatSeparatorDropdown"
+                                               name="settingsPanelDateDelimiter" />
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="form-col form-col-half">
+                                        <span>@Captions.Label_FieldFormat_Day</span>
+                                    </div>
+                                    <div class="form-col form-col-half">
+                                        <input id="DateFormatDayDropdown"
+                                               class="k-dropdown"
+                                               name="settingsPanelDateDay" />
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="form-col form-col-half">
+                                        <span>@Captions.Label_FieldFormat_Month</span>
+                                    </div>
+                                    <div class="form-col form-col-half">
+                                        <input class="k-dropdown"
+                                               id="DateFormatMonthDropdown"
+                                               name="settingsPanelDateMonth" />
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="form-col form-col-half">
+                                        <span>@Captions.Label_FieldFormat_Year</span>
+                                    </div>
+                                    <div class="form-col form-col-half">
+                                        <input class="k-dropdown"
+                                               id="DateFormatYearDropdown"
+                                               name="settingsPanelDateYear" />
+                                    </div>
+                                </div>
+                                <small>@Html.Raw(Resource.FormatSettingGeneralDate)</small>
+                            </div>
+                            <hr />
+                        </li>
+                        <li class="accordion-item">
+                            <div class="accordion-header close" id="SettingsPanelTimeAccordion" onclick="userSettingsPanelHandler.AccordionChanged(this)">
+                                <i class="open-indicator icon icon-caret-down"></i>
+                                <i class="close-indicator icon icon-caret-right"></i>
+                                @Resource.FormatSettingLabelTime
+                            </div>
+                            <div class="accordion-body">
+                                <fieldset>
+                                    <legend>@Captions.FieldFormat_Example</legend>
+                                    <span class="exampleTime"></span>
+                                </fieldset>
+                                <div class="form-row">
+                                    <div class="form-col form-col-half">
+                                        <span>@Captions.Label_FieldFormat_Separator</span>
+                                    </div>
+                                    <div class="form-col form-col-half">
+                                        <input class="k-dropdown"
+                                               id="TimeFormatSeparatorDropdown"
+                                               name="settingsPanelTimeDelimiter" />
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="form-col form-col-half">
+                                        <span>@Captions.Label_FieldFormat_Hours</span>
+                                    </div>
+                                    <div class="form-col form-col-half">
+                                        <input class="k-dropdown"
+                                               id="TimeFormatHoursDropdown"
+                                               name="settingsPanelTimeHour" />
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="form-col form-col-half">
+                                        <span>@Captions.Label_FieldFormat_Minutes</span>
+                                    </div>
+                                    <div class="form-col form-col-half">
+                                        <input type="text"
+                                               id="TimeFormatMinutesDropdown"
+                                               name="settingsPanelTimeMinutes"
+                                               value="mm"
+                                               readonly />
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="form-col form-col-half">
+                                        <span>@Captions.Label_FieldFormat_Seconds</span>
+                                    </div>
+                                    <div class="form-col form-col-half">
+                                        <input class="k-dropdown"
+                                               id="TimeFormatSecondsDropdown"
+                                               name="settingsPanelTimeSeconds" />
+                                    </div>
+                                </div>
+                                <small>@Html.Raw(Resource.FormatSettingGeneralTime)</small>
+                            </div>
+                            <hr />
+                        </li>
+                        <li class="accordion-item">
+                            <div class="accordion-header close" id="SettingsPanelEnumAccordion" onclick="userSettingsPanelHandler.AccordionChanged(this)">
+                                <i class="open-indicator icon icon-caret-down"></i>
+                                <i class="close-indicator icon icon-caret-right"></i>
+                                @Resource.Enum
+                            </div>
+                            <div class="accordion-body">
+                                <fieldset>
+                                    <legend>@Captions.FieldFormat_Example</legend>
+                                    <span class="exampleSet"></span>
+                                </fieldset>
+                                <div class="form-row">
+                                    <div class="form-col form-col-half">
+                                        <span>@Captions.FieldFormat_Notation</span>
+                                    </div>
+                                    <div class="form-col form-col-half">
+                                        <input class="k-dropdown"
+                                               id="EnumSelect"
+                                               name="settingsPanelSetNotation" />
+                                    </div>
+                                </div>
+                            </div>
+                            <hr />
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="settingsPanelButtons">
+        <div class="btn-wrapper btn-wrapper-popup">
+            <a class="btn btn-primary float-right settingsPanelSaveButton" data-busy="@Resource.Saving" onclick="userSettingsPanelHandler.SaveUserSettings()">
+                <span>@Resource.Save</span>
+            </a>
+        </div>
+    </div>
+</div>

@@ -59,15 +59,19 @@ namespace EveryAngle.WebClient.Web
                 "~/scripts/kendoui/kendo.calendar.min.js",
                 "~/scripts/kendoui/kendo.slider.min.js",
                 "~/scripts/kendoui/kendo.colorpicker.min.js",
+                "~/scripts/kendoui/kendo.colorpicker.style.js",
                 "~/scripts/kendoui/kendo.colorpicker.custom.js",
                 "~/scripts/kendoui/kendo.combobox.min.js",
+                "~/scripts/kendoui/kendo.combobox.style.js",
                 "~/scripts/kendoui/kendo.datepicker.min.js",
                 "~/scripts/kendoui/kendo.timepicker.min.js",
                 "~/scripts/kendoui/kendo.datetimepicker.min.js",
                 "~/scripts/kendoui/kendo.datetimepicker.custom.js",
                 "~/scripts/kendoui/kendo.dropdownlist.min.js",
+                "~/scripts/kendoui/kendo.dropdownlist.style.js",
                 "~/scripts/kendoui/kendo.resizable.min.js",
                 "~/scripts/kendoui/kendo.window.min.js",
+                "~/scripts/kendoui/kendo.window.style.js",
                 "~/scripts/kendoui/kendo.editor.min.js",
                 "~/scripts/kendoui/kendo.pager.min.js",
                 "~/scripts/kendoui/kendo.selectable.min.js",
@@ -77,6 +81,7 @@ namespace EveryAngle.WebClient.Web
                 "~/scripts/kendoui/kendo.columnsorter.min.js",
                 "~/scripts/kendoui/kendo.grid.min.js",
                 "~/scripts/kendoui/kendo.numerictextbox.min.js",
+                "~/scripts/kendoui/kendo.numerictextbox.style.js",
                 "~/scripts/kendoui/kendo.numerictextbox.custom.js",
                 "~/scripts/kendoui/kendo.percentagetextbox.js",
                 "~/scripts/kendoui/kendo.timespanpicker.js",
@@ -87,7 +92,8 @@ namespace EveryAngle.WebClient.Web
                 "~/scripts/kendoui/kendo.dataviz.chart.min.js",
                 "~/scripts/kendoui/kendo.dataviz.chart.polar.min.js",
                 "~/scripts/kendoui/kendo.dataviz.gauge.min.js",
-                "~/scripts/kendoui/kendo.touch.min.js"
+                "~/scripts/kendoui/kendo.touch.min.js",
+                "~/scripts/kendoui/kendo.notification.js"
             };
 
             var kendoCultures = new string[] {
@@ -111,6 +117,8 @@ namespace EveryAngle.WebClient.Web
                 "~/scripts/helper/htmlhelper.tooltip.js",
                 "~/scripts/helper/htmlhelper.menunavigatable.js",
                 "~/scripts/helper/htmlhelper.actionmenu.js",
+                "~/scripts/helper/htmlhelper.accordion.js",
+                "~/scripts/helper/htmlhelper.multiselect.js",
                 "~/scripts/helper/globalfunction.js",
                 "~/scripts/helper/viewengine.js",
                 "~/scripts/helper/modelhelper.js",
@@ -146,7 +154,7 @@ namespace EveryAngle.WebClient.Web
                 "~/scripts/viewmodels/models/user/privileges.js",
                 "~/scripts/viewmodels/models/user/usersettingmodel.js",
                 "~/scripts/viewmanagement/shared/modellabelcategoryhandler.js",
-                "~/scripts/viewmanagement/user/usersettinghandler.js",
+                "~/scripts/viewmanagement/user/usersettingspanelhandler.js",
                 "~/scripts/viewmanagement/user/userpasswordhandler.js",
                 "~/scripts/viewmanagement/user/usersettingview.js",
                 "~/scripts/viewmanagement/help/helppopuppagehandler.js",
@@ -160,6 +168,7 @@ namespace EveryAngle.WebClient.Web
                 "~/scripts/viewmanagement/shared/modelfollowupshandler.js",
                 "~/scripts/viewmanagement/shared/modelfieldsourcehandler.js",
                 "~/scripts/viewmanagement/shared/modelfielddomainhandler.js",
+                "~/scripts/viewmanagement/shared/toastnotificationhandler.js",
                 "~/scripts/viewmodels/shared/datatype/datatype.js",
                 "~/scripts/viewmodels/shared/queryblock/querystepmodel.js",
                 "~/scripts/viewmodels/shared/queryblock/queryblockmodel.js",
@@ -188,13 +197,15 @@ namespace EveryAngle.WebClient.Web
                 "~/scripts/viewmanagement/shared/widgetlanguages/widgetlanguagesview.js",
                 "~/scripts/viewmanagement/shared/widgetlanguages/widgetlanguageshandler.js"
             };
-            var widgetlLabelsScripts = new string[] {
-                "~/scripts/viewmanagement/shared/widgetlabels/widgetlabelsview.js",
-                "~/scripts/viewmanagement/shared/widgetlabels/widgetlabelshandler.js"
-            };
             var executionparameterScripts = new string[] {
                 "~/scripts/htmltemplate/executeparameters/executeparametershtmltemplate.js",
                 "~/scripts/viewmanagement/shared/executionparameterhandler.js"
+            };
+            var itemStateScripts = new string[] {
+                "~/scripts/viewmanagement/shared/itemstate/itemstateview.js",
+                "~/scripts/viewmanagement/shared/itemstate/itemstatehandler.js",
+                "~/scripts/viewmanagement/shared/itemstate/itempublishstatehandler.js",
+                "~/scripts/viewmanagement/shared/itemstate/itemvalidatestatehandler.js"
             };
 
             /*** Begin - main ***/
@@ -205,6 +216,7 @@ namespace EveryAngle.WebClient.Web
                     "~/content/css/login.css",
                     "~/content/css/usersettings.css",
                     "~/content/css/userpassword.css",
+                    "~/content/css/breadcrumb.css",
                     "~/content/css/base.css"));
 
             bundles.Add(new StyleBundle("~/content/css/searchpage.css")
@@ -217,8 +229,7 @@ namespace EveryAngle.WebClient.Web
                     "~/content/videoplayer/plugins/videojs-playlist-ui.vertical.css"));
 
             bundles.Add(new StyleBundle("~/content/css/anglepage.css")
-                .Include("~/content/contextmenu/jquery.contextmenu.css",
-                    "~/content/css/pivot.css",
+                .Include("~/content/css/pivot.css",
                     "~/content/css/fieldsettings.css",
                     "~/content/css/customsort.css",
                     "~/content/css/exportexcel.css",
@@ -227,6 +238,7 @@ namespace EveryAngle.WebClient.Web
                     "~/content/css/displaylist.css",
                     "~/content/css/displaychart.css",
                     "~/content/css/displaypivot.css",
+                    "~/content/css/itemstate.css",
                     "~/content/css/angle.displaydropdown.css",
                     "~/content/css/angle.css"));
 
@@ -236,7 +248,6 @@ namespace EveryAngle.WebClient.Web
 
             bundles.Add(new StyleBundle("~/content/css/widgets.css")
                 .Include("~/content/css/widgetlanguages.css",
-                    "~/content/css/widgetlabels.css",
                     "~/content/css/widgetdetails.css",
                     "~/content/css/widgetfilters.css"));
 
@@ -340,7 +351,10 @@ namespace EveryAngle.WebClient.Web
                     "~/scripts/htmltemplate/createnewangle/createangleoptionhtmlpopuptemplate.js",
                     "~/scripts/htmltemplate/createnewangle/createangleschemahtmlpopuptemplate.js",
                     "~/scripts/viewmanagement/createnewangle/createnewanglepagehandler.js",
-                    
+
+                    // search options
+                    "~/scripts/viewmanagement/search/searchfilterlistviewhandler.js",
+
                     "~/scripts/htmltemplate/advancefilter/advancefilterhtmltemplate.js",
                     "~/scripts/viewmanagement/search/searchpagetemplate.js",
                     "~/scripts/viewmanagement/search/anglecopyhandler.js",
@@ -352,8 +366,8 @@ namespace EveryAngle.WebClient.Web
                 .Include(widgetFilterScripts)
                 .Include(widgetDetailsScripts)
                 .Include(widgetlLanguagesScripts)
-                .Include(widgetlLabelsScripts)
                 .Include(executionparameterScripts)
+                .Include(itemStateScripts)
                 .Include("~/scripts/viewmodels/models/dashboard/dashboardwidgetmodel.js",
                     "~/scripts/viewmodels/models/dashboard/dashboardmodel.js",
 
@@ -372,6 +386,8 @@ namespace EveryAngle.WebClient.Web
                     "~/scripts/viewmanagement/angle/displaycopyhandler.js",
                     "~/scripts/viewmanagement/shared/fieldchooserhandler.js",
                     "~/scripts/viewmanagement/shared/notificationsfeedhandler.js",
+                    "~/scripts/viewmanagement/shared/breadcrumb/breadcrumbhandler.js",
+                    "~/scripts/viewmanagement/shared/breadcrumb/anglebreadcrumbhandler.js",
                     "~/scripts/viewmanagement/angle/ResolveAngleDisplayHandler.js",
                     "~/scripts/viewmanagement/angle/DisplayUpgradeHandler.js",
                     
@@ -384,7 +400,6 @@ namespace EveryAngle.WebClient.Web
                     "~/scripts/viewmanagement/angle/followuppagehandler.js",
 
                     // angle details
-                    "~/scripts/htmltemplate/angledetail/anglepublishinghtmltemplate.js",
                     "~/scripts/htmltemplate/angledetail/angledetailbodyhtmltemplate.js",
                     "~/scripts/viewmanagement/angle/angledetailbodypagehandler.js",
 
@@ -427,8 +442,11 @@ namespace EveryAngle.WebClient.Web
                     // schedule angle
                     "~/scripts/htmltemplate/scheduleangle/scheduleanglehtmltemplate.js",
                     "~/scripts/viewmanagement/angle/scheduleanglehandler.js",
-
-
+                    
+                    "~/scripts/viewmanagement/angle/anglestateview.js",
+                    "~/scripts/viewmanagement/angle/anglestatehandler.js",
+                    "~/scripts/viewmanagement/angle/anglepublishstatehandler.js",
+                    "~/scripts/viewmanagement/angle/anglevalidatestatehandler.js",
                     "~/scripts/viewmanagement/angle/anglepageretainsurl.js",
                     "~/scripts/viewmanagement/angle/fieldsettingshandler.js",
                     "~/scripts/viewmanagement/angle/quickfilterhandler.js",
@@ -439,8 +457,8 @@ namespace EveryAngle.WebClient.Web
                 .Include(widgetFilterScripts)
                 .Include(widgetDetailsScripts)
                 .Include(widgetlLanguagesScripts)
-                .Include(widgetlLabelsScripts)
                 .Include(executionparameterScripts)
+                .Include(itemStateScripts)
                 .Include("~/scripts/viewmodels/models/angle/angleinfomodel.js",
                     "~/scripts/viewmanagement/angle/angledetailbodypagehandler.js",
                     "~/scripts/viewmodels/models/angle/displayfieldmodel.js",
@@ -461,9 +479,15 @@ namespace EveryAngle.WebClient.Web
                     "~/scripts/viewmanagement/angle/quickfilterhandler.js",
                     "~/scripts/viewmanagement/shared/fieldchooserhandler.js",
                     "~/scripts/viewmanagement/shared/notificationsfeedhandler.js",
+                    "~/scripts/viewmanagement/shared/breadcrumb/breadcrumbhandler.js",
                     "~/scripts/viewmodels/models/dashboard/dashboardwidgetmodel.js",
                     "~/scripts/viewmodels/models/dashboard/dashboardmodel.js",
                     "~/scripts/viewmodels/models/dashboard/dashboardresultmodel.js",
+
+                    "~/scripts/viewmanagement/dashboard/dashboardstateview.js",
+                    "~/scripts/viewmanagement/dashboard/dashboardstatehandler.js",
+                    "~/scripts/viewmanagement/dashboard/dashboardpublishstatehandler.js",
+                    "~/scripts/viewmanagement/dashboard/dashboardvalidatestatehandler.js",
 
                     "~/scripts/htmltemplate/dashboard/dashboarddetailbodyhtmltemplate.js",
                     "~/scripts/htmltemplate/dashboard/dashboardpublishinghtmltemplate.js",

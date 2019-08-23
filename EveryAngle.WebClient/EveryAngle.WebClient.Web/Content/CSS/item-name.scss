@@ -1,0 +1,126 @@
+﻿@import '_mixins.scss';
+
+$default-size: 24px;
+$small-size: 20px;
+$large-size: 35px;
+
+/* .displayNameContainer
+=================================== */
+.displayNameContainer {
+    @include flex-center;
+    position: relative;
+    min-width: 100px;
+    height: $default-size;
+    box-sizing: border-box;
+
+    .front, .rear, .icon, .name {
+        display: inline-flex;
+        align-items: center;
+        position: relative;
+        height: $default-size;
+    }
+
+    .icon {
+        font-size: 14px;
+        width: $default-size;
+        color: #78909c;
+
+        &:before {
+            margin: auto;
+        }
+
+        &.icon-angle {
+            color: #ff6c2c;
+        }
+
+        &.icon-validated {
+            color: #7dc855;
+        }
+
+        &.icon-star-active:before, &.icon-star-inactive:before {
+            color: #f3aa18;
+        }
+
+        &.validError {
+            background-size: 14px 14px;
+        }
+
+        &.none {
+            display: none;
+        }
+
+        &.icon-info {
+            color: #34495e;
+        }
+    }
+
+    .name {
+        display: inline-block;
+        @include ellipsis;
+        text-indent: 0;
+        min-width: 10px;
+        height: auto;
+        margin: 0 3px;
+        top: 3px;
+        box-sizing: border-box;
+
+        &.displayName {
+            padding-left: 8px;
+        }
+    }
+}
+
+.displayNameContainer.small {
+    height: $small-size;
+
+    .front, .rear, .icon {
+        height: $small-size;
+    }
+
+    .icon {
+        font-size: 12px;
+        width: $small-size;
+
+        &.icon-template:before {
+            background-size: 17px 17px;
+        }
+
+        &.icon-dashboard:before {
+            background-size: 14px 14px;
+        }
+
+        &.validError {
+            background-size: 12px 12px;
+        }
+
+        &.validWarning:before {
+            background-size: 13px 13px;
+            width: 13px;
+            height: 13px;
+        }
+    }
+
+    .name {
+        top: 1px;
+    }
+}
+
+.displayNameContainer.large {
+    height: $large-size;
+
+    .icon {
+      
+    }
+}
+
+.displayNameContainer .template {
+    background-position: center center;
+}
+
+.k-dropdown .displayNameContainer {
+    margin-top: 3px;
+}
+
+.k-item .displayNameContainer {
+    margin: -2px -2px -2px -4px;
+}

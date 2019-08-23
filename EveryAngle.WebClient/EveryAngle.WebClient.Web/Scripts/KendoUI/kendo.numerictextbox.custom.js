@@ -60,9 +60,9 @@
 
             // css
             that._downArrow.css('touch-action', 'pan-x');
-            that._downArrow.children().attr('class', 'k-icon k-i-arrow-w');
+            that._downArrow.children().attr('class', 'k-icon k-i-arrow-w icon icon-caret-left');
             that._upArrow.css('touch-action', 'pan-x');
-            that._upArrow.children().attr('class', 'k-icon k-i-arrow-e');
+            that._upArrow.children().attr('class', 'k-icon k-i-arrow-e icon icon-caret-right');
         },
 
         options: {

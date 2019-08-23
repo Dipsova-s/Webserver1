@@ -106,7 +106,7 @@ WriteLiteral("></div>\r\n    </div>\r\n    <input");
 
 WriteLiteral(" id=\"LoginButton\"");
 
-WriteLiteral(" class=\"btn btnPrimary\"");
+WriteLiteral(" class=\"btn btn-primary\"");
 
 WriteLiteral(" type=\"button\"");
 

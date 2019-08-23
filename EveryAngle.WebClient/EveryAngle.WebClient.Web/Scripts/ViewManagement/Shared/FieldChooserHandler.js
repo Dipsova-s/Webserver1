@@ -132,12 +132,12 @@ function FieldsChooserHandler() {
                     kendoWindow.close();
                     e.stopPropagation();
                 },
-                className: 'btn btnRight executing'
+                className: 'btn btn-ghost float-right executing'
             },
             {
                 text: Localization.Ok,
                 click: jQuery.noop,
-                className: 'btn btnPrimary btnRight executing'
+                className: 'btn btn-primary float-right executing'
             }
         ];
     };

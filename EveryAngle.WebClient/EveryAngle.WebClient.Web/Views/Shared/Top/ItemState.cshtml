@@ -1,0 +1,36 @@
+﻿@{
+    Layout = null;
+}
+
+<!-- ko stopBinding: true -->
+<div class="states-wrapper disabled" data-bind="if: CanSetState()">
+    <!-- ko if: !Data.is_validated() && Data.is_published() && CanValidateItem() -->
+    <a class="btn btn-light btn-small"
+       id="ShowValidateButton"
+       data-bind="click: ShowValidatePopup">
+        <span data-bind="text: Localization.Button_Validate"></span><i class="icon icon-chevron-down"></i>
+    </a>
+    <!-- /ko -->
+    <!-- ko if: Data.is_validated() && CanUnvalidateItem() -->
+    <a class="btn btn-success btn-small"
+       id="ShowValidateButton"
+       data-bind="click: ShowValidatePopup">
+        <span data-bind="text: Localization.Button_Validated"></span><i class="icon icon-chevron-down"></i>
+    </a>
+    <!-- /ko -->
+    <!-- ko if: !Data.is_published() && (CanUpdateItem() || CanPublishItem()) -->
+    <a id="ShowPublishSettingsButton"
+       class="btn btn-light btn-small"
+       data-bind="click: ShowPublishSettingsPopup">
+        <span data-bind="text: Localization.Button_Publish"></span><i class="icon icon-chevron-down"></i>
+    </a>
+    <!-- /ko -->
+    <!-- ko if: Data.is_published() && (CanUpdateItem() || CanUnpublishItem()) -->
+    <a id="ShowPublishSettingsButton"
+       class="btn btn-primary btn-small"
+       data-bind="click: ShowPublishSettingsPopup">
+        <span data-bind="text: Localization.Published"></span><i class="icon icon-chevron-down"></i>
+    </a>
+    <!-- /ko -->
+</div>
+<!-- /ko -->

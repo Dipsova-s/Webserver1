@@ -39,6 +39,9 @@ function PivotPageHandler(elementId, container) {
 
     window[self.ModelId] = self;
 
+    self.GetContainer = function () {
+        return jQuery(self.Container);
+    };
     self.InitialHorizontalScrollbar = function () {
         jQuery('#' + self.PivotId + '_HSBCCell_SCVPDiv').on('scroll', function () {
             self.ScrollbarPosition.X = jQuery(this).scrollLeft() || 0;
@@ -84,27 +87,23 @@ function PivotPageHandler(elementId, container) {
 
     self.CreatePivotContainer = function () {
         var container = jQuery(self.Container === '#PivotMainWrapper' ? '#AngleTableWrapper' : self.Container);
-        var header = container.find('.widgetDisplayHeader');
-        var headerSize = header.height() || 0;
         if (self.DashBoardMode()) {
             var widgetId = container.find('.widgetDisplay, .pivotAreaContainer').attr('id');
-
-            container.html(header.clone(true));
-            container.append('<div class="pivotAreaContainer" id="' + widgetId + '" />');
+            container.html('<div class="pivotAreaContainer" id="' + widgetId + '" />');
         }
         else {
             container.html([
                 '<div id="PivotMainWrapper" class="displayWrapper">',
-                '<div class="fieldListToggleButton" onclick="fieldSettingsHandler.ToggleFieldListArea();"></div>',
-                '<div id="PivotArea" class="displayArea">',
-                '<div class="pivotAreaContainer"></div>',
-                '</div>',
+                    '<div class="fieldListToggleButton" onclick="fieldSettingsHandler.ToggleFieldListArea();"></div>',
+                    '<div id="PivotArea" class="displayArea">',
+                        '<div class="pivotAreaContainer"></div>',
+                    '</div>',
                 '</div>'
             ].join(''));
         }
 
         var pivotArea = container.find('.pivotAreaContainer');
-        pivotArea.height(container.height() - headerSize);
+        pivotArea.height(container.height());
 
         return pivotArea;
     };
@@ -179,7 +178,7 @@ function PivotPageHandler(elementId, container) {
         self.IsReady = true;
 
         if (status === 'timeout' && self.Models.Display.IsTemporaryDisplay()) {
-            jQuery(self.Container).find('.pivotAreaContainer').html('');
+            self.GetContainer().find('.pivotAreaContainer').empty();
             self.UpdateLayout();
         }
 
@@ -199,7 +198,7 @@ function PivotPageHandler(elementId, container) {
             errorHandlerModel.RedirectToLoginPage();
         }
         else {
-            jQuery(self.Container).find('.pivotAreaContainer').html(response);
+            self.GetContainer().find('.pivotAreaContainer').html(response);
             self.ShowLoadingIndicator();
             self.InjectFieldIconCSS();
             self.CustomizeDevExpress();
@@ -230,13 +229,13 @@ function PivotPageHandler(elementId, container) {
         return PostAjaxHtmlResult(redirectUrl, postData, undefined, timeout);
     };
     self.ShowLoadingIndicator = function () {
-        jQuery(self.Container).find('.pivotAreaContainer').busyIndicator(true);
+        self.GetContainer().find('.pivotAreaContainer').busyIndicator(true);
         if (!self.DashBoardMode()) {
             fieldSettingsHandler.ShowLoadingIndicator();
         }
     };
     self.HideLoadingIndicator = function () {
-        jQuery(self.Container).find('.pivotAreaContainer').busyIndicator(false);
+        self.GetContainer().find('.pivotAreaContainer').busyIndicator(false);
         if (!self.DashBoardMode()) {
             fieldSettingsHandler.HideLoadingIndicator();
         }
@@ -299,7 +298,7 @@ function PivotPageHandler(elementId, container) {
         self.SetPivotCellHeaderEvent();
     };
     self.SetPivotFieldsValueCellHeader = function () {
-        jQuery(self.Container).find('.dxpgColumnFieldValue').each(function (index, cell) {
+        self.GetContainer().find('.dxpgColumnFieldValue').each(function (index, cell) {
             cell = jQuery(cell);
             cell.attr('title', self.GetCellCaptionTitle(cell));
         });
@@ -315,7 +314,7 @@ function PivotPageHandler(elementId, container) {
             '#' + self.PivotId + '_DataArea .dxpgHeaderTable',
             '#' + self.PivotId + '_DataArea .dxpgHeaderText'
         ].join(',')).addClass('data');
-        jQuery(self.Container).find('.dxpgHeaderText').each(function (index, header) {
+        self.GetContainer().find('.dxpgHeaderText').each(function (index, header) {
             header = jQuery(header);
 
             var areaId = self.GetFieldAreaByCellHeader(header);
@@ -464,7 +463,7 @@ function PivotPageHandler(elementId, container) {
         popupBucket.css(popupBucketPosition);
         popupBucket.removeClass('k-window-arrow-sw');
         popupBucket.find('.btnSetBucket')
-            .addClass('btnPrimary')
+            .addClass('btn-primary')
             .removeAttr('onclick')
             .prop('onclick', null)
             .on('click', function () {
@@ -691,7 +690,7 @@ function PivotPageHandler(elementId, container) {
                 index !== 0 ? '<div class="StatSeparate"></div>' : '',
                 '<div class="label">' + kendo.format(labelTemplate, field.Caption) + '</div>',
                 '<div class="field">',
-                '<select data-field="' + field.FieldName + '" class="eaDropdown eaDropdownSize40" id="PivotCustomSortField' + index + '">',
+                '<select data-field="' + field.FieldName + '" class="k-dropdown k-dropdown-large" id="PivotCustomSortField' + index + '">',
                 '<option value="">' + Captions.Label_Unsorted + '</option>',
                 '<option value="' + enumHandlers.SORTDIRECTION.ASC + '">' + Captions.Label_Sort_Ascending + '</option>',
                 '<option value="' + enumHandlers.SORTDIRECTION.DESC + '">' + Captions.Label_Sort_Descending + '</option>',
@@ -701,7 +700,7 @@ function PivotPageHandler(elementId, container) {
         });
 
         e.sender.element.html(html.join(''));
-        e.sender.element.find('.eaDropdown').each(function (index, dropdown) {
+        e.sender.element.find('.k-dropdown').each(function (index, dropdown) {
             WC.HtmlHelper.DropdownList(dropdown, null, {});
         });
 
@@ -721,7 +720,7 @@ function PivotPageHandler(elementId, container) {
                     sortDirection = targetSortingDirection.hasClass('dxPivotGrid_pgSortUpButton') ? "-1" : "1";
                 }
             }
-            WC.HtmlHelper.DropdownList(jQuery('#PivotCustomSortPopup select.eaDropdown')[index]).value(sortDirection);
+            WC.HtmlHelper.DropdownList(jQuery('#PivotCustomSortPopup .k-dropdown[data-role="dropdownlist"]')[index]).value(sortDirection);
         });
 
         e.sender.wrapper.find('.k-window-buttons .btn').removeClass('executing');
@@ -732,7 +731,7 @@ function PivotPageHandler(elementId, container) {
     self.SetActiveColumn = function (headerId) {
         var headerTarget, elementTargetIndex;
         if (headerId) {
-            headerTarget = jQuery(self.Container).find('[id="' + headerId + '"]');
+            headerTarget = self.GetContainer().find('[id="' + headerId + '"]');
             elementTargetIndex = self.GetCellCoords(headerTarget).x;
             headerTarget.addClass('pivot-column-active');
             jQuery('#' + self.PivotId + '_DCSCell_SCDTable tr').find('td:eq(' + elementTargetIndex + ')').addClass('pivot-column-active');
@@ -743,7 +742,7 @@ function PivotPageHandler(elementId, container) {
             };
         }
         else {
-            headerTarget = jQuery(self.Container).find('[id="' + self.HighlightingColumn.header + '"]');
+            headerTarget = self.GetContainer().find('[id="' + self.HighlightingColumn.header + '"]');
             elementTargetIndex = self.HighlightingColumn.index;
             if (headerTarget.length) {
                 headerTarget.removeClass('pivot-column-active');
@@ -754,7 +753,7 @@ function PivotPageHandler(elementId, container) {
         }
     };
     self.ClearPivotCustomSort = function () {
-        jQuery('#PivotCustomSortPopup select.eaDropdown').val('');
+        jQuery('#PivotCustomSortPopup select.k-dropdown').val('');
         self.ApplyPivotCustomSort(true);
     };
     self.ApplyPivotCustomSort = function (isClearField) {
@@ -796,8 +795,7 @@ function PivotPageHandler(elementId, container) {
         }
         var pivotMatrixApi = window[self.PivotId].adjustingManager.pivotTableWrapper._domElements.columnCellsMatrix;
 
-        jQuery('#PivotCustomSortPopup select.eaDropdown').each(function (index, element) {
-
+        jQuery('#PivotCustomSortPopup select.k-dropdown').each(function (index, element) {
             element = jQuery(element);
 
             var sortFieldName = element.data('field');
@@ -1256,7 +1254,7 @@ function PivotPageHandler(elementId, container) {
         }
     };
     self.UpdateLayout = function (delay, forceUpdate) {
-        var container = jQuery(self.Container);
+        var container = self.GetContainer();
 
         // adjust custom control
         fieldSettingsHandler.UpdateSettingLayout();
@@ -1272,20 +1270,11 @@ function PivotPageHandler(elementId, container) {
         self.UpdatePivotHtml();
         self.UpdateMaxHeaderSize();
 
-        var getPivotHeight = function () {
-            var headerSize = WC.Utility.ToNumber(container.children('.widgetDisplayHeader').height());
-            if (container.attr('id') === 'widgetMaximizeWrapper') {
-                return container.height() - headerSize;
-            }
-            else {
-                return container.parent().height() - headerSize;
-            }
-        };
         var updateLayout = function () {
             if (!window[self.PivotId] || !self.IsReady || window[self.PivotId] && !window[self.PivotId].GetMainElement())
                 return;
 
-            var currentHeight = getPivotHeight();
+            var currentHeight = container.parent().height();
             if (self.DashBoardMode() && jQuery('#' + self.PivotId + '_PT').width() !== container.width()) {
                 forceUpdate = true;
             }
@@ -1529,7 +1518,7 @@ function PivotPageHandler(elementId, container) {
 
         if (!container.children('.k-resize-handle').length) {
             if (Modernizr.touch && !Modernizr.mouse) {
-                jQuery(self.Container).find('.pivotAreaContainer').addClass('k-grid-mobile');
+                self.GetContainer().find('.pivotAreaContainer').addClass('k-grid-mobile');
                 new kendo.UserEvents(container, {   //NOSONAR
                     filter: filter,
                     threshold: 10,
@@ -1550,7 +1539,7 @@ function PivotPageHandler(elementId, container) {
                 });
             }
             else {
-                jQuery(self.Container).find('.pivotAreaContainer').removeClass('k-grid-mobile');
+                self.GetContainer().find('.pivotAreaContainer').removeClass('k-grid-mobile');
                 container.off('mousemove', filter)
                     .on('mousemove', filter, function (e) {
                         th = jQuery(this);

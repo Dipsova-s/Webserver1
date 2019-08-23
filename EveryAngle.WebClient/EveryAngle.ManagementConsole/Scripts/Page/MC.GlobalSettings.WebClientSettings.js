@@ -49,6 +49,7 @@
             var maxLogFileSize = $('#MaxLogFileSize').val();
             var dashboardRefreshIntervalTime = $('#DashboardRefreshIntervalTime').val();
             var googleAnalyticsId = $.trim($('#GoogleAnalyticsId').val());
+            var enableGoToSAP = $('#EnableGoToSAP').is(':checked');
 
             var webClientSettingsData = {
                 'AjaxTimeoutExpirationInSeconds': ajaxTimeoutExpirationInSeconds,
@@ -60,7 +61,8 @@
                 'MaxLogFileNumber': maxLogFileNumber,
                 'MaxLogFileSize': maxLogFileSize,
                 'DashboardRefreshIntervalTime': dashboardRefreshIntervalTime,
-                'GoogleAnalyticsId': googleAnalyticsId
+                'GoogleAnalyticsId': googleAnalyticsId,
+                'EnableGoToSAP': enableGoToSAP
             };
 
             return webClientSettingsData;

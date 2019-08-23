@@ -208,8 +208,8 @@ function FieldSettingsHandler() {
             '<div class="fieldListArea" id="FieldListArea">',
             '<div class="displayOptionsWrapper">',
             '<label title="' + Localization.ChartType + '">' + Localization.ChartType + '</label>',
-            '<div id="ChartType" class="eaDropdown eaDropdownSize40"></div>',
-            '<a class="btn btnPrimary btnDisplayOptions" id="ButtonDisplayOptions" onclick="fieldSettingsHandler.ShowDisplayOptionsPopup(' + "'" + settingType + "'" + ')"><span>' + Captions.Button_ChartOptions + '</span></a>',
+            '<div id="ChartType" class="k-dropdown k-dropdown-large"></div>',
+            '<a class="btn btn-primary btnDisplayOptions" id="ButtonDisplayOptions" onclick="fieldSettingsHandler.ShowDisplayOptionsPopup(' + "'" + settingType + "'" + ')"><span>' + Captions.Button_ChartOptions + '</span></a>',
             '</div>',
             '<div class="fieldListAreaInner">',
             '<div class="gaugeChartSettingWrapper">',
@@ -223,25 +223,25 @@ function FieldSettingsHandler() {
             '<label>' + kendo.format(Localization.ChartGaugeAreaValue, 2) + '</label>',
             '<input id="gaugeValue2" class="eaNumeric" />',
             '<label>' + Localization.ChartGaugeAreaColor + '</label>',
-            '<input id="gaugeColorPicker2" class="eaColorPicker" />',
+            '<input id="gaugeColorPicker2" />',
             '</div>',
             '<div class="gaugeSettingRow">',
             '<label>' + kendo.format(Localization.ChartGaugeAreaValue, 3) + '</label>',
             '<input id="gaugeValue3" class="eaNumeric" />',
             '<label>' + Localization.ChartGaugeAreaColor + '</label>',
-            '<input id="gaugeColorPicker3" class="eaColorPicker" />',
+            '<input id="gaugeColorPicker3" />',
             '</div>',
             '<div class="gaugeSettingRow">',
             '<label>' + kendo.format(Localization.ChartGaugeAreaValue, 4) + '</label>',
             '<input id="gaugeValue4" class="eaNumeric" />',
             '<label>' + Localization.ChartGaugeAreaColor + '</label>',
-            '<input id="gaugeColorPicker4" class="eaColorPicker" />',
+            '<input id="gaugeColorPicker4" />',
             '</div>',
             '<div class="gaugeSettingRow">',
             '<label>' + kendo.format(Localization.ChartGaugeAreaValue, 5) + '</label>',
             '<input id="gaugeValue5" class="eaNumeric" />',
             '<label>' + Localization.ChartGaugeAreaColor + '</label>',
-            '<input id="gaugeColorPicker5" class="eaColorPicker" />',
+            '<input id="gaugeColorPicker5" />',
             '</div>',
             '<div class="gaugeSettingRow">',
             '<label>' + kendo.format(Localization.ChartGaugeAreaValue, 6) + '</label>',
@@ -251,7 +251,7 @@ function FieldSettingsHandler() {
             '<div class="fieldListAreaItem rowArea" id="FieldListRowArea">',
             '<div class="fieldListAreaHeader">',
             '<h4>{TitleRowArea}</h4>',
-            '<a id="AddRowAreaField" class="btn btnDefault addFieldButton" onclick="fieldSettingsHandler.ShowAddFieldPopup(\'row\');"><span>+</span></a>',
+            '<a id="AddRowAreaField" class="btn btn-ghost addFieldButton" onclick="fieldSettingsHandler.ShowAddFieldPopup(\'row\');"><span>+</span></a>',
             '</div>',
             '<div class="fieldListAreaBody">',
             '<ul></ul>',
@@ -260,7 +260,7 @@ function FieldSettingsHandler() {
             '<div class="fieldListAreaItem columnArea" id="FieldListColumnArea">',
             '<div class="fieldListAreaHeader">',
             '<h4>{TitleColumnArea}</h4>',
-            '<a id="AddColumnAreaField" class="btn btnDefault addFieldButton" onclick="fieldSettingsHandler.ShowAddFieldPopup(\'column\');"><span>+</span></a>',
+            '<a id="AddColumnAreaField" class="btn btn-ghost addFieldButton" onclick="fieldSettingsHandler.ShowAddFieldPopup(\'column\');"><span>+</span></a>',
             '</div>',
             '<div class="fieldListAreaBody">',
             '<ul></ul>',
@@ -269,14 +269,14 @@ function FieldSettingsHandler() {
             '<div class="fieldListAreaItem dataArea" id="FieldListDataArea">',
             '<div class="fieldListAreaHeader">',
             '<h4>{TitleDataArea}</h4>',
-            '<a id="AddDataAreaField" class="btn btnDefault addFieldButton" onclick="fieldSettingsHandler.ShowAddFieldPopup(\'data\');"><span>+</span></a>',
+            '<a id="AddDataAreaField" class="btn btn-ghost addFieldButton" onclick="fieldSettingsHandler.ShowAddFieldPopup(\'data\');"><span>+</span></a>',
             '</div>',
             '<div class="fieldListAreaBody">',
             '<ul></ul>',
             '</div>',
             '</div>',
             '</div>',
-            '<div class="fieldListButton"><a id="btnFieldSettingApply" class="btn btnPrimary btnSmall disabled" onclick="fieldSettingsHandler.ApplySettings()"><span>' + Localization.Apply + '</span></a></div>',
+            '<div class="fieldListButton"><a id="btnFieldSettingApply" class="btn btn-primary disabled" onclick="fieldSettingsHandler.ApplySettings()"><span>' + Localization.Apply + '</span></a></div>',
             '</div>'
         ].join('');
     };
@@ -295,27 +295,27 @@ function FieldSettingsHandler() {
             '</div>',
             '<label class="Title {BucketOptionClass}">{BucketOptionTitle}</label>',
             '<div class="BucketOption {BucketOptionClass}">',
-            '<span id="BucketOptionDropDown" class="eaDropdown eaDropdownSize40"></span>',
+            '<span id="BucketOptionDropDown" class="k-dropdown"></span>',
             '</div>',
 
             '<label class="Title {BucketDisplayUnitClass}">' + Localization.FormatSettingDisplayUnits + '</label>',
             '<div class="BucketOption {BucketDisplayUnitClass}">',
-            '<span id="BucketDisplayUnitDropDown" class="eaDropdown eaDropdownSize40"></span>',
+            '<span id="BucketDisplayUnitDropDown" class="k-dropdown"></span>',
             '</div>',
 
             '<label class="Title {BucketDecimalClass} bucketDecimal">' + Localization.Decimal + '</label>',
             '<div class="BucketOption {BucketDecimalClass} bucketDecimal">',
-            '<span id="BucketDecimalDropDown" class="eaDropdown eaDropdownSize40"></span>',
+            '<span id="BucketDecimalDropDown" class="k-dropdown"></span>',
             '</div>',
 
             '<label class="Title {BucketOptionFormatClass} bucketformat">' + Localization.Format + '</label>',
             '<div class="BucketOption {BucketOptionFormatClass} bucketformat">',
-            '<span id="BucketFormatOptionDropDown" class="eaDropdown eaDropdownSize40"></span>',
+            '<span id="BucketFormatOptionDropDown" class="k-dropdown"></span>',
             '</div>',
 
             '<label class="Title {SecondsOptionFormatClass} secondsformat">' + Captions.Label_FieldFormat_Seconds + '</label>',
             '<div class="SecondsOption {SecondsOptionFormatClass} secondsformat">',
-            '<span id="SecondsFormatOptionDropDown" class="eaDropdown eaDropdownSize40"></span>',
+            '<span id="SecondsFormatOptionDropDown" class="k-dropdown"></span>',
             '</div>',
 
             '<div class="ThousandSeperateWrapper {ThousandSeperateClass}">',
@@ -325,7 +325,7 @@ function FieldSettingsHandler() {
             '</div>',
             '<div class="k-window-buttons">',
             '<div class="k-window-buttons-inner">',
-            '<a class="btn btnRight btnSmall btnPrimary btnSetBucket" onclick="fieldSettingsHandler.HideFieldOptionsMenu();" ><span>' + Localization.Ok + '</span></a>',
+            '<a class="btn float-right btn-primary btnSetBucket" onclick="fieldSettingsHandler.HideFieldOptionsMenu();" ><span>' + Localization.Ok + '</span></a>',
             '</div>',
             '</div>',
             '</div>'
@@ -370,11 +370,11 @@ function FieldSettingsHandler() {
         return [
             '<label class="Title">' + Captions.Label_ChartOptions_DataLabel + '</label>',
             '<div class="ChartOption">',
-            '<span id="ChartOptionDropDownDataLabel" data-id="datalabel" class="eaDropdown eaDropdownSize40"></span>',
+            '<span id="ChartOptionDropDownDataLabel" data-id="datalabel" class="k-dropdown"></span>',
             '</div>',
             '<label class="Title">' + Captions.Label_ChartOptions_Legend + '</label>',
             '<div class="ChartOption">',
-            '<span id="ChartOptionDropDownLegend" data-id="legend" class="eaDropdown eaDropdownSize40"></span>',
+            '<span id="ChartOptionDropDownLegend" data-id="legend" class="k-dropdown"></span>',
             '</div>'
         ];
     };
@@ -382,23 +382,23 @@ function FieldSettingsHandler() {
         return [
             '<label class="Title">' + Captions.Label_ChartOptions_AxisValue + '</label>',
             '<div class="ChartOption">',
-            '<span id="ChartOptionDropDownAxisValue" data-id="axisvalueradar" class="eaDropdown eaDropdownSize40"></span>',
+            '<span id="ChartOptionDropDownAxisValue" data-id="axisvalueradar" class="k-dropdown"></span>',
             '</div>',
             '<label class="Title">' + Captions.Label_ChartOptions_DataLabel + '</label>',
             '<div class="ChartOption">',
-            '<span id="ChartOptionDropDownDataLabel" data-id="datalabel" class="eaDropdown eaDropdownSize40"></span>',
+            '<span id="ChartOptionDropDownDataLabel" data-id="datalabel" class="k-dropdown"></span>',
             '</div>',
             '<label class="Title">' + Captions.Label_ChartOptions_Gridline + '</label>',
             '<div class="ChartOption">',
-            '<span id="ChartOptionDropDownGridline" data-id="gridlineradar" class="eaDropdown eaDropdownSize40"></span>',
+            '<span id="ChartOptionDropDownGridline" data-id="gridlineradar" class="k-dropdown"></span>',
             '</div>',
             '<label class="Title">' + Captions.Label_ChartOptions_GridlineType + '</label>',
             '<div class="ChartOption">',
-            '<span id="ChartOptionDropDownGridlineType" data-id="gridlinetype" class="eaDropdown eaDropdownSize40"></span>',
+            '<span id="ChartOptionDropDownGridlineType" data-id="gridlinetype" class="k-dropdown"></span>',
             '</div>',
             '<label class="Title">' + Captions.Label_ChartOptions_Legend + '</label>',
             '<div class="ChartOption">',
-            '<span id="ChartOptionDropDownLegend" data-id="legend" class="eaDropdown eaDropdownSize40"></span>',
+            '<span id="ChartOptionDropDownLegend" data-id="legend" class="k-dropdown"></span>',
             '</div>'
         ];
     };
@@ -406,15 +406,15 @@ function FieldSettingsHandler() {
         return [
             '<label class="Title">' + Captions.Label_ChartOptions_AxisTitle + '</label>',
             '<div class="ChartOption">',
-            '<span id="ChartOptionDropDownAxisTitle" data-id="axistitlegauge" class="eaDropdown eaDropdownSize40"></span>',
+            '<span id="ChartOptionDropDownAxisTitle" data-id="axistitlegauge" class="k-dropdown"></span>',
             '</div>',
             '<label class="Title">' + Captions.Label_ChartOptions_DataLabel + '</label>',
             '<div class="ChartOption">',
-            '<span id="ChartOptionDropDownDataLabel" data-id="datalabelgauge" class="eaDropdown eaDropdownSize40"></span>',
+            '<span id="ChartOptionDropDownDataLabel" data-id="datalabelgauge" class="k-dropdown"></span>',
             '</div>',
             '<label class="Title">' + Captions.Label_ChartOptions_Ranges + '</label>',
             '<div class="ChartOption">',
-            '<span id="ChartOptionDropDownRanges" data-id="rangesgauge" class="eaDropdown eaDropdownSize40"></span>',
+            '<span id="ChartOptionDropDownRanges" data-id="rangesgauge" class="k-dropdown"></span>',
             '</div>'
         ];
     };
@@ -422,28 +422,28 @@ function FieldSettingsHandler() {
         return [
             '<label class="Title">' + Captions.Label_ChartOptions_AxisTitle + '</label>',
             '<div class="ChartOption">',
-            '<span id="ChartOptionDropDownAxisTitle" data-id="axistitle" class="eaDropdown eaDropdownSize40"></span>',
+            '<span id="ChartOptionDropDownAxisTitle" data-id="axistitle" class="k-dropdown"></span>',
             '</div>',
             '<label class="Title">' + Captions.Label_ChartOptions_AxisValue + '</label>',
             '<div class="ChartOption">',
-            '<span id="ChartOptionDropDownAxisValue" data-id="axisvalue" class="eaDropdown eaDropdownSize40"></span>',
+            '<span id="ChartOptionDropDownAxisValue" data-id="axisvalue" class="k-dropdown"></span>',
             '</div>',
             '<label class="Title">' + Captions.Label_ChartOptions_AxisScale + '</label>',
             '<div class="ChartOption">',
-            '<span id="ChartOptionDropDownAxisScale" data-id="axisscale" class="eaDropdown eaDropdownSize40"></span>',
+            '<span id="ChartOptionDropDownAxisScale" data-id="axisscale" class="k-dropdown"></span>',
             '</div>',
             '<div id="ChartAxisScaleRanges"></div>',
             '<label class="Title">' + Captions.Label_ChartOptions_DataLabel + '</label>',
             '<div class="ChartOption">',
-            '<span id="ChartOptionDropDownDataLabel" data-id="datalabel" class="eaDropdown eaDropdownSize40"></span>',
+            '<span id="ChartOptionDropDownDataLabel" data-id="datalabel" class="k-dropdown"></span>',
             '</div>',
             '<label class="Title">' + Captions.Label_ChartOptions_Gridline + '</label>',
             '<div class="ChartOption">',
-            '<span id="ChartOptionDropDownGridline" data-id="gridline" class="eaDropdown eaDropdownSize40"></span>',
+            '<span id="ChartOptionDropDownGridline" data-id="gridline" class="k-dropdown"></span>',
             '</div>',
             '<label class="Title">' + Captions.Label_ChartOptions_Legend + '</label>',
             '<div class="ChartOption">',
-            '<span id="ChartOptionDropDownLegend" data-id="legend" class="eaDropdown eaDropdownSize40"></span>',
+            '<span id="ChartOptionDropDownLegend" data-id="legend" class="k-dropdown"></span>',
             '</div>',
             '<div class="ChartOption">',
             '<label><input type="checkbox" data-id="show_as_percentage" id="ShowAsPercentage" name="ShowAsPercentage" value="false"><span class="label">' + Captions.Label_ChartOptions_ShowAsPercentage + '</span></label>',
@@ -467,7 +467,7 @@ function FieldSettingsHandler() {
         template = template.concat([
             '<label class="Title">' + Captions.Pivot_Option_Totals + '</label>',
             '<div class="ChartOption">',
-                '<span id="ShowTotalFor" class="eaDropdown eaDropdownSize40"></span>',
+                '<span id="ShowTotalFor" class="k-dropdown"></span>',
             '</div>',
             '<div class="ChartOption" id="TotalsLocationControl">',
                 '<label><input type="radio" id="rdoTotalsLocationNear" onclick="fieldSettingsHandler.ChangeTotalsLocation()" name="totalsLocation" value="' + enumHandlers.PIVOTTOTALSLOCATION.NEAR.Value + '"><span class="label">' + enumHandlers.PIVOTTOTALSLOCATION.NEAR.Name + '</span></label>',
@@ -478,7 +478,7 @@ function FieldSettingsHandler() {
             '</div>',
             '<label class="Title">' + Captions.Pivot_Option_Percentages + '</label>',
             '<div class="ChartOption">',
-                '<span id="PercentageSummaryDropDown" class="eaDropdown eaDropdownSize40"></span>',
+                '<span id="PercentageSummaryDropDown" class="k-dropdown"></span>',
             '</div>'
         ]);
 
@@ -993,23 +993,6 @@ function FieldSettingsHandler() {
                 e.preventDefault();
             })
             .append(label);
-
-        // add field info icon
-        if (field.FieldName !== enumHandlers.AGGREGATION.COUNT.Value) {
-            var fielDetail = jQuery('<span />')
-                .attr({
-                    'class': 'btnInfo'
-                })
-                .on('click', field, function (e) {
-                    e.stopPropagation();
-
-                    helpTextHandler.ShowHelpTextPopup(e.data.SourceField, helpTextHandler.HELPTYPE.FIELD, self.Handler.Models.Angle.Data().model);
-
-                    e.preventDefault();
-                });
-
-            list.append(fielDetail);
-        }
 
         if (self.FieldSettings.DisplayType === self.FieldSettings.ComponentType.CHART
             && field.Area === enumHandlers.FIELDSETTINGAREA.DATA) {
@@ -2386,7 +2369,7 @@ function FieldSettingsHandler() {
             else {
                 jQuery(".bucketformat").removeClass("alwaysHide");
                 formatOptions = self.GetBucketFormatOptions(dataType, field.Area, bucketValue, field.DomainURI);
-                var fieldFormat = userSettingsHandler.GetEnumDropdownValue(fieldDetails[enumHandlers.FIELDDETAILPROPERTIES.FORMAT]);
+                var fieldFormat = userSettingsPanelHandler.GetEnumDropdownValue(fieldDetails[enumHandlers.FIELDDETAILPROPERTIES.FORMAT]);
                 self.BindBucketDropdown(field, popup, formatOptions, fieldFormat, isAutoUpdate, 'BucketFormatOptionDropDown');
             }
         }
@@ -2397,7 +2380,7 @@ function FieldSettingsHandler() {
             else {
                 jQuery(".bucketDecimal").removeClass("alwaysHide");
                 formatOptions = self.GetBucketFormatOptions(dataType, field.Area, bucketValue, field.DomainURI);
-                var fieldDecimal = userSettingsHandler.GetDecimalDropdownValue(fieldDetails[enumHandlers.FIELDDETAILPROPERTIES.DECIMALS]);
+                var fieldDecimal = userSettingsPanelHandler.GetDecimalDropdownValue(fieldDetails[enumHandlers.FIELDDETAILPROPERTIES.DECIMALS]);
                 self.BindBucketDropdown(field, popup, formatOptions, fieldDecimal, isAutoUpdate, "BucketDecimalDropDown");
             }
         }
@@ -2477,7 +2460,7 @@ function FieldSettingsHandler() {
         }
 
         if (bucketOptions.units.length) {
-            var fieldPrefix = userSettingsHandler.GetPrefixDropdownValue(fieldDetails[enumHandlers.FIELDDETAILPROPERTIES.PREFIX]);
+            var fieldPrefix = userSettingsPanelHandler.GetPrefixDropdownValue(fieldDetails[enumHandlers.FIELDDETAILPROPERTIES.PREFIX]);
             fieldPrefix = dataTypeModel.GetCorrectPrefix(fieldPrefix, bucketValue);
             var availablePrefixs = dataTypeModel.GetDisplayPrefixByBucket(bucketValue);
             self.BindBucketDropdown(field, popup, availablePrefixs, fieldPrefix, isAutoUpdate, "BucketDisplayUnitDropDown");
@@ -2487,20 +2470,20 @@ function FieldSettingsHandler() {
         if (isNumberDataType) {
             // initial decimals dropdown
             if (bucketOptions.formats.length) {
-                fieldDecimal = userSettingsHandler.GetDecimalDropdownValue(fieldDetails[enumHandlers.FIELDDETAILPROPERTIES.DECIMALS]);
+                fieldDecimal = userSettingsPanelHandler.GetDecimalDropdownValue(fieldDetails[enumHandlers.FIELDDETAILPROPERTIES.DECIMALS]);
                 self.BindBucketDropdown(field, popup, bucketOptions.formats, fieldDecimal, isAutoUpdate, "BucketDecimalDropDown");
             }
         }
         else {
             // initial decimals dropdown
             if (field.Area === enumHandlers.FIELDSETTINGAREA.DATA && bucketOptions.formats.length) {
-                fieldDecimal = userSettingsHandler.GetDecimalDropdownValue(fieldDetails[enumHandlers.FIELDDETAILPROPERTIES.DECIMALS]);
+                fieldDecimal = userSettingsPanelHandler.GetDecimalDropdownValue(fieldDetails[enumHandlers.FIELDDETAILPROPERTIES.DECIMALS]);
                 self.BindBucketDropdown(field, popup, bucketOptions.formats, fieldDecimal, isAutoUpdate, "BucketDecimalDropDown");
             }
 
             // if not number
             if (bucketOptions.formats.length) {
-                var fieldFormat = userSettingsHandler.GetEnumDropdownValue(fieldDetails[enumHandlers.FIELDDETAILPROPERTIES.FORMAT]);
+                var fieldFormat = userSettingsPanelHandler.GetEnumDropdownValue(fieldDetails[enumHandlers.FIELDDETAILPROPERTIES.FORMAT]);
                 self.BindBucketDropdown(field, popup, bucketOptions.formats, fieldFormat, isAutoUpdate, "BucketFormatOptionDropDown");
             }
 
@@ -2528,7 +2511,7 @@ function FieldSettingsHandler() {
         // initial seconds options
         if (bucketOptions.seconds.length) {
             var fieldFormatForSeconds = WC.Utility.GetObjectValue(fieldDetails, enumHandlers.FIELDDETAILPROPERTIES.SECOND);
-            var secondValue = userSettingsHandler.GetSecondDropdownValue(fieldFormatForSeconds);
+            var secondValue = userSettingsPanelHandler.GetSecondDropdownValue(fieldFormatForSeconds);
             self.BindBucketDropdown(field, popup, bucketOptions.seconds, secondValue, isAutoUpdate, "SecondsFormatOptionDropDown");
         }
 
@@ -2873,7 +2856,7 @@ function FieldSettingsHandler() {
         var secondDropdown = WC.HtmlHelper.DropdownList('#SecondsFormatOptionDropDown');
         if (secondDropdown) {
             var secondValue = secondDropdown.value();
-            userSettingsHandler.SetSecondFormat(fieldDetails, secondValue);
+            userSettingsPanelHandler.SetSecondFormat(fieldDetails, secondValue);
         }
 
         delete fieldDetails[enumHandlers.FIELDDETAILPROPERTIES.PREFIX];
@@ -3168,7 +3151,7 @@ function FieldSettingsHandler() {
         var currentOptions = self.FieldSettings.GetDisplayDetails();
 
         // initial ui
-        popup.find('.eaDropdown').each(function (index, dropdown) {
+        popup.find('.k-dropdown').each(function (index, dropdown) {
             dropdown = jQuery(dropdown);
 
             var optionId = dropdown.data('id');
@@ -3476,9 +3459,9 @@ function FieldSettingsHandler() {
     self.CreateChartScaleElement = function (container, index, caption, suffix) {
         var template = [
             '<label class="ExtendTitle" title="{1}">{1}</label>',
-            '<input type="text" id="input{0}-1" class="eaNumeric noSpinners inputScale1{3}" />',
+            '<input type="text" id="input{0}-1" class="eaNumeric no-spinners inputScale1{3}" />',
             '<span class="labelScale1{3}">{4}</span>',
-            '<input type="text" id="input{0}-2" class="eaNumeric noSpinners inputScale2{3}" />',
+            '<input type="text" id="input{0}-2" class="eaNumeric no-spinners inputScale2{3}" />',
             '<span class="labelScale2{3}">{2}</span>'
         ].join('');
         var extendCssClass = suffix ? ' suffix' : '';
@@ -3633,7 +3616,7 @@ function FieldSettingsHandler() {
                 }).data(uiName).element.keyup(self.OnGaugeSettingChanged);
             };
             var createColorInput = function (index) {
-                var uiColor = jQuery("#gaugeColorPicker" + index).kendoCustomColorPicker({
+                jQuery("#gaugeColorPicker" + index).kendoCustomColorPicker({
                     value: defaultColors[index - 1],
                     change: self.OnGaugeSettingChanged,
                     messages: {
@@ -3641,7 +3624,6 @@ function FieldSettingsHandler() {
                         cancel: Localization.Cancel
                     }
                 }).data(enumHandlers.KENDOUITYPE.COLOURPICKER);
-                uiColor.wrapper.addClass('eaColorPicker');
             };
 
             for (var i = 1; i <= 6; i++) {

@@ -17,6 +17,7 @@ function DashboardResultViewModel(elementId, model, dashboardViewModel, executeP
     //EOF: View model properties
 
     self.Execute = function () {
+        self.ShowBusyIndicator();
         return self.CheckPostIntegrityQueue()
             .then(self.PostIntegrity)
             .then(self.PostResult)
@@ -162,14 +163,18 @@ function DashboardResultViewModel(elementId, model, dashboardViewModel, executeP
         return CreateDataToWebService(directoryHandler.ResolveDirectoryUri(self.Data().execute_steps) + '?redirect=no', query);
     };
     self.RetryPostResult = function (msg) {
-        var widgetContainer = jQuery(self.ElementId + '-container');
         var message = errorHandlerModel.GetAreaErrorMessage(msg);
-        widgetContainer.busyIndicator(false);
-        dashboardHandler.RemoveWidgetDisplayElement(self.ElementId.slice(1), widgetContainer, self.Display);
+        self.HideBusyIndicator();
+        dashboardHandler.RemoveWidgetDisplayElement(self.ElementId.slice(1), jQuery(self.ElementId + '-inner'), self.Display);
         errorHandlerModel.ShowAreaError(self.ElementId, message, function () {
-            widgetContainer.busyIndicator(true);
             self.Execute();
         });
+    };
+    self.ShowBusyIndicator = function () {
+        jQuery(self.ElementId + '-inner').busyIndicator(true);
+    };
+    self.HideBusyIndicator = function () {
+        jQuery(self.ElementId + '-inner').busyIndicator(false);
     };
     self.GetResult = function (request) {
         return GetDataFromWebService(directoryHandler.ResolveDirectoryUri(request))
@@ -218,7 +223,6 @@ function DashboardResultViewModel(elementId, model, dashboardViewModel, executeP
                     if (requests[0] instanceof Array) requests = requests[0];
 
                     self.RetryPostResult(requests.responseText);
-
                 })
                 .done(function () {
                     self.ApplyResult();
@@ -227,8 +231,8 @@ function DashboardResultViewModel(elementId, model, dashboardViewModel, executeP
         }
     };
     self.ApplyResult = function () {
-        var container = self.ElementId + '-container',
-            model;
+        var container = self.ElementId + '-inner';
+        var model;
 
         dashboardModel.SetDashboardStatistics('executed', self.Data().executed);
         dashboardDetailsHandler.Model.SetDashboardStatistics('executed', self.Data().executed);
@@ -277,7 +281,7 @@ function DashboardResultViewModel(elementId, model, dashboardViewModel, executeP
         }
 
         if (model)
-            jQuery(container).data('Model', model);
+            jQuery(self.ElementId + '-container').data('Model', model);
     };
     self.SetNotSuccessfullyCompleted = function () {
         var response = {
@@ -286,7 +290,7 @@ function DashboardResultViewModel(elementId, model, dashboardViewModel, executeP
         return jQuery.Deferred().reject(response, null, null).promise();
     };
     self.ApplyResultFail = function (xhr) {
-        jQuery(self.ElementId).parent().busyIndicator(false);
+        self.HideBusyIndicator();
         progressbarModel.EndProgressBar();
 
         if (xhr.status === 404) {

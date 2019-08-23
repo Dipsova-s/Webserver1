@@ -19,6 +19,7 @@ function DashboardHandler() {
     self.ModelCurrentInfo = {};
     self.IsCheckExecuteParameters = false;
     self.IsShowPopupAfterExecuteParameters = false;
+    self.HandlerState = new DashboardStateHandler();
     /*EOF: Model Properties*/
 
     /*BOF: Model Methods*/
@@ -77,7 +78,7 @@ function DashboardHandler() {
             CheckUILanguage(userSettingModel.GetByName(enumHandlers.USERSETTINGS.DEFAULT_LANGUAGES).toLowerCase());
 
             // check currency
-            userSettingsHandler.CheckUserCurrency();
+            userSettingsPanelHandler.CheckUserCurrency();
 
             // set firstLogin status
             jQuery.localStorage('firstLogin', 0);
@@ -93,12 +94,11 @@ function DashboardHandler() {
             }
 
             // tooltip
-            WC.HtmlHelper.Tooltip.Create('actionmenu', '#ActionDropdownListPopup .actionDropdownItem', false, TOOLTIP_POSITION.BOTTOM, 'tooltipActionmenu k-window-arrow-n');
+            WC.HtmlHelper.Tooltip.Create('actionmenu', '#ActionDropdownListPopup .actionDropdownItem', false, TOOLTIP_POSITION.BOTTOM);
 
             // menu navigatable
             WC.HtmlHelper.MenuNavigatable('#UserControl', '#UserMenu', '.actionDropdownItem');
             WC.HtmlHelper.MenuNavigatable('#Help', '#HelpMenu', '.actionDropdownItem');
-            WC.HtmlHelper.MenuNavigatable('.widgetButtonMenu', '.widgetToolbarActions', 'a');
             WC.HtmlHelper.MenuNavigatable('#btnAddLanguage', '.languageAvailableList', '.Item');
             WC.HtmlHelper.MenuNavigatable('.btnAddLabel', '.availableLabelsList', 'li');
             WC.HtmlHelper.MenuNavigatable('.dxpgHeaderText', '.HeaderPopupView', 'a');
@@ -106,6 +106,7 @@ function DashboardHandler() {
             //Binding knockout
             WC.HtmlHelper.ApplyKnockout(Localization, jQuery('#HelpMenu .k-window-content'));
             WC.HtmlHelper.ApplyKnockout(Localization, jQuery('#UserMenu .k-window-content'));
+            WC.HtmlHelper.ApplyKnockout(self.HandlerState, jQuery('#DashboardStatesWrapper .states-wrapper'));
 
             //Set initial retain url
             self.InitialRetainUrl();
@@ -305,14 +306,13 @@ function DashboardHandler() {
     };
     self.SetWrapperHeight = function () {
         var wraperHeight = WC.Window.Height;
-        var mainWrapperTop = jQuery('.mainDisplayWrapper').offset().top || 0;
+        var mainWrapperTop = jQuery('#dashboardContentWrapper').offset().top || 0;
 
         if (!self.IsCompactResult) {
             wraperHeight -= mainWrapperTop;
         }
 
-        jQuery('#dashboardFilterWrapper, .mainDisplayWrapper').height(wraperHeight);
-        jQuery('#widgetMaximizeWrapper').css('top', mainWrapperTop);
+        jQuery('#dashboardFilterWrapper, #dashboardContentWrapper').css('height', wraperHeight);
     };
     self.UpdateDetailSection = function () {
         var nameSize = jQuery('#DashboardName').width();
@@ -322,6 +322,7 @@ function DashboardHandler() {
     self.TriggerWatcher = function (e) {
         var refreshDashboard = function () {
             var isDashboardPopupShown = jQuery('#popupDashboardDetails').is(':visible');
+            var isDashboardPublishingPopupShown = jQuery('#popupPublishSettings').is(':visible');
             dashboardDetailsHandler.ClosePopup();
             popup.CloseAll();
             dashboardModel.Angles = [];
@@ -330,6 +331,11 @@ function DashboardHandler() {
             if (isDashboardPopupShown) {
                 setTimeout(function () {
                     dashboardDetailsHandler.ShowPopup(dashboardDetailsHandler.PopupSettings.SelectedTab);
+                }, 250);
+            }
+            if (isDashboardPublishingPopupShown) {
+                setTimeout(function () {
+                    jQuery('#ShowPublishSettingsButton').trigger('click');
                 }, 250);
             }
         };
@@ -362,6 +368,10 @@ function DashboardHandler() {
             }
 
         }
+    };
+    self.RenderBreadcrumb = function () {
+        var viewModel = breadcrumbHandler.GetItemViewModel(dashboardModel.Data().name(), dashboardModel.Data().is_validated());
+        breadcrumbHandler.Build([viewModel]);
     };
 
     self.ExecuteDashboard = function (isRetry, forceReload) {
@@ -605,10 +615,10 @@ function DashboardHandler() {
     };
     self.EnableDashboardPage = function (enable) {
         if (!enable) {
-            jQuery('#ToggleAngle, #ActionDropdownList').addClass('disabled');
+            jQuery('#ToggleAngle, #ActionDropdownList, #DashboardStatesWrapper .states-wrapper').addClass('disabled');
         }
         else {
-            jQuery('#ToggleAngle, #ActionDropdownList').removeClass('disabled');
+            jQuery('#ToggleAngle, #ActionDropdownList, #DashboardStatesWrapper .states-wrapper').removeClass('disabled');
         }
     };
     self.Render = function (isRetry) {
@@ -626,7 +636,7 @@ function DashboardHandler() {
         requestHistoryModel.SaveLastExecute(self, self.Render, arguments);
 
         if (self.CheckBeforeRender
-            && jQuery('#dashboardWrapper .widgetDisplayColumn').length === dashboardModel.Data().widget_definitions.length) {
+            && jQuery('#dashboardWrapper .widget-display-column').length === dashboardModel.Data().widget_definitions.length) {
             // widgets are the same size then no need to clear just update somethings
             self.PrepareExistDisplayLayout();
         }
@@ -664,7 +674,6 @@ function DashboardHandler() {
             if (!self.IsEditMode() && self.CheckInvalidAngleAndDisplay(angle, display).Valid && modelsHandler.GetModelByUri(angle.model).available) {
                 var widgetElement = jQuery('#' + self.ElementPrefix + widget.id + '-container');
                 if (!widgetElement.data('Model')) {
-                    self.CreateWidgetBusyIndicator(widgetElement);
                     var model = new DashboardResultViewModel('#' + self.ElementPrefix + widget.id, widget, dashboardDetailsHandler.Model, dashboardModel.ExecuteParameters);
                     widgetElement.data('ResultModel', model);
                     model.Execute();
@@ -674,11 +683,10 @@ function DashboardHandler() {
     };
     self.ReloadAllWidgets = function () {
         self.PreExecuteWidgetsHandler();
-        jQuery('#dashboardWrapper .widgetDisplayColumn').each(function (index, widgetElement) {
+        jQuery('#dashboardWrapper .widget-display-column').each(function (index, widgetElement) {
             widgetElement = jQuery(widgetElement);
             var model = widgetElement.data('ResultModel');
             if (model) {
-                self.CreateWidgetBusyIndicator(widgetElement);
                 model.Execute();
             }
         });
@@ -692,17 +700,12 @@ function DashboardHandler() {
             }
         }, 2000);
     };
-    self.CreateWidgetBusyIndicator = function (widgetElement) {
-        widgetElement.busyIndicator(true);
-        var widgetLoading = widgetElement.children('.k-loading-mask');
-        var headerSize = widgetElement.children('.widgetDisplayHeader').height();
-        widgetLoading.css({
-            top: headerSize,
-            height: widgetLoading.height() - headerSize
-        });
-    };
     self.ApplyBindingHandler = function () {
+        self.RenderBreadcrumb();
         WC.HtmlHelper.ApplyKnockout(dashboardDetailsHandler, jQuery('#DashboardField'));
+
+        // Update Dashboard's states
+        self.HandlerState.SetDashboardData(dashboardModel.Data());
 
         dashboardFiltersHandler.SetDashboardModel(dashboardDetailsHandler.Model);
         dashboardFiltersHandler.AfterTogglePanel = function () {
@@ -738,12 +741,12 @@ function DashboardHandler() {
 
         for (index = 0; index < widgetCount; index++) {
             if (structureCount === structure[structureIndex].items.length) {
-                jQuery('<div class="widgetDisplayRow" />')
+                jQuery('<div class="widget-display-row" />')
                     .data('config', jQuery.extend({}, structure[structureIndex]))
                     .appendTo(container);
             }
 
-            jQuery('.widgetDisplayRow:last', container).append(self.GetWidgetHtml(index, widgets[index]));
+            container.find('.widget-display-row:last').append(self.GetWidgetHtml(index, widgets[index]));
 
             if (structureCount === 1) {
                 if (structureIndex < structure.length - 1)
@@ -766,7 +769,7 @@ function DashboardHandler() {
         else {
             jQuery.each(dashboardModel.Data().widget_definitions, function (index, widget) {
                 if (widget) {
-                    var widgetElement = container.find('.widgetDisplayColumn').eq(index);
+                    var widgetElement = container.find('.widget-display-column').eq(index);
                     if (widget.display !== widgetElement.data('display') || widgetElement.hasClass('widgetNotExists') || widgetElement.hasClass('widgetInvalid')) {
                         var columnElement = self.GetWidgetHtml(index, widget);
                         widgetElement
@@ -796,54 +799,31 @@ function DashboardHandler() {
     self.GetWidgetHtml = function (index, widget) {
         var display = widget.GetDisplay(),
             angle = widget.GetAngle(),
-            columnElement = jQuery('<div class="widgetDisplayColumn" id="' + self.ElementPrefix + widget.id + '-container">'
-                + '<div class="widgetDisplayHeader">'
-                + '<span class="widgetName"></span>'
-                + '<a class="btnInfo btnWidgetInfo"></a>'
-                + '<div class="widgetToolbar">'
-                + '<a class="btn btnDefault widgetButtonMenu"></a>'
-                + '<div class="k-window-titleless k-window-custom k-window-arrow-n widgetToolbarActions">'
-                + '<div class="k-window-content k-content">'
-                + '<a class="widgetButtonMaximize">' + Captions.Button_Dashboard_WidgetMaximize + '</a>'
-                + '<a class="widgetButtonMinimize">' + Captions.Button_Dashboard_WidgetMinimize + '</a>'
-                + '<a class="widgetButtonOpenNewWindow" target="_blank">' + Captions.Button_Dashboard_WidgetGotoAngle + '</a>'
-                + '<a class="widgetButtonDelete">' + Captions.Button_Dashboard_WidgetDelete + '</a>'
-                + '</div>'
-                + '</div>'
-                + '</div>'
-                + '</div>'
-                + '<div id="' + self.ElementPrefix + widget.id + '" class="widgetDisplay"></div>'
+            columnElement = jQuery(
+                '<div class="widget-display-column" id="' + self.ElementPrefix + widget.id + '-container">'
+                + '<div class="widget-display-header">'
+                        + '<span class="widgetName" data-role="tooltip"></span>'
+                        + '<div class="widgetToolbar">'
+                            + '<a class="widgetButtonInfo" data-role="tooltip" data-tooltip-position="bottom" data-tooltip-title="' + Localization.DashboardWidgetInfo_Title + '"><i class="icon icon-info"></i></a>'
+                            + '<a class="widgetButtonMaximize" data-role="tooltip" data-tooltip-position="bottom" data-tooltip-title="' + Captions.Button_Dashboard_WidgetMaximize + '"><i class="icon icon-maximize"></i></a>'
+                            + '<a class="widgetButtonMinimize" data-role="tooltip" data-tooltip-position="bottom" data-tooltip-title="' + Captions.Button_Dashboard_WidgetMinimize + '"><i class="icon icon-minimize"></i></a>'
+                            + '<a class="widgetButtonOpenNewWindow" target="_blank" data-role="tooltip" data-tooltip-position="bottom" data-tooltip-title="' + Captions.Button_Dashboard_WidgetGotoAngle + '"><i class="icon icon-angle"></i></a>'
+                            + '<a class="widgetButtonDelete" data-role="tooltip" data-tooltip-position="bottom" data-tooltip-title="' + Captions.Button_Dashboard_WidgetDelete + '"><i class="icon icon-bin"></i></a>'
+                        + '</div>'
+                    + '</div>'
+                    + '<div class="widget-display-container">'
+                        + '<div id="' + self.ElementPrefix + widget.id + '-inner" class="widget-display-inner">'
+                            + '<div id="' + self.ElementPrefix + widget.id + '" class="widgetDisplay"></div>'
+                        + '</div>'
+                    + '</div>'
                 + '</div>');
-        columnElement.data({
-            'index': index,
-            'widget-id': widget.id,
-            'display': widget.display
-        })
-            .attr('id', self.ElementPrefix + widget.id + '-container');
-
-        // menu
-        columnElement.find('.widgetButtonMenu')
-            .on('click', { widget: widget }, function () {
-                var element = jQuery(this);
-                var isOpen = element.hasClass('open');
-
-                element.trigger('close');
-                if (!isOpen) {
-                    element.addClass('open');
-                }
+        columnElement
+            .data({
+                'index': index,
+                'widget-id': widget.id,
+                'display': widget.display
             })
-            .on('close', function () {
-                jQuery('#dashboardWrapper, #widgetMaximizeWrapper').find('.widgetButtonMenu').removeClass('open');
-            });
-
-        var clickMenuOutside = function (e) {
-            var currentElement = jQuery(e.target);
-            if (!currentElement.hasClass('widgetButtonMenu') && !currentElement.hasClass('widgetToolbarActions') && !currentElement.parents('.widgetToolbarActions').length) {
-                jQuery(e.clickTarget).trigger('close');
-            }
-        };
-        jQuery.clickOutside('#' + self.ElementPrefix + widget.id + '-container .widgetButtonMenu', clickMenuOutside);
-        jQuery.clickOutside('#widgetMaximizeWrapper .widgetButtonMenu', clickMenuOutside);
+            .attr('id', self.ElementPrefix + widget.id + '-container');
 
         // maximize & minimize
         columnElement.find('.widgetButtonMaximize, .widgetButtonMinimize')
@@ -851,9 +831,7 @@ function DashboardHandler() {
             .click(function (e) {
                 var element = jQuery(e.currentTarget);
                 if (!element.hasClass('disabled')) {
-                    var widgetElement = element.parents('.widgetDisplayColumn:first');
-                    widgetElement.find('.widgetButtonMenu').trigger('close');
-
+                    var widgetElement = element.parents('.widget-display-column:first');
                     if (element.hasClass('widgetButtonMaximize')) {
                         // set size to maximize
                         self.MaximizeWidget(widgetElement);
@@ -874,9 +852,7 @@ function DashboardHandler() {
         widgetButtonDelete.on('click', function (e) {
             var element = jQuery(e.currentTarget);
             if (!element.hasClass('disabled')) {
-                var widgetElement = element.parents('.widgetDisplayColumn:first');
-                widgetElement.find('.widgetButtonMenu').trigger('close');
-
+                var widgetElement = element.parents('.widget-display-column:first');
                 self.DeleteWidget(widgetElement.data('widget-id'));
             }
         });
@@ -894,10 +870,10 @@ function DashboardHandler() {
 
             // widget name
             var widgetName = widget.GetWidgetName();
-            columnElement.find('.widgetName').attr('title', widgetName).text(widgetName);
+            columnElement.find('.widgetName').text(widgetName);
 
             // info
-            columnElement.find('.widgetDisplayHeader .btnWidgetInfo').on('click', { widget: widget }, function (e) {
+            columnElement.find('.widgetButtonInfo').on('click', { widget: widget }, function (e) {
                 self.ShowWidgetInfoPopup(e.data.widget);
             });
 
@@ -906,7 +882,7 @@ function DashboardHandler() {
                 .attr('href', WC.Utility.GetAnglePageUri(angle.uri, display.uri))
                 .click(function (e) {
                     var element = jQuery(e.currentTarget);
-                    var widgetElement = element.parents('.widgetDisplayColumn:first');
+                    var widgetElement = element.parents('.widget-display-column:first');
 
                     // get parameterized from the memory
                     var executionParametersInfo = dashboardModel.GetAngleExecutionParametersInfo(angle, display);
@@ -920,8 +896,6 @@ function DashboardHandler() {
 
                     // get valid filters
                     self.SetValidFilters(widgetElement);
-
-                    element.parents('.widgetDisplayColumn:first').find('.widgetButtonMenu').trigger('close');
                 });
 
             /*Changed to use the same function of M4-11190*/
@@ -975,17 +949,15 @@ function DashboardHandler() {
         var updateDisplay = function () {
             var container = jQuery('#dashboardWrapper');
             var maximizeContainer = jQuery('#widgetMaximizeWrapper');
-            var widgetColumns = container.find('.widgetDisplayColumn');
+            var widgetColumns = container.find('.widget-display-column');
 
             var updateWidgetLayout = function (widgetElement) {
-                widgetElement.find('.widgetName').css('max-width', widgetElement.find('.widgetDisplayHeader').width() - widgetElement.find('.widgetToolbar').width() - 55);
-
                 var viewModel = widgetElement.data('Model');
                 if (viewModel) {
                     viewModel.UpdateLayout(0);
                 }
                 else if (widgetElement.hasClass('widgetInvalid')) {
-                    widgetElement.children('.widgetDisplay').outerHeight(widgetElement.height() - widgetElement.children('.widgetDisplayHeader').height());
+                    widgetElement.children('.widgetDisplay').outerHeight(widgetElement.height() - widgetElement.children('.widget-display-header').height());
                 }
             };
 
@@ -1007,14 +979,14 @@ function DashboardHandler() {
             self.UpdateDisplayLayoutChecker = setTimeout(updateDisplay, delay);
     };
     self.ReApplyResult = function () {
-        jQuery('#dashboardWrapper .widgetDisplayColumn').each(function (index, element) {
+        jQuery('#dashboardWrapper .widget-display-column').each(function (index, element) {
             var model = jQuery(element).data('ResultModel');
             if (model)
                 model.ApplyResult();
         });
     };
     self.RemoveWidgetDisplayElement = function (widgetDisplayElementId, widgetContainer, displayData) {
-        var widgetDisplay = widgetContainer.find('.widgetDisplay');
+        var widgetDisplay;
         var displayType = displayData.display_type;
         if (enumHandlers.DISPLAYTYPE.CHART === displayType) {
             var displayDetails = JSON.parse(displayData.display_details);
@@ -1026,6 +998,7 @@ function DashboardHandler() {
             widgetDisplay.empty();
         }
         else {
+            widgetDisplay = widgetContainer.find('.widgetDisplay');
             widgetDisplay.empty();
         }
         setTimeout(function () {
@@ -1038,8 +1011,17 @@ function DashboardHandler() {
     self.CreateSplitter = function (structure) {
         var container = jQuery('#dashboardWrapper');
         var panes = [], config, index;
+        var setResizingEvents = function (resizable) {
+            // bind resizing panel
+            resizable.bind('start', function () {
+                container.addClass('resizing');
+            });
+            resizable.bind('resizeend', function () {
+                container.removeClass('resizing');
+            });
+        };
 
-        var rowsCount = container.find('.widgetDisplayRow').length;
+        var rowsCount = container.find('.widget-display-row').length;
         for (index = 0; index < rowsCount; index++) {
             config = structure[index] || structure[structure.length - 1];
             panes[index] = {
@@ -1054,9 +1036,10 @@ function DashboardHandler() {
         }).data(enumHandlers.KENDOUITYPE.SPLITTER);
 
         splitter.bind('resize', self.SplitterResized);
+        setResizingEvents(splitter.resizing._resizable);
 
-        container.find('.widgetDisplayRow').each(function (rowIndex, row) {
-            var columnCount = jQuery(row).find('.widgetDisplayColumn').length;
+        container.find('.widget-display-row').each(function (rowIndex, row) {
+            var columnCount = jQuery(row).find('.widget-display-column').length;
             config = structure[rowIndex] || structure[structure.length - 1];
             panes = [];
 
@@ -1072,6 +1055,7 @@ function DashboardHandler() {
             }).data(enumHandlers.KENDOUITYPE.SPLITTER);
 
             splitter.bind('resize', self.SplitterResized);
+            setResizingEvents(splitter.resizing._resizable);
         });
     };
     self.SplitterResized = function () {
@@ -1080,166 +1064,238 @@ function DashboardHandler() {
             self.UpdateDisplayLayout(200);
         }
     };
+
     self.CreateDraggable = function () {
-        var container = jQuery('#dashboardWrapper'),
-            columns = container.find('.widgetDisplayColumn');
+        var container = jQuery('#dashboardWrapper');
+        var columns = container.find('.widget-display-column');
 
         if (columns.length <= 1) {
+            // cannot be dragged
             container.addClass('nodrag');
+            return;
         }
-        else {
-            // draggable widget
-            container.removeClass('nodrag').find('.widgetDisplayColumn').kendoDraggable({
-                filter: '.widgetDisplayHeader:not(.nodrag)',
-                hint: function (element) {
-                    var dragging = jQuery('<div id="widgetDragging" class="widgetDragging" />')
-                        .append(element.parents('.widgetDisplayHeader:first').clone())
-                        .find('.widgetToolbar').remove().end()
-                        .append('<div class="widgetDraggingInfo">Drag to desired location</div>');
-                    return dragging;
-                },
-                cursorOffset: { top: -30, left: -10 },
-                dragstart: function (e) {
-                    self.CreateDropArea(jQuery(e.currentTarget).parents('.widgetDisplayColumn:first'));
-                },
-                drag: function (e) {
-                    var draggable = jQuery(e.currentTarget).parents('.widgetDisplayColumn:first').data('kendoDraggable');
-                    if (draggable && draggable.hint) {
-                        var hint = draggable.hint;
-                        if (hint.offset().left < WC.Window.Width - hint.width() - 50) hint.removeClass('revertHorizontal');
-                        if (hint.offset().top < WC.Window.Height - hint.height() - 25) hint.removeClass('revertVertical');
 
-                        if (hint.offset().left + hint.width() > WC.Window.Width - 50) hint.addClass('revertHorizontal');
-                        if (hint.offset().top + hint.height() > WC.Window.Height - 25) hint.addClass('revertVertical');
-                    }
-                },
-                dragend: self.ClearDropArea
-            });
-        }
+        // draggable widget
+        container.removeClass('nodrag').find('.widget-display-column').kendoDraggable({
+            filter: '.widget-display-header:not(.nodrag)',
+            hint: function () {
+                return jQuery('<div id="widgetDragging" class="widgetDragging">' + Localization.DragAndDropWidget + '</div>');
+            },
+            cursorOffset: { top: -30, left: -10 },
+            dragstart: function (e) {
+                var element = jQuery(e.currentTarget).closest('.widget-display-column');
+                self.CreateDropArea(element);
+            },
+            drag: function (e) {
+                var draggable = jQuery(e.currentTarget).parents('.widget-display-column:first').data('kendoDraggable');
+                if (draggable && draggable.hint) {
+                    var hint = draggable.hint;
+                    if (hint.offset().left < WC.Window.Width - hint.width() - 50)
+                        hint.removeClass('revertHorizontal');
+                    if (hint.offset().top < WC.Window.Height - hint.height() - 25)
+                        hint.removeClass('revertVertical');
+
+                    if (hint.offset().left + hint.width() > WC.Window.Width - 50)
+                        hint.addClass('revertHorizontal');
+                    if (hint.offset().top + hint.height() > WC.Window.Height - 25)
+                        hint.addClass('revertVertical');
+                }
+            },
+            dragend: self.ClearDropArea
+        });
     };
-    self.UpdateDraggingInfo = function (info) {
-        jQuery('#widgetDragging .widgetDraggingInfo').html(info);
+
+    self.DropAreaSetting = {
+        GutterSize: 10,
+        AreaSize: 50
     };
     self.CreateDropArea = function (element) {
-        var container = jQuery('#dashboardWrapper'),
-            dropArea = jQuery('<div class="widgetDropArea" id="widgetDropArea" />'),
-            dropAreaSize = 20,
-            currentWidgetIndex = element.data('index'),
-            currentRowIndex = element.parent().prevAll('.widgetDisplayRow').length,
-            rowCount = jQuery('.widgetDisplayRow', container).length,
-            canAddNewRowNearby = element.parent().find('.widgetDisplayColumn').length !== 1,
-            allColumnIndex = 0;
+        var container = jQuery('#dashboardWrapper');
+        var dropArea = jQuery('<div class="widgetDropArea" id="widgetDropArea" />');
+        var elementId = element.attr('id');
+        var elementRow = element.parent();
+        var elementRowIndex = elementRow.prevAll('.widget-display-row').length;
+        var elementSiblingColumnsCount = element.siblings('.widget-display-column').length;
 
-        jQuery('.widgetDisplayRow', container).each(function (rowIndex, row) {
-            // create droppable in row
-            row = jQuery(row);
-            var topOffset = row.offset().top;
-            var leftOffset = row.offset().left;
-            if (!dashboardModel.IsTemporaryDashboard())
-                leftOffset -= 10;
+        container.find('.widget-display-column').each(function (columnIndex, column) {
+            column = jQuery(column);
+            var row = column.parent();
+            var isCurrentWidget = column.attr('id') === elementId;
+            var siblingColumnsCount = column.siblings('.widget-display-column').length;
+            var rowIndex = row.prevAll('.widget-display-row').length;
+            
+            // create .drop-to-widget
+            var widgetOffset = column.offset();
+            var widgetSize = { width: column.outerWidth(), height: column.outerHeight() };
+            var children = {};
+            var dropWidget = self.CreateDropToWidget(dropArea, widgetOffset, widgetSize);
 
-            if (canAddNewRowNearby || !canAddNewRowNearby && (rowIndex < currentRowIndex || rowIndex > currentRowIndex + 1)) {
-                jQuery('<div class="droppable dropToRow" />')
-                    .css({
-                        left: leftOffset,
-                        top: rowIndex === 0 ? 0 : topOffset - dropAreaSize / 2,
-                        height: rowIndex === 0 ? Math.max(topOffset, dropAreaSize) : dropAreaSize
-                    })
-                    .data({
-                        'index': rowIndex,
-                        'insert-type': 'insertBefore'
-                    })
-                    .appendTo(dropArea);
+            // create .drop-to-row
+            var canAddNewRow = self.CanAddNewRow(rowIndex, elementRowIndex, siblingColumnsCount);
+            if (canAddNewRow) {
+                // top
+                var haveDropToRowTop = self.HaveDropToRowTop(rowIndex, elementRowIndex, elementSiblingColumnsCount);
+                var dropToRowTop = self.CreateDropToRowTop(dropArea, widgetOffset, widgetSize, rowIndex, haveDropToRowTop);
+                children.top = dropToRowTop;
+
+                // bottom
+                var haveDropToRowBottom = self.HaveDropToRowBottom(rowIndex, elementRowIndex, elementSiblingColumnsCount);
+                var dropToRowBottom = self.CreateDropToRowBottom(dropArea, widgetOffset, widgetSize, rowIndex, haveDropToRowBottom);
+                children.bottom = dropToRowBottom;
             }
 
-            if (rowIndex === rowCount - 1 && (canAddNewRowNearby || !canAddNewRowNearby && rowIndex !== currentRowIndex)) {
-                var bottomOffset = topOffset + row.height() - dropAreaSize;
-                jQuery('<div class="droppable dropToRow" />')
-                    .css({
-                        left: leftOffset,
-                        top: bottomOffset,
-                        height: Math.max(WC.Window.Height - bottomOffset, dropAreaSize)
-                    })
-                    .data({
-                        'index': rowIndex,
-                        'insert-type': 'insertAfter'
-                    })
-                    .appendTo(dropArea);
+            // create .drop-to-column
+            var canMoveColumn = self.CanMoveColumn(siblingColumnsCount, isCurrentWidget);
+            if (canMoveColumn) {
+                // left
+                var haveDropToColumnLeft = self.HaveDropToColumnLeft(isCurrentWidget, elementId, column.prev().prev().attr('id'));
+                var dropToColumnLeft = self.CreateDropToColumnLeft(dropArea, widgetOffset, widgetSize, columnIndex, haveDropToColumnLeft);
+                children.left = dropToColumnLeft;
+
+                // right
+                var haveDropToColumnRight = self.HaveDropToColumnRight(isCurrentWidget, elementId, column.next().next().attr('id'));
+                var dropToColumnRight = self.CreateDropToColumnRight(dropArea, widgetOffset, widgetSize, columnIndex, haveDropToColumnRight);
+                children.right = dropToColumnRight;
             }
 
-            // create drop in column & re-ordering
-            var columnElements = row.find('.widgetDisplayColumn');
-            var columnCount = columnElements.length;
-            var isDifferenceRow = !(currentWidgetIndex >= allColumnIndex && currentWidgetIndex <= allColumnIndex + columnElements.length - 1);
-            columnElements.each(function (columnIndex, column) {
-                if (allColumnIndex !== currentWidgetIndex) {
-                    column = jQuery(column);
-                    var leftOffset = column.offset().left;
-
-                    // drop in column
-                    if (allColumnIndex - 1 !== currentWidgetIndex || isDifferenceRow) {
-                        jQuery('<div class="droppable dropToColumn" />')
-                            .css({
-                                left: Math.max(leftOffset - dropAreaSize / 2, 0),
-                                top: topOffset,
-                                height: column.height(),
-                                width: dropAreaSize
-                            })
-                            .data({
-                                'index': allColumnIndex,
-                                'insert-type': 'insertBefore'
-                            })
-                            .appendTo(dropArea);
-                    }
-                    if (columnIndex === columnCount - 1) {
-                        jQuery('<div class="droppable dropToColumn" />')
-                            .css({
-                                right: 0,
-                                top: topOffset,
-                                height: column.height(),
-                                width: dropAreaSize
-                            })
-                            .data({
-                                'index': allColumnIndex,
-                                'insert-type': 'insertAfter'
-                            })
-                            .appendTo(dropArea);
-                    }
-                }
-                allColumnIndex++;
-            });
+            // update .drop-to-widget
+            dropWidget.data('children', children);
+            if (isCurrentWidget) {
+                dropWidget.addClass('current');
+                self.UpdateDropableArea(dropWidget);
+            }
         });
         jQuery('body').append(dropArea);
 
+        self.CreateDropTargetArea();
+    };
+    self.CanAddNewRow = function (rowIndex, elementRowIndex, siblingColumnsCount) {
+        return rowIndex !== elementRowIndex || siblingColumnsCount;
+    };
+    self.CanMoveColumn = function (siblingColumnsCount, isCurrentWidget) {
+        return siblingColumnsCount || !isCurrentWidget;
+    };
+    self.CreateDropToWidget = function (dropArea, widgetOffset, widgetSize) {
+        var dropWidget = jQuery('<div class="droppable drop-to-widget" />')
+            .css({
+                left: widgetOffset.left,
+                top: widgetOffset.top,
+                width: widgetSize.width,
+                height: widgetSize.height
+            });
+        dropWidget.appendTo(dropArea);
+        return dropWidget;
+    };
+    self.HaveDropToRowTop = function (rowIndex, elementRowIndex, elementSiblingColumnsCount) {
+        return rowIndex - 1 !== elementRowIndex || elementSiblingColumnsCount;
+    };
+    self.CreateDropToRowTop = function (dropArea, widgetOffset, widgetSize, rowIndex, haveDropToRowTop) {
+        if (!haveDropToRowTop)
+            return jQuery();
+
+        var dropToRowTop = jQuery('<div class="droppable drop-to-row drop-to-row-top" />')
+            .css({
+                left: widgetOffset.left,
+                top: widgetOffset.top - self.DropAreaSetting.GutterSize,
+                width: widgetSize.width,
+                height: self.DropAreaSetting.AreaSize
+            })
+            .data({
+                'index': rowIndex,
+                'insert-type': 'insertBefore'
+            });
+        dropToRowTop.appendTo(dropArea);
+        return dropToRowTop;
+    };
+    self.HaveDropToRowBottom = function (rowIndex, elementRowIndex, elementSiblingColumnsCount) {
+        return rowIndex + 1 !== elementRowIndex || elementSiblingColumnsCount;
+    };
+    self.CreateDropToRowBottom = function (dropArea, widgetOffset, widgetSize, rowIndex, haveDropToRowBottom) {
+        if (!haveDropToRowBottom)
+            return jQuery();
+
+        var dropToRowBottom = jQuery('<div class="droppable drop-to-row drop-to-row-bottom" />')
+            .css({
+                left: widgetOffset.left,
+                top: widgetOffset.top + widgetSize.height + self.DropAreaSetting.GutterSize - self.DropAreaSetting.AreaSize,
+                width: widgetSize.width,
+                height: self.DropAreaSetting.AreaSize
+            })
+            .data({
+                'index': rowIndex,
+                'insert-type': 'insertAfter'
+            });
+        dropToRowBottom.appendTo(dropArea);
+        return dropToRowBottom;
+    };
+    self.HaveDropToColumnLeft = function (isCurrentWidget, elementId, previousWidgetId) {
+        return !isCurrentWidget && elementId !== previousWidgetId;
+    };
+    self.CreateDropToColumnLeft = function (dropArea, widgetOffset, widgetSize, columnIndex, haveDropToColumnLeft) {
+        if (!haveDropToColumnLeft)
+            return jQuery();
+
+        var dropToColumnLeft = jQuery('<div class="droppable drop-to-column drop-to-column-left" />')
+            .css({
+                left: widgetOffset.left - self.DropAreaSetting.GutterSize,
+                top: widgetOffset.top,
+                width: self.DropAreaSetting.AreaSize,
+                height: widgetSize.height
+            })
+            .data({
+                'index': columnIndex,
+                'insert-type': 'insertBefore'
+            });
+        dropToColumnLeft.appendTo(dropArea);
+        return dropToColumnLeft;
+    };
+    self.HaveDropToColumnRight = function (isCurrentWidget, elementId, nextWidgetId) {
+        return !isCurrentWidget && elementId !== nextWidgetId;
+    };
+    self.CreateDropToColumnRight = function (dropArea, widgetOffset, widgetSize, columnIndex, haveDropToColumnRight) {
+        if (!haveDropToColumnRight)
+            return jQuery();
+
+        var dropToColumnRight = jQuery('<div class="droppable drop-to-column drop-to-column-right" />')
+            .css({
+                left: widgetOffset.left + widgetSize.width + self.DropAreaSetting.GutterSize - self.DropAreaSetting.AreaSize,
+                top: widgetOffset.top,
+                width: self.DropAreaSetting.AreaSize,
+                height: widgetSize.height
+            })
+            .data({
+                'index': columnIndex,
+                'insert-type': 'insertAfter'
+            });
+        dropToColumnRight.appendTo(dropArea);
+        return dropToColumnRight;
+    };
+    self.CreateDropTargetArea = function () {
         jQuery('#widgetDropArea').kendoDropTargetArea({
             filter: '.droppable',
             dragenter: function (e) {
-                var dropping = jQuery(e.dropTarget), info;
-                dropping.addClass('dragFocus');
+                var dropping = jQuery(e.dropTarget);
 
-                if (dropping.hasClass('dropToRow') || dropping.hasClass('dropToColumn') || dropping.hasClass('dropToReorder'))
-                    info = 'Drop here';
-                else
-                    info = 'Drag to desired location';
-
-                self.UpdateDraggingInfo(info);
+                if (dropping.hasClass('drop-to-widget')) {
+                    self.UpdateDropableArea(dropping);
+                }
+                else if (dropping.hasClass('drop-to-row') || dropping.hasClass('drop-to-column')) {
+                    dropping.addClass('focused');
+                }
             },
             dragleave: function (e) {
-                var dropping = jQuery(e.dropTarget),
-                    info = 'Drag to desired location';
-                dropping.removeClass('dragFocus');
+                var dropping = jQuery(e.dropTarget);
+                dropping.removeClass('focused');
 
                 e.draggable.hint.removeClass('revertHorizontal revertVertical');
-
-                self.UpdateDraggingInfo(info);
             },
             drop: self.OnDropped
         });
     };
     self.OnDropped = function (e) {
-        // 1. create new row (if drop in '.dropToRow')
-        // 2. move widgets to new position (if drop in '.dropToMove')
-        // 3. reset widgets index (data-index="x") in '.widgetDisplayColumn'
+        // 1. create new row (if drop in '.drop-to-row')
+        // 2. move widgets to new position (if drop in '.drop-to-column')
+        // 3. reset widgets index (data-index="x") in '.widget-display-column'
 
         var dropTarget = jQuery(e.dropTarget),
             dragTarget = e.draggable.element,
@@ -1248,7 +1304,7 @@ function DashboardHandler() {
             dragIndex = dragTarget.data('index'),
             dragIndexInRow = dragTarget.prevAll('.k-pane').length,
             parentRow = dragTarget.parent();
-        if (dropTarget.hasClass('dropToRow') || dropTarget.hasClass('dropToColumn')) {
+        if (dropTarget.hasClass('drop-to-row') || dropTarget.hasClass('drop-to-column')) {
             // row splitter
             var rowSplitter = jQuery('#dashboardWrapper').data(enumHandlers.KENDOUITYPE.SPLITTER);
 
@@ -1256,12 +1312,13 @@ function DashboardHandler() {
             var columnSplitter = parentRow.data(enumHandlers.KENDOUITYPE.SPLITTER);
 
             var columns, rows, size;
-            if (dropTarget.hasClass('dropToRow')) {
+            if (dropTarget.hasClass('drop-to-row')) {
+                // 1. row
                 dragTarget.removeAttr('style');
 
                 var config = dashboardModel.GetDefaultLayoutConfig(1).structure[0];
-                var newRow = rowSplitter[insertType]({ min: self.MinSize }, jQuery('#dashboardWrapper .widgetDisplayRow').eq(dropIndex)).html(dragTarget);
-                var newSplitter = jQuery(newRow).addClass('widgetDisplayRow')
+                var newRow = rowSplitter[insertType]({ min: self.MinSize }, jQuery('#dashboardWrapper .widget-display-row').eq(dropIndex)).html(dragTarget);
+                var newSplitter = jQuery(newRow).addClass('widget-display-row')
                     .data('config', config)
                     .kendoSplitter({
                         panes: [{ min: self.MinSize, size: config.items[0] }]
@@ -1295,7 +1352,8 @@ function DashboardHandler() {
                 });
             }
             else {
-                columns = jQuery('#dashboardWrapper .widgetDisplayColumn');
+                // 2. column
+                columns = jQuery('#dashboardWrapper .widget-display-column');
                 var dropParent = columns.eq(dropIndex).parent();
                 var dropIndexInRow = columns.eq(dropIndex).prevAll('.k-pane').length;
                 if (insertType === 'insertAfter') {
@@ -1337,16 +1395,27 @@ function DashboardHandler() {
                 }
             }
 
-            // update index
-            jQuery('#dashboardWrapper .widgetDisplayColumn').each(function (index, column) {
+            // 3. update index
+            jQuery('#dashboardWrapper .widget-display-column').each(function (index, column) {
                 jQuery(column).data('index', index);
             });
-
+            
             self.CanUpdateLayoutConfig = true;
             self.UpdateLayoutConfig(100);
             self.UpdateDisplayLayout();
         }
         self.ClearDropArea();
+    };
+    self.UpdateDropableArea = function (dropWidget) {
+        // clear all
+        jQuery('#widgetDropArea .droppable.active').removeClass('active');
+
+        // set active
+        var children = dropWidget.data('children');
+        dropWidget.addClass('active');
+        jQuery.each(children, function (name, element) {
+            element.addClass('active');
+        });
     };
     self.ClearDropArea = function () {
         jQuery('#widgetDropArea').remove();
@@ -1362,16 +1431,16 @@ function DashboardHandler() {
             }
 
             var structure = [];
-            var sumRowHeight = jQuery('#dashboardWrapper .widgetDisplayRow').map(function () { return jQuery(this).height(); }).get().sum();
-            jQuery('#dashboardWrapper .widgetDisplayRow').each(function (rowIndex, row) {
+            var sumRowHeight = jQuery('#dashboardWrapper .widget-display-row').map(function () { return jQuery(this).height(); }).get().sum();
+            jQuery('#dashboardWrapper .widget-display-row').each(function (rowIndex, row) {
                 row = jQuery(row);
 
                 var config = jQuery.extend({}, row.data('config'));
                 config.height = Math.min(100, Math.floor(row.height() / sumRowHeight * 100 * 100) / 100) + '%';
                 config.items = [];
 
-                var sumColumnWidth = row.children('.widgetDisplayColumn').map(function () { return jQuery(this).width(); }).get().sum();
-                row.children('.widgetDisplayColumn').each(function (columnIndex, column) {
+                var sumColumnWidth = row.children('.widget-display-column').map(function () { return jQuery(this).width(); }).get().sum();
+                row.children('.widget-display-column').each(function (columnIndex, column) {
                     column = jQuery(column);
                     config.items[columnIndex] = Math.min(100, Math.floor(column.width() / sumColumnWidth * 100 * 100) / 100) + '%';
                 });
@@ -1384,7 +1453,7 @@ function DashboardHandler() {
             dashboardDetailsHandler.Model.Data().layout = { structure: structure, widgets: [] };
 
             // update widget_definitions
-            jQuery('#dashboardWrapper .widgetDisplayColumn').each(function (index, element) {
+            jQuery('#dashboardWrapper .widget-display-column').each(function (index, element) {
                 if (element) {
                     var widgetId = jQuery(element).data('widget-id');
                     dashboardDetailsHandler.Model.Data().layout.widgets.push(widgetId);
@@ -1425,29 +1494,26 @@ function DashboardHandler() {
         var mainWrapper = jQuery('#dashboardWrapper');
 
         // prepare elment
-        var dashboardWrapperTop = mainWrapper.offset().top;
-        var widgetPosition = widgetElement.offset();
+        var widgetWrapperOffset = mainWrapper.offset();
+        var widgetOffset = widgetElement.offset();
 
-        var maximize = widgetElement.find('.widgetToolbarActions .widgetButtonMaximize').clone(true);
-        widgetElement.find('.widgetToolbarActions .widgetButtonMaximize').remove();
+        var maximize = widgetElement.find('.widgetButtonMaximize').clone(true);
+        widgetElement.find('.widgetButtonMaximize').remove();
 
         maximizeWrapper
             .removeData()
             .empty()
             .css({
-                top: widgetPosition.top,
-                left: widgetPosition.left,
+                left: widgetOffset.left - widgetWrapperOffset.left,
+                top: widgetOffset.top - widgetWrapperOffset.top,
                 width: widgetElement.width(),
                 height: widgetElement.height()
             })
-            .attr('class', widgetElement.attr('class') + ' active')
+            .attr('class', widgetElement.attr('class') + ' busy')
             .append(widgetElement.children());
 
         // set data
         var metadata = widgetElement.data();
-        if (metadata.Model)
-            metadata.Model.Container = '#widgetMaximizeWrapper';
-
         maximizeWrapper.data({
             Model: metadata.Model,
             ResultModel: metadata.ResultModel,
@@ -1459,15 +1525,16 @@ function DashboardHandler() {
         // animation
         var animateProperties = {
             left: 0,
-            top: dashboardWrapperTop,
-            width: WC.Window.Width,
-            height: mainWrapper.height()
+            top: 0,
+            width: '100%',
+            height: '100%'
         };
         var setMaximize = function () {
             // update layout
-            maximizeWrapper.width('100%');
+            maximizeWrapper.css(animateProperties);
             self.UpdateDisplayLayout(0);
-            maximizeWrapper.find('.widgetToolbarActions .k-content').prepend(maximize);
+            maximizeWrapper.find('.widgetButtonMinimize').before(maximize);
+            maximizeWrapper.removeClass('busy').addClass('active');
         };
         if (animate === false)
             setMaximize();
@@ -1478,23 +1545,25 @@ function DashboardHandler() {
         var maximizeWrapper = jQuery('#widgetMaximizeWrapper');
         var containerId = '#widget' + maximizeWrapper.data('widget-id') + '-container';
         var widgetWrapper = jQuery(containerId);
-        var viewModel = widgetWrapper.data('Model');
-        if (viewModel)
-            viewModel.Container = containerId;
+
+        // prepare elment
+        maximizeWrapper.addClass('busy');
 
         // animation
+        var widgetWrapperOffset = maximizeWrapper.offset();
         var widgetOffset = widgetWrapper.offset();
         var animateProperties = {
-            left: widgetOffset.left,
-            top: widgetOffset.top,
+            left: widgetOffset.left - widgetWrapperOffset.left,
+            top: widgetOffset.top - widgetWrapperOffset.top,
             width: widgetWrapper.width(),
             height: widgetWrapper.height()
         };
         var setMinimize = function () {
             // clean data + move element + update layout
-            maximizeWrapper.removeClass('active').removeData();
+            maximizeWrapper.removeData();
             widgetWrapper.append(maximizeWrapper.children());
-            self.UpdateDisplayLayout(animate === false ? 0 : 10);
+            self.UpdateDisplayLayout(1);
+            maximizeWrapper.removeClass('busy active');
         };
         if (animate === false)
             setMinimize();
@@ -1512,7 +1581,7 @@ function DashboardHandler() {
                 var layout = dashboardDetailsHandler.Model.Data().layout,
                     oldLayout = jQuery.extend({}, layout);
 
-                var rowTargetIndex = element.parent().prevAll('.widgetDisplayRow').length;
+                var rowTargetIndex = element.parent().prevAll('.widget-display-row').length;
                 if (layout.structure[rowTargetIndex]) {
                     layout.structure[rowTargetIndex].items = dashboardModel.GetDefaultLayoutConfig(element.parent().children('.k-pane').length - 1).structure[0].items;
                 }
@@ -1562,27 +1631,12 @@ function DashboardHandler() {
 
     self.RenderActionDropdownList = function () {
         var data = self.GetActionDropdownItems();
-        var menuHtml = [];
-        jQuery.each(data, function (index, action) {
-            menuHtml[index] = '<a class="actionDropdownItem ' + action.Id + (action.Enable ? '' : ' disabled') + (action.Visible ? '' : ' alwaysHide') + '" onclick="dashboardHandler.CallActionDropdownFunction(this, \'' + action.Id + '\')">' + action.Text + '</a>';
-        });
-        jQuery('#ActionDropdownListPopup .k-window-content').html(menuHtml.join(''));
+
+        // html
+        WC.HtmlHelper.ActionMenu.CreateActionMenuItems('#ActionDropdownListPopup .k-window-content', '#ActionDropdownListTablet', data, self.CallActionDropdownFunction);
 
         // action menu responsive
-        WC.HtmlHelper.ActionMenu('#ActionSelect', function (target) {
-            // pre-value use for reserve margin or white-spacing
-            var result = 10, dashboardNameWidth = 0;
-            var sublingsElements = target.siblings();
-
-            // left element
-            sublingsElements.siblings('#DashboardName').children().each(function () {
-                dashboardNameWidth += jQuery(this).outerWidth();
-            });
-            var noteWidth = sublingsElements.siblings('#YourNote').eq(0).outerWidth();
-
-            result += Math.max(dashboardNameWidth, noteWidth);
-            return result;
-        });
+        WC.HtmlHelper.ActionMenu('#ActionSelect');
     };
     self.GetActionDropdownItems = function () {
         var data = [];
@@ -1640,6 +1694,8 @@ function DashboardHandler() {
             element: '#popup' + popupName,
             title: Localization.DashboardWidgetInfo_Title,
             className: 'popup' + popupName,
+            width: 850,
+            height: 530,
             minWidth: 748,
             minHeight: 300,
             buttons: [

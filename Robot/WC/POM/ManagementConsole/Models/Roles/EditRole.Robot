@@ -32,28 +32,27 @@ Click Cancel Edit Role
     Click Element    ${btnCancelEditRole}
     Wait MC Progress Bar Closed
 
-
-Click Privileges Tab
+Click Role Privileges Tab
     Wait Until Element Is Visible    ${tabPrivileges}
     Click Element    ${tabPrivileges}
 
-Click Lebels Tab
+Click Role Labels Tab
     Wait Until Element Is Visible    ${tabLabels}
     Click Element    ${tabLabels}
 
-Click Objects Tab
+Click Role Objects Tab
     Wait Until Element Is Visible    ${tabObjects}
     Click Element    ${tabObjects}
 
-Click Fields Tab
+Click Role Fields Tab
     Wait Until Element Is Visible    ${tabFields}
     Click Element    ${tabFields}
 
-Click Filters Tab
+Click Role Filters Tab
     Wait Until Element Is Visible    ${tabFilters}
     Click Element    ${tabFilters}
 
-Click Subroles Tab
+Click Role Subroles Tab
     Wait Until Element Is Visible    ${tabSubroles}
     Click Element    ${tabSubroles}
 

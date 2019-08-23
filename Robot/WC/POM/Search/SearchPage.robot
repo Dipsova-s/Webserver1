@@ -16,8 +16,8 @@ ${pgbSearchResults}         css=#MainContent .k-loading-mask
 ${divWelcomeVideo}          WelcomePlayer
 
 #Sort options
-${btnSortByName}            jquery=#sortList li:eq(0)
-${btnSortByCreated}         jquery=#sortList li:eq(1)
+${ddlSorting}               SortItemBySelect_ddlWrapper
+${ddlSortingOptions}        SortItemBySelect_listbox
 
 #Popup Advance Filters
 ${btnAdvFilters}            css=#SearchButton
@@ -74,28 +74,27 @@ ${chkFacetModel}            css=#facetcat_models_Checkbox input:first-child
 ${lblCountModel}            css=#facetcat_models_Checkbox .name:first-child
 
 #Business process filter
-${divBusinessprocessP2P}            css=#facetcat_bp_Checkbox .BusinessProcessBadge.P2P
-${divBusinessprocessS2D}            css=#facetcat_bp_Checkbox .BusinessProcessBadge.S2D
-${divBusinessprocessO2C}            css=#facetcat_bp_Checkbox .BusinessProcessBadge.O2C
-${divBusinessprocessF2R}            css=#facetcat_bp_Checkbox .BusinessProcessBadge.F2R
-${divBusinessprocessPM}             css=#facetcat_bp_Checkbox .BusinessProcessBadge.PM
-${divBusinessprocessHCM}            css=#facetcat_bp_Checkbox .BusinessProcessBadge.HCM
-${divBusinessprocessGRC}            css=#facetcat_bp_Checkbox .BusinessProcessBadge.GRC
-${divBusinessprocessIT}             css=#facetcat_bp_Checkbox .BusinessProcessBadge.IT
+${divBusinessprocessP2P}            css=#P2P
+${divBusinessprocessS2D}            css=#S2D
+${divBusinessprocessO2C}            css=#O2C
+${divBusinessprocessF2R}            css=#F2R
+${divBusinessprocessPM}             css=#PM
+${divBusinessprocessHCM}            css=#HCM
+${divBusinessprocessGRC}            css=#GRC
+${divBusinessprocessIT}             css=#IT
 
 #Search result
 ${gridSearchResult}             InnerResultWrapper
-${divFirstAngleStar}            InnerResultWrapper .k-grid-content tr:first .ResultSign > a:first
+${divFirstAngleStar}            InnerResultWrapper .k-grid-content tr:first .ResultContent .front a:first
 ${btnSearchInfo}                jquery=#InnerResultWrapper .k-grid-content tr .btnInfo
-${pgbStarredProgress}           css=#InnerResultWrapper .loading16x16
-${btnFirstListFromSearch}       jquery=#InnerResultWrapper .k-grid-content tr:first .icon.list
+${pgbStarredProgress}           css=#InnerResultWrapper .signLoading
+${btnFirstListFromSearch}       jquery=#InnerResultWrapper .k-grid-content tr:first .icon.icon-list
 ${lnkSearchResult}              jquery=#InnerResultWrapper .k-grid-content .ResultContent .name
 ${trItemInSearchResult}         InnerResultWrapper .k-grid-content tr
-${lblSearchResult}              css=#SearchResultList span:first-child
-${publishStatusFromFirstAngleInSearchResult}        jquery=.SearchResult:eq(0) .public
-${privateStatusFromFirstAngleInSearchResult}        jquery=.SearchResult:eq(0) .private
-${validatedStatusFromFirstAngleInSearchResult}      jquery=.SearchResult:eq(0) .validated
-${btnDisplaysSelectedItem}      jquery=#InnerResultWrapper .k-state-selected .detailDefinitionList .displayName
+${lblSearchResult}              jquery=#SearchSortingView .search-info-label > span:eq(0)
+${privateStatusFromFirstAngleInSearchResult}        jquery=.SearchResult:eq(0) .icon-private
+${validatedStatusFromFirstAngleInSearchResult}      jquery=.SearchResult:eq(0) .icon-validated
+${btnDisplaysSelectedItem}      jquery=#InnerResultWrapper .k-state-selected .detailDefinitionList .listview-item
 ${lnkItemNameSelectedItem}      jquery=#InnerResultWrapper .k-state-selected .ResultContent .name
 ${divSearchResultNoData}         css=.grid-no-data
 
@@ -121,12 +120,19 @@ ${ddlSearchActionUploadAngles}          css=#ActionDropdownListPopup .uploadAngl
 
 #View Mode
 ${btnDisplaysMode}                      DisplaysList
-${btnDetailMode}                        LongList
 ${btnCompactMode}                       ShortList
 
 ${divContentDetail}                     css=.SearchResult .Date
 ${btnShowDisplays}                      css=.SearchResult .ResultView .btnShowDisplays
 ${divDisplaysList}                      css=.SearchResult .ResultView .detailDefinitionList
+
+#Search Terms
+${ddlSearchTerms}                       css=#SearchTerm .listview-popup
+${lastItemSearchTerm}                   css=#SearchTerm .listview-popup .listview-item:last-child
+${divTopBar}                            css=#TopBar
+
+#Search Filters
+${divSearchFilterView}                  css=#SearchFilterView
 
 *** Keywords ***
 Wait Search Page Document Loaded
@@ -171,6 +177,28 @@ Search Input Should Be
 Click Search Button
     Press Key   ${txtSearchInput}    \\13 
 
+Click Search Input
+    Click Element    ${txtSearchInput}
+
+Blur Search Input
+    Click Element    ${divTopBar} 
+
+Search Terms Should Visible
+    Wait Until Element Is Visible       ${ddlSearchTerms}
+
+Search Terms Should Not Contain
+    [Arguments]    ${text}
+    Element Should Not Contain    ${ddlSearchTerms}    ${text}
+
+Search Terms Should Contain
+    [Arguments]    ${text}
+    Element Should Contain    ${ddlSearchTerms}    ${text}
+
+Wait Search Terms Closed
+    Wait Until Element Is Not Visible       ${ddlSearchTerms} 
+
+Click Last Item Search Term
+    Click Element    ${lastItemSearchTerm}
 
 #******** Search Action  ***************
 Click Search Action
@@ -212,12 +240,7 @@ Click User Menu
     Wait Progress Bar Closed
     Wait Until Element Is Visible    ${btnUserMenu}
     Click Element    ${btnUserMenu}
-    Page Should Contain Element     ${btnUserSetting}
     Page Should Contain Element     ${btnLogout}
-
-Click Settings on User Menu
-    Wait Progress Bar Closed
-    Click Element    ${btnUserSetting}
 
 Click Change Password on User Menu
     Wait Progress Bar Closed
@@ -271,12 +294,18 @@ Click Search Filter Template
 Click Search Filter Dashboard
     Click Facet Checkbox    ${chkFacetDashboard}
 
+Select Search Filter Dashboard
+    Select Facet Checkbox    ${chkFacetDashboard}
+
+Unselect Search Filter Dashboard
+    Unselect Facet Checkbox    ${chkFacetDashboard}
+
 Click Search Filter Is Private
     Click Facet Checkbox    ${chkFacetIsPrivate}
 
 Facet "Private" Should Filter As "Show Public"
     Checkbox Should Be Selected    ${chkFacetIsPrivate}
-    Page Should Contain Element    ${chkFacetIsPrivate} + .negative
+    Page Should Contain Element    ${chkFacetIsPrivate} + .strike-through
 
 Facet "Private" Should Filter As "Show Private"
     Checkbox Should Be Selected    ${chkFacetIsPrivate}
@@ -301,7 +330,7 @@ Checkbox Is Starred Should Not Be Selected
 
 Get Is Starred Count
     Click Search Filter Is Starred
-    ${count}    Get Text    ${lblCountIsStarred}
+    ${count}    Get Text    ${lblCountIsStarred}> .filter-count
     Click Search Filter Is Starred
     [Return]    ${count}
 
@@ -319,7 +348,7 @@ Facet "Warning" Should Filter As "Show Warning"
 
 Facet "Warning" Should Filter As "Show No Warning"
     Checkbox Should Be Selected    ${chkFacetHasWarning}
-    Page Should Contain Element    ${chkFacetHasWarning} + .negative
+    Page Should Contain Element    ${chkFacetHasWarning} + .strike-through
 
 Facet "Warning" Should Be In Facet Filters
     ${isVisible}    Is Element Visible    ${chkFacetHasWarning}
@@ -344,12 +373,17 @@ Click Search Filter Model
 #Search Business Process
 Click Search Business Process
     [Arguments]    ${element}
-    Wait Until Element Is Visible    ${element}
+    Wait Until Page Contains Element    ${element}
     Click Element    ${element}
+    Sleep    ${TIMEOUT_GENERAL}
+    Wait Until Ajax Complete
     Wait Progress Bar Search Closed
 
 Click Search Business Process P2P
     Click Search Business Process    ${divBusinessprocessP2P}
+
+Select Search Business Process P2P
+    Select Facet Checkbox            ${divBusinessprocessP2P}
 
 Click Search Business Process S2D
     Click Search Business Process    ${divBusinessprocessS2D}
@@ -436,6 +470,7 @@ Click Link Template From Search Result
 
 Click Item Info Button
     [Arguments]    ${rowNumber}
+    Mouse Over       ${btnSearchInfo}:eq(${rowNumber})
     Click Element    ${btnSearchInfo}:eq(${rowNumber})
     Wait Item Info Popup Loaded
 
@@ -452,6 +487,8 @@ Click Link Item From Search Result By Row Number
 
 Click Link First Item From Search Result
     Wait Until Ajax Complete
+    Blur Search Input
+    Wait Search Terms Closed
     Click Link Item From Search Result By Row Number    1
 
 Click Link Item From Search Result By Item Uri: ${itemUri}
@@ -493,21 +530,26 @@ Get Selected Items Data
     @{items}    Execute Javascript    return searchModel.Items()
     [Return]    @{items}
 
-Click Sort By Name On Search Page
-    Click Element    ${btnSortByName}
+Click Sort By Name Ascending In Search Page
+    Click Sorting In Search Page    name-asc
+
+Click Sort By Name Descending In Search Page
+    Click Sorting In Search Page    name-desc
+
+Click Sort By Created Ascending In Search Page
+    Click Sorting In Search Page    created-asc
+
+Click Sort By Created Descending In Search Page
+    Click Sorting In Search Page    created-desc
+
+Click Sorting In Search Page
+    [Arguments]    ${dataId}
+    ${useMouse}    Execute JavaScript    return Modernizr.mouse;
+    Run Keyword If  ${useMouse}   Mouse Over    ${ddlSorting}
+    ...         ELSE    Click Element    ${ddlSorting}
+    Sleep    ${TIMEOUT_GENERAL}
+    Click Element    jquery=#${ddlSortingOptions} span[data-id="${dataId}"]
     Wait Progress Bar Search Closed
-
-Click Sort By Name Ascending On Search Page
-    ${isSortByAsc}    Is Element Has CssClass    ${btnSortByName}    asc
-    Run Keyword If     "${isSortByAsc}"=="False"    Click Sort By Name On Search Page
-
-Click Sort By Created On Search Page
-    Click Element    ${btnSortByCreated}
-    Wait Progress Bar Search Closed
-
-Click Sort By Created On Descending On Search Page
-    ${isSortByDesc}    Is Element Has CssClass    ${btnSortByCreated}    desc
-    Run Keyword If     "${isSortByDesc}"=="False"    Click Sort By Created On Search Page
 
 Check Existing Private Note From Search Result
     [Arguments]    ${privateNote}
@@ -517,7 +559,7 @@ Check First Angle From Search Result Is Private
     Wait Until Page Contains Element    ${privateStatusFromFirstAngleInSearchResult}
 
 Check First Angle From Search Result Is Public
-    Wait Until Page Contains Element    ${publishStatusFromFirstAngleInSearchResult}
+    Wait Until Page Does Not Contain Element    ${privateStatusFromFirstAngleInSearchResult}
 
 Check First Angle From Search Result Is Validated
     Wait Until Page Contains Element    ${validatedStatusFromFirstAngleInSearchResult}
@@ -546,11 +588,6 @@ Button Remove Advance Filters Should Not Be Visible
 Click Change View To Displays Mode
     Wait Until Page Contains Element    ${btnDisplaysMode}
     Click Element    ${btnDisplaysMode}
-    Sleep    ${TIMEOUT_GENERAL}
-
-Click Change View To Detail Mode
-    Wait Until Page Contains Element    ${btnDetailMode}
-    Click Element    ${btnDetailMode}
     Sleep    ${TIMEOUT_GENERAL}
 
 Click Change View To Compact Mode

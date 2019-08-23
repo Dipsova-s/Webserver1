@@ -8,6 +8,7 @@
     overflow: hidden;
     overflow-y: auto;
 }
+
 .definitionList.no {
     border-width: 0;
     box-shadow: none;
@@ -21,9 +22,11 @@
     position: relative;
     margin-right: 50px;
 }
+
 .readonly .filterItem {
     margin-right: 0;
 }
+
 .treeview .filterItem {
     margin-left: 40px;
     margin-right: 0;
@@ -42,19 +45,21 @@
     overflow: hidden;
     text-indent: -1000px;
 }
+
 .filterItem .btnAddFilterFromJump:after {
     background-image: url('../../images/icons/icon_add_filter_before_jump.png');
     right: 3px;
 }
 
 .definitionList .NoticeIcon {
-    background: transparent url(../../images/searchpage/icn_execute.png) left top no-repeat;
+    background: transparent url(../../images/icons/icon_execute.svg) left top no-repeat;
 }
 
 .definitionList .FilterHeader:first-child,
 .definitionList .first .FilterHeader {
     border-top-width: 1px;
 }
+
 .treeview .first .FilterHeader {
     border-top-width: 0;
 }
@@ -132,7 +137,7 @@
 
 .FilterHeader.Unsave:before {
     background-image: url('../../images/icons/icon_mark_as_new.png');
-    background-position: 25px 15px;
+    background-position: 25px 13px;
 }
 
 .FilterHeader:after,
@@ -147,6 +152,7 @@
 .treeViewHeader {
     border-top-width: 1px;
 }
+
 .treeViewHeader:before {
     display: none;
 }
@@ -186,9 +192,41 @@
     overflow: hidden;
     padding: 0 80px 0 40px;
     margin: 0;
-    background: transparent url('../../images/icons/icon_def_filter.png') 8px center no-repeat;
+    background: transparent url('../../images/icons/icon_filter.svg') 12px center no-repeat;
+    background-size: 18px 18px;
     box-sizing: border-box;
     z-index: 3;
+}
+
+.popupAngleDetail .FilterHeader p {
+    padding-top: 3px;
+}
+
+.popupAngleDetail .FilterHeader .NoticeIcon {
+    margin-top: -6px;
+}
+
+.popupExecuteParameters .FilterHeader.Followup:before {
+    background: transparent url('../../images/icons/icon_followup_addnew.svg') center no-repeat;
+    background-size: 16px 16px;
+}
+
+.popupExecuteParameters .FilterHeader.Followup p {
+    background: none;
+}
+
+.FilterHeader.Filter.Disabled .validWarning :before {
+    top: 14px;
+    left: 40px;
+}
+
+.FilterHeader.Disabled.Followup:before {
+    background: transparent url('../../images/icons/icon_followup_addnew.svg') center no-repeat;
+    background-size: 16px 16px;
+}
+
+.FilterHeader.Disabled.Followup p {
+    background: none;
 }
 
 .treeViewHeader p {
@@ -204,7 +242,8 @@
 }
 
 .FilterHeader.Followup p {
-    background-image: url('../../images/icons/icon_def_followup.png');
+    background-image: url('../../images/icons/icon_followup_addnew.svg');
+    background-size: 16px 16px;
 }
 
 .FilterHeader.Unsave p {
@@ -241,15 +280,21 @@
     content: '';
     display: block;
     position: absolute;
-    left: 22px;
     top: 24px;
     width: 16px;
     height: 16px;
     background: transparent none center center no-repeat;
+    background-size: 12px 12px;
+    left: 33px !important;
+    top: 20px;
 }
 
 .FilterHeader .validWarning:before {
-    background-image: url('../../images/icons/icon_warning.svg');
+    background-image: url('../../images/icons/icon_warnings.svg');
+}
+
+.popupExecuteParameters .FilterHeader.Disabled .validWarning:before {
+    left: 6px !important;
 }
 
 .FilterHeader .validError:before {
@@ -294,16 +339,17 @@
 .FilterHeader .btnAddFilter,
 .FilterHeader .btnDelete {
     display: none;
+    font-size: 12px;
+    color: inherit;
     position: absolute;
     width: 15px;
     height: 15px;
     right: 36px;
-    top: 14px;
+    top: 16px;
     z-index: 10;
 }
 
 .FilterHeader > .btnInfo {
-    background-size: 100%;
     right: 60px;
 }
 
@@ -313,10 +359,6 @@
 
 .readonly .FilterHeader.Disabled .btnInfo {
     right: 18px
-}
-
-.no-backgroundsize .FilterHeader .btnInfo {
-    top: 13px;
 }
 
 .treeview .FilterHeader .btnInfo,
@@ -331,8 +373,30 @@
 }
 
 .FilterHeader .btnAddFilter {
-    background: transparent url('../../images/icons/icon_add_filter.png') center center no-repeat;
+    background: transparent url('../../images/icons/icon_add_filter.svg') center center no-repeat;
     background-size: 24px;
+}
+
+.popupDashboardDetails .FilterHeader .btnAddFilter {
+    background-size: 25px;
+    right: 55px;
+    margin-top: 4px;
+}
+
+.popupDashboardDetails .FilterHeader .btnInfo {
+    right: 80px;
+}
+
+.popupDashboardDetails .FilterHeader p {
+    background: transparent url(../../images/icons/icon_filter.svg) left no-repeat;
+    background-position: 10px;
+    background-size: 18px 18px;
+}
+
+.popupDashboardDetails .FilterHeader.treeViewHeader p {
+    padding-left: 10px;
+    padding-right: 110px;
+    background-image: none;
 }
 
 .treeViewHeader > .btnAddFilter {
@@ -343,8 +407,8 @@
 }
 
 .FilterHeader .btnDelete {
-    background: transparent url('../../images/icons/icon_delete.svg') center center no-repeat;
-    background-size: 13px;
+    font-size: 11px;
+    margin-top: 1px;
 }
 
 .FilterHeader:hover .btnInfo,
@@ -355,15 +419,16 @@
 
 .FilterHeader .NoticeIcon {
     position: absolute;
-    width: 20px;
-    height: 20px;
+    width: 14px;
+    height: 14px;
     top: 50%;
-    margin-top: -10px;
+    margin-top: -9px;
+    margin-left: 5px;
 }
 
 .FilterHeader .validWarning .NoticeIcon,
 .FilterHeader .validError .NoticeIcon {
-    top: 3px;
+    top: 6px;
     margin-top: 0;
 }
 
@@ -397,7 +462,7 @@
     position: absolute;
     left: 10px;
     top: 0;
-    line-height: 30px;
+    line-height: 28px;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -443,7 +508,7 @@
     left: 0;
     top: 0;
     padding: 3px;
-    height: 30px;
+    height: 28px;
     box-sizing: border-box;
 }
 
@@ -533,7 +598,7 @@
 
 .FilterWrapper .btnCompare,
 .FilterWrapper .btnUncompare {
-    height: 30px;
+    display: block;
     position: relative;
     padding: 0;
     margin-right: 0;
@@ -631,9 +696,9 @@
     border-width: 1px;
 }
 
-.FilterWrapper4 .filterInputGroupOther .btnEnumPopup:after {
-    background: transparent url(../../images/icons/icon_open_new_window.svg) center center no-repeat;
-    right: -2px;
+.FilterWrapper4 .filterInputGroupOther .btnEnumPopup .icon {
+    margin: auto;
+    text-indent: 0;
 }
 
 .FilterWrapper4 .filterInputGroupOther .btnSelectAll {
@@ -738,8 +803,13 @@
 .AskForValue .NoticeIcon {
     padding-right: 20px;
     background-position: right center;
+    background-size: 14px 14px;
 }
 
 .AskForValue > label {
-    margin-right: 10px;
+    margin-left: 20px;
+}
+
+.AskForValue > label:first-child {
+    margin-left: 0;
 }

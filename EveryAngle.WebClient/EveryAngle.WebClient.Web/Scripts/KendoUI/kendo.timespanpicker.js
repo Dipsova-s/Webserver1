@@ -41,7 +41,8 @@
         // create -/+ ui
         var signElement = $('<span class="k-select k-link k-numeric-sign"><span class="k-icon"></span></span>');
         signElement.on('click', function () {
-            that._setNegative(signElement.children().hasClass('k-si-plus'));
+            if (!signElement.parent().hasClass('k-state-disabled'))
+                that._setNegative(signElement.children().hasClass('k-si-plus'));
         });
         that.dayPicker.wrapper.children('.k-numeric-wrap').prepend(signElement);
     };
@@ -81,6 +82,9 @@
             if (value != null) {
                 that.value(value);
             }
+
+            // set state
+            that.enable(!that.element.is(':disabled'));
         },
 
         options: {
@@ -158,6 +162,14 @@
                 data[labelField] = sign + kendo.toString(data[valueField], format);
             });
             dataSource.sort({ field: valueField, dir: 'desc' });
+        },
+
+        enable: function (flag) {
+            var that = this;
+            if (that.dayPicker && that.timePicker) {
+                that.dayPicker.enable(flag);
+                that.timePicker.enable(flag);
+            }
         },
 
         value: function (value) {

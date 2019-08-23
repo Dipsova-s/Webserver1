@@ -269,7 +269,7 @@
             $element.before(
                 jQuery('<span />')
                     .attr({
-                        'class': 'chkIndeterminatable ' + ($element.is(':disabled') ? ' disabled' : '') + stateText,
+                        'class': 'chkIndeterminatable ' + ($element.is(':disabled') ? 'disabled ' : '') + stateText,
                         'id': element.id ? element.id + '-checkbox' : ''
                     })
                     .css(position)

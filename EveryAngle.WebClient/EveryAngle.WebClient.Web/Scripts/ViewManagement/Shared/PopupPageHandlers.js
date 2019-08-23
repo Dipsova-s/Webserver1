@@ -66,7 +66,7 @@ function Popup() {
                 e.sender.wrapper.addClass('k-window-draggable');
             }
 
-            e.sender.wrapper.addClass('eaPopup').addClass(e.sender.options.className + (e.sender.options.content ? '' : ' popup-initialized'));
+            e.sender.wrapper.addClass(e.sender.options.className + (e.sender.options.content ? '' : ' popup-initialized'));
 
             if (jQuery(e.sender.wrapper).hasClass('popup-initialized')) {
                 self.PageResize();
@@ -111,13 +111,14 @@ function Popup() {
             e.sender.wrapper.removeClass('k-window-maximized');
             if (e.sender.options.isMaximized) {
                 e.sender.wrapper.addClass('k-window-maximized');
-                var buttonHeight = e.sender.wrapper.find('.k-window-buttons').outerHeight(),
-                    titleHeight = e.sender.wrapper.find('k-window-titlebar').outerHeight();
-                e.sender.wrapper.offset({
+                var buttonHeight = e.sender.wrapper.find('.k-window-buttons').outerHeight();
+                var titleHeight = e.sender.wrapper.find('k-window-titlebar').outerHeight();
+                e.sender.wrapper
+                    .offset({
                         left: 0,
                         top: 0
                     })
-                    .height(WC.Window.Height - titleHeight - buttonHeight - 60)
+                    .height(WC.Window.Height - titleHeight - buttonHeight - 42)
                     .width(WC.Window.Width);
             }
 
@@ -246,8 +247,10 @@ function Popup() {
                             fn.click(fn, this);
                         }
                     })
-                    .addClass(v.isPrimary ? 'btnPrimary' : '')
-                    .addClass(v.position ? 'btn' + v.position.charAt(0).toUpperCase() + v.position.substr(1).toLowerCase() : '')
+                    .addClass(v.isPrimary ? 'btn-primary' : '')
+                    .addClass(v.isSecondary ? 'btn-secondary' : '')
+                    .addClass(!v.isPrimary && !v.isSecondary ? 'btn-ghost' : '')
+                    .addClass(v.position ? 'float-' + v.position : '')
                     .addClass(v.className)
                     .append('<span>' + v.text + '</span>')
                     .appendTo(inner);
@@ -257,7 +260,7 @@ function Popup() {
     };
     self.CanButtonExecute = function (button) {
         button = jQuery(button);
-        return !button.hasClass('disabled') && !button.hasClass('executing');
+        return !button.hasClass('disabled') && !button.hasClass('executing') && !button.hasClass('btn-busy');
     };
     self.Destroy = function (e) {
         e.sender.destroy();

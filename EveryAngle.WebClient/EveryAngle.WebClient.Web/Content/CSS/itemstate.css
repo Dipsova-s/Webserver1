@@ -1,0 +1,119 @@
+﻿/* .states-wrapper
+============================================ */
+.states-wrapper {
+  display: flex;
+  align-items: center;
+  flex-wrap: nowrap;
+  margin-left: 10px; }
+  .states-wrapper.disabled {
+    display: none; }
+
+/* .popupPublishSettings
+============================================ */
+.popupPublishSettings .k-window-title {
+  left: 10px; }
+
+.popupPublishSettings .k-window-content {
+  font-size: 12px; }
+
+.popupPublishSettings .scrollable {
+  max-height: calc(var(--vh, 1vh) * 100 - 200px); }
+
+.popupPublishSettings hr {
+  margin-left: 10px;
+  margin-right: 10px; }
+
+.popupPublishSettings .card-body {
+  line-height: 15px; }
+
+.popupPublishSettings .publish-displays .display-listview {
+  margin-left: 4px;
+  margin-right: 4px;
+  max-height: 156px; }
+
+.popupPublishSettings .publish-widgets .widget-section-message {
+  display: flex;
+  align-items: center;
+  margin: -10px -10px 10px -10px;
+  padding: 5px 10px;
+  background-color: #fee4e2;
+  font-size: 11px; }
+  .popupPublishSettings .publish-widgets .widget-section-message a {
+    margin-left: auto;
+    text-decoration: underline; }
+
+.popupPublishSettings .publish-widgets .listview-item.disabled {
+  opacity: .5; }
+
+.popupPublishSettings .publish-widgets .widget-link {
+  color: #78909c; }
+  .popupPublishSettings .publish-widgets .widget-link:before {
+    margin: auto; }
+
+.popupPublishSettings .publish-labels .accordion-body {
+  padding-bottom: 0; }
+
+.popupPublishSettings .publish-labels .multiple-select {
+  margin-left: 14px;
+  margin-right: 14px;
+  margin-bottom: 10px; }
+
+.popupPublishSettings .publish-labels .label-selection-message {
+  margin: -10px 14px 10px 14px;
+  font-size: 11px; }
+
+.popupPublishSettings .publish-limitations .card-body {
+  padding-bottom: 0; }
+
+.popupPublishSettings .publish-limitations label {
+  display: inline-block;
+  margin-bottom: 10px; }
+
+.popupPublishSettings .publish-limitations .btn-info {
+  display: inline-block;
+  height: 14px;
+  width: 14px;
+  font-size: 10px;
+  margin-left: 5px; }
+
+.popupPublishSettings .group-message {
+  margin: 5px 24px;
+  font-size: 11px; }
+
+.popupPublishSettings .save-validate-message {
+  display: inline-flex;
+  margin: 0 5px;
+  font-size: 11px; }
+  .popupPublishSettings .save-validate-message .validWarning {
+    height: 14px;
+    width: 14px;
+    margin-right: 5px;
+    margin-top: -1px; }
+
+.popupPublishSettings .btn-warning,
+.multiple-select-list .btn-warning {
+  display: inline-flex;
+  height: 16px; }
+
+/* .popupValidateSettings
+============================================ */
+.popupValidateSettings .k-window-content {
+  min-height: 0;
+  max-width: 300px; }
+
+.popupValidateSettings .SignValidated {
+  height: 24px;
+  width: 24px;
+  left: 7%; }
+
+.popupValidateSettings .validate-popup-caption {
+  line-height: 16px;
+  color: #34495e; }
+
+.popupValidateSettings .validate-popup-subcaption {
+  font-style: italic;
+  line-height: 16px;
+  color: #919699; }
+
+.popupValidateSettings .switch {
+  margin-right: -5px; }

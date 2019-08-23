@@ -5,24 +5,26 @@ window.UserPasswordHandler = function () {
 
     var userPasswordHtmlTemplate = function () {
         return [
-            '<div class="popupTabPanel changePasswordPanel">',
-                '<div class="row">',
-                    '<div class="field">' + Localization.User + ':</div>',
-                    '<div class="input">' + userModel.Data().id + '</div>',
+            '<form autocomplete="off" onsubmit="return false">', 
+                '<div class="popupTabPanel changePasswordPanel">',
+                    '<div class="row">',
+                        '<div class="field">' + Localization.User + ':</div>',
+                        '<div class="input">' + userModel.Data().id + '</div>',
+                    '</div>',
+                    '<div class="row">',
+                        '<div class="field">' + Localization.OldPassword + ':</div>',
+                        '<div class="input"><input autocomplete="new-password" id="oldPassword" name="wc_oldPassword" class="eaText Password oldPassword" type="password" tabindex="2" placeholder="' + Localization.OldPassword + '" /></div>',
+                    '</div>',
+                    '<div class="row">',
+                        '<div class="field">' + Localization.NewPassword + ':</div>',
+                        '<div class="input"><input autocomplete="new-password" id="newPassword" name="wc_newPassword" class="eaText Password newPassword" type="password" tabindex="3" placeholder="' + Localization.NewPassword + '" /></div>',
+                    '</div>',
+                    '<div class="row">',
+                        '<div class="field">' + Localization.ConfirmPassword + ':</div>',
+                        '<div class="input"><input autocomplete="new-password" id="ComparedPassword" name="wc_newComparedPassword" class="eaText Password ComparedPassword" type="password" tabindex="4" placeholder="' + Localization.ConfirmPassword + '" /></div>',
+                    '</div>',
                 '</div>',
-                '<div class="row">',
-                    '<div class="field">' + Localization.OldPassword + ':</div>',
-                    '<div class="input"><input id="oldPassword" name="wc_oldPassword" class="eaText Password oldPassword" type="password" tabindex="2" placeholder="' + Localization.OldPassword + '" /></div>',
-                '</div>',
-                '<div class="row">',
-                    '<div class="field">' + Localization.NewPassword + ':</div>',
-                    '<div class="input"><input id="newPassword" name="wc_newPassword" class="eaText Password newPassword" type="password" tabindex="3" placeholder="' + Localization.NewPassword + '" /></div>',
-                '</div>',
-                '<div class="row">',
-                    '<div class="field">' + Localization.ConfirmPassword + ':</div>',
-                    '<div class="input"><input id="ComparedPassword" name="wc_newComparedPassword" class="eaText Password ComparedPassword" type="password" tabindex="4" placeholder="' + Localization.ConfirmPassword + '" /></div>',
-                '</div>',
-            '</div>'
+            '</form>'
         ].join('');
     };
 
@@ -81,7 +83,7 @@ window.UserPasswordHandler = function () {
         UpdateDataToWebService(changePasswordUrl, newPasswordContent)
             .done(function () {
                 popup.Close('#popupUserPassword');
-                popup.Info(Localization.ChangePasswordSuccessful);
+                toast.MakeSuccessText(Localization.Toast_ChangePassword);
             })
             .fail(function (data,status, xhr) {
                 // to suppress ajax error popup

@@ -432,37 +432,39 @@ function DashboardViewModel() {
             if (typeof data.is_published !== 'undefined') {
                 return self.UpdateState(self.Data().state, { is_published: data.is_published })
                     .then(function () {
-                        delete data.is_published;
+                        //M4-12831: Fixed error message when angle is uppublished
+                        if (data.is_published === false && self.Data().created.user() !== userModel.Data().uri)
+                            dashboardHandler.BackToSearch();
 
-                        return self.CallUpdateFunction(self.Data().uri, data);
+                        delete data.is_published;
+                        return self.UpdateDashboard(self.Data().uri, data);
                     });
             }
             else if (typeof data.is_validated !== 'undefined') {
                 if (data.is_validated === true) {
                     delete data.is_validated;
-                    return self.CallUpdateFunction(self.Data().uri, data)
+                    return self.UpdateDashboard(self.Data().uri, data)
                         .then(function () {
                             return self.UpdateState(self.Data().state, { is_validated: true });
                         });
                 }
                 else if (data.is_validated === false) {
-                    return self.UpdateState(self.Data().state, { is_validated: data.is_validated })
+                    return self.UpdateState(self.Data().state, { is_validated: false })
                         .then(function () {
                             delete data.is_validated;
-
-                            return self.CallUpdateFunction(self.Data().uri, data);
+                            return self.UpdateDashboard(self.Data().uri, data);
                         });
                 }
             }
             else {
-                return self.CallUpdateFunction(self.Data().uri, data);
+                return self.UpdateDashboard(self.Data().uri, data);
             }
         }
         else {
             return jQuery.when(self.Data());
         }
     };
-    self.CallUpdateFunction = function (uri, data) {
+    self.UpdateDashboard = function (uri, data) {
         if (!jQuery.isEmptyObject(data)) {
             if (data.multi_lang_name) {
                 jQuery.each(data.multi_lang_name, function (index, name) {
@@ -481,13 +483,9 @@ function DashboardViewModel() {
         }
     };
     self.UpdateState = function (uri, updateState) {
-        return UpdateDataToWebService(uri.substr(1), updateState)
+        return UpdateDataToWebService(uri, updateState)
             .then(function () {
-                //M4-12831: Fixed error message when angle is uppublished
-                if (updateState.is_published === false && dashboardModel.Data().created.user() !== userModel.Data().uri)
-                    dashboardHandler.BackToSearch();
-                else
-                    return self.LoadDashboard(self.Data().uri);
+                return self.LoadDashboard(self.Data().uri);
             });
     };
 

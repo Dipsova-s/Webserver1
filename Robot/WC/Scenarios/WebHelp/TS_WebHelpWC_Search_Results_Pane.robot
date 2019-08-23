@@ -24,38 +24,38 @@ Crop Search Result Icons
     Execute JavaScript    $('#with_private_display').closest('li').show();
     Crop WebHelp Image   WC_Private_Display_Icon.png   jquery=.label[alt="with_private_display"] img    ${False}
 
-    Execute JavaScript    $('.SearchResult:first .SignFavoriteDisable,.SearchResult:first .SignFavorite').attr('class', 'SignFavorite').attr('style', 'width:22px;height:25px;background-position:center center;');
-    Crop WebHelp Image   WC_Starred.png   jquery=.SearchResult:first .SignFavorite    ${False}
+    Execute JavaScript    $('.SearchResult:first .ResultContent .rear .icon:eq(0)').attr('class', 'icon icon-star-active');
+    Crop WebHelp Image   WC_Starred.png   jquery=.SearchResult:first .ResultContent .rear .icon:eq(0)    ${False}
 
-    Execute JavaScript    $('.SearchResult:first .ResultContent .rear .icon:eq(0)').attr('class', 'icon public');
+    Execute JavaScript    $('.SearchResult:first .ResultContent .rear .icon:eq(0)').attr('class', 'icon icon-public');
     Crop WebHelp Image    WC_Public.png   jquery=.SearchResult:first .ResultContent .rear .icon:eq(0)    ${False}
 
-    Execute JavaScript    $('.SearchResult:first .ResultContent .rear .icon:eq(0)').attr('class', 'icon private');
+    Execute JavaScript    $('.SearchResult:first .ResultContent .rear .icon:eq(0)').attr('class', 'icon icon-private');
     Crop WebHelp Image    WC_Private.png   jquery=.SearchResult:first .ResultContent .rear .icon:eq(0)    ${False}
 
-    Execute JavaScript    $('.SearchResult:first .ResultContent .rear .icon:eq(0)').attr('class', 'icon angle');
+    Execute JavaScript    $('.SearchResult:first .ResultContent .rear .icon:eq(0)').attr('class', 'icon icon-angle');
     Crop WebHelp Image    WC_Angle_Icon.png   jquery=.SearchResult:first .ResultContent .rear .icon:eq(0)    ${False}
 
-    Execute JavaScript    $('.SearchResult:first .ResultContent .rear .icon:eq(0)').attr('class', 'icon template');
+    Execute JavaScript    $('.SearchResult:first .ResultContent .rear .icon:eq(0)').attr('class', 'icon icon-template');
     Crop WebHelp Image    WC_Template.png   jquery=.SearchResult:first .ResultContent .rear .icon:eq(0)    ${False}
 
-    Execute JavaScript    $('.SearchResult:first .ResultContent .rear .icon:eq(0)').attr('class', 'icon parameterized');
+    Execute JavaScript    $('.SearchResult:first .ResultContent .rear .icon:eq(0)').attr('class', 'icon icon-parameterized');
     Crop WebHelp Image    WC_Execution_Lightning.png   jquery=.SearchResult:first .ResultContent .rear .icon:eq(0)    ${False}
 
-    Execute JavaScript    $('.SearchResult:first .ResultContent .rear .icon:eq(0)').attr('class', 'icon validated');
+    Execute JavaScript    $('.SearchResult:first .ResultContent .rear .icon:eq(0)').attr('class', 'icon icon-validated');
     Crop WebHelp Image    WC_Validated.png   jquery=.SearchResult:first .ResultContent .rear .icon:eq(0)    ${False}
 
-    Execute JavaScript    $('.SearchResult:first .ResultContent .btnInfo').attr('style', 'width:22px;height:25px;');
-    Crop WebHelp Image    WC_i_Icon.png   jquery=.SearchResult:first .ResultContent .btnInfo    ${False}
+    Execute JavaScript    $('.SearchResult:first .ResultContent .rear .icon:eq(0)').attr('class', 'icon icon-info');
+    Crop WebHelp Image    WC_i_Icon.png   jquery=.SearchResult:first .ResultContent .rear .icon:eq(0)    ${False}
 
 Crop Display Type Icons
-    Execute JavaScript    $('.ResultView .icon:eq(0)').attr('class', 'icon list');
+    Execute JavaScript    $('.ResultView .icon:eq(0)').attr('class', 'icon icon-list');
     Crop WebHelp Image   WC_Table_Icon.png   jquery=.ResultView .icon:eq(0)    ${False}
 
-    Execute JavaScript    $('.ResultView .icon:eq(0)').attr('class', 'icon chart');
+    Execute JavaScript    $('.ResultView .icon:eq(0)').attr('class', 'icon icon-chart');
     Crop WebHelp Image   WC_Graph_Icon.png   jquery=.ResultView .icon:eq(0)    ${False}
 
-    Execute JavaScript    $('.ResultView .icon:eq(0)').attr('class', 'icon pivot');
+    Execute JavaScript    $('.ResultView .icon:eq(0)').attr('class', 'icon icon-pivot');
     Crop WebHelp Image   WC_Pivot_Icon.png   jquery=.ResultView .icon:eq(0)    ${False}
 
 Crop Show Display Button

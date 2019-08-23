@@ -26,6 +26,7 @@
         { "Path": "/Dependencies/jQuery/jquery.base64.min.js" },
         { "Path": "/Dependencies/jQuery/jquery.address.js" },
         { "Path": "/Dependencies/KendoUI/kendo.core.min.js" },
+        { "Path": "/Dependencies/KendoUI/kendo.data.min.js" },
         { "Path": "/Dependencies/KendoUI/kendo.core.extension.js" },
         { "Path": "/Dependencies/KnockOut/knockout-2.2.0.js" },
         { "Path": "/Dependencies/KnockOut/knonkout.helper.js" },

@@ -13,13 +13,7 @@ describe("ListHandler", function () {
         listHandler = new ListHandler();
     });
 
-    describe("when create new instance", function () {
-        it("should be defined", function () {
-            expect(listHandler).toBeDefined();
-        });
-    });
-
-    describe("call GetGridScrollSettings", function () {
+    describe(".GetGridScrollSettings", function () {
         it("should use default value if no scrollPosition argument", function () {
             var result = listHandler.GetGridScrollSettings();
             expect(result.left).toEqual(0);
@@ -39,7 +33,7 @@ describe("ListHandler", function () {
         });
     });
 
-    describe("call GetGridScrollSettingsData", function () {
+    describe(".GetGridScrollSettingsData", function () {
         it("should get scroll settings from html element", function () {
             $('<div id="AngleGrid" />').hide().data('scrollSettings', { left: 5, top: 5 }).appendTo('body');
             var result = listHandler.GetGridScrollSettingsData();
@@ -49,7 +43,7 @@ describe("ListHandler", function () {
         });
     });
 
-    describe("call SetGridScrollSettingsData", function () {
+    describe(".SetGridScrollSettingsData", function () {
         it("should set scroll settings from html element", function () {
             $('<div id="AngleGrid" />').hide().appendTo('body');
             listHandler.SetGridScrollSettingsData(true);
@@ -59,7 +53,7 @@ describe("ListHandler", function () {
         });
     });
 
-    describe("call GetGridRowHeight", function () {
+    describe(".GetGridRowHeight", function () {
         it("should get 26 if no html element", function () {
             var result = listHandler.GetGridRowHeight($());
             expect(result).toEqual(26);
@@ -73,7 +67,7 @@ describe("ListHandler", function () {
         });
     });
 
-    describe("when reorder columns", function () {
+    describe(".ConvertDataRow", function () {
         it("should correctly update data rows", function () {
             var fieldNames = ["ID", "ObjectType", "BottleneckType"];
             var rowData = ["80011670/4", "DeliveryNoteLine", "bt09DelayInProcessing"];
@@ -90,6 +84,24 @@ describe("ListHandler", function () {
             expect(result[actualFields[0].field.toLowerCase()]).toEqual(rowData[2]);
             expect(result[actualFields[1].field.toLowerCase()]).toEqual(rowData[1]);
             expect(result[actualFields[2].field.toLowerCase()]).toEqual(rowData[0]);
+        });
+    });
+
+    describe(".GenerateMainContextMenu", function () {
+        it("should have Go to SAP menu", function () {
+            window.enableGoToSAP = true;
+            var result = listHandler.GenerateMainContextMenu([]);
+
+            // assert
+            expect(result.gotosap).toBeDefined();
+        });
+
+        it("should not have Go to SAP menu", function () {
+            window.enableGoToSAP = false;
+            var result = listHandler.GenerateMainContextMenu([]);
+
+            // assert
+            expect(result.gotosap).not.toBeDefined();
         });
     });
 });

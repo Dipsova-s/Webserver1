@@ -9,7 +9,7 @@ function AngleCopyHandler() {
     self.Template = [
         '<div class="popupAngleCopyContainer">',
         '<div class="copyAngleLabel"></div>',
-        '<div class="eaDropdown" id="ddlModelCopyAngle"></div>',
+        '<div class="k-dropdown" id="ddlModelCopyAngle"></div>',
         '</div>'
     ].join('');
     self.Angles = [];

@@ -159,7 +159,7 @@ function DashboardWidgetViewModel(model) {
     self.GetDefaultWidgetName = function () {
         var angle = self.GetAngle();
         var display = self.GetDisplay();
-        return self.GetAngleDisplayName(angle.name, display.name, angle.model);
+        return angle && display ? self.GetAngleDisplayName(angle.name, display.name, angle.model) : self.id;
     };
 
     // GetWidgetName: get widget name (fallback to default name)

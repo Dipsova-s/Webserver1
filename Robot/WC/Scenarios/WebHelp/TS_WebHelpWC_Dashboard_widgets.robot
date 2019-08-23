@@ -7,13 +7,11 @@ Screenshot "WC_Dashboard_widgets" page
 
     Show Dashboard Widget Menu    0
     Crop Dashboard Widget Menu Button
-
-    Open Dashboard Widget Menu    0
     Crop Dashboard Widget Menu Popup
 
 Crop Dashboard Widget Menu Button
-    Crop WebHelp Image  WC_Dashboard_expand.png  jquery=.widgetButtonMenu:visible    ${False}
+    Crop WebHelp Image  WC_Dashboard_expand.png  jquery=.widgetToolbar:visible    ${False}
 
 Crop Dashboard Widget Menu Popup
-    ${widgetWidth}  ${widgetHeight}   Get Element Size   jquery=#dashboardWrapper .widgetDisplayColumn:eq(0)
-    Crop WebHelp Image With Dimensions  WC_Dashboard_dropdown.png  jquery=#dashboardWrapper .widgetDisplayColumn:eq(0)   ${widgetWidth - 165}  0  165  155
+    ${widgetWidth}  ${widgetHeight}   Get Element Size   jquery=#dashboardWrapper .widget-display-column:eq(0)
+    Crop WebHelp Image With Dimensions  WC_Dashboard_dropdown.png  jquery=#dashboardWrapper .widget-display-column:eq(0)   ${widgetWidth - 165}  0  165  155

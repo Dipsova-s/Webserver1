@@ -264,35 +264,6 @@ function FacetFiltersViewModel() {
             }
         });
     };
-    self.UpdatePreferenceText = function () {
-        // clear preference text
-        jQuery.each(self.Data(), function (k2, v2) {
-            v2.preference_text('');
-        });
-
-        // find checked checkboxes
-        jQuery('#LeftMenu input:checked').each(function (index, checkbox) {
-            checkbox = jQuery(checkbox);
-            var text = jQuery.trim(checkbox.parent().text());
-            var modelId;
-            var filterContainer = checkbox.parents('.FilterCheckBox:first');
-            if (filterContainer.hasClass('FilterCheckBox-' + self.GroupGeneral)) {
-                modelId = jQuery('.FilterTab-' + self.GroupGeneral + ':first').attr('id');
-            }
-            else {
-                modelId = filterContainer.attr('id');
-            }
-            modelId = modelId.replace('_Checkbox', '');
-
-            // set preference text
-            jQuery.each(self.Data(), function (k2, v2) {
-                if (v2.id === modelId) {
-                    if (v2.preference_text()) v2.preference_text(v2.preference_text() + ',' + text);
-                    else v2.preference_text(text);
-                }
-            });
-        });
-    };
     self.GetCategoryById = function (id) {
         return jQuery.grep(self.Data(), function (obj) { return obj.id === id; });
     };
@@ -368,13 +339,12 @@ function FacetFiltersViewModel() {
             facet_isprivate: {
                 path: GetImageFolderPath() + 'searchpage/icn_private.svg',
                 dimension: {
-                    width: 20,
-                    height: 20
-                },
-                style: 'left:-2px;'
+                    width: 16,
+                    height: 16
+                }
             },
             with_private_display: {
-                path: GetImageFolderPath() + 'icons/icon_private_display.png',
+                path: GetImageFolderPath() + 'icons/icon_private_display.svg',
                 dimension: {
                     width: 17,
                     height: 17
@@ -392,10 +362,10 @@ function FacetFiltersViewModel() {
             facet_isstarred: {
                 path: GetImageFolderPath() + 'searchpage/icn_starred_active.svg',
                 dimension: {
-                    width: 20,
-                    height: 20
+                    width: 16,
+                    height: 16
                 },
-                style: 'left:-2px;bottom:1px;'
+                style: 'bottom:1px;'
             },
             facet_ispublished: {
                 path: GetImageFolderPath() + 'searchpage/icn_public.svg',
@@ -406,10 +376,10 @@ function FacetFiltersViewModel() {
                 style: 'bottom:1px;'
             },
             facet_has_warnings: {
-                path: GetImageFolderPath() + 'icons/icon_warning.svg',
+                path: GetImageFolderPath() + 'icons/icon_warnings.svg',
                 dimension: {
-                    width: 16,
-                    height: 16
+                    width: 15,
+                    height: 15
                 },
                 style: 'left:0;bottom:2px;'
             },
@@ -424,13 +394,7 @@ function FacetFiltersViewModel() {
         };
         return iconsMapping[id.toLowerCase()];
     };
-    self.GetFacetTooltip = function (facet) {
-        var tooltip = self.GroupGeneral === facet.type ? Localization.GeneralFilters : facet.name;
-        if (facet.preference_text()) {
-            tooltip += '\n' + facet.preference_text();
-        }
-        return tooltip;
-    };
+
     self.GetFilterText = function (filter, facetType, facetcat) {
         var html = '';
         var isBusinessProcessGroup = self.GroupBusinessProcess === facetType;
@@ -450,9 +414,9 @@ function FacetFiltersViewModel() {
                 html += '<span class="name">';
 
             var isGeneralGroup = self.GroupGeneral === facetType;
-            html += (isGeneralGroup ? '' : filter.description) || filter.name || filter.id;
+            html += kendo.format('<span class="filter-name textEllipsis">{0}</span>', (isGeneralGroup ? '' : filter.description) || filter.name || filter.id);
             if (filter.checked()) {
-                html += ' (' + filter.count() + ')';
+                html += '<span class="filter-count">' + filter.count() + '</span>';
             }
             html += '</span>';
         }
@@ -477,8 +441,9 @@ function FacetFiltersViewModel() {
             target = jQuery(data.type === self.GroupGeneral ? '.FilterCheckBox-' + data.type : '#' + jQuery(event.currentTarget).attr('id') + '_Checkbox'),
             panelsOpened = jQuery.localStorage(self.OPENPANELSNAME), panelsOpenedIndex;
 
-        if (element.hasClass('Expand')) {
-            element.removeClass('Expand');
+        element.addClass('sliding');
+        if (element.hasClass('expand')) {
+            element.removeClass('expand');
             target.stop().slideUp('fast', function () {
                 if (data.type === self.GroupGeneral) {
                     jQuery.each(self.GroupGeneralOrder, function (index, facetId) {
@@ -495,10 +460,11 @@ function FacetFiltersViewModel() {
                     }
                 }
                 jQuery.localStorage(self.OPENPANELSNAME, panelsOpened);
+                element.removeClass('sliding');
             });
         }
         else {
-            element.addClass('Expand');
+            element.addClass('expand');
             target.stop().slideDown('fast', function () {
                 if (data.type === self.GroupGeneral) {
                     panelsOpened = panelsOpened.concat(self.GroupGeneralOrder);
@@ -507,11 +473,9 @@ function FacetFiltersViewModel() {
                     panelsOpened.push(data.id);
                 }
                 jQuery.localStorage(self.OPENPANELSNAME, panelsOpened);
+                element.removeClass('sliding');
             });
         }
-    };
-    self.SetFacetFilterFromUrlToUI = function () {
-        self.UpdatePreferenceText();
     };
     self.SortFacetFilter = function (list, sortBy, convertor, direction) {
         if (typeof convertor === 'undefined') convertor = jQuery.noop;
@@ -531,7 +495,6 @@ function FacetFiltersViewModel() {
             model.checked(!chkState);
             event.currentTarget.checked = !chkState;
         }
-        searchQueryModel.ClearCharacteristicInAdvanceSearch(model.id);
         searchModel.FilterItems(model, event, parent.type === self.GroupGeneral && parent.id !== self.GroupCannotNegativeFilter);
 
         return event.currentTarget.checked === chkState;
@@ -594,5 +557,21 @@ function FacetFiltersViewModel() {
         }
 
     };
+    self.GetFacetTabClassname = function (facet) {
+        var result = [
+            'FilterTab-' + facet.type,
+            (facet.panel_opened() ? 'expand' : ''),
+            self.GroupBusinessProcess !== facet.type ? 'border-separator' : ''
+        ];
+
+        return result.join(' ');
+    };
+    self.GetFacetCheckboxesClassname = function (facet) {
+        var result = [
+            'FilterCheckBox-' + facet.type
+        ];
+
+        return result.join(' ');
+    }
     window.GetRefreshTime = self.GetRefreshTime;
 }

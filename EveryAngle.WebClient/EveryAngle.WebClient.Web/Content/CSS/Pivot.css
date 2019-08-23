@@ -753,7 +753,6 @@ li.dxm-item /*Bootstrap correction*/ {
 
 .dxpgControl, .dxpgCustForm {
     color: #000000;
-    font: 12px Tahoma, Geneva, sans-serif;
     border: 0;
     background-color: #F9F9F9;
 }
@@ -764,7 +763,7 @@ li.dxm-item /*Bootstrap correction*/ {
 
 .dxpgMainTable {
     color: #000000;
-    font: 12px Tahoma, Geneva, sans-serif;
+    font-size: 12px;
     border: 0;
     border-collapse: separate;
     border-spacing: 0;
@@ -825,7 +824,6 @@ li.dxm-item /*Bootstrap correction*/ {
 
 .dxpgArea, .dxpgArea table {
     color: Black;
-    font: 12px Tahoma, Geneva, sans-serif;
 }
 
 .dxpgArea {
@@ -962,12 +960,10 @@ li.dxm-item /*Bootstrap correction*/ {
 }
 
 .dxpgFilterItem {
-    font: 12px Tahoma, Geneva, sans-serif;
     white-space: nowrap;
 }
 
 .dxpgFilterButton {
-    font: 12px Tahoma, Geneva, sans-serif;
     padding: 2px 6px;
 }
 
@@ -992,7 +988,6 @@ li.dxm-item /*Bootstrap correction*/ {
 
 .dxpgCustomizationFieldsHeader {
     color: #000000;
-    font: 12px Tahoma, Geneva, sans-serif;
 }
 
 .dxpgCustomizationFieldsContent {
@@ -1000,7 +995,6 @@ li.dxm-item /*Bootstrap correction*/ {
 }
 
 .dxpgLoadingPanel {
-    font: 12px Tahoma, Geneva, sans-serif;
     color: #f88538;
     background-color: White;
     border: solid 1px #F88538;
@@ -1010,10 +1004,6 @@ li.dxm-item /*Bootstrap correction*/ {
     white-space: nowrap;
     text-align: center;
     padding: 10px 20px 6px;
-}
-
-.dxpgMenuItem {
-    font: 12px Tahoma, Geneva, sans-serif;
 }
 
 .dxpgDataHeadersImage {
@@ -1305,10 +1295,10 @@ a.dxbButtonSys > span {
 
 /* -- Button -- */
 .dxbButton {
-    color: #FFFFFF;
-    font: normal 12px Tahoma, Geneva, sans-serif;
+    color: #ffffff;
+    font-weight: normal;
     border: 1px solid #cb4b31;
-    background: #EF643C none repeat-x top;
+    background: #ef643c none repeat-x top;
     padding: 1px;
 }
 
@@ -2506,7 +2496,6 @@ a.dxbButton.dxbDisabled {
 /* -- ASPxCallbackPanel -- */
 .dxcpLoadingPanel,
 .dxcpLoadingPanelWithContent {
-    font: 12px Tahoma, Geneva, sans-serif;
     color: #f88538;
 }
 
@@ -2534,7 +2523,6 @@ a.dxbButton.dxbDisabled {
 
 /* -- ASPxCloudControl -- */
 .dxccControl {
-    font-family: Tahoma, Geneva, sans-serif;
     text-decoration: none;
     color: #92110e;
     background-color: #ffffff;
@@ -2559,7 +2547,7 @@ a.dxbButton.dxbDisabled {
 
 /* -- ASPxDataView -- */
 .dxdvControl {
-    font: 10px Verdana, Geneva, sans-serif;
+    font-size: 10px;
     color: #707070;
     border: 4px solid #d3d3d3;
     background-color: #f9f9f9;
@@ -2570,7 +2558,6 @@ a.dxbButton.dxbDisabled {
 }
 
 .dxdvLoadingPanel {
-    font: 12px Tahoma, Geneva, sans-serif;
     color: #f88538;
     background-color: White;
     border: 1px solid #F88538;
@@ -2647,7 +2634,6 @@ a.dxbButton.dxbDisabled {
 
 /* -- ASPxHeadline -- */
 .dxhlControl {
-    font: 12px Tahoma, Geneva, sans-serif;
     color: black;
 }
 
@@ -2712,7 +2698,6 @@ a.dxbButton.dxbDisabled {
 
 /* -- ASPxLoadingPanel -- */
 .dxlpLoadingPanel {
-    font: 12px Tahoma, Geneva, sans-serif;
     color: #f88538;
     background-color: White;
     border: 1px solid #F88538;
@@ -2749,11 +2734,6 @@ a.dxbButton.dxbDisabled {
 .dxmBrdCor {
     background-color: #F9F9F9;
 }
-
-.dxmLite ul.dx {
-    font: 12px Tahoma, Geneva, sans-serif;
-}
-
 
 .dxmLite .dxm-main,
 .dxmLite .dxm-main .dxm-item {
@@ -3366,7 +3346,6 @@ a.dxbButton.dxbDisabled {
 }
 /* Loading panel */
 .dxmLoadingPanel {
-    font: 12px Tahoma, Geneva, sans-serif;
     color: #f88538;
 }
 
@@ -3381,7 +3360,6 @@ a.dxbButton.dxbDisabled {
     color: Black;
     background-color: White;
     border: 4px Solid #D3D3D3;
-    font: 12px Tahoma, Geneva, sans-serif;
     list-style: none none outside;
     margin: 0;
     padding: 1px;
@@ -3587,7 +3565,6 @@ a.dxbButton.dxbDisabled {
 }
 /* Loading panel */
 .dxnbLoadingPanel {
-    font: 12px Tahoma, Geneva, sans-serif;
     color: #f88538;
 }
 
@@ -3599,7 +3576,6 @@ a.dxbButton.dxbDisabled {
 
 /* -- ASPxNewsControl -- */
 .dxncControl {
-    font: 10px Tahoma, Geneva, sans-serif;
     color: black;
     background-color: White;
 }
@@ -3617,7 +3593,6 @@ a.dxbButton.dxbDisabled {
 }
 
 .dxncLoadingPanel {
-    font: 12px Tahoma, Geneva, sans-serif;
     color: #f88538;
     background-color: White;
     border: 1px solid #F88538;
@@ -3712,7 +3687,6 @@ a.dxbButton.dxbDisabled {
 
 /* -- ASPxPager Lite -- */
 .dxpLite {
-    font: 12px Tahoma, Geneva, sans-serif;
     color: #696969;
     padding: 5px 2px;
     float: left;
@@ -3797,7 +3771,6 @@ a.dxbButton.dxbDisabled {
 }
 
 .dxpLite .dxp-comboBox input {
-    font: 12px Tahoma, Geneva, sans-serif;
     display: block;
     float: left;
     background-color: transparent;
@@ -3905,7 +3878,6 @@ a.dxbButton.dxbDisabled {
 .dxdpLite.dxpc-mainDiv {
     top: 0;
     left: 0;
-    font: 12px Tahoma, Geneva, sans-serif;
     color: black;
     background-color: white;
     border: 4px solid #d3d3d3;

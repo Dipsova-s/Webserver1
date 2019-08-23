@@ -139,32 +139,43 @@ function UserSettingViewModel() {
         var url = WC.HtmlHelper.GetInternalUri('updateusersetting', 'user');
         return UpdateDataToWebService(url, null, true);
     };
-    self.GetLastSearchData = function () {
+    self.GetClientSettingsData = function () {
         if (!window.SearchPageHandler || !self.Data())
             return null;
 
+        var updateClientSettings = {};
+
         var lastSearchUrl = jQuery.address.value();
         var prevLastSearchUrl = self.GetClientSettingByPropertyName(enumHandlers.CLIENT_SETTINGS_PROPERTY.LAST_SEARCH_URL);
-        if (prevLastSearchUrl === lastSearchUrl || lastSearchUrl === '/')
+        if (prevLastSearchUrl !== lastSearchUrl && lastSearchUrl !== '/')
+            updateClientSettings[enumHandlers.CLIENT_SETTINGS_PROPERTY.LAST_SEARCH_URL] = lastSearchUrl;
+
+        var searchTerms = searchPageHandler.SearchTerms;
+        var prevSearchTerms = self.GetSearchTerms();
+        if (prevSearchTerms.toString() !== searchTerms.toString())
+            updateClientSettings[enumHandlers.CLIENT_SETTINGS_PROPERTY.SEARCH_TERMS] = searchTerms;
+
+        if (jQuery.isEmptyObject(updateClientSettings))
             return null;
 
-        var clientSettings = JSON.parse(self.GetByName(enumHandlers.USERSETTINGS.CLIENT_SETTINGS));
-        clientSettings[enumHandlers.CLIENT_SETTINGS_PROPERTY.LAST_SEARCH_URL] = lastSearchUrl;
+        var clientSettings = JSON.parse(self.GetByName(enumHandlers.USERSETTINGS.CLIENT_SETTINGS)) || {};
+        jQuery.extend(clientSettings, updateClientSettings);
+
         var data = {};
         data[enumHandlers.USERSETTINGS.CLIENT_SETTINGS] = JSON.stringify(clientSettings);
         return new RequestModel(RequestModel.METHOD.PUT, userModel.Data().user_settings, data);
     };
-    self.GetLastSearchUrl = function () {
-        var lastSearchUrl = self.GetClientSettingByPropertyName(enumHandlers.CLIENT_SETTINGS_PROPERTY.LAST_SEARCH_URL);
-        return !lastSearchUrl || lastSearchUrl === '/' ? '' : '#' + lastSearchUrl;
-    };
-    self.UpdateLastSearch = function (clientSettings) {
+    self.UpdateClientSettings = function (clientSettings) {
         var data = self.Data();
         if (!data)
             return;
 
         jQuery.extend(data, clientSettings);
         self.LoadSuccess(data);
+    };
+    self.GetSearchTerms = function () {
+        var searchTerms = self.GetClientSettingByPropertyName(enumHandlers.CLIENT_SETTINGS_PROPERTY.SEARCH_TERMS);
+        return WC.Utility.ToArray(searchTerms);
     };
     self.CheckExecuteAutoWhenLogon = function () {
         return self.GetByName(enumHandlers.USERSETTINGS.AUTO_EXECUTE_ITEMS_ON_LOGIN) && jQuery.localStorage('firstLogin') === 1;

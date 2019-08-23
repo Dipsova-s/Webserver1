@@ -66,6 +66,8 @@ function CreateNewAngleViewManagementModel() {
                 html: createAngleOptionHtmlTemplate(),
                 className: 'popup' + popupName,
                 buttons: null,
+                width: 850,
+                height: 530,
                 minWidth: 715,
                 minHeight: 300,
                 open: function (e) {
@@ -320,14 +322,14 @@ function CreateNewAngleViewManagementModel() {
             var element = jQuery(e.currentTarget);
             if (!element.find('a').hasClass('Legend')) {
                 var data = element.data('details');
-                jQuery('.popupCreateNewAngleBySchema .btnSubmit').removeClass('btnPrimary');
+                jQuery('.popupCreateNewAngleBySchema .btnSubmit').removeClass('btn-primary').addClass('btn-ghost');
                 if (!element.hasClass('disabled')) {
                     jQuery('#Schema div').removeClass('active');
                     element.addClass('active');
 
                     self.SelectedSchema({ Name: data.Name, ClassId: data.ClassId, TemplateId: data.TemplateId });
                     if (!isCreate) {
-                        jQuery('.popupCreateNewAngleBySchema .btnSubmit').addClass('btnPrimary');
+                        jQuery('.popupCreateNewAngleBySchema .btnSubmit').removeClass('btn-ghost').addClass('btn-primary');
                         self.MapClicked(data.ClassId);
                     }
                     else {
@@ -438,7 +440,7 @@ function CreateNewAngleViewManagementModel() {
                 if (jQuery('#popupCreateNewAngleBySchema').is(':visible')
                     && !element.parents('[id^=classid_area_], .btn, .k-window-actions').length
                     && !element.is('[id^=classid_area_], .btn, .k-window-actions')) {
-                    jQuery('.popupCreateNewAngleBySchema .btnSubmit').removeClass('btnPrimary');
+                    jQuery('.popupCreateNewAngleBySchema .btnSubmit').removeClass('btn-primary').addClass('btn-ghost');
                     self.ShowSchemaDefaultHelp(e.data.area);
                 }
             });
@@ -1097,10 +1099,10 @@ function CreateNewAngleViewManagementModel() {
     };
     self.SetSelectedClassesCallback = function (classes) {
         if (classes.length) {
-            jQuery('.popupCreateNewAngle .btnSubmit').addClass('btnPrimary');
+            jQuery('.popupCreateNewAngle .btnSubmit').removeClass('btn-ghost').addClass('btn-primary');
         }
         else {
-            jQuery('.popupCreateNewAngle .btnSubmit').removeClass('btnPrimary');
+            jQuery('.popupCreateNewAngle .btnSubmit').removeClass('btn-primary').addClass('btn-ghost');
         }
     };
     self.ShowHelpText = function (classId) {
@@ -1152,8 +1154,8 @@ function CreateNewAngleViewManagementModel() {
         // clear all
         jQuery('#SelectModelCreateNewAngle').addClass('alwaysHide');
         jQuery('#CreateNewAngle').addClass('disabled');
-        jQuery('#CreateNewAngle i').hide().text(Captions.Button_CreateNewAngle_NoModel);
-        var modelsListElement = jQuery('#PopupSelectModelCreateNewAngle .k-list').empty();
+        jQuery('#CreateNewAngle .no-model').text(Captions.Button_CreateNewAngle_NoModel);
+        var modelsListElement = jQuery('#PopupSelectModelCreateNewAngle').empty();
 
         var facets = WC.Utility.ToArray(ko.toJS(facetFiltersViewModel.Data()));
         var facetModel = facets.findObject('id', 'facetcat_models');
@@ -1175,30 +1177,23 @@ function CreateNewAngleViewManagementModel() {
                         // set default select model
                         var isTheSameModel = modelObject && modelObject.uri === self.CreateAngleSettings.model;
                         if (!findSelected && (!self.CreateAngleSettings.model || isTheSameModel)) {
-                            jQuery('#CreateNewAngle i').text(modelName);
+                            jQuery('#CreateNewAngle .no-model').text(modelName);
                             findSelected = true;
                             isSelected = true;
                         }
-                        modelsHtml[index] = kendo.format('<li class="k-item{2}" title="{1}" data-id="{0}" onclick="createNewAngleViewManagementModel.CheckModelAvailable(\'{0}\')">{1}</li>', model.id, modelName, isSelected ? ' k-state-selected' : '');
+                        var radio = kendo.format('<label class="textEllipsis"><input type="radio" name="SelectModel"{1}/><span class="label">{0}</span></label>', modelName, isSelected ? ' checked' : '');
+                        modelsHtml[index] = kendo.format('<li class="listview-item{3}" title="{1}" data-id="{0}" onclick="createNewAngleViewManagementModel.CheckModelAvailable(this)">{2}</li>', model.id, modelName, radio, isSelected ? ' active' : '');
                     }
                 });
                 modelsListElement.html(modelsHtml.join(''));
-                modelsListElement.children('li')
-                    .on('mouseenter', function () {
-                        jQuery(this).addClass('k-state-hover');
-                    })
-                    .on('mouseleave', function () {
-                        jQuery(this).removeClass('k-state-hover');
-                    });
                 jQuery('#CreateNewAngle, #SelectModelCreateNewAngle').removeClass('disabled');
                 if (models.length > 1) {
                     jQuery('#SelectModelCreateNewAngle').removeClass('alwaysHide');
-                    jQuery('#CreateNewAngle i').css('display', 'block');
                 }
             }
         }
     };
-    self.CheckModelAvailable = function (modelId) {
+    self.CheckModelAvailable = function (context) {
         // no model in facet then exit
         var facets = WC.Utility.ToArray(ko.toJS(facetFiltersViewModel.Data()));
         var facetModel = facets.findObject('id', 'facetcat_models');
@@ -1206,19 +1201,22 @@ function CreateNewAngleViewManagementModel() {
             return;
         }
 
+        jQuery(context).find('input[name="SelectModel"]').prop('checked', true);
+        var modelId = jQuery(context).data('id');
+
         // if click the button
         if (typeof modelId === 'undefined') {
             var modelMenuElement = [];
 
             // use the selected model
             if (self.CreateAngleSettings.model) {
-                modelMenuElement = jQuery('#PopupSelectModelCreateNewAngle .k-item.k-state-selected');
+                modelMenuElement = jQuery('#PopupSelectModelCreateNewAngle .active');
             }
 
             // use the first model
             if (!modelMenuElement.length) {
                 self.CreateAngleSettings.model = null;
-                modelMenuElement = jQuery('#PopupSelectModelCreateNewAngle .k-item:first');
+                modelMenuElement = jQuery('#PopupSelectModelCreateNewAngle .listview-item:first');
             }
 
             // click element or throw error
@@ -1248,9 +1246,9 @@ function CreateNewAngleViewManagementModel() {
                 self.SaveSelectingModel(response.uri);
 
                 self.CurrentModelData = modelsHandler.GetModelByUri(response.uri);
-                jQuery('#CreateNewAngle i').text(self.CurrentModelData.short_name || self.CurrentModelData.id);
-                jQuery('#PopupSelectModelCreateNewAngle .k-item').removeClass('k-state-selected')
-                    .filter('[data-id="' + self.CurrentModelData.id + '"]').addClass('k-state-selected');
+                jQuery('#CreateNewAngle .no-model').text(self.CurrentModelData.short_name || self.CurrentModelData.id);
+                jQuery('#PopupSelectModelCreateNewAngle .listview-item').removeClass('active')
+                    .filter('[data-id="' + self.CurrentModelData.id + '"]').addClass('active');
                 if (self.CheckCurrentModelAvailable()) {
                     self.DataAngleSchema = null;
                     self.CreateAngleSettings.model = response.uri;

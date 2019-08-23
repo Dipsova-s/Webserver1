@@ -1,12 +1,32 @@
 /* .popupFollowup
 ============================================ */
+#popupFollowup {
+    display: flex;
+    align-items: stretch;
+}
+
 .popupFollowup {
-    width: 750px;
     height: auto;
+}
+
+.popupFollowup .k-window-titlebar {
+    border-bottom-color: #fff;
 }
 
 .popupFollowup .k-window-content {
     padding: 0;
+}
+
+.popupFollowup .k-window-action {
+    height: 36px;
+}
+
+.popupFollowup .k-window-buttons-inner {
+    background: none;
+}
+
+.popupFollowup .k-window-buttons {
+    border-top: none;
 }
 
 .followupsArea,
@@ -14,29 +34,35 @@
     position: relative;
     overflow: auto;
     box-sizing: border-box;
+    height: 100%;
+    min-height: 430px;
 }
 
 .followupsArea {
-    padding: 16px;
+    padding: 15px 10px 15px 10px;
+    flex-grow: 2;
+    display: flex;
+    align-items: center;
+    transition: margin-right .3s ease-in-out;
 }
-
-.followupsArea.initializing {
-    visibility: hidden;
+.with-help .followupsArea {
+    margin-right: 325px;
 }
 
 .followupsAreaInner {
     position: relative;
     height: 490px;
-    max-height: 490px;
-    min-width: 710px;
+    width: 725px;
+    min-width: 725px;
+    margin: auto;
 }
 
 .followupsArea .blockHeader {
     color: #fff;
     font-weight: bold;
-    font-size: 13px;
+    font-size: 12px;
     background: #8197c8 none;
-    background: linear-gradient(to bottom, #8197c8 0,#5a7193 100%);
+    text-align: center;
 }
 
 .followupBlock,
@@ -46,6 +72,15 @@
 .followupsIndicator,
 .followupButton {
     position: absolute;
+}
+
+.followupsArea.initializing .followupBlock,
+.followupsArea.initializing .followupClass,
+.followupsArea.initializing .followupRelation,
+.followupsArea.initializing .followupFlow,
+.followupsArea.initializing .followupsIndicator,
+.followupsArea.initializing .followupButton {
+    visibility: hidden;
 }
 
 .followupBlock,
@@ -64,33 +99,23 @@
 }
 
 .followupBlock {
-    width: 220px;
-    height: 134px;
-    border-bottom: 1px solid #5a7193;
-    box-shadow: 1px 1px 7px 1px rgba(128,128,128,.3);
+    width: 200px;
+    border: 1px solid #a8b7d9;
     box-sizing: border-box;
-}
-
-.followupBlock.up {
-    height: 238px;
-}
-
-.followupBlock .grid-no-data {
-    font-size: 12px;
-    padding: 0;
-    text-indent: 0;
+    height: auto;
+    max-height: 226px;
+    border-radius: 2px;
 }
 
 .followupBlock .k-grid-header {
-    padding-right: 0 !important;    /* NOSONAR: override runtime css */
+    padding-right: 0 !important; /* NOSONAR: override runtime css */
 }
 
 .followupBlock .k-header:before {
     content: '';
     float: left;
-    width: 23px;
+    width: 4px;
     height: 20px;
-    background: transparent url('../../images/angle/followups/followups_category.png') left center no-repeat;
 }
 
 .followupBlock .k-grid-header .k-header.gridHeaderContainer {
@@ -98,34 +123,34 @@
     line-height: 22px;
     height: 30px;
     padding-right: 20px;
+    background: #8197c8;
 }
 
 .followupBlock .gridHeaderContainer .sort {
-    right: -18px;
+    right: -15px;
+    top: 4px;
 }
 
-.followupBlock .gridHeaderContainer.asc .sort {
-    background-image: url('../../images/icons/icon_sort_asc_white.png');
-}
-
+.followupBlock .gridHeaderContainer.asc .sort,
 .followupBlock .gridHeaderContainer.desc .sort {
-    background-image: url('../../images/icons/icon_sort_desc_white.png');
+    background-image: url('../../images/icons/icon_sorting_a_z.svg');
 }
 
 .followupBlock .k-grid-content {
     overflow-x: hidden;
+    max-height: 194px;
 }
 
 .followupsArea .k-grid-content td {
-    text-indent: 23px;
+    text-indent: 5px;
 }
 
 .followupClass {
-    width: 190px;
-    height: 50px;
-    line-height: 50px;
+    width: 175px;
+    height: 30px;
+    line-height: 32px;
     padding: 0 10px;
-    box-shadow: 1px 1px 7px 1px rgba(128,128,128,.3);
+    border-radius: 2px;
     overflow: hidden;
     white-space: nowrap;
     text-overflow: ellipsis;
@@ -140,17 +165,19 @@
 
 .followupFlow.forward,
 .followupsIndicator > .flow.forward {
-    background-image: url('../../images/angle/followups/followups_flow.png');
+    background-image: url('../../images/angle/followups/followups_flow.svg');
 }
 
 .followupRelation {
-    width: 9px;
-    height: 34px;
+    width: 36px;
+    height: 31px;
     background: transparent none left center no-repeat;
 }
 
 .followupRelation.manyToOne {
-    background-image: url('../../images/angle/followups/followups_relation.png');
+    background-image: url('../../images/angle/followups/followups_relation.svg');
+    transform: rotate(90deg);
+    background-size: 26px;
 }
 
 .followupsIndicator {
@@ -171,7 +198,7 @@
 }
 
 .followupsIndicator > .relation.manyToOne {
-    background-image: url('../../images/angle/followups/followups_relation_indicator.png');
+    background-image: url('../../images/angle/followups/followups_relation_indicator.svg');
 }
 
 .followupsIndicator > .flow {
@@ -193,9 +220,25 @@
 }
 
 .followupsHelp {
-    padding: 16px;
-    border-top: 1px solid #d5d5d5;
-    background-color: #f9f9f9;
+    position: absolute;
+    background-color: #f7f9fa;
+    width: 310px;
+    top: 0;
+    right: -310px;
+    transition: right .3s ease-in-out;
+}
+
+.with-help .followupsHelp {
+    right: 15px;
+}
+
+.followupsHelp .box-scrollable {
+    width:100%;
+    height:100%;
+}
+
+.followupsHelp .box-scrollable-content {
+    padding:16px;
 }
 
 .followupsHelpInner {
@@ -203,9 +246,37 @@
     height: 80px;
     min-height: 80px;
     z-index: 1;
+    line-height: 1.67;
 }
 
-.followupsHelp .helpHeaderContainer {
-    font-size: 16px;
-    margin-bottom: 10px;
+.followupBlock div.k-grid-header-wrap {
+    box-shadow: none;
+    border-color: #a8b7d9;
+}
+
+#popupFollowup .k-grid td,
+#popupFollowup .k-grid-header .k-header {
+    border: none;
+    border-bottom-color: #a8b7d9;
+}
+
+#popupFollowup .k-state-selected,
+#popupFollowup .k-state-selected > td,
+#popupFollowup .k-grid td.k-state-selected.k-state-focused {
+    background-color: #e5efff;
+    border: #8dbeeb solid 1px;
+}
+
+#popupFollowup .k-grid tbody tr:hover td,
+#popupFollowup .k-grid tbody tr.k-alt:hover td {
+    box-shadow: 0 1px 2px 0 rgba(8, 35, 48, 0.24), 0 2px 6px 0 rgba(8, 35, 48, 0.16);
+}
+
+#popupFollowup .k-grid tbody tr:hover td.grid-no-data {
+    box-shadow: none;
+}
+
+#popupFollowup div.k-grid tbody tr.k-alt,
+#popupFollowup div.k-grid tbody tr.k-alt:hover {
+    background-color: #f7f9fa;
 }

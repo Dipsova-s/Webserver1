@@ -163,6 +163,7 @@ function WidgetDetailsHandler(container, description, queryblocks, modelRoles, d
     self.SetWidget = function (labels, isVisibleDisplayList, angleAndDisplayDataList) {
         self.Data.Labels(WC.Utility.ToArray(labels));
         self.Data.Widgets(WC.Utility.ToArray(angleAndDisplayDataList));
+        self.IsVisibleDisplayList(isVisibleDisplayList);
     };
 
     self.AdjustLayout = function () {
@@ -292,7 +293,7 @@ function WidgetDetailsHandler(container, description, queryblocks, modelRoles, d
     self.GetDescription = function () {
         var detail = self.Data.Description();
         if (!self.FullMode()) {
-            var html = '<a class="btnInfo" onclick="' + self.ClickShowInfoPopupString + '"></a>';
+            var html = '<a class="btnInfo icon icon-info" onclick="' + self.ClickShowInfoPopupString + '"></a>';
             if (detail) {
                 detail = WC.HtmlHelper.StripHTML(detail, true);
                 html = detail + html;

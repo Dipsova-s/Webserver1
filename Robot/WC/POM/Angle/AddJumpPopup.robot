@@ -1,7 +1,7 @@
 *** Variables ***
 ${divAddjumpPopup}          css=#popupFollowup
 ${btnCloseAddjumpPopup}     css=#popupFollowup_wnd_title + .k-window-actions .k-i-close
-${btnSubmitAddJump}         css=#popupFollowup .btnPrimary
+${btnSubmitAddJump}         css=.popupFollowup .btn-primary
 ${gridJumpReferences}       css=#popupFollowup .followupBlock.up
 ${gridJumpLists}            css=#popupFollowup .followupBlock.down
 ${gridJumpPrevious}         css=#popupFollowup .followupBlock.left

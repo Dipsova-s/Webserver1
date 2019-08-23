@@ -2,14 +2,17 @@
 
     describe(".ExecuteBeforeExit", function () {
 
-        it("should not process requests if disabled then the state is reset", function () {
+        it("should not process requests if disabled then the state is reset", function (done) {
             spyOn(WC.Ajax, 'SendExitRequests').and.callFake($.noop);
 
             WC.Ajax.EnableBeforeExit = false;
             WC.Ajax.ExecuteBeforeExit();
 
-            expect(WC.Ajax.SendExitRequests).not.toHaveBeenCalled();
-            expect(WC.Ajax.EnableBeforeExit).toEqual(true);
+            setTimeout(function () {
+                expect(WC.Ajax.SendExitRequests).not.toHaveBeenCalled();
+                expect(WC.Ajax.EnableBeforeExit).toEqual(true);
+                done();
+            }, 200);
         });
 
         it("should not process requests if enabled", function () {

@@ -49,12 +49,12 @@ function ModelLabelHandler() {
     ==================================================*/
 
     /*=============== custom functions ===============*/
-    self.LoadAllLabels = function (uri, params, store) {
+    self.LoadAllLabels = function (uri, params) {
         var query = {};
         query[enumHandlers.PARAMETERS.CACHING] = false;
         jQuery.extend(query, params);
 
-        return self.LoadAll(uri, { data: query, store: store });
+        return self.LoadAll(uri, { data: query, store: false });
     };
     self.GetLabelById = function (id) {
         return self.GetDataBy('id', id);
@@ -144,12 +144,14 @@ function ModelLabelCategoryHandler() {
     };
 
     /*=============== custom functions ===============*/
-    self.LoadAllLabelCategories = function (uri, params, store) {
+    self.LoadAllLabelCategories = function (uri, params) {
         var query = {};
         query[enumHandlers.PARAMETERS.CACHING] = false;
         jQuery.extend(query, params);
 
-        return self.LoadAll(uri, { data: query, store: store });
+        var storageKey = self.GetModelUriFromData({ uri: uri });
+        var data = self.GetLabelCategoriesByModel(storageKey);
+        return data.length ? jQuery.when(data) : self.LoadAll(uri, { data: query, store: false });
     };
     self.GetLabelCategoryByUri = function (uri) {
         var modelUri = self.GetModelUriFromData({ uri: uri });
@@ -159,16 +161,18 @@ function ModelLabelCategoryHandler() {
         return self.GetData(modelUri);
     };
     self.GetLabelCategoriesByModelAndViewType = function (modelUri, viewType) {
-        var isBP = viewType === enumHandlers.MASSCHANGELABELVIEWTYPE.BP;
-        var isPrivilege = viewType === enumHandlers.MASSCHANGELABELVIEWTYPE.BP || viewType === enumHandlers.MASSCHANGELABELVIEWTYPE.PRIVILEGE;
+        var isBP = viewType === enumHandlers.LABELVIEWTYPE.BP;
+        var isPrivilege = viewType === enumHandlers.LABELVIEWTYPE.BP || viewType === enumHandlers.LABELVIEWTYPE.PRIVILEGE;
         return jQuery.grep(self.GetLabelCategoriesByModel(modelUri), function (labelCategory) {
             return labelCategory.contains_businessprocesses === isBP
                 && labelCategory.used_for_authorization === isPrivilege;
         });
     };
 
-    self.LoadAllLabels = function (uri, params, store) {
-        return self.LabelHandler.LoadAllLabels(uri, params, store);
+    self.LoadAllLabels = function (uri, params) {
+        var storageKey = self.GetModelUriFromData({ uri: uri });
+        var data = self.GetLabelCategoriesByModel(storageKey);
+        return data.length ? jQuery.when(self.LabelHandler.GetData()) : self.LabelHandler.LoadAllLabels(uri, params);
     };
     self.GetLabelById = function (id) {
         return self.LabelHandler.GetLabelById(id);

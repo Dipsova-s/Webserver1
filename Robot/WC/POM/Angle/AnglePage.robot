@@ -2,6 +2,7 @@
 Resource            ${EXECDIR}/WC/POM/Shared/FiltersPanel.robot
 Resource            ${EXECDIR}/WC/POM/Angle/AngleDetailPopup.robot
 Resource            ${EXECDIR}/WC/POM/Angle/AnglePublishingPopup.robot
+Resource            ${EXECDIR}/WC/POM/Angle/AngleValidatingPopup.robot
 Resource            ${EXECDIR}/WC/POM/Angle/AngleExecuteParametersPopup.robot
 Resource            ${EXECDIR}/WC/POM/Angle/AngleWarningPopup.robot
 Resource            ${EXECDIR}/WC/POM/Angle/AddFilterPopup.robot
@@ -51,6 +52,8 @@ ${lnkEditAngle}    css=#AngleDescriptionWrapper .descriptionHeader a
 ${lnkEditDisplay}    css=#DisplayDescriptionWrapper .descriptionHeader a
 
 ${rdoExecuteParemeter}     AskValue-0
+${btnShowPublishSettings}      css=#ShowPublishSettingsButton
+${btnShowValidateButton}       css=#ShowValidateButton
 
 *** Keywords ***
 Wait Angle Page Document Loaded
@@ -251,41 +254,22 @@ Get Display Name By Index
     ${displayName}    Execute JavaScript    return $('${ddlSelectDisplaySelector}').text()
     [Return]    ${displayName}
 
-Verify Disable Add Filter And Jump Button In Display Popup
-    [Arguments]    ${disabled}
-    Click Edit Display
-    Click Display Detail Filter And Jumps Tab
-    ${DisableFilterButton}    Is Element Has CssClass    ${btnAddDisplayFilter}   disabled
-    Should Be True    ${DisableFilterButton} == ${disabled}
-    ${DisableJumpButton}    Is Element Has CssClass    ${btnAddDisplayJump}   disabled
-    Should Be True    ${DisableJumpButton} == ${disabled}
-    Save Display Detail From Popup
+Open Angle Publishing Popup
+    Click Element   ${btnShowPublishSettings}
+    Wait Angle Publishing Popup Loaded
 
-Verify Disable Drilldown
-    [Arguments]    ${disabled}
-    Add Column By Search And Add To List Display If Not Exist    ${fieldId}    ${fieldKeyword}
-    Click First Row Cell By Column index    ${fieldId}
-    Click Angle Dropdown Actions Save Existing Display
-    ${DisableDrilldownButton}    Is Element Has CssClass    ${btnCreateDrilldownToItem}   disabled
-    Should Be True    ${DisableDrilldownButton} == ${disabled}
+Check Angle Is Published
+    Page Should Contain Element    ${btnShowPublishSettings}.btn-primary
 
-Verify Disable Remove Column And Filter Button In Header Popop
-    [Arguments]    ${disabled}
-    Click Header by Data Field Angle Grid List Display    ${fieldId}
-    ${DisableRemoveColumnButton}    Is Element Has CssClass    ${btnRemoveColumnFromList}   disabled
-    Should Be True    ${DisableRemoveColumnButton} == ${disabled}
-    ${DisableAddFilterButton}    Is Element Has CssClass    ${btnAddFilterToList}   disabled
-    Should Be True    ${DisableAddFilterButton} == ${disabled}
+Check Angle Is Unpublished
+    Page Should Contain Element    ${btnShowPublishSettings}.btn-light
 
-Set Angle To Not Allow User To Obtain More Details
-    Open Angle Detail Popup
-    Click Angle Detail Publishing Tab
-    Click Do Not Allow User To Obtain More Details
-    Click Save Angle
+Open Angle Validating Popup
+    Click Element   ${btnShowValidateButton}
+    Wait Angle Validating Popup Loaded
 
-Set Angle To Allow User To Obtain More Details
-    Open Angle Detail Popup
-    Click Angle Detail Publishing Tab
-    Click Allow User To Obtain More Details
-    Click Save Angle
+Check Angle Is Validated
+    Page Should Contain Element    ${btnShowValidateButton}.btn-success
 
+Check Angle Is Unvalidated
+    Page Should Contain Element    ${btnShowValidateButton}.btn-light

@@ -9,17 +9,17 @@ Force Tags          acceptance_s    acc_wc_s
 *** Test Cases ***
 Verify Execute Last Search
     Login To WC By Power User
-    Open User Settings Popup
-    Click Actions At Login Tab
+    Open User Settings Panel
+    Click User Tab
     ${lastSearchStatus}    Get Checkbox Repeat Last Executed Search Status
     Check Checkbox Repeat Last Executed Search
-    Click Save User Settings Via Search Page
+    Click Save User Settings
     ${randomText}    Generate Random String    10    [LOWER]
     Search By Text    ${randomText}
     Logout
     Login To WC By Power User
     Search Input Should Be    "${randomText}"
-    Open User Settings Popup
-    Click Actions At Login Tab
+    Open User Settings Panel
+    Click User Tab
     Set Checkbox Repeat Last Executed Search Status    ${lastSearchStatus}
-    Click Save User Settings Via Search Page
+    Click Save User Settings

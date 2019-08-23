@@ -62,6 +62,7 @@
         var maxNumberOfMassChangeItems = parseInt('@EveryAngle.Shared.Helpers.WebConfigHelper.GetAppSettingByKey("MaxNumberOfMassChangeItems")');
         var maxNumberOfDashboard = parseInt('@EveryAngle.Shared.Helpers.WebConfigHelper.GetAppSettingByKey("MaxNumberOfDashboard")');
         var largePageSize = parseInt('@EveryAngle.Shared.Helpers.WebConfigHelper.GetAppSettingByKey("LargePageSize")');
+        var enableGoToSAP = '@EveryAngle.Shared.Helpers.WebConfigHelper.GetAppSettingByKey("EnableGoToSAP").ToLower()' === 'true';
         var textDays = Localization.Days;
         var requireUserNameAndPasword = Localization.PleaseEnterYourUsernameAndPassword;
     </script>
@@ -154,19 +155,39 @@
         </div>
     </div>
 
-    <div id="PopupProgressBarwrapper" class="k-widget k-window eaPopup popupProgressBar popup-initialized" style="opacity: 1;">
+    <div id="PopupProgressBarwrapper" class="k-widget k-window popupProgressBar popup-initialized" style="opacity: 1;">
         <div class="k-window-titlebar k-header">&nbsp;<span class="k-window-title" id="popupProgressBar_wnd_title">@EveryAngle.Shared.Globalization.Resource.ProgressbarProgressing</span><div class="k-window-actions"></div></div>
         <div id="popupProgressBar" class="k-window-content k-content">
             <div id="ProgressBar" class="k-widget k-progressbar k-progressbar-horizontal"></div>
             <div id="ProgressPercent">0%</div>
             <div id="ProgressText">@EveryAngle.Shared.Globalization.Resource.ProgressBar_PleaseWait</div>
-            <a class="btn btnCenter disabled" id="CancelProgress"><span>@EveryAngle.Shared.Globalization.Captions.Button_Cancel</span></a>
+            <a class="btn btn-ghost btnCenter disabled" id="CancelProgress"><span>@EveryAngle.Shared.Globalization.Captions.Button_Cancel</span></a>
         </div>
     </div>
     <div class="k-overlay"></div>
 
+    <span id="ToastNotificationContainer"></span>
+    <script id="ToastNotificationAlertTemplate" type="text/x-kendo-template">
+        <article class="toast-notification #= type #">
+            <div class="toast-notification__status-icon-wrapper">
+                <div class="toast-notification__status-icon toast-notification__color toast-notification__border-color">
+                    <i class="#= icon #"></i>
+                </div>
+            </div>
+            <section class="toast-notification__info">
+                <h1>#= title #</h1>
+                <p>#= message #</p>
+            </section>
+            <button class="toast-notification__close-icon">
+                <i class="icon icon-close"></i>
+            </button>
+            <div class="toast-notification__progress-bar toast-notification__bg-color" style="transition-duration: #= progressbarDuration #s;"></div>
+        </article>
+    </script>
+
     <div id="LoginModalPlaceHolder"></div>
 
+    @RenderPage("~/Views/Shared/Top/SettingsPanel.cshtml")
 
     @if (Convert.ToBoolean(EveryAngle.Shared.Helpers.WebConfigHelper.GetAppSettingByKey("EnableMiniprofiler")))
     {

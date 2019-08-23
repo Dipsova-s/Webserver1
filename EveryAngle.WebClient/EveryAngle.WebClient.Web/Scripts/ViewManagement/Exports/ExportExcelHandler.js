@@ -93,27 +93,6 @@ function ExportExcelHandler() {
             DeleteDataToWebService(uri);
         }
     };
-    self.ShowExcelReportPopup = function () {
-        var popupName = 'ExcelReport',
-            popupSettings = {
-                width: 800,
-                height: 600,
-                title: Captions.Label_Excel_Report,
-                element: '#popup' + popupName,
-                className: 'popup' + popupName,
-                actions: ["Maximize"],
-                buttons: [
-                    {
-                        text: Localization.Ok,
-                        position: 'right',
-                        isPrimary: true,
-                        click: 'close'
-                    }
-                ]
-            };
-
-        return popup.Show(popupSettings);
-    };
     self.DoneToGenerateExcel = function (isDeleteProgress) {
         progressbarModel.IsCancelPopup = true;
         progressbarModel.EndProgressBar();

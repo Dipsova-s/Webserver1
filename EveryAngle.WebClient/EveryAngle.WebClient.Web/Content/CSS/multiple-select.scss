@@ -1,0 +1,45 @@
+@import '_mixins.scss';
+
+/* .multiple-select
+============================================ */
+.multiple-select-items {
+    .multiple-select-header,
+    .multiple-select-button {
+        cursor: default;
+        position: relative;
+        box-sizing: border-box;
+        margin: 0 5px 5px 0;
+        line-height: 20px;
+        font-size: 11px;
+    }
+
+    .multiple-select-header {
+        order: 1;
+        font-style: italic;
+        color: #78909c;
+    }
+
+    .multiple-select-button {
+        cursor: pointer;
+        order: 2;
+        height: 16px;
+        width: 16px;
+        margin-right: 0;
+        font-size: 9px;
+        line-height: 15px;
+        color: #78909c;
+        text-align: center;
+
+        &.disabled {
+            opacity: .3;
+            cursor: default;
+        }
+    }
+}
+
+.multiple-select-list {
+    position: absolute;
+    z-index: 100000;
+    min-width: 80px;
+    font-size: 11px;
+}

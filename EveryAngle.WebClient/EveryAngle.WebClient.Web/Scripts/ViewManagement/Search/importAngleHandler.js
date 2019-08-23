@@ -19,7 +19,7 @@ function ImportAngleHandler() {
         '<div class="popupTabPanel popupImportAngleContainer">',
         '<div class="row">',
         '<div class="field" data-bind="text: Localization.Model">' + Localization.Model + '</div>',
-        '<div class="input"><div class="eaDropdown" id="ddlModelImportAngle"></div></div>',
+        '<div class="input"><div class="k-dropdown" id="ddlModelImportAngle"></div></div>',
         '</div>',
         '<div class="row rowUpload">',
         '<div class="input"><input name="file" id="ImportAngle" type="file" value="import angle" accept="' + self.AllowedExtensions.join(',') + '"/></div>',

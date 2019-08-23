@@ -24,6 +24,9 @@ namespace EveryAngle.Core.ViewModels.WebClientSettings
         [Display(Name = "Google Analytics ID")]
         public string GoogleAnalyticsId { get; set; }
 
+        [Display(Name = "Enable Go to SAP")]
+        public bool EnableGoToSAP { get; set; }
+
         #endregion
 
         #region Trouble shooting

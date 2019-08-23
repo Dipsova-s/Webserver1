@@ -17,7 +17,7 @@ Add Display To Angle Test
     Create New Chart Display on Angle Page
     Back To Search
     Search By Text And Expect In Search Result    ${TEST_ADD_ANGLE_DISPLAY_NAME}
-    Click Sort By Created On Descending On Search Page
+    Click Sort By Created Descending In Search Page
     Click Select First Item From Search Result
     ${displayLength}    Get Number Display Of Selected Item From Search Result
     ${expectedResult}    Convert To Integer    3

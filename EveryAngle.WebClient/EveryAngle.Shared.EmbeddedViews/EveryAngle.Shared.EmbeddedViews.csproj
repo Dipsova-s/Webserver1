@@ -171,9 +171,7 @@
     <EmbeddedResource Include="Resource\FieldsChooser\icon_yes_no.png" />
     <EmbeddedResource Include="Resource\FieldsChooser\icon_datetime.png" />
     <EmbeddedResource Include="Resource\FieldsChooser\icon_unknown.png" />
-    <EmbeddedResource Include="Resource\Shared\checkbox.png" />
     <EmbeddedResource Include="Resource\Shared\customkendogridui.js" />
-    <EmbeddedResource Include="Resource\Shared\radio.png" />
     <EmbeddedResource Include="Resource\Shared\shared.css" />
     <EmbeddedResource Include="Resource\Shared\shared.js" />
   </ItemGroup>

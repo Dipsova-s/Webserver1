@@ -30,7 +30,7 @@ var findAngleResultHtmlTemplate = function () {
                     '</label>',
                 '</div>',
                 '<div>',
-                    '<input id="fieldDropdownList" class="eaDropdown" />',
+                    '<input id="fieldDropdownList" class="k-dropdown" />',
                 '</div>',
             '</fieldset>',
             '<fieldset class="findPopupOption findPopupOptionDirection">',

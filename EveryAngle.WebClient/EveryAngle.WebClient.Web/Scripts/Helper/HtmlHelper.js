@@ -161,12 +161,12 @@
                 if (arguments.length === 1)
                     return null;
 
-                var isLargeDropdown = element.hasClass('eaDropdownSize40'),
+                var isLargeDropdown = element.hasClass('k-dropdown-large'),
                     settings = jQuery.extend({
                         dataTextField: 'name',
                         dataValueField: 'id',
                         index: 0,
-                        height: isLargeDropdown ? 37 * 8 : 35 * 8
+                        height: isLargeDropdown ? 40 * 8 : 28 * 8
                     }, options || {});
                 if (!settings.template && settings.dataValueField) {
                     settings.template = '<span title="#= ' + settings.dataTextField + ' #">#= ' + settings.dataTextField + ' #</span>';
@@ -188,7 +188,7 @@
                     ui.wrapper.attr('id', elementId + '_ddlWrapper');
 
                 if (isLargeDropdown)
-                    ui.list.addClass('k-list-large-container');
+                    ui.list.addClass('k-list-container-large');
 
                 var fontSize = ui.wrapper.css('font-size');
                 if (fontSize) {
@@ -210,6 +210,19 @@
                     callback();
                 }
             });
+        },
+        SetTouchScrollEvent: function (element) {
+            // scroll area can use on touch device only (because laptop and pc can scroll by wheel mouse)
+            if (Modernizr.touch) {
+                new kendo.UserEvents(element, { //NOSONAR
+                    global: true,
+                    move: function (e) {
+                        var target = jQuery(e.sender.currentTarget);
+                        target.scrollTop(target.scrollTop() - e.y.delta);
+                        e.preventDefault();
+                    }
+                });
+            }
         }
     };
 

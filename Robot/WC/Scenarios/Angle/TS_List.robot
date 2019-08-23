@@ -20,11 +20,9 @@ Create List Display From Pivot And Delete It
     Delete Current Display
 
 Quick Filter Options For Number
-    [Arguments]   ${objectName}    ${angleName}    ${fieldId}    ${fieldKeyword}
-    Create Angle From One Object List And Save    ${objectName}    ${angleName}
-    Wait Progress Bar Closed
-    Change Display By Name    Basic List
-    Add Column By Search And Add To List Display If Not Exist    ${fieldId}    ${fieldKeyword}
+    [Arguments]   ${angleName}    ${fieldId}
+    Search Angle From Search Page And Execute Angle    ${angleName}
+    Scroll To Angle Grid Header List Display    ${fieldId}
     Click Header by Data Field Angle Grid List Display    ${fieldId}
     Click Format Field From Header Column
     Select K unit
@@ -32,14 +30,27 @@ Quick Filter Options For Number
     Click Submit List Field Format
     Click First Row Cell By Column index    ${fieldId}
     Select Quick Filter Options
-    ${quickFilterOptions}    Collect Quick Filter Options
-    Quick Filter Options Should Contain Match    ${quickFilterOptions}    ^Is between
-    Quick Filter Options Should Contain Match    ${quickFilterOptions}    ^Is not between
-    Quick Filter Options Should Contain Match    ${quickFilterOptions}    ^Is empty
-    Quick Filter Options Should Contain Match    ${quickFilterOptions}    ^Is not empty
-    Quick Filter Options Should Contain Match    ${quickFilterOptions}    ^Is greater than
-    Quick Filter Options Should Contain Match    ${quickFilterOptions}    ^Is smaller than
-    Back To Search And Delete Angle Are Created    ${angleName}
+    ${quickFilterOptions}    Get Active Context Menu List Items
+    Active Context Menu Should Contain Match    ${quickFilterOptions}    ^Is between
+    Active Context Menu Should Contain Match    ${quickFilterOptions}    ^Is not between
+    Active Context Menu Should Contain Match    ${quickFilterOptions}    ^Is empty
+    Active Context Menu Should Contain Match    ${quickFilterOptions}    ^Is not empty
+    Active Context Menu Should Contain Match    ${quickFilterOptions}    ^Is greater than
+    Active Context Menu Should Contain Match    ${quickFilterOptions}    ^Is smaller than
+
+Check Goto SAP Transaction With Multiple Rows
+    [Arguments]    ${fields}     ${rowNumbers}
+    :FOR    ${rowNumber}    IN    @{rowNumbers}
+    \    Check Goto SAP Transaction    ${fields}    ${rowNumber}
+
+Check Goto SAP Transaction
+    [Arguments]    ${fields}     ${rowNumber}
+    :FOR    ${field}    IN    @{fields}
+    \    Press Keys    None    ESC
+    \    Click Row Cell By Column index    ${field}    ${rowNumber}
+    \    Select Goto SAP Option
+    \    ${sapTransactions}    Get Active Context Menu List Items
+    \    Should Not Be Empty    ${sapTransactions}
 
 Create Chart From List Header Column
     [Arguments]    ${fieldId}    ${fieldKeyword}
@@ -77,4 +88,30 @@ Remove Field Format From Changing
     Click Header by Data Field Angle Grid List Display    ${fieldName}  
     Click Format Field From Header Column
     Press Key    ${txtFieldName}    \\8
-    Click OK Button On Field Format Popup  
+    Click OK Button On Field Format Popup
+
+Verify Disable Add Filter And Jump Button In Display Popup
+    [Arguments]    ${disabled}
+    Click Edit Display
+    Click Display Detail Filter And Jumps Tab
+    ${DisableFilterButton}    Is Element Has CssClass    ${btnAddDisplayFilter}   disabled
+    Should Be True    ${DisableFilterButton} == ${disabled}
+    ${DisableJumpButton}    Is Element Has CssClass    ${btnAddDisplayJump}   disabled
+    Should Be True    ${DisableJumpButton} == ${disabled}
+    Save Display Detail From Popup
+
+Verify Disable Drilldown
+    [Arguments]    ${disabled}  ${fieldId}    ${fieldKeyword}
+    Add Column By Search And Add To List Display If Not Exist    ${fieldId}    ${fieldKeyword}
+    Click First Row Cell By Column index    ${fieldId}
+    Click Angle Dropdown Actions Save Existing Display
+    ${DisableDrilldownButton}    Is Element Has CssClass    ${btnCreateDrilldownToItem}   disabled
+    Should Be True    ${DisableDrilldownButton} == ${disabled}
+
+Verify Disable Remove Column And Filter Button In Header Popop
+    [Arguments]    ${disabled}  ${fieldId}
+    Click Header by Data Field Angle Grid List Display    ${fieldId}
+    ${DisableRemoveColumnButton}    Is Element Has CssClass    ${btnRemoveColumnFromList}   disabled
+    Should Be True    ${DisableRemoveColumnButton} == ${disabled}
+    ${DisableAddFilterButton}    Is Element Has CssClass    ${btnAddFilterToList}   disabled
+    Should Be True    ${DisableAddFilterButton} == ${disabled}

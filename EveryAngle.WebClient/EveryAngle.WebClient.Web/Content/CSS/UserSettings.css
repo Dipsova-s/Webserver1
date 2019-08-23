@@ -1,380 +1,232 @@
-/* .popupUserSetting
-============================================ */
-.popupUserSetting .popupTabMenu li {
-    cursor: default;
+
+#SettingsIcon {
+    background: transparent url(../../images/icons/icon_gear.svg) center no-repeat;
 }
 
-.popupUserSetting .popupTabMenu a {
-    width: 195px;
-    cursor: pointer;
-}
-
-.popupUserSetting .hasSubMenu {
-    background-position: 98% 15px;
-    overflow: hidden;
-}
-
-.popupUserSetting .hasSubMenu.Selected {
-    background-image: url('../../images/icons/icon_arrow_down.svg');
-    background-position: 98% 15px;
-    height: auto;
-}
-
-.popupUserSetting .subMenu {
-    padding-left: 0;
-}
-
-.popupUserSetting .subMenu li {
-    position: relative;
-    background: #fbfbfb none;
-    height: 27px;
-}
-
-.popupUserSetting .subMenu li:hover {
-    background: #ffffff none;
-}
-
-.popupUserSetting .subMenu .Selected,
-.popupUserSetting .subMenu .Selected:hover {
-    background: #f1f1f1 none;
-}
-
-.popupUserSetting .subMenu a {
+.settingsPanel {
+    box-shadow: 0 6px 12px 0 rgba(8, 35, 48, 0.14), 0 16px 24px 0 rgba(8, 35, 48, 0.08);
+    background-color: #f7f9fa;
+    width: 354px;
     position: absolute;
-    left: 0;
-    top: 0;
-    font-size: 13px;
-    color: #333;
+    top: 48px;
+    right: 0;
+    transition: right .3s ease-in-out;
+    z-index: 1000;
+}
+
+.settingsPanel.hide {
+    position: fixed;
+    right: -364px;
+}
+
+.settingsPanel .card-header,
+.settingsPanel .accordion-header {
+    color: #069697;
+}
+
+.settingsPanel h4 {
+    font-size: 10px;
     font-weight: bold;
-    width: 200px;
-    height: 27px;
-    padding-left: 20px;
-    line-height: 27px;
-    box-sizing: border-box;
+    letter-spacing: 1.5px;
+    margin: 0 0 10px 0;
+}
+.settingsPanel hr {
+    border-top: 2px solid #fff;
+    margin: 10px;
 }
 
-.popupUserSetting .popupTabPanel > div {
-    overflow: hidden;
+.settingsPanel .greyText {
+    color: #919699;
 }
-
-.popupUserSetting .input label {
-    font-weight: normal;
-    display: inline;
-    font-size: 12px;
+.settingsPanel .darkText {
+    color: #3d4852;
 }
-
-#SettingArea h2 {
-    position: relative;
-    margin: 0;
-    color: #666666;
-    font-size: 18px;
-    font-style: normal;
-    font-weight: normal;
-    text-decoration: none;
-}
-
-.popupUserSetting .eaDropdown {
-    width: 100%;
-    min-width: 130px;
-    font-size: 14px;
-}
-
-/* #UserDetailSettingArea
-============================================ */
-#UserDetailSettingArea h2 {
-    margin-bottom: 10px;
-}
-
-#UserDetailSettingArea .row {
-    margin-bottom: 10px;
-}
-
-#UserDetailSettingArea .field {
-    font-weight: normal;
-    width: 140px;
-}
-
-#UserDetailSettingArea .field + .input {
-    margin-left: 140px;
-}
-
-#UserDetailSettingArea .k-dropdown {
-    width: 200px;
-}
-
-.sectionUserDetails {
-    margin: 0 0 20px 0;
-}
-
-#AuthorizationStatus .labelGroup {
-    position: static;
-    font-weight: bold;
-    margin-top: 0;
-    margin-bottom: 5px;
-    width: 100%;
-}
-
-#AuthorizationStatus .labelGroup + .input {
-    margin-left: 0;
-}
-
-#UserDetailSettingArea .labelCategories .field {
-    top: 3px;
-    margin-top: 0;
-}
-
-#UserDetailSettingArea .labelCategories .row {
-    margin-bottom: 5px;
-}
-
-#UserDetailSettingArea .InfoFocus span {
-    max-width: none;
-    min-width: 0;
-}
-
-/* #SystemSettingArea
-============================================ */
-#SystemSettingArea .row {
-    margin-bottom: 15px;
-}
-
-#SystemSettingArea .field {
-    width: 100%;
-    font-weight: bold;
-    position: static;
-    margin-top: 0;
-    margin-bottom: 3px;
-}
-
-#SystemSettingArea .field + .input {
-    margin-left: 0;
-    overflow: hidden;
-}
-
-#SystemSettingArea .field + .inputBusinessProcesses {
-    overflow: visible;
-}
-
-#UserSettingsBusinessProcesses {
-    overflow: visible;
-    height: 48px;
-}
-
-#SystemSettingArea .businessProcesses {
+.settingsPanel small {
     display: block;
-    margin-bottom: 3px;
-    max-width: 470px;
-    z-index: 100;
-}
-
-#SystemSettingArea .rowLanguage {
-    height: 60px;
-    overflow: hidden;
-}
-
-#SystemSettingArea .columnLanguage,
-#SystemSettingArea .columnExportRow {
-    margin: 0 0 5px 20px;
-    float: left;
-}
-
-#SystemSettingArea .columnLanguage {
-    width: 200px;
-    margin-left: 0;
-}
-
-#SystemSettingArea .columnExportRow {
-    width: 260px;
-}
-
-#SystemSettingArea .columnLanguage .field,
-#SystemSettingArea .columnExportRow .field {
-    white-space: nowrap;
-    text-overflow: ellipsis;
-    overflow: hidden;
-}
-
-#SystemSettingArea .k-dropdown {
-    width: 200px;
-}
-
-#SystemSettingArea .iconWarning {
-    position: relative;
-    top: -3px;
-    display: inline-block;
-    vertical-align: middle;
-    width: 20px;
-    height: 16px;
-    background: transparent url('../../images/icons/icon_warning.svg') center top no-repeat;
-}
-
-#DefaultStarredfieldsLabel img {
-    position: absolute;
-    top: -5px;
-    margin-left: -3px;
-}
-
-#DefaultStarredfieldsLabel span {
-    margin-left: 18px;
-}
-
-#DefaultSuggestedfieldsLabel img {
-    position: absolute;
-    top: -5px;
-    margin-left: -3px;
-}
-
-#DefaultSuggestedfieldsLabel span {
-    margin-left: 18px;
-}
-
-#SystemSettingArea .rowFieldChooser .input,
-#SystemSettingArea .rowTechInfo .input {
-    padding-bottom: 5px;
-}
-
-/* .formatSettingsArea
-============================================ */
-.formatSettingsArea .row {
-    min-height: 40px;
-    margin-bottom: 10px;
-}
-
-.formatSettingsArea .field {
-    top: 0;
-    margin-top: 0;
-    width: 155px;
-}
-
-.formatSettingsArea .field > span {
-    display: table-cell;
-    vertical-align: middle;
-    height: 40px;
-    font-weight: normal;
-}
-
-.formatSettingsArea .input label {
-    display: inline-block;
-    margin-top: 12px;
-}
-
-.formatSettingsArea .input {
-    width: 220px;
-}
-
-.formatSettingsArea .input .eaText {
-    font-size: 14px;
-}
-
-.formatSettingsArea fieldset {
-    clear: both;
-    overflow: hidden;
-    padding-top: 10px;
-    padding-bottom: 10px;
-    padding-right: 0;
-    margin-top: 10px;
-    margin-bottom: 10px;
-    border: 1px solid #8f8f8f;
-}
-
-.formatSettingsArea legend {
-    font-weight: bold;
-}
-
-.formatSettingsArea .formatExample {
-    float: left;
-    margin-right: 20px;
-    margin-bottom: 5px;
-}
-
-.formatSettingsArea .formatExample.last {
-    margin-right: 0;
-}
-
-.formatSettingsArea .formatDescription {
-    position: absolute;
-    left: 15px;
-    bottom: 15px;
-    color: #333;
-}
-
-.formatSettingsArea .rowWithThousandCheckbox {
-    margin-bottom: 16px;
-}
-
-.formatSettingsArea .checkboxThousandSeparator {
-    margin-top: 3px;
-}
-
-/* #ActionSettingArea
-============================================ */
-#ActionItems {
-    margin: 20px 0 0 0;
-    padding-top: 1px;
-    padding-bottom: 5px;
-    position: relative;
-}
-
-.ActionItem {
-    position: relative;
-    padding-left: 47px;
-    padding-right: 50px;
-    height: 46px;
-    line-height: 18px;
-    background-color: #dcdcdc;
-    border: 1px solid #b3b3b3;
-    border-top-width: 0;
-    box-sizing: border-box;
-}
-
-.ActionItem:first-child {
-    border-top-width: 1px;
-}
-
-.ActionItem > span {
-    display: block;
-    overflow: hidden;
-    white-space: nowrap;
-    text-overflow: ellipsis;
-    margin-top: 4px;
-}
-
-.ActionItem .dashboard + span {
-    margin-top: 14px;
-}
-
-.ActionItem em {
+    text-align: right;
+    font-size: 10px;
     font-style: italic;
-    color: #777;
+    letter-spacing: 0.25px;
+    color: #78909c;
 }
 
-.ActionItem .linkDisplay,
-.ActionItem .btnDelete {
-    position: absolute;
-    top: 50%;
-    right: 6px;
-    margin-top: -14px;
-    width: 28px;
-    min-width: 0;
-    height: 26px;
-    border-radius: 2px;
+.settingsPanel .accordion {
+    overflow: hidden;
+}
+.settingsPanel .accordion-body {
+    padding-top: 0;
 }
 
-.ActionItem .linkDisplay {
-    right: auto;
-    left: 10px;
-    width: 25px;
-    height: 25px;
-    z-index: 10;
-    background-size: 20px 20px;
+.settingsPanel input[type="text"],
+.settingsPanel .k-dropdown {
+    width: 100%;
 }
 
-.ActionItem .linkDisplay:after {
+.settingsPanel fieldset {
+    margin-bottom: 10px;
+    border-radius: 4px;
+    border: solid 1px #e3e5e5;
+    color: #78909c;
+}
+.settingsPanel fieldset p {
+    margin: 0;
+}
+.settingsPanel fieldset p:not(:last-child) {
+    margin-bottom: 10px;
+}
+
+.settingsPanelTabs {
+    background: #f6eac1;
+    background: linear-gradient(to right, #f6eac1 1%,#f9d8cc 100%);
+}
+
+.settingsPanelTabsWrapper {
+    display: flex;
+    align-items: center;
+    height: 36px;
+    margin: 0 6px;
+}
+
+.settingsPanelTab {
+    display: inline-flex;
+    flex-grow: 1;
+    flex-basis: 0;
+    height: 100%;
+}
+
+.settingsPanelTab label {
+    flex-grow: 1;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    color: rgba(145, 150, 153, 0.87);
+}
+
+.settingsPanelTab .settingsPanelTabSelector:checked + label {
+    background-color: #f7f9fa;
+    color: #3e4345;
+}
+
+.settingsPanelTabSelector {
     display: none;
 }
 
-.ActionItem .btnDelete:after {
-    background: transparent url('../../images/icons/icon_bin.png') center center no-repeat;
-    width: 26px;
-    right: 0;
+.settingsPanelContentsWrapper {
+    width: 100%;
+    height: calc(var(--vh, 1vh) * 100 - 133px);
+    padding: 20px 20px 0 20px;
+    box-sizing: border-box;
+}
+
+.settingsPanelContentsWrapper:focus {
+    outline: none;
+}
+
+.settingsPanelContent {
+    display: none;
+    margin: -10px -10px 0 -10px;
+}
+
+.settingsPanelContent.active {
+    display: block;
+}
+
+.settingsPanelSection {
+    overflow: hidden;
+}
+
+.settingsPanelLabelWrapper {
+    border-radius: 2px;
+    border: solid 1px #e3e5e5;
+    background-color: #f7f9fa;
+    padding: 5px;
+    overflow: auto;
+    padding-top: 2px;
+    padding-bottom: 2px;
+}
+
+.settingsPanelLabel {
+    border-radius: 14px;
+    background-color: #e9ecee;
+    padding: 4px 11px;
+    margin: 3px;
+    float: left;
+}
+.settingsPanelProfile .card-body {
+    padding-bottom: 0;
+}
+.settingsPanelProfileName {
+    margin-top: -5px;
+}
+.settingsPanelProfileName strong {
+    display: block;
+    font-size: 14px;
+}
+
+.settingsPanelValidateLabels {
+    margin-top: 10px;
+}
+.settingsPanelValidateLabels:first-child {
+    margin-top: 0;
+}
+
+.settingsPanelActionsAtLoginDisplays {
+    margin-left: 25px;
+}
+.settingsPanelActionsAtLoginDisplaysItem {
+    display: flex;
+    align-items: center;
+    margin-top: 10px;
+}
+.settingsPanelActionsAtLoginDisplaysItem:first-child {
+    margin-top: 0;
+}
+.settingsPanelActionsAtLoginDisplays .icon.display {
+    margin-right: 5px;
+    font-size: 16px;
+    width: 24px;
+    color: #78909c;
+    text-align: center;
+}
+.settingsPanelActionsAtLoginDisplays .icon.delete-red {
+    cursor: pointer;
+}
+.settingsPanelActionsAtLoginDisplays a {
+    display: inline-flex;
+    width: 95%;
+}
+.settingsPanelActionsAtLoginDisplayText span {
+    display: block;
+}
+.settingsPanelActionsAtLoginDisplayText .greyText {
+    font-size: 11px;
+}
+
+.settingsPanelDefaultBusinessProcess .businessProcessesCheckBoxList {
+    overflow: visible;
+    width: auto;
+}
+.settingsPanelDefaultBusinessProcess .BusinessProcessCheckBox {
+    display: block;
+    padding: 0;
+    width: auto;
+}
+.settingsPanelDefaultBusinessProcess .BusinessProcessCheckBox:not(:last-child) {
+    margin-bottom: 10px;
+}
+
+.settingsPanelGoToSap .btn-info {
+    position: relative;
+    top: 2px;
+}
+.settingsPanelGoToSap .btn-download .icon {
+    position: relative;
+    top: 0;
+    font-size: 17px;
+    color: #78909c;
+    transition: all .3s cubic-bezier(.25,.8,.25,1);
+}
+.settingsPanelGoToSap .btn-download:hover .icon {
+    top: -5px;
 }

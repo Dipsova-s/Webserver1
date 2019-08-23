@@ -54,6 +54,7 @@ function ScheduleAngleHandler() {
 
     self.ShowPopupCallback = function (e) {
         e.sender.element.busyIndicator(true);
+        e.sender.element.find('.scheduleAngleArea').css('opacity', 0);
 
         /* BOF: Generate datas for field dropdown list */
         self.GetTasks()
@@ -62,6 +63,7 @@ function ScheduleAngleHandler() {
             })
             .always(function () {
                 e.sender.element.busyIndicator(false);
+                e.sender.element.find('.scheduleAngleArea').css('opacity', '');
             });
         /* EOF: Generate datas for field dropdown list */
     };

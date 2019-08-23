@@ -66,6 +66,10 @@
       <Link>ManagementConsole\Dependencies\custom\MC.ui.password.js</Link>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="..\EveryAngle.ManagementConsole\Scripts\Page\MC.GlobalSettings.WebClientSettings.js">
+      <Link>ManagementConsole\Dependencies\page\MC.GlobalSettings.WebClientSettings.js</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="..\EveryAngle.ManagementConsole\Scripts\Page\MC.Models.Communications.js">
       <Link>ManagementConsole\Dependencies\page\MC.Models.Communications.js</Link>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
@@ -114,6 +118,25 @@
       <Link>WebClient\Dependencies\Helper\HtmlHelper.Tooltip.js</Link>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="..\EveryAngle.WebClient.Web\Scripts\KendoUI\kendo.data.min.js">
+      <Link>WebClient\Dependencies\KendoUI\kendo.data.min.js</Link>
+    </Content>
+    <Content Include="..\EveryAngle.WebClient.Web\Scripts\ViewManagement\Angle\AnglePublishStateHandler.js">
+      <Link>WebClient\Dependencies\ViewManagement\Angles\AnglePublishStateHandler.js</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\EveryAngle.WebClient.Web\Scripts\ViewManagement\Angle\AngleStateHandler.js">
+      <Link>WebClient\Dependencies\ViewManagement\Angles\AngleStateHandler.js</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\EveryAngle.WebClient.Web\Scripts\ViewManagement\Angle\AngleStateView.js">
+      <Link>WebClient\Dependencies\ViewManagement\Angles\AngleStateView.js</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\EveryAngle.WebClient.Web\Scripts\ViewManagement\Angle\AngleValidateStateHandler.js">
+      <Link>WebClient\Dependencies\ViewManagement\Angles\AngleValidateStateHandler.js</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="..\EveryAngle.WebClient.Web\Scripts\ViewManagement\Angle\FollowupPageHandler.js">
       <Link>WebClient\Dependencies\ViewManagement\Angles\FollowupPageHandler.js</Link>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
@@ -130,16 +153,71 @@
       <Link>WebClient\Dependencies\ViewManagement\Dashboard\DashboardFiltersHandler.js</Link>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="..\EveryAngle.WebClient.Web\Scripts\ViewManagement\Dashboard\DashboardPublishStateHandler.js">
+      <Link>WebClient\Dependencies\ViewManagement\Dashboard\DashboardPublishStateHandler.js</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\EveryAngle.WebClient.Web\Scripts\ViewManagement\Dashboard\DashboardStateHandler.js">
+      <Link>WebClient\Dependencies\ViewManagement\Dashboard\DashboardStateHandler.js</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\EveryAngle.WebClient.Web\Scripts\ViewManagement\Dashboard\DashboardStateView.js">
+      <Link>WebClient\Dependencies\ViewManagement\Dashboard\DashboardStateView.js</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\EveryAngle.WebClient.Web\Scripts\ViewManagement\Dashboard\DashboardValidateStateHandler.js">
+      <Link>WebClient\Dependencies\ViewManagement\Dashboard\DashboardValidateStateHandler.js</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\EveryAngle.WebClient.Web\Scripts\ViewManagement\Search\searchfilterlistviewhandler.js">
+      <Link>WebClient\Dependencies\ViewManagement\Search\searchfilterlistviewhandler.js</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="..\EveryAngle.WebClient.Web\Scripts\ViewManagement\Shared\AboutSystemHandler.js">
       <Link>WebClient\Dependencies\ViewManagement\Shared\AboutSystemHandler.js</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\EveryAngle.WebClient.Web\Scripts\ViewManagement\Shared\Breadcrumb\AngleBreadcrumbHandler.js">
+      <Link>WebClient\Dependencies\ViewManagement\Shared\Breadcrumb\AngleBreadcrumbHandler.js</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\EveryAngle.WebClient.Web\Scripts\ViewManagement\Shared\Breadcrumb\BreadcrumbHandler.js">
+      <Link>WebClient\Dependencies\ViewManagement\Shared\Breadcrumb\BreadcrumbHandler.js</Link>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="..\EveryAngle.WebClient.Web\Scripts\ViewManagement\Shared\ComponentServicesHandler.js">
       <Link>WebClient\Dependencies\ViewManagement\Shared\ComponentServicesHandler.js</Link>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="..\EveryAngle.WebClient.Web\Scripts\ViewManagement\Shared\ItemState\ItemPublishStateHandler.js">
+      <Link>WebClient\Dependencies\ViewManagement\Shared\ItemState\ItemPublishStateHandler.js</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\EveryAngle.WebClient.Web\Scripts\ViewManagement\Shared\ItemState\ItemStateHandler.js">
+      <Link>WebClient\Dependencies\ViewManagement\Shared\ItemState\ItemStateHandler.js</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\EveryAngle.WebClient.Web\Scripts\ViewManagement\Shared\ItemState\ItemStateView.js">
+      <Link>WebClient\Dependencies\ViewManagement\Shared\ItemState\ItemStateView.js</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\EveryAngle.WebClient.Web\Scripts\ViewManagement\Shared\ItemState\ItemValidateStateHandler.js">
+      <Link>WebClient\Dependencies\ViewManagement\Shared\ItemState\ItemValidateStateHandler.js</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\EveryAngle.WebClient.Web\Scripts\ViewManagement\Shared\ModelClassesHandler.js">
+      <Link>WebClient\Dependencies\ViewManagement\Shared\ModelClassesHandler.js</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="..\EveryAngle.WebClient.Web\Scripts\ViewManagement\Shared\NotificationsFeedHandler.js">
       <Link>WebClient\Dependencies\ViewManagement\Shared\NotificationsFeedHandler.js</Link>
+    </Content>
+    <Content Include="..\EveryAngle.WebClient.Web\Scripts\ViewManagement\Shared\ToastNotificationHandler.js">
+      <Link>WebClient\Dependencies\ViewManagement\Shared\ToastNotificationHandler.js</Link>
+    </Content>
+    <Content Include="..\EveryAngle.WebClient.Web\Scripts\ViewManagement\User\UserSettingsPanelHandler.js">
+      <Link>WebClient\Dependencies\ViewManagement\User\UserSettingsPanelHandler.js</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="..\EveryAngle.WebClient.Web\Scripts\ViewManagement\Shared\SearchStorageHandler.js">
       <Link>WebClient\Dependencies\ViewManagement\Shared\SearchStorageHandler.js</Link>
@@ -153,6 +231,7 @@
     <Content Include="ManagementConsole\Tests\Custom\MC.UtilModelServerInfoTest.js" />
     <Content Include="ManagementConsole\Tests\jQuery\jquery.extension.Test.js" />
     <Content Include="ManagementConsole\Tests\jQuery\jquery.validate.additional-methods.Test.js" />
+    <Content Include="ManagementConsole\Tests\Page\MC.GlobalSettings.WebClientSettingsTest.js" />
     <Content Include="ManagementConsole\Tests\Page\MC.Models.PackagesTest.js" />
     <Content Include="ManagementConsole\Tests\jQuery\jquery.validate.additional-methods.Test.js" />
     <Content Include="ManagementConsole\Tests\Page\MC.GlobalSettings.PackagesTest.js" />
@@ -352,10 +431,6 @@
     </Content>
     <Content Include="..\EveryAngle.WebClient.Web\Scripts\HtmlTemplate\Export\exportexcelhtmltemplate.js">
       <Link>WebClient\Dependencies\HtmlTemplate\Export\exportexcelhtmltemplate.js</Link>
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="..\EveryAngle.WebClient.Web\Scripts\HtmlTemplate\Menu\usersettingpopuphtmltemplate.js">
-      <Link>WebClient\Dependencies\HtmlTemplate\Menu\usersettingpopuphtmltemplate.js</Link>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="..\EveryAngle.WebClient.Web\Scripts\jQuery\jquery-migrate-1.2.1.js">
@@ -601,10 +676,6 @@
       <Link>WebClient\Dependencies\ViewManagement\Shared\WidgetFilter\WidgetFilterView.js</Link>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="..\EveryAngle.WebClient.Web\Scripts\ViewManagement\User\UserSettingHandler.js">
-      <Link>WebClient\Dependencies\ViewManagement\User\UserSettingHandler.js</Link>
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
     <Content Include="..\EveryAngle.WebClient.Web\Scripts\ViewManagement\User\UserSettingView.js">
       <Link>WebClient\Dependencies\ViewManagement\User\UserSettingView.js</Link>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
@@ -736,6 +807,9 @@
     <Content Include="WebClient\Tests\Helper\ModelHelperTest.js" />
     <Content Include="WebClient\Tests\ViewManagement\Angles\AngleActionMenuHandlerTest.js" />
     <Content Include="WebClient\Tests\ViewManagement\Angles\AngleDetailBodyPageHandlerTest.js" />
+    <Content Include="WebClient\Tests\ViewManagement\Angles\AngleValidateStateHandlerTest.js" />
+    <Content Include="WebClient\Tests\ViewManagement\Angles\AnglePublishStateHandlerTest.js" />
+    <Content Include="WebClient\Tests\ViewManagement\Angles\AngleStateHandlerTest.js" />
     <Content Include="WebClient\Tests\ViewManagement\Angles\ChartHandlerTest.js" />
     <Content Include="WebClient\Tests\ViewManagement\Angles\ListSortHandlerTest.js" />
     <Content Include="WebClient\Tests\ViewManagement\Angles\FollowupPageHandlerTest.js" />
@@ -750,6 +824,9 @@
     <Content Include="WebClient\Tests\Helper\UtilitiesTest.js" />
     <Content Include="WebClient\Tests\ViewManagement\Angles\ScheduleAngleHandlerTest.js" />
     <Content Include="WebClient\Tests\ViewManagement\CreateNewAngle\CreateNewAnglePageHandlerTest.js" />
+    <Content Include="WebClient\Tests\ViewManagement\Dashboard\DashboardPublishStateHandlerTest.js" />
+    <Content Include="WebClient\Tests\ViewManagement\Dashboard\DashboardStateHandlerTest.js" />
+    <Content Include="WebClient\Tests\ViewManagement\Dashboard\DashboardValidateStateHandlerTest.js" />
     <Content Include="WebClient\Tests\ViewManagement\Dashboard\DashboardHandlerTest.js" />
     <Content Include="WebClient\Tests\ViewManagement\Dashboard\DashboardDetailsHandlerTest.js" />
     <Content Include="WebClient\Tests\ViewManagement\Dashboard\DashboardFiltersHandlerTest.js" />
@@ -760,18 +837,25 @@
     <Content Include="WebClient\Tests\ViewManagement\Search\AngleExportHandlerTest.js" />
     <Content Include="WebClient\Tests\ViewManagement\Search\ImportAngleHandlerTest.js" />
     <Content Include="WebClient\Tests\ViewManagement\Search\ItemInfoHandlerTest.js" />
+    <Content Include="WebClient\Tests\ViewManagement\Search\SearchFilterListViewHandlerTest.js" />
     <Content Include="WebClient\Tests\ViewManagement\Search\SearchPageHandlerTest.js" />
     <Content Include="WebClient\Tests\ViewManagement\Shared\AboutSystemHandlerTest.js" />
+    <Content Include="WebClient\Tests\ViewManagement\Shared\Breadcrumb\AngleBreadcrumbHandlerTest.js" />
+    <Content Include="WebClient\Tests\ViewManagement\Shared\Breadcrumb\BreadcrumbHandlerTest.js" />
+    <Content Include="WebClient\Tests\ViewManagement\Shared\ItemState\ItemPublishStateHandlerTest.js" />
+    <Content Include="WebClient\Tests\ViewManagement\Shared\ItemState\ItemStateHandlerTest.js" />
+    <Content Include="WebClient\Tests\ViewManagement\Shared\ItemState\ItemValidateStateHandlerTest.js" />
     <Content Include="WebClient\Tests\ViewManagement\Shared\SearchStorageHandlerTest.js" />
     <Content Include="WebClient\Tests\ViewManagement\Shared\ModelFieldDomainHandlerTest.js" />
     <Content Include="WebClient\Tests\ViewManagement\Shared\ModelLabelCategoryHandlerTest.js" />
     <Content Include="WebClient\Tests\ViewManagement\Shared\ProgressBarTest.js" />
     <Content Include="WebClient\Tests\ViewManagement\Shared\ModelsHandlerTest.js" />
+    <Content Include="WebClient\Tests\ViewManagement\Shared\ToastNotificationHandlerTest.js" />
     <Content Include="WebClient\Tests\ViewManagement\Shared\WidgetDetails\WidgetDetailsHandlerTest.js" />
     <Content Include="WebClient\Tests\ViewManagement\Shared\WidgetFilter\WidgetFilterHandlerTest.js" />
     <Content Include="WebClient\Tests\ViewManagement\Shared\WidgetFilter\WidgetFilterHelperTest.js" />
     <Content Include="WebClient\Tests\ViewManagement\Shared\WidgetFilter\WidgetFilterViewTest.js" />
-    <Content Include="WebClient\Tests\ViewManagement\User\UserSettingHandlerTest.js" />
+    <Content Include="WebClient\Tests\ViewManagement\User\UserSettingsPanelHandlerTest.js" />
     <Content Include="WebClient\Tests\ViewModels\Models\Angles\AngleQueryStepModelTest.js" />
     <Content Include="WebClient\Tests\ViewModels\Models\Angles\DisplayModelTest.js" />
     <Content Include="WebClient\Tests\ViewModels\Models\Angles\DisplayQueryBlockModelTest.js" />

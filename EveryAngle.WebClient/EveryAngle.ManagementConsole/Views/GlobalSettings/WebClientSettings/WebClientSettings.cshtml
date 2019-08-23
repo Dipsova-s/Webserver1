@@ -40,58 +40,76 @@
                 <label>
                     @Html.LabelFor(model => model.AjaxTimeoutExpirationInSeconds)
                 </label>
-                <p>@Html.Kendo().NumericTextBoxFor(model => model.AjaxTimeoutExpirationInSeconds).Decimals(0).Format("0").Step(1).Min(15).Max(1800).HtmlAttributes( new { @class = "required" })
-                    <a data-target="#popupDescriptionTemplate" title="Description" data-width="600" data-min-height="100" data-role="mcPopup" class="btn btnInfo" onclick="MC.util.showDescriptionPopup(this)"></a>
-                    <textarea class="alwaysHidden">@Resource.MC_WebClientSettingsHelpApplicationTimeout</textarea>
-                </p>
-            </div>
-            <div class="contentSectionInfoItem">
-                <label>
-                    @Html.LabelFor(model => model.ShowAngleAndDisplayID)
-                </label>
                 <p>
-                    <label>
-                        <input data-val="true" id="ShowAngleAndDisplayID" name="ShowAngleAndDisplayID" type="checkbox" value="true"@(Model.ShowAngleAndDisplayID ? " checked='checked'" : "") /><span class="label"></span></label>
-                    <a data-target="#popupDescriptionTemplate" title="Description" data-width="600" data-min-height="100" data-role="mcPopup" class="btn btnInfo" onclick="MC.util.showDescriptionPopup(this)"></a>
-                    <textarea class="alwaysHidden">@Resource.MC_WebClientSettingsHelpShowAngleAndDisplayID</textarea>
-                </p>
-            </div>
-            <div class="contentSectionInfoItem">
+                    @Html.Kendo().NumericTextBoxFor(model => model.AjaxTimeoutExpirationInSeconds).Decimals(0).Format("0").Step(1).Min(15).Max(1800).HtmlAttributes(new { @class = "required" })
+                <a data-target="#popupDescriptionTemplate" title="Description" data-width="600" data-min-height="100" data-role="mcPopup" class="btn btnInfo" onclick="MC.util.showDescriptionPopup(this)"></a>
+                <textarea class="alwaysHidden">@Resource.MC_WebClientSettingsHelpApplicationTimeout</textarea>
+            </p>
+        </div>
+        <div class="contentSectionInfoItem">
+            <label>
+                @Html.LabelFor(model => model.ShowAngleAndDisplayID)
+            </label>
+            <p>
                 <label>
-                    @Html.LabelFor(model => model.MaxNumberOfMassChangeItems)
+                    <input data-val="true" id="ShowAngleAndDisplayID" name="ShowAngleAndDisplayID" type="checkbox" value="true" @(Model.ShowAngleAndDisplayID ? " checked='checked'" : "") /><span class="label"></span>
                 </label>
-                <p>@Html.Kendo().NumericTextBoxFor(model => model.MaxNumberOfMassChangeItems).Decimals(0).Format("0").Step(1).Min(1).Max(1800).HtmlAttributes( new { @class = "required" })
-                    <a data-target="#popupDescriptionTemplate" title="Description" data-width="600" data-min-height="100" data-role="mcPopup" class="btn btnInfo" onclick="MC.util.showDescriptionPopup(this)"></a>
-                    <textarea class="alwaysHidden">@Resource.MC_WebClientSettingsHelpMaxNumberOfMassChange</textarea>
-                </p>
-            </div>
-            <div class="contentSectionInfoItem">
+                <a data-target="#popupDescriptionTemplate" title="Description" data-width="600" data-min-height="100" data-role="mcPopup" class="btn btnInfo" onclick="MC.util.showDescriptionPopup(this)"></a>
+                <textarea class="alwaysHidden">@Resource.MC_WebClientSettingsHelpShowAngleAndDisplayID</textarea>
+            </p>
+        </div>
+        <div class="contentSectionInfoItem">
+            <label>
+                @Html.LabelFor(model => model.MaxNumberOfMassChangeItems)
+            </label>
+            <p>
+                @Html.Kendo().NumericTextBoxFor(model => model.MaxNumberOfMassChangeItems).Decimals(0).Format("0").Step(1).Min(1).Max(1800).HtmlAttributes(new { @class = "required" })
+            <a data-target="#popupDescriptionTemplate" title="Description" data-width="600" data-min-height="100" data-role="mcPopup" class="btn btnInfo" onclick="MC.util.showDescriptionPopup(this)"></a>
+            <textarea class="alwaysHidden">@Resource.MC_WebClientSettingsHelpMaxNumberOfMassChange</textarea>
+        </p>
+        </div>
+        <div class="contentSectionInfoItem">
+            <label>
+                @Html.LabelFor(model => model.MaxNumberOfDashboard)
+            </label>
+            <p>
+                @Html.Kendo().NumericTextBoxFor(model => model.MaxNumberOfDashboard).Decimals(0).Format("0").Step(1).Min(1).Max(9).HtmlAttributes(new { @class = "required" })
+            <a data-target="#popupDescriptionTemplate" title="Description" data-width="600" data-min-height="100" data-role="mcPopup" class="btn btnInfo" onclick="MC.util.showDescriptionPopup(this)"></a>
+            <textarea class="alwaysHidden">@Resource.MC_WebClientSettingsHelpMaxNumberOfDashboard</textarea>
+        </p>
+        </div>
+        <div class="contentSectionInfoItem">
+            <label>
+                @Html.LabelFor(model => model.DashboardRefreshIntervalTime)
+            </label>
+            <p>
+                @Html.Kendo().NumericTextBoxFor(model => model.DashboardRefreshIntervalTime).Decimals(0).Format("0").Step(1).Min(1).HtmlAttributes(new { @class = "required" })
+            <a data-target="#popupDescriptionTemplate" title="Description" data-width="600" data-min-height="100" data-role="mcPopup" class="btn btnInfo" onclick="MC.util.showDescriptionPopup(this)"></a>
+            <textarea class="alwaysHidden">@Resource.MC_WebClientSettingsHelpDashboardRefreshIntervalTime</textarea>
+        </p>
+        </div>
+        <div class="contentSectionInfoItem">
+            <label>
+                @Html.LabelFor(model => model.GoogleAnalyticsId)
+            </label>
+            <p>
+                @Html.TextBoxFor(model => model.GoogleAnalyticsId, new { @class = "google_analytics_id" })
+            <a data-target="#popupDescriptionTemplate" title="Description" data-width="600" data-min-height="100" data-role="mcPopup" class="btn btnInfo" onclick="MC.util.showDescriptionPopup(this)"></a>
+            <textarea class="alwaysHidden">@Resource.MC_WebClientSettingsHelpGoogleAnalyticsCode</textarea>
+        </p>
+        </div>
+        <div class="contentSectionInfoItem">
+            <label>
+                @Html.LabelFor(model => model.EnableGoToSAP)
+            </label>
+            <p>
                 <label>
-                    @Html.LabelFor(model => model.MaxNumberOfDashboard)
+                    <input data-val="true" id="EnableGoToSAP" name="EnableGoToSAP" type="checkbox" value="true" @(Model.EnableGoToSAP ? " checked='checked'" : "") /><span class="label"></span>
                 </label>
-                <p>@Html.Kendo().NumericTextBoxFor(model => model.MaxNumberOfDashboard).Decimals(0).Format("0").Step(1).Min(1).Max(9).HtmlAttributes( new { @class = "required" })
-                    <a data-target="#popupDescriptionTemplate" title="Description" data-width="600" data-min-height="100" data-role="mcPopup" class="btn btnInfo" onclick="MC.util.showDescriptionPopup(this)"></a>
-                    <textarea class="alwaysHidden">@Resource.MC_WebClientSettingsHelpMaxNumberOfDashboard</textarea>
-                </p>
-            </div>
-            <div class="contentSectionInfoItem">
-                <label>
-                    @Html.LabelFor(model => model.DashboardRefreshIntervalTime)
-                </label>
-                <p>@Html.Kendo().NumericTextBoxFor(model => model.DashboardRefreshIntervalTime).Decimals(0).Format("0").Step(1).Min(1).HtmlAttributes( new { @class = "required" })
-                    <a data-target="#popupDescriptionTemplate" title="Description" data-width="600" data-min-height="100" data-role="mcPopup" class="btn btnInfo" onclick="MC.util.showDescriptionPopup(this)"></a>
-                    <textarea class="alwaysHidden">@Resource.MC_WebClientSettingsHelpDashboardRefreshIntervalTime</textarea>
-                </p>
-            </div>
-            <div class="contentSectionInfoItem">
-                <label>
-                    @Html.LabelFor(model => model.GoogleAnalyticsId)
-                </label>
-                <p>@Html.TextBoxFor(model => model.GoogleAnalyticsId, new { @class = "google_analytics_id" })
-                    <a data-target="#popupDescriptionTemplate" title="Description" data-width="600" data-min-height="100" data-role="mcPopup" class="btn btnInfo" onclick="MC.util.showDescriptionPopup(this)"></a>
-                    <textarea class="alwaysHidden">@Resource.MC_WebClientSettingsHelpGoogleAnalyticsCode</textarea>
-                </p>
-            </div>
+                <a data-target="#popupDescriptionTemplate" title="Description" data-width="600" data-min-height="100" data-role="mcPopup" class="btn btnInfo" onclick="MC.util.showDescriptionPopup(this)"></a>
+                <textarea class="alwaysHidden">@Resource.MC_WebClientSettingsHelpEnableGoToSAP</textarea>
+            </p>
+        </div>
         </div>
 
         <div class="contentSection contentSectionInfo">

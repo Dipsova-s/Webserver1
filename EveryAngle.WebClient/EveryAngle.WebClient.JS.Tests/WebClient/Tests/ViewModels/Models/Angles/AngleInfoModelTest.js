@@ -23,7 +23,6 @@ describe("AngleInfoModel test", function () {
             expect(angleInfoModel.IsTemplate()).toBeDefined();
             expect(angleInfoModel.IsTempTemplate()).toBeDefined();
             expect(angleInfoModel.IsValidated()).toBeDefined();
-            expect(angleInfoModel.IsTempValidated()).toBeDefined();
             expect(angleInfoModel.ModelName()).toBeDefined();
             expect(angleInfoModel.ModelName().ShortName()).toBeDefined();
             expect(angleInfoModel.ModelName().LongName()).toBeDefined();

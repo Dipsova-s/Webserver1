@@ -34,5 +34,10 @@ namespace EveryAngle.WebClient.Web.Controllers
                 Log.SendInfo($"End: requests before leaving");
             }
         }
+        
+        public ActionResult GUI()
+        {
+            return View(@"~/Views/Shared/GUI.cshtml");
+        }
     }
 }

@@ -13,7 +13,6 @@ ${lnkEditDashboard}    css=#DashboardDescriptionWrapper .descriptionHeader a
 ${tabDashboardGeneral}    css=#DashboardTabs .general
 ${tabDashboardDescription}    css=#DashboardTabs .description
 ${tabDashboardDefinition}    css=#DashboardTabs .definition
-${tabDashboardPublishing}    css=#DashboardTabs .publishing
 ${tabDashboardStatistic}    css=#DashboardTabs .statistic
 ${tabDashboardFilters}    css=#DashboardTabs .fieldsfilters
 
@@ -35,13 +34,6 @@ ${lblCreatedBy}    jquery=#DashboardArea .statisticArea .input:eq(0) span:eq(1)
 ${lblLastChangedBy}    jquery=#DashboardArea .statisticArea .input:eq(1) span:eq(1)
 ${lblLastExecutedBy}    jquery=#DashboardArea .statisticArea .input:eq(2) span:eq(1)
 
-#Publish tab elements
-${btnPublishDashboard}    css=.btnPublish
-${btnConfirmPublishDashboard}    btn-popupDashboardPublishing1
-
-${tabDashboardPrivilege}    jquery=#PublishTabWrapper .tabMenu li:eq(0)
-${tabDashboardSearchLabel}    jquery=#PublishTabWrapper .tabMenu li:eq(1)
-
 #Filters Tab
 ${btnAddDashboardFilter}        css=#DashboardAddfilter
 ${ddlValueList}                 jquery=#InputValue-0_listbox li[data-offset-index=0]
@@ -58,7 +50,6 @@ Wait Dashboard Detail Document Loaded
     Wait Until Element Is Visible       ${tabDashboardGeneral}    60s
     Wait Until Element Is Visible       ${tabDashboardDescription}
     Wait Until Element Is Visible       ${tabDashboardDefinition}
-    Wait Until Element Is Visible       ${tabDashboardPublishing}
     Wait Until Element Is Visible       ${btnCloseDashboardDetailsPopup}
     Wait Until Page Does Not Contain Element    ${btnCancel}.executing
 
@@ -72,6 +63,7 @@ Input Dashboard name
 Save Dashboard
     Wait Until Element Is Enabled    ${btnSaveDashboard}
     Click Element    ${btnSaveDashboard}
+    Page Should Contain Toast Success
     Wait Progress Bar Closed
 
 Cancel Dashboard
@@ -95,11 +87,6 @@ Click Dashboard Detail Definition Tab
     Wait Until Element Is Visible    ${tabDashboardDefinition}
     Click Element    ${tabDashboardDefinition}
 
-Click Dashboard Detail Publishing Tab
-    Wait Until Element Is Visible    ${tabDashboardPublishing}
-    Click Element    ${tabDashboardPublishing}
-    Wait Until Ajax Complete
-
 Click Dashboard Detail Statistic Tab
     Wait Until Element Is Visible    ${tabDashboardStatistic}
     Click Element    ${tabDashboardStatistic}
@@ -118,10 +105,6 @@ Close Dashboard Definition Widget Panel
     [Arguments]   ${index}
     ${isPanelOpened}  Is Element Has CssClass  ${divDashboardDefinitionHeader}  Expand
     Run Keyword If   ${isPanelOpened}   Click Element   ${divDashboardDefinitionHeader}:eq(${index})
-
-Click Confirm Publish Dashboard
-    Wait Until Element Is Visible    ${btnConfirmPublishDashboard}
-    Click Element    ${btnConfirmPublishDashboard}
 
 Click Dashboard Detail Filters Tab
     Wait Until Element Is Visible    ${tabDashboardFilters}

@@ -22,6 +22,7 @@ Verify Item Execute At Logon Work
     Should Not Be Equal     ${numberOfExecutedItemBefore}    ${numberOfExecutedItemAfter}
     Logout
     Login To WC By Power User
+	Sleep    ${TIMEOUT_LARGEST}
     Search By Text And Expect In Search Result     ${TEST_ITEM_EXECUTE_AT_LOGON}
     Delete All Search Result Items
     Sleep    ${TIMEOUT_LARGEST}

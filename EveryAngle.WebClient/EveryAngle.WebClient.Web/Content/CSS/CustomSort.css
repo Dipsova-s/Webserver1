@@ -27,7 +27,7 @@
 
 .customSortPopup .k-window-content > .label {
     float: left;
-    padding-top: 13px;
+    padding-top: 17px;
     font-weight: bold;
 }
 
@@ -50,7 +50,7 @@
     -webkit-margin-start: 0 !important; /* NOSONAR: safari bug */
 }
 
-.customSortPopup .eaDropdown {
+.customSortPopup .k-dropdown {
     display: block;
     margin-bottom: 10px;
     width: 230px;
@@ -97,6 +97,6 @@
     padding-left: 0;
 }
 
-.pivotCustomSortPopup .eaDropdown {
+.pivotCustomSortPopup .k-dropdown {
     margin-bottom: 15px;
 }

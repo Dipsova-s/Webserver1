@@ -154,7 +154,7 @@
                     '</li>',
                 '</ul>',
                 '<footer class="dashboardFilterFooter">',
-                    '<a class="btn btnPrimary btnSmall" data-bind="click: $root.ApplyFilters, css: { disabled: !HasChanged() }"><span>' + Localization.Apply + '</span></a>',
+                    '<a class="btn btn-primary" data-bind="click: $root.ApplyFilters, css: { disabled: !HasChanged() }"><span>' + Localization.Apply + '</span></a>',
                 '</footer>',
             '</div>',
             '<div class="dashboardFilterToggle" data-bind="click: $root.TogglePanel"></div>'

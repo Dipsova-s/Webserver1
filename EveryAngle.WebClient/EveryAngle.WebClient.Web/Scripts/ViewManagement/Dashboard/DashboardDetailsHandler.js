@@ -10,7 +10,6 @@ function DashboardDetailsHandler() {
     self.HandlerInfoDetails = null;
     self.HandlerLanguages = null;
     self.HandlerLanguagesSaveAs = null;
-    self.HandlerLabels = null;
     self.HandlerFilter = null;
     self.ID = 'DashboardDetails';
     self.IsSubmit = false;
@@ -19,7 +18,6 @@ function DashboardDetailsHandler() {
         DESCRIPTION: 'description',
         DEFINITION: 'definition',
         FIELDSFILTERS: 'fieldsfilters',
-        PUBLISHING: 'publishing',
         STATISTIC: 'statistic'
     };
     self.PopupSettings = {
@@ -31,14 +29,7 @@ function DashboardDetailsHandler() {
         List: ko.observableArray([])
     };
     self.Definitions = ko.observableArray([]);
-    self.PublishingModel = {
-        bp_text: ko.observable(''),
-        language_text: ko.observable(''),
-        privilege_label_text: ko.observable(''),
-        search_label_text: ko.observable(''),
-        public_displays: ko.observableArray([]),
-        private_displays: ko.observableArray([])
-    };
+    self.NoneBusinessProcessLabels = [];
     /*EOF: Model Properties*/
 
     /*BOF: Model Methods*/
@@ -61,6 +52,7 @@ function DashboardDetailsHandler() {
             html: dashboardDetailBodyHtmlTemplate(),
             className: 'popup' + self.ID + ' popupWithTabMenu',
             width: 880,
+            height: 530,
             minWidth: 748,
             minHeight: 300,
             buttons: self.GetDashboardDetailButtons(),
@@ -149,7 +141,6 @@ function DashboardDetailsHandler() {
 
         if (definitionList.is(':visible')) {
             definitionList.css('max-height', winHeight - (definitionList.offset().top - e.sender.element.offset().top) - 5);
-            self.DefinitionAdjustLayout();
         }
 
         if (fieldsfiltersList.is(':visible')) {
@@ -206,7 +197,6 @@ function DashboardDetailsHandler() {
         self.InitializeDescriptionTab();
         self.InitializeDefinitionTab();
         self.InitializeFieldsAndFiltersTab();
-        self.InitializePublishingTab();
 
         // bind ko
         WC.HtmlHelper.ApplyKnockout(self, win.wrapper);
@@ -215,7 +205,8 @@ function DashboardDetailsHandler() {
     };
 
     self.InitializeGeneralTab = function () {
-        self.InitializeModelLabel();
+        self.InitializeModel();
+        self.SetNoneBusinessProcessLabels(self.Model.Data().assigned_labels);
         self.InitializeBusinessProcesses();
     };
     self.InitializeDescriptionTab = function () {
@@ -226,9 +217,6 @@ function DashboardDetailsHandler() {
     };
     self.InitializeFieldsAndFiltersTab = function () {
         self.PrepareFieldsFilters();
-    };
-    self.InitializePublishingTab = function () {
-        self.InitializeLabels();
     };
     self.InitializeDefaultTab = function (win, selectTab) {
         setTimeout(function () {
@@ -260,11 +248,6 @@ function DashboardDetailsHandler() {
     self.ClosePopup = function () {
         popup.Close('#popup' + self.ID);
     };
-    self.SetValidate = function (data, event) {
-        if (!jQuery(event.currentTarget).hasClass('disabled')) {
-            self.Model.Data().is_validated(!self.Model.Data().is_validated());
-        }
-    };
     self.ShowInfoPopup = function () {
         var popupName = 'DashboardInfo',
             popupSettings = {
@@ -280,6 +263,8 @@ function DashboardDetailsHandler() {
                         click: 'close'
                     }
                 ],
+                width: 850,
+                height: 530,
                 animation: false,
                 resize: function (e) {
                     var winWidth = e.sender.element.width();
@@ -416,10 +401,7 @@ function DashboardDetailsHandler() {
     self.CloseSaveAsPopup = function () {
         popup.Close('#popup' + self.ID + 'SaveAs');
     };
-    self.CheckValidation = function (checkRequiredLabels) {
-        if (typeof checkRequiredLabels === 'undefined')
-            checkRequiredLabels = self.Model.Data().is_published();
-
+    self.CheckValidation = function () {
         // languages
         var emptyLanguages = jQuery.grep(self.HandlerLanguages.Languages.List(), function (lang) { return lang.is_selected() && !lang.language_name(); });
         if (emptyLanguages.length) {
@@ -465,53 +447,6 @@ function DashboardDetailsHandler() {
             }
         }
 
-        // check validate
-        if (self.Model.Data().is_validated() && self.Model.Data().is_validated() !== dashboardModel.Data().is_validated()) {
-            var validatedAngleCount = 0, angle;
-            jQuery.each(self.Model.Data().widget_definitions, function (index, widget) {
-                angle = widget.GetAngle();
-                if (angle && angle.is_validated) {
-                    validatedAngleCount++;
-                }
-            });
-            if (validatedAngleCount !== self.Model.Data().widget_definitions.length) {
-                popup.Alert(Localization.Warning_Title, Localization.Info_RequiredValidatedBeforePublishDashboard);
-                self.Model.Data().is_validated(!self.Model.Data().is_validated());
-                self.TabClick(self.TAB.PUBLISHING);
-
-                return false;
-            }
-        }
-
-        // Check required labels
-        if (checkRequiredLabels && systemSettingHandler.GetMinLabelCategoryToPublish() > 0) {
-            var validationResults = self.HandlerLabels.GetValidationResults();
-            var requiredLabelNames = [];
-            var tabPublishTarget = null;
-
-            // check privilege labels
-            jQuery.each(validationResults[self.HandlerLabels.LABELTYPE.PRIVILEGE].UnassignedCategories, function (index, categoryName) {
-                tabPublishTarget = self.HandlerLabels.LABELTYPE.PRIVILEGE;
-                requiredLabelNames.push('<li>' + categoryName + '</li>');
-            });
-
-            // check search labels
-            jQuery.each(validationResults[self.HandlerLabels.LABELTYPE.SEARCH].UnassignedCategories, function (index, categoryName) {
-                if (!tabPublishTarget) {
-                    tabPublishTarget = self.HandlerLabels.LABELTYPE.SEARCH;
-                }
-                requiredLabelNames.push('<li>' + categoryName + '</li>');
-            });
-
-            if (requiredLabelNames.length) {
-                popup.Alert(Localization.Warning_Title, kendo.format(Localization.Info_RequiredAtleastOneLabelBeforePublishDashboard, requiredLabelNames.join('')));
-                self.TabClick(self.TAB.PUBLISHING);
-                self.HandlerLabels.TabActiveIndex(tabPublishTarget);
-
-                return false;
-            }
-        }
-
         return true;
     };
     self.CheckSaveAsValidation = function () {
@@ -519,101 +454,6 @@ function DashboardDetailsHandler() {
         if (emptyLanguages.length) {
             self.HandlerLanguagesSaveAs.LanguageSetSelect(emptyLanguages[0]);
             self.HandlerLanguagesSaveAs.ElementName.addClass('k-invalid');
-
-            return false;
-        }
-
-        return true;
-    };
-    self.CheckValidBeforePublished = function () {
-        var data = self.Model.GetData();
-        var originalData = dashboardModel.GetData();
-
-        jQuery.each(data, function (key, value) {
-            if (jQuery.deepCompare(value, originalData[key], true, key !== 'widget_definitions')) {
-                delete data[key];
-            }
-        });
-
-        // don't compare layout object, because it's not equal default layout object anymore after dashboard filter panel has release
-        delete data.layout;
-
-        if (!jQuery.isEmptyObject(data)) {
-            popup.Alert(Localization.Warning_Title, Localization.MessageSaveRequiredPublishDashboard);
-            return false;
-        }
-
-        //Check minimum valid widget
-        var numberOfValidWidgets = 0;
-        var numberOfPrivateDisplay = 0;
-        jQuery.each(self.Model.Data().widget_definitions, function (index, widget) {
-            var angle = widget.GetAngle();
-            var display = widget.GetDisplay();
-
-            // skip
-            if (!angle || !display)
-                return true;
-
-            if (!display.is_public) {
-                numberOfPrivateDisplay++;
-            }
-
-            /*Changed to use the same function of M4-11190*/
-            if (dashboardHandler.CheckInvalidAngleAndDisplay(angle, display).Valid) {
-                numberOfValidWidgets++;
-            }
-        });
-
-        if (numberOfPrivateDisplay) {
-            popup.Alert(Localization.Warning_Title, Localization.Info_CannotPublishedDashboardBecausePrivateAngleDisplay);
-            popup.OnCloseCallback = function () {
-                self.TabClick(self.TAB.DEFINITION);
-            };
-            return false;
-        }
-
-        if (!numberOfValidWidgets) {
-            popup.Alert(Localization.Warning_Title, Localization.Info_RequiredValidAtleastOneDisplays);
-            return false;
-        }
-
-        // Check labels
-        var validationResults = self.HandlerLabels.GetValidationResults();
-        var requiredLabelNames = [];
-        var tabPublishTarget = null;
-        // check privilege labels
-        jQuery.each(validationResults[self.HandlerLabels.LABELTYPE.PRIVILEGE].UnassignedCategories, function (index, categoryName) {
-            tabPublishTarget = self.HandlerLabels.LABELTYPE.PRIVILEGE;
-            requiredLabelNames.push('<li>' + categoryName + '</li>');
-        });
-
-        // check search labels
-        jQuery.each(validationResults[self.HandlerLabels.LABELTYPE.SEARCH].UnassignedCategories, function (index, categoryName) {
-            if (!tabPublishTarget) {
-                tabPublishTarget = self.HandlerLabels.LABELTYPE.SEARCH;
-            }
-            requiredLabelNames.push('<li>' + categoryName + '</li>');
-        });
-
-        if (requiredLabelNames.length) {
-            popup.Alert(Localization.Warning_Title, kendo.format(Localization.Info_RequiredAtleastOneLabelBeforePublishDashboard, requiredLabelNames.join('')));
-            self.HandlerLabels.TabActiveIndex(tabPublishTarget);
-
-            return false;
-        }
-
-        // M4-32183 business process + assigned privilege labels should be equal or greater than minimum label categories setting in MC
-        if (!validationResults.CheckPrivilegeLabelCategories()) {
-            var minLabelCategories = systemSettingHandler.GetMinLabelCategoryToPublish();
-            var description = kendo.format(Localization.Info_RequiredAtLeastOneLabelBeforePublish, minLabelCategories);
-            popup.Alert(Localization.Warning_Title, description);
-
-            return false;
-        }
-
-        var unAuthorizationLabels = jQuery.merge(validationResults[self.HandlerLabels.LABELTYPE.PRIVILEGE].UnauthorizedLabels, validationResults[self.HandlerLabels.LABELTYPE.SEARCH].UnauthorizedLabels);
-        if (unAuthorizationLabels.length) {
-            popup.Alert(Localization.Warning_Title, kendo.format(Localization.Info_NotAllowedToPublishTheAngle, unAuthorizationLabels.join(', '), self.Model.GetModel()));
 
             return false;
         }
@@ -650,11 +490,6 @@ function DashboardDetailsHandler() {
                 win.trigger('resize');
                 break;
 
-            case self.TAB.PUBLISHING:
-                win.trigger('resize');
-                self.HandlerLabels.ApplyHandler(self.Model.Data().model, self.Model.Data().is_published());
-                break;
-
             default:
                 break;
         }
@@ -670,7 +505,7 @@ function DashboardDetailsHandler() {
     };
 
     // general
-    self.InitializeModelLabel = function () {
+    self.InitializeModel = function () {
         var availableModels = WC.Utility.ToArray(ko.toJS(modelsHandler.GetData()));
 
         if (!availableModels.length) {
@@ -717,10 +552,7 @@ function DashboardDetailsHandler() {
         businessProcessesModel.General.MultipleActive(true);
         businessProcessesModel.General.CanEmpty(false);
         businessProcessesModel.General.ClickCallback(function () {
-            self.Model.Data().assigned_labels = self.HandlerLabels.GetAssignedLabels();
-        });
-        businessProcessesModel.General.ClickHeaderCallback(function () {
-            self.Model.Data().assigned_labels = self.HandlerLabels.GetAssignedLabels();
+            self.Model.Data().assigned_labels = self.GetAssignedLabels();
         });
         var activeBusinessProcessBars = {};
         jQuery.each(self.Model.Data().assigned_labels, function (index, label) {
@@ -734,6 +566,18 @@ function DashboardDetailsHandler() {
         businessProcessesModel.General.CurrentActive(activeBusinessProcessBars);
         businessProcessesModel.General.SetCheckBoxStyle();
         businessProcessesModel.General.ApplyHandler('#DashboardBusinessProcesses');
+    };
+    self.SetNoneBusinessProcessLabels = function (labels) {
+        self.NoneBusinessProcessLabels = [];
+        jQuery.each(labels, function (index, label) {
+            if (!WC.Utility.ToArray(businessProcessesModel.General.Data()).hasObject('id', label, false))
+                self.NoneBusinessProcessLabels.push(label);
+        });
+    };
+    self.GetAssignedLabels = function () {
+        var labels = businessProcessesModel.General.GetActive();
+        jQuery.merge(labels, self.NoneBusinessProcessLabels);
+        return labels;
     };
 
     // description
@@ -789,18 +633,6 @@ function DashboardDetailsHandler() {
         fieldsChooserHandler.ShowPopup(fieldsChooserHandler.USETYPE.ADDDASHBOARDFILTER, enumHandlers.ANGLEPOPUPTYPE.DASHBOARD, self.HandlerFilter);
     };
 
-    // publishing
-    self.InitializeLabels = function () {
-        self.HandlerLabels = new WidgetLabelsHandler('#PublishTabWrapper', self.Model.Data().assigned_labels, businessProcessesModel.General);
-        self.HandlerLabels.Captions.TabPrivilegeName(Localization.DashboardDetailPublishTabDashboardPrivileges);
-        if (!dashboardModel.CanUpdateDashboard(EA_CONSTANTS.dashboard.assignedLabels)) {
-            self.HandlerLabels.TabEnabledIndexes.removeAll();
-        }
-        self.HandlerLabels.OnLabelChanged = function (currentLabels) {
-            self.Model.Data().assigned_labels = currentLabels;
-        };
-    };
-
     // definitions
     self.PrepareDefinitions = function () {
         self.Definitions.removeAll();
@@ -831,7 +663,7 @@ function DashboardDetailsHandler() {
                     selectedDisplay = displayData.selected;
                 }
                 else {
-                    selectedDisplay = { widget_id: widgetId, name_html: '', id: '', name: widgetId, type: 'notExists', link: '' };
+                    selectedDisplay = { widget_id: widgetId, name_html: '', id: '', name: widgetId, type: 'none', link: '' };
                 }
 
                 // subscribe changing
@@ -867,7 +699,6 @@ function DashboardDetailsHandler() {
     self.DefinitionsGetDisplays = function (angle, widget) {
         var displays = [];
         var selectedDisplay = {};
-
         jQuery.each(angle.display_definitions, function (displayIndex, displayObject) {
             var hasJump = WC.ModelHelper.HasFollowup(displayObject.query_blocks);
             var hasFilter = WC.ModelHelper.HasFilter(displayObject.query_blocks);
@@ -876,7 +707,7 @@ function DashboardDetailsHandler() {
             var displayValidation = validationHandler.GetDisplayValidation(displayObject, angle.model);
             var isError = displayValidation.Level === validationHandler.VALIDATIONLEVEL.ERROR;
             var isWarning = displayValidation.Level === validationHandler.VALIDATIONLEVEL.WARNING;
-
+          
             var display = widget.display || widget.widget_details.display;
             displays[displayIndex] = {
                 widget_id: widget.id,
@@ -888,15 +719,15 @@ function DashboardDetailsHandler() {
                 full_name: DashboardWidgetViewModel.prototype.GetAngleDisplayName(angle.name, displayObject.name, angle.model),
                 name_html: [
                     '<div class="front">',
-                    '<i class="icon ' + (displayObject.is_public ? 'public' : 'private') + '"></i>',
-                    '<i class="icon ' + displayObject.display_type + (displayObject.is_angle_default ? ' default' : '') + (displayObject.used_in_task ? ' schedule' : '') + '"></i>',
-                    '<i class="icon ' + (hasJump ? 'followup' : (hasFilter ? 'filter' : 'noFilter')) + '"></i>',
+                    '<i class="icon icon-' + displayObject.display_type + (displayObject.is_angle_default ? ' default' : '') + (displayObject.used_in_task ? ' schedule' : '') + '"></i>',
                     '</div>',
                     '<span class="name" title="' + displayObject.name + '">' + displayObject.name + '</span>',
                     '<div class="rear">',
-                    '<i class="icon ' + (displayObject.is_parameterized ? 'parameterized' : 'none') + '"></i>',
+                    '<i class="icon ' + (displayObject.is_public ? 'none' : 'icon-private') + '"></i>',
                     '<i class="icon ' + (isError ? 'validError' : (isWarning ? 'validWarning' : 'none')) + '"></i>',
-                    '<a class="icon link" href="' + link + '" target="_blank" data-parameterized="' + parameterizeInfo + '" onclick="dashboardDetailsHandler.DefinitionOpenDisplay(event, \'' + displayObject.uri + '\', ' + displayObject.is_public + ')"></a>',
+                    '<i class="icon ' + (hasJump ? 'icon-followup' : (hasFilter ? 'icon-filter' : 'none')) + '"></i>',
+                    '<i class="icon ' + (displayObject.is_parameterized ? 'icon-parameterized' : 'none') + '"></i>',
+                    '<a class="icon icon-link" href="' + link + '" target="_blank" data-parameterized="' + parameterizeInfo + '" onclick="dashboardDetailsHandler.DefinitionOpenDisplay(event, \'' + displayObject.uri + '\', ' + displayObject.is_public + ')"></a>',
                     '</div>'
                 ].join('')
             };
@@ -914,7 +745,7 @@ function DashboardDetailsHandler() {
         };
     };
     self.DefinitionCanSelectDisplay = function (display) {
-        var canSelectDisplay = !self.Model.Data().is_published() || (self.Model.Data().is_published() && display.is_public);
+        var canSelectDisplay = !self.Model.Data().is_published() || self.Model.Data().is_published() && display.is_public;
         return dashboardModel.CanUpdateDashboard('widget_definitions') && canSelectDisplay;
     };
     self.DefinitionsAfterRender = function () {
@@ -936,7 +767,6 @@ function DashboardDetailsHandler() {
             if (isCollapse) {
                 element.addClass('Expand');
                 element.next('.FilterDetail').removeClass('Hide');
-                self.DefinitionAdjustLayout();
             }
             else {
                 element.addClass('Collapse');
@@ -949,10 +779,12 @@ function DashboardDetailsHandler() {
         if (isHtml) {
             return [
                 '<div class="front">',
-                '<i class="icon ' + (display.is_public ? 'public' : 'private') + '"></i>',
-                '<i class="icon ' + display.type + '"></i>',
+                '<i class="icon icon-' + display.type + '"></i>',
                 '</div>',
-                '<span class="name">' + model.widget_name() + '</span>'
+                '<span class="name">' + model.widget_name() + '</span>',
+                '<div class="rear">',
+                '<i class="icon ' + (display.is_public ? 'none' : 'icon-private') + '"></i>',
+                '</div>'
             ].join('');
         }
         else {
@@ -967,12 +799,12 @@ function DashboardDetailsHandler() {
         var angleName = modelsHandler.GetModelName(angle.model) + ' - ' + angle.name;
         return [
             '<div class="front">',
-            '<i class="icon ' + (angle.is_published ? 'public' : 'private') + '"></i>',
-            '<i class="icon ' + (angle.is_template ? 'template' : 'angle') + '"></i>',
+            '<i class="icon icon-' + (angle.is_template ? 'template' : 'angle') + '"></i>',
             '</div>',
             '<span class="name" title="' + angleName + '">' + angleName + '</span>',
             '<div class="rear">',
-            '<i class="icon ' + (angle.is_parameterized ? 'parameterized' : 'none') + '"></i>',
+            '<i class="icon ' + (angle.is_published ? 'none' : 'icon-private') + '"></i>',
+            '<i class="icon ' + (angle.is_parameterized ? 'icon-parameterized' : 'none') + '"></i>',
             '<i class="icon ' + (!isValidAngle ? 'validError' : 'none') + '"></i>',
             '</div>'
         ].join('');
@@ -1020,7 +852,9 @@ function DashboardDetailsHandler() {
     };
     self.DefinitionGetLink = function (angle, display) {
         var q = {};
-        q[enumHandlers.ANGLEPARAMETER.TARGET] = enumHandlers.ANGLETARGET.PUBLISH;
+        if (!display.is_public) {
+            q[enumHandlers.ANGLEPARAMETER.TARGET] = enumHandlers.ANGLETARGET.PUBLISH;
+        }
         q[enumHandlers.ANGLEPARAMETER.EDITMODE] = true;
 
         return WC.Utility.GetAnglePageUri(angle.uri, display.uri, q);
@@ -1051,186 +885,6 @@ function DashboardDetailsHandler() {
             event.stopPropagation();
         else
             event.cancelBubble = true;
-    };
-    self.DefinitionAdjustLayout = function () {
-        var filterWrapperWidth = jQuery('#FilterWrapper').width();
-        WC.HtmlHelper.AdjustNameContainer('#FilterWrapper .FilterHeader', filterWrapperWidth - 150);
-        WC.HtmlHelper.AdjustNameContainer('#FilterWrapper .FilterDetail', filterWrapperWidth - 300);
-    };
-
-    // publish
-    self.ShowPublishPopup = function () {
-        if (jQuery('#popupDashboardDetails .btnPublish').hasClass('disabled')) {
-            return;
-        }
-
-        if (dashboardModel.IsTemporaryDashboard()) {
-            popup.Alert(Localization.Warning_Title, Localization.MessageSaveRequiredPublishDashboard);
-            return;
-        }
-
-        requestHistoryModel.SaveLastExecute(self, self.ShowPublishPopup, arguments);
-        requestHistoryModel.ClearPopupBeforeExecute = true;
-
-        if (dashboardModel.Data().is_published()) {
-            if (dashboardModel.Data().created.user() !== userModel.Data().uri) {
-                popup.Confirm(Localization.MessageConfirmUnpublishDashboard, function () {
-                    // confirm to unpublish
-                    self.UnPublishDashboard();
-                });
-            }
-            else {
-                self.UnPublishDashboard();
-            }
-        }
-        else {
-            // check unsave details
-            if (!self.CheckValidation() || !self.CheckValidBeforePublished()) {
-                return;
-            }
-
-            var popupName = 'DashboardPublishing',
-                popupSettings = {
-                    element: '#popup' + popupName,
-                    title: Localization.AnglePublishing,
-                    html: dashboardPublishingHtmlTemplate(),
-                    className: 'popupPublishing popup' + popupName,
-                    scrollable: false,
-                    buttons: [
-                        {
-                            text: Captions.Button_Cancel,
-                            position: 'right',
-                            click: 'close'
-                        },
-                        {
-                            text: Localization.Save,
-                            position: 'right',
-                            isPrimary: true,
-
-                            click: function (e, obj) {
-                                if (popup.CanButtonExecute(obj)) {
-                                    self.PublishDashboard(e.kendoWindow);
-                                }
-                            }
-                        },
-                        {
-                            text: '',
-                            className: 'loading16x16',
-                            position: 'right'
-                        }
-                    ],
-                    open: function (e) {
-                        e.sender.element.busyIndicator(true);
-                        var fnCheckLabelLoaded = setInterval(function () {
-                            if (!self.HandlerLabels.Element.find('.k-loading-mask').length) {
-                                e.sender.element.busyIndicator(false);
-                                self.ShowPublishPopupCallback(e);
-                                clearInterval(fnCheckLabelLoaded);
-                            }
-                        }, 100);
-                    }
-                };
-
-            popup.Show(popupSettings);
-        }
-    };
-    self.ShowPublishPopupCallback = function (e) {
-        // prepare publishing
-        var bpList = [];
-        jQuery.each(self.HandlerLabels.GetLabelsByType(self.HandlerLabels.LABELTYPE.BUSINESSPROCESS), function (index, item) {
-            bpList.push(item.LabelName);
-        });
-        self.PublishingModel.bp_text(bpList.length + ' (' + bpList.join(', ') + ')');
-
-        // language
-        var langList = [];
-        jQuery.each(ko.toJS(self.HandlerLanguages.Languages.List()), function (index, item) {
-            if (item.is_selected) {
-                langList.push(item.name);
-            }
-        });
-        self.PublishingModel.language_text(langList.length + ' (' + langList.join(', ') + ')');
-
-        // privilege
-        var privilegeList = [];
-        jQuery.each(self.HandlerLabels.GetLabelsByType(self.HandlerLabels.LABELTYPE.PRIVILEGE), function (index, item) {
-            privilegeList.push(item.LabelName);
-        });
-        self.PublishingModel.privilege_label_text(privilegeList.length === 0 ? '0' : privilegeList.length + ' (' + privilegeList.join(', ') + ')');
-
-        // search
-        var searchList = [];
-        jQuery.each(self.HandlerLabels.GetLabelsByType(self.HandlerLabels.LABELTYPE.SEARCH), function (iindex, item) {
-            searchList.push(item.LabelName);
-        });
-        self.PublishingModel.search_label_text(searchList.length === 0 ? '0' : searchList.length + ' (' + searchList.join(', ') + ')');
-
-        self.PublishingModel.private_displays.removeAll();
-        self.PublishingModel.public_displays.removeAll();
-
-        jQuery.each(self.Model.Data().widget_definitions, function (index, widget) {
-            var display = widget.GetDisplay();
-            if (display && display.is_public) {
-                self.PublishingModel.public_displays.push(display);
-            }
-            else {
-                self.PublishingModel.private_displays.push(display);
-            }
-        });
-
-        WC.HtmlHelper.ApplyKnockout(self.PublishingModel, e.sender.wrapper);
-
-        e.sender.wrapper.find('.loading16x16').hide();
-        e.sender.toFront();
-
-
-        e.sender.wrapper.find('.k-window-buttons .btn').removeClass('executing');
-    };
-    self.PublishDashboard = function (win) {
-        requestHistoryModel.SaveLastExecute(self, self.PublishDashboard, arguments);
-
-        var btnSave = win.wrapper.find('.btnPrimary');
-        var btnLoading = win.wrapper.find('.loading16x16');
-        if (btnSave.hasClass('disabled'))
-            return;
-
-        btnLoading.show();
-        btnSave.addClass('disabled');
-
-        var dashboardData = {
-            is_published: true
-        };
-
-        var newLayout = self.Model.GetData().layout;
-        var oldLayout = dashboardModel.GetData().layout;
-        if (newLayout !== oldLayout)
-            dashboardData.layout = newLayout;
-
-        jQuery.when(dashboardModel.SaveDashboard(dashboardData))
-            .done(function (data) {
-                self.Model.SetData(data);
-                popup.Close('#popupDashboardPublishing');
-                self.PrepareDefinitions();
-            });
-    };
-    self.UnPublishDashboard = function () {
-        var btnPublish = jQuery('.popupDashboardDetails .btnPublish');
-        var btnSave = jQuery('.popupDashboardDetails .k-window-buttons .btnPrimary');
-        btnPublish.addClass('disabled loading16x16');
-        btnSave.addClass('disabled');
-
-        var dashboardData = {
-            is_published: false
-        };
-        jQuery.when(dashboardModel.SaveDashboard(dashboardData))
-            .done(function (data) {
-                self.Model.SetData(data);
-            })
-            .always(function () {
-                btnPublish.removeClass('disabled loading16x16');
-                btnSave.removeClass('disabled');
-                self.PrepareDefinitions();
-            });
     };
 
     self.SetFavorite = function (model, event) {
@@ -1295,145 +949,154 @@ function DashboardDetailsHandler() {
             data.layout = JSON.stringify(layout);
         }
 
-        if (dashboardModel.IsTemporaryDashboard()) {
-            // adhoc Dashboard
-
-            showSaveProgressbar();
-
-            var temporaryUri = data.uri;
-            dashboardModel.CreateDashboard(data)
-                .done(function (response) {
-                    // clean localStorage
-                    var storage = jQuery.localStorage(dashboardModel.Name);
-                    delete storage[temporaryUri];
-                    jQuery.localStorage(dashboardModel.Name, storage);
-
-                    // remove watcher
-                    jQuery.storageWatcher(enumHandlers.STORAGE.WATCHER_DASHBOARD_WIDGETS_COUNT.replace('{uri}', temporaryUri), undefined);
-
-                    self.ClosePopup();
-
-                    progressbarModel.EndProgressBar();
-
-                    // redirect to the creating dashboard
-                    dashboardHandler.CheckBeforeRender = true;
-                    window.location.replace(WC.Utility.GetDashboardPageUri(response.uri));
-                });
-        }
-        else if (saveAsNames) {
-            // save as...
-
-            showSaveProgressbar();
-
-            jQuery.extend(data, saveAsNames);
-            dashboardModel.SaveAsDashboard(data)
-                .done(function (response) {
-                    self.ClosePopup();
-
-                    progressbarModel.EndProgressBar();
-
-                    var maximizeWrapper = jQuery('#widgetMaximizeWrapper');
-                    if (maximizeWrapper.hasClass('active')) {
-                        dashboardHandler.MinimizeWidget(maximizeWrapper, false);
-                    }
-
-                    // redirect to the creating dashboard
-                    window.location.replace(WC.Utility.GetDashboardPageUri(response.uri));
-                });
-        }
-        else {
-            // clean updating data before check, in case viewer user will remain only user_specific property
-            self.CleanUpdatingData(data);
-            self.CleanUpdatingData(originalData);
-
-            // save normally
-            if (jQuery.deepCompare(data, originalData)) {
-                // nothing changes
+        jQuery.Deferred(function (rootPromise) {
+            if (dashboardModel.IsTemporaryDashboard()) {
+                // adhoc Dashboard
 
                 showSaveProgressbar();
-                progressbarModel.SetProgressBarText(null, null, Localization.ProgressBar_ApplyDashboardDetails);
-                setTimeout(function () {
-                    self.ClosePopup();
-                    progressbarModel.EndProgressBar();
-                }, 300);
+
+                var temporaryUri = data.uri;
+                dashboardModel.CreateDashboard(data)
+                    .done(function (response) {
+                        // clean localStorage
+                        var storage = jQuery.localStorage(dashboardModel.Name);
+                        delete storage[temporaryUri];
+                        jQuery.localStorage(dashboardModel.Name, storage);
+
+                        // remove watcher
+                        jQuery.storageWatcher(enumHandlers.STORAGE.WATCHER_DASHBOARD_WIDGETS_COUNT.replace('{uri}', temporaryUri), undefined);
+
+                        self.ClosePopup();
+
+                        progressbarModel.EndProgressBar();
+
+                        // redirect to the creating dashboard
+                        dashboardHandler.CheckBeforeRender = true;
+                        window.location.replace(WC.Utility.GetDashboardPageUri(response.uri));
+                        rootPromise.resolve();
+                    });
+            }
+            else if (saveAsNames) {
+                // save as...
+
+                showSaveProgressbar();
+
+                jQuery.extend(data, saveAsNames);
+                dashboardModel.SaveAsDashboard(data)
+                    .done(function (response) {
+                        self.ClosePopup();
+
+                        progressbarModel.EndProgressBar();
+
+                        var maximizeWrapper = jQuery('#widgetMaximizeWrapper');
+                        if (maximizeWrapper.hasClass('active')) {
+                            dashboardHandler.MinimizeWidget(maximizeWrapper, false);
+                        }
+
+                        // redirect to the creating dashboard
+                        window.location.replace(WC.Utility.GetDashboardPageUri(response.uri));
+                        rootPromise.resolve();
+                    });
             }
             else {
-                // continue saving....
+                // clean updating data before check, in case viewer user will remain only user_specific property
+                self.CleanUpdatingData(data);
+                self.CleanUpdatingData(originalData);
 
-                // data to be saved
-                // clean PUT data
-                jQuery.each(data, function (key, value) {
-                    if (jQuery.deepCompare(value, originalData[key], true, key !== 'widget_definitions')) {
-                        delete data[key];
-                    }
-                });
+                // save normally
+                if (jQuery.deepCompare(data, originalData)) {
+                    // nothing changes
 
-                var isFiltersChanged = data.filters !== undefined;
-
-                var saveDashboard = function () {
                     showSaveProgressbar();
-
-                    //minimize before save
-                    var maximizeWrapper = jQuery('#widgetMaximizeWrapper');
-                    if (maximizeWrapper.hasClass('active')) {
-                        dashboardHandler.MinimizeWidget(maximizeWrapper, false);
-                    }
-
-                    progressbarModel.SetProgressBarText(null, null, Localization.ProgressBar_PUTDashboardDetails);
-
-
-
-                    // handle update widgets
-                    var widgetDerferred = [];
-                    if (data.widget_definitions) {
-                        jQuery.each(originalData.widget_definitions, function (index, widget) {
-                            var changeWidget = data.widget_definitions.findObject('id', widget.id);
-                            if (!changeWidget) {
-                                widgetDerferred.pushDeferred(dashboardModel.DeleteWidgetById, [widget.id]);
-                            }
-                            else {
-                                // clean PUT data
-                                jQuery.each(changeWidget, function (key, value) {
-                                    if (jQuery.deepCompare(value, widget[key])) {
-                                        delete changeWidget[key];
-                                    }
-                                });
-                                if (!jQuery.isEmptyObject(changeWidget)) {
-                                    widgetDerferred.pushDeferred(dashboardModel.UpdateWidgetById, [widget.id, changeWidget]);
-                                }
-                            }
-                        });
-                        delete data.widget_definitions;
-                    }
-
-                    jQuery.whenAll(widgetDerferred, false)
-                        .then(function () {
-                            return dashboardModel.SaveDashboard(data);
-                        })
-                        .done(function (dashboardData) {
-                            self.SaveDashboardCallback(dashboardData, widgetDerferred, isFiltersChanged);
-                        });
-                };
-
-                var confirmMessageBeforeSave = self.GetConfirmMessageBeforeSave(dashboardModel.Data().is_validated(), data);
-                if (confirmMessageBeforeSave) {
-                    popup.Confirm(confirmMessageBeforeSave, function () {
-                        saveDashboard();
-                    }, function () {
-                        self.IsSubmit = false;
-                    }, {
-                            title: Localization.Warning_Title,
-                            icon: 'alert'
-                        });
+                    progressbarModel.SetProgressBarText(null, null, Localization.ProgressBar_ApplyDashboardDetails);
+                    setTimeout(function () {
+                        self.ClosePopup();
+                        progressbarModel.EndProgressBar();
+                        rootPromise.resolve();
+                    }, 300);
                 }
                 else {
-                    saveDashboard();
+                    // continue saving....
+
+                    // data to be saved
+                    // clean PUT data
+                    jQuery.each(data, function (key, value) {
+                        if (jQuery.deepCompare(value, originalData[key], true, key !== 'widget_definitions')) {
+                            delete data[key];
+                        }
+                    });
+
+                    var isFiltersChanged = data.filters !== undefined;
+
+                    var saveDashboard = function () {
+                        showSaveProgressbar();
+
+                        //minimize before save
+                        var maximizeWrapper = jQuery('#widgetMaximizeWrapper');
+                        if (maximizeWrapper.hasClass('active')) {
+                            dashboardHandler.MinimizeWidget(maximizeWrapper, false);
+                        }
+
+                        progressbarModel.SetProgressBarText(null, null, Localization.ProgressBar_PUTDashboardDetails);
+
+
+
+                        // handle update widgets
+                        var widgetDerferred = [];
+                        if (data.widget_definitions) {
+                            jQuery.each(originalData.widget_definitions, function (index, widget) {
+                                var changeWidget = data.widget_definitions.findObject('id', widget.id);
+                                if (!changeWidget) {
+                                    widgetDerferred.pushDeferred(dashboardModel.DeleteWidgetById, [widget.id]);
+                                }
+                                else {
+                                    // clean PUT data
+                                    jQuery.each(changeWidget, function (key, value) {
+                                        if (jQuery.deepCompare(value, widget[key])) {
+                                            delete changeWidget[key];
+                                        }
+                                    });
+                                    if (!jQuery.isEmptyObject(changeWidget)) {
+                                        widgetDerferred.pushDeferred(dashboardModel.UpdateWidgetById, [widget.id, changeWidget]);
+                                    }
+                                }
+                            });
+                            delete data.widget_definitions;
+                        }
+
+                        jQuery.whenAll(widgetDerferred, false)
+                            .then(function () {
+                                return dashboardModel.SaveDashboard(data);
+                            })
+                            .done(function (dashboardData) {
+                                self.SaveDashboardCallback(dashboardData, widgetDerferred, isFiltersChanged);
+                                rootPromise.resolve();
+                            });
+                    };
+
+                    var confirmMessageBeforeSave = self.GetConfirmMessageBeforeSave(dashboardModel.Data().is_validated(), data);
+                    if (confirmMessageBeforeSave) {
+                        popup.Confirm(confirmMessageBeforeSave, function () {
+                            saveDashboard();
+                        }, function () {
+                            self.IsSubmit = false;
+                        }, {
+                                title: Localization.Warning_Title,
+                                icon: 'alert'
+                            });
+                    }
+                    else {
+                        saveDashboard();
+                    }
                 }
             }
-        }
+        })
+        .done(function () {
+            toast.MakeSuccessTextFormatting(dashboardModel.Data().name(), Localization.Toast_SaveItem);
+        });
     };
     self.SaveDashboardCallback = function (dashboardData, widgetDerferred, isFiltersChanged) {
-        var deleteWidgetButtonElement = jQuery('.widgetDisplayColumn').find('.widgetButtonDelete');
+        var deleteWidgetButtonElement = jQuery('.widget-display-column').find('.widgetButtonDelete');
         self.ClosePopup();
         progressbarModel.EndProgressBar();
 

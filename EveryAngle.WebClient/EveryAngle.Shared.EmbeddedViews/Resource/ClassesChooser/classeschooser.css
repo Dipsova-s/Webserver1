@@ -222,7 +222,7 @@
 }
 
 #ObjectsGridContainer div.k-grid tbody td {
-    font-family: verdana;
+    font-family: inherit;
     font-size: 11px;
     border-bottom: 1px solid #d3d6d9;
     border-color: #d3d6d9;
@@ -248,7 +248,7 @@
 }
 
 #ObjectsGridContainer .gridCheckbox {
-    margin-left: 7px;
+    margin-left: 4px;
     display: block;
     height: 13px;
 }

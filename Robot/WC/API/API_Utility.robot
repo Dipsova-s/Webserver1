@@ -2,12 +2,12 @@
 Set Server Context Variables
     Open Browser in Sandbox Mode
     Go To    ${URL_WC}
-    Wait Login Page Document Loaded
+    Login To WC By Admin User
     ${url}    Execute JavaScript    return window.webAPIUrl;
     Set Suite Variable    ${CurrentServerUrl}    ${url}
 
     Go To    ${URL_WC_COMPARE}
-    Wait Login Page Document Loaded
+    Login To WC By Admin User
     ${url}    Execute JavaScript    return window.webAPIUrl;
     Set Suite Variable    ${CompareServerUrl}    ${url}
 
@@ -166,7 +166,7 @@ Get Peek Time
     [Return]    ${time}
 
 Clean Up Items
-    [Arguments]    ${target}    ${items}
+    [Arguments]    ${target}    ${items}    ${user}=${AdminUsername}    ${pwd}=${Password}
     : FOR    ${item}    IN   @{items}
-    \    Run Keyword    Run Keyword    Create Context: ${target}
+    \    Run Keyword    Run Keyword    Create Context: ${target}  ${user}  ${pwd}
     \    Send DELETE    ${item}

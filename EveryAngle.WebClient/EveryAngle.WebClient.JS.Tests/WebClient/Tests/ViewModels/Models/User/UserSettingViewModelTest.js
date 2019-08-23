@@ -24,9 +24,10 @@ describe("UserSettingViewModel", function () {
         });
     });
 
-    describe(".GetLastSearchData", function () {
+    describe(".GetClientSettingsData", function () {
 
         beforeEach(function () {
+            window.searchPageHandler = {};
             spyOn(userSettingViewModel, 'GetClientSettingByPropertyName').and.returnValue('url_old');
             spyOn(userSettingViewModel, 'GetByName').and.returnValue('{}');
             userModel.Data({ settings: '' });
@@ -34,38 +35,43 @@ describe("UserSettingViewModel", function () {
 
         var tests = [
             {
-                title: 'should not get last search data if it is not search page',
+                title: 'should not get client settings data if it is not search page',
                 searchHandler: false,
                 settingData: {},
                 url: 'url_new',
+                searchTerms: ['searchTerms'],
                 expectNull: true
             },
             {
-                title: 'should not get last search data if no user setting data',
+                title: 'should not get client settings data if no user setting data',
                 searchHandler: true,
                 settingData: null,
                 url: 'url_new',
+                searchTerms: ['searchTerms'],
                 expectNull: true
             },
             {
-                title: 'should not get last search data if url is not changed',
+                title: 'should not get client settings data if url and search terms are not changed',
                 searchHandler: true,
                 settingData: {},
                 url: 'url_old',
+                searchTerms: ['searchTerms'],
                 expectNull: true
             },
             {
-                title: 'should not get last search data if no url',
+                title: 'should not get client settings data if no url and search terms is not changed',
                 searchHandler: true,
                 settingData: {},
                 url: '/',
+                searchTerms: ['searchTerms'],
                 expectNull: true
             },
             {
-                title: 'should get last search data if url is changed',
+                title: 'should get client settings',
                 searchHandler: true,
                 settingData: {},
                 url: 'url_new',
+                searchTerms: ['searchTerms'],
                 expectNull: false
             }
         ];
@@ -73,10 +79,14 @@ describe("UserSettingViewModel", function () {
         $.each(tests, function (index, test) {
             it(test.title, function () {
                 window.SearchPageHandler = test.searchHandler;
+                window.searchPageHandler.SearchTerms = test.searchTerms;
+                
                 userSettingViewModel.Data(test.settingData);
                 spyOn(jQuery.address, 'value').and.returnValue(test.url);
+                
+                spyOn(userSettingViewModel, 'GetSearchTerms').and.returnValue(test.searchTerms);
 
-                var result = userSettingViewModel.GetLastSearchData();
+                var result = userSettingViewModel.GetClientSettingsData();
                 if (test.expectNull)
                     expect(result).toEqual(null);
                 else
@@ -85,43 +95,29 @@ describe("UserSettingViewModel", function () {
         });
     });
 
-    describe(".GetLastSearchUrl", function () {
-        var tests = [
-            {
-                last_search: '',
-                expected: ''
-            },
-            {
-                last_search: '/',
-                expected: ''
-            },
-            {
-                last_search: '/?q=test',
-                expected: '#/?q=test'
-            }
-        ];
-
-        $.each(tests, function (index, test) {
-            it("should get a correct last search url ('" + test.last_search + "' -> '" + test.expected + "')", function () {
-                spyOn(userSettingViewModel, "GetClientSettingByPropertyName").and.returnValue(test.last_search);
-                var result = userSettingViewModel.GetLastSearchUrl();
-                expect(result).toEqual(test.expected);
-            });
-        });
-    });
-
-    describe(".UpdateLastSearch", function () {
+    describe(".UpdateClientSettings", function () {
         it("should not update to storage if no data", function () {
             spyOn(userSettingViewModel, "Data").and.returnValue(null);
             spyOn(userSettingViewModel, "LoadSuccess");
-            userSettingViewModel.UpdateLastSearch({});
+            userSettingViewModel.UpdateClientSettings({});
             expect(userSettingViewModel.LoadSuccess).not.toHaveBeenCalled();
         });
         it("should update to storage if has data", function () {
             spyOn(userSettingViewModel, "Data").and.returnValue({});
             spyOn(userSettingViewModel, "LoadSuccess");
-            userSettingViewModel.UpdateLastSearch({});
+            userSettingViewModel.UpdateClientSettings({});
             expect(userSettingViewModel.LoadSuccess).toHaveBeenCalled();
+        });
+    });
+
+    describe(".GetSearchTerms", function () {
+        it("should return empty search terms", function () {
+            spyOn(userSettingViewModel, 'GetClientSettingByPropertyName').and.returnValue(null);
+            expect(userSettingViewModel.GetSearchTerms()).toEqual([]);
+        });
+        it("should return value search terms", function () {
+            spyOn(userSettingViewModel, 'GetClientSettingByPropertyName').and.returnValue(["Analyze your payment behaviour","Angle For Allow Obtain More Details Test","Dashboard","General","Test"]);
+            expect(userSettingViewModel.GetSearchTerms()).not.toEqual([]);
         });
     });
 

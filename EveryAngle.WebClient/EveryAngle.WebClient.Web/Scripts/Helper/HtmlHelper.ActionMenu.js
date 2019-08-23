@@ -1,6 +1,45 @@
 ﻿(function (win) {
     "use strict";
 
+    var createActionMenuItems = function (itemsSelector, dropdownSelector, data, callback) {
+        // for large screen
+        var target = jQuery(itemsSelector).empty();
+        jQuery.each(data, function (index, action) {
+            var item = jQuery('<a />')
+                .attr('class', 'actionDropdownItem ' + action.Id + (action.Enable ? '' : ' disabled') + (action.Visible ? '' : ' alwaysHide'))
+                .html('<span>' + action.Text + '</span>');
+            item.on('click', jQuery.proxy(callback, null, item.get(0), action.Id));
+            target.append(item);
+        });
+
+        // for small screen
+        var dropdown = WC.HtmlHelper.DropdownList(dropdownSelector, data, {
+            height: 500,
+            dataValueField: 'Id',
+            dataTextField: 'Text',
+            template: '<div class="actionDropdownItem #: Id # #: Enable ? \'\' : \'disabled\' #"><span>#: Text #</span></div>',
+            optionLabel: Localization.Actions,
+            select: function (e) {
+                var dataItem = e.sender.dataItem(e.item);
+                callback(e.item.children('.actionDropdownItem').get(0), dataItem.Id);
+                e.preventDefault();
+            },
+            open: function () {
+                jQuery(window).off('resize.actiondropdown').on('resize.actiondropdown', function () {
+                    dropdown.close();
+                });
+            },
+            close: function () {
+                jQuery(window).off('resize.actiondropdown');
+            }
+        });
+        dropdown.dataSource.filter({
+            field: 'Visible',
+            operator: 'eq',
+            value: true
+        });
+    };
+
     var onDocumentClicked = function (e) {
         var currentTarget = jQuery(e.target);
         var target = jQuery(e.data.itemContainer);
@@ -21,8 +60,13 @@
     };
 
     var onPageResized = function (e) {
+        if (jQuery(e.data.itemContainer).is(':hidden')) {
+            jQuery(e.data.target).css('width', '');
+            return;
+        }
+
         // always reset expanded state
-        $(e.data.itemContainer).removeClass('open');
+        jQuery(e.data.itemContainer).removeClass('open');
 
         // get size of sibling elements
         var target = jQuery(e.data.target);
@@ -95,7 +139,7 @@
         // plug private function for testability
         this._data = {
             target: target,
-            calculateSiblingsWidth: calculateSiblingsWidth,
+            calculateSiblingsWidth: calculateSiblingsWidth || function () { return 0; },
             buttonElement: '.btnTools',
             itemContainer: '.popupAction',
             itemElement: '.actionDropdownItem'
@@ -107,9 +151,7 @@
     };
 
     // helper
-    actionMenu.prototype.UpdateLayout = function (data) {
-        onPageResized({ data: data });
-    };
+    actionMenu.CreateActionMenuItems = createActionMenuItems;
 
     jQuery.extend(win.WC.HtmlHelper, { ActionMenu: actionMenu });
 

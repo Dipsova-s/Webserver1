@@ -1,13 +1,8 @@
 *** Settings ***
 Resource            ${EXECDIR}/resources/WCSettings.robot
-Resource            ${EXECDIR}/WC/API/API_UserSettings.robot
 Suite Teardown      Logout WC Then Close Browser
 Test Teardown       Go to Search Page
 Force Tags          smoke_s    smk_wc_s
-
-*** Variables ***
-${NL_LANGUAGE_TEXT}                        Dutch
-${EN_LANGUAGE_TEXT}                        English
 
 *** Test Cases ***
 Verify Change User Language
@@ -19,9 +14,3 @@ Verify Change User Language
     Should Be True          '${en_caption}' != '${nl_caption}'
     Change User Language    ${EN_LANGUAGE_TEXT}
     [Teardown]  Run Keyword     Reset UserSettings Language
-
-*** Keywords ***
-Reset UserSettings Language
-    Create Context: Web
-    ${path}    Execute JavaScript    return userModel.Data().user_settings;
-    Update UserSettings Language    ${path}     USER_SETTINGS.json

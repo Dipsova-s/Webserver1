@@ -8,30 +8,10 @@ function AngleDetailPageHandler() {
     self.Type = 'Angle';
     self.PopupElement = null;
     self.SelectTab = null;
-    self.PublishingModel = {
-        bp_text: ko.observable(''),
-        language_text: ko.observable(''),
-        privilege_label_text: ko.observable(''),
-        search_label_text: ko.observable(''),
-        display_definitions: ko.observableArray(),
-        angle_default_display: ko.observable(null)
-    };
-    self.PublishingModel.angle_default_display.subscribe(function (newValue) {
-        if (newValue) {
-            var model = self.PublishingModel.display_definitions().findObject('id', newValue);
-            if (model)
-                model.is_public_text('public');
-            jQuery('.popupPublishing .btnPrimary').removeClass('disabled');
-        }
-        else {
-            jQuery('.popupPublishing .btnPrimary').addClass('disabled');
-        }
-    });
     self.TAB = {
         GENERAL: 'AngleGeneral',
         DESCRIPTION: 'AngleDescription',
         DEFINITION: 'AngleDefinition',
-        PUBLISHING: 'AnglePublishing',
         STATISTIC: 'AngleStatistic'
     };
     self.HandlerFilter = null;
@@ -40,7 +20,7 @@ function AngleDetailPageHandler() {
     self.HandlerInfoDetails = null;
     self.HandlerLanguages = null;
     self.HandlerLanguagesSaveAs = null;
-    self.HandlerLabels = null;
+    self.NoneBusinessProcessLabels = [];
 
     self.ShowPopup = function (selectedTab, callback) {
         requestHistoryModel.SaveLastExecute(self, self.ShowPopup, arguments);
@@ -66,6 +46,7 @@ function AngleDetailPageHandler() {
                 html: angleDetailBodyHtmlTemplate(),
                 className: 'popup' + popupName + ' popupWithTabMenu',
                 width: 880,
+                height: 530,
                 minWidth: 748,
                 minHeight: 400,
                 buttons: [
@@ -207,7 +188,6 @@ function AngleDetailPageHandler() {
         self.PopupElement = win;
 
         angleInfoModel.IsTempTemplate(angleInfoModel.IsTemplate());
-        angleInfoModel.IsTempValidated(angleInfoModel.IsValidated());
 
         win.element.css('overflow', 'hidden').busyIndicator(true);
         win.element.find('.popupTabMenu, .popupTabPanel').css('visibility', 'hidden');
@@ -223,6 +203,8 @@ function AngleDetailPageHandler() {
         deferred.pushDeferred(systemLanguageHandler.LoadLanguages);
         jQuery.whenAll(deferred)
             .done(function () {
+                self.SetNoneBusinessProcessLabels(angleInfoModel.Data().assigned_labels);
+
                 var activeBusinessProcessBars = self.GetActiveBusinessProcesses();
                 businessProcessesModel.General.CurrentActive(activeBusinessProcessBars);
                 businessProcessesModel.General.ClickCallback(jQuery.noop);
@@ -230,15 +212,8 @@ function AngleDetailPageHandler() {
                 businessProcessesModel.General.MultipleActive(true);
                 businessProcessesModel.General.CanEmpty(false);
 
-                // M4-34659: load labels on popup open (move from publishing tab clicked)
-                self.HandlerLabels = new WidgetLabelsHandler('#PublishTabWrapper', angleInfoModel.Data().assigned_labels, businessProcessesModel.General);
-                self.HandlerLabels.ApplyHandler(angleInfoModel.Data().model, angleInfoModel.Data().is_published);
-                if (!angleInfoModel.CanUpdateAngle('assigned_labels')) {
-                    self.HandlerLabels.TabEnabledIndexes.removeAll();
-                }
-
                 var checkAngleIsReady = setInterval(function () {
-                    if (resultModel.Data() && anglePageHandler.LoadResultFieldDone && self.HandlerLabels.IsReady) {
+                    if (resultModel.Data() && anglePageHandler.LoadResultFieldDone) {
                         if (!resultModel.Data().authorizations) {
                             resultModel.Data().authorizations = resultModel.GetDefaultResultAuthorizations();
                         }
@@ -292,15 +267,7 @@ function AngleDetailPageHandler() {
             angleInfoModel.IsTempTemplate(!angleInfoModel.IsTempTemplate());
         }
     };
-    self.SetValidate = function (data, event) {
-        if (!jQuery(event.currentTarget).hasClass('disabled')) {
-            angleInfoModel.IsTempValidated(!angleInfoModel.IsTempValidated());
-        }
-    };
-    self.CheckAngleValidation = function (isPublishCheck) {
-        if (typeof isPublishCheck === 'undefined')
-            isPublishCheck = false;
-
+    self.CheckAngleValidation = function () {
         // check languages
         jQuery.each(self.HandlerLanguages.Languages.List(), function (i, language) {
             language.language_name(jQuery.trim(language.language_name()));
@@ -348,46 +315,6 @@ function AngleDetailPageHandler() {
 
                 return false;
             }
-        }
-
-        // check labels
-        var isPublish = isPublishCheck || jQuery('#AngleIsPublished').prop('checked');
-        if (isPublish) {
-            var tabPublishTarget = null;
-            var requiredLabelNames = [];
-            var validationResults = self.HandlerLabels.GetValidationResults();
-
-            // check privilege labels
-            jQuery.each(validationResults[self.HandlerLabels.LABELTYPE.PRIVILEGE].UnassignedCategories, function (index, categoryName) {
-                tabPublishTarget = self.HandlerLabels.LABELTYPE.PRIVILEGE;
-                requiredLabelNames.push('<li>' + categoryName + '</li>');
-            });
-
-            // check search labels
-            jQuery.each(validationResults[self.HandlerLabels.LABELTYPE.SEARCH].UnassignedCategories, function (index, categoryName) {
-                if (!tabPublishTarget) {
-                    tabPublishTarget = self.HandlerLabels.LABELTYPE.SEARCH;
-                }
-                requiredLabelNames.push('<li>' + categoryName + '</li>');
-            });
-
-            if (requiredLabelNames.length) {
-                popup.Alert(Localization.Warning_Title, kendo.format(Localization.Info_RequiredLabelsForAngle, requiredLabelNames.join('')));
-                self.TabClick(self.TAB.PUBLISHING);
-                self.HandlerLabels.TabActiveIndex(tabPublishTarget);
-
-                return false;
-            }
-
-            // M4-32183 business process + assigned privilege labels should be equal or greater than minimum label categories setting in MC
-            if (!validationResults.CheckPrivilegeLabelCategories()) {
-                var minLabelCategories = systemSettingHandler.GetMinLabelCategoryToPublish();
-                var description = kendo.format(Localization.Info_RequiredAtLeastOneLabelBeforePublish, minLabelCategories);
-                popup.Alert(Localization.Warning_Title, description);
-
-                return false;
-            }
-
         }
 
         return true;
@@ -503,7 +430,6 @@ function AngleDetailPageHandler() {
             popupSettings = {
                 element: '#popup' + popupName,
                 title: Localization.AngleDetails,
-                appendTo: 'body',
                 className: 'popup' + popupName,
                 buttons: [
                     {
@@ -513,6 +439,7 @@ function AngleDetailPageHandler() {
                         click: 'close'
                     }
                 ],
+                height: 530,
                 animation: false,
                 resize: function (e) {
                     var winWidth = e.sender.element.width();
@@ -541,18 +468,6 @@ function AngleDetailPageHandler() {
             };
 
         popup.Show(popupSettings);
-    };
-    self.ShowInfoAllowMoreDetailsPopup = function () {
-
-        var message = Localization.InfoAllowMoreDetailsPopup;
-        var win = popup.Info(message);
-
-        var options = {
-            title: Localization.Infomation_Title,
-            width: 510
-        };
-        win.setOptions(options);
-        win.element.find('.notificationIcon').attr('class', 'notificationIcon');
     };
     self.ShowAngleResultSummary = function () {
         var popupName = 'AngleResultSummary',
@@ -584,25 +499,6 @@ function AngleDetailPageHandler() {
             };
 
         popup.Show(popupSettings);
-    };
-    self.ShowIsPublishInfoMessage = function () {
-        if (angleInfoModel.IsPublished() && !jQuery('#AngleIsPublished').is(':checked')) {
-            if (angleInfoModel.CreatedBy().user !== userModel.Data().uri) {
-                popup.Confirm(Localization.IsPublishInfoMessage, function () {
-                    jQuery('#AngleIsPublished').prop('checked', false);
-
-                    return true;
-                });
-
-                jQuery('#AngleIsPublished').prop('checked', true);
-            }
-        }
-        else if (!angleInfoModel.IsPublished() && jQuery('#AngleIsPublished').is(':checked') &&
-            !angleInfoModel.Data().display_definitions.hasObject('is_public', true) &&
-            !displayModel.Data().is_public) {
-            popup.Alert(Localization.Warning_Title, Localization.ErrorPublishAngleWithoutPublicDisplay);
-            jQuery('#AngleIsPublished').prop('checked', false);
-        }
     };
     self.TabClick = function (elementId) {
         if (!self.PopupElement)
@@ -651,6 +547,13 @@ function AngleDetailPageHandler() {
                 self.CheckExecuted();
             }, 500);
         }
+    };
+    self.SetNoneBusinessProcessLabels = function (labels) {
+        self.NoneBusinessProcessLabels = [];
+        jQuery.each(labels, function (index, label) {
+            if (!WC.Utility.ToArray(businessProcessesModel.General.Data()).hasObject('id', label, false))
+                self.NoneBusinessProcessLabels.push(label);
+        });
     };
     self.GetActiveBusinessProcesses = function () {
         var modelPrivileges = privilegesViewModel.GetModelPrivilegesByUri(angleInfoModel.Data().model);
@@ -726,551 +629,13 @@ function AngleDetailPageHandler() {
     };
     //EOF: Angle filters tab
 
-    //BOF: Angle publish tab
-    self.ShowPublishPopup = function () {
-        requestHistoryModel.SaveLastExecute(self, self.ShowPublishPopup, arguments);
-        requestHistoryModel.ClearPopupBeforeExecute = true;
-
-        if (self.PopupElement.wrapper.find('.btnPublish').hasClass('disabled'))
-            return;
-
-        if (angleInfoModel.IsPublished()) {
-            if (!privilegesViewModel.IsAllowManagePrivateItems(angleInfoModel.Data().model) && angleInfoModel.Data().created.user !== userModel.Data().uri) {
-                popup.Confirm(Localization.MessageConfirmUnpublishAngle, function () {
-                    // confirm to unpublish
-                    self.UnpublishAngle();
-                });
-            }
-            else {
-                self.UnpublishAngle();
-            }
-        }
-        else {
-            // check unsave details
-            if (!self.CheckAngleValidation(true)) {
-                return;
-            }
-
-            if (!angleInfoModel.IsTemporaryAngle()) {
-                var currentData = self.CurrentData().data,
-                    sourceAngleData = ko.toJS(angleInfoModel.Data()),
-                    dataChanged = false;
-                if (!userModel.GetAuthorizeCreateTemplateAnlge(angleInfoModel.Data().model)) {
-                    delete currentData.is_template;
-                }
-                if (sourceAngleData.user_specific
-                    && !sourceAngleData.user_specific.private_note) {
-                    delete sourceAngleData.user_specific.private_note;
-                }
-                if (currentData.user_specific
-                    && !currentData.user_specific.private_note) {
-                    delete currentData.user_specific.private_note;
-                }
-
-                currentData = WC.ModelHelper.GetChangeAngle(currentData, sourceAngleData);
-
-                var followupChanged = false;
-                var setFollowupChanged = function (newQueryBlock, oldQueryBlock, followupSteps) {
-                    if (newQueryBlock) {
-                        var newFollowupSteps = jQuery.grep(newQueryBlock.query_steps, function (query_step) {
-                            return query_step.step_type === enumHandlers.FILTERTYPE.FOLLOWUP;
-                        });
-                        var oldFollowupSteps = !oldQueryBlock ? [] : jQuery.grep(oldQueryBlock.query_steps, function (query_step) {
-                            return query_step.step_type === enumHandlers.FILTERTYPE.FOLLOWUP;
-                        });
-
-                        if (!jQuery.deepCompare(newFollowupSteps, oldFollowupSteps, false, false)) {
-                            followupChanged = true;
-                        }
-                    }
-                    else if (oldQueryBlock) {
-                        followupSteps = jQuery.grep(oldQueryBlock.query_steps, function (query_step) {
-                            return query_step.step_type === enumHandlers.FILTERTYPE.FOLLOWUP;
-                        });
-                        if (followupSteps.length) {
-                            followupChanged = true;
-                        }
-                    }
-                };
-
-                if (currentData) {
-                    dataChanged = true;
-
-                    if (currentData.query_definition) {
-                        var followupSteps = [];
-                        var newQueryBlock = WC.Utility.ToArray(currentData.query_definition).findObject('queryblock_type', enumHandlers.QUERYBLOCKTYPE.QUERY_STEPS);
-                        var oldQueryBlock = WC.Utility.ToArray(sourceAngleData.query_definition).findObject('queryblock_type', enumHandlers.QUERYBLOCKTYPE.QUERY_STEPS);
-
-                        setFollowupChanged(newQueryBlock, oldQueryBlock, followupSteps);
-                    }
-                }
-
-                /*
-                    M4-10575: Alert pop-up when unchanged saves in the angle details
-                    3.If data changed by not include follow-up show ask user save pop-up
-                    3.1.If user click ok => save changed
-                    3.2.If user click cancel => return to angle detail pop-up
-                */
-                if (followupChanged) {
-                    popup.Alert(Localization.Alert_Title, Localization.MessageSaveFollowupRequiredPublishAngle);
-                    return;
-                }
-                if (dataChanged) {
-                    popup.Confirm(Localization.MessageSaveQuestionPublishAngle, function () {
-                        progressbarModel.ShowStartProgressBar(Localization.ProgressBar_PUTAngleDetail, false);
-                        self.ManageSaveAngleState({
-                            UpdateAngleJSON: currentData,
-                            OldQuerySteps: [],
-                            NewQuerySteps: [],
-                            OldFollowups: [],
-                            NewFollowups: [],
-                            IsSaveFromPublish: true
-                        })
-                            .done(function () {
-                                self.ReInitialQuerySteps();
-                                angleQueryStepModel.CommitAll();
-                                self.ShowAngleDetailsAndPublishPopup();
-                            });
-                    }, jQuery.noop);
-                }
-                else {
-                    self.PublishPopup();
-                }
-            }
-            else {
-                self.PublishPopup();
-            }
-        }
-    };
-    self.PublishPopup = function () {
-        var popupName = 'AnglePublishing',
-            popupSettings = {
-                element: '#popup' + popupName,
-                title: Localization.AnglePublishing,
-                html: anglePublishingHtmlTemplate(),
-                className: 'popupPublishing popup' + popupName,
-                scrollable: false,
-                buttons: [
-                    {
-                        text: Captions.Button_Cancel,
-                        position: 'right',
-                        click: 'close'
-                    },
-                    {
-                        text: Localization.Save,
-                        position: 'right',
-                        isPrimary: true,
-                        className: 'executing',
-                        click: function (e, obj) {
-                            if (popup.CanButtonExecute(obj)) {
-                                self.PublishAngle(e.kendoWindow);
-                            }
-                        }
-                    },
-                    {
-                        text: '',
-                        className: 'loading16x16',
-                        position: 'right'
-                    }
-                ],
-                open: function (e) {
-                    e.sender.element.busyIndicator(true);
-                    var fnCheckLabelLoaded = setInterval(function () {
-                        if (!self.HandlerLabels.Element.find('.k-loading-mask').length) {
-                            e.sender.element.busyIndicator(false);
-                            self.ShowPublishPopupCallback(e);
-                            clearInterval(fnCheckLabelLoaded);
-                        }
-                    }, 100);
-                },
-                resize: function (e) {
-                    var elementHeight = e.sender.element.height(),
-                        detailSectionHeight = e.sender.element.find('.sectionPublishingDetails').outerHeight(),
-                        hrHeight = e.sender.element.find('.StatSeparate').outerHeight(),
-                        noteHeight = e.sender.element.find('.publishingNote').outerHeight();
-
-                    e.sender.element.find('.sectionPublishingDisplay .rowContent').css('max-height', elementHeight - detailSectionHeight - hrHeight - noteHeight - 70);
-                },
-                close: function (e) {
-                    e.sender.destroy();
-                }
-            };
-
-        popup.Show(popupSettings);
-    };
-    self.ShowPublishPopupCallback = function (e) {
-        // prepare publishing
-        var defaultDisplay = angleInfoModel.Data().angle_default_display;
-
-        // bp
-        var bpList = [];
-        jQuery.each(self.HandlerLabels.GetLabelsByType(self.HandlerLabels.LABELTYPE.BUSINESSPROCESS), function (index, item) {
-            bpList.push(item.LabelName);
-        });
-        self.PublishingModel.bp_text(bpList.length + ' (' + bpList.join(', ') + ')');
-
-        // language
-        var langList = [];
-        jQuery.each(ko.toJS(self.HandlerLanguages.Languages.List()), function (index, item) {
-            if (item.is_selected) {
-                langList.push(item.name);
-            }
-        });
-        self.PublishingModel.language_text(langList.length + ' (' + langList.join(', ') + ')');
-
-        // privilege
-        var privilegeList = [];
-        jQuery.each(self.HandlerLabels.GetLabelsByType(self.HandlerLabels.LABELTYPE.PRIVILEGE), function (index, item) {
-            privilegeList.push(item.LabelName);
-        });
-        self.PublishingModel.privilege_label_text(privilegeList.length === 0 ? '0' : privilegeList.length + ' (' + privilegeList.join(', ') + ')');
-
-        // search
-        var searchList = [];
-        jQuery.each(self.HandlerLabels.GetLabelsByType(self.HandlerLabels.LABELTYPE.SEARCH), function (iindex, item) {
-            searchList.push(item.LabelName);
-        });
-        self.PublishingModel.search_label_text(searchList.length === 0 ? '0' : searchList.length + ' (' + searchList.join(', ') + ')');
-
-        self.PublishingModel.display_definitions.removeAll();
-
-        // M4-13485: [WC] Displays not on alphabetical order in Publishing summary
-        var displayDefinitions = ko.toJS(angleInfoModel.Data().display_definitions);
-        jQuery.each(displayDefinitions, function (index, display) {
-            display.name = WC.Utility.GetDefaultMultiLangText(display.multi_lang_name);
-        });
-        displayDefinitions.sortObject('name', enumHandlers.SORTDIRECTION.ASC, false);
-
-        jQuery.each(displayDefinitions, function (index, display) {
-            self.PublishingModel.display_definitions.push({
-                id: display.id,
-                uri: display.uri,
-                is_public: true,
-                is_public_text: ko.observable('public'),
-                display_type: display.display_type,
-                name: display.name
-            });
-            self.PublishingModel.display_definitions()[index].is_public_text.subscribe(function (newValue) {
-                var model = this;
-                if (newValue === 'public') {
-                    model.is_public = true;
-                    if (!self.PublishingModel.angle_default_display())
-                        self.PublishingModel.angle_default_display(model.id);
-                }
-                else {
-                    model.is_public = false;
-
-                    if (self.PublishingModel.angle_default_display() === model.id) {
-                        var newAngleDefault = null,
-                            startFindNextDefaultDisplay = false;
-                        jQuery.each(self.PublishingModel.display_definitions(), function (index, def) {
-                            if (def.is_public && !newAngleDefault) {
-                                newAngleDefault = def.id;
-                            }
-                            if (startFindNextDefaultDisplay && def.is_public) {
-                                newAngleDefault = def.id;
-                                startFindNextDefaultDisplay = false;
-                            }
-                            if (def.id === model.id) {
-                                startFindNextDefaultDisplay = true;
-                            }
-                        });
-                        self.PublishingModel.angle_default_display(newAngleDefault);
-                    }
-                }
-
-            }, self.PublishingModel.display_definitions()[index]);
-
-            if (!defaultDisplay) {
-                defaultDisplay = display.id;
-            }
-        });
-        self.PublishingModel.angle_default_display(defaultDisplay);
-
-        WC.HtmlHelper.ApplyKnockout(self.PublishingModel, e.sender.wrapper);
-
-        e.sender.wrapper.find('.loading16x16').hide();
-        e.sender.toFront();
-
-        e.sender.wrapper.find('.k-window-buttons .btn').removeClass('executing');
-    };
-    self.ClosePublishPopup = function () {
-        popup.Close('#popupAnglePublishing');
-    };
-    self.PublishAngle = function (win) {
-        requestHistoryModel.SaveLastExecute(self, self.PublishAngle, arguments);
-
-        var btnSave = win.wrapper.find('.btnPrimary');
-        var btnLoading = win.wrapper.find('.loading16x16');
-        if (btnSave.hasClass('disabled'))
-            return;
-
-        btnLoading.show();
-        btnSave.addClass('disabled');
-
-        if (angleInfoModel.IsTemporaryAngle()) {
-            jQuery('#AngleIsPublished').prop('checked', true);
-
-            var historyDisplay;
-            jQuery.each(angleInfoModel.Data().display_definitions, function (index, display) {
-                // M4-13485: [WC] Displays not on alphabetical order in Publishing summary
-                var isPublic = self.PublishingModel.display_definitions().findObject('uri', display.uri).is_public;
-
-                display.is_public = isPublic;
-
-                historyDisplay = historyModel.Get(display.uri);
-                historyDisplay.is_public = display.is_public;
-                if (display.id === self.PublishingModel.angle_default_display()) {
-                    historyDisplay.is_angle_default = true;
-                }
-                else {
-                    historyDisplay.is_angle_default = false;
-                }
-
-                historyModel.Set(display.uri, historyDisplay);
-            });
-
-            angleInfoModel.Data().angle_default_display = self.PublishingModel.angle_default_display();
-            angleInfoModel.Data.commit();
-
-            self.Save();
-            btnSave.removeClass('disabled');
-            btnLoading.hide();
-            self.ClosePublishPopup();
-        }
-        else {
-            var angleData = {};
-            if (angleInfoModel.Data().angle_default_display !== self.PublishingModel.angle_default_display()) {
-                angleData.angle_default_display = self.PublishingModel.angle_default_display();
-            }
-
-            self.PostPublish(angleData, btnSave, btnLoading);
-        }
-    };
-    self.UnpublishAngle = function () {
-        var btnPublish = self.PopupElement.wrapper.find('.btnPublish');
-        var btnSave = self.PopupElement.wrapper.find('.btnPrimary');
-        btnPublish.addClass('disabled loading16x16');
-        btnSave.addClass('disabled');
-
-        var updateStatUnpublishCallback = function () {
-            self.UnpublishAngleCallback()
-                .always(self.ApplyUnpublishAngle);
-        };
-
-        var angleData = {
-            is_published: false
-        };
-        self.UpdateState(angleInfoModel.Data().state, angleData, false, updateStatUnpublishCallback)
-            .done(updateStatUnpublishCallback)
-            .always(function () {
-                btnPublish.removeClass('disabled loading16x16');
-                btnSave.removeClass('disabled');
-            });
-    };
-    self.UnpublishAngleCallback = function () {
-        //M4-12831: Fixed error message when angle is uppublished
-        if (!self.CanUserManageAngle()) {
-            // update watcher
-            angleInfoModel.UpdatePublicationsWatcher(false);
-
-            anglePageHandler.BackToSearch();
-            return jQuery.when(false);
-        }
-        else {
-            return angleInfoModel.LoadAngle(angleInfoModel.Data().uri);
-        }
-    };
-    self.CanUserManageAngle = function () {
-        return privilegesViewModel.IsAllowManagePrivateItems(angleInfoModel.Data().model) || angleInfoModel.Data().created.user === userModel.Data().uri;
-    };
-    self.ApplyUnpublishAngle = function (xhr) {
-        if (xhr !== false) {
-            var displayHistory;
-            jQuery.each(angleInfoModel.Data().display_definitions, function (index, display) {
-                displayHistory = historyModel.Get(display.uri);
-                displayHistory.is_public = display.is_public;
-                displayHistory.is_angle_default = display.is_angle_default;
-                displayHistory.authorizations = display.authorizations;
-                historyModel.Set(display.uri, displayHistory);
-
-                if (display.uri === displayModel.Data().uri) {
-                    displayModel.LoadSuccess(displayHistory);
-                }
-            });
-
-            var btnPublish = self.PopupElement.wrapper.find('.btnPublish');
-            var btnSave = self.PopupElement.wrapper.find('.btnPrimary');
-            btnPublish.removeClass('disabled loading16x16');
-            btnSave.removeClass('disabled');
-            self.ReInitialQuerySteps();
-        }
-    };
-    self.PostPublish = function (angleData, btnSave, btnLoading) {
-        var displayDeferred;
-        var publishDisplay = function (uri, state, displayName) {
-            var dfd = jQuery.Deferred();
-            var query = {};
-            query[enumHandlers.PARAMETERS.FORCED] = true;
-            UpdateDataToWebService(uri + '?' + jQuery.param(query), state)
-                .fail(function (xhr, status, error) {
-                    var message = error;
-                    try {
-                        var response = JSON.parse(xhr.responseText);
-                        message = response.message + ', ' + response.reason;
-                    }
-                    catch (ex) {
-                        //do nothing
-                    }
-                    dfd.resolve(false, '<strong>' + displayName + ':</strong> ' + message);
-                })
-                .done(function () {
-                    dfd.resolve(true);
-                });
-            return dfd.promise();
-        };
-        var getDisplayDeferred = function () {
-            var deferred = [];
-            jQuery.each(angleInfoModel.Data().display_definitions, function (index, display) {
-                // M4-13485: [WC] Displays not on alphabetical order in Publishing summary
-                var displayObj = self.PublishingModel.display_definitions().findObject('uri', display.uri);
-
-                /* M4-12271: AS already public default display, added condition check don't update default display */
-                if (display.is_public !== displayObj.is_public && display.id !== self.PublishingModel.angle_default_display()) {
-                    /*  M4-10057: Implement state transfers for angles/displays/dashboards
-                        1.Looping to keep PUT public display from user select published angle button
-                        2.Changed from PUT it directly to PUT display/xxx/state instead
-                    */
-                    deferred.pushDeferred(publishDisplay, [display.state.substr(1), { is_published: !display.is_public }, displayObj.name]);
-                }
-            });
-            return deferred;
-        };
-        var publishDisplays = function (deferred) {
-            /*  M4-10057: Implement state transfers for angles/displays/dashboards
-                    4.PUT is_published state of display(s)
-                */
-            errorHandlerModel.Enable(false);
-            var dfd = jQuery.Deferred();
-            jQuery.whenAll(deferred, false)
-                .always(function (results) {
-                    var listError = [];
-                    jQuery.each(WC.Utility.ToArray(results), function (index, result) {
-                        if (!result[0]) {
-                            listError.push(result[1]);
-                        }
-                    });
-
-                    if (listError.length) {
-                        popup.Alert(Localization.Warning_Title, Localization.Info_ListDisplaysDeletedWhileProcess + '<br/>' + listError.join('<br/>'));
-                        popup.OnCloseCallback = function () {
-                            var currentDisplayUri = displayModel.Data().uri;
-                            if (!angleInfoModel.Data().display_definitions.hasObject('uri', currentDisplayUri)) {
-                                popup.Close('#popupAngleDetail');
-                                anglePageHandler.HandleNoneExistDisplay();
-                            }
-                        };
-                        dfd.resolve(false);
-                    }
-                    else {
-                        dfd.resolve(true);
-                    }
-                });
-            return dfd.promise();
-        };
-        var publishAngleCallback = function () {
-            publishDisplays(displayDeferred)
-                .then(function () {
-                    /*  M4-10057: Implement state transfers for angles/displays/dashboards
-                        5.GET angle for updated client view model
-                    */
-
-                    return angleInfoModel.LoadAngle(angleInfoModel.Data().uri);
-                })
-                .always(function () {
-                    errorHandlerModel.EnableErrorByDelay();
-
-                    btnLoading.hide();
-                    btnSave.removeClass('disabled');
-                    self.ClosePublishPopup();
-
-                    setTimeout(function () {
-                        anglePageHandler.ApplyExecutionAngle();
-                        /* M4-11680: Fixed when angle had warning and error should not can validated angle */
-                        self.ReGetInvalidAngleAndDisplay();
-                        /* M4-11680: Fixed when angle had warning and error should not can validated angle */
-                    }, 500);
-                });
-        };
-        var publishAngle = function (forced) {
-            /*  M4-10057: Implement state transfers for angles/displays/dashboards
-                    3.PUT is_published state of angle
-                */
-            self.UpdateState(angleInfoModel.Data().state, { is_published: true }, forced, publishAngleCallback)
-                .done(publishAngleCallback);
-        };
-
-        displayDeferred = getDisplayDeferred();
-        errorHandlerModel.Enable(false);
-        if (jQuery.isEmptyObject(angleData)) {
-            publishAngle(false);
-        }
-        else {
-            self.UpdateAngleBeforePublish(angleData, false, publishAngle)
-                .done(function () {
-                    publishAngle(true);
-                });
-        }
-    };
-    self.UpdateAngleBeforePublish = function (angleData, force, publishAngle) {
-        var handleSaveAngleError = function (xhr) {
-            if (xhr.status === 404) {
-                anglePageHandler.HandleNoneExistAngle();
-            }
-            else if (resolveAngleDisplayHandler.IsConflictAngleDisplay(xhr)) {
-                progressbarModel.CancelFunction = jQuery.noop;
-                var resolveAngleDisplayCallback = function () {
-                    self.UpdateAngleBeforePublish(angleData, true, publishAngle)
-                        .done(function () {
-                            publishAngle(true);
-                        });
-                };
-                resolveAngleDisplayHandler.ShowResolveAngleDisplayPopup(xhr, resolveAngleDisplayCallback);
-            }
-            else if (xhr.status === 422) {
-                // try to set default display but it was removed or hidden
-                errorHandlerModel.OnClickOkErrorCallback = function () {
-                    popup.CloseAll();
-                    self.ClosePublishPopup();
-                    popup.Close('#popupAngleDetail');
-
-                    angleInfoModel.Data().uri = '';
-                    angleInfoModel.Data.commit();
-                    anglePageHandler.ExecuteAngle();
-                };
-                errorHandlerModel.ShowCustomError(Localization.ErrorAngleNoDefaultDisplay);
-            }
-            else {
-                errorHandlerModel.BuildCustomAjaxError({ url: angleInfoModel.Data().uri, type: 'PUT' }, xhr);
-            }
-        };
-        return angleInfoModel.UpdateAngle(angleInfoModel.Data().uri, angleData, force)
-            .fail(handleSaveAngleError);
-    };
-    //EOF: Angle publish tab
-
     self.CurrentData = function () {
         // Angle General
         var data = {};
 
         data.model = angleInfoModel.Data().model;
-        data.assigned_labels = self.HandlerLabels.GetAssignedLabels();
+        data.assigned_labels = self.GetAssignedLabels();
 
-        data.user_specific = ko.toJS(angleInfoModel.Data().user_specific);
-        if (angleInfoModel.IsTemporaryAngle()) {
-            data.user_specific.private_note = angleInfoModel.PrivateNote();
-            data.user_specific.is_starred = angleInfoModel.IsStarred();
-        }
         if (jQuery('#AngleId').length)
             data.id = jQuery.trim(jQuery('#AngleId').val());
 
@@ -1297,15 +662,18 @@ function AngleDetailPageHandler() {
         var isFollowup = self.HandlerFilter.GetData().hasObject('step_type', enumHandlers.FILTERTYPE.FOLLOWUP);
         data.query_definition = angleQueryStepModel.CollectQueryBlocks(self.HandlerFilter.GetData());
 
-        // Angle Publish
-        data.is_published = jQuery('#AngleIsPublished').is(':checked');
-        data.is_validated = jQuery('#AngleIsValidate').is(':checked');
+        // Angle template
         data.is_template = jQuery('#AngleIsTemplate').is(':checked') && userModel.CanCreateTemplateAngle();
 
-        data.allow_more_details = !jQuery('#AllowMoreDetails').is(':checked');
-        data.allow_followups = !jQuery('#AllowFollowups').is(':checked');
-
         return { isFollowup: isFollowup, data: data };
+    };
+    self.GetAssignedLabels = function () {
+        var labels = businessProcessesModel.General.GetActive();
+        jQuery.merge(labels, self.NoneBusinessProcessLabels);
+        return labels;
+    };
+    self.CanSetToTemplate = function () {
+        return userModel.GetAuthorizeCreateTemplateAnlge(angleInfoModel.Data().model);
     };
     self.Save = function () {
         requestHistoryModel.SaveLastExecute(self, self.Save, arguments);
@@ -1338,26 +706,12 @@ function AngleDetailPageHandler() {
             updateAngleJSON.query_definition[index] = WC.ModelHelper.RemoveReadOnlyQueryBlock(block);
         });
         if (!angleInfoModel.IsTemporaryAngle()) {
-            // if user didn't have save angle privilege remove all data except private note and starred
             if (!angleInfoModel.Data().authorizations.update) {
-
-                var userSpecificObject = {};
-                userSpecificObject.private_note = updateAngleJSON.user_specific ? updateAngleJSON.user_specific.private_note : '';
-
-                var newUpdateAngleJSON = {
-                    user_specific: userSpecificObject
-                };
-
-                if (angleInfoModel.Data().authorizations.unvalidate) {
-                    newUpdateAngleJSON.is_validated = updateAngleJSON.is_validated;
-                }
-                updateAngleJSON = jQuery.extend({}, newUpdateAngleJSON);
+                // if user didn't have save angle privilege remove all data
+                updateAngleJSON = {};
             }
-            if (!userModel.GetAuthorizeCreateTemplateAnlge(angleInfoModel.Data().model)) {
+            if (updateAngleJSON.is_template && !self.CanSetToTemplate(angleInfoModel.Data().model)) {
                 delete updateAngleJSON.is_template;
-            }
-            if (typeof angleInfoModel.Data().user_specific !== 'undefined' && typeof angleInfoModel.Data().user_specific.private_note === 'undefined' && updateAngleJSON.user_specific.private_note === '') {
-                delete updateAngleJSON.user_specific.private_note;
             }
 
             updateAngleJSON = WC.ModelHelper.GetChangeAngle(updateAngleJSON, sourceAngleData);
@@ -1369,65 +723,73 @@ function AngleDetailPageHandler() {
             dataChanged = true;
         }
 
-        if (dataChanged) {
-            var oldFollowups = [];
-            var newFollowups = [];
-            var oldQuerySteps = jQuery.grep(angleInfoModel.Data().query_definition, function (queryDefinition) {
-                return queryDefinition.queryblock_type === enumHandlers.QUERYBLOCKTYPE.QUERY_STEPS;
-            });
-            var newQuerySteps = ko.toJS(angleQueryStepModel.GetQueryStep(self.HandlerFilter.GetData()));
-
-            // update default value - newQuerySteps
-            jQuery.each(oldQuerySteps, function (index, block) {
-                oldQuerySteps[index] = WC.ModelHelper.RemoveReadOnlyQueryBlock(block);
-            });
-            jQuery.each(newQuerySteps, function (index, block) {
-                newQuerySteps[index] = WC.ModelHelper.RemoveReadOnlyQueryBlock(block);
-            });
-
-            if (oldQuerySteps.length) {
-                oldFollowups = jQuery.grep(oldQuerySteps[0].query_steps, function (queryStep) {
-                    return queryStep.step_type === enumHandlers.FILTERTYPE.FOLLOWUP;
+        jQuery.Deferred(function (rootPromise) {
+            if (dataChanged) {
+                var oldFollowups = [];
+                var newFollowups = [];
+                var oldQuerySteps = jQuery.grep(angleInfoModel.Data().query_definition, function (queryDefinition) {
+                    return queryDefinition.queryblock_type === enumHandlers.QUERYBLOCKTYPE.QUERY_STEPS;
                 });
-            }
-            if (newQuerySteps.length) {
-                newFollowups = jQuery.grep(newQuerySteps[0].query_steps, function (queryStep) {
-                    return queryStep.step_type === enumHandlers.FILTERTYPE.FOLLOWUP;
-                });
-            }
+                var newQuerySteps = ko.toJS(angleQueryStepModel.GetQueryStep(self.HandlerFilter.GetData()));
 
-            var confirmBeforeSaveMessage = self.GetConfirmMessageBeforeSave(angleInfoModel.Data().is_validated, oldFollowups, newFollowups, updateAngleJSON);
-            if (confirmBeforeSaveMessage) {
-                // show confirm popup
-                popup.Confirm(confirmBeforeSaveMessage, function () {
-                    // ok
-                    self.SaveAngle(updateAngleJSON, oldQuerySteps, newQuerySteps, isFollowup, oldFollowups, newFollowups);
-                }, function () {
-                    // cancel
-                    self.IsSubmit = false;
-                }, {
-                        title: Localization.Warning_Title,
-                        icon: 'alert'
+                // update default value - newQuerySteps
+                jQuery.each(oldQuerySteps, function (index, block) {
+                    oldQuerySteps[index] = WC.ModelHelper.RemoveReadOnlyQueryBlock(block);
+                });
+                jQuery.each(newQuerySteps, function (index, block) {
+                    newQuerySteps[index] = WC.ModelHelper.RemoveReadOnlyQueryBlock(block);
+                });
+
+                if (oldQuerySteps.length) {
+                    oldFollowups = jQuery.grep(oldQuerySteps[0].query_steps, function (queryStep) {
+                        return queryStep.step_type === enumHandlers.FILTERTYPE.FOLLOWUP;
                     });
+                }
+                if (newQuerySteps.length) {
+                    newFollowups = jQuery.grep(newQuerySteps[0].query_steps, function (queryStep) {
+                        return queryStep.step_type === enumHandlers.FILTERTYPE.FOLLOWUP;
+                    });
+                }
+
+                var confirmBeforeSaveMessage = self.GetConfirmMessageBeforeSave(angleInfoModel.Data().is_validated, oldFollowups, newFollowups);
+                if (confirmBeforeSaveMessage) {
+                    // show confirm popup
+                    popup.Confirm(confirmBeforeSaveMessage, function () {
+                        // ok
+                        self.SaveAngle(updateAngleJSON, oldQuerySteps, newQuerySteps, isFollowup, oldFollowups, newFollowups)
+                            .done(function () {
+                                rootPromise.resolve();
+                            });
+                    }, function () {
+                        // cancel
+                        self.IsSubmit = false;
+                    }, {
+                            title: Localization.Warning_Title,
+                            icon: 'alert'
+                        });
+                }
+                else {
+                    self.SaveAngle(updateAngleJSON, oldQuerySteps, newQuerySteps, isFollowup, oldFollowups, newFollowups)
+                        .done(function () {
+                            rootPromise.resolve();
+                        });
+                }
             }
             else {
-                // don't save user specific here, it was moved to outside
-                delete updateAngleJSON.user_specific;
-
-                self.SaveAngle(updateAngleJSON, oldQuerySteps, newQuerySteps, isFollowup, oldFollowups, newFollowups);
+                // nothing to save
+                self.ClosePopup();
+                rootPromise.resolve();
+                self.ShowProgressBar();
             }
-        }
-        else {
-            // nothing to save
-            self.ClosePopup();
-            self.ShowProgressBar();
-        }
+        })
+        .done(function () {
+            toast.MakeSuccessTextFormatting(angleInfoModel.Name(), Localization.Toast_SaveItem);
+        });
     };
-    self.GetConfirmMessageBeforeSave = function (isValidatedAngle, oldFollowups, newFollowups, updateAngleJSON) {
+    self.GetConfirmMessageBeforeSave = function (isValidatedAngle, oldFollowups, newFollowups) {
         // M4-33955: save with validated state
         // no change validate state
-        var isChangeValidateState = typeof updateAngleJSON.is_validated !== 'undefined';
-        if (isValidatedAngle && !isChangeValidateState)
+        if (isValidatedAngle)
             return Localization.Confirm_SaveValidatedAngle;
 
         // save with warning
@@ -1447,16 +809,10 @@ function AngleDetailPageHandler() {
             //Delete readonly properties
             updateAngleJSON = angleInfoModel.DeleteReadOnlyAngleProperties(updateAngleJSON);
 
-            if (updateAngleJSON.is_validated
-                && jQuery.grep(displayQueryBlockModel.QuerySteps(), function (queryStep) { return queryStep.is_adhoc_filter; }).length > 0) {
-                displayDetailPageHandler.IsQuickSave = true;
-                displayDetailPageHandler.Save();
-            }
-
             /*  M4-10057: Implement state transfers for angles/displays/dashboards
-                6.Implemented is_template and is_validated
+                6.Implemented is_template
             */
-            self.ManageSaveAngleState({
+            return self.ManageSaveAngleState({
                 UpdateAngleJSON: updateAngleJSON,
                 OldQuerySteps: oldQuerySteps,
                 NewQuerySteps: newQuerySteps,
@@ -1465,25 +821,17 @@ function AngleDetailPageHandler() {
             });
         }
         else {
-            self.SaveTempAngle();
             popup.Close('#popupAngleDetail');
+            return self.SaveTempAngle();
         }
     };
-    self.ApplySave = function (oldQuerySteps, newQuerySteps, oldFollowups, newFollowups, updateAngleJSON, isSaveFromPublish) {
+    self.ApplySave = function (oldQuerySteps, newQuerySteps, oldFollowups, newFollowups, updateAngleJSON) {
         jQuery.when(angleInfoModel.LoadAngle(angleInfoModel.Data().uri))
             .done(function () {
-                if (!privilegesViewModel.IsAllowManagePrivateItems(angleInfoModel.Data().model) && angleInfoModel.CreatedBy().user !== userModel.Data().uri && !angleInfoModel.Data().is_published) {
-                    anglePageHandler.BackToSearch();
-                }
-                else {
-                    angleQueryStepModel.ExcuteParameters(null);
-
-                    if (!isSaveFromPublish) {
-                        angleInfoModel.UpdateAngleQuerySteps(angleInfoModel.Data());
-                        self.ClosePopup();
-                    }
-                    self.ApplyResult(oldQuerySteps, newQuerySteps, oldFollowups, newFollowups, true, updateAngleJSON);
-                }
+                angleQueryStepModel.ExcuteParameters(null);
+                angleInfoModel.UpdateAngleQuerySteps(angleInfoModel.Data());
+                self.ClosePopup();
+                self.ApplyResult(oldQuerySteps, newQuerySteps, oldFollowups, newFollowups, true, updateAngleJSON);
             });
     };
     self.SaveTempAngle = function () {
@@ -1513,14 +861,8 @@ function AngleDetailPageHandler() {
                 .done(function (fields) {
                     var display = displayModel.GenerateDefaultData(enumHandlers.DISPLAYTYPE.LIST);
                     display.fields = fields;
-                    if (angleInfoModel.IsPublished()) {
-                        display.is_public = true;
-                    }
                     display.is_angle_default = true;
                     display.user_specific.is_user_default = false;
-                    if (angleData.is_published) {
-                        display.is_public = true;
-                    }
                     defaultDisplayId = display.id;
                     displayModel.DeleteReadOnlyDisplayProperties(display);
                     angleData.display_definitions.push(display);
@@ -1540,6 +882,7 @@ function AngleDetailPageHandler() {
         var isSameFollowups = jQuery.deepCompare(oldFollowups, newFollowups, false, false);
 
         anglePageHandler.UpdateAngleDisplayValidation();
+        anglePageHandler.RenderBreadcrumb();
         if (!isSameFollowups && anglePageHandler.HandlerValidation.Angle.Valid) {
             /*
                 PBI: M4-26472 Keep displays when add/remove jump
@@ -1547,11 +890,11 @@ function AngleDetailPageHandler() {
             */
             self.ApplyResultWithSetDisplayAndExecuteAngle(oldQuerySteps, newQuerySteps, updateAngleJSON);
         }
-        else if (self.CheckExecuteAngle(oldQuerySteps, newQuerySteps, updateAngleJSON, isEditMode)) {
+        else if (self.CheckExecuteAngle(oldQuerySteps, newQuerySteps, isEditMode)) {
             self.ApplyResultWithExecuteAngle(oldQuerySteps, newQuerySteps, updateAngleJSON);
         }
         else {
-            self.ApplyResultWithoutExecuteAngle(isEditMode, updateAngleJSON);
+            self.ApplyResultWithoutExecuteAngle(isEditMode);
         }
         anglePageHandler.UpdateDetailSection();
     };
@@ -1570,20 +913,16 @@ function AngleDetailPageHandler() {
         //start apply result and execute angle on this page
         self.ApplyResultWithExecuteAngle(oldQuerySteps, newQuerySteps, updateAngleJSON);
     };
-    self.CheckExecuteAngle = function (oldQuerySteps, newQuerySteps, updateAngleJSON, isEditMode) {
+    self.CheckExecuteAngle = function (oldQuerySteps, newQuerySteps, isEditMode) {
         var isChangeQueryStep = !jQuery.deepCompare(oldQuerySteps, newQuerySteps, false);
-        var isChangeAuthentication = !IsNullOrEmpty(updateAngleJSON.allow_more_details) || !IsNullOrEmpty(updateAngleJSON.allow_followups);
-        return !isEditMode && (isChangeQueryStep || isChangeAuthentication);
-
+        return !isEditMode && isChangeQueryStep;
     };
-    self.ApplyResultWithoutExecuteAngle = function (isEditMode, updateAngleJSON) {
+    self.ApplyResultWithoutExecuteAngle = function (isEditMode) {
         self.ShowProgressBar();
 
         //M4-31194 fixed edit mode bug
         if (isEditMode)
             anglePageHandler.ApplyAngleAndDisplayWithoutResult(displayModel.Data());
-
-        self.RenderResult({ UpdateAngleJSON: updateAngleJSON });
     };
     self.ApplyResultWithExecuteAngle = function (oldQuerySteps, newQuerySteps, updateAngleJSON) {
         var angleUri = angleInfoModel.Data().uri;
@@ -1640,12 +979,8 @@ function AngleDetailPageHandler() {
                 postedFields = [{}];
             }
 
-            var isChangeAllowMoreOption = typeof updateAngleJSON.allow_more_details !== 'undefined'
-                || typeof updateAngleJSON.allow_followups !== 'undefined';
-
-            ignoreDisplayQueryBlock = isChangeAllowMoreOption
-                || jQuery.deepCompare(stepsFilterFollowup, stepsPostedFilterFollowup, false, false)
-                || jQuery.deepCompare(fields, postedFields, false);
+            ignoreDisplayQueryBlock = jQuery.deepCompare(fields, postedFields, false)
+                || jQuery.deepCompare(stepsFilterFollowup, stepsPostedFilterFollowup, false, false);
         }
         anglePageHandler.ExecuteAngle(ignoreDisplayQueryBlock);
     };
@@ -1696,40 +1031,48 @@ function AngleDetailPageHandler() {
                     var display = data.display_definitions.findObject('id', displayId);
                     if (!display)
                         display = data.display_definitions[0];
-                    /* BOF: M4-11698: Fixed added jump and save as didn't work correctly */
-                    if (setting.HaveFollowup) {
-                        display.authorizations = displayModel.GetDefaultAdhocAuthorization();
-                        displayModel.LoadSuccess(display);
-                        resultModel.PostResult()
-                            .then(function () {
-                                return resultModel.GetResult(resultModel.Data().uri);
-                            })
-                            .then(function () {
-                                return displayModel.GetDefaultListFields(resultModel.Data());
-                            })
-                            .then(function (fields) {
-                                return displayModel.UpdateDisplay(display.uri, { fields: fields });
-                            })
-                            .done(function () {
-                                angleQueryStepModel.ExcuteParameters(null);
 
-                                window.location.href = WC.Utility.GetAnglePageUri(data.uri, display.uri, query);
-                            });
-                        /* EOF: M4-11698: Fixed added jump and save as didn't work correctly */
-                    }
-                    else {
-                        // do not get angle
-                        displayModel.LoadSuccess(display);
-                        historyModel.LastDisplayUri(display.uri);
+                    jQuery.Deferred(function (rootPromise) {
+                        /* BOF: M4-11698: Fixed added jump and save as didn't work correctly */
+                        if (setting.HaveFollowup) {
+                            display.authorizations = displayModel.GetDefaultAdhocAuthorization();
+                            displayModel.LoadSuccess(display);
+                            resultModel.PostResult()
+                                .then(function () {
+                                    return resultModel.GetResult(resultModel.Data().uri);
+                                })
+                                .then(function () {
+                                    return displayModel.GetDefaultListFields(resultModel.Data());
+                                })
+                                .then(function (fields) {
+                                    return displayModel.UpdateDisplay(display.uri, { fields: fields });
+                                })
+                                .done(function () {
+                                    angleQueryStepModel.ExcuteParameters(null);
 
-                        // always post a new result
-                        resultModel.Data(null);
+                                    window.location.href = WC.Utility.GetAnglePageUri(data.uri, display.uri, query);
+                                    rootPromise.resolve();
+                                });
+                            /* EOF: M4-11698: Fixed added jump and save as didn't work correctly */
+                        }
+                        else {
+                            // do not get angle
+                            displayModel.LoadSuccess(display);
+                            historyModel.LastDisplayUri(display.uri);
 
-                        angleQueryStepModel.ExcuteParameters(null);
+                            // always post a new result
+                            resultModel.Data(null);
 
-                        // redirect to new angle & display
-                        window.location.href = WC.Utility.GetAnglePageUri(data.uri, display.uri, query);
-                    }
+                            angleQueryStepModel.ExcuteParameters(null);
+
+                            // redirect to new angle & display
+                            window.location.href = WC.Utility.GetAnglePageUri(data.uri, display.uri, query);
+                            rootPromise.resolve();
+                        }
+                    })
+                    .done(function () {
+                        toast.MakeSuccessTextFormatting(angleInfoModel.Name(), Localization.Toast_SaveItem);
+                    });
                 });
         };
 
@@ -1737,7 +1080,7 @@ function AngleDetailPageHandler() {
         angleData.id = 'a' + jQuery.GUID().replace(/-/g, '');
         angleData.is_validated = false;
         angleData.is_template = false;
-        angleData.user_specific = { is_starred: false, execute_on_login: false };
+        angleData.user_specific = { is_starred: false };
         angleData.is_published = false;
         angleData.display_definitions = [];
         /* BOF: M4-11698: Fixed added jump and save as didn't work correctly */
@@ -1826,7 +1169,7 @@ function AngleDetailPageHandler() {
     };
     self.CanAddFilter = function () {
         if (resultModel.Data() && resultModel.Data().authorizations.add_filter
-            && !jQuery('#AllowMoreDetails').is(':checked')
+            && angleInfoModel.AllowMoreDetails()
             && angleInfoModel.CanUpdateAngle('query_definition')) {
             return true;
         }
@@ -1841,65 +1184,6 @@ function AngleDetailPageHandler() {
         }
 
         return false;
-    };
-    self.CanSetAllowMoreDetails = function () {
-        if (angleInfoModel.IsTemporaryAngle()) {
-            return false;
-        }
-        else if (angleInfoModel.CanUpdateAngle('allow_more_details')
-            && ((resultModel.Data() && resultModel.Data().authorizations.add_filter) || !angleInfoModel.Data().allow_more_details)) {
-            return true;
-        }
-
-        return false;
-    };
-    self.CanSetAllowFollowups = function () {
-        if (angleInfoModel.IsTemporaryAngle()) {
-            return false;
-        }
-        else if (angleInfoModel.CanUpdateAngle('allow_followups')
-            && ((resultModel.Data() && resultModel.Data().authorizations.add_followup) || !angleInfoModel.Data().allow_followups)) {
-            return true;
-        }
-
-        return false;
-    };
-    self.CheckAllowMoreDetailsOrAllowFollowupsChange = function () {
-        // check unsave display & cannot allow_more_details or allow_followups
-        if (!angleInfoModel.IsTemporaryAngle()) {
-            var allowMoreDetail = !jQuery('#AllowMoreDetails').prop('checked');
-            var allowFollowups = !jQuery('#AllowFollowups').prop('checked');
-            if ((!allowMoreDetail && allowMoreDetail !== angleInfoModel.Data().allow_more_details)
-                || (!allowFollowups && allowFollowups !== angleInfoModel.Data().allow_followups)) {
-                if (displayModel.IsTemporaryDisplay()) {
-                    popup.Alert(Localization.Warning_Title, Localization.ErrorAllowMoreDetailsAllowFollowupsWithAdhocDisplay);
-
-                    return false;
-                }
-                else {
-                    var originalDisplay = historyModel.Get(displayModel.Data().uri, false);
-                    var currentDisplay = historyModel.Get(displayModel.Data().uri, true);
-                    var changedDisplay = WC.ModelHelper.GetChangeDisplay(currentDisplay, originalDisplay);
-                    if (changedDisplay && (changedDisplay.query_blocks || changedDisplay.fields)) {
-                        popup.Alert(Localization.Warning_Title, Localization.ErrorAllowMoreDetailsAllowFollowupsWithUnsaveDisplay);
-
-                        return false;
-                    }
-                }
-            }
-        }
-
-        return true;
-    };
-    self.CheckedAllowMoreDetails = function () {
-        if (!self.CheckAllowMoreDetailsOrAllowFollowupsChange()) {
-            jQuery('#AllowMoreDetails').prop('checked', false);
-        }
-    };
-    self.CheckedAllowFollowups = function () {
-        if (!self.CheckAllowMoreDetailsOrAllowFollowupsChange()) {
-            jQuery('#AllowFollowups').prop('checked', false);
-        }
     };
     self.IsSaveAs = function () {
         return jQuery('#popupSaveAs').is(':visible');
@@ -1918,35 +1202,12 @@ function AngleDetailPageHandler() {
         delete angleData.name;
         delete angleData.description;
 
-        var isPublishAngle = !angleInfoModel.Data().is_published && angleData.is_published;
-
         var params = {};
         params[enumHandlers.PARAMETERS.MULTILINGUAL] = 'yes';
         params[enumHandlers.PARAMETERS.ACCEPT_WARNINGS] = true;
         params[enumHandlers.PARAMETERS.REDIRECT] = 'no';
         var url = angleData.model + '/angles?' + jQuery.param(params);
         return CreateDataToWebService(url, angleData)
-            .fail(function () {
-
-                // M4-19904: [WC] Server error on save disallowed label
-                if (isPublishAngle) {
-                    jQuery.each(angleInfoModel.Data().display_definitions, function (index, display) {
-                        var displayHistory = historyModel.Get(display.uri, false);
-                        if (displayHistory) {
-                            display.is_angle_default = displayHistory.is_angle_default;
-                            display.is_public = displayHistory.is_public;
-
-                            var currentDisplayHistory = historyModel.Get(display.uri);
-                            if (currentDisplayHistory) {
-                                currentDisplayHistory.is_angle_default = displayHistory.is_angle_default;
-                                currentDisplayHistory.is_public = displayHistory.is_public;
-                                historyModel.Set(display.uri, currentDisplayHistory);
-                            }
-                        }
-                    });
-                    angleInfoModel.Data.commit();
-                }
-            })
             .done(function (data) {
                 anglePageHandler.IsExecutingParameters = true;
                 angleInfoModel.DeleteTemporaryAngle();
@@ -2016,69 +1277,40 @@ function AngleDetailPageHandler() {
     };
     self.ManageSaveAngleState = function (option) {
         /*  M4-10057: Implement state transfers for angles/displays/dashboards
-            6.Implemented is_template and is_validated
+            6.Implemented is_template
         */
-        option = jQuery.extend({
-            IsSaveFromPublish: false
-        }, ko.toJS(option));
-
         var isTemplate = option.UpdateAngleJSON.is_template;
-        var isValidated = option.UpdateAngleJSON.is_validated;
         var isSetTemplate = typeof isTemplate !== 'undefined';
-        var isSetValidated = typeof isValidated !== 'undefined';
-
         delete option.UpdateAngleJSON.is_template;
-        delete option.UpdateAngleJSON.is_validated;
+
         var applySaveState = function () {
-            self.ApplySave(option.OldQuerySteps, option.NewQuerySteps, option.OldFollowups, option.NewFollowups, option.UpdateAngleJSON, option.IsSaveFromPublish);
+            self.ApplySave(option.OldQuerySteps, option.NewQuerySteps, option.OldFollowups, option.NewFollowups, option.UpdateAngleJSON);
         };
 
         if (jQuery.isEmptyObject(option.UpdateAngleJSON)) {
             // only update state
-            return self.ManageSaveAngleStateWithoutData(option, isSetTemplate, isTemplate, isSetValidated, isValidated, applySaveState);
+            return self.ManageSaveAngleStateWithoutData(isSetTemplate, isTemplate, applySaveState);
         }
         else {
-            return self.ManageSaveAngleStateWithData(option, isSetTemplate, isTemplate, isSetValidated, isValidated, applySaveState);
+            return self.ManageSaveAngleStateWithData(option.UpdateAngleJSON, isSetTemplate, isTemplate, applySaveState);
         }
     };
-    self.ManageSaveAngleStateWithoutData = function (option, isSetTemplate, isTemplate, isSetValidated, isValidated, applySaveState) {
-        var updateStateValidateCallback = function () {
-            option.UpdateAngleJSON.is_validated = isValidated;
-            applySaveState();
-        };
-
+    self.ManageSaveAngleStateWithoutData = function (isSetTemplate, isTemplate, applySaveState) {
         if (isSetTemplate) {
-            var updateStateTemplateCallback = function () {
-                if (isSetValidated) {
-                    self.UpdateState(angleInfoModel.Data().state, { is_validated: isValidated }, true)
-                        .done(updateStateValidateCallback);
-                }
-                else {
-                    applySaveState();
-                }
-            };
-            return self.UpdateState(angleInfoModel.Data().state, { is_template: isTemplate }, false, updateStateTemplateCallback)
-                .done(updateStateTemplateCallback);
-        }
-        else if (isSetValidated) {
-            return self.UpdateState(angleInfoModel.Data().state, { is_validated: isValidated }, false, updateStateValidateCallback)
-                .done(updateStateValidateCallback);
+            return self.UpdateState(angleInfoModel.Data().state, { is_template: isTemplate }, false, applySaveState)
+                .done(applySaveState);
         }
         else {
             //M4-16535: if it is an empty object an not match with any cases then close the popup anyway
             self.ClosePopup();
         }
     };
-    self.ManageSaveAngleStateWithData = function (option, isSetTemplate, isTemplate, isSetValidated, isValidated, applySaveState) {
+    self.ManageSaveAngleStateWithData = function (updateAngleJSON, isSetTemplate, isTemplate, applySaveState) {
         errorHandlerModel.Enable(false);
         var updateStateCallback = function () {
             var deferred = jQuery.Deferred();
             jQuery.when(isSetTemplate ? self.UpdateState(angleInfoModel.Data().state, { is_template: isTemplate }, true) : null)
-                .then(function () {
-                    return isSetValidated ? self.UpdateState(angleInfoModel.Data().state, { is_validated: isValidated }, true) : jQuery.when();
-                })
                 .done(function () {
-                    option.UpdateAngleJSON.is_validated = isValidated;
                     applySaveState();
                 })
                 .always(function () {
@@ -2087,56 +1319,26 @@ function AngleDetailPageHandler() {
             return deferred.promise();
         };
 
-        return angleInfoModel.UpdateAngle(angleInfoModel.Data().uri, option.UpdateAngleJSON)
+        return angleInfoModel.UpdateAngle(angleInfoModel.Data().uri, updateAngleJSON)
             .then(updateStateCallback)
             .fail(function (xhr) {
-                self.ErrorManageSaveAngleStateWithData(xhr, option, updateStateCallback);
+                self.ErrorManageSaveAngleStateWithData(xhr, updateAngleJSON, updateStateCallback);
             })
             .always(errorHandlerModel.EnableErrorByDelay);
     };
-    self.ErrorManageSaveAngleStateWithData = function (xhr, option, updateStateCallback) {
+    self.ErrorManageSaveAngleStateWithData = function (xhr, updateAngleJSON, updateStateCallback) {
         if (xhr.status === 404) {
             anglePageHandler.HandleNoneExistAngle();
         }
         else if (resolveAngleDisplayHandler.IsConflictAngleDisplay(xhr)) {
             var resolveAngleDisplayCallback = function () {
-                angleInfoModel.UpdateAngle(angleInfoModel.Data().uri, option.UpdateAngleJSON, true)
+                angleInfoModel.UpdateAngle(angleInfoModel.Data().uri, updateAngleJSON, true)
                     .done(updateStateCallback);
             };
             resolveAngleDisplayHandler.ShowResolveAngleDisplayPopup(xhr, resolveAngleDisplayCallback);
         }
         else {
             errorHandlerModel.BuildCustomAjaxError({ url: angleInfoModel.Data().uri, type: 'PUT' }, xhr);
-        }
-    };
-    self.RenderResult = function (option) {
-        if (typeof option.UpdateAngleJSON.allow_more_details === 'undefined' && typeof option.UpdateAngleJSON.is_validated === 'undefined')
-            return;
-
-        if (displayModel.Data().display_type === enumHandlers.DISPLAYTYPE.LIST) {
-            // render list
-            listHandler.GetListDisplay();
-        }
-        else {
-            // render chart/pivot
-
-            /* M4-11680: Fixed error 500 after set angle validated */
-            /* M4-13370: Fixed null object after save angle in edit mode */
-            if (anglePageHandler.HandlerValidation.Valid && !anglePageHandler.IsEditMode()) {
-                if (displayModel.Data().display_type === enumHandlers.DISPLAYTYPE.PIVOT) {
-                    pivotPageHandler.GetPivotDisplay().done(function () {
-                        fieldSettingsHandler.SetReadOnlyMode();
-                        fieldSettingsHandler.Handler.UpdateLayout();
-                    });
-                }
-                else {
-                    fieldSettingsHandler.SetReadOnlyMode();
-                    fieldSettingsHandler.Handler.UpdateLayout();
-                }
-            }
-            else {
-                anglePageHandler.BuildFieldSettingWhenNoResult(displayModel.Data());
-            }
         }
     };
     self.ReInitialQuerySteps = function () {
@@ -2147,16 +1349,6 @@ function AngleDetailPageHandler() {
         angleQueryStepModel.TempQuerySteps(tempQuerySteps);
         self.HandlerFilter.SetData(tempQuerySteps);
         self.HandlerFilter.ReApplyHandler();
-    };
-    self.ReGetInvalidAngleAndDisplay = function () {
-        if (!angleInfoModel.IsTemporaryAngle()) {
-            anglePageHandler.UpdateAngleDisplayValidation();
-            var haveDisplayInvalid = jQuery.grep(displayModel.DisplayInfo.Displays(), function (itemList) { return itemList.IsWarning || itemList.IsError; }).length > 0;
-
-            if (!anglePageHandler.HandlerValidation.Valid || haveDisplayInvalid) {
-                jQuery('#AnglePublishingArea .btnValidate').addClass('disabled');
-            }
-        }
     };
     /* BOF: M4-11698: Fixed added jump and save as didn't work correctly */
     self.IsChangedFollowup = function () {
@@ -2179,18 +1371,4 @@ function AngleDetailPageHandler() {
         }
     };
     /* EOF: M4-11698: Fixed added jump and save as didn't work correctly */
-
-    /* BOF: M4-23534: SD-16.74955 - Do not allow users to obtain more details [investigate] */
-    self.ShowAngleDetailsAndPublishPopup = function () {
-        self.ClosePopup();
-        var fnCheckSaveDone = setInterval(function () {
-            if (jQuery('#popupProgressBar').is(':hidden')) {
-                clearInterval(fnCheckSaveDone);
-                setTimeout(function () {
-                    self.ShowPopup(self.TAB.PUBLISHING);
-                }, 550);
-            }
-        }, 50);
-    };
-    /* EOF: M4-23534: SD-16.74955 - Do not allow users to obtain more details [investigate] */
 }

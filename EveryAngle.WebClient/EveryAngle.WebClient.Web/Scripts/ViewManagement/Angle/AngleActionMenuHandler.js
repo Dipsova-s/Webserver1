@@ -14,32 +14,11 @@ function AngleActionMenuHandler(base) {
         else if (angleInfoModel.Data() && angleInfoModel.Data().uri === WC.Utility.UrlParameter(enumHandlers.ANGLEPARAMETER.ANGLE))
             data = self.GetDisplayMenu([]);
 
-        // render html
-        var menuHtml = [];
-        jQuery.each(data, function (index, action) {
-            menuHtml[index] = '<a class="actionDropdownItem ' + action.Id + (action.Enable ? '' : ' disabled') + (action.Visible ? '' : ' alwaysHide') + '" onclick="anglePageHandler.CallActionDropdownFunction(this, \'' + action.Id + '\')">' + action.Text + '</a>';
-        });
-        jQuery('#ActionDropdownListPopup .k-window-content').html(menuHtml.join(''));
+        // html
+        WC.HtmlHelper.ActionMenu.CreateActionMenuItems('#ActionDropdownListPopup .k-window-content', '#ActionDropdownListTablet', data, self.CallActionDropdownFunction);
 
         // action menu responsive
-        WC.HtmlHelper.ActionMenu('#ActionSelect', function (target) {
-            // pre-value use for reserve margin or white-spacing
-            var result = 60, angleNameWidth = 0, executionResultsWidth = 0;
-            var sublingsElements = target.siblings();
-
-            // left element
-            sublingsElements.siblings('#AngleName').children().each(function () {
-                angleNameWidth += jQuery(this).outerWidth();
-            });
-            sublingsElements.siblings('#ExecutionResults').children().each(function () {
-                executionResultsWidth += jQuery(this).outerWidth();
-            });
-            result += Math.max(angleNameWidth, executionResultsWidth);
-
-            // right element
-            result += sublingsElements.siblings('#SelectedDisplay').eq(0).outerWidth();
-            return result;
-        });
+        WC.HtmlHelper.ActionMenu('#ActionSelect');
     };
     self.GetEditModeMenu = function () {
         var actionIds = [

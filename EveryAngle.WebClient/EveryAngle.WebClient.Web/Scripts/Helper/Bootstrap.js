@@ -26,27 +26,9 @@
 
     // navigator.sendBeacon support
     Modernizr.addTest('sendbeacon', function () { return 'sendBeacon' in navigator; });
-
-    // mouse support
-    var mouseTestResult = jQuery.localStorage('mouse');
-    if (mouseTestResult === null) {
-        Modernizr.mouse = false;
-        jQuery.localStorage('mouse', false);
-        jQuery(document).one('mousemove.test', function () {
-            Modernizr.mouse = true;
-            jQuery.localStorage('mouse', true);
-            jQuery('html').addClass('mouse');
-        });
-    }
-    else {
-        Modernizr.mouse = mouseTestResult;
-        if (mouseTestResult) {
-            jQuery('html').addClass('mouse');
-        }
-        else {
-            jQuery('html').removeClass('mouse');
-        }
-    }
+    Modernizr.addTest('mouse', function () {
+        return Modernizr.mq('(hover:hover)');
+    });
 
     window.WC.Page = {
         InitialPage: function () {
@@ -181,6 +163,12 @@
         }
     });
 
+    var updateViewportHeight = function () {
+        // Then we set the value in the --vh custom property to the root of the document
+        var vh = window.innerHeight * 0.01;
+        document.documentElement.style.setProperty('--vh', vh + 'px');
+    };
+
     // global window resizing event
     var landscape = "landscape";
     var portrait = "portrait";
@@ -192,6 +180,7 @@
         window.WC.Window.Ratio = document.documentElement.clientWidth / window.innerWidth;
         window.WC.Window.Width = jQuery(window).width();
         setWindowHeight();
+        updateViewportHeight();
 
         if (Modernizr.touch) {
             var currentOrientation = window.WC.Window.Width > window.WC.Window.Height ? landscape : portrait;
@@ -227,7 +216,7 @@
                 setWindowHeight();
 
                 if (window.WC.Window.Ratio === 1 && !jQuery('#UserName:visible').length) {
-                    $('body,html').animate({ scrollTop: 0 });
+                    jQuery('body,html').animate({ scrollTop: 0 });
                 }
 
                 if (currentRatio !== window.WC.Window.Ratio) {

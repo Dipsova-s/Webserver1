@@ -9,7 +9,7 @@ var addToDashboardHtmlTemplate = function () {
     addToDashboardHtmlTemplate += "            <\/label>";
     addToDashboardHtmlTemplate += "        <\/div>";
     addToDashboardHtmlTemplate += "        <div class=\"input\">";
-    addToDashboardHtmlTemplate += "            <input type=\"text\" id=\"dashboardNameTextbox\" class=\"eaText\" name=\"\" value=\"\" maxlength=\"255\" \/>";
+    addToDashboardHtmlTemplate += "            <input type=\"text\" id=\"dashboardNameTextbox\" type=\"text\" class=\"eaText\" name=\"\" value=\"\" maxlength=\"255\" \/>";
     addToDashboardHtmlTemplate += "        <\/div>";
     addToDashboardHtmlTemplate += "    <\/div>";
     addToDashboardHtmlTemplate += "    <div class=\"row\">";
@@ -20,7 +20,7 @@ var addToDashboardHtmlTemplate = function () {
     addToDashboardHtmlTemplate += "            <\/label>";
     addToDashboardHtmlTemplate += "        <\/div>";
     addToDashboardHtmlTemplate += "        <div class=\"input\">";
-    addToDashboardHtmlTemplate += "            <input id=\"dashboardDropdownlist\" class=\"eaDropdown\" \/>";
+    addToDashboardHtmlTemplate += "            <input id=\"dashboardDropdownlist\" class=\"k-dropdown\" \/>";
     addToDashboardHtmlTemplate += "        <\/div>";
     addToDashboardHtmlTemplate += "    <\/div>";
     addToDashboardHtmlTemplate += "<\/div>";

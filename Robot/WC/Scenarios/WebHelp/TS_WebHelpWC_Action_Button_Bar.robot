@@ -26,4 +26,4 @@ Crop Action Mode Button
     Crop WebHelp Image    WC_Action_Button_Details_Mode.png    css=#DisplaysList    ${False}
 
 Crop Action Button Sort
-    Crop WebHelp Image    wc_action_button_sort_by.png   css=#SearchResultView .sortWrapper
+    Crop WebHelp Image    wc_action_button_sort_by.png   css=#SearchSortingView .search-sorting-item:last-child

@@ -28,54 +28,54 @@
 {
     <div id="TopBar">
         <div class="Wrapper Shadow">
-            <a id="Logo" href="@Url.Action("SearchPage", "Search")">
-                <img alt="" src="@Url.Content("~/images/master/ealogo.svg")" width="175" height="29" />
-            </a>
+            @{Html.RenderPartial("~/Views/Shared/Top/Logo.cshtml");}
             @{Html.RenderPartial("~/Views/Shared/Top/BusinessProcessBadge.cshtml");}
             @{Html.RenderPartial("~/Views/Shared/Top/UserPanel.cshtml");}
         </div>
     </div>
 }
 
- 
+
 <div id="MainContent" class="Wrapper">
     <div id="LeftMenu">
-         @{Html.RenderPartial("~/Views/Search/PartialViews/FacetFilters/FacetFilters.cshtml");}
+        <div class="left-menu-wrapper box-scrollable">
+            <div class="left-menu-container box-scrollable-content">
+                @{Html.RenderPartial("~/Views/Search/PartialViews/CreateNewAngle.cshtml"); }
+                @{Html.RenderPartial("~/Views/Search/PartialViews/FacetFilters.cshtml"); }
+            </div>
+        </div>
     </div>
     <div id="Content">
 
-        <div id="SearchBar">
-            <div class="Wrapper">
-                <div id="CreateNewAngleButtonWrapper" class="createNewAngleButtonWrapper alwaysHide">
-                    <a id="SelectModelCreateNewAngle" class="btn btnSelectModelCreateNewAngle alwaysHide" onclick="createNewAngleViewManagementModel.ToggleModelsList()"></a>
-                    <a id="CreateNewAngle" class="btn btnCreateNewAngle" onclick="createNewAngleViewManagementModel.CheckModelAvailable()">
-                        <span data-bind="html: Captions.Button_CreateNewAngle + '<br/><i>' + Captions.Button_CreateNewAngle_NoModel + '</i>'"></span>
+        <div id="SearchBar" class="searchbar" style="display: none;" data-bind="visible: true">
+            <div class="Wrapper searchbar-primary">
+                <form id="Search" class="searchBoxWrapper" autocomplete="off" onsubmit="return false">
+                    <a id="ClearSearchButton" class="clearSearch alwaysHide" onclick="searchQueryModel.ClearAdvanceSearch();" data-tooltip-title="@Resource.ClearAdvancedFilters">
+                        <i class="icon icon-close"></i>
                     </a>
-                    <div class="k-list-container k-popup k-group k-reset k-list-large-container popupSelectModelCreateNewAngle" id="PopupSelectModelCreateNewAngle">
-                        <ul class="k-list k-reset"></ul>
+                    <a id="SearchButton" onclick="searchPageHandler.ShowAdvancedFilters();" data-tooltip-title="@Resource.AdvancedFilters">
+                        <i class="icon icon-caret-down"></i>
+                    </a>
+                    <input id="SearchInput" type="text" autocomplete="off" />
+                    <div id="SearchTerm"></div>
+                </form>
+
+                <div id="ActionSelect" class="compactMode disabled">
+                    <div class="visible-medium-viewport">
+                        <div id="ActionDropdownListTablet" class="large"></div>
+                    </div>
+                    <div class="hide-medium-viewport">
+                        <div id="ActionDropdownList" class="btnTools"></div>
+                        <div class="k-window-titleless k-window-custom k-window-arrow-n popupAction popupActionSearch" id="ActionDropdownListPopup">
+                            <div class="k-window-content k-content"></div>
+                        </div>
                     </div>
                 </div>
 
-                <div id="Search" class="searchBoxWrapper">
-                    <a id="ClearSearchButton" class="clearSearch alwaysHide" onclick="searchQueryModel.ClearAdvanceSearch();" data-tooltip-title="@Resource.ClearAdvancedFilters">
-                        <i class="icon remove"></i>
-                    </a>
-                    <a id="SearchButton" onclick="searchPageHandler.ShowAdvancedFilters();" data-tooltip-title="@Resource.AdvancedFilters">
-                        <i class="icon caret"></i>
-                    </a>
-                    <input id="SearchInput" type="text" />
-                </div>
-
-            <div id="ActionSelect" class="compactMode disabled">
-                <div id="ActionDropdownList" class="btnTools"></div>
-                <div class="k-window-titleless k-window-custom k-window-arrow-n popupAction popupActionSearch" id="ActionDropdownListPopup">
-                    <div class="k-window-content k-content"></div>
-                </div>
+                @{Html.RenderPartial("~/Views/Search/PartialViews/ViewModeSelector.cshtml");}
             </div>
-
-                <div id="SearchResultView">
-                    @{Html.RenderPartial("~/Views/Search/PartialViews/TotalSearchResult.cshtml");}
-                </div>
+            <div class="Wrapper searchbar-secondary">
+                @{Html.RenderPartial("~/Views/Search/PartialViews/SearchInfo.cshtml");}
             </div>
         </div>
 
@@ -128,12 +128,6 @@
             </div>
         </div>
         <div id="SearchResultList" data-bind="css: { 'displaysMode': searchPageHandler.DisplayType() === searchPageHandler.DISPLAY_TYPE.DISPLAYS, 'compactMode': searchPageHandler.DisplayType() === searchPageHandler.DISPLAY_TYPE.COMPACT }">
-            <div class="SearchTotalContainer">
-                <span data-bind="text: kendo.format(Localization.NumberSelectingItems + ', ', SelectedItems().length), visible: SelectedItems().length"></span>
-                <span id="SearchTotal" data-bind="text: searchModel.GetTotalItems()">0</span>
-                <span data-bind="text: Localization.Items">@Resource.Items</span>
-            </div>
-            <div id="SearchBreadcrumb"></div>
             <div id="ResultWrapper">
                 <div id="InnerResultWrapper" class="InnerResultWrapper">
                 </div>

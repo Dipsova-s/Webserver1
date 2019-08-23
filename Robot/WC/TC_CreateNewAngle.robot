@@ -16,7 +16,7 @@ Verify Create New Angle From Full Object List Test
     Create Angle From Object List And Save    ${objectName}    ${angleName}
     Go To Search Page
     Search By Text And Expect In Search Result    ${angleName}
-    Click Sort By Created On Search Page
+    Click Sort By Created Ascending In Search Page
     Click Select First Item From Search Result
     ${angleItemName}    Get Name Of Selected Item From Search Result
     Should Be Equal    ${angleItemName}    ${angleName}

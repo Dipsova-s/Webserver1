@@ -408,6 +408,7 @@
 .BusinessProcessCheckBox {
     display: inline-block;
     width: 100px;
+    padding: 3px 0;
 }
 
 .BusinessProcessBadge {

@@ -15,8 +15,11 @@
 }
 
 .popupMassChangePopup .textStatus {
+    position: relative;
     font-style: italic;
     color: #777;
+    bottom: 3px;
+    padding-left: 10px;
 }
 
 .touch.safari .popupMassChangePopup .textStatus {
@@ -33,6 +36,7 @@
     position: absolute;
     left: 0;
     bottom: -18px;
+    padding-left: 0;
 }
 
 .sectionStatus .row {

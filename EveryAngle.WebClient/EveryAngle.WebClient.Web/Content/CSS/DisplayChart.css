@@ -52,10 +52,6 @@
     vertical-align: middle;
 }
 
-.k-legend-custom-wrapper h3 > .btnInfo {
-    vertical-align: middle;
-}
-
 .k-legend-custom {
     font-size: 12px;
     margin: 0;
@@ -157,16 +153,26 @@
 .displayArea .navigatorWrapper .toggleButton {
     cursor: pointer;
     height: 10px;
-    background: #eaeaea url('../../images/icons/icon_arrow_down.svg') center center no-repeat;
+    background-color: #eaeaea;
+    display: flex;
+    align-items: center;
     transition: background-color .3s cubic-bezier(.25,.8,.25,1);
-}
-
-.displayArea .navigatorWrapper.hidden .toggleButton {
-    background-image: url('../../images/icons/icon_arrow_up.svg');
 }
 
 .displayArea .navigatorWrapper .toggleButton:hover {
     background-color: #b7b7b7;
+}
+
+.displayArea .navigatorWrapper .toggleButton .icon {
+    font-size: 10px;
+    margin: auto;
+    display: none;
+}
+.displayArea .navigatorWrapper:not(.hidden) .toggleButton .collapse {
+    display: block;
+}
+.displayArea .navigatorWrapper.hidden .toggleButton .expand {
+    display: block;
 }
 
 .displayArea .navigator {

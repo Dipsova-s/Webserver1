@@ -484,8 +484,8 @@ function Authentication() {
         progressbarModel.ShowStartProgressBar();
         progressbarModel.SetDisableProgressBar();
         setTimeout(function () {
-            var lastSearchRequest = userSettingModel.GetLastSearchData();
-            WC.Ajax.ExecuteBeforeExit(lastSearchRequest ? [lastSearchRequest] : [], false);
+            var clientSettingsRequest = userSettingModel.GetClientSettingsData();
+            WC.Ajax.ExecuteBeforeExit(clientSettingsRequest ? [clientSettingsRequest] : [], false);
             jQuery('html').addClass('noPopup');
 
             WC.Ajax.EnableBeforeExit = false;

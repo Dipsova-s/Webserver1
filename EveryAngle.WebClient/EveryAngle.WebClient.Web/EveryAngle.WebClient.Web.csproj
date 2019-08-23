@@ -237,6 +237,7 @@
     <Compile Include="Controllers\Apis\ProxyController.cs" />
     <Compile Include="Controllers\BaseApiController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
+    <Compile Include="Controllers\DownloadController.cs" />
     <Compile Include="Controllers\PageController.cs" />
     <Compile Include="Controllers\DashboardController.cs" />
     <Compile Include="Controllers\ErrorController.cs" />
@@ -273,10 +274,28 @@
     </Content>
     <Content Include="Admin\MC.txt" />
     <Content Include="Content\CSS\Angle.DisplayDropdown.css" />
+    <None Include="Content\CSS\toastnotification.scss" />
+    <Content Include="Content\CSS\item-name.scss" />
+    <None Include="Content\CSS\itemstate.scss" />
     <Content Include="Content\CSS\Base.css" />
-    <Content Include="Content\CSS\Common.css" />
+    <Content Include="Content\CSS\Breadcrumb.css" />
+    <None Include="Content\CSS\accordion.scss" />
+    <Content Include="Content\CSS\common.css">
+      <DependentUpon>common.scss</DependentUpon>
+    </Content>
+    <None Include="Content\CSS\form-row.scss" />
+    <None Include="Content\CSS\item-label.scss" />
+    <None Include="Content\CSS\icons.scss" />
+    <None Include="Content\CSS\btn.scss" />
+    <None Include="Content\CSS\listview.scss" />
+    <None Include="Content\CSS\multiple-select.scss" />
+    <None Include="Content\CSS\scrollbar.scss" />
+    <None Include="Content\CSS\switch.scss" />
     <Content Include="Content\CSS\Angle.css" />
     <Content Include="Content\CSS\DashboardFilters.css" />
+    <Content Include="Content\CSS\itemstate.css">
+      <DependentUpon>itemstate.scss</DependentUpon>
+    </Content>
     <Content Include="Content\CSS\UserPassword.css" />
     <Content Include="Content\CSS\DisplayList.css" />
     <Content Include="Content\CSS\CustomSort.css" />
@@ -295,12 +314,15 @@
     <Content Include="Content\CSS\Search.css" />
     <Content Include="Content\CSS\Login.css" />
     <Content Include="Content\CSS\WidgetDetails.css" />
-    <Content Include="Content\CSS\WidgetLabels.css" />
     <Content Include="Content\CSS\WidgetLanguages.css" />
     <Content Include="Content\CSS\KendoExtension.css" />
     <Content Include="Content\CSS\Pivot.css" />
     <Content Include="Content\ExternalResource\notificationsfeed.css" />
     <Content Include="Content\ExternalResource\notificationsfeed.js" />
+    <Content Include="Content\fonts\roboto-v19-latin-500.svg" />
+    <Content Include="Content\fonts\roboto-v19-latin-regular.svg" />
+    <None Include="Content\fonts\WebClient.readme.txt" />
+    <Content Include="Content\fonts\WebClientIco.svg" />
     <Content Include="Content\kendoui\Black\editor.png" />
     <Content Include="Content\kendoui\Black\imagebrowser.png" />
     <Content Include="Content\kendoui\Black\indeterminate.gif" />
@@ -505,6 +527,9 @@
     <Content Include="Images\Angle\AngleDetail\btn_selectall.svg" />
     <Content Include="Images\Angle\back2search.svg" />
     <Content Include="Images\Angle\btn_addcolumn.svg" />
+    <Content Include="Images\Angle\Followups\followups_flow.svg" />
+    <Content Include="Images\Angle\Followups\followups_relation.svg" />
+    <Content Include="Images\Angle\Followups\followups_relation_indicator.svg" />
     <Content Include="Images\Angle\pivotchart.png" />
     <Content Include="Images\Domains\InvItemTypes\InvItemTypesInvoiceItemType0PO.png" />
     <Content Include="Images\Domains\InvItemTypes\InvItemTypesInvoiceItemType1NoPO.png" />
@@ -520,33 +545,41 @@
     <Content Include="Images\Domains\LogisticsBehaviour\logisticsbehaviourls5transferwithinplant.png" />
     <Content Include="Images\Domains\LogisticsBehaviour\logisticsbehaviourls4transferbetweenplants.png" />
     <Content Include="Images\Icons\icon_about.png" />
+    <Content Include="Images\Icons\icon_add_filter.svg" />
     <Content Include="Images\Icons\icon_add_filter_before_jump.png" />
     <Content Include="Images\Icons\icon_adv_filter.svg" />
     <Content Include="Images\Icons\icon_arrow_left.svg" />
     <Content Include="Images\Icons\icon_arrow_down.svg" />
     <Content Include="Images\Icons\icon_arrow_right.svg" />
     <Content Include="Images\Icons\icon_arrow_up.svg" />
+    <Content Include="Images\Icons\icon_copy.svg" />
+    <Content Include="Images\Icons\icon_drilldown.svg" />
+    <Content Include="Images\Icons\icon_execute.svg" />
+    <Content Include="Images\Icons\icon_filter.svg" />
+    <Content Include="Images\Icons\icon_filter_addnew.svg" />
+    <Content Include="Images\Icons\icon_home.svg" />
     <Content Include="Images\Icons\icon_change_password.png" />
     <Content Include="Images\Icons\icon_chart_addnew.png" />
     <Content Include="Images\Icons\icon_chart_addnew.svg" />
     <Content Include="Images\Icons\icon_check_white.png" />
     <Content Include="Images\Icons\icon_clear_all.svg" />
-    <Content Include="Images\Icons\icon_close.svg" />
     <Content Include="Images\Icons\icon_copy_angle.svg" />
     <Content Include="Images\Icons\icon_create_angle.svg" />
+    <Content Include="Images\Icons\icon_create_angle_plus.svg" />
     <Content Include="Images\Icons\icon_definition_shortcut.svg" />
     <Content Include="Images\Icons\icon_delete.svg" />
+    <Content Include="Images\Icons\icon_delete_red.svg" />
     <Content Include="Images\Icons\icon_deny.png" />
     <Content Include="Images\Icons\icon_display_chart.svg" />
     <Content Include="Images\Icons\icon_display_list.svg" />
     <Content Include="Images\Icons\icon_display_pivot.svg" />
-    <Content Include="Images\Icons\icon_download_angle.png" />
     <Content Include="Images\Icons\icon_download_angle.svg" />
     <Content Include="Images\Icons\icon_down_white.svg" />
     <Content Include="Images\Icons\icon_edit_filter.svg" />
     <Content Include="Images\Icons\icon_execute_dashboard.svg" />
     <Content Include="Images\Icons\icon_execute_display.svg" />
     <Content Include="Images\Icons\icon_followup_addnew.svg" />
+    <Content Include="Images\Icons\icon_gear.svg" />
     <Content Include="Images\Icons\icon_help.png" />
     <Content Include="Images\Icons\icon_info.svg" />
     <Content Include="Images\Icons\icon_item_dashboard.svg" />
@@ -556,13 +589,12 @@
     <Content Include="Images\Icons\icon_open_new_window.svg" />
     <Content Include="Images\Icons\icon_pivot_addnew.png" />
     <Content Include="Images\Icons\icon_pivot_addnew.svg" />
-    <Content Include="Images\Icons\icon_popup_maximize.png" />
-    <Content Include="Images\Icons\icon_popup_maximize.svg" />
-    <Content Include="Images\Icons\icon_popup_minimize.png" />
-    <Content Include="Images\Icons\icon_popup_minimize.svg" />
-    <Content Include="Images\Icons\icon_private_display.png" />
+    <Content Include="Images\Icons\icon_plus.svg" />
     <Content Include="Images\Icons\icon_private_display.svg" />
+    <Content Include="Images\Icons\icon_profile.svg" />
+    <Content Include="Images\Icons\icon_sap.svg" />
     <Content Include="Images\Icons\icon_schedule.svg" />
+    <Content Include="Images\Icons\icon_schedule_advance_filter.svg" />
     <Content Include="Images\Icons\icon_schedule_small.png" />
     <Content Include="Images\Icons\icon_select_all.svg" />
     <Content Include="Images\Icons\icon_sorting.png" />
@@ -603,11 +635,13 @@
     <Content Include="Images\Domains\UserType\UserTypeReference.png" />
     <Content Include="Images\Domains\UserType\UserTypeService.png" />
     <Content Include="Images\Domains\UserType\UserTypeSystem.png" />
+    <Content Include="Images\Icons\icon_sorting_a_z.svg" />
     <Content Include="Images\Icons\icon_upload_angle.svg" />
     <Content Include="Images\Icons\icon_viewmode_compact.svg" />
-    <Content Include="Images\Icons\icon_viewmode_details.svg" />
+    <Content Include="Images\Icons\icon_viewmode_compact_active.svg" />
     <Content Include="Images\Icons\icon_viewmode_displays.svg" />
-    <Content Include="Images\Icons\icon_warning.svg" />
+    <Content Include="Images\Icons\icon_viewmode_displays_active.svg" />
+    <Content Include="Images\Icons\icon_warnings.svg" />
     <Content Include="Images\Icons\icon_workbench.svg" />
     <Content Include="Images\image-not-found.png" />
     <Content Include="Images\image-not-found.svg" />
@@ -621,6 +655,7 @@
     <Content Include="Images\search-grey.svg" />
     <Content Include="Images\search-white.svg" />
     <Content Include="Images\SearchPage\icn_clock.svg" />
+    <Content Include="Images\SearchPage\icn_execute.svg" />
     <Content Include="Images\SearchPage\icn_item_angle.svg" />
     <Content Include="Images\SearchPage\icn_item_dashboard.svg" />
     <Content Include="Images\SearchPage\icn_item_template.svg" />
@@ -628,13 +663,16 @@
     <Content Include="Images\SearchPage\icn_public.svg" />
     <Content Include="Images\SearchPage\icn_recently_used.svg" />
     <Content Include="Images\SearchPage\icn_starred_active.svg" />
+    <Content Include="Images\SearchPage\icn_starred_inactive.svg" />
     <Content Include="Images\SearchPage\icn_validated.svg" />
     <Content Include="Images\SearchPage\icon_adv_filter.svg" />
     <Content Include="Images\SearchPage\icn_displays.svg" />
     <Content Include="Resources\Help\help.txt" />
     <Content Include="Resources\Movies\movies.txt" />
     <Content Include="Scripts\ContextMenu\clipboard.js" />
+    <Content Include="Scripts\Helper\HtmlHelper.MultiSelect.js" />
     <Content Include="Scripts\Helper\HtmlHelper.ActionMenu.js" />
+    <Content Include="Scripts\Helper\HtmlHelper.Accordion.js" />
     <Content Include="Scripts\Helper\HtmlHelper.MenuNavigatable.js" />
     <Content Include="Scripts\Helper\HtmlHelper.js" />
     <Content Include="Scripts\Helper\HtmlHelper.Tooltip.js" />
@@ -643,7 +681,6 @@
     <Content Include="Scripts\Helper\HandlerHelper.js" />
     <Content Include="Scripts\HtmlTemplate\AdvanceFilter\advancefilterhtmltemplate.js" />
     <Content Include="Scripts\HtmlTemplate\AngleDetail\angledetailbodyhtmltemplate.js" />
-    <Content Include="Scripts\HtmlTemplate\AngleDetail\anglepublishinghtmltemplate.js" />
     <Content Include="Scripts\HtmlTemplate\CreateNewAngle\createangleschemahtmlpopuptemplate.js" />
     <Content Include="Scripts\HtmlTemplate\CreateNewAngle\createangleoptionhtmlpopuptemplate.js" />
     <Content Include="Scripts\HtmlTemplate\CustomSort\customsorthtmtemplate.js" />
@@ -660,13 +697,41 @@
     <Content Include="Scripts\HtmlTemplate\MassChange\masschangelabelshtmltemplate.js" />
     <Content Include="Scripts\HtmlTemplate\MassChange\masschangehtmltemplate.js" />
     <Content Include="Scripts\HtmlTemplate\Menu\aboutHtmlTemplate.js" />
-    <Content Include="Scripts\HtmlTemplate\Menu\usersettingpopuphtmltemplate.js" />
     <Content Include="Scripts\HtmlTemplate\ResultSummary\resultsummaryhtmltemplate.js" />
     <Content Include="Scripts\HtmlTemplate\ScheduleAngle\scheduleanglehtmltemplate.js" />
+    <Content Include="Content\fonts\roboto-v19-latin-regular.eot" />
+    <Content Include="Content\fonts\roboto-v19-latin-regular.ttf" />
+    <Content Include="Content\fonts\roboto-v19-latin-regular.woff" />
+    <Content Include="Content\fonts\roboto-v19-latin-regular.woff2" />
+    <Content Include="Content\fonts\WebClientIco.eot" />
+    <Content Include="Content\fonts\WebClientIco.ttf" />
+    <Content Include="Content\fonts\WebClientIco.woff" />
+    <Content Include="Content\fonts\roboto-v19-latin-500.eot" />
+    <Content Include="Content\fonts\roboto-v19-latin-500.ttf" />
+    <Content Include="Content\fonts\roboto-v19-latin-500.woff" />
+    <Content Include="Content\fonts\roboto-v19-latin-500.woff2" />
+    <None Include="Content\CSS\common.scss" />
+    <None Include="compilerconfig.json" />
+    <Content Include="compilerconfig.json.bindings">
+      <DependentUpon>compilerconfig.json</DependentUpon>
+    </Content>
+    <None Include="compilerconfig.json.defaults">
+      <DependentUpon>compilerconfig.json</DependentUpon>
+    </None>
+    <None Include="Content\CSS\_mixins.scss" />
+    <None Include="Content\CSS\card.scss" />
+    <None Include="Content\CSS\_variables.scss" />
+    <None Include="Content\fonts\WebClient.json" />
     <None Include="packages.config">
       <SubType>Designer</SubType>
     </None>
     <None Include="Scripts\kendo.all.min.intellisense.js" />
+    <Content Include="Scripts\KendoUI\kendo.colorpicker.style.js" />
+    <Content Include="Scripts\KendoUI\kendo.combobox.style.js" />
+    <Content Include="Scripts\KendoUI\kendo.notification.js" />
+    <Content Include="Scripts\KendoUI\kendo.window.style.js" />
+    <Content Include="Scripts\KendoUI\kendo.numerictextbox.style.js" />
+    <Content Include="Scripts\KendoUI\kendo.dropdownlist.style.js" />
     <Content Include="Scripts\KendoUI\kendo.timespanpicker.js" />
     <Content Include="Scripts\KendoUI\kendo.core.extension.js" />
     <Content Include="Scripts\KendoUI\kendo.numerictextbox.custom.js" />
@@ -688,56 +753,33 @@
     <Content Include="Images\Angle\create_new_business_schema.png" />
     <Content Include="Images\Angle\create_new_full_list.png" />
     <Content Include="Images\Angle\Chart\charttype.png" />
-    <Content Include="Images\Angle\Followups\followups_category.png" />
-    <Content Include="Images\Angle\Followups\followups_flow.png" />
-    <Content Include="Images\Angle\Followups\followups_relation.png" />
-    <Content Include="Images\Angle\Followups\followups_relation_indicator.png" />
     <Content Include="Images\Angle\Pivot\ui1.png" />
     <Content Include="Images\Angle\Pivot\ui2.png" />
     <Content Include="Images\Icons\icon_angle_to_template.png" />
-    <Content Include="Images\Icons\icon_authorization.png" />
-    <Content Include="Images\Icons\icon_clearformat.png" />
-    <Content Include="Images\Icons\icon_close.png" />
     <Content Include="Images\Icons\icon_add_filter.png" />
-    <Content Include="Images\Icons\icon_add_followup.png" />
     <Content Include="Images\Icons\icon_adv_filter.png" />
-    <Content Include="Images\Icons\icon_bin.png" />
     <Content Include="Images\Icons\icon_column_addnew.png" />
     <Content Include="Images\Icons\icon_column_remove.png" />
     <Content Include="Images\Icons\icon_copy.png" />
-    <Content Include="Images\Icons\icon_create_angle.png" />
-    <Content Include="Images\Icons\icon_dashboard.png" />
     <Content Include="Images\Icons\icon_def_filter.png" />
     <Content Include="Images\Icons\icon_def_followup.png" />
     <Content Include="Images\Icons\icon_delete_transparent.png" />
     <Content Include="Images\Icons\icon_drilldown.png" />
     <Content Include="Images\Icons\icon_error.png" />
-    <Content Include="Images\Icons\icon_facet_collapse.png" />
-    <Content Include="Images\Icons\icon_facet_expand.png" />
-    <Content Include="Images\Icons\icon_filter_addnew.png" />
     <Content Include="Images\Icons\icon_format.png" />
     <Content Include="Images\Icons\icon_gear.png" />
-    <Content Include="Images\Icons\icon_info.png" />
-    <Content Include="Images\Icons\icon_info_hover.png" />
     <Content Include="Images\Icons\icon_info_large.png" />
     <Content Include="Images\Icons\icon_logout.png" />
     <Content Include="Images\Icons\icon_mark_as_new.png" />
-    <Content Include="Images\Icons\icon_maximize.png" />
-    <Content Include="Images\Icons\icon_minimize.png" />
     <Content Include="Images\Icons\icon_move.png" />
     <Content Include="Images\Icons\icon_move_definition.png" />
     <Content Include="Images\Icons\icon_object.png" />
-    <Content Include="Images\Icons\icon_private_to_public.png" />
-    <Content Include="Images\Icons\icon_public_to_private.png" />
-    <Content Include="Images\Icons\icon_sap.png" />
     <Content Include="Images\Icons\icon_sort_asc_large.png" />
     <Content Include="Images\Icons\icon_sort_asc_white.png" />
     <Content Include="Images\Icons\icon_sort_custom.png" />
     <Content Include="Images\Icons\icon_sort_desc_large.png" />
     <Content Include="Images\Icons\icon_sort_desc_white.png" />
     <Content Include="Images\Icons\icon_template_to_angle.png" />
-    <Content Include="Images\Icons\icon_unvalidate_to_validate.png" />
-    <Content Include="Images\Icons\icon_validate_to_unvalidate.png" />
     <Content Include="Images\Icons\icon_viewmode.png" />
     <Content Include="Images\Popup\popup_left_bottom_arrow.png" />
     <Content Include="Images\Popup\popup_top_arrow.png" />
@@ -769,8 +811,6 @@
     <Content Include="Images\loading-image.gif" />
     <Content Include="Images\loading.gif" />
     <Content Include="Images\Popup\ProgressBar\ajax-loader.gif" />
-    <Content Include="Images\SearchPage\icn_execute.png" />
-    <Content Include="Images\SearchPage\icn_starred_inactive.png" />
     <Content Include="EveryAngle.WebClient.Web.wpp.targets" />
     <Content Include="Content\VideoPlayer\video-js.css" />
     <Content Include="Content\VideoPlayer\video-js.min.css" />
@@ -780,11 +820,26 @@
     <Content Include="Scripts\VideoPlayer\video.min.js" />
     <Content Include="Scripts\ViewManagement\Angle\AngleHandler.js" />
     <Content Include="Scripts\ViewManagement\Angle\AngleActionMenuHandler.js" />
+    <Content Include="Scripts\ViewManagement\Angle\AnglePublishStateHandler.js" />
+    <Content Include="Scripts\ViewManagement\Angle\AngleValidateStateHandler.js" />
+    <Content Include="Scripts\ViewManagement\Angle\AngleStateView.js" />
+    <Content Include="Scripts\ViewManagement\Angle\AngleStateHandler.js" />
     <Content Include="Scripts\ViewManagement\Angle\DisplayUpgradeHandler.js" />
     <Content Include="Scripts\ViewManagement\Angle\DisplayCopyHandler.js" />
     <Content Include="Scripts\ViewManagement\Angle\ResolveAngleDisplayHandler.js" />
     <Content Include="Scripts\ViewManagement\Angle\ScheduleAngleHandler.js" />
+    <Content Include="Scripts\ViewManagement\Dashboard\DashboardPublishStateHandler.js" />
+    <Content Include="Scripts\ViewManagement\Dashboard\DashboardStateHandler.js" />
+    <Content Include="Scripts\ViewManagement\Dashboard\DashboardStateView.js" />
+    <Content Include="Scripts\ViewManagement\Dashboard\DashboardValidateStateHandler.js" />
     <Content Include="Scripts\ViewManagement\Dashboard\DashboardFiltersHandler.js" />
+    <Content Include="Scripts\ViewManagement\Search\searchfilterlistviewhandler.js" />
+    <Content Include="Scripts\ViewManagement\Shared\Breadcrumb\AngleBreadcrumbHandler.js" />
+    <Content Include="Scripts\ViewManagement\Shared\Breadcrumb\BreadcrumbHandler.js" />
+    <Content Include="Scripts\ViewManagement\Shared\ItemState\ItemValidateStateHandler.js" />
+    <Content Include="Scripts\ViewManagement\Shared\ItemState\ItemPublishStateHandler.js" />
+    <Content Include="Scripts\ViewManagement\Shared\ItemState\ItemStateView.js" />
+    <Content Include="Scripts\ViewManagement\Shared\ItemState\ItemStateHandler.js" />
     <Content Include="Scripts\ViewManagement\Shared\SearchStorageHandler.js" />
     <Content Include="Scripts\ViewManagement\Shared\NotificationsFeedHandler.js" />
     <Content Include="Scripts\ViewManagement\Search\angledownloadhandler.js" />
@@ -805,16 +860,15 @@
     <Content Include="Scripts\ViewManagement\Shared\InternalResourceHandler.js" />
     <Content Include="Scripts\ViewManagement\Shared\SystemLanguageHandler.js" />
     <Content Include="Scripts\ViewManagement\Shared\SystemSettingHandler.js" />
+    <Content Include="Scripts\ViewManagement\Shared\ToastNotificationHandler.js" />
     <Content Include="Scripts\ViewManagement\Shared\ValidationHandler.js" />
     <Content Include="Scripts\ViewManagement\Shared\ExecutionParameterHandler.js" />
     <Content Include="Scripts\ViewManagement\Shared\DirectoryHandler.js" />
     <Content Include="Scripts\ViewManagement\Shared\ModelFieldDomainHandler.js" />
     <Content Include="Scripts\ViewManagement\Shared\ModelFieldSourceHandler.js" />
     <Content Include="Scripts\ViewManagement\Shared\WidgetFilter\WidgetFilterHelper.DateTranslator.js" />
-    <Content Include="Scripts\ViewManagement\Shared\WidgetLabels\WidgetLabelsHandler.js" />
-    <Content Include="Scripts\ViewManagement\Shared\WidgetLabels\WidgetLabelsView.js" />
     <Content Include="Scripts\ViewManagement\User\UserPasswordHandler.js" />
-    <Content Include="Scripts\ViewManagement\User\UserSettingHandler.js" />
+    <Content Include="Scripts\ViewManagement\User\UserSettingsPanelHandler.js" />
     <Content Include="Scripts\ViewManagement\User\UserSettingView.js" />
     <Content Include="Scripts\vsdoc.loc.xml" />
     <Content Include="Content\kendoui\images\kendoui.ttf" />
@@ -861,7 +915,6 @@
     <Content Include="Images\ContextMenu\page_white_delete.png" />
     <Content Include="Images\ContextMenu\page_white_edit.png" />
     <Content Include="Images\ContextMenu\page_white_paste.png" />
-    <Content Include="Content\ContextMenu\jquery.contextmenu.css" />
     <Content Include="Scripts\ErrorHandler\ErrorHandler.js" />
     <Content Include="Scripts\EveryAngle.Shared.EmbeddedViews.Resource.Shared.shared.vsdoc.js" />
     <Content Include="Scripts\Helper\Bootstrap.js" />
@@ -1027,10 +1080,10 @@
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Shared\Master.cshtml" />
     <Content Include="Views\Search\SearchPage.cshtml" />
-    <Content Include="Views\Search\PartialViews\FacetFilters\FacetFilters.cshtml">
+    <Content Include="Views\Search\PartialViews\FacetFilters.cshtml">
       <SubType>Code</SubType>
     </Content>
-    <Content Include="Views\Search\PartialViews\TotalSearchResult.cshtml" />
+    <Content Include="Views\Search\PartialViews\ViewModeSelector.cshtml" />
     <Content Include="Views\Angle\AnglePage.cshtml" />
     <Content Include="Views\Shared\Top\UserPanel.cshtml" />
     <Content Include="Views\Web.config">
@@ -1065,6 +1118,13 @@
     <Content Include="Views\Angle\PartialViews\Pivot\PivotGridScript.cshtml" />
     <Content Include="Views\Shared\Top\BusinessProcessBadge.cshtml" />
     <Content Include="Views\Shared\Top\ValidationRequestHeader.cshtml" />
+    <Content Include="Views\Shared\Top\Breadcrumb.cshtml" />
+    <Content Include="Views\Shared\GUI.cshtml" />
+    <Content Include="Views\Shared\Top\SettingsPanel.cshtml" />
+    <Content Include="Views\Search\PartialViews\CreateNewAngle.cshtml" />
+    <Content Include="Views\Search\PartialViews\SearchInfo.cshtml" />
+    <Content Include="Views\Shared\Top\Logo.cshtml" />
+    <Content Include="Views\Shared\Top\ItemState.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -1132,7 +1192,7 @@
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>33986</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://localhost:33987/</IISUrl>
+          <IISUrl>http://localhost:33947/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>

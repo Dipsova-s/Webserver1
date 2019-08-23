@@ -25,9 +25,10 @@ Screenshot "WC_Angle_details" page
     Click Select Jump by Name    ${jump}
     Click Add Jump Button
     Crop Add Filter Before Jump Button
+    Close Angle Detail Popup
 
-    Update Popup Position    css=.popupAngleDetail
-    Click Angle Detail Publishing Tab
+    Open Angle Publishing Popup
+    Update Popup Position    css=.popupPublishSettings
     Crop Angle Details "Publishing" Tab
 
 Crop Angle Details "General" Tab
@@ -47,8 +48,7 @@ Crop Angle Details "Definition" Tab
     Crop WebHelp Image  WC_Angle_Definition_Tab.png  css=.popupAngleDetail
 
 Crop Angle Details "Publishing" Tab
-    Click Element    css=#popupAngleDetail_wnd_title
-    Crop WebHelp Image  WC_ADPublishing.png  css=.popupAngleDetail
+    Crop WebHelp Image  WC_ADPublishing.png  css=.popupPublishSettings
 
 Crop Field Chooser Popup
     Click Element    css=#popupFieldChooser_wnd_title

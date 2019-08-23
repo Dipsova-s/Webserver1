@@ -17,11 +17,11 @@
         that.wrapper.hide();
         return jQuery('<div class="custom-datetimepicker" />');
     };
-    var createDatePicker = function (that, wrapper) {
-        wrapper.append('<input class="eaDatepicker fake-datepicker" />');
-        var dateElement = wrapper.children('input.fake-datepicker');
+    var createDatePicker = function (that) {
+        that._wrapper.append('<input class="eaDatepicker fake-datepicker" />');
+        var dateElement = that._wrapper.children('input.fake-datepicker');
         var dateOptions = extend({}, that.options);
-        var defaultDateOptions = ui.DatePicker.prototype.options
+        var defaultDateOptions = ui.DatePicker.prototype.options;
 
         dateOptions.ARIATemplate = defaultDateOptions.ARIATemplate;
         dateOptions.name = defaultDateOptions.name;
@@ -51,11 +51,11 @@
         };
         that.datepicker = dateElement.kendoDatePicker(dateOptions).data('kendoDatePicker');
     };
-    var createTimePicker = function (that, wrapper) {
-        wrapper.append('<input class="eaTimepicker fake-timepicker" />');
-        var timeElement = wrapper.children('input.fake-timepicker');
+    var createTimePicker = function (that) {
+        that._wrapper.append('<input class="eaTimepicker fake-timepicker" />');
+        var timeElement = that._wrapper.children('input.fake-timepicker');
         var timeOptions = extend({}, that.options);
-        var defaultTimeOptions = ui.TimePicker.prototype.options
+        var defaultTimeOptions = ui.TimePicker.prototype.options;
         timeOptions.ARIATemplate = defaultTimeOptions.ARIATemplate;
         timeOptions.name = defaultTimeOptions.name;
         if (timeOptions.timeFormat) {
@@ -84,10 +84,10 @@
         };
         that.timepicker = timeElement.kendoTimePicker(timeOptions).data('kendoTimePicker');
         if (timeOptions.format.indexOf('(tt)')) {
-            wrapper.addClass('time-suffix');
+            that._wrapper.addClass('time-suffix');
         }
     };
-    var getValue = function (that, value) {
+    var getValue = function (that) {
         if (that.datepicker.value() && that.timepicker.value()) {
             return Widget.fn.value.call(that);
         }
@@ -113,15 +113,17 @@
 
             // prepare wrapper
             var wrapper = getDateTimeWrapper(that);
+            that.wrapper.after(wrapper);
+            that._wrapper = wrapper;
 
             // create datepicker;
-            createDatePicker(that, wrapper);
+            createDatePicker(that);
 
             // create timepicker
-            createTimePicker(that, wrapper);
+            createTimePicker(that);
 
-            // insert new ui
-            that.wrapper.after(wrapper);
+            // set state
+            that.enable(!that.element.is(':disabled'));
         },
 
         options: {
@@ -130,11 +132,19 @@
             name: 'CustomDateTimePicker'
         },
 
+        enable: function (flag) {
+            var that = this;
+            if (that.datepicker && that.timepicker) {
+                that.datepicker.enable(flag);
+                that.timepicker.enable(flag);
+            }
+        },
+
         value: function (value) {
             var that = this;
-            if (typeof value == 'undefined') {
+            if (typeof value === 'undefined') {
                 // getter
-                return getValue(that, value);
+                return getValue(that);
             }
             else {
                 // setter

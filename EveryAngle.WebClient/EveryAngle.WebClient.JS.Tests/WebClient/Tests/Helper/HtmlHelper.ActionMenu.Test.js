@@ -45,12 +45,4 @@ describe("HtmlHelper.ActionMenu test", function () {
         });
     });
 
-    describe("test update layout ", function () {
-        it(".__proto__.UpdateLayout", function () {
-            expect(function () {
-                actionMenu.__proto__.UpdateLayout(actionMenu._data);
-            }).not.toThrow();
-        });
-    });
-
 });

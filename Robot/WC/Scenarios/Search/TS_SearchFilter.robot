@@ -18,5 +18,7 @@ Set Facet Filter
     Wait Progress Bar Search Closed
     Wait Until Ajax Complete
     ${expectedResult}    Get Text     ${lblSearchTotal}
-    ${lblCountResult}    Get Text     ${lblCountItem}
+    ${lblLabelResult}    Get Text     ${lblCountItem}>.filter-name
+    ${lblCountResult}    Get Text     ${lblCountItem}>.filter-count
     Should Contain    ${lblCountResult}    ${expectedResult}
+    Element Should Contain    ${divSearchFilterView}    ${lblLabelResult}

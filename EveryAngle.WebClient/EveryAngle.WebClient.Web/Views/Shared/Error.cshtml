@@ -39,9 +39,7 @@
 
         <div id="TopBar">
             <div class="Wrapper">
-                <a id="Logo" href="@Url.Content("~/")">
-                    <img alt="" src="@Url.Content("~/images/master/ealogo.svg")" width="175" height="29" />
-                </a>
+                @{Html.RenderPartial("~/Views/Shared/Top/Logo.cshtml", Url.Content("~/"));}
                 @{Html.RenderPartial("~/Views/Shared/Top/BusinessProcessBadge.cshtml");}
             </div>
         </div>
@@ -49,7 +47,7 @@
         <div id="MainContent" class="Wrapper errorContainer">
             <h2>@(String.IsNullOrEmpty(ViewBag.Title) ? "An error occured" : ViewBag.Title)</h2>
             <p>@(String.IsNullOrEmpty(ViewBag.Description) ? "Sorry, an error occurred while processing your request." : ViewBag.Description)</p>
-            <a href="@(String.IsNullOrEmpty(ViewBag.ReturnUrl) ? @Url.Content("~/") : ViewBag.ReturnUrl)" class="btn"><span>@EveryAngle.Shared.Globalization.Captions.Button_BackToPreviousPage</span></a>
+            <a href="@(String.IsNullOrEmpty(ViewBag.ReturnUrl) ? @Url.Content("~/") : ViewBag.ReturnUrl)" class="btn btn-ghost"><span>@EveryAngle.Shared.Globalization.Captions.Button_BackToPreviousPage</span></a>
         </div>
 
     </div>

@@ -25,7 +25,7 @@
 .popupCreateNewAngleOption .content {
     overflow: hidden;
     padding-top: 15px;
-    margin-bottom: 15px;
+    padding-bottom: 15px;
     border-top: 1px solid #b3b3b3;
 }
 
@@ -71,6 +71,7 @@
     display: inline;
     font-style: normal;
     vertical-align: middle;
+    line-height: 1;
 }
 
 /* .popupCreateNewAngleBySchema
@@ -163,9 +164,10 @@
     position: absolute;
     right: -5px;
     top: -5px;
-    background: transparent url('../../images/icons/icon_warning.svg') center center no-repeat;
+    background: transparent url('../../images/icons/icon_warnings.svg') center center no-repeat;
     width: 16px;
     height: 16px;
+    background-size: 16px 16px;
     z-index: 10;
 }
 
@@ -256,10 +258,6 @@
 }
 #popupCreateNewAngleBySchema.compactMode .CreateNewAngleContainer .Description {
     margin-left: 0;
-}
-
-.popupCreateNewAngleBySchema .btnRight {
-    display: block;
 }
 
 .popupCreateNewAngleBySchema .loading16x16 {

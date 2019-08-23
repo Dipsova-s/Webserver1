@@ -11,7 +11,8 @@ Resource            ${EXECDIR}/WC/POM/Shared/Utility.robot
 Resource            ${EXECDIR}/WC/POM/ManagementConsole/Shared/MC_Utility.robot
 Resource            ${EXECDIR}/WC/Scenarios/Shared/TS_Login.robot
 Resource            ${EXECDIR}/WC/Scenarios/Shared/TS_FieldChooser.robot
-Resource            ${EXECDIR}/WC/Scenarios/Shared/TS_UserMenuSetting.robot
+Resource            ${EXECDIR}/WC/Scenarios/Shared/TS_UserPassword.robot
+Resource            ${EXECDIR}/WC/Scenarios/Shared/TS_UserSettingsPanel.robot
 Resource            ${EXECDIR}/WC/Scenarios/Search/TS_Search.robot
 Resource            ${EXECDIR}/WC/Scenarios/Search/TS_SearchFilter.robot
 Resource            ${EXECDIR}/WC/Scenarios/Search/TS_SearchBusinessProcess.robot

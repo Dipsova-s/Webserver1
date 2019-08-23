@@ -315,7 +315,7 @@ function ListSortHandler() {
     };
     self.ShowCustomPopupCallback = function (e) {
         // bind dropdown
-        if (!jQuery('.eaDropdown:first', e.sender.element).hasClass('k-dropdown')) {
+        if (!e.sender.element.find('.k-dropdown[data-role="dropdownlist"]').length) {
             // collect column def.
             var columnDefinitions = [], columnDefinition, sourceField;
             jQuery.each(displayModel.Data().fields, function (index, column) {
@@ -336,7 +336,7 @@ function ListSortHandler() {
                 column.id = column.id.toLowerCase();
                 return column;
             });
-            jQuery('.eaDropdown', e.sender.element).each(function (index, element) {
+            e.sender.element.find('.k-dropdown').each(function (index, element) {
                 WC.HtmlHelper.DropdownList(element, columnDefinitions, {
                     dataTextField: "short_name",
                     dataValueField: "id",
@@ -355,7 +355,7 @@ function ListSortHandler() {
 
         // set default value
         var querySteps = self.QuerySteps();
-        var ddl = jQuery('[data-role="dropdownlist"]', e.sender.element);
+        var ddl = e.sender.element.find('[data-role="dropdownlist"]');
         var sortStepIndex;
         if (querySteps.length > 0 && ddl.length > 0) {
             jQuery(querySteps[0].sorting_fields).each(function (k, v) {

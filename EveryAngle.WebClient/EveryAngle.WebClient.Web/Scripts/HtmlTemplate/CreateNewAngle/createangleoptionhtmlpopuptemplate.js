@@ -9,9 +9,8 @@ var createAngleOptionHtmlTemplate = function () {
     createAngleOptionHtmlTemplate += "            <h2>" + Localization.CreateFromSchemaSimple + "<\/h2>";
     createAngleOptionHtmlTemplate += "            <p>" + Localization.CreateFromSchemaSimpleDescription + "<\/p>";
     createAngleOptionHtmlTemplate += "            <div class=\"buttonContainer\">";
-    createAngleOptionHtmlTemplate += "                <div class=\"dropdownList\"><\/div>";
     createAngleOptionHtmlTemplate += "                <div class=\"showObjectButton\">";
-    createAngleOptionHtmlTemplate += "                    <a class=\"btn btnRight btnCreateFromSchema\" id=\"ButtonCreateAngleFromSchemaSimple\" onclick=\"createNewAngleViewManagementModel.ShowCreateAngleBySchema(createNewAngleViewManagementModel.SCHEMAVIEWTYPE.SIMPLE);\"><span>" + Captions.Button_Continue + "<\/span><\/a>";
+    createAngleOptionHtmlTemplate += "                    <a class=\"btn btn-ghost float-right btnCreateFromSchema\" id=\"ButtonCreateAngleFromSchemaSimple\" onclick=\"createNewAngleViewManagementModel.ShowCreateAngleBySchema(createNewAngleViewManagementModel.SCHEMAVIEWTYPE.SIMPLE);\"><span>" + Captions.Button_Continue + "<\/span><\/a>";
     createAngleOptionHtmlTemplate += "                <\/div>";
     createAngleOptionHtmlTemplate += "            <\/div>";
     createAngleOptionHtmlTemplate += "        <\/div>";
@@ -24,9 +23,8 @@ var createAngleOptionHtmlTemplate = function () {
     createAngleOptionHtmlTemplate += "            <h2>" + Localization.CreateFromSchemaDetailed + "<\/h2>";
     createAngleOptionHtmlTemplate += "            <p>" + Localization.CreateFromSchemaDetailedDescription + "<\/p>";
     createAngleOptionHtmlTemplate += "            <div class=\"buttonContainer\">";
-    createAngleOptionHtmlTemplate += "                <div class=\"dropdownList\"><\/div>";
     createAngleOptionHtmlTemplate += "                <div class=\"showObjectButton\">";
-    createAngleOptionHtmlTemplate += "                    <a class=\"btn btnRight btnCreateFromSchema\" id=\"ButtonCreateAngleFromSchemaDetailed\" onclick=\"createNewAngleViewManagementModel.ShowCreateAngleBySchema(createNewAngleViewManagementModel.SCHEMAVIEWTYPE.DETAILED)\"><span>" + Captions.Button_Continue + "<\/span><\/a>";
+    createAngleOptionHtmlTemplate += "                    <a class=\"btn btn-ghost float-right btnCreateFromSchema\" id=\"ButtonCreateAngleFromSchemaDetailed\" onclick=\"createNewAngleViewManagementModel.ShowCreateAngleBySchema(createNewAngleViewManagementModel.SCHEMAVIEWTYPE.DETAILED)\"><span>" + Captions.Button_Continue + "<\/span><\/a>";
     createAngleOptionHtmlTemplate += "                <\/div>";
     createAngleOptionHtmlTemplate += "            <\/div>";
     createAngleOptionHtmlTemplate += "        <\/div>";
@@ -39,9 +37,8 @@ var createAngleOptionHtmlTemplate = function () {
     createAngleOptionHtmlTemplate += "            <h2>" + Localization.CreateFromObjects + "<\/h2>";
     createAngleOptionHtmlTemplate += "            <p>" + Localization.CreateFromObjectsDescription + "<\/p>";
     createAngleOptionHtmlTemplate += "            <div class=\"buttonContainer\">";
-    createAngleOptionHtmlTemplate += "                <div class=\"dropdownList\"><\/div>";
     createAngleOptionHtmlTemplate += "                <div class=\"showObjectButton\">";
-    createAngleOptionHtmlTemplate += "                    <a class=\"btn btnRight btnCreateFromObject\" id=\"ButtonCreateAngleFromObjects\" onclick=\"createNewAngleViewManagementModel.ShowCreateAngleByObject()\"><span>" + Captions.Button_Continue + "<\/span><\/a>";
+    createAngleOptionHtmlTemplate += "                    <a class=\"btn btn-ghost float-right btnCreateFromObject\" id=\"ButtonCreateAngleFromObjects\" onclick=\"createNewAngleViewManagementModel.ShowCreateAngleByObject()\"><span>" + Captions.Button_Continue + "<\/span><\/a>";
     createAngleOptionHtmlTemplate += "                <\/div>";
     createAngleOptionHtmlTemplate += "            <\/div>";
     createAngleOptionHtmlTemplate += "        <\/div>";

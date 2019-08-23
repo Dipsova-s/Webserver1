@@ -5,7 +5,7 @@
     <label class="boolean">@(Model.Value != null && Convert.ToBoolean(Model.Value) == true ? EveryAngle.Shared.Globalization.Resource.Yes : EveryAngle.Shared.Globalization.Resource.No)</label>
     @if(Model.Description != null)
     {
-        <a class="btn btnInfo" onclick='helpPopupPageHandler.ShowDescriptionPopup(this)'></a>
+        <a class="btn btnInfo icon icon-info" onclick='helpPopupPageHandler.ShowDescriptionPopup(this)'></a>
         <textarea class="alwaysHide">@Model.Description</textarea>
     }
 </p>

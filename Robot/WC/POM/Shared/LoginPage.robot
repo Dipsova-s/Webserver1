@@ -5,7 +5,6 @@ ${btnLogin}             LoginButton
 ${btnUserMenu}          UserControlName
 ${btnUserMenuMC}          UserMenuControl
 ${btnLogout}            css=#UserMenu .btnLogout
-${btnUserSetting}       css=#UserMenu .actionDropdownItem.btnSettings
 ${btnChangePassword}    css=#UserMenu .actionDropdownItem.btnChangePassword
 ${btnManagementConsole}       css=#UserMenu .actionDropdownItem.btnMC
 

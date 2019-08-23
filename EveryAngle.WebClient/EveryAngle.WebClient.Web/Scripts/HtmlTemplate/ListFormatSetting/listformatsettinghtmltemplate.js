@@ -3,12 +3,12 @@ var numberListFormatHtmlPartialTemplate = function (dataType) {
     var numberListFormatHtmlPartialTemplate = "<div class=\"FieldFormatList\">";
     numberListFormatHtmlPartialTemplate += "    <div class=\"row\">";
     numberListFormatHtmlPartialTemplate += "        <div class=\"field\"><span>" + Localization.FormatSettingDisplayUnits + "<\/span><\/div>";
-    numberListFormatHtmlPartialTemplate += "        <div class=\"input\"><input id=\"FormatDisplayUnitSelect\" class=\"eaDropdown eaDropdownSize40\" \/><\/div>";
+    numberListFormatHtmlPartialTemplate += "        <div class=\"input\"><input id=\"FormatDisplayUnitSelect\" class=\"k-dropdown\" \/><\/div>";
     numberListFormatHtmlPartialTemplate += "    <\/div>";
     if (dataType !== enumHandlers.FIELDTYPE.INTEGER) {
         numberListFormatHtmlPartialTemplate += "    <div class=\"row\">";
         numberListFormatHtmlPartialTemplate += "        <div class=\"field\"><span>" + Localization.Decimal + "<\/span><\/div>";
-        numberListFormatHtmlPartialTemplate += "        <div class=\"input\"><input id=\"FormatDecimalSelect\" class=\"eaDropdown eaDropdownSize40\" \/><\/div>";
+        numberListFormatHtmlPartialTemplate += "        <div class=\"input\"><input id=\"FormatDecimalSelect\" class=\"k-dropdown\" \/><\/div>";
         numberListFormatHtmlPartialTemplate += "    <\/div>";
     }
     numberListFormatHtmlPartialTemplate += "<\/div>";
@@ -21,7 +21,7 @@ var normalListFormatHtmlPartialTemplate = function () {
     var normalListFormatHtmlPartialTemplate = "<div class=\"FieldFormatList\">";
     normalListFormatHtmlPartialTemplate += "    <div class=\"row\">";
     normalListFormatHtmlPartialTemplate += "        <div class=\"field\"><span>" + Captions.FieldFormat_Notation + "<\/span><\/div>";
-    normalListFormatHtmlPartialTemplate += "        <div class=\"input\"><input id=\"format\" class=\"eaDropdown eaDropdownSize40\" \/><\/div>";
+    normalListFormatHtmlPartialTemplate += "        <div class=\"input\"><input id=\"format\" class=\"k-dropdown\" \/><\/div>";
     normalListFormatHtmlPartialTemplate += "    <\/div>";
     normalListFormatHtmlPartialTemplate += "<\/div>";
 
@@ -32,7 +32,7 @@ var timeListFormatHtmlPartialTemplate = function () {
     var timeListFormatHtmlPartialTemplate = "<div class=\"FieldFormatList\">";
     timeListFormatHtmlPartialTemplate += "    <div class=\"row\">";
     timeListFormatHtmlPartialTemplate += "        <div class=\"field\"><span>" + Captions.Label_FieldFormat_Seconds + "<\/span><\/div>";
-    timeListFormatHtmlPartialTemplate += "        <div class=\"input\"><input id=\"FormatSecondsSelect\" class=\"eaDropdown eaDropdownSize40\" \/><\/div>";
+    timeListFormatHtmlPartialTemplate += "        <div class=\"input\"><input id=\"FormatSecondsSelect\" class=\"k-dropdown\" \/><\/div>";
     timeListFormatHtmlPartialTemplate += "    <\/div>";
     timeListFormatHtmlPartialTemplate += "<\/div>";
     return timeListFormatHtmlPartialTemplate;

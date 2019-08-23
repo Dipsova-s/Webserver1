@@ -1,0 +1,10 @@
+﻿[
+  {
+    "outputFile": "Content/CSS/common.css",
+    "inputFile": "Content/CSS/common.scss"
+  },
+  {
+    "outputFile": "Content/CSS/itemstate.css",
+    "inputFile": "Content/CSS/itemstate.scss"
+  }
+]

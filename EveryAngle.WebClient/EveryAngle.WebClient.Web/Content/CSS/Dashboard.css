@@ -2,14 +2,12 @@
 ============================================ */
 #DashboardField.detailsWrapper {
     min-width: 768px;
-}
-#DashboardField .informationDetailPanel {
-    margin-right: 140px;
+    border-bottom-width: 0;
 }
 #DashboardField .Wrapper {
-    padding: 7px 0;
+    padding: 0 0 7px 0;
     position: relative;
-    min-height: 48px;
+    min-height: 88px;
 }
 #DashboardField .btnInfo {
     margin-left: 2px;
@@ -17,14 +15,10 @@
 #YourNote {
     bottom: 5px;
 }
-#ActionSelect.compactMode {
-    right: 15px;
-}
 
 /* #dashboardWrapper
 ============================================ */
 #widgetMaximizeWrapper {
-    display: none;
     position: absolute;
     left: 0;
     top: 0;
@@ -32,179 +26,129 @@
     background-color: #fff;
     z-index: 10;
 }
-
+#widgetMaximizeWrapper.busy,
 #widgetMaximizeWrapper.active {
+    z-index: 12;
+}
+#widgetMaximizeWrapper:before {
+    display: none;
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #fff;
+    z-index: 10000;
+}
+#widgetMaximizeWrapper.busy:before {
     display: block;
 }
 
-#dashboardWrapper .widgetDisplayRow {
-    overflow: hidden;
-    height: 100%;
-    border-top-width: 0;
-    border-bottom-width: 0;
-    border-color: #b7b7b7;
+#dashboardContentWrapper {
+    border: 20px solid transparent;
+    box-sizing: border-box;
 }
 
-#dashboardWrapper .widgetDisplayColumn {
+#dashboardWrapper {
     position: relative;
-    float: left;
+    border-width: 0;
+    height: 100%;
+    z-index: 11;
+}
+
+#dashboardWrapper .widget-display-row {
+    overflow: hidden;
+    height: 100%;
+    border-width: 0;
+}
+
+#dashboardWrapper .widget-display-column {
+    position: relative;
     width: 100%;
     overflow: hidden;
     z-index: 1;
+    box-shadow: inset 0 0 0 1px transparent;
+    transition: box-shadow ease-out 100ms;
 }
 
-.widgetDisplayHeader {
+#dashboardWrapper .widget-display-column:hover {
+    box-shadow: inset 0 0 0 1px #358ed7;
+}
+#dashboardWrapper.nodrag .widget-display-column:hover,
+#dashboardWrapper.resizing .widget-display-column:hover {
+    box-shadow: none;
+}
+
+.widget-display-header {
     cursor: move;
     position: relative;
+    display: flex;
+    align-items: center;
     height: 30px;
-    background-color: #236e97;
 }
 
-#dashboardWrapper.nodrag .widgetDisplayHeader,
-.widgetDisplayHeader.nodrag {
+#widgetMaximizeWrapper .widget-display-header,
+#dashboardWrapper.nodrag .widget-display-header,
+.widget-display-header.nodrag {
     cursor: default;
 }
 
-.widgetDisplayHeader .widgetName {
-    line-height: 30px;
-    margin: 0 0 0 5px;
+.widget-display-header .widgetName {
+    margin: 0 auto 0 10px;
     display: inline-block;
     text-overflow: ellipsis;
     overflow: hidden;
     white-space: nowrap;
-    color: #fff;
-    font-size: 14px;
-    opacity: .9;
+    font-size: 11px;
+    font-weight: bold;
+    letter-spacing: 1.5px;
 }
 
-.widgetDisplayHeader .btnWidgetInfo {
-    vertical-align: baseline;
-    top: -7px;
-    background-size: 13px 13px;
-}
-
-.safari .widgetDisplayHeader .btnWidgetInfo {
-    vertical-align: bottom;
-}
-
-.widgetDisplayHeader .widgetToolbar {
-    position: absolute;
-    right: 5px;
-    top: 50%;
-    margin-top: -11px;
-}
-
-.widgetButtonMenu {
+.widget-display-column .widgetToolbar {
     display: none;
-    float: right;
-    width: 22px;
-    height: 22px;
-    margin: 0 0 0 4px;
-    min-width: 0;
-    padding: 0;
+    margin-right: 5px;
+}
+.widget-display-column:hover .widgetToolbar,
+.no-mouse .widget-display-column .widgetToolbar {
+    display: flex;
+    align-items: center;
 }
 
-.widgetDisplayColumn:hover .widgetButtonMenu,
-.touch .widgetButtonMenu {
-    display: block;
+.widget-display-column .widgetToolbar > a {
+    color: #78909c;
+    padding: 0 4px;
 }
 
-.widgetButtonMenu:after {
-    right: 0;
-    width: 100%;
-    height: 100%;
-    background-image: url('../../images/icons/icon_arrow_down.svg');
-    background-position: center center;
-    background-size: 10px 10px;
-}
-
-.widgetToolbarActions {
-    top: 30px;
-    left: auto;
-    right: -2px;
-    width: 160px;
-    border-color: #c5c5c5;
-}
-
-.widgetDisplayHeader .widgetButtonMenu + .widgetToolbarActions {
+#widgetMaximizeWrapper .widgetToolbar .widgetButtonMaximize {
     display: none;
 }
 
-.widgetDisplayColumn:hover .widgetButtonMenu.open + .widgetToolbarActions,
-.touch .widgetButtonMenu.open + .widgetToolbarActions {
-    display: block;
-}
-
-.widgetToolbar .k-window-arrow-n:before,
-.widgetToolbar .k-window-arrow-n:after {
-    left: auto;
-    right: 2px;
-}
-
-.widgetToolbar .k-window-arrow-n:before {
-    border-bottom-color: #fff;
-}
-
-.widgetToolbar .k-window-content {
-    background-color: #fff;
-}
-
-.widgetToolbarActions a {
-    padding: 0 0 0 40px;
-    display: block;
-    position: relative;
-    height: 38px;
-    line-height: 38px;
-    color: #333333;
-    font-size: 12px;
-    background: transparent none 12px center no-repeat;
-    border-bottom: 1px solid #c5c5c5;
-    text-overflow: ellipsis;
-    overflow: hidden;
-    white-space: nowrap;
-    box-sizing: border-box;
-}
-
-.widgetToolbarActions a:hover,
-.widgetToolbarActions .active {
-    background-color: #f0f0f0;
-}
-
-.widgetToolbarActions .widgetButtonMaximize {
-    background-image: url('../../images/icons/icon_maximize.png');
-}
-
-#widgetMaximizeWrapper .widgetToolbarActions .widgetButtonMaximize {
+.widgetToolbar .widgetButtonMinimize {
     display: none;
 }
-
-.widgetToolbarActions .widgetButtonMinimize {
-    display: none;
-    background-image: url('../../images/icons/icon_minimize.png');
-}
-
-#widgetMaximizeWrapper .widgetToolbarActions .widgetButtonMinimize {
+#widgetMaximizeWrapper .widgetToolbar .widgetButtonMinimize {
     display: block;
 }
 
-.widgetToolbarActions .widgetButtonDelete {
-    background-image: url('../../images/icons/icon_bin.png');
-}
-
-.widgetToolbarActions .widgetButtonOpenNewWindow {
-    background-image: url('../../images/icons/icon_open_new_window.svg');
-    background-position: 7px center;
-    background-size: 25px 25px;
-}
-
-.widgetToolbarActions .disabled {
+.widgetToolbar .disabled {
     cursor: default;
-    color: #777;
     opacity: .5;
 }
 
-.widgetNotExists .btnWidgetInfo {
+.widgetNotExists .widgetButtonInfo {
     display: none;
+}
+
+.widget-display-container {
+    display: flex;
+    height: calc(100% - 30px);
+    padding: 1px;
+    box-sizing: border-box;
+}
+
+.widget-display-inner {
+    width: 100%;
 }
 
 .widgetDisplay {
@@ -256,23 +200,69 @@
     top: 0;
 }
 
-#dashboardWrapper .k-splitbar,
-#dashboardWrapper .k-ghost-splitbar {
+#dashboardWrapper .k-splitbar {
     z-index: 2;
+    background-color: #f9f9f9;
+    border-color: #f9f9f9;
 }
 
-#dashboardWrapper .k-secondary.k-splitbar {
-    background-color: #9c9c9c;
-    border-color: #2b2b2b;
+#dashboardWrapper .k-ghost-splitbar {
+    z-index: 2;
+    background-color: transparent;
+    border-color: transparent;
+}
+#dashboardWrapper .k-ghost-splitbar:before {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 0;
+    border: 0 solid #358ed7;
+}
+
+#dashboardWrapper .k-ghost-splitbar-horizontal,
+#dashboardWrapper .k-splitbar-horizontal {
+    width: 8px;
+}
+
+#dashboardWrapper .k-ghost-splitbar-vertical,
+#dashboardWrapper .k-splitbar-vertical {
+    height: 8px;
 }
 
 #dashboardWrapper .k-splitbar-horizontal-hover:hover,
 #dashboardWrapper .k-splitbar-vertical-hover:hover {
-    background-color: #8c8c8c;
+    background-color: transparent;
 }
 
-#dashboardWrapper .k-restricted-size-vertical, .k-restricted-size-horizontal {
-    background-color: #d31;
+#dashboardWrapper .k-splitbar .k-resize-handle {
+    background: none;
+    width: 0;
+    height: 0;
+    margin: 0;
+    left: 0;
+    top: 0;
+    border: 0 solid #358ed7
+}
+
+#dashboardWrapper .k-ghost-splitbar-horizontal:before,
+#dashboardWrapper .k-splitbar-horizontal-hover:hover .k-resize-handle {
+    height: 100%;
+    border-left-width: 2px;
+    left: 50%;
+    margin-left: -1px;
+}
+
+#dashboardWrapper .k-ghost-splitbar-vertical:before,
+#dashboardWrapper .k-splitbar-vertical-hover:hover .k-resize-handle {
+    width: 100%;
+    border-top-width: 2px;
+    top: 50%;
+    margin-top: -1px;
+}
+
+#dashboardWrapper .k-restricted-size-vertical:before,
+#dashboardWrapper .k-restricted-size-horizontal:before {
+    border-color: #f54b5e;
 }
 
 #dashboardWrapper .displayArea {
@@ -290,48 +280,47 @@
     overflow: hidden;
 }
 
+.widget-display-column .navigatorWrapper .toggleButton {
+    background-color: transparent;
+}
+.widget-display-column:hover .navigatorWrapper .toggleButton {
+    background-color: #eaeaea;
+}
+.widget-display-column:hover .navigatorWrapper .toggleButton:hover {
+    background-color: #b7b7b7;
+}
+
 #dashboardWrapper .dxpgDataArea .dxpgHeaderText {
     cursor: default;
 }
 
 .widgetDragging {
     position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    font-size: 18px;
+    color: #78909c;
+    line-height: 1.33;
+    letter-spacing: .2px;
     cursor: move;
-    width: 150px;
-    height: 80px;
-    border-radius: 5px;
-    border: 2px solid #000;
-    background-color: #eee;
+    width: 330px;
+    height: 190px;
+    background-color: #fff;
+    background-image: linear-gradient(to right, #a1a1a1 50%, transparent 50%), linear-gradient(to right, #a1a1a1 50%, transparent 50%), linear-gradient(to bottom, #a1a1a1 50%, transparent 50%), linear-gradient(to bottom, #a1a1a1 50%, transparent 50%);
+    background-position: left top, left bottom, left top, right top;
+    background-repeat: repeat-x, repeat-x, repeat-y, repeat-y;
+    background-size: 10px 1px, 10px 1px, 1px 10px, 1px 10px;
     box-sizing: border-box;
 }
 
 .widgetDragging.revertHorizontal {
-    margin-left: -130px;
+    margin-left: -300px;
 }
 
 .widgetDragging.revertVertical {
-    margin-top: -40px;
-}
-
-.widgetDragging .widgetDisplayHeader {
-    height: 20px;
-}
-
-.widgetDragging .widgetDisplayHeader .widgetName {
-    display: block;
-    margin-right: 5px;
-    font-size: 10px;
-    line-height: 20px;
-}
-
-.widgetDragging .widgetDisplayHeader .btnWidgetInfo {
-    display: none;
-}
-
-.widgetDragging .widgetDraggingInfo {
-    padding: 10px 5px;
-    text-align: center;
-    font-size: 11px;
+    margin-top: -150px;
 }
 
 .widgetDropArea {
@@ -343,25 +332,92 @@
     z-index: 10001;
 }
 
-.widgetDropArea .droppable {
-    position: absolute;
-    background-color: #000;
-    border: 2px dashed #fff;
+.widgetDropArea:before {
+    content: '';
+    z-index: 1;
+    background-color: #fff;
     opacity: .5;
-    z-index: 2;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    left: 0;
+    top: 0;
 }
 
-.widgetDropArea .droppable.dropToRow {
-    width: 100%;
+.widgetDropArea .droppable {
+    display: none;
+    position: absolute;
+    background-color: transparent;
+    box-sizing: border-box;
     z-index: 3;
 }
-
-.widgetDropArea .droppable.dropToReorder {
-    background-color: #0ff;
+.widgetDropArea .droppable.active {
+    display: flex;
+    align-items: flex-start;
 }
 
-.widgetDropArea .dragFocus {
-    opacity: .9;
+.widgetDropArea .droppable.drop-to-widget {
+    display: flex;
+    z-index: 2;
+}
+.widgetDropArea .droppable.drop-to-widget.current {
+    background-color: rgba(229, 239, 255, 0.35);
+    border: 1px solid #358ed7;
+}
+
+.widgetDropArea .droppable.drop-to-row {
+    flex-direction: row;
+}
+.widgetDropArea .droppable.drop-to-column {
+    flex-direction: column;
+}
+
+.widgetDropArea .droppable.drop-to-row:before,
+.widgetDropArea .droppable.drop-to-column:before {
+    content: '';
+    position: absolute;
+    opacity: .5;
+    width: 0;
+    height: 0;
+}
+
+.widgetDropArea .droppable.drop-to-row:before {
+    background-image: linear-gradient(to right, #358ed7 50%, transparent 50%);
+    background-position: left top;
+    background-repeat: repeat-x;
+    background-size: 10px 1px;
+    height: 1px;
+    width: 100%;
+}
+.widgetDropArea .droppable.drop-to-row-top:before {
+    top: 5px;
+    left: 0;
+}
+.widgetDropArea .droppable.drop-to-row-bottom:before {
+    bottom: 5px;
+    left: 0;
+}
+
+.widgetDropArea .droppable.drop-to-column:before {
+    background-image: linear-gradient(to bottom, #358ed7 50%, transparent 50%);
+    background-position: left top;
+    background-repeat: repeat-y;
+    background-size: 1px 10px;
+    width: 1px;
+    height: 100%;
+}
+.widgetDropArea .droppable.drop-to-column-left:before {
+    left: 5px;
+    top: 0;
+}
+.widgetDropArea .droppable.drop-to-column-right:before {
+    right: 5px;
+    top: 0;
+}
+
+.widgetDropArea .droppable.focused:before {
+    opacity: 1;
+    background-color: #358ed7;
 }
 
 /* .popupDashboardDetails
@@ -415,6 +471,13 @@
     margin-right: 35px;
 }
 
+.widgetDetailRowDisplays .ItemList .displayNameContainer .icon-link {
+    color:#78909c;
+}
+.widgetDetailRowDisplays .ItemList .displayNameContainer .icon-link:before {
+    margin: auto;
+}
+
 .widgetDetailLabel {
     position: absolute;
     left: 0;
@@ -439,6 +502,7 @@
 .popupDashboardDetails .FilterHeader .displayNameContainer {
     padding-top: 10px;
     padding-right: 60px;
+    padding-left:10px;
 }
 
 .popupDashboardDetails .FilterHeader .name {
@@ -451,6 +515,10 @@
 
 .popupDashboardDetails .filterItem {
     margin-right: 0;
+}
+
+.txtWidgetName.placeholder {
+    color: #909191;
 }
 
 /* .popupDashboardInfo

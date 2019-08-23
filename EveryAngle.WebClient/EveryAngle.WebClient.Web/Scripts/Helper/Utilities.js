@@ -167,6 +167,22 @@
         jQuery.address.parameter(name, null);
         jQuery.address.history(history);
     };
+    window.WC.Utility.GetQueryStringValue = function (url, name) {
+        var queryValue = '';
+        var urlIndex = url.indexOf('/?');
+        if (urlIndex !== -1) {
+            url = url.substr(urlIndex + 2);
+            var params = url.split('&');
+            var queryName = name + '=';
+            jQuery.each(params, function (i, value) {
+                if (value.indexOf(queryName) === 0) {
+                    queryValue = decodeURIComponent(value.replace(queryName, ''));
+                    return false;
+                }
+            });
+        }
+        return queryValue;
+    };
     window.WC.Utility.GetSearchPageUri = function (query) {
         return searchPageUrl + '#/?' + unescape(jQuery.param(query));
     };
@@ -593,9 +609,9 @@
                     async: true,
                     ignore_fail: true
                 }, {
-                    async: async,
-                    ignore_fail: ignore_fail
-                });
+                        async: async,
+                        ignore_fail: ignore_fail
+                    });
 
             if (!settings.async) {
                 var promised = deferred.promise(), resolved = [];
@@ -669,15 +685,23 @@
                     promise = promise.then(function () {
                         return jQuery.when(Math.floor(index / numberPerSet));
                     })
-                    .then(function (i) {
-                        return jQuery.whenAll(deferSet[i]);
-                    });
+                        .then(function (i) {
+                            return jQuery.whenAll(deferSet[i]);
+                        });
                     setIndex++;
                 }
             });
 
             deferred.resolve();
             return promise;
+        },
+
+        whenDelay: function (delay) {
+            var deferred = jQuery.Deferred();
+            setTimeout(function() {
+                deferred.resolve();
+            }, delay);
+            return deferred.promise();
         },
 
         // click outside event

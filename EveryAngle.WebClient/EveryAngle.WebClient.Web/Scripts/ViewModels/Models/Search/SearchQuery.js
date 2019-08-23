@@ -89,8 +89,6 @@ function SearchQueryViewModel() {
         }
 
         //add advance filtering
-        var advanceCharacteristicSearch = '';
-
         var fq = WC.Utility.UrlParameter(enumHandlers.SEARCHPARAMETER.FQ) || '';
         fq = fq.split(' AND ');
 
@@ -103,10 +101,6 @@ function SearchQueryViewModel() {
             if (advancesearch) {
                 query = query + '&' + advancesearch;
             }
-
-            if (self.GetQueryStringForAdvanceSearchCharacteristic()) {
-                advanceCharacteristicSearch = self.GetQueryStringForAdvanceSearchCharacteristic();
-            }
         }
 
         // Add facet question to search query
@@ -117,11 +111,7 @@ function SearchQueryViewModel() {
         if (facetParameter) {
             facetQuery.push(facetParameter);
         }
-
-        if (isAvanceSearch && advanceCharacteristicSearch) {
-            facetQuery.push(advanceCharacteristicSearch);
-        }
-
+        
         if (facetQuery.length)
             query += '&' + enumHandlers.SEARCHPARAMETER.FQ + '=' + facetQuery.join(' AND ');
 
@@ -146,7 +136,6 @@ function SearchQueryViewModel() {
             self.SetBusinessQuestionBoxValue(businessQuestionValue);
 
             // fq
-            facetFiltersViewModel.SetFacetFilterFromUrlToUI(businessFilterValue);
             self.SetUIOfAdvanceSearchFromParams();
         }
     };
@@ -191,9 +180,9 @@ function SearchQueryViewModel() {
                 sortOptions[enumHandlers.SEARCHPARAMETER.SORT_DIR] = sortOptions[enumHandlers.SEARCHPARAMETER.SORT] === 'name' ? 'asc' : 'desc';
             }
             else {
-                sortOptions[enumHandlers.SEARCHPARAMETER.SORT] = sortUI.value() || 'name';
+                sortOptions[enumHandlers.SEARCHPARAMETER.SORT] = sortUI.value().split('-')[0] || 'name';
                 if (sortUI.dataItem()) {
-                    sortOptions[enumHandlers.SEARCHPARAMETER.SORT_DIR] = sortUI.dataItem().dir() || 'asc';
+                    sortOptions[enumHandlers.SEARCHPARAMETER.SORT_DIR] = sortUI.dataItem().id.split('-')[1] || 'asc';
                 }
                 else {
                     sortOptions[enumHandlers.SEARCHPARAMETER.SORT_DIR] = sortOptions[enumHandlers.SEARCHPARAMETER.SORT] === 'name' ? 'asc' : 'desc';
@@ -212,18 +201,13 @@ function SearchQueryViewModel() {
         value = unescape(value);
         dir = unescape(dir);
 
-        var sortUI = WC.HtmlHelper.DropdownList('#SortItemBySelect');
-        if (sortUI) {
-            jQuery.each(facetFiltersViewModel.SortOptions, function (index, sort) {
-                sort.dir('');
-            });
-            sortUI.setDataSource(new kendo.data.DataSource({ data: facetFiltersViewModel.SortOptions }));
-
-            if (sortUI.dataItem()) {
-                sortUI.value(value);
-                if (sortUI.dataItem())
-                    sortUI.dataItem().dir(dir);
+        var sortUI = searchPageHandler.BindSortingDropdown();
+        var dataItem = sortUI.dataItem();
+        if (dataItem) {
+            if (searchPageHandler.IsSortingHasDirection(value)) {
+                value = value + '-' + dir;
             }
+            sortUI.value(value);
         }
     };
 
@@ -246,7 +230,7 @@ function SearchQueryViewModel() {
 
             facetElement.each(function (subIndex, subElement) {
                 if (subElement.checked && !(isAvanceSearch && self.ElementIsInFacet(subElement))) {
-                    if (jQuery(subElement).next().hasClass('negative')) {
+                    if (jQuery(subElement).next().hasClass('strike-through')) {
                         filterUnchecked.push(subElement.id);
                     }
                     else {
@@ -465,23 +449,7 @@ function SearchQueryViewModel() {
         }
         return null;
     };
-
-    self.ClearCharacteristicInAdvanceSearch = function (facetId) {
-        if (jQuery('#popupAdvanceFilter').length > 0) {
-            if (facetId === 'facet_isprivate') {
-                jQuery('#dropdownPublicStatus').data(enumHandlers.KENDOUITYPE.DROPDOWNLIST).value(0);
-            }
-            else if (facetId === 'facet_isvalidated') {
-                jQuery('#dropdownValidation').data(enumHandlers.KENDOUITYPE.DROPDOWNLIST).value(0);
-            }
-            else if (facetId === 'facet_isstarred') {
-                jQuery('#dropdownStarred').data(enumHandlers.KENDOUITYPE.DROPDOWNLIST).value(0);
-            }
-            else if (facetId === 'facet_has_warnings') {
-                jQuery('#dropdownWarning').data(enumHandlers.KENDOUITYPE.DROPDOWNLIST).value(0);
-            }
-        }
-    };
+    
     self.ClearCharacteristicInFacet = function (facetId) {
 
         if (facetId === 'facet_isprivate') {
@@ -497,56 +465,7 @@ function SearchQueryViewModel() {
             jQuery('#facet_has_warnings').prop('checked', false);
         }
     };
-
-    self.GetQueryStringForAdvanceSearchCharacteristic = function () {
-        var result = '';
-        var characteristicQueries = [];
-        var publicStatus = self.GetAdvanceSearchForCharacteristic('dropdownPublicStatus', 'facet_isprivate');
-        if (publicStatus) {
-            characteristicQueries.push(publicStatus);
-        }
-
-        var validation = self.GetAdvanceSearchForCharacteristic('dropdownValidation', 'facet_isvalidated');
-        if (validation) {
-            characteristicQueries.push(validation);
-        }
-
-        var hasWarnings = self.GetAdvanceSearchForCharacteristic('dropdownWarning', 'facet_has_warnings');
-        if (hasWarnings) {
-            characteristicQueries.push(hasWarnings);
-        }
-
-        var isStarred = self.GetAdvanceSearchForCharacteristic('dropdownStarred', 'facet_isstarred');
-        if (isStarred) {
-            characteristicQueries.push(isStarred);
-        }
-
-        var filterChecked = [],
-            filterUnchecked = [];
-
-        for (var i = 0; i < characteristicQueries.length; i++) {
-            if (characteristicQueries[i].indexOf('-') > -1) {
-                filterUnchecked.push(characteristicQueries[i].replace('-', ''));
-            }
-            else {
-                filterChecked.push(characteristicQueries[i]);
-            }
-        }
-
-        if (filterChecked.length + filterUnchecked.length !== 0) {
-            if (filterChecked.length !== 0) {
-                result += 'facetcat_characteristics' + ':(' + filterChecked.join(' ') + ')';
-            }
-            if (filterUnchecked.length !== 0) {
-                if (result) {
-                    result += ' AND ';
-                }
-                result += '-facetcat_characteristics' + ':(' + filterUnchecked.join(' ') + ')';
-            }
-        }
-        return result;
-    };
-
+    
     self.GetAdvanceSearchQueryFromUri = function () {
         var queries = [];
         var creator = WC.Utility.UrlParameter(enumHandlers.ADVANCESEARCHPARAMETER.CREATOR);
@@ -830,21 +749,24 @@ function SearchQueryViewModel() {
                 jQuery('#textNumberExcutes').data("kendoNumericTextBox").enable(true);
                 jQuery('#textNumberExcutes').data('kendoNumericTextBox').value(parseInt(times[1]) + 1);
             }
-
-            jQuery('#dropdownPublicStatus').data(enumHandlers.KENDOUITYPE.DROPDOWNLIST).value(self.GetOperatorValueFromFacet('facet_isprivate'));
-            jQuery('#dropdownValidation').data(enumHandlers.KENDOUITYPE.DROPDOWNLIST).value(self.GetOperatorValueFromFacet('facet_isvalidated'));
-            jQuery('#dropdownStarred').data(enumHandlers.KENDOUITYPE.DROPDOWNLIST).value(self.GetOperatorValueFromFacet('facet_isstarred'));
-            jQuery('#dropdownWarning').data(enumHandlers.KENDOUITYPE.DROPDOWNLIST).value(self.GetOperatorValueFromFacet('facet_has_warnings'));
         }
 
+        var isActiveSearch =
+            self.GetAdvanceSearchQueryFromUri().length > 0
+            || self.HaveWariningInAdvanceFilter()
+            || jQuery("#SearchInput").val();
+        self.ToggleSearchActive(isActiveSearch);
+    };
 
-        if (self.GetAdvanceSearchQueryFromUri().length > 0 || self.HaveWariningInAdvanceFilter()) {
+    self.ToggleSearchActive = function (isActive) {
+        if (isActive) {
             jQuery('#ClearSearchButton').removeClass('alwaysHide');
+            jQuery("#Search").addClass('active');
         }
         else {
             jQuery('#ClearSearchButton').addClass('alwaysHide');
+            jQuery("#Search").removeClass('active');
         }
-
     };
 
     self.HaveWariningInAdvanceFilter = function () {
@@ -905,6 +827,9 @@ function SearchQueryViewModel() {
     };
 
     self.ClearAdvanceSearch = function () {
+        jQuery("#SearchInput").val('');
+        searchPageHandler.SubmitSearchForm();
+
         self.ClearAdvanceSearchUI();
         var fq = WC.Utility.UrlParameter(enumHandlers.SEARCHPARAMETER.FQ) || '';
         fq = fq.split(' AND ');

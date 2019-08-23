@@ -1,4 +1,6 @@
 *** Settings ***
+Resource            ${EXECDIR}/WC/POM/Dashboard/DashboardPublishingPopup.robot
+Resource            ${EXECDIR}/WC/POM/Dashboard/DashboardValidatingPopup.robot
 Resource            ${EXECDIR}/WC/POM/Dashboard/DashboardDetailPopup.robot
 Resource            ${EXECDIR}/WC/POM/Dashboard/DashboardExecuteParametersPopup.robot
 
@@ -6,12 +8,11 @@ Resource            ${EXECDIR}/WC/POM/Dashboard/DashboardExecuteParametersPopup.
 ${btnToggleDashboard}                   ToggleAngle
 ${ddlDashboardActionDropdownList}       ActionDropdownList
 ${ddlDashboardActionDropdownListExecuteDashboard}        css=#ActionDropdownListPopup .exitEditMode
-${divWidgetDisplayHeader}               jquery=.widgetDisplayHeader
-${btnWidgetButtonMenu}                  jquery=.widgetButtonMenu
-${lnkWidgetOpenNewWindow}               jquery=.widgetButtonOpenNewWindow:visible
+${divWidgetDisplayHeader}               jquery=.widget-display-header
+${lnkWidgetOpenNewWindow}               jquery=.widgetButtonOpenNewWindow
 ${btnDashboardNote}                     css=#YourNote
 ${txtDashboardNote}                     css=#txtYourNote
-${divWidgets}                           jquery=#dashboardWrapper .widgetDisplayColumn
+${divWidgets}                           jquery=#dashboardWrapper .widget-display-column
 ${divDashboardFilterWrapper}            css=#dashboardFilterWrapper
 ${btnDashboardFilterToggle}             css=.dashboardFilterToggle
 
@@ -23,6 +24,9 @@ ${ddlDashboardFilterCount}   .dashboardFilterCount
 ${btnEditFilter}             .btnEditFilter
 ${divPopupListFilter}        css=#popupListFilter
 ${btnCancelEditDashboard}    css=#btn-popupListFilter0
+
+${btnShowPublishSettings}      css=#ShowPublishSettingsButton
+${btnShowValidateButton}       css=#ShowValidateButton
 
 *** Keywords ***
 Wait Dashboard Document Loaded
@@ -56,12 +60,6 @@ Show Dashboard Widget Menu
     Mouse Over    ${divWidgetDisplayHeader}:eq(${index})
     Sleep    ${TIMEOUT_GENERAL}
 
-Open Dashboard Widget Menu
-    [Arguments]    ${index}
-    ${isMenuShown}    Is Element Visible    ${divWidgets}:eq(${index}) .widgetToolbarActions
-    Run Keyword If    ${isMenuShown} == False    Click Element    ${btnWidgetButtonMenu}:eq(${index})
-    Sleep    ${TIMEOUT_GENERAL}
-
 Click Maximize Dashboard
     [Arguments]    ${index}
     Wait Until Element Is Visible    ${linkMaximizeDashboard}:eq(${index})
@@ -73,7 +71,8 @@ Click Minimize Dashboard
     Click Element   ${linkMinimizeDashboard}:eq(${index})
 
 Click Link Go To Angle
-    Click Element    ${lnkWidgetOpenNewWindow}
+    [Arguments]    ${index}
+    Click Element    ${lnkWidgetOpenNewWindow}:eq(${index})
 
 Click Add Note On Dashboard
     Click Element     ${btnDashboardNote}
@@ -119,3 +118,23 @@ Get Widget Title For Angle Page
     ${widgetTitle}    Get Text    ${divWidgets}:eq(${index}) .widgetName
     ${anglePageTitle}    Execute JavaScript    return $.trim('${widgetTitle}'.substr('${widgetTitle}'.indexOf(' - ') + 3));
     [Return]    ${anglePageTitle}
+
+Open Dashboard Publishing Popup
+    Click Element   ${btnShowPublishSettings}
+    Wait Dashboard Publishing Popup Loaded
+
+Check Dashboard Is Published
+    Page Should Contain Element    ${btnShowPublishSettings}.btn-primary
+
+Check Dashboard Is Unpublished
+    Page Should Contain Element    ${btnShowPublishSettings}.btn-light
+
+Open Dashboard Validating Popup
+    Click Element   ${btnShowValidateButton}
+    Wait Angle Validating Popup Loaded
+
+Check Dashboard Is Validated
+    Page Should Contain Element    ${btnShowValidateButton}.btn-success
+
+Check Dashboard Is Unvalidated
+    Page Should Contain Element    ${btnShowValidateButton}.btn-light

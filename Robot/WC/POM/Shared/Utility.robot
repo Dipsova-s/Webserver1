@@ -1,3 +1,7 @@
+*** Settings ***
+Resource            ${EXECDIR}/WC/POM/Shared/Breadcrumb.robot
+Resource            ${EXECDIR}/WC/POM/Shared/ToastNotification.robot
+
 *** Variables ***
 ${pgbMain}              css=#popupProgressBar
 ${btnBackToSearch}      BackToSearch
@@ -231,8 +235,8 @@ Scroll Grid Vertical To Row Number
 
 Back To Search
     Wait Progress Bar Closed
-    Wait Until Element Is Visible    ${btnBackToSearch}
-    Click Link    ${btnBackToSearch}
+    Wait Until Element Is Visible    ${breadcrumbLinkSearchResults}
+    Click Search Results Link
     Wait Search Page Document Loaded
 
 Get Time From Date String

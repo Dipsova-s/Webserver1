@@ -25,4 +25,4 @@ Crop Example Jump Display
     Crop WebHelp Image  WC_Jump_Controlling_Area.png  css=body
 
 Crop Jump Icon
-    Crop WebHelp Image With Dimensions  WC_jump_icon.png  css=#DisplayDescriptionWrapper .followup  0  0  16  25  ${False}
+    Crop WebHelp Image With Dimensions  WC_jump_icon.png  css=#DisplayDescriptionWrapper .icon-followup  0  0  16  25  ${False}

@@ -38,7 +38,7 @@ var fieldschooserHtmlTemplate = function () {
         '</div>',
         '</div>',
         '</div>',
-        '<div class="fieldChooserButtons"></div>'
+        '<div class="fieldChooserButtons btn-wrapper"></div>'
     ].join('');
 };
 
@@ -1123,7 +1123,7 @@ function FieldsChooserModel() {
 
         var columnTemplate;
         if (typeof fieldsChooserModel.ShowFieldInfoFunction === 'function') {
-            columnTemplate = '<div class="fieldName" data-tooltip-title="#PropertyHoverText#">#PropertyText#<label class="longText">#LongName#</label></div><a class="btnInfo" onclick="fieldsChooserModel.ShowFieldInfo(event, \'#UID#\')"></a>';
+            columnTemplate = '<div class="fieldName" data-tooltip-title="#PropertyHoverText#">#PropertyText#<label class="longText">#LongName#</label></div><a class="btnInfo icon icon-info" onclick="fieldsChooserModel.ShowFieldInfo(event, \'#UID#\')"></a>';
         }
         else {
             columnTemplate = '<div class="fieldName noInfo" data-tooltip-title="#PropertyHoverText#">#PropertyText#</div>';

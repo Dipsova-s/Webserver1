@@ -1,0 +1,40 @@
+﻿@using EveryAngle.Shared.Globalization
+
+<!-- ko stopBinding: true -->
+<div id="SearchFilterView" data-bind="visible: $root.HasFiltersSelected()">
+    <div class="item-label-wrapper">
+        <!-- ko foreach: { data: ListView, as: 'facet' } -->
+        <!-- ko foreach:  { data: facet.filters(), as: 'filter' } -->
+        <!-- ko if: filter.checked()-->
+        <div class="item-label item-label-light">
+            <span data-bind="text: filter.name, css: { 'strike-through': filter.negative }"></span>
+            <a class="btn-remove" data-bind="click: $root.UnselectFacetFilter.bind(this, filter)"><i class="icon remove"></i></a>
+        </div>
+        <!-- /ko -->
+        <!-- /ko -->
+        <!-- /ko -->
+
+        <div class="item-label clear-filters">
+            <a class="btn btn-small no-box-shadow" data-bind="click: $root.ClearAllFilters.bind(this)">
+                <span>@Resource.ClearFilters</span>
+            </a>
+        </div>
+    </div>
+</div>
+<!-- /ko -->
+
+<div id="SearchSortingView">
+    <div class="search-sorting-item">
+        <span class="search-info-label">
+            <span data-bind="
+                text: kendo.format(Localization.NumberSelectingItems + ', ', SelectedItems().length),
+                visible: SelectedItems().length"></span>
+            <span id="SearchTotal" data-bind="text: searchModel.GetTotalItems()">0</span>
+            <span data-bind="text: Localization.Items">@Resource.Items</span>
+        </span>
+    </div>
+    <div class="search-sorting-item">
+        <span class="search-info-label">@Resource.SortBy:</span>
+        <input id="SortItemBySelect" type="hidden" class="k-dropdown" />
+    </div>
+</div>

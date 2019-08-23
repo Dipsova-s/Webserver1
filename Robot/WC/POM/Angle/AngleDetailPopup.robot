@@ -13,7 +13,6 @@ ${popupNotification}    css=#popupNotification
 ${tabAngleGeneral}    AngleGeneral
 ${tabAngleDescription}    AngleDescription
 ${tabAngleDefinition}    AngleDefinition
-${tabAnglePublishing}    AnglePublishing
 ${tabAngleStatistic}    AngleStatistic
 
 #General Tab
@@ -38,13 +37,7 @@ ${btnSelectField}    CompareButton-0
 ${btnSelectExistingField}    UncompareButton-0
 
 #Publishing tab
-${btnSetToPublish}    css=.btnPublish
-${btnSetToValidate}    css=.btnValidate
 ${btnSetToTemplate}    css=.btnTemplate
-${btnAddPrivilegeLabel}    jquery=#PublishTabWrapper .tabPanel:eq(0) .btnAddLabel
-${tabSearchLabel}    PublishTabWrapper .tabMenu li:eq(1)
-${btnAddSearchLabel}    jquery=#PublishTabWrapper .tabPanel:eq(1) .btnAddLabel
-${chkAllowUserToObtainMoreDetails}    AllowMoreDetails
 
 #Angle statistic tab
 ${lblLastExecutedDate}    jquery=#AngleStatisticArea .input:eq(2) > span:eq(1)
@@ -57,7 +50,6 @@ Wait Angle Detail Document Loaded
     Wait Until Element Is Visible    ${tabAngleGeneral}
     Wait Until Element Is Visible    ${tabAngleDescription}
     Wait Until Element Is Visible    ${tabAngleDefinition}
-    Wait Until Element Is Visible    ${tabAnglePublishing}
     Wait Until Element Is Visible    ${btnCloseAngleDetailPopup}
 
 Input Angle Name
@@ -113,6 +105,7 @@ Angle French Language Should Not Available
 
 Click Save Angle
     Click Element    ${btnSaveAngle}
+    Page Should Contain Toast Success
     Wait Progress Bar Closed
     Wait Until Ajax Complete
 
@@ -131,11 +124,6 @@ Click Angle Detail Description Tab
 Click Angle Detail Definition Tab
     Wait Until Element Is Visible    ${tabAngleDefinition}
     Click Element    ${tabAngleDefinition}
-
-Click Angle Detail Publishing Tab
-    Wait Until Element Is Visible    ${tabAnglePublishing}
-    Click Element    ${tabAnglePublishing}
-    Wait Until Ajax Complete
 
 Click Angle Detail Statistics Tab
     Wait Until Element Is Visible    ${tabAngleStatistic}
@@ -187,14 +175,6 @@ Get Angle Name in Angle Detail
     ${angleNameValue}    Get Value    ${txtAngleName}
     [return]    ${angleNameValue}
 
-Click Angle Set to Publish
-    Wait Until Element Is Visible    ${btnSetToPublish}
-    Click Element    ${btnSetToPublish}
-
-Click Angle Set to Validate
-    Wait Until Element Is Visible    ${btnSetToValidate}
-    Click Element    ${btnSetToValidate}
-
 Click Add Filter In Definition Tab
     Wait Until Element Is Visible    ${btnAddFilter}
     Click Element    ${btnAddFilter}
@@ -216,10 +196,4 @@ Click Select Existing Field In Definition Tab
 Choose Dropdown Filter Operator In Definition Tab
     [Arguments]   ${selectText}
     Choose Dropdown Filter Operator    0    ${selectText}
-
-Click Do Not Allow User To Obtain More Details
-    Select Checkbox    ${chkAllowUserToObtainMoreDetails}
-
-Click Allow User To Obtain More Details
-    Unselect Checkbox    ${chkAllowUserToObtainMoreDetails}
 

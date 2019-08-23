@@ -14,14 +14,7 @@ describe("ChartHandler", function () {
 
     beforeEach(function () {
         chartHandler = new ChartHandler();
-    });
-
-
-    describe("when create new instance", function () {
-        it("should be defined", function () {
-            expect(chartHandler).toBeDefined();
-        });
-    });
+    });;
 
     describe("call GetDomainElementsForCustomSort", function () {
 

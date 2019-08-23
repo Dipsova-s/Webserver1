@@ -14,19 +14,10 @@ Dashboard Details
     Check Details on General Tab of last created Dashboard
     Check Details on Description Tab of last created Dashboard
     Check Details on Definition Tab of last created Dashboard
-    Check Details on Publishing Tab of last created Dashboard
     Close Dashboard Detail Popup
     Click Add Note On Dashboard
     Input Dashboard Note      my note
     Dashboard Note Should Be Equal    my note
-    Back To Search And Delete Dashboard Are Created    ${dashboardName}
-
-Publish Dashboard
-    Create Dashboard With 2 Angles    ${dashboardName}
-    Open Dashboard Detail Popup
-    Click Dashboard Detail Publishing Tab
-    Set Dashboard to Publish
-    Save Dashboard
     Back To Search And Delete Dashboard Are Created    ${dashboardName}
 
 Add Display To Dashboard Dashboard
@@ -64,28 +55,12 @@ Check Details on Definition Tab of last created Dashboard
     Page Should Contain    Definition
     Page Should Contain    Applied Dashboard Displays
 
-Check Details on Publishing Tab of last created Dashboard
-    Click Dashboard Detail Publishing Tab
-    Page Should Contain Element    ${btnPublishDashboard}
-    Page Should Contain Element    ${tabDashboardPrivilege}
-    Page Should Contain Element    ${tabDashboardSearchLabel}
-
 Check Details on Statistics Tab of last created Dashboard
     Click Dashboard Detail Statistic Tab
     Wait Until Ajax Complete
     Page Should Contain Element    Created by
     Page Should Contain Element    Last changed by
     Page Should Contain Element    Last executed by
-
-Set Dashboard to Publish
-    Wait Until Element Is Visible    ${btnPublishDashboard}
-    Click Element    ${btnPublishDashboard}
-    Wait Until Ajax Complete
-    Wait Until Page Contains    Publishing summary
-    Wait Until Page Contains    Private Displays
-    Wait Until Page Contains    Published Displays
-    Click Confirm Publish Dashboard
-    Wait Until Ajax Complete
 
 Select Field From Filters Tab
     [Arguments]   ${fieldKeyword}    ${fieldId}

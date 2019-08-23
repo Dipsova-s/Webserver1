@@ -100,6 +100,9 @@ function ChartHandler(elementId, container) {
     /*EOF: Model Properties*/
 
     /*BOF: Model Methods*/
+    self.GetContainer = function () {
+        return jQuery(self.Container);
+    };
     self.GetChartDisplay = function (isValidDisplay) {
         // make sure that chart details is correct
         var displayDetails = JSON.stringify(self.GetDisplayDetails());
@@ -111,10 +114,10 @@ function ChartHandler(elementId, container) {
 
         if (!self.DashBoardMode()) {
             var chartTemplate = '<div id="ChartMainWrapper" class="displayWrapper">'
-                + '<div class="fieldListToggleButton" onclick="fieldSettingsHandler.ToggleFieldListArea();"></div>'
-                + '<div id="ChartArea" class="displayArea">'
-                + '<div id="ChartWrapper"></div>'
-                + '</div>'
+                    + '<div class="fieldListToggleButton" onclick="fieldSettingsHandler.ToggleFieldListArea();"></div>'
+                    + '<div id="ChartArea" class="displayArea">'
+                        + '<div id="ChartWrapper"></div>'
+                    + '</div>'
                 + '</div>';
             jQuery('#AngleTableWrapper').html(chartTemplate);
 
@@ -132,7 +135,7 @@ function ChartHandler(elementId, container) {
             fieldSetting.BuildFieldsSettings();
         }
 
-        var container = jQuery(self.Container);
+        var container = self.GetContainer();
         container.css('background-color', self.THEME.BACKGROUND);
 
         if (isValidDisplay !== false) {
@@ -158,17 +161,15 @@ function ChartHandler(elementId, container) {
     };
 
     self.ShowLoadingIndicator = function () {
-        var container = jQuery(self.Container);
+        var container = self.GetContainer();
         container.busyIndicator(true);
         if (!self.DashBoardMode()) {
-            container.children('.k-loading-mask').height(container.parent().height());
             fieldSettingsHandler.ShowLoadingIndicator();
         }
     };
 
     self.HideLoadingIndicator = function () {
-        var container = jQuery(self.Container);
-        container.find('.pivotAreaContainer').busyIndicator(false);
+        var container = self.GetContainer();
         container.busyIndicator(false);
         if (!self.DashBoardMode()) {
             fieldSettingsHandler.HideLoadingIndicator();
@@ -521,7 +522,7 @@ function ChartHandler(elementId, container) {
 
                 if (self.DashBoardMode()) {
                     var widgetDisplayElementId = self.ElementId.slice(1);
-                    var widgetContainer = jQuery(self.ElementId + '-container');
+                    var widgetContainer = jQuery(self.ElementId + '-inner');
                     var chartType = self.GetDisplayDetails().chart_type;
                     self.RemoveWidgetChart(widgetDisplayElementId, widgetContainer, chartType);
                     self.Models.Result.RetryPostResult(requests.responseText);
@@ -533,7 +534,6 @@ function ChartHandler(elementId, container) {
             .done(self.GenerateChartDatasource);
     };
     self.RemoveWidgetChart = function (widgetDisplayElementId, widgetContainer, chartType) {
-
         if (self.IsDonutOrPieChartType(chartType)) {
             var chartItems = widgetContainer.find('.k-chart');
             jQuery.each(chartItems, function (index, chartItem) {
@@ -1038,8 +1038,7 @@ function ChartHandler(elementId, container) {
         self.Chart = null;
 
         var displayDetail = self.FieldSettings.GetDisplayDetails();
-        var container = jQuery(self.Container);
-        var header = container.find('.widgetDisplayHeader');
+        var container = self.GetContainer();
         var option = {
             Type: displayDetail.chart_type === enumHandlers.CHARTTYPE.SCATTERCHART.Code && displayDetail.stack ? self.GetScatterLineChartType() : displayDetail.chart_type,
             Stack: displayDetail.stack,
@@ -1051,11 +1050,7 @@ function ChartHandler(elementId, container) {
         };
 
         // prepare html
-        if (header.length) {
-            header = header.clone(true);
-        }
         container.removeClass('navigatable').empty();
-        container.append(header);
 
         // no result
         if (!self.Models.Result.Data().row_count) {
@@ -1079,8 +1074,7 @@ function ChartHandler(elementId, container) {
         }
     };
     self.CreateEmptyChart = function () {
-        var container = jQuery(self.Container);
-
+        var container = self.GetContainer();
         container.append('<div class="chartWrapper"><div id="' + self.ElementId.substr(1) + '" class="widgetDisplay"></div></div>');
         var rowArea = self.FieldSettings.GetFields(enumHandlers.FIELDSETTINGAREA.ROW);
         var categoryCaption = rowArea.length ? rowArea[0].Caption : '';
@@ -1119,7 +1113,7 @@ function ChartHandler(elementId, container) {
         self.UpdateLayout(0);
     };
     self.CreateDonutOrPieChart = function (option) {
-        var container = jQuery(self.Container);
+        var container = self.GetContainer();
         var groupCategories = [];
         var categoryField = WC.Utility.ConvertFieldName(self.CategoryField);
         var rowArea = self.FieldSettings.GetFields(enumHandlers.FIELDSETTINGAREA.ROW);
@@ -1221,16 +1215,7 @@ function ChartHandler(elementId, container) {
                 }
             });
 
-            //scroll area can use on touch device only (because laptop and pc can scroll by wheel mouse)
-            if (Modernizr.touch) {
-                new kendo.UserEvents(element, { //NOSONAR
-                    global: true,
-                    move: function (e) {
-                        element.scrollTop(element.scrollTop() - e.y.delta);
-                        e.preventDefault();
-                    }
-                });
-            }
+            WC.HtmlHelper.SetTouchScrollEvent(element);
 
             var loadNextPage = self.MiniCharts.List.length % self.MiniCharts.Perpage !== 0;
             loadMore(self.MiniCharts.List.splice(0, self.MiniCharts.Perpage), false);
@@ -1324,7 +1309,7 @@ function ChartHandler(elementId, container) {
 
         var categoryField = WC.Utility.ConvertFieldName(self.CategoryField);
         var groupField = WC.Utility.ConvertFieldName(self.GroupField);
-        var container = jQuery(self.Container);
+        var container = self.GetContainer();
         var categoryLabelTemplate = self.GetCategoryLabelTemplate();
         var isDonutOrPieChart = self.IsDonutOrPieChartType(setting.Type);
         var dataSource = self.GetChartDataSource(setting);
@@ -1568,6 +1553,8 @@ function ChartHandler(elementId, container) {
         // support drilldown on legend
         self.CreateDrilldownChartLegend(legendElement, chart, legendData);
 
+        WC.HtmlHelper.SetTouchScrollEvent(legendElement);
+
         return legendElement;
     };
     self.CreateChartLegendWrapper = function (chart, legendElement) {
@@ -1589,11 +1576,6 @@ function ChartHandler(elementId, container) {
         var legendTitleElement;
         if (legendFields.length) {
             legendTitleElement = jQuery('<h3 title="' + htmlEncode(legendFields[0].Caption) + '"><span>' + htmlEncode(legendFields[0].Caption) + '</span></h3>');
-            legendTitleElement.append(
-                jQuery('<a class="btnInfo"></a>').on('click', legendFields[0], function (e) {
-                    helpTextHandler.ShowHelpTextPopup(e.data.SourceField, helpTextHandler.HELPTYPE.FIELD, self.Models.Angle.Data().model);
-                })
-            );
         }
         else {
             legendTitleElement = '';
@@ -1624,7 +1606,6 @@ function ChartHandler(elementId, container) {
         });
         legendElement.height(legendHeight - legendTitleHeight);
         legendWrapper.find('h3 > span').css('max-width', legendSize - 16);
-        legendWrapper.find('h3 > .btnInfo').hide();
     };
     self.GetCategoryCrossingValues = function (dataSourceField) {
         var minAxisCrossingValue, maxAxisCrossingValue;
@@ -1664,7 +1645,15 @@ function ChartHandler(elementId, container) {
         dataSource = ko.toJS(dataSource);
         options = ko.toJS(options);
 
-        container.append('<div class="navigatorWrapper noClicked"><div class="toggleButton"></div><div class="navigator"></div></div>');
+        container.append([
+            '<div class="navigatorWrapper noClicked">',
+                '<div class="toggleButton">',
+                    '<i class="icon icon-chevron-down collapse"></i>',
+                    '<i class="icon icon-chevron-up expand"></i>',
+                '</div>',
+                '<div class="navigator"></div>',
+            '</div>'
+        ].join(''));
         container.find('.toggleButton').click(function () {
             var parent = jQuery(this).parent();
             parent.removeClass('noClicked');
@@ -3017,9 +3006,7 @@ function ChartHandler(elementId, container) {
         }
     };
     self.ApplyChartWithOldData = function () {
-        var container = jQuery(self.Container);
-
-        container.busyIndicator(true);
+        self.ShowLoadingIndicator();
         setTimeout(function () {
             if (self.Data.rows.length) {
                 var isSameFieldOrder = true,
@@ -3055,7 +3042,7 @@ function ChartHandler(elementId, container) {
 
             self.GenerateChartDatasource(self.Data, self.Models.DisplayQueryBlock.CollectQueryBlocks()[0].query_steps);
             self.GenerateChart();
-            container.busyIndicator(false);
+            self.HideLoadingIndicator();
         }, 100);
     };
     self.GetMultiAxisChartType = function (index, chartType) {
@@ -3360,20 +3347,19 @@ function ChartHandler(elementId, container) {
         return result;
     };
     self.UpdateLayout = function (delay, triggerResizing) {
-        if (!jQuery(self.Container).find('.chartWrapper').length) {
+        var container = self.GetContainer();
+        if (!container.find('.chartWrapper').length)
             return;
-        }
 
         clearTimeout(self.UpdateLayoutChecker);
         clearTimeout(self.UpdateLayoutCheckerLast);
-        var container = jQuery(self.Container);
         var charts = container.find('.k-chart');
         var legend = container.find('.k-legend-custom-wrapper');
 
         var chart = charts.data(enumHandlers.KENDOUITYPE.CHART) || charts.data(enumHandlers.KENDOUITYPE.RADIALGAUGE) || null;
-        if (!chart) {
+        if (!chart)
             return;
-        }
+
         var type = charts.hasClass('k-gauge') ? enumHandlers.CHARTTYPE.GAUGE.Code : chart.options.seriesDefaults.type;
 
         // specific delay
@@ -3402,29 +3388,21 @@ function ChartHandler(elementId, container) {
             self.CategoryVisible = {};
 
             var chartWrapper = container.find('.chartWrapper');
-            var header = container.find('.widgetDisplayHeader');
-            var headerHeight = header.height() || 0;
             var nav = container.find('.navigatorWrapper');
             var chartNav = nav.children('.navigator');
             var navHeight, areaHeight;
             var legendSize = legend.width() || 0;
 
             if (!self.DashBoardMode()) {
-                areaHeight = WC.Window.Height - (anglePageHandler.IsCompactResult ? 0 : jQuery('#AngleTopBar').outerHeight() + jQuery('#AngleField').outerHeight());
+                areaHeight = WC.Window.Height - jQuery('#AngleTableWrapper').offset().top;
                 jQuery('#ChartArea').height(areaHeight);
             }
             else {
-                if (container.attr('id') === 'widgetMaximizeWrapper') {
-                    areaHeight = container.height();
-                }
-                else {
-                    areaHeight = container.parent().height();
-                }
+                areaHeight = container.parent().height();
             }
-            areaHeight -= headerHeight;
 
             // hide navigator when it's fit (run once)
-            if (nav.hasClass('noClicked') && self.FILTERRANGE.CURRENT >= self.Categories.length) {
+            if (nav.hasClass('noClicked') && (self.FILTERRANGE.CURRENT >= self.Categories.length || self.DashBoardMode())) {
                 nav.addClass('hidden');
             }
 
@@ -3436,12 +3414,12 @@ function ChartHandler(elementId, container) {
                 navHeight = 0;
             }
             chartWrapper.height(areaHeight - navHeight);
-            container.height(areaHeight + headerHeight);
+            container.height(areaHeight);
 
-            var areaWith = container.width() - 10;
+            var areaWidth = container.width() - 10;
             var css = {
-                width: areaWith - 20,
-                height: areaHeight - navHeight - 10,
+                width: areaWidth - 20,
+                height: areaHeight - navHeight - 20,
                 marginTop: ''
             };
 
@@ -3471,13 +3449,10 @@ function ChartHandler(elementId, container) {
                 css.width = Math.floor(css.width);
                 css.height = Math.floor(css.height);
 
-                if (chartWrapper.hasClass('minichart')) {
-                    chartWrapper.height(areaHeight + 3);
-                }
                 charts.css(css);
                 if (nav.length) {
                     chartNav.css({
-                        width: areaWith,
+                        width: areaWidth,
                         height: navHeight - 10
                     });
                     var navObj = chartNav.data(enumHandlers.KENDOUITYPE.CHART);

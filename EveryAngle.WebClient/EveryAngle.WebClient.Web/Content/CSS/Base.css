@@ -4,11 +4,10 @@
     cursor: pointer;
     position: relative;
     display: inline-block;
+    color: #34495e;
     width: 16px;
     height: 16px;
-    background: transparent url('../../images/icons/icon_info.svg') center center no-repeat;
     margin-left: 5px;
-    background-size: 12px 12px;
 }
 
 /* #MainContent
@@ -30,7 +29,9 @@
     box-sizing: border-box;
     padding: 3px 0 10px 30px;
     min-height: 30px;
-    background: transparent url('../../images/popup/error/icn_alert.png') left top no-repeat;
+    background-image: url(../../images/icons/icon_warnings.svg);
+    background-repeat: no-repeat;
+    background-position: 1px 5px;
 }
 
 .popupResolveAngleDisplay .conflictQuestion {
@@ -84,7 +85,7 @@
     height: 76px;
     padding-top: 205px;
     text-align: center;
-    border-right: 1px solid #c5c5c5;
+    border-right: 1px solid #f1f3f4;
 }
 
 .aboutCommon a {
@@ -257,157 +258,9 @@
     color: #090;
 }
 
-/* .popupPublishing
-============================================ */
-.popupPublishing {
-    width: 510px;
-    min-width: 510px !important;
-    height: 370px;
-    min-height: 370px !important;
-}
-
-.popupDashboardPublishing {
-    min-height: 224px !important;
-    height: 224px;
-}
-
-.popupPublishing .k-window-content {
-    overflow: visible !important;
-    z-index: 2;
-}
-
-.popupPublishing .popupTabPanel {
-    font-size: 14px;
-}
-
-.popupPublishing .popupTabPanel > .sectionPublishingOthers > span:first-child {
-    float: left;
-    margin: 10px 3px 0 0;
-}
-
-.popupPublishing .StatSeparate {
-    padding: 0;
-    margin: 15px 0;
-}
-
-.popupTabPanel .sectionPublishingDetails .row > .field {
-    font-weight: normal;
-    width: 200px;
-}
-
-.popupTabPanel .sectionPublishingDetails .row > .field + .input {
-    margin-left: 210px;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-}
-
-.popupTabPanel .sectionPublishingDisplay .row > .field {
-    font-weight: normal;
-    width: 60px;
-}
-
-.popupTabPanel .sectionPublishingDisplay .row > .field > label {
-    margin: 2px;
-    position: absolute;
-    top: 0;
-    left: auto;
-    right: 0;
-}
-
-.popupTabPanel .sectionPublishingDisplay .row > .field > label:first-child {
-    left: 0;
-    right: auto;
-    margin-left: 7px;
-}
-
-.popupTabPanel .sectionPublishingDisplay .row > .field > label .label {
-    display: inline-block;
-}
-
-.popupTabPanel .sectionPublishingDisplay .row > .field + .input {
-    cursor: pointer;
-    margin-left: 80px;
-    padding-left: 35px;
-    height: 29px;
-    line-height: 29px;
-    background: transparent none 2px center no-repeat;
-    text-overflow: ellipsis;
-    overflow: hidden;
-    white-space: nowrap;
-}
-
-.popupTabPanel .sectionPublishingDisplay .row > .nonecursor {
-    margin-left: 80px;
-    height: 29px;
-    line-height: 29px;
-    background: transparent none 2px center no-repeat;
-    text-overflow: ellipsis;
-    overflow: hidden;
-    white-space: nowrap;
-}
-
-.popupTabPanel .sectionPublishingDisplay .row > .field + .input > .icon {
-    position: absolute;
-    left: 0;
-    top: auto;
-    border: 2px solid transparent;
-}
-
-.popupTabPanel .sectionPublishingDisplay .row > .field + .input > .icon:hover {
-    background-position: left top;
-}
-
-.popupTabPanel .sectionPublishingDisplay .row > .field + .default {
-    cursor: default;
-}
-
-.popupTabPanel .sectionPublishingDisplay .row > .field + .default > .icon {
-    border-color: #006f9b;
-}
-
-.popupTabPanel .sectionPublishingDisplay .rowHeader {
-    font-style: italic;
-}
-
-.popupTabPanel .sectionPublishingDisplay .rowHeader > .field + .input {
-    padding-left: 0;
-}
-
-.popupTabPanel .sectionPublishingDisplay .rowContent {
-    overflow: auto;
-    overflow-x: hidden;
-}
-
-.popupPublishing .iconPublic,
-.popupPublishing .iconPrivate {
-    background: transparent none center center no-repeat;
-    float: left;
-    width: 30px;
-    height: 20px;
-    margin-top: -4px;
-}
-
-.popupPublishing .iconPublic {
-    background-image: url('../../images/searchpage/icn_public.svg');
-}
-
-.popupPublishing .iconPrivate {
-    background-image: url('../../images/searchpage/icn_private.svg');
-}
-
-.popupTabPanel .sectionPublishingOthers .k-dropdown {
-    width: 350px;
-}
-
-.popupPublishing .publishingNote {
-    font-size: 12px;
-    margin: 10px 0;
-}
-
 /* .helpTextPopup
 ============================================ */
-.helpTextPopup .k-window-titlebar .icon {
+.helpTextPopup .k-window-titlebar > .icon {
     display: inline-block;
     position: relative;
     top: 9px;
@@ -433,7 +286,7 @@
 }
 
 .helpTextPopup .k-window-titlebar .DisplayPropertiesGridSignFavoriteDisable {
-    background-image: url('../../images/searchpage/icn_starred_inactive.png');
+    background-image: url('../../images/searchpage/icn_starred_inactive.svg');
 }
 
 .helpTextPopup .k-window-titlebar .DisplayPropertiesGridSignSuggest {
@@ -448,7 +301,6 @@
     position: absolute;
     width: 100%;
     height: 30px;
-    color: #333;
     font-size: 12px;
     overflow: hidden;
     padding: 0 20px;
@@ -570,13 +422,7 @@
     width: 100px;
     height: 30px;
     background-color: #236e97;
-    color: #d0d0d0;
-    font-family: Verdana,Tahoma;
-    font-size: 10px;
     text-align: center;
-    /*
-    border: 1px dashed #c5c5c5;
-	*/
     border-top-left-radius: 2px;
     border-top-right-radius: 2px;
     border-bottom-width: 0;
@@ -686,7 +532,7 @@
 .angleInformation {
     position: absolute;
     left: 215px;
-    top: 20px;
+    top: 12px;
     z-index: 100;
 }
 
@@ -704,7 +550,11 @@
 
 .angleInformation > .SignPrivate,
 .angleInformation > .SignPublic {
-    margin-top: -3px;
+    margin-top: -2px;
+}
+
+.angleInformation > .SignValidated {
+    margin-top: 0;
 }
 
 .angleInformation > .SignType3 {
@@ -722,7 +572,6 @@
     width: auto;
     text-align: left;
     position: relative;
-    top: -3px;
     margin-left: 4px;
     max-width: 460px;
     overflow: hidden;
@@ -896,106 +745,30 @@
 
 .filterButtonWrapper .btn span {
     position: relative;
-    padding-left: 37px;
+    padding-left: 5px;
     text-align: left;
     min-width: 0;
     padding-right: 5px;
 }
 
-.filterButtonWrapper .btn span:before {
-    content: '';
-    display: block;
-    width: 30px;
-    height: 40px;
-    position: absolute;
-    left: 5px;
-    top: 0;
-    background: transparent none left center no-repeat;
-}
-
-.filterButtonWrapper .btnAddFilter span:before {
-    background-image: url('../../images/icons/icon_add_filter.png');
-}
-
-.filterButtonWrapper .btnAddFollowUp span:before {
-    background-image: url('../../images/icons/icon_add_followup.png');
-}
-
-.PublishChoice {
-    display: inline-block;
-    vertical-align: top;
-    height: 32px;
-    position: relative;
-    margin-right: 5px;
-}
-
-.PublishChoice .btnPublish,
-.PublishChoice .btnValidate,
-.PublishChoice .btnTemplate {
+.btnTemplate {
     margin: 0;
-    position: relative;
-    float: left;
 }
 
-.PublishChoice .btnPublish.loading16x16 {
-    display: inline-block;
-    position: relative;
-    width: auto;
-    text-align: left;
-    text-indent: 22px;
-    background-position: 8px center;
-    background-image: url('../../images/loading.gif');
-    background-repeat: no-repeat;
-}
-
-.PublishChoice .lblPublishChoice {
-    padding-right: 55px;
-    min-width: 0;
-    padding-left: 5px;
-}
-
-.PublishChoice .icon {
+.btnTemplate .icon {
     background: transparent none right center no-repeat;
-    position: absolute;
-    right: 5px;
-    top: 0;
     width: 50px;
-    height: 30px;
-    margin: 0;
-    padding: 0;
+    height: 100%;
+    margin-left: 5px;
 }
 
-.PublishChoice .icon.public {
-    background-image: url('../../images/icons/icon_public_to_private.png');
-}
-
-.PublishChoice .icon.private {
-    background-image: url('../../images/icons/icon_private_to_public.png');
-}
-
-.PublishChoice .icon.validate {
-    background-image: url('../../images/icons/icon_validate_to_unvalidate.png');
-}
-
-.PublishChoice .icon.unvalidate {
-    background-image: url('../../images/icons/icon_unvalidate_to_validate.png');
-}
-
-.PublishChoice .icon.template {
+.btnTemplate .icon.template {
     background-image: url('../../images/icons/icon_template_to_angle.png');
 }
 
-.PublishChoice .icon.angle {
+
+.btnTemplate .icon.angle {
     background-image: url('../../images/icons/icon_angle_to_template.png');
-}
-
-#PublishTabWrapper {
-    margin: 10px 0 0 0;
-    position: relative;
-}
-
-#ButtonInfoAllowMoreDetails {
-    vertical-align: bottom;
 }
 
 .statisticArea {
@@ -1081,7 +854,7 @@
     color: #900;
     line-height: 22px;
     padding-left: 20px;
-    background: transparent url('../../images/icons/icon_warning.svg') left top no-repeat;
+    background: transparent url('../../images/icons/icon_warnings.svg') left top no-repeat;
     background-size: 18px 18px;
 }
 

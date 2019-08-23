@@ -2,7 +2,7 @@
 ============================================ */
 #SelectedDisplay {
     position: absolute;
-    top: 13px;
+    top: 48px;
     right: 20px;
     width: 322px;
     z-index: 10;
@@ -29,12 +29,15 @@
 }
 
 .SelectedDisplayItem {
+    display: flex;
+    align-items: center;
     height: 35px;
     position: absolute;
     width: 278px;
     background-color: #fff;
     border-right: 1px solid #c5c5c5;
     box-sizing: border-box;
+    padding-bottom: 2px;
 }
 
 .SelectedDisplayIcon {
@@ -85,6 +88,8 @@
 
 .DisplayOption,
 .ItemList {
+    display: flex;
+    align-items: center;
     position: relative;
     cursor: default;
     color: #2e2e2e;
@@ -100,6 +105,7 @@
 
 .ItemList {
     cursor: pointer;
+    padding-bottom: 2px;
 }
 
 .ItemList:hover,
@@ -109,41 +115,55 @@
 
 .ItemList .displayNameContainer {
     margin-right: 50px;
+    margin-left: 5px;
+}
+
+.SelectedDisplayItem .displayNameContainer,
+.ItemList .displayNameContainer {
+    height: 35px;
+}
+
+.SelectedDisplayItem .displayNameContainer {
+    margin-left: 5px;
+}
+
+.SelectedDisplayItem .displayNameContainer .name,
+.ItemList .displayNameContainer .name {
+    top: 2px
+}
+
+.SelectedDisplayItem .displayNameContainer .icon.new {
+    background-size: 14px 14px;
+}
+
+.DisplayOption .btn-keep-filter {
+    display: flex;
+    width: 32px;
+}
+.DisplayOption .btn-keep-filter:before {
+    margin: auto;
 }
 
 .DisplayOption > label {
     display: block;
     font-size: 12px;
-    line-height: 35px;
-    padding-left: 32px;
     color: #666666;
     font-weight: bold;
-}
-
-.DisplayOption > label:before {
-    content: '';
-    position: absolute;
-    left: 5px;
-    top: 0;
-    width: 20px;
-    height: 100%;
-    background: transparent url('../../images/searchpage/icn_recently_used.svg') left center no-repeat;
-    background-size: 15px 15px;
-    opacity: .2;
+    flex-grow: 1;
 }
 
 .DisplayOption input[type="checkbox"]:not(:checked),
 .DisplayOption input[type="checkbox"]:checked {
-    right: 10px;
-    top: 12px;
+    right: 7px;
+    top: 0;
     left: auto;
 }
 
 .DisplayOption input[type="checkbox"]:not(:checked) + .label,
 .DisplayOption input[type="checkbox"]:checked + .label {
     position: absolute;
-    right: 5px;
-    top: 12px;
+    right: -4px;
+    top: 0;
 }
 
 .ItemList .selectStatus {
@@ -166,12 +186,11 @@
 
 .ItemList .btnDelete {
     display: none;
+    font-size: 14px;
+    color: #78909c;
     position: absolute;
     right: 32px;
-    top: 10px;
-    width: 15px;
-    height: 15px;
-    background: transparent url('../../images/icons/icon_delete.svg') center center no-repeat;
+    top: 11px;
 }
 
 .safari.touch .ItemList .btnDelete,

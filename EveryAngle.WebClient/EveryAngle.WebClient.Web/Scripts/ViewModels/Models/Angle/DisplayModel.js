@@ -468,7 +468,7 @@ function DisplayModel(model) {
             });
     };
     self.GetDisplayDescription = function (detail) {
-        var html = '<a class="btnInfo" onclick="displayDetailPageHandler.ShowInfoPopup()"></a>';
+        var html = '<a class="btnInfo icon icon-info" onclick="displayDetailPageHandler.ShowInfoPopup()"></a>';
         if (detail) {
             detail = WC.HtmlHelper.StripHTML(detail, true);
             html = detail + html;
@@ -1275,15 +1275,16 @@ function DisplayModel(model) {
         self.CommitAll();
     };
     self.GetDefaultAdhocAuthorization = function (angle) {
+        var angleData = angle || angleInfoModel.Data() || {};
         return {
-            'update_user_specific': true,
+            'update_user_specific': false,
             'delete': false,
-            'make_angle_default': !(angle || angleInfoModel.Data() || {}).is_published,
+            'make_angle_default': false,
             'publish': false,
             'unpublish': false,
 
             // M4-11512: If ad-hoc display and user no had save display privilege update will be false
-            'update': userModel.CanSaveDisplays((angle || angleInfoModel.Data()).model)
+            'update': userModel.CanSaveDisplays(angleData.model)
         };
     };
     self.ConvertPivotBucketToOperator = function (bucket, fieldType, value) {

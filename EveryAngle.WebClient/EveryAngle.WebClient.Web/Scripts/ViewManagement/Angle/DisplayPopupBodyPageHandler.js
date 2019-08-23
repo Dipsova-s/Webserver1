@@ -33,6 +33,7 @@ function DisplayDetailPageHandler() {
             html: displayDetailHtmlTemplate(),
             className: 'popup' + self.ID + ' popupWithTabMenu',
             width: 880,
+            height: 530,
             minWidth: 748,
             minHeight: 370,
             buttons: self.GetPopupButtons(),
@@ -71,20 +72,19 @@ function DisplayDetailPageHandler() {
                         };
                     });
                     var displayTypeTemplate = [
-                        '<div class="displayNameContainer">',
+                        '<div class="displayNameContainer small">',
                             '<div class="front">',
                                 '<i class="icon #= data.value #"></i>',
                             '</div>',
                             '<span class="name">#= data.text #</span>',
                         '</div>'
                     ].join('');
-                    var ddlDisplayType = WC.HtmlHelper.DropdownList('#tempDisplayType', ddlData, {
+                    WC.HtmlHelper.DropdownList('#tempDisplayType', ddlData, {
                         dataTextField: 'text',
                         dataValueField: 'value',
                         valueTemplate: displayTypeTemplate,
                         template: displayTypeTemplate
                     });
-                    ddlDisplayType.list.addClass('displayNameDropdownList');
                 }
 
                 self.SetDefaultDrilldownDropdown();
@@ -165,15 +165,15 @@ function DisplayDetailPageHandler() {
         }
     };
     self.OnPopupResize = function (e) {
-        var winWidth = e.sender.element.width();
         var winHeight = e.sender.element.height();
 
-        self.AdjustDefaultDrilldownDropdownLayout();
+        var titleBar = e.sender.wrapper.find('.k-window-titlebar');
+        WC.HtmlHelper.AdjustNameContainer(titleBar, null, function () {
+            return titleBar.width() - 300;
+        });
 
         var filterWrapper = e.sender.wrapper.find('.definitionArea .definitionList');
         if (filterWrapper.length) {
-            e.sender.wrapper.find('.k-window-titlebar .displayName').css('max-width', winWidth - 300);
-
             if (self.HandlerLanguages) {
                 var editor = self.HandlerLanguages.EditorDescription;
                 if (editor && editor.wrapper.is(':visible')) {
@@ -282,7 +282,7 @@ function DisplayDetailPageHandler() {
             });
 
             var itemTemplate = [
-                '<div class="displayNameContainer">',
+                '<div class="displayNameContainer small">',
                     '<div class="front">',
                         '<i class="icon #= data.PublicClassName #"></i>',
                         '<i class="icon #= data.DisplayTypeClassName + \' \' + data.ExtendDisplayTypeClassName #"></i>',
@@ -295,33 +295,18 @@ function DisplayDetailPageHandler() {
                     '</div>',
                 '</div>'
             ].join('');
-
-            var fbCheckDropdownOpen;
+            
             var ddlDrilldown = WC.HtmlHelper.DropdownList('#defaultDrilldownDisplay', ddlDrilldownData, {
                 dataTextField: 'Name',
                 dataValueField: 'Id',
                 value: self.DrilldownDisplay(),
                 valueTemplate: itemTemplate,
                 template: itemTemplate,
-                open: function () {
-                    clearTimeout(fbCheckDropdownOpen);
-                    fbCheckDropdownOpen = setTimeout(self.AdjustDefaultDrilldownDropdownLayout, 250);
-                },
                 change: function (e) {
                     self.DrilldownDisplay(e.sender.value() || '');
-                    self.AdjustDefaultDrilldownDropdownLayout();
                 }
             });
-            ddlDrilldown.list.addClass('displayNameDropdownList');
-            self.AdjustDefaultDrilldownDropdownLayout();
             ddlDrilldown.enable(displayModel.Data().authorizations.update);
-        }
-    };
-    self.AdjustDefaultDrilldownDropdownLayout = function () {
-        var ddlDefaultDrilldown = WC.HtmlHelper.DropdownList('#defaultDrilldownDisplay');
-        if (ddlDefaultDrilldown && ddlDefaultDrilldown.wrapper.is(':visible')) {
-            WC.HtmlHelper.AdjustNameContainer(ddlDefaultDrilldown.wrapper);
-            WC.HtmlHelper.AdjustNameContainer(ddlDefaultDrilldown.list);
         }
     };
     self.CheckDisplayValidation = function (checkAdhocAngle) {
@@ -390,6 +375,7 @@ function DisplayDetailPageHandler() {
                 appendTo: 'body',
                 className: 'popup' + popupName,
                 minWidth: 748,
+                height: 530,
                 buttons: [
                     {
                         text: Localization.Ok,
@@ -400,8 +386,10 @@ function DisplayDetailPageHandler() {
                 ],
                 animation: false,
                 resize: function (e) {
-                    var winWidth = e.sender.element.width();
-                    e.sender.wrapper.find('.k-window-titlebar .displayName').css('max-width', winWidth - 280);
+                    var titleBar = e.sender.wrapper.find('.k-window-titlebar');
+                    WC.HtmlHelper.AdjustNameContainer(titleBar, null, function () {
+                        return titleBar.width() - 300;
+                    });
 
                     if (self.HandlerInfoDetails) {
                         self.HandlerInfoDetails.AdjustLayout();
@@ -573,7 +561,7 @@ function DisplayDetailPageHandler() {
                         '</div>',
                         '<div id="rowAddToNewAngleName" class="row alwaysHide">',
                         '<div class="field">' + Localization.AngleName + '</div>',
-                        '<div class="input"><input class="eaText eaTextSize40 languageAngleName" onkeyup="displayDetailPageHandler.UpdateAddToNewAngleName(this)" /></div>',
+                        '<div class="input"><input type="text" class="eaText eaTextSize40 languageAngleName" onkeyup="displayDetailPageHandler.UpdateAddToNewAngleName(this)" /></div>',
                         '</div>'
                     ].join(''));
 
@@ -977,7 +965,7 @@ function DisplayDetailPageHandler() {
     };
     self.Save = function () {
         requestHistoryModel.SaveLastExecute(self, self.Save, arguments);
-
+        
         var displayType = displayModel.Data().display_type;
         var getFollowups = function (queryBlocks) {
             var querySteps = ko.toJS(queryBlocks.length ? queryBlocks[0].query_steps : []);
@@ -1194,6 +1182,7 @@ function DisplayDetailPageHandler() {
                 displayModel.Data().query_blocks = ko.toJS(displayQueryBlockModel.CollectQueryBlocks());
                 displayModel.Data.commit();
                 self.ClosePopup();
+                toast.MakeSuccessTextFormatting(displayModel.Name(), Localization.Toast_SaveItem);
 
                 // refresh resule grid after add query step
                 progressbarModel.ShowStartProgressBar(Localization.ProgressBar_PostResult, false);
@@ -1230,6 +1219,7 @@ function DisplayDetailPageHandler() {
             }
             else {
                 self.ClosePopup();
+                toast.MakeSuccessTextFormatting(displayModel.Name(), Localization.Toast_SaveItem);
                 anglePageHandler.RenderDisplayDropdownlist();
                 self.SetProgressBar();
             }
@@ -1330,6 +1320,7 @@ function DisplayDetailPageHandler() {
                     }
 
                     displayModel.DeleteTemporaryDisplay(WC.Utility.UrlParameter(enumHandlers.ANGLEPARAMETER.DISPLAY), displayModel.Data().uri);
+                    toast.MakeSuccessTextFormatting(displayModel.Name(), Localization.Toast_SaveItem);
                 });
         };
         var settings = {
@@ -1818,6 +1809,7 @@ function DisplayDetailPageHandler() {
             anglePageHandler.ApplyExecutionAngle();
             self.SetProgressBar();
         }
+        toast.MakeSuccessTextFormatting(displayModel.Name(), Localization.Toast_SaveItem);
     };
     self.SetProgressBar = function () {
         progressbarModel.ShowStartProgressBar(Localization.ProgressBar_ApplyingDisplay, false);
@@ -2018,6 +2010,7 @@ function DisplayDetailPageHandler() {
                     query[enumHandlers.ANGLEPARAMETER.EDITMODE] = true;
                 }
                 window.location.href = WC.Utility.GetAnglePageUri(angleData.uri, currentDisplay.uri, query);
+                toast.MakeSuccessTextFormatting(displayModel.Name(), Localization.Toast_SaveItem);
             });
     };
     self.CopyDisplay = function (displayData) {
@@ -2065,6 +2058,7 @@ function DisplayDetailPageHandler() {
                             }
                             window.location.href = WC.Utility.GetAnglePageUri(angleInfoModel.Data().uri, displayModel.Data().uri, query);
                         }
+                        toast.MakeSuccessTextFormatting(displayModel.Name(), Localization.Toast_SaveItem);
                     });
             };
 

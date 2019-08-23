@@ -8,7 +8,6 @@
 /// <reference path="/Dependencies/ViewManagement/Angles/FieldSettingsHandler.js" />
 /// <reference path="/Dependencies/ViewManagement/Shared/PopupPageHandlers.js" />
 /// <reference path="/Dependencies/ViewManagement/Angles/ScheduleAngleHandler.js" />
-/// <reference path="/Dependencies/ViewManagement/Angles/ScheduleAngleHandler.js" />
 /// <reference path="/Dependencies/User/Authentication.js" />
 
 describe("ScheduleAngleHandler", function () {

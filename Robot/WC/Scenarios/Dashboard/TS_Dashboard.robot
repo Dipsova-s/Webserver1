@@ -34,11 +34,18 @@ Execute Dashboard With Execution Parameters In Edit Mode
     Wait Progress Bar Closed
     Back To Search And Delete Dashboard Are Created    ${dashboardName}
 
+Create Achoc Dashboard
+    [Arguments]   ${searchAngles}
+    Search By Text And Expect In Search Result    ${searchAngles}
+    Click Sort By Name Ascending In Search Page
+    Click Search Action Select All
+    Click Search Action Execute As Dashboard
+
 ################################################################################
 
 Filter Angle With Execution Parameters For Dashboard
     Search By Text And Expect In Search Result    Angle for Dashboard Test
-    Click Sort By Name Ascending On Search Page
+    Click Sort By Name Ascending In Search Page
 
 Execute Dashboard From Angle With Execution Parameters
     Click Select All Items from Search Result
@@ -70,11 +77,9 @@ Input Filter Value For Is In List For Third Dashboard Filter
 
 Open Angle In Dashboard Widget
     [Arguments]    ${index}
-    ${angleTitleName}    Get Widget Title For Angle Page    ${index}
     Show Dashboard Widget Menu    ${index}
-    Open Dashboard Widget Menu    ${index}
-    Click Link Go To Angle
-    Wait Until Keyword Succeeds    30 sec    1 sec    Select Window    ${angleTitleName}
+    Click Link Go To Angle    ${index}
+    Select Window    NEW
     Wait Angle Page Document Loaded
     Check If Angle Or Display Has A Warning Then Close The Popup
     Click Toggle Angle
@@ -84,13 +89,13 @@ Check First Angle Should Apply Dashboard Execution Parameters
     Page Should Contain    (Self) - Execution status is equal to Partially open
     Page Should Contain    Vendor - Vendor is in list (3745, 5550)
     Close Window
-    Select Window
+    Select Window   MAIN
 
 Check Second Angle Should Apply Dashboard Execution Parameters
     Page Should Contain    (Self) - Purchasing Document Category is not empty
     Page Should Contain    (Self) - Execution status is equal to Partially open
     Close Window
-    Select Window
+    Select Window   MAIN
 
 Create Dashboard With 2 Angles
     [Arguments]   ${dashboardName}
@@ -121,18 +126,18 @@ Check Dashboard Filters For Angle #1
     ${filter}    Get Filter Or Jump Name From Display Panel    0
     Should Be Equal    ${filter}    Material - Material type is not empty    ignore_case=True
     Close Window
-    Select Window
+    Select Window   MAIN
 
 Check Dashboard Filters For Angle #2
     ${filter}    Get Filter Or Jump Name From Display Panel    1
     Should Be Equal    ${filter}    (Self) - Plant is empty    ignore_case=True
     Close Window
-    Select Window
+    Select Window   MAIN
 
 Check Dashboard Filters For Angle #3
     Display Panel Should Not Have Filter
     Close Window
-    Select Window
+    Select Window   MAIN
 
 Create Dashboard From Specific Angle Name
     [Arguments]    ${angleName}    ${dashboardName}
@@ -168,7 +173,7 @@ Verify Editing Dashboard Filter
 Create Dashboard From Many Angles
     [Arguments]    ${angleKeyword}    ${dashboardName}
     Search By Text And Expect In Search Result    ${angleKeyword}
-    Click Sort By Name Ascending On Search Page
+    Click Sort By Name Ascending In Search Page
     Click Search Action Select All
     Click Search Action Execute As Dashboard
     Input Dashboard Name    ${dashboardName} 

@@ -29,14 +29,17 @@
                 jqxhr.settings = settings;
                 self.XHR.push(jqxhr);
             })
-            .ajaxComplete(function (e, jqxhr) {
-                self.XHR = jQuery.grep(self.XHR, function (xhr) { return xhr !== jqxhr; });
-            });
+                .ajaxComplete(function (e, jqxhr) {
+                    self.XHR = jQuery.grep(self.XHR, function (xhr) { return xhr !== jqxhr; });
+                });
         };
 
         self.ExecuteBeforeExit = function (additionalRequests, useBeacon) {
             if (!self.EnableBeforeExit) {
-                self.EnableBeforeExit = true;
+                setTimeout(function () {
+                    self.EnableBeforeExit = true;
+                }, 100);
+
                 return;
             }
 

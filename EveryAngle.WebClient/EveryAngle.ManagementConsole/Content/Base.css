@@ -971,19 +971,19 @@ div.tagsinput .not_valid {
 
 .k-window .k-link .k-i-close,
 .k-window .k-link:not(.k-state-disabled):hover > .k-i-close {
-    background-image: url(../../images/icons/icon_close.svg);
+    background-image: url(../images/icons/icon_close.svg);
     background-position: left top;
 }
 
 .k-window .k-link .k-i-maximize,
 .k-window .k-link:not(.k-state-disabled):hover > .k-i-maximize {
-    background-image: url(../../images/icons/icon_popup_maximize.svg);
+    background-image: url(../images/icons/icon_popup_maximize.svg);
     background-position: left top;
 }
 
 .k-window .k-link .k-i-restore,
 .k-window .k-link:not(.k-state-disabled):hover > .k-i-restore {
-    background-image: url(../../images/icons/icon_popup_minimize.svg);
+    background-image: url(../images/icons/icon_popup_minimize.svg);
     background-position: left top;
     background-size: 15px 14px;
     width: 15px;
@@ -1248,11 +1248,11 @@ div.k-window-content > .k-loading-mask {
     margin-left: 150px;
 }
 
-.suggestedFieldsChooser .fieldChooserGridContainer .DisplayPropertiesGridSignFavoriteDisable {
+.fieldChooserGridContainer .DisplayPropertiesGridSignFavoriteDisable {
     background-image: url(../images/icons/icon_unsuggest.png);
 }
 
-.suggestedFieldsChooser .k-dirty {
+.fieldChooserGridContainer .k-dirty {
     margin-top: -2px;
 }
 
@@ -1404,6 +1404,7 @@ table.grid tbody td:first-child {
     position: relative;
     font-weight: bold;
     margin-bottom: 1px;
+    padding-top: 1px;
 }
 
 .contentSectionInfoItem > label,
@@ -1663,7 +1664,6 @@ table.grid tbody td:first-child {
 }
 
 .gridContainer .k-grid .columnBoolean > label {
-    margin-right: 0;
     width: 13px;
     display: inline-block;
 }
@@ -2184,6 +2184,14 @@ tr.rowMaskAsRemove .btnGroupContainer > .btn:after {
     opacity: 1;
 }
 
+.pageSystemSettings .contentSectionInfoItem > p .btnInfo {
+    top: 0;
+}
+
+.pageWebClientSettings .contentSectionInfoItem > p .btnInfo {
+    top: -4px;
+}
+
 #TestEmailPopup .contentSectionInfoItem > label {
     width: 100px;
 }
@@ -2337,7 +2345,7 @@ tr.rowMaskAsRemove .btnGroupContainer > .btn:after {
 .pagePackages .contentSectionGrid .gridToolbarFilterPackageType {
     position: absolute;
     right: 0;
-    top: 25px;
+    top: 28px;
     width: 100%;
 }
 
@@ -2394,7 +2402,7 @@ form#ExportPackageForm .packageFilter .itemExportSelectorContainer {
 }
 
 form#ExportPackageForm .packageFilter .innerCheckbox {
-    left: 22px;
+    left: 30px;
 }
 
 form#ExportPackageForm .packageFilter .tooltip {
@@ -4002,7 +4010,7 @@ form#ExportPackageForm .packageInfo .packageVersion input {
 }
 
 .pageRoleEdit .tabPrivileges .contentSectionInfoItem > p {
-    max-width: 300px;
+    max-width: 330px;
 }
 
 .pageRoleEdit .tabPrivileges .contentSectionInfoItem > label {

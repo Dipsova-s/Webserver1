@@ -14,7 +14,7 @@ var exportDrilldownExcelHtmlTemplate = function () {
                 '<div class="input">',
                     '<label for="EnableDefinitionSheet">',
                         '<input type="checkbox" id="EnableDefinitionSheet" />',
-                        '<span class="label"></span>',
+                        '<span class="label">&nbsp;</span>',
                     '</label>',
                 '</div>',
             '</div>',

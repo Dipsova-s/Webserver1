@@ -24,16 +24,31 @@
         var tooltipLeft;
         var tooltipTop;
         var target = jQuery(e.currentTarget);
+        var tooltipPosition = target.data('tooltip-position') || (e.data && e.data.position);
         var targetOffset = target.offset();
-        if (e.data && e.data.position === TOOLTIP_POSITION.BOTTOM) {
+        if (e.data && tooltipPosition === TOOLTIP_POSITION.BOTTOM) {
             // show at bottom
             tooltipLeft = targetOffset.left + (target.outerWidth() / 2) - (tooltipWidth / 2);
-            tooltipTop = targetOffset.top + target.outerHeight();
+            tooltipTop = targetOffset.top + target.outerHeight() + 8;
+            tooltip.addClass('k-window-arrow-n');
         }
-        else if (e.data && e.data.position === TOOLTIP_POSITION.RIGHT) {
+        else if (e.data && tooltipPosition === TOOLTIP_POSITION.TOP) {
+            // show at top
+            tooltipLeft = targetOffset.left + (target.outerWidth() / 2) - (tooltipWidth / 2);
+            tooltipTop = targetOffset.top - target.outerHeight();
+            tooltip.addClass('k-window-arrow-s');
+        }
+            else if (e.data && tooltipPosition === TOOLTIP_POSITION.LEFT) {
             // show at right
-            tooltipLeft = targetOffset.left + target.outerWidth() + 10;
-            tooltipTop = targetOffset.top - 4;
+            tooltipLeft = targetOffset.left - target.outerWidth();
+            tooltipTop = targetOffset.top + (target.outerHeight() / 2) - (tooltipHeight / 2);
+            tooltip.addClass('k-window-arrow-e');
+        }
+        else if (e.data && tooltipPosition === TOOLTIP_POSITION.RIGHT) {
+            // show at right
+            tooltipLeft = targetOffset.left + target.outerWidth() + 8;
+            tooltipTop = targetOffset.top + (target.outerHeight() / 2) - (tooltipHeight / 2);
+            tooltip.addClass('k-window-arrow-w');
         }
         else {
             // depends on your mouse
@@ -177,5 +192,6 @@
     };
 
     jQuery.extend(win.WC.HtmlHelper, { Tooltip: wcTooltip });
+    win.WC.HtmlHelper.Tooltip.Create('global', '[data-role="tooltip"]');
 
 })(window);

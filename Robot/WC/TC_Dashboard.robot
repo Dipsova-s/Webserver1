@@ -12,9 +12,6 @@ Verify Dashboard Details
 Add Display To Existing Dashboard Test
     Add Display To Dashboard Dashboard
 
-Verify Publish Dashboard Via Publishing Popup Test
-    Publish Dashboard
-
 Verify Dashboard Execution Parameters
     Dashboard Execution Parameters
 

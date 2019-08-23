@@ -72,6 +72,10 @@ namespace EveryAngle.WebClient.Service.WebClientConfigs
                         case "googleanalyticsid":
                             webClientConfigViewModel.GoogleAnalyticsId = configValue;
                             break;
+                        case "enablegotosap":
+                            bool.TryParse(configValue, out bool enableGoToSAP);
+                            webClientConfigViewModel.EnableGoToSAP = enableGoToSAP;
+                            break;
                         default:
                             break;
                     }
@@ -92,7 +96,7 @@ namespace EveryAngle.WebClient.Service.WebClientConfigs
             webClientConfigViewModel.AjaxTimeoutExpirationInSeconds = ajaxTimeoutExpirationInSeconds;
 
             bool showAngleAndDisplayID;
-            Boolean.TryParse(WebConfigHelper.GetNoneExecutingWebConfigBy("ShowAngleAndDisplayID"), out showAngleAndDisplayID);
+            bool.TryParse(WebConfigHelper.GetNoneExecutingWebConfigBy("ShowAngleAndDisplayID"), out showAngleAndDisplayID);
             webClientConfigViewModel.ShowAngleAndDisplayID = showAngleAndDisplayID;
 
             int maxNumberOfMassChangeItems = 1000;
@@ -109,6 +113,9 @@ namespace EveryAngle.WebClient.Service.WebClientConfigs
             
             string googleAnalyticsId = WebConfigHelper.GetNoneExecutingWebConfigBy("GoogleAnalyticsId");
             webClientConfigViewModel.GoogleAnalyticsId = googleAnalyticsId;
+            
+            bool.TryParse(WebConfigHelper.GetNoneExecutingWebConfigBy("EnableGoToSAP"), out bool enableGoToSAP);
+            webClientConfigViewModel.EnableGoToSAP = enableGoToSAP;
 
             #endregion
 
@@ -145,7 +152,7 @@ namespace EveryAngle.WebClient.Service.WebClientConfigs
             XmlDocument xmlDocument = new XmlDocument();
             xmlDocument.Load(overideFilePath);
 
-            string MCWebConfigKeys = @"Ajax-Timeout-Expiration-In-Seconds|ShowAngleAndDisplayID|MaxNumberOfMassChangeItems|MaxNumberOfDashboard|ShowErrorSourceUri|EnableOptimizations|MaxLogFileNumber|MaxLogFileSize|DashboardRefreshIntervalTime|GoogleAnalyticsId";
+            string MCWebConfigKeys = @"Ajax-Timeout-Expiration-In-Seconds|ShowAngleAndDisplayID|MaxNumberOfMassChangeItems|MaxNumberOfDashboard|ShowErrorSourceUri|EnableOptimizations|MaxLogFileNumber|MaxLogFileSize|DashboardRefreshIntervalTime|GoogleAnalyticsId|EnableGoToSAP";
 
             if (MCWebConfigKeys != "")
             {

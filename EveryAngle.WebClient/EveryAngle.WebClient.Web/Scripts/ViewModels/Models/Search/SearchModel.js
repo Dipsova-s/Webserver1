@@ -111,13 +111,21 @@ function SearchViewModel() {
     };
 
     self.GetShowRecentUseAndShowRecord = function (data) {
+        if (self.IsShowRecentUse(data))
+            return "ShowRecentUse";
+        else {
+            return "NotShowRecentUse";
+        }
+    };
+
+    self.IsShowRecentUse = function (data) {
         if (WC.Utility.UrlParameter(enumHandlers.SEARCHPARAMETER.SORT) === "executed" && data.uri)
-            return "style='display:none'";
+            return false;
         else {
             if (WC.Utility.UrlParameter(enumHandlers.SEARCHPARAMETER.SORT) !== "executed")
-                return "style='display:none'";
+                return false;
             else
-                return "";
+                return true;
         }
     };
 

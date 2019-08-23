@@ -10,8 +10,11 @@
 /// <reference path="/Dependencies/ViewManagement/Shared/userfriendlynamehandler.js" />
 /// <reference path="/Dependencies/ViewModels/Shared/DataType/DataType.js" />
 /// <reference path="/Dependencies/ViewManagement/Angles/QuickFilterHandler.js" />
+/// <reference path="/Dependencies/ViewManagement/Shared/ItemState/itemstateview.js" />
+/// <reference path="/Dependencies/ViewManagement/Shared/ItemState/itemstatehandler.js" />
+/// <reference path="/Dependencies/ViewManagement/Dashboard/dashboardstateview.js" />
+/// <reference path="/Dependencies/ViewManagement/Dashboard/dashboardstatehandler.js" />
 /// <reference path="/Dependencies/ViewManagement/Dashboard/DashboardHandler.js" />
-
 
 describe("DashboardFiltersHandler", function () {
     var dashboardFiltersHandler;

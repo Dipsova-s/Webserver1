@@ -1,6 +1,4 @@
-﻿@using EveryAngle.Shared.Globalization
-@using System.Threading;
-
+﻿
 <div id="UserPanel">
     <ul>
         <li class="disabled">
@@ -15,9 +13,15 @@
         </li>
 
         <li>
+            <a id="Settings" onclick="userSettingsView.ToggleSettings();">
+                <span id="SettingsIcon" class="icon"></span>
+            </a>
+        </li>
+
+        <li>
             <a id="UserControl" onclick="userSettingsView.ToggleMenu();">
-                <span class="icon arrowDown"></span>
                 <span id="UserControlName" class="textEllipsis"></span>
+                <i class="icon icon-chevron-down"></i>
             </a>
         </li>
     </ul>
@@ -38,7 +42,6 @@
             <a id="btnWorkbench" class="actionDropdownItem btnWorkbench" href="@workbenchUri" target="_blank">
                 <span data-bind="text: Localization.Workbench"></span>
             </a>
-            <a class="actionDropdownItem btnSettings" onclick="userSettingsHandler.ShowPopup()"><span data-bind="text: Localization.Settings"></span></a>
             <a class="actionDropdownItem btnChangePassword" onclick="userPasswordHandler.ShowPopup()"><span data-bind="text: Localization.ChangePassword"></span></a>
             <a class="actionDropdownItem btnLogout" onclick="WC.Authentication.Logout()"><span data-bind="text: Localization.Logout"></span></a>
         </div>

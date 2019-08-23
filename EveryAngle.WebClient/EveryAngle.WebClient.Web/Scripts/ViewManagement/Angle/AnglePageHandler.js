@@ -33,6 +33,7 @@ function AnglePageHandler() {
     self.HandlerAngleDetails = null;
     self.HandlerDisplayDetails = null;
     self.HandlerFind = null;
+    self.HandlerState = new AngleStateHandler();
     self.HandlerValidation = {
         Valid: true,
         Angle: validationHandler.GetAngleValidation(null),
@@ -45,7 +46,7 @@ function AnglePageHandler() {
     /*BOF: Model Methods*/
     self.InitialAnglePage = function (callback) {
         requestHistoryModel.SaveLastExecute(self, self.InitialAnglePage, arguments);
-        
+
         searchStorageHandler.Initial(false, true, false);
 
         if (typeof WC.Utility.UrlParameter(enumHandlers.ANGLEPARAMETER.ANGLE) === 'undefined') {
@@ -106,13 +107,13 @@ function AnglePageHandler() {
             CheckUILanguage(userSettingModel.GetByName(enumHandlers.USERSETTINGS.DEFAULT_LANGUAGES).toLowerCase());
 
             // check currency
-            userSettingsHandler.CheckUserCurrency();
+            userSettingsPanelHandler.CheckUserCurrency();
 
             // set firstLogin status
             jQuery.localStorage('firstLogin', 0);
 
             // tooltip
-            WC.HtmlHelper.Tooltip.Create('actionmenu', '#ActionDropdownListPopup .actionDropdownItem', false, TOOLTIP_POSITION.BOTTOM, 'tooltipActionmenu k-window-arrow-n');
+            WC.HtmlHelper.Tooltip.Create('actionmenu', '#ActionDropdownListPopup .actionDropdownItem', false, TOOLTIP_POSITION.BOTTOM);
 
             // menu navigatable
             WC.HtmlHelper.MenuNavigatable('#UserControl', '#UserMenu', '.actionDropdownItem');
@@ -128,10 +129,10 @@ function AnglePageHandler() {
             //Binding knockout
             WC.HtmlHelper.ApplyKnockout(Localization, jQuery('#HelpMenu .k-window-content'));
             WC.HtmlHelper.ApplyKnockout(Localization, jQuery('#UserMenu .k-window-content'));
-            WC.HtmlHelper.ApplyKnockout(Localization, jQuery('#BackToSearch'));
             WC.HtmlHelper.ApplyKnockout(Localization, jQuery('#ActionDropdownList'));
             WC.HtmlHelper.ApplyKnockout(angleInfoModel, jQuery('#AngleName'));
             WC.HtmlHelper.ApplyKnockout(angleInfoModel, jQuery('#YourNote'));
+            WC.HtmlHelper.ApplyKnockout(self.HandlerState, jQuery('#AngleStatesWrapper .states-wrapper'));
             WC.HtmlHelper.ApplyKnockout(resultModel, jQuery('#ExecutionResults'));
 
             jQuery('#ToggleWrapper').hide();
@@ -352,7 +353,7 @@ function AnglePageHandler() {
             progressbarModel.ShowStartProgressBar(Localization.Redirecting, false);
             progressbarModel.CancelForceStop = true;
         }
-        
+
         WC.Utility.RedirectUrl(searchStorageHandler.GetSearchUrl());
     };
     self.TogglePanel = function (animation) {
@@ -400,10 +401,8 @@ function AnglePageHandler() {
         if (!wrapperVisible)
             jQuery('#ToggleWrapper').show();
 
-        var nameSize = jQuery('#AngleName').width();
+        var nameSize = jQuery('#AngleName').css('max-width', '').width();
         jQuery('#AngleName .Name').css('max-width', nameSize - 100);
-        jQuery('#ExecutionResults').width(nameSize - 20);
-        jQuery('#ExecutionResults > span').css('max-width', nameSize - 40);
         jQuery('#YourNote').width((jQuery('#AngleSetting').width() - jQuery('#ToggleAngle').width() - 60) / 2);
 
         if (self.HandlerAngleDetails) {
@@ -784,7 +783,7 @@ function AnglePageHandler() {
                     tempData.template = null;
                     angleInfoModel.TemporaryAngle(tempData);
                     jQuery.localStorage(angleInfoModel.TemporaryAngleName, tempData);
-                    
+
                     window.location.replace(WC.Utility.GetAnglePageUri(angleParameter, displayParameter));
 
                     setTimeout(function () {
@@ -869,7 +868,7 @@ function AnglePageHandler() {
                 }
 
                 // target
-                if (target === enumHandlers.ANGLETARGET.PUBLISH) {
+                if (target === enumHandlers.ANGLETARGET.PUBLISH || target === enumHandlers.ANGLETARGET.VALIDATE) {
                     var targetQuery = {};
                     jQuery.each($.address.parameterNames(), function (index, name) {
                         if (name !== enumHandlers.ANGLEPARAMETER.ANGLE && name !== enumHandlers.ANGLEPARAMETER.DISPLAY && name !== enumHandlers.ANGLEPARAMETER.TARGET) {
@@ -881,7 +880,10 @@ function AnglePageHandler() {
 
                     setTimeout(function () {
                         // open angle popup
-                        angleDetailPageHandler.ShowPopup(angleDetailPageHandler.TAB.PUBLISHING);
+                        if (target === enumHandlers.ANGLETARGET.PUBLISH)
+                            jQuery('#ShowPublishSettingsButton').trigger('click');
+                        else
+                            jQuery('#ShowValidateButton').trigger('click');
                     }, 1000);
 
                     return jQuery.when(false);
@@ -1022,6 +1024,15 @@ function AnglePageHandler() {
                 angleDetailPageHandler.CheckExecuted();
             }, 1000);
         }
+    };
+    self.RenderBreadcrumb = function () {
+        var viewModels = [];
+        var angleName = WC.Utility.GetDefaultMultiLangText(angleInfoModel.Data().multi_lang_name);
+        viewModels.push(angleBreadcrumbHandler.GetAngleViewModel(angleName, angleInfoModel.IsValidated()));
+        if (WC.Utility.UrlParameter(enumHandlers.ANGLEPARAMETER.LISTDRILLDOWN)) {
+            viewModels.push(angleBreadcrumbHandler.GetDrilldownViewModel(listDrilldownHandler.PrimaryData, angleInfoModel.Data().model));
+        }
+        angleBreadcrumbHandler.Build(viewModels);
     };
 
     var isLoadMetadataDone = false;
@@ -1377,6 +1388,9 @@ function AnglePageHandler() {
             self.HandlerDisplayDetails.ApplyHandler();
         }
 
+        // Update Angle's states
+        self.HandlerState.SetAngleData(angleInfoModel.Data());
+
         self.IsExecuted = true;
         self.IsPosibleToEditModel = false;
 
@@ -1386,14 +1400,17 @@ function AnglePageHandler() {
                 angleDetailPageHandler.HandlerLanguages.LanguageSetSelect(angleDetailPageHandler.HandlerLanguages.Languages.Selected());
             }
             self.UpdateDetailSection();
+
+            // breadcrumb
+            self.RenderBreadcrumb();
         }, 1000);
     };
     self.EnableAnglePage = function (enable) {
         if (!enable) {
-            jQuery('#ToggleAngle, #ActionDropdownList, #SelectedDisplay').addClass('disabled');
+            jQuery('#ToggleAngle, #ActionDropdownList, #SelectedDisplay, #AngleStatesWrapper .states-wrapper').addClass('disabled');
         }
         else {
-            jQuery('#ToggleAngle, #ActionDropdownList, #SelectedDisplay').removeClass('disabled');
+            jQuery('#ToggleAngle, #ActionDropdownList, #SelectedDisplay, #AngleStatesWrapper .states-wrapper').removeClass('disabled');
         }
     };
     self.InitialUserPrivileges = function () {
@@ -1460,11 +1477,11 @@ function AnglePageHandler() {
             WC.HtmlHelper.ApplyKnockout(displayModel.DisplayInfo, jQuery('#DisplayItemList'));
             self.SetSelectedDisplayDropdownList(displayModel.Data());
             self.ShowOrHideDisplayList(true);
-            self.UpdateDisplaysDropdownLayout();
         }
     };
     self.GenerateDisplayDropdownList = function (displayDefinitions) {
         var displayList = [];
+        
         jQuery.each(displayDefinitions, function (index, displayDefinition) {
             if ((angleInfoModel.IsTemporaryAngle() || !displayModel.IsTemporaryDisplay(displayDefinition.uri)) && displayDefinition.display_type) {
                 displayList.push(self.GetDisplayInfo(displayDefinition));
@@ -1497,21 +1514,18 @@ function AnglePageHandler() {
             Uri: displayDefinition.uri,
             Name: displayName,
             DisplayType: displayDefinition.display_type,
-            DisplayTypeClassName: displayDefinition.display_type || 'new',
+            DisplayTypeClassName: displayDefinition.display_type ? 'icon-' + displayDefinition.display_type : 'new',
             ExtendDisplayTypeClassName: extendDisplayTypeClasses.join(' '),
-            FilterClassName: isFollowup ? 'followup' : (isFilter ? 'filter' : 'noFilter'),
+            FilterClassName: isFollowup ? 'icon-followup' : (isFilter ? 'icon-filter' : 'none'),
             IsPublic: isPublic,
-            PublicClassName: isPublic ? 'public' : 'private',
+            PublicClassName: isPublic ? 'none' : 'icon-private',
             CanDelete: displayDefinition.authorizations['delete'],
             IsError: isError,
             IsWarning: isWarning,
             ValidClassName: isError ? 'validError' : (isWarning ? 'validWarning' : 'none'),
             IsParameterized: displayDefinition.is_parameterized,
-            ParameterizedClassName: displayDefinition.is_parameterized ? 'parameterized' : 'none'
+            ParameterizedClassName: displayDefinition.is_parameterized ? 'icon-parameterized' : 'none'
         };
-    };
-    self.UpdateDisplaysDropdownLayout = function () {
-        WC.HtmlHelper.AdjustNameContainer('#SelectedDisplay', null, function (size) { return size - 5; });
     };
     self.ShowOrHideDisplayList = function (forceHide) {
         if (jQuery('#SelectedDisplay').hasClass('disabled'))
@@ -1536,7 +1550,6 @@ function AnglePageHandler() {
         }
         else {
             jQuery('#DisplayListSelection').show();
-            self.UpdateDisplaysDropdownLayout();
             jQuery('#DisplayListSelection .DisplayItemListContainer').animate({ top: 0 }, 200, function () {
                 jQuery('#DisplayListSelection, #SelectedDisplay').addClass('open');
             });
@@ -1698,15 +1711,17 @@ function AnglePageHandler() {
         }
 
         // display type
-        var iconDisplay = (model.display_type || 'list') + ' ' + displayInfo.ExtendDisplayTypeClassName;
+        var iconDisplay = 'icon-' + (model.display_type || 'list') + ' ' + displayInfo.ExtendDisplayTypeClassName;
 
         jQuery('#SelectedDisplayPointer').attr('title', displayInfo.Name);
         selectedElement.find('.name').text(displayInfo.Name);
-        selectedElement.find('.front .icon:eq(0)').attr('class', 'icon ' + iconPublic);
-        selectedElement.find('.front .icon:eq(1)').attr('class', 'icon ' + iconDisplay);
-        selectedElement.find('.front .icon:eq(2)').attr('class', 'icon ' + displayInfo.FilterClassName);
-        selectedElement.find('.rear .icon:eq(0)').attr('class', 'icon ' + displayInfo.ParameterizedClassName);
+
+        selectedElement.find('.front .icon:eq(0)').attr('class', 'icon ' + iconDisplay);
+        selectedElement.find('.rear .icon:eq(0)').attr('class', 'icon ' + iconPublic);
         selectedElement.find('.rear .icon:eq(1)').attr('class', 'icon ' + displayInfo.ValidClassName);
+        selectedElement.find('.rear .icon:eq(2)').attr('class', 'icon ' + displayInfo.FilterClassName);
+        selectedElement.find('.rear .icon:eq(3)').attr('class', 'icon ' + displayInfo.ParameterizedClassName);
+     
 
         self.AddNewClassToDisplayListItemWhenSelected(model.uri);
     };

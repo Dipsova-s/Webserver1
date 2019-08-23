@@ -5,6 +5,7 @@
 /// <reference path="/Dependencies/ViewModels/Models/Search/searchquery.js" />
 /// <reference path="/Dependencies/ViewModels/Models/Search/facetfiltersmodel.js" />
 /// <reference path="/Dependencies/ViewManagement/Shared/AboutSystemHandler.js" />
+/// <reference path="/Dependencies/ViewManagement/Search/searchfilterlistviewhandler.js" />
 
 describe("FacetFiltersViewModel", function () {
     var facetFiltersViewModel;
@@ -226,7 +227,8 @@ describe("FacetFiltersViewModel", function () {
             description: 'EA2_800',
             index: 20,
             enabled: function () { return true; },
-            checked: function () { return false; }
+            checked: function () { return false; },
+            count: function () { return 0; }
         };
         var iconResult = {
             path: '/image/test.png',
@@ -259,7 +261,7 @@ describe("FacetFiltersViewModel", function () {
 
         it("should display only label when facet id is not in icon list", function () {
             var result = facetFiltersViewModel.GetFilterText(filter, '', '');
-            expect(result).toEqual('<span class="name">EA2_800</span>');
+            expect(result).toEqual('<span class="name"><span class="filter-name textEllipsis">EA2_800</span></span>');
         });
 
     });
@@ -354,7 +356,6 @@ describe("FacetFiltersViewModel", function () {
 
     describe(".FilterItems", function () {
         beforeEach(function () {
-            spyOn(searchQueryModel, 'ClearCharacteristicInAdvanceSearch').and.callFake($.noop);
             spyOn(searchModel, 'FilterItems').and.callFake($.noop);
         });
 

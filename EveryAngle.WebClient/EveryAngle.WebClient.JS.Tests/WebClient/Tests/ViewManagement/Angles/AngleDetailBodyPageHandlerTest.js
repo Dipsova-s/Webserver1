@@ -1,10 +1,16 @@
 ﻿/// <reference path="/Dependencies/Helper/MeasurePerformance.js" />
+/// <reference path="/Dependencies/ViewModels/Models/User/usermodel.js" />
+/// <reference path="/Dependencies/ViewModels/Models/User/privileges.js" />
+/// <reference path="/Dependencies/ViewModels/Models/User/usersettingmodel.js" />
+/// <reference path="/Dependencies/ViewModels/Models/Angle/AngleInfoModel.js" />
 /// <reference path="/Dependencies/ViewManagement/Shared/ValidationHandler.js" />
 /// <reference path="/Dependencies/ViewManagement/Angles/AngleActionMenuHandler.js" />
+/// <reference path="/Dependencies/ViewManagement/Shared/ItemState/itemstateview.js" />
+/// <reference path="/Dependencies/ViewManagement/Shared/ItemState/itemstatehandler.js" />
+/// <reference path="/Dependencies/ViewManagement/Angles/anglestateview.js" />
+/// <reference path="/Dependencies/ViewManagement/Angles/anglestatehandler.js" />
 /// <reference path="/Dependencies/ViewManagement/Angles/AnglePageHandler.js" />
-/// <reference path="/Dependencies/ViewModels/Models/User/usersettingmodel.js" />
 /// <reference path="/Dependencies/ViewManagement/Angles/AngleDetailBodyPageHandler.js" />
-
 
 describe("AngleDetailBodyPageHandler", function () {
 
@@ -13,6 +19,7 @@ describe("AngleDetailBodyPageHandler", function () {
         beforeEach(function () {
             //initial
             spyOn(anglePageHandler, 'UpdateAngleDisplayValidation').and.callFake($.noop);
+            spyOn(anglePageHandler, 'RenderBreadcrumb').and.callFake($.noop);
 
             spyOn(angleDetailPageHandler, 'ApplyResultWithSetDisplayAndExecuteAngle').and.callFake($.noop);
             spyOn(angleDetailPageHandler, 'ApplyResultWithExecuteAngle').and.callFake($.noop);
@@ -75,5 +82,12 @@ describe("AngleDetailBodyPageHandler", function () {
             expect(angleDetailPageHandler.ApplyResultWithoutExecuteAngle).toHaveBeenCalled();
 
         });
+
+        it("should update validation sign for breadcrumb when user save Angle", function () {
+            spyOn(angleDetailPageHandler, 'CheckExecuteAngle').and.returnValue(true);
+            angleDetailPageHandler.ApplyResult();
+            expect(anglePageHandler.RenderBreadcrumb).toHaveBeenCalled();
+        });
+
     });
 });

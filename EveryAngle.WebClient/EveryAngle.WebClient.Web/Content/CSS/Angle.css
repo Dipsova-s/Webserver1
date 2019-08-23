@@ -11,7 +11,33 @@
 }
 
 .topBarWrapper .Wrapper {
-    height: 44px;
+    height: 48px;
+}
+
+.toolbar {
+    background-color: #fff;
+    height: 40px;
+    padding-right: 10px;
+}
+.toolbar .col-breadcrumb {
+    flex-grow: 1;
+}
+.toolbar .col-action {
+    position: relative;
+    flex-grow: 1;
+    display: flex;
+    align-items: stretch;
+    padding-right: 0;
+}
+
+.listDrilldown .toolbar .col-action {
+    min-width: 80px;
+}
+
+@media (max-width: 979px) {
+    .toolbar .col-action {
+        flex-grow: 0;
+    }
 }
 
 .detailsWrapper {
@@ -38,9 +64,8 @@
 }
 
 #AngleSetting {
-    padding: 7px 0 0 0;
     position: relative;
-    min-height: 63px;
+    min-height: 93px;
     z-index: 21;
     border-bottom: 1px solid #f2f2f2;
     background: #f9f9f9;
@@ -51,7 +76,7 @@
     position: relative;
     top: 6px;
     left: 4px;
-    margin-right: 460px;
+    margin-right: 360px;
     padding-left: 10px;
     height: 24px;
     color: #006f9b;
@@ -71,25 +96,23 @@
 
 .executionResults {
     margin-left: 20px;
-    top: 6px;
+    margin-top: 6px;
     position: relative;
     color: #666;
-    font-family: Verdana, Tahoma;
     font-size: 11px;
-    float: left;
-    width: 500px;
+    display: inline-flex;
+    max-width: 50%;
 }
 
 .executionResults > span {
     display: inline-block;
-    max-width: 475px;
     overflow: hidden;
     white-space: nowrap;
     text-overflow: ellipsis;
 }
 
 .executionResults .btnInfo {
-    top: 2px;
+    height: auto;
 }
 
 .executionResults .infoText {
@@ -123,11 +146,10 @@
 /* #ActionSelect
 ============================================ */
 #ActionSelect.compactMode {
-    right: 360px;
+    margin-left: auto;
 }
-
 #ActionSelect .actionDropdownItem {
-    background-color: #f9f9f9;
+    background-color: #fff;
 }
 
 
@@ -197,7 +219,7 @@
 }
 
 .actionDropdownItem.exitEditMode:before {
-    background-image: url('../../images/icons/icon_execute_display.svg');
+    background-image: url('../../images/icons/icon_execute.svg');
 }
 
 /* .popupFindAngleResult
@@ -266,13 +288,13 @@
 
 .listFormatSettingPopup.inside {
     left: 160px !important; /* NOSONAR: override runtime css */
-    top: 35px;
+    top: 65px;
     height: auto;
 }
 
 .listFormatSettingPopup.inside:before,
 .listFormatSettingPopup.inside:after {
-    top: 188px;
+    top: 160px;
 }
 
 .listFormatSettingPopupLeft.inside {
@@ -303,7 +325,7 @@
 .FieldFormatList .field {
     float: left;
     width: 90px;
-    line-height: 40px;
+    line-height: 28px;
 }
 
 .FieldFormatList .field > span {
@@ -328,11 +350,6 @@
     width: 100%;
 }
 
-.FieldFormatCheckDefault {
-    padding-left: 15px;
-    padding-right: 15px;
-}
-
 .FieldFormatCheckDefault > div {
     margin-bottom: 5px;
 }
@@ -344,7 +361,7 @@
 
 .ThousandSeperateWrapper .textStatus {
     position: relative;
-    top: -2px;
+    margin-left: 10px;
 }
 
 .touch.safari .ThousandSeperateWrapper .textStatus {
@@ -406,7 +423,7 @@
     margin-left: 0;
 }
 
-.popupAddToDashboard .eaDropdown {
+.popupAddToDashboard .k-dropdown {
     width: 100%;
 }
 
@@ -502,27 +519,9 @@
 
 .displayPopupHeader {
     position: absolute;
-    top: 10px;
-    left: 216px;
-}
-
-.displayPopupHeader > .icon {
-    position: relative;
-    top: 4px;
-    left: 0;
-    width: 25px;
-    height: 25px;
-    margin-right: 3px;
-}
-
-.displayPopupHeader > .icon:hover {
-    background-position: left top;
-}
-
-.displayPopupHeader > .icon.new,
-.displayPopupHeader > .icon.new:hover {
-    background-image: url('../../images/searchpage/icn_new.png');
-    background-position: left center;
+    top: 2px;
+    left: 212px;
+    font-size: 14px;
 }
 
 .k-window-draggable .displayName {
@@ -556,12 +555,9 @@
     width: 100%;
 }
 
-#PrivateDisplay .icon.private {
-    float: left;
-    position: relative;
-    top: -5px;
+#PrivateDisplay .icon-private {
+    color: #78909c;
     width: 20px;
-    height: 20px;
 }
 
 .popupDisplayDetail .definitionList {
@@ -627,7 +623,6 @@
     font-size: 12px;
 }
 
-
 .scheduleAngleArea {
     margin-bottom: 5px;
 }
@@ -636,48 +631,30 @@
     width: 100%;
 }
 
-/* .context-menu-list 
+/* .context-menu
 ============================================ */
-.context-menu-list {
-    font-size: 12px;
-    font-family: Arial, 'Helvetica Neue', Helvetica, sans-serif, Tahoma;
-    z-index: 9999;
-    left: 0;
-    top: -100px;
-    background-color: #fff;
-    border: 1px solid #9c9c9c;
-    box-shadow: 1px 1px 7px 1px rgba(128,128,128,.3);
+.context-menu {
+    position: absolute;
+    z-index: 1000;
+    overflow: visible;
 }
-
-.context-menu-item {
-    display: block;
-    border: none;
-    border-top: 1px solid #c5c5c5;
-    border-radius: 0;
-    height: 36px;
-    line-height: 36px;
-    padding: 0 16px 0 0;
-    background-color: #fff;
-    box-sizing: border-box;
+.context-menu.context-menu-root {
+    width: 160px;
 }
-
-.context-menu-item:first-child {
-    border-top: none;
+.context-menu .listview-item {
+    cursor: pointer;
+    position: relative;
+    overflow: visible;
+    height: 32px;
 }
-
-.context-menu-item.hover {
-    color: #2e2e2e;
-    background-color: #f0f0f0;
+.context-menu .listview-item:hover {
+    background-color: #fafafb;
 }
-
-.context-menu-item.disabled {
+.context-menu .listview-item.context-menu-submenu {
     cursor: default;
-    color: #aaa;
-    background-color: #fff;
 }
 
-.context-menu-item span {
-    padding-left: 4px;
+.context-menu span {
     display: block;
     min-height: 15px;
     padding-top: 0;
@@ -687,49 +664,26 @@
     max-width: 230px;
 }
 
-.context-menu-item.icon span {
-    background-repeat: no-repeat;
-    background-position: 10px center;
-    padding-left: 52px;
+.context-menu .icon {
+    width: 30px;
+    margin-left: -5px;
 }
 
-.context-menu-item.icon-drilldown span {
-    background-image: url('../../images/icons/icon_drilldown.png');
+.context-menu .btn-more {
+    width: auto;
+    margin-left: auto;
 }
 
-.context-menu-item.icon-filter span {
-    background-image: url('../../images/icons/icon_filter_addnew.png');
-    background-position: 4px center;
-}
-
-.context-menu-item.icon-copy span {
-    background-image: url('../../images/icons/icon_copy.png');
-}
-
-.context-menu-item.icon-sap span {
-    background-image: url('../../images/icons/icon_sap.png');
-}
-
-.context-menu-submenu:after {
+.context-menu .icon-loading:before {
     content: '';
-    background: transparent url('../../images/icons/icon_arrow_right.svg') center center no-repeat;
-    width: 10px;
-    height: 10px;
-    top: 50%;
-    margin-top: -5px;
+    width: 16px;
+    height: 16px;
 }
 
-.context-menu-submenu .context-menu-item span {
-    background-image: none;
-    padding-left: 10px;
-    padding-top: 0;
-}
-
-/* Portrait tablet to landscape and desktop */
-@media (max-width: 979px) {
-    /* AngleDetail/DisplayDetail */
-    #AngleGeneralArea .businessProcessesItem > a {
-        min-width: 33px;
-        padding-right: 10px;
-    }
+.context-menu-submenu > .context-menu {
+    top: -15px;
+    left: 100%;
+    right: auto;
+    font-weight: normal;
+    max-height: 307px;
 }

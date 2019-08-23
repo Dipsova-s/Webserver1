@@ -8,7 +8,6 @@ Force Tags        	acceptance     acc_wc
 
 *** Variables ***
 ${TEST_VERIFY_EXPORT_TO_EXCEL_NAME}                     Export Extended Charactor.Béßø<>
-${TEST_VERIFY_EXPORT_DRILLDOWN_TO_EXCEL_NAME}           [ROBOT] Verify Export Drilldown To Excel
 ${TEST_VERIFY_EXPORT_FIELDS_CONTAIN_SPECIAL_CHAR}       ROBOT_ANGLE_Pivot_fields_contain_special_characters
 ${LONG_FILE_NAME}    Export angle to excel with such a long filename. A filename of 200 characters should be allowed. Since the windows max path length is 260, this could lead to a path too long exception, when this happens, show the error message to the user.
 ${ERROR_MESSAGE}     Full name of the file exceeds Windows limitations (260 characters).
