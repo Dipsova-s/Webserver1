@@ -2164,7 +2164,14 @@ function ChartHandler(elementId, container) {
                 Axes: self.VALUETYPE.VALUE
             });
 
-            var templateTooltip = self.ConvertTooltipTemplate(groupField, setting.Type, dataField.DataType, aggField.field, chartSettings.datalabel.show_values);
+            var templateTooltip = self.ConvertTooltipTemplate(
+                groupField,
+                setting.Type,
+                dataField.DataType,
+                aggField.field,
+                chartSettings.datalabel.show_values,
+                chartSettings.show_as_percentage);
+
             if (isScatter) {
                 chartOptions.series.push({
                     type: self.GetScatterLineChartType(),
@@ -2304,7 +2311,14 @@ function ChartHandler(elementId, container) {
             Axes: self.VALUETYPE.VALUE
         });
 
-        var templateTooltip = self.ConvertTooltipTemplate(setting.FieldSource.GroupFieldType, setting.Type, setting.FieldSource.CategoryFieldType, aggFieldName1, chartSettings.datalabel.show_values);
+        var templateTooltip = self.ConvertTooltipTemplate(
+            setting.FieldSource.GroupFieldType,
+            setting.Type,
+            setting.FieldSource.CategoryFieldType,
+            aggFieldName1,
+            chartSettings.datalabel.show_values,
+            chartSettings.show_as_percentage);
+
         chartOptions.series = [
             {
                 tooltip: {
@@ -3142,13 +3156,12 @@ function ChartHandler(elementId, container) {
     self.GetCategoryLabelTemplate = function () {
         return '#= window[\'' + self.ModelId + '\'].GetCategoryLabel(dataItem, value) #';
     };
-    self.ConvertTooltipTemplate = function (groupFieldType, chartType, fieldType, aggField, showValues) {
+    self.ConvertTooltipTemplate = function (groupFieldType, chartType, fieldType, aggField, showValues, isShowPercentage) {
         var categoryField = WC.Utility.ConvertFieldName(self.CategoryField);
         var groupFieldName = self.GroupField ? WC.Utility.ConvertFieldName(self.GroupField) : '';
         var agg1FieldName = WC.Utility.ConvertFieldName(self.AggergateFields[0].field);
         var agg2FieldName = self.AggergateFields.length > 1 ? WC.Utility.ConvertFieldName(self.AggergateFields[1].field) : '';
         var results;
-
         if (!groupFieldType) {
             if (chartType === enumHandlers.CHARTTYPE.BUBBLECHART.Code && self.AggergateFields.length === 2) {
                 if (showValues) {
@@ -3273,11 +3286,16 @@ function ChartHandler(elementId, container) {
                     ];
                 }
                 else {
+                    var percentageParam = '';
+                    if (isShowPercentage) {
+                        percentageParam = ', percentage';
+                    }
+
                     results = [
                         '# if (value !== null) { #',
                         '#: window[\'' + self.ModelId + '\'].ConvertAggregateValue(category, "' + self.VALUETYPE.CATEGORY + '")',
                         ' + \', \' + window[\'' + self.ModelId + '\'].ConvertAggregateValue(series.name, "' + self.VALUETYPE.GROUP + '")',
-                        ' + \': \' + window[\'' + self.ModelId + '\'].ConvertAggregateValue(value, "' + self.VALUETYPE.VALUE + '", series.field) #',
+                        ' + \': \' + window[\'' + self.ModelId + '\'].ConvertAggregateValue(value, "' + self.VALUETYPE.VALUE + '", series.field, ' + isShowPercentage + percentageParam + ') #',
                         '# } #'
                     ];
                 }
@@ -3297,7 +3315,14 @@ function ChartHandler(elementId, container) {
             return self.CategoryField;
         }
     };
-    self.ConvertAggregateValue = function (value, valueType, field) {
+    self.ConvertAggregateValue = function (value, valueType, field, isShowPercentage, percentage) {
+        if (isShowPercentage && valueType === 'value') {
+            if (!percentage) {
+                percentage = 0;
+            }
+            return WC.FormatHelper.GetFormattedValue(enumHandlers.FIELDTYPE.PERCENTAGE, percentage);
+        }
+
         var isEmpty = typeof value === 'string' && !value;
         var isNull = value === null || value === self.TEXT_NULL;
         var valueField = self.GetAggregateValueField(valueType, field);

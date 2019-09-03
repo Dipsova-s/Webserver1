@@ -1992,6 +1992,10 @@ function FieldSettingsHandler() {
                     settings.DisplayDetails.stack = chartDetails[1] === 'stack';
                     settings.DisplayDetails.multi_axis = chartDetails[1] === 'multi';
 
+                    if (!self.ChartCanShowAsPercentage(settings.DisplayDetails)) {
+                        settings.DisplayDetails.show_as_percentage = false;
+                    }
+
                     if (isGaugeChart) {
                         settings.DisplayDetails.GaugeValues = [];
                         settings.DisplayDetails.GaugeColours = [];

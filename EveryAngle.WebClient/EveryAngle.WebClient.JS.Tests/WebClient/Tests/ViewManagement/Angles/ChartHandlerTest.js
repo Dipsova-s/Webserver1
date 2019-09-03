@@ -14,7 +14,7 @@ describe("ChartHandler", function () {
 
     beforeEach(function () {
         chartHandler = new ChartHandler();
-    });;
+    });
 
     describe("call GetDomainElementsForCustomSort", function () {
 
@@ -740,6 +740,22 @@ describe("ChartHandler", function () {
                 expect(expectedValue).toBe(null);
             });
         });
+    });
+
+    describe("call ConvertAggregateValue ", function () {
+
+        it("should return percentage when isShowPercentage is true", function () {
+            var percent = 0.1;
+            var expectedValue = chartHandler.ConvertAggregateValue(0, 'value', null, true, percent);
+            expect(expectedValue).toBe("10 %");
+        });
+
+        it("should return zero percent when isShowPercentage is true and percentage is null", function () {
+            var percent = null;
+            var expectedValue = chartHandler.ConvertAggregateValue(0, 'value', null, true, percent);
+            expect(expectedValue).toBe("0 %");
+        });
+
     });
 
 });
