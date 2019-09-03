@@ -1611,7 +1611,7 @@ namespace EveryAngle.Shared.Globalization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Goto SAP.
+        ///   Looks up a localized string similar to Go to SAP.
         /// </summary>
         public static string CellPopupMenuGotoSAP {
             get {
@@ -4100,24 +4100,6 @@ namespace EveryAngle.Shared.Globalization {
         public static string Filter {
             get {
                 return ResourceManager.GetString("Filter", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Filter is applied relative to UTC model timestamp .
-        /// </summary>
-        public static string Filter_Example_Desctiption {
-            get {
-                return ResourceManager.GetString("Filter_Example_Desctiption", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Result: .
-        /// </summary>
-        public static string Filter_Example_Result {
-            get {
-                return ResourceManager.GetString("Filter_Example_Result", resourceCulture);
             }
         }
         
@@ -13761,8 +13743,8 @@ namespace EveryAngle.Shared.Globalization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Select this field to enable the GoTo SAP functionality.&lt;br&gt;
-        ///Also the option to download the required GoTo SAP launcher will become available in the Settings menu in the Web client..
+        ///   Looks up a localized string similar to Select this field to enable the Go To SAP functionality.&lt;br&gt;
+        ///Also the option to download the required Go To SAP launcher will become available in the Settings menu in the Web client..
         /// </summary>
         public static string MC_WebClientSettingsHelpEnableGoToSAP {
             get {
@@ -16627,7 +16609,7 @@ namespace EveryAngle.Shared.Globalization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to GoTo SAP.
+        ///   Looks up a localized string similar to Go to SAP.
         /// </summary>
         public static string SystemSettingLabelGoToSAP {
             get {
@@ -16645,7 +16627,7 @@ namespace EveryAngle.Shared.Globalization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to To use GoTo SAP, click to download and install the GoTo SAP Launcher on your workstation..
+        ///   Looks up a localized string similar to To use Go to SAP, click to download and install the Go to SAP Launcher on your workstation..
         /// </summary>
         public static string SystemSettingLabelGoToSAPDownload_Info {
             get {
