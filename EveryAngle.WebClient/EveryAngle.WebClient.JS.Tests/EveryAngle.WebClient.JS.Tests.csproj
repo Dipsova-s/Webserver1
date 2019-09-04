@@ -817,7 +817,6 @@
     <Content Include="WebClient\Tests\ViewManagement\Angles\DisplayUpgradeHandlerTest.js" />
     <Content Include="WebClient\Tests\ViewManagement\Angles\ListHandlerTest.js" />
     <Content Include="WebClient\Tests\ViewManagement\Angles\ListFormatSettingHandlerTest.js" />
-    <Content Include="WebClient\Tests\ViewManagement\Angles\FieldChooserHandlerTest.js" />
     <Content Include="WebClient\Tests\ViewManagement\Angles\PivotHandlerTest.js" />
     <Content Include="WebClient\Tests\ViewManagement\Angles\FieldSettingsHandlerTest.js" />
     <Content Include="WebClient\Tests\Helper\StorageTest.js" />
@@ -842,6 +841,7 @@
     <Content Include="WebClient\Tests\ViewManagement\Shared\AboutSystemHandlerTest.js" />
     <Content Include="WebClient\Tests\ViewManagement\Shared\Breadcrumb\AngleBreadcrumbHandlerTest.js" />
     <Content Include="WebClient\Tests\ViewManagement\Shared\Breadcrumb\BreadcrumbHandlerTest.js" />
+    <Content Include="WebClient\Tests\ViewManagement\Shared\FieldChooserHandlerTest.js" />
     <Content Include="WebClient\Tests\ViewManagement\Shared\ItemState\ItemPublishStateHandlerTest.js" />
     <Content Include="WebClient\Tests\ViewManagement\Shared\ItemState\ItemStateHandlerTest.js" />
     <Content Include="WebClient\Tests\ViewManagement\Shared\ItemState\ItemValidateStateHandlerTest.js" />

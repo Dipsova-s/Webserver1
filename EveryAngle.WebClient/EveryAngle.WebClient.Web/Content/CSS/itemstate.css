@@ -7,6 +7,8 @@
   margin-left: 10px; }
   .states-wrapper.disabled {
     display: none; }
+  .states-wrapper .icon {
+    margin-left: 3px; }
 
 /* .popupPublishSettings
 ============================================ */

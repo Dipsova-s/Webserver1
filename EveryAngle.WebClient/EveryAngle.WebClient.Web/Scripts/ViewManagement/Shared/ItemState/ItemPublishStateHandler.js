@@ -33,7 +33,7 @@
             draggable: false,
             center: false,
             actions: ["Close"],
-            width: 320,
+            width: 350,
             minHeight: 100,
             resize: function (e) {
                 self.OnPopupResized(e, handle);

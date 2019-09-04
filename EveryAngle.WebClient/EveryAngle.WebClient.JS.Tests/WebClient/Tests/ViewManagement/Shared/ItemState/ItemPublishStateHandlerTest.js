@@ -23,7 +23,7 @@ describe("ItemStateHandler", function () {
             var result = itemStateHandler.GetPublishSettingsPopupOptions(event);
 
             // assert
-            expect(result.width).toEqual(320);
+            expect(result.width).toEqual(350);
         });
     });
 
