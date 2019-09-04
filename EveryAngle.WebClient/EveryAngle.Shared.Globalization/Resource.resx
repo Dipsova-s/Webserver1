@@ -5255,6 +5255,12 @@ The value 0 means the setting is off, so the log file will not be cleaned up. Th
   <data name="ExportCSVEnumFormatLongName" xml:space="preserve">
     <value>Long name</value>
   </data>
+  <data name="MC_AllowGroupingInPivotExcelExport" xml:space="preserve">
+    <value>Enable Grouping in Pivot exports</value>
+  </data>
+  <data name="MC_SystemSettingsHelpAllowGroupingInPivotExcelExport" xml:space="preserve">
+    <value>When enabled, additional data groups are exported to support grouping in Excel.</value>
+  </data>
   <data name="MC_IncludeSelfInExportHeaders" xml:space="preserve">
     <value>Include Self in export headers</value>
   </data>
