@@ -136,8 +136,6 @@
   <ItemGroup>
     <EmbeddedResource Include="Resource\FieldsChooser\filter_nav_bg.png" />
     <EmbeddedResource Include="Resource\FieldsChooser\grid_header_bg.png" />
-    <EmbeddedResource Include="Resource\FieldsChooser\icon_starred_active.png" />
-    <EmbeddedResource Include="Resource\FieldsChooser\icon_starred_inactive.png" />
     <EmbeddedResource Include="Resource\FieldsChooser\icon_suggest.png" />
     <EmbeddedResource Include="Resource\FieldsChooser\icon_viewmode.png" />
   </ItemGroup>
@@ -181,6 +179,8 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Resource\ClassesChooser\search-white.svg" />
+    <EmbeddedResource Include="Resource\FieldsChooser\icon_starred_active.svg" />
+    <EmbeddedResource Include="Resource\FieldsChooser\icon_starred_inactive.svg" />
     <Content Include="Resource\FieldsChooser\search-white.svg" />
     <EmbeddedResource Include="Resource\NotificationsFeed\icon_notifications.svg" />
     <EmbeddedResource Include="Resource\NotificationsFeed\icon_clock.svg" />

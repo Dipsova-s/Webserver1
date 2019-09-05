@@ -13761,8 +13761,8 @@ namespace EveryAngle.Shared.Globalization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Select this field to enable the Go To SAP functionality.&lt;br&gt;
-        ///Also the option to download the required Go To SAP launcher will become available in the Settings menu in the Web client..
+        ///   Looks up a localized string similar to Select this field to enable the Go to SAP functionality.&lt;br&gt;
+        ///Also the option to download the required Go to SAP launcher will become available in the Settings menu in the Web client..
         /// </summary>
         public static string MC_WebClientSettingsHelpEnableGoToSAP {
             get {
@@ -16645,7 +16645,7 @@ namespace EveryAngle.Shared.Globalization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to To use Go to SAP, click to download and install the Go to SAP Launcher on your workstation..
+        ///   Looks up a localized string similar to To use Go to SAP, click to download and install the Go to SAP launcher on your workstation..
         /// </summary>
         public static string SystemSettingLabelGoToSAPDownload_Info {
             get {

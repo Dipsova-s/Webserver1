@@ -1431,21 +1431,20 @@ window.SearchPageHandler = function () {
             display.__angle_is_template = angle.is_template;
             var template = [
                 '<li class="listview-item" onclick="searchPageHandler.ClickDisplay(event)">',
-                    '<div class="displayNameContainer ' + extraCssClass + '">',
-                        '<div class="front">',
-                            '<i class="icon #= searchPageHandler.GetDisplayTypeCSSClass(data) #"></i>',
-                        '</div>',
-                        '<a class="name nameLink"',
-                            ' title="#:data.name #"',
-                            ' href="#= searchModel.GetDisplayHrefUri(data.__angle_uri, data.uri, data.__angle_is_template) #"',
-                            ' onclick="return searchModel.ItemLinkClicked(event, \'#: data.__angle_uri #\', null, \'#: data.uri #\')">',
-                            '#: data.name #</a>',
-                        '<div class="rear">',
-                            '<i class="icon #= searchPageHandler.GetWarnningCSSClass(data) #"></i>',
-                            '<i class="icon #= searchPageHandler.DisplayType() !== searchPageHandler.DISPLAY_TYPE.DISPLAYS ? searchPageHandler.GetPublishCSSClass(data): \"none\" #"></i>',
-                            '<i class="icon #= searchPageHandler.GetParameterizeCSSClass(data) #"></i>',
-                        '</div>',
-                    '</div>',
+                '<div class="displayNameContainer ' + extraCssClass + '">',
+                '<div class="front">',
+                '<i class="icon #= searchPageHandler.GetDisplayTypeCSSClass(data) #"></i>',
+                '</div>',
+                '<a class="name nameLink"  data-showwhenneed="true" data-role="tooltip" data-tooltip-title="#: data.name #" data-tooltip-position="bottom"',
+                ' href="#= searchModel.GetDisplayHrefUri(data.__angle_uri, data.uri, data.__angle_is_template) #"',
+                ' onclick="return searchModel.ItemLinkClicked(event, \'#: data.__angle_uri #\', null, \'#: data.uri #\')">',
+                '#: data.name #</a>',
+                '<div class="rear">',
+                '<i class="icon #= searchPageHandler.GetWarnningCSSClass(data) #"></i>',
+                '<i class="icon #= searchPageHandler.DisplayType() !== searchPageHandler.DISPLAY_TYPE.DISPLAYS ? searchPageHandler.GetPublishCSSClass(data): \"none\" #"></i>',
+                '<i class="icon #= searchPageHandler.GetParameterizeCSSClass(data) #"></i>',
+                '</div>',
+                '</div>',
                 '</li>'
             ].join('');
             var templateFunction = kendo.template(template);
@@ -1612,7 +1611,7 @@ window.SearchPageHandler = function () {
             optionLabel: { Id: 0, Value: Localization.AdvanceFilterUsageNumberOfExecutes },
             change: self.NumberOperatorChange
         });
-        
+
         WC.HtmlHelper.ApplyKnockout(self, e.sender.wrapper);
     };
     self.InitialAdvSearchDatepicker = function () {

@@ -90,9 +90,10 @@
 
     var getTooltipInfo = function (e, ui) {
         var target = jQuery(e.currentTarget);
-        var showWhenNeed = e.data.showWhenNeed;
-        var text, renderAs;
+        var showWhenNeed = e.data.showWhenNeed || target.is('[data-showwhenneed]');
 
+        
+        var text, renderAs;
         if (target.is('[data-tooltip-function]')) {
             var tooltipFunction = window[target.attr('data-tooltip-function')];
             var tooltipArgument = target.attr('data-tooltip-argument');
@@ -119,7 +120,7 @@
         if (showWhenNeed) {
             var font = WC.HtmlHelper.GetFontCss(target);
             var textSize = WC.Utility.MeasureText(text, font);
-            if (textSize <= target.width()) {
+            if (textSize <= e.currentTarget.getBoundingClientRect().width) {
                 text = '';
             }
         }
@@ -180,7 +181,6 @@
         maxchars: 5000,
         Create: function (key, selector, showWhenNeed, position, tooltipClassName) {
             showWhenNeed = WC.Utility.ToBoolean(showWhenNeed);
-
             jQuery(document)
                 .off('mouseover.' + key)
                 .on('mouseover.' + key, selector, { selector: selector, showWhenNeed: showWhenNeed, position: position, className: tooltipClassName || '' }, showTooltip)

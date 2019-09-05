@@ -163,10 +163,10 @@ div.k-grid-header .k-header.actionable {
 .k-grid-header .gridHeaderContainer .sort {
     background: transparent none center center no-repeat;
     float: right;
-    height: 15px;
     position: relative;
     right: -4px;
     top: 7px;
+    height: 15px;
     width: 15px;
 }
 

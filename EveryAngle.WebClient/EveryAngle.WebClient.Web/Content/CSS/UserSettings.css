@@ -230,3 +230,7 @@
 .settingsPanelGoToSap .btn-download:hover .icon {
     top: -5px;
 }
+
+.settingsPanelGoToSap .btn-info:hover,.settingsPanelGoToSap .btn-info i:hover {
+    cursor:default;
+}

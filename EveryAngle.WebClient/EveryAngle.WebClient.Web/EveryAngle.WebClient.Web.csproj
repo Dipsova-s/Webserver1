@@ -32,7 +32,8 @@
     <WebGreaseLibPath>..\packages\WebGrease.1.5.2\lib</WebGreaseLibPath>
     <UseGlobalApplicationHostFile />
     <TargetFrameworkProfile />
-    <Use64BitIISExpress>true</Use64BitIISExpress>
+    <Use64BitIISExpress>
+    </Use64BitIISExpress>
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
   </PropertyGroup>
@@ -522,8 +523,11 @@
     <Content Include="Images\Angle\ActionDropdownList\pastedisplay.svg" />
     <Content Include="Images\Angle\ActionDropdownList\save.svg" />
     <Content Include="Images\Angle\ActionDropdownList\saveas.svg" />
+    <Content Include="Images\Angle\AngleDetail\btn_additem.svg" />
     <Content Include="Images\Angle\AngleDetail\btn_deselectall.svg" />
     <Content Include="Images\Angle\AngleDetail\btn_invertselect.svg" />
+    <Content Include="Images\Angle\AngleDetail\btn_removeall.svg" />
+    <Content Include="Images\Angle\AngleDetail\btn_removeitem.svg" />
     <Content Include="Images\Angle\AngleDetail\btn_selectall.svg" />
     <Content Include="Images\Angle\back2search.svg" />
     <Content Include="Images\Angle\btn_addcolumn.svg" />
@@ -745,10 +749,7 @@
     <Content Include="Scripts\KendoUI\messages\kendo.messages.de-DE.js" />
     <Content Include="Scripts\User\Authentication.js" />
     <Content Include="Global.asax" />
-    <Content Include="Images\Angle\AngleDetail\btn_AddDate.jpg" />
     <Content Include="Images\Angle\AngleDetail\btn_delete_language.png" />
-    <Content Include="Images\Angle\AngleDetail\btn_ReduceDate.jpg" />
-    <Content Include="Images\Angle\AngleDetail\btn_RemoveAll.png" />
     <Content Include="Images\Angle\create_new_from_template.png" />
     <Content Include="Images\Angle\create_new_business_schema.png" />
     <Content Include="Images\Angle\create_new_full_list.png" />

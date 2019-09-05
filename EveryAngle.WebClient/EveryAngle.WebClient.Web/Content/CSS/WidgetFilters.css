@@ -675,16 +675,31 @@
     z-index: 2000;
 }
 
+
+.FilterWrapper3 .filterInputGroupOther .btn,
+.FilterWrapper3 .filterInputGroupOther .btn:disabled{
+    background-size: 36px;
+    top: -5px;
+    left: -4px;
+    margin:auto;
+    width:30px;
+}
+
+.FilterWrapper3 .filterInputGroupOther .btn:hover{
+    box-shadow:none;
+}
+
+
 .FilterWrapper3 .filterInputGroupOther .btnAdd {
-    background-image: url('../../images/angle/angledetail/btn_adddate.jpg');
+    background-image: url('../../images/angle/angledetail/btn_additem.svg');
 }
 
 .FilterWrapper3 .filterInputGroupOther .btnRemove {
-    background-image: url('../../images/angle/angledetail/btn_reducedate.jpg');
+    background-image: url('../../images/angle/angledetail/btn_removeitem.svg');
 }
 
 .FilterWrapper3 .filterInputGroupOther .btnRemoveAll {
-    background-image: url('../../images/angle/angledetail/btn_removeall.png');
+    background-image: url('../../images/angle/angledetail/btn_removeall.svg');
 }
 
 .FilterWrapper4 .filterInputGroupOther .btnEnumPopup {

@@ -1220,10 +1220,7 @@ function FieldsChooserModel() {
                 fixedIcons = {
                     'suggested': 'icon_suggest.png',
                     'issuggested': 'icon_suggest.png',
-                    'facet_issuggested': 'icon_suggest.png',
-                    'starred': 'icon_starred_active.png',
-                    'isstarred': 'icon_starred_active.png',
-                    'facet_isstarred': 'icon_starred_active.png'
+                    'facet_issuggested': 'icon_suggest.png'
 
                 };
             var fieldTypeIcons =
@@ -1240,7 +1237,10 @@ function FieldsChooserModel() {
                 'date': 'icon_date.png',
                 'datetime': 'icon_datetime.png',
                 'timespan': 'icon_period.png',
-                'currency': 'icon_currency.png'
+                'currency': 'icon_currency.png',
+                'starred': 'icon_starred_active.svg',
+                'isstarred': 'icon_starred_active.svg',
+                'facet_isstarred': 'icon_starred_active.svg'
             };
 
             if (fixedIcons[id]) {

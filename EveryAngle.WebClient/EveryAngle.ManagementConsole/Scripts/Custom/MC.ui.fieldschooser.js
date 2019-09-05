@@ -111,9 +111,9 @@
             'suggested': 'icon_suggest.png',
             'issuggested': 'icon_suggest.png',
             'facet_issuggested': 'icon_suggest.png',
-            'starred': 'icon_starred_active.png',
-            'isstarred': 'icon_starred_active.png',
-            'facet_isstarred': 'icon_starred_active.png'
+            'starred': 'icon_starred_active.svg',
+            'isstarred': 'icon_starred_active.svg',
+            'facet_isstarred': 'icon_starred_active.svg'
         };
         var fieldTypeIcons =
         {

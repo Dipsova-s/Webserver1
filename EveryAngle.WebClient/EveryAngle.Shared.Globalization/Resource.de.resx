@@ -826,7 +826,7 @@
     <value>Download launcher</value>
   </data>
   <data name="SystemSettingLabelGoToSAPDownload_Info" xml:space="preserve">
-    <value>To use Go to SAP, click to download and install the Go to SAP Launcher on your workstation.</value>
+    <value>To use Go to SAP, click to download and install the Go to SAP launcher on your workstation.</value>
   </data>
   <data name="SystemSettingLabelShowSmallBusinessProcessBar" xml:space="preserve">
     <value>Kurzdarstellung anzeigen</value>

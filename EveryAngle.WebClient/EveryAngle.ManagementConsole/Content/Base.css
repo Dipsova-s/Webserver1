@@ -735,11 +735,11 @@ div.tagsinput .not_valid {
 }
 
 .helpTextPopup .k-window-titlebar .DisplayPropertiesGridSignFavorite {
-    background-image: url(./externalresource/icon_starred_active.png);
+    background-image: url(./externalresource/icon_starred_active.svg);
 }
 
 .helpTextPopup .k-window-titlebar .DisplayPropertiesGridSignFavoriteDisable {
-    background-image: url(./externalresource/icon_starred_inactive.png);
+    background-image: url(./externalresource/icon_starred_inactive.svg);
 }
 
 .helpTextPopup .k-window-titlebar .DisplayPropertiesGridSignSuggest {

@@ -1182,7 +1182,7 @@ function CreateNewAngleViewManagementModel() {
                             isSelected = true;
                         }
                         var radio = kendo.format('<label class="textEllipsis"><input type="radio" name="SelectModel"{1}/><span class="label">{0}</span></label>', modelName, isSelected ? ' checked' : '');
-                        modelsHtml[index] = kendo.format('<li class="listview-item{3}" title="{1}" data-id="{0}" onclick="createNewAngleViewManagementModel.CheckModelAvailable(this)">{2}</li>', model.id, modelName, radio, isSelected ? ' active' : '');
+                        modelsHtml[index] = kendo.format('<li class="listview-item{3}"  data-showWhenNeed="true"  data-role="tooltip" data-tooltip-title="{1}" data-tooltip-position="bottom" data-id="{0}" onclick="createNewAngleViewManagementModel.CheckModelAvailable(this)">{2}</li>', model.id, modelName, radio, isSelected ? ' active' : '');
                     }
                 });
                 modelsListElement.html(modelsHtml.join(''));

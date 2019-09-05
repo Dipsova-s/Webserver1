@@ -24,7 +24,7 @@ function SearchPageTemplateModel() {
                                     '<i class="icon #= searchPageHandler.GetItemIconTypeCSSClassByItem(data) #"></i>',
                                     '<a id="ItemFavoriteIcon_#=id#" class="icon #= searchPageHandler.GetSignFavoriteIconCSSClass(data) #" onclick="searchPageHandler.SetFavoriteItem(\'#= uri #\', event)" ></a>',
                                 '</div>',
-                                '<a class="name" href="#= searchModel.GetHrefUri(data, enumHandlers.DISPLAYTYPE_EXTRA.DEFAULT) #" onclick="return #= searchModel.CheckNoDisplay(data) #">#: name #</a>',
+                                '<a class="name" data-showwhenneed="true" data-role="tooltip" data-tooltip-title="#: name #" data-tooltip-position="bottom"  href="#= searchModel.GetHrefUri(data, enumHandlers.DISPLAYTYPE_EXTRA.DEFAULT) #" onclick="return #= searchModel.CheckNoDisplay(data) #">#: name #</a>',
                                 '<div class="rear">',
                                     '<i class="icon #= searchPageHandler.GetPublishCSSClass(data) #"></i>',
                                     '<i class="icon #= searchPageHandler.GetWarnningCSSClass(data) #"></i>',

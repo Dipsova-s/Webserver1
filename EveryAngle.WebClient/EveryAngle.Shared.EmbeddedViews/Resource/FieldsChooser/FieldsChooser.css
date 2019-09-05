@@ -483,6 +483,7 @@
     vertical-align: top;
     line-height: 16px;
 }
+
 .chrome .fieldChooserGridContainer .btnInfo {
     display: inline-flex;
 }
@@ -506,11 +507,15 @@
 }
 
 .DisplayPropertiesGridSignFavorite {
-    background-image: url(icon_starred_active.png);
+    background-image: url(icon_starred_active.svg);
+    background-size: 16px 16px;
+    background-position-y: 2px;
 }
 
 .DisplayPropertiesGridSignFavoriteDisable {
-    background-image: url(icon_starred_inactive.png);
+    background-image: url(icon_starred_inactive.svg);
+    background-size: 16px 16px;
+    background-position-y: 2px;
 }
 
 .DisplayPropertiesGridSignSuggest {
@@ -566,14 +571,14 @@
     width: 490px;
     height: 37px;
     overflow: hidden;
-    display: -webkit-box;           /* NOSONAR: acceptable */
-    -webkit-line-clamp: 3;          /* NOSONAR: acceptable */
-    -webkit-box-orient: vertical;   /* NOSONAR: acceptable */
+    display: -webkit-box; /* NOSONAR: acceptable */
+    -webkit-line-clamp: 3; /* NOSONAR: acceptable */
+    -webkit-box-orient: vertical; /* NOSONAR: acceptable */
 }
 
 .fullDetail .fieldChooserGridContainer .withDomain .detailHelp {
     height: 25px;
-    -webkit-line-clamp: 2;          /* NOSONAR: acceptable */
+    -webkit-line-clamp: 2; /* NOSONAR: acceptable */
 }
 
 .fullDetail .fieldChooserGridContainer .detailDomain {
@@ -583,8 +588,8 @@
 .fullDetail .fieldChooserGridContainer .withDomain .detailDomain {
     display: block !important;
     height: 12px;
-    -webkit-line-clamp: inherit;    /* NOSONAR: acceptable */
-    -webkit-box-orient: initial;    /* NOSONAR: acceptable */
+    -webkit-line-clamp: inherit; /* NOSONAR: acceptable */
+    -webkit-box-orient: initial; /* NOSONAR: acceptable */
     white-space: nowrap;
     text-overflow: ellipsis;
 }

@@ -199,11 +199,11 @@ function FollowupPageHandler() {
             left: blockFlowPosition2.left + blockFlows.outerWidth() + boxspace
         };
         blockIndicatorPosition = {
-            top: Math.max(containerSize.height - blockIndicator.outerHeight(), blockLeftPosition.top + blockLeft.outerHeight() + 10),
+            top: Math.max(containerSize.height - blockIndicator.outerHeight(), blockLeftPosition.top + blockLeft.outerHeight() + boxspace),
             left: 0
         };
         blockButtonPosition = {
-            top: Math.max(containerSize.height - blockButton.outerHeight(), blockRightPosition.top + blockRight.outerHeight() + 10),
+            top: Math.max(containerSize.height - blockButton.outerHeight(), blockRightPosition.top + blockRight.outerHeight() + boxspace),
             left: containerSize.width - blockButton.outerWidth()
         };
 

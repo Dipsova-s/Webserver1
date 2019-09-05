@@ -37,7 +37,7 @@ namespace EveryAngle.WebClient.Web
             RouteTable.Routes.Insert(0,
               new Route("resources/embedded/{file}.{extension}",
                   new RouteValueDictionary(new { }),
-                  new RouteValueDictionary(new { extension = "css|js|png|jpg|gif" }),
+                  new RouteValueDictionary(new { extension = "css|js|png|jpg|gif|svg" }),
                   new EmbeddedResourceRouteHandler()
               ));
         }
