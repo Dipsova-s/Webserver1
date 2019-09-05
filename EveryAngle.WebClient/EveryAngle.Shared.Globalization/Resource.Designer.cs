@@ -4059,24 +4059,6 @@ namespace EveryAngle.Shared.Globalization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Filter is applied relative to UTC model timestamp .
-        /// </summary>
-        public static string Filter_Example_Desctiption {
-            get {
-                return ResourceManager.GetString("Filter_Example_Desctiption", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Result: .
-        /// </summary>
-        public static string Filter_Example_Result {
-            get {
-                return ResourceManager.GetString("Filter_Example_Result", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Filters &amp; Jumps.
         /// </summary>
         public static string Filters {

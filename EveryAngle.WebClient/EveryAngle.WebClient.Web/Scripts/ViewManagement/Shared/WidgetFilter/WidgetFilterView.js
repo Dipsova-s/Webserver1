@@ -1643,32 +1643,14 @@
                 exampleElement = container.append('<div class="ExampleText" />').find('.ExampleText');
             exampleElement.hide();
 
-            exampleElement.empty();
             // get preview text
-            var previewText = self.GetFilterPreviewText(data, filedType, self.Handler.ModelUri);
-            if (previewText) {
-                exampleElement.append(previewText).show();
-            }
+            var previewSettings = WC.WidgetFilterHelper.GetTranslatedSettings(data.arguments, data.operator, filedType, self.Handler.ModelUri);
+            previewSettings.arguments.splice(0, 0, previewSettings.template);
+            var previewText = kendo.format.apply(kendo, previewSettings.arguments);
+            if (previewText)
+                exampleElement.text(previewText).show();
         }
-    };
-
-    self.GetFilterPreviewText = function (data, filedType, modelUri) {
-        var dateTimeFormat = self.Handler.GetDateTimeFormat();
-        var localDate = WC.WidgetFilterHelper.GetDefaultModelDataDate(modelUri);
-        var utcDate = WC.DateHelper.LocalDateToUtcDate(localDate);
-        var previewSettings = WC.WidgetFilterHelper.GetTranslatedSettings(
-            data.arguments, data.operator, filedType, modelUri, new Date(utcDate.valueOf()));
-        previewSettings.arguments.splice(0, 0, previewSettings.template);
-        var resultText = kendo.format.apply(kendo, previewSettings.arguments);
-        if (!resultText) {
-            return null;
-        }
-        var previewText = Localization.Filter_Example_Desctiption;
-        previewText += kendo.toString(utcDate, dateTimeFormat);
-        previewText += '<br/>';
-        previewText += Localization.Filter_Example_Result + '<span class="ExampleData">' + resultText + '<span>';
-        return previewText;
-    };
+    };     
 
     // enum dropdown list
     self.BindingEnumeratedDropdownList = function (elementId, fieldId, defaultFilter) {
