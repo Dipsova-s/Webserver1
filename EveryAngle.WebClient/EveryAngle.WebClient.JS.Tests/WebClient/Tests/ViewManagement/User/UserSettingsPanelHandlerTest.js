@@ -1276,6 +1276,8 @@ describe("UserSettingsPanelHandler", function () {
                 };
                 return value;
             });
+
+            window.enableGoToSAP = true;
         });
 
         it("should set client setting", function () {

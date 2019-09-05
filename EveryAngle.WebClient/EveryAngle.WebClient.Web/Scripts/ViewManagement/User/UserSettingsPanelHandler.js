@@ -371,10 +371,12 @@ function UserSettingsPanelHandler(stateManager, viewManager) {
     };
 
     self.InitialControlsGotoSap = function (setting) {
-        jQuery('#sapusertextbox').val(setting[enumHandlers.CLIENT_SETTINGS_PROPERTY.SAP_LOGON_USER]);
-        //use english as default
-        var defaultlang = setting[enumHandlers.CLIENT_SETTINGS_PROPERTY.SAP_LOGON_LANGUAGE]?setting[enumHandlers.CLIENT_SETTINGS_PROPERTY.SAP_LOGON_LANGUAGE]: 'en';
-        self.RenderFormatSettingDropdownlist('sapLanguageDropdown', enumHandlers.LANGUAGES, defaultlang, 'name', 'code');
+        if (window.enableGoToSAP) {
+            jQuery('#sapusertextbox').val(setting[enumHandlers.CLIENT_SETTINGS_PROPERTY.SAP_LOGON_USER]);
+            //use english as default
+            var defaultlang = setting[enumHandlers.CLIENT_SETTINGS_PROPERTY.SAP_LOGON_LANGUAGE] ? setting[enumHandlers.CLIENT_SETTINGS_PROPERTY.SAP_LOGON_LANGUAGE] : 'en';
+            self.RenderFormatSettingDropdownlist('sapLanguageDropdown', enumHandlers.LANGUAGES, defaultlang, 'name', 'code');
+        }
     };
 
     self.InitialControlsNumberGeneral = function (clientSettings) {
@@ -698,17 +700,19 @@ function UserSettingsPanelHandler(stateManager, viewManager) {
             clientSettings[enumHandlers.CLIENT_SETTINGS_PROPERTY.GENERAL_THOUSAND_SEPERATOR] = generalThousandSeparator;
             userSettingModel.ReloadAfterChanged(true);
         }
-        
-        var sapuser = jQuery.trim(jQuery('#sapusertextbox').val() || '');
-        if (clientSettings[enumHandlers.CLIENT_SETTINGS_PROPERTY.SAP_LOGON_USER] !== sapuser) {
-            isClientSettingChange = true;
-            clientSettings[enumHandlers.CLIENT_SETTINGS_PROPERTY.SAP_LOGON_USER] = sapuser;
-        }
 
-        var saplanguage = WC.HtmlHelper.DropdownList('#sapLanguageDropdown').value();
-        if (clientSettings[enumHandlers.CLIENT_SETTINGS_PROPERTY.SAP_LOGON_LANGUAGE] !== saplanguage) {
-            isClientSettingChange = true;
-            clientSettings[enumHandlers.CLIENT_SETTINGS_PROPERTY.SAP_LOGON_LANGUAGE] = saplanguage;
+        if (window.enableGoToSAP) {
+            var sapuser = jQuery.trim(jQuery('#sapusertextbox').val() || '');
+            if (clientSettings[enumHandlers.CLIENT_SETTINGS_PROPERTY.SAP_LOGON_USER] !== sapuser) {
+                isClientSettingChange = true;
+                clientSettings[enumHandlers.CLIENT_SETTINGS_PROPERTY.SAP_LOGON_USER] = sapuser;
+            }
+
+            var saplanguage = WC.HtmlHelper.DropdownList('#sapLanguageDropdown').value();
+            if (clientSettings[enumHandlers.CLIENT_SETTINGS_PROPERTY.SAP_LOGON_LANGUAGE] !== saplanguage) {
+                isClientSettingChange = true;
+                clientSettings[enumHandlers.CLIENT_SETTINGS_PROPERTY.SAP_LOGON_LANGUAGE] = saplanguage;
+            }
         }
 
         if (isClientSettingChange) {
