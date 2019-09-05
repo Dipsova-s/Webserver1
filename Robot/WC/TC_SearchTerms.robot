@@ -27,6 +27,7 @@ Verify Search Terms
     Search By Text Without Double Quote     ${TEST_SEARCH_TERM_6}
     Blur Search Input
 
+    Sleep    ${TIMEOUT_GENERAL}
     Click Search Input
     Search Terms Should Visible
     Search Terms Should Not Contain         ${TEST_SEARCH_TERM_1}
@@ -37,6 +38,7 @@ Verify Search Terms
     Search Terms Should Contain             ${TEST_SEARCH_TERM_6}
 
     Blur Search Input
+    Sleep    ${TIMEOUT_GENERAL}
     Click Search Input
     Click Last Item Search Term
     Wait Progress Bar Search Closed

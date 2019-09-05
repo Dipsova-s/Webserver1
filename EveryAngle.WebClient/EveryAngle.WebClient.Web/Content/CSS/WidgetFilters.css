@@ -623,15 +623,12 @@
 .FilterDetail .ExampleText {
     position: relative;
     color: #535353;
+    font-weight: bold;
     display: inline-block;
-    margin-top: 5px;
-    margin-left: 10px;
+    font-style: italic;
+    text-indent: 115px;
 }
 
-.FilterDetail .ExampleText .ExampleData {
-    font-weight: bold;
-    font-style: italic;
-}
 
 .FilterDetail .FilterWrapper .ExampleText {
     margin-left: 5px;

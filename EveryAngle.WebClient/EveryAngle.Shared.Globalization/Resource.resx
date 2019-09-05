@@ -6087,12 +6087,6 @@ Only Active Directory (AD) and Active Directory Federation (ADFS) services are s
   <data name="PublishSettings_WidgetLinkGoToDefinition" xml:space="preserve">
     <value>go to definition</value>
   </data>
-  <data name="Filter_Example_Desctiption" xml:space="preserve">
-    <value>Filter is applied relative to UTC model timestamp </value>
-  </data>
-  <data name="Filter_Example_Result" xml:space="preserve">
-    <value>Result: </value>
-  </data>
   <data name="Ascending" xml:space="preserve">
     <value>ascending</value>
   </data>
