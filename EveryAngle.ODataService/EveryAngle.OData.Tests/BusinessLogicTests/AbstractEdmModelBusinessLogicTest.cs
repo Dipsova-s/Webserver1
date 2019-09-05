@@ -303,11 +303,11 @@ namespace EveryAngle.OData.Tests.BusinessLogicTests
 
             fieldDash.UpdateUniqueXMLElementKey(fieldDash.AsXMLElementName());
             FieldCompositeKey fieldDashKey = fieldDash.CompositeKey;
-            Assert.AreEqual("testing_field_Can_GetField_111", fieldDashKey.UniqueXMLElementKey);
+            Assert.AreEqual("testing-field-Can-GetField", fieldDashKey.UniqueXMLElementKey);
             
             fieldColon.UpdateUniqueXMLElementKey(fieldColon.AsXMLElementName());
             FieldCompositeKey fieldColonKey = fieldColon.CompositeKey;
-            Assert.AreEqual("testing_field_Can_GetField_222", fieldColonKey.UniqueXMLElementKey);
+            Assert.AreEqual("testing_x003A_field_x003A_Can_x003A_GetField", fieldColonKey.UniqueXMLElementKey);
 
             _testingBusinessLogic.TrySaveField(fieldDashKey, fieldDash);
             _testingBusinessLogic.TrySaveField(fieldColonKey, fieldColon);

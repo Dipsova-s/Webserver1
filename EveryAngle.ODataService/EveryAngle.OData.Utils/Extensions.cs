@@ -1,25 +1,17 @@
 ﻿using EveryAngle.OData.DTO;
-using EveryAngle.OData.Utils.Constants;
 using System;
 using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.Diagnostics;
 using System.Linq;
-using System.Net.Http.Headers;
 using System.Reflection;
-using System.Text;
-using System.Text.RegularExpressions;
+using System.Xml;
 
 namespace EveryAngle.OData.Utils
 {
     public static class Extensions
     {
         #region utilities
-
-        public static string Truncate(this string value, int maxLength)
-        {
-            return string.IsNullOrEmpty(value) || value.Length <= maxLength ? value : value.Substring(0, maxLength);
-        }
 
         public static T As<T>(this object obj)
         {
@@ -31,22 +23,9 @@ namespace EveryAngle.OData.Utils
             return int.Parse(uri.Split('/').Last());
         }
 
-        public static string CleanId(this string idstring)
-        {
-            return idstring.Contains("__") ? idstring.Split(new string[] { "__" }, StringSplitOptions.RemoveEmptyEntries).Last() : idstring;
-        }
-
         public static string EntitySetId(this string entitySetName)
         {
             return entitySetName.Split(new string[] { "__" }, StringSplitOptions.None).Last();
-        }
-
-        public static string GetNullValueText(this object nullObject)
-        {
-            if (nullObject != null)
-                return nullObject.ToString();
-
-            return "<no value> (<no value>)";
         }
 
         public static T GetQueryArgs<T>(this NameValueCollection queryString, string key)
@@ -59,38 +38,19 @@ namespace EveryAngle.OData.Utils
 
         public static string Replace(this string text, char[] oldChars, char newChar)
         {
-            return String.Join(newChar.ToString(), text.Split(oldChars));
+            return string.Join(newChar.ToString(), text.Split(oldChars));
         }
 
         public static string AsXMLElementName(this Field field)
         {
-            string[] splittedUri = field.uri.Split('/');
-            string internalId = splittedUri.GetValue(splittedUri.Length - 1).ToString();
-            return AsXMLElementName(Regex.IsMatch(field.id, "^[a-zA-Z0-9_]*$") ?
-                                    field.id :
-                                    string.Format("{0}_{1}", field.id, internalId));
+            return AsXMLElementName(field.id);
         }
 
         public static string AsXMLElementName(this string text)
         {
             if (string.IsNullOrEmpty(text))
                 return text;
-            //Element names are case-sensitive
-            //Element names must start with a letter or underscore
-            //Element names cannot start with the letters xml(or XML, or Xml, etc)
-            //Element names can contain letters, digits, hyphens, underscores, and periods
-            //Element names cannot contain spaces
-            //Avoid "-".If you name something "first-name", some software may think you want to subtract "name" from "first".
-            //Avoid ".".If you name something "first.name", some software may think that "name" is a property of the object "first".
-            //Avoid ":".Colons are reserved for namespaces(more later).
-
-            // replace all special character to "_"
-            string elementName = Regex.Replace(text, @"[^0-9a-zA-Z_]+", "_");
-
-            // xml element does not allow the element which is started by "xml", replace to "_"
-            if (elementName.ToLowerInvariant().StartsWith("xml"))
-                elementName = "_" + elementName;
-
+            string elementName = XmlConvert.EncodeLocalName(text);
             return elementName;
         }
 
@@ -175,11 +135,6 @@ namespace EveryAngle.OData.Utils
         #endregion
 
         #region angle composite keys
-
-        public static AngleCompositeKey GetAngleCompositeKey(string uri)
-        {
-            return GetAngleCompositeKey(null, uri);
-        }
         public static AngleCompositeKey GetAngleCompositeKey(int internalId)
         {
             return GetAngleCompositeKey(internalId, string.Empty);
@@ -192,15 +147,6 @@ namespace EveryAngle.OData.Utils
         #endregion
 
         #region display composite keys
-
-        public static DisplayCompositeKey GetDisplayCompositeKey(string uri)
-        {
-            return GetDisplayCompositeKey(null, uri);
-        }
-        public static DisplayCompositeKey GetDisplayCompositeKey(int internalId)
-        {
-            return GetDisplayCompositeKey(internalId, string.Empty);
-        }
         public static DisplayCompositeKey GetDisplayCompositeKey(int? internalId, string uri)
         {
             return new DisplayCompositeKey { InternalId = internalId, Uri = uri };
@@ -209,13 +155,6 @@ namespace EveryAngle.OData.Utils
         #endregion
 
         #region field composite keys
-
-        public static FieldCompositeKey GetCompositeKey(this Field field)
-        {
-            FieldCompositeKey compositeKey = GetCompositeKey<FieldCompositeKey>(field);
-            compositeKey.BusinessId = field.id;
-            return compositeKey;
-        }
 
         public static FieldCompositeKey GetFieldCompositeKey(string businessId)
         {
@@ -227,7 +166,7 @@ namespace EveryAngle.OData.Utils
         }
         public static FieldCompositeKey GetFieldCompositeKey(int? internalId, string businessId, string uri)
         {
-            return new FieldCompositeKey { InternalId = internalId, BusinessId = businessId, Uri = uri, UniqueXMLElementKey = businessId.AsXMLElementName() };
+            return new FieldCompositeKey { InternalId = internalId, BusinessId = businessId, Uri = uri, UniqueXMLElementKey = businessId };
         }
 
         #endregion

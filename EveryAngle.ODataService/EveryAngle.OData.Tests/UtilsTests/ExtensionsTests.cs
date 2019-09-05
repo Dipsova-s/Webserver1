@@ -2,7 +2,6 @@
 using EveryAngle.OData.DTO.Settings;
 using EveryAngle.OData.Settings;
 using EveryAngle.OData.Utils;
-using EveryAngle.OData.Utils.Constants;
 using EveryAngle.OData.Utils.Logs;
 using EveryAngle.OData.ViewModel.Settings;
 using NUnit.Framework;
@@ -35,17 +34,6 @@ namespace EveryAngle.OData.Tests.UtilsTests
 
         #region tests
 
-        [TestCase("TEST_ID_LONGER", 5, "TEST_")]
-        [TestCase("TEST2_ID_SHORTER", 20, "TEST2_ID_SHORTER")]
-        [TestCase("TEST3_ID_EQUAL", 14, "TEST3_ID_EQUAL")]
-        [TestCase("", 20, "")]
-        [TestCase(null, 0, null)]
-        public void Can_GenerateTruncateBusinessId(string idString, int maxLength, string expectedResult)
-        {
-            string truncatedId = idString.Truncate(maxLength);
-            Assert.AreEqual(expectedResult, truncatedId);
-        }
-
         [TestCase("models/20", 20)]
         [TestCase("models/20/instances/14", 14)]
         [TestCase("models/1/angles/5", 5)]
@@ -61,36 +49,12 @@ namespace EveryAngle.OData.Tests.UtilsTests
         [TestCase("ID__BLAH_4", "BLAH_4")]
         [TestCase("ID__BLAH__5", "5")]
         [TestCase("ID6", "ID6")]
-        [TestCase("ID7__", "ID7")]
-        [TestCase("__ID8__", "ID8")]
-        [TestCase("__ID9", "ID9")]
-        public void Can_CleanBusinessId(string businessId, string expectedBusinessId)
-        {
-            Assert.AreEqual(expectedBusinessId, businessId.CleanId());
-        }
-
-        [TestCase("ID_1", "ID_1")]
-        [TestCase("ID__2", "2")]
-        [TestCase("ID____3", "3")]
-        [TestCase("ID__BLAH_4", "BLAH_4")]
-        [TestCase("ID__BLAH__5", "5")]
-        [TestCase("ID6", "ID6")]
         [TestCase("ID7__", "")]
         [TestCase("__ID8__", "")]
         [TestCase("__ID9", "ID9")]
         public void Can_GetEntitySetId(string businessId, string expectedBusinessId)
         {
             Assert.AreEqual(expectedBusinessId, businessId.EntitySetId());
-        }
-
-        [TestCase(null, "<no value> (<no value>)")]
-        [TestCase("", "")]
-        [TestCase(123, "123")]
-        [TestCase("STRING", "STRING")]
-        [TestCase(LogLevel.ERROR, "ERROR")]
-        public void Can_GetNullValueText(object valueObject, string expectedValue)
-        {
-            Assert.AreEqual(expectedValue, valueObject.GetNullValueText());
         }
 
         [TestCase]
@@ -147,26 +111,6 @@ namespace EveryAngle.OData.Tests.UtilsTests
             Assert.AreEqual(internalId, compositeKey.InternalId);
         }
 
-        [TestCase(1, "models/1/angles/1/displays/2")]
-        public void Can_GetDisplayCompositeKey(int internalId, string uri)
-        {
-            DisplayCompositeKey compositeKey_uri = Extensions.GetDisplayCompositeKey(uri);
-            DisplayCompositeKey compositeKey_id = Extensions.GetDisplayCompositeKey(internalId);
-            DisplayCompositeKey compositeKey_both = Extensions.GetDisplayCompositeKey(internalId, uri);
-
-            Assert.IsNotNull(compositeKey_uri);
-            Assert.IsNotNull(compositeKey_id);
-            Assert.IsNotNull(compositeKey_both);
-
-            Assert.AreEqual(uri, compositeKey_uri.Uri);
-            Assert.AreEqual(null, compositeKey_uri.InternalId);
-
-            Assert.AreEqual(uri, compositeKey_uri.Uri);
-            Assert.AreEqual(1, compositeKey_id.InternalId);
-            Assert.AreEqual(uri, compositeKey_both.Uri);
-            Assert.AreEqual(1, compositeKey_both.InternalId);
-        }
-
         [TestCase(1, "models/1/angles/1/displays/2", "test_business_id")]
         public void Can_GetDisplayCompositeKey(int internalId, string uri, string businessId)
         {
@@ -182,15 +126,14 @@ namespace EveryAngle.OData.Tests.UtilsTests
             Assert.AreEqual(uri, compositeKey_businessid.Uri);
         }
 
-        [TestCase(111, "models/1/instances/2/fields/111", "111_business_id")]
-        public void Can_GetUniqueEntityName(int internalId, string fieldUri, string businessId)
+        [TestCase(111, "models/1/instances/2/fields/111")]
+        public void Can_GetUniqueEntityName(int internalId, string fieldUri)
         {
-            Field testingField = new Field { uri = fieldUri, id = businessId };
+            Field testingField = new Field { uri = fieldUri };
             FieldCompositeKey compositeKey = testingField.GetCompositeKey();
 
             Assert.AreEqual(internalId, compositeKey.InternalId);
             Assert.AreEqual(fieldUri, compositeKey.Uri);
-            Assert.AreEqual(businessId, compositeKey.BusinessId);
         }
 
         [TestCase]
@@ -284,7 +227,7 @@ namespace EveryAngle.OData.Tests.UtilsTests
             Assert.AreEqual("EA2_800", ODataSettings.Settings.ModelId);
         }
 
-        [TestCase("CONVERT_!@#$%^&*()-=+/\\\"'?:;â˜ºâ˜»â™¥â™¦â™£â™ â€¢â—˜â—‹1", "CONVERT__1")]
+        [TestCase("CONVERT_!@#$%^&*()-=+/\\\"'?:;â˜ºâ˜»â™¥â™¦â™£â™ â€¢â—˜â—‹1", "CONVERT__x0021__x0040__x0023__x0024__x0025__x005E__x0026__x002A__x0028__x0029_-_x003D__x002B__x002F__x005C__x0022__x0027__x003F__x003A__x003B_â_x02DC__x00BA_â_x02DC__x00BB_â_x2122__x00A5_â_x2122__x00A6_â_x2122__x00A3_â_x2122__x00A0_â_x20AC__x00A2_â_x2014__x02DC_â_x2014__x2039_1")]
         public void Can_Convert_AsXMLElementName(string convertingText, string expectedConverted)
         {
             string convertedText = Extensions.AsXMLElementName(convertingText);
@@ -293,7 +236,7 @@ namespace EveryAngle.OData.Tests.UtilsTests
             Assert.AreEqual(expectedConverted, convertedText);
         }
 
-        [TestCase("CONVERT_!@#$%^&*()-=+/\\\"'?:;â˜ºâ˜»â™¥â™¦â™£â™ â€¢â—˜â—‹1", "/models/1/instances/2/fields/7", "CONVERT__1_7")]
+        [TestCase("CONVERT_!@#$%^&*()-=+/\\\"'?:;â˜ºâ˜»â™¥â™¦â™£â™ â€¢â—˜â—‹1", "/models/1/instances/2/fields/7", "CONVERT__x0021__x0040__x0023__x0024__x0025__x005E__x0026__x002A__x0028__x0029_-_x003D__x002B__x002F__x005C__x0022__x0027__x003F__x003A__x003B_â_x02DC__x00BA_â_x02DC__x00BB_â_x2122__x00A5_â_x2122__x00A6_â_x2122__x00A3_â_x2122__x00A0_â_x20AC__x00A2_â_x2014__x02DC_â_x2014__x2039_1")]
         [TestCase("ABC1", "/models/1/instances/2/fields/8", "ABC1")]
         [TestCase("ABC__1", "/models/1/instances/2/fields/8", "ABC__1")]
         public void Can_Convert_AsXMLElementName(string testingBusinessId, string testingUri, string expectedConverted)

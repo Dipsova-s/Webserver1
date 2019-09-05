@@ -54,12 +54,11 @@ namespace EveryAngle.OData.Tests.BusinessLogicTests
             Assert.IsNotNull(edmModel);
         }
 
-        [TestCase("angleKey_Can_AddNewAngleToMetadata")]
-        public void Can_AddNewAngleToMetadata(string angleKey)
+        public void Can_AddNewAngleToMetadata()
         {
             // setup
             Angle gettingAngle;
-            AngleCompositeKey compositeKey = Extensions.GetAngleCompositeKey(angleKey);
+            AngleCompositeKey compositeKey = Extensions.GetAngleCompositeKey(5678);
 
             // test and assertion
             Assert.IsTrue(_testingBusinessLogic.TrySaveAngle(compositeKey, _testingAngle), 
@@ -105,7 +104,7 @@ namespace EveryAngle.OData.Tests.BusinessLogicTests
             // assertions
             Assert.IsTrue(_testingBusinessLogic.TrySaveAngle(compositeKey, _testingAngle), 
                 "angle {0} should be saved properly.", _testingAngle.id);
-            Assert.False(_testingBusinessLogic.TrySaveAngle(Extensions.GetAngleCompositeKey(angleKey), _testingAngle), 
+            Assert.False(_testingBusinessLogic.TrySaveAngle(Extensions.GetAngleCompositeKey(5678), _testingAngle), 
                 "angle {0} should not be saved twice.", _testingAngle.id);
         }
 
