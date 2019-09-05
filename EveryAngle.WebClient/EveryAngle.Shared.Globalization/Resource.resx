@@ -5296,6 +5296,12 @@ Are you sure you want to delete this role?</value>
   <data name="ExportCSVEnumFormatLongName" xml:space="preserve">
     <value>Long name</value>
   </data>
+  <data name="MC_AllowGroupingInPivotExcelExport" xml:space="preserve">
+    <value>Enable Grouping in Pivot exports</value>
+  </data>
+  <data name="MC_SystemSettingsHelpAllowGroupingInPivotExcelExport" xml:space="preserve">
+    <value>When enabled, additional data groups are exported to support grouping in Excel.</value>
+  </data>
   <data name="MC_IncludeSelfInExportHeaders" xml:space="preserve">
     <value>Include Self in export headers</value>
   </data>

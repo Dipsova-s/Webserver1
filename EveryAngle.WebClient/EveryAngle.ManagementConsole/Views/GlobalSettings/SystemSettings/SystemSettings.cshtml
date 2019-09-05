@@ -135,6 +135,16 @@
                 </p>
             </div>
             <div class="contentSectionInfoItem">
+                @Html.LabelFor(model => model.allow_grouping_in_pivot_excel_export)
+                <p>
+                    <label>
+                        <input data-val="true" id="allow_grouping_in_pivot_excel_export" name="SystemSettings.allow_grouping_in_pivot_excel_export" type="checkbox" value="true" @(!Model.allow_grouping_in_pivot_excel_export ? "" : " checked='checked'") /><span class="label"></span>
+                    </label>
+                    <a data-target="#popupDescriptionTemplate" title="Description" data-width="600" data-min-height="100" data-role="mcPopup" class="btn btnInfo" onclick="MC.util.showDescriptionPopup(this)"></a>
+                    <textarea class="alwaysHidden">@Resource.MC_SystemSettingsHelpAllowGroupingInPivotExcelExport</textarea>
+                </p>
+            </div>
+            <div class="contentSectionInfoItem">
                 @Html.LabelFor(model => model.include_self_in_export_headers)
                 <p>
                     <label>
