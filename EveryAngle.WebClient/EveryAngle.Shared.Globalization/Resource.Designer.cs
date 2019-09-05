@@ -7078,6 +7078,15 @@ namespace EveryAngle.Shared.Globalization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Enable Grouping in Pivot exports.
+        /// </summary>
+        public static string MC_AllowGroupingInPivotExcelExport {
+            get {
+                return ResourceManager.GetString("MC_AllowGroupingInPivotExcelExport", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Allow impersonation.
         /// </summary>
         public static string MC_AllowImpersonation {
@@ -12160,6 +12169,15 @@ namespace EveryAngle.Shared.Globalization {
         public static string MC_SystemSettingsHelpActiveDirectorySizeLimit {
             get {
                 return ResourceManager.GetString("MC_SystemSettingsHelpActiveDirectorySizeLimit", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to When enabled, additional data groups are exported to support grouping in Excel..
+        /// </summary>
+        public static string MC_SystemSettingsHelpAllowGroupingInPivotExcelExport {
+            get {
+                return ResourceManager.GetString("MC_SystemSettingsHelpAllowGroupingInPivotExcelExport", resourceCulture);
             }
         }
         
