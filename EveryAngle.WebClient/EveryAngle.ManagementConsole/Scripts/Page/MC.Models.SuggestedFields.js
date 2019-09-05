@@ -783,6 +783,9 @@
             var selectedIndicator = jQuery('<span id="selectedItems"></span>');
             jQuery('#popupFieldChooser .fieldChooserTotals').prepend(selectedIndicator);
 
+            // add class for suggested field popup
+            jQuery('#popupFieldChooser').addClass('popupFieldChooserFieldSuggested');
+
             // enabled buttons after everything loaded
             MC.ui.fieldschooser.checkFieldsChooserButtons('.btnPropertyCancel, .btnSelectAll, .btnClearAll');
         };

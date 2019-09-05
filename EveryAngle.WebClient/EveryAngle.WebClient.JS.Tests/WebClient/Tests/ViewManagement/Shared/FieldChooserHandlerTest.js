@@ -1,14 +1,14 @@
 ﻿/// <reference path="/../SharedDependencies/FieldsChooser.js" />
 /// <reference path="/Dependencies/ViewManagement/Shared/PopupPageHandlers.js" />
 /// <reference path="/Dependencies/ViewManagement/Angles/FieldSettingsHandler.js" />
-/// <reference path="/Dependencies/ViewManagement/Shared/FieldChooserHandler.js" />
+/// <reference path="/Dependencies/viewmanagement/shared/fieldchooserhandler.js" />
 
 describe("FieldsChooserHandler", function () {
-
-    var fieldChooserHandler;
+    var fieldsChooserHandler;
 
     beforeEach(function () {
-        fieldChooserHandler = new FieldsChooserHandler();
+        fieldsChooserHandler = new FieldsChooserHandler();
+
         fieldsChooserModel.BeforeOpenCategoryFunction = null;
         fieldsChooserModel.DefaultFacetFilters = [];
 
@@ -27,18 +27,60 @@ describe("FieldsChooserHandler", function () {
         };
     });
 
+    describe("Validate 'fieldsChooserModel.OnSubmit' function", function () {
+
+        var mockPopupSettings, mockHandler;
+        beforeEach(function () {
+            mockPopupSettings = {};
+            mockHandler = {};
+            mockHandler.AddFieldFilter = jQuery.noop;
+
+            spyOn(fieldsChooserHandler, 'SetSubmitButtonCaption');
+            spyOn(fieldsChooserModel, 'ClosePopup');
+            spyOn(mockHandler, 'AddFieldFilter');
+        });
+
+        describe(".SetAddFilterPopupSettings", function () {
+            
+            it("should not throw an error when user submit without selected item", function () {
+                fieldsChooserHandler.SetAddFilterPopupSettings(mockPopupSettings, mockHandler);
+
+                expect(function () {
+                    fieldsChooserModel.OnSubmit();
+                    expect(mockHandler.AddFieldFilter).not.toHaveBeenCalled();
+                }).not.toThrow();
+            });
+
+        });
+
+        describe(".SetAddDashboardFilterPopupSettings", function () {
+
+            it("should not throw an error when user submit without selected item", function () {
+                fieldsChooserHandler.SetAddDashboardFilterPopupSettings(mockPopupSettings, mockHandler);
+
+                expect(function () {
+                    fieldsChooserModel.OnSubmit();
+                    expect(mockHandler.AddFieldFilter).not.toHaveBeenCalled();
+                }).not.toThrow();
+            });
+
+        });
+
+    });
+
+
     describe(".SetAggregationSettingDataArea", function () {
 
         it("should add 'source' category to 'DefaultFacetFilters'", function () {
 
-            fieldChooserHandler.SetAggregationSettingDataArea();
+            fieldsChooserHandler.SetAggregationSettingDataArea();
             expect(fieldsChooserModel.DefaultFacetFilters[0].facet).toEqual('source');
 
         });
 
         it("should create 'BeforeOpenCategoryFunction' function", function () {
 
-            fieldChooserHandler.SetAggregationSettingDataArea();
+            fieldsChooserHandler.SetAggregationSettingDataArea();
             expect(fieldsChooserModel.BeforeOpenCategoryFunction).not.toEqual(null);
 
         });
@@ -49,7 +91,7 @@ describe("FieldsChooserHandler", function () {
 
             spyOn(fn, "expand");
 
-            fieldChooserHandler.SetAggregationSettingDataArea();
+            fieldsChooserHandler.SetAggregationSettingDataArea();
             fieldsChooserModel.BeforeOpenCategoryFunction('test', fn.expand);
             expect(fn.expand).toHaveBeenCalled();
 
@@ -59,7 +101,7 @@ describe("FieldsChooserHandler", function () {
 
             spyOn(popup, "Confirm").and.callFake($.noop);
 
-            fieldChooserHandler.SetAggregationSettingDataArea();
+            fieldsChooserHandler.SetAggregationSettingDataArea();
             fieldsChooserModel.BeforeOpenCategoryFunction('source', $.noop);
             expect(popup.Confirm).toHaveBeenCalled();
 
@@ -67,7 +109,7 @@ describe("FieldsChooserHandler", function () {
 
         it("should call 'HideFacetsFunction' function and get 'false' if id is 'int'", function () {
 
-            fieldChooserHandler.SetAggregationSettingDataArea();
+            fieldsChooserHandler.SetAggregationSettingDataArea();
             var result = fieldsChooserModel.HideFacetsFunction(fieldsChooserModel.CATEGORIES.FIELDTYPE, 'int');
             expect(result).toEqual(false);
 
@@ -75,7 +117,7 @@ describe("FieldsChooserHandler", function () {
 
         it("should call 'HideFacetsFunction' function and get 'false' if category is not 'fieldtype'", function () {
 
-            fieldChooserHandler.SetAggregationSettingDataArea();
+            fieldsChooserHandler.SetAggregationSettingDataArea();
             var result = fieldsChooserModel.HideFacetsFunction('xx', 'int');
             expect(result).toEqual(false);
 
@@ -83,7 +125,7 @@ describe("FieldsChooserHandler", function () {
 
         it("should call 'HideFacetsFunction' function and get 'true'", function () {
 
-            fieldChooserHandler.SetAggregationSettingDataArea();
+            fieldsChooserHandler.SetAggregationSettingDataArea();
             var result = fieldsChooserModel.HideFacetsFunction(fieldsChooserModel.CATEGORIES.FIELDTYPE, 'text');
             expect(result).toEqual(true);
 
@@ -97,7 +139,7 @@ describe("FieldsChooserHandler", function () {
 
             fieldsChooserModel.FieldChooserType = 'data';
             fieldsChooserModel.HideFacetsFunction = null;
-            fieldChooserHandler.SetAggregationSettingForChart({ chart_type: 'bubble' });
+            fieldsChooserHandler.SetAggregationSettingForChart({ chart_type: 'bubble' });
             expect(fieldsChooserModel.HideFacetsFunction).toEqual(null);
 
         });
@@ -106,7 +148,7 @@ describe("FieldsChooserHandler", function () {
 
             fieldsChooserModel.FieldChooserType = 'data';
             fieldsChooserModel.HideFacetsFunction = null;
-            fieldChooserHandler.SetAggregationSettingForChart({ chart_type: 'scatter' });
+            fieldsChooserHandler.SetAggregationSettingForChart({ chart_type: 'scatter' });
             expect(fieldsChooserModel.HideFacetsFunction).toEqual(null);
 
         });
@@ -115,7 +157,7 @@ describe("FieldsChooserHandler", function () {
 
             fieldsChooserModel.FieldChooserType = 'row';
             fieldsChooserModel.HideFacetsFunction = null;
-            fieldChooserHandler.SetAggregationSettingForChart({ chart_type: 'bar' });
+            fieldsChooserHandler.SetAggregationSettingForChart({ chart_type: 'bar' });
             expect(fieldsChooserModel.HideFacetsFunction).toEqual(null);
 
         });
@@ -124,7 +166,7 @@ describe("FieldsChooserHandler", function () {
 
             fieldsChooserModel.FieldChooserType = 'row';
             fieldsChooserModel.HideFacetsFunction = null;
-            fieldChooserHandler.SetAggregationSettingForChart({ chart_type: 'bubble' });
+            fieldsChooserHandler.SetAggregationSettingForChart({ chart_type: 'bubble' });
             expect(fieldsChooserModel.HideFacetsFunction).not.toEqual(null);
 
         });
@@ -133,7 +175,7 @@ describe("FieldsChooserHandler", function () {
 
             fieldsChooserModel.FieldChooserType = 'row';
             fieldsChooserModel.HideFacetsFunction = null;
-            fieldChooserHandler.SetAggregationSettingForChart({ chart_type: 'scatter' });
+            fieldsChooserHandler.SetAggregationSettingForChart({ chart_type: 'scatter' });
             var result = fieldsChooserModel.HideFacetsFunction('xxx', 'time');
             expect(result).toEqual(false);
 
@@ -143,7 +185,7 @@ describe("FieldsChooserHandler", function () {
 
             fieldsChooserModel.FieldChooserType = 'row';
             fieldsChooserModel.HideFacetsFunction = null;
-            fieldChooserHandler.SetAggregationSettingForChart({ chart_type: 'scatter' });
+            fieldsChooserHandler.SetAggregationSettingForChart({ chart_type: 'scatter' });
 
             $.each(['currency', 'number', 'int', 'double', 'percentage', 'date', 'datetime', 'time', 'period'], function (index, fieldType) {
                 var result = fieldsChooserModel.HideFacetsFunction(fieldsChooserModel.CATEGORIES.FIELDTYPE, fieldType);
@@ -156,7 +198,7 @@ describe("FieldsChooserHandler", function () {
 
             fieldsChooserModel.FieldChooserType = 'row';
             fieldsChooserModel.HideFacetsFunction = null;
-            fieldChooserHandler.SetAggregationSettingForChart({ chart_type: 'scatter' });
+            fieldsChooserHandler.SetAggregationSettingForChart({ chart_type: 'scatter' });
 
             $.each(['text', 'boolean', 'enumerated'], function (index, fieldType) {
                 var result = fieldsChooserModel.HideFacetsFunction(fieldsChooserModel.CATEGORIES.FIELDTYPE, fieldType);
@@ -220,7 +262,7 @@ describe("FieldsChooserHandler", function () {
 
         $.each(tests, function (index, test) {
             it(test.title, function () {
-                spyOn(fieldChooserHandler, 'GetFollowupIndex').and.returnValue(test.index);
+                spyOn(fieldsChooserHandler, 'GetFollowupIndex').and.returnValue(test.index);
                 if (test.handler) {
                     test.handler.FILTERFOR = {
                         ANGLE: 'Angle',
@@ -228,7 +270,7 @@ describe("FieldsChooserHandler", function () {
                         DASHBOARD: 'Dashboard'
                     };
                 }
-                var result = fieldChooserHandler.GetPopupConfiguration(test.type, test.handler);
+                var result = fieldsChooserHandler.GetPopupConfiguration(test.type, test.handler);
                 expect(result).toEqual(test.expected);
             });
         });
@@ -272,7 +314,7 @@ describe("FieldsChooserHandler", function () {
                     { step_type: enumHandlers.FILTERTYPE.FILTER },
                     { step_type: enumHandlers.FILTERTYPE.FOLLOWUP }
                 ];
-                var result = fieldChooserHandler.GetFollowupIndex(data, test.limit, test.notFoundValue);
+                var result = fieldsChooserHandler.GetFollowupIndex(data, test.limit, test.notFoundValue);
                 expect(result).toEqual(test.expected);
             });
         });
@@ -290,5 +332,5 @@ describe("FieldsChooserHandler", function () {
             expect(fieldsChooserModel.FacetsHidden).toEqual([]);
         });
     });
+    
 });
-

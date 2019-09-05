@@ -1248,7 +1248,7 @@ div.k-window-content > .k-loading-mask {
     margin-left: 150px;
 }
 
-.fieldChooserGridContainer .DisplayPropertiesGridSignFavoriteDisable {
+.popupFieldChooserFieldSuggested .DisplayPropertiesGridSignFavoriteDisable {
     background-image: url(../images/icons/icon_unsuggest.png);
 }
 
@@ -3489,9 +3489,11 @@ form#ExportPackageForm .packageInfo .packageVersion input {
 }
 
 #TreeListAngleWarnings .itemType {
-    padding-left: 22px;
-    line-height: 18px;
-    background: transparent url(../images/icons/icon_items.png) 0 0 no-repeat;
+    padding-left: 52px;
+    background-image: url(../images/icons/icon_items.png);
+    background-color: transparent;
+    background-repeat: no-repeat;
+    background-position-x: 31px;
 }
 
 #TreeListAngleWarnings [type="checkbox"] + .label:before,
@@ -3511,23 +3513,23 @@ form#ExportPackageForm .packageInfo .packageVersion input {
 }
 
 #TreeListAngleWarnings .itemType.angle {
-    background-position: 0 0;
+    background-position-y: 0;
 }
 
 #TreeListAngleWarnings .itemType.template {
-    background-position: 0 -19px;
+    background-position-y: -19px;
 }
 
 #TreeListAngleWarnings .itemType.list {
-    background-position: 0 -39px;
+    background-position-y: -39px;
 }
 
 #TreeListAngleWarnings .itemType.chart {
-    background-position: 0 -61px;
+    background-position-y: -61px;
 }
 
 #TreeListAngleWarnings .itemType.pivot {
-    background-position: 0 -82px;
+    background-position-y: -82px;
 }
 
 .angleWarningConfirm {

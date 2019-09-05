@@ -341,7 +341,8 @@ function FacetFiltersViewModel() {
                 dimension: {
                     width: 16,
                     height: 16
-                }
+                },
+                style: 'bottom:2px;'
             },
             with_private_display: {
                 path: GetImageFolderPath() + 'icons/icon_private_display.svg',
@@ -354,10 +355,10 @@ function FacetFiltersViewModel() {
             facet_isvalidated: {
                 path: GetImageFolderPath() + 'searchpage/icn_validated.svg',
                 dimension: {
-                    width: 20,
-                    height: 20
+                    width: 16,
+                    height: 16
                 },
-                style: 'left:-2px;'
+                style: 'bottom:1px;'
             },
             facet_isstarred: {
                 path: GetImageFolderPath() + 'searchpage/icn_starred_active.svg',
@@ -365,7 +366,7 @@ function FacetFiltersViewModel() {
                     width: 16,
                     height: 16
                 },
-                style: 'bottom:1px;'
+                style: 'bottom:2px;'
             },
             facet_ispublished: {
                 path: GetImageFolderPath() + 'searchpage/icn_public.svg',

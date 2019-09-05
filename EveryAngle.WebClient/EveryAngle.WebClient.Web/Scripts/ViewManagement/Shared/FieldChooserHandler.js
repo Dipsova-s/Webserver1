@@ -173,15 +173,22 @@ function FieldsChooserHandler() {
         fieldsChooserModel.CanDuplicatedField = true;
         fieldsChooserModel.AllowMultipleSelection = false;
         fieldsChooserModel.OnSubmit = function () {
-            if (handler.CompareInfo) {
-                handler.SetCompareFieldFilter(fieldsChooserModel.SelectedItems()[0], handler.CompareInfo.Index);
+            var selectedItem = fieldsChooserModel.SelectedItems()[0];
+
+            if (selectedItem) {
+
+                if (handler.CompareInfo) {
+                    handler.SetCompareFieldFilter(selectedItem, handler.CompareInfo.Index);
+                }
+                else if (handler.FollowupInfo) {
+                    handler.InsertFieldFilter(selectedItem, handler.FollowupInfo.Index);
+                }
+                else {
+                    handler.AddFieldFilter(selectedItem);
+                }
+
             }
-            else if (handler.FollowupInfo) {
-                handler.InsertFieldFilter(fieldsChooserModel.SelectedItems()[0], handler.FollowupInfo.Index);
-            }
-            else {
-                handler.AddFieldFilter(fieldsChooserModel.SelectedItems()[0]);
-            }
+
             fieldsChooserModel.ClosePopup();
         };
         if (fieldsChooserModel.FieldChooserType) {
@@ -219,7 +226,12 @@ function FieldsChooserHandler() {
             return handler.GetData().hasObject('field', fieldId, false);
         };
         fieldsChooserModel.OnSubmit = function () {
-            handler.AddFieldFilter(fieldsChooserModel.SelectedItems()[0]);
+            var selectedItem = fieldsChooserModel.SelectedItems()[0];
+
+            if (selectedItem) {
+                handler.AddFieldFilter(selectedItem);
+            }
+
             fieldsChooserModel.ClosePopup();
         };
     };

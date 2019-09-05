@@ -542,6 +542,10 @@
     position: relative;
 }
 
+#DisplayGeneralArea .label.inline {
+    margin-bottom: 5px;
+}
+
 .popupDisplayDetail .k-editor {
     height: 152px;
     z-index: 80;
