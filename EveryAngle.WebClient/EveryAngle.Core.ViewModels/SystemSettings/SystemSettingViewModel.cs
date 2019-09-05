@@ -89,6 +89,10 @@ namespace EveryAngle.Core.ViewModels.SystemSettings
         [LocalizedDisplayName("MC_MaxAuditLogHistory")]
         public int max_audit_log_history { get; set; }
 
+        [JsonProperty(PropertyName = "allow_grouping_in_pivot_excel_export")]
+        [LocalizedDisplayName("MC_AllowGroupingInPivotExcelExport")]
+        public bool allow_grouping_in_pivot_excel_export { get; set; }
+
         [JsonProperty(PropertyName = "include_self_in_export_headers")]
         [LocalizedDisplayName("MC_IncludeSelfInExportHeaders")]
         public bool include_self_in_export_headers { get; set; }
