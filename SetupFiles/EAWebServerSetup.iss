@@ -579,6 +579,8 @@ var
   SelectDirPage : TWizardPage;
   Site, Path: string;
   AppSetting: string;
+  FirstComponentTop: integer;
+  IsMandatoryCertificate: boolean;
 begin
   SelectDirPage := PageFromID(wpSelectDir);
   
@@ -614,36 +616,40 @@ begin
   WebClientConfigPage.Add('BasePort:', False); //2: noaport
   // RespaceQueryPage(WebClientConfigPage, -5, 0);
 
+  // Start certificate page
+  FirstComponentTop := 117;
+
   CertificatePage := CreateInputFilePage(WebClientConfigPage.ID, 'Security', 'Select certificates archive file and enter password', '');
   CertificatePage.Add('Certificates archive:', 'EA Certificate archive files|*.eacert', '*.eacert');
-  CertificatePassword := addPasswordEditBox(CertificatePage, 0, 70, 'Password:', '');
+  
+  CertificatePassword := addPasswordEditBox(CertificatePage, 0, FirstComponentTop + 15, 'Password:', '');
   CertificatePassword.Width := 332;
   
   IsCleanInstall := LoadWebConfig();
   IsUnsecureUpgrade := GetAppSetting(WebClientConfig,'WebServiceCertificateThumbPrint') = '';
-  
-  if IsCleanInstall or IsUnsecureUpgrade then
-  begin 
-    if IsCleanInstall then 
-    begin
-      Log('[i]Previous installation not found, start clean install');
-    end
-    else if IsUnsecureUpgrade then
-      Log('[i]Previous unsecured installation found, start secured upgrade');
-    begin
-    end;
-    CertificateCheckbox := addCheckBox(CertificatePage, 0, 200, 'Install or update security certificates', true);
-    CertificateCheckbox.Enabled := false;
-  end
-  else
-  begin
-    Log('[i]Previous secured installation found, user may update certificate');
-    CertificateCheckbox := addCheckBox(CertificatePage, 0, 200, 'Install or update security certificates', false);
-    SetEnabledCertificatePage(false);
-  end;
-
+  IsMandatoryCertificate := IsCleanInstall or IsUnsecureUpgrade;
+  CertificateCheckbox := addCheckBox(CertificatePage, 0, 25, 'Install or update security certificates', IsMandatoryCertificate);
+  CertificateCheckbox.Parent := CertificatePage.Surface;
+  CertificateCheckbox.Width := 200;
+  CertificateCheckbox.Height := 24;
   CertificateCheckbox.OnClick := @OnHTTPSCheckboxClick;
- 
+  CertificateCheckbox.TabOrder := 0;
+
+  if IsMandatoryCertificate then
+    begin 
+      CertificateCheckbox.Enabled := false;
+    end
+  else
+    begin
+      SetEnabledCertificatePage(false);
+    end;
+
+  // Move the certificate controls down
+  TNewStaticText(CertificatePage.Components[2]).Top := ScaleY(FirstComponentTop - 52);
+  TEdit(CertificatePage.Components[3]).Top := ScaleY(FirstComponentTop - 35);
+  TButton(CertificatePage.Components[4]).Top := ScaleY(FirstComponentTop - 36);
+  // End certificate page
+
 end;
 
 function UrlRemoveProtocol(aUrl: string): string;
