@@ -3644,7 +3644,7 @@ The value 0 means the setting is off, so the Audit Log will not be cleaned up. T
     <value>Angle is niet gevalideerd</value>
   </data>
   <data name="UploadDashboard_InvalidReferencedAngles" xml:space="preserve">
-    <value>Dashboard cannot be uploaded without referenced Angles. Please make sure at least of the referenced Angles is also uploaded.</value>
+    <value>Dashboard kan niet worden geüpload zonder gelinkte Angles. Zorg ervoor dat ten minste één van de gelinkte Angles wordt geüpload met het Dashboard.</value>
   </data>
   <data name="ValidateSetting_DashboardValidated" xml:space="preserve">
     <value>Dashboard's been validated</value>
