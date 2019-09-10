@@ -17176,7 +17176,7 @@ namespace EveryAngle.Shared.Globalization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Dashboard cannot be uploaded without referenced Angles. Please make sure at least of the referenced Angles is also uploaded..
+        ///   Looks up a localized string similar to Dashboard cannot be uploaded without referenced Angles. Please make sure at least one of the referenced Angles is also uploaded..
         /// </summary>
         public static string UploadDashboard_InvalidReferencedAngles {
             get {

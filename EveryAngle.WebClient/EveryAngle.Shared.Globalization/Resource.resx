@@ -6076,7 +6076,7 @@ Only Active Directory (AD) and Active Directory Federation (ADFS) services are s
     <value>Deny</value>
   </data>
   <data name="UploadDashboard_InvalidReferencedAngles" xml:space="preserve">
-    <value>Dashboard cannot be uploaded without referenced Angles. Please make sure at least of the referenced Angles is also uploaded.</value>
+    <value>Dashboard cannot be uploaded without referenced Angles. Please make sure at least one of the referenced Angles is also uploaded.</value>
   </data>
   <data name="ValidateSetting_DashboardValidated" xml:space="preserve">
     <value>Dashboard's been validated</value>
