@@ -1640,6 +1640,20 @@ function DisplayModel(model) {
         return true;
     };
 
+    self.NormalizeDataDisplayFromChartOrPivot = function (display) {
+        delete display.id;
+        delete display.uri;
+        delete display.display_type;
+        delete display.user_specific;
+        delete display.authorizations;
+        delete display.is_angle_default;
+        delete display.is_public;
+        delete display.changed;
+        delete display.results;
+        delete display.uri_template;
+        delete display.used_in_task;
+    };
+
     self.CreateDisplayFromChartOrPivot = function (newDisplayType) {
         // check change before continue
         fieldSettingsHandler.ShowConfirmDiscardSetting(function () {
@@ -1812,16 +1826,7 @@ function DisplayModel(model) {
                 };
 
                 // remove unused data
-                delete display.id;
-                delete display.uri;
-                delete display.display_type;
-                delete display.user_specific;
-                delete display.authorizations;
-                delete display.is_angle_default;
-                delete display.is_public;
-                delete display.changed;
-                delete display.results;
-                delete display.uri_template;
+                self.NormalizeDataDisplayFromChartOrPivot(display);
 
                 // create adhoc display
                 jQuery.when(self.CreateTempDisplay(newDisplayType, display))

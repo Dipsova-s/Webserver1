@@ -5,6 +5,9 @@
 /// <reference path="/Dependencies/ViewModels/Models/Angle/displaymodel.js" />
 /// <reference path="/Dependencies/ViewManagement/Angles/FieldSettingsHandler.js" />
 /// <reference path="/Dependencies/ViewManagement/Shared/validationHandler.js" />
+/// <reference path="/Dependencies/ViewModels/Models/Angle/HistoryModel.js" />
+/// <reference path="/Dependencies/ViewModels/Models/User/usermodel.js" />
+/// <reference path="/Dependencies/ViewModels/Models/Angle/AngleInfoModel.js" />
 
 describe("DisplayModel", function () {
     var displayModel;
@@ -338,6 +341,83 @@ describe("DisplayModel", function () {
             expect(newQuerySteps[4].step_type).toEqual(enumHandlers.FILTERTYPE.AGGREGATION);
         });
 
+    });
+
+    describe(".CreateDisplayFromChartOrPivot", function () {
+        it("should call NormalizeDataDisplayFromChartOrPivot to remove unused data" , function () {
+            // mock
+            spyOn(historyModel, 'Save').and.callFake($.noop);
+            spyOn(displayQueryBlockModel, 'CollectQueryBlocks').and.returnValue([{
+                    "query_steps": [{
+                        "aggregation_fields": [{
+                            "field": "count",
+                            "operator": "count"
+                        }],
+                        "step_type": "aggregation"
+                    }],
+                    "queryblock_type": "query_steps"
+            }]);
+            spyOn(displayModel, 'Data').and.returnValue({ id: 123 });
+            spyOn(displayModel, 'NormalizeDataDisplayFromChartOrPivot').and.callFake($.noop);
+            spyOn(displayModel, 'CreateTempDisplay').and.returnValue({ uri: 'test' });
+            spyOn(displayModel, 'GotoTemporaryDisplay').and.callFake($.noop);
+            spyOn(userModel, 'Data').and.returnValue({
+                uri: 'test',
+                full_name: 'full name'
+            });
+
+            // action
+            displayModel.CreateDisplayFromChartOrPivot('pivot');
+
+            // expect
+            expect(displayModel.NormalizeDataDisplayFromChartOrPivot).toHaveBeenCalled();
+        });
+    });
+
+    describe(".NormalizeDataDisplayFromChartOrPivot", function () {
+        it("should remove unused data", function () {
+            // mock
+            var display = {
+                id: 123,
+                uri: 'abc',
+                display_type: 'type',
+                user_specific: {},
+                authorizations: {},
+                is_angle_default: true,
+                is_public: true,
+                changed: {},
+                results: {},
+                uri_template: '',
+                used_in_task: true,
+                query_blocks: [{
+                    "query_steps": [{
+                        "aggregation_fields": [{
+                            "field": "count",
+                            "operator": "count"
+                        }],
+                        "step_type": "aggregation"
+                    }],
+                    "queryblock_type": "query_steps"
+                }]
+            };
+
+            // action
+            displayModel.NormalizeDataDisplayFromChartOrPivot(display);
+
+            // expect
+            expect(display.id).toBeUndefined();
+            expect(display.uri).toBeUndefined();
+            expect(display.display_type).toBeUndefined();
+            expect(display.user_specific).toBeUndefined();
+            expect(display.authorizations).toBeUndefined();
+            expect(display.is_angle_default).toBeUndefined();
+            expect(display.is_public).toBeUndefined();
+            expect(display.changed).toBeUndefined();
+            expect(display.results).toBeUndefined();
+            expect(display.uri_template).toBeUndefined();
+            expect(display.used_in_task).toBeUndefined();
+            expect(display.query_blocks).not.toEqual(null);
+        });
     });
 
 });
