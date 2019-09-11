@@ -10,7 +10,7 @@ User Uploads Only The Dashboard.json
     @{params}    Create List    upload_dashboard_testing.dashboard.json    EA2_800
     Upload Item    @{params}
     Wait Upload Items Successful
-    Upload Item Report Should Contain    Dashboard cannot be uploaded without referenced Angles. Please make sure at least of the referenced Angles is also uploaded.
+    Upload Item Report Should Show Failure
     Close Upload Item Report Popup
 
 User Uploads Only The Dashboard.Angle.json
@@ -19,6 +19,6 @@ User Uploads Only The Dashboard.Angle.json
     @{params}    Create List    upload_dashboard_testing.dashboard.upload_dashboard_angle_testing.angle.json    EA2_800
     Upload Item    @{params}
     Wait Upload Items Successful
-    Upload Item Report Should Contain    Upload Items successful 1 of 1
+    Upload Item Report Should Not Show Failure
     Close Upload Item Report Popup
     Back To Search And Delete Angle Are Created    ${angleName}

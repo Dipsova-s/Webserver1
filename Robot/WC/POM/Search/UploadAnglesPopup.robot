@@ -25,6 +25,8 @@ Wait Upload Items Successful
 Close Upload Item Report Popup
     Click Element    ${btnCloseUploadAnglesReport}
 
-Upload Item Report Should Contain
-    [Arguments]   ${text}
-    Element Should Contain   ${divPopupUploadReport}  ${text}
+Upload Item Report Should Show Failure
+    Page Should Contain Element  ${divPopupUploadReport} .fail
+
+Upload Item Report Should Not Show Failure
+    Page Should Not Contain Element  ${divPopupUploadReport} .fail
