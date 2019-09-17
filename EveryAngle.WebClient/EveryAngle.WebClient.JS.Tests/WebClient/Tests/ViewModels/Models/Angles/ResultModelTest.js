@@ -9,14 +9,6 @@ describe("ResultModel", function () {
         resultModel = new ResultViewModel();
     });
 
-    describe("when create new instance", function () {
-
-        it("should be defined", function () {
-            expect(resultModel).toBeDefined();
-        });
-
-    });
-
     describe(".SetRetryPostResultToErrorPopup", function () {
         var testCases = [
             { title: 'should show warning popup if http status code is 404', testValue: 404, expected: true },

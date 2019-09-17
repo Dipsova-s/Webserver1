@@ -4,6 +4,7 @@
 /// <reference path="/Dependencies/ViewModels/Models/FieldSettings/fieldsettingsmodel.js" />
 /// <reference path="/Dependencies/ViewManagement/Shared/SystemSettingHandler.js" />
 /// <reference path="/Dependencies/ViewManagement/Shared/ModelFieldsHandler.js" />
+/// <reference path="/Dependencies/ViewManagement/Shared/ValidationHandler.js" />
 /// <reference path="/Dependencies/ViewManagement/Angles/FieldSettingsHandler.js" />
 
 describe("FieldSettingsHandler", function () {
@@ -418,9 +419,21 @@ describe("FieldSettingsHandler", function () {
                         Data: ko.observable({
                             display_type: null
                         })
+                    },
+                    Result: {
+                        Data: ko.observable({
+                            authorizations: { change_field_collection: true }
+                        })
                     }
                 }
             };
+        });
+
+        it("disable display options button if change_field_collection = false", function () {
+            fieldSettingsHandler.Handler.Models.Result.Data().authorizations.change_field_collection = false;
+            var result = fieldSettingsHandler.NeedToDisableDisplayOptions();
+
+            expect(result).toEqual(true);
         });
 
         it("disable display options button if PIVOT fieldType TIME is selected", function () {
@@ -761,6 +774,51 @@ describe("FieldSettingsHandler", function () {
             var settngs = { totals_location: 0 };
             var result = fieldSettingsHandler.GetTotalsLocationSetting(settngs);
             expect(result).toEqual(0);
+        });
+    });
+
+    describe(".GetSortingHtml", function () {
+
+        beforeEach(function () {
+            fieldSettingsHandler.FieldSettings = new FieldSettingsModel();
+            fieldSettingsHandler.Handler = {
+                Models: {
+                    Result: {
+                        Data: ko.observable({
+                            authorizations: { change_field_collection: true }
+                        })
+                    }
+                }
+            };
+        });
+
+        it("should get sorting html", function () {
+            var field = { Area: enumHandlers.FIELDSETTINGAREA.DATA };
+            var result = fieldSettingsHandler.GetSortingHtml(field);
+
+            // assert
+            expect(result.length).toEqual(1);
+            expect(result.hasClass('btnSort')).toEqual(true);
+        });
+
+        it("should not get sorting html (Area != DATA)", function () {
+            var field = { Area: enumHandlers.FIELDSETTINGAREA.ROW };
+            var result = fieldSettingsHandler.GetSortingHtml(field);
+            expect(result).toEqual(null);
+        });
+
+        it("should not get sorting html (DisplayType != CHART)", function () {
+            fieldSettingsHandler.FieldSettings.DisplayType = 'any';
+            var field = { Area: enumHandlers.FIELDSETTINGAREA.DATA };
+            var result = fieldSettingsHandler.GetSortingHtml(field);
+            expect(result).toEqual(null);
+        });
+
+        it("should not get sorting html (change_field_collection != true)", function () {
+            fieldSettingsHandler.Handler.Models.Result.Data().authorizations.change_field_collection = false;
+            var field = { Area: enumHandlers.FIELDSETTINGAREA.DATA };
+            var result = fieldSettingsHandler.GetSortingHtml(field);
+            expect(result).toEqual(null);
         });
     });
 

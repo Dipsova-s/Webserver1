@@ -115,3 +115,31 @@ Verify Disable Remove Column And Filter Button In Header Popop
     Should Be True    ${DisableRemoveColumnButton} == ${disabled}
     ${DisableAddFilterButton}    Is Element Has CssClass    ${btnAddFilterToList}   disabled
     Should Be True    ${DisableAddFilterButton} == ${disabled}
+
+Check Menu In Header Popup In Case No Execution Display
+    [Arguments]  ${fieldId}
+    Click Header by Data Field Angle Grid List Display   ${fieldId}
+    Page Should contain Element   ${btnSortAscendingToList}.disabled
+    Page Should contain Element   ${btnSortDescendingToList}.disabled
+    Page Should contain Element   ${btnSortCustomToList}.disabled
+    Page Should contain Element   ${btnCreateChartFromList}.disabled
+    Page Should contain Element   ${btnCreatePivotFromList}.disabled
+    Page Should contain Element   ${btnFormatfield}:not(.disabled)
+    Page Should contain Element   ${btnAddColumnFromList}.disabled
+    Page Should contain Element   ${btnRemoveColumnFromList}.disabled
+    Page Should contain Element   ${btnAddFilterToList}.disabled
+    Page Should contain Element   ${btnFieldInfo}:not(.disabled)
+
+Check Menu In Header Popup In Case Field Invalid
+    [Arguments]  ${fieldId}
+    Click Header by Data Field Angle Grid List Display   ${fieldId}
+    Page Should contain Element   ${btnSortAscendingToList}.disabled
+    Page Should contain Element   ${btnSortDescendingToList}.disabled
+    Page Should contain Element   ${btnSortCustomToList}.disabled
+    Page Should contain Element   ${btnCreateChartFromList}.disabled
+    Page Should contain Element   ${btnCreatePivotFromList}.disabled
+    Page Should contain Element   ${btnFormatfield}.disabled
+    Page Should contain Element   ${btnAddColumnFromList}.disabled
+    Page Should contain Element   ${btnRemoveColumnFromList}.disabled
+    Page Should contain Element   ${btnAddFilterToList}.disabled
+    Page Should contain Element   ${btnFieldInfo}:not(.disabled)

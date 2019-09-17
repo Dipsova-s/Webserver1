@@ -14,6 +14,7 @@
 /// <reference path="/Dependencies/ViewModels/Models/Angle/AngleInfoModel.js" />
 /// <reference path="/Dependencies/ViewModels/Models/Angle/displaymodel.js" />
 /// <reference path="/Dependencies/ViewModels/Shared/DataType/DataType.js" />
+/// <reference path="/Dependencies/ViewManagement/Shared/ValidationHandler.js" />
 /// <reference path="/Dependencies/ViewManagement/Angles/FieldSettingsHandler.js" />
 /// <reference path="/Dependencies/ViewManagement/Shared/HelpTextHandler.js" />
 /// <reference path="/Dependencies/ViewManagement/Shared/WidgetFilter/WidgetFilterHelper.js" />
@@ -432,7 +433,7 @@ describe("WidgetFilterHandler", function () {
     describe(".RemoveFilter", function () {
         it("Remove filter or jump", function (done) {
             // Arrange
-            var container = '<div id="FilterWrapper"></div>';;
+            var container = '<div id="FilterWrapper"></div>';
             var querySteps = [
                 {
                     "field": "DelivRelAsPercentage",

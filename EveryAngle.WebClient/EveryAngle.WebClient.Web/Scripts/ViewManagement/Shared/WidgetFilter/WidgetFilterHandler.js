@@ -329,7 +329,7 @@ function WidgetFilterHandler(container, models) {
         return !self.CanChange(data) && !self.CanRemove(data);
     };
     self.CanAddFilterFromJump = function (data) {
-        var canChange = self.CanChange({ step_type: enumHandlers.FILTERTYPE.FILTER, is_execution_parameter: ko.observable(false) });
+        var canChange = data.valid !== false && self.CanChange({ step_type: enumHandlers.FILTERTYPE.FILTER, is_execution_parameter: ko.observable(false) });
         return canChange && data.step_type === enumHandlers.FILTERTYPE.FOLLOWUP && self.ViewMode() !== self.VIEWMODE.TREEVIEW;
     };
 

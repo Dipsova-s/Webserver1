@@ -285,7 +285,7 @@
     height: 16px;
     background: transparent none center center no-repeat;
     background-size: 12px 12px;
-    left: 33px !important;
+    left: 6px;
     top: 20px;
 }
 
@@ -293,12 +293,13 @@
     background-image: url('../../images/icons/icon_warnings.svg');
 }
 
-.popupExecuteParameters .FilterHeader.Disabled .validWarning:before {
-    left: 6px !important;
-}
-
 .FilterHeader .validError:before {
     background-image: url('../../images/icons/icon_error.png');
+}
+
+.definitionList.sortable .FilterHeader .validWarning:before,
+.definitionList.sortable .FilterHeader .validError:before {
+    left: 33px;
 }
 
 .FilterHeader label {
@@ -324,6 +325,7 @@
     font-weight: normal;
     font-style: italic;
     color: #900;
+    padding-right: 2px;
 }
 
 .definitionList.sortable .FilterHeader .validWarningText {

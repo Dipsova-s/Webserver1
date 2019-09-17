@@ -11,7 +11,7 @@ function FieldSettingsModel(data) {
 
     // Properties
     self.Id = jQuery.GUID();
-    self.ComponentId= '';
+    self.ComponentId = '';
     self.CultureName = 'en-EN';
     self.DisplayType = self.ComponentType.CHART;
     self.IsReadOnlyMode = false;

@@ -196,6 +196,11 @@ function FieldSettingsHandler() {
     };
     self.OptionAxisScaleId = 'axisscale';
     self.OptionAxisScaleRangesId = 'axisscale_ranges';
+    self.HandlerValidation = {
+        Valid: true,
+        Angle: validationHandler.GetAngleValidation(null),
+        Display: validationHandler.GetDisplayValidation(null)
+    };
 
     self.Handler = null;
     /*EOF: Model Properties*/
@@ -500,6 +505,11 @@ function FieldSettingsHandler() {
     };
 
     // public method
+    self.UpdateValidation = function () {
+        self.HandlerValidation.Angle = validationHandler.GetAngleValidation(self.Handler.Models.Angle.Data());
+        self.HandlerValidation.Display = validationHandler.GetDisplayValidation(self.Handler.Models.Display.Data(), self.Handler.Models.Angle.Data().model);
+        self.HandlerValidation.Valid = self.HandlerValidation.Angle.Valid && self.HandlerValidation.Valid;
+    };
     self.ChangeTotalsLocation = function () {
         var totalsLocation = parseInt(jQuery('#TotalsLocationControl [name="totalsLocation"]:checked').val());
         self.FieldSettings.SetDisplayDetails({ totals_location: totalsLocation });
@@ -994,9 +1004,21 @@ function FieldSettingsHandler() {
             })
             .append(label);
 
+        var btnSort = self.GetSortingHtml(field);
+        list.append(btnSort);
+
+        if (self.Handler.Models.Result.Data().authorizations.change_field_collection) {
+            list.append(btnDelete);
+        }
+
+        jQuery('#FieldListArea .' + area + 'Area ul').append(list);
+    };
+
+    self.GetSortingHtml = function (field) {
         if (self.FieldSettings.DisplayType === self.FieldSettings.ComponentType.CHART
-            && field.Area === enumHandlers.FIELDSETTINGAREA.DATA) {
-            var btnSort = jQuery('<a class="btnSort" />')
+            && field.Area === enumHandlers.FIELDSETTINGAREA.DATA
+            && self.Handler.Models.Result.Data().authorizations.change_field_collection) {
+            return jQuery('<a class="btnSort" />')
                 .addClass(field.SortDirection)
                 .on('click', field, function (e) {
                     e.stopPropagation();
@@ -1007,15 +1029,8 @@ function FieldSettingsHandler() {
 
                     e.preventDefault();
                 });
-            list.append(btnSort);
         }
-
-
-        if (self.Handler.Models.Result.Data().authorizations.change_field_collection) {
-            list.append(btnDelete);
-        }
-
-        jQuery('#FieldListArea .' + area + 'Area ul').append(list);
+        return null;
     };
 
     self.ClearSortBySummary = function (isUpdateHandler) {
@@ -1409,6 +1424,8 @@ function FieldSettingsHandler() {
     };
 
     self.BuildFieldsSettings = function (options) {
+        // update validation handler
+        self.UpdateValidation();
 
         var displayType = self.Handler.Models.Display.Data().display_type;
         var componentId = self.Handler.ModelId;
@@ -1561,8 +1578,7 @@ function FieldSettingsHandler() {
 
         if (!self.Handler.Models.Result.Data().authorizations.change_field_collection) {
             jQuery('#FieldListArea .addFieldButton').addClass('disabled');
-
-            jQuery('#ButtonDisplayOptions').addClass('disabled');
+            
             var ddlChartType = WC.HtmlHelper.DropdownList('#ChartType');
             if (ddlChartType) {
                 ddlChartType.enable(false);
@@ -1948,6 +1964,9 @@ function FieldSettingsHandler() {
         self.SetApplyButtonStatus(true);
     };
     self.NeedToDisableDisplayOptions = function () {
+        if (!self.Handler.Models.Result.Data().authorizations.change_field_collection)
+            return true;
+
         var isNeedToDisableDisplayOptions = false;
         if (self.Handler.Models.Display.Data().display_type === enumHandlers.DISPLAYTYPE.PIVOT) {
             var fields = self.FieldSettings.GetFields(enumHandlers.FIELDSETTINGAREA.DATA);
@@ -1965,11 +1984,13 @@ function FieldSettingsHandler() {
             jQuery('#ButtonDisplayOptions').addClass('disabled');
             self.SetDefaultDisplayOption();
         }
-        else
+        else {
             jQuery('#ButtonDisplayOptions').removeClass('disabled');
+        }
     };
     self.SetDefaultDisplayOption = function () {
-        self.FieldSettings.SetDisplayDetails({ show_total_for: 0, include_subtotals: false, percentage_summary_type: 0 });
+        if (self.Handler.Models.Display.Data().display_type === enumHandlers.DISPLAYTYPE.PIVOT)
+            self.FieldSettings.SetDisplayDetails({ show_total_for: 0, include_subtotals: false, percentage_summary_type: 0 });
     };
     self.UpdateSettingsAfterChange = function () {
         // update field setting model from ui
@@ -2115,7 +2136,8 @@ function FieldSettingsHandler() {
         template = template.replace(/#PopupHeaderID#/g, popupId);
 
         // hide sort in data area
-        if (fieldDetail.Area === enumHandlers.FIELDSETTINGAREA.DATA || window[target].FieldSettings.DisplayType === window[target].FieldSettings.ComponentType.CHART) {
+        if (fieldDetail.Area === enumHandlers.FIELDSETTINGAREA.DATA
+            || window[target].FieldSettings.DisplayType === window[target].FieldSettings.ComponentType.CHART) {
             // sorting
             template = template.replace(/#VisibleSort#/g, ' alwaysHide');
             template = template.replace(/#CanSortAsc#/g, ' alwaysHide');
@@ -2129,7 +2151,7 @@ function FieldSettingsHandler() {
 
             // format
             template = template.replace(/#VisibleFormat#/g, '');
-            template = template.replace(/#CanFormat#/g, '');
+            template = template.replace(/#CanFormat#/g, handler.Models.Result.Data().authorizations.change_field_collection ? '' : ' disabled');
 
             // info
             template = template.replace(/#VisibleViewInfo#/g, ' alwaysHide');
@@ -2167,12 +2189,14 @@ function FieldSettingsHandler() {
             }
 
             // filter
+            var canAddFilter = self.HandlerValidation.Angle.CanPostResult && self.HandlerValidation.Display.CanPostResult && handler.Models.Result.Data().authorizations.add_filter;
             template = template.replace(/#VisibleFilter#/g, '');
-            template = template.replace(/#CanAddFilter#/g, !handler.Models.Result.Data().authorizations.add_filter ? ' disabled' : '');
+            template = template.replace(/#CanAddFilter#/g, canAddFilter ? '' : ' disabled');
 
             // format
+            var canFormatField = self.HandlerValidation.Angle.CanPostResult && self.HandlerValidation.Display.CanPostResult && handler.Models.Result.Data().authorizations.change_field_collection;
             template = template.replace(/#VisibleFormat#/g, '');
-            template = template.replace(/#CanFormat#/g, '');
+            template = template.replace(/#CanFormat#/g, canFormatField ? '' : ' disabled');
 
             // info
             template = template.replace(/#VisibleViewInfo#/g, '');

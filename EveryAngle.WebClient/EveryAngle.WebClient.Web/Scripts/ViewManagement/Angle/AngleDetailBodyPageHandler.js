@@ -439,6 +439,7 @@ function AngleDetailPageHandler() {
                         click: 'close'
                     }
                 ],
+                width: 750,
                 height: 530,
                 animation: false,
                 resize: function (e) {

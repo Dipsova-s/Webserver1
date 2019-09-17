@@ -8,6 +8,7 @@
 /// <reference path="/Dependencies/ViewModels/Models/Exports/ExportModel.js" />
 /// <reference path="/Dependencies/ViewModels/Models/Exports/ExportCSVModel.js" />
 /// <reference path="/Dependencies/ViewManagement/Shared/ModelFieldDomainHandler.js" />
+/// <reference path="/Dependencies/ViewManagement/Shared/ValidationHandler.js" />
 /// <reference path="/Dependencies/ViewManagement/Angles/FieldSettingsHandler.js" />
 /// <reference path="/Dependencies/ViewManagement/Angles/ChartHandler.js" />
 

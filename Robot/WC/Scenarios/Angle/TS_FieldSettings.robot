@@ -161,3 +161,31 @@ Verify Field Format For Number(Integer) And Set In Data Area
     Select Display Unit    None
     Select Display Unit    Millions (M)
     Save Field Format
+
+Check Chart Field Settings In Case No Execution Display
+    Page Should contain Element   jquery=#${ddlChartType} .k-dropdown-wrap.k-state-disabled
+    Page Should contain Element   ${btnFieldSettingOptions}.disabled
+    Page Should contain Element   jquery=#${btnAddRowAreaField}.disabled
+    Page Should contain Element   jquery=#${btnAddColumnAreaField}.disabled
+    Page Should contain Element   jquery=#${btnAddDataAreaField}.disabled
+
+    Click Field In Row Area By Field Index    0
+    Page Should contain Element   ${btnFieldSettingsFieldFormat}.disabled
+    Page Should contain Element   ${btnFieldSettingsAddFilter}.disabled
+    Page Should contain Element   ${btnFieldSettingsFieldInfo}:not(.disabled)
+
+    Click Field In Data Area By Field Index    0
+    Page Should contain Element   ${btnFieldSettingsFieldFormat}.disabled
+
+Check Pivot Field Settings In Case No Execution Display
+    Page Should contain Element   ${btnFieldSettingOptions}.disabled
+    Page Should contain Element   jquery=#${btnAddRowAreaField}.disabled
+    Page Should contain Element   jquery=#${btnAddColumnAreaField}.disabled
+    Page Should contain Element   jquery=#${btnAddDataAreaField}.disabled
+
+    Click Field In Row Area By Field Index    0
+    Element Should Not Be Visible   ${divFieldOptions}
+
+    Click Field In Data Area By Field Index    0
+    Page Should contain Element   ${btnFieldSettingsFieldFormat}.disabled
+    

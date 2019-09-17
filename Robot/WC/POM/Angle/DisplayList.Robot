@@ -7,10 +7,12 @@ ${pgbListDisplay}                   css=#AngleGrid .k-loading-mask
 ${btnSortAscendingToList}           jquery=.HeaderPopup .sortAsc:visible
 ${btnSortDescendingToList}          jquery=.HeaderPopup .sortDesc:visible
 ${btnSortCustomToList}              jquery=.HeaderPopup .sortCustom:visible
-${btnAddFilterToList}               jquery=.HeaderPopup .addFilter:visible
 ${btnCreateChartFromList}           jquery=.HeaderPopup .createChart:visible
 ${btnCreatePivotFromList}           jquery=.HeaderPopup .createPivot:visible
+${btnAddColumnFromList}             jquery=.HeaderPopup .addColumn:visible
 ${btnRemoveColumnFromList}          jquery=.HeaderPopup .removeColumn:visible
+${btnAddFilterToList}               jquery=.HeaderPopup .addFilter:visible
+${btnFieldInfo}                     jquery=.HeaderPopup .fieldInfo:visible
 
 ${headerLastColumn}                 jquery=#AngleGrid .k-grid-header-wrap table th.k-header:last
 

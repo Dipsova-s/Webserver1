@@ -306,6 +306,10 @@
     font-size: 12px;
 }
 
+.listFormatSettingPopup .placeholder {
+    color: #909191;
+}
+
 .FieldFormat {
     overflow: hidden;
     font-size: 12px;

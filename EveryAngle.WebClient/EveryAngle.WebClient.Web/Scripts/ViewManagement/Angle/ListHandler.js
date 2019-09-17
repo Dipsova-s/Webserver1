@@ -972,11 +972,8 @@ function ListHandler(elementId, container) {
         var isDisplayFieldValid = displayField && displayField.valid && !displayField.denied;
         var field = modelFieldsHandler.GetFieldById(fieldId, self.Models.Angle.Data().model);
         var isFieldValid = field && field.id;
+        var popupId = 'PopupHeader' + WC.Utility.ConvertFieldName(fieldId);
         var template = self.ListViewTemplates.HeaderPopup;
-        var popupId;
-
-        popupId = 'PopupHeader' + WC.Utility.ConvertFieldName(fieldId);
-
         template = template.replace(/#FieldId#/g, WC.Utility.ConvertFieldName(fieldId));
         template = template.replace(/#PopupHeaderID#/g, popupId);
 

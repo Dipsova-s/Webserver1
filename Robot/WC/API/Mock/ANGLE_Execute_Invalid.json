@@ -1,0 +1,175 @@
+{
+  "id": "ROBOT_ANGLE_EXECUTE_INVALID",
+  "assigned_labels": [
+    "S2D"
+  ],
+  "multi_lang_name": [
+    {
+      "lang": "en",
+      "text": "[Robot] Angle execute invalid"
+    }
+  ],
+  "multi_lang_description": [],
+  "query_definition": [
+    {
+      "queryblock_type": "base_classes",
+      "base_classes": [
+        "PurchaseOrderScheduleLine"
+      ]
+    },
+    {
+      "queryblock_type": "query_steps",
+      "query_steps": [
+        {
+          "step_type": "filter",
+          "field": "ExecutionStatusInvalid",
+          "operator": "has_value"
+        }
+      ]
+    }
+  ],
+  "angle_default_display": "ea5248b3c129c549dc9ece689907478ae6",
+  "display_definitions": [
+    {
+      "id": "ea3229076900e64465912ba4ffb7b71d01",
+      "display_type": "chart",
+      "multi_lang_name": [
+        {
+          "lang": "en",
+          "text": "chart"
+        }
+      ],
+      "multi_lang_description": [],
+      "display_details": "{\"chart_type\":\"column\",\"stack\":true,\"multi_axis\":false,\"axistitle\":\"show\",\"axisvalue\":\"show\",\"datalabel\":\"mouse\",\"gridline\":\"show\",\"legend\":\"show\",\"range\":{\"start\":0,\"size\":50},\"count_index\":0}",
+      "query_blocks": [
+        {
+          "queryblock_type": "query_steps",
+          "query_steps": [
+            {
+              "step_type": "filter",
+              "field": "IDInvalid",
+              "operator": "has_value"
+            },
+            {
+              "step_type": "followup",
+              "followup": "DeliveryNoteHeaderInvalid"
+            },
+            {
+              "step_type": "aggregation",
+              "aggregation_fields": [
+                {
+                  "field": "count",
+                  "operator": "count"
+                }
+              ],
+              "grouping_fields": [
+                {
+                  "source_field": "ObjectType",
+                  "field": "individual_ObjectType",
+                  "operator": "individual"
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "fields": [
+        {
+          "field": "individual_ObjectType",
+          "multi_lang_alias": [],
+          "field_details": "{\"pivot_area\":\"row\",\"sorting\":\"\"}"
+        },
+        {
+          "field": "count",
+          "multi_lang_alias": [],
+          "field_details": "{\"pivot_area\":\"data\",\"sorting\":\"\"}"
+        }
+      ]
+    },
+    {
+      "id": "ea5248b3c129c549dc9ece689907478ae6",
+      "display_type": "list",
+      "is_angle_default": true,
+      "multi_lang_name": [
+        {
+          "lang": "en",
+          "text": "list"
+        }
+      ],
+      "multi_lang_description": [],
+      "display_details": "{}",
+      "query_blocks": [
+        {
+          "queryblock_type": "query_steps",
+          "query_steps": [
+            {
+              "step_type": "followup",
+              "followup": "DeliveryNoteHeaderInvalid"
+            }
+          ]
+        }
+      ],
+      "fields": [
+        {
+          "field": "ObjectType",
+          "tech_info": "",
+          "multi_lang_alias": [],
+          "field_details": "{\"width\":108,\"format\":\"shn\"}"
+        },
+        {
+          "field": "IDInvalid",
+          "tech_info": "",
+          "multi_lang_alias": [],
+          "field_details": "{\"width\":71}"
+        }
+      ]
+    },
+    {
+      "id": "eacb9f000a5e9c42359a8cd4d73a8ce17c",
+      "display_type": "pivot",
+      "multi_lang_name": [
+        {
+          "lang": "en",
+          "text": "pivot"
+        }
+      ],
+      "multi_lang_description": [],
+      "display_details": "{\"count_index\":0,\"layout\":\"{\\\"collapse\\\":\\\"/v///wAAAAAAAAAAAAAAAP7///8AAAAAAAAAAAAAAAA=\\\"}\",\"show_total_for\":1,\"percentage_summary_type\":0,\"include_subtotals\":false}",
+      "query_blocks": [
+        {
+          "queryblock_type": "query_steps",
+          "query_steps": [
+            {
+              "step_type": "aggregation",
+              "aggregation_fields": [
+                {
+                  "field": "count",
+                  "operator": "count"
+                }
+              ],
+              "grouping_fields": [
+                {
+                  "source_field": "ObjectTypeInvalid",
+                  "field": "individual_ObjectTypeInvalid",
+                  "operator": "individual"
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "fields": [
+        {
+          "field": "individual_ObjectTypeInvalid",
+          "multi_lang_alias": [],
+          "field_details": "{\"pivot_area\":\"row\",\"sorting\":\"asc\"}"
+        },
+        {
+          "field": "count",
+          "multi_lang_alias": [],
+          "field_details": "{\"pivot_area\":\"data\",\"sorting\":\"\"}"
+        }
+      ]
+    }
+  ]
+}

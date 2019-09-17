@@ -1,5 +1,6 @@
 ﻿/// <reference path="/Dependencies/ViewModels/Models/User/usersettingmodel.js" />
 /// <reference path="/Dependencies/ViewModels/Shared/DataType/DataType.js" />
+/// <reference path="/Dependencies/ViewManagement/Shared/ValidationHandler.js" />
 /// <reference path="/Dependencies/ViewManagement/Angles/FieldSettingsHandler.js" />
 
 describe("DataType", function () {

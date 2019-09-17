@@ -3,6 +3,7 @@
 /// <reference path="/Dependencies/ViewModels/Models/User/usersettingmodel.js" />
 /// <reference path="/Dependencies/ViewModels/Models/Angle/displayqueryblockmodel.js" />
 /// <reference path="/Dependencies/ViewModels/Models/Angle/displaymodel.js" />
+/// <reference path="/Dependencies/ViewManagement/Shared/ValidationHandler.js" />
 /// <reference path="/Dependencies/ViewManagement/Angles/FieldSettingsHandler.js" />
 /// <reference path="/Dependencies/ViewManagement/Shared/validationHandler.js" />
 /// <reference path="/Dependencies/ViewModels/Models/Angle/HistoryModel.js" />

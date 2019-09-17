@@ -7,7 +7,7 @@ Resource            ${EXECDIR}/WC/POM/Angle/FieldSettings.FieldFormatsPopup.Robo
 *** Variables ***
 #General
 ${pgbFieldSettings}             css=#FieldListArea .k-loading-mask
-${btnFieldSettingOptions}       css=#ButtonDisplayOptions
+${btnFieldSettingOptions}       jquery=#ButtonDisplayOptions
 ${btnCloseFieldSettingOptions}  css=#PopupChartOptions .k-window-action
 ${btnAddRowAreaField}           AddRowAreaField
 ${divFieldRowArea}              jquery=#FieldListRowArea ul
@@ -22,6 +22,7 @@ ${chkFieldCount}                chkCount
 ${btnFieldSettingApply}         btnFieldSettingApply
 
 #Field options
+${divFieldOptions}                  jquery=.HeaderPopup
 ${btnFieldSettingsSortAscending}    jquery=.HeaderPopup .sortAsc:visible
 ${btnFieldSettingsSortDecending}    jquery=.HeaderPopup .sortDesc:visible
 ${btnFieldSettingsFieldFormat}      jquery=.HeaderPopup .fieldFormat:visible

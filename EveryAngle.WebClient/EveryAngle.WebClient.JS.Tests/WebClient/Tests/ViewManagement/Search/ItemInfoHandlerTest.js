@@ -3,6 +3,7 @@
 /// <reference path="/Dependencies/ViewModels/Models/Angle/AngleInfoModel.js" />
 /// <reference path="/Dependencies/ViewModels/Models/Angle/DisplayModel.js" />
 /// <reference path="/Dependencies/ViewModels/Models/Dashboard/dashboardmodel.js" />
+/// <reference path="/Dependencies/ViewManagement/Shared/ValidationHandler.js" />
 /// <reference path="/Dependencies/viewmanagement/Angles/FieldSettingsHandler.js" />
 /// <reference path="/Dependencies/ViewManagement/Shared/SearchStorageHandler.js" />
 /// <reference path="/Dependencies/viewmanagement/Search/ItemInfoHandler.js" />

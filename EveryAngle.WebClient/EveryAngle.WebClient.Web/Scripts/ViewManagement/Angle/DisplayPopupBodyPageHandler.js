@@ -772,7 +772,7 @@ function DisplayDetailPageHandler() {
         self.HandlerFilter.Data(displayQueryBlockModel.TempQuerySteps());
         self.HandlerFilter.HasExecutionParameter(true);
         self.HandlerFilter.FilterFor = self.HandlerFilter.FILTERFOR.DISPLAY;
-        if (!angleInfoModel.IsTemporaryAngle() && canUpdateAngle) {
+        if (!angleInfoModel.IsTemporaryAngle() && canUpdateAngle && anglePageHandler.HandlerValidation.Angle.CanPostResult) {
             self.HandlerFilter.View.MoveFilterConfirmMessage = Localization.Info_ConfirmDropFilterToAngleDefinition;
             self.HandlerFilter.View.CreateMovableArea = function () {
                 var angleFilterElement = jQuery('#DisplayFilterMoveArea');
@@ -785,6 +785,16 @@ function DisplayDetailPageHandler() {
                 self.MovedToAngleFilters.push(queryStep);
             };
         }
+        self.HandlerFilter.__CanChange = self.HandlerFilter.CanChange;
+        self.HandlerFilter.CanChange = function (data) {
+            var canChange = this.__CanChange(data);
+            return canChange && anglePageHandler.HandlerValidation.Angle.CanPostResult;
+        };
+        self.HandlerFilter.__CanRemove = self.HandlerFilter.CanRemove;
+        self.HandlerFilter.CanRemove = function (data) {
+            var canRemove = this.__CanRemove(data);
+            return canRemove && anglePageHandler.HandlerValidation.Angle.CanPostResult;
+        };
         self.HandlerFilter.ApplyHandler();
 
         var angleBaseClassBlock = angleInfoModel.Data().query_definition.findObject('queryblock_type', enumHandlers.QUERYBLOCKTYPE.BASE_CLASSES);
@@ -810,7 +820,9 @@ function DisplayDetailPageHandler() {
     self.CanAddFilters = function () {
         var canAddFilters = false;
         if (displayModel.Data().authorizations.update
-            && resultModel.Data().authorizations.add_filter) {
+            && resultModel.Data().authorizations.add_filter
+            && anglePageHandler.HandlerValidation.Angle.CanPostResult
+            && anglePageHandler.HandlerValidation.Display.CanPostResult) {
             canAddFilters = true;
         }
 
@@ -818,14 +830,14 @@ function DisplayDetailPageHandler() {
     };
     self.CanAddFollowups = function () {
         var canAddFollowups = false;
-
-        if (!anglePageHandler.HandlerValidation.Angle.InvalidBaseClasses
-            && displayModel.Data().authorizations.update
-            && resultModel.Data().authorizations.add_followup) {
+        if (displayModel.Data().authorizations.update
+            && resultModel.Data().authorizations.add_followup
+            && anglePageHandler.HandlerValidation.Angle.CanPostResult
+            && anglePageHandler.HandlerValidation.Display.CanPostResult) {
             canAddFollowups = true;
         }
 
-        if ((displayModel.IsNewDisplay()) && (!angleInfoModel.AllowFollowups()))
+        if (displayModel.IsNewDisplay() && !angleInfoModel.AllowFollowups())
             canAddFollowups = false;
 
         return canAddFollowups;

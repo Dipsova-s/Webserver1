@@ -5,8 +5,9 @@
 /// <reference path="/Dependencies/ViewModels/Models/Angle/displayqueryblockmodel.js" />
 /// <reference path="/Dependencies/ViewModels/Models/Angle/AngleInfoModel.js" />
 /// <reference path="/Dependencies/ViewModels/Models/Angle/DisplayModel.js" />
-/// <reference path="/Dependencies/ViewManagement/Angles/FieldSettingsHandler.js" />
 /// <reference path="/Dependencies/ViewManagement/Shared/PopupPageHandlers.js" />
+/// <reference path="/Dependencies/ViewManagement/Shared/ValidationHandler.js" />
+/// <reference path="/Dependencies/ViewManagement/Angles/FieldSettingsHandler.js" />
 /// <reference path="/Dependencies/ViewManagement/Angles/ScheduleAngleHandler.js" />
 /// <reference path="/Dependencies/User/Authentication.js" />
 

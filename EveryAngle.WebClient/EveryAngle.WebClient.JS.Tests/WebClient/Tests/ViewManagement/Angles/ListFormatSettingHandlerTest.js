@@ -5,6 +5,7 @@
 /// <reference path="/Dependencies/ViewModels/Models/Angle/HistoryModel.js" />
 /// <reference path="/Dependencies/ViewModels/Shared/DataType/DataType.js" />
 /// <reference path="/Dependencies/ViewManagement/Shared/ModelFieldDomainHandler.js" />
+/// <reference path="/Dependencies/ViewManagement/Shared/ValidationHandler.js" />
 /// <reference path="/Dependencies/ViewManagement/Angles/FieldSettingsHandler.js" />
 /// <reference path="/Dependencies/ViewManagement/Shared/ValidationHandler.js" />
 /// <reference path="/Dependencies/ViewManagement/Angles/ListHandler.js" />
