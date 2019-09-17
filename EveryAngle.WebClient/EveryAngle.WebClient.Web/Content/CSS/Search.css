@@ -1124,16 +1124,11 @@
     font-style: normal;
     font-stretch: normal;
     letter-spacing: normal;
-    top: 2px;
+    top: 0;
 }
 
 .ResultContent .name:hover {
     text-decoration: underline;
-}
-
-.compactMode .ResultContent .name {
-    font-size: 14px;
-    top: 2px;
 }
 
 .compactMode .ResultContent .displayNameContainer {
