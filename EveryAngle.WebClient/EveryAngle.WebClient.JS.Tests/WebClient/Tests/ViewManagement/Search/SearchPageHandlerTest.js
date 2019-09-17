@@ -3,7 +3,6 @@
 /// <reference path="/Dependencies/ViewModels/Models/User/privileges.js" />
 /// <reference path="/Dependencies/ViewModels/Models/Search/searchmodel.js" />
 /// <reference path="/Dependencies/ViewManagement/Shared/SearchStorageHandler.js" />
-/// <reference path="/Dependencies/ViewManagement/Shared/ComponentServicesHandler.js" />
 /// <reference path="/Dependencies/ViewModels/Models/Search/facetfiltersmodel.js" />
 /// <reference path="/Dependencies/ViewManagement/Search/SearchPageHandler.js" />
 

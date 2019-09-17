@@ -141,7 +141,6 @@ namespace EveryAngle.WebClient.Web
                 "~/scripts/viewmanagement/shared/systemcurrencyhandler.js",
                 "~/scripts/viewmanagement/shared/systemdefaultusersettinghandler.js",
                 "~/scripts/viewmanagement/shared/aboutsystemhandler.js",
-                "~/scripts/viewmanagement/shared/componentserviceshandler.js",
                 "~/scripts/viewmanagement/shared/userfriendlynamehandler.js",
                 "~/scripts/viewmanagement/shared/businessprocesshandler.js",
                 "~/scripts/viewmanagement/shared/modelshandler.js",

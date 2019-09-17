@@ -848,7 +848,6 @@
     <Content Include="Scripts\ViewManagement\Search\ImportAngleHandler.js" />
     <Content Include="Scripts\ViewManagement\Search\ItemInfoHandler.js" />
     <Content Include="Scripts\ViewManagement\Help\HelpPopupPageHandler.js" />
-    <Content Include="Scripts\ViewManagement\Shared\ComponentServicesHandler.js" />
     <Content Include="Scripts\ViewManagement\Shared\AboutSystemHandler.js" />
     <Content Include="Scripts\ViewManagement\Shared\ModelCurrentInstanceHandler.js" />
     <Content Include="Scripts\ViewManagement\Shared\ModelsHandler.js" />

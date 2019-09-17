@@ -104,7 +104,6 @@
 
     <script src='@Url.Content("~/resources/index")' type="text/javascript"></script>
     <script type="text/javascript">
-        var componentUrl = '@Url.Action("GetComponents" , "Component")';
         var webAPIUrl = '@EveryAngle.Shared.Helpers.UrlHelper.GetRequestUrl(EveryAngle.Shared.Helpers.URLType.NOA)';
         var webLoginUrl = '@EveryAngle.Shared.Helpers.UrlHelper.GetRequestUrl(EveryAngle.Shared.Helpers.URLType.HBA)';
         var webApiVersion = '@System.Configuration.ConfigurationManager.AppSettings["WebApiVersion"]';

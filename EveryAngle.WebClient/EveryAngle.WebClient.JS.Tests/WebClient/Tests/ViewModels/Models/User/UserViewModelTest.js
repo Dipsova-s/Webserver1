@@ -1,4 +1,3 @@
-/// <reference path="/Dependencies/ViewManagement/Shared/ComponentServicesHandler.js" />
 /// <reference path="/Dependencies/ViewModels/Models/User/usermodel.js" />
 
 describe("UserViewModel", function () {
@@ -9,54 +8,28 @@ describe("UserViewModel", function () {
     });
 
     describe(".SetWorkbenchButton", function () {
-
-        var button;
-
+        
         beforeEach(function () {
-            button = $('<a id="btnWorkbench" />').appendTo('body');
+            spyOn(jQuery.fn, 'show');
+            spyOn(jQuery.fn, 'hide');
+        });
+        
+        it("should show Workbench menu when user has manage model role", function () {
+            spyOn(userViewModel, 'IsPossibleToManageModel').and.returnValue(true);
+            userViewModel.SetWorkbenchButton();
+                
+            expect(jQuery.fn.show).toHaveBeenCalled();
+            expect(jQuery.fn.hide).not.toHaveBeenCalled();
         });
 
-        afterEach(function () {
-            button.remove();
-        });
+        it("should hide Workbench menu when user has no manage model role", function () {
+            spyOn(userViewModel, 'IsPossibleToManageModel').and.returnValue(false);
+            userViewModel.SetWorkbenchButton();
 
-        var tests = [
-            {
-                title: 'should set Workbench link if has manage model privilege and has Workbench\'s url',
-                managemodel: true,
-                url: 'http://localhost/workbench',
-                expected: 'http://localhost/workbench'
-            },
-            {
-                title: 'should not set Workbench link if has not manage model privilege and has Workbench\'s url',
-                managemodel: false,
-                url: 'http://localhost/workbench',
-                expected: undefined
-            },
-            {
-                title: 'should not set Workbench link if has manage model privilege and has not Workbench\'s url',
-                managemodel: true,
-                url: '',
-                expected: undefined
-            },
-            {
-                title: 'should not set Workbench link if has not manage model privilege and has not Workbench\'s url',
-                managemodel: false,
-                url: '',
-                expected: undefined
-            }
-        ];
-
-        $.each(tests, function (index, test) {
-            it(test.title, function () {
-                spyOn(userViewModel, 'IsPossibleToManageModel').and.returnValue(test.managemodel);
-                spyOn(componentServicesHandler, 'GetModellingWorkbenchUrl').and.returnValue(test.url);
-                userViewModel.SetWorkbenchButton();
-
-                //expect(button.attr('href')).toEqual(test.expected);
-                expect(button.attr('href')).not.toBeNull();
-            });
+            expect(jQuery.fn.show).not.toHaveBeenCalled();
+            expect(jQuery.fn.hide).toHaveBeenCalled();
         });
 
     });
+
 });

@@ -185,10 +185,6 @@
       <Link>WebClient\Dependencies\ViewManagement\Shared\Breadcrumb\BreadcrumbHandler.js</Link>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="..\EveryAngle.WebClient.Web\Scripts\ViewManagement\Shared\ComponentServicesHandler.js">
-      <Link>WebClient\Dependencies\ViewManagement\Shared\ComponentServicesHandler.js</Link>
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
     <Content Include="..\EveryAngle.WebClient.Web\Scripts\ViewManagement\Shared\ItemState\ItemPublishStateHandler.js">
       <Link>WebClient\Dependencies\ViewManagement\Shared\ItemState\ItemPublishStateHandler.js</Link>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
