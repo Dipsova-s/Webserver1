@@ -290,6 +290,41 @@
     background-color: #b7b7b7;
 }
 
+.widget-display-column.displayList .k-virtual-scrollable-wrap {
+    overflow-x: hidden;
+}
+.widget-display-column:hover.displayList .k-virtual-scrollable-wrap,
+.no-mouse .widget-display-column.displayList .k-virtual-scrollable-wrap {
+    overflow-x: auto;
+}
+.widget-display-column.displayList .k-scrollbar-vertical {
+    visibility: hidden;
+}
+.widget-display-column:hover.displayList .k-scrollbar-vertical,
+.no-mouse .widget-display-column.displayList .k-scrollbar-vertical {
+    visibility: visible;
+}
+.widget-display-column.displayPivot .dxpgVScrollBarCell,
+.widget-display-column.displayPivot .dxpgHScrollBarCell {
+    visibility: hidden;
+}
+.widget-display-column:hover.displayPivot .dxpgVScrollBarCell,
+.no-mouse .widget-display-column.displayPivot .dxpgVScrollBarCell,
+.widget-display-column:hover.displayPivot .dxpgHScrollBarCell,
+.no-mouse .widget-display-column.displayPivot .dxpgHScrollBarCell {
+    visibility: visible;
+}
+.widget-display-column.displayChart .k-legend-custom,
+.widget-display-column.displayChart .navigatable .chartWrapper.minichart {
+    overflow-y: hidden;
+}
+.widget-display-column:hover.displayChart .k-legend-custom,
+.no-mouse .widget-display-column.displayChart .k-legend-custom,
+.widget-display-column:hover.displayChart .navigatable .chartWrapper.minichart,
+.no-mouse .widget-display-column.displayChart .navigatable .chartWrapper.minichart {
+    overflow-y: auto;
+}
+
 #dashboardWrapper .dxpgDataArea .dxpgHeaderText {
     cursor: default;
 }
