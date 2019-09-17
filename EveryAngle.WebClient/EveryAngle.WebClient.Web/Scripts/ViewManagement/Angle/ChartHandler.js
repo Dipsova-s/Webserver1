@@ -1069,8 +1069,6 @@ function ChartHandler(elementId, container) {
                 option.Navigator = false;
             }
             self.SetChartOptionAndBinding(self.ElementId.substr(1), option);
-
-            container.find('.chartWrapper').scrollTop(jQuery(self.ElementId).height());
         }
     };
     self.CreateEmptyChart = function () {

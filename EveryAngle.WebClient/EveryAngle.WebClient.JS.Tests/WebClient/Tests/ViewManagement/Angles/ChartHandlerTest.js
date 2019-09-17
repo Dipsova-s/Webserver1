@@ -759,4 +759,49 @@ describe("ChartHandler", function () {
 
     });
 
+    describe(".GenerateChart", function () {
+
+        describe("verification scrolls to top", function () {
+
+            beforeEach(function () {
+                jQuery([
+                    '<div id="ChartWrapper">',
+                        '<div class="chartWrapper" style="height: 1000px; overflow: scroll;">',
+                            '<div style="height: 2000px;"></div>',
+                        '</div>',
+                    '</div>'
+                ].join('')).appendTo('body');
+
+                var fieldSettingsStub = { GetDisplayDetails: jQuery.noop };
+                spyOn(fieldSettingsStub, 'GetDisplayDetails').and.returnValue({ chart_type: 'bar' });
+                chartHandler.FieldSettings = fieldSettingsStub;
+
+                spyOn(chartHandler, 'GetChartLabelRotation');
+                spyOn(chartHandler, 'IsRadarChartType');
+
+                spyOn(chartHandler.Models.Result, 'Data').and.returnValue({ row_count: 1 });
+
+                spyOn(chartHandler, 'IsDonutOrPieChartType').and.returnValue(false);
+                spyOn(chartHandler, 'SetChartOptionAndBinding');
+
+            });
+
+            afterEach(function () {
+                jQuery('#ChartWrapper').remove();
+            });
+
+            it("should scrolls to top position when it has to generate chart", function () {
+                var chartWrapper = jQuery('#ChartWrapper').find('.chartWrapper');
+                chartWrapper.scrollTop(1000);
+                expect(chartWrapper.scrollTop()).toEqual(1000);
+
+                chartHandler.GenerateChart();
+
+                expect(chartWrapper.scrollTop()).toEqual(0);
+            });
+
+        });
+
+    });
+
 });
