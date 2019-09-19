@@ -432,7 +432,7 @@ function DashboardHandler() {
                 }
             })
             .then(function () {
-                return dashboardModel.LoadAngles(dashboardModel.keyName, false, false)
+                return dashboardModel.LoadAngles(dashboardModel.KeyName, false, false)
                     .fail(function (xhr) {
                         if (xhr instanceof Array)
                             xhr = xhr[0];
@@ -505,10 +505,15 @@ function DashboardHandler() {
                     var deferred = [];
                     var modelRequest = {};
                     jQuery.each(dashboardModel.Data().widget_definitions, function (index, widget) {
-                        if (widget.widget_details.model && !modelRequest[widget.widget_details.model]) {
-                            deferred.pushDeferred(modelsHandler.LoadModelInfo, [widget.widget_details.model]);
+                        var angle = widget.GetAngle();
+                        if (!angle)
+                            return;
+
+                        var modelUri = angle.model;
+                        if (modelUri && !modelRequest[modelUri]) {
+                            deferred.pushDeferred(modelsHandler.LoadModelInfo, [modelUri]);
                         }
-                        modelRequest[widget.widget_details.model] = true;
+                        modelRequest[modelUri] = true;
                     });
                     return jQuery.whenAll(deferred)
                         .then(function () {
@@ -526,18 +531,20 @@ function DashboardHandler() {
                     var deferred = [];
                     var idsRequest = {};
                     jQuery.each(dashboardModel.Data().widget_definitions, function (index, widget) {
-                        var model = modelsHandler.GetModelByUri(widget.widget_details.model);
-                        if (model) {
-                            if (!idsRequest[widget.widget_details.model]) {
-                                idsRequest[widget.widget_details.model] = [];
-                            }
+                        var angle = widget.GetAngle();
+                        if (!angle)
+                            return;
 
-                            var angle = widget.GetAngle();
-                            if (angle) {
-                                var baseClassesBlock = angle.query_definition.findObject('queryblock_type', enumHandlers.QUERYBLOCKTYPE.BASE_CLASSES);
-                                if (baseClassesBlock) {
-                                    jQuery.merge(idsRequest[widget.widget_details.model], WC.Utility.ToArray(baseClassesBlock.base_classes));
-                                }
+                        var modelUri = angle.model;
+                        var model = modelsHandler.GetModelByUri(modelUri);
+                        if (model) {
+                            if (!idsRequest[modelUri]) {
+                                idsRequest[modelUri] = [];
+                            }
+                            
+                            var baseClassesBlock = angle.query_definition.findObject('queryblock_type', enumHandlers.QUERYBLOCKTYPE.BASE_CLASSES);
+                            if (baseClassesBlock) {
+                                jQuery.merge(idsRequest[modelUri], WC.Utility.ToArray(baseClassesBlock.base_classes));
                             }
                         }
                     });
@@ -576,15 +583,20 @@ function DashboardHandler() {
         if (dashboardModel.Data()) {
             // check model current instance was changed
             jQuery.each(dashboardModel.Data().widget_definitions, function (index, widget) {
-                var model = modelsHandler.GetModelByUri(widget.widget_details.model);
-                if (!self.ModelCurrentInfo[widget.widget_details.model]) {
-                    self.ModelCurrentInfo[widget.widget_details.model] = {};
+                var angle = widget.GetAngle();
+                if (!angle)
+                    return;
+
+                var modelUri = angle.model;
+                var model = modelsHandler.GetModelByUri(modelUri);
+                if (!self.ModelCurrentInfo[modelUri]) {
+                    self.ModelCurrentInfo[modelUri] = {};
                 }
 
                 // if updating current_instance not null and current_instance changed then set refresh flag
-                if (!model || model.current_instance && self.ModelCurrentInfo[widget.widget_details.model].Uri !== model.current_instance) {
-                    self.ModelCurrentInfo[widget.widget_details.model].IsUpdate = true;
-                    self.ModelCurrentInfo[widget.widget_details.model].Uri = model ? model.current_instance : null;
+                if (!model || model.current_instance && self.ModelCurrentInfo[modelUri].Uri !== model.current_instance) {
+                    self.ModelCurrentInfo[modelUri].IsUpdate = true;
+                    self.ModelCurrentInfo[modelUri].Uri = model ? model.current_instance : null;
                 }
             });
 
@@ -592,7 +604,12 @@ function DashboardHandler() {
             jQuery.each(dashboardModel.Data().widget_definitions, function (index, widget) {
                 var widgetElement = jQuery('#' + self.ElementPrefix + widget.id + '-container');
                 if (widgetElement.length) {
-                    var modelCurrentInfo = self.ModelCurrentInfo[widget.widget_details.model];
+                    var angle = widget.GetAngle();
+                    if (!angle)
+                        return;
+
+                    var modelUri = angle.model;
+                    var modelCurrentInfo = self.ModelCurrentInfo[modelUri];
                     if (modelCurrentInfo.IsUpdate && modelCurrentInfo.Uri) {
                         widgetElement.removeData('Model');
                     }

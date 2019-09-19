@@ -2,6 +2,9 @@
 ${divItemInfoPopup}         css=#popupAngleInfo
 ${pgbItemInfoPopup}         css=#popupAngleInfo .k-loading-mask
 ${btnItemInfoEditMode}      css=#btn-popupAngleInfo1
+
+${divDashboardItemInfoSection}       css=.dashboardInfoWidgetAngleSection
+${btnDashboardItemInfoOk}            css=#btn-popupDashboardInfo0
 ${btnDashboardItemInfoEditMode}      css=#btn-popupDashboardInfo1
 
 *** Keywords ***
@@ -14,6 +17,10 @@ Click Edit Mode Button Via Item Info Popup
 
 Click Dashbaord Edit Mode Button Via Item Info Popup
     Sleep    ${TIMEOUT_GENERAL}
-    Wait Until Page Contains Element    ${btnDashboardItemInfoEditMode}
+    Wait Until Page Contains Element    ${divDashboardItemInfoSection}
     Click Element    ${btnDashboardItemInfoEditMode}
     Wait Progress Bar Closed
+
+Click Dashbaord Ok Button Via Item Info Popup
+    Wait Until Page Contains Element    ${divDashboardItemInfoSection}
+    Click Element    ${btnDashboardItemInfoOk}

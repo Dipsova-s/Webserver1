@@ -185,6 +185,7 @@ window.ItemInfoHandler = function () {
                     self.LoadItem(dashboardModel.LoadDashboard, item.uri)
                         .then(function (response) {
                             self.CacheItems[item.uri] = response;
+                            dashboardModel.SetData(response);
                             dashboard = response;
                             e.sender.wrapper.find('.k-window-buttons .btn').removeClass('executing');
                             e.sender.trigger('resize');
@@ -207,7 +208,7 @@ window.ItemInfoHandler = function () {
                             }
                         })
                         .then(function () {
-                            return dashboardModel.LoadAngles(dashboardModel.KeyName, false, true);
+                            return dashboardModel.LoadAngles(dashboardModel.KeyName, false, false);
                         })
                         .done(function () {
                             //Find Label

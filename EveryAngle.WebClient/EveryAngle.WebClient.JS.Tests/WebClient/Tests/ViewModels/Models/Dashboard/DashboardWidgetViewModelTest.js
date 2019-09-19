@@ -249,4 +249,45 @@ describe("DashboardWidgetViewModel", function () {
 
     });
 
+    describe(".GetAngle", function () {
+
+        beforeEach(function () {
+            dashboardModel.Angles = [
+                { id: '1', uri: '/models/1/angles/1', name: 'Angle1' },
+                { id: '2', uri: '/models/1/angles/2', name: 'Angle2' }
+            ];
+        });
+
+        afterEach(function () {
+            dashboardWidgetViewModel.angle = '';
+            dashboardModel.KeyName = '';
+            dashboardModel.Angles = [];
+        });
+
+        it("should get data by id correctly", function () {
+            dashboardWidgetViewModel.angle = '1';
+            dashboardModel.KeyName = 'id';
+            var result = dashboardWidgetViewModel.GetAngle();
+
+            expect(result.name).toEqual('Angle1');
+        });
+
+        it("should get data by uri correctly", function () {
+            dashboardWidgetViewModel.angle = '/models/1/angles/2';
+            dashboardModel.KeyName = 'uri';
+            var result = dashboardWidgetViewModel.GetAngle();
+
+            expect(result.name).toEqual('Angle2');
+        });
+
+        it("should get null when Angle is not in the list", function () {
+            dashboardWidgetViewModel.angle = '/models/1/angles/3';
+            dashboardModel.KeyName = 'uri';
+            var result = dashboardWidgetViewModel.GetAngle();
+
+            expect(result).toBeNull();
+        });
+
+    });
+
 });

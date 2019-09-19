@@ -672,11 +672,16 @@ function DashboardViewModel() {
         var requests = {}, deferred = [], displayDeferred = [];
 
         jQuery.each(self.Data().widget_definitions, function (index, widget) {
-            if (!requests[widget.widget_details.model])
-                requests[widget.widget_details.model] = [];
+            var angle = widget.GetAngle();
+            if (!angle)
+                return;
 
-            if (jQuery.inArray(widget.angle, requests[widget.widget_details.model] === -1))
-                requests[widget.widget_details.model].push(widget.angle);
+            var modelUri = angle.model;
+            if (!requests[modelUri])
+                requests[modelUri] = [];
+
+            if (jQuery.inArray(widget.angle, requests[modelUri] === -1))
+                requests[modelUri].push(widget.angle);
         });
 
         self.Angles = [];
@@ -711,30 +716,21 @@ function DashboardViewModel() {
 
     // LoadAnglesByUri: load angles by uri
     self.LoadAnglesByUri = function (multilingual) {
-        var requests = {}, deferred = [];
-
-        jQuery.each(self.Data().widget_definitions, function (index, widget) {
-            if (!requests[widget.widget_details.model])
-                requests[widget.widget_details.model] = [];
-
-            if (widget.angle && jQuery.inArray(widget.angle, requests[widget.widget_details.model] === -1))
-                requests[widget.widget_details.model].push(widget.angle);
-        });
+        var deferred = [];
+        var angleUris = jQuery.map(self.Data().widget_definitions, function (widget) {
+            if (widget.angle)
+                return widget.angle;
+        }).distinct();
 
         var query = {};
         query[enumHandlers.PARAMETERS.CACHING] = false;
         query[enumHandlers.PARAMETERS.MULTILINGUAL] = multilingual;
         self.Angles = [];
-        jQuery.each(requests, function (model, ids) {
-            jQuery.each(ids, function (index, id) {
-                deferred.push(
-                    GetDataFromWebService(directoryHandler.ResolveDirectoryUri(id), query)
-                        .done(function (data) {
-                            self.MapAngle(data);
-                            self.Angles.push(data);
-                        })
-                );
-            });
+        jQuery.each(angleUris, function (index, angleUri) {
+            deferred.push(GetDataFromWebService(directoryHandler.ResolveDirectoryUri(angleUri), query).done(function (data) {
+                self.MapAngle(data);
+                self.Angles.push(data);
+            }));
         });
 
         return jQuery.whenAll(deferred);

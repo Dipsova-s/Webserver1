@@ -71,9 +71,9 @@ function DashboardWidgetViewModel(model) {
         }
 
         // merge data from old version
-        if (self.widget_details.index) {
-            delete self.widget_details.index;
-        }
+        delete self.widget_details.index;
+        delete self.widget_details.model;
+
         if (self.widget_details.angle) {
             if (!self.angle) self.angle = self.widget_details.angle;
             delete self.widget_details.angle;
