@@ -211,6 +211,10 @@
 
         return dashboardPageUrl + '#/?' + queryString;
     };
+    window.WC.Utility.IsAbsoluteUrl = function (url) {
+        var regexp = new RegExp('^(?:[a-z]+:)?//', 'i');
+        return regexp.test(url);
+    };
     window.WC.Utility.Compare = function (value1, value2, sensitive) {
         if (!sensitive) {
             value1 = ('' + value1).toLowerCase();

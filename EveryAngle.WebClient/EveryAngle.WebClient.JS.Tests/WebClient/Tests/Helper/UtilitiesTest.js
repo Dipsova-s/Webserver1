@@ -229,4 +229,45 @@
 
     });
 
+    describe(".GetQueryStringValue", function () {
+        
+        var tests = [
+            { url: 'http://example.com', name: 'test', expected: '' },
+            { url: 'http://example.com?testxx=1&xxtest=2&test=3', name: 'test', expected: '' },
+            { url: '#/?testxx=1&xxtest=2&test=3', name: 'testxx', expected: '1' },
+            { url: '#/?testxx=1&xxtest=2&test=3', name: 'xxtest', expected: '2' },
+            { url: '#/?testxx=1&xxtest=2&test=3', name: 'test', expected: '3' },
+            { url: '/?model=/models/1&id=EA_PROPERTY_DeliveryReliability', name: 'model', expected: '/models/1' }
+        ];
+
+        $.each(tests, function (index, test) {
+            it("should get query string '" + test.name + "' of '" + test.url + "'", function () {
+                var result = WC.Utility.GetQueryStringValue(test.url, test.name);
+                expect(test.expected).toEqual(result);
+            });
+        });
+
+    });
+
+    describe(".IsAbsoluteUrl", function () {
+
+        var tests = [
+            { url: 'http://example.com', expected: true },
+            { url: 'HTTP://EXAMPLE.COM', expected: true },
+            { url: 'https://www.exmaple.com', expected: true },
+            { url: 'ftp://example.com/file.txt', expected: true },
+            { url: '//cdn.example.com/lib.js', expected: true },
+            { url: '/myfolder/test.txt', expected: false },
+            { url: 'test', expected: false }
+        ];
+
+        $.each(tests, function (index, test) {
+            it("should " + (test.expected ? 'be' : 'not be') + " an absolute url '" + test.url + "'", function () {
+                var result = WC.Utility.IsAbsoluteUrl(test.url);
+                expect(test.expected).toEqual(result);
+            });
+        });
+
+    });
+
 });

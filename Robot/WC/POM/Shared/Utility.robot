@@ -1,6 +1,7 @@
 *** Settings ***
 Resource            ${EXECDIR}/WC/POM/Shared/Breadcrumb.robot
 Resource            ${EXECDIR}/WC/POM/Shared/ToastNotification.robot
+Resource            ${EXECDIR}/WC/POM/Shared/HelpText.robot
 
 *** Variables ***
 ${pgbMain}              css=#popupProgressBar

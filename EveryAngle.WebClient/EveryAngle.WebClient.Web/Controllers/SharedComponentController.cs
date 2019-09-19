@@ -20,20 +20,19 @@ namespace EveryAngle.WebClient.Web.Controllers
         }
 
         [HttpGet]
-        public ActionResult Helptext(string helptextUri)
+        public ActionResult Helptext(string model, string id)
         {
-            var requestManager = RequestManager.Initialize(Shared.Helpers.UrlHelper.GetRequestUrl(Shared.Helpers.URLType.NOA) + helptextUri + "&viewmode=details");
+            string helptextUri = $"{model}/helptexts?ids={id}&viewmode=details";
+            RequestManager requestManager = RequestManager.Initialize(Shared.Helpers.UrlHelper.GetRequestUrl(Shared.Helpers.URLType.NOA) + helptextUri);
             JObject helptext = requestManager.Run();
             List<JToken> tokens = helptext.SelectToken("help_texts").ToList();
 
-            string helptextHtml = "Cound not find the helptext.";
-            string helptextId = "-";
-            string helptextName = "-";
+            string helptextHtml = string.Empty;
+            string helptextName = id;
 
             foreach (var token in tokens)
             {
                 helptextHtml = token.SelectToken("html_help")?.ToString() ?? string.Empty;
-                helptextId = token.SelectToken("id").ToString();
 
                 string shortName = token.SelectToken("short_name")?.ToString() ?? string.Empty;
                 string longName = token.SelectToken("long_name")?.ToString() ?? string.Empty;
@@ -44,7 +43,6 @@ namespace EveryAngle.WebClient.Web.Controllers
             }
 
             ViewBag.Helptext = helptextHtml;
-            ViewBag.HelptextId = helptextId;
             ViewBag.helptextName = helptextName;
             return PartialView("~/Views/Shared/Helptext.cshtml");
         }
