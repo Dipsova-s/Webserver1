@@ -281,31 +281,10 @@ function HelpTextHandler() {
 
                     if (helpText && helpText.html_help) {
                         target.find('.helpTextContainer').html(helpText.html_help);
-                        target.find('.helpTextContainer a').click(function (event) {
-                            var url = event.currentTarget.href || '';
-                            var keyword = anglePageUrl.replace('anglepage', '');
-                            if (url.indexOf(keyword) > 0) {
-                                var startIndex = url.indexOf(keyword) + keyword.length;
-                                var targetUri = url.substring(startIndex);
-                                var helptextId = '';
-                                if (targetUri.indexOf('.html#') > -1) {
-                                    helptextId = targetUri.substring(0, targetUri.indexOf('.html#'));
-                                }
-                                else if (targetUri.indexOf('.htm#') > -1) {
-                                    helptextId = targetUri.substring(0, targetUri.indexOf('.htm#'));
-                                }
-                                else if (targetUri.indexOf('anglepage#') > -1) {
-                                    helptextId = targetUri.substring(targetUri.indexOf('anglepage#') + 10, targetUri.length);
-                                }
-
-                                if (helptextId !== '') {
-                                    window.open(helptextPageUrl + '?helptextUri=' + angleInfoModel.Data().model + '/helptexts?ids=' + helptextId, '_blank');
-                                    event.preventDefault();
-                                }
-                            }
+                        target.find('.helpTextContainer a').each(function () {
+                            self.UpdateHelpTextLink(jQuery(this), modelUri);
                         });
                     }
-
 
                     if (self.Field.domain) {
                         var domain = modelFieldDomainHandler.GetFieldDomainByUri(self.Field.domain),
@@ -337,6 +316,19 @@ function HelpTextHandler() {
             target.find('.helpHeaderContainer').html(self.Field.id);
             return jQuery.when(true);
         }
+    };
+    self.UpdateHelpTextLink = function (link, modelUri) {
+        var url = link.attr('href');
+        
+        if (WC.Utility.IsAbsoluteUrl(url))
+            return;
+        
+        // set link
+        var query = jQuery.param({ model: modelUri, id: url });
+        link.attr({
+            'href': helptextPageUrl + '?' + query,
+            'target': '_blank'
+        });
     };
     /*================================================*/
     //EOF: Methods

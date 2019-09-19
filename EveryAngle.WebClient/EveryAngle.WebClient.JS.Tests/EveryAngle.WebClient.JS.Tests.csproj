@@ -841,6 +841,7 @@
     <Content Include="WebClient\Tests\ViewManagement\Shared\ItemState\ItemPublishStateHandlerTest.js" />
     <Content Include="WebClient\Tests\ViewManagement\Shared\ItemState\ItemStateHandlerTest.js" />
     <Content Include="WebClient\Tests\ViewManagement\Shared\ItemState\ItemValidateStateHandlerTest.js" />
+    <Content Include="WebClient\Tests\ViewManagement\Shared\HelpTextHandlerTest.js" />
     <Content Include="WebClient\Tests\ViewManagement\Shared\SearchStorageHandlerTest.js" />
     <Content Include="WebClient\Tests\ViewManagement\Shared\ModelFieldDomainHandlerTest.js" />
     <Content Include="WebClient\Tests\ViewManagement\Shared\ModelLabelCategoryHandlerTest.js" />

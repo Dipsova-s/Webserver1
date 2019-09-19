@@ -28,6 +28,11 @@ Click Insert Field From Field Chooser
     Click Element   ${btnFieldChooser}
     Wait Until Ajax Complete
 
+Click Field Chooser Info
+    [Arguments]  ${fieldId}
+    Click Element    jquery=#DisplayPropertiesGrid [id="${fieldId}"] .btnInfo
+    Wait Until Ajax Complete
+
 Fill In Search Field Chooser
     [Arguments]   ${searchText}
     Input Text By JQuery   ${txtFitlerAvailableProperties}    ${searchText}
