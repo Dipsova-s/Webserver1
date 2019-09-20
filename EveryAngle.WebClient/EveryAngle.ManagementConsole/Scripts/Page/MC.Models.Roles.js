@@ -1230,9 +1230,9 @@
                         dataTextField: "short_name",
                         dataValueField: "id",
                         headerTemplate: '<div class="dropdown-header k-widget k-header multipleSelectHeader">'
-                            + '<a class="btn btnSelectAll" onclick="MC.Models.Roles.BatchParameters(\'' + guid + '\', MC.Models.Roles.BATCHPARAMETERSTYPE.SELECTALL)" title="Select all"></a>'
-                            + '<a class="btn btnClearAll" onclick="MC.Models.Roles.BatchParameters(\'' + guid + '\', MC.Models.Roles.BATCHPARAMETERSTYPE.CLEARALL)" title="Deselect all"></a>'
-                            + '<a class="btn btnInvert" onclick="MC.Models.Roles.BatchParameters(\'' + guid + '\', MC.Models.Roles.BATCHPARAMETERSTYPE.INVERT)" title="Invert selection"></a>'
+                            + '<a class="btn btnSelectAll" onclick="MC.Models.Roles.BatchParameters(\'' + guid + '\', MC.Models.Roles.BATCHPARAMETERSTYPE.SELECTALL, this)" title="Select all"></a>'
+                            + '<a class="btn btnClearAll" onclick="MC.Models.Roles.BatchParameters(\'' + guid + '\', MC.Models.Roles.BATCHPARAMETERSTYPE.CLEARALL, this)" title="Deselect all"></a>'
+                            + '<a class="btn btnInvert" onclick="MC.Models.Roles.BatchParameters(\'' + guid + '\', MC.Models.Roles.BATCHPARAMETERSTYPE.INVERT, this)" title="Invert selection"></a>'
                             + '</div>',
                         tagTemplate: '#= (short_name === long_name ? short_name : short_name + " (" + long_name + ")") #',
                         template: '#= (short_name === long_name ? short_name : short_name + " (" + long_name + ")") #',
@@ -1247,7 +1247,10 @@
                     generatedControl.insertAfter(enumInput);
                 });
         };
-        self.BatchParameters = function (guid, todo) {
+        self.BatchParameters = function (guid, todo, button) {
+            var selectedButton = $(button).addClass('active');
+            selectedButton.siblings().removeClass('active');
+
             var input = $('#ReferenceFilterGrid .k-grid-content tr').find('input.' + guid);
             var inputData = input.data('kendoMultiSelect');
             if (inputData) {
@@ -1719,9 +1722,9 @@
                                 dataTextField: "short_name",
                                 dataValueField: "id",
                                 headerTemplate: '<div class="dropdown-header k-widget k-header multipleSelectHeader">'
-                                    + '<a class="btn btnSelectAll" onclick="MC.Models.Roles.BatchParameters(\'' + guid + '\', MC.Models.Roles.BATCHPARAMETERSTYPE.SELECTALL)" title="Select all"></a>'
-                                    + '<a class="btn btnClearAll" onclick="MC.Models.Roles.BatchParameters(\'' + guid + '\', MC.Models.Roles.BATCHPARAMETERSTYPE.CLEARALL)" title="Deselect all"></a>'
-                                    + '<a class="btn btnInvert" onclick="MC.Models.Roles.BatchParameters(\'' + guid + '\', MC.Models.Roles.BATCHPARAMETERSTYPE.INVERT)" title="Invert selection"></a>'
+                                    + '<a class="btn btnSelectAll" onclick="MC.Models.Roles.BatchParameters(\'' + guid + '\', MC.Models.Roles.BATCHPARAMETERSTYPE.SELECTALL, this)" title="Select all"></a>'
+                                    + '<a class="btn btnClearAll" onclick="MC.Models.Roles.BatchParameters(\'' + guid + '\', MC.Models.Roles.BATCHPARAMETERSTYPE.CLEARALL, this)" title="Deselect all"></a>'
+                                    + '<a class="btn btnInvert" onclick="MC.Models.Roles.BatchParameters(\'' + guid + '\', MC.Models.Roles.BATCHPARAMETERSTYPE.INVERT, this)" title="Invert selection"></a>'
                                     + '</div>',
                                 tagTemplate: '#= (short_name === long_name ? short_name : short_name + " (" + long_name + ")") #',
                                 template: '#= (short_name === long_name ? short_name : short_name + " (" + long_name + ")") #',

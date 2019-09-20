@@ -166,9 +166,9 @@
             '<div class="filterLabel" id="InputTitle-{Index}">' + Localization.InputTitleSelectValue + '</div>',
             '<div class="filterInput filterInputData">',
             '<div class="filterInputGroupOther">',
-            '<input id="SellectAll-{Index}" type="button" class="btn btnSelectAll" title="Select all" data-click="$root.View.SelectAllList({Index});" />',
-            '<input id="DeselectAll-{Index}" type="button" class="btn btnDeselectAll" title="Deselect all" data-click="$root.View.DeselectAllList({Index});" />',
-            '<input id="InvertSelect-{Index}" type="button" class="btn btnInvertSelect" title="Invert selection" data-click="$root.View.InvertSelectList({Index});" />',
+                '<input id="SellectAll-{Index}" type="button" class="btn btnSelectAll" title="Select all" data-click="$root.View.SelectAllList({Index}, this);" />',
+                '<input id="DeselectAll-{Index}" type="button" class="btn btnDeselectAll" title="Deselect all" data-click="$root.View.DeselectAllList({Index}, this);" />',
+                '<input id="InvertSelect-{Index}" type="button" class="btn btnInvertSelect" title="Invert selection" data-click="$root.View.InvertSelectList({Index}, this);" />',
             '</div>',
             '<div class="filterInputGroup1">',
             '<div class="searchBoxWrapper" id="enumListFilter">',
@@ -1921,16 +1921,19 @@
             popup.Show(popupSettings);
         }
     };
-    self.SelectAllList = function (elementIndex) {
-        self.SetBatchEnumGrid(elementIndex, true);
+    self.SelectAllList = function (elementIndex, button) {
+        self.SetBatchEnumGrid(elementIndex, true, button);
     };
-    self.DeselectAllList = function (elementIndex) {
-        self.SetBatchEnumGrid(elementIndex, false);
+    self.DeselectAllList = function (elementIndex, button) {
+        self.SetBatchEnumGrid(elementIndex, false, button);
     };
-    self.InvertSelectList = function (elementIndex) {
-        self.SetBatchEnumGrid(elementIndex, null);
+    self.InvertSelectList = function (elementIndex, button) {
+        self.SetBatchEnumGrid(elementIndex, null, button);
     };
-    self.SetBatchEnumGrid = function (elementIndex, check) {
+    self.SetBatchEnumGrid = function (elementIndex, check, button) {
+        var selectedButton = $(button).addClass('active');
+        selectedButton.siblings().removeClass('active');
+
         var enlargeGrid = jQuery('#ValueListEnlarge-' + elementIndex).data(enumHandlers.KENDOUITYPE.GRID);
         if (enlargeGrid) {
             var filter = enlargeGrid.dataSource.filter();

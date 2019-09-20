@@ -409,7 +409,6 @@
     position: relative;
     height: auto;
     z-index: 10;
-    background-color: #fbfbfb;
 }
 
 #LeftMenu .facetFilter ul {

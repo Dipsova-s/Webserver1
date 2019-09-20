@@ -524,11 +524,8 @@
     <Content Include="Images\Angle\ActionDropdownList\save.svg" />
     <Content Include="Images\Angle\ActionDropdownList\saveas.svg" />
     <Content Include="Images\Angle\AngleDetail\btn_additem.svg" />
-    <Content Include="Images\Angle\AngleDetail\btn_deselectall.svg" />
-    <Content Include="Images\Angle\AngleDetail\btn_invertselect.svg" />
     <Content Include="Images\Angle\AngleDetail\btn_removeall.svg" />
     <Content Include="Images\Angle\AngleDetail\btn_removeitem.svg" />
-    <Content Include="Images\Angle\AngleDetail\btn_selectall.svg" />
     <Content Include="Images\Angle\back2search.svg" />
     <Content Include="Images\Angle\btn_addcolumn.svg" />
     <Content Include="Images\Angle\Followups\followups_flow.svg" />

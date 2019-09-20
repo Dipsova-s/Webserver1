@@ -179,6 +179,9 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Resource\ClassesChooser\search-white.svg" />
+    <Content Include="Resource\Shared\Icons\btn_deselectall.svg" />
+    <Content Include="Resource\Shared\Icons\btn_invertselect.svg" />
+    <Content Include="Resource\Shared\Icons\btn_selectall.svg" />
     <EmbeddedResource Include="Resource\FieldsChooser\icon_starred_active.svg" />
     <EmbeddedResource Include="Resource\FieldsChooser\icon_starred_inactive.svg" />
     <Content Include="Resource\FieldsChooser\search-white.svg" />

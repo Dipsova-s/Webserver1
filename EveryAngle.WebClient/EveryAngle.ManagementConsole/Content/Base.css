@@ -4409,24 +4409,34 @@ form#ExportPackageForm .packageInfo .packageVersion input {
 }
 
 .multipleSelectHeader > .btn {
-    min-width: 0;
-    width: 29px;
-    height: 28px;
     padding: 0;
     margin-right: 3px;
-    background-position: -1px -1px;
+    border-width: 1px;
+    border-color: transparent;
+    color: unset;
+    width: 25px;
+    height: 25px;
+    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+.multipleSelectHeader > .btn.active {
+    border: 1px solid #78909C;
+}
+
+.multipleSelectHeader > .btn:hover {
+    box-shadow: 0 1px 2px 0 rgba(8, 35, 48, 0.24), 0 2px 6px 0 rgba(8, 35, 48, 0.16);
 }
 
 .multipleSelectHeader > .btnSelectAll {
-    background-image: url(../images/ui/btn_selectall.png);
+    background-image: url(./externalresource/btn_selectall.svg);
 }
 
 .multipleSelectHeader > .btnClearAll {
-    background-image: url(../images/ui/btn_deselectall.png);
+    background-image: url(./externalresource/btn_deselectall.svg);
 }
 
 .multipleSelectHeader > .btnInvert {
-    background-image: url(../images/ui/btn_invertselect.png);
+    background-image: url(./externalresource/btn_invertselect.svg);
 }
 
 #AngleParametersGrid .actionExecutionBetween {

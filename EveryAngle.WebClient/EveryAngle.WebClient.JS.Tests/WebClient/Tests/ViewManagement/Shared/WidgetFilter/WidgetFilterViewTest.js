@@ -44,4 +44,39 @@ describe("WidgetFilterView", function () {
         });
 
     });
+
+    describe(".SetBatchEnumGrid", function () {
+
+        beforeEach(function () {
+            jQuery([
+                '<div class="container">',
+                '<button class="button1"></button>',
+                '<button class="button2"></button>',
+                '<button class="button3"></button>',
+                '</div>'
+            ].join('')).appendTo('body');
+
+            spyOn(jQuery.fn, 'data').and.callFake(function (kendoui) {
+                return null;
+            });
+            spyOn(widgetFilterView.Handler, 'ApplyFilterWhenAction');
+        });
+
+        afterEach(function () {
+            jQuery('.container').remove();
+        });
+
+        it("should set active class on selected button when user clicked that button", function () {
+            expect(jQuery('.button1').hasClass('active')).toBeFalsy();
+            widgetFilterView.SetBatchEnumGrid(0, true, jQuery('.button1').get(0));
+
+            expect(jQuery('.button1').hasClass('active')).toBeTruthy();
+            widgetFilterView.SetBatchEnumGrid(0, true, jQuery('.button2').get(0));
+
+            expect(jQuery('.button1').hasClass('active')).toBeFalsy();
+            expect(jQuery('.button2').hasClass('active')).toBeTruthy();
+        });
+
+    });
+
 });

@@ -650,9 +650,7 @@
 
 .FilterWrapper3 .filterInputGroupOther .btn,
 .FilterWrapper4 .filterInputGroupOther .btn {
-    width: 31px;
-    height: 30px;
-    background: transparent none left top no-repeat;
+    background-color: transparent;
     border-width: 0;
     text-align: left;
     text-indent: -9000px;
@@ -675,16 +673,23 @@
     right: 0;
     margin-right: 0;
     z-index: 2000;
+    width: 25px;
+    height: 25px;
+}
+.FilterWrapper4 .filterInputGroupOther .btn.active {
+    border: 1px solid #78909C;
 }
 
-
 .FilterWrapper3 .filterInputGroupOther .btn,
-.FilterWrapper3 .filterInputGroupOther .btn:disabled{
+.FilterWrapper3 .filterInputGroupOther .btn:disabled {
+    background-position: left top;
+    background-repeat: no-repeat;
     background-size: 36px;
     top: -5px;
     left: -4px;
-    margin:auto;
-    width:30px;
+    margin: auto;
+    width: 30px;
+    height: 30px;
 }
 
 .FilterWrapper3 .filterInputGroupOther .btn:hover{
@@ -717,17 +722,17 @@
 
 .FilterWrapper4 .filterInputGroupOther .btnSelectAll {
     top: 0;
-    background-image: url('../../images/angle/angledetail/btn_selectall.svg');
+    background-image: url(../externalresource/btn_selectall.svg);
 }
 
 .FilterWrapper4 .filterInputGroupOther .btnDeselectAll {
     top: 33px;
-    background-image: url('../../images/angle/angledetail/btn_deselectall.svg');
+    background-image: url(../externalresource/btn_deselectall.svg);
 }
 
 .FilterWrapper4 .filterInputGroupOther .btnInvertSelect {
     top: 66px;
-    background-image: url('../../images/angle/angledetail/btn_invertselect.svg');
+    background-image: url(../externalresource/btn_invertselect.svg);
 }
 
 .FilterWrapperBool .filterInput {
@@ -806,6 +811,10 @@
 
 .popupEnumurateEnlarge .k-grid {
     height: 455px;
+}
+
+.popupEnumurateEnlarge .filterInputGroupOther .btn {
+    border-width: 1px;
 }
 
 /* .AskForValue
