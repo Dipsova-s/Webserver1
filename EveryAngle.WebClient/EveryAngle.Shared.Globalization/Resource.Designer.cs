@@ -13762,7 +13762,7 @@ namespace EveryAngle.Shared.Globalization {
         
         /// <summary>
         ///   Looks up a localized string similar to Select this field to enable the Go to SAP functionality.&lt;br&gt;
-        ///Also the option to download the required Go to SAP launcher will become available in the Settings menu in the Web client..
+        ///The option to download the required Go to SAP launcher will then become available in the Settings menu of the Web Client..
         /// </summary>
         public static string MC_WebClientSettingsHelpEnableGoToSAP {
             get {
@@ -15736,7 +15736,7 @@ namespace EveryAngle.Shared.Globalization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to You made changes to a Validate Angle.
+        ///   Looks up a localized string similar to You made changes to a validated Angle.
         /// </summary>
         public static string PublishSettings_InfoChangeValidatedAngle {
             get {
@@ -15799,7 +15799,7 @@ namespace EveryAngle.Shared.Globalization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to go to definition.
+        ///   Looks up a localized string similar to Go to definition.
         /// </summary>
         public static string PublishSettings_WidgetLinkGoToDefinition {
             get {
@@ -15808,7 +15808,7 @@ namespace EveryAngle.Shared.Globalization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Can&apos;t publish dashboard. Publish all private Displays first.
+        ///   Looks up a localized string similar to Cannot publish Dashboard. Publish all private Displays first..
         /// </summary>
         public static string PublishSettings_WidgetsInvalid {
             get {
@@ -16636,7 +16636,7 @@ namespace EveryAngle.Shared.Globalization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Download launcher.
+        ///   Looks up a localized string similar to Download Launcher.
         /// </summary>
         public static string SystemSettingLabelGoToSAPDownload {
             get {
@@ -17149,7 +17149,7 @@ namespace EveryAngle.Shared.Globalization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Select Item files to upload or drop here....
+        ///   Looks up a localized string similar to Select Items to upload or drop here....
         /// </summary>
         public static string UploadAngles_SelectFile {
             get {
@@ -17176,7 +17176,7 @@ namespace EveryAngle.Shared.Globalization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Dashboard cannot be uploaded without referenced Angles. Please make sure at least one of the referenced Angles is also uploaded..
+        ///   Looks up a localized string similar to Dashboard cannot be uploaded without referenced Angles. Please make sure that at least one of the referenced Angles is uploaded as well..
         /// </summary>
         public static string UploadDashboard_InvalidReferencedAngles {
             get {
@@ -17302,7 +17302,7 @@ namespace EveryAngle.Shared.Globalization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Angle isn&apos;t validated.
+        ///   Looks up a localized string similar to Angle is not validated.
         /// </summary>
         public static string ValidateSetting_AngleNotValidated {
             get {
@@ -17311,7 +17311,7 @@ namespace EveryAngle.Shared.Globalization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Angle&apos;s been validated.
+        ///   Looks up a localized string similar to Angle has been validated.
         /// </summary>
         public static string ValidateSetting_AngleValidated {
             get {
@@ -17320,7 +17320,7 @@ namespace EveryAngle.Shared.Globalization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Dashboard isn&apos;t validated.
+        ///   Looks up a localized string similar to Dashboard is not validated.
         /// </summary>
         public static string ValidateSetting_DashboardNotValidated {
             get {
@@ -17329,7 +17329,7 @@ namespace EveryAngle.Shared.Globalization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Dashboard&apos;s been validated.
+        ///   Looks up a localized string similar to Dashboard has been validated.
         /// </summary>
         public static string ValidateSetting_DashboardValidated {
             get {

@@ -805,7 +805,7 @@
     <value>Prozentsätze</value>
   </data>
   <data name="FormatSettingNoDecimal" xml:space="preserve">
-    <value>Kein</value>
+    <value>Keine</value>
   </data>
   <data name="SystemSettingLabelDefaultBusinessProcess" xml:space="preserve">
     <value>Standard-Geschäftsprozess</value>
@@ -820,13 +820,13 @@
     <value>Technische Namen anzeigen</value>
   </data>
   <data name="SystemSettingLabelGoToSAP" xml:space="preserve">
-    <value>Go to SAP</value>
+    <value>Zu SAP</value>
   </data>
   <data name="SystemSettingLabelGoToSAPDownload" xml:space="preserve">
-    <value>Download launcher</value>
+    <value>Launcher herunterladen</value>
   </data>
   <data name="SystemSettingLabelGoToSAPDownload_Info" xml:space="preserve">
-    <value>To use Go to SAP, click to download and install the Go to SAP launcher on your workstation.</value>
+    <value>Um „Zu SAP“ zu verwenden, klicken Sie auf den „Zu SAP“-Launcher, um ihn herunterzuladen und auf Ihrer Arbeitsstation zu installieren.</value>
   </data>
   <data name="SystemSettingLabelShowSmallBusinessProcessBar" xml:space="preserve">
     <value>Kurzdarstellung anzeigen</value>
@@ -1225,7 +1225,7 @@
     <value>Dashboard-Berechtigungen</value>
   </data>
   <data name="CreateEAPackage" xml:space="preserve">
-    <value>Angles herunterladen</value>
+    <value>Elemente herunterladen</value>
   </data>
   <data name="FileName" xml:space="preserve">
     <value>Dateiname</value>
@@ -1666,7 +1666,7 @@
     <value>Der Pivot benötigt mindestens ein Feld im Zeilenbereich.</value>
   </data>
   <data name="Info_RequiredAtLeastOneLabelBeforePublish" xml:space="preserve">
-    <value>Vor der Freigabe muss mindestens {0} Label-Kategorien ein Label zugewiesen werden</value>
+    <value>Vor der Freigabe müssen Labels von mindestens {0} Label-Kategorien zugewiesen werden.</value>
   </data>
   <data name="Info_RequiredAtleastOneLabelBeforePublishDashboard" xml:space="preserve">
     <value>Weisen Sie mit (*) markierten Kategorien Freigabe-Labels zu: &lt;ul&gt;{0}&lt;/ul&gt;</value>
@@ -4868,7 +4868,7 @@ Leave this field empty if you do not use Google Analytics.</value>
   </data>
   <data name="MC_WebClientSettingsHelpEnableGoToSAP" xml:space="preserve">
     <value>Select this field to enable the Go to SAP functionality.&lt;br&gt;
-Also the option to download the required Go to SAP launcher will become available in the Settings menu in the Web client.</value>
+The option to download the required Go to SAP launcher will then become available in the Settings menu of the Web Client.</value>
   </data>
   <data name="MC_Validation_GoogleAnalyticsId" xml:space="preserve">
     <value>Invalid Google Analytics ID.</value>
@@ -5336,13 +5336,13 @@ This setting is valid for both Export to Excel and Export to CSV, manually from 
     <value>Möchten Sie wirklich {0} einzelne Angles herunterladen?</value>
   </data>
   <data name="UploadAngles" xml:space="preserve">
-    <value>Angles hochladen</value>
+    <value>Elemente hochladen</value>
   </data>
   <data name="UploadAnglesReport" xml:space="preserve">
-    <value>Bericht zu Items hochladen</value>
+    <value>Bericht zu Elementen hochladen</value>
   </data>
   <data name="ProgressBar_UploadingAngles" xml:space="preserve">
-    <value>Items werden hochgeladen</value>
+    <value>Elemente hochladen...</value>
   </data>
   <data name="UploadAngles_InvalideExtension" xml:space="preserve">
     <value>ungültige Datei-Erweiterung</value>
@@ -5354,10 +5354,10 @@ This setting is valid for both Export to Excel and Export to CSV, manually from 
     <value>ungültige hochgeladene Datei</value>
   </data>
   <data name="UploadAngles_SelectFile" xml:space="preserve">
-    <value>Item-Dateien zum Hochladen auswählen oder hier ablegen...</value>
+    <value>Elemente zum Hochladen auswählen, oder hier ablegen...</value>
   </data>
   <data name="UploadAngles_SuccessfulMessage" xml:space="preserve">
-    <value>Item-Upload erfolgreich: {0} von {1}</value>
+    <value>Element-Upload erfolgreich: {0} von {1}</value>
   </data>
   <data name="FormatSetting_UseDefault" xml:space="preserve">
     <value>Standard verwenden</value>
@@ -5959,7 +5959,7 @@ During a login challenge resulting from a URL link into the instance that requir
 Only Active Directory (AD) and Active Directory Federation (ADFS) services are supported.</value>
   </data>
   <data name="NotificationsFeed_Updates" xml:space="preserve">
-    <value>Notifications</value>
+    <value>Benachrichtigungen</value>
   </data>
   <data name="NotificationsFeed_ViewAll" xml:space="preserve">
     <value>Alle anzeigen</value>
@@ -5968,156 +5968,159 @@ Only Active Directory (AD) and Active Directory Federation (ADFS) services are s
     <value>Nachrichten</value>
   </data>
   <data name="Download_Type" xml:space="preserve">
-    <value>Download type</value>
+    <value>Download-Art</value>
   </data>
   <data name="AngleExport_TypePackage_Dashboard_Private" xml:space="preserve">
-    <value>Download is not available, because the selection contains private dashboard(s).</value>
+    <value>Download ist nicht verfügbar, da die Auswahl mindestens ein privates Dashboard enthält.</value>
   </data>
   <data name="AngleExport_TypePackage_Dashboard_Cannot_Individually" xml:space="preserve">
-    <value>Dashboards cannot be downloaded individually.</value>
+    <value>Dashboards können nicht einzeln heruntergeladen werden.</value>
   </data>
   <data name="AngleExport_TypePackage_Dashboard_ManageRequired" xml:space="preserve">
-    <value>Download is not available, because user is not allowed to manage this model.</value>
+    <value>Download ist nicht verfügbar, da der Benutzer nicht zur Verwaltung dieses Modells berechtigt ist.</value>
   </data>
   <data name="AngleExport_TypePackage_Dashboard_MultipleModel" xml:space="preserve">
-    <value>Download is not available, because the selection contains dashboards from multiple models.</value>
+    <value>Download ist nicht verfügbar, da die Auswahl Dashboards von mehreren Modellen enthält.</value>
   </data>
   <data name="AngleExport_TypePackage_Download_Angle_Individually" xml:space="preserve">
-    <value>Click OK to download the selected Angles/Templates individually.</value>
+    <value>Klicken Sie auf OK, um die ausgewählten Angles/Templates einzeln herunterzuladen.</value>
   </data>
   <data name="AngleExport_TypePackage_Dashboard_WarningTitle" xml:space="preserve">
-    <value>Package download is not available, because the selection contains private item(s).</value>
+    <value>Paketdownload ist nicht verfügbar, da die Auswahl mindestens ein privates Element enthält.</value>
   </data>
   <data name="AngleExport_TypePackage_Angle_ManageRequired" xml:space="preserve">
-    <value>Package download is not available, because the user is not allowed to manage this model.</value>
+    <value>Paketdownload ist nicht verfügbar, da der Benutzer nicht zur Verwaltung dieses Modells berechtigt ist.</value>
   </data>
   <data name="AngleExport_TypePackage_Angle_MultipleModel" xml:space="preserve">
-    <value>Package download is not available, because the selection contains Angle/Templates from multiple models.</value>
+    <value>Paketdownload ist nicht verfügbar, da die Auswahl Angles/Templates von mehreren Modellen enthält.</value>
   </data>
   <data name="AngleExport_TypePackage_Angle_Private" xml:space="preserve">
-    <value>Package download is not available, because the selection contains private Angles/Templates.</value>
+    <value>Paketdownload ist nicht verfügbar, da die Auswahl private Angles/Templates enthält.</value>
   </data>
   <data name="AngleExport_TypePackage_Both_Private" xml:space="preserve">
-    <value>Package download is not available, because the selection contains private items.</value>
+    <value>Paketdownload ist nicht verfügbar, da die Auswahl private Elemente enthält.</value>
   </data>
   <data name="UploadAngles_ItemPackageReportTitle" xml:space="preserve">
     <value>{0} (Angles: {1}/{2}, Dashboards: {3}/{4})</value>
   </data>
   <data name="UploadAngles_ItemPackageDashboardsExceedMaximum" xml:space="preserve">
-    <value>Dashboards exceed maximum number of Angles on Dashboard</value>
+    <value>Die Dashboards überschreiten die maximal zulässige Anzahl an Angles auf Dashboards.</value>
   </data>
   <data name="UploadAngles_ItemPackageSourceInvalid" xml:space="preserve">
-    <value>Invalid package source, only Webclient packages can be uploaded</value>
+    <value>Ungültige Paketquelle; es können nur Web-Client-Pakete hochgeladen werden.</value>
   </data>
   <data name="MC_DelayModelserverStop" xml:space="preserve">
     <value>Delay model server stop</value>
   </data>
   <data name="Saving" xml:space="preserve">
-    <value>Saving...</value>
+    <value>Speichern...</value>
   </data>
   <data name="Button_Publish" xml:space="preserve">
-    <value>Publish</value>
+    <value>Freigeben</value>
   </data>
   <data name="Button_Publishing" xml:space="preserve">
-    <value>Publishing...</value>
+    <value>Freigabe...</value>
   </data>
   <data name="Button_Unpublish" xml:space="preserve">
-    <value>Unpublish</value>
+    <value>Freigabe aufheben</value>
   </data>
   <data name="Button_Unpublishing" xml:space="preserve">
-    <value>Unpublishing...</value>
+    <value>Freigabe aufheben...</value>
   </data>
   <data name="Button_Validate" xml:space="preserve">
-    <value>Validate</value>
+    <value>Validieren</value>
   </data>
   <data name="Button_Validated" xml:space="preserve">
-    <value>Validated</value>
+    <value>Validiert</value>
   </data>
   <data name="PublishSettings" xml:space="preserve">
-    <value>Publish settings</value>
+    <value>Freigabeeinstellungen</value>
   </data>
   <data name="PublishSettings_Summary" xml:space="preserve">
-    <value>Summary</value>
+    <value>Zusammenfassung</value>
   </data>
   <data name="PublishSettings_LabelRequired" xml:space="preserve">
-    <value>Please assign labels</value>
+    <value>Bitte Labels zuweisen.</value>
   </data>
   <data name="PublishSettings_LabelInvalid" xml:space="preserve">
-    <value>There are invalid labels</value>
+    <value>Ungültige Labels vorhanden.</value>
   </data>
   <data name="PublishSettings_LabelWarning" xml:space="preserve">
-    <value>This label is not valid for publishing</value>
+    <value>Dieses Label ist für die Freigabe nicht gültig.</value>
   </data>
   <data name="PublishSettings_PanelDisplays" xml:space="preserve">
     <value>Displays</value>
   </data>
   <data name="PublishSettings_InfoChangeValidatedAngle" xml:space="preserve">
-    <value>You made changes to a Validate Angle</value>
+    <value>Sie haben Änderungen an einem validierten Angle vorgenommen.</value>
   </data>
   <data name="ValidateSetting_AngleValidated" xml:space="preserve">
-    <value>Angle's been validated</value>
+    <value>Der Angle wurde validiert.</value>
   </data>
   <data name="ValidateSetting_AngleNotValidated" xml:space="preserve">
-    <value>Angle isn't validated</value>
+    <value>Der Angle ist nicht validiert.</value>
+  </data>
+  <data name="PrivilegeStatusDeny" xml:space="preserve">
+    <value>Ablehnen</value>
   </data>
   <data name="UploadDashboard_InvalidReferencedAngles" xml:space="preserve">
-    <value>Dashboard cannot be uploaded without referenced Angles. Please make sure at least one of the referenced Angles is also uploaded.</value>
+    <value>Das Dashboard kann ohne referenzierte Angles nicht hochgeladen werden. Bitte stellen Sie sicher, dass mindestens einer der referenzierten Angles ebenfalls hochgeladen wird.</value>
   </data>
   <data name="ValidateSetting_DashboardValidated" xml:space="preserve">
-    <value>Dashboard's been validated</value>
+    <value>Das Dashboard wurde validiert.</value>
   </data>
   <data name="ValidateSetting_DashboardNotValidated" xml:space="preserve">
-    <value>Dashboard isn't validated</value>
+    <value>Das Dashboard ist nicht validiert.</value>
   </data>
   <data name="PublishSettings_PanelWidgets" xml:space="preserve">
     <value>Displays</value>
   </data>
   <data name="PublishSettings_WidgetsInvalid" xml:space="preserve">
-    <value>Can't publish dashboard. Publish all private Displays first</value>
+    <value>Das Dashboard kann nicht freigegeben werden. Geben Sie zuerst alle privaten Displays frei.</value>
   </data>
   <data name="PublishSettings_WidgetLinkGoToDefinition" xml:space="preserve">
-    <value>go to definition</value>
+    <value>Zu Definition</value>
   </data>
   <data name="Ascending" xml:space="preserve">
-    <value>ascending</value>
+    <value>aufsteigend</value>
   </data>
   <data name="ClearFilters" xml:space="preserve">
-    <value>Clear filters</value>
+    <value>Filter löschen</value>
   </data>
   <data name="Descending" xml:space="preserve">
-    <value>descending</value>
+    <value>absteigend</value>
   </data>
   <data name="SystemSettingLabelGoToSAPLogonLanguage" xml:space="preserve">
-    <value>Logon language</value>
+    <value>Anmeldesprache</value>
   </data>
   <data name="SystemSettingLabelGoToSAPUser" xml:space="preserve">
-    <value>SAP user</value>
+    <value>SAP-Benutzer</value>
   </data>
   <data name="DragAndDropWidget" xml:space="preserve">
-    <value>Drag and drop&lt;br&gt;widget</value>
+    <value>Widget ziehen und&lt;br/&gt;ablegen</value>
   </data>
   <data name="Toast_ChangePassword" xml:space="preserve">
-    <value>Password has been changed!</value>
+    <value>Das Kennwort wurde geändert!</value>
   </data>
   <data name="Toast_PublishItem" xml:space="preserve">
-    <value>'{0}' has been published!</value>
+    <value>„{0}“ wurde freigegeben!</value>
   </data>
   <data name="Toast_SaveItem" xml:space="preserve">
-    <value>'{0}' has been saved!</value>
+    <value>„{0}“ wurde gespeichert!</value>
   </data>
   <data name="Toast_SavePublishSettings" xml:space="preserve">
-    <value>Publish settings have been saved!</value>
+    <value>Die Freigabeeinstellungen wurden gespeichert!</value>
   </data>
   <data name="Toast_SaveSettings" xml:space="preserve">
-    <value>Settings have been saved!</value>
+    <value>Die Einstellungen wurden gespeichert!</value>
   </data>
   <data name="Toast_UnpublishItem" xml:space="preserve">
-    <value>'{0}' has been unpublished!</value>
+    <value>Die Freigabe von „{0}“ wurde aufgehoben!</value>
   </data>
   <data name="Toast_ValidateItem" xml:space="preserve">
-    <value>'{0}' has been validated!</value>
+    <value>„{0}“ wurde validiert!</value>
   </data>
   <data name="Toast_UnValidateItem" xml:space="preserve">
-    <value>'{0}' has been unvalidated!</value>
+    <value>Die Freigabe von „{0}“ wurde aufgehoben!</value>
   </data>
 </root>
