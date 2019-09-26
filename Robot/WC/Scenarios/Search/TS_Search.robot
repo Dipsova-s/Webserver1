@@ -31,8 +31,9 @@ Search Filter By Item IDS
 
 Search Filter By Query String
     [Arguments]    ${queryString}
-    ${searchPageUrl}    Execute Javascript    return window.searchPageUrl;
-    Go To    http://${URL}${searchPageUrl}#/?${queryString}
+    ${searchUrl}    Execute Javascript    return window.searchPageUrl + '#/?' + ('${queryString}' || 'fq=facetcat_itemtype:(facet_angle facet_template)');
+    Go To    http://${URL}${searchUrl}
+    Wait Progress Bar Search Closed
     Click Search Button
     Wait Progress Bar Search Closed
 
@@ -71,6 +72,9 @@ Write All Angles in Search Result to Test File
     Log    Collecting ${angleCount} Angles
     Log    ==============================================================================
     ${itemNumber}    Set Variable    0
+    ${anglePerTest}    Execute JavaScript
+    ...    var filesCount = Math.floor(${itemCount} / ${anglePerTest});
+    ...    return filesCount > 20 ? filesCount : ${anglePerTest};
 
     # Clean up file
     Remove File    ${EXECDIR}/WC/${RunAllAngleName}*
@@ -98,9 +102,9 @@ Find And Execute Angle
     Search Filter By Query String    ids=${angleId}
     Click Link Item From Search Result By Item Uri: ${angleUri}
     Wait Angle Page Document Loaded
-    Check If Angle Or Display Has A Warning Then Close The Popup
-    Check If Angle Is A Template Then Close The Popup
-    Execute All Displays In Angle
+    ${isBackToSearch}  Check If Angle Or Display Has A Warning Then Close The Popup
+    Run Keyword If  ${isBackToSearch} != True  Check If Angle Is A Template Then Close The Popup
+    Run Keyword If  ${isBackToSearch} != True  Execute All Displays In Angle
 
 Search Angle From Search Page And Execute Angle
     [Arguments]    ${keyword}

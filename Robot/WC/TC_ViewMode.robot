@@ -26,6 +26,7 @@ Verify Search Remember Detail Setting By Search Box Test
     Logout
     Login To WC By Power User
 
+    Search By Text And Expect In Search Result    ${TEST_SEARCH_REMEMBER_DETAIL_SETTING}
     Click Search Filter Angle
     Check Existing Angle From Search Result     ${TEST_SEARCH_REMEMBER_DETAIL_SETTING}
     Click Change View To Detail Mode

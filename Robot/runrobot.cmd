@@ -46,13 +46,13 @@ ECHO ###### Running Robot Framework Information  ######
 ECHO Server: %1
 ECHO Branch: %2
 ECHO Tag: %3
-ECHO QueryString: %4
+ECHO QueryString: %5
 
 :: **************** Global Setting ***********************
 SET URL=%1
 if not defined URL set URL=th-eatst02.theatst.org
 
-SET QueryString=%4
+SET QueryString=%5
 
 ::* or specific testcase filename
 set TestCaseFile=*
@@ -105,8 +105,8 @@ Set Username=\EAPower
 ::Password
 Set Password=P@ssw0rd
 
-Set PrefServerCurrent=%5
-Set PrefServerBase=%6
+Set PrefServerCurrent=%6
+Set PrefServerBase=%7
 
 set DevMode=0
 if defined PrefServerCurrent set DevMode=1

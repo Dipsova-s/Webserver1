@@ -44,7 +44,7 @@ cls
 ::::::::::::::::::::::::::::::::
 :: run robot
 ::::::::::::::::::::::::::::::::
-call %COPYTO%runrobot "%SERVER%" "%BRANCH%" %TAG% "%QUERY%" "%PREF_SERVER_CURRENT%" "%PREF_SERVER_BASE%"
+call %COPYTO%runrobot "%SERVER%" "%BRANCH%" %TAG% "WS" "%QUERY%" "%PREF_SERVER_CURRENT%" "%PREF_SERVER_BASE%"
 if not "%CURRENT%"=="%COPYTO%" xcopy "%COPYTO%chromedriver.exe" "%CURRENT%" /E /S /Y /Q
 
 :open_report
