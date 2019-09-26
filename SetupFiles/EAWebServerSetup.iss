@@ -1366,6 +1366,7 @@ end;
 procedure DeployDiagramFiles(IISPhysicalPath: string);
 var
   ZipFile,
+  SourceFolder,
   TargetFile,
   TargetFolder : string;
   CopySuccess : boolean;
@@ -1377,15 +1378,24 @@ begin
   if FileExists(ZipFile) then
   begin
      // Unzip diagrams.zip in same folder as setup.exe to targetFolder
+    Log('[i]Using Diagrams.zip');
     ExecuteAndLogEx(DataPath('WebDeploy'), '7za.exe', 'x -y "-o' + TargetFolder + '" "' + ZipFile + '"', ToSetupLog);
   end
   else
   begin
+    Log('[i]Using Diagrams from this setup');
+    SourceFolder := DataPath('WebDeploy\Diagrams\');
+
+    // Make sure the target images directory exists
+    CreateDir(TargetFolder + 'Images\');
+
     // Copy *.ini files + images
     for i := 0 to DiagramFiles.Count - 1 do
     begin
-      // Build TargetFileName
-      TargetFile := TargetFolder + ExtractFileName(DiagramFiles[i]);
+      TargetFile := DiagramFiles[i];
+
+      // Determine target file: replace source folder with target folder in the registered file path
+      StringChangeEx(TargetFile, SourceFolder, TargetFolder, {SupportDBCS:}true); 
 
       // Make sure the target directory exists
       CreateDir(ExtractFilePath(TargetFile));
