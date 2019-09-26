@@ -220,7 +220,7 @@
     <value>Nieuwe Angle</value>
   </data>
   <data name="DefaultDisplay" xml:space="preserve">
-    <value>Standaard Display</value>
+    <value>Standaarddisplay</value>
   </data>
   <data name="DefaultDisplayListName" xml:space="preserve">
     <value>Nieuwe Display</value>
@@ -415,7 +415,7 @@
     <value>Systeem: </value>
   </data>
   <data name="ThisIsAPrivateDisplayNotAvailableForOtherUsers" xml:space="preserve">
-    <value>Dit is een privé Display, niet beschikbaar voor andere gebruikers</value>
+    <value>Dit is een Privédisplay, niet beschikbaar voor andere gebruikers</value>
   </data>
   <data name="Username" xml:space="preserve">
     <value>Gebruikersnaam</value>
@@ -817,7 +817,7 @@
     <value>Go to SAP</value>
   </data>
   <data name="SystemSettingLabelGoToSAPDownload" xml:space="preserve">
-    <value>Download launcher</value>
+    <value>Download Launcher</value>
   </data>
   <data name="SystemSettingLabelGoToSAPDownload_Info" xml:space="preserve">
     <value>To use Go to SAP, click to download and install the Go to SAP Launcher on your workstation.</value>
@@ -937,7 +937,7 @@
     <value>niet geïmplementeerd</value>
   </data>
   <data name="PersonalDefaultDisplay" xml:space="preserve">
-    <value>Persoonlijk standaard Display</value>
+    <value>Standaard Privédisplay</value>
   </data>
   <data name="AngleId" xml:space="preserve">
     <value>Angle-ID</value>
@@ -949,7 +949,7 @@
     <value>Bewaar actieve Displayfilters</value>
   </data>
   <data name="DisplayDrilldownDefault" xml:space="preserve">
-    <value>Standaard drilldown Display</value>
+    <value>Standaard Drilldowndisplay</value>
   </data>
   <data name="None" xml:space="preserve">
     <value>[Geen]</value>
@@ -979,13 +979,13 @@
     <value>Dashboarddetails</value>
   </data>
   <data name="AppliedAngleDisplays" xml:space="preserve">
-    <value>Toegepaste Angle Displays</value>
+    <value>Toegepaste Angledisplays</value>
   </data>
   <data name="SelectDashboardDisplay" xml:space="preserve">
     <value>Displays:</value>
   </data>
   <data name="DashboardName" xml:space="preserve">
-    <value>Dashboard naam</value>
+    <value>Dashboardnaam</value>
   </data>
   <data name="PopupConfirmDiscardChangeFieldSetting" xml:space="preserve">
     <value>Wijzigingen in {0} Display zijn niet toegepast.&lt;br&gt;Wijzigingen negeren en opslaan?</value>
@@ -1165,7 +1165,7 @@
     <value>Gevalideerd Dashboard</value>
   </data>
   <data name="AppliedDashboardDisplays" xml:space="preserve">
-    <value>Toegepaste Dashboard Displays</value>
+    <value>Toegepaste Dashboarddisplays</value>
   </data>
   <data name="DashboardId" xml:space="preserve">
     <value>Dashboard-ID</value>
@@ -1192,7 +1192,7 @@
     <value>Aantal zoeklabels:</value>
   </data>
   <data name="SetDefaultDisplay" xml:space="preserve">
-    <value>Stel standaard Display in:</value>
+    <value>Stel Standaarddisplay in:</value>
   </data>
   <data name="SetDefaultPublicOrPrivate" xml:space="preserve">
     <value>Stel standaard in op gepubliceerd of privé:</value>
@@ -1297,7 +1297,7 @@
     <value>Wijzig Dashboard</value>
   </data>
   <data name="AnglePanelWidgetsDashboard" xml:space="preserve">
-    <value>Dashboard Displays</value>
+    <value>Dashboarddisplays</value>
   </data>
   <data name="CopyAngle" xml:space="preserve">
     <value>Kopieer Angle</value>
@@ -1519,19 +1519,19 @@
     <value>Een ad-hoc Angle kan geen ster krijgen. U moet de Angle eerst opslaan.</value>
   </data>
   <data name="Info_DisplayMustContainAtLeastOneValidField" xml:space="preserve">
-    <value>Het Display moet minstens 1 geldig veld bevatten.</value>
+    <value>De Display moet minstens 1 geldig veld bevatten.</value>
   </data>
   <data name="Info_FollowUpHasNoResults" xml:space="preserve">
     <value>De extra Jump heeft geen resultaten.</value>
   </data>
   <data name="Info_NoFieldsReturn" xml:space="preserve">
-    <value>Het Display heeft geen velden teruggegeven</value>
+    <value>De Display heeft geen velden teruggegeven</value>
   </data>
   <data name="Info_NoModelsReturn" xml:space="preserve">
     <value>De applicatieserver heeft geen modellen teruggegeven</value>
   </data>
   <data name="Info_PleaseSaveAndRefresh" xml:space="preserve">
-    <value>Het Display bevat alleen ongeldige kolommen. Wijzig het Display.</value>
+    <value>De Display bevat alleen ongeldige kolommen. Wijzig de Display.</value>
   </data>
   <data name="Info_TheFieldYouSelectedNotEnumeratedType" xml:space="preserve">
     <value>Het door u geselecteerde veld is het juiste veldsoort. Selecteer een veld van het soort set.</value>
@@ -1555,7 +1555,7 @@
     <value>Weet u zeker dat u {0} wilt verwijderen?</value>
   </data>
   <data name="Confirm_CreateNewFollowUp" xml:space="preserve">
-    <value>Een nieuw Display wordt gemaakt met aanbevolen velden. &lt;br&gt;Weet u zeker dat u door wilt gaan?</value>
+    <value>Een nieuwe Display wordt gemaakt met aanbevolen velden. &lt;br&gt;Weet u zeker dat u door wilt gaan?</value>
   </data>
   <data name="Confirm_DeleteAngle" xml:space="preserve">
     <value>Verwijder Angle:&lt;br /&gt; {0}?</value>
@@ -1579,10 +1579,10 @@
     <value>Selecteer minstens één item</value>
   </data>
   <data name="Info_CannotPublishedDashboardBecausePrivateAngleDisplay" xml:space="preserve">
-    <value>Het Dashboard kan niet worden gepubliceerd, omdat het privé Displays bevat.&lt;br&gt;&lt;br&gt;Klik op OK om door te gaan naar de Definitie tab. Klik vervolgens op Ga naar Angle om toegang te krijgen tot het Display dat je wilt publiceren.</value>
+    <value>Het Dashboard kan niet worden gepubliceerd, omdat het Privédisplays bevat.&lt;br&gt;&lt;br&gt;Klik op OK om door te gaan naar de tab Definitie. Klik vervolgens op Ga naar Angle om toegang te krijgen tot de Display die je wilt publiceren.</value>
   </data>
   <data name="Info_CannotSetPrivateDisplayToDefaultDisplay" xml:space="preserve">
-    <value>Een privé Display kan niet worden ingesteld als standaard Display</value>
+    <value>Een Privédisplay kan niet worden ingesteld als Standaarddisplay</value>
   </data>
   <data name="Info_DashboardItemsWillNotAffect" xml:space="preserve">
     <value>Deze actie heeft geen invloed op Dashboarditems.</value>
@@ -1696,10 +1696,10 @@
     <value>Angle kan niet gemaakt worden omdat er geen Display is.</value>
   </data>
   <data name="Info_RequiredOneMoreDisplayToProcess" xml:space="preserve">
-    <value>U heeft nog een gepubliceerd Display nodig om door te kunnen gaan met de volgende stap.</value>
+    <value>U heeft nog een gepubliceerde Display nodig om door te kunnen gaan met de volgende stap.</value>
   </data>
   <data name="Info_RequiredPublicDisplayBeforePublishedAngle" xml:space="preserve">
-    <value>Een gepubliceerde Angle heeft minstens een gepubliceerd Display nodig.</value>
+    <value>Een gepubliceerde Angle heeft minstens een gepubliceerde Display nodig.</value>
   </data>
   <data name="Info_RequiredTemplateBeforeCreateAngle" xml:space="preserve">
     <value>Selecteer een Template.</value>
@@ -1780,7 +1780,7 @@
     <value>De ontvangen gegevens zijn incompleet en kunnen niet worden verwerkt.</value>
   </data>
   <data name="AskForValueWhenTheDisplayOpens" xml:space="preserve">
-    <value>Vraag naar waarde wanneer het Display opent</value>
+    <value>Vraag naar waarde wanneer de Display opent</value>
   </data>
   <data name="DashboardChangeDisplays" xml:space="preserve">
     <value>Wijzig Displays</value>
@@ -2350,7 +2350,7 @@
     <value>Angle was verwijderd of verborgen. Klik OK om terug te gaan naar de zoekpagina.</value>
   </data>
   <data name="ErrorAngleNoDefaultDisplay" xml:space="preserve">
-    <value>De standaard Display is verwijderd of verborgen. Sluit deze melding om bij te werken.</value>
+    <value>De Standaarddisplay is verwijderd of verborgen. Sluit deze melding om bij te werken.</value>
   </data>
   <data name="Info_ListDisplaysDeletedWhileProcess" xml:space="preserve">
     <value>De volgende Displays faalden tijdens de verwerking</value>
@@ -2573,22 +2573,22 @@
   </data>
   <data name="InfoAllowMoreDetailsPopup" xml:space="preserve">
     <value>Gebruikers beperken in het verkrijgen van meer details heeft het volgende effect: &lt;br&gt; 
-- Gebruikers mogen in geen enkel Display velden toevoegen of verwijderen &lt;br&gt;
+- Gebruikers mogen in geen enkele Display velden toevoegen of verwijderen &lt;br&gt;
 - Gebruikers mogen geen Filters toevoegen, verwijderen of bijwerken &lt;br&gt;
 - Gebruikers mogen Jumps toevoegen of verwijderen &lt;br&gt;
-- Gebruikers mogen in geen enkel Display een drilldown uitvoeren</value>
+- Gebruikers mogen in geen enkele Display een drilldown uitvoeren</value>
   </data>
   <data name="Infomation_Title" xml:space="preserve">
     <value>Informatie</value>
   </data>
   <data name="DisplayType_chart" xml:space="preserve">
-    <value>Grafiek Display</value>
+    <value>Grafiekdisplay</value>
   </data>
   <data name="DisplayType_list" xml:space="preserve">
     <value>Lijst Display</value>
   </data>
   <data name="DisplayType_pivot" xml:space="preserve">
-    <value>Draaitabel Display</value>
+    <value>Draaitabeldisplay</value>
   </data>
   <data name="PopupConfirmDiscardChangeFieldSettingAndContinue" xml:space="preserve">
     <value>Wijzigingen aan {0} Display zijn niet toegepast.&lt;br&gt;Wijzigingen negeren en doorgaan?</value>
@@ -2887,7 +2887,7 @@ Copyright © {0}</value>
     <value>Angle heeft geen Display</value>
   </data>
   <data name="ErrorAngleNoDisplayReason" xml:space="preserve">
-    <value>Angle moet minstens 1 display bevatten</value>
+    <value>Angle moet minstens 1 Display bevatten</value>
   </data>
   <data name="NoModelAvaliable" xml:space="preserve">
     <value>Geen model beschikbaar</value>
@@ -2965,7 +2965,7 @@ Copyright © {0}</value>
     <value>Selecteer een filter uit de lijst.</value>
   </data>
   <data name="Info_OnlyDisplayWillBeCreated" xml:space="preserve">
-    <value>Alleen dit Display wordt toegevoegd aan uw nieuwe Angle</value>
+    <value>Alleen deze Display wordt toegevoegd aan uw nieuwe Angle</value>
   </data>
   <data name="Copied" xml:space="preserve">
     <value>Gekopieerd</value>
@@ -3602,13 +3602,13 @@ The value 0 means the setting is off, so the Audit Log will not be cleaned up. T
     <value>Publiceren</value>
   </data>
   <data name="Button_Publishing" xml:space="preserve">
-    <value>Publishing...</value>
+    <value>Publiceren...</value>
   </data>
   <data name="Button_Unpublish" xml:space="preserve">
     <value>Publicatie opheffen</value>
   </data>
   <data name="Button_Unpublishing" xml:space="preserve">
-    <value>Unpublishing...</value>
+    <value>Publicatie opheffen...</value>
   </data>
   <data name="Button_Validate" xml:space="preserve">
     <value>Valideren</value>
@@ -3623,19 +3623,19 @@ The value 0 means the setting is off, so the Audit Log will not be cleaned up. T
     <value>Samenvatting</value>
   </data>
   <data name="PublishSettings_LabelRequired" xml:space="preserve">
-    <value>Please assign labels</value>
+    <value>Voeg labels toe</value>
   </data>
   <data name="PublishSettings_LabelInvalid" xml:space="preserve">
-    <value>There are invalid labels</value>
+    <value>Dit zijn ongeldige labels</value>
   </data>
   <data name="PublishSettings_LabelWarning" xml:space="preserve">
-    <value>This label is not valid for publishing</value>
+    <value>Dit label is niet geschikt voor publicatie</value>
   </data>
   <data name="PublishSettings_PanelDisplays" xml:space="preserve">
     <value>Displays</value>
   </data>
   <data name="PublishSettings_InfoChangeValidatedAngle" xml:space="preserve">
-    <value>You made changes to a Validate Angle</value>
+    <value>U heeft een gevalideerde Angle aangepast</value>
   </data>
   <data name="ValidateSetting_AngleValidated" xml:space="preserve">
     <value>Angle is gevalideerd</value>
@@ -3644,31 +3644,31 @@ The value 0 means the setting is off, so the Audit Log will not be cleaned up. T
     <value>Angle is niet gevalideerd</value>
   </data>
   <data name="UploadDashboard_InvalidReferencedAngles" xml:space="preserve">
-    <value>Dashboard kan niet worden geüpload zonder gelinkte Angles. Zorg ervoor dat ten minste één van de gelinkte Angles wordt geüpload met het Dashboard.</value>
+    <value>Dashboard kan niet worden geüpload zonder gerefereerde Angles. Zorg ervoor dat minimaal een van de gerefereerde Angles ook wordt geüpload. </value>
   </data>
   <data name="ValidateSetting_DashboardValidated" xml:space="preserve">
-    <value>Dashboard's been validated</value>
+    <value>Dashboard is gevalideerd</value>
   </data>
   <data name="ValidateSetting_DashboardNotValidated" xml:space="preserve">
-    <value>Dashboard isn't validated</value>
+    <value>Dashboard is niet gevalideerd</value>
   </data>
   <data name="PublishSettings_PanelWidgets" xml:space="preserve">
     <value>Displays</value>
   </data>
   <data name="PublishSettings_WidgetsInvalid" xml:space="preserve">
-    <value>Can't publish dashboard. Publish all private Displays first</value>
+    <value>Dashboard kan niet worden gepubliceerd. Publiceer eerst alle Privédisplays</value>
   </data>
   <data name="PublishSettings_WidgetLinkGoToDefinition" xml:space="preserve">
-    <value>go to definition</value>
+    <value>ga naar definitie</value>
   </data>
   <data name="Ascending" xml:space="preserve">
-    <value>ascending</value>
+    <value>oplopend</value>
   </data>
   <data name="ClearFilters" xml:space="preserve">
-    <value>Clear filters</value>
+    <value>Filters wissen</value>
   </data>
   <data name="Descending" xml:space="preserve">
-    <value>descending</value>
+    <value>aflopend</value>
   </data>
   <data name="SystemSettingLabelGoToSAPLogonLanguage" xml:space="preserve">
     <value>Aanmeldtaal</value>
@@ -3677,7 +3677,7 @@ The value 0 means the setting is off, so the Audit Log will not be cleaned up. T
     <value>SAP gebruiker</value>
   </data>
   <data name="DragAndDropWidget" xml:space="preserve">
-    <value>Drag and drop&lt;br&gt;widget</value>
+    <value>Sleep widget&lt;br&gt; naar nieuwe positie</value>
   </data>
   <data name="Toast_ChangePassword" xml:space="preserve">
     <value>Wachtwoord is gewijzigd!</value>
