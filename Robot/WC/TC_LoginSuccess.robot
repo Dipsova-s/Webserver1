@@ -3,19 +3,18 @@ Resource            ${EXECDIR}/resources/WCSettings.robot
 Suite Setup         Open Browser in Sandbox Mode
 Suite Teardown      Close Browser
 Test Setup          Go To               ${URL_WC}
-Force Tags          smoke    smk_wc_s
-
+Force Tags          smk_wc_s
 
 *** Test Cases ***
 Verify Login Success And Currect Session
     Login To WC By Admin User
-    ${cookieValueWC}    Get Cookie Value    EASECTOKEN
+    ${cookieValueWC}    Get Cookie    EASECTOKEN
     Click User Menu
     Click IT Management Console on User Menu
     Select Window    IT Management Console
     Wait Until Page Contains Element    jquery=#UserMenuControl
-    ${cookieValueMC}    Get Cookie Value    EASECTOKEN
-    Should Be Equal    ${cookieValueWC}    ${cookieValueMC}
+    ${cookieValueMC}    Get Cookie    EASECTOKEN
+    Should Be Equal    ${cookieValueWC.value}    ${cookieValueMC.value}
     Logout MC
     Close Window
 

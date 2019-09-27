@@ -4,11 +4,8 @@ Suite Setup         Open Browser in Sandbox Mode
 Suite Teardown      Close Browser
 Test Setup          Go To               ${URL_WC}
 Test Teardown       Logout
-Force Tags        	smoke    smk_wc
-
-*** Variables ***
-${TEST_COPY_ANGLE_NAME}             Angle For General Test
+Force Tags        	smk_wc
 
 *** Test Cases ***
 Copy And Delete Angle Via Search Action Test
-    Copy And Delete Angle Via Search Page    ${TEST_COPY_ANGLE_NAME}
+    Copy And Delete Angle Via Search Page    Angle For General Test

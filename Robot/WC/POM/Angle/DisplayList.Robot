@@ -132,7 +132,7 @@ Select Quick Filter Options
 
 Collect Quick Filter Options
     Wait Until Element Is Visible   ${quickFilterList}
-    ${count}    Get Elements Count    ${quickFilterOptionList}
+    ${count}    Get Element Count    ${quickFilterOptionList}
     ${quickFilterOptions}   Create List
     : FOR    ${index}    IN RANGE    0    ${count}
     \   ${txt}    Execute Javascript    return $("ul.context-menu-list.hover > li:eq(${index})").text()
@@ -161,11 +161,11 @@ Get Cell Value From List Display
     [Return]    ${value}
 
 Get List Columns Count
-    ${columns}    Get Elements Count    jquery=#${tblAngleHeaderListDisplay} th.k-header
+    ${columns}    Get Element Count    jquery=#${tblAngleHeaderListDisplay} th.k-header
     [Return]    ${columns}
 
 Get List Columns Count With No Warning
-    ${columns}    Get Elements Count    jquery=#${tblAngleHeaderListDisplay} th.k-header:not(.validError,.deny,.denyPartial)
+    ${columns}    Get Element Count    jquery=#${tblAngleHeaderListDisplay} th.k-header:not(.validError,.deny,.denyPartial)
     [Return]    ${columns}
 
 Move List Column By Index

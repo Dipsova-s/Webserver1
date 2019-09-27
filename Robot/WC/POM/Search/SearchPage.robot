@@ -423,7 +423,7 @@ Get Model Name for Create New Angle
     [return]    ${modelForCreateNewAngleValue}
 
 Get Number Display Of Selected Item From Search Result
-    ${displayLength}    Get Elements Count     ${btnDisplaysSelectedItem}
+    ${displayLength}    Get Element Count     ${btnDisplaysSelectedItem}
     [Return]    ${displayLength}
 
 Get Name Of Selected Item From Search Result

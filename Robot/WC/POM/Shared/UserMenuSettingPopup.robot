@@ -314,7 +314,7 @@ Check Checkbox Execute Angles And Dashboards Automatically
     Select Checkbox    ${chkAutoExecuteItemsOnLogin}
 
 Count Execute At Login Items
-    ${countItems}    Get Elements Count    ${divExecutionOnLoginItems}
+    ${countItems}    Get Element Count    ${divExecutionOnLoginItems}
     [Return]    ${countItems}
 
 #Save user setting

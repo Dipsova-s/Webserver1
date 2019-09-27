@@ -152,7 +152,7 @@ Pivot Set Bucket Result Should Be Corrected
 Pivot First Row Set Bucket Options Should Not Contain "Last xx characters"
     Click Field In Row Area By Field Index    0
     Click Show Field Format For Field Settings
-    ${count}    Get Elements Count    jquery=#BucketOptionDropDown_listbox > li > span:contains("Last")
+    ${count}    Get Element Count    jquery=#BucketOptionDropDown_listbox > li > span:contains("Last")
     Should Be True    ${count}==0
     Save Field Format
 

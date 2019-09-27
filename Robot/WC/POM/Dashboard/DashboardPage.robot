@@ -71,7 +71,7 @@ Input Dashboard Note
     [Arguments]    ${DashboardNote}
     Wait Until Element Is Visible    ${txtDashboardNote}
     Input Text    ${txtDashboardNote}    ${DashboardNote}
-    Press Key    ${txtDashboardNote}    \\13
+    Press Keys    ${txtDashboardNote}    RETURN
     Wait Until Ajax Complete
 
 Dashboard Note Should Be Equal

@@ -26,7 +26,7 @@ Add Business Process To User
 Clear Role From User
     [Arguments]    ${userName}
     Click Edit User Action By User Name    ${userName}
-    ${numberCountRoleInGrid} =    Get Elements Count    ${gridAssignRolesFirst}
+    ${numberCountRoleInGrid} =    Get Element Count    ${gridAssignRolesFirst}
     Run Keyword If    ${numberCountRoleInGrid} > 0    Click Remove First Role
     Click Save Role To User
 
