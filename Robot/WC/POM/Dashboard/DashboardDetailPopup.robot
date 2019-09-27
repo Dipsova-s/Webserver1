@@ -63,8 +63,8 @@ Input Dashboard name
 Save Dashboard
     Wait Until Element Is Enabled    ${btnSaveDashboard}
     Click Element    ${btnSaveDashboard}
-    Page Should Contain Toast Success
     Wait Progress Bar Closed
+    Page Should Contain Toast Success
 
 Cancel Dashboard
     Click Element    ${btnCancel}

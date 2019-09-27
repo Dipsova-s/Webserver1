@@ -105,9 +105,9 @@ Angle French Language Should Not Available
 
 Click Save Angle
     Click Element    ${btnSaveAngle}
-    Page Should Contain Toast Success
     Wait Progress Bar Closed
     Wait Until Ajax Complete
+    Page Should Contain Toast Success
 
 Click Set Angle to Template
     Wait Until Element Is Visible    ${btnSetToTemplate}
