@@ -8,12 +8,12 @@ Wait Angle Validating Popup Loaded
 
 Click Validate Angle
     Select Checkbox    ${chkValidateAngle}
-    Page Should Contain Toast Success
     Wait Until Page Does Not Contain Element    ${divValidatingPopup}
+    Page Should Contain Toast Success
     Sleep    ${TIMEOUT_LARGEST}
 
 Click Unvalidate Angle
     Unselect Checkbox    ${chkValidateAngle}
-    Page Should Contain Toast Success
     Wait Until Page Does Not Contain Element    ${divValidatingPopup}
+    Page Should Contain Toast Success
     Sleep    ${TIMEOUT_LARGEST}
