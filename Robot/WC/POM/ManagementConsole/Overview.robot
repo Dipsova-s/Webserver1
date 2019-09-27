@@ -5,7 +5,6 @@ ${divSideMenuGlobalSettingsBusinessProcesses}       sideMenu-GlobalSettings-Busi
 ${divSideMenuGlobalSettingsCustomIcons}             sideMenu-GlobalSettings-CustomIcons
 ${divSideMenuGlobalSettingsAllLabelCategories}      sideMenu-GlobalSettings-AllLabelCategories
 ${divSideMenuGlobalSettingsLanguages}               sideMenu-GlobalSettings-Languages
-${divSideMenuGlobalSettingsLicense}                 sideMenu-GlobalSettings-License
 ${divSideMenuGlobalSettingsUploadEASets}            sideMenu-GlobalSettings-UploadEASets
 ${divSideMenuGlobalSettingsSystemlog}               sideMenu-GlobalSettings-Systemlog
 ${divSideMenuGlobalSettingsSystemRoles}             sideMenu-GlobalSettings-SystemRoles
@@ -70,11 +69,6 @@ Click Side Menu Custom Icons
     Click Element    ${divSideMenuGlobalSettingsCustomIcons}
     Wait Until Page Contains   All icons for field type
     Wait Until Page Contains   GRC
-
-Click Side Menu License
-    Wait Until Element Is Visible    ${divSideMenuGlobalSettingsLicense}
-    Click Element    ${divSideMenuGlobalSettingsLicense}
-    Wait Until License Page Loaded
 
 Click Side Menu Packages
     Wait Until Element Is Visible    ${divSideMenuGlobalSettingsUploadEASets}
