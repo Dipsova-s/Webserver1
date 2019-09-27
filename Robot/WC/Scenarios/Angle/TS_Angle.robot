@@ -7,7 +7,7 @@ Create Adhoc Angle From N Object List
     [Arguments]   ${objectName}    ${angleName}    ${n}=0
     Open Create Angle By Object List Popup
     Fill In Search Create Angle By Object List Popup    ${objectName}
-    ${numberOfObjects}    Run Keyword If    ${n} == 0    Get Elements Count    ${chkObjectsFromList}
+    ${numberOfObjects}    Run Keyword If    ${n} == 0    Get Element Count    ${chkObjectsFromList}
     ...                   ELSE    Set Variable    ${n}
     Click N Objects From List    ${numberOfObjects}
     Click Create New Angle from Object List Button
@@ -116,7 +116,7 @@ Delete Item On Search Page
     Element Should Not Contain    ${gridSearchResult}    ${angleName}
 
 Execute All Displays In Angle
-    ${displayCount}    Get Elements Count    ${ddlSelectDisplayItems}
+    ${displayCount}    Get Element Count    ${ddlSelectDisplayItems}
     : FOR    ${INDEX}    IN RANGE    0    ${displayCount}
     \   ${displayType}    Get Display Type    ${INDEX}
     \   ${displayName}    Get Display Name By Index    ${INDEX}

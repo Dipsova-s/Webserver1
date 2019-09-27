@@ -81,5 +81,5 @@ Select Bucket Decimal
 
 Dropdown Contain Option
     [Arguments]    ${dropdown}    ${optionName}
-    ${count}    Get Elements Count    ${dropdown} > li > span:contains("${optionName}")
+    ${count}    Get Element Count    ${dropdown} > li > span:contains("${optionName}")
     [Return]    ${count}!=0

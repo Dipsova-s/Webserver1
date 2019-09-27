@@ -12,7 +12,7 @@ Verify Help Text Links
     Click Field Chooser Info  field-Margin
     Click Help Text Link  EA_PROPERTY_SalesValue    # 2nd window
     Click Help Text Link  EA_TOPIC_UserCurrency     # 3rd window
-    ${windows}  List Windows
+    ${windows}  Get Window Handles
     Length Should Be  ${windows}  3
     Select Window  MAIN
     Close Help Text Popup

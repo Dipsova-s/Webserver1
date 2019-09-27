@@ -34,8 +34,8 @@ Create Context: MC
     ${scheme}    Execute JavaScript    return window.location.protocol.replace(':','');
     ${host}    Execute JavaScript    return window.location.host;
     Create Http Context    ${host}    ${scheme}
-    ${cookie}    Get Cookie Value    EASECTOKEN
-    Set Request Header    Cookie    EASECTOKEN=${cookie}
+    ${cookie}    Get Cookie    EASECTOKEN
+    Set Request Header    Cookie    EASECTOKEN=${cookie.value}
 
 Create Context: Current Server
     [Arguments]    ${user}=${AdminUsername}    ${pwd}=${Password}

@@ -2,7 +2,7 @@
 Resource            ${EXECDIR}/resources/WCSettings.robot
 Suite Setup         Go to WC Then Login With EAPower User
 Suite Teardown      Logout WC Then Close Browser
-Force Tags        	acceptance    acc_wc
+Force Tags        	acc_wc
 
 *** Test Cases ***
 Verify All Operators For All Field Type
@@ -23,8 +23,9 @@ Add Or Change Filter And Get Correct Result
 
 Verify Add Filter Before Jump
     # prepare stuff
-    Upload Item And Check From Search Result  ANGLE_FILTER_BEFORE_JUMP.json    EA2_800    Add filter before jump test
-    Open Angle From First Angle in Search Page    Add filter before jump test
+    ${angleName}  Set Variable  [ROBOT] Add filter before jump test
+    Upload Item And Check From Search Result  ANGLE_FILTER_BEFORE_JUMP.json    EA2_800    ${angleName}
+    Open Angle From First Angle in Search Page    ${angleName}
 
     # check add filter/jump from Angle popup
     Open Angle Detail Popup
@@ -48,4 +49,4 @@ Verify Add Filter Before Jump
     Click Close Add Jump Popup
     Close Display Detail Popup
 
-    [Teardown]    Back To Search And Delete Angle Are Created    Add filter before jump test
+    [Teardown]    Back To Search And Delete Angle Are Created    ${angleName}

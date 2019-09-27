@@ -175,7 +175,7 @@ Search Input Should Be
     Should Be True    '${expected}'=='${text}'
 
 Click Search Button
-    Press Key   ${txtSearchInput}    \\13 
+    Press Keys   ${txtSearchInput}    RETURN
 
 Click Search Input
     Click Element    ${txtSearchInput}
@@ -519,7 +519,7 @@ Number Of Search Results Should Be
     Should Be True    ${count} == ${expected}
 
 Get Number Display Of Selected Item From Search Result
-    ${displayNumber}    Get Elements Count     ${btnDisplaysSelectedItem}
+    ${displayNumber}    Get Element Count     ${btnDisplaysSelectedItem}
     [Return]    ${displayNumber}
 
 Get Name Of Selected Item From Search Result

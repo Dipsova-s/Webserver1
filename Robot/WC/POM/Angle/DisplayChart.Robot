@@ -11,8 +11,8 @@ ${btnNavigator}                 css=#ChartWrapper .toggleButton
 *** Keywords ***
 Wait Until Chart Display Loaded
     Wait Until Page Contains Element    ${divChartWrapper}
-    ${isValid}    Is Valid Field Settings
-    Run Keyword If    ${isValid} == True    Wait Until Page Contains Element    ${svgChart}
+    ${isExecute}  Is Angle Executed
+    Run Keyword If    ${isExecute} == True    Wait Until Page Contains Element    ${svgChart}
     Wait Until Page Does Not Contain Element    ${pgbChartDisplay}
     Wait Until Field Settings Loaded
     Wait Until Ajax Complete
@@ -35,7 +35,7 @@ Click Second Legend In Chart
     Wait Until List Display Loaded
 
 Get Expect Filter Of Second Legend
-    ${filterValue}    Get Element Attribute    ${liSecondLegend}@title
+    ${filterValue}    Get Element Attribute    ${liSecondLegend}  title
     ${expectFilter}    Execute Javascript    return "is equal to ${filterValue}"
     [Return]    ${expectFilter}
 

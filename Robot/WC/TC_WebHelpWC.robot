@@ -1,6 +1,6 @@
 *** Settings ***
-Library             Selenium2Screenshots
 Resource            ${EXECDIR}/resources/WCSettings.robot
+Resource            ${EXECDIR}/resources/Selenium2Screenshots.robot
 Resource            ${EXECDIR}/WC/Scenarios/WebHelp/TS_WebHelpWC.robot
 Resource            ${EXECDIR}/WC/Scenarios/WebHelp/TS_WebHelpWC_Action_Button_Bar.robot
 Resource            ${EXECDIR}/WC/Scenarios/WebHelp/TS_WebHelpWC_Angle_actions.robot

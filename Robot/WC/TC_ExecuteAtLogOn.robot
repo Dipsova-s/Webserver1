@@ -1,18 +1,14 @@
 *** Settings ***
 Resource            ${EXECDIR}/resources/WCSettings.robot
-Suite Setup         Open Browser in Sandbox Mode
-Suite Teardown      Close Browser
-Test Setup          Go To               ${URL_WC}
-Test Teardown       Logout
-Force Tags        	acceptance_s     acc_wc_s
-
-
-*** Variables ***
-${TEST_ITEM_EXECUTE_AT_LOGON}      [ROBOT] Test Item Execute at logon
+Suite Setup         Go to WC Then Login With EAPower User
+Suite Teardown      Logout WC Then Close Browser
+Test Teardown       Go to Search Page
+Force Tags        	acc_wc_s
 
 *** Test Cases ***
 Verify Item Execute At Logon Work
-    Login And Create Angle By 2 Objects From Object List    PD    ${TEST_ITEM_EXECUTE_AT_LOGON}
+    ${angleName}  Set Variable  [ROBOT] Test Item Execute at logon
+    Create Angle From Object List And Save    PD    ${angleName}
     ${numberOfExecutedItemBefore}    Get Number Of Execute At Login Items
     Click Edit Display
     Click Display Detail General Tab
@@ -23,9 +19,9 @@ Verify Item Execute At Logon Work
     Logout
     Login To WC By Power User
 	Sleep    ${TIMEOUT_LARGEST}
-    Search By Text And Expect In Search Result     ${TEST_ITEM_EXECUTE_AT_LOGON}
+    Search By Text And Expect In Search Result     ${angleName}
     Delete All Search Result Items
     Sleep    ${TIMEOUT_LARGEST}
-    Element Should Not Contain    ${gridSearchResult}    ${TEST_ITEM_EXECUTE_AT_LOGON}
-    ${windows}    List Windows
+    Element Should Not Contain    ${gridSearchResult}    ${angleName}
+    ${windows}    Get Window Handles
     Length Should Be     ${windows}     2

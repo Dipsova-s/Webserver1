@@ -6,11 +6,11 @@ Test Teardown       Go to Search Page
 
 *** Test Cases ***
 Verify Create Template From Angle
-    [Tags]    smoke    smk_wc
+    [Tags]    smk_wc
     Create Template From Angle    PD    [ROBOT] Test Create Template from Angle
 
 Verify Create New Angle From Full Object List Test
-    [Tags]    smoke     smk_wc
+    [Tags]    smk_wc
     ${angleName}    Set Variable    [ROBOT] Test Create New Angle From Full Object List
     ${objectName}    Set Variable    PD
     Create Angle From Object List And Save    ${objectName}    ${angleName}
@@ -24,7 +24,7 @@ Verify Create New Angle From Full Object List Test
     Delete First Search Result Item
 
 Verify Element Create New Angle Option Popup All Object
-    [Tags]    acceptance     acc_wc
+    [Tags]    acc_wc
     Click Create Angle Button
     Page Should Contain     Create Angle for model
     Page Should Contain Element     ${btnButtonCreateAngleFromSchemaSimple}
@@ -37,7 +37,7 @@ Verify Element Create New Angle Option Popup All Object
     Page Should Contain Element     ${imgCreateAngleFromObjects}
 
 Verify Element Create New Angle Basic: Select a Template Angle from the Activity Diagram
-    [Tags]    acceptance     acc_wc
+    [Tags]    acc_wc
     Open Create Angle By Activity Diagram Popup
     Page Should Contain     Activity Diagram
     Page Should Contain Element     ${divActivityDiagramDescriptionSection}
@@ -48,7 +48,7 @@ Verify Element Create New Angle Basic: Select a Template Angle from the Activity
     Click Back Create Angle Popup Option Activity Diagram Loaded
 
 Verify Element Create New Angle Advanced: Select a Template Angle from the Object Diagram
-    [Tags]    acceptance     acc_wc
+    [Tags]    acc_wc
     Open Create Angle By Object Diagram Popup
     Page Should Contain     Object Diagram
     Page Should Contain Element     ${divObjectDiagramDescriptionSection}
@@ -59,7 +59,7 @@ Verify Element Create New Angle Advanced: Select a Template Angle from the Objec
     Click Back Create Angle Popup Option Object Diagram Loaded
 
 Verify Element Create New Angle Expert: Select an object from the Object List
-    [Tags]    acceptance     acc_wc
+    [Tags]    acc_wc
     Open Create Angle By Object List Popup
     Page Should Contain     Object List
     Page Should Contain Element     ${txtFitlerObjects}
@@ -72,7 +72,7 @@ Verify Element Create New Angle Expert: Select an object from the Object List
     Click Back Create Angle Popup Option Object List Loaded
 
 Verify Click Select Object Row On Create Angle From Object List
-    [Tags]    acceptance     acc_wc
+    [Tags]    acc_wc
     Open Create Angle By Object List Popup
     Fill In Search Create Angle By Object List Popup    P
     Click First Object from List
@@ -109,7 +109,7 @@ Verify Click Select Object Row On Create Angle From Object List
     Should Not Be True    ${ObjectIsChecked}
 
 Verify Other Tab In Business Process
-    [Tags]    acceptance     acc_wc
+    [Tags]    acc_wc
     Open Create Angle By Object List Popup
     ${numberOfObjectS2D}    Get Number Of Object In Business Process
     Click Select Or Deselect Business Process In Object List    OTHER

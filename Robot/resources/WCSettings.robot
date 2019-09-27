@@ -1,6 +1,6 @@
 *** Settings ***
 Library             OperatingSystem
-Library             Selenium2Library    	timeout=${Timeout}
+Library             SeleniumLibrary    	timeout=${Timeout}
 Library             HttpLibrary.HTTP
 Library             DateTime
 Library             String

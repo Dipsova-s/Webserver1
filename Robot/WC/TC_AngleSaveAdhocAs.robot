@@ -1,9 +1,9 @@
 *** Settings ***
 Resource            ${EXECDIR}/resources/WCSettings.robot
-Suite Setup         Open Browser in Sandbox Mode
-Suite Teardown      Close Browser
-Test Setup          Go to                   ${URL_WC}
-Force Tags          acceptance    acc_wc
+Suite Setup         Go to WC Then Login With EAPower User
+Suite Teardown      Logout WC Then Close Browser
+Test Teardown       Go to Search Page
+Force Tags          acc_wc
 
 *** Variables ***
 ${TEST_VERIFY_SAVE_ANGLE_ADHOC_AS_NAME}     [ROBOT] Verify Adhoc Angle Allow To Save Display As
@@ -11,7 +11,7 @@ ${TEST_VERIFY_SAVE_ANGLE_ADHOC_AS_FIELD}    ObjectType
 
 *** Test Cases ***
 Verify Save Adhoc Angle As
-    Login And Create Angle By 2 Objects From Object List    PD    ${TEST_VERIFY_SAVE_ANGLE_ADHOC_AS_NAME}
+    Create Angle From Object List And Save    PD    ${TEST_VERIFY_SAVE_ANGLE_ADHOC_AS_NAME}
     Wait Progress Bar Closed
     Wait Until List Display Loaded
     Create Chart From List Header Column    ObjectType    ObjectType
@@ -30,7 +30,7 @@ Verify Save Adhoc Angle As
     Wait Angle Detail Document Loaded
     Close Angle Detail Popup
     Open Display Dropdown
-    ${displayCount}    Get Elements Count    ${ddlSelectDisplayItems}
+    ${displayCount}    Get Element Count    ${ddlSelectDisplayItems}
     Should Be True    ${displayCount}==2
     Click Angle Dropdown Actions Save Display As
     Checkbox Should Be Selected    ${chkAddToNewAngle}
@@ -43,6 +43,6 @@ Verify Save Adhoc Angle As
     Input Angle Name In Save Angle As Popup   ${TEST_VERIFY_SAVE_ANGLE_ADHOC_AS_NAME} (copy)
     Click Save Display As Button
     Open Display Dropdown
-    ${displayCount}    Get Elements Count    ${ddlSelectDisplayItems}
+    ${displayCount}    Get Element Count    ${ddlSelectDisplayItems}
     Should Be True    ${displayCount}==1
     Back To Search And Delete Angle Are Created    ${TEST_VERIFY_SAVE_ANGLE_ADHOC_AS_NAME}

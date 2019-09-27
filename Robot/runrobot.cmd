@@ -24,7 +24,7 @@ echo Check Robot Framework version...
 set updateRobot=yes
 set updateRobotVersion="robotframework==3.0.4"
 set updateSeleniumLibrary=yes
-set updateSeleniumLibraryVersion="robotframework-selenium2library==3.0.0"
+set updateSeleniumLibraryVersion="robotframework-seleniumlibrary==4.0.0"
 set updateSelenium2screenshots=yes
 set updateSelenium2screenshotsVersion="robotframework-selenium2screenshots==0.8.1"
 set updatePabot=yes

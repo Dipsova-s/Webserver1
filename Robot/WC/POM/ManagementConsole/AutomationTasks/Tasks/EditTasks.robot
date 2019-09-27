@@ -156,7 +156,7 @@ Input Task Action Email Description
     Input kendo Text Editor    ${txtEmailDescription}    ${text}
 
 Get Number Of Task Action Email Notification
-    ${count}    Get Elements Count    ${chkEmailResult}
+    ${count}    Get Element Count    ${chkEmailResult}
     [Return]    ${count}
 
 Select Datastore Append Result

@@ -155,7 +155,7 @@ Select Goto SAP Option
 
 Get Active Context Menu List Items
     Wait Until Element Is Visible   ${activeContextMenuList}
-    ${totalElements}    Get Elements Count    ${activeContextMenuListItems}
+    ${totalElements}    Get Element Count    ${activeContextMenuListItems}
     ${list}   Create List
     : FOR    ${index}    IN RANGE    0    ${totalElements}
     \   ${selector}    Get JQuery Selector    ${activeContextMenuListItems}
@@ -184,11 +184,11 @@ Get Cell Value From List Display
     [Return]    ${value}
 
 Get List Columns Count
-    ${columns}    Get Elements Count    jquery=#${tblAngleHeaderListDisplay} th.k-header
+    ${columns}    Get Element Count    jquery=#${tblAngleHeaderListDisplay} th.k-header
     [Return]    ${columns}
 
 Get List Columns Count With No Warning
-    ${columns}    Get Elements Count    jquery=#${tblAngleHeaderListDisplay} th.k-header:not(.validError,.deny,.denyPartial)
+    ${columns}    Get Element Count    jquery=#${tblAngleHeaderListDisplay} th.k-header:not(.validError,.deny,.denyPartial)
     [Return]    ${columns}
 
 Move List Column By Index

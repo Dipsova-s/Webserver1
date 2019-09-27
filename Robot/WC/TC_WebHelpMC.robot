@@ -1,6 +1,6 @@
 *** Settings ***
-Library             Selenium2Screenshots
 Resource            ${EXECDIR}/resources/WCSettings.robot
+Resource            ${EXECDIR}/resources/Selenium2Screenshots.robot
 Resource            ${EXECDIR}/WC/Scenarios/WebHelp/TS_WebHelpMC.robot
 Suite Setup         Suite Setup MC WebHelp
 Test Setup          Test Setup MC WebHelp

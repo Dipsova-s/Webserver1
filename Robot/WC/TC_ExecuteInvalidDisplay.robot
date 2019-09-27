@@ -4,7 +4,7 @@ Resource            ${EXECDIR}/WC/API/API_Angle.robot
 Suite Setup         Go to WC Then Login With EAPower User
 Suite Teardown      Logout WC Then Close Browser
 Test Teardown       Go to Search Page
-Force Tags          acceptance    acc_wc
+Force Tags          acc_wc
 
 *** Test Cases ***
 Verify Execute Invalid Angle

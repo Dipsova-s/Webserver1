@@ -4,7 +4,7 @@ Suite Setup         Go to WC Then Login With EAPower User
 Suite Teardown      Logout WC Then Close Browser
 Test Teardown       Go to Search Page
 Test Template       Set Facet Filter
-Force Tags          acceptance    acc_wc
+Force Tags          acc_wc
 
 *** Test Cases ***                          Name                Element
 Search angle by filter Angle                Angle               ${lblCountAngle}
