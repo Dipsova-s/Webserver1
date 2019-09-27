@@ -4,7 +4,7 @@ Suite Setup         Initialize Download Path And Login With Power User
 Suite Teardown      Logout WC Then Close Browser
 Test Setup          Empty Download Directory
 Test Teardown       Go to Search Page
-Force Tags        	acceptance     acc_wc
+Force Tags        	acc_wc
 
 *** Variables ***
 ${TEST_VERIFY_EXPORT_TO_EXCEL_NAME}                     Export Extended Charactor.Béßø<>

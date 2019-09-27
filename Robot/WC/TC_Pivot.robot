@@ -10,8 +10,8 @@ Verify Pivot Settings Result
     [Teardown]    Go to Search Page
 
 Verify Pivot Display Drilldown Test
-    Pivot Display Drilldown    PIVOT_DEFAULT_DRILLDOWN_DISPLAY.json    Pivot default drilldown test    EA2_800
-    [Teardown]    Back To Search And Delete Angle Are Created    Pivot default drilldown test
+    Pivot Display Drilldown    PIVOT_DEFAULT_DRILLDOWN_DISPLAY.json    [ROBOT] Pivot default drilldown test    EA2_800
+    [Teardown]    Back To Search And Delete Angle Are Created    [ROBOT] Pivot default drilldown test
 
 Verify Pivot Percentages
     Pivot Percentages

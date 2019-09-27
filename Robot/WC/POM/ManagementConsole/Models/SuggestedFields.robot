@@ -117,7 +117,7 @@ Click Close Suggested Field Report
 
 Get Suggested Report When Failed
     Capture Page Screenshot
-    ${SuggestedResult}    Get Elements Count    ${txtSuggestedResult}
+    ${SuggestedResult}    Get Element Count    ${txtSuggestedResult}
     Run Keyword If    ${SuggestedResult} > 1    Show Message IF Failed Suggested
 
 Show Message IF Failed Suggested

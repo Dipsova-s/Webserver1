@@ -6,13 +6,11 @@ Test Setup          Empty Download Directory
 Test Teardown       Go to Search Page
 Force Tags          acc_wc
 
-*** Variables ***
-${TEST_VERIFY_EXPORT_TO_ITEM}     Angle For General Test
-
 *** Test Cases ***
 Verify Export Item From Action Menu
-    Search By Text And Expect In Search Result    ${TEST_VERIFY_EXPORT_TO_ITEM}
-    Check Existing Angle From Search Result    ${TEST_VERIFY_EXPORT_TO_ITEM}
+    ${angleName}  Set Variable  Angle For General Test
+    Search By Text And Expect In Search Result    ${angleName}
+    Check Existing Angle From Search Result    ${angleName}
     Check First Angle From Search Result Is Public
     Click Search Filter Model
     Click Select First Item From Search Result

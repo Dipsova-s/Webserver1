@@ -36,7 +36,7 @@ Click Field Chooser Info
 Fill In Search Field Chooser
     [Arguments]   ${searchText}
     Input Text By JQuery   ${txtFitlerAvailableProperties}    ${searchText}
-    Press Key    ${txtFitlerAvailableProperties}    \\13
+    Press Keys    ${txtFitlerAvailableProperties}    RETURN
     Wait Until Field Chooser Loaded
 
 Choose Field Chooser From Search Result

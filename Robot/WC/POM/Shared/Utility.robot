@@ -81,12 +81,6 @@ Get Zoomed Element Size
     ${newHeight}    Execute JavaScript    return ${height}*${zoom};
     [Return]    ${newWidth}    ${newHeight}
 
-Get Elements Count
-    [Arguments]  ${selector}
-    ${jquerySelector}    Get JQuery Selector    ${selector}
-    ${count}    Execute Javascript    return $('${jquerySelector}').length
-    [Return]    ${count}
-
 Get Element Offset
     [Arguments]  ${selector}
     ${jquerySelector}    Get JQuery Selector    ${selector}
@@ -278,9 +272,8 @@ Set Default Downloading Path And Open Browser
     Call Method    ${options}    add_experimental_option    prefs    ${prefs}
     Open Chrome Browser With Options    ${options}
 
-    ${S2L}           get library instance    Selenium2Library
-    ${webdriver}     Call Method             ${S2L}    _current_browser
-    Enable Download In Headless Chrome    ${webdriver}    ${download directory} 
+    ${library}       get library instance    SeleniumLibrary
+    Enable Download In Headless Chrome    ${library.driver}    ${download directory} 
 
 Open Chrome Browser With Options
     [Arguments]  ${options}

@@ -47,11 +47,6 @@ ${btnCreateChart}                   jquery=#AngleTableWrapper .propertyFunction 
 Wait Until Field Settings Loaded
     Wait Until Page Does Not Contain Element    ${pgbFieldSettings}
 
-Is Valid Field Settings
-    ${errorCount}   Get Elements Count    jquery=#FieldListArea .validError
-    ${isVaid}    Execute JavaScript    return ${errorCount} == 0
-    [Return]    ${isVaid}
-
 Click Show Display Option
     Wait Until Field Settings Loaded
     Click Element    ${btnFieldSettingOptions}

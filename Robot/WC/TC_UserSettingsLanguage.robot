@@ -2,7 +2,7 @@
 Resource            ${EXECDIR}/resources/WCSettings.robot
 Suite Teardown      Logout WC Then Close Browser
 Test Teardown       Go to Search Page
-Force Tags          smoke_s    smk_wc_s
+Force Tags          smk_wc_s
 
 *** Test Cases ***
 Verify Change User Language

@@ -18,6 +18,7 @@ Resource            ${EXECDIR}/WC/POM/Angle/ExportToExcelPopup.robot
 Resource            ${EXECDIR}/WC/POM/Angle/ExportToCSVPopup.robot
 
 *** Variables ***
+${btnDataInfo}                          css=#ExecutionResults .btnInfo
 ${spanSelectedDisplay}                  css=.SelectedDisplayItem .name
 ${ddlSelectDisplay}                     SelectedDisplay
 ${ddlSelectDisplayHandle}               css=.SelectedDisplayPointer
@@ -74,6 +75,18 @@ Wait Display Executed
 Reload Angle Page
     Reload Page
     Wait Angle Page Document Loaded
+
+Open Execution Info Popup
+    Sleep    ${TIMEOUT_LARGEST}
+    Wait Until Page Contains Element    ${btnDataInfo}
+    Wait Until Element Is Visible    ${btnDataInfo}
+    Sleep    ${TIMEOUT_LARGEST}
+    Click Element    ${btnDataInfo}
+    Wait Angle Execution Info Element Loaded
+
+Is Angle Executed
+    ${executed}  Run Keyword And Return Status   Page Shoud Contain Element  ${btnDataInfo}
+    [Return]  ${executed}
 
 Click Toggle Angle
     Click Element   ${btnToggleAnglePanel}
@@ -210,11 +223,11 @@ Click Delete Display
     Click Element    ${ddlSelectDisplayItems}[title="${displayName}"] .btnDelete
 
 Get Display Warning Count
-    ${count}    Get Elements Count    ${ddlSelectDisplayWarningItems}
+    ${count}    Get Element Count    ${ddlSelectDisplayWarningItems}
     [Return]    ${count}
 
 Get Display Error Count
-    ${count}    Get Elements Count    ${ddlSelectDisplayErrorItems}
+    ${count}    Get Element Count    ${ddlSelectDisplayErrorItems}
     [Return]    ${count}
 #End Display Dropdown
 

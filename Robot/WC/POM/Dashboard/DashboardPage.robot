@@ -37,7 +37,7 @@ Wait Dashboard Document Loaded
 
 Wait Dashboard Widgets Loaded
     Sleep    ${TIMEOUT_LARGEST}
-    ${widgetCount}    Get Elements Count    ${divWidgets}
+    ${widgetCount}    Get Element Count    ${divWidgets}
     : FOR    ${INDEX}    IN RANGE    0    ${widgetCount}
     \   Wait Until Page Does Not Contain Element    ${divWidgets}:eq(${INDEX}) .k-loading-mask
     \   Sleep    ${TIMEOUT_GENERAL}
@@ -81,7 +81,7 @@ Input Dashboard Note
     [Arguments]    ${DashboardNote}
     Wait Until Element Is Visible    ${txtDashboardNote}
     Input Text    ${txtDashboardNote}    ${DashboardNote}
-    Press Key    ${txtDashboardNote}    \\13
+    Press Keys    ${txtDashboardNote}    RETURN
     Wait Until Ajax Complete
 
 Dashboard Note Should Be Equal

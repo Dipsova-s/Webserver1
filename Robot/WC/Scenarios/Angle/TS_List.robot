@@ -87,7 +87,7 @@ Remove Field Format From Changing
     [Arguments]    ${fieldName}
     Click Header by Data Field Angle Grid List Display    ${fieldName}  
     Click Format Field From Header Column
-    Press Key    ${txtFieldName}    \\8
+    Press Keys    ${txtFieldName}    BACKSPACE
     Click OK Button On Field Format Popup
 
 Verify Disable Add Filter And Jump Button In Display Popup

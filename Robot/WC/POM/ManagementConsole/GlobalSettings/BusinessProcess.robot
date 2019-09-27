@@ -50,7 +50,7 @@ Fill English In Business Process By Abbreviation
 
 Click Enable Business Process By Abbreviation
     [Arguments]    ${abbreviation}
-    ${chkEnable}    Get Elements Count    ${trRowInBusinessProcessGrid}:contains(${abbreviation}) ${chkEnableBusinessProcess}:checked
+    ${chkEnable}    Get Element Count    ${trRowInBusinessProcessGrid}:contains(${abbreviation}) ${chkEnableBusinessProcess}:checked
     Run Keyword If    "${chkEnable}" == "0"    Click Action In Grid By Name    ${abbreviation}    ${trRowInBusinessProcessGrid}    ${chkEnableBusinessProcess}
 
 Click Delete Business Process By Abbreviation

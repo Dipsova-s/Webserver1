@@ -27,9 +27,9 @@ Wait Until Authentication Edit Page Loaded
 Input Trusted Webservers
     [Arguments]    ${IP}
     Input Text    ${txtAssignTrustedWebservers}    ${IP}
-    Press Key    ${txtAssignTrustedWebservers}    \\13
+    Press Keys    ${txtAssignTrustedWebservers}    RETURN
     Capture Page Screenshot
-    #Press Key    ${txtAssignTrustedWebservers}    \\9
+    #Press Keys    ${txtAssignTrustedWebservers}    TAB
 
 #Check CssClass not_valid is Exist
 Get Invalid Input Trusted Webservers
@@ -42,15 +42,15 @@ Get Invalid Input Trusted Webservers
 #    [Return]    ${isValid}
 
 Get Enabled Authentication Count
-    ${countEnabled}    Get Elements Count    jquery=${chkEnableSystemAuthentication}:checked
+    ${countEnabled}    Get Element Count    jquery=${chkEnableSystemAuthentication}:checked
     [Return]    ${countEnabled}
 
 Get Enabled Auto Create Users Count
-    ${countEnabled}    Get Elements Count    jquery=${chkAutoCreateUser}:checked
+    ${countEnabled}    Get Element Count    jquery=${chkAutoCreateUser}:checked
     [Return]    ${countEnabled}
 
 Get Enabled Default Authentication Count
-    ${countEnabled}    Get Elements Count    jquery=${rdoSetDefaultSyetemAuthentication}:checked
+    ${countEnabled}    Get Element Count    jquery=${rdoSetDefaultSyetemAuthentication}:checked
     [return]    ${countEnabled}
 
 Click Enable System Authentication By ID
@@ -67,7 +67,7 @@ Click Set Default System Authentication By ID
 
 Set Default Roles To System Authentication By ID
     [Arguments]    ${roleName}
-    ${countEnabled} =    Get Elements Count    ${ddlAuthenticationProviderID} ${ddlDefaultRoles}:contains(${roleName})
+    ${countEnabled} =    Get Element Count    ${ddlAuthenticationProviderID} ${ddlDefaultRoles}:contains(${roleName})
     Run Keyword If    "${countEnabled}" == "0"    Set Default Roles   ${roleName}
 
 Set Default Roles
