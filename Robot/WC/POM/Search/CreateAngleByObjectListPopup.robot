@@ -64,7 +64,7 @@ Click N Objects From list
 Click Create New Angle from Object List Button
     Click Link    ${btnCreateNewAngleByObjectList}
     Sleep    ${TIMEOUT_GENERAL}
-    ${selectObjectCount}    Get Elements Count    ${chkObjectsFromList}:checked
+    ${selectObjectCount}    Get Element Count    ${chkObjectsFromList}:checked
     Run Keyword If    ${selectObjectCount} > 1    Click Confirm Warning Create Angle Popup Button
 
 Close Angle Popup Detail

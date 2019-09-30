@@ -3,7 +3,7 @@ Resource            ${EXECDIR}/resources/WCSettings.robot
 Resource            ${EXECDIR}/WC/API/API_UserSettings.robot
 Suite Teardown      Logout WC Then Close Browser
 Test Teardown       Go to Search Page
-Force Tags          smoke_s    smk_wc_s
+Force Tags          smk_wc_s
 
 *** Variables ***
 ${NL_LANGUAGE_TEXT}                        Dutch

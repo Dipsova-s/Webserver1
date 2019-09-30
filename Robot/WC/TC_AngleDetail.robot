@@ -5,22 +5,21 @@ Suite Teardown      Logout WC Then Close Browser
 Test Teardown       Go to Search Page
 
 *** Variables ***
-${TEST_VERIFY_ANGLE_DETAILS}        Angle For General Test
-${TEST_LAST_EXECUTION_TIME_NAME}    Angle For General Test
 ${TEST_VERIFY_ANGLE_DESCRIPTION_WITH_MULTI_LANGUAGES}    [ROBOT] Test Verify Angle Description With Multi Languages
 
 *** Test Cases ***
 Verify Angle Details Test
-    [Tags]    smoke    smk_wc
-    Verify Angle Details    ${TEST_VERIFY_ANGLE_DETAILS}
+    [Tags]    smk_wc
+    Verify Angle Details    Angle For General Test
 
 Last Angle Execute Time Angle Test
-    [Tags]    smoke    smk_wc
-    Verify Last Execute Time Angle     ${TEST_LAST_EXECUTION_TIME_NAME}
+    [Tags]    smk_wc
+    Verify Last Execute Time Angle     Angle For General Test
 
 Verify Angle Description With Multi Languages
-    [Tags]    acceptance    acc_wc
-    Create Adhoc Angle From Object List    PD    ${TEST_VERIFY_ANGLE_DESCRIPTION_WITH_MULTI_LANGUAGES}
+    [Tags]    acc_wc
+    ${angleName}  Set Variable  [ROBOT] Test Verify Angle Description With Multi Languages
+    Create Adhoc Angle From Object List    PD    ${angleName}
     Click Angle Detail Description Tab
     Input Angle Description    English Description
     Click Add Language Button
@@ -35,7 +34,7 @@ Verify Angle Description With Multi Languages
     Click Edit Angle
     Click Angle Detail Description Tab
     Select English Language On Angle
-    Angle Name Should Be Equal    ${TEST_VERIFY_ANGLE_DESCRIPTION_WITH_MULTI_LANGUAGES}
+    Angle Name Should Be Equal    ${angleName}
     Angle Description Should Be Equal    English Description
     Select Dutch Language On Angle
     Angle Name Should Be Equal    Dutch Angle Name
@@ -55,4 +54,4 @@ Verify Angle Description With Multi Languages
     Click Angle Detail Description Tab
     Angle French Language Should Not Available
     Close Angle Detail Popup
-    Back To Search And Delete Angle Are Created    ${TEST_VERIFY_ANGLE_DESCRIPTION_WITH_MULTI_LANGUAGES}
+    Back To Search And Delete Angle Are Created    ${angleName}

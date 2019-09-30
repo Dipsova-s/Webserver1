@@ -43,7 +43,7 @@ Verify Filter Selected User By Keyword
 
 Clear Filter Selected User
     Clear Element Text    ${txtFilterSelectedUser}
-    Press Key    ${txtFilterSelectedUser}    \\13
+    Press Keys    ${txtFilterSelectedUser}    RETURN
     Wait Until Ajax Complete
 
 Click Confirm Selected User To Role

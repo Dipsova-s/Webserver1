@@ -42,7 +42,7 @@ Search Filter By All Angles And Business Processes
     Click Search Filter Template
     ${statusMoreBP} =    Is Element Visible    ${divBusinessProcessesItemMore}
     Run Keyword If    ${statusMoreBP} == True    Click Element    ${divBusinessProcessesItemMore}
-    ${bpCount} =    Get Elements Count    ${divBusinessProcessesItems}
+    ${bpCount} =    Get Element Count    ${divBusinessProcessesItems}
     : FOR    ${INDEX}    IN RANGE    0    ${bpCount}
     \   Click Element If Not Active    ${divBusinessProcessesItems}:eq(${INDEX})
     Wait Progress Bar Search Closed
@@ -55,7 +55,7 @@ Search Filter By All Angles And Business Process
     Run Keyword If    ${statusMoreBP} == True    Click Element    ${divBusinessProcessesItemMore}
     Page Should Contain Element    ${divBusinessProcessesItems}.${bp}
     Click Element If Not Active    ${divBusinessProcessesItems}.${bp}
-    ${bpCount} =    Get Elements Count    ${divBusinessProcessesItems}
+    ${bpCount} =    Get Element Count    ${divBusinessProcessesItems}
     : FOR    ${INDEX}    IN RANGE    0    ${bpCount}
     \   ${isMatchBP} =    Is Element Has CssClass    ${divBusinessProcessesItems}:eq(${INDEX})    ${bp}
     \   Run Keyword If    ${isMatchBP} == False    Click Element If Active    ${divBusinessProcessesItems}:eq(${INDEX})

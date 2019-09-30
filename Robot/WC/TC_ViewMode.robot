@@ -3,7 +3,7 @@ Resource            ${EXECDIR}/resources/WCSettings.robot
 Suite Setup         Go to WC Then Login With EAPower User
 Suite Teardown      Logout WC Then Close Browser
 Test Teardown       Go to Search Page
-Force Tags          acceptance_s     acc_wc_s
+Force Tags          acc_wc_s
 
 *** Variables ***
 ${TEST_SEARCH_REMEMBER_DETAIL_SETTING}         Angle For General Test

@@ -68,7 +68,7 @@ Click Save Modules
     Wait Until All Modules Page Loaded
 
 Click Edit Long Text for Operations & confirmations
-    ${countEnabled}    Get Elements Count    ${btnEditModulesPopUpSAPSCM}
+    ${countEnabled}    Get Element Count    ${btnEditModulesPopUpSAPSCM}
     Run Keyword If    ${countEnabled} == 1    UnSelect Edit Long Text for Operations & confirmations
     Click Edit Long Text PopUp
 

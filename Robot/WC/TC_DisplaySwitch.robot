@@ -4,7 +4,7 @@ Suite Setup         Open Browser in Sandbox Mode
 Suite Teardown      Close Browser
 Test Setup          Go To               ${URL_WC}
 Test Teardown       Logout
-Force Tags          acceptance    acc_wc
+Force Tags          acc_wc
 
 *** Variables ***
 ${TEST_OPEN_POPUP_WAS_CLOSE_WHEN_SWITCH_DISPLAY}      [ROBOT] Test Popup Was Close When Switch Display

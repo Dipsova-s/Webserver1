@@ -25,7 +25,7 @@ Click Insert Field From Field Chooser
 Fill In Search Field Chooser
     [Arguments]   ${searchText}
     Input Text By JQuery   ${txtFitlerAvailableProperties}    ${searchText}
-    Press Key    ${txtFitlerAvailableProperties}    \\13
+    Press Keys    ${txtFitlerAvailableProperties}    RETURN
     Sleep    ${TIMEOUT_GENERAL}
     Wait Until Ajax Complete
     Wait Progress Bar Field Chooser Search Closed

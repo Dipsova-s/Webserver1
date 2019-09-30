@@ -4,7 +4,7 @@ Resource            ${EXECDIR}/WC/API/API_UserSettings.robot
 Suite Setup         Go to WC Then Login With EAPower User
 Suite Teardown      Logout WC Then Close Browser
 Test Teardown       Go to Search Page
-Force Tags          smoke_s    smk_wc_s
+Force Tags          smk_wc_s
 
 *** Test Cases ***
 Verify User Settings Details

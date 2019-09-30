@@ -1,14 +1,12 @@
 *** Settings ***
 Resource            ${EXECDIR}/resources/WCSettings.robot
-Suite Setup         Open Browser in Sandbox Mode
-Suite Teardown      Close Browser
-Test Setup          Go To               ${URL_WC}
-Test Teardown       Logout
+Suite Setup         Go to WC Then Login With EAPower User
+Suite Teardown      Logout WC Then Close Browser
+Test Teardown       Go to Search Page
 Force Tags          Disabled
 
 *** Test Cases ***
 Verify Execute Jump Display
-    Login To WC By Power User
     Search Filter By Item IDS    EA_CLASS_TPL_StorageLocation
     Check Existing Angle From Search Result    Storage Location
     Execute First Search Item In Edit Mode
