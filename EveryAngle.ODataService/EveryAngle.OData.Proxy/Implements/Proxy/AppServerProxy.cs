@@ -19,7 +19,6 @@ namespace EveryAngle.OData.Proxy
 
         private readonly IEARestClient _client;
         private int _model = -1;
-        private readonly User _systemUser;
         private readonly HttpStatusCode[] _postAcceptedStatusCodes = new HttpStatusCode[] { HttpStatusCode.Created, HttpStatusCode.OK };
 
         #endregion
@@ -29,9 +28,9 @@ namespace EveryAngle.OData.Proxy
         public AppServerProxy(IEARestClient restClient)
         {
             _client = restClient;
-            _systemUser = new User(ODataSettings.Settings.User, ODataSettings.Settings.Password);
+            SystemUser = new User(ODataSettings.Settings.User, ODataSettings.Settings.Password);
 
-            if (!LoginUser(_systemUser))
+            if (!LoginUser(SystemUser))
                 LogService.Error(string.Format("Login of system user failed [user:{0}]", ODataSettings.Settings.User));
         }
 
@@ -39,7 +38,7 @@ namespace EveryAngle.OData.Proxy
 
         #region public variables
 
-        public User SystemUser { get { return _systemUser; } }
+        public User SystemUser { get; }
 
         #endregion
 
@@ -201,18 +200,13 @@ namespace EveryAngle.OData.Proxy
 
             // Re-login when the security token or session has expired
             // 440 session timeout is custom status returned by AS
-            if ((response.StatusCode == HttpStatusCode.Unauthorized || response.StatusCode == (HttpStatusCode)440)
-                && LoginUser(user))
+            if (CheckUnauthorizedUser(response.StatusCode, user))
             {
                 response = _Get<T>(resourceUrl, user);
             }
 
             // in case of AS returns 422-Unprocessable entity or Forbidden return with default object's value
-
-            if (!IsValidResponseStatus(response))
-                return default(T);
-
-            return response.Data;
+            return GetResponse(response);
         }
 
         public T Post<T>(string resourceUrl, object obj, User user, bool redirect = false) where T : new()
@@ -221,14 +215,23 @@ namespace EveryAngle.OData.Proxy
 
             // Re-login when the security token or session has expired
             // 440 session timeout is custom status returned by AS
-            if ((response.StatusCode == HttpStatusCode.Unauthorized || response.StatusCode == (HttpStatusCode)440)
-                && LoginUser(user))
+            if (CheckUnauthorizedUser(response.StatusCode, user))
             {
                 response = _Post<T>(resourceUrl, obj, user, redirect);
             }
 
             // in case of AS returns 422-Unprocessable entity or Forbidden return with object's default value
+            return GetResponse(response);
+        }
 
+        private bool CheckUnauthorizedUser(HttpStatusCode statusCode, User user)
+        {
+            bool isUnAuthorized = statusCode == HttpStatusCode.Unauthorized || statusCode == (HttpStatusCode)440;
+            return isUnAuthorized && LoginUser(user);
+        }
+
+        private T GetResponse<T>(IRestResponse<T> response)
+        {
             return IsValidResponseStatus(response)
                 ? response.Data
                 : default(T);
@@ -236,7 +239,7 @@ namespace EveryAngle.OData.Proxy
 
         private IRestResponse<T> _Post<T>(string resourceUrl, object obj, User user, bool? redirect = true) where T : new()
         {
-            var request = NewRestRequest(resourceUrl, user?.SecurityToken, Method.POST);
+            IRestRequest request = NewRestRequest(resourceUrl, user?.SecurityToken, Method.POST);
 
             request.AddJsonBody(obj);
 

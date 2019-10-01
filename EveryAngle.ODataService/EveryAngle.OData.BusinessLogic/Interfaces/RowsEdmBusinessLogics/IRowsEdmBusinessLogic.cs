@@ -17,10 +17,11 @@ namespace EveryAngle.OData.BusinessLogic.Interfaces
         EdmEntityObjectCollection GetRowsEntityCollection(IContext context, HttpRequestMessage request, NameValueCollection nameValueCollection, Display display);
         IEdmCollectionType GetEdmCollectionType(HttpRequestMessageProperties properties);
         IEdmCollectionTypeReference GetEdmCollectionTypeReference(IEdmCollectionType collectionType, bool isNullable);
-        IList<IEdmEntityObject> ReadData(IContext context, IEdmEntityType type, Display display, ODataQueryOptions queryOptions, ref string resultId, out int totalCount, out int? nextLinkSkip);
+        IList<IEdmEntityObject> ReadData(IContext context, IEdmEntityType type, Display display, SkipQueryOption skipQueryOption, TopQueryOption topQueryOption, ref string resultId, out int totalCount, out int? nextLinkSkip);
         IList<IEdmEntityObject> InitializeEdmEntityCollection(IEdmEntityType type, IList<IEdmEntityObject> list, DataRows data, IList<FieldMap> fieldMap);
         IEnumerable<IEdmStructuralProperty> GetEdmStructuralProperty(IEdmEntityType type);
         IList<FieldMap> GetFieldMap(IEdmEntityType type, DataRows data);
         object ConvertValue(object value, FieldMap fieldMap);
+        QueryResult DetermineGetResult(IContext context, Display display, SkipQueryOption skipQueryOption, string resultId);
     }
 }

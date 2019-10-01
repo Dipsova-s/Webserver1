@@ -19,40 +19,28 @@ namespace EveryAngle.OData.Service.Attributes
             {
                 // Web exception or HTTPException exposed from AS responded.
                 Exception ex = actionExecutedContext.Exception;
-                if (ex != null)
+                
+                JObject body = new JObject();
+                body.Add("reason", "Unknown reason");
+                body.Add("message", ex.Message);
+
+                LogService.Error("WebException occurred while action executed:", ex);
+
+                try
                 {
-                    JObject body = new JObject();
-                    body.Add("reason", "Unknown reason");
-                    body.Add("message", ex.Message);
-
-                    LogService.Error("WebException occurred while action executed:", ex);
-
-                    try
-                    {
-                        body = JsonConvert.DeserializeObject<JObject>(ex.Message);
-                    }
-                    catch (JsonReaderException jEx)
-                    {
-                        LogService.Error("JsonReaderException occurred while action executed:", jEx);
-                    }
-
-                    string reason = body["reason"].ToString();
-                    actionExecutedContext.Response = EAExceptionHandler.CreateErrorResponse(
-                        actionExecutedContext.Request,
-                        reason.AsHttpStatusCode(),
-                        reason,
-                        body["message"].ToString());
+                    body = JsonConvert.DeserializeObject<JObject>(ex.Message);
                 }
-                else
+                catch (JsonReaderException jEx)
                 {
-                    LogService.Error("Exception occurred while action executed:", actionExecutedContext.Exception);
-                    actionExecutedContext.Response = EAExceptionHandler.CreateErrorResponse(
-                        actionExecutedContext.Request,
-                        (HttpStatusCode)422,
-                        actionExecutedContext.Exception.Message,
-                        actionExecutedContext.Exception.Message);
+                    LogService.Error("JsonReaderException occurred while action executed:", jEx);
                 }
-              
+
+                string reason = body["reason"].ToString();
+                actionExecutedContext.Response = EAExceptionHandler.CreateErrorResponse(
+                    actionExecutedContext.Request,
+                    reason.AsHttpStatusCode(),
+                    reason,
+                    body["message"].ToString());
             }
 
             base.OnActionExecuted(actionExecutedContext);

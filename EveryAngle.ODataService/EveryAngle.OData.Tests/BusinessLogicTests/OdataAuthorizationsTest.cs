@@ -28,13 +28,12 @@ namespace EveryAngle.OData.Tests.BusinessLogicTests
         {
             _testingBusinessLogic = new OdataAuthorizations();
             _testingUser = new User();
+            _testingUser.RegisterSecurityToken("my_token");
             _testingUser.ModelPrivileges = new ModelPrivilegeListViewModel();
             _testingUser.ModelPrivileges.model_privileges = new List<ModelPrivilegeViewModel>();
             ModelPrivilegeViewModel modelPvls = new ModelPrivilegeViewModel();
             modelPvls.privileges = new PrivilegesForModelViewModel();
             modelPvls.privileges.access_data_via_odata = false;
-
-            _testingUser.ModelPrivileges.model_privileges.Add(modelPvls);
 
             List<AssignedRolesViewModel> roles = new List<AssignedRolesViewModel>();
             AssignedRolesViewModel role = new AssignedRolesViewModel();
@@ -42,6 +41,8 @@ namespace EveryAngle.OData.Tests.BusinessLogicTests
             role.role_id = "1";
             roles.Add(role);
             modelPvls.roles = roles;
+
+            _testingUser.ModelPrivileges.model_privileges.Add(modelPvls);
         }
 
         [TearDown]
@@ -88,6 +89,13 @@ namespace EveryAngle.OData.Tests.BusinessLogicTests
         public void Cannot_AccessOdataWebsite_When_NoModelPrivilges()
         {
             _testingUser.ModelPrivileges.model_privileges = null;
+            Assert.IsFalse(_testingBusinessLogic.MayView(_testingUser));
+        }
+
+        [TestCase]
+        public void Cannot_AccessOdataWebsite_When_UserNoModelPrivilges()
+        {
+            _testingUser.ModelPrivileges = null;
             Assert.IsFalse(_testingBusinessLogic.MayView(_testingUser));
         }
 

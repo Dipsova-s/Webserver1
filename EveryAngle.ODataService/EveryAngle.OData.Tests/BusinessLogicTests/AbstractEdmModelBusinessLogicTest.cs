@@ -78,6 +78,20 @@ namespace EveryAngle.OData.Tests.BusinessLogicTests
         }
 
         [TestCase]
+        public void Can_SyncMetadata()
+        {
+            _appServerProxy.Setup(x => x.LoginUser(It.IsAny<User>())).Returns(true);
+
+            _testingBusinessLogic = new MasterEdmModelBusinessLogic(
+                _appServerProxy.Object,
+                new Mock<IAngleDataCollector>().Object);
+
+            Assert.IsTrue(_testingBusinessLogic.SyncModelMetadata());
+            Assert.AreEqual(EdmModelStatus.Up, EdmModelContainer.Status,
+                "When have metadata, its status should be up");
+        }
+
+        [TestCase]
         public void Can_HandleSyncMetadataException()
         {
             _appServerProxy.Setup(x => x.LoginUser(It.IsAny<User>())).Returns(true);
@@ -236,6 +250,13 @@ namespace EveryAngle.OData.Tests.BusinessLogicTests
             Assert.IsNotNull(_testingBusinessLogic.GetTotalMemory());
         }
 
+        [TestCase]
+        public void Can_UpdateLastSyncMetadataTimestamp()
+        {
+            _testingBusinessLogic.UpdateLastSyncMetadataTimestamp();
+            Assert.IsNotNull(EdmModelContainer.LastSyncMetadataTimestamp);
+        }
+
         #endregion
 
         #region angle tests
@@ -243,20 +264,33 @@ namespace EveryAngle.OData.Tests.BusinessLogicTests
         [TestCase]
         public void Can_CountAnglesCorrectly()
         {
-            Angle unavailableAngle = new Angle { uri = "models/1/angles/123" };
-            Angle availableAngle = new Angle { uri = "models/1/angles/321" };
+            Angle availableAngle = new Angle { uri = "models/1/angles/123" };
+            Angle unavailableAngle = new Angle { uri = "models/1/angles/321" };
 
             unavailableAngle.SetAsUnavailable();
+
             Assert.IsTrue(_testingBusinessLogic.TrySaveAngle(availableAngle.CompositeKey, availableAngle));
             Assert.IsTrue(_testingBusinessLogic.TrySaveAngle(unavailableAngle.CompositeKey, unavailableAngle));
 
             Assert.AreEqual(2, _testingBusinessLogic.CountAngles());
+            Assert.AreEqual(1, _testingBusinessLogic.CountAvailableAngles());
+            Assert.AreEqual(1, _testingBusinessLogic.CountUnavailableAngles());
         }
 
         [TestCase]
-        public void Can_UpdateUnavailableAngles()
+        public void Can_GetAvailableAnglesCorrectly()
         {
-            // Define new test with .SetAsUnavailable();
+            Angle availableAngle = new Angle { uri = "models/1/angles/123" };
+            Angle unavailableAngle = new Angle { uri = "models/1/angles/321" };
+            Display display = new Display { uri = "models/1/angles/123/displays/321" };
+
+            availableAngle.display_definitions = new List<Display> { display };
+            unavailableAngle.SetAsUnavailable();
+
+            Assert.IsTrue(_testingBusinessLogic.TrySaveAngle(availableAngle.CompositeKey, availableAngle));
+            Assert.IsTrue(_testingBusinessLogic.TrySaveAngle(unavailableAngle.CompositeKey, unavailableAngle));
+
+            Assert.AreEqual(1, _testingBusinessLogic.GetAvailableAngles().Count());
         }
 
         #endregion
@@ -264,6 +298,22 @@ namespace EveryAngle.OData.Tests.BusinessLogicTests
         #region display tests
 
         // Define a new test from Angles collection
+        [TestCase]
+        public void Can_CountDisplaysCorrectly()
+        {
+            Angle angle = new Angle { uri = "models/1/angles/123" };
+            Display availableDisplay = new Display { uri = "models/1/angles/123/displays/321" };
+            Display unavailableDisplay = new Display { uri = "models/1/angles/123/displays/111" };
+
+            unavailableDisplay.SetAsUnavailable();
+            angle.display_definitions = new List<Display> { availableDisplay, unavailableDisplay };
+
+            Assert.IsTrue(_testingBusinessLogic.TrySaveAngle(angle.CompositeKey, angle));
+
+            Assert.AreEqual(2, _testingBusinessLogic.CountDisplays());
+            Assert.AreEqual(1, _testingBusinessLogic.CountAvailableDisplays());
+            Assert.AreEqual(1, _testingBusinessLogic.CountUnavailableDisplays());
+        }
 
         #endregion
 
@@ -320,6 +370,26 @@ namespace EveryAngle.OData.Tests.BusinessLogicTests
 
             Assert.AreEqual("testing-field-Can-GetField", testingFieldDash.id);
             Assert.AreEqual("testing:field:Can:GetField", testingfieldColon.id);
+        }
+
+        [TestCase]
+        public void Can_CountFieldsCorrectly()
+        {
+            Field availableField = new Field { uri = "models/1/instances/1/fields/123", id = "testing-availablefield" };
+            Field unavailableField = new Field { uri = "models/1/instances/1/fields/321", id = "testing-unavailablefield" };
+            availableField.UpdateUniqueXMLElementKey(availableField.AsXMLElementName());
+            unavailableField.UpdateUniqueXMLElementKey(unavailableField.AsXMLElementName());
+            FieldCompositeKey availableFieldKey = availableField.CompositeKey;
+            FieldCompositeKey unavailableFieldKey = unavailableField.CompositeKey;
+
+            unavailableField.SetAsUnavailable();
+
+            Assert.IsTrue(_testingBusinessLogic.TrySaveField(availableFieldKey, availableField));
+            Assert.IsTrue(_testingBusinessLogic.TrySaveField(unavailableFieldKey, unavailableField));
+
+            Assert.AreEqual(2, _testingBusinessLogic.CountFields());
+            Assert.AreEqual(1, _testingBusinessLogic.CountAvailableFields());
+            Assert.AreEqual(1, _testingBusinessLogic.CountUnavailableFields());
         }
 
         #endregion

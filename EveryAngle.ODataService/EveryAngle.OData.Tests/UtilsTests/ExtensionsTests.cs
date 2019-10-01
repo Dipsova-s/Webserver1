@@ -2,13 +2,13 @@
 using EveryAngle.OData.DTO.Settings;
 using EveryAngle.OData.Settings;
 using EveryAngle.OData.Utils;
-using EveryAngle.OData.Utils.Logs;
 using EveryAngle.OData.ViewModel.Settings;
 using NUnit.Framework;
 using System;
 using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.Linq;
+using System.Text.RegularExpressions;
 
 namespace EveryAngle.OData.Tests.UtilsTests
 {
@@ -227,6 +227,7 @@ namespace EveryAngle.OData.Tests.UtilsTests
             Assert.AreEqual("EA2_800", ODataSettings.Settings.ModelId);
         }
 
+        [TestCase("", "")]
         [TestCase("CONVERT_!@#$%^&*()-=+/\\\"'?:;â˜ºâ˜»â™¥â™¦â™£â™ â€¢â—˜â—‹1", "CONVERT__x0021__x0040__x0023__x0024__x0025__x005E__x0026__x002A__x0028__x0029_-_x003D__x002B__x002F__x005C__x0022__x0027__x003F__x003A__x003B_â_x02DC__x00BA_â_x02DC__x00BB_â_x2122__x00A5_â_x2122__x00A6_â_x2122__x00A3_â_x2122__x00A0_â_x20AC__x00A2_â_x2014__x02DC_â_x2014__x2039_1")]
         public void Can_Convert_AsXMLElementName(string convertingText, string expectedConverted)
         {
@@ -258,6 +259,14 @@ namespace EveryAngle.OData.Tests.UtilsTests
 
             Assert.IsNotNull(testingField.CompositeKey.UniqueXMLElementKey);
             Assert.AreEqual(expectedKey, testingField.CompositeKey.UniqueXMLElementKey);
+        }
+
+        [TestCase]
+        public void Can_GetFileVersion()
+        {
+            string version = Extensions.GetFileVersion();
+
+            Assert.IsTrue(Regex.IsMatch(version, @"^[\d\.]+$"));
         }
 
         [TestCase(true)]

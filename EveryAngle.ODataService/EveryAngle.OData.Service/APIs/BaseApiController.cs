@@ -65,7 +65,7 @@ namespace EveryAngle.OData.Service.APIs
             }
             catch
             {
-                return new T();
+                return default(T);
             }
         }
 

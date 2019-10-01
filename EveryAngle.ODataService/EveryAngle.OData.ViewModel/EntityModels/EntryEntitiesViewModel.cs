@@ -8,9 +8,6 @@ namespace EveryAngle.OData.ViewModel
     {
         #region constructors
 
-        public EntryEntitiesViewModel()
-        {
-        }
         public EntryEntitiesViewModel(Angle angle, string webClientUri)
         {
             name = angle.name;
@@ -20,6 +17,7 @@ namespace EveryAngle.OData.ViewModel
             item_type = angle.is_template ? "template" : "angle";
             hasChildren = angle.displays_summary.Any();
         }
+
         public EntryEntitiesViewModel(Display display, string webClientUri)
         {
             name = display.name;
@@ -31,7 +29,7 @@ namespace EveryAngle.OData.ViewModel
             hasChildren = false;
         }
 
-        #endregion
+        #endregion constructors
 
         #region public variables
 
@@ -42,16 +40,16 @@ namespace EveryAngle.OData.ViewModel
         // kendoui mapping
         public bool hasChildren { get; set; }
 
-        #endregion
+        #endregion public variables
 
         #region private functions
 
-        private int GetUniqueRangeEntityId(int currentId, bool isParent = false)
+        private int GetUniqueRangeEntityId(int currentId)
         {
-            int range = isParent ? 1000000 : 2000000;
+            int range = 2000000;
             return (range + currentId + parent_id.Value);
         }
 
-        #endregion
+        #endregion private functions
     }
 }

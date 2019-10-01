@@ -27,28 +27,32 @@ namespace EveryAngle.OData.Service.APIs
         [Route("entry")]
         public HttpResponseMessage Get()
         {
-            KendoUIGridQueryViewModel query = GetQueryArgsAsViewModel<KendoUIGridQueryViewModel>();
             List<EntryEntitiesViewModel> entities = new List<EntryEntitiesViewModel>();
-            if (query != null && !query.id.HasValue)
+            KendoUIGridQueryViewModel query = GetQueryArgsAsViewModel<KendoUIGridQueryViewModel>();
+            int pageSize = 0;
+            if (query != null)
             {
-                IEnumerable<Angle> angles = _edmBusinessLogic.GetAvailableAngles();
-
-                angles = DetermineFiltering(query, angles);
-                angles = DetermineSorting(query, angles);
-                entities.AddRange(angles.Skip(query.skip).Take(query.take).Select(x => new EntryEntitiesViewModel(x, ODataSettings.Settings.WebClientUri)));
-            }
-            else
-            {
-                Angle angle;
-                if (_edmBusinessLogic.TryGetAngle(Extensions.GetAngleCompositeKey(query.id.Value), out angle))
+                if (!query.id.HasValue)
                 {
-                    // Using proper linq, expected angle's display should not exceeded than 100?
-                    entities.AddRange(angle.AvailableDisplays.Select(display =>
-                        new EntryEntitiesViewModel(display, ODataSettings.Settings.WebClientUri)));
+                    IEnumerable<Angle> angles = _edmBusinessLogic.GetAvailableAngles();
+
+                    angles = DetermineFiltering(query, angles);
+                    angles = DetermineSorting(query, angles);
+                    entities.AddRange(angles.Skip(query.skip).Take(query.take).Select(x => new EntryEntitiesViewModel(x, ODataSettings.Settings.WebClientUri)));
                 }
+                else
+                {
+                    if (_edmBusinessLogic.TryGetAngle(Extensions.GetAngleCompositeKey(query.id.Value), out Angle angle))
+                    {
+                        // Using proper linq, expected angle's display should not exceeded than 100?
+                        entities.AddRange(angle.AvailableDisplays.Select(display =>
+                            new EntryEntitiesViewModel(display, ODataSettings.Settings.WebClientUri)));
+                    }
+                }
+                pageSize = _edmBusinessLogic.CountAvailableAngles();
             }
 
-            return CreateResponse(new { result = entities, page_size = _edmBusinessLogic.CountAvailableAngles() });
+            return CreateResponse(new { result = entities, page_size = pageSize });
         }
 
         private IEnumerable<Angle> DetermineFiltering(KendoUIGridQueryViewModel query, IEnumerable<Angle> angles)

@@ -54,6 +54,7 @@ namespace EveryAngle.OData.Tests.BusinessLogicTests
             Assert.IsNotNull(edmModel);
         }
 
+        [TestCase]
         public void Can_AddNewAngleToMetadata()
         {
             // setup

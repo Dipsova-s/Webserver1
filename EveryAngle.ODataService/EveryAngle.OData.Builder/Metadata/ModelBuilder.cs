@@ -19,12 +19,11 @@ namespace EveryAngle.OData.Builder.Metadata
     public class ModelBuilder
     {
         #region private variables
-
-        private readonly ICollection<Angle> _angles;
+        
         private readonly IRoutingControllerSelector _selector;
         private readonly IEdmModelBusinessLogic _edmModelBusinessLogic;
         private readonly IEdmStringTypeReference _edmStringType = EdmCoreModel.Instance.GetString(true);
-        private readonly IAppServerProxy _appServerProxy = ObjectFactory.GetInstance<IAppServerProxy>();
+        private readonly IAppServerProxy _appServerProxy;
 
         // type of dynamic routing on controller class, specifically on RowsController
         // in terms of re-usability, don't specified/hardcode it directly
@@ -43,27 +42,38 @@ namespace EveryAngle.OData.Builder.Metadata
         {
             _selector = selector;
             _edmModelBusinessLogic = edmModelBusinessLogic;
-            _angles = _edmModelBusinessLogic.GetAngles();
             _routingControllerType = routingControllerType;
+            _appServerProxy = ObjectFactory.GetInstance<IAppServerProxy>();
+        }
+
+        public ModelBuilder(
+            IEdmModelBusinessLogic edmModelBusinessLogic,
+            IRoutingControllerSelector selector,
+            Type routingControllerType,
+            IAppServerProxy appServerProxy)
+        {
+            _selector = selector;
+            _edmModelBusinessLogic = edmModelBusinessLogic;
+            _routingControllerType = routingControllerType;
+            _appServerProxy = appServerProxy;
         }
 
         #endregion
 
         #region public function
 
-        public void BuildModel() //NOSONAR
+        public void BuildModel()
         {
             Stopwatch stopwatch = Stopwatch.StartNew();
 
-            foreach (Angle angle in _angles)
+            ICollection<Angle> angles = _edmModelBusinessLogic.GetAngles();
+            foreach (Angle angle in angles)
             {
                 // retrieve full angle details from the Application server
                 Angle angleDetails = _appServerProxy.GetAngle(angle.uri, _appServerProxy.SystemUser);
 
                 // possible case, angle was deleted while metadata is synced and running the builder, set as unavailable and skip it.
-                if (angleDetails == null ||
-                    angleDetails.id == null ||
-                    !angleDetails.is_published)
+                if (!IsAngleUsable(angleDetails))
                 {
                     angle.SetAsUnavailable();
                     continue;
@@ -73,9 +83,7 @@ namespace EveryAngle.OData.Builder.Metadata
                 angle.SetDisplays(angleDetails.display_definitions);
 
                 // if angle is containing an invalid field or definition, skip.
-                if (ContainsInvalidAngleQueryDefinition(angleDetails) ||
-                    ContainsInvalidDefaultDisplay(angleDetails) ||
-                    ContainsOnlyPrivateDisplays(angleDetails))
+                if (IsAngleContainsInvalidData(angleDetails))
                 {
                     angle.SetAsUnavailable();
                     continue;
@@ -87,15 +95,7 @@ namespace EveryAngle.OData.Builder.Metadata
                     try
                     {
                         // checking invalid display, if any, skip
-                        if (!display.is_public || !IsValidDisplay(display))
-                        {
-                            display.SetAsUnavailable();
-                            if (angle.display_definitions.Count == 1)
-                            {
-                                angle.SetAsUnavailable();
-                                LogService.Warn(string.Format("WARN: [Angle:{0}  message: angle contains only 1 display with an invalid status]", angle.id));
-                            }
-
+                        if (!IsDisplayUsable(angle, display)) {
                             continue;
                         }
 
@@ -144,9 +144,9 @@ namespace EveryAngle.OData.Builder.Metadata
 
         #endregion
 
-        #region private functions
+        #region internal functions
 
-        private void UpdateListDisplayFields(Display display)
+        internal void UpdateListDisplayFields(Display display)
         {
             List<Field> modelFields = GetCachedModelFields(display.fields.Select(field => field.id));
 
@@ -163,12 +163,12 @@ namespace EveryAngle.OData.Builder.Metadata
             }
         }
 
-        private void UpdateCubeDisplayFields(Display display)
+        internal void UpdateCubeDisplayFields(Display display)
         {
             // get first aggregation query step
             QueryStep aggregationStep = display.query_blocks
                                         .SelectMany(queryBlock => queryBlock.query_steps)
-                                        .FirstOrDefault(queryStep => queryStep.step_type == "aggregation") ?? new QueryStep();
+                                        .First(queryStep => queryStep.step_type == "aggregation");
 
             // Create 1 collection containing both the grouping and the aggregation fields
             List<AggregationField> query_fields =
@@ -208,7 +208,7 @@ namespace EveryAngle.OData.Builder.Metadata
             }
         }
 
-        private List<Field> GetCachedModelFields(IEnumerable<string> fieldIds)
+        internal List<Field> GetCachedModelFields(IEnumerable<string> fieldIds)
         {
             List<Field> result = new List<Field>();
             List<string> missingFields = new List<string>();
@@ -216,9 +216,7 @@ namespace EveryAngle.OData.Builder.Metadata
             // Get field information for specified fields in the same order as requested, collect missing fields.
             foreach (string fieldId in fieldIds)
             {
-                Field modelField;
-
-                if (_edmModelBusinessLogic.TryGetField(Extensions.GetFieldCompositeKey(businessId: fieldId), out modelField))
+                if (_edmModelBusinessLogic.TryGetField(Extensions.GetFieldCompositeKey(businessId: fieldId), out Field modelField))
                     result.Add(modelField);
                 else
                 {
@@ -238,7 +236,7 @@ namespace EveryAngle.OData.Builder.Metadata
                 // Register and Log unknown fields
                 if (unknownFieldIds.Any())
                 {
-                    LogService.Info(String.Format("Unknown fields: {0}", string.Join(",", unknownFieldIds)));
+                    LogService.Info(string.Format("Unknown fields: {0}", string.Join(",", unknownFieldIds)));
                     foreach (string unknownFieldId in unknownFieldIds)
                     {
                         Field unknownField = new Field { id = unknownFieldId, uri = string.Format("/unknowns/{0}", unknownFieldId.GetHashCode()) };
@@ -260,7 +258,7 @@ namespace EveryAngle.OData.Builder.Metadata
             return result;
         }
 
-        private EdmEntityType GetDisplayEntityType(Display display, string angleDisplayName, string angleDisplayId)
+        internal EdmEntityType GetDisplayEntityType(Display display, string angleDisplayName, string angleDisplayId)
         {
             EdmEntityType displayEntityType = new EdmEntityType("EA", angleDisplayId);
             _edmModelBusinessLogic.SetModelAnnotationValue(displayEntityType, EANamespaceName, "DisplayName", new EdmStringConstant(_edmStringType, angleDisplayName));
@@ -283,12 +281,12 @@ namespace EveryAngle.OData.Builder.Metadata
             return displayEntityType;
         }
 
-        private IEnumerable<QueryStep> GetDisplayQueryStep(Display display)
+        internal IEnumerable<QueryStep> GetDisplayQuerySteps(Display display)
         {
             return display.query_blocks.SelectMany(x => x.query_steps);
         }
 
-        private IList<QueryStep> GetAngleQuerySteps(Angle angle)
+        internal IList<QueryStep> GetAngleQuerySteps(Angle angle)
         {
             if (angle.query_definition == null)
                 return new List<QueryStep>();
@@ -301,14 +299,40 @@ namespace EveryAngle.OData.Builder.Metadata
 
         #region check invalid items
 
-        private bool IsValidDisplay(Display display)
+        internal bool IsAngleUsable(Angle angleDetails)
+        {
+            return angleDetails != null &&
+                angleDetails.id != null &&
+                angleDetails.is_published;
+        }
+        internal bool IsAngleContainsInvalidData(Angle angleDetails)
+        {
+            return ContainsInvalidAngleQueryDefinition(angleDetails) ||
+                ContainsInvalidDefaultDisplay(angleDetails) ||
+                ContainsOnlyPrivateDisplays(angleDetails);
+        }
+        internal bool IsDisplayUsable(Angle angle, Display display)
+        {
+            // checking invalid display, if any, skip
+            if (!display.is_public || !IsValidDisplay(display))
+            {
+                display.SetAsUnavailable();
+                if (angle.display_definitions.Count == 1)
+                {
+                    angle.SetAsUnavailable();
+                    LogService.Warn(string.Format("WARN: [Angle:{0}  message: angle contains only 1 display with an invalid status]", angle.id));
+                }
+                return false;
+            }
+            return true;
+        }
+        internal bool IsValidDisplay(Display display)
         {
             return IsAggregationValid(display)
                 && IsQueryStepsValid(display)
                 && ContainsValidFields(display);
         }
-
-        private bool ContainsValidFields(Display display)
+        internal bool ContainsValidFields(Display display)
         {
             if (!display.fields.Any(field => field.valid))
             {
@@ -318,14 +342,14 @@ namespace EveryAngle.OData.Builder.Metadata
 
             return true;
         }
-        private bool IsAggregationValid(Display display)
+        internal bool IsAggregationValid(Display display)
         {
             // only proceed when this is an aggregation based display
             if (!display.contained_aggregation_steps)
                 return true;
 
             // Get the aggregation step
-            QueryStep aggregationStep = GetDisplayQueryStep(display).First(step => step.step_type.Equals("aggregation"));
+            QueryStep aggregationStep = GetDisplayQuerySteps(display).First(step => step.step_type.Equals("aggregation"));
 
             // Get invalid source fields
             IEnumerable<string> invalidAggregationFields = aggregationStep.aggregation_fields
@@ -345,10 +369,10 @@ namespace EveryAngle.OData.Builder.Metadata
 
             return true;
         }
-        private bool IsQueryStepsValid(Display display)
+        internal bool IsQueryStepsValid(Display display)
         {
             // check for query step
-            IEnumerable<QueryStep> invalidQuerySteps = GetDisplayQueryStep(display)
+            IEnumerable<QueryStep> invalidQuerySteps = GetDisplayQuerySteps(display)
                 .Where(step => step.valid.Equals(false));
 
             if (invalidQuerySteps.Any())
@@ -361,7 +385,7 @@ namespace EveryAngle.OData.Builder.Metadata
 
             return true;
         }
-        private bool ContainsInvalidAngleQueryDefinition(Angle angle)
+        internal bool ContainsInvalidAngleQueryDefinition(Angle angle)
         {
             // check for definition's query step
             IList<QueryStep> querySteps = GetAngleQuerySteps(angle);
@@ -381,7 +405,7 @@ namespace EveryAngle.OData.Builder.Metadata
 
             return false;
         }
-        private bool ContainsInvalidDefaultDisplay(Angle angle)
+        internal bool ContainsInvalidDefaultDisplay(Angle angle)
         {
             Display defaultDisplay = angle.display_definitions.First(display => display.is_angle_default);
             bool containsValidDisplayField = defaultDisplay.fields.Any(field => field.valid);
@@ -392,7 +416,7 @@ namespace EveryAngle.OData.Builder.Metadata
 
             return !containsValidDisplayField;
         }
-        private bool ContainsOnlyPrivateDisplays(Angle angle)
+        internal bool ContainsOnlyPrivateDisplays(Angle angle)
         {
             if (angle.displays_summary == null)
                 return false;

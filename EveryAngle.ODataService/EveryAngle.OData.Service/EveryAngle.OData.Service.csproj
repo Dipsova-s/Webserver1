@@ -213,7 +213,9 @@
     <Compile Include="APIs\SyncMetadataApiController.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
+    <Compile Include="Utils\BasicAuthenticationHeaderParserWrapper.cs" />
     <Compile Include="Utils\BasicAuthenticationHeaderParser.cs" />
+    <Compile Include="Utils\IBasicAuthenticationHeaderParserWrapper.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap-theme.min.css" />

@@ -35,6 +35,7 @@ namespace EveryAngle.OData.BusinessLogic.Rows
             IAppServerProxy appServerProxy)
         {
             _appServerProxy = appServerProxy;
+            _masterMetadata = EdmModelContainer.Metadata[ModelType.Master];
         }
 
         #endregion
@@ -60,7 +61,7 @@ namespace EveryAngle.OData.BusinessLogic.Rows
             // retrieve the requested angle data
             int? nextLinkSkip;
             int totalCount;
-            IList<IEdmEntityObject> data = ReadData(context, entityType, display, queryOptions, ref resultId, out totalCount, out nextLinkSkip);
+            IList<IEdmEntityObject> data = ReadData(context, entityType, display, queryOptions.Skip, queryOptions.Top, ref resultId, out totalCount, out nextLinkSkip);
             IEdmCollectionTypeReference edmTypeReference = GetEdmCollectionTypeReference(collectionType, true);
 
             // Set 'NextLink' when more data is available
@@ -102,7 +103,7 @@ namespace EveryAngle.OData.BusinessLogic.Rows
             }
         }
 
-        public virtual IList<IEdmEntityObject> ReadData(IContext context, IEdmEntityType type, Display display, ODataQueryOptions queryOptions, ref string resultId, out int totalCount, out int? nextLinkSkip)
+        public virtual IList<IEdmEntityObject> ReadData(IContext context, IEdmEntityType type, Display display, SkipQueryOption skipQueryOption, TopQueryOption topQueryOption, ref string resultId, out int totalCount, out int? nextLinkSkip)
         {
             nextLinkSkip = null;
             totalCount = 0;
@@ -111,11 +112,11 @@ namespace EveryAngle.OData.BusinessLogic.Rows
             List<IEdmEntityObject> list = new List<IEdmEntityObject>();
 
             // prepare paging
-            int skip = queryOptions.Skip == null ? 0 : queryOptions.Skip.Value;
-            int? top = queryOptions.Top == null ? (int?)null : queryOptions.Top.Value;
+            int skip = skipQueryOption == null ? 0 : skipQueryOption.Value;
+            int? top = topQueryOption == null ? (int?)null : topQueryOption.Value;
 
             // determine if we have no resultId (first execute), or Get the result
-            result = DetermineGetResult(context, display, queryOptions, resultId);
+            result = DetermineGetResult(context, display, skipQueryOption, resultId);
 
             // Return an empty list when execution failed.
             if (result == null || !result.successfully_completed)
@@ -147,7 +148,7 @@ namespace EveryAngle.OData.BusinessLogic.Rows
             return list;
         }
 
-        private QueryResult DetermineGetResult(IContext context, Display display, ODataQueryOptions queryOptions, string resultId)
+        public virtual QueryResult DetermineGetResult(IContext context, Display display, SkipQueryOption skipQueryOption, string resultId)
         {
             // if result's id is not available yet, POST a new result.
             if (string.IsNullOrEmpty(resultId))
@@ -156,7 +157,7 @@ namespace EveryAngle.OData.BusinessLogic.Rows
             string resultUri = $"/results/{resultId}";
 
             // if Skip is null(pre-request), get a prepared result.
-            if (queryOptions.Skip == null)
+            if (skipQueryOption == null)
                 return _appServerProxy.GetResult(context.User, resultUri);
 
             // if result's datarows is available, return successfully_completed with a datarows uri.

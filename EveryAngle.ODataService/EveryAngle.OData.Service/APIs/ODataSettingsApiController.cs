@@ -22,10 +22,9 @@ namespace EveryAngle.OData.Service.APIs
         {
             dynamic setting = GetViewModel<dynamic>();
 
-            if (setting == null)
-                return CreateResponse(HttpStatusCode.OK, ODataSettings.ViewModel);
+            if (setting != null)
+                ODataSettings.Update(setting);
 
-            ODataSettings.Update(setting);
             return CreateResponse(ODataSettings.ViewModel);
         }
     }

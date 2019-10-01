@@ -8,26 +8,18 @@ namespace EveryAngle.OData.Utils.Logs
 
         public static void Init()
         {
-            LogService.Info(new string('-', 80));
-            LogService.Info("Starting application..");
+            Info(new string('-', 80));
+            Info("Starting application..");
         }
 
         public static void Logs(LogLevel level, string message, Exception ex)
         {
-            switch (level)
-            {
-                case LogLevel.INFO:
-                    Info(message, ex);
-                    break;
-                case LogLevel.ERROR:
-                    Error(message, ex);
-                    break;
-                case LogLevel.WARN:
-                    Warn(message, ex);
-                    break;
-                default:
-                    break;
-            }
+            if (level == LogLevel.INFO)
+                Info(message, ex);
+            else if (level == LogLevel.WARN)
+                Warn(message, ex);
+            else if (level == LogLevel.ERROR)
+                Error(message, ex);
         }
 
         public static void Error(string message)

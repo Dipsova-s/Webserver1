@@ -33,9 +33,9 @@ Included items must then not match any entries in the exclude list to remain inc
                 <ModulePath>.*\.exe$</ModulePath>
               </Include>
               <Exclude>
-                <ModulePath>.*chutzpah*\.dll$</ModulePath>
-                <ModulePath>.*miniprofiler\.dll$</ModulePath>
-                <ModulePath>.*structuremap\.dll$</ModulePath>
+                <ModulePath>.*chutzpah.*</ModulePath>
+                <ModulePath>.*miniprofiler.*</ModulePath>
+                <ModulePath>.*structuremap.*</ModulePath>
               </Exclude>
             </ModulePaths>
 

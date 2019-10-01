@@ -277,7 +277,7 @@ namespace EveryAngle.OData.BusinessLogic.Abstracts
 
         public virtual void UpdateLastSyncMetadataTimestamp()
         {
-            EdmModelContainer.LastSyncMetadataTimestamp = DateTime.Now.ToUnixTimestamp().ToGMTTimestamp();
+            EdmModelContainer.LastSyncMetadataTimestamp = DateTime.UtcNow.ToUnixTimestamp();
             LogService.Info(string.Format("LastSyncMetadataTimestamp: Updated, last-sync-timestamp: {0} (GMT)", EdmModelContainer.LastSyncMetadataTimestamp));
         }
 

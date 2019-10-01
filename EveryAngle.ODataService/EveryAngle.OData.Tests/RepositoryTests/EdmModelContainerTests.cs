@@ -54,6 +54,20 @@ namespace EveryAngle.OData.Tests.RepositoryTests
             Assert.AreEqual(ModelType.None, none.ModelType);
         }
 
+        [TestCase(ModelType.None, ModelType.None, EdmModelStatus.Up)]
+        [TestCase(ModelType.Master, ModelType.None, EdmModelStatus.Initialized)]
+        [TestCase(ModelType.Slave, ModelType.None, EdmModelStatus.Initialized)]
+        [TestCase(ModelType.Master, ModelType.Slave, EdmModelStatus.Initialized)]
+        public void Can_SwitchSlaveToMasterModel(ModelType type1, ModelType type2, EdmModelStatus expectedStatus)
+        {
+            EdmModelContainer.Status = EdmModelStatus.Initialized;
+            EdmModelContainer.Metadata.TryRemove(type1, out IEdmModelMetadata metadata1);
+            EdmModelContainer.Metadata.TryRemove(type2, out IEdmModelMetadata metadata2);
+            EdmModelContainer.SwitchSlaveToMasterModel();
+
+            Assert.AreEqual(expectedStatus, EdmModelContainer.Status);
+        }
+
         #endregion
     }
 }

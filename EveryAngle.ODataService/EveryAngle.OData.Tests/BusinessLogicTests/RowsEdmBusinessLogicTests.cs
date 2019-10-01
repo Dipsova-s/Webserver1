@@ -13,6 +13,7 @@ using System.Collections.Specialized;
 using System.Net.Http;
 using System.Web.Http.OData;
 using System.Web.Http.OData.Extensions;
+using System.Web.Http.OData.Query;
 using System.Web.Http.OData.Routing;
 
 namespace EveryAngle.OData.Tests.BusinessLogicTests
@@ -43,6 +44,7 @@ namespace EveryAngle.OData.Tests.BusinessLogicTests
                 yield return new TestCaseData("string", new FieldMap { NeedsConversion = false }, typeof(string));
                 yield return new TestCaseData("enumerate", new FieldMap { IsEnumerated = true, NeedsConversion = true }, typeof(string));
                 yield return new TestCaseData(33221100000000, new FieldMap { IsDouble = true, NeedsConversion = true }, typeof(double));
+                yield return new TestCaseData(new Dictionary<string, object> { { "a", 33221100000000 } }, new FieldMap { IsDouble = true, NeedsConversion = true }, typeof(double));
                 yield return new TestCaseData(55667788991010, new FieldMap { IsPeriod = true, NeedsConversion = true }, typeof(long));
                 yield return new TestCaseData(1230000000.0456, new FieldMap { IsDecimal = true, NeedsConversion = true }, typeof(decimal));
                 yield return new TestCaseData(0.002, new FieldMap { IsDate = true, NeedsConversion = true }, typeof(DateTime));
@@ -155,6 +157,7 @@ namespace EveryAngle.OData.Tests.BusinessLogicTests
 
             entityType.SetupGet(x => x.TypeKind).Returns(EdmTypeKind.None);
             elementType.SetupGet(x => x.Definition).Returns(entityType.Object);
+            structuralProp.SetupGet(x => x.Name).Returns("test_valid_field");
             structuralProp.SetupGet(x => x.Type).Returns(elementType.Object);
             mockBusinessLogic.Setup(x => x.GetEdmStructuralProperty(It.IsAny<IEdmEntityType>())).Returns(new List<IEdmStructuralProperty> { structuralProp.Object });
 
@@ -340,10 +343,178 @@ namespace EveryAngle.OData.Tests.BusinessLogicTests
             Assert.IsNotNull(properties);
         }
 
+        [TestCase("")]
+        [TestCase(null)]
+        public void Can_GetDetermineGetResult_When_ResultId_IsNullOrEmpty(string resultId)
+        {
+            _appServerProxy.Setup(x => x.ExecuteAngleDisplay(It.IsAny<User>(), It.IsAny<Display>()))
+                .Returns(new QueryResult
+                {
+                    successfully_completed = true,
+                    uri = "results/1",
+                    data_rows = "data rows from execute angle display"
+                });
+
+            RowsEdmBusinessLogic testingBusinessLogic = new RowsEdmBusinessLogic(_appServerProxy.Object);
+
+            QueryResult result = testingBusinessLogic.DetermineGetResult(
+                _context.Object,
+                _testingDisplay.Object,
+                null,
+                resultId);
+
+            _appServerProxy.Verify(x => x.ExecuteAngleDisplay(It.IsAny<User>(), It.IsAny<Display>()));
+            Assert.IsNotNull(result);
+            Assert.IsTrue(result.successfully_completed);
+            Assert.AreEqual("results/1", result.uri);
+            Assert.AreEqual("data rows from execute angle display", result.data_rows);
+        }
+
+        [TestCase]
+        public void Can_GetDetermineGetResult_When_SkipQueryOption_Is_Null()
+        {
+            _appServerProxy.Setup(x => x.GetResult(It.IsAny<User>(), It.IsAny<string>()))
+                .Returns(new QueryResult
+                {
+                    successfully_completed = true,
+                    uri = "results/1",
+                    data_rows = "data rows from get results"
+                });
+            
+            RowsEdmBusinessLogic testingBusinessLogic = new RowsEdmBusinessLogic(_appServerProxy.Object);
+
+            QueryResult result = testingBusinessLogic.DetermineGetResult(
+                _context.Object,
+                _testingDisplay.Object,
+                null,
+                "resultid");
+
+            _appServerProxy.Verify(x => x.GetResult(It.IsAny<User>(), It.IsAny<string>()), Times.Once);
+            Assert.IsNotNull(result);
+            Assert.IsTrue(result.successfully_completed);
+            Assert.AreEqual("results/1", result.uri);
+            Assert.AreEqual("data rows from get results", result.data_rows);
+        }
+
+        [TestCase]
+        public void Can_GetDetermineGetResult_When_DatarowsIsAvailable()
+        {
+            ODataQueryContext context = new ODataQueryContext(EdmCoreModel.Instance, typeof(int));
+            SkipQueryOption skipQueryOption = new SkipQueryOption("raw", context);
+
+            RowsEdmBusinessLogic testingBusinessLogic = new RowsEdmBusinessLogic(_appServerProxy.Object);
+
+            QueryResult result = testingBusinessLogic.DetermineGetResult(
+                _context.Object,
+                _testingDisplay.Object,
+                skipQueryOption,
+                "1");
+
+            Assert.IsNotNull(result);
+            Assert.IsTrue(result.successfully_completed);
+            Assert.AreEqual("/results/1", result.uri);
+            Assert.AreEqual("/results/1/datarows", result.data_rows);
+        }
+
+        [TestCase]
+        public void Can_GetFieldMap()
+        {
+            Mock<IEdmEntityType> edmEntityType = new Mock<IEdmEntityType>();
+            Field field = new Field { uri = "models/1/instances/1/fields/321", id = "test_valid_field", fieldtype = "enumerated" };
+            FieldCompositeKey fieldKey = field.CompositeKey;
+            EdmModelContainer.Metadata[ModelType.Master].Fields.TryAdd(fieldKey, field);
+
+            IList <FieldMap> fieldMaps = _testingBusinessLogic.GetFieldMap(edmEntityType.Object, _testingDataRows);
+
+            Assert.AreEqual(1, fieldMaps.Count);
+            Assert.AreEqual(-1, fieldMaps[0].Index);
+            Assert.IsFalse(fieldMaps[0].IsDate);
+            Assert.IsFalse(fieldMaps[0].IsDouble);
+            Assert.IsFalse(fieldMaps[0].IsDecimal);
+            Assert.IsFalse(fieldMaps[0].IsTime);
+            Assert.IsTrue(fieldMaps[0].IsEnumerated);
+            Assert.IsFalse(fieldMaps[0].IsPeriod);
+        }
+
+        [TestCase]
+        public void Can_InitializeEdmEntityCollection_When_FieldMaps_Is_Empty()
+        {
+            Mock<IEdmEntityType> edmEntityType = new Mock<IEdmEntityType>();
+            IList<IEdmEntityObject> list = new List<IEdmEntityObject> {
+                new EdmEntityObject(edmEntityType.Object)
+            };
+            IList<FieldMap> fieldMaps = new List<FieldMap>();
+
+            IList<IEdmEntityObject> results = _testingBusinessLogic.InitializeEdmEntityCollection(
+                edmEntityType.Object, 
+                list,
+                _testingDataRows,
+                fieldMaps);
+
+            Assert.AreEqual(1, results.Count);
+        }
+
+        [TestCase(-1)]
+        [TestCase(0)]
+        public void Can_InitializeEdmEntityCollection_When_FieldMaps_IsNot_Empty(int index)
+        {
+            Mock<IEdmEntityType> edmEntityType = new Mock<IEdmEntityType>();
+            IList<IEdmEntityObject> list = new List<IEdmEntityObject> {
+                new EdmEntityObject(edmEntityType.Object)
+            };
+            IList<FieldMap> fieldMaps = new List<FieldMap> {
+                new FieldMap { Index = index }
+            };
+
+            IList<IEdmEntityObject> results = _testingBusinessLogic.InitializeEdmEntityCollection(
+                edmEntityType.Object,
+                list,
+                _testingDataRows,
+                fieldMaps);
+
+            Assert.AreEqual(2, results.Count);
+        }
+        
+        [TestCase("1")]
+        [TestCase(null)]
+        public void Can_ReadData(string resultId)
+        {
+            _appServerProxy.Setup(x => x.ExecuteAngleDisplay(It.IsAny<User>(), It.IsAny<Display>()))
+                .Returns(new QueryResult
+                {
+                    successfully_completed = true,
+                    uri = "results/1",
+                    data_rows = "data rows from execute angle display"
+                });
+
+            Mock<IEdmEntityType> edmEntityType = new Mock<IEdmEntityType>();
+
+            int? nextLinkSkip;
+            int totalCount;
+            Display display = new Display();
+
+            ODataQueryContext context = new ODataQueryContext(EdmCoreModel.Instance, typeof(int));
+            SkipQueryOption skipQueryOption = new SkipQueryOption("1", context);
+            TopQueryOption topQueryOption = new TopQueryOption("1", context);
+
+            IList<IEdmEntityObject> results = _testingBusinessLogic.ReadData(
+                _context.Object,
+                edmEntityType.Object,
+                display,
+                skipQueryOption,
+                topQueryOption,
+                ref resultId,
+                out totalCount,
+                out nextLinkSkip);
+
+            Assert.AreEqual(1, results.Count);
+            Assert.AreEqual(1, totalCount);
+            Assert.IsNull(nextLinkSkip);
+        }
+
         #endregion
 
         #region private functions
-
         private void TestThrowConvertValue()
         {
             FieldMap fieldMap = new FieldMap { IsTime = true, NeedsConversion = true };

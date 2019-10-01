@@ -14,7 +14,7 @@ namespace EveryAngle.OData.Service.Utils
         private const string _authorizationHeaderName = "Authorization";
         private const string _basicAuthenticationSchemeName = "basic";
 
-        private static NameValueCollection ConvertHttpRequestHeadersToNameValueCollection(HttpRequestHeaders headers)
+        internal static NameValueCollection ConvertHttpRequestHeadersToNameValueCollection(HttpRequestHeaders headers)
         {
             NameValueCollection headersNameValueCollection = new NameValueCollection();
             // RFC 2616: use , as separator for multiple http header values: https://www.w3.org/Protocols/rfc2616/rfc2616-sec4.html#sec4.2

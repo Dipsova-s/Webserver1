@@ -26,6 +26,17 @@ namespace EveryAngle.OData.Service.Modules
 
         private static IAppServerProxy _appServerProxy;
         private static IOdataAuthorizations _odataAuthorizations;
+        private static IBasicAuthenticationHeaderParserWrapper _basicAuthenticationHeaderParserWrapper;
+
+        public static void SetupBasicAuthenticationHttpModule(
+            IAppServerProxy appServerProxy,
+            IOdataAuthorizations odataAuthorizations,
+            IBasicAuthenticationHeaderParserWrapper basicAuthenticationHeaderParserWrapper)
+        {
+            _appServerProxy = appServerProxy;
+            _odataAuthorizations = odataAuthorizations;
+            _basicAuthenticationHeaderParserWrapper = basicAuthenticationHeaderParserWrapper;
+        }
 
         public void Init(HttpApplication context)
         {
@@ -36,10 +47,10 @@ namespace EveryAngle.OData.Service.Modules
             context.EndRequest += OnApplicationEndRequest;
         }
 
-        private static void OnApplicationAuthenticateRequest(object sender, EventArgs e)
+        internal static void OnApplicationAuthenticateRequest(object sender, EventArgs e)
         {
             // then get Authorization parameter from header
-            string base64EncodedCredentials = BasicAuthenticationHeaderParser.GetBasicAuthenticationBase64EncodedCredentials(HttpContext.Current.Request.Headers);
+            string base64EncodedCredentials = _basicAuthenticationHeaderParserWrapper.GetBasicAuthenticationBase64EncodedCredentials(HttpContext.Current.Request.Headers);
 
             if (!string.IsNullOrEmpty(base64EncodedCredentials))
             {
@@ -55,7 +66,7 @@ namespace EveryAngle.OData.Service.Modules
             HttpContext.Current.Response.StatusCode = HttpStatusCode.Unauthorized.As<int>();
         }
 
-        private static void AssertMayAccessOdata(User user)
+        internal static void AssertMayAccessOdata(User user)
         {
             if (!_odataAuthorizations.MayView(user))
             {
@@ -64,13 +75,13 @@ namespace EveryAngle.OData.Service.Modules
             }
         }
 
-        private static void OnApplicationEndRequest(object sender, EventArgs e)
+        internal static void OnApplicationEndRequest(object sender, EventArgs e)
         {
             // If the request was unauthorized, add the WWW-Authenticate header to the response.
             HttpResponse response = HttpContext.Current.Response;
             if (response.StatusCode == 401)
             {
-                response.Headers.Add(_wwwAuthenticateHeaderName, _basicRealmHeader);
+                response.AddHeader(_wwwAuthenticateHeaderName, _basicRealmHeader);
             }
         }
 
@@ -81,6 +92,9 @@ namespace EveryAngle.OData.Service.Modules
 
             if (_odataAuthorizations == null)
                 _odataAuthorizations = ObjectFactory.GetInstance<IOdataAuthorizations>();
+
+            if (_basicAuthenticationHeaderParserWrapper == null)
+                _basicAuthenticationHeaderParserWrapper = new BasicAuthenticationHeaderParserWrapper();
         }
 
         public void Dispose()

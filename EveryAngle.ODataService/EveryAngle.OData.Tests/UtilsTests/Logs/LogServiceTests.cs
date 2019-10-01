@@ -13,7 +13,7 @@ namespace EveryAngle.OData.Tests.UtilsTests.Logs
         [SetUp]
         public void Setup()
         {
-            // do nothing
+            LogService.Init();
         }
 
         [TearDown]

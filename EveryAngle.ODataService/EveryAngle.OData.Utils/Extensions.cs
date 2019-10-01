@@ -93,20 +93,9 @@ namespace EveryAngle.OData.Utils
 
         public static string GetFileVersion()
         {
-            // TODO:
-            // this implementation copied from WC and should be in the shared component to use it in one place.
-            string versionNumber = string.Empty;
-            try
-            {
-                string executingFileLocation = Assembly.GetExecutingAssembly().Location;
-                FileVersionInfo fileVersion = FileVersionInfo.GetVersionInfo(executingFileLocation);
-                versionNumber = fileVersion.FileVersion;
-            }
-            catch (Exception ex)
-            {
-                versionNumber = ex.Message;
-            }
-            return versionNumber;
+            string executingFileLocation = Assembly.GetExecutingAssembly().Location;
+            FileVersionInfo fileVersion = FileVersionInfo.GetVersionInfo(executingFileLocation);
+            return fileVersion.FileVersion;
         }
 
         public static object ConvertCurrencyDataObject(object value, bool isDecimal)
@@ -142,14 +131,6 @@ namespace EveryAngle.OData.Utils
         public static AngleCompositeKey GetAngleCompositeKey(int? internalId, string uri)
         {
             return new AngleCompositeKey { InternalId = internalId, Uri = uri };
-        }
-
-        #endregion
-
-        #region display composite keys
-        public static DisplayCompositeKey GetDisplayCompositeKey(int? internalId, string uri)
-        {
-            return new DisplayCompositeKey { InternalId = internalId, Uri = uri };
         }
 
         #endregion
@@ -195,12 +176,6 @@ namespace EveryAngle.OData.Utils
             DateTime result = new DateTime(1970, 1, 1, local.Hour, local.Minute, local.Second);
 
             return result;
-        }
-
-        public static long ToGMTTimestamp(this long timestamp)
-        {
-            DateTime dt = ConvertFromUnixTimestamp(timestamp).ToUniversalTime();
-            return dt.ToUnixTimestamp();
         }
 
         public static DateTime ConvertFromGMTTimestamp(this long timestamp)

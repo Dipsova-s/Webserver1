@@ -31,9 +31,6 @@
 
         public FieldCompositeKey UpdateUniqueXMLElementKey(string key)
         {
-            if (CompositeKey == null)
-                CreateCompositeKey();
-
             CompositeKey.UniqueXMLElementKey = key;
             return CompositeKey;
         }

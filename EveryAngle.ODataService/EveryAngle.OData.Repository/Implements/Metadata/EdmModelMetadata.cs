@@ -61,8 +61,6 @@ namespace EveryAngle.OData.Repository
 
         // current processing model instance
         public string CurrentInstance { get; set; }
-        public int UnavailableAngles { get { return UnavailableItems.Values.OfType<Angle>().Count(); } }
-        public int UnavailableDisplays { get { return UnavailableItems.Values.OfType<Display>().Count(); } }
 
         #endregion
     }

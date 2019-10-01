@@ -16,19 +16,19 @@ namespace EveryAngle.OData.Service.Attributes
     {
         private const string _performanceKey = "PerformanceFilter.Value";
 
-        protected static IContext GetContext(HttpActionExecutedContext actionExecutedContext)
+        internal static IContext GetContext(HttpActionExecutedContext actionExecutedContext)
         {
             return actionExecutedContext.Request.Properties.ContainsKey(Context.Key_eaac) ?
                    (IContext)actionExecutedContext.Request.Properties[Context.Key_eaac] : new Context();
         }
 
-        protected static IContext GetContext(HttpActionContext httpActionContext)
+        internal static IContext GetContext(HttpActionContext httpActionContext)
         {
             return httpActionContext.Request.Properties.ContainsKey(Context.Key_eaac) ?
                    (IContext)httpActionContext.Request.Properties[Context.Key_eaac] : new Context();
         }
 
-        protected static string GetClientIp(HttpRequestMessage request)
+        internal static string GetClientIp(HttpRequestMessage request)
         {
             string output = null;
             if (request.Properties.ContainsKey("MS_HttpContext"))
@@ -44,14 +44,9 @@ namespace EveryAngle.OData.Service.Attributes
             return output;
         }
 
-        protected static float GetContentSize(HttpResponseMessage response)
+        internal static float GetContentSize(HttpResponseMessage response)
         {
             return response == null ? 0 : GetContentSize(response.Content);
-        }
-
-        protected static float GetContentSize(HttpRequestMessage request)
-        {
-            return request == null ? 0 : GetContentSize(request.Content);
         }
 
         protected static float GetContentSize(HttpContent content)
@@ -68,7 +63,7 @@ namespace EveryAngle.OData.Service.Attributes
             return contentLength;
         }
 
-        protected static void StartPerformanceMeasurement(HttpRequestMessage request)
+        internal static void StartPerformanceMeasurement(HttpRequestMessage request)
         {
             // start requesting performance measure
             Stopwatch stopWatch = new Stopwatch();
@@ -76,7 +71,7 @@ namespace EveryAngle.OData.Service.Attributes
             stopWatch.Start();
         }
 
-        protected static int StopPerformanceMeasurement(HttpRequestMessage request)
+        internal static int StopPerformanceMeasurement(HttpRequestMessage request)
         {
             int elapseTime = 0;
             if (request.Properties.ContainsKey(_performanceKey))

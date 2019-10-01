@@ -1,9 +1,6 @@
-﻿using EveryAngle.OData.DTO;
-using EveryAngle.OData.DTO.Model;
-using EveryAngle.Utilities.IoC;
+﻿using EveryAngle.OData.DTO.Model;
 using System;
 using System.Collections.Concurrent;
-using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
@@ -41,10 +38,11 @@ namespace EveryAngle.OData.Proxy
             Password = credentialParts.Last();
 
             // try to find a cached token
-            if (TokenCache.FindToken(Key) != null)
+            User cachedUser = TokenCache.FindToken(Key);
+            if (cachedUser != null)
             {
-                SecurityToken = TokenCache.FindToken(Key).SecurityToken;
-                ModelPrivileges = TokenCache.FindToken(Key).ModelPrivileges;
+                SecurityToken = cachedUser.SecurityToken;
+                ModelPrivileges = cachedUser.ModelPrivileges;
             }
         }
 

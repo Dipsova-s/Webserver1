@@ -35,7 +35,7 @@ namespace EveryAngle.OData.Utils
 
         public static EdmPrimitiveTypeKind? GetKind(string field)
         {
-            if (field ==null || !EdmPrimitiveTypeMapper.TryGetValue(field, out EdmPrimitiveTypeKind type))
+            if (field == null || !EdmPrimitiveTypeMapper.TryGetValue(field, out EdmPrimitiveTypeKind type))
             {
                 type = EdmPrimitiveTypeKind.String;
             }

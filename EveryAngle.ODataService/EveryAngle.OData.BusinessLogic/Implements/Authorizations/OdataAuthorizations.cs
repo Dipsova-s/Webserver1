@@ -1,5 +1,4 @@
 ﻿using EveryAngle.OData.BusinessLogic.Interfaces.Authorizations;
-using EveryAngle.OData.DTO.Model;
 using EveryAngle.OData.Proxy;
 using EveryAngle.OData.Settings;
 using System;

@@ -2,7 +2,7 @@
 using EveryAngle.OData.Settings;
 using NUnit.Framework;
 
-namespace EveryAngle.OData.Tests.Proxy
+namespace EveryAngle.OData.Tests.ProxyTests
 {
     [TestFixture(Category = "Proxy")]
     public class EARestClientTests : UnitTestBase

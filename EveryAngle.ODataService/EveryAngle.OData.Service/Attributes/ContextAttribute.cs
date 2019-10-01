@@ -20,21 +20,13 @@ namespace EveryAngle.OData.Service.Attributes
 {
     internal sealed class ContextAttribute : ContextAwareActionFilterAttribute
     {
-        private static IAppServerProxy _appServerProxy;
-        
-        public ContextAttribute()
-        {
-            if (_appServerProxy == null)
-                _appServerProxy = ObjectFactory.GetInstance<IAppServerProxy>();
-        }
-
         public override void OnActionExecuting(HttpActionContext actionContext)
         {
             AddEAContext(actionContext);
             base.OnActionExecuting(actionContext);
         }
 
-        private static void AddEAContext(HttpActionContext actionContext)
+        internal static void AddEAContext(HttpActionContext actionContext)
         {
             string base64EncodedCredentials = BasicAuthenticationHeaderParser.GetBasicAuthenticationBase64EncodedCredentials(actionContext.Request.Headers);
 

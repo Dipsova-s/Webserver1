@@ -112,7 +112,8 @@ namespace EveryAngle.OData.Tests.BusinessLogicTests
             Assert.False(_testingBusinessLogic.TrySaveAngle(compositeKey, _testingAngle), 
                 "angle {0} should not be saved twice.", _testingAngle.id);
         }
-        
+
+        [TestCase]
         public void Can_SwitchSlaveToMasterModel()
         {
             // setup

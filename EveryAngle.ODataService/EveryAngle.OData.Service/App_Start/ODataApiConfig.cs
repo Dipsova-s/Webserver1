@@ -35,11 +35,22 @@ namespace EveryAngle.OData.App_Start
         private static RoutingControllerSelector _selector;
         private static IList<IODataRoutingConvention> _conventions;
         private static readonly CancellationTokenSource _tokenSource = new CancellationTokenSource();
-        private static readonly IMasterEdmModelBusinessLogic _masterEdmModelBusinessLogic = ObjectFactory.GetInstance<IMasterEdmModelBusinessLogic>();
-        private static readonly ISlaveEdmModelBusinessLogic _slaveEdmModelBusinessLogic = ObjectFactory.GetInstance<ISlaveEdmModelBusinessLogic>();
+        private static IMasterEdmModelBusinessLogic _masterEdmModelBusinessLogic;
+        private static ISlaveEdmModelBusinessLogic _slaveEdmModelBusinessLogic;
+
+        internal static void Initial(IMasterEdmModelBusinessLogic masterEdmModelBusinessLogic, ISlaveEdmModelBusinessLogic slaveEdmModelBusinessLogic)
+        {
+            if (_masterEdmModelBusinessLogic == null)
+                _masterEdmModelBusinessLogic = masterEdmModelBusinessLogic;
+            if (_slaveEdmModelBusinessLogic == null)
+                _slaveEdmModelBusinessLogic = slaveEdmModelBusinessLogic;
+        }
 
         public static void Register(HttpConfiguration config)
         {
+            // set handlers
+            Initial(ObjectFactory.GetInstance<IMasterEdmModelBusinessLogic>(), ObjectFactory.GetInstance<ISlaveEdmModelBusinessLogic>());
+
             // start sync metadata when start an app
             // create an OData descriptor with extra properties that the controller needs
             _configuration = config;
@@ -79,12 +90,15 @@ namespace EveryAngle.OData.App_Start
 
         public static void RunSyncMetadataProcess(bool retryChecking)
         {
+            // set handlers
+            Initial(ObjectFactory.GetInstance<IMasterEdmModelBusinessLogic>(), ObjectFactory.GetInstance<ISlaveEdmModelBusinessLogic>());
+
             // sync metadata can be immediately start(dueTime == 0) with interval cycle from background process, run it as an Action context.
             if (_slaveEdmModelBusinessLogic.IsAppServerAvailable(retryChecking))
                 SyncMetadataProcess.RunAsync(0, ODataSettings.Settings.MetadataResyncMinutes, _tokenSource, SyncMetadataWithApiServiceEntry);
         }
 
-        private static void SyncMetadataWithApiServiceEntry()
+        internal static void SyncMetadataWithApiServiceEntry()
         {
             LogService.Info("Start sync metadata..");
 
