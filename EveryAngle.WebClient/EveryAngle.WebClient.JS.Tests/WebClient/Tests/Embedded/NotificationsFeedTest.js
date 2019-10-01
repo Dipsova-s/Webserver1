@@ -5,6 +5,8 @@
 /// <reference path="/../SharedDependencies/notificationsfeed.js" />
 /// <reference path="/Dependencies/ViewManagement/Shared/NotificationsFeedHandler.js" />
 
+var notificationsFeed;
+
 describe("NotificationsFeed", function () {
 
     var notificationsFeedHandler;
@@ -44,7 +46,9 @@ describe("NotificationsFeed", function () {
     });
 
     describe("NotificationsFeedHandler", function () {
+
         beforeEach(function () {
+            notificationsFeed = {};
             spyOn(notificationsFeedHandler, 'RequestFeedsHandling').and.callFake(jQuery.noop);
             spyOn(notificationsFeedHandler, 'ShowTopMenuIcon').and.callFake(jQuery.noop);
             spyOn(notificationsFeedHandler, 'CleanUpElements').and.callFake(jQuery.noop);
@@ -71,6 +75,12 @@ describe("NotificationsFeed", function () {
             notificationsFeedHandler.LoadFeeds(false);
 
             expect(notificationsFeedHandler.RequestFeedsHandling.calls.count()).toEqual(1);
+        });
+
+        it(".LoadFeeds (to skip when notificationsFeed was undefined)", function () {
+            notificationsFeed = undefined;
+            var result = notificationsFeedHandler.LoadFeeds();
+            expect(result).toBeFalsy();
         });
 
     });

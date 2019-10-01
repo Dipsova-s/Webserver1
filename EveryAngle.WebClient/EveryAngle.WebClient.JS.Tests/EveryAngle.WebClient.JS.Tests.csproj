@@ -62,6 +62,10 @@
       <Link>ManagementConsole\Dependencies\custom\MC.ui.gridsorting.js</Link>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="..\EveryAngle.ManagementConsole\Scripts\Custom\MC.ui.notificationsfeed.js">
+      <Link>ManagementConsole\Dependencies\custom\MC.ui.notificationsfeed.js</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="..\EveryAngle.ManagementConsole\Scripts\Custom\MC.ui.password.js">
       <Link>ManagementConsole\Dependencies\custom\MC.ui.password.js</Link>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
