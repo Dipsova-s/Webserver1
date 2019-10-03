@@ -580,8 +580,10 @@ begin
   begin
     Result := GetJsonString(json, [], aKey);
     if Result <> '' then
+    begin
       if aKey <> 'password' then
         log(format('[i]var: %s:=%s (%s)', [aKey, Result, 'json']))
+    end
     else
     begin
       Result := aDefault;
