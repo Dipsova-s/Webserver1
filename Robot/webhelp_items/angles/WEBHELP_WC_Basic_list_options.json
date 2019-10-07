@@ -1,1 +1,324 @@
-{"multi_lang_name":[{"lang":"de","text":"Scheduling Agreements"},{"lang":"en","text":"Scheduling Agreements"},{"lang":"es","text":"Scheduling Agreements"},{"lang":"fr","text":"Scheduling Agreements"},{"lang":"nl","text":"Scheduling Agreements"}],"multi_lang_description":[{"lang":"de","text":"<div id=\"summary\" /><div class=\" section\" id=\"S1436426266089314\"><h2 class=\" topictitle2\" id=\"Hidelem4x98272\">Zusammenfassung</h2><p class=\"\" id=\"Pidelem4x98274\">Die einzelnen Mengen einer Verkaufsbelegposition, jeweils zusammen mit einem geplanten und einem realisierten Enddatum, werden in einer Verkaufsbelegeinteilung angezeigt.</p><h2 class=\" topictitle2\" id=\"Hidelem4x98276\">Erläuterung</h2><p class=\"\" id=\"Pidelem4x98278\">Die Verkaufsbelegeinteilung ist die dritte Ebene in einem Verkaufsbeleg, unterhalb von Position und Kopf. </p><p class=\"\" id=\"Pidelem4x98280\">Normalerweise enthält eine Verkaufsbelegposition nur eine Verkaufsbelegeinteilung (die Position ist vollständig als eine einzige Lieferung zu liefern). Die Every Angle-Software erstellt mehr als eine Einteilung, wenn die Belegposition teilweise geliefert wird, oder wenn die Belegposition in mehr als einer Lieferung ausgeliefert wird.</p><p class=\"\" id=\"Pidelem4x98283\">Eine Verkaufsbelegeinteilung kann einen der folgenden Status haben:</p><ul id=\"Pidelem4x98285\" class=\"\"><li><p class=\"\" id=\"P1436426266094185\">bestätigt (zum Beispiel Bedarf = 10 Stück, bestätigt = 8 Stück, zu bestätigen = 2 Stück),</p></li><li><p class=\"\" id=\"P1436426266095946\">Lieferschein erstellt (zur Kommissionierung),</p></li><li><p class=\"\" id=\"P1436426266097697\">geliefert (Warenausgang ist gebucht),</p></li><li><p class=\"\" id=\"P1436426266098978\">Rückgabe (Rückgabe von Kunde).</p></li></ul><p /><p class=\"\" id=\"Pidelem4x98294\">Eine repräsentative Messung der Liefertreue kann nur auf Einteilungsebene durchgeführt werden. Die Liefertreue auf Kopf- oder Positionsebene wird durch die schlechteste Liefertreue auf der zugrunde liegenden Einteilungsebene bestimmt. Eine Verkaufsbelegeinteilung kann für die Disposition relevant sein (je nach Ausführungsstatus und Eigenschaften des Belegs).</p><h2 class=\" topictitle2\" id=\"Hidelem4x98296\">Technischer Hintergrund</h2><p class=\"\" id=\"Pidelem4x98298\">Ein Objekt wird auf der Grundlage der SAP-Tabellen VBEP und VBAP mit Referenzen zu Verkaufsbelegposition, Kunde, Material, Lieferposition usw. sowie einer Unterliste der Lagerbedarfsliste erstellt. Die SAP-Tabellen VBUP, VBAK, VBUK, VBLB, TVEP, LIPS und LIKP sind ebenfalls daran beteiligt. Beachten Sie, dass eine Verkaufsbelegeinteilung in SAP nicht exakt einer solchen in Every Angle entspricht. Manchmal resultieren zwei Einträge in VBEP in einer Position in Every Angle (wenn die Mengen identisch sind und sich nur das zugesagte und das angefragte Datum unterscheiden), und manchmal auch in mehreren Positionen (bei Teillieferungen oder Rückgaben).</p></div>"},{"lang":"en","text":"<div id=\"summary\" /><div class=\" section\" id=\"S1436426266089314\"><h2 class=\" topictitle2\" id=\"Hidelem4x98272\">Summary</h2><p class=\"\" id=\"Pidelem4x98274\">The individual quantities of a sales document item, each with a planned and a realized finish date, are displayed in a sales document schedule line.</p><h2 class=\" topictitle2\" id=\"Hidelem4x98276\">Explanation</h2><p class=\"\" id=\"Pidelem4x98278\">The Sales Document Schedule line is the third level in a sales document, under the item and the header. </p><p class=\"\" id=\"Pidelem4x98280\">Usually a sales document item contains only one sales document schedule line (the item is to be delivered fully in one delivery). The Every Angle software creates more than one schedule line if the document item is partially delivered or if the position item is to be delivered in more than one delivery.</p><p class=\"\" id=\"Pidelem4x98283\">A sales document schedule line can have various statuses, for example:</p><ul id=\"Pidelem4x98285\" class=\"\"><li><p class=\"\" id=\"P1436426266094185\">confirmed (for example demand = 10 pieces, confirmed = 8 pieces, to be confirmed = 2 pieces),</p></li><li><p class=\"\" id=\"P1436426266095946\">delivery note created (to be picked),</p></li><li><p class=\"\" id=\"P1436426266097697\">delivered (goods issue is posted),</p></li><li><p class=\"\" id=\"P1436426266098978\">return (return from customer).</p></li></ul><p /><p class=\"\" id=\"Pidelem4x98294\">A representative measurement of delivery reliability can only be done at schedule line level. The delivery reliability at header or at item level is determined by the worst case delivery reliability at the underlying schedule line level. A sales document schedule line can be relevant for MRP (depending on execution status and document characteristics).</p><h2 class=\" topictitle2\" id=\"Hidelem4x98296\">Technical background</h2><p class=\"\" id=\"Pidelem4x98298\">Based on SAP tables VBEP and VBAP an object is created with references to Sales Document Item, Customer, Material, Delivery item and more as well as a sublist to Stock Requirements List. Also SAP tables VBUP, VBAK, VBUK, VBLB, TVEP, LIPS and LIKP are involved. Please note that a SD schedule lien in SAP is not exactly the same as in Every Angle. Sometimes 2 entries in VBEP result in one item in Every Angle (when the quantities are the same and only the promised date and the requested date differ) and sometimes it leads to multiple items in Every Angle (in case of partial deliveries or returns).</p></div>"},{"lang":"es","text":"<div id=\"summary\" /><div class=\" section\" id=\"S1436426266089314\"><h2 class=\" topictitle2\" id=\"Hidelem4x98272\">Resumen</h2><p class=\"\" id=\"Pidelem4x98274\">Las cantidades individuales de una posición de documento de ventas, cada una con una fecha planificada y fecha realizada de fin, se muestran en un reparto de documento de ventas.</p><h2 class=\" topictitle2\" id=\"Hidelem4x98276\">Explicación</h2><p class=\"\" id=\"Pidelem4x98278\">Documento de Ventas Reparto es el tercer nivel en un documento de ventas, bajo la posición y la cabecera. </p><p class=\"\" id=\"Pidelem4x98280\">Normalmente, una posición de documento de ventas sólo contiene un reparto de documento de ventas (la posición se debe entregar completamente en una entrega). El software de Every Angle crea más de un reparto si la posición del documento se entrega parcialmente o si la posición se debe entregar en más de una entrega.</p><p class=\"\" id=\"Pidelem4x98283\">Un reparto de documento de ventas tiene varios status, por ejemplo:</p><ul id=\"Pidelem4x98285\" class=\"\"><li><p class=\"\" id=\"P1436426266094185\">confirmado (por ejemplo demanda = 10 unidades, confirmado = 8 unidades, para confirmar = 2 unidades),</p></li><li><p class=\"\" id=\"P1436426266095946\">aviso de entrega creado (para recoger),</p></li><li><p class=\"\" id=\"P1436426266097697\">entregado (la salida de mercancías se ha contabilizado),</p></li><li><p class=\"\" id=\"P1436426266098978\">devolución (devolución de cliente).</p></li></ul><p /><p class=\"\" id=\"Pidelem4x98294\">Una medida representativa del cumplimiento de la entrega sólo se puede realizar en el nivel de reparto. El cumplimiento de los plazos de entrega en la cabecera o a nivel de posición se determina por el cumplimiento de los plazos de entrega del peor caso en el nivel de reparto subyacente. Un reparto de documento de ventas puede ser relevante para la planificación de necesidades (en función del status de ejecución y las características del documento).</p><h2 class=\" topictitle2\" id=\"Hidelem4x98296\">Contexto técnico</h2><p class=\"\" id=\"Pidelem4x98298\">Según las tablas SAP VBEP y VBAP, un objeto se crea con referencias a Documento de Ventas Posición, Cliente, Material, Entrega Posición y más, así como con una sublista de la Lista de Necesidades de Stock. También intervienen las tablas SAP VBUP, VBAK, VBUK, VBLB, TVEP, LIPS y LIKP. Tenga en cuenta que un Documento ventas reparto en SAP no es exactamente igual en Every Angle. En algunas ocasiones, dos entradas en VBEP son una posición en Every Angle (cuando las cantidades son las mismas y solo difieren la fecha prometida y la fecha solicitada) y, en otras ocasiones, son varias posiciones en Every Angle (en el caso de entregas o devoluciones parciales).</p></div>"},{"lang":"fr","text":"<div id=\"summary\" /><div class=\" section\" id=\"S1436426266089314\"><h2 class=\" topictitle2\" id=\"Hidelem4x98272\">Récapitulatif</h2><p class=\"\" id=\"Pidelem4x98274\">Les quantités individuelles d'un poste de document de vente, assorties chacune d'une date planifiée et d'une date de fin réelle, sont affichées dans une échéance de document de vente.</p><h2 class=\" topictitle2\" id=\"Hidelem4x98276\">Explication</h2><p class=\"\" id=\"Pidelem4x98278\">Le numéro de l'échéance de document de vente est le troisième niveau d'un document de ventes, sous le poste et l'en-tête. </p><p class=\"\" id=\"Pidelem4x98280\">Habituellement, un poste de document de vente ne contient qu'une seule échéance de document de vente (le poste doit être livré entièrement, en une seule livraison). Si le poste de document n'est livré que partiellement ou si sa livraison s'effectue en plusieurs fois, Every Angle crée plusieurs échéances.</p><p class=\"\" id=\"Pidelem4x98283\">Une échéance de document de vente peut avoir plusieurs statuts ; par exemple :</p><ul id=\"Pidelem4x98285\" class=\"\"><li><p class=\"\" id=\"P1436426266094185\">confirmé (par exemple : demande = 10 pièces, confirmé = 8 pièces, à confirmer = 2 pièces),</p></li><li><p class=\"\" id=\"P1436426266095946\">bon de livraison créé (à prélever),</p></li><li><p class=\"\" id=\"P1436426266097697\">livré (la sortie de marchandises est comptabilisée),</p></li><li><p class=\"\" id=\"P1436426266098978\">retour (retour du client).</p></li></ul><p /><p class=\"\" id=\"Pidelem4x98294\">Une mesure représentative de la fiabilité des livraisons ne peut s'effectuer qu'au niveau échéance. La fiabilité de livraison au niveau en-tête ou poste est déterminée par la fiabilité de livraison la moins satisfaisante au niveau échéance sous-jacent. Une échéance de document de vente peut être appropriée pour la planification (selon le statut d'avancement et les caractéristiques de ce document de vente).</p><h2 class=\" topictitle2\" id=\"Hidelem4x98296\">Antécédents techniques.</h2><p class=\"\" id=\"Pidelem4x98298\">D'après les tables VBEP et VBAP dans SAP, un objet est créé avec des références au Poste de document de vente, au Client, au Poste de livraison et autre, ainsi qu'à une liste auxiliaire État des stocks. Par ailleurs, les tables VBUP, VBAK, VBUK, VBLB, TVEP, LIPS et LIKP dans SAP sont impliquées. Veuillez noter qu'un Nombre échéances DV dans SAP n'est pas exactement identique à celui que vous trouverez dans Every Angle. Parfois, 2 entrées dans VBEP donnent un poste dans Every Angle (lorsque les quantités sont les mêmes et que seules la date promise et la date demandée diffèrent) et donnent parfois plusieurs postes dans Every Angle (dans le cas de livraisons partielles ou de retours).</p></div>"},{"lang":"nl","text":"<div id=\"summary\" /><div class=\" section\" id=\"S1436426266089314\"><h2 class=\" topictitle2\" id=\"Hidelem4x98272\">Samenvatting</h2><p class=\"\" id=\"Pidelem4x98274\">De afzonderlijke hoeveelheden van een verkoopdocumentpositie, elk met een geplande en gerealiseerde einddatum, worden weergegeven in een indeling van het verkoopdocument.</p><h2 class=\" topictitle2\" id=\"Hidelem4x98276\">Uitleg</h2><p class=\"\" id=\"Pidelem4x98278\">De Verkoopdocument (VDoc) Indeling is het derde niveau in een verkoopdocument, onder de positie en de kop. </p><p class=\"\" id=\"Pidelem4x98280\">Doorgaans bevat een verkoopdocumentpositie slechts één indelingsregel (de positie moet volledig en in één levering worden geleverd). Every Angle maakt meer dan één indeling aan als de documentpositie gedeeltelijk is geleverd of als de positie wordt geleverd in meer dan één levering.</p><p class=\"\" id=\"Pidelem4x98283\">Een indeling van een verkoopdocument kan verschillende statussen hebben, zoals:</p><ul id=\"Pidelem4x98285\" class=\"\"><li><p class=\"\" id=\"P1436426266094185\">bevestigd (bijvoorbeeld vraag = 10 stuks, bevestigd = 8 stuks, nog te bevestigen = 2 stuks),</p></li><li><p class=\"\" id=\"P1436426266095946\">afleverbon aangemaakt (nog te picken),</p></li><li><p class=\"\" id=\"P1436426266097697\">geleverd (goederenafgifte is geboekt),</p></li><li><p class=\"\" id=\"P1436426266098978\">retour (retourzending van klant).</p></li></ul><p /><p class=\"\" id=\"Pidelem4x98294\">Een representatieve meting van de leverbetrouwbaarheid kan alleen worden gedaan op het niveau van de indeling. Op kop- of positieniveau wordt de leverbetrouwbaarheid bepaald door de slechtste leverbetrouwbaarheid op het niveau van de onderliggende indeling. Een indeling van een verkoopdocument kan van belang zijn voor Planning (afhankelijk van de executiestatus en de documentkenmerken).</p><h2 class=\" topictitle2\" id=\"Hidelem4x98296\">Technische achtergrond</h2><p class=\"\" id=\"Pidelem4x98298\">Op basis van SAP-tabellen VBEP en VBAP wordt een object aangemaakt met referenties naar Verkoopdocumentpositie, Klant, Artikel, Leveringspositie en meer, alsmede een sublijst naar Voorraad-/behoeftelijst. De SAP-tabellen VBUP, VBAK, VBUK, VBLB, TVEP, LIPS en LIKP zijn hier ook bij betrokken. Houd er rekening mee dat een SD-indeling in SAP niet exact hetzelfde is als in Every Angle. Soms kunnen twee invoeren in VBEP als één positie worden weergegeven in Every Angle (wanneer de hoeveelheden gelijk zijn en alleen de beloofde datum en de aangevraagde datum verschillen) en soms worden er meerdere posities weergegeven in Every Angle (bij deelleveringen of retourneringen).</p></div>"}],"authorizations":{"update":true,"delete":true,"publish":false,"unpublish":true,"validate":true,"unvalidate":false,"mark_template":true,"unmark_template":false,"create_private_display":true,"create_public_display":true},"is_deleted":false,"displays":"/models/1/angles/594/displays","allow_followups":true,"allow_more_details":true,"assigned_labels":["S2D","O2C"],"labels":"/models/1/angles/594/labels","business_processes":"/models/1/angles/594/business_processes","grouping_labels":"/models/1/angles/594/grouping_labels","angle_default_display":"/models/1/angles/594/displays/2979","privilege_labels":"/models/1/angles/594/privilege_labels","package":"/packages/11","query_definition":[{"base_classes":["SalesDocumentScheduleLine"],"queryblock_type":"base_classes"}],"display_definitions":[{"multi_lang_name":[{"lang":"de","text":"Basisliste"},{"lang":"en","text":"Basic List"},{"lang":"es","text":"Lista Básica"},{"lang":"fr","text":"Liste De Base"},{"lang":"nl","text":"Basislijst"}],"multi_lang_description":[{"lang":"de","text":"<div id=\"summary\" /><div class=\" section\" id=\"S1438247774052993\"><p class=\"\" id=\"P1438247774052584\" /></div>"},{"lang":"en","text":"<div id=\"summary\" /><div class=\" section\" id=\"S1438247774052993\"><p class=\"\" id=\"P1438247774052584\" /></div>"},{"lang":"es","text":"<div id=\"summary\" /><div class=\" section\" id=\"S1438247774052993\"><p class=\"\" id=\"P1438247774052584\" /></div>"},{"lang":"fr","text":"<div id=\"summary\" /><div class=\" section\" id=\"S1438247774052993\"><p class=\"\" id=\"P1438247774052584\" /></div>"},{"lang":"nl","text":"<div id=\"summary\" /><div class=\" section\" id=\"S1438247774052993\"><p class=\"\" id=\"P1438247774052584\" /></div>"}],"angle_id":"594","display_details":"{\"layout\":null}","query_blocks":[],"fields":[{"multi_lang_alias":[],"field":"ObjectType","field_details":"{\"width\":109,\"format\":\"shn\"}","valid":true,"tech_info":""},{"multi_lang_alias":[],"field":"ID","field_details":"{\"width\":78}","valid":true,"tech_info":""},{"multi_lang_alias":[],"field":"SalesOrganization__SalesOrganization","field_details":"{\"width\":106,\"format\":\"shnln\"}","valid":true,"tech_info":"TVKO-VKORG"},{"multi_lang_alias":[],"field":"Material__Material","field_details":"{\"width\":86}","valid":true,"tech_info":""},{"multi_lang_alias":[],"field":"Quantity","field_details":"{\"width\":84}","valid":true,"tech_info":""},{"multi_lang_alias":[],"field":"Plant__Plant","field_details":"{\"width\":103,\"format\":\"shnln\"}","valid":true,"tech_info":"T001W-WERKS"},{"multi_lang_alias":[],"field":"ExecutionStatus","field_details":"{\"width\":93,\"format\":\"shn\"}","valid":true,"tech_info":""},{"multi_lang_alias":[],"field":"Material__Description","field_details":"{\"width\":159}","valid":true,"tech_info":"MAKT-MAKTX"},{"multi_lang_alias":[],"field":"BaseUnitOfMeasure","field_details":"{\"width\":31,\"format\":\"shn\"}","valid":true,"tech_info":"VBEP_REQ_JIT-MEINS;VBEP_CONF-MEINS;VBEP_REQ-MEINS"},{"multi_lang_alias":[],"field":"Customer__Customer","field_details":"{\"width\":94}","valid":true,"tech_info":"KNA1-KUNNR"},{"multi_lang_alias":[],"field":"Customer__Description","field_details":"{\"width\":182}","valid":true,"tech_info":"KNA1-NAME1"},{"multi_lang_alias":[],"field":"SalesOrder__AUART","field_details":"{\"width\":129,\"format\":\"shnln\"}","valid":true,"tech_info":"VBAK-AUART"},{"multi_lang_alias":[],"field":"SalesOrderLine__PSTYV","field_details":"{\"width\":91,\"format\":\"shnln\"}","valid":true,"tech_info":"VBAP-PSTYV"},{"multi_lang_alias":[],"field":"SalesOrder__SalesDocumentCategory","field_details":"{\"width\":115,\"format\":\"shnln\"}","valid":true,"tech_info":"VBAK-VBTYP"},{"multi_lang_alias":[],"field":"SalesValue","field_details":"{\"width\":89}","valid":true,"tech_info":""},{"multi_lang_alias":[],"field":"SalesDocumentScheduleLineStatus","field_details":"{\"width\":109,\"format\":\"shn\"}","valid":true,"tech_info":""},{"multi_lang_alias":[],"field":"OrderDueDate","field_details":"{\"width\":99}","valid":true,"tech_info":"VBEP_REQ_JIT-WADAT;VBEP_CONF-WADAT;VBEP_REQ-WADAT;VBFA_LIPS-LIPS_MBDAT"},{"multi_lang_alias":[],"field":"DeliveryStatus","field_details":"{\"width\":133,\"format\":\"shn\"}","valid":true,"tech_info":""},{"multi_lang_alias":[],"field":"DeliveryNoteLine__OrderNumber","field_details":"{\"width\":120}","valid":true,"tech_info":""}],"state":"/models/1/angles/594/displays/2979/state","uri":"/models/1/angles/594/displays/2979","authorizations":{"update":true,"delete":false,"publish":false,"unpublish":false,"make_angle_default":false},"created":{"user":"/users/1","datetime":1557132143,"full_name":"EAAdmin"},"user_specific":{"is_user_default":false,"execute_on_login":false},"is_public":true,"contained_aggregation_steps":false,"used_in_task":false,"display_type":"list","is_angle_default":true,"id":"d5092bbc74e46610763fc553060978412"}],"changed":{"user":"/users/1","datetime":1557132143,"full_name":"EAAdmin"},"executed":{"user":"/users/5","datetime":1557213552,"full_name":"Mary Smith"},"published":{"user":"/users/1","datetime":1557132143,"full_name":"EAAdmin"},"id":"WEBHELP_WC_Basic_list_options","uri":"/models/1/angles/594","model":"/models/1","is_validated":false,"is_parameterized":false,"is_published":true,"is_template":false,"user_specific":{"execute_on_login":false,"is_starred":false,"private_tags":[],"times_executed":25},"created":{"user":"/users/1","datetime":1557132143,"full_name":"EAAdmin"},"has_warnings":false,"state":"/models/1/angles/594/state"}
+{
+    "multi_lang_name": [
+        {
+            "lang": "de",
+            "text": "Scheduling Agreements"
+        },
+        {
+            "lang": "en",
+            "text": "Scheduling Agreements"
+        },
+        {
+            "lang": "es",
+            "text": "Scheduling Agreements"
+        },
+        {
+            "lang": "fr",
+            "text": "Scheduling Agreements"
+        },
+        {
+            "lang": "nl",
+            "text": "Scheduling Agreements"
+        }
+    ],
+    "labels": "/models/1/angles/649/labels",
+    "assigned_labels": [
+        "S2D",
+        "O2C"
+    ],
+    "executed": {
+        "user": "/users/1",
+        "full_name": "EAAdmin",
+        "datetime": 1567584559
+    },
+    "displays": "/models/1/angles/649/displays",
+    "grouping_labels": "/models/1/angles/649/grouping_labels",
+    "id": "WEBHELP_WC_Basic_list_options",
+    "authorizations": {
+        "unvalidate": false,
+        "mark_template": true,
+        "unmark_template": false,
+        "update": true,
+        "publish": false,
+        "unpublish": true,
+        "create_private_display": true,
+        "validate": true,
+        "create_public_display": true,
+        "delete": true
+    },
+    "user_specific": {
+        "is_starred": false,
+        "private_tags": [],
+        "times_executed": 5,
+        "execute_on_login": false
+    },
+    "state": "/models/1/angles/649/state",
+    "allow_followups": true,
+    "is_parameterized": false,
+    "is_validated": false,
+    "business_processes": "/models/1/angles/649/business_processes",
+    "query_definition": [
+        {
+            "queryblock_type": "base_classes",
+            "base_classes": [
+                "SalesDocumentScheduleLine"
+            ]
+        }
+    ],
+    "angle_default_display": "/models/1/angles/649/displays/3020",
+    "privilege_labels": "/models/1/angles/649/privilege_labels",
+    "is_deleted": false,
+    "created": {
+        "user": "/users/2",
+        "full_name": "EASystem",
+        "datetime": 1567577226
+    },
+    "changed": {
+        "user": "/users/1",
+        "full_name": "EAAdmin",
+        "datetime": 1567577226
+    },
+    "uri": "/models/1/angles/649",
+    "display_definitions": [
+        {
+            "multi_lang_name": [
+                {
+                    "lang": "de",
+                    "text": "Basisliste"
+                },
+                {
+                    "lang": "en",
+                    "text": "Basic List"
+                },
+                {
+                    "lang": "es",
+                    "text": "Lista Básica"
+                },
+                {
+                    "lang": "fr",
+                    "text": "Liste De Base"
+                },
+                {
+                    "lang": "nl",
+                    "text": "Basislijst"
+                }
+            ],
+            "authorizations": {
+                "make_angle_default": false,
+                "unpublish": false,
+                "update": true,
+                "publish": false,
+                "delete": false
+            },
+            "created": {
+                "user": "/users/2",
+                "full_name": "EASystem",
+                "datetime": 1557110543
+            },
+            "fields": [
+                {
+                    "tech_info": "",
+                    "field": "ObjectType",
+                    "multi_lang_alias": [],
+                    "valid": true,
+                    "field_details": "{\"width\":109,\"format\":\"shn\"}"
+                },
+                {
+                    "tech_info": "",
+                    "field": "ID",
+                    "multi_lang_alias": [],
+                    "valid": true,
+                    "field_details": "{\"width\":78}"
+                },
+                {
+                    "tech_info": "TVKO-VKORG",
+                    "field": "SalesOrganization__SalesOrganization",
+                    "multi_lang_alias": [],
+                    "valid": true,
+                    "field_details": "{\"width\":106,\"format\":\"shnln\"}"
+                },
+                {
+                    "tech_info": "",
+                    "field": "Material__Material",
+                    "multi_lang_alias": [],
+                    "valid": true,
+                    "field_details": "{\"width\":86}"
+                },
+                {
+                    "tech_info": "",
+                    "field": "Quantity",
+                    "multi_lang_alias": [],
+                    "valid": true,
+                    "field_details": "{\"width\":84}"
+                },
+                {
+                    "tech_info": "T001W-WERKS",
+                    "field": "Plant__Plant",
+                    "multi_lang_alias": [],
+                    "valid": true,
+                    "field_details": "{\"width\":103,\"format\":\"shnln\"}"
+                },
+                {
+                    "tech_info": "",
+                    "field": "ExecutionStatus",
+                    "multi_lang_alias": [],
+                    "valid": true,
+                    "field_details": "{\"width\":93,\"format\":\"shn\"}"
+                },
+                {
+                    "tech_info": "MAKT-MAKTX",
+                    "field": "Material__Description",
+                    "multi_lang_alias": [],
+                    "valid": true,
+                    "field_details": "{\"width\":159}"
+                },
+                {
+                    "tech_info": "VBEP_REQ_JIT-MEINS;VBEP_CONF-MEINS;VBEP_REQ-MEINS",
+                    "field": "BaseUnitOfMeasure",
+                    "multi_lang_alias": [],
+                    "valid": true,
+                    "field_details": "{\"width\":31,\"format\":\"shn\"}"
+                },
+                {
+                    "tech_info": "KNA1-KUNNR",
+                    "field": "Customer__Customer",
+                    "multi_lang_alias": [],
+                    "valid": true,
+                    "field_details": "{\"width\":94}"
+                },
+                {
+                    "tech_info": "KNA1-NAME1",
+                    "field": "Customer__Description",
+                    "multi_lang_alias": [],
+                    "valid": true,
+                    "field_details": "{\"width\":182}"
+                },
+                {
+                    "tech_info": "VBAK-AUART",
+                    "field": "SalesOrder__AUART",
+                    "multi_lang_alias": [],
+                    "valid": true,
+                    "field_details": "{\"width\":129,\"format\":\"shnln\"}"
+                },
+                {
+                    "tech_info": "VBAP-PSTYV",
+                    "field": "SalesOrderLine__PSTYV",
+                    "multi_lang_alias": [],
+                    "valid": true,
+                    "field_details": "{\"width\":91,\"format\":\"shnln\"}"
+                },
+                {
+                    "tech_info": "VBAK-VBTYP",
+                    "field": "SalesOrder__SalesDocumentCategory",
+                    "multi_lang_alias": [],
+                    "valid": true,
+                    "field_details": "{\"width\":115,\"format\":\"shnln\"}"
+                },
+                {
+                    "tech_info": "",
+                    "field": "SalesValue",
+                    "multi_lang_alias": [],
+                    "valid": true,
+                    "field_details": "{\"width\":89}"
+                },
+                {
+                    "tech_info": "",
+                    "field": "SalesDocumentScheduleLineStatus",
+                    "multi_lang_alias": [],
+                    "valid": true,
+                    "field_details": "{\"width\":109,\"format\":\"shn\"}"
+                },
+                {
+                    "tech_info": "VBEP_REQ_JIT-WADAT;VBEP_CONF-WADAT;VBEP_REQ-WADAT;VBFA_LIPS-LIPS_MBDAT",
+                    "field": "OrderDueDate",
+                    "multi_lang_alias": [],
+                    "valid": true,
+                    "field_details": "{\"width\":99}"
+                },
+                {
+                    "tech_info": "",
+                    "field": "DeliveryStatus",
+                    "multi_lang_alias": [],
+                    "valid": true,
+                    "field_details": "{\"width\":133,\"format\":\"shn\"}"
+                },
+                {
+                    "tech_info": "",
+                    "field": "DeliveryNoteLine__OrderNumber",
+                    "multi_lang_alias": [],
+                    "valid": true,
+                    "field_details": "{\"width\":120}"
+                }
+            ],
+            "contained_aggregation_steps": false,
+            "uri": "/models/1/angles/649/displays/3020",
+            "is_public": true,
+            "used_in_task": false,
+            "state": "/models/1/angles/649/displays/3020/state",
+            "display_type": "list",
+            "user_specific": {
+                "execute_on_login": false,
+                "is_user_default": false
+            },
+            "query_blocks": [],
+            "is_angle_default": true,
+            "angle_id": "649",
+            "id": "d5092bbc74e46610763fc553060978412",
+            "display_details": "{\"layout\":null}",
+            "multi_lang_description": [
+                {
+                    "lang": "de",
+                    "text": "<div id=\"summary\" /><div class=\" section\" id=\"S1438247774052993\"><p class=\"\" id=\"P1438247774052584\" /></div>"
+                },
+                {
+                    "lang": "en",
+                    "text": "<div id=\"summary\" /><div class=\" section\" id=\"S1438247774052993\"><p class=\"\" id=\"P1438247774052584\" /></div>"
+                },
+                {
+                    "lang": "es",
+                    "text": "<div id=\"summary\" /><div class=\" section\" id=\"S1438247774052993\"><p class=\"\" id=\"P1438247774052584\" /></div>"
+                },
+                {
+                    "lang": "fr",
+                    "text": "<div id=\"summary\" /><div class=\" section\" id=\"S1438247774052993\"><p class=\"\" id=\"P1438247774052584\" /></div>"
+                },
+                {
+                    "lang": "nl",
+                    "text": "<div id=\"summary\" /><div class=\" section\" id=\"S1438247774052993\"><p class=\"\" id=\"P1438247774052584\" /></div>"
+                }
+            ]
+        }
+    ],
+    "has_warnings": false,
+    "is_template": false,
+    "published": {
+        "user": "/users/1",
+        "full_name": "EAAdmin",
+        "datetime": 1567577226
+    },
+    "model": "/models/1",
+    "is_published": true,
+    "allow_more_details": true,
+    "multi_lang_description": [
+        {
+            "lang": "de",
+            "text": "<div id=\"summary\" /><div class=\" section\" id=\"S1436426266089314\"><h2 class=\" topictitle2\" id=\"Hidelem4x98272\">Zusammenfassung</h2><p class=\"\" id=\"Pidelem4x98274\">Die einzelnen Mengen einer Verkaufsbelegposition, jeweils zusammen mit einem geplanten und einem realisierten Enddatum, werden in einer Verkaufsbelegeinteilung angezeigt.</p><h2 class=\" topictitle2\" id=\"Hidelem4x98276\">Erläuterung</h2><p class=\"\" id=\"Pidelem4x98278\">Die Verkaufsbelegeinteilung ist die dritte Ebene in einem Verkaufsbeleg, unterhalb von Position und Kopf. </p><p class=\"\" id=\"Pidelem4x98280\">Normalerweise enthält eine Verkaufsbelegposition nur eine Verkaufsbelegeinteilung (die Position ist vollständig als eine einzige Lieferung zu liefern). Die Every Angle-Software erstellt mehr als eine Einteilung, wenn die Belegposition teilweise geliefert wird, oder wenn die Belegposition in mehr als einer Lieferung ausgeliefert wird.</p><p class=\"\" id=\"Pidelem4x98283\">Eine Verkaufsbelegeinteilung kann einen der folgenden Status haben:</p><ul id=\"Pidelem4x98285\" class=\"\"><li><p class=\"\" id=\"P1436426266094185\">bestätigt (zum Beispiel Bedarf = 10 Stück, bestätigt = 8 Stück, zu bestätigen = 2 Stück),</p></li><li><p class=\"\" id=\"P1436426266095946\">Lieferschein erstellt (zur Kommissionierung),</p></li><li><p class=\"\" id=\"P1436426266097697\">geliefert (Warenausgang ist gebucht),</p></li><li><p class=\"\" id=\"P1436426266098978\">Rückgabe (Rückgabe von Kunde).</p></li></ul><p /><p class=\"\" id=\"Pidelem4x98294\">Eine repräsentative Messung der Liefertreue kann nur auf Einteilungsebene durchgeführt werden. Die Liefertreue auf Kopf- oder Positionsebene wird durch die schlechteste Liefertreue auf der zugrunde liegenden Einteilungsebene bestimmt. Eine Verkaufsbelegeinteilung kann für die Disposition relevant sein (je nach Ausführungsstatus und Eigenschaften des Belegs).</p><h2 class=\" topictitle2\" id=\"Hidelem4x98296\">Technischer Hintergrund</h2><p class=\"\" id=\"Pidelem4x98298\">Ein Objekt wird auf der Grundlage der SAP-Tabellen VBEP und VBAP mit Referenzen zu Verkaufsbelegposition, Kunde, Material, Lieferposition usw. sowie einer Unterliste der Lagerbedarfsliste erstellt. Die SAP-Tabellen VBUP, VBAK, VBUK, VBLB, TVEP, LIPS und LIKP sind ebenfalls daran beteiligt. Beachten Sie, dass eine Verkaufsbelegeinteilung in SAP nicht exakt einer solchen in Every Angle entspricht. Manchmal resultieren zwei Einträge in VBEP in einer Position in Every Angle (wenn die Mengen identisch sind und sich nur das zugesagte und das angefragte Datum unterscheiden), und manchmal auch in mehreren Positionen (bei Teillieferungen oder Rückgaben).</p></div>"
+        },
+        {
+            "lang": "en",
+            "text": "<div id=\"summary\" /><div class=\" section\" id=\"S1436426266089314\"><h2 class=\" topictitle2\" id=\"Hidelem4x98272\">Summary</h2><p class=\"\" id=\"Pidelem4x98274\">The individual quantities of a sales document item, each with a planned and a realized finish date, are displayed in a sales document schedule line.</p><h2 class=\" topictitle2\" id=\"Hidelem4x98276\">Explanation</h2><p class=\"\" id=\"Pidelem4x98278\">The Sales Document Schedule line is the third level in a sales document, under the item and the header. </p><p class=\"\" id=\"Pidelem4x98280\">Usually a sales document item contains only one sales document schedule line (the item is to be delivered fully in one delivery). The Every Angle software creates more than one schedule line if the document item is partially delivered or if the position item is to be delivered in more than one delivery.</p><p class=\"\" id=\"Pidelem4x98283\">A sales document schedule line can have various statuses, for example:</p><ul id=\"Pidelem4x98285\" class=\"\"><li><p class=\"\" id=\"P1436426266094185\">confirmed (for example demand = 10 pieces, confirmed = 8 pieces, to be confirmed = 2 pieces),</p></li><li><p class=\"\" id=\"P1436426266095946\">delivery note created (to be picked),</p></li><li><p class=\"\" id=\"P1436426266097697\">delivered (goods issue is posted),</p></li><li><p class=\"\" id=\"P1436426266098978\">return (return from customer).</p></li></ul><p /><p class=\"\" id=\"Pidelem4x98294\">A representative measurement of delivery reliability can only be done at schedule line level. The delivery reliability at header or at item level is determined by the worst case delivery reliability at the underlying schedule line level. A sales document schedule line can be relevant for MRP (depending on execution status and document characteristics).</p><h2 class=\" topictitle2\" id=\"Hidelem4x98296\">Technical background</h2><p class=\"\" id=\"Pidelem4x98298\">Based on SAP tables VBEP and VBAP an object is created with references to Sales Document Item, Customer, Material, Delivery item and more as well as a sublist to Stock Requirements List. Also SAP tables VBUP, VBAK, VBUK, VBLB, TVEP, LIPS and LIKP are involved. Please note that a SD schedule lien in SAP is not exactly the same as in Every Angle. Sometimes 2 entries in VBEP result in one item in Every Angle (when the quantities are the same and only the promised date and the requested date differ) and sometimes it leads to multiple items in Every Angle (in case of partial deliveries or returns).</p></div>"
+        },
+        {
+            "lang": "es",
+            "text": "<div id=\"summary\" /><div class=\" section\" id=\"S1436426266089314\"><h2 class=\" topictitle2\" id=\"Hidelem4x98272\">Resumen</h2><p class=\"\" id=\"Pidelem4x98274\">Las cantidades individuales de una posición de documento de ventas, cada una con una fecha planificada y fecha realizada de fin, se muestran en un reparto de documento de ventas.</p><h2 class=\" topictitle2\" id=\"Hidelem4x98276\">Explicación</h2><p class=\"\" id=\"Pidelem4x98278\">Documento de Ventas Reparto es el tercer nivel en un documento de ventas, bajo la posición y la cabecera. </p><p class=\"\" id=\"Pidelem4x98280\">Normalmente, una posición de documento de ventas sólo contiene un reparto de documento de ventas (la posición se debe entregar completamente en una entrega). El software de Every Angle crea más de un reparto si la posición del documento se entrega parcialmente o si la posición se debe entregar en más de una entrega.</p><p class=\"\" id=\"Pidelem4x98283\">Un reparto de documento de ventas tiene varios status, por ejemplo:</p><ul id=\"Pidelem4x98285\" class=\"\"><li><p class=\"\" id=\"P1436426266094185\">confirmado (por ejemplo demanda = 10 unidades, confirmado = 8 unidades, para confirmar = 2 unidades),</p></li><li><p class=\"\" id=\"P1436426266095946\">aviso de entrega creado (para recoger),</p></li><li><p class=\"\" id=\"P1436426266097697\">entregado (la salida de mercancías se ha contabilizado),</p></li><li><p class=\"\" id=\"P1436426266098978\">devolución (devolución de cliente).</p></li></ul><p /><p class=\"\" id=\"Pidelem4x98294\">Una medida representativa del cumplimiento de la entrega sólo se puede realizar en el nivel de reparto. El cumplimiento de los plazos de entrega en la cabecera o a nivel de posición se determina por el cumplimiento de los plazos de entrega del peor caso en el nivel de reparto subyacente. Un reparto de documento de ventas puede ser relevante para la planificación de necesidades (en función del status de ejecución y las características del documento).</p><h2 class=\" topictitle2\" id=\"Hidelem4x98296\">Contexto técnico</h2><p class=\"\" id=\"Pidelem4x98298\">Según las tablas SAP VBEP y VBAP, un objeto se crea con referencias a Documento de Ventas Posición, Cliente, Material, Entrega Posición y más, así como con una sublista de la Lista de Necesidades de Stock. También intervienen las tablas SAP VBUP, VBAK, VBUK, VBLB, TVEP, LIPS y LIKP. Tenga en cuenta que un Documento ventas reparto en SAP no es exactamente igual en Every Angle. En algunas ocasiones, dos entradas en VBEP son una posición en Every Angle (cuando las cantidades son las mismas y solo difieren la fecha prometida y la fecha solicitada) y, en otras ocasiones, son varias posiciones en Every Angle (en el caso de entregas o devoluciones parciales).</p></div>"
+        },
+        {
+            "lang": "fr",
+            "text": "<div id=\"summary\" /><div class=\" section\" id=\"S1436426266089314\"><h2 class=\" topictitle2\" id=\"Hidelem4x98272\">Récapitulatif</h2><p class=\"\" id=\"Pidelem4x98274\">Les quantités individuelles d'un poste de document de vente, assorties chacune d'une date planifiée et d'une date de fin réelle, sont affichées dans une échéance de document de vente.</p><h2 class=\" topictitle2\" id=\"Hidelem4x98276\">Explication</h2><p class=\"\" id=\"Pidelem4x98278\">Le numéro de l'échéance de document de vente est le troisième niveau d'un document de ventes, sous le poste et l'en-tête. </p><p class=\"\" id=\"Pidelem4x98280\">Habituellement, un poste de document de vente ne contient qu'une seule échéance de document de vente (le poste doit être livré entièrement, en une seule livraison). Si le poste de document n'est livré que partiellement ou si sa livraison s'effectue en plusieurs fois, Every Angle crée plusieurs échéances.</p><p class=\"\" id=\"Pidelem4x98283\">Une échéance de document de vente peut avoir plusieurs statuts ; par exemple :</p><ul id=\"Pidelem4x98285\" class=\"\"><li><p class=\"\" id=\"P1436426266094185\">confirmé (par exemple : demande = 10 pièces, confirmé = 8 pièces, à confirmer = 2 pièces),</p></li><li><p class=\"\" id=\"P1436426266095946\">bon de livraison créé (à prélever),</p></li><li><p class=\"\" id=\"P1436426266097697\">livré (la sortie de marchandises est comptabilisée),</p></li><li><p class=\"\" id=\"P1436426266098978\">retour (retour du client).</p></li></ul><p /><p class=\"\" id=\"Pidelem4x98294\">Une mesure représentative de la fiabilité des livraisons ne peut s'effectuer qu'au niveau échéance. La fiabilité de livraison au niveau en-tête ou poste est déterminée par la fiabilité de livraison la moins satisfaisante au niveau échéance sous-jacent. Une échéance de document de vente peut être appropriée pour la planification (selon le statut d'avancement et les caractéristiques de ce document de vente).</p><h2 class=\" topictitle2\" id=\"Hidelem4x98296\">Antécédents techniques.</h2><p class=\"\" id=\"Pidelem4x98298\">D'après les tables VBEP et VBAP dans SAP, un objet est créé avec des références au Poste de document de vente, au Client, au Poste de livraison et autre, ainsi qu'à une liste auxiliaire État des stocks. Par ailleurs, les tables VBUP, VBAK, VBUK, VBLB, TVEP, LIPS et LIKP dans SAP sont impliquées. Veuillez noter qu'un Nombre échéances DV dans SAP n'est pas exactement identique à celui que vous trouverez dans Every Angle. Parfois, 2 entrées dans VBEP donnent un poste dans Every Angle (lorsque les quantités sont les mêmes et que seules la date promise et la date demandée diffèrent) et donnent parfois plusieurs postes dans Every Angle (dans le cas de livraisons partielles ou de retours).</p></div>"
+        },
+        {
+            "lang": "nl",
+            "text": "<div id=\"summary\" /><div class=\" section\" id=\"S1436426266089314\"><h2 class=\" topictitle2\" id=\"Hidelem4x98272\">Samenvatting</h2><p class=\"\" id=\"Pidelem4x98274\">De afzonderlijke hoeveelheden van een verkoopdocumentpositie, elk met een geplande en gerealiseerde einddatum, worden weergegeven in een indeling van het verkoopdocument.</p><h2 class=\" topictitle2\" id=\"Hidelem4x98276\">Uitleg</h2><p class=\"\" id=\"Pidelem4x98278\">De Verkoopdocument (VDoc) Indeling is het derde niveau in een verkoopdocument, onder de positie en de kop. </p><p class=\"\" id=\"Pidelem4x98280\">Doorgaans bevat een verkoopdocumentpositie slechts één indelingsregel (de positie moet volledig en in één levering worden geleverd). Every Angle maakt meer dan één indeling aan als de documentpositie gedeeltelijk is geleverd of als de positie wordt geleverd in meer dan één levering.</p><p class=\"\" id=\"Pidelem4x98283\">Een indeling van een verkoopdocument kan verschillende statussen hebben, zoals:</p><ul id=\"Pidelem4x98285\" class=\"\"><li><p class=\"\" id=\"P1436426266094185\">bevestigd (bijvoorbeeld vraag = 10 stuks, bevestigd = 8 stuks, nog te bevestigen = 2 stuks),</p></li><li><p class=\"\" id=\"P1436426266095946\">afleverbon aangemaakt (nog te picken),</p></li><li><p class=\"\" id=\"P1436426266097697\">geleverd (goederenafgifte is geboekt),</p></li><li><p class=\"\" id=\"P1436426266098978\">retour (retourzending van klant).</p></li></ul><p /><p class=\"\" id=\"Pidelem4x98294\">Een representatieve meting van de leverbetrouwbaarheid kan alleen worden gedaan op het niveau van de indeling. Op kop- of positieniveau wordt de leverbetrouwbaarheid bepaald door de slechtste leverbetrouwbaarheid op het niveau van de onderliggende indeling. Een indeling van een verkoopdocument kan van belang zijn voor Planning (afhankelijk van de executiestatus en de documentkenmerken).</p><h2 class=\" topictitle2\" id=\"Hidelem4x98296\">Technische achtergrond</h2><p class=\"\" id=\"Pidelem4x98298\">Op basis van SAP-tabellen VBEP en VBAP wordt een object aangemaakt met referenties naar Verkoopdocumentpositie, Klant, Artikel, Leveringspositie en meer, alsmede een sublijst naar Voorraad-/behoeftelijst. De SAP-tabellen VBUP, VBAK, VBUK, VBLB, TVEP, LIPS en LIKP zijn hier ook bij betrokken. Houd er rekening mee dat een SD-indeling in SAP niet exact hetzelfde is als in Every Angle. Soms kunnen twee invoeren in VBEP als één positie worden weergegeven in Every Angle (wanneer de hoeveelheden gelijk zijn en alleen de beloofde datum en de aangevraagde datum verschillen) en soms worden er meerdere posities weergegeven in Every Angle (bij deelleveringen of retourneringen).</p></div>"
+        }
+    ]
+}

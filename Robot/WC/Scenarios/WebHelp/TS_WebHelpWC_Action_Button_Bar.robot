@@ -5,7 +5,7 @@ Screenshot "WC_Action_Button_Bar" page
     Crop Action Create Angle Button
     Crop Action Search Bar
 
-    Search By Text    a
+    Search By Text Without Double Quote    a
     Click Select First Item From Search Result
     
     Crop Action List Icons
@@ -26,4 +26,4 @@ Crop Action Mode Button
     Crop WebHelp Image    WC_Action_Button_Details_Mode.png    css=#DisplaysList    ${False}
 
 Crop Action Button Sort
-    Crop WebHelp Image    wc_action_button_sort_by.png   css=#SearchSortingView .search-sorting-item:last-child
+    Crop WebHelp Image    WC_Action_Button_Sort_by.png   css=#SearchSortingView .search-sorting-item:last-child

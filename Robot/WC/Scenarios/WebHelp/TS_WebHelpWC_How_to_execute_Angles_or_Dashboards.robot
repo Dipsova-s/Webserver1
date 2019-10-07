@@ -13,6 +13,8 @@ Screenshot "WC_How_to_execute_Angles_or_Dashboards" page
 
     Go to Search Page
     Find Dashboard By ID Then Execute The First Dashboard    ${DashboardId}
+    Open Filter Panel
+    Sleep    ${TIMEOUT_GENERAL}
     Crop Open Dashboard Filters Button
 
 Crop Execution Parameters Popup

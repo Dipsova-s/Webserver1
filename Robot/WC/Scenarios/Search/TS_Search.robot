@@ -38,6 +38,7 @@ Search Filter By Query String
     Wait Progress Bar Search Closed
     Click Search Button
     Wait Progress Bar Search Closed
+    Blur Search Input
 
 Write All Angles in Search Result to Test File
     [Arguments]    ${anglePerTest}

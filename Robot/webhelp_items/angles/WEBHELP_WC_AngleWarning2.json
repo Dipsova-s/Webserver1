@@ -1,1 +1,1598 @@
-{"multi_lang_name":[{"lang":"de","text":"Lieferung Position"},{"lang":"en","text":"Delivery Item"},{"lang":"es","text":"Entrega Posición"},{"lang":"fr","text":"Livraison Poste"},{"lang":"nl","text":"Levering Positie"}],"multi_lang_description":[{"lang":"de","text":"<div id=\"summary\" /><div class=\" section\" id=\"S1436440131616844\"><h2 class=\" topictitle2\" id=\"Hidelem4x30320\">Zusammenfassung</h2><p class=\"\" id=\"Pidelem4x30324\">Das Objekt Lieferposition enthält Informationen dazu, welche Mengen welches Materials von welchem Standort aus geliefert werden.</p><h2 class=\" topictitle2\" id=\"Hidelem4x30326\">Erläuterung</h2><p class=\"\" id=\"Pidelem4x30329\">In SAP kann eine Lieferposition eine vollständige Verkaufsbelegposition repräsentieren, aber auch eine Teilmenge. Für Auslieferungen und Anlieferungen kann ein Lieferbeleg eine beliebige Anzahl von Positionen enthalten. Grundsätzlich gibt es zwei Arten von Lieferungen: Auslieferungen und Anlieferungen. Die Auslieferungen werden in SAP mit Referenz auf einen Kundenauftrag oder eine Transportbestellung erstellt. Die Anlieferungen werden in SAP mit Referenz auf einen Verkaufsauftrag, eine Transportbestellung oder eine Kundenrückgabe erstellt.</p><h2 class=\" topictitle2\" id=\"Hidelem4x30335\">Technischer Hintergrund</h2><p class=\"\" id=\"Pidelem4x30337\">Ein Objekt wird auf der Grundlage der SAP-Tabelle LIPS mit Referenzen zu Lieferungskopf, Verkaufsbelegposition usw. sowie einer Unterliste von Verkaufsbelegeinteilungen und Einkaufsbelegeinteilungen erstellt. Die SAP-Tabellen VBUP und LIKP sind ebenfalls daran beteiligt.</p><h2 class=\" topictitle2\" id=\"Hidelem4x30340\">Verwandte Themen</h2><p class=\"\" id=\"Pidelem4x30343\">Auslieferungskopf</p><p class=\"\" id=\"Pidelem4x30346\">Die für Auslieferungen relevanten allgemeinen Daten sind im Belegkopf gespeichert. Diese Daten gelten für den gesamten Beleg. Zu den allgemeinen Daten können gehören:</p><ul id=\"Pidelem4x30348\" class=\"\"><li><p class=\"\" id=\"P1436440131624805\">Versandpunkt,</p></li><li><p class=\"\" id=\"P1436440131625116\">Daten zur Lieferungs- und Transportplanung (etwa das Warenausgabedatum oder das Datum der Lieferung an den Empfänger),</p></li><li><p class=\"\" id=\"P1436440131626757\">Gewichte und Volumina der gesamten Auslieferung,</p></li><li><p class=\"\" id=\"P143644013162728\">Nummern von Auftraggeber und Lieferungsempfänger,</p></li><li><p class=\"\" id=\"P1436440131628549\">Route.</p></li></ul><p /><p class=\"\" id=\"Pidelem4x30359\">Anlieferungskopf</p><p class=\"\" id=\"Pidelem4x30362\">Die für Anlieferungen relevanten allgemeinen Daten sind im Belegkopf gespeichert. Diese Daten gelten für den gesamten Beleg. Zu den allgemeinen Daten können gehören:</p><ul id=\"Pidelem4x30364\" class=\"\"><li><p class=\"\" id=\"P14364401316299310\">Warenannahmestelle,</p></li><li><p class=\"\" id=\"P1436440131630311\">Planungsdaten (Wareneingangsdatum oder Lieferdatum),</p></li><li><p class=\"\" id=\"P14364401316324512\">Gewichte und Volumina der gesamten Anlieferung,</p></li><li><p class=\"\" id=\"P14364401316333213\">Lieferantennummer,</p></li><li><p class=\"\" id=\"P1436440131634614\">Route.</p></li></ul><p /></div>"},{"lang":"en","text":"<div id=\"summary\" /><div class=\" section\" id=\"S1436440131616844\"><h2 class=\" topictitle2\" id=\"Hidelem4x30320\">Summary</h2><p class=\"\" id=\"Pidelem4x30324\">The Delivery Item object contains information about how much of which material is delivered from which location.</p><h2 class=\" topictitle2\" id=\"Hidelem4x30326\">Explanation</h2><p class=\"\" id=\"Pidelem4x30329\">In SAP a delivery item can represent an entire sales document item but also a partial quantity. For both outbound and inbound deliveries there can be any number of items in a delivery document. In basic there are two types of deliveries: outbound deliveries and inbound deliveries. Outbound deliveries are created in SAP with reference to a sales order or a stock transport order. The inbound deliveries are created in SAP with reference to a purchase order, a stock transport order or a customer return.</p><h2 class=\" topictitle2\" id=\"Hidelem4x30335\">Technical background</h2><p class=\"\" id=\"Pidelem4x30337\">Based on SAP table LIPS an object is created with references to Delivery Header, Sales Document Item and more as well as a sublist of Sales Document Schedule Lines and Purchase Document Schedule Lines. Also SAP tables VBUP and LIKP are involved.</p><h2 class=\" topictitle2\" id=\"Hidelem4x30340\">Related topics</h2><p class=\"\" id=\"Pidelem4x30343\">Outbound Delivery Header</p><p class=\"\" id=\"Pidelem4x30346\">The general data relevant for the outbound delivery is stored in the document header. This data is valid for the entire document. The general data may include:</p><ul id=\"Pidelem4x30348\" class=\"\"><li><p class=\"\" id=\"P1436440131624805\">shipping point,</p></li><li><p class=\"\" id=\"P1436440131625116\">data about delivery scheduling and transportation scheduling (for example, the goods issue date or the date of delivery to the ship-to party),</p></li><li><p class=\"\" id=\"P1436440131626757\">weights and volumes of the entire outbound delivery,</p></li><li><p class=\"\" id=\"P143644013162728\">sold-to party and the ship-to party numbers,</p></li><li><p class=\"\" id=\"P1436440131628549\">route.</p></li></ul><p /><p class=\"\" id=\"Pidelem4x30359\">Inbound Delivery Header</p><p class=\"\" id=\"Pidelem4x30362\">The general data relevant for the inbound delivery is stored in the document header. This data is valid for the entire document. The general data may include:</p><ul id=\"Pidelem4x30364\" class=\"\"><li><p class=\"\" id=\"P14364401316299310\">goods receiving point,</p></li><li><p class=\"\" id=\"P1436440131630311\">scheduling data (goods receipt date or delivery date),</p></li><li><p class=\"\" id=\"P14364401316324512\">weights and volumes for the entire inbound delivery,</p></li><li><p class=\"\" id=\"P14364401316333213\">vendor number,</p></li><li><p class=\"\" id=\"P1436440131634614\">route.</p></li></ul><p /></div>"},{"lang":"es","text":"<div id=\"summary\" /><div class=\" section\" id=\"S1436440131616844\"><h2 class=\" topictitle2\" id=\"Hidelem4x30320\">Resumen</h2><p class=\"\" id=\"Pidelem4x30324\">El objeto Entrega Posición contiene información sobre la cantidad de material y el almacén del que se entrega.</p><h2 class=\" topictitle2\" id=\"Hidelem4x30326\">Explicación</h2><p class=\"\" id=\"Pidelem4x30329\">En SAP, una posición de entrega puede representar todo un documento de ventas posición, pero también una cantidad parcial. Puede haber cualquier número de posiciones en un documento de entrega para entregas de salida y entrantes. Básicamente, hay dos tipos de entregas: entregas de salida y entregas entrantes. Las entregas salientes se crean en SAP con referencia a un pedido de cliente o un pedido de traslado de stock. Las entregas entrantes se crean en SAP con referencia a un pedido, un pedido de traslado de stock o una devolución de cliente.</p><h2 class=\" topictitle2\" id=\"Hidelem4x30335\">Contexto técnico</h2><p class=\"\" id=\"Pidelem4x30337\">Según la tabla SAP LIPS, un objeto se crea con referencias a Entrega Cabecera, Documento de Ventas Posición y más, así como con una sublista de Documentos de Ventas Reparto y Documentos de Compras Reparto. También intervienen las tablas SAP VBUP y LIKP.</p><h2 class=\" topictitle2\" id=\"Hidelem4x30340\">Temas relacionados</h2><p class=\"\" id=\"Pidelem4x30343\">Entrega de Salida Cabecera</p><p class=\"\" id=\"Pidelem4x30346\">Los datos generales relevantes sobre la entrega de salida se almacenan en el documento cabecera. Son válidos para todo el documento. Los datos generales podrían incluir:</p><ul id=\"Pidelem4x30348\" class=\"\"><li><p class=\"\" id=\"P1436440131624805\">punto de expedición,</p></li><li><p class=\"\" id=\"P1436440131625116\">datos sobre la programación de la entrega y el transporte (por ejemplo, la fecha de salida de las mercancías o la fecha de entrega al destinatario),</p></li><li><p class=\"\" id=\"P1436440131626757\">peso y volumen de toda la entrega de salida,</p></li><li><p class=\"\" id=\"P143644013162728\">números del solicitante y del destinatario,</p></li><li><p class=\"\" id=\"P1436440131628549\">ruta.</p></li></ul><p /><p class=\"\" id=\"Pidelem4x30359\">Entrega Entrante Cabecera</p><p class=\"\" id=\"Pidelem4x30362\">Los datos generales relevantes sobre la entrega entrante se almacenan en el documento cabecera. Son válidos para todo el documento. Los datos generales podrían incluir:</p><ul id=\"Pidelem4x30364\" class=\"\"><li><p class=\"\" id=\"P14364401316299310\">punto de entrada de la mercancía,</p></li><li><p class=\"\" id=\"P1436440131630311\">datos de programación (fecha de recepción o de entrega de la mercancía),</p></li><li><p class=\"\" id=\"P14364401316324512\">peso y volumen de toda la entrega entrante,</p></li><li><p class=\"\" id=\"P14364401316333213\">número del acreedor,</p></li><li><p class=\"\" id=\"P1436440131634614\">ruta.</p></li></ul><p /></div>"},{"lang":"fr","text":"<div id=\"summary\" /><div class=\" section\" id=\"S1436440131616844\"><h2 class=\" topictitle2\" id=\"Hidelem4x30320\">Récapitulatif</h2><p class=\"\" id=\"Pidelem4x30324\">L'objet Poste de livraison contient des informations sur la quantité d'articles livrés et depuis quel emplacement.</p><h2 class=\" topictitle2\" id=\"Hidelem4x30326\">Explication</h2><p class=\"\" id=\"Pidelem4x30329\">Dans SAP, un poste de livraison peut représenter un poste de document de vente entier mais aussi une quantité partielle. Pour les livraisons externes et les livraisons internes, un nombre d'articles peut figurer sur un document de livraison. À la base, il existe deux principaux types de livraisons : les livraisons externes et les livraisons internes. Les livraisons externes sont créées dans SAP avec une référence à une commande client ou un ordre de transport de stock. Les livraisons internes sont créées dans SAP avec une référence à une commande d'achat, un ordre de transport de stock ou un retour client.</p><h2 class=\" topictitle2\" id=\"Hidelem4x30335\">Antécédents techniques.</h2><p class=\"\" id=\"Pidelem4x30337\">D'après la table LIPS dans SAP, un objet est créé avec des références à l'en-tête Livaison, Poste de document de vente et autre, ainsi qu'à une liste auxiliaire Document de vente numéro de l'échéance et Numéros de l'échéance Document d’achat. Par ailleurs, les tables VBUP et LIKP dans SAP sont impliquées.</p><h2 class=\" topictitle2\" id=\"Hidelem4x30340\">Sujets associés</h2><p class=\"\" id=\"Pidelem4x30343\">En-tête Livraison externe</p><p class=\"\" id=\"Pidelem4x30346\">Les données générales pertinentes pour la livraison externe sont mémorisées dans l'en-tête du document. Elles sont valides pour l'ensemble du document. Les données générales peuvent inclure :</p><ul id=\"Pidelem4x30348\" class=\"\"><li><p class=\"\" id=\"P1436440131624805\">point d'expédition,</p></li><li><p class=\"\" id=\"P1436440131625116\">données concernant les programmes de livraison et de transport (par exemple, la date d'émission des marchandises ou la date de livraison au tiers),</p></li><li><p class=\"\" id=\"P1436440131626757\">poids et volumes de toute la livraison externe,</p></li><li><p class=\"\" id=\"P143644013162728\">Numéro du tiers et du destinataire,</p></li><li><p class=\"\" id=\"P1436440131628549\">route.</p></li></ul><p /><p class=\"\" id=\"Pidelem4x30359\">En-tête Livraison interne</p><p class=\"\" id=\"Pidelem4x30362\">Les données générales pertinentes pour la livraison interne sont mémorisées dans l'en-tête du document. Elles sont valides pour l'ensemble du document. Les données générales peuvent inclure :</p><ul id=\"Pidelem4x30364\" class=\"\"><li><p class=\"\" id=\"P14364401316299310\">point de réception des marchandises,</p></li><li><p class=\"\" id=\"P1436440131630311\">données de programmation (date de réception ou de livraison des marchandises),</p></li><li><p class=\"\" id=\"P14364401316324512\">poids et volumes de toute la livraison interne,</p></li><li><p class=\"\" id=\"P14364401316333213\">numéro du fournisseur,</p></li><li><p class=\"\" id=\"P1436440131634614\">route.</p></li></ul><p /></div>"},{"lang":"nl","text":"<div id=\"summary\" /><div class=\" section\" id=\"S1436440131616844\"><h2 class=\" topictitle2\" id=\"Hidelem4x30320\">Samenvatting</h2><p class=\"\" id=\"Pidelem4x30324\">Het object Leveringspositie bevat gegevens over de hoeveelheden van elk artikel en vanaf welke locatie deze zijn geleverd.</p><h2 class=\" topictitle2\" id=\"Hidelem4x30326\">Uitleg</h2><p class=\"\" id=\"Pidelem4x30329\">In SAP kan een leveringspositie een volledige verkoopdocumentpositie voorstellen, maar ook een deel van een hoeveelheid. Voor zowel uitgaande als binnenkomende leveringen kan een onbeperkt aantal posities aan een leveringsdocument worden toegevoegd. Er zijn in feite twee soorten leveringen: uitgaande leveringen en binnenkomende leveringen. Uitgaande leveringen worden in SAP gemaakt met referenties naar een verkooporder of een voorraadtransportorder. Uitgaande leveringen worden in SAP gemaakt met referenties naar een inkooporder, een voorraadtransportorder of een retournering door een klant.</p><h2 class=\" topictitle2\" id=\"Hidelem4x30335\">Technische achtergrond</h2><p class=\"\" id=\"Pidelem4x30337\">Op basis van de SAP-tabel LIPS wordt een object aangemaakt met referenties naar Leveringskop, Verkoopdocumentpositie en meer, alsmede een sublijst van Planningsregels verkoopdocument en Planningsregels inkoopdocument. De SAP-tabellen VBUP en LIKP zijn hier ook bij betrokken.</p><h2 class=\" topictitle2\" id=\"Hidelem4x30340\">Verwante onderwerpen</h2><p class=\"\" id=\"Pidelem4x30343\">Kop uitgaande levering</p><p class=\"\" id=\"Pidelem4x30346\">De algemene gegevens die relevant zijn voor de uitgaande levering worden opgeslagen in de documentkop. Deze gegevens zijn geldig voor het gehele document. De algemene gegevens kunnen het volgende bevatten:</p><ul id=\"Pidelem4x30348\" class=\"\"><li><p class=\"\" id=\"P1436440131624805\">transportpunt,</p></li><li><p class=\"\" id=\"P1436440131625116\">gegevens over de leveringsplanning en de transportplanning (bijvoorbeeld de verzenddatum van goederen of de leveringsdatum bij de partij waaraan de goederen worden geleverd),</p></li><li><p class=\"\" id=\"P1436440131626757\">gewicht en volume van de gehele uitgaande levering,</p></li><li><p class=\"\" id=\"P143644013162728\">verkocht aan- en transporteren naar-nummers,</p></li><li><p class=\"\" id=\"P1436440131628549\">route.</p></li></ul><p /><p class=\"\" id=\"Pidelem4x30359\">Kop binnenkomende levering</p><p class=\"\" id=\"Pidelem4x30362\">De algemene gegevens die relevant zijn voor de binnenkomende levering worden opgeslagen in de documentkop. Deze gegevens zijn geldig voor het gehele document. De algemene gegevens kunnen het volgende bevatten:</p><ul id=\"Pidelem4x30364\" class=\"\"><li><p class=\"\" id=\"P14364401316299310\">ontvangstpunt van goederen,</p></li><li><p class=\"\" id=\"P1436440131630311\">planningsgegevens (ontvangstdatum van goederen of leveringsdatum),</p></li><li><p class=\"\" id=\"P14364401316324512\">gewicht en volume van de gehele binnenkomende levering,</p></li><li><p class=\"\" id=\"P14364401316333213\">leveranciernummer,</p></li><li><p class=\"\" id=\"P1436440131634614\">route.</p></li></ul><p /></div>"}],"authorizations":{"update":true,"delete":true,"publish":false,"unpublish":true,"validate":true,"unvalidate":false,"mark_template":true,"unmark_template":false,"create_private_display":true,"create_public_display":true},"is_deleted":false,"displays":"/models/1/angles/596/displays","allow_followups":true,"allow_more_details":true,"assigned_labels":["P2P","S2D","O2C"],"labels":"/models/1/angles/596/labels","business_processes":"/models/1/angles/596/business_processes","grouping_labels":"/models/1/angles/596/grouping_labels","angle_default_display":"/models/1/angles/596/displays/2993","privilege_labels":"/models/1/angles/596/privilege_labels","package":"/packages/11","query_definition":[{"base_classes":["DeliveryNoteLine"],"queryblock_type":"base_classes"}],"display_definitions":[{"multi_lang_name":[{"lang":"de","text":"Gesperrt"},{"lang":"en","text":"Blocked"},{"lang":"es","text":"Bloqueado"},{"lang":"fr","text":"Bloqué"},{"lang":"nl","text":"Geblokkeerd"}],"multi_lang_description":[{"lang":"de","text":"<div id=\"summary\" /><div class=\" section\" id=\"S1438095987298393\"><p class=\"\" id=\"P1438095987298624\" /></div>"},{"lang":"en","text":"<div id=\"summary\" /><div class=\" section\" id=\"S1438095987298393\"><p class=\"\" id=\"P1438095987298624\" /></div>"},{"lang":"es","text":"<div id=\"summary\" /><div class=\" section\" id=\"S1438095987298393\"><p class=\"\" id=\"P1438095987298624\" /></div>"},{"lang":"fr","text":"<div id=\"summary\" /><div class=\" section\" id=\"S1438095987298393\"><p class=\"\" id=\"P1438095987298624\" /></div>"},{"lang":"nl","text":"<div id=\"summary\" /><div class=\" section\" id=\"S1438095987298393\"><p class=\"\" id=\"P1438095987298624\" /></div>"}],"angle_id":"596","display_details":"{}","query_blocks":[{"query_steps":[{"field":"DeliveryNoteHeader__DeliveryBlock","operator":"has_value","step_type":"filter","tech_info":"LIKP-LIFSK"}],"queryblock_type":"query_steps"}],"fields":[{"multi_lang_alias":[],"field":"ObjectType","field_details":"{\"width\":91,\"format\":\"shn\"}","valid":true,"tech_info":""},{"multi_lang_alias":[],"field":"ID","field_details":"{\"width\":82}","valid":true,"tech_info":""},{"multi_lang_alias":[],"field":"DeliveryNoteHeader__DeliveryBlock","field_details":"{\"width\":119,\"format\":\"shn\"}","valid":true,"tech_info":"LIKP-LIFSK"},{"multi_lang_alias":[],"field":"DeliveryNoteHeader__LFART","field_details":"{\"width\":84}","valid":true,"tech_info":"LIKP-LFART"},{"multi_lang_alias":[],"field":"Customer__Customer","field_details":"{\"width\":104}","valid":true,"tech_info":"KNA1-KUNNR"},{"multi_lang_alias":[],"field":"Customer__Description","field_details":"{\"width\":120}","valid":true,"tech_info":"KNA1-NAME1"},{"multi_lang_alias":[],"field":"ShipToParty__Customer","field_details":"{\"width\":105}","valid":true,"tech_info":"KNA1-KUNNR"},{"multi_lang_alias":[],"field":"ShipToParty__Description","field_details":"{\"width\":120}","valid":true,"tech_info":"KNA1-NAME1"},{"multi_lang_alias":[],"field":"ExecutionStatus","field_details":"{\"width\":97,\"format\":\"shn\"}","valid":true,"tech_info":""},{"multi_lang_alias":[],"field":"CreationDate","field_details":"{\"width\":97}","valid":true,"tech_info":"LIPS-ERDAT"},{"multi_lang_alias":[],"field":"OrderDueDate","field_details":"{\"width\":97}","valid":true,"tech_info":"LIKP-WADAT;LIKP-LFDAT"},{"multi_lang_alias":[],"field":"DeliveryStatus","field_details":"{\"width\":88,\"format\":\"shn\"}","valid":true,"tech_info":""},{"multi_lang_alias":[],"field":"Material__Material","field_details":"{\"width\":89}","valid":true,"tech_info":""},{"multi_lang_alias":[],"field":"Material__Description","field_details":"{\"width\":212}","valid":true,"tech_info":"MAKT-MAKTX"},{"multi_lang_alias":[],"field":"Quantity","field_details":"{\"width\":90}","valid":true,"tech_info":"LIPS-LGMNG"},{"multi_lang_alias":[],"field":"Material__BaseUnitOfMeasure","field_details":"{\"width\":35,\"format\":\"shn\"}","valid":true,"tech_info":"MARA-MEINS"},{"multi_lang_alias":[],"field":"IssuingPlant","field_details":"{\"width\":80,\"format\":\"shn\"}","valid":true,"tech_info":""}],"state":"/models/1/angles/596/displays/2989/state","uri":"/models/1/angles/596/displays/2989","authorizations":{"update":true,"delete":true,"publish":false,"unpublish":true,"make_angle_default":true},"created":{"user":"/users/1","datetime":1557132144,"full_name":"EAAdmin"},"user_specific":{"is_user_default":false,"execute_on_login":false},"is_public":true,"contained_aggregation_steps":false,"used_in_task":false,"display_type":"list","is_angle_default":false,"id":"_21e42cdb_0aa7_4105_957c_0dfc15ec2171"},{"multi_lang_name":[{"lang":"de","text":"Basisliste"},{"lang":"en","text":"Basic List"},{"lang":"es","text":"Lista Básica"},{"lang":"fr","text":"Liste De Base"},{"lang":"nl","text":"Basislijst"}],"multi_lang_description":[{"lang":"de","text":"<div id=\"summary\" /><div class=\" section\" id=\"S1438245618392843\"><p class=\"\" id=\"P1438245618407814\" /></div>"},{"lang":"en","text":"<div id=\"summary\" /><div class=\" section\" id=\"S1438245618392843\"><p class=\"\" id=\"P1438245618407814\" /></div>"},{"lang":"es","text":"<div id=\"summary\" /><div class=\" section\" id=\"S1438245618392843\"><p class=\"\" id=\"P1438245618407814\" /></div>"},{"lang":"fr","text":"<div id=\"summary\" /><div class=\" section\" id=\"S1438245618392843\"><p class=\"\" id=\"P1438245618407814\" /></div>"},{"lang":"nl","text":"<div id=\"summary\" /><div class=\" section\" id=\"S1438245618392843\"><p class=\"\" id=\"P1438245618407814\" /></div>"}],"angle_id":"596","display_details":"{}","query_blocks":[],"fields":[{"multi_lang_alias":[],"field":"ObjectType","field_details":"{\"width\":90,\"format\":\"shn\"}","valid":true,"tech_info":""},{"multi_lang_alias":[],"field":"ID","field_details":"{\"width\":93}","valid":true,"tech_info":""},{"multi_lang_alias":[],"field":"DeliveryNoteHeader__LFART","field_details":"{\"width\":98,\"format\":\"shnln\"}","valid":true,"tech_info":"LIKP-LFART"},{"multi_lang_alias":[],"field":"ExecutionStatus","field_details":"{\"width\":97,\"format\":\"shn\"}","valid":true,"tech_info":""},{"multi_lang_alias":[],"field":"OverallStatus","field_details":"{\"width\":80,\"format\":\"ln\"}","valid":true,"tech_info":"VBUP-GBSTA"},{"multi_lang_alias":[],"field":"OrderDueDate","field_details":"{\"width\":87}","valid":true,"tech_info":"LIKP-WADAT;LIKP-LFDAT"},{"multi_lang_alias":[],"field":"DeliveryStatus","field_details":"{\"width\":125,\"format\":\"shn\"}","valid":true,"tech_info":""},{"multi_lang_alias":[],"field":"RealizedFinishDate","field_details":"{\"width\":96}","valid":true,"tech_info":"LIKP-WADAT_IST"},{"multi_lang_alias":[],"field":"IssuingPlant","field_details":"{\"width\":80,\"format\":\"shn\"}","valid":true,"tech_info":""},{"multi_lang_alias":[],"field":"Material__Material","field_details":"{\"width\":85}","valid":true,"tech_info":""},{"multi_lang_alias":[],"field":"Material__Description","field_details":"{\"width\":218}","valid":true,"tech_info":"MAKT-MAKTX"},{"multi_lang_alias":[],"field":"Quantity","field_details":"{\"width\":85}","valid":true,"tech_info":"LIPS-LGMNG"},{"multi_lang_alias":[],"field":"Material__BaseUnitOfMeasure","field_details":"{\"width\":35,\"format\":\"shn\"}","valid":true,"tech_info":"MARA-MEINS"},{"multi_lang_alias":[],"field":"Customer__Customer","field_details":"{\"width\":96}","valid":true,"tech_info":"KNA1-KUNNR"},{"multi_lang_alias":[],"field":"Customer__Description","field_details":"{\"width\":176}","valid":true,"tech_info":"KNA1-NAME1"},{"multi_lang_alias":[],"field":"PickingStatus","field_details":"{\"width\":79,\"format\":\"shn\"}","valid":true,"tech_info":"VBUP-KOSTA"},{"multi_lang_alias":[],"field":"WarehouseManagementActivityStatus","field_details":"{\"width\":103,\"format\":\"shn\"}","valid":true,"tech_info":"VBUP-LVSTA"},{"multi_lang_alias":[],"field":"RejectionStatus","field_details":"{\"width\":91}","valid":true,"tech_info":"VBUP-ABSTA"},{"multi_lang_alias":[],"field":"ShipToParty__Customer","field_details":"{\"width\":80}","valid":true,"tech_info":"KNA1-KUNNR"},{"multi_lang_alias":[],"field":"ShipToParty__Description","field_details":"{\"width\":181}","valid":true,"tech_info":"KNA1-NAME1"}],"state":"/models/1/angles/596/displays/2990/state","uri":"/models/1/angles/596/displays/2990","authorizations":{"update":true,"delete":true,"publish":false,"unpublish":true,"make_angle_default":true},"created":{"user":"/users/1","datetime":1557132144,"full_name":"EAAdmin"},"user_specific":{"is_user_default":false,"execute_on_login":false},"is_public":true,"contained_aggregation_steps":false,"used_in_task":false,"display_type":"list","is_angle_default":false,"id":"_3093dc7e_b30c_4156_a624_a855d8fa2112"},{"multi_lang_name":[{"lang":"de","text":"Erstellt, aber keine Warenausgabe"},{"lang":"en","text":"Created but no Goods Issue"},{"lang":"es","text":"Creado pero sin Entrada de Mercancías"},{"lang":"fr","text":"Créé, mais sans Sortie Marchandises"},{"lang":"nl","text":"Aangemaakt maar Geen Goederenafgifte"}],"multi_lang_description":[{"lang":"de","text":"<div id=\"summary\" /><div class=\" section\" id=\"S1440680446545843\"><p class=\"\" id=\"Pidelem4x31309\">Erstellt, es fand jedoch in den letzten 30 Tagen keine Warenausgabe statt.</p></div>"},{"lang":"en","text":"<div id=\"summary\" /><div class=\" section\" id=\"S1440680446545843\"><p class=\"\" id=\"Pidelem4x31309\">Created but no goods issue has taken place within the last 30 days.</p></div>"},{"lang":"es","text":"<div id=\"summary\" /><div class=\" section\" id=\"S1440680446545843\"><p class=\"\" id=\"Pidelem4x31309\">Se ha creado pero no se ha producido ninguna entrada de mercancías en los últimos 30 días.</p></div>"},{"lang":"fr","text":"<div id=\"summary\" /><div class=\" section\" id=\"S1440680446545843\"><p class=\"\" id=\"Pidelem4x31309\">Créé, mais aucune sortie de marchandises n'a eu lieu au cours des 30 derniers jours.</p></div>"},{"lang":"nl","text":"<div id=\"summary\" /><div class=\" section\" id=\"S1440680446545843\"><p class=\"\" id=\"Pidelem4x31309\">Aangemaakt, maar in de afgelopen 30 dagen is er geen goederenafgifte geweest.</p></div>"}],"angle_id":"596","display_details":"{}","query_blocks":[{"query_steps":[{"field":"GoodsMovementStatus","operator":"not_equal_to","arguments":[{"argument_type":"value","value":"C"}],"step_type":"filter","tech_info":"VBUP-WBSTA"},{"field":"CreationDate","operator":"relative_before","arguments":[{"argument_type":"value","value":-30}],"step_type":"filter","tech_info":"LIPS-ERDAT"}],"queryblock_type":"query_steps"}],"fields":[{"multi_lang_alias":[],"field":"ObjectType","field_details":"{\"width\":90,\"format\":\"shn\"}","valid":true,"tech_info":""},{"multi_lang_alias":[],"field":"ID","field_details":"{\"width\":97}","valid":true,"tech_info":""},{"multi_lang_alias":[],"field":"ExecutionStatus","field_details":"{\"width\":97,\"format\":\"shn\"}","valid":true,"tech_info":""},{"multi_lang_alias":[],"field":"DeliveryStatus","field_details":"{\"width\":88,\"format\":\"shn\"}","valid":true,"tech_info":""},{"multi_lang_alias":[],"field":"OrderDueDate","field_details":"{\"width\":97}","valid":true,"tech_info":"LIKP-WADAT;LIKP-LFDAT"},{"multi_lang_alias":[],"field":"CreationDate","field_details":"{\"width\":86}","valid":true,"tech_info":"LIPS-ERDAT"},{"multi_lang_alias":[],"field":"WarehouseManagementActivityStatus","field_details":"{\"width\":134,\"format\":\"ln\"}","valid":true,"tech_info":"VBUP-LVSTA"},{"multi_lang_alias":[],"field":"PickingStatus","field_details":"{\"width\":120,\"format\":\"ln\"}","valid":true,"tech_info":"VBUP-KOSTA"},{"multi_lang_alias":[],"field":"GoodsMovementStatus","field_details":"{\"width\":137,\"format\":\"ln\"}","valid":true,"tech_info":"VBUP-WBSTA"},{"multi_lang_alias":[],"field":"OverallStatus","field_details":"{\"width\":120,\"format\":\"ln\"}","valid":true,"tech_info":"VBUP-GBSTA"},{"multi_lang_alias":[],"field":"Customer__Customer","field_details":"{\"width\":92}","valid":true,"tech_info":"KNA1-KUNNR"},{"multi_lang_alias":[],"field":"Customer__Description","field_details":"{\"width\":120}","valid":true,"tech_info":"KNA1-NAME1"},{"multi_lang_alias":[],"field":"ShipToAddress__AddressID","field_details":"{\"width\":92}","valid":true,"tech_info":"ADRC-ADDRNUMBER"},{"multi_lang_alias":[],"field":"ShipToAddress__Description","field_details":"{\"width\":164}","valid":true,"tech_info":"ADRC-NAME1"},{"multi_lang_alias":[],"field":"Material__Material","field_details":"{\"width\":108}","valid":true,"tech_info":""},{"multi_lang_alias":[],"field":"Material__Description","field_details":"{\"width\":165}","valid":true,"tech_info":"MAKT-MAKTX"},{"multi_lang_alias":[],"field":"Quantity","field_details":"{\"width\":90}","valid":true,"tech_info":"LIPS-LGMNG"},{"multi_lang_alias":[],"field":"Material__BaseUnitOfMeasure","field_details":"{\"width\":35,\"format\":\"shn\"}","valid":true,"tech_info":"MARA-MEINS"},{"multi_lang_alias":[],"field":"IssuingPlant","field_details":"{\"width\":80,\"format\":\"shn\"}","valid":true,"tech_info":""},{"multi_lang_alias":[],"field":"DeliveryNoteHeader__LFART","field_details":"{\"width\":90,\"format\":\"shnln\"}","valid":true,"tech_info":"LIKP-LFART"}],"state":"/models/1/angles/596/displays/2991/state","uri":"/models/1/angles/596/displays/2991","authorizations":{"update":true,"delete":true,"publish":false,"unpublish":true,"make_angle_default":true},"created":{"user":"/users/1","datetime":1557132144,"full_name":"EAAdmin"},"user_specific":{"is_user_default":false,"execute_on_login":false},"is_public":true,"contained_aggregation_steps":false,"used_in_task":false,"display_type":"list","is_angle_default":false,"id":"_4d25c68b_cf32_40d3_87fc_9b23abecab08"},{"multi_lang_name":[{"lang":"de","text":"Abgeschlossen, aber nicht fakturiert"},{"lang":"en","text":"Closed but Not Billed"},{"lang":"es","text":"Cerrado pero No Facturado"},{"lang":"fr","text":"Fermé, mais Non Facturé"},{"lang":"nl","text":"Gesloten maar Niet Gefactureerd"}],"multi_lang_description":[{"lang":"de","text":"<div id=\"summary\" />"},{"lang":"en","text":"<div id=\"summary\" />"},{"lang":"es","text":"<div id=\"summary\" />"},{"lang":"fr","text":"<div id=\"summary\" />"},{"lang":"nl","text":"<div id=\"summary\" />"}],"angle_id":"596","display_details":"{}","query_blocks":[{"query_steps":[{"field":"ExecutionStatus","operator":"in_set","arguments":[{"argument_type":"value","value":"es2FullyExecuted"}],"step_type":"filter"}],"queryblock_type":"query_steps"}],"fields":[{"multi_lang_alias":[],"field":"ObjectType","field_details":"{\"width\":99,\"format\":\"shn\"}","valid":true,"tech_info":""},{"multi_lang_alias":[],"field":"ID","field_details":"{\"width\":97}","valid":true,"tech_info":""},{"multi_lang_alias":[],"field":"CreationDate","field_details":"{\"width\":82}","valid":true,"tech_info":"LIPS-ERDAT"},{"multi_lang_alias":[],"field":"OrderDueDate","field_details":"{\"width\":97}","valid":true,"tech_info":"LIKP-WADAT;LIKP-LFDAT"},{"multi_lang_alias":[],"field":"RealizedFinishDate","field_details":"{\"width\":97}","valid":true,"tech_info":"LIKP-WADAT_IST"},{"multi_lang_alias":[],"field":"DeliveryStatus","field_details":"{\"width\":138,\"format\":\"shn\"}","valid":true,"tech_info":""},{"multi_lang_alias":[],"field":"SalesOrderLine__OrderNumber","field_details":"{\"width\":120}","valid":true,"tech_info":""},{"multi_lang_alias":[],"field":"SalesOrder__FAKSK","field_details":"{\"width\":120}","valid":true,"tech_info":"VKDFS_VBELN-FAKSK"},{"multi_lang_alias":[],"field":"Customer__Customer","field_details":"{\"width\":108}","valid":true,"tech_info":"KNA1-KUNNR"},{"multi_lang_alias":[],"field":"Customer__Description","field_details":"{\"width\":230}","valid":true,"tech_info":"KNA1-NAME1"},{"multi_lang_alias":[],"field":"Material__Material","field_details":"{\"width\":110}","valid":true,"tech_info":""},{"multi_lang_alias":[],"field":"Material__Description","field_details":"{\"width\":229}","valid":true,"tech_info":"MAKT-MAKTX"},{"multi_lang_alias":[],"field":"Quantity","field_details":"{\"width\":88}","valid":true,"tech_info":"LIPS-LGMNG"},{"multi_lang_alias":[],"field":"Material__BaseUnitOfMeasure","field_details":"{\"width\":35,\"format\":\"shn\"}","valid":true,"tech_info":"MARA-MEINS"},{"multi_lang_alias":[],"field":"IssuingPlant","field_details":"{\"width\":80,\"format\":\"shn\"}","valid":true,"tech_info":""},{"multi_lang_alias":[],"field":"DeliveryNoteHeader__LFART","field_details":"{\"width\":118,\"format\":\"shnln\"}","valid":true,"tech_info":"LIKP-LFART"},{"multi_lang_alias":[],"field":"MaterialValue","field_details":"{\"width\":120}","valid":true,"tech_info":""},{"multi_lang_alias":[],"field":"SalesOrderLine__SalesValue","field_details":"{\"width\":120}","valid":true,"tech_info":""}],"state":"/models/1/angles/596/displays/2992/state","uri":"/models/1/angles/596/displays/2992","authorizations":{"update":true,"delete":true,"publish":false,"unpublish":true,"make_angle_default":true},"created":{"user":"/users/1","datetime":1557132144,"full_name":"EAAdmin"},"user_specific":{"is_user_default":false,"execute_on_login":false},"is_public":true,"contained_aggregation_steps":false,"used_in_task":false,"display_type":"list","is_angle_default":false,"id":"_7deea09d_c1f6_4fdc_98cd_4f98e4417b95"},{"multi_lang_name":[{"lang":"de","text":"Anzahl nach Buchungskreis und Jahr"},{"lang":"en","text":"No. per Company Code and Year"},{"lang":"es","text":"N.º por Sociedad y Año"},{"lang":"fr","text":"Nombre par Société et Exercice"},{"lang":"nl","text":"Aantal per Bedrijfsnummer en Jaar"}],"multi_lang_description":[{"lang":"de","text":"<div id=\"summary\" />"},{"lang":"en","text":"<div id=\"summary\" />"},{"lang":"es","text":"<div id=\"summary\" />"},{"lang":"fr","text":"<div id=\"summary\" />"},{"lang":"nl","text":"<div id=\"summary\" />"}],"angle_id":"596","display_details":"{\"chart_type\":\"column\",\"stack\":true,\"multi_axis\":false,\"layout\":null,\"drilldown_display\":\"_3093dc7e_b30c_4156_a624_a855d8fa2112\",\"axistitle\":\"show\",\"axisvalue\":\"show\",\"datalabel\":\"mouse\",\"gridline\":\"show\",\"legend\":\"show\",\"range\":{\"start\":0,\"size\":50},\"count_index\":0}","query_blocks":[{"query_steps":[{"aggregation_fields":[{"field":"count","operator":"count"}],"grouping_fields":[{"field":"year_RealizedFinishDate","operator":"year","source_field":"RealizedFinishDate","tech_info":"LIKP-WADAT_IST"},{"field":"individual_CompanyCode__CompanyCode","operator":"individual","source_field":"CompanyCode__CompanyCode","tech_info":"T001-BUKRS"}],"step_type":"aggregation"}],"queryblock_type":"query_steps"}],"fields":[{"multi_lang_alias":[],"field":"year_RealizedFinishDate","field_details":"{\"pivot_area\":\"row\"}","valid":true},{"multi_lang_alias":[],"field":"individual_CompanyCode__CompanyCode","field_details":"{\"pivot_area\":\"column\",\"format\":\"shnln\"}","valid":true},{"multi_lang_alias":[],"field":"count","field_details":"{\"pivot_area\":\"data\",\"prefix\":null,\"decimals\":0}","valid":true}],"state":"/models/1/angles/596/displays/2993/state","uri":"/models/1/angles/596/displays/2993","authorizations":{"update":true,"delete":false,"publish":false,"unpublish":false,"make_angle_default":false},"created":{"user":"/users/1","datetime":1557132144,"full_name":"EAAdmin"},"user_specific":{"is_user_default":false,"execute_on_login":false},"is_public":true,"contained_aggregation_steps":true,"used_in_task":false,"display_type":"chart","is_angle_default":true,"id":"_8ca54d15_9271_45ef_9269_816e48c1fde1"},{"multi_lang_name":[{"lang":"de","text":"Anzahl und Verkaufswert pro Werk"},{"lang":"en","text":"No. and Sales Value per Plant"},{"lang":"es","text":"N.º y Valor de Ventas por Centro"},{"lang":"fr","text":"Numéro et Valeur de la Commande Client par Division"},{"lang":"nl","text":"Aantal en Verkoopwaarde per Vestiging"}],"multi_lang_description":[{"lang":"de","text":"<div id=\"summary\" /><div class=\" section\" id=\"S1441100605018423\"><p class=\"\" id=\"P1441100605018944\">Anzahl und Verkaufswert pro Werk und Vertriebsbelegtyp.</p></div>"},{"lang":"en","text":"<div id=\"summary\" /><div class=\" section\" id=\"S1441100605018423\"><p class=\"\" id=\"P1441100605018944\">Number and sales value per plant and per SD document category.</p></div>"},{"lang":"es","text":"<div id=\"summary\" /><div class=\" section\" id=\"S1441100605018423\"><p class=\"\" id=\"P1441100605018944\">Número y valor de ventas por centro y por tipo de documento comercial.</p></div>"},{"lang":"fr","text":"<div id=\"summary\" /><div class=\" section\" id=\"S1441100605018423\"><p class=\"\" id=\"P1441100605018944\">Numéro et valeur de la commande client par division et type de document commercial.</p></div>"},{"lang":"nl","text":"<div id=\"summary\" /><div class=\" section\" id=\"S1441100605018423\"><p class=\"\" id=\"P1441100605018944\">Aantal en verkoopwaarde per vestiging en verkoopdocumenttype.</p></div>"}],"angle_id":"596","display_details":"{\"chart_type\":\"column\",\"stack\":false,\"multi_axis\":true,\"layout\":null,\"drilldown_display\":\"_3093dc7e_b30c_4156_a624_a855d8fa2112\"}","query_blocks":[{"query_steps":[{"aggregation_fields":[{"field":"count","operator":"count"},{"field":"sum_SalesOrderLine__SalesValue","operator":"sum","source_field":"SalesOrderLine__SalesValue","tech_info":""}],"grouping_fields":[{"field":"individual_Plant__Plant","operator":"individual","source_field":"Plant__Plant","tech_info":"T001W-WERKS"},{"field":"individual_DeliveryNoteHeader__SalesDocumentCategory","operator":"individual","source_field":"DeliveryNoteHeader__SalesDocumentCategory","tech_info":"LIKP-VBTYP"}],"step_type":"aggregation"}],"queryblock_type":"query_steps"}],"fields":[{"multi_lang_alias":[],"field":"individual_Plant__Plant","field_details":"{\"pivot_area\":\"row\",\"format\":\"shnln\"}","valid":true},{"multi_lang_alias":[],"field":"individual_DeliveryNoteHeader__SalesDocumentCategory","field_details":"{\"pivot_area\":\"column\",\"format\":\"shnln\"}","valid":true},{"multi_lang_alias":[],"field":"count","field_details":"{\"pivot_area\":\"data\",\"prefix\":null,\"decimals\":0,\"thousandseparator\":true}","valid":true},{"multi_lang_alias":[],"field":"sum_SalesOrderLine__SalesValue","field_details":"{\"pivot_area\":\"data\",\"prefix\":\"K\",\"decimals\":0}","valid":true}],"state":"/models/1/angles/596/displays/2994/state","uri":"/models/1/angles/596/displays/2994","authorizations":{"update":true,"delete":true,"publish":false,"unpublish":true,"make_angle_default":true},"created":{"user":"/users/1","datetime":1557132144,"full_name":"EAAdmin"},"user_specific":{"is_user_default":false,"execute_on_login":false},"is_public":true,"contained_aggregation_steps":true,"used_in_task":false,"display_type":"chart","is_angle_default":false,"id":"_b96e9f7f_7caa_48ec_977e_cc99e786a3e6"},{"multi_lang_name":[{"lang":"de","text":"Anzahl nach Erstellungsdatum"},{"lang":"en","text":"No. per Creation Date"},{"lang":"es","text":"N.º por Fecha de Creación"},{"lang":"fr","text":"Nombre par Date de Création"},{"lang":"nl","text":"Aantal per Aanmaakdatum"}],"multi_lang_description":[{"lang":"de","text":"<div id=\"summary\" /><div class=\" section\" id=\"S1441114252293343\"><p class=\"\" id=\"P1441114252293674\">Anzahl pro Erstellungsdatum und Lieferart.</p></div>"},{"lang":"en","text":"<div id=\"summary\" /><div class=\" section\" id=\"S1441114252293343\"><p class=\"\" id=\"P1441114252293674\">Number per creation date and delivery type.</p></div>"},{"lang":"es","text":"<div id=\"summary\" /><div class=\" section\" id=\"S1441114252293343\"><p class=\"\" id=\"P1441114252293674\">Número por fecha de creación y clase de entrega.</p></div>"},{"lang":"fr","text":"<div id=\"summary\" /><div class=\" section\" id=\"S1441114252293343\"><p class=\"\" id=\"P1441114252293674\">Nombre par date de création et type d'article.</p></div>"},{"lang":"nl","text":"<div id=\"summary\" /><div class=\" section\" id=\"S1441114252293343\"><p class=\"\" id=\"P1441114252293674\">Aantal per aanmaakdatum en leveringssoort.</p></div>"}],"angle_id":"596","display_details":"{\"chart_type\":\"column\",\"stack\":true,\"multi_axis\":false,\"layout\":null,\"drilldown_display\":\"_3093dc7e_b30c_4156_a624_a855d8fa2112\"}","query_blocks":[{"query_steps":[{"aggregation_fields":[{"field":"count","operator":"count"}],"grouping_fields":[{"field":"quarter_CreationDate","operator":"quarter","source_field":"CreationDate","tech_info":"LIPS-ERDAT"},{"field":"individual_DeliveryNoteHeader__LFART","operator":"individual","source_field":"DeliveryNoteHeader__LFART","tech_info":"LIKP-LFART"}],"step_type":"aggregation"}],"queryblock_type":"query_steps"}],"fields":[{"multi_lang_alias":[],"field":"quarter_CreationDate","field_details":"{\"pivot_area\":\"row\"}","valid":true},{"multi_lang_alias":[],"field":"individual_DeliveryNoteHeader__LFART","field_details":"{\"pivot_area\":\"column\",\"format\":\"shnln\"}","valid":true},{"multi_lang_alias":[],"field":"count","field_details":"{\"pivot_area\":\"data\",\"prefix\":null,\"decimals\":0}","valid":true}],"state":"/models/1/angles/596/displays/2995/state","uri":"/models/1/angles/596/displays/2995","authorizations":{"update":true,"delete":true,"publish":false,"unpublish":true,"make_angle_default":true},"created":{"user":"/users/1","datetime":1557132144,"full_name":"EAAdmin"},"user_specific":{"is_user_default":false,"execute_on_login":false},"is_public":true,"contained_aggregation_steps":true,"used_in_task":false,"display_type":"chart","is_angle_default":false,"id":"d3152a13a3aba036edf0e6742ac33811d"},{"multi_lang_name":[{"lang":"de","text":"Engpässe"},{"lang":"en","text":"Bottlenecks"},{"lang":"es","text":"Cuellos de Botella"},{"lang":"fr","text":"Goulots d’Étranglement"},{"lang":"nl","text":"Bottlenecks"}],"multi_lang_description":[{"lang":"de","text":"<div id=\"summary\" /><div class=\" section\" id=\"S1440505941502383\"><p class=\"\" id=\"P1440505941502784\" /></div>"},{"lang":"en","text":"<div id=\"summary\" /><div class=\" section\" id=\"S1440505941502383\"><p class=\"\" id=\"P1440505941502784\" /></div>"},{"lang":"es","text":"<div id=\"summary\" /><div class=\" section\" id=\"S1440505941502383\"><p class=\"\" id=\"P1440505941502784\" /></div>"},{"lang":"fr","text":"<div id=\"summary\" /><div class=\" section\" id=\"S1440505941502383\"><p class=\"\" id=\"P1440505941502784\" /></div>"},{"lang":"nl","text":"<div id=\"summary\" /><div class=\" section\" id=\"S1440505941502383\"><p class=\"\" id=\"P1440505941502784\" /></div>"}],"angle_id":"596","display_details":"{\"columns\":{\"header\":[231,189],\"data\":[63,182,63,145,63,145,63,144]},\"layout\":\"{\\\"layout\\\":\\\"CgYAAPIHoHfyAHfyAaF38gIA8gGgd/IDd/IEoXfyBQDyAaB38gahoXfyB/IF8gWhd/IIAPIToHfyCXfyCqF38gsA8gKgd/IMd/INoHfyDnfyD6F38hAA8gKhd/IR8gDyAKB38hJ38gGhd/ITAPIFoHfyFHfyFaF38hbyAPIAoHfyF3fyAaB38hihoHfyGXfyGqF38hsA8gWgd/IcAKB38h0AoHfyHnfyH6B38iB38gGgd/Ihd/IBoXfyIgDyAqB38gx38g2gd/IOd/IPoHfyI/IAoXfyJADyAqB38iV38iagd/InoKB38ih38gGgd/Ipd/IqoXfyKwDyAqB38iV38iagd/InoKF38iwA8gGgd/Itd/IuoXfyL/IA8gChd/IwAPIBoHfyJQCgd/Ixd/IyoXfyM/IA8gChd/I0APIBoHfyJXfyNaB38jbyAKB38jd38jihd/I5APIToHfyCXfyOqF38gsA8gKgd/IMd/INoHfyDnfyD6F38hAA8gKhd/IR8gDyAKB38hJ38gGhd/ITAPIFoHfyFHfyFaF38hbyAPIAoHfyF3fyAaB38hihoHfyGXfyGqF38hsA8gWgd/IcAKB38h0AoHfyHnfyH6B38iB38gGgd/Ihd/IBoXfyIgDyAqB38gx38g2gd/IOd/IPoHfyI/IBoXfyJADyAqB38iV38iagd/InoKB38ih38gGgd/Ipd/I7oXfyKwDyAqB38iV38iagd/InoKF38iwA8gGgd/Itd/IuoXfyL/IA8gChd/IwAPIBoHfyJQCgd/Ixd/IyoXfyM/IA8gChd/I0APIBoHfyJXfyNaB38jbyAaB38jd38jihd/I8APIToHfyCXfyPaF38gsA8gKgd/IMd/I+oHfyDnfyD6F38hAA8gKhd/IR8gDyAKB38hJ38gGhd/ITAPIFoHfyFHfyFaF38hbyAPIAoHfyF3fyAaB38hihoHfyGXfyGqF38hsA8gWgd/IcAKB38h0AoHfyHnfyH6B38iB38gGgd/Ihd/IBoXfyIgDyAqB38gx38j6gd/IOd/IPoHfyI/ICoXfyJADyAqB38iV38iagd/InoKB38ih38gGgd/Ipd/I/oXfyKwDyAqB38iV38iagd/InoKF38iwA8gGgd/Itd/IuoXfyL/IA8gChd/IwAPIBoHfyJQCgd/Ixd/JAoXfyM/IA8gChd/I0APIBoHfyJXfyQaB38jbyAKB38jd38jihd/JCAPIToHfyCXfyQ6F38gsA8gKgd/IMd/JEoHfyDnfyD6F38hAA8gKhd/IR8gDyAKB38hJ38gGhd/ITAPIFoHfyFHfyFaF38hbyAPIAoHfyF3fyAaB38hihoHfyGXfyGqF38hsA8gWgd/IcAKB38h0AoHfyHnfyH6B38iB38gGgd/Ihd/IBoXfyIgDyAqB38gx38kSgd/IOd/IPoHfyI/IDoXfyJADyAqB38iV38iagd/InoKB38ih38gGgd/Ipd/JFoXfyKwDyAqB38iV38iagd/InoKF38iwA8gGgd/Itd/IuoXfyL/IA8gChd/IwAPIBoHfyJQCgd/Ixd/JGoXfyM/IA8gChd/I0APIBoHfyJXfyR6B38jbyAKB38jd38jihd/JIAPIToHfyCXfySaF38gsA8gKgd/IMd/JKoHfyDnfyD6F38hAA8gKhd/IR8gDyAKB38hJ38gGhd/ITAPIFoHfyFHfyFaF38hbyAPIAoHfyF3fyAaB38hihoHfyGXfyGqF38hsA8gWgd/IcAKB38h0AoHfyHnfyH6B38iB38gGgd/Ihd/IBoXfyIgDyAqB38gx38kqgd/IOd/IPoHfyI/IEoXfyJADyAqB38iV38iagd/InoKB38ih38gGgd/Ipd/JLoXfyKwDyAqB38iV38iagd/InoKF38iwA8gGgd/Itd/IuoXfyL/IA8gChd/IwAPIBoHfyJQCgd/Ixd/JGoXfyM/IA8gChd/I0APIBoHfyJXfyTKB38jbyAaB38jd38jihd/JNAPIEoHfyTqCgd/JPoKB38lCgoHfyUaGhd/JSAPIBoHfyU/JkoXfyVPIA8gDyVQ4jTGF5b3V0VmVyc2lvbgAPT3B0aW9uc0JlaGF2aW9yGVNvcnRCeVN1bW1hcnlEZWZhdWx0T3JkZXIKRGVzY2VuZGluZwtPcHRpb25zVmlldxdTaG93SG9yaXpvbnRhbFNjcm9sbEJhcgZGaWVsZHMFSXRlbTEHQ2FwdGlvbhtDb21wYW55IENvZGUgLSBDb21wYW55IENvZGULVmFsdWVGb3JtYXQMRm9ybWF0U3RyaW5nBXNobmxuCkZvcm1hdFR5cGUGQ3VzdG9tEVNvcnRCeVN1bW1hcnlJbmZvCkNvbmRpdGlvbnMSRmllbGRDb21wb25lbnROYW1lDEZpbHRlclZhbHVlcwZWYWx1ZXMOflh0cmEjQXJyYXkwLCAKVmFsdWVzQ29yZRFEZWZlckZpbHRlclN0cmluZwpTaG93QmxhbmtzCkZpbHRlclR5cGUIRXhjbHVkZWQNU3VtbWFyeUZpbHRlcgpTdGFydFZhbHVlCEVuZFZhbHVlBE1vZGUJTGFzdExldmVsFVJvd0ZpZWxkQ29tcG9uZW50TmFtZRhDb2x1bW5GaWVsZENvbXBvbmVudE5hbWUKQ2VsbEZvcm1hdAVJbmRleApWYWx1ZVN0eWxlCVZpZXdTdGF0ZcwEflh0cmEjQXJyYXkxMiwgT2JqZWN0LCwgU3lzdGVtLkNvbGxlY3Rpb25zLkFycmF5TGlzdCwsLCwgbXNjb3JsaWIsLCwsIFZlcnNpb249NC4wLjAuMCwsLCwgQ3VsdHVyZT1uZXV0cmFsLCwsLCBQdWJsaWNLZXlUb2tlbj1iNzdhNWM1NjE5MzRlMDg5LCwgflh0cmEjQmFzZTY0QUFFQUFBRC8vLy8vQVFBQUFBQUFBQUFFQVFBQUFCeFRlWE4wWlcwdVEyOXNiR1ZqZEdsdmJuTXVRWEp5WVhsTWFYTjBBd0FBQUFaZmFYUmxiWE1GWDNOcGVtVUlYM1psY25OcGIyNEZBQUFJQ0FrQ0FBQUFBZ0FBQUFJQUFBQVFBZ0FBQUFRQUFBQUpBd0FBQUFnQkFBMENEQVFBQUFCTlUzbHpkR1Z0TGxkbFlpd2dWbVZ5YzJsdmJqMDBMakF1TUM0d0xDQkRkV3gwZFhKbFBXNWxkWFJ5WVd3c0lGQjFZbXhwWTB0bGVWUnZhMlZ1UFdJd00yWTFaamRtTVRGa05UQmhNMkVGQXdBQUFCdFRlWE4wWlcwdVYyVmlMbFZKTGtsdVpHVjRaV1JUZEhKcGJtY0JBQUFBQmw5MllXeDFaUUVFQUFBQUJnVUFBQUFUVkc5d1FXeHBaMjVsWkZKdmQxWmhiSFZsY3dzPSwgbnVsbCwgbnVsbCwgbnVsbCwgbnVsbCwgbnVsbCwgbnVsbCwgbnVsbCwgbnVsbCwgbnVsbCwgbnVsbCwgbnVsbCwgE1RvcEFsaWduZWRSb3dWYWx1ZXMETmFtZQlGaWVsZE5hbWUjaW5kaXZpZHVhbF9Db21wYW55Q29kZV9fQ29tcGFueUNvZGUPVmFsdWVUb3RhbFN0eWxlB09wdGlvbnMSQWxsb3dTb3J0QnlTdW1tYXJ5BFRydWUMQ3VzdG9tVG90YWxzCUNlbGxTdHlsZQRBcmVhB1Jvd0FyZWEMQ2FsY3VsYXRpb25zC0hlYWRlclN0eWxl7AR+WHRyYSNBcnJheTEyLCBPYmplY3QsLCBTeXN0ZW0uQ29sbGVjdGlvbnMuQXJyYXlMaXN0LCwsLCBtc2NvcmxpYiwsLCwgVmVyc2lvbj00LjAuMC4wLCwsLCBDdWx0dXJlPW5ldXRyYWwsLCwsIFB1YmxpY0tleVRva2VuPWI3N2E1YzU2MTkzNGUwODksLCB+WHRyYSNCYXNlNjRBQUVBQUFELy8vLy9BUUFBQUFBQUFBQUVBUUFBQUJ4VGVYTjBaVzB1UTI5c2JHVmpkR2x2Ym5NdVFYSnlZWGxNYVhOMEF3QUFBQVpmYVhSbGJYTUZYM05wZW1VSVgzWmxjbk5wYjI0RkFBQUlDQWtDQUFBQUJBQUFBQVFBQUFBUUFnQUFBQVFBQUFBSkF3QUFBQVlFQUFBQUEzSnZkd2tGQUFBQUNBZ0NBQUFBREFZQUFBQk5VM2x6ZEdWdExsZGxZaXdnVm1WeWMybHZiajAwTGpBdU1DNHdMQ0JEZFd4MGRYSmxQVzVsZFhSeVlXd3NJRkIxWW14cFkwdGxlVlJ2YTJWdVBXSXdNMlkxWmpkbU1URmtOVEJoTTJFRkF3QUFBQnRUZVhOMFpXMHVWMlZpTGxWSkxrbHVaR1Y0WldSVGRISnBibWNCQUFBQUJsOTJZV3gxWlFFR0FBQUFCZ2NBQUFBSVEzTnpRMnhoYzNNQkJRQUFBQU1BQUFBR0NBQUFBQVJmSVZOQ0N3PT0sIG51bGwsIG51bGwsIG51bGwsIG51bGwsIG51bGwsIG51bGwsIG51bGwsIG51bGwsIG51bGwsIG51bGwsIG51bGwsIAlBcmVhSW5kZXgOQWN0dWFsU29ydE1vZGUHRGVmYXVsdAVJdGVtMg1QbGFudCAtIFBsYW50F2luZGl2aWR1YWxfUGxhbnRfX1BsYW50BUl0ZW0zGChTZWxmKSAtIEJvdHRsZW5lY2sgdHlwZQJsbhlpbmRpdmlkdWFsX0JvdHRsZW5lY2tUeXBlCkNvbHVtbkFyZWHwBH5YdHJhI0FycmF5MTIsIE9iamVjdCwsIFN5c3RlbS5Db2xsZWN0aW9ucy5BcnJheUxpc3QsLCwsIG1zY29ybGliLCwsLCBWZXJzaW9uPTQuMC4wLjAsLCwsIEN1bHR1cmU9bmV1dHJhbCwsLCwgUHVibGljS2V5VG9rZW49Yjc3YTVjNTYxOTM0ZTA4OSwsIH5YdHJhI0Jhc2U2NEFBRUFBQUQvLy8vL0FRQUFBQUFBQUFBRUFRQUFBQnhUZVhOMFpXMHVRMjlzYkdWamRHbHZibk11UVhKeVlYbE1hWE4wQXdBQUFBWmZhWFJsYlhNRlgzTnBlbVVJWDNabGNuTnBiMjRGQUFBSUNBa0NBQUFBQkFBQUFBUUFBQUFRQWdBQUFBUUFBQUFKQXdBQUFBWUVBQUFBQm1OdmJIVnRiZ2tGQUFBQUNBZ0NBQUFBREFZQUFBQk5VM2x6ZEdWdExsZGxZaXdnVm1WeWMybHZiajAwTGpBdU1DNHdMQ0JEZFd4MGRYSmxQVzVsZFhSeVlXd3NJRkIxWW14cFkwdGxlVlJ2YTJWdVBXSXdNMlkxWmpkbU1URmtOVEJoTTJFRkF3QUFBQnRUZVhOMFpXMHVWMlZpTGxWSkxrbHVaR1Y0WldSVGRISnBibWNCQUFBQUJsOTJZV3gxWlFFR0FBQUFCZ2NBQUFBSVEzTnpRMnhoYzNNQkJRQUFBQU1BQUFBR0NBQUFBQVJmSVZOQ0N3PT0sIG51bGwsIG51bGwsIG51bGwsIG51bGwsIG51bGwsIG51bGwsIG51bGwsIG51bGwsIG51bGwsIG51bGwsIG51bGwsIAVJdGVtNAVDb3VudAhGMCxjb3VudAVjb3VudAhEYXRhQXJlYfAEflh0cmEjQXJyYXkxMiwgT2JqZWN0LCwgU3lzdGVtLkNvbGxlY3Rpb25zLkFycmF5TGlzdCwsLCwgbXNjb3JsaWIsLCwsIFZlcnNpb249NC4wLjAuMCwsLCwgQ3VsdHVyZT1uZXV0cmFsLCwsLCBQdWJsaWNLZXlUb2tlbj1iNzdhNWM1NjE5MzRlMDg5LCwgflh0cmEjQmFzZTY0QUFFQUFBRC8vLy8vQVFBQUFBQUFBQUFFQVFBQUFCeFRlWE4wWlcwdVEyOXNiR1ZqZEdsdmJuTXVRWEp5WVhsTWFYTjBBd0FBQUFaZmFYUmxiWE1GWDNOcGVtVUlYM1psY25OcGIyNEZBQUFJQ0FrQ0FBQUFCQUFBQUFRQUFBQVFBZ0FBQUFRQUFBQUpBd0FBQUFZRUFBQUFCbTV2UkhKaFp3a0ZBQUFBQ0FnQ0FBQUFEQVlBQUFCTlUzbHpkR1Z0TGxkbFlpd2dWbVZ5YzJsdmJqMDBMakF1TUM0d0xDQkRkV3gwZFhKbFBXNWxkWFJ5WVd3c0lGQjFZbXhwWTB0bGVWUnZhMlZ1UFdJd00yWTFaamRtTVRGa05UQmhNMkVGQXdBQUFCdFRlWE4wWlcwdVYyVmlMbFZKTGtsdVpHVjRaV1JUZEhKcGJtY0JBQUFBQmw5MllXeDFaUUVHQUFBQUJnY0FBQUFJUTNOelEyeGhjM01CQlFBQUFBTUFBQUFHQ0FBQUFBUmZJVk5DQ3c9PSwgbnVsbCwgbnVsbCwgbnVsbCwgbnVsbCwgbnVsbCwgbnVsbCwgbnVsbCwgbnVsbCwgbnVsbCwgbnVsbCwgbnVsbCwgBUl0ZW01HihTZWxmKSAtIE1hdGVyaWFsIHZhbHVlICBbU3VtXQduLTMsc3VtEXN1bV9NYXRlcmlhbFZhbHVl7AR+WHRyYSNBcnJheTEyLCBPYmplY3QsLCBTeXN0ZW0uQ29sbGVjdGlvbnMuQXJyYXlMaXN0LCwsLCBtc2NvcmxpYiwsLCwgVmVyc2lvbj00LjAuMC4wLCwsLCBDdWx0dXJlPW5ldXRyYWwsLCwsIFB1YmxpY0tleVRva2VuPWI3N2E1YzU2MTkzNGUwODksLCB+WHRyYSNCYXNlNjRBQUVBQUFELy8vLy9BUUFBQUFBQUFBQUVBUUFBQUJ4VGVYTjBaVzB1UTI5c2JHVmpkR2x2Ym5NdVFYSnlZWGxNYVhOMEF3QUFBQVpmYVhSbGJYTUZYM05wZW1VSVgzWmxjbk5wYjI0RkFBQUlDQWtDQUFBQUJBQUFBQVFBQUFBUUFnQUFBQVFBQUFBSkF3QUFBQVlFQUFBQUJHUmhkR0VKQlFBQUFBZ0lBZ0FBQUF3R0FBQUFUVk41YzNSbGJTNVhaV0lzSUZabGNuTnBiMjQ5TkM0d0xqQXVNQ3dnUTNWc2RIVnlaVDF1WlhWMGNtRnNMQ0JRZFdKc2FXTkxaWGxVYjJ0bGJqMWlNRE5tTldZM1pqRXhaRFV3WVROaEJRTUFBQUFiVTNsemRHVnRMbGRsWWk1VlNTNUpibVJsZUdWa1UzUnlhVzVuQVFBQUFBWmZkbUZzZFdVQkJnQUFBQVlIQUFBQUNFTnpjME5zWVhOekFRVUFBQUFEQUFBQUJnZ0FBQUFFWHlGVFFncz0sIG51bGwsIG51bGwsIG51bGwsIG51bGwsIG51bGwsIG51bGwsIG51bGwsIG51bGwsIG51bGwsIG51bGwsIG51bGwsIBRPcHRpb25zQ3VzdG9taXphdGlvbg5BbGxvd1ByZWZpbHRlchxBbGxvd0RyYWdJbkN1c3RvbWl6YXRpb25Gb3JtCUFsbG93RHJhZw9EZWZlcnJlZFVwZGF0ZXMMT3B0aW9uc1BhZ2VyC1Jvd3NQZXJQYWdlBkdyb3Vwcw==\\\",\\\"collapse\\\":\\\"/v///wAAAAAAAAAAAAAAAP7///8BAAAAI2luZGl2aWR1YWxfQ29tcGFueUNvZGVfX0NvbXBhbnlDb2RlWlN5c3RlbS5TdHJpbmcsIG1zY29ybGliLCBWZXJzaW9uPTQuMC4wLjAsIEN1bHR1cmU9bmV1dHJhbCwgUHVibGljS2V5VG9rZW49Yjc3YTVjNTYxOTM0ZTA4OQABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==\\\"}\",\"drilldown_display\":\"_3093dc7e_b30c_4156_a624_a855d8fa2112\",\"collapse\":\"/v///wAAAAAAAAAAAAAAAP7///8BAAAAI2luZGl2aWR1YWxfQ29tcGFueUNvZGVfX0NvbXBhbnlDb2RlWlN5c3RlbS5TdHJpbmcsIG1zY29ybGliLCBWZXJzaW9uPTQuMC4wLjAsIEN1bHR1cmU9bmV1dHJhbCwgUHVibGljS2V5VG9rZW49Yjc3YTVjNTYxOTM0ZTA4OQABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==\"}","query_blocks":[{"query_steps":[{"field":"ExecutionStatus","operator":"in_set","arguments":[{"argument_type":"value","value":"es0ToBeExecuted"}],"step_type":"filter","tech_info":""},{"field":"BottleneckType","operator":"not_equal_to","arguments":[{"argument_type":"value","value":"bt00None"}],"step_type":"filter","tech_info":""},{"aggregation_fields":[{"field":"count","operator":"count"},{"field":"sum_MaterialValue","operator":"sum","source_field":"MaterialValue","tech_info":""}],"grouping_fields":[{"field":"individual_CompanyCode__CompanyCode","operator":"individual","source_field":"CompanyCode__CompanyCode","tech_info":"T001-BUKRS"},{"field":"individual_Plant__Plant","operator":"individual","source_field":"Plant__Plant","tech_info":"T001W-WERKS"},{"field":"individual_BottleneckType","operator":"individual","source_field":"BottleneckType","tech_info":""}],"step_type":"aggregation"}],"queryblock_type":"query_steps"}],"fields":[{"multi_lang_alias":[],"field":"individual_CompanyCode__CompanyCode","field_details":"{\"pivot_area\":\"row\",\"format\":\"shnln\"}","valid":true},{"multi_lang_alias":[],"field":"individual_Plant__Plant","field_details":"{\"pivot_area\":\"row\",\"format\":\"shnln\"}","valid":true},{"multi_lang_alias":[],"field":"individual_BottleneckType","field_details":"{\"pivot_area\":\"column\",\"format\":\"ln\"}","valid":true},{"multi_lang_alias":[],"field":"count","field_details":"{\"pivot_area\":\"data\"}","valid":true},{"multi_lang_alias":[],"field":"sum_MaterialValue","field_details":"{\"pivot_area\":\"data\",\"prefix\":\"K\",\"decimals\":0,\"thousandseparator\":true}","valid":true}],"state":"/models/1/angles/596/displays/2996/state","uri":"/models/1/angles/596/displays/2996","authorizations":{"update":true,"delete":true,"publish":false,"unpublish":true,"make_angle_default":true},"created":{"user":"/users/1","datetime":1557132144,"full_name":"EAAdmin"},"user_specific":{"is_user_default":false,"execute_on_login":false},"is_public":true,"contained_aggregation_steps":true,"used_in_task":false,"display_type":"pivot","is_angle_default":false,"id":"dc3f6b90b60ce03a686e45968de045471"}],"changed":{"user":"/users/1","datetime":1557132144,"full_name":"EAAdmin"},"published":{"user":"/users/1","datetime":1557132144,"full_name":"EAAdmin"},"id":"WEBHELP_WC_AngleWarning2","uri":"/models/1/angles/596","model":"/models/1","is_validated":false,"is_parameterized":false,"is_published":true,"is_template":false,"user_specific":{"execute_on_login":false,"is_starred":false,"private_tags":[],"times_executed":0},"created":{"user":"/users/1","datetime":1557132144,"full_name":"EAAdmin"},"has_warnings":false,"state":"/models/1/angles/596/state"}
+{
+    "multi_lang_name": [
+        {
+            "lang": "de",
+            "text": "Lieferung Position"
+        },
+        {
+            "lang": "en",
+            "text": "Delivery Item"
+        },
+        {
+            "lang": "es",
+            "text": "Entrega Posición"
+        },
+        {
+            "lang": "fr",
+            "text": "Livraison Poste"
+        },
+        {
+            "lang": "nl",
+            "text": "Levering Positie"
+        }
+    ],
+    "labels": "/models/1/angles/641/labels",
+    "assigned_labels": [
+        "P2P",
+        "S2D",
+        "O2C"
+    ],
+    "executed": {
+        "user": "/users/1",
+        "full_name": "EAAdmin",
+        "datetime": 1567577572
+    },
+    "displays": "/models/1/angles/641/displays",
+    "grouping_labels": "/models/1/angles/641/grouping_labels",
+    "id": "WEBHELP_WC_AngleWarning2",
+    "authorizations": {
+        "unvalidate": false,
+        "mark_template": true,
+        "unmark_template": false,
+        "update": true,
+        "publish": false,
+        "unpublish": true,
+        "create_private_display": true,
+        "validate": true,
+        "create_public_display": true,
+        "delete": true
+    },
+    "user_specific": {
+        "is_starred": false,
+        "private_tags": [],
+        "times_executed": 1,
+        "execute_on_login": false
+    },
+    "state": "/models/1/angles/641/state",
+    "allow_followups": true,
+    "is_parameterized": false,
+    "is_validated": false,
+    "business_processes": "/models/1/angles/641/business_processes",
+    "query_definition": [
+        {
+            "queryblock_type": "base_classes",
+            "base_classes": [
+                "DeliveryNoteLine"
+            ]
+        }
+    ],
+    "angle_default_display": "/models/1/angles/641/displays/2980",
+    "privilege_labels": "/models/1/angles/641/privilege_labels",
+    "is_deleted": false,
+    "created": {
+        "user": "/users/2",
+        "full_name": "EASystem",
+        "datetime": 1567577212
+    },
+    "changed": {
+        "user": "/users/1",
+        "full_name": "EAAdmin",
+        "datetime": 1567577213
+    },
+    "uri": "/models/1/angles/641",
+    "display_definitions": [
+        {
+            "multi_lang_name": [
+                {
+                    "lang": "de",
+                    "text": "Gesperrt"
+                },
+                {
+                    "lang": "en",
+                    "text": "Blocked"
+                },
+                {
+                    "lang": "es",
+                    "text": "Bloqueado"
+                },
+                {
+                    "lang": "fr",
+                    "text": "Bloqué"
+                },
+                {
+                    "lang": "nl",
+                    "text": "Geblokkeerd"
+                }
+            ],
+            "authorizations": {
+                "make_angle_default": true,
+                "unpublish": true,
+                "update": true,
+                "publish": false,
+                "delete": true
+            },
+            "created": {
+                "user": "/users/2",
+                "full_name": "EASystem",
+                "datetime": 1557110544
+            },
+            "fields": [
+                {
+                    "tech_info": "",
+                    "field": "ObjectType",
+                    "multi_lang_alias": [],
+                    "valid": true,
+                    "field_details": "{\"width\":91,\"format\":\"shn\"}"
+                },
+                {
+                    "tech_info": "",
+                    "field": "ID",
+                    "multi_lang_alias": [],
+                    "valid": true,
+                    "field_details": "{\"width\":82}"
+                },
+                {
+                    "tech_info": "LIKP-LIFSK",
+                    "field": "DeliveryNoteHeader__DeliveryBlock",
+                    "multi_lang_alias": [],
+                    "valid": true,
+                    "field_details": "{\"width\":119,\"format\":\"shn\"}"
+                },
+                {
+                    "tech_info": "LIKP-LFART",
+                    "field": "DeliveryNoteHeader__LFART",
+                    "multi_lang_alias": [],
+                    "valid": true,
+                    "field_details": "{\"width\":84}"
+                },
+                {
+                    "tech_info": "KNA1-KUNNR",
+                    "field": "Customer__Customer",
+                    "multi_lang_alias": [],
+                    "valid": true,
+                    "field_details": "{\"width\":104}"
+                },
+                {
+                    "tech_info": "KNA1-NAME1",
+                    "field": "Customer__Description",
+                    "multi_lang_alias": [],
+                    "valid": true,
+                    "field_details": "{\"width\":120}"
+                },
+                {
+                    "field_details": "{\"width\":105}",
+                    "tech_info": "KNA1-KUNNR",
+                    "multi_lang_alias": [],
+                    "field": "ShipToParty__Customer",
+                    "valid": false,
+                    "validation_details": {
+                        "field": "ShipToParty__Customer",
+                        "classes": [
+                            "DeliveryNoteLine"
+                        ],
+                        "warning_type": "unsupported_display_field"
+                    }
+                },
+                {
+                    "field_details": "{\"width\":120}",
+                    "tech_info": "KNA1-NAME1",
+                    "multi_lang_alias": [],
+                    "field": "ShipToParty__Description",
+                    "valid": false,
+                    "validation_details": {
+                        "field": "ShipToParty__Description",
+                        "classes": [
+                            "DeliveryNoteLine"
+                        ],
+                        "warning_type": "unsupported_display_field"
+                    }
+                },
+                {
+                    "tech_info": "",
+                    "field": "ExecutionStatus",
+                    "multi_lang_alias": [],
+                    "valid": true,
+                    "field_details": "{\"width\":97,\"format\":\"shn\"}"
+                },
+                {
+                    "tech_info": "LIPS-ERDAT",
+                    "field": "CreationDate",
+                    "multi_lang_alias": [],
+                    "valid": true,
+                    "field_details": "{\"width\":97}"
+                },
+                {
+                    "tech_info": "LIKP-WADAT;LIKP-LFDAT",
+                    "field": "OrderDueDate",
+                    "multi_lang_alias": [],
+                    "valid": true,
+                    "field_details": "{\"width\":97}"
+                },
+                {
+                    "tech_info": "",
+                    "field": "DeliveryStatus",
+                    "multi_lang_alias": [],
+                    "valid": true,
+                    "field_details": "{\"width\":88,\"format\":\"shn\"}"
+                },
+                {
+                    "tech_info": "",
+                    "field": "Material__Material",
+                    "multi_lang_alias": [],
+                    "valid": true,
+                    "field_details": "{\"width\":89}"
+                },
+                {
+                    "tech_info": "MAKT-MAKTX",
+                    "field": "Material__Description",
+                    "multi_lang_alias": [],
+                    "valid": true,
+                    "field_details": "{\"width\":212}"
+                },
+                {
+                    "tech_info": "LIPS-LGMNG",
+                    "field": "Quantity",
+                    "multi_lang_alias": [],
+                    "valid": true,
+                    "field_details": "{\"width\":90}"
+                },
+                {
+                    "tech_info": "MARA-MEINS",
+                    "field": "Material__BaseUnitOfMeasure",
+                    "multi_lang_alias": [],
+                    "valid": true,
+                    "field_details": "{\"width\":35,\"format\":\"shn\"}"
+                },
+                {
+                    "tech_info": "",
+                    "field": "IssuingPlant",
+                    "multi_lang_alias": [],
+                    "valid": true,
+                    "field_details": "{\"width\":80,\"format\":\"shn\"}"
+                }
+            ],
+            "contained_aggregation_steps": false,
+            "uri": "/models/1/angles/641/displays/2976",
+            "is_public": true,
+            "used_in_task": false,
+            "state": "/models/1/angles/641/displays/2976/state",
+            "display_type": "list",
+            "user_specific": {
+                "execute_on_login": false,
+                "is_user_default": false
+            },
+            "query_blocks": [
+                {
+                    "query_steps": [
+                        {
+                            "operator": "has_value",
+                            "field": "DeliveryNoteHeader__DeliveryBlock",
+                            "step_type": "filter",
+                            "tech_info": "LIKP-LIFSK"
+                        }
+                    ],
+                    "queryblock_type": "query_steps"
+                }
+            ],
+            "is_angle_default": false,
+            "angle_id": "641",
+            "id": "_21e42cdb_0aa7_4105_957c_0dfc15ec2171",
+            "display_details": "{}",
+            "multi_lang_description": [
+                {
+                    "lang": "de",
+                    "text": "<div id=\"summary\" /><div class=\" section\" id=\"S1438095987298393\"><p class=\"\" id=\"P1438095987298624\" /></div>"
+                },
+                {
+                    "lang": "en",
+                    "text": "<div id=\"summary\" /><div class=\" section\" id=\"S1438095987298393\"><p class=\"\" id=\"P1438095987298624\" /></div>"
+                },
+                {
+                    "lang": "es",
+                    "text": "<div id=\"summary\" /><div class=\" section\" id=\"S1438095987298393\"><p class=\"\" id=\"P1438095987298624\" /></div>"
+                },
+                {
+                    "lang": "fr",
+                    "text": "<div id=\"summary\" /><div class=\" section\" id=\"S1438095987298393\"><p class=\"\" id=\"P1438095987298624\" /></div>"
+                },
+                {
+                    "lang": "nl",
+                    "text": "<div id=\"summary\" /><div class=\" section\" id=\"S1438095987298393\"><p class=\"\" id=\"P1438095987298624\" /></div>"
+                }
+            ]
+        },
+        {
+            "multi_lang_name": [
+                {
+                    "lang": "de",
+                    "text": "Basisliste"
+                },
+                {
+                    "lang": "en",
+                    "text": "Basic List"
+                },
+                {
+                    "lang": "es",
+                    "text": "Lista Básica"
+                },
+                {
+                    "lang": "fr",
+                    "text": "Liste De Base"
+                },
+                {
+                    "lang": "nl",
+                    "text": "Basislijst"
+                }
+            ],
+            "authorizations": {
+                "make_angle_default": true,
+                "unpublish": true,
+                "update": true,
+                "publish": false,
+                "delete": true
+            },
+            "created": {
+                "user": "/users/2",
+                "full_name": "EASystem",
+                "datetime": 1557110544
+            },
+            "fields": [
+                {
+                    "tech_info": "",
+                    "field": "ObjectType",
+                    "multi_lang_alias": [],
+                    "valid": true,
+                    "field_details": "{\"width\":90,\"format\":\"shn\"}"
+                },
+                {
+                    "tech_info": "",
+                    "field": "ID",
+                    "multi_lang_alias": [],
+                    "valid": true,
+                    "field_details": "{\"width\":93}"
+                },
+                {
+                    "tech_info": "LIKP-LFART",
+                    "field": "DeliveryNoteHeader__LFART",
+                    "multi_lang_alias": [],
+                    "valid": true,
+                    "field_details": "{\"width\":98,\"format\":\"shnln\"}"
+                },
+                {
+                    "tech_info": "",
+                    "field": "ExecutionStatus",
+                    "multi_lang_alias": [],
+                    "valid": true,
+                    "field_details": "{\"width\":97,\"format\":\"shn\"}"
+                },
+                {
+                    "tech_info": "VBUP-GBSTA",
+                    "field": "OverallStatus",
+                    "multi_lang_alias": [],
+                    "valid": true,
+                    "field_details": "{\"width\":80,\"format\":\"ln\"}"
+                },
+                {
+                    "tech_info": "LIKP-WADAT;LIKP-LFDAT",
+                    "field": "OrderDueDate",
+                    "multi_lang_alias": [],
+                    "valid": true,
+                    "field_details": "{\"width\":87}"
+                },
+                {
+                    "tech_info": "",
+                    "field": "DeliveryStatus",
+                    "multi_lang_alias": [],
+                    "valid": true,
+                    "field_details": "{\"width\":125,\"format\":\"shn\"}"
+                },
+                {
+                    "tech_info": "LIKP-WADAT_IST",
+                    "field": "RealizedFinishDate",
+                    "multi_lang_alias": [],
+                    "valid": true,
+                    "field_details": "{\"width\":96}"
+                },
+                {
+                    "tech_info": "",
+                    "field": "IssuingPlant",
+                    "multi_lang_alias": [],
+                    "valid": true,
+                    "field_details": "{\"width\":80,\"format\":\"shn\"}"
+                },
+                {
+                    "tech_info": "",
+                    "field": "Material__Material",
+                    "multi_lang_alias": [],
+                    "valid": true,
+                    "field_details": "{\"width\":85}"
+                },
+                {
+                    "tech_info": "MAKT-MAKTX",
+                    "field": "Material__Description",
+                    "multi_lang_alias": [],
+                    "valid": true,
+                    "field_details": "{\"width\":218}"
+                },
+                {
+                    "tech_info": "LIPS-LGMNG",
+                    "field": "Quantity",
+                    "multi_lang_alias": [],
+                    "valid": true,
+                    "field_details": "{\"width\":85}"
+                },
+                {
+                    "tech_info": "MARA-MEINS",
+                    "field": "Material__BaseUnitOfMeasure",
+                    "multi_lang_alias": [],
+                    "valid": true,
+                    "field_details": "{\"width\":35,\"format\":\"shn\"}"
+                },
+                {
+                    "tech_info": "KNA1-KUNNR",
+                    "field": "Customer__Customer",
+                    "multi_lang_alias": [],
+                    "valid": true,
+                    "field_details": "{\"width\":96}"
+                },
+                {
+                    "tech_info": "KNA1-NAME1",
+                    "field": "Customer__Description",
+                    "multi_lang_alias": [],
+                    "valid": true,
+                    "field_details": "{\"width\":176}"
+                },
+                {
+                    "tech_info": "VBUP-KOSTA",
+                    "field": "PickingStatus",
+                    "multi_lang_alias": [],
+                    "valid": true,
+                    "field_details": "{\"width\":79,\"format\":\"shn\"}"
+                },
+                {
+                    "tech_info": "VBUP-LVSTA",
+                    "field": "WarehouseManagementActivityStatus",
+                    "multi_lang_alias": [],
+                    "valid": true,
+                    "field_details": "{\"width\":103,\"format\":\"shn\"}"
+                },
+                {
+                    "tech_info": "VBUP-ABSTA",
+                    "field": "RejectionStatus",
+                    "multi_lang_alias": [],
+                    "valid": true,
+                    "field_details": "{\"width\":91}"
+                },
+                {
+                    "field_details": "{\"width\":80}",
+                    "tech_info": "KNA1-KUNNR",
+                    "multi_lang_alias": [],
+                    "field": "ShipToParty__Customer",
+                    "valid": false,
+                    "validation_details": {
+                        "field": "ShipToParty__Customer",
+                        "classes": [
+                            "DeliveryNoteLine"
+                        ],
+                        "warning_type": "unsupported_display_field"
+                    }
+                },
+                {
+                    "field_details": "{\"width\":181}",
+                    "tech_info": "KNA1-NAME1",
+                    "multi_lang_alias": [],
+                    "field": "ShipToParty__Description",
+                    "valid": false,
+                    "validation_details": {
+                        "field": "ShipToParty__Description",
+                        "classes": [
+                            "DeliveryNoteLine"
+                        ],
+                        "warning_type": "unsupported_display_field"
+                    }
+                }
+            ],
+            "contained_aggregation_steps": false,
+            "uri": "/models/1/angles/641/displays/2977",
+            "is_public": true,
+            "used_in_task": false,
+            "state": "/models/1/angles/641/displays/2977/state",
+            "display_type": "list",
+            "user_specific": {
+                "execute_on_login": false,
+                "is_user_default": false
+            },
+            "query_blocks": [],
+            "is_angle_default": false,
+            "angle_id": "641",
+            "id": "_3093dc7e_b30c_4156_a624_a855d8fa2112",
+            "display_details": "{}",
+            "multi_lang_description": [
+                {
+                    "lang": "de",
+                    "text": "<div id=\"summary\" /><div class=\" section\" id=\"S1438245618392843\"><p class=\"\" id=\"P1438245618407814\" /></div>"
+                },
+                {
+                    "lang": "en",
+                    "text": "<div id=\"summary\" /><div class=\" section\" id=\"S1438245618392843\"><p class=\"\" id=\"P1438245618407814\" /></div>"
+                },
+                {
+                    "lang": "es",
+                    "text": "<div id=\"summary\" /><div class=\" section\" id=\"S1438245618392843\"><p class=\"\" id=\"P1438245618407814\" /></div>"
+                },
+                {
+                    "lang": "fr",
+                    "text": "<div id=\"summary\" /><div class=\" section\" id=\"S1438245618392843\"><p class=\"\" id=\"P1438245618407814\" /></div>"
+                },
+                {
+                    "lang": "nl",
+                    "text": "<div id=\"summary\" /><div class=\" section\" id=\"S1438245618392843\"><p class=\"\" id=\"P1438245618407814\" /></div>"
+                }
+            ]
+        },
+        {
+            "multi_lang_name": [
+                {
+                    "lang": "de",
+                    "text": "Erstellt, aber keine Warenausgabe"
+                },
+                {
+                    "lang": "en",
+                    "text": "Created but no Goods Issue"
+                },
+                {
+                    "lang": "es",
+                    "text": "Creado pero sin Entrada de Mercancías"
+                },
+                {
+                    "lang": "fr",
+                    "text": "Créé, mais sans Sortie Marchandises"
+                },
+                {
+                    "lang": "nl",
+                    "text": "Aangemaakt maar Geen Goederenafgifte"
+                }
+            ],
+            "authorizations": {
+                "make_angle_default": true,
+                "unpublish": true,
+                "update": true,
+                "publish": false,
+                "delete": true
+            },
+            "created": {
+                "user": "/users/2",
+                "full_name": "EASystem",
+                "datetime": 1557110544
+            },
+            "fields": [
+                {
+                    "tech_info": "",
+                    "field": "ObjectType",
+                    "multi_lang_alias": [],
+                    "valid": true,
+                    "field_details": "{\"width\":90,\"format\":\"shn\"}"
+                },
+                {
+                    "tech_info": "",
+                    "field": "ID",
+                    "multi_lang_alias": [],
+                    "valid": true,
+                    "field_details": "{\"width\":97}"
+                },
+                {
+                    "tech_info": "",
+                    "field": "ExecutionStatus",
+                    "multi_lang_alias": [],
+                    "valid": true,
+                    "field_details": "{\"width\":97,\"format\":\"shn\"}"
+                },
+                {
+                    "tech_info": "",
+                    "field": "DeliveryStatus",
+                    "multi_lang_alias": [],
+                    "valid": true,
+                    "field_details": "{\"width\":88,\"format\":\"shn\"}"
+                },
+                {
+                    "tech_info": "LIKP-WADAT;LIKP-LFDAT",
+                    "field": "OrderDueDate",
+                    "multi_lang_alias": [],
+                    "valid": true,
+                    "field_details": "{\"width\":97}"
+                },
+                {
+                    "tech_info": "LIPS-ERDAT",
+                    "field": "CreationDate",
+                    "multi_lang_alias": [],
+                    "valid": true,
+                    "field_details": "{\"width\":86}"
+                },
+                {
+                    "tech_info": "VBUP-LVSTA",
+                    "field": "WarehouseManagementActivityStatus",
+                    "multi_lang_alias": [],
+                    "valid": true,
+                    "field_details": "{\"width\":134,\"format\":\"ln\"}"
+                },
+                {
+                    "tech_info": "VBUP-KOSTA",
+                    "field": "PickingStatus",
+                    "multi_lang_alias": [],
+                    "valid": true,
+                    "field_details": "{\"width\":120,\"format\":\"ln\"}"
+                },
+                {
+                    "tech_info": "VBUP-WBSTA",
+                    "field": "GoodsMovementStatus",
+                    "multi_lang_alias": [],
+                    "valid": true,
+                    "field_details": "{\"width\":137,\"format\":\"ln\"}"
+                },
+                {
+                    "tech_info": "VBUP-GBSTA",
+                    "field": "OverallStatus",
+                    "multi_lang_alias": [],
+                    "valid": true,
+                    "field_details": "{\"width\":120,\"format\":\"ln\"}"
+                },
+                {
+                    "tech_info": "KNA1-KUNNR",
+                    "field": "Customer__Customer",
+                    "multi_lang_alias": [],
+                    "valid": true,
+                    "field_details": "{\"width\":92}"
+                },
+                {
+                    "tech_info": "KNA1-NAME1",
+                    "field": "Customer__Description",
+                    "multi_lang_alias": [],
+                    "valid": true,
+                    "field_details": "{\"width\":120}"
+                },
+                {
+                    "field_details": "{\"width\":92}",
+                    "tech_info": "ADRC-ADDRNUMBER",
+                    "multi_lang_alias": [],
+                    "field": "ShipToAddress__AddressID",
+                    "valid": false,
+                    "validation_details": {
+                        "field": "ShipToAddress__AddressID",
+                        "classes": [
+                            "DeliveryNoteLine"
+                        ],
+                        "warning_type": "unsupported_display_field"
+                    }
+                },
+                {
+                    "field_details": "{\"width\":164}",
+                    "tech_info": "ADRC-NAME1",
+                    "multi_lang_alias": [],
+                    "field": "ShipToAddress__Description",
+                    "valid": false,
+                    "validation_details": {
+                        "field": "ShipToAddress__Description",
+                        "classes": [
+                            "DeliveryNoteLine"
+                        ],
+                        "warning_type": "unsupported_display_field"
+                    }
+                },
+                {
+                    "tech_info": "",
+                    "field": "Material__Material",
+                    "multi_lang_alias": [],
+                    "valid": true,
+                    "field_details": "{\"width\":108}"
+                },
+                {
+                    "tech_info": "MAKT-MAKTX",
+                    "field": "Material__Description",
+                    "multi_lang_alias": [],
+                    "valid": true,
+                    "field_details": "{\"width\":165}"
+                },
+                {
+                    "tech_info": "LIPS-LGMNG",
+                    "field": "Quantity",
+                    "multi_lang_alias": [],
+                    "valid": true,
+                    "field_details": "{\"width\":90}"
+                },
+                {
+                    "tech_info": "MARA-MEINS",
+                    "field": "Material__BaseUnitOfMeasure",
+                    "multi_lang_alias": [],
+                    "valid": true,
+                    "field_details": "{\"width\":35,\"format\":\"shn\"}"
+                },
+                {
+                    "tech_info": "",
+                    "field": "IssuingPlant",
+                    "multi_lang_alias": [],
+                    "valid": true,
+                    "field_details": "{\"width\":80,\"format\":\"shn\"}"
+                },
+                {
+                    "tech_info": "LIKP-LFART",
+                    "field": "DeliveryNoteHeader__LFART",
+                    "multi_lang_alias": [],
+                    "valid": true,
+                    "field_details": "{\"width\":90,\"format\":\"shnln\"}"
+                }
+            ],
+            "contained_aggregation_steps": false,
+            "uri": "/models/1/angles/641/displays/2978",
+            "is_public": true,
+            "used_in_task": false,
+            "state": "/models/1/angles/641/displays/2978/state",
+            "display_type": "list",
+            "user_specific": {
+                "execute_on_login": false,
+                "is_user_default": false
+            },
+            "query_blocks": [
+                {
+                    "query_steps": [
+                        {
+                            "operator": "not_equal_to",
+                            "field": "GoodsMovementStatus",
+                            "step_type": "filter",
+                            "arguments": [
+                                {
+                                    "argument_type": "value",
+                                    "value": "C"
+                                }
+                            ],
+                            "tech_info": "VBUP-WBSTA"
+                        },
+                        {
+                            "operator": "relative_before",
+                            "field": "CreationDate",
+                            "step_type": "filter",
+                            "arguments": [
+                                {
+                                    "argument_type": "value",
+                                    "value": -30
+                                }
+                            ],
+                            "tech_info": "LIPS-ERDAT"
+                        }
+                    ],
+                    "queryblock_type": "query_steps"
+                }
+            ],
+            "is_angle_default": false,
+            "angle_id": "641",
+            "id": "_4d25c68b_cf32_40d3_87fc_9b23abecab08",
+            "display_details": "{}",
+            "multi_lang_description": [
+                {
+                    "lang": "de",
+                    "text": "<div id=\"summary\" /><div class=\" section\" id=\"S1440680446545843\"><p class=\"\" id=\"Pidelem4x31309\">Erstellt, es fand jedoch in den letzten 30 Tagen keine Warenausgabe statt.</p></div>"
+                },
+                {
+                    "lang": "en",
+                    "text": "<div id=\"summary\" /><div class=\" section\" id=\"S1440680446545843\"><p class=\"\" id=\"Pidelem4x31309\">Created but no goods issue has taken place within the last 30 days.</p></div>"
+                },
+                {
+                    "lang": "es",
+                    "text": "<div id=\"summary\" /><div class=\" section\" id=\"S1440680446545843\"><p class=\"\" id=\"Pidelem4x31309\">Se ha creado pero no se ha producido ninguna entrada de mercancías en los últimos 30 días.</p></div>"
+                },
+                {
+                    "lang": "fr",
+                    "text": "<div id=\"summary\" /><div class=\" section\" id=\"S1440680446545843\"><p class=\"\" id=\"Pidelem4x31309\">Créé, mais aucune sortie de marchandises n'a eu lieu au cours des 30 derniers jours.</p></div>"
+                },
+                {
+                    "lang": "nl",
+                    "text": "<div id=\"summary\" /><div class=\" section\" id=\"S1440680446545843\"><p class=\"\" id=\"Pidelem4x31309\">Aangemaakt, maar in de afgelopen 30 dagen is er geen goederenafgifte geweest.</p></div>"
+                }
+            ]
+        },
+        {
+            "multi_lang_name": [
+                {
+                    "lang": "de",
+                    "text": "Abgeschlossen, aber nicht fakturiert"
+                },
+                {
+                    "lang": "en",
+                    "text": "Closed but Not Billed"
+                },
+                {
+                    "lang": "es",
+                    "text": "Cerrado pero No Facturado"
+                },
+                {
+                    "lang": "fr",
+                    "text": "Fermé, mais Non Facturé"
+                },
+                {
+                    "lang": "nl",
+                    "text": "Gesloten maar Niet Gefactureerd"
+                }
+            ],
+            "authorizations": {
+                "make_angle_default": true,
+                "unpublish": true,
+                "update": true,
+                "publish": false,
+                "delete": true
+            },
+            "created": {
+                "user": "/users/2",
+                "full_name": "EASystem",
+                "datetime": 1557110544
+            },
+            "fields": [
+                {
+                    "tech_info": "",
+                    "field": "ObjectType",
+                    "multi_lang_alias": [],
+                    "valid": true,
+                    "field_details": "{\"width\":99,\"format\":\"shn\"}"
+                },
+                {
+                    "tech_info": "",
+                    "field": "ID",
+                    "multi_lang_alias": [],
+                    "valid": true,
+                    "field_details": "{\"width\":97}"
+                },
+                {
+                    "tech_info": "LIPS-ERDAT",
+                    "field": "CreationDate",
+                    "multi_lang_alias": [],
+                    "valid": true,
+                    "field_details": "{\"width\":82}"
+                },
+                {
+                    "tech_info": "LIKP-WADAT;LIKP-LFDAT",
+                    "field": "OrderDueDate",
+                    "multi_lang_alias": [],
+                    "valid": true,
+                    "field_details": "{\"width\":97}"
+                },
+                {
+                    "tech_info": "LIKP-WADAT_IST",
+                    "field": "RealizedFinishDate",
+                    "multi_lang_alias": [],
+                    "valid": true,
+                    "field_details": "{\"width\":97}"
+                },
+                {
+                    "tech_info": "",
+                    "field": "DeliveryStatus",
+                    "multi_lang_alias": [],
+                    "valid": true,
+                    "field_details": "{\"width\":138,\"format\":\"shn\"}"
+                },
+                {
+                    "tech_info": "",
+                    "field": "SalesOrderLine__OrderNumber",
+                    "multi_lang_alias": [],
+                    "valid": true,
+                    "field_details": "{\"width\":120}"
+                },
+                {
+                    "field_details": "{\"width\":120}",
+                    "tech_info": "VKDFS_VBELN-FAKSK",
+                    "multi_lang_alias": [],
+                    "field": "SalesOrder__FAKSK",
+                    "valid": false,
+                    "validation_details": {
+                        "field": "SalesOrder__FAKSK",
+                        "classes": [
+                            "DeliveryNoteLine"
+                        ],
+                        "warning_type": "unsupported_display_field"
+                    }
+                },
+                {
+                    "tech_info": "KNA1-KUNNR",
+                    "field": "Customer__Customer",
+                    "multi_lang_alias": [],
+                    "valid": true,
+                    "field_details": "{\"width\":108}"
+                },
+                {
+                    "tech_info": "KNA1-NAME1",
+                    "field": "Customer__Description",
+                    "multi_lang_alias": [],
+                    "valid": true,
+                    "field_details": "{\"width\":230}"
+                },
+                {
+                    "tech_info": "",
+                    "field": "Material__Material",
+                    "multi_lang_alias": [],
+                    "valid": true,
+                    "field_details": "{\"width\":110}"
+                },
+                {
+                    "tech_info": "MAKT-MAKTX",
+                    "field": "Material__Description",
+                    "multi_lang_alias": [],
+                    "valid": true,
+                    "field_details": "{\"width\":229}"
+                },
+                {
+                    "tech_info": "LIPS-LGMNG",
+                    "field": "Quantity",
+                    "multi_lang_alias": [],
+                    "valid": true,
+                    "field_details": "{\"width\":88}"
+                },
+                {
+                    "tech_info": "MARA-MEINS",
+                    "field": "Material__BaseUnitOfMeasure",
+                    "multi_lang_alias": [],
+                    "valid": true,
+                    "field_details": "{\"width\":35,\"format\":\"shn\"}"
+                },
+                {
+                    "tech_info": "",
+                    "field": "IssuingPlant",
+                    "multi_lang_alias": [],
+                    "valid": true,
+                    "field_details": "{\"width\":80,\"format\":\"shn\"}"
+                },
+                {
+                    "tech_info": "LIKP-LFART",
+                    "field": "DeliveryNoteHeader__LFART",
+                    "multi_lang_alias": [],
+                    "valid": true,
+                    "field_details": "{\"width\":118,\"format\":\"shnln\"}"
+                },
+                {
+                    "tech_info": "",
+                    "field": "MaterialValue",
+                    "multi_lang_alias": [],
+                    "valid": true,
+                    "field_details": "{\"width\":120}"
+                },
+                {
+                    "tech_info": "",
+                    "field": "SalesOrderLine__SalesValue",
+                    "multi_lang_alias": [],
+                    "valid": true,
+                    "field_details": "{\"width\":120}"
+                }
+            ],
+            "contained_aggregation_steps": false,
+            "uri": "/models/1/angles/641/displays/2979",
+            "is_public": true,
+            "used_in_task": false,
+            "state": "/models/1/angles/641/displays/2979/state",
+            "display_type": "list",
+            "user_specific": {
+                "execute_on_login": false,
+                "is_user_default": false
+            },
+            "query_blocks": [
+                {
+                    "query_steps": [
+                        {
+                            "operator": "in_set",
+                            "field": "ExecutionStatus",
+                            "step_type": "filter",
+                            "arguments": [
+                                {
+                                    "argument_type": "value",
+                                    "value": "es2FullyExecuted"
+                                }
+                            ]
+                        }
+                    ],
+                    "queryblock_type": "query_steps"
+                }
+            ],
+            "is_angle_default": false,
+            "angle_id": "641",
+            "id": "_7deea09d_c1f6_4fdc_98cd_4f98e4417b95",
+            "display_details": "{}",
+            "multi_lang_description": [
+                {
+                    "lang": "de",
+                    "text": "<div id=\"summary\" />"
+                },
+                {
+                    "lang": "en",
+                    "text": "<div id=\"summary\" />"
+                },
+                {
+                    "lang": "es",
+                    "text": "<div id=\"summary\" />"
+                },
+                {
+                    "lang": "fr",
+                    "text": "<div id=\"summary\" />"
+                },
+                {
+                    "lang": "nl",
+                    "text": "<div id=\"summary\" />"
+                }
+            ]
+        },
+        {
+            "multi_lang_name": [
+                {
+                    "lang": "de",
+                    "text": "Anzahl nach Buchungskreis und Jahr"
+                },
+                {
+                    "lang": "en",
+                    "text": "No. per Company Code and Year"
+                },
+                {
+                    "lang": "es",
+                    "text": "N.º por Sociedad y Año"
+                },
+                {
+                    "lang": "fr",
+                    "text": "Nombre par Société et Exercice"
+                },
+                {
+                    "lang": "nl",
+                    "text": "Aantal per Bedrijfsnummer en Jaar"
+                }
+            ],
+            "authorizations": {
+                "make_angle_default": false,
+                "unpublish": false,
+                "update": true,
+                "publish": false,
+                "delete": false
+            },
+            "created": {
+                "user": "/users/2",
+                "full_name": "EASystem",
+                "datetime": 1557110544
+            },
+            "fields": [
+                {
+                    "field": "year_RealizedFinishDate",
+                    "multi_lang_alias": [],
+                    "valid": true,
+                    "field_details": "{\"pivot_area\":\"row\"}"
+                },
+                {
+                    "field": "individual_CompanyCode__CompanyCode",
+                    "multi_lang_alias": [],
+                    "valid": true,
+                    "field_details": "{\"pivot_area\":\"column\",\"format\":\"shnln\"}"
+                },
+                {
+                    "field": "count",
+                    "multi_lang_alias": [],
+                    "valid": true,
+                    "field_details": "{\"pivot_area\":\"data\",\"prefix\":null,\"decimals\":0}"
+                }
+            ],
+            "contained_aggregation_steps": true,
+            "uri": "/models/1/angles/641/displays/2980",
+            "is_public": true,
+            "used_in_task": false,
+            "state": "/models/1/angles/641/displays/2980/state",
+            "display_type": "chart",
+            "user_specific": {
+                "execute_on_login": false,
+                "is_user_default": false
+            },
+            "query_blocks": [
+                {
+                    "query_steps": [
+                        {
+                            "aggregation_fields": [
+                                {
+                                    "operator": "count",
+                                    "field": "count"
+                                }
+                            ],
+                            "step_type": "aggregation",
+                            "grouping_fields": [
+                                {
+                                    "operator": "year",
+                                    "field": "year_RealizedFinishDate",
+                                    "source_field": "RealizedFinishDate",
+                                    "tech_info": "LIKP-WADAT_IST"
+                                },
+                                {
+                                    "operator": "individual",
+                                    "field": "individual_CompanyCode__CompanyCode",
+                                    "source_field": "CompanyCode__CompanyCode",
+                                    "tech_info": "T001-BUKRS"
+                                }
+                            ]
+                        }
+                    ],
+                    "queryblock_type": "query_steps"
+                }
+            ],
+            "is_angle_default": true,
+            "angle_id": "641",
+            "id": "_8ca54d15_9271_45ef_9269_816e48c1fde1",
+            "display_details": "{\"chart_type\":\"column\",\"stack\":true,\"multi_axis\":false,\"layout\":null,\"drilldown_display\":\"_3093dc7e_b30c_4156_a624_a855d8fa2112\",\"axistitle\":\"show\",\"axisvalue\":\"show\",\"datalabel\":\"mouse\",\"gridline\":\"show\",\"legend\":\"show\",\"range\":{\"start\":0,\"size\":50},\"count_index\":0}",
+            "multi_lang_description": [
+                {
+                    "lang": "de",
+                    "text": "<div id=\"summary\" />"
+                },
+                {
+                    "lang": "en",
+                    "text": "<div id=\"summary\" />"
+                },
+                {
+                    "lang": "es",
+                    "text": "<div id=\"summary\" />"
+                },
+                {
+                    "lang": "fr",
+                    "text": "<div id=\"summary\" />"
+                },
+                {
+                    "lang": "nl",
+                    "text": "<div id=\"summary\" />"
+                }
+            ]
+        },
+        {
+            "multi_lang_name": [
+                {
+                    "lang": "de",
+                    "text": "Anzahl und Verkaufswert pro Werk"
+                },
+                {
+                    "lang": "en",
+                    "text": "No. and Sales Value per Plant"
+                },
+                {
+                    "lang": "es",
+                    "text": "N.º y Valor de Ventas por Centro"
+                },
+                {
+                    "lang": "fr",
+                    "text": "Numéro et Valeur de la Commande Client par Division"
+                },
+                {
+                    "lang": "nl",
+                    "text": "Aantal en Verkoopwaarde per Vestiging"
+                }
+            ],
+            "authorizations": {
+                "make_angle_default": true,
+                "unpublish": true,
+                "update": true,
+                "publish": false,
+                "delete": true
+            },
+            "created": {
+                "user": "/users/2",
+                "full_name": "EASystem",
+                "datetime": 1557110544
+            },
+            "fields": [
+                {
+                    "field": "individual_Plant__Plant",
+                    "multi_lang_alias": [],
+                    "valid": true,
+                    "field_details": "{\"pivot_area\":\"row\",\"format\":\"shnln\"}"
+                },
+                {
+                    "field": "individual_DeliveryNoteHeader__SalesDocumentCategory",
+                    "multi_lang_alias": [],
+                    "valid": true,
+                    "field_details": "{\"pivot_area\":\"column\",\"format\":\"shnln\"}"
+                },
+                {
+                    "field": "count",
+                    "multi_lang_alias": [],
+                    "valid": true,
+                    "field_details": "{\"pivot_area\":\"data\",\"prefix\":null,\"decimals\":0,\"thousandseparator\":true}"
+                },
+                {
+                    "field": "sum_SalesOrderLine__SalesValue",
+                    "multi_lang_alias": [],
+                    "valid": true,
+                    "field_details": "{\"pivot_area\":\"data\",\"prefix\":\"K\",\"decimals\":0}"
+                }
+            ],
+            "contained_aggregation_steps": true,
+            "uri": "/models/1/angles/641/displays/2981",
+            "is_public": true,
+            "used_in_task": false,
+            "state": "/models/1/angles/641/displays/2981/state",
+            "display_type": "chart",
+            "user_specific": {
+                "execute_on_login": false,
+                "is_user_default": false
+            },
+            "query_blocks": [
+                {
+                    "query_steps": [
+                        {
+                            "aggregation_fields": [
+                                {
+                                    "operator": "count",
+                                    "field": "count"
+                                },
+                                {
+                                    "operator": "sum",
+                                    "field": "sum_SalesOrderLine__SalesValue",
+                                    "source_field": "SalesOrderLine__SalesValue",
+                                    "tech_info": ""
+                                }
+                            ],
+                            "step_type": "aggregation",
+                            "grouping_fields": [
+                                {
+                                    "operator": "individual",
+                                    "field": "individual_Plant__Plant",
+                                    "source_field": "Plant__Plant",
+                                    "tech_info": "T001W-WERKS"
+                                },
+                                {
+                                    "operator": "individual",
+                                    "field": "individual_DeliveryNoteHeader__SalesDocumentCategory",
+                                    "source_field": "DeliveryNoteHeader__SalesDocumentCategory",
+                                    "tech_info": "LIKP-VBTYP"
+                                }
+                            ]
+                        }
+                    ],
+                    "queryblock_type": "query_steps"
+                }
+            ],
+            "is_angle_default": false,
+            "angle_id": "641",
+            "id": "_b96e9f7f_7caa_48ec_977e_cc99e786a3e6",
+            "display_details": "{\"chart_type\":\"column\",\"stack\":false,\"multi_axis\":true,\"layout\":null,\"drilldown_display\":\"_3093dc7e_b30c_4156_a624_a855d8fa2112\"}",
+            "multi_lang_description": [
+                {
+                    "lang": "de",
+                    "text": "<div id=\"summary\" /><div class=\" section\" id=\"S1441100605018423\"><p class=\"\" id=\"P1441100605018944\">Anzahl und Verkaufswert pro Werk und Vertriebsbelegtyp.</p></div>"
+                },
+                {
+                    "lang": "en",
+                    "text": "<div id=\"summary\" /><div class=\" section\" id=\"S1441100605018423\"><p class=\"\" id=\"P1441100605018944\">Number and sales value per plant and per SD document category.</p></div>"
+                },
+                {
+                    "lang": "es",
+                    "text": "<div id=\"summary\" /><div class=\" section\" id=\"S1441100605018423\"><p class=\"\" id=\"P1441100605018944\">Número y valor de ventas por centro y por tipo de documento comercial.</p></div>"
+                },
+                {
+                    "lang": "fr",
+                    "text": "<div id=\"summary\" /><div class=\" section\" id=\"S1441100605018423\"><p class=\"\" id=\"P1441100605018944\">Numéro et valeur de la commande client par division et type de document commercial.</p></div>"
+                },
+                {
+                    "lang": "nl",
+                    "text": "<div id=\"summary\" /><div class=\" section\" id=\"S1441100605018423\"><p class=\"\" id=\"P1441100605018944\">Aantal en verkoopwaarde per vestiging en verkoopdocumenttype.</p></div>"
+                }
+            ]
+        },
+        {
+            "multi_lang_name": [
+                {
+                    "lang": "de",
+                    "text": "Anzahl nach Erstellungsdatum"
+                },
+                {
+                    "lang": "en",
+                    "text": "No. per Creation Date"
+                },
+                {
+                    "lang": "es",
+                    "text": "N.º por Fecha de Creación"
+                },
+                {
+                    "lang": "fr",
+                    "text": "Nombre par Date de Création"
+                },
+                {
+                    "lang": "nl",
+                    "text": "Aantal per Aanmaakdatum"
+                }
+            ],
+            "authorizations": {
+                "make_angle_default": true,
+                "unpublish": true,
+                "update": true,
+                "publish": false,
+                "delete": true
+            },
+            "created": {
+                "user": "/users/2",
+                "full_name": "EASystem",
+                "datetime": 1557110544
+            },
+            "fields": [
+                {
+                    "field": "quarter_CreationDate",
+                    "multi_lang_alias": [],
+                    "valid": true,
+                    "field_details": "{\"pivot_area\":\"row\"}"
+                },
+                {
+                    "field": "individual_DeliveryNoteHeader__LFART",
+                    "multi_lang_alias": [],
+                    "valid": true,
+                    "field_details": "{\"pivot_area\":\"column\",\"format\":\"shnln\"}"
+                },
+                {
+                    "field": "count",
+                    "multi_lang_alias": [],
+                    "valid": true,
+                    "field_details": "{\"pivot_area\":\"data\",\"prefix\":null,\"decimals\":0}"
+                }
+            ],
+            "contained_aggregation_steps": true,
+            "uri": "/models/1/angles/641/displays/2982",
+            "is_public": true,
+            "used_in_task": false,
+            "state": "/models/1/angles/641/displays/2982/state",
+            "display_type": "chart",
+            "user_specific": {
+                "execute_on_login": false,
+                "is_user_default": false
+            },
+            "query_blocks": [
+                {
+                    "query_steps": [
+                        {
+                            "aggregation_fields": [
+                                {
+                                    "operator": "count",
+                                    "field": "count"
+                                }
+                            ],
+                            "step_type": "aggregation",
+                            "grouping_fields": [
+                                {
+                                    "operator": "quarter",
+                                    "field": "quarter_CreationDate",
+                                    "source_field": "CreationDate",
+                                    "tech_info": "LIPS-ERDAT"
+                                },
+                                {
+                                    "operator": "individual",
+                                    "field": "individual_DeliveryNoteHeader__LFART",
+                                    "source_field": "DeliveryNoteHeader__LFART",
+                                    "tech_info": "LIKP-LFART"
+                                }
+                            ]
+                        }
+                    ],
+                    "queryblock_type": "query_steps"
+                }
+            ],
+            "is_angle_default": false,
+            "angle_id": "641",
+            "id": "d3152a13a3aba036edf0e6742ac33811d",
+            "display_details": "{\"chart_type\":\"column\",\"stack\":true,\"multi_axis\":false,\"layout\":null,\"drilldown_display\":\"_3093dc7e_b30c_4156_a624_a855d8fa2112\"}",
+            "multi_lang_description": [
+                {
+                    "lang": "de",
+                    "text": "<div id=\"summary\" /><div class=\" section\" id=\"S1441114252293343\"><p class=\"\" id=\"P1441114252293674\">Anzahl pro Erstellungsdatum und Lieferart.</p></div>"
+                },
+                {
+                    "lang": "en",
+                    "text": "<div id=\"summary\" /><div class=\" section\" id=\"S1441114252293343\"><p class=\"\" id=\"P1441114252293674\">Number per creation date and delivery type.</p></div>"
+                },
+                {
+                    "lang": "es",
+                    "text": "<div id=\"summary\" /><div class=\" section\" id=\"S1441114252293343\"><p class=\"\" id=\"P1441114252293674\">Número por fecha de creación y clase de entrega.</p></div>"
+                },
+                {
+                    "lang": "fr",
+                    "text": "<div id=\"summary\" /><div class=\" section\" id=\"S1441114252293343\"><p class=\"\" id=\"P1441114252293674\">Nombre par date de création et type d'article.</p></div>"
+                },
+                {
+                    "lang": "nl",
+                    "text": "<div id=\"summary\" /><div class=\" section\" id=\"S1441114252293343\"><p class=\"\" id=\"P1441114252293674\">Aantal per aanmaakdatum en leveringssoort.</p></div>"
+                }
+            ]
+        },
+        {
+            "multi_lang_name": [
+                {
+                    "lang": "de",
+                    "text": "Engpässe"
+                },
+                {
+                    "lang": "en",
+                    "text": "Bottlenecks"
+                },
+                {
+                    "lang": "es",
+                    "text": "Cuellos de Botella"
+                },
+                {
+                    "lang": "fr",
+                    "text": "Goulots d’Étranglement"
+                },
+                {
+                    "lang": "nl",
+                    "text": "Bottlenecks"
+                }
+            ],
+            "authorizations": {
+                "make_angle_default": true,
+                "unpublish": true,
+                "update": true,
+                "publish": false,
+                "delete": true
+            },
+            "created": {
+                "user": "/users/2",
+                "full_name": "EASystem",
+                "datetime": 1557110544
+            },
+            "fields": [
+                {
+                    "field": "individual_CompanyCode__CompanyCode",
+                    "multi_lang_alias": [],
+                    "valid": true,
+                    "field_details": "{\"pivot_area\":\"row\",\"format\":\"shnln\"}"
+                },
+                {
+                    "field": "individual_Plant__Plant",
+                    "multi_lang_alias": [],
+                    "valid": true,
+                    "field_details": "{\"pivot_area\":\"row\",\"format\":\"shnln\"}"
+                },
+                {
+                    "field": "individual_BottleneckType",
+                    "multi_lang_alias": [],
+                    "valid": true,
+                    "field_details": "{\"pivot_area\":\"column\",\"format\":\"ln\"}"
+                },
+                {
+                    "field": "count",
+                    "multi_lang_alias": [],
+                    "valid": true,
+                    "field_details": "{\"pivot_area\":\"data\"}"
+                },
+                {
+                    "field": "sum_MaterialValue",
+                    "multi_lang_alias": [],
+                    "valid": true,
+                    "field_details": "{\"pivot_area\":\"data\",\"prefix\":\"K\",\"decimals\":0,\"thousandseparator\":true}"
+                }
+            ],
+            "contained_aggregation_steps": true,
+            "uri": "/models/1/angles/641/displays/2983",
+            "is_public": true,
+            "used_in_task": false,
+            "state": "/models/1/angles/641/displays/2983/state",
+            "display_type": "pivot",
+            "user_specific": {
+                "execute_on_login": false,
+                "is_user_default": false
+            },
+            "query_blocks": [
+                {
+                    "query_steps": [
+                        {
+                            "operator": "in_set",
+                            "field": "ExecutionStatus",
+                            "step_type": "filter",
+                            "arguments": [
+                                {
+                                    "argument_type": "value",
+                                    "value": "es0ToBeExecuted"
+                                }
+                            ],
+                            "tech_info": ""
+                        },
+                        {
+                            "operator": "not_equal_to",
+                            "field": "BottleneckType",
+                            "step_type": "filter",
+                            "arguments": [
+                                {
+                                    "argument_type": "value",
+                                    "value": "bt00None"
+                                }
+                            ],
+                            "tech_info": ""
+                        },
+                        {
+                            "aggregation_fields": [
+                                {
+                                    "operator": "count",
+                                    "field": "count"
+                                },
+                                {
+                                    "operator": "sum",
+                                    "field": "sum_MaterialValue",
+                                    "source_field": "MaterialValue",
+                                    "tech_info": ""
+                                }
+                            ],
+                            "step_type": "aggregation",
+                            "grouping_fields": [
+                                {
+                                    "operator": "individual",
+                                    "field": "individual_CompanyCode__CompanyCode",
+                                    "source_field": "CompanyCode__CompanyCode",
+                                    "tech_info": "T001-BUKRS"
+                                },
+                                {
+                                    "operator": "individual",
+                                    "field": "individual_Plant__Plant",
+                                    "source_field": "Plant__Plant",
+                                    "tech_info": "T001W-WERKS"
+                                },
+                                {
+                                    "operator": "individual",
+                                    "field": "individual_BottleneckType",
+                                    "source_field": "BottleneckType",
+                                    "tech_info": ""
+                                }
+                            ]
+                        }
+                    ],
+                    "queryblock_type": "query_steps"
+                }
+            ],
+            "is_angle_default": false,
+            "angle_id": "641",
+            "id": "dc3f6b90b60ce03a686e45968de045471",
+            "display_details": "{\"columns\":{\"header\":[231,189],\"data\":[63,182,63,145,63,145,63,144]},\"layout\":\"{\\\"layout\\\":\\\"CgYAAPIHoHfyAHfyAaF38gIA8gGgd/IDd/IEoXfyBQDyAaB38gahoXfyB/IF8gWhd/IIAPIToHfyCXfyCqF38gsA8gKgd/IMd/INoHfyDnfyD6F38hAA8gKhd/IR8gDyAKB38hJ38gGhd/ITAPIFoHfyFHfyFaF38hbyAPIAoHfyF3fyAaB38hihoHfyGXfyGqF38hsA8gWgd/IcAKB38h0AoHfyHnfyH6B38iB38gGgd/Ihd/IBoXfyIgDyAqB38gx38g2gd/IOd/IPoHfyI/IAoXfyJADyAqB38iV38iagd/InoKB38ih38gGgd/Ipd/IqoXfyKwDyAqB38iV38iagd/InoKF38iwA8gGgd/Itd/IuoXfyL/IA8gChd/IwAPIBoHfyJQCgd/Ixd/IyoXfyM/IA8gChd/I0APIBoHfyJXfyNaB38jbyAKB38jd38jihd/I5APIToHfyCXfyOqF38gsA8gKgd/IMd/INoHfyDnfyD6F38hAA8gKhd/IR8gDyAKB38hJ38gGhd/ITAPIFoHfyFHfyFaF38hbyAPIAoHfyF3fyAaB38hihoHfyGXfyGqF38hsA8gWgd/IcAKB38h0AoHfyHnfyH6B38iB38gGgd/Ihd/IBoXfyIgDyAqB38gx38g2gd/IOd/IPoHfyI/IBoXfyJADyAqB38iV38iagd/InoKB38ih38gGgd/Ipd/I7oXfyKwDyAqB38iV38iagd/InoKF38iwA8gGgd/Itd/IuoXfyL/IA8gChd/IwAPIBoHfyJQCgd/Ixd/IyoXfyM/IA8gChd/I0APIBoHfyJXfyNaB38jbyAaB38jd38jihd/I8APIToHfyCXfyPaF38gsA8gKgd/IMd/I+oHfyDnfyD6F38hAA8gKhd/IR8gDyAKB38hJ38gGhd/ITAPIFoHfyFHfyFaF38hbyAPIAoHfyF3fyAaB38hihoHfyGXfyGqF38hsA8gWgd/IcAKB38h0AoHfyHnfyH6B38iB38gGgd/Ihd/IBoXfyIgDyAqB38gx38j6gd/IOd/IPoHfyI/ICoXfyJADyAqB38iV38iagd/InoKB38ih38gGgd/Ipd/I/oXfyKwDyAqB38iV38iagd/InoKF38iwA8gGgd/Itd/IuoXfyL/IA8gChd/IwAPIBoHfyJQCgd/Ixd/JAoXfyM/IA8gChd/I0APIBoHfyJXfyQaB38jbyAKB38jd38jihd/JCAPIToHfyCXfyQ6F38gsA8gKgd/IMd/JEoHfyDnfyD6F38hAA8gKhd/IR8gDyAKB38hJ38gGhd/ITAPIFoHfyFHfyFaF38hbyAPIAoHfyF3fyAaB38hihoHfyGXfyGqF38hsA8gWgd/IcAKB38h0AoHfyHnfyH6B38iB38gGgd/Ihd/IBoXfyIgDyAqB38gx38kSgd/IOd/IPoHfyI/IDoXfyJADyAqB38iV38iagd/InoKB38ih38gGgd/Ipd/JFoXfyKwDyAqB38iV38iagd/InoKF38iwA8gGgd/Itd/IuoXfyL/IA8gChd/IwAPIBoHfyJQCgd/Ixd/JGoXfyM/IA8gChd/I0APIBoHfyJXfyR6B38jbyAKB38jd38jihd/JIAPIToHfyCXfySaF38gsA8gKgd/IMd/JKoHfyDnfyD6F38hAA8gKhd/IR8gDyAKB38hJ38gGhd/ITAPIFoHfyFHfyFaF38hbyAPIAoHfyF3fyAaB38hihoHfyGXfyGqF38hsA8gWgd/IcAKB38h0AoHfyHnfyH6B38iB38gGgd/Ihd/IBoXfyIgDyAqB38gx38kqgd/IOd/IPoHfyI/IEoXfyJADyAqB38iV38iagd/InoKB38ih38gGgd/Ipd/JLoXfyKwDyAqB38iV38iagd/InoKF38iwA8gGgd/Itd/IuoXfyL/IA8gChd/IwAPIBoHfyJQCgd/Ixd/JGoXfyM/IA8gChd/I0APIBoHfyJXfyTKB38jbyAaB38jd38jihd/JNAPIEoHfyTqCgd/JPoKB38lCgoHfyUaGhd/JSAPIBoHfyU/JkoXfyVPIA8gDyVQ4jTGF5b3V0VmVyc2lvbgAPT3B0aW9uc0JlaGF2aW9yGVNvcnRCeVN1bW1hcnlEZWZhdWx0T3JkZXIKRGVzY2VuZGluZwtPcHRpb25zVmlldxdTaG93SG9yaXpvbnRhbFNjcm9sbEJhcgZGaWVsZHMFSXRlbTEHQ2FwdGlvbhtDb21wYW55IENvZGUgLSBDb21wYW55IENvZGULVmFsdWVGb3JtYXQMRm9ybWF0U3RyaW5nBXNobmxuCkZvcm1hdFR5cGUGQ3VzdG9tEVNvcnRCeVN1bW1hcnlJbmZvCkNvbmRpdGlvbnMSRmllbGRDb21wb25lbnROYW1lDEZpbHRlclZhbHVlcwZWYWx1ZXMOflh0cmEjQXJyYXkwLCAKVmFsdWVzQ29yZRFEZWZlckZpbHRlclN0cmluZwpTaG93QmxhbmtzCkZpbHRlclR5cGUIRXhjbHVkZWQNU3VtbWFyeUZpbHRlcgpTdGFydFZhbHVlCEVuZFZhbHVlBE1vZGUJTGFzdExldmVsFVJvd0ZpZWxkQ29tcG9uZW50TmFtZRhDb2x1bW5GaWVsZENvbXBvbmVudE5hbWUKQ2VsbEZvcm1hdAVJbmRleApWYWx1ZVN0eWxlCVZpZXdTdGF0ZcwEflh0cmEjQXJyYXkxMiwgT2JqZWN0LCwgU3lzdGVtLkNvbGxlY3Rpb25zLkFycmF5TGlzdCwsLCwgbXNjb3JsaWIsLCwsIFZlcnNpb249NC4wLjAuMCwsLCwgQ3VsdHVyZT1uZXV0cmFsLCwsLCBQdWJsaWNLZXlUb2tlbj1iNzdhNWM1NjE5MzRlMDg5LCwgflh0cmEjQmFzZTY0QUFFQUFBRC8vLy8vQVFBQUFBQUFBQUFFQVFBQUFCeFRlWE4wWlcwdVEyOXNiR1ZqZEdsdmJuTXVRWEp5WVhsTWFYTjBBd0FBQUFaZmFYUmxiWE1GWDNOcGVtVUlYM1psY25OcGIyNEZBQUFJQ0FrQ0FBQUFBZ0FBQUFJQUFBQVFBZ0FBQUFRQUFBQUpBd0FBQUFnQkFBMENEQVFBQUFCTlUzbHpkR1Z0TGxkbFlpd2dWbVZ5YzJsdmJqMDBMakF1TUM0d0xDQkRkV3gwZFhKbFBXNWxkWFJ5WVd3c0lGQjFZbXhwWTB0bGVWUnZhMlZ1UFdJd00yWTFaamRtTVRGa05UQmhNMkVGQXdBQUFCdFRlWE4wWlcwdVYyVmlMbFZKTGtsdVpHVjRaV1JUZEhKcGJtY0JBQUFBQmw5MllXeDFaUUVFQUFBQUJnVUFBQUFUVkc5d1FXeHBaMjVsWkZKdmQxWmhiSFZsY3dzPSwgbnVsbCwgbnVsbCwgbnVsbCwgbnVsbCwgbnVsbCwgbnVsbCwgbnVsbCwgbnVsbCwgbnVsbCwgbnVsbCwgbnVsbCwgE1RvcEFsaWduZWRSb3dWYWx1ZXMETmFtZQlGaWVsZE5hbWUjaW5kaXZpZHVhbF9Db21wYW55Q29kZV9fQ29tcGFueUNvZGUPVmFsdWVUb3RhbFN0eWxlB09wdGlvbnMSQWxsb3dTb3J0QnlTdW1tYXJ5BFRydWUMQ3VzdG9tVG90YWxzCUNlbGxTdHlsZQRBcmVhB1Jvd0FyZWEMQ2FsY3VsYXRpb25zC0hlYWRlclN0eWxl7AR+WHRyYSNBcnJheTEyLCBPYmplY3QsLCBTeXN0ZW0uQ29sbGVjdGlvbnMuQXJyYXlMaXN0LCwsLCBtc2NvcmxpYiwsLCwgVmVyc2lvbj00LjAuMC4wLCwsLCBDdWx0dXJlPW5ldXRyYWwsLCwsIFB1YmxpY0tleVRva2VuPWI3N2E1YzU2MTkzNGUwODksLCB+WHRyYSNCYXNlNjRBQUVBQUFELy8vLy9BUUFBQUFBQUFBQUVBUUFBQUJ4VGVYTjBaVzB1UTI5c2JHVmpkR2x2Ym5NdVFYSnlZWGxNYVhOMEF3QUFBQVpmYVhSbGJYTUZYM05wZW1VSVgzWmxjbk5wYjI0RkFBQUlDQWtDQUFBQUJBQUFBQVFBQUFBUUFnQUFBQVFBQUFBSkF3QUFBQVlFQUFBQUEzSnZkd2tGQUFBQUNBZ0NBQUFBREFZQUFBQk5VM2x6ZEdWdExsZGxZaXdnVm1WeWMybHZiajAwTGpBdU1DNHdMQ0JEZFd4MGRYSmxQVzVsZFhSeVlXd3NJRkIxWW14cFkwdGxlVlJ2YTJWdVBXSXdNMlkxWmpkbU1URmtOVEJoTTJFRkF3QUFBQnRUZVhOMFpXMHVWMlZpTGxWSkxrbHVaR1Y0WldSVGRISnBibWNCQUFBQUJsOTJZV3gxWlFFR0FBQUFCZ2NBQUFBSVEzTnpRMnhoYzNNQkJRQUFBQU1BQUFBR0NBQUFBQVJmSVZOQ0N3PT0sIG51bGwsIG51bGwsIG51bGwsIG51bGwsIG51bGwsIG51bGwsIG51bGwsIG51bGwsIG51bGwsIG51bGwsIG51bGwsIAlBcmVhSW5kZXgOQWN0dWFsU29ydE1vZGUHRGVmYXVsdAVJdGVtMg1QbGFudCAtIFBsYW50F2luZGl2aWR1YWxfUGxhbnRfX1BsYW50BUl0ZW0zGChTZWxmKSAtIEJvdHRsZW5lY2sgdHlwZQJsbhlpbmRpdmlkdWFsX0JvdHRsZW5lY2tUeXBlCkNvbHVtbkFyZWHwBH5YdHJhI0FycmF5MTIsIE9iamVjdCwsIFN5c3RlbS5Db2xsZWN0aW9ucy5BcnJheUxpc3QsLCwsIG1zY29ybGliLCwsLCBWZXJzaW9uPTQuMC4wLjAsLCwsIEN1bHR1cmU9bmV1dHJhbCwsLCwgUHVibGljS2V5VG9rZW49Yjc3YTVjNTYxOTM0ZTA4OSwsIH5YdHJhI0Jhc2U2NEFBRUFBQUQvLy8vL0FRQUFBQUFBQUFBRUFRQUFBQnhUZVhOMFpXMHVRMjlzYkdWamRHbHZibk11UVhKeVlYbE1hWE4wQXdBQUFBWmZhWFJsYlhNRlgzTnBlbVVJWDNabGNuTnBiMjRGQUFBSUNBa0NBQUFBQkFBQUFBUUFBQUFRQWdBQUFBUUFBQUFKQXdBQUFBWUVBQUFBQm1OdmJIVnRiZ2tGQUFBQUNBZ0NBQUFBREFZQUFBQk5VM2x6ZEdWdExsZGxZaXdnVm1WeWMybHZiajAwTGpBdU1DNHdMQ0JEZFd4MGRYSmxQVzVsZFhSeVlXd3NJRkIxWW14cFkwdGxlVlJ2YTJWdVBXSXdNMlkxWmpkbU1URmtOVEJoTTJFRkF3QUFBQnRUZVhOMFpXMHVWMlZpTGxWSkxrbHVaR1Y0WldSVGRISnBibWNCQUFBQUJsOTJZV3gxWlFFR0FBQUFCZ2NBQUFBSVEzTnpRMnhoYzNNQkJRQUFBQU1BQUFBR0NBQUFBQVJmSVZOQ0N3PT0sIG51bGwsIG51bGwsIG51bGwsIG51bGwsIG51bGwsIG51bGwsIG51bGwsIG51bGwsIG51bGwsIG51bGwsIG51bGwsIAVJdGVtNAVDb3VudAhGMCxjb3VudAVjb3VudAhEYXRhQXJlYfAEflh0cmEjQXJyYXkxMiwgT2JqZWN0LCwgU3lzdGVtLkNvbGxlY3Rpb25zLkFycmF5TGlzdCwsLCwgbXNjb3JsaWIsLCwsIFZlcnNpb249NC4wLjAuMCwsLCwgQ3VsdHVyZT1uZXV0cmFsLCwsLCBQdWJsaWNLZXlUb2tlbj1iNzdhNWM1NjE5MzRlMDg5LCwgflh0cmEjQmFzZTY0QUFFQUFBRC8vLy8vQVFBQUFBQUFBQUFFQVFBQUFCeFRlWE4wWlcwdVEyOXNiR1ZqZEdsdmJuTXVRWEp5WVhsTWFYTjBBd0FBQUFaZmFYUmxiWE1GWDNOcGVtVUlYM1psY25OcGIyNEZBQUFJQ0FrQ0FBQUFCQUFBQUFRQUFBQVFBZ0FBQUFRQUFBQUpBd0FBQUFZRUFBQUFCbTV2UkhKaFp3a0ZBQUFBQ0FnQ0FBQUFEQVlBQUFCTlUzbHpkR1Z0TGxkbFlpd2dWbVZ5YzJsdmJqMDBMakF1TUM0d0xDQkRkV3gwZFhKbFBXNWxkWFJ5WVd3c0lGQjFZbXhwWTB0bGVWUnZhMlZ1UFdJd00yWTFaamRtTVRGa05UQmhNMkVGQXdBQUFCdFRlWE4wWlcwdVYyVmlMbFZKTGtsdVpHVjRaV1JUZEhKcGJtY0JBQUFBQmw5MllXeDFaUUVHQUFBQUJnY0FBQUFJUTNOelEyeGhjM01CQlFBQUFBTUFBQUFHQ0FBQUFBUmZJVk5DQ3c9PSwgbnVsbCwgbnVsbCwgbnVsbCwgbnVsbCwgbnVsbCwgbnVsbCwgbnVsbCwgbnVsbCwgbnVsbCwgbnVsbCwgbnVsbCwgBUl0ZW01HihTZWxmKSAtIE1hdGVyaWFsIHZhbHVlICBbU3VtXQduLTMsc3VtEXN1bV9NYXRlcmlhbFZhbHVl7AR+WHRyYSNBcnJheTEyLCBPYmplY3QsLCBTeXN0ZW0uQ29sbGVjdGlvbnMuQXJyYXlMaXN0LCwsLCBtc2NvcmxpYiwsLCwgVmVyc2lvbj00LjAuMC4wLCwsLCBDdWx0dXJlPW5ldXRyYWwsLCwsIFB1YmxpY0tleVRva2VuPWI3N2E1YzU2MTkzNGUwODksLCB+WHRyYSNCYXNlNjRBQUVBQUFELy8vLy9BUUFBQUFBQUFBQUVBUUFBQUJ4VGVYTjBaVzB1UTI5c2JHVmpkR2x2Ym5NdVFYSnlZWGxNYVhOMEF3QUFBQVpmYVhSbGJYTUZYM05wZW1VSVgzWmxjbk5wYjI0RkFBQUlDQWtDQUFBQUJBQUFBQVFBQUFBUUFnQUFBQVFBQUFBSkF3QUFBQVlFQUFBQUJHUmhkR0VKQlFBQUFBZ0lBZ0FBQUF3R0FBQUFUVk41YzNSbGJTNVhaV0lzSUZabGNuTnBiMjQ5TkM0d0xqQXVNQ3dnUTNWc2RIVnlaVDF1WlhWMGNtRnNMQ0JRZFdKc2FXTkxaWGxVYjJ0bGJqMWlNRE5tTldZM1pqRXhaRFV3WVROaEJRTUFBQUFiVTNsemRHVnRMbGRsWWk1VlNTNUpibVJsZUdWa1UzUnlhVzVuQVFBQUFBWmZkbUZzZFdVQkJnQUFBQVlIQUFBQUNFTnpjME5zWVhOekFRVUFBQUFEQUFBQUJnZ0FBQUFFWHlGVFFncz0sIG51bGwsIG51bGwsIG51bGwsIG51bGwsIG51bGwsIG51bGwsIG51bGwsIG51bGwsIG51bGwsIG51bGwsIG51bGwsIBRPcHRpb25zQ3VzdG9taXphdGlvbg5BbGxvd1ByZWZpbHRlchxBbGxvd0RyYWdJbkN1c3RvbWl6YXRpb25Gb3JtCUFsbG93RHJhZw9EZWZlcnJlZFVwZGF0ZXMMT3B0aW9uc1BhZ2VyC1Jvd3NQZXJQYWdlBkdyb3Vwcw==\\\",\\\"collapse\\\":\\\"/v///wAAAAAAAAAAAAAAAP7///8BAAAAI2luZGl2aWR1YWxfQ29tcGFueUNvZGVfX0NvbXBhbnlDb2RlWlN5c3RlbS5TdHJpbmcsIG1zY29ybGliLCBWZXJzaW9uPTQuMC4wLjAsIEN1bHR1cmU9bmV1dHJhbCwgUHVibGljS2V5VG9rZW49Yjc3YTVjNTYxOTM0ZTA4OQABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==\\\"}\",\"drilldown_display\":\"_3093dc7e_b30c_4156_a624_a855d8fa2112\",\"collapse\":\"/v///wAAAAAAAAAAAAAAAP7///8BAAAAI2luZGl2aWR1YWxfQ29tcGFueUNvZGVfX0NvbXBhbnlDb2RlWlN5c3RlbS5TdHJpbmcsIG1zY29ybGliLCBWZXJzaW9uPTQuMC4wLjAsIEN1bHR1cmU9bmV1dHJhbCwgUHVibGljS2V5VG9rZW49Yjc3YTVjNTYxOTM0ZTA4OQABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==\"}",
+            "multi_lang_description": [
+                {
+                    "lang": "de",
+                    "text": "<div id=\"summary\" /><div class=\" section\" id=\"S1440505941502383\"><p class=\"\" id=\"P1440505941502784\" /></div>"
+                },
+                {
+                    "lang": "en",
+                    "text": "<div id=\"summary\" /><div class=\" section\" id=\"S1440505941502383\"><p class=\"\" id=\"P1440505941502784\" /></div>"
+                },
+                {
+                    "lang": "es",
+                    "text": "<div id=\"summary\" /><div class=\" section\" id=\"S1440505941502383\"><p class=\"\" id=\"P1440505941502784\" /></div>"
+                },
+                {
+                    "lang": "fr",
+                    "text": "<div id=\"summary\" /><div class=\" section\" id=\"S1440505941502383\"><p class=\"\" id=\"P1440505941502784\" /></div>"
+                },
+                {
+                    "lang": "nl",
+                    "text": "<div id=\"summary\" /><div class=\" section\" id=\"S1440505941502383\"><p class=\"\" id=\"P1440505941502784\" /></div>"
+                }
+            ]
+        }
+    ],
+    "has_warnings": true,
+    "is_template": false,
+    "published": {
+        "user": "/users/1",
+        "full_name": "EAAdmin",
+        "datetime": 1567577212
+    },
+    "model": "/models/1",
+    "is_published": true,
+    "allow_more_details": true,
+    "multi_lang_description": [
+        {
+            "lang": "de",
+            "text": "<div id=\"summary\" /><div class=\" section\" id=\"S1436440131616844\"><h2 class=\" topictitle2\" id=\"Hidelem4x30320\">Zusammenfassung</h2><p class=\"\" id=\"Pidelem4x30324\">Das Objekt Lieferposition enthält Informationen dazu, welche Mengen welches Materials von welchem Standort aus geliefert werden.</p><h2 class=\" topictitle2\" id=\"Hidelem4x30326\">Erläuterung</h2><p class=\"\" id=\"Pidelem4x30329\">In SAP kann eine Lieferposition eine vollständige Verkaufsbelegposition repräsentieren, aber auch eine Teilmenge. Für Auslieferungen und Anlieferungen kann ein Lieferbeleg eine beliebige Anzahl von Positionen enthalten. Grundsätzlich gibt es zwei Arten von Lieferungen: Auslieferungen und Anlieferungen. Die Auslieferungen werden in SAP mit Referenz auf einen Kundenauftrag oder eine Transportbestellung erstellt. Die Anlieferungen werden in SAP mit Referenz auf einen Verkaufsauftrag, eine Transportbestellung oder eine Kundenrückgabe erstellt.</p><h2 class=\" topictitle2\" id=\"Hidelem4x30335\">Technischer Hintergrund</h2><p class=\"\" id=\"Pidelem4x30337\">Ein Objekt wird auf der Grundlage der SAP-Tabelle LIPS mit Referenzen zu Lieferungskopf, Verkaufsbelegposition usw. sowie einer Unterliste von Verkaufsbelegeinteilungen und Einkaufsbelegeinteilungen erstellt. Die SAP-Tabellen VBUP und LIKP sind ebenfalls daran beteiligt.</p><h2 class=\" topictitle2\" id=\"Hidelem4x30340\">Verwandte Themen</h2><p class=\"\" id=\"Pidelem4x30343\">Auslieferungskopf</p><p class=\"\" id=\"Pidelem4x30346\">Die für Auslieferungen relevanten allgemeinen Daten sind im Belegkopf gespeichert. Diese Daten gelten für den gesamten Beleg. Zu den allgemeinen Daten können gehören:</p><ul id=\"Pidelem4x30348\" class=\"\"><li><p class=\"\" id=\"P1436440131624805\">Versandpunkt,</p></li><li><p class=\"\" id=\"P1436440131625116\">Daten zur Lieferungs- und Transportplanung (etwa das Warenausgabedatum oder das Datum der Lieferung an den Empfänger),</p></li><li><p class=\"\" id=\"P1436440131626757\">Gewichte und Volumina der gesamten Auslieferung,</p></li><li><p class=\"\" id=\"P143644013162728\">Nummern von Auftraggeber und Lieferungsempfänger,</p></li><li><p class=\"\" id=\"P1436440131628549\">Route.</p></li></ul><p /><p class=\"\" id=\"Pidelem4x30359\">Anlieferungskopf</p><p class=\"\" id=\"Pidelem4x30362\">Die für Anlieferungen relevanten allgemeinen Daten sind im Belegkopf gespeichert. Diese Daten gelten für den gesamten Beleg. Zu den allgemeinen Daten können gehören:</p><ul id=\"Pidelem4x30364\" class=\"\"><li><p class=\"\" id=\"P14364401316299310\">Warenannahmestelle,</p></li><li><p class=\"\" id=\"P1436440131630311\">Planungsdaten (Wareneingangsdatum oder Lieferdatum),</p></li><li><p class=\"\" id=\"P14364401316324512\">Gewichte und Volumina der gesamten Anlieferung,</p></li><li><p class=\"\" id=\"P14364401316333213\">Lieferantennummer,</p></li><li><p class=\"\" id=\"P1436440131634614\">Route.</p></li></ul><p /></div>"
+        },
+        {
+            "lang": "en",
+            "text": "<div id=\"summary\" /><div class=\" section\" id=\"S1436440131616844\"><h2 class=\" topictitle2\" id=\"Hidelem4x30320\">Summary</h2><p class=\"\" id=\"Pidelem4x30324\">The Delivery Item object contains information about how much of which material is delivered from which location.</p><h2 class=\" topictitle2\" id=\"Hidelem4x30326\">Explanation</h2><p class=\"\" id=\"Pidelem4x30329\">In SAP a delivery item can represent an entire sales document item but also a partial quantity. For both outbound and inbound deliveries there can be any number of items in a delivery document. In basic there are two types of deliveries: outbound deliveries and inbound deliveries. Outbound deliveries are created in SAP with reference to a sales order or a stock transport order. The inbound deliveries are created in SAP with reference to a purchase order, a stock transport order or a customer return.</p><h2 class=\" topictitle2\" id=\"Hidelem4x30335\">Technical background</h2><p class=\"\" id=\"Pidelem4x30337\">Based on SAP table LIPS an object is created with references to Delivery Header, Sales Document Item and more as well as a sublist of Sales Document Schedule Lines and Purchase Document Schedule Lines. Also SAP tables VBUP and LIKP are involved.</p><h2 class=\" topictitle2\" id=\"Hidelem4x30340\">Related topics</h2><p class=\"\" id=\"Pidelem4x30343\">Outbound Delivery Header</p><p class=\"\" id=\"Pidelem4x30346\">The general data relevant for the outbound delivery is stored in the document header. This data is valid for the entire document. The general data may include:</p><ul id=\"Pidelem4x30348\" class=\"\"><li><p class=\"\" id=\"P1436440131624805\">shipping point,</p></li><li><p class=\"\" id=\"P1436440131625116\">data about delivery scheduling and transportation scheduling (for example, the goods issue date or the date of delivery to the ship-to party),</p></li><li><p class=\"\" id=\"P1436440131626757\">weights and volumes of the entire outbound delivery,</p></li><li><p class=\"\" id=\"P143644013162728\">sold-to party and the ship-to party numbers,</p></li><li><p class=\"\" id=\"P1436440131628549\">route.</p></li></ul><p /><p class=\"\" id=\"Pidelem4x30359\">Inbound Delivery Header</p><p class=\"\" id=\"Pidelem4x30362\">The general data relevant for the inbound delivery is stored in the document header. This data is valid for the entire document. The general data may include:</p><ul id=\"Pidelem4x30364\" class=\"\"><li><p class=\"\" id=\"P14364401316299310\">goods receiving point,</p></li><li><p class=\"\" id=\"P1436440131630311\">scheduling data (goods receipt date or delivery date),</p></li><li><p class=\"\" id=\"P14364401316324512\">weights and volumes for the entire inbound delivery,</p></li><li><p class=\"\" id=\"P14364401316333213\">vendor number,</p></li><li><p class=\"\" id=\"P1436440131634614\">route.</p></li></ul><p /></div>"
+        },
+        {
+            "lang": "es",
+            "text": "<div id=\"summary\" /><div class=\" section\" id=\"S1436440131616844\"><h2 class=\" topictitle2\" id=\"Hidelem4x30320\">Resumen</h2><p class=\"\" id=\"Pidelem4x30324\">El objeto Entrega Posición contiene información sobre la cantidad de material y el almacén del que se entrega.</p><h2 class=\" topictitle2\" id=\"Hidelem4x30326\">Explicación</h2><p class=\"\" id=\"Pidelem4x30329\">En SAP, una posición de entrega puede representar todo un documento de ventas posición, pero también una cantidad parcial. Puede haber cualquier número de posiciones en un documento de entrega para entregas de salida y entrantes. Básicamente, hay dos tipos de entregas: entregas de salida y entregas entrantes. Las entregas salientes se crean en SAP con referencia a un pedido de cliente o un pedido de traslado de stock. Las entregas entrantes se crean en SAP con referencia a un pedido, un pedido de traslado de stock o una devolución de cliente.</p><h2 class=\" topictitle2\" id=\"Hidelem4x30335\">Contexto técnico</h2><p class=\"\" id=\"Pidelem4x30337\">Según la tabla SAP LIPS, un objeto se crea con referencias a Entrega Cabecera, Documento de Ventas Posición y más, así como con una sublista de Documentos de Ventas Reparto y Documentos de Compras Reparto. También intervienen las tablas SAP VBUP y LIKP.</p><h2 class=\" topictitle2\" id=\"Hidelem4x30340\">Temas relacionados</h2><p class=\"\" id=\"Pidelem4x30343\">Entrega de Salida Cabecera</p><p class=\"\" id=\"Pidelem4x30346\">Los datos generales relevantes sobre la entrega de salida se almacenan en el documento cabecera. Son válidos para todo el documento. Los datos generales podrían incluir:</p><ul id=\"Pidelem4x30348\" class=\"\"><li><p class=\"\" id=\"P1436440131624805\">punto de expedición,</p></li><li><p class=\"\" id=\"P1436440131625116\">datos sobre la programación de la entrega y el transporte (por ejemplo, la fecha de salida de las mercancías o la fecha de entrega al destinatario),</p></li><li><p class=\"\" id=\"P1436440131626757\">peso y volumen de toda la entrega de salida,</p></li><li><p class=\"\" id=\"P143644013162728\">números del solicitante y del destinatario,</p></li><li><p class=\"\" id=\"P1436440131628549\">ruta.</p></li></ul><p /><p class=\"\" id=\"Pidelem4x30359\">Entrega Entrante Cabecera</p><p class=\"\" id=\"Pidelem4x30362\">Los datos generales relevantes sobre la entrega entrante se almacenan en el documento cabecera. Son válidos para todo el documento. Los datos generales podrían incluir:</p><ul id=\"Pidelem4x30364\" class=\"\"><li><p class=\"\" id=\"P14364401316299310\">punto de entrada de la mercancía,</p></li><li><p class=\"\" id=\"P1436440131630311\">datos de programación (fecha de recepción o de entrega de la mercancía),</p></li><li><p class=\"\" id=\"P14364401316324512\">peso y volumen de toda la entrega entrante,</p></li><li><p class=\"\" id=\"P14364401316333213\">número del acreedor,</p></li><li><p class=\"\" id=\"P1436440131634614\">ruta.</p></li></ul><p /></div>"
+        },
+        {
+            "lang": "fr",
+            "text": "<div id=\"summary\" /><div class=\" section\" id=\"S1436440131616844\"><h2 class=\" topictitle2\" id=\"Hidelem4x30320\">Récapitulatif</h2><p class=\"\" id=\"Pidelem4x30324\">L'objet Poste de livraison contient des informations sur la quantité d'articles livrés et depuis quel emplacement.</p><h2 class=\" topictitle2\" id=\"Hidelem4x30326\">Explication</h2><p class=\"\" id=\"Pidelem4x30329\">Dans SAP, un poste de livraison peut représenter un poste de document de vente entier mais aussi une quantité partielle. Pour les livraisons externes et les livraisons internes, un nombre d'articles peut figurer sur un document de livraison. À la base, il existe deux principaux types de livraisons : les livraisons externes et les livraisons internes. Les livraisons externes sont créées dans SAP avec une référence à une commande client ou un ordre de transport de stock. Les livraisons internes sont créées dans SAP avec une référence à une commande d'achat, un ordre de transport de stock ou un retour client.</p><h2 class=\" topictitle2\" id=\"Hidelem4x30335\">Antécédents techniques.</h2><p class=\"\" id=\"Pidelem4x30337\">D'après la table LIPS dans SAP, un objet est créé avec des références à l'en-tête Livaison, Poste de document de vente et autre, ainsi qu'à une liste auxiliaire Document de vente numéro de l'échéance et Numéros de l'échéance Document d’achat. Par ailleurs, les tables VBUP et LIKP dans SAP sont impliquées.</p><h2 class=\" topictitle2\" id=\"Hidelem4x30340\">Sujets associés</h2><p class=\"\" id=\"Pidelem4x30343\">En-tête Livraison externe</p><p class=\"\" id=\"Pidelem4x30346\">Les données générales pertinentes pour la livraison externe sont mémorisées dans l'en-tête du document. Elles sont valides pour l'ensemble du document. Les données générales peuvent inclure :</p><ul id=\"Pidelem4x30348\" class=\"\"><li><p class=\"\" id=\"P1436440131624805\">point d'expédition,</p></li><li><p class=\"\" id=\"P1436440131625116\">données concernant les programmes de livraison et de transport (par exemple, la date d'émission des marchandises ou la date de livraison au tiers),</p></li><li><p class=\"\" id=\"P1436440131626757\">poids et volumes de toute la livraison externe,</p></li><li><p class=\"\" id=\"P143644013162728\">Numéro du tiers et du destinataire,</p></li><li><p class=\"\" id=\"P1436440131628549\">route.</p></li></ul><p /><p class=\"\" id=\"Pidelem4x30359\">En-tête Livraison interne</p><p class=\"\" id=\"Pidelem4x30362\">Les données générales pertinentes pour la livraison interne sont mémorisées dans l'en-tête du document. Elles sont valides pour l'ensemble du document. Les données générales peuvent inclure :</p><ul id=\"Pidelem4x30364\" class=\"\"><li><p class=\"\" id=\"P14364401316299310\">point de réception des marchandises,</p></li><li><p class=\"\" id=\"P1436440131630311\">données de programmation (date de réception ou de livraison des marchandises),</p></li><li><p class=\"\" id=\"P14364401316324512\">poids et volumes de toute la livraison interne,</p></li><li><p class=\"\" id=\"P14364401316333213\">numéro du fournisseur,</p></li><li><p class=\"\" id=\"P1436440131634614\">route.</p></li></ul><p /></div>"
+        },
+        {
+            "lang": "nl",
+            "text": "<div id=\"summary\" /><div class=\" section\" id=\"S1436440131616844\"><h2 class=\" topictitle2\" id=\"Hidelem4x30320\">Samenvatting</h2><p class=\"\" id=\"Pidelem4x30324\">Het object Leveringspositie bevat gegevens over de hoeveelheden van elk artikel en vanaf welke locatie deze zijn geleverd.</p><h2 class=\" topictitle2\" id=\"Hidelem4x30326\">Uitleg</h2><p class=\"\" id=\"Pidelem4x30329\">In SAP kan een leveringspositie een volledige verkoopdocumentpositie voorstellen, maar ook een deel van een hoeveelheid. Voor zowel uitgaande als binnenkomende leveringen kan een onbeperkt aantal posities aan een leveringsdocument worden toegevoegd. Er zijn in feite twee soorten leveringen: uitgaande leveringen en binnenkomende leveringen. Uitgaande leveringen worden in SAP gemaakt met referenties naar een verkooporder of een voorraadtransportorder. Uitgaande leveringen worden in SAP gemaakt met referenties naar een inkooporder, een voorraadtransportorder of een retournering door een klant.</p><h2 class=\" topictitle2\" id=\"Hidelem4x30335\">Technische achtergrond</h2><p class=\"\" id=\"Pidelem4x30337\">Op basis van de SAP-tabel LIPS wordt een object aangemaakt met referenties naar Leveringskop, Verkoopdocumentpositie en meer, alsmede een sublijst van Planningsregels verkoopdocument en Planningsregels inkoopdocument. De SAP-tabellen VBUP en LIKP zijn hier ook bij betrokken.</p><h2 class=\" topictitle2\" id=\"Hidelem4x30340\">Verwante onderwerpen</h2><p class=\"\" id=\"Pidelem4x30343\">Kop uitgaande levering</p><p class=\"\" id=\"Pidelem4x30346\">De algemene gegevens die relevant zijn voor de uitgaande levering worden opgeslagen in de documentkop. Deze gegevens zijn geldig voor het gehele document. De algemene gegevens kunnen het volgende bevatten:</p><ul id=\"Pidelem4x30348\" class=\"\"><li><p class=\"\" id=\"P1436440131624805\">transportpunt,</p></li><li><p class=\"\" id=\"P1436440131625116\">gegevens over de leveringsplanning en de transportplanning (bijvoorbeeld de verzenddatum van goederen of de leveringsdatum bij de partij waaraan de goederen worden geleverd),</p></li><li><p class=\"\" id=\"P1436440131626757\">gewicht en volume van de gehele uitgaande levering,</p></li><li><p class=\"\" id=\"P143644013162728\">verkocht aan- en transporteren naar-nummers,</p></li><li><p class=\"\" id=\"P1436440131628549\">route.</p></li></ul><p /><p class=\"\" id=\"Pidelem4x30359\">Kop binnenkomende levering</p><p class=\"\" id=\"Pidelem4x30362\">De algemene gegevens die relevant zijn voor de binnenkomende levering worden opgeslagen in de documentkop. Deze gegevens zijn geldig voor het gehele document. De algemene gegevens kunnen het volgende bevatten:</p><ul id=\"Pidelem4x30364\" class=\"\"><li><p class=\"\" id=\"P14364401316299310\">ontvangstpunt van goederen,</p></li><li><p class=\"\" id=\"P1436440131630311\">planningsgegevens (ontvangstdatum van goederen of leveringsdatum),</p></li><li><p class=\"\" id=\"P14364401316324512\">gewicht en volume van de gehele binnenkomende levering,</p></li><li><p class=\"\" id=\"P14364401316333213\">leveranciernummer,</p></li><li><p class=\"\" id=\"P1436440131634614\">route.</p></li></ul><p /></div>"
+        }
+    ]
+}

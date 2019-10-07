@@ -3,6 +3,7 @@ Screenshot "WC_Dashboards" page
     ${DashboardId}    Set Variable    WEBHELP_WC_Dashboards
 
     Find Dashboard By ID Then Execute The First Dashboard    ${DashboardId}
+    Open Filter Panel
 
     Crop Dashboard Page
 

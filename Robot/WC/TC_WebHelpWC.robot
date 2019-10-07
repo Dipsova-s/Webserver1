@@ -45,6 +45,7 @@ Force Tags          webhelp  webhelp_wc
 # You can add a new test case by copy from the existing one
 # - Parameters are "USERNAME" "PASSWORD" "FOLDER"
 # - Each users must set the system language manually
+# -- You can create users by running script "webhelp_items\add-users.ps1" on the target server
 WebHelp WC English
     [Setup]    Test Setup WC WebHelp    \msmith    P@ssw0rd    idsfigures_lowres_en-US
     WebHelp WC

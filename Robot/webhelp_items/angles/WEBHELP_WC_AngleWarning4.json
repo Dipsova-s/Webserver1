@@ -1,1 +1,775 @@
-{"multi_lang_name":[{"lang":"en","text":"Dead stock"}],"multi_lang_description":[{"lang":"en","text":"<h3></h3><h3 style=\"margin-bottom:12pt;\"><strong><span lang=\"EN-US\" style=\"font-size:9pt;font-family:Verdana, sans-serif;\">Summary&nbsp;</span></strong></h3><p style=\"margin-bottom:12pt;\"><span lang=\"EN-US\" style=\"font-size:9pt;font-family:Verdana, sans-serif;\">When materials are in stock but haven&rsquo;t been consumed for a long time and there is no demand, they need to be checked.</span></p><h3 style=\"margin-bottom:12pt;\"><strong><span lang=\"EN-US\" style=\"font-size:9pt;font-family:Verdana, sans-serif;\">Business Question&nbsp;</span></strong></h3><p style=\"margin-bottom:12pt;\"><span lang=\"EN-US\" style=\"font-size:9pt;font-family:Verdana, sans-serif;\">What stock can be considered dead looking at consumption and demand patterns?</span></p><h3 style=\"margin-bottom:12pt;\"><strong><span lang=\"EN-US\" style=\"font-size:9pt;font-family:Verdana, sans-serif;\">Action</span></strong></h3><p><span lang=\"EN-US\" style=\"font-size:9.0pt;font-family:'Verdana','sans-serif';\">Because the stock is already available in the plant, it is difficult to get rid of it. Most actions should be aimed at preventing new stock coming in because this stock would run the risk of becoming dead stock in the future.</span></p><ul type=\"disc\"><li><span lang=\"EN-US\" style=\"font-size:9.0pt;font-family:'Verdana','sans-serif';\">Check if safety stock can be      reduced</span></li><li><span lang=\"EN-US\" style=\"font-size:9.0pt;font-family:'Verdana','sans-serif';\">Check if there are possibilities      to transfer stock to another plant where a shortage exists</span></li><li><span lang=\"EN-US\" style=\"font-size:9.0pt;font-family:'Verdana','sans-serif';\">Check if materials can be scrapped</span></li></ul><h3 style=\"margin-bottom:12pt;\"><strong><span lang=\"EN-US\" style=\"font-size:9pt;font-family:Verdana, sans-serif;\">Explanation&nbsp;</span></strong></h3><p style=\"margin-bottom:12pt;\"><span lang=\"EN-US\" style=\"font-size:9pt;font-family:Verdana, sans-serif;\">Dead stock is looking at materials that are not moving any more. It has not been used recently and in the near future there are also no requirements for it. It is important to avoid materials coming in that could become dead stock in the future. For stock that is already present and can be considered dead, it should be checked if there is a way to get this stock out, possibly by transferring it to other plants or scrapping it.</span></p><h3 style=\"margin-bottom:12pt;\"><strong><span lang=\"EN-US\" style=\"font-size:9pt;font-family:Verdana, sans-serif;\">How the Business Question was solved using the Every Angle technology&nbsp;</span></strong></h3><p style=\"margin-bottom:12pt;\"><span lang=\"EN-US\" style=\"font-size:9pt;font-family:Verdana, sans-serif;\">Starting at the Material on plant level object the filters applied are:</span></p><ul type=\"disc\"><li><span lang=\"EN-US\" style=\"font-size:9.0pt;font-family:'Verdana','sans-serif';\">Last consumption date is      relatively before -365 days. This means it is longer than a year ago that      this material was being used.</span></li><li><span lang=\"EN-US\" style=\"font-size:9.0pt;font-family:'Verdana','sans-serif';\">Stock quantity total is greater      than zero, so that only materials that are currently on stock are      considered.</span></li><li><span lang=\"EN-US\" style=\"font-size:9.0pt;font-family:'Verdana','sans-serif';\">Expected demand next X days is      equal to zero, meaning that within the horizon that is set in the      background, no requirements exist in SAP.</span></li></ul><h3 style=\"margin-bottom:12pt;\"><strong><span lang=\"EN-US\" style=\"font-size:9pt;font-family:Verdana, sans-serif;\">Related topics&nbsp;</span></strong></h3><p style=\"margin-bottom:12pt;\"><span lang=\"EN-US\" style=\"font-size:9pt;font-family:Verdana, sans-serif;\">In Every Angle it is very easy to do analysis on excess material quantities and values. Please also see the template for transfer possibilities for shortage and excess materials. To prevent dead stock in the future, analysis can be done on unnecessary procurement.</span></p><p></p>"}],"authorizations":{"update":true,"delete":true,"publish":false,"unpublish":true,"validate":true,"unvalidate":false,"mark_template":true,"unmark_template":false,"create_private_display":true,"create_public_display":true},"is_deleted":false,"displays":"/models/1/angles/601/displays","allow_followups":true,"allow_more_details":true,"assigned_labels":["P2P","S2D","O2C"],"labels":"/models/1/angles/601/labels","business_processes":"/models/1/angles/601/business_processes","grouping_labels":"/models/1/angles/601/grouping_labels","angle_default_display":"/models/1/angles/601/displays/3013","privilege_labels":"/models/1/angles/601/privilege_labels","package":"/packages/11","query_definition":[{"base_classes":["MaterialOnPlantLevel"],"queryblock_type":"base_classes"},{"query_steps":[{"field":"LastConsumptionDate","operator":"relative_before","arguments":[{"argument_type":"value","value":-365}],"step_type":"filter","tech_info":""},{"field":"Material__ExpectedDemandInXDayScope","operator":"equal_to","arguments":[{"argument_type":"value","value":0}],"step_type":"filter","tech_info":""},{"field":"StockQuantityTotal","operator":"greater_than","arguments":[{"argument_type":"value","value":0}],"step_type":"filter","tech_info":""}],"queryblock_type":"query_steps"}],"display_definitions":[{"multi_lang_name":[{"lang":"en","text":"Basic list"}],"multi_lang_description":[{"lang":"en","text":"Showing relevant information on dead stock"}],"angle_id":"601","display_details":"{}","query_blocks":[],"fields":[{"multi_lang_alias":[],"field":"Material__Material","field_details":"{\"width\":81}","valid":true,"tech_info":""},{"multi_lang_alias":[],"field":"Material__Description","field_details":"{\"width\":176}","valid":true,"tech_info":"MAKT-MAKTX"},{"multi_lang_alias":[],"field":"Plant__Plant","field_details":"{\"width\":68,\"format\":\"shn\"}","valid":true,"tech_info":"T001W-WERKS"},{"multi_lang_alias":[],"field":"MMSTA","field_details":"{\"width\":101}","valid":true,"tech_info":"MARC-MMSTA"},{"multi_lang_alias":[],"field":"LVOWK","field_details":"{\"width\":95}","valid":true,"tech_info":"MARC-LVORM"},{"multi_lang_alias":[],"field":"StockValueValuated","field_details":"{\"width\":110}","valid":true,"tech_info":""},{"multi_lang_alias":[],"field":"StockQuantityTotal","field_details":"{\"width\":110}","valid":true,"tech_info":""},{"multi_lang_alias":[],"field":"Material__BaseUnitOfMeasure","field_details":"{\"width\":28,\"format\":\"shn\"}","valid":true,"tech_info":"MARA-MEINS"},{"multi_lang_alias":[],"field":"DISPO","field_details":"{\"width\":120}","valid":true,"tech_info":"MARC-WERKS;MARC-DISPO"},{"multi_lang_alias":[],"field":"LastConsumptionDate","field_details":"{\"width\":145}","valid":true,"tech_info":""},{"multi_lang_alias":[],"field":"ConsumptionLastYear","field_details":"{\"width\":120}","valid":true,"tech_info":""},{"multi_lang_alias":[],"field":"AvgConsumptionLastYearPerMonth","field_details":"{\"width\":172}","valid":true,"tech_info":""},{"multi_lang_alias":[],"field":"ConsumptionTrend","field_details":"{\"width\":111}","valid":true,"tech_info":""},{"multi_lang_alias":[],"field":"ConsumptionMode","field_details":"{\"width\":111,\"format\":\"shn\"}","valid":true,"tech_info":"MARC-VRMOD"},{"multi_lang_alias":[],"field":"MRPProcedure","field_details":"{\"width\":120}","valid":true,"tech_info":"T438A-DISVF"},{"multi_lang_alias":[],"field":"ReorderPoint","field_details":"{\"width\":120}","valid":true,"tech_info":"MARC-MINBE"},{"multi_lang_alias":[],"field":"SafetyStockEA","field_details":"{\"width\":120}","valid":true,"tech_info":""},{"multi_lang_alias":[],"field":"Material__MSTAE","field_details":"{\"width\":101}","valid":true,"tech_info":"MARA-MSTAE"}],"state":"/models/1/angles/601/displays/3013/state","uri":"/models/1/angles/601/displays/3013","authorizations":{"update":true,"delete":false,"publish":false,"unpublish":false,"make_angle_default":false},"created":{"user":"/users/1","datetime":1557132145,"full_name":"EAAdmin"},"user_specific":{"is_user_default":false,"execute_on_login":false},"is_public":true,"contained_aggregation_steps":false,"used_in_task":false,"display_type":"list","is_angle_default":true,"id":"d2e6877efc77ff18f67ceba689659dab2"},{"multi_lang_name":[{"lang":"en","text":"Per MRP controller"}],"multi_lang_description":[],"angle_id":"601","display_details":"{\"columns\":{\"header\":[287],\"data\":[217]},\"layout\":\"{\\\"layout\\\":\\\"ugIAAPIHoHfyAHfyAaF38gIA8gGgd/IDd/IEoXfyBQDyAqB38gagoHfyB6Chd/II8gLyAqF38gkA8hOhd/IKAPICoXfyC/IA8gCgd/IMd/IBoHfyDfIAoHfyDnfyD6B38hB38hGhd/ISAPIBoHfyE3fyFKF38hUA8gKgd/IWd/IXoHfyGHfyGaF38hoA8gGgd/ITAKB38ht38gGgd/Icd/IdoXfyHgDyAqB38hN38h+gd/IgoKF38iEA8gKgd/ITd/IfoHfyIKChd/IiAPICoHfyI3fyAaB38iR38iWhd/ImAPIFoHfyJwCgd/IoAKB38il38iqgd/Ird/IBoHfyLHfyAaF38i0A8gWgd/Iud/IvoXfyMPIA8gCgd/Ixd/IBoHfyMqGgd/Izd/I0oXfyNfIA8gChd/I2APICoHfyI3fyAaB38iR38iWhd/I38gDyAKB38jjyAKB38jl38jqhd/I7APIToXfyCgDyAqF38gvyAPIAoHfyDHfyAaB38g3yAaB38g538jygd/IQd/I9oXfyEgDyAaB38hN38j6hd/IVAPICoHfyFnfyF6B38hh38hmhd/IaAPIBoHfyEwCgd/Ibd/IBoHfyHHfyP6F38h4A8gKgd/ITd/IfoHfyIKChd/IhAPICoHfyE3fyH6B38iCgoXfyIgDyAqB38iN38kCgd/Ikd/JBoXfyJgDyBaB38icAoHfyKACgd/Ipd/IqoHfyK3fyAaB38ix38gGhd/ItAPIFoHfyLnfyL6F38jDyAPIAoHfyMXfyAaB38jKhoHfyM3fyNKF38jXyAPIAoXfyNgDyAqB38iN38kCgd/Ikd/JBoXfyN/IA8gCgd/I48gCgd/I5d/I6oXfyQgDyBKB38kOgoHfyRKCgd/IYoKB38kWhoXfyRgDyAqB38kfyHqB38kjyHqF38knyAPIA8koOI0xheW91dFZlcnNpb24AD09wdGlvbnNCZWhhdmlvchlTb3J0QnlTdW1tYXJ5RGVmYXVsdE9yZGVyCkRlc2NlbmRpbmcLT3B0aW9uc1ZpZXcNU2hvd1Jvd1RvdGFscxBTaG93Q29sdW1uVG90YWxzBkZpZWxkcwVJdGVtMRFTb3J0QnlTdW1tYXJ5SW5mbwpDb25kaXRpb25zEkZpZWxkQ29tcG9uZW50TmFtZQVJbmRleAdDYXB0aW9uFyhTZWxmKSAtIE1SUCBjb250cm9sbGVyBEFyZWEHUm93QXJlYQtIZWFkZXJTdHlsZQlWaWV3U3RhdGXsBH5YdHJhI0FycmF5MTIsIE9iamVjdCwsIFN5c3RlbS5Db2xsZWN0aW9ucy5BcnJheUxpc3QsLCwsIG1zY29ybGliLCwsLCBWZXJzaW9uPTQuMC4wLjAsLCwsIEN1bHR1cmU9bmV1dHJhbCwsLCwgUHVibGljS2V5VG9rZW49Yjc3YTVjNTYxOTM0ZTA4OSwsIH5YdHJhI0Jhc2U2NEFBRUFBQUQvLy8vL0FRQUFBQUFBQUFBRUFRQUFBQnhUZVhOMFpXMHVRMjlzYkdWamRHbHZibk11UVhKeVlYbE1hWE4wQXdBQUFBWmZhWFJsYlhNRlgzTnBlbVVJWDNabGNuTnBiMjRGQUFBSUNBa0NBQUFBQkFBQUFBUUFBQUFRQWdBQUFBUUFBQUFKQXdBQUFBWUVBQUFBQTNKdmR3a0ZBQUFBQ0FnQ0FBQUFEQVlBQUFCTlUzbHpkR1Z0TGxkbFlpd2dWbVZ5YzJsdmJqMDBMakF1TUM0d0xDQkRkV3gwZFhKbFBXNWxkWFJ5WVd3c0lGQjFZbXhwWTB0bGVWUnZhMlZ1UFdJd00yWTFaamRtTVRGa05UQmhNMkVGQXdBQUFCdFRlWE4wWlcwdVYyVmlMbFZKTGtsdVpHVjRaV1JUZEhKcGJtY0JBQUFBQmw5MllXeDFaUUVHQUFBQUJnY0FBQUFJUTNOelEyeGhjM01CQlFBQUFBTUFBQUFHQ0FBQUFBUmZJVk5DQ3c9PSwgbnVsbCwgbnVsbCwgbnVsbCwgbnVsbCwgbnVsbCwgbnVsbCwgbnVsbCwgbnVsbCwgbnVsbCwgbnVsbCwgbnVsbCwgB09wdGlvbnMSQWxsb3dTb3J0QnlTdW1tYXJ5BFRydWUJQWxsb3dEcmFnBUZhbHNlCUNlbGxTdHlsZQROYW1lCUZpZWxkTmFtZRBpbmRpdmlkdWFsX0RJU1BPClZhbHVlU3R5bGXMBH5YdHJhI0FycmF5MTIsIE9iamVjdCwsIFN5c3RlbS5Db2xsZWN0aW9ucy5BcnJheUxpc3QsLCwsIG1zY29ybGliLCwsLCBWZXJzaW9uPTQuMC4wLjAsLCwsIEN1bHR1cmU9bmV1dHJhbCwsLCwgUHVibGljS2V5VG9rZW49Yjc3YTVjNTYxOTM0ZTA4OSwsIH5YdHJhI0Jhc2U2NEFBRUFBQUQvLy8vL0FRQUFBQUFBQUFBRUFRQUFBQnhUZVhOMFpXMHVRMjlzYkdWamRHbHZibk11UVhKeVlYbE1hWE4wQXdBQUFBWmZhWFJsYlhNRlgzTnBlbVVJWDNabGNuTnBiMjRGQUFBSUNBa0NBQUFBQWdBQUFBSUFBQUFRQWdBQUFBUUFBQUFKQXdBQUFBZ0JBQTBDREFRQUFBQk5VM2x6ZEdWdExsZGxZaXdnVm1WeWMybHZiajAwTGpBdU1DNHdMQ0JEZFd4MGRYSmxQVzVsZFhSeVlXd3NJRkIxWW14cFkwdGxlVlJ2YTJWdVBXSXdNMlkxWmpkbU1URmtOVEJoTTJFRkF3QUFBQnRUZVhOMFpXMHVWMlZpTGxWSkxrbHVaR1Y0WldSVGRISnBibWNCQUFBQUJsOTJZV3gxWlFFRUFBQUFCZ1VBQUFBVFZHOXdRV3hwWjI1bFpGSnZkMVpoYkhWbGN3cz0sIG51bGwsIG51bGwsIG51bGwsIG51bGwsIG51bGwsIG51bGwsIG51bGwsIG51bGwsIG51bGwsIG51bGwsIG51bGwsIBNUb3BBbGlnbmVkUm93VmFsdWVzD1ZhbHVlVG90YWxTdHlsZQtWYWx1ZUZvcm1hdAxGb3JtYXRTdHJpbmcKRm9ybWF0VHlwZQdOdW1lcmljDVN1bW1hcnlGaWx0ZXIKU3RhcnRWYWx1ZQhFbmRWYWx1ZQRNb2RlCUxhc3RMZXZlbBVSb3dGaWVsZENvbXBvbmVudE5hbWUYQ29sdW1uRmllbGRDb21wb25lbnROYW1lDEZpbHRlclZhbHVlcwZWYWx1ZXMOflh0cmEjQXJyYXkwLCAKVmFsdWVzQ29yZRFEZWZlckZpbHRlclN0cmluZwpTaG93QmxhbmtzCkZpbHRlclR5cGUIRXhjbHVkZWQMQ3VzdG9tVG90YWxzCkNlbGxGb3JtYXQMQ2FsY3VsYXRpb25zCUFyZWFJbmRleA5BY3R1YWxTb3J0TW9kZQdEZWZhdWx0BUl0ZW0yJihTZWxmKSAtIEZpbmFuY2lhbCBWYWx1ZSBTdG9ja3MgIFtTdW1dCERhdGFBcmVh7AR+WHRyYSNBcnJheTEyLCBPYmplY3QsLCBTeXN0ZW0uQ29sbGVjdGlvbnMuQXJyYXlMaXN0LCwsLCBtc2NvcmxpYiwsLCwgVmVyc2lvbj00LjAuMC4wLCwsLCBDdWx0dXJlPW5ldXRyYWwsLCwsIFB1YmxpY0tleVRva2VuPWI3N2E1YzU2MTkzNGUwODksLCB+WHRyYSNCYXNlNjRBQUVBQUFELy8vLy9BUUFBQUFBQUFBQUVBUUFBQUJ4VGVYTjBaVzB1UTI5c2JHVmpkR2x2Ym5NdVFYSnlZWGxNYVhOMEF3QUFBQVpmYVhSbGJYTUZYM05wZW1VSVgzWmxjbk5wYjI0RkFBQUlDQWtDQUFBQUJBQUFBQVFBQUFBUUFnQUFBQVFBQUFBSkF3QUFBQVlFQUFBQUJHUmhkR0VKQlFBQUFBZ0lBZ0FBQUF3R0FBQUFUVk41YzNSbGJTNVhaV0lzSUZabGNuTnBiMjQ5TkM0d0xqQXVNQ3dnUTNWc2RIVnlaVDF1WlhWMGNtRnNMQ0JRZFdKc2FXTkxaWGxVYjJ0bGJqMWlNRE5tTldZM1pqRXhaRFV3WVROaEJRTUFBQUFiVTNsemRHVnRMbGRsWWk1VlNTNUpibVJsZUdWa1UzUnlhVzVuQVFBQUFBWmZkbUZzZFdVQkJnQUFBQVlIQUFBQUNFTnpjME5zWVhOekFRVUFBQUFEQUFBQUJnZ0FBQUFFWHlGVFFncz0sIG51bGwsIG51bGwsIG51bGwsIG51bGwsIG51bGwsIG51bGwsIG51bGwsIG51bGwsIG51bGwsIG51bGwsIG51bGwsIBZzdW1fU3RvY2tWYWx1ZVZhbHVhdGVkCG4wLHN1bSxOBkN1c3RvbRRPcHRpb25zQ3VzdG9taXphdGlvbg5BbGxvd1ByZWZpbHRlchxBbGxvd0RyYWdJbkN1c3RvbWl6YXRpb25Gb3JtD0RlZmVycmVkVXBkYXRlcwxPcHRpb25zUGFnZXILUm93c1BlclBhZ2UOQ29sdW1uc1BlclBhZ2UGR3JvdXBz\\\",\\\"collapse\\\":\\\"/v///wAAAAAAAAAAAAAAAP7///8AAAAAAAAAAAAAAAA=\\\"}\",\"drilldown_display\":\"d2e6877efc77ff18f67ceba689659dab2\",\"show_total_for\":1,\"percentage_summary_type\":0,\"include_subtotals\":false}","query_blocks":[{"query_steps":[{"aggregation_fields":[{"field":"sum_StockValueValuated","operator":"sum","source_field":"StockValueValuated","tech_info":""}],"grouping_fields":[{"field":"individual_DISPO","operator":"individual","source_field":"DISPO","tech_info":"MARC-WERKS;MARC-DISPO"}],"step_type":"aggregation"}],"queryblock_type":"query_steps"}],"fields":[{"multi_lang_alias":[],"field":"individual_DISPO","field_details":"{\"pivot_area\":\"row\",\"format\":\"shnln\",\"sorting\":\"\"}","valid":true},{"multi_lang_alias":[],"field":"sum_StockValueValuated","field_details":"{\"pivot_area\":\"data\",\"prefix\":null,\"decimals\":0,\"thousandseparator\":true,\"sorting\":\"\"}","valid":true}],"state":"/models/1/angles/601/displays/3014/state","uri":"/models/1/angles/601/displays/3014","authorizations":{"update":true,"delete":true,"publish":false,"unpublish":true,"make_angle_default":true},"created":{"user":"/users/1","datetime":1557132145,"full_name":"EAAdmin"},"user_specific":{"is_user_default":false,"execute_on_login":false},"is_public":true,"contained_aggregation_steps":true,"used_in_task":false,"display_type":"pivot","is_angle_default":false,"id":"d44ad3244faea06adc883507ff1075b18"},{"multi_lang_name":[{"lang":"en","text":"Reorder point reduction possibilities"}],"multi_lang_description":[],"angle_id":"601","display_details":"{}","query_blocks":[{"query_steps":[{"field":"ReorderPoint","operator":"greater_than","arguments":[{"argument_type":"value","value":0}],"step_type":"filter","tech_info":"MARC-MINBE"}],"queryblock_type":"query_steps"}],"fields":[{"multi_lang_alias":[],"field":"Material__Material","field_details":"{\"width\":86}","valid":true,"tech_info":""},{"multi_lang_alias":[],"field":"Material__Description","field_details":"{\"width\":130}","valid":true,"tech_info":"MAKT-MAKTX"},{"multi_lang_alias":[],"field":"ProcurementTypePlanning","field_details":"{\"width\":168}","valid":true,"tech_info":"T460A-BESKZ/MARC-BESKZ"},{"multi_lang_alias":[],"field":"StockValueValuated","field_details":"{\"width\":120}","valid":true,"tech_info":""},{"multi_lang_alias":[],"field":"DISPO","field_details":"{\"width\":174}","valid":true,"tech_info":"MARC-WERKS;MARC-DISPO"},{"multi_lang_alias":[],"field":"DISMM","field_details":"{\"width\":223}","valid":true,"tech_info":"MARC-DISMM"},{"multi_lang_alias":[],"field":"ReorderPoint","field_details":"{\"width\":120}","valid":true,"tech_info":"MARC-MINBE"}],"state":"/models/1/angles/601/displays/3015/state","uri":"/models/1/angles/601/displays/3015","authorizations":{"update":true,"delete":true,"publish":false,"unpublish":true,"make_angle_default":true},"created":{"user":"/users/1","datetime":1557132145,"full_name":"EAAdmin"},"user_specific":{"is_user_default":false,"execute_on_login":false},"is_public":true,"contained_aggregation_steps":false,"used_in_task":false,"display_type":"list","is_angle_default":false,"id":"d952fd1920fea281924e9a6771e61982b"},{"multi_lang_name":[{"lang":"en","text":"Safety stock reduction possibilities"}],"multi_lang_description":[{"lang":"en","text":"Showing where the safety stock might be reduced."}],"angle_id":"601","display_details":"{}","query_blocks":[{"query_steps":[{"field":"SafetyStock","operator":"greater_than","arguments":[{"argument_type":"value","value":0}],"step_type":"filter","tech_info":"MARC-EISBE"}],"queryblock_type":"query_steps"}],"fields":[{"multi_lang_alias":[],"field":"ID","field_details":"{\"width\":76}","valid":true,"tech_info":""},{"multi_lang_alias":[],"field":"Material__Material","field_details":"{\"width\":83}","valid":true,"tech_info":""},{"multi_lang_alias":[],"field":"Material__Description","field_details":"{\"width\":153}","valid":true,"tech_info":"MAKT-MAKTX"},{"multi_lang_alias":[],"field":"Plant__Plant","field_details":"{\"width\":120}","valid":true,"tech_info":"T001W-WERKS"},{"multi_lang_alias":[],"field":"SafetyStock","field_details":"{\"width\":120}","valid":true,"tech_info":"MARC-EISBE"},{"multi_lang_alias":[],"field":"Material__BaseUnitOfMeasure","field_details":"{\"width\":40,\"format\":\"shn\"}","valid":true,"tech_info":"MARA-MEINS"},{"multi_lang_alias":[],"field":"StockQuantityAvailable","field_details":"{\"width\":120}","valid":true,"tech_info":""},{"multi_lang_alias":[],"field":"ExcessStock","field_details":"{\"width\":120}","valid":true,"tech_info":""},{"multi_lang_alias":[],"field":"ExcessStockValue","field_details":"{\"width\":120}","valid":true,"tech_info":""},{"multi_lang_alias":[],"field":"StockWeeksOnHand","field_details":"{\"width\":120}","valid":true,"tech_info":""},{"multi_lang_alias":[],"field":"StockTurnoverRatio","field_details":"{\"width\":120}","valid":true,"tech_info":""},{"multi_lang_alias":[],"field":"ConsumptionLastYear","field_details":"{\"width\":120}","valid":true,"tech_info":""},{"multi_lang_alias":[],"field":"LastConsumptionDate","field_details":"{\"width\":145}","valid":true,"tech_info":""}],"state":"/models/1/angles/601/displays/3016/state","uri":"/models/1/angles/601/displays/3016","authorizations":{"update":true,"delete":true,"publish":false,"unpublish":true,"make_angle_default":true},"created":{"user":"/users/1","datetime":1557132145,"full_name":"EAAdmin"},"user_specific":{"is_user_default":false,"execute_on_login":false},"is_public":true,"contained_aggregation_steps":false,"used_in_task":false,"display_type":"list","is_angle_default":false,"id":"dd59d80c87f5784df55005a0c8a3ff3fa"},{"multi_lang_name":[{"lang":"en","text":"Stock value per plant"}],"multi_lang_description":[],"angle_id":"601","display_details":"{\"chart_type\":\"bar\",\"stack\":false,\"multi_axis\":false,\"layout\":null,\"drilldown_display\":\"d2e6877efc77ff18f67ceba689659dab2\",\"axistitle\":\"show\",\"axisvalue\":\"show\",\"datalabel\":\"mouse\",\"gridline\":\"show\",\"legend\":\"show\",\"range\":{\"start\":0,\"size\":50}}","query_blocks":[{"query_steps":[{"aggregation_fields":[{"field":"sum_StockValueValuated","operator":"sum","source_field":"StockValueValuated","tech_info":""}],"grouping_fields":[{"field":"individual_Plant__Plant","operator":"individual","source_field":"Plant__Plant","tech_info":"T001W-WERKS"},{"field":"individual_Material__MaterialType","operator":"individual","source_field":"Material__MaterialType","tech_info":"MARA-MTART"}],"step_type":"aggregation"}],"queryblock_type":"query_steps"}],"fields":[{"multi_lang_alias":[],"field":"individual_Plant__Plant","field_details":"{\"pivot_area\":\"row\",\"format\":\"shnln\",\"sorting\":\"\"}","valid":true},{"multi_lang_alias":[],"field":"individual_Material__MaterialType","field_details":"{\"pivot_area\":\"column\",\"format\":\"shnln\",\"sorting\":\"\"}","valid":true},{"multi_lang_alias":[],"field":"sum_StockValueValuated","field_details":"{\"pivot_area\":\"data\",\"prefix\":\"M\",\"decimals\":0,\"thousandseparator\":false,\"sorting\":\"\"}","valid":true}],"state":"/models/1/angles/601/displays/3017/state","uri":"/models/1/angles/601/displays/3017","authorizations":{"update":true,"delete":true,"publish":false,"unpublish":true,"make_angle_default":true},"created":{"user":"/users/1","datetime":1557132145,"full_name":"EAAdmin"},"user_specific":{"is_user_default":false,"execute_on_login":false},"is_public":true,"contained_aggregation_steps":true,"used_in_task":false,"display_type":"chart","is_angle_default":false,"id":"dee45af2b8ebadb51b87c882236527907"}],"changed":{"user":"/users/1","datetime":1557132145,"full_name":"EAAdmin"},"published":{"user":"/users/1","datetime":1557132145,"full_name":"EAAdmin"},"id":"WEBHELP_WC_AngleWarning4","uri":"/models/1/angles/601","model":"/models/1","is_validated":false,"is_parameterized":false,"is_published":true,"is_template":false,"user_specific":{"execute_on_login":false,"is_starred":false,"private_tags":[],"times_executed":0},"created":{"user":"/users/1","datetime":1557132145,"full_name":"EAAdmin"},"has_warnings":false,"state":"/models/1/angles/601/state"}
+{
+    "multi_lang_name": [
+        {
+            "lang": "en",
+            "text": "Dead stock"
+        },
+        {
+            "lang": "nl",
+            "text": "Dead stock"
+        },
+        {
+            "lang": "fr",
+            "text": "Dead stock"
+        },
+        {
+            "lang": "de",
+            "text": "Dead stock"
+        },
+        {
+            "lang": "es",
+            "text": "Dead stock"
+        }
+    ],
+    "labels": "/models/1/angles/643/labels",
+    "assigned_labels": [
+        "P2P",
+        "S2D",
+        "O2C"
+    ],
+    "displays": "/models/1/angles/643/displays",
+    "grouping_labels": "/models/1/angles/643/grouping_labels",
+    "id": "WEBHELP_WC_AngleWarning4",
+    "authorizations": {
+        "unvalidate": false,
+        "mark_template": true,
+        "unmark_template": false,
+        "update": true,
+        "publish": false,
+        "unpublish": true,
+        "create_private_display": true,
+        "validate": true,
+        "create_public_display": true,
+        "delete": true
+    },
+    "user_specific": {
+        "is_starred": false,
+        "private_tags": [],
+        "times_executed": 0,
+        "execute_on_login": false
+    },
+    "state": "/models/1/angles/643/state",
+    "allow_followups": true,
+    "is_parameterized": false,
+    "is_validated": false,
+    "business_processes": "/models/1/angles/643/business_processes",
+    "query_definition": [
+        {
+            "queryblock_type": "base_classes",
+            "base_classes": [
+                "MaterialOnPlantLevel"
+            ]
+        },
+        {
+            "query_steps": [
+                {
+                    "tech_info": "",
+                    "step_type": "filter",
+                    "field": "LastConsumptionDate",
+                    "valid": false,
+                    "validation_details": {
+                        "field": "LastConsumptionDate",
+                        "classes": [
+                            "MaterialOnPlantLevel"
+                        ],
+                        "warning_type": "unsupported_filter_field"
+                    },
+                    "arguments": [
+                        {
+                            "argument_type": "value",
+                            "value": -365
+                        }
+                    ],
+                    "operator": "relative_before"
+                },
+                {
+                    "operator": "equal_to",
+                    "field": "Material__ExpectedDemandInXDayScope",
+                    "step_type": "filter",
+                    "arguments": [
+                        {
+                            "argument_type": "value",
+                            "value": 0
+                        }
+                    ],
+                    "tech_info": ""
+                },
+                {
+                    "operator": "greater_than",
+                    "field": "StockQuantityTotal",
+                    "step_type": "filter",
+                    "arguments": [
+                        {
+                            "argument_type": "value",
+                            "value": 0
+                        }
+                    ],
+                    "tech_info": ""
+                }
+            ],
+            "queryblock_type": "query_steps"
+        }
+    ],
+    "angle_default_display": "/models/1/angles/643/displays/2987",
+    "privilege_labels": "/models/1/angles/643/privilege_labels",
+    "is_deleted": false,
+    "created": {
+        "user": "/users/2",
+        "full_name": "EASystem",
+        "datetime": 1567577217
+    },
+    "changed": {
+        "user": "/users/1",
+        "full_name": "EAAdmin",
+        "datetime": 1567577560
+    },
+    "uri": "/models/1/angles/643",
+    "display_definitions": [
+        {
+            "multi_lang_name": [
+                {
+                    "lang": "en",
+                    "text": "Basic list"
+                }
+            ],
+            "authorizations": {
+                "make_angle_default": false,
+                "unpublish": false,
+                "update": true,
+                "publish": false,
+                "delete": false
+            },
+            "created": {
+                "user": "/users/2",
+                "full_name": "EASystem",
+                "datetime": 1557110545
+            },
+            "fields": [
+                {
+                    "tech_info": "",
+                    "field": "Material__Material",
+                    "multi_lang_alias": [],
+                    "valid": true,
+                    "field_details": "{\"width\":81}"
+                },
+                {
+                    "tech_info": "MAKT-MAKTX",
+                    "field": "Material__Description",
+                    "multi_lang_alias": [],
+                    "valid": true,
+                    "field_details": "{\"width\":176}"
+                },
+                {
+                    "tech_info": "T001W-WERKS",
+                    "field": "Plant__Plant",
+                    "multi_lang_alias": [],
+                    "valid": true,
+                    "field_details": "{\"width\":68,\"format\":\"shn\"}"
+                },
+                {
+                    "tech_info": "MARC-MMSTA",
+                    "field": "MMSTA",
+                    "multi_lang_alias": [],
+                    "valid": true,
+                    "field_details": "{\"width\":101}"
+                },
+                {
+                    "tech_info": "MARC-LVORM",
+                    "field": "LVOWK",
+                    "multi_lang_alias": [],
+                    "valid": true,
+                    "field_details": "{\"width\":95}"
+                },
+                {
+                    "tech_info": "",
+                    "field": "StockValueValuated",
+                    "multi_lang_alias": [],
+                    "valid": true,
+                    "field_details": "{\"width\":110}"
+                },
+                {
+                    "tech_info": "",
+                    "field": "StockQuantityTotal",
+                    "multi_lang_alias": [],
+                    "valid": true,
+                    "field_details": "{\"width\":110}"
+                },
+                {
+                    "tech_info": "MARA-MEINS",
+                    "field": "Material__BaseUnitOfMeasure",
+                    "multi_lang_alias": [],
+                    "valid": true,
+                    "field_details": "{\"width\":28,\"format\":\"shn\"}"
+                },
+                {
+                    "tech_info": "MARC-WERKS;MARC-DISPO",
+                    "field": "DISPO",
+                    "multi_lang_alias": [],
+                    "valid": true,
+                    "field_details": "{\"width\":120}"
+                },
+                {
+                    "field_details": "{\"width\":145}",
+                    "tech_info": "",
+                    "multi_lang_alias": [],
+                    "field": "LastConsumptionDate",
+                    "valid": false,
+                    "validation_details": {
+                        "field": "LastConsumptionDate",
+                        "classes": [
+                            "MaterialOnPlantLevel"
+                        ],
+                        "warning_type": "unsupported_display_field"
+                    }
+                },
+                {
+                    "field_details": "{\"width\":120}",
+                    "tech_info": "",
+                    "multi_lang_alias": [],
+                    "field": "ConsumptionLastYear",
+                    "valid": false,
+                    "validation_details": {
+                        "field": "ConsumptionLastYear",
+                        "classes": [
+                            "MaterialOnPlantLevel"
+                        ],
+                        "warning_type": "unsupported_display_field"
+                    }
+                },
+                {
+                    "field_details": "{\"width\":172}",
+                    "tech_info": "",
+                    "multi_lang_alias": [],
+                    "field": "AvgConsumptionLastYearPerMonth",
+                    "valid": false,
+                    "validation_details": {
+                        "field": "AvgConsumptionLastYearPerMonth",
+                        "classes": [
+                            "MaterialOnPlantLevel"
+                        ],
+                        "warning_type": "unsupported_display_field"
+                    }
+                },
+                {
+                    "field_details": "{\"width\":111}",
+                    "tech_info": "",
+                    "multi_lang_alias": [],
+                    "field": "ConsumptionTrend",
+                    "valid": false,
+                    "validation_details": {
+                        "field": "ConsumptionTrend",
+                        "classes": [
+                            "MaterialOnPlantLevel"
+                        ],
+                        "warning_type": "unsupported_display_field"
+                    }
+                },
+                {
+                    "tech_info": "MARC-VRMOD",
+                    "field": "ConsumptionMode",
+                    "multi_lang_alias": [],
+                    "valid": true,
+                    "field_details": "{\"width\":111,\"format\":\"shn\"}"
+                },
+                {
+                    "tech_info": "T438A-DISVF",
+                    "field": "MRPProcedure",
+                    "multi_lang_alias": [],
+                    "valid": true,
+                    "field_details": "{\"width\":120}"
+                },
+                {
+                    "tech_info": "MARC-MINBE",
+                    "field": "ReorderPoint",
+                    "multi_lang_alias": [],
+                    "valid": true,
+                    "field_details": "{\"width\":120}"
+                },
+                {
+                    "tech_info": "",
+                    "field": "SafetyStockEA",
+                    "multi_lang_alias": [],
+                    "valid": true,
+                    "field_details": "{\"width\":120}"
+                },
+                {
+                    "tech_info": "MARA-MSTAE",
+                    "field": "Material__MSTAE",
+                    "multi_lang_alias": [],
+                    "valid": true,
+                    "field_details": "{\"width\":101}"
+                }
+            ],
+            "contained_aggregation_steps": false,
+            "uri": "/models/1/angles/643/displays/2987",
+            "is_public": true,
+            "used_in_task": false,
+            "state": "/models/1/angles/643/displays/2987/state",
+            "display_type": "list",
+            "user_specific": {
+                "execute_on_login": false,
+                "is_user_default": false
+            },
+            "query_blocks": [],
+            "is_angle_default": true,
+            "angle_id": "643",
+            "id": "d2e6877efc77ff18f67ceba689659dab2",
+            "display_details": "{}",
+            "multi_lang_description": [
+                {
+                    "lang": "en",
+                    "text": "Showing relevant information on dead stock"
+                }
+            ]
+        },
+        {
+            "multi_lang_name": [
+                {
+                    "lang": "en",
+                    "text": "Per MRP controller"
+                }
+            ],
+            "authorizations": {
+                "make_angle_default": true,
+                "unpublish": true,
+                "update": true,
+                "publish": false,
+                "delete": true
+            },
+            "created": {
+                "user": "/users/2",
+                "full_name": "EASystem",
+                "datetime": 1557110545
+            },
+            "fields": [
+                {
+                    "field": "individual_DISPO",
+                    "multi_lang_alias": [],
+                    "valid": true,
+                    "field_details": "{\"pivot_area\":\"row\",\"format\":\"shnln\",\"sorting\":\"\"}"
+                },
+                {
+                    "field": "sum_StockValueValuated",
+                    "multi_lang_alias": [],
+                    "valid": true,
+                    "field_details": "{\"pivot_area\":\"data\",\"prefix\":null,\"decimals\":0,\"thousandseparator\":true,\"sorting\":\"\"}"
+                }
+            ],
+            "contained_aggregation_steps": true,
+            "uri": "/models/1/angles/643/displays/2988",
+            "is_public": true,
+            "used_in_task": false,
+            "state": "/models/1/angles/643/displays/2988/state",
+            "display_type": "pivot",
+            "user_specific": {
+                "execute_on_login": false,
+                "is_user_default": false
+            },
+            "query_blocks": [
+                {
+                    "query_steps": [
+                        {
+                            "aggregation_fields": [
+                                {
+                                    "operator": "sum",
+                                    "field": "sum_StockValueValuated",
+                                    "source_field": "StockValueValuated",
+                                    "tech_info": ""
+                                }
+                            ],
+                            "step_type": "aggregation",
+                            "grouping_fields": [
+                                {
+                                    "operator": "individual",
+                                    "field": "individual_DISPO",
+                                    "source_field": "DISPO",
+                                    "tech_info": "MARC-WERKS;MARC-DISPO"
+                                }
+                            ]
+                        }
+                    ],
+                    "queryblock_type": "query_steps"
+                }
+            ],
+            "is_angle_default": false,
+            "angle_id": "643",
+            "id": "d44ad3244faea06adc883507ff1075b18",
+            "display_details": "{\"columns\":{\"header\":[287],\"data\":[217]},\"layout\":\"{\\\"layout\\\":\\\"ugIAAPIHoHfyAHfyAaF38gIA8gGgd/IDd/IEoXfyBQDyAqB38gagoHfyB6Chd/II8gLyAqF38gkA8hOhd/IKAPICoXfyC/IA8gCgd/IMd/IBoHfyDfIAoHfyDnfyD6B38hB38hGhd/ISAPIBoHfyE3fyFKF38hUA8gKgd/IWd/IXoHfyGHfyGaF38hoA8gGgd/ITAKB38ht38gGgd/Icd/IdoXfyHgDyAqB38hN38h+gd/IgoKF38iEA8gKgd/ITd/IfoHfyIKChd/IiAPICoHfyI3fyAaB38iR38iWhd/ImAPIFoHfyJwCgd/IoAKB38il38iqgd/Ird/IBoHfyLHfyAaF38i0A8gWgd/Iud/IvoXfyMPIA8gCgd/Ixd/IBoHfyMqGgd/Izd/I0oXfyNfIA8gChd/I2APICoHfyI3fyAaB38iR38iWhd/I38gDyAKB38jjyAKB38jl38jqhd/I7APIToXfyCgDyAqF38gvyAPIAoHfyDHfyAaB38g3yAaB38g538jygd/IQd/I9oXfyEgDyAaB38hN38j6hd/IVAPICoHfyFnfyF6B38hh38hmhd/IaAPIBoHfyEwCgd/Ibd/IBoHfyHHfyP6F38h4A8gKgd/ITd/IfoHfyIKChd/IhAPICoHfyE3fyH6B38iCgoXfyIgDyAqB38iN38kCgd/Ikd/JBoXfyJgDyBaB38icAoHfyKACgd/Ipd/IqoHfyK3fyAaB38ix38gGhd/ItAPIFoHfyLnfyL6F38jDyAPIAoHfyMXfyAaB38jKhoHfyM3fyNKF38jXyAPIAoXfyNgDyAqB38iN38kCgd/Ikd/JBoXfyN/IA8gCgd/I48gCgd/I5d/I6oXfyQgDyBKB38kOgoHfyRKCgd/IYoKB38kWhoXfyRgDyAqB38kfyHqB38kjyHqF38knyAPIA8koOI0xheW91dFZlcnNpb24AD09wdGlvbnNCZWhhdmlvchlTb3J0QnlTdW1tYXJ5RGVmYXVsdE9yZGVyCkRlc2NlbmRpbmcLT3B0aW9uc1ZpZXcNU2hvd1Jvd1RvdGFscxBTaG93Q29sdW1uVG90YWxzBkZpZWxkcwVJdGVtMRFTb3J0QnlTdW1tYXJ5SW5mbwpDb25kaXRpb25zEkZpZWxkQ29tcG9uZW50TmFtZQVJbmRleAdDYXB0aW9uFyhTZWxmKSAtIE1SUCBjb250cm9sbGVyBEFyZWEHUm93QXJlYQtIZWFkZXJTdHlsZQlWaWV3U3RhdGXsBH5YdHJhI0FycmF5MTIsIE9iamVjdCwsIFN5c3RlbS5Db2xsZWN0aW9ucy5BcnJheUxpc3QsLCwsIG1zY29ybGliLCwsLCBWZXJzaW9uPTQuMC4wLjAsLCwsIEN1bHR1cmU9bmV1dHJhbCwsLCwgUHVibGljS2V5VG9rZW49Yjc3YTVjNTYxOTM0ZTA4OSwsIH5YdHJhI0Jhc2U2NEFBRUFBQUQvLy8vL0FRQUFBQUFBQUFBRUFRQUFBQnhUZVhOMFpXMHVRMjlzYkdWamRHbHZibk11UVhKeVlYbE1hWE4wQXdBQUFBWmZhWFJsYlhNRlgzTnBlbVVJWDNabGNuTnBiMjRGQUFBSUNBa0NBQUFBQkFBQUFBUUFBQUFRQWdBQUFBUUFBQUFKQXdBQUFBWUVBQUFBQTNKdmR3a0ZBQUFBQ0FnQ0FBQUFEQVlBQUFCTlUzbHpkR1Z0TGxkbFlpd2dWbVZ5YzJsdmJqMDBMakF1TUM0d0xDQkRkV3gwZFhKbFBXNWxkWFJ5WVd3c0lGQjFZbXhwWTB0bGVWUnZhMlZ1UFdJd00yWTFaamRtTVRGa05UQmhNMkVGQXdBQUFCdFRlWE4wWlcwdVYyVmlMbFZKTGtsdVpHVjRaV1JUZEhKcGJtY0JBQUFBQmw5MllXeDFaUUVHQUFBQUJnY0FBQUFJUTNOelEyeGhjM01CQlFBQUFBTUFBQUFHQ0FBQUFBUmZJVk5DQ3c9PSwgbnVsbCwgbnVsbCwgbnVsbCwgbnVsbCwgbnVsbCwgbnVsbCwgbnVsbCwgbnVsbCwgbnVsbCwgbnVsbCwgbnVsbCwgB09wdGlvbnMSQWxsb3dTb3J0QnlTdW1tYXJ5BFRydWUJQWxsb3dEcmFnBUZhbHNlCUNlbGxTdHlsZQROYW1lCUZpZWxkTmFtZRBpbmRpdmlkdWFsX0RJU1BPClZhbHVlU3R5bGXMBH5YdHJhI0FycmF5MTIsIE9iamVjdCwsIFN5c3RlbS5Db2xsZWN0aW9ucy5BcnJheUxpc3QsLCwsIG1zY29ybGliLCwsLCBWZXJzaW9uPTQuMC4wLjAsLCwsIEN1bHR1cmU9bmV1dHJhbCwsLCwgUHVibGljS2V5VG9rZW49Yjc3YTVjNTYxOTM0ZTA4OSwsIH5YdHJhI0Jhc2U2NEFBRUFBQUQvLy8vL0FRQUFBQUFBQUFBRUFRQUFBQnhUZVhOMFpXMHVRMjlzYkdWamRHbHZibk11UVhKeVlYbE1hWE4wQXdBQUFBWmZhWFJsYlhNRlgzTnBlbVVJWDNabGNuTnBiMjRGQUFBSUNBa0NBQUFBQWdBQUFBSUFBQUFRQWdBQUFBUUFBQUFKQXdBQUFBZ0JBQTBDREFRQUFBQk5VM2x6ZEdWdExsZGxZaXdnVm1WeWMybHZiajAwTGpBdU1DNHdMQ0JEZFd4MGRYSmxQVzVsZFhSeVlXd3NJRkIxWW14cFkwdGxlVlJ2YTJWdVBXSXdNMlkxWmpkbU1URmtOVEJoTTJFRkF3QUFBQnRUZVhOMFpXMHVWMlZpTGxWSkxrbHVaR1Y0WldSVGRISnBibWNCQUFBQUJsOTJZV3gxWlFFRUFBQUFCZ1VBQUFBVFZHOXdRV3hwWjI1bFpGSnZkMVpoYkhWbGN3cz0sIG51bGwsIG51bGwsIG51bGwsIG51bGwsIG51bGwsIG51bGwsIG51bGwsIG51bGwsIG51bGwsIG51bGwsIG51bGwsIBNUb3BBbGlnbmVkUm93VmFsdWVzD1ZhbHVlVG90YWxTdHlsZQtWYWx1ZUZvcm1hdAxGb3JtYXRTdHJpbmcKRm9ybWF0VHlwZQdOdW1lcmljDVN1bW1hcnlGaWx0ZXIKU3RhcnRWYWx1ZQhFbmRWYWx1ZQRNb2RlCUxhc3RMZXZlbBVSb3dGaWVsZENvbXBvbmVudE5hbWUYQ29sdW1uRmllbGRDb21wb25lbnROYW1lDEZpbHRlclZhbHVlcwZWYWx1ZXMOflh0cmEjQXJyYXkwLCAKVmFsdWVzQ29yZRFEZWZlckZpbHRlclN0cmluZwpTaG93QmxhbmtzCkZpbHRlclR5cGUIRXhjbHVkZWQMQ3VzdG9tVG90YWxzCkNlbGxGb3JtYXQMQ2FsY3VsYXRpb25zCUFyZWFJbmRleA5BY3R1YWxTb3J0TW9kZQdEZWZhdWx0BUl0ZW0yJihTZWxmKSAtIEZpbmFuY2lhbCBWYWx1ZSBTdG9ja3MgIFtTdW1dCERhdGFBcmVh7AR+WHRyYSNBcnJheTEyLCBPYmplY3QsLCBTeXN0ZW0uQ29sbGVjdGlvbnMuQXJyYXlMaXN0LCwsLCBtc2NvcmxpYiwsLCwgVmVyc2lvbj00LjAuMC4wLCwsLCBDdWx0dXJlPW5ldXRyYWwsLCwsIFB1YmxpY0tleVRva2VuPWI3N2E1YzU2MTkzNGUwODksLCB+WHRyYSNCYXNlNjRBQUVBQUFELy8vLy9BUUFBQUFBQUFBQUVBUUFBQUJ4VGVYTjBaVzB1UTI5c2JHVmpkR2x2Ym5NdVFYSnlZWGxNYVhOMEF3QUFBQVpmYVhSbGJYTUZYM05wZW1VSVgzWmxjbk5wYjI0RkFBQUlDQWtDQUFBQUJBQUFBQVFBQUFBUUFnQUFBQVFBQUFBSkF3QUFBQVlFQUFBQUJHUmhkR0VKQlFBQUFBZ0lBZ0FBQUF3R0FBQUFUVk41YzNSbGJTNVhaV0lzSUZabGNuTnBiMjQ5TkM0d0xqQXVNQ3dnUTNWc2RIVnlaVDF1WlhWMGNtRnNMQ0JRZFdKc2FXTkxaWGxVYjJ0bGJqMWlNRE5tTldZM1pqRXhaRFV3WVROaEJRTUFBQUFiVTNsemRHVnRMbGRsWWk1VlNTNUpibVJsZUdWa1UzUnlhVzVuQVFBQUFBWmZkbUZzZFdVQkJnQUFBQVlIQUFBQUNFTnpjME5zWVhOekFRVUFBQUFEQUFBQUJnZ0FBQUFFWHlGVFFncz0sIG51bGwsIG51bGwsIG51bGwsIG51bGwsIG51bGwsIG51bGwsIG51bGwsIG51bGwsIG51bGwsIG51bGwsIG51bGwsIBZzdW1fU3RvY2tWYWx1ZVZhbHVhdGVkCG4wLHN1bSxOBkN1c3RvbRRPcHRpb25zQ3VzdG9taXphdGlvbg5BbGxvd1ByZWZpbHRlchxBbGxvd0RyYWdJbkN1c3RvbWl6YXRpb25Gb3JtD0RlZmVycmVkVXBkYXRlcwxPcHRpb25zUGFnZXILUm93c1BlclBhZ2UOQ29sdW1uc1BlclBhZ2UGR3JvdXBz\\\",\\\"collapse\\\":\\\"/v///wAAAAAAAAAAAAAAAP7///8AAAAAAAAAAAAAAAA=\\\"}\",\"drilldown_display\":\"d2e6877efc77ff18f67ceba689659dab2\",\"show_total_for\":1,\"percentage_summary_type\":0,\"include_subtotals\":false}",
+            "multi_lang_description": []
+        },
+        {
+            "multi_lang_name": [
+                {
+                    "lang": "en",
+                    "text": "Reorder point reduction possibilities"
+                }
+            ],
+            "authorizations": {
+                "make_angle_default": true,
+                "unpublish": true,
+                "update": true,
+                "publish": false,
+                "delete": true
+            },
+            "created": {
+                "user": "/users/2",
+                "full_name": "EASystem",
+                "datetime": 1557110545
+            },
+            "fields": [
+                {
+                    "tech_info": "",
+                    "field": "Material__Material",
+                    "multi_lang_alias": [],
+                    "valid": true,
+                    "field_details": "{\"width\":86}"
+                },
+                {
+                    "tech_info": "MAKT-MAKTX",
+                    "field": "Material__Description",
+                    "multi_lang_alias": [],
+                    "valid": true,
+                    "field_details": "{\"width\":130}"
+                },
+                {
+                    "tech_info": "T460A-BESKZ/MARC-BESKZ",
+                    "field": "ProcurementTypePlanning",
+                    "multi_lang_alias": [],
+                    "valid": true,
+                    "field_details": "{\"width\":168}"
+                },
+                {
+                    "tech_info": "",
+                    "field": "StockValueValuated",
+                    "multi_lang_alias": [],
+                    "valid": true,
+                    "field_details": "{\"width\":120}"
+                },
+                {
+                    "tech_info": "MARC-WERKS;MARC-DISPO",
+                    "field": "DISPO",
+                    "multi_lang_alias": [],
+                    "valid": true,
+                    "field_details": "{\"width\":174}"
+                },
+                {
+                    "tech_info": "MARC-DISMM",
+                    "field": "DISMM",
+                    "multi_lang_alias": [],
+                    "valid": true,
+                    "field_details": "{\"width\":223}"
+                },
+                {
+                    "tech_info": "MARC-MINBE",
+                    "field": "ReorderPoint",
+                    "multi_lang_alias": [],
+                    "valid": true,
+                    "field_details": "{\"width\":120}"
+                }
+            ],
+            "contained_aggregation_steps": false,
+            "uri": "/models/1/angles/643/displays/2989",
+            "is_public": true,
+            "used_in_task": false,
+            "state": "/models/1/angles/643/displays/2989/state",
+            "display_type": "list",
+            "user_specific": {
+                "execute_on_login": false,
+                "is_user_default": false
+            },
+            "query_blocks": [
+                {
+                    "query_steps": [
+                        {
+                            "operator": "greater_than",
+                            "field": "ReorderPoint",
+                            "step_type": "filter",
+                            "arguments": [
+                                {
+                                    "argument_type": "value",
+                                    "value": 0
+                                }
+                            ],
+                            "tech_info": "MARC-MINBE"
+                        }
+                    ],
+                    "queryblock_type": "query_steps"
+                }
+            ],
+            "is_angle_default": false,
+            "angle_id": "643",
+            "id": "d952fd1920fea281924e9a6771e61982b",
+            "display_details": "{}",
+            "multi_lang_description": []
+        },
+        {
+            "multi_lang_name": [
+                {
+                    "lang": "en",
+                    "text": "Safety stock reduction possibilities"
+                }
+            ],
+            "authorizations": {
+                "make_angle_default": true,
+                "unpublish": true,
+                "update": true,
+                "publish": false,
+                "delete": true
+            },
+            "created": {
+                "user": "/users/2",
+                "full_name": "EASystem",
+                "datetime": 1557110545
+            },
+            "fields": [
+                {
+                    "tech_info": "",
+                    "field": "ID",
+                    "multi_lang_alias": [],
+                    "valid": true,
+                    "field_details": "{\"width\":76}"
+                },
+                {
+                    "tech_info": "",
+                    "field": "Material__Material",
+                    "multi_lang_alias": [],
+                    "valid": true,
+                    "field_details": "{\"width\":83}"
+                },
+                {
+                    "tech_info": "MAKT-MAKTX",
+                    "field": "Material__Description",
+                    "multi_lang_alias": [],
+                    "valid": true,
+                    "field_details": "{\"width\":153}"
+                },
+                {
+                    "tech_info": "T001W-WERKS",
+                    "field": "Plant__Plant",
+                    "multi_lang_alias": [],
+                    "valid": true,
+                    "field_details": "{\"width\":120}"
+                },
+                {
+                    "tech_info": "MARC-EISBE",
+                    "field": "SafetyStock",
+                    "multi_lang_alias": [],
+                    "valid": true,
+                    "field_details": "{\"width\":120}"
+                },
+                {
+                    "tech_info": "MARA-MEINS",
+                    "field": "Material__BaseUnitOfMeasure",
+                    "multi_lang_alias": [],
+                    "valid": true,
+                    "field_details": "{\"width\":40,\"format\":\"shn\"}"
+                },
+                {
+                    "tech_info": "",
+                    "field": "StockQuantityAvailable",
+                    "multi_lang_alias": [],
+                    "valid": true,
+                    "field_details": "{\"width\":120}"
+                },
+                {
+                    "tech_info": "",
+                    "field": "ExcessStock",
+                    "multi_lang_alias": [],
+                    "valid": true,
+                    "field_details": "{\"width\":120}"
+                },
+                {
+                    "tech_info": "",
+                    "field": "ExcessStockValue",
+                    "multi_lang_alias": [],
+                    "valid": true,
+                    "field_details": "{\"width\":120}"
+                },
+                {
+                    "tech_info": "",
+                    "field": "StockWeeksOnHand",
+                    "multi_lang_alias": [],
+                    "valid": true,
+                    "field_details": "{\"width\":120}"
+                },
+                {
+                    "tech_info": "",
+                    "field": "StockTurnoverRatio",
+                    "multi_lang_alias": [],
+                    "valid": true,
+                    "field_details": "{\"width\":120}"
+                },
+                {
+                    "field_details": "{\"width\":120}",
+                    "tech_info": "",
+                    "multi_lang_alias": [],
+                    "field": "ConsumptionLastYear",
+                    "valid": false,
+                    "validation_details": {
+                        "field": "ConsumptionLastYear",
+                        "classes": [
+                            "MaterialOnPlantLevel"
+                        ],
+                        "warning_type": "unsupported_display_field"
+                    }
+                },
+                {
+                    "field_details": "{\"width\":145}",
+                    "tech_info": "",
+                    "multi_lang_alias": [],
+                    "field": "LastConsumptionDate",
+                    "valid": false,
+                    "validation_details": {
+                        "field": "LastConsumptionDate",
+                        "classes": [
+                            "MaterialOnPlantLevel"
+                        ],
+                        "warning_type": "unsupported_display_field"
+                    }
+                }
+            ],
+            "contained_aggregation_steps": false,
+            "uri": "/models/1/angles/643/displays/2990",
+            "is_public": true,
+            "used_in_task": false,
+            "state": "/models/1/angles/643/displays/2990/state",
+            "display_type": "list",
+            "user_specific": {
+                "execute_on_login": false,
+                "is_user_default": false
+            },
+            "query_blocks": [
+                {
+                    "query_steps": [
+                        {
+                            "operator": "greater_than",
+                            "field": "SafetyStock",
+                            "step_type": "filter",
+                            "arguments": [
+                                {
+                                    "argument_type": "value",
+                                    "value": 0
+                                }
+                            ],
+                            "tech_info": "MARC-EISBE"
+                        }
+                    ],
+                    "queryblock_type": "query_steps"
+                }
+            ],
+            "is_angle_default": false,
+            "angle_id": "643",
+            "id": "dd59d80c87f5784df55005a0c8a3ff3fa",
+            "display_details": "{}",
+            "multi_lang_description": [
+                {
+                    "lang": "en",
+                    "text": "Showing where the safety stock might be reduced."
+                }
+            ]
+        },
+        {
+            "multi_lang_name": [
+                {
+                    "lang": "en",
+                    "text": "Stock value per plant"
+                }
+            ],
+            "authorizations": {
+                "make_angle_default": true,
+                "unpublish": true,
+                "update": true,
+                "publish": false,
+                "delete": true
+            },
+            "created": {
+                "user": "/users/2",
+                "full_name": "EASystem",
+                "datetime": 1557110545
+            },
+            "fields": [
+                {
+                    "field": "individual_Plant__Plant",
+                    "multi_lang_alias": [],
+                    "valid": true,
+                    "field_details": "{\"pivot_area\":\"row\",\"format\":\"shnln\",\"sorting\":\"\"}"
+                },
+                {
+                    "field": "individual_Material__MaterialType",
+                    "multi_lang_alias": [],
+                    "valid": true,
+                    "field_details": "{\"pivot_area\":\"column\",\"format\":\"shnln\",\"sorting\":\"\"}"
+                },
+                {
+                    "field": "sum_StockValueValuated",
+                    "multi_lang_alias": [],
+                    "valid": true,
+                    "field_details": "{\"pivot_area\":\"data\",\"prefix\":\"M\",\"decimals\":0,\"thousandseparator\":false,\"sorting\":\"\"}"
+                }
+            ],
+            "contained_aggregation_steps": true,
+            "uri": "/models/1/angles/643/displays/2991",
+            "is_public": true,
+            "used_in_task": false,
+            "state": "/models/1/angles/643/displays/2991/state",
+            "display_type": "chart",
+            "user_specific": {
+                "execute_on_login": false,
+                "is_user_default": false
+            },
+            "query_blocks": [
+                {
+                    "query_steps": [
+                        {
+                            "aggregation_fields": [
+                                {
+                                    "operator": "sum",
+                                    "field": "sum_StockValueValuated",
+                                    "source_field": "StockValueValuated",
+                                    "tech_info": ""
+                                }
+                            ],
+                            "step_type": "aggregation",
+                            "grouping_fields": [
+                                {
+                                    "operator": "individual",
+                                    "field": "individual_Plant__Plant",
+                                    "source_field": "Plant__Plant",
+                                    "tech_info": "T001W-WERKS"
+                                },
+                                {
+                                    "operator": "individual",
+                                    "field": "individual_Material__MaterialType",
+                                    "source_field": "Material__MaterialType",
+                                    "tech_info": "MARA-MTART"
+                                }
+                            ]
+                        }
+                    ],
+                    "queryblock_type": "query_steps"
+                }
+            ],
+            "is_angle_default": false,
+            "angle_id": "643",
+            "id": "dee45af2b8ebadb51b87c882236527907",
+            "display_details": "{\"chart_type\":\"bar\",\"stack\":false,\"multi_axis\":false,\"layout\":null,\"drilldown_display\":\"d2e6877efc77ff18f67ceba689659dab2\",\"axistitle\":\"show\",\"axisvalue\":\"show\",\"datalabel\":\"mouse\",\"gridline\":\"show\",\"legend\":\"show\",\"range\":{\"start\":0,\"size\":50}}",
+            "multi_lang_description": []
+        }
+    ],
+    "has_warnings": true,
+    "is_template": false,
+    "published": {
+        "user": "/users/1",
+        "full_name": "EAAdmin",
+        "datetime": 1567577217
+    },
+    "model": "/models/1",
+    "is_published": true,
+    "allow_more_details": true,
+    "multi_lang_description": [
+        {
+            "lang": "en",
+            "text": "<h3></h3><h3 style=\"margin-bottom:12pt;\"><strong><span lang=\"EN-US\" style=\"font-size:9pt;font-family:Verdana, sans-serif;\">Summary&nbsp;</span></strong></h3><p style=\"margin-bottom:12pt;\"><span lang=\"EN-US\" style=\"font-size:9pt;font-family:Verdana, sans-serif;\">When materials are in stock but haven&rsquo;t been consumed for a long time and there is no demand, they need to be checked.</span></p><h3 style=\"margin-bottom:12pt;\"><strong><span lang=\"EN-US\" style=\"font-size:9pt;font-family:Verdana, sans-serif;\">Business Question&nbsp;</span></strong></h3><p style=\"margin-bottom:12pt;\"><span lang=\"EN-US\" style=\"font-size:9pt;font-family:Verdana, sans-serif;\">What stock can be considered dead looking at consumption and demand patterns?</span></p><h3 style=\"margin-bottom:12pt;\"><strong><span lang=\"EN-US\" style=\"font-size:9pt;font-family:Verdana, sans-serif;\">Action</span></strong></h3><p><span lang=\"EN-US\" style=\"font-size:9.0pt;font-family:'Verdana','sans-serif';\">Because the stock is already available in the plant, it is difficult to get rid of it. Most actions should be aimed at preventing new stock coming in because this stock would run the risk of becoming dead stock in the future.</span></p><ul type=\"disc\"><li><span lang=\"EN-US\" style=\"font-size:9.0pt;font-family:'Verdana','sans-serif';\">Check if safety stock can be      reduced</span></li><li><span lang=\"EN-US\" style=\"font-size:9.0pt;font-family:'Verdana','sans-serif';\">Check if there are possibilities      to transfer stock to another plant where a shortage exists</span></li><li><span lang=\"EN-US\" style=\"font-size:9.0pt;font-family:'Verdana','sans-serif';\">Check if materials can be scrapped</span></li></ul><h3 style=\"margin-bottom:12pt;\"><strong><span lang=\"EN-US\" style=\"font-size:9pt;font-family:Verdana, sans-serif;\">Explanation&nbsp;</span></strong></h3><p style=\"margin-bottom:12pt;\"><span lang=\"EN-US\" style=\"font-size:9pt;font-family:Verdana, sans-serif;\">Dead stock is looking at materials that are not moving any more. It has not been used recently and in the near future there are also no requirements for it. It is important to avoid materials coming in that could become dead stock in the future. For stock that is already present and can be considered dead, it should be checked if there is a way to get this stock out, possibly by transferring it to other plants or scrapping it.</span></p><h3 style=\"margin-bottom:12pt;\"><strong><span lang=\"EN-US\" style=\"font-size:9pt;font-family:Verdana, sans-serif;\">How the Business Question was solved using the Every Angle technology&nbsp;</span></strong></h3><p style=\"margin-bottom:12pt;\"><span lang=\"EN-US\" style=\"font-size:9pt;font-family:Verdana, sans-serif;\">Starting at the Material on plant level object the filters applied are:</span></p><ul type=\"disc\"><li><span lang=\"EN-US\" style=\"font-size:9.0pt;font-family:'Verdana','sans-serif';\">Last consumption date is      relatively before -365 days. This means it is longer than a year ago that      this material was being used.</span></li><li><span lang=\"EN-US\" style=\"font-size:9.0pt;font-family:'Verdana','sans-serif';\">Stock quantity total is greater      than zero, so that only materials that are currently on stock are      considered.</span></li><li><span lang=\"EN-US\" style=\"font-size:9.0pt;font-family:'Verdana','sans-serif';\">Expected demand next X days is      equal to zero, meaning that within the horizon that is set in the      background, no requirements exist in SAP.</span></li></ul><h3 style=\"margin-bottom:12pt;\"><strong><span lang=\"EN-US\" style=\"font-size:9pt;font-family:Verdana, sans-serif;\">Related topics&nbsp;</span></strong></h3><p style=\"margin-bottom:12pt;\"><span lang=\"EN-US\" style=\"font-size:9pt;font-family:Verdana, sans-serif;\">In Every Angle it is very easy to do analysis on excess material quantities and values. Please also see the template for transfer possibilities for shortage and excess materials. To prevent dead stock in the future, analysis can be done on unnecessary procurement.</span></p><p></p>"
+        }
+    ]
+}

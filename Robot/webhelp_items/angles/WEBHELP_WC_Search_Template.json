@@ -2,66 +2,57 @@
     "multi_lang_name": [
         {
             "lang": "nl",
-            "text": "Based on Template \\\"Verkoopdocument (VDoc) Indeling\\\" #2 (copy)"
+            "text": "Based on Template \\\"Verkoopdocument (VDoc) Indeling\\\" #2"
         },
         {
             "lang": "en",
-            "text": "Accounting Document (AD) Item Material"
+            "text": "F2R18 Unposted (Parked) FI Documents - GRC Full Set"
         },
         {
             "lang": "fr",
-            "text": "Based on Template \\\"Document de Vente Échéance\\\" (copy) (copy)"
+            "text": "Based on Template \\\"Document de Vente Échéance\\\""
         },
         {
             "lang": "de",
-            "text": "Based on Template \\\"Documento de Ventas Reparto\\\" #2 (copy)"
+            "text": "Based on Template \\\"Documento de Ventas Reparto\\\" #2"
         },
         {
             "lang": "es",
-            "text": "Based on Template \\\"Verkaufsbeleg (VB) Einteilung\\\" #2 (copy)"
+            "text": "Based on Template \\\"Verkaufsbeleg (VB) Einteilung\\\" #2"
         }
     ],
-    "labels": "/models/1/angles/651/labels",
+    "labels": "/models/1/angles/658/labels",
     "assigned_labels": [
         "S2D",
-        "O2C"
+        "O2C",
+        "GRC"
     ],
-    "executed": {
-        "user": "/users/1",
-        "full_name": "EAAdmin",
-        "datetime": 1567584833
-    },
-    "displays": "/models/1/angles/651/displays",
-    "grouping_labels": "/models/1/angles/651/grouping_labels",
-    "validated": {
-        "user": "/users/1",
-        "full_name": "EAAdmin",
-        "datetime": 1567577229
-    },
-    "id": "WEBHELP_WC_Dashboard_Angle_1",
+    "displays": "/models/1/angles/658/displays",
+    "grouping_labels": "/models/1/angles/658/grouping_labels",
+    "id": "WEBHELP_WC_Search_Template",
     "authorizations": {
-        "unvalidate": true,
+        "unvalidate": false,
         "mark_template": false,
-        "unmark_template": false,
+        "unmark_template": true,
         "update": true,
         "publish": false,
-        "unpublish": false,
+        "unpublish": true,
         "create_private_display": true,
-        "validate": false,
+        "validate": true,
         "create_public_display": true,
         "delete": true
     },
     "user_specific": {
         "is_starred": false,
         "private_tags": [],
-        "times_executed": 26,
+        "times_executed": 0,
         "execute_on_login": false
     },
-    "state": "/models/1/angles/651/state",
+    "state": "/models/1/angles/658/state",
     "allow_followups": true,
     "is_parameterized": false,
-    "is_validated": true,
-    "business_processes": "/models/1/angles/651/business_processes",
+    "is_validated": false,
+    "business_processes": "/models/1/angles/658/business_processes",
     "query_definition": [
         {
             "queryblock_type": "base_classes",
@@ -70,20 +61,20 @@
             ]
         }
     ],
-    "angle_default_display": "/models/1/angles/651/displays/3024",
-    "privilege_labels": "/models/1/angles/651/privilege_labels",
+    "angle_default_display": "/models/1/angles/658/displays/3047",
+    "privilege_labels": "/models/1/angles/658/privilege_labels",
     "is_deleted": false,
     "created": {
         "user": "/users/2",
         "full_name": "EASystem",
-        "datetime": 1567577229
+        "datetime": 1567577241
     },
     "changed": {
         "user": "/users/1",
         "full_name": "EAAdmin",
-        "datetime": 1567577229
+        "datetime": 1567577241
     },
-    "uri": "/models/1/angles/651",
+    "uri": "/models/1/angles/658",
     "display_definitions": [
         {
             "multi_lang_name": [
@@ -118,7 +109,7 @@
             "created": {
                 "user": "/users/2",
                 "full_name": "EASystem",
-                "datetime": 1566544157
+                "datetime": 1567393060
             },
             "fields": [
                 {
@@ -135,10 +126,10 @@
                 }
             ],
             "contained_aggregation_steps": true,
-            "uri": "/models/1/angles/651/displays/3022",
+            "uri": "/models/1/angles/658/displays/3045",
             "is_public": true,
             "used_in_task": false,
-            "state": "/models/1/angles/651/displays/3022/state",
+            "state": "/models/1/angles/658/displays/3045/state",
             "display_type": "pivot",
             "user_specific": {
                 "execute_on_login": false,
@@ -169,7 +160,7 @@
                 }
             ],
             "is_angle_default": false,
-            "angle_id": "651",
+            "angle_id": "658",
             "id": "d15b8c41b7db480b271b9566555228740",
             "display_details": "{\"count_index\":0,\"columns\":{\"header\":[195],\"data\":[50]},\"show_total_for\":3,\"drilldown_display\":\"d50f2bc7c0c56ff738756566555228740\",\"percentage_summary_type\":0,\"include_subtotals\":false,\"layout\":\"{\\\"collapse\\\":\\\"/v///wAAAAAAAAAAAAAAAP7///8AAAAAAAAAAAAAAAA=\\\"}\"}",
             "multi_lang_description": [
@@ -198,8 +189,24 @@
         {
             "multi_lang_name": [
                 {
+                    "lang": "de",
+                    "text": "Anzahl pro Branche"
+                },
+                {
                     "lang": "en",
                     "text": "No. per Industry"
+                },
+                {
+                    "lang": "es",
+                    "text": "N.º por Industria"
+                },
+                {
+                    "lang": "fr",
+                    "text": "Nombre par Secteur d'Activité"
+                },
+                {
+                    "lang": "nl",
+                    "text": "Aantal per Branch"
                 }
             ],
             "authorizations": {
@@ -212,7 +219,7 @@
             "created": {
                 "user": "/users/2",
                 "full_name": "EASystem",
-                "datetime": 1566544157
+                "datetime": 1567393060
             },
             "fields": [
                 {
@@ -229,10 +236,10 @@
                 }
             ],
             "contained_aggregation_steps": true,
-            "uri": "/models/1/angles/651/displays/3023",
+            "uri": "/models/1/angles/658/displays/3046",
             "is_public": true,
             "used_in_task": false,
-            "state": "/models/1/angles/651/displays/3023/state",
+            "state": "/models/1/angles/658/displays/3046/state",
             "display_type": "chart",
             "user_specific": {
                 "execute_on_login": false,
@@ -263,12 +270,28 @@
                 }
             ],
             "is_angle_default": false,
-            "angle_id": "651",
+            "angle_id": "658",
             "id": "d5b113a1e510875e8907d566555228740",
             "display_details": "{\"chart_type\":\"pie\",\"stack\":false,\"multi_axis\":false,\"drilldown_display\":\"d50f2bc7c0c56ff738756566555228740\",\"datalabel\":\"mouse\",\"legend\":\"show\",\"count_index\":0}",
             "multi_lang_description": [
                 {
+                    "lang": "de",
+                    "text": "<div id=\"summary\" /><div class=\" section\" id=\"S1441100602851653\"><p class=\"\" id=\"P1441100602851314\" /></div>"
+                },
+                {
                     "lang": "en",
+                    "text": "<div id=\"summary\" /><div class=\" section\" id=\"S1441100602851653\"><p class=\"\" id=\"P1441100602851314\" /></div>"
+                },
+                {
+                    "lang": "es",
+                    "text": "<div id=\"summary\" /><div class=\" section\" id=\"S1441100602851653\"><p class=\"\" id=\"P1441100602851314\" /></div>"
+                },
+                {
+                    "lang": "fr",
+                    "text": "<div id=\"summary\" /><div class=\" section\" id=\"S1441100602851653\"><p class=\"\" id=\"P1441100602851314\" /></div>"
+                },
+                {
+                    "lang": "nl",
                     "text": "<div id=\"summary\" /><div class=\" section\" id=\"S1441100602851653\"><p class=\"\" id=\"P1441100602851314\" /></div>"
                 }
             ]
@@ -306,7 +329,7 @@
             "created": {
                 "user": "/users/2",
                 "full_name": "EASystem",
-                "datetime": 1566544157
+                "datetime": 1567393060
             },
             "fields": [
                 {
@@ -395,10 +418,10 @@
                 }
             ],
             "contained_aggregation_steps": false,
-            "uri": "/models/1/angles/651/displays/3024",
+            "uri": "/models/1/angles/658/displays/3047",
             "is_public": true,
             "used_in_task": false,
-            "state": "/models/1/angles/651/displays/3024/state",
+            "state": "/models/1/angles/658/displays/3047/state",
             "display_type": "list",
             "user_specific": {
                 "execute_on_login": false,
@@ -406,7 +429,7 @@
             },
             "query_blocks": [],
             "is_angle_default": true,
-            "angle_id": "651",
+            "angle_id": "658",
             "id": "d50f2bc7c0c56ff738756566555228740",
             "display_details": "{\"layout\":null}",
             "multi_lang_description": [
@@ -465,7 +488,7 @@
             "created": {
                 "user": "/users/2",
                 "full_name": "EASystem",
-                "datetime": 1566544157
+                "datetime": 1567393060
             },
             "fields": [
                 {
@@ -488,10 +511,10 @@
                 }
             ],
             "contained_aggregation_steps": true,
-            "uri": "/models/1/angles/651/displays/3025",
+            "uri": "/models/1/angles/658/displays/3048",
             "is_public": true,
             "used_in_task": false,
-            "state": "/models/1/angles/651/displays/3025/state",
+            "state": "/models/1/angles/658/displays/3048/state",
             "display_type": "chart",
             "user_specific": {
                 "execute_on_login": false,
@@ -528,7 +551,7 @@
                 }
             ],
             "is_angle_default": false,
-            "angle_id": "651",
+            "angle_id": "658",
             "id": "d0e57b0ad6e50b7102abb566555228740",
             "display_details": "{\"chart_type\":\"column\",\"stack\":true,\"multi_axis\":false,\"layout\":null,\"drilldown_display\":\"d50f2bc7c0c56ff738756566555228740\",\"axistitle\":\"show\",\"axisvalue\":\"show\",\"datalabel\":\"mouse\",\"gridline\":\"show\",\"legend\":\"show\",\"range\":{\"start\":0,\"size\":50},\"count_index\":0}",
             "multi_lang_description": [
@@ -587,7 +610,7 @@
             "created": {
                 "user": "/users/2",
                 "full_name": "EASystem",
-                "datetime": 1566544157
+                "datetime": 1567393060
             },
             "fields": [
                 {
@@ -669,10 +692,10 @@
                 }
             ],
             "contained_aggregation_steps": false,
-            "uri": "/models/1/angles/651/displays/3026",
+            "uri": "/models/1/angles/658/displays/3049",
             "is_public": true,
             "used_in_task": false,
-            "state": "/models/1/angles/651/displays/3026/state",
+            "state": "/models/1/angles/658/displays/3049/state",
             "display_type": "list",
             "user_specific": {
                 "execute_on_login": false,
@@ -680,7 +703,7 @@
             },
             "query_blocks": [],
             "is_angle_default": false,
-            "angle_id": "651",
+            "angle_id": "658",
             "id": "da5bc79c17209554b7f99566555228740",
             "display_details": "{\"layout\":null}",
             "multi_lang_description": [
@@ -708,11 +731,11 @@
         }
     ],
     "has_warnings": false,
-    "is_template": false,
+    "is_template": true,
     "published": {
         "user": "/users/1",
         "full_name": "EAAdmin",
-        "datetime": 1567577229
+        "datetime": 1567577241
     },
     "model": "/models/1",
     "is_published": true,
@@ -720,23 +743,23 @@
     "multi_lang_description": [
         {
             "lang": "nl",
-            "text": "<div id=\"summary\" /><div class=\" section\" id=\"S1436280605408204\"><h2 class=\" topictitle2\" id=\"Hidelem4x19233\">Samenvatting</h2><p class=\"\" id=\"Pidelem4x19236\">Het klantobject bestaat uit stamgegevens van de externe partij waaraan producten en/of services worden verkocht.</p><h2 class=\" topictitle2\" id=\"Hidelem4x19239\">Uitleg</h2><p class=\"\" id=\"Pidelem4x19243\">De stamrecord bevat gegevens die bepalen hoe zakelijke transacties worden geregistreerd en verwerkt. Deze bevat tevens alle benodigde gegevens om zaken te doen met een klant. In uw logistieke procedure krijgt analyse een meerwaarde wanneer u eigenschappen van dit object toevoegt.</p><h2 class=\" topictitle2\" id=\"Hidelem4x19245\">Technische achtergrond</h2><p class=\"\" id=\"Pidelem4x19248\">Op basis van de SAP-tabel KNA1 wordt een object aangemaakt met referenties naar Adres, alsmede sublijsten van Klanten op Verkoopgebied en meer.</p></div>"
+            "text": "<div id=\"summary\"><div class=\" section\" id=\"S1436280605408204\"><h2 class=\" topictitle2\" id=\"Hidelem4x19233\">Samenvatting</h2><p id=\"Pidelem4x19236\">Het klantobject bestaat uit stamgegevens van de externe partij waaraan producten en/of services worden niet-geboekte.</p><h2 class=\" topictitle2\" id=\"Hidelem4x19239\">Uitleg</h2><p id=\"Pidelem4x19243\">De stamrecord bevat gegevens die bepalen hoe zakelijke transacties worden geregistreerd en verwerkt. Deze bevat tevens alle benodigde gegevens om zaken te doen met een klant. In uw logistieke procedure krijgt analyse een meerwaarde wanneer u eigenschappen van dit object toevoegt.</p><h2 class=\" topictitle2\" id=\"Hidelem4x19245\">Technische achtergrond</h2><p id=\"Pidelem4x19248\">Op basis van de SAP-tabel KNA1 wordt een object aangemaakt met referenties naar Adres, alsmede sublijsten van Klanten op Verkoopgebied en meer.</p></div></div>"
         },
         {
             "lang": "en",
-            "text": "<div id=\"summary\" /><div class=\" section\" id=\"S1436280605408204\"><h2 class=\" topictitle2\" id=\"Hidelem4x19233\">Summary</h2><p class=\"\" id=\"Pidelem4x19236\">The Customer object represents master data of the external party to which products and/or services are sold.</p><h2 class=\" topictitle2\" id=\"Hidelem4x19239\">Explanation</h2><p class=\"\" id=\"Pidelem4x19243\">The master record contains data that controls how business transactions are recorded and processed. It also includes all the information about a customer that you need to be able to conduct business with them. Analysis in your logistics process will have added value when you add characteristics from this object.</p><h2 class=\" topictitle2\" id=\"Hidelem4x19245\">Technical background</h2><p class=\"\" id=\"Pidelem4x19248\">Based on SAP table KNA1 an object is created with a reference to Address, as well as  sublists of Customers on Sales Area Level and more.</p></div>"
+            "text": "<div id=\"summary\"><div class=\" section\" id=\"S1436280605408204\"><h2 class=\" topictitle2\" id=\"Hidelem4x19233\">Summary</h2><p id=\"Pidelem4x19236\">The Customer object represents master data of the external party to which products and/or services are unposted.</p><h2 class=\" topictitle2\" id=\"Hidelem4x19239\">Explanation</h2><p id=\"Pidelem4x19243\">The master record contains data that controls how business transactions are recorded and processed. It also includes all the information about a customer that you need to be able to conduct business with them. Analysis in your logistics process will have added value when you add characteristics from this object.</p><h2 class=\" topictitle2\" id=\"Hidelem4x19245\">Technical background</h2><p id=\"Pidelem4x19248\">Based on SAP table KNA1 an object is created with a reference to Address, as well as  sublists of Customers on Sales Area Level and more.</p></div></div>"
         },
         {
             "lang": "fr",
-            "text": "<div id=\"summary\" /><div class=\" section\" id=\"S1436280605408204\"><h2 class=\" topictitle2\" id=\"Hidelem4x19233\">Récapitulatif</h2><p class=\"\" id=\"Pidelem4x19236\">L'objet Client représente les données principales du tiers externe auxquels des produits et/ou des services sont vendus.</p><h2 class=\" topictitle2\" id=\"Hidelem4x19239\">Explication</h2><p class=\"\" id=\"Pidelem4x19243\">L'enregistrement principal contient les données qui contrôlent la façon dont les transactions commerciales sont enregistrées et traitées. Il inclut également toutes les informations concernant un client avec qui vous devez pouvoir faire affaire. L'analyse dans votre processus logistique aura une valeur ajoutée lorsque vous ajouterez les caractéristiques de cet objet.</p><h2 class=\" topictitle2\" id=\"Hidelem4x19245\">Antécédents techniques.</h2><p class=\"\" id=\"Pidelem4x19248\">D'après la table KNA1 dans SAP, un objet est créé avec une référence à l'en-tête Adresse, ainsi qu'à des listes auxiliaires Clients au niveau domaine commercial et autre.</p></div>"
+            "text": "<div id=\"summary\"><div class=\" section\" id=\"S1436280605408204\"><h2 class=\" topictitle2\" id=\"Hidelem4x19233\">R&eacute;capitulatif</h2><p id=\"Pidelem4x19236\">L'objet Client repr&eacute;sente les donn&eacute;es principales du tiers externe auxquels des produits et/ou des services sont Non Imput&eacute;es.</p><h2 class=\" topictitle2\" id=\"Hidelem4x19239\">Explication</h2><p id=\"Pidelem4x19243\">L'enregistrement principal contient les donn&eacute;es qui contr&ocirc;lent la fa&ccedil;on dont les transactions commerciales sont enregistr&eacute;es et trait&eacute;es. Il inclut &eacute;galement toutes les informations concernant un client avec qui vous devez pouvoir faire affaire. L'analyse dans votre processus logistique aura une valeur ajout&eacute;e lorsque vous ajouterez les caract&eacute;ristiques de cet objet.</p><h2 class=\" topictitle2\" id=\"Hidelem4x19245\">Ant&eacute;c&eacute;dents techniques.</h2><p id=\"Pidelem4x19248\">D'apr&egrave;s la table KNA1 dans SAP, un objet est cr&eacute;&eacute; avec une r&eacute;f&eacute;rence &agrave; l'en-t&ecirc;te Adresse, ainsi qu'&agrave; des listes auxiliaires Clients au niveau domaine commercial et autre.</p></div></div>"
         },
         {
             "lang": "de",
-            "text": "<div id=\"summary\" /><div class=\" section\" id=\"S1436280605408204\"><h2 class=\" topictitle2\" id=\"Hidelem4x19233\">Zusammenfassung</h2><p class=\"\" id=\"Pidelem4x19236\">Das Objekt Kunde stellt die Stammdaten der externen Partei dar, an die Produkte und/oder Dienstleistungen verkauft werden.</p><h2 class=\" topictitle2\" id=\"Hidelem4x19239\">Erläuterung</h2><p class=\"\" id=\"Pidelem4x19243\">Der Stammdatensatz enthält Daten, die steuern, wie geschäftliche Transaktionen aufgezeichnet und verarbeitet werden. Darüber hinaus enthält er alle Informationen zu einem Kunden, die Sie benötigen, um mit diesem Kunden Geschäftsbeziehungen unterhalten zu können. Die Analyse in Ihrem Logistikprozess wird noch wertvoller, wenn Sie Eigenschaften aus diesem Objekt berücksichtigen.</p><h2 class=\" topictitle2\" id=\"Hidelem4x19245\">Technischer Hintergrund</h2><p class=\"\" id=\"Pidelem4x19248\">Ein Objekt wird auf der Grundlage der SAP-Tabelle KNA1 mit Referenzen zu Adresse und Unterlisten von Kunden auf Vertriebsbereichsebene usw. erstellt.</p></div>"
+            "text": "<div id=\"summary\"><div class=\" section\" id=\"S1436280605408204\"><h2 class=\" topictitle2\" id=\"Hidelem4x19233\">Zusammenfassung</h2><p id=\"Pidelem4x19236\">Das Objekt Kunde stellt die Stammdaten der externen Partei dar, an die Produkte und/oder Dienstleistungen verkauft unbebuchte.</p><h2 class=\" topictitle2\" id=\"Hidelem4x19239\">Erl&auml;uterung</h2><p id=\"Pidelem4x19243\">Der Stammdatensatz enth&auml;lt Daten, die steuern, wie gesch&auml;ftliche Transaktionen aufgezeichnet und verarbeitet werden. Dar&uuml;ber hinaus enth&auml;lt er alle Informationen zu einem Kunden, die Sie ben&ouml;tigen, um mit diesem Kunden Gesch&auml;ftsbeziehungen unterhalten zu k&ouml;nnen. Die Analyse in Ihrem Logistikprozess wird noch wertvoller, wenn Sie Eigenschaften aus diesem Objekt ber&uuml;cksichtigen.</p><h2 class=\" topictitle2\" id=\"Hidelem4x19245\">Technischer Hintergrund</h2><p id=\"Pidelem4x19248\">Ein Objekt wird auf der Grundlage der SAP-Tabelle KNA1 mit Referenzen zu Adresse und Unterlisten von Kunden auf Vertriebsbereichsebene usw. erstellt.</p></div></div>"
         },
         {
             "lang": "es",
-            "text": "<div id=\"summary\" /><div class=\" section\" id=\"S1436280605408204\"><h2 class=\" topictitle2\" id=\"Hidelem4x19233\">Resumen</h2><p class=\"\" id=\"Pidelem4x19236\">El objeto Cliente representa los datos maestros de la parte externa a la que se venden productos y/o servicios.</p><h2 class=\" topictitle2\" id=\"Hidelem4x19239\">Explicación</h2><p class=\"\" id=\"Pidelem4x19243\">El registro de maestro contiene datos que controlan cómo se registran y procesan las operaciones de los negocios. También incluye toda la información de un cliente que puede necesitar para hacer negocios con él. El análisis en el proceso logístico tendrá valor añadido cuando agregue características de este objeto.</p><h2 class=\" topictitle2\" id=\"Hidelem4x19245\">Contexto técnico</h2><p class=\"\" id=\"Pidelem4x19248\">Según la tabla SAP KNA1, un objeto se crea con una referencia a Dirección, así como con sublistas de Clientes a Nivel de Área de Ventas y más.</p></div>"
+            "text": "<div id=\"summary\"><div class=\" section\" id=\"S1436280605408204\"><h2 class=\" topictitle2\" id=\"Hidelem4x19233\">Resumen</h2><p id=\"Pidelem4x19236\">El objeto Cliente representa los datos maestros de la parte externa a la que se venden productos y/o No Contabilizados.</p><h2 class=\" topictitle2\" id=\"Hidelem4x19239\">Explicaci&oacute;n</h2><p id=\"Pidelem4x19243\">El registro de maestro contiene datos que controlan c&oacute;mo se registran y procesan las operaciones de los negocios. Tambi&eacute;n incluye toda la informaci&oacute;n de un cliente que puede necesitar para hacer negocios con &eacute;l. El an&aacute;lisis en el proceso log&iacute;stico tendr&aacute; valor a&ntilde;adido cuando agregue caracter&iacute;sticas de este objeto.</p><h2 class=\" topictitle2\" id=\"Hidelem4x19245\">Contexto t&eacute;cnico</h2><p id=\"Pidelem4x19248\">Seg&uacute;n la tabla SAP KNA1, un objeto se crea con una referencia a Direcci&oacute;n, as&iacute; como con sublistas de Clientes a Nivel de &Aacute;rea de Ventas y m&aacute;s.</p></div></div>"
         }
     ]
 }

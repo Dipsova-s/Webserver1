@@ -42,8 +42,9 @@ Crop Suggested Filter
     Crop WebHelp Image With Dimensions    WC_suggested.png    css=body  ${left}  ${top - 3}  ${width}  ${height + 5}
 
 Crop Remove List Display Column
+    ${width}    ${height}    Get Element Size    css=#AngleGrid
     Drag WebHelp Element To Location    jquery=#AngleGrid    jquery=#AngleGrid [data-field="Material__Material"]    left=20    top=-80
-    Crop WebHelp Image With Dimensions  WC_drop.png  css=#MainContainer    0    0    ${WINDOW_WIDTH}    323
+    Crop WebHelp Image With Dimensions  WC_drop.png  css=#MainContainer    0    0    ${width}    323
     Clear Dragging WebHelp Element    jquery=#AngleGrid
 
 Crop Sort Custom Popup

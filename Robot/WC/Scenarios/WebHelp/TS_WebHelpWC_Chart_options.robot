@@ -13,9 +13,9 @@ Screenshot "WC_Chart_options" page
     Crop Chart Data Field Area
     Crop Chart Sort Icon
 
-    Set Window Size    1000   600
+    Set Window Size    1000   700
     Sleep    ${TIMEOUT_LARGEST}
-
+    
     Crop Chart Display
     Crop Chart Navigator
 

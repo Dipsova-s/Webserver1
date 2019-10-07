@@ -1,1 +1,276 @@
-{"multi_lang_name":[{"lang":"en","text":"Safety Stock Demand (copy)"},{"lang":"nl","text":"Veiligheidsvoorraadbehoefte"},{"lang":"fr","text":"Stock de Sécurité Besoin"},{"lang":"de","text":"Sicherheitsbestand Bedarf"},{"lang":"es","text":"Stock de Seguridad Necesidad"}],"multi_lang_description":[],"authorizations":{"update":true,"delete":true,"publish":false,"unpublish":true,"validate":true,"unvalidate":false,"mark_template":true,"unmark_template":false,"create_private_display":true,"create_public_display":true},"is_deleted":false,"displays":"/models/1/angles/611/displays","allow_followups":true,"allow_more_details":true,"assigned_labels":["S2D"],"labels":"/models/1/angles/611/labels","business_processes":"/models/1/angles/611/business_processes","grouping_labels":"/models/1/angles/611/grouping_labels","angle_default_display":"/models/1/angles/611/displays/3055","privilege_labels":"/models/1/angles/611/privilege_labels","package":"/packages/11","query_definition":[{"base_classes":["PurchaseOrderScheduleLine","PurchaseOrder"],"queryblock_type":"base_classes"}],"display_definitions":[{"multi_lang_name":[{"lang":"en","text":"New pivot display (copy)"}],"multi_lang_description":[],"angle_id":"611","display_details":"{\"count_index\":0,\"layout\":\"{\\\"collapse\\\":\\\"/v///wIAAAAmaW5kaXZpZHVhbF9tYXRlcmlhbF9fYmFzZXVuaXRvZm1lYXN1cmVaU3lzdGVtLlN0cmluZywgbXNjb3JsaWIsIFZlcnNpb249NC4wLjAuMCwgQ3VsdHVyZT1uZXV0cmFsLCBQdWJsaWNLZXlUb2tlbj1iNzdhNWM1NjE5MzRlMDg5ACBxdWFydGVyX2NvbmZpcm1hdGlvbmRlbGl2ZXJ5ZGF0ZVxTeXN0ZW0uRGF0ZVRpbWUsIG1zY29ybGliLCBWZXJzaW9uPTQuMC4wLjAsIEN1bHR1cmU9bmV1dHJhbCwgUHVibGljS2V5VG9rZW49Yjc3YTVjNTYxOTM0ZTA4OQECAAAAAAAAAAAAAAAAAAAA/v///wIAAAAZaW5kaXZpZHVhbF9kZWxpdmVyeXN0YXR1c1pTeXN0ZW0uU3RyaW5nLCBtc2NvcmxpYiwgVmVyc2lvbj00LjAuMC4wLCBDdWx0dXJlPW5ldXRyYWwsIFB1YmxpY0tleVRva2VuPWI3N2E1YzU2MTkzNGUwODkAJWluZGl2aWR1YWxfcHVyY2hhc2VyZXF1aXNpdGlvbl9fYmFmaXhaU3lzdGVtLlN0cmluZywgbXNjb3JsaWIsIFZlcnNpb249NC4wLjAuMCwgQ3VsdHVyZT1uZXV0cmFsLCBQdWJsaWNLZXlUb2tlbj1iNzdhNWM1NjE5MzRlMDg5AQIAAAAAAAAAAAAAAAAAAAA=\\\"}\",\"show_total_for\":1,\"percentage_summary_type\":0,\"include_subtotals\":false,\"columns\":{\"header\":[170.66796875,84.623046875,98.748046875],\"data\":[56.51953125,100,96.392578125,88.46484375,100,85.93359375,97.951171875,100,76.69921875,100,90.884765625,100,100,96.3046875,100,100,77.291015625]}}","query_blocks":[{"query_steps":[{"field":"DeliveryStatus","operator":"in_set","arguments":[{"argument_type":"value","value":"ds4DeliveredOnTime"},{"argument_type":"value","value":"ds5DeliveredEarly"},{"argument_type":"value","value":"ds6DeliveredLate"},{"argument_type":"value","value":"ds3Late"}],"step_type":"filter"},{"aggregation_fields":[{"field":"count","operator":"count"}],"grouping_fields":[{"field":"individual_DeliveryStatus","operator":"individual","source_field":"DeliveryStatus"},{"field":"individual_PurchaseRequisition__BAFIX","operator":"individual","source_field":"PurchaseRequisition__BAFIX","tech_info":"EBAN-FIXKZ"},{"field":"individual_LastGRQILot__QLOSMENGEH","operator":"individual","source_field":"LastGRQILot__QLOSMENGEH","tech_info":"QALS-MENGENEINH"},{"field":"individual_Material__BaseUnitOfMeasure","operator":"individual","source_field":"Material__BaseUnitOfMeasure","tech_info":"MARA-MEINS"},{"field":"quarter_ConfirmationDeliveryDate","operator":"quarter","source_field":"ConfirmationDeliveryDate","tech_info":"EKES_RS-EINDT/EKES_SN-EINDT/EKES_CF-EINDT/EKES_GA-EINDT/EKES_LC-EINDT/EKES_FC-EINDT"},{"field":"power10_3_VendorOnPurchaseOrganizationLevel__NumberOfPurchaseOrderScheduleLines","operator":"power10_3","source_field":"VendorOnPurchaseOrganizationLevel__NumberOfPurchaseOrderScheduleLines"}],"step_type":"aggregation"}],"queryblock_type":"query_steps"}],"fields":[{"multi_lang_alias":[],"field":"individual_DeliveryStatus","field_details":"{\"pivot_area\":\"row\",\"format\":\"shn\",\"sorting\":\"asc\"}","valid":true},{"multi_lang_alias":[],"field":"individual_PurchaseRequisition__BAFIX","field_details":"{\"pivot_area\":\"row\",\"sorting\":\"asc\"}","valid":true},{"multi_lang_alias":[],"field":"individual_LastGRQILot__QLOSMENGEH","field_details":"{\"pivot_area\":\"row\",\"sorting\":\"asc\"}","valid":true},{"multi_lang_alias":[],"field":"individual_Material__BaseUnitOfMeasure","field_details":"{\"pivot_area\":\"column\",\"sorting\":\"asc\"}","valid":true},{"multi_lang_alias":[],"field":"quarter_ConfirmationDeliveryDate","field_details":"{\"pivot_area\":\"column\",\"sorting\":\"asc\"}","valid":true},{"multi_lang_alias":[],"field":"power10_3_VendorOnPurchaseOrganizationLevel__NumberOfPurchaseOrderScheduleLines","field_details":"{\"pivot_area\":\"column\",\"sorting\":\"asc\"}","valid":true},{"multi_lang_alias":[],"field":"count","field_details":"{\"pivot_area\":\"data\",\"sorting\":\"\"}","valid":true}],"state":"/models/1/angles/611/displays/3055/state","uri":"/models/1/angles/611/displays/3055","authorizations":{"update":true,"delete":false,"publish":false,"unpublish":false,"make_angle_default":false},"created":{"user":"/users/1","datetime":1557218952,"full_name":"EAAdmin"},"user_specific":{"is_user_default":false,"execute_on_login":false},"is_public":true,"contained_aggregation_steps":true,"used_in_task":false,"display_type":"pivot","is_angle_default":true,"id":"dcb2c07f90d7c5262e2ec553574922308"}],"changed":{"user":"/users/1","datetime":1557219073,"full_name":"EAAdmin"},"executed":{"user":"/users/1","datetime":1557219116,"full_name":"EAAdmin"},"published":{"user":"/users/1","datetime":1557218952,"full_name":"EAAdmin"},"id":"WEBHELP_WC_Pivot_options","uri":"/models/1/angles/611","model":"/models/1","is_validated":false,"is_parameterized":false,"is_published":true,"is_template":false,"user_specific":{"execute_on_login":false,"is_starred":false,"private_tags":[],"times_executed":2},"created":{"user":"/users/1","datetime":1557218952,"full_name":"EAAdmin"},"has_warnings":false,"state":"/models/1/angles/611/state"}
+{
+    "multi_lang_name": [
+        {
+            "lang": "en",
+            "text": "Safety Stock Demand (copy)"
+        },
+        {
+            "lang": "nl",
+            "text": "Veiligheidsvoorraadbehoefte"
+        },
+        {
+            "lang": "fr",
+            "text": "Stock de Sécurité Besoin"
+        },
+        {
+            "lang": "de",
+            "text": "Sicherheitsbestand Bedarf"
+        },
+        {
+            "lang": "es",
+            "text": "Stock de Seguridad Necesidad"
+        }
+    ],
+    "labels": "/models/1/angles/657/labels",
+    "assigned_labels": [
+        "S2D"
+    ],
+    "executed": {
+        "user": "/users/1",
+        "full_name": "EAAdmin",
+        "datetime": 1567584935
+    },
+    "displays": "/models/1/angles/657/displays",
+    "grouping_labels": "/models/1/angles/657/grouping_labels",
+    "id": "WEBHELP_WC_Pivot_options",
+    "authorizations": {
+        "unvalidate": false,
+        "mark_template": true,
+        "unmark_template": false,
+        "update": true,
+        "publish": false,
+        "unpublish": true,
+        "create_private_display": true,
+        "validate": true,
+        "create_public_display": true,
+        "delete": true
+    },
+    "user_specific": {
+        "is_starred": false,
+        "private_tags": [],
+        "times_executed": 5,
+        "execute_on_login": false
+    },
+    "state": "/models/1/angles/657/state",
+    "allow_followups": true,
+    "is_parameterized": false,
+    "is_validated": false,
+    "business_processes": "/models/1/angles/657/business_processes",
+    "query_definition": [
+        {
+            "queryblock_type": "base_classes",
+            "base_classes": [
+                "PurchaseOrder",
+                "PurchaseOrderScheduleLine"
+            ]
+        }
+    ],
+    "angle_default_display": "/models/1/angles/657/displays/3044",
+    "privilege_labels": "/models/1/angles/657/privilege_labels",
+    "is_deleted": false,
+    "created": {
+        "user": "/users/2",
+        "full_name": "EASystem",
+        "datetime": 1567577239
+    },
+    "changed": {
+        "user": "/users/1",
+        "full_name": "EAAdmin",
+        "datetime": 1567577239
+    },
+    "uri": "/models/1/angles/657",
+    "display_definitions": [
+        {
+            "multi_lang_name": [
+                {
+                    "lang": "en",
+                    "text": "New pivot display (copy)"
+                }
+            ],
+            "authorizations": {
+                "make_angle_default": false,
+                "unpublish": false,
+                "update": true,
+                "publish": false,
+                "delete": false
+            },
+            "created": {
+                "user": "/users/2",
+                "full_name": "EASystem",
+                "datetime": 1557197352
+            },
+            "fields": [
+                {
+                    "field": "individual_DeliveryStatus",
+                    "multi_lang_alias": [],
+                    "valid": true,
+                    "field_details": "{\"pivot_area\":\"row\",\"format\":\"shn\",\"sorting\":\"asc\"}"
+                },
+                {
+                    "field": "individual_PurchaseRequisition__BAFIX",
+                    "multi_lang_alias": [],
+                    "valid": true,
+                    "field_details": "{\"pivot_area\":\"row\",\"sorting\":\"asc\"}"
+                },
+                {
+                    "field": "individual_LastGRQILot__QLOSMENGEH",
+                    "multi_lang_alias": [],
+                    "valid": true,
+                    "field_details": "{\"pivot_area\":\"row\",\"sorting\":\"asc\"}"
+                },
+                {
+                    "field": "individual_Material__BaseUnitOfMeasure",
+                    "multi_lang_alias": [],
+                    "valid": true,
+                    "field_details": "{\"pivot_area\":\"column\",\"sorting\":\"asc\"}"
+                },
+                {
+                    "field": "quarter_ConfirmationDeliveryDate",
+                    "multi_lang_alias": [],
+                    "valid": true,
+                    "field_details": "{\"pivot_area\":\"column\",\"sorting\":\"asc\"}"
+                },
+                {
+                    "field": "power10_3_VendorOnPurchaseOrganizationLevel__NumberOfPurchaseOrderScheduleLines",
+                    "multi_lang_alias": [],
+                    "valid": true,
+                    "field_details": "{\"pivot_area\":\"column\",\"sorting\":\"asc\"}"
+                },
+                {
+                    "field": "count",
+                    "multi_lang_alias": [],
+                    "valid": true,
+                    "field_details": "{\"pivot_area\":\"data\",\"sorting\":\"\"}"
+                }
+            ],
+            "contained_aggregation_steps": true,
+            "uri": "/models/1/angles/657/displays/3044",
+            "is_public": true,
+            "used_in_task": false,
+            "state": "/models/1/angles/657/displays/3044/state",
+            "display_type": "pivot",
+            "user_specific": {
+                "execute_on_login": false,
+                "is_user_default": false
+            },
+            "query_blocks": [
+                {
+                    "query_steps": [
+                        {
+                            "operator": "in_set",
+                            "field": "DeliveryStatus",
+                            "step_type": "filter",
+                            "arguments": [
+                                {
+                                    "argument_type": "value",
+                                    "value": "ds4DeliveredOnTime"
+                                },
+                                {
+                                    "argument_type": "value",
+                                    "value": "ds5DeliveredEarly"
+                                },
+                                {
+                                    "argument_type": "value",
+                                    "value": "ds6DeliveredLate"
+                                },
+                                {
+                                    "argument_type": "value",
+                                    "value": "ds3Late"
+                                }
+                            ]
+                        },
+                        {
+                            "operator": "in_set",
+                            "field": "Material__BaseUnitOfMeasure",
+                            "step_type": "filter",
+                            "arguments": [
+                                {
+                                    "argument_type": "value"
+                                },
+                                {
+                                    "argument_type": "value",
+                                    "value": "BOX"
+                                },
+                                {
+                                    "argument_type": "value",
+                                    "value": "EA"
+                                },
+                                {
+                                    "argument_type": "value",
+                                    "value": "G"
+                                },
+                                {
+                                    "argument_type": "value",
+                                    "value": "ST"
+                                }
+                            ],
+                            "tech_info": "MARA-MEINS"
+                        },
+                        {
+                            "aggregation_fields": [
+                                {
+                                    "operator": "count",
+                                    "field": "count"
+                                }
+                            ],
+                            "step_type": "aggregation",
+                            "grouping_fields": [
+                                {
+                                    "operator": "individual",
+                                    "field": "individual_DeliveryStatus",
+                                    "source_field": "DeliveryStatus"
+                                },
+                                {
+                                    "operator": "individual",
+                                    "field": "individual_PurchaseRequisition__BAFIX",
+                                    "source_field": "PurchaseRequisition__BAFIX",
+                                    "tech_info": "EBAN-FIXKZ"
+                                },
+                                {
+                                    "operator": "individual",
+                                    "field": "individual_LastGRQILot__QLOSMENGEH",
+                                    "source_field": "LastGRQILot__QLOSMENGEH",
+                                    "tech_info": "QALS-MENGENEINH"
+                                },
+                                {
+                                    "operator": "individual",
+                                    "field": "individual_Material__BaseUnitOfMeasure",
+                                    "source_field": "Material__BaseUnitOfMeasure",
+                                    "tech_info": "MARA-MEINS"
+                                },
+                                {
+                                    "operator": "quarter",
+                                    "field": "quarter_ConfirmationDeliveryDate",
+                                    "source_field": "ConfirmationDeliveryDate",
+                                    "tech_info": "EKES_RS-EINDT/EKES_SN-EINDT/EKES_CF-EINDT/EKES_GA-EINDT/EKES_LC-EINDT/EKES_FC-EINDT"
+                                },
+                                {
+                                    "operator": "power10_3",
+                                    "field": "power10_3_VendorOnPurchaseOrganizationLevel__NumberOfPurchaseOrderScheduleLines",
+                                    "source_field": "VendorOnPurchaseOrganizationLevel__NumberOfPurchaseOrderScheduleLines"
+                                }
+                            ]
+                        }
+                    ],
+                    "queryblock_type": "query_steps"
+                }
+            ],
+            "is_angle_default": true,
+            "angle_id": "657",
+            "id": "dcb2c07f90d7c5262e2ec553574922308",
+            "display_details": "{\"count_index\":0,\"layout\":\"{\\\"collapse\\\":\\\"/v///wIAAAAmaW5kaXZpZHVhbF9tYXRlcmlhbF9fYmFzZXVuaXRvZm1lYXN1cmVaU3lzdGVtLlN0cmluZywgbXNjb3JsaWIsIFZlcnNpb249NC4wLjAuMCwgQ3VsdHVyZT1uZXV0cmFsLCBQdWJsaWNLZXlUb2tlbj1iNzdhNWM1NjE5MzRlMDg5ACBxdWFydGVyX2NvbmZpcm1hdGlvbmRlbGl2ZXJ5ZGF0ZVxTeXN0ZW0uRGF0ZVRpbWUsIG1zY29ybGliLCBWZXJzaW9uPTQuMC4wLjAsIEN1bHR1cmU9bmV1dHJhbCwgUHVibGljS2V5VG9rZW49Yjc3YTVjNTYxOTM0ZTA4OQECAAAAAAAAAAAAAAAAAAAA/v///wIAAAAZaW5kaXZpZHVhbF9kZWxpdmVyeXN0YXR1c1pTeXN0ZW0uU3RyaW5nLCBtc2NvcmxpYiwgVmVyc2lvbj00LjAuMC4wLCBDdWx0dXJlPW5ldXRyYWwsIFB1YmxpY0tleVRva2VuPWI3N2E1YzU2MTkzNGUwODkAJWluZGl2aWR1YWxfcHVyY2hhc2VyZXF1aXNpdGlvbl9fYmFmaXhaU3lzdGVtLlN0cmluZywgbXNjb3JsaWIsIFZlcnNpb249NC4wLjAuMCwgQ3VsdHVyZT1uZXV0cmFsLCBQdWJsaWNLZXlUb2tlbj1iNzdhNWM1NjE5MzRlMDg5AQIAAAAAAAAAAAAAAAAAAAA=\\\"}\",\"show_total_for\":1,\"percentage_summary_type\":0,\"include_subtotals\":false,\"columns\":{\"header\":[170.66796875,84.623046875,98.748046875],\"data\":[53.302734375,84.609375,81.263671875,100,76.892578125]}}",
+            "multi_lang_description": []
+        }
+    ],
+    "has_warnings": false,
+    "is_template": false,
+    "published": {
+        "user": "/users/1",
+        "full_name": "EAAdmin",
+        "datetime": 1567577239
+    },
+    "model": "/models/1",
+    "is_published": true,
+    "allow_more_details": true,
+    "multi_lang_description": []
+}

@@ -1,7 +1,7 @@
 ::::::::::::::::::::::::::::::::::
 :: specify host name
 ::::::::::::::::::::::::::::::::::
-:: nl-webmb01.everyangle.org
+:: nl-webmb03.everyangle.org
 :: nl-eatst026.everyangle.org
 :: localhost:xxxxx
 set SERVER=nl-eatst026.everyangle.org
@@ -21,7 +21,8 @@ set COMPARE_BRANCH=master
 ::::::::::::::::::::::::::::::::::
 :: specify test tag
 ::::::::::::::::::::::::::::::::::
-:: allangles,performance,audit,smk_wc,acc_wc,smk_mc,acc_mc,intermittent,webhelp,webhelp_wc,webhelp_mc
+:: allangles,performance,audit,smk_wc,acc_wc,smk_mc,acc_mc
+:: webhelp,webhelp_wc,webhelp_mc,webhelp_import,webhelp_export
 set TAG=allangles
 
 ::::::::::::::::::::::::::::::::::

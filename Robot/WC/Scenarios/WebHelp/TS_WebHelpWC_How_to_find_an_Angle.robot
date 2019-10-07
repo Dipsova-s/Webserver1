@@ -6,4 +6,5 @@ Screenshot "WC_How_to_find_an_Angle" page
     Crop Filter Angle Tag
 
 Crop Filter Angle Tag
-    Crop WebHelp Image With Dimensions  WC_Filter_tag.png  css=#facetcat_itemtype_Checkbox  10  9  115  22
+    ${width}   Execute JavaScript   return $('.label[alt="facet_angle"] .filter-name').width() + 55; 
+    Crop WebHelp Image With Dimensions  WC_Filter_tag.png  css=#facetcat_itemtype_Checkbox  0  11  ${width}  22

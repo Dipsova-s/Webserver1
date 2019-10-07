@@ -181,7 +181,8 @@ Click Search Input
     Click Element    ${txtSearchInput}
 
 Blur Search Input
-    Click Element    ${divTopBar} 
+    Click Element    ${divTopBar}
+    Wait Search Terms Closed
 
 Search Terms Should Visible
     Wait Until Element Is Visible       ${ddlSearchTerms}
@@ -408,13 +409,13 @@ Click Search Business Process IT
     
 Expand Search Filter Panel
     [Arguments]    ${selector}
-    ${isExpanded}   Is Element Has CssClass    ${selector}    Expand
+    ${isExpanded}   Is Element Has CssClass    ${selector}    expand
     Run KeyWord If    ${isExpanded} == False    Click Element    ${selector}
     Sleep    ${TIMEOUT_GENERAL}
 
 Collapse Search Filter Panel
     [Arguments]    ${selector}
-    ${isExpanded}   Is Element Has CssClass    ${selector}    Expand
+    ${isExpanded}   Is Element Has CssClass    ${selector}    expand
     Run KeyWord If    ${isExpanded} == True    Click Element    ${selector}
     Sleep    ${TIMEOUT_GENERAL}
 
@@ -488,7 +489,6 @@ Click Link Item From Search Result By Row Number
 Click Link First Item From Search Result
     Wait Until Ajax Complete
     Blur Search Input
-    Wait Search Terms Closed
     Click Link Item From Search Result By Row Number    1
 
 Click Link Item From Search Result By Item Uri: ${itemUri}
