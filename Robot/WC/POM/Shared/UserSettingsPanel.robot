@@ -8,6 +8,7 @@ ${EN_LANGUAGE_TEXT}                     English
 #Panel
 ${btnSettings}                      Settings
 ${divSettingPanelWrapper}           jquery=.settingsPanelContentsWrapper
+${pgbUserSetting}                   jquery=#SettingsPanel .k-loading-mask
 
 #User tab
 ${tabUserDetailSetting}                 jquery=#SettingsPanelUserTab + label
@@ -74,6 +75,7 @@ Open User Settings Panel
     Wait Until Page Contains Element    ${btnSettings}
     Click Element                       ${btnSettings}
     Wait Until Ajax Complete
+    Wait Until Page Does Not Contain Element     ${pgbUserSetting}
     Set Vertical Scrollbar To Be Visible
 
 Close User Settings Panel

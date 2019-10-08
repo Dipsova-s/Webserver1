@@ -235,7 +235,8 @@ function FollowupPageHandler() {
                     },
                     headerTemplate: '<span class="sort"></span>' + area.Text,
                     attributes: {
-                        'title': '#= long_name #'
+                        'title': '#= long_name #',
+                        'data-id': '#= id #'
                     }
                 }
             ],

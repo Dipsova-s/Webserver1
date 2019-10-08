@@ -317,3 +317,10 @@ Initialize Download Path And Login With Power User
 
 Empty Download Directory
     Empty Directory    ${DOWNLOAD_DIRECTORY}
+
+Resize Kendo Popup height To
+    [Arguments]    ${height}
+    ${activePopup}=    Set Variable    .k-widget.k-window:visible
+    ${overflowSpacing}=    Set Variable    105
+    Execute JavaScript    $('${activePopup}').height(${height});
+    Execute JavaScript    $('${activePopup} .popupContent').height(${height}-${overflowSpacing});

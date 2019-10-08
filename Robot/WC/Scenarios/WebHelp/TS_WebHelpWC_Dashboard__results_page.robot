@@ -3,6 +3,7 @@ Screenshot "WC_Dashboard__results_page" page
     ${DashboardId}    Set Variable    WEBHELP_WC_Dashboard__results_page
     
     Find Dashboard By ID Then Execute The First Dashboard    ${DashboardId}
+    Open Filter Panel
 
     Set Window Size    1100   700
     Sleep    3s
@@ -18,6 +19,8 @@ Crop Dashboard Results
     ...   var css={width:width,height:height,position:'absolute',left:0,top:0,'z-index':10000};
     ...   $('<div id="dashboardTopSection" />').css(css).appendTo('body');
     Highlight WebHelp Element  css=#dashboardTopSection  1
+    Update Heightlight Box   height   3
     Highlight WebHelp Element  css=#dashboardFilterWrapper  2
-    Highlight WebHelp Element  css=#dashboardWrapper  3
+    Update Heightlight Box   width   3
+    Highlight WebHelp Element  css=#dashboardContentWrapper  3
     Crop WebHelp Image  WC_Dashboard_Results.png     css=body

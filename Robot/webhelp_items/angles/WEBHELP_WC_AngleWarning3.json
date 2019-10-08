@@ -1,1 +1,583 @@
-{"multi_lang_name":[{"lang":"de","text":"Kunden"},{"lang":"en","text":"Customers"},{"lang":"es","text":"Clientes"},{"lang":"fr","text":"Clients"},{"lang":"nl","text":"Klanten"}],"multi_lang_description":[{"lang":"de","text":"<div id=\"summary\" /><div class=\" section\" id=\"S143757900487383\"><h2 class=\" topictitle2\" id=\"Hidelem4x9\">Bezeichnung</h2><p class=\"\" id=\"Pidelem4x11\">Der Kunde ist die externe Partei, an die Produkte und/oder Dienstleistungen verkauft werden; hier finden Sie alle Informationen zu einem Kunden, die Sie benötigen, um mit ihm Geschäftsbeziehungen unterhalten zu können. </p><h2 class=\" topictitle2\" id=\"Hidelem4x13\">Maßnahmen</h2><p class=\"\" id=\"Pidelem4x15\">Zur Verwaltung der Kundenstammdaten gehören:</p><ul id=\"Pidelem4x17\" class=\"\"><li><p class=\"\" id=\"P1437579004877594\">Prüfung der Kundendaten pro Land.</p></li><li><p class=\"\" id=\"P143757900487855\">Prüfung von finanziellen Daten wie Außenständen, Kreditposition oder Debitorenlaufzeit.</p></li><li><p class=\"\" id=\"P143757900487906\">Erkennen möglicher doppelter Kundendatensätze auf der Grundlage von Bankkonto, Adresse oder normalisiertem Namen.</p></li><li><p class=\"\" id=\"P1437579004880537\">Prüfung deaktivierter Kunden.</p></li></ul><p /></div>"},{"lang":"en","text":"<div id=\"summary\" /><div class=\" section\" id=\"S143757900487383\"><h2 class=\" topictitle2\" id=\"Hidelem4x9\">Description</h2><p class=\"\" id=\"Pidelem4x11\">The customer is the external party to which products and/or services are sold and here you will find all the \r\n   information about a customer that you need to be able to conduct business with them. </p><h2 class=\" topictitle2\" id=\"Hidelem4x13\">Actions</h2><p class=\"\" id=\"Pidelem4x15\">Managing customer master data consists of:</p><ul id=\"Pidelem4x17\" class=\"\"><li><p class=\"\" id=\"P1437579004877594\">Checking customer data per country.</p></li><li><p class=\"\" id=\"P143757900487855\">Checking financial data like receivables, credit position, days sales outstanding.</p></li><li><p class=\"\" id=\"P143757900487906\">Detecting possible duplicate customers based on bank account, address or normalized name.</p></li><li><p class=\"\" id=\"P1437579004880537\">Checking deactivated customers.</p></li></ul><p /></div>"},{"lang":"es","text":"<div id=\"summary\" /><div class=\" section\" id=\"S143757900487383\"><h2 class=\" topictitle2\" id=\"Hidelem4x9\">Texto explicativo</h2><p class=\"\" id=\"Pidelem4x11\">El cliente es la parte externa a la que se venden productos y/o servicios, y aquí encontrará toda la información que necesita sobre los clientes para poder hacer negocios con ellos. </p><h2 class=\" topictitle2\" id=\"Hidelem4x13\">Acciones</h2><p class=\"\" id=\"Pidelem4x15\">La gestión de datos maestros de clientes implica:</p><ul id=\"Pidelem4x17\" class=\"\"><li><p class=\"\" id=\"P1437579004877594\">Comprobar los datos de los clientes por país.</p></li><li><p class=\"\" id=\"P143757900487855\">Comprobar los datos financieros como cobros, posiciones de crédito y días de ventas pendientes de cobro.</p></li><li><p class=\"\" id=\"P143757900487906\">Detectar posibles clientes duplicados según la cuenta bancaria, la dirección o el nombre normalizado.</p></li><li><p class=\"\" id=\"P1437579004880537\">Comprobar los clientes desactivados.</p></li></ul><p /></div>"},{"lang":"fr","text":"<div id=\"summary\" /><div class=\" section\" id=\"S143757900487383\"><h2 class=\" topictitle2\" id=\"Hidelem4x9\">Description</h2><p class=\"\" id=\"Pidelem4x11\">Un client est un tiers externe auxquels des produits et/ou des services sont vendus. Vous trouverez ici toutes les informations concernant un client et nécessaires à la conduite des affaires. </p><h2 class=\" topictitle2\" id=\"Hidelem4x13\">Actions</h2><p class=\"\" id=\"Pidelem4x15\">La gestion des données principales client comprend les activités suivantes :</p><ul id=\"Pidelem4x17\" class=\"\"><li><p class=\"\" id=\"P1437579004877594\">contrôler les données client par pays ;</p></li><li><p class=\"\" id=\"P143757900487855\">contrôler les données financières comme les comptes client, la position de crédit et le délai de règlement client ;</p></li><li><p class=\"\" id=\"P143757900487906\">détecter les clients dédoublés possibles selon le compte en banque, l'adresse ou le nom normalisé ;</p></li><li><p class=\"\" id=\"P1437579004880537\">surveiller les clients désactivés.</p></li></ul><p /></div>"},{"lang":"nl","text":"<div id=\"summary\" /><div class=\" section\" id=\"S143757900487383\"><h2 class=\" topictitle2\" id=\"Hidelem4x9\">Omschrijving</h2><p class=\"\" id=\"Pidelem4x11\">De klant is de externe partij waaraan producten en/of services worden verkocht. Hier vindt u alle informatie over een klant die u nodig hebt om zaken met die klant te kunnen doen. </p><h2 class=\" topictitle2\" id=\"Hidelem4x13\">Procedures</h2><p class=\"\" id=\"Pidelem4x15\">Het beheren van de stamgegevens voor klanten omvat de volgende procedures:</p><ul id=\"Pidelem4x17\" class=\"\"><li><p class=\"\" id=\"P1437579004877594\">Klantgegevens per land controleren.</p></li><li><p class=\"\" id=\"P143757900487855\">Financiële gegevens, zoals te ontvangen bedragen, kredietpositie en klantkrediet in dagen omzet, controleren.</p></li><li><p class=\"\" id=\"P143757900487906\">Duplicaten van klanten identificeren op basis van bankrekening, adres of genormaliseerde naam.</p></li><li><p class=\"\" id=\"P1437579004880537\">Gedeactiveerd klanten controleren.</p></li></ul><p /></div>"}],"authorizations":{"update":true,"delete":true,"publish":false,"unpublish":true,"validate":true,"unvalidate":false,"mark_template":true,"unmark_template":false,"create_private_display":true,"create_public_display":true},"is_deleted":false,"displays":"/models/1/angles/600/displays","allow_followups":true,"allow_more_details":true,"assigned_labels":["P2P","S2D","O2C"],"labels":"/models/1/angles/600/labels","business_processes":"/models/1/angles/600/business_processes","grouping_labels":"/models/1/angles/600/grouping_labels","angle_default_display":"/models/1/angles/600/displays/3011","privilege_labels":"/models/1/angles/600/privilege_labels","package":"/packages/11","query_definition":[{"base_classes":["Customer"],"queryblock_type":"base_classes"}],"display_definitions":[{"multi_lang_name":[{"lang":"de","text":"Anzahl nach Erstellungsdatum"},{"lang":"en","text":"No. per Creation Date"},{"lang":"es","text":"N.º por Fecha de Creación"},{"lang":"fr","text":"Nombre par Date de Création"},{"lang":"nl","text":"Aantal per Aanmaakdatum"}],"multi_lang_description":[{"lang":"de","text":"<div id=\"summary\" /><div class=\" section\" id=\"S1498135519847165\"><p class=\"\" id=\"P1498135519847546\">Anzahl pro Erstellungsdatum und Branche.</p></div>"},{"lang":"en","text":"<div id=\"summary\" /><div class=\" section\" id=\"S1498135519847165\"><p class=\"\" id=\"P1498135519847546\">Number per creation date and industry.</p></div>"},{"lang":"es","text":"<div id=\"summary\" /><div class=\" section\" id=\"S1498135519847165\"><p class=\"\" id=\"P1498135519847546\">Número por fecha de creación e industria.</p></div>"},{"lang":"fr","text":"<div id=\"summary\" /><div class=\" section\" id=\"S1498135519847165\"><p class=\"\" id=\"P1498135519847546\">Nombre par date de création et secteur d'activité.</p></div>"},{"lang":"nl","text":"<div id=\"summary\" /><div class=\" section\" id=\"S1498135661873755\"><p class=\"\" id=\"P1498135661873916\">Aantal per aanmaakdatum en branche.</p></div>"}],"angle_id":"600","display_details":"{\"chart_type\":\"column\",\"stack\":true,\"multi_axis\":false,\"layout\":null,\"drilldown_display\":\"df8136fed68f8ad2d36513bfa1edf9c38\"}","query_blocks":[{"query_steps":[{"aggregation_fields":[{"field":"count","operator":"count"}],"grouping_fields":[{"field":"quarter_ERDAT_RF","operator":"quarter","source_field":"ERDAT_RF","tech_info":"KNA1-ERDAT"},{"field":"individual_BRSCH","operator":"individual","source_field":"BRSCH","tech_info":"KNA1-BRSCH"}],"step_type":"aggregation"}],"queryblock_type":"query_steps"}],"fields":[{"multi_lang_alias":[],"field":"quarter_ERDAT_RF","field_details":"{\"pivot_area\":\"row\"}","valid":true},{"multi_lang_alias":[],"field":"individual_BRSCH","field_details":"{\"pivot_area\":\"column\",\"format\":\"shnln\"}","valid":true},{"multi_lang_alias":[],"field":"count","field_details":"{\"pivot_area\":\"data\",\"prefix\":null,\"decimals\":0,\"thousandseparator\":true}","valid":true}],"state":"/models/1/angles/600/displays/3010/state","uri":"/models/1/angles/600/displays/3010","authorizations":{"update":true,"delete":true,"publish":false,"unpublish":true,"make_angle_default":true},"created":{"user":"/users/1","datetime":1557132144,"full_name":"EAAdmin"},"user_specific":{"is_user_default":false,"execute_on_login":false},"is_public":true,"contained_aggregation_steps":true,"used_in_task":false,"display_type":"chart","is_angle_default":false,"id":"dc1d32181aeecc4c3d3a801846a086574"},{"multi_lang_name":[{"lang":"de","text":"Basisliste"},{"lang":"en","text":"Basic List"},{"lang":"es","text":"Lista Básica"},{"lang":"fr","text":"Liste De Base"},{"lang":"nl","text":"Basislijst"}],"multi_lang_description":[{"lang":"de","text":"<div id=\"summary\" />"},{"lang":"en","text":"<div id=\"summary\" />"},{"lang":"es","text":"<div id=\"summary\" />"},{"lang":"fr","text":"<div id=\"summary\" />"},{"lang":"nl","text":"<div id=\"summary\" />"}],"angle_id":"600","display_details":"{\"layout\":null}","query_blocks":[],"fields":[{"multi_lang_alias":[],"field":"ObjectType","field_details":"{\"width\":82,\"format\":\"shn\"}","valid":true,"tech_info":""},{"multi_lang_alias":[],"field":"ID","field_details":"{\"width\":71}","valid":true,"tech_info":""},{"multi_lang_alias":[],"field":"Description","field_details":"{\"width\":221}","valid":true,"tech_info":"KNA1-NAME1"},{"multi_lang_alias":[],"field":"STRAS_GP","field_details":"{\"width\":226}","valid":true,"tech_info":"KNA1-STRAS"},{"multi_lang_alias":[],"field":"PSTLZ","field_details":"{\"width\":75}","valid":true,"tech_info":"KNA1-PSTLZ"},{"multi_lang_alias":[],"field":"ORT01_GP","field_details":"{\"width\":97}","valid":true,"tech_info":"KNA1-ORT01"},{"multi_lang_alias":[],"field":"LAND1_GP","field_details":"{\"width\":34,\"format\":\"shn\"}","valid":true,"tech_info":"KNA1-LAND1"},{"multi_lang_alias":[],"field":"TELF1","field_details":"{\"width\":110}","valid":true,"tech_info":"KNA1-TELF1"},{"multi_lang_alias":[],"field":"KTOKD","field_details":"{\"width\":90,\"format\":\"shn\"}","valid":true,"tech_info":"KNA1-KTOKD"},{"multi_lang_alias":[],"field":"BRSCH","field_details":"{\"width\":97,\"format\":\"shn\"}","valid":true,"tech_info":"KNA1-BRSCH"},{"multi_lang_alias":[],"field":"KNA1_LOEVM","field_details":"{\"width\":114}","valid":true,"tech_info":"KNA1-LOEVM"},{"multi_lang_alias":[],"field":"ERDAT_RF","field_details":"{\"width\":104}","valid":true,"tech_info":"KNA1-ERDAT"},{"multi_lang_alias":[],"field":"NumberOfOpenSalesOrderScheduleLines","field_details":"{\"width\":180}","valid":true,"tech_info":""}],"state":"/models/1/angles/600/displays/3011/state","uri":"/models/1/angles/600/displays/3011","authorizations":{"update":true,"delete":false,"publish":false,"unpublish":false,"make_angle_default":false},"created":{"user":"/users/1","datetime":1557132144,"full_name":"EAAdmin"},"user_specific":{"is_user_default":false,"execute_on_login":false},"is_public":true,"contained_aggregation_steps":false,"used_in_task":false,"display_type":"list","is_angle_default":true,"id":"df8136fed68f8ad2d36513bfa1edf9c38"},{"multi_lang_name":[{"lang":"de","text":"Debitorenlaufzeit (Days Sales Outstanding, DSO) > 30"},{"lang":"en","text":"Days Sales Outstanding (DSO) > 30"},{"lang":"es","text":"Días de Ventas Pendientes de Cobro (DSO) > 30"},{"lang":"fr","text":"Délai de règlement client (DSO) >30"},{"lang":"nl","text":"Klantkrediet (DSO) > 30"}],"multi_lang_description":[{"lang":"de","text":"<div id=\"summary\" />"},{"lang":"en","text":"<div id=\"summary\" />"},{"lang":"es","text":"<div id=\"summary\" />"},{"lang":"fr","text":"<div id=\"summary\" />"},{"lang":"nl","text":"<div id=\"summary\" />"}],"angle_id":"600","display_details":"{\"layout\":null}","query_blocks":[{"query_steps":[{"field":"DSO","operator":"greater_than","arguments":[{"argument_type":"value","value":30}],"step_type":"filter","tech_info":""}],"queryblock_type":"query_steps"}],"fields":[{"multi_lang_alias":[],"field":"ObjectType","field_details":"{\"width\":82,\"format\":\"shn\"}","valid":true,"tech_info":""},{"multi_lang_alias":[],"field":"ID","field_details":"{\"width\":69}","valid":true,"tech_info":""},{"multi_lang_alias":[],"field":"Description","field_details":"{\"width\":221}","valid":true,"tech_info":"KNA1-NAME1"},{"multi_lang_alias":[],"field":"STRAS_GP","field_details":"{\"width\":226}","valid":true,"tech_info":"KNA1-STRAS"},{"multi_lang_alias":[],"field":"PSTLZ","field_details":"{\"width\":75}","valid":true,"tech_info":"KNA1-PSTLZ"},{"multi_lang_alias":[],"field":"ORT01_GP","field_details":"{\"width\":97}","valid":true,"tech_info":"KNA1-ORT01"},{"multi_lang_alias":[],"field":"LAND1_GP","field_details":"{\"width\":34,\"format\":\"shn\"}","valid":true,"tech_info":"KNA1-LAND1"},{"multi_lang_alias":[],"field":"DSO","field_details":"{\"width\":149}","valid":true,"tech_info":""},{"multi_lang_alias":[],"field":"UMSA1","field_details":"{\"width\":120}","valid":true,"tech_info":"KNA1-UMSA1"},{"multi_lang_alias":[],"field":"ERDAT_RF","field_details":"{\"width\":104}","valid":true,"tech_info":"KNA1-ERDAT"}],"state":"/models/1/angles/600/displays/3012/state","uri":"/models/1/angles/600/displays/3012","authorizations":{"update":true,"delete":true,"publish":false,"unpublish":true,"make_angle_default":true},"created":{"user":"/users/1","datetime":1557132145,"full_name":"EAAdmin"},"user_specific":{"is_user_default":false,"execute_on_login":false},"is_public":true,"contained_aggregation_steps":false,"used_in_task":false,"display_type":"list","is_angle_default":false,"id":"z273b6970ef6b40dab6438810cf3d71aa"}],"changed":{"user":"/users/1","datetime":1557132145,"full_name":"EAAdmin"},"published":{"user":"/users/1","datetime":1557132145,"full_name":"EAAdmin"},"id":"WEBHELP_WC_AngleWarning3","uri":"/models/1/angles/600","model":"/models/1","is_validated":false,"is_parameterized":false,"is_published":true,"is_template":false,"user_specific":{"execute_on_login":false,"is_starred":false,"private_tags":[],"times_executed":0},"created":{"user":"/users/1","datetime":1557132145,"full_name":"EAAdmin"},"has_warnings":false,"state":"/models/1/angles/600/state"}
+{
+    "multi_lang_name": [
+        {
+            "lang": "de",
+            "text": "Kunden"
+        },
+        {
+            "lang": "en",
+            "text": "Customers"
+        },
+        {
+            "lang": "es",
+            "text": "Clientes"
+        },
+        {
+            "lang": "fr",
+            "text": "Clients"
+        },
+        {
+            "lang": "nl",
+            "text": "Klanten"
+        }
+    ],
+    "labels": "/models/1/angles/642/labels",
+    "assigned_labels": [
+        "P2P",
+        "S2D",
+        "O2C"
+    ],
+    "executed": {
+        "user": "/users/1",
+        "full_name": "EAAdmin",
+        "datetime": 1567577534
+    },
+    "displays": "/models/1/angles/642/displays",
+    "grouping_labels": "/models/1/angles/642/grouping_labels",
+    "id": "WEBHELP_WC_AngleWarning3",
+    "authorizations": {
+        "unvalidate": false,
+        "mark_template": true,
+        "unmark_template": false,
+        "update": true,
+        "publish": false,
+        "unpublish": true,
+        "create_private_display": true,
+        "validate": true,
+        "create_public_display": true,
+        "delete": true
+    },
+    "user_specific": {
+        "is_starred": false,
+        "private_tags": [],
+        "times_executed": 1,
+        "execute_on_login": false
+    },
+    "state": "/models/1/angles/642/state",
+    "allow_followups": true,
+    "is_parameterized": false,
+    "is_validated": false,
+    "business_processes": "/models/1/angles/642/business_processes",
+    "query_definition": [
+        {
+            "queryblock_type": "base_classes",
+            "base_classes": [
+                "Customer"
+            ]
+        }
+    ],
+    "angle_default_display": "/models/1/angles/642/displays/2985",
+    "privilege_labels": "/models/1/angles/642/privilege_labels",
+    "is_deleted": false,
+    "created": {
+        "user": "/users/2",
+        "full_name": "EASystem",
+        "datetime": 1567577215
+    },
+    "changed": {
+        "user": "/users/1",
+        "full_name": "EAAdmin",
+        "datetime": 1567577215
+    },
+    "uri": "/models/1/angles/642",
+    "display_definitions": [
+        {
+            "multi_lang_name": [
+                {
+                    "lang": "de",
+                    "text": "Anzahl nach Erstellungsdatum"
+                },
+                {
+                    "lang": "en",
+                    "text": "No. per Creation Date"
+                },
+                {
+                    "lang": "es",
+                    "text": "N.º por Fecha de Creación"
+                },
+                {
+                    "lang": "fr",
+                    "text": "Nombre par Date de Création"
+                },
+                {
+                    "lang": "nl",
+                    "text": "Aantal per Aanmaakdatum"
+                }
+            ],
+            "authorizations": {
+                "make_angle_default": true,
+                "unpublish": true,
+                "update": true,
+                "publish": false,
+                "delete": true
+            },
+            "created": {
+                "user": "/users/2",
+                "full_name": "EASystem",
+                "datetime": 1557110544
+            },
+            "fields": [
+                {
+                    "field": "quarter_ERDAT_RF",
+                    "multi_lang_alias": [],
+                    "valid": true,
+                    "field_details": "{\"pivot_area\":\"row\"}"
+                },
+                {
+                    "field": "individual_BRSCH",
+                    "multi_lang_alias": [],
+                    "valid": true,
+                    "field_details": "{\"pivot_area\":\"column\",\"format\":\"shnln\"}"
+                },
+                {
+                    "field": "count",
+                    "multi_lang_alias": [],
+                    "valid": true,
+                    "field_details": "{\"pivot_area\":\"data\",\"prefix\":null,\"decimals\":0,\"thousandseparator\":true}"
+                }
+            ],
+            "contained_aggregation_steps": true,
+            "uri": "/models/1/angles/642/displays/2984",
+            "is_public": true,
+            "used_in_task": false,
+            "state": "/models/1/angles/642/displays/2984/state",
+            "display_type": "chart",
+            "user_specific": {
+                "execute_on_login": false,
+                "is_user_default": false
+            },
+            "query_blocks": [
+                {
+                    "query_steps": [
+                        {
+                            "aggregation_fields": [
+                                {
+                                    "operator": "count",
+                                    "field": "count"
+                                }
+                            ],
+                            "step_type": "aggregation",
+                            "grouping_fields": [
+                                {
+                                    "operator": "quarter",
+                                    "field": "quarter_ERDAT_RF",
+                                    "source_field": "ERDAT_RF",
+                                    "tech_info": "KNA1-ERDAT"
+                                },
+                                {
+                                    "operator": "individual",
+                                    "field": "individual_BRSCH",
+                                    "source_field": "BRSCH",
+                                    "tech_info": "KNA1-BRSCH"
+                                }
+                            ]
+                        }
+                    ],
+                    "queryblock_type": "query_steps"
+                }
+            ],
+            "is_angle_default": false,
+            "angle_id": "642",
+            "id": "dc1d32181aeecc4c3d3a801846a086574",
+            "display_details": "{\"chart_type\":\"column\",\"stack\":true,\"multi_axis\":false,\"layout\":null,\"drilldown_display\":\"df8136fed68f8ad2d36513bfa1edf9c38\"}",
+            "multi_lang_description": [
+                {
+                    "lang": "de",
+                    "text": "<div id=\"summary\" /><div class=\" section\" id=\"S1498135519847165\"><p class=\"\" id=\"P1498135519847546\">Anzahl pro Erstellungsdatum und Branche.</p></div>"
+                },
+                {
+                    "lang": "en",
+                    "text": "<div id=\"summary\" /><div class=\" section\" id=\"S1498135519847165\"><p class=\"\" id=\"P1498135519847546\">Number per creation date and industry.</p></div>"
+                },
+                {
+                    "lang": "es",
+                    "text": "<div id=\"summary\" /><div class=\" section\" id=\"S1498135519847165\"><p class=\"\" id=\"P1498135519847546\">Número por fecha de creación e industria.</p></div>"
+                },
+                {
+                    "lang": "fr",
+                    "text": "<div id=\"summary\" /><div class=\" section\" id=\"S1498135519847165\"><p class=\"\" id=\"P1498135519847546\">Nombre par date de création et secteur d'activité.</p></div>"
+                },
+                {
+                    "lang": "nl",
+                    "text": "<div id=\"summary\" /><div class=\" section\" id=\"S1498135661873755\"><p class=\"\" id=\"P1498135661873916\">Aantal per aanmaakdatum en branche.</p></div>"
+                }
+            ]
+        },
+        {
+            "multi_lang_name": [
+                {
+                    "lang": "de",
+                    "text": "Basisliste"
+                },
+                {
+                    "lang": "en",
+                    "text": "Basic List"
+                },
+                {
+                    "lang": "es",
+                    "text": "Lista Básica"
+                },
+                {
+                    "lang": "fr",
+                    "text": "Liste De Base"
+                },
+                {
+                    "lang": "nl",
+                    "text": "Basislijst"
+                }
+            ],
+            "authorizations": {
+                "make_angle_default": false,
+                "unpublish": false,
+                "update": true,
+                "publish": false,
+                "delete": false
+            },
+            "created": {
+                "user": "/users/2",
+                "full_name": "EASystem",
+                "datetime": 1557110544
+            },
+            "fields": [
+                {
+                    "tech_info": "",
+                    "field": "ObjectType",
+                    "multi_lang_alias": [],
+                    "valid": true,
+                    "field_details": "{\"width\":82,\"format\":\"shn\"}"
+                },
+                {
+                    "tech_info": "",
+                    "field": "ID",
+                    "multi_lang_alias": [],
+                    "valid": true,
+                    "field_details": "{\"width\":71}"
+                },
+                {
+                    "tech_info": "KNA1-NAME1",
+                    "field": "Description",
+                    "multi_lang_alias": [],
+                    "valid": true,
+                    "field_details": "{\"width\":221}"
+                },
+                {
+                    "tech_info": "KNA1-STRAS",
+                    "field": "STRAS_GP",
+                    "multi_lang_alias": [],
+                    "valid": true,
+                    "field_details": "{\"width\":226}"
+                },
+                {
+                    "tech_info": "KNA1-PSTLZ",
+                    "field": "PSTLZ",
+                    "multi_lang_alias": [],
+                    "valid": true,
+                    "field_details": "{\"width\":75}"
+                },
+                {
+                    "tech_info": "KNA1-ORT01",
+                    "field": "ORT01_GP",
+                    "multi_lang_alias": [],
+                    "valid": true,
+                    "field_details": "{\"width\":97}"
+                },
+                {
+                    "tech_info": "KNA1-LAND1",
+                    "field": "LAND1_GP",
+                    "multi_lang_alias": [],
+                    "valid": true,
+                    "field_details": "{\"width\":34,\"format\":\"shn\"}"
+                },
+                {
+                    "tech_info": "KNA1-TELF1",
+                    "field": "TELF1",
+                    "multi_lang_alias": [],
+                    "valid": true,
+                    "field_details": "{\"width\":110}"
+                },
+                {
+                    "tech_info": "KNA1-KTOKD",
+                    "field": "KTOKD",
+                    "multi_lang_alias": [],
+                    "valid": true,
+                    "field_details": "{\"width\":90,\"format\":\"shn\"}"
+                },
+                {
+                    "tech_info": "KNA1-BRSCH",
+                    "field": "BRSCH",
+                    "multi_lang_alias": [],
+                    "valid": true,
+                    "field_details": "{\"width\":97,\"format\":\"shn\"}"
+                },
+                {
+                    "tech_info": "KNA1-LOEVM",
+                    "field": "LOEVM_X",
+                    "multi_lang_alias": [],
+                    "valid": true,
+                    "field_details": "{\"width\":114}"
+                },
+                {
+                    "tech_info": "KNA1-ERDAT",
+                    "field": "ERDAT_RF",
+                    "multi_lang_alias": [],
+                    "valid": true,
+                    "field_details": "{\"width\":104}"
+                },
+                {
+                    "tech_info": "",
+                    "field": "NumberOfOpenSalesOrderScheduleLines",
+                    "multi_lang_alias": [],
+                    "valid": true,
+                    "field_details": "{\"width\":180}"
+                }
+            ],
+            "contained_aggregation_steps": false,
+            "uri": "/models/1/angles/642/displays/2985",
+            "is_public": true,
+            "used_in_task": false,
+            "state": "/models/1/angles/642/displays/2985/state",
+            "display_type": "list",
+            "user_specific": {
+                "execute_on_login": false,
+                "is_user_default": false
+            },
+            "query_blocks": [],
+            "is_angle_default": true,
+            "angle_id": "642",
+            "id": "df8136fed68f8ad2d36513bfa1edf9c38",
+            "display_details": "{\"layout\":null}",
+            "multi_lang_description": [
+                {
+                    "lang": "de",
+                    "text": "<div id=\"summary\" />"
+                },
+                {
+                    "lang": "en",
+                    "text": "<div id=\"summary\" />"
+                },
+                {
+                    "lang": "es",
+                    "text": "<div id=\"summary\" />"
+                },
+                {
+                    "lang": "fr",
+                    "text": "<div id=\"summary\" />"
+                },
+                {
+                    "lang": "nl",
+                    "text": "<div id=\"summary\" />"
+                }
+            ]
+        },
+        {
+            "multi_lang_name": [
+                {
+                    "lang": "de",
+                    "text": "Debitorenlaufzeit (Days Sales Outstanding, DSO) > 30"
+                },
+                {
+                    "lang": "en",
+                    "text": "Days Sales Outstanding (DSO) > 30"
+                },
+                {
+                    "lang": "es",
+                    "text": "Días de Ventas Pendientes de Cobro (DSO) > 30"
+                },
+                {
+                    "lang": "fr",
+                    "text": "Délai de règlement client (DSO) >30"
+                },
+                {
+                    "lang": "nl",
+                    "text": "Klantkrediet (DSO) > 30"
+                }
+            ],
+            "authorizations": {
+                "make_angle_default": true,
+                "unpublish": true,
+                "update": true,
+                "publish": false,
+                "delete": true
+            },
+            "created": {
+                "user": "/users/2",
+                "full_name": "EASystem",
+                "datetime": 1557110545
+            },
+            "fields": [
+                {
+                    "tech_info": "",
+                    "field": "ObjectType",
+                    "multi_lang_alias": [],
+                    "valid": true,
+                    "field_details": "{\"width\":82,\"format\":\"shn\"}"
+                },
+                {
+                    "tech_info": "",
+                    "field": "ID",
+                    "multi_lang_alias": [],
+                    "valid": true,
+                    "field_details": "{\"width\":69}"
+                },
+                {
+                    "tech_info": "KNA1-NAME1",
+                    "field": "Description",
+                    "multi_lang_alias": [],
+                    "valid": true,
+                    "field_details": "{\"width\":221}"
+                },
+                {
+                    "tech_info": "KNA1-STRAS",
+                    "field": "STRAS_GP",
+                    "multi_lang_alias": [],
+                    "valid": true,
+                    "field_details": "{\"width\":226}"
+                },
+                {
+                    "tech_info": "KNA1-PSTLZ",
+                    "field": "PSTLZ",
+                    "multi_lang_alias": [],
+                    "valid": true,
+                    "field_details": "{\"width\":75}"
+                },
+                {
+                    "tech_info": "KNA1-ORT01",
+                    "field": "ORT01_GP",
+                    "multi_lang_alias": [],
+                    "valid": true,
+                    "field_details": "{\"width\":97}"
+                },
+                {
+                    "tech_info": "KNA1-LAND1",
+                    "field": "LAND1_GP",
+                    "multi_lang_alias": [],
+                    "valid": true,
+                    "field_details": "{\"width\":34,\"format\":\"shn\"}"
+                },
+                {
+                    "field_details": "{\"width\":149}",
+                    "tech_info": "",
+                    "multi_lang_alias": [],
+                    "field": "DSO",
+                    "valid": false,
+                    "validation_details": {
+                        "field": "DSO",
+                        "classes": [
+                            "Customer"
+                        ],
+                        "warning_type": "unsupported_display_field"
+                    }
+                },
+                {
+                    "tech_info": "KNA1-UMSA1",
+                    "field": "UMSA1",
+                    "multi_lang_alias": [],
+                    "valid": true,
+                    "field_details": "{\"width\":120}"
+                },
+                {
+                    "tech_info": "KNA1-ERDAT",
+                    "field": "ERDAT_RF",
+                    "multi_lang_alias": [],
+                    "valid": true,
+                    "field_details": "{\"width\":104}"
+                }
+            ],
+            "contained_aggregation_steps": false,
+            "uri": "/models/1/angles/642/displays/2986",
+            "is_public": true,
+            "used_in_task": false,
+            "state": "/models/1/angles/642/displays/2986/state",
+            "display_type": "list",
+            "user_specific": {
+                "execute_on_login": false,
+                "is_user_default": false
+            },
+            "query_blocks": [
+                {
+                    "query_steps": [
+                        {
+                            "tech_info": "",
+                            "step_type": "filter",
+                            "field": "DSO",
+                            "valid": false,
+                            "validation_details": {
+                                "field": "DSO",
+                                "classes": [
+                                    "Customer"
+                                ],
+                                "warning_type": "unsupported_filter_field"
+                            },
+                            "arguments": [
+                                {
+                                    "argument_type": "value",
+                                    "value": 30
+                                }
+                            ],
+                            "operator": "greater_than"
+                        }
+                    ],
+                    "queryblock_type": "query_steps"
+                }
+            ],
+            "is_angle_default": false,
+            "angle_id": "642",
+            "id": "z273b6970ef6b40dab6438810cf3d71aa",
+            "display_details": "{\"layout\":null}",
+            "multi_lang_description": [
+                {
+                    "lang": "de",
+                    "text": "<div id=\"summary\" />"
+                },
+                {
+                    "lang": "en",
+                    "text": "<div id=\"summary\" />"
+                },
+                {
+                    "lang": "es",
+                    "text": "<div id=\"summary\" />"
+                },
+                {
+                    "lang": "fr",
+                    "text": "<div id=\"summary\" />"
+                },
+                {
+                    "lang": "nl",
+                    "text": "<div id=\"summary\" />"
+                }
+            ]
+        }
+    ],
+    "has_warnings": true,
+    "is_template": false,
+    "published": {
+        "user": "/users/1",
+        "full_name": "EAAdmin",
+        "datetime": 1567577215
+    },
+    "model": "/models/1",
+    "is_published": true,
+    "allow_more_details": true,
+    "multi_lang_description": [
+        {
+            "lang": "de",
+            "text": "<div id=\"summary\" /><div class=\" section\" id=\"S143757900487383\"><h2 class=\" topictitle2\" id=\"Hidelem4x9\">Bezeichnung</h2><p class=\"\" id=\"Pidelem4x11\">Der Kunde ist die externe Partei, an die Produkte und/oder Dienstleistungen verkauft werden; hier finden Sie alle Informationen zu einem Kunden, die Sie benötigen, um mit ihm Geschäftsbeziehungen unterhalten zu können. </p><h2 class=\" topictitle2\" id=\"Hidelem4x13\">Maßnahmen</h2><p class=\"\" id=\"Pidelem4x15\">Zur Verwaltung der Kundenstammdaten gehören:</p><ul id=\"Pidelem4x17\" class=\"\"><li><p class=\"\" id=\"P1437579004877594\">Prüfung der Kundendaten pro Land.</p></li><li><p class=\"\" id=\"P143757900487855\">Prüfung von finanziellen Daten wie Außenständen, Kreditposition oder Debitorenlaufzeit.</p></li><li><p class=\"\" id=\"P143757900487906\">Erkennen möglicher doppelter Kundendatensätze auf der Grundlage von Bankkonto, Adresse oder normalisiertem Namen.</p></li><li><p class=\"\" id=\"P1437579004880537\">Prüfung deaktivierter Kunden.</p></li></ul><p /></div>"
+        },
+        {
+            "lang": "en",
+            "text": "<div id=\"summary\" /><div class=\" section\" id=\"S143757900487383\"><h2 class=\" topictitle2\" id=\"Hidelem4x9\">Description</h2><p class=\"\" id=\"Pidelem4x11\">The customer is the external party to which products and/or services are sold and here you will find all the \r\n   information about a customer that you need to be able to conduct business with them. </p><h2 class=\" topictitle2\" id=\"Hidelem4x13\">Actions</h2><p class=\"\" id=\"Pidelem4x15\">Managing customer master data consists of:</p><ul id=\"Pidelem4x17\" class=\"\"><li><p class=\"\" id=\"P1437579004877594\">Checking customer data per country.</p></li><li><p class=\"\" id=\"P143757900487855\">Checking financial data like receivables, credit position, days sales outstanding.</p></li><li><p class=\"\" id=\"P143757900487906\">Detecting possible duplicate customers based on bank account, address or normalized name.</p></li><li><p class=\"\" id=\"P1437579004880537\">Checking deactivated customers.</p></li></ul><p /></div>"
+        },
+        {
+            "lang": "es",
+            "text": "<div id=\"summary\" /><div class=\" section\" id=\"S143757900487383\"><h2 class=\" topictitle2\" id=\"Hidelem4x9\">Texto explicativo</h2><p class=\"\" id=\"Pidelem4x11\">El cliente es la parte externa a la que se venden productos y/o servicios, y aquí encontrará toda la información que necesita sobre los clientes para poder hacer negocios con ellos. </p><h2 class=\" topictitle2\" id=\"Hidelem4x13\">Acciones</h2><p class=\"\" id=\"Pidelem4x15\">La gestión de datos maestros de clientes implica:</p><ul id=\"Pidelem4x17\" class=\"\"><li><p class=\"\" id=\"P1437579004877594\">Comprobar los datos de los clientes por país.</p></li><li><p class=\"\" id=\"P143757900487855\">Comprobar los datos financieros como cobros, posiciones de crédito y días de ventas pendientes de cobro.</p></li><li><p class=\"\" id=\"P143757900487906\">Detectar posibles clientes duplicados según la cuenta bancaria, la dirección o el nombre normalizado.</p></li><li><p class=\"\" id=\"P1437579004880537\">Comprobar los clientes desactivados.</p></li></ul><p /></div>"
+        },
+        {
+            "lang": "fr",
+            "text": "<div id=\"summary\" /><div class=\" section\" id=\"S143757900487383\"><h2 class=\" topictitle2\" id=\"Hidelem4x9\">Description</h2><p class=\"\" id=\"Pidelem4x11\">Un client est un tiers externe auxquels des produits et/ou des services sont vendus. Vous trouverez ici toutes les informations concernant un client et nécessaires à la conduite des affaires. </p><h2 class=\" topictitle2\" id=\"Hidelem4x13\">Actions</h2><p class=\"\" id=\"Pidelem4x15\">La gestion des données principales client comprend les activités suivantes :</p><ul id=\"Pidelem4x17\" class=\"\"><li><p class=\"\" id=\"P1437579004877594\">contrôler les données client par pays ;</p></li><li><p class=\"\" id=\"P143757900487855\">contrôler les données financières comme les comptes client, la position de crédit et le délai de règlement client ;</p></li><li><p class=\"\" id=\"P143757900487906\">détecter les clients dédoublés possibles selon le compte en banque, l'adresse ou le nom normalisé ;</p></li><li><p class=\"\" id=\"P1437579004880537\">surveiller les clients désactivés.</p></li></ul><p /></div>"
+        },
+        {
+            "lang": "nl",
+            "text": "<div id=\"summary\" /><div class=\" section\" id=\"S143757900487383\"><h2 class=\" topictitle2\" id=\"Hidelem4x9\">Omschrijving</h2><p class=\"\" id=\"Pidelem4x11\">De klant is de externe partij waaraan producten en/of services worden verkocht. Hier vindt u alle informatie over een klant die u nodig hebt om zaken met die klant te kunnen doen. </p><h2 class=\" topictitle2\" id=\"Hidelem4x13\">Procedures</h2><p class=\"\" id=\"Pidelem4x15\">Het beheren van de stamgegevens voor klanten omvat de volgende procedures:</p><ul id=\"Pidelem4x17\" class=\"\"><li><p class=\"\" id=\"P1437579004877594\">Klantgegevens per land controleren.</p></li><li><p class=\"\" id=\"P143757900487855\">Financiële gegevens, zoals te ontvangen bedragen, kredietpositie en klantkrediet in dagen omzet, controleren.</p></li><li><p class=\"\" id=\"P143757900487906\">Duplicaten van klanten identificeren op basis van bankrekening, adres of genormaliseerde naam.</p></li><li><p class=\"\" id=\"P1437579004880537\">Gedeactiveerd klanten controleren.</p></li></ul><p /></div>"
+        }
+    ]
+}

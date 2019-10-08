@@ -2,21 +2,21 @@
 Resource            ${EXECDIR}/WC/API/API_Utility.robot
 
 *** Keywords ***
-Get Angle
+Get Dashboard
     [Arguments]   ${path}
     ${body}    Send GET    ${path}
     [Return]    ${body}
 
-Create Angle
-    [Arguments]   ${modelUri}    ${data}
-    ${body}    Send POST    ${modelUri}/angles?redirect=no&multilingual=yes&accept_warnings=true    ${data}
+Create Dashboard
+    [Arguments]   ${data}
+    ${body}    Send POST    /dashboards?redirect=no&multilingual=yes&accept_warnings=true    ${data}
     [Return]    ${body}
 
-Update Angle
+Update Dashboard
     [Arguments]   ${path}    ${data}
     ${body}    Send PUT    ${path}?multilingual=yes&accept_warnings=true    ${data}
     [Return]    ${body}
 
-Delete Angle
+Delete Dashboard
     [Arguments]   ${path}
     Send DELETE    ${path}

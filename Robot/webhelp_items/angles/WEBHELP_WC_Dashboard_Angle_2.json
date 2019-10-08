@@ -1,1 +1,681 @@
-{"multi_lang_name":[{"lang":"nl","text":"Boekhouddocument Kop"},{"lang":"en","text":"Accounting Document (AD) Header"},{"lang":"fr","text":"Pièce Comptable En-tête"},{"lang":"de","text":"Buchhaltungsbeleg (BB) Kopf"},{"lang":"es","text":"Documento Contable Cabecera"}],"multi_lang_description":[{"lang":"nl","text":"<div id=\"summary\" /><div class=\" section\" id=\"S1436524916698864\"><h2 class=\" topictitle2\" id=\"Hidelem4x2804\">Samenvatting</h2><p class=\"\" id=\"Pidelem4x2806\">Een boekhouddocument (AD) is een voorbeeld in het SAP-systeem van het document dat een financiële boeking heeft geactiveerd (een factuur of een verplaatsing van goederen). Wanneer u een boekhouddocument boekt, werkt het SAP-systeem de transactiebedragen en het documenttype bij in de grootboekrekeningen.</p><h2 class=\" topictitle2\" id=\"Hidelem4x2808\">Uitleg</h2><p class=\"\" id=\"Pidelem4x2810\">Wanneer u een boekhouddocument boekt, werkt het SAP-systeem de transactiebedragen en het documenttype bij in de grootboekrekeningen. Een boekhouddocument bevat de kopgegevens van een journaalpost. De regelposities worden in verschillende (financiële) objecten in Every Angle opgeslagen. Daarom kunt u in het boekhouddocumentkopobject belangrijke informatie vinden, zoals het type document, het type valuta, de aanmaakdatum, enzovoort, die u aan uw Angle kunt toevoegen.</p><h2 class=\" topictitle2\" id=\"Hidelem4x2816\">Technische achtergrond</h2><p class=\"\" id=\"Pidelem4x2818\">Op basis van de SAP-tabel BKPF wordt een object aangemaakt met referenties naar Factuurdocumentkop, Kop van factuurontvangst en meer, alsmede een sublijst van Boekhouddocumentposities.</p><h2 class=\" topictitle2\" id=\"Hidelem4x2822\">Verwante onderwerpen</h2><p class=\"\" id=\"Pidelem4x2824\">Elke boeking bestaat uit minstens twee boekingsregelposities. Deze regelposities worden opgeslagen in verschillende objecten, zoals Algemeen boekhouddocument, Boekhouddocument leverancier en Boekhouddocument klant. Deze objecten zijn allemaal gerelateerd aan het object Boekhouddocumentkop.</p></div>"},{"lang":"en","text":"<div id=\"summary\" /><div class=\" section\" id=\"S1436524916698864\"><h2 class=\" topictitle2\" id=\"Hidelem4x2804\">Summary</h2><p class=\"\" id=\"Pidelem4x2806\">An accounting document (AD) is a representation within the SAP system of the document that triggered a financial posting (for example an invoice or a goods movement).When you post an accounting document, the SAP system updates the transaction figures and the document type in the general ledger accounts.</p><h2 class=\" topictitle2\" id=\"Hidelem4x2808\">Explanation</h2><p class=\"\" id=\"Pidelem4x2810\">When you post an accounting document, the SAP system updates the transaction figures and the document type in the general ledger accounts. An accounting document contains the header data of a journal entry. The line items are stored indifferent (financial) objects within Every Angle. In the accounting document header object you will therefore find important information like document type, currency type, creation date etc. which you can add to your Angle.</p><h2 class=\" topictitle2\" id=\"Hidelem4x2816\">Technical background</h2><p class=\"\" id=\"Pidelem4x2818\">Based on SAP table BKPF an object\r\nis created with references to Billing Document Header, Invoice Receipt Header and more as well as a sublist of Accounting Document Items.</p><h2 class=\" topictitle2\" id=\"Hidelem4x2822\">Related topics</h2><p class=\"\" id=\"Pidelem4x2824\">Every posting consist of at least two posting line items. These line items are stored in several objects, like Accounting Document General, Accounting Document Vendor and Accounting Document Customer. These objects are all related to the Accounting Document Header object.</p></div>"},{"lang":"fr","text":"<div id=\"summary\" /><div class=\" section\" id=\"S1436524916698864\"><h2 class=\" topictitle2\" id=\"Hidelem4x2804\">Récapitulatif</h2><p class=\"\" id=\"Pidelem4x2806\">Une pièce comptable est une représentation dans le système SAP du document qui a déclenché une écriture financière (par exemple une facture ou un mouvement de marchandises).</p><h2 class=\" topictitle2\" id=\"Hidelem4x2808\">Explication</h2><p class=\"\" id=\"Pidelem4x2810\">Lorsque vous comptabilisez une pièce comptable, le système SAP met à jour les soldes mensuels et le type de document dans les comptes généraux. Une pièce comptable contient les données d'en-tête d'une entrée de journal. Les postes sont stockés dans différents objets (financiers) d'Every Angle. Dans l'objet d'en-tête de pièce comptable, vous trouvez, par conséquent, des informations importantes telles que le type de document, le type de devise, la date de création, etc., que vous pouvez ajouter à votre Angle.</p><h2 class=\" topictitle2\" id=\"Hidelem4x2816\">Antécédents techniques.</h2><p class=\"\" id=\"Pidelem4x2818\">D'après la table BKPF dans SAP, un objet est créé avec des références à l'en-tête Facture, Entrée de facture et autre, ainsi qu'à une liste auxiliaire de postes de pièces comptables.</p><h2 class=\" topictitle2\" id=\"Hidelem4x2822\">Sujets associés</h2><p class=\"\" id=\"Pidelem4x2824\">Chaque écriture comprend au moins deux postes d'écriture. Ces postes sont mémorisés dans plusieurs objets, tels que Pièce comptable postes général, Pièce comptable poste fournisseur et Pièce comptable postes client. Ces objets sont tous rattachés à l'objet Pièce comptable en-tête.</p></div>"},{"lang":"de","text":"<div id=\"summary\" /><div class=\" section\" id=\"S1436524916698864\"><h2 class=\" topictitle2\" id=\"Hidelem4x2804\">Zusammenfassung</h2><p class=\"\" id=\"Pidelem4x2806\">Ein Buchhaltungsbeleg ist im SAP-System eine Repräsentation des Belegs, der eine finanzielle Buchung ausgelöst hat (etwa eine Rechnung oder eine Warenbewegung). Wenn Sie eine Buchung zu einem Buchhaltungsbeleg vornehmen, aktualisiert das SAP-System die Transaktionszahlen und die Belegart in den Sachkonten.</p><h2 class=\" topictitle2\" id=\"Hidelem4x2808\">Erläuterung</h2><p class=\"\" id=\"Pidelem4x2810\">Wenn Sie einen Buchhaltungsbeleg buchen, aktualisiert das SAP-System die Transaktionszahlen und den Belegtyp in den Sachkonten. Ein Buchhaltungsbeleg enthält die Kopfdaten eines Journaleintrags. Die Positionen werden in anderen (finanziellen) Objekten in Every Angle gespeichert. Daher finden Sie im Objekt Buchhaltungsbelegkopf wichtige Informationen wie den Belegtyp, den Währungstyp, das Erstellungsdatum usw., die Sie Ihrem Angle hinzufügen können.</p><h2 class=\" topictitle2\" id=\"Hidelem4x2816\">Technischer Hintergrund</h2><p class=\"\" id=\"Pidelem4x2818\">Ein Objekt wird auf der Grundlage der SAP-Tabelle BKPF mit Referenzen zu Fakturabelegkopf, Rechnungseingangskopf usw. sowie einer Unterliste von Buchhaltungsbelegpositionen erstellt.</p><h2 class=\" topictitle2\" id=\"Hidelem4x2822\">Verwandte Themen</h2><p class=\"\" id=\"Pidelem4x2824\">Jede Buchung besteht aus mindestens zwei Buchungspositionen. Diese Positionen werden in verschiedenen Objekten gespeichert, wie etwa Buchhaltungsbeleg Allgemein, Buchhaltungsbeleg Lieferant und Buchhaltungsbeleg Kunde. Diese Objekte beziehen sich alle auf das Objekt Buchhaltungsbelegkopf.</p></div>"},{"lang":"es","text":"<div id=\"summary\" /><div class=\" section\" id=\"S1436524916698864\"><h2 class=\" topictitle2\" id=\"Hidelem4x2804\">Resumen</h2><p class=\"\" id=\"Pidelem4x2806\">Un documento contable (DC) es una representación dentro del sistema SAP del documento que ha iniciado una contabilización fiscal (por ejemplo, una factura o traslado de material). Cuando contabiliza un documento contable, el sistema SAP actualiza las cifras de la transacción y el tipo de documento en la Cuenta de Mayor.</p><h2 class=\" topictitle2\" id=\"Hidelem4x2808\">Explicación</h2><p class=\"\" id=\"Pidelem4x2810\">Cuando contabiliza un documento contable, el sistema SAP actualiza las cifras de la transacción y el tipo de documento en la Cuenta de Mayor. Un documento contable contiene los datos de cabecera de una entrada diaria. Las posiciones de línea se almacenan en objetos (financieros) diferentes en Every Angle. Por lo tanto, en el objeto de la cabecera del documento contable encontrará información importante como el tipo de documento, el tipo de moneda, la fecha de creación, etc., que podrá agregar a su Angle.</p><h2 class=\" topictitle2\" id=\"Hidelem4x2816\">Contexto técnico</h2><p class=\"\" id=\"Pidelem4x2818\">Según la tabla SAP BKPF, un objeto se crea con referencias a Documento de Facturación Cabecera, Recepción de Factura Cabecera y más, así como con una sublista de Documento Contable Posiciones.</p><h2 class=\" topictitle2\" id=\"Hidelem4x2822\">Temas relacionados</h2><p class=\"\" id=\"Pidelem4x2824\">Cada contabilización consiste en, al menos, dos apuntes contables. Dichos apuntes se almacenan en varios objetos, como Documento Contable General, Documento Contable Acreedor y Documento Contable Cliente. Todos estos objetos se relacionan con el objeto Documento Contable Cabecera.</p></div>"}],"authorizations":{"update":true,"delete":true,"publish":false,"unpublish":false,"validate":false,"unvalidate":true,"mark_template":false,"unmark_template":false,"create_private_display":true,"create_public_display":true},"is_deleted":false,"displays":"/models/1/angles/562/displays","allow_followups":true,"allow_more_details":true,"assigned_labels":["F2R"],"labels":"/models/1/angles/562/labels","business_processes":"/models/1/angles/562/business_processes","grouping_labels":"/models/1/angles/562/grouping_labels","angle_default_display":"/models/1/angles/562/displays/2844","privilege_labels":"/models/1/angles/562/privilege_labels","query_definition":[{"base_classes":["AccountingDocumentHeader"],"queryblock_type":"base_classes"}],"display_definitions":[{"multi_lang_name":[{"lang":"de","text":"Buchungen pro Buchungskreis und Periode"},{"lang":"en","text":"Postings per Company Code per Period"},{"lang":"es","text":"Contabilizaciones por Sociedad y Período"},{"lang":"fr","text":"Écritures par Société et par Période"},{"lang":"nl","text":"Boekingen per Bedrijfsnummer per Periode"}],"multi_lang_description":[{"lang":"de","text":"<div id=\"summary\" /><div class=\" section\" id=\"S1441272896656333\"><p class=\"\" id=\"P1441272896656234\" /></div>"},{"lang":"en","text":"<div id=\"summary\" /><div class=\" section\" id=\"S1441272896656333\"><p class=\"\" id=\"P1441272896656234\" /></div>"},{"lang":"es","text":"<div id=\"summary\" /><div class=\" section\" id=\"S1441272896656333\"><p class=\"\" id=\"P1441272896656234\" /></div>"},{"lang":"fr","text":"<div id=\"summary\" /><div class=\" section\" id=\"S1441272896656333\"><p class=\"\" id=\"P1441272896656234\" /></div>"},{"lang":"nl","text":"<div id=\"summary\" /><div class=\" section\" id=\"S1441272896656333\"><p class=\"\" id=\"P1441272896656234\" /></div>"}],"angle_id":"562","display_details":"{\"columns\":{\"header\":[195],\"data\":[45,45,45,45,45,45,30,76,45,45,45,45,45,45,45,45,45,45,45,45,30,76,45,45,45,45,45,45,45,30,30,30,30,30,76,30,30,30,30,30,30,30,30,30,30,30,30,76,30,30,30,30,30,30,30,30,30,30,30,30,76,30,30,30,30,30,30,34,30,30,30,30,30,76,30,30,30,30,30,30,30,30,30,30,30,30,76,30,30,30,30,34,34,34,34,34,30,30,30,30,76,30,30,30,30,30,30,30,30,30,30,30,34,76,30,30,30,30,30,30,30,30,30,34,45,30,76,34,30,30,30,30,30,34,34,34,34,34,30,76,30,34,30,30,30,30,30,30,30,30,30,30,76,76]},\"drilldown_display\":\"dcedde0f45e71d404d343556521945831\",\"show_total_for\":1,\"percentage_summary_type\":0,\"include_subtotals\":false,\"count_index\":0,\"layout\":\"{\\\"collapse\\\":\\\"/v///wEAAAAhaW5kaXZpZHVhbF9hY2NvdW50aW5nZG9jdW1lbnR5ZWFyWVN5c3RlbS5JbnQ2NCwgbXNjb3JsaWIsIFZlcnNpb249NC4wLjAuMCwgQ3VsdHVyZT1uZXV0cmFsLCBQdWJsaWNLZXlUb2tlbj1iNzdhNWM1NjE5MzRlMDg5AQEAAAAAAAAAAAAAAP7///8AAAAAAAAAAAAAAAA=\\\"}\"}","query_blocks":[{"query_steps":[{"field":"GJAHR","operator":"equal_to","arguments":[{"argument_type":"field","field":"CompanyCode__ActualFiscalYear"}],"step_type":"filter","tech_info":"BKPF-GJAHR"},{"aggregation_fields":[{"field":"count","operator":"count"}],"grouping_fields":[{"field":"individual_CompanyCode__CompanyCode","operator":"individual","source_field":"CompanyCode__CompanyCode","tech_info":"T001-BUKRS"},{"field":"individual_AccountingDocumentYear","operator":"individual","source_field":"GJAHR","tech_info":"BKPF-GJAHR"},{"field":"individual_MONAT","operator":"individual","source_field":"MONAT","tech_info":"BKPF-MONAT"}],"step_type":"aggregation"}],"queryblock_type":"query_steps"}],"fields":[{"multi_lang_alias":[],"field":"individual_CompanyCode__CompanyCode","field_details":"{\"pivot_area\":\"row\",\"format\":\"shnln\",\"sorting\":\"asc\"}","valid":true},{"multi_lang_alias":[],"field":"individual_AccountingDocumentYear","field_details":"{\"pivot_area\":\"column\",\"prefix\":null,\"decimals\":0,\"sorting\":\"asc\"}","valid":true},{"multi_lang_alias":[],"field":"individual_MONAT","field_details":"{\"pivot_area\":\"column\",\"prefix\":null,\"decimals\":0,\"sorting\":\"asc\"}","valid":true},{"multi_lang_alias":[],"field":"count","field_details":"{\"pivot_area\":\"data\",\"sorting\":\"\"}","valid":true}],"state":"/models/1/angles/562/displays/2841/state","uri":"/models/1/angles/562/displays/2841","authorizations":{"update":true,"delete":true,"publish":false,"unpublish":true,"make_angle_default":true},"created":{"user":"/users/1","datetime":1556521964,"full_name":"EAAdmin"},"user_specific":{"is_user_default":false,"execute_on_login":false},"is_public":true,"contained_aggregation_steps":true,"used_in_task":false,"display_type":"pivot","is_angle_default":false,"id":"d817b8e8fdbfe24c61c82556521945831"},{"multi_lang_name":[{"lang":"de","text":"Anzahl nach Erstellungsdatum"},{"lang":"en","text":"No. per Creation Date"},{"lang":"es","text":"N.º por Fecha de Creación"},{"lang":"fr","text":"Nombre par Date de Création"},{"lang":"nl","text":"Aantal per Aanmaakdatum"}],"multi_lang_description":[{"lang":"de","text":"<div id=\"summary\" /><div class=\" section\" id=\"S1441113182489393\"><p class=\"\" id=\"P1441113182489394\">Anzahl pro Erstellungsdatum in Quartalen pro Belegart.</p></div>"},{"lang":"en","text":"<div id=\"summary\" /><div class=\" section\" id=\"S1441113182489393\"><p class=\"\" id=\"P1441113182489394\">Number per creation date in quarters per document type.</p></div>"},{"lang":"es","text":"<div id=\"summary\" /><div class=\" section\" id=\"S1441113182489393\"><p class=\"\" id=\"P1441113182489394\">Número por fecha de creación en trimestres y clase de documento.</p></div>"},{"lang":"fr","text":"<div id=\"summary\" /><div class=\" section\" id=\"S1441113182489393\"><p class=\"\" id=\"P1441113182489394\">Nombre par date de création en trimestres et par type de document.</p></div>"},{"lang":"nl","text":"<div id=\"summary\" /><div class=\" section\" id=\"S1441113182489393\"><p class=\"\" id=\"P1441113182489394\">Aantal per aanmaakdatum in kwartalen per documentsoort.</p></div>"}],"angle_id":"562","display_details":"{\"chart_type\":\"column\",\"stack\":true,\"multi_axis\":false,\"layout\":null,\"drilldown_display\":\"dcedde0f45e71d404d343556521945831\",\"axistitle\":\"show\",\"axisvalue\":\"show\",\"datalabel\":\"mouse\",\"gridline\":\"show\",\"legend\":\"show\",\"range\":{\"start\":0,\"size\":50},\"count_index\":0}","query_blocks":[{"query_steps":[{"aggregation_fields":[{"field":"count","operator":"count"}],"grouping_fields":[{"field":"quarter_BKPF_CPUDT","operator":"quarter","source_field":"BKPF_CPUDT","tech_info":"BKPF-CPUDT"},{"field":"individual_BKPF_BLART","operator":"individual","source_field":"BLART","tech_info":"BKPF-BLART"}],"step_type":"aggregation"}],"queryblock_type":"query_steps"}],"fields":[{"multi_lang_alias":[],"field":"quarter_BKPF_CPUDT","field_details":"{\"pivot_area\":\"row\"}","valid":true},{"multi_lang_alias":[],"field":"individual_BKPF_BLART","field_details":"{\"pivot_area\":\"column\",\"format\":\"shnln\"}","valid":true},{"multi_lang_alias":[],"field":"count","field_details":"{\"pivot_area\":\"data\",\"prefix\":null,\"decimals\":0,\"thousandseparator\":true}","valid":true}],"state":"/models/1/angles/562/displays/2842/state","uri":"/models/1/angles/562/displays/2842","authorizations":{"update":true,"delete":true,"publish":false,"unpublish":true,"make_angle_default":true},"created":{"user":"/users/1","datetime":1556521964,"full_name":"EAAdmin"},"user_specific":{"is_user_default":false,"execute_on_login":false},"is_public":true,"contained_aggregation_steps":true,"used_in_task":false,"display_type":"chart","is_angle_default":false,"id":"d5a29523c14e52f824a98556521945831"},{"multi_lang_name":[{"lang":"de","text":"Kategorisierung"},{"lang":"en","text":"Categorization"},{"lang":"es","text":"Clasificación"},{"lang":"fr","text":"Catégorisation"},{"lang":"nl","text":"Categoriseren"}],"multi_lang_description":[{"lang":"de","text":"<div id=\"summary\" /><div class=\" section\" id=\"S144050839772563\"><p class=\"\" id=\"P1440508397725944\" /></div>"},{"lang":"en","text":"<div id=\"summary\" /><div class=\" section\" id=\"S144050839772563\"><p class=\"\" id=\"P1440508397725944\" /></div>"},{"lang":"es","text":"<div id=\"summary\" /><div class=\" section\" id=\"S144050839772563\"><p class=\"\" id=\"P1440508397725944\" /></div>"},{"lang":"fr","text":"<div id=\"summary\" /><div class=\" section\" id=\"S144050839772563\"><p class=\"\" id=\"P1440508397725944\" /></div>"},{"lang":"nl","text":"<div id=\"summary\" /><div class=\" section\" id=\"S144050839772563\"><p class=\"\" id=\"P1440508397725944\" /></div>"}],"angle_id":"562","display_details":"{\"columns\":{\"header\":[214,187],\"data\":[45,45,52,45,52,52,52,52,52,52,52,52,45,45,45,45,45,45,45,45,45,76]},\"drilldown_display\":\"dcedde0f45e71d404d343556521945831\",\"layout\":\"{\\\"collapse\\\":\\\"/v///wAAAAAAAAAAAAAAAP7///8BAAAAFWluZGl2aWR1YWxfYmtwZl9ibGFydFpTeXN0ZW0uU3RyaW5nLCBtc2NvcmxpYiwgVmVyc2lvbj00LjAuMC4wLCBDdWx0dXJlPW5ldXRyYWwsIFB1YmxpY0tleVRva2VuPWI3N2E1YzU2MTkzNGUwODkBAQAAAAAAAAAAAAAA\\\"}\",\"show_total_for\":1,\"percentage_summary_type\":0,\"include_subtotals\":false,\"count_index\":0}","query_blocks":[{"query_steps":[{"field":"GJAHR","operator":"equal_to","arguments":[{"argument_type":"field","field":"CompanyCode__ActualFiscalYear"}],"is_execution_parameter":true,"execution_parameter_id":"ea8248f78fe250461e9d428f14be26602a","step_type":"filter","tech_info":"BKPF-GJAHR"},{"aggregation_fields":[{"field":"count","operator":"count"}],"grouping_fields":[{"field":"individual_BKPF_BLART","operator":"individual","source_field":"BLART","tech_info":"BKPF-BLART"},{"field":"individual_CompanyCode__CompanyCode","operator":"individual","source_field":"CompanyCode__CompanyCode","tech_info":"T001-BUKRS"},{"field":"individual_AccountingDocumentYear","operator":"individual","source_field":"GJAHR","tech_info":"BKPF-GJAHR"}],"step_type":"aggregation"}],"queryblock_type":"query_steps"}],"fields":[{"multi_lang_alias":[],"field":"individual_BKPF_BLART","field_details":"{\"pivot_area\":\"row\",\"format\":\"shnln\",\"sorting\":\"asc\"}","valid":true},{"multi_lang_alias":[],"field":"individual_CompanyCode__CompanyCode","field_details":"{\"pivot_area\":\"row\",\"format\":\"shnln\",\"sorting\":\"asc\"}","valid":true},{"multi_lang_alias":[],"field":"individual_AccountingDocumentYear","field_details":"{\"pivot_area\":\"column\",\"prefix\":null,\"decimals\":0,\"thousandseparator\":true,\"sorting\":\"asc\"}","valid":true},{"multi_lang_alias":[],"field":"count","field_details":"{\"pivot_area\":\"data\",\"sorting\":\"\"}","valid":true}],"state":"/models/1/angles/562/displays/2843/state","uri":"/models/1/angles/562/displays/2843","authorizations":{"update":true,"delete":true,"publish":false,"unpublish":true,"make_angle_default":true},"created":{"user":"/users/1","datetime":1556521964,"full_name":"EAAdmin"},"user_specific":{"is_user_default":false,"execute_on_login":false},"is_public":true,"contained_aggregation_steps":true,"used_in_task":false,"is_parameterized":true,"display_type":"pivot","is_angle_default":false,"id":"dc117570d44c8c4623437556521945831"},{"multi_lang_name":[{"lang":"de","text":"Basisliste"},{"lang":"en","text":"Basic List"},{"lang":"es","text":"Lista Básica"},{"lang":"fr","text":"Liste De Base"},{"lang":"nl","text":"Basislijst"}],"multi_lang_description":[{"lang":"de","text":"<div id=\"summary\" /><div class=\" section\" id=\"S1438243496290933\"><p class=\"\" id=\"P1438243496290944\" /></div>"},{"lang":"en","text":"<div id=\"summary\" /><div class=\" section\" id=\"S1438243496290933\"><p class=\"\" id=\"P1438243496290944\" /></div>"},{"lang":"es","text":"<div id=\"summary\" /><div class=\" section\" id=\"S1438243496290933\"><p class=\"\" id=\"P1438243496290944\" /></div>"},{"lang":"fr","text":"<div id=\"summary\" /><div class=\" section\" id=\"S1438243496290933\"><p class=\"\" id=\"P1438243496290944\" /></div>"},{"lang":"nl","text":"<div id=\"summary\" /><div class=\" section\" id=\"S1438243496290933\"><p class=\"\" id=\"P1438243496290944\" /></div>"}],"angle_id":"562","display_details":"{}","query_blocks":[],"fields":[{"multi_lang_alias":[],"field":"ObjectType","field_details":"{\"width\":84,\"format\":\"shn\"}","valid":true,"tech_info":""},{"multi_lang_alias":[],"field":"CompanyCode__CompanyCode","field_details":"{\"width\":126,\"format\":\"shnln\"}","valid":true,"tech_info":"T001-BUKRS"},{"multi_lang_alias":[],"field":"BELNR","field_details":"{\"width\":97}","valid":true,"tech_info":"BKPF-BELNR"},{"multi_lang_alias":[],"field":"BLART","field_details":"{\"width\":194}","valid":true,"tech_info":"BKPF-BLART"},{"multi_lang_alias":[],"field":"GJAHR","field_details":"{\"width\":79}","valid":true,"tech_info":"BKPF-GJAHR"},{"multi_lang_alias":[],"field":"MONAT","field_details":"{\"width\":75}","valid":true,"tech_info":"BKPF-MONAT"},{"multi_lang_alias":[],"field":"PostingDate","field_details":"{\"width\":97}","valid":true,"tech_info":"BKPF-BUDAT"},{"multi_lang_alias":[],"field":"DocumentDate","field_details":"{\"width\":97}","valid":true,"tech_info":"BKPF-BLDAT"},{"multi_lang_alias":[],"field":"BKPF_CPUDT","field_details":"{\"width\":97}","valid":true,"tech_info":"BKPF-CPUDT"},{"multi_lang_alias":[],"field":"BKPF_USNAM","field_details":"{\"width\":97}","valid":true,"tech_info":"BKPF-USNAM"},{"multi_lang_alias":[],"field":"TCODE","field_details":"{\"width\":106}","valid":true,"tech_info":"BKPF-TCODE"},{"multi_lang_alias":[],"field":"XBLNR1","field_details":"{\"width\":182}","valid":true,"tech_info":"BKPF-XBLNR"},{"multi_lang_alias":[],"field":"Customer__NameAndDescription","field_details":"{\"width\":120}","valid":true,"tech_info":""},{"multi_lang_alias":[],"field":"Vendor__NameAndDescription","field_details":"{\"width\":120}","valid":true,"tech_info":""}],"state":"/models/1/angles/562/displays/2844/state","uri":"/models/1/angles/562/displays/2844","authorizations":{"update":true,"delete":false,"publish":false,"unpublish":false,"make_angle_default":false},"created":{"user":"/users/1","datetime":1556521964,"full_name":"EAAdmin"},"user_specific":{"is_user_default":false,"execute_on_login":false},"is_public":true,"contained_aggregation_steps":false,"used_in_task":false,"display_type":"list","is_angle_default":true,"id":"dcedde0f45e71d404d343556521945831"},{"multi_lang_name":[{"lang":"de","text":"Belegart analysieren - Buchungszeilen"},{"lang":"en","text":"Analyze Document Type - Posting Lines"},{"lang":"es","text":"Analizar Tipo de Documento - Apuntes contables"},{"lang":"fr","text":"Analyse du Type de Document - Lignes d'écriture"},{"lang":"nl","text":"Analyseer Documentsoort - Boekingsregels"}],"multi_lang_description":[{"lang":"de","text":"<div id=\"summary\" />"},{"lang":"en","text":"<div id=\"summary\" />"},{"lang":"es","text":"<div id=\"summary\" />"},{"lang":"fr","text":"<div id=\"summary\" />"},{"lang":"nl","text":"<div id=\"summary\" />"}],"angle_id":"562","display_details":"{}","query_blocks":[{"query_steps":[{"field":"BLART","operator":"in_set","is_execution_parameter":true,"execution_parameter_id":"ea5d2fee685d9c4df7946ad7fe515d79f0","step_type":"filter","tech_info":"BKPF-BLART"},{"field":"CompanyCode__CompanyCode","operator":"in_set","is_execution_parameter":true,"execution_parameter_id":"ea47b245a8791247f0ba1baef88f207629","step_type":"filter","tech_info":"T001-BUKRS"},{"field":"GJAHR","operator":"equal_to","arguments":[{"argument_type":"field","field":"CompanyCode__ActualFiscalYear"}],"is_execution_parameter":true,"execution_parameter_id":"eacec61b85d3d24d1ebffc85a71e8c9593","step_type":"filter","tech_info":"BKPF-GJAHR"},{"followup":"AccountingDocumentItems","step_type":"followup"}],"queryblock_type":"query_steps"}],"fields":[{"multi_lang_alias":[],"field":"ObjectType","field_details":"{\"width\":120}","valid":true,"tech_info":""},{"multi_lang_alias":[],"field":"ID","field_details":"{\"width\":181}","valid":true},{"multi_lang_alias":[],"field":"CompanyCode__CompanyCode","field_details":"{\"width\":120}","valid":true,"tech_info":"T001-BUKRS"},{"multi_lang_alias":[],"field":"AccountingDocumentHeader__BELNR","field_details":"{\"width\":120}","valid":true,"tech_info":"BKPF-BELNR"},{"multi_lang_alias":[],"field":"AccountingDocumentHeader__GJAHR","field_details":"{\"width\":73}","valid":true,"tech_info":"BKPF-GJAHR"},{"multi_lang_alias":[],"field":"AccountingDocumentHeader__MONAT","field_details":"{\"width\":81}","valid":true,"tech_info":"BKPF-MONAT"},{"multi_lang_alias":[],"field":"AccountingDocumentHeader__PostingDate","field_details":"{\"width\":120}","valid":true,"tech_info":"BKPF-BUDAT"},{"multi_lang_alias":[],"field":"AccountingDocumentHeader__DocumentDate","field_details":"{\"width\":120}","valid":true,"tech_info":"BKPF-BLDAT"},{"multi_lang_alias":[],"field":"AccountingDocumentHeader__BLART","field_details":"{\"width\":120}","valid":true,"tech_info":"BKPF-BLART"},{"multi_lang_alias":[],"field":"GLaccountCAlevel__SKA1_SAKNR","field_details":"{\"width\":120}","valid":true,"tech_info":"SKA1-SAKNR"},{"multi_lang_alias":[],"field":"GLaccountCAlevel__Description","field_details":"{\"width\":126}","valid":true,"tech_info":"SKAT-TXT50"},{"multi_lang_alias":[],"field":"Amount_fLC","field_details":"{\"width\":120}","valid":true},{"multi_lang_alias":[],"field":"CompanyCode__CurrencyCodeOnCompanyLevel","field_details":"{\"width\":39}","valid":true,"tech_info":"T001-WAERS"},{"multi_lang_alias":[],"field":"Amount_fDC","field_details":"{\"width\":120,\"thousandseparator\":true,\"decimals\":2}","valid":true},{"multi_lang_alias":[],"field":"AccountingDocumentHeader__WAERS","field_details":"{\"width\":56,\"format\":\"shn\"}","valid":true,"tech_info":"BKPF-WAERS"},{"multi_lang_alias":[],"field":"ExecutionStatus","field_details":"{\"width\":120}","valid":true},{"multi_lang_alias":[],"field":"AccountingDocumentHeader__XBLNR1","field_details":"{\"width\":120}","valid":true,"tech_info":"BKPF-XBLNR"}],"state":"/models/1/angles/562/displays/2845/state","uri":"/models/1/angles/562/displays/2845","authorizations":{"update":true,"delete":true,"publish":false,"unpublish":true,"make_angle_default":true},"created":{"user":"/users/1","datetime":1556521964,"full_name":"EAAdmin"},"user_specific":{"is_user_default":false,"execute_on_login":false},"is_public":true,"contained_aggregation_steps":false,"used_in_task":false,"is_parameterized":true,"display_type":"list","is_angle_default":false,"id":"d7dfb41290cf318bcecec556521945831"},{"multi_lang_name":[{"lang":"de","text":"Belegart analysieren"},{"lang":"en","text":"Analyze Document Type"},{"lang":"es","text":"Analizar Tipo de Documento"},{"lang":"fr","text":"Analyse du Type de Document"},{"lang":"nl","text":"Analyseer Documentsoort"}],"multi_lang_description":[{"lang":"de","text":"<div id=\"summary\" />"},{"lang":"en","text":"<div id=\"summary\" />"},{"lang":"es","text":"<div id=\"summary\" />"},{"lang":"fr","text":"<div id=\"summary\" />"},{"lang":"nl","text":"<div id=\"summary\" />"}],"angle_id":"562","display_details":"{}","query_blocks":[{"query_steps":[{"field":"BLART","operator":"in_set","is_execution_parameter":true,"execution_parameter_id":"eaa621bebb3dd343fc8761dc3d523e2cce","step_type":"filter","tech_info":"BKPF-BLART"},{"field":"CompanyCode__CompanyCode","operator":"in_set","is_execution_parameter":true,"execution_parameter_id":"eac36c2cb149264fec9622984a60f5867b","step_type":"filter","tech_info":"T001-BUKRS"},{"field":"GJAHR","operator":"equal_to","arguments":[{"argument_type":"field","field":"CompanyCode__ActualFiscalYear"}],"step_type":"filter","tech_info":"BKPF-GJAHR"}],"queryblock_type":"query_steps"}],"fields":[{"multi_lang_alias":[],"field":"ObjectType","field_details":"{\"width\":84,\"format\":\"shn\"}","valid":true,"tech_info":""},{"multi_lang_alias":[],"field":"CompanyCode__CompanyCode","field_details":"{\"width\":126,\"format\":\"shnln\"}","valid":true,"tech_info":"T001-BUKRS"},{"multi_lang_alias":[],"field":"BELNR","field_details":"{\"width\":97}","valid":true,"tech_info":"BKPF-BELNR"},{"multi_lang_alias":[],"field":"BLART","field_details":"{\"width\":194}","valid":true,"tech_info":"BKPF-BLART"},{"multi_lang_alias":[],"field":"GJAHR","field_details":"{\"width\":79}","valid":true,"tech_info":"BKPF-GJAHR"},{"multi_lang_alias":[],"field":"MONAT","field_details":"{\"width\":75}","valid":true,"tech_info":"BKPF-MONAT"},{"multi_lang_alias":[],"field":"PostingDate","field_details":"{\"width\":97}","valid":true,"tech_info":"BKPF-BUDAT"},{"multi_lang_alias":[],"field":"DocumentDate","field_details":"{\"width\":97}","valid":true,"tech_info":"BKPF-BLDAT"},{"multi_lang_alias":[],"field":"BKPF_CPUDT","field_details":"{\"width\":97}","valid":true,"tech_info":"BKPF-CPUDT"},{"multi_lang_alias":[],"field":"BKPF_USNAM","field_details":"{\"width\":97}","valid":true,"tech_info":"BKPF-USNAM"},{"multi_lang_alias":[],"field":"TCODE","field_details":"{\"width\":106}","valid":true,"tech_info":"BKPF-TCODE"},{"multi_lang_alias":[],"field":"XBLNR1","field_details":"{\"width\":182}","valid":true,"tech_info":"BKPF-XBLNR"},{"multi_lang_alias":[],"field":"Customer__NameAndDescription","field_details":"{\"width\":120}","valid":true,"tech_info":""},{"multi_lang_alias":[],"field":"Vendor__NameAndDescription","field_details":"{\"width\":120}","valid":true,"tech_info":""}],"state":"/models/1/angles/562/displays/2846/state","uri":"/models/1/angles/562/displays/2846","authorizations":{"update":true,"delete":true,"publish":false,"unpublish":true,"make_angle_default":true},"created":{"user":"/users/1","datetime":1556521964,"full_name":"EAAdmin"},"user_specific":{"is_user_default":false,"execute_on_login":false},"is_public":true,"contained_aggregation_steps":false,"used_in_task":false,"is_parameterized":true,"display_type":"list","is_angle_default":false,"id":"dacffc5d7d23e15f8b405556521945831"}],"changed":{"user":"/users/1","datetime":1557127356,"full_name":"EAAdmin"},"executed":{"user":"/users/4","datetime":1557213330,"full_name":"Javier Garcia"},"published":{"user":"/users/1","datetime":1557127356,"full_name":"EAAdmin"},"validated":{"user":"/users/1","datetime":1557127369,"full_name":"EAAdmin"},"id":"WEBHELP_WC_Dashboard_Angle_2","uri":"/models/1/angles/562","model":"/models/1","is_validated":true,"is_parameterized":false,"is_published":true,"is_template":false,"user_specific":{"execute_on_login":false,"is_starred":false,"private_note":"WEBHELP_WC_Dashboard_Angle_2","private_tags":[],"times_executed":323},"created":{"user":"/users/1","datetime":1556521964,"full_name":"EAAdmin"},"has_warnings":false,"state":"/models/1/angles/562/state"}
+{
+    "multi_lang_name": [
+        {
+            "lang": "nl",
+            "text": "Based on Template \\\"Verkoopdocument (VDoc) Indeling\\\" #2 (copy) (copy)"
+        },
+        {
+            "lang": "en",
+            "text": "Accounting Document (AD) Header"
+        },
+        {
+            "lang": "fr",
+            "text": "Based on Template \\\"Document de Vente Échéance\\\" (copy) (copy) (copy)"
+        },
+        {
+            "lang": "de",
+            "text": "Based on Template \\\"Documento de Ventas Reparto\\\" #2 (copy) (copy)"
+        },
+        {
+            "lang": "es",
+            "text": "Based on Template \\\"Verkaufsbeleg (VB) Einteilung\\\" #2 (copy) (copy)"
+        }
+    ],
+    "labels": "/models/1/angles/652/labels",
+    "assigned_labels": [
+        "S2D",
+        "O2C"
+    ],
+    "executed": {
+        "user": "/users/1",
+        "full_name": "EAAdmin",
+        "datetime": 1567584833
+    },
+    "displays": "/models/1/angles/652/displays",
+    "grouping_labels": "/models/1/angles/652/grouping_labels",
+    "validated": {
+        "user": "/users/1",
+        "full_name": "EAAdmin",
+        "datetime": 1567577231
+    },
+    "id": "WEBHELP_WC_Dashboard_Angle_2",
+    "authorizations": {
+        "unvalidate": true,
+        "mark_template": false,
+        "unmark_template": false,
+        "update": true,
+        "publish": false,
+        "unpublish": false,
+        "create_private_display": true,
+        "validate": false,
+        "create_public_display": true,
+        "delete": true
+    },
+    "user_specific": {
+        "is_starred": false,
+        "private_tags": [],
+        "times_executed": 26,
+        "execute_on_login": false
+    },
+    "state": "/models/1/angles/652/state",
+    "allow_followups": true,
+    "is_parameterized": false,
+    "is_validated": true,
+    "business_processes": "/models/1/angles/652/business_processes",
+    "query_definition": [
+        {
+            "queryblock_type": "base_classes",
+            "base_classes": [
+                "Customer"
+            ]
+        }
+    ],
+    "angle_default_display": "/models/1/angles/652/displays/3029",
+    "privilege_labels": "/models/1/angles/652/privilege_labels",
+    "is_deleted": false,
+    "created": {
+        "user": "/users/2",
+        "full_name": "EASystem",
+        "datetime": 1567577231
+    },
+    "changed": {
+        "user": "/users/1",
+        "full_name": "EAAdmin",
+        "datetime": 1567577231
+    },
+    "uri": "/models/1/angles/652",
+    "display_definitions": [
+        {
+            "multi_lang_name": [
+                {
+                    "lang": "en",
+                    "text": "No. per Account Group"
+                },
+                {
+                    "lang": "de",
+                    "text": "Anzahl pro Kontengruppe"
+                },
+                {
+                    "lang": "es",
+                    "text": "N.º por Grupo de Cuentas"
+                },
+                {
+                    "lang": "fr",
+                    "text": "Nombre par Groupe de Comptes"
+                },
+                {
+                    "lang": "nl",
+                    "text": "Aantal per Rekeninggroep"
+                }
+            ],
+            "authorizations": {
+                "make_angle_default": true,
+                "unpublish": true,
+                "update": true,
+                "publish": false,
+                "delete": true
+            },
+            "created": {
+                "user": "/users/2",
+                "full_name": "EASystem",
+                "datetime": 1566544204
+            },
+            "fields": [
+                {
+                    "field": "individual_KTOKD",
+                    "multi_lang_alias": [],
+                    "valid": true,
+                    "field_details": "{\"pivot_area\":\"row\",\"format\":\"shnln\",\"sorting\":\"asc\"}"
+                },
+                {
+                    "field": "count",
+                    "multi_lang_alias": [],
+                    "valid": true,
+                    "field_details": "{\"pivot_area\":\"data\",\"sorting\":\"\"}"
+                }
+            ],
+            "contained_aggregation_steps": true,
+            "uri": "/models/1/angles/652/displays/3027",
+            "is_public": true,
+            "used_in_task": false,
+            "state": "/models/1/angles/652/displays/3027/state",
+            "display_type": "pivot",
+            "user_specific": {
+                "execute_on_login": false,
+                "is_user_default": false
+            },
+            "query_blocks": [
+                {
+                    "query_steps": [
+                        {
+                            "aggregation_fields": [
+                                {
+                                    "operator": "count",
+                                    "field": "count"
+                                }
+                            ],
+                            "step_type": "aggregation",
+                            "grouping_fields": [
+                                {
+                                    "operator": "individual",
+                                    "field": "individual_KTOKD",
+                                    "source_field": "KTOKD",
+                                    "tech_info": "KNA1-KTOKD"
+                                }
+                            ]
+                        }
+                    ],
+                    "queryblock_type": "query_steps"
+                }
+            ],
+            "is_angle_default": false,
+            "angle_id": "652",
+            "id": "d15b8c41b7db480b271b9566555228740",
+            "display_details": "{\"count_index\":0,\"columns\":{\"header\":[195],\"data\":[50]},\"show_total_for\":3,\"drilldown_display\":\"d50f2bc7c0c56ff738756566555228740\",\"percentage_summary_type\":0,\"include_subtotals\":false,\"layout\":\"{\\\"collapse\\\":\\\"/v///wAAAAAAAAAAAAAAAP7///8AAAAAAAAAAAAAAAA=\\\"}\"}",
+            "multi_lang_description": [
+                {
+                    "lang": "en",
+                    "text": "<div id=\"summary\" />"
+                },
+                {
+                    "lang": "de",
+                    "text": "<div id=\"summary\" />"
+                },
+                {
+                    "lang": "es",
+                    "text": "<div id=\"summary\" />"
+                },
+                {
+                    "lang": "fr",
+                    "text": "<div id=\"summary\" />"
+                },
+                {
+                    "lang": "nl",
+                    "text": "<div id=\"summary\" />"
+                }
+            ]
+        },
+        {
+            "multi_lang_name": [
+                {
+                    "lang": "en",
+                    "text": "No. per Industry"
+                }
+            ],
+            "authorizations": {
+                "make_angle_default": true,
+                "unpublish": true,
+                "update": true,
+                "publish": false,
+                "delete": true
+            },
+            "created": {
+                "user": "/users/2",
+                "full_name": "EASystem",
+                "datetime": 1566544204
+            },
+            "fields": [
+                {
+                    "field": "individual_BRSCH",
+                    "multi_lang_alias": [],
+                    "valid": true,
+                    "field_details": "{\"pivot_area\":\"row\",\"format\":\"shnln\"}"
+                },
+                {
+                    "field": "count",
+                    "multi_lang_alias": [],
+                    "valid": true,
+                    "field_details": "{\"pivot_area\":\"data\",\"prefix\":null,\"decimals\":0}"
+                }
+            ],
+            "contained_aggregation_steps": true,
+            "uri": "/models/1/angles/652/displays/3028",
+            "is_public": true,
+            "used_in_task": false,
+            "state": "/models/1/angles/652/displays/3028/state",
+            "display_type": "chart",
+            "user_specific": {
+                "execute_on_login": false,
+                "is_user_default": false
+            },
+            "query_blocks": [
+                {
+                    "query_steps": [
+                        {
+                            "aggregation_fields": [
+                                {
+                                    "operator": "count",
+                                    "field": "count"
+                                }
+                            ],
+                            "step_type": "aggregation",
+                            "grouping_fields": [
+                                {
+                                    "operator": "individual",
+                                    "field": "individual_BRSCH",
+                                    "source_field": "BRSCH",
+                                    "tech_info": "KNA1-BRSCH"
+                                }
+                            ]
+                        }
+                    ],
+                    "queryblock_type": "query_steps"
+                }
+            ],
+            "is_angle_default": false,
+            "angle_id": "652",
+            "id": "d5b113a1e510875e8907d566555228740",
+            "display_details": "{\"chart_type\":\"pie\",\"stack\":false,\"multi_axis\":false,\"drilldown_display\":\"d50f2bc7c0c56ff738756566555228740\",\"datalabel\":\"mouse\",\"legend\":\"show\",\"count_index\":0}",
+            "multi_lang_description": [
+                {
+                    "lang": "en",
+                    "text": "<div id=\"summary\" /><div class=\" section\" id=\"S1441100602851653\"><p class=\"\" id=\"P1441100602851314\" /></div>"
+                }
+            ]
+        },
+        {
+            "multi_lang_name": [
+                {
+                    "lang": "de",
+                    "text": "Basisliste"
+                },
+                {
+                    "lang": "en",
+                    "text": "Basic List"
+                },
+                {
+                    "lang": "es",
+                    "text": "Lista Básica"
+                },
+                {
+                    "lang": "fr",
+                    "text": "Liste De Base"
+                },
+                {
+                    "lang": "nl",
+                    "text": "Basislijst"
+                }
+            ],
+            "authorizations": {
+                "make_angle_default": false,
+                "unpublish": false,
+                "update": true,
+                "publish": false,
+                "delete": false
+            },
+            "created": {
+                "user": "/users/2",
+                "full_name": "EASystem",
+                "datetime": 1566544204
+            },
+            "fields": [
+                {
+                    "field": "ID",
+                    "multi_lang_alias": [],
+                    "valid": true,
+                    "field_details": "{\"width\":120}"
+                },
+                {
+                    "tech_info": "",
+                    "field": "ObjectType",
+                    "multi_lang_alias": [],
+                    "valid": true,
+                    "field_details": "{\"width\":120}"
+                }
+            ],
+            "contained_aggregation_steps": false,
+            "uri": "/models/1/angles/652/displays/3029",
+            "is_public": true,
+            "used_in_task": false,
+            "state": "/models/1/angles/652/displays/3029/state",
+            "display_type": "list",
+            "user_specific": {
+                "execute_on_login": false,
+                "is_user_default": false
+            },
+            "query_blocks": [
+                {
+                    "query_steps": [
+                        {
+                            "followup": "CustomersOnSalesOrganizationLevel",
+                            "step_type": "followup"
+                        }
+                    ],
+                    "queryblock_type": "query_steps"
+                }
+            ],
+            "is_angle_default": true,
+            "angle_id": "652",
+            "id": "d50f2bc7c0c56ff738756566555228740",
+            "display_details": "{\"layout\":null}",
+            "multi_lang_description": [
+                {
+                    "lang": "de",
+                    "text": "<div id=\"summary\" /><div class=\" section\" id=\"S1438244217825553\"><p class=\"\" id=\"P143824421782554\" /></div>"
+                },
+                {
+                    "lang": "en",
+                    "text": "<div id=\"summary\" /><div class=\" section\" id=\"S1438244217825553\"><p class=\"\" id=\"P143824421782554\" /></div>"
+                },
+                {
+                    "lang": "es",
+                    "text": "<div id=\"summary\" /><div class=\" section\" id=\"S1438244217825553\"><p class=\"\" id=\"P143824421782554\" /></div>"
+                },
+                {
+                    "lang": "fr",
+                    "text": "<div id=\"summary\" /><div class=\" section\" id=\"S1438244217825553\"><p class=\"\" id=\"P143824421782554\" /></div>"
+                },
+                {
+                    "lang": "nl",
+                    "text": "<div id=\"summary\" /><div class=\" section\" id=\"S1438244217825553\"><p class=\"\" id=\"P143824421782554\" /></div>"
+                }
+            ]
+        },
+        {
+            "multi_lang_name": [
+                {
+                    "lang": "de",
+                    "text": "Anzahl nach Erstellungsdatum"
+                },
+                {
+                    "lang": "en",
+                    "text": "No. per Creation Date"
+                },
+                {
+                    "lang": "es",
+                    "text": "N.º por Fecha de Creación"
+                },
+                {
+                    "lang": "fr",
+                    "text": "Nombre par Date de Création"
+                },
+                {
+                    "lang": "nl",
+                    "text": "Aantal per Aanmaakdatum"
+                }
+            ],
+            "authorizations": {
+                "make_angle_default": true,
+                "unpublish": true,
+                "update": true,
+                "publish": false,
+                "delete": true
+            },
+            "created": {
+                "user": "/users/2",
+                "full_name": "EASystem",
+                "datetime": 1566544204
+            },
+            "fields": [
+                {
+                    "field": "quarter_ERDAT_RF",
+                    "multi_lang_alias": [],
+                    "valid": true,
+                    "field_details": "{\"pivot_area\":\"row\"}"
+                },
+                {
+                    "field": "individual_BRSCH",
+                    "multi_lang_alias": [],
+                    "valid": true,
+                    "field_details": "{\"pivot_area\":\"column\",\"format\":\"shnln\"}"
+                },
+                {
+                    "field": "count",
+                    "multi_lang_alias": [],
+                    "valid": true,
+                    "field_details": "{\"pivot_area\":\"data\",\"prefix\":null,\"decimals\":0,\"thousandseparator\":true}"
+                }
+            ],
+            "contained_aggregation_steps": true,
+            "uri": "/models/1/angles/652/displays/3030",
+            "is_public": true,
+            "used_in_task": false,
+            "state": "/models/1/angles/652/displays/3030/state",
+            "display_type": "chart",
+            "user_specific": {
+                "execute_on_login": false,
+                "is_user_default": false
+            },
+            "query_blocks": [
+                {
+                    "query_steps": [
+                        {
+                            "aggregation_fields": [
+                                {
+                                    "operator": "count",
+                                    "field": "count"
+                                }
+                            ],
+                            "step_type": "aggregation",
+                            "grouping_fields": [
+                                {
+                                    "operator": "quarter",
+                                    "field": "quarter_ERDAT_RF",
+                                    "source_field": "ERDAT_RF",
+                                    "tech_info": "KNA1-ERDAT"
+                                },
+                                {
+                                    "operator": "individual",
+                                    "field": "individual_BRSCH",
+                                    "source_field": "BRSCH",
+                                    "tech_info": "KNA1-BRSCH"
+                                }
+                            ]
+                        }
+                    ],
+                    "queryblock_type": "query_steps"
+                }
+            ],
+            "is_angle_default": false,
+            "angle_id": "652",
+            "id": "d0e57b0ad6e50b7102abb566555228740",
+            "display_details": "{\"chart_type\":\"column\",\"stack\":true,\"multi_axis\":false,\"layout\":null,\"drilldown_display\":\"d50f2bc7c0c56ff738756566555228740\",\"axistitle\":\"show\",\"axisvalue\":\"show\",\"datalabel\":\"mouse\",\"gridline\":\"show\",\"legend\":\"show\",\"range\":{\"start\":0,\"size\":50},\"count_index\":0}",
+            "multi_lang_description": [
+                {
+                    "lang": "de",
+                    "text": "<div id=\"summary\" /><div class=\" section\" id=\"S1441113194051563\"><p class=\"\" id=\"P1441113194051894\">Anzahl pro Erstellungsdatum und Branche.</p></div>"
+                },
+                {
+                    "lang": "en",
+                    "text": "<div id=\"summary\" /><div class=\" section\" id=\"S1441113194051563\"><p class=\"\" id=\"P1441113194051894\">Number per creation date and industry.</p></div>"
+                },
+                {
+                    "lang": "es",
+                    "text": "<div id=\"summary\" /><div class=\" section\" id=\"S1441113194051563\"><p class=\"\" id=\"P1441113194051894\">Número por fecha de creación e industria.</p></div>"
+                },
+                {
+                    "lang": "fr",
+                    "text": "<div id=\"summary\" /><div class=\" section\" id=\"S1441113194051563\"><p class=\"\" id=\"P1441113194051894\">Nombre par date de création et secteur d'activité.</p></div>"
+                },
+                {
+                    "lang": "nl",
+                    "text": "<div id=\"summary\" /><div class=\" section\" id=\"S1441113194051563\"><p class=\"\" id=\"P1441113194051894\">Aantal per aanmaakdatum en branch.</p></div>"
+                }
+            ]
+        },
+        {
+            "multi_lang_name": [
+                {
+                    "lang": "de",
+                    "text": "Land- und Adressinformationen"
+                },
+                {
+                    "lang": "en",
+                    "text": "Country and Address Info"
+                },
+                {
+                    "lang": "es",
+                    "text": "Información de País y Dirección"
+                },
+                {
+                    "lang": "fr",
+                    "text": "Pays et Informations d'Adresse"
+                },
+                {
+                    "lang": "nl",
+                    "text": "Land en Adres Info"
+                }
+            ],
+            "authorizations": {
+                "make_angle_default": true,
+                "unpublish": true,
+                "update": true,
+                "publish": false,
+                "delete": true
+            },
+            "created": {
+                "user": "/users/2",
+                "full_name": "EASystem",
+                "datetime": 1566544204
+            },
+            "fields": [
+                {
+                    "tech_info": "",
+                    "field": "ObjectType",
+                    "multi_lang_alias": [],
+                    "valid": true,
+                    "field_details": "{\"width\":82,\"format\":\"shn\"}"
+                },
+                {
+                    "tech_info": "KNA1-KUNNR",
+                    "field": "Customer",
+                    "multi_lang_alias": [],
+                    "valid": true,
+                    "field_details": "{\"width\":96}"
+                },
+                {
+                    "tech_info": "KNA1-NAME1",
+                    "field": "Description",
+                    "multi_lang_alias": [],
+                    "valid": true,
+                    "field_details": "{\"width\":221}"
+                },
+                {
+                    "tech_info": "KNA1-LOEVM",
+                    "field": "LOEVM_X",
+                    "multi_lang_alias": [],
+                    "valid": true,
+                    "field_details": "{\"width\":110}"
+                },
+                {
+                    "tech_info": "KNA1-LAND1",
+                    "field": "LAND1_GP",
+                    "multi_lang_alias": [],
+                    "valid": true,
+                    "field_details": "{\"width\":34,\"format\":\"shn\"}"
+                },
+                {
+                    "tech_info": "KNA1-STRAS",
+                    "field": "STRAS_GP",
+                    "multi_lang_alias": [],
+                    "valid": true,
+                    "field_details": "{\"width\":120}"
+                },
+                {
+                    "tech_info": "KNA1-PSTLZ",
+                    "field": "PSTLZ",
+                    "multi_lang_alias": [],
+                    "valid": true,
+                    "field_details": "{\"width\":75}"
+                },
+                {
+                    "tech_info": "KNA1-ORT01",
+                    "field": "ORT01_GP",
+                    "multi_lang_alias": [],
+                    "valid": true,
+                    "field_details": "{\"width\":97}"
+                },
+                {
+                    "tech_info": "KNA1-TELF1",
+                    "field": "TELF1",
+                    "multi_lang_alias": [],
+                    "valid": true,
+                    "field_details": "{\"width\":110}"
+                },
+                {
+                    "tech_info": "KNA1-KTOKD",
+                    "field": "KTOKD",
+                    "multi_lang_alias": [],
+                    "valid": true,
+                    "field_details": "{\"width\":106,\"format\":\"shnln\"}"
+                },
+                {
+                    "tech_info": "KNA1-ERDAT",
+                    "field": "ERDAT_RF",
+                    "multi_lang_alias": [],
+                    "valid": true,
+                    "field_details": "{\"width\":104}"
+                }
+            ],
+            "contained_aggregation_steps": false,
+            "uri": "/models/1/angles/652/displays/3031",
+            "is_public": true,
+            "used_in_task": false,
+            "state": "/models/1/angles/652/displays/3031/state",
+            "display_type": "list",
+            "user_specific": {
+                "execute_on_login": false,
+                "is_user_default": false
+            },
+            "query_blocks": [],
+            "is_angle_default": false,
+            "angle_id": "652",
+            "id": "da5bc79c17209554b7f99566555228740",
+            "display_details": "{\"layout\":null}",
+            "multi_lang_description": [
+                {
+                    "lang": "de",
+                    "text": "<div id=\"summary\" /><div class=\" section\" id=\"S1440680444283973\"><p class=\"\" id=\"P1440680444283894\" /></div>"
+                },
+                {
+                    "lang": "en",
+                    "text": "<div id=\"summary\" /><div class=\" section\" id=\"S1440680444283973\"><p class=\"\" id=\"P1440680444283894\" /></div>"
+                },
+                {
+                    "lang": "es",
+                    "text": "<div id=\"summary\" /><div class=\" section\" id=\"S1440680444283973\"><p class=\"\" id=\"P1440680444283894\" /></div>"
+                },
+                {
+                    "lang": "fr",
+                    "text": "<div id=\"summary\" /><div class=\" section\" id=\"S1440680444283973\"><p class=\"\" id=\"P1440680444283894\" /></div>"
+                },
+                {
+                    "lang": "nl",
+                    "text": "<div id=\"summary\" /><div class=\" section\" id=\"S1440680444283973\"><p class=\"\" id=\"P1440680444283894\" /></div>"
+                }
+            ]
+        }
+    ],
+    "has_warnings": false,
+    "is_template": false,
+    "published": {
+        "user": "/users/1",
+        "full_name": "EAAdmin",
+        "datetime": 1567577231
+    },
+    "model": "/models/1",
+    "is_published": true,
+    "allow_more_details": true,
+    "multi_lang_description": [
+        {
+            "lang": "nl",
+            "text": "<div id=\"summary\" /><div class=\" section\" id=\"S1436280605408204\"><h2 class=\" topictitle2\" id=\"Hidelem4x19233\">Samenvatting</h2><p class=\"\" id=\"Pidelem4x19236\">Het klantobject bestaat uit stamgegevens van de externe partij waaraan producten en/of services worden verkocht.</p><h2 class=\" topictitle2\" id=\"Hidelem4x19239\">Uitleg</h2><p class=\"\" id=\"Pidelem4x19243\">De stamrecord bevat gegevens die bepalen hoe zakelijke transacties worden geregistreerd en verwerkt. Deze bevat tevens alle benodigde gegevens om zaken te doen met een klant. In uw logistieke procedure krijgt analyse een meerwaarde wanneer u eigenschappen van dit object toevoegt.</p><h2 class=\" topictitle2\" id=\"Hidelem4x19245\">Technische achtergrond</h2><p class=\"\" id=\"Pidelem4x19248\">Op basis van de SAP-tabel KNA1 wordt een object aangemaakt met referenties naar Adres, alsmede sublijsten van Klanten op Verkoopgebied en meer.</p></div>"
+        },
+        {
+            "lang": "en",
+            "text": "<div id=\"summary\" /><div class=\" section\" id=\"S1436280605408204\"><h2 class=\" topictitle2\" id=\"Hidelem4x19233\">Summary</h2><p class=\"\" id=\"Pidelem4x19236\">The Customer object represents master data of the external party to which products and/or services are sold.</p><h2 class=\" topictitle2\" id=\"Hidelem4x19239\">Explanation</h2><p class=\"\" id=\"Pidelem4x19243\">The master record contains data that controls how business transactions are recorded and processed. It also includes all the information about a customer that you need to be able to conduct business with them. Analysis in your logistics process will have added value when you add characteristics from this object.</p><h2 class=\" topictitle2\" id=\"Hidelem4x19245\">Technical background</h2><p class=\"\" id=\"Pidelem4x19248\">Based on SAP table KNA1 an object is created with a reference to Address, as well as  sublists of Customers on Sales Area Level and more.</p></div>"
+        },
+        {
+            "lang": "fr",
+            "text": "<div id=\"summary\" /><div class=\" section\" id=\"S1436280605408204\"><h2 class=\" topictitle2\" id=\"Hidelem4x19233\">Récapitulatif</h2><p class=\"\" id=\"Pidelem4x19236\">L'objet Client représente les données principales du tiers externe auxquels des produits et/ou des services sont vendus.</p><h2 class=\" topictitle2\" id=\"Hidelem4x19239\">Explication</h2><p class=\"\" id=\"Pidelem4x19243\">L'enregistrement principal contient les données qui contrôlent la façon dont les transactions commerciales sont enregistrées et traitées. Il inclut également toutes les informations concernant un client avec qui vous devez pouvoir faire affaire. L'analyse dans votre processus logistique aura une valeur ajoutée lorsque vous ajouterez les caractéristiques de cet objet.</p><h2 class=\" topictitle2\" id=\"Hidelem4x19245\">Antécédents techniques.</h2><p class=\"\" id=\"Pidelem4x19248\">D'après la table KNA1 dans SAP, un objet est créé avec une référence à l'en-tête Adresse, ainsi qu'à des listes auxiliaires Clients au niveau domaine commercial et autre.</p></div>"
+        },
+        {
+            "lang": "de",
+            "text": "<div id=\"summary\" /><div class=\" section\" id=\"S1436280605408204\"><h2 class=\" topictitle2\" id=\"Hidelem4x19233\">Zusammenfassung</h2><p class=\"\" id=\"Pidelem4x19236\">Das Objekt Kunde stellt die Stammdaten der externen Partei dar, an die Produkte und/oder Dienstleistungen verkauft werden.</p><h2 class=\" topictitle2\" id=\"Hidelem4x19239\">Erläuterung</h2><p class=\"\" id=\"Pidelem4x19243\">Der Stammdatensatz enthält Daten, die steuern, wie geschäftliche Transaktionen aufgezeichnet und verarbeitet werden. Darüber hinaus enthält er alle Informationen zu einem Kunden, die Sie benötigen, um mit diesem Kunden Geschäftsbeziehungen unterhalten zu können. Die Analyse in Ihrem Logistikprozess wird noch wertvoller, wenn Sie Eigenschaften aus diesem Objekt berücksichtigen.</p><h2 class=\" topictitle2\" id=\"Hidelem4x19245\">Technischer Hintergrund</h2><p class=\"\" id=\"Pidelem4x19248\">Ein Objekt wird auf der Grundlage der SAP-Tabelle KNA1 mit Referenzen zu Adresse und Unterlisten von Kunden auf Vertriebsbereichsebene usw. erstellt.</p></div>"
+        },
+        {
+            "lang": "es",
+            "text": "<div id=\"summary\" /><div class=\" section\" id=\"S1436280605408204\"><h2 class=\" topictitle2\" id=\"Hidelem4x19233\">Resumen</h2><p class=\"\" id=\"Pidelem4x19236\">El objeto Cliente representa los datos maestros de la parte externa a la que se venden productos y/o servicios.</p><h2 class=\" topictitle2\" id=\"Hidelem4x19239\">Explicación</h2><p class=\"\" id=\"Pidelem4x19243\">El registro de maestro contiene datos que controlan cómo se registran y procesan las operaciones de los negocios. También incluye toda la información de un cliente que puede necesitar para hacer negocios con él. El análisis en el proceso logístico tendrá valor añadido cuando agregue características de este objeto.</p><h2 class=\" topictitle2\" id=\"Hidelem4x19245\">Contexto técnico</h2><p class=\"\" id=\"Pidelem4x19248\">Según la tabla SAP KNA1, un objeto se crea con una referencia a Dirección, así como con sublistas de Clientes a Nivel de Área de Ventas y más.</p></div>"
+        }
+    ]
+}

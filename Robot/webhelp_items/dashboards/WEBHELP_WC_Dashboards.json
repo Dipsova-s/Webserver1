@@ -1,1 +1,110 @@
-{"multi_lang_name":[{"lang":"en","text":"Dashboard"},{"lang":"nl","text":"Dashboard"},{"lang":"fr","text":"Dashboard"},{"lang":"de","text":"Dashboard"},{"lang":"es","text":"Dashboard"}],"multi_lang_description":[],"changed":{"user":"/users/1","datetime":1556535645,"full_name":"EAAdmin"},"executed":{"user":"/users/5","datetime":1557214984,"full_name":"Mary Smith"},"user_specific":{"execute_on_login":false,"is_starred":false},"widget_definitions":[{"id":"w3475cdf22a8034ae8c30556522059440","uri":"/dashboards/563/widgets/4","widget_details":"{\"model\":\"/models/1\"}","widget_type":"angle_display","angle":"/models/1/angles/561","display":"/models/1/angles/561/displays/2838","multi_lang_name":[{"lang":"en","text":" "}],"multi_lang_description":[]},{"id":"waf6b1f8390d266ddb371556522059440","uri":"/dashboards/563/widgets/5","widget_details":"{\"model\":\"/models/1\"}","widget_type":"angle_display","angle":"/models/1/angles/562","display":"/models/1/angles/562/displays/2842","multi_lang_name":[{"lang":"en","text":" "}],"multi_lang_description":[]}],"filters":[{"field":"DedicatedPurchaseDocumentItem__NumberOfABConfirmations","step_type":"filter","operator":"has_no_value"}],"widgets":"/dashboards/563/widgets","layout":"{\"structure\":[{\"items\":[\"47.98%\",\"52.01%\"],\"height\":\"100%\"}],\"widgets\":[\"w3475cdf22a8034ae8c30556522059440\",\"waf6b1f8390d266ddb371556522059440\"]}","assigned_labels":["S2D","F2R"],"privilege_labels":"/dashboards/563/privilege_labels","grouping_labels":"/dashboards/563/grouping_labels","labels":"/dashboards/563/labels","business_processes":"/dashboards/563/business_processes","angles":"/dashboards/563/angles","id":"WEBHELP_WC_Dashboards","uri":"/dashboards/563","model":"/models/1","is_validated":false,"is_published":false,"created":{"user":"/users/1","datetime":1556522110,"full_name":"EAAdmin"},"state":"/dashboards/563/state","has_warnings":false,"authorizations":{"update":true,"delete":true,"publish":true,"unpublish":false,"validate":false,"unvalidate":false}}
+{
+    "executed": {
+        "user": "/users/1",
+        "full_name": "EAAdmin",
+        "datetime": 1567584681
+    },
+    "labels": "/dashboards/662/labels",
+    "assigned_labels": [
+        "S2D",
+        "O2C"
+    ],
+    "multi_lang_name": [
+        {
+            "lang": "en",
+            "text": "Dashboard"
+        },
+        {
+            "lang": "nl",
+            "text": "Dashboard"
+        },
+        {
+            "lang": "fr",
+            "text": "Dashboard"
+        },
+        {
+            "lang": "de",
+            "text": "Dashboard"
+        },
+        {
+            "lang": "es",
+            "text": "Dashboard"
+        }
+    ],
+    "filters": [
+        {
+            "operator": "has_value",
+            "field": "ExecutionStatus",
+            "step_type": "filter"
+        }
+    ],
+    "grouping_labels": "/dashboards/662/grouping_labels",
+    "id": "WEBHELP_WC_Dashboards",
+    "layout": "{\"structure\":[{\"items\":[\"50%\",\"50%\"],\"height\":\"100%\"}],\"widgets\":[\"wc65ba663e6592533cd76566790019298\",\"wc0efd27413b6612e7984566790019298\"]}",
+    "user_specific": {
+        "is_starred": false,
+        "private_note": "",
+        "execute_on_login": false
+    },
+    "state": "/dashboards/662/state",
+    "widgets": "/dashboards/662/widgets",
+    "is_validated": false,
+    "angles": "/dashboards/662/angles",
+    "authorizations": {
+        "unvalidate": false,
+        "update": true,
+        "publish": true,
+        "unpublish": false,
+        "validate": false,
+        "delete": true
+    },
+    "business_processes": "/dashboards/662/business_processes",
+    "privilege_labels": "/dashboards/662/privilege_labels",
+    "created": {
+        "user": "/users/1",
+        "full_name": "EAAdmin",
+        "datetime": 1567577246
+    },
+    "changed": {
+        "user": "/users/1",
+        "full_name": "EAAdmin",
+        "datetime": 1567577341
+    },
+    "uri": "/dashboards/662",
+    "has_warnings": false,
+    "model": "/models/1",
+    "multi_lang_description": [],
+    "widget_definitions": [
+        {
+            "multi_lang_name": [
+                {
+                    "lang": "en",
+                    "text": " "
+                }
+            ],
+            "angle": "/models/1/angles/652",
+            "uri": "/dashboards/662/widgets/25",
+            "id": "wc65ba663e6592533cd76566790019298",
+            "widget_type": "angle_display",
+            "widget_details": "{\"model\":\"/models/1\"}",
+            "display": "/models/1/angles/652/displays/3028",
+            "multi_lang_description": []
+        },
+        {
+            "multi_lang_name": [
+                {
+                    "lang": "en",
+                    "text": " "
+                }
+            ],
+            "angle": "/models/1/angles/651",
+            "uri": "/dashboards/662/widgets/26",
+            "id": "wc0efd27413b6612e7984566790019298",
+            "widget_type": "angle_display",
+            "widget_details": "{\"model\":\"/models/1\"}",
+            "display": "/models/1/angles/651/displays/3023",
+            "multi_lang_description": []
+        }
+    ],
+    "is_published": false
+}

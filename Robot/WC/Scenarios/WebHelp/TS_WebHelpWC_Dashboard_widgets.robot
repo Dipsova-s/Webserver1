@@ -6,12 +6,11 @@ Screenshot "WC_Dashboard_widgets" page
     Find Dashboard By ID Then Execute The First Dashboard    ${DashboardId}
 
     Show Dashboard Widget Menu    0
-    Crop Dashboard Widget Menu Button
-    Crop Dashboard Widget Menu Popup
+    Crop Dashboard Widget Menu Buttons
 
-Crop Dashboard Widget Menu Button
-    Crop WebHelp Image  WC_Dashboard_expand.png  jquery=.widgetToolbar:visible    ${False}
-
-Crop Dashboard Widget Menu Popup
-    ${widgetWidth}  ${widgetHeight}   Get Element Size   jquery=#dashboardWrapper .widget-display-column:eq(0)
-    Crop WebHelp Image With Dimensions  WC_Dashboard_dropdown.png  jquery=#dashboardWrapper .widget-display-column:eq(0)   ${widgetWidth - 165}  0  165  155
+Crop Dashboard Widget Menu Buttons
+    Execute JavaScript  $('.widgetToolbar:visible .widgetButtonMinimize').show();
+    Crop WebHelp Image  WC_Maximize_Icon.png        jquery=.widgetToolbar:visible .widgetButtonMaximize    ${False}
+    Crop WebHelp Image  WC_Minimize_Icon.png        jquery=.widgetToolbar:visible .widgetButtonMinimize    ${False}
+    Crop WebHelp Image  WC_GoToAngle_Icon.png       jquery=.widgetToolbar:visible .widgetButtonOpenNewWindow    ${False}
+    Crop WebHelp Image  WC_Delete_Widget_Icon.png   jquery=.widgetToolbar:visible .widgetButtonDelete    ${False}

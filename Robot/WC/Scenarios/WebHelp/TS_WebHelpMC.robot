@@ -30,6 +30,7 @@ Crop Overview Page
 Crop Custom Icons
     Go To Custom Icons Page
     Execute JavaScript    $('#FieldCategoryGrid .k-alt').removeClass('k-alt');
+    Sleep   2s
     Crop WebHelp Image    EA_32.png    jquery=img[src*="EA_32.png"]
     Crop WebHelp Image    SAP_32.png    jquery=img[src*="SAP_32.png"]
     Crop WebHelp Image    reference_32.png    jquery=img[src*="Reference_32.png"]
@@ -73,14 +74,14 @@ Crop Model Overview Page
     Highlight WebHelp Element    css=.modelInfoLicense          4    ${textPosition}    fontSize=45px    fontWeight=normal
     Highlight WebHelp Element    css=.modelInfoInstance:eq(0)   5    ${textPosition}    fontSize=45px    fontWeight=normal
     Highlight WebHelp Element    css=.modelInfoInstance:eq(1)   6    ${textPosition}    fontSize=45px    fontWeight=normal
-    ${width}    ${height}    Get Zoomed Element Size    css=#mainContainer    0.9
+    ${width}    ${height}    Get Zoomed Element Size    css=#mainContainer    0.85
     Crop WebHelp Image With Dimensions    MC_Model_Status.png    css=#mainContainer    0    0    ${width}    ${height}
     Clear WebHelp Highlights
     Restore Model Overview Page
 
 Prepare Model Overview Page
     # zoon out / hide top bar / set mainContent height
-    Execute JavaScript    $('body').css('zoom', 0.9);
+    Execute JavaScript    $('body').css('zoom', 0.85);
     ...                   $('#topWrapper').hide();
     ...                   $('#mainContent').height($('#mainContent .pageModelInfo').height());
     ...                   $('#sideContent').height($('#mainContainer').height());
@@ -95,16 +96,17 @@ Crop Edit Automation Task Page
     Go To All Tasks Page
     Click Button To Add New Task
     Click Add Action Button
+    Resize Kendo Popup height To    650
     Drag And Drop By Offset    jquery=#AddActionPopup ~ .k-resize-n    0    -40
     Select Dropdown Datastore    Export to CSV - Default
     Scroll Vertical To Element    jquery=#AddActionPopup .popupContent    jquery=#AddActionPopup .contentSectionInfo:eq(1)
     Input Datastore Filename    test_csv
     Select Datastore Append Result
     Crop WebHelp Image    MC_AutoTask_MacroField.png    jquery=#DatastoreSettings .dataSettings:eq(0)
-    Scroll Vertical    jquery=#AddActionPopup .popupContent    1000
     Enable Send Email Notification
     Enable Send Email Attach result
+    Scroll Vertical    jquery=#AddActionPopup .popupContent    2000
     Add Task Action Email Notification    m.smith@everyangle.org    Select    Unselect    Unselect
     Input Task Action Email Description    <p>New daily export of {anglename}</p><p>Model timestamp: {modeltimestamp}</p><p>Displayname: {displayname}</p>
-    Crop WebHelp Image With Dimensions    MC_AutoTask_MacroExample.png    jquery=#AddActionPopup .popupContent    0    2    700    550
+    Crop WebHelp Image With Dimensions    MC_AutoTask_MacroExample.png    jquery=#AddActionPopup .popupContent    0    2    700    600
     Copy Image To Webhelp Folder    images/MC_AutoTask_MacroResult.png

@@ -25,6 +25,16 @@ Click Select Jump by Name
     ${isSelected}    Execute JavaScript   return $('#popupFollowup td[title="${name}"]').parent().hasClass('k-state-selected');
     Run Keyword If   ${isSelected} == ${False}    Click Element    ${selectTarget}
 
+Click Select Jump by Id
+    [Arguments]    ${id}
+    # get classs name and covert to selector, e.g.
+    # followupBlock up k-grid k-widget --> .followupBlock.up.k-grid.k-widget
+    ${selectTarget}    Set Variable    ${divAddjumpPopup} td[data-id="${id}"]
+    ${targetGrid}   Execute Javascript    return '.' + $('#popupFollowup td[data-id="${id}"]').closest('.k-grid').attr('class').replace(/ /g, '.')
+    Scroll Vertical To Element    jquery=${targetGrid} .k-auto-scrollable    ${selectTarget}
+    ${isSelected}    Execute JavaScript   return $('#popupFollowup td[data-id="${id}"]').parent().hasClass('k-state-selected');
+    Run Keyword If   ${isSelected} == ${False}    Click Element    ${selectTarget}
+
 Click Add Jump Button
     Click Element    ${btnSubmitAddJump}
     Wait Progress Bar Closed

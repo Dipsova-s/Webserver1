@@ -1,7 +1,7 @@
 *** Keywords ***
 Screenshot "WC_Angle_actions" page
     Go to Search Page
-    Search By Text    a
+    Search By Text Without Double Quote    a
     Click Select First Item From Search Result
     Crop Search Action Buttons
 

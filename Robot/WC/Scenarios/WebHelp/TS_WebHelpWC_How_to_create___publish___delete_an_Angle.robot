@@ -10,15 +10,15 @@ Screenshot "WC_How_to_create___publish___delete_an_Angle" page
 
 Crop S2D Activity Diagram   
     Click Object Activity Diagram Button
-    Crop WebHelp Image    wc_s2d_activitydiagram.png    css=.popupCreateNewAngleBySchema
+    Crop WebHelp Image    WC_S2D_ActivityDiagram.png    css=.popupCreateNewAngleBySchema
 
 
 Crop P2P Object Diagram
     Click Object Diagram Button
     Click P2P Business Processes On Create Angle Diagram Options
-    Crop WebHelp Image    wc_p2p_objectdiagram.png    css=.popupCreateNewAngleBySchema
+    Crop WebHelp Image    WC_P2P_ObjectDiagram.png    css=.popupCreateNewAngleBySchema
 
 
 Crop Object List
     Click Object List Button
-    Crop WebHelp Image    wc_object_list.png    css=.popupCreateNewAngle 
+    Crop WebHelp Image    WC_object_list.png    css=.popupCreateNewAngle 

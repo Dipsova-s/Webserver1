@@ -2,11 +2,13 @@
 Screenshot "WC_Angle_details" page
     ${AngleId}    Set Variable    WEBHELP_WC_Angle_details
 
+    Go to Search Page
     Find Angle By ID Then Execute The First Angle    ${AngleId}
     Open Angle Detail Popup
     Update Popup Position    css=.popupAngleDetail
 
     Click Angle Detail General Tab
+    Crop Angle Details Popup
     Crop Angle Details "General" Tab
 
     Click Angle Detail Description Tab
@@ -21,8 +23,7 @@ Screenshot "WC_Angle_details" page
     Close Field Chooser Popup
 
     Click Add Jump In Definition Tab
-    ${jump}    Get Localization Text    Material  Artikel  Material  Material  Article
-    Click Select Jump by Name    ${jump}
+    Click Select Jump by Id    Material
     Click Add Jump Button
     Crop Add Filter Before Jump Button
     Close Angle Detail Popup
@@ -30,6 +31,9 @@ Screenshot "WC_Angle_details" page
     Open Angle Publishing Popup
     Update Popup Position    css=.popupPublishSettings
     Crop Angle Details "Publishing" Tab
+
+Crop Angle Details Popup
+    Crop WebHelp Image    WC_Angle_Details.png  css=.popupAngleDetail
 
 Crop Angle Details "General" Tab
     ${width}    Set Variable    285

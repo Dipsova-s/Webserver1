@@ -1,1 +1,196 @@
-{"multi_lang_name":[{"lang":"en","text":"Purchase Document (PD) Header"},{"lang":"nl","text":"Inkoopdocument (InkD) Kop"},{"lang":"fr","text":"Document D’achat En-tête"},{"lang":"de","text":"Einkaufsbeleg (EB) Kopf"},{"lang":"es","text":"Documento Compras (DC) Cabecera"}],"multi_lang_description":[],"authorizations":{"update":true,"delete":true,"publish":false,"unpublish":true,"validate":true,"unvalidate":false,"mark_template":true,"unmark_template":false,"create_private_display":true,"create_public_display":true},"is_deleted":false,"displays":"/models/1/angles/590/displays","allow_followups":true,"allow_more_details":true,"assigned_labels":["S2D"],"labels":"/models/1/angles/590/labels","business_processes":"/models/1/angles/590/business_processes","grouping_labels":"/models/1/angles/590/grouping_labels","angle_default_display":"/models/1/angles/590/displays/2970","privilege_labels":"/models/1/angles/590/privilege_labels","package":"/packages/11","query_definition":[{"base_classes":["PurchaseOrderScheduleLine","PurchaseOrder"],"queryblock_type":"base_classes"},{"query_steps":[{"field":"CompanyCode__CompanyCode","operator":"in_set","is_execution_parameter":true,"execution_parameter_id":"ea617c4930ca9f49c68ca9f2197703fda5","step_type":"filter","tech_info":"T001-BUKRS"}],"queryblock_type":"query_steps"}],"display_definitions":[{"multi_lang_name":[{"lang":"en","text":"Categorization"},{"lang":"nl","text":"Categoriseren"},{"lang":"fr","text":"Catégorisation"},{"lang":"de","text":"Kategorisierung"},{"lang":"es","text":"Clasificación"}],"multi_lang_description":[],"angle_id":"590","display_details":"{\"columns\":{\"header\":[91],\"data\":[81]},\"layout\":\"{\\\"collapse\\\":\\\"/v///wAAAAAAAAAAAAAAAP7///8AAAAAAAAAAAAAAAA=\\\"}\",\"show_total_for\":1,\"percentage_summary_type\":0,\"include_subtotals\":false,\"count_index\":0}","query_blocks":[{"query_steps":[{"aggregation_fields":[{"field":"count","operator":"count"}],"grouping_fields":[{"field":"individual_ExecutionStatus","operator":"individual","source_field":"ExecutionStatus"}],"step_type":"aggregation"}],"queryblock_type":"query_steps"}],"fields":[{"multi_lang_alias":[],"field":"individual_ExecutionStatus","field_details":"{\"pivot_area\":\"row\",\"format\":\"shn\",\"suffix\":\"\",\"sorting\":\"asc\"}","valid":true},{"multi_lang_alias":[],"field":"count","field_details":"{\"pivot_area\":\"data\",\"prefix\":null,\"decimals\":0,\"thousandseparator\":false,\"sorting\":\"\"}","valid":true}],"changed":{"user":"/users/1","datetime":1557132142,"full_name":"EAAdmin"},"state":"/models/1/angles/590/displays/2970/state","uri":"/models/1/angles/590/displays/2970","authorizations":{"update":true,"delete":false,"publish":false,"unpublish":false,"make_angle_default":false},"created":{"user":"/users/1","datetime":1557132142,"full_name":"EAAdmin"},"user_specific":{"is_user_default":false,"execute_on_login":false},"is_public":true,"contained_aggregation_steps":true,"used_in_task":false,"display_type":"pivot","is_angle_default":true,"id":"d08199226fa4f37b9a7b6467966061736"}],"changed":{"user":"/users/1","datetime":1557132142,"full_name":"EAAdmin"},"executed":{"user":"/users/1","datetime":1557134949,"full_name":"EAAdmin"},"published":{"user":"/users/1","datetime":1557132142,"full_name":"EAAdmin"},"id":"WEBHELP_WC_How_to_execute_Angles_or_Dashboards","uri":"/models/1/angles/590","model":"/models/1","is_validated":false,"is_parameterized":true,"is_published":true,"is_template":false,"user_specific":{"execute_on_login":false,"is_starred":false,"private_tags":[],"times_executed":1},"created":{"user":"/users/1","datetime":1557132142,"full_name":"EAAdmin"},"has_warnings":false,"state":"/models/1/angles/590/state"}
+{
+    "multi_lang_name": [
+        {
+            "lang": "en",
+            "text": "Purchase Document (PD) Header"
+        },
+        {
+            "lang": "nl",
+            "text": "Inkoopdocument (InkD) Kop"
+        },
+        {
+            "lang": "fr",
+            "text": "Document D’achat En-tête"
+        },
+        {
+            "lang": "de",
+            "text": "Einkaufsbeleg (EB) Kopf"
+        },
+        {
+            "lang": "es",
+            "text": "Documento Compras (DC) Cabecera"
+        }
+    ],
+    "labels": "/models/1/angles/655/labels",
+    "assigned_labels": [
+        "S2D"
+    ],
+    "executed": {
+        "user": "/users/1",
+        "full_name": "EAAdmin",
+        "datetime": 1567577650
+    },
+    "displays": "/models/1/angles/655/displays",
+    "grouping_labels": "/models/1/angles/655/grouping_labels",
+    "id": "WEBHELP_WC_How_to_execute_Angles_or_Dashboards",
+    "authorizations": {
+        "unvalidate": false,
+        "mark_template": true,
+        "unmark_template": false,
+        "update": true,
+        "publish": false,
+        "unpublish": true,
+        "create_private_display": true,
+        "validate": true,
+        "create_public_display": true,
+        "delete": true
+    },
+    "user_specific": {
+        "is_starred": false,
+        "private_tags": [],
+        "times_executed": 2,
+        "execute_on_login": false
+    },
+    "state": "/models/1/angles/655/state",
+    "allow_followups": true,
+    "is_parameterized": true,
+    "is_validated": false,
+    "business_processes": "/models/1/angles/655/business_processes",
+    "query_definition": [
+        {
+            "queryblock_type": "base_classes",
+            "base_classes": [
+                "PurchaseOrder",
+                "PurchaseOrderScheduleLine"
+            ]
+        },
+        {
+            "query_steps": [
+                {
+                    "tech_info": "T001-BUKRS",
+                    "execution_parameter_id": "eada5db25ad8d4457681b004401438ccaf",
+                    "step_type": "filter",
+                    "field": "CompanyCode__CompanyCode",
+                    "is_execution_parameter": true,
+                    "operator": "in_set"
+                }
+            ],
+            "queryblock_type": "query_steps"
+        }
+    ],
+    "angle_default_display": "/models/1/angles/655/displays/3038",
+    "privilege_labels": "/models/1/angles/655/privilege_labels",
+    "is_deleted": false,
+    "created": {
+        "user": "/users/2",
+        "full_name": "EASystem",
+        "datetime": 1567577235
+    },
+    "changed": {
+        "user": "/users/1",
+        "full_name": "EAAdmin",
+        "datetime": 1567577235
+    },
+    "uri": "/models/1/angles/655",
+    "display_definitions": [
+        {
+            "multi_lang_name": [
+                {
+                    "lang": "en",
+                    "text": "Categorization"
+                },
+                {
+                    "lang": "nl",
+                    "text": "Categoriseren"
+                },
+                {
+                    "lang": "fr",
+                    "text": "Catégorisation"
+                },
+                {
+                    "lang": "de",
+                    "text": "Kategorisierung"
+                },
+                {
+                    "lang": "es",
+                    "text": "Clasificación"
+                }
+            ],
+            "authorizations": {
+                "make_angle_default": false,
+                "unpublish": false,
+                "update": true,
+                "publish": false,
+                "delete": false
+            },
+            "created": {
+                "user": "/users/2",
+                "full_name": "EASystem",
+                "datetime": 1557110542
+            },
+            "fields": [
+                {
+                    "field": "individual_ExecutionStatus",
+                    "multi_lang_alias": [],
+                    "valid": true,
+                    "field_details": "{\"pivot_area\":\"row\",\"format\":\"shn\",\"suffix\":\"\",\"sorting\":\"asc\"}"
+                },
+                {
+                    "field": "count",
+                    "multi_lang_alias": [],
+                    "valid": true,
+                    "field_details": "{\"pivot_area\":\"data\",\"prefix\":null,\"decimals\":0,\"thousandseparator\":false,\"sorting\":\"\"}"
+                }
+            ],
+            "contained_aggregation_steps": true,
+            "uri": "/models/1/angles/655/displays/3038",
+            "is_public": true,
+            "used_in_task": false,
+            "state": "/models/1/angles/655/displays/3038/state",
+            "display_type": "pivot",
+            "user_specific": {
+                "execute_on_login": false,
+                "is_user_default": false
+            },
+            "query_blocks": [
+                {
+                    "query_steps": [
+                        {
+                            "aggregation_fields": [
+                                {
+                                    "operator": "count",
+                                    "field": "count"
+                                }
+                            ],
+                            "step_type": "aggregation",
+                            "grouping_fields": [
+                                {
+                                    "operator": "individual",
+                                    "field": "individual_ExecutionStatus",
+                                    "source_field": "ExecutionStatus"
+                                }
+                            ]
+                        }
+                    ],
+                    "queryblock_type": "query_steps"
+                }
+            ],
+            "is_angle_default": true,
+            "angle_id": "655",
+            "id": "d08199226fa4f37b9a7b6467966061736",
+            "display_details": "{\"columns\":{\"header\":[91],\"data\":[81]},\"layout\":\"{\\\"collapse\\\":\\\"/v///wAAAAAAAAAAAAAAAP7///8AAAAAAAAAAAAAAAA=\\\"}\",\"show_total_for\":1,\"percentage_summary_type\":0,\"include_subtotals\":false,\"count_index\":0}",
+            "multi_lang_description": []
+        }
+    ],
+    "has_warnings": false,
+    "is_template": false,
+    "published": {
+        "user": "/users/1",
+        "full_name": "EAAdmin",
+        "datetime": 1567577235
+    },
+    "model": "/models/1",
+    "is_published": true,
+    "allow_more_details": true,
+    "multi_lang_description": []
+}

@@ -16,7 +16,8 @@ Screenshot "WC_Warnings_and_errors" page
     Set Hide Angle Warning In Facet Filters
 
 Crop Search Warning Result
-    Crop WebHelp Image With Dimensions    WC_Angle_warnings_display2.png    css=#MainContent    0   0   ${WINDOW_WIDTH}    500
+    ${width}  ${height}  Get Element Size   css=#TopBar
+    Crop WebHelp Image With Dimensions    WC_Angle_warnings_display2.png    css=#MainContent    0   0   ${width}    500
 
 Crop Warning Icons
     Execute JavaScript    $('.SearchResult:first .ResultContent .rear .icon:eq(0)').attr('class', 'icon validWarning');

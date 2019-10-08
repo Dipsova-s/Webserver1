@@ -85,6 +85,13 @@ Highlight WebHelp Element
     ...        box.css(element.offset()).css({width:element.outerWidth(),height:element.outerHeight()});
     ...    })();
 
+Update Heightlight Box
+    [Arguments]   ${property}  ${value}
+    Execute javascript
+    ...     var box = $('[robot-box]:last');
+    ...     var properties = $.extend(box.offset(), { width: box.outerWidth(), height: box.outerHeight() });
+    ...     box.css('${property}', properties['${property}'] + ${value});
+
 Clear WebHelp Highlights
     Execute JavaScript    $('[robot-box]').remove();
 
@@ -117,3 +124,14 @@ Clear Dragging WebHelp Element
     ...        draggable.trigger('dragend', { y: { location: 1000 } });
     ...        draggable.hint.remove();
     ...    })();
+
+Create WebHelp Box
+    [Arguments]    ${selector}    ${style}={}
+    ${element}    Get JQuery Selector    ${selector}
+    Execute JavaScript
+    ...   var element=$('${element}');
+    ...   var css = $.extend({position:'absolute','z-index':10000}, element.offset(), { width: element.outerWidth(), height: element.outerHeight() }, ${style});
+    ...   $('<div id="RobotBox" />').css(css).appendTo('body');
+
+Clear WebHelp Box
+    Execute JavaScript  $('#RobotBox').remove();

@@ -17,8 +17,13 @@ Crop Logo
     Crop WebHelp Image With Dimensions    WC_EA_Logo.png    css=#TopBar .Wrapper    15    3    150    41
 
 Crop Panes Homepage
-    Highlight WebHelp Element    css=#TopBar        text=1
-    Highlight WebHelp Element    css=#LeftMenu      text=2
-    Highlight WebHelp Element    css=#Content       text=3
+    Highlight WebHelp Element    css=#TopBar                text=1
+    Update Heightlight Box   height   3
+    Highlight WebHelp Element    css=#SearchBar             text=2
+    Highlight WebHelp Element    css=#LeftMenu              text=3
+    Update Heightlight Box   width   5
+    Highlight WebHelp Element    css=#SearchResultList      text=4
+    Update Heightlight Box   top   -3
+    Update Heightlight Box   height   1
     Crop WebHelp Image    WC_panes_homepage.png    css=#MainContainer
     Clear WebHelp Highlights
