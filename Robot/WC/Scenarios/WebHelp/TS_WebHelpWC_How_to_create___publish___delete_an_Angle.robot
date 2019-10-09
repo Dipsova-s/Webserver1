@@ -21,4 +21,4 @@ Crop P2P Object Diagram
 
 Crop Object List
     Click Object List Button
-    Crop WebHelp Image    WC_Object_List.png    css=.popupCreateNewAngle 
+    Crop WebHelp Image    WC_object_list.png    css=.popupCreateNewAngle 

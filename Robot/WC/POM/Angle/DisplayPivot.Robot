@@ -31,6 +31,8 @@ ${defaultLayout}                    {\"collapse\":\"/v///wEAAAAaaW5kaXZpZHVhbF9l
 Wait Until Pivot Display Loaded
     Wait Until Field Settings Loaded
     Wait Until Ajax Complete
+    Sleep  ${TIMEOUT_LARGEST}
+    Wait Until Ajax Complete
     Wait Until Page Does Not Contain Element     ${pgbPivotLoading}
 
 Pivot Scroll Vertical

@@ -2,6 +2,7 @@
 Screenshot "WC_Angle_details" page
     ${AngleId}    Set Variable    WEBHELP_WC_Angle_details
 
+    Go to Search Page
     Find Angle By ID Then Execute The First Angle    ${AngleId}
     Open Angle Detail Popup
     Update Popup Position    css=.popupAngleDetail

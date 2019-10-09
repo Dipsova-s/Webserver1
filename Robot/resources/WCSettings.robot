@@ -35,7 +35,6 @@ Resource            ${EXECDIR}/WC/Scenarios/ManagementConsole/GlobalSettings/TS_
 Resource            ${EXECDIR}/WC/Scenarios/ManagementConsole/GlobalSettings/TS_SystemRole.robot
 Resource            ${EXECDIR}/WC/Scenarios/ManagementConsole/GlobalSettings/TS_SystemSettings.robot
 Resource            ${EXECDIR}/WC/Scenarios/ManagementConsole/GlobalSettings/TS_WebServerSettings.robot
-Resource            ${EXECDIR}/WC/Scenarios/ManagementConsole/GlobalSettings/TS_License.robot
 Resource            ${EXECDIR}/WC/Scenarios/ManagementConsole/GlobalSettings/TS_Packages.robot
 Resource            ${EXECDIR}/WC/Scenarios/ManagementConsole/GlobalSettings/TS_WelcomePage.robot
 Resource            ${EXECDIR}/WC/Scenarios/ManagementConsole/GlobalSettings/TS_LabelCategory.robot
