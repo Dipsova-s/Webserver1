@@ -516,7 +516,8 @@ namespace EveryAngle.WebClient.Web
                 .Include("~/content/externalresource/fieldschooser.css")
                 .Include("~/Content/externalresource/classeschooser.css")
                 .Include("~/content/externalresource/notificationsfeed.css")
-                .Include("~/content/externalresource/shared.css"));
+                .Include("~/content/externalresource/shared.css")
+                .Include("~/content/externalresource/webclientico.css"));
 
             BundleTable.EnableOptimizations = Convert.ToBoolean(ConfigurationManager.AppSettings["EnableOptimizations"]);
         }

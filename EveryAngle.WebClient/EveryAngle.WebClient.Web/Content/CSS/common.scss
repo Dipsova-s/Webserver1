@@ -4,7 +4,6 @@
 // fonts
 @include font-face(Roboto, "../fonts/roboto-v19-latin-regular", 400, normal);
 @include font-face(Roboto, "../fonts/roboto-v19-latin-500", bold, normal);
-@include font-face(WebClientIco, "../fonts/WebClientIco", normal, normal, eot woff ttf svg);
 
 html, body {
     height: 100%;
@@ -866,7 +865,7 @@ textarea {
     margin-left: 165px;
     padding: 3px 0;
 }
- 
+
 .popupTabPanel .input {
     min-height: 1px;
     position: relative;
@@ -1357,6 +1356,7 @@ textarea {
         height: 35px;
     }
 }
+
 .compactMode .open .actionDropdownItem.more {
     visibility: visible;
 }
@@ -1385,6 +1385,7 @@ textarea {
 
 $dropdown-item-height: 16px;
 $dropdown-large-item-height: 20px;
+
 .k-list .actionDropdownItem {
     height: $dropdown-item-height;
     line-height: $dropdown-item-height;
@@ -1457,8 +1458,8 @@ $dropdown-large-item-height: 20px;
     }
 }
 
-.none{
-    display:none;
+.none {
+    display: none;
 }
 
 

@@ -10,12 +10,6 @@
   font-weight: bold;
   src: url("../fonts/roboto-v19-latin-500.eot") format("eot"), url("../fonts/roboto-v19-latin-500.woff2") format("woff2"), url("../fonts/roboto-v19-latin-500.woff") format("woff"), url("../fonts/roboto-v19-latin-500.ttf") format("truetype"), url("../fonts/roboto-v19-latin-500.svg#Roboto") format("svg"); }
 
-@font-face {
-  font-family: "WebClientIco";
-  font-style: normal;
-  font-weight: normal;
-  src: url("../fonts/WebClientIco.eot") format("eot"), url("../fonts/WebClientIco.woff") format("woff"), url("../fonts/WebClientIco.ttf") format("truetype"), url("../fonts/WebClientIco.svg#WebClientIco") format("svg"); }
-
 html, body {
   height: 100%;
   margin: 0;

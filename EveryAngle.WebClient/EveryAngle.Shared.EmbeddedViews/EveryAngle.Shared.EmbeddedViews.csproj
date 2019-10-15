@@ -107,6 +107,10 @@
     <None Include="packages.config">
       <SubType>Designer</SubType>
     </None>
+    <EmbeddedResource Include="Resource\Shared\fonts\WebClient.json" />
+    <EmbeddedResource Include="Resource\Shared\fonts\WebClientIco.eot" />
+    <EmbeddedResource Include="Resource\Shared\fonts\WebClientIco.ttf" />
+    <EmbeddedResource Include="Resource\Shared\fonts\WebClientIco.woff" />
     <None Include="Views\User\PartialViews\UserLoginBodyPage.cshtml">
       <Generator>RazorGenerator</Generator>
       <LastGenOutput>UserLoginBodyPage.generated.cs</LastGenOutput>
@@ -179,6 +183,9 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Resource\ClassesChooser\search-white.svg" />
+    <Content Include="Resource\Shared\fonts\WebClient.readme.txt" />
+    <EmbeddedResource Include="Resource\Shared\fonts\WebClientIco.css" />
+    <EmbeddedResource Include="Resource\Shared\fonts\WebClientIco.svg" />
     <Content Include="Resource\Shared\Icons\btn_deselectall.svg" />
     <Content Include="Resource\Shared\Icons\btn_invertselect.svg" />
     <Content Include="Resource\Shared\Icons\btn_selectall.svg" />
@@ -196,6 +203,7 @@
       <Name>EveryAngle.Shared.Globalization</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PostBuildEvent>

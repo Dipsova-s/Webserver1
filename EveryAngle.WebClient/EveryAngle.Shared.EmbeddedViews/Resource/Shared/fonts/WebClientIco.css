@@ -1,0 +1,6 @@
+﻿@font-face {
+    font-family: "WebClientIco";
+    font-style: normal;
+    font-weight: normal;
+    src: url("WebClientIco.eot") format("eot"), url("WebClientIco.woff") format("woff"), url("WebClientIco.ttf") format("truetype"), url("WebClientIco.svg#WebClientIco") format("svg");
+}

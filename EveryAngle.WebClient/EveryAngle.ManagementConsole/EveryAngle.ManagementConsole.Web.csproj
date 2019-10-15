@@ -224,6 +224,14 @@
       <Link>Content\ExternalResource\%(Filename)%(Extension)</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="..\EveryAngle.Shared.EmbeddedViews\Resource\Shared\fonts\WebClientIco.css">
+      <Link>Content\ExternalResource\WebClientIco.css</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\EveryAngle.Shared.EmbeddedViews\Resource\Shared\fonts\WebClientIco.svg">
+      <Link>Content\ExternalResource\WebClientIco.svg</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="bin\Template\Xslt\*" />
     <Content Include="Content\Login.css" />
     <Content Include="Content\Default.css" />
@@ -787,6 +795,22 @@
     <Content Include="Views\Shared\PageToolbar.cshtml" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="..\EveryAngle.Shared.EmbeddedViews\Resource\Shared\fonts\WebClient.json">
+      <Link>Content\ExternalResource\WebClient.json</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\EveryAngle.Shared.EmbeddedViews\Resource\Shared\fonts\WebClientIco.eot">
+      <Link>Content\ExternalResource\WebClientIco.eot</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\EveryAngle.Shared.EmbeddedViews\Resource\Shared\fonts\WebClientIco.ttf">
+      <Link>Content\ExternalResource\WebClientIco.ttf</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\EveryAngle.Shared.EmbeddedViews\Resource\Shared\fonts\WebClientIco.woff">
+      <Link>Content\ExternalResource\WebClientIco.woff</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <None Include="packages.config">
       <SubType>Designer</SubType>
     </None>

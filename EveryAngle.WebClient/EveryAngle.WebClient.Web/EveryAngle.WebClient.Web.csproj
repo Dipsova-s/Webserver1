@@ -273,8 +273,26 @@
       <Link>Content\ExternalResource\%(Filename)%(Extension)</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="..\EveryAngle.Shared.EmbeddedViews\Resource\Shared\fonts\WebClientIco.css">
+      <Link>Content\ExternalResource\WebClientIco.css</Link>
+    </Content>
+    <Content Include="..\EveryAngle.Shared.EmbeddedViews\Resource\Shared\fonts\WebClientIco.svg">
+      <Link>Content\ExternalResource\WebClientIco.svg</Link>
+    </Content>
     <Content Include="Admin\MC.txt" />
     <Content Include="Content\CSS\Angle.DisplayDropdown.css" />
+    <Content Include="..\EveryAngle.Shared.EmbeddedViews\Resource\Shared\fonts\WebClient.json">
+      <Link>Content\ExternalResource\WebClient.json</Link>
+    </Content>
+    <Content Include="..\EveryAngle.Shared.EmbeddedViews\Resource\Shared\fonts\WebClientIco.eot">
+      <Link>Content\ExternalResource\WebClientIco.eot</Link>
+    </Content>
+    <Content Include="..\EveryAngle.Shared.EmbeddedViews\Resource\Shared\fonts\WebClientIco.ttf">
+      <Link>Content\ExternalResource\WebClientIco.ttf</Link>
+    </Content>
+    <Content Include="..\EveryAngle.Shared.EmbeddedViews\Resource\Shared\fonts\WebClientIco.woff">
+      <Link>Content\ExternalResource\WebClientIco.woff</Link>
+    </Content>
     <None Include="Content\CSS\toastnotification.scss" />
     <Content Include="Content\CSS\item-name.scss" />
     <None Include="Content\CSS\itemstate.scss" />
@@ -322,8 +340,6 @@
     <Content Include="Content\ExternalResource\notificationsfeed.js" />
     <Content Include="Content\fonts\roboto-v19-latin-500.svg" />
     <Content Include="Content\fonts\roboto-v19-latin-regular.svg" />
-    <None Include="Content\fonts\WebClient.readme.txt" />
-    <Content Include="Content\fonts\WebClientIco.svg" />
     <Content Include="Content\kendoui\Black\editor.png" />
     <Content Include="Content\kendoui\Black\imagebrowser.png" />
     <Content Include="Content\kendoui\Black\indeterminate.gif" />
@@ -704,9 +720,6 @@
     <Content Include="Content\fonts\roboto-v19-latin-regular.ttf" />
     <Content Include="Content\fonts\roboto-v19-latin-regular.woff" />
     <Content Include="Content\fonts\roboto-v19-latin-regular.woff2" />
-    <Content Include="Content\fonts\WebClientIco.eot" />
-    <Content Include="Content\fonts\WebClientIco.ttf" />
-    <Content Include="Content\fonts\WebClientIco.woff" />
     <Content Include="Content\fonts\roboto-v19-latin-500.eot" />
     <Content Include="Content\fonts\roboto-v19-latin-500.ttf" />
     <Content Include="Content\fonts\roboto-v19-latin-500.woff" />
@@ -722,7 +735,6 @@
     <None Include="Content\CSS\_mixins.scss" />
     <None Include="Content\CSS\card.scss" />
     <None Include="Content\CSS\_variables.scss" />
-    <None Include="Content\fonts\WebClient.json" />
     <None Include="packages.config">
       <SubType>Designer</SubType>
     </None>
