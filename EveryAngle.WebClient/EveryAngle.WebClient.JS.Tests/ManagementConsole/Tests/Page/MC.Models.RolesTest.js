@@ -1,86 +1,115 @@
 ﻿/// <reference path="/Dependencies/page/MC.Models.Roles.js" />
 
-describe("MC.Models.Roles.js => Model role filter give correct info on 'Empty' checkbox in object filter", function () {
+describe("MC.Models.Roles", function () {
 
     var modelsRole;
-    var isEmptyOr = ' <is empty> or ';
-    var isNotEmptlyAnd = ' <is not empty> and ';
-
     beforeEach(function () {
         modelsRole = MC.Models.Roles;
     });
 
-    describe("When Filter type and allow emptly are ", function () {
+    describe("Model role filter give correct info on 'Empty' checkbox in object filter", function () {
+        
+        var isEmptyOr = ' <is empty> or ';
+        var isNotEmptlyAnd = ' <is not empty> and ';
+        
+        describe("When Filter type and allow emptly are ", function () {
 
-        it("filter type Allow and allow emptly ON get: " + isEmptyOr, function () {
-            // prepare
-            var expectedMessage = isEmptyOr;
-            var actualMessage = modelsRole.GetFilterDescriptionIsEmptlyMessage(true, true);
+            it("filter type Allow and allow emptly ON get: " + isEmptyOr, function () {
+                // prepare
+                var expectedMessage = isEmptyOr;
+                var actualMessage = modelsRole.GetFilterDescriptionIsEmptlyMessage(true, true);
 
-            // assert
-            expect(expectedMessage).toEqual(actualMessage);
+                // assert
+                expect(expectedMessage).toEqual(actualMessage);
+            });
+
+            it("filter type Allow and allow emptly OFF get:" + isNotEmptlyAnd, function () {
+                // prepare
+                var expectedMessage = isNotEmptlyAnd;
+                var actualMessage = modelsRole.GetFilterDescriptionIsEmptlyMessage(true, false);
+
+                // assert
+                expect(expectedMessage).toEqual(actualMessage);
+            });
+
+            it("filter type Denied and allow emptly ON get:" + isNotEmptlyAnd, function () {
+                // prepare
+                var expectedMessage = isNotEmptlyAnd;
+                var actualMessage = modelsRole.GetFilterDescriptionIsEmptlyMessage(false, true);
+
+                // assert
+                expect(expectedMessage).toEqual(actualMessage);
+            });
+
+            it("filter type Denied and allow emptly OFF get:" + isEmptyOr, function () {
+                // prepare
+                var expectedMessage = isEmptyOr;
+                var actualMessage = modelsRole.GetFilterDescriptionIsEmptlyMessage(false, false);
+
+                // assert
+                expect(expectedMessage).toEqual(actualMessage);
+            });
+
+        });
+    });
+
+    describe("Show warning when copying a role with subroles", function () {
+        
+        beforeEach(function () {
+            spyOn(MC.util, "showPopupConfirmation").and.callFake($.noop);
+            spyOn(MC.Models.Roles, "DoCheckCopyRoleToModel").and.callFake($.noop);
         });
 
-        it("filter type Allow and allow emptly OFF get:" + isNotEmptlyAnd, function () {
+        it("Should show popup when copy role and subrole more than zero ", function () {
             // prepare
-            var expectedMessage = isNotEmptlyAnd;
-            var actualMessage = modelsRole.GetFilterDescriptionIsEmptlyMessage(true, false);
+            modelsRole.SubRoles = 1;
+            modelsRole.CheckCopyRoleToModel();
 
             // assert
-            expect(expectedMessage).toEqual(actualMessage);
+            expect(MC.util.showPopupConfirmation).toHaveBeenCalled();
         });
 
-        it("filter type Denied and allow emptly ON get:" + isNotEmptlyAnd, function () {
+        it("Should not show popup when copy role and subrole equal zero ", function () {
             // prepare
-            var expectedMessage = isNotEmptlyAnd;
-            var actualMessage = modelsRole.GetFilterDescriptionIsEmptlyMessage(false, true);
+            modelsRole.SubRoles = 0;
+            modelsRole.CheckCopyRoleToModel();
 
             // assert
-            expect(expectedMessage).toEqual(actualMessage);
+            expect(MC.util.showPopupConfirmation).not.toHaveBeenCalled();
         });
 
-        it("filter type Denied and allow emptly OFF get:" + isEmptyOr, function () {
-            // prepare
-            var expectedMessage = isEmptyOr;
-            var actualMessage = modelsRole.GetFilterDescriptionIsEmptlyMessage(false, false);
-
+        it("Should correct message of popup ", function () {
             // assert
-            expect(expectedMessage).toEqual(actualMessage);
+            expect("The copied role will not contain sub roles").toEqual(Localization.MC_ShowWarningPopupCopyRole);
+        });
+    });
+
+    describe(".CreateEnumMultiSelect", function () {
+
+        beforeEach(function () {
+            jQuery('<div class="enumMultiSelect"></div>').appendTo('body');
+        });
+
+        afterEach(function () {
+            jQuery('.enumMultiSelect').remove();
+        });
+
+        it("should render multiselect dropdown fields as a encoded values", function () {
+            modelsRole.CreateEnumMultiSelect(jQuery('.enumMultiSelect'), {
+                dataSource: [
+                    { id: null, short_name: '<no value>', long_name: '<no value>' },
+                    { id: '~NotInSet', short_name: '<not in set>', long_name: '<not in set>' }
+                ]
+            });
+
+            var noValue = $('.enumMultiSelect').find('option:eq(0)').text();
+            var notInSet = $('.enumMultiSelect').find('option:eq(1)').text();
+
+            expect(noValue).toEqual('<no value>');
+            expect(notInSet).toEqual('<not in set>');
         });
 
     });
+
 });
 
-describe("MC.Models.Roles.js => Show warning when copying a role with subroles", function () {
-
-    var modelsRole;
-
-    beforeEach(function () {
-        modelsRole = MC.Models.Roles;
-        spyOn(MC.util, "showPopupConfirmation").and.callFake($.noop);
-        spyOn(MC.Models.Roles, "DoCheckCopyRoleToModel").and.callFake($.noop);
-    });
-
-    it("Should show popup when copy role and subrole more than zero ", function () {
-        // prepare
-        modelsRole.SubRoles = 1;
-        modelsRole.CheckCopyRoleToModel();
-
-        // assert
-        expect(MC.util.showPopupConfirmation).toHaveBeenCalled();
-    });
-
-    it("Should not show popup when copy role and subrole equal zero ", function () {
-        // prepare
-        modelsRole.SubRoles = 0;
-        modelsRole.CheckCopyRoleToModel();
-
-        // assert
-        expect(MC.util.showPopupConfirmation).not.toHaveBeenCalled();
-    });
-
-    it("Should correct message of popup ", function () {
-        // assert
-        expect("The copied role will not contain sub roles").toEqual(Localization.MC_ShowWarningPopupCopyRole);
-    });
-});

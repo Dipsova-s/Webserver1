@@ -1220,29 +1220,11 @@
             })
                 .done(function (field) {
                     var enumInput = parentCell.find('.enumerated');
-                    var guid = MC.util.GUID();
 
-                    enumInput.addClass(guid);
-
-                    $(enumInput).kendoMultiSelect({
-                        dataSource: field.elements,
-                        placeholder: "Add values",
-                        dataTextField: "short_name",
-                        dataValueField: "id",
-                        headerTemplate: '<div class="dropdown-header k-widget k-header multipleSelectHeader">'
-                            + '<a class="btn btnSelectAll" onclick="MC.Models.Roles.BatchParameters(\'' + guid + '\', MC.Models.Roles.BATCHPARAMETERSTYPE.SELECTALL, this)" title="Select all"></a>'
-                            + '<a class="btn btnClearAll" onclick="MC.Models.Roles.BatchParameters(\'' + guid + '\', MC.Models.Roles.BATCHPARAMETERSTYPE.CLEARALL, this)" title="Deselect all"></a>'
-                            + '<a class="btn btnInvert" onclick="MC.Models.Roles.BatchParameters(\'' + guid + '\', MC.Models.Roles.BATCHPARAMETERSTYPE.INVERT, this)" title="Invert selection"></a>'
-                            + '</div>',
-                        tagTemplate: '#= (short_name === long_name ? short_name : short_name + " (" + long_name + ")") #',
-                        template: '#= (short_name === long_name ? short_name : short_name + " (" + long_name + ")") #',
-                        filter: 'startswith',
-                        autoClose: false,
-
-                        change: self.onMultiSelectChange
+                    self.CreateEnumMultiSelect(enumInput, {
+                        dataSource: field.elements
                     });
-
-
+                    
                     var generatedControl = enumInput.prev();
                     generatedControl.insertAfter(enumInput);
                 });
@@ -1430,6 +1412,32 @@
                 datas.push(labelId);
             });
             return datas;
+        };
+        self.CreateEnumMultiSelect = function (selector, options) {
+            var guid = MC.util.GUID();
+            selector.addClass(guid);
+
+            var defaultOptions = {
+                placeholder: Localization.MC_AddValues,
+                dataTextField: "short_name",
+                dataValueField: "id",
+                headerTemplate: '<div class="dropdown-header k-widget k-header multipleSelectHeader">'
+                    + '<a class="btn btnSelectAll" onclick="MC.Models.Roles.BatchParameters(\'' + guid + '\', MC.Models.Roles.BATCHPARAMETERSTYPE.SELECTALL, this)" title="' + Localization.SelectAll + '"></a>'
+                    + '<a class="btn btnClearAll" onclick="MC.Models.Roles.BatchParameters(\'' + guid + '\', MC.Models.Roles.BATCHPARAMETERSTYPE.CLEARALL, this)" title="' + Localization.DeselectAll + '"></a>'
+                    + '<a class="btn btnInvert" onclick="MC.Models.Roles.BatchParameters(\'' + guid + '\', MC.Models.Roles.BATCHPARAMETERSTYPE.INVERT, this)" title="' + Localization.InvertSelection + '"></a>'
+                    + '</div>',
+                tagTemplate: '#: (short_name === long_name ? short_name : short_name + " (" + long_name + ")") #',
+                template: '#: (short_name === long_name ? short_name : short_name + " (" + long_name + ")") #',
+                filter: 'startswith',
+                autoClose: false,
+                change: self.onMultiSelectChange
+            };
+
+            if (options) {
+                jQuery.extend(defaultOptions, options);
+            }
+
+            jQuery(selector).kendoMultiSelect(defaultOptions);
         };
 
         self.SaveEditRole = function () {
@@ -1714,26 +1722,12 @@
                         })
                         .done(function (field) {
                             var enumInput = ele.find('.enumerated');
-                            var guid = MC.util.GUID();
-                            enumInput.addClass(guid);
-                            $(enumInput).kendoMultiSelect({
+                            
+                            self.CreateEnumMultiSelect(enumInput, {
                                 dataSource: field.elements,
-                                placeholder: "Add values",
-                                dataTextField: "short_name",
-                                dataValueField: "id",
-                                headerTemplate: '<div class="dropdown-header k-widget k-header multipleSelectHeader">'
-                                    + '<a class="btn btnSelectAll" onclick="MC.Models.Roles.BatchParameters(\'' + guid + '\', MC.Models.Roles.BATCHPARAMETERSTYPE.SELECTALL, this)" title="Select all"></a>'
-                                    + '<a class="btn btnClearAll" onclick="MC.Models.Roles.BatchParameters(\'' + guid + '\', MC.Models.Roles.BATCHPARAMETERSTYPE.CLEARALL, this)" title="Deselect all"></a>'
-                                    + '<a class="btn btnInvert" onclick="MC.Models.Roles.BatchParameters(\'' + guid + '\', MC.Models.Roles.BATCHPARAMETERSTYPE.INVERT, this)" title="Invert selection"></a>'
-                                    + '</div>',
-                                tagTemplate: '#= (short_name === long_name ? short_name : short_name + " (" + long_name + ")") #',
-                                template: '#= (short_name === long_name ? short_name : short_name + " (" + long_name + ")") #',
-                                value: enumInput.val().split(','),
-                                filter: 'startswith',
-                                autoClose: false,
-                                change: self.onMultiSelectChange
+                                value: enumInput.val().split(',')
                             });
-
+                            
                             var generatedControl = enumInput.prev();
                             generatedControl.insertAfter(enumInput);
                         });

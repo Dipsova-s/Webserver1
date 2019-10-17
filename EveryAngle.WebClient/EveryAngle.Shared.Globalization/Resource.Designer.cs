@@ -3087,6 +3087,15 @@ namespace EveryAngle.Shared.Globalization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Deselect all.
+        /// </summary>
+        public static string DeselectAll {
+            get {
+                return ResourceManager.GetString("DeselectAll", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to details.
         /// </summary>
         public static string Details {
@@ -5755,6 +5764,15 @@ namespace EveryAngle.Shared.Globalization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Invert selection.
+        /// </summary>
+        public static string InvertSelection {
+            get {
+                return ResourceManager.GetString("InvertSelection", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to results.
         /// </summary>
         public static string Items {
@@ -6894,6 +6912,15 @@ namespace EveryAngle.Shared.Globalization {
         public static string MC_AddUserReportTitle {
             get {
                 return ResourceManager.GetString("MC_AddUserReportTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Add values.
+        /// </summary>
+        public static string MC_AddValues {
+            get {
+                return ResourceManager.GetString("MC_AddValues", resourceCulture);
             }
         }
         
