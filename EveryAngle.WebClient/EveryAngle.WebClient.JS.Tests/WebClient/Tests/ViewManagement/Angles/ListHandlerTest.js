@@ -88,8 +88,14 @@ describe("ListHandler", function () {
     });
 
     describe(".GenerateMainContextMenu", function () {
+
+        beforeEach(function () {
+            spyOn(resultModel, 'IsSupportSapTransaction').and.callFake(function () {
+                return true;
+            });
+        });
+
         it("should have Go to SAP menu", function () {
-            window.enableGoToSAP = true;
             var result = listHandler.GenerateMainContextMenu([]);
 
             // assert
@@ -97,7 +103,9 @@ describe("ListHandler", function () {
         });
 
         it("should not have Go to SAP menu", function () {
-            window.enableGoToSAP = false;
+            resultModel.IsSupportSapTransaction.and.callFake(function () {
+                return false;
+            });
             var result = listHandler.GenerateMainContextMenu([]);
 
             // assert

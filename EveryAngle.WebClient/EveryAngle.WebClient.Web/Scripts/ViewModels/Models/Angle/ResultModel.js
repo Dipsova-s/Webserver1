@@ -728,5 +728,14 @@ function ResultViewModel() {
             sort: false
         };
     };
+    self.IsSupportSapTransaction = function () {
+        var isSupport = false;
+        var data = self.Data();
+        if (data) {
+             isSupport = !IsNullOrEmpty(data.sap_transactions);
+        }
+
+        return enableGoToSAP && isSupport;
+    };
     //EOF: View model methods
 }
