@@ -175,22 +175,19 @@ namespace EveryAngle.ManagementConsole.Controllers
 
         public ActionResult GetNewUsers(string uri)
         {
-            // all roles
-            List<SystemRoleViewModel> allRoles = GetAllRoles();
-            List<AssignedRoleViewModel> allRolesViewModel = GetAssignedRoleViewModelBy(allRoles);
-            IList<RoleKendoMultiSelectViewModel> allRolesMultiSelectViewModel = GetListViewAssignedRoleViewModel(allRolesViewModel);
-
             // default roles of user's provider
-            IList<RoleKendoMultiSelectViewModel> defaultRolesMultiSelectViewModel = new List<RoleKendoMultiSelectViewModel>();
-            SystemAuthenticationProviderViewModel userProvider = GetSystemAuthenticationProviders().FirstOrDefault(w => w.Users.ToString() == uri);
-            if (userProvider != null)
-            {
-                defaultRolesMultiSelectViewModel = RoleKendoMultiSelectViewModel.GetDefaultRolesMultiSelectViewModels(allRolesMultiSelectViewModel, userProvider.default_roles);
-            }
+            SystemAuthenticationProviderViewModel userProvider = GetSystemAuthenticationProviders()
+                .FirstOrDefault(w => w.Users.ToString() == uri);
+            List<KendoMultiSelect> defaultRoleListView = GetRoleKendoMultiSelectListView(userProvider == null ? null : userProvider.default_roles);
+            
+            // all roles
+            List<SystemRoleViewModel> systemRoles = GetAllRoles();
+            List<AssignedRoleViewModel> assignedRoles = GetAssignedRoleViewModelBy(systemRoles);
+            List<KendoMultiSelect> systemRoleListView = GetRoleKendoMultiSelectListView(assignedRoles);
 
-            ViewData["DefaultRoles"] = JsonConvert.SerializeObject(defaultRolesMultiSelectViewModel);
-            ViewData["SystemRoles"] = JsonConvert.SerializeObject(allRolesMultiSelectViewModel);
-            ViewData["SystemAuthenticationProviderUri"] = uri;
+            ViewBag.DefaultRoles = defaultRoleListView;
+            ViewBag.SystemRoles = systemRoleListView;
+            ViewBag.SystemAuthenticationProviderUri = uri;
 
             return PartialView("~/Views/User/ImportUsers.cshtml");
         }
@@ -271,12 +268,20 @@ namespace EveryAngle.ManagementConsole.Controllers
             return assignedRoleViewModels;
         }
 
-        private IList<RoleKendoMultiSelectViewModel> GetListViewAssignedRoleViewModel(List<AssignedRoleViewModel> assignedRoleViewModels)
+        private List<KendoMultiSelect> GetRoleKendoMultiSelectListView(List<AssignedRoleViewModel> roles)
         {
-            if (assignedRoleViewModels == null)
-                return new List<RoleKendoMultiSelectViewModel>();
+            var models = new List<KendoMultiSelect>();
 
-            return assignedRoleViewModels.Select(r => new RoleKendoMultiSelectViewModel(r.RoleId, r.ModelId)).ToList();
+            if (roles == null)
+                return models;
+
+            return roles.Select(r => new KendoMultiSelect
+            {
+                Text = r.RoleId,
+                Value = string.IsNullOrEmpty(r.ModelId) ? r.RoleId : string.Format("{0}:{1}", r.ModelId, r.RoleId),
+                Tooltip = string.IsNullOrEmpty(r.ModelId) ? "System role" : r.ModelId + " model role"
+            })
+            .ToList();
         }
 
         private List<SystemRoleViewModel> GetAssignSystemRoleViewModelBy(List<SystemRoleViewModel> systemRoleViewModels, List<AssignedRoleViewModel> assignedRoleViewModels)
@@ -345,11 +350,11 @@ namespace EveryAngle.ManagementConsole.Controllers
 
         public ActionResult GetRolesID()
         {
-            List<SystemRoleViewModel> systemRolesViewModels = GetAllRoles();
+            List<SystemRoleViewModel> systemRoles = GetAllRoles();
+            List<AssignedRoleViewModel> assignedRoles = GetAssignedRoleViewModelBy(systemRoles);
+            List<KendoMultiSelect> systemRoleListView = GetRoleKendoMultiSelectListView(assignedRoles);
 
-            List<AssignedRoleViewModel> assignedRoleViewModels = GetAssignedRoleViewModelBy(systemRolesViewModels);
-            IList<RoleKendoMultiSelectViewModel> systemRolesModels = GetListViewAssignedRoleViewModel(assignedRoleViewModels);
-            return Json(systemRolesModels, JsonRequestBehavior.AllowGet);
+            return Json(systemRoleListView, JsonRequestBehavior.AllowGet);
         }
 
         [AcceptVerbs(HttpVerbs.Post)]

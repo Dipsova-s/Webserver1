@@ -171,13 +171,11 @@ namespace EveryAngle.ManagementConsole.Test.Controllers
 
             // execute
             _testingController.GetNewUsers(fullUsersUri);
-            var defaultRoles = JsonConvert.DeserializeObject<IList<KendoMultiSelectViewModel>>(_testingController.ViewData["DefaultRoles"] as string);
-            var systemRoles = JsonConvert.DeserializeObject<IList<KendoMultiSelectViewModel>>(_testingController.ViewData["SystemRoles"] as string);
 
             // assert
-            Assert.AreEqual(expectedDefaultRoles, defaultRoles.Count);
-            Assert.AreEqual(expectedSystemRoles, systemRoles.Count);
-            Assert.AreEqual(fullUsersUri, _testingController.ViewData["SystemAuthenticationProviderUri"] as string);
+            Assert.AreEqual(expectedDefaultRoles, _testingController.ViewBag.DefaultRoles.Count);
+            Assert.AreEqual(expectedSystemRoles, _testingController.ViewBag.SystemRoles.Count);
+            Assert.AreEqual(fullUsersUri, _testingController.ViewBag.SystemAuthenticationProviderUri);
         }
 
         [TestCase("/system/authenticationproviders/1")]
@@ -263,7 +261,7 @@ namespace EveryAngle.ManagementConsole.Test.Controllers
 
             // execute
             JsonResult result = _testingController.GetRolesID() as JsonResult;
-            var dataSourceResult = result.Data as List<RoleKendoMultiSelectViewModel>;
+            List<KendoMultiSelect> dataSourceResult = result.Data as List<KendoMultiSelect>;
 
             // assert
             Assert.AreEqual("SYSTEM_ALL", dataSourceResult[0].Text);

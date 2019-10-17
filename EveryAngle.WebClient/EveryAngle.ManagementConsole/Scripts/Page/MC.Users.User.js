@@ -294,18 +294,13 @@
                         grid.trigger('dataBound');
                     }
                 }
+
+                MC.form.page.init(self.GetImportUsersData);
+
                 self.InitialGridSelectedUser();
                 self.InitialImportUserButtons();
-                self.InitialUserRolesMultiSelect();
-                MC.form.page.init(self.GetImportUsersData);
+                
             }, 1);
-        };
-        self.InitialUserRolesMultiSelect = function () {
-            jQuery('#UserRoles').kendoMultiSelectExtension({
-                dataSource: jQuery('#UserRoles').data('datasource'),
-                value: jQuery('#UserRoles').data('value'),
-                isReadonlyDefaultValues: true
-            });
         };
         self.ImportUserGridDataBound = function (e) {
             var dataItems = e.sender.dataItems();

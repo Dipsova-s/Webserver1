@@ -229,7 +229,6 @@
     <Content Include="ManagementConsole\Tests\Custom\MC.UI.PasswordTest.js" />
     <Content Include="ManagementConsole\Tests\Custom\MC.UITest.js" />
     <Content Include="ManagementConsole\Tests\Custom\MC.UtilModelServerInfoTest.js" />
-    <Content Include="ManagementConsole\Tests\jQuery\jquery.extension.Test.js" />
     <Content Include="ManagementConsole\Tests\jQuery\jquery.validate.additional-methods.Test.js" />
     <Content Include="ManagementConsole\Tests\Page\MC.GlobalSettings.WebClientSettingsTest.js" />
     <Content Include="ManagementConsole\Tests\Page\MC.Models.PackagesTest.js" />
