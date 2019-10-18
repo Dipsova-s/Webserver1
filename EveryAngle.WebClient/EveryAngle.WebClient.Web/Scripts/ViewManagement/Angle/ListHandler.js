@@ -1943,7 +1943,7 @@ function ListHandler(elementId, container) {
                 }
             }
         };
-        if (!enableGoToSAP)
+        if (!resultModel.IsSupportSapTransaction())
             delete contextMenu.gotosap;
 
         return contextMenu;

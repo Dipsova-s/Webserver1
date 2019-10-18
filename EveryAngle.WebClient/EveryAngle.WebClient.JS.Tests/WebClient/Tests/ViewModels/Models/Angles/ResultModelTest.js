@@ -34,4 +34,41 @@ describe("ResultModel", function () {
         });
     });
 
+    describe(".IsSupportSapTransaction", function () {
+
+        beforeEach(function () {
+            enableGoToSAP = true;
+            spyOn(resultModel, 'Data').and.callFake(function () {
+                return {
+                    sap_transactions: '/results/1/sap_transactions'
+                };
+            });
+        });
+
+        it("should be true when [GET] result/x has sap_transactions property", function () {
+            expect(resultModel.IsSupportSapTransaction()).toBeTruthy();
+        });
+
+        it("should be false when [GET] result/x has no sap_transactions property", function () {
+            resultModel.Data.and.callFake(function () {
+                return { };
+            });
+            expect(resultModel.IsSupportSapTransaction()).toBeFalsy();
+        });
+
+        it("should be false when [GET] result/x has sap_transactions property and GoToSap feature was disabled", function () {
+            enableGoToSAP = false;
+            expect(resultModel.IsSupportSapTransaction()).toBeFalsy();
+        });
+
+        it("should be false when [GET] result/x has no sap_transactions property and GoToSap feature was disabled", function () {
+            enableGoToSAP = false;
+            resultModel.Data.and.callFake(function () {
+                return {};
+            });
+            expect(resultModel.IsSupportSapTransaction()).toBeFalsy();
+        });
+
+    });
+
 });
