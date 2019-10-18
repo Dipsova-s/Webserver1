@@ -224,7 +224,8 @@
 }
 
 .fieldListArea .validError:after {
-    background-image: url('../../images/icons/icon_error.png');
+    background-image: url('../../images/icons/icon_error.svg');
+    background-size: 30px;
 }
 
 .fieldListArea li:hover,

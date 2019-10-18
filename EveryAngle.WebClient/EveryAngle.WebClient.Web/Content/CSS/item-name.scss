@@ -42,7 +42,7 @@ $large-size: 35px;
         }
 
         &.validError {
-            background-size: 14px 14px;
+            background-size: 30px 30px;
         }
 
         &.none {
@@ -87,10 +87,6 @@ $large-size: 35px;
 
         &.icon-dashboard:before {
             background-size: 14px 14px;
-        }
-
-        &.validError {
-            background-size: 12px 12px;
         }
 
         &.validWarning:before {

@@ -178,7 +178,8 @@
 }
 
 .validError .angleListHeader:after {
-    background-image: url('../../images/icons/icon_error.png');
+    background-image: url('../../images/icons/icon_error.svg');
+    background-size: 30px;
 }
 
 .angleListHeader.withoutSAP {

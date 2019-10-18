@@ -757,25 +757,23 @@ textarea {
   width: 22px;
   height: 25px; }
 
-.icon.validError {
-  background-image: url("../../images/icons/icon_error.png");
-  background-position: center center;
-  width: 22px;
-  height: 25px; }
-
 .icon.validWarning {
   display: inline-flex;
-  width: 22px;
-  height: 25px; }
-
-.icon.validWarning:before {
   content: '';
+  width: 15px;
+  height: 15px;
+  background: url("../../images/icons/icon_warnings.svg") no-repeat center;
+  background-size: 15px;
   border-radius: 50%;
-  width: 14px;
-  height: 14px;
-  background-image: url("../../images/icons/icon_warnings.svg");
-  background-size: 14px 14px;
-  background-repeat: no-repeat;
+  margin: auto; }
+
+.icon.validError {
+  display: inline-flex;
+  content: '';
+  width: 30px;
+  height: 15px;
+  background: url(../../images/icons/icon_error.svg) no-repeat center;
+  background-size: 30px;
   margin: auto; }
 
 .icon.add {
@@ -1499,7 +1497,7 @@ textarea {
     .displayNameContainer .icon.icon-star-active:before, .displayNameContainer .icon.icon-star-inactive:before {
       color: #f3aa18; }
     .displayNameContainer .icon.validError {
-      background-size: 14px 14px; }
+      background-size: 30px 30px; }
     .displayNameContainer .icon.none {
       display: none; }
     .displayNameContainer .icon.icon-info {
@@ -1529,8 +1527,6 @@ textarea {
       background-size: 17px 17px; }
     .displayNameContainer.small .icon.icon-dashboard:before {
       background-size: 14px 14px; }
-    .displayNameContainer.small .icon.validError {
-      background-size: 12px 12px; }
     .displayNameContainer.small .icon.validWarning:before {
       background-size: 13px 13px;
       width: 13px;

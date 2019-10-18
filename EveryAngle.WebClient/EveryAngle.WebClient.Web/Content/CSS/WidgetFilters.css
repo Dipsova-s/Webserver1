@@ -294,7 +294,8 @@
 }
 
 .FilterHeader .validError:before {
-    background-image: url('../../images/icons/icon_error.png');
+    background-image: url('../../images/icons/icon_error.svg');
+    background-size: 25px;
 }
 
 .definitionList.sortable .FilterHeader .validWarning:before,

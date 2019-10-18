@@ -158,15 +158,12 @@
 
 .popupCompleteUploadReport li {
     background: transparent none left top no-repeat;
-    padding: 2px 0 3px 20px;
-}
-
-.popupCompleteUploadReport .success {
-    background-image: url('../../images/icons/icon_check.gif');
+    padding-left: 30px;
 }
 
 .popupCompleteUploadReport .fail {
-    background-image: url('../../images/icons/icon_error.png');
+    background-image: url('../../images/icons/icon_error.svg');
+    background-size: 30px;
 }
 
 .popupCompleteUploadReport em {

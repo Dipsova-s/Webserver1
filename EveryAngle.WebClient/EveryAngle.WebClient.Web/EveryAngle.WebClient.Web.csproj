@@ -571,6 +571,7 @@
     <Content Include="Images\Icons\icon_arrow_up.svg" />
     <Content Include="Images\Icons\icon_copy.svg" />
     <Content Include="Images\Icons\icon_drilldown.svg" />
+    <Content Include="Images\Icons\icon_error.svg" />
     <Content Include="Images\Icons\icon_execute.svg" />
     <Content Include="Images\Icons\icon_filter.svg" />
     <Content Include="Images\Icons\icon_filter_addnew.svg" />
@@ -775,7 +776,6 @@
     <Content Include="Images\Icons\icon_def_followup.png" />
     <Content Include="Images\Icons\icon_delete_transparent.png" />
     <Content Include="Images\Icons\icon_drilldown.png" />
-    <Content Include="Images\Icons\icon_error.png" />
     <Content Include="Images\Icons\icon_format.png" />
     <Content Include="Images\Icons\icon_gear.png" />
     <Content Include="Images\Icons\icon_info_large.png" />

@@ -3444,7 +3444,8 @@ form#ExportPackageForm .packageInfo .packageVersion input {
 }
 
 #TreeListAngleWarnings span.error {
-    background-image: url(../images/icons/icon_angle_error.png);
+    background-image: url(../images/icons/icon_angle_error.svg);
+    background-size: 30px 30px;
 }
 
 #TreeListAngleWarnings .angleLink {
