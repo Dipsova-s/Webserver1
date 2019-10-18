@@ -407,15 +407,17 @@ function FacetFiltersViewModel() {
         }
         else {
             var icon = self.GetIconInfo(filter.id);
+            var isGeneralGroup = self.GroupGeneral === facetType;
+            var itemText = (isGeneralGroup ? '' : filter.description) || filter.name || filter.id;
+
             if (facetcat === self.GroupModels)
                 html += self.GetModelFilterText(filter);
             else if (icon)
-                html += kendo.format('{0}<span class="name withIcon">', self.GetFilterIconHtml(icon));
+                html += kendo.format('{0}<span class="name withIcon" data-tooltip-text="{1}">', self.GetFilterIconHtml(icon), itemText);
             else
-                html += '<span class="name">';
+                html += kendo.format('<span class="name" data-tooltip-text="{0}">', itemText);
 
-            var isGeneralGroup = self.GroupGeneral === facetType;
-            html += kendo.format('<span class="filter-name textEllipsis">{0}</span>', (isGeneralGroup ? '' : filter.description) || filter.name || filter.id);
+            html += kendo.format('<span class="filter-name textEllipsis">{0}</span>', itemText);
             if (filter.checked()) {
                 html += '<span class="filter-count">' + filter.count() + '</span>';
             }

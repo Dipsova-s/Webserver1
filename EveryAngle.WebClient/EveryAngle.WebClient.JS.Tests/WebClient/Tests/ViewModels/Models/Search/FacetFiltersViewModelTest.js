@@ -256,14 +256,13 @@ describe("FacetFiltersViewModel", function () {
         it("should display icon if it exists", function () {
             spyGetIcon.and.returnValue(iconResult);
             var result = facetFiltersViewModel.GetFilterText(filter, '', 'facetcat_characteristics');
-            expect(result).toContain('/image/test.png');
+            expect(result).toEqual('<img class="name-icon" src="/image/test.png" height="150" width="150" style="overflow: auto" /><span class="name withIcon" data-tooltip-text="EA2_800"><span class="filter-name textEllipsis">EA2_800</span></span>');
         });
 
         it("should display only label when facet id is not in icon list", function () {
             var result = facetFiltersViewModel.GetFilterText(filter, '', '');
-            expect(result).toEqual('<span class="name"><span class="filter-name textEllipsis">EA2_800</span></span>');
+            expect(result).toEqual('<span class="name" data-tooltip-text="EA2_800"><span class="filter-name textEllipsis">EA2_800</span></span>');
         });
-
     });
 
     describe(".GetModelFilterText", function () {
