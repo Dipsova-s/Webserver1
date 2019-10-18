@@ -17,6 +17,13 @@ describe("AngleStateHandler", function () {
         angleStateHandler = new AngleStateHandler();
     });
 
+    class displayItem {
+        isPublic;
+        is_public = function (isPublic) {
+            this.isPublic = isPublic;
+        }
+    }
+
     describe(".ReloadPublishingSettingsData", function () {
 
         it('should call all functions', function () {
@@ -27,6 +34,21 @@ describe("AngleStateHandler", function () {
             // assert
             expect(angleStateHandler.SetAngleData).toHaveBeenCalled();
             expect(angleStateHandler.__ReloadPublishingSettingsData).toHaveBeenCalled();
+        });
+
+        it('should set all display to be public when angle is not published', function () {
+            spyOn(angleStateHandler, 'SetAngleData').and.callFake($.noop);
+            spyOn(angleStateHandler, '__ReloadPublishingSettingsData').and.callFake($.noop);
+
+            spyOn(angleStateHandler.Data, 'is_published').and.returnValue(false);
+
+            var displays = [new displayItem(), new displayItem()];
+            spyOn(angleStateHandler, 'Displays').and.returnValue(displays);
+
+            angleStateHandler.ReloadPublishingSettingsData(true);
+
+            expect(displays[0].isPublic).toBe(true);
+            expect(displays[1].isPublic).toBe(true);
         });
 
     });
@@ -81,7 +103,7 @@ describe("AngleStateHandler", function () {
     });
 
     describe(".SavePublishSettings", function () {
-        var event = { currentTarget: null }; 
+        var event = { currentTarget: null };
 
         beforeEach(function () {
             spyOn(angleStateHandler, 'GetUpdatedPublishSettingsData').and.callFake(function () {
@@ -196,7 +218,7 @@ describe("AngleStateHandler", function () {
             var result = angleStateHandler.CanUpdateItem();
             expect(result).toEqual(true);
         });
-       
+
     });
 
     describe(".CanSetAllowMoreDetails", function () {
