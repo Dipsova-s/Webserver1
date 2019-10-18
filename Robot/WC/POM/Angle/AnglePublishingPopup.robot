@@ -36,6 +36,6 @@ Click Unpublish Angle
     Click Element    ${btnUnpublishAngle}
     Wait Angle Publishing Saved
 
-Close Publish Popup
+Close Publish Angle Popup
     Wait Until Element Is Visible    ${btnClosePublishPopup}
     Click Element    ${btnClosePublishPopup}

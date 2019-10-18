@@ -16,6 +16,7 @@ Set Angle To Allow User To Obtain More Details
 
 Publish Angle
     Open Angle Publishing Popup
+   
     Click Publish Angle
 
 Unpublish Angle
@@ -29,3 +30,8 @@ Validate Angle
 Unvalidate Angle
     Open Angle Validating Popup
     Click Unvalidate Angle
+
+Verify All Display Are Published
+    Open Angle Publishing Popup
+    Check All Display Are Checked
+    Close Publish Angle Popup

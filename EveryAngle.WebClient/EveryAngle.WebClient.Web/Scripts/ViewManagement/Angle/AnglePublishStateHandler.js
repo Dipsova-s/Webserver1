@@ -6,8 +6,14 @@
         var self = this;
         self.SetAngleData(angleInfoModel.Data());
         self.__ReloadPublishingSettingsData(hasData);
+
+        if (hasData && !self.Data.is_published()) {
+            jQuery.each(self.Displays(), function (index, display) {
+                display.is_public(true);
+            });
+        }
     };
-    
+
     handler.GetPublishDisplaysData = function () {
         var self = this;
         return jQuery.map(self.Displays(), function (display) {
@@ -32,7 +38,7 @@
     handler.GetUpdatedValidatedItemMessage = function () {
         return '<i class="icon validWarning"></i>' + Localization.PublishSettings_InfoChangeValidatedAngle;
     };
-    
+
     handler.SavePublishSettings = function (model, event) {
         var self = this;
         if (!self.CheckSavePublishSettings(self.Data.is_published()))
@@ -65,7 +71,7 @@
                 });
         }, self.ClosePublishSettingsPopup);
     };
-    
+
     handler.PublishItem = function (model, event) {
         var self = this;
         if (!self.CheckPublishItem())

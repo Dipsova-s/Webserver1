@@ -48,6 +48,7 @@ ${ddlAngleActionDropdownListAddToDashboard}         css=#ActionDropdownListPopup
 ${ddlAngleActionDropdownListCreateList}             css=#ActionDropdownListPopup .createList
 ${ddlAngleActionDropdownAddJump}                    css=#ActionDropdownListPopup .addFollowup
 ${ddlAngleActionDropdownListEditDisplay}            css=#ActionDropdownListPopup .editDisplay
+${chkDisplaysSection}                               jquery=.publish-displays .accordion-body .listview-item    
 
 ${lnkEditAngle}    css=#AngleDescriptionWrapper .descriptionHeader a
 ${lnkEditDisplay}    css=#DisplayDescriptionWrapper .descriptionHeader a
@@ -286,3 +287,7 @@ Check Angle Is Validated
 
 Check Angle Is Unvalidated
     Page Should Contain Element    ${btnShowValidateButton}.btn-light
+
+Check All Display Are Checked
+    Page Should Contain Element     ${chkDisplaysSection} input:checkbox(:checked)
+    Page Should Not Contain Element     ${chkDisplaysSection} input:checkbox:not(:checked)

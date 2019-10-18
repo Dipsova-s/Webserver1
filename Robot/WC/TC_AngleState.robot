@@ -17,6 +17,7 @@ Verify Publishing Angle
     Find Angle By ID Then Execute The First Angle    ROBOT_ANGLE_PUBLISHING
     Publish Angle
     Check Angle Is Published
+    Verify All Display Are Published
     Unpublish Angle
     Check Angle Is Unpublished
 

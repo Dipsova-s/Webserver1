@@ -29,7 +29,7 @@ Click Unpublish Dashboard
     Click Element    ${btnUnpublishDashboard}
     Wait Dashboard Publishing Saved
 
-Close Publish Popup
+Close Publish Dashboard Popup
     Wait Until Element Is Visible    ${btnDashboardClosePublishPopup}
     Click Element    ${btnDashboardClosePublishPopup}
 
