@@ -1,0 +1,45 @@
+{
+  "model_authorization": {
+    "object_filters": [],
+    "model": "/models/1",
+    "model_id": "EA2_800",
+    "privileges": {
+      "manage_model": null,
+      "create_angles": true,
+      "allow_single_item_view": true,
+      "allow_more_details": true,
+      "allow_followups": true,
+      "allow_goto_sap": true,
+      "allow_rpc": true,
+      "allow_export": true,
+      "allow_advanced_filter": true,
+      "access_data_via_webclient": true,
+      "access_data_via_odata": true,
+      "create_template_angles": true,
+      "save_displays": true,
+      "allow_publish_dashboards": true,
+      "manage_private_items": null,
+      "allow_nonvalidated_items": true,
+      "max_export_rows": null
+    },
+    "allowed_classes": [],
+    "denied_classes": [],
+    "field_authorizations": [
+      {
+        "classes": [
+          "*"
+        ],
+        "currency_fields_default": "allowed",
+        "fields_default": "allowed",
+        "allowed_fields": [],
+        "disallowed_fields": []
+      }
+    ],
+    "label_authorizations": {},
+    "default_label_authorization": "validate",
+    "default_class_authorization": true
+  },
+  "id": "OdataRole",
+  "description": "Odata for model EA2_800"
+
+}

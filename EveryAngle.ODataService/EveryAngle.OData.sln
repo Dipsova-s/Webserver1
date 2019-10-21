@@ -35,6 +35,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EveryAngle.OData.Builder", 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EveryAngle.OData.Settings", "EveryAngle.OData.Settings\EveryAngle.OData.Settings.csproj", "{34A9DF6F-B1BB-490C-B850-AD87965A87EC}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EveryAngle.OData.IntegrationTests", "EveryAngle.OData.IntegrationTests\EveryAngle.OData.IntegrationTests.csproj", "{7CDE90E5-D7C5-4B5F-B5D8-D98938FBD592}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -97,6 +99,10 @@ Global
 		{34A9DF6F-B1BB-490C-B850-AD87965A87EC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{34A9DF6F-B1BB-490C-B850-AD87965A87EC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{34A9DF6F-B1BB-490C-B850-AD87965A87EC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7CDE90E5-D7C5-4B5F-B5D8-D98938FBD592}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7CDE90E5-D7C5-4B5F-B5D8-D98938FBD592}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7CDE90E5-D7C5-4B5F-B5D8-D98938FBD592}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7CDE90E5-D7C5-4B5F-B5D8-D98938FBD592}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
