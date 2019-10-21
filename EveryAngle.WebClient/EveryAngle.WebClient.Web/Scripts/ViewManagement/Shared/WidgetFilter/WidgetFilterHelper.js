@@ -26,6 +26,12 @@ function WidgetFilterHelper() {
         enumHandlers.OPERATOR.BETWEEN.Value,
         enumHandlers.OPERATOR.NOTBETWEEN.Value
     ];
+    self.RelativeArguments = [
+        enumHandlers.OPERATOR.RELATIVEBEFORE.Value,
+        enumHandlers.OPERATOR.RELATIVEAFTER.Value,
+        enumHandlers.OPERATOR.RELATIVEBETWEEN.Value,
+        enumHandlers.OPERATOR.NOTRELATIVEBETWEEN.Value
+    ];
     self.ListArguments = [
         enumHandlers.OPERATOR.INLIST.Value,
         enumHandlers.OPERATOR.NOTINLIST.Value
@@ -167,6 +173,18 @@ function WidgetFilterHelper() {
             case enumHandlers.OPERATOR.NOTBETWEEN.Value:
                 outResult = enumHandlers.OPERATOR.NOTBETWEEN.Text;
                 break;
+            case enumHandlers.OPERATOR.RELATIVEBEFORE.Value:
+                outResult = enumHandlers.OPERATOR.RELATIVEBEFORE.Text;
+                break;
+            case enumHandlers.OPERATOR.RELATIVEAFTER.Value:
+                outResult = enumHandlers.OPERATOR.RELATIVEAFTER.Text;
+                break;
+            case enumHandlers.OPERATOR.RELATIVEBETWEEN.Value:
+                outResult = enumHandlers.OPERATOR.RELATIVEBETWEEN.Text;
+                break;
+            case enumHandlers.OPERATOR.NOTRELATIVEBETWEEN.Value:
+                outResult = enumHandlers.OPERATOR.NOTRELATIVEBETWEEN.Text;
+                break;
             case enumHandlers.OPERATOR.INLIST.Value:
                 outResult = enumHandlers.OPERATOR.INLIST.Text;
                 break;
@@ -243,6 +261,7 @@ function WidgetFilterHelper() {
         var fieldType = field.fieldtype;
         var operator = queryStep.operator;
         var argumentValues = self.AdjustFilterArguments(operator, WC.Utility.ToArray(queryStep.arguments), modelUri);
+        var isRelativeOperator = jQuery.inArray(operator, self.RelativeArguments) !== -1;
         var isBetweenOperator = self.IsBetweenGroupOperator(operator);
 
         // connector
@@ -254,7 +273,8 @@ function WidgetFilterHelper() {
         var suffixText = !suppressSuffix ? self.GetFilterSuffixText(fieldType, operator, argumentValues.length) : '';
 
         // formatted text
-        var formatter = self.GetFieldTypeFormatter(field, fieldType, operator);
+        var formatterType = isRelativeOperator ? enumHandlers.FIELDTYPE.INTEGER : fieldType;
+        var formatter = self.GetFieldTypeFormatter(field, formatterType, operator);
         var argumentTexts = self.GetArgumentTexts(formatter, argumentValues, modelUri);
 
         // format arguments
@@ -308,8 +328,12 @@ function WidgetFilterHelper() {
     self.GetFilterSuffixText = function (fieldType, operator, argumentCount) {
         var suffixText = '';
         if (argumentCount) {
+            var isDateOrDateTime = WC.FormatHelper.IsDateOrDateTime(fieldType);
+            var isRelativeOperator = jQuery.inArray(operator, self.RelativeArguments) !== -1;
             var isListOperator = self.IsListGroupOperator(operator);
-            if (fieldType === enumHandlers.FIELDTYPE.PERIOD && !isListOperator)
+            if (isDateOrDateTime && isRelativeOperator)
+                suffixText = ' ' + Localization.DaysFromActualDate;
+            else if (fieldType === enumHandlers.FIELDTYPE.PERIOD && !isListOperator)
                 suffixText = ' ' + Captions.WidgetFilter_PeriodType_Days.toLowerCase();
         }
         return suffixText;
@@ -533,6 +557,11 @@ function WidgetFilterHelper() {
     };
 
     //------------------------------ New code -----------
+    self.IsDateTimeWithRelative = function (fieldType, operator) {
+        return WC.FormatHelper.IsDateOrDateTime(fieldType)
+            && (operator === enumHandlers.OPERATOR.RELATIVEAFTER.Value || operator === enumHandlers.OPERATOR.RELATIVEBEFORE.Value);
+    };
+
     self.ConvertUnixTimeToPicker = function (unixTime) {
         return WC.DateHelper.UnixTimeToUtcDate(unixTime);
     };

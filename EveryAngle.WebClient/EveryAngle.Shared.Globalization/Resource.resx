@@ -6135,4 +6135,25 @@ Only Active Directory (AD) and Active Directory Federation (ADFS) services are s
   <data name="Toast_UnValidateItem" xml:space="preserve">
     <value>'{0}' has been unvalidated!</value>
   </data>
+  <data name="DeselectAll" xml:space="preserve">
+    <value>Deselect all</value>
+  </data>
+  <data name="InvertSelection" xml:space="preserve">
+    <value>Invert selection</value>
+  </data>
+  <data name="MC_AddValues" xml:space="preserve">
+    <value>Add values</value>
+  </data>
+  <data name="OperatorIsNotRelativeBetween" xml:space="preserve">
+    <value>is not relative between</value>
+  </data>
+  <data name="OperatorIsRelativeAfter" xml:space="preserve">
+    <value>is relative after</value>
+  </data>
+  <data name="OperatorIsRelativeBefore" xml:space="preserve">
+    <value>is relative before</value>
+  </data>
+  <data name="OperatorIsRelativeBetween" xml:space="preserve">
+    <value>is relative between</value>
+  </data>
 </root>
