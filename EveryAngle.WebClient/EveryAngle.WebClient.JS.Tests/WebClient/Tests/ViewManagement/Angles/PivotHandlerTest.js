@@ -6,6 +6,7 @@
 /// <reference path="/Dependencies/ViewManagement/Shared/ValidationHandler.js" />
 /// <reference path="/Dependencies/ViewManagement/Angles/FieldSettingsHandler.js" />
 /// <reference path="/Dependencies/ViewManagement/Angles/PivotHandler.js" />
+/// <reference path="/Tests/Mock/DevExpress/Pivot.js" />
 
 describe("PivotPageHandler", function () {
 
@@ -318,6 +319,70 @@ describe("PivotPageHandler", function () {
 
             expect($.fn.closest).toHaveBeenCalled();
         });
+    });
+
+    describe("Pivot rendering", function () {
+        it("It should not return pivot grid when the execute context is null", function () {
+            ASPxClientControl.GetControlCollection().ControlsInitialized.handlerInfoList[0].executionContext = null;
+            var actual = pivotPageHandler.GetPivotGridById('');
+            expect(null).toEqual(actual);
+        });
+
+        it("It should not return pivot grid when the grid is null", function () {
+            ASPxClientControl.GetControlCollection().ControlsInitialized.handlerInfoList[0].executionContext = {
+                'pivotGrid': null
+            };
+            var actual = pivotPageHandler.GetPivotGridById('');
+            expect(null).toEqual(actual);
+        });
+
+        it("It should not return pivot grid when the name is not match", function () {
+            ASPxClientControl.GetControlCollection().ControlsInitialized.handlerInfoList[0].executionContext = {
+                'pivotGrid': 'testgrid'
+            };
+            var actual = pivotPageHandler.GetPivotGridById('test');
+            expect(null).toEqual(actual);
+        });
+
+        it("It should return pivot grid when the name is match", function () {
+            ASPxClientControl.GetControlCollection().ControlsInitialized.handlerInfoList[0].executionContext = {
+                'pivotGrid': {
+                    'name': 'testgrid'
+                }
+            };
+            var actual = pivotPageHandler.GetPivotGridById('testgrid');
+            expect(actual).not.toEqual(null);
+        });
+
+        it("It should not call ProcessScriptsAndLinks when the grid is rendered", function () {
+            ASPxClientControl.GetControlCollection().ControlsInitialized.handlerInfoList[0].executionContext = {
+                'pivotGrid': {
+                    'name': 'pivotGrid'
+                }
+            };
+            window['pivotGrid'] = {
+                'adjustingManager': {}
+            };
+            spyOn(ASPx, 'ProcessScriptsAndLinks');
+            pivotPageHandler.RenderPivotgrid();
+            expect(ASPx.ProcessScriptsAndLinks).not.toHaveBeenCalled();
+        });
+
+        it("It should call ProcessScriptsAndLinks when the grid is not render", function () {
+            ASPxClientControl.GetControlCollection().ControlsInitialized.handlerInfoList[0].executionContext = {
+                'pivotGrid': {
+                    'name': 'dashboardgrid'
+                }
+            };
+            window['pivotGrid'] = {
+                'adjustingManager': null
+            };
+
+            spyOn(ASPx, 'ProcessScriptsAndLinks');
+            pivotPageHandler.RenderPivotgrid();
+            expect(ASPx.ProcessScriptsAndLinks).toHaveBeenCalled();
+        });
+
     });
 });
 

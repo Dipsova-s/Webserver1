@@ -1,3 +1,4 @@
+using DevExpress.Data.Extensions;
 using DevExpress.Data.PivotGrid;
 using DevExpress.Utils;
 using DevExpress.Web;
@@ -16,7 +17,6 @@ using EveryAngle.WebClient.Domain;
 using EveryAngle.WebClient.Service.HttpHandlers;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
-using RestSharp;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;

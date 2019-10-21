@@ -45,7 +45,7 @@ namespace EveryAngle.WebClient.Web.Controllers
             {
                 if (fieldType == EveryAngleEnums.FIELDTYPE.DATE || fieldType == EveryAngleEnums.FIELDTYPE.DATETIME)
                     fieldValue = DateTimeUtils.DateTimeToUnixTimestamp((DateTime)clientDataSourceValue);
-                
+
             }
 
             return fieldValue;
@@ -55,7 +55,7 @@ namespace EveryAngle.WebClient.Web.Controllers
         {
             if (dataObject != null && dataObject[0] != null && dataObject.RowCount > 0)
             {
-                ClientPivotDrillDownDataSource clientDataSource = ((ClientPivotDrillDownDataSource)dataObject[0].DataSource);
+                PivotDrillDownDataSource clientDataSource = dataObject[0].DataSource;
                 if (clientDataSource != null && clientDataSource.RowCount > 0)
                 {
                     List<EAPivotField> rows = filterArea != null

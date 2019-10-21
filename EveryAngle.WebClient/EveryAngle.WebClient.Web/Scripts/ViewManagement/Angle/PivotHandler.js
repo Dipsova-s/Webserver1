@@ -94,10 +94,10 @@ function PivotPageHandler(elementId, container) {
         else {
             container.html([
                 '<div id="PivotMainWrapper" class="displayWrapper">',
-                    '<div class="fieldListToggleButton" onclick="fieldSettingsHandler.ToggleFieldListArea();"></div>',
-                    '<div id="PivotArea" class="displayArea">',
-                        '<div class="pivotAreaContainer"></div>',
-                    '</div>',
+                '<div class="fieldListToggleButton" onclick="fieldSettingsHandler.ToggleFieldListArea();"></div>',
+                '<div id="PivotArea" class="displayArea">',
+                '<div class="pivotAreaContainer"></div>',
+                '</div>',
                 '</div>'
             ].join(''));
         }
@@ -198,7 +198,9 @@ function PivotPageHandler(elementId, container) {
             errorHandlerModel.RedirectToLoginPage();
         }
         else {
+
             self.GetContainer().find('.pivotAreaContainer').html(response);
+            self.RenderPivotgrid();
             self.ShowLoadingIndicator();
             self.InjectFieldIconCSS();
             self.CustomizeDevExpress();
@@ -215,6 +217,26 @@ function PivotPageHandler(elementId, container) {
 
             return self.CheckUpgradeDisplay();
         }
+    };
+    self.RenderPivotgrid = function () {
+        //Devexpress 1.9.1.6 has the issue about the Firefox with slow rendering then for this loc just to make sure the rendering is correct
+        if (!window[self.PivotId].adjustingManager && !self.GetPivotGridById(self.PivotId)) {
+            ASPx.ProcessScriptsAndLinks(self.GetContainer().find('.pivotAreaContainer').selector);
+        }
+    };
+    self.GetPivotGridById = function (pivotid) {
+        var pivotGrid = null;
+        var controlname = "aspxMVCControlsInitialized";
+        var controls = ASPxClientControl.GetControlCollection().ControlsInitialized.handlerInfoList;
+        jQuery.each(controls, function (index) {
+            //When the handler already bind to the object we should make sure the id is the same
+            if (controls[index].handler.name === controlname && controls[index].executionContext &&
+                controls[index].executionContext.pivotGrid && controls[index].executionContext.pivotGrid.name === pivotid) {
+                pivotGrid = controls[index].executionContext.pivotGrid;
+                return;
+            }
+        });
+        return pivotGrid;
     };
     self.GetPivotDisplayAlways = function () {
         self.HideLoadingIndicator();
@@ -1072,6 +1094,12 @@ function PivotPageHandler(elementId, container) {
         }
     };
     self.CustomizeDevExpress = function () {
+
+
+
+
+
+
         // before call ajax
         self.CustomizePerformControlCallback();
 
@@ -1146,6 +1174,9 @@ function PivotPageHandler(elementId, container) {
         };
     };
     self.CustomizeGetAreaLocation = function () {
+
+
+
         if (typeof window[self.PivotId].adjustingManager.pivotTableWrapper.__getAreaLocation === 'function')
             return;
 

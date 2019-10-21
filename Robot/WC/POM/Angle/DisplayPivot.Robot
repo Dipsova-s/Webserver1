@@ -25,7 +25,7 @@ ${pivotTotalCellPercentageSummary}      .PercentageSummaryCell
 ${pivotLastVeticalCell}                 .lastVertCell
 ${tdNoneValue}                      jquery=.dxpgRowFieldValue:contains(None (None)) .dxpgCollapsedButton
 
-${defaultLayout}                    {\"collapse\":\"/v///wEAAAAaaW5kaXZpZHVhbF9leGVjdXRpb25zdGF0dXNaU3lzdGVtLlN0cmluZywgbXNjb3JsaWIsIFZlcnNpb249NC4wLjAuMCwgQ3VsdHVyZT1uZXV0cmFsLCBQdWJsaWNLZXlUb2tlbj1iNzdhNWM1NjE5MzRlMDg5AQEAAAAAAAAAAAAAAP7///8BAAAAGWluZGl2aWR1YWxfYm90dGxlbmVja3R5cGVaU3lzdGVtLlN0cmluZywgbXNjb3JsaWIsIFZlcnNpb249NC4wLjAuMCwgQ3VsdHVyZT1uZXV0cmFsLCBQdWJsaWNLZXlUb2tlbj1iNzdhNWM1NjE5MzRlMDg5AQEAAAAAAAAAAAAAAA==\"}
+${defaultLayout}                    {\"collapse\":\"+////wAAAAABAAAAAAAAABppbmRpdmlkdWFsX2V4ZWN1dGlvbnN0YXR1c1pTeXN0ZW0uT2JqZWN0LCBtc2NvcmxpYiwgVmVyc2lvbj00LjAuMC4wLCBDdWx0dXJlPW5ldXRyYWwsIFB1YmxpY0tleVRva2VuPWI3N2E1YzU2MTkzNGUwODlaU3lzdGVtLk9iamVjdCwgbXNjb3JsaWIsIFZlcnNpb249NC4wLjAuMCwgQ3VsdHVyZT1uZXV0cmFsLCBQdWJsaWNLZXlUb2tlbj1iNzdhNWM1NjE5MzRlMDg5Afv///8AAAAAAQAAAAAAAAAZaW5kaXZpZHVhbF9ib3R0bGVuZWNrdHlwZVpTeXN0ZW0uT2JqZWN0LCBtc2NvcmxpYiwgVmVyc2lvbj00LjAuMC4wLCBDdWx0dXJlPW5ldXRyYWwsIFB1YmxpY0tleVRva2VuPWI3N2E1YzU2MTkzNGUwODlaU3lzdGVtLk9iamVjdCwgbXNjb3JsaWIsIFZlcnNpb249NC4wLjAuMCwgQ3VsdHVyZT1uZXV0cmFsLCBQdWJsaWNLZXlUb2tlbj1iNzdhNWM1NjE5MzRlMDg5AQ==\"}
 
 *** Keywords ***
 Wait Until Pivot Display Loaded

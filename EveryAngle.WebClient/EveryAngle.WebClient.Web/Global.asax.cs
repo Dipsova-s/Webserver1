@@ -117,7 +117,7 @@ namespace EveryAngle.WebClient.Web
             }
         }
 
-      
+
 
         protected void Application_PreSendRequestHeaders()
         {
