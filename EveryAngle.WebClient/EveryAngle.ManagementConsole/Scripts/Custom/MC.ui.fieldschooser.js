@@ -107,14 +107,6 @@
     var getCategoryIconByIdFunction = function (id) {
         var self = this;
         var fixedIconPath = self.ResourceIconPath;
-        var fixedIcons = {
-            'suggested': 'icon_suggest.png',
-            'issuggested': 'icon_suggest.png',
-            'facet_issuggested': 'icon_suggest.png',
-            'starred': 'icon_starred_active.svg',
-            'isstarred': 'icon_starred_active.svg',
-            'facet_isstarred': 'icon_starred_active.svg'
-        };
         var fieldTypeIcons =
         {
             'boolean': 'icon_yes_no.png',
@@ -130,19 +122,16 @@
             'currency': 'icon_currency.png',
             'int': 'icon_number.png',
             'double': 'icon_number.png',
-            'unknown': 'icon_unknown.png'
+            'unknown': 'icon_unknown.png',
+            'starred': 'icon_starred_active.svg',
+            'isstarred': 'icon_starred_active.svg',
+            'facet_isstarred': 'icon_starred_active.svg',
+            'suggested': 'icon_suggest.svg',
+            'issuggested': 'icon_suggest.svg',
+            'facet_issuggested': 'icon_suggest.svg'
         };
-        if (fixedIcons[id]) {
-            return {
-                path: fixedIconPath + fixedIcons[id],
-                dimension:
-                {
-                    width: 20,
-                    height: 20
-                }
-            };
-        }
-        else if (fieldTypeIcons[id]) {
+
+        if (fieldTypeIcons[id]) {
             return {
                 path: fixedIconPath + fieldTypeIcons[id],
                 dimension:

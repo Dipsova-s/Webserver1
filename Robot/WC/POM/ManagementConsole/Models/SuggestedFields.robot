@@ -1,9 +1,13 @@
 *** Variables ***
-${btnSuggestedSingleObject}              jquery=.contentSectionInfoItem [data-target="#popupClassesChooser"]:eq(0)
-${btnSuggestedBasicList}                 jquery=.contentSectionInfoItem [data-target="#popupClassesChooser"]:eq(1)
-${btnSuggestedDefaultTemplate}           jquery=.contentSectionInfoItem [data-target="#popupClassesChooser"]:eq(2)
-${btnSuggestedAllTemplate}               jquery=.contentSectionInfoItem [data-target="#popupClassesChooser"]:eq(3)
-${btnSuggestedClearAll}                  jquery=.contentSectionInfoItem [data-target="#popupClassesChooser"]:eq(4)
+${divClassChooser}                       popupClassesChooser
+${divSelectedClass}                      popupSelectedClasses
+${divFieldChooser}                       popupFieldChooser
+
+${btnSuggestedSingleObject}              jquery=.contentSectionInfoItem [data-target="#${divClassChooser}"]:eq(0)
+${btnSuggestedBasicList}                 jquery=.contentSectionInfoItem [data-target="#${divClassChooser}"]:eq(1)
+${btnSuggestedDefaultTemplate}           jquery=.contentSectionInfoItem [data-target="#${divClassChooser}"]:eq(2)
+${btnSuggestedAllTemplate}               jquery=.contentSectionInfoItem [data-target="#${divClassChooser}"]:eq(3)
+${btnSuggestedClearAll}                  jquery=.contentSectionInfoItem [data-target="#${divClassChooser}"]:eq(4)
 
 ${btnSuggestedBusinessProcess}           jquery=#CreateAngleByObjectBusinessProcess
 ${btnContinue}                           ButtonContinue
@@ -20,11 +24,10 @@ ${FieldCompanyCode}                      field-CompanyCode__CompanyCode
 ${FieldID}                               field-ID
 ${FieldVendor}                           field-Vendor__Vendor
 
-${btnSaveSuggestedField}                 jquery=#popupFieldChooser .btnAddProperty
-${btnConfirmSuggestedField}              jquery=#popupSelectedClasses .btnPrimary
-${btnClearAll}                           jquery=#popupFieldChooser .btnClearAll
-${btnSelectAll}                          jquery=#popupFieldChooser .btnSelectAll
-${btnCancelPopup}                        jquery=#popupFieldChooser .btnPropertyCancel
+${btnSaveSuggestedField}                 jquery=#${divFieldChooser} .btnAddProperty
+${btnConfirmSuggestedField}              jquery=#${divSelectedClass} .btnPrimary
+${btnClearAll}                           jquery=#${divFieldChooser} .btnClearAll
+${btnSelectAll}                          jquery=#${divFieldChooser} .btnSelectAll
 
 ${btnCloseSuggestedReport}               jquery=#loading .loadingClose
 ${txtSuggestedResult}                    jquery=#loading .fail
@@ -33,7 +36,7 @@ ${txtSuccess}                            jquery=.loadingContentText .success
 
 #Amount of Items
 ${txtSelectedItem}                       selectedItems
-${txtTotalItem}                          css=#totalDisplayFieldsDatarow
+${txtTotalItem}                          totalDisplayFieldsDatarow
 ${txtUndefined}                          jquery=.loadingContent li.success:contains("Valueundefined")
 
 *** Keywords ***
@@ -87,6 +90,7 @@ Select Filter (Self)
 Click Select All Items
     Click Element    ${btnSelectAll}
     Wait Until Ajax Complete
+    Sleep    ${TIMEOUT_GENERAL}
 
 Select Filter Currency
     Select Checkbox    ${chkCurrency}
@@ -157,7 +161,7 @@ Compare Amount Of Items
     ${Result}    Get Amount Of Selected Item
     ${Expected}    Get Amount Of Total Item
     Should Be Equal    ${Result}    ${Expected}
-    Click Close Selected Popup
+    Close Suggested Field Popups
 
 Get Amount Of Selected Item
     Sleep    1s
@@ -169,6 +173,6 @@ Get Amount Of Total Item
     ${totalItem}    Get Text    ${txtTotalItem}
     [Return]    ${totalItem}
 
-Click Close Selected Popup
-    Wait Until Element Is Visible    ${btnCancelPopup}
-    Click Element    ${btnCancelPopup}
+Close Suggested Field Popups
+    Execute Javascript    $('#${divFieldChooser}').data('handler').close();
+    ...                   $('#${divClassChooser}').data('handler').close();

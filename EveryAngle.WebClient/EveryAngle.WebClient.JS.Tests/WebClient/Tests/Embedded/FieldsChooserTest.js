@@ -54,12 +54,12 @@ describe("FieldsChooser", function () {
             expect(layoutSettings.size.width).toEqual(850);
             expect(layoutSettings.size.height).toEqual(600);
             expect(layoutSettings.isMaximize).toEqual(false);
-            expect(layoutSettings.columnsDetailMode.id.width).toEqual(42);
-            expect(layoutSettings.columnsDetailMode.category.width).toEqual(42);
-            expect(layoutSettings.columnsDetailMode.source.width).toEqual(110);
-            expect(layoutSettings.columnsDetailMode.short_name.width).toEqual(280);
-            expect(layoutSettings.columnsDetailMode.fieldtype.width).toEqual(50);
-            expect(layoutSettings.columnsDetailMode.technical_info.width).toEqual(70);
+            expect(layoutSettings.columnsDetailMode.id.width).toEqual(25);
+            expect(layoutSettings.columnsDetailMode.category.width).toEqual(25);
+            expect(layoutSettings.columnsDetailMode.source.width).toEqual(89);
+            expect(layoutSettings.columnsDetailMode.short_name.width).toEqual(162);
+            expect(layoutSettings.columnsDetailMode.fieldtype.width).toEqual(77);
+            expect(layoutSettings.columnsDetailMode.technical_info.width).toEqual(162);
         });
 
     });

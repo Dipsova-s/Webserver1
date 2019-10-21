@@ -290,7 +290,7 @@
 }
 
 .helpTextPopup .k-window-titlebar .DisplayPropertiesGridSignSuggest {
-    background-image: url('../../images/searchpage/icn_suggest.png');
+    background-image: url('../externalresource/icon_suggest.svg');
 }
 
 .helpTextPopup .k-window-titlebar .signLoading {

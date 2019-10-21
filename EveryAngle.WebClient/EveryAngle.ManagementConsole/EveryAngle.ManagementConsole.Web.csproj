@@ -224,6 +224,10 @@
       <Link>Content\ExternalResource\%(Filename)%(Extension)</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="..\EveryAngle.Shared.EmbeddedViews\Resource\FieldsChooser\icon_unsuggest.svg">
+      <Link>Content\ExternalResource\icon_unsuggest.svg</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="..\EveryAngle.Shared.EmbeddedViews\Resource\Shared\fonts\WebClientIco.css">
       <Link>Content\ExternalResource\WebClientIco.css</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
@@ -269,7 +273,6 @@
     <Content Include="Images\Icons\icon_popup_minimize.png" />
     <Content Include="Images\Icons\icon_popup_minimize.svg" />
     <Content Include="Images\Icons\icon_script.svg" />
-    <Content Include="Images\Icons\icon_unsuggest.png" />
     <Content Include="Images\Icons\icon_user.svg" />
     <Content Include="Images\Icons\icon_webclient.png" />
     <Content Include="Images\Icons\icon_workbench.svg" />

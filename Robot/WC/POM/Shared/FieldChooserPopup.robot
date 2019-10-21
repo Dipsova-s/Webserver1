@@ -1,7 +1,7 @@
 *** Variables ***
 ${txtFitlerAvailableProperties}    txtFitlerAvailableProperties
 ${btnFitlerAvailableProperties}    btnFitlerAvailableProperties
-${btnFieldChooser}    css=#btn-popupFieldChooser1 > span
+${btnSubmitFieldChooser}    css=#btn-popupFieldChooser0 > span
 ${tblFieldList}    jquery=#DisplayPropertiesGrid .k-grid-content
 ${pgbFieldChooser}    jquery=#DisplayPropertiesGrid .k-loading-mask
 ${popupFieldChooser}    css=#popupFieldChooser
@@ -25,7 +25,7 @@ Close Field Chooser Popup
 
 Click Insert Field From Field Chooser
     Wait Until Ajax Complete
-    Click Element   ${btnFieldChooser}
+    Click Element   ${btnSubmitFieldChooser}
     Wait Until Ajax Complete
 
 Click Field Chooser Info

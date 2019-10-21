@@ -2179,15 +2179,6 @@
             fieldsChooserModel.GetFieldChooserButtons = function () {
                 return [
                     {
-                        text: Captions.Button_Cancel,
-                        click: function (e) {
-                            if (!jQuery(e.currentTarget).hasClass('disabled')) {
-                                jQuery('#popupFieldChooser').data('kendoWindow').close();
-                            }
-                        },
-                        className: 'btn btnLarge btnPropertyCancel disabled'
-                    },
-                    {
                         text: Localization.MC_AddField,
                         click: function () {
                             fieldsChooserModel.OnSubmit.call();

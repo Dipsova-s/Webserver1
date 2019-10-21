@@ -713,16 +713,6 @@
             fieldsChooserModel.GetFieldChooserButtons = function () {
                 return [
                     {
-                        text: Captions.Button_Cancel,
-                        click: function (e) {
-                            if (!jQuery(e.currentTarget).hasClass('disabled')) {
-                                self.CloseClassesChooser();
-                                self.CloseFieldChooser();
-                            }
-                        },
-                        className: 'btn btnLarge btnPropertyCancel'
-                    },
-                    {
                         text: Localization.Save,
                         click: function () {
                             fieldsChooserModel.OnSubmit.call();
@@ -787,7 +777,7 @@
             jQuery('#popupFieldChooser').addClass('popupFieldChooserFieldSuggested');
 
             // enabled buttons after everything loaded
-            MC.ui.fieldschooser.checkFieldsChooserButtons('.btnPropertyCancel, .btnSelectAll, .btnClearAll');
+            MC.ui.fieldschooser.checkFieldsChooserButtons('.btnSelectAll, .btnClearAll');
         };
         self.CloseFieldChooser = function () {
             if (fieldsChooserModel.FieldChooserPopup) {

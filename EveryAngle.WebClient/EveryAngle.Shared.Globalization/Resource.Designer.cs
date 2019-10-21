@@ -16285,15 +16285,6 @@ namespace EveryAngle.Shared.Globalization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to No preferences.
-        /// </summary>
-        public static string SearchPageNoPerferences {
-            get {
-                return ResourceManager.GetString("SearchPageNoPerferences", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to You have {0} recently used items that meet the search criteria..
         /// </summary>
         public static string SearchRecentUseTotalItems {

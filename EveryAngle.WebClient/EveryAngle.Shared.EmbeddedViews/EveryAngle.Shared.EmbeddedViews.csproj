@@ -138,10 +138,7 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Resource\FieldsChooser\filter_nav_bg.png" />
     <EmbeddedResource Include="Resource\FieldsChooser\grid_header_bg.png" />
-    <EmbeddedResource Include="Resource\FieldsChooser\icon_suggest.png" />
-    <EmbeddedResource Include="Resource\FieldsChooser\icon_viewmode.png" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Resource\FieldsChooser\highlight.png" />
@@ -183,6 +180,13 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Resource\ClassesChooser\search-white.svg" />
+    <EmbeddedResource Include="Resource\FieldsChooser\icon_viewmode_compact.svg" />
+    <EmbeddedResource Include="Resource\FieldsChooser\icon_viewmode_compact_active.svg" />
+    <EmbeddedResource Include="Resource\FieldsChooser\icon_viewmode_details.svg" />
+    <EmbeddedResource Include="Resource\FieldsChooser\icon_viewmode_details_active.svg" />
+    <EmbeddedResource Include="Resource\FieldsChooser\icon_search.svg" />
+    <EmbeddedResource Include="Resource\FieldsChooser\icon_suggest.svg" />
+    <Content Include="Resource\FieldsChooser\icon_unsuggest.svg" />
     <Content Include="Resource\Shared\fonts\WebClient.readme.txt" />
     <EmbeddedResource Include="Resource\Shared\fonts\WebClientIco.css" />
     <EmbeddedResource Include="Resource\Shared\fonts\WebClientIco.svg" />
@@ -191,7 +195,6 @@
     <Content Include="Resource\Shared\Icons\btn_selectall.svg" />
     <EmbeddedResource Include="Resource\FieldsChooser\icon_starred_active.svg" />
     <EmbeddedResource Include="Resource\FieldsChooser\icon_starred_inactive.svg" />
-    <Content Include="Resource\FieldsChooser\search-white.svg" />
     <EmbeddedResource Include="Resource\NotificationsFeed\icon_notifications.svg" />
     <EmbeddedResource Include="Resource\NotificationsFeed\icon_clock.svg" />
     <EmbeddedResource Include="Resource\NotificationsFeed\notificationsfeed.css" />

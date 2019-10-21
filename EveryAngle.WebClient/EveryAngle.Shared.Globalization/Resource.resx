@@ -456,9 +456,6 @@
   <data name="SearchPageManagementConsole" xml:space="preserve">
     <value>IT Management Console</value>
   </data>
-  <data name="SearchPageNoPerferences" xml:space="preserve">
-    <value>No preferences</value>
-  </data>
   <data name="AdvanceFilterPublishedTitle" xml:space="preserve">
     <value>Published</value>
   </data>

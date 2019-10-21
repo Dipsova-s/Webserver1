@@ -1683,15 +1683,6 @@
             fieldsChooserModel.GetFieldChooserButtons = function () {
                 return [
                     {
-                        text: Captions.Button_Cancel,
-                        click: function (e) {
-                            if (!jQuery(e.currentTarget).hasClass('disabled')) {
-                                self.CloseFieldChooser();
-                            }
-                        },
-                        className: 'btn btnLarge btnPropertyCancel'
-                    },
-                    {
                         text: Localization.Save,
                         click: function () {
                             fieldsChooserModel.OnSubmit.call();
@@ -1722,9 +1713,6 @@
             // add element for show number of selected item(s)
             var selectedIndicator = jQuery('<span id="selectedItems"></span>');
             jQuery('#popupFieldChooser .fieldChooserTotals').prepend(selectedIndicator);
-
-            // enabled buttons after everything loaded
-            MC.ui.fieldschooser.checkFieldsChooserButtons('.btnPropertyCancel');
         };
         self.CloseFieldChooser = function () {
             if (fieldsChooserModel.FieldChooserPopup) {

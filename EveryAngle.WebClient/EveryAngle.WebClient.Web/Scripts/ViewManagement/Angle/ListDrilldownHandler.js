@@ -424,7 +424,6 @@ function ListDrilldownHandler() {
                                     }
                                 });
                             }
-                            self.FacetModel.UpdatePreferenceText();
                             self.FacetModel.UpdatingCategory = null;
 
                             dataSourceTmp[currentPage] = {

@@ -735,7 +735,7 @@ div.tagsinput .not_valid {
 }
 
 .helpTextPopup .k-window-titlebar .DisplayPropertiesGridSignSuggest {
-    background-image: url(./externalresource/icon_suggest.png);
+    background-image: url(./externalresource/icon_suggest.svg);
 }
 
 /* .tab
@@ -1196,6 +1196,7 @@ div.k-window-content > .k-loading-mask {
     background-color: #fff;
     padding-top: 18px;
     padding-bottom: 18px;
+    margin-right: -10px;
 }
 
 .fieldChooserButtons .btnSelectAll {
@@ -1206,17 +1207,9 @@ div.k-window-content > .k-loading-mask {
     float: right;
 }
 
-.fieldChooserButtons .btnPropertyCancel {
-    float: right;
-    margin-right: 5px;
-}
-
 .editRoleFieldsChooser .fieldChooserGridContainer .btnAddProperty,
-.editRoleFieldsChooser .fieldChooserGridContainer .btnPropertyCancel,
 .angleWarningFieldChooser .fieldChooserGridContainer .btnAddProperty,
-.angleWarningFieldChooser .fieldChooserGridContainer .btnPropertyCancel,
-.suggestedFieldsChooser .fieldChooserGridContainer .btnAddProperty,
-.suggestedFieldsChooser .fieldChooserGridContainer .btnPropertyCancel {
+.suggestedFieldsChooser .fieldChooserGridContainer .btnAddProperty {
     margin-top: 10px;
 }
 
@@ -1238,10 +1231,6 @@ div.k-window-content > .k-loading-mask {
 .addPropertyOptions .contentSectionInfoItem > p {
     font-weight: normal;
     margin-left: 150px;
-}
-
-.popupFieldChooserFieldSuggested .DisplayPropertiesGridSignFavoriteDisable {
-    background-image: url(../images/icons/icon_unsuggest.png);
 }
 
 .fieldChooserGridContainer .k-dirty {

@@ -1,42 +1,44 @@
 var fieldschooserHtmlTemplate = function () {
     return [
         '<div class="fieldChooserContainer">',
-        '<div id="NewColumnFilter" class="fieldChooserFilter">',
-        '<div data-bind="foreach: { data: FacetItems, as: \'facet\' }">',
-        '<!-- ko if: ($index() === 0 && $root.IsGeneralGroup(facet.id)) || !$root.IsGeneralGroup(facet.id) -->',
-        '<div data-bind="attr: { id: facet.id }, css: \'FilterTab-\' + ($root.IsGeneralGroup(facet.id) ? $root.GroupGeneral : facet.type) + \' \' + (facet.panel_opened() ? \'Expand\' : \'\'), click: $root.ToggleCategory" class="FilterTab">',
-        '<span class="FilterTitle" data-bind="text: $root.IsGeneralGroup(facet.id) ? Localization.GeneralFilters : facet.name"></span>',
-        '<span class="preferenceText" data-bind="text: facet.preference_text || Localization.SearchPageNoPerferences, attr: { title: facet.preference_text || Localization.SearchPageNoPerferences }"></span>',
-        '</div>',
-        '<!-- /ko -->',
-        '<div data-bind="attr: { id: facet.id + \'_Checkbox\' }, css: \'FilterCheckBox-\' + ($root.IsGeneralGroup(facet.id) ? $root.GroupGeneral + \' FilterCheckBox-general\' : facet.type), visible: facet.panel_opened" class="FilterCheckBox OptionalFilter">',
-        '<ul data-bind="foreach: { data: facet.filters, as: \'filter\' }, attr: { \'class\': facet.id }">',
-        '<li data-bind="css: $root.ItemCssClass(facet, $index()), attr: { title: $root.GetTitle(facet, filter)}, visible: !$root.HideFacetsFunction(facet.id, filter.id)">',
-        '<label>',
-        '<input type="checkbox" data-bind="checked: filter.checked, disable: filter.disabled, Indeterminatable: filter.checked, attr: { id: filter.id, alt: filter.name }, click: $root.FilterFacet" />',
-        '<span class="label" data-bind="html: $root.GetFilterText(filter)"></span>',
-        '</label>',
-        '</li>',
-        '</ul>',
-        '</div>',
-        '</div>',
-        '</div>',
-        '<div id="NewColumnProperty" class="fieldChooserContent compactDetail">',
-        '<div id="FilterProperties" class="fieldChooserProperties">',
-        '<input id="txtFitlerAvailableProperties" type="text" placeholder="' + Localization.FiledChooserFilterProperties + '" />',
-        '<a id="btnFitlerAvailableProperties" onclick="fieldsChooserModel.Filter()"></a>',
-        '</div>',
-        '<div class="fieldChooserTotals">',
-        '<span id="totalDisplayFieldsDatarow">0</span> <span>' + Localization.Items + '</span>',
-        '</div>',
-        '<div id="ViewProperty" class="fieldChooserViewType viewType viewTypeCompact">',
-        '<a id="LongProperty" onclick="fieldsChooserModel.SwitchDisplay(fieldsChooserModel.DISPLAY_TYPE.FULL)" class="typeFull" title="' + Localization.ViewDetailsMode + '"></a>',
-        '<a id="ShortProperty" onclick="fieldsChooserModel.SwitchDisplay(fieldsChooserModel.DISPLAY_TYPE.COMPACT)" class="typeCompact"  title="' + Localization.ViewCompactMode + '"></a>',
-        '</div>',
-        '<div id="PropertyTable" class="fieldChooserGridContainer">',
-        '<div id="DisplayPropertiesGrid"></div>',
-        '</div>',
-        '</div>',
+            '<div id="NewColumnFilter" class="fieldChooserFilter">',
+                '<div class="fieldChooserFilterInner">',
+                    '<div class="fieldChooserFacets" data-bind="foreach: { data: FacetItems, as: \'facet\' }">',
+                        '<!-- ko if: ($index() === 0 && $root.IsGeneralGroup(facet.id)) || !$root.IsGeneralGroup(facet.id) -->',
+                        '<div data-bind="attr: { id: facet.id }, css: \'FilterTab-\' + ($root.IsGeneralGroup(facet.id) ? $root.GroupGeneral : facet.type) + \' \' + (facet.panel_opened() ? \'Expand\' : \'\'), click: $root.ToggleCategory" class="FilterTab">',
+                            '<span class="FilterTitle" data-bind="text: $root.IsGeneralGroup(facet.id) ? Localization.GeneralFilters : facet.name"></span>',
+                            '<i class="icon icon-arrow-up"></i>',
+                            '<i class="icon icon-arrow-down"></i>',
+                        '</div>',
+                        '<!-- /ko -->',
+                        '<div data-bind="attr: { id: facet.id + \'_Checkbox\' }, css: \'FilterCheckBox-\' + ($root.IsGeneralGroup(facet.id) ? $root.GroupGeneral + \' FilterCheckBox-general\' : facet.type), visible: facet.panel_opened" class="FilterCheckBox OptionalFilter">',
+                            '<ul data-bind="foreach: { data: facet.filters, as: \'filter\' }, attr: { \'class\': facet.id }">',
+                                '<li data-bind="css: $root.ItemCssClass(facet, $index()), attr: { title: $root.GetTitle(facet, filter)}, visible: !$root.HideFacetsFunction(facet.id, filter.id)">',
+                                    '<label>',
+                                        '<input type="checkbox" data-bind="checked: filter.checked, disable: filter.disabled, Indeterminatable: filter.checked, attr: { id: filter.id, alt: filter.name }, click: $root.FilterFacet" />',
+                                        '<span class="label" data-bind="html: $root.GetFilterText(filter)"></span>',
+                                    '</label>',
+                                '</li>',
+                            '</ul>',
+                        '</div>',
+                    '</div>',
+                '</div>',
+            '</div>',
+            '<div id="NewColumnProperty" class="fieldChooserContent compactDetail">',
+                '<div class="fieldsChooserMenubar">',
+                    '<input id="txtFitlerAvailableProperties" type="text" placeholder="' + Localization.FiledChooserFilterProperties + '" />',
+                    '<div class="fieldChooserTotals">',
+                        '<span id="totalDisplayFieldsDatarow">0</span> <span>' + Localization.Items + '</span>',
+                    '</div>',
+                    '<div id="ViewProperty" class="fieldChooserViewType viewType viewTypeCompact">',
+                        '<a id="LongProperty" onclick="fieldsChooserModel.SwitchDisplay(fieldsChooserModel.DISPLAY_TYPE.FULL)" class="typeFull" title="' + Localization.ViewDetailsMode + '"></a>',
+                        '<a id="ShortProperty" onclick="fieldsChooserModel.SwitchDisplay(fieldsChooserModel.DISPLAY_TYPE.COMPACT)" class="typeCompact"  title="' + Localization.ViewCompactMode + '"></a>',
+                    '</div>',
+                '</div>',
+                '<div id="PropertyTable" class="fieldChooserGridContainer">',
+                    '<div id="DisplayPropertiesGrid"></div>',
+                '</div>',
+            '</div>',
         '</div>',
         '<div class="fieldChooserButtons btn-wrapper"></div>'
     ].join('');
@@ -406,7 +408,6 @@ function FieldsChooserModel() {
         if (model.facets && model.facets.length > 0) {
             jQuery.each(model.facets, function (k, v) {
                 if (jQuery.inArray(v.id, self.FacetsHidden) === -1) {
-                    v.preference_text = '';
                     v.child_checked = false;
                     v.panel_opened = ko.observable(typeof v.panel_opened === 'undefined' ? true : v.panel_opened);
                     jQuery.each(v.filters, function (k2, v2) {
@@ -468,34 +469,6 @@ function FieldsChooserModel() {
             }
         });
         self.FacetItems(facet);
-    };
-    self.UpdatePreferenceText = function () {
-        setTimeout(function () {
-            var data = [];
-            // clear preference text
-            jQuery.each(self.FacetItems(), function (k2, v2) {
-                v2.preference_text = '';
-                data.push(v2);
-            });
-
-            // find checked checkboxes
-            jQuery('.fieldChooserFilter:visible input:checked').each(function (k, v) {
-                var text = jQuery(v).attr('alt'),
-                    isGeneral = jQuery(v).parents('.FilterCheckBox:first').hasClass('FilterCheckBox-' + self.GroupGeneral),
-                    modelId = (isGeneral ? jQuery('.FilterTab-' + self.GroupGeneral + ':first').attr('id') : jQuery(v).parents('.FilterCheckBox:first').attr('id')).replace('_Checkbox', '');
-
-                // set preference text
-                jQuery.each(data, function (k2, v2) {
-                    if (v2.id === modelId) {
-                        if (data[k2].preference_text !== '')
-                            data[k2].preference_text += ',';
-                        data[k2].preference_text += text;
-                    }
-                });
-            });
-            self.FacetItems([]);
-            self.FacetItems(data);
-        }, 100);
     };
     self.CheckStatusList = function () {
         var status = {
@@ -641,7 +614,6 @@ function FieldsChooserModel() {
                                     });
 
                                     self.SetFacetFilter({ facets: ko.toJS(self.FacetItems()) });
-                                    self.UpdatePreferenceText();
                                 }
                             }
                             self.UpdatingCategory = null;
@@ -696,7 +668,7 @@ function FieldsChooserModel() {
         var grid = jQuery('#' + self.GridName).empty().data('submited', false).kendoGrid({
             dataSource: displayFieldsDataSource,
             autoBind: false,
-            resizable: jQuery.localStorage('mouse'),
+            resizable: Modernizr.mouse,
             navigatable: false,
             pageable: false,
             columns: self.GetColumnTemplate(),
@@ -1215,14 +1187,7 @@ function FieldsChooserModel() {
     self.GetCategoryIconById = function (id) {
 
         if (typeof fieldCategoryHandler !== 'undefined') {
-            var icon = '',
-                fixedIconPath = (typeof rootWebsitePath === 'undefined' ? '' : rootWebsitePath) + 'resources/embedded/',
-                fixedIcons = {
-                    'suggested': 'icon_suggest.png',
-                    'issuggested': 'icon_suggest.png',
-                    'facet_issuggested': 'icon_suggest.png'
-
-                };
+            var icon = '', fixedIconPath = (typeof rootWebsitePath === 'undefined' ? '' : rootWebsitePath) + 'resources/embedded/';
             var fieldTypeIcons =
             {
                 'boolean': 'icon_yes_no.png',
@@ -1240,20 +1205,13 @@ function FieldsChooserModel() {
                 'currency': 'icon_currency.png',
                 'starred': 'icon_starred_active.svg',
                 'isstarred': 'icon_starred_active.svg',
-                'facet_isstarred': 'icon_starred_active.svg'
+                'facet_isstarred': 'icon_starred_active.svg',
+                'suggested': 'icon_suggest.svg',
+                'issuggested': 'icon_suggest.svg',
+                'facet_issuggested': 'icon_suggest.svg'
             };
 
-            if (fixedIcons[id]) {
-                return {
-                    path: fixedIconPath + fixedIcons[id],
-                    dimension:
-                    {
-                        width: 20,
-                        height: 20
-                    }
-                };
-            }
-            else if (fieldTypeIcons[id]) {
+            if (fieldTypeIcons[id]) {
                 return {
                     path: fixedIconPath + fieldTypeIcons[id],
                     dimension:
@@ -1287,10 +1245,12 @@ function FieldsChooserModel() {
         else {
             html += '<span class="name">';
         }
-        html += filter.name || filter.id;
+        html += '<span class="filter-name">' + (filter.name || filter.id) + '</span>';
+
         if (filter.checked()) {
-            html += ' (' + filter.count() + ')';
+            html += '<span class="filter-count">' + filter.count() + '</span>';
         }
+
         html += '</span>';
 
         return html;
@@ -1642,7 +1602,7 @@ function FieldsChooserModel() {
     };
     self.CompactView = function () {
         jQuery('#NewColumnProperty').removeClass('fullDetail').addClass('compactDetail');
-        jQuery('#ViewProperty').addClass('viewTypeCompact').removeClass('viewTypeFull');
+        jQuery('#ViewProperty a').removeClass('active').filter('.typeCompact').addClass('active');
     };
     self.FullView = function () {
         if (typeof helpTextHandler !== 'undefined') {
@@ -1654,7 +1614,7 @@ function FieldsChooserModel() {
         }
 
         jQuery('#NewColumnProperty').addClass('fullDetail').removeClass('compactDetail');
-        jQuery('#ViewProperty').removeClass('viewTypeCompact').addClass('viewTypeFull');
+        jQuery('#ViewProperty a').removeClass('active').filter('.typeFull').addClass('active');
     };
     self.SortFacetFilter = function (list, sortBy, convertor, direction) {
         if (typeof convertor === 'undefined')
@@ -1907,17 +1867,14 @@ function FieldsChooserModel() {
         }, 500);
     };
     self.OnResizePopupDefault = function (e) {
-        // the override function
-        self.OnResizePopup(e);
-
         // set height to grid and filter
         self.AdjustPopupItemsContainerHeight(e);
 
         // set grid column size
         self.AdjustColumn(e.sender.wrapper.find('.k-grid').data('kendoGrid'));
 
-        // skip action below if popup has initializing
-        if (!jQuery('#DisplayPropertiesGrid').children().length) {
+        // skip action below if popup is initializing
+        if (!e.sender.wrapper.find('#DisplayPropertiesGrid').children().length) {
             return;
         }
 
@@ -1940,6 +1897,9 @@ function FieldsChooserModel() {
 
         // save layout to localstorage
         self.SaveFieldChooserLayoutSettings();
+
+        // the override function
+        self.OnResizePopup(e);
     };
     self.OnMaximizePopupDefault = function (e) {
         // change tooltip text on maximize button
@@ -1979,11 +1939,12 @@ function FieldsChooserModel() {
     self.AdjustPopupItemsContainerHeight = function (e) {
         if (e.sender.element.children().length) {
             var popupHeight = e.sender.element.height();
+            var facetFiltersOffsetTop = jQuery('#NewColumnFilter').position().top;
             var gridOffsetTop = jQuery('#PropertyTable').position().top;
             var buttonsHeight = jQuery('.fieldChooserButtons').outerHeight();
 
-            jQuery('#NewColumnFilter').height(popupHeight - buttonsHeight - 30);
-            jQuery('#DisplayPropertiesGrid').height(popupHeight - gridOffsetTop - buttonsHeight - 18);
+            jQuery('#NewColumnFilter').height(popupHeight - facetFiltersOffsetTop - buttonsHeight);
+            jQuery('#DisplayPropertiesGrid').height(popupHeight - gridOffsetTop - buttonsHeight);
         }
     };
     self.BindFieldChooserHtmlToDocumentBody = function (id, html) {
@@ -2015,12 +1976,12 @@ function FieldsChooserModel() {
     self.GetDefaultFieldChooserLayoutSettings = function () {
         var defaultColumnSettings = function () {
             return {
-                id: { width: 42 },
-                category: { width: 42 },
-                source: { width: 110 },
-                short_name: { width: 280 },
-                fieldtype: { width: 50 },
-                technical_info: { width: 70 }
+                id: { width: 25 },
+                category: { width: 25 },
+                source: { width: 89 },
+                short_name: { width: 162 },
+                fieldtype: { width: 77 },
+                technical_info: { width: 162 }
             };
         };
 

@@ -5,92 +5,84 @@
 }
 
 .fieldChooserContainer {
-    position: relative;
-}
-
-.fieldChooserContainer:before,
-.fieldChooserContainer:after {
-    content: '';
-    position: absolute;
-    left: 16px;
-    top: 12px;
-    border-top: 1px solid #b3b3b3;
-    width: 170px;
-    height: 1px;
-    overflow: hidden;
-    z-index: 10;
-}
-
-.fieldChooserContainer:after {
-    top: auto;
-    bottom: 16px;
+    padding: 20px;
+    padding-bottom: 0;
+    width: 100%;
+    box-sizing: border-box;
 }
 
 .fieldChooserFilter {
     float: left;
-    width: 187px;
+    width: 197px;
+    background-color: #fafcfc;
+}
+
+.fieldChooserFilter .fieldChooserFilterInner {
     height: 100%;
-    margin: 13px 0 0 16px;
     overflow: auto;
     overflow-x: hidden;
+    overflow: auto;
+    visibility: hidden;
+}
+
+.no-mouse .fieldChooserFilterInner, .fieldChooserFilterInner:hover {
+    visibility: visible;
 }
 
 .fieldChooserFilter .k-loading-mask {
-    width: 170px !important;
+    width: 217px !important;
     position: absolute;
     min-height: 0;
     z-index: 9999;
 }
 
-.fieldChooserFilter > div {
+.fieldChooserFilter .fieldChooserFacets {
     position: relative;
-    width: 170px;
     min-height: 100%;
     box-sizing: border-box;
-    border-left: 1px solid #b3b3b3;
-    border-right: 1px solid #b3b3b3;
+    margin: 0 15px;
+    visibility: visible;
 }
 
 .fieldChooserFilter .FilterTab {
-    height: 42px;
-    padding-left: 8px;
-    line-height: 23px;
+    display: flex;
+    align-items: center;
     position: relative;
-    left: 0;
-    top: 0;
-    border-bottom: 1px solid #b3b3b3;
-    background: #fff url(filter_nav_bg.png) left bottom repeat-x;
     cursor: pointer;
     z-index: 10;
+    padding: 22px 0;
 }
 
-.fieldChooserFilter .FilterTab:after {
-    content: '';
-    display: block;
-    position: absolute;
-    right: 7px;
-    top: 0;
-    width: 12px;
-    height: 100%;
-    background: transparent url(icon_arrow_down.svg) left center no-repeat;
+.fieldChooserFilter .FilterTab:not(:first-child) {
+    border-top: 1px solid #e4e8eb;
 }
 
-.fieldChooserFilter .FilterTab.Expand:after {
+.fieldChooserFilter .FilterTab .icon {
+    width: 10px;
+    height: 10px;
+    margin-left: auto;
+    background: transparent left center no-repeat;
+    display: none;
+}
+
+.fieldChooserFilter .FilterTab:not(.Expand) .icon-arrow-down {
+    background-image: url(icon_arrow_down.svg);
+    display: inline-block;
+}
+
+.fieldChooserFilter .FilterTab.Expand .icon-arrow-up {
     background-image: url(icon_arrow_up.svg);
+    display: inline-block;
 }
 
 .fieldChooserFilter .FilterTab .FilterTitle {
-    position: relative;
-    top: 3px;
-    color: #333333;
-    font-size: 14px;
+    font-size: 13px;
+    font-weight: bold;
+    color: #909191;
 }
 
 .fieldChooserFilter .FilterTab span {
     display: block;
-    position: relative;
-    left: 1px;
-    top: -5px;
     color: #666666;
     font-family: inherit;
     font-size: 11px;
@@ -99,16 +91,10 @@
     white-space: nowrap;
 }
 
-.fieldChooserFilter .FilterTab span.preferenceText {
-    width: 155px;
-}
-
 .fieldChooserFilter .FilterCheckBox {
     margin: 0 0 -1px 0;
     position: relative;
     height: auto;
-    background-color: #ffffff;
-    border-bottom: 1px solid #b3b3b3;
     z-index: 10;
 }
 
@@ -119,8 +105,7 @@
 
 .fieldChooserFilter ul {
     margin: 0;
-    padding: 12px 0 0 9px;
-    position: relative;
+    padding: 0;
 }
 
 .fieldChooserFilter ul li {
@@ -132,7 +117,7 @@
     font-style: normal;
     font-weight: normal;
     text-decoration: none;
-    height: 25px;
+    margin-bottom: 19px;
 }
 
 .fieldChooserFilter ul li:hover {
@@ -152,35 +137,52 @@
 }
 
 .fieldChooserFilter ul li .label {
-    max-width: 130px;
+    width: calc(100% - 30px);
+    margin-left: 0;
 }
 
 .fieldChooserFilter ul li .label > .name {
-    display: block;
+    font-size: 14px;
+    display: inline-flex;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
     line-height: 17px;
     margin-top: -2px;
+    width: 100%;
 }
 
 .fieldChooserFilter ul li .label > .name.withIcon {
-    margin-left: 23px;
+    padding-left: 20px;
+    box-sizing: border-box;
+}
+
+.fieldChooserFilter ul li .label .filter-name {
+    -ms-flex: 2;
+    display: inline-block;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    margin-right: 10px;
+}
+
+.fieldChooserFilter ul li .label .filter-count {
+    -ms-flex: 1;
+    display: inline-block;
+    margin-left: auto;
+    text-align: right;
 }
 
 .fieldChooserFilter ul li > label img {
     position: absolute;
     left: 0;
     bottom: 1px;
-    margin-left: 30px;
+    margin-left: 26px;
 }
 
 .fieldChooserContent {
-    margin: 0 16px 0 203px;
-    position: relative;
     height: 100%;
-    border-left: 1px solid #bfbfbf;
-    padding-left: 16px;
+    margin-left: 209px;
 }
 
 .fieldChooserContent .grid-no-data,
@@ -191,139 +193,106 @@
     font-size: 14px;
 }
 
-.fieldChooserProperties {
-    position: relative;
-    left: 0;
-    top: 14px;
-    height: 41px;
-    background-color: #fff;
-    border: 1px solid #d8d8d8;
-    border-right: none;
-    margin: 0 102px 32px 0;
-    box-sizing: border-box;
-    border-radius: 2px;
-    z-index: 1;
+
+.fieldsChooserMenubar {
+    display: flex;
+    padding-bottom: 12px;
 }
 
-.fieldChooserProperties:hover {
-    border-color: #025e7f;
-    transition: .15s ease-in;
-}
-
-.fieldChooserProperties:focus {
-    border-color: #025e7f;
-}
-
-.fieldChooserProperties input {
-    position: absolute;
-    left: 0;
-    top: 0;
-    margin: 0;
-    padding: 0 79px 0 18px !important;
+#txtFitlerAvailableProperties {
     width: 100%;
-    height: 100% !important;
-    color: #666;
-    font-size: 13px;
-    line-height: normal !important;
-    text-align: left;
-    background: none transparent !important;
-    border: 0 !important;
-    outline-style: none;
-    box-shadow: none !important;
-    box-sizing: border-box;
-    z-index: 1;
-}
-
-.fieldChooserProperties a {
-    display: block;
-    height: 41px;
-    position: absolute;
-    right: 0;
-    top: -1px;
-    width: 56px;
-    background-color: #025e7f;
-    border-radius: 0 2px 2px 0;
-    z-index: 2;
-}
-
-.fieldChooserProperties a:before {
-    content: '';
-    background: transparent url(search-white.svg) center center no-repeat;
-    position: absolute;
-    left: 50%;
-    top: 50%;
-    margin-left: -10px;
-    margin-top: -10px;
-    height: 20px;
-    width: 20px;
+    max-width: 325px;
+    height: 30px;
+    border-radius: 99px;
+    border-color: transparent;
+    outline: none;
+    padding: 4px 38px;
+    padding-right: 4px;
+    margin-right: 15px;
+    background-color: #f7f7f9;
+    color: #3d4852;
+    background-image: url(icon_search.svg);
+    background-position-x: 13px;
+    background-position-y: center;
+    background-size: 14px 14px;
+    background-repeat: no-repeat;
 }
 
 .fieldChooserTotals {
-    position: absolute;
-    right: 0;
-    top: 57px;
     font-size: 12px;
-    color: #777;
+    color: #34495e;
+    font-weight: bold;
+    margin-left: auto;
+    margin-right: 15px;
+    align-items: center;
+    display: inline-flex;
+}
+
+#totalDisplayFieldsDatarow {
+    padding-right: 5px;
 }
 
 .fieldChooserContainer .fieldChooserViewType {
-    position: absolute;
-    right: 0;
-    top: 14px;
-    height: auto;
-    width: auto;
-    padding: 0;
-    border-width: 0;
-    z-index: 2;
+    min-width: 94px;
+    height: 32px;
+    border-radius: 2px;
+    padding: 3px 4px;
+    border: solid 1px #d1d1d1;
+    background-color: #ffffff;
+    box-sizing: border-box;
 }
 
-.fieldChooserViewType .typeFull,
-.fieldChooserViewType .typeCompact {
+.fieldChooserContainer .fieldChooserViewType a {
+    position: relative;
     float: left;
-    display: block;
-    width: 42px;
-    height: 42px;
-    margin-left: 7px;
-    background: transparent url(icon_viewmode.png) left top no-repeat;
+    width: 40px;
+    height: 24px;
+    border-radius: 2px;
+    transition: background-color .15s ease-in-out, box-shadow .15s ease-in-out;
+    box-sizing: border-box;
 }
 
-.fieldChooserViewType .typeFull:hover {
-    background-position: left -90px;
-    background-color: transparent;
+.fieldChooserContainer .fieldChooserViewType a:before {
+    content: '';
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    margin-top: -7px;
+    margin-left: -7px;
+    width: 14px;
+    height: 14px;
+    background: transparent none center center no-repeat;
+    background-size: 28px 28px;
 }
 
-.fieldChooserViewType .typeCompact:hover {
-    background-position: right -90px;
-    background-color: transparent;
+.fieldChooserContainer .fieldChooserViewType .typeFull {
+    margin-right: 4px;
+}
+.fieldChooserContainer .fieldChooserViewType .typeFull:before {
+    background-image: url(icon_viewmode_details.svg);
+}
+.fieldChooserContainer .fieldChooserViewType .typeFull.active:before, 
+.fieldChooserContainer .fieldChooserViewType .typeFull:hover:before {
+    background-image: url(icon_viewmode_details_active.svg);
 }
 
-.fieldChooserViewType.viewTypeFull .typeFull {
-    cursor: default;
-    background-position: left top !important;
+.fieldChooserContainer .fieldChooserViewType .typeCompact:before {
+    background-image: url(icon_viewmode_compact.svg);
+}
+.fieldChooserContainer .fieldChooserViewType .typeCompact.active:before, 
+.fieldChooserContainer .fieldChooserViewType .typeCompact:hover:before {
+    background-image: url(icon_viewmode_compact_active.svg);
 }
 
-.fieldChooserViewType .typeCompact {
-    background-position: right top;
+.fieldChooserContainer .fieldChooserViewType a.active,
+.fieldChooserContainer .fieldChooserViewType a:hover {
+    background-color: #78909c;
 }
 
-.fieldChooserViewType.viewTypeCompact .typeCompact {
-    cursor: default;
-    background-position: right -45px !important;
-}
-
-.fieldChooserViewType .typeFull {
-    background-position: left -45px;
-}
-
-.fieldChooserViewType .typeFull:before,
-.fieldChooserViewType .typeCompact:before {
-    display: none;
-}
 
 .fieldChooserGridContainer {
     position: relative;
     z-index: 2;
-    padding-bottom: 16px;
 }
 
 .fieldChooserContainer.no-data:before,
@@ -344,8 +313,8 @@
 }
 
 .fieldChooserGridContainer .k-grid {
-    border-bottom: 1px solid #e6e6e6;
     border-radius: 0;
+    border-color: #e3e5e5;
 }
 
 .fieldChooserGridContainer .k-grid td {
@@ -360,48 +329,50 @@
 .fieldChooserGridContainer div.k-grid-header {
     position: relative;
     z-index: 2;
+    background-color: transparent;
+    border: 0;
 }
 
 .fieldChooserGridContainer div.k-grid-header-wrap {
-    box-shadow: 0 2px 8px #dadada;
-    border-color: #d8d8d8;
+    box-shadow: none;
+    border-color: transparent;
 }
 
 .fieldChooserGridContainer div.k-grid-header th.k-header {
-    overflow: visible;
-    position: relative;
-    border-bottom-width: 0;
-    border-left-color: #949494;
+    border-bottom: 3px solid #e3e5e5;
+    border-color: #e3e5e5;
     background-color: transparent;
+    box-sizing: border-box;
+    height: 40px;
     padding: 0;
-}
-
-.fieldChooserGridContainer div.k-grid-header table {
-    border-bottom: 0 solid #949494;
+    vertical-align: middle;
 }
 
 .DisplayAvaliablePropertiesHeaderGrid {
     display: block;
-    overflow: hidden;
-    line-height: 26px;
     font-weight: bold;
     font-size: 12px;
     padding: 4px 12px 4px 6px;
-    height: 26px;
+    color: #34495e;
 }
 
 #fieldtype.DisplayAvaliablePropertiesHeaderGrid {
     text-align: center;
 }
 
+#starred.DisplayAvaliablePropertiesHeaderGrid:after,
+#category.DisplayAvaliablePropertiesHeaderGrid:after {
+    padding-left: 2px;
+}
+
 .DisplayAvaliablePropertiesHeaderGrid:after {
     content: '';
     background: transparent none right bottom no-repeat;
     position: absolute;
-    right: 2px;
-    bottom: 4px;
     width: 10px;
     height: 13px;
+    padding-left: 10px;
+    top: 11px;
 }
 
 .DisplayAvaliablePropertiesHeaderGrid.asc:after {
@@ -424,7 +395,7 @@
 
 .fieldChooserGridContainer tr.k-alt,
 .fieldChooserGridContainer tr.k-alt:hover {
-    background-color: #f2f2f2;
+    background-color: transparent !important;
     background-image: none;
 }
 
@@ -447,9 +418,11 @@
 .fieldChooserGridContainer div.k-grid tbody td {
     font-family: inherit;
     font-size: 11px;
-    border-bottom: 1px solid #d3d6d9;
-    border-color: #d3d6d9;
+    letter-spacing: 0.24px;
+    border: 0;
+    border-bottom: 1px solid #e3e5e5;
     padding: 0 5px;
+    color: rgba(0, 0, 0, 0.87);
 }
 
 .fieldChooserGridContainer .iconFieldType {
@@ -519,7 +492,11 @@
 }
 
 .DisplayPropertiesGridSignSuggest {
-    background-image: url(icon_suggest.png);
+    background: url(icon_suggest.svg) no-repeat center;
+}
+
+.popupFieldChooserFieldSuggested .DisplayPropertiesGridSignFavoriteDisable {
+    background: url(icon_unsuggest.svg) no-repeat center;
 }
 
 .fieldChooserGridContainer .loading {
@@ -567,9 +544,11 @@
 .fullDetail .fieldChooserGridContainer .detail {
     font-size: 10px;
     line-height: 12px;
+    letter-spacing: 0.24px;
     font-weight: normal;
     width: 490px;
     height: 37px;
+    padding-top: 2px;
     overflow: hidden;
     display: -webkit-box; /* NOSONAR: acceptable */
     -webkit-line-clamp: 3; /* NOSONAR: acceptable */
@@ -603,9 +582,9 @@
 }
 
 .fieldChooserButtons {
+    clear: both;
     display: block;
     overflow: hidden;
-    padding: 11px;
-    background: #f3f3f3;
-    border-top: 1px solid #e6e6e6;
+    padding: 20px;
+    margin-right: -5px;
 }

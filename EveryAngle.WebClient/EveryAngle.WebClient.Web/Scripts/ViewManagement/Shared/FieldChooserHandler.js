@@ -77,6 +77,9 @@ function FieldsChooserHandler() {
         fieldsChooserModel.OnClosePopup = function (e) {
             self.OnClosePopup(e, handler, window.listHandler);
         };
+        fieldsChooserModel.OnResizePopup = function (e) {
+            kendo.resize(e.sender.element);
+        };
         fieldsChooserModel.SaveUserSettingsViewMode = function (viewMode) {
             var clientSetting = jQuery.parseJSON(fieldsChooserModel.ClientSettings);
             clientSetting[enumHandlers.CLIENT_SETTINGS_PROPERTY.FIELD_CHOOSER_VIEW_MODE] = viewMode;
@@ -127,23 +130,17 @@ function FieldsChooserHandler() {
     self.GetFieldChooserButtons = function () {
         return [
             {
-                text: Captions.Button_Cancel,
-                click: function (e, kendoWindow) {
-                    kendoWindow.close();
-                    e.stopPropagation();
-                },
-                className: 'btn btn-ghost float-right executing'
-            },
-            {
-                text: Localization.Ok,
+                text: Localization.Add,
                 click: jQuery.noop,
                 className: 'btn btn-primary float-right executing'
             }
         ];
     };
     self.SetSubmitButtonCaption = function (popupSettings, caption) {
-        var btnSubmit = popupSettings.buttons.findObject('text', Localization.Ok);
-        btnSubmit.text = caption;
+        var btnSubmit = popupSettings.buttons.findObject('text', Localization.Add);
+        if (caption) {
+            btnSubmit.text = caption;
+        }
         btnSubmit.click = function (e) {
             self.OnSubmitFieldChooser(e.currentTarget);
         };
@@ -156,7 +153,7 @@ function FieldsChooserHandler() {
     self.SetAddColumnPopupSettings = function (popupSettings, handler, listHandler) {
         popupSettings.title = Localization.InsertColumn;
 
-        self.SetSubmitButtonCaption(popupSettings, Localization.InsertColumn);
+        self.SetSubmitButtonCaption(popupSettings);
 
         fieldsChooserModel.CanDuplicatedField = true;
         fieldsChooserModel.ForceSetSelecting = true;
@@ -168,7 +165,7 @@ function FieldsChooserHandler() {
     self.SetAddFilterPopupSettings = function (popupSettings, handler) {
         popupSettings.title = Localization.SelectAPropertyToApplyAsFilter;
 
-        self.SetSubmitButtonCaption(popupSettings, Localization.Ok);
+        self.SetSubmitButtonCaption(popupSettings);
 
         fieldsChooserModel.CanDuplicatedField = true;
         fieldsChooserModel.AllowMultipleSelection = false;
@@ -211,7 +208,7 @@ function FieldsChooserHandler() {
     self.SetAddDashboardFilterPopupSettings = function (popupSettings, handler) {
         popupSettings.title = Localization.SelectAPropertyToApplyAsFilter;
 
-        self.SetSubmitButtonCaption(popupSettings, Localization.Ok);
+        self.SetSubmitButtonCaption(popupSettings);
 
         fieldsChooserModel.CanDuplicatedField = false;
         fieldsChooserModel.AllowMultipleSelection = false;
@@ -243,7 +240,7 @@ function FieldsChooserHandler() {
     self.SetAddAggregationPopupSettings = function (popupSettings) {
         popupSettings.title = self.GetAggregationPopupTitle(fieldSettingsHandler.FieldSettings.DisplayType, fieldSettingsHandler.CurrentFieldArea);
 
-        self.SetSubmitButtonCaption(popupSettings, Localization.InsertField);
+        self.SetSubmitButtonCaption(popupSettings);
 
         if (fieldsChooserModel.FieldChooserType === 'data') {
             self.SetAggregationSettingDataArea();

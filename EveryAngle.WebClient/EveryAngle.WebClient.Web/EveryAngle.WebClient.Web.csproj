@@ -793,7 +793,6 @@
     <Content Include="Images\Icons\icon_viewmode.png" />
     <Content Include="Images\Popup\popup_left_bottom_arrow.png" />
     <Content Include="Images\Popup\popup_top_arrow.png" />
-    <Content Include="Images\SearchPage\icn_suggest.png" />
     <Content Include="Images\SearchPage\icon_followup.png" />
     <Content Include="Images\Domains\DeliveryStatus\DeliveryStatusds0None.png" />
     <Content Include="Images\Domains\DeliveryStatus\DeliveryStatusds1NotCritical.png" />
