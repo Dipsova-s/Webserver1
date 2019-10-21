@@ -41,7 +41,8 @@ function QueryStepModel(model, isCheckValidate) {
                     warning_type: validationHandler.WARNINGTYPE.FIELD
                 };
             }
-            else if (self.operator === enumHandlers.OPERATOR.BETWEEN.Value || self.operator === enumHandlers.OPERATOR.NOTBETWEEN.Value) {
+            else if (self.operator === enumHandlers.OPERATOR.BETWEEN.Value || self.operator === enumHandlers.OPERATOR.NOTBETWEEN.Value
+                || self.operator === enumHandlers.OPERATOR.RELATIVEBETWEEN.Value || self.operator === enumHandlers.OPERATOR.NOTRELATIVEBETWEEN.Value) {
                 var argsCount = self.arguments.length;
                 var isInvalidExecutionParameter = self.is_execution_parameter && !(argsCount === 0 || argsCount === 2);
                 var isInvalidArgument = !self.is_execution_parameter && argsCount !== 2;

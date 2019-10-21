@@ -6122,11 +6122,23 @@ Only Active Directory (AD) and Active Directory Federation (ADFS) services are s
   </data>
   <data name="Toast_UnValidateItem" xml:space="preserve">
     <value>Die Freigabe von „{0}“ wurde aufgehoben!</value>
-  </data>
+  </data> 
   <data name="DeselectAll" xml:space="preserve">
     <value>Deselect all</value>
   </data>
   <data name="InvertSelection" xml:space="preserve">
     <value>Invert selection</value>
+  </data>
+  <data name="OperatorIsNotRelativeBetween" xml:space="preserve">
+    <value>ist nicht relativ zwischen</value>
+  </data>
+  <data name="OperatorIsRelativeAfter" xml:space="preserve">
+    <value>ist relativ nach</value>
+  </data>
+  <data name="OperatorIsRelativeBefore" xml:space="preserve">
+    <value>ist relativ vor</value>
+  </data>
+  <data name="OperatorIsRelativeBetween" xml:space="preserve">
+    <value>ist relativ zwischen</value>
   </data>
 </root>

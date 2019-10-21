@@ -6129,4 +6129,16 @@ Only Active Directory (AD) and Active Directory Federation (ADFS) services are s
   <data name="InvertSelection" xml:space="preserve">
     <value>Invert selection</value>
   </data>
+  <data name="OperatorIsNotRelativeBetween" xml:space="preserve">
+    <value>n'est pas relatif entre</value>
+  </data>
+  <data name="OperatorIsRelativeAfter" xml:space="preserve">
+    <value>est relatif après</value>
+  </data>
+  <data name="OperatorIsRelativeBefore" xml:space="preserve">
+    <value>est relatif avant</value>
+  </data>
+  <data name="OperatorIsRelativeBetween" xml:space="preserve">
+    <value>est relatif entre</value>
+  </data>
 </root>

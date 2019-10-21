@@ -3709,4 +3709,16 @@ The value 0 means the setting is off, so the Audit Log will not be cleaned up. T
   <data name="InvertSelection" xml:space="preserve">
     <value>Keer selectie om</value>
   </data>
+  <data name="OperatorIsNotRelativeBetween" xml:space="preserve">
+    <value>is niet relatief tussen</value>
+  </data>
+  <data name="OperatorIsRelativeAfter" xml:space="preserve">
+    <value>is relatief na</value>
+  </data>
+  <data name="OperatorIsRelativeBefore" xml:space="preserve">
+    <value>is relatief voor</value>
+  </data>
+  <data name="OperatorIsRelativeBetween" xml:space="preserve">
+    <value>is relatief tussen</value>
+  </data>
 </root>

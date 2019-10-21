@@ -131,6 +131,10 @@ Verify All Operators Of Date
     Wait Until Page Contains    is in list
     Wait Until Page Contains    is not in list
     Wait Until Page Contains    is not between
+    Wait Until Page Contains    is relative before
+    Wait Until Page Contains    is relative after
+    Wait Until Page Contains    is relative between
+    Wait Until Page Contains    is not relative between
     Close Operator Dropdown List
 
 #Datetime
@@ -155,6 +159,10 @@ Verify All Operators Of DateTime
     Wait Until Page Contains    is in list
     Wait Until Page Contains    is not in list
     Wait Until Page Contains    is not between
+    Wait Until Page Contains    is relative before
+    Wait Until Page Contains    is relative after
+    Wait Until Page Contains    is relative between
+    Wait Until Page Contains    is not relative between
     Close Operator Dropdown List
 
 #Text
