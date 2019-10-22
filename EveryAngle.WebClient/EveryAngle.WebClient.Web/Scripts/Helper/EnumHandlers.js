@@ -258,6 +258,10 @@ function EnumHandlers() {
         DATETIME_WC: 'datetime_wc'
     };
 
+    self.FIELDCATEGORY = {
+        EA: 'EA'
+    };
+
     self.FIELDSETTING = {
         USEDEFAULT: "usedefault"
     };

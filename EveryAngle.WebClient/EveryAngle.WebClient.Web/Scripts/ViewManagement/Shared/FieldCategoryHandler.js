@@ -69,21 +69,20 @@ function FieldCategoryHandler() {
     };
 
     self.GetCategoryIconByField = function (field, showSmallIcon) {
-        var imageDetail = {};
         if (typeof showSmallIcon === 'undefined')
             showSmallIcon = true;
+
         var category = self.GetFieldCategoryByUri(field.category);
+        var iconId = category ? category.id : enumHandlers.FIELDCATEGORY.EA;
         var iconSize = showSmallIcon ? 16 : 32;
-        if (category) {
-            imageDetail.path = kendo.format('{0}{1}_{2}.png', fieldCategoryIconPath, category.id, iconSize).toLowerCase();
-        }
-        else {
-            imageDetail.path = kendo.format('{0}searchpage/icn_item_angle.svg', GetImageFolderPath()).toLowerCase();
-        }
-        imageDetail.dimension = {
-            width: iconSize,
-            height: iconSize
+        var imageDetail = {
+            path: kendo.format('{0}{1}_{2}.png', fieldCategoryIconPath, iconId, iconSize).toLowerCase(),
+            dimension: {
+                width: iconSize,
+                height: iconSize
+            }
         };
+
         return imageDetail;
     };
 
