@@ -965,12 +965,14 @@ div.tagsinput .not_valid {
 .k-window .k-link:not(.k-state-disabled):hover > .k-i-close {
     background-image: url(../images/icons/icon_close.svg);
     background-position: left top;
+    background-size: 14px 14px;
 }
 
 .k-window .k-link .k-i-maximize,
 .k-window .k-link:not(.k-state-disabled):hover > .k-i-maximize {
     background-image: url(../images/icons/icon_popup_maximize.svg);
     background-position: left top;
+    background-size: 14px 14px;
 }
 
 .k-window .k-link .k-i-restore,
