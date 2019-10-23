@@ -28,6 +28,7 @@
     }
 
     .scrollable {
+        max-height: calc(100vh - 200px); /*fallback for ie*/
         max-height: calc(var(--vh, 1vh) * 100 - 200px);
     }
 
