@@ -114,6 +114,7 @@
 
 .settingsPanelContentsWrapper {
     width: 100%;
+    height: calc(100vh - 133px); /*fallback for ie*/
     height: calc(var(--vh, 1vh) * 100 - 133px);
     padding: 20px 20px 0 20px;
     box-sizing: border-box;
