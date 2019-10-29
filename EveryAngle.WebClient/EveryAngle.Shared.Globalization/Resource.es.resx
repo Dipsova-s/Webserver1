@@ -634,7 +634,7 @@
     <value>Filtro rápido</value>
   </data>
   <data name="CellPopupMenuGotoSAP" xml:space="preserve">
-    <value>Ir a SAP</value>
+    <value>Go to SAP</value>
   </data>
   <data name="CellPopupSubMenuEmpty" xml:space="preserve">
     <value>Está vacía</value>
@@ -820,13 +820,13 @@
     <value>Mostrar nombres técnicos</value>
   </data>
   <data name="SystemSettingLabelGoToSAP" xml:space="preserve">
-    <value>Ir a SAP</value>
+    <value>Go to SAP</value>
   </data>
   <data name="SystemSettingLabelGoToSAPDownload" xml:space="preserve">
     <value>Descargar Launcher</value>
   </data>
   <data name="SystemSettingLabelGoToSAPDownload_Info" xml:space="preserve">
-    <value>Para usar Ir a SAP, haga clic para descargar e instalar el Launcher de Ir a SAP en la estación de trabajo.</value>
+    <value>Para usar Go to SAP, haga clic para descargar e instalar el Launcher de Go to SAP en la estación de trabajo.</value>
   </data>
   <data name="SystemSettingLabelShowSmallBusinessProcessBar" xml:space="preserve">
     <value>Mostrar barra de Proceso de negocios pequeña</value>
