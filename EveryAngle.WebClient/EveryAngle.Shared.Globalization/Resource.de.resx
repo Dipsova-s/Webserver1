@@ -631,7 +631,7 @@
     <value>Kurzfilter</value>
   </data>
   <data name="CellPopupMenuGotoSAP" xml:space="preserve">
-    <value>Zu SAP</value>
+    <value>Go to SAP</value>
   </data>
   <data name="CellPopupSubMenuEmpty" xml:space="preserve">
     <value>Ist leer</value>
@@ -817,13 +817,13 @@
     <value>Technische Namen anzeigen</value>
   </data>
   <data name="SystemSettingLabelGoToSAP" xml:space="preserve">
-    <value>Zu SAP</value>
+    <value>Go to SAP</value>
   </data>
   <data name="SystemSettingLabelGoToSAPDownload" xml:space="preserve">
     <value>Launcher herunterladen</value>
   </data>
   <data name="SystemSettingLabelGoToSAPDownload_Info" xml:space="preserve">
-    <value>Um „Zu SAP“ zu verwenden, klicken Sie auf den „Zu SAP“-Launcher, um ihn herunterzuladen und auf Ihrer Arbeitsstation zu installieren.</value>
+    <value>Um „Go to SAP“ zu verwenden, klicken Sie auf den „Go to SAP“-Launcher, um ihn herunterzuladen und auf Ihrer Arbeitsstation zu installieren.</value>
   </data>
   <data name="SystemSettingLabelShowSmallBusinessProcessBar" xml:space="preserve">
     <value>Kurzdarstellung anzeigen</value>

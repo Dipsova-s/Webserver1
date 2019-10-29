@@ -625,7 +625,7 @@
     <value>Snelfilter</value>
   </data>
   <data name="CellPopupMenuGotoSAP" xml:space="preserve">
-    <value>Ga naar SAP</value>
+    <value>Go to SAP</value>
   </data>
   <data name="CellPopupSubMenuEmpty" xml:space="preserve">
     <value>Is Leeg</value>
@@ -817,7 +817,7 @@
     <value>Download Launcher</value>
   </data>
   <data name="SystemSettingLabelGoToSAPDownload_Info" xml:space="preserve">
-    <value>Om Go to SAP te kunnen gebruiken, dient de Go to SAP launcher geïnstalleerd te zijn. Klik hier om deze te downloaden.</value>
+    <value>Om Go to SAP the kunnen gebruiken klikt u hier om de Go to SAP Launcher te downloaden en te installeren op uw systeem. </value>
   </data>
   <data name="SystemSettingLabelShowSmallBusinessProcessBar" xml:space="preserve">
     <value>Toon kleine Bedrijfsprocessenbalk</value>
