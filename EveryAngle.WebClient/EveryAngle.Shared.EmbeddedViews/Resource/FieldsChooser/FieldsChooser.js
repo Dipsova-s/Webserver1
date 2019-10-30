@@ -979,7 +979,7 @@ function FieldsChooserModel() {
         var sort = '';
         if (self.CurrentSort !== null && self.CurrentSort.sort.indexOf(sortingId) !== -1)
             sort = self.CurrentSort.dir;
-        return '<a class="DisplayAvaliablePropertiesHeaderGrid ' + sort + '"  id="' + sortingId + '" onclick="fieldsChooserModel.Sort(this)"> ' + headerText + ' </a>';
+        return '<span class="DisplayAvaliablePropertiesHeaderGrid ' + sort + '"  id="' + sortingId + '" onclick="fieldsChooserModel.Sort(this)"> ' + headerText + ' </span>';
     };
     self.GetIsStarredColumnTemplate = function (item) {
         var columnTemplate, replaceCssClass = self.GetIsStarredCssClass(item);
