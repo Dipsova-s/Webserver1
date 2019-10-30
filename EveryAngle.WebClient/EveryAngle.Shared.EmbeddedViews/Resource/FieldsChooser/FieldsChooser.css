@@ -268,10 +268,12 @@
 .fieldChooserContainer .fieldChooserViewType .typeFull {
     margin-right: 4px;
 }
+
 .fieldChooserContainer .fieldChooserViewType .typeFull:before {
     background-image: url(icon_viewmode_details.svg);
 }
-.fieldChooserContainer .fieldChooserViewType .typeFull.active:before, 
+
+.fieldChooserContainer .fieldChooserViewType .typeFull.active:before,
 .fieldChooserContainer .fieldChooserViewType .typeFull:hover:before {
     background-image: url(icon_viewmode_details_active.svg);
 }
@@ -279,7 +281,8 @@
 .fieldChooserContainer .fieldChooserViewType .typeCompact:before {
     background-image: url(icon_viewmode_compact.svg);
 }
-.fieldChooserContainer .fieldChooserViewType .typeCompact.active:before, 
+
+.fieldChooserContainer .fieldChooserViewType .typeCompact.active:before,
 .fieldChooserContainer .fieldChooserViewType .typeCompact:hover:before {
     background-image: url(icon_viewmode_compact_active.svg);
 }
@@ -352,8 +355,9 @@
     display: block;
     font-weight: bold;
     font-size: 12px;
-    padding: 4px 12px 4px 6px;
+    padding: 11px 12px 12px 6px;
     color: #34495e;
+    cursor:pointer;
 }
 
 #fieldtype.DisplayAvaliablePropertiesHeaderGrid {
@@ -409,10 +413,15 @@
 
 .fieldChooserGridContainer .k-state-selected,
 .fieldChooserGridContainer .k-state-selected > td {
-    background-color: #eff8ff;
+    background-color: rgba(252, 243, 215, 0.5);
     background-image: none;
     border-color: #969696;
     box-shadow: none !important;
+}
+
+.fieldChooserGridContainer .k-state-selected,
+.fieldChooserGridContainer .k-state-selected:hover {
+    background-color: transparent !important;
 }
 
 .fieldChooserGridContainer div.k-grid tbody td {
