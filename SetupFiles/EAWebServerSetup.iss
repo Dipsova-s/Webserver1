@@ -833,26 +833,56 @@ end;
 
 procedure UpdateODataConfig;
 var
+  i: integer;
   IISPhysicalPath: string;
+  ODataModelIdFromIniList: TStringList;
+  ODataModelIdFromIni: string;
   ODataModelIds: String; 
   ODataModels : TStringList;
   ODataSettings : TJsonParserOutput;
+
 begin
   ODataModelIds := '';
   ODataSettings := EmptyJsonObject();
   IISPhysicalPath := GetIISPhysicalPath(IISSite.Text, IISVirtualPath.Text,true);
 
+  ODataModelIdFromIni := pri_GetOverrideValue('ODataModelIds');  //dennis
+
   if IISPhysicalPath <> '' then
   begin
     // Read OData settings
     ODataModels := GetODataModelIds(IISPhysicalPath + '\OData\');
-  
-    if ODataModels.Count > 0 then
+        
+    // Check setup.ini, loop through values (more than one is possible)
+    if (ODataModelIdFromIni <> '') then
     begin
-      ODataModelIds := ODataModels.CommaText;
-      ODataSettings := ReadODataConfig(IISPhysicalPath + '\OData\', ODataModels.Strings[0]);
+      ODataModelIdFromIniList := TStringList.Create;
+      try
+        ODataModelIdFromIniList.CommaText := ODataModelIdFromIni;
+
+        // If values does not exist already in ODataModels, then add it
+        for i := 0 to ODataModelIdFromIniList.Count - 1 do
+          if ODataModels.IndexOf(ODataModelIdFromIniList[i]) = -1 then
+            ODataModels.Add(ODataModelIdFromIniList[i]);
+
+      finally
+        ODataModelIdFromIniList.Free;
+      end;
+
     end;
-  end;
+
+    try
+      if ODataModels.Count > 0 then
+      begin
+        ODataModelIds := ODataModels.CommaText;
+        ODataSettings := ReadODataConfig(IISPhysicalPath + '\OData\', ODataModels.Strings[0]);
+      end;
+    finally
+      ODataModels.Free;
+    end;
+  end
+  else
+    ODataModelIds := ODataModelIdFromIni;  
 
   // update Odata page
   ODataSettingsPage.Values[0] := ODataModelIds;
