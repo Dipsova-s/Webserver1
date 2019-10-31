@@ -320,7 +320,7 @@ function ErrorHandlerViewModel() {
             else if(!settings.crossDomain) {
                 if (self.Enable() && error !== 'abort') {
                     jQuery('.k-loading-mask').remove();
-                    jQuery('.popupProgressBar,.k-overlay').hide();
+                    jQuery('.loader-container,.k-overlay').hide();
                 }
                 self.ShowError(settings.url, { settings: settings, xhr: xhr });
             }

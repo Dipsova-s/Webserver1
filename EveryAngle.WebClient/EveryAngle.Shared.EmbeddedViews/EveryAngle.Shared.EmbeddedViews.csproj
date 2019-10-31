@@ -104,9 +104,18 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
+    <None Include="compilerconfig.json" />
+    <None Include="compilerconfig.json.bindings">
+      <DependentUpon>compilerconfig.json</DependentUpon>
+    </None>
+    <None Include="compilerconfig.json.defaults">
+      <DependentUpon>compilerconfig.json</DependentUpon>
+    </None>
     <None Include="packages.config">
       <SubType>Designer</SubType>
     </None>
+    <None Include="Resource\Shared\components\_progressbar.scss" />
+    <None Include="Resource\Shared\shared.scss" />
     <EmbeddedResource Include="Resource\Shared\fonts\WebClient.json" />
     <EmbeddedResource Include="Resource\Shared\fonts\WebClientIco.eot" />
     <EmbeddedResource Include="Resource\Shared\fonts\WebClientIco.ttf" />
@@ -171,7 +180,6 @@
     <EmbeddedResource Include="Resource\FieldsChooser\icon_datetime.png" />
     <EmbeddedResource Include="Resource\FieldsChooser\icon_unknown.png" />
     <EmbeddedResource Include="Resource\Shared\customkendogridui.js" />
-    <EmbeddedResource Include="Resource\Shared\shared.css" />
     <EmbeddedResource Include="Resource\Shared\shared.js" />
   </ItemGroup>
   <ItemGroup>
@@ -195,6 +203,9 @@
     <Content Include="Resource\Shared\Icons\btn_selectall.svg" />
     <EmbeddedResource Include="Resource\FieldsChooser\icon_starred_active.svg" />
     <EmbeddedResource Include="Resource\FieldsChooser\icon_starred_inactive.svg" />
+    <Content Include="Resource\Shared\shared.css">
+		<DependentUpon>shared.scss</DependentUpon>
+	</Content>
     <EmbeddedResource Include="Resource\NotificationsFeed\icon_notifications.svg" />
     <EmbeddedResource Include="Resource\NotificationsFeed\icon_clock.svg" />
     <EmbeddedResource Include="Resource\NotificationsFeed\notificationsfeed.css" />

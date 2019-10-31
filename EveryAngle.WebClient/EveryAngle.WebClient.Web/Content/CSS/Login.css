@@ -122,15 +122,6 @@
     bottom: 10px;
 }
 
-.LogoContainer .LogoImage {
-    background: transparent url('../../images/popup/progressbar/ajax-loader.gif') left top no-repeat;
-}
-
-.LogoContainer .LogoImage:after {
-    content: '';
-    background: transparent url('../../admin/images/loading.gif') left top no-repeat;
-}
-
 #LoginContainer input {
     position: relative;
     left: 0;
@@ -250,12 +241,14 @@
 
 .loginMessage.info {
     color: #555;
-    padding-left: 20px;
-    background: transparent url('../../images/loading.gif') left center no-repeat;
 }
 
 .loginMessage.success {
     color: #555;
+}
+
+.login-progress {
+    display: inline-flex;
 }
 
 .loginLoading {

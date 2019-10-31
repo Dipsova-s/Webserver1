@@ -15664,15 +15664,6 @@ namespace EveryAngle.Shared.Globalization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Please wait....
-        /// </summary>
-        public static string ProgressBar_PleaseWait {
-            get {
-                return ResourceManager.GetString("ProgressBar_PleaseWait", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Executing Display.
         /// </summary>
         public static string ProgressBar_PostDisplay {
@@ -15759,15 +15750,6 @@ namespace EveryAngle.Shared.Globalization {
         public static string ProgressBar_UploadingAngles {
             get {
                 return ResourceManager.GetString("ProgressBar_UploadingAngles", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Processing.
-        /// </summary>
-        public static string ProgressbarProgressing {
-            get {
-                return ResourceManager.GetString("ProgressbarProgressing", resourceCulture);
             }
         }
         

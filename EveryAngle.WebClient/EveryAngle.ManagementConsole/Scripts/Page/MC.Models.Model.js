@@ -155,7 +155,7 @@
                     }
                 })
                 .done(function () {
-                    MC.ui.loading.setLoader('hidePopupError');
+                    MC.ui.loading.disableLoaderMessage();
                     MC.sideMenu.expand($('a[data-url$="Model/GetAllModels"]', '#sideMenu').get(0), true);
                     MC.sideMenu.setActive($('a[data-url$="Model/GetAllModels"]', '#sideMenu').get(0));
                 });
@@ -169,7 +169,7 @@
                     dataType: 'html'
                 })
                 .done(function (data) {
-                    MC.ui.loading.setLoader('hidePopupError');
+                    MC.ui.loading.disableLoaderMessage();
                     $('#topMenu').html(data);
                     MC.storage.clean();
                 });

@@ -765,9 +765,6 @@
   <data name="OperatorStartsWithSubstring" xml:space="preserve">
     <value>beginnt mit Substring(s)</value>
   </data>
-  <data name="ProgressbarProgressing" xml:space="preserve">
-    <value>Verarbeitung</value>
-  </data>
   <data name="Retry" xml:space="preserve">
     <value>Erneut versuchen</value>
   </data>
@@ -3554,9 +3551,6 @@
   </data>
   <data name="ProgressBar_GettingAngles" xml:space="preserve">
     <value>Angles abrufen</value>
-  </data>
-  <data name="ProgressBar_PleaseWait" xml:space="preserve">
-    <value>Bitte warten...</value>
   </data>
   <data name="ProgressBar_PostDisplay" xml:space="preserve">
     <value>Display ausführen</value>

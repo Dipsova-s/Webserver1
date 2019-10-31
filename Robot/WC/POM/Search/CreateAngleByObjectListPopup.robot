@@ -1,7 +1,7 @@
 *** Variables ***
 ${txtFitlerObjects}                             txtFitlerObjects
 ${btnFitlerObjects}                             btnFitlerObjects
-${btnObjectListBack}                            btn-popupCreateNewAngle2
+${btnObjectListBack}                            btn-popupCreateNewAngle1
 ${divObjectListDescriptionSection}              css=#Angle .helpTextContainer
 ${divObjectListBusinessProcessBarSection}       CreateAngleByObjectBusinessProcess
 ${pgbCreateAngleByObjectList}                   css=#ObjectsGrid .k-loading-mask

@@ -143,7 +143,6 @@ function ImportAngleHandler() {
 
         popup.Show(popupSettings);
         WC.HtmlHelper.ApplyKnockout(self, jQuery('#popupCompleteUploadReport'));
-        popup.Close('#popupImportAngle');
     };
 
     self.SetAngleForUpload = function (angle, modelUri) {
@@ -435,7 +434,7 @@ function ImportAngleHandler() {
         return itemDeferred;
     };
 
-    self.UploadComplete = function () {
+    self.UploadComplete = function (e) {
         var itemDeferred = self.GetDashboardAndAngleDeferred();
 
         jQuery.whenAllSet(itemDeferred.angleDeferred, 5)
@@ -449,6 +448,7 @@ function ImportAngleHandler() {
                 progressbarModel.CancelCustomHandler = false;
                 progressbarModel.EndProgressBar();
                 self.ShowCompleteUploadReport();
+                self.CloseUploadPopup(e);
 
                 searchModel.ClearSelectedRow();
                 setTimeout(function () {
@@ -507,17 +507,28 @@ function ImportAngleHandler() {
         self.ValidUploadedFile(e);
 
         if (!e.files.length) {
-            self.UploadComplete();
+            self.UploadComplete(e);
             e.preventDefault();
             return;
         }
 
+        self.HideUploadPopup(e);
         progressbarModel.ShowStartProgressBar(Localization.ProgressBar_UploadingAngles, false);
         progressbarModel.SetProgressBarText(0, null, Localization.ProgressBar_UploadingAngles);
         progressbarModel.CancelCustomHandler = true;
         progressbarModel.CancelFunction = function () {
             WC.Ajax.AbortAll();
+            self.CloseUploadPopup(e);
         };
+    };
+
+    self.HideUploadPopup = function (e) {
+        e.sender.element.closest('.popupImportAngle').addClass('alwaysHide');
+    };
+
+    self.CloseUploadPopup = function (e) {
+        e.sender.element.closest('.popupImportAngle').removeClass('alwaysHide');
+        popup.Close('#popupImportAngle');
     };
 }
 var importAngleHandler = new ImportAngleHandler();

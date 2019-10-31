@@ -17,7 +17,7 @@ MC.content = {
             top: 0
         };
         jQuery(window).scroll(function () {
-            if (jQuery('#loading:visible,.k-overlay:visible').length) {
+            if (jQuery(MC.ui.loading.loader + ':visible,.k-overlay:visible').length) {
                 window.scrollTo(currentScollPosition.left, currentScollPosition.top);
             }
             else {

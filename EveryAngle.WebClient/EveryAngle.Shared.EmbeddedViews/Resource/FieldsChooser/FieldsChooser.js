@@ -1019,13 +1019,13 @@ function FieldsChooserModel() {
             e.cancelBubble = true;
 
         obj = jQuery(obj);
-        if (!obj.hasClass('loading')) {
+        if (!obj.hasClass('loader-spinner-inline')) {
             var grid = jQuery('#' + self.GridName).data('kendoGrid');
             var field = grid.dataSource.getByUid(uid);
 
             if (field && field.uri) {
 
-                obj.addClass('loading');
+                obj.removeClass('DisplayPropertiesGridSignFavoriteDisable DisplayPropertiesGridSignFavorite').addClass('loader-spinner-inline');
 
                 //PUT data
                 return jQuery.when(UpdateDataToWebService(field.uri, { user_specific: { is_starred: !field.user_specific.is_starred } }))
@@ -1057,7 +1057,7 @@ function FieldsChooserModel() {
                         obj.attr('class', newCssClass);
                     })
                     .always(function () {
-                        obj.removeClass('loading');
+                        obj.removeClass('loader-spinner-inline');
                     });
             }
         }
@@ -1795,6 +1795,9 @@ function FieldsChooserModel() {
         if (self.LayoutSettings.isMaximize) {
             // maximize the popup
             self.FieldChooserPopup.maximize();
+
+            // update spinner position when the popup has been expanding
+            self.FieldChooserPopup.element.find('#PropertyTable').busyIndicator(false).busyIndicator(true);
         }
 
         return self.FieldChooserPopup;
@@ -1923,28 +1926,35 @@ function FieldsChooserModel() {
     self.OnOpenPopupDefaultCallback = function (e) {
         self.SelectedItems([]);
         self.SetNoData(false);
-
+        
         e.sender.element.find('.fieldChooserFilter').busyIndicator(false);
         e.sender.trigger('resize');
         e.sender.element.find('#DisplayPropertiesGrid').data('submited', false);
 
         self.ClearFilter();
-        self.InitialFacet().done(function () {
-            self.Filter();
-            setTimeout(function () {
-                e.sender.wrapper.find('.fieldChooserButtons').children().removeClass('executing');
-            }, 500);
-        });
+
+        e.sender.element.find('#PropertyTable').busyIndicator(true);
+
+        self.InitialFacet()
+            .done(function () {
+                self.Filter();
+                setTimeout(function () {
+                    e.sender.wrapper.find('.fieldChooserButtons').children().removeClass('executing');
+                }, 500);
+            })
+            .always(function () {
+                e.sender.element.find('#PropertyTable').busyIndicator(false);
+            });
     };
     self.AdjustPopupItemsContainerHeight = function (e) {
         if (e.sender.element.children().length) {
             var popupHeight = e.sender.element.height();
-            var facetFiltersOffsetTop = jQuery('#NewColumnFilter').position().top;
-            var gridOffsetTop = jQuery('#PropertyTable').position().top;
-            var buttonsHeight = jQuery('.fieldChooserButtons').outerHeight();
+            var facetFiltersOffsetTop = e.sender.element.find('#NewColumnFilter').position().top;
+            var gridOffsetTop = e.sender.element.find('#PropertyTable').position().top;
+            var buttonsHeight = e.sender.element.find('.fieldChooserButtons').outerHeight();
 
-            jQuery('#NewColumnFilter').height(popupHeight - facetFiltersOffsetTop - buttonsHeight);
-            jQuery('#DisplayPropertiesGrid').height(popupHeight - gridOffsetTop - buttonsHeight);
+            e.sender.element.find('#NewColumnFilter').height(popupHeight - facetFiltersOffsetTop - buttonsHeight);
+            e.sender.element.find('#DisplayPropertiesGrid').height(popupHeight - gridOffsetTop - buttonsHeight);
         }
     };
     self.BindFieldChooserHtmlToDocumentBody = function (id, html) {

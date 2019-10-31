@@ -133,7 +133,7 @@
                 }
             })
                 .fail(function () {
-                    $('#loading .loadingClose').one('click.close', MC.ajax.reloadMainContent);
+                    $(MC.ui.loading.loaderCloseButton).one('click.close', MC.ajax.reloadMainContent);
                 })
                 .done(function (data) {
                     if (data.removedData.length > 0 || !($.isEmptyObject(data.un_removeData))) {

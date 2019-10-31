@@ -4,10 +4,10 @@ Resource            ${EXECDIR}/WC/POM/Shared/ToastNotification.robot
 Resource            ${EXECDIR}/WC/POM/Shared/HelpText.robot
 
 *** Variables ***
-${pgbMain}              css=#popupProgressBar
+${pgbMain}              css=#LoaderContainer
 ${btnBackToSearch}      BackToSearch
 ${htmlInitialized}      css=html.initialized
-${pgbMC}                css=#loading
+${pgbMC}                css=#LoaderContainer
 ${pgbMCMainContent}     css=.loadingMainContent
 ${popupError}           css=#popupNotification .notificationIcon.error
 ${btnErrorMore}         jquery=#popupNotification .more

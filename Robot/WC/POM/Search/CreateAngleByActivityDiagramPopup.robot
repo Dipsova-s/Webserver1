@@ -3,7 +3,7 @@
 ${divActivityDiagramDescriptionSection}    css=#Angle > div.Description > div.helpTextContainer
 ${divActivityDiagramSchemaGridSection}    css=#Schema
 ${divActivityDiagramBusinessProcessBarSection}    css=#NewAngleBySchema
-${btnActivityDiagramBack}    btn-popupCreateNewAngleBySchema2
+${btnActivityDiagramBack}    btn-popupCreateNewAngleBySchema1
 ${btnActivityDiagramCreateAngle}    btn-popupCreateNewAngleBySchema0
 
 *** Keywords ***

@@ -431,6 +431,12 @@
     width: 100%;
 }
 
+.popupAddToDashboard .input .loader-spinner-inline {
+    position: absolute;
+    left: 5px;
+    top: 10px;
+}
+
 /* .popupAngleResultSummary
 ===================================== */
 .popupAngleResultSummary {
@@ -632,7 +638,14 @@
 }
 
 .scheduleAngleArea {
+    position: relative;
     margin-bottom: 5px;
+}
+
+.popupScheduleAngle .scheduleAngleArea .loader-spinner-inline {
+    position: absolute;
+    left: 5px;
+    top: 5px;
 }
 
 .popupScheduleAngle .k-dropdown {
@@ -680,12 +693,13 @@
 .context-menu .btn-more {
     width: auto;
     margin-left: auto;
+    transition-delay: 0s;
 }
 
-.context-menu .icon-loading:before {
-    content: '';
-    width: 16px;
-    height: 16px;
+.context-menu .loader-spinner-inline {
+    width: 10px;
+    height: 10px;
+    margin-right: 0;
 }
 
 .context-menu-submenu > .context-menu {

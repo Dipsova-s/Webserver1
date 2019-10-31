@@ -286,7 +286,6 @@
       <Link>Content\ExternalResource\WebClientIco.svg</Link>
     </Content>
     <Content Include="Admin\MC.txt" />
-    <Content Include="Content\CSS\Angle.DisplayDropdown.css" />
     <Content Include="..\EveryAngle.Shared.EmbeddedViews\Resource\Shared\fonts\WebClient.json">
       <Link>Content\ExternalResource\WebClient.json</Link>
     </Content>
@@ -299,49 +298,34 @@
     <Content Include="..\EveryAngle.Shared.EmbeddedViews\Resource\Shared\fonts\WebClientIco.woff">
       <Link>Content\ExternalResource\WebClientIco.woff</Link>
     </Content>
-    <None Include="Content\CSS\toastnotification.scss" />
-    <Content Include="Content\CSS\item-name.scss" />
-    <None Include="Content\CSS\itemstate.scss" />
+    <Content Include="Content\CSS\Angle.css" />
+    <Content Include="Content\CSS\Angle.DisplayDropdown.css" />
     <Content Include="Content\CSS\Base.css" />
     <Content Include="Content\CSS\Breadcrumb.css" />
-    <None Include="Content\CSS\accordion.scss" />
-    <Content Include="Content\CSS\common.css">
-      <DependentUpon>common.scss</DependentUpon>
-    </Content>
-    <None Include="Content\CSS\form-row.scss" />
-    <None Include="Content\CSS\item-label.scss" />
-    <None Include="Content\CSS\icons.scss" />
-    <None Include="Content\CSS\btn.scss" />
-    <None Include="Content\CSS\listview.scss" />
-    <None Include="Content\CSS\multiple-select.scss" />
-    <None Include="Content\CSS\scrollbar.scss" />
-    <None Include="Content\CSS\switch.scss" />
-    <Content Include="Content\CSS\Angle.css" />
-    <Content Include="Content\CSS\DashboardFilters.css" />
-    <Content Include="Content\CSS\itemstate.css">
-      <DependentUpon>itemstate.scss</DependentUpon>
-    </Content>
-    <Content Include="Content\CSS\UserPassword.css" />
-    <Content Include="Content\CSS\DisplayList.css" />
+    <Content Include="Content\CSS\Common.css" />
+    <Content Include="Content\CSS\CreateAngle.css" />
     <Content Include="Content\CSS\CustomSort.css" />
+    <Content Include="Content\CSS\Dashboard.css" />
+    <Content Include="Content\CSS\DashboardFilters.css" />
     <Content Include="Content\CSS\DisplayChart.css" />
+    <Content Include="Content\CSS\DisplayList.css" />
     <Content Include="Content\CSS\DisplayPivot.css" />
     <Content Include="Content\CSS\ExportCsv.css" />
     <Content Include="Content\CSS\ExportExcel.css" />
-    <Content Include="Content\CSS\JumpChooser.css" />
-    <Content Include="Content\CSS\Search.MassChange.css" />
-    <Content Include="Content\CSS\Dashboard.css" />
-    <Content Include="Content\CSS\WidgetFilters.css" />
     <Content Include="Content\CSS\FieldSettings.css" />
-    <Content Include="Content\CSS\CreateAngle.css" />
-    <Content Include="Content\CSS\Search.AngleDownload.css" />
-    <Content Include="Content\CSS\UserSettings.css" />
-    <Content Include="Content\CSS\Search.css" />
-    <Content Include="Content\CSS\Login.css" />
-    <Content Include="Content\CSS\WidgetDetails.css" />
-    <Content Include="Content\CSS\WidgetLanguages.css" />
+    <Content Include="Content\CSS\itemstate.css" />
+    <Content Include="Content\CSS\JumpChooser.css" />
     <Content Include="Content\CSS\KendoExtension.css" />
+    <Content Include="Content\CSS\Login.css" />
     <Content Include="Content\CSS\Pivot.css" />
+    <Content Include="Content\CSS\Search.AngleDownload.css" />
+    <Content Include="Content\CSS\Search.css" />
+    <Content Include="Content\CSS\Search.MassChange.css" />
+    <Content Include="Content\CSS\UserPassword.css" />
+    <Content Include="Content\CSS\UserSettings.css" />
+    <Content Include="Content\CSS\WidgetDetails.css" />
+    <Content Include="Content\CSS\WidgetFilters.css" />
+    <Content Include="Content\CSS\WidgetLanguages.css" />
     <Content Include="Content\ExternalResource\notificationsfeed.css" />
     <Content Include="Content\ExternalResource\notificationsfeed.js" />
     <Content Include="Content\fonts\roboto-v19-latin-500.svg" />
@@ -731,7 +715,6 @@
     <Content Include="Content\fonts\roboto-v19-latin-500.ttf" />
     <Content Include="Content\fonts\roboto-v19-latin-500.woff" />
     <Content Include="Content\fonts\roboto-v19-latin-500.woff2" />
-    <None Include="Content\CSS\common.scss" />
     <None Include="compilerconfig.json" />
     <Content Include="compilerconfig.json.bindings">
       <DependentUpon>compilerconfig.json</DependentUpon>
@@ -739,8 +722,21 @@
     <None Include="compilerconfig.json.defaults">
       <DependentUpon>compilerconfig.json</DependentUpon>
     </None>
-    <None Include="Content\CSS\_mixins.scss" />
+    <None Include="Content\CSS\accordion.scss" />
+    <None Include="Content\CSS\btn.scss" />
     <None Include="Content\CSS\card.scss" />
+    <None Include="Content\CSS\common.scss" />
+    <None Include="Content\CSS\form-row.scss" />
+    <None Include="Content\CSS\icons.scss" />
+    <None Include="Content\CSS\item-label.scss" />
+    <None Include="Content\CSS\item-name.scss" />
+    <None Include="Content\CSS\itemstate.scss" />
+    <None Include="Content\CSS\listview.scss" />
+    <None Include="Content\CSS\multiple-select.scss" />
+    <None Include="Content\CSS\scrollbar.scss" />
+    <None Include="Content\CSS\switch.scss" />
+    <None Include="Content\CSS\toastnotification.scss" />
+    <None Include="Content\CSS\_mixins.scss" />
     <None Include="Content\CSS\_variables.scss" />
     <None Include="packages.config">
       <SubType>Designer</SubType>
@@ -823,9 +819,6 @@
     <Content Include="Images\Icons\icon_webclient.png" />
     <Content Include="Images\Icons\icon_sort_asc.png" />
     <Content Include="Images\Icons\icon_sort_desc.png" />
-    <Content Include="Images\loading-image.gif" />
-    <Content Include="Images\loading.gif" />
-    <Content Include="Images\Popup\ProgressBar\ajax-loader.gif" />
     <Content Include="EveryAngle.WebClient.Web.wpp.targets" />
     <Content Include="Content\VideoPlayer\video-js.css" />
     <Content Include="Content\VideoPlayer\video-js.min.css" />

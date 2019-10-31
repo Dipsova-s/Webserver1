@@ -1091,16 +1091,6 @@
     cursor: default;
 }
 
-.SearchResult .signLoading {
-    background: transparent url('../../images/loading.gif') center center no-repeat;
-    opacity: .5;
-    cursor: wait;
-}
-
-.SearchResult .signLoading:before {
-    opacity: 0;
-}
-
 .ResultContent {
     margin: 10px 65px 0 20px;
     position: relative;

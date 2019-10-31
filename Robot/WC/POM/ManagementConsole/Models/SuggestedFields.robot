@@ -29,10 +29,10 @@ ${btnConfirmSuggestedField}              jquery=#${divSelectedClass} .btnPrimary
 ${btnClearAll}                           jquery=#${divFieldChooser} .btnClearAll
 ${btnSelectAll}                          jquery=#${divFieldChooser} .btnSelectAll
 
-${btnCloseSuggestedReport}               jquery=#loading .loadingClose
-${txtSuggestedResult}                    jquery=#loading .fail
+${btnCloseSuggestedReport}               jquery=#LoaderContainer .loader-cancel-button:visible
+${txtSuggestedResult}                    jquery=#LoaderContainer .fail
 
-${txtSuccess}                            jquery=.loadingContentText .success
+${txtSuccess}                            jquery=#LoaderContainer .success
 
 #Amount of Items
 ${txtSelectedItem}                       selectedItems

@@ -171,7 +171,7 @@ var MC = {
 MC.init();
 
 function disableLoading() {
-    MC.ui.loading.setLoader('loadingHide');
+    MC.ui.loading.disableLoaderSpinner();
 }
 
 function onKendoGridPagingStart() {

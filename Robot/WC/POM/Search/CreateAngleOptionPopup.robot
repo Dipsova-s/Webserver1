@@ -4,7 +4,7 @@ ${pgbCreateAngleOptions}    jquery=#ChooseNewAngleOption .k-loading-mask
 ${btnButtonCreateAngleFromSchemaSimple}    ButtonCreateAngleFromSchemaSimple
 ${btnButtonCreateAngleFromSchemaDetailed}    ButtonCreateAngleFromSchemaDetailed
 ${btnButtonCreateAngleFromObjects}    ButtonCreateAngleFromObjects
-${btnBackToCreateAngleOptions}    btn-popupCreateNewAngleBySchema2
+${btnBackToCreateAngleOptions}    btn-popupCreateNewAngleBySchema1
 ${p2pBusinessProcess}		css=.businessProcessesItem.P2P	
 ${s2dBusinessProcess}		css=.businessProcessesItem.S2D		
 

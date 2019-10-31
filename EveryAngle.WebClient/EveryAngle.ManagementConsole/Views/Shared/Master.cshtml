@@ -94,11 +94,26 @@
     <!--/.mainContainer-->
     <input type="hidden" id="token" value="@ViewBag.Token" />
 
-    <div id="loading" class="loading" style="display: block;">
-        <div class="loadingOverlay"></div>
-        <div class="loadingContent">
-            <a href="#close" class="loadingClose"></a>
-            <span class="loadingContentText"></span>
+    <div id="LoaderContainer">
+        <div class="loader-container" style="display: block">
+            <div class="loader-wrapper">
+                <div class="loader-inner">
+                    <div class="loader-spinner"></div>
+                    <h3 class="loader-percentage"></h3>
+                </div>
+                <div class="loader-button">
+                    <a class="btn btn-ghost loader-cancel-button">
+                        <span>@EveryAngle.Shared.Globalization.Captions.Button_Cancel</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="loader-message">
+            <div class="loader-message-overlay"></div>
+            <div class="loader-message-content">
+                <a class="loader-cancel-button"></a>
+                <span class="loader-message-text"></span>
+            </div>
         </div>
     </div>
 

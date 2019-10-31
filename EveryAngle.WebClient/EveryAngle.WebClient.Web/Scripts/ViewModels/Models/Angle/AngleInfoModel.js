@@ -450,7 +450,7 @@ function AngleInfoViewModel(model) {
                         is_starred: !self.Data().user_specific.is_starred
                     }
                 };
-                element.addClass('loading16x16');
+                element.removeClass('SignFavoriteDisable SignFavorite').addClass('loader-spinner-inline');
                 var query = {};
                 query[enumHandlers.PARAMETERS.FORCED] = true;
                 jQuery.when(UpdateDataToWebService(self.Data().uri + '?' + jQuery.param(query), data))
@@ -460,7 +460,7 @@ function AngleInfoViewModel(model) {
                         self.Data.commit();
                     })
                     .always(function () {
-                        element.removeClass('loading16x16');
+                        element.removeClass('loader-spinner-inline');
                     });
             }
             else {

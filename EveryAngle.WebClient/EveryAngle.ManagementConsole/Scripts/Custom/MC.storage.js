@@ -35,7 +35,7 @@
                     '<a class="btn btnReloadSession">' + Localization.Ok + '</a>'
                 ].join(''));
                 window.sessionStateChanged = true;
-                jQuery('#loading .loadingClose, #loading .btnReloadSession').one('click.close', function () {
+                jQuery(MC.ui.loading.loaderCloseButton + ', ' + MC.ui.loading.loader + ' .btnReloadSession').one('click.close', function () {
                     document.location.reload();
                 });
             }

@@ -663,7 +663,7 @@
                     type: data.type
                 })
                 .fail(function () {
-                    $('#loading .loadingClose').one('click.close', MC.ajax.reloadMainContent);
+                    $(MC.ui.loading.loaderCloseButton).one('click.close', MC.ajax.reloadMainContent);
                 })
                 .done(function (response) {
                     location.hash = self.AllModelsLabelCategoriesPageUri;

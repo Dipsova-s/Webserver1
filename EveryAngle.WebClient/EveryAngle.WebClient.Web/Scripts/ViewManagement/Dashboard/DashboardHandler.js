@@ -1490,14 +1490,14 @@ function DashboardHandler() {
         if (dashboardModel.Data().authorizations.update_user_specific) {
             requestHistoryModel.SaveLastExecute(self, self.SetFavorite, arguments);
             var element = jQuery(e.currentTarget);
-            element.addClass('loading16x16');
+            element.removeClass('SignFavoriteDisable SignFavorite').addClass('loader-spinner-inline');
             dashboardModel.SetFavorite(!model.Data().user_specific.is_starred())
                 .done(function (data) {
                     if (data)
                         model.Data().user_specific.is_starred(data.user_specific.is_starred);
                 })
                 .always(function () {
-                    element.removeClass('loading16x16');
+                    element.removeClass('loader-spinner-inline');
                 });
         }
     };

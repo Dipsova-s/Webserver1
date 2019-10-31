@@ -1,125 +1,116 @@
 (function (win) {
 
     var loading = {
-        loader: '#loading',
-        type: 1,
-        TYPE: {
-            upload: 2,
-            normal: 1,
-            error: 0,
-            info: 3
-        },
+
+        loader: '#LoaderContainer',
+
+        loaderSpinnerContainer: '#LoaderContainer .loader-container',        
+        loaderPercentage: '#LoaderContainer .loader-percentage',
+        loaderCloseButton: '#LoaderContainer .loader-cancel-button',
+
+        loaderMessageContainer: '#LoaderContainer .loader-message',
+        loaderMessageText: '#LoaderContainer .loader-message-text',
+
+        TYPE: { error: 0, normal: 1, upload: 2, info: 3 },
+        type: null,
+
         handleByUser: false,
 
         // request that less than "smallLoadingTime" (in milliseconds) will not be shown
         smallLoadingTime: 100,
-
         fnPreventSmallLoading: null,
-        init: function () {
-            MC.addPageReadyFunction(this.createLoading);
-        },
-        createLoading: function () {
-            if (!jQuery('.loading').length) {
-                var oLoading = jQuery('<div />').attr({
-                    'id': MC.ui.loading.loader.substr(1),
-                    'class': 'loading'
-                });
-                jQuery('<div class="loadingOverlay" />').appendTo(oLoading);
-                var content = jQuery('<div class="loadingContent" />');
-                jQuery('<a class="loadingClose" />').appendTo(content);
-                jQuery('<span class="loadingContentText" />').appendTo(content);
-                content.appendTo(oLoading);
-                jQuery(oLoading).appendTo('body');
-            }
 
-            jQuery('.loadingClose').click(function () {
-                MC.ui.loading.handleByUser = false;
-                MC.ui.loading.hide(true);
+        init: function () {
+            MC.addPageReadyFunction(this.setup.bind(this));
+        },
+        setup: function () {
+            var self = this;
+            this.type = this.TYPE.normal;
+            jQuery(this.loaderCloseButton).click(function () {
+                self.handleByUser = false;
+                self.hide(true);
                 return false;
             });
         },
+
         setError: function (msg) {
             this.type = this.TYPE.error;
             this.setLoader('typeError');
-            jQuery('.loadingContentText', this.loader).html(msg);
+            jQuery(this.loaderMessageText).html(msg);
         },
         setInfo: function (msg) {
             this.type = this.TYPE.info;
             this.setLoader('typeInfo');
-            jQuery('.loadingContentText', this.loader).html(msg);
+            jQuery(this.loaderMessageText).html(msg);
         },
-        setLoader: function (newClass, styles) {
-            if (newClass)
-                jQuery(this.loader).attr('class', 'loading ' + newClass);
-            if (styles)
-                jQuery(this.loader).css(styles);
+        setLoader: function (newClass) {
+            if (newClass) {
+                jQuery(this.loaderMessageContainer).addClass(newClass);
+
+                if (['typeError', 'typeInfo'].indexOf(newClass) !== -1) {
+                    jQuery(this.loaderSpinnerContainer).hide();
+                    jQuery(this.loaderMessageContainer).show();
+                }
+            }
         },
+
         setUpload: function (xhr) {
+            var self = this;
             var onUploadCancel = function (e) {
-                if (MC.ui.loading.type !== MC.ui.loading.TYPE.upload)
+                if (self.type !== self.TYPE.upload)
                     return;
 
                 MC.util.showPopupConfirmation(Localization.MC_UploadFileRunningPopup, function () {
                     if (e.type !== 'beforeunload')
-                        $(window).off('beforeunload');
+                        jQuery(window).off('beforeunload');
 
-                    MC.ui.loading.clearUpload();
-
+                    self.clearUpload();
                     xhr.abort();
                 });
             };
 
             this.type = this.TYPE.upload;
-            this.setLoader('loadingProgress');
 
-            var progressStatus = $('<div class="loadingProgressStatus"><i></i></div><div class="loadingProgressStatusText">' + Localization.MC_UploadInprogress + '</div>'),
-                cancelButton = $('<a class="btn" />').html(Captions.Button_Cancel).click(function (e) {
-                    onUploadCancel(e);
-                    return false;
-                });
-            $('.loadingContentText', this.loader).empty().append(progressStatus).append(cancelButton);
-            this.setUploadStatus({ percent: 0, loaded: 0, total: 0 });
+            jQuery(this.loaderCloseButton).off('click.close').one('click.close', function (e) {
+                onUploadCancel(e);
+                return false;
+            });
+
+            this.setUploadStatus();
 
             jQuery(window).on('beforeunload', function (e) {
                 onUploadCancel(e);
                 return;
             });
         },
-        setUploadStatus: function (e) {
-            jQuery('.loadingProgressStatus > i', this.loader).width(e.percent + '%');
-
-            var statusText;
-            if (e.percent === 100)
-                statusText = Localization.MC_UploadSuccessful;
-            else if (Modernizr.xhr2)
-                statusText = e.percent + '% (' + Math.floor(e.loaded / 1024) + ' of ' + Math.floor(e.total / 1024) + ' KB)';
-            else
-                statusText = Localization.MC_UploadInprogress;
-
-            jQuery('.loadingProgressStatusText', this.loader).text(statusText);
+        setUploadStatus: function (percentage) {
+            jQuery(this.loaderPercentage).text((percentage || 0) + '%');
         },
         clearUpload: function () {
             this.type = this.TYPE.normal;
             this.hide(true);
-            $(window).off('beforeunload');
+            jQuery(window).off('beforeunload');
         },
+
         show: function () {
             var self = this;
-            if (self.type === self.TYPE.error)
+
+            if (this.type === this.TYPE.error)
                 return;
 
-            jQuery(self.loader).removeClass('typeError typeInfo')
-                .find('.loadingClose').off('click.close');
+            jQuery(this.loaderSpinnerContainer).show();
+            jQuery(this.loaderMessageContainer).hide();
 
-            self.fnPreventSmallLoading = setTimeout(function () {
+            clearTimeout(this.fnPreventSmallLoading);
+            this.fnPreventSmallLoading = setTimeout(function () {
                 jQuery(self.loader).show();
-                self.fnPreventSmallLoading = null;
-            }, self.smallLoadingTime);
+            }, this.smallLoadingTime);
         },
         showAndHide: function () {
-            MC.ui.loading.show();
+            var self = this;
+            this.show();
             setTimeout(function () {
-                MC.ui.loading.hide();
+                self.hide();
             }, 500);
         },
         hide: function (force) {
@@ -133,12 +124,20 @@
                 return;
 
             clearTimeout(this.fnPreventSmallLoading);
-            this.fnPreventSmallLoading = null;
-
             this.handleByUser = false;
             this.type = this.TYPE.normal;
-            jQuery(this.loader).hide().attr({ 'class': 'loading', 'style': '' })
-                .find('.loadingContentText').empty();
+            jQuery(this.loader).hide();
+            jQuery(this.loaderPercentage).text('');
+            jQuery(this.loaderCloseButton).off('click.close');
+            jQuery(this.loaderMessageContainer).removeClass('typeError typeInfo');
+            jQuery(this.loaderSpinnerContainer + ',' + this.loaderMessageContainer).removeClass('alwaysHidden');
+        },
+
+        disableLoaderSpinner: function () {
+            jQuery(this.loaderSpinnerContainer).addClass('alwaysHidden');
+        },
+        disableLoaderMessage: function () {
+            jQuery(this.loaderMessageContainer).addClass('alwaysHidden');
         }
     };
 

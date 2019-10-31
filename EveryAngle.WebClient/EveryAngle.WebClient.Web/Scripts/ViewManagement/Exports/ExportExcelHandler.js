@@ -62,7 +62,7 @@ function ExportExcelHandler() {
     self.GetCurrentDisplayField = function (displayType) {
         return exportHandler.GetCurrentDisplayField(displayType);
     };
-    self.GenerateExcel = function () {
+    self.GenerateExcel = function (e) {
         var uri = self.GenerateExcelUri;
         clearTimeout(fnCheckExportProgress);
         if (!progressbarModel.IsCancelPopup) {
@@ -74,17 +74,17 @@ function ExportExcelHandler() {
                         WC.Ajax.EnableBeforeExit = false;
                         WC.Utility.DownloadFile(WC.Ajax.BuildRequestUrl(response.file_uri, false));
                         fnCheckExportProgress = setTimeout(function () {
-                            self.DoneToGenerateExcel(false);
+                            self.DoneToGenerateExcel(e, false);
                         }, 2000);
 
                     }
                     else if (response.status.toLowerCase() === "failed") {
                         popup.Error(Localization.Error_Title, response.message);
-                        self.DoneToGenerateExcel();
+                        self.DoneToGenerateExcel(e);
                     }
                     else {
                         fnCheckExportProgress = setTimeout(function () {
-                            self.GenerateExcel();
+                            self.GenerateExcel(e);
                         }, 2000);
                     }
                 });
@@ -93,10 +93,10 @@ function ExportExcelHandler() {
             DeleteDataToWebService(uri);
         }
     };
-    self.DoneToGenerateExcel = function (isDeleteProgress) {
+    self.DoneToGenerateExcel = function (e, isDeleteProgress) {
         progressbarModel.IsCancelPopup = true;
         progressbarModel.EndProgressBar();
-        self.CloseExportExcelPopup();
+        self.CloseExportExcelPopup(e);
         if (isDeleteProgress !== false) {
             DeleteDataToWebService(self.GenerateExcelUri);
         }
@@ -138,7 +138,7 @@ function ExportExcelHandler() {
                             * M4-9903: Implement for single item
                             * 2.Send 'listdrilldown' to parameter for check
                             */
-                            self.ExportDisplay(displayType);
+                            self.ExportDisplay(e, displayType);
 
                         }
                     },
@@ -264,7 +264,8 @@ function ExportExcelHandler() {
         */
         jQuery('a[id*=btn-popupExportDrilldownExcel]:visible').removeClass('executing');
     };
-    self.CloseExportExcelPopup = function () {
+    self.CloseExportExcelPopup = function (e) {
+        e.kendoWindow.element.closest('.popupExportExcel').removeClass('alwaysHide');
         popup.Close('#popupExportExcel');
         popup.Close('#popupExportDrilldownExcel');
     };
@@ -336,7 +337,7 @@ function ExportExcelHandler() {
     * M4-9903: Implement for single item
     * 4.Check 'displayType' if drill-down single item call seperate function
     */
-    self.ExportDisplay = function (displayType) {
+    self.ExportDisplay = function (e, displayType) {
         //Save latest execute => use for cancel
         requestHistoryModel.SaveLastExecute(self, self.ExportDisplay, arguments);
 
@@ -361,26 +362,28 @@ function ExportExcelHandler() {
         exportOptions.SheetName = CleanSheetName(exportOptions.SheetName, displayModel.Name(), 31);
 
         if (displayType === enumHandlers.DISPLAYTYPE.PIVOT) {
-            self.ExportPivotDisplay(exportOptions);
+            self.ExportPivotDisplay(e, exportOptions);
         }
         else if (displayType === enumHandlers.DISPLAYTYPE.CHART) {
-            self.ExportChartDisplay(exportOptions);
+            self.ExportChartDisplay(e, exportOptions);
         }
         else if (WC.Utility.UrlParameter(enumHandlers.ANGLEPARAMETER.LISTDRILLDOWN)) {
-            self.ExporSingleDrilldownItem(exportOptions);
+            self.ExporSingleDrilldownItem(e, exportOptions);
         }
         else {
-            self.ExportListDisplay(exportOptions);
+            self.ExportListDisplay(e, exportOptions);
         }
 
         progressbarModel.CancelForceStop = true;
     };
 
-    self.ExportPivotDisplay = function (options) {
+    self.ExportPivotDisplay = function (e, options) {
+        e.kendoWindow.element.closest('.popupExportExcel').addClass('alwaysHide');
         progressbarModel.ShowStartProgressBar(Localization.ProgressBar_CurrentPrepareToExportData, false);
         progressbarModel.CancelCustomHandler = true;
         progressbarModel.CancelFunction = function () {
             self.IsCancelExporting = true;
+            self.CloseExportExcelPopup(e);
         };
 
         var fieldsData = self.GetCurrentDisplayField(displayModel.Data().display_type);
@@ -433,18 +436,20 @@ function ExportExcelHandler() {
             .done(function (data) {
                 progressbarModel.IsCancelPopup = false;
                 self.GenerateExcelUri = data.uri;
-                self.GenerateExcel();
+                self.GenerateExcel(e);
             });
     };
     self.IsExportPivotAsList = function (displayType) {
         return displayType === enumHandlers.DISPLAYTYPE.PIVOT && !pivotPageHandler.FieldSettings.GetFields(enumHandlers.FIELDSETTINGAREA.COLUMN).length;
     };
 
-    self.ExportChartDisplay = function (options) {
+    self.ExportChartDisplay = function (e, options) {
+        e.kendoWindow.element.closest('.popupExportExcel').addClass('alwaysHide');
         progressbarModel.ShowStartProgressBar(Localization.ProgressBar_CurrentPrepareToExportData, false);
         progressbarModel.CancelCustomHandler = true;
         progressbarModel.CancelFunction = function () {
             self.IsCancelExporting = true;
+            self.CloseExportExcelPopup(e);
         };
 
         var fieldsData = self.GetCurrentDisplayField(displayModel.Data().display_type);
@@ -491,11 +496,11 @@ function ExportExcelHandler() {
             .done(function (data) {
                 progressbarModel.IsCancelPopup = false;
                 self.GenerateExcelUri = data.uri;
-                self.GenerateExcel();
+                self.GenerateExcel(e);
             });
     };
 
-    self.ExportListDisplay = function (options) {
+    self.ExportListDisplay = function (e, options) {
         //get number of export's rows
         var numberOfItem;
         if (jQuery('[id="NumberOfRowsCustom"]:visible').is(':checked')) {
@@ -537,14 +542,14 @@ function ExportExcelHandler() {
                 session_name: 'remember_export_ipad'
             });
             popup.OnCloseCallback = function () {
-                self.ExecuteExportListDisplay(options.NumberOfItem, options.FileName, options.SheetName);
+                self.ExecuteExportListDisplay(e, options.NumberOfItem, options.FileName, options.SheetName);
             };
         }
         else {
-            self.ExecuteExportListDisplay(options.NumberOfItem, options.FileName, options.SheetName);
+            self.ExecuteExportListDisplay(e, options.NumberOfItem, options.FileName, options.SheetName);
         }
     };
-    self.ExecuteExportListDisplay = function (limitRows, fileName, sheetName) {
+    self.ExecuteExportListDisplay = function (e, limitRows, fileName, sheetName) {
 
         var unixTimeStamp = WC.DateHelper.GetCurrentUnixTime();
         limitRows = limitRows === 0 ? userSettingModel.GetByName(enumHandlers.USERSETTINGS.DEFAULT_EXPORT_LINES) : limitRows;
@@ -552,10 +557,12 @@ function ExportExcelHandler() {
         var originalFileName = fileName;
         fileName = fileName + '-' + unixTimeStamp.toString();
 
+        e.kendoWindow.element.closest('.popupExportExcel').addClass('alwaysHide');
         progressbarModel.ShowStartProgressBar(Localization.ProgressBar_CurrentPrepareToExportData, false);
         progressbarModel.CancelCustomHandler = true;
         progressbarModel.CancelFunction = function () {
             self.IsCancelExporting = true;
+            self.CloseExportExcelPopup(e);
         };
 
         var exportOptions = self.GetDisplayExcelDefaultSettings();
@@ -593,16 +600,17 @@ function ExportExcelHandler() {
             .done(function (data) {
                 progressbarModel.IsCancelPopup = false;
                 self.GenerateExcelUri = data.uri;
-                self.GenerateExcel();
+                self.GenerateExcel(e);
             });
     };
 
-    self.ExporSingleDrilldownItem = function (options) {
-
+    self.ExporSingleDrilldownItem = function (e, options) {
+        e.kendoWindow.element.closest('.popupExportExcel').addClass('alwaysHide');
         progressbarModel.ShowStartProgressBar(Localization.ProgressBar_CurrentPrepareToExportData, false);
         progressbarModel.CancelCustomHandler = true;
         progressbarModel.CancelFunction = function () {
             self.IsCancelExporting = true;
+            self.CloseExportExcelPopup(e);
         };
 
         var headersText = [Localization.Source, Localization.Field, Localization.Value];
@@ -657,7 +665,7 @@ function ExportExcelHandler() {
             .done(function (data) {
                 progressbarModel.IsCancelPopup = false;
                 self.GenerateExcelUri = data.uri;
-                self.GenerateExcel();
+                self.GenerateExcel(e);
             });
 
     };

@@ -1796,52 +1796,53 @@ function AnglePageHandler() {
                 ],
                 resizable: false,
                 actions: ["Close"],
-                open: function (e) {
-                    if (!e.sender.isPopupInitialized) {
-                        jQuery('#newDashboardRadioButton').prop('checked', true);
-                        jQuery('#dashboardNameTextbox').prop('disabled', false);
-                    }
-
-                    if (jQuery.localStorage('is_dashboard_created')) {
-                        jQuery('#newDashboardRadioButton').prop('checked', false);
-                        jQuery('#exitingDashboardRadioButton').prop('checked', true);
-                    }
-
-                    // set default dashboard name
-                    var bps = [];
-                    jQuery.each(businessProcessesModel.General.Data(), function (index, bp) {
-                        if (jQuery.inArray(bp.id, angleInfoModel.Data().assigned_labels) !== -1) {
-                            bps.push(bp.abbreviation || bp.id);
-                        }
-                    });
-                    jQuery('#dashboardNameTextbox').val(bps.join(',') + ' ' + angleInfoModel.Name() + ' ' + userModel.DisplayName());
-
-                    // set save button link
-                    self.NewDashboardData = dashboardModel.GetInitialTemporaryData();
-                    self.NewDashboardData.model = angleInfoModel.Data().model;
-
-                    var params = {};
-                    params[enumHandlers.DASHBOARDPARAMETER.NEW] = true;
-                    var newDashboardUrl = WC.Utility.GetDashboardPageUri(self.NewDashboardData.uri, params);
-                    e.sender.wrapper.find('.k-window-buttons .btnCreateDashboard').attr({
-                        href: newDashboardUrl,
-                        target: '_blank'
-                    });
-
-                    self.ShowAddToDashboardPopupCallback();
-                }
+                open: self.ShowAddToDashboardPopupCallback
             };
 
         popup.Show(popupSettings);
     };
-    self.ShowAddToDashboardPopupCallback = function () {
-        jQuery('#exitingDashboardRadioButton').prop('disabled', true);
-        WC.HtmlHelper.DropdownList('#dashboardDropdownlist', [{ id: '', name: '...' }], {
-            enable: false
+    self.ShowAddToDashboardPopupCallback = function (e) {
+        if (!e.sender.isPopupInitialized) {
+            jQuery('#newDashboardRadioButton').prop('checked', true);
+            jQuery('#dashboardNameTextbox').prop('disabled', false);
+        }
+
+        if (jQuery.localStorage('is_dashboard_created')) {
+            jQuery('#newDashboardRadioButton').prop('checked', false);
+            jQuery('#exitingDashboardRadioButton').prop('checked', true);
+        }
+
+        // set default dashboard name
+        var bps = [];
+        jQuery.each(businessProcessesModel.General.Data(), function (index, bp) {
+            if (jQuery.inArray(bp.id, angleInfoModel.Data().assigned_labels) !== -1) {
+                bps.push(bp.abbreviation || bp.id);
+            }
+        });
+        jQuery('#dashboardNameTextbox').val(bps.join(',') + ' ' + angleInfoModel.Name() + ' ' + userModel.DisplayName());
+
+        // set save button link
+        self.NewDashboardData = dashboardModel.GetInitialTemporaryData();
+        self.NewDashboardData.model = angleInfoModel.Data().model;
+
+        var params = {};
+        params[enumHandlers.DASHBOARDPARAMETER.NEW] = true;
+        var newDashboardUrl = WC.Utility.GetDashboardPageUri(self.NewDashboardData.uri, params);
+        e.sender.wrapper.find('.k-window-buttons .btnCreateDashboard').attr({
+            href: newDashboardUrl,
+            target: '_blank'
         });
 
+        jQuery('#exitingDashboardRadioButton').prop('disabled', true);
+        WC.HtmlHelper.DropdownList('#dashboardDropdownlist', [], { enable: false });
+
+        e.sender.element.find('.loader-spinner-inline').removeClass('alwaysHide');
+
         dashboardModel.LoadAllDashboards()
-            .done(self.RenderAllDashboardDrodpownlist);
+            .done(self.RenderAllDashboardDrodpownlist)
+            .always(function () {
+                e.sender.element.find('.loader-spinner-inline').addClass('alwaysHide');
+            });
     };
     self.CloseAddToDashboardPopup = function () {
         popup.Close('#popupAddToDashboard');

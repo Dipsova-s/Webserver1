@@ -345,7 +345,7 @@
 
                     MC.util.getController(settings.start)();
 
-                    self.next('.icon').addClass('iconLoading');
+                    self.next('.icon').removeClass('icon-filter').addClass('loader-spinner-inline');
                     clearTimeout(settings.fnChecker);
                     settings.fnChecker = setTimeout(function () {
                         treeList.content.removeHighlight();
@@ -381,7 +381,7 @@
                                 fnExpandParents(row, null);
                         }
 
-                        self.next('.icon').removeClass('iconLoading');
+                        self.next('.icon').removeClass('loader-spinner-inline').addClass('icon-filter');
 
                         MC.util.getController(settings.callback)();
                     }, e.keyCode === 13 ? 1 : settings.delay);
@@ -430,7 +430,7 @@
                         if (!grid) {
                             jQuery(settings.target).busyIndicator(true);
                         }
-                        jQuery(self).next('.icon').addClass('iconLoading');
+                        jQuery(self).next('.icon').removeClass('icon-filter').addClass('loader-spinner-inline');
                         clearTimeout(settings.fnChecker);
                         clearInterval(settings.fnCheckRequest);
                         settings.fnChecker = setTimeout(function () {
@@ -455,7 +455,7 @@
                                 settings.fnCheckRequest = setInterval(function () {
                                     if (!grid.dataSource._requestInProgress && !jQuery.active) {
                                         clearInterval(settings.fnCheckRequest);
-                                        jQuery(self).next('.icon').removeClass('iconLoading');
+                                        jQuery(self).next('.icon').removeClass('loader-spinner-inline').addClass('icon-filter');
                                         MC.util.getController(settings.callback)(grid);
                                     }
                                 }, 200);
@@ -473,11 +473,11 @@
 
                                         MC.util.getController(settings.start)(metadata);
 
-                                        MC.ui.loading.setLoader('loadingHide');
+                                        disableLoading();
                                     },
                                     ajaxSuccess: function (metadata, data, status, xhr) {
                                         jQuery(metadata.target).busyIndicator(false);
-                                        jQuery(self).next('.icon').removeClass('iconLoading');
+                                        jQuery(self).next('.icon').removeClass('loader-spinner-inline').addClass('icon-filter');
 
                                         MC.util.getController(settings.callback)(metadata, data, status, xhr);
                                     }

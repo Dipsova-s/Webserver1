@@ -155,16 +155,19 @@
         </div>
     </div>
 
-    <div id="PopupProgressBarwrapper" class="k-widget k-window popupProgressBar popup-initialized" style="opacity: 1;">
-        <div class="k-window-titlebar k-header">&nbsp;<span class="k-window-title" id="popupProgressBar_wnd_title">@EveryAngle.Shared.Globalization.Resource.ProgressbarProgressing</span><div class="k-window-actions"></div></div>
-        <div id="popupProgressBar" class="k-window-content k-content">
-            <div id="ProgressBar" class="k-widget k-progressbar k-progressbar-horizontal"></div>
-            <div id="ProgressPercent">0%</div>
-            <div id="ProgressText">@EveryAngle.Shared.Globalization.Resource.ProgressBar_PleaseWait</div>
-            <a class="btn btn-ghost btnCenter disabled" id="CancelProgress"><span>@EveryAngle.Shared.Globalization.Captions.Button_Cancel</span></a>
+    <div id="LoaderContainer" class="loader-container popup-initialized">
+        <div class="loader-wrapper">
+            <div class="loader-inner">
+                <div class="loader-spinner"></div>
+                <h3 class="loader-percentage"></h3>
+            </div>
+            <div class="loader-button">
+                <a class="btn btn-ghost loader-cancel-button">
+                    <span>@EveryAngle.Shared.Globalization.Captions.Button_Cancel</span>
+                </a>
+            </div>
         </div>
     </div>
-    <div class="k-overlay"></div>
 
     <span id="ToastNotificationContainer"></span>
     <script id="ToastNotificationAlertTemplate" type="text/x-kendo-template">
@@ -176,7 +179,7 @@
             </div>
             <section class="toast-notification__info">
                 <h1>#= title #</h1>
-                <p>#= message #</p>
+                <p>#: message #</p>
             </section>
             <button class="toast-notification__close-icon">
                 <i class="icon icon-close"></i>

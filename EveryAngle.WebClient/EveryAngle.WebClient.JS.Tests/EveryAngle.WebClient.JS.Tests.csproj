@@ -226,6 +226,7 @@
     <Content Include="ManagementConsole\Tests\Custom\MC.AjaxTest.js" />
     <Content Include="ManagementConsole\Tests\Custom\MC.Test.js" />
     <Content Include="ManagementConsole\Tests\Custom\MC.UI.GridSortingTest.js" />
+    <Content Include="ManagementConsole\Tests\Custom\MC.UI.LoadingTest.js" />
     <Content Include="ManagementConsole\Tests\Custom\MC.UI.PasswordTest.js" />
     <Content Include="ManagementConsole\Tests\Custom\MC.UITest.js" />
     <Content Include="ManagementConsole\Tests\Custom\MC.UtilModelServerInfoTest.js" />

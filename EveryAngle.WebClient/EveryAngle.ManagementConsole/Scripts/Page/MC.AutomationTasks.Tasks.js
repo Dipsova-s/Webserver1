@@ -1918,7 +1918,7 @@
                         parameters: { "fieldsUri": fieldUri },
                         type: 'GET',
                         ajaxStart: function () {
-                            MC.ui.loading.setLoader('loadingHide');
+                            disableLoading();
                         }
                     }) : { fields: [] }
                 )

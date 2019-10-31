@@ -162,7 +162,7 @@ function ChartHandler(elementId, container) {
 
     self.ShowLoadingIndicator = function () {
         var container = self.GetContainer();
-        container.busyIndicator(true);
+        container.closest('#ChartArea').busyIndicator(true);
         if (!self.DashBoardMode()) {
             fieldSettingsHandler.ShowLoadingIndicator();
         }
@@ -170,7 +170,7 @@ function ChartHandler(elementId, container) {
 
     self.HideLoadingIndicator = function () {
         var container = self.GetContainer();
-        container.busyIndicator(false);
+        container.closest('#ChartArea').busyIndicator(false);
         if (!self.DashBoardMode()) {
             fieldSettingsHandler.HideLoadingIndicator();
         }

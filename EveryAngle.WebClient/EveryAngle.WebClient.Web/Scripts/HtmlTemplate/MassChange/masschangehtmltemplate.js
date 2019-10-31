@@ -47,7 +47,7 @@ var massChangeHtmlTemplate = function () {
                 '</div>',
             '</div>',
             '<div class="sectionLabels">',
-                '<div class="tab" id="LabelTabWrapper">',
+                '<div class="tabMenuWrapper" id="LabelTabWrapper">',
                     '<ul class="tabMenu">',
                         '<li id="BPLabels" class="active" onclick="massChangeModel.LabelTabClick(enumHandlers.LABELVIEWTYPE.BP, this);" data-bind="css: { disabled: !massChangeModel.CanSetLabels() }"><span>' + Captions.MassChange_BP_Tab_Title + '</span></li>',
                         '<li id="SearchLabels" onclick="massChangeModel.LabelTabClick(enumHandlers.LABELVIEWTYPE.SEARCH, this);" data-bind="css: { disabled: !massChangeModel.CanSetLabels() }"><span>' + Captions.MassChange_SearchLabel_Tab_Title + '</span></li>',

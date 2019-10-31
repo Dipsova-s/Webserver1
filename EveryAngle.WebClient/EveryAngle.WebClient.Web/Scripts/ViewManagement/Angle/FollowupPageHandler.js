@@ -89,6 +89,8 @@ function FollowupPageHandler() {
         });
         e.sender.element.find('.followupClass').attr('title', followupClassNames.join(',')).text(followupClassNames.join(','));
 
+        e.sender.element.busyIndicator(true);
+
         jQuery.when(self.DataFollowup[followupUrl] || modelFollowupsHandler.LoadAllFollowups(followupUrl))
             .done(function (data) {
                 self.DataFollowup[followupUrl] = data;
@@ -103,6 +105,9 @@ function FollowupPageHandler() {
                 e.sender.element.find('.followupsArea').data('completed', true);
 
                 self.AdjustAreaLayout();
+            })
+            .always(function () {
+                e.sender.element.busyIndicator(false);
             });
     };
     self.SetHandlerValues = function (handler, angleSteps, displaySteps) {

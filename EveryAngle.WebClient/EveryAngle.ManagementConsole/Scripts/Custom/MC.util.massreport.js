@@ -4,15 +4,17 @@
         template: {
             done: '<li class="success">{0}: {1}</li>',
             fail: '<li class="fail">{0}: {1}</li>',
-            status: '{0}: {1}<br/>{2}'
+            status: [
+                '<div class="mass-report-progress">',
+                    '<div class="loader-spinner-inline"></div>',
+                    '<p>{0}: {1}<br/>{2}</p>',
+                '</div>'
+            ].join('')
         },
-        element: null,
         reports: [],
         initial: function () {
             MC.ui.loading.handleByUser = true;
             MC.ui.loading.show();
-            MC.ui.loading.setLoader('loadingWithText');
-            MC.util.massReport.element = jQuery('#loading .loadingContentText');
             MC.util.massReport.reports = [];
         },
         start: function (requests, callback, count) {
@@ -50,7 +52,8 @@
                         callback();
                     });
             }
-        }, createMessage: function (title, detail) {
+        },
+        createMessage: function (title, detail) {
             var xhr = {
                 responseText: JSON.stringify({
                     reason: title,
@@ -60,7 +63,7 @@
             return MC.ajax.getErrorMessage(xhr, null, title);
         },
         setStatus: function (label, what, statusText) {
-            MC.util.massReport.element.html(kendo.format(MC.util.massReport.template.status, label, what, statusText));
+            MC.ui.loading.setInfo(kendo.format(MC.util.massReport.template.status, label, what, statusText));
         },
         setReport: function (reportIndex, isDone, what, text) {
             if (isDone) {
@@ -88,7 +91,7 @@
             var msg = MC.util.massReport.createMessage(reportTitle, '');
             msg = msg.replace('<p></p>', '<ul>' + MC.util.massReport.reports.join('') + '</ul>');
             MC.ui.loading.setInfo(msg);
-            $('#loading .loadingClose').off('click.close').on('click.close', function () {
+            $(MC.ui.loading.loaderCloseButton).off('click.close').on('click.close', function () {
                 if (typeof onClose === 'function') {
                     onClose();
                 }
@@ -98,7 +101,7 @@
             });
         },
         closeReport: function () {
-            jQuery('.loadingClose').trigger('click');
+            jQuery(MC.ui.loading.loaderCloseButton).trigger('click');
         }
     };
 

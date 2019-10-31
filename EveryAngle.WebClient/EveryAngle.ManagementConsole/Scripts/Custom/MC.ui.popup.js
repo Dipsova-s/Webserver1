@@ -20,7 +20,7 @@
 
     var requestStart = function () {
         fnCheckLoading = setTimeout(function () {
-            MC.ui.loading.setLoader('loadingHide');
+            disableLoading();
             var kPopup = getPopup();
             if (kPopup)
                 kPopup.element.busyIndicator(true);

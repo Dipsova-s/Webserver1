@@ -53,8 +53,8 @@ function ScheduleAngleHandler() {
     };
 
     self.ShowPopupCallback = function (e) {
-        e.sender.element.busyIndicator(true);
-        e.sender.element.find('.scheduleAngleArea').css('opacity', 0);
+        WC.HtmlHelper.DropdownList('#taskDropdownList', [], { enable: false });
+        e.sender.element.find('.loader-spinner-inline').removeClass('alwaysHide');
 
         /* BOF: Generate datas for field dropdown list */
         self.GetTasks()
@@ -62,8 +62,7 @@ function ScheduleAngleHandler() {
                 self.PopulateTaskList(e, data);
             })
             .always(function () {
-                e.sender.element.busyIndicator(false);
-                e.sender.element.find('.scheduleAngleArea').css('opacity', '');
+                e.sender.element.find('.loader-spinner-inline').addClass('alwaysHide');
             });
         /* EOF: Generate datas for field dropdown list */
     };
@@ -90,13 +89,13 @@ function ScheduleAngleHandler() {
     };
 
     self.BindingFieldDropdownList = function (datas, btnSubmit) {
-        var ddlTasks = WC.HtmlHelper.DropdownList('#taskDropdownList', datas.tasks, {
+        WC.HtmlHelper.DropdownList('#taskDropdownList').destroy();
+        var dropdownList = WC.HtmlHelper.DropdownList('#taskDropdownList', datas.tasks,
+        {
             dataTextField: 'name',
             dataValueField: 'uri',
             valueTemplate: '<span>#= name #</span>',
             template: '<span>#= name #</span>',
-            dataSource: datas.tasks,
-            value: datas.selectedTaskId,
             change: function (e) {
                 var taskValue = e.sender.value();
                 jQuery('.popupScheduleAngle .btnSubmit')[!taskValue ? 'addClass' : 'removeClass']('executing');
@@ -104,7 +103,9 @@ function ScheduleAngleHandler() {
                 btnSubmit.attr('href', uri);
             }
         });
-        ddlTasks.trigger('change');
+        dropdownList.enable(true);
+        dropdownList.value(datas.selectedTaskId);
+        dropdownList.trigger('change');
     };
 
     self.GetTasks = function () {
@@ -115,7 +116,7 @@ function ScheduleAngleHandler() {
     self.PopulateTaskList = function (e, data) {
         var btnSubmit = e.sender.wrapper.find('.btnSubmit');
         btnSubmit.attr('target', '_blank');
-
+        
         // remove taks which cannot be managed
         if (self.UseOnlyUserTasks()) {
             var currentUser = userModel.Data().id;

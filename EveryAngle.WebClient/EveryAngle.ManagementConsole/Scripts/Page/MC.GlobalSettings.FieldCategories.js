@@ -238,7 +238,7 @@
                     }
                 },
                 errorCallback: function () {
-                    $('#loading .loadingClose').one('click.close', MC.ajax.reloadMainContent);
+                    $(MC.ui.loading.loaderCloseButton).one('click.close', MC.ajax.reloadMainContent);
                 }
             });
         };

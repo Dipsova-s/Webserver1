@@ -58,7 +58,7 @@ window.UserPasswordHandler = function () {
         popup.Show(popupSettings);
     };
 
-    self.SubmitChangePassword = function () {
+    self.SubmitChangePassword = function (e) {
         var oldpassword = jQuery('#oldPassword').val();
         var newpassword = jQuery('#newPassword').val();
         var comparedPasswordElement = jQuery('#ComparedPassword').val();
@@ -70,11 +70,12 @@ window.UserPasswordHandler = function () {
             self.ShowErrorMessage(Localization.PasswordDoesNotMatch);
         }
         else {
-            self.ChangePassword(oldpassword, newpassword);
+            self.ChangePassword(e, oldpassword, newpassword);
         }
     };
 
-    self.ChangePassword = function (oldpassword, newpassword) {
+    self.ChangePassword = function (e, oldpassword, newpassword) {
+        e.kendoWindow.element.closest('.popupUserPassword').addClass('alwaysHide');
         progressbarModel.ShowStartProgressBar();
         var newPasswordContent = { 'user': userModel.Data().id, 'oldpassword': oldpassword, 'newpassword': newpassword };
         var changePasswordUrl = 'password/changepassword';
@@ -93,6 +94,7 @@ window.UserPasswordHandler = function () {
             })
             .always(function () {
                 progressbarModel.EndProgressBar();
+                e.kendoWindow.element.closest('.popupUserPassword').removeClass('alwaysHide');
                 setTimeout(function () {
                     errorHandlerModel.Enable(true);
                     errorHandlerModel.IsNeedToRedirectToLoginPage = true;

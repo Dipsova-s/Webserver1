@@ -1,0 +1,421 @@
+﻿
+/* .highlight
+============================================ */
+.highlight {
+    background-color: #fff7cf;
+}
+
+/* .chkIndeterminatable (checkbox 3 state)
+============================================ */
+.chk {
+    position: relative;
+    opacity: 0;
+    z-index: 1;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+.chkIndeterminatable {
+    cursor: pointer;
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 14px;
+    max-width: 14px;
+    height: 14px;
+    transition: all .3s cubic-bezier(.25,.8,.25,1);
+    border: solid 1px #78909c;
+    border-radius: 2px;
+    background-color: #f7f9fa;
+    box-sizing: border-box;
+    z-index: 5;
+}
+
+.chkIndeterminatable.yes,
+.chkIndeterminatable.empty {
+    border-color: #358ed7;
+    background-color: #358ed7;
+}
+
+.chkIndeterminatable.disabled {
+    cursor: default;
+    opacity: .5;
+}
+
+.chkIndeterminatable:hover {
+    border-color: #358ed7;
+}
+
+.chkIndeterminatable.disabled:hover {
+    border-color: #78909c;
+}
+
+.chkIndeterminatable.disabled.yes:hover,
+.chkIndeterminatable.disabled.empty:hover {
+    border-color: #358ed7;
+}
+
+.chkIndeterminatable:after {
+    content: '';
+    position: absolute;
+    border: solid #fff;
+    box-sizing: border-box;
+}
+
+.chkIndeterminatable.yes:after {
+    left: 3.5px;
+    top: 1px;
+    width: 5px;
+    height: 9px;
+    border-width: 0 2px 2px 0;
+    transform: rotate(45deg);
+}
+
+.chkIndeterminatable.no:after {
+    display: none;
+}
+
+.chkIndeterminatable.empty:after {
+    width: 0;
+    height: 0;
+    border-width: 4px;
+    left: 2px;
+    top: 2px;
+    border-radius: 1px;
+}
+
+.chkIndeterminatable + input[type="checkbox"] {
+    position: relative !important;
+}
+
+/* Base for label styling */
+[type="checkbox"],
+[type="radio"] {
+    padding: 0;
+    margin: 0 5px 0 0;
+    z-index: 3;
+    cursor: pointer;
+    position: absolute;
+    left: 0;
+    top: 0;
+    opacity: 0 !important;
+}
+
+[type="checkbox"] + .label,
+[type="radio"] + .label {
+    cursor: pointer;
+    display: inline-block;
+    position: relative;
+    top: 0;
+    z-index: 2;
+    padding-left: 30px;
+    min-height: 14px;
+    line-height: 14px;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+[type="checkbox"] + .label.inline,
+[type="radio"] + .label.inline {
+    margin-right: 20px;
+}
+
+/* checkbox aspect */
+[type="checkbox"] + .label:before,
+[type="checkbox"] + .label:after,
+[type="radio"] + .label:before,
+[type="radio"] + .label:after {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 14px;
+    height: 14px;
+    border: solid 1px #78909c;
+    background-color: #f7f9fa;
+    transition: all .3s cubic-bezier(.25,.8,.25,1);
+    box-sizing: border-box;
+}
+
+[type="checkbox"] + .label:before {
+    border-radius: 2px;
+}
+
+[type="radio"] + .label:before,
+[type="radio"] + .label:after {
+    border-radius: 50%;
+}
+
+[type="checkbox"]:checked + .label:before {
+    border-color: #358ed7;
+    background-color: #358ed7;
+}
+
+[type="radio"]:checked + .label:before {
+    border-color: #358ed7;
+}
+
+[type="checkbox"]:hover + .label:before,
+[type="radio"]:hover + .label:before,
+[type="checkbox"] + .label:hover:before,
+[type="radio"] + .label:hover:before {
+    border-color: #358ed7;
+}
+
+[type="checkbox"] + .label:after,
+[type="radio"] + .label:after {
+    display: none;
+    background-color: transparent;
+}
+
+[type="checkbox"]:checked + .label:after {
+    display: block;
+    left: 4.5px;
+    top: 2px;
+    width: 5px;
+    height: 9px;
+    border: solid #fff;
+    border-width: 0 2px 2px 0;
+    transform: rotate(45deg);
+}
+
+[type="radio"]:checked + .label:after {
+    display: block;
+    left: 3px;
+    top: 3px;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background-color: #358ed7;
+    border: solid #358ed7;
+}
+
+input[type="checkbox"]:not(:checked) + .label {
+    color: #909191;
+}
+
+/* disabled checkbox */
+[type="checkbox"]:disabled,
+[type="radio"]:disabled,
+[type="checkbox"]:disabled + .label,
+[type="radio"]:disabled + .label,
+[type="checkbox"]:disabled + .label:before,
+[type="radio"]:disabled + .label:before,
+[type="checkbox"]:disabled:checked + .label:before,
+[type="radio"]:disabled:checked + .label:before {
+    cursor: default;
+    opacity: .5;
+}
+
+[type="checkbox"]:disabled:hover + .label:before,
+[type="radio"]:disabled:hover + .label:before,
+[type="checkbox"]:disabled + .label:hover:before,
+[type="radio"]:disabled + .label:hover:before {
+    border-color: #78909c;
+}
+
+[type="checkbox"]:disabled:checked:hover + .label:before,
+[type="radio"]:disabled:checked:hover + .label:before,
+[type="checkbox"]:disabled:checked + .label:hover:before,
+[type="radio"]:disabled:checked + .label:hover:before {
+    border-color: #358ed7;
+}
+
+/* .helpTextContainer
+============================================ */
+#helpTextFootNote {
+    position: absolute;
+    left: auto;
+    bottom: 10px;
+    font-size: 11px;
+    color: #777;
+}
+
+.helpTextContainer,
+.helpAdditionalContainer,
+.helpHeaderContainer {
+    font-size: 12px;
+}
+
+.helpHeaderContainer {
+    font-size: 14px;
+    margin-bottom: 10px;
+    line-height: 1.43;
+    letter-spacing: 0.25px;
+}
+
+.helpTextContainer .helpNameHeader {
+    border-bottom: 1px solid #c2c2c2;
+    padding-bottom: 4px;
+    color: #333;
+    font-size: 1.3em;
+    margin-top: 15px;
+}
+
+.helpTextContainer a {
+    background: transparent;
+}
+
+.helpTextContainer a:active,
+.helpTextContainer a:hover {
+    outline: 0;
+}
+
+.helpTextContainer abbr[title] {
+    border-bottom: 1px dotted;
+}
+
+.helpTextContainer h1,
+.helpTextContainer h2,
+.helpTextContainer h3,
+.helpTextContainer h4,
+.helpAdditionalContainer h4,
+.helpTextContainer h5,
+.helpTextContainer h6 {
+    font-family: inherit;
+    font-weight: bold;
+    color: inherit;
+    text-rendering: optimizelegibility;
+    margin: .42em 0;
+}
+
+.helpTextContainer h1,
+.helpTextContainer h2,
+.helpTextContainer h3,
+.helpTextContainer h4,
+.helpAdditionalContainer h4 {
+    font-size: 1em;
+    line-height: 2;
+    letter-spacing: 0.44px;
+}
+
+.helpAdditionalContainer h4 {
+    margin-top: 40px;
+}
+
+.helpTextContainer h5 {
+    font-size: .9em;
+}
+
+.helpTextContainer h6 {
+    font-size: .8em;
+}
+
+.helpTextContainer p,
+.helpHeaderContainer p {
+    margin: .86em 0;
+    line-height: 1.67;
+    letter-spacing: 0.25px;
+}
+
+.helpHeaderContainer p img {
+    vertical-align: bottom;
+    margin-right: 2px;
+}
+
+.helpTextContainer .section {
+    margin: .42em 0 1.5em 0;
+}
+
+.helpTextContainer ul,
+.helpAdditionalContainer ul,
+.helpTextContainer ol {
+    margin-top: .42em;
+    margin-bottom: .42em;
+}
+
+.helpTextContainer b,
+.helpTextContainer strong {
+    font-weight: bold;
+}
+
+.helpTextContainer dfn,
+.helpTextContainer em,
+.helpTextContainer i {
+    font-style: italic;
+}
+
+.helpTextContainer hr {
+    box-sizing: content-box;
+    height: 0;
+}
+
+.helpTextContainer mark {
+    background: #ff0;
+    color: #000;
+}
+
+.helpTextContainer s,
+.helpTextContainer strike,
+.helpTextContainer del {
+    text-decoration: line-through;
+}
+
+.helpTextContainer code,
+.helpTextContainer kbd,
+.helpTextContainer pre,
+.helpTextContainer samp {
+    font-family: monospace, serif;
+    font-size: 1em;
+}
+
+.helpTextContainer pre {
+    white-space: pre-wrap;
+}
+
+.helpTextContainer q,
+.helpTextContainer blockquote {
+    quotes: "\201C" "\201D" "\2018" "\2019";
+}
+
+.helpTextContainer small {
+    font-size: 80%;
+}
+
+.helpTextContainer sub,
+.helpTextContainer sup {
+    font-size: 75%;
+    line-height: 0;
+    position: relative;
+    vertical-align: baseline;
+}
+
+.helpTextContainer sup {
+    top: -0.5em;
+}
+
+.helpTextContainer sub {
+    bottom: -0.25em;
+}
+
+.helpTextContainer img {
+    border: 0;
+}
+
+.helpTextContainer table {
+    border-collapse: collapse;
+    border-spacing: 0;
+    margin: .22em 0;
+}
+
+.helpTextContainer td,
+.helpTextContainer th {
+    padding: 2px;
+    border: solid 1px #e3e5e5;
+    vertical-align: top;
+    text-align: left;
+}
+
+.helpTextContainer table ul,
+.helpTextContainer table ol {
+    margin-top: 0;
+}
+
+
+@import "components/progressbar";

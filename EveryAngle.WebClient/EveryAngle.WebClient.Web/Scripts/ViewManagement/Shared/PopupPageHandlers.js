@@ -295,6 +295,7 @@ function Popup() {
             errorHandlerModel.Source(null);
         }
         jQuery('.k-window, .k-overlay').hide();
+        progressbarModel.EndProgressBar();
     };
 
     self.Alert = function (title, message, options) {

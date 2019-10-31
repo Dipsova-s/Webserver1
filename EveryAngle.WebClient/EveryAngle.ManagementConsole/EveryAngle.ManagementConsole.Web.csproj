@@ -371,7 +371,6 @@
     <Content Include="Images\Icons\icon_field_info_hover.png" />
     <Content Include="Images\Icons\icon_object.png" />
     <Content Include="Images\Icons\icon_subobject.png" />
-    <Content Include="Images\loading_progressbar.gif" />
     <Content Include="Images\bp_preview_bg.png" />
     <Content Include="Images\favicon.ico" />
     <Content Include="Images\Icons\icon_alert.png" />
@@ -405,8 +404,6 @@
     <Content Include="Images\Icons\icon_plus.png" />
     <Content Include="Images\Icons\icon_user.png" />
     <Content Include="Images\Icons\icon_arrow_right.png" />
-    <Content Include="Images\loading.gif" />
-    <Content Include="Images\loading_small.gif" />
     <Content Include="Images\Login\login_bg.png" />
     <Content Include="Images\logo.png" />
     <Content Include="Images\UI\tab_bg.png" />

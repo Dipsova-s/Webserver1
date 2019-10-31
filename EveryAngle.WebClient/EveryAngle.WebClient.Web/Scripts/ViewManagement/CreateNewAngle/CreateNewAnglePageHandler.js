@@ -70,9 +70,7 @@ function CreateNewAngleViewManagementModel() {
                 height: 530,
                 minWidth: 715,
                 minHeight: 300,
-                open: function (e) {
-                    self.ShowCreateOptionCallback(e);
-                }
+                open: self.ShowCreateOptionCallback
             };
 
         popup.Show(popupSettings);
@@ -81,7 +79,7 @@ function CreateNewAngleViewManagementModel() {
         e.sender.wrapper.height('auto');
 
         jQuery('#ButtonCreateAngleFromSchemaSimple, #ButtonCreateAngleFromSchemaDetailed').addClass('disabled');
-        jQuery('#ChooseNewAngleOption .content').not(':last').busyIndicator(true);
+        e.sender.element.busyIndicator(true);
         var blankImage = self.GetPictureFromSchemaData(null);
         var images = jQuery('#ChooseNewAngleOption .imageSection img').not(':last').attr('src', blankImage);
 
@@ -114,7 +112,7 @@ function CreateNewAngleViewManagementModel() {
             })
             .always(function () {
                 jQuery('#ButtonCreateAngleFromSchemaSimple, #ButtonCreateAngleFromSchemaDetailed').removeClass('disabled');
-                jQuery('#ChooseNewAngleOption .content').not(':last').busyIndicator(false);
+                e.sender.element.busyIndicator(false);
             });
     };
     self.CloseCreateOption = function () {
@@ -156,11 +154,6 @@ function CreateNewAngleViewManagementModel() {
                         position: 'right'
                     },
                     {
-                        text: '',
-                        className: 'alwaysHide loading16x16',
-                        position: 'right'
-                    },
-                    {
                         text: '<i class="iconBack">&lsaquo;</i>' + Localization.BackToCreateOptions,
                         click: function (e) {
                             self.ShowCreateOption();
@@ -194,30 +187,26 @@ function CreateNewAngleViewManagementModel() {
                         }
                     }
                 },
-                open: function (e) {
-                    e.sender.element.busyIndicator(true);
-
-                    businessProcessesModel.CreateNewAngleSchemaBusinessProcess = new BusinessProcessesViewModel();
-                    businessProcessesModel.CreateNewAngleSchemaBusinessProcess.Theme('flat');
-                    businessProcessesModel.CreateNewAngleSchemaBusinessProcess.MultipleActive(false);
-                    businessProcessesModel.CreateNewAngleSchemaBusinessProcess.CanEmpty(false);
-                    businessProcessesModel.CreateNewAngleSchemaBusinessProcess.ClickCallback(function (data) {
-                        if (data.is_allowed) {
-                            self.SetSchemaDiagram();
-                        }
-                    });
-                    businessProcessesModel.CreateNewAngleSchemaBusinessProcess.ApplyHandler('#CreateAngleBySchemaBusinessProcess');
-
-                    self.ShowCreateAngleBySchemaCallback(e);
-
-                    WC.HtmlHelper.ApplyKnockout(self, e.sender.wrapper);
-                },
+                open: self.ShowCreateAngleBySchemaCallback,
                 close: popup.Destroy
             };
 
         popup.Show(popupSettings);
     };
     self.ShowCreateAngleBySchemaCallback = function (e) {
+        e.sender.element.find('.schemaWrapper').busyIndicator(true);
+
+        businessProcessesModel.CreateNewAngleSchemaBusinessProcess = new BusinessProcessesViewModel();
+        businessProcessesModel.CreateNewAngleSchemaBusinessProcess.Theme('flat');
+        businessProcessesModel.CreateNewAngleSchemaBusinessProcess.MultipleActive(false);
+        businessProcessesModel.CreateNewAngleSchemaBusinessProcess.CanEmpty(false);
+        businessProcessesModel.CreateNewAngleSchemaBusinessProcess.ClickCallback(function (data) {
+            if (data.is_allowed) {
+                self.SetSchemaDiagram();
+            }
+        });
+        businessProcessesModel.CreateNewAngleSchemaBusinessProcess.ApplyHandler('#CreateAngleBySchemaBusinessProcess');
+
         var currentBP = {};
         currentBP[self.CreateAngleSettings.createby_schema[currentSchemaMode].bp] = true;
 
@@ -236,9 +225,12 @@ function CreateNewAngleViewManagementModel() {
 
         self.SetSchemaHelpTexts();
         self.SetSchemaDiagram();
+        WC.HtmlHelper.ApplyKnockout(self, e.sender.wrapper);
 
-        e.sender.element.busyIndicator(false);
-        e.sender.wrapper.find('.k-window-buttons .btn').removeClass('executing');
+        setTimeout(function () {
+            e.sender.element.find('.schemaWrapper').busyIndicator(false);
+            e.sender.wrapper.find('.k-window-buttons .btn').removeClass('executing');
+        }, 250);
     };
     self.GetSchemaData = function (bp, mode) {
         var modelId = self.CurrentModelData.id;
@@ -421,10 +413,10 @@ function CreateNewAngleViewManagementModel() {
             }
 
             try {
-                jQuery('#Angle').busyIndicator(true);
+                jQuery('#Angle > .schemaWrapper').busyIndicator(true);
                 self.SetSchemaTemplates()
                     .always(function () {
-                        jQuery('#Angle').busyIndicator(false);
+                        jQuery('#Angle > .schemaWrapper').busyIndicator(false);
                     });
                 self.SetSchemaHelpTexts();
             }
@@ -681,12 +673,9 @@ function CreateNewAngleViewManagementModel() {
     self.SetDisableCreateFromSchemaUI = function (disable) {
         if (disable) {
             jQuery('.popupCreateNewAngleBySchema .btnSubmit').addClass('disabled');
-            jQuery('#popupCreateNewAngleBySchema').busyIndicator(true)
-                .find('.k-loading-image').removeAttr('class');
         }
         else {
             jQuery('.popupCreateNewAngleBySchema .btnSubmit').removeClass('disabled');
-            jQuery('#popupCreateNewAngleBySchema').busyIndicator(false);
         }
     };
 
@@ -716,11 +705,6 @@ function CreateNewAngleViewManagementModel() {
                             self.CreateNewAngleFromObjects(self.ClassesChooserHandler.GetAllSelectedClasses());
                         },
                         className: 'btnSubmit executing disabled',
-                        position: 'right'
-                    },
-                    {
-                        text: '',
-                        className: 'alwaysHide loading16x16',
                         position: 'right'
                     },
                     {
@@ -1120,12 +1104,9 @@ function CreateNewAngleViewManagementModel() {
     self.SetDisableCreateFromObjectUI = function (disable) {
         if (disable) {
             jQuery('.popupCreateNewAngle .btnSubmit').addClass('disabled');
-            jQuery('#popupCreateNewAngle').busyIndicator(true)
-                .find('.k-loading-image').removeAttr('class');
         }
         else {
             jQuery('.popupCreateNewAngle .btnSubmit').removeClass('disabled');
-            jQuery('#popupCreateNewAngle').busyIndicator(false);
         }
     };
 

@@ -272,7 +272,7 @@ namespace EveryAngle.WebClient.Web
             bundles.Add(new StyleBundle("~/content/kendoui/kendoui.css")
                 .Include("~/content/kendoui/kendo.common.min.css",
                     "~/content/kendoui/kendo.default.min.css",
-                //String.Format("~/content/kendoui/kendo.{0}.min.css", kendoTheme),
+                    //String.Format("~/content/kendoui/kendo.{0}.min.css", kendoTheme),
                     "~/content/kendoui/kendo.dataviz.min.css",
                     String.Format("~/content/kendoui/kendo.dataviz.{0}.min.css", kendoTheme)));
 
@@ -374,7 +374,7 @@ namespace EveryAngle.WebClient.Web
                     "~/scripts/viewmodels/models/fieldsettings/bucketmodel.js",
                     "~/scripts/viewmodels/models/fieldsettings/fieldmodel.js",
                     "~/scripts/viewmodels/models/fieldsettings/fieldsettingsmodel.js",
-                    
+
                     "~/scripts/viewmodels/models/angle/anglequerystepmodel.js",
                     "~/scripts/viewmodels/models/angle/angleinfomodel.js",
                     "~/scripts/viewmodels/models/angle/displayqueryblockmodel.js",
@@ -389,7 +389,7 @@ namespace EveryAngle.WebClient.Web
                     "~/scripts/viewmanagement/shared/breadcrumb/anglebreadcrumbhandler.js",
                     "~/scripts/viewmanagement/angle/ResolveAngleDisplayHandler.js",
                     "~/scripts/viewmanagement/angle/DisplayUpgradeHandler.js",
-                    
+
                     // templates
                     "~/scripts/htmltemplate/dashboard/addtodashboardhtmltemplate.js",
                     "~/scripts/htmltemplate/resultsummary/resultsummaryhtmltemplate.js",
@@ -441,7 +441,7 @@ namespace EveryAngle.WebClient.Web
                     // schedule angle
                     "~/scripts/htmltemplate/scheduleangle/scheduleanglehtmltemplate.js",
                     "~/scripts/viewmanagement/angle/scheduleanglehandler.js",
-                    
+
                     "~/scripts/viewmanagement/angle/anglestateview.js",
                     "~/scripts/viewmanagement/angle/anglestatehandler.js",
                     "~/scripts/viewmanagement/angle/anglepublishstatehandler.js",
@@ -469,11 +469,11 @@ namespace EveryAngle.WebClient.Web
                     "~/scripts/viewmanagement/angle/listhandler.js",
                     "~/scripts/viewmanagement/angle/charthandler.js",
                     "~/scripts/viewmanagement/angle/pivothandler.js",
-                        
+
                     "~/scripts/viewmodels/models/fieldsettings/bucketmodel.js",
                     "~/scripts/viewmodels/models/fieldsettings/fieldmodel.js",
-                    "~/scripts/viewmodels/models/fieldsettings/fieldsettingsmodel.js", 
-                    
+                    "~/scripts/viewmodels/models/fieldsettings/fieldsettingsmodel.js",
+
                     "~/scripts/viewmanagement/angle/fieldsettingshandler.js",
                     "~/scripts/viewmanagement/angle/quickfilterhandler.js",
                     "~/scripts/viewmanagement/shared/fieldchooserhandler.js",

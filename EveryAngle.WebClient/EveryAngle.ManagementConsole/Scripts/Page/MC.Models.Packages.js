@@ -340,7 +340,7 @@
         };
 
         self.PostPackageFailureCallback = function () {
-            $('#loading .loadingClose').one('click.close', function () {
+            $(MC.ui.loading.loaderCloseButton).one('click.close', function () {
                 self.PackagesGridFilter();
             });
         };

@@ -293,10 +293,6 @@
     background-image: url('../externalresource/icon_suggest.svg');
 }
 
-.helpTextPopup .k-window-titlebar .signLoading {
-    background-image: url('../../images/loading.gif');
-}
-
 #ToggleWrapper {
     position: absolute;
     width: 100%;

@@ -45,9 +45,10 @@
     };
     handler.ShowPublishSettingsCallback = function (e) {
         var self = this;
-        e.sender.element.busyIndicator(true);
+
         self.ReloadPublishingSettingsData(false);
         WC.HtmlHelper.ApplyKnockout(self, e.sender.element);
+        e.sender.element.busyIndicator(true);
         self.GetPublishSettingsResources()
             .always(function () {
                 self.ReloadPublishingSettingsData(true);

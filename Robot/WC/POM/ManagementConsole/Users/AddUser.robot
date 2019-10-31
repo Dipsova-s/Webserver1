@@ -9,7 +9,7 @@ ${btnAddUser}                   btnImportNewUser
 ${btnRemoveUser}                  btnRemovedSelectedUser
 ${spinnerAvailableGrid}    css=#AvailableUserGrid > div.k-loading-mask
 ${spinnerSelectedUserGrid}    css=#SelectedUserGrid > div.k-loading-mask
-${btnLoadingClose}                css=#loading .loadingClose
+${btnLoadingClose}                jquery=#LoaderContainer .loader-cancel-button:visible
 
 
 

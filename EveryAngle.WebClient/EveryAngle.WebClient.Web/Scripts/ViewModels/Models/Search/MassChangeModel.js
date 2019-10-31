@@ -101,11 +101,6 @@ function MassChangeModel() {
 
                             }
                         }
-                    },
-                    {
-                        text: '',
-                        className: 'loading16x16',
-                        position: 'right'
                     }
                 ]
             };

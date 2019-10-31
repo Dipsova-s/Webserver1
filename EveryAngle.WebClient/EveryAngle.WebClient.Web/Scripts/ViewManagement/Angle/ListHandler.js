@@ -2054,11 +2054,11 @@ function ListHandler(elementId, container) {
             self.SapTransactionFieldCache[uri] = { busy: true };
             var target = jQuery('li[name="gotosap"]');
             target.children('ul').empty();
-            target.children('.btn-more').addClass('icon-loading');
+            target.children('.btn-more').removeClass('icon-chevron-right').addClass('loader-spinner-inline');
             self.GetSapTransaction(uri)
                 .always(function () {
                     self.GenerateSapSubMenu(self.SapTransactionFieldCache[uri]);
-                    target.children('.btn-more').removeClass('icon-loading');
+                    target.children('.btn-more').addClass('icon-chevron-right').removeClass('loader-spinner-inline');
                 });
         }
         else if (!data.busy) {
@@ -2082,7 +2082,7 @@ function ListHandler(elementId, container) {
             });
             self.UpdateContextMenuPosition(menu);
         }
-        menu.children('i.btn-more').removeClass('icon-loading').addClass('icon-chevron-right');
+        menu.children('i.btn-more').removeClass('loader-spinner-inline').addClass('icon-chevron-right');
     };
     self.GetSapTransactionUri = function () {
         var rowid = self.GetSelectedRow();

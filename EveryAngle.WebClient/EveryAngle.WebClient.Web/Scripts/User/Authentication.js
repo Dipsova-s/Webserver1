@@ -227,7 +227,12 @@ function Authentication() {
                 }
             });
             loginDeferred.progress(function (status) {
-                jQuery('#ErrorMessage').text(status);
+                jQuery('#ErrorMessage').html([
+                    '<div class="login-progress">',
+                        '<div class="loader-spinner-inline"></div>',
+                        '<span>' + status + '</span>',
+                    '</div>'
+                ].join(''));
             });
             loginDeferred.promise();
 

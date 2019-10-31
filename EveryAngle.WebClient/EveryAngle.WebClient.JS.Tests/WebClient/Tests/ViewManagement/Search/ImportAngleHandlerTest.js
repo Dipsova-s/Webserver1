@@ -742,6 +742,7 @@ describe("ImportAngleHandler", function () {
                 return { always: $.noop };
             });
             spyOn(importAngleHandler, "ShowCompleteUploadReport").and.callFake($.noop);
+            spyOn(importAngleHandler, "CloseUploadPopup").and.callFake($.noop);
             spyOn(searchModel, "ClearSelectedRow").and.callFake($.noop);
             spyOn(window.searchPageHandler, "BindSearchResultGrid").and.callFake($.noop);
             importAngleHandler.UploadCount = 0;
@@ -871,6 +872,8 @@ describe("ImportAngleHandler", function () {
             ImportAngleHandler.ResultUploadSuccess = [];
 
             spyOn(importAngleHandler, "UploadComplete").and.callFake($.noop);
+            spyOn(importAngleHandler, "HideUploadPopup").and.callFake($.noop);
+            spyOn(importAngleHandler, "CloseUploadPopup").and.callFake($.noop);
             spyOn(progressbarModel, "ShowStartProgressBar").and.callFake($.noop);
             spyOn(progressbarModel, "SetProgressBarText").and.callFake($.noop);
             spyOn(progressbarModel, "CancelFunction").and.callFake($.noop);

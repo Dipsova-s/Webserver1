@@ -180,9 +180,10 @@
                 target: '#mainContent',
                 ajaxStart: function () {
                     clearTimeout(fnCheckMainPageToolbar);
-                    MC.ui.loading.setLoader('loadingHide');
+                    disableLoading();
 
                     jQuery('#mainContent').removeClass('errorMainContent').addClass('loadingMainContent');
+                    kendo.ui.progress($('#mainContent'), true);
 
                     var pageToolbar = jQuery('#mainContainer .contentInner').children('.pageToolbar');
                     if (pageToolbar.length) {
@@ -193,6 +194,7 @@
                 ajaxSuccess: function (metadata) {
                     // remove loading
                     jQuery('#mainContent').removeClass('loadingMainContent');
+                    kendo.ui.progress($('#mainContent'), false);
 
                     // move page toolbar
                     jQuery('#mainContainer .contentInner').children('.pageToolbar').remove();
@@ -246,6 +248,7 @@
                 })
                 .always(function () {
                     jQuery('#mainContent').removeClass('loadingMainContent');
+                    kendo.ui.progress($('#mainContent'), false);
                 });
         },
         setActive: function (obj) {

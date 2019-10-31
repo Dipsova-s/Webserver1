@@ -4,6 +4,10 @@ function ProgressbarModel() {
     "use strict";
 
     var self = this;
+    var _rootElement = '.loader-container';
+    var _percentageElement = '.loader-percentage';
+    var _cancelElement = '.loader-cancel-button';
+
     //BOF: View model properties
     self.CancelCustomHandler = false;
     self.IsCancelPopup = false;
@@ -20,13 +24,13 @@ function ProgressbarModel() {
     //EOF: View model properties
 
     //BOF: View model methods
-    var closeProgressBarPopup = function () {
+    self.CloseProgressBarPopup = function () {
         // if cancel user press cancel
         if (!self.CancelCustomHandler && !self.IsEndProgressBar) {
             if (WC.Ajax) {
                 WC.Ajax.AbortAll();
             }
-            if (location.pathname.toLowerCase().indexOf(self.PAGE.SEARCH) !== -1 || self.CancelForceStop) {
+            if (self.IsSearchPage() || self.CancelForceStop) {
                 if (window.stop) {
                     window.stop();
                 }
@@ -47,79 +51,46 @@ function ProgressbarModel() {
             }
         }
 
-        if (window.kendo) {
-            var progressPopup = jQuery('#popupProgressBar').data('kendoWindow');
-            if (progressPopup) {
-                progressPopup.close();
-            }
-            else {
-                jQuery('#PopupProgressBarwrapper').hide();
-                jQuery('.k-overlay').remove();
-            }
-        }
-        else {
-            jQuery('#PopupProgressBarwrapper').hide();
-            jQuery('.k-overlay').remove();
-        }
-
+        jQuery(_rootElement).hide();
         self.IsEndProgressBar = false;
     };
-    var enableControl = function () {
+    self.IsSearchPage = function () {
+        return location.pathname.toLowerCase().indexOf(self.PAGE.SEARCH) !== -1;
+    };
+    self.EnableControl = function () {
         if (jQuery('#SelectedDisplay').length) {
             jQuery('#ActionDropdownList,#SelectedDisplay').removeClass('disabled');
         }
     };
     self.InitialProgressBar = function () {
-        if (window.kendo) {
-            var progressPopup = jQuery('#popupProgressBar').data('kendoWindow');
-            if (!progressPopup) {
-                progressPopup = jQuery('#popupProgressBar').kendoWindow({
-                    draggable: false,
-                    resizable: false,
-                    animation: false,
-                    modal: true,
-                    visible: false
-                }).data('kendoWindow');
-            }
-
-            self.EndProgressBar();
-
-            return progressPopup;
-        }
+        self.EndProgressBar();
     };
     self.ShowStartProgressBar = function (progressText, isShowRow) {
-        if (typeof progressText === 'undefined') {
-            progressText = Localization.ProgressBar_PleaseWait;
-        }
         self.CancelCustomHandler = false;
         self.CancelForceStop = false;
         self.IsEndProgressBar = false;
 
         self.CancelFunction = jQuery.noop;
-        jQuery('#CancelProgress')
-            .removeClass('disabled')
-            .off('click')
-            .on('click', function () {
-                self.CancelProgressBar();
-            });
+        jQuery(_cancelElement).removeClass('alwaysHide');
+        jQuery(_cancelElement).off('click').on('click', function () {
+            self.CancelProgressBar();
+        });
 
-        if (window.kendo) {
-            var progressPopup = jQuery('#popupProgressBar').data('kendoWindow');
-            if (!progressPopup) {
-                progressPopup = self.InitialProgressBar();
-            }
-            progressPopup.wrapper.css('opacity', 1);
-            progressPopup.open();
-            progressPopup.toFront();
+        self.UpdateZIndex();
 
-            var progressbar = jQuery('#ProgressBar').data('kendoProgressBar');
-            if (!progressbar) {
-                jQuery('#ProgressBar').kendoProgressBar({ value: 0, animation: false });
-            }
+        if (isShowRow) {
+            self.SetProgressBarText('0', 0);
         }
         else {
-            /* BOF: M4-13267: z-index of overlay & progress popup incorrect */
-            var elements = jQuery('.k-window');
+            self.SetProgressBarText(null, null);
+        }
+
+        jQuery(_rootElement).show();
+    };
+    self.UpdateZIndex = function () {
+        /* BOF: M4-13267: z-index of overlay & progress popup incorrect */
+        var elements = jQuery('.k-window');
+        if (elements.length) {
             var zIndex = 0;
             for (var loop = 0; loop < elements.length; loop++) {
                 var elementZIndex = parseInt(jQuery(elements[loop]).css('zIndex')) || 10000;
@@ -128,32 +99,17 @@ function ProgressbarModel() {
                 }
             }
 
-            var overlay = jQuery('.k-overlay');
-            if (!overlay.length) {
-                overlay = jQuery('<div class="k-overlay"/>').appendTo('body');
-            }
 
-            jQuery('#PopupProgressBarwrapper').css({
-                'zIndex': zIndex + 2,
-                'opacity': 1
+            jQuery(_rootElement).css({
+                'zIndex': zIndex + 2
             });
-            overlay.css('zIndex', zIndex + 1);
-            /* EOF: M4-13267: z-index of overlay & progress popup incorrect */
-
-            jQuery('#PopupProgressBarwrapper, .k-overlay').show();
         }
-
-        if (isShowRow) {
-            self.SetProgressBarText('0', 0, progressText);
-        }
-        else {
-            self.SetProgressBarText(null, null, progressText);
-        }
+        /* EOF: M4-13267: z-index of overlay & progress popup incorrect */
     };
 
     self.EndProgressBar = function () {
         self.IsEndProgressBar = true;
-        closeProgressBarPopup();
+        self.CloseProgressBarPopup();
     };
     self.GetPercentageValue = function (percentText) {
         var percentValue = parseInt(percentText);
@@ -162,52 +118,29 @@ function ProgressbarModel() {
         }
         return percentValue;
     };
-    self.SetProgressBarText = function (percentText, queryRows, progressText) {
-        var progressbar = jQuery('#ProgressBar').data('kendoProgressBar');
-        var progressPercent = jQuery('#ProgressPercent');
-        if (percentText === null && queryRows === null) {
-            if (progressbar) {
-                progressbar.progressWrapper.width(0);
-                progressbar.progressWrapper.children().width(0);
-                progressbar.value(0);
-            }
+    self.SetProgressBarText = function (percentText) {
+        var progressPercent = jQuery(_percentageElement);
+        if (!percentText) {
             progressPercent.hide();
         }
         else {
             // always show as integer
             var percentValue = self.GetPercentageValue(percentText);
-
+            progressPercent.text(Math.min(percentValue, 100) + '%');
             progressPercent.show();
-            if (queryRows === null) {
-                progressPercent.text(percentValue + '%');
-            }
-            else {
-                progressPercent.text(percentValue + '% (' + queryRows + ' ' + Localization.ProgressBar_CurrentRows + ')');
-            }
-
-            if (progressbar) {
-                if (percentValue === 0) {
-                    progressbar.progressWrapper.width(0);
-                    progressbar.progressWrapper.children().width(0);
-                }
-                progressbar.value(percentValue);
-            }
         }
-
-        jQuery('#ProgressText').empty();
-        if (typeof progressText !== 'undefined') {
-            jQuery('#ProgressText').text(progressText);
-        }
+        
     };
     self.SetDisableProgressBar = function () {
-        jQuery('#CancelProgress').addClass('disabled');
+        jQuery(_cancelElement).addClass('alwaysHide');
     };
     self.CancelProgressBar = function () {
         self.IsCancelPopup = true;
-        enableControl();
-        if (!jQuery('#CancelProgress').hasClass('disabled') && !self.CancelFunction.call()) {
-            closeProgressBarPopup();
+        self.EnableControl();
+        if (!jQuery(_cancelElement).hasClass('alwaysHide') && !self.CancelFunction.call()) {
+            self.CloseProgressBarPopup();
         }
     };
     //EOF: View model methods
+
 }

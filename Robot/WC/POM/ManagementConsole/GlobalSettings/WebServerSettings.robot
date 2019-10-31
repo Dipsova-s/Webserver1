@@ -1,6 +1,6 @@
 *** Variables ***
 ${btnSaveWebServerSetting}        css=.btnSave
-${btnLoadingClose}                css=#loading .loadingClose
+${btnLoadingClose}                jquery=#LoaderContainer .loader-cancel-button:visible
 
 ${txtApplicationServerTimeout}    AjaxTimeoutExpirationInSeconds
 ${chkShowItemID}                  ShowAngleAndDisplayID

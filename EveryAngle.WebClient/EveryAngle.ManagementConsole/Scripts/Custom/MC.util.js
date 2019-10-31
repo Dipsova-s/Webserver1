@@ -82,6 +82,7 @@ MC.util = {
         var lastSciriptIndex = scriptCount - 1;
         var lastScriptCallback = function () {
             jQuery('#mainContent').removeClass('loadingMainContent');
+            kendo.ui.progress($('#mainContent'), false);
 
             if (typeof scripts[lastSciriptIndex].callback === 'function') {
                 scripts[lastSciriptIndex].callback();

@@ -374,7 +374,7 @@ function FieldsChooserHandler() {
             var selectedRows = jQuery('#DisplayPropertiesGrid tr[data-uid="' + field.uid + '"]');
             var starrtedElement = selectedRows.find('.column1').children();
 
-            that.addClass('signLoading');
+            that.removeClass('DisplayPropertiesGridSignFavoriteDisable DisplayPropertiesGridSignFavorite').addClass('loader-spinner-inline');
             jQuery.when(fieldsChooserModel.SetIsStarred({}, starrtedElement.get(0), field.uid))
                 .done(function () {
                     that.attr('class', 'icon iconStatus ' + starrtedElement.attr('class'));

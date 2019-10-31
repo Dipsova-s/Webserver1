@@ -40,7 +40,6 @@ function DisplayDetailPageHandler() {
             resize: self.OnPopupResize,
             open: function (e) {
                 e.sender.wrapper.parent().find('.k-window-action').css('visibility', 'hidden');
-                SetLoadingVisibility('.popupDisplayDetail .loading16x16', false);
                 self.ShowPopupCallback(e.sender);
             },
             close: self.OnPopupClose

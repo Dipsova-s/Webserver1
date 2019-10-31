@@ -259,7 +259,3 @@
 #popupCreateNewAngleBySchema.compactMode .CreateNewAngleContainer .Description {
     margin-left: 0;
 }
-
-.popupCreateNewAngleBySchema .loading16x16 {
-    display: none;
-}

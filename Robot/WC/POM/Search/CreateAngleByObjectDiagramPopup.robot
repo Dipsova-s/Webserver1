@@ -3,7 +3,7 @@
 ${divObjectDiagramDescriptionSection}    css=#Angle > div.Description > div.helpTextContainer
 ${divObjectDiagramSchemaGridSection}    css=#Schema
 ${divObjectDiagramBusinessProcessBarSection}    css=#NewAngleBySchema
-${btnObjectDiagramBack}    btn-popupCreateNewAngleBySchema2
+${btnObjectDiagramBack}    btn-popupCreateNewAngleBySchema1
 ${btnObjectDiagramCreateAngle}    btn-popupCreateNewAngleBySchema0
 ${pdDiagram}			css=#classid_area_purchasedocument
 

@@ -49,7 +49,7 @@ function ExportHandler() {
                     text: Localization.Ok,
                     click: function (e, obj) {
                         if (popup.CanButtonExecute(obj)) {
-                            self.ExportDisplay(option);
+                            self.ExportDisplay(e, option);
                         }
                     },
                     isPrimary: true,
@@ -351,12 +351,12 @@ function ExportHandler() {
         }
         return true;
     };
-    self.ExportDisplay = function (option) {
+    self.ExportDisplay = function (e, option) {
         if (option.ExportType === enumHandlers.ANGLEACTION.EXPORTTOEXCEL.Id) {
             /* For refactor export excel */
         }
         else {
-            self.ExportCSV(option);
+            self.ExportCSV(e, option);
         }
     };
     self.ExportExcel = function (option) {
@@ -366,7 +366,7 @@ function ExportHandler() {
 
         /* For refactor export excel */
     };
-    self.ExportCSV = function (option) {
+    self.ExportCSV = function (e, option) {
         requestHistoryModel.SaveLastExecute(self, self.ExportCSV, arguments);
         self.IsCancelExporting = false;
         var angleModels = jQuery.grep(userModel.Privileges.ModelPrivileges, function (modelPrivilege) { return modelPrivilege.model === angleInfoModel.Data().model; });
@@ -410,10 +410,12 @@ function ExportHandler() {
             return false;
         }
 
+        e.kendoWindow.element.closest('.popupExportToCSV').addClass('alwaysHide');
         progressbarModel.ShowStartProgressBar(Localization.ProgressBar_SavingAsCSV, false);
         progressbarModel.CancelCustomHandler = true;
         progressbarModel.CancelFunction = function () {
             self.IsCancelExporting = true;
+            self.CloseExportExcelPopup(e);
         };
 
         self.GenerateCSVjsonData = {
@@ -500,11 +502,11 @@ function ExportHandler() {
             .done(function (data) {
                 progressbarModel.IsCancelPopup = false;
                 self.GenerateCSVUri = data.uri;
-                self.GenerateCSV();
+                self.GenerateCSV(e);
             });
     };
 
-    self.GenerateCSV = function () {
+    self.GenerateCSV = function (e) {
         var uri = self.GenerateCSVUri;
         clearTimeout(fnCheckExportProgress);
         if (!progressbarModel.IsCancelPopup) {
@@ -517,16 +519,16 @@ function ExportHandler() {
                     WC.Utility.DownloadFile(WC.Ajax.BuildRequestUrl(response.file_uri, false));
 
                     fnCheckExportProgress = setTimeout(function () {
-                        self.DoneToGenerateCSV(false);
+                        self.DoneToGenerateCSV(e, false);
                     }, 2000);
 
                 }
                 else if (response.status.toLowerCase() === "failed") {
                     popup.Error(Localization.Error_Title, response.message);
-                    self.DoneToGenerateCSV();
+                    self.DoneToGenerateCSV(e);
                 }
                 else {
-                    fnCheckExportProgress = setTimeout(self.GenerateCSV, 2000);
+                    fnCheckExportProgress = setTimeout(self.GenerateCSV.bind(self, e), 2000);
                 }
             });
         }
@@ -535,16 +537,17 @@ function ExportHandler() {
         }
     };
 
-    self.DoneToGenerateCSV = function (isDeleteProgress) {
+    self.DoneToGenerateCSV = function (e, isDeleteProgress) {
         progressbarModel.IsCancelPopup = true;
         progressbarModel.EndProgressBar();
-        self.CloseExportExcelPopup();
+        self.CloseExportExcelPopup(e);
         if (isDeleteProgress !== false) {
             DeleteDataToWebService(self.GenerateCSVUri);
         }
     };
 
-    self.CloseExportExcelPopup = function () {
+    self.CloseExportExcelPopup = function (e) {
+        e.kendoWindow.element.closest('.popupExportToCSV').removeClass('alwaysHide');
         popup.Close('#popupExportExcel');
         popup.Close('#popupExportDrilldownExcel');
         popup.Close('#popupExportToCSV');

@@ -1031,6 +1031,12 @@ div.k-window-content > .k-loading-mask {
 #popupAbout {
     overflow: hidden !important;
     padding: 0 !important;
+    min-width: 561px !important;
+    max-width: 561px !important;
+    min-height: 281px !important;
+    max-height: 281px !important;
+    width: 561px;
+    height: 281px;
 }
 
 .aboutContainer {
@@ -1514,8 +1520,11 @@ table.grid tbody td:first-child {
     right: 12px;
 }
 
-.gridToolbarFilter .iconLoading {
-    background-image: url(../images/loading_small.gif);
+.gridToolbarFilter .icon-filter {
+    width: 30px;
+    height: 100%;
+    background: transparent url(../images/icons/icon_filter.png) no-repeat;
+    background-position-x: center;
 }
 
 .gridContainer {

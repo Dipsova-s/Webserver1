@@ -87,11 +87,6 @@ function AngleDetailPageHandler() {
                                 self.ExecuteSave(false);
                             }
                         }
-                    },
-                    {
-                        text: '',
-                        className: 'loading16x16',
-                        position: 'right'
                     }
                 ],
                 resize: function (e) {
@@ -130,7 +125,6 @@ function AngleDetailPageHandler() {
                     }
                 },
                 open: function (e) {
-                    SetLoadingVisibility('.popupAngleDetail .loading16x16', false);
                     e.sender.wrapper.parent().find(".k-window-action").css("visibility", "hidden");
                     e.sender.toFront();
 

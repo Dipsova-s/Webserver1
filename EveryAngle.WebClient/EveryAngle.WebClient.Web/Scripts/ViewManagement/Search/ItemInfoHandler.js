@@ -153,6 +153,8 @@ window.ItemInfoHandler = function () {
                             self.HandlerInfoDetails.SetData(angleDescription, angleInfoModel.Data().query_definition, [], displayDefinitions, labels);
 
                             e.sender.wrapper.find('.k-window-buttons .btn').removeClass('executing');
+                        })
+                        .always(function () {
                             e.sender.element.busyIndicator(false);
                             e.sender.trigger('resize');
                         });
@@ -181,14 +183,14 @@ window.ItemInfoHandler = function () {
                         SetFavorite: self.SetFavoriteItem
                     }, e.sender.wrapper.find('.dashboardInformation'));
 
+                    e.sender.element.busyIndicator(true);
+
                     var dashboard;
                     self.LoadItem(dashboardModel.LoadDashboard, item.uri)
                         .then(function (response) {
                             self.CacheItems[item.uri] = response;
                             dashboardModel.SetData(response);
                             dashboard = response;
-                            e.sender.wrapper.find('.k-window-buttons .btn').removeClass('executing');
-                            e.sender.trigger('resize');
                         })
                         .then(function () {
                             // load labels
@@ -239,8 +241,13 @@ window.ItemInfoHandler = function () {
 
                             self.HandlerInfoDetails.SetWidget(labels, false, modelList);
                             self.HandlerInfoDetails.IsVisibleWidgetList(true);
-                        });
 
+                            e.sender.wrapper.find('.k-window-buttons .btn').removeClass('executing');
+                        })
+                        .always(function () {
+                            e.sender.element.busyIndicator(false);
+                            e.sender.trigger('resize');
+                        });
                 }
             },
             close: function (e) {
@@ -276,7 +283,7 @@ window.ItemInfoHandler = function () {
 
     self.SetFavoriteItem = function (value, event) {
         var target = jQuery(event.currentTarget);
-        if (target.hasClass('disabled') || target.hasClass('signLoading') || target.hasClass('loading16x16'))
+        if (target.hasClass('disabled') || target.hasClass('loader-spinner-inline'))
             return;
 
         var uri = value instanceof Object ? value.uri : value;
@@ -285,7 +292,7 @@ window.ItemInfoHandler = function () {
             return;
 
         if (model.authorizations.update_user_specific) {
-            target.addClass('signLoading loading16x16');
+            target.removeClass('SignFavoriteDisable SignFavorite').addClass('loader-spinner-inline');
             searchModel.SetFavoriteItem(model)
                 .done(function (data) {
                     var isStarred = false;
@@ -305,7 +312,7 @@ window.ItemInfoHandler = function () {
 
                 })
                 .always(function () {
-                    target.removeClass('signLoading loading16x16');
+                    target.removeClass('loader-spinner-inline');
                 });
 
             if (event.preventDefault) {

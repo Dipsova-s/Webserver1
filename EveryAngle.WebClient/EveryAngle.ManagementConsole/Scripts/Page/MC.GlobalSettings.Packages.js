@@ -93,20 +93,19 @@
                 loader: false,
                 timeout: 300000,
                 progress: function (e) {
-                    MC.ui.loading.setUploadStatus(e);
+                    MC.ui.loading.setUploadStatus(e.percent);
                 },
                 successCallback: function () {
                     // upload success or error occured
-                    jQuery('.btn', MC.ui.loading.loader)
-                        .text('OK')
-                        .off('click')
-                        .on('click', function () {
+                    jQuery(MC.ui.loading.loaderCloseButton)
+                        .off('click.close')
+                        .one('click.close', function () {
                             clearTimeout(fnCheck);
                             MC.ui.loading.clearUpload();
                             MC.ajax.reloadMainContent();
                         });
 
-                    MC.ui.loading.setUploadStatus({ percent: 100 });
+                    MC.ui.loading.setUploadStatus(100);
                     MC.ui.loading.type = MC.ui.loading.TYPE.normal;
 
                     fnCheck = setTimeout(function () {
