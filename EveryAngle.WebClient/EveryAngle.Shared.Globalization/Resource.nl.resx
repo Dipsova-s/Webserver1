@@ -3712,4 +3712,7 @@ The value 0 means the setting is off, so the Audit Log will not be cleaned up. T
   <data name="OperatorIsRelativeBetween" xml:space="preserve">
     <value>is relatief tussen</value>
   </data>
+  <data name="ScrollingMightNotWorkCorrectlyWhenRunningIOS13" xml:space="preserve">
+    <value>Due to a known issue, scrolling might not work correctly when running iOS 13. Please contact Every Angle Support for more information</value>
+  </data>
 </root>

@@ -6132,4 +6132,7 @@ Only Active Directory (AD) and Active Directory Federation (ADFS) services are s
   <data name="OperatorIsRelativeBetween" xml:space="preserve">
     <value>est relatif entre</value>
   </data>
+  <data name="ScrollingMightNotWorkCorrectlyWhenRunningIOS13" xml:space="preserve">
+    <value>Due to a known issue, scrolling might not work correctly when running iOS 13. Please contact Every Angle Support for more information</value>
+  </data>
 </root>

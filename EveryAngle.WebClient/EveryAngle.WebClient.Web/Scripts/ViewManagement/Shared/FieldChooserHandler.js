@@ -89,7 +89,7 @@ function FieldsChooserHandler() {
         };
 
         // get field chooser popup settings
-        var popupSettings = fieldsChooserModel.GetPopupFieldCooserOptions(popupName);
+        var popupSettings = fieldsChooserModel.GetPopupFieldChooserOptions(popupName);
 
         // create json array buttons for field chooser popup
         popupSettings.buttons = self.GetFieldChooserButtons();

@@ -186,6 +186,11 @@
     _self.initial();
 }
 
+WindowNavigatorInfo = {
+    platform: navigator.platform,
+    maxTouchPoints: navigator.maxTouchPoints
+};
+
 KendoGridSelection.SELECTION = {
     MULTIPLE: 'multiple',
     SINGLE: 'single'
@@ -204,7 +209,16 @@ function InitialKendo() {
             that._createResizeHandle(th.closest("div"), th);
         });
     };
+
+    SetKendoKineticScrollNeeded();
 }
+
+function SetKendoKineticScrollNeeded() {
+    window.kendo.support.kineticScrollNeeded = (/iPad|iPhone|iPod/.test(WindowNavigatorInfo.platform) ||
+        (WindowNavigatorInfo.platform === 'MacIntel' && WindowNavigatorInfo.maxTouchPoints > 1));
+}
+
 if (window.kendo) {
     InitialKendo();
+    SetKendoKineticScrollNeeded();
 }
