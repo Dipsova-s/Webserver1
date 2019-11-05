@@ -97,11 +97,11 @@ describe("FieldsChooser", function () {
 
     });
 
-    describe("call GetPopupFieldCooserOptions", function () {
+    describe("call GetPopupFieldChooserOptions", function () {
 
         it("should get options", function () {
 
-            var options = fieldsChooserModel.GetPopupFieldCooserOptions('testPopup');
+            var options = fieldsChooserModel.GetPopupFieldChooserOptions('testPopup');
 
             expect(options).toEqual(jasmine.any(Object));
             expect(options.className).toEqual('popupFieldChooser popup testPopup');
@@ -118,7 +118,7 @@ describe("FieldsChooser", function () {
                 return { data: function () { return { maximize: jQuery.noop }; } };
             };
 
-            var options = fieldsChooserModel.GetPopupFieldCooserOptions('testPopup');
+            var options = fieldsChooserModel.GetPopupFieldChooserOptions('testPopup');
             var popup = fieldsChooserModel.DisplayFieldChooserPopup(options);
 
             expect(popup).toEqual(jasmine.any(Object));

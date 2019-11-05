@@ -258,6 +258,13 @@
     color: #555;
 }
 
+.loginMessage.warning {
+    font-size: 12px;
+    line-height: 20px;
+    letter-spacing: .21px;
+    color: #222222;
+}
+
 .loginLoading {
     display: none;
 }

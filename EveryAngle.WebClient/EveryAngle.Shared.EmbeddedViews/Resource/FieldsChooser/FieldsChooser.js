@@ -1802,7 +1802,7 @@ function FieldsChooserModel() {
     };
 
     // get field chooser popup options
-    self.GetPopupFieldCooserOptions = function (popupClassName) {
+    self.GetPopupFieldChooserOptions = function (popupClassName) {
         // decide to load popup settings from the localstorage or use the default settings
         self.LayoutSettings = self.GetFieldChooserLayoutSettings() || self.GetDefaultFieldChooserLayoutSettings();
 
@@ -1938,13 +1938,14 @@ function FieldsChooserModel() {
     };
     self.AdjustPopupItemsContainerHeight = function (e) {
         if (e.sender.element.children().length) {
+            var borderPixel = 2;
             var popupHeight = e.sender.element.height();
             var facetFiltersOffsetTop = jQuery('#NewColumnFilter').position().top;
             var gridOffsetTop = jQuery('#PropertyTable').position().top;
             var buttonsHeight = jQuery('.fieldChooserButtons').outerHeight();
 
             jQuery('#NewColumnFilter').height(popupHeight - facetFiltersOffsetTop - buttonsHeight);
-            jQuery('#DisplayPropertiesGrid').height(popupHeight - gridOffsetTop - buttonsHeight);
+            jQuery('#DisplayPropertiesGrid').height(popupHeight - (gridOffsetTop + borderPixel) - buttonsHeight);
         }
     };
     self.BindFieldChooserHtmlToDocumentBody = function (id, html) {

@@ -6119,7 +6119,7 @@ Only Active Directory (AD) and Active Directory Federation (ADFS) services are s
   </data>
   <data name="Toast_UnValidateItem" xml:space="preserve">
     <value>Die Freigabe von „{0}“ wurde aufgehoben!</value>
-  </data> 
+  </data>
   <data name="DeselectAll" xml:space="preserve">
     <value>Deselect all</value>
   </data>
@@ -6137,5 +6137,8 @@ Only Active Directory (AD) and Active Directory Federation (ADFS) services are s
   </data>
   <data name="OperatorIsRelativeBetween" xml:space="preserve">
     <value>ist relativ zwischen</value>
+  </data>
+  <data name="ScrollingMightNotWorkCorrectlyWhenRunningIOS13" xml:space="preserve">
+    <value>Due to a known issue, scrolling might not work correctly when running iOS 13. Please contact Every Angle Support for more information</value>
   </data>
 </root>

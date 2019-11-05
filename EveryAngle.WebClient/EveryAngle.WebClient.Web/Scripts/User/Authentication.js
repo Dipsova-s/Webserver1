@@ -46,6 +46,11 @@ function Authentication() {
             var loginForm = jQuery('#LoginForm');
             if (loginForm.length) {
                 _self.InitialLoginForm(loginForm);
+
+                // detected the iPad OS 13 while showing the login page 
+                if (self.IsiPadOS13()) {
+                    _self.ShowWarningMessage(scrollingMightNotWorkCorrectlyWhenRunningIOS13);
+                }
             }
         }
     };
@@ -187,6 +192,18 @@ function Authentication() {
 
     self.IsBrowserSupport = function () {
         return Modernizr.localstorage;
+    };
+
+    self.GetNavigatorInfo = function () {
+        return {
+            platform: navigator.platform,
+            maxTouchPoints: navigator.maxTouchPoints
+        };
+    };
+
+    self.IsiPadOS13 = function () {
+        var navigatorInfo = self.GetNavigatorInfo();
+        return navigatorInfo.platform === 'MacIntel' && navigatorInfo.maxTouchPoints > 1;
     };
 
     self.Authenticate = function (username, password, isModalPopup) {
@@ -582,8 +599,13 @@ function Authentication() {
             jQuery('#UserName').prop('disabled', false);
         }
         jQuery('#Password, #LoginButton').prop('disabled', false);
-        jQuery('#ErrorMessage').removeClass('info').html(errorMessage).show();
+        jQuery('#ErrorMessage').removeClass('info warning').html(errorMessage).show();
 
+        _self.SetControlFocus();
+    };
+
+    _self.ShowWarningMessage = function (warningMessage) {
+        jQuery('#ErrorMessage').addClass('warning').html(warningMessage).show();
         _self.SetControlFocus();
     };
 

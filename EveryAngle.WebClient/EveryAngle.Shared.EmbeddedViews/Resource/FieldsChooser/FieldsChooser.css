@@ -595,5 +595,8 @@
     display: block;
     overflow: hidden;
     padding: 20px;
-    margin-right: -5px;
+}
+
+.fieldChooserButtons .btn:last-child {
+    margin-right: 0;
 }
