@@ -46,11 +46,12 @@ function Authentication() {
             var loginForm = jQuery('#LoginForm');
             if (loginForm.length) {
                 _self.InitialLoginForm(loginForm);
+
+                // detected the iPad OS 13 while showing the login page 
+                if (self.IsiPadOS13()) {
+                    _self.ShowWarningMessage(scrollingMightNotWorkCorrectlyWhenRunningIOS13);
+                }
             }
-        }
-        
-        if (self.IsiPadOS13()) {
-            _self.ShowWarningMessage(scrollingMightNotWorkCorrectlyWhenRunningIOS13);
         }
     };
     _self.InitialUrlAndUI = function () {
