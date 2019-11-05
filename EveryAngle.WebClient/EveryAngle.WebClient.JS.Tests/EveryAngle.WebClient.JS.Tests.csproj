@@ -98,6 +98,9 @@
       <Link>SharedDependencies\notificationsfeed.js</Link>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="..\EveryAngle.Shared.EmbeddedViews\Resource\Shared\customkendogridui.js">
+      <Link>SharedDependencies\customkendogridui.js</Link>
+    </Content>
     <Content Include="..\EveryAngle.Shared.EmbeddedViews\Resource\Shared\shared.js">
       <Link>SharedDependencies\shared.js</Link>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
@@ -120,6 +123,9 @@
     </Content>
     <Content Include="..\EveryAngle.WebClient.Web\Scripts\KendoUI\kendo.data.min.js">
       <Link>WebClient\Dependencies\KendoUI\kendo.data.min.js</Link>
+    </Content>
+    <Content Include="..\EveryAngle.WebClient.Web\Scripts\KendoUI\kendo.grid.min.js">
+      <Link>WebClient\Dependencies\KendoUI\kendo.grid.min.js</Link>
     </Content>
     <Content Include="..\EveryAngle.WebClient.Web\Scripts\ViewManagement\Angle\AnglePublishStateHandler.js">
       <Link>WebClient\Dependencies\ViewManagement\Angles\AnglePublishStateHandler.js</Link>
@@ -792,6 +798,7 @@
       <Link>WebClient\Dependencies\ViewModels\Shared\QueryBlock\QueryStepModel.js</Link>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="WebClient\Tests\Embedded\CustomKendoGridUiTest.js" />
     <Content Include="WebClient\Dependencies\Global.js" />
     <Content Include="WebClient\Tests\AjaxHTTPHandler\AjaxRequestHandlerTest.js" />
     <Content Include="WebClient\Tests\Embedded\BusinessProcessesModelTest.js" />
@@ -805,6 +812,7 @@
     <Content Include="WebClient\Tests\Helper\ErrorHandlerTest.js" />
     <Content Include="WebClient\Tests\Helper\HtmlHelper.MenuNavigatableTest.js" />
     <Content Include="WebClient\Tests\Helper\ModelHelperTest.js" />
+    <Content Include="WebClient\Tests\User\AuthenticationTest.js" />
     <Content Include="WebClient\Tests\ViewManagement\Angles\AngleActionMenuHandlerTest.js" />
     <Content Include="WebClient\Tests\ViewManagement\Angles\AngleDetailBodyPageHandlerTest.js" />
     <Content Include="WebClient\Tests\ViewManagement\Angles\AngleValidateStateHandlerTest.js" />

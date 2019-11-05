@@ -331,7 +331,7 @@
             return fieldsChooserModel;
         },
         showFieldsChooserPopup: function (title) {
-            var popupOptions = $.extend(fieldsChooserModel.GetPopupFieldCooserOptions(), { title: title });
+            var popupOptions = $.extend(fieldsChooserModel.GetPopupFieldChooserOptions(), { title: title });
 
             var fieldsChooserPopup = fieldsChooserModel.DisplayFieldChooserPopup(popupOptions);
 

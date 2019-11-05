@@ -16231,6 +16231,15 @@ namespace EveryAngle.Shared.Globalization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Due to a known issue, scrolling might not work correctly when running iOS 13. Please contact Every Angle Support for more information.
+        /// </summary>
+        public static string ScrollingMightNotWorkCorrectlyWhenRunningIOS13 {
+            get {
+                return ResourceManager.GetString("ScrollingMightNotWorkCorrectlyWhenRunningIOS13", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Search labels.
         /// </summary>
         public static string SearchLabels {

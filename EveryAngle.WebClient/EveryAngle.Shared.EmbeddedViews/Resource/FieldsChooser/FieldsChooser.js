@@ -1842,7 +1842,7 @@ function FieldsChooserModel() {
     };
 
     // get field chooser popup options
-    self.GetPopupFieldCooserOptions = function (popupClassName) {
+    self.GetPopupFieldChooserOptions = function (popupClassName) {
         // decide to load popup settings from the localstorage or use the default settings
         self.LayoutSettings = self.GetFieldChooserLayoutSettings() || self.GetDefaultFieldChooserLayoutSettings();
 
