@@ -1083,7 +1083,7 @@ function PivotPageHandler(elementId, container) {
             window[self.PivotId].PerformCallback({
                 "isDrilldown": true,
                 'rowIndex': e.RowIndex,
-                'columnIndex': s.cpAbsoluteColumnIndex + e.ColumnIndex,
+                'columnIndex': e.ColumnIndex,
                 'rowValueType': e.RowValueType,
                 'columnValueType': e.ColumnValueType,
                 'rowValue': e.RowValue,
