@@ -1,5 +1,5 @@
 *** Variables ***
-${pgbCreateAngleOptions}    jquery=#ChooseNewAngleOption .k-loading-mask
+${pgbCreateAngleOptions}    jquery=#popupCreateNewAngleOption .k-loading-mask
 
 ${btnButtonCreateAngleFromSchemaSimple}    ButtonCreateAngleFromSchemaSimple
 ${btnButtonCreateAngleFromSchemaDetailed}    ButtonCreateAngleFromSchemaDetailed
@@ -18,6 +18,7 @@ Wait Create Angle Popup Document Loaded
 	Wait Until Page Contains Element    ${btnButtonCreateAngleFromSchemaSimple}
 	Wait Until Page Contains Element    ${btnButtonCreateAngleFromSchemaDetailed}
 	Wait Until Page Contains Element    ${btnButtonCreateAngleFromObjects}
+	Wait Until Ajax Complete
 
 Click Object Activity Diagram Button
 	Wait Until Element Is Visible    ${btnButtonCreateAngleFromSchemaSimple}

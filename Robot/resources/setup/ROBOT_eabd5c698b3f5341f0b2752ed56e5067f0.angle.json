@@ -1,0 +1,93 @@
+﻿{
+  "createdby": "system\\EASystem",
+  "id": "ROBOT_eabd5c698b3f5341f0b2752ed56e5067f0",
+  "multi_lang_name": [
+    {
+      "lang": "en",
+      "text": "Template which display has invalid fields"
+    }
+  ],
+  "multi_lang_description": [
+    {
+      "lang": "en",
+      "text": "Template which display has invalid fields"
+    }
+  ],
+  "is_validated": false,
+  "is_published": true,
+  "is_template": true,
+  "created": {
+    "user": "system\\EASystem",
+    "datetime": 1464602186,
+    "full_name": "EASystem"
+  },
+  "changed": {
+    "user": "local\\EAAdmin",
+    "datetime": 1464602186,
+    "full_name": "EAAdmin"
+  },
+  "published": {
+    "user": "local\\EAAdmin",
+    "datetime": 1464599785,
+    "full_name": "EAAdmin"
+  },
+  "query_definition": [
+    {
+      "queryblock_type": "base_classes",
+      "base_classes": [
+        "Customer"
+      ]
+    }
+  ],
+  "display_definitions": [
+    {
+      "display_details": "{}",
+      "query_blocks": [],
+      "fields": [
+        {
+          "field": "ObjectType",
+          "field_details": "{\"width\":86,\"format\":\"shn\"}",
+          "multi_lang_alias": []
+        },
+        {
+          "field": "ID",
+          "field_details": "{\"width\":139}",
+          "multi_lang_alias": []
+        },
+        {
+          "field": "CUOBJ_BM",
+          "field_details": "{\"width\":98}",
+          "multi_lang_alias": []
+        },
+        {
+          "field": "VFDAT",
+          "field_details": "{\"width\":102}",
+          "multi_lang_alias": []
+        }
+      ],
+      "id": "invalidFields",
+      "display_type": "list",
+      "is_angle_default": true,
+      "is_public": true,
+      "multi_lang_name": [
+        {
+          "lang": "en",
+          "text": "Display with invalid"
+        }
+      ],
+      "multi_lang_description": [
+        {
+          "lang": "en",
+          "text": "Display with invalid"
+        }
+      ]
+    }
+  ],
+  "angle_default_display": "invalidFields",
+  "assigned_labels": [
+    "P2P",
+    "S2D",
+    "O2C",
+    "PM"
+  ]
+}

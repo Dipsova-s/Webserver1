@@ -117,25 +117,18 @@ Back To Search And Delete Dashboard Are Created
     Search By Text    ${dashboardName}
     Element Should Not Contain    ${gridSearchResult}    ${dashboardName}
 
-Verify Dashboard Filters Count
+Total Filters In Dashboard Should Be Equal
     [Arguments]    ${expectFilterCount}
     ${filterText}    Get Text    ${ddlDashboardPanel} ${ddlDashboardFilterCount}
     Should Be Equal    ${filterText}    ${expectFilterCount}
 
-Check Dashboard Filters For Angle #1
-    ${filter}    Get Filter Or Jump Name From Display Panel    0
-    Should Be Equal    ${filter}    Material - Material type is not empty    ignore_case=True
-    Close Window
-    Select Window   MAIN
+Verify Filters In Angle When Open Angle From Dashboard Page
+    [Arguments]    ${widgetIndex}    ${expectedFilterTexts}=''    ${unExpectedFilterTexts}=''
+    Open Angle In Dashboard Widget    ${widgetIndex}
 
-Check Dashboard Filters For Angle #2
-    ${filter}    Get Filter Or Jump Name From Display Panel    1
-    Should Be Equal    ${filter}    (Self) - Plant is empty    ignore_case=True
-    Close Window
-    Select Window   MAIN
+    Run Keyword If  ${expectedFilterTexts}!=''    Page Should Contain Text List    ${expectedFilterTexts}
+    Run Keyword If  ${unExpectedFilterTexts}!=''    Page Should Not Contain Text List    ${unExpectedFilterTexts}
 
-Check Dashboard Filters For Angle #3
-    Display Panel Should Not Have Filter
     Close Window
     Select Window   MAIN
 
@@ -147,27 +140,32 @@ Create Dashboard From Specific Angle Name
     Input Dashboard Name    ${dashboardName} 
     Save Dashboard
 
-Add Dashboard Filter From Dashboard Name
+Add Filter To Dashboard
+    [Arguments]    ${fieldKeyword}    ${fieldId}    ${selectedOperator}    ${selectedOperatorValue}
     Click Dashboard Name
     Click Dashboard Detail Filters Tab
     Click Add Filter Button In Dashboard Detail Popup
-    Select Field From Filters Tab    "plant"    Plant
-    Choose Dropdown Filter Operator In FilterField In Filters tab    0    is equal to
-    Input Filter Set Select Value    0    1000 (Werk Hamburg)
+    Select Field Source(Self)
+    Select Field From Filters Tab    ${fieldKeyword}    ${fieldId}
+    Choose Dropdown Filter Operator In FilterField In Filters tab    0    ${selectedOperator}
+    Input Filter Set Select Value    0    ${selectedOperatorValue}
     Save Dashboard
 
-Verify Dashboard Filter Showing 
-    [Arguments]    ${dashboardName}
+First Filter In Dashboard Popup Should Be Equal
+    [Arguments]    ${dashboardName}    ${expectFilterText}
     Back To Search
     Search Dashboard From Search Page And Open It    ${dashboardName} 
     Click Dashboard Name
     Click Dashboard Detail Filters Tab  
-    Verify Dashboard Filter Still Showing    0    is equal to 1000 (Werk Hamburg) 
+    Verify Dashboard Filter Still Showing    0    ${expectFilterText}
     Cancel Dashboard
 
-Verify Editing Dashboard Filter
+First Filter In Dashboard Sidebar Should Be Equal
+    [Arguments]    ${expectFilterText}
     Click Editing From Dashboard Filter Panel
-    Verify Editing Filter Popup    0    (Self) - Plant is equal to 1000 (Werk Hamburg)
+    Wait Until Element Exist And Visible    ${divPopupListFilter}
+    ${filterText}    Get Text    css=#FilterHeader-0 .filterText
+    Should Be Equal    ${filterText}    ${expectFilterText}  
     Cancel Edit Dashboard
 
 Create Dashboard From Many Angles
@@ -179,39 +177,36 @@ Create Dashboard From Many Angles
     Input Dashboard Name    ${dashboardName} 
     Save Dashboard
 
-Add Dashboard Filter From Dashboard Filter Panel
+Add Filters To Dashboard
     Open Filter From Dashboard Filter Panel
 
     # filter #1
     Click Add Filter Button In Dashboard Detail Popup
-    Select Field From Filters Tab    "Material type"    Material__MaterialType
+    Select Field Source(Self)
+    Select Field From Filters Tab    "Bottleneck Type"    BottleneckType
     Choose Dropdown Filter Operator In FilterField In Filters tab   0   is not empty
 
     # filter #2
     Click Add Filter Button In Dashboard Detail Popup
     Select Field Source(Self)
-    Select Field From Filters Tab    "Created on"    ERSDA
+    Select Field From Filters Tab    "Order Due Date"    OrderDueDate
     Input Date Value    1_0    May/24/2016
 
     # filter #3
-    Click Add Filter From Field    2
-    Choose Dropdown Filter Operator In FilterField In Filters tab    2    is before
-    Input Date Value    2_0    Mar/24/2016
+    Click Add Filter Button In Dashboard Detail Popup
+    Select Field Source(Self)
+    Select Field From Filters Tab    "Order Number"    OrderNumber
+    Choose Dropdown Filter Operator In FilterField In Filters tab   2   is greater than
+    Input Text    InputValue-2    1
 
     # filter #4
-    Click Add Filter Button In Dashboard Detail Popup
-    Select Field From Filters Tab    "Plant"    Plant
-    Choose Dropdown Filter Operator In FilterField In Filters tab   3   is empty
+    Click Add Filter From Field    4
+    Choose Dropdown Filter Operator In FilterField In Filters tab   3   is not empty
 
-    Save Dashboard 
+    Save Dashboard
 
-Verify Remove Field In Fields Tab
+Open Dashboard Popup And Remove Filter By index
+    [Arguments]   ${index}
     Open Filter From Dashboard Filter Panel
-    Remove Field In Fields Tab    2
+    Remove Field In Fields Tab    ${index}
     Save Dashboard 
-
-Verify Editing Filter Popup
-    [Arguments]    ${index}    ${expectFilterText} 
-    Wait Until Element Exist And Visible    ${divPopupListFilter}
-    ${filterText}    Get Text    css=#FilterHeader-${index} .filterText  
-    Should Be Equal    ${filterText}    ${expectFilterText}  

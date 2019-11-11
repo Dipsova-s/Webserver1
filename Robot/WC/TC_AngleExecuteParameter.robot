@@ -60,7 +60,7 @@ Verify Execution Parameters With & Char
     Create Angle From Object List And Save    PD    ${TEST_ANGLE_EXECUTE_PARAMETER4}
     Click Edit Angle
     Click Angle Detail Definition Tab
-    Add Filter From Angle Details Popup    "Created By"    Material__ERNAM
+    Add Filter From Angle Details Popup    "Created By"    EKKO_ERNAM    ${TRUE}
     Choose Dropdown Filter Operator In Definition Tab    is in list
     Input Filter Input Text In List    0    TEST&TEST
     Click Execute Parameter To Filter

@@ -1,0 +1,133 @@
+﻿{
+  "createdby": "local\\EAAdmin",
+  "id": "ROBOT_eaa703435ed8924284b0453874f4b38894",
+  "multi_lang_name": [
+    {
+      "lang": "en",
+      "text": "Angle For Allow Obtain More Details Test"
+    }
+  ],
+  "multi_lang_description": [],
+  "is_validated": false,
+  "is_published": true,
+  "is_template": false,
+  "created": {
+    "user": "local\\EAAdmin",
+    "datetime": 1529050245,
+    "full_name": "EAAdmin"
+  },
+  "changed": {
+    "user": "local\\EAAdmin",
+    "datetime": 1529050286,
+    "full_name": "EAAdmin"
+  },
+  "published": {
+    "user": "local\\EAAdmin",
+    "datetime": 1529050286,
+    "full_name": "EAAdmin"
+  },
+  "query_definition": [
+    {
+      "queryblock_type": "base_classes",
+      "base_classes": [
+        "PurchaseOrderScheduleLine",
+        "PurchaseOrder"
+      ]
+    }
+  ],
+  "display_definitions": [
+    {
+      "display_details": "{}",
+      "query_blocks": [],
+      "fields": [
+        {
+          "field": "ObjectType",
+          "field_details": "{\"width\":81,\"format\":\"shn\"}",
+          "multi_lang_alias": []
+        },
+        {
+          "field": "ID",
+          "field_details": "{\"width\":97}",
+          "multi_lang_alias": []
+        },
+        {
+          "field": "Vendor__Vendor",
+          "field_details": "{\"width\":80}",
+          "tech_info": "LFA1-LIFNR",
+          "multi_lang_alias": []
+        },
+        {
+          "field": "Vendor__Description",
+          "field_details": "{\"width\":168}",
+          "tech_info": "LFA1-NAME1",
+          "multi_lang_alias": []
+        },
+        {
+          "field": "PurchasingDocumentCategory",
+          "field_details": "{\"width\":105,\"format\":\"shnln\"}",
+          "tech_info": "EKKO-BSTYP",
+          "multi_lang_alias": []
+        },
+        {
+          "field": "CompanyCode__CompanyCode",
+          "field_details": "{\"width\":92,\"format\":\"shn\"}",
+          "tech_info": "T001-BUKRS",
+          "multi_lang_alias": []
+        },
+        {
+          "field": "PurchaseOrganization__PurchaseOrganization",
+          "field_details": "{\"width\":93}",
+          "tech_info": "T024E-EKORG",
+          "multi_lang_alias": []
+        },
+        {
+          "field": "ExecutionStatus",
+          "field_details": "{\"width\":97,\"format\":\"shn\"}",
+          "multi_lang_alias": []
+        },
+        {
+          "field": "CreationDate",
+          "field_details": "{\"width\":84}",
+          "tech_info": "EKET-BEDAT/EKKO-BEDAT/EKKO-AEDAT",
+          "multi_lang_alias": []
+        },
+        {
+          "field": "DeliveryStatus",
+          "field_details": "{\"width\":89,\"format\":\"shn\"}",
+          "multi_lang_alias": []
+        },
+        {
+          "field": "OrderedValue",
+          "field_details": "{\"width\":97}",
+          "multi_lang_alias": []
+        },
+        {
+          "field": "BKGRP",
+          "field_details": "{\"width\":120}",
+          "tech_info": "EKKO-EKGRP",
+          "multi_lang_alias": []
+        },
+        {
+          "field": "MaterialOnPlantLevel__OpenGRValuePlanned",
+          "field_details": "{\"width\":120}",
+          "multi_lang_alias": []
+        }
+      ],
+      "id": "d96cf3b2c0f6b43f5e2a7479799102872",
+      "display_type": "list",
+      "is_angle_default": true,
+      "is_public": true,
+      "multi_lang_name": [
+        {
+          "lang": "en",
+          "text": "New Display"
+        }
+      ],
+      "multi_lang_description": []
+    }
+  ],
+  "angle_default_display": "d96cf3b2c0f6b43f5e2a7479799102872",
+  "assigned_labels": [
+    "S2D"
+  ]
+}
