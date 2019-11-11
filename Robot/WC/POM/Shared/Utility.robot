@@ -324,3 +324,13 @@ Resize Kendo Popup height To
     ${overflowSpacing}=    Set Variable    105
     Execute JavaScript    $('${activePopup}').height(${height});
     Execute JavaScript    $('${activePopup} .popupContent').height(${height}-${overflowSpacing});
+
+Page Should Contain Text List
+    [Arguments]    ${texts}
+    :FOR  ${text}  IN  @{texts}
+    \   Page Should Contain    ${text}
+
+Page Should Not Contain Text List
+    [Arguments]    ${texts}
+    :FOR  ${text}  IN  @{texts}
+    \   Page Should Not Contain    ${text}

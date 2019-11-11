@@ -65,8 +65,9 @@ Open Angle Popup And Save Name
     Click Save Angle
 
 Add Filter From Angle Details Popup
-    [Arguments]   ${fieldKeyword}    ${fieldId}
+    [Arguments]   ${fieldKeyword}    ${fieldId}    ${isSelfSource}=${FALSE}
     Click Add Filter In Definition Tab
+    Run Keyword If    ${isSelfSource}    Select Field Source(Self)
     Add Field By Search From Field Chooser    ${fieldKeyword}    ${fieldId}
 
 Add Filter Before Jump From Angle Details Popup

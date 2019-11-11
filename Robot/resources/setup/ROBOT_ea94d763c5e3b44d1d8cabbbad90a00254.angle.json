@@ -1,0 +1,111 @@
+﻿{
+  "createdby": "local\\EAAdmin",
+  "id": "ROBOT_ea94d763c5e3b44d1d8cabbbad90a00254",
+  "multi_lang_name": [
+    {
+      "lang": "en",
+      "text": "ROBOT_ANGLE_Pivot_fields_contain_special_characters"
+    }
+  ],
+  "multi_lang_description": [],
+  "is_validated": false,
+  "is_published": true,
+  "is_template": false,
+  "created": {
+    "user": "local\\EAAdmin",
+    "datetime": 1529379953,
+    "full_name": "EAAdmin"
+  },
+  "changed": {
+    "user": "local\\EAAdmin",
+    "datetime": 1529379972,
+    "full_name": "EAAdmin"
+  },
+  "published": {
+    "user": "local\\EAAdmin",
+    "datetime": 1529379972,
+    "full_name": "EAAdmin"
+  },
+  "query_definition": [
+    {
+      "queryblock_type": "base_classes",
+      "base_classes": [
+        "SalesOrderLine",
+        "Material"
+      ]
+    }
+  ],
+  "display_definitions": [
+    {
+      "display_details": "{\"show_total_for\":1,\"percentage_summary_type\":0,\"include_subtotals\":false,\"count_index\":0}",
+      "query_blocks": [
+        {
+          "queryblock_type": "query_steps",
+          "query_steps": [
+            {
+              "step_type": "aggregation",
+              "aggregation_fields": [
+                {
+                  "field": "count",
+                  "operator": "count"
+                }
+              ],
+              "grouping_fields": [
+                {
+                  "source_field": "/BEV1/SRBEFUND",
+                  "tech_info": "VBAP-/BEV1/SRFUND",
+                  "field": "individual_/BEV1/SRBEFUND",
+                  "operator": "individual"
+                },
+                {
+                  "source_field": "MaterialOnPlantLevel__MAPR:PERKZ",
+                  "tech_info": "MAPR-PERKZ",
+                  "field": "individual_MaterialOnPlantLevel__MAPR:PERKZ",
+                  "operator": "individual"
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "fields": [
+        {
+          "field": "individual_/BEV1/SRBEFUND",
+          "field_details": "{\"pivot_area\":\"row\",\"sorting\":\"asc\"}",
+          "multi_lang_alias": []
+        },
+        {
+          "field": "individual_MaterialOnPlantLevel__MAPR:PERKZ",
+          "field_details": "{\"pivot_area\":\"row\",\"sorting\":\"asc\"}",
+          "multi_lang_alias": []
+        },
+        {
+          "field": "count",
+          "field_details": "{\"pivot_area\":\"data\",\"sorting\":\"\"}",
+          "multi_lang_alias": []
+        }
+      ],
+      "id": "d135349e9e27c03110936522222765722",
+      "display_type": "pivot",
+      "is_angle_default": true,
+      "is_public": true,
+      "multi_lang_name": [
+        {
+          "lang": "en",
+          "text": "New pivot display"
+        }
+      ],
+      "multi_lang_description": []
+    }
+  ],
+  "angle_default_display": "d135349e9e27c03110936522222765722",
+  "assigned_labels": [
+    "P2P",
+    "S2D",
+    "O2C",
+    "F2R",
+    "PM",
+    "GRC",
+    "IT"
+  ]
+}

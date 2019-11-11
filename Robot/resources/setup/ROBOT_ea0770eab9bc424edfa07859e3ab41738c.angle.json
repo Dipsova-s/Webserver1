@@ -1,0 +1,83 @@
+﻿{
+  "createdby": "system\\EASystem",
+  "id": "ROBOT_ea0770eab9bc424edfa07859e3ab41738c",
+  "multi_lang_name": [
+    {
+      "lang": "en",
+      "text": "Template has warning itself"
+    }
+  ],
+  "multi_lang_description": [
+    {
+      "lang": "en",
+      "text": "Template has warning itself"
+    }
+  ],
+  "is_validated": false,
+  "is_published": true,
+  "is_template": true,
+  "created": {
+    "user": "system\\EASystem",
+    "datetime": 1464602187,
+    "full_name": "EASystem"
+  },
+  "changed": {
+    "user": "local\\EAAdmin",
+    "datetime": 1464602187,
+    "full_name": "EAAdmin"
+  },
+  "published": {
+    "user": "local\\EAAdmin",
+    "datetime": 1464600239,
+    "full_name": "EAAdmin"
+  },
+  "query_definition": [
+    {
+      "queryblock_type": "base_classes",
+      "base_classes": [
+        "WarehouseTransferOrderItem"
+      ]
+    }
+  ],
+  "display_definitions": [
+    {
+      "display_details": "{}",
+      "query_blocks": [],
+      "fields": [
+        {
+          "field": "ObjectType",
+          "field_details": "{\"width\":86,\"format\":\"shn\"}",
+          "multi_lang_alias": []
+        },
+        {
+          "field": "ID",
+          "field_details": "{\"width\":139}",
+          "multi_lang_alias": []
+        }
+      ],
+      "id": "d5234c4005aebd6b1896ab306a59689c0",
+      "display_type": "list",
+      "is_angle_default": true,
+      "is_public": true,
+      "multi_lang_name": [
+        {
+          "lang": "en",
+          "text": "Basic List"
+        }
+      ],
+      "multi_lang_description": [
+        {
+          "lang": "en",
+          "text": "<div id=\"summary\" /><div class=\" section\" id=\"S1438245618912833\"><p class=\"\" id=\"P1438245618912814\" /></div>"
+        }
+      ]
+    }
+  ],
+  "angle_default_display": "d5234c4005aebd6b1896ab306a59689c0",
+  "assigned_labels": [
+    "P2P",
+    "S2D",
+    "O2C",
+    "PM"
+  ]
+}

@@ -1,0 +1,134 @@
+﻿{
+  "createdby": "local\\EAAdmin",
+  "id": "ROBOT_ea95c4155af506452c8e24bc6ff4c0632b",
+  "multi_lang_name": [
+    {
+      "lang": "en",
+      "text": "Angle For Dashboard Test 2"
+    }
+  ],
+  "multi_lang_description": [],
+  "is_validated": false,
+  "is_published": true,
+  "is_template": false,
+  "created": {
+    "user": "local\\EAAdmin",
+    "datetime": 1529050245,
+    "full_name": "EAAdmin"
+  },
+  "changed": {
+    "user": "local\\EAAdmin",
+    "datetime": 1529050286,
+    "full_name": "EAAdmin"
+  },
+  "published": {
+    "user": "local\\EAAdmin",
+    "datetime": 1529050286,
+    "full_name": "EAAdmin"
+  },
+  "query_definition": [
+    {
+      "queryblock_type": "base_classes",
+      "base_classes": [
+        "PurchaseOrderScheduleLine",
+        "PurchaseOrder"
+      ]
+    },
+    {
+      "queryblock_type": "query_steps",
+      "query_steps": [
+        {
+          "tech_info": "EKKO-BSTYP",
+          "step_type": "filter",
+          "field": "PurchasingDocumentCategory",
+          "operator": "in_set",
+          "arguments": [
+            {
+              "argument_type": "value",
+              "value": "A"
+            },
+            {
+              "argument_type": "value",
+              "value": "F"
+            }
+          ],
+          "is_execution_parameter": true,
+          "execution_parameter_id": "ead30152ab590f450fb05e490ee973ed0c"
+        }
+      ]
+    }
+  ],
+  "display_definitions": [
+    {
+      "display_details": "{\"chart_type\":\"column\",\"stack\":false,\"multi_axis\":false,\"axistitle\":\"show\",\"axisvalue\":\"show\",\"datalabel\":\"mouse\",\"gridline\":\"show\",\"legend\":\"show\",\"range\":{\"start\":0,\"size\":50}}",
+      "query_blocks": [
+        {
+          "queryblock_type": "query_steps",
+          "query_steps": [
+            {
+              "step_type": "filter",
+              "field": "ExecutionStatus",
+              "operator": "equal_to",
+              "arguments": [
+                {
+                  "argument_type": "value",
+                  "value": "es0ToBeExecuted"
+                }
+              ],
+              "is_execution_parameter": true,
+              "execution_parameter_id": "ea9c2d104d1da94f9793b3443c294a7b79"
+            },
+            {
+              "step_type": "filter",
+              "field": "BottleneckType",
+              "operator": "has_no_value"
+            },
+            {
+              "step_type": "aggregation",
+              "aggregation_fields": [
+                {
+                  "field": "count",
+                  "operator": "count"
+                }
+              ],
+              "grouping_fields": [
+                {
+                  "source_field": "BottleneckType",
+                  "field": "individual_BottleneckType",
+                  "operator": "individual"
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "fields": [
+        {
+          "field": "individual_BottleneckType",
+          "field_details": "{\"pivot_area\":\"row\",\"format\":\"shn\",\"suffix\":\"\",\"sorting\":\"\"}",
+          "multi_lang_alias": []
+        },
+        {
+          "field": "count",
+          "field_details": "{\"pivot_area\":\"data\",\"prefix\":null,\"decimals\":0,\"thousandseparator\":false,\"sorting\":\"\"}",
+          "multi_lang_alias": []
+        }
+      ],
+      "id": "ea380ebd1d7add4bf58a8bfd1b031c765b",
+      "display_type": "chart",
+      "is_angle_default": true,
+      "is_public": true,
+      "multi_lang_name": [
+        {
+          "lang": "en",
+          "text": "New chart display"
+        }
+      ],
+      "multi_lang_description": []
+    }
+  ],
+  "angle_default_display": "ea380ebd1d7add4bf58a8bfd1b031c765b",
+  "assigned_labels": [
+    "S2D"
+  ]
+}
