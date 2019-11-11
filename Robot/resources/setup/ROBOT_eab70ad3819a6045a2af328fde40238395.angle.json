@@ -1,0 +1,147 @@
+﻿{
+  "createdby": "system\\EASystem",
+  "id": "ROBOT_eab70ad3819a6045a2af328fde40238395",
+  "multi_lang_name": [
+    {
+      "lang": "en",
+      "text": "Template which display has invalid aggregation step"
+    }
+  ],
+  "multi_lang_description": [
+    {
+      "lang": "en",
+      "text": "Template which display has invalid aggregation step"
+    }
+  ],
+  "is_validated": false,
+  "is_published": true,
+  "is_template": true,
+  "created": {
+    "user": "system\\EASystem",
+    "datetime": 1464602186,
+    "full_name": "EASystem"
+  },
+  "changed": {
+    "user": "local\\EAAdmin",
+    "datetime": 1464602186,
+    "full_name": "EAAdmin"
+  },
+  "published": {
+    "user": "local\\EAAdmin",
+    "datetime": 1464596561,
+    "full_name": "EAAdmin"
+  },
+  "query_definition": [
+    {
+      "queryblock_type": "base_classes",
+      "base_classes": [
+        "Customer"
+      ]
+    }
+  ],
+  "display_definitions": [
+    {
+      "display_details": "{\"chart_type\":\"column\",\"stack\":true,\"multi_axis\":false,\"layout\":null,\"drilldown_display\":\"d5234c4005aebd6b1896ab306a59689c0\"}",
+      "query_blocks": [
+        {
+          "queryblock_type": "query_steps",
+          "query_steps": [
+            {
+              "step_type": "aggregation",
+              "aggregation_fields": [
+                {
+                  "field": "count",
+                  "operator": "count"
+                }
+              ],
+              "grouping_fields": [
+                {
+                  "field": "quarter_ersda",
+                  "operator": "quarter",
+                  "source_field": "ERSDA"
+                },
+                {
+                  "field": "individual_Material__MaterialType",
+                  "operator": "individual",
+                  "source_field": "Material__MaterialType"
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "fields": [
+        {
+          "field": "quarter_ersda",
+          "field_details": "{\"pivot_area\":\"row\"}",
+          "multi_lang_alias": []
+        },
+        {
+          "field": "individual_Material__MaterialType",
+          "field_details": "{\"pivot_area\":\"column\",\"format\":\"shnln\"}",
+          "multi_lang_alias": []
+        },
+        {
+          "field": "count",
+          "field_details": "{\"pivot_area\":\"data\",\"prefix\":null,\"decimals\":0,\"thousandseparator\":true}",
+          "multi_lang_alias": []
+        }
+      ],
+      "id": "displayHasInvalidGroupingStep",
+      "display_type": "chart",
+      "is_angle_default": true,
+      "is_public": true,
+      "multi_lang_name": [
+        {
+          "lang": "en",
+          "text": "Display with invalid aggregation step"
+        }
+      ],
+      "multi_lang_description": [
+        {
+          "lang": "en",
+          "text": "Display with invalid aggregation step"
+        }
+      ]
+    },
+    {
+      "display_details": "{}",
+      "query_blocks": [],
+      "fields": [
+        {
+          "field": "ObjectType",
+          "field_details": "{\"width\":86,\"format\":\"shn\"}",
+          "multi_lang_alias": []
+        },
+        {
+          "field": "ID",
+          "field_details": "{\"width\":139}",
+          "multi_lang_alias": []
+        }
+      ],
+      "id": "validDisplay",
+      "display_type": "list",
+      "is_angle_default": false,
+      "is_public": true,
+      "multi_lang_name": [
+        {
+          "lang": "en",
+          "text": "Valid display"
+        }
+      ],
+      "multi_lang_description": [
+        {
+          "lang": "en",
+          "text": "Valid display"
+        }
+      ]
+    }
+  ],
+  "angle_default_display": "displayHasInvalidGroupingStep",
+  "assigned_labels": [
+    "P2P",
+    "S2D",
+    "O2C",
+    "PM"
+  ]
+}

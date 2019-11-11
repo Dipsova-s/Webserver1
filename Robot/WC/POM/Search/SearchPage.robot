@@ -133,6 +133,7 @@ ${divTopBar}                            css=#TopBar
 
 #Search Filters
 ${divSearchFilterView}                  css=#SearchFilterView
+${btnClearFilters}                      ${divSearchFilterView} .clear-filters
 
 *** Keywords ***
 Wait Search Page Document Loaded
@@ -231,6 +232,9 @@ Click Search Action Upload Angles
 
 Click Search Action Execute As Dashboard
     Click Search Action    ${ddlSearchActionExecuteAsDashboard}
+    Wait Until Ajax Complete
+    ${present}=    Run Keyword And Return Status    Element Should Be Visible    ${divExecuteParametersPopup}
+    Run Keyword If    ${present}    Click Submit Dashboard Execution Parameters
     Wait Dashboard Detail Document Loaded
 
 Click Search Action Execute As Dashboard With Execution Parameters
@@ -316,6 +320,12 @@ Click Search Filter Private Display
 
 Click Search Filter Is Validated
     Click Facet Checkbox    ${chkFacetIsValidated}
+
+Select Search Filter Is Validated
+    Select Facet Checkbox    ${chkFacetIsValidated}
+
+Unselect Search Filter Is Validated
+    Unselect Facet Checkbox    ${chkFacetIsValidated}
 
 Click Search Filter Is Starred
     Click Facet Checkbox    ${chkFacetIsStarred}
@@ -631,3 +641,12 @@ Search Dashboard From Search Page And Open It
     Search By Text    ${fieldKeyword}  
     Click Select First Item From Search Result
     Open Dashboard From First Dashboard in Search Page
+
+Clear All Filters
+    ${present}=  Run Keyword And Return Status    Element Should Be Visible   ${btnClearFilters}
+    Run Keyword If    ${present}    Click Clear Filters
+
+Click Clear Filters
+    Click Element  ${btnClearFilters}
+    Wait Progress Bar Closed
+    Wait Until Ajax Complete

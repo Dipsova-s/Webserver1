@@ -12,52 +12,8 @@ ${DashboardsPath}   ${EXECDIR}/webhelp_items/dashboards/
 *** Test Cases ***
 WebHelp WC Import Items
     [Tags]    webhelp_import
-    Log   Clean up items
-    Search Filter By Query String    ids=WEBHELP_WC_*&fq=facetcat_characteristics:(facet_isvalidated)
-    ${validatedCount}    Get Number Of Search Results
-    Run Keyword If    ${validatedCount}>0  Run Keywords
-    ...   Click Select All Items from Search Result
-    ...   Open Mass Change Popup
-    ...   Click Set Not Validated Via Mass Change Popup
-    ...   Click Save Mass Change
-    ...   Click Close Mass Change Report Popup
-
-    Search Filter By Query String    ids=WEBHELP_WC_*
-    ${itemCount}    Get Number Of Search Results
-    Run Keyword If    ${itemCount}>0    Delete All Search Result Items
-
-    Log   Importing Angles from "webhelp_items/angles"
-    ${cacheUris}  Set Variable   {}
-    @{angleFiles}  List Files In Directory  ${AnglesPath}   *.json
-    : FOR    ${file}    IN    @{angleFiles}
-    \   ${text}    Get File    ${AnglesPath}${file}
-    \   ${data}    Execute JavaScript
-    \   ...    var angle=${text};
-    \   ...    var dafaultDisplay=angle.display_definitions.findObject('uri', angle.angle_default_display).id;
-    \   ...    angle.angle_default_display=dafaultDisplay;
-    \   ...    return JSON.stringify(angle);
-    \   Create Context: Web
-    \   ${angle}   Create Angle  /models/1  ${data}
-    \   ${newText}   Stringify Json    ${angle}
-    \   ${cacheUris}   Execute JavaScript
-    \   ...    var angle=${text};
-    \   ...    var newAngle=${newText};
-    \   ...    var cache=${cacheUris};
-    \   ...    cache[angle.uri]=newAngle.uri;
-    \   ...    $.each(angle.display_definitions, function(i,display){ cache[display.uri]=newAngle.display_definitions[i].uri; });
-    \   ...    return JSON.stringify(cache);
-
-    Log   Importing Angles from "webhelp_items/dashboards"
-    @{dashboardFiles}  List Files In Directory  ${DashboardsPath}   *.json
-    : FOR    ${file}    IN    @{dashboardFiles}
-    \   ${text}    Get File    ${DashboardsPath}${file}
-    \   ${data}    Execute JavaScript
-    \   ...    var dashboard=${text};
-    \   ...    var cache=${cacheUris};
-    \   ...    $.each(dashboard.widget_definitions, function(i, widget){ widget.angle=cache[widget.angle];widget.display=cache[widget.display]; });
-    \   ...    return JSON.stringify(dashboard);
-    \   Create Context: Web
-    \   Create Dashboard  ${data}
+    ${ids}    Set Variable    WEBHELP_WC_*
+    Import Item From Directory    ${AnglesPath}    ${ids}    ${DashboardsPath}
 
 WebHelp WC Export Items
     [Tags]    webhelp_export

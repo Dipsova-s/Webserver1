@@ -1,0 +1,173 @@
+{
+	"id": "ROBOT_aab2cca64bca2c63a261d573197164482",
+	"is_validated": false,
+	"is_published": true,
+	"is_template": false,
+	"assigned_labels": [
+		"S2D"
+	],
+	"multi_lang_name": [{
+		"lang": "en",
+		"text": "Angle For Dashboard Filter 2"
+	}],
+	"multi_lang_description": [{
+		"lang": "en",
+		"text": "<div id=\"summary\"><div class=\" section\" id=\"S1436440131616844\"><h2 class=\" topictitle2\" id=\"Hidelem4x30320\">&nbsp;</h2><p></p></div></div>"
+	}],
+	"query_definition": [{
+			"queryblock_type": "base_classes",
+			"base_classes": [
+				"DeliveryNoteLine"
+			]
+		},
+		{
+			"queryblock_type": "query_steps",
+			"query_steps": [{
+				"step_type": "filter",
+				"field": "ID",
+				"operator": "contains",
+				"arguments": [{
+					"argument_type": "value",
+					"value": "8000"
+				}]
+			}]
+		}
+	],
+	"display_definitions": [{
+		"id": "d736b7ef8c0d9ce40ded9573197164484",
+		"display_type": "list",
+		"is_angle_default": true,
+		"is_public": true,
+		"multi_lang_name": [{
+			"lang": "en",
+			"text": "Basic List"
+		}],
+		"multi_lang_description": [{
+			"lang": "en",
+			"text": "<div id=\"summary\" /><div class=\" section\" id=\"S1438245618392843\"><p class=\"\" id=\"P1438245618407814\" /></div>"
+		}],
+		"display_details": "{}",
+		"query_blocks": [{
+			"queryblock_type": "query_steps",
+			"query_steps": [{
+				"step_type": "filter",
+				"field": "CreationDate",
+				"tech_info": "LIPS-ERDAT",
+				"operator": "greater_than",
+				"arguments": [{
+					"argument_type": "value",
+					"value": 1009843200
+				}]
+			}]
+		}],
+		"fields": [{
+				"field": "ObjectType",
+				"tech_info": "",
+				"multi_lang_alias": [],
+				"field_details": "{\"width\":90,\"format\":\"shn\"}"
+			},
+			{
+				"field": "ID",
+				"tech_info": "",
+				"multi_lang_alias": [],
+				"field_details": "{\"width\":93}"
+			},
+			{
+				"field": "DeliveryNoteHeader__LFART",
+				"tech_info": "LIKP-LFART",
+				"multi_lang_alias": [],
+				"field_details": "{\"width\":98,\"format\":\"shnln\"}"
+			},
+			{
+				"field": "ExecutionStatus",
+				"tech_info": "",
+				"multi_lang_alias": [],
+				"field_details": "{\"width\":97,\"format\":\"shn\"}"
+			},
+			{
+				"field": "OverallStatus",
+				"tech_info": "VBUP-GBSTA",
+				"multi_lang_alias": [],
+				"field_details": "{\"width\":80,\"format\":\"ln\"}"
+			},
+			{
+				"field": "OrderDueDate",
+				"tech_info": "LIKP-WADAT;LIKP-LFDAT",
+				"multi_lang_alias": [],
+				"field_details": "{\"width\":87}"
+			},
+			{
+				"field": "DeliveryStatus",
+				"tech_info": "",
+				"multi_lang_alias": [],
+				"field_details": "{\"width\":125,\"format\":\"shn\"}"
+			},
+			{
+				"field": "RealizedFinishDate",
+				"tech_info": "LIKP-WADAT_IST",
+				"multi_lang_alias": [],
+				"field_details": "{\"width\":96}"
+			},
+			{
+				"field": "IssuingPlant",
+				"tech_info": "",
+				"multi_lang_alias": [],
+				"field_details": "{\"width\":80,\"format\":\"shn\"}"
+			},
+			{
+				"field": "Material__Material",
+				"tech_info": "",
+				"multi_lang_alias": [],
+				"field_details": "{\"width\":85}"
+			},
+			{
+				"field": "Material__Description",
+				"tech_info": "MAKT-MAKTX",
+				"multi_lang_alias": [],
+				"field_details": "{\"width\":218}"
+			},
+			{
+				"field": "Quantity",
+				"tech_info": "LIPS-LGMNG",
+				"multi_lang_alias": [],
+				"field_details": "{\"width\":85}"
+			},
+			{
+				"field": "Material__BaseUnitOfMeasure",
+				"tech_info": "MARA-MEINS",
+				"multi_lang_alias": [],
+				"field_details": "{\"width\":35,\"format\":\"shn\"}"
+			},
+			{
+				"field": "Customer__Customer",
+				"tech_info": "KNA1-KUNNR",
+				"multi_lang_alias": [],
+				"field_details": "{\"width\":96}"
+			},
+			{
+				"field": "Customer__Description",
+				"tech_info": "KNA1-NAME1",
+				"multi_lang_alias": [],
+				"field_details": "{\"width\":176}"
+			},
+			{
+				"field": "PickingStatus",
+				"tech_info": "VBUP-KOSTA",
+				"multi_lang_alias": [],
+				"field_details": "{\"width\":79,\"format\":\"shn\"}"
+			},
+			{
+				"field": "WarehouseManagementActivityStatus",
+				"tech_info": "VBUP-LVSTA",
+				"multi_lang_alias": [],
+				"field_details": "{\"width\":103,\"format\":\"shn\"}"
+			},
+			{
+				"field": "RejectionStatus",
+				"tech_info": "VBUP-ABSTA",
+				"multi_lang_alias": [],
+				"field_details": "{\"width\":91}"
+			}
+		]
+	}]
+}

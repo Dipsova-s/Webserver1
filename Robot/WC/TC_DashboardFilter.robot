@@ -7,28 +7,38 @@ Force Tags          acc_wc
 
 *** Test Cases ***
 Verify When Angle That Used In The Dashboard Have Filter, And Dashboard Have Filter Itself
-    ${searchText}  Set Variable  Plant for Dashboard filter
-    ${dashboardName}  Set Variable  [ROBOT] Dashboard Filter Add From Dashboard Name
+    ${searchText}  Set Variable  Angle For General Test
+    ${dashboardName}  Set Variable  [ROBOT] Verify When Angle That Used In The Dashboard Have Filter, And Dashboard Have Filter Itself
+    
     Create Dashboard From Specific Angle Name    ${searchText}    ${dashboardName}
-    Add Dashboard Filter From Dashboard Name
-    Verify Dashboard Filter Showing    ${dashboardName}
-    Verify Editing Dashboard Filter
-    Back To Search And Delete Dashboard Are Created    ${dashboardName}
+    Add Filter To Dashboard    "Execution Status"    ExecutionStatus   is equal to    Open
+    
+    First Filter In Dashboard Popup Should Be Equal    ${dashboardName}    is equal to Open
+    First Filter In Dashboard Sidebar Should Be Equal    (Self) - Execution status is equal to Open
+
+    [Teardown]  Back To Search And Delete Dashboard Are Created    ${dashboardName}
 
 Verify Apply Multi Filter To Dashboard
-    ${searchText}  Set Variable  For Dashboard Filter
-    ${dashboardName}  Set Variable  [ROBOT] Dashboard Filter Add From Filter Panel
-    Create Dashboard From Many Angles     ${searchText}    ${dashboardName}
-    Add Dashboard Filter From Dashboard Filter Panel
-    Verify Dashboard Filters Count    4
-    Verify Remove Field In Fields Tab
-    Verify Dashboard Filters Count    2
+    ${searchText}  Set Variable  Angle For Dashboard Filter
+    ${dashboardName}  Set Variable  [ROBOT] Verify Apply Multi Filter To Dashboard
 
-    Open Angle In Dashboard Widget    0
-    Check Dashboard Filters For Angle #1
-    Open Angle In Dashboard Widget    1
-    Check Dashboard Filters For Angle #2
-    Open Angle In Dashboard Widget    2
-    Check Dashboard Filters For Angle #3
+    ${orderDueDate}  Set Variable  (Self) - Order Due Date is after May/24/2016
+    ${bottleneckType}  Set Variable  (Self) - Bottleneck Type is not empty
 
-    Back To Search And Delete Dashboard Are Created    ${dashboardName}
+    ${expectedDashboardFilter1}  Create List  ${orderDueDate}
+    ${unExpectedDashboardFilter1}  Create List  ${bottleneckType}
+    ${expectedDashboardFilter2}  Create List  ${orderDueDate}    ${bottleneckType}
+
+    Create Achoc Dashboard     ${searchText}
+    Input Dashboard Name    ${dashboardName} 
+    Save Dashboard
+
+    Add Filters To Dashboard
+    Total Filters In Dashboard Should Be Equal    4
+    Open Dashboard Popup And Remove Filter By index    4
+    Total Filters In Dashboard Should Be Equal    2
+
+    Verify Filters In Angle When Open Angle From Dashboard Page    0    ${expectedDashboardFilter1}    ${unExpectedDashboardFilter1}
+    Verify Filters In Angle When Open Angle From Dashboard Page    1    ${expectedDashboardFilter2}
+
+    [Teardown]  Back To Search And Delete Dashboard Are Created    ${dashboardName}

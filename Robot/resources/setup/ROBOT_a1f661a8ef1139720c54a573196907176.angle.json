@@ -1,0 +1,185 @@
+{
+	"id": "ROBOT_a1f661a8ef1139720c54a573196907176",
+	"is_validated": false,
+	"is_published": true,
+	"is_template": false,
+	"assigned_labels": [
+		"S2D"
+	],
+	"multi_lang_name": [{
+		"lang": "en",
+		"text": "Angle For Dashboard Filter 1"
+	}],
+	"multi_lang_description": [{
+		"lang": "en",
+		"text": "<div id=\"summary\"><div class=\" section\" id=\"S1436440131107654\"><h2 class=\" topictitle2\" id=\"Hidelem4x29461\">&nbsp;</h2><p></p></div></div>"
+	}],
+	"query_definition": [{
+			"queryblock_type": "base_classes",
+			"base_classes": [
+				"DeliveryNoteHeader"
+			]
+		},
+		{
+			"queryblock_type": "query_steps",
+			"query_steps": [{
+				"step_type": "filter",
+				"field": "ID",
+				"operator": "contains",
+				"arguments": [{
+					"argument_type": "value",
+					"value": "8000"
+				}]
+			}]
+		}
+	],
+	"display_definitions": [{
+		"id": "d320021122f2cafd68e7e573196907178",
+		"display_type": "list",
+		"is_angle_default": true,
+		"is_public": true,
+		"multi_lang_name": [{
+			"lang": "en",
+			"text": "Basic List"
+		}],
+		"multi_lang_description": [{
+			"lang": "en",
+			"text": "<div id=\"summary\" /><div class=\" section\" id=\"S143824561789163\"><p class=\"\" id=\"P1438245617891874\" /></div>"
+		}],
+		"display_details": "{}",
+		"query_blocks": [{
+			"queryblock_type": "query_steps",
+			"query_steps": [{
+				"step_type": "filter",
+				"field": "CreationDate",
+				"tech_info": "LIKP-ERDAT",
+				"operator": "greater_than",
+				"arguments": [{
+					"argument_type": "value",
+					"value": 1009843200
+				}]
+			}]
+		}],
+		"fields": [{
+				"field": "ObjectType",
+				"tech_info": "",
+				"multi_lang_alias": [],
+				"field_details": "{\"width\":108,\"format\":\"shn\"}"
+			},
+			{
+				"field": "ID",
+				"tech_info": "",
+				"multi_lang_alias": [],
+				"field_details": "{\"width\":71}"
+			},
+			{
+				"field": "LFART",
+				"tech_info": "LIKP-LFART",
+				"multi_lang_alias": [],
+				"field_details": "{\"width\":84,\"format\":\"shnln\"}"
+			},
+			{
+				"field": "GBSTK",
+				"tech_info": "VBUK-GBSTK",
+				"multi_lang_alias": [],
+				"field_details": "{\"width\":108,\"format\":\"ln\"}"
+			},
+			{
+				"field": "ExecutionStatus",
+				"tech_info": "",
+				"multi_lang_alias": [],
+				"field_details": "{\"width\":96,\"format\":\"shn\"}"
+			},
+			{
+				"field": "Customer__Customer",
+				"tech_info": "KNA1-KUNNR",
+				"multi_lang_alias": [],
+				"field_details": "{\"width\":94}"
+			},
+			{
+				"field": "Customer__Description",
+				"tech_info": "KNA1-NAME1",
+				"multi_lang_alias": [],
+				"field_details": "{\"width\":236}"
+			},
+			{
+				"field": "KODAT",
+				"tech_info": "LIKP-KODAT",
+				"multi_lang_alias": [],
+				"field_details": "{\"width\":84}"
+			},
+			{
+				"field": "OrderDueDate",
+				"tech_info": "LIKP-WADAT;LIKP-LFDAT",
+				"multi_lang_alias": [],
+				"field_details": "{\"width\":92}"
+			},
+			{
+				"field": "DeliveryStatus",
+				"tech_info": "",
+				"multi_lang_alias": [],
+				"field_details": "{\"width\":130,\"format\":\"shn\"}"
+			},
+			{
+				"field": "RealizedFinishDate",
+				"tech_info": "LIKP-WADAT_IST",
+				"multi_lang_alias": [],
+				"field_details": "{\"width\":100}"
+			},
+			{
+				"field": "DeliveryTimePlanned",
+				"tech_info": "",
+				"multi_lang_alias": [],
+				"field_details": "{\"width\":113}"
+			},
+			{
+				"field": "DeliveryBlock",
+				"tech_info": "LIKP-LIFSK",
+				"multi_lang_alias": [],
+				"field_details": "{\"width\":90}"
+			},
+			{
+				"field": "DeliveryTimeRealized",
+				"tech_info": "",
+				"multi_lang_alias": [],
+				"field_details": "{\"width\":110}"
+			},
+			{
+				"field": "NumberOfShipmentItems",
+				"tech_info": "",
+				"multi_lang_alias": [],
+				"field_details": "{\"width\":126}"
+			},
+			{
+				"field": "TRATY",
+				"tech_info": "LIKP-TRATY",
+				"multi_lang_alias": [],
+				"field_details": "{\"width\":107}"
+			},
+			{
+				"field": "KLIEF",
+				"tech_info": "LIKP-KLIEF",
+				"multi_lang_alias": [],
+				"field_details": "{\"width\":100}"
+			},
+			{
+				"field": "ABSTK",
+				"tech_info": "VBUK-ABSTK",
+				"multi_lang_alias": [],
+				"field_details": "{\"width\":90}"
+			},
+			{
+				"field": "VKORG",
+				"tech_info": "LIKP-VKORG",
+				"multi_lang_alias": [],
+				"field_details": "{\"width\":111,\"format\":\"shn\"}"
+			},
+			{
+				"field": "CreationDate",
+				"tech_info": "LIKP-ERDAT",
+				"multi_lang_alias": [],
+				"field_details": "{\"width\":87}"
+			}
+		]
+	}]
+}

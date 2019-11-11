@@ -1,0 +1,250 @@
+﻿{
+  "createdby": "local\\EAAdmin",
+  "id": "ROBOT_ea9cb96908545141dfb39dd5d6d9a4931a",
+  "multi_lang_name": [
+    {
+      "lang": "en",
+      "text": "Angle For Sort And Move Filters"
+    }
+  ],
+  "multi_lang_description": [],
+  "is_validated": false,
+  "is_published": true,
+  "is_template": true,
+  "created": {
+    "user": "local\\EAAdmin",
+    "datetime": 1529050245,
+    "full_name": "EAAdmin"
+  },
+  "changed": {
+    "user": "local\\EAAdmin",
+    "datetime": 1529050287,
+    "full_name": "EAAdmin"
+  },
+  "published": {
+    "user": "local\\EAAdmin",
+    "datetime": 1529050287,
+    "full_name": "EAAdmin"
+  },
+  "query_definition": [
+    {
+      "queryblock_type": "base_classes",
+      "base_classes": [
+        "PurchaseOrderScheduleLine",
+        "PurchaseOrder"
+      ]
+    }
+  ],
+  "display_definitions": [
+    {
+      "display_details": "{}",
+      "query_blocks": [
+        {
+          "queryblock_type": "query_steps",
+          "query_steps": [
+            {
+              "step_type": "filter",
+              "field": "ExecutionStatus",
+              "operator": "in_set",
+              "arguments": [
+                {
+                  "argument_type": "value",
+                  "value": "es0ToBeExecuted"
+                }
+              ]
+            },
+            {
+              "step_type": "filter",
+              "field": "ID",
+              "operator": "starts_with",
+              "arguments": [
+                {
+                  "argument_type": "value",
+                  "value": "3"
+                }
+              ]
+            },
+            {
+              "step_type": "followup",
+              "followup": "DeliveryNoteLine"
+            },
+            {
+              "tech_info": "LIPS-LGMNG",
+              "step_type": "filter",
+              "field": "Quantity",
+              "operator": "greater_than",
+              "arguments": [
+                {
+                  "argument_type": "value",
+                  "value": 0
+                }
+              ]
+            },
+            {
+              "tech_info": "LIPS-ERDAT",
+              "step_type": "filter",
+              "field": "CreationDate",
+              "operator": "less_than",
+              "arguments": [
+                {
+                  "argument_type": "value",
+                  "value": 1468886400
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "fields": [
+        {
+          "field": "ObjectType",
+          "field_details": "{\"width\":90,\"format\":\"shn\"}",
+          "tech_info": "",
+          "multi_lang_alias": []
+        },
+        {
+          "field": "ID",
+          "field_details": "{\"width\":93}",
+          "tech_info": "",
+          "multi_lang_alias": []
+        },
+        {
+          "field": "ExecutionStatus",
+          "field_details": "{\"width\":97,\"format\":\"shn\"}",
+          "tech_info": "",
+          "multi_lang_alias": []
+        },
+        {
+          "field": "Quantity",
+          "field_details": "{\"width\":85}",
+          "tech_info": "LIPS-LGMNG",
+          "multi_lang_alias": []
+        }
+      ],
+      "id": "d4543804db9ef79995088468915897843",
+      "display_type": "list",
+      "is_angle_default": false,
+      "is_public": true,
+      "multi_lang_name": [
+        {
+          "lang": "en",
+          "text": "Sort And Move Filters"
+        }
+      ],
+      "multi_lang_description": []
+    },
+    {
+      "display_details": "{}",
+      "query_blocks": [
+        {
+          "queryblock_type": "query_steps",
+          "query_steps": [
+            {
+              "step_type": "filter",
+              "field": "ExecutionStatus",
+              "operator": "in_set",
+              "arguments": [
+                {
+                  "argument_type": "value",
+                  "value": "es0ToBeExecuted"
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "fields": [
+        {
+          "field": "ID",
+          "field_details": "{\"width\":120}",
+          "multi_lang_alias": []
+        },
+        {
+          "field": "ObjectType",
+          "field_details": "{\"width\":120}",
+          "multi_lang_alias": []
+        },
+        {
+          "field": "ExecutionStatus",
+          "field_details": "{\"width\":120}",
+          "multi_lang_alias": []
+        }
+      ],
+      "id": "de3bd1daa0771df9c538d468918092599",
+      "display_type": "list",
+      "is_angle_default": true,
+      "is_public": true,
+      "multi_lang_name": [
+        {
+          "lang": "en",
+          "text": "List"
+        }
+      ],
+      "multi_lang_description": []
+    },
+    {
+      "display_details": "{\"chart_type\":\"column\",\"stack\":false,\"multi_axis\":false,\"axistitle\":\"show\",\"axisvalue\":\"show\",\"datalabel\":\"mouse\",\"gridline\":\"show\",\"legend\":\"show\",\"range\":{\"start\":0,\"size\":50}}",
+      "query_blocks": [
+        {
+          "queryblock_type": "query_steps",
+          "query_steps": [
+            {
+              "step_type": "filter",
+              "field": "ExecutionStatus",
+              "operator": "in_set",
+              "arguments": [
+                {
+                  "argument_type": "value",
+                  "value": "es0ToBeExecuted"
+                }
+              ]
+            },
+            {
+              "step_type": "aggregation",
+              "aggregation_fields": [
+                {
+                  "field": "count",
+                  "operator": "count"
+                }
+              ],
+              "grouping_fields": [
+                {
+                  "source_field": "ExecutionStatus",
+                  "field": "individual_ExecutionStatus",
+                  "operator": "individual"
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "fields": [
+        {
+          "field": "individual_ExecutionStatus",
+          "field_details": "{\"pivot_area\":\"row\",\"format\":\"shnln\",\"suffix\":\"\",\"sorting\":\"\"}",
+          "multi_lang_alias": []
+        },
+        {
+          "field": "count",
+          "field_details": "{\"pivot_area\":\"data\",\"prefix\":\"N\",\"decimals\":0,\"thousandseparator\":false,\"sorting\":\"\"}",
+          "multi_lang_alias": []
+        }
+      ],
+      "id": "ea3dcda8c7983f442aa3dfc1788558a559",
+      "display_type": "chart",
+      "is_angle_default": false,
+      "is_public": true,
+      "multi_lang_name": [
+        {
+          "lang": "en",
+          "text": "Chart"
+        }
+      ],
+      "multi_lang_description": []
+    }
+  ],
+  "angle_default_display": "de3bd1daa0771df9c538d468918092599",
+  "assigned_labels": [
+    "S2D"
+  ]
+}

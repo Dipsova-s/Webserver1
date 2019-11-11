@@ -1,0 +1,198 @@
+﻿{
+  "createdby": "local\\EAAdmin",
+  "id": "ROBOT_ea12719e3bde3e437f845bbf816814206e",
+  "multi_lang_name": [
+    {
+      "lang": "en",
+      "text": "Test Angle Filter"
+    }
+  ],
+  "multi_lang_description": [],
+  "is_validated": false,
+  "is_published": true,
+  "is_template": false,
+  "created": {
+    "user": "local\\EAAdmin",
+    "datetime": 1529050245,
+    "full_name": "EAAdmin"
+  },
+  "changed": {
+    "user": "local\\EAAdmin",
+    "datetime": 1529050285,
+    "full_name": "EAAdmin"
+  },
+  "published": {
+    "user": "local\\EAAdmin",
+    "datetime": 1529050285,
+    "full_name": "EAAdmin"
+  },
+  "query_definition": [
+    {
+      "queryblock_type": "base_classes",
+      "base_classes": [
+        "PurchaseOrderScheduleLine",
+        "PurchaseOrder"
+      ]
+    }
+  ],
+  "display_definitions": [
+    {
+      "display_details": "{}",
+      "query_blocks": [],
+      "fields": [
+        {
+          "field": "ObjectType",
+          "field_details": "{\"width\":107,\"format\":\"shn\"}",
+          "multi_lang_alias": []
+        },
+        {
+          "field": "ID",
+          "field_details": "{\"width\":123}",
+          "multi_lang_alias": []
+        },
+        {
+          "field": "PurchaseOrganization__PurchaseOrganization",
+          "field_details": "{\"width\":107,\"format\":\"shnln\"}",
+          "tech_info": "T024E-EKORG",
+          "multi_lang_alias": []
+        },
+        {
+          "field": "Plant__Plant",
+          "field_details": "{\"width\":93,\"format\":\"shnln\"}",
+          "tech_info": "T001W-WERKS",
+          "multi_lang_alias": []
+        },
+        {
+          "field": "ExecutionStatus",
+          "field_details": "{\"width\":96,\"format\":\"shn\"}",
+          "multi_lang_alias": []
+        },
+        {
+          "field": "Material__Material",
+          "field_details": "{\"width\":101}",
+          "multi_lang_alias": []
+        },
+        {
+          "field": "Material__Description",
+          "field_details": "{\"width\":157}",
+          "tech_info": "MAKT-MAKTX",
+          "multi_lang_alias": []
+        },
+        {
+          "field": "Quantity",
+          "field_details": "{\"width\":85}",
+          "multi_lang_alias": []
+        },
+        {
+          "field": "Material__BaseUnitOfMeasure",
+          "field_details": "{\"width\":29,\"format\":\"shn\"}",
+          "tech_info": "MARA-MEINS",
+          "multi_lang_alias": []
+        },
+        {
+          "field": "PurchaseOrderLine__TXZ01",
+          "field_details": "{\"width\":187}",
+          "tech_info": "EKPO-TXZ01",
+          "multi_lang_alias": []
+        },
+        {
+          "field": "Vendor__Vendor",
+          "field_details": "{\"width\":81}",
+          "tech_info": "LFA1-LIFNR",
+          "multi_lang_alias": []
+        },
+        {
+          "field": "Vendor__Description",
+          "field_details": "{\"width\":120}",
+          "tech_info": "LFA1-NAME1",
+          "multi_lang_alias": []
+        },
+        {
+          "field": "PurchaseOrder__PurchasingDocumentCategory",
+          "field_details": "{\"width\":105,\"format\":\"shnln\"}",
+          "tech_info": "EKKO-BSTYP",
+          "multi_lang_alias": []
+        },
+        {
+          "field": "PurchaseOrderLine__PurchasingItemCategory",
+          "field_details": "{\"width\":88,\"format\":\"shnln\"}",
+          "tech_info": "EKPO-PSTYP",
+          "multi_lang_alias": []
+        },
+        {
+          "field": "MaterialOnPlantLevel__DISPO",
+          "field_details": "{\"width\":96,\"format\":\"shnln\"}",
+          "tech_info": "MARC-WERKS,MARC-DISPO",
+          "multi_lang_alias": []
+        },
+        {
+          "field": "PurchaseOrder__BKGRP",
+          "field_details": "{\"width\":102,\"format\":\"shnln\"}",
+          "tech_info": "EKKO-EKGRP",
+          "multi_lang_alias": []
+        },
+        {
+          "field": "PurchaseOrderScheduleLineStatus",
+          "field_details": "{\"width\":109,\"format\":\"shn\"}",
+          "multi_lang_alias": []
+        },
+        {
+          "field": "OrderedValue",
+          "field_details": "{\"width\":87}",
+          "multi_lang_alias": []
+        },
+        {
+          "field": "OrderDueDate",
+          "field_details": "{\"width\":87}",
+          "tech_info": "EKES_LC-EINDT/EKES_FC-EINDT/EKET_COMMIT-EINDT/EKET-EINDT/EKET-SLFDT",
+          "multi_lang_alias": []
+        },
+        {
+          "field": "StockAvailabilityPct",
+          "field_details": "{\"width\":120}",
+          "multi_lang_alias": []
+        },
+        {
+          "field": "ExpectedDelay",
+          "field_details": "{\"width\":120}",
+          "multi_lang_alias": []
+        },
+        {
+          "field": "ExpectedDelayInWorkDays",
+          "field_details": "{\"width\":120}",
+          "multi_lang_alias": []
+        },
+        {
+          "field": "OrderNumber",
+          "field_details": "{\"width\":120}",
+          "multi_lang_alias": []
+        },
+        {
+          "field": "RelevantForLogistics",
+          "field_details": "{\"width\":84}",
+          "multi_lang_alias": []
+        },
+        {
+          "field": "DeliveryStatus",
+          "field_details": "{\"width\":108,\"format\":\"shn\"}",
+          "multi_lang_alias": []
+        }
+      ],
+      "id": "d6959b324ffe561aa8ece465955792306",
+      "display_type": "list",
+      "is_angle_default": true,
+      "is_public": true,
+      "multi_lang_name": [
+        {
+          "lang": "en",
+          "text": "New Display"
+        }
+      ],
+      "multi_lang_description": []
+    }
+  ],
+  "angle_default_display": "d6959b324ffe561aa8ece465955792306",
+  "assigned_labels": [
+    "S2D"
+  ]
+}
