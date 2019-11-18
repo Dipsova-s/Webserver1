@@ -1,8 +1,20 @@
 ﻿@model EveryAngle.Core.ViewModels.About.AboutViewModel
 @using EveryAngle.Shared.Globalization
+@{
+    string webLanguage = System.Threading.Thread.CurrentThread.CurrentUICulture.TwoLetterISOLanguageName;
+    string copyRightUri = "~/Data/Help/" + webLanguage + "/index.htm";
+}
 
 <div class="aboutContainer">
-    <div class="aboutCommon">@Html.Raw(string.Format(Resource.AboutEveryAngleDetails, DateTime.Today.Year))</div>
+    <div class="aboutCommon">
+        @Html.Raw(Resource.AboutEveryAngleDetails)
+        <div class="copyRight">
+            <a href="@Url.Content(copyRightUri)" target="_blank">
+                @string.Format(Resource.CopyRight, DateTime.Today.Year)
+                <i class="icon icon-link"></i>
+            </a>
+        </div>
+    </div>
     <div class="aboutModels">
         <h3>@Resource.AboutVersion</h3>
         <div class="row">
@@ -13,7 +25,8 @@
             <div class="label">@Resource.AboutServerVersion</div>
             <div class="value">@Model.app_server_version</div>
         </div>
-        @foreach (var aboutModel in Model.models) {
+        @foreach (var aboutModel in Model.models)
+        {
             <div class="row">
                 <div class="label">@aboutModel.model_id:</div>
                 <div class="value">@aboutModel.version</div>
@@ -21,7 +34,7 @@
         }
         @if (Model.models.Count > 0)
         {
-            <br/>
+            <br />
             <h3>@Resource.AboutModelInfo</h3>
             foreach (var aboutModel in Model.models)
             {

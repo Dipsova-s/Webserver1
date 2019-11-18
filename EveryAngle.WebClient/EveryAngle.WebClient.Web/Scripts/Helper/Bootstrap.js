@@ -26,9 +26,26 @@
 
     // navigator.sendBeacon support
     Modernizr.addTest('sendbeacon', function () { return 'sendBeacon' in navigator; });
-    Modernizr.addTest('mouse', function () {
-        return Modernizr.mq('(hover:hover)');
-    });
+    // mouse support
+    var mouseTestResult = jQuery.localStorage('mouse');
+    if (mouseTestResult === null) {
+        Modernizr.mouse = false;
+        jQuery.localStorage('mouse', false);
+        jQuery(document).one('mousemove.test', function () {
+            Modernizr.mouse = true;
+            jQuery.localStorage('mouse', true);
+            jQuery('html').addClass('mouse');
+        });
+    }
+    else {
+        Modernizr.mouse = mouseTestResult;
+        if (mouseTestResult) {
+            jQuery('html').addClass('mouse');
+        }
+        else {
+            jQuery('html').removeClass('mouse');
+        }
+    }
 
     window.WC.Page = {
         InitialPage: function () {

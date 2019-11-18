@@ -55,11 +55,11 @@
 /* .popupAboutResultSummary
 ===================================== */
 .popupAboutResultSummary {
-    min-width: 561px !important;
-    max-width: 561px !important;
+    min-width: 571px !important;
+    max-width: 571px !important;
     min-height: 281px !important;
     max-height: 281px !important;
-    width: 561px;
+    width: 571px;
     height: 281px;
 }
 
@@ -81,7 +81,7 @@
     background: transparent url('../../images/master/ea_about_logo.svg') center 10px no-repeat;
     background-size: 185px 185px;
     float: left;
-    width: 215px;
+    width: 225px;
     height: 76px;
     padding-top: 205px;
     text-align: center;
@@ -91,6 +91,25 @@
 .aboutCommon a {
     text-decoration: underline;
     color: #006f9b;
+}
+
+.aboutCommon .copyRight {
+    margin-top: -8px;
+}
+
+.aboutCommon .copyRight a:hover .icon-link {
+    visibility: visible;
+}
+
+.aboutCommon .copyRight .icon-link {
+    visibility: hidden;
+    margin-left: 5px;
+    font-size: 10px;
+}
+
+.no-mouse .aboutCommon .copyRight .icon-link,
+.no-mouse .aboutCommon .copyRight a:hover .icon-link {
+    visibility: visible;
 }
 
 .aboutModels {

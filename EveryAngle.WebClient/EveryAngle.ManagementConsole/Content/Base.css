@@ -1041,6 +1041,7 @@ div.k-window-content > .k-loading-mask {
 
 .aboutCommon {
     background: transparent url(../images/ea_about_logo.svg) center 8px no-repeat;
+    background-size: 185px 185px;
     float: left;
     width: 215px;
     height: 76px;
@@ -1052,6 +1053,34 @@ div.k-window-content > .k-loading-mask {
 .aboutCommon a {
     text-decoration: underline;
     color: #006f9b;
+}
+
+.icon-link:before {
+    display: inline-block;
+    font-family: 'WebClientIco';
+    content: "\e904";
+    background: transparent none center top no-repeat;
+    font-style: normal;
+    font-weight: normal;
+    font-variant: normal;
+    text-transform: none;
+    line-height: 1;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+.aboutCommon .copyRight a:hover .icon-link {
+    visibility: visible;
+}
+
+.aboutCommon .copyRight .icon-link {
+    visibility: hidden;
+    margin-left: 5px;
+    font-size: 10px;
+}
+
+.touch .aboutCommon .copyRight .icon-link {
+    visibility: visible !important;
 }
 
 .aboutModels {

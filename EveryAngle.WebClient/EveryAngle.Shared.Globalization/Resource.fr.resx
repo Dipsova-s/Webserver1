@@ -3886,7 +3886,7 @@ After selecting an object, click the Continue button to start setting the sugges
     <value>Contributor</value>
   </data>
   <data name="AboutEveryAngleDetails" xml:space="preserve">
-    <value>Pour les dernières informations sur le produit,&lt;br/&gt; visitez &lt;a href="http://www.everyangle.com" target="_blank"&gt;www.everyangle.com&lt;/a&gt;&lt;br/&gt;&lt;br/&gt; Copyright © {0}</value>
+    <value>Pour les dernières informations sur le produit,&lt;br/&gt; visitez &lt;a href="http://www.everyangle.com" target="_blank"&gt;www.everyangle.com&lt;/a&gt;&lt;br/&gt;&lt;br/&gt; </value>
   </data>
   <data name="AboutClientVersion" xml:space="preserve">
     <value>Mandant :</value>
@@ -6140,5 +6140,8 @@ Only Active Directory (AD) and Active Directory Federation (ADFS) services are s
   </data>
   <data name="ScrollingMightNotWorkCorrectlyWhenRunningIOS13" xml:space="preserve">
     <value>Due to a known issue, scrolling might not work correctly when running iOS 13. Please contact Every Angle Support for more information</value>
+  </data>
+  <data name="CopyRight" xml:space="preserve">
+    <value>Copyright © {0}</value>
   </data>
 </root>
