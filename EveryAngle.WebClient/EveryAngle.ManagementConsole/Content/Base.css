@@ -4838,7 +4838,7 @@ a.mailto {
 .popupUserMenu a.btnWorkbench {
     background-image: url(../../images/icons/icon_workbench.svg);
     background-position: 4px center;
-    background-size: 32px;
+    background-size: 32px 32px;
 }
 
 .popupUserMenu a.btnWC {
