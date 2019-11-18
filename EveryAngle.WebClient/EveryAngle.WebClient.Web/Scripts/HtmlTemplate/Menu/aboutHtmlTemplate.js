@@ -2,7 +2,15 @@ var aboutHtmlTemplate = function () {
 
     return [
         '<div class=\"aboutContainer\">',
-            '<div class="aboutCommon">' + kendo.format(Localization.AboutEveryAngleDetails, kendo.date.today().getFullYear()) + '</div>',
+            '<div class="aboutCommon">',
+                Localization.AboutEveryAngleDetails,
+                '<div class="copyRight">',
+                    '<a href="' + copyRightUrl + '" target="_blank">',
+                        kendo.format(Localization.CopyRight, kendo.date.today().getFullYear()),
+                        '<i class="icon icon-link"></i>',
+                    '</a>',
+                '</div>',
+            '</div>',
             '<div class="aboutModels">',
                 '<h3>' + Localization.AboutVersion + '</h3>',
                 '<div class="row"><div class="label">' + Localization.AboutClientVersion + '</div><div class="value" data-bind="text: web_client_version"></div></div>',

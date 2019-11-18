@@ -19,7 +19,7 @@ namespace EveryAngle.Shared.Globalization {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "15.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "16.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     public class Resource {
@@ -79,9 +79,7 @@ namespace EveryAngle.Shared.Globalization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to For the latest product information,&lt;br&gt;
-        ///visit us at &lt;a href=&quot;http://www.everyangle.com&quot; target=&quot;_blank&quot;&gt;www.everyangle.com&lt;/a&gt;&lt;br&gt;&lt;br&gt;
-        ///Copyright © {0}.
+        ///   Looks up a localized string similar to For the latest product information,&lt;br&gt; visit us at &lt;a href=&quot;http://www.everyangle.com&quot; target=&quot;_blank&quot;&gt;www.everyangle.com&lt;/a&gt;&lt;br&gt;&lt;br&gt; .
         /// </summary>
         public static string AboutEveryAngleDetails {
             get {
@@ -2417,6 +2415,15 @@ namespace EveryAngle.Shared.Globalization {
         public static string CopyingTables {
             get {
                 return ResourceManager.GetString("CopyingTables", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Copyright © {0}.
+        /// </summary>
+        public static string CopyRight {
+            get {
+                return ResourceManager.GetString("CopyRight", resourceCulture);
             }
         }
         
