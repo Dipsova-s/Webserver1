@@ -1476,7 +1476,7 @@ begin
   userName := getAppPoolIdentity(applicationPool);
 
   if userName <> '' then
-    ExecuteAndLogEx('{sys}', 'cacls.exe', '"{code:DataPath|Log}" /E /G ' + userName + ':C', ToSetupLog)
+    ExecuteAndLogEx('{sys}', 'icacls.exe', '"{code:DataPath|Log}" /E /G ' + userName + ':C', ToSetupLog)
   else
     Log(Format('[w]: getAppPoolIdentity: No identity found [appPool: %s, userName: %s]', [applicationPool, userName])); 
 end;
