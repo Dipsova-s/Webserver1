@@ -3469,7 +3469,8 @@ form#ExportPackageForm .packageInfo .packageVersion input {
 }
 
 #TreeListAngleWarnings span.warning {
-    background-image: url(../images/icons/icon_angle_warning.png);
+    background-image: url(../images/icons/icon_angle_warning.svg);
+    background-size: 16px 16px;
 }
 
 #TreeListAngleWarnings span.error {
@@ -3511,12 +3512,14 @@ form#ExportPackageForm .packageInfo .packageVersion input {
     top: 1px;
 }
 
-#TreeListAngleWarnings .itemType {
-    padding-left: 52px;
-    background-image: url(../images/icons/icon_items.png);
-    background-color: transparent;
-    background-repeat: no-repeat;
-    background-position-x: 31px;
+#TreeListAngleWarnings .itemType .icon {
+    margin-right: 5px;
+}
+
+#TreeListAngleWarnings .itemType .icon:before {
+    font-family: 'WebClientIco';
+    font-size: 15px;
+    font-style: normal;
 }
 
 #TreeListAngleWarnings [type="checkbox"] + .label:before,
@@ -3535,24 +3538,32 @@ form#ExportPackageForm .packageInfo .packageVersion input {
     padding-bottom: 3px;
 }
 
-#TreeListAngleWarnings .itemType.angle {
-    background-position-y: 0;
+#TreeListAngleWarnings .itemType .icon.icon-angle:before {
+    content: "\e908";
+    color: #ff6c2c;
 }
 
-#TreeListAngleWarnings .itemType.template {
-    background-position-y: -19px;
+#TreeListAngleWarnings .itemType .icon.icon-template {
+    background-image: url(../images/icons/icn_item_template.svg);
+    background-size: 23px 23px;
+    width: 17px;
+    height: 17px;
+    margin-top: -5px;
 }
 
-#TreeListAngleWarnings .itemType.list {
-    background-position-y: -39px;
+#TreeListAngleWarnings .itemType .icon.icon-list:before {
+    content: "\e90d";
+    color: #78909c;
 }
 
-#TreeListAngleWarnings .itemType.chart {
-    background-position-y: -61px;
+#TreeListAngleWarnings .itemType .icon.icon-chart:before {
+    content: "\e90e";
+    color: #78909c;
 }
 
-#TreeListAngleWarnings .itemType.pivot {
-    background-position-y: -82px;
+#TreeListAngleWarnings .itemType .icon.icon-pivot:before {
+    content: "\e90f";
+    color: #78909c;
 }
 
 .angleWarningConfirm {
@@ -3585,34 +3596,38 @@ form#ExportPackageForm .packageInfo .packageVersion input {
 }
 
 .angleWarningConfirmItem:before {
-    content: '';
     position: absolute;
-    left: 5px;
+    font-family: 'WebClientIco';
+    font-size: 15px;
+    font-style: normal;
+    left: 7px;
     top: 50%;
-    margin-top: -9px;
-    width: 18px;
-    height: 18px;
-    background: transparent url(../images/icons/icon_items.png) 5px 0 no-repeat;
+    margin-top: -11px;
 }
 
 .angleWarningConfirmItem.angle:before {
-    background-position: 0 0;
+    content: "\e908";
+    color: #ff6c2c;
 }
 
-.angleWarningConfirmItem.template:before {
-    background-position: 0 -19px;
+.angleWarningConfirmItem.template {
+    background: 3px 0 transparent url(../images/icons/icn_item_template.svg) no-repeat;
+    background-size: 22px 22px;
 }
 
 .angleWarningConfirmItem.list:before {
-    background-position: 0 -39px;
+    content: "\e90d";
+    color: #78909c;
 }
 
 .angleWarningConfirmItem.chart:before {
-    background-position: 0 -61px;
+    content: "\e90e";
+    color: #78909c;
 }
 
 .angleWarningConfirmItem.pivot:before {
-    background-position: 0 -82px;
+    content: "\e90f";
+    color: #78909c;
 }
 
 .angleWarningConfirmItem:after {

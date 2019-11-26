@@ -242,11 +242,12 @@
     <Content Include="Images\ea_about_logo.svg" />
     <Content Include="Images\Icons\black_arrow_down.svg" />
     <Content Include="Images\Icons\help.svg" />
+    <Content Include="Images\Icons\icn_item_template.svg" />
     <Content Include="Images\Icons\icon_about.png" />
     <Content Include="Images\Icons\icon_add.svg" />
     <Content Include="Images\Icons\icon_add_blue.svg" />
     <Content Include="Images\Icons\icon_angle_error.svg" />
-    <Content Include="Images\Icons\icon_angle_warning.png" />
+    <Content Include="Images\Icons\icon_angle_warning.svg" />
     <Content Include="Images\Icons\icon_arrow_left.svg" />
     <Content Include="Images\Icons\icon_arrow_down.svg" />
     <Content Include="Images\Icons\icon_chart.png" />
@@ -265,7 +266,6 @@
     <Content Include="Images\Icons\icon_next.svg" />
     <Content Include="Images\Icons\icon_open_in_new.png" />
     <Content Include="Images\Icons\icon_pivot.png" />
-    <Content Include="Images\Icons\icon_items.png" />
     <Content Include="Images\Icons\icon_plus.svg" />
     <Content Include="Images\Icons\icon_popup.png" />
     <Content Include="Images\Icons\icon_popup_maximize.png" />

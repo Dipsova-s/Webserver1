@@ -366,7 +366,7 @@
             else if (data.Level === 3) {
                 html += '<label>';
                 html += '<input type="checkbox" checked="checked" name="item_' + data.parentId + '">';
-                html += '<span class="label itemType ' + data.DataThirdLevel.Type + '">' + data.Name + '</span>';
+                html += '<span class="label itemType"><i class="icon icon-' + data.DataThirdLevel.Type + '"></i>' + data.Name + '</span>';
                 html += '</label>';
                 var angleUrlTemplate = self.WebClientAngleUrl + '#/?angle={0}&display={1}&editmode=true';
                 if (data.DataThirdLevel.DisplayUri) {
