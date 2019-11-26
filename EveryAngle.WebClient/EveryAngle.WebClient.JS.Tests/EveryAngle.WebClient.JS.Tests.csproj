@@ -62,6 +62,10 @@
       <Link>ManagementConsole\Dependencies\custom\MC.ui.gridsorting.js</Link>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="..\EveryAngle.ManagementConsole\Scripts\Custom\MC.ui.logpopup.js">
+      <Link>ManagementConsole\Dependencies\custom\MC.ui.logpopup.js</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="..\EveryAngle.ManagementConsole\Scripts\Custom\MC.ui.notificationsfeed.js">
       <Link>ManagementConsole\Dependencies\custom\MC.ui.notificationsfeed.js</Link>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
@@ -233,6 +237,7 @@
     <Content Include="ManagementConsole\Tests\Custom\MC.Test.js" />
     <Content Include="ManagementConsole\Tests\Custom\MC.UI.GridSortingTest.js" />
     <Content Include="ManagementConsole\Tests\Custom\MC.UI.LoadingTest.js" />
+    <Content Include="ManagementConsole\Tests\Custom\MC.ui.logpopupTest.js" />
     <Content Include="ManagementConsole\Tests\Custom\MC.UI.PasswordTest.js" />
     <Content Include="ManagementConsole\Tests\Custom\MC.UITest.js" />
     <Content Include="ManagementConsole\Tests\Custom\MC.UtilModelServerInfoTest.js" />

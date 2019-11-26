@@ -39,6 +39,7 @@
         { "Path": "/Dependencies/custom/MC.util.task.js" },
         { "Path": "/Dependencies/custom/MC.ui.js" },
         { "Path": "/Dependencies/custom/MC.ui.loading.js" },
-        { "Path": "/Dependencies/custom/MC.ajax.js" }
+        { "Path": "/Dependencies/custom/MC.ajax.js" },
+        { "Path": "/Dependencies/custom/MC.ui.logpopup.js" }
     ]
 }

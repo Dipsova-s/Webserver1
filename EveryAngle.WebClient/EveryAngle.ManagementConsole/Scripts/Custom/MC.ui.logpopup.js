@@ -340,47 +340,50 @@
         }
         return grid;
     };
+    logpopup.GetLogDetailTimeout = null;
+    logpopup.GetLogDetail = function (detailUri) {
+        var filterTextbox = $('#FilterLogTableTextbox');
+        var ddlMsgType = $('#FilterLogTableType').data('kendoDropDownList');
+
+        clearTimeout(MC.ui.logpopup.GetLogDetailTimeout);
+
+        var dfd = $.Deferred();
+        MC.ui.logpopup.GetLogDetailTimeout = setTimeout(function () {
+            if (_self.logDetailCache[detailUri]) {
+                dfd.resolve(_self.logDetailCache[detailUri]);
+            }
+            else {
+                MC.ajax
+                    .request({
+                        url: MC.ui.logpopup.GetLogDetailUri,
+                        parameters: {
+                            fullPath: _self.lastLogFile,
+                            detailUri: detailUri,
+                            q: encodeURIComponent(filterTextbox.val()),
+                            type: ddlMsgType ? ddlMsgType.value() === Localization.All ? '' : ddlMsgType.value() : ''
+                        }
+                    })
+                    .done(function (detail) {
+                        dfd.resolve(detail);
+                    })
+                    .fail(function (xhr, status, error) {
+                        dfd.reject(xhr, status, error);
+                    });
+            }
+        }, 10);
+        return dfd.promise();
+    };
     logpopup.ShowLogDetail = function (detailUri) {
         if (_self.getLogDetailsXhr && _self.getLogDetailsXhr.abort) {
             _self.getLogDetailsXhr.abort();
         }
-        var filterTextbox = $('#FilterLogTableTextbox');
-        var ddlMsgType = $('#FilterLogTableType').data('kendoDropDownList');
-        var element = $('#SystemLogDetails .logDetails').removeClass('fail');
-        var checkGetLogDetail;
-        var getLogDetail = function (detailUri) {
-            clearTimeout(checkGetLogDetail);
 
-            var dfd = $.Deferred();
-            checkGetLogDetail = setTimeout(function () {
-                if (_self.logDetailCache[detailUri]) {
-                    dfd.resolve(_self.logDetailCache[detailUri]);
-                }
-                else {
-                    MC.ajax
-                        .request({
-                            url: MC.ui.logpopup.GetLogDetailUri,
-                            parameters: {
-                                fullPath: _self.lastLogFile,
-                                detailUri: detailUri,
-                                q: encodeURIComponent(filterTextbox.val()),
-                                type: ddlMsgType ? ddlMsgType.value() === Localization.All ? '' : ddlMsgType.value() : ''
-                            }
-                        })
-                        .done(function (detail) {
-                            dfd.resolve(detail);
-                        })
-                        .fail(function (xhr, status, error) {
-                            dfd.reject(xhr, status, error);
-                        });
-                }
-            }, 10);
-            return dfd.promise();
-        };
+        var element = $('#SystemLogDetails .logDetails').removeClass('fail');        
+
         if (detailUri) {
             disableLoading();
             element.busyIndicator(true);
-            _self.getLogDetailsXhr = getLogDetail(detailUri)
+            _self.getLogDetailsXhr = MC.ui.logpopup.GetLogDetail(detailUri)
                 .done(function (detail) {
                     _self.logDetailCache[detailUri] = detail;
                     element.html(detail);
@@ -392,7 +395,10 @@
                         },
                         height: '100%',
                         resizable: true,
-                        scrollable: true
+                        scrollable: true,
+                        columnResize: function () {
+                            MC.ui.logpopup.SetTheLastColumnWidthToBeFitAsTable();
+                        }
                     });
 
                     $('#customLogTable').kendoGrid({
@@ -441,6 +447,7 @@
             logDetailTable = $('#SystemLogDetails .tabTable .k-grid');
             logDetailTable.height(logDetailTableHeight);
             kendo.resize(logDetailTable, true);
+            MC.ui.logpopup.SetTheLastColumnWidthToBeFitAsTable();
         }
 
         var customLogDetailTable = $('#customLogTable:visible');
@@ -461,6 +468,27 @@
 
             MC.ui.logpopup.UpdateLogDetailsLayout();
         }
+    };
+    logpopup.SetTheLastColumnWidthToBeFitAsTableTimeout = null;
+    logpopup.SetTheLastColumnWidthToBeFitAsTable = function () {
+        clearTimeout(MC.ui.logpopup.SetTheLastColumnWidthToBeFitAsTableTimeout);
+        MC.ui.logpopup.SetTheLastColumnWidthToBeFitAsTableTimeout = setTimeout(function () {
+
+            var logTable = jQuery('.tabTable.active .logDetailTable').data('handler');
+            if (logTable) {
+                var totalTableWidth = logTable.wrapper.find('.k-grid-header').width();
+                var headerColumns = logTable.wrapper.find('.k-grid-header th');
+                var actualTotalWidth = 0;
+                headerColumns.each(function (i, column) {
+                    actualTotalWidth += jQuery(column).outerWidth();
+                });
+                var remainingWidth = totalTableWidth - actualTotalWidth;
+                var lastColumnIndex = headerColumns.length - 1;
+                var newWidth = headerColumns.eq(lastColumnIndex).outerWidth() + remainingWidth;
+                MC.util.setGridWidth(logTable, lastColumnIndex, newWidth);
+            }
+
+        }, 50);
     };
     win.MC.ui.logpopup = logpopup;
 
