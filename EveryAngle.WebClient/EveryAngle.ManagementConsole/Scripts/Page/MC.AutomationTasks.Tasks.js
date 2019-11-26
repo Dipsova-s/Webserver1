@@ -1239,14 +1239,19 @@
             }
 
             disableLoading();
+            $('#AddActionPopup').busyIndicator(true);
 
-            return $.when(MC.ajax.request({
-                url: self.FindAngleUri,
-                parameters: { "angleUri": uri },
-                type: 'GET'
-            }))
+            return $.when(
+                MC.ajax.request({
+                    url: self.FindAngleUri,
+                    parameters: { "angleUri": uri },
+                    type: 'GET'
+                }))
                 .done(function (data) {
                     self.CurrentAngle = data;
+                })
+                .always(function () {
+                    $('#AddActionPopup').busyIndicator(false);
                 });
         };
         self.ShowEditActionPopup = function (uid, canEdit) {
@@ -2243,6 +2248,7 @@
                 var displayData = $('#display_id').data('kendoDropDownList').dataItem() || { name: '', uri: '' };
 
                 actionData.Angle = JSON.stringify(self.CurrentAngle);
+                actionData.AngleUri = self.CurrentAngle.uri;
                 actionData.angle_name = $('#angle_name').text();
                 actionData.display_name = displayData.name;
                 actionData.display_uri = displayData.uri;

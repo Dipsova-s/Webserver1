@@ -745,6 +745,14 @@ describe("MC.AutomationTasks.Tasks", function () {
             expect(result.arguments.findObject('action_type').value).toEqual('script');
         });
 
+        it("should have uri of Angle in return object", function () {
+            automationTask.CurrentAngle = { uri: '/models/1/angles/1' };
+            spyOn(dropdownFunction, 'value').and.returnValue(automationTask.ACTION_TYPE_ID.DATASTORE);
+            var result = automationTask.GetActionData();
+
+            expect(result.AngleUri).toEqual(automationTask.CurrentAngle.uri);
+        });
+
     });
 
     describe(".GetData", function () {
