@@ -827,6 +827,7 @@
     <Content Include="WebClient\Tests\ViewManagement\Angles\AnglePublishStateHandlerTest.js" />
     <Content Include="WebClient\Tests\ViewManagement\Angles\AngleStateHandlerTest.js" />
     <Content Include="WebClient\Tests\ViewManagement\Angles\ChartHandlerTest.js" />
+    <Content Include="WebClient\Tests\ViewManagement\Angles\ListDrilldownHandlerTest.js" />
     <Content Include="WebClient\Tests\ViewManagement\Angles\ListSortHandlerTest.js" />
     <Content Include="WebClient\Tests\ViewManagement\Angles\FollowupPageHandlerTest.js" />
     <Content Include="WebClient\Tests\ViewManagement\Angles\DisplayCopyHandlerTest.js" />

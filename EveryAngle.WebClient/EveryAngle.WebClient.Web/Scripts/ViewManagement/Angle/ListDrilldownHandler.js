@@ -19,6 +19,30 @@ function ListDrilldownHandler() {
     /*EOF: Model Properties*/
 
     /*BOF: Model Methods*/
+    self.GetPrimaryKeyData = function (row) {
+        var result = {
+            hasPkFields: true,
+            isValidPkValue: true,
+            pkData: {},
+            pkFields: []
+        };
+
+        jQuery.each(enumHandlers.PRIMARYFIELDS, function (key, value) {
+            if (typeof row[value.toLowerCase()] === 'undefined') {
+                result.hasPkFields = false;
+            }
+            else if (row[value.toLowerCase()] === '' || row[value.toLowerCase()] === null) {
+                result.isValidPkValue = false;
+            }
+            else {
+                result.pkData[value] = escape(row[value.toLowerCase()].replace(/\\/g, '\\\\'));
+            }
+
+            result.pkFields.push(value);
+        });
+
+        return result;
+    };
     self.Drilldown = function (row) {
         requestHistoryModel.SaveLastExecute(self, self.Drilldown, arguments);
 
@@ -34,25 +58,12 @@ function ListDrilldownHandler() {
 
         // private functions
         function getPrimaryKeyData(row) {
-            var hasPkFields = true,
-                isValidPkValue = true,
-                pkFields = [],
-                pkData = {},
+            var primaryData = self.GetPrimaryKeyData(row);
+            var hasPkFields = primaryData.hasPkFields,
+                isValidPkValue = primaryData.isValidPkValue,
+                pkFields = primaryData.pkFields,
+                pkData = primaryData.pkData,
                 i;
-
-            jQuery.each(enumHandlers.PRIMARYFIELDS, function (key, value) {
-                if (typeof row[value.toLowerCase()] === 'undefined') {
-                    hasPkFields = false;
-                }
-                else if (row[value.toLowerCase()] === '' || row[value.toLowerCase()] === null) {
-                    isValidPkValue = false;
-                }
-                else {
-                    pkData[value] = escape(row[value.toLowerCase()]);
-                }
-
-                pkFields.push(value);
-            });
 
             if (hasPkFields) {
                 if (!isValidPkValue) {
@@ -68,55 +79,55 @@ function ListDrilldownHandler() {
                     query = { ids: pkFields.join(',') };
 
                 return jQuery.when(GetDataFromWebService(uri, query))
-                            .then(function (data, status, xhr) {
-                                if (data.header.total !== pkFields.length) {
-                                    return self.SetError(xhr, Localization.DrilldownErrorNoIDField);
-                                }
-                                else {
-                                    var uri = directoryHandler.ResolveDirectoryUri(resultModel.Data().data_rows);
-                                    var query = {};
-                                    query['fields'] = pkFields.join(',');
-                                    query[enumHandlers.PARAMETERS.OFFSET] = (getPageByRowId(grid, row[enumHandlers.GENERAL.ROWID]) - 1) * grid.dataSource.pageSize();
-                                    query[enumHandlers.PARAMETERS.LIMIT] = grid.dataSource.pageSize();
-                                    return GetDataFromWebService(uri, query);
-                                }
-                            })
-                            .then(function (data, status, xhr) {
+                    .then(function (data, status, xhr) {
+                        if (data.header.total !== pkFields.length) {
+                            return self.SetError(xhr, Localization.DrilldownErrorNoIDField);
+                        }
+                        else {
+                            var uri = directoryHandler.ResolveDirectoryUri(resultModel.Data().data_rows);
+                            var query = {};
+                            query['fields'] = pkFields.join(',');
+                            query[enumHandlers.PARAMETERS.OFFSET] = (getPageByRowId(grid, row[enumHandlers.GENERAL.ROWID]) - 1) * grid.dataSource.pageSize();
+                            query[enumHandlers.PARAMETERS.LIMIT] = grid.dataSource.pageSize();
+                            return GetDataFromWebService(uri, query);
+                        }
+                    })
+                    .then(function (data, status, xhr) {
 
-                                if (data.fields.length !== pkFields.length) {
-                                    return self.SetError(xhr, Localization.DrilldownErrorNoIDField);
-                                }
-                                else if (!data.rows.length) {
-                                    return self.SetError(xhr, Localization.DrilldownErrorItemNotFound);
-                                }
-                                else {
-                                    var foundRow = false;
-                                    isValidPkValue = true;
-                                    jQuery.each(data.rows, function (k, v) {
-                                        if (v[enumHandlers.GENERAL.ROWID] === row[enumHandlers.GENERAL.ROWID]) {
-                                            i = 0;
-                                            jQuery.each(enumHandlers.PRIMARYFIELDS, function (k2, v2) {
-                                                pkData[v2] = escape(data.rows[k].field_values[i]);
-                                                if (pkData[v2] === '' || pkData[v2] === null) {
-                                                    isValidPkValue = false;
-                                                }
-                                                i++;
-                                            });
-                                            foundRow = true;
-                                            return false;
+                        if (data.fields.length !== pkFields.length) {
+                            return self.SetError(xhr, Localization.DrilldownErrorNoIDField);
+                        }
+                        else if (!data.rows.length) {
+                            return self.SetError(xhr, Localization.DrilldownErrorItemNotFound);
+                        }
+                        else {
+                            var foundRow = false;
+                            isValidPkValue = true;
+                            jQuery.each(data.rows, function (k, v) {
+                                if (v[enumHandlers.GENERAL.ROWID] === row[enumHandlers.GENERAL.ROWID]) {
+                                    i = 0;
+                                    jQuery.each(enumHandlers.PRIMARYFIELDS, function (k2, v2) {
+                                        pkData[v2] = escape(data.rows[k].field_values[i]);
+                                        if (pkData[v2] === '' || pkData[v2] === null) {
+                                            isValidPkValue = false;
                                         }
+                                        i++;
                                     });
-                                    if (!foundRow) {
-                                        return self.SetError(xhr, Localization.DrilldownErrorItemNotFound);
-                                    }
-                                    else if (!isValidPkValue) {
-                                        return self.SetError(xhr, Localization.DrilldownErrorKeyNotValid.replace('{ObjectType}', unescape(pkData[enumHandlers.PRIMARYFIELDS.OBJECTTYPE])));
-                                    }
-                                    else {
-                                        return jQuery.when(pkData);
-                                    }
+                                    foundRow = true;
+                                    return false;
                                 }
                             });
+                            if (!foundRow) {
+                                return self.SetError(xhr, Localization.DrilldownErrorItemNotFound);
+                            }
+                            else if (!isValidPkValue) {
+                                return self.SetError(xhr, Localization.DrilldownErrorKeyNotValid.replace('{ObjectType}', unescape(pkData[enumHandlers.PRIMARYFIELDS.OBJECTTYPE])));
+                            }
+                            else {
+                                return jQuery.when(pkData);
+                            }
+                        }
+                    });
             }
         }
         function getPageByRowId(grid, id) {
@@ -376,64 +387,64 @@ function ListDrilldownHandler() {
                                 }
                             })
                             .done(function (result) {
-                            measurePerformance.SetEndTime();
+                                measurePerformance.SetEndTime();
 
-                            // load fields' value (datarows)
-                            var startRowNumber = (currentPage - 1) * defaultPageSize + 1;
-                            var dataRows = self.GetDataRows(result.fields, startRowNumber);
-                            var fields = jQuery.map(dataRows, function (dataRow) { return dataRow.id; });
+                                // load fields' value (datarows)
+                                var startRowNumber = (currentPage - 1) * defaultPageSize + 1;
+                                var dataRows = self.GetDataRows(result.fields, startRowNumber);
+                                var fields = jQuery.map(dataRows, function (dataRow) { return dataRow.id; });
 
-                            // set totals
-                            totals = result.header.total;
-                            resultModel.TotalRow(totals);
+                                // set totals
+                                totals = result.header.total;
+                                resultModel.TotalRow(totals);
 
-                            self.SortingList = WC.Utility.ToArray(result.sort_options);
+                                self.SortingList = WC.Utility.ToArray(result.sort_options);
 
-                            // add fields to localStorage
-                            modelFieldsHandler.SetFields(result.fields, false);
-                            jQuery.each(result.fields, function (k, v) {
-                                resultModel.Fields.push(v);
+                                // add fields to localStorage
+                                modelFieldsHandler.SetFields(result.fields, false);
+                                jQuery.each(result.fields, function (k, v) {
+                                    resultModel.Fields.push(v);
+                                });
+
+                                if (self.FacetModel.FacetItems().length > 0) {
+                                    jQuery.each(self.FacetModel.FacetItems(), function (index, selffacetItem) {
+                                        if (self.FacetModel.UpdatingCategory !== selffacetItem.id) {
+                                            var resultfacetitem = jQuery.grep(result.facets, function (facetItem) { return facetItem.id === selffacetItem.id; });
+                                            var resultfacetitemhasvalue = resultfacetitem.length > 0 ? resultfacetitem[0] : null;
+
+                                            jQuery.each(selffacetItem.filters(), function (index, selffacetfilter) {
+                                                var resultfacetfilter = resultfacetitemhasvalue !== null ? jQuery.grep(resultfacetitemhasvalue.filters, function (facetfilter) { return facetfilter.id === selffacetfilter.id; }) : null;
+                                                if (resultfacetfilter !== null && resultfacetfilter.length > 0) {
+                                                    selffacetfilter.count(resultfacetfilter[0].count);
+                                                }
+                                                else {
+                                                    selffacetfilter.count(0);
+                                                }
+                                            });
+                                        }
+                                    });
+
+                                    self.SetFacetFilter({ facets: ko.toJS(self.FacetModel.FacetItems()) });
+                                }
+                                else {
+                                    self.SetFacetFilter(result);
+
+                                    jQuery.each(self.FacetModel.FacetItems(), function (index, facet) {
+                                        if (self.FacetModel.GroupGeneral.indexOf(facet.id) === -1) {
+                                            facet.panel_opened(false);
+                                        }
+                                    });
+                                }
+                                self.FacetModel.UpdatingCategory = null;
+
+                                dataSourceTmp[currentPage] = {
+                                    fields: fields,
+                                    valueLoaded: false,
+                                    start: startRowNumber - 1,
+                                    data: dataRows
+                                };
+                                options.success(dataSourceTmp[currentPage]);
                             });
-
-                            if (self.FacetModel.FacetItems().length > 0) {
-                                jQuery.each(self.FacetModel.FacetItems(), function (index, selffacetItem) {
-                                    if (self.FacetModel.UpdatingCategory !== selffacetItem.id) {
-                                        var resultfacetitem = jQuery.grep(result.facets, function (facetItem) { return facetItem.id === selffacetItem.id; });
-                                        var resultfacetitemhasvalue = resultfacetitem.length > 0 ? resultfacetitem[0] : null;
-
-                                        jQuery.each(selffacetItem.filters(), function (index, selffacetfilter) {
-                                            var resultfacetfilter = resultfacetitemhasvalue !== null ? jQuery.grep(resultfacetitemhasvalue.filters, function (facetfilter) { return facetfilter.id === selffacetfilter.id; }) : null;
-                                            if (resultfacetfilter !== null && resultfacetfilter.length > 0) {
-                                                selffacetfilter.count(resultfacetfilter[0].count);
-                                            }
-                                            else {
-                                                selffacetfilter.count(0);
-                                            }
-                                        });
-                                    }
-                                });
-
-                                self.SetFacetFilter({ facets: ko.toJS(self.FacetModel.FacetItems()) });
-                            }
-                            else {
-                                self.SetFacetFilter(result);
-
-                                jQuery.each(self.FacetModel.FacetItems(), function (index, facet) {
-                                    if (self.FacetModel.GroupGeneral.indexOf(facet.id) === -1) {
-                                        facet.panel_opened(false);
-                                    }
-                                });
-                            }
-                            self.FacetModel.UpdatingCategory = null;
-
-                            dataSourceTmp[currentPage] = {
-                                fields: fields,
-                                valueLoaded: false,
-                                start: startRowNumber - 1,
-                                data: dataRows
-                            };
-                            options.success(dataSourceTmp[currentPage]);
-                        });
                     };
 
                     tempAjaxRequests = {
@@ -599,12 +610,12 @@ function ListDrilldownHandler() {
         var virtualScroll = grid.content.data('kendoVirtualScrollable');
         if (!!jQuery.browser.msie) {
             grid.content
-            .off('mousewheel.iefix')
-            .on('mousewheel.iefix', function (e) {
-                if (!grid.content.find('.k-loading-mask').length) {
-                    virtualScroll.verticalScrollbar.scrollTop(virtualScroll.verticalScrollbar.scrollTop() - (e.deltaFactor * e.deltaY));
-                }
-            });
+                .off('mousewheel.iefix')
+                .on('mousewheel.iefix', function (e) {
+                    if (!grid.content.find('.k-loading-mask').length) {
+                        virtualScroll.verticalScrollbar.scrollTop(virtualScroll.verticalScrollbar.scrollTop() - (e.deltaFactor * e.deltaY));
+                    }
+                });
         }
 
         var xStart = 0, yStart = 0, currentScrollTop, fnCheckTouchEvent;
@@ -618,7 +629,7 @@ function ListDrilldownHandler() {
                 clearTimeout(fnCheckTouchEvent);
                 var checkScrollTop = currentScrollTop > 0 && currentScrollTop === grid.virtualScrollable._scrollbarTop;
                 var checkTouchMoved = Math.abs(xStart - Math.abs(e.originalEvent.changedTouches[0].screenX)) > 50
-                                    || Math.abs(yStart - Math.abs(e.originalEvent.changedTouches[0].screenY)) > 50;
+                    || Math.abs(yStart - Math.abs(e.originalEvent.changedTouches[0].screenY)) > 50;
                 if (checkScrollTop && !grid.dataSource._requestInProgress && checkTouchMoved) {
                     fnCheckTouchEvent = setTimeout(function () {
                         grid.dataSource.read();
@@ -694,10 +705,10 @@ function ListDrilldownHandler() {
     };
     self.GetCellNameTemplate = function () {
         return '# if (' + enumHandlers.LISTDRILLDOWNDISPLAYFIELDS.NAME + ') { #'
-                + '#= ' + enumHandlers.LISTDRILLDOWNDISPLAYFIELDS.NAME + ' #'
-                + '#} else {#'
-                + '#= ' + enumHandlers.LISTDRILLDOWNDISPLAYFIELDS.ID + ' #'
-                + '# } #';
+            + '#= ' + enumHandlers.LISTDRILLDOWNDISPLAYFIELDS.NAME + ' #'
+            + '#} else {#'
+            + '#= ' + enumHandlers.LISTDRILLDOWNDISPLAYFIELDS.ID + ' #'
+            + '# } #';
     };
     self.GetTemplateCellData = function (data) {
         var template = listHandler.GetTemplateCellData(data, enumHandlers.LISTDRILLDOWNDISPLAYFIELDS.VALUE);
