@@ -4,13 +4,13 @@ using EveryAngle.OData.IntegrationTests.Shared;
 using Simple.OData.Client;
 using System;
 
-namespace EveryAngle.OData.IntegrationTests.Clients
+namespace EveryAngle.OData.IntegrationTests.Clients.OData
 {
-    public class ODataService : HttpBase
+    public class ODataService : IHttpBase
     {
         private ODataClientSettings InitODataClientSettings(TestContext context)
         {
-            ODataClientSettings settings = new ODataClientSettings(context.ODataUri);
+            ODataClientSettings settings = new ODataClientSettings(context.ODataClientUri);
             settings.BeforeRequest = req =>
             {
                 if (context.OdataUser != null)
@@ -28,24 +28,24 @@ namespace EveryAngle.OData.IntegrationTests.Clients
             return client;
         }
 
-        public override dynamic Get(TestContext context, string collectionname)
+        public dynamic Get(TestContext context, string collectionname)
         {
             ODataClient client = InitODataRequest(context, string.Empty);
             return client;
         }
 
         //The methods below can be done later
-        public override dynamic Delete(TestContext context, string resourceUrl)
+        public dynamic Delete(TestContext context, string resourceUrl)
         {
             throw new NotImplementedException();
         }
 
-        public override dynamic Post(TestContext context, string resourceUrl, string body)
+        public dynamic Post(TestContext context, string resourceUrl, string body)
         {
             throw new NotImplementedException();
         }
 
-        public override dynamic Put(TestContext context, string resourceUrl, string body)
+        public dynamic Put(TestContext context, string resourceUrl, string body)
         {
             throw new NotImplementedException();
         }

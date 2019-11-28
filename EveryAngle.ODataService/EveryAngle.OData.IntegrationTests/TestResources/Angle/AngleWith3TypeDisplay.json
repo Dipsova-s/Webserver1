@@ -1,0 +1,167 @@
+{
+	"id": "OData_a160f3ccf5f20dddf679f574327518287",
+	"is_validated": false,
+	"is_published": true,
+	"is_template": false,
+	"assigned_labels": [
+		"S2D"
+	],
+	"multi_lang_name": [{
+		"lang": "en",
+		"text": "OData Angle For Testing"
+	}],
+	"multi_lang_description": [{
+		"lang": "en",
+		"text": "<div id=\"summary\"><div class=\" section\" id=\"S1436440131107654\"><h2 class=\" topictitle2\" id=\"Hidelem4x29461\">&nbsp;</h2><p></p></div></div>"
+	}],
+	"query_definition": [
+        {
+            "base_classes": [
+                "DeliveryNoteHeader"
+            ],
+            "queryblock_type": "base_classes"
+        }
+    ],
+    "angle_default_display": "de21e87b38791d4f21fd8574327518288",
+	"display_definitions": [{
+		"id": "de21e87b38791d4f21fd8574327518288",
+		"display_type": "list",
+		"is_angle_default": true,
+		"is_public": true,
+		"multi_lang_name": [{
+			"lang": "en",
+			"text": "List display"
+		}],
+		"multi_lang_description": [{
+			"lang": "en",
+			"text": "<div id=\"summary\" /><div class=\" section\" id=\"S143824561789163\"><p class=\"\" id=\"P1438245617891874\" /></div>"
+		}],
+		"display_details": "{}",
+		"query_blocks": [],
+		"fields": [
+            {
+                "field": "ObjectType",
+                "field_details": "{\"width\":108,\"format\":\"shn\"}",
+                "valid": true,
+                "tech_info": ""
+            },
+            {
+                "field": "ID",
+                "field_details": "{\"width\":71}",
+                "valid": true,
+                "tech_info": ""
+            }
+        ]
+	},
+    {
+        "id": "d81e6bc505432523f5f20574327622529",
+        "display_type": "pivot",
+        "is_angle_default": false,
+        "is_public": true,
+        "multi_lang_name": [{
+			"lang": "en",
+			"text": "Pivot display"
+		}],
+		"multi_lang_description": [{
+			"lang": "en",
+			"text": ""
+		}],
+        "display_details": "{\"count_index\":0,\"layout\":\"{\\\"collapse\\\":\\\"+////wAAAAAAAAAA+////wAAAAAAAAAA\\\"}\",\"show_total_for\":1,\"percentage_summary_type\":0,\"include_subtotals\":false}",
+        "query_blocks": [
+            {
+                "query_steps": [
+                    {
+                        "aggregation_fields": [
+                            {
+                                "field": "count",
+                                "operator": "count"
+                            }
+                        ],
+                        "grouping_fields": [
+                            {
+                                "field": "individual_ObjectType",
+                                "operator": "individual",
+                                "source_field": "ObjectType"
+                            }
+                        ],
+                        "step_type": "aggregation"
+                    }
+                ],
+                "queryblock_type": "query_steps"
+            }
+        ],
+        "fields": [
+            {
+                "field": "individual_ObjectType",
+                "field_details": "{\"pivot_area\":\"row\",\"format\":\"shn\",\"sorting\":\"asc\"}",
+                "valid": true
+            },
+            {
+                "field": "count",
+                "field_details": "{\"pivot_area\":\"data\",\"sorting\":\"\"}",
+                "valid": true
+            }
+        ]
+    },
+    {
+        "id": "de3256613a2a205654b51574327661394",
+        "display_type": "chart",
+        "is_angle_default": false,
+        "is_public": true,
+        "multi_lang_name": [{
+			"lang": "en",
+			"text": "Chart display"
+		}],
+		"multi_lang_description": [{
+			"lang": "en",
+			"text": ""
+		}],
+        "display_details": "{\"chart_type\":\"column\",\"stack\":false,\"multi_axis\":false,\"axistitle\":\"show\",\"axisvalue\":\"show\",\"datalabel\":\"mouse\",\"gridline\":\"show\",\"legend\":\"show\",\"range\":{\"start\":0,\"size\":50},\"count_index\":0}",
+        "query_blocks": [
+            {
+                "query_steps": [
+                  {
+                    "field": "ObjectType",
+                    "operator": "equal_to",
+                    "arguments": [
+                      {
+                        "argument_type": "value",
+                        "value": "DeliveryNoteHeader"
+                      }
+                    ],
+                    "step_type": "filter"
+                  },
+                    {
+                        "aggregation_fields": [
+                            {
+                                "field": "count",
+                                "operator": "count"
+                            }
+                        ],
+                        "grouping_fields": [
+                            {
+                                "field": "individual_ObjectType",
+                                "operator": "individual",
+                                "source_field": "ObjectType"
+                            }
+                        ],
+                        "step_type": "aggregation"
+                    }
+                ],
+                "queryblock_type": "query_steps"
+            }
+        ],
+        "fields": [
+            {
+                "field": "individual_ObjectType",
+                "field_details": "{\"pivot_area\":\"row\",\"format\":\"shn\",\"sorting\":\"\"}",
+                "valid": true
+            },
+            {
+                "field": "count",
+                "field_details": "{\"pivot_area\":\"data\",\"sorting\":\"\"}",
+                "valid": true
+            }
+        ]
+    }]
+}

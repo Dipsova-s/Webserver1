@@ -59,8 +59,10 @@ namespace EveryAngle.OData.Tests.ServiceTests
             HttpResponseMessage response = _testController.Get();
             response.TryGetContentValue(out dynamic content);
             bool available = content.GetType().GetProperty("available").GetValue(content, null);
+            bool is_running = content.GetType().GetProperty("is_running").GetValue(content, null);
 
             Assert.IsFalse(available);
+            Assert.IsFalse(is_running);
         }
 
         [TestCase]

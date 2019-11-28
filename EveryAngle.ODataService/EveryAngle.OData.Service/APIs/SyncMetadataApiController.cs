@@ -37,7 +37,10 @@ namespace EveryAngle.OData.Service.APIs
         [Route("metadata")]
         public HttpResponseMessage Get()
         {
-            return CreateResponse(HttpStatusCode.OK, new { available = _edmModelBusinessLogic.IsAppServerAvailable(Context.User, retryChecking: false) });
+            return CreateResponse(HttpStatusCode.OK, new {
+                available = _edmModelBusinessLogic.IsAppServerAvailable(Context.User, retryChecking: false),
+                is_running = SyncMetadataProcess.IsRunning
+            });
         }
     }
 }

@@ -1,83 +1,64 @@
 ﻿using EveryAngle.OData.IntegrationTests.Base;
-using EveryAngle.OData.IntegrationTests.Helpers;
-using EveryAngle.OData.IntegrationTests.Shared;
-using EveryAngle.Security.Certificates;
+using Newtonsoft.Json;
 using RestSharp;
-using System;
-using System.Security.Cryptography.X509Certificates;
+using System.Collections.Generic;
 
 namespace EveryAngle.OData.IntegrationTests.Clients
 {
-    public class RestService : HttpBase
+    public abstract class RestService<THttp, TResponse> : IRestService<TResponse>
+        where THttp : IHttpBase 
+        where TResponse : class
     {
-        private RestClient InitRestClient(TestContext context)
+        protected string route;
+        protected IHttpBase http;
+        private readonly Shared.TestContext _testContext;
+
+        public RestService(Shared.TestContext testContext, IHttpBase httpBase)
         {
-            RestClient client = new RestClient(context.BaseUri);
-            client.Timeout = context.Timeout;
-            if (IsHttps(context) && IsHasThumbprint(context))
-            {
-                client.ClientCertificates = new X509CertificateCollection();
-                client.ClientCertificates.Add(CertificateUtils.GetCertificateFromStore(Thumbprint));
-            }
-            return client;
+            _testContext = testContext;
+            http = httpBase;
         }
 
-        private IRestRequest InitRestRequest(TestContext context, Method method, string resourceUrl, string body)
+        public RestResponseResultContainer<IEnumerable<TResponse>> GetAll()
         {
-            Uri uri = new Uri(resourceUrl, UriKind.Relative);
-            IRestRequest request = new RestRequest(uri, method);
-            if (context.AdminUser != null)
-            {
-                request.AddHeader("Authorization", "Basic " + EncoderHelpers.Base64Encode($"{context.AdminUser.UserName}:{context.AdminUser.Password}"));
-            }
-
-            if (!string.IsNullOrEmpty(body))
-            {
-                request.AddParameter("Application/Json; charset=utf-8", body, ParameterType.RequestBody);
-                request.RequestFormat = DataFormat.Json;
-            }
-
-            return request;
+            IRestResponse response = http.Get(_testContext, route);
+            var result = JsonConvert.DeserializeObject<IEnumerable<TResponse>>(response.Content);
+            return new RestResponseResultContainer<IEnumerable<TResponse>>(response, result);
         }
 
-        public override dynamic Delete(TestContext context, string resourceUrl)
+        public RestResponseResultContainer<TResponse> Get(string id = "")
         {
-            RestClient client = InitRestClient(context);
-            IRestRequest request = InitRestRequest(context, Method.DELETE, resourceUrl, string.Empty);
-            return client.Execute(request);
+            IRestResponse response = http.Get(_testContext, !string.IsNullOrEmpty(id) ? $"{route}/{id}" : route);
+            var result = JsonConvert.DeserializeObject<TResponse>(response.Content);
+            return new RestResponseResultContainer<TResponse>(response, result);
         }
 
-        public override dynamic Get(TestContext context, string resourceUrl)
+        public RestResponseResultContainer<TResponse> GetByQueryStringParameter(string queryStringParameter = "")
         {
-            RestClient client = InitRestClient(context);
-            IRestRequest request = InitRestRequest(context, Method.GET, resourceUrl, string.Empty);
-            return client.Execute(request);
+            IRestResponse response = http.Get(_testContext, !string.IsNullOrEmpty(queryStringParameter) ? $"{route}?{queryStringParameter}" : route);
+            var result = JsonConvert.DeserializeObject<TResponse>(response.Content);
+            return new RestResponseResultContainer<TResponse>(response, result);
         }
 
-        public override dynamic Post(TestContext context, string resourceUrl, string body)
+        public RestResponseResultContainer<TResponse> Post(string payload)
         {
-            RestClient client = InitRestClient(context);
-            IRestRequest request = InitRestRequest(context, Method.POST, resourceUrl, body);
-            return client.Execute(request); 
+            IRestResponse response = http.Post(_testContext, route, payload);
+            var result = JsonConvert.DeserializeObject<TResponse>(response.Content);
+            return new RestResponseResultContainer<TResponse>(response, result);
         }
 
-        public override dynamic Put(TestContext context, string resourceUrl, string body)
+        public RestResponseResultContainer<TResponse> Put(string payload, string id = "")
         {
-            RestClient client = InitRestClient(context);
-            IRestRequest request = InitRestRequest(context, Method.PUT, resourceUrl, body);
-            return client.Execute(request);
+            IRestResponse response = http.Put(_testContext, !string.IsNullOrEmpty(id) ? $"{route}/{id}" : route, payload);
+            var result = JsonConvert.DeserializeObject<TResponse>(response.Content);
+            return new RestResponseResultContainer<TResponse>(response, result);
         }
 
-        public string Thumbprint { get; set; }
-
-        private bool IsHttps(TestContext context)
+        public RestResponseContainer<TResponse> Delete(string id)
         {
-            return context.BaseUri.Scheme.Equals("https", StringComparison.InvariantCultureIgnoreCase);
+            IRestResponse response = http.Delete(_testContext, $"{route}/{id}");
+            return new RestResponseContainer<TResponse>(response);
         }
 
-        private bool IsHasThumbprint(TestContext context)
-        {
-            return !string.IsNullOrEmpty(context.Thumbprint);
-        }
     }
 }

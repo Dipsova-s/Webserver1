@@ -108,6 +108,9 @@
       <HintPath>..\packages\Microsoft.Net.Http.2.2.29\lib\net45\System.Net.Http.Primitives.dll</HintPath>
     </Reference>
     <Reference Include="System.Net.Http.WebRequest" />
+    <Reference Include="System.Runtime.CompilerServices.Unsafe, Version=4.0.4.1, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Runtime.CompilerServices.Unsafe.4.5.2\lib\netstandard2.0\System.Runtime.CompilerServices.Unsafe.dll</HintPath>
+    </Reference>
     <Reference Include="System.Spatial, Version=5.8.4.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Spatial.5.8.4\lib\net40\System.Spatial.dll</HintPath>
     </Reference>
@@ -121,19 +124,35 @@
     <Reference Include="System.Data" />
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Xml" />
+    <Reference Include="Unity.Abstractions, Version=5.11.1.0, Culture=neutral, PublicKeyToken=489b6accfaf20ef0, processorArchitecture=MSIL">
+      <HintPath>..\packages\Unity.5.11.1\lib\net46\Unity.Abstractions.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.Container, Version=5.11.1.0, Culture=neutral, PublicKeyToken=489b6accfaf20ef0, processorArchitecture=MSIL">
+      <HintPath>..\packages\Unity.5.11.1\lib\net46\Unity.Container.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Base\IocContainer.cs" />
     <Compile Include="Base\TestCategory\AcceptanceSuite.cs" />
     <Compile Include="Base\TestCategory\SetupSuite.cs" />
-    <Compile Include="Clients\ODataService.cs" />
+    <Compile Include="Clients\Appserver\AppserverRestService.cs" />
+    <Compile Include="Clients\IRestService.cs" />
+    <Compile Include="Clients\OData\ODataServiceContainer.cs" />
+    <Compile Include="Clients\OData\ODataRestService.cs" />
+    <Compile Include="Clients\OData\ODataService.cs" />
     <Compile Include="Base\TestBase.cs" />
+    <Compile Include="Clients\OData\Services\ODataEntryService.cs" />
+    <Compile Include="Clients\OData\Services\ODataSettingsService.cs" />
+    <Compile Include="Clients\OData\Services\ODataSyncMetadataService.cs" />
+    <Compile Include="Clients\RestResponseContainer.cs" />
+    <Compile Include="Clients\RestService.cs" />
     <Compile Include="CommandLine\Arguments.cs" />
     <Compile Include="Helpers\EncoderHelpers.cs" />
     <Compile Include="Models\User.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Clients\RestService.cs" />
-    <Compile Include="Base\HttpBase.cs" />
+    <Compile Include="Base\RestServiceBase.cs" />
+    <Compile Include="Base\IHttpBase.cs" />
     <Compile Include="Runner\TestRunner.cs" />
     <Compile Include="Shared\TestContext.cs" />
     <Compile Include="Tests\Acceptance\AngleTest.cs" />
@@ -147,8 +166,24 @@
     <Content Include="TestResources\Role\OdataRole.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <None Include="TestResources\Angle\PublishAngle2.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="TestResources\Angle\PublishAngle1.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="TestResources\Angle\AngleWith3TypeDisplay.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="TestResources\Angle\PrivateAngle.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\EveryAngle.OData.DTO\EveryAngle.OData.DTO.csproj">
+      <Project>{1C536461-8EF3-4EEE-B8CA-92031F6B61AF}</Project>
+      <Name>EveryAngle.OData.DTO</Name>
+    </ProjectReference>
     <ProjectReference Include="..\EveryAngle.OData.Service\EveryAngle.OData.Service.csproj">
       <Project>{56b1bbc1-174e-42df-9887-652a7c71ac9a}</Project>
       <Name>EveryAngle.OData.Service</Name>
@@ -156,6 +191,10 @@
     <ProjectReference Include="..\EveryAngle.OData.Utils\EveryAngle.OData.Utils.csproj">
       <Project>{ACA4D98D-DD65-479C-BD2A-41128D26D79D}</Project>
       <Name>EveryAngle.OData.Utils</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\EveryAngle.OData.ViewModel\EveryAngle.OData.ViewModel.csproj">
+      <Project>{3524DC73-1E23-4A69-B138-FEED5D9267F7}</Project>
+      <Name>EveryAngle.OData.ViewModel</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup />

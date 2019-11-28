@@ -21,16 +21,19 @@ namespace EveryAngle.OData.Collector
         {
             return Task.Factory.StartNew(() =>
             {
+                int? settingsMaxAngles = ODataSettings.Settings.MaxAngles;
+                string settingsQuery = ODataSettings.Settings.AnglesQuery;
+
                 int currentOffset = 0;
-                Angles tempAngles = AppServerProxy.GetAngles(0, Query, AppServerProxy.SystemUser);
+                Angles tempAngles = AppServerProxy.GetAngles(0, settingsQuery, AppServerProxy.SystemUser);
                 if (tempAngles == null)
                     return;
 
                 int maxAngles = tempAngles.header.total.Value;
 
                 // if MaxAngles is set (not 'null' and not '-1')
-                if (MaxAngles.HasValue && MaxAngles.Value > 0)
-                    maxAngles = Math.Min(maxAngles, MaxAngles.Value);
+                if (settingsMaxAngles.HasValue && settingsMaxAngles.Value > 0)
+                    maxAngles = Math.Min(maxAngles, settingsMaxAngles.Value);
 
                 int pageSize = ODataSettings.Settings.PageSize;
 
@@ -40,7 +43,8 @@ namespace EveryAngle.OData.Collector
                     pageSize = Math.Min(pageSize, maxAngles - currentOffset);
 
                     // Get the angles from the Application server
-                    Angles angles = AppServerProxy.GetAngles(currentOffset, pageSize, Query, AppServerProxy.SystemUser);
+                    string query = ODataSettings.Settings.AnglesQuery;
+                    Angles angles = AppServerProxy.GetAngles(currentOffset, pageSize, query, AppServerProxy.SystemUser);
 
                     // Add full details of the Angle to the collection
                     Parallel.ForEach(angles.angles, angle =>
