@@ -60,7 +60,7 @@ namespace EveryAngle.ManagementConsole.Controllers
 
         public ActionResult GetModelOverview(string modelUri, SystemLicenseViewModel licensesData, string modelServersUri)
         {
-            var model = SessionHelper.Initialize().GetModel(modelUri);
+            var model = SessionHelper.Initialize().GetModelFromSession(modelUri);
             var modelServerList = new ListViewModel<ModelServerViewModel>();
             ViewBag.ConnectedUser = "0";
             ViewBag.ActiveUsersThisWeek = "0";

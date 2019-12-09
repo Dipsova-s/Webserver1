@@ -26,7 +26,6 @@ namespace EveryAngle.ManagementConsole.Controllers
         public ActionResult OverView()
         {
             SessionHelper sessionHelper = SessionHelper.Initialize();
-            sessionHelper.ReloadModels();
             var models = sessionHelper.Models;
 
             //Get system license

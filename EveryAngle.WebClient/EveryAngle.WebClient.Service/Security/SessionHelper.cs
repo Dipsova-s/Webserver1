@@ -115,6 +115,16 @@ namespace EveryAngle.WebClient.Service.Security
             return this.Models.FirstOrDefault(x => x.Uri.ToString().Equals(modelUri.ToLower(), StringComparison.OrdinalIgnoreCase));
         }
 
+        public virtual ModelViewModel GetModelFromSession(string modelUri)
+        {
+            List<ModelViewModel> sessionModels = HttpContext.Current.Session["ModelViewModelList"] as List<ModelViewModel>;
+            if (sessionModels == null)
+            {
+                return GetModel(modelUri);
+            }
+            return sessionModels.FirstOrDefault(x => x.Uri.ToString().Equals(modelUri.ToLower(), StringComparison.OrdinalIgnoreCase));
+        }
+
         public virtual UserViewModel CurrentUser
         {
             get
