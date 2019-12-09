@@ -17,7 +17,7 @@ namespace EveryAngle.WebClient.Service.Security
     public class SessionHelper
     {
         #region variables
-        
+
         private bool hasCookie = false;
 
         public virtual bool HasCookie
@@ -107,6 +107,16 @@ namespace EveryAngle.WebClient.Service.Security
         public virtual ModelViewModel GetModel(string modelUri)
         {
             return this.Models.FirstOrDefault(x => x.Uri.ToString().Equals(modelUri.ToLower(), StringComparison.OrdinalIgnoreCase));
+        }
+
+        public virtual ModelViewModel GetModelFromSession(string modelUri)
+        {
+            List<ModelViewModel> sessionModels = HttpContext.Current.Session["ModelViewModelList"] as List<ModelViewModel>;
+            if (sessionModels == null)
+            {
+                return GetModel(modelUri);
+            }
+            return sessionModels.FirstOrDefault(x => x.Uri.ToString().Equals(modelUri.ToLower(), StringComparison.OrdinalIgnoreCase));
         }
 
         public virtual UserViewModel CurrentUser
@@ -269,7 +279,7 @@ namespace EveryAngle.WebClient.Service.Security
                 Log.SendException("Logout", ex);
             }
         }
-        
+
         #endregion
 
         #region private functions
