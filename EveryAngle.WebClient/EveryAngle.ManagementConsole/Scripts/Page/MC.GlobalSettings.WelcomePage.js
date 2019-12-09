@@ -247,9 +247,25 @@
         };
 
         self.GenerateVideoThumbnails = function () {
-            if (!CheckGenerateVideoThumbnails())
-                return;
+            if (self.IsBrowserSupportToGenerateVideoThumbnail()) {
+                self.GetThumbnailsAndUploadToWebService();
+            }
+        };
 
+        self.IsBrowserSupportToGenerateVideoThumbnail = function () {
+            if (!self.VideosNoThumbnailData.length)
+                return false;
+
+            MC.ui.loading.show();
+            if (!Modernizr.video.h264 || !Modernizr.canvas) {
+                MC.ui.loading.setError(MC.util.massReport.createMessage(Localization.MC_BrowserNotSupport, ''));
+                return false;
+            }
+
+            return true;
+        };
+
+        self.GetThumbnailsAndUploadToWebService = function () {
             var video;
             var reports = [];
             var delayTime = 100;
@@ -354,19 +370,6 @@
 
             MC.util.massReport.initial();
             nextVideo();
-        };
-
-        self.CheckGenerateVideoThumbnails = function () {
-            if (!self.VideosNoThumbnailData.length)
-                return false;
-
-            MC.ui.loading.show();
-            if (!Modernizr.video.h264 || !Modernizr.canvas) {
-                MC.ui.loading.setError(MC.util.massReport.createMessage(Localization.MC_BrowserNotSupport, ''));
-                return false;
-            }
-
-            return true;
         };
 
         self.GetGenerateVideoThumbnailErrorMessage = function (error) {
