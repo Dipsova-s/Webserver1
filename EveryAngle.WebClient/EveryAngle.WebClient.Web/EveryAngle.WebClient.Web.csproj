@@ -93,25 +93,22 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="EveryAngle.CSM.AppServerAPI, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\EveryAngle.CSM.Client.0.0.92\lib\net461\EveryAngle.CSM.AppServerAPI.dll</HintPath>
+      <HintPath>..\packages\EveryAngle.CSM.Client.0.0.99\lib\net461\EveryAngle.CSM.AppServerAPI.dll</HintPath>
     </Reference>
     <Reference Include="EveryAngle.CSM.Client, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\EveryAngle.CSM.Client.0.0.92\lib\net461\EveryAngle.CSM.Client.dll</HintPath>
+      <HintPath>..\packages\EveryAngle.CSM.Client.0.0.99\lib\net461\EveryAngle.CSM.Client.dll</HintPath>
     </Reference>
     <Reference Include="EveryAngle.CSM.Client.Interfaces, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\EveryAngle.CSM.Client.0.0.92\lib\net461\EveryAngle.CSM.Client.Interfaces.dll</HintPath>
+      <HintPath>..\packages\EveryAngle.CSM.Client.0.0.99\lib\net461\EveryAngle.CSM.Client.Interfaces.dll</HintPath>
     </Reference>
     <Reference Include="EveryAngle.CSM.Reg, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\EveryAngle.CSM.Client.0.0.92\lib\net461\EveryAngle.CSM.Reg.exe</HintPath>
+      <HintPath>..\packages\EveryAngle.CSM.Client.0.0.99\lib\net461\EveryAngle.CSM.Reg.exe</HintPath>
     </Reference>
     <Reference Include="EveryAngle.CSM.Shared, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\EveryAngle.CSM.Shared.0.0.32\lib\net461\EveryAngle.CSM.Shared.dll</HintPath>
+      <HintPath>..\packages\EveryAngle.CSM.Shared.0.0.37\lib\net461\EveryAngle.CSM.Shared.dll</HintPath>
     </Reference>
     <Reference Include="EveryAngle.Logging, Version=2.4.2.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\EveryAngle.Logging.2.4.2\lib\net45\EveryAngle.Logging.dll</HintPath>
-    </Reference>
-    <Reference Include="EveryAngle.Security, Version=2.4.3.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\EveryAngle.CSM.Client.0.0.92\lib\net461\EveryAngle.Security.dll</HintPath>
     </Reference>
     <Reference Include="EveryAngle.Shared.Formatter, Version=2.4.4.12, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\EveryAngle.Shared.Formatter.2.4.4.12\lib\net461\EveryAngle.Shared.Formatter.dll</HintPath>
@@ -126,7 +123,7 @@
       <HintPath>..\packages\EveryAngle.Utilities.2.4.4.10\lib\net45\EveryAngle.Utilities.dll</HintPath>
     </Reference>
     <Reference Include="Ionic.Zip, Version=1.9.1.8, Culture=neutral, PublicKeyToken=edbe51ad942a3f5c, processorArchitecture=MSIL">
-      <HintPath>..\packages\EveryAngle.CSM.Client.0.0.92\lib\net461\Ionic.Zip.dll</HintPath>
+      <HintPath>..\packages\Ionic.Zip.1.9.1.8\lib\Ionic.Zip.dll</HintPath>
     </Reference>
     <Reference Include="log4net, Version=2.0.8.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
       <HintPath>..\packages\log4net.2.0.8\lib\net45-full\log4net.dll</HintPath>
@@ -136,7 +133,7 @@
     </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="Microsoft.Rest.ClientRuntime, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\EveryAngle.CSM.Client.0.0.92\lib\net461\Microsoft.Rest.ClientRuntime.dll</HintPath>
+      <HintPath>..\packages\Microsoft.Rest.ClientRuntime.3.0.3\lib\net45\Microsoft.Rest.ClientRuntime.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
@@ -146,7 +143,7 @@
       <HintPath>..\packages\MiniProfiler.2.1.0\lib\net40\MiniProfiler.dll</HintPath>
     </Reference>
     <Reference Include="Newtonsoft.Json, Version=11.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <HintPath>..\packages\EveryAngle.CSM.Client.0.0.92\lib\net461\Newtonsoft.Json.dll</HintPath>
+      <HintPath>..\packages\Newtonsoft.Json.11.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="Raize.CodeSiteLogging, Version=5.1.8.0, Culture=neutral, PublicKeyToken=5979856d688ff136, processorArchitecture=MSIL">
       <HintPath>..\packages\Raize.CodeSiteLogging.5.1.8\lib\net45\Raize.CodeSiteLogging.dll</HintPath>
