@@ -35,8 +35,8 @@
 
         // show popup
         popup.setOptions(settings);
-        popup.open();
         popup.center();
+        popup.open();
         popup.element.find(".popupContent").html(message);
 
         // set scrollable content
