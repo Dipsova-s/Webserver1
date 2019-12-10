@@ -3,7 +3,6 @@ using EveryAngle.Core.ViewModels;
 using EveryAngle.Core.ViewModels.Cycle;
 using EveryAngle.Core.ViewModels.Model;
 using EveryAngle.Core.ViewModels.ModelServer;
-using EveryAngle.CSM.Shared.Enums;
 using EveryAngle.Shared.Globalization;
 using EveryAngle.Shared.Helpers;
 using EveryAngle.WebClient.Domain.Enums;

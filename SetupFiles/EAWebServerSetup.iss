@@ -377,15 +377,8 @@ begin
 end;
 
 function GetAppServerUrlWithPort(AppServerUrl, BasePort: string; IsHttps: boolean): string;
-var
-  Port: string;
 begin
-  Port := BasePort;
-  if IsHttps then
-  begin
-    Port := IntToStr(StrToInt(BasePort) + 1);
-  end;
-  Result := Format('%s:%s', [AppServerUrl, Port]);
+  Result := Format('%s:%s', [AppServerUrl, BasePort]);
 end;
 
 // ***** Config Page definition: add new config options here ******************
