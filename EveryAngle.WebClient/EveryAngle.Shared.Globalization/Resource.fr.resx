@@ -4803,9 +4803,9 @@ When selected, the Application Server will connect to the SMTP server using the 
     <value>This username will be used when the SMTP server requires authentication.</value>
   </data>
   <data name="MC_SystemSettingsHelpInstancesPerModel" xml:space="preserve">
-    <value>The number of model instances that are kept in the database (as history). 
-&lt;br&gt;
-When this number of instances is reached, the import of a new instance will cause the instance with the oldest modeldata_timestamp to be automatically deleted.</value>
+    <value>The number of model instances that are kept in the database (as history).&lt;br/&gt;
+When this number of instances is reached, the import of a new instance will cause the instance with the oldest modeldata_timestamp to be automatically deleted.&lt;br/&gt;
+The minimum is 1.</value>
   </data>
   <data name="MC_SystemSettingsHelpMaxDomainElementsSearch" xml:space="preserve">
     <value>This setting is related to fields of type 'set' in the field chooser and determines how many elements (enumerated values)  are retrieved when executing an Angle. 

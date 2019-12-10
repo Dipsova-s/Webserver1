@@ -334,3 +334,8 @@ Page Should Not Contain Text List
     [Arguments]    ${texts}
     :FOR  ${text}  IN  @{texts}
     \   Page Should Not Contain    ${text}
+
+Get Kendo Value
+    [Arguments]  ${elementId}    
+    ${result}    Execute Javascript    return jQuery("#${elementId}").data('handler').value()
+    [Return]    ${result}

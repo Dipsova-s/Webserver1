@@ -13,5 +13,6 @@ Test System Settings
     Wait Until Overview Page Loaded
     Go To System Settings Page
     Verify System Settings Page Is Ready
+    Verify Instance To Keep Per Model
     Verify SSL Email Settings
     Verify Default Maximum Export Page Size Is Exist

@@ -27,6 +27,17 @@ namespace EveryAngle.ManagementConsole
     {
         protected void Application_Start()
         {
+#if DEVMODE
+            System.Net.ServicePointManager.ServerCertificateValidationCallback +=
+                new System.Net.Security.RemoteCertificateValidationCallback(
+                (
+                    object sender,
+                    System.Security.Cryptography.X509Certificates.X509Certificate cert,
+                    System.Security.Cryptography.X509Certificates.X509Chain chain,
+                    System.Net.Security.SslPolicyErrors error
+                ) => true);
+#endif
+
             AreaRegistration.RegisterAllAreas();
 
             WebApiConfig.Register(GlobalConfiguration.Configuration);

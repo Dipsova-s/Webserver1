@@ -43,55 +43,64 @@ Wait System Settings Page Ready
     Wait Until Ajax Complete
 
 #System Setting
-Input Sytem Settings Default Page Size
+Input System Settings Default Page Size
     [Arguments]    ${pageSize}
     Input kendo Numeric TextBox    ${txtDefaultPageSize}    ${pageSize}
 
-Input Sytem Settings Max Page Size
+Input System Settings Max Page Size
     [Arguments]    ${maxPageSize}
     Input kendo Numeric TextBox    ${txtMaxPageSize}    ${maxPageSize}
 
-Input Sytem Settings Session Timeout
+Input System Settings Session Timeout
     [Arguments]    ${sessionTimeout}
     Input kendo Numeric TextBox    ${txtSessionTimeout}    ${sessionTimeout}
 
-Input Sytem Settings Session History
+Input System Settings Session History
     [Arguments]    ${sessionHistory}
     Input kendo Numeric TextBox    ${txtSessionHistory}    ${sessionHistory}
 
-Input Sytem Settings Poll Models Server
+Input System Settings Poll Models Server
     [Arguments]    ${pollModelServer}
     Input kendo Numeric TextBox    ${txtPollModelserver}    ${pollModelServer}
 
-Input Sytem Settings Model Server Timeout
+Input System Settings Model Server Timeout
     [Arguments]    ${modelServerTimeout}
     Input kendo Numeric TextBox    ${txtModelServerTimeout}    ${modelServerTimeout}
 
-Input Sytem Settings Model Server Metadata Timeout
+Input System Settings Model Server Metadata Timeout
     [Arguments]    ${modelServerMetadataTimeout}
     Input kendo Numeric TextBox    ${txtModelServerMetadataTimeout}    ${modelServerMetadataTimeout}
 
-Input Sytem Settings Max Domain Size For Search
+Input System Settings Max Domain Size For Search
     [Arguments]    ${maxDomainSize}
     Input kendo Numeric TextBox    ${txtMaxDomainSizeForSearch}    ${maxDomainSize}
 
-Input Sytem Settings Cache Validity
+Input System Settings Cache Validity
     [Arguments]    ${cacheValidity}
     Input kendo Numeric TextBox    ${txtCacheValidity}    ${cacheValidity}
 
-Input Sytem Settings Minimum Number Of Label Categories
+Input System Settings Minimum Number Of Label Categories
     [Arguments]    ${minimunNumberOfLabelCategory}
     Input kendo Numeric TextBox    ${txtMinimumNumberOfLabelCategories}    ${minimunNumberOfLabelCategory}
 
-Input Sytem Settings Check Expired Session Minutes
+Input System Settings Check Expired Session Minutes
     [Arguments]    ${expiredSessionMinute}
     Input kendo Numeric TextBox    ${txtCheckExpiredSessionMinutes}    ${expiredSessionMinute}
 
-Input Sytem Settings Check Instances To Keep Per Model
-    [Arguments]    ${instancesToKeepPerModel}
-    Input kendo Numeric TextBox    ${txtInstancesToKeepPerModel}    ${instancesToKeepPerModel}
+Get System Settings Check Instances To Keep Per Model
+    ${value}    Get Kendo Value  ${txtInstancesToKeepPerModel} 
+    [Return]    ${value}
 
-Input Sytem Settings Active Directory Size Limit
+Input System Settings Check Instances To Keep Per Model
+    [Arguments]    ${instancesToKeepPerModel}
+    Click Element   ${txtInstancesToKeepPerModel}
+    Input Text   ${txtInstancesToKeepPerModel}  ${instancesToKeepPerModel}
+    Click Element   ${txtCheckExpiredSessionMinutes}
+
+System Settings Check Instances To Keep Per Model Should Be One
+    Textfield Value Should Be    ${txtInstancesToKeepPerModel}    1
+
+Input System Settings Active Directory Size Limit
     [Arguments]    ${activeDirectorySizeLimit}
     Input kendo Numeric TextBox    ${txtActiveDirectlySizeLimit}    ${activeDirectorySizeLimit}
 

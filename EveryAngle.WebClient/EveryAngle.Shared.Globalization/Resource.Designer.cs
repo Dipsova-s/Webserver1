@@ -12433,9 +12433,9 @@ namespace EveryAngle.Shared.Globalization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The number of model instances that are kept in the database (as history). 
-        ///&lt;br&gt;
-        ///When this number of instances is reached, the import of a new instance will cause the instance with the oldest modeldata_timestamp to be automatically deleted..
+        ///   Looks up a localized string similar to The number of model instances that are kept in the database (as history).&lt;br/&gt;
+        ///When this number of instances is reached, the import of a new instance will cause the instance with the oldest modeldata_timestamp to be automatically deleted.&lt;br/&gt;
+        ///The minimum is 1..
         /// </summary>
         public static string MC_SystemSettingsHelpInstancesPerModel {
             get {

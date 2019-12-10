@@ -30,6 +30,12 @@ Verify System Settings Page Is Ready
     Page Should Contain Element    ${txtEmailSettingsUserName}
     Page Should Contain Element    ${txtEmailSettingsPassword}
 
+Verify Instance To Keep Per Model
+    ${oldValue}     Get System Settings Check Instances To Keep Per Model
+    Input System Settings Check Instances To Keep Per Model      0
+    System Settings Check Instances To Keep Per Model Should Be One
+    Input System Settings Check Instances To Keep Per Model      ${oldValue}
+
 Verify Input Invalid Email Settings
     Scroll Vertical    ${mainContent}    500
     Click Show Test Email Setting Popup
