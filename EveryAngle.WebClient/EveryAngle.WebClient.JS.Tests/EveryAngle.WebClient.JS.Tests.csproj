@@ -74,6 +74,10 @@
       <Link>ManagementConsole\Dependencies\page\MC.GlobalSettings.WebClientSettings.js</Link>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="..\EveryAngle.ManagementConsole\Scripts\Page\MC.GlobalSettings.WelcomePage.js">
+      <Link>ManagementConsole\Dependencies\page\MC.GlobalSettings.WelcomePage.js</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="..\EveryAngle.ManagementConsole\Scripts\Page\MC.Models.Communications.js">
       <Link>ManagementConsole\Dependencies\page\MC.Models.Communications.js</Link>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
@@ -237,6 +241,7 @@
     <Content Include="ManagementConsole\Tests\Custom\MC.UtilModelServerInfoTest.js" />
     <Content Include="ManagementConsole\Tests\jQuery\jquery.validate.additional-methods.Test.js" />
     <Content Include="ManagementConsole\Tests\Page\MC.GlobalSettings.WebClientSettingsTest.js" />
+    <Content Include="ManagementConsole\Tests\Page\MC.GlobalSettings.WelcomePageTest.js" />
     <Content Include="ManagementConsole\Tests\Page\MC.Models.PackagesTest.js" />
     <Content Include="ManagementConsole\Tests\jQuery\jquery.validate.additional-methods.Test.js" />
     <Content Include="ManagementConsole\Tests\Page\MC.GlobalSettings.PackagesTest.js" />
