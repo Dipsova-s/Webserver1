@@ -101,20 +101,26 @@
     <Reference Include="EveryAngle.CSM.Shared, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\EveryAngle.CSM.Shared.0.0.37\lib\net461\EveryAngle.CSM.Shared.dll</HintPath>
     </Reference>
-    <Reference Include="EveryAngle.Logging, Version=2.4.2.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\EveryAngle.Logging.2.4.2\lib\net45\EveryAngle.Logging.dll</HintPath>
+    <Reference Include="EveryAngle.Logging, Version=3.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\EveryAngle.Logging.3.0.38190\lib\net461\EveryAngle.Logging.dll</HintPath>
     </Reference>
-    <Reference Include="EveryAngle.Shared.Formatter, Version=2.4.4.12, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\EveryAngle.Shared.Formatter.2.4.4.12\lib\net461\EveryAngle.Shared.Formatter.dll</HintPath>
+    <Reference Include="EveryAngle.Security, Version=3.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\EveryAngle.Security.3.0.38190\lib\net461\EveryAngle.Security.dll</HintPath>
+    </Reference>
+    <Reference Include="EveryAngle.Shared.Formatter, Version=3.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\EveryAngle.Shared.Formatter.3.0.38190\lib\net461\EveryAngle.Shared.Formatter.dll</HintPath>
     </Reference>
     <Reference Include="EveryAngle.Shared.Pivot, Version=3.2.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\EveryAngle.Shared.Pivot.3.2.0\lib\net461\EveryAngle.Shared.Pivot.dll</HintPath>
     </Reference>
-    <Reference Include="EveryAngle.Threading, Version=2.4.1.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\EveryAngle.Threading.2.4.1\lib\net45\EveryAngle.Threading.dll</HintPath>
+    <Reference Include="EveryAngle.Threading, Version=3.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\EveryAngle.Threading.3.0.38190\lib\net461\EveryAngle.Threading.dll</HintPath>
     </Reference>
-    <Reference Include="EveryAngle.Utilities, Version=2.4.4.10, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\EveryAngle.Utilities.2.4.4.10\lib\net45\EveryAngle.Utilities.dll</HintPath>
+    <Reference Include="EveryAngle.Utilities, Version=3.1.4.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\EveryAngle.Utilities.3.1.438190\lib\net461\EveryAngle.Utilities.dll</HintPath>
+    </Reference>
+    <Reference Include="ICSharpCode.SharpZipLib, Version=1.0.0.999, Culture=neutral, PublicKeyToken=1b03e6acf1164f73, processorArchitecture=MSIL">
+      <HintPath>..\packages\SharpZipLib.1.0.0\lib\net45\ICSharpCode.SharpZipLib.dll</HintPath>
     </Reference>
     <Reference Include="Ionic.Zip, Version=1.9.1.8, Culture=neutral, PublicKeyToken=edbe51ad942a3f5c, processorArchitecture=MSIL">
       <HintPath>..\packages\Ionic.Zip.1.9.1.8\lib\Ionic.Zip.dll</HintPath>
@@ -173,6 +179,7 @@
       <HintPath>..\packages\System.Reflection.TypeExtensions.4.1.0\lib\net46\System.Reflection.TypeExtensions.dll</HintPath>
     </Reference>
     <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.ServiceProcess" />
     <Reference Include="System.Web" />
     <Reference Include="System.Web.Abstractions" />
     <Reference Include="System.Web.ApplicationServices" />
