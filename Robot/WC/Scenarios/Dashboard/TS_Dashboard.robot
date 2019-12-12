@@ -162,10 +162,10 @@ First Filter In Dashboard Popup Should Be Equal
 
 First Filter In Dashboard Sidebar Should Be Equal
     [Arguments]    ${expectFilterText}
+    ${filterTitle}=    Set Variable    css=#FilterHeader-0 .filterText
     Click Editing From Dashboard Filter Panel
     Wait Until Element Exist And Visible    ${divPopupListFilter}
-    ${filterText}    Get Text    css=#FilterHeader-0 .filterText
-    Should Be Equal    ${filterText}    ${expectFilterText}  
+    Wait Until Element Contains    ${filterTitle}    ${expectFilterText}    10s    Element not contais text "${expectFilterText}" within 10s
     Cancel Edit Dashboard
 
 Create Dashboard From Many Angles
