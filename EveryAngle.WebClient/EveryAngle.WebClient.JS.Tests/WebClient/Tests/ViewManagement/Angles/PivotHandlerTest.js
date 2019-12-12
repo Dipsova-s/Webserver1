@@ -1,4 +1,5 @@
-﻿/// <reference path="/Dependencies/ViewModels/Models/Angle/historymodel.js" />
+﻿/// <reference path="/Dependencies/ErrorHandler/ErrorHandler.js" />
+/// <reference path="/Dependencies/ViewModels/Models/Angle/historymodel.js" />
 /// <reference path="/Dependencies/ViewModels/Models/Angle/resultmodel.js" />
 /// <reference path="/Dependencies/ViewModels/Models/Angle/displayqueryblockmodel.js" />
 /// <reference path="/Dependencies/ViewModels/Models/Angle/AngleInfoModel.js" />
@@ -6,7 +7,6 @@
 /// <reference path="/Dependencies/ViewManagement/Shared/ValidationHandler.js" />
 /// <reference path="/Dependencies/ViewManagement/Angles/FieldSettingsHandler.js" />
 /// <reference path="/Dependencies/ViewManagement/Angles/PivotHandler.js" />
-/// <reference path="/Tests/Mock/DevExpress/Pivot.js" />
 
 describe("PivotPageHandler", function () {
 
@@ -16,7 +16,7 @@ describe("PivotPageHandler", function () {
         pivotPageHandler = new PivotPageHandler();
     });
 
-    describe("call CanDrilldown", function () {
+    describe(".CanDrilldown", function () {
 
         it("should get true", function () {
 
@@ -61,7 +61,7 @@ describe("PivotPageHandler", function () {
 
     });
 
-    describe("call OnPivotGridCellClick", function () {
+    describe(".OnPivotGridCellClick", function () {
 
         beforeEach(function () {
             window[pivotPageHandler.PivotId] = {
@@ -97,7 +97,7 @@ describe("PivotPageHandler", function () {
 
     });
 
-    describe("call OnPivotBeginCallback", function () {
+    describe(".OnPivotBeginCallback", function () {
 
         beforeEach(function () {
             window[pivotPageHandler.PivotId] = {};
@@ -143,7 +143,7 @@ describe("PivotPageHandler", function () {
 
     });
 
-    describe("call UpdateSortingField", function () {
+    describe(".UpdateSortingField", function () {
 
         beforeEach(function () {
 
@@ -218,7 +218,7 @@ describe("PivotPageHandler", function () {
 
     });
 
-    describe("call UpdateStorageLayout", function () {
+    describe(".UpdateStorageLayout", function () {
 
         var pivotPageHandler2;
 
@@ -271,7 +271,7 @@ describe("PivotPageHandler", function () {
 
     });
 
-    describe("call GetSortingDirectionFromElement", function () {
+    describe(".GetSortingDirectionFromElement", function () {
 
         beforeEach(function () {
             $('<table id="Test" />').html('<tr><td class="dxpgHeaderText" data-uid="id1"></td><td><img /></td></tr>').hide().appendTo('body');
@@ -312,8 +312,9 @@ describe("PivotPageHandler", function () {
             spyOn(pivotPageHandler, 'ClosePivotCustomSortPopup').and.callFake($.noop);
             spyOn(fieldSettingsHandler, 'HideFieldOptionsMenu').and.callFake($.noop);
             window.popup = { Show: $.noop };
-            spyOn($.fn, 'trigger').and.callFake($.noop);
+            spyOn($.fn, 'trigger');
             spyOn($.fn, 'closest').and.returnValue($());
+            spyOn($.fn, 'offset').and.returnValue({});
             var element = $();
             pivotPageHandler.ShowPivotCustomSortPopup(element);
 
@@ -321,68 +322,118 @@ describe("PivotPageHandler", function () {
         });
     });
 
-    describe("Pivot rendering", function () {
-        it("It should not return pivot grid when the execute context is null", function () {
-            ASPxClientControl.GetControlCollection().ControlsInitialized.handlerInfoList[0].executionContext = null;
-            var actual = pivotPageHandler.GetPivotGridById('');
-            expect(null).toEqual(actual);
+    describe(".CheckPivotInstance", function () {
+        beforeEach(function () {
+            spyOn(errorHandlerModel, 'RedirectToLoginPage');
+            spyOn(pivotPageHandler, 'GetContainer').and.returnValues($(), $('<div><script id="dxss_12345"></script></div>'), $('<div><script id="dxss_12345"></script></div>'));
+            spyOn(pivotPageHandler, 'ShowLoadingIndicator');
+            spyOn(pivotPageHandler, 'ProcessScriptsAndLinks');
+            spyOn(pivotPageHandler, 'IsPivotReady').and.returnValues(false, true);
+            window.ASPx = {
+                startupScriptPrefix: 'dxss_'
+            };
         });
-
-        it("It should not return pivot grid when the grid is null", function () {
-            ASPxClientControl.GetControlCollection().ControlsInitialized.handlerInfoList[0].executionContext = {
-                'pivotGrid': null
-            };
-            var actual = pivotPageHandler.GetPivotGridById('');
-            expect(null).toEqual(actual);
+        it("should redirect to login page if no authorization", function (done) {
+            // prepare
+            var response = '<form id="LoginForm" />';
+            pivotPageHandler.CheckPivotInstance(response)
+                .done(function (result) {
+                    // assert
+                    expect(result).toEqual(false);
+                    expect(errorHandlerModel.RedirectToLoginPage).toHaveBeenCalled();
+                    done();
+                });
         });
-
-        it("It should not return pivot grid when the name is not match", function () {
-            ASPxClientControl.GetControlCollection().ControlsInitialized.handlerInfoList[0].executionContext = {
-                'pivotGrid': 'testgrid'
-            };
-            var actual = pivotPageHandler.GetPivotGridById('test');
-            expect(null).toEqual(actual);
+        it("should check pivot instance", function (done) {
+            // prepare
+            var response = 'this is a pivot<script id="dxss_12345"></script>';
+            pivotPageHandler.CheckPivotInstance(response)
+                .done(function (result) {
+                    // assert
+                    expect(result).toEqual(true);
+                    expect(errorHandlerModel.RedirectToLoginPage).not.toHaveBeenCalled();
+                    expect(pivotPageHandler.ProcessScriptsAndLinks).toHaveBeenCalledTimes(1);
+                    expect(pivotPageHandler.IsPivotReady).toHaveBeenCalledTimes(2);
+                    done();
+                });
         });
+    });
 
-        it("It should return pivot grid when the name is match", function () {
-            ASPxClientControl.GetControlCollection().ControlsInitialized.handlerInfoList[0].executionContext = {
-                'pivotGrid': {
-                    'name': 'testgrid'
-                }
+    describe(".IsPivotReady", function () {
+        beforeEach(function () {
+            window.MVCxClientPivotGrid = function () {
+                this.GetMainElement = $.noop;
             };
-            var actual = pivotPageHandler.GetPivotGridById('testgrid');
-            expect(actual).not.toEqual(null);
+            window[pivotPageHandler.PivotId] = new window.MVCxClientPivotGrid();
         });
+        it("should not be ready (not MVCxClientPivotGrid)", function () {
+            // prepare
+            window[pivotPageHandler.PivotId] = $();
+            var result = pivotPageHandler.IsPivotReady();
 
-        it("It should not call ProcessScriptsAndLinks when the grid is rendered", function () {
-            ASPxClientControl.GetControlCollection().ControlsInitialized.handlerInfoList[0].executionContext = {
-                'pivotGrid': {
-                    'name': 'pivotGrid'
-                }
-            };
-            window['pivotGrid'] = {
-                'adjustingManager': {}
-            };
-            spyOn(ASPx, 'ProcessScriptsAndLinks');
-            pivotPageHandler.RenderPivotgrid();
-            expect(ASPx.ProcessScriptsAndLinks).not.toHaveBeenCalled();
+            // assert
+            expect(result).toBeFalsy();
         });
+        it("should not be ready (no element)", function () {
+            // prepare
+            spyOn(window[pivotPageHandler.PivotId], 'GetMainElement').and.returnValue(null);
+            var result = pivotPageHandler.IsPivotReady();
 
-        it("It should call ProcessScriptsAndLinks when the grid is not render", function () {
-            ASPxClientControl.GetControlCollection().ControlsInitialized.handlerInfoList[0].executionContext = {
-                'pivotGrid': {
-                    'name': 'dashboardgrid'
-                }
-            };
-            window['pivotGrid'] = {
-                'adjustingManager': null
-            };
-
-            spyOn(ASPx, 'ProcessScriptsAndLinks');
-            pivotPageHandler.RenderPivotgrid();
-            expect(ASPx.ProcessScriptsAndLinks).toHaveBeenCalled();
+            // assert
+            expect(result).toBeFalsy();
         });
+        it("should be ready", function () {
+            // prepare
+            spyOn(window[pivotPageHandler.PivotId], 'GetMainElement').and.returnValue($('<div/>').get(0));
+            var result = pivotPageHandler.IsPivotReady();
 
+            // assert
+            expect(result).toBeTruthy();
+        });
+    });
+
+    describe(".ProcessScriptsAndLinks", function () {
+        beforeEach(function () {
+            window.ASPx = { ProcessScriptsAndLinks: $.noop };
+            spyOn(window.ASPx, 'ProcessScriptsAndLinks');
+        });
+        it("should process scripts and links", function () {
+            // prepare
+            spyOn(pivotPageHandler, 'IsPivotReady').and.returnValue(false);
+            pivotPageHandler.ProcessScriptsAndLinks();
+
+            // assert
+            expect(window.ASPx.ProcessScriptsAndLinks).toHaveBeenCalled();
+        });
+        it("should not process scripts and links", function () {
+            // prepare
+            spyOn(pivotPageHandler, 'IsPivotReady').and.returnValue(true);
+            pivotPageHandler.ProcessScriptsAndLinks();
+
+            // assert
+            expect(window.ASPx.ProcessScriptsAndLinks).not.toHaveBeenCalled();
+        });
+    });
+
+    describe(".EnsureUpdateLayout", function () {
+        it("should update a layout (1 time)", function () {
+            // prepare
+            spyOn(pivotPageHandler, 'UpdateLayout');
+            spyOn($.fn, 'height').and.returnValues(1, 1);
+            pivotPageHandler.EnsureUpdateLayout();
+
+            // assert
+            expect(pivotPageHandler.UpdateLayout).toHaveBeenCalledTimes(1);
+        });
+        it("should update a layout (2 times)", function () {
+            // prepare
+            spyOn(pivotPageHandler, 'UpdateLayout');
+            spyOn($.fn, 'height').and.returnValues(1, 2);
+            pivotPageHandler.EnsureUpdateLayout();
+
+            // assert
+            expect(pivotPageHandler.UpdateLayout).toHaveBeenCalledTimes(2);
+        });
     });
 });
 

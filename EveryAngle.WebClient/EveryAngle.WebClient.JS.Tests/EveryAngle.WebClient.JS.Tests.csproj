@@ -803,9 +803,6 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="WebClient\Tests\Embedded\CustomKendoGridUiTest.js" />
-    <Content Include="WebClient\Tests\Mock\DevExpress\Pivot.js">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
     <Content Include="WebClient\Dependencies\Global.js" />
     <Content Include="WebClient\Tests\AjaxHTTPHandler\AjaxRequestHandlerTest.js" />
     <Content Include="WebClient\Tests\Embedded\BusinessProcessesModelTest.js" />

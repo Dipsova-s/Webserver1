@@ -10,7 +10,6 @@ function PivotPageHandler(elementId, container) {
         DATA: 100,
         DATA_MIN: 50
     };
-    self.IsReady = true;
     self.StartDataIndex = 0;
     self.UpdateLayoutChecker = null;
     self.ColumnSize = null;
@@ -140,6 +139,8 @@ function PivotPageHandler(elementId, container) {
             self.BuildDashboardFieldSettings(options);
         }
     };
+
+    var fnCheckPivotInstance;
     self.GetPivotDisplay = function (isValidDisplay, options) {
         // clear
         self.CachePages = {};
@@ -151,14 +152,14 @@ function PivotPageHandler(elementId, container) {
         // create field settings
         self.BuildPivotFieldSettings(options);
 
+        clearInterval(fnCheckPivotInstance);
         if (isValidDisplay !== false) {
             // set callback function
             window[self.PivotId + 'OnPivotEndCallback'] = self.OnPivotEndCallback;
             window[self.PivotId + 'OnPivotBeginCallback'] = self.OnPivotBeginCallback;
             window[self.PivotId + 'OnPivotClientError'] = self.OnPivotClientError;
             window[self.PivotId + 'OnPivotGridCellClick'] = self.OnPivotGridCellClick;
-
-            self.IsReady = false;
+            
             var postData = {
                 FieldSettingsData: jQuery.base64.encode(JSON.stringify(self.FieldSettings)),
                 UserSettings: JSON.stringify(userSettingModel.Data()),
@@ -166,6 +167,7 @@ function PivotPageHandler(elementId, container) {
             };
             return self.GetPivotHtml(postData)
                 .fail(self.GetPivotDisplayFail)
+                .then(self.CheckPivotInstance)
                 .then(self.GetPivotDisplayDone)
                 .always(self.GetPivotDisplayAlways);
         }
@@ -175,13 +177,10 @@ function PivotPageHandler(elementId, container) {
         }
     };
     self.GetPivotDisplayFail = function (xhr, status) {
-        self.IsReady = true;
-
         if (status === 'timeout' && self.Models.Display.IsTemporaryDisplay()) {
             self.GetContainer().find('.pivotAreaContainer').empty();
             self.UpdateLayout();
         }
-
 
         if (self.DashBoardMode()) {
             self.Models.Result.RetryPostResult(xhr.responseText);
@@ -189,54 +188,61 @@ function PivotPageHandler(elementId, container) {
         else {
             self.Models.Result.SetRetryPostResultToErrorPopup(xhr.status);
         }
-
     };
-    self.GetPivotDisplayDone = function (response) {
-        self.IsReady = true;
+    self.CheckPivotInstance = function (response) {
         if (response.indexOf('LoginForm') !== -1) {
             // sometimes get login page cause by session timeout
             errorHandlerModel.RedirectToLoginPage();
+            return jQuery.when(false);
         }
         else {
-
             self.GetContainer().find('.pivotAreaContainer').html(response);
-            self.RenderPivotgrid();
             self.ShowLoadingIndicator();
-            self.InjectFieldIconCSS();
-            self.CustomizeDevExpress();
-            self.UpdateFieldSettingToHistoryModel();
-            self.SetColumnSize();
-            self.UpdateMaxHeaderSize();
-            self.SetPivotCellHeader();
-            self.InitialGridColumnsSize();
-            self.UpdateLayout();
-            self.UpdateSortDataFromPivotTable();
-            self.InitialHorizontalScrollbar();
-            self.UpdateStorageLayout();
-            self.SetPivotLayout(window[self.PivotId]);
 
-            return self.CheckUpgradeDisplay();
+            var deferred = jQuery.Deferred();
+            clearInterval(fnCheckPivotInstance);
+            var scriptCount = response.match(new RegExp(ASPx.startupScriptPrefix, 'g')).length;
+            fnCheckPivotInstance = setInterval(function () {
+				if (self.IsPivotReady()) {
+                    // exit
+                    clearInterval(fnCheckPivotInstance);
+                    deferred.resolve(true);
+                }
+                else if (self.GetContainer().find('script[id^=' + ASPx.startupScriptPrefix + ']').length === scriptCount) {
+                    // make sure all script have been created
+                    self.ProcessScriptsAndLinks();
+                }
+            }, 300);
+            return deferred.promise();
         }
     };
-    self.RenderPivotgrid = function () {
-        //Devexpress 1.9.1.6 has the issue about the Firefox with slow rendering then for this loc just to make sure the rendering is correct
-        if (!window[self.PivotId].adjustingManager && !self.GetPivotGridById(self.PivotId)) {
-            ASPx.ProcessScriptsAndLinks(self.GetContainer().find('.pivotAreaContainer').selector);
-        }
+    self.GetPivotDisplayDone = function () {
+        self.InjectFieldIconCSS();
+        self.CustomizeDevExpress();
+        self.UpdateFieldSettingToHistoryModel();
+        self.SetColumnSize();
+        self.UpdateMaxHeaderSize();
+        self.SetPivotCellHeader();
+        self.InitialGridColumnsSize();
+        self.UpdateSortDataFromPivotTable();
+        self.InitialHorizontalScrollbar();
+        self.UpdateStorageLayout();
+        self.SetPivotLayout(window[self.PivotId]);
+        self.EnsureUpdateLayout();
+
+        return self.CheckUpgradeDisplay();
     };
-    self.GetPivotGridById = function (pivotid) {
-        var pivotGrid = null;
-        var controlname = "aspxMVCControlsInitialized";
-        var controls = ASPxClientControl.GetControlCollection().ControlsInitialized.handlerInfoList;
-        jQuery.each(controls, function (index) {
-            //When the handler already bind to the object we should make sure the id is the same
-            if (controls[index].handler.name === controlname && controls[index].executionContext &&
-                controls[index].executionContext.pivotGrid && controls[index].executionContext.pivotGrid.name === pivotid) {
-                pivotGrid = controls[index].executionContext.pivotGrid;
-                return;
-            }
-        });
-        return pivotGrid;
+    self.IsPivotReady = function () {
+        return window[self.PivotId] instanceof MVCxClientPivotGrid && window[self.PivotId].GetMainElement();
+    };
+    self.ProcessScriptsAndLinks = function () {
+        // Devexpress 1.9.1.6 has the issue about the Firefox with slow rendering
+        // then for this loc just to make sure the rendering is correct
+        if (!self.IsPivotReady()) {
+            var container = self.GetContainer();
+            container.find('[data-executed]').removeAttr('data-executed');
+            ASPx.ProcessScriptsAndLinks('#' + self.PivotId);
+        }
     };
     self.GetPivotDisplayAlways = function () {
         self.HideLoadingIndicator();
@@ -1284,15 +1290,22 @@ function PivotPageHandler(elementId, container) {
             self.Models.Display.Data.commit();
         }
     };
+    self.EnsureUpdateLayout = function () {
+        // adjust layout & make sure that height is correct
+        // this happens on a slow browser like IE, Firefox
+        self.UpdateLayout();
+        if (jQuery('#' + self.PivotId).height() !== jQuery('#' + self.PivotId + '_PT').height()) {
+            self.UpdateLayout(100, true);
+        }
+    };
     self.UpdateLayout = function (delay, forceUpdate) {
         var container = self.GetContainer();
 
         // adjust custom control
         fieldSettingsHandler.UpdateSettingLayout();
 
-        if (!window[self.PivotId] || !container.length) {
+        if (!window[self.PivotId] || !container.length)
             return;
-        }
 
         delay = WC.Utility.ToNumber(delay);
         forceUpdate = WC.Utility.ToBoolean(forceUpdate);
@@ -1300,17 +1313,15 @@ function PivotPageHandler(elementId, container) {
         jQuery('#' + self.PivotId + '_ACCColumnArea > table').show();
         self.UpdatePivotHtml();
         self.UpdateMaxHeaderSize();
-
+        
         var updateLayout = function () {
-            if (!window[self.PivotId] || !self.IsReady || window[self.PivotId] && !window[self.PivotId].GetMainElement())
-                return;
-
-            var currentHeight = container.parent().height();
-            if (self.DashBoardMode() && jQuery('#' + self.PivotId + '_PT').width() !== container.width()) {
+            if (self.DashBoardMode() && jQuery('#' + self.PivotId + '_PT').width() !== container.width())
                 forceUpdate = true;
-            }
-
+            var currentHeight = container.parent().height();
             container.find('.pivotAreaContainer').height(currentHeight);
+
+            if (!self.IsPivotReady())
+                return;
 
             if (forceUpdate || currentHeight !== window[self.PivotId].GetHeight()) {
                 window[self.PivotId].SetHeight(currentHeight);
