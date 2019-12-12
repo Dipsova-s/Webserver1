@@ -6,5 +6,9 @@
   {
     "outputFile": "Content/CSS/itemstate.css",
     "inputFile": "Content/CSS/itemstate.scss"
+  },
+  {
+    "outputFile": "Content/CSS/pivot.css",
+    "inputFile": "Content/CSS/pivot.scss"
   }
 ]

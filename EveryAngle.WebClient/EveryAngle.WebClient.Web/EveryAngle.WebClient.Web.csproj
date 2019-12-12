@@ -32,8 +32,7 @@
     <WebGreaseLibPath>..\packages\WebGrease.1.5.2\lib</WebGreaseLibPath>
     <UseGlobalApplicationHostFile />
     <TargetFrameworkProfile />
-    <Use64BitIISExpress>
-    </Use64BitIISExpress>
+    <Use64BitIISExpress>true</Use64BitIISExpress>
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
   </PropertyGroup>
@@ -315,7 +314,10 @@
     <Content Include="Content\CSS\JumpChooser.css" />
     <Content Include="Content\CSS\KendoExtension.css" />
     <Content Include="Content\CSS\Login.css" />
-    <Content Include="Content\CSS\Pivot.css" />
+    <None Include="Content\CSS\pivot.scss" />
+    <Content Include="Content\CSS\pivot.css">
+      <DependentUpon>pivot.scss</DependentUpon>
+    </Content>
     <Content Include="Content\CSS\Search.AngleDownload.css" />
     <Content Include="Content\CSS\Search.css" />
     <Content Include="Content\CSS\Search.MassChange.css" />
