@@ -9,7 +9,7 @@ ${btnAddUser}                   btnImportNewUser
 ${btnRemoveUser}                  btnRemovedSelectedUser
 ${spinnerAvailableGrid}    css=#AvailableUserGrid > div.k-loading-mask
 ${spinnerSelectedUserGrid}    css=#SelectedUserGrid > div.k-loading-mask
-${btnLoadingClose}                jquery=#LoaderContainer .loader-cancel-button:visible
+${btnLoadingCloseReport}                jquery=#LoaderContainer .loader-cancel-button:visible
 
 
 
@@ -55,7 +55,7 @@ Click Save Add User
     Wait Until Element Is Visible    ${btnSave}
     Click Element    ${btnSave}
     Wait Until Page Contains    Add users report
-    Click Element    ${btnLoadingClose}
+    Click Element    ${btnLoadingCloseReport}
 
 
 Click Cancel Button on Add User Page

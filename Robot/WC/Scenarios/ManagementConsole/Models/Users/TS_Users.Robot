@@ -4,10 +4,19 @@ Resource            ${EXECDIR}/WC/POM/ManagementConsole/Users/AllUsers.robot
 Resource            ${EXECDIR}/WC/POM/ManagementConsole/Users/EditUser.robot
 Resource            ${EXECDIR}/WC/POM/ManagementConsole/Users/AddUser.robot
 
+
+*** Variables ***
+${providerName}    local
+
+
 *** Keywords ***
+Go To All Users Page With Admin User
+    Go to MC Then Login With Admin User
+    Go To All Users Page
+
 Go To All Users Page
-    Click Side Menu Users
-    Click Side Menu All Users
+    Go To MC Page    /Users/All%20users/
+    Wait Until All Users Page Ready
 
 Assign Role To User
     [Arguments]    ${userName}    ${roleName}
@@ -32,3 +41,31 @@ Clear Role From User
 
 Click Remove First Role
     Click Action In Grid By Index    0    ${gridAssignRolesFirst}    ${btnDeleteInGridAssignRoles}
+
+Add User
+    Click Add User Popup
+    Choose Provider Dropdown List    ${providerName}
+    Wait Until Add Users Page Loaded
+    Click Select All Available Users
+    Click Add Selected Users
+    Click Select All Selected Users
+    Click DeSelect All Selected User
+    Click Select All Selected Users
+    Click Remove Selected Users
+    Click DeSelect All Available User
+    ${username}    Get First Available Username
+    Set Test Variable     ${username}     ${username}
+    Click Select First Available User
+    Click Add Selected Users
+    Click Save Add User
+    Wait Until Add Users Page Loaded
+    Click Cancel Button on Add User Page
+    Wait MC Progress Bar Closed
+    Filter User List By Username    ${username}
+
+Delete User
+    [Arguments]     ${username}
+    Filter User List By Username        ${username}
+    Click Select First Available User
+    Click Action On User By Index       0
+    Click Delete User Action By Index       0 

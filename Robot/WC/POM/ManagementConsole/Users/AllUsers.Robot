@@ -4,6 +4,7 @@ ${btnEditUser}                        .btnGroupContainer>.btn
 ${btnActionEditUser}                  .btnGroupInner .btnEdit
 ${btnActionShowConsolidateRoleForUser}       .btnGroupInner .btnOpenWindow
 ${btnActionDeleteUser}                .btnGroupInner .btnDelete
+${btnOk}                css=#popupConfirmation > div > a.btn.btnPrimary.btnSubmit
 
 #Add new user variables
 ${btnAddUsers}                btnAddUsers
@@ -18,6 +19,11 @@ ${txtUserFilter}                  css=.gridToolbarFilter input
 ${pgbFilterLoading}                 .iconLoading
 
 *** Keywords ***
+Wait Until All Users Page Ready
+    Wait Until Page Contains    Add users
+    Wait Until Page Contains Element     ${btnAddUsers}
+    Wait MC Progress Bar Closed
+
 Click Action On User By Index
     [Arguments]    ${index}
     Click Show Action Dropdown In Grid By Index    ${index}    ${trRowInAllUserGrid}
@@ -50,6 +56,7 @@ Click Show Consolidate Role Action For User By Index
 Click Delete User Action By Index
     [Arguments]    ${index}
     Click Action In Grid By Index     ${index}    ${trRowInAllUserGrid}    ${btnActionDeleteUser}
+    Click Element    ${btnOk}
 
 Filter User List By Username
     [Arguments]    ${userName}
