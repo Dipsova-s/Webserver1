@@ -335,6 +335,12 @@ Page Should Not Contain Text List
     :FOR  ${text}  IN  @{texts}
     \   Page Should Not Contain    ${text}
 
+Set Checkbox
+    [Arguments]     ${elementLocator}   ${boolState}
+    Wait Until Page Contains Element    ${elementLocator}
+    Run Keyword If    ${boolState} == True     Select Checkbox    ${elementLocator}
+    Run Keyword If    ${boolState} == False     Unselect Checkbox    ${elementLocator}
+
 Get Kendo Value
     [Arguments]  ${elementId}    
     ${result}    Execute Javascript    return jQuery("#${elementId}").data('handler').value()
