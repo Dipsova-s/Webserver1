@@ -293,3 +293,13 @@ Expand All Accordion Fields
     Click Element    ${acdDateHeader}
     Click Element    ${acdTimeHeader}
     Click Element    ${acdSetHeader}
+
+#Set Value
+Set Decimal Places 
+    [Arguments]     ${option}
+    Open User Settings Panel
+    Click Fields Tab
+    ${isAccordionShow}  Run Keyword And Return Status    Element Should Not Be Visible   ${ddlNumbersDecimals}
+    Run Keyword If    ${isAccordionShow}    Click Element    ${acdNumberHeader}
+    Select Dropdown By Text    ${ddlNumbersDecimals}    ${option}
+    Click Save User Settings

@@ -1,10 +1,12 @@
 *** Settings ***
 Resource    		${EXECDIR}/WC/POM/Search/SearchPage.robot
 Resource    		${EXECDIR}/WC/POM/Angle/AnglePage.robot
+Resource            ${EXECDIR}/WC/POM/Shared/UserSettingsPanel.robot
 
 *** Variables ***
 ${TEST_VERIFY_CHART_ANGLE_NAME}              Angle For General Test
 ${TEST_VERIFY_CHART_DISPLAY_NAME}            Test Chart 1
+${GRID_HEADER_MARGIN}  jquery=#AngleGrid .k-grid-header-wrap th[data-title="Margin"]
 
 *** Keywords ***
 Chart Options Are Presented
@@ -43,6 +45,13 @@ Drilldown Chart Display
     Click Toggle Angle
     Filter Text Should Be In Display Panel    ${expectFilter}
 
+Drilldown Chart Display With Floating Number
+    Find Angle By ID Then Execute The First Angle    ROBOT_ANGLE_DRILLDOWN_FLOAT
+    ${beforeDrilldownCount}   Get Total Of First Bar In Column Chart
+    Click First Bar In Column Chart
+    ${afterDrilldownCount}    Get Number Of Object
+    Should Be Equal    ${beforeDrilldownCount}    ${afterDrilldownCount}
+
 #####################################################################################################
 
 Go To Chart Test Display
@@ -56,6 +65,23 @@ Setup Field Settings For Chart Drilldown
     Select Bucket Option    1,000,000
     Save Field Format
     Remove Field In Data Area By Field Index    1
+    Click Apply Field Setting
+
+Add Field Double 
+    Set Decimal Places      None
+
+Add Field Double Filter Greater Than Zero
+    Set Decimal Places      None
+
+Create Chart At Field Double
+    Set Decimal Places      None
+
+Setup Field Settings For Chart Drilldown Floating Number
+    Change Chart To Bar Cluster
+    Click Field In Row Area By Field Index    0
+    Click Show Field Format For Field Settings
+    Select Bucket Option    0.001
+    Save Field Format
     Click Apply Field Setting
 
 Go Back To Chart After Drilldown
@@ -194,6 +220,12 @@ Move Field From Row To Column Area And Scale Mode Reset To Automatic
 
 Create Chart From Field
     Click Column Header
+    Select Create Chart
+    Wait Until Chart Display Loaded
+
+Create Chart From Specific Field    
+    [Arguments]  ${headerElement}
+    Click Element    ${headerElement}
     Select Create Chart
     Wait Until Chart Display Loaded
 

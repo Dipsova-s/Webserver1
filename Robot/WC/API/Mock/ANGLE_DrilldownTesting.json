@@ -1,0 +1,93 @@
+{
+    "multi_lang_name": [
+        {
+            "lang": "en",
+            "text": "[ROBOT] Angle Drilldown by floating Number"
+        }
+    ],
+    "allow_followups": true,
+    "allow_more_details": true,
+    "assigned_labels": [
+        "S2D"
+    ],
+    "query_definition": [
+        {
+            "base_classes": [
+                "PurchaseOrderScheduleLine"
+            ],
+            "queryblock_type": "base_classes"
+        }
+    ],
+    "display_definitions": [
+        {
+            "multi_lang_name": [
+                {
+                    "lang": "en",
+                    "text": "New chart display"
+                }
+            ],
+            "angle_id": "1811",
+            "display_details": "{\"chart_type\":\"column\",\"stack\":false,\"multi_axis\":false,\"axistitle\":\"show\",\"axisvalue\":\"show\",\"datalabel\":\"mouse\",\"gridline\":\"show\",\"legend\":\"show\",\"range\":{\"start\":0,\"size\":244},\"count_index\":0,\"show_as_percentage\":false,\"axisscale\":\"automatic\"}",
+            "query_blocks": [
+                {
+                    "query_steps": [
+                        {
+                            "field": "Margin",
+                            "operator": "between",
+                            "arguments": [
+                                {
+                                    "argument_type": "value",
+                                    "value": 7
+                                },
+                                {
+                                    "argument_type": "value",
+                                    "value": 8
+                                }
+                            ],
+                            "step_type": "filter"
+                        },
+                        {
+                            "aggregation_fields": [
+                                {
+                                    "field": "count",
+                                    "operator": "count"
+                                }
+                            ],
+                            "grouping_fields": [
+                                {
+                                    "field": "power10_min3_Margin",
+                                    "operator": "power10_min3",
+                                    "source_field": "Margin"
+                                }
+                            ],
+                            "step_type": "aggregation"
+                        }
+                    ],
+                    "queryblock_type": "query_steps"
+                }
+            ],
+            "fields": [
+                {
+                    "field": "power10_min3_Margin",
+                    "field_details": "{\"pivot_area\":\"row\",\"sorting\":\"\",\"thousandseparator\":true,\"decimals\":6}",
+                    "valid": true
+                },
+                {
+                    "field": "count",
+                    "field_details": "{\"pivot_area\":\"data\",\"sorting\":\"\"}",
+                    "valid": true
+                }
+            ],
+            "is_public": false,
+            "display_type": "chart",
+            "is_angle_default": true,
+            "id": "eaecb5f35ab60e4437b86c5614b4b8b383"
+        }
+    ],
+    "id": "ROBOT_ANGLE_DRILLDOWN_FLOAT",
+    "model": "/models/1",
+    "is_validated": false,
+    "is_parameterized": false,
+    "is_published": false,
+    "is_template": false
+}

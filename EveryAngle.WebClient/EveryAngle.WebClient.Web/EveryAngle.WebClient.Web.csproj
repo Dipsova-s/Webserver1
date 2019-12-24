@@ -678,6 +678,7 @@
     <Content Include="Resources\Help\help.txt" />
     <Content Include="Resources\Movies\movies.txt" />
     <Content Include="Scripts\ContextMenu\clipboard.js" />
+    <Content Include="Scripts\Helper\bignumber.js" />
     <Content Include="Scripts\Helper\HtmlHelper.MultiSelect.js" />
     <Content Include="Scripts\Helper\HtmlHelper.ActionMenu.js" />
     <Content Include="Scripts\Helper\HtmlHelper.Accordion.js" />

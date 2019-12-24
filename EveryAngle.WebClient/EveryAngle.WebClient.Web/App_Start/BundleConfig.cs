@@ -126,7 +126,8 @@ namespace EveryAngle.WebClient.Web
                 "~/scripts/helper/modelhandlerhelper.js",
                 "~/scripts/helper/defaultvaluehandler.js",
                 "~/scripts/ajaxhttphandler/ajaxrequesthandler.js",
-                "~/scripts/ajaxhttphandler/requesthistoryhandler.js"
+                "~/scripts/ajaxhttphandler/requesthistoryhandler.js",
+                "~/scripts/helper/bignumber.js"
             };
 
             var shareScripts = new string[] {

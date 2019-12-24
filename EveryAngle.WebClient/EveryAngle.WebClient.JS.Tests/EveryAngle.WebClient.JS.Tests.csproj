@@ -125,6 +125,9 @@
       <Link>SharedDependencies\ClassesChooser.js</Link>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="..\EveryAngle.WebClient.Web\Scripts\Helper\bignumber.js">
+      <Link>WebClient\Dependencies\Helper\bignumber.js</Link>
+    </Content>
     <Content Include="..\EveryAngle.WebClient.Web\Scripts\Helper\HtmlHelper.ActionMenu.js">
       <Link>WebClient\Dependencies\Helper\HtmlHelper.ActionMenu.js</Link>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>

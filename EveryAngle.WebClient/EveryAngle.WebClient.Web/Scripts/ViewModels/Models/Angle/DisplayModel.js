@@ -1599,14 +1599,11 @@ function DisplayModel(model) {
             upperBoundValue = bucketValue;
         }
         else {
-            // other field type will be lower bound value + bucket size.
-            upperBoundValue = lowerBoundValue + bucketValue;
+            var lower = new BigNumber(lowerBoundValue);
+            var upper = new BigNumber(bucketValue);
 
-            // prevent javascript float value bug.
-            var decimalLength = self.CountDecimalFromArgumentValue(bucketValue);
-            if (decimalLength) {
-                upperBoundValue = parseFloat(upperBoundValue.toFixed(decimalLength));
-            }
+            // other field type will be lower bound value + bucket size.
+            upperBoundValue = lower.plus(upper).toNumber();
         }
 
         upperBoundArgument = WC.WidgetFilterHelper.ArgumentObject(upperBoundValue, enumHandlers.FILTERARGUMENTTYPE.VALUE);

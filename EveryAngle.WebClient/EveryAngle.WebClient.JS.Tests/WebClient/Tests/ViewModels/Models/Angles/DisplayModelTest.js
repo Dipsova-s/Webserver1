@@ -127,6 +127,27 @@ describe("DisplayModel", function () {
                 expect(testObject.expectedResult.upperBound).toEqual(actualResult[1].value);
             });
         });
+
+        it("should get between argument values with eight decimal places", function () {
+
+            var testObject = {
+                arguments: {
+                    value: 0.09990404,
+                    fieldType: enumHandlers.FIELDTYPE.PERCENTAGE,
+                    bucketOperator: 'power10_min2'
+                },
+                expectedResult: {
+                    lowerBound: 0.09990404,
+                    upperBound: 0.10000404
+                }
+            };
+
+            var actualResult = displayModel.GetBetweenArgumentValues(
+                testObject.arguments.value, testObject.arguments.fieldType, testObject.arguments.bucketOperator);
+
+            expect(testObject.expectedResult.lowerBound).toEqual(actualResult[0].value);
+            expect(testObject.expectedResult.upperBound).toEqual(actualResult[1].value);
+        });
     });
 
     describe('.CleanNotAcceptedExecutionParameter', function () {

@@ -36,6 +36,7 @@
     { "Path": "/Dependencies/Helper/ManageCookies.js" },
     { "Path": "/Dependencies/Helper/bootstrap.js" },
     { "Path": "/Dependencies/Helper/EnumHandlers.js" },
+    { "Path": "/Dependencies/Helper/bignumber.js" },
     { "Path": "/Dependencies/Helper/HtmlHelper.js" },
     { "Path": "/Dependencies/Helper/Storage.js" },
     { "Path": "/Dependencies/Helper/utilities.js" },
