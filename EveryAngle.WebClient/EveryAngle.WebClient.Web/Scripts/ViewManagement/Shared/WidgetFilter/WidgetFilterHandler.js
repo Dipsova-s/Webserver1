@@ -520,8 +520,6 @@ function WidgetFilterHandler(container, models) {
         return tempCriteria;
     };
     self.RenderCompareFieldView = function (fieldName, fieldId, fieldType, elementIndex) {
-        var data = self.Data()[elementIndex];
-
         // generate DataTypeCriteria
         var placeholder = self.View.GetHtmlElementById('FilterDetail-' + elementIndex + '-PlaceHolder');
         var templateName = self.GetTemplateName(fieldType, 'comparefield');
@@ -530,7 +528,8 @@ function WidgetFilterHandler(container, models) {
         self.View.GetHtmlElementById('InputFieldValue-' + elementIndex).val(fieldId);
         self.View.GetHtmlElementById('FieldCompare-' + elementIndex).attr('title', fieldName).find('.filterLabelCompareName').text(fieldName);
         self.View.AdjustLayout();
-
+        var data = self.Data()[elementIndex];
+        data.arguments = [WC.WidgetFilterHelper.ArgumentObject(fieldId, enumHandlers.FILTERARGUMENTTYPE.FIELD)];
         return self.ApplyFilter(elementIndex, data);
     };
     self.IsCompareField = function (stepArguments) {
@@ -675,7 +674,7 @@ function WidgetFilterHandler(container, models) {
         if (self.CanUseAdvanceArgument(fieldType, operator)) {
             data.arguments = self.GetFilterAdvanceArguments(index);
         }
-        else if (self.View.IsCompareFilter(index)) {
+        else if (self.IsCompareField(data.arguments)) {
             data.arguments = self.GetFilterCompareFieldArguments(index);
         }
         else {

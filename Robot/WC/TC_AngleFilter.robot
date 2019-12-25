@@ -30,9 +30,18 @@ Verify Add Filter Before Jump
     # check add filter/jump from Angle popup
     Open Angle Detail Popup
     Click Angle Detail Definition Tab
-    Add Filter From Angle Details Popup    "delivery block"    DeliveryNoteHeader__DeliveryBlock
+	
+	# M4-71243 the other values should not be change
+	${beforeAddJumpText}  Get Filter Text From Popup    0
+    
+	Add Filter From Angle Details Popup    "delivery block"    DeliveryNoteHeader__DeliveryBlock
     Add Filter Before Jump From Angle Details Popup    0    "delivery block"    DeliveryBlock
-    Click Add Jump In Definition Tab
+	
+	# M4-71243 the other values should not be change
+	${afterAddJumpText}  Get Filter Text From Popup    1
+    Should Be Equal As Strings    ${beforeAddJumpText}    ${afterAddJumpText}
+	
+	Click Add Jump In Definition Tab
     Jump Should Be Existed In Popup    Delivery Header
     Jump Should Be Existed In Popup    Material
     Jump Should Be Existed In Popup    Material on Plant Level

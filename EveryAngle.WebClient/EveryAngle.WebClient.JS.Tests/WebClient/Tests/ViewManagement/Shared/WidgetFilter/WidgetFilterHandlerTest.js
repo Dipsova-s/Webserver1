@@ -327,7 +327,10 @@ describe("WidgetFilterHandler", function () {
                 "valid": true,
                 "field": "Vendor__KTOKK",
                 "operator": "equal_to",
-                "arguments": [],
+                "arguments": [{
+                    "argument_type": "field",
+                    "field": "ID"
+                }],
                 "step_type": "filter"
             }];
             spyOn(modelFieldSourceHandler, 'GetFieldSourceByUri').and.callFake(function () {
@@ -1299,7 +1302,7 @@ describe("WidgetFilterHandler", function () {
                     "value": null
                 }],
                 "step_type": "filter"
-                }];
+            }];
 
             var target = new WidgetFilterHandler(container, querySteps);
             var sender = {};
@@ -1455,7 +1458,7 @@ describe("WidgetFilterHandler", function () {
             spyOn(handler, 'CanChange').and.callFake(function () {
                 return true;
             });
-            
+
             var result = handler.CreateFromQuerySteps(querySteps);
             expect(result.length).toBe(1);
         });
@@ -1610,8 +1613,8 @@ describe("WidgetFilterHandler", function () {
                 "field": "ExecutionStatus",
                 "operator": "in_set",
                 "arguments": [{
-                    "argument_type": "value",
-                    "value": "es0ToBeExecuted"
+                    "argument_type": "field",
+                    "field": "ID"
                 }],
                 "step_type": "filter"
             }];

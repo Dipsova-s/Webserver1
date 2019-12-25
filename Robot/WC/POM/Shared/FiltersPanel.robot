@@ -2,6 +2,7 @@
 ${divFilterPanel}                       jquery=.FilterHeader
 ${ddlFilterOperator}                    Operator-
 ${ddlFilterSelectValue}                 InputValue-
+${lblFilterText}                        jquery=.FilterHeader .filterText.filter
 ${txtFirstInput}                        FirstInput-
 ${txtSecondInput}                       SecondInput-
 ${txtInputNumber}                       InputValue-
@@ -172,3 +173,8 @@ Input Filter Set Select Value
 Click Add Filter From Jump
     [Arguments]   ${index}
     Click Element    ${divFilterPanel}:eq(${index}) + ${btnAddFilterBeforeJump}
+	
+Get Filter Text From Popup 
+    [Arguments]    ${index}
+    ${filterText}    Get Text    ${lblFilterText}:eq(${index})
+	[Return]    ${filterText}
