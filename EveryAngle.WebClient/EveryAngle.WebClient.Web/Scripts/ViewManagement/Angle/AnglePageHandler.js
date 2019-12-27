@@ -668,6 +668,8 @@ function AnglePageHandler() {
                     document.execCommand('Stop');
             }
 
+            resultModel.AbortToObserveResult();
+
             setTimeout(function () {
                 if (self.IsPosibleToEditModel) {
                     if (WC.Utility.UrlParameter(enumHandlers.ANGLEPARAMETER.TEMPLATE)) {

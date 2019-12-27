@@ -5,6 +5,9 @@ function ResultViewModel() {
 
     var self = this;
     var cacheDataField = {};
+    var isResultRunning = true;
+    var fnCheckGetResult;
+
     //BOF: View model properties
     self.BaseClassName = ko.observable('');
     self.TotalRow = ko.observable(0);
@@ -359,9 +362,16 @@ function ResultViewModel() {
         }
     };
 
-    self.RequestResult = function (request) {
+    self.StartToObserveResult = function () {
+        isResultRunning = true;
+        clearInterval(fnCheckGetResult);
+    };
+    self.AbortToObserveResult = function () {
+        isResultRunning = false;
+        clearInterval(fnCheckGetResult);
+    };
+    self.RequestResult = function (uri) {
         var deferred = jQuery.Deferred();
-        var fnCheckGetResultDelay, fnCheckGetResult;
         var requestStatus = {
             completed: false,
             fn: jQuery.noop,
@@ -369,79 +379,88 @@ function ResultViewModel() {
             response: {}
         };
 
-        var getResult = function (uri) {
-            GetDataFromWebService(directoryHandler.ResolveDirectoryUri(uri))
-                .fail(function (xhr, status, error) {
-                    if (xhr.status === 404) {
-                        jQuery.when(self.RetryPostResult())
-                            .done(function (data) {
-                                getResult(data.uri);
-                            });
-                    }
-                    else {
-                        errorHandlerModel.Enable(true);
-                        requestStatus.completed = true;
-                        requestStatus.fn = 'reject';
-                        requestStatus.args = [xhr, status, error];
-                    }
-                })
-                .done(function (data, status, xhr) {
-                    clearTimeout(fnCheckGetResultDelay);
-                    if (data === false) {
-                        requestStatus.response = false;
-                        requestStatus.completed = true;
-                    }
-                    else {
-                        data.row_count = data.row_count || 0;
-                        data.object_count = data.object_count || 0;
+        self.ObserveResult(uri, requestStatus);
+        self.WatchResult(deferred, requestStatus);
+        return self.PromiseResult(deferred);
+    };
+    self.ObserveResult = function (uri, requestStatus) {
+        GetDataFromWebService(directoryHandler.ResolveDirectoryUri(uri))
+            .fail(function (xhr, status, error) {
+                if (xhr.status === 404) {
+                    jQuery.when(self.RetryPostResult())
+                        .done(function (data) {
+                            self.ObserveResult(data[0].uri, requestStatus);
+                        });
+                }
+                else {
+                    errorHandlerModel.Enable(true);
+                    requestStatus.completed = true;
+                    requestStatus.fn = 'reject';
+                    requestStatus.args = [xhr, status, error];
+                }
+            })
+            .done(function (data, status, xhr) {
+                if (data === false) {
+                    requestStatus.response = false;
+                    requestStatus.completed = true;
+                }
+                else {
+                    data.row_count = data.row_count || 0;
+                    data.object_count = data.object_count || 0;
 
-                        if (data.status !== enumHandlers.POSTRESULTSTATUS.FINISHED.Value) {
-                            data.progress = Math.max(0, Math.min(data.progress || 0, 0.99));
+                    if (data.status !== enumHandlers.POSTRESULTSTATUS.FINISHED.Value) {
+                        data.progress = Math.max(0, Math.min(data.progress || 0, 0.99));
 
-                            fnCheckGetResultDelay = setTimeout(function () {
-                                // Call to server again is data not success
-                                getResult(uri);
+                        if (isResultRunning) {
+                            // call to server again if the data is not success
+                            setTimeout(function () {
+                                self.ObserveResult(uri, requestStatus);
                             }, intervalTime);
                         }
                         else {
-                            data.progress = 1;
-                            requestStatus.completed = true;
-
-                            // finished but not successfully_completed
-                            if (!data.successfully_completed) {
-                                data.responseText = Localization.ErrorPostResultFinishWithUnknown;
-                                requestStatus.fn = 'reject';
-                                requestStatus.args = [data, null, null];
-                            }
-                            else {
-                                requestStatus.fn = 'resolve';
-                                requestStatus.args = [data, status, xhr];
-                            }
+                            WC.Ajax.SendExitRequests([new RequestModel(RequestModel.METHOD.DELETE, uri)], true);
+                            // restore observation
+                            self.StartToObserveResult();
                         }
-                        requestStatus.response = data;
+
                     }
-                });
-        };
+                    else {
+                        data.progress = 1;
+                        requestStatus.completed = true;
 
-        getResult(request);
-
+                        // finished but not successfully_completed
+                        if (!data.successfully_completed) {
+                            data.responseText = Localization.ErrorPostResultFinishWithUnknown;
+                            requestStatus.fn = 'reject';
+                            requestStatus.args = [data, null, null];
+                        }
+                        else {
+                            requestStatus.fn = 'resolve';
+                            requestStatus.args = [data, status, xhr];
+                        }
+                    }
+                    requestStatus.response = data;
+                }
+            });
+    };
+    self.WatchResult = function (deferred, requestStatus) {
         clearInterval(fnCheckGetResult);
         fnCheckGetResult = setInterval(function () {
             if (requestStatus.response === false) {
-                clearTimeout(fnCheckGetResultDelay);
-                clearInterval(fnCheckGetResult);
+                self.AbortToObserveResult();
                 deferred.resolve(false);
             }
             else {
                 deferred.notify(requestStatus.response);
 
                 if (requestStatus.completed) {
-                    clearInterval(fnCheckGetResult);
+                    self.AbortToObserveResult();
                     deferred[requestStatus.fn].apply(this, requestStatus.args);
                 }
             }
         }, 100);
-
+    };
+    self.PromiseResult = function (deferred) {
         var promise = deferred.promise();
         promise.progress(function (data) {
             if (typeof self.CustomProgressbar === 'function') {
@@ -472,6 +491,8 @@ function ResultViewModel() {
         return jQuery.when(self.Data().is_aggregated ? self.LoadDataFields() : null);
     };
     self.GetResult = function (request) {
+        // need to reset observation before getting the new result
+        self.StartToObserveResult();
         return jQuery.when(self.RequestResult(request), self.RequestDataField());
     };
     self.SetLatestRenderInfo = function () {
