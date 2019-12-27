@@ -2,6 +2,7 @@
 Resource            ${EXECDIR}/WC/POM/ManagementConsole/GlobalSettings/LabelCategory/LabelCategories.robot
 Resource            ${EXECDIR}/WC/POM/ManagementConsole/GlobalSettings/LabelCategory/EditLabelCategories.robot
 Resource            ${EXECDIR}/WC/POM/ManagementConsole/Overview.robot
+Resource            ${EXECDIR}/WC/POM/ManagementConsole/Models/Labels.robot
 
 *** Keywords ***
 Go To Label Category Setting Page
@@ -35,3 +36,35 @@ Delete Label Category Setting
     Click Action Dropdown Label Category By ID    ${labelCategoryName}
     Click Delete Label Category By ID    ${labelCategoryName}
     Click Confirm Delete Label Category
+
+Verify Label Category data
+    [Arguments]    ${labelCategoryName}    ${labelName}     
+    Verify Each Data of Label Category    ${labelCategoryName}    ${labelName}
+
+Verify Existence Of Label Category
+    [Arguments]     ${expectedLabelCategoryName}
+    Verify Category Data      ${expectedLabelCategoryName}
+
+Verify Existence Of Labels
+    [Arguments]     ${expectedlabelName}
+    Verify Labels Data      ${expectedlabelName}
+
+Verify Filter
+    [Arguments]    ${labelCategoryName}    ${labelName}
+    Verify Filtering    ${labelCategoryName}    ${labelName}    
+
+Check Active, Valid And Required Checkboxes
+    [Arguments]    ${labelCategoryName}
+    Selecting Checkboxes    ${labelCategoryName}
+
+Uncheck Required, Valid and Active Checkboxes
+    [Arguments]    ${labelCategoryName}
+    Unselecting Checkboxes     ${labelCategoryName}
+
+Verify the Reordering of Label Categories
+    [Arguments]     ${labelCategoryName}
+    Verify Reordering       ${labelCategoryName}
+    
+
+
+

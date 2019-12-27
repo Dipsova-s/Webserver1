@@ -18,10 +18,13 @@ ${txtAbbreviationNewLabel}                   input[name="id"]
 ${txtEnglishNewLabel}                        input[name="en"]
 
 
-${addNewLabel}                       css=.gridToolbarBottom .btnAdd
+${addNewLabel}                               css=.gridToolbarBottom .btnAdd
 
 ${btnSaveLabelCategory}                      css=.btnSave
 ${btnCancelEditLabelCategory}                css=.btnBack
+
+${listOfLabelsData}                          //div[@class='k-grid-content']//descendant::td[@role='gridcell']//input[@type='text']
+
 
 #Delete Label Category Popup
 ${btnConfirmDeleteLabel}               css=#popupConfirmation .btnSubmit
@@ -110,6 +113,23 @@ Add Or Edit Label Category Dutch
     Wait Until Page Contains Element    ${trRowInLabelCategoryGrid} ${txtDutchLabel}
     Input Text    ${trRowInLabelCategoryGrid} ${txtDutchLabel}    ${text}
 
+#Verify Label Category data
+Verify Each Data Of Label Category
+    [Arguments]     ${labelCategoryName}    ${labelName}
+    ${count}        Get Element Count        ${listOfLabelsData}
+    @{labelsDataList}      Create List
+    :FOR    ${i}    IN RANGE    1   ${count} + 1
+    \    ${labelsName}    Get Value    (${listOfLabelsData})[${i}]  
+    \    ${labelNameString}=     Encode String To Bytes      ${labelsName}     UTF-8
+    \    Append To List      ${labelsDataList}   ${labelNameString}
+    Log     ${labelsDataList}
+
+    :FOR    ${i}    IN RANGE    0   ${count} - 6
+    \   Should Be Equal As Strings   @{labelsDataList}[${i}]     ${labelCategoryName}
+
+    :FOR    ${j}    IN RANGE    6   ${count}
+    \   Should Be Equal As Strings   @{labelsDataList}[${j}]     ${labelName}
+
 #Edit Lable
 Edit English Label By Abbreviation
     [Arguments]    ${abbreviation}    ${text}
@@ -166,7 +186,3 @@ Add Dutch Label
     [Arguments]    ${text}
     Wait Until Page Contains Element    ${trRowInLabelsGrid}${trNewLabelRow} ${txtDutchLabel}
     Input Text    ${trRowInLabelsGrid}${trNewLabelRow} ${txtDutchLabel}    ${text}
-
-
-
-

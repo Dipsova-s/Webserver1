@@ -16,6 +16,7 @@ ${divSideMenuModels}                        sideMenu-Models
 ${divSideMenuModelsAllModels}               sideMenu-Models-AllModels
 ${divSideMenuModelsEA2_800}                 sideMenu-Models-EA2_800
 ${divSideMenuModelsEA2_800Roles}            jquery=#sideMenu-Models-EA2_800-Roles>a
+${linkLabel}                                //span[text()='Labels']
 ${divSideMenuModelLanguages}                sideMenu-Models-EA2_800-Languages
 ${divSideMenuSuggestedFields}               sideMenu-Models-EA2_800-SuggestedFields
 ${divSideMenuRefreshCycle}                  sideMenu-Models-EA2_800-RefreshCycle
@@ -140,6 +141,13 @@ Click Side Menu Models EA2_800
     Wait Until Page Contains    Languages
     Wait Until Page Contains    Roles
     Sleep    ${TIMEOUT_GENERAL}
+
+Click Side Menu Labels
+    Wait MC Progress Bar Closed
+    Wait Until Page Contains Element    ${linkLabel}
+    Click Element    ${linkLabel}
+    Wait MC Progress Bar Closed
+    Wait Until Page Contains    EA2_800 Labels
 
 Click Side Menu Model Languages
     Wait MC Progress Bar Closed
