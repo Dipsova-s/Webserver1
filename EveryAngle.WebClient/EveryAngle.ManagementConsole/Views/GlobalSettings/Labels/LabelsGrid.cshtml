@@ -26,7 +26,7 @@
     .Name("Grid")
     .Columns(columns =>
     {
-        columns.Bound("abbreviation").Title(Resource.MC_Abbreviation).ClientTemplate("<input type=\"text\" maxlength=\"10\" class=\"required\" name=\"name\" value=\"#: abbreviation #\" />").HtmlAttributes(new { @id = "#: abbreviation #" }).Width(95);
+        columns.Bound("abbreviation").Title(Resource.MC_Abbreviation).ClientTemplate("<input type=\"text\" maxlength=\"10\" class=\"required field_id\" name=\"name\" value=\"#: abbreviation #\" />").HtmlAttributes(new { @id = "#: abbreviation #" }).Width(95);
         foreach (System.Data.DataColumn column in Model.Columns)
         {
             if (column.ColumnName == "lang_en")

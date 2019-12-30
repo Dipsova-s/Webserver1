@@ -10,6 +10,7 @@ Force Tags        	MC   smk_mc
 ${TEST_EXPORT_PRIVILEGES}    [ROBOT] Test Label Category
 ${LABEL_CATEGORY_NAME}       TestLabelCategory
 ${LABEL_NAME}                TestLabel
+${INVALID_LABEL_NAME}        Invalid Label
 
 *** Test Cases ***
 Test Label Category
@@ -23,6 +24,7 @@ Test Label Category
     Verify Existence Of Label Category      ${LABEL_CATEGORY_NAME}
     Click Edit Label Category By ID    ${LABEL_CATEGORY_NAME}
     Verify Label Category data      ${LABEL_CATEGORY_NAME}      ${LABEL_NAME}
+	Edit Invalid Label    ${LABEL_NAME}    ${INVALID_LABEL_NAME}  
     Click Cancel Edit Label Category
     Verify the Reordering of Label Categories    ${LABEL_CATEGORY_NAME}
     Click Side Menu Models

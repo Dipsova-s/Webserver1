@@ -16,6 +16,7 @@ ${txtDutchLabel}                             input[name="lang_nl"]
 
 ${txtAbbreviationNewLabel}                   input[name="id"]
 ${txtEnglishNewLabel}                        input[name="en"]
+${txtAbbreviationLabel}                      input[name="name"]
 
 
 ${addNewLabel}                               css=.gridToolbarBottom .btnAdd
@@ -44,6 +45,10 @@ Wait Until Edit Label Category Page Loaded
     Wait Until Page Contains    Edit label category
     Wait Until Page Contains Element    ${trRowInLabelCategoryGrid}
     Wait Until Page Contains Element    ${divLabelsGridContent}
+	
+Wait Until Validation Message Shown 
+    [Arguments]    ${abbreviation}
+    Wait Until Page Contains Element    ${trRowInLabelsGrid}:contains(${abbreviation}) ${txtAbbreviationLabel}.error 		
 
 Click Save New Label Category
     Wait Until Element Is Visible    ${btnSaveLabelCategory}
@@ -56,6 +61,12 @@ Click Save Edit Label Category
     Click Element    ${btnSaveLabelCategory}
     Wait MC Progress Bar Closed
     Wait Until Label Categories Page Loaded
+
+Click Save Invalid Label
+    [Arguments]    ${abbreviation}
+    Wait Until Element Is Visible    ${btnSaveLabelCategory}
+    Click Element    ${btnSaveLabelCategory}
+    Wait Until Validation Message Shown    ${abbreviation}
 
 Click Cancel Edit Label Category
     Wait Until Element Is Visible    ${btnCancelEditLabelCategory}
@@ -130,7 +141,12 @@ Verify Each Data Of Label Category
     :FOR    ${j}    IN RANGE    6   ${count}
     \   Should Be Equal As Strings   @{labelsDataList}[${j}]     ${labelName}
 
-#Edit Lable
+#Edit Label
+Edit Label Abbreviation
+    [Arguments]    ${abbreviation}    ${text}
+    Wait Until Page Contains Element    ${trRowInLabelsGrid}:contains(${abbreviation}) ${txtAbbreviationLabel}
+    Input Text    ${trRowInLabelsGrid}:contains(${abbreviation}) ${txtAbbreviationLabel}    ${text}
+
 Edit English Label By Abbreviation
     [Arguments]    ${abbreviation}    ${text}
     Wait Until Page Contains Element    ${trRowInLabelsGrid}:contains(${abbreviation}) ${txtEnglishLabel}

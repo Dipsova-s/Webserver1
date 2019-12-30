@@ -30,6 +30,12 @@ Add Label
     Add French Label    ${labelName}
     Add Dutch Label    ${labelName}
     Click Save Edit Label Category
+	
+Edit Invalid Label
+    [Arguments]    ${abbreviation}    ${labelName}
+    Edit Label Abbreviation    ${abbreviation}    ${labelName}
+    Click Save Invalid Label     ${abbreviation} 		
+	Wait Until Validation Message Shown    ${abbreviation}
 
 Delete Label Category Setting
     [Arguments]    ${labelCategoryName}
