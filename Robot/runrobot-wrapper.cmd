@@ -28,13 +28,12 @@ goto run_test
 if not "%COPYTO:~-1%"=="\" set "COPYTO=%COPYTO%\"
 
 :: clean up directory
-if not exist "%COPYTO%" mkdir "%COPYTO%"
-if exist "%COPYTO%report*" for /d %%x in ("%COPYTO%report*") do rd /s /q "%%x"
 if exist "%COPYTO%resources" rd "%COPYTO%resources" /s /q
 if exist "%COPYTO%WC" rd "%COPYTO%WC" /s /q
 
 :: copy all
 xcopy * %COPYTO% /E /S /Y /Q
+if exist "%COPYTO%report" rd "%COPYTO%report" /s /q
 
 :run_test
 ::::::::::::::::::::::::::::::::
