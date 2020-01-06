@@ -59,9 +59,3 @@ Verify Users Count After Added
     Filter Role By Role Name    ${roleName}
     ${UserInRole}    Get Users Count By Role Name
     Should Be Equal    ${UserCount}    ${UserInRole}
-
-Verify All Privileges Are Allow By Role Id
-    [Arguments]    ${roleName}
-    Click Edit Role Action By Role Name    ${roleName}
-    Click Edit Role By Role Name    ${roleName}
-    Radio Button Should Be Set To    ${ManagePrivateItems}    True
