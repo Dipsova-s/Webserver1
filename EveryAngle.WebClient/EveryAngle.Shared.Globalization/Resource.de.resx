@@ -820,7 +820,7 @@
     <value>Launcher herunterladen</value>
   </data>
   <data name="SystemSettingLabelGoToSAPDownload_Info" xml:space="preserve">
-    <value>Um „Go to SAP“ zu verwenden, klicken Sie auf den „Go to SAP“-Launcher, um ihn herunterzuladen und auf Ihrer Arbeitsstation zu installieren.</value>
+    <value>Für die Verwendung von Go to SAP klicken Sie hier, um den Go to SAP Launcher auf Ihren Arbeitsplatz herunterzuladen und zu installieren.</value>
   </data>
   <data name="SystemSettingLabelShowSmallBusinessProcessBar" xml:space="preserve">
     <value>Kurzdarstellung anzeigen</value>
@@ -3880,7 +3880,7 @@ After selecting an object, click the Continue button to start setting the sugges
     <value>Contributor</value>
   </data>
   <data name="AboutEveryAngleDetails" xml:space="preserve">
-    <value>Die neuesten Produktinformationen&lt;br/&gt; finden Sie unter &lt;a href="http://www.everyangle.com" target="_blank"&gt;www.everyangle.com&lt;/a&gt;&lt;br/&gt;&lt;br/&gt; </value>
+    <value>Für die aktuellsten Produktinformationen&lt;br/&gt; besuchen Sie uns unter &lt;a href="http://www.everyangle.com" target="_blank"&gt;www.everyangle.com&lt;/a&gt;&lt;br/&gt;&lt;br/&gt; </value>
   </data>
   <data name="AboutClientVersion" xml:space="preserve">
     <value>Client:</value>
@@ -4859,7 +4859,7 @@ Leave this field empty if you do not use Google Analytics.</value>
   </data>
   <data name="MC_WebClientSettingsHelpEnableGoToSAP" xml:space="preserve">
     <value>Select this field to enable the Go to SAP functionality.&lt;br&gt;
-The option to download the required Go to SAP launcher will then become available in the Settings menu of the Web Client.</value>
+The option to download the required Go to SAP Launcher will then become available in the Settings menu of the Web Client.</value>
   </data>
   <data name="MC_Validation_GoogleAnalyticsId" xml:space="preserve">
     <value>Invalid Google Analytics ID.</value>
@@ -5240,6 +5240,12 @@ The value 0 means the setting is off, so the log file will not be cleaned up. Th
   <data name="ExportCSVEnumFormatLongName" xml:space="preserve">
     <value>Langname</value>
   </data>
+  <data name="MC_AllowGroupingInPivotExcelExport" xml:space="preserve">
+    <value>Enable Grouping in Pivot exports</value>
+  </data>
+  <data name="MC_SystemSettingsHelpAllowGroupingInPivotExcelExport" xml:space="preserve">
+    <value>When enabled, additional data groups are exported to support grouping in Excel.</value>
+  </data>
   <data name="MC_IncludeSelfInExportHeaders" xml:space="preserve">
     <value>Include Self in export headers</value>
   </data>
@@ -5345,7 +5351,7 @@ This setting is valid for both Export to Excel and Export to CSV, manually from 
     <value>ungültige hochgeladene Datei</value>
   </data>
   <data name="UploadAngles_SelectFile" xml:space="preserve">
-    <value>Elemente zum Hochladen auswählen, oder hier ablegen...</value>
+    <value>Elemente zum Upload auswählen oder hier ablegen...</value>
   </data>
   <data name="UploadAngles_SuccessfulMessage" xml:space="preserve">
     <value>Element-Upload erfolgreich: {0} von {1}</value>
@@ -6115,10 +6121,13 @@ Only Active Directory (AD) and Active Directory Federation (ADFS) services are s
     <value>Die Freigabe von „{0}“ wurde aufgehoben!</value>
   </data>
   <data name="DeselectAll" xml:space="preserve">
-    <value>Deselect all</value>
+    <value>Alle Auswahlen aufheben</value>
   </data>
   <data name="InvertSelection" xml:space="preserve">
-    <value>Invert selection</value>
+    <value>Auswahl umkehren</value>
+  </data>
+  <data name="MC_AddValues" xml:space="preserve">
+    <value>Add values</value>
   </data>
   <data name="OperatorIsNotRelativeBetween" xml:space="preserve">
     <value>ist nicht relativ zwischen</value>
@@ -6133,7 +6142,7 @@ Only Active Directory (AD) and Active Directory Federation (ADFS) services are s
     <value>ist relativ zwischen</value>
   </data>
   <data name="ScrollingMightNotWorkCorrectlyWhenRunningIOS13" xml:space="preserve">
-    <value>Due to a known issue, scrolling might not work correctly when running iOS 13. Please contact Every Angle Support for more information</value>
+    <value>Aufgrund eines bekannten Problems funktioniert der Bildlauf möglicherweise nicht korrekt, wenn iOS 13 läuft. Bitte kontaktieren Sie den Support von Every Angle für weitere Informationen.</value>
   </data>
   <data name="CopyRight" xml:space="preserve">
     <value>Copyright © {0}</value>
