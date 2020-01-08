@@ -823,7 +823,7 @@
     <value>Descargar Launcher</value>
   </data>
   <data name="SystemSettingLabelGoToSAPDownload_Info" xml:space="preserve">
-    <value>Para usar Go to SAP, haga clic para descargar e instalar el Launcher de Go to SAP en la estación de trabajo.</value>
+    <value>Para usar Go to SAP, haga clic para descargar e instalar el Launcher Go to SAP en la estación de trabajo.</value>
   </data>
   <data name="SystemSettingLabelShowSmallBusinessProcessBar" xml:space="preserve">
     <value>Mostrar barra de Proceso de negocios pequeña</value>
@@ -5246,6 +5246,12 @@ The value 0 means the setting is off, so the log file will not be cleaned up. Th
   <data name="ExportCSVEnumFormatLongName" xml:space="preserve">
     <value>Nombre completo</value>
   </data>
+  <data name="MC_AllowGroupingInPivotExcelExport" xml:space="preserve">
+    <value>Enable Grouping in Pivot exports</value>
+  </data>
+  <data name="MC_SystemSettingsHelpAllowGroupingInPivotExcelExport" xml:space="preserve">
+    <value>When enabled, additional data groups are exported to support grouping in Excel.</value>
+  </data>
   <data name="MC_IncludeSelfInExportHeaders" xml:space="preserve">
     <value>Include Self in export headers</value>
   </data>
@@ -5351,7 +5357,7 @@ This setting is valid for both Export to Excel and Export to CSV, manually from 
     <value>archivo cargado no válido</value>
   </data>
   <data name="UploadAngles_SelectFile" xml:space="preserve">
-    <value>Seleccione los archivos de posiciones para cargar o arrástrelos aquí...</value>
+    <value>Seleccione las posiciones para cargar o arrástrelas aquí...</value>
   </data>
   <data name="UploadAngles_SuccessfulMessage" xml:space="preserve">
     <value>Carga de posiciones correcta {0} de {1}</value>
@@ -6121,10 +6127,13 @@ Only Active Directory (AD) and Active Directory Federation (ADFS) services are s
     <value>Se ha cancelado la validación de '{0}'</value>
   </data>
   <data name="DeselectAll" xml:space="preserve">
-    <value>Deselect all</value>
+    <value>Anular selección</value>
   </data>
   <data name="InvertSelection" xml:space="preserve">
-    <value>Invert selection</value>
+    <value>Invertir selección</value>
+  </data>
+  <data name="MC_AddValues" xml:space="preserve">
+    <value>Add values</value>
   </data>
   <data name="OperatorIsNotRelativeBetween" xml:space="preserve">
     <value>no es relativo entre</value>
@@ -6139,7 +6148,7 @@ Only Active Directory (AD) and Active Directory Federation (ADFS) services are s
     <value>es relativo entre</value>
   </data>
   <data name="ScrollingMightNotWorkCorrectlyWhenRunningIOS13" xml:space="preserve">
-    <value>Due to a known issue, scrolling might not work correctly when running iOS 13. Please contact Every Angle Support for more information</value>
+    <value>Debido a un error conocido, es posible que no funcione correctamente el desplazamiento cuando se ejecuta iOS 13. Póngase en contacto con el servicio de asistencia de Every Angle para obtener más información.</value>
   </data>
   <data name="CopyRight" xml:space="preserve">
     <value>Copyright © {0}</value>

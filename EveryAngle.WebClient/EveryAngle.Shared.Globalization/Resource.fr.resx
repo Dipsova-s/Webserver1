@@ -823,7 +823,7 @@
     <value>Télécharger Launcher</value>
   </data>
   <data name="SystemSettingLabelGoToSAPDownload_Info" xml:space="preserve">
-    <value>Pour utiliser Go to SAP, cliquez pour télécharger et installer le lanceur Go to SAP sur votre poste de travail.</value>
+    <value>Pour utiliser Go to SAP, cliquez pour télécharger et installer le Launcher Go to SAP sur votre poste de travail.</value>
   </data>
   <data name="SystemSettingLabelShowSmallBusinessProcessBar" xml:space="preserve">
     <value>Afficher petite barre des Processus Métier</value>
@@ -3886,10 +3886,10 @@ After selecting an object, click the Continue button to start setting the sugges
     <value>Contributor</value>
   </data>
   <data name="AboutEveryAngleDetails" xml:space="preserve">
-    <value>Pour les dernières informations sur le produit,&lt;br/&gt; visitez &lt;a href="http://www.everyangle.com" target="_blank"&gt;www.everyangle.com&lt;/a&gt;&lt;br/&gt;&lt;br/&gt; </value>
+    <value>Pour obtenir les informations les plus récentes sur nos produits,&lt;br/&gt; visitez notre site Web à l'adresse suivante &lt;a href="http://www.everyangle.com" target="_blank"&gt;www.everyangle.com&lt;/a&gt;&lt;br/&gt;&lt;br/&gt; </value>
   </data>
   <data name="AboutClientVersion" xml:space="preserve">
-    <value>Mandant :</value>
+    <value>Client :</value>
   </data>
   <data name="AboutModelInfo" xml:space="preserve">
     <value>Informations de l'Instance</value>
@@ -4865,7 +4865,7 @@ Leave this field empty if you do not use Google Analytics.</value>
   </data>
   <data name="MC_WebClientSettingsHelpEnableGoToSAP" xml:space="preserve">
     <value>Select this field to enable the Go to SAP functionality.&lt;br&gt;
-The option to download the required Go to SAP launcher will then become available in the Settings menu of the Web Client.</value>
+The option to download the required Go to SAP Launcher will then become available in the Settings menu of the Web Client.</value>
   </data>
   <data name="MC_Validation_GoogleAnalyticsId" xml:space="preserve">
     <value>Invalid Google Analytics ID.</value>
@@ -5246,6 +5246,12 @@ The value 0 means the setting is off, so the log file will not be cleaned up. Th
   <data name="ExportCSVEnumFormatLongName" xml:space="preserve">
     <value>Long nom</value>
   </data>
+  <data name="MC_AllowGroupingInPivotExcelExport" xml:space="preserve">
+    <value>Enable Grouping in Pivot exports</value>
+  </data>
+  <data name="MC_SystemSettingsHelpAllowGroupingInPivotExcelExport" xml:space="preserve">
+    <value>When enabled, additional data groups are exported to support grouping in Excel.</value>
+  </data>
   <data name="MC_IncludeSelfInExportHeaders" xml:space="preserve">
     <value>Include Self in export headers</value>
   </data>
@@ -5351,7 +5357,7 @@ This setting is valid for both Export to Excel and Export to CSV, manually from 
     <value>fichier chargé invalide</value>
   </data>
   <data name="UploadAngles_SelectFile" xml:space="preserve">
-    <value>Sélectionnez des fichiers d'élément à charger ou déposez-les ici...</value>
+    <value>Sélectionnez des éléments à charger ou déposez-les ici...</value>
   </data>
   <data name="UploadAngles_SuccessfulMessage" xml:space="preserve">
     <value>Réussite du chargement des éléments {0} de {1}</value>
@@ -5867,7 +5873,7 @@ You can only select .cmd, .exe, .ps1 and .bat files that are located in the desi
 Note: the specified location must be a full file path on the Application server.</value>
   </data>
   <data name="ViewDisplaysMode" xml:space="preserve">
-    <value>Mode Displays</value>
+    <value>Affiche le mode</value>
   </data>
   <data name="MC_Available" xml:space="preserve">
     <value>Available</value>
@@ -6121,10 +6127,13 @@ Only Active Directory (AD) and Active Directory Federation (ADFS) services are s
     <value>« {0} » a été invalidé !</value>
   </data>
   <data name="DeselectAll" xml:space="preserve">
-    <value>Deselect all</value>
+    <value>Désélectionner tout</value>
   </data>
   <data name="InvertSelection" xml:space="preserve">
-    <value>Invert selection</value>
+    <value>Inverser la sélection</value>
+  </data>
+  <data name="MC_AddValues" xml:space="preserve">
+    <value>Add values</value>
   </data>
   <data name="OperatorIsNotRelativeBetween" xml:space="preserve">
     <value>n'est pas relatif entre</value>
@@ -6139,7 +6148,7 @@ Only Active Directory (AD) and Active Directory Federation (ADFS) services are s
     <value>est relatif entre</value>
   </data>
   <data name="ScrollingMightNotWorkCorrectlyWhenRunningIOS13" xml:space="preserve">
-    <value>Due to a known issue, scrolling might not work correctly when running iOS 13. Please contact Every Angle Support for more information</value>
+    <value>En raison d'un problème connu, le défilement peut ne pas fonctionner correctement sous iOS 13. Veuillez contacter Every Angle Support pour plus d'informations.</value>
   </data>
   <data name="CopyRight" xml:space="preserve">
     <value>Copyright © {0}</value>
