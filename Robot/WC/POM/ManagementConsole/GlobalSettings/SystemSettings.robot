@@ -16,7 +16,15 @@ ${txtMinimumNumberOfLabelCategories}    min_labelcategories_to_publish
 ${txtCheckExpiredSessionMinutes}        check_expired_sessions_minutes
 ${txtInstancesToKeepPerModel}           instances_per_model
 ${txtActiveDirectlySizeLimit}           active_directory_size_limit
-${txtDefaultMaximumExportPageSize}      css=#default_max_export_page_size
+${txtDefaultMaximumExportPageSize}      default_max_export_page_size
+
+${chkEnableGroupingInPivotExports}      allow_grouping_in_pivot_excel_export
+${chkIncludeSelfInExportHeaders}        include_self_in_export_headers
+
+${txtProgramScriptsFolder}              script_location
+
+${txtMaxEventLogStoredRecords}          max_event_log_stored_records
+${txtMaxAuditLogHistory}                max_audit_log_history
 
 ${txtEmailSettingsEmailServer}          EmailSettings_smtp_server
 ${txtEmailSettingsEmailServerPort}      EmailSettings_smtp_port
@@ -35,7 +43,7 @@ ${pgbTestEmailReport}                   css=#TestEmailResult .k-loading-mask
 ${btnCloseTestEmailReport}              css=#TestEmailResult_wnd_title + .k-window-actions .k-i-close
 
 
-*** Keywords ***
+*** Keyword ***
 Wait System Settings Page Ready
     Wait MC Progress Bar Closed
     Wait Until Page Contains    Application server
@@ -104,6 +112,32 @@ Input System Settings Active Directory Size Limit
     [Arguments]    ${activeDirectorySizeLimit}
     Input kendo Numeric TextBox    ${txtActiveDirectlySizeLimit}    ${activeDirectorySizeLimit}
 
+Input Default maximum export page size field
+    [Arguments]     ${defaultMaximumExportPageSize}
+    Input kendo Numeric TextBox  ${txtDefaultMaximumExportPageSize}  ${defaultMaximumExportPageSize}
+
+Set Enable Grouping in Pivot exports checkbox
+    [Arguments]     ${enableGroupingInPivotExports}
+    Run Keyword if  ${enableGroupingInPivotExports} == True    Set Checkbox  ${chkEnableGroupingInPivotExports}   False
+    Run Keyword if  ${enableGroupingInPivotExports} == False   Set checkbox  ${chkEnableGroupingInPivotExports}   True
+
+Set Include Self in export headers checkbox
+    [Arguments]     ${includeSelfInExportHeaders}
+    Run Keyword if  ${includeSelfInExportHeaders} == True    Set Checkbox  ${chkIncludeSelfInExportHeaders}   False
+    Run Keyword if  ${includeSelfInExportHeaders} == False   Set checkbox  ${chkIncludeSelfInExportHeaders}   True
+
+Input Program/scripts folder field
+    [Arguments]     ${programScriptsFolder}
+    Input Text   ${txtProgramScriptsFolder}  ${programScriptsFolder}
+
+Input Max event log stored records field
+    [Arguments]     ${maxEventLogStoredRecords}
+    Input kendo Numeric TextBox    ${txtMaxEventLogStoredRecords}    ${maxEventLogStoredRecords}
+
+Input Max audit log history [months] field
+    [Arguments]     ${maxAuditLogHistory}
+    Input kendo Numeric TextBox  ${txtMaxAuditLogHistory}   ${maxAuditLogHistory}
+
 #Email Setting
 Input Email Settings Email Server
     [Arguments]    ${emailServerName}
@@ -118,8 +152,9 @@ Input Email Settings Sender
     Input Text     ${txtEmailSettingsSender}    ${emailServerName}
 
 Click Email Settings Use SSL
-    Wait Until Page Contains Element    ${chkEmailSettingsUseSSL}
-    Click Element    ${chkEmailSettingsUseSSL}
+    [Arguments]     ${chkEmailSettingsSSL}
+    Run Keyword if  ${chkEmailSettingsSSL} == True    Set Checkbox  ${chkEmailSettingsUseSSL}   False
+    Run Keyword if  ${chkEmailSettingsSSL} == False   Set checkbox  ${chkEmailSettingsUseSSL}   True
 
 Set Email Settings Use SSL
     Wait Until Page Contains Element    ${chkEmailSettingsUseSSL}
@@ -166,3 +201,101 @@ Close Test Email Setting Report Popup
 Click Save System Settings
     Click Element   ${btnSaveSystemSetting}
     Wait System Settings Page Ready
+    Reload Page
+    Wait System Settings Page Ready
+
+Get Default page size field value
+    ${value}    Get Kendo value  ${txtDefaultPageSize}
+    [Return]  ${value}
+
+Get Max Page size field value
+    ${value}    Get Kendo Value  ${txtMaxPageSize}
+    [Return]  ${value}
+
+Get Session timeout field value
+    ${value}    Get Kendo Value  ${txtSessionTimeout}
+    [Return]  ${value}
+
+Get Session history field value
+    ${value}    Get Kendo Value  ${txtSessionHistory}
+    [Return]  ${value}
+
+Get Poll model server field value
+    ${value}    Get Kendo Value  ${txtPollModelserver}
+    [Return]  ${value}
+
+Get Model server timeout field value
+    ${value}    Get Kendo Value  ${txtModelServerTimeout}
+    [Return]  ${value}
+
+Get Model server metadata timeout [seconds] field value
+    ${value}    Get Kendo Value  ${txtModelServerMetadataTimeout}
+    [Return]  ${value}
+
+Get Max domain size for search field value
+    ${value}    Get Kendo Value  ${txtMaxDomainSizeForSearch}
+    [Return]  ${value}
+    
+Get Cache validity field value
+    ${value}    Get Kendo Value  ${txtCacheValidity}
+    [Return]  ${value}
+
+Get Minimum number of label categories to publish angle field value
+    ${value}    Get Kendo Value  ${txtMinimumNumberOfLabelCategories}
+    [Return]  ${value}
+
+Get Check expired sessions minutes field value
+    ${value}    Get Kendo Value  ${txtCheckExpiredSessionMinutes}
+    [Return]  ${value}
+
+Get Active directory size limit field value
+    ${value}    Get Kendo Value  ${txtActiveDirectlySizeLimit}
+    [Return]  ${value}
+
+Get Enable Grouping in Pivot exports checkbox state
+    ${chkbox}   Is Element Checked  ${chkEnableGroupingInPivotExports}
+    [Return]    ${chkbox}
+
+Get Include Self in export headers checkbox state
+    ${chkbox}   Is Element Checked  ${chkIncludeSelfInExportHeaders}
+    [Return]    ${chkbox}
+
+Get Default maximum export page size field value
+    ${value}    Get Kendo Value  ${txtDefaultMaximumExportPageSize}
+    [Return]    ${value}
+
+Get Program/scripts folder field value
+    ${value}    Get Value    ${txtProgramScriptsFolder}
+    [Return]    ${value}
+
+Get Max event log stored records field value
+    ${value}    Get Kendo Value  ${txtMaxEventLogStoredRecords}
+    [Return]    ${value}
+
+Get Max audit log history [months] field value
+    ${value}    Get Kendo Value  ${txtMaxAuditLogHistory}
+    [Return]    ${value}
+
+Get E-mailserver (SMTP) field value
+    ${value}    Get Value    ${txtEmailSettingsEmailServer}
+    [Return]    ${value}
+
+Get E-mailserver port (SMTP Port) field value
+    ${value}    Get Kendo Value  ${txtEmailSettingsEmailServerPort}
+    [Return]    ${value}
+
+Get Sender field value
+    ${value}    Get Value  ${txtEmailSettingsSender}
+    [Return]    ${value}
+
+Get Use SSL checkbox state
+    ${chkbox}   Is Element Checked  ${chkEmailSettingsUseSSL}
+    [Return]    ${chkbox}
+
+Get Username textbox field value
+    ${value}    Get Value    ${txtEmailSettingsUserName}
+    [Return]    ${value}
+
+Get Password textbox field value
+    ${value}    Get Value    ${txtEmailSettingsPassword}
+    [Return]    ${value}

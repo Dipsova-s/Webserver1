@@ -62,3 +62,208 @@ Verify SSL Email Settings
 
 Verify Default Maximum Export Page Size Is Exist
     Page Should Contain Element    ${txtDefaultMaximumExportPageSize}
+
+Get the System Settings page field values
+    ${value}   Get Default page size field value
+    Set Test Variable   ${txtDefaultPageSizeValue}     ${value}
+    ${value}   Get Max Page size field value
+    Set Test Variable   ${txtMaxPageSizeValue}     ${value}
+    ${value}   Get Session timeout field value
+    Set Test Variable   ${txtSessionTimeoutValue}     ${value}
+    ${value}   Get Session history field value
+    Set Test Variable   ${txtSessionHistoryValue}     ${value}
+    ${value}   Get Poll model server field value
+    Set Test Variable   ${txtPollModelserverValue}     ${value}
+    ${value}   Get Model server timeout field value
+    Set Test Variable   ${txtModelServerTimeoutValue}     ${value}
+    ${value}   Get Model server metadata timeout [seconds] field value
+    Set Test Variable   ${txtModelServerMetadataTimeoutValue}     ${value}
+    ${value}   Get Max domain size for search field value
+    Set Test Variable   ${txtMaxDomainSizeForSearchValue}     ${value}
+    ${value}   Get Cache validity field value
+    Set Test Variable   ${txtCacheValidityValue}     ${value}
+    ${value}   Get Minimum number of label categories to publish angle field value
+    Set Test Variable   ${txtMinimumNumberOfLabelCategoriesValue}     ${value}
+    ${value}   Get Check expired sessions minutes field value
+    Set Test Variable   ${txtCheckExpiredSessionMinutesValue}     ${value}
+    ${value}   Get System Settings Check Instances To Keep Per Model
+    Set Test Variable   ${txtInstancesToKeepPerModelValue}     ${value}
+    ${value}   Get Active directory size limit field value
+    Set Test Variable   ${txtActiveDirectlySizeLimitValue}     ${value}
+    ${value}   Get Default maximum export page size field value
+    Set Test Variable   ${txtDefaultMaximumExportPageSizeValue}     ${value}
+
+    ${value}   Get Enable Grouping in Pivot exports checkbox state
+    Set Test Variable   ${chkEnableGroupingInPivotExportsValue}     ${value}
+    ${value}   Get Include Self in export headers checkbox state
+    Set Test Variable   ${chkIncludeSelfInExportHeadersValue}     ${value}
+
+    ${value}   Get Program/scripts folder field value
+    Set Test Variable   ${txtProgramScriptsFolderValue}     ${value}
+
+    ${value}   Get Max event log stored records field value
+    Set Test Variable   ${txtMaxEventLogStoredRecordsValue}     ${value}
+    ${value}   Get Max audit log history [months] field value
+    Set Test Variable   ${txtMaxAuditLogHistoryValue}     ${value}
+
+    ${value}   Get E-mailserver (SMTP) field value
+    Set Test Variable   ${txtEmailSettingsEmailServerValue}     ${value}
+    ${value}   Get E-mailserver port (SMTP Port) field value
+    Set Test Variable   ${txtEmailSettingsEmailServerPortValue}     ${value}
+    ${value}   Get Sender field value
+    Set Test Variable   ${txtEmailSettingsSenderValue}     ${value}
+    ${value}   Get Use SSL checkbox state
+    Set Test Variable   ${chkEmailSettingsUseSSLValue}     ${value}
+
+    ${value}   Get Username textbox field value
+    Set Test Variable   ${txtEmailSettingsUserNameValue}     ${value}
+    ${value}   Get Password textbox field value
+    Set Test Variable   ${txtEmailSettingsPasswordValue}     ${value}
+
+Set the System settings page field values
+    Input System Settings Default Page Size      ${txtDefaultPageSizeValue}
+    Input System Settings Max Page Size     ${txtMaxPageSizeValue}
+    Input System Settings Session Timeout   ${txtSessionTimeoutValue}
+    Input System Settings Session History   ${txtSessionHistoryValue}
+    Input System Settings Poll Models Server    ${txtPollModelserverValue}
+    Input System Settings Model Server Timeout  ${txtModelServerTimeoutValue}
+    Input System Settings Model Server Metadata Timeout     ${txtModelServerMetadataTimeoutValue}
+    Input System Settings Max Domain Size For Search    ${txtMaxDomainSizeForSearchValue}
+    Input System Settings Cache Validity    ${txtCacheValidityValue}
+    Input System Settings Minimum Number Of Label Categories    ${txtMinimumNumberOfLabelCategoriesValue}
+    Input System Settings Check Expired Session Minutes     ${txtCheckExpiredSessionMinutesValue}
+    Input System Settings Check Instances To Keep Per Model     ${txtInstancesToKeepPerModelValue}
+    Input System Settings Active Directory Size Limit   ${txtActiveDirectlySizeLimitValue}
+    Input Default maximum export page size field  ${txtDefaultMaximumExportPageSizeValue}
+
+    ${chkEnableGroupingInPivotExportsValue}     Get Enable Grouping in Pivot exports checkbox state
+    Set Enable Grouping in Pivot exports checkbox   ${chkEnableGroupingInPivotExportsValue}
+    ${chkIncludeSelfInExportHeadersValue}     Get Include Self in export headers checkbox state
+    Set Include Self in export headers checkbox     ${chkIncludeSelfInExportHeadersValue}
+    
+
+    Input Program/scripts folder field  ${txtProgramScriptsFolderValue}
+
+    Input Max event log stored records field    ${txtMaxEventLogStoredRecordsValue}
+    Input Max audit log history [months] field      ${txtMaxAuditLogHistoryValue}
+
+    Input Email Settings Email Server   ${txtEmailSettingsEmailServerValue}
+    Input Email Settings Email Server Port      ${txtEmailSettingsEmailServerPortValue}
+    Input Email Settings Sender     ${txtEmailSettingsSenderValue}
+
+    ${chkEmailSettingsUseSSLValue}     Get Use SSL checkbox state
+    Click Email Settings Use SSL    ${chkEmailSettingsUseSSLValue}
+    
+    Input Email Settings Username   ${txtEmailSettingsUserNameValue}
+    Input Email Settings Password   ${txtEmailSettingsPasswordValue}
+
+Fill the System settings page field values
+    Input System Settings Default Page Size      31
+    Input System Settings Session Timeout   61
+    Input System Settings Session History   121
+    Input System Settings Poll Models Server    11
+    Input System Settings Model Server Timeout  31
+    Input System Settings Model Server Metadata Timeout     301
+    Input System Settings Max Domain Size For Search    101
+    Input System Settings Cache Validity    11
+    Input System Settings Minimum Number Of Label Categories    2
+    Input System Settings Check Expired Session Minutes     2
+    Input System Settings Check Instances To Keep Per Model     6
+    Input System Settings Active Directory Size Limit   301
+    Input Default maximum export page size field  1001
+
+    ${chkEnableGroupingInPivotExportsValue}     Get Enable Grouping in Pivot exports checkbox state
+    Set Enable Grouping in Pivot exports checkbox   ${chkEnableGroupingInPivotExportsValue}
+    ${chkIncludeSelfInExportHeadersValue}     Get Include Self in export headers checkbox state
+    Set Include Self in export headers checkbox     ${chkIncludeSelfInExportHeadersValue}
+
+    Input Program/scripts folder field  program
+
+    Input Max event log stored records field    10001
+    Input Max audit log history [months] field      28
+
+    Input Email Settings Email Server   smtp1.everyangle.org
+    Input Email Settings Email Server Port      26
+    Input Email Settings Sender     testserver1@everyangle.com
+    ${chkEmailSettingsUseSSLValue}     Get Use SSL checkbox state
+    Click Email Settings Use SSL    ${chkEmailSettingsUseSSLValue}
+    Input Email Settings Username   username
+    Input Email Settings Password   password
+
+Verify the System Settings page field values
+    ${returnText}  Get Default page size field value
+    ${expectedText}     Convert to Integer    31
+    Should be equal     ${returnText}   ${expectedText}
+    ${returnText}   Get Session timeout field value
+    ${expectedText}     Convert to Integer    61
+    Should be equal     ${returnText}   ${expectedText}
+    ${returnText}   Get Session history field value
+    ${expectedText}     Convert to Integer    121
+    Should be equal     ${returnText}   ${expectedText}
+    ${returnText}   Get Poll model server field value
+    ${expectedText}     Convert to Integer    11
+    Should be equal     ${returnText}   ${expectedText}
+    ${returnText}   Get Model server timeout field value
+    ${expectedText}     Convert to Integer    31
+    Should be equal     ${returnText}   ${expectedText}
+    ${returnText}   Get Model server metadata timeout [seconds] field value
+    ${expectedText}     Convert to Integer    301
+    Should be equal     ${returnText}   ${expectedText}
+    ${returnText}   Get Max domain size for search field value
+    ${expectedText}     Convert to Integer    101
+    Should be equal     ${returnText}   ${expectedText}
+    ${returnText}   Get Cache validity field value
+    ${expectedText}     Convert to Integer    11
+    Should be equal     ${returnText}   ${expectedText}
+    ${returnText}   Get Minimum number of label categories to publish angle field value
+    ${expectedText}     Convert to Integer    2
+    Should be equal     ${returnText}   ${expectedText}
+    ${returnText}   Get Check expired sessions minutes field value
+    ${expectedText}     Convert to Integer    2
+    Should be equal     ${returnText}   ${expectedText}
+    ${returnText}   Get System Settings Check Instances To Keep Per Model
+    ${expectedText}     Convert to Integer    6
+    Should be equal     ${returnText}   ${expectedText}
+    ${returnText}   Get Active directory size limit field value
+    ${expectedText}     Convert to Integer    301
+    Should be equal     ${returnText}   ${expectedText}
+    ${returnText}   Get Default maximum export page size field value
+    ${expectedText}     Convert to Integer    1001
+    Should be equal     ${returnText}   ${expectedText}
+
+    ${returnText}   Get Enable Grouping in Pivot exports checkbox state
+    ${expectedText}     Convert to Boolean    ${chkEnableGroupingInPivotExportsValue}
+    Should Not be equal     ${returnText}   ${expectedText}
+    ${returnText}   Get Include Self in export headers checkbox state
+    ${expectedText}     Convert to Boolean    ${chkIncludeSelfInExportHeadersValue}
+    Should Not be equal     ${returnText}   ${expectedText}
+
+    ${returnText}   Get Program/scripts folder field value
+    ${expectedText}     Convert to string    program
+    Should be equal     ${returnText}   ${expectedText}
+
+    ${returnText}   Get Max event log stored records field value
+    ${expectedText}     Convert to Integer    10001
+    Should be equal     ${returnText}   ${returnText}
+    ${returnText}   Get Max audit log history [months] field value
+    ${expectedText}     Convert to Integer    28
+    Should be equal     ${returnText}   ${expectedText}
+
+    ${returnText}   Get E-mailserver (SMTP) field value
+    ${expectedText}     Convert to string    smtp1.everyangle.org
+    Should be equal     ${returnText}   ${expectedText}
+    ${returnText}   Get E-mailserver port (SMTP Port) field value
+    ${expectedText}     Convert to Integer    26
+    Should be equal     ${returnText}   ${expectedText}
+    ${returnText}   Get Sender field value
+    ${expectedText}     Convert to string    testserver1@everyangle.com
+    Should be equal     ${returnText}   ${expectedText}
+    ${returnText}   Get Use SSL checkbox state
+    ${expectedText}     Convert to Boolean    ${chkEmailSettingsUseSSLValue}
+    Should Not be equal     ${returnText}   ${expectedText}
+    ${returnText}   Get Username textbox field value
+    ${expectedText}     Convert to string    username
+    Should be equal     ${returnText}   ${expectedText}
+    ${returnText}   Get Password textbox field value
+    ${expectedText}     Convert to Integer    8
+    Length Should be     ${returnText}   ${expectedText}
