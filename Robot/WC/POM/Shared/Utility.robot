@@ -345,3 +345,13 @@ Get Kendo Value
     [Arguments]  ${elementId}    
     ${result}    Execute Javascript    return jQuery("#${elementId}").data('handler').value()
     [Return]    ${result}
+
+Get Grid Column Texts
+    [Arguments]  ${gridRows}  ${columnIndex}
+    @{list}  Create List
+    ${rowCount}  Get Element Count  ${gridRows}
+    :FOR    ${index}    IN RANGE    1  ${rowCount+1}
+    \       Scroll Element Into View    ${gridRows}:nth-child(${index}) td:nth-child(${columnIndex})
+    \       ${text}  Get Text  ${gridRows}:nth-child(${index}) td:nth-child(${columnIndex})
+    \       Append To List  ${list}  ${text}
+    [Return]  ${list}

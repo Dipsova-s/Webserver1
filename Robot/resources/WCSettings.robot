@@ -53,6 +53,7 @@ Resource            ${EXECDIR}/WC/Scenarios/ManagementConsole/Models/TS_RefreshC
 Resource            ${EXECDIR}/WC/Scenarios/ManagementConsole/AutomationTasks/Tasks/TS_Tasks.robot
 Resource            ${EXECDIR}/WC/Scenarios/ManagementConsole/AutomationTasks/DataStores/TS_Datastores.robot
 Resource            ${EXECDIR}/WC/Scenarios/ManagementConsole/Users/Userdefaults/TS_Userdefaults.robot
+Resource            ${EXECDIR}/WC/Scenarios/ManagementConsole/Users/TS_Sessions.robot
 
 *** Variables ***
 ${URL_WC}    http://${URL}/${Branch}
