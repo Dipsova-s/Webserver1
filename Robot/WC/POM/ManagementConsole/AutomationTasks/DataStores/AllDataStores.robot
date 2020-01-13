@@ -4,10 +4,13 @@ ${btnEditDataStores}                        .btnGroupContainer>.btn
 ${btnActionDataStores}                  .btnGroupInner .btnEdit
 ${btnActionDeleteDataStores}                .btnGroupInner .btnDelete
 
-${btnAddNewDataStore}     css=#mainContent > div > div.contentSection.contentSectionGrid > div.gridToolbar.gridToolbarBottom > a
-
+${btnAddNewDataStore}   xpath=//div[@id='mainContent']//a[@title='Datastore Plugins']
+${menuAutomationTasks}   xpath=//div[@id='sideContent']/ul[@id='sideMenu']/li/a[@href='#/Automation tasks/']
+${menuDatastores}   xpath=//div[@id='sideContent']/ul[@id='sideMenu']/li[@id='sideMenu-AutomationTasks']/ul[@id='sideMenu-AutomationTasks-childs']/li//a/span
+${dpdDatastorePlugin}   xpath=//span[@aria-owns='DatastorePluginSelect_listbox']
 #Delete Data Store
 ${btnSaveDeleteDataStore}               css=#popupConfirmation .btnSubmit
+${btnDatastoreOptionSubmit}             css=.btnSubmit
 
 *** Keywords ***
 Click Action On Data Stores By Index
@@ -17,7 +20,7 @@ Click Action On Data Stores By Index
     Wait Until Page Contains   Delete
 
 Click Add Data Stores
-    Click button     ${btnAddNewDataStore}
+    Click Element    ${btnAddNewDataStore}
     Wait Until Page Contains    Datastore Plugins
 
 Click Edit Data Stores By Data Stores Name
@@ -47,3 +50,21 @@ Confirm Delete Data Stores
     Wait Until Page Contains Element    ${btnSaveDeleteDataStore}
     Click Element    ${btnSaveDeleteDataStore}
     Wait MC Progress Bar Closed
+
+Wait Datastores Page Ready
+      Wait Until Page Contains    Datastores
+      Wait Until Page Contains Element     ${btnAddNewDataStore}
+      Wait MC Progress Bar Closed
+
+Expand Automation Tasks tab
+    Click Element   ${menuAutomationTasks}
+
+Click on Datastores sub menu
+    Wait Until Page Contains Element     ${menuDatastores}
+    Click Element   ${menuDatastores}
+
+Select Datastore Plugins option in popup
+    [Arguments]     ${datastorePlugOption}
+    Select Dropdown By InnerText  ${dpdDatastorePlugin}  ${datastorePlugOption}
+    Click Element   ${btnDatastoreOptionSubmit}
+    Wait Until Page Contains    Create new Datastore
