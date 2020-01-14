@@ -12,6 +12,7 @@ ${btnAction}                .btnGroupContainer a:first
 ${btnView}                  .btn btnInfo.first
 ${btnDelete}                .btnDelete.first
 
+
 *** Keywords ***
 Go To MC Page
     [Arguments]    ${location}
