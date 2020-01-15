@@ -3,7 +3,7 @@ Resource            ${EXECDIR}/resources/WCSettings.robot
 Suite Setup         Go to WC Then Login With EAPower User
 Suite Teardown      Logout WC Then Close Browser
 Test Teardown       Go to Search Page
-Force Tags          acc_wc
+Force Tags          acc_wc    smk_content
 
 *** Variables ***
 ${TEST_ANGLE_EXECUTE_PARAMETER}      [ROBOT] Verify Execution Parameters When Argument Contains Space
