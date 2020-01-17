@@ -61,5 +61,3 @@ Click Confirm Delete Package
 Click Cancel Delete Package
     Wait Until Page Contains Element    ${btnCancelDeletePackage}
     Click Element    ${btnCancelDeletePackage}
-
-

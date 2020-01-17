@@ -23,7 +23,8 @@ Verify Upload Package And Filter The Package
     Element Should Contain    ${tbGridPackage}    Robot
 
 Delete Uploaded Package
-    Click Delete Package By Package Name    Robot_Test_1
+    [Arguments]     ${packageName}
+    Click Delete Package By Package Name    ${packageName}
     Click Confirm Delete Package
 
 Verify GUI Export Package Popup
@@ -64,3 +65,25 @@ Change GUI Export Package options
     Input Text    ${txtPackageVersion}          2.0
     Input Text    ${txtPackageDescription}      new description
     Unselect Checkbox In Export Package Popup    ${chkPublishedItems}
+
+Edit the GUI Export Package options
+    [Arguments]     ${packageName}
+    Input Text    ${txtPackageName}             ${packageName}
+    Input Text    ${txtPackageId}               ${packageName}
+    Input Text    ${txtPackageVersion}          2.0
+    Input Text    ${txtPackageDescription}      Robot_automation package description
+
+Verify Filtering The Package
+    [Arguments]     ${filteredPackageName}
+    Input Filter Package    ${filteredPackageName}
+    Element Should Contain    ${tbGridPackage}    ${filteredPackageName}
+
+Verify the package data in packages grid
+    [Arguments]     ${packageModelName}     ${packageName}
+    Verify Package data in Packages grid  ${packageName}  ${packageName}  2.0  model  angles, labels, model_authorizations
+
+Verify Uploaded Package And Filter The Package
+    [Arguments]     ${packageName}
+    Click Upload New Package and upload downloaded package  ${packageName}
+    Input Filter Package    ${packageName}
+    Element Should Contain    ${tbGridPackage}    ${packageName}

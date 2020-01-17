@@ -16,6 +16,8 @@ ${txtPackageId}                                                 jquery=#ExportPa
 ${txtPackageVersion}                                            jquery=#ExportPackageForm .packageInfo input[name=package_version]
 ${txtPackageDescription}                                        jquery=#ExportPackageForm .packageInfo textarea[name=package_description]
 
+${dpdItemTypeList}                                              xpath=//span[@aria-owns='ItemExportSelector_listbox']/span/span/span
+
 ${txtAngleExportValue}                                          AngleExport
 ${txtVersionValue}                                              1.0
 
@@ -45,3 +47,12 @@ Unselect Checkbox In Export Package Popup
     [Arguments]    ${checkbox}
     Unselect Checkbox    ${checkbox}
     Wait Until Export Package Popup Is Ready
+
+Select Content drop down value in Export Package Popup
+    [Arguments]     ${dpdValue}
+    Select Dropdown By InnerText  ${dpdItemTypeList}   ${dpdValue}
+
+Click on OK button in Create Package popup
+    Click Element    ${btnExportPackagePopup}
+    Wait Until Element Is Not Visible    ${btnExportPackagePopup}
+    Wait MC Progress Bar Closed

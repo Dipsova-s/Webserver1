@@ -10,7 +10,7 @@ ${btnDeletePackage}                 .btnDelete
 ${btnDownloadPackage}               .btnDownload
 
 ${scrollBarPackageGrid}             .k-scrollbar
-
+${downloadedPackageFileName}        ManagementConsole-Robot_automation_package-2.0.eapackage
 #Delete Custom Icons Popup
 ${btnConfirmDeletePackage}          css=#popupConfirmation .btnSubmit
 ${btnCancelDeletePackage}           css=#popupConfirmation .btnConfirmCancel
@@ -62,4 +62,18 @@ Click Cancel Delete Package
     Wait Until Page Contains Element    ${btnCancelDeletePackage}
     Click Element    ${btnCancelDeletePackage}
 
+Verify Package data in Packages grid
+    [Arguments]     ${packageGridName}      ${packageGridId}    ${packageGridVersion}   ${packageGridModel}     ${packageGridContent}
+    Element Should Contain    ${tbGridPackage}    ${packageGridName}
+    Element Should Contain    ${tbGridPackage}    ${packageGridId}
+    Element Should Contain    ${tbGridPackage}    ${packageGridVersion}
+    Element Should Contain    ${tbGridPackage}    ${packageGridModel}
+    Element Should Contain    ${tbGridPackage}    ${packageGridContent}
 
+Click Upload New Package and upload downloaded package
+    [Arguments]     ${packageName}
+    Sleep   ${TIMEOUT_LARGEST}
+    Wait Until Page Contains Element    ${addNewPackage}
+    Choose File     ${addNewPackage}    ${DOWNLOAD_DIRECTORY}\\ManagementConsole-${packageName}-2.0.eapackage
+    Wait MC Progress Bar Closed
+    Wait Until Packages Page Loaded
