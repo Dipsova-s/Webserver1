@@ -5,12 +5,15 @@ Resource            ${EXECDIR}/WC/Scenarios/Angle/TS_AngleState.robot
 Suite Setup         Go to WC Then Login With EAPower User
 Suite Teardown      Logout WC Then Close Browser
 Test Teardown       Go to Search Page
-Force Tags          acc_wc
+Force Tags          acc_wc    smk_content
 
 *** Test Cases ***
 Verify Angle For Allow Obtain More Details Test
-    ${fieldId}         Set Variable  MaterialOnPlantLevel__ID
-    ${fieldKeyword}    Set Variable  "Material Plant"
+	[Documentation]     Verify the visibility or the state of the buttons when 'allow more details' has been set to the angle
+    ...                 Risk/coverage area: The addfilter, drilldown, remove column buttons should apply state correctly when you set 'allow more details' to false
+    [Tags]    TC_C152
+    ${fieldId}         Set Variable  OrderNumber
+    ${fieldKeyword}    Set Variable  "Order Number"
 
     @{cleanUpItems}    Create List
     Create Context: Web    user=${Username}

@@ -102,7 +102,7 @@ Verify Disable Add Filter And Jump Button In Display Popup
 
 Verify Disable Drilldown
     [Arguments]    ${disabled}  ${fieldId}    ${fieldKeyword}
-    Add Column By Search And Add To List Display If Not Exist    ${fieldId}    ${fieldKeyword}
+    Add Column By Search And Add To List Display If Not Exist    ${fieldId}    ${fieldKeyword}    ${TRUE}
     Click First Row Cell By Column index    ${fieldId}
     Click Angle Dropdown Actions Save Existing Display
     ${DisableDrilldownButton}    Is Element Has CssClass    ${btnCreateDrilldownToItem}   disabled

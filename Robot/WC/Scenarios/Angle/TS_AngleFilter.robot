@@ -51,17 +51,17 @@ Verify Filter To List Display
     Click Remove Last Adhoc Filter
 
 Add Column By Search And Add To List Display
-    [Arguments]   ${fieldKeyword}    ${fieldId}
+    [Arguments]   ${fieldKeyword}    ${fieldId}    ${isSelfSource}=${FALSE}
     Click Add New Column To List
-    Add Field By Search From Field Chooser    ${fieldKeyword}    ${fieldId}
+    Add Field By Search From Field Chooser    ${fieldKeyword}    ${fieldId}    ${isSelfSource}
     Wait Until Element Is Visible    jquery=#${tblAngleHeaderListDisplay} th.k-header[data-field="${fieldId}"]
     Wait Until List Display Loaded
     Sleep    ${TIMEOUT_LARGEST}
 
 Add Column By Search And Add To List Display If Not Exist
-    [Arguments]    ${fieldId}    ${fieldKeyword}
+    [Arguments]    ${fieldId}    ${fieldKeyword}    ${isSelfSource}=${FALSE}
     ${fieldIndex} =    Get Element Index    jquery=#${tblAngleHeaderListDisplay} th.k-header[data-field="${fieldId}"]
-    Run Keyword If    ${fieldIndex} == -1    Add Column By Search And Add To List Display    ${fieldKeyword}     ${fieldId}
+    Run Keyword If    ${fieldIndex} == -1    Add Column By Search And Add To List Display    ${fieldKeyword}     ${fieldId}    ${isSelfSource}
     ...    ELSE   Scroll To Angle Grid Header List Display    ${fieldId}
 
 #Currency
