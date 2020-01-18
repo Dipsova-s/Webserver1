@@ -5,9 +5,12 @@ Resource            ${EXECDIR}/WC/POM/ManagementConsole/GlobalSettings/SystemRol
 Resource            ${EXECDIR}/WC/POM/ManagementConsole/GlobalSettings/SystemRoles/EditSystemRole.robot
 
 *** Keywords ***
+Go To System Roles Page With Admin User
+    Go to MC Then Login With Admin User
+    Go To System Roles Page
+
 Go To System Roles Page
-    Click Side Menu Global Settings
-    Click Side Menu System Roles
+    Go To MC Page    /Global%20settings/System%20roles/
     Wait All System Roles Page Ready
 
 Create New Role And Set All Allowed

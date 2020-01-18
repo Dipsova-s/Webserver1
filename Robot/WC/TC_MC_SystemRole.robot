@@ -1,9 +1,8 @@
 *** Settings ***
 Resource            ${EXECDIR}/resources/WCSettings.robot
-Suite Setup         Open Browser in Sandbox Mode
-Suite Teardown      Close Browser
-Test Setup          Go To               ${URL_MC}
-Test Teardown       Logout MC
+Suite Setup         Go To System Roles Page With Admin User
+Suite Teardown      Logout WC Then Close Browser
+Test Teardown       Go To System Roles Page
 Force Tags          MC    acc_mc
 
 *** Variables ***
@@ -14,9 +13,9 @@ ${UserCount}              3
 
 *** Test Cases ***
 Test System Role
-    Login To MC By Admin User
-    Wait Until Overview Page Loaded
-    Go To System Roles Page
+    [Documentation]     Verify the consolidated role when set privilege all allowed and undefined
+    ...                 Risk/coverage area: System role page manage system to all allowed and undefined
+    [Tags]       TC_C7385
     Create New Role And Set All Allowed    ${SystemRole}    ${DescriptionRole}
     Verify Consolidated Role Of All Allowed    ${SystemRole}
     Set Manage System To Undefined    ${SystemRole}
@@ -24,9 +23,9 @@ Test System Role
     Back To System Roles Page And Remove Role    ${SystemRole}
 
 Test Manage Users In System Role
-    Login To MC By Admin User
-    Wait Until Overview Page Loaded
-    Go To System Roles Page
+    [Documentation]     Verify create a new system role and set the privilege
+    ...                 Risk/coverage area: System role page Create/Assign the system role
+    [Tags]      TC_C589
     Create New Role And Set All Allowed    ${SystemRole}    ${DescriptionRole}
     Add User To System Role By Name   ${SystemRole}    ${FilterAvailableUser}
     Delete Role    ${SystemRole}

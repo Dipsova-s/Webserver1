@@ -1,5 +1,6 @@
 *** Variables ***
 ${trSystemRowInRolesGrid}                   jquery=#SystemRolesGrid tbody tr
+${pgpSystemRowGrid}                         css=#SystemRolesGrid .k-loading-mask
 ${btnEditSystemRole}                        .btnGroupContainer>.btn
 ${btnActionEditSystemRole}                  .btnGroupInner .btnEdit
 ${btnActionShowConsolidateSystemRole}       .btnGroupInner .btnOpenWindow
@@ -11,11 +12,16 @@ ${btnAddSystemRole}                         css=.gridToolbarBottom .btnAdd
 ${btnSaveDeleteSystemRole}                  css=#popupConfirmation .btnSubmit
 
 *** Keywords ***
+Wait Until System Roles Grid Is Ready
+    Wait Until Ajax Complete
+    Wait Until Page Does Not Contain Element    ${pgpSystemRowGrid}  
+
 Wait All System Roles Page Ready
     Wait Until Page Contains    ${txtSystemRole}
-    Wait MC Progress Bar Closed
+    Wait Until Page Contains Element     ${btnAddSystemRole}
     Sleep    ${TIMEOUT_LARGEST}
-    Wait Until Ajax Complete
+    Wait MC Progress Bar Closed
+    Wait Until System Roles Grid Is Ready
 
 Click Add System Role
     Wait Until Page Contains Element    ${btnAddSystemRole}
