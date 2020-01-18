@@ -41,4 +41,5 @@ Dashboard Publish Settings Popup Should Contain Private Display Warnings
     Page Should Contain Element    ${divDisplayWarnings}
 
 Dashboard Publish Settings Popup Should Not Contain Private Display Warnings
+    Wait Progress Bar Closed
     Page Should Not Contain Element    ${divDisplayWarnings}
