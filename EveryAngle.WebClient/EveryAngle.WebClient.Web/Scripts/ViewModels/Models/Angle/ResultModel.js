@@ -681,10 +681,8 @@ function ResultViewModel() {
             text += angleResultSummaryModel.SAPSystem + ' ';
 
             var resultDateText = WC.FormatHelper.GetFormattedValue(enumHandlers.FIELDTYPE.DATETIME_WC, self.ResultDateTime());
-            if (resultDateText) {
-                angleResultSummaryModel.resultDateTime = resultDateText;
-                text += angleResultSummaryModel.resultDateTime + ', ';
-            }
+            angleResultSummaryModel.resultDateTime = resultDateText;
+            text += angleResultSummaryModel.resultDateTime + ', ';
 
             angleResultSummaryModel.baseClassName = "";
             if (self.BaseClassName()) {
@@ -707,9 +705,7 @@ function ResultViewModel() {
             angleResultSummaryModel.displayTotalRow = WC.FormatHelper.GetFormattedValue(numberOfObjectFormat, self.DisplayTotalRow());
             angleResultSummaryModel.totalRow = WC.FormatHelper.GetFormattedValue(numberOfObjectFormat, self.TotalRow());
 
-            var numberOfRows = self.Data() && enumHandlers.DISPLAYTYPE.PIVOT === self.Data().display_type ? kendo.format(Localization.AngleDefinitionAreaNumberRow, angleResultSummaryModel.totalRow) : '';
-
-            text += angleResultSummaryModel.displayTotalRow + ' ' + kendo.format(Localization.AngleDefinitionAreaObjectsIn, numberOfRows) + ' ';
+            text += kendo.format('{0} {1} ', angleResultSummaryModel.displayTotalRow, Localization.AngleDefinitionAreaItemsIn);
 
             var executionTime = parseFloat(self.ExecutionTime());
             if (self.IsMinutes) {

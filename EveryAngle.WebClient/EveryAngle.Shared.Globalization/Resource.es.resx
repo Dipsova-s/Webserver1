@@ -549,12 +549,6 @@
   <data name="AdvanceFilterUsageValidationChangeBy" xml:space="preserve">
     <value>Cambio de validación por</value>
   </data>
-  <data name="AngleDefinitionAreaObjectsIn" xml:space="preserve">
-    <value>Objetos {0} en</value>
-  </data>
-  <data name="AngleDefinitionAreaNumberRow" xml:space="preserve">
-    <value>({0} filas)</value>
-  </data>
   <data name="AngleDefinitionAreaSec" xml:space="preserve">
     <value>seg</value>
   </data>
@@ -3432,9 +3426,6 @@
   <data name="BaseClassName" xml:space="preserve">
     <value>Objeto de inicio</value>
   </data>
-  <data name="DisplayTotalRow" xml:space="preserve">
-    <value>Número de objetos</value>
-  </data>
   <data name="ExecutionTime" xml:space="preserve">
     <value>Servidor del Modelo en tiempo de ejecución</value>
   </data>
@@ -6146,5 +6137,11 @@ Only Active Directory (AD) and Active Directory Federation (ADFS) services are s
   </data>
   <data name="CopyRight" xml:space="preserve">
     <value>Copyright © {0}</value>
+  </data>
+  <data name="AngleDefinitionAreaItemsIn" xml:space="preserve">
+    <value>items in</value>
+  </data>
+  <data name="DisplayTotalRow" xml:space="preserve">
+    <value>Number of items</value>
   </data>
 </root>

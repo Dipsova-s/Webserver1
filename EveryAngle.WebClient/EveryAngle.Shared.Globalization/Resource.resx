@@ -549,11 +549,8 @@
   <data name="AdvanceFilterUsageValidationChangeBy" xml:space="preserve">
     <value>Validation change by</value>
   </data>
-  <data name="AngleDefinitionAreaObjectsIn" xml:space="preserve">
-    <value>Objects {0} in</value>
-  </data>
-  <data name="AngleDefinitionAreaNumberRow" xml:space="preserve">
-    <value>({0} rows)</value>
+  <data name="AngleDefinitionAreaItemsIn" xml:space="preserve">
+    <value>items in</value>
   </data>
   <data name="AngleDefinitionAreaSec" xml:space="preserve">
     <value>sec</value>
@@ -3433,7 +3430,7 @@
     <value>Start object</value>
   </data>
   <data name="DisplayTotalRow" xml:space="preserve">
-    <value>Number of objects</value>
+    <value>Number of items</value>
   </data>
   <data name="ExecutionTime" xml:space="preserve">
     <value>Runtime Model Server</value>

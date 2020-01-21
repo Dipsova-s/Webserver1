@@ -19,7 +19,7 @@ namespace EveryAngle.Shared.Globalization {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "16.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "15.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     public class Resource {
@@ -961,6 +961,15 @@ namespace EveryAngle.Shared.Globalization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to items in.
+        /// </summary>
+        public static string AngleDefinitionAreaItemsIn {
+            get {
+                return ResourceManager.GetString("AngleDefinitionAreaItemsIn", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to min.
         /// </summary>
         public static string AngleDefinitionAreaMin {
@@ -970,29 +979,11 @@ namespace EveryAngle.Shared.Globalization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to ({0} rows).
-        /// </summary>
-        public static string AngleDefinitionAreaNumberRow {
-            get {
-                return ResourceManager.GetString("AngleDefinitionAreaNumberRow", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Objects.
         /// </summary>
         public static string AngleDefinitionAreaObjects {
             get {
                 return ResourceManager.GetString("AngleDefinitionAreaObjects", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Objects {0} in.
-        /// </summary>
-        public static string AngleDefinitionAreaObjectsIn {
-            get {
-                return ResourceManager.GetString("AngleDefinitionAreaObjectsIn", resourceCulture);
             }
         }
         
@@ -3184,7 +3175,7 @@ namespace EveryAngle.Shared.Globalization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Number of objects.
+        ///   Looks up a localized string similar to Number of items.
         /// </summary>
         public static string DisplayTotalRow {
             get {

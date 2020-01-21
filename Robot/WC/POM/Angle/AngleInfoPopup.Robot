@@ -1,12 +1,12 @@
 *** Variables ***
-${lbNumberOfObject}                 jquery=#popupAngleResultSummary td:contains(Number of objects) + td
+${lbNumberOfObject}                 jquery=#popupAngleResultSummary td:contains(Number of items) + td
 ${lbExecutionTime}                  jquery=#popupAngleResultSummary td:contains(Response time) + td
 ${btnCloseResultSummary}            css=.popupAngleResultSummary .k-i-close
 ${divPopupAngleResultSummary}       css=.popupAngleResultSummary
 
 *** Keywords ***
 Wait Angle Execution Info Element Loaded
-    Wait Until Page Contains    Number of objects
+    Wait Until Page Contains    Number of items
     Wait Until Page Contains    Response time
     Wait Until Page Contains Element    ${divPopupAngleResultSummary}
     Wait Until Element Is Visible    ${divPopupAngleResultSummary}

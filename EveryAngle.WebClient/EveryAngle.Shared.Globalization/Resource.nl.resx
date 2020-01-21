@@ -543,12 +543,6 @@
   <data name="AdvanceFilterUsageValidationChangeBy" xml:space="preserve">
     <value>Validatiewijziging door</value>
   </data>
-  <data name="AngleDefinitionAreaObjectsIn" xml:space="preserve">
-    <value>Objecten {0} in</value>
-  </data>
-  <data name="AngleDefinitionAreaNumberRow" xml:space="preserve">
-    <value>({0} rijen)</value>
-  </data>
   <data name="AngleDefinitionAreaSec" xml:space="preserve">
     <value>sec</value>
   </data>
@@ -2392,7 +2386,7 @@
     <value>Startobject</value>
   </data>
   <data name="DisplayTotalRow" xml:space="preserve">
-    <value>Aantal objecten</value>
+    <value>Aantal items</value>
   </data>
   <data name="ExecutionTime" xml:space="preserve">
     <value>Looptijd Modelserver</value>
@@ -3720,5 +3714,8 @@ The value 0 means the setting is off, so the Audit Log will not be cleaned up. T
     <value>The number of model instances that are kept in the database (as history).&lt;br/&gt;
 When this number of instances is reached, the import of a new instance will cause the instance with the oldest modeldata_timestamp to be automatically deleted.&lt;br/&gt;
 The minimum is 1.</value>
+  </data>
+  <data name="AngleDefinitionAreaItemsIn" xml:space="preserve">
+    <value>items in</value>
   </data>
 </root>
