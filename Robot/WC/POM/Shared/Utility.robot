@@ -154,9 +154,9 @@ Input kendo Text Editor
     Execute Javascript     jQuery("${jquerySelector}").data('kendoEditor').trigger('change')
 
 Select Dropdown By Kendo
-    [Arguments]  ${elementId}    ${value}
-    Execute Javascript     jQuery("#${elementId}").data('kendoDropDownList').value('${value}')
-    Execute Javascript     jQuery("#${elementId}").data('kendoDropDownList').trigger('change')
+    [Arguments]  ${dropdownSelector}    ${value}
+    Execute Javascript     jQuery("${dropdownSelector}").data('kendoDropDownList').value('${value}')
+    Execute Javascript     jQuery("${dropdownSelector}").data('kendoDropDownList').trigger('change')
 
 Select Dropdown By Selector
     [Arguments]  ${selectElement}    ${selectItem}

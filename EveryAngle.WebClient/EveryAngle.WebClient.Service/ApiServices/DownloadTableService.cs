@@ -27,15 +27,18 @@ namespace EveryAngle.WebClient.Service.ApiServices
 
         public ListViewModel<DownloadTableViewModel> GetDownloadTables(string uri)
         {
-            List<DownloadTableViewModel> tables = GetArrayItems<DownloadTableViewModel>(uri).ToList();
-            return new ListViewModel<DownloadTableViewModel>
+            var result = new ListViewModel<DownloadTableViewModel>();
+            var requestManager = RequestManager.Initialize(uri);
+            var downloadTablesResult = requestManager.Run();
+            if (downloadTablesResult.SelectToken("tables") != null)
             {
-                Data = tables,
-                Header = new HeaderViewModel
-                {
-                    Total = tables.Count
-                }
-            };
+                result.Data =
+                    JsonConvert.DeserializeObject<List<DownloadTableViewModel>>(
+                        downloadTablesResult.SelectToken("tables").ToString());
+                result.Header =
+                    JsonConvert.DeserializeObject<HeaderViewModel>(downloadTablesResult.SelectToken("header").ToString());
+            }
+            return result;
         }
 
         public ListViewModel<DownloadTableFieldViewModel> GetDownloadTableFields(string uri, bool isEnabled)

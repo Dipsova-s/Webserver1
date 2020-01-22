@@ -53,6 +53,7 @@
             .Sortable(false)
             .ClientTemplate("<span class=\"#= data.delta_download ? 'enableDelta' : 'disableDelta' #\">#= data.delta_condition || '' #</span>");
     })
+    .Sortable(sortable => sortable.AllowUnsort(false))
     .Resizable(resize => resize.Columns(true))
     .Scrollable(scroll => scroll.Virtual(true).Height(gridHeight))
     .DataSource(dataSource => dataSource

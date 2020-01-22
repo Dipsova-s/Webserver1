@@ -41,6 +41,20 @@ Edit Refresh Cycle Time Detail
     Input Refresh Cycle Maximum Runtime         ${refreshCycleTime}
     Click Save Refresh Cycle Form
 
+Verify Filtering On Specify Tables
+    [Arguments]    ${FilterKeyword}   
+    Click Add Refresh Cycle
+    Set Refresh Cycle Action List               Tables
+    Click Specify Tebles Botton                         
+    Filter Specify Tables By Keyword            ${FilterKeyword}
+    Specify Tables Grid Should Contains         ${FilterKeyword}  
+
+Verify Sorting On Specify Tables 
+    [Arguments]    ${FirstRecordValue}  
+    Sort ASC/DESC Column Headder On Specify Tables Popup 
+    First Record On Table Should Equal          ${FirstRecordValue}    
+    Click Close Specify Tables Popup
+
 Verify Refresh Cycle After Set
     [Arguments]    ${refreshCycleName}                  ${refreshCycleTime}
     Click Edit Refresh Cycle By Name                    ${refreshCycleName}

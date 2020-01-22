@@ -47,10 +47,19 @@ ${contentSectionInfo}              css=.contentSectionInfo
 ${btnSaveRefreshCycleForm}         css=.btnSaveForm
 ${btnCancelRefreshCycleForm}       css=.btnSaveForm + .btn
 ${headRowInRefreshCycleGrid}       jquery=#TaskDetailGrid thead tr
-${actionList}                      .k-dropdown.actionList
+${actionList}                      select.actionList
 ${newChkDaySunday}                 .checkbox [value=S] + .input
 ${newChkDayMonday}                 .checkbox [value=M] + .input
 ${confirmationDelete}              jquery=#popupConfirmation .btnSubmit
+
+#Specify table Popup
+${btnSpectifyTables}               css=.btnSpecifyTables            
+${pbgSpecifyTable}                 jquery=#DisplayPropertiesGrid .k-loading-mask
+${txtTableFilter}                  jquery=#popupSpecifyTables .gridToolbarFilter:eq(0) input
+${btnCloseSpecifyTables}           css=#popupSpecifyTables_wnd_title + .k-window-actions .k-i-close
+${trRowSpecifyTables}              jquery=#DownloadTableGridContainer tbody tr   
+${thColumnInSpecifyTables}         jquery=#DownloadTableGridContainer .k-grid-header th:eq(1)
+${trRowSpecifyTablesValue}         jquery=#DownloadTableGridContainer .k-grid-content td:eq(1)
 
 *** Keywords ***
 Click Save Refresh Cycle
@@ -114,7 +123,7 @@ Click Cancel Refresh Cycle Form
 Fill Refresh Cycle Name
     [Arguments]     ${name}
     Wait Until Page Contains Element    ${contentSectionInfo} ${txtRefreshCycleName}
-    Input Text   ${contentSectionInfo} ${txtRefreshCycleName}    ${name}
+    Input Text    ${contentSectionInfo} ${txtRefreshCycleName}    ${name}
 
 Click Contiinuous Refresh Cycle
     Wait Until Page Contains Element    ${contentSectionInfo} ${chkContinuous}
@@ -126,8 +135,43 @@ Click Enabled Refresh Cycle
 
 Set Refresh Cycle Action List
     [Arguments]    ${actionName}
-    Select Dropdown By InnerText     ${contentSectionInfo} ${actionList}     ${actionName}
+    Select Dropdown By Kendo     ${actionList}     ${actionName}
 
+#Test Specify Table Popup
+Wait Until Specify Tables Popup Loaded  
+    Wait Until Ajax Complete
+    Wait Until Page Does Not Contain Element    ${pbgSpecifyTable} 
+
+Click Specify Tebles Botton                   
+    Wait Until Page Contains Element    ${btnSpectifyTables}
+    Click Element    ${btnSpectifyTables}  
+    Wait Until Specify Tables Popup Loaded    
+
+Filter Specify Tables By Keyword
+    [Arguments]    ${valueText}
+    Wait Until Page Contains Element   ${txtTableFilter}
+    Input Text By JQuery    ${txtTableFilter}    ${valueText}
+    Press key    ${txtTableFilter}    \\13
+    Wait Until Specify Tables Popup Loaded
+ 
+Specify Tables Grid Should Contains
+    [Arguments]    ${expected}
+    Element Should Contain    ${trRowSpecifyTables}    ${expected}
+
+Sort ASC/DESC Column Headder On Specify Tables Popup 
+    Click Element    ${thColumnInSpecifyTables}
+    Wait Until Specify Tables Popup Loaded 
+    Click Element    ${thColumnInSpecifyTables} 
+    Wait Until Specify Tables Popup Loaded
+    
+Click Close Specify Tables Popup
+    Click Element    ${btnCloseSpecifyTables}
+ 
+First Record On Table Should Equal
+    [Arguments]    ${compareField}
+    ${value}    Get Text    ${trRowSpecifyTablesValue}
+    Should Be Equal    ${value}    ${compareField}
+       
 Click Refresh Cycle Sunday
     Wait Until Page Contains Element    ${contentSectionInfo} ${newChkDaySunday}
     Click Element    ${contentSectionInfo} ${newChkDaySunday}
