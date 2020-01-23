@@ -14,6 +14,10 @@ ${Logo}                     Logo
 ${lblSearchTotal}           SearchTotal
 ${pgbSearchResults}         css=#MainContent .k-loading-mask
 ${divWelcomeVideo}          WelcomePlayer
+${btnWebClient}             //a[@class='actionDropdownItem btnWC']/span
+${txtbox1}                  //div[@class='sectionWelcome sectionWelcomeDetail1']
+${txtbox2}                  //div[@class='sectionWelcome sectionWelcomeDetail2']
+${imgCustomerLogo}          css=.sectionWelcomeLogo > img[src*="logo_EN"]
 
 #Sort options
 ${ddlSorting}               SortItemBySelect_ddlWrapper
@@ -202,6 +206,23 @@ Wait Search Terms Closed
 Click Last Item Search Term
     Click Element    ${lastItemSearchTerm}
 
+Check and Verify Customer Logo exists
+    Wait Until Element Is Visible       ${imgCustomerLogo}
+    Page Should Contain Image       ${imgCustomerLogo}
+    ${imageSrc}=   Get Element Attribute     ${imgCustomerLogo}     src
+    Run Keyword And Return Status       Should Contain      ${imageSrc}     logo_EN.png
+
+Get Search Page Text 1
+    Wait Until Element Is Visible   ${txtbox1}
+    ${textInTextBox1WC}=    Get Text    ${txtbox1}
+    [Return]    ${textInTextBox1WC}
+
+Get Search Page Text 2
+    Wait Until Element Is Visible   ${txtbox2}
+    ${textInTextBox2WC}=    Get Text    ${txtbox2}
+    ${textInTextBox2WCFormatted}=    Get Substring      ${textInTextBox2WC}     9
+    [Return]    ${textInTextBox2WCFormatted}
+
 #******** Search Action  ***************
 Click Search Action
   [Arguments]    ${actionSelector}
@@ -255,6 +276,12 @@ Click IT Management Console on User Menu
     Wait Progress Bar Closed
     Click Element    ${btnManagementConsole}
     Wait Progress Bar Closed
+
+Click Open Web Client on User Menu
+    Wait Progress Bar Closed
+    Click Element    ${btnWebClient}
+    Wait Progress Bar Closed
+    Select Window       Every Angle - Search page
 
 Click Logout
     Click Link       ${btnLogout}

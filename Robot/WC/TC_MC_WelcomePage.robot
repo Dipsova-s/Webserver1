@@ -12,25 +12,27 @@ ${filePath}                                ${EXECDIR}/resources/Robot-Test-1.eap
 
 *** Test Cases ***
 Test Welcome Page
+    [Documentation]    This test case deals with entering welcome note/message and uploading customer logo in Welcome page of ITMC. It also verifies the same in Search page of WC.
+    [Tags]      TC-625      TC-628
     Login To MC By Admin User
     Wait Until Overview Page Loaded
     Go To Welcome Page
     Input Welcome Page Textbox 1    Test Textbox 1 English Language
-    Click Select Language
-    Wait Until Page Contains    English
-    Wait Until Page Contains    German
-    Wait Until Page Contains    Spanish
-    Wait Until Page Contains    French
-    Wait Until Page Contains    Dutch
-    Click Select Language
-    Sleep    ${TIMEOUT_GENERAL}
-    Select Language To Welcome Page    Dutch
-    Input Welcome Page Textbox 1    Test Textbox 1 Dutch Languange
-    Select Language To Welcome Page    English
-    ${textInTextBox1}=    Get Value    ${txtTextbox1}
-    Should Be Equal    ${textInTextBox1}    Test Textbox 1 English Language
-    Select Language To Welcome Page    Dutch
-    ${textInTextBox1}=    Get Value    ${txtTextbox1}
-    Should Be Equal    ${textInTextBox1}    Test Textbox 1 Dutch Languange
+    Assert Welcome Page Available Languages
+    Select Language And Input Welcome page Textbox 1    Dutch   Test Textbox 1 Dutch Languange
+    Assert Welcome Page Textbox 1       English   Test Textbox 1 English Language
+    Assert Welcome Page Textbox 1       Dutch   Test Textbox 1 Dutch Languange
+    Click Upload Customer Logo      ${fileImagePath}
     Click Save Welcome Page
+    Assert Welcome Page Textbox 2    This for News text
+    Check Upload success of Customer Logo
+
+    # switch to WC window and check Customer logo
+    Click User Menu
+    Click Open Web Client on User Menu    
+    Assert Search Page Text    Get Search Page Text 1   Test Textbox 1 English Language
+    Assert Search Page Text    Get Search Page Text 2    This for News text
+    Check and Verify Customer Logo exists
+    Close Window
+    Select Window    IT Management Console
 

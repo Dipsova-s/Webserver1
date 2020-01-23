@@ -10,6 +10,8 @@ ${txtTextbox2}                 NewsText
 
 ${imgPreviewCustomerLogo}      .contentSectionWelcomeLogoItem img
 
+${imgUploadedCustomerLogo}        css=.contentSectionWelcomeLogoItem > img[src*="logo_EN"]
+
 *** Keywords ***
 Select Language To Welcome Page
     [Arguments]     ${languageName}
@@ -31,10 +33,24 @@ Input Welcome Page Textbox 2
     Wait Until Page Contains Element    ${txtTextbox2}
     Input kendo Text Editor    ${txtTextbox2}    ${valueText}
 
+Get Welcome Page Textbox 1 Value
+    ${textInTextBox1ITMC}=    Get Value    ${txtTextbox1}
+    [Return]    ${textInTextBox1ITMC}
+
+Get Welcome Page Textbox 2 Value
+    ${textInTextBox2ITMC}=    Get Value    ${txtTextbox2}
+    [Return]    ${textInTextBox2ITMC}
+
 Click Upload Customer Logo
     [Arguments]    ${filePath}
     Wait Until Page Contains Element    ${btnUploadCustomerLogo}
     Choose File     ${btnUploadCustomerLogo}    ${filePath}
+
+Check Upload success of Customer Logo
+    Wait Until Element Is Visible       ${imgUploadedCustomerLogo}
+    Page Should Contain Image       ${imgUploadedCustomerLogo}
+    ${imageSrc}=   Get Element Attribute     ${imgUploadedCustomerLogo}     src
+    Run Keyword And Return Status       Should Contain      ${imageSrc}     logo_EN.png
 
 Click Generate Video Thumbnails
     Wait Until Page Contains Element    ${btnGenerateVideoThumbnails}

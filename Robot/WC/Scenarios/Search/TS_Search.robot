@@ -157,3 +157,8 @@ Copy Angle Via Search Action
     Check And Wait Until Element Is Not Visible    ${divCopyAngleProgress}
     Sleep    ${TIMEOUT_GENERAL}
     Wait Progress Bar Search Closed
+
+Assert Search Page Text
+    [Arguments]     ${keyword}      ${expectedText}
+    ${text}=     Run Keyword    ${keyword}
+    Should Be Equal     ${text}     ${expectedText}
