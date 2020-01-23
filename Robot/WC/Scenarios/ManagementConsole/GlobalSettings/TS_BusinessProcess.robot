@@ -22,3 +22,9 @@ Delete Business Process
     [Arguments]    ${businessProcssName}
     Click Delete Business Process By Abbreviation    ${businessProcssName}
     Click Save And Delete Business Process
+
+Delete Multiple Business Process
+    [Arguments]    ${businessProcssName}    ${businessProcssName2}
+    Click Delete Business Process By Abbreviation    ${businessProcssName}
+    Click Delete Business Process By Abbreviation    ${businessProcssName2}
+    Click Save And Delete Business Process

@@ -1,20 +1,29 @@
 *** Settings ***
 Resource            ${EXECDIR}/resources/WCSettings.robot
-Suite Setup         Open Browser in Sandbox Mode
-Suite Teardown      Close Browser
-Test Setup          Go To               ${URL_MC}
-Test Teardown       Logout MC
-Force Tags          MC    smk_mc
+Suite Setup         Go to MC Then Login With Admin User
+Suite Teardown      Logout MC Then Close Browser
+Force Tags          acc_mc
 
 *** Variables ***
 ${TEST_BUSINESS_PROCESS}    [ROBOT] Test Business Process
 ${BUSINESS_PROCESS_NAME}    TestBP
+${BUSINESS_PROCESS_NAME2}    TestBP2
 ${TEST_USER}                EAPower
 
 *** Test Cases ***
-Test Business Process
-    Login To MC By Admin User
-    Wait Until Overview Page Loaded
+Create Business Process and Delete
+    [Documentation]     This test creates business process and delete the business process
+    ...                 Risk Covered-This test covers failures while creating business process and deleting the process
+    Go to Business Process
+    Create New Business Process    ${BUSINESS_PROCESS_NAME}
+    Click Enable Business Process By Abbreviation    ${BUSINESS_PROCESS_NAME}
+    Click Save Business Process Without Delete
+    Delete Business Process    ${BUSINESS_PROCESS_NAME}
+    Page Should Not Contain Element    ${trRowInBusinessProcessGrid}:contains("${BUSINESS_PROCESS_NAME}")
+
+Create Business Process and Add to User
+    [Documentation]     This test creates business process and adds the business process to a user and then delete the business process
+    ...                 Risk Covered-This test covers failures while creating business process and adding the process to user and while deleting the process
     Go to Business Process
     Create New Business Process    ${BUSINESS_PROCESS_NAME}
     Click Enable Business Process By Abbreviation    ${BUSINESS_PROCESS_NAME}
@@ -23,4 +32,21 @@ Test Business Process
     Add Business Process To User    ${TEST_USER}    ${BUSINESS_PROCESS_NAME}
     Go to Business Process
     Delete Business Process    ${BUSINESS_PROCESS_NAME}
+    Page Should Not Contain Element    ${trRowInBusinessProcessGrid}:contains("${BUSINESS_PROCESS_NAME}")
+
+Create Multiple Business Processes and Add to User
+    [Documentation]     This test creates multiple business process and adds the multiple business process to a user and then delete the multiple business process
+    ...                 Risk Covered-This test covers failures while creating multiple business process and adding the process to user and while deleting the process
+    Go to Business Process
+    Create New Business Process    ${BUSINESS_PROCESS_NAME}
+    Click Enable Business Process By Abbreviation    ${BUSINESS_PROCESS_NAME}
+    Click Save Business Process Without Delete
+    Create New Business Process    ${BUSINESS_PROCESS_NAME2}
+    Click Enable Business Process By Abbreviation    ${BUSINESS_PROCESS_NAME2}
+    Click Save Business Process Without Delete
+    Go To All Users Page
+    Add Business Process To User    ${TEST_USER}    ${BUSINESS_PROCESS_NAME}
+    Add Business Process To User    ${TEST_USER}    ${BUSINESS_PROCESS_NAME2}
+    Go to Business Process
+    Delete Multiple Business Process    ${BUSINESS_PROCESS_NAME}    ${BUSINESS_PROCESS_NAME2}
     Page Should Not Contain Element    ${trRowInBusinessProcessGrid}:contains("${BUSINESS_PROCESS_NAME}")

@@ -38,3 +38,8 @@ Click Add Business Process To User
     [Arguments]    ${businessProcessName}
     Wait Until Element Is Visible    ${divBusinessProcesses}:contains("${businessProcessName}")
     Click Element    ${divBusinessProcesses}:contains("${businessProcessName}")
+
+Click Add Multiple Business Process To User
+    [Arguments]    ${businessProcessName}   ${businessProcessName2}
+    Click Add Business Process To User      ${businessProcessName}
+    Click Add Business Process To User      ${businessProcessName2}
