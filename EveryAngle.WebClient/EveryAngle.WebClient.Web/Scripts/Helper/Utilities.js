@@ -107,7 +107,7 @@
                 }
                 return tSize;
             };
-            jQuery.each(text.split('\n'), function (i, t) {
+            jQuery.each((text + '').split('\n'), function (i, t) {
                 if (t) {
                     _size = getTextSize(t);
                     if (_size > size) {

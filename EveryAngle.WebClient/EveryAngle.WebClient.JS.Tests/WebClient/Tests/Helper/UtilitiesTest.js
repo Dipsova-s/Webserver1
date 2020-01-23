@@ -270,4 +270,15 @@
 
     });
 
+    describe(".MeasureText", function () {
+
+        it("should not throw JS error when input number instead of string", function () {
+            expect(function () {
+                Modernizr.canvas = true;
+                WC.Utility.MeasureText(1);
+            }).not.toThrow();
+        });
+
+    });
+
 });
