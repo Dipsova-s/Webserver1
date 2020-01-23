@@ -34,3 +34,28 @@ Verify Popup Stop Server
     Click Stop Server
     Wait Until Page Contains Element    ${popupConfirmationStopServer}
     Click Close Pop Up Stop Server
+
+Verify the page redirected to the selected model options in MC model server page
+    Click on Communications model options
+    Click on EA2_800 model server in side menu
+    Click on EA ETL Sandbox model option
+    Click on EA2_800 model server in side menu
+    Click on Refresh Cycle model option
+    Click on EA2_800 model server in side menu
+    Click on Angle Warnings model option
+    Click on EA2_800 model server in side menu
+    Click on Content parameters model option
+    Click on EA2_800 model server in side menu
+    Click on Label model option
+    Click on EA2_800 model server in side menu
+    Click on Languages model option
+    Click on EA2_800 model server in side menu
+    Click on Packages model option
+    Click on EA2_800 model server in side menu
+    Click on Suggested fields model option
+    Click on EA2_800 model server in side menu
+    Click on Role model option
+
+Click on EA2_800 model server in side menu
+    Click Side Menu Models EA2_800
+    Wait Until Models Info Loaded
