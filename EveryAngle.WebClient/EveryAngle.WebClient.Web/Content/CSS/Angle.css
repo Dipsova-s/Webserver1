@@ -666,7 +666,7 @@
     cursor: pointer;
     position: relative;
     overflow: visible;
-    height: 32px;
+    min-height: 32px;
 }
 .context-menu .listview-item:hover {
     background-color: #fafafb;
@@ -708,4 +708,8 @@
     right: auto;
     font-weight: normal;
     max-height: 307px;
+    display: flex;
+    flex-direction: column;
+    flex-shrink: 0;
+    min-width: 50%;
 }
