@@ -9,6 +9,7 @@ ${txtCustomIconsFieldType}                   input[name="editId"]
 ${btnCustomIconsUpload32}                    .upload16 input[name="files"]
 ${btnCustomIconsUpload64}                    .upload32 input[name="files"]
 ${iconFilePath}                               ${EXECDIR}/resources/test.png
+${TestIconFilePath}                           ${EXECDIR}/resources/google.png
 
 ${trNewCustomIconsRow}                       .newRow
 ${trEditCustomIconsRow}                      .editRow
@@ -35,6 +36,16 @@ Click Edit Custom Icons By Field Name
 Click Edit Custom Icons Action By Field Type
     [Arguments]    ${fieldType}
     Click Show Action Dropdown In Grid By Name    ${fieldType}    ${trRowInCustomIconsGrid}
+    Click Edit Custom Icons By Field Name       ${fieldType}
+
+Click Delete Custom Icons By Field Name
+    [Arguments]    ${fieldType}
+    Click Action In Grid By Name     ${fieldType}    ${trRowInCustomIconsGrid}    ${btnActionDeleteCustomIcons}
+
+Click Delete Custom Icons Action By Field Type
+    [Arguments]    ${fieldType}
+    Click Show Action Dropdown In Grid By Name    ${fieldType}    ${trRowInCustomIconsGrid}
+    Click Delete Custom Icons By Field Name     ${fieldType}
 
 Edit Custom Icons Field Type
     [Arguments]    ${fieldType}
@@ -42,10 +53,12 @@ Edit Custom Icons Field Type
     Input Text    css=${trEditCustomIconsRow} ${txtCustomIconsFieldType}   ${fieldType}
 
 Edit Custom Icons File Size 16
+    [Arguments]     ${iconFilePath}
     Wait Until Page Contains Element    css=${trEditCustomIconsRow} ${btnCustomIconsUpload32}
     Choose File    css=${trEditCustomIconsRow} ${btnCustomIconsUpload32}    ${iconFilePath}
 
 Edit Custom Icons File Size 32
+    [Arguments]     ${iconFilePath}
     Wait Until Page Contains Element    css=${trEditCustomIconsRow} ${btnCustomIconsUpload64}
     Choose File    css=${trEditCustomIconsRow} ${btnCustomIconsUpload64}    ${iconFilePath}
 
@@ -55,21 +68,18 @@ Add Custom Icons Field Type
     Input Text    css=${trNewCustomIconsRow} ${txtCustomIconsFieldType}    ${fieldType}
 
 Add Custom Icons File Size 16
+    [Arguments]     ${iconFilePath}
     Wait Until Page Contains Element    css=${trNewCustomIconsRow} ${btnCustomIconsUpload32}
     Choose File    css=${trNewCustomIconsRow} ${btnCustomIconsUpload32}    ${iconFilePath}
 
 Add Custom Icons File Size 32
+    [Arguments]     ${iconFilePath}
     Wait Until Page Contains Element    css=${trNewCustomIconsRow} ${btnCustomIconsUpload64}
     Choose File    css=${trNewCustomIconsRow} ${btnCustomIconsUpload64}    ${iconFilePath}
 
 Click Add New Icon
     Wait Until Page Contains Element    ${addNewIcon}
     Click Element    ${addNewIcon}
-
-Click Delete Custom Icons Action By Field Name
-    [Arguments]    ${fieldType}
-    Click Edit Custom Icons Action By Field Type    ${fieldType}
-    Click Action In Grid By Name     ${fieldType}    ${trRowInCustomIconsGrid}    ${btnActionDeleteCustomIcons}
 
 Click Save Custom Icons
     Sleep    ${TIMEOUT_LARGEST}

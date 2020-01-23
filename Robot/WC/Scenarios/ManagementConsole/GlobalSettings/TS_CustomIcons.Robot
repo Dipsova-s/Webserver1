@@ -7,17 +7,17 @@ Go To Custom Icons Page
     Wait Until Custom Icons Page Loaded
 
 Add New Custom Icons And Save
-    [Arguments]    ${fieldType}
+    [Arguments]    ${fieldType}     ${iconFilePath}
     ${chkIconExist}    Is Element Visible    ${trRowInCustomIconsGrid}:contains(${fieldType})
     Run Keyword If    ${chkIconExist} == True    Delete Adding Custom Icons    ${fieldType}
-    Add New Custom Icons    ${fieldType}
+    Add New Custom Icons    ${fieldType}     ${iconFilePath}
 
 Add New Custom Icons
-    [Arguments]    ${fieldType}
+    [Arguments]    ${fieldType}     ${iconFilePath}
     Click Add New Icon
     Add Custom Icons Field Type    ${fieldType}
-    Add Custom Icons File Size 16
-    Add Custom Icons File Size 32
+    Add Custom Icons File Size 16       ${iconFilePath}
+    Add Custom Icons File Size 32       ${iconFilePath}
     Click Save Custom Icons
 
 Verify Custom Icons Were Uploaded
@@ -29,7 +29,13 @@ Verify Custom Icons Were Uploaded
     ${image32Exist}    Is Image Exist    css=#row-${fieldType} .preview32
     Should Be True    ${image32Exist}
 
+Edit Custom Icons Field
+    [Arguments]    ${fieldType}
+    Click Edit Custom Icons Action By Field Type    ${fieldType}
+    Edit Custom Icons Field Type    Edited_Icon
+    Click Save Custom Icons
+
 Delete Adding Custom Icons
     [Arguments]    ${fieldType}
-    Click Delete Custom Icons Action By Field Name    ${fieldType}
+    Click Delete Custom Icons Action By Field Type    ${fieldType}
     Click Save Custom Icons With Delete Exist Icons
