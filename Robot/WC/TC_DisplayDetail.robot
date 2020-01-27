@@ -11,18 +11,19 @@ ${TEST_VERIFY_DISPLAY_DESCRIPTION_WITH_MULTI_LANGUAGES}    [ROBOT] Test Verify D
 
 *** Test Cases ***
 Verify Set Default Display
+    [Tags]              TC_C228795
+    [Documentation]     Verify the default display of the angle has been set to the default display
+    ...                 Risk/coverage area: the diplay details
     Create Angle From Object List And Save    PD    ${VERIFY_SET_DEFAULT_DISPLAY}
     Create New Display on Angle Page    list
     Click Edit Display
     Click Checkbox Default Display
     Save Display Detail From Popup
     Back To Search
-    Search By Text And Expect In Search Result    ${VERIFY_SET_DEFAULT_DISPLAY}
-    Click Link First Item From Search Result
-    Wait Angle Page Document Loaded
+    Search Angle From Search Page And Execute Angle    ${VERIFY_SET_DEFAULT_DISPLAY}
     ${selectedDisplay}    Get Selected Display Name
     Should Be True    '${selectedDisplay}'=='New Display (1)'
-    Back To Search And Delete Angle Are Created    ${VERIFY_SET_DEFAULT_DISPLAY}
+    [Teardown]    Back To Search And Delete Angle Are Created    ${VERIFY_SET_DEFAULT_DISPLAY}
 
 Verify Display Description With Multi Languages
     Create Angle From Object List And Save    PD    ${TEST_VERIFY_DISPLAY_DESCRIPTION_WITH_MULTI_LANGUAGES}
