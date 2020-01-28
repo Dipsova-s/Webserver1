@@ -55,6 +55,7 @@ ${btnActionDropDown}    .btn btnEdit
 ${btnDeleteAction}      .btnGroupInner .btnDelete
 ${btnDeleteDatastore}        xpath=(//a[@class='btn btnPrimary btnSubmit'])[2]
 ${tblDatastoresGridRows}    css=#DataStoresGrid .k-grid-content tr
+${scrollableDatastorePage}  css=#mainContent
 
 *** Keywords ***
 Fill Create New Datastore
@@ -73,7 +74,9 @@ Fill Connection Settings
 Fill Data Settings for CSV Export
     [Arguments]     ${modalTimeStampIndex}      ${headerFormat}     ${setFormat}       ${maxRowstoExport}       ${fileName}     ${appendResult}
     Input kendo Numeric TextBox     ${txtModelTimestampIndex}   ${modalTimeStampIndex}
+    scroll Vertical To Element  ${scrollableDatastorePage}  ${ddlSetFormat}
     Select Dropdown By InnerText    ${ddlHeaderFormat}  ${headerFormat}
+    scroll Vertical To Element  ${scrollableDatastorePage}  ${txtMaxRowsToExport}
     Select Dropdown By InnerText  ${ddlSetFormat}  ${setFormat}
     Input kendo Numeric TextBox  ${txtMaxRowsToExport}  ${maxRowstoExport}
     Input Text  ${txtDatastoreFileName}  ${fileName}
@@ -84,6 +87,7 @@ Fill DataStore Format Options
     [Arguments]     ${decimalSeparator}     ${numberofDecimals}     ${timeFormat}       ${timeSeparator}    ${dateFormat}       ${dateSeparator}       ${valueYes}      ${valueNo}      ${enquote}      ${enquoteHeaders}       ${fieldSeparator}       ${lineSeparator}        ${enquoteCharacter}
     Input Text  ${txtDecimalSeparator}  ${decimalSeparator}
     Input kendo Numeric TextBox  ${ddlNumberofDecimals}  ${numberofDecimals}
+    scroll Vertical To Element  ${scrollableDatastorePage}  ${ddlDateFormater}
     Select Dropdown By InnerText  ${ddlTimeFormat}  ${timeFormat}
     Input Text  ${txtTimeSeparator}  ${timeSeparator}
     Select Dropdown By InnerText  ${ddlDateFormater}  ${dateFormat}
@@ -128,6 +132,7 @@ Fill Data Settings for SQL Export
     [Arguments]     ${modalTimeStampIndex}      ${headerFormat}     ${setFormat}       ${maxRowstoExport}       ${tableName}     ${deletionTimeout}     ${appendResult}
     Input kendo Numeric TextBox     ${txtModelTimestampIndex}   ${modalTimeStampIndex}
     Select Dropdown By InnerText    ${ddlHeaderFormat}  ${headerFormat}
+    scroll Vertical To Element  ${scrollableDatastorePage}  ${ddlSetFormat}
     Select Dropdown By InnerText  ${ddlSetFormat}  ${setFormat}
     Input kendo Numeric TextBox  ${txtMaxRowsToExport}  ${maxRowstoExport}
     Input Text  ${txtTableName}  ${tableName}
