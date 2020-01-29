@@ -121,3 +121,9 @@ Check Last Successful Heartbeat
 Check Model ID
     [Arguments]    ${dataCSM}    ${dataMC}
     Compare component data    ${dataCSM}    model_id    ${dataMC}    ModelId
+
+Verify the model server Info popup in Components page   
+    [Arguments]     ${filterText}
+    Click Tree Class Report
+    Click Class DeliveryNoteLine Report
+    Verify Report Filter    ${filterText}
