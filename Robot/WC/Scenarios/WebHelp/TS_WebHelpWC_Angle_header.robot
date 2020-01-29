@@ -56,16 +56,16 @@ Crop Display Action Buttons
 
 Crop Publishing Buttons
     Execute JavaScript  anglePageHandler.HandlerState.Data.is_published(false);
-    Crop WebHelp Image  WC_Publish.png        css=#ShowPublishSettingsButton
+    Crop WebHelp Image  WC_Publish_button.png        css=#ShowPublishSettingsButton
     Execute JavaScript  anglePageHandler.HandlerState.Data.is_published(true);
-    Crop WebHelp Image  WC_Published.png      css=#ShowPublishSettingsButton
+    Crop WebHelp Image  WC_Published_button.png      css=#ShowPublishSettingsButton
 
 Crop Validating Buttons
     Execute JavaScript  anglePageHandler.HandlerState.Data.authorizations().unvalidate = true;
     Execute JavaScript  anglePageHandler.HandlerState.Data.is_validated(false);
-    Crop WebHelp Image  WC_Validate.png       css=#ShowValidateButton
+    Crop WebHelp Image  WC_Validate_button.png       css=#ShowValidateButton
     Execute JavaScript  anglePageHandler.HandlerState.Data.is_validated(true);
-    Crop WebHelp Image  WC_Validated.png      css=#ShowValidateButton
+    Crop WebHelp Image  WC_Validated_button.png      css=#ShowValidateButton
 
 Crop Displays Dropdown
     Execute JavaScript    $('#DisplayItemList .DisplayOption').show();

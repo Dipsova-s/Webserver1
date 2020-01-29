@@ -5,6 +5,7 @@ ${grandTotal}                       pivotGrid_DCSCell_SCDTable .lastHorzCell.las
 ${divPivotScollBarVerticalSize}     pivotGrid_VSBCCell_SCSDiv
 ${divPivotScollBarHorizontalSize}   pivotGrid_HSBCCell_SCSDiv
 ${pgbPivotLoading}                  pivotGrid_LPV
+${pgbPivotDisplay}                  jquery=#PivotMainWrapper .pivotAreaContainer .k-loading-mask
 ${tdPivotHeaderRow}                 jquery=#pivotGrid_ACCRowArea .dxpgHeaderText
 ${tdPivotHeaderColumn}              jquery=#pivotGrid_ColumnArea .dxpgHeaderText
 ${tdPivotHeaderData}                jquery=#pivotGrid_ACCDataArea .dxpgHeaderText
@@ -34,6 +35,7 @@ Wait Until Pivot Display Loaded
     Sleep  ${TIMEOUT_LARGEST}
     Wait Until Ajax Complete
     Wait Until Page Does Not Contain Element     ${pgbPivotLoading}
+    Wait Until Page Does Not Contain Element     ${pgbPivotDisplay}
 
 Pivot Scroll Vertical
     [Arguments]    ${scrollTop}

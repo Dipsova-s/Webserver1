@@ -49,7 +49,7 @@ Crop Search Result Icons
     Crop WebHelp Image    WC_Execution_Lightning.png   jquery=.SearchResult:first .ResultContent .rear .icon:eq(0)    ${False}
 
     Execute JavaScript    $('.SearchResult:first .ResultContent .rear .icon:eq(0)').attr('class', 'icon icon-validated');
-    Crop WebHelp Image    WC_Validated.png   jquery=.SearchResult:first .ResultContent .rear .icon:eq(0)    ${False}
+    Crop WebHelp Image    WC_Validated_button.png   jquery=.SearchResult:first .ResultContent .rear .icon:eq(0)    ${False}
 
     Execute JavaScript    $('.SearchResult:first .ResultContent .rear .icon:eq(0)').attr('class', 'icon icon-info');
     Crop WebHelp Image    WC_i_Icon.png   jquery=.SearchResult:first .ResultContent .rear .icon:eq(0)    ${False}
