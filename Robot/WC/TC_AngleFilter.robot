@@ -7,18 +7,18 @@ Force Tags        	acc_wc    smk_content
 *** Test Cases ***
 Verify All Operators For All Field Type
     Search Angle From Search Page And Execute Angle    Test Angle Filter
-    Verify Operators Currency Field     OrderedValue     ordered value
-    Verify Operators Date Field     CreationDate     Created on
-    Verify Operators Enumerated Field    PurchaseOrganization__PurchaseOrganization     Purchase Org.
-    Verify Operators Text Field     OrderNumber    Order Number
-    Verify Operators Boolean Field    RelevantForLogistics    MRP relevant
-    Verify Operators Percentage Field     StockAvailabilityPct    Stock Availability %
-    Verify Operators DateTime Field     Material___prop_moment    prop_moment
+    Verify Operators Currency Field     OrderedValue     ordered value  ${TRUE}
+    Verify Operators Date Field     CreationDate     Created on     ${FALSE}
+    Verify Operators Enumerated Field    PurchaseOrganization__PurchaseOrganization     Purchase Org.   ${TRUE}
+    Verify Operators Text Field     OrderNumber    Order Number     ${TRUE}
+    Verify Operators Boolean Field    RelevantForLogistics    MRP relevant  ${TRUE}
+    Verify Operators Percentage Field     StockAvailabilityPct    Stock Availability %  ${TRUE}    
+    Verify Operators DateTime Field     Material___prop_moment    prop_moment   ${FALSE}
     [Teardown]  Run Keyword    Go to Search Page
 
 Add Or Change Filter And Get Correct Result
     Search Angle From Search Page And Execute Angle    Test Angle Filter
-    Add Or Change Currency Filter    OrderedValue     ordered value
+    Add Or Change Currency Filter    OrderedValue     ordered value     ${TRUE}
     [Teardown]  Run Keyword    Go to Search Page
 
 Verify Add Filter Before Jump
@@ -34,8 +34,8 @@ Verify Add Filter Before Jump
 	# M4-71243 the other values should not be change
 	${beforeAddJumpText}  Get Filter Text From Popup    0
     
-	Add Filter From Angle Details Popup    "delivery block"    DeliveryNoteHeader__DeliveryBlock
-    Add Filter Before Jump From Angle Details Popup    0    "delivery block"    DeliveryBlock
+	Add Filter From Angle Details Popup    "delivery block"    DeliveryNoteHeader__DeliveryBlock    ${FALSE}
+    Add Filter Before Jump From Angle Details Popup    0    "delivery block"    DeliveryBlock       ${FALSE}
 	
 	# M4-71243 the other values should not be change
 	${afterAddJumpText}  Get Filter Text From Popup    1
@@ -51,8 +51,8 @@ Verify Add Filter Before Jump
     # check add filter/jump from Display popup
     Click Angle Dropdown Actions Edit Display
     Click Display Detail Filter And Jumps Tab
-    Add Filter From Display Details Popup    "Material type"    MaterialType
-    Add Filter Before Jump From Display Details Popup    0    "delivery block"    DeliveryNoteHeader__DeliveryBlock
+    Add Filter From Display Details Popup    "Material type"    MaterialType    ${FALSE}
+    Add Filter Before Jump From Display Details Popup    0    "delivery block"    DeliveryNoteHeader__DeliveryBlock     ${FALSE} 
     Click Add Jump In Display Filter And Jumps Tab
     Jump Should Be Existed In Popup    Material Plant Data
     Click Close Add Jump Popup

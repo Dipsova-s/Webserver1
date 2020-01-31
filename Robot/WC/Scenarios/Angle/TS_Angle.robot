@@ -204,6 +204,5 @@ Check Warning And Error Displays In Display Dropdown
     Should Be True                                ${countError} == 0
 
 Add Field To Angle
-    [Arguments]   ${fieldKeyword}    ${fieldId}    ${isSelfSource}=${FALSE}
-    Run Keyword If    ${isSelfSource}    Select Field Source(Self)
-    Add Field By Search From Field Chooser    ${fieldKeyword}    ${fieldId}
+    [Arguments]   ${fieldKeyword}    ${fieldId}    ${isSelfSource}
+    Add Field By Search From Field Chooser    ${fieldKeyword}    ${fieldId}     ${isSelfSource}

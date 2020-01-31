@@ -14,7 +14,7 @@ Verify Save Adhoc Angle As
     Create Angle From Object List And Save    PD    ${TEST_VERIFY_SAVE_ANGLE_ADHOC_AS_NAME}
     Wait Progress Bar Closed
     Wait Until List Display Loaded
-    Create Chart From List Header Column    ObjectType    ObjectType
+    Create Chart From List Header Column    ObjectType    ObjectType    ${TRUE}
     Click Angle Dropdown Actions Save Display As
     Click Check Add To New Angle Checkbox
     ${displayName}    Get Display Name In Save Display As Popup

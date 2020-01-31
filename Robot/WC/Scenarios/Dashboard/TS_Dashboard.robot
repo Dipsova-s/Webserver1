@@ -141,12 +141,12 @@ Create Dashboard From Specific Angle Name
     Save Dashboard
 
 Add Filter To Dashboard
-    [Arguments]    ${fieldKeyword}    ${fieldId}    ${selectedOperator}    ${selectedOperatorValue}
+    [Arguments]    ${fieldKeyword}    ${fieldId}    ${selectedOperator}    ${selectedOperatorValue}     ${isSelfSource}
     Click Dashboard Name
     Click Dashboard Detail Filters Tab
     Click Add Filter Button In Dashboard Detail Popup
     Select Field Source(Self)
-    Select Field From Filters Tab    ${fieldKeyword}    ${fieldId}
+    Select Field From Filters Tab    ${fieldKeyword}    ${fieldId}      ${isSelfSource}
     Choose Dropdown Filter Operator In FilterField In Filters tab    0    ${selectedOperator}
     Input Filter Set Select Value    0    ${selectedOperatorValue}
     Save Dashboard
@@ -183,19 +183,19 @@ Add Filters To Dashboard
     # filter #1
     Click Add Filter Button In Dashboard Detail Popup
     Select Field Source(Self)
-    Select Field From Filters Tab    "Bottleneck Type"    BottleneckType
+    Select Field From Filters Tab    "Bottleneck Type"    BottleneckType    ${TRUE}
     Choose Dropdown Filter Operator In FilterField In Filters tab   0   is not empty
 
     # filter #2
     Click Add Filter Button In Dashboard Detail Popup
     Select Field Source(Self)
-    Select Field From Filters Tab    "Order Due Date"    OrderDueDate
+    Select Field From Filters Tab    "Order Due Date"    OrderDueDate       ${TRUE}
     Input Date Value    1_0    May/24/2016
 
     # filter #3
     Click Add Filter Button In Dashboard Detail Popup
     Select Field Source(Self)
-    Select Field From Filters Tab    "Order Number"    OrderNumber
+    Select Field From Filters Tab    "Order Number"    OrderNumber      ${TRUE}
     Choose Dropdown Filter Operator In FilterField In Filters tab   2   is greater than
     Input Text    InputValue-2    1
 

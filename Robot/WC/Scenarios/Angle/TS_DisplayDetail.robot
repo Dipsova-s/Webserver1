@@ -178,11 +178,11 @@ Move First Filter To Angle Definition
     Confirm To Move Filter To Angle Definition
 
 Add Filter From Display Details Popup
-    [Arguments]   ${fieldKeyword}    ${fieldId}
+    [Arguments]   ${fieldKeyword}    ${fieldId}      ${isSelfSource}
     Click Add Filter In Display Filter And Jumps Tab
-    Add Field By Search From Field Chooser    ${fieldKeyword}    ${fieldId}
+    Add Field By Search From Field Chooser    ${fieldKeyword}    ${fieldId}     ${isSelfSource}
 
 Add Filter Before Jump From Display Details Popup
-    [Arguments]   ${panelIndex}    ${fieldKeyword}    ${fieldId}
+    [Arguments]   ${panelIndex}    ${fieldKeyword}    ${fieldId}        ${isSelfSource}
     Click Add Filter From Jump    ${panelIndex}
-    Add Field By Search From Field Chooser    ${fieldKeyword}    ${fieldId}
+    Add Field By Search From Field Chooser    ${fieldKeyword}    ${fieldId}     ${isSelfSource}

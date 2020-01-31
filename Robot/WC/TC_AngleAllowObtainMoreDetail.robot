@@ -25,12 +25,12 @@ Verify Angle For Allow Obtain More Details Test
     Add New Column Should Be Visible
     Click Toggle Angle
     Verify Disable Add Filter And Jump Button In Display Popup    False
-    Verify Disable Drilldown    False    ${fieldId}    ${fieldKeyword}
+    Verify Disable Drilldown    False    ${fieldId}    ${fieldKeyword}  ${TRUE}
     Verify Disable Remove Column And Filter Button In Header Popop    False    ${fieldId}
     Set Angle To Not Allow User To Obtain More Details
     Add New Column Should Not Be Visible
     Verify Disable Add Filter And Jump Button In Display Popup    True
-    Verify Disable Drilldown    True    ${fieldId}    ${fieldKeyword}
+    Verify Disable Drilldown    True    ${fieldId}    ${fieldKeyword}   ${TRUE}
     Verify Disable Remove Column And Filter Button In Header Popop    True    ${fieldId}
     Set Angle To Allow User To Obtain More Details
     Add New Column Should Be Visible

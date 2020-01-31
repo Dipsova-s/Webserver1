@@ -24,12 +24,12 @@ Verify Add A Duplicate Field To Display List Test
     ${secondFieldKeyword}   Set Variable       Execution
 
     Create Angle From Object List And Save    PD    ${TEST_RE_ADD_FIELD_TO_DISPLAY_LIST}
-    Add Column By Search And Add To List Display If Not Exist    ${firstFieldId}    ${firstFieldKeyword}
+    Add Column By Search And Add To List Display If Not Exist    ${firstFieldId}    ${firstFieldKeyword}    ${TRUE}
     Click Header by Data Field Angle Grid List Display    ${firstFieldId}
     Click Sort Descending From Head Column to List
     ${expect}    Get Cell Value From List Display    ${firstFieldId}    set
-    Add Column By Search And Add To List Display    ${secondFieldKeyword}     ${secondFieldId}
-    Add Column By Search And Add To List Display    ${firstFieldKeyword}      ${firstFieldId}
+    Add Column By Search And Add To List Display    ${secondFieldKeyword}     ${secondFieldId}      ${TRUE}
+    Add Column By Search And Add To List Display    ${firstFieldKeyword}      ${firstFieldId}       ${TRUE}
     ${result}    Get Cell Value From List Display    ${firstFieldId}    set
     Should Be Equal    ${expect}    ${result}
     Element Should Contain    ${headerLastColumn}    Service Level

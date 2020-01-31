@@ -53,14 +53,14 @@ Check Goto SAP Transaction
     \    Should Not Be Empty    ${sapTransactions}
 
 Create Chart From List Header Column
-    [Arguments]    ${fieldId}    ${fieldKeyword}
-    Add Column By Search And Add To List Display If Not Exist    ${fieldId}    ${fieldKeyword}
+    [Arguments]    ${fieldId}    ${fieldKeyword}    ${isSelfSource}
+    Add Column By Search And Add To List Display If Not Exist    ${fieldId}    ${fieldKeyword}  ${isSelfSource}
     Click Header by Data Field Angle Grid List Display    ${fieldId}
     Click Create Chart From Header Column
 
 Create Pivot From List Header Column
-    [Arguments]    ${fieldId}    ${fieldKeyword}
-    Add Column By Search And Add To List Display If Not Exist    ${fieldId}    ${fieldKeyword}
+    [Arguments]    ${fieldId}    ${fieldKeyword}    ${isSelfSource}
+    Add Column By Search And Add To List Display If Not Exist    ${fieldId}    ${fieldKeyword}  ${isSelfSource}
     Click Header by Data Field Angle Grid List Display    ${fieldId}
     Click Create Pivot From Header Column
 
@@ -101,8 +101,8 @@ Verify Disable Add Filter And Jump Button In Display Popup
     Save Display Detail From Popup
 
 Verify Disable Drilldown
-    [Arguments]    ${disabled}  ${fieldId}    ${fieldKeyword}
-    Add Column By Search And Add To List Display If Not Exist    ${fieldId}    ${fieldKeyword}    ${TRUE}
+    [Arguments]    ${disabled}  ${fieldId}    ${fieldKeyword}   ${isSelfSource}  
+    Add Column By Search And Add To List Display If Not Exist    ${fieldId}    ${fieldKeyword}    ${isSelfSource}
     Click First Row Cell By Column index    ${fieldId}
     Click Angle Dropdown Actions Save Existing Display
     ${DisableDrilldownButton}    Is Element Has CssClass    ${btnCreateDrilldownToItem}   disabled

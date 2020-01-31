@@ -11,7 +11,7 @@ Verify When Angle That Used In The Dashboard Have Filter, And Dashboard Have Fil
     ${dashboardName}  Set Variable  [ROBOT] Verify When Angle That Used In The Dashboard Have Filter, And Dashboard Have Filter Itself
     
     Create Dashboard From Specific Angle Name    ${searchText}    ${dashboardName}
-    Add Filter To Dashboard    "Execution Status"    ExecutionStatus   is equal to    Open
+    Add Filter To Dashboard    "Execution Status"    ExecutionStatus   is equal to    Open      ${TRUE}
     
     First Filter In Dashboard Popup Should Be Equal    ${dashboardName}    is equal to Open
     First Filter In Dashboard Sidebar Should Be Equal    (Self) - Execution status is equal to Open

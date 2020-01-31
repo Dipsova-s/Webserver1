@@ -30,7 +30,7 @@ Verify Execution Parameters When Argument Is Empty
     Create Angle From Object List And Save    PD    ${TEST_ANGLE_EXECUTE_PARAMETER2}
     Click Edit Angle
     Click Angle Detail Definition Tab
-    Add Filter From Angle Details Popup    Execution    ExecutionStatus
+    Add Filter From Angle Details Popup    Execution    ExecutionStatus     ${FALSE}
     Choose Dropdown Filter Operator In Definition Tab    is in list
     Click Execute Parameter To Filter
     Click Save Angle
@@ -40,19 +40,22 @@ Verify Execution Parameters When Argument Is Empty
     Back To Search And Delete Angle Are Created    ${TEST_ANGLE_EXECUTE_PARAMETER2}
 
 Verify Execution Parameters With Compare Field Test
+    [Documentation]     Verify execute an angle with Compare Field in Execution Parameters can add the compare filters
+    ...                 Risk/coverage area: create an adhoc angle and then execute it on search page
+    [Tags]              TC_C228800
     Create Adhoc Angle From Object List    PD    ${TEST_ANGLE_EXECUTE_PARAMETER3}
     Click Angle Detail Definition Tab
-    Add Filter From Angle Details Popup    Material    MaterialValue
+    Add Filter From Angle Details Popup    Material    MaterialValue    ${TRUE}
     Choose Dropdown Filter Operator In Definition Tab    is equal to
     Click Select Field Button In Definition Tab
-    Add Field By Search From Field Chooser    Invoiced    InvoicedValue
+    Add Field By Search From Field Chooser    Invoiced    InvoicedValue     ${TRUE}
     Click Execute Parameter To Filter
     Click Save Angle
     Go to Search Page
     Search By Text And Expect In Search Result    ${TEST_ANGLE_EXECUTE_PARAMETER3}
     Click Link Item From Search Result Not Execute Popup    ${TEST_ANGLE_EXECUTE_PARAMETER3}
     Wait Until Angle Execute Parameters Popup Loaded
-    Add Compare Filter From Angle Details Popup    Item     PurchaseOrderLine__ItemValue
+    Add Compare Filter From Angle Details Popup    Item     PurchaseOrderLine__ItemValue    ${FALSE}
     Click Submit Angle Execution Parameters
     Back To Search And Delete Angle Are Created    ${TEST_ANGLE_EXECUTE_PARAMETER3}
 

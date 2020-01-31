@@ -65,17 +65,16 @@ Open Angle Popup And Save Name
     Click Save Angle
 
 Add Filter From Angle Details Popup
-    [Arguments]   ${fieldKeyword}    ${fieldId}    ${isSelfSource}=${FALSE}
+    [Arguments]   ${fieldKeyword}    ${fieldId}    ${isSelfSource}
     Click Add Filter In Definition Tab
-    Run Keyword If    ${isSelfSource}    Select Field Source(Self)
-    Add Field By Search From Field Chooser    ${fieldKeyword}    ${fieldId}
+    Add Field By Search From Field Chooser    ${fieldKeyword}    ${fieldId}     ${isSelfSource}
 
 Add Filter Before Jump From Angle Details Popup
-    [Arguments]   ${panelIndex}    ${fieldKeyword}    ${fieldId}
+    [Arguments]   ${panelIndex}    ${fieldKeyword}    ${fieldId}    ${isSelfSource}
     Click Add Filter From Jump    ${panelIndex}
-    Add Field By Search From Field Chooser    ${fieldKeyword}    ${fieldId}
+    Add Field By Search From Field Chooser    ${fieldKeyword}    ${fieldId}     ${isSelfSource}
 
 Add Compare Filter From Angle Details Popup
-    [Arguments]   ${fieldKeyword}    ${fieldId}
+    [Arguments]   ${fieldKeyword}    ${fieldId}     ${isSelfSource}
     Click Select Existing Field In Definition Tab
-    Add Field By Search From Field Chooser    ${fieldKeyword}    ${fieldId}
+    Add Field By Search From Field Chooser    ${fieldKeyword}    ${fieldId}     ${isSelfSource}

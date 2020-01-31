@@ -63,8 +63,8 @@ Check Details on Statistics Tab of last created Dashboard
     Page Should Contain Element    Last executed by
 
 Select Field From Filters Tab
-    [Arguments]   ${fieldKeyword}    ${fieldId}
-    Add Field By Search From Field Chooser    ${fieldKeyword}    ${fieldId}
+    [Arguments]   ${fieldKeyword}    ${fieldId}     ${isSelfSource}
+    Add Field By Search From Field Chooser    ${fieldKeyword}    ${fieldId}     ${isSelfSource}
 
 Verify Dashboard Filter Still Showing
     [Arguments]   ${index}    ${expectFilterText}
