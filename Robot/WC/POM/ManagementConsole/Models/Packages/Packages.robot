@@ -58,6 +58,7 @@ Click Activate Model Package By Package Name
 
 Click Deactivate Model Package By Package Name
     [Arguments]    ${modelPackageName}
+    Click Show Action Dropdown In Grid By Name  ${modelPackageName}  ${trRowInModelPackagesGrid}
     Click Action In Grid By Name     ${modelPackageName}    ${trRowInModelPackagesGrid}    ${btnDeactivatePackage}
     Wait Until Page Contains    Deactivate Package
 

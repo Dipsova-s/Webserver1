@@ -14,12 +14,14 @@ Verify the Model Package data in Model Packages grid
 
 Activate Package in Model package grid
     [Arguments]     ${packageName}
+    Click on Reload Button
     Click Activate Model Package By Package Name    ${packageName}
     Click OK on Activate Package Confirmation popup
     Click on Reload Button
 
 Deactivate Package in Model package grid
     [Arguments]     ${packageName}
+    Click on Reload Button
     Click Deactivate Model Package By Package Name  ${packageName}
     click ok on Deactivate Package Confirmation popup
     Click on Reload Button
