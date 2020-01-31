@@ -70,4 +70,4 @@ Add User To System Role By Name
     Filter Available User By Keyword    ${FilterAvailableUser}
     Click Select All Available User
     Click Add User To Right Side
-    Click Confirm Selected User To Role
+    Click Confirm Selected User To Role without confirmation popup

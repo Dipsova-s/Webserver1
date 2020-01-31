@@ -16,6 +16,7 @@ ${btnConfirmSelected}               jquery=#UserInRolePopup .btnPrimary
 
 ${btnClosePopUpStatus}              jquery=#UserInRoleReportPopup .btnPrimary
 ${spinnerManageUser}     css=#UserInRolePopup > div.k-loading-mask
+${ConfirmPopupPrevilege}         jquery=#popupConfirmation .btnPrimary
 
 *** Keywords ***
 Filter Available User By Keyword
@@ -52,6 +53,14 @@ Click Confirm Selected User To Role
     Wait Until Ajax Complete
     Click Close Pop Result
     Wait MC Progress Bar Closed
+    Click confirmation popup to update role previleges and logout
+
+Click Confirm Selected User To Role without confirmation popup
+    Wait Until Element Is Visible    ${btnConfirmSelected}
+    Click Element    ${btnConfirmSelected}
+    Wait Until Ajax Complete
+    Click Close Pop Result
+    Wait MC Progress Bar Closed
 
 Click Close Pop Result
     ${checkText}    Execute JavaScript    return $('.pageSystemRoles').length ? 'All system roles' : 'All available roles'
@@ -59,3 +68,7 @@ Click Close Pop Result
     Click Element    ${btnClosePopUpStatus}
     Wait MC Progress Bar Closed
     Wait Until Page Contains   ${checkText}
+
+Click confirmation popup to update role previleges and logout
+    Wait Until Page Contains Element        ${ConfirmPopupPrevilege}
+    Click Element        ${ConfirmPopupPrevilege}

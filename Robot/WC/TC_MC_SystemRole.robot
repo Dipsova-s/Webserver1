@@ -9,7 +9,6 @@ Force Tags          MC    acc_mc
 ${SystemRole}             ROBOT_role
 ${DescriptionRole}        ROBOT role description
 ${FilterAvailableUser}    Power
-${UserCount}              3
 
 *** Test Cases ***
 Test System Role
