@@ -39,3 +39,10 @@ Delete Adding Custom Icons
     [Arguments]    ${fieldType}
     Click Delete Custom Icons Action By Field Type    ${fieldType}
     Click Save Custom Icons With Delete Exist Icons
+
+Edit Custom Icons
+    [Arguments]    ${fieldType}     ${iconFilePath}  
+    Click Edit Custom Icons Action By Field Type    ${fieldType}
+    Edit Custom Icons File Size 16      ${iconFilePath}
+    Edit Custom Icons File Size 32      ${iconFilePath}
+    Click Save Custom Icons
