@@ -821,6 +821,7 @@
     <Content Include="WebClient\Tests\Embedded\SharedTest.js" />
     <Content Include="WebClient\Tests\Helper\DateTimeExtensionTest.js" />
     <Content Include="WebClient\Tests\Helper\HtmlHelper.ActionMenu.Test.js" />
+    <Content Include="WebClient\Tests\Helper\HtmlHelper.Tooltip.Test.js" />
     <Content Include="WebClient\Tests\Helper\KendoCoreExtensionTest.js" />
     <Content Include="WebClient\Tests\Helper\ErrorHandlerTest.js" />
     <Content Include="WebClient\Tests\Helper\HtmlHelper.MenuNavigatableTest.js" />

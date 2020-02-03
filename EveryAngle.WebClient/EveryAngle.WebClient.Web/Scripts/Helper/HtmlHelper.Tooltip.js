@@ -38,7 +38,7 @@
             tooltipTop = targetOffset.top - target.outerHeight();
             tooltip.addClass('k-window-arrow-s');
         }
-            else if (e.data && tooltipPosition === TOOLTIP_POSITION.LEFT) {
+        else if (e.data && tooltipPosition === TOOLTIP_POSITION.LEFT) {
             // show at right
             tooltipLeft = targetOffset.left - target.outerWidth();
             tooltipTop = targetOffset.top + (target.outerHeight() / 2) - (tooltipHeight / 2);
@@ -92,7 +92,6 @@
         var target = jQuery(e.currentTarget);
         var showWhenNeed = e.data.showWhenNeed || target.is('[data-showwhenneed]');
 
-        
         var text, renderAs;
         if (target.is('[data-tooltip-function]')) {
             var tooltipFunction = window[target.attr('data-tooltip-function')];
@@ -118,17 +117,25 @@
         }
 
         if (showWhenNeed) {
-            var font = WC.HtmlHelper.GetFontCss(target);
-            var textSize = WC.Utility.MeasureText(text, font);
-            if (textSize <= e.currentTarget.getBoundingClientRect().width) {
-                text = '';
-            }
+            var elementSize = e.currentTarget.getBoundingClientRect().width;
+            text = getTooltipTextWhenNeeded(target, text, elementSize);
         }
 
         return {
             text: text,
             type: renderAs === 'html' ? 'html' : 'text'
         };
+    };
+
+    var getTooltipTextWhenNeeded = function (target, text, elementSize) {
+        var font = WC.HtmlHelper.GetFontCss(target);
+        var textSize = WC.Utility.MeasureText(text, font);
+        var acceptedError = 1;
+
+        if (Math.abs(elementSize - textSize) <= acceptedError) {
+            text = '';
+        }
+        return text;
     };
 
     var setClassName = function (tooltip, className) {
@@ -188,7 +195,8 @@
                 .on('mouseout.' + key, delayHideTooltip)
                 .off('mousewheel.' + key + ' mousedown.' + key)
                 .on('mousewheel.' + key + ' mousedown.' + key, hideTooltip);
-        }
+        },
+        GetTooltipTextWhenNeeded: getTooltipTextWhenNeeded
     };
 
     jQuery.extend(win.WC.HtmlHelper, { Tooltip: wcTooltip });
