@@ -59,3 +59,13 @@ Click on Action drop down and select Info option for Model query service Compone
     Click Main Action In Grid By Name   ClassicModelQueryService  ${trComponent}  ${btnComponentInfo}
     Wait Until Ajax Complete
     Wait until page contains Element    ${tblmodelServerPopup}
+
+Click on Action drop down for the component in component page
+    [Arguments]     ${componentName}
+    Click Show Action Dropdown In Grid By Name   ${componentName}   ${trComponent}
+
+Verify the component action drop down options state for the component
+    [Arguments]     ${componentName}
+    ${componentStatus}  Get Text    xpath=//div[@id='ComponentsGrid']//table//tr/td/label[text()='${componentName}']/ancestor::tr/td[8]/span
+    run keyword if  '${componentStatus}' == 'Not available'     Wait until page contains Element    //div[@id='ComponentsGrid']//table//tr/td/label[text()='${componentName}']/ancestor::tr/td[11]//div[@class='btnGroupInner']/a[@class='btn btnDownload disabled']
+    run keyword if  '${componentStatus}' == 'Available'     Wait until page contains Element    //div[@id='ComponentsGrid']//table//tr/td/label[text()='${componentName}']/ancestor::tr/td[11]//div[@class='btnGroupInner']/a[@class='btn btnDownload']
