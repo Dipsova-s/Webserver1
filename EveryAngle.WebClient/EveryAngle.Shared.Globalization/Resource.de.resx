@@ -6144,4 +6144,7 @@ Only Active Directory (AD) and Active Directory Federation (ADFS) services are s
   <data name="DisplayTotalRow" xml:space="preserve">
     <value>Number of items</value>
   </data>
+  <data name="MC_EnableProvider" xml:space="preserve">
+    <value>Enabled</value>
+  </data>
 </root>

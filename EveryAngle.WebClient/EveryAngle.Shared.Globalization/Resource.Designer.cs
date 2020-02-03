@@ -9319,6 +9319,15 @@ namespace EveryAngle.Shared.Globalization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Enabled.
+        /// </summary>
+        public static string MC_EnableProvider {
+            get {
+                return ResourceManager.GetString("MC_EnableProvider", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to To enable the selected modules, also the following modules need to be enabled:.
         /// </summary>
         public static string MC_EnableSelectedModules {

@@ -6148,4 +6148,7 @@ Only Active Directory (AD) and Active Directory Federation (ADFS) services are s
   <data name="CopyRight" xml:space="preserve">
     <value>Copyright © {0}</value>
   </data>
+  <data name="MC_EnableProvider" xml:space="preserve">
+    <value>Enabled</value>
+  </data>
 </root>
