@@ -116,7 +116,7 @@
 
 .btnInfo:after {
     right: -10px;
-    background-image: url(../images/icons/icon_info.svg);
+    background-image: url(../../images/icons/icon_info.svg);
     background-size: 14px 14px;
 }
 
@@ -1506,7 +1506,7 @@ table.grid tbody td:first-child {
 .contentSectionInfoItem > p .btnInfo:after,
 .contentSectionInfoSubItem > p .btnInfo:after {
     width: 14px;
-    right: 0;
+    right: 5px;
 }
 
 /* .contentSectionGrid
