@@ -69,10 +69,12 @@
                         <span class="descriptionLabel hidden">@Resource.MC_ServerTimeLabel <span class="serverTimeValue"></span></span>
                     </p>
                 </div>
-                <div class="contentSectionInfoItem">
+                <div class="contentSectionInfoItem delayModelserverStop">
                     <label>@Resource.MC_DelayModelserverStop:</label>
                     <p>
                         <label><input type="checkbox" name="DelayModelserverStop" /><span class="label"></span></label>
+                        <a data-target="#popupDescriptionTemplate" title="Description" data-width="600" data-min-height="100" data-role="mcPopup" class="btn btnInfo" onclick='MC.util.showDescriptionPopup(this)'></a>
+                        <textarea class="alwaysHidden"><pre>@Resource.MC_DelayModelserverStop_Description</pre></textarea>
                     </p>
                 </div>
                 <div class="contentSectionInfoItem">

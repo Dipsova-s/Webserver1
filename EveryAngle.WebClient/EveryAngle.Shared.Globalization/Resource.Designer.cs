@@ -8647,6 +8647,15 @@ namespace EveryAngle.Shared.Globalization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Select this option to delay the model server stop until the data extraction is finished to minimize down time. Please note that this option will consume extra system resources during the refresh, as the model server will keep running during the extraction..
+        /// </summary>
+        public static string MC_DelayModelserverStop_Description {
+            get {
+                return ResourceManager.GetString("MC_DelayModelserverStop_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Delete action: {reference}?.
         /// </summary>
         public static string MC_DeleteActionConfirm {

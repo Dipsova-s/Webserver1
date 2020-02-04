@@ -3721,4 +3721,7 @@ The minimum is 1.</value>
   <data name="MC_EnableProvider" xml:space="preserve">
     <value>Enabled</value>
   </data>
+  <data name="MC_DelayModelserverStop_Description" xml:space="preserve">
+    <value>Select this option to delay the model server stop until the data extraction is finished to minimize down time. Please note that this option will consume extra system resources during the refresh, as the model server will keep running during the extraction.</value>
+  </data>
 </root>

@@ -3690,6 +3690,8 @@ form#ExportPackageForm .packageInfo .packageVersion input {
 }
 
 .pageRefreshCycle .rowChangedTablesOnly .btnInfo,
+.pageRefreshCycle .delayModelserverStop .btnInfo,
+.pageRefreshCycle .delayModelserverStop .btnInfo:hover,
 .pageRefreshCycle .rowChangedTablesOnly .btnInfo:hover {
     left: 165px;
     right: auto;
