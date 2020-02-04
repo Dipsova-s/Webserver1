@@ -55,6 +55,7 @@ Resource            ${EXECDIR}/WC/Scenarios/ManagementConsole/AutomationTasks/Da
 Resource            ${EXECDIR}/WC/Scenarios/ManagementConsole/Users/Userdefaults/TS_Userdefaults.robot
 Resource            ${EXECDIR}/WC/Scenarios/ManagementConsole/Users/TS_Sessions.robot
 Resource            ${EXECDIR}/WC/Scenarios/ManagementConsole/Models/Packages/TS_Packages.robot
+Resource            ${EXECDIR}/WC/Scenarios/ManagementConsole/Models/TS_Communications.robot
 
 *** Variables ***
 ${URL_WC}    http://${URL}/${Branch}

@@ -8,7 +8,8 @@ ${trRowComment}         css=#GridComment .k-grid-content tr
 ${ActionEditBtn}        //div[@id='contentSectionComment']//table//tbody/tr[1]//div[@class='btnGroupInner']/a[1]
 ${ActionDeleteBtn}      //div[@id='contentSectionComment']//table//tbody/tr[1]//div[@class='btnGroupInner']/a[2]
 ${DeleteConfirmBtn}     //a[@class='btn btnPrimary btnSubmit']
-${CloseCommentBox}      (//span[text()='Close'])[3]
+${CloseCommentBox}      //span[@id='popupCommentForm_wnd_title']/..//div/a[@class='k-window-action k-link']/span[text()='Close']
+
 
 *** Keywords ***
 Click Add New Comment
@@ -20,7 +21,7 @@ Input Comment Text
     [Arguments]    ${text}
     Input Text    ${txtComment}    ${text}
 
-Attach Commetn File
+Attach Comment File
     Choose File    ${fileAttached}    ${fileTestComment}
 
 Click Save Comment
