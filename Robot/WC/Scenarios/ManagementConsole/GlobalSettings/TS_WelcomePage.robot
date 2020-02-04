@@ -21,10 +21,11 @@ Assert Welcome Page Available Languages
     Click Select Language
     Sleep    ${TIMEOUT_GENERAL}
 
-Select Language And Input Welcome page Textbox 1
-    [Arguments]     ${languageName}      ${valueText}
+Select Language, Input Welcome page Textbox 1 And Message Textbox 2
+    [Arguments]     ${languageName}      ${valueText1}      ${valueText2}
     Select Language To Welcome Page     ${languageName}
-    Input Welcome Page Textbox 1    ${valueText}
+    Input Welcome Page Textbox 1    ${valueText1}
+    Input Welcome Page Textbox 2    ${valueText2}
 
 Assert Welcome Page Textbox 1
     [Arguments]     ${languageName}      ${expectedText}

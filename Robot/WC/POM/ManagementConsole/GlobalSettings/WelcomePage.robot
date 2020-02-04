@@ -26,11 +26,13 @@ Click Select Language
 Input Welcome Page Textbox 1
     [Arguments]    ${valueText}
     Wait Until Page Contains Element    ${txtTextbox1}
+    Clear Element text      ${txtTextbox1}
     Input kendo Text Editor    ${txtTextbox1}    ${valueText}
 
 Input Welcome Page Textbox 2
     [Arguments]    ${valueText}
     Wait Until Page Contains Element    ${txtTextbox2}
+    Clear Element text      ${txtTextbox2}
     Input kendo Text Editor    ${txtTextbox2}    ${valueText}
 
 Get Welcome Page Textbox 1 Value

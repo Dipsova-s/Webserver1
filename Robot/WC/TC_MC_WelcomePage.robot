@@ -17,13 +17,13 @@ Test Welcome Page
     Login To MC By Admin User
     Wait Until Overview Page Loaded
     Go To Welcome Page
-    Input Welcome Page Textbox 1    Test Textbox 1 English Language
     Assert Welcome Page Available Languages
-    Select Language And Input Welcome page Textbox 1    Dutch   Test Textbox 1 Dutch Languange
-    Assert Welcome Page Textbox 1       English   Test Textbox 1 English Language
-    Assert Welcome Page Textbox 1       Dutch   Test Textbox 1 Dutch Languange
+    Select Language, Input Welcome page Textbox 1 And Message Textbox 2    English   Test Textbox 1 English Language   This for News text
+    Select Language, Input Welcome page Textbox 1 And Message Textbox 2    Dutch   Test Textbox 1 Dutch Languange   This for News text    
     Click Upload Customer Logo      ${fileImagePath}
     Click Save Welcome Page
+    Assert Welcome Page Textbox 1       English   Test Textbox 1 English Language
+    Assert Welcome Page Textbox 1       Dutch   Test Textbox 1 Dutch Languange
     Assert Welcome Page Textbox 2    This for News text
     Check Upload success of Customer Logo
 
