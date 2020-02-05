@@ -58,8 +58,12 @@ namespace EveryAngle.Core.ViewModels.ModelServer
         [JsonProperty(PropertyName = "run_result")]
         public virtual string run_result { get; set; }
 
+        [JsonProperty(PropertyName = "modeldefinition_id")]
+        public virtual string modeldefinition_id { get; set; }
+
         [JsonProperty(PropertyName = "task_details")]
         public TaskDetailsViewModel task_details { get; set; }
+
         public bool IsBusy
         {
             get

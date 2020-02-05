@@ -1091,7 +1091,7 @@ div.k-window-content > .k-loading-mask {
 
 .aboutModels {
     margin-left: 215px;
-    padding: 25px;
+    padding: 25px 10px 25px 15px;
     height: 222px;
     overflow: auto;
 }
@@ -1108,7 +1108,7 @@ div.k-window-content > .k-loading-mask {
 
 .aboutModels .label {
     float: left;
-    width: 120px;
+    width: 148px;
     white-space: nowrap;
     text-overflow: ellipsis;
     overflow: hidden;
@@ -2803,12 +2803,12 @@ form#ExportPackageForm .packageInfo .packageVersion input {
 
 .modelInfoColumn1 {
     float: left;
-    width: 300px;
+    width: 320px;
 }
 
 .modelInfoColumn2 {
     overflow: hidden;
-    margin-left: 317px;
+    margin-left: 330px;
 }
 
 .no-touch.safari .modelInfoColumn2 {
@@ -3001,7 +3001,7 @@ form#ExportPackageForm .packageInfo .packageVersion input {
 .modelInfoItem label {
     float: left;
     font-weight: bold;
-    width: 105px;
+    width: 148px;
 }
 
 .modelInfoInstance .modelInfoItemStatus {

@@ -37,18 +37,60 @@ namespace EveryAngle.ManagementConsole.Test.Controllers
         [TestCase(true, true)]
         public void Can_SetModelServerStatusCorrectly(bool expectedResult, bool isModelActive)
         {
-            IList<ModelServerViewModel> modelServerViewModels = new List<ModelServerViewModel>
-            {
-                new ModelServerViewModel { id = "EA2_800" }
-            };
+            var modelServerViewModel = new ModelServerViewModel { id = "EA2_800" };
             IList<AgentModelInfoViewModel> agentModelInfoViewModels = new List<AgentModelInfoViewModel>
             {
                 new AgentModelInfoViewModel { id = "EA2_800", is_active = isModelActive }
             };
 
             _testingController = GetController();
-            _testingController.SetModelServersActiveStatus(modelServerViewModels, agentModelInfoViewModels);
-            Assert.AreEqual(expectedResult, modelServerViewModels.Single().IsActiveServer);
+            _testingController.SetModelServersActiveStatus(modelServerViewModel, agentModelInfoViewModels);
+            Assert.AreEqual(expectedResult, modelServerViewModel.IsActiveServer);
+        }
+
+        [TestCase(true)]
+        [TestCase(false)]
+        public void Can_SetModelServerDefinitionVersionCorrectly(bool expectedResult)
+        {
+            ModelServerViewModel modelServerViewModel;
+            if (expectedResult)
+            {
+                modelServerViewModel = new ModelServerViewModel { id = "EA2_800", status = "Up", info = new Uri("http://dummy/") };
+                modelService.Setup(x => x.GetModelExtractor(It.IsAny<string>())).
+                    Returns(new ExtractorViewModel { model_id = "EA2_800", modeldefinition_id = "1", status = "Up" });
+            }
+            else
+            {
+                modelServerViewModel = new ModelServerViewModel { id = "EA2_800", status = "Down", info = new Uri("http://dummy/") };
+                modelService.Setup(x => x.GetModelExtractor(It.IsAny<string>())).
+                    Returns(new ExtractorViewModel { model_id = "EA2_800" });
+            }
+
+            _testingController = GetController();
+            _testingController.SetModelServersDefinitionVersion(modelServerViewModel);
+            Assert.AreEqual(expectedResult, modelServerViewModel.model_definition_version.Equals("1"));
+        }
+
+        [Test]
+        public void Verify_SetModelServerDefinitionVersion_SetModelServerStatus_Call()
+        {
+            var modelServerViewModels = new List<ModelServerViewModel>
+            {
+                new ModelServerViewModel { id = "EA2_800", status = "Up", info = new Uri("http://dummy/") }
+            };
+
+            IList<AgentModelInfoViewModel> agentModelInfoViewModels = new List<AgentModelInfoViewModel>
+            {
+                new AgentModelInfoViewModel { id = "EA2_800", is_active = true }
+            };
+
+            modelService.Setup(x => x.GetModelExtractor(It.IsAny<string>())).
+                Returns(new ExtractorViewModel { model_id = "EA2_800", modeldefinition_id = "1", status = "Up" });
+
+            _testingController = GetController();
+            _testingController.SetModelServersAdditionalInfo(modelServerViewModels, agentModelInfoViewModels);
+            Assert.True(modelServerViewModels.Single().IsActiveServer);
+            Assert.True(modelServerViewModels.Single().model_definition_version.Equals("1"));
         }
 
         [TestCase(true, 1)]

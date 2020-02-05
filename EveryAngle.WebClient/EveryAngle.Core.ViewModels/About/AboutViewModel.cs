@@ -42,5 +42,8 @@ namespace EveryAngle.Core.ViewModels.About
 
         [JsonProperty(PropertyName = "modeldata_timestamp")]
         public virtual int modeldata_timestamp { get; set; }
+
+        [JsonProperty(PropertyName = "model_definition_version")]
+        public virtual string model_definition_version { get; set; }
     }
 }

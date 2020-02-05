@@ -14105,6 +14105,15 @@ namespace EveryAngle.Shared.Globalization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Model definition version:.
+        /// </summary>
+        public static string ModelDefinitionVersion {
+            get {
+                return ResourceManager.GetString("ModelDefinitionVersion", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to  (down).
         /// </summary>
         public static string ModelLabel_Down {

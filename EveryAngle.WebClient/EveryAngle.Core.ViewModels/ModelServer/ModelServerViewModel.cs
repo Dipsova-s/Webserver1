@@ -207,6 +207,9 @@ namespace EveryAngle.Core.ViewModels.ModelServer
         [JsonProperty(PropertyName = "is_caching")]
         public bool IsCaching { get; set; }
 
+        [JsonProperty(PropertyName = "model_definition_version")]
+        public string model_definition_version { get; set; }
+
         public string ModelServerName
         {
             get

@@ -154,6 +154,13 @@
                     <div class="value"><span data-role='localize'>@item.modeldata_timestamp</span></div>
                 </div>
                 }
+                @if (item.type != "Extractor")
+                {
+                <div class="modelInfoItem">
+                    <label>@Resource.ModelDefinitionVersion</label>
+                    <div class="value">@item.model_definition_version</div>
+                </div>
+                }
                 <div class="modelInfoItem">
                 @Html.LabelFor(model => item.application_version, Resource.MC_ServerVersion + ":")
                 @if (item.application_version != null)

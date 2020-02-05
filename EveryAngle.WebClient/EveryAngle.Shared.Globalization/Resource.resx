@@ -6154,4 +6154,7 @@ Only Active Directory (AD) and Active Directory Federation (ADFS) services are s
   <data name="MC_DelayModelserverStop_Description" xml:space="preserve">
     <value>Select this option to delay the model server stop until the data extraction is finished to minimize down time. Please note that this option will consume extra system resources during the refresh, as the model server will keep running during the extraction.</value>
   </data>
+  <data name="ModelDefinitionVersion" xml:space="preserve">
+    <value>Model definition version:</value>
+  </data>
 </root>

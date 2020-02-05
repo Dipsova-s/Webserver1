@@ -25,6 +25,10 @@ var aboutHtmlTemplate = function () {
                     '<div class="label" data-bind="text: model.name() + \':\'"></div> ',
                     '<div class="value" data-bind="text: \'(\' + model.info() + \')\' "></div>',
                 '</div>',
+                '<div class="row">',
+                    '<div class="label">' + Localization.ModelDefinitionVersion + '</div> ',
+                    '<div class="value" data-bind="text: model.model_definition_version"></div>',
+                '</div>',
                 '<!-- /ko -->',
             '</div>',
         '</div>'

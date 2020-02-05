@@ -158,7 +158,7 @@ namespace EveryAngle.ManagementConsole.Controllers
                     }
                 });
 
-                SetModelServersActiveStatus(modelServerViewModels, agentModelInfoViewModels);
+                SetModelServersAdditionalInfo(modelServerViewModels, agentModelInfoViewModels);
 
                 ModelServerViewModel modelServer = modelServerViewModels.Where(x => x.type.Equals("ModelServer", StringComparison.InvariantCultureIgnoreCase) || x.type.Equals("HanaServer", StringComparison.InvariantCultureIgnoreCase))
                     .OrderByDescending(x => unixEpochTime.AddMilliseconds(x.timestamp))
@@ -610,20 +610,37 @@ namespace EveryAngle.ManagementConsole.Controllers
 
         #region "function"
 
-        public void SetModelServersActiveStatus(IList<ModelServerViewModel> modelServerViewModels, IList<AgentModelInfoViewModel> agentModelInfoViewModels)
+        public void SetModelServersAdditionalInfo(IList<ModelServerViewModel> modelServerViewModels, IList<AgentModelInfoViewModel> agentModelInfoViewModels)
         {
             foreach (ModelServerViewModel modelServerViewModel in modelServerViewModels)
             {
-                modelServerViewModel.ModelServerId = string.Empty;
-                modelServerViewModel.IsActiveServer = false;
+                SetModelServersActiveStatus(modelServerViewModel, agentModelInfoViewModels);
+                SetModelServersDefinitionVersion(modelServerViewModel);
+            }
+        }
 
-                AgentModelInfoViewModel agentModelInfo = agentModelInfoViewModels.FirstOrDefault(item => modelServerViewModel.id.Contains(item.id));
+        public void SetModelServersDefinitionVersion(ModelServerViewModel modelServerViewModel)
+        {
+            modelServerViewModel.model_definition_version = string.Empty;
+            if (modelServerViewModel.status != "Down")
+            {
+                var extractorViewModel = modelService.GetModelExtractor(modelServerViewModel.info.ToString());
+                modelServerViewModel.model_definition_version = extractorViewModel.modeldefinition_id;
+            }
+        }
 
-                if (agentModelInfo != null)
-                {
-                    modelServerViewModel.ModelServerId = agentModelInfo.id;
-                    modelServerViewModel.IsActiveServer = agentModelInfo.is_active;
-                }
+
+        public void SetModelServersActiveStatus(ModelServerViewModel modelServerViewModel, IList<AgentModelInfoViewModel> agentModelInfoViewModels)
+        {
+            modelServerViewModel.ModelServerId = string.Empty;
+            modelServerViewModel.IsActiveServer = false;
+
+            AgentModelInfoViewModel agentModelInfo = agentModelInfoViewModels.FirstOrDefault(item => modelServerViewModel.id.Contains(item.id));
+
+            if (agentModelInfo != null)
+            {
+                modelServerViewModel.ModelServerId = agentModelInfo.id;
+                modelServerViewModel.IsActiveServer = agentModelInfo.is_active;
             }
         }
 

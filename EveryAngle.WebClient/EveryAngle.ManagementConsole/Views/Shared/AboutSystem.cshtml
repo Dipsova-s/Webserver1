@@ -42,6 +42,10 @@
                     <div class="label">@aboutModel.model_id:</div>
                     <div class="value">@Html.Raw(PageHelper.GetModelInfoStatus(aboutModel))</div>
                 </div>
+                <div class="row">
+                    <div class="label">@Resource.ModelDefinitionVersion</div>
+                    <div class="value">@aboutModel.model_definition_version</div>
+                </div>
             }
         }
     </div>
