@@ -10,7 +10,7 @@ ${btnRemoveUser}                  btnRemovedSelectedUser
 ${spinnerAvailableGrid}    css=#AvailableUserGrid > div.k-loading-mask
 ${spinnerSelectedUserGrid}    css=#SelectedUserGrid > div.k-loading-mask
 ${btnLoadingCloseReport}                jquery=#LoaderContainer .loader-cancel-button:visible
-
+${NoOfUsers}        //h2[text()='Available users']/..//table/tbody/tr
 
 
 
@@ -60,6 +60,12 @@ Click Save Add User
 
 Click Cancel Button on Add User Page
     Click Element    ${btnCancelAddUser}
+
+Verify number of Available Users on Add Users Page
+    [Arguments]     ${ADSLValue}
+    Wait Until Page Contains Element    ${btnSelectAllAvailableUser}
+    ${UsersCount}     Get Element Count    ${NoOfUsers}
+    Run Keyword If   ${UsersCount}==${ADSLValue}    Log    Users count matched as per the ADSL value
 
 
 

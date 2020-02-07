@@ -112,6 +112,10 @@ Input System Settings Active Directory Size Limit
     [Arguments]    ${activeDirectorySizeLimit}
     Input kendo Numeric TextBox    ${txtActiveDirectlySizeLimit}    ${activeDirectorySizeLimit}
 
+Get System Settings Active Directory Size Limit Value
+    ${value}    Get Kendo Value  ${txtActiveDirectlySizeLimit} 
+    [Return]    ${value}
+
 Input Default maximum export page size field
     [Arguments]     ${defaultMaximumExportPageSize}
     Input kendo Numeric TextBox  ${txtDefaultMaximumExportPageSize}  ${defaultMaximumExportPageSize}

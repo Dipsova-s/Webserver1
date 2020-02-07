@@ -267,3 +267,14 @@ Verify the System Settings page field values
     ${returnText}   Get Password textbox field value
     ${expectedText}     Convert to Integer    8
     Length Should be     ${returnText}   ${expectedText}
+
+Get and change Active Directory Size Limit Value
+    [Arguments]     ${ADSLValue}
+    ${ADSLActualValue}      Get System Settings Active Directory Size Limit Value
+    Set Global Variable     ${ADSLActualValue}      ${ADSLActualValue}
+    Input System Settings Active Directory Size Limit       ${ADSLValue}
+    Click Save System Settings
+
+Restore Active Directory Size Limit Value   
+    Input System Settings Active Directory Size Limit       ${ADSLActualValue}
+    Click Save System Settings
