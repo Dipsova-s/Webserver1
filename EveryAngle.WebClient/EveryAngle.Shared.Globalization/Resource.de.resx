@@ -5912,9 +5912,9 @@ Note: the specified location must be a full file path on the Application server.
     <value>If this setting is selected, a new Every Angle user account is automatically created when a user from this authentication provider logs in to Every Angle for the first time. This Every Angle user will then be assigned the default roles as defined on this page. For ADFS, this option is selected by default.</value>
   </data>
   <data name="MC_AuthenticationProvidersHelpContainer" xml:space="preserve">
-    <value>In a default Active Directory hierarchy structure, users are located in the "Users" container. This container is always on the main level of your domain. When leaving this field empty, the Ever Angle Application Server will retrieve users from this default location.&lt;br&gt;
+    <value>In a default Active Directory hierarchy structure, users are located in the "Users" container. This container is always on the main level of your domain. When leaving this field empty, the Every Angle Application Server will retrieve users from this default location.&lt;br&gt;
 In case you want to have the users retrieved from a different container, enter the Distinguished Name (DN) of this container here.&lt;br&gt;
-An Active Directory browsing tool can help you find the correct DN syntax for the container. For example, Ldap Admin is a free Windows LDAP client that lets you browse the Active Directory and copy the DN. Example DN: &lt;strong&gt;CN=External Users, DC=Contoso, DC=com&lt;/strong&gt;</value>
+An Active Directory browsing tool can help you find the correct DN syntax for the container. For example, LDAP Admin is a free Windows LDAP client that lets you browse the Active Directory and copy the DN. Example DN: &lt;strong&gt;CN=External Users, DC=Contoso, DC=com&lt;/strong&gt;</value>
   </data>
   <data name="MC_AuthenticationProvidersHelpDefaultRoles" xml:space="preserve">
     <value>These roles will be assigned to new user accounts from this authentication provider. Setting a default role is mandatory unless you use &lt;strong&gt;Sync roles to groups&lt;/strong&gt;. Click the cell to add or remove roles by selecting or deselecting roles in the drop-down list. The drop-down list contains all available system and model roles. Hover over a role to see which model it belongs to.</value>
