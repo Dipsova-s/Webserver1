@@ -72,6 +72,9 @@
     <Reference Include="Newtonsoft.Json, Version=11.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.11.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
+    <Reference Include="Ninject, Version=3.0.0.0, Culture=neutral, PublicKeyToken=c7192dc5380945e7, processorArchitecture=MSIL">
+      <HintPath>..\packages\Ninject.3.0.1.10\lib\net45-full\Ninject.dll</HintPath>
+    </Reference>
     <Reference Include="nunit.framework, Version=2.6.3.13283, Culture=neutral, PublicKeyToken=96d09a1eb7f44a77, processorArchitecture=MSIL">
       <HintPath>..\packages\NUnit.2.6.3\lib\nunit.framework.dll</HintPath>
     </Reference>
@@ -107,6 +110,7 @@
     <Otherwise />
   </Choose>
   <ItemGroup>
+    <Compile Include="App_Start\NinjectWebCommonTest.cs" />
     <Compile Include="Controllers\ActiveLanguageControllerTests.cs" />
     <Compile Include="Controllers\AutomationTasksControllerTests.cs" />
     <Compile Include="Controllers\CommentControllerTests.cs" />
@@ -135,6 +139,8 @@
     <Compile Include="Helpers\SiteMapHelperTests.cs" />
     <Compile Include="Localization\UserCultureTests.cs" />
     <Compile Include="Models\SiteMapModelTests.cs" />
+    <Compile Include="Services\LogFileServiceTest.cs" />
+    <Compile Include="Services\RepositoryLogServiceTest.cs" />
     <Compile Include="UnitTestBase.cs" />
     <Compile Include="Helpers\LicenseHelperTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

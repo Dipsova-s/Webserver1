@@ -1,4 +1,5 @@
 using EveryAngle.Core.ViewModels;
+using EveryAngle.Core.ViewModels.Model;
 using EveryAngle.Utilities;
 using EveryAngle.WebClient.Service.HttpHandlers;
 using Newtonsoft.Json;
@@ -67,7 +68,7 @@ namespace EveryAngle.WebClient.Service.ApiServices
         /// <param name="uri"></param>
         /// <param name="dataAttribute">Attribute which contains list</param>
         /// <returns></returns>
-        public IEnumerable<T> GetItems<T>(string uri, string dataAttribute)
+        public virtual IEnumerable<T> GetItems<T>(string uri, string dataAttribute)
         {
             Func<JObject, string> resolver = delegate (JObject result)
             {
@@ -291,10 +292,26 @@ namespace EveryAngle.WebClient.Service.ApiServices
 
         #endregion
 
+        #region Download
+        public virtual FileViewModel Download(string uri)
+        {
+            string contentDisposition = string.Empty;
+
+            RequestManager requestManager = RequestManager.Initialize(uri);
+            byte[] fileBytes = requestManager.GetBinary(ref contentDisposition);
+            string fileName = requestManager.GetFileDownloadName(contentDisposition);
+
+            return new FileViewModel
+            {
+                FileBytes = fileBytes,
+                FileName = fileName
+            };
+        }
+        #endregion
+
         #endregion
 
         #region Private method
-
         /// <summary>
         /// Request data from api service
         /// </summary>

@@ -162,9 +162,11 @@
     <Compile Include="ApiServices\BaseService.cs" />
     <Compile Include="ApiServices\ComponentService.cs" />
     <Compile Include="ApiServices\ItemService.cs" />
+    <Compile Include="ApiServices\LogFileService.cs" />
     <Compile Include="ApiServices\ModelAgentService.cs" />
     <Compile Include="ApiServices\FacetService.cs" />
     <Compile Include="ApiServices\PackageService.cs" />
+    <Compile Include="ApiServices\RepositoryLogService.cs" />
     <Compile Include="ApiServices\SystemScriptService.cs" />
     <Compile Include="ApiServices\TaskService.cs" />
     <Compile Include="ApiServices\DirectoryService.cs" />

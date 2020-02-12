@@ -45,8 +45,10 @@ namespace EveryAngle.ManagementConsole.Test
         protected readonly Mock<IPackageService> packageService = new Mock<IPackageService>();
         protected readonly Mock<IFacetService> facetService = new Mock<IFacetService>();
         protected readonly Mock<IItemService> itemService = new Mock<IItemService>();
-		protected readonly Mock<ISystemInformationService> systemInformationService = new Mock<ISystemInformationService>();
-		protected readonly Mock<IWebClientConfigService> webClientConfigService = new Mock<IWebClientConfigService>();
+        protected readonly Mock<ISystemInformationService> systemInformationService = new Mock<ISystemInformationService>();
+        protected readonly Mock<IWebClientConfigService> webClientConfigService = new Mock<IWebClientConfigService>();
+        protected readonly Mock<IRepositoryLogService> repositoryLogService = new Mock<IRepositoryLogService>();
+        protected readonly Mock<ILogFileService> logFileService = new Mock<ILogFileService>();
         protected readonly Mock<ISystemScriptService> systemScriptService = new Mock<ISystemScriptService>();
         protected readonly Mock<IComponentService> componentService = new Mock<IComponentService>();
 
@@ -101,7 +103,7 @@ namespace EveryAngle.ManagementConsole.Test
         {
             HttpRequest request = new HttpRequest("mock.png", "http://mock.org/mock", "q=mock");
             HttpResponse response = new HttpResponse(new StringWriter());
-            HttpContext httpContext = new HttpContext(request, response);            
+            HttpContext httpContext = new HttpContext(request, response);
 
             ISessionStateItemCollection collection = new SessionStateItemCollection();
             collection["Sitemaps"] = new List<SiteMapModel.SiteMap>();

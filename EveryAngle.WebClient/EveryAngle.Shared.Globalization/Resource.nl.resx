@@ -3718,6 +3718,9 @@ The minimum is 1.</value>
   <data name="AngleDefinitionAreaItemsIn" xml:space="preserve">
     <value>items in</value>
   </data>
+  <data name="MC_SystemLog_Repository" xml:space="preserve">
+    <value>Repository</value>
+  </data>
   <data name="MC_EnableProvider" xml:space="preserve">
     <value>Enabled</value>
   </data>

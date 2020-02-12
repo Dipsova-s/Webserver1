@@ -7,6 +7,7 @@
         ManagementConsole,
         AppServer,
         ModelServer,
+        Repository,
         EventLog
     }
 }

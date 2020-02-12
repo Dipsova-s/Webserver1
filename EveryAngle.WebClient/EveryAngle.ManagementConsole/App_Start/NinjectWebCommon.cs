@@ -9,8 +9,8 @@ using Microsoft.Web.Infrastructure.DynamicModuleHelper;
 using Ninject;
 using Ninject.Web.Common;
 
-[assembly: WebActivatorEx.PreApplicationStartMethod(typeof (NinjectWebCommon), "Start")]
-[assembly: WebActivatorEx.ApplicationShutdownMethod(typeof (NinjectWebCommon), "Stop")]
+[assembly: WebActivatorEx.PreApplicationStartMethod(typeof(NinjectWebCommon), "Start")]
+[assembly: WebActivatorEx.ApplicationShutdownMethod(typeof(NinjectWebCommon), "Stop")]
 
 namespace EveryAngle.ManagementConsole.App_Start
 {
@@ -23,8 +23,8 @@ namespace EveryAngle.ManagementConsole.App_Start
         /// </summary>
         public static void Start()
         {
-            DynamicModuleUtility.RegisterModule(typeof (OnePerRequestHttpModule));
-            DynamicModuleUtility.RegisterModule(typeof (NinjectHttpModule));
+            DynamicModuleUtility.RegisterModule(typeof(OnePerRequestHttpModule));
+            DynamicModuleUtility.RegisterModule(typeof(NinjectHttpModule));
             bootstrapper.Initialize(CreateKernel);
         }
 
@@ -54,7 +54,7 @@ namespace EveryAngle.ManagementConsole.App_Start
         ///     Load your modules or register your services here!
         /// </summary>
         /// <param name="kernel">The kernel.</param>
-        private static void RegisterServices(IKernel kernel)
+        public static void RegisterServices(IKernel kernel)
         {
             kernel.Bind<IModelService>()
                 .To<ModelService>()
@@ -77,9 +77,11 @@ namespace EveryAngle.ManagementConsole.App_Start
             kernel.Bind<ITaskService>().To<TaskService>();
             kernel.Bind<IPackageService>().To<PackageService>();
             kernel.Bind<IFacetService>().To<FacetService>();
+            kernel.Bind<IRepositoryLogService>().To<RepositoryLogService>();
             kernel.Bind<IItemService>().To<ItemService>();
             kernel.Bind<ISystemScriptService>().To<SystemScriptService>();
             kernel.Bind<IComponentService>().To<ComponentService>();
+            kernel.Bind<ILogFileService>().To<LogFileService>();
         }
     }
 }

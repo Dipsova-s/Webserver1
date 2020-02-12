@@ -122,7 +122,7 @@ namespace EveryAngle.Core.ViewModels.Explorer
         {
             return filepath.Replace("/", "\\");
         }
-        
+
         public static List<FileModel> GetFiles(string path, string[] searchPatterns)
         {
             List<FileModel> files = new List<FileModel>();

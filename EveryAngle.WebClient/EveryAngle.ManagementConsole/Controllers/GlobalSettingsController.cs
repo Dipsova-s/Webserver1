@@ -74,18 +74,36 @@ namespace EveryAngle.ManagementConsole.Controllers
         private readonly IModelService modelService;
         private readonly IUserService userService;
         private readonly IWebClientConfigService webClientConfigService;
+        private readonly IRepositoryLogService repositoryLogService;
+        private readonly ILogFileService logFileService;
         #endregion
 
         public GlobalSettingsController(
             IGlobalSettingService globalSettingService, IModelService modelService,
             IUserService userService,
-            IWebClientConfigService webClientConfigService)
+            IWebClientConfigService webClientConfigService,
+            IRepositoryLogService repositoryLogService,
+            ILogFileService logFileService)
+            : this(globalSettingService, modelService, userService, webClientConfigService,
+                  repositoryLogService, logFileService, SessionHelper.Initialize())
+        {
+        }
+
+        public GlobalSettingsController(
+            IGlobalSettingService globalSettingService, IModelService modelService,
+            IUserService userService,
+            IWebClientConfigService webClientConfigService,
+            IRepositoryLogService repositoryLogService,
+            ILogFileService logFileService,
+            SessionHelper sessionHelper)
         {
             this.modelService = modelService;
             this.globalSettingService = globalSettingService;
             this.userService = userService;
             this.webClientConfigService = webClientConfigService;
-            SessionHelper = SessionHelper.Initialize();
+            this.repositoryLogService = repositoryLogService;
+            this.logFileService = logFileService;
+            SessionHelper = sessionHelper;
         }
 
         public ActionResult GetSystemSettings()
@@ -352,7 +370,7 @@ namespace EveryAngle.ManagementConsole.Controllers
 
                 authenticationProviderTypes = authenticationProviderTypesList.FirstOrDefault(x => x.Id == systemAuthenticationProvider.Type);
             }
-            
+
             LoadSystemRolesToSessionAndViewBag(SessionHelper.Version, SessionHelper.SystemSettings);
             ViewBag.AuthenticationProviderTypes = authenticationProviderTypes;
             ViewBag.SystemAuthenticationProvider = systemAuthenticationProvider;
@@ -669,7 +687,7 @@ namespace EveryAngle.ManagementConsole.Controllers
 
                         MemoryStream target = new MemoryStream();
                         file.InputStream.CopyTo(target);
-                        
+
                         globalSettingService.CreatePackage(uri, target.ToArray(), file.FileName, file.ContentType);
                         return JsonHelper.GetJsonStringResult(true, null,
                             null, MessageType.DEFAULT, null);
@@ -883,7 +901,9 @@ namespace EveryAngle.ManagementConsole.Controllers
             SystemLogType logType = GetSystemLogType(target);
 
             bool isModelServerLog = logType == SystemLogType.ModelServer;
-            bool isWebClientLog = logType == SystemLogType.WebClient || logType == SystemLogType.ManagementConsole;
+            bool isWebClientLog = logType == SystemLogType.WebClient
+                || logType == SystemLogType.ManagementConsole
+                || logType == SystemLogType.Repository;
 
             ViewBag.LogTarget = target;
             ViewBag.ModelId = modelId;
@@ -898,7 +918,8 @@ namespace EveryAngle.ManagementConsole.Controllers
             // model server log does not support sorting
             ViewBag.SortEnabled = !isModelServerLog;
 
-            ViewBag.ServerOperation = true;
+            SystemLogType[] clientOperations = new SystemLogType[] { SystemLogType.Repository };
+            ViewBag.ServerOperation = !clientOperations.Contains(logType);
             ViewData["ModelsData"] = models;
 
             // get log categories for ModelServer log
@@ -914,7 +935,6 @@ namespace EveryAngle.ManagementConsole.Controllers
                 }
             }
             ViewData["ModelServicesData"] = JsonConvert.SerializeObject(mdelServicesData);
-
             return PartialView("~/Views/GlobalSettings/SystemLog/SystemLog.cshtml");
         }
 
@@ -949,6 +969,11 @@ namespace EveryAngle.ManagementConsole.Controllers
                     Totalwarning = 0,
                     TotalError = 0
                 });
+            }
+            else if (logType == SystemLogType.Repository)
+            {
+                files = repositoryLogService.Get().ToList();
+                total = files.Count();
             }
 
             return Json(new DataSourceResult
@@ -1141,7 +1166,7 @@ namespace EveryAngle.ManagementConsole.Controllers
                 MessageType = type
             };
 
-            para.Offset = offset ?? 0 ;
+            para.Offset = offset ?? 0;
             para.Limit = limit ?? DefaultPageSize;
 
             var executeResult = UtilitiesHelper.GetJsonFromCsl(para);
@@ -1201,13 +1226,15 @@ namespace EveryAngle.ManagementConsole.Controllers
             string logFile = Base64Helper.Decode(fullPath);
             string fileName;
             byte[] fileBytes;
-            if (logType == SystemLogType.AppServer || logType == SystemLogType.ModelServer)
+
+            if (logType == SystemLogType.AppServer
+                || logType == SystemLogType.ModelServer
+                || logType == SystemLogType.Repository)
             {
-                string contentDisposition = string.Empty;
                 string requestUrl = UrlHelper.GetRequestUrl(URLType.NOA) + logFile;
-                RequestManager requestManager = RequestManager.Initialize(requestUrl);
-                fileBytes = requestManager.GetBinary(ref contentDisposition);
-                fileName = requestManager.GetFileDownloadName(contentDisposition);
+                FileViewModel viewModel = logFileService.Get(requestUrl);
+                fileBytes = viewModel.FileBytes;
+                fileName = viewModel.FileName;
             }
             else
             {

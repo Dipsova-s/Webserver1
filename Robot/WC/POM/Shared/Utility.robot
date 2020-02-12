@@ -315,6 +315,11 @@ Initialize Download Path And Login With Power User
     Go To    ${URL_WC}
     Login To WC By Power User
 
+Initialize Download Path And Login MC With Admin User
+    Initialize Download Path
+    Go To    ${URL_MC}
+    Login To MC By Admin User
+
 Empty Download Directory
     Empty Directory    ${DOWNLOAD_DIRECTORY}
 

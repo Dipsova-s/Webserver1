@@ -118,12 +118,14 @@
     <Compile Include="Model\FieldViewModel.cs" />
     <Compile Include="Model\InstanceViewModel.cs" />
     <Compile Include="Model\LicenseViewModel.cs" />
+    <Compile Include="Model\FileViewModel.cs" />
     <Compile Include="Model\ModelAuthorizationsViewModel.cs" />
     <Compile Include="Model\ModelServerSettings.cs" />
     <Compile Include="Model\ModelSiteMapBaseViewModel.cs" />
     <Compile Include="Model\ModelSiteMapSlaveViewModel.cs" />
     <Compile Include="Model\ModelViewModel.cs" />
     <Compile Include="EAPackage\ExportSummaryFacetViewModel.cs" />
+    <Compile Include="Model\RepositoryLogViewModel.cs" />
     <Compile Include="Privilege\ModelPrivilegeViewModel.cs" />
     <Compile Include="Privilege\PrivilegesForModelViewModel.cs" />
     <Compile Include="Privilege\SystemPrivilegeViewModel.cs" />

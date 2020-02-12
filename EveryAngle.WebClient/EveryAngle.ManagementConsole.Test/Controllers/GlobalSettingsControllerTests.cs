@@ -1,9 +1,17 @@
-﻿using EveryAngle.Core.ViewModels.SystemSettings;
+﻿using EveryAngle.Core.ViewModels.Explorer;
+using EveryAngle.Core.ViewModels.Model;
+using EveryAngle.Core.ViewModels.SystemLog;
+using EveryAngle.Core.ViewModels.SystemSettings;
 using EveryAngle.ManagementConsole.Controllers;
+using EveryAngle.Shared.Helpers;
+using Moq;
 using Newtonsoft.Json;
 using NUnit.Framework;
+using System;
+using System.Collections.Generic;
 using System.Configuration;
 using System.Web;
+using System.Web.Mvc;
 
 namespace EveryAngle.ManagementConsole.Test.Controllers
 {
@@ -21,6 +29,16 @@ namespace EveryAngle.ManagementConsole.Test.Controllers
         public override void Setup()
         {
             base.Setup();
+
+            _testingController = new GlobalSettingsController(
+                globalSettingService.Object,
+                modelService.Object,
+                userService.Object,
+                webClientConfigService.Object,
+                repositoryLogService.Object,
+                logFileService.Object,
+                sessionHelper.Object
+            );
         }
 
         #endregion
@@ -35,8 +53,6 @@ namespace EveryAngle.ManagementConsole.Test.Controllers
         [TestCase("QzovbG9nL0V2ZXJ5QW5nbGVfV2ViQ2xpZW50X1JlcXVlc3RfUmVzcG9uc2VfMjAxOF84XzIueG1s", "WebClient")]
         public void GetSystemlogFile_ShouldThrowHttpException_WhenArbitraryPathTraversalAndHasWrongFileExtension(string encodeFullPath, string target)
         {
-            _testingController = GetController();
-
             // assert
             var exception = Assert.Throws<HttpException>(() =>
             {
@@ -53,7 +69,6 @@ namespace EveryAngle.ManagementConsole.Test.Controllers
         [Test]
         public void GetAuthenticationSystemSettingsAsJsonString_ShouldReturnCorrectJsonString_WhenItHasBeenUsed()
         {
-            _testingController = GetController();
             SystemSettingViewModel viewModel = new SystemSettingViewModel
             {
                 DefaultAuthenticationProvider = "everyangle",
@@ -69,6 +84,62 @@ namespace EveryAngle.ManagementConsole.Test.Controllers
             Assert.AreEqual("{\"trusted_webservers\":[\"192.168.1.1\",\"127.0.0.1\"],\"default_authentication_provider\":\"everyangle\"}", result);
         }
 
+        [Test]
+        public void SystemLog_Should_RunClientOperationsWithoutLogViewer_When_LogTypeIsRepository()
+        {
+            sessionHelper.SetupGet(x => x.Models).Returns(new List<ModelViewModel>());
+
+            string target = SystemLogType.Repository.ToString();
+            PartialViewResult view = _testingController.SystemLog(target, string.Empty, string.Empty) as PartialViewResult;
+
+            Assert.NotNull(view);
+            Assert.IsFalse(view.ViewBag.ServerOperation);
+            Assert.IsFalse(view.ViewBag.EnableLogViewer);
+            Assert.IsTrue(view.ViewBag.SortEnabled);
+        }
+
+        [Test]
+        public void ReadAllFolders_Should_ReturnFileFromRepositoryLogService_When_LogTypeIsRepository()
+        {
+            dynamic file = new RepositoryLogViewModel
+            {
+                size = 512,
+                file = "test.log",
+                modified = DateTime.Today.Ticks,
+                uri = "test.log"
+            };
+
+            repositoryLogService.Setup(x => x.Get()).Returns(new List<FileModel>
+            {
+                new FileModel(file, string.Empty),
+                new FileModel(file, string.Empty)
+            });
+
+            string target = SystemLogType.Repository.ToString();
+            JsonResult result = _testingController.ReadAllFolders(null, target, string.Empty, string.Empty);
+
+            dynamic data = (dynamic)result.Data;
+            Assert.AreEqual(data.Data.Count, 2);
+            Assert.AreEqual(data.Total, 2);
+        }
+
+        [TestCase(SystemLogType.AppServer)]
+        [TestCase(SystemLogType.ModelServer)]
+        [TestCase(SystemLogType.Repository)]
+        public void GetSystemLogFile_Should_DownloadFileLogService_When_LogTypeIsInList(SystemLogType systemLogType)
+        {
+            string testFilePath = $"{AppDomain.CurrentDomain.SetupInformation.ApplicationBase}/Controllers/TestFiles/test.log";
+            string fullPath = Base64Helper.Encode(testFilePath);
+            string target = systemLogType.ToString();
+
+            logFileService
+                .Setup(x => x.Get(It.IsAny<string>()))
+                .Returns(new FileViewModel { FileName = "test.log", FileBytes = new byte[0] });
+
+            FileResult file = _testingController.GetSystemlogFile(fullPath, target);
+
+            Assert.AreEqual(file.FileDownloadName, "test.log");
+        }
         #endregion
 
         public class Result
@@ -76,19 +147,5 @@ namespace EveryAngle.ManagementConsole.Test.Controllers
             public string reason { get; set; }
             public string message { get; set; }
         }
-
-        #region private
-
-        private GlobalSettingsController GetController()
-        {
-            return new GlobalSettingsController(
-                globalSettingService.Object,
-                modelService.Object,
-                userService.Object,
-                webClientConfigService.Object
-            );
-        }
-
-        #endregion
     }
 }
