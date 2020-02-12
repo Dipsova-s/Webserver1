@@ -381,6 +381,17 @@ begin
   Result := Format('%s:%s', [AppServerUrl, BasePort]);
 end;
 
+function ValidateModelIdInput(Sender: TWizardPage): Boolean;
+begin
+  Result := True;
+
+  if Trim(ODataSettingsPage.Values[0]) = '' then
+  begin
+    MsgBox('Please enter a Model ID', mbError, MB_OK);
+    Result := False;
+  end;
+end;
+
 // ***** Config Page definition: add new config options here ******************
 // ********************************
 
@@ -601,6 +612,7 @@ begin
   ODataSettingsPage.Add('Models Id''s (separate multiple models by '', '')', False); //0: Model Id's
   ODataSettingsPage.Add('OData Service User:', False); //1: User
   ODataSettingsPage.Add('OData Service password:', True); //2: Password
+  ODataSettingsPage.OnNextButtonClick := @ValidateModelIdInput;
 
   // Create config page for web client
   WebClientConfigPage := CreateInputQueryPage(wpSelectComponents, 'Web Client Access Configuration', 'Enter configuration details for the Web Client', '');
