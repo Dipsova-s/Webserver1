@@ -17,7 +17,7 @@ function FacetFiltersViewModel() {
     self.GroupCannotNegativeFilter = 'facetcat_admin';
     self.GroupModels = 'facetcat_models';
     self.GroupGeneralOrder = ['facetcat_bp', 'facetcat_itemtype', 'facetcat_characteristics', 'facetcat_models', 'facetcat_admin'];
-    self.FilterExclusionList = ['facet_executeonlogin'];
+    self.FilterExclusionList = ['facet_executeonlogin', 'facet_has_errors'];
     self.ShowOtherFacetFilterProperties = ko.observable(false);
     self.selectedItems = [];
 

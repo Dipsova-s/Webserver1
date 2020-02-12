@@ -352,7 +352,12 @@ describe("FacetFiltersViewModel", function () {
             expect(filters[4].id).toEqual("IT");
         });
     });
-
+    describe(".CheckAngleFacetVisibility", function () {
+        it("should not show facet_has_errors", function () {
+            expect(facetFiltersViewModel.FilterExclusionList).toContain('facet_has_errors');
+            expect(facetFiltersViewModel.CheckAngleFacetVisibility('facet_has_errors',0)).toBeFalsy();
+        });
+    });
     describe(".FilterItems", function () {
         beforeEach(function () {
             spyOn(searchModel, 'FilterItems').and.callFake($.noop);
