@@ -171,12 +171,12 @@
 .followupRelation {
     width: 36px;
     height: 31px;
-    background: transparent none left center no-repeat;
+    background: transparent none right no-repeat;
 }
 
 .followupRelation.manyToOne {
     background-image: url('../../images/angle/followups/followups_relation.svg');
-    transform: rotate(90deg);
+    transform: rotate(270deg);
     background-size: 26px;
 }
 
