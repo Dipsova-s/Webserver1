@@ -810,10 +810,12 @@ namespace EveryAngle.WebClient.Service.Aggregation
             SaveLayoutFromPivotGrid(sender as MVCxPivotGrid, layoutId);
         }
 
-        private void SetFieldCaption(EAPivotField field, PivotGridField pivotField)
+        protected void SetFieldCaption(EAPivotField field, PivotGridField pivotField)
         {
             // add new line if it's <SOURCE> - <FIELD>
-            pivotField.Caption = WebUtility.HtmlEncode(pivotField.Caption);
+            pivotField.Caption = pivotField.Caption
+                .Replace("<", "&lt;")
+                .Replace(">", "&gt;");
             if (field.DefaultCaption == field.Caption)
             {
                 pivotField.Caption = pivotField.Caption.Replace(" - ", REPLACE_CAPTION_HEADER);

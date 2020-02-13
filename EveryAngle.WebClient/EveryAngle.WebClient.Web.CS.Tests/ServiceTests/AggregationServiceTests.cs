@@ -155,8 +155,8 @@ namespace EveryAngle.WebClient.Web.CSTests.ServiceTests
 
             #region Set sort by summary
             PivotSettings pivotSetting = new PivotSettings
-                {
-                    SortBySummaryInfo = !hasSortBySummary ? null : new List<SortBySummary>
+            {
+                SortBySummaryInfo = !hasSortBySummary ? null : new List<SortBySummary>
                     {
                         new SortBySummary
                         {
@@ -174,7 +174,7 @@ namespace EveryAngle.WebClient.Web.CSTests.ServiceTests
                             }
                         }
                     }
-                }; 
+            };
             #endregion
 
             AggregationService aggregationService = new AggregationService();
@@ -254,7 +254,7 @@ namespace EveryAngle.WebClient.Web.CSTests.ServiceTests
         public void TestGetDataType(string type, string bucket, Type expected)
         {
             Type result = AggregationService.GetDataType(type, bucket);
-            
+
             Assert.AreEqual(expected, result);
         }
 
@@ -292,6 +292,28 @@ namespace EveryAngle.WebClient.Web.CSTests.ServiceTests
             Assert.AreEqual(expectShowTotals, settings.OptionsView.ShowRowTotals);
             Assert.AreEqual(expectTotalsLocation.ToString(), settings.OptionsView.ColumnTotalsLocation.ToString());
             Assert.AreEqual(expectTotalsLocation.ToString(), settings.OptionsView.RowTotalsLocation.ToString());
+        }
+
+
+        [TestCase("&lt;script&gt;hello&lt;/script&gt;", "&lt;script&gt;hello&lt;/script&gt;")]
+        public void SetFieldCaption_Should_SetCaptionForHtml(string caption, string expectedValue)
+        {
+            AggregationServiceMock service = new AggregationServiceMock();
+
+            EAPivotField field = new EAPivotField { DefaultCaption = "" };
+            PivotGridField pivotField = new PivotGridField { Caption = caption };
+
+            service.SetFieldCaptionTest(field, pivotField);
+
+            Assert.AreEqual( expectedValue, pivotField.Caption);
+        }
+    }
+
+    public class AggregationServiceMock : AggregationService
+    {
+        public void SetFieldCaptionTest(EAPivotField field, PivotGridField pivotField)
+        {
+            base.SetFieldCaption(field, pivotField);
         }
     }
 }
