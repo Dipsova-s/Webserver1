@@ -164,6 +164,11 @@ namespace EveryAngle.ManagementConsole.Test.Controllers
                 Entry systemRoleEntry = sessionHelper.Object.Version.Entries.First(x => x.Name == "system_roles");
                 sessionHelper.Object.Version.Entries.Remove(systemRoleEntry);
             }
+            sessionHelper.Setup(x => x.GetModelFromSession(It.IsAny<string>())).Returns(new ModelViewModel
+            {
+                id = "EA2_800"
+            });
+
             SetupGetSystemAuthenticationProviders();
             SetupGetSystemRoles();
             SetupGetModel();
@@ -257,6 +262,10 @@ namespace EveryAngle.ManagementConsole.Test.Controllers
             // prepare
             SetupGetSystemRoles();
             SetupGetModel();
+            sessionHelper.Setup(x => x.GetModelFromSession(It.IsAny<string>())).Returns(new ModelViewModel
+            {
+                id = "EA2_800"
+            });
             _testingController = GetTestController();
 
             // execute
@@ -292,6 +301,10 @@ namespace EveryAngle.ManagementConsole.Test.Controllers
                 new AssignedRoleViewModel { RoleId = "EA2_800_ALL", ModelId = "EA2_800" }
             };
             userService.Setup(x => x.GetUser(It.IsAny<string>())).Returns(user);
+            sessionHelper.Setup(x => x.GetModelFromSession(It.IsAny<string>())).Returns(new ModelViewModel
+            {
+                id = "EA2_800"
+            });
 
             SetupGetUserSetting();
             SetupGetSystemAuthenticationProviders();

@@ -179,7 +179,7 @@ namespace EveryAngle.ManagementConsole.Controllers
             SystemAuthenticationProviderViewModel userProvider = GetSystemAuthenticationProviders()
                 .FirstOrDefault(w => w.Users.ToString() == uri);
             List<KendoMultiSelect> defaultRoleListView = GetRoleKendoMultiSelectListView(userProvider == null ? null : userProvider.default_roles);
-            
+
             // all roles
             List<SystemRoleViewModel> systemRoles = GetAllRoles();
             List<AssignedRoleViewModel> assignedRoles = GetAssignedRoleViewModelBy(systemRoles);
@@ -254,16 +254,16 @@ namespace EveryAngle.ManagementConsole.Controllers
 
             foreach (SystemRoleViewModel systemRole in systemRoleViewModel)
             {
-                AssignedRoleViewModel userRoleModelListView = new AssignedRoleViewModel();
+                AssignedRoleViewModel assignedRole = new AssignedRoleViewModel { RoleId = systemRole.Id };
+
                 if (systemRole.ModelPrivilege.model != null)
                 {
-                    string modelId = _modelService.GetModel(systemRole.ModelPrivilege.model.ToString()).id;
-                    assignedRoleViewModels.Add(new AssignedRoleViewModel() { ModelId = modelId, RoleId = systemRole.Id });
+                    //model uri
+                    string modelUrl = systemRole.ModelPrivilege.model.ToString();
+                    // load model from the session
+                    assignedRole.ModelId = SessionHelper.GetModelFromSession(modelUrl).id;
                 }
-                else
-                {
-                    assignedRoleViewModels.Add(new AssignedRoleViewModel() { RoleId = systemRole.Id });
-                }
+                assignedRoleViewModels.Add(assignedRole);
             }
             return assignedRoleViewModels;
         }
@@ -290,7 +290,6 @@ namespace EveryAngle.ManagementConsole.Controllers
             if (assignedRoleViewModels == null || systemRoleViewModels == null)
                 return assignSystemRoleViewModels;
 
-            Dictionary<string, ModelViewModel> cacheModels = new Dictionary<string, ModelViewModel>();
             foreach (SystemRoleViewModel systemRoleViewModel in systemRoleViewModels)
             {
                 foreach (AssignedRoleViewModel assignedRoleViewModel in assignedRoleViewModels)
@@ -306,12 +305,8 @@ namespace EveryAngle.ManagementConsole.Controllers
 
                         // model role
                         string modelUrl = systemRoleViewModel.ModelPrivilege.model.ToString();
-
-                        // load into cache
-                        if (!cacheModels.ContainsKey(modelUrl))
-                            cacheModels[modelUrl] = _modelService.GetModel(systemRoleViewModel.ModelPrivilege.model.ToString());
-
-                        if (cacheModels[modelUrl].id == assignedRoleViewModel.ModelId)
+                        ModelViewModel model = SessionHelper.GetModelFromSession(modelUrl);
+                        if (model.id == assignedRoleViewModel.ModelId)
                         {
                             assignSystemRoleViewModels.Add(systemRoleViewModel);
                             break;
@@ -866,7 +861,7 @@ namespace EveryAngle.ManagementConsole.Controllers
         {
             List<UserViewModel> users = new List<UserViewModel>();
             List<string> usersUriList = usersUrl.Split(',').ToList();
-            UrlHelperExtension.ParallelRequest(usersUriList, true).ForEach(delegate(Task<JObject> task)
+            UrlHelperExtension.ParallelRequest(usersUriList, true).ForEach(delegate (Task<JObject> task)
             {
                 if (task.Status != TaskStatus.Faulted)
                 {
