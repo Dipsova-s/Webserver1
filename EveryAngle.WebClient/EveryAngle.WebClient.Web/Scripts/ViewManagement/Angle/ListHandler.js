@@ -261,6 +261,10 @@ function ListHandler(elementId, container) {
         return columnDefinitions;
     };
     self.GetGridOptions = function (columnDefinitions) {
+        var selectableString = 'multiple cell';
+        if (/iPad/i.test(navigator.userAgent)) {
+            selectableString = 'cell';
+        }
         return {
             dataSource: self.GetGridDataSource(),
             autoBind: false,
@@ -277,7 +281,8 @@ function ListHandler(elementId, container) {
                 virtual: true
             },
             pageable: false,
-            selectable: 'cell'
+            allowCopy: true,
+            selectable: selectableString
         };
     };
     self.GetGridHeight = function () {
@@ -1642,7 +1647,7 @@ function ListHandler(elementId, container) {
                     ignoreWidthOverflow: true,
                     ignoreHeightOverflow: true,
                     submenuTopOffset: -50,
-                    event: 'click',
+                    event: 'click contextmenu',
                     fadeIn: 0,
                     delay: 0,
                     keyDelay: 500,
@@ -1663,12 +1668,88 @@ function ListHandler(elementId, container) {
             }
         }, 100);
     };
-    self.OnContextMenuShow = function (e, context) {
+    self.LeftClickFirstCell = {
+        RowId: -1,
+        CellIndex: -1,
+        ColumnId: -1
+    };
+    self.SelectedCellIndexes = [];
+    self.ResetLeftClickFirstCell  = function() {
+        self.LeftClickFirstCell.CellIndex = -1;
+        self.LeftClickFirstCell.RowId = -1;
+        self.LeftClickFirstCell.ColumnId = -1;
+    }
+    self.ContextMenuRenderPosition = function(isOnlyCopy, column, dataItem, menu, context) {
+        self.MenuOptions = self.CreateContextMenu(column.field.toLowerCase(), dataItem[column.field.toLowerCase()]);
+        if (isOnlyCopy) {
+            var copyClone = self.MenuOptions.items.copy;
+            self.MenuOptions.items = {};
+            self.MenuOptions.items.copy = copyClone;
+        }
+        self.RenderContextMenu('#' + menu.attr('id'), self.MenuOptions.items);
 
-        jQuery(document).trigger('click');
-        self.HideHeaderPopup();
-        var menu = jQuery(this), cell;
-        var grid = self.GetGridObject();
+        // re-position
+        setTimeout(function () {
+            var winSize = { width: WC.Window.Width, height: WC.Window.Height },
+                parentSize = { width: menu.width(), height: menu.height() },
+                offset = menu.offset();
+            if (parentSize.width + offset.left + 20 > winSize.width) {
+                offset.left = winSize.width - (parentSize.width + 20);
+            }
+            if (parentSize.height + offset.top + 20 > winSize.height) {
+                offset.top = jQuery(context).offset().top - parentSize.height;
+            }
+            menu.css(offset);
+        }, 1);
+    }
+    self.IsIndexInSelectedArea = function(currentIndex, grid) {
+        var isIndexInSelectedArea = false, totalGridCount = grid.columns.length, firstElement = grid.select().first(), lastElement = grid.select().last(),
+            dragStart = Math.min($(self.ElementId + ' td').index(firstElement), $(self.ElementId + ' td').index(lastElement)),
+            dragEnd = Math.max($(self.ElementId + ' td').index(firstElement), $(self.ElementId + ' td').index(lastElement)),
+            noOfColumns = Math.abs(firstElement.cellIndex - lastElement.cellIndex) + 1,
+            noOfRows = Math.abs(firstElement.parent().index() - lastElement.parent.index()) + 1;
+        if ([(dragStart - noOfColumns + 1) + ((noOfRows - 1) * (totalGridCount - 1))] == dragEnd) {
+            dragStart -= (noOfColumns - 1);
+            dragEnd += (noOfColumns - 1);
+        }
+        loop1:
+        for (var i = dragStart; i <= dragEnd; i++) {
+            loop2:
+            for (var j = i; j <= dragEnd; j = j + totalGridCount - 1) {
+
+                if (j == currentIndex) {
+                    isIndexInSelectedArea = true;
+                    break loop1;
+                }
+                if (j == dragEnd) {
+                    break loop1;
+                }
+            }
+
+        }
+        return isIndexInSelectedArea;
+    }
+    self.OnContextMenuShow = function (e, context) {
+        var grid = self.GetGridObject(); self.HideHeaderPopup();
+        if (/iPad/i.test(navigator.userAgent) || e.which == 3) {
+            jQuery(document).trigger('click');
+            var menu = jQuery(this), cell, isOnlyCopy = false;
+            if (e.which == 3) {
+                if (grid.select().length == 1) {
+                    isOnlyCopy = false;
+                    grid.clearSelection();
+                }
+                else if (grid.select().length > 1) {
+                    var currentIndex = $(self.ElementId + ' td').index(context);
+                    if (!self.IsIndexInSelectedArea(currentIndex, grid)) {
+                        grid.clearSelection();
+                    }
+                    else {
+                        isOnlyCopy = true;
+                    }
+                }
+                self.ResetLeftClickFirstCell();
+            }        
         grid.select(context);
         cell = grid.select();
 
@@ -1699,25 +1780,53 @@ function ListHandler(elementId, container) {
             self.HideContextMenu();
             grid.clearSelection();
             return false;
+            }
+
+            self.ContextMenuRenderPosition(isOnlyCopy, column, dataItem, menu, context);
         }
 
-
-        self.MenuOptions = self.CreateContextMenu(column.field.toLowerCase(), dataItem[column.field.toLowerCase()]);
-        self.RenderContextMenu('#' + menu.attr('id'), self.MenuOptions.items);
-
-        // re-position
-        setTimeout(function () {
-            var winSize = { width: WC.Window.Width, height: WC.Window.Height },
-                parentSize = { width: menu.width(), height: menu.height() },
-                offset = menu.offset();
-            if (parentSize.width + offset.left + 20 > winSize.width) {
-                offset.left = winSize.width - (parentSize.width + 20);
+        else if (e.which == 1 && e.shiftKey) {
+            if (self.LeftClickFirstCell.RowId == -1) {
+                self.HideContextMenu();
+                grid.clearSelection();
+                return false;
             }
-            if (parentSize.height + offset.top + 20 > winSize.height) {
-                offset.top = jQuery(context).offset().top - parentSize.height;
+            var dragStart = Math.min(self.LeftClickFirstCell.CellIndex, $(self.ElementId + ' td').index(context));
+            var dragEnd = Math.max(self.LeftClickFirstCell.CellIndex, $(self.ElementId + ' td').index(context));
+            var totalGridCount = grid.columns.length;
+            var noOfColumns = Math.abs(context.cellIndex - self.LeftClickFirstCell.ColumnId) + 1;
+            var noOfRows = Math.abs(context.parentElement.rowIndex - self.LeftClickFirstCell.RowId) + 1;
+            if ([(dragStart - noOfColumns + 1) + ((noOfRows - 1) * (totalGridCount - 1))] == dragEnd) {
+                dragStart -= (noOfColumns - 1);
+                dragEnd += (noOfColumns - 1);
             }
-            menu.css(offset);
-        }, 1);
+
+            grid.clearSelection();
+            self.SelectedCellIndexes = [];
+            loop1:
+            for (var i = dragStart; i <= dragEnd; i++) {
+                loop2:
+                for (var j = i; j <= dragEnd; j = j + totalGridCount - 1) {
+                    $(self.ElementId + " td:eq(" + j + ")").addClass('k-state-selected');
+
+                    if (j == dragEnd) {
+                        break loop1;
+                    }
+                }
+
+            }
+            return false;
+        }
+        else if ((e.which == 1 && e.ctrlKey) || e.which == 1) {
+            self.LeftClickFirstCell.CellIndex = $(self.ElementId + ' td').index(context);
+            self.LeftClickFirstCell.RowId = context.parentElement.rowIndex;
+            self.LeftClickFirstCell.ColumnId = context.cellIndex;
+            self.HideContextMenu();
+            grid.clearSelection();
+            $(self.ElementId + " td:eq(" + $(self.ElementId + ' td').index(context) + ")").addClass('k-state-selected');
+            return false;
+        }
+
     };
     self.OnContextMenuHover = function () {
         var element = jQuery(this);
@@ -2318,6 +2427,19 @@ function ListHandler(elementId, container) {
                 self.Models.Display.GotoTemporaryDisplay(data.uri);
             });
     };
+    self.ClearWindowOrDocumentSelection = function () {
+        if (window.getSelection) {
+            if (window.getSelection().empty) { // Chrome
+                window.getSelection().empty();
+            }
+            else if (window.getSelection().removeAllRanges) {// Firefox
+                window.getSelection().removeAllRanges();
+            }
+        }
+        else if (document.selection) { // IE?
+            document.selection.empty();
+        }
+    }
     self.InitialCopyToClipboard = function (grid) {
         if (!jQuery('#CopyToClipboard').length) {
             jQuery('body').append('<input type="button" id="CopyToClipboard" class="alwaysHide" />');
@@ -2349,7 +2471,9 @@ function ListHandler(elementId, container) {
             if (!tooltip.length) {
                 tooltip = jQuery('<div class="k-grid-tooltip k-grid-tooltip-copy" />').attr('id', 'tooltipCopy').appendTo('body');
             }
-            var cellHeight = selectCell.height();
+            var firstElement = grid.select().first(), lastElement = grid.select().last(),
+                noOfRows = Math.abs(firstElement.parent().index() - lastElement.parent.index()) + 1;
+            var cellHeight = selectCell.height() * noOfRows;
             var position = selectCell.offset();
             position.top += cellHeight;
             tooltip.text(text).css(position).show();
@@ -2370,18 +2494,19 @@ function ListHandler(elementId, container) {
                 tooltip.hide();
             }, 2000);
         };
-
+        
         // set clipboard
         var clipboard = new Clipboard('#CopyToClipboard', {
-            target: function () {
-                return grid.content.find('td.k-state-selected')[0];
+            text: function () {
+                return grid.getTSV();
             }
         });
         clipboard.on('success', function () {
             // show tooltip: Copied
             showCopyNotify(grid, Localization.Copied);
 
-            grid.clearSelection();
+            self.ClearWindowOrDocumentSelection();
+            self.ResetLeftClickFirstCell();
         });
         clipboard.on('error', function () {
             var selectCell = grid.content.find('td.k-state-selected');

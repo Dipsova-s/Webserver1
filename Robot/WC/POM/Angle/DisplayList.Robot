@@ -136,12 +136,12 @@ Find Column Index By Field Name
 Click First Row Cell By Column index
     [Arguments]    ${fieldId}
     ${index}    Find Column Index By Field Name   ${fieldId}
-    Click Element    jquery=#AngleGrid > div.k-grid-content > div.k-virtual-scrollable-wrap > table > tbody > tr:nth-child(1) > td:eq(${index})
+    Open Context Menu    jquery=#AngleGrid > div.k-grid-content > div.k-virtual-scrollable-wrap > table > tbody > tr:nth-child(1) > td:eq(${index})
 
 Click Row Cell By Column index
     [Arguments]    ${fieldId}    ${rowNumber}
     ${columnIndex}    Find Column Index By Field Name   ${fieldId}
-    Click Element    jquery=#AngleGrid > div.k-grid-content > div.k-virtual-scrollable-wrap > table > tbody > tr:nth-child(${rowNumber}) > td:eq(${columnIndex})
+    Open Context Menu    jquery=#AngleGrid > div.k-grid-content > div.k-virtual-scrollable-wrap > table > tbody > tr:nth-child(${rowNumber}) > td:eq(${columnIndex})
 
 Select Quick Filter Options
     Wait Until Element Is Visible   ${angleContextMenu}
@@ -222,7 +222,7 @@ Wait Until Drilldown Item Loaded
 Click Show Menu In List Display Cell By Name
     [Arguments]    ${name}
     Sleep    ${TIMEOUT_LARGEST}
-    Click Element    ${tdCellInListDisplay}:contains("${name}")
+    Open Context Menu    ${tdCellInListDisplay}:contains("${name}")
     Sleep    ${TIMEOUT_LARGEST}
     Execute Javascript    $('.k-grid-tooltip').hide()
 
