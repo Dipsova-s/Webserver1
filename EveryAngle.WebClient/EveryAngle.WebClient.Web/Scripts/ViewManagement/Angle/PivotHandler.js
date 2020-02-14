@@ -300,7 +300,7 @@ function PivotPageHandler(elementId, container) {
         // remove unused text
         var imageIndex = cellTitle.indexOf('<img');
         if (imageIndex !== -1) {
-            cellTitle = cellTitle.substr(0, imageIndex);
+            cellTitle = cellTitle.replace(/<img .*?>/g, '');
         }
 
         // detect span tag
@@ -322,14 +322,23 @@ function PivotPageHandler(elementId, container) {
         // field header
         self.SetPivotFieldsCellHeader();
 
+        //cell value title
+        self.SetPivotCellHeaderTitle();
+
         // cell header
         self.SetPivotCellHeaderEvent();
     };
-    self.SetPivotFieldsValueCellHeader = function () {
-        self.GetContainer().find('.dxpgColumnFieldValue').each(function (index, cell) {
+    self.SetTitleforElements = function (match) {
+        self.GetContainer().find(match).each(function (index, cell) {
             cell = jQuery(cell);
             cell.attr('title', self.GetCellCaptionTitle(cell));
         });
+    }
+    self.SetPivotFieldsValueCellHeader = function () {
+        self.SetTitleforElements('.dxpgColumnFieldValue');
+    };
+    self.SetPivotCellHeaderTitle = function () {
+        self.SetTitleforElements('.dxpgRowFieldValue');
     };
     self.SetPivotFieldsCellHeader = function () {
         var pivotDetails = self.FieldSettings.GetDisplayDetails();

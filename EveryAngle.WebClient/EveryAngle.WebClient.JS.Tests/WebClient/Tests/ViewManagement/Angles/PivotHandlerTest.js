@@ -435,5 +435,34 @@ describe("PivotPageHandler", function () {
             expect(pivotPageHandler.UpdateLayout).toHaveBeenCalledTimes(2);
         });
     });
+    describe(".SetTitleforElements", function () {
+        beforeEach(CreateTableAndSetContainer);
+        afterEach(function () {
+            $('#SampleTable').remove();
+        });
+        it("should call GetCellCaptionTitle function", function () {
+            spyOn(pivotPageHandler, 'GetCellCaptionTitle');
+            pivotPageHandler.SetTitleforElements('.dxpgRowFieldValue');
+            expect(pivotPageHandler.GetCellCaptionTitle).toHaveBeenCalled();
+        });
+    });
+    describe(".GetCellCaptionTitle", function () {
+        beforeEach(CreateTableAndSetContainer);
+        afterEach(function () {
+            $('#SampleTable').remove();
+        });
+        it("should set the title attribute of the element", function () {
+            var cell;
+            pivotPageHandler.GetContainer().find('.dxpgRowFieldValue').each(function (index, cell) {
+                cell = jQuery(cell);
+                cell.attr('title', pivotPageHandler.GetCellCaptionTitle(cell));
+            });
+            expect($('#column').attr('title')).toEqual('0002 (Hartmans Plant)');
+        });
+    });
+    function CreateTableAndSetContainer() {
+        $('<table id="SampleTable">').html('<tr><td id="column" class="dxpgRowFieldValue" title=""><img class="dxpgCollapsedButton" src="" alt="image">0002 (Hartmans Plant)</td ></tr>').show().appendTo('body');
+        pivotPageHandler.Container = '#SampleTable';
+    }
 });
 
