@@ -118,7 +118,6 @@
         };
         self.SetAbilityToEditControl = function (data, manageSystemPrivilege, canScheduleAngles, currentUser) {
             var currentStatus = data.status;
-            var name = data.name;
             var uri = data.Uri;
 
             var canManageTask = self.CanManageTask(manageSystemPrivilege, canScheduleAngles, currentUser, data.run_as_user);
@@ -129,7 +128,7 @@
             if (canManageTask) {
                 template += "<a href=\"" + MC.AutomationTasks.Tasks.EditTaskPage + "\"  onclick=\"MC.AutomationTasks.Tasks.EditTask(event, this)\" data-parameters='{\"tasksUri\":\"" + uri + "\"}' class=\"btn btnEdit\">" + Localization.Edit + "</a>";
                 if (manageSystemPrivilege) {
-                    template += "<a href=\"#popupCopyTask\" onclick=\"MC.AutomationTasks.Tasks.CopyTaskPopup('" + uri + "','" + data.name + "')\" data-role=\"mcPopup\" title=\"" + Localization.MC_CopyTask + "\" data-width=\"500\" data-min-height=\"180\" data-min-width=\"475\" class=\"btn btnCopy\">" + Localization.Copy + "</a>";
+                    template += "<a href=\"#popupCopyTask\" onclick=\"MC.AutomationTasks.Tasks.CopyTaskPopup('" + uri + "', '" + data.uid + "')\" data-role=\"mcPopup\" title=\"" + Localization.MC_CopyTask + "\" data-width=\"500\" data-min-height=\"180\" data-min-width=\"475\" class=\"btn btnCopy\">" + Localization.Copy + "</a>";
                 }
                 template += "<a onclick=\"MC.AutomationTasks.Tasks.ExecuteTask(this,'" + uri + "')\" class=\"btn btn btnExecute" + (isExecuting ? " disabled" : "") + "\">" + Localization.MC_ExecuteNow + "</a>";
 
@@ -142,7 +141,7 @@
             else {
                 template += "<a href=\"" + MC.AutomationTasks.Tasks.EditTaskPage + "\"  onclick=\"MC.AutomationTasks.Tasks.EditTask(event, this)\" data-parameters='{\"tasksUri\":\"" + uri + "\"}' class=\"btn btnEdit\">" + Localization.View + "</a>";
             }
-            template += "<a data-parameters='{\"taskUri\":\"" + uri + "\", \"name\":\"" + name + "\"}' data-delete-template=\"" + Localization.MC_DeleteTaskConfirm + "\" data-delete-field-index=\"0\" onclick=\"MC.AutomationTasks.Tasks.DeleteTask(event,this)\" class=\"btn btnDelete" + (isExecuting || !manageSystemPrivilege ? ' disabled' : '') + "\">" + Localization.Delete + "</a>";
+            template += "<a data-parameters='{\"taskUri\":\"" + uri + "\"}' data-delete-template=\"" + Localization.MC_DeleteTaskConfirm + "\" data-delete-field-index=\"0\" onclick=\"MC.AutomationTasks.Tasks.DeleteTask(event,this)\" class=\"btn btnDelete" + (isExecuting || !manageSystemPrivilege ? ' disabled' : '') + "\">" + Localization.Delete + "</a>";
             return template;
         };
         self.CanManageTask = function (manageSystemPrivilege, canScheduleAngles, currentUser, taskOwner) {
@@ -153,7 +152,7 @@
             MC.util.redirect(event, obj);
         };
 
-        self.CopyTaskPopup = function (taskUri, taskName) {
+        self.CopyTaskPopup = function (taskUri, uid) {
             MC.ui.popup('setScrollable', {
                 element: '#popupCopyTask'
             });
@@ -165,7 +164,8 @@
             });
 
             $("#TaskUri").val(taskUri);
-            $("#TaskName").val(taskName + '_copy');
+            var dataItem = $('#TasksGrid').data('kendoGrid').dataSource.getByUid(uid);
+            $("#TaskName").val(dataItem.name + '_copy');
 
             MC.form.validator.init('#formCopyTask');
             $('#formCopyTask').submit(function (e) {

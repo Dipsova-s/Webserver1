@@ -2,7 +2,7 @@
     "delete_after_completion": false,
     "enabled": false,
     "max_run_time": 0,
-    "name": "\"TaskForCopy\"",
+    "name": "TaskFor\"Delete\"",
     "run_as_user": "local\\EAAdmin",
     "actions": [
         {
@@ -18,11 +18,11 @@
                 },
                 {
                     "name": "angle_id",
-                    "value": "TaskForCopy_Angle"
+                    "value": "TaskForDelete_Angle"
                 },
                 {
                     "name": "display_id",
-                    "value": "TaskForCopy_Angle_Display1"
+                    "value": "TaskForDelete_Angle_Display1"
                 },
                 {
                     "name": "model_timestamp_index",

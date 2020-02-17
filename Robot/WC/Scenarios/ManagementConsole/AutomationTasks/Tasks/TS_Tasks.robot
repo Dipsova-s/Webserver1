@@ -78,4 +78,9 @@ Check Add Script Action Popup Elements
     Element Should Not Be Visible    ${chkTaskActionAttachResult}
     Click Add Recipient Button
     Element Should Not Be Visible    ${thRecipientsResult}
-    Element Should Not Be Visible    ${tdRecipientsResult}
+    Element Should Not Be Visible    ${tdRecipientsResult} 
+
+Delete Task By Delete Action
+    [Arguments]    ${taskName}
+    Delete Task   ${taskName}
+    Verify Task Dose Not Exists      ${taskName}

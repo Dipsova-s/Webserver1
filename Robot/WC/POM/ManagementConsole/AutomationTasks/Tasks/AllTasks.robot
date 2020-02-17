@@ -26,6 +26,15 @@ Create Task By Copy Task
     Fill in Task Name    ${newTaskName}
     Click OK Copy Task
 
+Delete Task
+    [Arguments]    ${taskName}
+    Click Edit Task Action By Task Name     ${taskName}
+    Click Delete Task Action By Task Name   ${taskName}
+
+Verify Task Dose Not Exists
+    [Arguments]     ${taskName}
+    Page Should Not Contain Element     ${trRowTaskGrid} td:contains('${taskName}') 
+
 Click Delete Task Action By Task Name
     [Arguments]    ${taskName}
     Click Action In Grid By Name     ${taskName}    ${trRowTaskGrid}    ${btnDeleteTask}
@@ -35,6 +44,7 @@ Click Delete Task Action By Task Name
 Confirm Delete Task
     Click Element    ${btnSaveDeleteTask}     
     Wait MC Progress Bar Closed
+    Wait Until Ajax Complete
 
 Click OK Copy Task
     Click Element    ${btnSubmitTask}

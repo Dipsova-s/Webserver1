@@ -14,6 +14,8 @@ Test Verify Task UI
     [Teardown]  Go To All Tasks Page
 
 Verify Copy Task
+    [Tags]      TC_C228916
+    [Documentation]     Copy a task, make sure it can be copied although its name contains double quotes (")
     @{cleanUpItems}    Create List
     Create Context: Web
     ${angleData}    Create Angle    /models/1    TaskForCopy_Angle.json
@@ -24,7 +26,25 @@ Verify Copy Task
     Create Task    TaskForCopy.json
 
     Go To All Tasks Page
-    Create Task By Copy Action   TaskForCopy    TestCopyTask
+    Create Task By Copy Action   "TaskForCopy"    "TaskForCopy"_copy
+
+    [Teardown]  Run Keywords  Clean Up Items     Web    ${cleanUpItems}
+    ...         AND           Go To All Tasks Page
+
+Verify Delete Task
+    [Tags]      TC_C228910
+    [Documentation]     Delete a task, make sure it can be deleted although its name contains double quotes (")
+    @{cleanUpItems}    Create List
+    Create Context: Web
+    ${angleData}    Create Angle    /models/1    TaskForDelete_Angle.json
+    ${angleUri}    Get Uri From Response    ${angleData}
+    Append To List   ${cleanUpItems}    ${angleUri}?forced=true
+
+    Create Context: Web
+    Create Task    TaskForDelete.json
+
+    Go To All Tasks Page
+    Delete Task By Delete Action    TaskFor"Delete"
 
     [Teardown]  Run Keywords  Clean Up Items     Web    ${cleanUpItems}
     ...         AND           Go To All Tasks Page

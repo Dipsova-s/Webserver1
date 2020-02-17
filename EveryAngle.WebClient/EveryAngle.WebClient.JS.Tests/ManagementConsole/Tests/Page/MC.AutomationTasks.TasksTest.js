@@ -275,6 +275,12 @@ describe("MC.AutomationTasks.Tasks", function () {
                 data, false, true, 'run_as_user');
             expect(result.indexOf('popupCopyTask') === -1).toBe(true);
         });
+
+        it("Show delete command with data-parameters", function () {
+            spyOn(automationTask, 'CanManageTask').and.returnValue(false);
+            var template = automationTask.SetAbilityToEditControl(data, false, true, 'run_as_user');          
+            expect(template).toContain("data-parameters='{\"taskUri\":\"http://www.ea.com\"}'");
+        });
     });
 
     describe(".GetActionsGridColumnDefinitions", function () {
@@ -432,7 +438,7 @@ describe("MC.AutomationTasks.Tasks", function () {
 
         it("should get model name from action data #2", function () {
             // prepare
-            var actionData = { arguments: [{ name: 'model', value: 'model_test' } ] };
+            var actionData = { arguments: [{ name: 'model', value: 'model_test' }] };
             automationTask.AllModels = [
                 { id: 'model_test', short_name: 'model_test_name' }
             ];
@@ -706,7 +712,7 @@ describe("MC.AutomationTasks.Tasks", function () {
             }
         };
         var datastoreArguments = [
-            { name: 'action_type', value: 'datastore'}
+            { name: 'action_type', value: 'datastore' }
         ];
         var programScriptArguments = [
             { name: 'action_type', value: 'script' }
