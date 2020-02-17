@@ -78,6 +78,12 @@ Click Save Models
     Click Element    ${btnSaveModels}
     Click Confirmation
 
+Click Edit Save Models
+    Wait Until Page Contains Element    ${btnSaveModels}
+    Click Element    ${btnSaveModels}
+    ${passed}=  Run Keyword And Return Status   Element Should Be Visible   ${btnConfirmationModels}
+    Run Keyword If      ${passed}==True   Click Element  ${btnSubmitConfirm}
+
 Click Confirmation
     Wait Until Page Contains Element    ${btnConfirmationModels} ${btnSubmitConfirm}
     Click Element    ${btnConfirmationModels} ${btnSubmitConfirm}
@@ -86,8 +92,12 @@ Click Confirmation
 
 Click Delete Models By ID
     [Arguments]    ${MODELS_ID}
-    Click Edit Models By ID    ${MODELS_ID}
-    Click Action In Grid By Name     ${MODELS_ID}    ${trRowAllModelGrid}    ${btnActionDeleteCustomIcons}
+    sleep   3s
+    Wait Until Page Contains Element    ${btnReloadModels}
+    Click Element       ${btnReloadModels}
+    Wait Until Page Contains Element        ${trRowAllModelGrid}
+    Click Show Action Dropdown In Grid By Name    ${MODELS_ID}    ${trRowAllModelGrid}
+    Click Action In Grid By Name     ${MODELS_ID}    ${trRowAllModelGrid}     ${btnActionDeleteCustomIcons}
     Click Confirmation Delete
 
 Click Confirmation Delete
@@ -98,6 +108,7 @@ Click Confirmation Delete
 Click Edit Models By ID
     [Arguments]    ${MODELS_ID}
     Click Show Action Dropdown In Grid By Name    ${MODELS_ID}    ${trRowAllModelGrid}
+    Click Action In Grid By Name     ${MODELS_ID}    ${trRowAllModelGrid}     ${btnEditModelIcons}
 
 Click Tree Class Report
     Click Element    ${btnTreeClsReport}

@@ -35,6 +35,19 @@ Verify Popup Stop Server
     Wait Until Page Contains Element    ${popupConfirmationStopServer}
     Click Close Pop Up Stop Server
 
+Edit model details
+    Click Edit Models By ID     EA2_800
+    Get and Modify Model Short Name
+    Get and Modify Model Name
+    Get and Modify Model Environment
+
+Restore the content back to the same values
+    Click Edit Models By ID     EA2_800
+    Enter Model Short Name      ${ModelShortName}
+    Enter Model Name    ${ModelName}
+    Enter Model Environment     ${ModelEnvironment}
+    Click Close Pop Up Stop Server
+
 Verify the page redirected to the selected model options in MC model server page
     Click on Communications model options
     Click on EA2_800 model server in side menu
