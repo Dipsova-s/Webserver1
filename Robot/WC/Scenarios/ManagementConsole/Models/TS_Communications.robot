@@ -4,10 +4,9 @@ Resource            ${EXECDIR}/WC/POM/ManagementConsole/Models/Communications.ro
 Resource            ${EXECDIR}/WC/POM/ManagementConsole/Overview.robot
 
 *** Keywords ***
-Go To Communications Settings Page
-    Go to MC Then Login With Admin User
-    Click On EA2_800 Models Page
-    Click On Communications Settings Page   
+Go To ${model} Model Communications Settings Page
+    Go To MC Page    /Models/${model}/Communications/
+    Wait Until Model Communications Settings Page Ready   
 
 Read The Default Content From Input Fields
 
@@ -96,5 +95,21 @@ Restore content to old values
 
     Input Communications Send Logs Frequency    ${sendLogsFrequencyDefValue}
  
+Flip attach logfiles checkbox and enter non-default value in SendLogsFrequency
+    Click Communications Attach Logfiles
+    ${SLFNonDefault}    Generate Random SLF non-default Value
+    Set Global Variable    ${SLFNonDefault}     ${SLFNonDefault}
+    Input Communications Non default Send Logs frequency    ${SLFNonDefault}
+    Click Save Communications
 
+Verify attach logfiles checkbox and non-default value in SLF are saved
+    Verify Communications Send Logs frequency       ${SLFNonDefault}
+    Click Reload Communications
+    Verify Communications Send Logs frequency       ${SLFNonDefault}
 
+Input no value in send log frequency dropdown
+    Input Communications no value Send Logs frequency
+    Click Save Communications
+
+Verify no value in SLF is saved    
+    Verify Communications no value Send Logs frequency

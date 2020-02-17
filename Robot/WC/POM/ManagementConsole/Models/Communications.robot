@@ -5,6 +5,7 @@ Resource            ${EXECDIR}/WC/POM/ManagementConsole/Shared/MC_Utility.robot
 *** Variables ***
 ${communicationsSettings}       css=#sideMenu-Models-EA2_800-Communications
 ${btnSaveCommunications}             css=.btnSave
+${btnReloadCommunications}           css=.btnReload
 
 ${txtContact}            CompanyInformation_contact
 ${txtAddress}            CompanyInformation_address
@@ -17,6 +18,8 @@ ${txtMessageRecipientsAddEmail}    //div[@id='EmailSettings_ReOrderrecipients_ad
 ${txtMessageRecipients}     EmailSettings_ReOrderrecipients_tagsinput
 ${chkAttachLogfiles}       EmailSettings_attach_logfiles
 ${txtSendLogsFrequency}    EmailSettings_send_system_logs_frequency_hours
+${txtSendLogsFrequencyInput}    //input[contains(@class,'k-formatted-value integer autosyncinput k-input' )]
+${txtSendLogsFrequencyInputTxt}     //input[contains(@class,'k-formatted-value integer autosyncinput k-input' )]/../input[2]
 
 ${RemoveMessageRecipients}      xpath=//a[@title='Remove']
 ${btnAddCommentComm}        xpath=//a[@title='Add comment']
@@ -29,22 +32,21 @@ ${EmailAddress}
 
 
 *** Keywords ***
+Wait Until Model Communications Settings Page Ready
+    Wait Until Page Contains Element     ${txtSendLogsFrequencyInput}
+    Wait MC Progress Bar Closed
+    Wait Until Page Contains Element     ${btnReloadCommunications}
+
 Click Save Communications
     Wait Until Element Is Visible    ${btnSaveCommunications}
     Click Element    ${btnSaveCommunications}
-    Wait MC Progress Bar Closed
+    Wait Until Model Communications Settings Page Ready
 
-Click On EA2_800 Models Page
-    Wait Side Menu Ready
-    Click Side Menu Models
-    Click Side Menu Models EA2_800
-    Wait Until Models Info Loaded
-
-Click On Communications Settings Page
-    Wait Until Page Contains    Communications
-    Click Element       ${communicationsSettings} 
-    Wait Until Page Contains    Company information
-    Wait Until Page Contains    Email settings
+Click Reload Communications
+    Wait Until Model Communications Settings Page Ready
+    Sleep   2s
+    Click Element    ${btnReloadCommunications}
+    Wait Until Model Communications Settings Page Ready
 
 Input Communications Contact
     [Arguments]    ${contact}
@@ -83,12 +85,38 @@ Input Communications Message Recipients
     Press Keys    ${txtMessageRecipientsAddEmail}    RETURN
    
 Click Communications Attach Logfiles
-    Wait Until Page Contains Element    ${attachLogfile}
-    Click Element    ${attachLogfile}
+    Wait Until Page Contains Element    ${chkAttachLogfiles}
+    Click Element    ${chkAttachLogfiles}
 
 Input Communications Send Logs Frequency
     [Arguments]    ${sendLogsFrequency}  
     Input kendo Numeric TextBox    ${txtSendLogsFrequency}    ${sendLogsFrequency}
+
+Generate Random SLF non-default Value
+    ${SLFRandomValue}       Generate Random String      1    [NUMBERS]
+    [Return]     ${SLFRandomValue}
+
+Input Communications Non default Send Logs frequency 
+    [Arguments]     ${SLFRandomValue}
+    Wait Until Page Contains Element    ${txtSendLogsFrequency}
+    ${SLFdefault}       Get Value     ${txtSendLogsFrequency}
+    Set Global Variable     ${SLFdefault}   ${SLFdefault}
+    Input Communications Send Logs Frequency     ${SLFRandomValue}
+
+Verify Communications Send Logs frequency
+    [Arguments]     ${SLFRandomValue}
+    ${SLFNew}       Get Kendo Value     ${txtSendLogsFrequency}
+    Run Keyword If    ${SLFNew}!=${SLFRandomValue}
+    ...     Log    Verified Successfully
+
+Input Communications no value Send Logs frequency
+    Wait Until Page Contains Element    ${txtSendLogsFrequency}
+    Input Communications Send Logs Frequency     null
+
+Verify Communications no value Send Logs frequency
+    ${SLFNew}       Get Value     ${txtSendLogsFrequency}
+    Run Keyword If    ${SLFNew}==0
+    ...     Log    Saved without any error
 
 #Read Values
 Get the value from Contact field
@@ -165,4 +193,3 @@ Verify the edited content in send log frequency field
 
 Remove added emailId in Message recipient field 
     Click Element       xpath=//div[@id='EmailSettings_ReOrderrecipients_tagsinput']//span[contains(text(), '${EmailAddress}')]//following-sibling::a
-
