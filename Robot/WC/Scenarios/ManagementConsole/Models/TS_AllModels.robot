@@ -46,7 +46,6 @@ Restore the content back to the same values
     Enter Model Short Name      ${ModelShortName}
     Enter Model Name    ${ModelName}
     Enter Model Environment     ${ModelEnvironment}
-    Click Close Pop Up Stop Server
 
 Verify the page redirected to the selected model options in MC model server page
     Click on Communications model options
