@@ -203,9 +203,10 @@
     <Content Include="Resource\Shared\Icons\btn_selectall.svg" />
     <EmbeddedResource Include="Resource\FieldsChooser\icon_starred_active.svg" />
     <EmbeddedResource Include="Resource\FieldsChooser\icon_starred_inactive.svg" />
+    <Content Include="Resource\Shared\Icons\icon_info.svg" />
     <Content Include="Resource\Shared\shared.css">
-		<DependentUpon>shared.scss</DependentUpon>
-	</Content>
+      <DependentUpon>shared.scss</DependentUpon>
+    </Content>
     <EmbeddedResource Include="Resource\NotificationsFeed\icon_notifications.svg" />
     <EmbeddedResource Include="Resource\NotificationsFeed\icon_clock.svg" />
     <EmbeddedResource Include="Resource\NotificationsFeed\notificationsfeed.css" />

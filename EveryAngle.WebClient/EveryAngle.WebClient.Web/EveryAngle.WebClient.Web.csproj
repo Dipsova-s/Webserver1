@@ -551,7 +551,6 @@
     <Content Include="Images\Domains\LogisticsBehaviour\logisticsbehaviourls3delivering.png" />
     <Content Include="Images\Domains\LogisticsBehaviour\logisticsbehaviourls5transferwithinplant.png" />
     <Content Include="Images\Domains\LogisticsBehaviour\logisticsbehaviourls4transferbetweenplants.png" />
-    <Content Include="Images\Icons\icon_about.png" />
     <Content Include="Images\Icons\icon_add_filter.svg" />
     <Content Include="Images\Icons\icon_add_filter_before_jump.png" />
     <Content Include="Images\Icons\icon_adv_filter.svg" />
@@ -589,7 +588,6 @@
     <Content Include="Images\Icons\icon_followup_addnew.svg" />
     <Content Include="Images\Icons\icon_gear.svg" />
     <Content Include="Images\Icons\icon_help.png" />
-    <Content Include="Images\Icons\icon_info.svg" />
     <Content Include="Images\Icons\icon_item_dashboard.svg" />
     <Content Include="Images\Icons\icon_list_addnew.svg" />
     <Content Include="Images\Icons\icon_mass_change.svg" />

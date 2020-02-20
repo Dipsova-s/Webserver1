@@ -116,7 +116,7 @@
 
 .btnInfo:after {
     right: -10px;
-    background-image: url(../../images/icons/icon_info.svg);
+    background-image: url(../../content/externalresource/icon_info.svg);
     background-size: 14px 14px;
 }
 
@@ -1480,7 +1480,7 @@ table.grid tbody td:first-child {
     position: absolute;
     right: -51px;
     top: 0;
-    background: transparent url(../images/icons/icon_info.svg) center center no-repeat;
+    background: transparent url(../../content/externalresource/icon_info.svg) center center no-repeat;
     display: inline-block;
     width: 27px;
     height: 23px;
@@ -4948,9 +4948,9 @@ a.mailto {
 }
 
 
-.popupHelpMenu a.btnAbout {
-    background-image: url(../../images/icons/icon_about.png);
-}
+    .popupHelpMenu a.btnAbout {
+        background-image: url(../../content/externalresource/icon_info.svg);
+    }
 
 .popupHelpMenu a.btnHelp {
     background-image: url(../../images/icons/icon_help.png);

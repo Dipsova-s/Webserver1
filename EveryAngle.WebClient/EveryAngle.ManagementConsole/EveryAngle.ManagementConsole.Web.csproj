@@ -244,7 +244,6 @@
     <Content Include="Images\Icons\black_arrow_down.svg" />
     <Content Include="Images\Icons\help.svg" />
     <Content Include="Images\Icons\icn_item_template.svg" />
-    <Content Include="Images\Icons\icon_about.png" />
     <Content Include="Images\Icons\icon_add.svg" />
     <Content Include="Images\Icons\icon_add_blue.svg" />
     <Content Include="Images\Icons\icon_angle_error.svg" />
@@ -259,7 +258,6 @@
     <Content Include="Images\Icons\icon_error.svg" />
     <Content Include="Images\Icons\icon_gear.png" />
     <Content Include="Images\Icons\icon_help.svg" />
-    <Content Include="Images\Icons\icon_info.svg" />
     <Content Include="Images\Icons\icon_list.png" />
     <Content Include="Images\Icons\icon_logout.png" />
     <Content Include="Images\Icons\icon_logs.png" />

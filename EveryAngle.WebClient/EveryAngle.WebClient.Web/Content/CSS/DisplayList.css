@@ -386,11 +386,11 @@
     background-position: 10px;
 }
 
-.HeaderPopup .propertyFunction > .fieldInfo {
-    background-image: url('../../images/icons/icon_info.svg');
-    background-size: 20px 20px;
-    background-position: 10px;
-}
+    .HeaderPopup .propertyFunction > .fieldInfo {
+        background-image: url('../externalresource/icon_info.svg');
+        background-size: 20px 20px;
+        background-position: 10px;
+    }
 
 .HeaderPopup .propertyFunction > .active,
 .HeaderPopup .propertyFunction > a:hover {

@@ -796,10 +796,10 @@ textarea {
   height: 12px; }
 
 .icon.info {
-  background: transparent url("../../images/icons/icon_info.svg") center center no-repeat;
-  width: 12px;
-  height: 12px;
-  background-size: 12px 12px; }
+    background: transparent url("../externalresource/icon_info.svg") center center no-repeat;
+    width: 12px;
+    height: 12px;
+    background-size: 12px 12px; }
 
 .icon.icon-create-angle {
   background: transparent url("../../images/icons/icon_create_angle_plus.svg") center center no-repeat;
@@ -1089,7 +1089,8 @@ textarea {
     .popupHelpMenu .actionDropdownItem:before {
       background-position: 12px 9px; }
     .popupHelpMenu .actionDropdownItem.btnAbout:before {
-      background-image: url("../../images/icons/icon_info.svg"); }
+        background-image: url("../externalresource/icon_info.svg");
+    }
     .popupHelpMenu .actionDropdownItem.btnModelParameters:before {
       background-image: url("../../images/icons/icon_gear.png"); }
     .popupHelpMenu .actionDropdownItem.btnHelp:before {
