@@ -1707,7 +1707,7 @@ function ListHandler(elementId, container) {
             dragStart = Math.min($(self.ElementId + ' td').index(firstElement), $(self.ElementId + ' td').index(lastElement)),
             dragEnd = Math.max($(self.ElementId + ' td').index(firstElement), $(self.ElementId + ' td').index(lastElement)),
             noOfColumns = Math.abs(firstElement.cellIndex - lastElement.cellIndex) + 1,
-            noOfRows = Math.abs(firstElement.parent().index() - lastElement.parent.index()) + 1;
+            noOfRows = Math.abs(firstElement.parent().index() - lastElement.parent().index()) + 1;
         if ([(dragStart - noOfColumns + 1) + ((noOfRows - 1) * (totalGridCount - 1))] == dragEnd) {
             dragStart -= (noOfColumns - 1);
             dragEnd += (noOfColumns - 1);
@@ -2472,7 +2472,7 @@ function ListHandler(elementId, container) {
                 tooltip = jQuery('<div class="k-grid-tooltip k-grid-tooltip-copy" />').attr('id', 'tooltipCopy').appendTo('body');
             }
             var firstElement = grid.select().first(), lastElement = grid.select().last(),
-                noOfRows = Math.abs(firstElement.parent().index() - lastElement.parent.index()) + 1;
+                noOfRows = Math.abs(firstElement.parent().index() - lastElement.parent().index()) + 1;
             var cellHeight = selectCell.height() * noOfRows;
             var position = selectCell.offset();
             position.top += cellHeight;
