@@ -7,6 +7,7 @@ Go To System Settings Page
     Click Side Menu Global Settings
     Click Side Menu System Settings
     Wait System Settings Page Ready
+    Verify System Settings Page Is Ready
 
 Verify System Settings Page Is Ready
     Page Should Contain Element    ${lbApplicationServerUri}
@@ -278,3 +279,15 @@ Get and change Active Directory Size Limit Value
 Restore Active Directory Size Limit Value   
     Input System Settings Active Directory Size Limit       ${ADSLActualValue}
     Click Save System Settings
+
+Verify Text for info property of Program/Script folder
+    Click Program/scripts folder textinfo Popup
+
+Input Program/Script folder path and Save
+    [Arguments]     ${Program/ScriptFolderPath}
+    Input Program/scripts folder field      ${Program/ScriptFolderPath}
+    Click Save System Settings
+
+Verify Program/Script folder path saved correctly
+    [Arguments]     ${Program/ScriptFolderPath}
+    Verify Program/Script folder path      ${Program/ScriptFolderPath}

@@ -22,6 +22,10 @@ ${chkEnableGroupingInPivotExports}      allow_grouping_in_pivot_excel_export
 ${chkIncludeSelfInExportHeaders}        include_self_in_export_headers
 
 ${txtProgramScriptsFolder}              script_location
+${txtinfoProgramScriptsFolder}          //input[@id='script_location']/../a
+${txtforinfo}                           //div[@id='popupDescriptionTemplate']/div[@class='popupContent']
+${ExpectedTextValue}                    The location of the folder for program/script files for use in Automation Tasks. Any file in this folder of type .cmd, .exe, .ps1 and .bat will become available in the dropdown when setting up an Action of type Program/script.
+${ClosePopup}                           //a[@class='btn btnPrimary btnClose']
 
 ${txtMaxEventLogStoredRecords}          max_event_log_stored_records
 ${txtMaxAuditLogHistory}                max_audit_log_history
@@ -133,6 +137,21 @@ Set Include Self in export headers checkbox
 Input Program/scripts folder field
     [Arguments]     ${programScriptsFolder}
     Input Text   ${txtProgramScriptsFolder}  ${programScriptsFolder}
+
+Click Program/scripts folder textinfo Popup
+    Click Element      ${txtinfoProgramScriptsFolder}
+    Verify Program/scripts folder Text for info information
+
+Verify Program/scripts folder Text for info information
+    ${ActualTextValue}     Get Text     ${txtforinfo}
+    Should Contain    ${ActualTextValue}     ${ExpectedTextValue}
+    Click Element     ${ClosePopup}
+
+Verify Program/Script folder path
+    [Arguments]     ${Program/ScriptFolderPath} 
+    ${FolderActualValue}    Get Value    ${txtProgramScriptsFolder}
+    Run Keyword If    '${FolderActualValue}'=='${Program/ScriptFolderPath}'
+    ...    Log    Saved successfully
 
 Input Max event log stored records field
     [Arguments]     ${maxEventLogStoredRecords}
