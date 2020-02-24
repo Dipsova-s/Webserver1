@@ -7,6 +7,7 @@ Library             String
 Library             Collections
 Library             OperatingSystem
 Library             HeadlessDownload.py
+Library             ${EXECDIR}/python/PythonUtility.py
 Resource            ${EXECDIR}/WC/POM/Shared/Utility.robot
 Resource            ${EXECDIR}/WC/POM/ManagementConsole/Shared/MC_Utility.robot
 Resource            ${EXECDIR}/WC/Scenarios/Shared/TS_Login.robot
@@ -56,6 +57,8 @@ Resource            ${EXECDIR}/WC/Scenarios/ManagementConsole/Users/Userdefaults
 Resource            ${EXECDIR}/WC/Scenarios/ManagementConsole/Users/TS_Sessions.robot
 Resource            ${EXECDIR}/WC/Scenarios/ManagementConsole/Models/Packages/TS_Packages.robot
 Resource            ${EXECDIR}/WC/Scenarios/ManagementConsole/Models/TS_Communications.robot
+
+Resource            ${EXECDIR}/WC/Scenarios/ManagementConsole/Models/TS_ModelsLanguages.robot
 
 *** Variables ***
 ${URL_WC}    http://${URL}/${Branch}

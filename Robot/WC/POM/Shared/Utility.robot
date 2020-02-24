@@ -360,3 +360,8 @@ Get Grid Column Texts
     \       ${text}  Get Text  ${gridRows}:nth-child(${index}) td:nth-child(${columnIndex})
     \       Append To List  ${list}  ${text}
     [Return]  ${list}
+
+Custom click element
+    [Arguments]    ${Locator}
+    Wait Until Page Contains Element  ${Locator}
+    click element   ${Locator}
