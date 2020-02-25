@@ -1196,3 +1196,9 @@ KENDO NOTIFICATION
     border: none;
     border-radius:0px;
 }
+div.k-tooltip.k-chart-tooltip
+{
+    margin-top: -27px;
+    margin-left: -3px;
+    padding-bottom: 1px;
+}
