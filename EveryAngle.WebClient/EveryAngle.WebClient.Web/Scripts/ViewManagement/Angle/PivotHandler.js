@@ -438,17 +438,16 @@ function PivotPageHandler(elementId, container) {
                 });
         }
     };
+    self.ShowPivotCustomSortPopupOnHeaderText = function (e) {
+        if (!(e.target instanceof HTMLImageElement))
+            self.ShowPivotCustomSortPopup(this);
+    }
     self.SetPivotCellHeaderEvent = function () {
         var fieldsRowArea = self.FieldSettings.GetFields(enumHandlers.FIELDSETTINGAREA.ROW);
         if (fieldsRowArea.length) {
             jQuery('#' + self.PivotId + '_CVSCell_SCDTable .dxpgColumnFieldValue.lastLevel, #' + self.PivotId + '_CVSCell_SCDTable .dxPivotGrid_pgSortByColumn')
                 .off('click contextmenu')
-                .on('contextmenu', function () {
-                    jQuery('#' + self.PivotId + '_FVM').css({ 'top': -10000, opacity: 0 });
-                })
-                .on('click', function () {
-                    self.ShowPivotCustomSortPopup(this);
-                });
+                .on('click', self.ShowPivotCustomSortPopupOnHeaderText);
             jQuery('#' + self.PivotId).removeClass('norow');
         }
         else {

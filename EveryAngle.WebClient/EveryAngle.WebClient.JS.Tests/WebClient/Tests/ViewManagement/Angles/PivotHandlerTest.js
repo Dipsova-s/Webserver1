@@ -321,7 +321,29 @@ describe("PivotPageHandler", function () {
             expect($.fn.closest).toHaveBeenCalled();
         });
     });
+    describe(".SetPivotCellHeaderEvent", function () {
+        var pivotId;
+        beforeEach(function () {
+            pivotId = pivotPageHandler.PivotId;
+            $('<table id="' + pivotId + '_CVSCell_SCDTable">').html('<tr><td id="pivotGrid" class="dxpgColumnFieldValue lastLevel"><img id="pivotGrid_image" class="dxPivotGrid_pgCollapsedButton dxpgCollapsedButton" src="" alt="Image"> Test</td></tr>').hide().appendTo('body');
+            jQuery('#' + pivotId + '_CVSCell_SCDTable .dxpgColumnFieldValue.lastLevel, #' + pivotId + '_CVSCell_SCDTable .dxPivotGrid_pgSortByColumn')
+                .on('click', pivotPageHandler.ShowPivotCustomSortPopupOnHeaderText);
+        });
 
+        afterEach(function () {
+            $('#' + pivotId + '_CVSCell_SCDTable').remove();
+        });
+        it("should open custom sort popup and not expand the header when image not clicked", function () {
+            spyOn(pivotPageHandler, 'ShowPivotCustomSortPopup');
+            $('.dxpgColumnFieldValue.lastLevel').trigger('click');
+            expect(pivotPageHandler.ShowPivotCustomSortPopup).toHaveBeenCalled();
+        });
+        it("should expand the header when clicked on image", function () {
+            spyOn(pivotPageHandler, 'ShowPivotCustomSortPopup');
+            $('#pivotGrid_image').trigger('click');
+            expect(pivotPageHandler.ShowPivotCustomSortPopup).not.toHaveBeenCalled();
+        });
+    });
     describe(".CheckPivotInstance", function () {
         beforeEach(function () {
             spyOn(errorHandlerModel, 'RedirectToLoginPage');
