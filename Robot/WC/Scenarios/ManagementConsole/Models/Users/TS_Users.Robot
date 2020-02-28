@@ -69,3 +69,14 @@ Delete User
     Click Select First Available User
     Click Action On User By Index       0
     Click Delete User Action By Index       0 
+
+Users should not have <Model>_ALL role
+    Select User EABasic
+    Select User EAViewer
+    Click on button Mass change
+    Select radio button 'Remove roles'
+    Select the role <Model>_ALL from 'Mass change' dropdown
+    Click on 'Save' in Mass change popup
+    Wait Until Element Is Visible  ${LocatorPopupClosepopup}
+    Close Mass change report popup
+    Wait Until Element Is Visible      ${LocatorUserEABasic}    
