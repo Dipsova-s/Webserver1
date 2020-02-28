@@ -164,7 +164,7 @@ function Popup() {
             visible: true,
             actions: ["Maximize", "Close"],
             maximize: function (e) {
-                e.sender.wrapper.find('.k-i-restore').attr('title', Localization.RestoreDown);
+                e.sender.wrapper.find('.k-i-window-restore').attr('title', Localization.RestoreDown);
             },
             buttons: null
         }, options);
@@ -178,7 +178,7 @@ function Popup() {
         var win = jQuery(settings.element).data(enumHandlers.KENDOUITYPE.WINDOW);
         if (typeof win === 'undefined' || win === null) {
             win = jQuery(settings.element).kendoWindow(settings).data(enumHandlers.KENDOUITYPE.WINDOW);
-            win.wrapper.find('.k-i-maximize').attr('title', Localization.Maximize);
+            win.wrapper.find('.k-i-window-maximize').attr('title', Localization.Maximize);
             win.wrapper.find('.k-i-close').attr('title', Localization.Close);
 
             if (typeof settings.content !== 'undefined')

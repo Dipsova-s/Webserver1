@@ -306,4 +306,7 @@ __pycache__/
 /.scannerwork
 /.sonar
 /EveryAngle.GoToSAP.Launcher
-
+/EveryAngle.WebClient/EveryAngle.ManagementConsole/Content/KendoUI/**
+/EveryAngle.WebClient/EveryAngle.ManagementConsole/Scripts/KendoUI/**
+/EveryAngle.WebClient/EveryAngle.WebClient.Web/Content/kendoui/**
+/EveryAngle.WebClient/EveryAngle.WebClient.Web/Scripts/KendoUI/**

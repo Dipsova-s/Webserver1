@@ -1,20 +1,62 @@
 # Introduction 
-TODO: Give a short introduction of your project. Let this section explain the objectives or the motivation behind this project. 
+EveryAngle.WebClient
+- contains 2 apps, WebClient and Management console (MC)
+- MC will deploy as subdirectory  of EveryAngle.WebClient, e.g. c:\inetpub\wwwroot\web\admin\
+
+EveryAngle.ODataService
+- contains odata service
+- it will deploy as subdirectory of EveryAngle.WebClient, e.g. c:\inetpub\wwwroot\web\odata\<model_id>\
+
+Robot
+- contains automation test using [Robot framework](https://robotframework.org/)
+- documentations [Standard](http://robotframework.org/robotframework/#built-in-tools), [SeleniumLibrary](http://robotframework.org/SeleniumLibrary/SeleniumLibrary.html)
+
+SetupFiles
+- contains innosetup files
+- Innosetup is required [Download](http://files.jrsoftware.org/is/5/innosetup-5.6.1-unicode.exe)
 
 # Getting Started
-TODO: Guide users through getting your code up and running on their own system. In this section you can talk about:
-1.	Installation process
-2.	Software dependencies
-3.	Latest releases
-4.	API references
+1.	Install Visual studio extensions
+    1.  NUnit 2 Test Adapter
+    2.  Chutzpah Test Runner Context MEnu Extension
+    3.  Chutzpah Test Adapter for the Test Explorer
+    4.  SonarLint for Visual Studio 2017+
+    5.  Web Compiler
+2.	Add/Clone repo - you must include submodule
+3.	Commit code
+    1.  Create a new branch by using following format
+        - **feature/\<id>_\<short title>** for feature type
+        - **bugfix/\<id>_\<short title>** for issue type
+    2.  After commited/pushed, Azure DevOps will start a build process
 
-# Build and Test
-TODO: Describe and show how to build your code and run the tests. 
+# Work with JavaScript unit test
+WebClient uses Jasmine as unit test tool and Chutzpah is the test runner.
+- Javascript unit test project located at /EveryAngle.WebClient/EveryAngle.WebClient.Web.CS.Tests/ folder
+- Right click on file or folder to run the unit testing.
+- Test resources are linked from WebClient project, you don't need to link it manually.
+  - Build the test project will copy/update linked files.
+  - In case editing a javascript file in WebClient project, you must build the test project again.
+  - In case adding a new javascript file in WebClient project, you must re-open Visual studio and build the test project again.
 
-# Contribute
-TODO: Explain how other users and developers can contribute to make your code better. 
-
-If you want to learn more about creating good readme files then refer the following [guidelines](https://www.visualstudio.com/en-us/docs/git/create-a-readme). You can also seek inspiration from the below readme files:
-- [ASP.NET Core](https://github.com/aspnet/Home)
-- [Visual Studio Code](https://github.com/Microsoft/vscode)
-- [Chakra Core](https://github.com/Microsoft/ChakraCore)
+# Work with font icon
+WebClient and MC store icons in font and use [IcoMoon](https://icomoon.io/) to generate it.
+1. Only SVG icon with single color can be generated
+2. Download and install [Chrome extension](https://chrome.google.com/webstore/detail/icomoon/kppingdhhalimbaehfmhldppemnmlcjd?hl=en)
+3. Open the app and import **WebClient.json** file from **/EveryAngle.WebClient/EveryAngle.Shared.EmbeddedViews/Resource/Shared/fonts/** folder
+4. Click **Generate Font** tab at bottom, click setting/gear icon and make sure that they are set as below
+   -  Font name **WebClientIco**
+   -  Class prefix **icon-**
+   -  Only "Support IE 8" is checked
+   -  CSS Selector > Use a class **.icon**
+5. After updated then you must export **WebClient.json** file
+   - At **Selection** tab, click hamburger icon on right side
+   - Click **Download JSON**
+   - Replace the source file with the downloaded file
+   
+# Work with SCSS
+We try to migrate all CSS to SCSS, they are in progress!
+We use Web compiler extension as a generate tool.
+1. Folder structure, it is the 7-1 Pattern
+2. All **scss** files must set "Build Action" to "None"
+3. Main css is **common.scss**, it will be renamed to main.scss later
+4. scss files will be compiled after changed or built, see compilerconfig.json and sub-files

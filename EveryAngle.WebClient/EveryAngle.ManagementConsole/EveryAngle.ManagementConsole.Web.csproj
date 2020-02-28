@@ -66,8 +66,8 @@
     <Reference Include="Ionic.Zip, Version=1.9.1.8, Culture=neutral, PublicKeyToken=edbe51ad942a3f5c, processorArchitecture=MSIL">
       <HintPath>..\packages\Ionic.Zip.1.9.1.8\lib\Ionic.Zip.dll</HintPath>
     </Reference>
-    <Reference Include="Kendo.Mvc">
-      <HintPath>..\..\Resources\Kendo-2015.2.902\Kendo.Mvc.dll</HintPath>
+    <Reference Include="Kendo.Mvc, Version=2020.1.219.545, Culture=neutral, PublicKeyToken=121fae78165ba3d4, processorArchitecture=MSIL">
+      <HintPath>..\packages\Telerik.UI.for.AspNet.Mvc5.custom.2020.1.219\lib\net45\Kendo.Mvc.dll</HintPath>
     </Reference>
     <Reference Include="log4net, Version=2.0.8.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
       <HintPath>..\packages\log4net.2.0.8\lib\net45-full\log4net.dll</HintPath>
@@ -108,8 +108,8 @@
     <Reference Include="System.Data.Entity" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
-    <Reference Include="System.Net.Http.Formatting, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.AspNet.WebApi.Client.5.2.3\lib\net45\System.Net.Http.Formatting.dll</HintPath>
+    <Reference Include="System.Net.Http.Formatting, Version=5.2.7.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Client.5.2.7\lib\net45\System.Net.Http.Formatting.dll</HintPath>
     </Reference>
     <Reference Include="System.ServiceProcess" />
     <Reference Include="System.Web" />
@@ -119,32 +119,32 @@
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.Extensions" />
     <Reference Include="System.Web.Helpers, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.Helpers.dll</HintPath>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.7\lib\net45\System.Web.Helpers.dll</HintPath>
     </Reference>
-    <Reference Include="System.Web.Http, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.AspNet.WebApi.Core.5.2.3\lib\net45\System.Web.Http.dll</HintPath>
+    <Reference Include="System.Web.Http, Version=5.2.7.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Core.5.2.7\lib\net45\System.Web.Http.dll</HintPath>
     </Reference>
-    <Reference Include="System.Web.Http.WebHost, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.AspNet.WebApi.WebHost.5.2.3\lib\net45\System.Web.Http.WebHost.dll</HintPath>
+    <Reference Include="System.Web.Http.WebHost, Version=5.2.7.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.WebHost.5.2.7\lib\net45\System.Web.Http.WebHost.dll</HintPath>
     </Reference>
-    <Reference Include="System.Web.Mvc, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.AspNet.Mvc.5.2.3\lib\net45\System.Web.Mvc.dll</HintPath>
+    <Reference Include="System.Web.Mvc, Version=5.2.7.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Mvc.5.2.7\lib\net45\System.Web.Mvc.dll</HintPath>
     </Reference>
     <Reference Include="System.Web.Optimization, Version=1.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.AspNet.Web.Optimization.1.1.3\lib\net40\System.Web.Optimization.dll</HintPath>
     </Reference>
     <Reference Include="System.Web.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.AspNet.Razor.3.2.3\lib\net45\System.Web.Razor.dll</HintPath>
+      <HintPath>..\packages\Microsoft.AspNet.Razor.3.2.7\lib\net45\System.Web.Razor.dll</HintPath>
     </Reference>
     <Reference Include="System.Web.Routing" />
     <Reference Include="System.Web.WebPages, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.WebPages.dll</HintPath>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.7\lib\net45\System.Web.WebPages.dll</HintPath>
     </Reference>
     <Reference Include="System.Web.WebPages.Deployment, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.WebPages.Deployment.dll</HintPath>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.7\lib\net45\System.Web.WebPages.Deployment.dll</HintPath>
     </Reference>
     <Reference Include="System.Web.WebPages.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.WebPages.Razor.dll</HintPath>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.7\lib\net45\System.Web.WebPages.Razor.dll</HintPath>
     </Reference>
     <Reference Include="System.Xml" />
     <Reference Include="System.Configuration" />
@@ -225,16 +225,60 @@
       <Link>Content\ExternalResource\%(Filename)%(Extension)</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="..\EveryAngle.Shared.EmbeddedViews\Resource\FieldsChooser\icon_unsuggest.svg">
-      <Link>Content\ExternalResource\icon_unsuggest.svg</Link>
+    <Content Include="..\packages\Telerik.UI.for.AspNet.Mvc5.custom.2020.1.219\resources\Content\kendo\2020.1.219\Default\**">
+      <Link>Content\KendoUI\Default\%(Filename)%(Extension)</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="..\EveryAngle.Shared.EmbeddedViews\Resource\Shared\fonts\WebClientIco.css">
-      <Link>Content\ExternalResource\WebClientIco.css</Link>
+    <Content Include="..\packages\Telerik.UI.for.AspNet.Mvc5.custom.2020.1.219\resources\Content\kendo\2020.1.219\fonts\glyphs\**">
+      <Link>Content\KendoUI\fonts\glyphs\%(Filename)%(Extension)</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="..\EveryAngle.Shared.EmbeddedViews\Resource\Shared\fonts\WebClientIco.svg">
-      <Link>Content\ExternalResource\WebClientIco.svg</Link>
+    <Content Include="..\packages\Telerik.UI.for.AspNet.Mvc5.custom.2020.1.219\resources\Content\kendo\2020.1.219\textures\**">
+      <Link>Content\KendoUI\textures\%(Filename)%(Extension)</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\packages\Telerik.UI.for.AspNet.Mvc5.custom.2020.1.219\resources\Content\kendo\2020.1.219\kendo.common.min.css">
+      <Link>Content\KendoUI\kendo.common.min.css</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\packages\Telerik.UI.for.AspNet.Mvc5.custom.2020.1.219\resources\Content\kendo\2020.1.219\kendo.default.min.css">
+      <Link>Content\KendoUI\kendo.default.min.css</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\packages\Telerik.UI.for.AspNet.Mvc5.custom.2020.1.219\resources\Scripts\kendo\2020.1.219\cultures\kendo.culture.da.min.js">
+      <Link>Scripts\KendoUI\cultures\kendo.culture.da.min.js</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\packages\Telerik.UI.for.AspNet.Mvc5.custom.2020.1.219\resources\Scripts\kendo\2020.1.219\cultures\kendo.culture.de.min.js">
+      <Link>Scripts\KendoUI\cultures\kendo.culture.de.min.js</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\packages\Telerik.UI.for.AspNet.Mvc5.custom.2020.1.219\resources\Scripts\kendo\2020.1.219\cultures\kendo.culture.en.min.js">
+      <Link>Scripts\KendoUI\cultures\kendo.culture.en.min.js</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\packages\Telerik.UI.for.AspNet.Mvc5.custom.2020.1.219\resources\Scripts\kendo\2020.1.219\cultures\kendo.culture.fr.min.js">
+      <Link>Scripts\KendoUI\cultures\kendo.culture.fr.min.js</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\packages\Telerik.UI.for.AspNet.Mvc5.custom.2020.1.219\resources\Scripts\kendo\2020.1.219\cultures\kendo.culture.nl.min.js">
+      <Link>Scripts\KendoUI\cultures\kendo.culture.nl.min.js</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\packages\Telerik.UI.for.AspNet.Mvc5.custom.2020.1.219\resources\Scripts\kendo\2020.1.219\cultures\kendo.culture.th.min.js">
+      <Link>Scripts\KendoUI\cultures\kendo.culture.th.min.js</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\packages\Telerik.UI.for.AspNet.Mvc5.custom.2020.1.219\resources\Scripts\kendo\2020.1.219\kendo.all.min.js">
+      <Link>Scripts\KendoUI\kendo.all.min.js</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\packages\Telerik.UI.for.AspNet.Mvc5.custom.2020.1.219\resources\Scripts\kendo\2020.1.219\kendo.aspnetmvc.min.js">
+      <Link>Scripts\KendoUI\kendo.aspnetmvc.min.js</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\packages\Telerik.UI.for.AspNet.Mvc5.custom.2020.1.219\resources\Scripts\kendo\2020.1.219\kendo.timezones.min.js">
+      <Link>Scripts\KendoUI\kendo.timezones.min.js</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="bin\Template\Xslt\*" />
@@ -305,8 +349,7 @@
     <Content Include="Scripts\jQuery\jquery.base64.min.js" />
     <Content Include="Scripts\jQuery\jquery.extension.js" />
     <Content Include="Scripts\jstz.min.js" />
-    <Content Include="Scripts\KendoUI\kendo.custom.js" />
-    <Content Include="Scripts\KendoUI\kendo.timezones.min.js" />
+    <Content Include="Scripts\KendoUICustom\kendo.custom.js" />
     <Content Include="Scripts\Page\MC.GlobalSettings.Components.js" />
     <Content Include="Scripts\Page\MC.Models.AngleWarnings.js" />
     <Content Include="Scripts\Page\MC.GlobalSettings.EventLog.js" />
@@ -316,50 +359,6 @@
   <ItemGroup>
     <Content Include="Content\Base.css" />
     <Content Include="Content\Fixed.css" />
-    <Content Include="Content\KendoUI\Default\editor.png" />
-    <Content Include="Content\KendoUI\Default\imagebrowser.png" />
-    <Content Include="Content\KendoUI\Default\indeterminate.gif" />
-    <Content Include="Content\KendoUI\Default\loading-image.gif" />
-    <Content Include="Content\KendoUI\Default\loading.gif" />
-    <Content Include="Content\KendoUI\Default\loading_2x.gif" />
-    <Content Include="Content\KendoUI\Default\markers.png" />
-    <Content Include="Content\KendoUI\Default\markers_2x.png" />
-    <Content Include="Content\KendoUI\Default\slider-h.gif" />
-    <Content Include="Content\KendoUI\Default\slider-v.gif" />
-    <Content Include="Content\KendoUI\Default\sprite.png" />
-    <Content Include="Content\KendoUI\Default\sprite_2x.png" />
-    <Content Include="Content\KendoUI\kendo.common.min.css" />
-    <Content Include="Content\KendoUI\kendo.default.min.css" />
-    <Content Include="Content\KendoUI\textures\brushed-metal.png" />
-    <Content Include="Content\KendoUI\textures\dots1.png" />
-    <Content Include="Content\KendoUI\textures\dots10.png" />
-    <Content Include="Content\KendoUI\textures\dots11.png" />
-    <Content Include="Content\KendoUI\textures\dots12.png" />
-    <Content Include="Content\KendoUI\textures\dots13.png" />
-    <Content Include="Content\KendoUI\textures\dots2.png" />
-    <Content Include="Content\KendoUI\textures\dots3.png" />
-    <Content Include="Content\KendoUI\textures\dots4.png" />
-    <Content Include="Content\KendoUI\textures\dots5.png" />
-    <Content Include="Content\KendoUI\textures\dots6.png" />
-    <Content Include="Content\KendoUI\textures\dots7.png" />
-    <Content Include="Content\KendoUI\textures\dots8.png" />
-    <Content Include="Content\KendoUI\textures\dots9.png" />
-    <Content Include="Content\KendoUI\textures\glass-lighter.png" />
-    <Content Include="Content\KendoUI\textures\glass.png" />
-    <Content Include="Content\KendoUI\textures\highlight.png" />
-    <Content Include="Content\KendoUI\textures\hsv-gradient.png" />
-    <Content Include="Content\KendoUI\textures\hue.png" />
-    <Content Include="Content\KendoUI\textures\leather1.png" />
-    <Content Include="Content\KendoUI\textures\leather2.png" />
-    <Content Include="Content\KendoUI\textures\noise.png" />
-    <Content Include="Content\KendoUI\textures\stripe1.png" />
-    <Content Include="Content\KendoUI\textures\stripe2.png" />
-    <Content Include="Content\KendoUI\textures\stripe3.png" />
-    <Content Include="Content\KendoUI\textures\stripe4.png" />
-    <Content Include="Content\KendoUI\textures\stripe5.png" />
-    <Content Include="Content\KendoUI\textures\stripe6.png" />
-    <Content Include="Content\KendoUI\textures\transparency.png" />
-    <Content Include="Content\KendoUI\textures\transtexture.png" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="Images\Icons\icon_abort.png" />
@@ -427,15 +426,7 @@
     <Content Include="Scripts\jQuery\jquery.tagsinput.js" />
     <Content Include="Scripts\jQuery\jquery.validate.additional-methods.js" />
     <Content Include="Scripts\jQuery\jquery.validate.min.js" />
-    <Content Include="Scripts\KendoUI\cultures\kendo.culture.da.min.js" />
-    <Content Include="Scripts\KendoUI\cultures\kendo.culture.de.min.js" />
-    <Content Include="Scripts\KendoUI\cultures\kendo.culture.en.min.js" />
-    <Content Include="Scripts\KendoUI\cultures\kendo.culture.fr.min.js" />
-    <Content Include="Scripts\KendoUI\cultures\kendo.culture.nl.min.js" />
-    <Content Include="Scripts\KendoUI\cultures\kendo.culture.th.min.js" />
-    <Content Include="Scripts\KendoUI\kendo.all.min.js" />
-    <Content Include="Scripts\KendoUI\kendo.aspnetmvc.min.js" />
-    <Content Include="Scripts\KendoUI\kendo.percentagetextbox.js" />
+    <Content Include="Scripts\KendoUICustom\kendo.percentagetextbox.js" />
     <Content Include="Scripts\Knockout\knockout.min.js" />
     <Content Include="Scripts\Modernizr\modernizr.min.js" />
     <Content Include="Scripts\Custom\MC.js" />
@@ -794,22 +785,6 @@
     <Content Include="Views\Shared\PageToolbar.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="..\EveryAngle.Shared.EmbeddedViews\Resource\Shared\fonts\WebClient.json">
-      <Link>Content\ExternalResource\WebClient.json</Link>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="..\EveryAngle.Shared.EmbeddedViews\Resource\Shared\fonts\WebClientIco.eot">
-      <Link>Content\ExternalResource\WebClientIco.eot</Link>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="..\EveryAngle.Shared.EmbeddedViews\Resource\Shared\fonts\WebClientIco.ttf">
-      <Link>Content\ExternalResource\WebClientIco.ttf</Link>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="..\EveryAngle.Shared.EmbeddedViews\Resource\Shared\fonts\WebClientIco.woff">
-      <Link>Content\ExternalResource\WebClientIco.woff</Link>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
     <None Include="packages.config">
       <SubType>Designer</SubType>
     </None>

@@ -217,13 +217,13 @@
         helpPopup.bind('close', function (e) {
             e.sender.destroy();
         });
-        helpPopup.setOptions({ title: popupTitle });
         MC.ui.popup('setTooltip', {
             element: '#helpText'
         });
         helpPopup.wrapper.addClass('helpTextPopup');
 
         var popupTitleElement = helpPopup.wrapper.find('.k-window-title');
+        popupTitleElement.html(popupTitle);
         popupTitleElement.before('<div class="icon iconStatus ' + self.GetIsStarredCssClass(field) + '"></div>');
         popupTitleElement.before('<div class="icon iconCategory"><img src="' + fieldCategoryIconSmall.path + '" /></div>');
 

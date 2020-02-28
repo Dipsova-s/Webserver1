@@ -21,6 +21,10 @@
     height: 36px;
 }
 
+.popupFollowup .k-window-actions {
+    top: 0;
+}
+
 .popupFollowup .k-window-buttons-inner {
     background: none;
 }

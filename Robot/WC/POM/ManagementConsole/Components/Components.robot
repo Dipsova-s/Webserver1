@@ -2,7 +2,7 @@
 ${trComponent}    jquery=#ComponentsGrid .k-grid-content tr
 ${btnComponentInfo}     .btnInfo
 ${tblmodelServerInfoData}   ModelServerInfoData
-${btnCloseInfoPopup}        //span[@title='Close']
+${btnCloseInfoPopup}        //span[@title='Close']/..
 ${tblmodelServerPopup}  popupModelServer
 
 *** Keywords ***

@@ -2,7 +2,7 @@
 ${pgbDashboardDetailsPopup}    	css=#popupDashboardDetails > div.k-loading-mask
 
 #Generic buttons
-${btnCloseDashboardDetailsPopup}    css=.popupDashboardDetails .k-i-close
+${btnCloseDashboardDetailsPopup}    //span[@id='popupDashboardDetails_wnd_title']/..//div/a[@class='k-button k-bare k-button-icon k-window-action']/span[@class='k-icon k-i-close icon icon-close']/..
 ${btnSaveDashboard}    btn-popupDashboardDetails2
 ${btnSaveDashboardAs}    btn-popupDashboardDetails1
 ${btnCancel}    btn-popupDashboardDetails0

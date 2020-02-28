@@ -27,7 +27,7 @@ ${tabDisplayStatistic}     css=#DisplayStatistic
 #Generic
 ${btnSaveDisplay}    btn-popupDisplayDetail2
 ${btnSaveDisplayAs}    btn-popupDisplayDetail1
-${btnCloseDisplayDetailPopup}    css=.popupDisplayDetail .k-i-close
+${btnCloseDisplayDetailPopup}     //div[@id='popupDisplayDetail']/..//div/a[@class='k-button k-bare k-button-icon k-window-action']/span[@class='k-icon k-i-close icon icon-close']/..
 ${btnCloseJumpNotification}       btn-popupNotification0
 ${btnSubmitJumpConfirmation}      btn-popupNotification1
 

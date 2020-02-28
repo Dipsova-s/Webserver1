@@ -612,6 +612,11 @@ div.tagsinput .not_valid {
     z-index: 2;
 }
 
+.k-multiselect.k-state-focused > .k-multiselect-wrap > .k-i-close,
+.k-multiselect.k-state-hover > .k-multiselect-wrap > .k-i-close {
+    display: none;
+}
+
 .k-dropdown select,
 .k-multiselect select,
 .k-dropdown input {
@@ -679,6 +684,14 @@ div.tagsinput .not_valid {
     background: transparent none;
     padding-left: 5px;
     margin-left: 0;
+}
+
+.k-state-focused {
+   box-shadow:none !important;
+}
+
+.k-multiselect-wrap > .k-i-close {
+    top: calc(1.00357143em - 2px)
 }
 
 /* .helpTextPopup
@@ -920,7 +933,6 @@ div.tagsinput .not_valid {
 }
 
 .k-window-titlebar {
-    margin-top: -66px !important;
     height: 45px;
     border-bottom: 1px solid #e6e6e6;
     border-radius: 2px 2px 0 0;
@@ -930,6 +942,7 @@ div.tagsinput .not_valid {
 }
 
 .k-window-titlebar .k-window-title {
+    position: absolute;
     font-size: 20px;
     top: 18px;
     line-height: 30px;
@@ -940,47 +953,84 @@ div.tagsinput .not_valid {
 }
 
 .k-window-titlebar .k-window-actions {
-    top: 19px;
+    top: 25px;
     right: 17px;
 }
 
-.k-window-titlebar .k-link {
+.k-window-titlebar .k-link,
+.k-window-titlebar .k-button-icon{
     margin-left: 10px;
     width: 14px;
     height: 14px;
     padding: 0;
 }
 
-.k-window .k-link.k-state-hover {
+.k-window .k-link.k-state-hover,
+.k-window .k-button-icon.k-state-hover{
     background: none;
     border-width: 0;
 }
 
-.k-window .k-link .k-icon {
+.k-window .k-link .k-icon,
+.k-window .k-button-icon .k-icon {
     width: 14px;
     height: 14px;
 }
 
-.k-window .k-link .k-i-close,
-.k-window .k-link:not(.k-state-disabled):hover > .k-i-close {
+.k-window .k-window-action .k-i-close,
+.k-window .k-window-action:not(.k-state-disabled):hover > .k-i-close {
     background-image: url(../images/icons/icon_close.svg);
     background-position: left top;
     background-size: 14px 14px;
 }
 
-.k-window .k-link .k-i-maximize,
-.k-window .k-link:not(.k-state-disabled):hover > .k-i-maximize {
+.k-window .k-window-action .k-i-close:before {
+    display: none;
+}
+
+.k-button.k-bare:before,
+.k-button.k-flat:before,
+.k-button.k-bare:after,
+.k-button.k-flat:after {
+    display: none;
+}
+
+.k-window .k-window-action .k-i-window-maximize,
+.k-window .k-window-action:not(.k-state-disabled):hover > .k-i-window-maximize {
     background-image: url(../images/icons/icon_popup_maximize.svg);
     background-position: left top;
     background-size: 14px 14px;
 }
 
-.k-window .k-link .k-i-restore,
-.k-window .k-link:not(.k-state-disabled):hover > .k-i-restore {
+.k-window .k-window-action .k-i-window-maximize:before {
+    display: none;
+}
+
+.k-window .k-window-action .k-i-window-restore,
+.k-window .k-window-action:not(.k-state-disabled):hover > .k-i-window-restore {
     background-image: url(../images/icons/icon_popup_minimize.svg);
     background-position: left top;
-    background-size: 15px 14px;
-    width: 15px;
+    background-size: 14px 13px;
+    width: 14px;
+    height: 13px;
+}
+
+.k-window .k-window-action .k-i-window-restore:before {
+    display: none;
+}
+
+.k-grid-header .k-link .k-icon.k-i-sort-asc-sm,
+.k-grid-header .k-link .k-icon.k-i-sort-desc-sm {
+    margin-top: 0;
+    margin-left: 0;
+}
+
+.k-icon.k-i-sort-asc-sm:before {
+    content: "\e004";
+}
+
+.k-icon.k-i-sort-desc-sm:before {
+    content: "\e006";
 }
 
 div.k-window-content {
@@ -1526,6 +1576,13 @@ table.grid tbody td:first-child {
     float: right;
 }
 
+.gridToolbarTop .loader-spinner-inline {
+    margin-right: 0;
+    position: absolute;
+    right: 8px;
+    top: 4px;
+}
+
 .gridToolbarFilter {
     position: relative;
 }
@@ -1538,14 +1595,14 @@ table.grid tbody td:first-child {
     min-height: 24px;
 }
 
-.gridToolbarFilter .icon:before {
+.gridToolbarFilter .icon-filter:before {
     font-family: 'WebClientIco';
     content: "\e90b";
     position: absolute;
     z-index: 2;
     width: 38px;
     height: 100%;
-    top: 4px;
+    top: 6px;
     right: 12px;
 }
 
@@ -1563,6 +1620,7 @@ table.grid tbody td:first-child {
 
 .gridContainer .k-grid tr {
     height: 37px;
+    background-color: inherit;
 }
 
 .gridContainer .k-grid tr.k-alt {
@@ -3247,11 +3305,15 @@ form#ExportPackageForm .packageInfo .packageVersion input {
     position: relative;
 }
 
-#ModelServerData .k-plus,
-#ModelServerData .k-minus {
+#ModelServerData .k-i-expand,
+#ModelServerData .k-i-collapse {
     position: absolute;
     left: 18px;
     top: 0;
+}
+
+#ModelServerData .k-i-collapse {
+    top: 6px;
 }
 
 #ModelServerData .k-item .k-in {
@@ -4584,7 +4646,6 @@ form#ExportPackageForm .packageInfo .packageVersion input {
 
 #AddActionPopup .contentSectionInfoEmail textarea {
     box-sizing: border-box;
-    display: block !important;
     width: 1px;
     height: 1px;
     position: absolute;
@@ -4592,6 +4653,7 @@ form#ExportPackageForm .packageInfo .packageVersion input {
     top: 40px;
     z-index: 10;
     resize: none;
+    border-style: none;
 }
 
 #AddActionPopup .contentSectionInfoEmail textarea:disabled {
@@ -4973,7 +5035,6 @@ a.mailto {
 
 
 .iconDisplay {
-    display: block;
     line-height: 23px;
 }
 
@@ -5086,7 +5147,7 @@ a.mailto {
     text-align: right;
     margin-bottom: 0;
     margin-left: 10px;
-    float: right;
+    float: none;
 }
 
 #popupClassReport .gridToolbarFilter {

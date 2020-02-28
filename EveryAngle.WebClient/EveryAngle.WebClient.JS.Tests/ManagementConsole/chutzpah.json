@@ -18,7 +18,7 @@
     "RootReferencePathMode": "SettingsFileDirectory",
     "References": [
         { "Path": "/../MockData/text.js" },
-        { "Path": "/Dependencies/Global.js" },
+        { "Path": "/Global.js" },
         { "Path": "/Dependencies/modernizr/modernizr.min.js" },
         { "Path": "/Dependencies/jquery/jquery.min.js" },
         { "Path": "/Dependencies/jquery/jquery.extension.js" },

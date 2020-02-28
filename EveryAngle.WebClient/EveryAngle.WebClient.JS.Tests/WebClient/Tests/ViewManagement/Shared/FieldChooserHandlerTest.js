@@ -1,7 +1,7 @@
 ﻿/// <reference path="/../SharedDependencies/FieldsChooser.js" />
 /// <reference path="/Dependencies/ViewManagement/Shared/PopupPageHandlers.js" />
 /// <reference path="/Dependencies/ViewManagement/Shared/ValidationHandler.js" />
-/// <reference path="/Dependencies/ViewManagement/Angles/FieldSettingsHandler.js" />
+/// <reference path="/Dependencies/ViewManagement/Angle/FieldSettingsHandler.js" />
 /// <reference path="/Dependencies/viewmanagement/shared/fieldchooserhandler.js" />
 
 describe("FieldsChooserHandler", function () {

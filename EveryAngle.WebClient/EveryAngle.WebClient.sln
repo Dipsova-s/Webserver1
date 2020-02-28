@@ -1,6 +1,6 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.27130.2003
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29806.167
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EveryAngle.WebClient.Web", "EveryAngle.WebClient.Web\EveryAngle.WebClient.Web.csproj", "{375381B9-3A36-429B-9453-AE08E6379809}"
 	ProjectSection(ProjectDependencies) = postProject
@@ -28,6 +28,10 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{7E5C3FE0-4E88-480A-913A-1398049D5BEA}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EveryAngle.WebClient.JS.Tests", "EveryAngle.WebClient.JS.Tests\EveryAngle.WebClient.JS.Tests.csproj", "{4B6CF0BD-D335-4421-BA13-6FC991AA57CD}"
+	ProjectSection(ProjectDependencies) = postProject
+		{6D2DE634-8B78-4FDB-8067-919F98E4EF24} = {6D2DE634-8B78-4FDB-8067-919F98E4EF24}
+		{375381B9-3A36-429B-9453-AE08E6379809} = {375381B9-3A36-429B-9453-AE08E6379809}
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EveryAngle.Core.ViewModels.Tests", "EveryAngle.Core.ViewModels.Tests\EveryAngle.Core.ViewModels.Tests.csproj", "{C32CCE8B-C46E-4D44-AEE1-C0DA92DE29E9}"
 EndProject

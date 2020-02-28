@@ -569,6 +569,14 @@
     width: 100%;
 }
 
+.defaultDrilldownDisplay .icon.default:after {
+    left: 3px;
+}
+
+.defaultDrilldownDisplay .displayNameContainer .name {
+    margin-left: 5px;
+}
+
 #PrivateDisplay .icon-private {
     color: #78909c;
     width: 20px;

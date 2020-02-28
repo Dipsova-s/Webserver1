@@ -703,6 +703,19 @@
 
 .gaugeSettingRow .k-colorpicker {
     font-size: 12px;
-    margin-left: 85px;
+    margin-left: 92px;
     margin-bottom: 0;
+}
+
+.gaugeSettingRow .k-colorpicker .k-picker-wrap .k-selected-color {
+    width: 26px;
+    height: 26px;
+}
+
+.gaugeSettingRow .k-widget .k-i-arrow-60-up {
+    top: 2px;
+}
+
+.gaugeSettingRow .k-widget .k-i-arrow-60-down {
+    bottom: -2px;
 }

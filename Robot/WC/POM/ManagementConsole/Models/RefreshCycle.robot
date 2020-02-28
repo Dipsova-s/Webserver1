@@ -56,7 +56,7 @@ ${confirmationDelete}              jquery=#popupConfirmation .btnSubmit
 ${btnSpectifyTables}               css=.btnSpecifyTables            
 ${pbgSpecifyTable}                 jquery=#DisplayPropertiesGrid .k-loading-mask
 ${txtTableFilter}                  jquery=#popupSpecifyTables .gridToolbarFilter:eq(0) input
-${btnCloseSpecifyTables}           css=#popupSpecifyTables_wnd_title + .k-window-actions .k-i-close
+${btnCloseSpecifyTables}           //span[@id='popupSpecifyTables_wnd_title']/..//div/a[@class='k-button k-bare k-button-icon k-window-action']/span[@class='k-icon k-i-close']/..
 ${trRowSpecifyTables}              jquery=#DownloadTableGridContainer tbody tr   
 ${thColumnInSpecifyTables}         jquery=#DownloadTableGridContainer .k-grid-header th:eq(1)
 ${trRowSpecifyTablesValue}         jquery=#DownloadTableGridContainer .k-grid-content td:eq(1)

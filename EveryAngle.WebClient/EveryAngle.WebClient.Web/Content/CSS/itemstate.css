@@ -13,7 +13,7 @@
 /* .popupPublishSettings
 ============================================ */
 .popupPublishSettings .k-window-title {
-  left: 10px; }
+  margin-left: 10px; }
 
 .popupPublishSettings .k-window-content {
   font-size: 12px; }

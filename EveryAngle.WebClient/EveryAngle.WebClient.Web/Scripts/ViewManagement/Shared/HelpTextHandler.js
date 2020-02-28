@@ -173,7 +173,7 @@ function HelpTextHandler() {
                         e.sender.setOptions({
                             title: self.Field.long_name || self.Field.id
                         });
-                        e.sender.wrapper.find('.k-i-maximize').attr('title', Localization.Maximize);
+                        e.sender.wrapper.find('.k-i-window-maximize').attr('title', Localization.Maximize);
                         e.sender.wrapper.find('.k-i-close').attr('title', Localization.Close);
                     });
             },

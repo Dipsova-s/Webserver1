@@ -1,7 +1,7 @@
 *** Variables ***
 ${pgbHelpTextPopup}                      css=#HelpTextPopup .k-loading-mask
 ${divHelpTextPopup}                      css=#HelpTextPopup .helpTextContainer
-${btnCloseHelpTextPopup}                 css=.helpTextPopup .k-window-actions .k-i-close
+${btnCloseHelpTextPopup}                 //span[@id='HelpTextPopup_wnd_title']/..//div/a[@class='k-button k-bare k-button-icon k-window-action']/span[@class='k-icon k-i-close icon icon-close']/..
 ${pgbHelpTextPage}                       css=#MainContent.busy
 ${divHelpTextPage}                       css=#MainContent.helpTextContainer
 

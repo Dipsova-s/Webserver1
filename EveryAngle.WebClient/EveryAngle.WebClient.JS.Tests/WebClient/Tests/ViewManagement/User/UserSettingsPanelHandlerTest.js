@@ -21,10 +21,10 @@
 /// <reference path="/Dependencies/ViewManagement/shared/SystemInformationHandler.js" />
 /// <reference path="/Dependencies/ViewManagement/Shared/ValidationHandler.js" />
 /// <reference path="/Dependencies/ViewManagement/Shared/ToastNotificationHandler.js" />
-/// <reference path="/Dependencies/ViewManagement/Angles/ListDrilldownHandler.js" />
-/// <reference path="/Dependencies/ViewManagement/Angles/ListHandler.js" />
-/// <reference path="/Dependencies/ViewManagement/Angles/ChartHandler.js" />
-/// <reference path="/Dependencies/ViewManagement/Angles/PivotHandler.js" />
+/// <reference path="/Dependencies/ViewManagement/Angle/ListDrilldownHandler.js" />
+/// <reference path="/Dependencies/ViewManagement/Angle/ListHandler.js" />
+/// <reference path="/Dependencies/ViewManagement/Angle/ChartHandler.js" />
+/// <reference path="/Dependencies/ViewManagement/Angle/PivotHandler.js" />
 
 /// <reference path="/Dependencies/ViewManagement/User/UserSettingsPanelHandler.js" />
 

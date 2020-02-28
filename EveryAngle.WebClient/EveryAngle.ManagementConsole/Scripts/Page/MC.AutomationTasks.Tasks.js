@@ -1062,7 +1062,32 @@
                     else {
                         MC.form.validator.hideErrorMessage();
                     }
-                }
+                },
+                tools: [
+                    "formatting",
+                    "bold",
+                    "italic",
+                    "underline",
+                    "justifyLeft",
+                    "justifyCenter",
+                    "justifyRight",
+                    "insertUnorderedList",
+                    "insertOrderedList",
+                    "outdent",
+                    "indent",
+                    "createLink",
+                    "unlink",
+                    "insertImage",
+                    "tableWizard",
+                    "tableWizard",
+                    "createTable",
+                    "addRowAbove",
+                    "addRowBelow",
+                    "addColumnLeft",
+                    "addColumnRight",
+                    "deleteRow",
+                    "deleteColumn"
+                ]
             });
         };
         self.InitialRecipientsGrid = function () {

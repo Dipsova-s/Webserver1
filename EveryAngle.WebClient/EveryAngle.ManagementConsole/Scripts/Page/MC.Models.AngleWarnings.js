@@ -134,17 +134,12 @@
                 var treelist = $('#TreeListAngleWarnings').data('kendoTreeList');
                 if (treelist) {
                     // handle mousedown event
-                    var events = $._data(treelist.element.get(0), 'events');
-                    if (events && events.mousedown) {
-                        var indexEvent = events.mousedown.indexOfObject('namespace', 'kendoTreeList');
-                        if (indexEvent !== -1 && !events.mousedown[indexEvent].__handler) {
-                            events.mousedown[indexEvent].__handler = events.mousedown[indexEvent].handler;
-                            events.mousedown[indexEvent].handler = function (e) {
-                                treelist.content.find('tr').removeClass('active');
-                                $(this).parents('tr:first').addClass('active');
-                                return events.mousedown[indexEvent].__handler.call(this, e);
-                            };
-                        }
+                    if (!treelist._userEvents._events.__setEvent) {
+                        treelist._userEvents._events.__setEvent = true;
+                        treelist._userEvents._events.press.splice(0, 0, function (e) {
+                            $(e.target).find('tr').removeClass('active');
+                            $(e.event.target).closest('tr').addClass('active');
+                        });
                     }
 
                     treelist.bind("dataBound", self.TreeListAngleWarningDataBound);

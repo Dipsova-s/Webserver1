@@ -115,7 +115,17 @@ describe("FieldsChooser", function () {
 
             spyOn(fieldsChooserModel, 'SetPopupTooltip');
             jQuery.fn.kendoWindow = function () {
-                return { data: function () { return { maximize: jQuery.noop }; } };
+                return {
+                    data: function () {
+                        return {
+                            maximize: jQuery.noop,
+                            options: {
+                                pinned: true
+                            },
+                            wrapper: $()
+                        };
+                    }
+                };
             };
 
             var options = fieldsChooserModel.GetPopupFieldChooserOptions('testPopup');

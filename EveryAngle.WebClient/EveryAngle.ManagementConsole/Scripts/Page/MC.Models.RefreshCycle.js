@@ -132,7 +132,7 @@
                 self.SetRefreshAction(row);
             });
 
-            MC.util.setGridWidth(e.sender, e.sender.columns.length - 1, 75);
+            MC.util.setGridWidth(e.sender, e.sender.columns.length - 2, 75);
 
             setTimeout(function () {
                 jQuery.each(self.DeleteList, function (index, uri) {

@@ -91,6 +91,18 @@
     background: #e5e5e5 none;
 }
 
+#AngleGrid.grid .k-grid-header:before {
+    content: '';
+    position: absolute;
+    left: 35px;
+    top: 0;
+    width: 20px;
+    height: 100%;
+    background-color: #fdfdfd;
+    opacity: 0;
+    z-index: 1000;
+}
+
 #AngleGrid.grid .k-grid-header .k-header,
 #AngleGrid.grid .k-grid-content td {
     transition: border .1s ease-out;
@@ -454,6 +466,18 @@
     background: transparent none center center no-repeat;
 }
 
+.listDrilldownGrid .k-grid-header:before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 55px;
+    height: 100%;
+    background-color: #fdfdfd;
+    opacity: 0;
+    z-index: 1000;
+}
+
 .listDrilldownGrid .k-grid-header .k-header {
     cursor: default;
     height: 55px;
@@ -479,4 +503,8 @@
 .listDrilldownGrid .k-grid-content-locked .k-state-selected.Number,
 .listDrilldownGrid .k-grid-content-locked .k-state-selected.Number:hover {
     cursor: default;
+}
+
+.listDrilldownGrid .DisplayAvaliablePropertiesHeaderGrid:after {
+    top: 20px;
 }

@@ -593,6 +593,7 @@
     white-space: nowrap;
     text-overflow: ellipsis;
     cursor: pointer;
+    top:2px;
 }
 
 .k-window-draggable .angleInformation,

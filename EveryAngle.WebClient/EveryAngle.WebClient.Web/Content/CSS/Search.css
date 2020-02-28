@@ -529,15 +529,11 @@
     color: #919699;
 }
 
-.popupAdvFiltering input[type='text']:disabled {
-    background-color: transparent;
-}
-
-.popupAdvFiltering input[type='text'] + .k-select {
+.popupAdvFiltering .k-numerictextbox .k-select {
     background-color: #f7f9fa;
 }
 
-.popupAdvFiltering input[type='text']:disabled + .k-select {
+.popupAdvFiltering .k-numerictextbox .k-state-disabled .k-select {
     background-color: transparent;
 }
 
@@ -615,6 +611,7 @@
     position: absolute;
     bottom: -60px;
 }
+
 /* #Content
 ============================================ */
 #Content {
@@ -1103,7 +1100,7 @@
 
 .ResultContent .displayNameContainer {
     clear: right;
-    margin-left:-4px;
+    margin-left: -4px;
 }
 
 .ResultContent .name {
@@ -1130,8 +1127,8 @@
 }
 
 .ResultContent .icon-info {
-   width:16px;
-   top:-1px;
+    width: 16px;
+    top: -1px;
 }
 
 #InnerResultWrapper.k-grid tbody tr:hover .btnInfo,

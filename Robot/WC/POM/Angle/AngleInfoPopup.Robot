@@ -1,7 +1,7 @@
 *** Variables ***
 ${lbNumberOfObject}                 jquery=#popupAngleResultSummary td:contains(Number of items) + td
 ${lbExecutionTime}                  jquery=#popupAngleResultSummary td:contains(Response time) + td
-${btnCloseResultSummary}            css=.popupAngleResultSummary .k-i-close
+${btnCloseResultSummary}            //span[@id='popupAngleResultSummary_wnd_title']/..//div/a[@class='k-button k-bare k-button-icon k-window-action']/span[@class='k-icon k-i-close icon icon-close']/..
 ${divPopupAngleResultSummary}       css=.popupAngleResultSummary
 
 *** Keywords ***

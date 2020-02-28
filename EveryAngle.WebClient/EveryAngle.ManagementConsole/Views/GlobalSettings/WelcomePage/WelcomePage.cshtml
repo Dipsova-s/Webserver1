@@ -81,6 +81,17 @@
                             .Name("IntroductionText")
                             .Resizable(resizable => resizable.Content(true))
                             .HtmlAttributes(new { maxlength = 1048576 })
+                            .Tools(tools => tools
+                                .Clear()
+                                .Formatting()
+                                .Bold().Italic().Underline()
+                                .JustifyLeft().JustifyCenter().JustifyRight()
+                                .InsertUnorderedList().InsertOrderedList()
+                                .Outdent().Indent()
+                                .CreateLink().Unlink()
+                                .InsertImage()
+                                .TableEditing()
+                            )
                     )
                 </div>
             </div>
@@ -97,6 +108,17 @@
                                 Html.Kendo().Editor()
                                     .Name("NewsText")
                                     .HtmlAttributes(new { maxlength = 1048576, style = "height: 100%" })
+                                    .Tools(tools => tools
+                                        .Clear()
+                                        .Formatting()
+                                        .Bold().Italic().Underline()
+                                        .JustifyLeft().JustifyCenter().JustifyRight()
+                                        .InsertUnorderedList().InsertOrderedList()
+                                        .Outdent().Indent()
+                                        .CreateLink().Unlink()
+                                        .InsertImage()
+                                        .TableEditing()
+                                    )
                             )
                         </div>
                     </div>

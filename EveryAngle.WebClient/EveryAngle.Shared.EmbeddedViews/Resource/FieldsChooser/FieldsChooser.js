@@ -1789,6 +1789,12 @@ function FieldsChooserModel() {
         self.BindFieldChooserHtmlToDocumentBody(self.PopupId, options.html);
         // initial field chooser popup
         self.FieldChooserPopup = jQuery(self.PopupId).kendoWindow(options).data('kendoWindow');
+        // set pinned
+        if (self.FieldChooserPopup.options.pinned) {
+            self.FieldChooserPopup.wrapper.css('position', 'fixed');
+        }
+        // set title with html tag
+        self.FieldChooserPopup.wrapper.find('.k-window-title').html(options.title);
         // set tooltip
         self.SetPopupTooltip();
 
@@ -1906,7 +1912,7 @@ function FieldsChooserModel() {
     };
     self.OnMaximizePopupDefault = function (e) {
         // change tooltip text on maximize button
-        e.sender.wrapper.find('.k-i-restore').attr('title', Localization.RestoreDown);
+        e.sender.wrapper.find('.k-i-window-restore').attr('title', Localization.RestoreDown);
     };
     self.OnDragEndPopupDefault = function (e) {
         // update position flag
@@ -1920,7 +1926,7 @@ function FieldsChooserModel() {
 
     // field chooser popup settings
     self.SetPopupTooltip = function () {
-        self.FieldChooserPopup.wrapper.find('.k-i-maximize').attr('title', Localization.Maximize);
+        self.FieldChooserPopup.wrapper.find('.k-i-window-maximize').attr('title', Localization.Maximize);
         self.FieldChooserPopup.wrapper.find('.k-i-close').attr('title', Localization.Close);
     };
     self.OnOpenPopupDefaultCallback = function (e) {

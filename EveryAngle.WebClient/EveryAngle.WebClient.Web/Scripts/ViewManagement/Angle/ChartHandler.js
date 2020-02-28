@@ -1464,7 +1464,11 @@ function ChartHandler(elementId, container) {
     };
     _self.CreateCustomChartLegend = function (cleanElement) {
         var chart = this;
-        var plotArea = chart._plotArea || chart.plotArea;
+        var plotArea = chart._plotArea;
+
+        if (!plotArea)
+            return;
+
         if (typeof cleanElement === 'undefined')
             cleanElement = true;
 
@@ -1774,32 +1778,35 @@ function ChartHandler(elementId, container) {
     _self.UpdateChartFilter = function (baseChartType) {
         var filter = self.GetFilter(self.FILTERRANGE.START, self.FILTERRANGE.CURRENT);
         var filterItems = self.GetCategoriesByFilter(filter);
+        var filterDataItems = self.GetCategoriesDataByFilter(filter);
         self.Chart.dataSource.filter(filter);
 
         // reorder category
         var categoryField = WC.Utility.ConvertFieldName(self.CategoryField);
+        var setCategoryData = function (categoryAxis, filterItems, filterDataItems) {
+            categoryAxis.categories = ko.toJS(filterItems);
+            categoryAxis.dataItems = ko.toJS(filterDataItems);
+            if (categoryAxis.dataItems) {
+                var dataItemsSorted = self.GetSortObject(categoryAxis.dataItems, { field: categoryField + '_sortindex', dir: 'asc' });
+                categoryAxis.dataItems = dataItemsSorted;
+            }
+        };
         if (self.Chart.options.categoryAxis instanceof Array) {
             jQuery.each(self.Chart.options.categoryAxis, function (index, categoryAxis) {
-                categoryAxis.categories = filterItems.slice();
-                if (categoryAxis.dataItems) {
-                    var dataItemsSorted = self.GetSortObject(categoryAxis.dataItems, { field: categoryField + '_sortindex', dir: 'asc' });
-                    categoryAxis.dataItems = dataItemsSorted;
-                }
+                setCategoryData(categoryAxis, filterItems, filterDataItems);
             });
         }
         else {
-            self.Chart.options.categoryAxis.categories = filterItems.slice();
-            if (self.Chart.options.categoryAxis.dataItems) {
-                var dataItemsSorted = self.GetSortObject(self.Chart.options.categoryAxis.dataItems, { field: categoryField + '_sortindex', dir: 'asc' });
-                self.Chart.options.categoryAxis.dataItems = dataItemsSorted;
-            }
+            setCategoryData(self.Chart.options.categoryAxis, filterItems, filterDataItems);
         }
 
         // bubble or scatter
         if (self.IsScatterOrBubbleChartType(baseChartType)) {
             var scatterOrBubbleBoundary = self.CalculateScatterAndBubbleBoundary();
             if (self.Chart.options.xAxis instanceof Array) {
-                jQuery.extend(self.Chart.options.xAxis[index], scatterOrBubbleBoundary);
+                jQuery.each(self.Chart.options.xAxis, function (index, xAxis) {
+                    jQuery.extend(self.Chart.options.xAxis[index], scatterOrBubbleBoundary);
+                });
             }
             else {
                 jQuery.extend(self.Chart.options.xAxis, scatterOrBubbleBoundary);
@@ -1864,19 +1871,18 @@ function ChartHandler(elementId, container) {
             });
         }
 
-        self.Chart.__createCustomLegend();
-
         self.Chart.redraw();
+        self.Chart.__createCustomLegend();
     };
     _self.SeriesHover = function (e) {
         if (self.CanDrilldown()) {
             setTimeout(function () {
-                e.element.css('cursor', 'pointer');
+                $(e.element).css('cursor', 'pointer');
                 e.sender.wrapper.find('circle').css('cursor', 'pointer');
                 if (self.IsDonutOrPieChartType(e.series.type)
                     || e.series.type === enumHandlers.CHARTTYPE.BARCHART.Code
                     || e.series.type === enumHandlers.CHARTTYPE.COLUMNCHART.Code) {
-                    e.element.next().css('cursor', 'pointer');
+                    $(e.element).next().css('cursor', 'pointer');
                 }
             }, 1);
         }
@@ -3151,6 +3157,15 @@ function ChartHandler(elementId, container) {
         }
         return customCategories;
     };
+    self.GetCategoriesDataByFilter = function (filter) {
+        var customCategories = [];
+        if (self.Categories.length) {
+            for (var i = filter.filters[0].filters[0].index; i <= filter.filters[0].filters[1].index; i++) {
+                customCategories.push(self.Categories[i]);
+            }
+        }
+        return customCategories;
+    };
     self.GetCategoryLabelTemplate = function () {
         return '#= window[\'' + self.ModelId + '\'].GetCategoryLabel(dataItem, value) #';
     };
@@ -3503,6 +3518,7 @@ function ChartHandler(elementId, container) {
 
                     var guageLabel = chart.wrapper.next('.gaugePointerLabel');
                     if (guageLabel.length) {
+                        chart.redraw();
                         chart.wrapper.children().css({
                             height: css.height,
                             width: css.width
@@ -3576,7 +3592,7 @@ function ChartHandler(elementId, container) {
         var categoryField = WC.Utility.ConvertFieldName(self.CategoryField);
         var categoryData = self.GetCategoriesLabelData(chart);
         var categoryCount = categoryData.labels.length;
-        var isMultiAxis = chart._originalOptions.series.length === 2;
+        var isMultiAxis = chart._sourceSeries.length === 2;
         var legendCount;
         var isScatterOrBubble = self.IsScatterOrBubbleChartType(type);
         var isBarChart = type === enumHandlers.CHARTTYPE.BARCHART.Code;

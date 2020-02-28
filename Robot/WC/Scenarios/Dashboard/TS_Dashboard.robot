@@ -182,19 +182,16 @@ Add Filters To Dashboard
 
     # filter #1
     Click Add Filter Button In Dashboard Detail Popup
-    Select Field Source(Self)
     Select Field From Filters Tab    "Bottleneck Type"    BottleneckType    ${TRUE}
     Choose Dropdown Filter Operator In FilterField In Filters tab   0   is not empty
 
     # filter #2
     Click Add Filter Button In Dashboard Detail Popup
-    Select Field Source(Self)
     Select Field From Filters Tab    "Order Due Date"    OrderDueDate       ${TRUE}
-    Input Date Value    1_0    May/24/2016
+    Input First Input Date Picker    1_0    May/24/2016
 
     # filter #3
     Click Add Filter Button In Dashboard Detail Popup
-    Select Field Source(Self)
     Select Field From Filters Tab    "Order Number"    OrderNumber      ${TRUE}
     Choose Dropdown Filter Operator In FilterField In Filters tab   2   is greater than
     Input Text    InputValue-2    1

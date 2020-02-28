@@ -98,7 +98,7 @@
                                 e.stopPropagation();
 
                                 var item = $(this);
-                                if (item.find('.k-plus,.k-minus').length) {
+                                if (item.find('.k-i-expand,.k-i-collapse').length) {
                                     treeview.toggle(item);
                                 }
                                 treeview.trigger('select');

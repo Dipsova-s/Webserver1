@@ -47,7 +47,7 @@
             });
         },
         checkExpandCollapseVisible: function () {
-            var showexpandbutton = $("#ConsoliDatedRolePopup").find(".k-plus:visible").length + $("#ConsoliDatedRolePopup").find(".k-minus:visible").length;
+            var showexpandbutton = $("#ConsoliDatedRolePopup").find(".k-i-expand:visible").length + $("#ConsoliDatedRolePopup").find(".k-i-collapse:visible").length;
             if (showexpandbutton === 0)
                 $("#ConsoliDatedRolePopup .btnCollapse, #ConsoliDatedRolePopup .btnExpand").hide();
             else
@@ -66,13 +66,13 @@
             MC.util.consolidatedRole.checkExpandCollapseVisible();
         },
         expandAll: function () {
-            if ($('#ConsoliDatedRolePopup .k-plus:visible').length) {
+            if ($('#ConsoliDatedRolePopup .k-i-expand:visible').length) {
                 var treeview = $("#ConsoliDatedRolePopup .k-treeview:visible").data('kendoTreeView');
                 if (treeview) treeview.expand('.k-item');
             }
         },
         collapseAll: function () {
-            if ($('#ConsoliDatedRolePopup .k-minus:visible').length) {
+            if ($('#ConsoliDatedRolePopup .k-i-collapse:visible').length) {
                 var treeview = $("#ConsoliDatedRolePopup .k-treeview:visible").data('kendoTreeView');
                 if (treeview) treeview.collapse('.k-item');
             }

@@ -18,7 +18,7 @@
   "References": [
     { "Path": "/../MockData/text.js" },
     { "Path": "/../MockData/mockdata.js" },
-    { "Path": "/Dependencies/Global.js" },
+    { "Path": "/Global.js" },
     { "Path": "/Dependencies/modernizr.2.6.2.custom.js" },
     { "Path": "/Dependencies/jQuery/jquery.js" },
     { "Path": "/Dependencies/jQuery/jquery-migrate-1.2.1.js" },
@@ -28,7 +28,7 @@
     { "Path": "/Dependencies/KendoUI/kendo.core.min.js" },
     { "Path": "/Dependencies/KendoUI/kendo.data.min.js" },
     { "Path": "/Dependencies/KendoUI/kendo.grid.min.js" },
-    { "Path": "/Dependencies/KendoUI/kendo.core.extension.js" },
+    { "Path": "/Dependencies/KendoUICustom/kendo.core.extension.js" },
     { "Path": "/Dependencies/KnockOut/knockout-2.2.0.js" },
     { "Path": "/Dependencies/KnockOut/knonkout.helper.js" },
     { "Path": "/../SharedDependencies/shared.js" },

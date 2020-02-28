@@ -124,6 +124,9 @@
     <Reference Include="Ionic.Zip, Version=1.9.1.8, Culture=neutral, PublicKeyToken=edbe51ad942a3f5c, processorArchitecture=MSIL">
       <HintPath>..\packages\Ionic.Zip.1.9.1.8\lib\Ionic.Zip.dll</HintPath>
     </Reference>
+    <Reference Include="Kendo.Mvc, Version=2020.1.219.545, Culture=neutral, PublicKeyToken=121fae78165ba3d4, processorArchitecture=MSIL">
+      <HintPath>..\packages\Telerik.UI.for.AspNet.Mvc5.custom.2020.1.219\lib\net45\Kendo.Mvc.dll</HintPath>
+    </Reference>
     <Reference Include="log4net, Version=2.0.8.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
       <HintPath>..\packages\log4net.2.0.8\lib\net45-full\log4net.dll</HintPath>
     </Reference>
@@ -167,8 +170,8 @@
     <Reference Include="System.Net.Http.Extensions, Version=2.2.28.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.Net.Http.2.2.28\lib\net45\System.Net.Http.Extensions.dll</HintPath>
     </Reference>
-    <Reference Include="System.Net.Http.Formatting, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.AspNet.WebApi.Client.5.2.3\lib\net45\System.Net.Http.Formatting.dll</HintPath>
+    <Reference Include="System.Net.Http.Formatting, Version=5.2.7.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Client.5.2.7\lib\net45\System.Net.Http.Formatting.dll</HintPath>
     </Reference>
     <Reference Include="System.Net.Http.Primitives, Version=4.2.28.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.Net.Http.2.2.28\lib\net45\System.Net.Http.Primitives.dll</HintPath>
@@ -186,33 +189,33 @@
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.Extensions" />
     <Reference Include="System.Web.Helpers, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.Helpers.dll</HintPath>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.7\lib\net45\System.Web.Helpers.dll</HintPath>
     </Reference>
-    <Reference Include="System.Web.Http, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.AspNet.WebApi.Core.5.2.3\lib\net45\System.Web.Http.dll</HintPath>
+    <Reference Include="System.Web.Http, Version=5.2.7.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Core.5.2.7\lib\net45\System.Web.Http.dll</HintPath>
     </Reference>
-    <Reference Include="System.Web.Http.WebHost, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.AspNet.WebApi.WebHost.5.2.3\lib\net45\System.Web.Http.WebHost.dll</HintPath>
+    <Reference Include="System.Web.Http.WebHost, Version=5.2.7.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.WebHost.5.2.7\lib\net45\System.Web.Http.WebHost.dll</HintPath>
     </Reference>
-    <Reference Include="System.Web.Mvc, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.AspNet.Mvc.5.2.3\lib\net45\System.Web.Mvc.dll</HintPath>
+    <Reference Include="System.Web.Mvc, Version=5.2.7.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Mvc.5.2.7\lib\net45\System.Web.Mvc.dll</HintPath>
     </Reference>
     <Reference Include="System.Web.Optimization, Version=1.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.AspNet.Web.Optimization.1.1.3\lib\net40\System.Web.Optimization.dll</HintPath>
     </Reference>
     <Reference Include="System.Web.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.AspNet.Razor.3.2.3\lib\net45\System.Web.Razor.dll</HintPath>
+      <HintPath>..\packages\Microsoft.AspNet.Razor.3.2.7\lib\net45\System.Web.Razor.dll</HintPath>
     </Reference>
     <Reference Include="System.Web.Routing" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Web.WebPages, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.WebPages.dll</HintPath>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.7\lib\net45\System.Web.WebPages.dll</HintPath>
     </Reference>
     <Reference Include="System.Web.WebPages.Deployment, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.WebPages.Deployment.dll</HintPath>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.7\lib\net45\System.Web.WebPages.Deployment.dll</HintPath>
     </Reference>
     <Reference Include="System.Web.WebPages.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.WebPages.Razor.dll</HintPath>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.7\lib\net45\System.Web.WebPages.Razor.dll</HintPath>
     </Reference>
     <Reference Include="System.XML" />
     <Reference Include="System.Xml.Linq" />
@@ -276,30 +279,374 @@
       <Link>Content\ExternalResource\%(Filename)%(Extension)</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="..\EveryAngle.Shared.EmbeddedViews\Resource\Shared\fonts\WebClientIco.css">
-      <Link>Content\ExternalResource\WebClientIco.css</Link>
+    <Content Include="..\packages\Telerik.UI.for.AspNet.Mvc5.custom.2020.1.219\resources\Content\kendo\2020.1.219\Black\**">
+      <Link>Content\KendoUI\Black\%(Filename)%(Extension)</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="..\EveryAngle.Shared.EmbeddedViews\Resource\Shared\fonts\WebClientIco.svg">
-      <Link>Content\ExternalResource\WebClientIco.svg</Link>
+    <Content Include="..\packages\Telerik.UI.for.AspNet.Mvc5.custom.2020.1.219\resources\Content\kendo\2020.1.219\BlueOpal\**">
+      <Link>Content\KendoUI\BlueOpal\%(Filename)%(Extension)</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\packages\Telerik.UI.for.AspNet.Mvc5.custom.2020.1.219\resources\Content\kendo\2020.1.219\Bootstrap\**">
+      <Link>Content\KendoUI\Bootstrap\%(Filename)%(Extension)</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\packages\Telerik.UI.for.AspNet.Mvc5.custom.2020.1.219\resources\Content\kendo\2020.1.219\default\**">
+      <Link>Content\KendoUI\default\%(Filename)%(Extension)</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\packages\Telerik.UI.for.AspNet.Mvc5.custom.2020.1.219\resources\Content\kendo\2020.1.219\Flat\**">
+      <Link>Content\KendoUI\Flat\%(Filename)%(Extension)</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\packages\Telerik.UI.for.AspNet.Mvc5.custom.2020.1.219\resources\Content\kendo\2020.1.219\fonts\DejaVu\**">
+      <Link>Content\KendoUI\fonts\DejaVu\%(Filename)%(Extension)</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\packages\Telerik.UI.for.AspNet.Mvc5.custom.2020.1.219\resources\Content\kendo\2020.1.219\fonts\glyphs\**">
+      <Link>Content\KendoUI\fonts\glyphs\%(Filename)%(Extension)</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\packages\Telerik.UI.for.AspNet.Mvc5.custom.2020.1.219\resources\Content\kendo\2020.1.219\HighContrast\**">
+      <Link>Content\KendoUI\HighContrast\%(Filename)%(Extension)</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\packages\Telerik.UI.for.AspNet.Mvc5.custom.2020.1.219\resources\Content\kendo\2020.1.219\Metro\**">
+      <Link>Content\KendoUI\Metro\%(Filename)%(Extension)</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\packages\Telerik.UI.for.AspNet.Mvc5.custom.2020.1.219\resources\Content\kendo\2020.1.219\Moonlight\**">
+      <Link>Content\KendoUI\Moonlight\%(Filename)%(Extension)</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\packages\Telerik.UI.for.AspNet.Mvc5.custom.2020.1.219\resources\Content\kendo\2020.1.219\Silver\**">
+      <Link>Content\KendoUI\Silver\%(Filename)%(Extension)</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\packages\Telerik.UI.for.AspNet.Mvc5.custom.2020.1.219\resources\Content\kendo\2020.1.219\textures\**">
+      <Link>Content\KendoUI\textures\%(Filename)%(Extension)</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\packages\Telerik.UI.for.AspNet.Mvc5.custom.2020.1.219\resources\Content\kendo\2020.1.219\Uniform\**">
+      <Link>Content\KendoUI\Uniform\%(Filename)%(Extension)</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\packages\Telerik.UI.for.AspNet.Mvc5.custom.2020.1.219\resources\Content\kendo\2020.1.219\images\**">
+      <Link>Content\KendoUI\images\%(Filename)%(Extension)</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\packages\Telerik.UI.for.AspNet.Mvc5.custom.2020.1.219\resources\Content\kendo\2020.1.219\kendo.black.min.css">
+      <Link>Content\KendoUI\kendo.black.min.css</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\packages\Telerik.UI.for.AspNet.Mvc5.custom.2020.1.219\resources\Content\kendo\2020.1.219\kendo.blueopal.min.css">
+      <Link>Content\KendoUI\kendo.blueopal.min.css</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\packages\Telerik.UI.for.AspNet.Mvc5.custom.2020.1.219\resources\Content\kendo\2020.1.219\kendo.bootstrap.min.css">
+      <Link>Content\KendoUI\kendo.bootstrap.min.css</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\packages\Telerik.UI.for.AspNet.Mvc5.custom.2020.1.219\resources\Content\kendo\2020.1.219\kendo.common.min.css">
+      <Link>Content\KendoUI\kendo.common.min.css</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\packages\Telerik.UI.for.AspNet.Mvc5.custom.2020.1.219\resources\Content\kendo\2020.1.219\kendo.dataviz.black.min.css">
+      <Link>Content\KendoUI\kendo.dataviz.black.min.css</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\packages\Telerik.UI.for.AspNet.Mvc5.custom.2020.1.219\resources\Content\kendo\2020.1.219\kendo.dataviz.blueopal.min.css">
+      <Link>Content\KendoUI\kendo.dataviz.blueopal.min.css</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\packages\Telerik.UI.for.AspNet.Mvc5.custom.2020.1.219\resources\Content\kendo\2020.1.219\kendo.dataviz.bootstrap.min.css">
+      <Link>Content\KendoUI\kendo.dataviz.bootstrap.min.css</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\packages\Telerik.UI.for.AspNet.Mvc5.custom.2020.1.219\resources\Content\kendo\2020.1.219\kendo.dataviz.default.min.css">
+      <Link>Content\KendoUI\kendo.dataviz.default.min.css</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\packages\Telerik.UI.for.AspNet.Mvc5.custom.2020.1.219\resources\Content\kendo\2020.1.219\kendo.dataviz.flat.min.css">
+      <Link>Content\KendoUI\kendo.dataviz.flat.min.css</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\packages\Telerik.UI.for.AspNet.Mvc5.custom.2020.1.219\resources\Content\kendo\2020.1.219\kendo.dataviz.highcontrast.min.css">
+      <Link>Content\KendoUI\kendo.dataviz.highcontrast.min.css</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\packages\Telerik.UI.for.AspNet.Mvc5.custom.2020.1.219\resources\Content\kendo\2020.1.219\kendo.dataviz.metro.min.css">
+      <Link>Content\KendoUI\kendo.dataviz.metro.min.css</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\packages\Telerik.UI.for.AspNet.Mvc5.custom.2020.1.219\resources\Content\kendo\2020.1.219\kendo.dataviz.min.css">
+      <Link>Content\KendoUI\kendo.dataviz.min.css</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\packages\Telerik.UI.for.AspNet.Mvc5.custom.2020.1.219\resources\Content\kendo\2020.1.219\kendo.dataviz.moonlight.min.css">
+      <Link>Content\KendoUI\kendo.dataviz.moonlight.min.css</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\packages\Telerik.UI.for.AspNet.Mvc5.custom.2020.1.219\resources\Content\kendo\2020.1.219\kendo.dataviz.silver.min.css">
+      <Link>Content\KendoUI\kendo.dataviz.silver.min.css</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\packages\Telerik.UI.for.AspNet.Mvc5.custom.2020.1.219\resources\Content\kendo\2020.1.219\kendo.dataviz.uniform.min.css">
+      <Link>Content\KendoUI\kendo.dataviz.uniform.min.css</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\packages\Telerik.UI.for.AspNet.Mvc5.custom.2020.1.219\resources\Content\kendo\2020.1.219\kendo.default.min.css">
+      <Link>Content\KendoUI\kendo.default.min.css</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\packages\Telerik.UI.for.AspNet.Mvc5.custom.2020.1.219\resources\Content\kendo\2020.1.219\kendo.flat.min.css">
+      <Link>Content\KendoUI\kendo.flat.min.css</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\packages\Telerik.UI.for.AspNet.Mvc5.custom.2020.1.219\resources\Content\kendo\2020.1.219\kendo.highcontrast.min.css">
+      <Link>Content\KendoUI\kendo.highcontrast.min.css</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\packages\Telerik.UI.for.AspNet.Mvc5.custom.2020.1.219\resources\Content\kendo\2020.1.219\kendo.metro.min.css">
+      <Link>Content\KendoUI\kendo.metro.min.css</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\packages\Telerik.UI.for.AspNet.Mvc5.custom.2020.1.219\resources\Content\kendo\2020.1.219\kendo.silver.min.css">
+      <Link>Content\KendoUI\kendo.silver.min.css</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\packages\Telerik.UI.for.AspNet.Mvc5.custom.2020.1.219\resources\Content\kendo\2020.1.219\kendo.uniform.min.css">
+      <Link>Content\KendoUI\kendo.uniform.min.css</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\packages\Telerik.UI.for.AspNet.Mvc5.custom.2020.1.219\resources\Scripts\kendo\2020.1.219\kendo.autocomplete.min.js">
+      <Link>Scripts\KendoUI\kendo.autocomplete.min.js</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\packages\Telerik.UI.for.AspNet.Mvc5.custom.2020.1.219\resources\Scripts\kendo\2020.1.219\kendo.button.min.js">
+      <Link>Scripts\KendoUI\kendo.button.min.js</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\packages\Telerik.UI.for.AspNet.Mvc5.custom.2020.1.219\resources\Scripts\kendo\2020.1.219\kendo.calendar.min.js">
+      <Link>Scripts\KendoUI\kendo.calendar.min.js</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\packages\Telerik.UI.for.AspNet.Mvc5.custom.2020.1.219\resources\Scripts\kendo\2020.1.219\kendo.color.min.js">
+      <Link>Scripts\KendoUI\kendo.color.min.js</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\packages\Telerik.UI.for.AspNet.Mvc5.custom.2020.1.219\resources\Scripts\kendo\2020.1.219\kendo.colorpicker.min.js">
+      <Link>Scripts\KendoUI\kendo.colorpicker.min.js</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\packages\Telerik.UI.for.AspNet.Mvc5.custom.2020.1.219\resources\Scripts\kendo\2020.1.219\kendo.columnsorter.min.js">
+      <Link>Scripts\KendoUI\kendo.columnsorter.min.js</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\packages\Telerik.UI.for.AspNet.Mvc5.custom.2020.1.219\resources\Scripts\kendo\2020.1.219\kendo.combobox.min.js">
+      <Link>Scripts\KendoUI\kendo.combobox.min.js</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\packages\Telerik.UI.for.AspNet.Mvc5.custom.2020.1.219\resources\Scripts\kendo\2020.1.219\kendo.core.min.js">
+      <Link>Scripts\KendoUI\kendo.core.min.js</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\packages\Telerik.UI.for.AspNet.Mvc5.custom.2020.1.219\resources\Scripts\kendo\2020.1.219\kendo.data.min.js">
+      <Link>Scripts\KendoUI\kendo.data.min.js</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\packages\Telerik.UI.for.AspNet.Mvc5.custom.2020.1.219\resources\Scripts\kendo\2020.1.219\kendo.dataviz.chart.min.js">
+      <Link>Scripts\KendoUI\kendo.dataviz.chart.min.js</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\packages\Telerik.UI.for.AspNet.Mvc5.custom.2020.1.219\resources\Scripts\kendo\2020.1.219\kendo.dataviz.core.min.js">
+      <Link>Scripts\KendoUI\kendo.dataviz.core.min.js</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\packages\Telerik.UI.for.AspNet.Mvc5.custom.2020.1.219\resources\Scripts\kendo\2020.1.219\kendo.dataviz.gauge.min.js">
+      <Link>Scripts\KendoUI\kendo.dataviz.gauge.min.js</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\packages\Telerik.UI.for.AspNet.Mvc5.custom.2020.1.219\resources\Scripts\kendo\2020.1.219\kendo.dataviz.themes.min.js">
+      <Link>Scripts\KendoUI\kendo.dataviz.themes.min.js</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\packages\Telerik.UI.for.AspNet.Mvc5.custom.2020.1.219\resources\Scripts\kendo\2020.1.219\kendo.datepicker.min.js">
+      <Link>Scripts\KendoUI\kendo.datepicker.min.js</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\packages\Telerik.UI.for.AspNet.Mvc5.custom.2020.1.219\resources\Scripts\kendo\2020.1.219\kendo.datetimepicker.min.js">
+      <Link>Scripts\KendoUI\kendo.datetimepicker.min.js</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\packages\Telerik.UI.for.AspNet.Mvc5.custom.2020.1.219\resources\Scripts\kendo\2020.1.219\kendo.draganddrop.min.js">
+      <Link>Scripts\KendoUI\kendo.draganddrop.min.js</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\packages\Telerik.UI.for.AspNet.Mvc5.custom.2020.1.219\resources\Scripts\kendo\2020.1.219\kendo.drawing.min.js">
+      <Link>Scripts\KendoUI\kendo.drawing.min.js</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\packages\Telerik.UI.for.AspNet.Mvc5.custom.2020.1.219\resources\Scripts\kendo\2020.1.219\kendo.dropdownlist.min.js">
+      <Link>Scripts\KendoUI\kendo.dropdownlist.min.js</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\packages\Telerik.UI.for.AspNet.Mvc5.custom.2020.1.219\resources\Scripts\kendo\2020.1.219\kendo.editor.min.js">
+      <Link>Scripts\KendoUI\kendo.editor.min.js</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\packages\Telerik.UI.for.AspNet.Mvc5.custom.2020.1.219\resources\Scripts\kendo\2020.1.219\kendo.fx.min.js">
+      <Link>Scripts\KendoUI\kendo.fx.min.js</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\packages\Telerik.UI.for.AspNet.Mvc5.custom.2020.1.219\resources\Scripts\kendo\2020.1.219\kendo.grid.min.js">
+      <Link>Scripts\KendoUI\kendo.grid.min.js</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\packages\Telerik.UI.for.AspNet.Mvc5.custom.2020.1.219\resources\Scripts\kendo\2020.1.219\kendo.list.min.js">
+      <Link>Scripts\KendoUI\kendo.list.min.js</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\packages\Telerik.UI.for.AspNet.Mvc5.custom.2020.1.219\resources\Scripts\kendo\2020.1.219\kendo.mobile.scroller.min.js">
+      <Link>Scripts\KendoUI\kendo.mobile.scroller.min.js</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\packages\Telerik.UI.for.AspNet.Mvc5.custom.2020.1.219\resources\Scripts\kendo\2020.1.219\kendo.notification.min.js">
+      <Link>Scripts\KendoUI\kendo.notification.min.js</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\packages\Telerik.UI.for.AspNet.Mvc5.custom.2020.1.219\resources\Scripts\kendo\2020.1.219\kendo.numerictextbox.min.js">
+      <Link>Scripts\KendoUI\kendo.numerictextbox.min.js</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\packages\Telerik.UI.for.AspNet.Mvc5.custom.2020.1.219\resources\Scripts\kendo\2020.1.219\kendo.ooxml.min.js">
+      <Link>Scripts\KendoUI\kendo.ooxml.min.js</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\packages\Telerik.UI.for.AspNet.Mvc5.custom.2020.1.219\resources\Scripts\kendo\2020.1.219\kendo.pager.min.js">
+      <Link>Scripts\KendoUI\kendo.pager.min.js</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\packages\Telerik.UI.for.AspNet.Mvc5.custom.2020.1.219\resources\Scripts\kendo\2020.1.219\kendo.popup.min.js">
+      <Link>Scripts\KendoUI\kendo.popup.min.js</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\packages\Telerik.UI.for.AspNet.Mvc5.custom.2020.1.219\resources\Scripts\kendo\2020.1.219\kendo.progressbar.min.js">
+      <Link>Scripts\KendoUI\kendo.progressbar.min.js</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\packages\Telerik.UI.for.AspNet.Mvc5.custom.2020.1.219\resources\Scripts\kendo\2020.1.219\kendo.reorderable.min.js">
+      <Link>Scripts\KendoUI\kendo.reorderable.min.js</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\packages\Telerik.UI.for.AspNet.Mvc5.custom.2020.1.219\resources\Scripts\kendo\2020.1.219\kendo.resizable.min.js">
+      <Link>Scripts\KendoUI\kendo.resizable.min.js</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\packages\Telerik.UI.for.AspNet.Mvc5.custom.2020.1.219\resources\Scripts\kendo\2020.1.219\kendo.selectable.min.js">
+      <Link>Scripts\KendoUI\kendo.selectable.min.js</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\packages\Telerik.UI.for.AspNet.Mvc5.custom.2020.1.219\resources\Scripts\kendo\2020.1.219\kendo.slider.min.js">
+      <Link>Scripts\KendoUI\kendo.slider.min.js</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\packages\Telerik.UI.for.AspNet.Mvc5.custom.2020.1.219\resources\Scripts\kendo\2020.1.219\kendo.sortable.min.js">
+      <Link>Scripts\KendoUI\kendo.sortable.min.js</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\packages\Telerik.UI.for.AspNet.Mvc5.custom.2020.1.219\resources\Scripts\kendo\2020.1.219\kendo.splitter.min.js">
+      <Link>Scripts\KendoUI\kendo.splitter.min.js</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\packages\Telerik.UI.for.AspNet.Mvc5.custom.2020.1.219\resources\Scripts\kendo\2020.1.219\kendo.tabstrip.min.js">
+      <Link>Scripts\KendoUI\kendo.tabstrip.min.js</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\packages\Telerik.UI.for.AspNet.Mvc5.custom.2020.1.219\resources\Scripts\kendo\2020.1.219\kendo.timepicker.min.js">
+      <Link>Scripts\KendoUI\kendo.timepicker.min.js</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\packages\Telerik.UI.for.AspNet.Mvc5.custom.2020.1.219\resources\Scripts\kendo\2020.1.219\kendo.timezones.min.js">
+      <Link>Scripts\KendoUI\kendo.timezones.min.js</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\packages\Telerik.UI.for.AspNet.Mvc5.custom.2020.1.219\resources\Scripts\kendo\2020.1.219\kendo.touch.min.js">
+      <Link>Scripts\KendoUI\kendo.touch.min.js</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\packages\Telerik.UI.for.AspNet.Mvc5.custom.2020.1.219\resources\Scripts\kendo\2020.1.219\kendo.upload.min.js">
+      <Link>Scripts\KendoUI\kendo.upload.min.js</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\packages\Telerik.UI.for.AspNet.Mvc5.custom.2020.1.219\resources\Scripts\kendo\2020.1.219\kendo.userevents.min.js">
+      <Link>Scripts\KendoUI\kendo.userevents.min.js</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\packages\Telerik.UI.for.AspNet.Mvc5.custom.2020.1.219\resources\Scripts\kendo\2020.1.219\kendo.virtuallist.min.js">
+      <Link>Scripts\KendoUI\kendo.virtuallist.min.js</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\packages\Telerik.UI.for.AspNet.Mvc5.custom.2020.1.219\resources\Scripts\kendo\2020.1.219\kendo.window.min.js">
+      <Link>Scripts\KendoUI\kendo.window.min.js</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\packages\Telerik.UI.for.AspNet.Mvc5.custom.2020.1.219\resources\Scripts\kendo\2020.1.219\cultures\kendo.culture.de-DE.min.js">
+      <Link>Scripts\KendoUI\cultures\kendo.culture.de-DE.min.js</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\packages\Telerik.UI.for.AspNet.Mvc5.custom.2020.1.219\resources\Scripts\kendo\2020.1.219\cultures\kendo.culture.en-GB.min.js">
+      <Link>Scripts\KendoUI\cultures\kendo.culture.en-GB.min.js</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\packages\Telerik.UI.for.AspNet.Mvc5.custom.2020.1.219\resources\Scripts\kendo\2020.1.219\cultures\kendo.culture.en-US.min.js">
+      <Link>Scripts\KendoUI\cultures\kendo.culture.en-US.min.js</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\packages\Telerik.UI.for.AspNet.Mvc5.custom.2020.1.219\resources\Scripts\kendo\2020.1.219\cultures\kendo.culture.es-ES.min.js">
+      <Link>Scripts\KendoUI\cultures\kendo.culture.es-ES.min.js</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\packages\Telerik.UI.for.AspNet.Mvc5.custom.2020.1.219\resources\Scripts\kendo\2020.1.219\cultures\kendo.culture.fr-FR.min.js">
+      <Link>Scripts\KendoUI\cultures\kendo.culture.fr-FR.min.js</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\packages\Telerik.UI.for.AspNet.Mvc5.custom.2020.1.219\resources\Scripts\kendo\2020.1.219\cultures\kendo.culture.nl-NL.min.js">
+      <Link>Scripts\KendoUI\cultures\kendo.culture.nl-NL.min.js</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\packages\Telerik.UI.for.AspNet.Mvc5.custom.2020.1.219\resources\Scripts\kendo\2020.1.219\cultures\kendo.culture.th-TH.min.js">
+      <Link>Scripts\KendoUI\cultures\kendo.culture.th-TH.min.js</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\packages\Telerik.UI.for.AspNet.Mvc5.custom.2020.1.219\resources\Scripts\kendo\2020.1.219\messages\kendo.messages.de-DE.min.js">
+      <Link>Scripts\KendoUI\messages\kendo.messages.de-DE.min.js</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\packages\Telerik.UI.for.AspNet.Mvc5.custom.2020.1.219\resources\Scripts\kendo\2020.1.219\messages\kendo.messages.en-US.min.js">
+      <Link>Scripts\KendoUI\messages\kendo.messages.en-US.min.js</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\packages\Telerik.UI.for.AspNet.Mvc5.custom.2020.1.219\resources\Scripts\kendo\2020.1.219\messages\kendo.messages.es-ES.min.js">
+      <Link>Scripts\KendoUI\messages\kendo.messages.es-ES.min.js</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\packages\Telerik.UI.for.AspNet.Mvc5.custom.2020.1.219\resources\Scripts\kendo\2020.1.219\messages\kendo.messages.fr-FR.min.js">
+      <Link>Scripts\KendoUI\messages\kendo.messages.fr-FR.min.js</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\packages\Telerik.UI.for.AspNet.Mvc5.custom.2020.1.219\resources\Scripts\kendo\2020.1.219\messages\kendo.messages.nl-NL.min.js">
+      <Link>Scripts\KendoUI\messages\kendo.messages.nl-NL.min.js</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Admin\MC.txt" />
-    <Content Include="..\EveryAngle.Shared.EmbeddedViews\Resource\Shared\fonts\WebClient.json">
-      <Link>Content\ExternalResource\WebClient.json</Link>
-    </Content>
-    <Content Include="..\EveryAngle.Shared.EmbeddedViews\Resource\Shared\fonts\WebClientIco.eot">
-      <Link>Content\ExternalResource\WebClientIco.eot</Link>
-    </Content>
-    <Content Include="..\EveryAngle.Shared.EmbeddedViews\Resource\Shared\fonts\WebClientIco.ttf">
-      <Link>Content\ExternalResource\WebClientIco.ttf</Link>
-    </Content>
-    <Content Include="..\EveryAngle.Shared.EmbeddedViews\Resource\Shared\fonts\WebClientIco.woff">
-      <Link>Content\ExternalResource\WebClientIco.woff</Link>
-    </Content>
     <Content Include="Content\CSS\Angle.css" />
     <Content Include="Content\CSS\Angle.DisplayDropdown.css" />
     <Content Include="Content\CSS\Base.css" />
     <Content Include="Content\CSS\Breadcrumb.css" />
-    <Content Include="Content\CSS\Common.css" />
+    <Content Include="Content\CSS\Common.css">
+      <DependentUpon>common.scss</DependentUpon>
+    </Content>
     <Content Include="Content\CSS\CreateAngle.css" />
     <Content Include="Content\CSS\CustomSort.css" />
     <Content Include="Content\CSS\Dashboard.css" />
@@ -310,7 +657,9 @@
     <Content Include="Content\CSS\ExportCsv.css" />
     <Content Include="Content\CSS\ExportExcel.css" />
     <Content Include="Content\CSS\FieldSettings.css" />
-    <Content Include="Content\CSS\itemstate.css" />
+    <Content Include="Content\CSS\itemstate.css">
+      <DependentUpon>itemstate.scss</DependentUpon>
+    </Content>
     <Content Include="Content\CSS\JumpChooser.css" />
     <Content Include="Content\CSS\KendoExtension.css" />
     <Content Include="Content\CSS\Login.css" />
@@ -326,195 +675,8 @@
     <Content Include="Content\CSS\WidgetDetails.css" />
     <Content Include="Content\CSS\WidgetFilters.css" />
     <Content Include="Content\CSS\WidgetLanguages.css" />
-    <Content Include="Content\ExternalResource\notificationsfeed.css" />
-    <Content Include="Content\ExternalResource\notificationsfeed.js" />
     <Content Include="Content\fonts\roboto-v19-latin-500.svg" />
     <Content Include="Content\fonts\roboto-v19-latin-regular.svg" />
-    <Content Include="Content\kendoui\Black\editor.png" />
-    <Content Include="Content\kendoui\Black\imagebrowser.png" />
-    <Content Include="Content\kendoui\Black\indeterminate.gif" />
-    <Content Include="Content\kendoui\Black\loading-image.gif" />
-    <Content Include="Content\kendoui\Black\loading.gif" />
-    <Content Include="Content\kendoui\Black\loading_2x.gif" />
-    <Content Include="Content\kendoui\Black\markers.png" />
-    <Content Include="Content\kendoui\Black\markers_2x.png" />
-    <Content Include="Content\kendoui\Black\slider-h.gif" />
-    <Content Include="Content\kendoui\Black\slider-v.gif" />
-    <Content Include="Content\kendoui\Black\sprite.png" />
-    <Content Include="Content\kendoui\Black\sprite_2x.png" />
-    <Content Include="Content\kendoui\Black\sprite_kpi.png" />
-    <Content Include="Content\kendoui\Black\sprite_kpi_2x.png" />
-    <Content Include="Content\kendoui\BlueOpal\editor.png" />
-    <Content Include="Content\kendoui\BlueOpal\imagebrowser.png" />
-    <Content Include="Content\kendoui\BlueOpal\indeterminate.gif" />
-    <Content Include="Content\kendoui\BlueOpal\loading-image.gif" />
-    <Content Include="Content\kendoui\BlueOpal\loading.gif" />
-    <Content Include="Content\kendoui\BlueOpal\loading_2x.gif" />
-    <Content Include="Content\kendoui\BlueOpal\markers.png" />
-    <Content Include="Content\kendoui\BlueOpal\markers_2x.png" />
-    <Content Include="Content\kendoui\BlueOpal\slider-h.gif" />
-    <Content Include="Content\kendoui\BlueOpal\slider-v.gif" />
-    <Content Include="Content\kendoui\BlueOpal\sprite.png" />
-    <Content Include="Content\kendoui\BlueOpal\sprite_2x.png" />
-    <Content Include="Content\kendoui\BlueOpal\sprite_kpi.png" />
-    <Content Include="Content\kendoui\BlueOpal\sprite_kpi_2x.png" />
-    <Content Include="Content\kendoui\Bootstrap\editor.png" />
-    <Content Include="Content\kendoui\Bootstrap\imagebrowser.png" />
-    <Content Include="Content\kendoui\Bootstrap\indeterminate.gif" />
-    <Content Include="Content\kendoui\Bootstrap\loading-image.gif" />
-    <Content Include="Content\kendoui\Bootstrap\loading.gif" />
-    <Content Include="Content\kendoui\Bootstrap\loading_2x.gif" />
-    <Content Include="Content\kendoui\Bootstrap\markers.png" />
-    <Content Include="Content\kendoui\Bootstrap\markers_2x.png" />
-    <Content Include="Content\kendoui\Bootstrap\slider-h.gif" />
-    <Content Include="Content\kendoui\Bootstrap\slider-v.gif" />
-    <Content Include="Content\kendoui\Bootstrap\sprite.png" />
-    <Content Include="Content\kendoui\Bootstrap\sprite_2x.png" />
-    <Content Include="Content\kendoui\Bootstrap\sprite_kpi.png" />
-    <Content Include="Content\kendoui\Bootstrap\sprite_kpi_2x.png" />
-    <Content Include="Content\kendoui\default\sprite_kpi.png" />
-    <Content Include="Content\kendoui\default\sprite_kpi_2x.png" />
-    <Content Include="Content\kendoui\Flat\editor.png" />
-    <Content Include="Content\kendoui\Flat\imagebrowser.png" />
-    <Content Include="Content\kendoui\Flat\indeterminate.gif" />
-    <Content Include="Content\kendoui\Flat\loading-image.gif" />
-    <Content Include="Content\kendoui\Flat\loading.gif" />
-    <Content Include="Content\kendoui\Flat\loading_2x.gif" />
-    <Content Include="Content\kendoui\Flat\slider-h.gif" />
-    <Content Include="Content\kendoui\Flat\slider-v.gif" />
-    <Content Include="Content\kendoui\Flat\sprite.png" />
-    <Content Include="Content\kendoui\Flat\sprite_2x.png" />
-    <Content Include="Content\kendoui\Flat\sprite_kpi.png" />
-    <Content Include="Content\kendoui\Flat\sprite_kpi_2x.png" />
-    <Content Include="Content\kendoui\HighContrast\editor.png" />
-    <Content Include="Content\kendoui\HighContrast\imagebrowser.png" />
-    <Content Include="Content\kendoui\HighContrast\indeterminate.gif" />
-    <Content Include="Content\kendoui\HighContrast\loading-image.gif" />
-    <Content Include="Content\kendoui\HighContrast\loading.gif" />
-    <Content Include="Content\kendoui\HighContrast\loading_2x.gif" />
-    <Content Include="Content\kendoui\HighContrast\slider-h.gif" />
-    <Content Include="Content\kendoui\HighContrast\slider-v.gif" />
-    <Content Include="Content\kendoui\HighContrast\sprite.png" />
-    <Content Include="Content\kendoui\HighContrast\sprite_2x.png" />
-    <Content Include="Content\kendoui\HighContrast\sprite_kpi.png" />
-    <Content Include="Content\kendoui\HighContrast\sprite_kpi_2x.png" />
-    <Content Include="Content\kendoui\images\back.png" />
-    <Content Include="Content\kendoui\images\kendoui.svg" />
-    <Content Include="Content\kendoui\images\wp8_icons.png" />
-    <Content Include="Content\kendoui\images\wp8_inverseicons.png" />
-    <Content Include="Content\kendoui\kendo.black.min.css" />
-    <Content Include="Content\kendoui\kendo.blueopal.min.css" />
-    <Content Include="Content\kendoui\kendo.bootstrap.min.css" />
-    <Content Include="Content\kendoui\kendo.dataviz.default.min.css" />
-    <Content Include="Content\kendoui\default\indeterminate.gif" />
-    <Content Include="Content\kendoui\default\loading-image.gif" />
-    <Content Include="Content\kendoui\default\loading_2x.gif" />
-    <Content Include="Content\kendoui\default\markers.png" />
-    <Content Include="Content\kendoui\default\markers_2x.png" />
-    <Content Include="Content\kendoui\default\sprite_2x.png" />
-    <Content Include="Content\kendoui\Flat\markers.png" />
-    <Content Include="Content\kendoui\Flat\markers_2x.png" />
-    <Content Include="Content\kendoui\HighContrast\markers.png" />
-    <Content Include="Content\kendoui\HighContrast\markers_2x.png" />
-    <Content Include="Content\kendoui\kendo.dataviz.black.min.css" />
-    <Content Include="Content\kendoui\kendo.dataviz.blueopal.min.css" />
-    <Content Include="Content\kendoui\kendo.dataviz.bootstrap.min.css" />
-    <Content Include="Content\kendoui\kendo.dataviz.flat.min.css" />
-    <Content Include="Content\kendoui\kendo.dataviz.highcontrast.min.css" />
-    <Content Include="Content\kendoui\kendo.dataviz.metro.min.css" />
-    <Content Include="Content\kendoui\kendo.dataviz.min.css" />
-    <Content Include="Content\kendoui\kendo.dataviz.moonlight.min.css" />
-    <Content Include="Content\kendoui\kendo.dataviz.silver.min.css" />
-    <Content Include="Content\kendoui\kendo.dataviz.uniform.min.css" />
-    <Content Include="Content\kendoui\kendo.flat.min.css" />
-    <Content Include="Content\kendoui\kendo.highcontrast.min.css" />
-    <Content Include="Content\kendoui\kendo.metro.min.css" />
-    <Content Include="Content\kendoui\kendo.silver.min.css" />
-    <Content Include="Content\kendoui\kendo.uniform.min.css" />
-    <Content Include="Content\kendoui\Metro\editor.png" />
-    <Content Include="Content\kendoui\Metro\imagebrowser.png" />
-    <Content Include="Content\kendoui\Metro\indeterminate.gif" />
-    <Content Include="Content\kendoui\Metro\loading-image.gif" />
-    <Content Include="Content\kendoui\Metro\loading.gif" />
-    <Content Include="Content\kendoui\Metro\loading_2x.gif" />
-    <Content Include="Content\kendoui\Metro\markers.png" />
-    <Content Include="Content\kendoui\Metro\markers_2x.png" />
-    <Content Include="Content\kendoui\Metro\slider-h.gif" />
-    <Content Include="Content\kendoui\Metro\slider-v.gif" />
-    <Content Include="Content\kendoui\Metro\sprite.png" />
-    <Content Include="Content\kendoui\Metro\sprite_2x.png" />
-    <Content Include="Content\kendoui\Metro\sprite_kpi.png" />
-    <Content Include="Content\kendoui\Metro\sprite_kpi_2x.png" />
-    <Content Include="Content\kendoui\Moonlight\editor.png" />
-    <Content Include="Content\kendoui\Moonlight\imagebrowser.png" />
-    <Content Include="Content\kendoui\Moonlight\indeterminate.gif" />
-    <Content Include="Content\kendoui\Moonlight\loading-image.gif" />
-    <Content Include="Content\kendoui\Moonlight\loading.gif" />
-    <Content Include="Content\kendoui\Moonlight\loading_2x.gif" />
-    <Content Include="Content\kendoui\Moonlight\markers.png" />
-    <Content Include="Content\kendoui\Moonlight\markers_2x.png" />
-    <Content Include="Content\kendoui\Moonlight\slider-h.gif" />
-    <Content Include="Content\kendoui\Moonlight\slider-v.gif" />
-    <Content Include="Content\kendoui\Moonlight\sprite.png" />
-    <Content Include="Content\kendoui\Moonlight\sprite_2x.png" />
-    <Content Include="Content\kendoui\Moonlight\sprite_kpi.png" />
-    <Content Include="Content\kendoui\Moonlight\sprite_kpi_2x.png" />
-    <Content Include="Content\kendoui\Silver\editor.png" />
-    <Content Include="Content\kendoui\Silver\imagebrowser.png" />
-    <Content Include="Content\kendoui\Silver\indeterminate.gif" />
-    <Content Include="Content\kendoui\Silver\loading-image.gif" />
-    <Content Include="Content\kendoui\Silver\loading.gif" />
-    <Content Include="Content\kendoui\Silver\loading_2x.gif" />
-    <Content Include="Content\kendoui\Silver\markers.png" />
-    <Content Include="Content\kendoui\Silver\markers_2x.png" />
-    <Content Include="Content\kendoui\Silver\slider-h.gif" />
-    <Content Include="Content\kendoui\Silver\slider-v.gif" />
-    <Content Include="Content\kendoui\Silver\sprite.png" />
-    <Content Include="Content\kendoui\Silver\sprite_2x.png" />
-    <Content Include="Content\kendoui\Silver\sprite_kpi.png" />
-    <Content Include="Content\kendoui\Silver\sprite_kpi_2x.png" />
-    <Content Include="Content\kendoui\textures\brushed-metal.png" />
-    <Content Include="Content\kendoui\textures\dots1.png" />
-    <Content Include="Content\kendoui\textures\dots10.png" />
-    <Content Include="Content\kendoui\textures\dots11.png" />
-    <Content Include="Content\kendoui\textures\dots12.png" />
-    <Content Include="Content\kendoui\textures\dots13.png" />
-    <Content Include="Content\kendoui\textures\dots2.png" />
-    <Content Include="Content\kendoui\textures\dots3.png" />
-    <Content Include="Content\kendoui\textures\dots4.png" />
-    <Content Include="Content\kendoui\textures\dots5.png" />
-    <Content Include="Content\kendoui\textures\dots6.png" />
-    <Content Include="Content\kendoui\textures\dots7.png" />
-    <Content Include="Content\kendoui\textures\dots8.png" />
-    <Content Include="Content\kendoui\textures\dots9.png" />
-    <Content Include="Content\kendoui\textures\glass-lighter.png" />
-    <Content Include="Content\kendoui\textures\hsv-gradient.png" />
-    <Content Include="Content\kendoui\textures\hue.png" />
-    <Content Include="Content\kendoui\textures\leather1.png" />
-    <Content Include="Content\kendoui\textures\leather2.png" />
-    <Content Include="Content\kendoui\textures\noise.png" />
-    <Content Include="Content\kendoui\textures\stripe1.png" />
-    <Content Include="Content\kendoui\textures\stripe2.png" />
-    <Content Include="Content\kendoui\textures\stripe3.png" />
-    <Content Include="Content\kendoui\textures\stripe4.png" />
-    <Content Include="Content\kendoui\textures\stripe5.png" />
-    <Content Include="Content\kendoui\textures\stripe6.png" />
-    <Content Include="Content\kendoui\textures\transparency.png" />
-    <Content Include="Content\kendoui\textures\transtexture.png" />
-    <Content Include="Content\kendoui\Uniform\editor.png" />
-    <Content Include="Content\kendoui\Uniform\imagebrowser.png" />
-    <Content Include="Content\kendoui\Uniform\indeterminate.gif" />
-    <Content Include="Content\kendoui\Uniform\loading-image.gif" />
-    <Content Include="Content\kendoui\Uniform\loading.gif" />
-    <Content Include="Content\kendoui\Uniform\loading_2x.gif" />
-    <Content Include="Content\kendoui\Uniform\markers.png" />
-    <Content Include="Content\kendoui\Uniform\markers_2x.png" />
-    <Content Include="Content\kendoui\Uniform\slider-h.gif" />
-    <Content Include="Content\kendoui\Uniform\slider-v.gif" />
-    <Content Include="Content\kendoui\Uniform\sprite.png" />
-    <Content Include="Content\kendoui\Uniform\sprite_2x.png" />
-    <Content Include="Content\kendoui\Uniform\sprite_kpi.png" />
-    <Content Include="Content\kendoui\Uniform\sprite_kpi_2x.png" />
     <Content Include="Content\VideoPlayer\Plugins\videojs-playlist-ui.css" />
     <Content Include="Content\VideoPlayer\Plugins\videojs-playlist-ui.vertical.css" />
     <Content Include="Data\Export\log.txt" />
@@ -741,23 +903,16 @@
       <SubType>Designer</SubType>
     </None>
     <None Include="Scripts\kendo.all.min.intellisense.js" />
-    <Content Include="Scripts\KendoUI\kendo.colorpicker.style.js" />
-    <Content Include="Scripts\KendoUI\kendo.combobox.style.js" />
-    <Content Include="Scripts\KendoUI\kendo.notification.js" />
-    <Content Include="Scripts\KendoUI\kendo.window.style.js" />
-    <Content Include="Scripts\KendoUI\kendo.numerictextbox.style.js" />
-    <Content Include="Scripts\KendoUI\kendo.dropdownlist.style.js" />
-    <Content Include="Scripts\KendoUI\kendo.timespanpicker.js" />
-    <Content Include="Scripts\KendoUI\kendo.core.extension.js" />
-    <Content Include="Scripts\KendoUI\kendo.numerictextbox.custom.js" />
-    <Content Include="Scripts\KendoUI\kendo.colorpicker.custom.js" />
-    <Content Include="Scripts\KendoUI\kendo.datetimepicker.custom.js" />
-    <Content Include="Scripts\KendoUI\cultures\kendo.culture.de-DE.min.js" />
-    <Content Include="Scripts\KendoUI\kendo.ooxml.min.js" />
-    <Content Include="Scripts\KendoUI\kendo.timezones.min.js" />
-    <Content Include="Scripts\KendoUI\kendo.upload.min.js" />
-    <Content Include="Scripts\KendoUI\kendo.virtuallist.min.js" />
-    <Content Include="Scripts\KendoUI\messages\kendo.messages.de-DE.js" />
+    <Content Include="Scripts\KendoUICustom\kendo.colorpicker.style.js" />
+    <Content Include="Scripts\KendoUICustom\kendo.combobox.style.js" />
+    <Content Include="Scripts\KendoUICustom\kendo.window.style.js" />
+    <Content Include="Scripts\KendoUICustom\kendo.numerictextbox.style.js" />
+    <Content Include="Scripts\KendoUICustom\kendo.dropdownlist.style.js" />
+    <Content Include="Scripts\KendoUICustom\kendo.timespanpicker.js" />
+    <Content Include="Scripts\KendoUICustom\kendo.core.extension.js" />
+    <Content Include="Scripts\KendoUICustom\kendo.numerictextbox.custom.js" />
+    <Content Include="Scripts\KendoUICustom\kendo.colorpicker.custom.js" />
+    <Content Include="Scripts\KendoUICustom\kendo.datetimepicker.custom.js" />
     <Content Include="Scripts\User\Authentication.js" />
     <Content Include="Global.asax" />
     <Content Include="Images\Angle\AngleDetail\btn_delete_language.png" />
@@ -877,22 +1032,7 @@
     <Content Include="Scripts\ViewManagement\User\UserSettingsPanelHandler.js" />
     <Content Include="Scripts\ViewManagement\User\UserSettingView.js" />
     <Content Include="Scripts\vsdoc.loc.xml" />
-    <Content Include="Content\kendoui\images\kendoui.ttf" />
-    <Content Include="Content\kendoui\images\kendoui.woff" />
     <Content Include="Override.config" />
-    <Content Include="Content\kendoui\fonts\DejaVu\DejaVuSans-Bold.ttf" />
-    <Content Include="Content\kendoui\fonts\DejaVu\DejaVuSans-BoldOblique.ttf" />
-    <Content Include="Content\kendoui\fonts\DejaVu\DejaVuSans-Oblique.ttf" />
-    <Content Include="Content\kendoui\fonts\DejaVu\DejaVuSans.ttf" />
-    <Content Include="Content\kendoui\fonts\DejaVu\DejaVuSansMono-Bold.ttf" />
-    <Content Include="Content\kendoui\fonts\DejaVu\DejaVuSansMono-BoldOblique.ttf" />
-    <Content Include="Content\kendoui\fonts\DejaVu\DejaVuSansMono-Oblique.ttf" />
-    <Content Include="Content\kendoui\fonts\DejaVu\DejaVuSansMono.ttf" />
-    <Content Include="Content\kendoui\fonts\DejaVu\DejaVuSerif-Bold.ttf" />
-    <Content Include="Content\kendoui\fonts\DejaVu\DejaVuSerif-BoldItalic.ttf" />
-    <Content Include="Content\kendoui\fonts\DejaVu\DejaVuSerif-Italic.ttf" />
-    <Content Include="Content\kendoui\fonts\DejaVu\DejaVuSerif.ttf" />
-    <Content Include="Content\kendoui\fonts\DejaVu\LICENSE" />
     <Content Include="Images\Angle\btn_ToggleDown.png" />
     <Content Include="Images\Angle\btn_ToggleUp.png" />
     <Content Include="Images\SearchPage\icn_new.png" />
@@ -901,7 +1041,6 @@
     <Content Include="Images\Popup\Error\icn_error.png" />
     <Content Include="Images\Popup\Error\icn_info.png" />
     <Content Include="Images\Popup\Error\icn_question.png" />
-    <Content Include="Scripts\KendoUI\cultures\kendo.culture.en-GB.min.js" />
     <Content Include="Scripts\ViewManagement\Shared\ModelFieldsHandler.js" />
     <Content Include="Scripts\ViewManagement\Shared\ModelFollowupsHandler.js" />
     <Content Include="Scripts\ViewManagement\Shared\WidgetLanguages\WidgetLanguagesHandler.js" />
@@ -937,48 +1076,7 @@
     <Content Include="Scripts\jQuery\jquery.highlight.js" />
     <Content Include="Scripts\jQuery\jquery.mousewheel.js" />
     <Content Include="Scripts\jQuery\jquery.placeholder.min.js" />
-    <Content Include="Scripts\KendoUI\kendo.autocomplete.min.js" />
-    <Content Include="Scripts\KendoUI\kendo.calendar.min.js" />
-    <Content Include="Scripts\KendoUI\kendo.color.min.js" />
-    <Content Include="Scripts\KendoUI\kendo.colorpicker.min.js" />
-    <Content Include="Scripts\KendoUI\kendo.columnsorter.min.js" />
-    <Content Include="Scripts\KendoUI\kendo.combobox.min.js" />
-    <Content Include="Scripts\KendoUI\kendo.core.min.js" />
-    <Content Include="Scripts\KendoUI\kendo.data.min.js" />
-    <Content Include="Scripts\KendoUI\kendo.dataviz.chart.min.js" />
-    <Content Include="Scripts\KendoUI\kendo.dataviz.chart.polar.min.js" />
-    <Content Include="Scripts\KendoUI\kendo.dataviz.core.min.js" />
-    <Content Include="Scripts\KendoUI\kendo.dataviz.gauge.min.js" />
-    <Content Include="Scripts\KendoUI\kendo.dataviz.themes.min.js" />
-    <Content Include="Scripts\KendoUI\kendo.datepicker.min.js" />
-    <Content Include="Scripts\KendoUI\kendo.datetimepicker.min.js" />
-    <Content Include="Scripts\KendoUI\kendo.draganddrop.min.js" />
-    <Content Include="Scripts\KendoUI\kendo.drawing.min.js" />
-    <Content Include="Scripts\KendoUI\kendo.dropdownlist.min.js" />
-    <Content Include="Scripts\KendoUI\kendo.editor.min.js" />
-    <Content Include="Scripts\KendoUI\kendo.fx.min.js" />
-    <Content Include="Scripts\KendoUI\kendo.grid.min.js" />
-    <Content Include="Scripts\KendoUI\kendo.list.min.js" />
-    <Content Include="Scripts\KendoUI\kendo.mobile.scroller.min.js" />
-    <Content Include="Scripts\KendoUI\kendo.numerictextbox.min.js" />
-    <Content Include="Scripts\KendoUI\kendo.pager.min.js" />
-    <Content Include="Scripts\KendoUI\kendo.percentagetextbox.js" />
-    <Content Include="Scripts\KendoUI\kendo.popup.min.js" />
-    <Content Include="Scripts\KendoUI\kendo.progressbar.min.js" />
-    <Content Include="Scripts\KendoUI\kendo.reorderable.min.js" />
-    <Content Include="Scripts\KendoUI\kendo.resizable.min.js" />
-    <Content Include="Scripts\KendoUI\kendo.selectable.min.js" />
-    <Content Include="Scripts\KendoUI\kendo.slider.min.js" />
-    <Content Include="Scripts\KendoUI\kendo.sortable.min.js" />
-    <Content Include="Scripts\KendoUI\kendo.splitter.min.js" />
-    <Content Include="Scripts\KendoUI\kendo.timepicker.min.js" />
-    <Content Include="Scripts\KendoUI\kendo.touch.min.js" />
-    <Content Include="Scripts\KendoUI\kendo.userevents.min.js" />
-    <Content Include="Scripts\KendoUI\kendo.window.min.js" />
-    <Content Include="Scripts\KendoUI\messages\kendo.messages.en-US.min.js" />
-    <Content Include="Scripts\KendoUI\messages\kendo.messages.es-ES.min.js" />
-    <Content Include="Scripts\KendoUI\messages\kendo.messages.fr-FR.min.js" />
-    <Content Include="Scripts\KendoUI\messages\kendo.messages.nl-NL.min.js" />
+    <Content Include="Scripts\KendoUICustom\kendo.percentagetextbox.js" />
     <Content Include="Scripts\KnockOut\knockout-2.2.0.debug.js" />
     <Content Include="Scripts\KnockOut\knockout-2.2.0.js" />
     <Content Include="Scripts\KnockOut\knonkout.helper.js" />
@@ -1014,21 +1112,6 @@
     <Content Include="Scripts\ViewManagement\Shared\WidgetFilter\WidgetFilterModel.js" />
     <Content Include="Scripts\ViewManagement\Shared\WidgetFilter\WidgetFilterHandler.js" />
     <Content Include="Scripts\ViewManagement\Shared\PopupPageHandlers.js" />
-    <Content Include="Scripts\KendoUI\cultures\kendo.culture.en-US.min.js" />
-    <Content Include="Scripts\KendoUI\cultures\kendo.culture.es-ES.min.js" />
-    <Content Include="Scripts\KendoUI\cultures\kendo.culture.fr-FR.min.js" />
-    <Content Include="Scripts\KendoUI\cultures\kendo.culture.nl-NL.min.js" />
-    <Content Include="Scripts\KendoUI\cultures\kendo.culture.th-TH.min.js" />
-    <Content Include="Content\kendoui\default\editor.png" />
-    <Content Include="Content\kendoui\default\imagebrowser.png" />
-    <Content Include="Content\kendoui\default\loading.gif" />
-    <Content Include="Content\kendoui\default\slider-h.gif" />
-    <Content Include="Content\kendoui\default\slider-v.gif" />
-    <Content Include="Content\kendoui\default\sprite.png" />
-    <Content Include="Content\kendoui\kendo.common.min.css" />
-    <Content Include="Content\kendoui\kendo.default.min.css" />
-    <Content Include="Content\kendoui\textures\glass.png" />
-    <Content Include="Content\kendoui\textures\highlight.png" />
     <Content Include="Scripts\ViewManagement\Angle\AngleDetailBodyPageHandler.js" />
     <Content Include="Scripts\ViewManagement\Angle\AnglePageRetainsUrl.js" />
     <Content Include="Scripts\ViewManagement\Angle\DisplayPopupBodyPageHandler.js" />

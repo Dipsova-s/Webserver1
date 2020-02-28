@@ -4,11 +4,11 @@
 /// <reference path="/Dependencies/ViewManagement/Shared/ItemState/ItemstateView.js" />
 /// <reference path="/Dependencies/ViewManagement/Shared/ItemState/ItemstateHandler.js" />
 
-/// <reference path="/Dependencies/ViewManagement/Angles/AnglestateView.js" />
-/// <reference path="/Dependencies/ViewManagement/Angles/AngleStateHandler.js" />
-/// <reference path="/Dependencies/ViewManagement/Angles/AngleActionMenuHandler.js" />
+/// <reference path="/Dependencies/ViewManagement/Angle/AnglestateView.js" />
+/// <reference path="/Dependencies/ViewManagement/Angle/AngleStateHandler.js" />
+/// <reference path="/Dependencies/ViewManagement/Angle/AngleActionMenuHandler.js" />
 /// <reference path="/Dependencies/ViewManagement/Shared/ValidationHandler.js" />
-/// <reference path="/Dependencies/ViewManagement/Angles/AnglePageHandler.js" />
+/// <reference path="/Dependencies/ViewManagement/Angle/AnglePageHandler.js" />
 
 /// <reference path="/Dependencies/ViewManagement/Dashboard/DashboardstateView.js" />
 /// <reference path="/Dependencies/ViewManagement/Dashboard/DashboardstateHandler.js" />

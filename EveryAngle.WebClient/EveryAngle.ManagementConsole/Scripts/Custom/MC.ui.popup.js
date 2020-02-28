@@ -114,7 +114,7 @@
 
             case 'setTooltip':
                 var kPopup = jQuery(arguments[1].element).data('kendoWindow');
-                kPopup.wrapper.find('.k-i-maximize').attr('title', Localization.Maximize);
+                kPopup.wrapper.find('.k-i-window-maximize').attr('title', Localization.Maximize);
                 kPopup.wrapper.find('.k-i-close').attr('title', Localization.Close);
                 break;
 
@@ -134,7 +134,7 @@
                                         title: element.data('title') || element.attr('title') || ''
                                     });
                                     kPopup.center().open();
-                                    kPopup.wrapper.find('.k-i-maximize').attr('title', Localization.Maximize);
+                                    kPopup.wrapper.find('.k-i-window-maximize').attr('title', Localization.Maximize);
                                     kPopup.wrapper.find('.k-i-close').attr('title', Localization.Close);
                                 }
                             }
@@ -147,12 +147,11 @@
                         title: jQuery(v).attr('title') || '',
                         modal: true,
                         animation: false,
-                        pinned: true,
                         minWidth: 400,
                         minHeight: 200,
                         actions: ["Maximize", "Close"],
                         maximize: function (e) {
-                            e.sender.wrapper.find('.k-i-restore').attr('title', Localization.RestoreDown);
+                            e.sender.wrapper.find('.k-i-window-restore').attr('title', Localization.RestoreDown);
                         }
 
                     }, metadata);

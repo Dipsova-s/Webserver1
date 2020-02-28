@@ -6,8 +6,8 @@
 /// <reference path="/Dependencies/ViewModels/Models/Angle/DisplayModel.js" />
 /// <reference path="/Dependencies/ViewManagement/Shared/ModelFieldDomainHandler.js" />
 /// <reference path="/Dependencies/ViewManagement/Shared/ValidationHandler.js" />
-/// <reference path="/Dependencies/viewmanagement/Angles/FieldSettingsHandler.js" />
-/// <reference path="/Dependencies/viewmanagement/Angles/ChartHandler.js" />
+/// <reference path="/Dependencies/ViewManagement/Angle/FieldSettingsHandler.js" />
+/// <reference path="/Dependencies/ViewManagement/Angle/ChartHandler.js" />
 
 
 describe("ExportExcelHandlerTest", function () {

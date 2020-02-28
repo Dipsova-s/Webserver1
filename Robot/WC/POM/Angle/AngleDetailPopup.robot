@@ -2,7 +2,7 @@
 #Generic
 ${divAngleDetailPopup}    css=#popupAngleDetail
 ${pgbAngleDetailsPopup}     css=#popupAngleDetail > div.k-loading-mask
-${btnCloseAngleDetailPopup}    css=.popupAngleDetail .k-i-close
+${btnCloseAngleDetailPopup}    //div[@id='popupAngleDetail']/..//div/a[@class='k-button k-bare k-button-icon k-window-action']/span[@class='k-icon k-i-close icon icon-close']/..
 ${btnSaveAngle}    btn-popupAngleDetail2
 
 #Create Template from Angle

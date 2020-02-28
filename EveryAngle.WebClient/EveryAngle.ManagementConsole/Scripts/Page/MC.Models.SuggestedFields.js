@@ -80,7 +80,7 @@
 
             setTimeout(function () {
                 var win = jQuery('#popupSelectedClasses').data('kendoWindow');
-                win.setOptions({ title: title });
+                win.wrapper.find('.k-window-title').html(title);
                 MC.ui.popup('setTooltip', {
                     element: '#popupSelectedClasses'
                 });
@@ -378,7 +378,9 @@
             });
 
             setTimeout(function () {
-                win.setOptions({ title: self.ElementTarget.parents('.contentSectionInfoItem').find('strong').html() });
+                var popupTitle = self.ElementTarget.parents('.contentSectionInfoItem').find('strong').html();
+                win.wrapper.find('.k-window-title').html(popupTitle);
+
                 MC.ui.popup('setTooltip', {
                     element: '#popupClassesChooser'
                 });

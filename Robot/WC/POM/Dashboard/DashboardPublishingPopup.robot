@@ -1,7 +1,7 @@
 *** Variables ***
 ${divDashboardPublishingPopup}       css=#popupPublishSettings
 ${pgbDashboardPublishingPopup}       css=#popupPublishSettings .k-loading-mask
-${btnDashboardClosePublishPopup}     css=.popupPublishSettings .k-i-close
+${btnDashboardClosePublishPopup}     //span[@id='popupPublishSettings_wnd_title']/..//div/a[@class='k-button k-bare k-button-icon k-window-action']/span[@class='k-icon k-i-close icon icon-close']/..
 ${btnSavePublishSettings}       css=#SavePublishSettingsButton
 ${btnPublishDashboard}          css=#PublishButton
 ${btnUnpublishDashboard}        css=#UnpublishButton
