@@ -15,7 +15,7 @@ ${trRowInGrid}      jquery=#GridComment tbody tr
 Test for comment sections
     [Documentation]     This test performs adding comment, attaches file then verify comment and delete
     ...                 This test covers failures while adding comment and attaching file in the package module
-    [Tags]      TC_CommentTest
+    [Tags]      TC_C202361      TC_C202362
     Login To MC By Admin User
     Wait Until Overview Page Loaded
     Go To Package Page

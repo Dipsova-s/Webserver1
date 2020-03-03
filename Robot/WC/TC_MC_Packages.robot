@@ -87,4 +87,4 @@ Activate and Deactivate the uploaded package in models
     Go To EA2_800 Models Page
     Go To Models Package Page  EA2_800
     Click All Radio Button
-    Verify Model Package not found in Model Packages grid   ${packageName}    
+    Verify Model Package not found in Model Packages grid   ${packageName}  
