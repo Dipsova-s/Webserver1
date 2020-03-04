@@ -1,6 +1,7 @@
 *** Settings ***
 Resource    		${EXECDIR}/WC/POM/Search/SearchPage.robot
 Resource    		${EXECDIR}/WC/POM/Angle/AnglePage.robot
+Resource    		${EXECDIR}/WC/POM/Angle/AngleDetailPopup.robot
 
 *** Keywords ***
 Verify Angle Details

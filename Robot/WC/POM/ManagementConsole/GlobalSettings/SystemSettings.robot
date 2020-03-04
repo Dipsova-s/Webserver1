@@ -1,3 +1,6 @@
+*** Settings ***
+Resource    		${EXECDIR}/WC/Scenarios/Angle/TS_AngleState.robot
+
 *** Variables ***
 ${btnSaveSystemSetting}          css=.btnSave
 ${btnCancelEditSystemSetting}    css=.btnBack
@@ -322,3 +325,10 @@ Get Username textbox field value
 Get Password textbox field value
     ${value}    Get Value    ${txtEmailSettingsPassword}
     [Return]    ${value}
+
+#Publish Angle
+Add Label1 From Label Category1
+    Add Label To The Angle   Angle purpose   Cost reduction 
+
+Add Label2 From Label Category2
+    Add Label To The Angle  Angle type  Analyse actual

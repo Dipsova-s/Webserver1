@@ -7,6 +7,9 @@ ${btnPublishAngle}          css=#PublishButton
 ${btnUnpublishAngle}        css=#UnpublishButton
 ${chkAllowUserToObtainMoreDetails}    AllowMoreDetails
 
+#Add Label
+${publishLabelsList}    css=.publish-labels
+
 *** Keywords ***
 Wait Angle Publishing Popup Loaded
     Wait Until Element Exist And Visible   ${divPublishingPopup}
@@ -39,3 +42,11 @@ Click Unpublish Angle
 Close Publish Angle Popup
     Wait Until Element Is Visible    ${btnClosePublishPopup}
     Click Element    ${btnClosePublishPopup}
+
+Click Plus Icon To Add Label
+    [Arguments]     ${labelCatogory}
+    Click Element   xpath=//div[contains(text(),'${labelCatogory}')]/parent::div/..//i
+
+Select Label To Add
+    [Arguments]     ${labelName}
+    Click Element   //span[contains(text(), '${labelName}')]
