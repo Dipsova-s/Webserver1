@@ -58,27 +58,9 @@ Input Program/Scripts folder path and save on system settings page
     Input Program/Script folder path and Save       ${Program/ScriptFolderPath}
     Verify Program/Script folder path saved correctly     ${Program/ScriptFolderPath}
     
-Fill The Minimum Number Of Label Categories To Publish Angle Settings And Verify
-    [Documentation]     Set Minimum number of label categories to publish angle to 2 and verifying by creating new angle and publishing at last cleans up the created items.
-    [Tags]  TC_C601  
-    Get The Minimum No Of Label Categories To Publish Angle Input Field Value
-    Fill The Minimum No Of Label Categories To Publish Angle Input Field Value
-    Click Save System Settings
-    Go to WC Then Login With EAPower User
-
-    @{cleanUpItems}    Create List
-    Create Context: Web    user=${Username}
-    ${angleData}    Create Angle    /models/1    ANGLE_AssignPrivilegeLabelTesting.json
-    ${angleUri}    Get Uri From Response    ${angleData}
-    Append To List   ${cleanUpItems}    ${angleUri}?forced=true
-    Find Angle By ID Then Execute The First Angle    ROBOT_ANGLE_ASSIGNPRIVILEGELABLE
-
-    Click Validate Publishing Angle
-    Assign Previlege Label And Save
-    Verify Published Angle
-    Logout WC Then Close Browser
-    Switch Browser  1
-
-    [Teardown]   Clean Up Items     Web    ${cleanUpItems}
+    
+    
+    
+    
 
     

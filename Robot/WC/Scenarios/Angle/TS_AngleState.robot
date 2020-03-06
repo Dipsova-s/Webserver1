@@ -35,8 +35,3 @@ Verify All Display Are Published
     Open Angle Publishing Popup
     Check All Display Are Checked
     Close Publish Angle Popup
-
-Add Label To The Angle
-    [Arguments]     ${labelCatName}   ${labelNameValue}
-    Click Plus Icon To Add Label     ${labelCatName}
-    Select Label To Add      ${labelNameValue}

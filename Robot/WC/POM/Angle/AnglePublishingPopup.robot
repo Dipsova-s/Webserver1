@@ -7,8 +7,6 @@ ${btnPublishAngle}          css=#PublishButton
 ${btnUnpublishAngle}        css=#UnpublishButton
 ${chkAllowUserToObtainMoreDetails}    AllowMoreDetails
 
-#Add Label
-${publishLabelsList}    css=.publish-labels
 
 *** Keywords ***
 Wait Angle Publishing Popup Loaded

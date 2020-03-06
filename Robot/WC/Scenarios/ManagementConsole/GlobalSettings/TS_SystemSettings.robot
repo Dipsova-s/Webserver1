@@ -1,11 +1,5 @@
 *** Settings ***
 Resource            ${EXECDIR}/WC/POM/ManagementConsole/GlobalSettings/SystemSettings.robot
-Resource            ${EXECDIR}/WC/TC_UserSettingsLanguage.robot
-Resource    		${EXECDIR}/WC/POM/Angle/AnglePage.robot
-Resource    		${EXECDIR}/WC/POM/Angle/AnglePublishingPopup.robot
-
-*** Variables ***
-${expectedErrorMsg}     You need to assign labels from at least 2 label categories before you can publish
 
 *** Keywords ***
 Go To System Settings Page
@@ -294,27 +288,4 @@ Input Program/Script folder path and Save
 Verify Program/Script folder path saved correctly
     [Arguments]     ${Program/ScriptFolderPath}
     Verify Program/Script folder path      ${Program/ScriptFolderPath}
-
-Get The Minimum No Of Label Categories To Publish Angle Input Field Value
-    ${value}   Get Minimum number of label categories to publish angle field value
-    Set Test Variable   ${txtMinimumNumberOfLabelCategoriesValue}     ${value}
-
-Fill The Minimum No Of Label Categories To Publish Angle Input Field Value
-    Input System Settings Minimum Number Of Label Categories    2
-
-Click Validate Publishing Angle
-    Open Angle Publishing Popup
-    Click Element    ${btnPublishAngle}
-    Element Should Contain  ${divPublishingPopup}  ${expectedErrorMsg}
-    Close Publish Angle Popup
-
-Assign Previlege Label And Save
-    Open Angle Publishing Popup
-    Add Label1 From Label Category1
-    Add Label2 From Label Category2
-    Click Publish Angle
-
-Verify Published Angle
-    Wait Until Element Is Visible    ${btnShowPublishSettings}
-    Element Should Contain  ${btnShowPublishSettings}   Published
     
