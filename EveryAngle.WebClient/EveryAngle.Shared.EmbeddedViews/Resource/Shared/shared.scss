@@ -18,6 +18,16 @@
     user-select: none;
 }
 
+/* created in IndeterminatableChange handler */
+.chk-indeterminatable-wrapper {
+    position: relative;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
 .chkIndeterminatable {
     cursor: pointer;
     position: absolute;

@@ -63,8 +63,7 @@ var listFormatHtmlTemplate = function (dataType) {
 
     listFormatHtmlTemplate += "    <div class=\"FieldFormatCheckDefault\">";
     listFormatHtmlTemplate += "        <div class=\"ThousandSeperateWrapper\">";
-    listFormatHtmlTemplate += "                <input type=\"checkbox\" id=\"UseThousandSeperate\" name=\"thousandseparator\" value=\"true\"  data-bind=\"checked:  $root.ThousandSeparator, IndeterminatableChange: $root.ThousandSeparator\" \/>";
-    listFormatHtmlTemplate += "                <span class=\"textStatus\">" + Localization.UserSettingLabelThousandSeparator + "<\/span>";
+    listFormatHtmlTemplate += "                <input type=\"checkbox\" data-label=\"" + Localization.UserSettingLabelThousandSeparator + "\" id=\"UseThousandSeperate\" name=\"thousandseparator\" value=\"true\"  data-bind=\"checked:  $root.ThousandSeparator, IndeterminatableChange: $root.ThousandSeparator\" \/>";
     listFormatHtmlTemplate += "        <\/div>";
     listFormatHtmlTemplate += "        <div class=\"UseAsDefaultWrapper\">";
     listFormatHtmlTemplate += "            <label>";

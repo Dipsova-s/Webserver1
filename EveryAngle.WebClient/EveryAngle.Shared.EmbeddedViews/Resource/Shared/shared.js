@@ -241,6 +241,13 @@
 
             // clear cover element
             $element.prev('.chkIndeterminatable').remove();
+            // clear span element
+            $element.next('.textStatus.cursorPointer').remove();
+
+            //wrap checkbox in wrapper
+            if (!($element.parent('.chk-indeterminatable-wrapper').length)) {
+                $element.wrap("<div class='chk-indeterminatable-wrapper'></div>");
+            }
 
             if (value() === null) {
                 state = enumHandlers.CHECKSTATE.UNDEFINED;
@@ -266,6 +273,8 @@
             var position = $element.position();
             position.top += parseInt($element.css('margin-top') || 0);
             position.left += parseInt($element.css('margin-left') || 0);
+
+            // generate tristate span cover
             $element.before(
                 jQuery('<span />')
                     .attr({
@@ -277,6 +286,20 @@
                         if (jQuery(this).next(':disabled').length === 0) {
                             e.data.value(value() === null ? true : value() ? false : null);
                         }
+                    })
+            );
+
+            // generate tristate label
+            $element.after(
+                jQuery('<span />')
+                    .attr({
+                        'class': 'textStatus cursorPointer'
+                    })
+                    .html(
+                        $element.attr("data-label") || ''
+                    )
+                    .on('click', function () {
+                        $element.prev('.chkIndeterminatable').trigger('click');
                     })
             );
 

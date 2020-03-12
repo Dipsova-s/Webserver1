@@ -324,8 +324,7 @@ function FieldSettingsHandler() {
             '</div>',
 
             '<div class="ThousandSeperateWrapper {ThousandSeperateClass}">',
-            '<input type="checkbox" id="UseBucketThousandSeperate" name="thousandseparator" value="true" data-bind="checked: $root.ThousandSeparator, IndeterminatableChange: $root.ThousandSeparator" \>',
-            '<label class="textStatus cursorPointer" for="UseBucketThousandSeperate">' + Localization.UserSettingLabelThousandSeparator + '</label>',
+            '<input type="checkbox" data-label="' + Localization.UserSettingLabelThousandSeparator + '" id="UseBucketThousandSeperate" name="thousandseparator" value="true" data-bind="checked: $root.ThousandSeparator, IndeterminatableChange: $root.ThousandSeparator" \>',
             '</div>',
             '</div>',
             '<div class="k-window-buttons">',
