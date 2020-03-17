@@ -136,4 +136,33 @@
             <textarea class="alwaysHidden">@Resource.MC_ShowAllPrivateItemsDescription</textarea>
         </p>
     </div>
+
+    <h4 class="alwaysVisible">@Resource.MC_ModelingWorkbench</h4>
+    <div class="contentSectionInfoItem">
+        <label>@Resource.MC_ModelingWorkbenchContent
+        </label>
+        <p>
+            <label>@Html.RadioButton("ModelingWorkBenchContent", "Configure", 
+                  (Model.ModelPrivilege.Privileges.configure_content.HasValue ? Model.ModelPrivilege.Privileges.configure_content.Value == true ? true : false : false)
+                  && !Model.ModelPrivilege.Privileges.edit_content.HasValue)
+            <span class="label">@Resource.Configure</span>
+            </label>
+            <label>@Html.RadioButton("ModelingWorkBenchContent", "Edit", 
+                  (Model.ModelPrivilege.Privileges.configure_content.HasValue ? Model.ModelPrivilege.Privileges.configure_content.Value == true ? true : false : false) 
+                  && (Model.ModelPrivilege.Privileges.edit_content.HasValue ? Model.ModelPrivilege.Privileges.edit_content.Value == true ? true : false :false))
+            <span class="label">@Resource.Edit</span>
+            </label>
+            <label>@Html.RadioButton("ModelingWorkBenchContent", "Deny", 
+                  (Model.ModelPrivilege.Privileges.configure_content.HasValue ? Model.ModelPrivilege.Privileges.configure_content.Value == false ? true :false : false)
+                  && (Model.ModelPrivilege.Privileges.edit_content.HasValue ? Model.ModelPrivilege.Privileges.edit_content.Value == false ? true : false : false))
+            <span class="label">@Resource.Deny</span>
+            </label>
+            <label>@Html.RadioButton("ModelingWorkBenchContent", "Undefined", 
+                  (Model.ModelPrivilege.Privileges.configure_content.HasValue || Model.ModelPrivilege.Privileges.edit_content.HasValue) ? false : true)
+            <span class="label">@Resource.Undefined</span>
+            </label>
+            <a data-target="#popupDescriptionTemplate" title="Description" data-width="600" data-min-height="100" data-role="mcPopup" class="btn btnInfo" onclick='MC.util.showDescriptionPopup(this)'></a>
+            <textarea class="alwaysHidden">@Resource.MC_ModelingWorkbenchDescription</textarea>
+        </p>
+    </div>
 </div>

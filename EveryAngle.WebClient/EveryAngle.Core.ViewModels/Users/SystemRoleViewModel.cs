@@ -152,6 +152,31 @@ namespace EveryAngle.Core.ViewModels.Users
             return privilages;
         }
 
+        public void SetModelingWorkbenchContentPrivilege(string value)
+        {
+            switch (value)
+            {
+                case "Configure":
+                    ModelPrivilege.Privileges.configure_content = true;
+                    ModelPrivilege.Privileges.edit_content = null;
+                    break;
+                case "Edit":
+                    ModelPrivilege.Privileges.configure_content = true;
+                    ModelPrivilege.Privileges.edit_content = true;
+                    break;
+                case "Deny":
+                    ModelPrivilege.Privileges.configure_content = false;
+                    ModelPrivilege.Privileges.edit_content = false;
+                    break;
+                case "Undefined":
+                    ModelPrivilege.Privileges.configure_content = null;
+                    ModelPrivilege.Privileges.edit_content = null;
+                    break;
+                default:
+                    break;
+            }
+        }
+
         public object Clone()
         {
             return this.MemberwiseClone();

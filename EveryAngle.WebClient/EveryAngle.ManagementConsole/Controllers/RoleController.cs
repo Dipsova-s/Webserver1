@@ -1218,7 +1218,12 @@ namespace EveryAngle.ManagementConsole.Controllers
 
                 index++;
             }
+
+            // to set Modeling Workbench Configure/Edit Privilege
+            systemRoleViewModel.SetModelingWorkbenchContentPrivilege(formCollection["ModelingWorkBenchContent"]);
+
         }
+
 
         private void MapValueToAllowedObjects<T>(string property, string allowedObjects, ref SystemRoleViewModel systemRoleViewModel)
         {

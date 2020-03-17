@@ -94,5 +94,13 @@ namespace EveryAngle.Core.ViewModels.Privilege
         [LocalizedDisplayName("MC_ODataLogin")]
         [DataMember(EmitDefaultValue = false)]
         public bool? access_data_via_odata { get; set; }
+
+        [LocalizedDisplayName("MC_ConfigureContent")]
+        [DataMember(EmitDefaultValue = false)]
+        public bool? configure_content { get; set; }
+
+        [LocalizedDisplayName("MC_EditContent")]
+        [DataMember(EmitDefaultValue = false)]
+        public bool? edit_content { get; set; }
     }
 }

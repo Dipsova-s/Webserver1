@@ -4114,7 +4114,7 @@ form#ExportPackageForm .packageInfo .packageVersion input {
 }
 
 .pageRoleEdit .tabPrivileges .contentSectionInfoItem > p {
-    max-width: 330px;
+    max-width: 360px;
 }
 
 .pageRoleEdit .tabPrivileges .contentSectionInfoItem > label {

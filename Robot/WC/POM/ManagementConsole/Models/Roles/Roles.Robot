@@ -23,6 +23,9 @@ ${btnSaveDeleteRole}                   css=#popupConfirmation .btnSubmit
 #Privileged Items
 ${ManagePrivateItems}                  manage_private_items
 
+#Save Privileges Settings
+${btnSavePrivileges}                   xpath=//div[@id='pageToolbarButton']//a[text()='Save']
+
 *** Keywords ***
 Click Action On Role By Index
     [Arguments]    ${index}
@@ -137,4 +140,3 @@ Click Manage Users Action
 Get Users Count By Role Name
     ${UserCount}    Execute Javascript    return $.trim($('#${trRolesGrid} ${tdUserCount}').text())
     [Return]    ${UserCount}
-

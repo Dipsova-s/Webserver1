@@ -59,3 +59,17 @@ Verify Users Count After Added
     Filter Role By Role Name    ${roleName}
     ${UserInRole}    Get Users Count By Role Name
     Should Be Equal    ${UserCount}    ${UserInRole}
+
+Set Modeling Workbench Content
+    [Arguments]  ${roleName}  ${value}
+    Click Edit Role By Role Name     ${roleName}
+    Select Radio Button Modeling Workbench Content    ${value}
+    Click Save Edit Role
+    Wait MC Progress Bar Closed
+
+Verify Content Privileges In Modeling Workbench
+    [Arguments]  ${roleName}  ${value}
+    Set Modeling Workbench Content  ${roleName}  ${value}
+    Click Edit Role By Role Name     ${roleName}
+    Radio Modeling Workbench Content Button Should Be Set To  ${value}
+    Click Side Menu Models EA2_800 Roles

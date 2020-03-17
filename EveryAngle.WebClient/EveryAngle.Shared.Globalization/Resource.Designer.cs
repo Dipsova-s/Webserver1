@@ -2221,6 +2221,15 @@ namespace EveryAngle.Shared.Globalization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Configure.
+        /// </summary>
+        public static string Configure {
+            get {
+                return ResourceManager.GetString("Configure", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Are you sure you want to delete {0}?.
         /// </summary>
         public static string Confirm_AreYouSureToDelete {
@@ -10571,6 +10580,41 @@ namespace EveryAngle.Shared.Globalization {
         public static string MC_ModelID {
             get {
                 return ResourceManager.GetString("MC_ModelID", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Modeling Workbench.
+        /// </summary>
+        public static string MC_ModelingWorkbench {
+            get {
+                return ResourceManager.GetString("MC_ModelingWorkbench", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Content.
+        /// </summary>
+        public static string MC_ModelingWorkbenchContent {
+            get {
+                return ResourceManager.GetString("MC_ModelingWorkbenchContent", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to If this option is set to &lt;b&gt;Configure&lt;/b&gt;, users with this role:
+        ///&lt;ul&gt;
+        ///&lt;li&gt;may configure all restructure and template amendments&lt;/li&gt;
+        ///&lt;li&gt;may configure tables and fields&lt;/li&gt;
+        ///&lt;li&gt;may configure the activation tree&lt;/li&gt;
+        ///&lt;li&gt;may not view or edit Standard Content or Customer Content&lt;/li&gt;
+        ///&lt;li&gt;may not import or export Content files&lt;/li&gt;
+        ///&lt;/ul&gt;
+        ///If this option is set to &lt;b&gt;Edit&lt;/b&gt;, users with this role have full permission in the Modeling Workbench..
+        /// </summary>
+        public static string MC_ModelingWorkbenchDescription {
+            get {
+                return ResourceManager.GetString("MC_ModelingWorkbenchDescription", resourceCulture);
             }
         }
         

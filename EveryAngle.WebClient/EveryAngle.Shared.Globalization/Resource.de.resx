@@ -2088,6 +2088,9 @@
   <data name="Edit" xml:space="preserve">
     <value>Bearbeiten</value>
   </data>
+  <data name="Configure" xml:space="preserve">
+    <value>Konfigurieren</value>
+  </data>
   <data name="MC_EditLicense" xml:space="preserve">
     <value>Edit license</value>
   </data>
@@ -3870,6 +3873,12 @@ After selecting an object, click the Continue button to start setting the sugges
   <data name="MC_Contributor" xml:space="preserve">
     <value>Contributor</value>
   </data>
+  <data name="MC_ModelingWorkbench" xml:space="preserve">
+    <value>Modeling Workbench</value>
+  </data>
+  <data name="MC_ModelingWorkbenchContent" xml:space="preserve">
+    <value>Content</value>
+  </data>
   <data name="AboutEveryAngleDetails" xml:space="preserve">
     <value>Für die aktuellsten Produktinformationen&lt;br/&gt; besuchen Sie uns unter &lt;a href="http://www.everyangle.com" target="_blank"&gt;www.everyangle.com&lt;/a&gt;&lt;br/&gt;&lt;br/&gt; </value>
   </data>
@@ -4364,6 +4373,17 @@ Are you sure you want to delete this role?</value>
   </data>
   <data name="MC_ShowAllPrivateItemsDescription" xml:space="preserve">
     <value>Allowed to see all private Angles, Templates and Dashboards of other users​.</value>
+  </data>
+  <data name="MC_ModelingWorkbenchDescription" xml:space="preserve">
+    <value>If this option is set to &lt;b&gt;Configure&lt;/b&gt;, users with this role:
+&lt;ul&gt;
+&lt;li&gt;may configure all restructure and template amendments&lt;/li&gt;
+&lt;li&gt;may configure tables and fields&lt;/li&gt;
+&lt;li&gt;may configure the activation tree&lt;/li&gt;
+&lt;li&gt;may not view or edit Standard Content or Customer Content&lt;/li&gt;
+&lt;li&gt;may not import or export Content files&lt;/li&gt;
+&lt;/ul&gt;
+If this option is set to &lt;b&gt;Edit&lt;/b&gt;, users with this role have full permission in the Modeling Workbench.</value>
   </data>
   <data name="MC_ShowNonValidatedItemsDescription" xml:space="preserve">
     <value>Allowed to see all non-validated Angles, Templates and Dashboards that are within the user's authorization.</value>
