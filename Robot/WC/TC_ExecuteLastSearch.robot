@@ -7,6 +7,7 @@ Force Tags          acc_wc_s
 
 *** Test Cases ***
 Verify Execute Last Search
+    [Tags]  acc_wc_aci_s
     Open User Settings Panel
     Click User Tab
     ${lastSearchStatus}    Get Checkbox Repeat Last Executed Search Status

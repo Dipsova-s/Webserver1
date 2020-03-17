@@ -37,6 +37,7 @@ Create Business Process and Add to User
 Create Multiple Business Processes and Add to User
     [Documentation]     This test creates multiple business process and adds the multiple business process to a user and then delete the multiple business process
     ...                 Risk Covered-This test covers failures while creating multiple business process and adding the process to user and while deleting the process
+    [Tags]  acc_mc_aci
     Go to Business Process
     Create New Business Process    ${BUSINESS_PROCESS_NAME}
     Click Enable Business Process By Abbreviation    ${BUSINESS_PROCESS_NAME}

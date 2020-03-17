@@ -20,6 +20,7 @@ Verify Field Alias On Format Field
     Remove Field Format From Changing    ${selectFieldKeyword}    
 
 Verify Field Alias With Checking Set As Default 
+    [Tags]  acc_wc_aci
     Search Angle From Search Page And Execute Angle    ${TEST_ADD_ANGLE_DISPLAY_NAME}
     Edit Format Field With Checking Set As Default From Field Header    ${selectFieldKeyword2} 
     Verify Field Alias Was Changed    Edit Field    

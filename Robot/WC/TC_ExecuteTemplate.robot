@@ -7,10 +7,13 @@ Force Tags          acc_wc    smk_content
 
 *** Test Cases ***
 Verify Display When a Display Has Invalid Query Step
+    [Tags]  acc_wc_aci
     Check Warning And Error Displays In Display Dropdown    Template which display has invalid aggregation step
 
 Verify Sorting Step When a Display Has Invalid Sorting Step
+    [Tags]  acc_wc_aci
     Check Warning And Error Displays In Display Dropdown    Template which display has invalid sorting step
 
 Verify Display Fields When a Display Field Has Warning
+    [Tags]  acc_wc_aci
     Check Warning And Error Displays In Display Dropdown    Template which display has invalid fields

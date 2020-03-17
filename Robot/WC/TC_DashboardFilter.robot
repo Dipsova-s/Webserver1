@@ -19,6 +19,7 @@ Verify When Angle That Used In The Dashboard Have Filter, And Dashboard Have Fil
     [Teardown]  Back To Search And Delete Dashboard Are Created    ${dashboardName}
 
 Verify Apply Multi Filter To Dashboard
+    [Tags]  acc_wc_aci
     ${searchText}  Set Variable  Angle For Dashboard Filter
     ${dashboardName}  Set Variable  [ROBOT] Verify Apply Multi Filter To Dashboard
 

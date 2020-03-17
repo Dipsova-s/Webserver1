@@ -20,6 +20,7 @@ verify Add and delete multiple icons
 Verify Add, Edit And Delete Custom Icon
     [Documentation]         This test adds new custom icons, modifies and verifies the uploaded icons and then deletes the added custom icons
     ...                     Risk Covered-This test covers the failures occurs while adding, modifying new custom icons and the failures in custom icons page
+    [Tags]  acc_mc_aci
     Go To Custom Icons Page
     Add New Custom Icons And Save    Test_icon     ${IconFilePath}
     Verify Custom Icons Were Uploaded    Test_icon

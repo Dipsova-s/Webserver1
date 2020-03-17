@@ -13,6 +13,7 @@ ${UserCount}                 3
 
 *** Test Cases ***
 Test Manage Users Under Role
+    [Tags]  acc_mc_aci
     Login To MC By Admin User
     Wait Until Overview Page Loaded
     Go To Role Tab Under Model EA2_800

@@ -12,6 +12,7 @@ Verify Select All
     [Teardown]    Go to Search Page
 
 Verify Add Or Remove Starred Via Search Page
+    [Tags]  acc_wc_aci
     ${angleName}  Set Variable  [ROBOT] Angle starred
     Upload Item And Check From Search Result  AGNLE_STARRED.json    EA2_800    ${angleName}
 

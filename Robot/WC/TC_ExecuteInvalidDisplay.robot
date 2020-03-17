@@ -8,6 +8,7 @@ Force Tags          acc_wc
 
 *** Test Cases ***
 Verify Execute Invalid Angle
+    [Tags]  acc_wc_aci
     @{cleanUpItems}    Create List
     Create Context: Web    ${Username}    ${Password}
     ${angleData}    Create Angle    /models/1    ANGLE_Execute_Invalid.json

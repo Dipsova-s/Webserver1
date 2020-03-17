@@ -14,6 +14,7 @@ User Uploads Only The Dashboard.json
     Close Upload Item Report Popup
 
 User Uploads Only The Dashboard.Angle.json
+    [Tags]  acc_wc_aci
     ${angleName}    Set Variable    [Robot] Upload Dashboard Angle Testing
     Search By Text    ${angleName}
     @{params}    Create List    upload_dashboard_testing.dashboard.upload_dashboard_angle_testing.angle.json    EA2_800

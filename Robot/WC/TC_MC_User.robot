@@ -9,6 +9,7 @@ Force Tags          acc_mc
 *** Test Cases ***
 Test CRUD User
     [Documentation]     This test performs the Crud Operation Adding and Deleting the User
+    [Tags]  acc_mc_aci
     Add User
     Delete User    ${username}
 

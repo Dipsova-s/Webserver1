@@ -14,7 +14,7 @@ ${FilterAvailableUser}    Power
 Test System Role
     [Documentation]     Verify the consolidated role when set privilege all allowed and undefined
     ...                 Risk/coverage area: System role page manage system to all allowed and undefined
-    [Tags]       TC_C7385
+    [Tags]       TC_C7385   acc_mc_aci
     Create New Role And Set All Allowed    ${SystemRole}    ${DescriptionRole}
     Verify Consolidated Role Of All Allowed    ${SystemRole}
     Set Manage System To Undefined    ${SystemRole}

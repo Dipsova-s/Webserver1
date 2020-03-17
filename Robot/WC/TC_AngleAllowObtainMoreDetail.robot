@@ -11,7 +11,7 @@ Force Tags          acc_wc    smk_content
 Verify Angle For Allow Obtain More Details Test
 	[Documentation]     Verify the visibility or the state of the buttons when 'allow more details' has been set to the angle
     ...                 Risk/coverage area: The addfilter, drilldown, remove column buttons should apply state correctly when you set 'allow more details' to false
-    [Tags]    TC_C152
+    [Tags]    TC_C152   acc_wc_aci
     ${fieldId}         Set Variable  OrderNumber
     ${fieldKeyword}    Set Variable  "Order Number"
 

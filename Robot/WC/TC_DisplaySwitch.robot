@@ -11,6 +11,7 @@ ${TEST_OPEN_POPUP_WAS_CLOSE_WHEN_SWITCH_DISPLAY}      [ROBOT] Test Popup Was Clo
 
 *** Test Cases ***
 Popup Was Close When Switch Display Test
+    [Tags]  acc_wc_aci
     Login And Create Angle By 2 Objects From Object List    PD    ${TEST_OPEN_POPUP_WAS_CLOSE_WHEN_SWITCH_DISPLAY}
     Wait Progress Bar Closed
     Create New Pivot Display on Angle Page

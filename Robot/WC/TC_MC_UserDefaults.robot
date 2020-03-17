@@ -8,7 +8,7 @@ Force Tags          acc_mc
 *** Test Cases ***
 Fill User defaults and verify the data saved successfully with given values
     [Documentation]     This test case is to verify the values changed by user in user defaults options are saved successfully and changes the data back to old values.
-    [Tags]      TC_C40197
+    [Tags]      TC_C40197   acc_mc_aci
     Get User defaults and store
     Fill all the User defaults fields
     Click on Save in User defaults

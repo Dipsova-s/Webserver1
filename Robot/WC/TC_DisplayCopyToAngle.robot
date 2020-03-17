@@ -22,6 +22,7 @@ ${INVALID_SORTING_STEP_DISPLAY_ANGLE_NAME}              Angle which display has 
 
 *** Test Cases ***
 Verify Copy Display Test
+    [Tags]  acc_wc_aci
     Search Angle From Search Page And Execute Angle    ${TEST_COPY_DISPLAY_TO_ANGLE_NAME_COPIED_ANGLE}
     Wait Angle Page Document Loaded
     Click Angle Dropdown Actions Copy Display
@@ -41,6 +42,7 @@ Verify Copy Display When Angle Invalid Test
     Is Element Has CssClass    ${ddlAngleActionDropdownListPasteDisplay}    disabled
 
 Verify Copy Display When Display Invalid Field Test
+    [Tags]  acc_wc_aci
     Search Angle From Search Page And Execute Angle    ${INVALID_FIELDS_DISPLAY_ANGLE_NAME}
     Wait Angle Page Document Loaded
     Check If Angle Or Display Has A Warning Then Close The Popup

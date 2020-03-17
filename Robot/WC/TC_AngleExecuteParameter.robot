@@ -42,7 +42,7 @@ Verify Execution Parameters When Argument Is Empty
 Verify Execution Parameters With Compare Field Test
     [Documentation]     Verify execute an angle with Compare Field in Execution Parameters can add the compare filters
     ...                 Risk/coverage area: create an adhoc angle and then execute it on search page
-    [Tags]              TC_C228800
+    [Tags]              TC_C228800  acc_wc_aci
     Create Adhoc Angle From Object List    PD    ${TEST_ANGLE_EXECUTE_PARAMETER3}
     Click Angle Detail Definition Tab
     Add Filter From Angle Details Popup    Material    MaterialValue    ${TRUE}
@@ -75,6 +75,7 @@ Verify Execution Parameters With & Char
     Back To Search And Delete Angle Are Created    ${TEST_ANGLE_EXECUTE_PARAMETER4}
 
 Verify Invalid Argument values
+    [Tags]  acc_wc_aci
     Upload Item And Check From Search Result  angle_with_invalid_argument_values.angle.json    EA2_800    ${TEST_ANGLE_EXECUTE_PARAMETER5}
     Click Link Item From Search Result Not Execute Popup    ${TEST_ANGLE_EXECUTE_PARAMETER5}
     Wait Until Angle Execute Parameters Popup Loaded

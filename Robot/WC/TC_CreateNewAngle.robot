@@ -24,7 +24,7 @@ Verify Create New Angle From Full Object List Test
     Delete First Search Result Item
 
 Verify Element Create New Angle Option Popup All Object
-    [Tags]    acc_wc
+    [Tags]    acc_wc    acc_wc_aci
     Click Create Angle Button
     Page Should Contain     Create Angle for model
     Page Should Contain Element     ${btnButtonCreateAngleFromSchemaSimple}
@@ -59,7 +59,7 @@ Verify Element Create New Angle Advanced: Select a Template Angle from the Objec
     Click Back Create Angle Popup Option Object Diagram Loaded
 
 Verify Element Create New Angle Expert: Select an object from the Object List
-    [Tags]    acc_wc
+    [Tags]    acc_wc    acc_wc_aci
     Open Create Angle By Object List Popup
     Page Should Contain     Object List
     Page Should Contain Element     ${txtFitlerObjects}
@@ -72,7 +72,7 @@ Verify Element Create New Angle Expert: Select an object from the Object List
     Click Back Create Angle Popup Option Object List Loaded
 
 Verify Click Select Object Row On Create Angle From Object List
-    [Tags]    acc_wc
+    [Tags]    acc_wc    acc_wc_aci
     Open Create Angle By Object List Popup
     Fill In Search Create Angle By Object List Popup    P
     Click First Object from List
@@ -109,7 +109,7 @@ Verify Click Select Object Row On Create Angle From Object List
     Should Not Be True    ${ObjectIsChecked}
 
 Verify Other Tab In Business Process
-    [Tags]    acc_wc
+    [Tags]    acc_wc    acc_wc_aci
     Open Create Angle By Object List Popup
     ${numberOfObjectS2D}    Get Number Of Object In Business Process
     Click Select Or Deselect Business Process In Object List    OTHER

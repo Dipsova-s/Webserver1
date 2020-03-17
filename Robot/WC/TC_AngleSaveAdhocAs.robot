@@ -11,6 +11,7 @@ ${TEST_VERIFY_SAVE_ANGLE_ADHOC_AS_FIELD}    ObjectType
 
 *** Test Cases ***
 Verify Save Adhoc Angle As
+    [Tags]  acc_wc_aci
     Create Angle From Object List And Save    PD    ${TEST_VERIFY_SAVE_ANGLE_ADHOC_AS_NAME}
     Wait Progress Bar Closed
     Wait Until List Display Loaded

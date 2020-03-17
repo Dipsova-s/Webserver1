@@ -7,6 +7,7 @@ Force Tags          acc_wc
 
 *** Test Cases ***
 Verify Notification Feed
+    [Tags]  acc_wc_aci
     Wait Notification Feed Loaded
     Check Notification Feed On Welcome Page
     Search By Text And Expect In Search Result    Angle For General Test

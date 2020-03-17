@@ -7,6 +7,7 @@ Force Tags        	acc_wc_s
 
 *** Test Cases ***
 Verify Item Execute At Logon Work
+    [Tags]  acc_wc_aci_s
     ${angleName}  Set Variable  [ROBOT] Test Item Execute at logon
     Create Angle From Object List And Save    PD    ${angleName}
     ${numberOfExecutedItemBefore}    Get Number Of Execute At Login Items

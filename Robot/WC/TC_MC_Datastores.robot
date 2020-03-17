@@ -63,7 +63,7 @@ Verify the Datastores grid is filtered correctly
 
 Verify the edited CSV Datastores updated successfully with the given values
      [Documentation]     Verify the user is able to edit the CSV datastore and the value is updated post saving the changes
-     [Tags]    TC_C39019
+     [Tags]    TC_C39019  acc_mc_aci
      Click Add Data Stores
      Select Datastore Plugins option in popup    ${pluginCSV}
      Create a New CSV DataStores        ${pluginCSV}   ${pluginCSVName}
@@ -76,7 +76,7 @@ Verify the edited CSV Datastores updated successfully with the given values
 
 Verify the edited Excel Datastores updated successfully with the given values
      [Documentation]     Verify the user is able to edit the Excel datastore and the value is updated post saving the changes
-     [Tags]    TC_C39019
+     [Tags]    TC_C39019 acc_mc_aci
      Click Add Data Stores
      Select Datastore Plugins option in popup    ${pluginExcel}
      Create a New Excel DataStores        ${pluginExcel}   ${pluginExcelName}
@@ -89,7 +89,7 @@ Verify the edited Excel Datastores updated successfully with the given values
 
 Verify the edited SQL Datastores updated successfully with the given values
      [Documentation]     Verify the user is able to edit the SQL datastore and the value is updated post saving the changes
-     [Tags]    TC_C39019
+     [Tags]    TC_C39019  acc_mc_aci
      Click Add Data Stores
      Select Datastore Plugins option in popup    ${pluginSQL}
      Create a New SQL DataStores        ${pluginSQL}   ${pluginSQLName}

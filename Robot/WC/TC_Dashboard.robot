@@ -10,12 +10,14 @@ Verify Dashboard Details
     Dashboard Details
 
 Add Display To Existing Dashboard Test
+    [Tags]  acc_wc_aci
     Add Display To Dashboard Dashboard
 
 Verify Dashboard Execution Parameters
     Dashboard Execution Parameters
 
 Verify Execute Dashboard With Execution Parameters In Edit Mode
+    [Tags]  acc_wc_aci
     Execute Dashboard With Execution Parameters In Edit Mode    Dashboard with execute parameters in edit mode
 
 Dashboard Info Popup Test

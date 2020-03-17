@@ -11,7 +11,7 @@ Force Tags          acc_wc
 Verify Publishing Dashboard
     [Documentation]     Publish and Unpublish a dashboard and then check if its state change correctly
     ...                 Risk/coverage area: Dashboard page Publish/Unpublish a dashboard
-    [Tags]      TC_C123736
+    [Tags]      TC_C123736  acc_wc_aci
     ${angleName}        Set Variable    [ROBOT] Angle for Dashboard publishing
     ${dashboardName}    Set Variable     [ROBOT] Dashboard publishing
     @{cleanUpItems}    Create List
@@ -45,7 +45,7 @@ Verify Publishing Dashboard
 Verify Validating Dashboard
     [Documentation]     Validate and Unvalidate a dashoard and then check if its state change correctly
     ...                 Risk/coverage area: Dashboard page Validate/Unvalidate a dashboard
-    [Tags]      TC_C123736
+    [Tags]      TC_C123736  acc_wc_aci
     ${angleName}        Set Variable    [ROBOT] Angle for Dashboard validating
     ${dashboardName}    Set Variable    [ROBOT] Dashboard validating
     @{cleanUpItems}    Create List

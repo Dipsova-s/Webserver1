@@ -18,6 +18,7 @@ ${FirstRecordValue}                       VBFA
 
 *** Test Cases ***
 Test Refresh Cycle For Validate Time
+    [Tags]  acc_mc_aci
     # Test mid night time
     Set Refresh Cycle Time Detail       ${RefreshCycleNameForMidNight}    ${MidNight}
     Verify Refresh Cycle After Set      ${RefreshCycleNameForMidNight}    ${MidNight}

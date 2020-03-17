@@ -4,7 +4,7 @@ Suite Setup         Go to WC Then Login With EAPower User
 Suite Teardown      Logout WC Then Close Browser
 Test Teardown       Go to Search Page
 Test Template    	Search Business Process
-Force Tags        	acc_wc
+Force Tags        	acc_wc  acc_wc_aci
 
 
 *** Test Cases ***                                  Name

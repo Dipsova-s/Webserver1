@@ -30,7 +30,7 @@ Verify System Components Page
 
 Verify the Info popup for the applicable components
     [Documentation]     This test case will verify the Information popup for the applicable components in components page. Medium criticality.
-    [Tags]  TC_C68710
+    [Tags]  TC_C68710   acc_mc_aci
     Click on Action drop down and select Info option for Extraction service Component
     Check Info popup displayed for Extraction Service
     Click on Close button in Component Info popup

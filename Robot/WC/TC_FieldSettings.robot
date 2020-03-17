@@ -7,6 +7,7 @@ Force Tags          acc_wc
 
 *** Test Cases ***
 Verify Field Setting All Field Types
+    [Tags]  acc_wc_aci
     Search By Text And Expect In Search Result    Angle For General Test
     Execute First Search Item In Edit Mode
     Click Toggle Angle

@@ -11,7 +11,7 @@ ${TEST_VERIFY_DISPLAY_DESCRIPTION_WITH_MULTI_LANGUAGES}    [ROBOT] Test Verify D
 
 *** Test Cases ***
 Verify Set Default Display
-    [Tags]              TC_C228795
+    [Tags]              TC_C228795  acc_wc_aci
     [Documentation]     Verify the default display of the angle has been set to the default display
     ...                 Risk/coverage area: the diplay details
     Create Angle From Object List And Save    PD    ${VERIFY_SET_DEFAULT_DISPLAY}

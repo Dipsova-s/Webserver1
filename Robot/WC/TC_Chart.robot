@@ -7,6 +7,7 @@ Force Tags          acc_wc
 
 *** Test Cases ***
 Verify Chart Options Are Presented
+    [Tags]  acc_wc_aci
     Chart Options Are Presented
 
 Verify Chart Options Axis Scale Functionality
@@ -16,6 +17,7 @@ Verify Chart Display Drilldown Test
     Drilldown Chart Display
 
 Verify Chart Display Drilldown With Floating Number Test
+    [Tags]  acc_wc_aci
     @{cleanUpItems}    Create List
     Create Context: Web    user=${Username}
     ${angleData}    Create Angle    /models/1    ANGLE_DrilldownTesting.json

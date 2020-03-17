@@ -13,7 +13,8 @@ ${DEFAULT_ROLE}    EA2_800_ALL
 *** Test Cases ***
 Test Authentication
     [Documentation]     This test verifies authentication using invalid and valid trusted webservers
-    ...                 Risk covered: This test covers the failures in the authentication module with all the possibilities 
+    ...                 Risk covered: This test covers the failures in the authentication module with all the possibilities
+    [Tags]  acc_mc_aci
     Input Invalid Trusted Webservers And Warning Should Be Shown
     Save Authenticate And Invalid Trusted Webservers Should Be Cleared
     Check Automatically create users for "ADFS" is ON and disabled

@@ -14,7 +14,7 @@ Last Angle Execute Time Angle Test
     Verify Last Execute Time Angle     Angle For General Test
 
 Verify Angle Description With Multi Languages
-    [Tags]    acc_wc
+    [Tags]    acc_wc    acc_wc_aci
     ${angleName}  Set Variable  [ROBOT] Test Verify Angle Description With Multi Languages
     Create Adhoc Angle From Object List    PD    ${angleName}
     Click Angle Detail Description Tab

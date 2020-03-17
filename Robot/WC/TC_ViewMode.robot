@@ -10,6 +10,7 @@ ${TEST_FIELD_CHOOSER_REMEMBER_DETAIL_SETTING}         Angle For General Test
 
 *** Test Cases ***
 Verify Search Viewmode
+    [Tags]  acc_wc_aci_s
     @{cleanUpItems}    Create List
     Create Context: Web    ${Username}    ${Password}
     ${angleData}    Create Angle    /models/1    ANGLE_HIGHLIGHT.json

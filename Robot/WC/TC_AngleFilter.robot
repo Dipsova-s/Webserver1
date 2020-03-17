@@ -6,6 +6,7 @@ Force Tags        	acc_wc    smk_content
 
 *** Test Cases ***
 Verify All Operators For All Field Type
+    [Tags]  acc_wc_aci
     Search Angle From Search Page And Execute Angle    Test Angle Filter
     Verify Operators Currency Field     OrderedValue     ordered value  ${TRUE}
     Verify Operators Date Field     CreationDate     Created on     ${FALSE}
@@ -17,11 +18,13 @@ Verify All Operators For All Field Type
     [Teardown]  Run Keyword    Go to Search Page
 
 Add Or Change Filter And Get Correct Result
+    [Tags]  acc_wc_aci
     Search Angle From Search Page And Execute Angle    Test Angle Filter
     Add Or Change Currency Filter    OrderedValue     ordered value     ${TRUE}
     [Teardown]  Run Keyword    Go to Search Page
 
 Verify Add Filter Before Jump
+    [Tags]  acc_wc_aci
     # prepare stuff
     ${angleName}  Set Variable  [ROBOT] Add filter before jump test
     Upload Item And Check From Search Result  ANGLE_FILTER_BEFORE_JUMP.json    EA2_800    ${angleName}

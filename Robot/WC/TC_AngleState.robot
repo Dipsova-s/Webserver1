@@ -8,6 +8,7 @@ Force Tags          acc_wc
 
 *** Test Cases ***
 Verify Publishing Angle
+    [Tags]  acc_wc_aci
     @{cleanUpItems}    Create List
     Create Context: Web    user=${Username}
     ${angleData}    Create Angle    /models/1    ANGLE_PublishTesting.json
@@ -25,6 +26,7 @@ Verify Publishing Angle
     ...         AND           Go to Search Page
 
 Verify Validating Angle
+    [Tags]  acc_wc_aci
     @{cleanUpItems}    Create List
     Create Context: Web    user=${Username}
     ${angleData}    Create Angle    /models/1    ANGLE_ValidateTesting.json

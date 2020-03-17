@@ -6,6 +6,7 @@ Force Tags          acc_wc_s
 
 *** Test Cases ***
 Verify Back To Search
+    [Tags]  acc_wc_aci_s
     Search By Text And Expect In Search Result    Angle For General Test
     Open New Seach Page
     Select Window    MAIN

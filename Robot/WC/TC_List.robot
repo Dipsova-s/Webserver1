@@ -12,9 +12,11 @@ ${TEST_GOTO_SAP_OPTION}                     [ROBOT] Test Goto SAP Option
 
 *** Test Cases ***
 Verify Create List Display From Pivot And Delete It Test
+    [Tags]  acc_wc_aci
     Create List Display From Pivot And Delete It    List From Pivot
 
 Verify Quick Filter Options
+    [Tags]  acc_wc_aci
     Quick Filter Options For Number    Angle For General Test    OrderedValue
 
 Verify Add A Duplicate Field To Display List Test
@@ -36,6 +38,7 @@ Verify Add A Duplicate Field To Display List Test
     [Teardown]    Back To Search And Delete Angle Are Created    ${TEST_RE_ADD_FIELD_TO_DISPLAY_LIST}
 
 Verify Goto SAP Option
+    [Tags]  acc_wc_aci
     Create Angle From All Object List And Save    PD    ${TEST_GOTO_SAP_OPTION}
     @{rowNumbers}    Create List    2    4
     @{fields}    Create List    ObjectType    ID    Vendor__Vendor    Vendor__Description    PurchasingDocumentCategory    CompanyCode__CompanyCode    PurchaseOrganization__PurchaseOrganization    ExecutionStatus    CreationDate    DeliveryStatus    OrderedValue    BKGRP

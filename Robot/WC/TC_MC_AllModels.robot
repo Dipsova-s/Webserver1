@@ -10,7 +10,7 @@ Force Tags                  acc_mc_s
 Verify Fields On Setup New Model Form
     [Documentation]     This test will verify the Setup New model Form
     ...                 Risk Covered: This test helps in creating new models and covers the test failures in the model setup page
-    [Tags]      TC-C653
+    [Tags]      TC-C653  acc_mc_aci_s
     Click Create Models
     Verify Setup New Model Form
 

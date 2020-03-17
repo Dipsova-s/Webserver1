@@ -14,6 +14,7 @@ ${ERROR_MESSAGE}     Full name of the file exceeds Windows limitations (260 char
 
 *** Test Cases ***
 Verify Export To Excel From Action Menu
+    [Tags]  acc_wc_aci
     Search Angle From Search Page And Execute Angle    ${TEST_VERIFY_EXPORT_TO_EXCEL_NAME}
     Wait Progress Bar Closed
     Check If Angle Or Display Has A Warning Then Close The Popup
@@ -48,6 +49,7 @@ Verify Error Message If A Filename Is Too Long
     Wait Until Page Contains    ${ERROR_MESSAGE}
 
 Verify Export Field Names Contain Special Charactor
+    [Tags]  acc_wc_aci
     Search Angle From Search Page And Execute Angle    ${TEST_VERIFY_EXPORT_FIELDS_CONTAIN_SPECIAL_CHAR}
     Wait Progress Bar Closed
     Check If Angle Or Display Has A Warning Then Close The Popup

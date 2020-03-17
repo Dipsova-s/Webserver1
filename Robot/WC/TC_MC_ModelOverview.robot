@@ -22,7 +22,7 @@ Test Start/Stop Model Server Button
 
 Verify the Model options displayed for selected Model server in Management console Models Page
     [Documentation]     To verify all the model options displayed in right side page as link for the selected model server and the options page are redirected upon clicking the model options. Medium criticality.
-    [Tags]              TC_C658
+    [Tags]              TC_C658  acc_mc_aci_s
     Go To EA2_800 Models Page
     Verify the model options displayed
     Verify the page redirected to the selected model options in MC model server page
