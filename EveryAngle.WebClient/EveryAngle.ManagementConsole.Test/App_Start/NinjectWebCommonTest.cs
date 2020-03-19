@@ -1,6 +1,7 @@
 ﻿using EveryAngle.Core.Interfaces.Services;
 using EveryAngle.ManagementConsole.App_Start;
 using EveryAngle.WebClient.Service.ApiServices;
+using EveryAngle.WebClient.Service.ApplicationServices;
 using EveryAngle.WebClient.Service.WebClientConfigs;
 using Moq;
 using Ninject;
@@ -38,6 +39,7 @@ namespace EveryAngle.ManagementConsole.Test.App_Start
             AddBind<ISystemScriptService, SystemScriptService>(kernel);
             AddBind<IComponentService, ComponentService>(kernel);
             AddBind<ILogFileService, LogFileService>(kernel);
+            AddBind<ILogFileReaderService, LogFileReaderService>(kernel);
 
             NinjectWebCommon.RegisterServices(kernel.Object);
 

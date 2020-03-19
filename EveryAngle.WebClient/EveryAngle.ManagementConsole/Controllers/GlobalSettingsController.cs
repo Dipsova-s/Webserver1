@@ -76,6 +76,7 @@ namespace EveryAngle.ManagementConsole.Controllers
         private readonly IWebClientConfigService webClientConfigService;
         private readonly IRepositoryLogService repositoryLogService;
         private readonly ILogFileService logFileService;
+        private readonly ILogFileReaderService logFileReaderService;
         #endregion
 
         public GlobalSettingsController(
@@ -83,9 +84,11 @@ namespace EveryAngle.ManagementConsole.Controllers
             IUserService userService,
             IWebClientConfigService webClientConfigService,
             IRepositoryLogService repositoryLogService,
-            ILogFileService logFileService)
+            ILogFileService logFileService,
+            ILogFileReaderService logFileReaderService
+            )
             : this(globalSettingService, modelService, userService, webClientConfigService,
-                  repositoryLogService, logFileService, SessionHelper.Initialize())
+                  repositoryLogService, logFileService,logFileReaderService, SessionHelper.Initialize())
         {
         }
 
@@ -95,6 +98,7 @@ namespace EveryAngle.ManagementConsole.Controllers
             IWebClientConfigService webClientConfigService,
             IRepositoryLogService repositoryLogService,
             ILogFileService logFileService,
+            ILogFileReaderService logFileReaderService,
             SessionHelper sessionHelper)
         {
             this.modelService = modelService;
@@ -103,6 +107,7 @@ namespace EveryAngle.ManagementConsole.Controllers
             this.webClientConfigService = webClientConfigService;
             this.repositoryLogService = repositoryLogService;
             this.logFileService = logFileService;
+            this.logFileReaderService = logFileReaderService;
             SessionHelper = sessionHelper;
         }
 
@@ -596,11 +601,11 @@ namespace EveryAngle.ManagementConsole.Controllers
                 imageFile = VideoHelper.GetImageFileFromVideoFile(UtilitiesHelper.GetWebClientPath() + pathVideo);
 #else
 
-                string path = Server.MapPath("/"); 
+                string path = Server.MapPath("/");
                 imageFile = path.Replace("\\\\", "") + pathVideo.Replace("/", "\\");
                 imageFile = VideoHelper.GetImageFileFromVideoFile(imageFile);
                 imageFile = imageFile.Replace("/", "\\");
-             
+
 #endif
                 using (Image image = Image.FromStream(ms))
                 {
@@ -901,9 +906,6 @@ namespace EveryAngle.ManagementConsole.Controllers
             SystemLogType logType = GetSystemLogType(target);
 
             bool isModelServerLog = logType == SystemLogType.ModelServer;
-            bool isWebClientLog = logType == SystemLogType.WebClient
-                || logType == SystemLogType.ManagementConsole
-                || logType == SystemLogType.Repository;
 
             ViewBag.LogTarget = target;
             ViewBag.ModelId = modelId;
@@ -913,7 +915,7 @@ namespace EveryAngle.ManagementConsole.Controllers
 
             // enable/disable viewer in top level
             // FileModel.SupportViewer will handle in each items
-            ViewBag.EnableLogViewer = !isWebClientLog;
+            ViewBag.EnableLogViewer = true;
 
             // model server log does not support sorting
             ViewBag.SortEnabled = !isModelServerLog;
@@ -1145,7 +1147,7 @@ namespace EveryAngle.ManagementConsole.Controllers
             string target = "")
         {
             SystemLogType logType = GetSystemLogType(target);
-            if (logType == SystemLogType.AppServer || logType == SystemLogType.ModelServer)
+            if (logType == SystemLogType.AppServer || logType == SystemLogType.ModelServer || logType == SystemLogType.Repository)
             {
                 DownloadAndCreateLogFile(ref fullPath);
             }
@@ -1153,34 +1155,49 @@ namespace EveryAngle.ManagementConsole.Controllers
             {
                 var fileInfo = new FileInfo(fullPath);
                 fullPath = Path.Combine(logDirectory.FullName, fileInfo.Name);
-                System.IO.File.Copy(fileInfo.FullName, fullPath, true);
+                logFileReaderService.CopyForLogFile(fileInfo.FullName, fullPath);
             }
-
-            ExecuteParameters para = new ExecuteParameters
+            if (fullPath.EndsWith(".log"))
             {
-                Parameters = "-x " + fullPath,
-                CommandPath = Path.Combine(Server.MapPath(TEMP_LOG_PATH), CSL_EXPLORER),
-                ExecutePath = fullPath,
-                Uri = Url.Action("GetSystemlogByDetailsUri", "GlobalSettings"),
-                Q = q,
-                MessageType = type
-            };
-
-            para.Offset = offset ?? 0;
-            para.Limit = limit ?? DefaultPageSize;
-
-            var executeResult = UtilitiesHelper.GetJsonFromCsl(para);
-
-            if (executeResult.Success)
-            {
-                return new ContentResult { Content = executeResult.Content.ToString(), ContentType = "application/json" };
+                var executeResult = logFileReaderService.GetLogFileDetails(fullPath);
+                if (executeResult.Success)
+                {
+                    return Content(executeResult.StringContent);
+                }
+                throw new HttpException(422, JsonConvert.SerializeObject(new
+                {
+                    reason = executeResult.ErrorMessage,
+                    message = fullPath
+                }));
             }
-
-            throw new HttpException(422, JsonConvert.SerializeObject(new
+            else
             {
-                reason = executeResult.ErrorMessage,
-                message = para.ExecutePath
-            }));
+                ExecuteParameters para = new ExecuteParameters
+                {
+                    Parameters = "-x " + fullPath,
+                    CommandPath = Path.Combine(Server.MapPath(TEMP_LOG_PATH), CSL_EXPLORER),
+                    ExecutePath = fullPath,
+                    Uri = Url.Action("GetSystemlogByDetailsUri", "GlobalSettings"),
+                    Q = q,
+                    MessageType = type
+                };
+
+                para.Offset = offset ?? 0;
+                para.Limit = limit ?? DefaultPageSize;
+
+                ExecuteJsonResult executeResult = UtilitiesHelper.GetJsonFromCsl(para);
+
+                if (executeResult.Success)
+                {
+                    return new ContentResult { Content = executeResult.Content.ToString(), ContentType = "application/json" };
+                }
+                throw new HttpException(422, JsonConvert.SerializeObject(new
+                {
+                    reason = executeResult.ErrorMessage,
+                    message = para.ExecutePath
+                }));
+            }
+           
         }
 
         public ContentResult GetSystemlogByDetailsUri(

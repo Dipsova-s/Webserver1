@@ -132,6 +132,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="JsonResourceHandler.cs" />
     <Compile Include="SystemCurrencies\CurrenciesViewModel.cs" />
+    <Compile Include="SystemLog\FileReaderResult.cs" />
     <Compile Include="SystemScript\SystemScriptViewModel.cs" />
     <Compile Include="SystemInformation\SystemInformationViewModel.cs" />
     <Compile Include="SystemLanguages\SystemLanguageViewModel.cs" />

@@ -4,6 +4,7 @@ using EveryAngle.Core.Interfaces.Services;
 using EveryAngle.ManagementConsole.App_Start;
 using EveryAngle.Shared.Helpers;
 using EveryAngle.WebClient.Service.ApiServices;
+using EveryAngle.WebClient.Service.ApplicationServices;
 using EveryAngle.WebClient.Service.WebClientConfigs;
 using Microsoft.Web.Infrastructure.DynamicModuleHelper;
 using Ninject;
@@ -82,6 +83,7 @@ namespace EveryAngle.ManagementConsole.App_Start
             kernel.Bind<ISystemScriptService>().To<SystemScriptService>();
             kernel.Bind<IComponentService>().To<ComponentService>();
             kernel.Bind<ILogFileService>().To<LogFileService>();
+            kernel.Bind<ILogFileReaderService>().To<LogFileReaderService>();
         }
     }
 }

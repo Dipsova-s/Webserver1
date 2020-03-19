@@ -177,6 +177,7 @@
     <Compile Include="ApiServices\SystemInformationService.cs" />
     <Compile Include="ApiServices\DownloadTableService.cs" />
     <Compile Include="ApiServices\UserService.cs" />
+    <Compile Include="ApplicationServices\LogFileReaderService.cs" />
     <Compile Include="EmbededResource\EmbeddedVirtualFile.cs" />
     <Compile Include="EmbededResource\EmbeddedVirtualPathProvider.cs" />
     <Compile Include="EmbededResource\HttpHandlers\EmbeddedResourceHttpHandler.cs" />

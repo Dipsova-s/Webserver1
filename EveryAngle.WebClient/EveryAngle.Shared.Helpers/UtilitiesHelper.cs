@@ -399,7 +399,6 @@ namespace EveryAngle.Shared.Helpers
 
             return result.Length > 0 ? result[0] : source;
         }
-
         public static ExecuteJsonResult GetDetailFromCsl(ExecuteParameters executeParameters)
         {
             ExecuteJsonResult result = new ExecuteJsonResult();
@@ -420,7 +419,7 @@ namespace EveryAngle.Shared.Helpers
                 {
                     result.ResultPath = resultFile.FullName;
                     string xml = File.ReadAllText(result.ResultPath);
-                    
+
                     try
                     {
                         XmlDocument xmlDocument = new XmlDocument();

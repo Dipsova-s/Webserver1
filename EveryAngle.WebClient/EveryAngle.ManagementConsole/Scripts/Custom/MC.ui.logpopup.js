@@ -5,7 +5,6 @@
     _self.lastLogFile = '';
     _self.logDetailCache = {};
     _self.MSGTPYE = ['Info', 'Note', 'Warning', 'Error', 'Exception', 'Reminder', 'CheckPoint', 'Level1', 'Level2', 'Level3', 'Level4', 'Level5', 'Level6', 'Level7', 'Enter', 'Exit', 'Timing'];
-
     _self.SystemLogColumns = [
         {
             field: 'MsgType',
@@ -96,12 +95,37 @@
         Target: '',
         LogType: ''
     };
+    logpopup.GetFileExtension = function (fullPath) {
+        return fullPath.split('.').pop();
+    };
+    logpopup.ShowLogHideGrid = function (flag) {
+        if (flag) {
+            $('#LogFileDetails .logDetails').busyIndicator(true);
+            $('#popupLogTable .contentSectionGrid').hide();
+            $('#popupLogTable .contentSectionLog').show();
+        }
+        else {
+            $('#popupLogTable .contentSectionGrid').show();
+            $('#popupLogTable .contentSectionLog').hide();
+        }
+    };
+    logpopup.UpdateLogFileDetailsLayout = function (isLogFile) {
+        if (isLogFile) {
+            var padding = parseInt($('#LogFileDetails').css("padding-top"));
+            var height = $('#popupLogTable .popupContent').height() - padding;
+            $('#LogFileDetails .logDetails').css({ overflow: 'auto', height: height });
+        }
+    };
+
     logpopup.ShowLogTable = function (sender, correlation_id) {
         sender = $(sender);
         self.SelectedRow = '';
         $('#SystemLogDetails .logDetails').removeClass('fail').empty();
+        $('#LogFileDetails .logDetails').removeClass('fail').empty();
         var fullPath = typeof correlation_id === 'undefined' ? $(sender).parent("div").parent("div").prev('input').val() : MC.ui.logpopup.TaskHistoryUri + '?correlation_id=' + correlation_id;
         var win = $(sender.data('target')).data('kendoWindow');
+        var extenstion = MC.ui.logpopup.GetFileExtension(fullPath);
+        _self.isLogFile = extenstion === 'log';
 
         if (win && !win.__bind_resize_event) {
             // initial window
@@ -111,13 +135,23 @@
             win.bind('resize', function () {
                 var toolbarSize = $('#popupLogTable .gridToolbarTop').hasClass('hidden') ? 0 : 44;
                 $('#popupLogTable .gridContainer').height(win.element.height() - toolbarSize);
+
                 kendo.resize($('#popupLogTable .gridContainer'));
+                MC.ui.logpopup.UpdateLogFileDetailsLayout(_self.isLogFile);
 
                 MC.ui.logpopup.UpdateLogDetailsLayout();
             });
-
+            win.bind('minimize', function () {
+                win.trigger('resize');
+            });
+            win.bind('maximize', function () {
+                win.trigger('resize');
+            });
             win.bind('close', function () {
                 MC.ajax.abortAll();
+                if (_self.isLogFile) {
+                    $('#LogFileDetails .logDetails').html('');
+                }
             });
         }
 
@@ -164,6 +198,7 @@
 
         // initial grid
         var grid = MC.ui.logpopup.InitialLogGrid();
+        MC.ui.logpopup.ShowLogHideGrid(_self.isLogFile);
 
         var setEnableLogPopup = function (enable) {
             if (enable) {
@@ -240,34 +275,47 @@
                             if (error !== 'abort') {
                                 setEnableLogPopup(false);
                                 var msg = $(MC.ajax.getErrorMessage(xhr, null, error));
-                                msg.filter('p').append(
-                                    $('<a class="btnRetry" />')
-                                        .text(Localization.Retry)
-                                        .on('click', function () {
-                                            delete cacheLogs[queryString];
-                                            grid.dataSource._requestInProgress = false;
-                                            grid.dataSource.read();
-                                        })
-                                );
-                                grid.content.prepend($('<div class="k-grid-error" />').html(msg));
+                                if (_self.isLogFile) {
+                                    $('#LogFileDetails .logDetails').addClass('fail').html(msg);
+                                }
+                                else {
+                                    msg.filter('p').append(
+                                        $('<a class="btnRetry" />')
+                                            .text(Localization.Retry)
+                                            .on('click', function () {
+                                                delete cacheLogs[queryString];
+                                                grid.dataSource._requestInProgress = false;
+                                                grid.dataSource.read();
+                                            })
+                                    );
+                                    grid.content.prepend($('<div class="k-grid-error" />').html(msg));
+                                }
 
                                 MC.ajax.setErrorDisable(xhr, status, error, null);
                             }
                         })
                         .done(function (response) {
-                            // add row number
-                            var number;
-                            if (MC.ui.logpopup.LogType === 'SystemLog') {
-                                number = response.header.offset + 1;
-                                $.each(response.messages, function (index, log) {
-                                    log['RowNumber'] = number + index;
-                                });
+                            if (_self.isLogFile) {
+                                if (response != '') {
+                                    response = '<pre>' + response  + '</pre>' + '<hr/>';
+                                }
+                                $('#LogFileDetails .logDetails').html(response);
                             }
                             else {
-                                number = response.Header.offset + 1;
-                                $.each(response.Data, function (index, log) {
-                                    log['RowNumber'] = number + index;
-                                });
+                                // add row number
+                                var number;
+                                if (MC.ui.logpopup.LogType === 'SystemLog') {
+                                    number = response.header.offset + 1;
+                                    $.each(response.messages, function (index, log) {
+                                        log['RowNumber'] = number + index;
+                                    });
+                                }
+                                else {
+                                    number = response.Header.offset + 1;
+                                    $.each(response.Data, function (index, log) {
+                                        log['RowNumber'] = number + index;
+                                    });
+                                }
                             }
                             cacheLogs[queryString] = response;
                             option.success(response);
@@ -378,7 +426,7 @@
             _self.getLogDetailsXhr.abort();
         }
 
-        var element = $('#SystemLogDetails .logDetails').removeClass('fail');        
+        var element = $('#SystemLogDetails .logDetails').removeClass('fail');
 
         if (detailUri) {
             disableLoading();

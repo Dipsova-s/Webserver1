@@ -48,7 +48,7 @@ namespace EveryAngle.Core.ViewModels.Explorer
         public string SizeText => UtilitiesHelper.GetFileSizeInString(Size);
         public int WarningCount { get; set; }
         public int ErrorCount { get; set; }
-        public bool SupportViewer => Category.Value == FileType.Csl;
+        public bool SupportViewer => Category.Value == FileType.Csl || Category.Value == FileType.Log;
 
         #region private variables
 

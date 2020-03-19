@@ -37,6 +37,7 @@ namespace EveryAngle.ManagementConsole.Test.Controllers
                 webClientConfigService.Object,
                 repositoryLogService.Object,
                 logFileService.Object,
+                logFileReaderService.Object,
                 sessionHelper.Object
             );
         }
@@ -84,17 +85,25 @@ namespace EveryAngle.ManagementConsole.Test.Controllers
             Assert.AreEqual("{\"trusted_webservers\":[\"192.168.1.1\",\"127.0.0.1\"],\"default_authentication_provider\":\"everyangle\"}", result);
         }
 
-        [Test]
-        public void SystemLog_Should_RunClientOperationsWithoutLogViewer_When_LogTypeIsRepository()
+        [TestCase(SystemLogType.Repository)]
+        [TestCase(SystemLogType.WebClient)]
+        [TestCase(SystemLogType.ManagementConsole)]
+        public void SystemLog_Should_RunClientOperationsWithLogViewer_When_LogTypeIs(SystemLogType logType)
         {
             sessionHelper.SetupGet(x => x.Models).Returns(new List<ModelViewModel>());
-
-            string target = SystemLogType.Repository.ToString();
+            string target = logType.ToString();
             PartialViewResult view = _testingController.SystemLog(target, string.Empty, string.Empty) as PartialViewResult;
 
             Assert.NotNull(view);
-            Assert.IsFalse(view.ViewBag.ServerOperation);
-            Assert.IsFalse(view.ViewBag.EnableLogViewer);
+            if (logType == SystemLogType.Repository)
+            {
+                Assert.IsFalse(view.ViewBag.ServerOperation);
+            }
+            else
+            {
+                Assert.IsTrue(view.ViewBag.ServerOperation);
+            }
+            Assert.IsTrue(view.ViewBag.EnableLogViewer);
             Assert.IsTrue(view.ViewBag.SortEnabled);
         }
 
@@ -140,6 +149,45 @@ namespace EveryAngle.ManagementConsole.Test.Controllers
 
             Assert.AreEqual(file.FileDownloadName, "test.log");
         }
+
+        [TestCase("WebClient", ".log")]
+        [TestCase("ManagementConsole", ".log")] 
+        public void GetSystemlog_Should_Return_File_Contents_For_Log_File(string target, string fileExtension)
+        {
+            var filePath = "test" + fileExtension;
+            logFileReaderService
+                .Setup(x => x.CopyForLogFile(It.IsAny<string>(), It.IsAny<string>()));
+            logFileReaderService
+                .Setup(x => x.GetLogFileDetails(It.IsAny<string>()))
+                .Returns(new FileReaderResult { ErrorMessage = "", StringContent = "Sample Data", Success = true });
+            ContentResult objContentResult = _testingController.GetSystemlog(filePath, 0, 0, "", "", target);
+            Assert.AreEqual(objContentResult.Content, "Sample Data");
+        }
+
+        [Test]
+        public void Object_for_GlobalSettings_Should_Not_Be_Null()
+        {
+            GlobalSettingsController testController = new GlobalSettingsController(globalSettingService.Object, modelService.Object,
+                userService.Object,
+                webClientConfigService.Object,
+                repositoryLogService.Object,
+                logFileService.Object,
+                logFileReaderService.Object);
+            Assert.NotNull(testController);   
+        }
+
+        [Test]
+        public void GetSystemLog_Should_Return_Throw_An_Exception()
+        {
+            logFileReaderService
+                .Setup(x => x.CopyForLogFile(It.IsAny<string>(), It.IsAny<string>()));
+            logFileReaderService
+                .Setup(x => x.GetLogFileDetails(It.IsAny<string>()))
+                .Returns(new FileReaderResult { ErrorMessage = "", StringContent = "", Success = false });
+            var ex = Assert.Throws<HttpException>(() => _testingController.GetSystemlog("test.log", 0, 0, "", "", "ManagementConsole"));
+            Assert.IsNotNullOrEmpty(ex.Message);
+        }
+
         #endregion
 
         public class Result

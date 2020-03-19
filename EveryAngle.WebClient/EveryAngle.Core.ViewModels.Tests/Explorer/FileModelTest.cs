@@ -33,7 +33,7 @@ namespace EveryAngle.Core.ViewModels.Tests
             Assert.AreEqual(viewModel.Name, "test.log");
             Assert.AreEqual(viewModel.Size, 1024);
             Assert.AreEqual(viewModel.SizeText, "1.0 KB");
-            Assert.AreEqual(viewModel.SupportViewer, false);
+            Assert.AreEqual(viewModel.SupportViewer, true);
         }
 
         [Test]
@@ -63,7 +63,7 @@ namespace EveryAngle.Core.ViewModels.Tests
         }
 
         [TestCase("file1.txt", false)]
-        [TestCase("file2.log", false)]
+        [TestCase("file2.log", true)]
         [TestCase("file3.csl", true)]
         public void FileModel_FileInfoData_TEST(string filename, bool isSupportViewer)
         {

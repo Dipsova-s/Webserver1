@@ -1,5 +1,10 @@
 *** Settings ***
 Resource            ${EXECDIR}/WC/POM/ManagementConsole/GlobalSettings/SystemLog.robot
+Resource            ${EXECDIR}/WC/POM/ManagementConsole/GlobalSettings/SystemLog/ApplicationServerLog.robot
+Resource            ${EXECDIR}/WC/POM/ManagementConsole/GlobalSettings/SystemLog/ManagementConsoleLog.robot
+Resource            ${EXECDIR}/WC/POM/ManagementConsole/GlobalSettings/SystemLog/WebClientLog.robot
+Resource            ${EXECDIR}/WC/POM/ManagementConsole/GlobalSettings/SystemLog/ModelServerLog.robot
+Resource            ${EXECDIR}/WC/POM/ManagementConsole/SystemLogs/Repository.robot
 
 *** Keywords ***
 Download Forbidden File

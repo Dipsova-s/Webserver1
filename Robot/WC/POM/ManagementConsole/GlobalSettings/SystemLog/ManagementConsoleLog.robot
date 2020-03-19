@@ -11,6 +11,9 @@ ${txtFilterLog}                        FilterLogTableTextbox
 ${btnClosePopupLogTable}               jquery=.k-window .k-i-close:eq(1)
 ${lbLogPopupTitle}                     popupLogTable_wnd_title
 
+${gridSystemLog}        jquery=#SystemLogsGrid
+${pgbSystemLogGrid}     jquery=#SystemLogsGrid .k-loading-mask
+
 *** Keywords ***
 Click Management Console Action Dropdown By Logfile Name
     [Arguments]    ${logfileName}
@@ -38,4 +41,16 @@ Click Download Management Console Log By Index
     [Arguments]    ${index}
     Click Action In Grid By Index     ${index}    ${trRowInManagementConsoleLogsGrid}    ${btnDownloadManagementConsoleLog}
 
+Go To Management Console Log Page
+    Go To MC Page    /Global%20settings/System%20log/Management%20Console/
+    Wait Until Management Console Log Page Is Ready
+    Wait Until Management Console Log Grid Is Ready
+
+Wait Until Management Console Log Page Is Ready
+    Wait Until Page Contains Element    ${gridSystemLog}
+    Wait MC Progress Bar Closed
+
+Wait Until Management Console Log Grid Is Ready
+    Wait Until Ajax Complete
+    Wait Until Page Does Not Contain Element    ${pgbSystemLogGrid}
 

@@ -13,6 +13,9 @@ ${txtFilterLog}                        FilterLogTableTextbox
 ${btnClosePopupLogTable}               jquery=.k-window .k-i-close:eq(1)
 ${lbLogPopupTitle}                     popupLogTable_wnd_title
 
+${gridSystemLog}        jquery=#SystemLogsGrid
+${pgbSystemLogGrid}     jquery=#SystemLogsGrid .k-loading-mask
+
 *** Keywords ***
 Click Model Server Action Dropdown By Logfile Name
     [Arguments]    ${logfileName}
@@ -52,4 +55,15 @@ Select Service Agreement Dropdown List In Model Server Log By Model Name
     Select Dropdown By InnerText     ${ddlModelServerLogServiceAgreement}     ${serviceAgreementName}
     Wait MC Progress Bar Closed
 
+Go To Model Server Log Page
+    Go To MC Page    /Global%20settings/System%20log/Model%20Server/
+    Wait Until Model Server Log Page Is Ready
+    Wait Until Model Server Log Grid Is Ready
 
+Wait Until Model Server Log Page Is Ready
+    Wait Until Page Contains Element    ${gridSystemLog}
+    Wait MC Progress Bar Closed
+
+Wait Until Model Server Log Grid Is Ready
+    Wait Until Ajax Complete
+    Wait Until Page Does Not Contain Element    ${pgbSystemLogGrid}

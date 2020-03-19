@@ -145,6 +145,7 @@
     <Compile Include="Helpers\SiteMapHelperTests.cs" />
     <Compile Include="Localization\UserCultureTests.cs" />
     <Compile Include="Models\SiteMapModelTests.cs" />
+    <Compile Include="Services\LogFileReaderServiceTest.cs" />
     <Compile Include="Services\LogFileServiceTest.cs" />
     <Compile Include="Services\RepositoryLogServiceTest.cs" />
     <Compile Include="UnitTestBase.cs" />
