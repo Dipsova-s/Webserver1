@@ -75,6 +75,13 @@ Click Show Consolidate Role Action By Index
     [Arguments]    ${index}
     Click Action In Grid By Index     ${index}    ${trRowInRolesGrid}    ${btnActionShowConsolidateRole}
 
+Click Show Consolidate Role Action By Name
+    [Arguments]     ${roleName}
+    Click Show Action Dropdown In Grid By Name      ${roleName}    ${trRowInRolesGrid}
+    Click Action In Grid By Name     ${roleName}    ${trRowInRolesGrid}     ${btnActionShowConsolidateRole}
+    Wait Until Page Contains   System privileges
+    Wait Until Page Contains   Model privilege
+
 Click Delete Role Action By Role Name
     [Arguments]    ${roleName}
     Click Action In Grid By Name     ${roleName}    ${trRowInRolesGrid}    ${btnActionDeleteRole}

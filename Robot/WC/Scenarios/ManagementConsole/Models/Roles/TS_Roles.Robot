@@ -73,3 +73,12 @@ Verify Content Privileges In Modeling Workbench
     Click Edit Role By Role Name     ${roleName}
     Radio Modeling Workbench Content Button Should Be Set To  ${value}
     Click Side Menu Models EA2_800 Roles
+
+Verify Modeling Workbench Privileges Section Existence In Show Consolidated Role Pop Up
+    [Arguments]     ${Role_Name}
+    Filter Role By Role Name    ${Role_Name}
+    Click Show Consolidate Role Action By Name      ${Role_Name}
+    Expand Model Privileges Flag In Show Consolidated Role Pop Up
+    Expand Privileges Flag In Show Consolidated Role Pop Up
+    Page Should Contain Element     ${sectionModelingWorkbench}
+    Close Show Consolidate Role Popup

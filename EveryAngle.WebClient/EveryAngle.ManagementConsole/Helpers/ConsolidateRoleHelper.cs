@@ -38,6 +38,9 @@ namespace EveryAngle.ManagementConsole.Helpers
                                     + "\"Administrator\": {"
                                     + GetJsonStringOfPrivilegeProperty(node, "manage_model")
                                     + "," + GetJsonStringOfPrivilegeProperty(node, "manage_private_items")
+                                    + "},"
+                                    + "\"Modeling Workbench\": {"
+                                    + GetJsonStringOfModelingWorkbenchContentPrivilegeProperty(node, "configure_content", "edit_content")
                                     + "}}";
 
                 JObject privilegeNodeString = JObject.Parse(privilegeNode.Replace("\r", "").Replace("\n", ""));
@@ -54,6 +57,32 @@ namespace EveryAngle.ManagementConsole.Helpers
                                     property.Value.ToString().ToLower();
 
             return string.Format("\"{0}\": {1}", viewModelResource, viewModelValue);
+        }
+
+        public static string GetJsonStringOfModelingWorkbenchContentPrivilegeProperty(JToken node, string configureContent, string editContent)
+        {
+            JProperty configureProperty = node.Children<JProperty>().FirstOrDefault(f => f.Name == configureContent);
+            JProperty editProperty = node.Children<JProperty>().FirstOrDefault(f => f.Name == editContent);
+
+            string viewModelValue = "";
+            string configureValue = configureProperty.Value.ToString();
+            string editValue = editProperty.Value.ToString();
+
+            if (configureValue == "True" && editValue == "False")
+            {
+                viewModelValue = "configure";
+            }
+            else if (configureValue == "True" && editValue == "True")
+            {
+                viewModelValue = "edit";
+            }
+            else if (configureValue == "False" && editValue == "False")
+            {
+                viewModelValue = "denied";
+            }
+
+            return string.Format("\"{0}\": \"{1}\"", "Content", viewModelValue);
+
         }
 
         public static JEnumerable<JProperty> OrderModelPrivilege(JToken node, JEnumerable<JProperty> allProperties)
@@ -104,6 +133,8 @@ namespace EveryAngle.ManagementConsole.Helpers
             {
                 if (currentState == "true" || currentState == "allowed")
                     return "allowed";
+                else if (currentState == "configure" || currentState == "edit")
+                    return currentState;
                 else if (currentState == "false" || currentState == "disallowed" || currentState == "denied")
                     return "denied";
                 else if (currentState == "unspecified")

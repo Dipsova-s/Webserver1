@@ -1204,6 +1204,14 @@ div.k-window-content > .k-loading-mask {
     color: #090;
 }
 
+#ConsoliDatedRolePopup i.edit {
+    color: #090;
+}
+
+#ConsoliDatedRolePopup i.configure {
+    color: #090;
+}
+
 #ConsoliDatedRolePopup i.assign {
     color: #090;
 }

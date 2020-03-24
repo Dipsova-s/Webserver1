@@ -52,6 +52,19 @@ namespace EveryAngle.ManagementConsole.Test.Helpers
             Assert.AreEqual(expectedValue, jsonString);
         }
 
+
+        [TestCase(true, false, "\"Content\": \"configure\"")]
+        [TestCase(true, true, "\"Content\": \"edit\"")]
+        [TestCase(false, false, "\"Content\": \"denied\"")]
+        public void Can_GetJsonStringOfModelingWorkbenchContentPrivilegeProperty(bool? configureContent, bool? editContent, string expectedValue)
+        {
+            _testingToken["model_authorization"]["privileges"]["configure_content"] = configureContent;
+            _testingToken["model_authorization"]["privileges"]["edit_content"] = editContent;
+            string jsonString = ConsolidateRoleHelper.GetJsonStringOfModelingWorkbenchContentPrivilegeProperty(_testingToken["model_authorization"]["privileges"], "configure_content", "edit_content");
+            Assert.IsNotNullOrEmpty(jsonString);
+            Assert.AreEqual(expectedValue, jsonString);
+        }
+
         [TestCase(false)]
         [TestCase(true)]
         public void Can_CreatePrivilegeProperty(bool setToInvalidNode)
@@ -114,6 +127,8 @@ namespace EveryAngle.ManagementConsole.Test.Helpers
         [TestCase("denied", "denied")]
         [TestCase("unspecified", "unspecified")]
         [TestCase("NOT_EXISTING_STATE", "NOT_EXISTING_STATE")]
+        [TestCase("edit", "edit")]
+        [TestCase("configure", "configure")]
         public void Can_ChangePriviledgeState(string state, string expectedState)
         {
             JEnumerable<JProperty> properties = new JEnumerable<JProperty>();
