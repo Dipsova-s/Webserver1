@@ -136,6 +136,8 @@ function ListHandler(elementId, container) {
                 self.InitialMouseScrollable(grid);
 
                 self.InitialAllowToHighlightCell(grid);
+
+                self.InitialContentCopy();
             });
     };
     self.CheckUpgradeDisplay = function () {
@@ -260,9 +262,12 @@ function ListHandler(elementId, container) {
         });
         return columnDefinitions;
     };
+    self.IsDeviceIpad = function () {
+        return /iPad/i.test(navigator.userAgent);
+    };
     self.GetGridOptions = function (columnDefinitions) {
         var selectableString = 'multiple cell';
-        if (/iPad/i.test(navigator.userAgent)) {
+        if (self.IsDeviceIpad()) {
             selectableString = 'cell';
         }
         return {
@@ -659,6 +664,12 @@ function ListHandler(elementId, container) {
                 clearInterval(fnCheckDragHold);
             });
         }
+    };
+    self.OnContentCopy = function () {
+        jQuery('#CopyToClipboard').click();
+    };
+    self.InitialContentCopy = function () {
+        $(self.ElementId).on("copy", self.OnContentCopy);
     };
     self.InitialMouseScrollable = function (grid) {
 
@@ -1632,6 +1643,21 @@ function ListHandler(elementId, container) {
 
     self.IsCopyText = false;
     self.MenuOptions;
+    self.GetContextMenuOptions = function () {
+        return {
+            autoAddSubmenuArrows: false,
+            ignoreWidthOverflow: true,
+            ignoreHeightOverflow: true,
+            submenuTopOffset: -50,
+            event: 'click contextmenu',
+            fadeIn: 0,
+            delay: 0,
+            keyDelay: 500,
+            onShow: self.OnContextMenuShow,
+            onHover: self.OnContextMenuHover,
+            onSelect: self.OnContextMenuSelect
+        }
+    };
     self.InitialContextMenu = function (grid) {
         var initialContextMenu = function () {
             jQuery(document.body).off('.jeegoocontext');
@@ -1642,19 +1668,7 @@ function ListHandler(elementId, container) {
                 jQuery('<ul id="angleContextMenu" class="listview listview-popup context-menu" />').appendTo('body');
 
                 // bind context menu
-                jQuery(self.ElementId + ' .k-grid-content td:not(.Number)').jeegoocontext('angleContextMenu', {
-                    autoAddSubmenuArrows: false,
-                    ignoreWidthOverflow: true,
-                    ignoreHeightOverflow: true,
-                    submenuTopOffset: -50,
-                    event: 'click contextmenu',
-                    fadeIn: 0,
-                    delay: 0,
-                    keyDelay: 500,
-                    onShow: self.OnContextMenuShow,
-                    onHover: self.OnContextMenuHover,
-                    onSelect: self.OnContextMenuSelect
-                });
+                jQuery(self.ElementId + ' .k-grid-content td:not(.Number)').jeegoocontext('angleContextMenu', self.GetContextMenuOptions());
 
                 grid.content.find('.k-virtual-scrollable-wrap, .k-scrollbar-vertical').scroll(self.HideContextMenu);
 
@@ -1670,14 +1684,15 @@ function ListHandler(elementId, container) {
     };
     self.LeftClickFirstCell = {
         RowId: -1,
-        CellIndex: -1,
-        ColumnId: -1
     };
-    self.SelectedCellIndexes = [];
+    self.LeftClickElement = {};
     self.ResetLeftClickFirstCell  = function() {
-        self.LeftClickFirstCell.CellIndex = -1;
         self.LeftClickFirstCell.RowId = -1;
-        self.LeftClickFirstCell.ColumnId = -1;
+        self.LeftClickElement = {};
+    }
+    self.SetLeftClickFirstCell = function (context) {
+        self.LeftClickFirstCell.RowId = context.parentElement.rowIndex;
+        self.LeftClickElement = context;
     }
     self.ContextMenuRenderPosition = function(isOnlyCopy, column, dataItem, menu, context) {
         self.MenuOptions = self.CreateContextMenu(column.field.toLowerCase(), dataItem[column.field.toLowerCase()]);
@@ -1702,26 +1717,46 @@ function ListHandler(elementId, container) {
             menu.css(offset);
         }, 1);
     }
+    self.TotalGridCountFinal = function (totalCount) {
+        return totalCount - 1;// Removing the fixed header from column count of grid.
+    };
+    self.GetSelectedAreaData = function (grid, firstElement, lastElement) {
+        var gridtd = $(self.ElementId + ' td');
+        var firstElementIndex = gridtd.index(firstElement);
+        var lastElementIndex = gridtd.index(lastElement);
+        var totalGridCount = grid.columns.length,
+            dragStart = Math.min(firstElementIndex, lastElementIndex),
+            dragEnd = Math.max(firstElementIndex, lastElementIndex),
+            noOfColumns = Math.abs($(firstElement).index() - $(lastElement).index()) + 1,
+            noOfRows = Math.abs($(firstElement).parent().index() - $(lastElement).parent().index()) + 1;
+        totalGridCount = self.TotalGridCountFinal(totalGridCount);
+
+        return {
+            totalGridCount: totalGridCount,
+            dragStart: dragStart,
+            dragEnd: dragEnd,
+            noOfColumns: noOfColumns,
+            noOfRows: noOfRows
+        };
+    };
+    
     self.IsIndexInSelectedArea = function(currentIndex, grid) {
-        var isIndexInSelectedArea = false, totalGridCount = grid.columns.length, firstElement = grid.select().first(), lastElement = grid.select().last(),
-            dragStart = Math.min($(self.ElementId + ' td').index(firstElement), $(self.ElementId + ' td').index(lastElement)),
-            dragEnd = Math.max($(self.ElementId + ' td').index(firstElement), $(self.ElementId + ' td').index(lastElement)),
-            noOfColumns = Math.abs(firstElement.cellIndex - lastElement.cellIndex) + 1,
-            noOfRows = Math.abs(firstElement.parent().index() - lastElement.parent().index()) + 1;
-        if ([(dragStart - noOfColumns + 1) + ((noOfRows - 1) * (totalGridCount - 1))] == dragEnd) {
-            dragStart -= (noOfColumns - 1);
-            dragEnd += (noOfColumns - 1);
+        var isIndexInSelectedArea = false;
+        var selectedAreaData = self.GetSelectedAreaData(grid, grid.select().first(), grid.select().last());
+        if ([(selectedAreaData.dragStart - selectedAreaData.noOfColumns + 1) + ((selectedAreaData.noOfRows - 1) * selectedAreaData.totalGridCount)] == selectedAreaData.dragEnd) {
+            selectedAreaData.dragStart -= (selectedAreaData.noOfColumns - 1);
+            selectedAreaData.dragEnd += (selectedAreaData.noOfColumns - 1);
         }
         loop1:
-        for (var i = dragStart; i <= dragEnd; i++) {
+        for (var i = selectedAreaData.dragStart; i <= selectedAreaData.dragEnd; i++) {
             loop2:
-            for (var j = i; j <= dragEnd; j = j + totalGridCount - 1) {
+            for (var j = i; j <= selectedAreaData.dragEnd; j = j + selectedAreaData.totalGridCount) {
 
                 if (j == currentIndex) {
                     isIndexInSelectedArea = true;
                     break loop1;
                 }
-                if (j == dragEnd) {
+                if (j == selectedAreaData.dragEnd) {
                     break loop1;
                 }
             }
@@ -1731,7 +1766,7 @@ function ListHandler(elementId, container) {
     }
     self.OnContextMenuShow = function (e, context) {
         var grid = self.GetGridObject(); self.HideHeaderPopup();
-        if (/iPad/i.test(navigator.userAgent) || e.which == 3) {
+        if (self.IsDeviceIpad() || e.which == 3) {
             jQuery(document).trigger('click');
             var menu = jQuery(this), cell, isOnlyCopy = false;
             if (e.which == 3) {
@@ -1750,36 +1785,36 @@ function ListHandler(elementId, container) {
                 }
                 self.ResetLeftClickFirstCell();
             }        
-        grid.select(context);
-        cell = grid.select();
+            grid.select(context);
+            cell = grid.select();
 
-        if (jQuery(context).hasClass('Number') || self.IsCopyText) {
-            self.HideContextMenu();
-            grid.clearSelection();
-            return false;
-        }
-        if (menu.children().length
-            && menu.is(':visible')
-            && jQuery(context).hasClass('active')) {
-            self.HideContextMenu();
-            return false;
-        }
+            if (jQuery(context).hasClass('Number') || self.IsCopyText) {
+                self.HideContextMenu();
+                grid.clearSelection();
+                return false;
+            }
+            if (menu.children().length
+                && menu.is(':visible')
+                && jQuery(context).hasClass('active')) {
+                self.HideContextMenu();
+                return false;
+            }
 
-        var column = grid.columns[cell.index() + 1],
-            dataItem = grid.dataSource.view()[cell.closest('tr').index()];
+            var column = grid.columns[cell.index() + 1],
+                dataItem = grid.dataSource.view()[cell.closest('tr').index()];
 
-        var displayField = self.Models.Display.GetDisplayByFieldName(column.field, self.Models.Display.Data().fields);
-        if (!displayField || displayField.valid === false || displayField.denied) {
-            self.HideContextMenu();
-            grid.clearSelection();
-            return false;
-        }
+            var displayField = self.Models.Display.GetDisplayByFieldName(column.field, self.Models.Display.Data().fields);
+            if (!displayField || displayField.valid === false || displayField.denied) {
+                self.HideContextMenu();
+                grid.clearSelection();
+                return false;
+            }
 
-        var field = modelFieldsHandler.GetFieldById(column.field, self.Models.Angle.Data().model);
-        if (!field) {
-            self.HideContextMenu();
-            grid.clearSelection();
-            return false;
+            var field = modelFieldsHandler.GetFieldById(column.field, self.Models.Angle.Data().model);
+            if (!field) {
+                self.HideContextMenu();
+                grid.clearSelection();
+                return false;
             }
 
             self.ContextMenuRenderPosition(isOnlyCopy, column, dataItem, menu, context);
@@ -1791,25 +1826,20 @@ function ListHandler(elementId, container) {
                 grid.clearSelection();
                 return false;
             }
-            var dragStart = Math.min(self.LeftClickFirstCell.CellIndex, $(self.ElementId + ' td').index(context));
-            var dragEnd = Math.max(self.LeftClickFirstCell.CellIndex, $(self.ElementId + ' td').index(context));
-            var totalGridCount = grid.columns.length;
-            var noOfColumns = Math.abs(context.cellIndex - self.LeftClickFirstCell.ColumnId) + 1;
-            var noOfRows = Math.abs(context.parentElement.rowIndex - self.LeftClickFirstCell.RowId) + 1;
-            if ([(dragStart - noOfColumns + 1) + ((noOfRows - 1) * (totalGridCount - 1))] == dragEnd) {
-                dragStart -= (noOfColumns - 1);
-                dragEnd += (noOfColumns - 1);
+            var selectedAreaData = self.GetSelectedAreaData(grid, self.LeftClickElement, context);
+            if ([(selectedAreaData.dragStart - selectedAreaData.noOfColumns + 1) + ((selectedAreaData.noOfRows - 1) * selectedAreaData.totalGridCount)] == selectedAreaData.dragEnd) {
+                selectedAreaData.dragStart -= (selectedAreaData.noOfColumns - 1);
+                selectedAreaData.dragEnd += (selectedAreaData.noOfColumns - 1);
             }
 
             grid.clearSelection();
-            self.SelectedCellIndexes = [];
             loop1:
-            for (var i = dragStart; i <= dragEnd; i++) {
+            for (var i = selectedAreaData.dragStart; i <= selectedAreaData.dragEnd; i++) {
                 loop2:
-                for (var j = i; j <= dragEnd; j = j + totalGridCount - 1) {
+                for (var j = i; j <= selectedAreaData.dragEnd; j = j + selectedAreaData.totalGridCount) {
                     $(self.ElementId + " td:eq(" + j + ")").addClass('k-state-selected');
 
-                    if (j == dragEnd) {
+                    if (j == selectedAreaData.dragEnd) {
                         break loop1;
                     }
                 }
@@ -1818,9 +1848,7 @@ function ListHandler(elementId, container) {
             return false;
         }
         else if ((e.which == 1 && e.ctrlKey) || e.which == 1) {
-            self.LeftClickFirstCell.CellIndex = $(self.ElementId + ' td').index(context);
-            self.LeftClickFirstCell.RowId = context.parentElement.rowIndex;
-            self.LeftClickFirstCell.ColumnId = context.cellIndex;
+            self.SetLeftClickFirstCell(context);
             self.HideContextMenu();
             grid.clearSelection();
             $(self.ElementId + " td:eq(" + $(self.ElementId + ' td').index(context) + ")").addClass('k-state-selected');
@@ -1881,7 +1909,7 @@ function ListHandler(elementId, container) {
                         listDrilldownHandler.Drilldown(dataItem);
                         break;
                     case 'copy':
-                        jQuery('#CopyToClipboard').click();
+                        self.OnContentCopy()
                         break;
                     case 'sap':
 
@@ -2469,7 +2497,7 @@ function ListHandler(elementId, container) {
             var selectCell = grid.content.find('td.k-state-selected');
             var tooltip = jQuery('#tooltipCopy');
             if (!tooltip.length) {
-                tooltip = jQuery('<div class="k-grid-tooltip k-grid-tooltip-copy" />').attr('id', 'tooltipCopy').appendTo('body');
+                tooltip = jQuery('<div class="k-grid-tooltip" />').attr('id', 'tooltipCopy').appendTo('body');
             }
             var firstElement = grid.select().first(), lastElement = grid.select().last(),
                 noOfRows = Math.abs(firstElement.parent().index() - lastElement.parent().index()) + 1;
@@ -2552,10 +2580,6 @@ function ListHandler(elementId, container) {
                 self.IsCopyText = false;
             }
         };
-
-        jQuery(grid.element).off('mouseup.copy').on('mouseup.copy', function () {
-            setIsCopyText();
-        });
 
         grid.content.find('td').kendoTouch({
             hold: function () {

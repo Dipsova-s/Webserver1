@@ -311,10 +311,6 @@ div.k-grid .k-grid-content tr td.last.k-column-active {
     border-right-color: #34495e;
 }
 
-.k-grid-tooltip-copy {
-    background-color: #006f9b;
-}
-
 .k-state-selected,
 .k-state-selected > td,
 .k-grid td.k-state-selected.k-state-focused {
