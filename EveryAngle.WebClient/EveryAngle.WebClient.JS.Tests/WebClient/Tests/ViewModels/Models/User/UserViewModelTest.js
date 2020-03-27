@@ -14,16 +14,16 @@ describe("UserViewModel", function () {
             spyOn(jQuery.fn, 'hide');
         });
         
-        it("should show Workbench menu when user has manage model role", function () {
-            spyOn(userViewModel, 'IsPossibleToManageModel').and.returnValue(true);
+        it("should show Workbench menu when user has manage modeling workbench role", function () {
+            spyOn(userViewModel, 'IsPossibleToManageModelingWorkbench').and.returnValue(true);
             userViewModel.SetWorkbenchButton();
                 
             expect(jQuery.fn.show).toHaveBeenCalled();
             expect(jQuery.fn.hide).not.toHaveBeenCalled();
         });
 
-        it("should hide Workbench menu when user has no manage model role", function () {
-            spyOn(userViewModel, 'IsPossibleToManageModel').and.returnValue(false);
+        it("should hide Workbench menu when user has no manage modeling workbench role", function () {
+            spyOn(userViewModel, 'IsPossibleToManageModelingWorkbench').and.returnValue(false);
             userViewModel.SetWorkbenchButton();
 
             expect(jQuery.fn.show).not.toHaveBeenCalled();

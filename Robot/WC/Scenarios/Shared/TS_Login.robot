@@ -50,6 +50,9 @@ Login To MC
 Login To MC By Admin User
     Login To MC    ${AdminUsername}    ${Password}
 
+Login To MC By Test Role User
+    Login To MC    ${TestPrivilegesUser}    ${Password}
+
 Logout
     [Arguments]
     Execute JavaScript    jQuery('#UserMenu .btnLogout').click()
@@ -78,6 +81,17 @@ Go to MC Then Login With Admin User
     Open Browser in Sandbox Mode
     Go To    ${URL_MC}
     Login To MC By Admin User
+    Wait Until Overview Page Loaded
+
+Go To WC Then Login With Test Role User
+    Open Browser in Sandbox Mode
+    Go To    ${URL_WC}
+    Login To WC By Test Role User
+
+Go To MC Then Login With Test Role User
+    Open Browser in Sandbox Mode
+    Go To    ${URL_MC}
+    Login To MC By Test Role User
     Wait Until Overview Page Loaded
 
 Logout WC Then Close Browser

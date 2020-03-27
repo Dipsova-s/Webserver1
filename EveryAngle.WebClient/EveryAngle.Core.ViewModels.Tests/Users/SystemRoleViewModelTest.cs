@@ -1,8 +1,7 @@
-﻿using EveryAngle.Core.ViewModels.Tests;
-using EveryAngle.Core.ViewModels.Users;
+﻿using EveryAngle.Core.ViewModels.Users;
 using NUnit.Framework;
 
-namespace EveryAngle.ManagementConsole.Test.User
+namespace EveryAngle.Core.ViewModels.Tests
 {
     public class SystemRoleViewModelTest : UnitTestBase
     {

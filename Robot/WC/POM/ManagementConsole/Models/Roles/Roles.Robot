@@ -1,3 +1,6 @@
+*** Settings ***
+Resource            ${EXECDIR}/WC/POM/Search/SearchPage.robot
+
 *** Variables ***
 ${divRolesGrid}                       jquery=#RolesGridContainer tbody
 ${trRowInRolesGrid}                   jquery=#RolesGridContainer tbody tr
@@ -147,3 +150,8 @@ Click Manage Users Action
 Get Users Count By Role Name
     ${UserCount}    Execute Javascript    return $.trim($('#${trRolesGrid} ${tdUserCount}').text())
     [Return]    ${UserCount}
+
+Check The Existence Of Modeling Workbench Link In User Menu
+    Click User Menu
+    Element Should Not Be Visible     ${btnModelingWorkbench}
+    

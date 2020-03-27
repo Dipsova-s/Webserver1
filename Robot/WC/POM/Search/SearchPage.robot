@@ -16,6 +16,7 @@ ${pgbSearchResults}         css=#MainContent .k-loading-mask
 ${divWelcomeVideo}          WelcomePlayer
 ${btnWebClient}             //a[@class='actionDropdownItem btnWC']/span
 ${txtbox1}                  //div[@class='sectionWelcome sectionWelcomeDetail1']
+${btnModelingWorkbench}     //a[@id='btnWorkbench']
 ${txtbox2}                  //div[@class='sectionWelcome sectionWelcomeDetail2']
 ${imgCustomerLogo}          css=.sectionWelcomeLogo > img[src*="logo_EN"]
 

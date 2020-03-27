@@ -42,7 +42,7 @@
                 {
                     <a href="@webClientUrl.ToLower()" class="actionDropdownItem btnWC" target="_blank"><span>@Resource.OpenWebclient</span></a>
                 }
-                @if (SessionHelper.Initialize().Session.IsValidToManageModelPrivilege())
+                @if (SessionHelper.Initialize().Session.IsValidToManageModelingWorkbenchPrivilege())
                 {
                     string workbenchUri = EveryAngle.Shared.Helpers.UtilitiesHelper.GetWebClientUrl("") + "workbench";
                     <a id="btnWorkbench" href="@workbenchUri" class="actionDropdownItem btnWorkbench" target="_blank">

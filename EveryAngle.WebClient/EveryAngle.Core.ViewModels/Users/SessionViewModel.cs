@@ -134,6 +134,22 @@ namespace EveryAngle.Core.ViewModels.Users
         }
 
         /// <summary>
+        /// Can manage modeling workbench 
+        /// </summary>
+        /// <returns></returns>
+        public virtual bool IsValidToManageModelingWorkbenchPrivilege()
+        {
+            return IsValidToManageModelingWorkbenchPrivilege(null);
+        }
+
+        public virtual bool IsValidToManageModelingWorkbenchPrivilege(string model)
+        {
+            if (this.ModelPrivileges != null)
+                return this.ModelPrivileges.Any(m => (model == null || m.model.ToString() == model) && (bool.Equals(true, m.Privileges.configure_content) || bool.Equals(true, m.Privileges.edit_content)));
+            return false;
+        }
+
+        /// <summary>
         /// Can access web client
         /// </summary>
         /// <returns></returns>

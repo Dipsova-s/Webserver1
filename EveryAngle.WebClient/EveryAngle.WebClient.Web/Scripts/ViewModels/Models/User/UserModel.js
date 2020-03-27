@@ -129,11 +129,10 @@ function UserViewModel() {
 
         return hasPrivillage;
     };
-    self.IsPossibleToManageModel = function () {
+    self.IsPossibleToManageModelingWorkbench = function () {
         var availableModels = jQuery.grep(self.Privileges.ModelPrivileges, function (modelPrivilege) {
-            return modelPrivilege.privileges.manage_model;
+            return modelPrivilege.privileges.configure_content || modelPrivilege.privileges.edit_content;
         });
-
         return availableModels.length > 0;
     };
     self.ShowCreateAngleButton = function () {
@@ -201,7 +200,7 @@ function UserViewModel() {
             self.HideManagementControlButton();
     };
     self.SetWorkbenchButton = function () {
-        if (self.IsPossibleToManageModel()) {
+        if (self.IsPossibleToManageModelingWorkbench()) {
             jQuery("#btnWorkbench").show();
         }
         else {

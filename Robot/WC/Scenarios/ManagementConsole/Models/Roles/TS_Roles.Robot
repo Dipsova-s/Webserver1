@@ -82,3 +82,23 @@ Verify Modeling Workbench Privileges Section Existence In Show Consolidated Role
     Expand Privileges Flag In Show Consolidated Role Pop Up
     Page Should Contain Element     ${sectionModelingWorkbench}
     Close Show Consolidate Role Popup
+
+Check The Existence Of Modeling Workbench Link In WC
+    Go To WC Then Login With Test Role User
+    Check The Existence Of Modeling Workbench Link In User Menu
+    Logout WC Then Close Browser
+    Switch Browser  1
+
+Check The Existence Of Modeling Workbench Link In ITMC
+    Go To MC Then Login With Test Role User
+    Check The Existence Of Modeling Workbench Link In User Menu
+    Logout MC Then Close Browser
+    Switch Browser  1
+
+Verify Modeling Workbench Link Is Hiding When User Dont Have Privilege To Edit/Config Content
+    [Arguments]     ${Role_Name}
+    Filter Role By Role Name    ${Role_Name}
+    Set Modeling Workbench Content  ${Role_Name}    Deny
+    Check The Existence Of Modeling Workbench Link In WC
+    Check The Existence Of Modeling Workbench Link In ITMC
+   
