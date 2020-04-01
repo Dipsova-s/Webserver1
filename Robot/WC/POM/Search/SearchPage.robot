@@ -84,6 +84,7 @@ ${divBusinessprocessS2D}            css=#S2D
 ${divBusinessprocessO2C}            css=#O2C
 ${divBusinessprocessF2R}            css=#F2R
 ${divBusinessprocessPM}             css=#PM
+${divBusinessprocessQM}             css=#QM
 ${divBusinessprocessHCM}            css=#HCM
 ${divBusinessprocessGRC}            css=#GRC
 ${divBusinessprocessIT}             css=#IT
@@ -435,6 +436,9 @@ Click Search Business Process F2R
 
 Click Search Business Process PM
     Click Search Business Process    ${divBusinessprocessPM}
+
+Click Search Business Process QM
+    Click Search Business Process    ${divBusinessprocessQM}    
 
 Click Search Business Process HCM
     Click Search Business Process    ${divBusinessprocessHCM}

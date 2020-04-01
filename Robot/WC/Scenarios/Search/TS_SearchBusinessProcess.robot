@@ -9,6 +9,7 @@ Search Business Process
     Run Keyword If    '${business_process_name}' == 'O2C'    Click Search Business Process O2C
     Run Keyword If    '${business_process_name}' == 'F2R'    Click Search Business Process F2R
     Run Keyword If    '${business_process_name}' == 'PM'    Click Search Business Process PM
+    Run Keyword If    '${business_process_name}' == 'QM'    Click Search Business Process QM
     Run Keyword If    '${business_process_name}' == 'HCM'    Click Search Business Process HCM
     Run Keyword If    '${business_process_name}' == 'GRC'    Click Search Business Process GRC
     Run Keyword If    '${business_process_name}' == 'IT'    Click Search Business Process IT

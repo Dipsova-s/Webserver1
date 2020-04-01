@@ -401,7 +401,7 @@ function FacetFiltersViewModel() {
         var isBusinessProcessGroup = self.GroupBusinessProcess === facetType;
         if (isBusinessProcessGroup) {
             var extraCss = filter.enabled() ? '' : ' disabled';
-            var filterNumber = filter.index % 8;
+            var filterNumber = filter.index % businessProcessesModel.General.TotalBusinessProcesses;
             html += '<span class="BusinessProcessBadge BusinessProcessBadgeItem' + filterNumber + ' ' + filter.id + '"></span>';
             html += '<span class="BusinessProcessBadgeLabel' + extraCss + '" data-tooltip-text="' + filter.description + '">' + filter.name + '</span>';
         }

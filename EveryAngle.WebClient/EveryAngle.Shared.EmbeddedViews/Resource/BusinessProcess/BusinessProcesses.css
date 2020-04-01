@@ -99,6 +99,10 @@
     background-color: #93bf00;
 }
 
+.businessProcesses .businessProcessesItem.QM:before {
+    background-color: #07bcb5;
+}
+
 .businessProcesses .businessProcessesItem.HCM:before {
     background-color: #7f196f;
 }
@@ -136,14 +140,18 @@
 }
 
 .businessProcesses .businessProcessesItem6:before {
-    background-color: #7f196f;
+    background-color: #07bcb5;
 }
 
 .businessProcesses .businessProcessesItem7:before {
-    background-color: #c00000;
+    background-color: #7f196f;
 }
 
 .businessProcesses .businessProcessesItem8:before {
+    background-color: #c00000;
+}
+
+.businessProcesses .businessProcessesItem9:before {
     background-color: #218b00;
 }
 
@@ -452,16 +460,21 @@
 }
 
 .BusinessProcessBadgeItem5,
+.BusinessProcessBadge.QM {
+    background-color: #07bcb5;
+}
+
+.BusinessProcessBadgeItem6,
 .BusinessProcessBadge.HCM {
     background-color: #7f196f;
 }
 
-.BusinessProcessBadgeItem6,
+.BusinessProcessBadgeItem7,
 .BusinessProcessBadge.GRC {
     background-color: #c00000;
 }
 
-.BusinessProcessBadgeItem7,
+.BusinessProcessBadgeItem8,
 .BusinessProcessBadge.IT {
     background-color: #218b00;
 }

@@ -13,6 +13,7 @@ Search Angle By Filter Business Process S2D         S2D
 Search Angle By Filter Business Process O2C         O2C
 Search Angle By Filter Business Process F2R         F2R
 Search Angle By Filter Business Process PM          PM
+Search Angle By Filter Business Process QM          QM
 Search Angle By Filter Business Process HCM         HCM
 Search Angle By Filter Business Process GRC         GRC
 Search Angle By Filter Business Process IT          IT

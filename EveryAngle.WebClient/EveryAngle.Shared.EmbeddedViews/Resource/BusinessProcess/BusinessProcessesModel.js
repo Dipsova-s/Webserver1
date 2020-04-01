@@ -52,6 +52,7 @@ function BusinessProcessesViewModel(externalData) {
     self.FieldId = 'id';
     self.FieldLabel = 'name';
     self.Identity = 'bp';
+    self.TotalBusinessProcesses = 9;
     self.MODE = {
         COMPACT: 1,
         FULL: 2
@@ -154,7 +155,7 @@ function BusinessProcessesViewModel(externalData) {
         ].join(' ');
     };
     self.CssClass = function (data, index) {
-        var classes = ['businessProcessesItem' + ((index % 8) + 1), data.id.toUpperCase()];
+        var classes = ['businessProcessesItem' + ((index % self.TotalBusinessProcesses) + 1), data.id.toUpperCase()];
         if (index === self.Data().length - 1)
             classes.push('last');
         if (self.CurrentActive()[data.id])
@@ -360,7 +361,7 @@ function BusinessProcessesViewModel(externalData) {
         }
     };
     self.BindCss = function (data, index) {
-        return 'BusinessProcessBadgeItem' + (index % 8) + ' ' + data.id;
+        return 'BusinessProcessBadgeItem' + (index % self.TotalBusinessProcesses) + ' ' + data.id;
     };
     self.GetSmartName = function (words, wordsLength) {
         var eaTextMeasure = self.GetTextMeasureElement();
