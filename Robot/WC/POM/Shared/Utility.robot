@@ -295,7 +295,7 @@ Download should be done
     ...    Returns path to the file
     ${files}    List Files In Directory    ${download_directory}
     Length Should Be    ${files}    1    Should be only one file in the download folder
-    Should Not Match Regexp    ${files[0]}    (?i).*\\.tmp    Chrome is still downloading a file
+    Should Not Match Regexp    ${files[0]}    (?i).*\\.(tmp|crdownload)    Chrome is still downloading a file
     ${file}    Join Path    ${download_directory}    ${files[0]}
     Log    File was successfully downloaded to ${file}
     [Return]    ${file}

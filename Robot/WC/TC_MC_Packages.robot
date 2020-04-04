@@ -4,7 +4,7 @@ Suite Setup         Initialize Download Path
 Suite Teardown      Close Browser
 Test Setup          Go To               ${URL_MC}
 Test Teardown       Logout MC
-Force Tags          MC    acc_mc
+Force Tags          MC    acc_mc_s
 
 *** Test Cases ***
 Test Global Packages
@@ -50,7 +50,7 @@ Create new package and verify the package is created successfully
 
 Activate and Deactivate the uploaded package in models
     [Documentation]     Verify the user is able to activate/deactivate the uploaded package in Global packages page to model packages. High criticality
-    [Tags]      TC_C9067    acc_mc_aci
+    [Tags]      TC_C9067    acc_mc_aci_s
     ${randomString}     Generate Random String   8    [LETTERS]
     ${packageName}   catenate  ${randomString}_Robot_Package
     Login To MC By Admin User
