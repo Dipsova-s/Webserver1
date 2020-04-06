@@ -4,9 +4,7 @@ Resource            ${EXECDIR}/WC/POM/ManagementConsole/GlobalSettings/Packages/
 
 *** Keywords ***
 Go To Package Page
-    Wait Side Menu Ready
-    Click Side Menu Global Settings
-    Click Side Menu Packages
+    Go To MC Page    /Global%20settings/Packages/
     Wait Until Packages Page Loaded
 
 Verify Package Page Is Ready
@@ -18,9 +16,10 @@ Verify Filter Not Found
     Element Should Not Contain    ${tbGridPackage}    PackageNotFound
 
 Verify Upload Package And Filter The Package
-    Click Upload New Package
-    Input Filter Package    Robot
-    Element Should Contain    ${tbGridPackage}    Robot
+    [Arguments]    ${packageName}    ${packageFilePath}
+    Click Upload New Package    ${packageFilePath}
+    Input Filter Package    ${packageName}
+    Element Should Contain    ${tbGridPackage}    ${packageName}
 
 Delete Uploaded Package
     [Arguments]     ${packageName}

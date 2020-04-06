@@ -51,8 +51,10 @@ Unselect Checkbox In Export Package Popup
 Select Content drop down value in Export Package Popup
     [Arguments]     ${dpdValue}
     Select Dropdown By InnerText  ${dpdItemTypeList}   ${dpdValue}
+    Wait Until Export Package Popup Is Ready
 
 Click on OK button in Create Package popup
     Click Element    ${btnExportPackagePopup}
     Wait Until Element Is Not Visible    ${btnExportPackagePopup}
     Wait MC Progress Bar Closed
+    ${file}    Wait Until Keyword Succeeds    1 min    2 sec    Download should be done    ${DOWNLOAD_DIRECTORY}

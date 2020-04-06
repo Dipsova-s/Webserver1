@@ -1,5 +1,4 @@
 *** Variables ***
-${packageFilePath}                  ${EXECDIR}/resources/Robot-Test-1.eapackage
 ${txtFilterPackage}                 GlobalPackagesGridFilterBox
 ${tbGridPackage}                    css=#PackageGrid
 ${pgbGridPackage}                   css=#PackageGrid .k-loading-mask
@@ -48,6 +47,8 @@ Click Download Package By Package Name
     Click Action In Grid By Name     ${packageName}    ${trRowInPackagesGrid}    ${btnDownloadPackage}
 
 Click Upload New Package
+    [Arguments]    ${packageFilePath}
+    Sleep   ${TIMEOUT_LARGEST}
     Wait Until Page Contains Element    ${addNewPackage}
     Choose File     ${addNewPackage}    ${packageFilePath}
     Wait MC Progress Bar Closed

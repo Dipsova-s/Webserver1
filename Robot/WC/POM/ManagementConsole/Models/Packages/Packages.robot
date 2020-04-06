@@ -53,11 +53,14 @@ Verify the Model Packages data in Model Packages grid
 
 Click Activate Model Package By Package Name
     [Arguments]    ${modelPackageName}
+    Input Filter Model Package    ${modelPackageName}
+    Click Show Action Dropdown In Grid By Name  ${modelPackageName}  ${trRowInModelPackagesGrid}
     Click Action In Grid By Name     ${modelPackageName}    ${trRowInModelPackagesGrid}    ${btnActivatePackage}
     Wait Until Page Contains    Activate package
 
 Click Deactivate Model Package By Package Name
     [Arguments]    ${modelPackageName}
+    Input Filter Model Package    ${modelPackageName}
     Click Show Action Dropdown In Grid By Name  ${modelPackageName}  ${trRowInModelPackagesGrid}
     Click Action In Grid By Name     ${modelPackageName}    ${trRowInModelPackagesGrid}    ${btnDeactivatePackage}
     Wait Until Page Contains    Deactivate Package
@@ -83,3 +86,8 @@ Click on Reload Button
 Click All Radio Button
     Wait Until Page Contains Element    ${rdoShowAllPackage}
     Click Element    ${rdoShowAllPackage}
+
+Wait Until Package Status Ready
+    [Arguments]  ${packageName}   ${expectedStatus}
+    Click on Reload Button
+    Element Should Contain  ${trRowInModelPackagesGrid}:contains(${packageName})  ${expectedStatus}

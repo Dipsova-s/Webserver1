@@ -4,13 +4,13 @@ Resource            ${EXECDIR}/WC/POM/ManagementConsole/Models/Packages/Packages
 *** Keywords ***
 Go To Models Package Page
     [Arguments]     ${modelName}
-    Click on packages link for the model    ${modelName} 
+    Go To MC Page    /Models/${modelName}/Packages/
     Wait Until Model Packages Loaded
 
 Verify the Model Package data in Model Packages grid
     [Arguments]     ${packageStatus}    ${packageName}
     Input Filter Model Package  ${packageName}
-    Verify the Model Packages data in Model Packages grid  ${packageName}  ${packageName}  2.0  ManagementConsole  angles, labels, model_authorizations  Deactivated
+    Wait Until Keyword Succeeds    2 min    10 s    Wait Until Package Status Ready    ${packageName}     ${packageStatus}
 
 Activate Package in Model package grid
     [Arguments]     ${packageName}
