@@ -6,9 +6,15 @@ ${colSize}              jquery=th[data-title="Size"]
 ${colTimestamp}         jquery=th[data-title="Timestamp"]
 ${colAction}            jquery=th[data-title="Action"]
 ${gridContentTable}     jquery=#SystemLogsGrid .k-grid-content table
-${gridContentRow}       jquery=#SystemLogsGrid .k-grid-content table tr
+${trRowInRepositoryLogsGrid}    jquery=#SystemLogsGrid tbody tr
+${btnDownloadRepositoryLog}     .btnDownload
 ${gridContentFirstRow}  jquery=#SystemLogsGrid .k-grid-content table tr:first
+${gridContentRow}  xpath=//div[@class='k-virtual-scrollable-wrap']//tbody//tr
 ${gridContentLastRow}   jquery=#SystemLogsGrid .k-grid-content table tr:last
+
+${btnDownloadindex}        1
+
+# ${DOWNLOAD_DIRECTORY}      ${EXECDIR}/resources
 
 *** Keywords ***
 Go To Repository Log Page
@@ -32,29 +38,44 @@ Verify Repository Log Grid Column
 
 Verify Sorting Repository Log If Applicable
     ${count} =  Get Element Count  ${gridContentRow}
-    Run Keyword If  ${count} > 1  Verify Sorting Repository Log
+    Log    ${count}
+    Run Keyword If  ${count} > 1    Verify Sorting Repository Log
  
-Verify Sorting Repository Log
-    Click Element  ${colLogFile}
+Verify Sorting Repository Log 
     # Expect Order by Logfile Asc
-    ${firstRowValue} =  Get Text     ${gridContentFirstRow} td:eq(0)
-    ${lastRowValue} =  Get Text     ${gridContentLastRow} td:eq(0)
-    ${result} =  Execute JavaScript  return '${firstRowValue}' < '${lastRowValue}';
+    Click Element  ${colLogFile}
+    ${firstRowValueAsc} =  Get Text    ${gridContentFirstRow} td:eq(0)
+    Log  ${firstRowValueAsc}
+    scroll element into view    ${gridContentLastRow} td:eq(0)
+    ${lastRowValueAsc} =  Get Text     ${gridContentLastRow} td:eq(0)
+    Log  ${lastRowValueAsc}
+    ${result} =  Execute JavaScript  return '${firstRowValueAsc}' < '${lastRowValueAsc}';
     Should Be True  ${result}
 
-    Click Element  ${colLogFile}
     # Expect Order by Logfile Desc
-    ${firstRowValue} =  Get Text     ${gridContentFirstRow} td:eq(0)
-    ${lastRowValue} =  Get Text     ${gridContentLastRow} td:eq(0)
-    ${result} =  Execute JavaScript  return '${lastRowValue}' < '${firstRowValue}';
+    Click Element  ${colLogFile}
+    scroll element into view    ${gridContentFirstRow} td:eq(0)
+    ${firstRowValueDesc} =  Get Text     ${gridContentFirstRow} td:eq(0)
+    Log  ${firstRowValueDesc}
+    scroll element into view    ${gridContentLastRow} td:eq(0)
+    ${lastRowValueDesc} =  Get Text     ${gridContentLastRow} td:eq(0)
+    Log  ${lastRowValueDesc}
+    ${result} =  Execute JavaScript  return '${lastRowValueDesc}' < '${firstRowValueDesc}';
     Should Be True   ${result}
 
-Verify Download Repository Log If Applicable 
-    ${count} =  Get Element Count  ${gridContentRow} 
+Click Download Repository Log By Logfile Name
+    [Arguments]    ${logfileName}
+    Click Show Action Dropdown In Grid By Name  ${logfileName}    ${trRowInRepositoryLogsGrid}
+    Click Action In Grid By Name     ${logfileName}    ${trRowInRepositoryLogsGrid}    ${btnDownloadRepositoryLog}
+
+Verify Download Repository Log If Applicable
+    ${count} =  Get Element Count  ${gridContentRow}
     Run Keyword If  ${count} > 0  Verify Download Repository Log 
 
-Verify Download Repository Log 
-    ${fileName} =  Get Text     ${gridContentFirstRow} td:eq(0)
-    Click Element  ${gridContentFirstRow} .btnDownload
+Verify Download Repository Log
+    Click Element  ${colLogFile}
+    scroll element into view    ${gridContentFirstRow} td:eq(0)
+    ${fileName} =  Get Text     ${gridContentFirstRow} td:eq(0) 
+    Click Download Repository Log By Logfile Name     ${fileName}
     ${file}    Wait Until Keyword Succeeds    1 min    2 sec    Download should be done    ${DOWNLOAD_DIRECTORY}
     Should Contain    ${file}    ${fileName}

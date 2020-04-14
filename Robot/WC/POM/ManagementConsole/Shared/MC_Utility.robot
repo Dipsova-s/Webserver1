@@ -67,6 +67,7 @@ Click Main Action In Grid By Name
 
 Click Action In Grid By Name
     [Arguments]    ${name}    ${trRowInGrid}    ${btnAction}
+    Wait Until Ajax Complete
     Wait Until Page Contains Element    ${trRowInGrid}:contains(${name}) ${btnAction}
     Sleep    ${TIMEOUT_GENERAL}
     Click Element    ${trRowInGrid}:contains(${name}) ${btnAction}
