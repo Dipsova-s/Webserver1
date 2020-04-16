@@ -622,7 +622,8 @@ namespace EveryAngle.ManagementConsole.Controllers
         public void SetModelServersDefinitionVersion(ModelServerViewModel modelServerViewModel)
         {
             modelServerViewModel.model_definition_version = string.Empty;
-            if (modelServerViewModel.status != "Down")
+            if (modelServerViewModel.Status != ModelServerStatus.Down
+                && modelServerViewModel.Status != ModelServerStatus.Unknown)
             {
                 var extractorViewModel = modelService.GetModelExtractor(modelServerViewModel.info.ToString());
                 modelServerViewModel.model_definition_version = extractorViewModel.modeldefinition_id;

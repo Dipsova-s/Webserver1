@@ -48,24 +48,19 @@ namespace EveryAngle.ManagementConsole.Test.Controllers
             Assert.AreEqual(expectedResult, modelServerViewModel.IsActiveServer);
         }
 
-        [TestCase(true)]
-        [TestCase(false)]
-        public void Can_SetModelServerDefinitionVersionCorrectly(bool expectedResult)
+        [TestCase("Up", true)]
+        [TestCase("Down", false)]
+        [TestCase("Unknown", false)]
+        public void Can_SetModelServerDefinitionVersionCorrectly(string status, bool expectedResult)
         {
             ModelServerViewModel modelServerViewModel;
+            modelServerViewModel = new ModelServerViewModel { id = "EA2_800", status = status, info = new Uri("http://dummy/") };
             if (expectedResult)
             {
-                modelServerViewModel = new ModelServerViewModel { id = "EA2_800", status = "Up", info = new Uri("http://dummy/") };
                 modelService.Setup(x => x.GetModelExtractor(It.IsAny<string>())).
                     Returns(new ExtractorViewModel { model_id = "EA2_800", modeldefinition_id = "1", status = "Up" });
             }
-            else
-            {
-                modelServerViewModel = new ModelServerViewModel { id = "EA2_800", status = "Down", info = new Uri("http://dummy/") };
-                modelService.Setup(x => x.GetModelExtractor(It.IsAny<string>())).
-                    Returns(new ExtractorViewModel { model_id = "EA2_800" });
-            }
-
+            
             _testingController = GetController();
             _testingController.SetModelServersDefinitionVersion(modelServerViewModel);
             Assert.AreEqual(expectedResult, modelServerViewModel.model_definition_version.Equals("1"));
