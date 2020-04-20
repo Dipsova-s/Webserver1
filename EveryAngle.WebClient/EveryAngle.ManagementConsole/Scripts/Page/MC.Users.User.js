@@ -477,6 +477,7 @@
             self.BusinessProcessesHandler.MultipleActive(true);
             self.BusinessProcessesHandler.CanEmpty(true);
             self.BusinessProcessesHandler.CurrentActive(currentActive);
+            self.BusinessProcessesHandler.SetCheckBoxStyle();
             self.BusinessProcessesHandler.ApplyHandler('#UserBusinessProcess');
         };
         self.InitialAssignedRoleGrid = function () {
