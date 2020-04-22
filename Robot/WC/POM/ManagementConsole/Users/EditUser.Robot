@@ -54,9 +54,8 @@ Click Select Role By Role Name
     Click Element    jquery=#${trRowInSelectRoleGrid}:contains(${roleName})
 
 Click Add Business Process To User
-    [Arguments]    ${businessProcessName}
-    Wait Until Element Is Visible    ${divBusinessProcesses}:contains("${businessProcessName}")
-    Click Element    ${divBusinessProcesses}:contains("${businessProcessName}")
+    [Arguments]    ${businessProcessName}   ${chbOption}
+    Set Checkbox   ${businessProcessName}    ${chbOption}
 
 Click Add Multiple Business Process To User
     [Arguments]    ${businessProcessName}   ${businessProcessName2}

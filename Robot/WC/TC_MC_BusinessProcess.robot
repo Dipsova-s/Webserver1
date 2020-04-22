@@ -29,7 +29,7 @@ Create Business Process and Add to User
     Click Enable Business Process By Abbreviation    ${BUSINESS_PROCESS_NAME}
     Click Save Business Process Without Delete
     Go To All Users Page
-    Add Business Process To User    ${TEST_USER}    ${BUSINESS_PROCESS_NAME}
+    Add Business Process To User    ${TEST_USER}    ${BUSINESS_PROCESS_NAME}    True
     Go to Business Process
     Delete Business Process    ${BUSINESS_PROCESS_NAME}
     Page Should Not Contain Element    ${trRowInBusinessProcessGrid}:contains("${BUSINESS_PROCESS_NAME}")
@@ -46,8 +46,8 @@ Create Multiple Business Processes and Add to User
     Click Enable Business Process By Abbreviation    ${BUSINESS_PROCESS_NAME2}
     Click Save Business Process Without Delete
     Go To All Users Page
-    Add Business Process To User    ${TEST_USER}    ${BUSINESS_PROCESS_NAME}
-    Add Business Process To User    ${TEST_USER}    ${BUSINESS_PROCESS_NAME2}
+    Add Business Process To User    ${TEST_USER}    ${BUSINESS_PROCESS_NAME}    True
+    Add Business Process To User    ${TEST_USER}    ${BUSINESS_PROCESS_NAME2}   True
     Go to Business Process
     Delete Multiple Business Process    ${BUSINESS_PROCESS_NAME}    ${BUSINESS_PROCESS_NAME2}
     Page Should Not Contain Element    ${trRowInBusinessProcessGrid}:contains("${BUSINESS_PROCESS_NAME}")

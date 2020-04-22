@@ -27,9 +27,9 @@ Assign Role To User
     Click Save Role To User
 
 Add Business Process To User
-    [Arguments]    ${userName}    ${businessProcessName}
+    [Arguments]    ${userName}    ${businessProcessName}    ${chbOption}
     Click Edit User Action By User Name    ${userName}
-    Click Add Business Process To User    ${businessProcessName}
+    Click Add Business Process To User    ${businessProcessName}    ${chbOption}
     Click Save Role To User
 
 Clear Role From User
