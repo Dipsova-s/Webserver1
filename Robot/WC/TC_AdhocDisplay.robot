@@ -17,3 +17,13 @@ Adhoc Display Is Removed When Go Back To Search Page
     Go to Search Page
     Search Angle From Search Page And Execute Angle    Angle For General Test
     Display Tab Should Not Be Visible By Name   New chart display
+
+Adhoc Display Is Editable In Adhoc Angle
+    [Tags]      TC_229220       my_test
+    [Documentation]     Able to update id,name,description to a new display on ad-hoc angle
+    ...                 Risk/coverage area: Created Adhoc display in Adhoc angle should be editable
+    ${angleName}  Set Variable  [ROBOT] Adhoc Display Is Editable In Adhoc Angle
+    Create Blank Adhoc Angle From One Object      PD    ${angleName}
+    Create An Adhoc Chart                   Chart Display
+    Edit Display Description                en      new Chart Display     my description    ${TRUE}
+    Display Tab Should Be Visible By Name   new Chart Display

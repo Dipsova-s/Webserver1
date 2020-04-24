@@ -296,6 +296,7 @@ function DisplayOverviewHandler(angleHandler) {
                 if (self.AngleHandler.IsAdhoc()) {
                     display.uri = self.AngleHandler.Data().uri + '/displays/' + display.id;
                     display.is_adhoc = true;
+                    display.authorizations = displayModel.GetDefaultAdhocAuthorization(self.AngleHandler.GetData());
                     self.CreateNewDisplayDone(display);
                 }
                 else {

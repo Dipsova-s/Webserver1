@@ -32,7 +32,8 @@ describe("DisplayOverviewHandler", function () {
             AddDisplay: $.noop,
             IsAdhoc: $.noop,
             AllowMoreDetails: $.noop,
-            GetCurrentDisplay: $.noop
+            GetCurrentDisplay: $.noop,
+            GetData: $.noop
         };
 
         displayOverviewHandler = new DisplayOverviewHandler(angleHandler);
@@ -413,6 +414,9 @@ describe("DisplayOverviewHandler", function () {
             // prepare
             spyOn(displayOverviewHandler, 'GetCreateDisplayData').and.returnValue($.when(displayHandler));
             spyOn(displayOverviewHandler.AngleHandler, 'IsAdhoc').and.returnValue(true);
+            spyOn(displayOverviewHandler.AngleHandler, 'GetData').and.returnValue({});
+            spyOn(displayModel, 'GetDefaultAdhocAuthorization');
+
             displayOverviewHandler.SaveNewDisplay('displayType');
 
             // assert
@@ -420,6 +424,7 @@ describe("DisplayOverviewHandler", function () {
             expect(displayOverviewHandler.ItemDescriptionHandler.ShowProgressbar).toHaveBeenCalled();
             expect(displayOverviewHandler.CreateNewDisplayDone).toHaveBeenCalled();
             expect(displayOverviewHandler.CreateNewDisplayFail).not.toHaveBeenCalled();
+            expect(displayModel.GetDefaultAdhocAuthorization).toHaveBeenCalled();
         });
         it('should save new display', function () {
             // prepare
@@ -450,7 +455,7 @@ describe("DisplayOverviewHandler", function () {
         });
         it('should get data for list', function () {
             // prepare
-            
+
             displayOverviewHandler.GetCreateDisplayData('list');
 
             // assert
