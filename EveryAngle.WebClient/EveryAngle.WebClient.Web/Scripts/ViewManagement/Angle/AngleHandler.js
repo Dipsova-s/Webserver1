@@ -1,677 +1,572 @@
-function AngleModelTest(data) {
+function AngleHandler(model) {
     "use strict";
 
-    jQuery.extend(this, WC.ModelHelper.ExtendAngleData(data));
-}
-function DisplayModelTest(data, angle) {
-    "use strict";
-
-    jQuery.extend(this, WC.ModelHelper.ExtendDisplayData(data, angle));
-}
-
-function AngleHandler() {
-    "use strict";
-
-    //BOF: Properties
+    var _self = {};
+    _self.data = null;
+    _self.canEditId = false;
 
     var self = this;
+    self.Data = ko.observable(null);
+    self.ItemDescriptionHandler = new ItemDescriptionHandler();
+    self.QueryDefinitionHandler = new QueryDefinitionHandler();
+    self.AngleUserSpecificHandler = new AngleUserSpecificHandler(self);
+    self.AngleBusinessProcessHandler = new AngleBusinessProcessHandler(self);
+    self.AngleStatisticHandler = new AngleStatisticHandler(self);
+    self.Initial = function (model, updateRaw) {
+        if (updateRaw)
+            self.SetRawData(model);
+        self.SetData(model);
 
-    self.id = 'angle';
-    self.Data = new AngleModelTest({});
-    self.DisplayHandler = new DisplayHander(self, {});
-    self.QueryBlockHandler = new QueryBlockHandler(self, '');
+        // query steps
+        self.InitialQueryDefinition(self.Data().query_definition);
 
-    self.UPDATEMODE = {
-        // update all properties from response
-        ALL: 'all',
-
-        // update need properties from response
-        SPECIFIC: 'specific'
+        // displays
+        self.InitialDisplays(self.Data().display_definitions);
     };
-
-    //EOF: Properties
-
-    //BOF: Methods
-    self.InitialAngleFromData = function (angle, displayUri) {
-        /// <summary>initial angle data and set current display</summary>
-        /// <param name="angle" type="Object">angle object</param>
-        /// <param name="displayUri" type="String" optional="true">uri of current display</param>
-
-        self.SetAngleData(angle);
-        self.SetCurrentDisplay(displayUri);
+    self.SetData = function (model) {
+        var data = jQuery.extend({}, WC.ModelHelper.ExtendAngleData(model));
+        data.id = ko.observable(data.id);
+        data.is_published = ko.observable(data.is_published);
+        data.is_template = ko.observable(data.is_template);
+        data.is_validated = ko.observable(data.is_validated);
+        data.user_specific.is_starred = ko.observable(data.user_specific.is_starred);
+        data.user_specific.private_note = ko.observable(data.user_specific.private_note);
+        data.allow_followups = ko.observable(data.allow_followups);
+        data.allow_more_details = ko.observable(data.allow_more_details);
+        data.assigned_labels = ko.observableArray(data.assigned_labels);
+        self.Data(data);
     };
-    self.InitialLoadAngle = function (angleUri, displayUri, isMultilingual) {
-        /// <summary>load angle then initial angle data and set current display</summary>
-        /// <param name="angle" type="Object">angle object</param>
-        /// <param name="displayUri" type="String" optional="true">uri of current display</param>
-        /// <param name="isMultilingual" type="Boolean" optional="true">default: true, load with multilingual or not?</param>
-        /// <returns type="Deferred"></returns>
-
-        return self.LoadAngle(angleUri, isMultilingual)
-            .done(function (angle) {
-                self.InitialAngleFromData(angle, displayUri);
-            });
+    self.GetData = function () {
+        var rawData = jQuery.extend(ko.toJS(self.Data()), self.QueryDefinitionHandler.GetQueryDefinition());
+        var data = WC.ModelHelper.ExtendAngleData(rawData);
+        data.display_definitions = jQuery.map(self.Displays, function (display) {
+            return display.GetData();
+        });
+        return data;
     };
-    self.LoadAngle = function (angleUri, isMultilingual) {
-        /// <summary>load angle from server side</summary>
-        /// <param name="angleUri" type="Object">angle object</param>
-        /// <param name="isMultilingual" type="Boolean" optional="true">default: true, load with multilingual or not?</param>
-        /// <returns type="Deferred"></returns>
-
-        var query = {};
-        query[enumHandlers.PARAMETERS.CACHING] = false;
-        if (isMultilingual !== false) {
-            query[enumHandlers.PARAMETERS.MULTILINGUAL] = 'yes';
-        }
-        return GetDataFromWebService(angleUri, query);
+    self.ClearData = function () {
+        self.ForceInitial({});
     };
-    self.SetAngleData = function (angle) {
-        /// <summary>set/normalize angle to model</summary>
-        /// <param name="angle" type="Object">angle object</param>
-
-        self.Data = new AngleModelTest(angle);
-        self.QueryBlockHandler = new QueryBlockHandler(self, 'query_definition');
-        if (angle) {
-            jQuery.localStorage(self.Id, self.Data);
-        }
+    self.SetRawData = function (data) {
+        var rawData = jQuery.extend({}, self.GetRawData(), data);
+        _self.data = WC.ModelHelper.ExtendAngleData(rawData);
     };
-    self.GetSavedData = function () {
-        /// <summary>load saved angle from storage</summary>
-        /// <returns type="AngleModelTest"></returns>
-
-        return new AngleModelTest(jQuery.localStorage(self.Id));
+    self.GetRawData = function () {
+        return ko.toJS(_self.data);
     };
-    self.UpdateAngleData = function (savedData, updateData, updateMode) {
-        /// <summary>update/normalize angle to model</summary>
-        /// <param name="savedData" type="Object">saved angle object</param>
-        /// <param name="updateData" type="Object">updating properties</param>
-        /// <param name="updateMode" type="AngleHandler.UPDATEMODE">update mode</param>
+    self.CloneData = function () {
+        var data = self.GetData();
+        if (!self.IsAdhoc())
+            data.id = 'a' + jQuery.GUID().replace(/-/g, '');
+        data.allow_followups = true;
+        data.allow_more_details = true;
+        data.is_validated = false;
+        data.is_published = false;
+        data.is_template = false;
+        data.user_specific = { is_starred: false };
 
-        savedData = new AngleModelTest(savedData);
-
-        // save source data
-        jQuery.localStorage(self.Id, savedData);
-
-        // update current data
-        if (updateMode === self.UPDATEMODE.SPECIFIC) {
-            jQuery.each(updateData, function (key, value) {
-                if (key === 'angle_default_display') {
-                    jQuery.each(self.Data.display_definitions, function (index, display) {
-                        if (display.id === value) {
-                            display.is_angle_default = true;
-                        }
-                        else {
-                            display.is_angle_default = false;
-                        }
-                    });
-                }
-
-                if (value instanceof Array) {
-                    self.Data[key] = value.slice();
-                }
-                else if (typeof value === 'object') {
-                    jQuery.extend(self.Data, value);
-                }
-                else {
-                    self.Data[key] = value;
-                }
-            });
-        }
-        else {
-            jQuery.each(savedData.display_definitions, function (index, display) {
-                var currentDisplay = self.GetDisplayByUri(display.uri);
-                if (!currentDisplay)
-                    return true;
-
-                jQuery.each(display, function (key, value) {
-                    if (key !== 'display_type' && key !== 'display_details' && key !== 'fields' && key !== 'query_blocks') {
-                        if (value instanceof Array) {
-                            currentDisplay[key] = value.slice();
-                        }
-                        else if (typeof value === 'object') {
-                            currentDisplay[key] = jQuery.extend({}, value);
-                        }
-                        else {
-                            currentDisplay[key] = value;
-                        }
-                    }
-                });
-            });
-        }
-    };
-    self.IsAdhocAngle = function () {
-        /// <summary>check angle is adhoc or not? (/models/x/angles/xxxx-xxxx-xxxx-xxx)</summary>
-        /// <returns type="Boolean"></returns>
-
-        var angleUri = self.Data.uri || '';
-        return !angleUri || isNaN(angleUri.substr(angleUri.lastIndexOf('/') + 1));
-    };
-    self.GetTemplateAngleUri = function () {
-        /// <summary>get template that related to this angle</summary>
-        /// <returns type="String"></returns>
-
-        return self.Data.__uri_template || null;
-    };
-    self.GetAngleName = function () {
-        /// <summary>get angle name from multilingual</summary>
-        /// <returns type="String"></returns>
-
-        return WC.Utility.GetDefaultMultiLangText(self.Data.multi_lang_name);
-    };
-    self.GetAngleDescription = function () {
-        /// <summary>get angle description from multilingual</summary>
-        /// <returns type="String"></returns>
-
-        return WC.Utility.GetDefaultMultiLangText(self.Data.multi_lang_description);
-    };
-    self.GetRemoveReadOnlyAngleData = function (data) {
-        /// <summary>clean angle read only properties</summary>
-        /// <param name="data" type="Object">angle object</param>
-        /// <returns type="Object"></returns>
-
-        return WC.ModelHelper.RemoveReadOnlyAngleData(data);
-    };
-    self.CreateNewAngle = function (isMultilingual) {
-        /// <summary>create new angle</summary>
-        /// <param name="isMultilingual" type="Boolean" optional="true">default: true, load with multilingual or not?</param>
-        /// <returns type="Deferred"></returns>
-
-        var angleData = self.GetRemoveReadOnlyAngleData(self.Data);
-        if (!angleData.display_definitions.length) {
-            var displayData = self.GetCreateNewDisplayData();
-            angleData.display_definitions = [displayData];
-        }
-
-        var uri = self.Date.model + '/angles';
-        var query = {};
-        query[enumHandlers.PARAMETERS.REDIRECT] = 'no';
-        query[enumHandlers.PARAMETERS.ACCEPT_WARNINGS] = true;
-        if (isMultilingual !== false) {
-            query[enumHandlers.PARAMETERS.MULTILINGUAL] = 'yes';
-        }
-        return CreateDataToWebService(uri + '?' + jQuery.param(query), angleData)
-            .done(function (angle) {
-                if (self.DisplayHandler) {
-                    var currentDisplay = self.GetDisplayById(self.DisplayHandler.Data.id);
-                    if (currentDisplay) {
-                        self.SetCurrentDisplay(currentDisplay.uri);
-                    }
-                }
-
-                self.SetAngleData(angle);
-            });
-    };
-    self.UpdateAngle = function (updateData, updateMode, isMultilingual) {
-        /// <summary>update angle</summary>
-        /// <param name="updateData" type="Object">updating properties</param>
-        /// <param name="updateMode" type="AngleHandler.UPDATEMODE">update mode</param>
-        /// <param name="isMultilingual" type="Boolean" optional="true">default: true, load with multilingual or not?</param>
-        /// <returns type="Deferred"></returns>
-
-        updateData = self.GetRemoveReadOnlyAngleData(updateData);
-
-        if (self.IsTemporaryAngle()) {
-            return self.UpdateTemporaryAngle(updateData, updateMode);
-        }
-        else {
-            var query = {};
-            query[enumHandlers.PARAMETERS.ACCEPT_WARNINGS] = true;
-            if (isMultilingual !== false) {
-                query[enumHandlers.PARAMETERS.MULTILINGUAL] = 'yes';
-            }
-            var updateDataWithStates = {};
-            var updateDataWithoutStates = {};
-            jQuery.each(updateData, function (key, value) {
-                if (key === 'is_published' || key === 'is_template' || key === 'is_validated') {
-                    updateDataWithStates[key] = value;
-                }
-                else {
-                    updateDataWithoutStates[key] = value;
-                }
-            });
-
-            // update normal angle properties
-            var updateAngle = function () {
-                if (!jQuery.isEmptyObject(updateDataWithoutStates)) {
-                    // update angle
-                    return UpdateDataToWebService(self.Data.uri + '?' + jQuery.param(query), updateDataWithoutStates);
-                }
-                else {
-                    // nothing changed
-                    return jQuery.when(false);
-                }
-            };
-
-            if (updateDataWithStates.is_validated === true) {
-                // if set is_validated = true, update normal proerties first then state properties
-                return updateAngle()
-                    .then(function () {
-                        return self.UpdateAngleStates(updateDataWithStates);
-                    })
-                    .then(function () {
-                        return self.LoadAngle(self.Data.uri, isMultilingual);
-                    })
-                    .done(function (angle) {
-                        self.UpdateAngleData(angle, updateData, updateMode);
-                    });
+        // displays
+        var defaultDisplayId = null;
+        var displayMappers = {};
+        data.display_definitions = jQuery.map(self.Displays, function (display) {
+            var clonedDisplay = display.CloneData();
+            displayMappers[display.Data().id()] = clonedDisplay.id;
+            if (display.Data().is_angle_default())
+                defaultDisplayId = clonedDisplay.id;
+            return clonedDisplay;
+        });
+        // drilldown_display
+        jQuery.each(data.display_definitions, function (index, display) {
+            var details = WC.Utility.ParseJSON(display.display_details);
+            if (details.drilldown_display && displayMappers[details.drilldown_display]) {
+                details.drilldown_display = displayMappers[details.drilldown_display];
             }
             else {
-                // do normal process
-                return self.UpdateAngleStates(updateDataWithStates)
-                    .then(function () {
-                        return updateAngle();
-                    })
-                    .then(function (updatedAngle) {
-                        if (updatedAngle === false) {
-                            return self.LoadAngle(self.Data.uri, isMultilingual);
-                        }
-                        else {
-                            return jQuery.when(updatedAngle);
-                        }
-                    })
-                    .done(function (angle) {
-                        self.UpdateAngleData(angle, updateData, updateMode);
-                    });
+                delete details.drilldown_display;
+            }
+            display.display_details = ko.toJSON(details);
+        });
+        data.angle_default_display = defaultDisplayId;
+
+        return data;
+    };
+    self.Load = function (uri) {
+        var query = {};
+        query[enumHandlers.PARAMETERS.CACHING] = false;
+        query[enumHandlers.PARAMETERS.MULTILINGUAL] = 'yes';
+        return GetDataFromWebService(directoryHandler.ResolveDirectoryUri(uri), query)
+            .done(self.LoadDone);
+    };
+    self.LoadDone = function (data) {
+        // always update Angle's query definition but Displays
+        self.QueryDefinitionHandler.ForcedSetData = true;
+        self.Initial(data, true);
+    };
+    self.ForceInitial = function (data) {
+        self.QueryDefinitionHandler.ForcedSetData = true;
+        self.ForcedSetDisplays = true;
+        self.Initial(data, true);
+    };
+    self.UpdateExecutionTimes = function (result) {
+        var data = self.Data();
+        data.user_specific.times_executed++;
+        data.executed = {
+            datetime: result.executed.datetime,
+            full_name: userModel.Data().full_name,
+            user: userModel.Data().uri
+        };
+        self.Data(data);
+
+        // update to old model, this will be removed later
+        angleInfoModel.SetAngleSatistics(null, null, data.executed, null, null);
+        angleInfoModel.Data().user_specific.times_executed = data.user_specific.times_executed;
+        angleInfoModel.Data.commit();
+        angleInfoModel.TimeExcuted(data.user_specific.times_executed);
+    };
+    self.GetValidationResult = function () {
+        return validationHandler.GetAngleValidation(self.GetData());
+    };
+
+    // statistic 
+    self.ShowStatisticPopup = function () {
+        self.AngleStatisticHandler.ShowPopup();
+    };
+    self.IsStatisticVisible = function () {
+        return !self.IsAdhoc() ||
+            self.GetCurrentDisplay() && self.GetCurrentDisplay().ResultHandler.ExecutionInfo();
+    };
+
+    // business processes
+    self.InitialBusinessProcess = function (target) {
+        self.AngleBusinessProcessHandler.Initial(target);
+    };
+    
+    // personal things
+    self.CanUpdateUserSpecific = function () {
+        return self.AngleUserSpecificHandler.CanUpdate();
+    };
+    self.SetStarred = function (_model, event) {
+        return self.AngleUserSpecificHandler.SaveStarred(event.currentTarget);
+    };
+    self.IsStarred = function () {
+        return self.AngleUserSpecificHandler.IsStarred();
+    };
+    self.HasPrivateNote = function () {
+        return self.AngleUserSpecificHandler.HasPrivateNote();
+    };
+    self.GetPrivateNote = function () {
+        return self.AngleUserSpecificHandler.GetPrivateNote();
+    };
+    self.InitialAngleUserSpecific = function () {
+        self.AngleUserSpecificHandler.InitialPrivateNote(jQuery('#TabContentAngle .section-personal-note'));
+    };
+
+    // name & description
+    self.CanEditId = function () {
+        return _self.canEditId;
+    };
+    self.SetEditId = function (canEditId) {
+        _self.canEditId = canEditId;
+    };
+    self.SaveDescription = function () {
+        var callback = jQuery.proxy(self.parent.prototype.SaveDescription, self);
+        self.ConfirmSave(self.IsDescriptionUsedInTask, callback);
+    };
+    self.IsDescriptionUsedInTask = function () {
+        var data = self.GetChangeData(self.ItemDescriptionHandler.GetData(), self.Data());
+        var hasDescriptionChanged = self.CanCreateOrUpdate() && data;
+        return hasDescriptionChanged && (self.IsDisplaysUsedInTask() || self.IsChangeDisplaysUsedInTask());
+    }
+    self.ShowEditDescriptionPopup = function () {
+        self.ItemDescriptionHandler.CanEditId(_self.canEditId);
+        self.parent.prototype.ShowEditDescriptionPopup.call(self, Localization.AngleDescription);
+    };
+
+    // filter & jump
+    _self.queryDefinitionProperty = 'query_definition';
+    self.InitialQueryDefinition = function (definition) {
+        self.QueryDefinitionHandler.BlockUI = true;
+        self.QueryDefinitionHandler.GetSourceData = self.GetQueryDefinitionSourceData;
+        self.QueryDefinitionHandler.FilterFor = WC.WidgetFilterHelper.FILTERFOR.ANGLE;
+        self.QueryDefinitionHandler.Texts().AskForExecutionParamter = Localization.AskForValueWhenTheAngleOpens;
+        self.QueryDefinitionHandler.Texts().ConfirmJump = Localization.Confirm_SaveAngleWithWarning;
+        self.QueryDefinitionHandler.Texts().ApplyButton = Localization.Save;
+        self.parent.prototype.InitialQueryDefinition.call(self, definition, _self.queryDefinitionProperty, self.Data().model);
+
+        // set authorizations
+        self.SetQueryDefinitionAuthorizations();
+    };
+    self.GetQueryDefinitionSourceData = function () {
+        return ko.toJS(self.Data()[_self.queryDefinitionProperty]);
+    };
+    self.SetQueryDefinitionAuthorizations = function () {
+        var validation = validationHandler.GetQueryBlocksValidation(self.Data().query_definition);
+        self.QueryDefinitionHandler.Authorizations.CanChangeFilter(self.CanChangeFilter(validation));
+        self.QueryDefinitionHandler.Authorizations.CanChangeJump(self.CanChangeJump(validation));
+        self.QueryDefinitionHandler.Authorizations.CanExecute(self.CanExecuteQuerySteps(validation));
+        self.QueryDefinitionHandler.Authorizations.CanSave(self.CanUpdateQuerySteps(validation));
+    };
+    self.AllowMoreDetails = function () {
+        return self.Data().allow_more_details() && privilegesViewModel.AllowMoreDetails(self.Data().model);
+    };
+    self.AllowFollowups = function () {
+        return self.Data().allow_followups() && privilegesViewModel.AllowFollowups(self.Data().model);
+    };
+    self.CanUseBaseClass = function () {
+        return !self.IsAdhoc() || privilegesViewModel.CanCreateAngle(self.Data().model);
+    };
+    self.CanUseFilter = function () {
+        var allowFilter = self.AllowMoreDetails(self.Data().model);
+        return allowFilter || !allowFilter && !self.QueryDefinitionHandler.GetFilters().length;
+    };
+    self.CanUseJump = function () {
+        var allowJump = self.AllowFollowups(self.Data().model);
+        return allowJump || !allowJump && !self.QueryDefinitionHandler.GetJumps().length;
+    };
+    self.CanChangeFilter = function (validation) {
+        return WC.Utility.MatchAll(true, [
+            !validation.InvalidBaseClasses,
+            self.CanUseBaseClass(),
+            self.CanUseJump(),
+            self.AllowMoreDetails(self.Data().model),
+            self.Data().authorizations.update,
+            !self.Data().is_validated()
+        ]);
+    };
+    self.CanChangeJump = function (validation) {
+        return WC.Utility.MatchAll(true, [
+            !validation.InvalidBaseClasses,
+            self.CanUseBaseClass(),
+            self.AllowFollowups(self.Data().model),
+            self.AllowMoreDetails(self.Data().model),
+            self.Data().authorizations.update,
+            !self.Data().is_validated()
+        ]);
+    };
+    self.CanExecuteQuerySteps = function (validation) {
+        return !validation.InvalidBaseClasses;
+    };
+    self.CanUpdateQuerySteps = function (validation) {
+        return WC.Utility.MatchAll(true, [
+            !validation.InvalidBaseClasses,
+            self.Data().authorizations.update,
+            !self.Data().is_validated()
+        ]);
+    };
+
+    // results
+    self.GetResultQueryDefinition = function () {
+        // create posting result query block
+        var resultQueryDefinition = {
+            query_definition: []
+        };
+        var angleUri = self.Data().uri_template || (!self.IsAdhoc() ? self.Data().uri : '');
+
+        if (angleUri && !self.QueryDefinitionHandler.HasExecutionParametersChanged()) {
+            // use base_angle
+            resultQueryDefinition.query_definition.push({
+                base_angle: angleUri,
+                queryblock_type: enumHandlers.QUERYBLOCKTYPE.BASE_ANGLE
+            });
+
+            // add execution_parameters
+            var executionParameters = self.QueryDefinitionHandler.GetExecutedParameters();
+            if (executionParameters.length)
+                resultQueryDefinition.query_definition[0].execution_parameters = executionParameters;
+        }
+        else {
+            // use base_classes block
+            resultQueryDefinition.model = self.Data().model;
+            resultQueryDefinition.query_definition = self.QueryDefinitionHandler.GetQueryDefinition().query_definition;
+        }
+        return resultQueryDefinition;
+    };
+
+    // displays
+    _self.currentDisplay = null;
+    self.ForcedSetDisplays = false;
+    self.Displays = [];
+    self.InitialDisplays = function (displays) {
+        if (self.Displays.length && !self.ForcedSetDisplays)
+            return;
+
+        self.ForcedSetDisplays = false;
+        self.Displays = [];
+        jQuery.each(displays, function (index, display) {
+            self.Displays.push(new DisplayHandler(display, self));
+        });
+    };
+    self.GetDisplay = function (uri) {
+        return self.Displays.findObject('Data', function (data) { return data().uri === uri; });
+    };
+    self.GetDefaultDisplay = function () {
+        var defaultId = self.Data().angle_default_display;
+        var display = self.Displays.findObject('Data', function (data) { return data().id() === defaultId; });
+        return display || self.Displays[0];
+    };
+    self.GetRawDisplay = function (uri) {
+        return self.Data().display_definitions.findObject('uri', uri);
+    };
+    self.SetRawDisplay = function (data) {
+        var index = self.Data().display_definitions.indexOfObject('uri', data.uri);
+        if (index !== -1)
+            self.Data().display_definitions[index] = data;
+        else
+            self.Data().display_definitions.push(data);
+    };
+    self.GetAdhocDisplays = function () {
+        return jQuery.grep(self.Displays, function (display) { return !display.GetRawData(); });
+    };
+    self.SetCurrentDisplay = function (display) {
+        _self.currentDisplay = display;
+    };
+    self.GetCurrentDisplay = function () {
+        return _self.currentDisplay;
+    };
+    self.AddDisplay = function (data, result, isAdhoc) {
+        // check the same Angle uri
+        var displayUri = WC.Utility.ToString(data.uri);
+        if (displayUri.indexOf(self.Data().uri) === -1)
+            return;
+
+        // create Display object
+        var displayHandler = new DisplayHandler(data, self);
+        displayHandler.SetPostResultData(result);
+
+        if (isAdhoc) {
+            // allow only 1 adhoc Display
+            for (var i = self.Displays.length - 1; i >= 0; i--) {
+                if (!self.Displays[i].GetRawData())
+                    self.Displays.splice(i, 1);
             }
         }
-    };
-    self.UpdateTemporaryAngle = function (updateData, updateMode) {
-        /// <summary>update to storage</summary>
-        /// <param name="updateData" type="Object">updating properties</param>
-        /// <param name="updateMode" type="AngleHandler.UPDATEMODE">update mode</param>
-        /// <returns type="Deferred"></returns>
-
-        self.UpdateAngleData(self.Data, updateData, updateMode);
-        return jQuery.when(self.Data);
-    };
-    self.SetAngleDefaultDisplay = function (displayUri) {
-        /// <summary>update angle default display by display uri</summary>
-        /// <param name="displayUri" type="String">display uri</param>
-        /// <returns type="Deferred"></returns>
-
-        var display = self.GetDisplayByUri(displayUri);
-        if (!display) {
-            return jQuery.when(false);
+        else {
+            // update raw Angle data
+            self.SetRawDisplay(displayHandler.GetData());
         }
-
-        var updateData = {};
-        updateData['angle_default_display'] = display.id;
-
-        return self.UpdateAngle(updateData, self.UPDATEMODE.SPECIFIC);
+        if (!self.GetDisplay(displayHandler.Data().uri))
+            self.Displays.push(displayHandler);
     };
-    self.SetAngleStarred = function (isStarred) {
-        /// <summary>update user starred status</summary>
-        /// <param name="isStarred" type="Boolean">starred flag</param>
-        /// <returns type="Deferred"></returns>
+    self.RemoveDisplay = function (uri) {
+        // remove from source
+        var indexRaw = self.Data().display_definitions.indexOfObject('uri', uri);
+        if (indexRaw !== -1)
+            self.Data().display_definitions.splice(indexRaw, 1);
 
-        var updateData = {
-            user_specific: {
-                is_starred: isStarred
-            }
-        };
-
-        return self.UpdateAngle(updateData, self.UPDATEMODE.SPECIFIC);
+        // remove from handler
+        var indexDisplay = self.Displays.indexOfObject('Data', function (data) { return data().uri === uri; });
+        if (indexDisplay !== -1)
+            self.Displays.splice(indexDisplay, 1);
     };
-    self.SetAnglePrivateNote = function (note) {
-        /// <summary>update user private note</summary>
-        /// <param name="note" type="String">note</param>
-        /// <returns type="Deferred"></returns>
-
-        var updateData = {
-            user_specific: {
-                private_note: note || ''
-            }
-        };
-
-        return self.UpdateAngle(updateData, self.UPDATEMODE.SPECIFIC);
-    };
-    self.UpdateAngleStates = function (statesData) {
-        /// <summary>update angle states</summary>
-        /// <param name="statesData" type="Object">states</param>
-        /// <returns type="Deferred"></returns>
-
+    self.SaveDisplays = function (forced) {
         var deferred = [];
-        if (typeof statesData.is_template !== 'undefined') {
-            deferred.pushDeferred(self.UpdateAngleState, [{ is_template: statesData.is_template }]);
-        }
-        if (typeof statesData.is_published !== 'undefined') {
-            deferred.pushDeferred(self.UpdateAngleState, [{ is_published: statesData.is_published }]);
-        }
-        if (typeof statesData.is_validated !== 'undefined') {
-            deferred.pushDeferred(self.UpdateAngleState, [{ is_validated: statesData.is_validated }]);
-        }
-
-        if (deferred.length) {
-            return jQuery.whenAll(deferred, false);
-        }
-        else {
-            return jQuery.when(false);
-        }
+        jQuery.each(self.Displays, function (index, display) {
+            if (display.CanCreateOrUpdate())
+                deferred.pushDeferred(self.SaveDisplay, [display, forced]);
+        });
+        return jQuery.whenAllSet(deferred);
     };
-    self.UpdateAngleState = function (stateData) {
-        /// <summary>update angle state</summary>
-        /// <param name="stateData" type="Object">state</param>
-        /// <returns type="Deferred"></returns>
-
-        if (self.IsTemporaryAngle()) {
-            return self.UpdateTemporaryAngle(stateData, self.UPDATEMODE.SPECIFIC);
-        }
-        else {
-            return UpdateDataToWebService(self.Data.state, stateData)
-                .then(function (response) {
-                    var deferred = [];
-                    if (statesData.is_published === true) {
-                        jQuery.each(self.Data.display_definitions, function (index, display) {
-                            deferred.pushDeferred(self.UpdateDisplayState, [display.uri, { is_published: statesData.is_published }]);
-                        });
-                    }
-                    return jQuery.whenAll(deferred)
-                        .then(function () {
-                            return jQuery.when(response);
-                        });
-                });
-        }
+    self.SaveDisplay = function (display, forced) {
+        return display.CreateOrUpdate(
+            forced,
+            jQuery.proxy(self.SaveDisplayDone, display, display),
+            jQuery.proxy(self.SaveDisplayFail, display, display));
     };
-
-    // utilities for display
-    self.GetDisplayByUri = function (displayUri) {
-        /// <summary>get display by uri</summary>
-        /// <param name="displayUri" type="String">display uri</param>
-        /// <returns type="DisplayModel"></returns>
-
-        return self.Data.display_definitions.findObject('uri', displayUri);
+    self.SaveDisplayDone = function (display) {
+        toast.MakeSuccessTextFormatting(display.GetName(), Localization.Toast_SaveItem);
     };
-    self.GetDisplayById = function (displayId) {
-        /// <summary>get display by id</summary>
-        /// <param name="displayId" type="String">display id</param>
-        /// <returns type="DisplayModel"></returns>
-
-        return self.Data.display_definitions.findObject('id', displayId);
+    self.SaveDisplayFail = function (display, xhr) {
+        // this will be shown as a toast notification
     };
-    self.SetCurrentDisplay = function (displayUri) {
-        /// <summary>set current display</summary>
-        /// <param name="displayUri" type="String">display uri</param>
-
-        self.DisplayHandler = new DisplayHander(self, self.GetDisplayByUri(displayUri));
-    };
-    self.IsAdhocDisplay = function (displayUri) {
-        /// <summary>check display is adhoc or not? (/models/x/angles/x/displays/xxxx-xxxx-xxxx-xxx)</summary>
-        /// <param name="displayUri" type="String">display uri</param>
-        /// <returns type="Boolean"></returns>
-
-        return !displayUri || isNaN(displayUri.substr(displayUri.lastIndexOf('/') + 1));
-    };
-    self.GetDisplayName = function (displayObjectOrDisplayUri) {
-        /// <summary>get display name from multilingual</summary>
-        /// <param name="displayObjectOrDisplayUri" type="Object|String">display object or display uri</param>
-        /// <returns type="String"></returns>
-
-        var display;
-        if (typeof displayObjectOrDisplayUri === 'string') {
-            display = self.GetDisplayByUri(displayObjectOrDisplayUri);
-        }
-        else {
-            display = displayObjectOrDisplayUri;
-        }
-        return WC.Utility.GetDefaultMultiLangText(display.multi_lang_name);
-    };
-    self.GetDisplayDescription = function (displayObjectOrDisplayUri) {
-        /// <summary>get display description from multilingual</summary>
-        /// <param name="displayObjectOrDisplayUri" type="Object|String">display object or display uri</param>
-        /// <returns type="String"></returns>
-
-        var display;
-        if (typeof displayObjectOrDisplayUri === 'string') {
-            display = self.GetDisplayByUri(displayObjectOrDisplayUri);
-        }
-        else {
-            display = displayObjectOrDisplayUri;
-        }
-        return WC.Utility.GetDefaultMultiLangText(display.multi_lang_name);
-    };
-    self.GetRemoveReadOnlyDisplayData = function (data) {
-        /// <summary>clean display read only properties</summary>
-        /// <param name="data" type="Object">display object</param>
-        /// <returns type="Object"></returns>
-
-        return WC.ModelHelper.RemoveReadOnlyDisplayData(data);
-    };
-    self.UpdateTemporaryDisplay = function (displayUri, updateData, updateMode) {
-        /// <summary>update to storage</summary>
-        /// <param name="displayUri" type="String">display uri</param>
-        /// <param name="updateData" type="Object">updating properties</param>
-        /// <param name="updateMode" type="AngleHandler.UPDATEMODE">update mode</param>
-        /// <returns type="Deferred"></returns>
-
-        self.UpdateDisplayData(self.Data, updateData, updateMode);
-        return jQuery.when(self.Data);
-    };
-    self.UpdateDisplayState = function (displayUri, stateData) {
-        /// <summary>update display state</summary>
-        /// <param name="displayUri" type="String">display uri</param>
-        /// <param name="stateData" type="Object">state</param>
-        /// <returns type="Deferred"></returns>
-
-        var display = self.GetDisplayByUri(displayUri);
-        if (self.IsTemporaryDisplay(display.uri)) {
-            return self.UpdateTemporaryDisplay(display.uri, stateData);
-        }
-        else {
-            return UpdateDataToWebService(display.state, stateData);
-        }
-    };
-    self.DeleteDisplay = function (displayUri) {
-        /// <summary>delete display by display uri</summary>
-        /// <param name="displayUri" type="String">display uri</param>
-        /// <returns type="Deferred"></returns>
-
-        var displayObject = self.GetDisplayByUri(displayUri);
-        if (!displayObject) {
-            return jQuery.when(false);
-        }
-
-        return jQuery.when(self.IsTemporaryAngle() ? false : DeleteDataToWebService(displayObject.uri))
-            .done(function () {
-                self.Data.display_definitions.removeObject('uri', displayObject.uri);
-
-                var angleData = jQuery.localStorage(self.Id);
-                angleData.display_definitions.removeObject('uri', displayObject.uri);
-                jQuery.localStorage(self.Id, angleData);
-            });
-    };
-    self.GetCreateNewDisplayData = function (displayType) {
-        var guid = jQuery.GUID();
-        var display = {};
-        display.name = Localization.DefaultDisplayListName;
-        display.description = '';
-        display.uri = self.Data.uri + '/displays/' + guid;
-        display.id = 'd' + guid.replace(/-/g, '');
-        display.display_type = displayType || null;
-
-        if (display.display_type === enumHandlers.DISPLAYTYPE.LIST) {
-            jQuery.each(enumHandlers.DEFAULTFIELDS, function (key, fieldId) {
-                display.fields.push({
-                    field: fieldId,
-                    field_details: JSON.stringify({ width: 120 }),
-                    valid: true
-                });
-            });
-        }
-        else if (display.display_type === enumHandlers.DISPLAYTYPE.CHART || display.display_type === enumHandlers.DISPLAYTYPE.PIVOT) {
-            var defaultField = enumHandlers.DEFAULTFIELDS.OBJECTTYPE;
-            var defaultBucket = 'individual';
-
-            display.query_blocks = [{
-                queryblock_type: enumHandlers.QUERYBLOCKTYPE.QUERY_STEPS,
-                query_steps: [
-                    {
-                        step_type: enumHandlers.FILTERTYPE.AGGREGATION,
-                        grouping_fields: [
-                            {
-                                field: defaultBucket + '_' + defaultField,
-                                operator: defaultBucket,
-                                source_field: defaultField
-                            }
-                        ],
-                        aggregation_fields: [
-                            {
-                                field: enumHandlers.AGGREGATION.COUNT.Value,
-                                operator: enumHandlers.AGGREGATION.COUNT.Value
-                            }
-                        ]
-                    }
-                ]
-            }];
-        }
-
-        return new DisplayModelTest(display, self.Data);
-    };
-    //EOF: Methods
-}
-
-function DisplayHander(angleHandler, display) {
-    "use strict";
-
-    //BOF: Properties
-    var self = this;
-    var _self = {};
-
-    // private
-    _self.angleHandler = angleHandler || new AngleHandler();
-
-    // public
-    // update display/field details mode
-    self.UPDATEDETAILSMODE = {
-        // replace all
-        REPLACE: 'replace',
-
-        // extend exisitng value
-        EXTEND: 'extend'
-    };
-    self.Id = 'angle_display';
-    self.Data = null;
-    self.QueryBlockHandler = null;
-    //EOF: Properties
-
-    //BOF: Methods
-    self.InitialDisplay = function (display) {
-        self.SetDisplayData(display);
-    };
-    self.SetDisplayData = function (display) {
-        self.Data = new DisplayModelTest(display, _self.angleHandler.Data);
-        self.QueryBlockHandler = new QueryBlockHandler(self, 'query_blocks');
-        if (display) {
-            jQuery.localStorage(self.Id, self.Data);
-        }
-    };
-    self.GetSavedData = function () {
-        return new DisplayModelTest(jQuery.localStorage(self.Id), _self.angleHandler.Data);
-    };
-    self.GetDisplayName = function () {
-        return _self.angleHandler.GetDisplayName(self.Data.uri);
-    };
-    self.GetDisplayDescription = function () {
-        return _self.angleHandler.GetDisplayDescription(self.Data.uri);
-    };
-    self.IsAdhocDisplay = function () {
-        return _self.angleHandler.IsAdhocDisplay(self.Data.uri);
-    };
-    self.GetRemoveReadOnlyDisplayData = function (data) {
-        return _self.angleHandler.GetRemoveReadOnlyDisplayData(data);
-    };
-    self.GetDisplayDetails = function () {
-        return WC.Utility.ParseJSON(self.Data.display_details);
-    };
-    self.SetDisplayDetails = function (displayDetails, updateMode) {
-        if (updateMode === self.UPDATEDETAILSMODE.EXTEND) {
-            var currentDetails = self.GetDisplayDetails();
-            jQuery.extend(currentDetails, displayDetails);
-            self.Data.display_details = JSON.stringify(currentDetails || {});
-        }
-        else {
-            self.Data.display_details = JSON.stringify(displayDetails || {});
-        }
-    };
-    self.GetFieldDetails = function (field) {
-        return WC.Utility.ParseJSON(field.field_details);
-    };
-    self.SetDisplayDetails = function (field, fieldDetails, updateMode) {
-        if (updateMode === self.UPDATEDETAILSMODE.EXTEND) {
-            var currentDetails = self.GetFieldDetails(field);
-            jQuery.extend(currentDetails, fieldDetails);
-            field.field_details = JSON.stringify(currentDetails || {});
-        }
-        else {
-            field.field_details = JSON.stringify(fieldDetails || {});
-        }
-    };
-    self.GetFieldById = function (fieldId) {
-        return self.Data.fields.findObject('field', fieldId, false);
-    };
-    //EOF: Methods
-
-    // initial
-    self.InitialDisplay(display);
-}
-
-function QueryBlockHandler(handler, propertyName) {
-    "use strict";
-
-    //BOF: Properties
-    var self = this;
-    var _self = {};
-
-    // private
-    // can be AngleHandler or DisplayHander
-    _self.handler = handler || new AngleHandler();
-    _self.propertyName = propertyName || 'query_definition';
-    //EOF: Properties
-
-    //BOF: Methods
-    self.GetQueryBlocks = function () {
-        return _self.handler.Data[_self.propertyName];
-    };
-    self.GetQueryBlockByType = function (queryblockType) {
-        return self.GetQueryBlocks().findObject('queryblock_type', queryblockType);
-    };
-    self.GetBaseClassesIds = function () {
-        var baseClassBlock = self.GetQueryBlockByType(enumHandlers.QUERYBLOCKTYPE.BASE_CLASSES);
-        if (baseClassBlock) {
-            baseClassBlock.base_classes;
-        }
-        return [];
-    };
-    self.NormalizeQuerySteps = function () {
-        var queryStepBlock = self.GetQueryBlockByType(enumHandlers.QUERYBLOCKTYPE.QUERY_STEPS);
-        if (queryStepBlock && queryStepBlock.query_steps.length) {
-            var sortingIndex = queryStepBlock.query_steps.indexOfObject('step_type', enumHandlers.FILTERTYPE.SORTING);
-            var sortingStep = sortingIndex !== -1 ? queryStepBlock.query_steps.splice(sortingIndex, 1)[0] : null;
-            var aggregationIndex = self.GetQueryBlocks().indexOfObject('step_type', enumHandlers.FILTERTYPE.AGGREGATION);
-            var aggregationStep = aggregationIndex !== -1 ? queryStepBlock.query_steps.splice(aggregationIndex, 1)[0] : null;
-
-            if (sortingStep) {
-                queryStepBlock.query_steps.push(sortingStep);
+    self.IsChangeDisplaysUsedInTask = function () {
+        var isChangeDisplaysUsedInTask = false;
+        jQuery.each(self.Displays, function (index, display) {
+            if (self.CanCreateOrUpdate() && display.GetCreateOrUpdateData() && display.IsUsedInTask()) {
+                isChangeDisplaysUsedInTask = true;
+                return false;
             }
-            if (aggregationStep) {
-                queryStepBlock.query_steps.push(aggregationStep);
+        });
+        return isChangeDisplaysUsedInTask;
+    };
+    self.IsDisplaysUsedInTask = function () {
+        var isDisplaysUsedInTask = false;
+        jQuery.each(self.Displays, function (index, display) {
+            if (display.IsUsedInTask()) {
+                isDisplaysUsedInTask = true;
+                return false;
             }
+        });
+        return isDisplaysUsedInTask;
+    };
+    self.IsChangeUsedInTask = function () {
+        return self.CanCreateOrUpdate() && self.GetCreateOrUpdateData() && self.IsDisplaysUsedInTask();
+    };
+
+    // save utilities
+    self.ConfirmSave = function (checker, callback, cancel) {
+        if (!jQuery.isFunction(checker))
+            checker = self.IsConflict;
+
+        if (checker()) {
+            popup.Confirm(Localization.MessageSaveQuestionAngleUsedInTask, callback, cancel);
+        } else {
+            callback();
         }
     };
-    self.GetQueryStepsByType = function (stepType) {
-        var queryStepBlock = self.GetQueryBlockByType(enumHandlers.QUERYBLOCKTYPE.QUERY_STEPS);
-        if (queryStepBlock) {
-            return queryStepBlock.query_steps.findObjects('step_type', stepType);
-        }
-        return [];
+    self.IsConflict = function () {
+        return self.IsChangeUsedInTask() || self.IsChangeDisplaysUsedInTask();
     };
-    self.GetQueryStepsByTypes = function (stepTypes) {
-        var queryStepBlock = self.GetQueryBlockByType(enumHandlers.QUERYBLOCKTYPE.QUERY_STEPS);
-        if (queryStepBlock) {
-            return queryStepBlock.query_steps.findObjects('step_type', function (stepType) {
-                return jQuery.inArray(stepType, stepTypes) !== -1;
+    self.SaveAll = function (forced) {
+        var isAdhoc = self.IsAdhoc();
+        return self.CreateOrUpdate(forced, self.SaveAllDone, self.SaveAllFail)
+            .then(function () {
+                return !isAdhoc ? self.SaveDisplays(forced) : jQuery.when(null);
             });
-        }
-        return [];
     };
-    //EOF: Methods
-};
+    self.SaveAllDone = function () {
+        toast.MakeSuccessTextFormatting(self.GetName(), Localization.Toast_SaveItem);
+    };
+    self.SaveAllFail = function (xhr) {
+        // this will be shown as a toast notification
+    };
+    self.CreateOrUpdate = function (forced, done, fail) {
+        var data = self.GetCreateOrUpdateData();
+
+        // no data to be saved
+        if (!data)
+            return jQuery.when(null);
+
+        // saving
+        return self.IsAdhoc()
+            ? self.CreateNew(data, done, fail)
+            : self.UpdateData(data, forced, done, fail);
+    };
+    self.GetCreateOrUpdateData = function () {
+        var data = self.GetData();
+        return self.IsAdhoc() ? data : self.GetChangeData(data, self.GetRawData());
+    };
+    self.GetChangeData = function (currentData, compareData) {
+        return WC.ModelHelper.GetChangeAngle(currentData, compareData);
+    };
+    self.CreateNew = function (data, done, fail) {
+        var query = {};
+        query[enumHandlers.PARAMETERS.MULTILINGUAL] = 'yes';
+        query[enumHandlers.PARAMETERS.ACCEPT_WARNINGS] = true;
+        query[enumHandlers.PARAMETERS.REDIRECT] = 'no';
+        var url = data.model + '/angles?' + jQuery.param(query);
+        data = WC.ModelHelper.RemoveReadOnlyAngleData(data);
+        delete data.name;
+        delete data.description;
+        return CreateDataToWebService(url, data)
+            .then(function (angle) {
+                // update to old view model
+                angleInfoModel.DeleteTemporaryAngle();
+                angleInfoModel.SetData(data);
+
+                self.ForceInitial(angle);
+                return jQuery.when(angle);
+            })
+            .done(done)
+            .fail(fail);
+    };
+    self.UpdateDataFunction = function (uri, data, forced) {
+        var query = {};
+        query[enumHandlers.PARAMETERS.MULTILINGUAL] = 'yes';
+        query[enumHandlers.PARAMETERS.ACCEPT_WARNINGS] = true;
+        query[enumHandlers.PARAMETERS.FORCED] = WC.Utility.ToBoolean(forced);
+        data = WC.ModelHelper.RemoveReadOnlyAngleData(data);
+        return UpdateDataToWebService(uri + '?' + jQuery.param(query), data)
+            .then(function (angle) {
+                var updatedData = WC.ModelHelper.ExtendAngleData(self.GetData());
+                var properties = jQuery.map(data, function (_value, name) { return name; });
+                jQuery.merge(properties, ['authorizations', 'changed', 'display_definitions']);
+                jQuery.each(properties, function (index, name) {
+                    if (typeof angle[name] !== 'undefined')
+                        updatedData[name] = angle[name];
+                });
+                self.UpdateModel(updatedData, false);
+                self.UpdateDisplayAuthorizations(angle.display_definitions);
+                self.SetRawData(angle);
+                return jQuery.when(angle);
+            });
+    };
+    self.UpdateStateFunction = function (uri, state, forced) {
+        var query = {};
+        query[enumHandlers.PARAMETERS.FORCED] = WC.Utility.ToBoolean(forced);
+        return UpdateDataToWebService(uri + '?' + jQuery.param(query), state)
+            .then(function (angle) {
+                // update to old view model
+                angleInfoModel.Data().is_published = angle.is_published;
+                angleInfoModel.Data().is_validated = angle.is_validated;
+                angleInfoModel.Data().is_template = angle.is_template;
+                angleInfoModel.Data.commit();
+                angleInfoModel.IsPublished(angle.is_published);
+                angleInfoModel.IsTemplate(angle.is_template);
+                angleInfoModel.IsValidated(angle.is_validated);
+                angleInfoModel.IsPublished.commit();
+                angleInfoModel.IsTemplate.commit();
+                angleInfoModel.IsValidated.commit();
+
+                var updatedData = {
+                    is_published: angle.is_published,
+                    is_validated: angle.is_validated,
+                    is_template: angle.is_template,
+                    published: angle.last_set_published || self.Data().published,
+                    validated: angle.last_set_validated || self.Data().validated
+                };
+                self.SetRawData(updatedData);
+                self.Data().is_published(updatedData.is_published);
+                self.Data().is_validated(updatedData.is_validated);
+                self.Data().is_template(updatedData.is_template);
+                self.Data().published = updatedData.published;
+                self.Data().validated = updatedData.validated;
+                return jQuery.when(angle);
+            });
+    };
+    self.UpdateAdhocFunction = function (_uri, data) {
+        var newData = jQuery.extend({}, WC.ModelHelper.ExtendAngleData(self.GetData()), data);
+        return self.UpdateModel(newData, true);
+    };
+    self.UpdateModel = function (data, updateRaw) {
+        // update to old view model
+        angleInfoModel.SetData(data);
+
+        self.Initial(data, updateRaw);
+        return jQuery.when(data);
+    };
+    self.UpdateDisplayAuthorizations = function (displays) {
+        jQuery.each(displays, function (_index, display) {
+            var handler = self.GetDisplay(display.uri);
+            if (handler) {
+                handler.Data().authorizations = display.authorizations;
+            }
+
+            var rawDisplay = self.GetRawDisplay(display.uri);
+            if (rawDisplay) {
+                rawDisplay.authorizations = display.authorizations;
+            }
+        });
+    };
+    self.CanCreate = function () {
+        return privilegesViewModel.CanCreateAngle(self.Data().model);
+    };
+    self.CanUpdate = function () {
+        return self.Data().authorizations.update;
+    };
+    self.CanCreateOrUpdate = function () {
+        return self.IsAdhoc() ? self.CanCreate() : self.CanUpdate();
+    };
+    self.CanCreateTemplateAngle = function () {
+        return !self.IsAdhoc() && privilegesViewModel.CanCreateTemplateAngle(self.Data().model);
+    };
+    self.CanSetTemplate = function () {
+        return self.Data().is_template() ? self.Data().authorizations.unmark_template : self.Data().authorizations.mark_template;
+    };
+    self.Validate = function () {
+        return self.AngleBusinessProcessHandler.Validate();
+    };
+
+    // constructor
+    self.Initial(model, true);
+}
+AngleHandler.extend(BaseItemHandler);

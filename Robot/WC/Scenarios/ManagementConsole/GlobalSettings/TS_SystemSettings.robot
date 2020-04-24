@@ -288,4 +288,3 @@ Input Program/Script folder path and Save
 Verify Program/Script folder path saved correctly
     [Arguments]     ${Program/ScriptFolderPath}
     Verify Program/Script folder path      ${Program/ScriptFolderPath}
-    

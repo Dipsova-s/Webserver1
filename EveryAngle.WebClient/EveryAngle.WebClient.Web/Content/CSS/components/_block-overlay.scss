@@ -1,0 +1,29 @@
+﻿/* .tab
+============================================ */
+.block-overlay {
+    display: none;
+    position: absolute;
+    z-index: 10000;
+    background-color: #666;
+    opacity: .5;
+
+    &.top {
+        left: 0;
+        top: 0;
+        width: 100%;
+    }
+
+    &.bottom {
+        left: 0;
+        width: 100%;
+        height: 100%;
+    }
+
+    &.left {
+        left: 0;
+    }
+
+    &.right {
+        width: 100%;
+    }
+}

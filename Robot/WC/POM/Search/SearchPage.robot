@@ -258,7 +258,7 @@ Click Search Action Execute As Dashboard
     Wait Until Ajax Complete
     ${present}=    Run Keyword And Return Status    Element Should Be Visible    ${divExecuteParametersPopup}
     Run Keyword If    ${present}    Click Submit Dashboard Execution Parameters
-    Wait Dashboard Detail Document Loaded
+    Wait Dashboard Document Loaded
 
 Click Search Action Execute As Dashboard With Execution Parameters
     Click Search Action    ${ddlSearchActionExecuteAsDashboard}
@@ -325,6 +325,9 @@ Unselect Search Filter Angle
 Click Search Filter Template
     Click Facet Checkbox    ${chkFacetTemplate}
 
+Unselect Search Filter Template
+    Unselect Facet Checkbox    ${chkFacetTemplate}
+    
 Click Search Filter Dashboard
     Click Facet Checkbox    ${chkFacetDashboard}
 
@@ -508,8 +511,6 @@ Click Link Item From Search Result
 Click Link Template From Search Result
     [Arguments]    ${link}
     Click Link Item From Search Result    ${lnkSearchResult}:contains(${link})
-    Wait Angle Detail Document Loaded
-    Check If Angle Or Display Has A Warning Then Close The Popup
 
 Click Item Info Button
     [Arguments]    ${rowNumber}
@@ -535,6 +536,10 @@ Click Link First Item From Search Result
 
 Click Link Item From Search Result By Item Uri: ${itemUri}
     Click Link Item From Search Result    jquery=#${trItemInSearchResult}[data-uri="${itemUri}"] .ResultContent .name
+
+Click Select Item From Search Result By Name
+    [Arguments]    ${name}
+    Click Element    jquery=#${trItemInSearchResult}:contains(${name})
 
 Click Select Item From Search Result
     [Arguments]    ${rowNumber}
@@ -671,7 +676,6 @@ Open Dashboard From First Dashboard in Search Page
 Search Dashboard From Search Page And Open It 
     [Arguments]    ${fieldKeyword}
     Search By Text    ${fieldKeyword}  
-    Click Select First Item From Search Result
     Open Dashboard From First Dashboard in Search Page
 
 Clear All Filters
@@ -682,3 +686,7 @@ Click Clear Filters
     Click Element  ${btnClearFilters}
     Wait Progress Bar Closed
     Wait Until Ajax Complete
+
+Delete Angle Via Search Page
+   [Arguments]    ${angleName}
+   Delete Item On Search Page    ${angleName}     

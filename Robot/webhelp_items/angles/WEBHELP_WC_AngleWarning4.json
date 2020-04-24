@@ -1,717 +1,156 @@
 {
     "multi_lang_name": [
         {
-            "lang": "en",
-            "text": "Dead stock"
-        },
-        {
-            "lang": "nl",
-            "text": "Dead stock"
-        },
-        {
-            "lang": "fr",
-            "text": "Dead stock"
-        },
-        {
             "lang": "de",
-            "text": "Dead stock"
+            "text": "Konditionstabelle"
+        },
+        {
+            "lang": "en",
+            "text": "Condition Table"
         },
         {
             "lang": "es",
-            "text": "Dead stock"
+            "text": "Tabla de Condiciones"
+        },
+        {
+            "lang": "fr",
+            "text": "Table Conditions"
+        },
+        {
+            "lang": "nl",
+            "text": "Conditietabel"
         }
     ],
-    "labels": "/models/1/angles/643/labels",
+    "labels": "/models/1/angles/1503/labels",
     "assigned_labels": [
         "P2P",
-        "S2D",
-        "O2C"
+        "O2C",
+        "F2R",
+        "PM",
+        "Risk"
     ],
-    "displays": "/models/1/angles/643/displays",
-    "grouping_labels": "/models/1/angles/643/grouping_labels",
+    "executed": {
+        "user": "/users/1",
+        "full_name": "EAAdmin",
+        "datetime": 1571329989
+    },
+    "displays": "/models/1/angles/1503/displays",
+    "grouping_labels": "/models/1/angles/1503/grouping_labels",
     "id": "WEBHELP_WC_AngleWarning4",
     "authorizations": {
         "unvalidate": false,
         "mark_template": true,
         "unmark_template": false,
         "update": true,
-        "publish": false,
-        "unpublish": true,
+        "publish": true,
+        "unpublish": false,
         "create_private_display": true,
-        "validate": true,
-        "create_public_display": true,
+        "validate": false,
+        "create_public_display": false,
         "delete": true
     },
     "user_specific": {
+        "times_executed": 2,
         "is_starred": false,
         "private_tags": [],
-        "times_executed": 0,
+        "private_note": "WEBHELP_WC_AngleWarning4",
         "execute_on_login": false
     },
-    "state": "/models/1/angles/643/state",
+    "state": "/models/1/angles/1503/state",
     "allow_followups": true,
     "is_parameterized": false,
     "is_validated": false,
-    "business_processes": "/models/1/angles/643/business_processes",
+    "business_processes": "/models/1/angles/1503/business_processes",
     "query_definition": [
         {
+            "valid": false,
+            "validation_details": {
+                "classes": [
+                    "ConditionMasterDataPublishingClass"
+                ],
+                "warning_type": "unsupported_start_object"
+            },
             "queryblock_type": "base_classes",
             "base_classes": [
-                "MaterialOnPlantLevel"
+                "ConditionMasterDataPublishingClass"
             ]
-        },
-        {
-            "query_steps": [
-                {
-                    "tech_info": "",
-                    "step_type": "filter",
-                    "field": "LastConsumptionDate",
-                    "valid": false,
-                    "validation_details": {
-                        "field": "LastConsumptionDate",
-                        "classes": [
-                            "MaterialOnPlantLevel"
-                        ],
-                        "warning_type": "unsupported_filter_field"
-                    },
-                    "arguments": [
-                        {
-                            "argument_type": "value",
-                            "value": -365
-                        }
-                    ],
-                    "operator": "relative_before"
-                },
-                {
-                    "operator": "equal_to",
-                    "field": "Material__ExpectedDemandInXDayScope",
-                    "step_type": "filter",
-                    "arguments": [
-                        {
-                            "argument_type": "value",
-                            "value": 0
-                        }
-                    ],
-                    "tech_info": ""
-                },
-                {
-                    "operator": "greater_than",
-                    "field": "StockQuantityTotal",
-                    "step_type": "filter",
-                    "arguments": [
-                        {
-                            "argument_type": "value",
-                            "value": 0
-                        }
-                    ],
-                    "tech_info": ""
-                }
-            ],
-            "queryblock_type": "query_steps"
         }
     ],
-    "angle_default_display": "/models/1/angles/643/displays/2987",
-    "privilege_labels": "/models/1/angles/643/privilege_labels",
+    "angle_default_display": "/models/1/angles/1503/displays/7718",
+    "privilege_labels": "/models/1/angles/1503/privilege_labels",
     "is_deleted": false,
     "created": {
-        "user": "/users/2",
-        "full_name": "EASystem",
-        "datetime": 1567577217
+        "user": "/users/1",
+        "full_name": "EAAdmin",
+        "datetime": 1570522302
     },
     "changed": {
         "user": "/users/1",
         "full_name": "EAAdmin",
-        "datetime": 1567577560
+        "datetime": 1570522525
     },
-    "uri": "/models/1/angles/643",
+    "uri": "/models/1/angles/1503",
     "display_definitions": [
         {
             "multi_lang_name": [
                 {
+                    "lang": "de",
+                    "text": "Anzahl der aktiven und inaktiven Tabellen"
+                },
+                {
                     "lang": "en",
-                    "text": "Basic list"
+                    "text": "No. Active and Inactive Tables"
+                },
+                {
+                    "lang": "es",
+                    "text": "N.º de Tablas Activas e Inactivas"
+                },
+                {
+                    "lang": "fr",
+                    "text": "Nombre de Tables Actives et Inactives"
+                },
+                {
+                    "lang": "nl",
+                    "text": "Aantal Actieve en Inactieve Tabellen"
                 }
             ],
             "authorizations": {
-                "make_angle_default": false,
+                "make_angle_default": true,
                 "unpublish": false,
                 "update": true,
-                "publish": false,
-                "delete": false
-            },
-            "created": {
-                "user": "/users/2",
-                "full_name": "EASystem",
-                "datetime": 1557110545
-            },
-            "fields": [
-                {
-                    "tech_info": "",
-                    "field": "Material__Material",
-                    "multi_lang_alias": [],
-                    "valid": true,
-                    "field_details": "{\"width\":81}"
-                },
-                {
-                    "tech_info": "MAKT-MAKTX",
-                    "field": "Material__Description",
-                    "multi_lang_alias": [],
-                    "valid": true,
-                    "field_details": "{\"width\":176}"
-                },
-                {
-                    "tech_info": "T001W-WERKS",
-                    "field": "Plant__Plant",
-                    "multi_lang_alias": [],
-                    "valid": true,
-                    "field_details": "{\"width\":68,\"format\":\"shn\"}"
-                },
-                {
-                    "tech_info": "MARC-MMSTA",
-                    "field": "MMSTA",
-                    "multi_lang_alias": [],
-                    "valid": true,
-                    "field_details": "{\"width\":101}"
-                },
-                {
-                    "tech_info": "MARC-LVORM",
-                    "field": "LVOWK",
-                    "multi_lang_alias": [],
-                    "valid": true,
-                    "field_details": "{\"width\":95}"
-                },
-                {
-                    "tech_info": "",
-                    "field": "StockValueValuated",
-                    "multi_lang_alias": [],
-                    "valid": true,
-                    "field_details": "{\"width\":110}"
-                },
-                {
-                    "tech_info": "",
-                    "field": "StockQuantityTotal",
-                    "multi_lang_alias": [],
-                    "valid": true,
-                    "field_details": "{\"width\":110}"
-                },
-                {
-                    "tech_info": "MARA-MEINS",
-                    "field": "Material__BaseUnitOfMeasure",
-                    "multi_lang_alias": [],
-                    "valid": true,
-                    "field_details": "{\"width\":28,\"format\":\"shn\"}"
-                },
-                {
-                    "tech_info": "MARC-WERKS;MARC-DISPO",
-                    "field": "DISPO",
-                    "multi_lang_alias": [],
-                    "valid": true,
-                    "field_details": "{\"width\":120}"
-                },
-                {
-                    "field_details": "{\"width\":145}",
-                    "tech_info": "",
-                    "multi_lang_alias": [],
-                    "field": "LastConsumptionDate",
-                    "valid": false,
-                    "validation_details": {
-                        "field": "LastConsumptionDate",
-                        "classes": [
-                            "MaterialOnPlantLevel"
-                        ],
-                        "warning_type": "unsupported_display_field"
-                    }
-                },
-                {
-                    "field_details": "{\"width\":120}",
-                    "tech_info": "",
-                    "multi_lang_alias": [],
-                    "field": "ConsumptionLastYear",
-                    "valid": false,
-                    "validation_details": {
-                        "field": "ConsumptionLastYear",
-                        "classes": [
-                            "MaterialOnPlantLevel"
-                        ],
-                        "warning_type": "unsupported_display_field"
-                    }
-                },
-                {
-                    "field_details": "{\"width\":172}",
-                    "tech_info": "",
-                    "multi_lang_alias": [],
-                    "field": "AvgConsumptionLastYearPerMonth",
-                    "valid": false,
-                    "validation_details": {
-                        "field": "AvgConsumptionLastYearPerMonth",
-                        "classes": [
-                            "MaterialOnPlantLevel"
-                        ],
-                        "warning_type": "unsupported_display_field"
-                    }
-                },
-                {
-                    "field_details": "{\"width\":111}",
-                    "tech_info": "",
-                    "multi_lang_alias": [],
-                    "field": "ConsumptionTrend",
-                    "valid": false,
-                    "validation_details": {
-                        "field": "ConsumptionTrend",
-                        "classes": [
-                            "MaterialOnPlantLevel"
-                        ],
-                        "warning_type": "unsupported_display_field"
-                    }
-                },
-                {
-                    "tech_info": "MARC-VRMOD",
-                    "field": "ConsumptionMode",
-                    "multi_lang_alias": [],
-                    "valid": true,
-                    "field_details": "{\"width\":111,\"format\":\"shn\"}"
-                },
-                {
-                    "tech_info": "T438A-DISVF",
-                    "field": "MRPProcedure",
-                    "multi_lang_alias": [],
-                    "valid": true,
-                    "field_details": "{\"width\":120}"
-                },
-                {
-                    "tech_info": "MARC-MINBE",
-                    "field": "ReorderPoint",
-                    "multi_lang_alias": [],
-                    "valid": true,
-                    "field_details": "{\"width\":120}"
-                },
-                {
-                    "tech_info": "",
-                    "field": "SafetyStockEA",
-                    "multi_lang_alias": [],
-                    "valid": true,
-                    "field_details": "{\"width\":120}"
-                },
-                {
-                    "tech_info": "MARA-MSTAE",
-                    "field": "Material__MSTAE",
-                    "multi_lang_alias": [],
-                    "valid": true,
-                    "field_details": "{\"width\":101}"
-                }
-            ],
-            "contained_aggregation_steps": false,
-            "uri": "/models/1/angles/643/displays/2987",
-            "is_public": true,
-            "used_in_task": false,
-            "state": "/models/1/angles/643/displays/2987/state",
-            "display_type": "list",
-            "user_specific": {
-                "execute_on_login": false,
-                "is_user_default": false
-            },
-            "query_blocks": [],
-            "is_angle_default": true,
-            "angle_id": "643",
-            "id": "d2e6877efc77ff18f67ceba689659dab2",
-            "display_details": "{}",
-            "multi_lang_description": [
-                {
-                    "lang": "en",
-                    "text": "Showing relevant information on dead stock"
-                }
-            ]
-        },
-        {
-            "multi_lang_name": [
-                {
-                    "lang": "en",
-                    "text": "Per MRP controller"
-                }
-            ],
-            "authorizations": {
-                "make_angle_default": true,
-                "unpublish": true,
-                "update": true,
-                "publish": false,
+                "publish": true,
                 "delete": true
             },
             "created": {
-                "user": "/users/2",
-                "full_name": "EASystem",
-                "datetime": 1557110545
+                "user": "/users/1",
+                "full_name": "EAAdmin",
+                "datetime": 1570522302
             },
             "fields": [
                 {
-                    "field": "individual_DISPO",
+                    "field": "individual_Active",
                     "multi_lang_alias": [],
                     "valid": true,
-                    "field_details": "{\"pivot_area\":\"row\",\"format\":\"shnln\",\"sorting\":\"\"}"
+                    "field_details": "{\"pivot_area\":\"row\"}"
                 },
                 {
-                    "field": "sum_StockValueValuated",
+                    "field": "individual_KAPPL",
                     "multi_lang_alias": [],
                     "valid": true,
-                    "field_details": "{\"pivot_area\":\"data\",\"prefix\":null,\"decimals\":0,\"thousandseparator\":true,\"sorting\":\"\"}"
+                    "field_details": "{\"pivot_area\":\"column\"}"
+                },
+                {
+                    "field": "count",
+                    "multi_lang_alias": [],
+                    "valid": true,
+                    "field_details": "{\"pivot_area\":\"data\"}"
                 }
             ],
             "contained_aggregation_steps": true,
-            "uri": "/models/1/angles/643/displays/2988",
-            "is_public": true,
+            "uri": "/models/1/angles/1503/displays/7716",
+            "is_public": false,
             "used_in_task": false,
-            "state": "/models/1/angles/643/displays/2988/state",
-            "display_type": "pivot",
-            "user_specific": {
-                "execute_on_login": false,
-                "is_user_default": false
-            },
-            "query_blocks": [
-                {
-                    "query_steps": [
-                        {
-                            "aggregation_fields": [
-                                {
-                                    "operator": "sum",
-                                    "field": "sum_StockValueValuated",
-                                    "source_field": "StockValueValuated",
-                                    "tech_info": ""
-                                }
-                            ],
-                            "step_type": "aggregation",
-                            "grouping_fields": [
-                                {
-                                    "operator": "individual",
-                                    "field": "individual_DISPO",
-                                    "source_field": "DISPO",
-                                    "tech_info": "MARC-WERKS;MARC-DISPO"
-                                }
-                            ]
-                        }
-                    ],
-                    "queryblock_type": "query_steps"
-                }
-            ],
-            "is_angle_default": false,
-            "angle_id": "643",
-            "id": "d44ad3244faea06adc883507ff1075b18",
-            "display_details": "{\"columns\":{\"header\":[287],\"data\":[217]},\"layout\":\"{\\\"layout\\\":\\\"ugIAAPIHoHfyAHfyAaF38gIA8gGgd/IDd/IEoXfyBQDyAqB38gagoHfyB6Chd/II8gLyAqF38gkA8hOhd/IKAPICoXfyC/IA8gCgd/IMd/IBoHfyDfIAoHfyDnfyD6B38hB38hGhd/ISAPIBoHfyE3fyFKF38hUA8gKgd/IWd/IXoHfyGHfyGaF38hoA8gGgd/ITAKB38ht38gGgd/Icd/IdoXfyHgDyAqB38hN38h+gd/IgoKF38iEA8gKgd/ITd/IfoHfyIKChd/IiAPICoHfyI3fyAaB38iR38iWhd/ImAPIFoHfyJwCgd/IoAKB38il38iqgd/Ird/IBoHfyLHfyAaF38i0A8gWgd/Iud/IvoXfyMPIA8gCgd/Ixd/IBoHfyMqGgd/Izd/I0oXfyNfIA8gChd/I2APICoHfyI3fyAaB38iR38iWhd/I38gDyAKB38jjyAKB38jl38jqhd/I7APIToXfyCgDyAqF38gvyAPIAoHfyDHfyAaB38g3yAaB38g538jygd/IQd/I9oXfyEgDyAaB38hN38j6hd/IVAPICoHfyFnfyF6B38hh38hmhd/IaAPIBoHfyEwCgd/Ibd/IBoHfyHHfyP6F38h4A8gKgd/ITd/IfoHfyIKChd/IhAPICoHfyE3fyH6B38iCgoXfyIgDyAqB38iN38kCgd/Ikd/JBoXfyJgDyBaB38icAoHfyKACgd/Ipd/IqoHfyK3fyAaB38ix38gGhd/ItAPIFoHfyLnfyL6F38jDyAPIAoHfyMXfyAaB38jKhoHfyM3fyNKF38jXyAPIAoXfyNgDyAqB38iN38kCgd/Ikd/JBoXfyN/IA8gCgd/I48gCgd/I5d/I6oXfyQgDyBKB38kOgoHfyRKCgd/IYoKB38kWhoXfyRgDyAqB38kfyHqB38kjyHqF38knyAPIA8koOI0xheW91dFZlcnNpb24AD09wdGlvbnNCZWhhdmlvchlTb3J0QnlTdW1tYXJ5RGVmYXVsdE9yZGVyCkRlc2NlbmRpbmcLT3B0aW9uc1ZpZXcNU2hvd1Jvd1RvdGFscxBTaG93Q29sdW1uVG90YWxzBkZpZWxkcwVJdGVtMRFTb3J0QnlTdW1tYXJ5SW5mbwpDb25kaXRpb25zEkZpZWxkQ29tcG9uZW50TmFtZQVJbmRleAdDYXB0aW9uFyhTZWxmKSAtIE1SUCBjb250cm9sbGVyBEFyZWEHUm93QXJlYQtIZWFkZXJTdHlsZQlWaWV3U3RhdGXsBH5YdHJhI0FycmF5MTIsIE9iamVjdCwsIFN5c3RlbS5Db2xsZWN0aW9ucy5BcnJheUxpc3QsLCwsIG1zY29ybGliLCwsLCBWZXJzaW9uPTQuMC4wLjAsLCwsIEN1bHR1cmU9bmV1dHJhbCwsLCwgUHVibGljS2V5VG9rZW49Yjc3YTVjNTYxOTM0ZTA4OSwsIH5YdHJhI0Jhc2U2NEFBRUFBQUQvLy8vL0FRQUFBQUFBQUFBRUFRQUFBQnhUZVhOMFpXMHVRMjlzYkdWamRHbHZibk11UVhKeVlYbE1hWE4wQXdBQUFBWmZhWFJsYlhNRlgzTnBlbVVJWDNabGNuTnBiMjRGQUFBSUNBa0NBQUFBQkFBQUFBUUFBQUFRQWdBQUFBUUFBQUFKQXdBQUFBWUVBQUFBQTNKdmR3a0ZBQUFBQ0FnQ0FBQUFEQVlBQUFCTlUzbHpkR1Z0TGxkbFlpd2dWbVZ5YzJsdmJqMDBMakF1TUM0d0xDQkRkV3gwZFhKbFBXNWxkWFJ5WVd3c0lGQjFZbXhwWTB0bGVWUnZhMlZ1UFdJd00yWTFaamRtTVRGa05UQmhNMkVGQXdBQUFCdFRlWE4wWlcwdVYyVmlMbFZKTGtsdVpHVjRaV1JUZEhKcGJtY0JBQUFBQmw5MllXeDFaUUVHQUFBQUJnY0FBQUFJUTNOelEyeGhjM01CQlFBQUFBTUFBQUFHQ0FBQUFBUmZJVk5DQ3c9PSwgbnVsbCwgbnVsbCwgbnVsbCwgbnVsbCwgbnVsbCwgbnVsbCwgbnVsbCwgbnVsbCwgbnVsbCwgbnVsbCwgbnVsbCwgB09wdGlvbnMSQWxsb3dTb3J0QnlTdW1tYXJ5BFRydWUJQWxsb3dEcmFnBUZhbHNlCUNlbGxTdHlsZQROYW1lCUZpZWxkTmFtZRBpbmRpdmlkdWFsX0RJU1BPClZhbHVlU3R5bGXMBH5YdHJhI0FycmF5MTIsIE9iamVjdCwsIFN5c3RlbS5Db2xsZWN0aW9ucy5BcnJheUxpc3QsLCwsIG1zY29ybGliLCwsLCBWZXJzaW9uPTQuMC4wLjAsLCwsIEN1bHR1cmU9bmV1dHJhbCwsLCwgUHVibGljS2V5VG9rZW49Yjc3YTVjNTYxOTM0ZTA4OSwsIH5YdHJhI0Jhc2U2NEFBRUFBQUQvLy8vL0FRQUFBQUFBQUFBRUFRQUFBQnhUZVhOMFpXMHVRMjlzYkdWamRHbHZibk11UVhKeVlYbE1hWE4wQXdBQUFBWmZhWFJsYlhNRlgzTnBlbVVJWDNabGNuTnBiMjRGQUFBSUNBa0NBQUFBQWdBQUFBSUFBQUFRQWdBQUFBUUFBQUFKQXdBQUFBZ0JBQTBDREFRQUFBQk5VM2x6ZEdWdExsZGxZaXdnVm1WeWMybHZiajAwTGpBdU1DNHdMQ0JEZFd4MGRYSmxQVzVsZFhSeVlXd3NJRkIxWW14cFkwdGxlVlJ2YTJWdVBXSXdNMlkxWmpkbU1URmtOVEJoTTJFRkF3QUFBQnRUZVhOMFpXMHVWMlZpTGxWSkxrbHVaR1Y0WldSVGRISnBibWNCQUFBQUJsOTJZV3gxWlFFRUFBQUFCZ1VBQUFBVFZHOXdRV3hwWjI1bFpGSnZkMVpoYkhWbGN3cz0sIG51bGwsIG51bGwsIG51bGwsIG51bGwsIG51bGwsIG51bGwsIG51bGwsIG51bGwsIG51bGwsIG51bGwsIG51bGwsIBNUb3BBbGlnbmVkUm93VmFsdWVzD1ZhbHVlVG90YWxTdHlsZQtWYWx1ZUZvcm1hdAxGb3JtYXRTdHJpbmcKRm9ybWF0VHlwZQdOdW1lcmljDVN1bW1hcnlGaWx0ZXIKU3RhcnRWYWx1ZQhFbmRWYWx1ZQRNb2RlCUxhc3RMZXZlbBVSb3dGaWVsZENvbXBvbmVudE5hbWUYQ29sdW1uRmllbGRDb21wb25lbnROYW1lDEZpbHRlclZhbHVlcwZWYWx1ZXMOflh0cmEjQXJyYXkwLCAKVmFsdWVzQ29yZRFEZWZlckZpbHRlclN0cmluZwpTaG93QmxhbmtzCkZpbHRlclR5cGUIRXhjbHVkZWQMQ3VzdG9tVG90YWxzCkNlbGxGb3JtYXQMQ2FsY3VsYXRpb25zCUFyZWFJbmRleA5BY3R1YWxTb3J0TW9kZQdEZWZhdWx0BUl0ZW0yJihTZWxmKSAtIEZpbmFuY2lhbCBWYWx1ZSBTdG9ja3MgIFtTdW1dCERhdGFBcmVh7AR+WHRyYSNBcnJheTEyLCBPYmplY3QsLCBTeXN0ZW0uQ29sbGVjdGlvbnMuQXJyYXlMaXN0LCwsLCBtc2NvcmxpYiwsLCwgVmVyc2lvbj00LjAuMC4wLCwsLCBDdWx0dXJlPW5ldXRyYWwsLCwsIFB1YmxpY0tleVRva2VuPWI3N2E1YzU2MTkzNGUwODksLCB+WHRyYSNCYXNlNjRBQUVBQUFELy8vLy9BUUFBQUFBQUFBQUVBUUFBQUJ4VGVYTjBaVzB1UTI5c2JHVmpkR2x2Ym5NdVFYSnlZWGxNYVhOMEF3QUFBQVpmYVhSbGJYTUZYM05wZW1VSVgzWmxjbk5wYjI0RkFBQUlDQWtDQUFBQUJBQUFBQVFBQUFBUUFnQUFBQVFBQUFBSkF3QUFBQVlFQUFBQUJHUmhkR0VKQlFBQUFBZ0lBZ0FBQUF3R0FBQUFUVk41YzNSbGJTNVhaV0lzSUZabGNuTnBiMjQ5TkM0d0xqQXVNQ3dnUTNWc2RIVnlaVDF1WlhWMGNtRnNMQ0JRZFdKc2FXTkxaWGxVYjJ0bGJqMWlNRE5tTldZM1pqRXhaRFV3WVROaEJRTUFBQUFiVTNsemRHVnRMbGRsWWk1VlNTNUpibVJsZUdWa1UzUnlhVzVuQVFBQUFBWmZkbUZzZFdVQkJnQUFBQVlIQUFBQUNFTnpjME5zWVhOekFRVUFBQUFEQUFBQUJnZ0FBQUFFWHlGVFFncz0sIG51bGwsIG51bGwsIG51bGwsIG51bGwsIG51bGwsIG51bGwsIG51bGwsIG51bGwsIG51bGwsIG51bGwsIG51bGwsIBZzdW1fU3RvY2tWYWx1ZVZhbHVhdGVkCG4wLHN1bSxOBkN1c3RvbRRPcHRpb25zQ3VzdG9taXphdGlvbg5BbGxvd1ByZWZpbHRlchxBbGxvd0RyYWdJbkN1c3RvbWl6YXRpb25Gb3JtD0RlZmVycmVkVXBkYXRlcwxPcHRpb25zUGFnZXILUm93c1BlclBhZ2UOQ29sdW1uc1BlclBhZ2UGR3JvdXBz\\\",\\\"collapse\\\":\\\"/v///wAAAAAAAAAAAAAAAP7///8AAAAAAAAAAAAAAAA=\\\"}\",\"drilldown_display\":\"d2e6877efc77ff18f67ceba689659dab2\",\"show_total_for\":1,\"percentage_summary_type\":0,\"include_subtotals\":false}",
-            "multi_lang_description": []
-        },
-        {
-            "multi_lang_name": [
-                {
-                    "lang": "en",
-                    "text": "Reorder point reduction possibilities"
-                }
-            ],
-            "authorizations": {
-                "make_angle_default": true,
-                "unpublish": true,
-                "update": true,
-                "publish": false,
-                "delete": true
-            },
-            "created": {
-                "user": "/users/2",
-                "full_name": "EASystem",
-                "datetime": 1557110545
-            },
-            "fields": [
-                {
-                    "tech_info": "",
-                    "field": "Material__Material",
-                    "multi_lang_alias": [],
-                    "valid": true,
-                    "field_details": "{\"width\":86}"
-                },
-                {
-                    "tech_info": "MAKT-MAKTX",
-                    "field": "Material__Description",
-                    "multi_lang_alias": [],
-                    "valid": true,
-                    "field_details": "{\"width\":130}"
-                },
-                {
-                    "tech_info": "T460A-BESKZ/MARC-BESKZ",
-                    "field": "ProcurementTypePlanning",
-                    "multi_lang_alias": [],
-                    "valid": true,
-                    "field_details": "{\"width\":168}"
-                },
-                {
-                    "tech_info": "",
-                    "field": "StockValueValuated",
-                    "multi_lang_alias": [],
-                    "valid": true,
-                    "field_details": "{\"width\":120}"
-                },
-                {
-                    "tech_info": "MARC-WERKS;MARC-DISPO",
-                    "field": "DISPO",
-                    "multi_lang_alias": [],
-                    "valid": true,
-                    "field_details": "{\"width\":174}"
-                },
-                {
-                    "tech_info": "MARC-DISMM",
-                    "field": "DISMM",
-                    "multi_lang_alias": [],
-                    "valid": true,
-                    "field_details": "{\"width\":223}"
-                },
-                {
-                    "tech_info": "MARC-MINBE",
-                    "field": "ReorderPoint",
-                    "multi_lang_alias": [],
-                    "valid": true,
-                    "field_details": "{\"width\":120}"
-                }
-            ],
-            "contained_aggregation_steps": false,
-            "uri": "/models/1/angles/643/displays/2989",
-            "is_public": true,
-            "used_in_task": false,
-            "state": "/models/1/angles/643/displays/2989/state",
-            "display_type": "list",
-            "user_specific": {
-                "execute_on_login": false,
-                "is_user_default": false
-            },
-            "query_blocks": [
-                {
-                    "query_steps": [
-                        {
-                            "operator": "greater_than",
-                            "field": "ReorderPoint",
-                            "step_type": "filter",
-                            "arguments": [
-                                {
-                                    "argument_type": "value",
-                                    "value": 0
-                                }
-                            ],
-                            "tech_info": "MARC-MINBE"
-                        }
-                    ],
-                    "queryblock_type": "query_steps"
-                }
-            ],
-            "is_angle_default": false,
-            "angle_id": "643",
-            "id": "d952fd1920fea281924e9a6771e61982b",
-            "display_details": "{}",
-            "multi_lang_description": []
-        },
-        {
-            "multi_lang_name": [
-                {
-                    "lang": "en",
-                    "text": "Safety stock reduction possibilities"
-                }
-            ],
-            "authorizations": {
-                "make_angle_default": true,
-                "unpublish": true,
-                "update": true,
-                "publish": false,
-                "delete": true
-            },
-            "created": {
-                "user": "/users/2",
-                "full_name": "EASystem",
-                "datetime": 1557110545
-            },
-            "fields": [
-                {
-                    "tech_info": "",
-                    "field": "ID",
-                    "multi_lang_alias": [],
-                    "valid": true,
-                    "field_details": "{\"width\":76}"
-                },
-                {
-                    "tech_info": "",
-                    "field": "Material__Material",
-                    "multi_lang_alias": [],
-                    "valid": true,
-                    "field_details": "{\"width\":83}"
-                },
-                {
-                    "tech_info": "MAKT-MAKTX",
-                    "field": "Material__Description",
-                    "multi_lang_alias": [],
-                    "valid": true,
-                    "field_details": "{\"width\":153}"
-                },
-                {
-                    "tech_info": "T001W-WERKS",
-                    "field": "Plant__Plant",
-                    "multi_lang_alias": [],
-                    "valid": true,
-                    "field_details": "{\"width\":120}"
-                },
-                {
-                    "tech_info": "MARC-EISBE",
-                    "field": "SafetyStock",
-                    "multi_lang_alias": [],
-                    "valid": true,
-                    "field_details": "{\"width\":120}"
-                },
-                {
-                    "tech_info": "MARA-MEINS",
-                    "field": "Material__BaseUnitOfMeasure",
-                    "multi_lang_alias": [],
-                    "valid": true,
-                    "field_details": "{\"width\":40,\"format\":\"shn\"}"
-                },
-                {
-                    "tech_info": "",
-                    "field": "StockQuantityAvailable",
-                    "multi_lang_alias": [],
-                    "valid": true,
-                    "field_details": "{\"width\":120}"
-                },
-                {
-                    "tech_info": "",
-                    "field": "ExcessStock",
-                    "multi_lang_alias": [],
-                    "valid": true,
-                    "field_details": "{\"width\":120}"
-                },
-                {
-                    "tech_info": "",
-                    "field": "ExcessStockValue",
-                    "multi_lang_alias": [],
-                    "valid": true,
-                    "field_details": "{\"width\":120}"
-                },
-                {
-                    "tech_info": "",
-                    "field": "StockWeeksOnHand",
-                    "multi_lang_alias": [],
-                    "valid": true,
-                    "field_details": "{\"width\":120}"
-                },
-                {
-                    "tech_info": "",
-                    "field": "StockTurnoverRatio",
-                    "multi_lang_alias": [],
-                    "valid": true,
-                    "field_details": "{\"width\":120}"
-                },
-                {
-                    "field_details": "{\"width\":120}",
-                    "tech_info": "",
-                    "multi_lang_alias": [],
-                    "field": "ConsumptionLastYear",
-                    "valid": false,
-                    "validation_details": {
-                        "field": "ConsumptionLastYear",
-                        "classes": [
-                            "MaterialOnPlantLevel"
-                        ],
-                        "warning_type": "unsupported_display_field"
-                    }
-                },
-                {
-                    "field_details": "{\"width\":145}",
-                    "tech_info": "",
-                    "multi_lang_alias": [],
-                    "field": "LastConsumptionDate",
-                    "valid": false,
-                    "validation_details": {
-                        "field": "LastConsumptionDate",
-                        "classes": [
-                            "MaterialOnPlantLevel"
-                        ],
-                        "warning_type": "unsupported_display_field"
-                    }
-                }
-            ],
-            "contained_aggregation_steps": false,
-            "uri": "/models/1/angles/643/displays/2990",
-            "is_public": true,
-            "used_in_task": false,
-            "state": "/models/1/angles/643/displays/2990/state",
-            "display_type": "list",
-            "user_specific": {
-                "execute_on_login": false,
-                "is_user_default": false
-            },
-            "query_blocks": [
-                {
-                    "query_steps": [
-                        {
-                            "operator": "greater_than",
-                            "field": "SafetyStock",
-                            "step_type": "filter",
-                            "arguments": [
-                                {
-                                    "argument_type": "value",
-                                    "value": 0
-                                }
-                            ],
-                            "tech_info": "MARC-EISBE"
-                        }
-                    ],
-                    "queryblock_type": "query_steps"
-                }
-            ],
-            "is_angle_default": false,
-            "angle_id": "643",
-            "id": "dd59d80c87f5784df55005a0c8a3ff3fa",
-            "display_details": "{}",
-            "multi_lang_description": [
-                {
-                    "lang": "en",
-                    "text": "Showing where the safety stock might be reduced."
-                }
-            ]
-        },
-        {
-            "multi_lang_name": [
-                {
-                    "lang": "en",
-                    "text": "Stock value per plant"
-                }
-            ],
-            "authorizations": {
-                "make_angle_default": true,
-                "unpublish": true,
-                "update": true,
-                "publish": false,
-                "delete": true
-            },
-            "created": {
-                "user": "/users/2",
-                "full_name": "EASystem",
-                "datetime": 1557110545
-            },
-            "fields": [
-                {
-                    "field": "individual_Plant__Plant",
-                    "multi_lang_alias": [],
-                    "valid": true,
-                    "field_details": "{\"pivot_area\":\"row\",\"format\":\"shnln\",\"sorting\":\"\"}"
-                },
-                {
-                    "field": "individual_Material__MaterialType",
-                    "multi_lang_alias": [],
-                    "valid": true,
-                    "field_details": "{\"pivot_area\":\"column\",\"format\":\"shnln\",\"sorting\":\"\"}"
-                },
-                {
-                    "field": "sum_StockValueValuated",
-                    "multi_lang_alias": [],
-                    "valid": true,
-                    "field_details": "{\"pivot_area\":\"data\",\"prefix\":\"M\",\"decimals\":0,\"thousandseparator\":false,\"sorting\":\"\"}"
-                }
-            ],
-            "contained_aggregation_steps": true,
-            "uri": "/models/1/angles/643/displays/2991",
-            "is_public": true,
-            "used_in_task": false,
-            "state": "/models/1/angles/643/displays/2991/state",
+            "state": "/models/1/angles/1503/displays/7716/state",
             "display_type": "chart",
             "user_specific": {
                 "execute_on_login": false,
@@ -723,25 +162,23 @@
                         {
                             "aggregation_fields": [
                                 {
-                                    "operator": "sum",
-                                    "field": "sum_StockValueValuated",
-                                    "source_field": "StockValueValuated",
-                                    "tech_info": ""
+                                    "operator": "count",
+                                    "field": "count"
                                 }
                             ],
                             "step_type": "aggregation",
                             "grouping_fields": [
                                 {
                                     "operator": "individual",
-                                    "field": "individual_Plant__Plant",
-                                    "source_field": "Plant__Plant",
-                                    "tech_info": "T001W-WERKS"
+                                    "field": "individual_Active",
+                                    "source_field": "Active",
+                                    "tech_info": ""
                                 },
                                 {
                                     "operator": "individual",
-                                    "field": "individual_Material__MaterialType",
-                                    "source_field": "Material__MaterialType",
-                                    "tech_info": "MARA-MTART"
+                                    "field": "individual_KAPPL",
+                                    "source_field": "KAPPL",
+                                    "tech_info": "A004-KAPPL"
                                 }
                             ]
                         }
@@ -750,26 +187,313 @@
                 }
             ],
             "is_angle_default": false,
-            "angle_id": "643",
-            "id": "dee45af2b8ebadb51b87c882236527907",
-            "display_details": "{\"chart_type\":\"bar\",\"stack\":false,\"multi_axis\":false,\"layout\":null,\"drilldown_display\":\"d2e6877efc77ff18f67ceba689659dab2\",\"axistitle\":\"show\",\"axisvalue\":\"show\",\"datalabel\":\"mouse\",\"gridline\":\"show\",\"legend\":\"show\",\"range\":{\"start\":0,\"size\":50}}",
-            "multi_lang_description": []
+            "angle_id": "1503",
+            "id": "d4fbf69ccc088c9075255fd425af6f7d3",
+            "display_details": "{\"chart_type\":\"column\",\"stack\":true,\"multi_axis\":false,\"drilldown_display\":\"dd7b5042c04d1cb5b4bd23145e3496b65\",\"count_index\":0}",
+            "multi_lang_description": [
+                {
+                    "lang": "de",
+                    "text": "<div id=\"summary\" /><div class=\" section\" id=\"S1441103453956603\"><p class=\"\" id=\"P1441103453956704\" /></div>"
+                },
+                {
+                    "lang": "en",
+                    "text": "<div id=\"summary\" /><div class=\" section\" id=\"S1441103453956603\"><p class=\"\" id=\"P1441103453956704\" /></div>"
+                },
+                {
+                    "lang": "es",
+                    "text": "<div id=\"summary\" /><div class=\" section\" id=\"S1441103453956603\"><p class=\"\" id=\"P1441103453956704\" /></div>"
+                },
+                {
+                    "lang": "fr",
+                    "text": "<div id=\"summary\" /><div class=\" section\" id=\"S1441103453956603\"><p class=\"\" id=\"P1441103453956704\" /></div>"
+                },
+                {
+                    "lang": "nl",
+                    "text": "<div id=\"summary\" /><div class=\" section\" id=\"S1441103453956603\"><p class=\"\" id=\"P1441103453956704\" /></div>"
+                }
+            ]
+        },
+        {
+            "multi_lang_name": [
+                {
+                    "lang": "de",
+                    "text": "Anzahl der Positionen pro Tabelle"
+                },
+                {
+                    "lang": "en",
+                    "text": "No. Items per Table"
+                },
+                {
+                    "lang": "es",
+                    "text": "N.º de Posiciones por Tabla"
+                },
+                {
+                    "lang": "fr",
+                    "text": "Nombre de Postes par Table"
+                },
+                {
+                    "lang": "nl",
+                    "text": "Aantal Items per Tabel"
+                }
+            ],
+            "authorizations": {
+                "make_angle_default": true,
+                "unpublish": false,
+                "update": true,
+                "publish": true,
+                "delete": true
+            },
+            "created": {
+                "user": "/users/1",
+                "full_name": "EAAdmin",
+                "datetime": 1570522302
+            },
+            "fields": [
+                {
+                    "field": "individual_Table",
+                    "multi_lang_alias": [],
+                    "valid": true,
+                    "field_details": "{\"pivot_area\":\"row\"}"
+                },
+                {
+                    "field": "count",
+                    "multi_lang_alias": [],
+                    "valid": true,
+                    "field_details": "{\"pivot_area\":\"data\"}"
+                }
+            ],
+            "contained_aggregation_steps": true,
+            "uri": "/models/1/angles/1503/displays/7717",
+            "is_public": false,
+            "used_in_task": false,
+            "state": "/models/1/angles/1503/displays/7717/state",
+            "display_type": "chart",
+            "user_specific": {
+                "execute_on_login": false,
+                "is_user_default": false
+            },
+            "query_blocks": [
+                {
+                    "query_steps": [
+                        {
+                            "aggregation_fields": [
+                                {
+                                    "operator": "count",
+                                    "field": "count"
+                                }
+                            ],
+                            "step_type": "aggregation",
+                            "grouping_fields": [
+                                {
+                                    "operator": "individual",
+                                    "field": "individual_Table",
+                                    "source_field": "Table",
+                                    "tech_info": ""
+                                }
+                            ]
+                        }
+                    ],
+                    "queryblock_type": "query_steps"
+                }
+            ],
+            "is_angle_default": false,
+            "angle_id": "1503",
+            "id": "dd75b77c71cc141e223057c4693b65e64",
+            "display_details": "{\"chart_type\":\"bar\",\"stack\":true,\"multi_axis\":false,\"count_index\":0,\"drilldown_display\":\"dd7b5042c04d1cb5b4bd23145e3496b65\"}",
+            "multi_lang_description": [
+                {
+                    "lang": "de",
+                    "text": "<div id=\"summary\" /><div class=\" section\" id=\"S1441100607673853\"><p class=\"\" id=\"P1441100607673804\" /></div>"
+                },
+                {
+                    "lang": "en",
+                    "text": "<div id=\"summary\" /><div class=\" section\" id=\"S1441100607673853\"><p class=\"\" id=\"P1441100607673804\" /></div>"
+                },
+                {
+                    "lang": "es",
+                    "text": "<div id=\"summary\" /><div class=\" section\" id=\"S1441100607673853\"><p class=\"\" id=\"P1441100607673804\" /></div>"
+                },
+                {
+                    "lang": "fr",
+                    "text": "<div id=\"summary\" /><div class=\" section\" id=\"S1441100607673853\"><p class=\"\" id=\"P1441100607673804\" /></div>"
+                },
+                {
+                    "lang": "nl",
+                    "text": "<div id=\"summary\" /><div class=\" section\" id=\"S1441100607673853\"><p class=\"\" id=\"P1441100607673804\" /></div>"
+                }
+            ]
+        },
+        {
+            "multi_lang_name": [
+                {
+                    "lang": "de",
+                    "text": "Basisliste"
+                },
+                {
+                    "lang": "en",
+                    "text": "Basic List"
+                },
+                {
+                    "lang": "es",
+                    "text": "Lista Básica"
+                },
+                {
+                    "lang": "fr",
+                    "text": "Liste De Base"
+                },
+                {
+                    "lang": "nl",
+                    "text": "Basislijst"
+                }
+            ],
+            "authorizations": {
+                "make_angle_default": false,
+                "unpublish": false,
+                "update": true,
+                "publish": true,
+                "delete": false
+            },
+            "created": {
+                "user": "/users/1",
+                "full_name": "EAAdmin",
+                "datetime": 1570522302
+            },
+            "fields": [
+                {
+                    "tech_info": "",
+                    "field": "ObjectType",
+                    "multi_lang_alias": [],
+                    "valid": true,
+                    "field_details": "{\"width\":103,\"format\":\"shn\"}"
+                },
+                {
+                    "tech_info": "",
+                    "field": "IDInvalid",
+                    "multi_lang_alias": [],
+                    "valid": true,
+                    "field_details": "{\"width\":283}"
+                },
+                {
+                    "tech_info": "",
+                    "field": "Active",
+                    "multi_lang_alias": [],
+                    "valid": true,
+                    "field_details": "{\"width\":75}"
+                },
+                {
+                    "tech_info": "A004-KAPPL",
+                    "field": "KAPPL",
+                    "multi_lang_alias": [],
+                    "valid": true,
+                    "field_details": "{\"width\":102}"
+                },
+                {
+                    "tech_info": "A004-KSCHL",
+                    "field": "KSCHL",
+                    "multi_lang_alias": [],
+                    "valid": true,
+                    "field_details": "{\"width\":91}"
+                },
+                {
+                    "tech_info": "",
+                    "field": "Table",
+                    "multi_lang_alias": [],
+                    "valid": true,
+                    "field_details": "{\"width\":71}"
+                },
+                {
+                    "tech_info": "DD02T-DDTEXT",
+                    "field": "TableDescription",
+                    "multi_lang_alias": [],
+                    "valid": true,
+                    "field_details": "{\"width\":120}"
+                },
+                {
+                    "tech_info": "A004-MATNR",
+                    "field": "MATNR",
+                    "multi_lang_alias": [],
+                    "valid": false,
+                    "field_details": "{\"width\":120}"
+                },
+                {
+                    "tech_info": "T001-BUKRS",
+                    "field": "CompanyCode__CompanyCode",
+                    "multi_lang_alias": [],
+                    "valid": true,
+                    "field_details": "{\"width\":120}"
+                },
+                {
+                    "tech_info": "TVKO-VKORG",
+                    "field": "SalesOrganization__SalesOrganization",
+                    "multi_lang_alias": [],
+                    "valid": true,
+                    "field_details": "{\"width\":120}"
+                }
+            ],
+            "contained_aggregation_steps": false,
+            "uri": "/models/1/angles/1503/displays/7718",
+            "is_public": false,
+            "used_in_task": false,
+            "state": "/models/1/angles/1503/displays/7718/state",
+            "display_type": "list",
+            "user_specific": {
+                "execute_on_login": false,
+                "is_user_default": false
+            },
+            "query_blocks": [],
+            "is_angle_default": true,
+            "angle_id": "1503",
+            "id": "dd7b5042c04d1cb5b4bd23145e3496b65",
+            "display_details": "{}",
+            "multi_lang_description": [
+                {
+                    "lang": "de",
+                    "text": "<div id=\"summary\" /><div class=\" section\" id=\"S1438245059068193\"><p class=\"\" id=\"P1438245059068884\" /></div>"
+                },
+                {
+                    "lang": "en",
+                    "text": "<div id=\"summary\" /><div class=\" section\" id=\"S1438245059068193\"><p class=\"\" id=\"P1438245059068884\" /></div>"
+                },
+                {
+                    "lang": "es",
+                    "text": "<div id=\"summary\" /><div class=\" section\" id=\"S1438245059068193\"><p class=\"\" id=\"P1438245059068884\" /></div>"
+                },
+                {
+                    "lang": "fr",
+                    "text": "<div id=\"summary\" /><div class=\" section\" id=\"S1438245059068193\"><p class=\"\" id=\"P1438245059068884\" /></div>"
+                },
+                {
+                    "lang": "nl",
+                    "text": "<div id=\"summary\" /><div class=\" section\" id=\"S1438245059068193\"><p class=\"\" id=\"P1438245059068884\" /></div>"
+                }
+            ]
         }
     ],
     "has_warnings": true,
     "is_template": false,
-    "published": {
-        "user": "/users/1",
-        "full_name": "EAAdmin",
-        "datetime": 1567577217
-    },
     "model": "/models/1",
-    "is_published": true,
+    "is_published": false,
     "allow_more_details": true,
     "multi_lang_description": [
         {
+            "lang": "de",
+            "text": "<div id=\"summary\" /><div class=\" section\" id=\"S1436278262794724\"><h2 class=\" topictitle2\" id=\"Hidelem4x14474\">Zusammenfassung</h2><p class=\"\" id=\"Pidelem4x14476\">Die Konditionstabelle stellt die Beziehung zwischen einem Konditionssatz (Preis, Rabattprozentsatz, Steuern usw.) und dem betreffenden Objekt dar, zum Beispiel einem Material, Kunden oder Lieferanten.</p><h2 class=\" topictitle2\" id=\"Hidelem4x14479\">Erläuterung</h2><p class=\"\" id=\"Pidelem4x14481\">Im SAP-System können viele verschiedene Konditionen verwaltet werden, wie Preiskonditionen, EDI-Konditionen, Materialaustausch-Konditionen, Listungskonditionen, Rabattkonditionen usw. Jede dieser Konditionen wird in verschiedenen Konditionstabellen verwaltet wie A004, A005, B006, C008, KOTD011, KOTE003 usw.</p><p class=\"\" id=\"Pidelem4x14483\">Standardmäßig werden nicht alle diese Tabellen von Every Angle heruntergeladen, denn nicht alle Konditionen werden von einem Unternehmen genutzt. Abhängig davon, welche Konditionen für ein Unternehmen relevant sind, kann ein Every Angle-Administrator aktivieren, welche von diesen Konditionen heruntergeladen werden und welche in Every Angle sichtbar sind. In diesem Objekt finden Sie alle aktivierten Konditionstabellen und ihre Beziehungen mit anderen Objekten. Preiskonditionen zählen zu den besonderen Konditionen. Um Angles für Preiskonditionen zu erstellen, müssen Sie mit dem Objekt Konditionssatz beginnen. Dieses Objekt enthält die Werte, Mengen, Prozentsätze, Staffelungen, Zusatzkonditionen und vieles mehr. Die wichtigsten Felder der Konditionstabelle sind: </p><ul id=\"U1436279793443760\" class=\"\"><li><p class=\"\" id=\"P1436279793443161\">Konditionsart</p></li><li><p class=\"\" id=\"P1436279793443872\">Rechenregel</p></li><li><p class=\"\" id=\"P143627979345803\">Gültigkeitsstatus</p></li><li><p class=\"\" id=\"P1436279793458134\">Preiseinheit</p></li></ul><p /><h2 class=\" topictitle2\" id=\"Hidelem4x14492\">Technischer Hintergrund</h2><p class=\"\" id=\"Pidelem4x14494\">Das Objekt Preiskonditionen enthält mehrere Haupttabellen, die Ihr Systemadministrator für Sie ausgewählt hat. Die meisten dieser Tabellen haben das Format Axxx (A004, A005, A018 usw.) oder Bxxx.</p><p class=\"\" id=\"Pidelem4x14496\">Das Objekt kann Referenzen zu zahlreichen verschiedenen Objekten haben wie etwa Material (auf Mandanten-, Werks- oder Lagerortebene), Lieferant, Kunde, Einkaufsorganisation und Verkaufsorganisation.</p><p class=\"\" id=\"Pidelem4x14498\">Dem Objekt ist eine Liste von Konditionssätzen angefügt (wenn Preiskonditionen aktiviert sind).</p></div>"
+        },
+        {
             "lang": "en",
-            "text": "<h3></h3><h3 style=\"margin-bottom:12pt;\"><strong><span lang=\"EN-US\" style=\"font-size:9pt;font-family:Verdana, sans-serif;\">Summary&nbsp;</span></strong></h3><p style=\"margin-bottom:12pt;\"><span lang=\"EN-US\" style=\"font-size:9pt;font-family:Verdana, sans-serif;\">When materials are in stock but haven&rsquo;t been consumed for a long time and there is no demand, they need to be checked.</span></p><h3 style=\"margin-bottom:12pt;\"><strong><span lang=\"EN-US\" style=\"font-size:9pt;font-family:Verdana, sans-serif;\">Business Question&nbsp;</span></strong></h3><p style=\"margin-bottom:12pt;\"><span lang=\"EN-US\" style=\"font-size:9pt;font-family:Verdana, sans-serif;\">What stock can be considered dead looking at consumption and demand patterns?</span></p><h3 style=\"margin-bottom:12pt;\"><strong><span lang=\"EN-US\" style=\"font-size:9pt;font-family:Verdana, sans-serif;\">Action</span></strong></h3><p><span lang=\"EN-US\" style=\"font-size:9.0pt;font-family:'Verdana','sans-serif';\">Because the stock is already available in the plant, it is difficult to get rid of it. Most actions should be aimed at preventing new stock coming in because this stock would run the risk of becoming dead stock in the future.</span></p><ul type=\"disc\"><li><span lang=\"EN-US\" style=\"font-size:9.0pt;font-family:'Verdana','sans-serif';\">Check if safety stock can be      reduced</span></li><li><span lang=\"EN-US\" style=\"font-size:9.0pt;font-family:'Verdana','sans-serif';\">Check if there are possibilities      to transfer stock to another plant where a shortage exists</span></li><li><span lang=\"EN-US\" style=\"font-size:9.0pt;font-family:'Verdana','sans-serif';\">Check if materials can be scrapped</span></li></ul><h3 style=\"margin-bottom:12pt;\"><strong><span lang=\"EN-US\" style=\"font-size:9pt;font-family:Verdana, sans-serif;\">Explanation&nbsp;</span></strong></h3><p style=\"margin-bottom:12pt;\"><span lang=\"EN-US\" style=\"font-size:9pt;font-family:Verdana, sans-serif;\">Dead stock is looking at materials that are not moving any more. It has not been used recently and in the near future there are also no requirements for it. It is important to avoid materials coming in that could become dead stock in the future. For stock that is already present and can be considered dead, it should be checked if there is a way to get this stock out, possibly by transferring it to other plants or scrapping it.</span></p><h3 style=\"margin-bottom:12pt;\"><strong><span lang=\"EN-US\" style=\"font-size:9pt;font-family:Verdana, sans-serif;\">How the Business Question was solved using the Every Angle technology&nbsp;</span></strong></h3><p style=\"margin-bottom:12pt;\"><span lang=\"EN-US\" style=\"font-size:9pt;font-family:Verdana, sans-serif;\">Starting at the Material on plant level object the filters applied are:</span></p><ul type=\"disc\"><li><span lang=\"EN-US\" style=\"font-size:9.0pt;font-family:'Verdana','sans-serif';\">Last consumption date is      relatively before -365 days. This means it is longer than a year ago that      this material was being used.</span></li><li><span lang=\"EN-US\" style=\"font-size:9.0pt;font-family:'Verdana','sans-serif';\">Stock quantity total is greater      than zero, so that only materials that are currently on stock are      considered.</span></li><li><span lang=\"EN-US\" style=\"font-size:9.0pt;font-family:'Verdana','sans-serif';\">Expected demand next X days is      equal to zero, meaning that within the horizon that is set in the      background, no requirements exist in SAP.</span></li></ul><h3 style=\"margin-bottom:12pt;\"><strong><span lang=\"EN-US\" style=\"font-size:9pt;font-family:Verdana, sans-serif;\">Related topics&nbsp;</span></strong></h3><p style=\"margin-bottom:12pt;\"><span lang=\"EN-US\" style=\"font-size:9pt;font-family:Verdana, sans-serif;\">In Every Angle it is very easy to do analysis on excess material quantities and values. Please also see the template for transfer possibilities for shortage and excess materials. To prevent dead stock in the future, analysis can be done on unnecessary procurement.</span></p><p></p>"
+            "text": "<div id=\"summary\" /><div class=\" section\" id=\"S1436278262794724\"><h2 class=\" topictitle2\" id=\"Hidelem4x14474\">Summary</h2><p class=\"\" id=\"Pidelem4x14476\">The Condition Table represents the relation between a condition record (price, discount %, tax, etc) and the involved object, for example Material, Customer, or Vendor.</p><h2 class=\" topictitle2\" id=\"Hidelem4x14479\">Explanation</h2><p class=\"\" id=\"Pidelem4x14481\">In an SAP system, one can maintain many different conditions, like price conditions, EDI conditions, material substitution conditions, listing conditions, rebate conditions, etc. Each of these conditions are maintained in different condition tables, like A004, A005, B006, C008, KOTD011, KOTE003, etc.</p><p class=\"\" id=\"Pidelem4x14483\">In a default situation, Every Angle doesn't download all these tables, because not all conditions are used by a company. An Every Angle administrator can enable which conditions are downloaded and visible in Every Angle based on the conditions that are relevant for the company. In this object you'll find all the enabled condition tables and their relationships with other objects. Pricing conditions are a special type of conditions. To make Angles for pricing conditions you have to start from the object Condition Record. This object contains the values, quantities, percentages, scales, condition supplements, and a lot more. The most important fields of Condition Table are: </p><ul id=\"U1436279793443760\" class=\"\"><li><p class=\"\" id=\"P1436279793443161\">Condition Type</p></li><li><p class=\"\" id=\"P1436279793443872\">Calculation Type</p></li><li><p class=\"\" id=\"P143627979345803\">Validity Status</p></li><li><p class=\"\" id=\"P1436279793458134\">Pricing Unit</p></li></ul><p /><h2 class=\" topictitle2\" id=\"Hidelem4x14492\">Technical background</h2><p class=\"\" id=\"Pidelem4x14494\">The Pricing Condition object has multiple main tables, that your system administrator has selected for you. Most of these tables have the format Axxx (A004, A005, A018, etc) or Bxxx.</p><p class=\"\" id=\"Pidelem4x14496\">The object can have references to many different objects like the Material (on Client, Plant, and Storage Location Level), Vendor, Customer, Purchasing Organization, and Sales Organization.</p><p class=\"\" id=\"Pidelem4x14498\">The object has a list of Condition Records (if pricing conditions are enabled) attached to it.</p></div>"
+        },
+        {
+            "lang": "es",
+            "text": "<div id=\"summary\" /><div class=\" section\" id=\"S1436278262794724\"><h2 class=\" topictitle2\" id=\"Hidelem4x14474\">Resumen</h2><p class=\"\" id=\"Pidelem4x14476\">La Tabla de Condiciones representa el enlace entre un registro de condición (precio, % de descuento, impuestos, etc.) y el objeto implicado, por ejemplo, un Material, un Deudor o un Acreedor.</p><h2 class=\" topictitle2\" id=\"Hidelem4x14479\">Explicación</h2><p class=\"\" id=\"Pidelem4x14481\">En el sistema SAP existen muchas condiciones diferentes (por ejemplo, condiciones de precio, condiciones EDI, condiciones de sustitución de materiales, condiciones de catalogación, condiciones de rappel). Cada una de estas condiciones se mantiene en tablas de condiciones diferentes, como A004, A005, B006, C008, KOTD011, KOTE003, etc.</p><p class=\"\" id=\"Pidelem4x14483\">Por defecto, Every Angle no descarga todas estas tablas (porque una sociedad no utiliza todas las condiciones). Un administrador de Every Angle puede activar las condiciones que se descargarán y estarán visibles en Every Angle según las condiciones relevantes para la empresa. En este objeto, encontrará todas las tablas de condición activadas y sus relaciones con otros objetos. Las condiciones para la determinación del precio son tipos de condiciones especiales. Para crear angles para condiciones de determinación del precio, debe empezar desde el objeto Registro de Condición. Este objeto contiene los valores, las cantidades, los porcentajes, las escalas, los suplementos de condiciones y muchos otros elementos. Los campos más importantes de la Tabla de Condiciones son los siguientes: </p><ul id=\"U1436279793443760\" class=\"\"><li><p class=\"\" id=\"P1436279793443161\">Clase de condición</p></li><li><p class=\"\" id=\"P1436279793443872\">Regla de cálculo</p></li><li><p class=\"\" id=\"P143627979345803\">Status de Validez</p></li><li><p class=\"\" id=\"P1436279793458134\">Cantidad base</p></li></ul><p /><h2 class=\" topictitle2\" id=\"Hidelem4x14492\">Contexto técnico</h2><p class=\"\" id=\"Pidelem4x14494\">El objeto Condición de precio tiene varias tablas que el administrador del sistema ha seleccionado. La mayoría de estas tablas tienen el formato Axxx (A004, A005, A018, etc.) o Bxxx.</p><p class=\"\" id=\"Pidelem4x14496\">El objeto podría tener referencias a muchos objetos diferentes, como Material (en los niveles Cliente, Centro y Almacén), Acreedor, Cliente, Organización de Compras y Organización de Ventas.</p><p class=\"\" id=\"Pidelem4x14498\">El objeto cuenta con una lista adjunta de Registros de Condición (si se encuentran habilitadas las condiciones de precio).</p></div>"
+        },
+        {
+            "lang": "fr",
+            "text": "<div id=\"summary\" /><div class=\" section\" id=\"S1436278262794724\"><h2 class=\" topictitle2\" id=\"Hidelem4x14474\">Récapitulatif</h2><p class=\"\" id=\"Pidelem4x14476\">La Table de conditions représente la relation entre un enregistrement de conditions (prix, remise en pourcentage TVA, etc.) et l'objet impliqué, par exemple Articles, Clients ou Fournisseurs.</p><h2 class=\" topictitle2\" id=\"Hidelem4x14479\">Explication</h2><p class=\"\" id=\"Pidelem4x14481\">Dans un système SAP, il est possible de maintenir différentes conditions, notamment les conditions EDI, de prix, de substitution d'article, de référencement, de remise, etc. Toutes de ces conditions sont gérées dans différentes tables de conditions comme A004, A005, B006, C008, KOTD011, KOTE003, etc.</p><p class=\"\" id=\"Pidelem4x14483\">Dans une situation par défaut, Every Angle ne télécharge pas toutes ces tables (une société n'utilisant pas l'intégralité des conditions). Un administrateur Every Angle peut activer les conditions qui seront téléchargées et visibles dans Every Angle, selon celles qui sont pertinentes pour l'entreprise. Dans cet objet, vous trouverez toutes les tables de conditions activées ainsi que leurs relations aux objets. Les conditions de détermination de prix sont un type spécial de condition. Pour créer des angles relatifs aux conditions de détermination de prix, vous devez partir de l'objet Enregistrement de conditions. Cet objet contient les valeurs, quantités, pourcentages, échelles, compléments de conditions, et bien d'autres éléments. Les champs Table de conditions les plus importants sont : </p><ul id=\"U1436279793443760\" class=\"\"><li><p class=\"\" id=\"P1436279793443161\">Type de condition</p></li><li><p class=\"\" id=\"P1436279793443872\">Type de calcul</p></li><li><p class=\"\" id=\"P143627979345803\">Statut de validité</p></li><li><p class=\"\" id=\"P1436279793458134\">Unité de prix</p></li></ul><p /><h2 class=\" topictitle2\" id=\"Hidelem4x14492\">Antécédents techniques.</h2><p class=\"\" id=\"Pidelem4x14494\">L'objet Condition de prix possède plusieurs tables principales que l'administrateur système a choisies pour vous. La plupart de ces tables sont de format Axxx (A004, A005, A018, etc.) ou Bxxx.</p><p class=\"\" id=\"Pidelem4x14496\">L'objet peut avoir des références à de nombreux objets différents tels que Articles (au niveau Clients, Divisions et Magasin), Fournisseurs, Clients, Organisation d'achats et Organisation commerciale.</p><p class=\"\" id=\"Pidelem4x14498\">L'objet possède une liste des Enregistrements de conditions (si les conditions de prix sont activées) qui lui est rattachée.</p></div>"
+        },
+        {
+            "lang": "nl",
+            "text": "<div id=\"summary\" /><div class=\" section\" id=\"S1436278262794724\"><h2 class=\" topictitle2\" id=\"Hidelem4x14474\">Samenvatting</h2><p class=\"\" id=\"Pidelem4x14476\">In de Conditietabel wordt de relatie tussen een conditierecord (prijs, kortingspercentage, belasting, enzovoort) en het betrokken object (Artikel, Klant of Leverancier) weergegeven.</p><h2 class=\" topictitle2\" id=\"Hidelem4x14479\">Uitleg</h2><p class=\"\" id=\"Pidelem4x14481\">In een SAP-systeem kunnen vele verschillende condities worden beheerd, zoals prijscondities, EDI-condities, materiaalvervangingscondities, vermeldingscondities, kortingscondities, enzovoort. Elk van deze condities worden beheerd in verschillende conditietabellen, zoals A004, A005, B006, C008, KOTD011, KOTE003, enzovoort.</p><p class=\"\" id=\"Pidelem4x14483\">In een standaardsituatie downloadt Every Angle niet al deze tabellen, omdat niet alle condities door een bedrijf worden gebruikt. Een Every Angle-beheerder kan opgeven welke condities worden gedownload en welke condities zichtbaar zijn in Every Angle, op basis van de condities die relevant zijn voor het bedrijf. In dit object kunt u alle ingeschakelde conditietabellen bekijken en wat hun relatie met andere objecten is. Prijscondities zijn speciale typen condities. Als u Angles wilt maken voor prijscondities, moet u beginnen bij het object Conditierecord. Dit object bevat waarden, hoeveelheden, percentages, schalen, aanvullingen op condities en meer. Dit zijn de belangrijkste velden van Conditietabel: </p><ul id=\"U1436279793443760\" class=\"\"><li><p class=\"\" id=\"P1436279793443161\">Conditiesoort</p></li><li><p class=\"\" id=\"P1436279793443872\">Rekenregel</p></li><li><p class=\"\" id=\"P143627979345803\">Geldigheidsstatus</p></li><li><p class=\"\" id=\"P1436279793458134\">Prijseenheid</p></li></ul><p /><h2 class=\" topictitle2\" id=\"Hidelem4x14492\">Technische achtergrond</h2><p class=\"\" id=\"Pidelem4x14494\">Het object Prijsconditie bevat meerdere hoofdtabellen, die uw systeembeheerder voor u heeft geselecteerd. De meeste van deze tabellen hebben de indeling Axxx (A004, A005, A018, enz) of Bxxx.</p><p class=\"\" id=\"Pidelem4x14496\">Het object kan referenties naar veel verschillende objecten bevatten, zoals Artikel (op klant-, vestigings- en magazijnniveau), Leverancier, Klant, Inkooporganisatie en Verkooporganisatie.</p><p class=\"\" id=\"Pidelem4x14498\">Aan het object is een lijst met Conditierecords toegevoegd (als prijscondities zijn ingeschakeld).</p></div>"
         }
     ]
 }

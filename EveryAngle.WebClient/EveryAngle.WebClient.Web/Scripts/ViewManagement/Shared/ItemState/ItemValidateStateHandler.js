@@ -12,9 +12,6 @@
             return;
         }
 
-        requestHistoryModel.SaveLastExecute(self, self.ShowValidatePopup, arguments);
-        requestHistoryModel.ClearPopupBeforeExecute = true;
-
         var handle = '#' + event.currentTarget.id;
         var popupName = 'ValidateSettings';
         var popupSettings = {

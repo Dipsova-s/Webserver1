@@ -320,7 +320,7 @@
     }
 
     .dx-vam, .dx-vat, .dx-vab {
-        display: inline-block!important;
+        display: inline-block !important;
     }
 
     span.dx-vam, span.dx-vat, span.dx-vab, a.dx-vam, a.dx-vat, a.dx-vab {
@@ -355,19 +355,18 @@
     }
 
     .dx-noPadding {
-        padding: 0!important;
+        padding: 0 !important;
     }
 
     .dx-wrap, span.dx-wrap {
-        white-space: normal!important;
+        white-space: normal !important;
         line-height: normal;
         padding: 0;
     }
 
     .dx-nowrap, span.dx-nowrap {
-        white-space: nowrap!important;
+        white-space: nowrap !important;
     }
-
     /* Prevent LinkStyle for disabled elements */
     *[class*='dxnbLiteDisabled'] a:hover,
     *[class*='dxnbLiteDisabled'] a:hover *,
@@ -381,10 +380,9 @@
     *[class*='dxtcLiteDisabled'] a:hover *,
     *[class*='dxtcLiteDisabled'] a:visited *,
     *[class*='dxtcLiteDisabled'] a:visited * {
-        color: inherit!important;
-        text-decoration: inherit!important;
+        color: inherit !important;
+        text-decoration: inherit !important;
     }
-
     /* ASPxPager */
     .dxp-spacer {
         float: left;
@@ -393,7 +391,7 @@
     }
 
     .dxp-right {
-        float: right!important;
+        float: right !important;
     }
 
     .dxp-summary,
@@ -425,7 +423,6 @@
         line-height: normal;
         display: inline;
     }
-
     /* ASPxButton */
     .dxb-hb,
     .dxb-hbc {
@@ -447,7 +444,6 @@
     .dxb-hbc {
         overflow: hidden;
     }
-
     /* ASPxPopupControl lite */
     .dxpc-mainDiv {
         position: relative;
@@ -493,7 +489,6 @@
         overflow: auto;
         border: 0;
     }
-
     /* DropDownPopupControl */
     .dxpc-ddSys {
         position: absolute;
@@ -501,14 +496,13 @@
     }
 
     .dxpc-ddSys .dxpc-content {
-        padding: 0!important;
+        padding: 0 !important;
     }
 
     .dxpc-ddSys .dxpc-mainDiv,
     .dxpc-ddSys.dxpc-mainDiv {
-        border: none!important;
+        border: none !important;
     }
-
     /* ASPxMenu lite */
     .dxm-rtl {
         direction: ltr;
@@ -680,21 +674,21 @@
     .dxm-autoWidth > ul,
     .dxm-autoWidth > ul > li,
     .dxm-noWrap > ul > li {
-        float: none!important;
+        float: none !important;
     }
 
     .dxm-ie7.dxm-ltr .dxm-autoWidth > ul > li,
     .dxm-ie7.dxm-ltr .dxm-noWrap > ul > li {
-        float: left!important;
+        float: left !important;
     }
 
     .dxm-ie7.dxm-rtl .dxm-autoWidth > ul > li,
     .dxm-ie7.dxm-rtl .dxm-noWrap > ul > li {
-        float: right!important;
+        float: right !important;
     }
 
     .dxm-ie7 .dxm-horizontal.dxm-autoWidth .dxm-popOut {
-        float: right!important;
+        float: right !important;
     }
 
     .dxm-ltr .dxm-autoWidth .dxm-item,
@@ -717,7 +711,6 @@
         line-height: 100%;
         display: block;
     }
-
     /* Mobile */
     .dxTouchVScrollHandle, .dxTouchHScrollHandle {
         background-color: Black;
@@ -743,10 +736,8 @@
 
     .dxTouchScrollHandleVisible {
         -webkit-transition-duration: 0s;
-        opacity: .4!important;
+        opacity: .4 !important;
     }
-
-
     /*ASPxRoundPanel*/
     .dxrpcontent {
         height: 100%;
@@ -992,7 +983,7 @@
     }
 
     .dxpgCustomizationFieldsContent {
-        padding: 0!important;
+        padding: 0 !important;
     }
 
     .dxpgLoadingPanel {
@@ -1261,7 +1252,6 @@
     .dxpgFLListDiv table table td {
         overflow: hidden;
     }
-
     /* Button */
     .dxbButtonSys {
         cursor: pointer;
@@ -1291,9 +1281,7 @@
     .dxbButtonSys .dxb {
         line-height: 100%;
     }
-
     /* -- END THEME -- */
-
     /* -- Button -- */
     .dxbButton {
         color: #ffffff;
@@ -2488,12 +2476,10 @@
     .dxWeb_fmGvHeaderSortUp {
         display: inline;
     }
-
     /* -- CheckBox -- */
     .dxICBFocused {
         background-color: #848484;
     }
-
     /* -- ASPxCallbackPanel -- */
     .dxcpLoadingPanel,
     .dxcpLoadingPanelWithContent {
@@ -2521,7 +2507,6 @@
         color: #ababab;
         cursor: default;
     }
-
     /* -- ASPxCloudControl -- */
     .dxccControl {
         text-decoration: none;
@@ -2530,22 +2515,21 @@
     }
 
     .dxccControl a {
-        text-decoration: none!important;
+        text-decoration: none !important;
     }
 
     .dxccControl a:hover {
-        color: #f15e34!important;
+        color: #f15e34 !important;
     }
 
     .dxccControl a:visited {
-        color: #a1a1a1!important;
+        color: #a1a1a1 !important;
     }
     /* Disabled */
     .dxccDisabled {
         color: #ababab;
         cursor: default;
     }
-
     /* -- ASPxDataView -- */
     .dxdvControl {
         font-size: 10px;
@@ -2632,7 +2616,6 @@
         color: #848484;
         cursor: default;
     }
-
     /* -- ASPxHeadline -- */
     .dxhlControl {
         color: black;
@@ -2696,7 +2679,6 @@
         color: #ababab;
         cursor: default;
     }
-
     /* -- ASPxLoadingPanel -- */
     .dxlpLoadingPanel {
         color: #f88538;
@@ -2714,7 +2696,6 @@
         background-color: #777777;
         opacity: .7;
     }
-
     /* -- ASPxMenu Lite -- */
     .dxmLite .dxm-main {
         border: 3px solid #D3D3D3;
@@ -2773,7 +2754,6 @@
     .dxmLite .dxm-item a.dx {
         text-decoration: none;
     }
-
     /* Checked, Selected, Hovered */
     .dxmLite .dxm-item {
         border-width: 1px;
@@ -2826,7 +2806,6 @@
     .dxmLite .dxm-popup .dxm-dropDownMode.dxm-hovered .dxm-popOut {
         border-color: #F9F9F9;
     }
-
     /* Content */
     .dxmLite.dxm-ltr .dxm-horizontal .dxm-image-l .dxm-content,
     .dxmLite.dxm-ltr .dxm-horizontal .dxm-image-r .dxm-content {
@@ -2919,7 +2898,6 @@
     .dxmLite.dxm-rtl .dxm-popup .dxm-dropDownMode .dxm-content {
         padding-left: 17px;
     }
-
     /* Image */
     .dxmLite .dxm-horizontal .dxm-image-l .dxm-hasText .dxm-image {
         margin-right: 6px;
@@ -2946,7 +2924,6 @@
     .dxmLite.dxm-rtl .dxm-popup .dxm-image {
         margin-left: 9px;
     }
-
     /* Image replacement */
     .dxmLite .dxm-vertical .dxm-image-l .dxm-noImage {
         padding-left: 26px;
@@ -2973,7 +2950,6 @@
     .dxmLite.dxm-rtl .dxm-popup .dxm-noImage {
         padding-right: 25px;
     }
-
     /* PopOut */
     .dxmLite .dxm-horizontal .dxm-image-l .dxm-popOut,
     .dxmLite .dxm-horizontal .dxm-image-r .dxm-popOut,
@@ -3075,7 +3051,6 @@
         padding-right: 6px;
         padding-left: 3px;
     }
-
     /* PopOut replacement */
     .dxmLite.dxm-rtl .dxm-popup .dxm-noSubMenu {
         padding-left: 17px;
@@ -3084,7 +3059,6 @@
     .dxmLite.dxm-ltr .dxm-popup .dxm-noSubMenu {
         padding-right: 17px;
     }
-
     /* Spacings, Separator */
     .dxmLite .dxm-spacing {
         width: 1px;
@@ -3197,12 +3171,10 @@
         overflow: hidden;
         position: relative;
     }
-
     /* -- ASPxMenu Lite Toolbar mode -- */
     .dxmLite .dxm-main.dxmtb {
         padding: 1px 4px;
     }
-
     /* has image */
     .dxmLite .dxmtb.dxm-horizontal .dxm-image-l .dxm-content,
     .dxmLite .dxmtb.dxm-horizontal .dxm-image-r .dxm-content,
@@ -3225,7 +3197,6 @@
     .dxmLite .dxmtb.dxm-horizontal .dxm-image-b .dxm-noImage .dxm-content {
         padding: 5px 5px 4px;
     }
-
     /* dd has image */
     .dxmLite.dxm-ltr .dxmtb.dxm-horizontal .dxm-image-l .dxm-dropDownMode .dxm-content,
     .dxmLite.dxm-rtl .dxmtb.dxm-horizontal .dxm-image-r .dxm-dropDownMode .dxm-content,
@@ -3233,7 +3204,6 @@
     .dxmLite.dxm-ltr .dxmtb.dxm-horizontal .dxm-image-b .dxm-dropDownMode .dxm-content {
         padding: 5px 4px 4px 5px;
     }
-
     /* dd no image */
     .dxmLite .dxmtb.dxm-horizontal .dxm-image-l .dxm-dropDownMode.dxm-noImage .dxm-content,
     .dxmLite .dxmtb.dxm-horizontal .dxm-image-r .dxm-dropDownMode.dxm-noImage .dxm-content,
@@ -3241,7 +3211,6 @@
     .dxmLite .dxmtb.dxm-horizontal .dxm-image-b .dxm-dropDownMode.dxm-noImage .dxm-content {
         padding: 5px 5px 4px;
     }
-
     /* image */
     .dxmLite .dxmtb.dxm-horizontal .dxm-popOut,
     .dxmLite .dxmtb.dxm-horizontal .dxm-dropDownMode.dxm-noImage .dxm-popOut {
@@ -3277,6 +3246,7 @@
     .dxmLite .dxmtb.dxm-horizontal .dxm-image-b .dxm-separator {
         padding: 3px 1px;
     }
+
     .dxmLite .dxmtb .dxtb-comboBoxMenuItem {
         padding: 2px 0;
     }
@@ -3284,7 +3254,6 @@
     .dxmLite .dxm-horizontal.dxmtb .dxtb-labelMenuItem {
         padding: 7px 4px 0 !important;
     }
-
     /* --- ASPxMenu Lite skins for XAF --- */
     .menuLinks,
     .menuLinks .dxm-item,
@@ -3295,7 +3264,7 @@
     }
 
     .menuLinks .dxm-tmpl {
-        padding-top: 1px!important;
+        padding-top: 1px !important;
     }
 
     .menuLinks .dxm-popOut {
@@ -3325,7 +3294,7 @@
 
     .menuButtons .dxm-content {
         padding: 1px 8px 1px 8px !important;
-        height: 17px!important;
+        height: 17px !important;
     }
 
     .menuButtons .dxm-item {
@@ -3355,7 +3324,6 @@
         text-align: center;
         padding: 6px;
     }
-
     /* -- ASPxNavBar Lite -- */
     .dxnbLite {
         color: Black;
@@ -3574,7 +3542,6 @@
         text-align: center;
         padding: 12px;
     }
-
     /* -- ASPxNewsControl -- */
     .dxncControl {
         color: black;
@@ -3685,7 +3652,6 @@
         color: #ababab;
         cursor: default;
     }
-
     /* -- ASPxPager Lite -- */
     .dxpLite {
         color: #696969;
@@ -3705,7 +3671,7 @@
     }
 
     .dxpLite .dxp-lead {
-        margin-left: 0!important;
+        margin-left: 0 !important;
     }
 
     .dxpLite a {
@@ -3860,7 +3826,6 @@
         cursor: default;
         background: #c0c0c0 none repeat-x left top;
     }
-
     /* -- ASPxPopupControl Lite -- */
     .dxpcLite,
     .dxdpLite {
@@ -4020,7 +3985,6 @@
         color: #808080;
         cursor: default;
     }
-
     /* Loading panel */
     .dxpcLoadingPanel,
     .dxdpLoadingPanel {
@@ -4043,5 +4007,9 @@
 
     .PercentageSummaryCell {
         color: #999;
+    }
+
+    .k-loading-mask {
+        background-color: #fff;
     }
 }

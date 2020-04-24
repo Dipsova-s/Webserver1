@@ -14,8 +14,6 @@ function ExportHandler() {
 
     //BOF: Methods
     self.ShowExportPopup = function (option) {
-        requestHistoryModel.SaveLastExecute(self, self.ShowExportPopup, arguments);
-        requestHistoryModel.ClearPopupBeforeExecute = true;
         var popupName, htmlExportTemplate;
         switch (option.ExportType) {
             case enumHandlers.ANGLEACTION.EXPORTTOCSV.Id:
@@ -359,20 +357,16 @@ function ExportHandler() {
             self.ExportCSV(e, option);
         }
     };
-    self.ExportExcel = function (option) {
-        requestHistoryModel.SaveLastExecute(self, self.ExportExcel, arguments);
-
+    self.ExportExcel = function () {
         self.IsCancelExporting = false;
-
         /* For refactor export excel */
     };
-    self.ExportCSV = function (e, option) {
-        requestHistoryModel.SaveLastExecute(self, self.ExportCSV, arguments);
+    self.ExportCSV = function (e) {
         self.IsCancelExporting = false;
         var angleModels = jQuery.grep(userModel.Privileges.ModelPrivileges, function (modelPrivilege) { return modelPrivilege.model === angleInfoModel.Data().model; });
         var maxExportRow = angleModels.length === 0 ? null : angleModels[0].privileges.max_export_rows;
         if (IsNullOrEmpty(maxExportRow)) {
-            self.CurrentExportModel.ExportRow = resultModel.TotalRow();
+            self.CurrentExportModel.ExportRow = resultModel.Data().row_count;
         }
         else {
             self.CurrentExportModel.ExportRow = maxExportRow;

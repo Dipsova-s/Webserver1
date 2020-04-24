@@ -29,8 +29,8 @@ namespace EveryAngle.ManagementConsole.Test.Services
 
             FileReaderResult result = _service.Object.GetLogFileDetails("test.log");
             Assert.NotNull(result);
-            Assert.AreEqual(result.StringContent, "This is a test contents");
-            Assert.AreEqual(result.Success, true);
+            Assert.AreEqual("This is a test contents", result.StringContent);
+            Assert.AreEqual(true, result.Success);
         }
         [Test]
         public void GetLogFileDetails_Should_Give_Exception_When_Called()
@@ -40,10 +40,10 @@ namespace EveryAngle.ManagementConsole.Test.Services
                 .Returns(true);
             _service
                .Setup(x => x.ReadAllText(It.IsAny<string>()))
-               .Throws<System.IO.IOException>();
+               .Throws<IOException>();
             FileReaderResult result = _service.Object.GetLogFileDetails("test.log");
             Assert.NotNull(result);
-            Assert.AreEqual(result.Success, false);
+            Assert.AreEqual(false, result.Success);
         }
     }
 }

@@ -9,16 +9,16 @@
         search_label_text: ko.observable('')
     };
     
-    handler.ShowPublishSettingsPopup = function (model, event) {
+    handler.CheckShowingPublishSettingsPopup = jQuery.noop;
+    handler.ShowPublishSettingsPopup = function (_model, event) {
         var self = this;
         if (!popup.CanButtonExecute(event.currentTarget))
             return;
-
-        requestHistoryModel.SaveLastExecute(self, self.ShowPublishSettingsPopup, arguments);
-        requestHistoryModel.ClearPopupBeforeExecute = true;
-
-        var popupSettings = self.GetPublishSettingsPopupOptions(event);
-        popup.Show(popupSettings);
+        
+        self.CheckShowingPublishSettingsPopup(function () {
+            var popupSettings = self.GetPublishSettingsPopupOptions(event);
+            popup.Show(popupSettings);
+        });
     };
     handler.GetPublishSettingsPopupOptions = function (event) {
         var self = this;
@@ -170,7 +170,6 @@
                         var groupItem = ko.dataFor(itemElement.closest('.publish-labels').get(0));
                         var delta = what === 'add' ? 1 : -1;
                         groupItem.count(groupItem.count() + delta);
-                        //itemElement.closest('.multiple-select').next('.label-selection-message').empty();
                         self.CheckSavePublishSettings(self.Data.is_published());
                     }
                 });

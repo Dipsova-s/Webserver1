@@ -7,11 +7,8 @@ function ExportExcelHandler() {
     var fnCheckExportProgress;
 
     //BOF: Properties
-    self.ResultsUri = ko.observable();
-    self.ResultsFieldUri = ko.observable();
     self.AngleName = ko.observable();
     self.Description = ko.observable();
-    self.UserName = ko.observable();
     self.TotalRow = ko.observable();
     self.ExportRow = 0;
     self.IsCancelExporting = false;
@@ -24,14 +21,10 @@ function ExportExcelHandler() {
     self.SetData = function (angle) {
         self.AngleName(WC.Utility.GetDefaultMultiLangText(angle.multi_lang_name));
         self.Description(WC.Utility.GetDefaultMultiLangText(angle.multi_lang_description));
-
-        self.UserName(userModel.DisplayName());
-        self.ResultsUri(resultModel.Data().data_rows);
-        self.ResultsFieldUri(resultModel.Data().query_fields);
     };
     self.GetDisplayExcelDefaultSettings = function () {
         var fieldsData = self.GetCurrentDisplayField(displayModel.Data().display_type);
-        displayDetailPageHandler.ConvertDisplayFieldPrefixNoneToNull(fieldsData);
+        displayModel.ConvertDisplayFieldPrefixNoneToNull(fieldsData);
 
         return {
             "plugin": "msexcel",
@@ -102,9 +95,6 @@ function ExportExcelHandler() {
         }
     };
     self.ShowExportExcelPopup = function (displayType) {
-
-        requestHistoryModel.SaveLastExecute(self, self.ShowExportExcelPopup, arguments);
-        requestHistoryModel.ClearPopupBeforeExecute = true;
         /*
         * M4-9903: Implement for single item
         * 1.If export excel from single drill-down get seperate partial view (ExportDrilldownExcel)
@@ -147,6 +137,7 @@ function ExportExcelHandler() {
                 }
             ],
             open: function () {
+                self.SetData(angleInfoModel.Data());
                 self.ShowExportExcelPopupCallback(displayType);
                 //M4-23212: Show or hide the number of export items
                 self.SetVisibilityForNumberOfItems(displayType);
@@ -182,14 +173,14 @@ function ExportExcelHandler() {
     };
 
     self.ShowExportExcelPopupCallback = function (displayType) {
+        var rowCount = resultModel.Data().row_count;
         var exportRow = userSettingModel.GetByName(enumHandlers.USERSETTINGS.DEFAULT_EXPORT_LINES);
         if (!exportRow) {
-            exportRow = resultModel.Data().row_count;
+            exportRow = rowCount;
         }
         jQuery('[id="NumberOfItems"]:visible').val(exportRow);
 
         if (typeof jQuery('[id="popupExportExcel"]:visible').get(0) !== 'undefined') {
-
             if (self.CanSetNumberOfItem()) {
                 // if pivot hide number of rows for export
                 jQuery('[id="NumberOfItem"]:visible').hide();
@@ -203,8 +194,8 @@ function ExportExcelHandler() {
                     var maxExportRow = angleModels.length === 0 ? null : angleModels[0].privileges.max_export_rows || 0;
                     // Check if max export row is null use all total row but if not use max row
                     if (!maxExportRow) {
-                        exportExcelHandler.TotalRow(Localization.All + ' (' + WC.FormatHelper.GetFormattedValue(numberOfObjectFormat, resultModel.TotalRow()) + ')');
-                        self.ExportRow = resultModel.TotalRow();
+                        exportExcelHandler.TotalRow(Localization.All + ' (' + WC.FormatHelper.GetFormattedValue(numberOfObjectFormat, rowCount) + ')');
+                        self.ExportRow = rowCount;
                     }
                     else {
                         exportExcelHandler.TotalRow(Localization.Max + ' (' + maxExportRow + ')');
@@ -212,8 +203,8 @@ function ExportExcelHandler() {
                     }
                 }
                 else {
-                    exportExcelHandler.TotalRow(Localization.All + ' (' + WC.FormatHelper.GetFormattedValue(numberOfObjectFormat, resultModel.TotalRow()) + ')');
-                    self.ExportRow = resultModel.TotalRow();
+                    exportExcelHandler.TotalRow(Localization.All + ' (' + WC.FormatHelper.GetFormattedValue(numberOfObjectFormat, rowCount) + ')');
+                    self.ExportRow = rowCount;
                 }
             }
         }
@@ -338,9 +329,6 @@ function ExportExcelHandler() {
     * 4.Check 'displayType' if drill-down single item call seperate function
     */
     self.ExportDisplay = function (e, displayType) {
-        //Save latest execute => use for cancel
-        requestHistoryModel.SaveLastExecute(self, self.ExportDisplay, arguments);
-
         //Validate file name, sheet name
         var exportOptions = {};
         exportOptions.FileName = jQuery.trim(jQuery('[id="SaveFileName"]:visible').val());
@@ -387,7 +375,7 @@ function ExportExcelHandler() {
         };
 
         var fieldsData = self.GetCurrentDisplayField(displayModel.Data().display_type);
-        displayDetailPageHandler.ConvertDisplayFieldPrefixNoneToNull(fieldsData);
+        displayModel.ConvertDisplayFieldPrefixNoneToNull(fieldsData);
 
         var enumFormat, headerFormat;
         if (self.IsExportPivotAsList(enumHandlers.DISPLAYTYPE.PIVOT)) {
@@ -453,7 +441,7 @@ function ExportExcelHandler() {
         };
 
         var fieldsData = self.GetCurrentDisplayField(displayModel.Data().display_type);
-        displayDetailPageHandler.ConvertDisplayFieldPrefixNoneToNull(fieldsData);
+        displayModel.ConvertDisplayFieldPrefixNoneToNull(fieldsData);
 
         var exportOptions = self.GetDisplayExcelDefaultSettings();
         exportOptions.file_name = options.FileName;

@@ -1,24 +1,16 @@
 /// <reference path="/Dependencies/ViewManagement/Shared/ProgressBar.js" />
-/// <reference path="/Dependencies/Helper/MeasurePerformance.js" />
-
-/// <reference path="/Dependencies/ViewManagement/Shared/ItemState/ItemstateView.js" />
-/// <reference path="/Dependencies/ViewManagement/Shared/ItemState/ItemstateHandler.js" />
-
-/// <reference path="/Dependencies/ViewManagement/Angle/AnglestateView.js" />
-/// <reference path="/Dependencies/ViewManagement/Angle/AngleStateHandler.js" />
-/// <reference path="/Dependencies/ViewManagement/Angle/AngleActionMenuHandler.js" />
-/// <reference path="/Dependencies/ViewManagement/Shared/ValidationHandler.js" />
-/// <reference path="/Dependencies/ViewManagement/Angle/AnglePageHandler.js" />
-
-/// <reference path="/Dependencies/ViewManagement/Dashboard/DashboardstateView.js" />
-/// <reference path="/Dependencies/ViewManagement/Dashboard/DashboardstateHandler.js" />
-/// <reference path="/Dependencies/ViewManagement/Dashboard/DashboardHandler.js" />
 
 describe("ProgressBar", function () {
     var progressbarModel;
 
     beforeEach(function () {
         progressbarModel = new ProgressbarModel();
+        createMockHandler(window, 'anglePageHandler', { BackToSearch: $.noop });
+        createMockHandler(window, 'dashboardPageHandler', { BackToSearch: $.noop });
+    });
+
+    afterEach(function () {
+        restoreMockHandlers();
     });
 
     describe(".CloseProgressBarPopup", function () {
@@ -31,7 +23,7 @@ describe("ProgressBar", function () {
             spyOn(jQuery.fn, 'hide');
             spyOn(progressbarModel, 'IsSearchPage');
             spyOn(anglePageHandler, 'BackToSearch');
-            spyOn(dashboardHandler, 'BackToSearch');
+            spyOn(dashboardPageHandler, 'BackToSearch');
         });
 
         it("should call common functions", function () {
@@ -69,11 +61,9 @@ describe("ProgressBar", function () {
                 expect(anglePageHandler.BackToSearch).toHaveBeenCalled();
             });
             it("should call BackToSeach function from DashboardPageHandler", function () {
-                var temp = jQuery.extend({}, anglePageHandler);
-                anglePageHandler = undefined;
+                delete window.anglePageHandler;
                 progressbarModel.CloseProgressBarPopup();
-                expect(dashboardHandler.BackToSearch).toHaveBeenCalled();
-                anglePageHandler = temp;
+                expect(dashboardPageHandler.BackToSearch).toHaveBeenCalled();
             });
         });
 
@@ -206,7 +196,7 @@ describe("ProgressBar", function () {
             expect(progressbarModel.CloseProgressBarPopup).toHaveBeenCalled();
         });
 
-        it("should call CloseProgressBarPopup function when it has no class alwaysHide and CancelFunction has return false value", function () {
+        it("should call CloseProgressBarPopup function when it has no class alwaysHide and CancelFunction has return true value", function () {
             spyOn(jQuery.fn, 'hasClass').and.callFake(function () { return true; });
             spyOn(progressbarModel, 'CancelFunction').and.callFake(function () { return true; });
             progressbarModel.CancelProgressBar();

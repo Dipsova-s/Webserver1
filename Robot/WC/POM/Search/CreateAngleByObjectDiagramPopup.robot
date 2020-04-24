@@ -1,5 +1,4 @@
 *** Variables ***
-
 ${divObjectDiagramDescriptionSection}    css=#Angle > div.Description > div.helpTextContainer
 ${divObjectDiagramSchemaGridSection}    css=#Schema
 ${divObjectDiagramBusinessProcessBarSection}    css=#NewAngleBySchema

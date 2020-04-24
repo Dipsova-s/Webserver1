@@ -34,6 +34,9 @@ function PivotPageHandler(elementId, container) {
         Y: 0
     };
     self.CachePages = {};
+    self.OnChanged = jQuery.noop;
+    self.OnRenderStart = jQuery.noop;
+    self.OnRenderEnd = jQuery.noop;
     /*EOF: Model Properties*/
 
     window[self.ModelId] = self;
@@ -47,7 +50,7 @@ function PivotPageHandler(elementId, container) {
         });
     };
 
-    self.UpdateFieldSettingToHistoryModel = function () {
+    self.UpdateFieldSettingDetails = function () {
         if (!self.DashBoardMode() && angleInfoModel.IsTemporaryAngle() && fieldSettingsHandler.FieldSettings) {
             var existingDetails = fieldSettingsHandler.FieldSettings.GetDisplayDetails();
             var pivotDetails = {
@@ -64,23 +67,6 @@ function PivotPageHandler(elementId, container) {
 
             fieldSettingsHandler.FieldSettings.SetDisplayDetails(existingDetails);
             fieldSettingsHandler.Handler.FieldSettings.SetDisplayDetails(existingDetails);
-
-            var oldDisplayModel = historyModel.Get(self.Models.Display.Data().uri);
-            if (oldDisplayModel) {
-                oldDisplayModel.display_details = fieldSettingsHandler.FieldSettings.DisplayDetails;
-                self.Models.Display.LoadSuccess(oldDisplayModel);
-                historyModel.Save();
-            }
-        }
-    };
-    self.UpdatePivotLayoutToHistoryModel = function (sender) {
-        self.SetPivotLayout(sender);
-
-        if (!self.DashBoardMode()) {
-            //if not vitial scroll
-            var oldDisplayModel = historyModel.Get(self.Models.Display.Data().uri);
-            oldDisplayModel.display_details = fieldSettingsHandler.FieldSettings.DisplayDetails;
-            historyModel.Set(self.Models.Display.Data().uri, oldDisplayModel);
         }
     };
 
@@ -93,7 +79,6 @@ function PivotPageHandler(elementId, container) {
         else {
             container.html([
                 '<div id="PivotMainWrapper" class="displayWrapper">',
-                '<div class="fieldListToggleButton" onclick="fieldSettingsHandler.ToggleFieldListArea();"></div>',
                 '<div id="PivotArea" class="displayArea">',
                 '<div class="pivotAreaContainer"></div>',
                 '</div>',
@@ -108,19 +93,14 @@ function PivotPageHandler(elementId, container) {
     };
     self.InjectFieldIconCSS = function () {
         var fields = self.FieldSettings.GetFields();
-        var injectCSS = function (folder, id) {
-            if (id !== null) {
-                var iconInfo = modelFieldDomainHandler.GetDomainElementIconInfo(folder, id);
-                jQuery.injectCSS(iconInfo.css, iconInfo.id);
-            }
-        };
         jQuery.each(fields, function (index, field) {
             if (field.DataType === enumHandlers.FIELDTYPE.ENUM && field.DomainURI) {
                 var domainPath = modelFieldDomainHandler.GetDomainPathByUri(field.DomainURI);
                 var fieldDomain = modelFieldDomainHandler.GetFieldDomainByUri(field.DomainURI);
-                if (fieldDomain && domainPath) {
+                if (fieldDomain) {
                     jQuery.each(fieldDomain.elements, function (index, element) {
-                        injectCSS(domainPath, element.id);
+                        var iconInfo = modelFieldDomainHandler.GetDomainElementIconInfo(domainPath, element.id);
+                        iconInfo.injectCSS();
                     });
                 }
             }
@@ -130,10 +110,7 @@ function PivotPageHandler(elementId, container) {
         if (!self.DashBoardMode()) {
             anglePageHandler.SetWrapperHeight();
             fieldSettingsHandler.Handler = self;
-            fieldSettingsHandler.SetReadOnlyMode();
             fieldSettingsHandler.BuildFieldsSettings(options);
-            fieldSettingsHandler.BuildFieldsSettingsHtml();
-            fieldSettingsHandler.UpdateSettingsAfterChange();
         }
         else {
             self.BuildDashboardFieldSettings(options);
@@ -142,6 +119,8 @@ function PivotPageHandler(elementId, container) {
 
     var fnCheckPivotInstance;
     self.GetPivotDisplay = function (isValidDisplay, options) {
+        self.OnRenderStart();
+
         // clear
         self.CachePages = {};
         self.IsDrilldown = false;
@@ -159,7 +138,7 @@ function PivotPageHandler(elementId, container) {
             window[self.PivotId + 'OnPivotBeginCallback'] = self.OnPivotBeginCallback;
             window[self.PivotId + 'OnPivotClientError'] = self.OnPivotClientError;
             window[self.PivotId + 'OnPivotGridCellClick'] = self.OnPivotGridCellClick;
-            
+
             var postData = {
                 FieldSettingsData: jQuery.base64.encode(JSON.stringify(self.FieldSettings)),
                 UserSettings: JSON.stringify(userSettingModel.Data()),
@@ -172,8 +151,8 @@ function PivotPageHandler(elementId, container) {
                 .always(self.GetPivotDisplayAlways);
         }
         else {
-            self.CheckUpgradeDisplay();
-            measurePerformance.SetEndTime();
+            self.CheckUpgradeDisplay(false)
+                .always(self.GetPivotDisplayAlways);
         }
     };
     self.GetPivotDisplayFail = function (xhr, status) {
@@ -186,7 +165,7 @@ function PivotPageHandler(elementId, container) {
             self.Models.Result.RetryPostResult(xhr.responseText);
         }
         else {
-            self.Models.Result.SetRetryPostResultToErrorPopup(xhr.status);
+            self.Models.Result.SetRetryPostResultToErrorPopup(xhr);
         }
     };
     self.CheckPivotInstance = function (response) {
@@ -203,7 +182,7 @@ function PivotPageHandler(elementId, container) {
             clearInterval(fnCheckPivotInstance);
             var scriptCount = response.match(new RegExp(ASPx.startupScriptPrefix, 'g')).length;
             fnCheckPivotInstance = setInterval(function () {
-				if (self.IsPivotReady()) {
+                if (self.IsPivotReady()) {
                     // exit
                     clearInterval(fnCheckPivotInstance);
                     deferred.resolve(true);
@@ -217,9 +196,13 @@ function PivotPageHandler(elementId, container) {
         }
     };
     self.GetPivotDisplayDone = function () {
+        // fast switch Display will cause of null
+        if (!self.FieldSettings)
+            return;
+
         self.InjectFieldIconCSS();
         self.CustomizeDevExpress();
-        self.UpdateFieldSettingToHistoryModel();
+        self.UpdateFieldSettingDetails();
         self.SetColumnSize();
         self.UpdateMaxHeaderSize();
         self.SetPivotCellHeader();
@@ -230,7 +213,7 @@ function PivotPageHandler(elementId, container) {
         self.SetPivotLayout(window[self.PivotId]);
         self.EnsureUpdateLayout();
 
-        return self.CheckUpgradeDisplay();
+        return self.CheckUpgradeDisplay(true);
     };
     self.IsPivotReady = function () {
         return window[self.PivotId] instanceof MVCxClientPivotGrid && window[self.PivotId].GetMainElement();
@@ -247,6 +230,7 @@ function PivotPageHandler(elementId, container) {
     self.GetPivotDisplayAlways = function () {
         self.HideLoadingIndicator();
         measurePerformance.SetEndTime();
+        self.OnRenderEnd();
     };
     self.GetPivotHtml = function (postData) {
         self.ShowLoadingIndicator();
@@ -258,31 +242,38 @@ function PivotPageHandler(elementId, container) {
     };
     self.ShowLoadingIndicator = function () {
         self.GetContainer().find('.pivotAreaContainer').busyIndicator(true);
-        if (!self.DashBoardMode()) {
-            fieldSettingsHandler.ShowLoadingIndicator();
-        }
     };
     self.HideLoadingIndicator = function () {
         self.GetContainer().find('.pivotAreaContainer').busyIndicator(false);
-        if (!self.DashBoardMode()) {
-            fieldSettingsHandler.HideLoadingIndicator();
-        }
     };
-    self.CheckUpgradeDisplay = function () {
-        if (!self.Models.Display.Data().is_upgraded && self.Models.Display.Data().display_details !== self.FieldSettings.DisplayDetails) {
-            var columnDetails = WC.Utility.ParseJSON(self.Models.Display.Data().display_details).columns;
-            self.FieldSettings.SetDisplayDetails({ columns: columnDetails });
-            if (!self.DashBoardMode())
-                fieldSettingsHandler.FieldSettings.SetDisplayDetails({ columns: columnDetails });
+    self.CheckUpgradeDisplay = function (isValid) {
+        if (self.Models.Display.Data().display_details !== self.FieldSettings.DisplayDetails) {
+            if (isValid) {
+                var columnDetails = WC.Utility.ParseJSON(self.Models.Display.Data().display_details).columns;
+                self.FieldSettings.SetDisplayDetails({ columns: columnDetails });
+                if (!self.DashBoardMode())
+                    fieldSettingsHandler.FieldSettings.SetDisplayDetails({ columns: columnDetails });
+            }
             self.Models.Display.Data().display_details = self.FieldSettings.DisplayDetails;
-            self.Models.Display.Data().upgrades_properties.push('display_details');
             self.Models.Display.Data.commit();
         }
 
         var currentDisplay = self.Models.Display.Data();
-        var sourceDisplay = self.DashBoardMode() ? currentDisplay : historyModel.Get(currentDisplay.uri, false);
+        var sourceDisplay = self.GetSourceDisplayData();
         var upgradeData = displayUpgradeHandler.GetUpgradeDisplayData(currentDisplay, sourceDisplay);
-        return displayUpgradeHandler.UpgradeDisplay(self, currentDisplay.uri, upgradeData);
+        return displayUpgradeHandler.UpgradeDisplay(currentDisplay.uri, upgradeData)
+            .then(function (display) {
+                if (display) {
+                    self.OnChanged(display, true);
+                }
+                else {
+                    self.OnChanged(self.Models.Display.Data(), WC.ModelHelper.IsAdhocUri(self.Models.Display.Data().uri));
+                }
+                return jQuery.when(display);
+            });
+    };
+    self.GetSourceDisplayData = function () {
+        return self.DashBoardMode() ? self.Models.Display.Data() : anglePageHandler.HandlerDisplay.GetRawData();
     };
 
     self.CanDrilldown = function () {
@@ -293,8 +284,8 @@ function PivotPageHandler(elementId, container) {
 
         // revert back
         if (cellTitle.indexOf('<br>') !== -1) {
-            cellTitle = cellTitle.replace('<br>&nbsp;', ' - ');
-            cellTitle = cellTitle.replace('<br>', ' - ');
+            cellTitle = cellTitle.replace(/<br>&nbsp;/g, ' - ');
+            cellTitle = cellTitle.replace(/<br>/g, ' - ');
         }
 
         // remove unused text
@@ -310,6 +301,7 @@ function PivotPageHandler(elementId, container) {
         }
 
         // replace '<' and '>'
+        cellTitle = cellTitle.replace(/&amp;/g, '&');
         cellTitle = cellTitle.replace(/&lt;/g, '<');
         cellTitle = cellTitle.replace(/&gt;/g, '>');
 
@@ -331,11 +323,19 @@ function PivotPageHandler(elementId, container) {
     self.SetTitleforElements = function (match) {
         self.GetContainer().find(match).each(function (index, cell) {
             cell = jQuery(cell);
-            cell.attr('title', self.GetCellCaptionTitle(cell));
+            var title = self.GetCellCaptionTitle(cell);
+            self.SetTooltip(cell, title);
         });
-    }
+    };
     self.SetPivotFieldsValueCellHeader = function () {
         self.SetTitleforElements('.dxpgColumnFieldValue');
+    };
+    self.SetTooltip = function (element, text) {
+        jQuery(element).attr({
+            'data-role': 'tooltip',
+            'data-tooltip-position': 'bottom',
+            'data-tooltip-text': text
+        });
     };
     self.SetPivotCellHeaderTitle = function () {
         self.SetTitleforElements('.dxpgRowFieldValue');
@@ -363,10 +363,8 @@ function PivotPageHandler(elementId, container) {
             if (percentageSummaryType && areaId === enumHandlers.FIELDSETTINGAREA.DATA) {
                 if (areaIndex % 2 !== 0) {
                     showContextMenu = false;
-                    header.addClass('readonly')
-                        .attr({
-                            'title': self.GetCellCaptionTitle(header)
-                        });
+                    header.addClass('readonly');
+                    self.SetTooltip(header, self.GetCellCaptionTitle(header));
                 }
                 else {
                     areaIndex = areaIndex / 2;
@@ -392,9 +390,9 @@ function PivotPageHandler(elementId, container) {
         return areaId;
     };
     self.SetPivotFieldsCellHeaderContextMenu = function (header, field) {
+        self.SetTooltip(header, jQuery.trim(field.DefaultCaption));
         header
             .attr({
-                'title': jQuery.trim(field.DefaultCaption),
                 'data-uid': field.InternalID
             })
             .removeAttr('onclick')
@@ -441,7 +439,7 @@ function PivotPageHandler(elementId, container) {
     self.ShowPivotCustomSortPopupOnHeaderText = function (e) {
         if (!(e.target instanceof HTMLImageElement))
             self.ShowPivotCustomSortPopup(this);
-    }
+    };
     self.SetPivotCellHeaderEvent = function () {
         var fieldsRowArea = self.FieldSettings.GetFields(enumHandlers.FIELDSETTINGAREA.ROW);
         if (fieldsRowArea.length) {
@@ -456,7 +454,6 @@ function PivotPageHandler(elementId, container) {
     };
     self.FieldOptionClick = function (element, internalId) {
         var field = self.FieldSettings.GetFieldByGuid(internalId);
-        var fieldId = field.SourceField ? field.SourceField : field.FieldName;
         element = jQuery(element);
         if (!element.hasClass('disabled')) {
             if (element.hasClass('sortAsc') || element.hasClass('sortDesc')) {
@@ -464,87 +461,52 @@ function PivotPageHandler(elementId, container) {
             }
             else if (element.hasClass('fieldFormat')) {
                 WC.HtmlHelper.MenuNavigatable.prototype.LockMenu('.HeaderPopup');
-                self.ShowPivotBucketPopup(element, internalId);
+                self.ShowPivotBucketPopup(field);
             }
             else if (element.hasClass('addFilter')) {
-                self.ShowPivotAddFilterPopup(fieldId);
+                self.ShowPivotAddFilterPopup(field);
             }
             else if (element.hasClass('fieldInfo')) {
-                self.ShowPivotHelpTextPopup(fieldId);
+                self.ShowPivotHelpTextPopup(field);
             }
+            fieldSettingsHandler.HideFieldOptionsMenu();
         }
     };
     self.ApplyPivotSorting = function (element, field) {
         // update field setting
         var sortDirection = element.hasClass('sortAsc') ? 'asc' : 'desc';
         self.UpdateSortingField(field.InternalID, sortDirection);
-
-        jQuery('.dxpgHeaderText[data-uid="' + field.InternalID + '"]').next('.dxpgHeaderSort').addClass('canSort').trigger('click');
-
         var existingSummarySort = self.GetSortSummaryInfoBySortField(field.FieldName);
         if (existingSummarySort && existingSummarySort.sort_direction) {
             self.UpdateSortSummaryInfoBySortField(field.FieldName, element.hasClass('sortAsc') ? '-1' : '1');
         }
-        fieldSettingsHandler.HideFieldOptionsMenu();
+        jQuery('.dxpgHeaderText[data-uid="' + field.InternalID + '"]').next('.dxpgHeaderSort').addClass('canSort').trigger('click');
     };
-    self.ShowPivotBucketPopup = function (element, internalId) {
-        fieldSettingsHandler.ShowBucketPopup(element, internalId, false);
+    self.ShowPivotBucketPopup = function (field) {
+        var context = anglePageHandler.HandlerDisplay.QueryDefinitionHandler;
+        var aggregation = context.GetAggregationFieldById(field.FieldName);
+        if (!aggregation)
+            return;
 
-        var popupBucketPosition = element.offset();
-        var elementWidth = element.outerWidth() + 7;
-        popupBucketPosition.left += elementWidth;
-        popupBucketPosition.top += element.outerHeight() - 3;
-
-        var popupBucket = jQuery('.popupBucket');
-        popupBucket.css(popupBucketPosition);
-        popupBucket.removeClass('k-window-arrow-sw');
-        popupBucket.find('.btnSetBucket')
-            .addClass('btn-primary')
-            .removeAttr('onclick')
-            .prop('onclick', null)
-            .on('click', function () {
-                if (!jQuery(this).hasClass('disabled')) {
-                    self.ApplyBucketFromPivot();
-                }
-            });
-
-        var popupBucketWidth = popupBucket.width();
-        if (popupBucketPosition.left + popupBucketWidth > WC.Window.Width) {
-            popupBucket.removeClass('k-window-arrow-w').addClass('k-window-arrow-e');
-            popupBucket.css('left', popupBucketPosition.left - elementWidth - popupBucketWidth - 7);
-        }
+        var formatHandler = context.ShowEditAggregationFormatPopup(aggregation);
+        if (formatHandler)
+            formatHandler.ApplyCallback = jQuery.proxy(context.ApplyAggregation, context);
     };
-    self.ApplyBucketFromPivot = function () {
-        var popupBucket = jQuery('.popupBucket');
-        var popupBucketData = popupBucket.data();
-        if (popupBucketData.IsChangeFieldsSetting) {
-            if (popupBucketData.field) {
-                fieldSettingsHandler.ApplyBucketSetting(popupBucketData.field);
-                fieldSettingsHandler.IsNeedResetLayout = false;
-                if (popupBucketData.AliasElement) {
-                    fieldSettingsHandler.ApplyBucketAlias(popupBucketData.field, popupBucketData.AliasElement);
-                }
-                if (popupBucketData.IsNeedResetLayout) {
-                    fieldSettingsHandler.IsNeedResetLayout = true;
-                }
-                fieldSettingsHandler.SetApplyButtonStatus(true);
+    self.ShowPivotAddFilterPopup = function (field) {
+        var context = anglePageHandler.HandlerDisplay.QueryDefinitionHandler;
+        var aggregation = context.GetAggregationFieldById(field.FieldName);
+        if (!aggregation)
+            return;
 
-                // apply button
-                fieldSettingsHandler.HideFieldOptionsMenu();
-                fieldSettingsHandler.ApplySettings();
-            }
-        }
-        else {
-            fieldSettingsHandler.HideFieldOptionsMenu();
-        }
+        context.AddFilterFromAggregation(aggregation);
     };
-    self.ShowPivotAddFilterPopup = function (fieldId) {
-        quickFilterHandler.ShowAddFilterPopup(fieldId, self);
-        fieldSettingsHandler.HideFieldOptionsMenu();
-    };
-    self.ShowPivotHelpTextPopup = function (fieldId) {
-        helpTextHandler.ShowHelpTextPopup(fieldId, helpTextHandler.HELPTYPE.FIELD, self.Models.Angle.Data().model);
-        fieldSettingsHandler.HideFieldOptionsMenu();
+    self.ShowPivotHelpTextPopup = function (field) {
+        var context = anglePageHandler.HandlerDisplay.QueryDefinitionHandler;
+        var aggregation = context.GetAggregationFieldById(field.FieldName);
+        if (!aggregation)
+            return;
+
+        context.ShowAggregationInfoPopup(aggregation);
     };
     self.BuildDashboardFieldSettings = function (options) {
         var fieldSetting = new FieldSettingsHandler();
@@ -561,9 +523,6 @@ function PivotPageHandler(elementId, container) {
             pivotDetails.layout = JSON.stringify(pivotLayout);
             var pivotDetailsText = JSON.stringify(pivotDetails);
 
-            if (!self.Models.Display.Data().is_upgraded) {
-                self.Models.Display.Data().upgrades_properties.push('display_details');
-            }
             self.Models.Display.Data().display_details = pivotDetailsText;
             self.Models.Display.Data.commit();
 
@@ -575,10 +534,6 @@ function PivotPageHandler(elementId, container) {
             }
             // update sorting fields
             self.UpdateSortDataFromPivotTable();
-
-            // save to history
-            if (!self.DashBoardMode())
-                historyModel.Save();
         }
     };
     self.GetSortingDirectionFromElement = function (internalId) {
@@ -609,16 +564,20 @@ function PivotPageHandler(elementId, container) {
             return null;
         }
     };
-    self.UpdateSortSummaryInfoBySortField = function (sortFieldName, sortOrder) {
+    self.UpdateSortSummaryInfoBySortField = function (fieldId, sortOrder) {
         var existingSortSummaryInfoOption = self.FieldSettings.SortBySummaryInfo;
         if (existingSortSummaryInfoOption) {
-            var exisingSortField = existingSortSummaryInfoOption.findObject("sort_field", sortFieldName);
+            var exisingSortField = existingSortSummaryInfoOption.findObject('sort_field', fieldId);
             if (exisingSortField) {
                 exisingSortField.sort_direction = sortOrder;
 
                 if (!self.DashBoardMode()) {
                     fieldSettingsHandler.FieldSettings.SortBySummaryInfo = existingSortSummaryInfoOption;
                 }
+                var displayDetails = WC.Utility.ParseJSON(self.Models.Display.Data().display_details);
+                displayDetails.sort_by_summary_info = JSON.stringify(existingSortSummaryInfoOption);
+                self.Models.Display.Data().display_details = JSON.stringify(displayDetails);
+                self.Models.Display.Data.commit();
             }
         }
     };
@@ -815,6 +774,12 @@ function PivotPageHandler(elementId, container) {
                 self.FieldSettings.IsNeedResetLayout = true;
             }
 
+            var displayDetails = WC.Utility.ParseJSON(self.Models.Display.Data().display_details);
+            displayDetails.sort_by_summary_info = JSON.stringify(newsortingOptions);
+            self.Models.Display.Data().display_details = JSON.stringify(displayDetails);
+            self.Models.Display.Data.commit();
+
+            self.OnChanged(self.Models.Display.Data(), false);
             self.GetPivotDisplay(null, sortSummaryInfoOptions);
         }
 
@@ -874,9 +839,6 @@ function PivotPageHandler(elementId, container) {
                 field.FieldDetails = JSON.stringify(fieldDetails);
 
                 var displayField = self.Models.Display.Data().fields.findObject('field', field.FieldName);
-                if (!self.Models.Display.Data().is_upgraded && displayField.field_details !== field.FieldDetails) {
-                    self.Models.Display.Data().upgrades_properties.push('fields');
-                }
                 displayField.field_details = field.FieldDetails;
                 self.Models.Display.Data.commit();
             }
@@ -899,91 +861,6 @@ function PivotPageHandler(elementId, container) {
         }
     };
 
-    self.GetPivotResult = function () {
-        requestHistoryModel.SaveLastExecute(self, self.GetPivotResult, arguments);
-
-        self.IsUnSavePivot = true;
-
-        // clean steps
-        var stepsFilterFollowup = [];
-        var postedQuery = WC.Utility.ToArray(ko.toJS(self.Models.Result.Data().posted_display));
-        var stepsPostedFilterFollowup = [];
-        jQuery.each(ko.toJS(self.Models.DisplayQueryBlock.CollectQueryBlocks()), function (index, block) {
-            block = WC.ModelHelper.RemoveReadOnlyQueryBlock(block);
-            if (block.queryblock_type === enumHandlers.QUERYBLOCKTYPE.QUERY_STEPS) {
-                jQuery.each(block.query_steps, function (indexStep, step) {
-                    if (WC.WidgetFilterHelper.IsFilterOrJumpQueryStep(step.step_type)) {
-                        stepsFilterFollowup.push(step);
-                    }
-                });
-            }
-        });
-        jQuery.each(postedQuery, function (index, block) {
-            block = WC.ModelHelper.RemoveReadOnlyQueryBlock(block);
-            if (block.queryblock_type === enumHandlers.QUERYBLOCKTYPE.QUERY_STEPS) {
-                jQuery.each(block.query_steps, function (indexStep, step) {
-                    if (WC.WidgetFilterHelper.IsFilterOrJumpQueryStep(step.step_type)) {
-                        stepsPostedFilterFollowup.push(ko.toJS(step));
-                    }
-                });
-            }
-        });
-
-        // clean fields and format not affect to post result
-        var fields = self.Models.Display.CleanNotAffectPostNewResultFieldProperties(self.Models.Display.Data().fields);
-        var postedFields = self.Models.Display.CleanNotAffectPostNewResultFieldProperties(self.Models.Result.Data().display_fields);
-        var postNewResult = !jQuery.deepCompare(stepsFilterFollowup, stepsPostedFilterFollowup, false, false) || !jQuery.deepCompare(fields, postedFields, false);
-
-        // clean colume size
-        if (!jQuery.deepCompare(fields, postedFields, false, false)) {
-            self.ColumnSize = null;
-
-            var displayDetails = WC.Utility.ParseJSON(self.Models.Display.Data().display_details);
-            if (displayDetails.columns && displayDetails.columns.header && displayDetails.columns.data) {
-                delete displayDetails.columns;
-                self.Models.Display.Data().display_details = JSON.stringify(displayDetails);
-                self.Models.Display.Data.commit();
-            }
-        }
-
-        if (postNewResult) {
-            progressbarModel.ShowStartProgressBar(Localization.ProgressBar_PostResult, false);
-
-            var oldDisplayModel = historyModel.Get(self.Models.Display.Data().uri);
-            progressbarModel.CancelCustomHandler = true;
-            progressbarModel.CancelFunction = function () {
-                WC.Ajax.AbortAll();
-                self.Models.Display.LoadSuccess(oldDisplayModel);
-                self.Models.Result.LoadSuccess(oldDisplayModel.results);
-                historyModel.Save();
-                self.Models.Result.GetResult(self.Models.Result.Data().uri)
-                    .then(self.Models.Result.LoadResultFields)
-                    .done(function () {
-                        self.Models.Result.ApplyResult();
-                    });
-            };
-
-            jQuery.when(self.Models.Result.PostResult({ customQueryBlocks: self.Models.DisplayQueryBlock.CollectQueryBlocks() }))
-                .then(function () {
-                    historyModel.Save();
-                    return self.Models.Result.GetResult(self.Models.Result.Data().uri);
-                })
-                .then(self.Models.Result.LoadResultFields)
-                .done(function () {
-                    self.Models.Result.ApplyResult();
-                });
-        }
-        else {
-            // save history
-            resultModel.Data().posted_display = ko.toJS(displayQueryBlockModel.CollectQueryBlocks());
-            historyModel.Save();
-            self.Models.Result.SetLatestRenderInfo();
-
-            var sortingOptions = fieldSettingsHandler.FieldSettings.SortBySummaryInfo;
-            var sortSummaryInfoOptions = { SortBySummaryInfo: sortingOptions };
-            self.GetPivotDisplay(null, sortSummaryInfoOptions);
-        }
-    };
     var fnCheckCurrentScrollbar = null;
     self.OnPivotBeginCallback = function (sender, e) {
         window[self.PivotId].CallbackArgument = null;
@@ -996,6 +873,7 @@ function PivotPageHandler(elementId, container) {
     };
 
     self.OnPivotEndCallback = function (sender) {
+        var callbackArgument = WC.Utility.ToString(window[self.PivotId].CallbackArgument);
         window[self.PivotId].CallbackArgument = null;
 
         if (sender && sender.HideLoadingPanel) {
@@ -1007,17 +885,14 @@ function PivotPageHandler(elementId, container) {
             return;
         }
 
-        self.UpdatePivotLayoutToHistoryModel(sender);
+        self.SetPivotLayout(sender);
         self.CustomizeDevExpress();
 
         jQuery('#' + self.PivotId + '_HSBCCell_SCVPDiv').off('scroll');
 
-        if (!self.ReadOnly() && !self.DashBoardMode()) {
-            fieldSettingsHandler.SetApplyButtonStatus(fieldSettingsHandler.IsChangeFieldsSetting);
-        }
         self.SetPivotCellHeader();
         self.InitialGridColumnsSize();
-        self.UpdateLayout(0, true);
+        self.EnsureUpdateLayout();
         self.UpdateSortDataFromPivotTable();
         fieldSettingsHandler.IsNeedResetLayout = false;
 
@@ -1037,6 +912,17 @@ function PivotPageHandler(elementId, container) {
                 }
                 seed++;
             }, 1);
+        }
+
+        if (callbackArgument.indexOf(':SS|') !== -1
+            || callbackArgument.indexOf(':S|') !== -1
+            || callbackArgument.indexOf(':ER|') !== -1
+            || callbackArgument.indexOf(':EC|') !== -1) {
+            // SS: sort by summary
+            // S: normal sorting
+            // ER : collapse/expand row
+            // EC : collapse/expand column
+            self.OnChanged(self.Models.Display.Data(), false);
         }
     };
     self.OnPivotClientError = function (s, e) {
@@ -1108,12 +994,6 @@ function PivotPageHandler(elementId, container) {
         }
     };
     self.CustomizeDevExpress = function () {
-
-
-
-
-
-
         // before call ajax
         self.CustomizePerformControlCallback();
 
@@ -1188,9 +1068,6 @@ function PivotPageHandler(elementId, container) {
         };
     };
     self.CustomizeGetAreaLocation = function () {
-
-
-
         if (typeof window[self.PivotId].adjustingManager.pivotTableWrapper.__getAreaLocation === 'function')
             return;
 
@@ -1301,16 +1178,10 @@ function PivotPageHandler(elementId, container) {
     self.EnsureUpdateLayout = function () {
         // adjust layout & make sure that height is correct
         // this happens on a slow browser like IE, Firefox
-        self.UpdateLayout();
-        if (jQuery('#' + self.PivotId).height() !== jQuery('#' + self.PivotId + '_PT').height()) {
-            self.UpdateLayout(100, true);
-        }
+        self.UpdateLayout(0, true);
     };
     self.UpdateLayout = function (delay, forceUpdate) {
         var container = self.GetContainer();
-
-        // adjust custom control
-        fieldSettingsHandler.UpdateSettingLayout();
 
         if (!window[self.PivotId] || !container.length)
             return;
@@ -1321,7 +1192,7 @@ function PivotPageHandler(elementId, container) {
         jQuery('#' + self.PivotId + '_ACCColumnArea > table').show();
         self.UpdatePivotHtml();
         self.UpdateMaxHeaderSize();
-        
+
         var updateLayout = function () {
             if (self.DashBoardMode() && jQuery('#' + self.PivotId + '_PT').width() !== container.width())
                 forceUpdate = true;
@@ -1533,8 +1404,13 @@ function PivotPageHandler(elementId, container) {
     };
     self.SaveColumnResizing = function () {
         var displayDetails = WC.Utility.ParseJSON(self.Models.Display.Data().display_details);
+        if (JSON.stringify(displayDetails.columns) === JSON.stringify(self.GetColumnSize()))
+            return;
+
         displayDetails.columns = self.GetColumnSize();
         self.Models.Display.Data().display_details = JSON.stringify(displayDetails);
+        self.Models.Display.Data.commit();
+        self.OnChanged(self.Models.Display.Data(), false);
     };
     self.CreateColumnResizable = function () {
         if (!self.DashBoardMode()) {
@@ -1701,8 +1577,9 @@ function PivotPageHandler(elementId, container) {
                     if (self.ColumnSize.header[data.colIndex] !== newWidth) {
                         self.ColumnSize.header[data.colIndex] = newWidth;
                         self.SaveColumnResizing();
-                        self.UpdateLayout(0, true);
+                        self.EnsureUpdateLayout();
                         scrollElement.scrollLeft(scrollPosition);
+                        self.OnChanged(self.Models.Display.Data(), false);
                     }
                 }
 
@@ -1809,7 +1686,7 @@ function PivotPageHandler(elementId, container) {
                     if (self.ColumnSize.data[self.StartDataIndex + data.colIndex] !== data.newWidth) {
                         self.ColumnSize.data[self.StartDataIndex + data.colIndex] = data.newWidth;
                         self.SaveColumnResizing();
-                        self.UpdateLayout(0, true);
+                        self.EnsureUpdateLayout();
                         scrollElement.scrollLeft(scrollPosition);
                     }
                 }
@@ -1929,123 +1806,6 @@ function PivotPageHandler(elementId, container) {
         return matrixText;
     };
 
-    self.InitialFieldsSetting = function () {
-        if (jQuery('#PivotMainWrapper .rowArea ul').data('kendoDraggable'))
-            return;
-
-        // row & column area
-        jQuery('#PivotMainWrapper .rowArea ul, #PivotMainWrapper .columnArea ul').kendoDraggable({
-            axis: 'y',
-            filter: 'li:not(.noDrag,.validError)',
-            hint: function (item) {
-                jQuery('#FieldListArea').find('.k-state-selected').removeClass('k-state-selected');
-                item.addClass('k-state-selected');
-
-                jQuery('#FieldListArea').data('state', {
-                    element: item,
-                    drag: {
-                        index: item.prevUntil().length,
-                        area: item.parents('.rowArea').length === 0 ? enumHandlers.FIELDSETTINGAREA.COLUMN : enumHandlers.FIELDSETTINGAREA.ROW,
-                        data: fieldSettingsHandler.FieldSettings.GetFields()
-                    },
-                    drop: {
-                        index: null,
-                        area: null,
-                        data: fieldSettingsHandler.FieldSettings.GetFields()
-                    }
-                });
-
-                var helper = jQuery('<div class="draggingField" id="draggingField" />');
-
-                return helper.append(item.clone().removeClass('k-state-selected'));
-            },
-            dragstart: function () {
-                fieldSettingsHandler.RemoveAllBucketPopup();
-                jQuery('#FieldListArea .rowArea, #FieldListArea .columnArea').addClass('k-state-dragging');
-            },
-            drag: function (e) {
-                var tbodyRow = jQuery('#FieldListArea .rowArea ul'),
-                    tbodyRowOffset = tbodyRow.offset(),
-                    dropRowLimitTop = tbodyRowOffset.top,
-                    tbodyColumn = jQuery('#FieldListArea .columnArea ul'),
-                    dropIndicator = jQuery('<span class="k-dirty" />'),
-                    y = e.clientY || e.y.client,
-                    dropArea, dropIndex, tbody, tbodyHeight, tbodyOffset, dropLimitTop, dropLimitBottom,
-                    state = jQuery('#FieldListArea').data('state');
-
-                if (y < dropRowLimitTop + jQuery('#FieldListArea .rowArea').height()) {
-                    dropArea = enumHandlers.FIELDSETTINGAREA.ROW;
-                    tbody = tbodyRow;
-                    tbodyOffset = tbodyRowOffset;
-                }
-                else {
-                    dropArea = enumHandlers.FIELDSETTINGAREA.COLUMN;
-                    tbody = tbodyColumn;
-                    tbodyOffset = tbodyColumn.offset();
-                }
-                tbodyHeight = tbody.children().map(function () { return jQuery(this).outerHeight(); }).get().sum();
-                dropLimitTop = tbodyOffset.top;
-                dropLimitBottom = dropLimitTop + tbodyHeight;
-
-                tbodyRow.find('.k-dirty').remove();
-                tbodyColumn.find('.k-dirty').remove();
-
-                if (y <= dropLimitTop || tbodyHeight === 0) {
-                    dropIndex = 0;
-                }
-                else if (y >= dropLimitBottom) {
-                    dropIndex = jQuery('li', tbody).length - 1;
-                    dropIndicator.addClass('revert');
-                }
-                else {
-                    dropIndex = Math.floor((y - dropLimitTop) / jQuery('#draggingField').outerHeight());
-                }
-                tbody.children('li').eq(dropIndex).prepend(dropIndicator);
-
-                state.drop.index = dropIndex;
-                state.drop.area = dropArea;
-                jQuery('#FieldListArea').data('state', state);
-            },
-            dragend: function () {
-                var state = jQuery('#FieldListArea').data('state'),
-                    areaName = fieldSettingsHandler.GetAreaById(state.drop.area),
-                    row = jQuery('#FieldListArea .' + areaName + 'Area ul'),
-                    items = row.children();
-
-                row.find('.k-dirty').remove();
-                jQuery('#draggingField').hide();
-
-                if (state.drag.area !== state.drop.area || state.drag.area === state.drop.area && state.drag.index !== state.drop.index) {
-                    var dragElement = state.element;
-                    dragElement.find('li').removeClass('row column data').addClass(areaName).end();
-
-                    if (state.drop.index === items.length - 1 || items.length === 0) {
-                        row.append(dragElement);
-                    }
-                    else {
-                        row.children().eq(state.drop.index).before(dragElement);
-                    }
-
-                    // update drop data
-                    fieldSettingsHandler.UpdateFieldsSettingDataByArea(enumHandlers.FIELDSETTINGAREA.ROW);
-                    fieldSettingsHandler.UpdateFieldsSettingDataByArea(enumHandlers.FIELDSETTINGAREA.COLUMN);
-
-                    fieldSettingsHandler.UpdateFieldsSettingState();
-
-                    fieldSettingsHandler.IsNeedResetLayout = true;
-                }
-
-                jQuery('#FieldListArea').find('.k-state-selected').removeClass('k-state-selected');
-                jQuery('#FieldListArea .rowArea, #FieldListArea .columnArea').removeClass('k-state-dragging');
-
-                jQuery(document).trigger('click.outside');
-            }
-        });
-
-        // initial data area
-        fieldSettingsHandler.InitialFieldsSettingDataArea('#PivotMainWrapper');
-    };
-
     self.GetPivotDisplayDetails = function () {
         var existingDisplayDetailsObject = WC.Utility.ParseJSON(self.Models.Display.Data().display_details);
         var pivotLayout;
@@ -2067,18 +1827,4 @@ function PivotPageHandler(elementId, container) {
 
         return existingDisplayDetailsObject;
     };
-
-    self.ToggleFieldListArea = function () {
-        if (!jQuery('#PivotMainWrapper').hasClass('full')) {
-            fieldSettingsHandler.CollapseState[self.Models.Display.Data().uri] = true;
-            jQuery('#PivotMainWrapper').addClass('full');
-            self.UpdateLayout(100, true);
-        }
-        else {
-            fieldSettingsHandler.CollapseState[self.Models.Display.Data().uri] = false;
-            jQuery('#PivotMainWrapper').removeClass('full');
-            self.UpdateLayout(100, true);
-        }
-    };
-
 }

@@ -32,7 +32,7 @@ function WidgetDetailsView() {
         '<ul class="detailDefinitionList queryList" data-bind="foreach: { data: block.query_steps, as: \'query\' }">',
             '<!-- ko if: $root.IsVisible($index(), query.step_type) -->',
             '<li class="displayNameContainer small" data-bind="css: $root.GetQueryStepCssClass(query, $index())">',
-                '<div class="front" data-bind="click: $root.DeleteQueryStep.bind(query, $index())">',
+                '<div class="front">',
                     '<i class="icon" data-bind="css: \'icon-\' + query.step_type"></i>',
                 '</div>',
                 '<span class="name" data-bind="text: $root.GetFilterText(query), attr: { title: $root.GetFilterText(query) }"></span>',

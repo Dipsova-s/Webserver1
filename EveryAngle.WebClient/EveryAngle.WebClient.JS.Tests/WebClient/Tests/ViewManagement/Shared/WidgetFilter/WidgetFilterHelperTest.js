@@ -521,8 +521,8 @@ describe("WidgetFilterHelper", function () {
         it("should get empty if no argument", function () {
             var fieldType = '';
             var operator = '';
-            var argumentCount = 0;
-            var result = widgetFilterHelper.GetFilterSuffixText(fieldType, operator, argumentCount);
+            var args = [];
+            var result = widgetFilterHelper.GetFilterSuffixText(fieldType, operator, args);
             var expected = '';
             expect(result).toBe(expected);
         });
@@ -530,8 +530,8 @@ describe("WidgetFilterHelper", function () {
         it("should get empty if not date, datetime or period type", function () {
             var fieldType = enumHandlers.FIELDTYPE.INTEGER;
             var operator = enumHandlers.OPERATOR.RELATIVEAFTER.Value;
-            var argumentCount = 1;
-            var result = widgetFilterHelper.GetFilterSuffixText(fieldType, operator, argumentCount);
+            var args = [{ argument_type: 'value' }];
+            var result = widgetFilterHelper.GetFilterSuffixText(fieldType, operator, args);
             var expected = '';
             expect(result).toBe(expected);
         });
@@ -539,8 +539,8 @@ describe("WidgetFilterHelper", function () {
         it("should get 'DaysFromActualDate' if date or datetime type and relative operator", function () {
             var fieldType = enumHandlers.FIELDTYPE.DATETIME;
             var operator = enumHandlers.OPERATOR.RELATIVEAFTER.Value;
-            var argumentCount = 1;
-            var result = widgetFilterHelper.GetFilterSuffixText(fieldType, operator, argumentCount);
+            var args = [{ argument_type: 'value' }];
+            var result = widgetFilterHelper.GetFilterSuffixText(fieldType, operator, args);
             var expected = ' ' + Localization.DaysFromActualDate;
 
             expect(result).toBe(expected);
@@ -549,8 +549,8 @@ describe("WidgetFilterHelper", function () {
         it("should return 'WidgetFilter_PeriodType_Days' if period type and not list operator", function () {
             var fieldType = enumHandlers.FIELDTYPE.PERIOD;
             var operator = enumHandlers.OPERATOR.EQUALTO.Value;
-            var argumentCount = 1;
-            var result = widgetFilterHelper.GetFilterSuffixText(fieldType, operator, argumentCount);
+            var args = [{ argument_type: 'value' }];
+            var result = widgetFilterHelper.GetFilterSuffixText(fieldType, operator, args);
             var expected = ' ' + Captions.WidgetFilter_PeriodType_Days.toLowerCase();
 
             expect(result).toBe(expected);
@@ -621,15 +621,15 @@ describe("WidgetFilterHelper", function () {
     //GetDateTimeFormat
     describe("when get time format", function () {
         var dateTimeFormat = 'MMM/dd/yyyy HH:mm:ss';
-        it("should return user date time format by user setting model with utc output", function () {
+        it("should return user date time format by user setting model with utc output (true)", function () {
             expect(widgetFilterHelper.GetDateTimeFormat(true)).toBe(dateTimeFormat + ' UTC');
         });
 
-        it("should return user date time format by user setting model without utc output", function () {
+        it("should return user date time format by user setting model without utc output (false)", function () {
             expect(widgetFilterHelper.GetDateTimeFormat(false)).toBe(dateTimeFormat);
         });
 
-        it("should return user date time format by user setting model without utc output", function () {
+        it("should return user date time format by user setting model without utc output (undefined)", function () {
             expect(widgetFilterHelper.GetDateTimeFormat()).toBe(dateTimeFormat);
         });
     });

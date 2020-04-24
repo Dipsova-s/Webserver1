@@ -1,21 +1,21 @@
 {
     "executed": {
-        "user": "/users/1",
-        "full_name": "EAAdmin",
-        "datetime": 1567584833
+        "user": "/users/7",
+        "full_name": "Emma de Jong",
+        "datetime": 1578916621
     },
-    "labels": "/dashboards/661/labels",
+    "labels": "/dashboards/564/labels",
     "assigned_labels": [
         "S2D",
-        "O2C"
+        "F2R"
     ],
     "multi_lang_name": [
         {
-            "lang": "en",
+            "lang": "nl",
             "text": "Dashboard 1"
         },
         {
-            "lang": "nl",
+            "lang": "en",
             "text": "Dashboard 1"
         },
         {
@@ -33,23 +33,23 @@
     ],
     "filters": [
         {
-            "operator": "has_value",
-            "field": "ExecutionStatus",
+            "operator": "has_no_value",
+            "field": "DedicatedPurchaseDocumentItem__NumberOfABConfirmations",
             "step_type": "filter"
         }
     ],
-    "grouping_labels": "/dashboards/661/grouping_labels",
+    "grouping_labels": "/dashboards/564/grouping_labels",
     "id": "WEBHELP_WC_Dashboard__results_page",
-    "layout": "{\"structure\":[{\"items\":[\"50%\",\"50%\"],\"height\":\"100%\"}],\"widgets\":[\"wf70e26bd567375f7e411566789779241\",\"w0df215b994813949dda7566789779241\"]}",
+    "layout": "{\"structure\":[{\"items\":[\"44.95%\",\"55.04%\"],\"height\":\"100%\"}],\"widgets\":[\"wa2830adf3167ba7a05b4556522894917\",\"wbd871bdbf69e86ff073b556522894917\"]}",
     "user_specific": {
         "is_starred": false,
-        "private_note": "",
+        "private_note": "WEBHELP_WC_Dashboard__results_page",
         "execute_on_login": false
     },
-    "state": "/dashboards/661/state",
-    "widgets": "/dashboards/661/widgets",
+    "state": "/dashboards/564/state",
+    "widgets": "/dashboards/564/widgets",
     "is_validated": false,
-    "angles": "/dashboards/661/angles",
+    "angles": "/dashboards/564/angles",
     "authorizations": {
         "unvalidate": false,
         "update": true,
@@ -58,19 +58,19 @@
         "validate": false,
         "delete": true
     },
-    "business_processes": "/dashboards/661/business_processes",
-    "privilege_labels": "/dashboards/661/privilege_labels",
+    "business_processes": "/dashboards/564/business_processes",
+    "privilege_labels": "/dashboards/564/privilege_labels",
     "created": {
         "user": "/users/1",
         "full_name": "EAAdmin",
-        "datetime": 1567577245
+        "datetime": 1556522894
     },
     "changed": {
         "user": "/users/1",
         "full_name": "EAAdmin",
-        "datetime": 1567577358
+        "datetime": 1556610055
     },
-    "uri": "/dashboards/661",
+    "uri": "/dashboards/564",
     "has_warnings": false,
     "model": "/models/1",
     "multi_lang_description": [],
@@ -82,12 +82,12 @@
                     "text": " "
                 }
             ],
-            "angle": "/models/1/angles/652",
-            "uri": "/dashboards/661/widgets/23",
-            "id": "wf70e26bd567375f7e411566789779241",
+            "angle": "/models/1/angles/561",
+            "uri": "/dashboards/564/widgets/6",
+            "id": "wa2830adf3167ba7a05b4556522894917",
             "widget_type": "angle_display",
             "widget_details": "{\"model\":\"/models/1\"}",
-            "display": "/models/1/angles/652/displays/3028",
+            "display": "/models/1/angles/561/displays/2838",
             "multi_lang_description": []
         },
         {
@@ -97,12 +97,12 @@
                     "text": " "
                 }
             ],
-            "angle": "/models/1/angles/651",
-            "uri": "/dashboards/661/widgets/24",
-            "id": "w0df215b994813949dda7566789779241",
+            "angle": "/models/1/angles/562",
+            "uri": "/dashboards/564/widgets/7",
+            "id": "wbd871bdbf69e86ff073b556522894917",
             "widget_type": "angle_display",
             "widget_details": "{\"model\":\"/models/1\"}",
-            "display": "/models/1/angles/651/displays/3023",
+            "display": "/models/1/angles/562/displays/2842",
             "multi_lang_description": []
         }
     ],

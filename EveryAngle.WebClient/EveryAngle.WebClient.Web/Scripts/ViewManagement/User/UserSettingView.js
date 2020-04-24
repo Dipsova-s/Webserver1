@@ -37,7 +37,7 @@ function UserSettingsView() {
     //start user info
     self.UpdateUserMenu = function () {
         var name = userModel.DisplayName();
-        jQuery('#UserControlName').attr('title', name).text(name);
+        jQuery('#UserControlName').text(name);
         self.CheckLocalUser();
     };
     self.CheckLocalUser = function () {

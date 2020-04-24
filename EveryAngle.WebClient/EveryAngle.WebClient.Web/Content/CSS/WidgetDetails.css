@@ -193,7 +193,7 @@
 }
 
 .widgetDetailDefinitionList {
-    margin-left: 28px;
+    margin-left: 22px;
     margin-bottom: 5px;
 }
 
@@ -259,17 +259,6 @@
     position: absolute;
     left: 12px;
     top: 1px;
-}
-
-.displayNameContainer.removable .front:hover .icon-filter:after,
-.touch .displayNameContainer.removable .icon-filter:after,
-.displayNameContainer.removable .front:hover .icon-followup:after,
-.touch .displayNameContainer.removable .icon-followup:after {
-    background: transparent url(../../images/icons/icon_delete_transparent.png) 3px center no-repeat;
-    width: 16px;
-    height: 16px;
-    left: 6px;
-    top: -3px;
 }
 
 .detailDefinitionList.inline span {

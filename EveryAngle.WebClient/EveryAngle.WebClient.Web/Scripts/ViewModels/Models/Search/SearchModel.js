@@ -14,8 +14,6 @@ function SearchViewModel() {
         return DeleteDataToWebService(url + '?' + jQuery.param(query));
     };
     self.SetFavoriteItem = function (model) {
-        requestHistoryModel.SaveLastExecute(self, self.SetFavoriteItem, arguments);
-
         var isStarredExistingData = false;
         if (model.user_specific && model.user_specific.is_starred) {
             isStarredExistingData = true;
@@ -73,6 +71,7 @@ function SearchViewModel() {
             if (selectedSearchResultItem.displays && selectedSearchResultItem.displays.length) {
                 var params = {};
                 if (selectedSearchResultItem.is_template) {
+                    params[enumHandlers.ANGLEPARAMETER.TARGET] = enumHandlers.ANGLETARGET.ANGLEPOPUP;
                     params[enumHandlers.ANGLEPARAMETER.TEMPLATE] = true;
                 }
                 redirectUrl = WC.Utility.GetAnglePageUri(selectedSearchResultItem.uri, type, params);
@@ -86,6 +85,7 @@ function SearchViewModel() {
     self.GetDisplayHrefUri = function (angleUri, displayUri, isTemplate) {
         var params = {};
         if (isTemplate) {
+            params[enumHandlers.ANGLEPARAMETER.TARGET] = enumHandlers.ANGLETARGET.ANGLEPOPUP;
             params[enumHandlers.ANGLEPARAMETER.TEMPLATE] = true;
         }
         return WC.Utility.GetAnglePageUri(angleUri, displayUri, params);
@@ -201,7 +201,7 @@ function SearchViewModel() {
                     }
 
                     var angleValidation = validationHandler.GetAngleValidation(angle);
-                    var displayValidation = validationHandler.GetAngleValidation(displayObject);
+                    var displayValidation = validationHandler.GetDisplayValidation(displayObject, angle.model);
                     var canPostResult = angleValidation.CanPostResult && displayValidation.CanPostResult;
                     var isParameterized = angle.is_parameterized || (displayObject || {}).is_parameterized;
                     if (canPostResult && isParameterized) {
@@ -281,52 +281,6 @@ function SearchViewModel() {
         }
 
         return isvalid;
-    };
-    self.DashboardDefaultDisplay = function (item) {
-        /*
-        M4-9739: Show chart display by default
-        1. Use the personal default display when this is a chart display
-        2. Use the default display when this is a chart display
-        3. Use the first public chart display available
-        4. Use the first chart display available
-        5. Standard procedure for selecting display:
-        5.1. User default display
-        5.2. Angle default display
-        */
-
-        if (!item || !item.display_definitions.length)
-            return null;
-
-        //Use the personal default display when this is a chart display
-        var defaultDisplays = jQuery.grep(item.display_definitions, function (value) {
-            return value.display_type === enumHandlers.DISPLAYTYPE.CHART && value.user_specific && value.user_specific.is_user_default;
-        });
-        if (defaultDisplays.length)
-            return defaultDisplays[0];
-
-        //Use the default display when this is a chart display
-        defaultDisplays = jQuery.grep(item.display_definitions, function (value) {
-            return value.display_type === enumHandlers.DISPLAYTYPE.CHART && value.is_angle_default;
-        });
-        if (defaultDisplays.length)
-            return defaultDisplays[0];
-
-        //Use the first public chart display available
-        defaultDisplays = jQuery.grep(item.display_definitions, function (value) {
-            return value.display_type === enumHandlers.DISPLAYTYPE.CHART && value.is_public;
-        });
-        if (defaultDisplays.length)
-            return defaultDisplays[0];
-
-        //Use the first chart display available
-        defaultDisplays = jQuery.grep(item.display_definitions, function (value) {
-            return value.display_type === enumHandlers.DISPLAYTYPE.CHART && !value.is_pulbic;
-        });
-        if (defaultDisplays.length)
-            return defaultDisplays[0];
-
-        //Standard procedure for selecting display
-        return WC.Utility.GetDefaultDisplay(item.display_definitions);
     };
     self.GetTotalDisplays = function (item) {
         var displays = WC.Utility.ToArray(item.displays);

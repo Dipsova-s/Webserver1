@@ -4,9 +4,11 @@
 /// <reference path="/Dependencies/ViewModels/Models/Angle/displayqueryblockmodel.js" />
 /// <reference path="/Dependencies/ViewModels/Models/Angle/displaymodel.js" />
 /// <reference path="/Dependencies/ViewManagement/Shared/ValidationHandler.js" />
+/// <reference path="/Dependencies/ViewManagement/Angle/Chart/ChartHelper.js" />
+/// <reference path="/Dependencies/ViewManagement/Angle/Chart/ChartOptionsView.js" />
+/// <reference path="/Dependencies/ViewManagement/Angle/Chart/ChartOptionsHandler.js" />
 /// <reference path="/Dependencies/ViewManagement/Angle/FieldSettingsHandler.js" />
 /// <reference path="/Dependencies/ViewManagement/Shared/validationHandler.js" />
-/// <reference path="/Dependencies/ViewModels/Models/Angle/HistoryModel.js" />
 /// <reference path="/Dependencies/ViewModels/Models/User/usermodel.js" />
 /// <reference path="/Dependencies/ViewModels/Models/Angle/AngleInfoModel.js" />
 
@@ -15,6 +17,15 @@ describe("DisplayModel", function () {
 
     beforeEach(function () {
         displayModel = new DisplayModel();
+
+        createMockHandler(window, 'anglePageHandler', {
+            HandlerAngle: {
+                AddDisplay: $.noop
+            }
+        });
+    });
+    afterEach(function () {
+        restoreMockHandlers();
     });
 
     describe(".GetCellDrillDownValue", function () {
@@ -89,6 +100,42 @@ describe("DisplayModel", function () {
         it("should apply equal to operator", function () {
             var result = displayModel.GetDrilldownQueryStepOperator(null, enumHandlers.FIELDTYPE.ENUM, "individual", "");
             expect(result).toEqual(enumHandlers.OPERATOR.EQUALTO.Value);
+        });
+    });
+
+    describe(".GenerateDrilldownQueryStep", function () {
+        var fieldSettings = {
+            DisplayType: 'pivot',
+            ComponentType: {
+                PIVOT: 'pivot'
+            },
+            GetFields: function () {
+                return {
+                    findObject: function () {
+                        return { DataType: 'type' };
+                    }
+                };
+            }
+        };
+
+        var bucket = {
+            Operator: 'operator',
+            source_field: 'source field'
+        };
+
+        it("should generate drilldown query step", function () {
+            spyOn(displayModel, 'GetDrilldownQueryStepOperator').and.returnValue('operator');
+            spyOn(displayModel, 'GetDrilldownQueryStepArguments').and.returnValue('arguments');
+
+            var result = displayModel.GenerateDrilldownQueryStep(fieldSettings, bucket, "id", "value");
+
+            expect(result.step_type).toEqual(enumHandlers.FILTERTYPE.FILTER);
+            expect(result.field).toEqual('source field');
+            expect(result.operator).toEqual('operator');
+            expect(result.arguments).toEqual('arguments');
+            expect(result.is_adhoc_filter).toEqual(true);
+            expect(result.is_adhoc).toEqual(true);
+            expect(result.is_applied).toEqual(true);
         });
     });
 
@@ -260,62 +307,17 @@ describe("DisplayModel", function () {
     });
 
     describe(".GetCurrentDisplayQuerySteps", function () {
+        it('should get 2 filters and jumps from Angle page', function () {
+            var querySteps = [
+                { step_type: enumHandlers.FILTERTYPE.FILTER },
+                { step_type: enumHandlers.FILTERTYPE.FOLLOWUP },
+                { step_type: enumHandlers.FILTERTYPE.AGGREGATION },
+                { step_type: enumHandlers.FILTERTYPE.SORTING },
+                { step_type: 'any' }
+            ];
 
-        var tests = [
-            {
-                title: 'should get 4 filters and jumps from Angle page',
-                keepFilter: true,
-                isDashboardDrilldown: false,
-                listFilters: {
-                    'test1': 0,
-                    'test2': 1
-                },
-                expected: 4
-            },
-            {
-                title: 'should get 2 filters and jumps from Angle page (keepFilter=false)',
-                keepFilter: false,
-                isDashboardDrilldown: true,
-                listFilters: {
-                    'test1': 0,
-                    'test2': 1
-                },
-                expected: 2
-            },
-            {
-                title: 'should get 2 filters and jumps from Angle page (listFilters=undefined)',
-                keepFilter: true,
-                isDashboardDrilldown: false,
-                listFilters: undefined,
-                expected: 2
-            },
-            {
-                title: 'should get 2 filters and jumps from Dashboard page',
-                keepFilter: true,
-                isDashboardDrilldown: true,
-                listFilters: {
-                    'test1': 0,
-                    'test2': 1
-                },
-                expected: 2
-            }
-        ];
-
-        $.each(tests, function (index, test) {
-            it(test.title, function () {
-                var querySteps = [
-                    { step_type: enumHandlers.FILTERTYPE.FILTER },
-                    { step_type: enumHandlers.FILTERTYPE.FOLLOWUP },
-                    { step_type: enumHandlers.FILTERTYPE.AGGREGATION },
-                    { step_type: enumHandlers.FILTERTYPE.SORTING },
-                    { step_type: 'any' }
-                ];
-                spyOn(WC.Utility, 'UrlParameter').and.returnValue(JSON.stringify(test.listFilters));
-                displayModel.KeepFilter(test.keepFilter);
-
-                var newQuerySteps = displayModel.GetCurrentDisplayQuerySteps(querySteps, test.isDashboardDrilldown);
-                expect(newQuerySteps.length).toEqual(test.expected);
-            });
+            var newQuerySteps = displayModel.GetCurrentDisplayQuerySteps(querySteps);
+            expect(newQuerySteps.length).toEqual(2);
         });
 
     });
@@ -328,9 +330,11 @@ describe("DisplayModel", function () {
         beforeEach(function () {
             currentDisplayFilters = [
                 {
-                    execution_parameter_id: '',
+                    execution_parameter_id: 'e1',
                     field: 'f1',
                     is_adhoc_filter: true,
+                    is_adhoc: true,
+                    is_applied: true,
                     is_execution_parameter: false,
                     step_type: enumHandlers.FILTERTYPE.FILTER
                 }
@@ -350,6 +354,12 @@ describe("DisplayModel", function () {
             expect(newQuerySteps[0].step_type).toEqual(enumHandlers.FILTERTYPE.FILTER);
             expect(newQuerySteps[1].step_type).toEqual(enumHandlers.FILTERTYPE.SORTING);
             expect(newQuerySteps[2].step_type).toEqual(enumHandlers.FILTERTYPE.AGGREGATION);
+
+            expect(newQuerySteps[0].is_adhoc_filter).toEqual(true);
+            expect(newQuerySteps[0].is_adhoc).toEqual(true);
+            expect(newQuerySteps[0].is_applied).toEqual(true);
+            expect(newQuerySteps[0].is_execution_parameter).toEqual(false);
+            expect(newQuerySteps[0].execution_parameter_id).toEqual('e1');
         });
 
         it("should get correct query steps (keepDisplayFilters=true)", function () {
@@ -361,28 +371,33 @@ describe("DisplayModel", function () {
             expect(newQuerySteps[2].step_type).toEqual(enumHandlers.FILTERTYPE.FOLLOWUP);
             expect(newQuerySteps[3].step_type).toEqual(enumHandlers.FILTERTYPE.SORTING);
             expect(newQuerySteps[4].step_type).toEqual(enumHandlers.FILTERTYPE.AGGREGATION);
+
+            expect(newQuerySteps[0].is_adhoc_filter).toEqual(true);
+            expect(newQuerySteps[0].is_adhoc).toEqual(true);
+            expect(newQuerySteps[0].is_applied).toEqual(true);
+            expect(newQuerySteps[0].is_execution_parameter).toEqual(false);
+            expect(newQuerySteps[0].execution_parameter_id).toEqual('e1');
         });
 
     });
 
     describe(".CreateDisplayFromChartOrPivot", function () {
-        it("should call NormalizeDataDisplayFromChartOrPivot to remove unused data" , function () {
+        it("should call NormalizeDataDisplayFromChartOrPivot to remove unused data", function () {
             // mock
-            spyOn(historyModel, 'Save').and.callFake($.noop);
             spyOn(displayQueryBlockModel, 'CollectQueryBlocks').and.returnValue([{
-                    "query_steps": [{
-                        "aggregation_fields": [{
-                            "field": "count",
-                            "operator": "count"
-                        }],
-                        "step_type": "aggregation"
+                "query_steps": [{
+                    "aggregation_fields": [{
+                        "field": "count",
+                        "operator": "count"
                     }],
-                    "queryblock_type": "query_steps"
+                    "step_type": "aggregation"
+                }],
+                "queryblock_type": "query_steps"
             }]);
-            spyOn(displayModel, 'Data').and.returnValue({ id: 123 });
-            spyOn(displayModel, 'NormalizeDataDisplayFromChartOrPivot').and.callFake($.noop);
+            spyOn(displayModel, 'Data').and.returnValue({ id: 123, fields: [] });
+            spyOn(displayModel, 'NormalizeDataDisplayFromChartOrPivot');
             spyOn(displayModel, 'CreateTempDisplay').and.returnValue({ uri: 'test' });
-            spyOn(displayModel, 'GotoTemporaryDisplay').and.callFake($.noop);
+            spyOn(displayModel, 'GotoTemporaryDisplay');
             spyOn(userModel, 'Data').and.returnValue({
                 uri: 'test',
                 full_name: 'full name'
@@ -442,4 +457,41 @@ describe("DisplayModel", function () {
         });
     });
 
+    describe("SetTemporaryDisplay", function () {
+        it("should store temp display in local storage when value is not null", function () {
+
+            var displayUri = 'display_uri';
+            var value = { display_name: 'display_name' };
+
+            displayModel.TemporaryDisplay({});
+            spyOn(jQuery, 'localStorage');
+
+            displayModel.SetTemporaryDisplay(displayUri, value);
+
+            expect(displayModel.TemporaryDisplay()).toEqual({ display_uri: value });
+            expect(jQuery.localStorage).toHaveBeenCalledWith('temp_displays', { display_uri: value });
+        });
+
+        it("should clear temp display in local storage when value is null", function () {
+
+            var displayUri = 'display_uri';
+            var value = null;
+
+            displayModel.TemporaryDisplay({ display_uri: { display_name: 'display_name' } });
+            var infoData = {
+                display_definitions: {
+                    removeObject: $.noop
+                }
+            };
+            spyOn(infoData.display_definitions, 'removeObject');
+            spyOn(angleInfoModel, 'Data').and.returnValue(infoData);
+            spyOn(angleInfoModel.Data, 'commit');
+            spyOn(jQuery, 'localStorage');
+
+            displayModel.SetTemporaryDisplay(displayUri, value);
+
+            expect(displayModel.TemporaryDisplay()).toEqual({});
+            expect(jQuery.localStorage).toHaveBeenCalledWith('temp_displays', {});
+        });
+    });
 });

@@ -51,22 +51,8 @@ function UserViewModel() {
         self.IsLoaded(true);
     };
 
-    self.GetAssignedRoles = function () {
-        return sessionModel.Data().assigned_roles;
-    };
-
-    self.FullnameWithId = function () {
-        return self.Data() ? self.Data().id + ' (' + self.Data().full_name + ')' : '';
-    };
     self.DisplayName = function () {
         return self.Data() ? self.Data().full_name !== '' ? self.Data().full_name : self.Data().id : '';
-    };
-    self.GetAnglePrivilegeByUri = function (uri) {
-        var results = jQuery.grep(self.Privileges.AnglePrivileges, function (anglePrivilege) {
-            return anglePrivilege.uri === uri;
-        });
-
-        return results.length > 0 ? results[0] : null;
     };
     self.GetCreateAngleAuthorization = function () {
         var isValids = jQuery.grep(self.Privileges.ModelPrivileges, function (modelPrivilege) {
@@ -74,20 +60,6 @@ function UserViewModel() {
         });
 
         return isValids.length > 0 ? true : false;
-    };
-    self.GetAngleAllowMoreDetailsAuthorization = function (angleUri) {
-        var isAuthorizes = jQuery.grep(self.Privileges.AnglePrivileges, function (anglePrivilege) {
-            return anglePrivilege.uri === angleUri && anglePrivilege.allow_more_details;
-        });
-
-        return isAuthorizes.length === 0 ? false : true;
-    };
-    self.GetModelAllowMoreDetailsAuthorization = function (modelUri) {
-        var isAuthorizes = jQuery.grep(self.Privileges.ModelPrivileges, function (modelPrivileges) {
-            return modelPrivileges.model === modelUri && modelPrivileges.privileges.allow_more_details;
-        });
-
-        return isAuthorizes.length === 0 ? false : true;
     };
     self.GetCreateAngleAuthorizationByModelUri = function (modelUri) {
         var isValids = jQuery.grep(self.Privileges.ModelPrivileges, function (modelPrivilege) {
@@ -207,66 +179,6 @@ function UserViewModel() {
             jQuery("#btnWorkbench").hide();
         }
     };
-    self.GetAngleFollowupAuthorization = function (angleUri) {
-        var isAuthorizes = jQuery.grep(self.Privileges.AnglePrivileges, function (anglePrivilege) {
-            return anglePrivilege.uri === angleUri && anglePrivilege.allow_followups;
-        });
-
-        return isAuthorizes.length === 0 ? false : true;
-    };
-    self.GetModelFollowupAuthorization = function (modelUri) {
-        var isAuthorizes = jQuery.grep(self.Privileges.ModelPrivileges, function (modelPrivileges) {
-            return modelPrivileges.model === modelUri && modelPrivileges.privileges.allow_followups;
-        });
-
-        return isAuthorizes.length === 0 ? false : true;
-    };
-    self.UpdateAnglePrivilege = function (angle) {
-        var anglePrivilege = self.GetAnglePrivilegeByUri(angle.uri);
-
-        if (!IsNullOrEmpty(anglePrivilege)) {
-            anglePrivilege.allow_more_details = angle.allow_more_details;
-            anglePrivilege.allow_followups = angle.allow_followups;
-            anglePrivilege.privileges = angle.privileges;
-            anglePrivilege.uri = angle.uri;
-            anglePrivilege.model = angle.model;
-        }
-        else {
-            self.Privileges.AnglePrivileges.push({
-                uri: angle.uri,
-                model: angle.model,
-                allow_more_details: angle.allow_more_details,
-                allow_followups: angle.allow_followups,
-                privileges: angle.privileges
-            });
-        }
-
-        jQuery.localStorage(self.UserPrivilegeName, self.Privileges);
-    };
-    self.GetUserAuthorizationByAngle = function (angle) {
-        var isCreateAngle = self.GetCreateAngleAuthorizationByModelUri(angle.model);
-        var isSaveDisplay = self.CanSaveDisplays(angle.model);
-        var allowMoreDetails = self.GetAngleAllowMoreDetailsAuthorization(angle.uri);
-        var allowFollowups = self.GetAngleFollowupAuthorization(angle.uri);
-        var resultObject = {};
-        var angleObject = {
-            CreateAngle: ko.observable(isCreateAngle),
-            ChangeAngleDetails: ko.observable(allowMoreDetails),
-            AddAngleFilters: ko.observable(allowMoreDetails),
-            AddAngleFollowups: ko.observable(allowMoreDetails && allowFollowups)
-        };
-        var displayObject = {
-            ShowCreateDisplay: ko.observable(isSaveDisplay && allowMoreDetails),
-            ChangePrivateDisplay: ko.observable(isSaveDisplay && allowMoreDetails),
-            ChangePublicDisplay: ko.observable(isSaveDisplay && isCreateAngle && allowMoreDetails),
-            DeletePrivateDisplay: ko.observable(isSaveDisplay && allowMoreDetails),
-            DeletePublicDisplay: ko.observable(isSaveDisplay && isCreateAngle && allowMoreDetails),
-            AddDisplayFilters: ko.observable(isSaveDisplay && allowMoreDetails),
-            AddDisplayFollowups: ko.observable(isSaveDisplay && allowMoreDetails && allowFollowups)
-        };
-
-        return jQuery.extend(resultObject, angleObject, displayObject);
-    };
     self.GetModelPrivilegeByUri = function (modelUri) {
         var modelPrivilege = jQuery.grep(self.Privileges.ModelPrivileges, function (modelPrivilege) {
             return modelPrivilege.model === modelUri;
@@ -289,15 +201,6 @@ function UserViewModel() {
         else {
             return [];
         }
-    };
-    self.GetAssignRoleDisplay = function (roleObj) {
-        if (typeof roleObj === "object") {
-            if (roleObj.model_id)
-                return roleObj.model_id + ': ' + roleObj.role_id;
-            else
-                return roleObj.role_id;
-        } else
-            return roleObj;
     };
     //EOF: View modle methods
 }

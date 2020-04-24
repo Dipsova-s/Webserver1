@@ -1,0 +1,220 @@
+@import 'abstracts/mixins';
+
+#SettingsIcon {
+    font-size: 23px;
+    color: #3d4852;
+}
+
+.settingsPanel {
+    box-shadow: 0 6px 12px 0 rgba(8, 35, 48, .14), 0 16px 24px 0 rgba(8, 35, 48, .08);
+    background-color: #f7f9fa;
+    width: 354px;
+    position: absolute;
+    top: 48px;
+    right: 0;
+    transition: right .3s ease-in-out;
+    z-index: 1000;
+
+    &.hide {
+        position: fixed;
+        right: -364px;
+    }
+
+    .card-header, .accordion-header {
+        color: #069697;
+        text-transform: none;
+        font-size: 12px;
+        letter-spacing: .44px;
+    }
+
+    h4 {
+        font-size: 10px;
+        font-weight: bold;
+        letter-spacing: 1.5px;
+        margin: 0 0 10px 0;
+    }
+
+    hr {
+        border-top: 2px solid #fff;
+        margin: 10px;
+    }
+
+    .greyText {
+        color: #919699;
+    }
+
+    .darkText {
+        color: #3d4852;
+    }
+
+    small {
+        display: block;
+        text-align: right;
+        font-size: 10px;
+        font-style: italic;
+        letter-spacing: 0.25px;
+        color: #78909c;
+    }
+
+    .accordion {
+        overflow: hidden;
+
+        .accordion-body {
+            padding-top: 0;
+        }
+    }
+
+    input[type="text"], .k-dropdown {
+        width: 100%;
+    }
+
+    fieldset {
+        margin-bottom: 10px;
+        border-radius: 4px;
+        border: solid 1px #e3e5e5;
+        color: #78909c;
+
+        p {
+            margin: 0;
+        }
+
+        p:not(:last-child) {
+            margin-bottom: 10px;
+        }
+    }
+
+    .tab-content-wrapper {
+        @include calc-vh(height, 133px);
+        overflow: auto;
+        padding: 0;
+
+        &:focus {
+            outline: none;
+        }
+
+        .tab-content {
+            padding: 10px 10px 0 10px;
+        }
+    }
+
+    .settingsPanelSection {
+        overflow: hidden;
+    }
+
+    .settingsPanelProfile {
+        .card-body {
+            padding-bottom: 0;
+        }
+
+        .settingsPanelProfileName {
+            margin-top: -5px;
+
+            strong {
+                display: block;
+                font-size: 14px;
+            }
+        }
+    }
+
+    .settingsPanelLabelWrapper {
+        border-radius: 2px;
+        border: solid 1px #e3e5e5;
+        background-color: #f7f9fa;
+        padding: 5px;
+        overflow: auto;
+        padding-top: 2px;
+        padding-bottom: 2px;
+
+        .settingsPanelValidateLabels {
+            margin-top: 10px;
+
+            &:first-child {
+                margin-top: 0;
+            }
+        }
+
+        .settingsPanelLabel {
+            border-radius: 14px;
+            background-color: #e9ecee;
+            padding: 4px 11px;
+            margin: 3px;
+            float: left;
+        }
+    }
+
+    .settingsPanelActionsAtLoginDisplays {
+        margin-left: 25px;
+
+        .settingsPanelActionsAtLoginDisplaysItem {
+            display: flex;
+            align-items: center;
+            margin-top: 10px;
+
+            &:first-child {
+                margin-top: 0;
+            }
+        }
+
+        .icon.display {
+            margin-right: 5px;
+            font-size: 16px;
+            width: 24px;
+            color: #78909c;
+            text-align: center;
+        }
+
+        .icon.delete-red {
+            cursor: pointer;
+        }
+
+        a {
+            display: inline-flex;
+            width: 95%;
+        }
+
+        .settingsPanelActionsAtLoginDisplayText {
+            span {
+                display: block;
+            }
+
+            .greyText {
+                font-size: 11px;
+            }
+        }
+    }
+
+    .settingsPanelDefaultBusinessProcess {
+        .businessProcessesCheckBoxList {
+            overflow: visible;
+            width: auto;
+        }
+
+        .BusinessProcessCheckBox {
+            display: block;
+            padding: 0;
+            width: auto;
+
+            &:not(:last-child) {
+                margin-bottom: 10px;
+            }
+        }
+    }
+
+    .settingsPanelGoToSap {
+        .btn-info {
+            cursor: default;
+        }
+
+        .btn-download .icon {
+            position: relative;
+            top: 0;
+            font-size: 17px;
+            color: #78909c;
+            transition: all .3s cubic-bezier(.25,.8,.25,1);
+        }
+
+        .btn-download:hover .icon {
+            top: -5px;
+        }
+    }
+}

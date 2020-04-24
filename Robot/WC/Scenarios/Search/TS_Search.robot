@@ -80,10 +80,11 @@ Find And Execute Angle
     [Arguments]    ${angleId}    ${angleUri}    ${angleName}
     Search Filter By Query String    ids=${angleId}
     Click Link Item From Search Result By Item Uri: ${angleUri}
-    Wait Angle Page Document Loaded
-    ${isBackToSearch}  Check If Angle Or Display Has A Warning Then Close The Popup
-    Run Keyword If  ${isBackToSearch} != True  Check If Angle Is A Template Then Close The Popup
-    Run Keyword If  ${isBackToSearch} != True  Execute All Displays In Angle
+    ${isBackToSearch}  Check If Template Can Be Used
+    Run Keyword If  ${isBackToSearch}!=${True}  Run Keywords
+    ...  Wait Angle Page Document Loaded
+    ...  AND  Check If Angle Or Display Has A Warning Then Close The Popup
+    ...  AND  Execute All Displays In Angle
 
 Find Angle By ID Then Execute The First Angle
     [Arguments]    ${angleId}
@@ -91,7 +92,6 @@ Find Angle By ID Then Execute The First Angle
     Click Link First Item From Search Result
     Wait Angle Page Document Loaded
     Check If Angle Or Display Has A Warning Then Close The Popup
-    Check If Angle Is A Template Then Close The Popup
 
 Find Dashboard By ID Then Execute The First Dashboard
     [Arguments]    ${angleId}
@@ -110,13 +110,17 @@ Open Angle From First Angle in Search Page
     Sleep    2s
     Wait Angle Page Document Loaded
     Wait Until Page Contains    ${angleName}
-    Wait Until Element Is Visible    ${lnkAngleName}
 
 Execute First Search Item In Edit Mode
     Click First Item Info Button
     Click Edit Mode Button Via Item Info Popup
     Wait Angle Page Document Loaded
     Check If Angle Or Display Has A Warning Then Close The Popup
+
+Execute First Search Dashboard In Edit Mode
+    Click First Item Info Button
+    Click Dashboard Edit Mode Button Via Item Info Popup
+    Wait Dashboard Document Loaded
 
 Click Select All Items from Search Result
     ${totalItems} =    Execute Javascript     return $('#${lblSearchTotal}').text();

@@ -40,7 +40,9 @@ if exist "%COPYTO%report" rd "%COPYTO%report" /s /q
 :: run robot
 ::::::::::::::::::::::::::::::::
 cls
-call %COPYTO%runrobot "%SERVER%" "%BRANCH%" %TAG% "WS" "%QUERY%" "%COMPARE_BRANCH%" webhelp
+set WebHelpMode=webhelp
+If %SILENCE%==1 set WebHelpMode=silence
+call %COPYTO%runrobot "%SERVER%" "%BRANCH%" %TAG% "WS" "%QUERY%" "%COMPARE_BRANCH%" %WebHelpMode%
 if not "%CURRENT%"=="%COPYTO%" xcopy "%COPYTO%chromedriver.exe" "%CURRENT%" /E /S /Y /Q
 call :open_report
 exit /b 0

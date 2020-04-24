@@ -24,7 +24,7 @@
                 );
             </script>
         }
-        
+
         // DevExpress PivotGrid script
         Html.RenderAction("PivotGridScript", "Pivot");
     }
@@ -32,56 +32,101 @@
 
 @section TopBar
 {
-    <div id="AngleTopBar" class="topBarWrapper">
+    <div id="DashboardTopBar" class="topBarWrapper">
         <div class="Wrapper Shadow">
             <a id="Logo" href="@Url.Action("SearchPage", "Search")">
                 <img alt="" src="@Url.Content("~/images/master/ealogo.svg")" height="29" />
             </a>
 
+            <a class="icon icon-hamburger toggle-sidebar disabled" id="ButtonToggleSidePanel"></a>
             @{Html.RenderPartial("~/Views/Shared/Top/BusinessProcessBadge.cshtml");}
             @{Html.RenderPartial("~/Views/Shared/Top/UserPanel.cshtml");}
         </div>
     </div>
 }
-@section UnderTopHeader 
-{
-    <div id="DashboardField" class="detailsWrapper top">
-        <div class="Wrapper">
-            <nav class="form-row toolbar">
-                <div class="form-col col-breadcrumb">
-                    @{Html.RenderPartial("~/Views/Shared/Top/Breadcrumb.cshtml");}
+
+<div class="content-wrapper" id="ContentWrapper">
+    <div class="side-content">
+        <div id="SectionInfo"></div>
+
+        <div class="tab tab-full tab-details section section-details" id="TabDetails">
+            <div class="tab-menu-wrapper">
+                <div class="tab-menu tab-menu-dashboard">
+                    @Resource.Dashboard
+                    <a class="action btn-info"
+                       data-role="tooltip"
+                       data-tooltip-position="bottom"
+                       data-tooltip-text="Info"
+                       data-bind="visible: IsStatisticVisible(), click: ShowStatisticPopup, clickBubble: false" >
+                        <i class="icon icon-info"></i>
+                    </a>
                 </div>
-                <div class="form-col col-action">
-                    <div id="ActionSelect" class="compactMode">
-                        <div class="visible-medium-viewport">
-                            <div id="ActionDropdownListTablet"></div>
-                        </div>
-                        <div class="hide-medium-viewport">
-                            <div id="ActionDropdownList" class="btnTools"></div>
-                            <div class="k-window-titleless k-window-custom k-window-arrow-n popupAction popupActionAngle" id="ActionDropdownListPopup">
-                                <div class="k-window-content k-content"></div>
+                <div class="tab-menu tab-menu-displays">
+                    @Resource.DisplayDetails
+                </div>
+            </div>
+            <div class="tab-content-wrapper">
+                <div class="accordion tab-content tab-content-dashboard" id="TabContentDashboard"></div>
+                <div class="accordion tab-content tab-content-displays" id="TabContentWidgets"></div>
+            </div>
+        </div>
+    </div>
+    <div class="main-content">
+        <div id="DashboardField" class="detailsWrapper top">
+            <div class="Wrapper">
+                <nav class="form-row toolbar">
+                    <div class="col-break flex-break hidden"></div>
+
+                    <div class="form-col col-breadcrumb">
+                        @{Html.RenderPartial("~/Views/Shared/Top/Breadcrumb.cshtml");}
+                    </div>
+                    <div class="form-col col-action">
+                        <div id="ActionSelect" class="compactMode">
+                            <div class="visible-medium-viewport">
+                                <div id="ActionDropdownListTablet"></div>
+                            </div>
+                            <div class="hide-medium-viewport">
+                                <div id="ActionDropdownList" class="btnTools"></div>
+                                <div class="k-window-titleless k-window-custom k-window-arrow-n popupAction popupActionAngle" id="ActionDropdownListPopup">
+                                    <div class="k-window-content k-content"></div>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
-                <div class="form-col col-states" id="DashboardStatesWrapper">
-                    @{Html.RenderPartial("~/Views/Shared/Top/ItemState.cshtml");}
-                </div>
-            </nav>
-            <div id="DashboardName" class="angleInformation informationDetailPanel">
-                <div data-bind="css: { 'SignType3': true }"></div>
-                <div data-bind="css: { 'SignFavorite': Model.Data().user_specific.is_starred(), 'SignFavoriteDisable': !Model.Data().user_specific.is_starred(), disabled: !dashboardModel.Data().authorizations.update_user_specific }, click: $root.SetFavorite"></div>
-                <span class="Name" onclick="dashboardDetailsHandler.ShowPopup()" data-bind="text: Model.Data().name(), attr: { title: Model.Data().name() }"></span>
-                <div data-bind="css: { 'none': Model.Data().is_published(), 'SignPrivate': !Model.Data().is_published() }"></div>
-                <div class="SignValidated" data-bind="visible: Model.Data().is_validated()" style="display: none"></div>
+                    <div class="form-col col-saving" id="DashboardSavingWrapper">
+                        <!-- ko stopBinding: true -->
+                        <div class="saving-wrapper" data-bind="if: SaveActions.Primary.Valid(), visible: SaveActions.Primary.Valid()">
+                            <a class="btn btn-small btn-secondary btn-main-saving" data-bind="click: SaveActions.Primary.Action, css: { 'btn-split': SaveActions.Primary.Visible(), disabled: !SaveActions.Primary.Enable() }">
+                                <span data-bind="text: SaveActions.Primary.Label()"></span>
+                            </a>
+                            <a class="btn btn-small btn-secondary btn-saving-options"
+                               data-tooltip-position="bottom" data-role="tooltip" data-tooltip-text="@Resource.MoreActions"
+                               data-bind="click: ToggleSaveOptions">
+                                <i class="icon icon-chevron-down"></i>
+                            </a>
+                            <ul class="listview listview-popup saving-options">
+                                <!-- ko if: SaveActions.All.Visible() && SaveActions.Primary.Label() !== SaveActions.All.Label() -->
+                                <li class="listview-item action-save-all" data-bind="text: SaveActions.All.Label, css: { disabled: !SaveActions.All.Enable() }, click: SaveActions.All.Action"></li>
+                                <!-- /ko -->
+                                <!-- ko if: SaveActions.DashboardAs.Visible() && SaveActions.Primary.Label() !== SaveActions.DashboardAs.Label() -->
+                                <li class="listview-item action-save-dashboard-as" data-bind="text: SaveActions.DashboardAs.Label, css: { disabled: !SaveActions.DashboardAs.Enable() }, click: SaveActions.DashboardAs.Action"></li>
+                                <!-- /ko -->
+
+                            </ul>
+                        </div>
+                        <!-- /ko -->
+
+                    </div>
+                    <div class="form-col col-states" id="DashboardStatesWrapper">
+                        @{Html.RenderPartial("~/Views/Shared/Top/ItemState.cshtml");}
+                    </div>
+                </nav>
             </div>
-            <span id="YourNote" data-bind="text: !dashboardModel.Data().user_specific.private_note() && dashboardModel.Data().authorizations.update_user_specific ? Localization.AddNote : Model.Data().user_specific.private_note(), css: { disabled: !dashboardModel.Data().authorizations.update_user_specific }"></span>
+        </div>
+
+        <div id="dashboardContentWrapper" class="mainDisplayWrapper">
+            <div id="dashboardWrapper"></div>
+            <div id="widgetMaximizeWrapper"></div>
         </div>
     </div>
-}
-
-<div id="dashboardFilterWrapper" class="dashboardFilterWrapper" data-bind="css: { active: IsActive, open: IsOpen(), close: !IsOpen() }"></div>
-<div id="dashboardContentWrapper" class="mainDisplayWrapper">
-    <div id="dashboardWrapper"></div>
-    <div id="widgetMaximizeWrapper"></div>
 </div>

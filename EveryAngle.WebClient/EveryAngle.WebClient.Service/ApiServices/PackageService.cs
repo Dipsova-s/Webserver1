@@ -21,7 +21,7 @@ namespace EveryAngle.WebClient.Service.ApiServices
             return exportDownloadPackageViewModel;
         }
 
-        public ExportDownloadPackageViewModel Download(string downloadFileUrl)
+        public new ExportDownloadPackageViewModel Download(string downloadFileUrl)
         {
             ExportDownloadPackageViewModel exportDownloadPackageViewModel = Get<ExportDownloadPackageViewModel>(downloadFileUrl);
             return exportDownloadPackageViewModel;

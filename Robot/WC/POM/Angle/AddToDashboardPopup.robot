@@ -1,14 +1,13 @@
 *** Variables ***
 ${rdoAddToExistingDashboard}     css=#exitingDashboardRadioButton
 ${btnCloseSaveDashboardPopup}    css=.k-i-close
+${ddlExistingDashboard}          css=#dashboardDropdownlist_ddlWrapper
 ${btnSubmitAddToDashboard}       btn-popupAddToDashboard1
 
 ${btnCloseInfo}       btn-popupNotification0
 
 *** Keywords ***
 Click Add To Existing Dashboard
-    #Wait Until Element Is Visible    ${rdoAddToExistingDashboard}
-    #Input Text    ${rdoAddToExistingDashboard}
     Select Radio Button    createDashboardType    ExitingDashboard
 
 Click Save Dashboard Button
@@ -25,3 +24,7 @@ Click Close Info Button
 Wait Add To Dashboard Popup Load
     Sleep    ${TIMEOUT_GENERAL}
     Wait Until Ajax Complete
+
+Select Existing Dashboard To Add
+    [Arguments]     ${dashboardName}
+    Select Dropdown By Text    ${ddlExistingDashboard}    ${dashboardName}

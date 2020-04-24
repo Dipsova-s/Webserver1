@@ -6,9 +6,6 @@ function HelpPopupPageHandler() {
     self.IsRefreshModel = false;
 
     self.ShowModelParameterPopup = function () {
-        requestHistoryModel.SaveLastExecute(self, self.ShowModelParameterPopup, arguments);
-        requestHistoryModel.ClearPopupBeforeExecute = true;
-
         var defaultModel = modelsHandler.GetDefaultModel();
 
         self.IsRefreshModel = false;

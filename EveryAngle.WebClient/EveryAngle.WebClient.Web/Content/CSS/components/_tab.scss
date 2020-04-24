@@ -1,0 +1,127 @@
+﻿@import '../abstracts/mixins';
+
+/* .tab
+============================================ */
+.tab {
+    font-size: 12px;
+
+    .tab-menu-wrapper {
+        position: relative;
+        @include flex-center;
+
+        .tab-menu {
+            position: relative;
+            @include inline-flex-center;
+            justify-content: center;
+            cursor: pointer;
+            color: #818181;
+            height: 36px;
+            padding: 0 10px;
+            box-sizing: border-box;
+
+            &:before {
+                content: '';
+                position: absolute;
+                top: 0;
+                left: 50%;
+                width: 0;
+                height: 2px;
+                background-color: #358ed7;
+                transition: width .3s ease-in-out, left .3s ease-in-out;
+            }
+
+            &.active {
+                color: #333;
+                background-color: #fff;
+                font-weight: bold;
+
+                &:before {
+                    width: 100%;
+                    left: 0;
+                }
+            }
+
+            &:hover {
+                .action {
+                    visibility: visible;
+                }
+            }
+
+            .action {
+                visibility: hidden;
+
+                &.btn-info {
+                    margin-left: 3px;
+                    font-size: 12.5px;
+                }
+            }
+        }
+    }
+
+    .tab-content-wrapper {
+        box-sizing: border-box;
+        padding: 10px;
+
+        .tab-content {
+            display: none;
+
+            &.active {
+                display: block;
+            }
+        }
+    }
+}
+
+.tab-full .tab-menu-wrapper .tab-menu {
+    flex-grow: 1;
+    flex-shrink: 1;
+    flex-basis: 0;
+}
+
+.tab-details {
+    .tab-menu-wrapper {
+        &:before {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            width: 100%;
+            height: 0;
+            border-bottom: 1px solid #e3e5e5;
+        }
+
+        .tab-menu {
+            &:before {
+                top: auto;
+                bottom: 0;
+            }
+
+            &.active {
+                font-size: 13px;
+                color: #358ed7;
+                background-color: transparent;
+            }
+        }
+    }
+}
+
+.tab-settings {
+    .tab-menu-wrapper {
+        background: #f6eac1;
+        background: linear-gradient(to right, #f6eac1 1%,#f9d8cc 100%);
+        padding: 0 6px;
+
+        .tab-menu {
+            color: rgba(145, 150, 153, 0.87);
+
+            &:before {
+                display: none;
+            }
+
+            &.active {
+                color: #3e4345;
+                background-color: #f7f9fa;
+            }
+        }
+    }
+}

@@ -1,11 +1,24 @@
 ﻿(function (handler) {
     "use strict";
 
-    handler.__ReloadPublishingSettingsData = handler.ReloadPublishingSettingsData;
+    handler.CheckShowingPublishSettingsPopup = function (showPopup) {
+        if (anglePageHandler.HasAnyChanged()) {
+            popup.Confirm(Localization.MessageSaveQuestionPublish, function () {
+                var callback = function () {
+                    jQuery.when(anglePageHandler.SaveAll(false, true)).done(showPopup);
+                };
+                anglePageHandler.HandlerAngle.ConfirmSave(null, callback);
+            });
+        }
+        else {
+            showPopup();
+        }
+    };
+    
     handler.ReloadPublishingSettingsData = function (hasData) {
         var self = this;
-        self.SetAngleData(angleInfoModel.Data());
-        self.__ReloadPublishingSettingsData(hasData);
+        self.SetAngleData(anglePageHandler.HandlerAngle.GetData());
+        self.parent.prototype.ReloadPublishingSettingsData.call(self, hasData);
 
         if (hasData && !self.Data.is_published()) {
             jQuery.each(self.Displays(), function (index, display) {
@@ -25,10 +38,9 @@
             }
         });
     };
-    handler.__GetPublishSettingsData = handler.GetPublishSettingsData;
     handler.GetPublishSettingsData = function () {
         var self = this;
-        var data = self.__GetPublishSettingsData();
+        var data = self.parent.prototype.GetPublishSettingsData.call(self);
         data.allow_followups = !self.Data.not_allow_followups();
         data.allow_more_details = !self.Data.not_allow_more_details();
         data.display_definitions = self.GetPublishDisplaysData();
@@ -44,32 +56,32 @@
         if (!self.CheckSavePublishSettings(self.Data.is_published()))
             return;
 
-        requestHistoryModel.SaveLastExecute(self, self.SavePublishSettings, arguments);
-        requestHistoryModel.ClearPopupBeforeExecute = true;
-
         var data = self.GetUpdatedPublishSettingsData();
         var displays = !self.Data.is_published() ? [] : WC.Utility.ToArray(data.display_definitions);
         delete data.display_definitions;
 
-        self.ShowPublishingProgressbar(event.currentTarget);
-        var onFail = function () {
-            self.ClosePublishSettingsPopup();
+        var checker = function () {
+            return (!jQuery.isEmptyObject(data) || displays.length) && anglePageHandler.HandlerAngle.IsDisplaysUsedInTask();
         };
-        return self.UpdateItem(function (resultAngle, reRender) {
-            self.PublishDisplays(displays)
-                .then(function (resultDisplay) {
-                    return resultAngle === false && resultDisplay === false ? jQuery.whenDelay(500) : self.ReloadAngle();
-                })
-                .done(function () {
-                    toast.MakeSuccessText(Localization.Toast_SavePublishSettings);
-                })
-                .always(function () {
-                    self.HidePublishingProgressbar(event.currentTarget);
-                    self.ClosePublishSettingsPopup();
-                    if (reRender)
+        var callback = function () {
+            self.ShowPublishingProgressbar(event.currentTarget);
+            var onFail = jQuery.proxy(self.ClosePublishSettingsPopup, self);
+            self.UpdateItem(function () {
+                self.PublishDisplays(displays)
+                    .done(function () {
+                        toast.MakeSuccessText(Localization.Toast_SavePublishSettings);
                         self.ReloadAngleResult();
-                });
-        }, self.ClosePublishSettingsPopup);
+                    })
+                    .always(function () {
+                        self.HidePublishingProgressbar(event.currentTarget);
+                        self.ClosePublishSettingsPopup();
+                    });
+            }, onFail);
+        };
+
+        anglePageHandler.HandlerAngle.ConfirmSave(
+            checker,
+            callback);
     };
 
     handler.PublishItem = function (model, event) {
@@ -77,40 +89,37 @@
         if (!self.CheckPublishItem())
             return;
 
-        requestHistoryModel.SaveLastExecute(self, self.PublishItem, arguments);
-        requestHistoryModel.ClearPopupBeforeExecute = true;
-
-        self.ShowPublishingProgressbar(event.currentTarget);
-        var onFail = function () {
-            self.ClosePublishSettingsPopup();
+        var checker = function () {
+            return anglePageHandler.HandlerAngle.IsDisplaysUsedInTask();
         };
-        self.UpdateItem(function (angleResult, reRender) {
-            self.UpdateState(self.Data.state, { is_published: true }, function () {
-                var displays = self.GetPublishDisplaysData();
-                self.PublishDisplays(displays)
-                    .then(function () {
-                        return self.ReloadAngle();
-                    })
-                    .done(function () {
-                        toast.MakeSuccessTextFormatting(angleInfoModel.Name(), Localization.Toast_PublishItem);
-                    })
-                    .always(function () {
-                        self.HidePublishingProgressbar(event.currentTarget);
-                        self.ClosePublishSettingsPopup();
-                        if (reRender)
+
+        var callback = function () {
+            self.ShowPublishingProgressbar(event.currentTarget);
+            var onFail = jQuery.proxy(self.ClosePublishSettingsPopup, self);
+            self.UpdateItem(function () {
+                self.UpdateState(self.Data.state, { is_published: true }, function () {
+                    var displays = self.GetPublishDisplaysData();
+                    self.PublishDisplays(displays)
+                        .done(function () {
+                            toast.MakeSuccessTextFormatting(anglePageHandler.HandlerAngle.GetName(), Localization.Toast_PublishItem);
                             self.ReloadAngleResult();
-                    });
+                        })
+                        .always(function () {
+                            self.HidePublishingProgressbar(event.currentTarget);
+                            self.ClosePublishSettingsPopup();
+                        });
+                }, onFail);
             }, onFail);
-        }, onFail);
+        };
+
+        anglePageHandler.HandlerAngle.ConfirmSave(checker, callback);
     };
     handler.PublishDisplay = function (uri, data) {
         var dfd = jQuery.Deferred();
         var query = {};
         query[enumHandlers.PARAMETERS.FORCED] = true;
         UpdateDataToWebService(uri + '?' + jQuery.param(query), data)
-            .always(function () {
-                dfd.resolve();
-            });
+            .always(dfd.resolve);
         return dfd.promise();
     };
     handler.PublishDisplays = function (displays) {
@@ -125,46 +134,43 @@
     };
     handler.UnpublishItem = function (model, event) {
         var self = this;
-
-        requestHistoryModel.SaveLastExecute(self, self.UnpublishItem, arguments);
-        requestHistoryModel.ClearPopupBeforeExecute = true;
-
-        var render = false;
-        var onFail = function () {
-            self.ClosePublishSettingsPopup();
-        };
+        
+        var onFail = jQuery.proxy(self.ClosePublishSettingsPopup, self);
         var unpublishAngle = function (callback) {
             self.ShowPublishingProgressbar(event.currentTarget);
             self.UpdateState(self.Data.state, { is_published: false }, function () {
-                self.UpdateItem(function (angleResult, reRender) {
-                    render = reRender;
-                    callback();
-                }, onFail);
+                self.UpdateItem(callback, onFail);
             }, onFail);
+        };
+
+        var checker = function () {
+            return anglePageHandler.HandlerAngle.IsDisplaysUsedInTask();
         };
 
         if (!self.CanUserManagePrivateItem()) {
             popup.Confirm(Localization.MessageConfirmUnpublishAngle, function () {
-                unpublishAngle(function () {
+                var unpublishPrivateDone = function () {
                     // update watcher then back to search page
                     angleInfoModel.UpdatePublicationsWatcher(false);
                     anglePageHandler.BackToSearch();
-                });
+                };
+
+                anglePageHandler.HandlerAngle.ConfirmSave(
+                    checker,
+                    jQuery.proxy(unpublishAngle, null, unpublishPrivateDone));
             });
         }
         else {
-            unpublishAngle(function () {
-                return self.ReloadAngle()
-                    .done(function () {
-                        toast.MakeSuccessTextFormatting(angleInfoModel.Name(), Localization.Toast_UnpublishItem);
-                    })
-                    .always(function () {
-                        self.HidePublishingProgressbar(event.currentTarget);
-                        self.ClosePublishSettingsPopup();
-                        if (render)
-                            self.ReloadAngleResult();
-                    });
-            });
+            var unpublishDone = function () {
+                toast.MakeSuccessTextFormatting(anglePageHandler.HandlerAngle.GetName(), Localization.Toast_UnpublishItem);
+                self.HidePublishingProgressbar(event.currentTarget);
+                self.ClosePublishSettingsPopup();
+                self.ReloadAngleResult();
+            };
+
+            anglePageHandler.HandlerAngle.ConfirmSave(
+                checker,
+                jQuery.proxy(unpublishAngle, null, unpublishDone));
         }
     };
     handler.UpdateItem = function (done, fail) {
@@ -180,30 +186,24 @@
                 });
         };
         var handler = jQuery.isEmptyObject(data) ? handlerFake : handlerUpdate;
-        return self.Update(handler, [[self.Data.uri, data, false], [self.Data.uri, data, true]], done, fail);
+        return self.Update(handler, [[self.Data.uri, data, true], [self.Data.uri, data, true]], done, fail);
     };
 
-    handler.ReloadAngle = function () {
-        var self = this;
-        return angleInfoModel.LoadAngle(self.Data.uri)
-            .always(function () {
-                anglePageHandler.ApplyExecutionAngle();
-            });
-    };
     handler.ReloadAngleResult = function () {
-        resultModel.Data(null);
+        anglePageHandler.HandlerAngle.ClearData();
         anglePageHandler.ExecuteAngle();
     };
 
     handler.CanSetAllowMoreDetails = function () {
-        var canAddFilter = resultModel.Data() && resultModel.Data().authorizations.add_filter;
-        return angleInfoModel.CanUpdateAngle('allow_more_details')
-            && (canAddFilter || !angleInfoModel.Data().allow_more_details);
+        var self = this;
+        return self.Data.authorizations().update
+            && privilegesViewModel.AllowMoreDetails(self.Data.model);
     };
     handler.CanSetAllowFollowups = function () {
-        var canAddFllowup = resultModel.Data() && resultModel.Data().authorizations.add_followup;
-        return angleInfoModel.CanUpdateAngle('allow_followups')
-            && (canAddFllowup || !angleInfoModel.Data().allow_followups);
+        var self = this;
+        return self.Data.authorizations().update
+            && !self.Data.not_allow_more_details()
+            && privilegesViewModel.AllowFollowups(self.Data.model);
     };
     handler.ShowInfoAllowMoreDetailsPopup = function () {
         var message = Localization.InfoAllowMoreDetailsPopup;

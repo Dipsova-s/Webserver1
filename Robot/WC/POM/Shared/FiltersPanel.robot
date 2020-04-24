@@ -1,21 +1,23 @@
 *** Variables ***
-${divFilterPanel}                       jquery=.FilterHeader
-${ddlFilterOperator}                    Operator-
-${ddlFilterSelectValue}                 InputValue-
-${lblFilterText}                        jquery=.FilterHeader .filterText.filter
+${divFilterPanel}                       jquery=.query-definition .item:visible
+${ddlFilterOperator}                    .k-widget.query-operator
+${iconEdit}                             .action-edit
+${ddlFilterSelectValue}                 .k-widget.input-argument-value
+${txtInputNumber}                       .input-argument-value
+${btnRemoveSelectedValue}               .action-remove
+${btnAddSelectedValue}                  .action-add
+${txtSelectedValue}                     .input-argument-typing
+${btnRemoveAllSelectedValue}            .action-clear
+
+${divDashboardFilterItem}               jquery=.filterItem
 ${txtFirstInput}                        FirstInput-
 ${txtSecondInput}                       SecondInput-
-${txtInputNumber}                       InputValue-
 ${txtFirstInputDatePicker}              InputValue-
 ${txtFirstInputDatetimePicker}          InputValue-
 ${txtFirstInputTimePicker}              InputValue-
 ${btnAddFilterBeforeJump}               .btnAddFilterFromJump
 
 ${listSelectedValue}                    css=.FilterDetail  .k-selectable:visible tr
-${btnRemoveSelectedValue}               RemoveSelectedValue-
-${btnAddSelectedValue}                  AddSelectedValue-
-${txtSelectedValue}                     SelectedValue-
-${btnRemoveAllSelectedValue}            RemoveAllSelectedValue-
 ${gridValueList}                        jquery=#ValueList-
 
 # Boolean
@@ -37,20 +39,31 @@ Convert Operator Symbol To Dropdown Option
     ...     '${operator}' == '<='       is smaller than or equal to             ${operator}
     [Return]    ${operatorText}
 
+
+Click Edit Filter
+    [Arguments]   ${index}
+    Mouse Over      ${divFilterPanel}[data-index=${index}]
+    Click Element   ${divFilterPanel}[data-index=${index}] ${iconEdit}
+
 Expand Filter Panel
     [Arguments]   ${index}
-    ${isCollapse}    Is Element Has CssClass    ${divFilterPanel}:eq(${index})    Collapse
-    Run Keyword If    "${isCollapse}"=="True"    Click Element    ${divFilterPanel}:eq(${index})
+    ${isEditMode}    Is Element Has CssClass        ${divFilterPanel}[data-index=${index}]    editmode
+    Run Keyword If    ${isEditMode} == ${False}     Click Edit Filter    ${index}
 
 Collapse Filter Panel
     [Arguments]   ${index}
-    ${isExpand}    Is Element Has CssClass    ${divFilterPanel}:eq(${index})    Expand
-    Run Keyword If    ${isExpand} == True    Click Element    ${divFilterPanel}:eq(${index})
+    ${isEditMode}    Is Element Has CssClass        ${divFilterPanel}[data-index=${index}]    editmode
+    Run Keyword If    ${isEditMode} == ${True}      Click Edit Filter    ${index}
 
 Choose Dropdown Filter Operator
     [Arguments]   ${index}    ${selectText}
     Sleep    ${TIMEOUT_GENERAL}
-    Select Dropdown By Text   ${ddlFilterOperator}${index}-DropdownList_ddlWrapper    ${selectText}
+    Select Dropdown By Text   ${divFilterPanel}[data-index=${index}] ${ddlFilterOperator}    ${selectText}
+
+Choose Dropdown Dashboard Filter Operator
+    [Arguments]   ${index}    ${selectText}
+    Sleep    ${TIMEOUT_GENERAL}
+    Select Dropdown By Text   ${divDashboardFilterItem}[index=${index}] #Operator-${index}-DropdownList_ddlWrapper    ${selectText}
 
 Input Filter Input Percentage
     [Arguments]   ${index}    ${expect}
@@ -88,10 +101,10 @@ Input Filter Input Is In List Currency
     [Arguments]   ${index}    ${expect}
     ${currencyValue}    Execute Javascript     return parseFloat('${expect}');
     Click Element    ${listSelectedValue}
-    Wait Until Element Is Enabled    ${btnRemoveSelectedValue}${index}
-    Click Element    ${btnRemoveSelectedValue}${index}
-    Input kendo Numeric TextBox    ${txtSelectedValue}${index}    ${currencyValue}
-    Click Element    ${btnAddSelectedValue}${index}
+    Wait Until Element Is Enabled    ${divFilterPanel}[data-index=${index}] ${btnRemoveSelectedValue}
+    Click Element    ${divFilterPanel}[data-index=${index}] ${btnRemoveSelectedValue}
+    Input kendo Numeric TextBox    ${divFilterPanel}[data-index=${index}] ${txtSelectedValue}    ${currencyValue}
+    Click Element    ${divFilterPanel}[data-index=${index}] ${btnRemoveSelectedValue}
 
 Input First Input Number
     [Arguments]   ${index}    ${expect}
@@ -125,7 +138,7 @@ Input First Input Time Picker
 
 Click Remove All Selected Value Date Picker
     [Arguments]    ${index}
-    Click Element    ${btnRemoveAllSelectedValue}${index}
+    Click Element    ${divFilterPanel}[data-index=${index}] ${btnRemoveAllSelectedValue}
     Sleep    ${TIMEOUT_DROPDOWN}
 
 Click Add Selected Value Date Picker
@@ -135,18 +148,18 @@ Click Add Selected Value Date Picker
 
 Input Filter Input Text In List
     [Arguments]   ${index}    ${expect}
-    Input Text    ${txtSelectedValue}${index}    ${expect}
-    Click Element    ${btnAddSelectedValue}${index}
+    Input Text    ${divFilterPanel}[data-index=${index}] ${txtSelectedValue}   ${expect}
+    Click Element    ${divFilterPanel}[data-index=${index}] ${btnAddSelectedValue}
 
 Input Filter Input Short Name In List
     [Arguments]   ${index}    ${expect}
     ${shortName}    Execute Javascript    return '${expect}'.charAt(0)
-    Input Text    ${txtSelectedValue}${index}    ${shortName}
-    Click Element    ${btnAddSelectedValue}${index}
+    Input Text    ${divFilterPanel}[data-index=${index}] ${txtSelectedValue}    ${shortName}
+    Click Element    ${divFilterPanel}[data-index=${index}] ${btnAddSelectedValue}
 
 Input Filter Input Text
     [Arguments]   ${index}    ${expect}
-    Input Text    ${txtInputNumber}${index}    ${expect}
+    Input Text    ${divFilterPanel}[data-index=${index}] ${txtInputNumber}    ${expect}
 
 Click Filter Choice Yes
     [Arguments]   ${index}
@@ -165,16 +178,10 @@ Input Filter Set Is In List
 Input Filter Set Select Value
     [Arguments]   ${index}    ${expect}
     ${expect} =    Execute Javascript    return '${expect}'.split(' (')[0]
-    Wait Until Element Is Visible    jquery=[aria-owns="${ddlFilterSelectValue}${index}_listbox"]
-    Input Text    jquery=[aria-owns="${ddlFilterSelectValue}${index}_listbox"]    ${expect}
-    Press Keys     jquery=[aria-owns="${ddlFilterSelectValue}${index}_listbox"]    RETURN
-    Sleep    ${TIMEOUT_DROPDOWN}
+    Sleep    ${TIMEOUT_GENERAL}
+    Select Dropdown By InnerText   ${divFilterPanel}[data-index=${index}] ${ddlFilterSelectValue}    ${expect}
 
 Click Add Filter From Jump
     [Arguments]   ${index}
     Click Element    ${divFilterPanel}:eq(${index}) + ${btnAddFilterBeforeJump}
 	
-Get Filter Text From Popup 
-    [Arguments]    ${index}
-    ${filterText}    Get Text    ${lblFilterText}:eq(${index})
-	[Return]    ${filterText}

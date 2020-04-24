@@ -83,6 +83,10 @@ Click Show Add Filter Popup From List Header Column
     Wait Until Element Is Visible    ${btnAddFilterToList}
     Click Element   ${btnAddFilterToList}
 
+Click Show Field Info From List Header
+    Click Element    ${btnFieldInfo}
+    Wait Until Help Text Popup Loaded
+
 Click Create Chart From Header Column
     Click Element   ${btnCreateChartFromList}
     Wait Progress Bar Closed
@@ -100,6 +104,10 @@ Click Format Field From Header Column
 Click OK Button On Field Format Popup
     Click Element    ${formatOKButton} 
     Sleep    ${TIMEOUT_LARGEST}    Wait format field applied
+
+Click Remove Column From Header Column
+    Click Element   ${btnRemoveColumnFromList}
+    Wait Until List Display Loaded
 
 Open Display Units Drop Down
     Click Element   ${displayUnitsDropDown}

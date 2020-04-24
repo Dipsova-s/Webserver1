@@ -1,15 +1,19 @@
 ﻿
-function ToastNotificationManager(toastSuccess) {
+function ToastNotificationManager(toastSuccess, toastError) {
     "use strict";
 
     var self = this;
 
     var _notificationInstance;
     var _toastSuccess = toastSuccess;
+    var _toastError = toastError;
 
     //default to hide the message
     var SUCCESS_TOAST_AUTOHIDE_AFTER = 3500;
     var SUCCESS_TOAST_DELAY_BEFORE_DISPLAY = 500;
+    
+    var ERROR_TOAST_AUTOHIDE_AFTER = 0;
+    var ERROR_TOAST_DELAY_BEFORE_DISPLAY = 500;
 
     var _makeAlertText = function (instance, title, message) {
         instance.Configurations = instance.Configurations || new ToastNotificationConfigurations();
@@ -28,6 +32,18 @@ function ToastNotificationManager(toastSuccess) {
     self.MakeSuccessTextFormatting = function (word, messageFormat, title) {
         var fullMessage = ToastNotificationUtility.TruncateTextFormatting(word, messageFormat);
         self.MakeSuccessText(fullMessage, title);
+    };
+
+    self.MakeErrorText = function (message, title) {
+        setTimeout(function () {
+            _toastError.Configurations = new ToastNotificationConfigurations();
+            _toastError.Configurations.autoHideAfter = ERROR_TOAST_AUTOHIDE_AFTER;
+            _makeAlertText(_toastError, title, message);
+        }, ERROR_TOAST_DELAY_BEFORE_DISPLAY);
+    };
+    self.MakeErrorTextFormatting = function (word, messageFormat, title) {
+        var fullMessage = ToastNotificationUtility.TruncateTextFormatting(word, messageFormat);
+        self.MakeErrorText(fullMessage, title);
     };
 
 }
@@ -91,15 +107,21 @@ function ToastNotification(alertType) {
     };
 
 }
-ToastNotification.AlertType = { 'Success': 'success' };
-ToastNotification.AlertIcon = { 'success': 'icon validated' };
+ToastNotification.AlertType = {
+    'Success': 'success',
+    'Error': 'error'
+};
+ToastNotification.AlertIcon = {
+    'success': 'icon validated',
+    'error': 'icon validWarning'
+};
 
 function ToastNotificationUtility() {
     "use strict";
 
     var self = this;
 }
-ToastNotificationUtility.MAXIMUM_LENGTH_OF_TEXT_MESSAGE = 130;
+ToastNotificationUtility.MAXIMUM_LENGTH_OF_TEXT_MESSAGE = 60;
 ToastNotificationUtility.MAXIMUM_LENGTH_OF_TEXT_MESSAGE_FORMATTING = 20;
 ToastNotificationUtility.TruncateTextFormatting = function (word, messageFormat) {
     var messageFormatOverflowLength = 0;
@@ -120,5 +142,6 @@ ToastNotificationUtility.TruncateTextFormatting = function (word, messageFormat)
 };
 
 var toast = new ToastNotificationManager(
-    new ToastNotification(ToastNotification.AlertType.Success)
+    new ToastNotification(ToastNotification.AlertType.Success),
+    new ToastNotification(ToastNotification.AlertType.Error)
 );

@@ -101,15 +101,27 @@ function ModelFieldDomainHandler() {
     self.GetDomainImageOnServer = function () {
         return domainImageFolders.toLowerCase().split(',');
     };
+    self.GetDomainImageFiles = function () {
+        // get images list ([domain-id]/[domain-id][element-id].png), e.g.
+        // deliverystatus/deliverystatusds0none.png
+        return domainImageFiles.toLowerCase().split(',');
+    };
     self.GetDomainElementIconInfo = function (folder, elementId) {
-        var iconName = folder + elementId;
-        var className = 'icon-' + iconName;
-        var iconPath = kendo.format('{0}domains/{1}/{2}.png', GetImageFolderPath(), folder, iconName).toLowerCase();
-        return {
-            id: className,
-            css: kendo.format('.domainIcon.{0} \{ background-image: url("{1}"); \}', className, iconPath),
-            html: kendo.format('<span class="domainIcon {0}"></span>', className)
+        var info = {
+            html: '',
+            injectCSS: jQuery.noop
         };
+        if (folder && elementId !== null) {
+            var iconFile = kendo.format('{0}/{0}{1}.png', folder, elementId).toLowerCase();
+            var className = 'icon-' + folder + elementId;
+            info.html = kendo.format('<span class="domainIcon {0}"></span>', className);
+            if (jQuery.inArray(iconFile, self.GetDomainImageFiles()) !== -1) {
+                var iconPath = kendo.format('{0}domains/{1}', GetImageFolderPath(), iconFile).toLowerCase();
+                var css = kendo.format('.domainIcon.{0} \{ background-image: url("{1}"); \}', className, iconPath);
+                info.injectCSS = jQuery.proxy(jQuery.injectCSS, info, css, className);
+            }
+        }
+        return info;
     };
     self.GetDomainElementById = function (domainUri, elementId) {
         var result = null;

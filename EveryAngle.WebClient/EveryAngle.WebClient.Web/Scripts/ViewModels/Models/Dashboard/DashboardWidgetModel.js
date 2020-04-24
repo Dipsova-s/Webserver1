@@ -6,6 +6,10 @@ function DashboardWidgetViewModel(model) {
     _self.ExtendedFilters = [];
 
     var self = this;
+    self.id = '';
+    self.uri = '';
+    self.angle = '';
+    self.display = '';
     //EOF: View model properties
 
     //BOF: View model methods
@@ -22,8 +26,6 @@ function DashboardWidgetViewModel(model) {
         var guid = jQuery.GUID();
         if (!self.id)
             self.id = 'w' + guid.replace(/-/g, '');
-        if (!self.uri)
-            self.uri = '';
 
         // observable properties
         if (!data.multi_lang_name && typeof data.name !== 'undefined') {
@@ -57,11 +59,6 @@ function DashboardWidgetViewModel(model) {
             return WC.Utility.GetDefaultMultiLangText(self.multi_lang_description());
         };
 
-        if (!self.angle)
-            self.angle = '';
-        if (!self.display)
-            self.display = '';
-
         // other custom
         if (typeof data.widget_details === 'string' || typeof data.widget_details === 'undefined') {
             self.widget_details = WC.Utility.ParseJSON(data.widget_details);
@@ -75,13 +72,15 @@ function DashboardWidgetViewModel(model) {
         delete self.widget_details.model;
 
         if (self.widget_details.angle) {
-            if (!self.angle) self.angle = self.widget_details.angle;
+            if (!self.angle)
+                self.angle = self.widget_details.angle;
             delete self.widget_details.angle;
             delete self.widget_details.angle_id;
             delete self.widget_details.angle_uri;
         }
         if (self.widget_details.display) {
-            if (!self.display) self.display = self.widget_details.display;
+            if (!self.display)
+                self.display = self.widget_details.display;
             delete self.widget_details.display;
             delete self.widget_details.display_id;
             delete self.widget_details.display_uri;
@@ -100,13 +99,13 @@ function DashboardWidgetViewModel(model) {
 
     // GetAngle: get angle from dashboardModel.Angles
     self.GetAngle = function () {
-        var by = dashboardModel.KeyName;
+        var by = DashboardViewModel.KeyName;
 
-        if (dashboardModel.KeyName === 'uri' && self.angle.indexOf('angles/') === -1) {
+        if (DashboardViewModel.KeyName === 'uri' && self.angle.indexOf('angles/') === -1) {
             // angle is id but key is uri
             by = 'id';
         }
-        else if (dashboardModel.KeyName === 'id' && self.angle.indexOf('angles/') !== -1) {
+        else if (DashboardViewModel.KeyName === 'id' && self.angle.indexOf('angles/') !== -1) {
             // angle is uri but key is id
             by = 'uri';
         }
@@ -118,11 +117,15 @@ function DashboardWidgetViewModel(model) {
         if (self.display) {
             var angle = self.GetAngle();
             if (angle) {
-                return angle.display_definitions.findObject(dashboardModel.KeyName, self.display);
+                return angle.display_definitions.findObject(DashboardViewModel.KeyName, self.display);
             }
         }
-
         return null;
+    };
+
+    self.CanExtendFilter = function () {
+        var angle = self.GetAngle();
+        return angle && angle.allow_more_details && privilegesViewModel.AllowMoreDetails(angle.model);
     };
 
     // GetQueryDefinitions: get display definitions
@@ -206,6 +209,10 @@ function DashboardWidgetViewModel(model) {
     };
 
     self.SetExtendedFilters = function (validatedFilters) {
+        _self.ExtendedFilters = [];
+        if (!self.CanExtendFilter())
+            return;
+
         // get number of filters
         var rawBlockQuerySteps = self.GetBlockQuerySteps();
         var rawFilterCount = 0;
@@ -217,7 +224,6 @@ function DashboardWidgetViewModel(model) {
                 rawFilterCount--;
         }
 
-        _self.ExtendedFilters = [];
         for (var index = rawFilterCount; index < validatedFilters.length; index++) {
             var queryStep = validatedFilters[index];
             if (queryStep.step_type === enumHandlers.FILTERTYPE.FILTER && queryStep.valid !== false)

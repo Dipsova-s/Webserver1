@@ -115,7 +115,6 @@ namespace EveryAngle.ManagementConsole
                 .Include("~/Content/ExternalResource/classeschooser.css")
                 .Include("~/Content/ExternalResource/notificationsfeed.css")
                 .Include("~/Content/ExternalResource/shared.css")
-                .Include("~/Content/ExternalResource/webclientico.css")
                 );
             bundles.Add(new CustomScriptBundle("~/bundles/automationtasks/tasks")
                 .Include("~/scripts/page/mc.automationtasks.tasks.js"));

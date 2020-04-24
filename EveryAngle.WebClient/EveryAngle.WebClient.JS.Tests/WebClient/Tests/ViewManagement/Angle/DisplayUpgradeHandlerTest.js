@@ -1,5 +1,6 @@
 ﻿/// <reference path="/Dependencies/ViewModels/Models/User/usersettingmodel.js" />
-/// <reference path="/Dependencies/ViewModels/Models/Angle/HistoryModel.js" />
+/// <reference path="/Dependencies/ViewModels/Models/User/usermodel.js" />
+/// <reference path="/Dependencies/ViewModels/Models/User/privileges.js" />
 /// <reference path="/Dependencies/ViewModels/Models/Angle/DisplayModel.js" />
 /// <reference path="/Dependencies/ViewManagement/Angle/DisplayUpgradeHandler.js" />
 
@@ -17,34 +18,34 @@ describe("DisplayUpgradeHandler", function () {
         });
 
         it("should define UpgradableProperties property", function () {
-            expect(displayUpgradeHandler.UpgradableProperties).toEqual(['display_details', 'fields', 'query_blocks']);
+            expect(displayUpgradeHandler.UpgradableProperties).toEqual(['display_details', 'fields']);
         });
     });
 
-    describe("call GetUpgradeDisplayData", function () {
-        it("should not get upgrading data if upgrades_properties is empty", function () {
+    describe(".GetUpgradeDisplayData", function () {
+        it("should not get upgrading data if upgrade_properties is empty", function () {
             var currentDisplay = {
-                upgrades_properties: []
+                upgrade_properties: []
             };
             var sourceDisplay = {};
+            spyOn(displayUpgradeHandler, 'CanUpgradeDisplay').and.returnValue(true);
             var result = displayUpgradeHandler.GetUpgradeDisplayData(currentDisplay, sourceDisplay);
             expect(result).toEqual({});
         });
 
         it("should not get upgrading data if no priviledge", function () {
             var currentDisplay = {
-                upgrades_properties: ['fields'],
-                authorizations: { update: false }
+                upgrade_properties: ['fields']
             };
             var sourceDisplay = {};
+            spyOn(displayUpgradeHandler, 'CanUpgradeDisplay').and.returnValue(false);
             var result = displayUpgradeHandler.GetUpgradeDisplayData(currentDisplay, sourceDisplay);
             expect(result).toEqual({});
         });
 
-        it("should get upgrading data if from upgrades_properties property and a difference data with source display", function () {
+        it("should get upgrading data if from upgrade_properties property and a difference data with source display", function () {
             var currentDisplay = {
-                upgrades_properties: ['fields', 'display_details'],
-                authorizations: { update: true },
+                upgrade_properties: ['fields', 'display_details'],
                 display_details: "{\"changed\":true}",
                 fields: [{
                     "field": "f1", "field_details": "{\"sorting\":\"desc\"}"
@@ -85,9 +86,10 @@ describe("DisplayUpgradeHandler", function () {
                 test1: 'old value',
                 test2: 'same value'
             };
+            spyOn(displayUpgradeHandler, 'CanUpgradeDisplay').and.returnValue(true);
             var result = displayUpgradeHandler.GetUpgradeDisplayData(currentDisplay, sourceDisplay);
 
-            // got from upgrades_properties property
+            // got from upgrade_properties property
             expect(result.display_details).toEqual("{\"changed\":true}");
             expect(result.fields).toEqual([{
                 "field": "f1", "field_details": "{\"sorting\":\"desc\"}"
@@ -95,105 +97,59 @@ describe("DisplayUpgradeHandler", function () {
                 "field": "f2", "field_details": "{\"sorting\":\"asc\"}"
             }]);
 
-            // got from WC.ModelHelper.GetChangeDisplay function
-            expect(result.query_blocks).toEqual([{
-                "query_steps": [{
-                    "aggregation_fields": [{
-                        "field": "count",
-                        "operator": "count"
-                    }],
-                    "step_type": "aggregation"
-                }],
-                "queryblock_type": "query_steps"
-            }]);
             expect(result.test1).not.toBeDefined();
         });
     });
 
-    describe("call UpgradeDisplay", function () {
+    describe(".UpgradeDisplay", function () {
 
         beforeEach(function () {
-            spyOn(window, 'UpdateDataToWebService').and.callFake(function () { return $.when(true); });
-            spyOn(displayUpgradeHandler, 'UpgradeDisplayDone').and.callFake($.noop);
+            spyOn(window, 'UpdateDataToWebService').and.returnValue($.when({}));
+            spyOn(WC.ModelHelper, 'ExtendDisplayData');
+            spyOn(displayUpgradeHandler, 'UpgradeDisplayDone');
         });
 
         it("should update display if have an update data", function () {
-            var handler = {};
             var displayUri = '/models/1/angles/1/display/1';
             var upgradeData = { fields: [] };
-            displayUpgradeHandler.UpgradeDisplay(handler, displayUri, upgradeData)
+            displayUpgradeHandler.UpgradeDisplay(displayUri, upgradeData)
                 .done(function (result) {
-                    expect(result).toEqual(true);
+                    expect(result).not.toEqual(false);
+                    expect(WC.ModelHelper.ExtendDisplayData).toHaveBeenCalled();
+                    expect(displayUpgradeHandler.UpgradeDisplayDone).toHaveBeenCalled();
                 });
         });
 
         it("should not update display if is adhoc display", function () {
-            var handler = {};
             var displayUri = '/models/1/angles/95c5f1a4-4789-36c6-2ff6-480304146935/display/95c5f1a4-4789-36c6-2ff6-480304146932';
             var upgradeData = { fields: [] };
-            displayUpgradeHandler.UpgradeDisplay(handler, displayUri, upgradeData)
+            displayUpgradeHandler.UpgradeDisplay(displayUri, upgradeData)
                 .done(function (result) {
                     expect(result).toEqual(false);
+                    expect(WC.ModelHelper.ExtendDisplayData).not.toHaveBeenCalled();
+                    expect(displayUpgradeHandler.UpgradeDisplayDone).toHaveBeenCalled();
                 });
         });
 
         it("should not update display if no update data", function () {
-            var handler = {};
             var displayUri = '/models/1/angles/1/display/1';
             var upgradeData = {};
-            displayUpgradeHandler.UpgradeDisplay(handler, displayUri, upgradeData)
+            displayUpgradeHandler.UpgradeDisplay(displayUri, upgradeData)
                 .done(function (result) {
                     expect(result).toEqual(false);
+                    expect(WC.ModelHelper.ExtendDisplayData).not.toHaveBeenCalled();
+                    expect(displayUpgradeHandler.UpgradeDisplayDone).toHaveBeenCalled();
                 });
         });
     });
 
-    describe("call UpgradeDisplayDone", function () {
-
-        var handler;
-        beforeEach(function () {
-            handler = {
-                Models: {
-                    Angle: {
-                        Data: ko.observable({ model: '/models/1' })
-                    },
-                    Display: {
-                        Data: ko.protectedObservable()
-                    }
-                },
-                DashBoardMode: ko.observable(false)
-            };
-
-            handler.Models.Display.Data({
-                is_upgraded: false,
-                upgrades_properties: ['fields']
-            });
-            handler.Models.Display.Data.commit();
-
-            spyOn(historyModel, 'Get').and.callFake(function () { return {}; });
-            spyOn(historyModel, 'Set');
-        });
-
-        it("should update history model if not dashboard mode", function () {
-            handler.DashBoardMode(false);
+    describe(".UpgradeDisplayDone", function () {
+        it("should mark as upgraded", function () {
             var displayUri = '/models/1/angles/1/display/1';
-            var display = { fields: [], display_details: '{}' };
-            var upgradeData = { fields: [], display_details: '{}' };
-            displayUpgradeHandler.UpgradeDisplayDone(handler, displayUri, display, upgradeData);
+            displayUpgradeHandler.UpgradeDisplayDone(displayUri);
 
-            expect(historyModel.Set).toHaveBeenCalled();
+            expect(window.UpgradedDisplays[displayUri]).toEqual(true);
         });
-
-        it("should not update history model if dashboard mode", function () {
-            handler.DashBoardMode(true);
-            var displayUri = '/models/1/angles/1/display/1';
-            var display = { fields: [], display_details: '{}' };
-            var upgradeData = { fields: [], display_details: '{}' };
-            displayUpgradeHandler.UpgradeDisplayDone(handler, displayUri, display, upgradeData);
-
-            expect(historyModel.Set).not.toHaveBeenCalled();
-        });
-
     });
 
 });

@@ -11,11 +11,7 @@ ${TEST_FIELD_CHOOSER_REMEMBER_DETAIL_SETTING}         Angle For General Test
 *** Test Cases ***
 Verify Search Viewmode
     [Tags]  acc_wc_aci_s
-    @{cleanUpItems}    Create List
-    Create Context: Web    ${Username}    ${Password}
-    ${angleData}    Create Angle    /models/1    ANGLE_HIGHLIGHT.json
-    ${angleUri}    Get Uri From Response    ${angleData}
-    Append To List   ${cleanUpItems}    ${angleUri}?forced=true
+    [Setup]  Import Angle By API  /models/1  ANGLE_HIGHLIGHT.json  user=${Username}
 
     # compact mode
     Search By Text Without Double Quote    "wwww vvvv" yyyy zzzz
@@ -44,8 +40,7 @@ Verify Search Viewmode
     Check Elements On Displays Mode
     Check Hightlight On Displays/Detail Mode    wwww vvvv    yyyy    zzzz
 
-    [Teardown]  Run Keywords  Clean Up Items     Web    ${cleanUpItems}
-    ...         AND           Go to Search Page
+    [Teardown]  Clean Up Items And Go To Search Page
 
 Verify Field Chooser Remember Detail Setting Test
     Search Angle From Search Page And Execute Angle    ${TEST_FIELD_CHOOSER_REMEMBER_DETAIL_SETTING}

@@ -4,14 +4,14 @@
 
 <!-- ko stopBinding: true -->
 <ol class="breadcrumbDirectory" data-bind="foreach: $root.ViewModels">
-    <li class="breadcrumbItem">
+    <li class="textEllipsis breadcrumbItem" data-bind="css: { textEllipsis: $data.ellipsis }">
         <i data-bind="attr: { class: $data.frontIcon }"></i>
-
+        <i class="breadcrumbIcon icon" data-bind="css: $data.itemIcon"></i>
         <!--ko if: $data.url() -->
-        <a class="textEllipsis breadcrumbLabel breadcrumbLink" data-bind="text: $data.label, attr: { href: $data.url, title: $data.title }"></a>
+        <a class="breadcrumbLabel breadcrumbLink" data-bind="text: $data.label, attr: { href: $data.url, 'data-role': 'tooltip', 'data-tooltip-position': 'bottom', 'data-showwhenneed': true, 'data-tooltip-text': $data.title }, css: { textEllipsis: $data.ellipsis }"></a>
         <!--/ko-->
         <!--ko ifnot: $data.url() -->
-        <span class="textEllipsis breadcrumbLabel" data-bind="text: $data.label, attr: { title: $data.title }"></span>
+        <span class="breadcrumbLabel" data-bind="text: $data.label, attr: { 'data-role': 'tooltip', 'data-tooltip-position': 'bottom', 'data-showwhenneed': true, 'data-tooltip-text': $data.title }, css: { textEllipsis: $data.ellipsis }"></span>
         <!--/ko-->
 
         <i data-bind="attr: { class: $data.rearIcon }"></i>

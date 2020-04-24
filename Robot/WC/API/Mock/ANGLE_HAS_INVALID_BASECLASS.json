@@ -1,0 +1,69 @@
+{
+	"id": "ROBOT_ANGLE_HAS_INVALID_BASECLASS",
+	"assigned_labels": [
+		"S2D"
+	],
+	"multi_lang_name": [{
+		"lang": "en",
+		"text": "[ROBOT] ANGLE_HAS_INVALID_BASECLASS"
+	}],
+	"multi_lang_description": [{
+		"lang": "en",
+		"text": "[ROBOT] ANGLE_HAS_INVALID_BASECLASS"
+	}],
+	"query_definition": [{
+			"queryblock_type": "base_classes",
+			"base_classes": [
+				"INVALID_BASECLASS"
+			]
+		},
+		{
+			"queryblock_type": "query_steps",
+			"query_steps": [{
+				"step_type": "followup",
+				"followup": "DeliveryNoteLines"
+			}]
+		}
+	],
+	"display_definitions": [{
+		"id": "dea34c6aa41aadc1de982545275027374",
+		"display_type": "list",
+		"is_angle_default": true,
+		"multi_lang_name": [{
+			"lang": "en",
+			"text": "New Display"
+		}],
+		"multi_lang_description": [],
+		"display_details": "{}",
+		"query_blocks": [{
+			"queryblock_type": "query_steps",
+			"query_steps": [{
+				"step_type": "followup",
+				"followup": "Material"
+			}]
+		}, {
+			"step_type": "filter",
+			"field": "_prop_creationdate_greater_01_01_2013",
+			"operator": "equal_to",
+			"arguments": [{
+				"argument_type": "value",
+				"value": false
+
+			}]
+
+
+
+		}],
+		"fields": [{
+				"field": "ObjectType",
+				"multi_lang_alias": [],
+				"field_details": "{\"width\":80,\"format\":\"shn\"}"
+			},
+			{
+				"field": "ID",
+				"multi_lang_alias": [],
+				"field_details": "{\"width\":88}"
+			}
+		]
+	}]
+}

@@ -45,8 +45,7 @@
     { "Path": "/Dependencies/Helper/handlerhelper.js" },
     { "Path": "/Dependencies/Helper/modelhandlerhelper.js" },
     { "Path": "/Dependencies/Helper/viewengine.js" },
-    { "Path": "/Dependencies/AjaxHTTPHandler/AjaxRequestHandler.js" },
-    { "Path": "/Dependencies/AjaxHTTPHandler/RequestHistoryHandler.js" }
+    { "Path": "/Dependencies/AjaxHTTPHandler/AjaxRequestHandler.js" }
   ],
-    "RootReferencePathMode": "SettingsFileDirectory"
+  "RootReferencePathMode": "SettingsFileDirectory"
 }

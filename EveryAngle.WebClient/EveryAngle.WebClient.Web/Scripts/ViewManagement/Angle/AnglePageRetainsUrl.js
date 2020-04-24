@@ -43,7 +43,6 @@ function AnglePageRetainUrlModel() {
     };
     self.ApplyChanges = function (lastUrl) {
         self.LastUri = lastUrl;
-        anglePageHandler.ApplyResultViewType();
         anglePageHandler.SetWrapperHeight();
         anglePageHandler.ExecuteAngle(false);
     };

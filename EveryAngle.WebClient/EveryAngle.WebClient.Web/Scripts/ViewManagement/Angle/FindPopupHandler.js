@@ -20,9 +20,7 @@ function FindPopupHandler() {
             jQuery('#findText').focus();
             return;
         }
-
-        requestHistoryModel.SaveLastExecute(self, self.ShowPopup, arguments);
-        requestHistoryModel.ClearPopupBeforeExecute = true;
+        
         // initial popup settings
         var popupName = 'FindAngleResult';
         var popupSettings = {

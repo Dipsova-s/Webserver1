@@ -7,9 +7,6 @@ function ScheduleAngleHandler() {
 
     /*  BOF: Methods */
     self.ShowPopup = function (option) {
-        requestHistoryModel.SaveLastExecute(self, self.ShowPopup, arguments);
-        requestHistoryModel.ClearPopupBeforeExecute = true;
-
         // initial popup settings
         var popupName = 'ScheduleAngle';
         var popupSettings = {

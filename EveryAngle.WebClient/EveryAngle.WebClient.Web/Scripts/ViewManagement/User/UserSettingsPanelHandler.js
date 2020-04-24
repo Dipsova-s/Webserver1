@@ -7,12 +7,10 @@ function UserSettingsPanelStateManager() {
 
     self.RestoreSettings = function () {
         self.LoadSettings();
+
         if (_settings.tab) {
-            self.ChangeTab(_settings.tab['tab_id'], _settings.tab['content_id']);
-        }
-        else {
-            jQuery('input[name="settingsPanelTab"]').first().prop('checked', 'checked');
-            jQuery('.settingsPanelContent').removeClass('active').first().addClass('active');
+            var tabIndex = _settings.tab['index'];
+            jQuery('#SettingsPanel').data('Tab').active(tabIndex);
         }
 
         if (_settings.accordions) {
@@ -26,13 +24,9 @@ function UserSettingsPanelStateManager() {
             }
         }
     };
-    self.ChangeTab = function (tabId, contentId) {
+    self.ChangeTab = function (index) {
         _settings.tab = {};
-        _settings.tab['tab_id'] = tabId;
-        _settings.tab['content_id'] = contentId;
-        jQuery('#' + tabId).prop('checked', 'checked');
-        jQuery('.settingsPanelContent').removeClass('active');
-        jQuery('#' + contentId).addClass('active');
+        _settings.tab['index'] = index;
         self.SaveSettings();
     };
     self.ChangeAccordion = function (accordionId, isOpened) {
@@ -146,6 +140,10 @@ function UserSettingsPanelHandler(stateManager, viewManager) {
         if (jQuery('.settingsPanelSaveButton').hasClass('btn-busy'))
             return;
 
+        WC.HtmlHelper.Tab('#SettingsPanel', {
+            change: self.TabChanged
+        });
+
         jQuery(document).off('click.usersettings').on('click.usersettings', function (e) {
             var target = jQuery(e.target);
             var isHandle = target.attr('id') === 'Settings' || target.closest('#Settings').length;
@@ -173,9 +171,8 @@ function UserSettingsPanelHandler(stateManager, viewManager) {
     self.HidePanel = function () {
         jQuery('#SettingsPanel').addClass('hide');
     };
-    self.TabChanged = function (activeContentId) {
-        var activeTabId = jQuery('.settingsPanelTabSelector:checked').attr('id');
-        _stateManager.ChangeTab(activeTabId, activeContentId);
+    self.TabChanged = function (index) {
+        _stateManager.ChangeTab(index);
     };
     self.AccordionChanged = function (element) {
         var accordionId = jQuery(element).attr('id');
@@ -501,8 +498,6 @@ function UserSettingsPanelHandler(stateManager, viewManager) {
             return;
         }
 
-        requestHistoryModel.SaveLastExecute(self, self.SaveUserSettings, arguments);
-
         var defaultUserSetting = userSettingModel.Data();
         var userSettings = {};
 
@@ -738,12 +733,11 @@ function UserSettingsPanelHandler(stateManager, viewManager) {
             searchQueryModel.SetUIOfAdvanceSearchFromParams();
         }
         else if (typeof anglePageHandler !== 'undefined') {
-            self.RenderSingleDrilldown();
-            self.RenderDisplayView();
+            anglePageHandler.ExecuteAngle();
         }
-        else if (typeof dashboardHandler !== 'undefined') {
+        else if (typeof dashboardPageHandler !== 'undefined') {
             // update widgets
-            dashboardHandler.ReApplyResult();
+            dashboardPageHandler.ReApplyResult();
         }
 
         toast.MakeSuccessText(Localization.Toast_SaveSettings);
@@ -781,38 +775,6 @@ function UserSettingsPanelHandler(stateManager, viewManager) {
         // add flag for trigger all other tab to reload the whole page
         // (event handler will contain in Storage.js)
         jQuery.localStorage('user_settings_has_changed', true);
-    };
-    self.RenderDisplayView = function () {
-        if (fieldsChooserModel.GridName !== enumHandlers.FIELDCHOOSERNAME.LISTDRILLDOWN && displayModel.Data()) {
-
-            if (displayModel.Data().display_type === enumHandlers.DISPLAYTYPE.LIST) {
-                listHandler.GetListDisplay();
-            }
-            else if (displayModel.Data().display_type === enumHandlers.DISPLAYTYPE.CHART) {
-                chartHandler.GetChartDisplay();
-            }
-            else if (displayModel.Data().display_type === enumHandlers.DISPLAYTYPE.PIVOT) {
-                jQuery("#PivotArea").busyIndicator(true);
-                pivotPageHandler.GetPivotDisplay();
-            }
-
-            angleInfoModel.UpdateAngleQuerySteps(angleInfoModel.Data());
-
-            resultModel.SetResultExecution(resultModel.Data());
-        }
-    };
-    self.RenderSingleDrilldown = function () {
-        if (jQuery('#' + fieldsChooserModel.GridName).is(':visible')) {
-            var gridFieldChooser = jQuery('#' + fieldsChooserModel.GridName).data(enumHandlers.KENDOUITYPE.GRID);
-            if (gridFieldChooser) {
-
-                if (fieldsChooserModel.GridName === enumHandlers.FIELDCHOOSERNAME.LISTDRILLDOWN) {
-                    fieldsChooserModel.BindDataGrid = listDrilldownHandler.Render;
-                }
-
-                fieldsChooserModel.BindDataGrid();
-            }
-        }
     };
 
     self.IsInvalidUserCurrency = function () {

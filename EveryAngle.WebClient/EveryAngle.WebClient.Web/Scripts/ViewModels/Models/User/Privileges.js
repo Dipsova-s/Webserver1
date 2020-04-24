@@ -121,5 +121,55 @@ function PrivilegesViewModel() {
     self.IsAllowExecuteDashboard = function () {
         return WC.Utility.ToArray(self.Data()).hasObject('privileges', function (privilege) { return privilege.allow_nonvalidated_items; });
     };
+    self.CanCreateAngle = function (modelUri) {
+        var valid = false;
+        jQuery.each(WC.Utility.ToArray(self.Data()), function (index, data) {
+            if (data.model === modelUri && data.privileges.create_angles) {
+                valid = true;
+                return false;
+            }
+        });
+        return valid;
+    };
+    self.CanCreateDisplay = function (modelUri) {
+        var valid = false;
+        jQuery.each(WC.Utility.ToArray(self.Data()), function (index, data) {
+            if (data.model === modelUri && data.privileges.save_displays) {
+                valid = true;
+                return false;
+            }
+        });
+        return valid;
+    };
+    self.AllowMoreDetails = function (modelUri) {
+        var valid = false;
+        jQuery.each(WC.Utility.ToArray(self.Data()), function (index, data) {
+            if (data.model === modelUri && data.privileges.allow_more_details) {
+                valid = true;
+                return false;
+            }
+        });
+        return valid;
+    };
+    self.AllowFollowups = function (modelUri) {
+        var valid = false;
+        jQuery.each(WC.Utility.ToArray(self.Data()), function (index, data) {
+            if (data.model === modelUri && data.privileges.allow_followups) {
+                valid = true;
+                return false;
+            }
+        });
+        return valid;
+    };
+    self.CanCreateTemplateAngle = function (modelUri) {
+        var valid = false;
+        jQuery.each(WC.Utility.ToArray(self.Data()), function (index, data) {
+            if (data.model === modelUri && data.privileges.create_template_angles) {
+                valid = true;
+                return false;
+            }
+        });
+        return valid;
+    };
     //EOF: View modle methods
 }

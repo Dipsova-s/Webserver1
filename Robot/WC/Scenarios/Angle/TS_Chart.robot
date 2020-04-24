@@ -25,11 +25,23 @@ Chart Options Are Presented
 Chart Options Axis Scale Functionality
     Go To Chart Test Display
     Change Axis Scale To Manual
-    Check First Scale Options Should Available
+    First Scale Options Should Available
     Check First Suffix Is "K EUR"
+    Click Hide Display Option
     Check Change Chart Type And Scale Mode Keep As Manual
     Move Field From Row To Column Area And Scale Mode Reset To Automatic
     Check Change Chart Type And Second Scale Mode Available
+
+Chart Options Data Labels Functionality
+    Click Display Tab
+    Change Data Labels      Hide data labels
+    Click Apply Field Setting
+    Change Data Labels      Show values only
+    Click Apply Field Setting
+    Change Data Labels      Show data labels
+    Click Apply Field Setting
+    Change Data Labels      Hover
+    Click Apply Field Setting
 
 Drilldown Chart Display
     Go To Chart Test Display
@@ -42,8 +54,8 @@ Drilldown Chart Display
     Go Back To Chart After Drilldown
     ${expectFilter}    Get Expect Filter Of Second Legend
     Click Second Legend In Chart
-    Click Toggle Angle
-    Filter Text Should Be In Display Panel    ${expectFilter}
+    Click Display Tab
+    Display Filter Should Contain    ${expectFilter}
 
 Drilldown Chart Display With Floating Number
     Find Angle By ID Then Execute The First Angle    ROBOT_ANGLE_DRILLDOWN_FLOAT
@@ -57,6 +69,7 @@ Drilldown Chart Display With Floating Number
 Go To Chart Test Display
     Search Angle From Search Page And Execute Angle    ${TEST_VERIFY_CHART_ANGLE_NAME}
     Change Display By Name    ${TEST_VERIFY_CHART_DISPLAY_NAME}
+    Click Display Tab
 
 Setup Field Settings For Chart Drilldown
     Change Chart To Column Stack
@@ -64,7 +77,8 @@ Setup Field Settings For Chart Drilldown
     Click Show Field Format For Field Settings
     Select Bucket Option    1,000,000
     Save Field Format
-    Remove Field In Data Area By Field Index    1
+    Click Field In Data Area By Field Index  1
+    Click Remove Field For Field Settings
     Click Apply Field Setting
 
 Add Field Double 
@@ -98,6 +112,7 @@ Check Area Options Are Presented
     Chart Option Should Have "Data labels" Setting
     Chart Option Should Have "Gridlines" Setting
     Chart Option Should Have "Legend" Setting
+    Click Hide Display Option
 
 Check Bar Cluster Options Are Presented
     Change Chart To Bar Cluster
@@ -108,6 +123,7 @@ Check Bar Cluster Options Are Presented
     Chart Option Should Have "Data labels" Setting
     Chart Option Should Have "Gridlines" Setting
     Chart Option Should Have "Legend" Setting
+    Click Hide Display Option
 
 Check Bubble Options Are Presented
     Change Chart To Bubble
@@ -118,6 +134,7 @@ Check Bubble Options Are Presented
     Chart Option Should Have "Data labels" Setting
     Chart Option Should Have "Gridlines" Setting
     Chart Option Should Have "Legend" Setting
+    Click Hide Display Option
 
 Check Column Cluster Options Are Presented
     Change Chart To Column Cluster
@@ -128,12 +145,14 @@ Check Column Cluster Options Are Presented
     Chart Option Should Have "Data labels" Setting
     Chart Option Should Have "Gridlines" Setting
     Chart Option Should Have "Legend" Setting
+    Click Hide Display Option
 
 Check Donut Options Are Presented
     Change Chart To Donut
     Click Show Display Option
     Chart Option Should Have "Data labels" Setting
     Chart Option Should Have "Legend" Setting
+    Click Hide Display Option
 
 Check Line Options Are Presented
     Change Chart To Line
@@ -144,21 +163,24 @@ Check Line Options Are Presented
     Chart Option Should Have "Data labels" Setting
     Chart Option Should Have "Gridlines" Setting
     Chart Option Should Have "Legend" Setting
+    Click Hide Display Option
 
 Check Pie Options Are Presented
     Change Chart To Pie
     Click Show Display Option
     Chart Option Should Have "Data labels" Setting
     Chart Option Should Have "Legend" Setting
+    Click Hide Display Option
 
 Check Radar Line Options Are Presented
     Change Chart To Radar Line
     Click Show Display Option
-    Chart Option Should Have "Axis values" Setting
+    Chart Option Should Have "Radar Axis values" Setting
     Chart Option Should Have "Data labels" Setting
-    Chart Option Should Have "Gridlines" Setting
+    Chart Option Should Have "Radar Gridlines" Setting
     Chart Option Should Have "Gridline type" Setting
     Chart Option Should Have "Legend" Setting
+    Click Hide Display Option
 
 Check Scatter Options Are Presented
     Change Chart To Scatter
@@ -169,13 +191,15 @@ Check Scatter Options Are Presented
     Chart Option Should Have "Data labels" Setting
     Chart Option Should Have "Gridlines" Setting
     Chart Option Should Have "Legend" Setting
+    Click Hide Display Option
 
 Check Gauge Options Are Presented
     Change Chart To Gauge
     Click Show Display Option
-    Chart Option Should Have "Axis titles" Setting
-    Chart Option Should Have "Data labels" Setting
-    Chart Option Should Have "Ranges" Setting
+    Chart Option Should Have "Gauge Axis titles" Setting
+    Chart Option Should Have "Gauge Data labels" Setting
+    Chart Option Should Have "Gauge Ranges" Setting
+    Click Hide Display Option
 
 Change Axis Scale To Manual
     [Arguments]    ${value1}=0    ${value2}=0    ${value3}=0    ${value4}=0
@@ -185,56 +209,40 @@ Change Axis Scale To Manual
     Run Keyword If    "${value1}${value2}"!="00"    Input First Chart Scale Upper Bound    ${value2}
     Run Keyword If    "${value3}${value4}"!="00"    Input Second Chart Scale Lower Bound    ${value3}
     Run Keyword If    "${value3}${value4}"!="00"    Input Second Chart Scale Upper Bound    ${value4}
+    Sleep  ${TIMEOUT_GENERAL}
 
-Check First Scale Options Should Available
-    Page Should Contain Element    ${txtFirstScaleLower}
-    Page Should Contain Element    ${txtFirstScaleUpper}
-
-Check First Scale Options Should Not Available
-    Page Should Not Contain Element    ${txtFirstScaleLower}
-    Page Should Not Contain Element    ${txtFirstScaleUpper}
-
-Check Second Scale Options Should Available
-    Page Should Contain Element    ${txtSecondScaleLower}
-    Page Should Contain Element    ${txtSecondScaleUpper}
+Change Data Labels
+    [Arguments]     ${label} 
+    Click Show Display Option
+    Select Data Labels      ${label}
+    Click Hide Display Option
 
 Check First Suffix Is "K EUR"
-    ${suffix}    Get First Scale Suffix
-    Should Be Equal    ${suffix}    K EUR
+    First Scale Suffix Should Be  K EUR
 
 Check Change Chart Type And Scale Mode Keep As Manual
     Change Chart To Column Cluster
     Click Show Display Option
-    Check First Scale Options Should Available
+    First Scale Options Should Available
+    Click Hide Display Option
 
 Check Change Chart Type And Second Scale Mode Available
     Change Chart To Scatter Multi Axis
-    Click Show Display Option
     Change Axis Scale To Manual
-    Check Second Scale Options Should Available
+    Second Scale Options Should Available
+    Click Hide Display Option
 
 Move Field From Row To Column Area And Scale Mode Reset To Automatic
     Move Field From Row To Column Area
     Click Show Display Option
-    Check First Scale Options Should Not Available
-
-Create Chart From Field
-    Click Column Header
-    Select Create Chart
-    Wait Until Chart Display Loaded
-
-Create Chart From Specific Field    
-    [Arguments]  ${headerElement}
-    Click Element    ${headerElement}
-    Select Create Chart
-    Wait Until Chart Display Loaded
+    First Scale Options Should Not Available
+    Click Hide Display Option
 
 Verify Format Field Bucket By Per Day
     [Arguments]    ${Index}
     Click Field In Row Area By Field Index    ${Index}
     Click Show Field Format For Field Settings
-    Click Bucket Options
-    Select Bucket Per Day
+    Select Bucket Option  Per day
     Save Field Format
     Click Apply Field Setting
     Wait Until Chart Display Loaded
@@ -243,8 +251,7 @@ Verify Format Field Bucket By Per Week
     [Arguments]    ${Index}
     Click Field In Row Area By Field Index    ${Index}
     Click Show Field Format For Field Settings
-    Click Bucket Options
-    Select Bucket Per Week
+    Select Bucket Option  Per week
     Save Field Format
     Click Apply Field Setting
     Wait Until Chart Display Loaded
@@ -253,8 +260,7 @@ Verify Format Field Bucket By Per Month
     [Arguments]    ${Index}
     Click Field In Row Area By Field Index    ${Index}
     Click Show Field Format For Field Settings
-    Click Bucket Options
-    Select Bucket Per Month
+    Select Bucket Option  Per month
     Save Field Format
     Click Apply Field Setting
     Wait Until Chart Display Loaded

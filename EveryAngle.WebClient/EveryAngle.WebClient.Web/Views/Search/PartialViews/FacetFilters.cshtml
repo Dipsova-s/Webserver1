@@ -1,5 +1,5 @@
 ﻿<div class="facetFilter" data-bind="foreach: { data: Data, as: 'facet' }">
-    <div data-bind="visible: $root.IsFacetVisible(facet)">
+    <div class="facetFilterSection" data-bind="visible: $root.IsFacetVisible(facet)">
         <!-- ko if: $root.IsFacetHeaderVisible($index(), facet.type) -->
         <div class="FilterTab" data-bind="
              attr: { 'id': facet.id },

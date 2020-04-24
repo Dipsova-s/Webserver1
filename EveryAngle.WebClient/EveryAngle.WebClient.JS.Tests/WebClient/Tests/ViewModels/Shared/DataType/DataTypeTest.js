@@ -1,6 +1,9 @@
 ﻿/// <reference path="/Dependencies/ViewModels/Models/User/usersettingmodel.js" />
 /// <reference path="/Dependencies/ViewModels/Shared/DataType/DataType.js" />
 /// <reference path="/Dependencies/ViewManagement/Shared/ValidationHandler.js" />
+/// <reference path="/Dependencies/ViewManagement/Angle/Chart/ChartHelper.js" />
+/// <reference path="/Dependencies/ViewManagement/Angle/Chart/ChartOptionsView.js" />
+/// <reference path="/Dependencies/ViewManagement/Angle/Chart/ChartOptionsHandler.js" />
 /// <reference path="/Dependencies/ViewManagement/Angle/FieldSettingsHandler.js" />
 
 describe("DataType", function () {
@@ -11,14 +14,7 @@ describe("DataType", function () {
         formatHelper = new FormatHelper();
     });
 
-
-    describe("when format helper create new instance", function () {
-        it("should be defined", function () {
-            expect(formatHelper).toBeDefined();
-        });
-    });
-
-    describe("call GetFormattedValue", function () {
+    describe(".GetFormattedValue", function () {
         var value = 1234567890.00;
         var customCulture = $.extend({}, ko.toJS(kendo.culture()));
         customCulture.calendar.AM = ["am", "am", "AM"];
@@ -296,7 +292,7 @@ describe("DataType", function () {
         });
     });
 
-    describe("call IsFieldTypeHasTime", function () {
+    describe(".IsFieldTypeHasTime", function () {
 
         it("type time should be true", function () {
             var fieldType = enumHandlers.FIELDTYPE.TIME;
@@ -317,7 +313,7 @@ describe("DataType", function () {
         });
     });
 
-    describe("call IsIntegerBucket", function () {
+    describe(".IsIntegerBucket", function () {
 
         it("should depend on IsIntegerType function if no bucket", function () {
             spyOn(dataTypeModel, 'IsIntegerType').and.callFake(function () { return true; });
@@ -344,7 +340,7 @@ describe("DataType", function () {
 
     });
 
-    describe("call IsIntegerType", function () {
+    describe(".IsIntegerType", function () {
 
         it("should be true if int", function () {
             var result = dataTypeModel.IsIntegerType('int');
@@ -363,7 +359,7 @@ describe("DataType", function () {
 
     });
 
-    describe("call GetCorrectDataType", function () {
+    describe(".GetCorrectDataType", function () {
 
         it("should be text if IsTextDataType #1", function () {
             var fieldType = dataTypeModel.GetCorrectDataType('individual', 'text');
@@ -403,7 +399,7 @@ describe("DataType", function () {
 
     });
 
-    describe("call GetCorrectPrefix", function () {
+    describe(".GetCorrectPrefix", function () {
 
         it("when not have display unit, display unit will not change", function () {
             var result = dataTypeModel.GetCorrectPrefix('', '');
@@ -415,44 +411,59 @@ describe("DataType", function () {
             expect(result).toEqual(enumHandlers.DISPLAYUNITSFORMAT.NONE);
         });
 
-        it("when it was in prefix list, display unit will not change #1", function () {
+        it("when it was in prefix list, display unit will not change (xxx)", function () {
             var bucketValue = 'xxx';
             var result = dataTypeModel.GetCorrectPrefix('K', bucketValue);
             expect(result).toEqual('K');
         });
 
-        it("when it was in prefix list, display unit will not change #2", function () {
+        it("when it was in prefix list, display unit will not change (power10_3)", function () {
             var bucketValue = 'power10_3';
             var result = dataTypeModel.GetCorrectPrefix('K', bucketValue);
             expect(result).toEqual('K');
         });
 
-        it("when it was in prefix list, display unit will not change #3", function () {
+        it("when it was in prefix list, display unit will not change (power10_9)", function () {
             var bucketValue = 'power10_9';
             var result = dataTypeModel.GetCorrectPrefix('M', bucketValue);
             expect(result).toEqual('M');
         });
 
-        it("when it was not in prefix list, display unit will change #1", function () {
+        it("when it was not in prefix list, display unit will change (power10_min2)", function () {
             var bucketValue = 'power10_min2';
             var result = dataTypeModel.GetCorrectPrefix('K', bucketValue);
             expect(result).toEqual('N');
         });
 
-        it("when it was not in prefix list, display unit will change #1", function () {
+        it("when it was not in prefix list, display unit will change (power10_2)", function () {
             var bucketValue = 'power10_2';
             var result = dataTypeModel.GetCorrectPrefix('K', bucketValue);
             expect(result).toEqual('N');
         });
 
-        it("when it was not in prefix list, display unit will change #2", function () {
+        it("when it was not in prefix list, display unit will change (power10_5)", function () {
             var bucketValue = 'power10_5';
             var result = dataTypeModel.GetCorrectPrefix('M', bucketValue);
             expect(result).toEqual('K');
         });
     });
 
-    describe("call GetWeekOfYear", function () {
+    describe(".IsSupportSeconds", function () {
+        it("should be true (time)", function () {
+            var result = formatHelper.IsSupportSeconds('time');
+            expect(result).toEqual(true);
+        });
+        it("should be true (timespan)", function () {
+            var result = formatHelper.IsSupportSeconds('timespan');
+            expect(result).toEqual(true);
+        });
+        it("should be false (others)", function () {
+            var result = formatHelper.IsSupportSeconds('others');
+            expect(result).toEqual(false);
+        });
+    });
+
+    describe(".GetWeekOfYear", function () {
 
         var tests = [
             { dow: enumHandlers.DAYOFWEEK.Sunday, value: { y: 2015, m: 11, d: 31 }, expected: { w: 52, y: 2015 } },

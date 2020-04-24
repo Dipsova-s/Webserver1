@@ -1,0 +1,340 @@
+﻿@import '../abstracts/variables';
+@import '../abstracts/mixins';
+
+$facet-filter-padding-bottom: 9px;
+$left-menu-background-color: #fcfcfc;
+
+/* #LeftMenu
+============================================ */
+#LeftMenu {
+    position: absolute;
+    z-index: 0;
+    background-color: $left-menu-background-color;
+
+    .left-menu-wrapper {
+        width: 230px;
+        min-height: 200px;
+        height: 1000px;
+        overflow-x: hidden !important;
+    }
+
+    .toggleable {
+        display: none;
+    }
+
+    .facetFilter {
+        display: none;
+        margin: 0 22px;
+
+        & > div {
+            border-top: 0;
+        }
+    }
+
+    .FilterTab {
+        cursor: pointer;
+        z-index: 10;
+        line-height: 23px;
+        height: 23px;
+        padding-top: 15px;
+        display: flex;
+        align-items: center;
+        position: relative;
+
+        .icon {
+            font-weight: bold;
+            font-size: 10px;
+        }
+
+        &:not(.expand) {
+            padding-bottom: 15px;
+
+            .icon-chevron-up {
+                display: none;
+            }
+        }
+
+        &.expand .icon-chevron-down {
+            display: none;
+        }
+
+        &.expand + .FilterCheckBox,
+        &.sliding + .FilterCheckBox {
+            padding-top: 15px;
+        }
+
+        &.border-separator {
+            border-top: 1px solid #f5f5f5;
+        }
+
+        .FilterTitle {
+            font-size: 12px;
+            font-weight: bold;
+            text-transform: uppercase;
+            margin-right: auto;
+        }
+
+        span {
+            display: block;
+            position: relative;
+            color: #333;
+            font-size: 11px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+    }
+
+    .FilterCheckBox {
+        margin: 0;
+        position: relative;
+        height: auto;
+        z-index: 10;
+    }
+
+    .facetFilter {
+
+        .facetFilterSection .FilterCheckBox {
+            padding-bottom: $facet-filter-padding-bottom;
+        }
+
+        ul {
+            padding-left: 0;
+            margin: 0;
+            position: relative;
+        }
+
+        li {
+            position: relative;
+            padding: 0;
+            list-style-type: none;
+            color: #333;
+            font-size: 14px;
+            font-style: normal;
+            font-weight: normal;
+            text-decoration: none;
+            margin-bottom: 12px;
+
+            &:hover span {
+                color: #006f9b;
+            }
+
+            & > label {
+                display: block;
+            }
+
+            .name {
+                display: inline-flex;
+                width: 100%;
+            }
+
+            .filter-name {
+                margin-right: 10px;
+            }
+
+            .filter-count {
+                margin-left: auto;
+                font-size: 12px;
+            }
+
+            .label {
+                display: flex;
+                align-items: center;
+                line-height: 17px;
+                color: #333;
+            }
+        }
+
+        img {
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            margin-left: 30px;
+        }
+
+        .name.withIcon {
+            margin-left: 23px;
+        }
+
+        .BusinessProcessBadge {
+            margin-right: 11px;
+        }
+
+        .filter-count {
+            position: absolute;
+            right: 0;
+            font-size: 12px;
+        }
+    }
+
+    .BusinessProcessFacet-tooltip {
+        font-size: 12px;
+    }
+}
+
+/* #Content
+============================================ */
+#Content {
+    margin: 0 0 0 230px;
+    min-width: 575px;
+    position: relative;
+    top: 0;
+    z-index: 1;
+    border-left: 1px solid $general-border-color;
+
+    @include respond-to(medium) {
+        min-width: 536px;
+    }
+}
+
+/* #SearchSortingView
+============================================ */
+#SearchSortingView {
+    display: flex;
+    align-items: center;
+    margin: 20px 0 0 auto;
+
+    .search-info-label {
+        color: #34495e;
+        letter-spacing: 0.25px;
+    }
+
+    .search-sorting-item {
+        padding-left: 15px;
+        border-left: 1px solid $general-border-color;
+        white-space: nowrap;
+
+        &:first-child {
+            padding-right: 15px;
+            border-left-width: 0;
+        }
+    }
+
+    #SortItemBySelect_ddlWrapper {
+        margin-left: 8px;
+        width: 160px;
+    }
+}
+
+/* #InnerResultWrapper
+============================================ */
+#InnerResultWrapper {
+    border-left-width: 0;
+    border-right-width: 0;
+
+    &.k-widget {
+        border-color: $general-border-color;
+    }
+
+    .k-grid-header {
+        height: 0;
+        visibility: hidden;
+    }
+
+    div.k-grid-header-wrap {
+        box-shadow: none;
+        border-color: #F2F2F2;
+    }
+
+    td {
+        padding: 0;
+        font-family: inherit;
+        font-size: 12px;
+        border: 1px solid transparent;
+        border-bottom-color: $general-border-color;
+    }
+
+    colgroup {
+        display: none;
+    }
+
+    .k-grid-content table {
+        min-width: 420px;
+    }
+}
+
+
+/* 
+============================================ */
+.ResultView {
+    right: 8px;
+    position: absolute;
+    width: 20px;
+    z-index: 2;
+
+    .detailDefinitionList {
+        .listview-item {
+            cursor: pointer;
+            height: 27px;
+            background-color: transparent;
+
+            &:hover {
+                background-color: $general-border-color;
+            }
+        }
+    }
+}
+
+.displaysMode {
+    .ResultView {
+        width: 525px;
+        height: 123px;
+        padding-top: 0;
+        overflow: hidden;
+        border-left: 1px solid $general-border-color;
+
+        @include respond-to(medium) {
+            width: 275px;
+        }
+
+        @include respond-to(large) {
+            width: 375px;
+        }
+
+        &:hover {
+            overflow: auto;
+        }
+
+        .detailDefinitionList {
+            margin-left: 21px;
+            max-height: none;
+            background: transparent;
+
+            .listview-item {
+                cursor: pointer;
+                height: 27px;
+                background-color: transparent;
+
+                &:hover {
+                    background-color: #f5f5f5;
+                }
+
+                .displayNameContainer {
+                    overflow: visible;
+                }
+            }
+        }
+    }
+
+    .displayNameContainer {
+        @include respond-to(medium) {
+            min-width: 80px;
+        }
+    }
+
+    .ResultContent {
+        @include respond-to(medium) {
+            margin-right: 300px;
+        }
+
+        @include respond-to(large) {
+            margin-right: 400px;
+        }
+    }
+}
+
+.no-mouse.displaysMode {
+    .ResultView {
+        overflow: auto;
+    }
+}

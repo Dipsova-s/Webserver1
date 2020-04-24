@@ -79,8 +79,6 @@ function ListSortHandler() {
         self.Sort(fields, types);
     };
     self.Apply = function (postNewResult, oldSort) {
-        requestHistoryModel.SaveLastExecute(self, self.Apply, arguments);
-
         if (typeof postNewResult === 'undefined')
             postNewResult = true;
         listHandler.HideHeaderPopup();
@@ -96,8 +94,6 @@ function ListSortHandler() {
             jQuery.each(ko.toJS(displayQueryBlockModel.TempQuerySteps()), function (index, step) {
                 oldQueryStepTemp.push(new WidgetFilterModel(step));
             });
-
-            var oldDisplayModel = historyModel.Get(displayModel.Data().uri);
 
             // remove existing sorting step
             displayQueryBlockModel.QuerySteps.remove(function (step) {
@@ -145,29 +141,11 @@ function ListSortHandler() {
                 displayModel.Data.commit();
             }
 
-            if (isEditMode) {
-                anglePageHandler.ApplyAngleAndDisplayWithoutResult(displayModel.Data());
-            }
-            else {
-                progressbarModel.ShowStartProgressBar(Localization.ProgressBar_PostResult, false);
-                progressbarModel.CancelCustomHandler = true;
-                progressbarModel.CancelFunction = function () {
-                    self.RollbackSorting(oldSort, oldQueryStep, oldQueryStepTemp, oldDisplayModel);
-                };
-
-                jQuery.when(resultModel.PostResult({ useExecuteStep: true, customExecuteStep: self.QuerySteps() }))
-                    .then(function () {
-                        historyModel.Save();
-                        return resultModel.GetResult(resultModel.Data().uri);
-                    })
-                    .then(resultModel.LoadResultFields)
-                    .fail(function () {
-                        self.ApplyFail(oldSort, oldQueryStep, oldQueryStepTemp, oldDisplayModel);
-                    })
-                    .done(function () {
-                        self.ApplyDone(resultModel.Data().sorting_limit_exceeded, oldSort, oldQueryStep, oldQueryStepTemp, oldDisplayModel);
-                    });
-            }
+            // set to handler
+            self.SetCancelFunction(oldSort);
+            self.UpdateQueryDefinition();
+            anglePageHandler.HandlerDisplay.SetPostExecutionSteps(self.QuerySteps());
+            anglePageHandler.HandlerDisplay.ExecuteQueryDefinition(QueryDefinitionHandler.ExecuteAction.Adhoc);
         }
         else if (!isEditMode) {
             progressbarModel.ShowStartProgressBar(Localization.ProgressBar_PostResult, false);
@@ -178,6 +156,31 @@ function ListSortHandler() {
                 progressbarModel.EndProgressBar();
             }, 100);
         }
+    };
+    self.UpdateQueryDefinition = function () {
+        var sortingStep = displayQueryBlockModel.QuerySteps().findObject('step_type', enumHandlers.FILTERTYPE.SORTING);
+        if (sortingStep) {
+            anglePageHandler.HandlerDisplay.QueryDefinitionHandler.SetSorting(sortingStep);
+        }
+        else {
+            anglePageHandler.HandlerDisplay.QueryDefinitionHandler.RemoveSorting();
+        }
+    };
+    self.SetCancelFunction = function (oldSort) {
+        var oldResult = anglePageHandler.HandlerDisplay.ResultHandler.GetData();
+        var oldDisplay = anglePageHandler.HandlerDisplay.GetData();
+        progressbarModel.CancelCustomHandler = true;
+        progressbarModel.KeepCancelFunction = true;
+        progressbarModel.CancelFunction = function () {
+            WC.Page.Stop();
+            self.QuerySteps(oldSort);
+            displayModel.LoadSuccess(oldDisplay);
+            resultModel.LoadSuccess(oldResult);
+            anglePageHandler.HandlerDisplay.ResultHandler.Cancel();
+            self.UpdateQueryDefinition();
+            anglePageHandler.HandlerDisplay.SetPostResultData(oldResult);
+            anglePageHandler.HandlerDisplay.ExecuteQueryDefinition(QueryDefinitionHandler.ExecuteAction.Adhoc);
+        };
     };
     self.ApplyFail = function (oldSort, oldQueryStep, oldQueryStepTemp, oldDisplayModel) {
         // error popup will be shown after this block, so add delay before set close event
@@ -210,7 +213,6 @@ function ListSortHandler() {
 
         displayModel.LoadSuccess(oldDisplayModel);
         resultModel.LoadSuccess(oldDisplayModel.results);
-        historyModel.Save();
 
         resultModel.GetResult(resultModel.Data().uri)
             .then(resultModel.LoadResultFields)
@@ -247,10 +249,7 @@ function ListSortHandler() {
 
         if (jQuery('#CustomSortPopup').is(':visible'))
             return;
-
-        requestHistoryModel.SaveLastExecute(self, self.ShowCustomSortPopup, arguments);
-        requestHistoryModel.ClearPopupBeforeExecute = true;
-
+        
         listFormatSettingHandler.CloseCustomPopup();
         var popupSettings = {
             title: Localization.CustomSortTitle,

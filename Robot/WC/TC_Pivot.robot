@@ -7,7 +7,7 @@ Force Tags          acc_wc
 *** Test Cases ***
 Verify Pivot Settings Result
     [Tags]  acc_wc_aci
-    Pivot Settings Subtotal / Percentages Column / Custom Name / Field Icons / Collapse
+    Pivot Settings Subtotal / Percentages Column / Alias Name / Field Icons / Collapse
     [Teardown]    Go to Search Page
 
 Verify Pivot Display Drilldown Test

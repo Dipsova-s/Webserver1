@@ -5,8 +5,8 @@
         that.element.addClass('multiple-select');
         that.element.html([
             '<div class="item-label-wrapper multiple-select-items ">',
-                '<div class="multiple-select-header">' + that.settings.header + '</div>',
-                (that.settings.readonly ? '' : '<div class="multiple-select-button"><i class="icon icon-plus"></i></div>'),
+            '<div class="multiple-select-header">' + that.settings.header + '</div>',
+            that.settings.readonly ? '' : '<div class="multiple-select-button"><i class="icon icon-plus"></i></div>',
             '</div>'
         ].join(''));
     };
@@ -18,11 +18,17 @@
 
     var adjustListPosition = function (target, list) {
         var listWidth = list.outerWidth();
+        var contentHeight = list.height();
         var offset = target.offset();
         offset.top += target.outerHeight();
         if (offset.left + listWidth > WC.Window.Width) {
             offset.left -= listWidth - target.outerWidth();
         }
+
+        if (offset.top + contentHeight > WC.Window.Height) {
+            offset.top -= contentHeight + 22;
+        }
+
         list.css(offset);
     };
 
@@ -32,6 +38,11 @@
             that.element.find('.multiple-select-button').addClass('disabled');
         else
             that.element.find('.multiple-select-button').removeClass('disabled');
+
+        if (selectedItemsCount <= that.settings.min)
+            that.element.find('.multiple-select-item').addClass('disabled');
+        else
+            that.element.find('.multiple-select-item').removeClass('disabled');
     };
 
     var showList = function (that, target) {
@@ -46,12 +57,15 @@
                 var itemElement = jQuery('<li class="listview-item" />')
                     .html('<span class="multiple-select-list-label">' + item[that.settings.dataFieldName] + '</span>')
                     .on('click', function (e) {
+                        if (jQuery(e.currentTarget).hasClass('disabled'))
+                            return;
+
                         e.stopPropagation();
                         addItem(that, jQuery(this), item);
                         adjustListPosition(target, list);
                     });
                 list.append(itemElement);
-                that.settings.render('list', item, itemElement);
+                that.settings.render.call(that, 'list', item, itemElement);
             }
         });
         list.appendTo('body');
@@ -73,15 +87,15 @@
         var dataName = item[that.settings.dataFieldName] || dataId;
         var itemElement = jQuery([
             '<div class="item-label multiple-select-item">',
-                '<span class="multiple-select-label">' + dataName + '</span>',
-                (that.settings.readonly ? '' : '<a class="btn-remove"><i class="icon remove"></i></a>'),
+            '<span class="multiple-select-label">' + dataName + '</span>',
+            (that.settings.readonly ? '' : '<a class="btn-remove"><i class="icon icon-close"></i></a>'),
             '</div>'
         ].join('')).data('id', dataId);
         that.element.children('.multiple-select-items').append(itemElement);
         that.settings.dataSelected[dataId] = true;
         checkElements(that);
-        that.settings.render('value', item, itemElement);
-        that.settings.change('add', item, itemElement);
+        that.settings.render.call(that, 'value', item, itemElement);
+        that.settings.change.call(that, 'add', item, itemElement);
 
         if (element.length) {
             var container = element.parent();
@@ -92,12 +106,15 @@
     };
 
     var deleteItem = function (that, target) {
+        if (that.value().length <= that.settings.min)
+            return;
+
         var itemElement = target.closest('.multiple-select-item');
         var dataId = itemElement.data('id');
         delete that.settings.dataSelected[dataId];
 
         var item = that.settings.data.findObject('id', dataId);
-        that.settings.change('delete', item, itemElement);
+        that.settings.change.call(that, 'delete', item, itemElement);
         itemElement.remove();
         checkElements(that);
     };
@@ -126,12 +143,17 @@
     };
 
     var bindEvents = function (that) {
-        that.element.on('click', '.multiple-select-button', function (e) {
+        that.element
+            .off('click', '.multiple-select-button')
+            .on('click', '.multiple-select-button', function (e) {
             showList(that, jQuery(e.currentTarget));
         });
-        that.element.on('click', '.multiple-select-item .icon', function (e) {
+        that.element
+            .off('click', '.multiple-select-item .icon')
+            .on('click', '.multiple-select-item .icon', function (e) {
             deleteItem(that, jQuery(e.currentTarget));
         });
+        WC.HtmlHelper.MenuNavigatable('.multiple-select-button', '.multiple-select-list', '.listview-item');
     };
 
     // multiple selection
@@ -145,10 +167,12 @@
             dataFieldId: 'id',
             dataFieldName: 'name',
             readonly: false,
+            min: 0,
             change: jQuery.noop,
             render: jQuery.noop
         }, options);
         that.showList = showList;
+        that.hideList = removeList;
         that.element = jQuery(selector);
         that.value = function () {
             return getValues(that);

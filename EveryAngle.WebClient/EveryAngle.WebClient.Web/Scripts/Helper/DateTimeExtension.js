@@ -18,8 +18,7 @@
             return kendo.date.timeToUnix(date);
         },
         GetCurrentUnixTime: function () {
-            var date = kendo.date.dateToUtcDate(new Date(Math.floor(jQuery.now() / 1000) * 1000));
-            return kendo.date.dateToUnix(date);
+            return parseInt(kendo.date.dateToUnix(new Date()));
         },
         GetFirstDayOfWeek: function (modelUri) {
             // 0=Sun, 1=Mon, ..., 6=Sat
@@ -54,7 +53,7 @@
     };
 
     window.ConvertMillisToMinutesAndSeconds = function (millis) {
-        var timeSeparator = userSettingModel.GetTimeFormatTemplateBy(enumHandlers.TIME_SETTINGS_FORMAT.SEPARATOR);
+        var timeSeparator = userSettingModel.GetTimeFormatTemplateBy(enumHandlers.TIME_SETTINGS_FORMAT.DELEMITER);
         var minutes = Math.floor(millis / 60000);
         var seconds = ((millis % 60000) / 1000).toFixed(0);
         return minutes + timeSeparator + (seconds < 10 ? '0' : '') + seconds;

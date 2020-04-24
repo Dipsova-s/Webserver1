@@ -7,6 +7,7 @@ Suite Setup MC WebHelp
 
 Test Setup MC WebHelp
     # output by specific language
+    Set Test Variable    ${WEB_HELP_LANGUAGE_CODE}    en
     Set Test Variable    ${WEB_HELP_LANGUAGE_OUTPUT}    ${MC_HELP_IMAGE_PATH}
 
     # login

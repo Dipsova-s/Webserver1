@@ -11,12 +11,6 @@ namespace EveryAngle.WebClient.Web.Controllers
             return View(@"~/Views/Angle/AnglePage.cshtml");
         }
 
-        [ChildActionOutputCache("StaticContent")]
-        public ActionResult DisplayDropdownList()
-        {
-            return PartialView("~/Views/Angle/PartialViews/DisplayDropdownList/DisplayDropdownList.cshtml");
-        }
-
         public FileResult Images()
         {
             var imageUri = Request.Url;

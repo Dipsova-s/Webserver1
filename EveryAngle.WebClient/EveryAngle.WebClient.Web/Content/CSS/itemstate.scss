@@ -1,11 +1,10 @@
-@import '_mixins.scss';
+@import 'abstracts/mixins';
 
 /* .states-wrapper
 ============================================ */
 .states-wrapper {
     @include flex-center;
     flex-wrap: nowrap;
-    margin-left: 10px;
 
     &.disabled {
         display: none;
@@ -28,8 +27,7 @@
     }
 
     .scrollable {
-        max-height: calc(100vh - 200px); /*fallback for ie*/
-        max-height: calc(var(--vh, 1vh) * 100 - 200px);
+        @include calc-vh(max-height, 200px);
     }
 
     hr {
@@ -39,6 +37,11 @@
 
     .card-body {
         line-height: 15px;
+    }
+
+    .card-header, .accordion-header {
+        text-transform: none;
+        font-size: 11px;
     }
 
     .publish-displays {

@@ -3,8 +3,7 @@
 .states-wrapper {
   display: flex;
   align-items: center;
-  flex-wrap: nowrap;
-  margin-left: 10px; }
+  flex-wrap: nowrap; }
   .states-wrapper.disabled {
     display: none; }
   .states-wrapper .icon {
@@ -20,7 +19,7 @@
 
 .popupPublishSettings .scrollable {
   max-height: calc(100vh - 200px);
-  /*fallback for ie*/
+  /* fallback for none support browsers */
   max-height: calc(var(--vh, 1vh) * 100 - 200px); }
 
 .popupPublishSettings hr {
@@ -29,6 +28,10 @@
 
 .popupPublishSettings .card-body {
   line-height: 15px; }
+
+.popupPublishSettings .card-header, .popupPublishSettings .accordion-header {
+  text-transform: none;
+  font-size: 11px; }
 
 .popupPublishSettings .publish-displays .display-listview {
   margin-left: 4px;

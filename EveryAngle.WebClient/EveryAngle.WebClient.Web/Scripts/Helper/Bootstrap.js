@@ -26,6 +26,7 @@
 
     // navigator.sendBeacon support
     Modernizr.addTest('sendbeacon', function () { return 'sendBeacon' in navigator; });
+
     // mouse support
     var mouseTestResult = jQuery.localStorage('mouse');
     if (mouseTestResult === null) {
@@ -110,6 +111,12 @@
             var options = WC.Page.CollectScripts(Array.prototype.slice.call(arguments));
 
             WC.Utility.LoadScripts(options, $LAB.runQueue());
+        },
+        Stop: function () {
+            if (window.stop)
+                window.stop();
+            else if (document.execCommand)
+                document.execCommand('Stop');
         }
     };
     jQuery(function () {
@@ -218,8 +225,8 @@
             else if (typeof anglePageHandler !== 'undefined' && anglePageHandler.UpdateLayout) {
                 anglePageHandler.UpdateLayout();
             }
-            else if (typeof dashboardHandler !== 'undefined' && dashboardHandler.UpdateLayout) {
-                dashboardHandler.UpdateLayout();
+            else if (typeof dashboardPageHandler !== 'undefined' && dashboardPageHandler.UpdateLayout) {
+                dashboardPageHandler.UpdateLayout();
             }
         };
         jQuery(document)
@@ -260,8 +267,8 @@
                 else if (typeof anglePageHandler !== 'undefined' && anglePageHandler.TriggerPersisted) {
                     anglePageHandler.TriggerPersisted(evt);
                 }
-                else if (typeof dashboardHandler !== 'undefined' && dashboardHandler.TriggerPersisted) {
-                    dashboardHandler.TriggerPersisted(evt);
+                else if (typeof dashboardPageHandler !== 'undefined' && dashboardPageHandler.TriggerPersisted) {
+                    dashboardPageHandler.TriggerPersisted(evt);
                 }
             }
         };

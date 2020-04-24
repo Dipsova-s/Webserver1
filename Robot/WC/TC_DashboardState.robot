@@ -2,7 +2,7 @@
 Resource            ${EXECDIR}/resources/WCSettings.robot
 Resource            ${EXECDIR}/WC/API/API_Angle.robot
 Resource            ${EXECDIR}/WC/Scenarios/Angle/TS_AngleState.robot
-Resource            ${EXECDIR}/WC/Scenarios/Angle/TS_DashboardState.robot
+Resource            ${EXECDIR}/WC/Scenarios/Dashboard/TS_DashboardState.robot
 Suite Setup         Go to WC Then Login With EAPower User
 Suite Teardown      Logout WC Then Close Browser
 Force Tags          acc_wc
@@ -12,15 +12,15 @@ Verify Publishing Dashboard
     [Documentation]     Publish and Unpublish a dashboard and then check if its state change correctly
     ...                 Risk/coverage area: Dashboard page Publish/Unpublish a dashboard
     [Tags]      TC_C123736  acc_wc_aci
-    ${angleName}        Set Variable    [ROBOT] Angle for Dashboard publishing
+    ${searchText}       Set Variable     [ROBOT] Angle for Dashboard publishing
     ${dashboardName}    Set Variable     [ROBOT] Dashboard publishing
-    @{cleanUpItems}    Create List
-    Create Context: Web    user=${Username}
-    ${angleData}    Create Angle    /models/1    ANGLE_DashboardPublishTesting.json
-    ${angleUri}    Get Uri From Response    ${angleData}
-    Append To List   ${cleanUpItems}    ${angleUri}?forced=true
 
-    Create Dashboard From Many Angles    ${angleName}   ${dashboardName}
+    [Setup]  Import Angle By API  /models/1  ANGLE_DashboardPublishTesting.json  user=${Username}
+
+    Create New Dashboard    ${searchText}   ${dashboardName}
+
+    # check a confirmation popup
+    Verify Dashboard Publishing Confirmation
 
     # Check Display
     Open Dashboard Publishing Popup
@@ -39,22 +39,18 @@ Verify Publishing Dashboard
     Check Dashboard Is Unpublished
 
     [Teardown]  Run Keywords  Back To Search And Delete Dashboard Are Created  ${dashboardName}
-    ...         AND           Clean Up Items     Web    ${cleanUpItems}    user=${Username}
-    ...         AND           Go to Search Page
+    ...         AND           Clean Up Items And Go To Search Page
 
 Verify Validating Dashboard
     [Documentation]     Validate and Unvalidate a dashoard and then check if its state change correctly
     ...                 Risk/coverage area: Dashboard page Validate/Unvalidate a dashboard
     [Tags]      TC_C123736  acc_wc_aci
-    ${angleName}        Set Variable    [ROBOT] Angle for Dashboard validating
+    ${searchText}       Set Variable    [ROBOT] Angle for Dashboard validating
     ${dashboardName}    Set Variable    [ROBOT] Dashboard validating
-    @{cleanUpItems}    Create List
-    Create Context: Web    user=${Username}
-    ${angleData}    Create Angle    /models/1    ANGLE_DashboardValidateTesting.json
-    ${angleUri}    Get Uri From Response    ${angleData}
-    Append To List   ${cleanUpItems}    ${angleUri}?forced=true
 
-    Create Dashboard From Many Angles    ${angleName}   ${dashboardName}
+    [Setup]  Import Angle By API  /models/1  ANGLE_DashboardValidateTesting.json  user=${Username}
+
+    Create New Dashboard    ${searchText}   ${dashboardName}
 
     # Check breadcrumb
     Page Should Contain Search Results Link
@@ -72,5 +68,4 @@ Verify Validating Dashboard
     Page Should Not Contain Validated Icon
 
     [Teardown]  Run Keywords  Back To Search And Delete Dashboard Are Created  ${dashboardName}
-    ...         AND           Clean Up Items     Web    ${cleanUpItems}    user=${Username}
-    ...         AND           Go to Search Page
+    ...         AND           Clean Up Items And Go To Search Page

@@ -18,7 +18,7 @@
         return jQuery('<div class="custom-datetimepicker" />');
     };
     var createDatePicker = function (that) {
-        that._wrapper.append('<input class="eaDatepicker fake-datepicker" />');
+        that._wrapper.append('<input class="fake-datepicker" />');
         var dateElement = that._wrapper.children('input.fake-datepicker');
         var dateOptions = extend({}, that.options);
         var defaultDateOptions = ui.DatePicker.prototype.options;
@@ -52,7 +52,7 @@
         that.datepicker = dateElement.kendoDatePicker(dateOptions).data('kendoDatePicker');
     };
     var createTimePicker = function (that) {
-        that._wrapper.append('<input class="eaTimepicker fake-timepicker" />');
+        that._wrapper.append('<input class="fake-timepicker" />');
         var timeElement = that._wrapper.children('input.fake-timepicker');
         var timeOptions = extend({}, that.options);
         var defaultTimeOptions = ui.TimePicker.prototype.options;

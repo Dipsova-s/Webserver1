@@ -31,19 +31,14 @@ function ProgressbarModel() {
                 WC.Ajax.AbortAll();
             }
             if (self.IsSearchPage() || self.CancelForceStop) {
-                if (window.stop) {
-                    window.stop();
-                }
-                else if (document.execCommand) {
-                    document.execCommand('Stop');
-                }
+                WC.Page.Stop();
             }
             else if (self.ReferenceUri.indexOf('redirect=') !== -1) {
                 if (typeof anglePageHandler !== 'undefined') {
                     anglePageHandler.BackToSearch();
                 }
-                else if (typeof dashboardHandler !== 'undefined') {
-                    dashboardHandler.BackToSearch();
+                else if (typeof dashboardPageHandler !== 'undefined') {
+                    dashboardPageHandler.BackToSearch();
                 }
             }
             else {
@@ -65,17 +60,13 @@ function ProgressbarModel() {
     self.InitialProgressBar = function () {
         self.EndProgressBar();
     };
-    self.ShowStartProgressBar = function (progressText, isShowRow) {
+    self.ShowStartProgressBar = function (_progressText, isShowRow) {
         self.CancelCustomHandler = false;
         self.CancelForceStop = false;
         self.IsEndProgressBar = false;
 
         self.CancelFunction = jQuery.noop;
-        jQuery(_cancelElement).removeClass('alwaysHide');
-        jQuery(_cancelElement).off('click').on('click', function () {
-            self.CancelProgressBar();
-        });
-
+        self.SetEnableProgressBar();
         self.UpdateZIndex();
 
         if (isShowRow) {
@@ -133,6 +124,13 @@ function ProgressbarModel() {
     };
     self.SetDisableProgressBar = function () {
         jQuery(_cancelElement).addClass('alwaysHide');
+        jQuery(_cancelElement).off('click');
+    };
+    self.SetEnableProgressBar = function () {
+        jQuery(_cancelElement).removeClass('alwaysHide');
+        jQuery(_cancelElement).off('click').on('click', function () {
+            self.CancelProgressBar();
+        });
     };
     self.CancelProgressBar = function () {
         self.IsCancelPopup = true;

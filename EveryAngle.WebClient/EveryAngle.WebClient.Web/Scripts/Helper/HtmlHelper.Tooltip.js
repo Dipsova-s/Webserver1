@@ -24,42 +24,37 @@
         var tooltipLeft;
         var tooltipTop;
         var target = jQuery(e.currentTarget);
-        var tooltipPosition = target.data('tooltip-position') || (e.data && e.data.position);
+        var tooltipPosition = target.data('tooltip-position') || e.data && e.data.position;
+        var cursorOffset = target.data('tooltip-offset') || e.data && e.data.offset || 0;
         var targetOffset = target.offset();
-        if (e.data && tooltipPosition === TOOLTIP_POSITION.BOTTOM) {
+        if (tooltipPosition === TOOLTIP_POSITION.BOTTOM) {
             // show at bottom
-            tooltipLeft = targetOffset.left + (target.outerWidth() / 2) - (tooltipWidth / 2);
-            tooltipTop = targetOffset.top + target.outerHeight() + 8;
+            tooltipLeft = Math.max(5, targetOffset.left + (target.outerWidth() / 2) - (tooltipWidth / 2));
+            tooltipTop = targetOffset.top + target.outerHeight() + 8 + cursorOffset;
             tooltip.addClass('k-window-arrow-n');
         }
-        else if (e.data && tooltipPosition === TOOLTIP_POSITION.TOP) {
+        else if (tooltipPosition === TOOLTIP_POSITION.TOP) {
             // show at top
-            tooltipLeft = targetOffset.left + (target.outerWidth() / 2) - (tooltipWidth / 2);
-            tooltipTop = targetOffset.top - target.outerHeight();
+            tooltipLeft = Math.max(5, targetOffset.left + (target.outerWidth() / 2) - (tooltipWidth / 2));
+            tooltipTop = targetOffset.top - target.outerHeight() - cursorOffset;
             tooltip.addClass('k-window-arrow-s');
         }
-        else if (e.data && tooltipPosition === TOOLTIP_POSITION.LEFT) {
-            // show at right
-            tooltipLeft = targetOffset.left - target.outerWidth();
-            tooltipTop = targetOffset.top + (target.outerHeight() / 2) - (tooltipHeight / 2);
+        else if (tooltipPosition === TOOLTIP_POSITION.LEFT) {
+            // show at left
+            tooltipLeft = targetOffset.left - target.outerWidth() - cursorOffset;
+            tooltipTop = Math.max(5, targetOffset.top + (target.outerHeight() / 2) - (tooltipHeight / 2));
             tooltip.addClass('k-window-arrow-e');
         }
-        else if (e.data && tooltipPosition === TOOLTIP_POSITION.RIGHT) {
+        else if (tooltipPosition === TOOLTIP_POSITION.RIGHT) {
             // show at right
-            tooltipLeft = targetOffset.left + target.outerWidth() + 8;
-            tooltipTop = targetOffset.top + (target.outerHeight() / 2) - (tooltipHeight / 2);
+            tooltipLeft = targetOffset.left + target.outerWidth() + 8 + cursorOffset;
+            tooltipTop = Math.max(5, targetOffset.top + (target.outerHeight() / 2) - (tooltipHeight / 2));
             tooltip.addClass('k-window-arrow-w');
         }
         else {
             // depends on your mouse
-            tooltipLeft = e.pageX + tooltipWidth + 5 > jQuery(window).scrollLeft() + win.WC.Window.Width ? e.pageX - tooltipWidth - 5 : e.pageX + 5;
-            if (tooltipLeft < 5) {
-                tooltipLeft = 5;
-            }
-            tooltipTop = e.pageY + tooltipHeight + 5 > jQuery(window).scrollTop() + win.WC.Window.Height ? e.pageY - tooltipHeight - 5 : e.pageY + 5;
-            if (tooltipTop < 5) {
-                tooltipTop = 5;
-            }
+            tooltipLeft = Math.max(5, e.pageX + tooltipWidth + 5 > jQuery(window).scrollLeft() + win.WC.Window.Width ? e.pageX - tooltipWidth - 5 : e.pageX + 5);
+            tooltipTop = Math.max(5, e.pageY + tooltipHeight + 5 > jQuery(window).scrollTop() + win.WC.Window.Height ? e.pageY - tooltipHeight - 5 : e.pageY + 5);
         }
 
         // z-index
@@ -116,7 +111,11 @@
             renderAs = target.data('type');
         }
 
-        if (showWhenNeed) {
+        var disableClassName = target.attr('data-tooltip-disable-class');
+        if (disableClassName && target.hasClass(disableClassName)) {
+            text = '';
+        }
+        else if (showWhenNeed) {
             var elementSize = e.currentTarget.getBoundingClientRect().width;
             text = getTooltipTextWhenNeeded(target, text, elementSize);
         }
@@ -130,9 +129,9 @@
     var getTooltipTextWhenNeeded = function (target, text, elementSize) {
         var font = WC.HtmlHelper.GetFontCss(target);
         var textSize = WC.Utility.MeasureText(text, font);
-        var acceptedError = 1;
+        var acceptedError = -1;
 
-        if (Math.abs(elementSize - textSize) <= acceptedError) {
+        if (elementSize - textSize >= acceptedError) {
             text = '';
         }
         return text;

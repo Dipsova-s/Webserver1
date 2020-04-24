@@ -2,5 +2,9 @@
   {
     "outputFile": "Resource/Shared/shared.css",
     "inputFile": "Resource/Shared/shared.scss"
+  },
+  {
+    "outputFile": "Resource/FieldsChooser/fieldschooser.css",
+    "inputFile": "Resource/FieldsChooser/fieldschooser.scss"
   }
 ]

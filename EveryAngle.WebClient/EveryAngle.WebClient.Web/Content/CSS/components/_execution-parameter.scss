@@ -1,0 +1,36 @@
+﻿@import '../abstracts/mixins';
+
+/* .popup-execution-parameter
+===================================== */
+.popup-execution-parameter {
+    .card-body > .form-row {
+        margin-left: -15px;
+        margin-right: -15px;
+    }
+
+    .form-col-header {
+        width: auto;
+        flex-shrink: 0;
+    }
+
+    .col-angle-object {
+        .btn-info {
+            margin-right: 5px;
+        }
+    }
+
+    .row-definition {
+        .col-definition {
+            flex: 1 1 100%;
+            width: 100%;
+
+            .item .displayNameContainer .rear .action-delete {
+                display: none;
+            }
+        }
+    }
+
+    .btn-wrapper {
+        display: none;
+    }
+}

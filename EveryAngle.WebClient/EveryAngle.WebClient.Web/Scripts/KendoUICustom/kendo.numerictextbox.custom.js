@@ -46,7 +46,7 @@
             // set value
             if (typeof that.options.value === 'number')
                 that.value(that.options.value);
-            else if (!that.options.can_empty)
+            else if (!that.options.canEmpty)
                 that.value(0);
 
             // change event
@@ -71,7 +71,7 @@
             name: 'CustomNumericTextBox',
 
             // other options go here
-            can_empty: true,
+            canEmpty: true,
             comboBoxOptions: {
                 animation: false,
                 filter: 'startswith',
@@ -166,7 +166,7 @@
         _blur: function () {
             var that = this;
             
-            if (!that.options.can_empty) {
+            if (!that.options.canEmpty) {
                 var value = that.element.val();
                 if (!value)
                     that.element.val('0');

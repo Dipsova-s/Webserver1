@@ -3,46 +3,60 @@ Screenshot "WC_Chart_options" page
     ${AngleId}    Set Variable    WEBHELP_WC_Chart_options
 
     Find Angle By ID Then Execute The First Angle    ${AngleId}
+    Click Display Tab
 
     Crop Chart Type
-
-    Click Show Display Option
-    Crop Chart Options
-    Click Hide Display Option
-
-    Crop Chart Data Field Area
-    Crop Chart Sort Icon
+    Crop Chart Option Button
+    Crop Sort Icons
+    Crop Format Icon
+    Crop Format Field Popup
+    Crop Apply Chart Button
 
     Set Window Size    1000   700
     Sleep    ${TIMEOUT_LARGEST}
     
-    Crop Chart Display
     Crop Chart Navigator
 
     Maximize Browser window
     Sleep    ${TIMEOUT_LARGEST}
 
 Crop Chart Type
-    ${left}    ${top}    Get Element Offset  css=#ChartType_ddlWrapper
-    Click Element    css=#ChartType_ddlWrapper
-    Crop WebHelp Image With Dimensions   WC_chart_types.png  css=body  ${left}  ${top}  195  425
-    Click Element    css=#ChartType_ddlWrapper
+    ${left}    ${top}    Get Element Offset  css=.k-widget.chart-type
+    ${width}    ${height}    Get Element Size  css=.k-widget.chart-type
+    Click Element    css=.k-widget.chart-type
+    Crop WebHelp Image With Dimensions   WC_chart_types.png  css=body  ${left}  ${top}  ${width}  ${height*11}
+    Click Element    css=.k-widget.chart-type
 
-Crop Chart Options
-    ${width}    ${height}    Get Element Size    css=#PopupChartOptions
-    Crop WebHelp Image With Dimensions  WC_ChartBucket.png  css=#ChartMainWrapper  0  0  725  570
+Crop Chart Option Button
+    Crop WebHelp Image  WC_Icon_ChartOptions.png  css=.section-aggregation .action-options  ${False}
 
-Crop Chart Data Field Area
-    Mouse Over   jquery=#FieldListDataArea .fieldListAreaBody li:eq(1)
-    Crop WebHelp Image With Dimensions  WC_y_axis.png  css=#FieldListDataArea  0  0  385  95
+Crop Sort Icons
+    Click Field In Data Area By Field Index  1
+    Click Element  jquery=.query-aggregation-data .item-aggregation:eq(1) .action-sorting
+    Crop WebHelp Image  WC_Icon_Sort_Descending.png  jquery=.query-aggregation-data .item-aggregation:eq(1) .action-sorting   ${False}
 
-Crop Chart Display
-    ${width}   ${height}    Get Element Size   css=#chart
-    Crop WebHelp Image With Dimensions  WC_chart_dr.png  css=#chart   0  5   ${width}   ${height - 5}
+    Click Field In Data Area By Field Index  1
+    Click Element  jquery=.query-aggregation-data .item-aggregation:eq(1) .action-sorting
+    Crop WebHelp Image  WC_Icon_Sort_Ascending.png  jquery=.query-aggregation-data .item-aggregation:eq(1) .action-sorting   ${False}
 
-Crop Chart Sort Icon
-    Mouse Over   jquery=#FieldListDataArea .fieldListAreaBody li:eq(1)
-    Crop WebHelp Image  WC_Icon_Sort.png  jquery=#FieldListDataArea .fieldListAreaBody li:eq(1) .btnSort   ${False}
+    Click Undo field Settings
+
+Crop Format Icon
+    Click Field In Data Area By Field Index  1
+    Crop WebHelp Image  WC_Icon_FormatField.png  jquery=.query-aggregation-data .item-aggregation:eq(1) .action-format   ${False}
+
+Crop Format Field Popup
+    Click Field In Data Area By Field Index  1
+    Click Show Field Format For Field Settings
+    Update Popup Position  css=.aggregation-format-popup
+    Crop WebHelp Image  WC_Format_Field.png  css=.aggregation-format-popup
+    Close Field Format
+
+Crop Apply Chart Button
+    Crop WebHelp Image  WC_Button_Apply_Inactive.png  jquery=.section-aggregation .btn-save
+    Change Chart To Column Cluster
+    Crop WebHelp Image  WC_Button_Apply_Active.png  jquery=.section-aggregation .btn-save
+    Click Undo field Settings
 
 Crop Chart Navigator
     ${dragWidth}   ${dragHeight}    Get Element Size   css=#ChartWrapper .navigator

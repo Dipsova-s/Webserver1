@@ -89,7 +89,7 @@ function DashboardResultViewModel(elementId, model, dashboardViewModel, executeP
         self.WidgetModel.SetExtendedFilters([]);
 
         // no integrity check if no dashboard filter
-        if (!self.DashboardModel.GetDashboardFilters().length)
+        if (!self.WidgetModel.CanExtendFilter() || !self.DashboardModel.GetDashboardFilters().length)
             return jQuery.when();
 
         // do integrity check
@@ -165,7 +165,7 @@ function DashboardResultViewModel(elementId, model, dashboardViewModel, executeP
     self.RetryPostResult = function (msg) {
         var message = errorHandlerModel.GetAreaErrorMessage(msg);
         self.HideBusyIndicator();
-        dashboardHandler.RemoveWidgetDisplayElement(self.ElementId.slice(1), jQuery(self.ElementId + '-inner'), self.Display);
+        dashboardPageHandler.RemoveWidgetDisplayElement(self.ElementId.slice(1), jQuery(self.ElementId + '-inner'), self.Display);
         errorHandlerModel.ShowAreaError(self.ElementId, message, function () {
             self.Execute();
         });
@@ -235,7 +235,6 @@ function DashboardResultViewModel(elementId, model, dashboardViewModel, executeP
         var model;
 
         dashboardModel.SetDashboardStatistics('executed', self.Data().executed);
-        dashboardDetailsHandler.Model.SetDashboardStatistics('executed', self.Data().executed);
 
         switch (self.Display.display_type) {
             case enumHandlers.DISPLAYTYPE.PIVOT:

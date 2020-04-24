@@ -34,6 +34,9 @@ function ListHandler(elementId, container) {
         Angle: validationHandler.GetAngleValidation(null),
         Display: validationHandler.GetDisplayValidation(null)
     };
+    self.OnChanged = jQuery.noop;
+    self.OnRenderStart = jQuery.noop;
+    self.OnRenderEnd = jQuery.noop;
 
     // template
     self.ListViewTemplates = {
@@ -52,7 +55,7 @@ function ListHandler(elementId, container) {
             '</div>',
             '</div>'
         ].join(''),
-        AddColumnButton: '<a id="AddNewColumn" class="btnAddField" OnClick=\"window[\'' + self.ModelId + '\'].ShowAddColumnsPopup();\"></a>',
+        AddColumnButton: '<a id="AddNewColumn" class="btnAddField" data-role="tooltip" data-tooltip-position="bottom" data-tooltip-text="' + Localization.InsertColumn  + '" OnClick=\"window[\'' + self.ModelId + '\'].ShowAddColumnsPopup();\"></a>',
         HeaderPopup: [
             '<div class="k-window-custom k-window-titleless HeaderPopup HeaderPopupList" id="#PopupHeaderID#" alt="#FieldId#">',
             '<div class="k-content k-window-content">',
@@ -92,6 +95,7 @@ function ListHandler(elementId, container) {
         return jQuery(self.ElementId).data(enumHandlers.KENDOUITYPE.GRID);
     };
     self.GetListDisplay = function (scrollPosition, selectingRowId) {
+        self.OnRenderStart();
         self.CheckUpgradeDisplay()
             .done(function () {
                 // initial before render
@@ -142,9 +146,21 @@ function ListHandler(elementId, container) {
     };
     self.CheckUpgradeDisplay = function () {
         var currentDisplay = self.Models.Display.Data();
-        var sourceDisplay = self.DashBoardMode() ? currentDisplay : historyModel.Get(currentDisplay.uri, false);
+        var sourceDisplay = self.GetSourceDisplayData();
         var upgradeData = displayUpgradeHandler.GetUpgradeDisplayData(currentDisplay, sourceDisplay);
-        return displayUpgradeHandler.UpgradeDisplay(self, currentDisplay.uri, upgradeData);
+        return displayUpgradeHandler.UpgradeDisplay(currentDisplay.uri, upgradeData)
+            .then(function (display) {
+                if (display) {
+                    self.OnChanged(display, true);
+                }
+                else {
+                    self.OnChanged(self.Models.Display.Data(), WC.ModelHelper.IsAdhocUri(self.Models.Display.Data().uri));
+                }
+                return jQuery.when(display);
+            });
+    };
+    self.GetSourceDisplayData = function () {
+        return self.DashBoardMode() ? self.Models.Display.Data() : anglePageHandler.HandlerDisplay.GetRawData();
     };
     self.BeforeRender = function (selectingRowId) {
         if (!self.DashBoardMode()) {
@@ -211,7 +227,7 @@ function ListHandler(elementId, container) {
     };
     self.CreateGrid = function () {
         self.ColumnDefinitions = self.GetColumnDefinitions();
-        return jQuery(self.ElementId)
+        return jQuery(self.ElementId).addClass(self.DashBoardMode() ? 'grid-custom-scroller' : '')
             .kendoGrid(self.GetGridOptions(self.ColumnDefinitions))
             .data(enumHandlers.KENDOUITYPE.GRID);
     };
@@ -349,15 +365,17 @@ function ListHandler(elementId, container) {
                                     });
                                 }
                                 else {
-                                    self.Models.Result.SetRetryPostResultToErrorPopup(xhr.status);
+                                    self.Models.Result.SetRetryPostResultToErrorPopup(xhr);
                                 }
                             })
                             .always(function () {
                                 measurePerformance.SetEndTime();
+                                self.OnRenderEnd();
                             });
                     }
                     else {
                         measurePerformance.SetEndTime();
+                        self.OnRenderEnd();
                         options.success({ total: 0, data: [] });
                     }
                 }
@@ -371,28 +389,25 @@ function ListHandler(elementId, container) {
         });
     };
     self.ApplyGridDataSource = function (grid, scrollTop, rowHeight) {
+        // prefetch next page
+        var prefetch = function (e) {
+            if (e.sender.dataSource.page() === 1 && e.sender.dataSource.totalPages() > 1)
+                grid.dataSource.prefetch(grid.dataSource.skip() + grid.dataSource.take(), grid.dataSource.take());
+            grid.unbind('dataBound', prefetch);
+        };
+        grid.bind('dataBound', prefetch);
+
         var page = self.GetDefaultPage(grid.dataSource.pageSize(), scrollTop, rowHeight);
         grid.dataSource.page(page);
-
-        // prefetch next page
-        if (page === 1) {
-            grid.dataSource.prefetch(grid.dataSource.skip() + grid.dataSource.take(), grid.dataSource.take());
-        }
     };
     self.GetDefaultPage = function (pageSize, scrollTop, rowHeight) {
         return scrollTop ? Math.max(1, Math.ceil(scrollTop / pageSize / rowHeight)) : 1;
     };
     self.GetDefaultPageSize = function () {
-        var isFullMode = jQuery('#ToggleWrapper').hasClass("fullDetail");
         var containerHeight = self.GetContainer().height();
-        if (isFullMode && !self.DashBoardMode()) {
-            containerHeight = jQuery('#ToggleWrapper').height() + containerHeight;
-        }
         return Math.min(Math.max(systemSettingHandler.GetDefaultPageSize(), Math.ceil(containerHeight / 26)), systemSettingHandler.GetMaxPageSize());
     };
     self.AfterRender = function (grid) {
-        jQuery('#ToggleWrapper').show();
-
         grid.wrapper.find('.k-grid-header-wrap th').removeClass('last')
             .filter(':last-child').addClass('last');
         grid.tbody.find('tr td').removeClass('last')
@@ -411,10 +426,7 @@ function ListHandler(elementId, container) {
             self.HandleAngleColumnWidth(e);
         }
         self.AfterRender(e.sender);
-
-        if (!self.DashBoardMode() && e.column.field !== enumHandlers.GENERAL.ROWID) {
-            historyModel.Save();
-        }
+        self.OnChanged(self.Models.Display.Data(), false);
 
         setTimeout(function () {
             self.UpdateAngleGridHeaderPopup();
@@ -428,8 +440,8 @@ function ListHandler(elementId, container) {
         var currentField = self.Models.Display.Data().fields.splice(e.oldIndex, 1);
         self.Models.Display.Data().fields.splice(e.newIndex, 0, currentField[0]);
         self.Models.Display.Data.commit();
-
-        historyModel.Save();
+        
+        self.OnChanged(self.Models.Display.Data(), false);
 
         setTimeout(function () {
             self.UpdateAngleGridHeaderPopup();
@@ -575,10 +587,10 @@ function ListHandler(elementId, container) {
                                 if (jQuery.active <= 0 && grid._canDragToRemove) {
                                     clearInterval(fnCheckCanDragToRemove);
 
-                                    jQuery('.listRemoveColumnArea').remove();
-                                    var dropArea = jQuery('<div id="listRemoveColumnArea" class="listRemoveColumnArea" />');
+                                    jQuery('#ListRemoveColumnArea').remove();
+                                    var dropArea = jQuery('<div id="ListRemoveColumnArea" class="column-drop-area drop-area-cover" />');
+                                    dropArea.text(Captions.Drop_Here_To_Remove_This_Column);
                                     var css = { width: WC.Window.Width };
-                                    dropArea.html('<div class="listRemoveColumnAreaInner">' + Captions.Drop_Here_To_Remove_This_Column + '</div>');
                                     if (jQuery('#AngleField').is(':visible')) {
                                         css.top = 0;
                                         css.height = grid.element.offset().top;
@@ -608,22 +620,27 @@ function ListHandler(elementId, container) {
                             }
                         }, 50);
 
-                        var dropArea = jQuery('#listRemoveColumnArea');
+                        var dropArea = jQuery('#ListRemoveColumnArea');
                         if (dropArea.length) {
                             var area = dropArea.data();
                             if (e.y.location >= area.y1 && e.y.location <= area.y2) {
                                 e.sender.hint.addClass('removable');
+                                dropArea.addClass('focus');
                             }
                             else {
                                 e.sender.hint.removeClass('removable');
+                                dropArea.removeClass('focus');
                             }
                         }
+                    })
+                    .bind('dragcancel', function () {
+                        jQuery('#ListRemoveColumnArea').remove();
                     })
                     .bind('dragend', function (e) {
                         clearInterval(fnCheckDragHold);
                         clearInterval(fnCheckCanDragToRemove);
 
-                        var dropArea = jQuery('#listRemoveColumnArea');
+                        var dropArea = jQuery('#ListRemoveColumnArea');
                         if (dropArea.length) {
                             var area = dropArea.data();
                             if (e.y.location >= area.y1 && e.y.location <= area.y2) {
@@ -633,7 +650,7 @@ function ListHandler(elementId, container) {
                         }
 
                         grid._canDragToRemove = grid.columns.length > 2;
-                        jQuery('.listRemoveColumnArea').remove();
+                        dropArea.remove();
                     });
             }
         }
@@ -1235,6 +1252,7 @@ function ListHandler(elementId, container) {
 
             // fixed cell popup float over the grid
             jQuery('<div class="headerBarRight" />').prependTo(grid.element);
+            jQuery('<div class="headerBarLeft" />').prependTo(grid.element);
             self.UpdateCustomHeaderBarSize(grid);
 
             // bind scrolling event on k-virtual-scrollable-wrap for HeaderPopup position
@@ -1247,6 +1265,12 @@ function ListHandler(elementId, container) {
             grid.wrapper.find('.headerBarRight').css({
                 width: WC.Window.ScrollBarWidth,
                 height: headerHeight
+            });
+
+            headerHeight = parseInt(headerHeight);
+            grid.wrapper.find('.headerBarLeft').css({
+                height: headerHeight / 2,
+                top: headerHeight / 2
             });
         }
     };
@@ -1276,10 +1300,12 @@ function ListHandler(elementId, container) {
         var leftSpace = 46;
         var rightSpace = WC.Window.ScrollBarWidth;
         var gridHeaderColumnOffset = gridHeaderColumn.offset();
+        gridHeaderColumnOffset.left -= jQuery('#ContentWrapper .side-content').width();
         var gridHeaderColumnSize = gridHeaderColumn.width();
+        var gridWidth = grid.wrapper.width();
         var popupSpace = 5;
         var popupSize = obj.outerWidth();
-        var popupLeft = gridHeaderColumnOffset.left + popupSize + 20 > WC.Window.Width
+        var popupLeft = gridHeaderColumnOffset.left + popupSize + 20 > gridWidth
             ? gridHeaderColumnOffset.left + gridHeaderColumnSize - popupSize - popupSpace
             : gridHeaderColumnOffset.left;
 
@@ -1288,9 +1314,9 @@ function ListHandler(elementId, container) {
                 popupLeft = leftSpace + popupSpace;
             }
         }
-        else if (popupLeft + popupSize > WC.Window.Width - rightSpace
-            && gridHeaderColumnOffset.left + popupSpace < WC.Window.Width - rightSpace) {
-            popupLeft = WC.Window.Width - rightSpace - popupSize - popupSpace;
+        else if (popupLeft + popupSize > gridWidth - rightSpace
+            && gridHeaderColumnOffset.left + popupSpace < gridWidth - rightSpace) {
+            popupLeft = gridWidth - rightSpace - popupSize - popupSpace;
         }
         obj.css('left', popupLeft);
 
@@ -1394,7 +1420,8 @@ function ListHandler(elementId, container) {
                 self.RemoveColumn(fieldId);
             }
             else if (element.hasClass('addFilter')) {
-                quickFilterHandler.ShowAddFilterPopup(fieldId, self);
+                quickFilterHandler.AddFilter(fieldId, self);
+                self.HideHeaderPopup();
             }
             else if (element.hasClass('fieldInfo')) {
                 helpTextHandler.ShowHelpTextPopup(fieldId, helpTextHandler.HELPTYPE.FIELD, self.Models.Angle.Data().model);
@@ -1506,7 +1533,7 @@ function ListHandler(elementId, container) {
 
         });
         self.Models.Display.Data.commit();
-        historyModel.Save();
+        self.OnChanged(self.Models.Display.Data(), false);
 
         var gridElement = jQuery(self.ElementId);
         var scrollPosition = {};
@@ -1523,19 +1550,12 @@ function ListHandler(elementId, container) {
         self.AddColumnsCallback(fields, scrollPosition);
     };
     self.AddColumnsCallback = function (fields, scrollPosition) {
-        requestHistoryModel.SaveLastExecute(self, self.AddColumnsCallback, arguments);
-
         var fieldsValidation = validationHandler.GetFieldsValidation(self.Models.Display.Data().fields);
         if (fieldsValidation.InvalidFieldsAll) {
             popup.Info(Localization.Info_PleaseSaveAndRefresh);
         }
 
-        if (self.Models.Result.Data().query_fields) {
-            modelInstanceFieldsHandler.SetFields(fields, self.Models.Result.Data().query_fields);
-        }
-        else {
-            modelInstanceFieldsHandler.SetFields(fields, fieldsChooserModel.GetQueryFilterUri(1).url);
-        }
+        modelInstanceFieldsHandler.SetFields(fields);
         modelFieldsHandler.SetFields(fields);
         modelFieldsHandler.LoadFieldsMetadata(fields)
             .done(function () {
@@ -1543,7 +1563,6 @@ function ListHandler(elementId, container) {
             });
     };
     self.RemoveColumn = function (fieldId) {
-        requestHistoryModel.SaveLastExecute(self, self.RemoveColumn, arguments);
         var grid = self.GetGridObject();
         if (grid.columns.length > 2) {
             if (self.Models.Display.Data().fields.hasObject('field', fieldId, false)) {
@@ -1569,11 +1588,10 @@ function ListHandler(elementId, container) {
                     }
                 }
             }
-
             self.Models.Display.Data().fields.removeObject('field', fieldId, false);
             self.Models.Display.Data.commit();
-
-            historyModel.Save();
+            
+            self.OnChanged(self.Models.Display.Data(), false);
 
             var scrollSettings = self.GetGridScrollSettingsData();
             self.GetListDisplay({ left: scrollSettings.left, top: scrollSettings.top }, self.SelectingRowId);
@@ -1587,14 +1605,9 @@ function ListHandler(elementId, container) {
     };
     self.GetDomainImageHtml = function (cellValue, domainUri) {
         var domainFolder = modelFieldDomainHandler.GetDomainPathByUri(domainUri);
-        if (domainFolder && cellValue !== null) {
-            var iconInfo = modelFieldDomainHandler.GetDomainElementIconInfo(domainFolder, cellValue);
-            jQuery.injectCSS(iconInfo.css, iconInfo.id);
-            return iconInfo.html;
-        }
-        else {
-            return '';
-        }
+        var iconInfo = modelFieldDomainHandler.GetDomainElementIconInfo(domainFolder, cellValue);
+        iconInfo.injectCSS();
+        return iconInfo.html;
     };
     self.GetFormatValue = function (fieldId, cellValue, domainUri, nullableElement) {
         if (cellValue === '...') {
@@ -1656,7 +1669,7 @@ function ListHandler(elementId, container) {
             onShow: self.OnContextMenuShow,
             onHover: self.OnContextMenuHover,
             onSelect: self.OnContextMenuSelect
-        }
+        };
     };
     self.InitialContextMenu = function (grid) {
         var initialContextMenu = function () {
@@ -1683,17 +1696,17 @@ function ListHandler(elementId, container) {
         }, 100);
     };
     self.LeftClickFirstCell = {
-        RowId: -1,
+        RowId: -1
     };
     self.LeftClickElement = {};
     self.ResetLeftClickFirstCell  = function() {
         self.LeftClickFirstCell.RowId = -1;
         self.LeftClickElement = {};
-    }
+    };
     self.SetLeftClickFirstCell = function (context) {
         self.LeftClickFirstCell.RowId = context.parentElement.rowIndex;
         self.LeftClickElement = context;
-    }
+    };
     self.ContextMenuRenderPosition = function(isOnlyCopy, column, dataItem, menu, context) {
         self.MenuOptions = self.CreateContextMenu(column.field.toLowerCase(), dataItem[column.field.toLowerCase()]);
         if (isOnlyCopy) {
@@ -1752,11 +1765,11 @@ function ListHandler(elementId, container) {
             loop2:
             for (var j = i; j <= selectedAreaData.dragEnd; j = j + selectedAreaData.totalGridCount) {
 
-                if (j == currentIndex) {
+                if (j === currentIndex) {
                     isIndexInSelectedArea = true;
                     break loop1;
                 }
-                if (j == selectedAreaData.dragEnd) {
+                if (j === selectedAreaData.dragEnd) {
                     break loop1;
                 }
             }
@@ -1766,7 +1779,7 @@ function ListHandler(elementId, container) {
     }
     self.OnContextMenuShow = function (e, context) {
         var grid = self.GetGridObject(); self.HideHeaderPopup();
-        if (self.IsDeviceIpad() || e.which == 3) {
+        if (self.IsDeviceIpad() || e.which === 3) {
             jQuery(document).trigger('click');
             var menu = jQuery(this), cell, isOnlyCopy = false;
             if (e.which == 3) {
@@ -1827,7 +1840,7 @@ function ListHandler(elementId, container) {
                 return false;
             }
             var selectedAreaData = self.GetSelectedAreaData(grid, self.LeftClickElement, context);
-            if ([(selectedAreaData.dragStart - selectedAreaData.noOfColumns + 1) + ((selectedAreaData.noOfRows - 1) * selectedAreaData.totalGridCount)] == selectedAreaData.dragEnd) {
+            if ([(selectedAreaData.dragStart - selectedAreaData.noOfColumns + 1) + ((selectedAreaData.noOfRows - 1) * selectedAreaData.totalGridCount)] === selectedAreaData.dragEnd) {
                 selectedAreaData.dragStart -= (selectedAreaData.noOfColumns - 1);
                 selectedAreaData.dragEnd += (selectedAreaData.noOfColumns - 1);
             }
@@ -1839,7 +1852,7 @@ function ListHandler(elementId, container) {
                 for (var j = i; j <= selectedAreaData.dragEnd; j = j + selectedAreaData.totalGridCount) {
                     $(self.ElementId + " td:eq(" + j + ")").addClass('k-state-selected');
 
-                    if (j == selectedAreaData.dragEnd) {
+                    if (j === selectedAreaData.dragEnd) {
                         break loop1;
                     }
                 }
@@ -1847,7 +1860,7 @@ function ListHandler(elementId, container) {
             }
             return false;
         }
-        else if ((e.which == 1 && e.ctrlKey) || e.which == 1) {
+        else if ((e.which === 1 && e.ctrlKey) || e.which === 1) {
             self.SetLeftClickFirstCell(context);
             self.HideContextMenu();
             grid.clearSelection();
@@ -1909,7 +1922,7 @@ function ListHandler(elementId, container) {
                         listDrilldownHandler.Drilldown(dataItem);
                         break;
                     case 'copy':
-                        self.OnContentCopy()
+                        self.OnContentCopy();
                         break;
                     case 'sap':
 
@@ -1937,9 +1950,6 @@ function ListHandler(elementId, container) {
                     case enumHandlers.CRITERIA.NOTEQUAL:
                     case enumHandlers.CRITERIA.LARGERTHAN:
                     case enumHandlers.CRITERIA.SMALLERTHAN:
-
-                        requestHistoryModel.SaveLastExecute(self, self.CreateContextMenu, arguments);
-
                         var dataType = field.fieldtype;
                         var operatorText = WC.WidgetFilterHelper.ConvertCriteriaToOperator(key);
                         var argumentValue = key === enumHandlers.CRITERIA.EMPTY || key === enumHandlers.CRITERIA.NOTEMPTY ? [] : [WC.WidgetFilterHelper.ArgumentObject(fieldValue, enumHandlers.FILTERARGUMENTTYPE.VALUE)];
@@ -2009,6 +2019,15 @@ function ListHandler(elementId, container) {
         });
         return ul;
     };
+    self.AddEmptyContextMenuItem = function (ul, message) {
+        var li = jQuery('<li />')
+            .attr({
+                'class': 'listview-item disabled'
+            })
+            .html('<span>' + message + '</span>');
+        ul.addClass('empty');
+        ul.append(li);
+    };
     self.AddContextMenuItem = function (ul, item) {
         var li = jQuery('<li />')
             .attr({
@@ -2043,7 +2062,7 @@ function ListHandler(elementId, container) {
             },
             filter: {
                 name: Localization.CellPopupMenuFilterThisColumn,
-                icon: 'icon-add-filter',
+                icon: 'icon-quick-filter',
                 items: filterSubMenu,
                 disabled: function () {
                     return !self.Models.Result.Data().authorizations.add_filter;
@@ -2205,10 +2224,10 @@ function ListHandler(elementId, container) {
     };
     self.GenerateSapSubMenu = function (data) {
         var menu = jQuery('li[name="gotosap"]');
-        if (data && data.sap_transactions) {
-            var ul = menu.children('ul');
-            ul.empty().show();
+        var ul = menu.children('ul');
+        ul.empty().show();
 
+        if (data && data.sap_transactions && data.sap_transactions.length) {
             jQuery.each(data.sap_transactions, function (i, transaction) {
                 var item = {
                     id: 'sap',
@@ -2217,8 +2236,11 @@ function ListHandler(elementId, container) {
                 };
                 self.AddContextMenuItem(ul, item);
             });
-            self.UpdateContextMenuPosition(menu);
         }
+        else {
+            self.AddEmptyContextMenuItem(ul, Localization.GoToSapNotAvailable);
+        }
+        self.UpdateContextMenuPosition(menu);
         menu.children('i.btn-more').removeClass('loader-spinner-inline').addClass('icon-chevron-right');
     };
     self.GetSapTransactionUri = function () {
@@ -2449,6 +2471,7 @@ function ListHandler(elementId, container) {
         }
         jQuery.when(self.Models.Display.CreateTempDisplay(displayType, display))
             .done(function (data) {
+                anglePageHandler.HandlerAngle.AddDisplay(data, null, true);
                 fieldSettingsHandler.ClearFieldSettings();
 
                 // redirect to display
@@ -2522,7 +2545,7 @@ function ListHandler(elementId, container) {
                 tooltip.hide();
             }, 2000);
         };
-        
+
         // set clipboard
         var clipboard = new Clipboard('#CopyToClipboard', {
             text: function () {

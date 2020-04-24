@@ -636,18 +636,8 @@ function FieldsChooserModel() {
                                 if (options.error) {
                                     options.error(xhr, status, error);
                                 }
-                                else if (typeof requestHistoryModel !== 'undefined') {
-                                    var grid = jQuery('#' + self.GridName).data('kendoGrid');
-                                    if (grid)
-                                        requestHistoryModel.SaveLastExecute(grid.dataSource, grid.dataSource.options.transport.read, [options]);
-                                }
                             })
                     };
-                }
-            },
-            error: function (e) {
-                if (typeof requestHistoryModel !== 'undefined') {
-                    requestHistoryModel.SaveLastExecute(e.sender, e.sender.read, []);
                 }
             },
             schema: {
@@ -798,12 +788,12 @@ function FieldsChooserModel() {
                     return;
 
                 dataItem = grid.dataSource.getByUid(row.data('uid'));
-                row.addClass('k-state-selected');
 
                 if (dataItem) {
                     canDuplicate = self.CanDuplicatedField || (!self.CanDuplicatedField && !self.CheckFieldIsExists(dataItem.id));
                     if (canDuplicate) {
                         self.SelectedItems([dataItem]);
+                        row.addClass('k-state-selected');
                     }
                     self.OnGridSelectionChanged.call(self, self.SelectedItems());
                     if (!grid.element.data('submited') && self.SelectedItems().length > 0 && self.IsCurrentSelected(row.data('uid'))) {
@@ -1024,8 +1014,7 @@ function FieldsChooserModel() {
             var field = grid.dataSource.getByUid(uid);
 
             if (field && field.uri) {
-
-                obj.removeClass('DisplayPropertiesGridSignFavoriteDisable DisplayPropertiesGridSignFavorite').addClass('loader-spinner-inline');
+                obj.removeClass('DisplayPropertiesGridSignFavoriteDisable DisplayPropertiesGridSignFavorite DisplayPropertiesGridSignSuggest').addClass('loader-spinner-inline');
 
                 //PUT data
                 return jQuery.when(UpdateDataToWebService(field.uri, { user_specific: { is_starred: !field.user_specific.is_starred } }))

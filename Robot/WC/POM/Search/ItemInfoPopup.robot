@@ -15,12 +15,12 @@ Click Edit Mode Button Via Item Info Popup
     Wait Until Page Contains Element    ${btnItemInfoEditMode}
     Click Element    ${btnItemInfoEditMode}
 
-Click Dashbaord Edit Mode Button Via Item Info Popup
+Click Dashboard Edit Mode Button Via Item Info Popup
     Sleep    ${TIMEOUT_GENERAL}
     Wait Until Page Contains Element    ${divDashboardItemInfoSection}
     Click Element    ${btnDashboardItemInfoEditMode}
     Wait Progress Bar Closed
 
-Click Dashbaord Ok Button Via Item Info Popup
+Click Dashboard Ok Button Via Item Info Popup
     Wait Until Page Contains Element    ${divDashboardItemInfoSection}
     Click Element    ${btnDashboardItemInfoOk}

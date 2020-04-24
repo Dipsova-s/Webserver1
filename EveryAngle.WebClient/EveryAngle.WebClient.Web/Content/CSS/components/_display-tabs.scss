@@ -1,0 +1,312 @@
+﻿@import '../abstracts/variables';
+@import '../abstracts/mixins';
+
+/* .display-tabs
+===================================== */
+$tab-bar-color: #f5f5f5;
+$tab-bar-padding-top: 7px;
+$active-tab-color: #fff;
+$hover-tab-color: #fbfbfb;
+$bottom-line-thick: 0;
+$delete-icon-color: #ea3d2f;
+
+.display-tab {
+    background-color: $tab-bar-color;
+    padding-top: $tab-bar-padding-top;
+    padding-left: 20px;
+    padding-right: 20px;
+    border-bottom: $bottom-line-thick solid $active-tab-color;
+
+    &.active {
+        opacity: 1;
+
+        &:before {
+            display: none;
+        }
+    }
+
+    &:before {
+        content: '';
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        background-color: #fff;
+        opacity: 0;
+        z-index: 2;
+    }
+
+    .btn {
+        width: 20px;
+        height: 20px;
+        display: flex;
+        padding: 0;
+        font-size: 12px;
+        color: #78909c;
+
+        &:after {
+            display: none;
+        }
+
+        .icon {
+            margin: auto;
+        }
+    }
+
+    .tab-menu-wrapper {
+        overflow: hidden;
+
+        .tab-menu {
+            background-color: transparent;
+            color: #333;
+            max-height: 40px;
+            white-space: nowrap;
+            justify-content: flex-start;
+            flex-shrink: 0;
+            letter-spacing: .2px;
+
+            &.active {
+                cursor: default;
+                background-color: $active-tab-color;
+                box-shadow: 0 0 3.5px 2px rgba(0, 0, 0, .08);
+                z-index: 1;
+            }
+
+            &:hover:not(.active) {
+                background-color: $hover-tab-color;
+                letter-spacing: .15px;
+                font-weight: bold;
+                color: #000;
+            }
+
+            .seperator {
+                @include flex-center;
+                position: absolute;
+                left: 0;
+                top: 0;
+                width: 1px;
+                height: 100%;
+
+                &:before {
+                    content: '';
+                    width: 100%;
+                    height: 18px;
+                    background-color: #cbcbcb;
+                }
+            }
+
+            &:first-child .seperator,
+            &:hover .seperator,
+            &:hover + .tab-menu .seperator,
+            &.active .seperator,
+            &.active + .tab-menu .seperator {
+                display: none;
+            }
+
+            .front {
+                position: relative;
+            }
+
+            .name {
+                max-width: 280px;
+            }
+
+            &.active .name {
+                font-weight: bold;
+            }
+
+            .validWarning {
+                margin: unset;
+                box-sizing: border-box;
+            }
+
+            .icon-close {
+                visibility: hidden;
+                cursor: pointer;
+                margin-left: auto;
+                font-size: 10px;
+                color: $delete-icon-color;
+
+                &.disabled {
+                    visibility: hidden;
+                }
+            }
+
+            &:hover .icon-close,
+            &.active:hover .icon-close {
+                visibility: visible;
+
+                &.disabled {
+                    visibility: hidden;
+                }
+            }
+
+            .btn-edit-description {
+                visibility: hidden;
+
+                &:hover {
+                    color: #3d4852;
+                }
+            }
+
+            &.active:hover .btn-edit-description {
+                visibility: visible;
+                cursor: pointer;
+
+                &.disabled {
+                    visibility: hidden;
+                }
+            }
+        }
+    }
+
+    .add-display-wrapper {
+        position: relative;
+        display: inline-flex;
+        align-items: center;
+        flex-shrink: 0;
+
+        .new-display-popup {
+            display: none;
+            position: absolute;
+            right: 0;
+            top: 100%;
+            margin-top: 3px;
+            z-index: 5;
+
+            .listview {
+                padding: 5px;
+                border-width: 0;
+
+                .listview-item {
+                    cursor: pointer;
+                    position: relative;
+                    overflow: visible;
+                    max-width: 160px;
+                    min-width: 80px;
+
+                    &:hover {
+                        font-weight: bold;
+                        background-color: $general-border-color;
+                    }
+                }
+            }
+        }
+    }
+
+    .right-btn-wrapper {
+        position: relative;
+        display: inline-flex;
+        align-items: center;
+        margin-left: auto;
+        flex-shrink: 0;
+
+        .btn-chevron {
+            border: 1px solid #78909c;
+            margin-right: 0;
+            font-size: 10px;
+            flex: 0 0 20px;
+            height: 20px;
+        }
+
+        .btn-display-badge {
+            font-size: 18px;
+            margin-left: 15px;
+        }
+
+        .display-overview-popup {
+            display: none;
+            position: absolute;
+            right: 0;
+            top: 100%;
+            margin-top: 3px;
+            z-index: 5;
+
+            .listview {
+                padding: 5px;
+                border-width: 0;
+
+                .listview-item {
+                    cursor: pointer;
+                    position: relative;
+                    overflow: visible;
+
+                    &:hover,
+                    &.hover,
+                    &.active {
+                        background-color: $general-border-color;
+                    }
+
+                    &.active {
+                        cursor: default;
+                        background-color: #fff;
+
+                        &:before {
+                            content: '';
+                            position: absolute;
+                            left: -5px;
+                            top: 0;
+                            width: 0;
+                            height: 100%;
+                            border-left: 4px solid #358ed7;
+                        }
+                    }
+
+                    .displayNameContainer {
+                        width: 100%;
+
+                        .name {
+                            max-width: 280px;
+                        }
+
+                        .rear {
+                            margin-right: 10px;
+                        }
+                    }
+
+                    .icon-close {
+                        visibility: hidden;
+                        cursor: pointer;
+                        margin-left: auto;
+                        margin-right: -10px;
+                        font-size: 10px;
+                        flex-shrink: 0;
+                        color: $delete-icon-color;
+
+                        &.disabled {
+                            visibility: hidden;
+                        }
+                    }
+
+                    &:hover .icon-close {
+                        visibility: visible;
+
+                        &.disabled {
+                            visibility: hidden;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+.display-option-wrapper {
+    background-color: $active-tab-color;
+    padding-left: 20px;
+    padding-bottom: 7px;
+    padding-top: 7px;
+    padding-right: 20px;
+    min-height: 20px;
+    box-shadow: 1px -2px 3px 0 rgba(0, 0, 0, .06);
+
+    .display-option {
+        margin-left: auto;
+
+        input[type="checkbox"]:not(:checked) + .label,
+        input[type="checkbox"]:checked + .label {
+            padding-left: 20px;
+        }
+    }
+}

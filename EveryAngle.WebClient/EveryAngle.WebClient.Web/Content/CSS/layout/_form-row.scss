@@ -1,0 +1,34 @@
+﻿@import '../abstracts/mixins';
+
+/* .form-row
+============================================ */
+.form-row {
+    @include flex-center;
+}
+
+.form-col {
+    padding: 5px;
+    box-sizing: border-box;
+
+    &.float-left {
+        margin-right: auto;
+    }
+
+    &.float-right {
+        margin-left: auto;
+    }
+
+    &.form-col-header {
+        flex-grow: 0;
+        width: 100px;
+        font-weight: bold;
+    }
+
+    &.form-col-body {
+        flex-grow: 1;
+    }
+
+    &.form-col-half {
+        width: 50%;
+    }
+}

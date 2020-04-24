@@ -1,0 +1,97 @@
+﻿@import '../abstracts/variables';
+@import '../abstracts/mixins';
+
+/* .widget-definition
+============================================ */
+.widget-definition {
+    .item {
+        margin-bottom: 5px;
+
+        .btn-definition {
+            margin-left: auto;
+            flex-shrink: 0;
+
+            &:hover {
+                color: #3d4852;
+            }
+
+            &.active {
+                background-color: #e3e5e5;
+                border-radius: 50%;
+            }
+        }
+    }
+}
+
+/* .dashboard-widget-popup
+============================================ */
+.dashboard-widget-popup {
+    .k-window-titlebar {
+        @include flex-center;
+    }
+
+    .k-window-title {
+        @include flex-center;
+        margin-right: 40px;
+        margin-top: -4px;
+
+        .displayNameContainer {
+            padding-left: 1px;
+        }
+    }
+
+    .form-row {
+        margin-left: -5px;
+        margin-right: -5px;
+
+        .col-name {
+            margin-bottom: 5px;
+        }
+
+        .col-displays {
+            .listview {
+                max-height: 205px;
+
+                .listview-item {
+                    padding: 0;
+
+                    &:hover {
+                        background-color: transparent;
+                    }
+
+                    .displayNameContainer {
+                        cursor: pointer;
+                        margin-right: auto;
+                        max-width: 310px;
+                    }
+
+                    &.readonly {
+                        .displayNameContainer {
+                            cursor: default;
+                            opacity: $disabled-opacity;
+                        }
+                    }
+
+                    .btn-link {
+                        display: none;
+                        margin-left: 3px;
+                        margin-right: 3px;
+                        color: #78909c;
+
+                        &:hover {
+                            color: #3d4852;
+                        }
+                    }
+
+                    &:hover .btn-link {
+                        display: block;
+                    }
+                }
+            }
+        }
+    }
+
+    .placeholder {
+        color: #909191;
+    }
+}

@@ -18,7 +18,8 @@ Go To MC Page
     [Arguments]    ${location}
     ${targetLocation}    Set Variable    ${URL_MC}/home/index#${location}
     ${currentLocation}    Get Location
-    Run Keyword If    '${currentLocation}'=='${targetLocation}'    Reload Page
+    ${reload}  Execute JavaScript  return window.location.hash.substr(1)=='${location}';
+    Run Keyword If    ${reload}    Reload Page
     ...        ELSE    Go To    ${targetLocation}
     Wait MC Progress Bar Closed
 

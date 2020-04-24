@@ -5,6 +5,18 @@
     border: 0;
 }
 
+.grid .headerBarLeft {
+    position: absolute;
+    background: #fdfdfd none;
+    height: 25px;
+    width: 46px;
+    left: 0;
+    top: 37px;
+    border-right: 1px solid #ddd;
+    box-sizing: border-box;
+    z-index: 999;
+}
+
 .grid .headerBarRight {
     position: absolute;
     background-color: #fdfdfd;
@@ -132,28 +144,19 @@
     display: none !important; /* NOSONAR: override runtime css */
 }
 
-/* .listRemoveColumnArea
+/* .column-drop-area
 ============================================ */
-.listRemoveColumnArea {
-    border: 5px dotted #fff;
+.column-drop-area {
     position: absolute;
     left: 0;
+    font-size: 20px;
     width: 100%;
     z-index: 10000;
-    background-color: #000;
-    opacity: .7;
     box-sizing: border-box;
 }
-
-.listRemoveColumnAreaInner {
-    display: table-cell;
-    vertical-align: middle;
-    text-align: center;
-    color: #fff;
-    font-size: 20px;
-    text-shadow: 1px 1px 1px #f00;
+.k-header.k-drag-clue .angleListHeader {
+    opacity: .8;
 }
-
 /* .angleListHeader
 ============================================ */
 .angleListHeader {
@@ -191,7 +194,7 @@
 
 .validError .angleListHeader:after {
     background-image: url('../../images/icons/icon_error.svg');
-    background-size: 30px;
+    background-size: 30px 30px;
 }
 
 .angleListHeader.withoutSAP {
@@ -375,7 +378,6 @@
 .HeaderPopup .propertyFunction > .fieldFormat {
     background-image: url('../../images/icons/icon_format.png');
 }
-
 .HeaderPopup .propertyFunction > .createPivot {
     background-image: url('../../images/icons/icon_pivot_addnew.png');
 }
@@ -418,6 +420,12 @@
 
 /* .listDrilldown
 ============================================ */
+.listDrilldown .col-saving,
+.listDrilldown .col-states,
+.listDrilldown .display-tab,
+.listDrilldown .display-option-wrapper {
+    display: none;
+}
 .listDrilldown #ToggleAngle {
     visibility: hidden;
 }
@@ -458,6 +466,13 @@
 
 .listDrilldownGrid {
     margin-left: 197px;
+}
+
+.listDrilldownGrid .loader-spinner-inline {
+    display: block;
+    margin: auto;
+    position: relative;
+    left: -2px;
 }
 
 .listDrilldownGrid .iconCategory {

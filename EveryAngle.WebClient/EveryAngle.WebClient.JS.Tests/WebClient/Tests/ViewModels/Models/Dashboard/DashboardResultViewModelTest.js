@@ -1,12 +1,12 @@
+/// <reference path="/Dependencies/ViewModels/Models/User/usermodel.js" />
+/// <reference path="/Dependencies/ViewModels/Models/User/privileges.js" />
 /// <reference path="/Dependencies/ViewModels/Models/Angle/resultmodel.js" />
-/// <reference path="/Dependencies/ViewModels/Models/Angle/historymodel.js" />
 /// <reference path="/Dependencies/ViewModels/Models/Angle/displayqueryblockmodel.js" />
 /// <reference path="/Dependencies/ViewModels/Models/Angle/displaymodel.js" />
 /// <reference path="/Dependencies/ViewModels/Models/Angle/DisplayFieldModel.js" />
 /// <reference path="/Dependencies/ViewModels/Models/Angle/displaydropdownlistmodel.js" />
 /// <reference path="/Dependencies/ViewModels/Models/Angle/anglequerystepmodel.js" />
 /// <reference path="/Dependencies/ViewModels/Models/Angle/AngleInfoModel.js" />
-
 /// <reference path="/Dependencies/ViewManagement/Shared/DirectoryHandler.js" />
 /// <reference path="/Dependencies/ViewManagement/Shared/FieldCategoryHandler.js" />
 /// <reference path="/Dependencies/ViewManagement/Shared/SystemDefaultUserSettingHandler.js" />
@@ -28,7 +28,7 @@ describe("DashboardResultViewModel", function () {
     var testElementId = "TestElementId";
 
     beforeEach(function () {
-        dashboardModel = new DashboardViewModel();
+        dashboardModel = new DashboardViewModel({});
         widGetModel = new DashboardWidgetViewModel();
         widGetModel.GetAngle = $.noop;
         widGetModel.GetDisplay = $.noop;
@@ -93,34 +93,42 @@ describe("DashboardResultViewModel", function () {
             spyOn(dashboardResultViewModel.DashboardModel, 'Data').and.returnValue({ model: '' });
         });
 
+        it("should call SetExtendedFilters 1 time if cannot extend filters", function (done) {
+            spyOn(dashboardResultViewModel.WidgetModel, 'CanExtendFilter').and.returnValue(false);
+            spyOn(dashboardResultViewModel.DashboardModel, 'GetDashboardFilters').and.returnValue([1, 1, 1, 1]);
+            dashboardResultViewModel.PostIntegrity()
+                .done(function () {
+                    // assert
+                    expect(dashboardResultViewModel.WidgetModel.SetExtendedFilters).toHaveBeenCalledTimes(1);
+                    done();
+                });
+        });
+
         it("should call SetExtendedFilters 1 time if no filter", function (done) {
+            spyOn(dashboardResultViewModel.WidgetModel, 'CanExtendFilter').and.returnValue(true);
             spyOn(dashboardResultViewModel.DashboardModel, 'GetDashboardFilters').and.returnValue([]);
 
             // act
             dashboardResultViewModel.PostIntegrity()
                 .done(function () {
-                    var callCount = dashboardResultViewModel.WidgetModel.SetExtendedFilters.calls.count();
-
                     // assert
-                    expect(1).toEqual(callCount);
+                    expect(dashboardResultViewModel.WidgetModel.SetExtendedFilters).toHaveBeenCalledTimes(1);
                     done();
                 });
         });
 
         it("should call SetExtendedFilters 2 times if has filters", function (done) {
+            spyOn(dashboardResultViewModel.WidgetModel, 'CanExtendFilter').and.returnValue(true);
             spyOn(dashboardResultViewModel.DashboardModel, 'GetDashboardFilters').and.returnValue([1, 1, 1, 1]);
 
             // act
             dashboardResultViewModel.PostIntegrity()
                 .done(function () {
-                    var callCount = dashboardResultViewModel.WidgetModel.SetExtendedFilters.calls.count();
-
                     // assert
-                    expect(2).toEqual(callCount);
+                    expect(dashboardResultViewModel.WidgetModel.SetExtendedFilters).toHaveBeenCalledTimes(2);
                     done();
                 });
         });
-
     });
 
     describe(".CreatePostIntegrityData", function () {

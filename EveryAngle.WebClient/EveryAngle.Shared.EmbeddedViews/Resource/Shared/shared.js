@@ -242,7 +242,7 @@
             // clear cover element
             $element.prev('.chkIndeterminatable').remove();
             // clear span element
-            $element.next('.textStatus.cursorPointer').remove();
+            $element.next('.chk-label').remove();
 
             //wrap checkbox in wrapper
             if (!($element.parent('.chk-indeterminatable-wrapper').length)) {
@@ -293,7 +293,7 @@
             $element.after(
                 jQuery('<span />')
                     .attr({
-                        'class': 'textStatus cursorPointer'
+                        'class': 'chk-label textStatus'
                     })
                     .html(
                         $element.attr("data-label") || ''

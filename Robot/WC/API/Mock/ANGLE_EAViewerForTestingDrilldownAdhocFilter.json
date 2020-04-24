@@ -1,0 +1,251 @@
+{
+	"id": "ROBOT_ANGLE_EAViewerForTestingDrilldownAdhocFilter",
+	"angle_default_display": "da4d199be97d4d16924d5577956657293",
+	"is_validated": false,
+	"is_published": true,
+	"is_template": false,
+    "assigned_labels": [
+      "P2P",
+      "PM",
+      "S2D"
+    ],
+    "multi_lang_name": [
+      {
+        "lang": "en",
+        "text": "[ROBOT] Angle For Testing Drilldown Ad hoc Filter"
+      }
+    ],
+    "multi_lang_description": [
+      {
+        "lang": "en",
+        "text": "<div id=\"summary\"><div class=\" section\" id=\"S1436366645567954\"><h2 class=\" topictitle2\" id=\"Hidelem4x82726\">&nbsp;</h2><p id=\"Pidelem4x82753\"></p></div></div>"
+      }
+    ],
+    "query_definition": [
+      {
+        "queryblock_type": "base_classes",
+        "base_classes": [
+          "PurchaseOrderScheduleLine"
+        ]
+      }
+    ],
+    "display_definitions": [
+      {
+        "id": "d3d656bbc730877f452b2577956657293",
+        "display_type": "chart",
+		"is_public": true,
+        "multi_lang_name": [
+          {
+            "lang": "de",
+            "text": "Liefertreue pro Periode"
+          },
+          {
+            "lang": "en",
+            "text": "Delivery Reliability per Period"
+          },
+          {
+            "lang": "es",
+            "text": "Cumplimiento de Plazos de Entrega por Período"
+          },
+          {
+            "lang": "fr",
+            "text": "Fiabilité des Livraisons par Période"
+          },
+          {
+            "lang": "nl",
+            "text": "Leverbetrouwbaarheid per Periode"
+          }
+        ],
+        "multi_lang_description": [
+          {
+            "lang": "de",
+            "text": "<div id=\"summary\" /><div class=\" section\" id=\"S1440682176942903\"><p class=\"\" id=\"P144068217694284\">Liefertreue nach Anzahl von Datensätzen und Bestellwert für alle Perioden. Die horizontale Achse wird pro Quartal nach Auftragsfälligkeitsdatum unterteilt.</p></div>"
+          },
+          {
+            "lang": "en",
+            "text": "<div id=\"summary\" /><div class=\" section\" id=\"S1440682176942903\"><p class=\"\" id=\"P144068217694284\">Delivery reliability per number of records and ordered value for all periods. The horizontal axis is bucketed per quarter by order due date.</p></div>"
+          },
+          {
+            "lang": "es",
+            "text": "<div id=\"summary\" /><div class=\" section\" id=\"S1440682176942903\"><p class=\"\" id=\"P144068217694284\">Cumplimiento de plazos de entrega por número de registros y valor solicitado para todos los períodos. El eje horizontal está dividido en celdas por trimestre por fecha de vencimiento de pedido.</p></div>"
+          },
+          {
+            "lang": "fr",
+            "text": "<div id=\"summary\" /><div class=\" section\" id=\"S1440682176942903\"><p class=\"\" id=\"P144068217694284\">Fiabilité des livraisons par nombre d'enregistrements et valeur commandée pour toutes périodes. L'axe horizontal est gradué en trimestres, par date d'échéance de l'ordre.</p></div>"
+          },
+          {
+            "lang": "nl",
+            "text": "<div id=\"summary\" /><div class=\" section\" id=\"S1440682176942903\"><p class=\"\" id=\"P144068217694284\">Leverbetrouwbaarheid per aantal records en bestelde waarde voor alle perioden. De horizontale as is gegroepeerd per kwartaal op MRP-datum.</p></div>"
+          }
+        ],
+        "display_details": "{\"chart_type\":\"column\",\"stack\":false,\"multi_axis\":true,\"layout\":null,\"columns\":{\"header\":[],\"data\":[]},\"drilldown_display\":\"d44bd65a3e17549ed575b577956657293\",\"axistitle\":\"show\",\"axisvalue\":\"show\",\"datalabel\":\"mouse\",\"gridline\":\"show\",\"legend\":\"show\",\"range\":{\"start\":13,\"size\":30},\"count_index\":0}",
+        "query_blocks": [
+          {
+            "queryblock_type": "query_steps",
+            "query_steps": [
+              {
+                "step_type": "aggregation",
+                "aggregation_fields": [
+                  {
+                    "field": "count",
+                    "operator": "count"
+                  },
+                  {
+                    "source_field": "OrderedValue",
+                    "tech_info": "",
+                    "field": "sum_OrderedValue",
+                    "operator": "sum"
+                  }
+                ],
+                "grouping_fields": [
+                  {
+                    "source_field": "OrderDueDate",
+                    "tech_info": "EKES_LC-EINDT;EKES_FC-EINDT;EKET_COMMIT-EINDT;EKET-EINDT;EKET-SLFDT",
+                    "field": "quarter_OrderDueDate",
+                    "operator": "quarter"
+                  },
+                  {
+                    "source_field": "DeliveryStatus",
+                    "tech_info": "",
+                    "field": "individual_DeliveryStatus",
+                    "operator": "individual"
+                  }
+                ]
+              }
+            ]
+          }
+        ],
+        "fields": [
+          {
+            "field": "quarter_OrderDueDate",
+            "multi_lang_alias": [],
+            "field_details": "{\"pivot_area\":\"row\",\"sorting\":\"\"}"
+          },
+          {
+            "field": "individual_DeliveryStatus",
+            "multi_lang_alias": [],
+            "field_details": "{\"pivot_area\":\"column\",\"format\":\"shn\",\"sorting\":\"\"}"
+          },
+          {
+            "field": "count",
+            "multi_lang_alias": [],
+            "field_details": "{\"pivot_area\":\"data\",\"prefix\":null,\"decimals\":0,\"thousandseparator\":true,\"sorting\":\"\"}"
+          },
+          {
+            "field": "sum_OrderedValue",
+            "multi_lang_alias": [],
+            "field_details": "{\"pivot_area\":\"data\",\"prefix\":\"K\",\"decimals\":0,\"thousandseparator\":true,\"sorting\":\"\"}"
+          }
+        ]
+      },
+      {
+        "id": "da4d199be97d4d16924d5577956657293",
+        "display_type": "pivot",
+        "is_angle_default": true,
+		"is_public": true,
+        "multi_lang_name": [
+          {
+            "lang": "de",
+            "text": "Kategorisierung"
+          },
+          {
+            "lang": "en",
+            "text": "Categorization"
+          },
+          {
+            "lang": "es",
+            "text": "Clasificación"
+          },
+          {
+            "lang": "fr",
+            "text": "Catégorisation"
+          },
+          {
+            "lang": "nl",
+            "text": "Categoriseren"
+          }
+        ],
+        "multi_lang_description": [
+          {
+            "lang": "de",
+            "text": "<div id=\"summary\" /><div class=\" section\" id=\"S1440665766825663\"><p class=\"\" id=\"Pidelem4x84354\">Kategorisierung der Einkaufsbelegeinteilungen nach Einkaufsbelegkategorie, Einkaufsbelegart und Positionstyp.</p><p class=\"\" id=\"Pidelem4x84363\">Für alle Kategorien wird die Anzahl nach Liefertreue angezeigt.</p></div>"
+          },
+          {
+            "lang": "en",
+            "text": "<div id=\"summary\" /><div class=\" section\" id=\"S1440665766825663\"><p class=\"\" id=\"Pidelem4x84354\">Categorization of purchase document schedule lines by purchasing document category, purchase document type, and item category.</p><p class=\"\" id=\"Pidelem4x84363\">For all categories the count per delivery reliability is displayed.</p></div>"
+          },
+          {
+            "lang": "es",
+            "text": "<div id=\"summary\" /><div class=\" section\" id=\"S1440665766825663\"><p class=\"\" id=\"Pidelem4x84354\">La clasificación de repartos de documento de compras por tipo y clase de documento de compras y tipo de posición.</p><p class=\"\" id=\"Pidelem4x84363\">Se muestra el recuento por cumplimiento de plazos de entrega de todos los tipos.</p></div>"
+          },
+          {
+            "lang": "fr",
+            "text": "<div id=\"summary\" /><div class=\" section\" id=\"S1440665766825663\"><p class=\"\" id=\"Pidelem4x84354\">Catégorisation des échéances de documents d’achat par catégorie de document d'achat, type de document d'achat et catégorie de poste.</p><p class=\"\" id=\"Pidelem4x84363\">Pour toutes les catégories, le comptage par fiabilité des livraisons est affiché.</p></div>"
+          },
+          {
+            "lang": "nl",
+            "text": "<div id=\"summary\" /><div class=\" section\" id=\"S1440665766825663\"><p class=\"\" id=\"Pidelem4x84354\">Categoriseren van inkoopdocumentindelingen op type inkoopdocument, inkoopdocumentsoort en positietype.</p><p class=\"\" id=\"P1442318606348590\">Voor alle categorieën wordt het aantal per leverbetrouwbaarheid weergegeven.</p></div>"
+          }
+        ],
+        "display_details": "{\"show_total_for\":1,\"percentage_summary_type\":0,\"include_subtotals\":false,\"count_index\":0,\"layout\":\"{\\\"collapse\\\":\\\"+////wAAAAAAAAAA+////wAAAAABAAAAAAAAADRpbmRpdmlkdWFsX3B1cmNoYXNlb3JkZXJfX3B1cmNoYXNpbmdkb2N1bWVudGNhdGVnb3J5WlN5c3RlbS5PYmplY3QsIG1zY29ybGliLCBWZXJzaW9uPTQuMC4wLjAsIEN1bHR1cmU9bmV1dHJhbCwgUHVibGljS2V5VG9rZW49Yjc3YTVjNTYxOTM0ZTA4OVpTeXN0ZW0uT2JqZWN0LCBtc2NvcmxpYiwgVmVyc2lvbj00LjAuMC4wLCBDdWx0dXJlPW5ldXRyYWwsIFB1YmxpY0tleVRva2VuPWI3N2E1YzU2MTkzNGUwODkB\\\"}\",\"columns\":{\"header\":[192.482421875,134.806640625],\"data\":[62.203125,71.12109375,86.7890625,54.26953125,76.892578125]}}",
+        "query_blocks": [
+          {
+            "queryblock_type": "query_steps",
+            "query_steps": [
+              {
+                "step_type": "aggregation",
+                "aggregation_fields": [
+                  {
+                    "field": "count",
+                    "operator": "count"
+                  }
+                ],
+                "grouping_fields": [
+                  {
+                    "source_field": "PurchaseOrder__PurchasingDocumentCategory",
+                    "tech_info": "EKKO-BSTYP",
+                    "field": "individual_PurchaseOrder__PurchasingDocumentCategory",
+                    "operator": "individual"
+                  },
+                  {
+                    "source_field": "PurchaseOrderLine__PurchasingItemCategory",
+                    "tech_info": "EKPO-PSTYP",
+                    "field": "individual_PurchaseOrderLine__PurchasingItemCategory",
+                    "operator": "individual"
+                  },
+                  {
+                    "source_field": "ExecutionStatus",
+                    "tech_info": "",
+                    "field": "individual_ExecutionStatus",
+                    "operator": "individual"
+                  }
+                ]
+              }
+            ]
+          }
+        ],
+        "fields": [
+          {
+            "field": "individual_PurchaseOrder__PurchasingDocumentCategory",
+            "multi_lang_alias": [],
+            "field_details": "{\"pivot_area\":\"row\",\"format\":\"shnln\",\"sorting\":\"asc\"}"
+          },
+          {
+            "field": "individual_PurchaseOrderLine__PurchasingItemCategory",
+            "multi_lang_alias": [],
+            "field_details": "{\"pivot_area\":\"row\",\"format\":\"shnln\",\"sorting\":\"asc\"}"
+          },
+          {
+            "field": "individual_ExecutionStatus",
+            "multi_lang_alias": [],
+            "field_details": "{\"pivot_area\":\"column\",\"format\":\"shn\",\"sorting\":\"asc\"}"
+          },
+          {
+            "field": "count",
+            "multi_lang_alias": [],
+            "field_details": "{\"pivot_area\":\"data\",\"sorting\":\"\"}"
+          }
+        ]
+      }
+    ]
+  }

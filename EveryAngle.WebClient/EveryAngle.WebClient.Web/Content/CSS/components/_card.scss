@@ -1,0 +1,55 @@
+﻿@import '../abstracts/mixins';
+
+/* .card
+============================================ */
+.card {
+    .card-header {
+        @include flex-center;
+        cursor: default;
+        text-transform: uppercase;
+        color: #3d4852;
+        font-size: 10px;
+        font-weight: bold;
+        line-height: 1.6;
+        letter-spacing: 1.5px;
+        padding: 10px;
+
+        .card-toolbar {
+            @include flex-center;
+            margin-left: auto;
+            font-size: 12px;
+            min-height: 20px;
+
+            .action {
+                color: #78909c;
+                padding: 2px;
+                margin-left: 2px;
+
+                &:hover:not(.disabled) {
+                    color: #3d4852;
+                }
+            }
+        }
+    }
+
+    .card-body {
+        padding: 0 10px 10px 10px;
+
+        .form-row {
+            margin-left: -5px;
+            margin-right: -5px;
+        }
+    }
+}
+
+.card-light {
+    background-color: #f7f9fa;
+}
+
+.card-dark {
+    background-color: #f1f3f4;
+
+    .card-body {
+        color: #78909c;
+    }
+}

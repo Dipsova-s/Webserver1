@@ -1,42 +1,43 @@
 {
     "multi_lang_name": [
         {
-            "lang": "nl",
-            "text": "On Time in Full (OTIF)"
+            "lang": "de",
+            "text": "Rechtzeitig und vollständig"
         },
         {
             "lang": "en",
             "text": "On Time In Full"
         },
         {
+            "lang": "es",
+            "text": "A Tiempo y Completo"
+        },
+        {
             "lang": "fr",
             "text": "On Time In Full (à temps et en totalité)"
         },
         {
-            "lang": "de",
-            "text": "Rechtzeitig und vollständig"
-        },
-        {
-            "lang": "es",
-            "text": "A Tiempo y Completo"
+            "lang": "nl",
+            "text": "On Time in Full (OTIF)"
         }
     ],
-    "labels": "/models/1/angles/647/labels",
+    "labels": "/models/1/angles/1495/labels",
     "assigned_labels": [
         "S2D",
-        "O2C"
+        "Service",
+        "Measure"
     ],
     "executed": {
         "user": "/users/1",
         "full_name": "EAAdmin",
-        "datetime": 1567584520
+        "datetime": 1585830486
     },
-    "displays": "/models/1/angles/647/displays",
-    "grouping_labels": "/models/1/angles/647/grouping_labels",
+    "displays": "/models/1/angles/1495/displays",
+    "grouping_labels": "/models/1/angles/1495/grouping_labels",
     "validated": {
         "user": "/users/1",
         "full_name": "EAAdmin",
-        "datetime": 1567577223
+        "datetime": 1570521830
     },
     "id": "WEBHELP_WC_Angle_results_page",
     "authorizations": {
@@ -52,60 +53,61 @@
         "delete": true
     },
     "user_specific": {
+        "times_executed": 56,
         "is_starred": false,
         "private_tags": [],
-        "times_executed": 6,
+        "private_note": "WEBHELP_WC_Angle_results_page",
         "execute_on_login": false
     },
-    "state": "/models/1/angles/647/state",
+    "state": "/models/1/angles/1495/state",
     "allow_followups": true,
     "is_parameterized": false,
     "is_validated": true,
-    "business_processes": "/models/1/angles/647/business_processes",
+    "business_processes": "/models/1/angles/1495/business_processes",
     "query_definition": [
         {
             "queryblock_type": "base_classes",
             "base_classes": [
-                "Customer"
+                "SalesConfirmation"
             ]
+        },
+        {
+            "query_steps": [
+                {
+                    "operator": "in_set",
+                    "field": "ExecutionStatus",
+                    "step_type": "filter",
+                    "arguments": [
+                        {
+                            "argument_type": "value",
+                            "value": "es2FullyExecuted"
+                        }
+                    ]
+                }
+            ],
+            "queryblock_type": "query_steps"
         }
     ],
-    "angle_default_display": "/models/1/angles/647/displays/3012",
-    "privilege_labels": "/models/1/angles/647/privilege_labels",
+    "angle_default_display": "/models/1/angles/1495/displays/7683",
+    "privilege_labels": "/models/1/angles/1495/privilege_labels",
     "is_deleted": false,
     "created": {
-        "user": "/users/2",
-        "full_name": "EASystem",
-        "datetime": 1567577223
+        "user": "/users/1",
+        "full_name": "EAAdmin",
+        "datetime": 1570006920
     },
     "changed": {
         "user": "/users/1",
         "full_name": "EAAdmin",
-        "datetime": 1567577223
+        "datetime": 1579004139
     },
-    "uri": "/models/1/angles/647",
+    "uri": "/models/1/angles/1495",
     "display_definitions": [
         {
             "multi_lang_name": [
                 {
                     "lang": "en",
-                    "text": "No. per Account Group"
-                },
-                {
-                    "lang": "de",
-                    "text": "Anzahl pro Kontengruppe"
-                },
-                {
-                    "lang": "es",
-                    "text": "N.º por Grupo de Cuentas"
-                },
-                {
-                    "lang": "fr",
-                    "text": "Nombre par Groupe de Comptes"
-                },
-                {
-                    "lang": "nl",
-                    "text": "Aantal per Rekeninggroep"
+                    "text": "Confirmaciones de Ventas con el Tiempo"
                 }
             ],
             "authorizations": {
@@ -116,414 +118,34 @@
                 "delete": true
             },
             "created": {
-                "user": "/users/2",
-                "full_name": "EASystem",
-                "datetime": 1566541181
+                "user": "/users/1",
+                "full_name": "EAAdmin",
+                "datetime": 1570006920
             },
             "fields": [
                 {
-                    "field": "individual_KTOKD",
-                    "multi_lang_alias": [],
-                    "valid": true,
-                    "field_details": "{\"pivot_area\":\"row\",\"format\":\"shnln\",\"sorting\":\"asc\"}"
-                },
-                {
-                    "field": "count",
-                    "multi_lang_alias": [],
-                    "valid": true,
-                    "field_details": "{\"pivot_area\":\"data\",\"sorting\":\"\"}"
-                }
-            ],
-            "contained_aggregation_steps": true,
-            "uri": "/models/1/angles/647/displays/3010",
-            "is_public": true,
-            "used_in_task": false,
-            "state": "/models/1/angles/647/displays/3010/state",
-            "display_type": "pivot",
-            "user_specific": {
-                "execute_on_login": false,
-                "is_user_default": false
-            },
-            "query_blocks": [
-                {
-                    "query_steps": [
-                        {
-                            "aggregation_fields": [
-                                {
-                                    "operator": "count",
-                                    "field": "count"
-                                }
-                            ],
-                            "step_type": "aggregation",
-                            "grouping_fields": [
-                                {
-                                    "operator": "individual",
-                                    "field": "individual_KTOKD",
-                                    "source_field": "KTOKD",
-                                    "tech_info": "KNA1-KTOKD"
-                                }
-                            ]
-                        }
-                    ],
-                    "queryblock_type": "query_steps"
-                }
-            ],
-            "is_angle_default": false,
-            "angle_id": "647",
-            "id": "d15b8c41b7db480b271b9566555228740",
-            "display_details": "{\"count_index\":0,\"columns\":{\"header\":[195],\"data\":[50]},\"show_total_for\":3,\"drilldown_display\":\"d50f2bc7c0c56ff738756566555228740\",\"percentage_summary_type\":0,\"include_subtotals\":false,\"layout\":\"{\\\"collapse\\\":\\\"/v///wAAAAAAAAAAAAAAAP7///8AAAAAAAAAAAAAAAA=\\\"}\"}",
-            "multi_lang_description": [
-                {
-                    "lang": "en",
-                    "text": "<div id=\"summary\" />"
-                },
-                {
-                    "lang": "de",
-                    "text": "<div id=\"summary\" />"
-                },
-                {
-                    "lang": "es",
-                    "text": "<div id=\"summary\" />"
-                },
-                {
-                    "lang": "fr",
-                    "text": "<div id=\"summary\" />"
-                },
-                {
-                    "lang": "nl",
-                    "text": "<div id=\"summary\" />"
-                }
-            ]
-        },
-        {
-            "multi_lang_name": [
-                {
-                    "lang": "de",
-                    "text": "Anzahl pro Branche"
-                },
-                {
-                    "lang": "en",
-                    "text": "No. per Industry"
-                },
-                {
-                    "lang": "es",
-                    "text": "N.º por Industria"
-                },
-                {
-                    "lang": "fr",
-                    "text": "Nombre par Secteur d'Activité"
-                },
-                {
-                    "lang": "nl",
-                    "text": "Aantal per Branch"
-                }
-            ],
-            "authorizations": {
-                "make_angle_default": true,
-                "unpublish": true,
-                "update": true,
-                "publish": false,
-                "delete": true
-            },
-            "created": {
-                "user": "/users/2",
-                "full_name": "EASystem",
-                "datetime": 1566541181
-            },
-            "fields": [
-                {
-                    "field": "individual_BRSCH",
-                    "multi_lang_alias": [],
-                    "valid": true,
-                    "field_details": "{\"pivot_area\":\"row\",\"format\":\"shnln\"}"
-                },
-                {
-                    "field": "count",
-                    "multi_lang_alias": [],
-                    "valid": true,
-                    "field_details": "{\"pivot_area\":\"data\",\"prefix\":null,\"decimals\":0}"
-                }
-            ],
-            "contained_aggregation_steps": true,
-            "uri": "/models/1/angles/647/displays/3011",
-            "is_public": true,
-            "used_in_task": false,
-            "state": "/models/1/angles/647/displays/3011/state",
-            "display_type": "chart",
-            "user_specific": {
-                "execute_on_login": false,
-                "is_user_default": false
-            },
-            "query_blocks": [
-                {
-                    "query_steps": [
-                        {
-                            "aggregation_fields": [
-                                {
-                                    "operator": "count",
-                                    "field": "count"
-                                }
-                            ],
-                            "step_type": "aggregation",
-                            "grouping_fields": [
-                                {
-                                    "operator": "individual",
-                                    "field": "individual_BRSCH",
-                                    "source_field": "BRSCH",
-                                    "tech_info": "KNA1-BRSCH"
-                                }
-                            ]
-                        }
-                    ],
-                    "queryblock_type": "query_steps"
-                }
-            ],
-            "is_angle_default": false,
-            "angle_id": "647",
-            "id": "d5b113a1e510875e8907d566555228740",
-            "display_details": "{\"chart_type\":\"pie\",\"stack\":false,\"multi_axis\":false,\"drilldown_display\":\"d50f2bc7c0c56ff738756566555228740\",\"datalabel\":\"mouse\",\"legend\":\"show\",\"count_index\":0}",
-            "multi_lang_description": [
-                {
-                    "lang": "de",
-                    "text": "<div id=\"summary\" /><div class=\" section\" id=\"S1441100602851653\"><p class=\"\" id=\"P1441100602851314\" /></div>"
-                },
-                {
-                    "lang": "en",
-                    "text": "<div id=\"summary\" /><div class=\" section\" id=\"S1441100602851653\"><p class=\"\" id=\"P1441100602851314\" /></div>"
-                },
-                {
-                    "lang": "es",
-                    "text": "<div id=\"summary\" /><div class=\" section\" id=\"S1441100602851653\"><p class=\"\" id=\"P1441100602851314\" /></div>"
-                },
-                {
-                    "lang": "fr",
-                    "text": "<div id=\"summary\" /><div class=\" section\" id=\"S1441100602851653\"><p class=\"\" id=\"P1441100602851314\" /></div>"
-                },
-                {
-                    "lang": "nl",
-                    "text": "<div id=\"summary\" /><div class=\" section\" id=\"S1441100602851653\"><p class=\"\" id=\"P1441100602851314\" /></div>"
-                }
-            ]
-        },
-        {
-            "multi_lang_name": [
-                {
-                    "lang": "de",
-                    "text": "Basisliste"
-                },
-                {
-                    "lang": "en",
-                    "text": "Basic List"
-                },
-                {
-                    "lang": "es",
-                    "text": "Lista Básica"
-                },
-                {
-                    "lang": "fr",
-                    "text": "Liste De Base"
-                },
-                {
-                    "lang": "nl",
-                    "text": "Basislijst"
-                }
-            ],
-            "authorizations": {
-                "make_angle_default": false,
-                "unpublish": false,
-                "update": true,
-                "publish": false,
-                "delete": false
-            },
-            "created": {
-                "user": "/users/2",
-                "full_name": "EASystem",
-                "datetime": 1566541181
-            },
-            "fields": [
-                {
-                    "tech_info": "",
-                    "field": "ObjectType",
-                    "multi_lang_alias": [],
-                    "valid": true,
-                    "field_details": "{\"width\":82,\"format\":\"shn\"}"
-                },
-                {
-                    "tech_info": "KNA1-KUNNR",
-                    "field": "Customer",
-                    "multi_lang_alias": [],
-                    "valid": true,
-                    "field_details": "{\"width\":96}"
-                },
-                {
-                    "tech_info": "KNA1-NAME1",
-                    "field": "Description",
-                    "multi_lang_alias": [],
-                    "valid": true,
-                    "field_details": "{\"width\":221}"
-                },
-                {
-                    "tech_info": "KNA1-LOEVM",
-                    "field": "LOEVM_X",
-                    "multi_lang_alias": [],
-                    "valid": true,
-                    "field_details": "{\"width\":110}"
-                },
-                {
-                    "tech_info": "KNA1-LAND1",
-                    "field": "LAND1_GP",
-                    "multi_lang_alias": [],
-                    "valid": true,
-                    "field_details": "{\"width\":34,\"format\":\"shn\"}"
-                },
-                {
-                    "tech_info": "KNA1-ORT01",
-                    "field": "ORT01_GP",
-                    "multi_lang_alias": [],
-                    "valid": true,
-                    "field_details": "{\"width\":97}"
-                },
-                {
-                    "tech_info": "KNA1-PERIV",
-                    "field": "PERIV",
-                    "multi_lang_alias": [],
-                    "valid": true,
-                    "field_details": "{\"width\":120}"
-                },
-                {
-                    "tech_info": "KNA1-UWAER",
-                    "field": "UWAER",
-                    "multi_lang_alias": [],
-                    "valid": true,
-                    "field_details": "{\"width\":120}"
-                },
-                {
-                    "tech_info": "KNA1-KTOKD",
-                    "field": "KTOKD",
-                    "multi_lang_alias": [],
-                    "valid": true,
-                    "field_details": "{\"width\":106,\"format\":\"shnln\"}"
-                },
-                {
-                    "tech_info": "KNA1-BRSCH",
-                    "field": "BRSCH",
-                    "multi_lang_alias": [],
-                    "valid": true,
-                    "field_details": "{\"width\":91,\"format\":\"shnln\"}"
-                },
-                {
-                    "tech_info": "KNA1-ERNAM",
-                    "field": "ERNAM_RF",
-                    "multi_lang_alias": [],
-                    "valid": true,
-                    "field_details": "{\"width\":120}"
-                },
-                {
-                    "tech_info": "KNA1-ERDAT",
-                    "field": "ERDAT_RF",
-                    "multi_lang_alias": [],
-                    "valid": true,
-                    "field_details": "{\"width\":104}"
-                }
-            ],
-            "contained_aggregation_steps": false,
-            "uri": "/models/1/angles/647/displays/3012",
-            "is_public": true,
-            "used_in_task": false,
-            "state": "/models/1/angles/647/displays/3012/state",
-            "display_type": "list",
-            "user_specific": {
-                "execute_on_login": false,
-                "is_user_default": false
-            },
-            "query_blocks": [],
-            "is_angle_default": true,
-            "angle_id": "647",
-            "id": "d50f2bc7c0c56ff738756566555228740",
-            "display_details": "{\"layout\":null}",
-            "multi_lang_description": [
-                {
-                    "lang": "de",
-                    "text": "<div id=\"summary\" /><div class=\" section\" id=\"S1438244217825553\"><p class=\"\" id=\"P143824421782554\" /></div>"
-                },
-                {
-                    "lang": "en",
-                    "text": "<div id=\"summary\" /><div class=\" section\" id=\"S1438244217825553\"><p class=\"\" id=\"P143824421782554\" /></div>"
-                },
-                {
-                    "lang": "es",
-                    "text": "<div id=\"summary\" /><div class=\" section\" id=\"S1438244217825553\"><p class=\"\" id=\"P143824421782554\" /></div>"
-                },
-                {
-                    "lang": "fr",
-                    "text": "<div id=\"summary\" /><div class=\" section\" id=\"S1438244217825553\"><p class=\"\" id=\"P143824421782554\" /></div>"
-                },
-                {
-                    "lang": "nl",
-                    "text": "<div id=\"summary\" /><div class=\" section\" id=\"S1438244217825553\"><p class=\"\" id=\"P143824421782554\" /></div>"
-                }
-            ]
-        },
-        {
-            "multi_lang_name": [
-                {
-                    "lang": "de",
-                    "text": "Anzahl nach Erstellungsdatum"
-                },
-                {
-                    "lang": "en",
-                    "text": "No. per Creation Date"
-                },
-                {
-                    "lang": "es",
-                    "text": "N.º por Fecha de Creación"
-                },
-                {
-                    "lang": "fr",
-                    "text": "Nombre par Date de Création"
-                },
-                {
-                    "lang": "nl",
-                    "text": "Aantal per Aanmaakdatum"
-                }
-            ],
-            "authorizations": {
-                "make_angle_default": true,
-                "unpublish": true,
-                "update": true,
-                "publish": false,
-                "delete": true
-            },
-            "created": {
-                "user": "/users/2",
-                "full_name": "EASystem",
-                "datetime": 1566541181
-            },
-            "fields": [
-                {
-                    "field": "quarter_ERDAT_RF",
+                    "field": "quarter_OrderDueDate",
                     "multi_lang_alias": [],
                     "valid": true,
                     "field_details": "{\"pivot_area\":\"row\"}"
                 },
                 {
-                    "field": "individual_BRSCH",
-                    "multi_lang_alias": [],
-                    "valid": true,
-                    "field_details": "{\"pivot_area\":\"column\",\"format\":\"shnln\"}"
-                },
-                {
                     "field": "count",
                     "multi_lang_alias": [],
                     "valid": true,
-                    "field_details": "{\"pivot_area\":\"data\",\"prefix\":null,\"decimals\":0,\"thousandseparator\":true}"
+                    "field_details": "{\"pivot_area\":\"data\"}"
                 }
             ],
-            "contained_aggregation_steps": true,
-            "uri": "/models/1/angles/647/displays/3013",
+            "changed": {
+                "user": "/users/1",
+                "full_name": "EAAdmin",
+                "datetime": 1584352131
+            },
+            "uri": "/models/1/angles/1495/displays/7682",
             "is_public": true,
+            "contained_aggregation_steps": true,
             "used_in_task": false,
-            "state": "/models/1/angles/647/displays/3013/state",
+            "state": "/models/1/angles/1495/displays/7682/state",
             "display_type": "chart",
             "user_specific": {
                 "execute_on_login": false,
@@ -543,15 +165,9 @@
                             "grouping_fields": [
                                 {
                                     "operator": "quarter",
-                                    "field": "quarter_ERDAT_RF",
-                                    "source_field": "ERDAT_RF",
-                                    "tech_info": "KNA1-ERDAT"
-                                },
-                                {
-                                    "operator": "individual",
-                                    "field": "individual_BRSCH",
-                                    "source_field": "BRSCH",
-                                    "tech_info": "KNA1-BRSCH"
+                                    "field": "quarter_OrderDueDate",
+                                    "source_field": "OrderDueDate",
+                                    "tech_info": "VBEP_CONF-WADAT"
                                 }
                             ]
                         }
@@ -560,29 +176,13 @@
                 }
             ],
             "is_angle_default": false,
-            "angle_id": "647",
-            "id": "d0e57b0ad6e50b7102abb566555228740",
-            "display_details": "{\"chart_type\":\"column\",\"stack\":true,\"multi_axis\":false,\"layout\":null,\"drilldown_display\":\"d50f2bc7c0c56ff738756566555228740\",\"axistitle\":\"show\",\"axisvalue\":\"show\",\"datalabel\":\"mouse\",\"gridline\":\"show\",\"legend\":\"show\",\"range\":{\"start\":0,\"size\":50},\"count_index\":0}",
+            "angle_id": "1495",
+            "id": "d1d240040ddb4acb7ed19557135990153",
+            "display_details": "{\"chart_type\":\"column\",\"stack\":false,\"multi_axis\":false,\"drilldown_display\":\"d3a6e84f99a88f282168f557135990153\",\"axistitle\":\"show\",\"axisvalue\":\"show\",\"datalabel\":\"mouse\",\"gridline\":\"show\",\"legend\":\"show\",\"range\":{\"start\":0,\"size\":50},\"count_index\":0}",
             "multi_lang_description": [
                 {
-                    "lang": "de",
-                    "text": "<div id=\"summary\" /><div class=\" section\" id=\"S1441113194051563\"><p class=\"\" id=\"P1441113194051894\">Anzahl pro Erstellungsdatum und Branche.</p></div>"
-                },
-                {
                     "lang": "en",
-                    "text": "<div id=\"summary\" /><div class=\" section\" id=\"S1441113194051563\"><p class=\"\" id=\"P1441113194051894\">Number per creation date and industry.</p></div>"
-                },
-                {
-                    "lang": "es",
-                    "text": "<div id=\"summary\" /><div class=\" section\" id=\"S1441113194051563\"><p class=\"\" id=\"P1441113194051894\">Número por fecha de creación e industria.</p></div>"
-                },
-                {
-                    "lang": "fr",
-                    "text": "<div id=\"summary\" /><div class=\" section\" id=\"S1441113194051563\"><p class=\"\" id=\"P1441113194051894\">Nombre par date de création et secteur d'activité.</p></div>"
-                },
-                {
-                    "lang": "nl",
-                    "text": "<div id=\"summary\" /><div class=\" section\" id=\"S1441113194051563\"><p class=\"\" id=\"P1441113194051894\">Aantal per aanmaakdatum en branch.</p></div>"
+                    "text": "<div id=\"summary\" /><div class=\" section\" id=\"S1468927340256423\"><p class=\"\" id=\"P1468927340259164\" /></div>"
                 }
             ]
         },
@@ -590,23 +190,210 @@
             "multi_lang_name": [
                 {
                     "lang": "de",
-                    "text": "Land- und Adressinformationen"
+                    "text": "Basisliste"
                 },
                 {
                     "lang": "en",
-                    "text": "Country and Address Info"
+                    "text": "Basic list"
                 },
                 {
                     "lang": "es",
-                    "text": "Información de País y Dirección"
+                    "text": "Lista básica"
                 },
                 {
                     "lang": "fr",
-                    "text": "Pays et Informations d'Adresse"
+                    "text": "Liste De Base"
                 },
                 {
                     "lang": "nl",
-                    "text": "Land en Adres Info"
+                    "text": "Basislijst"
+                }
+            ],
+            "authorizations": {
+                "make_angle_default": false,
+                "unpublish": false,
+                "update": true,
+                "publish": false,
+                "delete": false
+            },
+            "created": {
+                "user": "/users/1",
+                "full_name": "EAAdmin",
+                "datetime": 1570006920
+            },
+            "fields": [
+                {
+                    "tech_info": "",
+                    "field": "ObjectType",
+                    "multi_lang_alias": [],
+                    "valid": true,
+                    "field_details": "{\"width\":98,\"format\":\"shn\"}"
+                },
+                {
+                    "tech_info": "",
+                    "field": "OrderNumber",
+                    "multi_lang_alias": [],
+                    "valid": true,
+                    "field_details": "{\"width\":81}"
+                },
+                {
+                    "tech_info": "",
+                    "field": "ExecutionStatus",
+                    "multi_lang_alias": [],
+                    "valid": true,
+                    "field_details": "{\"width\":95,\"format\":\"shn\"}"
+                },
+                {
+                    "tech_info": "",
+                    "field": "IsOTIF",
+                    "multi_lang_alias": [],
+                    "valid": true,
+                    "field_details": "{\"width\":68}"
+                },
+                {
+                    "tech_info": "",
+                    "field": "OnTimeStatus",
+                    "multi_lang_alias": [],
+                    "valid": true,
+                    "field_details": "{\"width\":91,\"format\":\"shn\"}"
+                },
+                {
+                    "tech_info": "",
+                    "field": "InFullStatus",
+                    "multi_lang_alias": [],
+                    "valid": true,
+                    "field_details": "{\"width\":79,\"format\":\"shn\"}"
+                },
+                {
+                    "tech_info": "VBEP_CONF-WADAT",
+                    "field": "OrderDueDate",
+                    "multi_lang_alias": [],
+                    "valid": true,
+                    "field_details": "{\"width\":97}"
+                },
+                {
+                    "tech_info": "",
+                    "field": "RealizedFinishDate",
+                    "multi_lang_alias": [],
+                    "valid": true,
+                    "field_details": "{\"width\":97}"
+                },
+                {
+                    "tech_info": "",
+                    "field": "ConfirmedQtyInBaseUoM",
+                    "multi_lang_alias": [],
+                    "valid": true,
+                    "field_details": "{\"width\":154}"
+                },
+                {
+                    "tech_info": "",
+                    "field": "TheDeliveredQuantity",
+                    "multi_lang_alias": [],
+                    "valid": true,
+                    "field_details": "{\"width\":147}"
+                },
+                {
+                    "tech_info": "MARA-MEINS",
+                    "field": "Material__BaseUnitOfMeasure",
+                    "multi_lang_alias": [],
+                    "valid": true,
+                    "field_details": "{\"width\":33,\"format\":\"shn\"}"
+                },
+                {
+                    "tech_info": "KNA1-KUNNR",
+                    "field": "Customer__Customer",
+                    "multi_lang_alias": [],
+                    "valid": true,
+                    "field_details": "{\"width\":96}"
+                },
+                {
+                    "tech_info": "KNA1-NAME1",
+                    "field": "Customer__Description",
+                    "multi_lang_alias": [],
+                    "valid": true,
+                    "field_details": "{\"width\":182}"
+                },
+                {
+                    "tech_info": "",
+                    "field": "Material__Material",
+                    "multi_lang_alias": [],
+                    "valid": true,
+                    "field_details": "{\"width\":85}"
+                },
+                {
+                    "tech_info": "MAKT-MAKTX",
+                    "field": "Material__Description",
+                    "multi_lang_alias": [],
+                    "valid": true,
+                    "field_details": "{\"width\":220}"
+                },
+                {
+                    "tech_info": "T001W-WERKS",
+                    "field": "Plant__Plant",
+                    "multi_lang_alias": [],
+                    "valid": true,
+                    "field_details": "{\"width\":110,\"format\":\"shnln\"}"
+                }
+            ],
+            "contained_aggregation_steps": false,
+            "uri": "/models/1/angles/1495/displays/7683",
+            "is_public": true,
+            "used_in_task": false,
+            "state": "/models/1/angles/1495/displays/7683/state",
+            "display_type": "list",
+            "user_specific": {
+                "execute_on_login": false,
+                "is_user_default": false
+            },
+            "query_blocks": [],
+            "is_angle_default": true,
+            "angle_id": "1495",
+            "id": "d3a6e84f99a88f282168f557135990153",
+            "display_details": "{}",
+            "multi_lang_description": [
+                {
+                    "lang": "de",
+                    "text": "<div id=\"summary\" /><div class=\" section\" id=\"S146822083451963\"><p class=\"\" id=\"P1468220834522964\" /></div>"
+                },
+                {
+                    "lang": "en",
+                    "text": "<div id=\"summary\" /><div class=\" section\" id=\"S146822083451963\"><p class=\"\" id=\"P1468220834522964\" /></div>"
+                },
+                {
+                    "lang": "es",
+                    "text": "<div id=\"summary\" /><div class=\" section\" id=\"S146822083451963\"><p class=\"\" id=\"P1468220834522964\" /></div>"
+                },
+                {
+                    "lang": "fr",
+                    "text": "<div id=\"summary\" /><div class=\" section\" id=\"S146822083451963\"><p class=\"\" id=\"P1468220834522964\" /></div>"
+                },
+                {
+                    "lang": "nl",
+                    "text": "<div id=\"summary\" /><div class=\" section\" id=\"S1470055006645485\"><p class=\"\" id=\"P1470055006648196\" /></div>"
+                }
+            ]
+        },
+        {
+            "multi_lang_name": [
+                {
+                    "lang": "de",
+                    "text": "Gemessen im letzten Jahr"
+                },
+                {
+                    "lang": "en",
+                    "text": "Gauge Last Year"
+                },
+                {
+                    "lang": "es",
+                    "text": "Medidor Último Año"
+                },
+                {
+                    "lang": "fr",
+                    "text": "Jauger Année Ecoulée"
+                },
+                {
+                    "lang": "nl",
+                    "text": "Peiling Vorig Jaar"
                 }
             ],
             "authorizations": {
@@ -617,124 +404,461 @@
                 "delete": true
             },
             "created": {
-                "user": "/users/2",
-                "full_name": "EASystem",
-                "datetime": 1566541181
+                "user": "/users/1",
+                "full_name": "EAAdmin",
+                "datetime": 1570006920
             },
             "fields": [
                 {
-                    "tech_info": "",
-                    "field": "ObjectType",
+                    "field": "average_valid_OTIFasPercentage",
                     "multi_lang_alias": [],
                     "valid": true,
-                    "field_details": "{\"width\":82,\"format\":\"shn\"}"
-                },
-                {
-                    "tech_info": "KNA1-KUNNR",
-                    "field": "Customer",
-                    "multi_lang_alias": [],
-                    "valid": true,
-                    "field_details": "{\"width\":96}"
-                },
-                {
-                    "tech_info": "KNA1-NAME1",
-                    "field": "Description",
-                    "multi_lang_alias": [],
-                    "valid": true,
-                    "field_details": "{\"width\":221}"
-                },
-                {
-                    "tech_info": "KNA1-LOEVM",
-                    "field": "LOEVM_X",
-                    "multi_lang_alias": [],
-                    "valid": true,
-                    "field_details": "{\"width\":110}"
-                },
-                {
-                    "tech_info": "KNA1-LAND1",
-                    "field": "LAND1_GP",
-                    "multi_lang_alias": [],
-                    "valid": true,
-                    "field_details": "{\"width\":34,\"format\":\"shn\"}"
-                },
-                {
-                    "tech_info": "KNA1-STRAS",
-                    "field": "STRAS_GP",
-                    "multi_lang_alias": [],
-                    "valid": true,
-                    "field_details": "{\"width\":120}"
-                },
-                {
-                    "tech_info": "KNA1-PSTLZ",
-                    "field": "PSTLZ",
-                    "multi_lang_alias": [],
-                    "valid": true,
-                    "field_details": "{\"width\":75}"
-                },
-                {
-                    "tech_info": "KNA1-ORT01",
-                    "field": "ORT01_GP",
-                    "multi_lang_alias": [],
-                    "valid": true,
-                    "field_details": "{\"width\":97}"
-                },
-                {
-                    "tech_info": "KNA1-TELF1",
-                    "field": "TELF1",
-                    "multi_lang_alias": [],
-                    "valid": true,
-                    "field_details": "{\"width\":110}"
-                },
-                {
-                    "tech_info": "KNA1-KTOKD",
-                    "field": "KTOKD",
-                    "multi_lang_alias": [],
-                    "valid": true,
-                    "field_details": "{\"width\":106,\"format\":\"shnln\"}"
-                },
-                {
-                    "tech_info": "KNA1-ERDAT",
-                    "field": "ERDAT_RF",
-                    "multi_lang_alias": [],
-                    "valid": true,
-                    "field_details": "{\"width\":104}"
+                    "field_details": "{\"pivot_area\":\"data\",\"prefix\":null,\"decimals\":0}"
                 }
             ],
-            "contained_aggregation_steps": false,
-            "uri": "/models/1/angles/647/displays/3014",
+            "changed": {
+                "user": "/users/1",
+                "full_name": "EAAdmin",
+                "datetime": 1570517567
+            },
+            "uri": "/models/1/angles/1495/displays/7684",
             "is_public": true,
+            "contained_aggregation_steps": true,
             "used_in_task": false,
-            "state": "/models/1/angles/647/displays/3014/state",
-            "display_type": "list",
+            "state": "/models/1/angles/1495/displays/7684/state",
+            "display_type": "chart",
             "user_specific": {
                 "execute_on_login": false,
                 "is_user_default": false
             },
-            "query_blocks": [],
+            "query_blocks": [
+                {
+                    "query_steps": [
+                        {
+                            "operator": "relative_between",
+                            "field": "OrderDueDate",
+                            "step_type": "filter",
+                            "arguments": [
+                                {
+                                    "argument_type": "value",
+                                    "value": -365
+                                },
+                                {
+                                    "argument_type": "value",
+                                    "value": 0
+                                }
+                            ],
+                            "tech_info": "VBEP-WADAT"
+                        },
+                        {
+                            "aggregation_fields": [
+                                {
+                                    "operator": "average_valid",
+                                    "field": "average_valid_OTIFasPercentage",
+                                    "source_field": "OTIFasPercentage",
+                                    "tech_info": ""
+                                }
+                            ],
+                            "step_type": "aggregation"
+                        }
+                    ],
+                    "queryblock_type": "query_steps"
+                }
+            ],
             "is_angle_default": false,
-            "angle_id": "647",
-            "id": "da5bc79c17209554b7f99566555228740",
-            "display_details": "{\"layout\":null}",
+            "angle_id": "1495",
+            "id": "d480e66e98edd5863a39b557135990153",
+            "display_details": "{\"chart_type\":\"gauge\",\"stack\":false,\"multi_axis\":false,\"layout\":null,\"drilldown_display\":\"d3a6e84f99a88f282168f557135990153\",\"count_index\":0,\"GaugeValues\":[0,0.8,0.9,1,1,1],\"GaugeColours\":[\"#ed0000\",\"#eda100\",\"#4dc632\",\"#eda100\",\"#ed0000\"],\"axistitlegauge\":\"show\",\"datalabelgauge\":\"show\",\"rangesgauge\":\"show\"}",
             "multi_lang_description": [
                 {
                     "lang": "de",
-                    "text": "<div id=\"summary\" /><div class=\" section\" id=\"S1440680444283973\"><p class=\"\" id=\"P1440680444283894\" /></div>"
+                    "text": "<div id=\"summary\" /><div class=\" section\" id=\"S1468245937098493\"><p class=\"\" id=\"P1468245937098224\">OTIF-Prozentsatz nach Verkaufsorganisation.</p></div>"
                 },
                 {
                     "lang": "en",
-                    "text": "<div id=\"summary\" /><div class=\" section\" id=\"S1440680444283973\"><p class=\"\" id=\"P1440680444283894\" /></div>"
+                    "text": "<div id=\"summary\" /><div class=\" section\" id=\"S1468245937098493\"><p class=\"\" id=\"P1468245937098224\">OTIF % per Sales Organization.</p></div>"
                 },
                 {
                     "lang": "es",
-                    "text": "<div id=\"summary\" /><div class=\" section\" id=\"S1440680444283973\"><p class=\"\" id=\"P1440680444283894\" /></div>"
+                    "text": "<div id=\"summary\" /><div class=\" section\" id=\"S1468245937098493\"><p class=\"\" id=\"P1468245937098224\">% de OTIF por organización de ventas.</p></div>"
                 },
                 {
                     "lang": "fr",
-                    "text": "<div id=\"summary\" /><div class=\" section\" id=\"S1440680444283973\"><p class=\"\" id=\"P1440680444283894\" /></div>"
+                    "text": "<div id=\"summary\" /><div class=\" section\" id=\"S1468245937098493\"><p class=\"\" id=\"P1468245937098224\">% OTIF par Organisation Commerciale.</p></div>"
                 },
                 {
                     "lang": "nl",
-                    "text": "<div id=\"summary\" /><div class=\" section\" id=\"S1440680444283973\"><p class=\"\" id=\"P1440680444283894\" /></div>"
+                    "text": "<div id=\"summary\" /><div class=\" section\" id=\"S1470216497769775\"><p class=\"\" id=\"P1470216497773676\">OTIF % per Verkooporganisatie.</p></div>"
+                }
+            ]
+        },
+        {
+            "multi_lang_name": [
+                {
+                    "lang": "de",
+                    "text": "Prozentsatz im Zeitverlauf"
+                },
+                {
+                    "lang": "en",
+                    "text": "% over time"
+                },
+                {
+                    "lang": "es",
+                    "text": "% Con el Tiempo"
+                },
+                {
+                    "lang": "fr",
+                    "text": "% au cours du temps"
+                },
+                {
+                    "lang": "nl",
+                    "text": "% in de Tijd"
+                }
+            ],
+            "authorizations": {
+                "make_angle_default": true,
+                "unpublish": true,
+                "update": true,
+                "publish": false,
+                "delete": true
+            },
+            "created": {
+                "user": "/users/1",
+                "full_name": "EAAdmin",
+                "datetime": 1570006920
+            },
+            "fields": [
+                {
+                    "field": "quarter_OrderDueDate",
+                    "multi_lang_alias": [],
+                    "valid": true,
+                    "field_details": "{\"pivot_area\":\"row\"}"
+                },
+                {
+                    "field": "individual_SalesOrganization__SalesOrganization",
+                    "multi_lang_alias": [],
+                    "valid": true,
+                    "field_details": "{\"pivot_area\":\"column\",\"format\":\"shnln\"}"
+                },
+                {
+                    "field": "average_valid_OTIFasPercentage",
+                    "multi_lang_alias": [],
+                    "valid": true,
+                    "field_details": "{\"pivot_area\":\"data\",\"prefix\":null,\"decimals\":0}"
+                }
+            ],
+            "contained_aggregation_steps": true,
+            "uri": "/models/1/angles/1495/displays/7685",
+            "is_public": true,
+            "used_in_task": false,
+            "state": "/models/1/angles/1495/displays/7685/state",
+            "display_type": "chart",
+            "user_specific": {
+                "execute_on_login": false,
+                "is_user_default": false
+            },
+            "query_blocks": [
+                {
+                    "query_steps": [
+                        {
+                            "aggregation_fields": [
+                                {
+                                    "operator": "average_valid",
+                                    "field": "average_valid_OTIFasPercentage",
+                                    "source_field": "OTIFasPercentage",
+                                    "tech_info": ""
+                                }
+                            ],
+                            "step_type": "aggregation",
+                            "grouping_fields": [
+                                {
+                                    "operator": "quarter",
+                                    "field": "quarter_OrderDueDate",
+                                    "source_field": "OrderDueDate",
+                                    "tech_info": "VBEP_CONF-WADAT"
+                                },
+                                {
+                                    "operator": "individual",
+                                    "field": "individual_SalesOrganization__SalesOrganization",
+                                    "source_field": "SalesOrganization__SalesOrganization",
+                                    "tech_info": "TVKO-VKORG"
+                                }
+                            ]
+                        }
+                    ],
+                    "queryblock_type": "query_steps"
+                }
+            ],
+            "is_angle_default": false,
+            "angle_id": "1495",
+            "id": "d6ac9c870c4382354546a557135990153",
+            "display_details": "{\"chart_type\":\"line\",\"stack\":false,\"multi_axis\":false,\"layout\":null,\"drilldown_display\":\"d3a6e84f99a88f282168f557135990153\"}",
+            "multi_lang_description": [
+                {
+                    "lang": "de",
+                    "text": "<div id=\"summary\" /><div class=\" section\" id=\"S1467790051224123\"><p class=\"\" id=\"P1467790051227344\">OTIF-Prozentsatz nach Verkaufsorganisation.</p></div>"
+                },
+                {
+                    "lang": "en",
+                    "text": "<div id=\"summary\" /><div class=\" section\" id=\"S1467790051224123\"><p class=\"\" id=\"P1467790051227344\">OTIF % per Sales Organization.</p></div>"
+                },
+                {
+                    "lang": "es",
+                    "text": "<div id=\"summary\" /><div class=\" section\" id=\"S1467790051224123\"><p class=\"\" id=\"P1467790051227344\">% de OTIF por organización de ventas.</p></div>"
+                },
+                {
+                    "lang": "fr",
+                    "text": "<div id=\"summary\" /><div class=\" section\" id=\"S1467790051224123\"><p class=\"\" id=\"P1467790051227344\">% OTIF par Organisation Commerciale.</p></div>"
+                },
+                {
+                    "lang": "nl",
+                    "text": "<div id=\"summary\" /><div class=\" section\" id=\"S1470040367209135\"><p class=\"\" id=\"P1470040367212446\">OTIF % per Verkooporganisatie.</p></div>"
+                }
+            ]
+        },
+        {
+            "multi_lang_name": [
+                {
+                    "lang": "de",
+                    "text": "Verkaufswert im Zeitverlauf"
+                },
+                {
+                    "lang": "en",
+                    "text": "Sales Value over Time"
+                },
+                {
+                    "lang": "es",
+                    "text": "Valor de Ventas con el Tiempo"
+                },
+                {
+                    "lang": "fr",
+                    "text": "Valeur de la Commande Client Au Cours du Temps"
+                },
+                {
+                    "lang": "nl",
+                    "text": "Verkoopwaarde door de Tijd"
+                }
+            ],
+            "authorizations": {
+                "make_angle_default": true,
+                "unpublish": true,
+                "update": true,
+                "publish": false,
+                "delete": true
+            },
+            "created": {
+                "user": "/users/1",
+                "full_name": "EAAdmin",
+                "datetime": 1570006920
+            },
+            "fields": [
+                {
+                    "field": "quarter_OrderDueDate",
+                    "multi_lang_alias": [],
+                    "valid": true,
+                    "field_details": "{\"pivot_area\":\"row\"}"
+                },
+                {
+                    "field": "individual_IsOTIF",
+                    "multi_lang_alias": [],
+                    "valid": true,
+                    "field_details": "{\"pivot_area\":\"column\"}"
+                },
+                {
+                    "field": "sum_SalesOrderLine__SalesValue",
+                    "multi_lang_alias": [],
+                    "valid": true,
+                    "field_details": "{\"pivot_area\":\"data\",\"prefix\":\"K\",\"decimals\":0}"
+                }
+            ],
+            "contained_aggregation_steps": true,
+            "uri": "/models/1/angles/1495/displays/7686",
+            "is_public": true,
+            "used_in_task": false,
+            "state": "/models/1/angles/1495/displays/7686/state",
+            "display_type": "chart",
+            "user_specific": {
+                "execute_on_login": false,
+                "is_user_default": false
+            },
+            "query_blocks": [
+                {
+                    "query_steps": [
+                        {
+                            "aggregation_fields": [
+                                {
+                                    "operator": "sum",
+                                    "field": "sum_SalesOrderLine__SalesValue",
+                                    "source_field": "SalesOrderLine__SalesValue",
+                                    "tech_info": ""
+                                }
+                            ],
+                            "step_type": "aggregation",
+                            "grouping_fields": [
+                                {
+                                    "operator": "quarter",
+                                    "field": "quarter_OrderDueDate",
+                                    "source_field": "OrderDueDate",
+                                    "tech_info": "VBEP_CONF-WADAT"
+                                },
+                                {
+                                    "operator": "individual",
+                                    "field": "individual_IsOTIF",
+                                    "source_field": "IsOTIF",
+                                    "tech_info": ""
+                                }
+                            ]
+                        }
+                    ],
+                    "queryblock_type": "query_steps"
+                }
+            ],
+            "is_angle_default": false,
+            "angle_id": "1495",
+            "id": "d92ccaa420ca095ce47fc557135990153",
+            "display_details": "{\"chart_type\":\"column\",\"stack\":true,\"multi_axis\":false,\"layout\":null,\"drilldown_display\":\"d3a6e84f99a88f282168f557135990153\",\"axistitle\":\"show\",\"axisvalue\":\"show\",\"datalabel\":\"mouse\",\"gridline\":\"show\",\"legend\":\"show\",\"range\":{\"start\":0,\"size\":50}}",
+            "multi_lang_description": [
+                {
+                    "lang": "de",
+                    "text": "<div id=\"summary\" /><div class=\" section\" id=\"S1468927374343333\"><p class=\"\" id=\"P1468927374346554\">OTIF (ja/nein) und generierter Verkaufswert im Zeitverlauf.</p></div>"
+                },
+                {
+                    "lang": "en",
+                    "text": "<div id=\"summary\" /><div class=\" section\" id=\"S1468927374343333\"><p class=\"\" id=\"P1468927374346554\">OTIF (yes/no) and generated Sales value over time.</p></div>"
+                },
+                {
+                    "lang": "es",
+                    "text": "<div id=\"summary\" /><div class=\" section\" id=\"S1468927374343333\"><p class=\"\" id=\"P1468927374346554\">A tiempo y completo (OTIF) (sí/no) y valor de ventas generado con el tiempo.</p></div>"
+                },
+                {
+                    "lang": "fr",
+                    "text": "<div id=\"summary\" /><div class=\" section\" id=\"S1468927374343333\"><p class=\"\" id=\"P1468927374346554\">OTIF (oui / non) et valeur des commandes client générée au cours du temps.</p></div>"
+                },
+                {
+                    "lang": "nl",
+                    "text": "<div id=\"summary\" /><div class=\" section\" id=\"S147030394282835\"><p class=\"\" id=\"P1470303942832316\">OTIF (ja/nee) en gegenereerde Verkoopwaarde door de tijd. </p></div>"
+                }
+            ]
+        },
+        {
+            "multi_lang_name": [
+                {
+                    "lang": "de",
+                    "text": "Rechtzeitig vs. vollständig"
+                },
+                {
+                    "lang": "en",
+                    "text": "On Time Versus in Full"
+                },
+                {
+                    "lang": "es",
+                    "text": "A Tiempo Frente a Completo"
+                },
+                {
+                    "lang": "fr",
+                    "text": "A Temps et En totalité"
+                },
+                {
+                    "lang": "nl",
+                    "text": "Op Tijd Versus Volledig"
+                }
+            ],
+            "authorizations": {
+                "make_angle_default": true,
+                "unpublish": true,
+                "update": true,
+                "publish": false,
+                "delete": true
+            },
+            "created": {
+                "user": "/users/1",
+                "full_name": "EAAdmin",
+                "datetime": 1570006920
+            },
+            "fields": [
+                {
+                    "field": "individual_OnTimeStatus",
+                    "multi_lang_alias": [],
+                    "valid": true,
+                    "field_details": "{\"pivot_area\":\"row\",\"format\":\"shn\"}"
+                },
+                {
+                    "field": "individual_InFullStatus",
+                    "multi_lang_alias": [],
+                    "valid": true,
+                    "field_details": "{\"pivot_area\":\"column\",\"format\":\"shn\"}"
+                },
+                {
+                    "field": "count",
+                    "multi_lang_alias": [],
+                    "valid": true,
+                    "field_details": "{\"pivot_area\":\"data\",\"prefix\":null,\"decimals\":0}"
+                }
+            ],
+            "contained_aggregation_steps": true,
+            "uri": "/models/1/angles/1495/displays/7687",
+            "is_public": true,
+            "used_in_task": false,
+            "state": "/models/1/angles/1495/displays/7687/state",
+            "display_type": "pivot",
+            "user_specific": {
+                "execute_on_login": false,
+                "is_user_default": false
+            },
+            "query_blocks": [
+                {
+                    "query_steps": [
+                        {
+                            "aggregation_fields": [
+                                {
+                                    "operator": "count",
+                                    "field": "count"
+                                }
+                            ],
+                            "step_type": "aggregation",
+                            "grouping_fields": [
+                                {
+                                    "operator": "individual",
+                                    "field": "individual_OnTimeStatus",
+                                    "source_field": "OnTimeStatus",
+                                    "tech_info": ""
+                                },
+                                {
+                                    "operator": "individual",
+                                    "field": "individual_InFullStatus",
+                                    "source_field": "InFullStatus",
+                                    "tech_info": ""
+                                }
+                            ]
+                        }
+                    ],
+                    "queryblock_type": "query_steps"
+                }
+            ],
+            "is_angle_default": false,
+            "angle_id": "1495",
+            "id": "dda06bf7772591267b410557135990153",
+            "display_details": "{\"count_index\":0,\"columns\":{\"header\":[181],\"data\":[90,90,90,76]},\"drilldown_display\":\"d3a6e84f99a88f282168f557135990153\"}",
+            "multi_lang_description": [
+                {
+                    "lang": "de",
+                    "text": "<div id=\"summary\" /><div class=\" section\" id=\"S1468919214246353\"><p class=\"\" id=\"P1468919214249224\" /></div>"
+                },
+                {
+                    "lang": "en",
+                    "text": "<div id=\"summary\" /><div class=\" section\" id=\"S1468919214246353\"><p class=\"\" id=\"P1468919214249224\" /></div>"
+                },
+                {
+                    "lang": "es",
+                    "text": "<div id=\"summary\" /><div class=\" section\" id=\"S1468919214246353\"><p class=\"\" id=\"P1468919214249224\" /></div>"
+                },
+                {
+                    "lang": "fr",
+                    "text": "<div id=\"summary\" /><div class=\" section\" id=\"S1468919214246353\"><p class=\"\" id=\"P1468919214249224\" /></div>"
+                },
+                {
+                    "lang": "nl",
+                    "text": "<div id=\"summary\" /><div class=\" section\" id=\"S1470229093664365\"><p class=\"\" id=\"P1470229093665346\" /></div>"
                 }
             ]
         }
@@ -744,31 +868,31 @@
     "published": {
         "user": "/users/1",
         "full_name": "EAAdmin",
-        "datetime": 1567577223
+        "datetime": 1570521807
     },
     "model": "/models/1",
     "is_published": true,
     "allow_more_details": true,
     "multi_lang_description": [
         {
-            "lang": "nl",
-            "text": "<div id=\"summary\" /><div class=\" section\" id=\"S1436280605408204\"><h2 class=\" topictitle2\" id=\"Hidelem4x19233\">Samenvatting</h2><p class=\"\" id=\"Pidelem4x19236\">Het klantobject bestaat uit stamgegevens van de externe partij waaraan producten en/of services worden verkocht.</p><h2 class=\" topictitle2\" id=\"Hidelem4x19239\">Uitleg</h2><p class=\"\" id=\"Pidelem4x19243\">De stamrecord bevat gegevens die bepalen hoe zakelijke transacties worden geregistreerd en verwerkt. Deze bevat tevens alle benodigde gegevens om zaken te doen met een klant. In uw logistieke procedure krijgt analyse een meerwaarde wanneer u eigenschappen van dit object toevoegt.</p><h2 class=\" topictitle2\" id=\"Hidelem4x19245\">Technische achtergrond</h2><p class=\"\" id=\"Pidelem4x19248\">Op basis van de SAP-tabel KNA1 wordt een object aangemaakt met referenties naar Adres, alsmede sublijsten van Klanten op Verkoopgebied en meer.</p></div>"
+            "lang": "de",
+            "text": "<div id=\"summary\" /><div class=\" section\" id=\"S1437641043086683\"><h2 class=\" topictitle2\" id=\"Hidelem4x9\">Bezeichnung</h2><p class=\"\" id=\"Pidelem4x11\">Bei OTIF- (On Time in Full, Rechtzeitig und vollständig) Messungen handelt es sich um Bestätigungen auf einer Verkaufsbelegposition zur Lieferung einer bestimmten Menge an einem bestimmten Datum. Eine Verkaufsbelegposition kann mehrere Verkaufsbestätigungen enthalten. An dieser Messung sind alle Ebenen des Unternehmens beteiligt. Für eine gute OTIF-Leistung müssen alle Prozesse korrekt ausgeführt werden: Auftragserfassung (beim ersten Mal korrekt), die erforderlichen Bestände und das Material muss korrekt gehandhabt werden, da sich alle Unterbrechungen negativ auf die OTIF-Leistung auswirken können.</p><p class=\"\" id=\"Pidelem4x13\">RECHTZEITIG = Die Lieferung an den Kunden erfolgte wie zugesagt. Dies ist die Verpflichtung, die die Organisation eingegangen ist. (Dies ist nicht notwendigerweise identisch mit dem, was der Kunde angefragt hat).</p><p class=\"\" id=\"Pidelem4x15\">VOLLSTÄNDIG = Korrektheit der Auftragserfüllung: Alle bestellten Waren wurden ohne Fehler oder Nachbestellungen geliefert.</p><p class=\"\" id=\"Pidelem4x17\">Der Zweck der OTIF-Messungen besteht darin, Zeitverluste aufgrund unpräzisen Arbeitens zu reduzieren und die Korrektheit der Lieferungen zu erhöhen.</p><h2 class=\" topictitle2\" id=\"Hidelem4x19\">Maßnahmen</h2><p class=\"\" id=\"Pidelem4x21\">Zur OTIF-Messung gehören:</p><ul id=\"Pidelem4x23\" class=\"\"><li><p class=\"\" id=\"P1437641043090214\">Prüfung der OTIF-Prozentsätze.</p></li><li><p class=\"\" id=\"P143764104309155\">Analyse des OTIF-Trends im Zeitverlauf.</p></li></ul><p /></div>"
         },
         {
             "lang": "en",
-            "text": "<div id=\"summary\" /><div class=\" section\" id=\"S1436280605408204\"><h2 class=\" topictitle2\" id=\"Hidelem4x19233\">Summary</h2><p class=\"\" id=\"Pidelem4x19236\">The Customer object represents master data of the external party to which products and/or services are sold.</p><h2 class=\" topictitle2\" id=\"Hidelem4x19239\">Explanation</h2><p class=\"\" id=\"Pidelem4x19243\">The master record contains data that controls how business transactions are recorded and processed. It also includes all the information about a customer that you need to be able to conduct business with them. Analysis in your logistics process will have added value when you add characteristics from this object.</p><h2 class=\" topictitle2\" id=\"Hidelem4x19245\">Technical background</h2><p class=\"\" id=\"Pidelem4x19248\">Based on SAP table KNA1 an object is created with a reference to Address, as well as  sublists of Customers on Sales Area Level and more.</p></div>"
-        },
-        {
-            "lang": "fr",
-            "text": "<div id=\"summary\" /><div class=\" section\" id=\"S1436280605408204\"><h2 class=\" topictitle2\" id=\"Hidelem4x19233\">Récapitulatif</h2><p class=\"\" id=\"Pidelem4x19236\">L'objet Client représente les données principales du tiers externe auxquels des produits et/ou des services sont vendus.</p><h2 class=\" topictitle2\" id=\"Hidelem4x19239\">Explication</h2><p class=\"\" id=\"Pidelem4x19243\">L'enregistrement principal contient les données qui contrôlent la façon dont les transactions commerciales sont enregistrées et traitées. Il inclut également toutes les informations concernant un client avec qui vous devez pouvoir faire affaire. L'analyse dans votre processus logistique aura une valeur ajoutée lorsque vous ajouterez les caractéristiques de cet objet.</p><h2 class=\" topictitle2\" id=\"Hidelem4x19245\">Antécédents techniques.</h2><p class=\"\" id=\"Pidelem4x19248\">D'après la table KNA1 dans SAP, un objet est créé avec une référence à l'en-tête Adresse, ainsi qu'à des listes auxiliaires Clients au niveau domaine commercial et autre.</p></div>"
-        },
-        {
-            "lang": "de",
-            "text": "<div id=\"summary\" /><div class=\" section\" id=\"S1436280605408204\"><h2 class=\" topictitle2\" id=\"Hidelem4x19233\">Zusammenfassung</h2><p class=\"\" id=\"Pidelem4x19236\">Das Objekt Kunde stellt die Stammdaten der externen Partei dar, an die Produkte und/oder Dienstleistungen verkauft werden.</p><h2 class=\" topictitle2\" id=\"Hidelem4x19239\">Erläuterung</h2><p class=\"\" id=\"Pidelem4x19243\">Der Stammdatensatz enthält Daten, die steuern, wie geschäftliche Transaktionen aufgezeichnet und verarbeitet werden. Darüber hinaus enthält er alle Informationen zu einem Kunden, die Sie benötigen, um mit diesem Kunden Geschäftsbeziehungen unterhalten zu können. Die Analyse in Ihrem Logistikprozess wird noch wertvoller, wenn Sie Eigenschaften aus diesem Objekt berücksichtigen.</p><h2 class=\" topictitle2\" id=\"Hidelem4x19245\">Technischer Hintergrund</h2><p class=\"\" id=\"Pidelem4x19248\">Ein Objekt wird auf der Grundlage der SAP-Tabelle KNA1 mit Referenzen zu Adresse und Unterlisten von Kunden auf Vertriebsbereichsebene usw. erstellt.</p></div>"
+            "text": "<div id=\"summary\" /><div class=\" section\" id=\"S1437641043086683\"><h2 class=\" topictitle2\" id=\"Hidelem4x9\">Description</h2><p class=\"\" id=\"Pidelem4x11\">OTIF (On Time In Full) measurements are confirmations on a sales document item to deliver a certain quantity on a certain date. A sales document item can have multiple sales confirmations. OTIF is a measurement that involves all the layers of the company. To perform well on OTIF all processes need to be performed correctly: order entry (first time right), appropriate inventory levels, material needs to be handled correctly because any disruption could have a negative effect on OTIF.</p><p class=\"\" id=\"Pidelem4x13\">ON TIME = Delivering the order to the customer as you promised. It is the commitment the organization has made. (So this is not necessarily what the customer had requested).</p><p class=\"\" id=\"Pidelem4x15\">IN FULL = Order accuracy: when everything ordered is delivered with no errors or backorders.</p><p class=\"\" id=\"Pidelem4x17\">Purposes of the OTIF measurement are to reduce the time lost due to mistakes and to increase accuracy.</p><h2 class=\" topictitle2\" id=\"Hidelem4x19\">Actions</h2><p class=\"\" id=\"Pidelem4x21\">Measuring OTIF involves:</p><ul id=\"Pidelem4x23\" class=\"\"><li><p class=\"\" id=\"P1437641043090214\">Checking OTIF percentages.</p></li><li><p class=\"\" id=\"P143764104309155\">Analyzing OTIF trend over time.</p></li></ul><p /></div>"
         },
         {
             "lang": "es",
-            "text": "<div id=\"summary\" /><div class=\" section\" id=\"S1436280605408204\"><h2 class=\" topictitle2\" id=\"Hidelem4x19233\">Resumen</h2><p class=\"\" id=\"Pidelem4x19236\">El objeto Cliente representa los datos maestros de la parte externa a la que se venden productos y/o servicios.</p><h2 class=\" topictitle2\" id=\"Hidelem4x19239\">Explicación</h2><p class=\"\" id=\"Pidelem4x19243\">El registro de maestro contiene datos que controlan cómo se registran y procesan las operaciones de los negocios. También incluye toda la información de un cliente que puede necesitar para hacer negocios con él. El análisis en el proceso logístico tendrá valor añadido cuando agregue características de este objeto.</p><h2 class=\" topictitle2\" id=\"Hidelem4x19245\">Contexto técnico</h2><p class=\"\" id=\"Pidelem4x19248\">Según la tabla SAP KNA1, un objeto se crea con una referencia a Dirección, así como con sublistas de Clientes a Nivel de Área de Ventas y más.</p></div>"
+            "text": "<div id=\"summary\" /><div class=\" section\" id=\"S1437641043086683\"><h2 class=\" topictitle2\" id=\"Hidelem4x9\">Texto explicativo</h2><p class=\"\" id=\"Pidelem4x11\">Las mediciones OTIF (A Tiempo y Completo) son confirmaciones sobre una posición de un documento de ventas para entregar una cantidad determinada en una fecha determinada. Una posición de un documento de ventas puede tener varias confirmaciones de ventas. OTIF es una medición que implica a todas las capas de la empresa. Para desempeñar bien OTIF, todos los procesos se deben llevar a cabo correctamente: entrada de pedido (momento adecuado), niveles de inventario adecuados, necesidades de material que se deben gestionar correctamente dado que cualquier interrupción puede tener un efecto negativo en OTIF.</p><p class=\"\" id=\"Pidelem4x13\">A TIEMPO = Suministro del pedido al cliente como se ha comprometido. Es el compromiso que ha hecho la organización. (Así, esto no es necesariamente lo que el cliente ha solicitado).</p><p class=\"\" id=\"Pidelem4x15\">COMPLETO = precisión del pedido: cuando se entrega todo lo que se ha pedido sin errores ni retrasos.</p><p class=\"\" id=\"Pidelem4x17\">Los fines de la medición OTIF son reducir el tiempo perdido debido a errores y aumentar la precisión.</p><h2 class=\" topictitle2\" id=\"Hidelem4x19\">Acciones</h2><p class=\"\" id=\"Pidelem4x21\">Las mediciones de OTIF implican:</p><ul id=\"Pidelem4x23\" class=\"\"><li><p class=\"\" id=\"P1437641043090214\">Comprobar los porcentajes de OTIF.</p></li><li><p class=\"\" id=\"P143764104309155\">Analizar la tendencia de OTIF a lo largo del tiempo.</p></li></ul><p /></div>"
+        },
+        {
+            "lang": "fr",
+            "text": "<div id=\"summary\" /><div class=\" section\" id=\"S1437641043086683\"><h2 class=\" topictitle2\" id=\"Hidelem4x9\">Description</h2><p class=\"\" id=\"Pidelem4x11\">Les mesures OTIF (On Time In Full, « A l'heure et complet ») constituent des confirmations sur un article de document commercial de la livraison d'une certaine quantité à une certaine date. Un poste de document de vente peut avoir plusieurs confirmations de vente. La mesure OTIF recouvre tous les niveaux de la société. Pour obtenir une bonne performance OTIF, tous les processus doivent être effectués correctement : entrée d'ordre (correct la première fois), niveaux de stock appropriés, besoins en matières traités de manière correcte, etc., car toute perturbation est susceptible d'avoir un effet négatif sur la mesure OTIF.</p><p class=\"\" id=\"Pidelem4x13\">ON HEURE = Livrer la commande au client comme promis. Il s'agit d'un engagement pris par l'organisation. (il ne s'agit donc pas obligatoirement de ce que le client a demandé).</p><p class=\"\" id=\"Pidelem4x15\">Complétude (exactitude de la commande) : lorsque tous les articles commandés sont livrés sans erreur ou rupture de stock.</p><p class=\"\" id=\"Pidelem4x17\">L'utilisation de la mesure OTIF permet de réduire le temps perdu en raison d'erreurs et d'améliorer la précision.</p><h2 class=\" topictitle2\" id=\"Hidelem4x19\">Actions</h2><p class=\"\" id=\"Pidelem4x21\">La mesure de l'OTIF comprend les activités suivantes :</p><ul id=\"Pidelem4x23\" class=\"\"><li><p class=\"\" id=\"P1437641043090214\">contrôler les pourcentages OTIF ;</p></li><li><p class=\"\" id=\"P143764104309155\">analyser la tendance OTIF au cours du temps.</p></li></ul><p /></div>"
+        },
+        {
+            "lang": "nl",
+            "text": "<div id=\"summary\" /><div class=\" section\" id=\"S1437641043086683\"><h2 class=\" topictitle2\" id=\"Hidelem4x9\">Omschrijving</h2><p class=\"\" id=\"Pidelem4x11\">OTIF-metingen (On Time In Full) hebben betrekking op toezeggingen op een verkoopdocumentpositie om een bepaalde hoeveelheid op een bepaalde datum te leveren. Een verkoopdocumentpositie kan meerdere toezeggingen voor de verkoop bevatten. OTIF is een meting waarbij alle lagen van het bedrijf betrokken zijn. Voor goede OTIF-resultaten moeten alle processen juist worden uitgevoerd: orderinvoer (First Time Right), passende voorraadniveaus en artikelen moeten juist worden afgehandeld omdat elke verstoring negatieve gevolgen voor de OTIF-meting kan hebben.</p><p class=\"\" id=\"Pidelem4x13\">ON TIME = de order aan de klant leveren op de toegezegde datum. Het is een verplichting die de organisatie op zich heeft genomen. (Dus dit is niet noodzakelijkerwijs iets waarom de klant heeft gevraagd.)</p><p class=\"\" id=\"Pidelem4x15\">IN FULL = nauwkeurigheid van de order: alles dat is besteld, is geleverd zonder fouten of naleveringen.</p><p class=\"\" id=\"Pidelem4x17\">Het doel van de OTIF-metingen is om de tijd die verloren gaat aan vergissingen te verminderen en de nauwkeurigheid te vergroten.</p><h2 class=\" topictitle2\" id=\"Hidelem4x19\">Procedures</h2><p class=\"\" id=\"Pidelem4x21\">Het meten van OTIF omvat de volgende procedures:</p><ul id=\"Pidelem4x23\" class=\"\"><li><p class=\"\" id=\"P1437641043090214\">OTIF-percentages controleren.</p></li><li><p class=\"\" id=\"P143764104309155\">De OTIF-trend voor een bepaalde periode analyseren.</p></li></ul><p /></div>"
         }
     ]
 }

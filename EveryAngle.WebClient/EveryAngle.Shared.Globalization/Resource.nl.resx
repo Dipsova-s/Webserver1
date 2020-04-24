@@ -145,7 +145,7 @@
     <value>Zoeklabels</value>
   </data>
   <data name="AngleDetailPublishTabTemplate" xml:space="preserve">
-    <value>Instellen als "Template"</value>
+    <value>Instellen als Template</value>
   </data>
   <data name="AngleDetails" xml:space="preserve">
     <value>Angledetails</value>
@@ -580,7 +580,7 @@
     <value>Zie info over veld</value>
   </data>
   <data name="SelectAPropertyToApplyAsFilter" xml:space="preserve">
-    <value>Selecteer een veld om toe te passen als filter</value>
+    <value>Kies veld</value>
   </data>
   <data name="Sort" xml:space="preserve">
     <value>Sorteren</value>
@@ -937,7 +937,7 @@
     <value>Bewaar actieve Displayfilters</value>
   </data>
   <data name="DisplayDrilldownDefault" xml:space="preserve">
-    <value>Standaard Drilldowndisplay</value>
+    <value>Default drilldown</value>
   </data>
   <data name="None" xml:space="preserve">
     <value>[Geen]</value>
@@ -1251,7 +1251,7 @@
   <data name="CompairPeriod" xml:space="preserve">
     <value>Selecteer periode</value>
   </data>
-  <data name="CompairValue" xml:space="preserve">
+  <data name="CompareValue" xml:space="preserve">
     <value>Selecteer veld</value>
   </data>
   <data name="ExecuteAsDashboard" xml:space="preserve">
@@ -1471,10 +1471,10 @@
     <value>Rij</value>
   </data>
   <data name="AngleDetailPublishTabAngle" xml:space="preserve">
-    <value>Instellen als "Angle"</value>
+    <value>Instellen als Angle</value>
   </data>
-  <data name="MessageSaveQuestionPublishAngle" xml:space="preserve">
-    <value>U hebt niet opgeslagen wijzigingen in de Angle details. Wilt u de wijzigingen opslaan en verdergaan met publiceren?</value>
+  <data name="MessageSaveQuestionPublish" xml:space="preserve">
+    <value>U hebt niet opgeslagen wijzigingen. Wilt u de wijzigingen opslaan en verdergaan met publiceren?</value>
   </data>
   <data name="MessageSaveFollowupRequiredPublishAngle" xml:space="preserve">
     <value>Angledefinitie gewijzigd, een Jump is toegevoegd of verwijderd. Deze wijziging moet worden opgeslagen voordat de Angle kan worden gepubliceerd.</value>
@@ -1543,7 +1543,7 @@
     <value>Weet u zeker dat u {0} wilt verwijderen?</value>
   </data>
   <data name="Confirm_CreateNewFollowUp" xml:space="preserve">
-    <value>Een nieuwe Display wordt gemaakt met aanbevolen velden. &lt;br&gt;Weet u zeker dat u door wilt gaan?</value>
+    <value>Het huidige Display zal wijzigen naar een nieuw Display met aanbevolen velden. &lt;br&gt;Weet u zeker dat u door wilt gaan?</value>
   </data>
   <data name="Confirm_DeleteAngle" xml:space="preserve">
     <value>Verwijder Angle:&lt;br /&gt; {0}?</value>
@@ -2998,10 +2998,12 @@ If this option is set to &lt;b&gt;Edit&lt;/b&gt;, users with this role have full
     <value>Template '{0}' kan niet worden uitgevoerd omdat het geen geldige Displays heeft.</value>
   </data>
   <data name="Info_DropFilterToAngleDefinition" xml:space="preserve">
-    <value>Sleep hierheen om het filter naar de Angle definitie te verplaatsen.</value>
+    <value>Sleep hierheen om het filter naar de Angle te verplaatsen.</value>
   </data>
   <data name="Info_ConfirmDropFilterToAngleDefinition" xml:space="preserve">
-    <value>Filter toevoegen aan Angle definitie?</value>
+    <value>Filter naar Angle verplaatsen?&lt;br/&gt;
+Alle wijzigingen zullen meteen in de Angle worden opgeslagen.&lt;br/&gt;
+Wilt u doorgaan?</value>
   </data>
   <data name="CellPopupSubMenuIsBetween" xml:space="preserve">
     <value>Is tussen {0} en {1}</value>
@@ -3545,7 +3547,7 @@ The value 0 means the setting is off, so the Audit Log will not be cleaned up. T
     <value>Modeling Workbench</value>
   </data>
   <data name="NotificationsFeed_Updates" xml:space="preserve">
-    <value>Notifications</value>
+    <value>Notificaties</value>
   </data>
   <data name="NotificationsFeed_ViewAll" xml:space="preserve">
     <value>Bekijk alles</value>
@@ -3749,5 +3751,91 @@ The minimum is 1.</value>
   </data>
   <data name="ModelDefinitionVersion" xml:space="preserve">
     <value>Modeldefinitie versie</value>
+  </data>
+  <data name="AddLanguage" xml:space="preserve">
+    <value>Voeg taal toe</value>
+  </data>
+  <data name="Tooltip_ApplyAndSaveAngle" xml:space="preserve">
+    <value>Toepassen en Angle opslaan</value>
+  </data>
+  <data name="Tooltip_ApplyAndSaveDisplay" xml:space="preserve">
+    <value>Toepassen en Display opslaan</value>
+  </data>
+  <data name="Tooltip_UndoAllChanges" xml:space="preserve">
+    <value>Alle wijzigingen ongedaan maken</value>
+  </data>
+  <data name="OpenEnumeratedPopup" xml:space="preserve">
+    <value>Open in a new window</value>
+  </data>
+  <data name="Dashboard" xml:space="preserve">
+    <value>Dashboard</value>
+  </data>
+  <data name="Dashboard_SideBar_Displays" xml:space="preserve">
+    <value>Displays</value>
+  </data>
+  <data name="Info_ActionNotAllowedDescription" xml:space="preserve">
+    <value>This action is not allowed.</value>
+  </data>
+  <data name="DashboardDescription" xml:space="preserve">
+    <value>Dashboard-omschrijving</value>
+  </data>
+  <data name="ChartGaugeSetting" xml:space="preserve">
+    <value>Ranges and colors</value>
+  </data>
+  <data name="Toast_SetAngleToTemplate" xml:space="preserve">
+    <value>'{0}' is ingesteld als Template</value>
+  </data>
+  <data name="Toast_SetTemplateToAngle" xml:space="preserve">
+    <value>'{0}' is ingesteld als Angle</value>
+  </data>
+  <data name="ChartReferenceFieldName" xml:space="preserve">
+    <value>Referentielijn</value>
+  </data>
+  <data name="NewDisplayType_chart" xml:space="preserve">
+    <value>Grafiek</value>
+  </data>
+  <data name="NewDisplayType_list" xml:space="preserve">
+    <value>Lijst</value>
+  </data>
+  <data name="NewDisplayType_pivot" xml:space="preserve">
+    <value>Draaitabel</value>
+  </data>
+  <data name="NoDisplayFiltersActive" xml:space="preserve">
+    <value>Geen Displayfilters actief</value>
+  </data>
+  <data name="MoreActions" xml:space="preserve">
+    <value>Meer acties</value>
+  </data>
+  <data name="GoToSapNotAvailable" xml:space="preserve">
+    <value>No transactions available</value>
+  </data>
+  <data name="DisplayOverview" xml:space="preserve">
+    <value>Display overzicht</value>
+  </data>
+  <data name="ScrollLeft" xml:space="preserve">
+    <value>Scroll links</value>
+  </data>
+  <data name="ScrollRight" xml:space="preserve">
+    <value>Scroll rechts</value>
+  </data>
+  <data name="Toast_CopyDisplay" xml:space="preserve">
+    <value>'{0}' is gekopieerd!</value>
+  </data>
+  <data name="Toast_PasteDisplay" xml:space="preserve">
+    <value>'{0}' is geplakt!</value>
+  </data>
+  <data name="ReferencePopupWarning" xml:space="preserve">
+    <value>Please enter a value in a valid format</value>
+  </data>
+  <data name="ValidationForBusinessProcess" xml:space="preserve">
+    <value>Minstens één Business Process moet worden toegevoegd om de Angle op te kunnen slaan</value>
+  </data>
+  <data name="CannotSaveAngle_Title" xml:space="preserve">
+    <value>Cannot save</value>
+  </data>
+  <data name="MessageSaveQuestionAngleUsedInTask" xml:space="preserve">
+    <value>U heeft wijzigingen aangebracht in een Angle die wordt gebruikt in een Automation task. Dit kan storingen veroorzaken.
+&lt;br&gt;&lt;br&gt;
+Wilt u doorgaan met het opslaan van uw wijzigingen?</value>
   </data>
 </root>

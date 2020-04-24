@@ -1,0 +1,386 @@
+{
+  "id": "ROBOT_ANGLE_DrilldownDisplayTesting",
+  "angle_default_display": "dd69dbfd3f4cc05cd81b9582078351537",
+	"is_validated": false,
+	"is_published": true,
+	"is_template": false,
+  "assigned_labels": ["P2P", "PM", "S2D"],
+  "multi_lang_name": [
+    {
+      "lang": "en",
+      "text": "[Robot] Test Drilldown Sidebar"
+    }
+  ],
+  "multi_lang_description": [
+    {
+      "lang": "en",
+      "text": "<div id=\"summary\"><div class=\" section\" id=\"S1436366645567954\"><h2 class=\" topictitle2\" id=\"Hidelem4x82726\">&nbsp;</h2><p id=\"Pidelem4x82753\"></p></div></div>"
+    }
+  ],
+  "query_definition": [
+    {
+      "queryblock_type": "base_classes",
+      "base_classes": ["PurchaseOrderScheduleLine"]
+    }
+  ],
+  "display_definitions": [
+    {
+      "id": "d4c3a75cff9a2cea236c6582078545828",
+      "display_type": "chart",
+      "multi_lang_name": [
+        {
+          "lang": "en",
+          "text": "Gauge Chart"
+        }
+      ],
+      "multi_lang_description": [],
+      "display_details": "{\"chart_type\":\"gauge\",\"stack\":false,\"multi_axis\":false,\"count_index\":0,\"show_as_percentage\":false,\"axistitlegauge\":\"show\",\"datalabelgauge\":\"show\",\"rangesgauge\":\"show\",\"GaugeValues\":[0,20,40,60,80,100],\"GaugeColours\":[\"#ed0000\",\"#eda100\",\"#4dc632\",\"#eda100\",\"#ed0000\"],\"axisscale\":\"automatic\"}",
+      "query_blocks": [
+        {
+          "queryblock_type": "query_steps",
+          "query_steps": [
+            {
+              "step_type": "aggregation",
+              "aggregation_fields": [
+                {
+                  "field": "count",
+                  "operator": "count"
+                }
+              ],
+              "grouping_fields": []
+            }
+          ]
+        }
+      ],
+      "fields": [
+        {
+          "field": "count",
+          "multi_lang_alias": [],
+          "field_details": "{\"pivot_area\":\"data\",\"sorting\":\"\"}"
+        }
+      ]
+    },
+    {
+      "id": "d53e0118d271424afdd46582078351534",
+      "display_type": "pivot",
+      "multi_lang_name": [
+        {
+          "lang": "en",
+          "text": "Pivot"
+        }
+      ],
+      "multi_lang_description": [
+        {
+          "lang": "en",
+          "text": "<div id=\"summary\"><div class=\" section\" id=\"S1440665766825663\"><p id=\"Pidelem4x84354\">&nbsp;</p><p id=\"Pidelem4x84363\"></p></div></div>"
+        }
+      ],
+      "display_details": "{\"drilldown_display\":\"z04797670f0ef4f76ae239f0aec37a567\",\"show_total_for\":1,\"percentage_summary_type\":0,\"include_subtotals\":false,\"count_index\":0,\"layout\":\"{\\\"collapse\\\":\\\"+////wAAAAAAAAAA+////wAAAAABAAAAAAAAADRpbmRpdmlkdWFsX3B1cmNoYXNlb3JkZXJfX3B1cmNoYXNpbmdkb2N1bWVudGNhdGVnb3J5WlN5c3RlbS5PYmplY3QsIG1zY29ybGliLCBWZXJzaW9uPTQuMC4wLjAsIEN1bHR1cmU9bmV1dHJhbCwgUHVibGljS2V5VG9rZW49Yjc3YTVjNTYxOTM0ZTA4OVpTeXN0ZW0uT2JqZWN0LCBtc2NvcmxpYiwgVmVyc2lvbj00LjAuMC4wLCBDdWx0dXJlPW5ldXRyYWwsIFB1YmxpY0tleVRva2VuPWI3N2E1YzU2MTkzNGUwODkB\\\"}\",\"columns\":{\"header\":[195.55859375,134.080078125],\"data\":[65.783203125,72.421875,88.13671875,56.548828125,77.291015625]}}",
+      "query_blocks": [
+        {
+          "queryblock_type": "query_steps",
+          "query_steps": [
+            {
+              "step_type": "aggregation",
+              "aggregation_fields": [
+                {
+                  "field": "count",
+                  "operator": "count"
+                }
+              ],
+              "grouping_fields": [
+                {
+                  "source_field": "PurchaseOrder__PurchasingDocumentCategory",
+                  "tech_info": "EKKO-BSTYP",
+                  "field": "individual_PurchaseOrder__PurchasingDocumentCategory",
+                  "operator": "individual"
+                },
+                {
+                  "source_field": "PurchaseOrderLine__PurchasingItemCategory",
+                  "tech_info": "EKPO-PSTYP",
+                  "field": "individual_PurchaseOrderLine__PurchasingItemCategory",
+                  "operator": "individual"
+                },
+                {
+                  "source_field": "ExecutionStatus",
+                  "field": "individual_ExecutionStatus",
+                  "operator": "individual"
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "fields": [
+        {
+          "field": "individual_PurchaseOrder__PurchasingDocumentCategory",
+          "multi_lang_alias": [],
+          "field_details": "{\"pivot_area\":\"row\",\"format\":\"shnln\",\"sorting\":\"asc\"}"
+        },
+        {
+          "field": "individual_PurchaseOrderLine__PurchasingItemCategory",
+          "multi_lang_alias": [],
+          "field_details": "{\"pivot_area\":\"row\",\"format\":\"shnln\",\"sorting\":\"asc\"}"
+        },
+        {
+          "field": "individual_ExecutionStatus",
+          "multi_lang_alias": [],
+          "field_details": "{\"pivot_area\":\"column\",\"format\":\"shn\",\"sorting\":\"asc\"}"
+        },
+        {
+          "field": "count",
+          "multi_lang_alias": [],
+          "field_details": "{\"pivot_area\":\"data\",\"sorting\":\"\"}"
+        }
+      ]
+    },
+    {
+      "id": "dd69dbfd3f4cc05cd81b9582078351537",
+      "is_public": true,
+      "display_type": "list",
+      "is_angle_default": true,
+      "multi_lang_name": [
+        {
+          "lang": "en",
+          "text": "Basic List"
+        }
+      ],
+      "multi_lang_description": [
+        {
+          "lang": "en",
+          "text": "<div id=\"summary\" /><div class=\" section\" id=\"S1438246042240883\"><p class=\"\" id=\"P1438246042240174\" /></div>"
+        }
+      ],
+      "display_details": "{\"layout\":null}",
+      "query_blocks": [],
+      "fields": [
+        {
+          "field": "ObjectType",
+          "tech_info": "",
+          "multi_lang_alias": [],
+          "field_details": "{\"width\":107,\"format\":\"shn\"}"
+        },
+        {
+          "field": "ID",
+          "tech_info": "",
+          "multi_lang_alias": [],
+          "field_details": "{\"width\":123}"
+        },
+        {
+          "field": "PurchaseOrganization__PurchaseOrganization",
+          "tech_info": "T024E-EKORG",
+          "multi_lang_alias": [],
+          "field_details": "{\"width\":107,\"format\":\"shnln\"}"
+        },
+        {
+          "field": "Plant__Plant",
+          "tech_info": "T001W-WERKS",
+          "multi_lang_alias": [],
+          "field_details": "{\"width\":93,\"format\":\"shnln\"}"
+        },
+        {
+          "field": "ExecutionStatus",
+          "tech_info": "",
+          "multi_lang_alias": [],
+          "field_details": "{\"width\":96,\"format\":\"shn\"}"
+        },
+        {
+          "field": "Material__Material",
+          "tech_info": "",
+          "multi_lang_alias": [],
+          "field_details": "{\"width\":101}"
+        },
+        {
+          "field": "Material__Description",
+          "tech_info": "MAKT-MAKTX",
+          "multi_lang_alias": [],
+          "field_details": "{\"width\":157}"
+        },
+        {
+          "field": "Quantity",
+          "tech_info": "",
+          "multi_lang_alias": [],
+          "field_details": "{\"width\":85}"
+        },
+        {
+          "field": "Material__BaseUnitOfMeasure",
+          "tech_info": "MARA-MEINS",
+          "multi_lang_alias": [],
+          "field_details": "{\"width\":29,\"format\":\"shn\"}"
+        },
+        {
+          "field": "PurchaseOrderLine__TXZ01",
+          "tech_info": "EKPO-TXZ01",
+          "multi_lang_alias": [],
+          "field_details": "{\"width\":187}"
+        },
+        {
+          "field": "Vendor__Vendor",
+          "tech_info": "LFA1-LIFNR",
+          "multi_lang_alias": [],
+          "field_details": "{\"width\":81}"
+        },
+        {
+          "field": "Vendor__Description",
+          "tech_info": "LFA1-NAME1",
+          "multi_lang_alias": [],
+          "field_details": "{\"width\":120}"
+        },
+        {
+          "field": "PurchaseOrder__PurchasingDocumentCategory",
+          "tech_info": "EKKO-BSTYP",
+          "multi_lang_alias": [],
+          "field_details": "{\"width\":105,\"format\":\"shnln\"}"
+        },
+        {
+          "field": "PurchaseOrderLine__PurchasingItemCategory",
+          "tech_info": "EKPO-PSTYP",
+          "multi_lang_alias": [],
+          "field_details": "{\"width\":88,\"format\":\"shnln\"}"
+        },
+        {
+          "field": "MaterialOnPlantLevel__DISPO",
+          "tech_info": "MARC-WERKS;MARC-DISPO",
+          "multi_lang_alias": [],
+          "field_details": "{\"width\":96,\"format\":\"shnln\"}"
+        },
+        {
+          "field": "PurchaseOrder__BKGRP",
+          "tech_info": "EKKO-EKGRP",
+          "multi_lang_alias": [],
+          "field_details": "{\"width\":102,\"format\":\"shnln\"}"
+        },
+        {
+          "field": "PurchaseOrderScheduleLineStatus",
+          "tech_info": "",
+          "multi_lang_alias": [],
+          "field_details": "{\"width\":109,\"format\":\"shn\"}"
+        },
+        {
+          "field": "OrderDueDate",
+          "tech_info": "EKES_LC-EINDT;EKES_FC-EINDT;EKET_COMMIT-EINDT;EKET-EINDT;EKET-SLFDT",
+          "multi_lang_alias": [],
+          "field_details": "{\"width\":87}"
+        },
+        {
+          "field": "DeliveryStatus",
+          "tech_info": "",
+          "multi_lang_alias": [],
+          "field_details": "{\"width\":108,\"format\":\"shn\"}"
+        },
+        {
+          "field": "RelevantForLogistics",
+          "tech_info": "",
+          "multi_lang_alias": [],
+          "field_details": "{\"width\":84}"
+        },
+        {
+          "field": "OrderedValue",
+          "tech_info": "",
+          "multi_lang_alias": [],
+          "field_details": "{\"width\":87}"
+        }
+      ]
+    },
+    {
+      "id": "dfebd96e247e344640996582078351530",
+      "display_type": "chart",
+      "multi_lang_name": [
+        {
+          "lang": "en",
+          "text": "Chart"
+        }
+      ],
+      "multi_lang_description": [
+        {
+          "lang": "en",
+          "text": "<div id=\"summary\"><div class=\" section\" id=\"S1440682176942903\"><p id=\"P144068217694284\">&nbsp;</p></div></div>"
+        }
+      ],
+      "display_details": "{\"chart_type\":\"column\",\"stack\":false,\"multi_axis\":true,\"layout\":null,\"columns\":{\"header\":[],\"data\":[]},\"drilldown_display\":\"d53e0118d271424afdd46582078351534\",\"axistitle\":\"show\",\"axisvalue\":\"show\",\"datalabel\":\"mouse\",\"gridline\":\"show\",\"legend\":\"show\",\"range\":{\"start\":0,\"size\":50},\"count_index\":0}",
+      "query_blocks": [
+        {
+          "queryblock_type": "query_steps",
+          "query_steps": [
+            {
+              "step_type": "filter",
+              "field": "PurchaseOrder__PurchasingDocumentCategory",
+              "tech_info": "EKKO-BSTYP",
+              "operator": "in_set",
+              "arguments": [
+                {
+                  "argument_type": "value",
+                  "value": "F"
+                },
+                {
+                  "argument_type": "value",
+                  "value": "L"
+                }
+              ]
+            },
+            {
+              "step_type": "filter",
+              "field": "ExecutionStatus",
+              "operator": "not_in_set",
+              "arguments": [
+                {
+                  "argument_type": "value",
+                  "value": "es3Cancelled"
+                }
+              ]
+            },
+            {
+              "step_type": "aggregation",
+              "aggregation_fields": [
+                {
+                  "field": "count",
+                  "operator": "count"
+                },
+                {
+                  "source_field": "OrderedValue",
+                  "field": "sum_OrderedValue",
+                  "operator": "sum"
+                }
+              ],
+              "grouping_fields": [
+                {
+                  "source_field": "OrderDueDate",
+                  "tech_info": "EKES_LC-EINDT/EKES_FC-EINDT/EKET_COMMIT-EINDT/EKET-EINDT/EKET-SLFDT",
+                  "field": "quarter_OrderDueDate",
+                  "operator": "quarter"
+                },
+                {
+                  "source_field": "DeliveryStatus",
+                  "field": "individual_DeliveryStatus",
+                  "operator": "individual"
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "fields": [
+        {
+          "field": "quarter_OrderDueDate",
+          "multi_lang_alias": [],
+          "field_details": "{\"pivot_area\":\"row\"}"
+        },
+        {
+          "field": "individual_DeliveryStatus",
+          "multi_lang_alias": [],
+          "field_details": "{\"pivot_area\":\"column\",\"format\":\"shn\"}"
+        },
+        {
+          "field": "count",
+          "multi_lang_alias": [],
+          "field_details": "{\"pivot_area\":\"data\",\"prefix\":null,\"decimals\":0,\"thousandseparator\":true}"
+        },
+        {
+          "field": "sum_OrderedValue",
+          "multi_lang_alias": [],
+          "field_details": "{\"pivot_area\":\"data\",\"prefix\":\"K\",\"decimals\":0,\"thousandseparator\":true}"
+        }
+      ]
+    }
+  ]
+}

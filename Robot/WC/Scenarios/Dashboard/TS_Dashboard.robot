@@ -1,15 +1,28 @@
 *** Settings ***
-Resource    		${EXECDIR}/WC/POM/Dashboard/DashboardPage.robot
 Resource    		${EXECDIR}/WC/POM/Search/SearchPage.robot
+Resource            ${EXECDIR}/WC/POM/Angle/AddToDashboardPopup.robot
+Resource    		${EXECDIR}/WC/POM/Dashboard/DashboardPage.robot
 
 *** Keywords ***
+Create Adhoc Dashboard
+    [Arguments]    ${searchText}    ${dashboardName}
+    Search By Text And Expect In Search Result    ${searchText} 
+    Click Sort By Name Ascending In Search Page
+    Click Search Action Select All
+    Click Search Action Execute As Dashboard
+    Edit Dashboard Description    en    ${dashboardName}    ${EMPTY}    ${True}
+
+Create New Dashboard
+    [Arguments]    ${searchText}    ${dashboardName}
+    Create Adhoc Dashboard  ${searchText}  ${dashboardName}
+    Click Dashboard Save All
+
 Dashboard Execution Parameters
     Filter Angle With Execution Parameters For Dashboard
     Execute Dashboard From Angle With Execution Parameters
     Check Dashboard Execution Parameters Are Presented
     Change Dashboard Execution Parameters Then Execute
     Click Submit Adhoc Dashboard Execution Parameters
-    Close Dashboard Detail Popup
     Open Angle In Dashboard Widget    0
     Check First Angle Should Apply Dashboard Execution Parameters
     Open Angle In Dashboard Widget    1
@@ -22,24 +35,16 @@ Execute Dashboard With Execution Parameters In Edit Mode
     Check Dashboard Execution Parameters Are Presented
     Change Dashboard Execution Parameters Then Execute
     Click Submit Adhoc Dashboard Execution Parameters
-    Input Dashboard Name    ${dashboardName}
-    Save Dashboard
+    Edit Dashboard Description    en    ${dashboardName}    ${dashboardName}
+    Click Dashboard Save All
     Back To Search
     Search By Text And Expect In Search Result    ${dashboardName}
     Sleep    2s    Wait SOLR
     Click First Item Info Button
-    Click Dashbaord Edit Mode Button Via Item Info Popup
+    Click Dashboard Edit Mode Button Via Item Info Popup
     Click Execute Dashboard Action
     Click Submit Dashboard Execution Parameters
     Wait Progress Bar Closed
-    Back To Search And Delete Dashboard Are Created    ${dashboardName}
-
-Create Achoc Dashboard
-    [Arguments]   ${searchAngles}
-    Search By Text And Expect In Search Result    ${searchAngles}
-    Click Sort By Name Ascending In Search Page
-    Click Search Action Select All
-    Click Search Action Execute As Dashboard
 
 ################################################################################
 
@@ -77,12 +82,10 @@ Input Filter Value For Is In List For Third Dashboard Filter
 
 Open Angle In Dashboard Widget
     [Arguments]    ${index}
-    Show Dashboard Widget Menu    ${index}
     Click Link Go To Angle    ${index}
     Select Window    NEW
     Wait Angle Page Document Loaded
     Check If Angle Or Display Has A Warning Then Close The Popup
-    Click Toggle Angle
 
 Check First Angle Should Apply Dashboard Execution Parameters
     Page Should Contain    (Self) - Purchasing Document Category is not empty
@@ -100,27 +103,18 @@ Check Second Angle Should Apply Dashboard Execution Parameters
 Create Dashboard With 2 Angles
     [Arguments]   ${dashboardName}
     Search By Text     Angle For
-    Check Existing Angle From Search Result    Angle For General Test
     Check Existing Angle From Search Result    Test Angle For Validate
-    Click Select First Item From Search Result
-    Click Select Second Item From Search Result
+    Check Existing Angle From Search Result    Angle For General Test
+    Click Select Item From Search Result By Name  Test Angle For Validate
+    Click Select Item From Search Result By Name  Angle For General Test
     Click Search Action Execute As Dashboard
-    Input Dashboard Name    ${dashboardName}
-    Save Dashboard
+    Edit Dashboard Description    en    ${dashboardName}    ${dashboardName}
+    Click Dashboard Save All
 
 Back To Search And Delete Dashboard Are Created
     [Arguments]   ${dashboardName}
-    Back To Search
-    Search By Text And Expect In Search Result    ${dashboardName}
-    Sleep    2s    Wait SOLR
-    Delete All Search Result Items
-    Search By Text    ${dashboardName}
-    Element Should Not Contain    ${gridSearchResult}    ${dashboardName}
-
-Total Filters In Dashboard Should Be Equal
-    [Arguments]    ${expectFilterCount}
-    ${filterText}    Get Text    ${ddlDashboardPanel} ${ddlDashboardFilterCount}
-    Should Be Equal    ${filterText}    ${expectFilterCount}
+    Go to Search Page
+    Delete Item On Search Page    ${dashboardName}
 
 Verify Filters In Angle When Open Angle From Dashboard Page
     [Arguments]    ${widgetIndex}    ${expectedFilterTexts}=''    ${unExpectedFilterTexts}=''
@@ -132,78 +126,190 @@ Verify Filters In Angle When Open Angle From Dashboard Page
     Close Window
     Select Window   MAIN
 
-Create Dashboard From Specific Angle Name
-    [Arguments]    ${angleName}    ${dashboardName}
-    Search By Text And Expect In Search Result    ${angleName} 
-    Click Select First Item From Search Result
-    Click Search Action Execute As Dashboard
-    Input Dashboard Name    ${dashboardName} 
-    Save Dashboard
-
-Add Filter To Dashboard
-    [Arguments]    ${fieldKeyword}    ${fieldId}    ${selectedOperator}    ${selectedOperatorValue}     ${isSelfSource}
-    Click Dashboard Name
-    Click Dashboard Detail Filters Tab
-    Click Add Filter Button In Dashboard Detail Popup
-    Select Field Source(Self)
-    Select Field From Filters Tab    ${fieldKeyword}    ${fieldId}      ${isSelfSource}
-    Choose Dropdown Filter Operator In FilterField In Filters tab    0    ${selectedOperator}
-    Input Filter Set Select Value    0    ${selectedOperatorValue}
-    Save Dashboard
-
-First Filter In Dashboard Popup Should Be Equal
-    [Arguments]    ${dashboardName}    ${expectFilterText}
-    Back To Search
-    Search Dashboard From Search Page And Open It    ${dashboardName} 
-    Click Dashboard Name
-    Click Dashboard Detail Filters Tab  
-    Verify Dashboard Filter Still Showing    0    ${expectFilterText}
-    Cancel Dashboard
-
-First Filter In Dashboard Sidebar Should Be Equal
-    [Arguments]    ${expectFilterText}
-    ${filterTitle}=    Set Variable    css=#FilterHeader-0 .filterText
-    Click Editing From Dashboard Filter Panel
-    Wait Until Element Exist And Visible    ${divPopupListFilter}
-    Wait Until Element Contains    ${filterTitle}    ${expectFilterText}    10s    Element not contais text "${expectFilterText}" within 10s
-    Cancel Edit Dashboard
-
-Create Dashboard From Many Angles
-    [Arguments]    ${angleKeyword}    ${dashboardName}
-    Search By Text And Expect In Search Result    ${angleKeyword}
-    Click Sort By Name Ascending In Search Page
-    Click Search Action Select All
-    Click Search Action Execute As Dashboard
-    Input Dashboard Name    ${dashboardName} 
-    Save Dashboard
+Verify Newly Dashboard With The Filter Should Not Show Asterisk
+    [Arguments]    ${searchText}    ${dashboardName}
+    Create Adhoc Dashboard  ${searchText}  ${dashboardName}
+    Set Editor Index    0
+    Add Filter      "Material Value"           MaterialValue       ${TRUE}
+    Click Apply Dashboard Filter
+    Dashboard Save Button Should Be Enable
+    Click Dashboard Save All   
+    Check Filter Asterisk Should Not Be Available
 
 Add Filters To Dashboard
-    Open Filter From Dashboard Filter Panel
-
     # filter #1
-    Click Add Filter Button In Dashboard Detail Popup
-    Select Field From Filters Tab    "Bottleneck Type"    BottleneckType    ${TRUE}
-    Choose Dropdown Filter Operator In FilterField In Filters tab   0   is not empty
+    Add Filter      "Bottleneck Type"           BottleneckType       ${TRUE}
+    Set Editor Index    0
+    Choose Dropdown Filter Operator Via Edit Filter    is not empty
 
     # filter #2
-    Click Add Filter Button In Dashboard Detail Popup
-    Select Field From Filters Tab    "Order Due Date"    OrderDueDate       ${TRUE}
-    Input First Input Date Picker    1_0    May/24/2016
+    Add Filter      "Order Due Date"           OrderDueDate       ${TRUE}
+    Set Editor Index    1
+    Input Date Filter Value    May/24/2016
+   
+    Click Apply Dashboard Filter
 
-    # filter #3
-    Click Add Filter Button In Dashboard Detail Popup
-    Select Field From Filters Tab    "Order Number"    OrderNumber      ${TRUE}
-    Choose Dropdown Filter Operator In FilterField In Filters tab   2   is greater than
-    Input Text    InputValue-2    1
+Verify A Normal Drilldown On Chart Widget
+    Click Drilldown Chart Widget  0
+    Select Window    NEW
+    Wait Angle Page Document Loaded
+    Wait Display Executed
+    Click Display Tab
+    Display Type Should Be Equal To  list
+    Display Filter/Jump Count Should Be  2
+    Display Filter Should Contain  Execution status is not empty
+    Display Filter Should Contain  Execution status is equal to
+    Close Window
+    Select Window   MAIN
 
-    # filter #4
-    Click Add Filter From Field    4
-    Choose Dropdown Filter Operator In FilterField In Filters tab   3   is not empty
+Verify A Drilldown To Display On Pivot Widget
+    Click Drilldown Pivot Widget  1
+    Select Window    NEW
+    Wait Angle Page Document Loaded
+    Wait Display Executed
+    Click Display Tab
+    Display Type Should Be Equal To  chart
+    Display Filter/Jump Count Should Be  2
+    Display Filter Should Contain  ID is not empty
+    Display Filter Should Contain  Execution status is equal to
+    Close Window
+    Select Window   MAIN
 
-    Save Dashboard
+Add Dashboard Personal Note
+    [Arguments]  ${note}
+    Click Dashboard Tab
+    Input Dashboard Note    ${note}
 
-Open Dashboard Popup And Remove Filter By index
-    [Arguments]   ${index}
-    Open Filter From Dashboard Filter Panel
-    Remove Field In Fields Tab    ${index}
-    Save Dashboard 
+Verify Dashboard Personal Note
+    [Arguments]  ${note}
+    Add Dashboard Personal Note  ${note}
+    Go to Search Page
+    Search By Text  ${note}
+    Check Existing Private Note From Search Result    ${note}
+ 
+Check Private Dashboard Note section On Dashboard
+    Page Should Not Contain Element    ${divPersonalNote}
+
+Edit Dashboard Description
+    [Arguments]  ${language}  ${name}  ${description}  ${isAdhoc}=${False}
+    Show Edit Dashboard description Popup
+    Add Or Edit Description  ${language}  ${name}  ${description}
+    Click Save Edit Description
+    Run Keyword If  ${isAdhoc} == ${False}  Wait Until Ajax Complete
+
+Edit Dashboard Description On Dashboard Name
+    [Arguments]  ${language}  ${name}  ${description}  ${isAdhoc}=${False}
+    Click Edit Dashboard Description On Dashboard Name
+    Add Or Edit Description  ${language}  ${name}  ${description}
+    Click Save Edit Description
+    Run Keyword If  ${isAdhoc} == ${False}  Wait Until Ajax Complete
+
+Show Edit Dashboard Description Popup
+    Open Side Panel
+    Click Dashboard Tab
+    Click Edit Dashboard Description
+
+Edit Dashboard ID
+    [Arguments]  ${id}
+    Show Edit Dashboard description Popup
+    Add Or Edit ID    ${id}
+    Click Save Edit Description
+    Page Should Contain Toast Success    
+
+Assert Dashboard ID
+    [Arguments]  ${id}
+    Show Edit Dashboard description Popup
+    Edit Description Should Contain ID    ${id}
+    Click Save Edit Description
+
+Verify Dashboard Business Processes Should Be Selected
+    [Arguments]  @{bps}
+    :FOR  ${bp}  IN  @{bps}
+    \  Item Business Process Should Be Selected  ${bp}
+
+Verify Dashboard Business Processes Should Not Be Selected
+    [Arguments]  @{bps}
+    :FOR  ${bp}  IN  @{bps}
+    \  Item Business Process Should Not Be Selected  ${bp}
+
+Verify Set Dashboard Execute At Logon
+    [Arguments]  ${name}
+    Select Dashboard Execute At Logon
+    Verify Item Is Added To Execute At Login List  ${name}
+
+Verify Unset Dashboard Execute At Logon
+    [Arguments]  ${name}
+    Unselect Dashboard Execute At Logon
+    Verify Item Is Removed From Execute At Login List  ${name}
+
+Verify Visibility Of Adding Filter In Dashboard Side Panel
+    [Arguments]    ${isVisible}
+    Run Keyword If    ${isVisible}==${True}     Add Dashboard Filter Button Is Visible
+    ...    ELSE    Add Dashboard Filter Button Is Not Visible
+    
+Verify Adhoc Dashboard Statistics
+    Dashboard Statistic Button Should Not Be Visible
+
+Verify Saved Dashboard Statistics
+    Open Dashboard Statistic Popup
+    Check Dashboard Statistic Info
+    Close Dashboard Statistic Popup
+
+Verify Edit Mode Dashboard Statistics
+    Open Dashboard Statistic Popup
+    Check Dashboard Statistic Info
+    Close Dashboard Statistic Popup
+
+Check Widget Names After Created
+    Widget Count Should Be  2
+    Editing Widget Name Should Be  0  EA2_800 - Test Angle For Validate - New Display
+    Editing Widget Name Should Be  1  EA2_800 - Angle For General Test - Test Chart 1
+    Widget Should Be List Display  0
+    Widget Should Be Chart Display  1
+
+Change And Check Widget Names
+    Edit Widget Name  Test Angle For Validate  widget #1
+    Edit Widget Name  Angle For General Test  widget #2
+    Widget Count Should Be  2
+    Editing Widget Name Should Be  0  widget #1
+    Editing Widget Name Should Be  1  widget #2
+    Widget Should Be List Display  0
+    Widget Should Be Chart Display  1
+
+Change And Check Widget Display
+    Change Widget Display  widget #2  New Display
+    Widget Count Should Be  2
+    Editing Widget Name Should Be  0  widget #1
+    Editing Widget Name Should Be  1  widget #2
+    Widget Should Be List Display  0
+    Widget Should Be List Display  1
+
+Add And Check Widget Display
+    [Arguments]  ${dashboardName}
+    Open Widget Display  widget #2  Test Pivot 1
+    Add Display To Existing Dashboard  ${dashboardName}
+    Close Window
+    Select Window   MAIN
+    Wait Dashboard Widgets Loaded
+    Check All Widgets
+
+Save And Check All Widgets
+    Click Dashboard Save All
+    Check All Widgets
+
+Check All Widgets
+    Widget Count Should Be  3
+    Editing Widget Name Should Be  0  widget #1
+    Editing Widget Name Should Be  1  widget #2
+    Editing Widget Name Should Be  2  EA2_800 - Angle For General Test - Test Pivot 1
+    Widget Should Be List Display  0
+    Widget Should Be List Display  1
+    Widget Should Be Pivot Display  2
+
+Delete And Check All Widgets
+    Click Delete Widget  1
+    Widget Count Should Be  2
+    Editing Widget Name Should Be  0  widget #1
+    Editing Widget Name Should Be  1  EA2_800 - Angle For General Test - Test Pivot 1
+    Widget Should Be List Display  0
+    Widget Should Be Pivot Display  1

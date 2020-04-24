@@ -15,6 +15,27 @@ describe("ItemStateHandler", function () {
         itemStateHandler = new ItemStateHandler();
     });
 
+    describe(".ShowPublishSettingsPopup", function () {
+        beforeEach(function () {
+            spyOn(itemStateHandler, 'CheckShowingPublishSettingsPopup');
+        });
+        it('should show poup', function () {
+            spyOn(popup, 'CanButtonExecute').and.returnValue(true);
+            itemStateHandler.ShowPublishSettingsPopup(null, {});
+
+            // assert
+            expect(itemStateHandler.CheckShowingPublishSettingsPopup).toHaveBeenCalled();
+        });
+        
+        it('should not show poup', function () {
+            spyOn(popup, 'CanButtonExecute').and.returnValue(false);
+            itemStateHandler.ShowPublishSettingsPopup(null, {});
+
+            // assert
+            expect(itemStateHandler.CheckShowingPublishSettingsPopup).not.toHaveBeenCalled();
+        });
+    });
+
     describe(".GetPublishSettingsPopupOptions", function () {
         it('should get publishing settings popup options', function () {
             var event = {
@@ -427,7 +448,7 @@ describe("ItemStateHandler", function () {
             expect(result).toEqual(false);
         });
 
-        it("should be not saved when label has warning", function () {
+        it("should be not saved when label has warning and uses for authorization", function () {
             spyOn(ko, 'dataFor').and.callFake(function () {
                 return { is_required: false, used_for_authorization: true };
             });

@@ -2,5 +2,6 @@
     font-family: "WebClientIco";
     font-style: normal;
     font-weight: normal;
-    src: url("WebClientIco.eot") format("eot"), url("WebClientIco.woff") format("woff"), url("WebClientIco.ttf") format("truetype"), url("WebClientIco.svg#WebClientIco") format("svg");
+    font-display: block;
+    src: url("webclientico.eot") format("eot"), url("webclientico.woff") format("woff"), url("webclientico.ttf") format("truetype"), url("webclientico.svg#WebClientIco") format("svg");
 }

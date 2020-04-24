@@ -5,6 +5,11 @@ function WidgetFilterHelper() {
 
     var self = this;
 
+    self.FILTERFOR = {
+        ANGLE: 'Angle',
+        DISPLAY: 'Display',
+        DASHBOARD: 'Dashboard'
+    };
     self.NoAgruments = [
         enumHandlers.OPERATOR.HASVALUE.Value,
         enumHandlers.OPERATOR.HASNOVALUE.Value
@@ -120,22 +125,28 @@ function WidgetFilterHelper() {
     };
 
     self.GetDefaultFilterOperatorArguments = function (fieldType) {
-        var defualtFilterArguments = [];
+        var defaultFilterArguments = [];
         switch (fieldType) {
             case enumHandlers.FIELDTYPE.BOOLEAN:
-                defualtFilterArguments = [self.ArgumentObject(true, enumHandlers.FILTERARGUMENTTYPE.VALUE)];
+                defaultFilterArguments = [self.ArgumentObject(true, enumHandlers.FILTERARGUMENTTYPE.VALUE)];
                 break;
 
             case enumHandlers.FIELDTYPE.CURRENCY:
             case enumHandlers.FIELDTYPE.NUMBER:
             case enumHandlers.FIELDTYPE.PERCENTAGE:
-                defualtFilterArguments = [self.ArgumentObject(0, enumHandlers.FILTERARGUMENTTYPE.VALUE)];
+                defaultFilterArguments = [self.ArgumentObject(0, enumHandlers.FILTERARGUMENTTYPE.VALUE)];
+                break;
+
+            case enumHandlers.FIELDTYPE.DATE:
+            case enumHandlers.FIELDTYPE.DATETIME:
+                var unixtime = self.ConvertDatePickerToUnixTime(kendo.date.today());
+                defaultFilterArguments = [self.ArgumentObject(unixtime, enumHandlers.FILTERARGUMENTTYPE.VALUE)];
                 break;
 
             default:
-                defualtFilterArguments = [];
+                defaultFilterArguments = [];
         }
-        return defualtFilterArguments;
+        return defaultFilterArguments;
     };
 
     self.ConvertOperatorToCriteria = function (operator, fieldType, isExtraOperator) {
@@ -270,10 +281,10 @@ function WidgetFilterHelper() {
         // suffix
         var argumentTypeValues = argumentValues.findObjects('argument_type', enumHandlers.FILTERARGUMENTTYPE.VALUE);
         var suppressSuffix = isBetweenOperator && argumentTypeValues.length && argumentTypeValues.length !== argumentValues.length;
-        var suffixText = !suppressSuffix ? self.GetFilterSuffixText(fieldType, operator, argumentValues.length) : '';
+        var suffixText = !suppressSuffix ? self.GetFilterSuffixText(fieldType, operator, argumentValues) : '';
 
         // formatted text
-        var formatterType = isRelativeOperator ? enumHandlers.FIELDTYPE.INTEGER : fieldType;
+        var formatterType = isRelativeOperator || fieldType === enumHandlers.FIELDTYPE.PERIOD ? enumHandlers.FIELDTYPE.INTEGER : fieldType;
         var formatter = self.GetFieldTypeFormatter(field, formatterType, operator);
         var argumentTexts = self.GetArgumentTexts(formatter, argumentValues, modelUri);
 
@@ -288,6 +299,9 @@ function WidgetFilterHelper() {
     };
 
     self.GetArgumentValue = function (arg, modelUri) {
+        if (!arg)
+            return null;
+
         if (arg.argument_type === enumHandlers.FILTERARGUMENTTYPE.FUNCTION) {
             var value = self.GetAdvanceArgumentValue(arg);
             var modelDate = self.GetDefaultModelDataDate(modelUri);
@@ -295,10 +309,11 @@ function WidgetFilterHelper() {
             var date = self.GetLowerBoundDate(modelDate, valueType, value, enumHandlers.OPERATOR.EQUALTO.Value, modelUri);
             return self.ConvertDatePickerToUnixTime(date);
         }
-        else if (arg.argument_type === enumHandlers.FILTERARGUMENTTYPE.FIELD)
+
+        if (arg.argument_type === enumHandlers.FILTERARGUMENTTYPE.FIELD)
             return arg.field;
-        else
-            return arg.value;
+
+        return arg.value;
     };
 
     self.CanUseAdvanceArgument = function (fieldType, operator) {
@@ -309,7 +324,7 @@ function WidgetFilterHelper() {
         return jQuery.extend({ value: enumHandlers.FILTERPERIODTYPES[0].Value }, argumentValue.parameters.findObject('name', 'period_type')).value;
     };
     self.GetAdvanceArgumentValue = function (argumentValue) {
-        return jQuery.extend({ value: 0 }, argumentValue.parameters.findObject('name', 'periods_to_add')).value;
+        return parseFloat(jQuery.extend({ value: 0 }, argumentValue.parameters.findObject('name', 'periods_to_add')).value);
     };
 
     self.GetFilterConnectorText = function (operator) {
@@ -325,15 +340,15 @@ function WidgetFilterHelper() {
         return connectorText;
     };
 
-    self.GetFilterSuffixText = function (fieldType, operator, argumentCount) {
+    self.GetFilterSuffixText = function (fieldType, operator, args) {
         var suffixText = '';
-        if (argumentCount) {
+        if (args.length) {
             var isDateOrDateTime = WC.FormatHelper.IsDateOrDateTime(fieldType);
             var isRelativeOperator = jQuery.inArray(operator, self.RelativeArguments) !== -1;
             var isListOperator = self.IsListGroupOperator(operator);
             if (isDateOrDateTime && isRelativeOperator)
                 suffixText = ' ' + Localization.DaysFromActualDate;
-            else if (fieldType === enumHandlers.FIELDTYPE.PERIOD && !isListOperator)
+            else if (fieldType === enumHandlers.FIELDTYPE.PERIOD && !isListOperator && args.hasObject('argument_type', enumHandlers.FILTERARGUMENTTYPE.VALUE))
                 suffixText = ' ' + Captions.WidgetFilter_PeriodType_Days.toLowerCase();
         }
         return suffixText;
@@ -383,7 +398,7 @@ function WidgetFilterHelper() {
             var fieldName = hideFieldName === true ? '' : self.GetFilterFieldName(data.field, modelUri);
             var isAdvanceArgument = self.CanUseAdvanceArgument(fieldMetaData.fieldtype, data.operator);
             var args = WC.Utility.ToArray(data.arguments);
-            var argumentType = args.length ? args[0].argument_type : null;
+            var argumentType = args[0] ? args[0].argument_type : null;
             var isExtraOperator = isAdvanceArgument && argumentType === enumHandlers.FILTERARGUMENTTYPE.FUNCTION;
             var operatorText = self.ConvertOperatorToCriteria(data.operator, fieldMetaData.fieldtype, isExtraOperator);
             var valueText = self.ConvertFilterToFilterText(data, fieldMetaData);
@@ -494,6 +509,9 @@ function WidgetFilterHelper() {
     self.GetArgumentTexts = function (formatter, argumentObjects, modelUri) {
         var argumentValue = [];
         jQuery.each(argumentObjects, function (index, argumentObject) {
+            if (!argumentObject)
+                return;
+
             if (argumentObject.argument_type === enumHandlers.FILTERARGUMENTTYPE.FUNCTION)
                 argumentValue.push(self.GetArgumentPeriodText(argumentObject.parameters));
             else if (argumentObject.argument_type === enumHandlers.FILTERARGUMENTTYPE.FIELD)

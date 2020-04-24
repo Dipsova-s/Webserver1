@@ -79,6 +79,13 @@
     }
 }
 
+.k-loading-small {
+    .k-loading-text {
+        width: 20px;
+        height: 20px;
+    }
+}
+
 .k-loading-text {
     @extend .loader-spinner;
     overflow: hidden;

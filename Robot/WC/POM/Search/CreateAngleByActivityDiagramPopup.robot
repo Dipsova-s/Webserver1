@@ -14,6 +14,7 @@ Wait Create Angle Popup Option Activity Diagram Loaded
     Wait Until Page Contains Element    ${btnActivityDiagramBack}
     Wait Until Page Contains Element    ${btnActivityDiagramCreateAngle}
     Wait Until Ajax Complete
+    Sleep  ${TIMEOUT_LARGEST}
 
 Open Create Angle By Activity Diagram Popup
     Click Create Angle Button

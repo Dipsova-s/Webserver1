@@ -1,81 +1,38 @@
 *** Settings ***
 Resource    		${EXECDIR}/WC/POM/Search/SearchPage.robot
 Resource    		${EXECDIR}/WC/POM/Angle/AnglePage.robot
-Resource    		${EXECDIR}/WC/POM/Angle/AngleDetailPopup.robot
 
 *** Keywords ***
-Verify Angle Details
-    [Arguments]    ${angleName}
-    Search Angle From Search Page And Execute Angle    ${angleName}
-    Open Angle Detail Popup
-    Verify Angle Details General Tab
-    Verify Angle Details Definition Tab
-    Verify Angle Details Statistics Tab
+Verify Adhoc Angle Statistics
+    Open Angle Statistic Popup
+    Angle Should Contain Execution Info
+    Angle Should Not Contain Serarator
+    Angle Should Not Contain Statistic Info
+    Close Angle Statistic Popup
 
-Verify Angle Details General Tab
-    Click Angle Detail General Tab
-    Wait Until Page Contains Element    ${txtAngleId}
-    Wait Until Page Contains Element    ${divAngleBusinessProcess}
-    ${modelName}    Get Model Name for Create New Angle
-    ${angleId}    Get Angle ID
-    ${angleIDValue}     Get Value    ${txtAngleId}
-    Should Be Equal    ${angleIDValue}    ${angleId}
-    Click Angle Detail Description Tab
-    ${languageName}    Get Language in Angle Detail
-    ${angleName}    Get Angle Name in Angle Detail
-    Wait Until Page Contains Element    ${btnAddLanguageAngle}
-    ${languageValue}    Get Text    ${angleLanguageItem}
-    Should Be Equal    ${languageValue}    ${languageName}
-    ${angleNameValue}    Get Value    ${txtAngleName}
-    Should Be Equal    ${angleNameValue}    ${angleName}
+Verify Adhoc Display Statistics
+    Display Statistic Button Should Not Be Visible
 
-Verify Angle Details Definition Tab
-    Click Angle Detail Definition Tab
-    Wait Until Page Contains Element    ${btnAddjump}
-    Wait Until Page Contains Element    ${btnAddFilter}
+Verify Saved Angle Statistics
+    Open Angle Statistic Popup
+    Angle Should Contain Execution Info
+    Angle Should Contain Serarator
+    Angle Should Contain Statistic Info
+    Close Angle Statistic Popup
 
-Verify Angle Details Statistics Tab
-    Click Angle Detail Statistics Tab
-    Wait Until Ajax Complete
-    Page Should Contain    Statistics
-    Page Should Contain    Created by
-    Page Should Contain    Last changed by
-    Page Should Contain    Last executed by
-    Page Should Contain    Number of executes
-    Page Should Contain    Validation last changed by
-    Page Should Contain    Marked for deletion
-    Close Angle Detail Popup
+Verify Saved Display Statistics
+    Open Display Statistic Popup
+    Check Display Statistic Info
+    Close Display Statistic Popup
 
-Set Angle to Template
-    Open Angle Detail Popup
-    Click Angle Detail General Tab
-    Click Set Angle to Template
-    Click Save Angle
+Verify Edit Mode Angle Statistics
+    Open Angle Statistic Popup
+    Angle Should Not Contain Execution Info
+    Angle Should Not Contain Serarator
+    Angle Should Contain Statistic Info
+    Close Display Statistic Popup
 
-Open Angle Popup And Save ID
-    [Arguments]    ${id}
-    Open Angle Detail Popup
-    Input Angle ID    ${id}
-    Click Save Angle
-
-Open Angle Popup And Save Name
-    [Arguments]    ${name}
-    Open Angle Detail Popup
-    Click Angle Detail Description Tab
-    Input Angle Name    ${name}
-    Click Save Angle
-
-Add Filter From Angle Details Popup
-    [Arguments]   ${fieldKeyword}    ${fieldId}    ${isSelfSource}
-    Click Add Filter In Definition Tab
-    Add Field By Search From Field Chooser    ${fieldKeyword}    ${fieldId}     ${isSelfSource}
-
-Add Filter Before Jump From Angle Details Popup
-    [Arguments]   ${panelIndex}    ${fieldKeyword}    ${fieldId}    ${isSelfSource}
-    Click Add Filter From Jump    ${panelIndex}
-    Add Field By Search From Field Chooser    ${fieldKeyword}    ${fieldId}     ${isSelfSource}
-
-Add Compare Filter From Angle Details Popup
-    [Arguments]   ${fieldKeyword}    ${fieldId}     ${isSelfSource}
-    Click Select Existing Field In Definition Tab
-    Add Field By Search From Field Chooser    ${fieldKeyword}    ${fieldId}     ${isSelfSource}
+Verify Edit Mode Display Statistics
+    Open Angle Statistic Popup
+    Check Display Statistic Info
+    Close Display Statistic Popup

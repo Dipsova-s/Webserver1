@@ -16,7 +16,7 @@ ${txtBusinessProcesspanish}                 input[name="lang_es"]
 ${txtBusinessProcessFrench}                 input[name="lang_fr"]
 ${txtBusinessProcessDutch}                  input[name="lang_nl"]
 
-${btnAddBusinessProcess}                    css=#BusinessProcessLabelForm .btnAdd
+${btnMCAddBusinessProcess}                  css=#BusinessProcessLabelForm .btnAdd
 ${btnDeleteBusinessProcess}                 .btnDelete
 ${chkEnableBusinessProcess}                 input[name="enabled"]
 
@@ -40,8 +40,8 @@ Click Add Business Process
     Click Add New Business Process
 
 Click Add New Business Process
-    Wait Until Element Is Visible    ${btnAddBusinessProcess}
-    Click Element    ${btnAddBusinessProcess}
+    Wait Until Element Is Visible    ${btnMCAddBusinessProcess}
+    Click Element    ${btnMCAddBusinessProcess}
 
 Fill English In Business Process By Abbreviation
     [Arguments]    ${abbreviation}    ${englishText}

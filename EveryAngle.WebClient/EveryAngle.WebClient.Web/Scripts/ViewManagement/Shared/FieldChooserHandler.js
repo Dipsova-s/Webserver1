@@ -24,9 +24,6 @@ function FieldsChooserHandler() {
 
     //BOF: View model methods
     self.ShowPopup = function (popupName, type, handler) {
-        requestHistoryModel.SaveLastExecute(self, self.ShowPopup, arguments);
-        requestHistoryModel.ClearPopupBeforeExecute = true;
-
         if (typeof type === 'undefined')
             type = null;
 
@@ -91,9 +88,6 @@ function FieldsChooserHandler() {
         // get field chooser popup settings
         var popupSettings = fieldsChooserModel.GetPopupFieldChooserOptions(popupName);
 
-        // create json array buttons for field chooser popup
-        popupSettings.buttons = self.GetFieldChooserButtons();
-
         // decide to set type of field chooser popup
         self.InitializePopupSettingsByName(popupName, popupSettings, handler);
 
@@ -106,6 +100,7 @@ function FieldsChooserHandler() {
         fieldsChooserModel.DisplayFieldChooserPopup(popupSettings);
     };
     self.InitializePopupSettingsByName = function (popupName, popupSettings, handler) {
+        // other settings
         switch (popupName) {
             case self.USETYPE.ADDCOLUMN:
                 self.SetAddColumnPopupSettings(popupSettings, handler, window.listHandler);
@@ -116,7 +111,7 @@ function FieldsChooserHandler() {
                 break;
 
             case self.USETYPE.ADDAGGREGATION:
-                self.SetAddAggregationPopupSettings(popupSettings);
+                self.SetAddAggregationPopupSettings(popupSettings, handler);
                 break;
 
             case self.USETYPE.ADDDASHBOARDFILTER:
@@ -127,23 +122,16 @@ function FieldsChooserHandler() {
                 break;
         }
     };
-    self.GetFieldChooserButtons = function () {
-        return [
+    self.SetSubmitButtonCaption = function (popupSettings, caption) {
+        popupSettings.buttons = [
             {
-                text: Localization.Add,
-                click: jQuery.noop,
+                text: caption,
+                click: function (e) {
+                    self.OnSubmitFieldChooser(e.currentTarget);
+                },
                 className: 'btn btn-primary float-right executing'
             }
         ];
-    };
-    self.SetSubmitButtonCaption = function (popupSettings, caption) {
-        var btnSubmit = popupSettings.buttons.findObject('text', Localization.Add);
-        if (caption) {
-            btnSubmit.text = caption;
-        }
-        btnSubmit.click = function (e) {
-            self.OnSubmitFieldChooser(e.currentTarget);
-        };
     };
     self.OnSubmitFieldChooser = function (obj) {
         if (popup.CanButtonExecute(obj)) {
@@ -152,8 +140,7 @@ function FieldsChooserHandler() {
     };
     self.SetAddColumnPopupSettings = function (popupSettings, handler, listHandler) {
         popupSettings.title = Localization.InsertColumn;
-
-        self.SetSubmitButtonCaption(popupSettings);
+        self.SetSubmitButtonCaption(popupSettings, Localization.Ok);
 
         fieldsChooserModel.CanDuplicatedField = true;
         fieldsChooserModel.ForceSetSelecting = true;
@@ -164,16 +151,13 @@ function FieldsChooserHandler() {
     };
     self.SetAddFilterPopupSettings = function (popupSettings, handler) {
         popupSettings.title = Localization.SelectAPropertyToApplyAsFilter;
-
-        self.SetSubmitButtonCaption(popupSettings);
+        self.SetSubmitButtonCaption(popupSettings, Localization.Ok);
 
         fieldsChooserModel.CanDuplicatedField = true;
         fieldsChooserModel.AllowMultipleSelection = false;
         fieldsChooserModel.OnSubmit = function () {
             var selectedItem = fieldsChooserModel.SelectedItems()[0];
-
             if (selectedItem) {
-
                 if (handler.CompareInfo) {
                     handler.SetCompareFieldFilter(selectedItem, handler.CompareInfo.Index);
                 }
@@ -183,9 +167,7 @@ function FieldsChooserHandler() {
                 else {
                     handler.AddFieldFilter(selectedItem);
                 }
-
             }
-
             fieldsChooserModel.ClosePopup();
         };
         if (fieldsChooserModel.FieldChooserType) {
@@ -193,26 +175,22 @@ function FieldsChooserHandler() {
                 if (category === fieldsChooserModel.CATEGORIES.FIELDTYPE) {
                     return self.IsFieldTypeInGroup(id, fieldsChooserModel.FieldChooserType);
                 }
-
                 return false;
             };
             fieldsChooserModel.DisabledFacetsFunction = function (category, id) {
                 if (category === fieldsChooserModel.CATEGORIES.FIELDTYPE) {
                     return !self.IsFieldTypeInGroup(id, fieldsChooserModel.FieldChooserType);
                 }
-
                 return false;
             };
         }
     };
     self.SetAddDashboardFilterPopupSettings = function (popupSettings, handler) {
         popupSettings.title = Localization.SelectAPropertyToApplyAsFilter;
-
-        self.SetSubmitButtonCaption(popupSettings);
+        self.SetSubmitButtonCaption(popupSettings, Localization.Ok);
 
         fieldsChooserModel.CanDuplicatedField = false;
         fieldsChooserModel.AllowMultipleSelection = false;
-        
         fieldsChooserModel.GetCustomQueryUriFunction = function (page) {
             var request = this.GetQueryFilterDefaultUri(page);
             var dashboardModelData = dashboardModel.Data();
@@ -232,52 +210,49 @@ function FieldsChooserHandler() {
             fieldsChooserModel.ClosePopup();
         };
     };
-    self.IsFieldTypeInGroup = function (id, type) {
-        var group = ['number', 'int', 'double'];
-        var isCompareNumber = jQuery.inArray(type, group) !== -1;
-        return (!isCompareNumber && type !== id) || (isCompareNumber && jQuery.inArray(id, group) === -1);
-    };
-    self.SetAddAggregationPopupSettings = function (popupSettings) {
-        popupSettings.title = self.GetAggregationPopupTitle(fieldSettingsHandler.FieldSettings.DisplayType, fieldSettingsHandler.CurrentFieldArea);
+    self.SetAddAggregationPopupSettings = function (popupSettings, handler) {
+        popupSettings.title = self.GetAggregationPopupTitle(fieldSettingsHandler.FieldSettings.DisplayType, fieldsChooserModel.FieldChooserType);
+        self.SetSubmitButtonCaption(popupSettings, Localization.Ok);
 
-        self.SetSubmitButtonCaption(popupSettings);
-
-        if (fieldsChooserModel.FieldChooserType === 'data') {
+        var isDataArea = fieldsChooserModel.FieldChooserType === 'data';
+        if (isDataArea) {
             self.SetAggregationSettingDataArea();
         }
         else {
             self.SetAggregationSettingNoneDataArea();
         }
-
         fieldsChooserModel.ForceSetSelecting = true;
-        fieldsChooserModel.CanDuplicatedField = true;
-        fieldsChooserModel.AllowMultipleSelection = true;
+        fieldsChooserModel.CanDuplicatedField = isDataArea;
+        fieldsChooserModel.AllowMultipleSelection = self.AllowAggregationMultipleSelection(fieldSettingsHandler.FieldSettings.DisplayType, isDataArea);
         fieldsChooserModel.OnSubmit = function () {
-            fieldSettingsHandler.AddFields(fieldsChooserModel.SelectedItems());
-
+            handler.AddFields(fieldsChooserModel.SelectedItems());
             fieldsChooserModel.ClosePopup();
         };
     };
+    self.IsFieldTypeInGroup = function (id, type) {
+        var group = ['number', 'int', 'double'];
+        var isCompareNumber = jQuery.inArray(type, group) !== -1;
+        return (!isCompareNumber && type !== id) || (isCompareNumber && jQuery.inArray(id, group) === -1);
+    };
     self.GetAggregationPopupTitle = function (displayType, fieldArea) {
-        var areaName;
+        var mappers = {};
         if (displayType === fieldSettingsHandler.FieldSettings.ComponentType.PIVOT) {
-            if (fieldArea === 'row')
-                areaName = Localization.Row;
-            else if (fieldArea === 'column')
-                areaName = Localization.Column;
-            else
-                areaName = Localization.Data;
+            mappers['row'] = Localization.Row;
+            mappers['column'] = Localization.Column;
+            mappers['data'] = Localization.Data;
+            return kendo.format(Localization.InsertToFieldArea, mappers[fieldArea]);
         }
         else {
-            var chartDetails = fieldSettingsHandler.FieldSettings.GetDisplayDetails();
-            if (fieldArea === 'row')
-                areaName = fieldSettingsHandler.GetLocalizationTextByChartType(chartDetails.chart_type, 'ChartRowArea');
-            else if (fieldArea === 'column')
-                areaName = fieldSettingsHandler.GetLocalizationTextByChartType(chartDetails.chart_type, 'ChartColumnArea');
-            else
-                areaName = fieldSettingsHandler.GetLocalizationTextByChartType(chartDetails.chart_type, 'ChartDataArea');
+            mappers['row'] = 'AggregationHeaderRow';
+            mappers['column'] = 'AggregationHeaderColumn';
+            mappers['data'] = 'AggregationHeaderData';
+            var key = mappers[fieldArea];
+            var title = anglePageHandler.HandlerDisplay.QueryDefinitionHandler.Texts()[key];
+            return kendo.format(Localization.InsertToFieldArea, title);
         }
-        return kendo.format(Localization.InsertToFieldArea, areaName);
+    };
+    self.AllowAggregationMultipleSelection = function (displayType, isDataArea) {
+        return displayType === fieldSettingsHandler.FieldSettings.ComponentType.PIVOT || isDataArea;
     };
     self.SetAggregationSettingDataArea = function () {
         // default check at (Self)
@@ -311,18 +286,25 @@ function FieldsChooserHandler() {
         });
     };
     self.SetAggregationSettingNoneDataArea = function () {
-        self.SetAggregationSettingForChart(fieldSettingsHandler.FieldSettings.GetDisplayDetails());
+        if (fieldSettingsHandler.FieldSettings.DisplayType === fieldSettingsHandler.FieldSettings.ComponentType.CHART)
+            self.SetAggregationSettingForChart();
 
         fieldsChooserModel.CheckFieldIsExistsFunction = function (fieldId) {
-            var matchedField = fieldSettingsHandler.GetAggregationFieldSettingBySourceField(fieldId);
-            return matchedField && matchedField.Area !== enumHandlers.FIELDSETTINGAREA.DATA;
+            var existed = false;
+            jQuery.each(anglePageHandler.HandlerDisplay.QueryDefinitionHandler.Aggregation(), function (index, aggregation) {
+                if (aggregation.area() !== AggregationFieldViewModel.Area.Data && aggregation.source_field === fieldId) {
+                    existed = true;
+                    return false;
+                }
+            });
+            return existed;
         };
     };
-    self.SetAggregationSettingForChart = function (currentChartDetails) {
-        var isBubbleOrScatterChart = currentChartDetails.chart_type === enumHandlers.CHARTTYPE.BUBBLECHART.Code
-                                    || currentChartDetails.chart_type === enumHandlers.CHARTTYPE.SCATTERCHART.Code;
-        if (fieldsChooserModel.FieldChooserType === 'row' && isBubbleOrScatterChart) {
-            fieldsChooserModel.FieldChooserType += '_' + currentChartDetails.chart_type;
+    self.SetAggregationSettingForChart = function () {
+        var chartType = anglePageHandler.HandlerDisplay.DisplayResultHandler.GetType();
+        var isScatterOrBubbleType = ChartHelper.IsScatterOrBubbleType(chartType);
+        if (fieldsChooserModel.FieldChooserType === 'row' && isScatterOrBubbleType) {
+            fieldsChooserModel.FieldChooserType += '_' + chartType;
 
             fieldsChooserModel.HideFacetsFunction = function (category, id) {
                 var allowedFieldTypes = ['currency', 'number', 'int', 'double', 'percentage', 'date', 'datetime', 'time', 'period'];
@@ -358,28 +340,36 @@ function FieldsChooserHandler() {
     self.ShowFieldInfoFunction = function (field) {
         var icon = fieldsChooserModel.GetCategoryIconByField(field);
         var categoryIcon = '<div class="icon iconCategory"><img src="' + icon.path + '" height="' + icon.dimension.height + '" width="' + icon.dimension.width + '" border="0" /></div>';
-        var isStarred = '<div class="icon iconStatus ' + fieldsChooserModel.GetIsStarredCssClass(field) + '"></div>';
+        var isStarred = '<div class="icon iconStatus ' + self.GetIsStarredCssClass(fieldsChooserModel.GetIsStarredCssClass(field)) + '"></div>';
 
         modelFieldsHandler.SetFields([field.toJSON()]);
 
         var popup = helpTextHandler.ShowHelpTextPopup(field.id, helpTextHandler.HELPTYPE.FIELD, self.ModelUri);
 
-        var popupTitle = popup.wrapper.find('.k-window-title').css('text-indent', 60);
+        var popupTitle = popup.wrapper.find('.k-window-title');
         popupTitle.before(isStarred);
         popupTitle.before(categoryIcon);
 
         popup.wrapper.find('.iconStatus').data('field', field).on('click', function () {
             var that = jQuery(this);
+            if (that.hasClass('loader-spinner-inline'))
+                return;
+
             var field = that.data('field');
             var selectedRows = jQuery('#DisplayPropertiesGrid tr[data-uid="' + field.uid + '"]');
             var starrtedElement = selectedRows.find('.column1').children();
-
-            that.removeClass('DisplayPropertiesGridSignFavoriteDisable DisplayPropertiesGridSignFavorite').addClass('loader-spinner-inline');
+            that.attr('class', 'icon iconStatus loader-spinner-inline');
             jQuery.when(fieldsChooserModel.SetIsStarred({}, starrtedElement.get(0), field.uid))
-                .done(function () {
-                    that.attr('class', 'icon iconStatus ' + starrtedElement.attr('class'));
+                .always(function () {
+                    var newIcon = self.GetIsStarredCssClass(starrtedElement.attr('class'));
+                    that.attr('class', 'icon iconStatus ' + newIcon);
                 });
         });
+    };
+    self.GetIsStarredCssClass = function (className) {
+        return className.indexOf('DisplayPropertiesGridSignSuggest') !== -1 ? 'DisplayPropertiesGridSignSuggest'
+            : className.indexOf('DisplayPropertiesGridSignFavoriteDisable') !== -1 ? 'icon-star-inactive'
+            : 'icon-star-active';
     };
     self.GetPopupConfiguration = function (type, handler) {
         //M4-11320 WC: [Chart/Pivot]Send incorrect classes when display didn't have followup but angle had followup
@@ -390,13 +380,13 @@ function FieldsChooserHandler() {
         // get a correct uri when selecting a compare field
         var followupIndex;
         if (typeof handler !== 'undefined') {
-            popupConfig = handler.FilterFor === handler.FILTERFOR.ANGLE ? enumHandlers.ANGLEPOPUPTYPE.ANGLE : enumHandlers.ANGLEPOPUPTYPE.DISPLAY;
+            popupConfig = handler.FilterFor === WC.WidgetFilterHelper.FILTERFOR.ANGLE ? enumHandlers.ANGLEPOPUPTYPE.ANGLE : enumHandlers.ANGLEPOPUPTYPE.DISPLAY;
             if (handler.CompareInfo) {
-                followupIndex = self.GetFollowupIndex(handler.Data(), handler.CompareInfo.Index);
+                followupIndex = self.GetFollowupIndex(handler.GetData(), handler.CompareInfo.Index);
             }
             else if (handler.FollowupInfo) {
                 /* M4-32038: add filter before jump */
-                followupIndex = self.GetFollowupIndex(handler.Data(), handler.FollowupInfo.Index - 1, self.FOLLOWUPINDEX.NO);
+                followupIndex = self.GetFollowupIndex(handler.GetData(), handler.FollowupInfo.Index - 1, self.FOLLOWUPINDEX.NO);
             }
             else {
                 followupIndex = self.FOLLOWUPINDEX.LAST;

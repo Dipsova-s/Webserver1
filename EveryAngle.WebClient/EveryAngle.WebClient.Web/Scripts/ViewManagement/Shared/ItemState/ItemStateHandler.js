@@ -50,7 +50,7 @@
     };
     self.GetPopupPosition = function (e, handle) {
         handle = jQuery(handle);
-        var offset = handle.offset();
+        var offset = handle.offset() || { top: 0, left: 0 };
         offset.top += handle.outerHeight();
         offset.left -= e.sender.wrapper.outerWidth() - handle.outerWidth();
         return offset;

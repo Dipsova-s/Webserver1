@@ -86,6 +86,9 @@
 
             step.arguments = WC.Utility.ToArray(step.arguments);
             jQuery.each(step.arguments, function (indexArgument, argument) {
+                if (!argument)
+                    return;
+
                 if (argument.argument_type === enumHandlers.FILTERARGUMENTTYPE.VALUE && typeof argument.value === 'undefined')
                     argument.value = null;
                 self.ExtendValidProperty(argument);
@@ -150,6 +153,7 @@
 
                     // custom properties
                     step.is_adhoc_filter = WC.Utility.ToBoolean(step.is_adhoc_filter);
+                    step.is_adhoc = WC.Utility.ToBoolean(step.is_adhoc);
                 });
             }
 
@@ -158,13 +162,24 @@
 
         self.RemoveReadOnlyQueryStep = function (step) {
             self.RemoveValidProperty(step);
+            jQuery.each(step, function (name, value) {
+                if (jQuery.isFunction(value))
+                    delete step[name];
+            });
             delete step.uri;
             delete step.is_adhoc_filter;
+            delete step.is_adhoc;
+            delete step.is_applied;
+            delete step.is_dashboard_filter;
+            delete step.valid_field;
             delete step.tech_info;
+            delete step.step_type_index;
+            delete step.edit_mode;
+            delete step.model;
+            delete step.execution_parameter_id;
 
             if (!step.is_execution_parameter) {
                 delete step.is_execution_parameter;
-                delete step.execution_parameter_id;
             }
 
             if (step.step_type === enumHandlers.FILTERTYPE.FILTER)
@@ -172,6 +187,9 @@
 
             if (step.arguments) {
                 jQuery.each(step.arguments, function (indexArgument, argument) {
+                    if (!argument)
+                        return;
+
                     if (argument.argument_type === enumHandlers.FILTERARGUMENTTYPE.VALUE && typeof argument.value === 'undefined')
                         argument.value = null;
                     self.RemoveValidProperty(argument);
@@ -187,6 +205,7 @@
             if (step.aggregation_fields) {
                 jQuery.each(step.aggregation_fields, function (indexAggregationField, aggregationField) {
                     self.RemoveValidProperty(aggregationField);
+                    delete aggregationField.tech_info;
 
                     // delete source field for count field
                     if (aggregationField.field === enumHandlers.AGGREGATION.COUNT.Value) {
@@ -197,7 +216,10 @@
             if (step.grouping_fields) {
                 jQuery.each(step.grouping_fields, function (indexGroup, groupField) {
                     self.RemoveValidProperty(groupField);
+                    delete groupField.tech_info;
                 });
+                if (!step.grouping_fields.length)
+                    delete step.grouping_fields;
             }
         };
         self.RemoveReadOnlyQueryBlock = function (queryBlock) {
@@ -221,9 +243,9 @@
 
             var cloneData = ko.toJS(data);
             var isPublic = typeof cloneData.is_published !== 'undefined' ? cloneData.is_published : !!cloneData.is_public;
-            var isCreateUser = cloneData.created && cloneData.created.user === userModel.Data().uri;
-            var isAdhocItem = self.IsAdhocUri(data.uri);
-            data.authorizations.update_user_specific = !isAdhocItem && (isPublic || isCreateUser);
+            var currentUser = userModel.Data() ? userModel.Data().uri : '';
+            var isCreateUser = !cloneData.created || cloneData.created.user === currentUser;
+            data.authorizations.update_user_specific = isPublic || isCreateUser;
         };
 
         self.IsAdhocUri = function (uri) {
@@ -272,11 +294,12 @@
             data = self.CleanData(data);
 
             // common
-            data.id = data.id || '';
-            data.uri = data.uri || '';
+            data.id = WC.Utility.ToString(data.id);
+            data.uri = WC.Utility.ToString(data.uri);
+            data.model = WC.Utility.ToString(data.model);
             data.assigned_labels = WC.Utility.ToArray(data.assigned_labels);
-            data.allow_followups = WC.Utility.ToBoolean(data.allow_followups);
             data.allow_more_details = WC.Utility.ToBoolean(data.allow_more_details);
+            data.allow_followups = WC.Utility.ToBoolean(data.allow_followups && data.allow_more_details);
             data.has_warnings = WC.Utility.ToBoolean(data.has_warnings);
             data.is_deleted = WC.Utility.ToBoolean(data.is_deleted);
             data.is_parameterized = WC.Utility.ToBoolean(data.is_parameterized);
@@ -328,6 +351,17 @@
             if (data.multi_lang_description)
                 data.multi_lang_description.removeObject('text', '');
 
+            var descriptions = WC.Utility.ToArray(data.multi_lang_description);
+            jQuery.each(WC.Utility.ToArray(data.multi_lang_name), function (index, name) {
+                var description = descriptions.findObject('lang', name.lang);
+                if (!description) {
+                    descriptions.push({
+                        lang: name.lang,
+                        text: ''
+                    });
+                }
+            });
+
             // query_definition
             jQuery.each(WC.Utility.ToArray(data.query_definition), function (index, queryBlock) {
                 data.query_definition[index] = self.RemoveReadOnlyQueryBlock(queryBlock);
@@ -365,13 +399,14 @@
             delete data.has_warnings;
             delete data.is_deleted;
             delete data.is_parameterized;
+            delete data.package;
 
             return data;
         };
 
         _self.ExtendDisplayDetails = function (data, angle) {
             var displayDetails = WC.Utility.ParseJSON(data.display_details);
-            if (displayDetails.drilldown_uri) {
+            if (displayDetails.drilldown_uri && angle) {
                 // check exisitng drilldown_display
                 // change drilldown_uri -> drilldown_display
                 var drilldownDisplay = angle.display_definitions.findObject('uri', displayDetails.drilldown_uri);
@@ -408,13 +443,12 @@
                 field.validation_details = sourceField.validation_details;
                 return field;
             };
-            var displayDetails = JSON.parse(data.display_details);
             var displayQueryStepBlock = data.query_blocks.findObject('queryblock_type', enumHandlers.QUERYBLOCKTYPE.QUERY_STEPS);
             if (displayQueryStepBlock) {
                 var displayAggrStep = displayQueryStepBlock.query_steps.findObject('step_type', enumHandlers.FILTERTYPE.AGGREGATION);
                 if (displayAggrStep) {
-                    // clean gauge chart
-                    if (data.display_type === enumHandlers.DISPLAYTYPE.CHART && displayDetails.chart_type === enumHandlers.CHARTTYPE.GAUGE.Code) {
+                    // clean grouping_fields
+                    if (displayAggrStep.grouping_fields && !displayAggrStep.grouping_fields.length) {
                         delete displayAggrStep.grouping_fields;
                     }
 
@@ -423,21 +457,21 @@
                     jQuery.each(WC.Utility.ToArray(displayAggrStep.grouping_fields), function (index, grouping) {
                         var field = getUpdatedField(grouping, {});
                         var details = WC.Utility.ParseJSON(field.field_details);
-                        if (typeof details.pivot_area === 'undefined') {
-                            details.pivot_area = fieldSettingsHandler.GetAreaById(index === 0 ? enumHandlers.FIELDSETTINGAREA.ROW : enumHandlers.FIELDSETTINGAREA.COLUMN);
+                        if (typeof details[enumHandlers.FIELDDETAILPROPERTIES.AREA] === 'undefined') {
+                            details[enumHandlers.FIELDDETAILPROPERTIES.AREA] = index === 0 ? AggregationFieldViewModel.Area.Row : AggregationFieldViewModel.Area.Column;
                             field.field_details = JSON.stringify(details);
                         }
                         newFields.push(field);
                     });
 
-                    var areaDataName = fieldSettingsHandler.GetAreaById(enumHandlers.FIELDSETTINGAREA.DATA);
+                    var areaDataName = AggregationFieldViewModel.Area.Data;
                     jQuery.each(WC.Utility.ToArray(displayAggrStep.aggregation_fields), function (index, aggregation) {
-                        var field = getUpdatedField(aggregation, {
-                            pivot_area: areaDataName
-                        });
+                        var defaultDetails = {};
+                        defaultDetails[enumHandlers.FIELDDETAILPROPERTIES.AREA] = areaDataName;
+                        var field = getUpdatedField(aggregation, defaultDetails);
                         var details = WC.Utility.ParseJSON(field.field_details);
-                        if (details.pivot_area !== areaDataName) {
-                            details.pivot_area = areaDataName;
+                        if (details[enumHandlers.FIELDDETAILPROPERTIES.AREA] !== areaDataName) {
+                            details[enumHandlers.FIELDDETAILPROPERTIES.AREA] = areaDataName;
                             field.field_details = JSON.stringify(details);
                         }
                         newFields.push(field);
@@ -480,7 +514,6 @@
         };
         self.ExtendDisplayData = function (data, angle) {
             data = self.CleanData(data);
-            var sourceData = ko.toJS(data);
 
             // common
             data.id = WC.Utility.ToString(data.id);
@@ -527,16 +560,6 @@
             // custom properties
             data.results = data.results || null;
 
-            // check upgrade properties with source data
-            var changeData = self.GetChangeDisplay(data, sourceData);
-            data.is_upgraded = false;
-            data.upgrades_properties = [];
-            if (changeData) {
-                jQuery.each(changeData, function (name) {
-                    data.upgrades_properties.push(name);
-                });
-            }
-
             return data;
         };
 
@@ -546,6 +569,17 @@
             // empty multi_lang_description
             if (data.multi_lang_description)
                 data.multi_lang_description.removeObject('text', '');
+
+            var descriptions = WC.Utility.ToArray(data.multi_lang_description);
+            jQuery.each(WC.Utility.ToArray(data.multi_lang_name), function (index, name) {
+                var description = descriptions.findObject('lang', name.lang);
+                if (!description) {
+                    descriptions.push({
+                        lang: name.lang,
+                        text: ''
+                    });
+                }
+            });
 
             // fields
             if (data.fields)
@@ -568,8 +602,6 @@
 
             // custom
             delete data.results;
-            delete data.is_upgraded;
-            delete data.upgrades_properties;
 
             return data;
         };

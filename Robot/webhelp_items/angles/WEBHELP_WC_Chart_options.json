@@ -21,7 +21,7 @@
             "text": "Based on Template \"Verkoopdocument (VDoc) Indeling\" #2"
         }
     ],
-    "labels": "/models/1/angles/650/labels",
+    "labels": "/models/1/angles/1478/labels",
     "assigned_labels": [
         "S2D",
         "O2C"
@@ -29,10 +29,10 @@
     "executed": {
         "user": "/users/1",
         "full_name": "EAAdmin",
-        "datetime": 1567584601
+        "datetime": 1580127331
     },
-    "displays": "/models/1/angles/650/displays",
-    "grouping_labels": "/models/1/angles/650/grouping_labels",
+    "displays": "/models/1/angles/1478/displays",
+    "grouping_labels": "/models/1/angles/1478/grouping_labels",
     "id": "WEBHELP_WC_Chart_options",
     "authorizations": {
         "unvalidate": false,
@@ -47,16 +47,22 @@
         "delete": true
     },
     "user_specific": {
+        "times_executed": 46,
         "is_starred": false,
         "private_tags": [],
-        "times_executed": 5,
+        "private_note": "WEBHELP_WC_Chart_options",
         "execute_on_login": false
     },
-    "state": "/models/1/angles/650/state",
+    "created": {
+        "user": "/users/1",
+        "full_name": "EAAdmin",
+        "datetime": 1569854339
+    },
+    "state": "/models/1/angles/1478/state",
     "allow_followups": true,
     "is_parameterized": false,
     "is_validated": false,
-    "business_processes": "/models/1/angles/650/business_processes",
+    "business_processes": "/models/1/angles/1478/business_processes",
     "query_definition": [
         {
             "queryblock_type": "base_classes",
@@ -65,20 +71,16 @@
             ]
         }
     ],
-    "angle_default_display": "/models/1/angles/650/displays/3021",
-    "privilege_labels": "/models/1/angles/650/privilege_labels",
+    "angle_default_display": "/models/1/angles/1478/displays/7620",
+    "privilege_labels": "/models/1/angles/1478/privilege_labels",
     "is_deleted": false,
-    "created": {
-        "user": "/users/2",
-        "full_name": "EASystem",
-        "datetime": 1567577228
-    },
+    "package": "/packages/11",
     "changed": {
         "user": "/users/1",
         "full_name": "EAAdmin",
-        "datetime": 1567577228
+        "datetime": 1569854339
     },
-    "uri": "/models/1/angles/650",
+    "uri": "/models/1/angles/1478",
     "display_definitions": [
         {
             "multi_lang_name": [
@@ -95,9 +97,9 @@
                 "delete": false
             },
             "created": {
-                "user": "/users/2",
-                "full_name": "EASystem",
-                "datetime": 1557110542
+                "user": "/users/1",
+                "full_name": "EAAdmin",
+                "datetime": 1569854339
             },
             "fields": [
                 {
@@ -120,10 +122,10 @@
                 }
             ],
             "contained_aggregation_steps": true,
-            "uri": "/models/1/angles/650/displays/3021",
+            "uri": "/models/1/angles/1478/displays/7620",
             "is_public": true,
             "used_in_task": false,
-            "state": "/models/1/angles/650/displays/3021/state",
+            "state": "/models/1/angles/1478/displays/7620/state",
             "display_type": "chart",
             "user_specific": {
                 "execute_on_login": false,
@@ -138,6 +140,7 @@
                             "step_type": "filter",
                             "arguments": [
                                 {
+                                    "valid": true,
                                     "argument_type": "value",
                                     "value": "ds4DeliveredOnTime"
                                 },
@@ -195,7 +198,7 @@
                 }
             ],
             "is_angle_default": true,
-            "angle_id": "650",
+            "angle_id": "1478",
             "id": "eab8e5dba5d4d8434781dd5654b9a57cf1",
             "display_details": "{\"chart_type\":\"column\",\"stack\":true,\"multi_axis\":false,\"axistitle\":\"show\",\"axisvalue\":\"show\",\"datalabel\":\"mouse\",\"gridline\":\"show\",\"legend\":\"show\",\"range\":{\"start\":12,\"size\":10},\"count_index\":0,\"axisscale\":\"automatic\"}",
             "multi_lang_description": []
@@ -206,7 +209,7 @@
     "published": {
         "user": "/users/1",
         "full_name": "EAAdmin",
-        "datetime": 1567577228
+        "datetime": 1569854339
     },
     "model": "/models/1",
     "is_published": true,

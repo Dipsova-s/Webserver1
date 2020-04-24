@@ -1,4 +1,11 @@
-﻿/* .highlight
+﻿@font-face {
+  font-family: "WebClientIco";
+  font-style: normal;
+  font-weight: normal;
+  font-display: block;
+  src: url("webclientico.eot") format("eot"), url("webclientico.woff") format("woff"), url("webclientico.ttf") format("truetype"), url("webclientico.svg#WebClientIco") format("svg"); }
+
+/* .highlight
 ============================================ */
 .highlight {
   background-color: #fff7cf; }
@@ -15,7 +22,7 @@
   -ms-user-select: none;
   user-select: none; }
 
-/* wrapper created in IndeterminatableChange handler */
+/* created in IndeterminatableChange handler */
 .chk-indeterminatable-wrapper {
   position: relative;
   -webkit-touch-callout: none;
@@ -38,6 +45,10 @@
   background-color: #f7f9fa;
   box-sizing: border-box;
   z-index: 5; }
+  .chkIndeterminatable + [type="checkbox"] {
+    margin-right: 10px; }
+  .chkIndeterminatable + [type="checkbox"] + .chk-label {
+    cursor: pointer; }
 
 .chkIndeterminatable.yes,
 .chkIndeterminatable.empty {
@@ -47,6 +58,8 @@
 .chkIndeterminatable.disabled {
   cursor: default;
   opacity: .5; }
+  .chkIndeterminatable.disabled + [type="checkbox"] + .chk-label {
+    cursor: default; }
 
 .chkIndeterminatable:hover {
   border-color: #358ed7; }
@@ -180,7 +193,7 @@
   border: solid #358ed7; }
 
 input[type="checkbox"]:not(:checked) + .label {
-  color: #909191; }
+  color: #333; }
 
 /* disabled checkbox */
 [type="checkbox"]:disabled,
@@ -382,8 +395,7 @@ input[type="checkbox"]:not(:checked) + .label {
     height: 10px;
     border: 3px solid;
     border-color: transparent;
-    margin-right: 5px;
-  }
+    margin-right: 5px; }
 
 .loader-container {
   position: fixed;
@@ -424,6 +436,10 @@ input[type="checkbox"]:not(:checked) + .label {
     display: none; }
   .k-loading-mask .k-loading-text {
     position: relative; }
+
+.k-loading-small .k-loading-text {
+  width: 20px;
+  height: 20px; }
 
 .k-loading-text {
   overflow: hidden; }

@@ -4,7 +4,7 @@
   "multi_lang_name": [
     {
       "lang": "en",
-      "text": "ROBOT_ANGLE_Pivot_fields_contain_special_characters"
+      "text": "ANGLE_Pivot_fields_contain_special_characters"
     }
   ],
   "multi_lang_description": [],
@@ -100,12 +100,6 @@
   ],
   "angle_default_display": "d135349e9e27c03110936522222765722",
   "assigned_labels": [
-    "P2P",
-    "S2D",
-    "O2C",
-    "F2R",
-    "PM",
-    "GRC",
-    "IT"
+    "S2D"
   ]
 }

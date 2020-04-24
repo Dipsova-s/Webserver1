@@ -19,12 +19,14 @@ window.SearchPageHandler = function () {
 
     self.SearchTerms = [];
     self.MaxSearchTerms = 5;
+    self.HandlerSidePanel = new SearchSidePanelHandler();
 
     /*BOF: Model Methods*/
     self.InitialSearchPage = function (callback) {
-        requestHistoryModel.SaveLastExecute(self, self.InitialSearchPage, arguments);
-
         searchStorageHandler.Initial(true, true, true);
+
+        // clear Adhoc displays
+        jQuery.localStorage.removeItem(displayModel.TemporaryDisplayName);
 
         directoryHandler.LoadDirectory()
             .then(function () {
@@ -123,6 +125,8 @@ window.SearchPageHandler = function () {
             self.UpdateLayout();
 
             WCNotificationsFeedCreator.Create(userModel.Data().id);
+
+            self.HandlerSidePanel.Initial();
         }
 
         // callback
@@ -743,9 +747,6 @@ window.SearchPageHandler = function () {
                                 if (options.error) {
                                     options.error(xhr, status, error);
                                 }
-                                else if (gridObject) {
-                                    requestHistoryModel.SaveLastExecute(gridObject.dataSource, gridObject.dataSource.options.transport.read, [options]);
-                                }
                             })
                             .done(function (result) {
                                 var newdataRows = result.items;
@@ -774,9 +775,6 @@ window.SearchPageHandler = function () {
                         request: getData()
                     };
                 }
-            },
-            error: function (e) {
-                requestHistoryModel.SaveLastExecute(e.sender, e.sender.read, []);
             },
             schema: {
                 total: function () {
@@ -921,7 +919,7 @@ window.SearchPageHandler = function () {
         WC.HtmlHelper.ActionMenu.CreateActionMenuItems('#ActionDropdownListPopup .k-window-content', '#ActionDropdownListTablet', data, self.CallActionDropdownFunction);
 
         // action menu responsive
-        WC.HtmlHelper.ActionMenu('#ActionSelect');
+        WC.HtmlHelper.ActionMenu('#ActionSelect', true);
     };
     self.CallActionDropdownFunction = function (element, selectedValue) {
         if (jQuery(element).hasClass('disabled'))
@@ -965,9 +963,6 @@ window.SearchPageHandler = function () {
     };
     self.DeleteItems = function () {
         var fnCheckCancelAbort;
-        // save last execution
-        requestHistoryModel.SaveLastExecute(self, self.DeleteItems, arguments);
-
         var angles = [], dashboards = [], unauthorized = [], isCancel = false, canCancel = false,
             reports = {
                 delete_error: [],
@@ -1229,131 +1224,15 @@ window.SearchPageHandler = function () {
 
     // dashboard
     self.ExecuteDashboard = function () {
-        requestHistoryModel.SaveLastExecute(self, self.ExecuteDashboard, arguments);
-
-        var items = searchModel.SelectedItems();
-        if (!items.length) return;
-
-        var itemUri = [];
-        jQuery.each(items, function (key, item) {
-            if (item.type === enumHandlers.ITEMTYPE.ANGLE && !item.is_template && item.displays.length) {
-                itemUri.push(item.uri);
-            }
-        });
-
-        // reach the maximum
-        if (itemUri.length > maxNumberOfDashboard) {
-            popup.Alert(Localization.Warning_Title, kendo.format(Localization.Info_ReachMaximumOfDashboard, maxNumberOfDashboard));
-            return false;
-        }
-
-        // show alert if not valid item
-        if (!itemUri.length) {
-            popup.Alert(Localization.Warning_Title, Localization.Info_OnlyAnglesAreAllowedToCreateADashboard);
-            return false;
-        }
-
-        var executeDashboard = function () {
-            // get items full details
-            var deferred = [], fullItemsDetails = [];
-            var getAngle = function (uri) {
-                var params = {};
-                params[enumHandlers.PARAMETERS.CACHING] = false;
-                return GetDataFromWebService(uri, params)
-                    .done(function (response, textStatus, xhr) {
-                        if (xhr.status === 200)
-                            fullItemsDetails.push(response);
-                    });
-            };
-
-            jQuery.each(itemUri, function (key, uri) {
-                deferred.pushDeferred(getAngle, [uri]);
-            });
-
-            jQuery.whenAll(deferred)
-                .done(function () {
-                    var data = dashboardModel.GetInitialTemporaryData();
-                    var defaultLanguage = userSettingModel.GetByName(enumHandlers.USERSETTINGS.DEFAULT_LANGUAGES).toLowerCase();
-
-                    jQuery.each(itemUri, function (index, uri) {
-                        var item = fullItemsDetails.findObject('uri', uri);
-                        var display = searchModel.DashboardDefaultDisplay(item) || {};
-
-                        if (item === null)
-                            return;
-
-                        dashboardModel.MapAngle(item);
-                        dashboardModel.Angles.push(item);
-
-                        data.widget_definitions.push({
-                            angle: item[dashboardModel.KeyName],
-                            display: display[dashboardModel.KeyName] || null,
-                            widget_details: JSON.stringify({
-                                model: item.model
-                            }),
-                            widget_type: 'angle_display',
-
-                            // required fields but do not use for now
-                            multi_lang_name: [{
-                                lang: defaultLanguage,
-                                text: ' '
-                            }],
-                            multi_lang_description: [{
-                                lang: defaultLanguage,
-                                text: ''
-                            }]
-                        });
-                    });
-
-                    data.layout = JSON.stringify(dashboardModel.GetDefaultLayoutConfig(data.widget_definitions.length));
-
-                    // awake dashboard model
-                    dashboardModel.SetData(data);
-
-                    progressbarModel.ShowStartProgressBar(Localization.ProgressBar_PreparingData, false);
-
-                    // load angles -> get name -> create dashboard -> jump to dashboard page
-                    jQuery.when(dashboardModel.LoadAngles('uri'))
-                        .then(function () {
-                            return dashboardModel.GetDefaultDashboardName();
-                        })
-                        .then(function (name) {
-                            data.assigned_labels = dashboardModel.GetBusinessProcesses();
-                            data.multi_lang_name[0].text = name;
-
-                            progressbarModel.SetProgressBarText(null, null, Localization.ProgressBar_CreatingDashboard);
-                            jQuery.when(dashboardModel.SaveTemporaryDashboard(data))
-                                .done(function (data) {
-                                    var executionInfo = dashboardModel.GetDashboardExecutionParameters();
-                                    if (executionInfo.query_steps.length) {
-                                        progressbarModel.EndProgressBar();
-                                        self.ShowDashboardExecutionParameterPopup(dashboardModel.Data(), executionInfo);
-                                    }
-                                    else {
-                                        progressbarModel.SetProgressBarText(null, null, Localization.ProgressBar_Redirecting);
-
-                                        var params = {};
-                                        params[enumHandlers.DASHBOARDPARAMETER.NEW] = true;
-                                        window.location.href = WC.Utility.GetDashboardPageUri(data.uri, params);
-                                    }
-                                });
-                        });
-                });
-        };
-
-        if (itemUri.length !== items.length) {
-            var win = popup.Confirm(Localization.Info_SelectItemsContainTemplatesOrAngles, function () {
-                executeDashboard();
-            });
-            var options = {
-                title: Localization.Warning_Title
-            };
-            win.setOptions(options);
-            win.element.find(".notificationIcon").attr("class", "notificationIcon alert");
-        }
-        else {
-            executeDashboard();
-        }
+        var handler = new DashboardExecutionHandler();
+        handler.Models = self.GetAllModels();
+        handler.ShowExecutionParameterPopup = self.ShowDashboardExecutionParameterPopup;
+        handler.Execute(ko.toJS(searchModel.SelectedItems()));
+    };
+    self.GetAllModels = function () {
+        var facets = WC.Utility.ToArray(ko.toJS(facetFiltersViewModel.Data()));
+        var facetModel = facets.findObject('id', 'facetcat_models');
+        return facetModel ? facetModel.filters : [];
     };
 
     // popup info
@@ -1379,13 +1258,9 @@ window.SearchPageHandler = function () {
             query_steps: executionsInfo.query_steps
         })];
 
-        var executionParameter = new ExecutionParameterHandler();
-        executionParameter.CanUseCompareField = false;
-        executionParameter.ModelUri = executionsInfo.angle.model;
-        executionParameter.Angle = executionsInfo.angle;
-        executionParameter.Display = executionsInfo.display;
+        var executionParameter = new ExecutionParameterHandler(executionsInfo.angle, executionsInfo.display);
         executionParameter.ShowPopupAfterCallback = function (e) {
-            e.sender.element.find('.displayInfo > label').text(Localization.DashboardName);
+            e.sender.element.find('.section-display .row-title .form-col-header').text(Localization.DashboardName);
         };
         executionParameter.ShowExecutionParameterPopup();
 
@@ -1434,7 +1309,7 @@ window.SearchPageHandler = function () {
                 '<div class="front">',
                 '<i class="icon #= searchPageHandler.GetDisplayTypeCSSClass(data) #"></i>',
                 '</div>',
-                '<a class="name nameLink"  data-showwhenneed="true" data-role="tooltip" data-tooltip-title="#: data.name #" data-tooltip-position="bottom"',
+                '<a class="name nameLink"  data-showwhenneed="true" data-role="tooltip" data-tooltip-text="#: data.name #" data-tooltip-position="bottom"',
                 ' href="#= searchModel.GetDisplayHrefUri(data.__angle_uri, data.uri, data.__angle_is_template) #"',
                 ' onclick="return searchModel.ItemLinkClicked(event, \'#: data.__angle_uri #\', null, \'#: data.uri #\')">',
                 '#: data.name #</a>',
@@ -1483,7 +1358,7 @@ window.SearchPageHandler = function () {
         var html = ['<ul class="listview listview-popup">'];
         jQuery.each(self.SearchTerms, function (index, searchTerm) {
             var data = { text: searchTerm, index: index };
-            var template = '<li class="listview-item" onclick="searchPageHandler.SubmitSearchBySearchTerm(this);">#: text #</li>';
+            var template = '<li class="listview-item" onclick="searchPageHandler.SubmitSearchBySearchTerm(this);"><div class="text-ellipsis">#: text #</div></li>';
             var templateFunction = kendo.template(template);
             html.push(templateFunction(data));
         });
@@ -1581,6 +1456,7 @@ window.SearchPageHandler = function () {
         });
         var numberExcutes = jQuery('#textNumberExcutes').data("kendoNumericTextBox");
         if (numberExcutes) {
+            numberExcutes._text.attr('required', true);
             numberExcutes.enable(false);
         }
 
@@ -1851,7 +1727,23 @@ window.SearchPageHandler = function () {
     self.NumberOperatorChange = function (e) {
         jQuery('#textNumberExcutes').data("kendoNumericTextBox").enable(e.sender.value() > 0);
     };
+    self.SaveClientSettings = function () {
+        var additionalRequests = [];
 
+        var clientSettingsRequest = userSettingModel.GetClientSettingsData();
+        if (clientSettingsRequest) {
+            userSettingModel.UpdateClientSettings(JSON.parse(clientSettingsRequest.data));
+            additionalRequests.push(clientSettingsRequest);
+        }
+
+        var sidePanelSettingsData = userSettingModel.GetSidePanelSettingsData();
+        if (sidePanelSettingsData) {
+            userSettingModel.UpdateClientSettings(JSON.parse(sidePanelSettingsData.data));
+            additionalRequests.push(sidePanelSettingsData);
+        }
+
+        WC.Ajax.ExecuteBeforeExit(additionalRequests, true);
+    };
     /*EOF: Model Methods*/
 
     // initialize method
@@ -1872,13 +1764,7 @@ window.SearchPageHandler = function () {
 
         jQuery(window).off('beforeunload.search').on('beforeunload.search', function () {
             // save client settings to user settings
-            var clientSettingsRequest = userSettingModel.GetClientSettingsData();
-            var additionalRequests = [];
-            if (clientSettingsRequest) {
-                userSettingModel.UpdateClientSettings(JSON.parse(clientSettingsRequest.data));
-                additionalRequests = [clientSettingsRequest];
-            }
-            WC.Ajax.ExecuteBeforeExit(additionalRequests, true);
+            self.SaveClientSettings();
             return;
         });
     }

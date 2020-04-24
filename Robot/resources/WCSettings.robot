@@ -14,22 +14,26 @@ Resource            ${EXECDIR}/WC/Scenarios/Shared/TS_Login.robot
 Resource            ${EXECDIR}/WC/Scenarios/Shared/TS_FieldChooser.robot
 Resource            ${EXECDIR}/WC/Scenarios/Shared/TS_UserPassword.robot
 Resource            ${EXECDIR}/WC/Scenarios/Shared/TS_UserSettingsPanel.robot
+Resource            ${EXECDIR}/WC/Scenarios/Shared/TS_EditDescription.robot
 Resource            ${EXECDIR}/WC/Scenarios/Shared/TS_ImportItem.robot
+Resource            ${EXECDIR}/WC/Scenarios/Shared/TS_FilterEditor.robot
 Resource            ${EXECDIR}/WC/Scenarios/Search/TS_Search.robot
 Resource            ${EXECDIR}/WC/Scenarios/Search/TS_SearchFilter.robot
 Resource            ${EXECDIR}/WC/Scenarios/Search/TS_SearchBusinessProcess.robot
 Resource            ${EXECDIR}/WC/Scenarios/Search/TS_MassChange.robot
 Resource            ${EXECDIR}/WC/Scenarios/Search/TS_UploadAngle.robot
 Resource            ${EXECDIR}/WC/Scenarios/Angle/TS_Angle.robot
+Resource            ${EXECDIR}/WC/Scenarios/Angle/TS_AngleSaveAs.robot
 Resource            ${EXECDIR}/WC/Scenarios/Angle/TS_AngleDetail.robot
 Resource            ${EXECDIR}/WC/Scenarios/Angle/TS_AngleFilter.robot
+Resource            ${EXECDIR}/WC/Scenarios/Angle/TS_AngleSidePanel.robot
 Resource            ${EXECDIR}/WC/Scenarios/Angle/TS_DisplayDetail.robot
 Resource            ${EXECDIR}/WC/Scenarios/Angle/TS_List.robot
 Resource            ${EXECDIR}/WC/Scenarios/Angle/TS_Pivot.robot
 Resource            ${EXECDIR}/WC/Scenarios/Angle/TS_Chart.robot
 Resource            ${EXECDIR}/WC/Scenarios/Angle/TS_FieldSettings.robot
 Resource            ${EXECDIR}/WC/Scenarios/Dashboard/TS_Dashboard.robot
-Resource            ${EXECDIR}/WC/Scenarios/Dashboard/TS_DashboardDetail.robot
+Resource            ${EXECDIR}/WC/Scenarios/Dashboard/TS_DashboardWidgetDefinition.robot
 Resource            ${EXECDIR}/WC/Scenarios/ManagementConsole/GlobalSettings/TS_BusinessProcess.robot
 Resource            ${EXECDIR}/WC/Scenarios/ManagementConsole/GlobalSettings/TS_Authentication.robot
 Resource            ${EXECDIR}/WC/Scenarios/ManagementConsole/GlobalSettings/TS_EditAuthentication.robot
@@ -57,7 +61,6 @@ Resource            ${EXECDIR}/WC/Scenarios/ManagementConsole/Users/Userdefaults
 Resource            ${EXECDIR}/WC/Scenarios/ManagementConsole/Users/TS_Sessions.robot
 Resource            ${EXECDIR}/WC/Scenarios/ManagementConsole/Models/Packages/TS_Packages.robot
 Resource            ${EXECDIR}/WC/Scenarios/ManagementConsole/Models/TS_Communications.robot
-
 Resource            ${EXECDIR}/WC/Scenarios/ManagementConsole/Models/TS_ModelsLanguages.robot
 
 *** Variables ***
@@ -74,14 +77,15 @@ ${TIMEOUT_MC_PROGRESS_BAR}    210s
 ${RunAllAngleName}    TC_RunAllAngles_
 ${RunAllAngleTemplateFile}    ${EXECDIR}/WC/TC_RunAllAnglesTemplate.robot
 ${SPACE4}    ${SPACE}${SPACE}${SPACE}${SPACE}
-${WEBHELP_COMMON_FOLDER}    idsfigures_lowres
-${WEBHELP_ITEM_PATH}    ${EXECDIR}/webhelp_items
-${WC_HELP_IMAGE_PATH}    ${EXECDIR}/webhelp/${WEBHELP_COMMON_FOLDER}/Webclient
-${MC_HELP_IMAGE_PATH}    ${EXECDIR}/webhelp/${WEBHELP_COMMON_FOLDER}/EA2_ManagementConsole
+${WEBHELP_ITEM_PATH}      ${EXECDIR}/webhelp_items
+${WEBHELP_COMMON_FOLDER}  language_independent
+${WC_HELP_IMAGE_PATH}     ${EXECDIR}/webhelp/Webclient/${WEBHELP_COMMON_FOLDER}
+${MC_HELP_IMAGE_PATH}     ${EXECDIR}/webhelp/ManagementConsole/${WEBHELP_COMMON_FOLDER}
 # Users
 ${AdminUsername}            \\eaadmin
 ${TestPrivilegesUser}       \\EATestUserRole
 ${ViewerUsername}           \\eaviewer
+${BasicUsername}            \\eabasic
 
 # Performance
 ${API_SLA}     0.5      # SLA time

@@ -9,29 +9,21 @@ Force Tags          acc_wc
 *** Test Cases ***
 Verify Publishing Angle
     [Tags]  acc_wc_aci
-    @{cleanUpItems}    Create List
-    Create Context: Web    user=${Username}
-    ${angleData}    Create Angle    /models/1    ANGLE_PublishTesting.json
-    ${angleUri}    Get Uri From Response    ${angleData}
-    Append To List   ${cleanUpItems}    ${angleUri}?forced=true
+    [Setup]  Import Angle By API  /models/1  ANGLE_PublishTesting.json  user=${Username}
 
     Find Angle By ID Then Execute The First Angle    ROBOT_ANGLE_PUBLISHING
+    Verify Angle Publishing Confirmation
     Publish Angle
     Check Angle Is Published
     Verify All Display Are Published
     Unpublish Angle
     Check Angle Is Unpublished
 
-    [Teardown]  Run Keywords  Clean Up Items     Web    ${cleanUpItems}    user=${Username}
-    ...         AND           Go to Search Page
+    [Teardown]  Clean Up Items And Go To Search Page
 
 Verify Validating Angle
     [Tags]  acc_wc_aci
-    @{cleanUpItems}    Create List
-    Create Context: Web    user=${Username}
-    ${angleData}    Create Angle    /models/1    ANGLE_ValidateTesting.json
-    ${angleUri}    Get Uri From Response    ${angleData}
-    Append To List   ${cleanUpItems}    ${angleUri}?forced=true
+    [Setup]  Import Angle By API  /models/1  ANGLE_ValidateTesting.json  user=${Username}
 
     Find Angle By ID Then Execute The First Angle    ROBOT_ANGLE_VALIDATING
 
@@ -49,5 +41,17 @@ Verify Validating Angle
     Check Angle Is Unvalidated
     Page Should Not Contain Validated Icon
 
-    [Teardown]  Run Keywords  Clean Up Items     Web    ${cleanUpItems}    user=${Username}
-    ...         AND           Go to Search Page
+    [Teardown]  Clean Up Items And Go To Search Page
+
+Verify Set Angle To Template And Template To Angle
+    [Documentation]  Verify set Angle to Template and set Template to Angle
+    ...              Risk/Cover area: Set To Template and Set To Angle        
+    [Tags]    TC_C229010
+    ${angleName}  Set Variable  [ROBOT] Verify Set Angle to Template and Template to Angle
+    Create Adhoc Angle From Object List   PD    ${angleName}
+    Verify Set To Template Button Should Not Available In Ad-hoc Angle
+    Click Save All
+    Verify Set Angle To Template    ${angleName}
+    Verify Set Template To Angle    ${angleName}
+  
+    [Teardown]  Back To Search And Delete Angle Are Created    ${angleName}

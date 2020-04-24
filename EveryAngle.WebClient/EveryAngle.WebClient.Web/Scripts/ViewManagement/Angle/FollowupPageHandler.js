@@ -20,7 +20,7 @@ function FollowupPageHandler() {
     /*EOF: Model Properties*/
 
     /*BOF: Model Methods*/
-    self.ShowPopup = function (option) {
+    self.ShowPopup = function (option, title) {
         self.ListDrilldown = typeof option === 'undefined' ? false : option.ListDrilldown || false;
         self.IsAdHocFollowup = typeof option === 'undefined' ? false : option.IsAdhoc || false;
         if (self.IsAdHocFollowup) {
@@ -29,8 +29,6 @@ function FollowupPageHandler() {
         else {
             fieldsChooserHandler.PopupConfig = typeof option === 'undefined' ? null : option.PopupFrom || '';
         }
-        requestHistoryModel.SaveLastExecute(self, self.ShowPopup, arguments);
-        requestHistoryModel.ClearPopupBeforeExecute = true;
 
         self.SelectingFollowup = null;
         self.View = new FollowupsTemplate(self);
@@ -38,7 +36,7 @@ function FollowupPageHandler() {
         var popupName = 'Followup',
             popupSettings = {
                 element: '#popup' + popupName,
-                title: Captions.Popup_Followup_Title,
+                title: title || Captions.Popup_Followup_Title,
                 className: 'popup' + popupName,
                 width: Math.min(1100, WC.Window.Width - 20),
                 minHeight: 430,
@@ -48,8 +46,8 @@ function FollowupPageHandler() {
                         position: 'right',
                         isPrimary: true,
                         className: 'executing',
-                        click: function (e, obj) {
-                            followupPageHandler.ApplyFollowup();
+                        click: function () {
+                            self.ApplyFollowup();
                         }
                     }
 
@@ -69,7 +67,7 @@ function FollowupPageHandler() {
     self.ShowPopupCallback = function (e) {
         e.sender.content(self.View.TemplatePopup);
         jQuery('.popupFollowup').find('.btn').addClass('disabled');
-        var target = self.HandlerFilter.FilterFor === self.HandlerFilter.FILTERFOR.DISPLAY ? enumHandlers.ANGLEPOPUPTYPE.DISPLAY : enumHandlers.ANGLEPOPUPTYPE.ANGLE;
+        var target = self.HandlerFilter.FilterFor === WC.WidgetFilterHelper.FILTERFOR.DISPLAY ? enumHandlers.ANGLEPOPUPTYPE.DISPLAY : enumHandlers.ANGLEPOPUPTYPE.ANGLE;
         var followupUrl = modelsHandler.GetFollowupUri(resultModel.Data(), angleInfoModel.Data(), target);
 
         // classes name
@@ -111,7 +109,6 @@ function FollowupPageHandler() {
             });
     };
     self.SetHandlerValues = function (handler, angleSteps, displaySteps) {
-        // set WidgetFilterHandler
         self.HandlerFilter = handler;
 
         // set field chooser data
@@ -238,7 +235,7 @@ function FollowupPageHandler() {
                         'class': 'blockHeader gridHeaderContainer actionable asc',
                         'onclick': 'followupPageHandler.Sortable(this)'
                     },
-                    headerTemplate: '<span class="sort"></span>' + area.Text,
+                    headerTemplate: '<span class="sort"><i class="icon icon-sort-asc"></i></span>' + area.Text,
                     attributes: {
                         'title': '#= long_name #',
                         'data-id': '#= id #'
@@ -259,7 +256,6 @@ function FollowupPageHandler() {
                         jQuery('#popupFollowup .k-grid-content tr[data-uid="' + self.SelectingFollowup.uid + '"]').addClass('k-state-selected');
                     }
                 }
-                e.sender.tbody.parent().parent().addClass('scrollable');
             }
         }).data(enumHandlers.KENDOUITYPE.GRID);
 
@@ -302,6 +298,7 @@ function FollowupPageHandler() {
                 jQuery('.popupFollowup').find('.btn').removeClass('disabled');
                 var dataItem = grid.dataSource.getByUid(tr.data('uid'));
                 dataItem.is_adhoc_filter = self.IsAdHocFollowup;
+                dataItem.is_adhoc = self.IsAdHocFollowup;
                 self.SelectingFollowup = dataItem;
 
                 clearInterval(fnCheckHelp);
@@ -334,6 +331,7 @@ function FollowupPageHandler() {
             tr.addClass('k-state-selected');
             var dataItem = grid.dataSource.getByUid(tr.data('uid'));
             dataItem.is_adhoc_filter = self.IsAdHocFollowup;
+            dataItem.is_adhoc = self.IsAdHocFollowup;
             self.SelectingFollowup = dataItem;
 
             self.ApplyFollowup();
@@ -344,12 +342,13 @@ function FollowupPageHandler() {
     };
     self.Sortable = function (element) {
         element = jQuery(element);
-        var field = element.data('field'),
-            sortDirection = element.hasClass('asc') ? 'desc' : 'asc',
-            grid = element.parents('.k-grid:first').data(enumHandlers.KENDOUITYPE.GRID);
-
+        var field = element.data('field');
+        var sortDirection = element.hasClass('asc') ? 'desc' : 'asc';
+        var grid = element.parents('.k-grid:first').data(enumHandlers.KENDOUITYPE.GRID);
+        var icon = jQuery('<i class="icon"/>').addClass('icon-sort-' + sortDirection);
         grid.thead.find('.k-header').removeClass('asc desc');
         element.addClass(sortDirection);
+        element.find('.sort').html(icon);
         grid.dataSource.sort({ field: field, dir: sortDirection });
     };
     self.ShowHelpText = function (followup) {
@@ -434,178 +433,66 @@ function FollowupPageHandler() {
         if (!self.SelectingFollowup)
             return;
 
-        displayModel.KeepFilter(false);
         var followup = JSON.parse(JSON.stringify(self.SelectingFollowup));
-
         modelFollowupsHandler.SetFollowups([followup]);
+        self.ClosePopup();
 
-        // add jump from Angle/Display popup
+        // add jump to panel
         if (!self.IsAdHocFollowup && !self.ListDrilldown) {
             self.HandlerFilter.AddFieldFollowup(followup);
-            self.ClosePopup();
             return;
         }
 
-        // add jump from Action menu
-        progressbarModel.ShowStartProgressBar(Localization.ProgressBar_CheckingJump, false);
-        self.GetDefaultJumpTemplate(followup.id)
-            .done(function (jumpDisplay) {
-                if (jumpDisplay) {
-                    // use jump's template
-                    self.ApplyFollowupByTemplate(followup, jumpDisplay);
-                }
-                else {
-                    // use default behavior
-                    self.ApplyFollowupByDefault(followup);
-                }
-            });
-
-        self.ClosePopup();
-    };
-    self.ApplyFollowupByTemplate = function (followup, jumpDisplay) {
-        // transfer query_blocks
-        self.HandlerFilter.AddFieldFollowup(followup);
-        var currentQuerySteps = self.HandlerFilter.GetData();
-
-        // set adding follwoups as adhoc
-        currentQuerySteps[currentQuerySteps.length - 1].is_adhoc_filter = true;
-
-        // set new query_blocks
-        var currentQueryBlocks = [{
-            query_steps: currentQuerySteps,
-            queryblock_type: 'query_steps'
-        }];
-        jumpDisplay.query_blocks = self.GetQueryBlockFromJumpTemplate(currentQueryBlocks, jumpDisplay.query_blocks);
-
-        jQuery.when(displayModel.CreateTempDisplay(jumpDisplay.display_type, jumpDisplay))
-            .done(function (data) {
-                fieldSettingsHandler.ClearFieldSettings();
-
-                // redirect to display
-                displayModel.GotoTemporaryDisplay(data.uri);
-            });
-    };
-    self.ApplyFollowupByDefault = function (followup) {
-        var followupStep = {
-            step_type: enumHandlers.FILTERTYPE.FOLLOWUP,
-            followup: followup.id,
-            uri: followup.uri,
-            is_adhoc_filter: followup.is_adhoc_filter || false
-        };
-
-        if (!displayModel.IsTemporaryDisplay() || self.ListDrilldown) {
-            var postObject = self.GetPostingQueryBlock(followupStep);
-            if (self.ListDrilldown)
-                self.IsAdHocFollowup = true;
-            displayDetailPageHandler.ExecuteFollowup(postObject, false, self.IsAdHocFollowup, self.ListDrilldown, false);
-        }
-        else {
-            self.ApplyFollowupForAdhocDisplay(followupStep);
-        }
-    };
-    self.GetPostingQueryBlock = function (followup) {
-        var queryBlocks = displayQueryBlockModel.CollectQueryBlocks();
-        var postObject;
-
+        // add jump & execute
+        var displayHandler = anglePageHandler.HandlerDisplay.Clone();
+        displayHandler.QueryDefinitionHandler.AddJump(followup);
+        var jump = displayHandler.QueryDefinitionHandler.GetLastJump();
+        jump.is_adhoc_filter = true;
+        jump.is_adhoc(true);
+        var jumpIndex = displayHandler.QueryDefinitionHandler.Data.indexOf(jump);
         if (self.ListDrilldown) {
+            // add more filters for a single drilldown
             var listDrilldownParameter = JSON.parse(unescape(WC.Utility.UrlParameter(enumHandlers.ANGLEPARAMETER.LISTDRILLDOWN)));
-            var querySteps = [];
-
-            jQuery.each(listDrilldownParameter, function (propName, value) {
-                var queryStep = {
-                    field: propName,
+            jQuery.each(listDrilldownParameter, function (field, value) {
+                var data = {
+                    step_type: enumHandlers.FILTERTYPE.FILTER,
+                    field: field,
                     operator: enumHandlers.OPERATOR.EQUALTO.Value,
                     arguments: [WC.WidgetFilterHelper.ArgumentObject(value, enumHandlers.FILTERARGUMENTTYPE.VALUE)],
-                    step_type: enumHandlers.FILTERTYPE.FILTER,
                     is_adhoc_filter: true,
-                    valid: true
+                    is_adhoc: true,
+                    edit_mode: false
                 };
-
-                querySteps.push(queryStep);
+                displayHandler.QueryDefinitionHandler.InsertQueryFilter(data, jumpIndex);
+                jumpIndex++;
             });
-
-            followup.is_adhoc_filter = true;
-            querySteps.push(followup);
-            if (!queryBlocks.length) {
-                postObject = {
-                    query_blocks: [{
-                        queryblock_type: enumHandlers.QUERYBLOCKTYPE.QUERY_STEPS,
-                        query_steps: querySteps
-                    }]
-                };
-            }
-            else {
-                jQuery.merge(queryBlocks[0].query_steps, querySteps);
-                postObject = {
-                    query_blocks: queryBlocks
-                };
-            }
-        }
-        else {
-            if (!queryBlocks.length) {
-                postObject = {
-                    query_blocks: [{
-                        queryblock_type: enumHandlers.QUERYBLOCKTYPE.QUERY_STEPS,
-                        query_steps: [followup]
-                    }]
-                };
-            }
-            else {
-                queryBlocks[0].query_steps.push(followup);
-                postObject = {
-                    query_blocks: queryBlocks
-                };
-            }
         }
 
-        return postObject;
+        // set applied flag to all adhoc
+        self.ExecuteJump(displayHandler, jump, displayHandler.QueryDefinitionHandler.GetQueryDefinition().query_blocks);
     };
-    self.ApplyFollowupForAdhocDisplay = function (followup) {
-        if (displayModel.Data().display_type === enumHandlers.DISPLAYTYPE.LIST) {
-            displayQueryBlockModel.QuerySteps.push(new WidgetFilterModel(followup));
-            displayQueryBlockModel.TempQuerySteps.push(new WidgetFilterModel(followup));
-            progressbarModel.ShowStartProgressBar(Localization.ProgressBar_PostResult, false);
-
-            var oldDisplayModel = historyModel.Get(displayModel.Data().uri);
-            var oldQueryStep = displayQueryBlockModel.QuerySteps();
-            var oldQueryStepTemp = displayQueryBlockModel.TempQuerySteps();
-            progressbarModel.CancelCustomHandler = true;
-            progressbarModel.CancelFunction = function () {
-                displayQueryBlockModel.QuerySteps(oldQueryStep);
-                displayQueryBlockModel.TempQuerySteps(oldQueryStepTemp);
-
-                WC.Ajax.AbortAll();
-                displayModel.LoadSuccess(oldDisplayModel);
-                resultModel.LoadSuccess(oldDisplayModel.results);
-                historyModel.Save();
-
-                resultModel.GetResult(resultModel.Data().uri)
-                    .then(resultModel.LoadResultFields)
-                    .done(function () {
-                        resultModel.ApplyResult();
-                    });
-            };
-
-            resultModel.PostResult({ customQueryBlocks: displayQueryBlockModel.CollectQueryBlocks() })
-                .then(function () {
-                    return resultModel.GetResult(resultModel.Data().uri);
-                })
-                .then(function () {
-                    return displayModel.GetDefaultListFields(resultModel.Data());
-                })
-                .done(function (fields) {
-                    displayModel.Data().fields = fields;
-                    displayModel.Data.commit();
-                    historyModel.Save();
-                    resultModel.ApplyResult();
+    self.ExecuteJump = function (displayHandler, jump, queryBlocks, extendData) {
+        progressbarModel.ShowStartProgressBar(Localization.ProgressBar_CheckingJump, false);
+        progressbarModel.SetDisableProgressBar();
+        displayHandler.GetJumpDisplayData(jump, queryBlocks, extendData)
+            .done(function (jumpDisplay) {
+                anglePageHandler.HandlerSidePanel.Open(1);
+                jQuery.each(jumpDisplay.query_blocks, function (index, block) {
+                    jumpDisplay.query_blocks[index] = WC.ModelHelper.RemoveReadOnlyQueryBlock(block);
                 });
-        }
-        else {
-            var filterSteps = displayQueryBlockModel.GetQueryStepByNotInType(enumHandlers.FILTERTYPE.AGGREGATION);
-            filterSteps.push(new WidgetFilterModel(followup));
-            var postObject = { query_blocks: [{ queryblock_type: enumHandlers.QUERYBLOCKTYPE.QUERY_STEPS, query_steps: filterSteps }] };
-            displayDetailPageHandler.ExecuteFollowup(postObject, false, self.IsAdHocFollowup, self.ListDrilldown, false);
-        }
+                displayModel.CreateTempDisplay(jumpDisplay.display_type, jumpDisplay)
+                    .done(function (data) {
+                        fieldSettingsHandler.ClearFieldSettings();
+
+                        anglePageHandler.HandlerAngle.AddDisplay(data, null, true);
+
+                        // initial data for drilldown
+                        displayModel.LoadSuccess(data);
+                        
+                        // redirect to display
+                        displayModel.GotoTemporaryDisplay(data.uri);
+                    });
+            });
     };
     /*EOF: Model Methods*/
 }

@@ -810,4 +810,19 @@
   <data name="Pivot_Option_TotalsLocation_Near" xml:space="preserve">
     <value>Oben/links</value>
   </data>
+  <data name="Title_AggregationChart" xml:space="preserve">
+    <value>Chart options</value>
+  </data>
+  <data name="Title_AggregationPivot" xml:space="preserve">
+    <value>Pivot options</value>
+  </data>
+  <data name="Popup_Angle_Info" xml:space="preserve">
+    <value>Angle Information</value>
+  </data>
+  <data name="Popup_Dashboard_Info" xml:space="preserve">
+    <value>Dashboard Information</value>
+  </data>
+  <data name="Popup_Display_Info" xml:space="preserve">
+    <value>Display Information</value>
+  </data>
 </root>

@@ -33,9 +33,6 @@ function CreateNewAngleViewManagementModel() {
 
     // popup options
     self.ShowCreateOption = function () {
-        requestHistoryModel.SaveLastExecute(self, self.ShowCreateOption, arguments);
-        requestHistoryModel.ClearPopupBeforeExecute = true;
-
         // set default schema bp
         var defaultBP = userSettingModel.GetByName(enumHandlers.USERSETTINGS.DEFAULT_BUSINESS_PROCESSES);
         if (!self.CreateAngleSettings.createby_schema[self.SCHEMAVIEWTYPE.SIMPLE].bp) {
@@ -126,10 +123,7 @@ function CreateNewAngleViewManagementModel() {
         if (jQuery('#ButtonCreateAngleFromSchemaSimple').hasClass('disabled') ||
             jQuery('#ButtonCreateAngleFromSchemaDetailed').hasClass('disabled'))
             return;
-
-        requestHistoryModel.SaveLastExecute(self, self.ShowCreateAngleBySchema, arguments);
-        requestHistoryModel.ClearPopupBeforeExecute = true;
-
+        
         self.CloseCreateOption();
 
         currentSchemaMode = schemaMode;
@@ -296,8 +290,6 @@ function CreateNewAngleViewManagementModel() {
         return 'data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==';
     };
     self.SetSchemaDiagram = function () {
-        requestHistoryModel.SaveLastExecute(self, self.SetSchemaDiagram, arguments);
-
         var currentSelectedBusinessProcess = businessProcessesModel.CreateNewAngleSchemaBusinessProcess.GetActive().toString();
 
         // save settings
@@ -454,8 +446,6 @@ function CreateNewAngleViewManagementModel() {
         jQuery('#Schema').children().removeClass('active');
     };
     self.MapClicked = function (classId) {
-        requestHistoryModel.SaveLastExecute(self, self.MapClicked, arguments);
-
         self.ShowSchemaHelptextDescription(classId || '');
     };
     self.ShowSchemaHelptextDescription = function (helpId) {
@@ -513,7 +503,6 @@ function CreateNewAngleViewManagementModel() {
         }
 
         WC.Ajax.AbortAll();
-        requestHistoryModel.SaveLastExecute(self, self.CreateNewAngleFromSchema, arguments);
 
         // disable all ui
         self.SetDisableCreateFromSchemaUI(true);
@@ -548,6 +537,7 @@ function CreateNewAngleViewManagementModel() {
 
                         var params = {};
                         if (template.is_template) {
+                            params[enumHandlers.ANGLEPARAMETER.TARGET] = enumHandlers.ANGLETARGET.ANGLEPOPUP;
                             params[enumHandlers.ANGLEPARAMETER.TEMPLATE] = true;
                         }
                         params[enumHandlers.ANGLEPARAMETER.STARTTIMES] = jQuery.now();
@@ -684,9 +674,6 @@ function CreateNewAngleViewManagementModel() {
     self.ShowCreateAngleByObject = function () {
         if (jQuery('#ButtonCreateAngleFromObjects').hasClass('disabled'))
             return;
-
-        requestHistoryModel.SaveLastExecute(self, self.ShowCreateAngleByObject, arguments);
-        requestHistoryModel.ClearPopupBeforeExecute = true;
 
         self.CloseCreateOption();
 
@@ -915,7 +902,6 @@ function CreateNewAngleViewManagementModel() {
         }
     };
     self.CreateNewAngleFromObjectsAfterValidate = function (classes) {
-        requestHistoryModel.SaveLastExecute(self, self.CreateNewAngleFromObjects, arguments);
         WC.Ajax.AbortAll();
 
         // disable all ui
@@ -949,6 +935,7 @@ function CreateNewAngleViewManagementModel() {
                         var params = {};
                         params[enumHandlers.ANGLEPARAMETER.STARTTIMES] = jQuery.now();
                         if (angle.is_template) {
+                            params[enumHandlers.ANGLEPARAMETER.TARGET] = enumHandlers.ANGLETARGET.ANGLEPOPUP;
                             params[enumHandlers.ANGLEPARAMETER.TEMPLATE] = true;
                         }
 
@@ -1031,20 +1018,18 @@ function CreateNewAngleViewManagementModel() {
         };
 
         // wakeup angle model
+        angleInfoModel.TemporaryAngle(null);
         angleInfoModel.SetTemporaryAngle(jsonObjects);
         angleInfoModel.SetData(angleInfoModel.TemporaryAngle().data);
 
-        progressbarModel.ShowStartProgressBar(Localization.ProgressBar_PostResult, false);
-
-        resultModel.PostResult({ currentDisplay: null })
-            .then(function () {
-                progressbarModel.SetProgressBarText(null, null, Localization.ProgressBar_GETResults);
-
-                return resultModel.GetResult(resultModel.Data().uri);
-            })
-            .then(function () {
-                return self.GetListFields(skipTemplate, resultModel);
-            })
+        // new
+        var resultData = {
+            model: modelUri,
+            potential_classes: classes,
+            query_fields: modelsHandler.GetResultQueryFieldsUri(classes, modelUri)
+        };
+        progressbarModel.ShowStartProgressBar();
+        return self.GetListFields(skipTemplate, resultData)
             .then(function (fields) {
                 var display = displayModel.GenerateDefaultData(enumHandlers.DISPLAYTYPE.LIST);
                 display.fields = fields;
@@ -1069,17 +1054,18 @@ function CreateNewAngleViewManagementModel() {
 
                 var customParams = {};
                 customParams[enumHandlers.ANGLEPARAMETER.CREATENEW] = true;
+                customParams[enumHandlers.ANGLEPARAMETER.TARGET] = enumHandlers.ANGLETARGET.ANGLEPOPUP;
                 window.location = WC.Utility.GetAnglePageUri(angleInfoModel.Data().uri, displayModel.Data().uri, customParams);
             })
             .always(function () {
                 self.SetDisableCreateFromObjectUI(false);
             });
     };
-    self.GetListFields = function (skipTemplate, resultModel) {
+    self.GetListFields = function (skipTemplate, resultData) {
         if (skipTemplate)
-            return displayModel.GenerateDefaultField(false, resultModel.Data().query_fields, false);
+            return displayModel.GenerateDefaultField(false, resultData.query_fields, false);
         else
-            return displayModel.GetDefaultListFields(resultModel.Data(), false, true);
+            return displayModel.GetDefaultListFields(resultData, false, true);
     };
     self.SetSelectedClassesCallback = function (classes) {
         if (classes.length) {
@@ -1163,7 +1149,7 @@ function CreateNewAngleViewManagementModel() {
                             isSelected = true;
                         }
                         var radio = kendo.format('<label class="textEllipsis"><input type="radio" name="SelectModel"{1}/><span class="label">{0}</span></label>', modelName, isSelected ? ' checked' : '');
-                        modelsHtml[index] = kendo.format('<li class="listview-item{3}"  data-showWhenNeed="true"  data-role="tooltip" data-tooltip-title="{1}" data-tooltip-position="bottom" data-id="{0}" onclick="createNewAngleViewManagementModel.CheckModelAvailable(this)">{2}</li>', model.id, modelName, radio, isSelected ? ' active' : '');
+                        modelsHtml[index] = kendo.format('<li class="listview-item{3}"  data-showWhenNeed="true"  data-role="tooltip" data-tooltip-text="{1}" data-tooltip-position="bottom" data-id="{0}" onclick="createNewAngleViewManagementModel.CheckModelAvailable(this)">{2}</li>', model.id, modelName, radio, isSelected ? ' active' : '');
                     }
                 });
                 modelsListElement.html(modelsHtml.join(''));

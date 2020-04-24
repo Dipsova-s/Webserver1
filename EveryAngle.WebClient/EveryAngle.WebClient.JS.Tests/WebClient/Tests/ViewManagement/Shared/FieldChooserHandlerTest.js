@@ -1,6 +1,10 @@
 ﻿/// <reference path="/../SharedDependencies/FieldsChooser.js" />
 /// <reference path="/Dependencies/ViewManagement/Shared/PopupPageHandlers.js" />
 /// <reference path="/Dependencies/ViewManagement/Shared/ValidationHandler.js" />
+/// <reference path="/Dependencies/ViewManagement/Shared/WidgetFilter/WidgetFilterHelper.js" />
+/// <reference path="/Dependencies/ViewManagement/Angle/Chart/ChartHelper.js" />
+/// <reference path="/Dependencies/ViewManagement/Angle/Chart/ChartOptionsView.js" />
+/// <reference path="/Dependencies/ViewManagement/Angle/Chart/ChartOptionsHandler.js" />
 /// <reference path="/Dependencies/ViewManagement/Angle/FieldSettingsHandler.js" />
 /// <reference path="/Dependencies/viewmanagement/shared/fieldchooserhandler.js" />
 
@@ -12,12 +16,6 @@ describe("FieldsChooserHandler", function () {
 
         fieldsChooserModel.BeforeOpenCategoryFunction = null;
         fieldsChooserModel.DefaultFacetFilters = [];
-
-
-        fieldSettingsHandler.GetAggregationFieldSettingBySourceField = function () {
-            return null;
-        };
-        fieldSettingsHandler.CurrentFieldArea = 'data';
         fieldSettingsHandler.FieldSettings = {
             GetDisplayDetails: function () { return {}; },
             DisplayType: 0,
@@ -135,79 +133,51 @@ describe("FieldsChooserHandler", function () {
     });
 
     describe(".SetAggregationSettingForChart", function () {
-
-        it("should not set HideFacetsFunction if not 'row' area", function () {
-
-            fieldsChooserModel.FieldChooserType = 'data';
+        beforeEach(function () {
+            createMockHandler(window, 'anglePageHandler', {
+                HandlerDisplay: {
+                    DisplayResultHandler: {
+                        GetType: function () { return 'my-type'; },
+                        IsScatterOrBubbleType: jQuery.noop
+                    }
+                }
+            });
             fieldsChooserModel.HideFacetsFunction = null;
-            fieldsChooserHandler.SetAggregationSettingForChart({ chart_type: 'bubble' });
-            expect(fieldsChooserModel.HideFacetsFunction).toEqual(null);
-
+        });
+        afterEach(function () {
+            restoreMockHandler('anglePageHandler');
         });
 
-        it("should not set HideFacetsFunction if not 'row' area", function () {
-
-            fieldsChooserModel.FieldChooserType = 'data';
-            fieldsChooserModel.HideFacetsFunction = null;
-            fieldsChooserHandler.SetAggregationSettingForChart({ chart_type: 'scatter' });
-            expect(fieldsChooserModel.HideFacetsFunction).toEqual(null);
-
-        });
-
-        it("should not set HideFacetsFunction if not scatter or bubble", function () {
-
+        it("should set HideFacetsFunction and FieldChooserType (area=row, bubbleOrScatter=true)", function () {
+            // prepare
+            spyOn(ChartHelper, 'IsScatterOrBubbleType').and.returnValue(true);
             fieldsChooserModel.FieldChooserType = 'row';
-            fieldsChooserModel.HideFacetsFunction = null;
-            fieldsChooserHandler.SetAggregationSettingForChart({ chart_type: 'bar' });
-            expect(fieldsChooserModel.HideFacetsFunction).toEqual(null);
+            fieldsChooserHandler.SetAggregationSettingForChart();
 
-        });
-
-        it("should set HideFacetsFunction if row area and is scatter or bubble chart", function () {
-
-            fieldsChooserModel.FieldChooserType = 'row';
-            fieldsChooserModel.HideFacetsFunction = null;
-            fieldsChooserHandler.SetAggregationSettingForChart({ chart_type: 'bubble' });
+            // assert
+            expect(fieldsChooserModel.FieldChooserType).toEqual('row_my-type');
             expect(fieldsChooserModel.HideFacetsFunction).not.toEqual(null);
-
         });
-
-        it("should get 'false' from HideFacetsFunction if not fieldtype category", function () {
-
+        it("should net set HideFacetsFunction and FieldChooserType (area=row, bubbleOrScatter=false)", function () {
+            // prepare
+            spyOn(ChartHelper, 'IsScatterOrBubbleType').and.returnValue(false);
             fieldsChooserModel.FieldChooserType = 'row';
-            fieldsChooserModel.HideFacetsFunction = null;
-            fieldsChooserHandler.SetAggregationSettingForChart({ chart_type: 'scatter' });
-            var result = fieldsChooserModel.HideFacetsFunction('xxx', 'time');
-            expect(result).toEqual(false);
+            fieldsChooserHandler.SetAggregationSettingForChart();
 
+            // assert
+            expect(fieldsChooserModel.FieldChooserType).toEqual('row');
+            expect(fieldsChooserModel.HideFacetsFunction).toEqual(null);
         });
+        it("should net set HideFacetsFunction and FieldChooserType (area=any, bubbleOrScatter=true)", function () {
+            // prepare
+            spyOn(ChartHelper, 'IsScatterOrBubbleType').and.returnValue(true);
+            fieldsChooserModel.FieldChooserType = 'any';
+            fieldsChooserHandler.SetAggregationSettingForChart();
 
-        it("should get 'false' from HideFacetsFunction if support field type", function () {
-
-            fieldsChooserModel.FieldChooserType = 'row';
-            fieldsChooserModel.HideFacetsFunction = null;
-            fieldsChooserHandler.SetAggregationSettingForChart({ chart_type: 'scatter' });
-
-            $.each(['currency', 'number', 'int', 'double', 'percentage', 'date', 'datetime', 'time', 'period'], function (index, fieldType) {
-                var result = fieldsChooserModel.HideFacetsFunction(fieldsChooserModel.CATEGORIES.FIELDTYPE, fieldType);
-                expect(result).toEqual(false);
-            });
-
+            // assert
+            expect(fieldsChooserModel.FieldChooserType).toEqual('any');
+            expect(fieldsChooserModel.HideFacetsFunction).toEqual(null);
         });
-
-        it("should get 'true' from HideFacetsFunction if not support field type", function () {
-
-            fieldsChooserModel.FieldChooserType = 'row';
-            fieldsChooserModel.HideFacetsFunction = null;
-            fieldsChooserHandler.SetAggregationSettingForChart({ chart_type: 'scatter' });
-
-            $.each(['text', 'boolean', 'enumerated'], function (index, fieldType) {
-                var result = fieldsChooserModel.HideFacetsFunction(fieldsChooserModel.CATEGORIES.FIELDTYPE, fieldType);
-                expect(result).toEqual(true);
-            });
-
-        });
-
     });
 
     describe(".GetPopupConfiguration", function () {
@@ -242,7 +212,7 @@ describe("FieldsChooserHandler", function () {
                 type: 'data',
                 index: 1,
                 handler: {
-                    Data: function () { },
+                    GetData: function () { },
                     FilterFor: 'Display',
                     CompareInfo: {}
                 },
@@ -253,7 +223,7 @@ describe("FieldsChooserHandler", function () {
                 type: 'data',
                 index: 2,
                 handler: {
-                    Data: function () { },
+                    GetData: function () { },
                     FilterFor: 'Display',
                     FollowupInfo: {}
                 },

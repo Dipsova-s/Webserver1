@@ -559,7 +559,8 @@
         createFilterTextboxOnReportGrid: function (elementId) {
             jQuery(elementId).prepend('<div class="gridToolbar gridToolbarTop">'
                 + '<div class="gridToolbarFilter">'
-                + '<input type="text" id="ReportGridFilterBox" placeholder="Filter" data-role="gridfilter" data-method="local" data-target="' + elementId + ' .k-grid:visible"><span class="icon icon-filter"></span>'
+                + '<input type="text" id="ReportGridFilterBox" placeholder="Filter" data-role="gridfilter" data-method="local" data-target="' + elementId + ' .k-grid:visible">'
+                + '<span class="icon icon-filter"></span>'
                 + '</div>'
                 + '</div>');
             MC.ui.gridfilter('#ReportGridFilterBox');

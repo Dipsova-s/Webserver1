@@ -11,7 +11,6 @@ function AngleInfoViewModel(model) {
     self.IsStarred = ko.observable(false);
     self.IsPublished = ko.protectedObservable(false);
     self.IsTemplate = ko.protectedObservable(false);
-    self.IsTempTemplate = ko.observable(false);
     self.IsValidated = ko.protectedObservable(false);
     self.ModelName = ko.observable({
         ShortName: ko.observable(''),
@@ -50,27 +49,6 @@ function AngleInfoViewModel(model) {
         return jQuery.when(isTemporary ? self.GetTemporaryAngle() : setting.IsHistory ? self.Data() : GetDataFromWebService(directoryHandler.ResolveDirectoryUri(angleUri), query))
             .then(function (data) {
                 self.SetData(data);
-
-                // save display into history as the original & lastest version
-                if (!setting.IsHistory) {
-                    jQuery.each(self.Data().display_definitions, function (k, v) {
-                        historyModel.Set(v.uri + historyModel.OriginalVersionSuffix, v);
-                        historyModel.Set(v.uri, v);
-                    });
-                }
-                else {
-                    jQuery.each(self.Data().display_definitions, function (k, v) {
-                        var displayHistory = historyModel.Get(v.uri, false);
-                        if (!displayHistory) {
-                            historyModel.Set(v.uri + historyModel.OriginalVersionSuffix, v);
-                        }
-                        displayHistory = historyModel.Get(v.uri);
-                        if (!displayHistory) {
-                            historyModel.Set(v.uri, v);
-                        }
-                    });
-                }
-
                 return jQuery.when(self.Data());
             });
     };
@@ -137,32 +115,8 @@ function AngleInfoViewModel(model) {
         query[enumHandlers.PARAMETERS.CACHING] = false;
         query[enumHandlers.PARAMETERS.MULTILINGUAL] = 'yes';
         return GetDataFromWebService(directoryHandler.ResolveDirectoryUri(angleUri), query)
-            .then(function (data) {
+            .done(function (data) {
                 self.SetData(data);
-                //update data after set state to history model
-                jQuery.each(data.display_definitions, function (index, display) {
-                    var displayHistory = historyModel.Get(display.uri, false);
-                    if (!displayHistory) {
-                        historyModel.Set(display.uri + historyModel.OriginalVersionSuffix, display);
-                        historyModel.Set(display.uri, display);
-                    }
-                    else {
-                        displayHistory.is_public = display.is_public;
-                        displayHistory.is_angle_default = display.is_angle_default;
-                        displayHistory.authorizations = display.authorizations;
-                        historyModel.Set(display.uri + historyModel.OriginalVersionSuffix, displayHistory);
-                        displayHistory = historyModel.Get(display.uri);
-                        displayHistory.is_public = display.is_public;
-                        displayHistory.is_angle_default = display.is_angle_default;
-                        displayHistory.authorizations = display.authorizations;
-                        historyModel.Set(display.uri, displayHistory);
-                    }
-
-                    // update current model
-                    if (display.uri === displayModel.Data().uri) {
-                        displayModel.LoadSuccess(displayHistory);
-                    }
-                });
             });
     };
     self.SetData = function (data) {
@@ -184,7 +138,6 @@ function AngleInfoViewModel(model) {
         self.IsStarred(data.user_specific.is_starred);
         self.IsPublished(data.is_published);
         self.IsTemplate(data.is_template);
-        self.IsTempTemplate(data.is_template);
         self.IsValidated(data.is_validated);
         self.PrivateNote(data.user_specific.private_note);
         self.TimeExcuted(data.user_specific.times_executed);
@@ -211,9 +164,6 @@ function AngleInfoViewModel(model) {
                 displayModel.UpdateAuthorization(displayAuthorizations[0].authorizations);
             }
         }
-
-        //Change angle privilege in local storage
-        userModel.UpdateAnglePrivilege(data);
 
         //Update publications watcher
         self.UpdatePublicationsWatcher();
@@ -251,142 +201,14 @@ function AngleInfoViewModel(model) {
 
         return UpdateDataToWebService(uri + '?' + jQuery.param(params), updateAngle)
             .then(function (data) {
-                //update history
-                if (historyModel) {
-                    jQuery.each(data.display_definitions, function (index, display) {
-                        historyModel.Set(display.uri + historyModel.OriginalVersionSuffix, display);
-                    });
-                }
-
                 self.SetData(data);
-
                 return jQuery.when(data);
             });
     };
-    self.SaveFiltersFromDisplay = function (filters, forced, currentDisplayUri) {
-        filters = ko.toJS(filters);
-
-        var data = {
-            query_definition: ko.toJS(self.Data().query_definition)
-        };
-        var stepBlock = data.query_definition.findObject('queryblock_type', enumHandlers.QUERYBLOCKTYPE.QUERY_STEPS);
-        if (!stepBlock) {
-            data.query_definition.push({
-                queryblock_type: enumHandlers.QUERYBLOCKTYPE.QUERY_STEPS,
-                query_steps: filters
-            });
-        }
-        else {
-            jQuery.merge(stepBlock.query_steps, filters);
-        }
-
-        var getUpdateFilter = function (displayQuerySteps) {
-            var hasChanges = false;
-            var i;
-            jQuery.each(filters, function (indexFilter, filter) {
-                var compareFilter = ko.toJS(filter);
-                WC.ModelHelper.RemoveReadOnlyQueryStep(compareFilter);
-                delete compareFilter.execution_parameter_id;
-                for (i = displayQuerySteps.length - 1; i >= 0; i--) {
-                    var compareDisplayFilter = ko.toJS(displayQuerySteps[i]);
-                    WC.ModelHelper.RemoveReadOnlyQueryStep(compareDisplayFilter);
-                    delete compareDisplayFilter.execution_parameter_id;
-                    if (jQuery.deepCompare(compareFilter, compareDisplayFilter, true, true)) {
-                        displayQuerySteps.splice(i, 1);
-                        hasChanges = true;
-                    }
-                }
-            });
-            var updateDisplayData;
-            if (hasChanges) {
-                if (displayQuerySteps.length) {
-                    updateDisplayData = {
-                        query_blocks: [{
-                            queryblock_type: enumHandlers.QUERYBLOCKTYPE.QUERY_STEPS,
-                            query_steps: displayQuerySteps
-                        }]
-                    };
-                }
-                else {
-                    updateDisplayData = {
-                        query_blocks: []
-                    };
-                }
-            }
-            else {
-                updateDisplayData = null;
-            }
-            return updateDisplayData;
-        };
-        var updateDisplayFilter = function (displayUri, displayData) {
-            var params = {};
-            params[enumHandlers.PARAMETERS.ACCEPT_WARNINGS] = true;
-            params[enumHandlers.PARAMETERS.MULTILINGUAL] = 'yes';
-            params[enumHandlers.PARAMETERS.FORCED] = !!forced;
-            return UpdateDataToWebService(displayUri + '?' + jQuery.param(params), displayData);
-        };
-        return self.UpdateAngle(self.Data().uri, data, forced)
-            .then(function (response) {
-                // remove duplicate query step
-                var displaysDeferred = [];
-                jQuery.each(response.display_definitions, function (index, display) {
-                    if (display.query_blocks.length && display.uri !== currentDisplayUri) {
-                        var updateDisplayData = getUpdateFilter(display.query_blocks[0].query_steps);
-                        if (updateDisplayData) {
-                            displaysDeferred.pushDeferred(updateDisplayFilter, [display.uri, updateDisplayData]);
-                        }
-                    }
-                });
-                return jQuery.whenAll(displaysDeferred);
-            })
-            .done(function () {
-                // force to post a new result
-                resultModel.Data().posted_angle = [];
-
-                // update change history
-                for (var i = 0; i < arguments.length; i++) {
-                    if (arguments[i][1] === 'success') {
-                        var display = WC.ModelHelper.ExtendDisplayData(arguments[i][0]);
-
-                        // update Angle model
-                        var indexOfDisplay = self.Data().display_definitions.indexOfObject('uri', display.uri);
-                        if (indexOfDisplay !== -1) {
-                            self.Data().display_definitions[indexOfDisplay].query_blocks = display.query_blocks;
-                        }
-
-                        // original display data
-                        var historyData = historyModel.Get(display.uri, false);
-                        if (historyData) {
-                            historyData.query_blocks = display.query_blocks;
-                            historyModel.Set(display.uri + historyModel.OriginalVersionSuffix, historyData);
-                        }
-
-                        // current display data
-                        historyData = historyModel.Get(display.uri);
-                        if (historyData) {
-                            historyData.query_blocks = display.query_blocks;
-                            historyModel.Set(display.uri, historyData);
-                        }
-                    }
-                }
-
-                // remove posted result history
-                jQuery.each(self.Data().display_definitions, function (index, display) {
-                    // original display data
-                    var historyData = historyModel.Get(display.uri, false);
-                    if (historyData) {
-                        delete historyData.results;
-                        historyModel.Set(display.uri + historyModel.OriginalVersionSuffix, historyData);
-                    }
-
-                    // current display data
-                    historyData = historyModel.Get(display.uri);
-                    if (historyData) {
-                        delete historyData.results;
-                        historyModel.Set(display.uri, historyData);
-                    }
-                });
-            });
+    self.UpdateAdhoc = function (_uri, data) {
+        var newData = jQuery.extend({}, WC.ModelHelper.ExtendAngleData(self.Data()), data);
+        self.SetData(newData);
+        return jQuery.when(newData);
     };
 
     /*  M4-10057: Implement state transfers for angles/displays/dashboards
@@ -407,7 +229,6 @@ function AngleInfoViewModel(model) {
                 self.Data().is_validated = data.is_validated;
                 self.IsPublished(data.is_published);
                 self.IsTemplate(data.is_template);
-                self.IsTempTemplate(data.is_template);
                 self.IsValidated(data.is_validated);
                 self.Data.commit();
                 self.IsPublished.commit();
@@ -441,33 +262,34 @@ function AngleInfoViewModel(model) {
         self.AllowMoreDetails.reset();
     };
     self.SetFavoriteItem = function (model, event) {
-        if (angleInfoModel.Data().authorizations.update_user_specific) {
-            requestHistoryModel.SaveLastExecute(self, self.SetFavoriteItem, arguments);
-            if (!angleInfoModel.IsTemporaryAngle()) {
-                var element = jQuery(event.target);
-                var data = {
-                    user_specific: {
-                        is_starred: !self.Data().user_specific.is_starred
-                    }
-                };
-                element.removeClass('SignFavoriteDisable SignFavorite').addClass('loader-spinner-inline');
-                var query = {};
-                query[enumHandlers.PARAMETERS.FORCED] = true;
-                jQuery.when(UpdateDataToWebService(self.Data().uri + '?' + jQuery.param(query), data))
-                    .done(function (response) {
-                        self.IsStarred(response.user_specific.is_starred);
-                        self.Data().user_specific.is_starred = response.user_specific.is_starred;
-                        self.Data.commit();
-                    })
-                    .always(function () {
-                        element.removeClass('loader-spinner-inline');
-                    });
-            }
-            else {
-                self.Data().user_specific.is_starred = !self.Data().user_specific.is_starred;
-                self.Data.commit();
-                self.IsStarred(self.Data().user_specific.is_starred);
-            }
+        if (!self.CanSetUserSpecific())
+            return jQuery.when(self.Data());
+        
+        if (!self.IsTemporaryAngle()) {
+            var element = jQuery(event.target);
+            var data = {
+                user_specific: {
+                    is_starred: !self.Data().user_specific.is_starred
+                }
+            };
+            element.removeClass('icon-star-inactive icon-star-active SignFavoriteDisable SignFavorite').addClass('loader-spinner-inline');
+            var query = {};
+            query[enumHandlers.PARAMETERS.FORCED] = true;
+            return jQuery.when(UpdateDataToWebService(self.Data().uri + '?' + jQuery.param(query), data))
+                .done(function (response) {
+                    self.IsStarred(response.user_specific.is_starred);
+                    self.Data().user_specific.is_starred = response.user_specific.is_starred;
+                    self.Data.commit();
+                })
+                .always(function () {
+                    element.removeClass('loader-spinner-inline');
+                });
+        }
+        else {
+            self.Data().user_specific.is_starred = !self.Data().user_specific.is_starred;
+            self.Data.commit();
+            self.IsStarred(self.Data().user_specific.is_starred);
+            return jQuery.when(self.Data());
         }
     };
     self.SetAngleDetailModelName = function (angle) {
@@ -533,74 +355,79 @@ function AngleInfoViewModel(model) {
         });
     };
     self.GetAngleDescription = function (detail) {
-        var html = '<a class="btnInfo icon icon-info" onclick="angleDetailPageHandler.ShowInfoPopup()"></a>';
+        var html = '';
         if (detail) {
             detail = detail = WC.HtmlHelper.StripHTML(detail, true);
             html = detail + html;
         }
         return html;
     };
-    self.CreateFromTemplate = function (model) {
+    self.CreateFromTemplate = function (model, displayUri) {
         // set template & temporary angle to localStorage
         self.SetTemplateAngle(model);
 
-        return self.CreateTempAngle(model);
+        return self.CreateTempAngle(displayUri);
     };
-    self.CreateTempAngle = function () {
-        var newAngle = self.GetTemporaryAngle(),
-            displayUri = WC.Utility.UrlParameter(enumHandlers.ANGLEPARAMETER.DISPLAY),
-            editmode = WC.Utility.UrlParameter(enumHandlers.ANGLEPARAMETER.EDITMODE),
-            display;
+    self.CreateTempAngle = function (displayUri) {
+        var newAngle = self.GetTemporaryAngle();
 
         // to make sure, it's not garbage angle
-        if (typeof newAngle.display_definitions !== 'undefined' && newAngle.display_definitions.length) {
-            var newDisplay,
-                currentUser = userModel.Data(),
-                defaultAngleDisplayId = null;
+        newAngle.display_definitions = WC.Utility.ToArray(newAngle.display_definitions);
+        if (newAngle.display_definitions.length) {
+            var currentUser = userModel.Data();
+            var defaultDisplay, display;
 
             // create temporary for each displays
+            var displayMappers = {};
             jQuery.each(newAngle.display_definitions, function (k, v) {
+                var guid = jQuery.GUID();
+                var newId = 'd' + guid.replace(/-/g, '');
+                displayMappers[v.id] = newId;
+                v.id =  newId;
                 if (v.uri === displayUri) {
                     display = v;
                 }
-
-                newDisplay = jQuery.GUID();
-                if (newAngle.angle_default_display === v.id) {
-                    defaultAngleDisplayId = 'd' + newDisplay.replace(/-/g, '');
+                if (v.is_angle_default) {
+                    defaultDisplay = v;
                 }
-                v.__id = v.id;
-                v.id = 'd' + newDisplay.replace(/-/g, '');
+                
                 v.uri_template = v.uri;
-                v.uri = newAngle.uri + '/displays/' + newDisplay;
-                if (!newAngle.is_published) {
-                    v.is_public = false;
-                }
+                v.uri = newAngle.uri + '/displays/' + guid;
+                v.is_public = false;
                 v.created = {
                     user: currentUser.uri,
                     datetime: WC.DateHelper.GetCurrentUnixTime(),
                     full_name: currentUser.full_name
                 };
+                v.used_in_task = false;
                 delete v.user_specific;
-            });
-            jQuery.each(newAngle.display_definitions, function (k, v) {
-                var displayDetails = WC.Utility.ParseJSON(v.display_details);
-                if (displayDetails.drilldown_display) {
-                    var drilldownTargetDisplay = newAngle.display_definitions.findObject('__id', displayDetails.drilldown_display);
-                    if (drilldownTargetDisplay) {
-                        displayDetails.drilldown_display = drilldownTargetDisplay.id;
-                    }
-                    else {
-                        delete displayDetails.drilldown_display;
-                    }
-                    v.display_details = ko.toJSON(displayDetails);
-                }
                 displayModel.SetTemporaryDisplay(v.uri, v);
             });
-            if (!defaultAngleDisplayId) {
-                defaultAngleDisplayId = newAngle.display_definitions[0].id;
-            }
-            newAngle.angle_default_display = defaultAngleDisplayId;
             delete newAngle.user_specific;
+
+            // drilldown_display
+            jQuery.each(newAngle.display_definitions, function (index, display) {
+                var details = WC.Utility.ParseJSON(display.display_details);
+                if (details.drilldown_display && displayMappers[details.drilldown_display]) {
+                    details.drilldown_display = displayMappers[details.drilldown_display];
+                }
+                else {
+                    delete details.drilldown_display;
+                }
+                display.display_details = ko.toJSON(details);
+            });
+
+            // set display
+            if (!display) {
+                display = defaultDisplay || newAngle.display_definitions[0];
+            }
+
+            // set default Display
+            if (!defaultDisplay) {
+                defaultDisplay = newAngle.display_definitions[0];
+                defaultDisplay.is_angle_default = true;
+            }
+            newAngle.angle_default_display = defaultDisplay.id;
 
             // update model
             self.SetData(jQuery.extend({}, newAngle));
@@ -608,21 +435,11 @@ function AngleInfoViewModel(model) {
             // update temp
             self.SetTemporaryAngle(newAngle);
 
-            // redirect to temporary angle
-            var query = {};
-            if (editmode) {
-                query[enumHandlers.ANGLEPARAMETER.EDITMODE] = true;
-            }
-
-            // set display
-            if (!display) {
-                display = newAngle.display_definitions[0];
-            }
-
-            return WC.Utility.GetAnglePageUri(newAngle.uri, display.uri, query);
+            return { angle: newAngle.uri, display: display.uri };
         }
         else {
             // garbage angle
+            self.TemporaryAngle(null);
             return false;
         }
     };
@@ -725,10 +542,10 @@ function AngleInfoViewModel(model) {
         return self.TemporaryAngle() ? self.TemporaryAngle().data : {};
     };
     self.DeleteTemporaryAngle = function () {
-        historyModel.ClearAll(self.GetTemporaryAngle().uri);
-
         jQuery.localStorage.removeItem(self.TemporaryAngleName);
         jQuery.localStorage.removeItem(displayModel.TemporaryDisplayName);
+        self.TemporaryAngle(null);
+        displayModel.TemporaryDisplay(null);
     };
     self.IsTemporaryAngle = function (angle) {
         if (typeof angle === 'undefined') angle = WC.Utility.UrlParameter(enumHandlers.ANGLEPARAMETER.ANGLE) || '';
@@ -760,6 +577,9 @@ function AngleInfoViewModel(model) {
         var disallowedNames = ['assigned_labels', 'query_definition', 'allow_more_details', 'allow_followups'];
 
         return WC.ModelHelper.CanUpdateItem(name, canUpdate, isValidated, disallowedNames);
+    };
+    self.CanSetUserSpecific = function () {
+        return self.Data() && self.Data().authorizations.update_user_specific;
     };
     //EOF: View model methods
 

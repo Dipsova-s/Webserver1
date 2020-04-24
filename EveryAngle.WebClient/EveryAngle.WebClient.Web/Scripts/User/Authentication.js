@@ -15,7 +15,7 @@ function Authentication() {
     }
 
     // assign to global
-    window.UserLogin = function (username, password, isModalPopup) {
+    window.UserLogin = function (username, password) {
         _self.HideErrorMessage();
 
         if (!self.IsBrowserSupport()) {
@@ -25,7 +25,7 @@ function Authentication() {
             return;
         }
 
-        if (!self.Authenticate(username, password, isModalPopup)) {
+        if (!self.Authenticate(username, password)) {
 
             _self.ShowErrorMessage(requireUserNameAndPasword);
             _self.SetControlFocus();
@@ -105,7 +105,7 @@ function Authentication() {
 
                 form.submitted = true;
 
-                window.UserLogin(usernameElement.val(), passwordElement.val(), false);
+                window.UserLogin(usernameElement.val(), passwordElement.val());
             });
 
         jQuery('#oldPassword, #newPassword, #ComparedPassword')
@@ -132,64 +132,6 @@ function Authentication() {
             });
     };
 
-    self.ShowLoginPopup = function () {
-        DeleteCookie('EASECTOKEN', rootWebsitePath);
-        if (requestHistoryModel.ClearPopupBeforeExecute) {
-            if (popup.Current) {
-                popup.Current.destroy();
-            }
-            popup.CloseAll();
-        }
-
-        var userData = jQuery.localStorage('currentuser');
-        var popupName = 'LoginPopup';
-        var popupSettings = {
-            element: '#popup' + popupName,
-            content: WC.HtmlHelper.GetInternalUri('login', 'user', { popup: true }),
-            className: 'popup' + popupName,
-            actions: [],
-            buttons: null,
-            resizable: false,
-            refresh: function (e) {
-                e.sender.toFront();
-
-                self.ClearAuthorizedData(false);
-
-                jQuery('#CancelButton').show();
-                if (userData === 'undefined') {
-                    jQuery('#UserName').val('').prop('disabled', false);
-                }
-                else {
-                    jQuery('#UserName').val(userData).prop('disabled', true);
-                }
-                setTimeout(function () {
-                    jQuery('#Password, #LoginButton').prop('disabled', false);
-                }, 500);
-
-                jQuery('.SessonExpiredDetail').text('Requests cancelled because of session expired');
-            },
-            open: function (e) {
-                if (e.sender.isPopupInitialized) {
-                    jQuery('#Password').val('');
-                    jQuery('#ErrorMessage').removeClass('info').text('').show();
-
-                    setTimeout(function () {
-                        jQuery('#Password, #LoginButton').prop('disabled', false);
-                    }, 500);
-                }
-            }
-        };
-
-        var win = popup.Show(popupSettings);
-        if (win) {
-            win.toFront();
-        }
-    };
-
-    self.CloseLoginPopup = function () {
-        popup.Close('#popupLoginPopup');
-    };
-
     self.IsBrowserSupport = function () {
         return Modernizr.localstorage;
     };
@@ -206,16 +148,13 @@ function Authentication() {
         return navigatorInfo.platform === 'MacIntel' && navigatorInfo.maxTouchPoints > 1;
     };
 
-    self.Authenticate = function (username, password, isModalPopup) {
-        if (!isModalPopup) {
-            jQuery.localStorage('loginfailcount', 0);
-
-            jQuery.removeCookie('EAAuthentication', { 'path': searchPageUrl });
-            jQuery.removeCookie('EAAuthentication', { 'path': anglePageUrl });
-            jQuery.removeCookie('EAAuthentication', { 'path': dashboardPageUrl });
-            jQuery.removeCookie('EAAuthentication', { 'path': rootWebsitePath });
-            jQuery.removeCookie('EAAuthentication', { 'path': '/' });
-        }
+    self.Authenticate = function (username, password) {
+        jQuery.localStorage('loginfailcount', 0);
+        jQuery.removeCookie('EAAuthentication', { 'path': searchPageUrl });
+        jQuery.removeCookie('EAAuthentication', { 'path': anglePageUrl });
+        jQuery.removeCookie('EAAuthentication', { 'path': dashboardPageUrl });
+        jQuery.removeCookie('EAAuthentication', { 'path': rootWebsitePath });
+        jQuery.removeCookie('EAAuthentication', { 'path': '/' });
 
         username = jQuery.trim(username);
         password = jQuery.trim(password);
@@ -264,21 +203,6 @@ function Authentication() {
                         return CreateDataToWebService(loginUrl, encodedPassword);
                     })
                     .fail(function (xhr, status, error) {
-                        //count login fail
-                        if (isModalPopup) {
-                            var loginfailcount = parseInt(jQuery.localStorage('loginfailcount'));
-                            if (isNaN(loginfailcount))
-                                loginfailcount = 0;
-                            loginfailcount++;
-
-                            if (loginfailcount >= 3) {
-                                ClearCookies(rootWebsitePath);
-                                window.location = loginPageUrl;
-                            }
-                            else {
-                                jQuery.localStorage('loginfailcount', loginfailcount);
-                            }
-                        }
                         mainDeferred.notify('');
                         deferred.reject(xhr, status, error);
 
@@ -348,7 +272,7 @@ function Authentication() {
 
                     // on done
                     .done(function (redirectUrl) {
-                        _self.RedirectToView(mainDeferred, redirectUrl, isModalPopup);
+                        _self.RedirectToView(mainDeferred, redirectUrl);
                     });
             };
 
@@ -489,13 +413,10 @@ function Authentication() {
             return jQuery.when(redirectUrl);
         }
     };
-    _self.RedirectToView = function (mainDeferred, redirectUrl, isModalPopup) {
+    _self.RedirectToView = function (mainDeferred, redirectUrl) {
         if (redirectUrl) {
             mainDeferred.notify('Redirecting...');
             mainDeferred.resolve(redirectUrl);
-        }
-        else if (isModalPopup) {
-            requestHistoryModel.Execute();
         }
     };
 
@@ -506,8 +427,14 @@ function Authentication() {
         progressbarModel.ShowStartProgressBar();
         progressbarModel.SetDisableProgressBar();
         setTimeout(function () {
+            var additionalRequests = [];
             var clientSettingsRequest = userSettingModel.GetClientSettingsData();
-            WC.Ajax.ExecuteBeforeExit(clientSettingsRequest ? [clientSettingsRequest] : [], false);
+            var sidePanelSettingsData = userSettingModel.GetSidePanelSettingsData();
+            if (clientSettingsRequest)
+                additionalRequests.push(clientSettingsRequest);
+            if (sidePanelSettingsData)
+                additionalRequests.push(sidePanelSettingsData);
+            WC.Ajax.ExecuteBeforeExit(additionalRequests, false);
             jQuery('html').addClass('noPopup');
 
             WC.Ajax.EnableBeforeExit = false;

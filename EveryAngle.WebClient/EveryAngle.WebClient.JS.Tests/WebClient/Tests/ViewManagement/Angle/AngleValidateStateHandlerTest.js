@@ -13,31 +13,51 @@ describe("AngleStateHandler", function () {
     beforeEach(function () {
         angleStateHandler = new AngleStateHandler();
         spyOn(toast, 'MakeSuccessText');
+        createMockHandler(window, 'anglePageHandler', {
+            ExecuteAngle: $.noop,
+            HandlerAngle: {
+                ClearData: $.noop,
+                ConfirmSave: $.noop
+            }
+        });
+    });
+    afterEach(function () {
+        restoreMockHandlers();
     });
 
     describe(".ValidateItem", function () {
-        it('always return true and call all functions', function () {
-            window.anglePageHandler = window.anglePageHandler || { ApplyExecutionAngle: $.noop };
-            spyOn(angleStateHandler, 'ShowValidatingProgressbar').and.callFake($.noop);
+        it('set all functions and call confirm save', function () {
+            spyOn(anglePageHandler.HandlerAngle, 'ConfirmSave');
+
+            // act
+            angleStateHandler.ValidateItem();
+
+            // assert
+            expect(anglePageHandler.HandlerAngle.ConfirmSave).toHaveBeenCalled();
+        });
+    });
+
+    describe(".CallbackValidateItem", function () {
+        it('should call all functions', function () {
+            spyOn(angleStateHandler, 'ShowValidatingProgressbar');
             spyOn(angleStateHandler, 'UpdateState').and.callFake(function (uri, data, callback) {
                 callback();
             });
-            spyOn(angleInfoModel, 'LoadAngle').and.returnValue($.when());
-            spyOn(angleStateHandler, 'HideValidatingProgressbar').and.callFake($.noop);
-            spyOn(angleStateHandler, 'CloseValidatePopup').and.callFake($.noop);
-            spyOn(anglePageHandler, 'ApplyExecutionAngle').and.callFake($.noop);
+            spyOn(angleStateHandler, 'HideValidatingProgressbar');
+            spyOn(angleStateHandler, 'CloseValidatePopup');
+            spyOn(anglePageHandler.HandlerAngle, 'ClearData');
+            spyOn(anglePageHandler, 'ExecuteAngle');
 
             // act
-            var result = angleStateHandler.ValidateItem();
+            angleStateHandler.CallbackValidateItem();
 
             // assert
-            expect(result).toEqual(true);
             expect(angleStateHandler.ShowValidatingProgressbar).toHaveBeenCalled();
             expect(angleStateHandler.UpdateState).toHaveBeenCalled();
-            expect(angleInfoModel.LoadAngle).toHaveBeenCalled();
             expect(angleStateHandler.HideValidatingProgressbar).toHaveBeenCalled();
             expect(angleStateHandler.CloseValidatePopup).toHaveBeenCalled();
-            expect(anglePageHandler.ApplyExecutionAngle).toHaveBeenCalled();
+            expect(anglePageHandler.HandlerAngle.ClearData).toHaveBeenCalled();
+            expect(anglePageHandler.ExecuteAngle).toHaveBeenCalled();
         });
     });
 });

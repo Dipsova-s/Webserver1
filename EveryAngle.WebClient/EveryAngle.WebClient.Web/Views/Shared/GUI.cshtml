@@ -15,13 +15,16 @@
             padding: 0 20px;
             font-size: 12px;
         }
+
         hr {
             margin: 20px 0;
         }
+
         #IconDemo {
             text-align: center;
             overflow: hidden;
         }
+
         #IconDemo .form-row {
             flex-wrap: wrap;
         }
@@ -62,7 +65,7 @@
 }
 
     <div id="MainContent" class="Wrapper">
-        <h3>Icons (<a href="~/Content/fonts/WebClient.readme.txt" target="_blank">readme</a>)</h3>
+        <h3>Icons</h3>
         <div id="IconDemo">
             <div class="form-row"></div>
             <script>
@@ -74,7 +77,10 @@
                             'icon-download', 'icon-close', 'icon-link', 'icon-maximize', 'icon-minimize',
                             'icon-info', 'icon-angle', 'icon-bin', 'icon-parameterized', 'icon-filter', 'icon-followup',
                             'icon-list', 'icon-chart', 'icon-pivot', 'icon-private', 'icon-public', 'icon-validated',
-                            'icon-plus', 'icon-star-active', 'icon-star-inactive'
+                            'icon-plus', 'icon-star-active', 'icon-star-inactive', 'icon-meatballs', 'icon-meatballs-vertical',
+                            'icon-pencil', 'icon-hamburger', 'icon-gear', 'icon-setting', 'icon-setting-horizontal', 'icon-undo',
+                            'icon-add-filter', 'icon-bin-empty', 'icon-select-invert', 'icon-select-all', 'icon-select-none',
+                            'icon-displays', 'icon-format', 'icon-reference'
                         ];
                         var container = $('#IconDemo .form-row');
                         $.each(icons, function (index, icon) {
@@ -93,6 +99,11 @@
             <a class="btn float-right"><i class="icon validWarning"></i><span>Default</span></a>
             <a class="btn disabled float-right"><span>Default (.disabled)</span></a>
             <a class="btn btn-busy float-right" data-busy="Loading..."><span>Default</span></a>
+
+            <a class="btn btn-split"><span>Default (.btn-split)</span></a>
+            <a class="btn"><i class="icon icon-chevron-down"></i></a>
+            <a class="btn btn-split disabled"><span>Default (.btn-split.disabled)</span></a>
+            <a class="btn"><i class="icon icon-chevron-down"></i></a>
         </div>
         <div class="btn-wrapper">
             <a class="btn btn-primary btn-small"><span>Primary (.btn-small)</span></a>
@@ -101,6 +112,11 @@
             <a class="btn btn-primary"><i class="icon validWarning"></i><span>Primary</span></a>
             <a class="btn btn-primary disabled"><span>Primary (.disabled)</span></a>
             <a class="btn btn-primary btn-busy" data-busy="Loading..."><span>Primary</span></a>
+
+            <a class="btn btn-primary btn-split"><span>Primary (.btn-split)</span></a>
+            <a class="btn btn-primary"><i class="icon icon-chevron-down"></i></a>
+            <a class="btn btn-primary btn-split disabled"><span>Primary (.btn-split.disabled)</span></a>
+            <a class="btn btn-primary"><i class="icon icon-chevron-down"></i></a>
         </div>
         <div class="btn-wrapper">
             <a class="btn btn-secondary btn-small"><span>Secondary (.btn-small)</span></a>
@@ -108,6 +124,11 @@
             <a class="btn btn-secondary"><span>Secondary</span><i class="icon validWarning"></i></a>
             <a class="btn btn-secondary disabled"><span>Secondary (.disabled)</span></a>
             <a class="btn btn-secondary btn-busy" data-busy="Loading..."><span>Secondary</span></a>
+
+            <a class="btn btn-secondary btn-split"><span>Secondary (.btn-split)</span></a>
+            <a class="btn btn-secondary"><i class="icon icon-chevron-down"></i></a>
+            <a class="btn btn-secondary btn-split disabled"><span>Secondary (.btn-split.disabled)</span></a>
+            <a class="btn btn-secondary"><i class="icon icon-chevron-down"></i></a>
         </div>
         <div class="btn-wrapper">
             <a class="btn btn-ghost btn-small"><span>Ghost (.btn-small)</span></a>
@@ -115,6 +136,11 @@
             <a class="btn btn-ghost"><span>Ghost</span><i class="icon validWarning"></i></a>
             <a class="btn btn-ghost disabled"><span>Ghost (.disabled)</span></a>
             <a class="btn btn-ghost btn-busy" data-busy="Loading..."><span>Ghost</span></a>
+
+            <a class="btn btn-ghost btn-split"><span>Ghost (.btn-split)</span></a>
+            <a class="btn btn-ghost"><i class="icon icon-chevron-down"></i></a>
+            <a class="btn btn-ghost btn-split disabled"><span>Ghost (.btn-split.disabled)</span></a>
+            <a class="btn btn-ghost"><i class="icon icon-chevron-down"></i></a>
         </div>
         <div class="btn-wrapper">
             <a class="btn btn-success btn-small"><span>Success (.btn-small)</span></a>
@@ -122,6 +148,11 @@
             <a class="btn btn-success"><span>Success</span><i class="icon validWarning"></i></a>
             <a class="btn btn-success disabled"><span>Success (.disabled)</span></a>
             <a class="btn btn-success btn-busy" data-busy="Loading..."><span>Success</span></a>
+
+            <a class="btn btn-success btn-split"><span>Success (.btn-split)</span></a>
+            <a class="btn btn-success"><i class="icon icon-chevron-down"></i></a>
+            <a class="btn btn-success btn-split disabled"><span>Success (.btn-split.disabled)</span></a>
+            <a class="btn btn-success"><i class="icon icon-chevron-down"></i></a>
         </div>
         <div class="btn-wrapper">
             <a class="btn btn-light btn-small"><span>Light (.btn-small)</span></a>
@@ -129,6 +160,11 @@
             <a class="btn btn-light"><span>Light</span><i class="icon validWarning"></i></a>
             <a class="btn btn-light disabled"><span>Light (.disabled)</span></a>
             <a class="btn btn-light btn-busy" data-busy="Loading..."><span>Light</span></a>
+
+            <a class="btn btn-light btn-split"><span>Light (.btn-split)</span></a>
+            <a class="btn btn-light"><i class="icon icon-chevron-down"></i></a>
+            <a class="btn btn-light btn-split disabled"><span>Light (.btn-split.disabled)</span></a>
+            <a class="btn btn-light"><i class="icon icon-chevron-down"></i></a>
         </div>
         <hr />
 
@@ -137,6 +173,17 @@
             <a class="k-button">Button</a>
             <a class="k-button k-primary">Button (.k-primary)</a>
         </div>
+        <hr />
+
+        <h3>Kendo's editor</h3>
+        <textarea id="Editor"></textarea>
+        <script>
+            $(function () {
+                checkReady(function () { return window.WC.HtmlHelper; }, function () {
+                    WC.HtmlHelper.Editor('#Editor');
+                });
+            });
+        </script>
         <hr />
 
         <h3>Tooltip</h3>
@@ -305,6 +352,8 @@
             Textbox
             <input type="text" />
             <input type="text" placeholder="disabled" disabled />
+            <input type="text" class="input-light" />
+            <input type="text" class="input-light" placeholder="disabled" disabled />
         </p>
         <p>
             NumericTextBox
@@ -796,15 +845,15 @@
             <div class="item-label-wrapper">
                 <div class="item-label">
                     <span>Label 1</span>
-                    <a class="btn-remove"><i class="icon remove"></i></a>
+                    <a class="btn-remove"><i class="icon icon-close"></i></a>
                 </div>
                 <div class="item-label">
                     <span>Label 2</span>
-                    <a class="btn-remove"><i class="icon remove"></i></a>
+                    <a class="btn-remove"><i class="icon icon-close"></i></a>
                 </div>
                 <div class="item-label">
                     <span>Label 3</span>
-                    <a class="btn-remove"><i class="icon remove"></i></a>
+                    <a class="btn-remove"><i class="icon icon-close"></i></a>
                 </div>
             </div>
         </div>
@@ -812,15 +861,15 @@
             <div class="item-label-wrapper">
                 <div class="item-label item-label-light">
                     <span>Label 1 (.item-label-light)</span>
-                    <a class="btn-remove"><i class="icon remove"></i></a>
+                    <a class="btn-remove"><i class="icon icon-close"></i></a>
                 </div>
                 <div class="item-label item-label-light">
                     <span>Label 2 (.item-label-light)</span>
-                    <a class="btn-remove"><i class="icon remove"></i></a>
+                    <a class="btn-remove"><i class="icon icon-close"></i></a>
                 </div>
                 <div class="item-label item-label-light">
                     <span class="strike-through">Label 3 (.item-label-light)</span>
-                    <a class="btn-remove"><i class="icon remove"></i></a>
+                    <a class="btn-remove"><i class="icon icon-close"></i></a>
                 </div>
             </div>
         </div>
@@ -857,6 +906,11 @@
                     <i class="open-indicator icon icon-caret-down"></i>
                     <i class="close-indicator icon icon-caret-right"></i>
                     Accordion 1
+                    <div class="accordion-toolbar">
+                        <a class="action">
+                            <i class="icon icon-followup"></i>
+                        </a>
+                    </div>
                 </div>
                 <div class="accordion-body">Blah blah...</div>
             </li>
@@ -900,12 +954,24 @@
 
         <h3>Card</h3>
         <div class="card">
-            <div class="card-header">Header</div>
+            <div class="card-header">
+                Header
+                <div class="card-toolbar">
+                    <a class="action"><i class="icon icon-followup"></i></a>
+                    <a class="action"><i class="icon icon-info"></i></a>
+                </div>
+            </div>
             <div class="card-body">Content... (default)</div>
         </div>
 
         <div class="card card-dark">
-            <div class="card-header">Header</div>
+            <div class="card-header">
+                Header
+                <div class="card-toolbar">
+                    <a class="action"><i class="icon icon-followup"></i></a>
+                    <a class="action"><i class="icon icon-info"></i></a>
+                </div>
+            </div>
             <div class="card-body">Content... (.card-dark)</div>
         </div>
         <hr />
@@ -931,5 +997,102 @@
         <hr />
 
         <h3>Tab</h3>
+        <div class="tab" id="Tab1">
+            <div class="tab-menu-wrapper">
+                <div class="tab-menu">Tab 1</div>
+                <div class="tab-menu">Tab 2</div>
+                <div class="tab-menu">Tab 3</div>
+            </div>
+            <div class="tab-content-wrapper box-scrollable">
+                <div class="box-scrollable-content">
+                    <div class="tab-content">
+                        Tab 1
+                    </div>
+                    <div class="tab-content">
+                        Tab 2
+                    </div>
+                    <div class="tab-content">
+                        Tab 3
+                    </div>
+                </div>
+            </div>
+        </div>
+        <br>
+        <div class="tab tab-details" id="Tab2">
+            <div class="tab-menu-wrapper">
+                <div class="tab-menu">Tab 1</div>
+                <div class="tab-menu">Tab 2</div>
+                <div class="tab-menu">Tab 3</div>
+            </div>
+            <div class="tab-content-wrapper box-scrollable">
+                <div class="box-scrollable-content">
+                    <div class="tab-content">
+                        Tab 1
+                    </div>
+                    <div class="tab-content">
+                        Tab 2
+                    </div>
+                    <div class="tab-content">
+                        Tab 3
+                    </div>
+                </div>
+            </div>
+        </div>
+        <br>
+        <div class="tab tab-settings" id="Tab3">
+            <div class="tab-menu-wrapper">
+                <div class="tab-menu">Tab 1</div>
+                <div class="tab-menu">Tab 2</div>
+                <div class="tab-menu">Tab 3</div>
+            </div>
+            <div class="tab-content-wrapper box-scrollable">
+                <div class="box-scrollable-content">
+                    <div class="tab-content">
+                        Tab 1
+                    </div>
+                    <div class="tab-content">
+                        Tab 2
+                    </div>
+                    <div class="tab-content">
+                        Tab 3
+                    </div>
+                </div>
+            </div>
+        </div>
+        <br>
+        <div class="tab tab-full" id="Tab4">
+            <div class="tab-menu-wrapper">
+                <div class="tab-menu">Tab 1</div>
+                <div class="tab-menu">Tab 2</div>
+                <div class="tab-menu">Tab 3</div>
+            </div>
+            <div class="tab-content-wrapper box-scrollable">
+                <div class="box-scrollable-content">
+                    <div class="tab-content">
+                        Tab 1
+                    </div>
+                    <div class="tab-content">
+                        Tab 2
+                    </div>
+                    <div class="tab-content">
+                        Tab 3
+                    </div>
+                </div>
+            </div>
+        </div>
+        <script>
+            $(function () {
+                checkReady(function () { return window.WC.HtmlHelper; }, function () {
+                    WC.HtmlHelper.Tab('#Tab1', {
+                        change: function (index, element) {
+                            // callback
+                        }
+                    });
+                    WC.HtmlHelper.Tab('#Tab2');
+                    WC.HtmlHelper.Tab('#Tab3');
+                    WC.HtmlHelper.Tab('#Tab4');
+                });
+            });
+        </script>
         <hr />
     </div>

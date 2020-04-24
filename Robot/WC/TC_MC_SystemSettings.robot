@@ -57,10 +57,3 @@ Input Program/Scripts folder path and save on system settings page
     [Tags]      TC-C39021
     Input Program/Script folder path and Save       ${Program/ScriptFolderPath}
     Verify Program/Script folder path saved correctly     ${Program/ScriptFolderPath}
-    
-    
-    
-    
-    
-
-    

@@ -150,7 +150,7 @@
 }
 
 .btnLogout:after {
-    background-image: url(../images/icons/icon_logout.png);
+    background-image: url(../images/icons/icon_logout.svg);
 }
 
 .btnCopy:after {
@@ -715,18 +715,16 @@ div.tagsinput .not_valid {
 
 .helpTextPopup .k-window-titlebar .icon {
     position: relative;
-    top: 15px;
+    top: -6px;
     left: 4px;
     width: 20px;
-    height: 20px;
+    height: 16px;
     margin-left: 2px;
     float: left;
     z-index: 2;
 }
 
 .helpTextPopup .k-window-titlebar .iconCategory img {
-    position: relative;
-    top: 1px;
     border: 0;
 }
 
@@ -737,18 +735,22 @@ div.tagsinput .not_valid {
 .helpTextPopup .k-window-titlebar .iconStatus {
     background: transparent none center center no-repeat;
     margin-left: 15px;
+    cursor: inherit;
 }
 
 .helpTextPopup .k-window-titlebar .DisplayPropertiesGridSignFavorite {
     background-image: url(./externalresource/icon_starred_active.svg);
+    background-size: 14px 14px;
 }
 
 .helpTextPopup .k-window-titlebar .DisplayPropertiesGridSignFavoriteDisable {
     background-image: url(./externalresource/icon_starred_inactive.svg);
+    background-size: 14px 14px;
 }
 
 .helpTextPopup .k-window-titlebar .DisplayPropertiesGridSignSuggest {
     background-image: url(./externalresource/icon_suggest.svg);
+    background-size: 14px 14px;
 }
 
 /* .tab
@@ -1280,11 +1282,8 @@ div.k-window-content > .k-loading-mask {
     display: inline-block;
     width: 16px;
     height: 16px;
-    background: transparent url(../images/icons/icon_field_info.png) center center no-repeat;
-}
-
-.fieldChooserGridContainer .btnInfo:hover {
-    background-image: url(../images/icons/icon_field_info_hover.png);
+    background: transparent url(../../content/externalresource/icon_info.svg) center center no-repeat;
+    background-size: 14px 14px;
 }
 
 .fieldChooserButtons {
@@ -1584,41 +1583,37 @@ table.grid tbody td:first-child {
     float: right;
 }
 
-.gridToolbarTop .loader-spinner-inline {
-    margin-right: 0;
-    position: absolute;
-    right: 8px;
-    top: 4px;
-}
-
 .gridToolbarFilter {
     position: relative;
 }
 
 .gridToolbarFilter input {
-    padding-right: 38px;
+    padding-right: 25px;
     width: 165px;
     padding-top: 0;
     padding-bottom: 0;
     min-height: 24px;
 }
 
+.gridToolbarFilter .icon-filter {
+    position: absolute;
+    right: 6px;
+    top: 6px;
+    margin-right: 0;
+    animation: none;
+    line-height: 1;
+}
+
 .gridToolbarFilter .icon-filter:before {
     font-family: 'WebClientIco';
     content: "\e90b";
-    position: absolute;
-    z-index: 2;
-    width: 38px;
-    height: 100%;
-    top: 6px;
-    right: 12px;
 }
 
-.gridToolbarFilter .icon-filter {
-    width: 30px;
-    height: 100%;
-    background: transparent url(../images/icons/icon_filter.png) no-repeat;
-    background-position-x: center;
+.gridToolbarFilter .loader-spinner-inline {
+    position: absolute;
+    right: 4px;
+    top: 4px;
+    margin-right: 0;
 }
 
 .gridContainer {
@@ -4584,7 +4579,7 @@ form#ExportPackageForm .packageInfo .packageVersion input {
 }
 
 #AddActionPopup .contentSectionInfoEmail .btnInfo:after {
-    background-image: url(../images/icons/icon_help.png);
+    background-image: url(../images/icons/icon_help.svg);
     top: 7px;
     background-size: auto auto;
 }
@@ -4968,17 +4963,14 @@ a.mailto {
 
 .popupUserMenu a.btnWorkbench {
     background-image: url(../../images/icons/icon_workbench.svg);
-    background-position: 4px center;
-    background-size: 32px 32px;
 }
 
 .popupUserMenu a.btnWC {
-    background-image: url(../../images/icons/icon_webclient.png);
-    background-position: 8px center;
+    background-image: url(../../images/icons/icon_webclient.svg);
 }
 
 .popupUserMenu a.btnLogout {
-    background-image: url(../../images/icons/icon_logout.png);
+    background-image: url(../../images/icons/icon_logout.svg);
 }
 
 .popupUserMenu a span {
@@ -5029,12 +5021,12 @@ a.mailto {
 }
 
 
-    .popupHelpMenu a.btnAbout {
-        background-image: url(../../content/externalresource/icon_info.svg);
-    }
+.popupHelpMenu a.btnAbout {
+    background-image: url(../../content/externalresource/icon_info.svg);
+}
 
 .popupHelpMenu a.btnHelp {
-    background-image: url(../../images/icons/icon_help.png);
+    background-image: url(../../images/icons/icon_help.svg);
 }
 
 

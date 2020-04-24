@@ -173,12 +173,12 @@ WriteLiteral(" type=\"text/javascript\"");
 WriteLiteral(@">
     jQuery(""#UserName, #Password"").off('keypress').on('keypress', function (event) {
         if (event.which == 13 && window.UserLogin) {
-            window.UserLogin(jQuery('#UserName').val(), jQuery('#Password').val(), true);
+            window.UserLogin(jQuery('#UserName').val(), jQuery('#Password').val());
         }
     });
     jQuery('#LoginButton').removeAttr('onclick').off('click').on('click', function (event) {
         if (window.UserLogin) {
-            UserLogin(jQuery('#UserName').val(), jQuery('#Password').val(), true);
+            UserLogin(jQuery('#UserName').val(), jQuery('#Password').val());
         }
     });
     jQuery('#CancelButton').removeAttr('onclick').off('click').on('click', function (event) {

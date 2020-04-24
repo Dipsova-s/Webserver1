@@ -1,54 +1,115 @@
-﻿/// <reference path="/Dependencies/ViewModels/Models/Angle/AngleInfoModel.js" />
+﻿/// <reference path="/Dependencies/Helper/MeasurePerformance.js" />
+/// <reference path="/Dependencies/ViewModels/Models/User/usersettingmodel.js" />
+/// <reference path="/Dependencies/ViewModels/Models/User/usermodel.js" />
+/// <reference path="/Dependencies/ViewModels/Models/User/privileges.js" />
+/// <reference path="/Dependencies/ViewModels/Models/User/privileges.js" />
+/// <reference path="/Dependencies/ViewModels/Models/Angle/AngleInfoModel.js" />
 /// <reference path="/Dependencies/ViewModels/Models/Angle/resultmodel.js" />
+/// <reference path="/Dependencies/ViewManagement/Shared/SidePanel/SidePanelView.js" />
+/// <reference path="/Dependencies/ViewManagement/Shared/SidePanel/SidePanelHandler.js" />
+/// <reference path="/Dependencies/ViewManagement/Shared/BaseItemHandler.js" />
 /// <reference path="/Dependencies/ViewManagement/Shared/PopupPageHandlers.js" />
-
+/// <reference path="/Dependencies/ViewManagement/Shared/ValidationHandler.js" />
 /// <reference path="/Dependencies/ViewManagement/Shared/ItemState/itemstateview.js" />
 /// <reference path="/Dependencies/ViewManagement/Shared/ItemState/itemstatehandler.js" />
 /// <reference path="/Dependencies/ViewManagement/Shared/ItemState/itempublishstatehandler.js" />
+/// <reference path="/Dependencies/ViewManagement/Shared/WidgetFilter/WidgetFilterHelper.js" />
 /// <reference path="/Dependencies/ViewManagement/Angle/anglestateview.js" />
 /// <reference path="/Dependencies/ViewManagement/Angle/anglestatehandler.js" />
 /// <reference path="/Dependencies/ViewManagement/Angle/anglepublishstatehandler.js" />
-
+/// <reference path="/Dependencies/ViewManagement/Angle/AngleActionMenuHandler.js" />
+/// <reference path="/Dependencies/ViewManagement/Angle/AngleSidePanelView.js" />
+/// <reference path="/Dependencies/ViewManagement/Angle/AngleSidePanelHandler.js" />
+/// <reference path="/Dependencies/ViewManagement/Angle/DisplayHandler.js" />
+/// <reference path="/Dependencies/ViewManagement/Angle/ResultHandler.js" />
+/// <reference path="/Dependencies/ViewManagement/Angle/DisplayResultHandler/BaseDisplayResultHandler.js" />
+/// <reference path="/Dependencies/ViewManagement/Angle/DisplayOverviewHandler.js" />
+/// <reference path="/Dependencies/ViewManagement/Angle/DisplayDrilldownHandler.js" />
+/// <reference path="/Dependencies/ViewManagement/Angle/DisplayStatisticView.js" />
+/// <reference path="/Dependencies/ViewManagement/Angle/DisplayStatisticHandler.js" />
+/// <reference path="/Dependencies/ViewManagement/Shared/ItemDescription/ItemDescriptionView.js" />
+/// <reference path="/Dependencies/ViewManagement/Shared/ItemDescription/ItemDescriptionHandler.js" />
+/// <reference path="/Dependencies/ViewManagement/Shared/QueryDefinition/QueryStepView.js" />
+/// <reference path="/Dependencies/ViewManagement/Shared/QueryDefinition/QueryStepViewModel.js" />
+/// <reference path="/Dependencies/ViewManagement/Shared/QueryDefinition/QueryDefinitionHandler.js" />
+/// <reference path="/Dependencies/ViewManagement/Shared/QueryDefinition/QueryStepFilterHandler.js" />
+/// <reference path="/Dependencies/ViewManagement/Shared/QueryDefinition/QueryStepJumpHandler.js" />
+/// <reference path="/Dependencies/ViewManagement/Shared/QueryDefinition/QueryStepSortableHandler.js" />
+/// <reference path="/Dependencies/ViewManagement/Angle/AngleBusinessProcessHandler.js" />
+/// <reference path="/Dependencies/ViewManagement/Angle/AngleUserSpecificHandler.js" />
+/// <reference path="/Dependencies/ViewManagement/Angle/AngleStatisticView.js" />
+/// <reference path="/Dependencies/ViewManagement/Angle/AngleStatisticHandler.js" />
+/// <reference path="/Dependencies/ViewManagement/Angle/AngleHandler.js" />
+/// <reference path="/Dependencies/ViewManagement/Angle/AnglePageHandler.js" />
 
 describe("AngleStateHandler", function () {
 
     var angleStateHandler;
     beforeEach(function () {
         angleStateHandler = new AngleStateHandler();
+        createMockHandler(window, 'anglePageHandler', {
+            ExecuteAngle: $.noop,
+            HandlerAngle: {
+                GetData: $.noop,
+                ConfirmSave: $.noop
+            },
+            HasAnyChanged: $.noop
+        });
     });
 
-    class displayItem {
-        isPublic;
-        is_public = function (isPublic) {
-            this.isPublic = isPublic;
-        }
-    }
+    describe(".CheckShowingPublishSettingsPopup", function () {
+        it("should get a confirmation popup", function () {
+            spyOn($, 'noop');
+            spyOn(popup, 'Confirm');
+            spyOn(anglePageHandler, 'HasAnyChanged').and.returnValue(true);
+            angleStateHandler.CheckShowingPublishSettingsPopup($.noop);
+
+            // assert
+            expect($.noop).not.toHaveBeenCalled();
+            expect(popup.Confirm).toHaveBeenCalled();
+        });
+        it("should show a popup", function () {
+            spyOn($, 'noop');
+            spyOn(popup, 'Confirm');
+            spyOn(anglePageHandler, 'HasAnyChanged').and.returnValue(false);
+            angleStateHandler.CheckShowingPublishSettingsPopup($.noop);
+
+            // assert
+            expect($.noop).toHaveBeenCalled();
+            expect(popup.Confirm).not.toHaveBeenCalled();
+        });
+    });
 
     describe(".ReloadPublishingSettingsData", function () {
-
         it('should call all functions', function () {
             spyOn(angleStateHandler, 'SetAngleData').and.callFake($.noop);
-            spyOn(angleStateHandler, '__ReloadPublishingSettingsData').and.callFake($.noop);
+            spyOn(anglePageHandler.HandlerAngle, 'GetData');
+            spyOn(angleStateHandler.parent.prototype, 'ReloadPublishingSettingsData').and.callFake($.noop);
             angleStateHandler.ReloadPublishingSettingsData();
 
             // assert
+            expect(anglePageHandler.HandlerAngle.GetData).toHaveBeenCalled();
             expect(angleStateHandler.SetAngleData).toHaveBeenCalled();
-            expect(angleStateHandler.__ReloadPublishingSettingsData).toHaveBeenCalled();
+            expect(angleStateHandler.parent.prototype.ReloadPublishingSettingsData).toHaveBeenCalled();
         });
 
         it('should set all display to be public when angle is not published', function () {
             spyOn(angleStateHandler, 'SetAngleData').and.callFake($.noop);
-            spyOn(angleStateHandler, '__ReloadPublishingSettingsData').and.callFake($.noop);
+            spyOn(anglePageHandler.HandlerAngle, 'GetData');
+            spyOn(angleStateHandler.parent.prototype, 'ReloadPublishingSettingsData').and.callFake($.noop);
 
             spyOn(angleStateHandler.Data, 'is_published').and.returnValue(false);
 
-            var displays = [new displayItem(), new displayItem()];
+            var displays = [
+                { is_public: ko.observable(false) },
+                { is_public: ko.observable(false) }
+            ];
             spyOn(angleStateHandler, 'Displays').and.returnValue(displays);
 
             angleStateHandler.ReloadPublishingSettingsData(true);
-
-            expect(displays[0].isPublic).toBe(true);
-            expect(displays[1].isPublic).toBe(true);
+            expect(anglePageHandler.HandlerAngle.GetData).toHaveBeenCalled();
+            expect(displays[0].is_public()).toBe(true);
+            expect(displays[1].is_public()).toBe(true);
         });
 
     });
@@ -58,9 +119,9 @@ describe("AngleStateHandler", function () {
         beforeEach(function () {
             spyOn(angleStateHandler, 'Displays').and.callFake(function () {
                 return [
-                    { is_angle_default: function () { return true; }, state: '/models/1/angles/1/displays/1/state', is_public: function () { return false } },
-                    { is_angle_default: function () { return false; }, state: '/models/1/angles/1/displays/2/state', is_public: function () { return false } },
-                    { is_angle_default: function () { return false; }, state: '/models/1/angles/1/displays/3/state', is_public: function () { return false } }
+                    { is_angle_default: function () { return true; }, state: '/models/1/angles/1/displays/1/state', is_public: function () { return false; } },
+                    { is_angle_default: function () { return false; }, state: '/models/1/angles/1/displays/2/state', is_public: function () { return false; } },
+                    { is_angle_default: function () { return false; }, state: '/models/1/angles/1/displays/3/state', is_public: function () { return false; } }
                 ];
             });
         });
@@ -77,7 +138,7 @@ describe("AngleStateHandler", function () {
     describe(".GetPublishSettingsData", function () {
 
         it("should get published settings when called", function () {
-            spyOn(angleStateHandler, '__GetPublishSettingsData').and.returnValue({});
+            spyOn(angleStateHandler.parent.prototype, 'GetPublishSettingsData').and.returnValue({});
             spyOn(angleStateHandler.Data, 'not_allow_followups').and.returnValue(true);
             spyOn(angleStateHandler.Data, 'not_allow_more_details').and.returnValue(true);
             spyOn(angleStateHandler, 'GetPublishDisplaysData').and.returnValue([
@@ -97,7 +158,7 @@ describe("AngleStateHandler", function () {
 
         it("should get a message", function () {
             var result = angleStateHandler.GetUpdatedValidatedItemMessage();
-            expect(result).toEqual('<i class="icon validWarning"></i>You made changes to a Validate Angle');
+            expect(result).toContain('validWarning');
         });
 
     });
@@ -109,20 +170,17 @@ describe("AngleStateHandler", function () {
             spyOn(angleStateHandler, 'GetUpdatedPublishSettingsData').and.callFake(function () {
                 return { display_definitions: [] };
             });
-            spyOn(angleStateHandler, 'ShowPublishingProgressbar');
-            spyOn(angleStateHandler, 'UpdateItem');
+            spyOn(anglePageHandler.HandlerAngle, 'ConfirmSave');
         });
 
         it("should save publish settings when save data is valid", function () {
             spyOn(angleStateHandler, 'CheckSavePublishSettings').and.callFake(function () {
                 return true;
             });
-
             angleStateHandler.SavePublishSettings(null, event);
 
             expect(angleStateHandler.GetUpdatedPublishSettingsData).toHaveBeenCalled();
-            expect(angleStateHandler.ShowPublishingProgressbar).toHaveBeenCalled();
-            expect(angleStateHandler.UpdateItem).toHaveBeenCalled();
+            expect(anglePageHandler.HandlerAngle.ConfirmSave).toHaveBeenCalled();
         });
 
         it("should not save publish settings when save data is invalid", function () {
@@ -133,8 +191,7 @@ describe("AngleStateHandler", function () {
             angleStateHandler.SavePublishSettings(null, event);
 
             expect(angleStateHandler.GetUpdatedPublishSettingsData).not.toHaveBeenCalled();
-            expect(angleStateHandler.ShowPublishingProgressbar).not.toHaveBeenCalled();
-            expect(angleStateHandler.UpdateItem).not.toHaveBeenCalled();
+            expect(anglePageHandler.HandlerAngle.ConfirmSave).not.toHaveBeenCalled();
         });
 
     });
@@ -143,9 +200,7 @@ describe("AngleStateHandler", function () {
         var event = { currentTarget: null };
 
         beforeEach(function () {
-            spyOn(requestHistoryModel, 'SaveLastExecute').and.callFake($.noop);
-            spyOn(angleStateHandler, 'ShowPublishingProgressbar').and.callFake($.noop);
-            spyOn(angleStateHandler, 'UpdateItem');
+            spyOn(anglePageHandler.HandlerAngle, 'ConfirmSave');
         });
 
 
@@ -154,10 +209,8 @@ describe("AngleStateHandler", function () {
                 return true;
             });
             angleStateHandler.PublishItem(null, event);
-
-            expect(requestHistoryModel.SaveLastExecute).toHaveBeenCalled();
-            expect(angleStateHandler.ShowPublishingProgressbar).toHaveBeenCalled();
-            expect(angleStateHandler.UpdateItem).toHaveBeenCalled();
+            
+            expect(anglePageHandler.HandlerAngle.ConfirmSave).toHaveBeenCalled();
         });
 
         it("should not publish Angle when values is invalid", function () {
@@ -165,10 +218,8 @@ describe("AngleStateHandler", function () {
                 return false;
             });
             angleStateHandler.PublishItem(null, event);
-
-            expect(requestHistoryModel.SaveLastExecute).not.toHaveBeenCalled();
-            expect(angleStateHandler.ShowPublishingProgressbar).not.toHaveBeenCalled();
-            expect(angleStateHandler.UpdateItem).not.toHaveBeenCalled();
+            
+            expect(anglePageHandler.HandlerAngle.ConfirmSave).not.toHaveBeenCalled();
         });
 
     });
@@ -177,15 +228,10 @@ describe("AngleStateHandler", function () {
         var event = { currentTarget: null };
 
         beforeEach(function () {
-            spyOn(requestHistoryModel, 'SaveLastExecute');
             spyOn(popup, 'Confirm').and.callFake(function (message, callback) {
                 callback();
             });
-            spyOn(angleStateHandler, 'ShowPublishingProgressbar');
-            spyOn(angleStateHandler, 'UpdateState').and.callFake(function (uri, data, callback) {
-                callback();
-            });
-            spyOn(angleStateHandler, 'UpdateItem').and.callFake($.noop);
+            spyOn(anglePageHandler.HandlerAngle, 'ConfirmSave');
         });
 
         it("should unpublish Angle when user is Angle's creator", function () {
@@ -193,8 +239,7 @@ describe("AngleStateHandler", function () {
             angleStateHandler.UnpublishItem(null, event);
 
             expect(popup.Confirm).not.toHaveBeenCalled();
-            expect(angleStateHandler.ShowPublishingProgressbar).toHaveBeenCalled();
-            expect(angleStateHandler.UpdateItem).toHaveBeenCalled();
+            expect(anglePageHandler.HandlerAngle.ConfirmSave).toHaveBeenCalled();
         });
 
         it("should show confirmation popup before unpublish Angle when user is not Angle's creator", function () {
@@ -202,8 +247,7 @@ describe("AngleStateHandler", function () {
             angleStateHandler.UnpublishItem(null, event);
 
             expect(popup.Confirm).toHaveBeenCalled();
-            expect(angleStateHandler.ShowPublishingProgressbar).toHaveBeenCalled();
-            expect(angleStateHandler.UpdateItem).toHaveBeenCalled();
+            expect(anglePageHandler.HandlerAngle.ConfirmSave).toHaveBeenCalled();
         });
 
     });
@@ -222,19 +266,23 @@ describe("AngleStateHandler", function () {
     });
 
     describe(".CanSetAllowMoreDetails", function () {
-        it("should be possile to set allow more details", function () {
-            spyOn(angleInfoModel, 'CanUpdateAngle').and.returnValue(true);
-            spyOn(resultModel, 'Data').and.returnValue({ authorizations: { add_filter: false } });
-            spyOn(angleInfoModel, 'Data').and.returnValue({ allow_more_details: false });
+        it("can set allow more details", function () {
+            angleStateHandler.Data.authorizations().update = true;
+            spyOn(privilegesViewModel, 'AllowMoreDetails').and.returnValue(true);
 
             var result = angleStateHandler.CanSetAllowMoreDetails();
             expect(result).toEqual(true);
         });
+        it("cannot set allow more details (update=false)", function () {
+            angleStateHandler.Data.authorizations().update = false;
+            spyOn(privilegesViewModel, 'AllowMoreDetails').and.returnValue(true);
 
-        it("should not be possile to set allow more details", function () {
-            spyOn(angleInfoModel, 'CanUpdateAngle').and.returnValue(false);
-            spyOn(resultModel, 'Data').and.returnValue({ authorizations: { add_filter: false } });
-            spyOn(angleInfoModel, 'Data').and.returnValue({ allow_more_details: false });
+            var result = angleStateHandler.CanSetAllowMoreDetails();
+            expect(result).toEqual(false);
+        });
+        it("cannot set allow more details (AllowMoreDetails=false)", function () {
+            angleStateHandler.Data.authorizations().update = true;
+            spyOn(privilegesViewModel, 'AllowMoreDetails').and.returnValue(false);
 
             var result = angleStateHandler.CanSetAllowMoreDetails();
             expect(result).toEqual(false);
@@ -242,19 +290,34 @@ describe("AngleStateHandler", function () {
     });
 
     describe(".CanSetAllowFollowups", function () {
-        it("should be possile to set allow follwup", function () {
-            spyOn(angleInfoModel, 'CanUpdateAngle').and.returnValue(true);
-            spyOn(resultModel, 'Data').and.returnValue({ authorizations: { add_followup: false } });
-            spyOn(angleInfoModel, 'Data').and.returnValue({ allow_followups: false });
+        it("cal set allow followups", function () {
+            angleStateHandler.Data.authorizations().update = true;
+            angleStateHandler.Data.not_allow_more_details(false);
+            spyOn(privilegesViewModel, 'AllowFollowups').and.returnValue(true);
 
             var result = angleStateHandler.CanSetAllowFollowups();
             expect(result).toEqual(true);
         });
+        it("cannot set allow followups (update=false)", function () {
+            angleStateHandler.Data.authorizations().update = false;
+            angleStateHandler.Data.not_allow_more_details(false);
+            spyOn(privilegesViewModel, 'AllowFollowups').and.returnValue(true);
 
-        it("should not be possile to set allow follwup", function () {
-            spyOn(angleInfoModel, 'CanUpdateAngle').and.returnValue(false);
-            spyOn(resultModel, 'Data').and.returnValue({ authorizations: { add_followup: false } });
-            spyOn(angleInfoModel, 'Data').and.returnValue({ add_followup: false });
+            var result = angleStateHandler.CanSetAllowFollowups();
+            expect(result).toEqual(false);
+        });
+        it("cannot set allow followups (not_allow_more_details=true)", function () {
+            angleStateHandler.Data.authorizations().update = true;
+            angleStateHandler.Data.not_allow_more_details(true);
+            spyOn(privilegesViewModel, 'AllowFollowups').and.returnValue(true);
+
+            var result = angleStateHandler.CanSetAllowFollowups();
+            expect(result).toEqual(false);
+        });
+        it("cannot set allow followups (AllowFollowups=false)", function () {
+            angleStateHandler.Data.authorizations().update = true;
+            angleStateHandler.Data.not_allow_more_details(false);
+            spyOn(privilegesViewModel, 'AllowFollowups').and.returnValue(false);
 
             var result = angleStateHandler.CanSetAllowFollowups();
             expect(result).toEqual(false);

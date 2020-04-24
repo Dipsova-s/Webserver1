@@ -1,23 +1,34 @@
 var executeParameterHtmlTemplate = function () {
-    var executeParameterHtmlTemplate = "";
-    executeParameterHtmlTemplate += "<div id=\"ExecuteParameterDefinitionArea\" class=\"definitionArea angleDefinitionArea\">";
-    executeParameterHtmlTemplate += "    <div class=\"DefInfo classesInfo angleInfo\">";
-    executeParameterHtmlTemplate += "        <label>" + Localization.StartObject + ":<\/label>";
-    executeParameterHtmlTemplate += "        <!-- ko stopBinding: true -->";
-    executeParameterHtmlTemplate += "        <div id=\"ExecuteParameterBaseClassList\" class=\"widgetDetailsWrapper objectName\"><\/div>";
-    executeParameterHtmlTemplate += "        <!-- \/ko -->";
-    executeParameterHtmlTemplate += "    <\/div>";
-    executeParameterHtmlTemplate += "    <div class=\"DefInfo displayInfo\">";
-    executeParameterHtmlTemplate += "        <label>" + Localization.DisplayName + ":<\/label>";
-    executeParameterHtmlTemplate += "        <div class=\"objectName\"><\/div>";
-    executeParameterHtmlTemplate += "    <\/div>";
-    executeParameterHtmlTemplate += "    <div class=\"StatSeparate\"><\/div>";
-    executeParameterHtmlTemplate += "    <div class=\"DefInfo\">";
-    executeParameterHtmlTemplate += "        <label>" + Localization.AppliedFilterLinesAndFollowUps + "<\/label>";
-    executeParameterHtmlTemplate += "        <div id=\"FilterAngleWrapper\"><\/div>";
-    executeParameterHtmlTemplate += "        <div id=\"FilterDisplayWrapper\"><\/div>";
-    executeParameterHtmlTemplate += "    <\/div>";
-    executeParameterHtmlTemplate += "<\/div>";
-
-    return executeParameterHtmlTemplate;
+    return [
+        '<div class="card">',
+            '<div class="card-body section-angle">',
+                '<div class="form-row row-title">',
+                    '<div class="form-col form-col-header">',
+                        Localization.StartObject,
+                    '</div>',
+                    '<div class="form-col form-col-body col-angle-object"></div>',
+                '</div>',
+                '<div class="form-row">',
+                    '<div class="form-col form-col-body"><hr/></div>',
+                '</div>',
+                '<div class="form-row row-definition">',
+                    '<div class="form-col form-col-body col-definition col-angle-definition"></div>',
+                '</div>',
+            '</div>',
+            '<div class="card-body section-display">',
+                '<div class="form-row row-title">',
+                    '<div class="form-col form-col-header">',
+                        Localization.DisplayName,
+                    '</div>',
+                    '<div class="form-col form-col-body col-display-name"></div>',
+                '</div>',
+                '<div class="form-row">',
+                    '<div class="form-col form-col-body"><hr/></div>',
+                '</div>',
+                '<div class="form-row row-definition">',
+                    '<div class="form-col form-col-body col-definition col-display-definition"></div>',
+                '</div>',
+            '</div>',
+        '</div>'
+    ].join('');
 };

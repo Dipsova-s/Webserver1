@@ -21,7 +21,7 @@
             "text": "Artikel op Vestigingsniveau"
         }
     ],
-    "labels": "/models/1/angles/645/labels",
+    "labels": "/models/1/angles/1485/labels",
     "assigned_labels": [
         "P2P",
         "S2D",
@@ -29,12 +29,12 @@
         "PM"
     ],
     "executed": {
-        "user": "/users/1",
-        "full_name": "EAAdmin",
-        "datetime": 1567586780
+        "user": "/users/7",
+        "full_name": "Emma de Jong",
+        "datetime": 1578916308
     },
-    "displays": "/models/1/angles/645/displays",
-    "grouping_labels": "/models/1/angles/645/grouping_labels",
+    "displays": "/models/1/angles/1485/displays",
+    "grouping_labels": "/models/1/angles/1485/grouping_labels",
     "id": "WEBHELP_WC_Angle_details",
     "authorizations": {
         "unvalidate": false,
@@ -49,16 +49,22 @@
         "delete": true
     },
     "user_specific": {
+        "times_executed": 99,
         "is_starred": false,
         "private_tags": [],
-        "times_executed": 11,
+        "private_note": "WEBHELP_WC_Angle_details",
         "execute_on_login": false
     },
-    "state": "/models/1/angles/645/state",
+    "created": {
+        "user": "/users/1",
+        "full_name": "EAAdmin",
+        "datetime": 1569854341
+    },
+    "state": "/models/1/angles/1485/state",
     "allow_followups": true,
     "is_parameterized": false,
     "is_validated": false,
-    "business_processes": "/models/1/angles/645/business_processes",
+    "business_processes": "/models/1/angles/1485/business_processes",
     "query_definition": [
         {
             "queryblock_type": "base_classes",
@@ -67,20 +73,16 @@
             ]
         }
     ],
-    "angle_default_display": "/models/1/angles/645/displays/2999",
-    "privilege_labels": "/models/1/angles/645/privilege_labels",
+    "angle_default_display": "/models/1/angles/1485/displays/7635",
+    "privilege_labels": "/models/1/angles/1485/privilege_labels",
     "is_deleted": false,
-    "created": {
-        "user": "/users/2",
-        "full_name": "EASystem",
-        "datetime": 1567577220
-    },
+    "package": "/packages/11",
     "changed": {
         "user": "/users/1",
         "full_name": "EAAdmin",
-        "datetime": 1567577220
+        "datetime": 1569854341
     },
-    "uri": "/models/1/angles/645",
+    "uri": "/models/1/angles/1485",
     "display_definitions": [
         {
             "multi_lang_name": [
@@ -113,9 +115,9 @@
                 "delete": true
             },
             "created": {
-                "user": "/users/2",
-                "full_name": "EASystem",
-                "datetime": 1557110543
+                "user": "/users/1",
+                "full_name": "EAAdmin",
+                "datetime": 1569854340
             },
             "fields": [
                 {
@@ -225,10 +227,10 @@
                 }
             ],
             "contained_aggregation_steps": false,
-            "uri": "/models/1/angles/645/displays/2996",
+            "uri": "/models/1/angles/1485/displays/7632",
             "is_public": true,
             "used_in_task": false,
-            "state": "/models/1/angles/645/displays/2996/state",
+            "state": "/models/1/angles/1485/displays/7632/state",
             "display_type": "list",
             "user_specific": {
                 "execute_on_login": false,
@@ -236,7 +238,7 @@
             },
             "query_blocks": [],
             "is_angle_default": false,
-            "angle_id": "645",
+            "angle_id": "1485",
             "id": "c3f60697fe324421a6ab19a2f1ce6bea",
             "display_details": "{}",
             "multi_lang_description": [
@@ -265,8 +267,24 @@
         {
             "multi_lang_name": [
                 {
+                    "lang": "de",
+                    "text": "Basisliste"
+                },
+                {
                     "lang": "en",
                     "text": "Basic List"
+                },
+                {
+                    "lang": "es",
+                    "text": "Lista Básica"
+                },
+                {
+                    "lang": "fr",
+                    "text": "Liste De Base"
+                },
+                {
+                    "lang": "nl",
+                    "text": "Basislijst"
                 }
             ],
             "authorizations": {
@@ -277,9 +295,9 @@
                 "delete": true
             },
             "created": {
-                "user": "/users/2",
-                "full_name": "EASystem",
-                "datetime": 1557110543
+                "user": "/users/1",
+                "full_name": "EAAdmin",
+                "datetime": 1569854340
             },
             "fields": [
                 {
@@ -396,10 +414,10 @@
                 }
             ],
             "contained_aggregation_steps": false,
-            "uri": "/models/1/angles/645/displays/2997",
+            "uri": "/models/1/angles/1485/displays/7633",
             "is_public": true,
             "used_in_task": false,
-            "state": "/models/1/angles/645/displays/2997/state",
+            "state": "/models/1/angles/1485/displays/7633/state",
             "display_type": "list",
             "user_specific": {
                 "execute_on_login": false,
@@ -407,12 +425,28 @@
             },
             "query_blocks": [],
             "is_angle_default": false,
-            "angle_id": "645",
+            "angle_id": "1485",
             "id": "d69edfbe1f4c9c56383c338ec2a296868",
             "display_details": "{}",
             "multi_lang_description": [
                 {
+                    "lang": "de",
+                    "text": "<div id=\"summary\" /><div class=\" section\" id=\"S1438245613828933\"><p class=\"\" id=\"P1438245613828814\" /></div>"
+                },
+                {
                     "lang": "en",
+                    "text": "<div id=\"summary\" /><div class=\" section\" id=\"S1438245613828933\"><p class=\"\" id=\"P1438245613828814\" /></div>"
+                },
+                {
+                    "lang": "es",
+                    "text": "<div id=\"summary\" /><div class=\" section\" id=\"S1438245613828933\"><p class=\"\" id=\"P1438245613828814\" /></div>"
+                },
+                {
+                    "lang": "fr",
+                    "text": "<div id=\"summary\" /><div class=\" section\" id=\"S1438245613828933\"><p class=\"\" id=\"P1438245613828814\" /></div>"
+                },
+                {
+                    "lang": "nl",
                     "text": "<div id=\"summary\" /><div class=\" section\" id=\"S1438245613828933\"><p class=\"\" id=\"P1438245613828814\" /></div>"
                 }
             ]
@@ -448,9 +482,9 @@
                 "delete": true
             },
             "created": {
-                "user": "/users/2",
-                "full_name": "EASystem",
-                "datetime": 1557110543
+                "user": "/users/1",
+                "full_name": "EAAdmin",
+                "datetime": 1569854341
             },
             "fields": [
                 {
@@ -560,10 +594,10 @@
                 }
             ],
             "contained_aggregation_steps": false,
-            "uri": "/models/1/angles/645/displays/2998",
+            "uri": "/models/1/angles/1485/displays/7634",
             "is_public": true,
             "used_in_task": false,
-            "state": "/models/1/angles/645/displays/2998/state",
+            "state": "/models/1/angles/1485/displays/7634/state",
             "display_type": "list",
             "user_specific": {
                 "execute_on_login": false,
@@ -571,7 +605,7 @@
             },
             "query_blocks": [],
             "is_angle_default": false,
-            "angle_id": "645",
+            "angle_id": "1485",
             "id": "d9f513b12a9c40d9819dd9d3eff566eb",
             "display_details": "{}",
             "multi_lang_description": [
@@ -600,8 +634,24 @@
         {
             "multi_lang_name": [
                 {
+                    "lang": "de",
+                    "text": "Anzahl pro Material- Typ pro Unternehmen"
+                },
+                {
                     "lang": "en",
                     "text": "No. per Mat. Type per Company"
+                },
+                {
+                    "lang": "es",
+                    "text": "N.º por Tipo Mat. Tipo por Sociedad"
+                },
+                {
+                    "lang": "fr",
+                    "text": "Nombre par Article Type par Magasin"
+                },
+                {
+                    "lang": "nl",
+                    "text": "Aantal per Art.soort per Bedrijf"
                 }
             ],
             "authorizations": {
@@ -612,9 +662,9 @@
                 "delete": false
             },
             "created": {
-                "user": "/users/2",
-                "full_name": "EASystem",
-                "datetime": 1557110543
+                "user": "/users/1",
+                "full_name": "EAAdmin",
+                "datetime": 1569854341
             },
             "fields": [
                 {
@@ -637,10 +687,10 @@
                 }
             ],
             "contained_aggregation_steps": true,
-            "uri": "/models/1/angles/645/displays/2999",
+            "uri": "/models/1/angles/1485/displays/7635",
             "is_public": true,
             "used_in_task": false,
-            "state": "/models/1/angles/645/displays/2999/state",
+            "state": "/models/1/angles/1485/displays/7635/state",
             "display_type": "chart",
             "user_specific": {
                 "execute_on_login": false,
@@ -677,12 +727,28 @@
                 }
             ],
             "is_angle_default": true,
-            "angle_id": "645",
+            "angle_id": "1485",
             "id": "da4c3a4a135f175380142e8b1426ad10b",
             "display_details": "{\"chart_type\":\"bar\",\"stack\":true,\"multi_axis\":false,\"drilldown_display\":\"d69edfbe1f4c9c56383c338ec2a296868\",\"axistitle\":\"show\",\"axisvalue\":\"show\",\"datalabel\":\"mouse\",\"gridline\":\"show\",\"legend\":\"show\",\"range\":{\"start\":0,\"size\":50},\"count_index\":0}",
             "multi_lang_description": [
                 {
+                    "lang": "de",
+                    "text": "<div id=\"summary\" /><div class=\" section\" id=\"S1441111733031513\"><p class=\"\" id=\"P1441111733031144\" /></div>"
+                },
+                {
                     "lang": "en",
+                    "text": "<div id=\"summary\" /><div class=\" section\" id=\"S1441111733031513\"><p class=\"\" id=\"P1441111733031144\" /></div>"
+                },
+                {
+                    "lang": "es",
+                    "text": "<div id=\"summary\" /><div class=\" section\" id=\"S1441111733031513\"><p class=\"\" id=\"P1441111733031144\" /></div>"
+                },
+                {
+                    "lang": "fr",
+                    "text": "<div id=\"summary\" /><div class=\" section\" id=\"S1441111733031513\"><p class=\"\" id=\"P1441111733031144\" /></div>"
+                },
+                {
+                    "lang": "nl",
                     "text": "<div id=\"summary\" /><div class=\" section\" id=\"S1441111733031513\"><p class=\"\" id=\"P1441111733031144\" /></div>"
                 }
             ]
@@ -718,9 +784,9 @@
                 "delete": true
             },
             "created": {
-                "user": "/users/2",
-                "full_name": "EASystem",
-                "datetime": 1557110543
+                "user": "/users/1",
+                "full_name": "EAAdmin",
+                "datetime": 1569854341
             },
             "fields": [
                 {
@@ -737,10 +803,10 @@
                 }
             ],
             "contained_aggregation_steps": true,
-            "uri": "/models/1/angles/645/displays/3000",
+            "uri": "/models/1/angles/1485/displays/7636",
             "is_public": true,
             "used_in_task": false,
-            "state": "/models/1/angles/645/displays/3000/state",
+            "state": "/models/1/angles/1485/displays/7636/state",
             "display_type": "chart",
             "user_specific": {
                 "execute_on_login": false,
@@ -773,7 +839,7 @@
                 }
             ],
             "is_angle_default": false,
-            "angle_id": "645",
+            "angle_id": "1485",
             "id": "dd76357ed47db0f7f2c28d77a878995fd",
             "display_details": "{\"chart_type\":\"bar\",\"stack\":false,\"multi_axis\":false,\"layout\":null,\"drilldown_display\":\"c3f60697fe324421a6ab19a2f1ce6bea\"}",
             "multi_lang_description": [
@@ -830,9 +896,9 @@
                 "delete": true
             },
             "created": {
-                "user": "/users/2",
-                "full_name": "EASystem",
-                "datetime": 1557110543
+                "user": "/users/1",
+                "full_name": "EAAdmin",
+                "datetime": 1569854341
             },
             "fields": [
                 {
@@ -855,10 +921,10 @@
                 }
             ],
             "contained_aggregation_steps": true,
-            "uri": "/models/1/angles/645/displays/3001",
+            "uri": "/models/1/angles/1485/displays/7637",
             "is_public": true,
             "used_in_task": false,
-            "state": "/models/1/angles/645/displays/3001/state",
+            "state": "/models/1/angles/1485/displays/7637/state",
             "display_type": "chart",
             "user_specific": {
                 "execute_on_login": false,
@@ -895,7 +961,7 @@
                 }
             ],
             "is_angle_default": false,
-            "angle_id": "645",
+            "angle_id": "1485",
             "id": "df0d017f3bb387ee5cbf83459bd980d30",
             "display_details": "{\"chart_type\":\"column\",\"stack\":true,\"multi_axis\":false,\"layout\":null,\"drilldown_display\":\"d69edfbe1f4c9c56383c338ec2a296868\"}",
             "multi_lang_description": [
@@ -952,9 +1018,9 @@
                 "delete": true
             },
             "created": {
-                "user": "/users/2",
-                "full_name": "EASystem",
-                "datetime": 1557110543
+                "user": "/users/1",
+                "full_name": "EAAdmin",
+                "datetime": 1569854341
             },
             "fields": [
                 {
@@ -1029,21 +1095,21 @@
                 },
                 {
                     "tech_info": "MBEW-VPRSV",
-                    "field": "VPRSV",
+                    "field": "MBEW_VPRSV",
                     "multi_lang_alias": [],
                     "valid": true,
                     "field_details": "{\"width\":120}"
                 },
                 {
                     "tech_info": "MBEW-STPRS",
-                    "field": "STPRS",
+                    "field": "MBEW_STPRS",
                     "multi_lang_alias": [],
                     "valid": true,
                     "field_details": "{\"width\":89}"
                 },
                 {
                     "tech_info": "MBEW-VERPR",
-                    "field": "VERPR",
+                    "field": "MBEW_VERPR",
                     "multi_lang_alias": [],
                     "valid": true,
                     "field_details": "{\"width\":83}"
@@ -1057,7 +1123,7 @@
                 },
                 {
                     "tech_info": "MBEW-PEINH",
-                    "field": "PEINH",
+                    "field": "MBEW_PEINH",
                     "multi_lang_alias": [],
                     "valid": true,
                     "field_details": "{\"width\":68}"
@@ -1071,10 +1137,10 @@
                 }
             ],
             "contained_aggregation_steps": false,
-            "uri": "/models/1/angles/645/displays/3002",
+            "uri": "/models/1/angles/1485/displays/7638",
             "is_public": true,
             "used_in_task": false,
-            "state": "/models/1/angles/645/displays/3002/state",
+            "state": "/models/1/angles/1485/displays/7638/state",
             "display_type": "list",
             "user_specific": {
                 "execute_on_login": false,
@@ -1082,7 +1148,7 @@
             },
             "query_blocks": [],
             "is_angle_default": false,
-            "angle_id": "645",
+            "angle_id": "1485",
             "id": "z6c9969c49b5b42aca0de3e5ef5d9c520",
             "display_details": "{}",
             "multi_lang_description": [
@@ -1139,9 +1205,9 @@
                 "delete": true
             },
             "created": {
-                "user": "/users/2",
-                "full_name": "EASystem",
-                "datetime": 1557110543
+                "user": "/users/1",
+                "full_name": "EAAdmin",
+                "datetime": 1569854341
             },
             "fields": [
                 {
@@ -1202,10 +1268,10 @@
                 }
             ],
             "contained_aggregation_steps": false,
-            "uri": "/models/1/angles/645/displays/3003",
+            "uri": "/models/1/angles/1485/displays/7639",
             "is_public": true,
             "used_in_task": false,
-            "state": "/models/1/angles/645/displays/3003/state",
+            "state": "/models/1/angles/1485/displays/7639/state",
             "display_type": "list",
             "user_specific": {
                 "execute_on_login": false,
@@ -1213,7 +1279,7 @@
             },
             "query_blocks": [],
             "is_angle_default": false,
-            "angle_id": "645",
+            "angle_id": "1485",
             "id": "z6d91f5d4a565468da997670cfa2ad580",
             "display_details": "{}",
             "multi_lang_description": [
@@ -1270,9 +1336,9 @@
                 "delete": true
             },
             "created": {
-                "user": "/users/2",
-                "full_name": "EASystem",
-                "datetime": 1557110543
+                "user": "/users/1",
+                "full_name": "EAAdmin",
+                "datetime": 1569854341
             },
             "fields": [
                 {
@@ -1389,10 +1455,10 @@
                 }
             ],
             "contained_aggregation_steps": false,
-            "uri": "/models/1/angles/645/displays/3004",
+            "uri": "/models/1/angles/1485/displays/7640",
             "is_public": true,
             "used_in_task": false,
-            "state": "/models/1/angles/645/displays/3004/state",
+            "state": "/models/1/angles/1485/displays/7640/state",
             "display_type": "list",
             "user_specific": {
                 "execute_on_login": false,
@@ -1400,7 +1466,7 @@
             },
             "query_blocks": [],
             "is_angle_default": false,
-            "angle_id": "645",
+            "angle_id": "1485",
             "id": "z9d5bd10eee404f13857bc349b7b1b7fb",
             "display_details": "{}",
             "multi_lang_description": [
@@ -1432,7 +1498,7 @@
     "published": {
         "user": "/users/1",
         "full_name": "EAAdmin",
-        "datetime": 1567577220
+        "datetime": 1569854341
     },
     "model": "/models/1",
     "is_published": true,

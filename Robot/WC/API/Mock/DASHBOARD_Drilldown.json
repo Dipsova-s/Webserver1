@@ -1,0 +1,74 @@
+{
+    "multi_lang_name": [
+        {
+            "lang": "en",
+            "text": "[ROBOT] Dashboard Drilldown"
+        }
+    ],
+    "multi_lang_description": [],
+    "user_specific": {
+        "execute_on_login": false,
+        "is_starred": false
+    },
+    "widget_definitions": [
+        {
+            "id": "w2df00bc6e8e687dbb941579146617834",
+            "uri": "/dashboards/869/widgets/3",
+            "widget_type": "angle_display",
+            "angle": "/models/1/angles/868",
+            "display": "/models/1/angles/868/displays/3719",
+            "multi_lang_name": [
+                {
+                    "lang": "en",
+                    "text": " "
+                }
+            ],
+            "multi_lang_description": []
+        },
+        {
+            "id": "w5256267816b0cdde70d7579146764902",
+            "uri": "/dashboards/869/widgets/4",
+            "widget_type": "angle_display",
+            "angle": "/models/1/angles/868",
+            "display": "/models/1/angles/868/displays/3720",
+            "multi_lang_name": [
+                {
+                    "lang": "en",
+                    "text": " "
+                }
+            ],
+            "multi_lang_description": []
+        }
+    ],
+    "filters": [],
+    "widgets": "/dashboards/869/widgets",
+    "layout": "{\"structure\":[{\"items\":[\"49.95%\",\"50.04%\"],\"height\":\"100%\"}],\"widgets\":[\"w2df00bc6e8e687dbb941579146617834\",\"w5256267816b0cdde70d7579146764902\"]}",
+    "assigned_labels": [
+        "S2D"
+    ],
+    "privilege_labels": "/dashboards/869/privilege_labels",
+    "grouping_labels": "/dashboards/869/grouping_labels",
+    "labels": "/dashboards/869/labels",
+    "business_processes": "/dashboards/869/business_processes",
+    "angles": "/dashboards/869/angles",
+    "id": "ROBOT_DASHBOARD_Drilldown",
+    "uri": "/dashboards/869",
+    "model": "/models/1",
+    "is_validated": false,
+    "is_published": false,
+    "created": {
+        "user": "/users/1",
+        "datetime": 1579149574,
+        "full_name": "EAAdmin"
+    },
+    "state": "/dashboards/869/state",
+    "has_warnings": false,
+    "authorizations": {
+        "update": true,
+        "delete": true,
+        "publish": true,
+        "unpublish": false,
+        "validate": false,
+        "unvalidate": false
+    }
+}

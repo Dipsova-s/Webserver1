@@ -1,4 +1,3 @@
-
 *** Variables ***
 #Language
 ${NL_LANGUAGE_TEXT}                     Dutch
@@ -6,19 +5,21 @@ ${EN_LANGUAGE_TEXT}                     English
 
 
 #Panel
+${divActiveTabMenu}                     css=#SettingsPanel .tab-menu.active
 ${btnSettings}                      Settings
-${divSettingPanelWrapper}           jquery=.settingsPanelContentsWrapper
+${divSettingPanelWrapper}           jquery=#SettingsPanel .tab-content-wrapper:last
 ${pgbUserSetting}                   jquery=#SettingsPanel .k-loading-mask
 
 #User tab
-${tabUserDetailSetting}                 jquery=#SettingsPanelUserTab + label
+${tabUserDetailSetting}                 jquery=#SettingsPanel .tab-menu:eq(0)
 ${ddlModelUserSettings}                 SystemModel_ddlWrapper
 ${chkAutoExecuteLastSearch}             autoExecuteLastSearch
 ${chkAutoExecuteItemsOnLogin}           autoExecuteItemsOnLogin
+${divExecutionOnLogin}                  jquery=.settingsPanelActionsAtLoginDisplays
 ${divExecutionOnLoginItems}             jquery=.settingsPanelActionsAtLoginDisplaysItem
 
 #System tab
-${tabSystemSetting}                          jquery=#SettingsPanelSystemTab + label
+${tabSystemSetting}                          jquery=#SettingsPanel .tab-menu:eq(1)
 ${divUserSettingsBusinessProcess}            UserSettingsBusinessProcesses
 ${divUserSettingsBusinessProcessItems}       jquery=#UserSettingsBusinessProcesses .BusinessProcessCheckBox
 ${ddlLanguage}                               LanguageSelect_ddlWrapper
@@ -28,10 +29,9 @@ ${chkDefaultStarredfields}                   DefaultStarredfields
 ${chkDefaultSuggestedfields}                 DefaultSuggestedfields
 ${chkSapFieldsInChooser}                     SapFieldsInChooser
 ${chkSapFieldsInHeader}                      SapFieldsInHeader
-${divButtonWrapper}                          css=.settingsPanelButtons
 
 #Fields tab
-${tabFormatSetting}                     jquery=#SettingsPanelFieldsTab + label
+${tabFormatSetting}                     jquery=#SettingsPanel .tab-menu:eq(2)
 ${ddlGeneralDecimalSeparator}           GeneralDecimalSeperatorDropdown_ddlWrapper
 ${ddlGeneralThousandSeparator}          GeneralThousandSeperatorDropdown_ddlWrapper
 ${ddlNumbersDecimals}                   NumbersSelect_ddlWrapper
@@ -54,19 +54,17 @@ ${ddlTimeHour}                          TimeFormatHoursDropdown_ddlWrapper
 ${ddlTimeSecond}                        TimeFormatSecondsDropdown_ddlWrapper
 ${ddlSetNotation}                       EnumSelect_ddlWrapper
 
-
 #Fields accordion
-${acdGeneralHeader}                           SettingsPanelGeneralAccordion
-${acdNumberHeader}                            SettingsPanelNumberAccordion
-${acdCurrencyHeader}                          SettingsPanelCurrencyAccordion
-${acdPercentagesHeader}                       SettingsPanelPercentagesAccordion
-${acdDateHeader}                              SettingsPanelDateAccordion
-${acdTimeHeader}                              SettingsPanelTimeAccordion
-${acdSetHeader}                               SettingsPanelEnumAccordion
-
+${acdGeneralHeader}                     SettingsPanelGeneralAccordion
+${acdNumberHeader}                      SettingsPanelNumberAccordion
+${acdCurrencyHeader}                    SettingsPanelCurrencyAccordion
+${acdPercentagesHeader}                 SettingsPanelPercentagesAccordion
+${acdDateHeader}                        SettingsPanelDateAccordion
+${acdTimeHeader}                        SettingsPanelTimeAccordion
+${acdSetHeader}                         SettingsPanelEnumAccordion
 
 #Buttons
-${btnSaveSettings}                  jquery=#SettingsPanel .settingsPanelSaveButton
+${btnSaveSettings}                      jquery=#SettingsPanel .settingsPanelSaveButton
 
 
 *** Keywords ***
@@ -92,7 +90,6 @@ Click System Tab
 Click Fields Tab
     Click Element    ${tabFormatSetting}
 
-
 Click Save User Settings
     Click Element    ${btnSaveSettings}
     Wait Search Page Document Loaded
@@ -115,7 +112,7 @@ Open User Setting Dropdown
     Sleep    ${TIMEOUT_DROPDOWN}
 
 Close User Setting Dropdown
-    Click Element   ${divButtonWrapper}
+    Click Element   ${divActiveTabMenu}
     Sleep    ${TIMEOUT_DROPDOWN}
 
 Select User Setting Checkbox
@@ -149,6 +146,13 @@ Count Execute At Login Items
     ${countItems}    Get Element Count    ${divExecutionOnLoginItems}
     [Return]    ${countItems}
 
+Item Should Be In Execute At Login List
+    [Arguments]    ${name}
+    Element Should Contain  ${divExecutionOnLogin}  ${name}
+
+Item Should Not Be In Execute At Login List
+    [Arguments]    ${name}
+    Element Should Not Contain  ${divExecutionOnLogin}  ${name}
 
 #System tab
 Click Dropdown Language

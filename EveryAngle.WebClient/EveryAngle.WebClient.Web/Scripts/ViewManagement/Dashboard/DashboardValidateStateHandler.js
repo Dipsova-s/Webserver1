@@ -3,9 +3,7 @@
 
     handler.ValidateItem = function () {
         var self = this;
-
-        requestHistoryModel.SaveLastExecute(self, self.ValidateItem, arguments);
-        requestHistoryModel.ClearPopupBeforeExecute = true;
+        
         self.ShowValidatingProgressbar();
         self.UpdateState(self.Data.state, { is_validated: self.Data.is_validated() })
             .done(function () {
@@ -14,8 +12,8 @@
             })
             .always(function () {
                 // update viewmodel
-                dashboardDetailsHandler.Model.SetData(dashboardModel.GetData());
-                dashboardHandler.ApplyBindingHandler();
+                dashboardPageHandler.DashboardModel.SetData(dashboardModel.GetData());
+                dashboardPageHandler.ApplyBindingHandler();
 
                 // clear stuff
                 self.HideValidatingProgressbar();

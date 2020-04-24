@@ -2,12 +2,13 @@
 /// <reference path="/Dependencies/ViewModels/Models/Angle/displayqueryblockmodel.js" />
 /// <reference path="/Dependencies/ViewModels/Models/Angle/AngleInfoModel.js" />
 /// <reference path="/Dependencies/ViewModels/Models/Angle/DisplayModel.js" />
-/// <reference path="/Dependencies/ViewModels/Models/Angle/HistoryModel.js" />
 /// <reference path="/Dependencies/ViewModels/Shared/DataType/DataType.js" />
 /// <reference path="/Dependencies/ViewManagement/Shared/ModelFieldDomainHandler.js" />
 /// <reference path="/Dependencies/ViewManagement/Shared/ValidationHandler.js" />
+/// <reference path="/Dependencies/ViewManagement/Angle/Chart/ChartHelper.js" />
+/// <reference path="/Dependencies/ViewManagement/Angle/Chart/ChartOptionsView.js" />
+/// <reference path="/Dependencies/ViewManagement/Angle/Chart/ChartOptionsHandler.js" />
 /// <reference path="/Dependencies/ViewManagement/Angle/FieldSettingsHandler.js" />
-/// <reference path="/Dependencies/ViewManagement/Shared/ValidationHandler.js" />
 /// <reference path="/Dependencies/ViewManagement/Angle/ListHandler.js" />
 /// <reference path="/Dependencies/ViewManagement/Angle/ListFormatSettingHandler.js" />
 
@@ -131,7 +132,6 @@ describe("ListFormatSettingHandler", function () {
                 spyOn(WC.FormatHelper, 'ClearFormatCached').and.callFake($.noop);
                 spyOn(listFormatSettingHandler, 'UpdateAliasHeader').and.callFake($.noop);
                 spyOn(listHandler, 'HideHeaderPopup').and.callFake($.noop);
-                spyOn(historyModel, 'Save').and.callFake($.noop);
 
                 listFormatSettingHandler.ApplySetting(
                     test.displayField, test.language, test.field, test.displayFieldDetail, test.grid, test.defaultName, test.aliasName);

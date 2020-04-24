@@ -20,6 +20,7 @@ function DisplayCopyHandler() {
         var displayData = WC.ModelHelper.RemoveReadOnlyDisplayData(displayModel.Data());
         displayData.is_public = false;
         displayData.is_angle_default = false;
+        displayData.used_in_task = false;
         displayData.user_specific.execute_on_login = false;
         displayData.user_specific.is_user_default = false;
 
@@ -29,8 +30,10 @@ function DisplayCopyHandler() {
 
         jQuery.localStorage('copied_display', displayData);
 
-        if (self.CanPasteDisplay())
+        if (self.CanPasteDisplay()) {
             jQuery('#ActionDropdownListPopup .pastedisplay').removeClass('disabled');
+            toast.MakeSuccessTextFormatting(displayModel.Name(), Localization.Toast_CopyDisplay);
+        }
     };
 
     self.CanPasteDisplay = function () {
@@ -48,7 +51,9 @@ function DisplayCopyHandler() {
                         .done(function (data) {
                             fieldSettingsHandler.ClearFieldSettings();
                             anglePageHandler.HandlerValidation.ShowValidationStatus[data.uri] = true;
+                            anglePageHandler.HandlerAngle.AddDisplay(data, null, true);
                             displayModel.GotoTemporaryDisplay(data.uri);
+                            toast.MakeSuccessTextFormatting(displayModel.Name(), Localization.Toast_PasteDisplay);
                         });
                    }
                    else

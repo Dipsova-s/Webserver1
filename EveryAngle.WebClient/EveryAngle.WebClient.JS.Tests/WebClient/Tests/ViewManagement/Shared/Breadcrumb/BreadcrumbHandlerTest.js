@@ -15,7 +15,6 @@ describe("BreadcrumbHandler", function () {
 
         beforeEach(function () {
             spyOn(breadcrumbHandlerTest, 'ApplyBindings');
-            spyOn(breadcrumbHandlerTest, 'UpdateLayout');
         });
 
         it("should have 1 item", function () {
@@ -102,6 +101,13 @@ describe("BreadcrumbHandler", function () {
             expect(viewModel.title()).toEqual('test');
             expect(viewModel.frontIcon()).toEqual('icon icon-chevron-right icon-breadcrumb-chevron');
             expect(viewModel.rearIcon()).toEqual('icon icon-validated icon-breadcrumb-validated');
+        });
+
+        it("should get item view model with itemIcon when itemIcon is provided", function () {
+            var viewModel = breadcrumbHandlerTest.GetItemViewModel('test', true, 'icon-item');
+            expect(viewModel.label()).toEqual('test');
+            expect(viewModel.title()).toEqual('test');
+            expect(viewModel.itemIcon()).toEqual('icon-item');
         });
     });
 });

@@ -1,6 +1,8 @@
+/// <reference path="/Dependencies/ViewModels/Models/User/usermodel.js" />
+/// <reference path="/Dependencies/ViewModels/Models/User/privileges.js" />
+/// <reference path="/Dependencies/ViewManagement/Shared/ModelsHandler.js" />
 /// <reference path="/Dependencies/ViewModels/Models/Dashboard/dashboardmodel.js" />
 /// <reference path="/Dependencies/ViewModels/Shared/QueryBlock/QueryStepModel.js" />
-/// <reference path="/Dependencies/ViewManagement/Shared/WidgetFilter/WidgetFilterModel.js" />
 /// <reference path="/Dependencies/Helper/DefaultValueHandler.js" />
 
 describe("DashboardModel", function () {
@@ -8,7 +10,7 @@ describe("DashboardModel", function () {
     var mockDashboardModel;
 
     beforeEach(function () {
-        dashboardModel = new DashboardViewModel();
+        dashboardModel = new DashboardViewModel({});
         mockDashboardModel = {
             filters: [
                 {
@@ -25,18 +27,167 @@ describe("DashboardModel", function () {
         };
     });
 
-    describe("when create new instance", function () {
-
-        it("should be defined", function () {
-            expect(dashboardModel).toBeDefined();
+    describe(".GetDefaultLayoutConfig", function () {
+        var tests = [
+            {
+                count: 0,
+                expected: { structure: [] }
+            },
+            {
+                count: 1,
+                expected: {
+                    structure: [
+                        { items: ['100%'], height: '100%' }
+                    ]
+                }
+            },
+            {
+                count: 2,
+                expected: {
+                    structure: [
+                        { items: ['50%', '50%'], height: '100%' }
+                    ]
+                }
+            },
+            {
+                count: 3,
+                expected: {
+                    structure: [
+                        { items: ['33.4%', '33.3%', '33.3%'], height: '100%' }
+                    ]
+                }
+            },
+            {
+                count: 4,
+                expected: {
+                    structure: [
+                        { items: ['50%', '50%'], height: '50%' },
+                        { items: ['50%', '50%'], height: '50%' }
+                    ]
+                }
+            },
+            {
+                count: 5,
+                expected: {
+                    structure: [
+                        { items: ['33.4%', '33.3%', '33.3%'], height: '50%' },
+                        { items: ['50%', '50%'], height: '50%' }
+                    ]
+                }
+            },
+            {
+                count: 6,
+                expected: {
+                    structure: [
+                        { items: ['33.4%', '33.3%', '33.3%'], height: '50%' },
+                        { items: ['33.4%', '33.3%', '33.3%'], height: '50%' }
+                    ]
+                }
+            },
+            {
+                count: 7,
+                expected: {
+                    structure: [
+                        { items: ['25%', '25%', '25%', '25%'], height: '50%' },
+                        { items: ['33.4%', '33.3%', '33.3%'], height: '50%' }
+                    ]
+                }
+            },
+            {
+                count: 8,
+                expected: {
+                    structure: [
+                        { items: ['25%', '25%', '25%', '25%'], height: '50%' },
+                        { items: ['25%', '25%', '25%', '25%'], height: '50%' }
+                    ]
+                }
+            },
+            {
+                count: 9,
+                expected: {
+                    structure: [
+                        { items: ['33.4%', '33.3%', '33.3%'], height: '33%' },
+                        { items: ['33.4%', '33.3%', '33.3%'], height: '33%' },
+                        { items: ['33.4%', '33.3%', '33.3%'], height: '34%' }
+                    ]
+                }
+            },
+            {
+                count: 10,
+                expected: {
+                    structure: [
+                        { items: ['25%', '25%', '25%', '25%'], height: '33%' },
+                        { items: ['25%', '25%', '25%', '25%'], height: '33%' },
+                        { items: ['50%', '50%'], height: '34%' }
+                    ]
+                }
+            },
+            {
+                count: 11,
+                expected: {
+                    structure: [
+                        { items: ['25%', '25%', '25%', '25%'], height: '33%' },
+                        { items: ['25%', '25%', '25%', '25%'], height: '33%' },
+                        { items: ['33.4%', '33.3%', '33.3%'], height: '34%' }
+                    ]
+                }
+            },
+            {
+                count: 12,
+                expected: {
+                    structure: [
+                        { items: ['25%', '25%', '25%', '25%'], height: '33%' },
+                        { items: ['25%', '25%', '25%', '25%'], height: '33%' },
+                        { items: ['25%', '25%', '25%', '25%'], height: '34%' }
+                    ]
+                }
+            },
+            {
+                count: 13,
+                expected: {
+                    structure: [
+                        { items: ['25%', '25%', '25%', '25%'], height: '25%' },
+                        { items: ['25%', '25%', '25%', '25%'], height: '25%' },
+                        { items: ['25%', '25%', '25%', '25%'], height: '25%' },
+                        { items: ['100%'], height: '25%' }
+                    ]
+                }
+            },
+            {
+                count: 14,
+                expected: {
+                    structure: [
+                        { items: ['25%', '25%', '25%', '25%'], height: '25%' },
+                        { items: ['25%', '25%', '25%', '25%'], height: '25%' },
+                        { items: ['25%', '25%', '25%', '25%'], height: '25%' },
+                        { items: ['50%', '50%'], height: '25%' }
+                    ]
+                }
+            },
+            {
+                count: 15,
+                expected: {
+                    structure: [
+                        { items: ['33.4%', '33.3%', '33.3%'], height: '20%' },
+                        { items: ['33.4%', '33.3%', '33.3%'], height: '20%' },
+                        { items: ['33.4%', '33.3%', '33.3%'], height: '20%' },
+                        { items: ['33.4%', '33.3%', '33.3%'], height: '20%' },
+                        { items: ['33.4%', '33.3%', '33.3%'], height: '20%' }
+                    ]
+                }
+            }
+        ];
+        $.each(tests, function (_index, test) {
+            it("should get a default layout Nr.of widget=" + test.count, function () {
+                var result = dashboardModel.GetDefaultLayoutConfig(test.count);
+                expect(result).toEqual(test.expected);
+            });
         });
-
     });
 
-    describe("call UpdatePublicationsWatcher", function () {
+    describe(".UpdatePublicationsWatcher", function () {
 
         beforeEach(function () {
-
             dashboardModel.Angles = mockAngles;
         });
 
@@ -55,13 +206,10 @@ describe("DashboardModel", function () {
 
     });
 
-    describe("call GetDashboardFilters", function () {
-
+    describe(".GetDashboardFilters", function () {
         it("should get dashboard filters by widget filters view model", function () {
-            var viewModel = WidgetFilterModel;
             dashboardModel.Data(mockDashboardModel);
-
-            var result = dashboardModel.GetDashboardFilters(viewModel);
+            var result = dashboardModel.GetDashboardFilters();
 
             expect(result).toBeDefined();
             expect(result.length).toEqual(1);
@@ -73,18 +221,13 @@ describe("DashboardModel", function () {
             expect(result[0].arguments[0].argument_type).toEqual('field');
             expect(result[0].arguments[0].field).toEqual('PurchaseOrderLine__AcknowledgementRequired');
         });
-
     });
 
-    describe("call SetDashboardFilters", function () {
+    describe(".SetDashboardFilters", function () {
 
         it("should set dashboard filters by widget filters view model", function () {
-            var widgetFilterViewModels = mockDashboardModel.filters.map(function (widgetFilter) {
-                return new WidgetFilterModel(widgetFilter);
-            });
-            dashboardModel.Data([]);
-
-            dashboardModel.SetDashboardFilters(widgetFilterViewModels);
+            dashboardModel.Data({});
+            dashboardModel.SetDashboardFilters(mockDashboardModel.filters);
 
             expect(dashboardModel.Data()).toBeDefined();
             expect(dashboardModel.Data().filters).toBeDefined();
@@ -100,7 +243,7 @@ describe("DashboardModel", function () {
 
     });
 
-    describe("call ExtendDashboardFilter", function () {
+    describe(".ExtendDashboardFilter", function () {
 
         it("should normalize dashboard filter", function () {
             var dashboardFilter = mockDashboardModel.filters[0];
@@ -120,13 +263,67 @@ describe("DashboardModel", function () {
 
     });
 
-    describe("call GetAllDashboardFilterFieldIds", function () {
+    describe(".GetAllDashboardFilterFieldIds", function () {
         it("should get all filter ids", function () {
             dashboardModel.Data(mockDashboardModel);
 
             var result = dashboardModel.GetAllDashboardFilterFieldIds();
 
             expect(result.length).toEqual(2);
+        });
+    });
+
+    describe(".SetBusinessProcesses", function () {
+        it("should update locally for adhoc Dashboard", function () {
+            // prepare
+            var labels = ['Gaj1', 'Gaj2'];
+            dashboardModel.Data({ assigned_labels: ['Others'] });
+            spyOn(dashboardModel, 'IsTemporaryDashboard').and.returnValue(true);
+            spyOn(dashboardModel, 'GetData');
+            spyOn(dashboardModel, 'SaveDashboard');
+            dashboardModel.SetBusinessProcesses(labels);
+
+            // assert
+            expect(dashboardModel.Data().assigned_labels).toEqual(labels);
+            expect(dashboardModel.SaveDashboard).not.toHaveBeenCalled();
+        });
+        it("should save Dashboard", function () {
+            // prepare
+            var labels = ['Gaj1', 'Gaj2'];
+            dashboardModel.Data({ assign_labels: ['Others'] });
+            spyOn(dashboardModel, 'IsTemporaryDashboard').and.returnValue(false);
+            spyOn(dashboardModel, 'GetData');
+            spyOn(dashboardModel, 'SaveDashboard');
+            dashboardModel.SetBusinessProcesses(labels);
+
+            // assert
+            expect(dashboardModel.SaveDashboard).toHaveBeenCalled();
+        });
+    });
+
+    describe(".SetExecuteOnLogin", function () {
+        it("should update locally for adhoc Dashboard", function () {
+            // prepare
+            dashboardModel.Data({ user_specific: { execute_on_login: ko.observable(false) } });
+            spyOn(dashboardModel, 'IsTemporaryDashboard').and.returnValue(true);
+            spyOn(dashboardModel, 'GetData');
+            spyOn(dashboardModel, 'SaveDashboard');
+            dashboardModel.SetExecuteOnLogin(true);
+
+            // assert
+            expect(dashboardModel.Data().user_specific.execute_on_login()).toEqual(true);
+            expect(dashboardModel.SaveDashboard).not.toHaveBeenCalled();
+        });
+        it("should save Dashboard", function () {
+            // prepare
+            dashboardModel.Data({ user_specific: { execute_on_login: ko.observable(false) } });
+            spyOn(dashboardModel, 'IsTemporaryDashboard').and.returnValue(false);
+            spyOn(dashboardModel, 'GetData');
+            spyOn(dashboardModel, 'SaveDashboard');
+            dashboardModel.SetExecuteOnLogin(true);
+
+            // assert
+            expect(dashboardModel.SaveDashboard).toHaveBeenCalled();
         });
     });
 

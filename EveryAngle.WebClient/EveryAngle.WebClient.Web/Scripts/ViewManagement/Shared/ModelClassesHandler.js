@@ -100,6 +100,12 @@ function ModelClassesHandler() {
         var modelUri = self.GetModelUriFromData({ uri: uri });
         return self.GetDataBy('uri', uri, modelUri);
     };
+    self.GetClassName = function (id, modelUri, format) {
+        var data = self.GetDataBy('id', id, modelUri)
+            || modelFollowupsHandler.GetFollowupById(id, modelUri)
+            || { id: id };
+        return userFriendlyNameHandler.GetFriendlyName(data, format);
+    };
     /*================================================*/
     //EOF: Methods
 

@@ -1,0 +1,28 @@
+﻿.popup-info {
+    font-size: 11px;
+    line-height: 18px;
+    letter-spacing: 0.25px;
+    color: #555;
+
+    .form-col-title {
+        margin-bottom: 15px;
+    }
+
+    .form-row {
+        align-items: flex-start;
+        margin-left: -5px;
+        margin-right: -5px;
+    }
+
+    .label-data {
+        margin-left: 2px;
+        font-weight: bolder;
+        color: #333;
+    }
+
+    .statistic-title {
+        font-size: 12px;
+        font-weight: bolder;
+        color: #333;
+    }
+}

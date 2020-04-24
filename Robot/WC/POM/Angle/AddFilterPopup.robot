@@ -1,7 +1,8 @@
 *** Variables ***
-${btnSubmitFilter}              css=#btn-popupListFilter1
-${btnCancelFilter}              css=#btn-popupListFilter0
-${ddOperatorDropdownList}       css=#Operator-0-DropdownList_ddlWrapper
+${filterOperatorSelector}                   .query-operator[data-role=dropdownlist]
+${ddOperatorDropdownList}                   css=.k-dropdown.query-operator
+${btnSubmitFilter}                          css=#btn-popupListFilter1
+${btnCancelFilter}                          css=#btn-popupListFilter0
 
 *** Keywords ***
 Open Operator Dropdown List
@@ -13,9 +14,9 @@ Close Operator Dropdown List
     Click Element    ${ddOperatorDropdownList}
     Sleep    ${TIMEOUT_DROPDOWN}
 
-Choose Dropdown Filter Operator Via Add Filter Popup
-    [Arguments]   ${selectText}
-    Choose Dropdown Filter Operator    0    ${selectText}
+Choose Filter Operator By Id
+    [Arguments]   ${id}
+    Select Dropdown By Kendo    ${filterOperatorSelector}    ${id}
 
 #Percentage
 Input Filter Input Percentage Via Add Filter Popup

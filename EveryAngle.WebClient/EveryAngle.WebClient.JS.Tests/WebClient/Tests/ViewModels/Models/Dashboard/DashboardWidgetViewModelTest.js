@@ -1,9 +1,10 @@
+/// <reference path="/Dependencies/ViewModels/Models/User/usersettingmodel.js" />
+/// <reference path="/Dependencies/ViewModels/Models/User/usermodel.js" />
+/// <reference path="/Dependencies/ViewModels/Models/User/privileges.js" />
 /// <reference path="/Dependencies/ViewModels/Models/Dashboard/dashboardmodel.js" />
 /// <reference path="/Dependencies/ViewManagement/shared/WidgetFilter/WidgetFilterHelper.js" />
 /// <reference path="/Dependencies/ViewManagement/shared/ValidationHandler.js" />
-/// <reference path="/Dependencies/ViewManagement/dashboard/DashboardDetailsHandler.js" />
 /// <reference path="/Dependencies/ViewManagement/shared/ModelsHandler.js" />
-/// <reference path="/Dependencies/ViewModels/Models/User/usersettingmodel.js" />
 /// <reference path="/Dependencies/ViewModels/Models/Dashboard/DashboardWidgetModel.js" />
 
 describe("DashboardWidgetViewModel", function () {
@@ -11,14 +12,6 @@ describe("DashboardWidgetViewModel", function () {
 
     beforeEach(function () {
         dashboardWidgetViewModel = new DashboardWidgetViewModel({});
-    });
-
-    describe("when create new instance", function () {
-
-        it("should be defined", function () {
-            expect(dashboardWidgetViewModel).toBeDefined();
-        });
-
     });
 
     describe(".GetDefaultWidgetName", function () {
@@ -65,6 +58,33 @@ describe("DashboardWidgetViewModel", function () {
             expect(result).toEqual('model1 - name1 - name2');
         });
 
+    });
+
+    describe(".CanExtendFilter", function () {
+        it("can extend filter", function () {
+            spyOn(dashboardWidgetViewModel, 'GetAngle').and.returnValue({ allow_more_details: true });
+            spyOn(privilegesViewModel, 'AllowMoreDetails').and.returnValue(true);
+            var result = dashboardWidgetViewModel.CanExtendFilter();
+            expect(result).toBeTruthy();
+        });
+        it("cannot extend filter (angle=null)", function () {
+            spyOn(dashboardWidgetViewModel, 'GetAngle').and.returnValue(null);
+            spyOn(privilegesViewModel, 'AllowMoreDetails').and.returnValue(true);
+            var result = dashboardWidgetViewModel.CanExtendFilter();
+            expect(result).toBeFalsy();
+        });
+        it("cannot extend filter (allow_more_details=false)", function () {
+            spyOn(dashboardWidgetViewModel, 'GetAngle').and.returnValue({ allow_more_details: false });
+            spyOn(privilegesViewModel, 'AllowMoreDetails').and.returnValue(true);
+            var result = dashboardWidgetViewModel.CanExtendFilter();
+            expect(result).toBeFalsy();
+        });
+        it("cannot extend filter (AllowMoreDetails=false)", function () {
+            spyOn(dashboardWidgetViewModel, 'GetAngle').and.returnValue({ allow_more_details: true });
+            spyOn(privilegesViewModel, 'AllowMoreDetails').and.returnValue(false);
+            var result = dashboardWidgetViewModel.CanExtendFilter();
+            expect(result).toBeFalsy();
+        });
     });
 
     describe(".GetBlockQuerySteps", function () {
@@ -184,6 +204,23 @@ describe("DashboardWidgetViewModel", function () {
     });
 
     describe(".SetExtendedFilters", function () {
+        it("should not set any filter to widget", function () {
+            var validatedFilters = [
+                { field: 'dashboard_filter1', step_type: enumHandlers.FILTERTYPE.FILTER, valid: true },
+                { field: 'dashboard_filter2', step_type: enumHandlers.FILTERTYPE.FILTER, valid: false },
+                { field: 'dashboard_filter3', step_type: enumHandlers.FILTERTYPE.FILTER },
+                { field: 'any', step_type: 'any' }
+            ];
+            spyOn(dashboardWidgetViewModel, 'CanExtendFilter').and.returnValue(false);
+            spyOn(dashboardWidgetViewModel, 'GetBlockQuerySteps').and.returnValue(null);
+
+            // act
+            dashboardWidgetViewModel.SetExtendedFilters(validatedFilters);
+            var results = dashboardWidgetViewModel.GetExtendedFilters();
+
+            // assert
+            expect(0).toEqual(results.length);
+        });
 
         it("should set 2 valid filters to widget", function () {
             var validatedFilters = [
@@ -192,6 +229,7 @@ describe("DashboardWidgetViewModel", function () {
                 { field: 'dashboard_filter3', step_type: enumHandlers.FILTERTYPE.FILTER },
                 { field: 'any', step_type: 'any' }
             ];
+            spyOn(dashboardWidgetViewModel, 'CanExtendFilter').and.returnValue(true);
             spyOn(dashboardWidgetViewModel, 'GetBlockQuerySteps').and.returnValue(null);
 
             // act
@@ -211,6 +249,7 @@ describe("DashboardWidgetViewModel", function () {
                 { field: 'dashboard_filter1', step_type: enumHandlers.FILTERTYPE.FILTER },
                 { field: 'dashboard_filter2', step_type: enumHandlers.FILTERTYPE.FILTER, valid: false }
             ];
+            spyOn(dashboardWidgetViewModel, 'CanExtendFilter').and.returnValue(true);
             spyOn(dashboardWidgetViewModel, 'GetBlockQuerySteps').and.returnValue({
                 query_steps: ['followup1', 'filter1']
             });
@@ -233,6 +272,7 @@ describe("DashboardWidgetViewModel", function () {
                 { field: 'dashboard_filter2', step_type: enumHandlers.FILTERTYPE.FILTER, valid: false },
                 { field: 'aggregation1', step_type: enumHandlers.FILTERTYPE.AGGREGATION, valid: false }
             ];
+            spyOn(dashboardWidgetViewModel, 'CanExtendFilter').and.returnValue(true);
             spyOn(dashboardWidgetViewModel, 'GetBlockQuerySteps').and.returnValue({
                 query_steps: ['followup1', 'filter1', 'aggregation1']
             });
@@ -260,13 +300,13 @@ describe("DashboardWidgetViewModel", function () {
 
         afterEach(function () {
             dashboardWidgetViewModel.angle = '';
-            dashboardModel.KeyName = '';
+            DashboardViewModel.KeyName = '';
             dashboardModel.Angles = [];
         });
 
         it("should get data by id correctly", function () {
             dashboardWidgetViewModel.angle = '1';
-            dashboardModel.KeyName = 'id';
+            DashboardViewModel.KeyName = 'id';
             var result = dashboardWidgetViewModel.GetAngle();
 
             expect(result.name).toEqual('Angle1');
@@ -274,7 +314,7 @@ describe("DashboardWidgetViewModel", function () {
 
         it("should get data by uri correctly", function () {
             dashboardWidgetViewModel.angle = '/models/1/angles/2';
-            dashboardModel.KeyName = 'uri';
+            DashboardViewModel.KeyName = 'uri';
             var result = dashboardWidgetViewModel.GetAngle();
 
             expect(result.name).toEqual('Angle2');
@@ -282,7 +322,7 @@ describe("DashboardWidgetViewModel", function () {
 
         it("should get null when Angle is not in the list", function () {
             dashboardWidgetViewModel.angle = '/models/1/angles/3';
-            dashboardModel.KeyName = 'uri';
+            DashboardViewModel.KeyName = 'uri';
             var result = dashboardWidgetViewModel.GetAngle();
 
             expect(result).toBeNull();

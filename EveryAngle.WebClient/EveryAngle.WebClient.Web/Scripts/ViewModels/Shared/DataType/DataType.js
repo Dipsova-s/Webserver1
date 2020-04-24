@@ -481,8 +481,7 @@ function FormatHelper() {
 
             delete formatter.separator;
         }
-        else if (fieldType === enumHandlers.FIELDTYPE.TIME
-            || fieldType === enumHandlers.FIELDTYPE.TIMESPAN) {
+        else if (self.IsSupportSeconds(fieldType)) {
             formatter = JSON.parse(userSettingModel.GetByName(enumHandlers.USERSETTINGS.FORMAT_TIME) || JSON.stringify({
                 hour: enumHandlers.TIME_DEFUALT_TEMPLATE.HOUR_FORMAT,
                 separator: enumHandlers.TIME_DEFUALT_TEMPLATE.SEPARATOR
@@ -789,6 +788,9 @@ function FormatHelper() {
     };
     self.IsDateOrDateTime = function (fieldType) {
         return fieldType === enumHandlers.FIELDTYPE.DATE || fieldType === enumHandlers.FIELDTYPE.DATETIME;
+    };
+    self.IsSupportSeconds = function (fieldType) {
+        return fieldType === enumHandlers.FIELDTYPE.TIME || fieldType === enumHandlers.FIELDTYPE.TIMESPAN;
     };
     self.IsFormatContainUnit = function (format, unit) {
         var formatLength = format.length;

@@ -1,84 +1,126 @@
 *** Settings ***
 Resource            ${EXECDIR}/resources/WCSettings.robot
+Resource            ${EXECDIR}/WC/POM/Shared/FilterEditor.robot
 Suite Setup         Go to WC Then Login With EAPower User
 Suite Teardown      Logout WC Then Close Browser
 Test Teardown       Go to Search Page
 Force Tags          acc_wc    smk_content
 
-*** Variables ***
-${TEST_ANGLE_EXECUTE_PARAMETER}      [ROBOT] Verify Execution Parameters When Argument Contains Space
-${TEST_ANGLE_EXECUTE_PARAMETER2}     [ROBOT] Verify Execution Parameters When Argument Is Empty
-${TEST_ANGLE_EXECUTE_PARAMETER3}     [ROBOT] Verify Execution Parameters With Compare Field
-${TEST_ANGLE_EXECUTE_PARAMETER4}     [ROBOT] Verify Execution Parameters With & Char
-${TEST_ANGLE_EXECUTE_PARAMETER5}     [ROBOT] Angle with invalid argument values
-
-
 *** Test Cases ***
+Verify Execution Parameters Behavior
+    ${angleName}  Set Variable  [ROBOT] Verify Execution Parameters Behavior
+    Upload Item And Check From Search Result  ANGLE_ExecutionParametersBehavior.angle.json    EA2_800    ${angleName}
+    Click Link Item From Search Result Not Execute Popup    ${angleName}
+    Wait Until Angle Execute Parameters Popup Loaded
+    Input Filter Input Text In List  0  2
+    Switch To Display Parameters
+    Input Filter Input Text In List  0  31
+    Click Submit Angle Execution Parameters
+
+    Click Angle Tab
+    Angle Execution Parameter Icon Should Be Marked As Executed  0
+    Angle Execution Parameter Icon Should Not Be Marked As Executed  1
+
+    Click Display Tab
+    Angle Readonly Execution Parameter Icon Should Be Marked As Executed  0
+    Angle Readonly Execution Parameter Icon Should Not Be Marked As Executed  1
+    Display Execution Parameter Icon Should Be Marked As Executed  0
+    Display Execution Parameter Icon Should Not Be Marked As Executed  1
+
+    [Teardown]    Back To Search And Delete Angle Are Created    ${angleName}
+
 Verify Execution Parameters When Argument Contains Space Test
-    Create Angle From Object List And Save    PD    ${TEST_ANGLE_EXECUTE_PARAMETER}
-    Verify Filter With Execute Parameter To List Display    text    is equal to    Vendor__NameAndDescription    Description
+    [Documentation]     Verify execute an angle when argument contains space in execution parameters
+    ...                 Risk/coverage area: Create an adhoc angle and then execute it on search page
+    [Tags]      TC_C196803
+    ${angleName}  Set Variable  [ROBOT] Verify Execution Parameters When Argument Contains Space
+    Create Angle From Object List And Save    PD    ${angleName}
+    Verify Filter With Execute Parameter To List Display    text    is equal to    Vendor__Description    Description
     ${numberOfObject}    Get Number Of Object
-    Click Angle Dropdown Actions Save Existing Display
+    Click Save All
     Go to Search Page
-    Search Angle From Search Page And Execute Angle    ${TEST_ANGLE_EXECUTE_PARAMETER}
+    Search Angle From Search Page And Execute Angle    ${angleName}
     Wait Angle Page Document Loaded
     ${numberOfObjectAfterExecuteParameter}    Get Number Of Object
     Should Be True    ${numberOfObject}==${numberOfObjectAfterExecuteParameter}
-    Back To Search And Delete Angle Are Created    ${TEST_ANGLE_EXECUTE_PARAMETER}
+
+    [Teardown]  Back To Search And Delete Angle Are Created    ${angleName}
 
 Verify Execution Parameters When Argument Is Empty
-    Create Angle From Object List And Save    PD    ${TEST_ANGLE_EXECUTE_PARAMETER2}
-    Click Edit Angle
-    Click Angle Detail Definition Tab
-    Add Filter From Angle Details Popup    Execution    ExecutionStatus     ${FALSE}
-    Choose Dropdown Filter Operator In Definition Tab    is in list
-    Click Execute Parameter To Filter
-    Click Save Angle
+    ${angleName}  Set Variable  [ROBOT] Verify Execution Parameters When Argument Is Empty
+    Create Angle From Object List And Save    PD    ${angleName}
+    Click Angle Tab
+    Set Editor Context: Angle Tab
+    Add Filter On Angle    Execution    ExecutionStatus     ${FALSE}
+    Set Editor Index    0  
+    Choose Dropdown Filter Operator Via Edit Filter    is in list
+    Click Execute Parameter On Angle
+    Click Apply Filter On Angle
     Go to Search Page
-    Search By Text And Expect In Search Result    ${TEST_ANGLE_EXECUTE_PARAMETER2}
+    Search By Text And Expect In Search Result    ${angleName}
     Execute First Search Item In Edit Mode
-    Back To Search And Delete Angle Are Created    ${TEST_ANGLE_EXECUTE_PARAMETER2}
+
+    [Teardown]   Back To Search And Delete Angle Are Created    ${angleName}
 
 Verify Execution Parameters With Compare Field Test
     [Documentation]     Verify execute an angle with Compare Field in Execution Parameters can add the compare filters
     ...                 Risk/coverage area: create an adhoc angle and then execute it on search page
     [Tags]              TC_C228800  acc_wc_aci
-    Create Adhoc Angle From Object List    PD    ${TEST_ANGLE_EXECUTE_PARAMETER3}
-    Click Angle Detail Definition Tab
-    Add Filter From Angle Details Popup    Material    MaterialValue    ${TRUE}
-    Choose Dropdown Filter Operator In Definition Tab    is equal to
-    Click Select Field Button In Definition Tab
-    Add Field By Search From Field Chooser    Invoiced    InvoicedValue     ${TRUE}
-    Click Execute Parameter To Filter
-    Click Save Angle
+    ${angleName}  Set Variable  [ROBOT] Verify Execution Parameters With Compare Field
+    Create Angle From Object List And Save    PD    ${angleName}
+    Click Angle Tab
+    Set Editor Context: Angle Tab
+    Add Filter On Angle    Material    MaterialValue    ${TRUE}
+    Set Editor Index    0  
+    Choose Dropdown Filter Operator Via Edit Filter    is equal to    
+    Click Select Field On Angle
+    Add Field By Search From Field Chooser    Invoiced    InvoicedValue    ${TRUE}
+    Click Execute Parameter On Angle
+    Click Apply Filter On Angle
     Go to Search Page
-    Search By Text And Expect In Search Result    ${TEST_ANGLE_EXECUTE_PARAMETER3}
-    Click Link Item From Search Result Not Execute Popup    ${TEST_ANGLE_EXECUTE_PARAMETER3}
+    Search By Text And Expect In Search Result    ${angleName}
+    Click Link Item From Search Result Not Execute Popup    ${angleName}
     Wait Until Angle Execute Parameters Popup Loaded
-    Add Compare Filter From Angle Details Popup    Item     PurchaseOrderLine__ItemValue    ${FALSE}
+    Add Compare Filter From Angle Execution Parameters Popup    Item     PurchaseOrderLine__ItemValue    ${FALSE}
     Click Submit Angle Execution Parameters
-    Back To Search And Delete Angle Are Created    ${TEST_ANGLE_EXECUTE_PARAMETER3}
+    
+    [Teardown]   Back To Search And Delete Angle Are Created    ${angleName}
 
 Verify Execution Parameters With & Char
-    Create Angle From Object List And Save    PD    ${TEST_ANGLE_EXECUTE_PARAMETER4}
-    Click Edit Angle
-    Click Angle Detail Definition Tab
-    Add Filter From Angle Details Popup    "Created By"    EKKO_ERNAM    ${TRUE}
-    Choose Dropdown Filter Operator In Definition Tab    is in list
+    ${angleName}  Set Variable  [ROBOT] Verify Execution Parameters With & Char
+    Create Angle From Object List And Save    PD    ${angleName}
+    Click Angle Tab
+    Set Editor Context: Angle Tab
+    Add Filter On Angle    "Created By"    EKKO_ERNAM    ${TRUE}
+    Set Editor Index    0  
+    Choose Dropdown Filter Operator Via Edit Filter    is in list
     Input Filter Input Text In List    0    TEST&TEST
-    Click Execute Parameter To Filter
-    Click Save Angle
+    Click Execute Parameter On Angle
+    Click Apply Filter On Angle
     Go to Search Page
-    Search By Text And Expect In Search Result    ${TEST_ANGLE_EXECUTE_PARAMETER4}
-    Click Link Item From Search Result Not Execute Popup    ${TEST_ANGLE_EXECUTE_PARAMETER4}
+    Search By Text And Expect In Search Result    ${angleName}
+    Click Link Item From Search Result Not Execute Popup    ${angleName}
     Click Submit Angle Execution Parameters
-    Back To Search And Delete Angle Are Created    ${TEST_ANGLE_EXECUTE_PARAMETER4}
+    
+    [Teardown]   Back To Search And Delete Angle Are Created    ${angleName}
 
 Verify Invalid Argument values
     [Tags]  acc_wc_aci
-    Upload Item And Check From Search Result  angle_with_invalid_argument_values.angle.json    EA2_800    ${TEST_ANGLE_EXECUTE_PARAMETER5}
-    Click Link Item From Search Result Not Execute Popup    ${TEST_ANGLE_EXECUTE_PARAMETER5}
+    ${angleName}  Set Variable  [ROBOT] Angle with invalid argument values
+    Upload Item And Check From Search Result  angle_with_invalid_argument_values.angle.json    EA2_800    ${angleName}
+    Click Link Item From Search Result Not Execute Popup    ${angleName}
     Wait Until Angle Execute Parameters Popup Loaded
     Click Submit Angle Execution Parameters
-    [Teardown]    Back To Search And Delete Angle Are Created    ${TEST_ANGLE_EXECUTE_PARAMETER5}
 
+    [Teardown]    Back To Search And Delete Angle Are Created    ${angleName}
+
+Verify Execution Parameters With Invalid Display Filter
+    [Documentation]     Execute an angle with display filter should open the angle page without asking for execution parameter
+    ...                 Risk/coverage area: Search page open an Angle with invalid display filter
+    [Tags]      TC_C228900
+    [Setup]     Import Angle By API  /models/1  ANGLE_WithExecutionParametersAndInvalidDisplayFilter.json  user=${Username}
+    ${angleName}  Set Variable  [ROBOT] ANGLE_WITH_EXECUTION_PARAMETERS_AND_INVALID_DISPLAY_FILTER
+    Search By Text And Expect In Search Result    ${angleName}
+    Click Link Item From Search Result Not Execute Popup    ${angleName}
+    Wait Angle Page Document Loaded
+    [Teardown]  Clean Up Items And Go To Search Page

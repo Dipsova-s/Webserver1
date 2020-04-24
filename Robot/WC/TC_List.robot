@@ -45,10 +45,17 @@ Verify Goto SAP Option
     Check Goto SAP Transaction With Multiple Rows    ${fields}    ${rowNumbers}
     [Teardown]    Back To Search And Delete Angle Are Created    ${TEST_GOTO_SAP_OPTION}
 
-Verify Breadcrumb On Single Item Drilldown
+Verify Single Item Drilldown
+    [Tags]      TC_C202356
+    [Documentation]     Verify single item drill down on old/new list display
+    ...                 Risk/coverage area: Signle item drill down 
     Search Angle From Search Page And Execute Angle    Angle For General Test
-    Wait Progress Bar Closed
-    Check If Angle Or Display Has A Warning Then Close The Popup
-    Wait Progress Bar Closed
     Click Drilldown To Item By Name    IDES Consumer Products
     Page Should Contain Drilldown Label
+    Click Item Link
+
+    Create New List Display on Angle Page
+    Click Drilldown To Item By Name    PD Schedule Line (Purchase Document (PD) Schedule Line)
+    Page Should Contain Drilldown Label
+    Click Item Link
+    Delete Current Display

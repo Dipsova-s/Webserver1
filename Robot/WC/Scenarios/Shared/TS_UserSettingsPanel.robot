@@ -157,6 +157,20 @@ Verify Changed User Settings In System Tab
     Checkbox Should Be Selected     ${chkSapFieldsInChooser}
     Checkbox Should Be Selected     ${chkSapFieldsInHeader}
 
+Verify Item Is Added To Execute At Login List
+    [Arguments]    ${name}
+    Open User Settings Panel
+    Click User Tab
+    Item Should Be In Execute At Login List  ${name}
+    Close User Settings Panel
+
+Verify Item Is Removed From Execute At Login List
+    [Arguments]    ${name}
+    Open User Settings Panel
+    Click User Tab
+    Item Should Not Be In Execute At Login List  ${name}
+    Close User Settings Panel
+
 Update User Settings In System Tab
     Select Checkbox    ${divUserSettingsBusinessProcessItems} #GRC
     Select Dropdown Default Number Of Rows For Export To Excel    All results
@@ -198,7 +212,6 @@ Change User Language
     Click Save User Settings
     Close All Toasts
 
-#Javascript
 Get User Setting Language
     ${language}   Execute JavaScript   return userSettingModel.Data().default_language;
     [Return]    ${language}

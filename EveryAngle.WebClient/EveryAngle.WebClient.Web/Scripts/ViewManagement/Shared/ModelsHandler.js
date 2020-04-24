@@ -168,6 +168,18 @@ function ModelsHandler() {
         }
         return directoryHandler.ResolveDirectoryUri(followupUri);
     };
+    self.GetResultQueryFieldsUri = function (resultClasses, modelUri) {
+        var currentInstance = modelCurrentInstanceHandler.GetCurrentModelInstance(modelUri);
+        var uri = currentInstance ? currentInstance.fields : self.GetModelByUri(modelUri).fields;
+        var query = '?classes=' + resultClasses.join(',');
+        return uri + query;
+    };
+    self.GetResultFollowupsUri = function (resultClasses, modelUri) {
+        var currentInstance = modelCurrentInstanceHandler.GetCurrentModelInstance(modelUri);
+        var uri = currentInstance ? currentInstance.followups : self.GetModelByUri(modelUri).followups;
+        var query = '?classes=' + resultClasses.join(',');
+        return uri + query;
+    };
     self.GetFollowupUri = function (resultData, angleData, target) {
         var modelUri = angleData.model;
         var currentInstance = modelCurrentInstanceHandler.GetCurrentModelInstance(modelUri);

@@ -1,6 +1,7 @@
 *** Settings ***
 Resource            ${EXECDIR}/WC/POM/Shared/FiltersPanel.robot
-Resource            ${EXECDIR}/WC/POM/Angle/AngleDetailPopup.robot
+Resource            ${EXECDIR}/WC/POM/Shared/EditDescriptionPopup.robot
+Resource            ${EXECDIR}/WC/POM/Angle/AngleSidePanel.robot
 Resource            ${EXECDIR}/WC/POM/Angle/AnglePublishingPopup.robot
 Resource            ${EXECDIR}/WC/POM/Angle/AngleValidatingPopup.robot
 Resource            ${EXECDIR}/WC/POM/Angle/AngleExecuteParametersPopup.robot
@@ -10,36 +11,34 @@ Resource            ${EXECDIR}/WC/POM/Angle/DisplayDetailPopup.robot
 Resource            ${EXECDIR}/WC/POM/Angle/DisplayList.robot
 Resource            ${EXECDIR}/WC/POM/Angle/DisplayChart.Robot
 Resource            ${EXECDIR}/WC/POM/Angle/DisplayPivot.Robot
-Resource            ${EXECDIR}/WC/POM/Angle/AngleInfoPopup.robot
+Resource            ${EXECDIR}/WC/POM/Angle/AngleStatisticPopup.robot
+Resource            ${EXECDIR}/WC/POM/Angle/DisplayStatisticPopup.robot
 Resource            ${EXECDIR}/WC/POM/Angle/FieldSettings.Robot
+Resource            ${EXECDIR}/WC/POM/Angle/SaveAngleAsPopup.Robot
 Resource            ${EXECDIR}/WC/POM/Angle/SaveDisplayAsPopup.Robot
 Resource            ${EXECDIR}/WC/POM/Angle/AddJumpPopup.robot
 Resource            ${EXECDIR}/WC/POM/Angle/ExportToExcelPopup.robot
 Resource            ${EXECDIR}/WC/POM/Angle/ExportToCSVPopup.robot
+Resource            ${EXECDIR}/WC/POM/Angle/DisplayTabMenu.robot
+Resource            ${EXECDIR}/WC/POM/Angle/DisplayOverview.robot
 
 *** Variables ***
-${btnDataInfo}                          css=#ExecutionResults .btnInfo
-${spanSelectedDisplay}                  css=.SelectedDisplayItem .name
-${ddlSelectDisplay}                     SelectedDisplay
-${ddlSelectDisplayHandle}               css=.SelectedDisplayPointer
-${ddlSelectDisplayItemList}             jquery=#DisplayItemList
-${ddlSelectDisplayItems}                jquery=#DisplayItemList .ItemList
-${ddlSelectDisplayWarningItems}         jquery=#DisplayItemList .ItemList.validWarning
-${ddlSelectDisplayErrorItems}           jquery=#DisplayItemList .ItemList.validError
-${ddlSelectDisplaySelectedItem}         jquery=#DisplayItemList .ItemListSelected
-${btnCurrentDisplayDelete}              jquery=#SelectedDisplay .ItemListSelected .btnDelete
-${ddlCurrentDisplayIcon}                jquery=#SelectedDisplay .SelectedDisplayItem .icon:eq(1)
-${btnConfirmDeleteDisplay}              btn-popupNotification1
-${btnToggleAnglePanel}                  ToggleAngle
-${divLastRemovableDisplayFilter}        jquery=#DisplayDescriptionWrapper li.removable:last .filter
-${divPanelDisplayFilters}               jquery=#DisplayDescriptionWrapper
-${divPanelDisplayFilterItems}           jquery=#DisplayDescriptionWrapper .detailDefinitionList li
-${divPrivateNote}                       YourNote
+${divExecutionInfo}                     jquery=.content-wrapper .section-info-body
+${tabCurrentDisplay}                    jquery=#DisplayTabs .tab-menu.active
+${tabCurrentDisplayIcon}                jquery=#DisplayTabs .tab-menu.active .display-icon
+${tabCurrentDisplayName}                jquery=#DisplayTabs .tab-menu.active .name
+${icoDisplayWarningItems}               jquery=#DisplayTabs .tab-menu .validWarning
+${icoDisplayErrorItems}                 jquery=#DisplayTabs .tab-menu .validError
+
+${btnSaveMain}              css=#AngleSavingWrapper .btn-main-saving
+${btnSaveOptions}           css=#AngleSavingWrapper .btn-saving-options
+${btnSaveAll}               css=#AngleSavingWrapper .action-save-all
+${btnSaveangleAs}           css=#AngleSavingWrapper .action-save-angle-as
+${btnSaveDisplayAs}         css=#AngleSavingWrapper .action-save-display-as
+${btnSetToTemplate}         css=#AngleSavingWrapper .action-set-template 
+${iconTemplate}             css=#SectionInfo .icon-template
 
 ${btnAngleActionMeatBalls}                          css=#ActionDropdownList
-${ddlAngleActionDropdownListCreateNewDisplay}       css=#ActionDropdownListPopup .newDisplay
-${ddlAngleActionDropdownListSaveDisplay}            css=#ActionDropdownListPopup .save
-${ddlAngleActionDropdownListSaveDisplayAs}          css=#ActionDropdownListPopup .saveAs
 ${ddlAngleActionDropdownListCopyDisplay}            css=#ActionDropdownListPopup .copydisplay
 ${ddlAngleActionDropdownListPasteDisplay}           css=#ActionDropdownListPopup .pastedisplay
 ${ddlAngleActionDropdownListExportToExcel}          css=#ActionDropdownListPopup .exportToExcel
@@ -48,19 +47,51 @@ ${ddlAngleActionDropdownListAddToDashboard}         css=#ActionDropdownListPopup
 ${ddlAngleActionDropdownListCreateList}             css=#ActionDropdownListPopup .createList
 ${ddlAngleActionDropdownAddJump}                    css=#ActionDropdownListPopup .addFollowup
 ${ddlAngleActionDropdownListEditDisplay}            css=#ActionDropdownListPopup .editDisplay
+${ddlAngleActionDropdownListExecuteDisplay}         css=#ActionDropdownListPopup .exitEditMode
 ${chkDisplaysSection}                               jquery=.publish-displays .accordion-body .listview-item    
 
-${lnkEditAngle}    css=#AngleDescriptionWrapper .descriptionHeader a
-${lnkEditDisplay}    css=#DisplayDescriptionWrapper .descriptionHeader a
+${btnNewDisplay}                                    css=.btn-new-display
+${btnConfirmDeleteDisplay}              btn-popupNotification1
 
-${rdoExecuteParemeter}     AskValue-0
-${btnShowPublishSettings}      css=#ShowPublishSettingsButton
-${btnShowValidateButton}       css=#ShowValidateButton
+${btnShowPublishSettings}           css=#ShowPublishSettingsButton
+${btnShowValidateButton}            css=#ShowValidateButton
+${btnCancelSavePublishSettings}     css=#btn-popupNotification0
+
+${popupNotification}    css=#popupNotification
 
 *** Keywords ***
+Get Angle Uri
+    ${uri}  Execute JavaScript  return WC.Utility.UrlParameter('angle');
+    [Return]  ${uri}
+
+Get Display Uri
+    ${uri}  Execute JavaScript  return WC.Utility.UrlParameter('display');
+    [Return]  ${uri}
+
+Is Adhoc Angle
+    ${isAdhoc}  Execute JavaScript
+    ...    var uri=WC.Utility.UrlParameter('angle');
+    ...    return WC.ModelHelper.IsAdhocUri(uri);
+    [Return]  ${isAdhoc}
+
+Is Adhoc Display
+    ${isAdhoc}  Execute JavaScript
+    ...    var uri=WC.Utility.UrlParameter('display');
+    ...    return WC.ModelHelper.IsAdhocUri(uri);
+    [Return]  ${isAdhoc}
+
+Get Angle Name
+    ${name}  Get Text  css=#SectionInfo .name
+    [Return]  ${name}
+
+Angle Name Should Be
+    [Arguments]    ${expected}
+    ${name}  Get Angle Name
+    Should Be Equal  ${name}  ${expected}
+
 Wait Angle Page Document Loaded
     Wait Until Page Initialized
-    Wait Until Page Contains Element    ${ddlSelectDisplay}    60s
+    Wait Until Page Contains Element    ${tabCurrentDisplay}    60s
     Wait Progress Bar Closed
     Wait Until Ajax Complete
 
@@ -77,66 +108,161 @@ Reload Angle Page
     Reload Page
     Wait Angle Page Document Loaded
 
-Open Execution Info Popup
-    Sleep    ${TIMEOUT_LARGEST}
-    Wait Until Page Contains Element    ${btnDataInfo}
-    Wait Until Element Is Visible    ${btnDataInfo}
-    Sleep    ${TIMEOUT_LARGEST}
-    Click Element    ${btnDataInfo}
-    Wait Angle Execution Info Element Loaded
-
 Is Angle Executed
-    ${executed}  Run Keyword And Return Status   Page Shoud Contain Element  ${btnDataInfo}
+    ${selector}   Get JQuery Selector  ${divExecutionInfo}
+    ${executed}   Execute JavaScript  var text=$.trim($('${selector}').text());return text && text!=='Angle is not executed';
     [Return]  ${executed}
 
-Click Toggle Angle
-    Click Element   ${btnToggleAnglePanel}
-    Sleep    ${TIMEOUT_GENERAL}
+Click Main Save
+    Click Element  ${btnSaveMain}
 
-Get Filter Or Jump Name From Display Panel
-    [Arguments]    ${index}
-    ${text}    Get Text   ${divPanelDisplayFilterItems}:eq(${index})
-    [Return]    ${text}
+Main Save Button Should Be Available
+    Page Should Contain Element  ${btnSaveMain}
 
-Filter Text Should Not Be In Display Panel
-    [Arguments]    ${text}
-    Element Should Not Contain    ${divPanelDisplayFilters}    ${text}
+Main Save Button Should Not Be Available
+    Page Should Not Contain Element  ${btnSaveMain}
 
-Filter Text Should Be In Display Panel
-    [Arguments]    ${text}
-    Element Should Contain    ${divPanelDisplayFilters}    ${text}
+Main Save Button Should Be Enable
+    Page Should Contain Element  ${btnSaveMain}:not(.disabled)
 
-Click Remove Last Adhoc Filter
-    Click Element   ${divLastRemovableDisplayFilter}
+Main Save Button Should Be Disabled
+    Page Should Contain Element  ${btnSaveMain}.disabled
+
+Main Save Button Is Save All
+    Element Text Should Be  ${btnSaveMain}  Save
+
+Main Save Button Is Save Angle As
+    Element Text Should Be  ${btnSaveMain}  Save Angle as...
+
+Main Save Button Is Save Display As
+    Element Text Should Be  ${btnSaveMain}  Save Display as...
+
+Click Option Save
+    [Arguments]    ${element}
+    Click Caret Of Save Button
+    Click Element  ${element}
+
+Click Save All
+    ${hasButton}  Is Element Exist  ${btnSaveAll}
+    Run Keyword If  ${hasButton}  Click Option Save  ${btnSaveAll}
+    ...    ELSE                   Click Main Save
     Wait Progress Bar Closed
+    Wait Until Ajax Complete
+    Page Should Contain Toast Success
+    Wait Display Executed
+
+Click Save All And Expect Warning
+    ${hasButton}  Is Element Exist  ${btnSaveAll}
+    Run Keyword If  ${hasButton}  Click Option Save  ${btnSaveAll}
+    ...    ELSE                   Click Main Save
+    Wait Progress Bar Closed
+    Wait Until Ajax Complete
+    Element Should Be Visible   ${popupNotification}
+
+Save All Button Should Be Available
+    Page Should Contain Element  ${btnSaveAll}
+
+Save All Button Should Not Be Available
+    Page Should Not Contain Element  ${btnSaveAll}
+
+Save All Button Should Be Enable
+    Page Should Contain Element  ${btnSaveAll}:not(.disabled)
+
+Save All Button Should Be Disabled
+    Page Should Contain Element  ${btnSaveAll}.disabled
+
+Click Save Angle As
+    ${hasButton}  Is Element Exist  ${btnSaveAngleAs}
+    Run Keyword If  ${hasButton}  Click Option Save   ${btnSaveAngleAs}
+    ...    ELSE                   Click Main Save
+    Wait Until Save Angle As Popup Loaded
+
+Save Angle As Button Should Be Available
+    Page Should Contain Element  ${btnSaveAngleAs}
+
+Save Angle As Button Should Not Be Available
+    Page Should Not Contain Element  ${btnSaveAngleAs}
+
+Save Angle As Button Should Be Enable
+    Page Should Contain Element  ${btnSaveAngleAs}:not(.disabled)
+
+Save Angle As Button Should Be Disabled
+    Page Should Contain Element  ${btnSaveAngleAs}.disabled
+
+Click Save Display As
+    ${hasButton}  Is Element Exist  ${btnSaveDisplayAs}
+    Run Keyword If  ${hasButton}  Click Option Save  ${btnSaveDisplayAs}
+    ...    ELSE                   Click Main Save
+    Wait Until Save Display As Popup Loaded
+
+Save Display As Button Should Be Available
+    Page Should Contain Element  ${btnSaveDisplayAs}
+
+Save Display As Button Should Not Be Available
+    Page Should Not Contain Element  ${btnSaveDisplayAs}
+
+Save Display As Button Should Be Enable
+    Page Should Contain Element  ${btnSaveDisplayAs}:not(.disabled)
+
+Save Display As Button Should Be Disabled
+    Page Should Contain Element  ${btnSaveDisplayAs}.disabled
+
+Click Set Template To Angle
+    ${hasButton}    Is Element Exist    ${btnSetToTemplate}  
+    Run Keyword If  ${hasButton}  Click Option Save    ${btnSetToTemplate}
+    ...    ELSE                   Click Main Save
+    Wait Progress Bar Closed
+    Wait Until Ajax Complete
+    Page Should Contain Toast Success
+    Wait Display Executed
+
+Click Set Angle To Template
+    ${hasButton}    Is Element Exist    ${btnSetToTemplate}  
+    Run Keyword If  ${hasButton}  Click Option Save    ${btnSetToTemplate}
+    ...    ELSE                   Click Main Save
+    Wait Progress Bar Closed
+    Wait Until Ajax Complete
+    Page Should Contain Toast Success
+    Wait Display Executed
+
+Set To Template Button Should Not Available
+    Element Should Not Be Visible    ${btnSetToTemplate}    
+
+Set To Template Buttom Should Be Disabled
+    Page Should Contain Element    ${btnSetToTemplate}.disabled
+
+Set To Template Buttom Should Be Enable
+    Page Should Contain Element    ${btnSetToTemplate}:not(.disabled)
+
+Set To Angle Button Should Be Available
+    ${Text}    Get Text    ${btnSetToTemplate}
+    Should Be Equal    ${Text}    Set To Angle  
+
+Check Template Icon Is Visible
+    Element Should Be Visible    ${iconTemplate} 
+
+Check Template Icon Is InVisible
+    Page Should Not Contain Element    ${iconTemplate}
+
+Click Caret Of Save Button
+    Click Element  ${btnSaveOptions}
+    Sleep  ${TIMEOUT_LARGEST}
 
 Click Angle Action
     [Arguments]    ${actionSelector}
     ${isMeatBallsVisibled}=  Run Keyword And Return Status    Element Should Be Visible    ${btnAngleActionMeatBalls}
     Run keyword if    ${isMeatBallsVisibled}    Click Element    ${btnAngleActionMeatBalls}
+    Wait Until Page Contains Element    ${actionSelector}
     Click Element    ${actionSelector}
 
-Click Angle Dropdown Actions Create New Display
-    Click Angle Action    ${ddlAngleActionDropdownListCreateNewDisplay}
-
-Click Angle Dropdown Actions Save Display As
-    Click Angle Action    ${ddlAngleActionDropdownListSaveDisplayAs}
+Click To Create New Display
+    Click Angle Action    ${btnNewDisplay}
 
 Click Angle Dropdown Actions Copy Display
     Click Angle Action    ${ddlAngleActionDropdownListCopyDisplay}
-
+	
 Click Angle Dropdown Actions Paste Display
     Click Angle Action    ${ddlAngleActionDropdownListPasteDisplay}
-
-Click Angle Dropdown Actions Save Adhoc Display
-    Click Angle Action    ${ddlAngleActionDropdownListSaveDisplay}
-    Wait Until Page Contains    Save Display as...
-    Wait Until Page Contains Element    ${txtSaveAsDisplayName}
-    Wait Until Page Contains Element    ${btnSubmitSaveAsDisplay}
-
-Click Angle Dropdown Actions Save Existing Display
-    Click Angle Action    ${ddlAngleActionDropdownListSaveDisplay}
-    Wait Progress Bar Closed
 
 Click Angle Dropdown Actions Edit Display
     Click Angle Action    ${ddlAngleActionDropdownListEditDisplay}
@@ -167,15 +293,29 @@ Click Angle Dropdown To Export Drilldown To Excel
     Click Angle Action    ${ddlAngleActionDropdownListExportToExcel}
     Wait Until Export Drilldown To Excel Popup Loaded
 
+Click Angle Dropdown To Execute Display
+    Click Angle Action    ${ddlAngleActionDropdownListExecuteDisplay}
+    Wait Display Executed
+
 Get Display Type
+    [Arguments]    ${item}
+    ${selector}    Get JQuery Selector    ${item}
+    ${displayType}    Execute JavaScript
+    ...    var element = $('${selector}');
+    ...    var displayType = '';
+    ...    if (element.hasClass('icon-list')) displayType = 'list';
+    ...    else if (element.hasClass('icon-chart')) displayType = 'chart';
+    ...    else if (element.hasClass('icon-pivot')) displayType = 'pivot';
+    ...    return displayType;
+    [Return]    ${displayType}
+
+Get Display Type By Index
     [Arguments]    ${index}
-    ${ddlSelectDisplayIconSelector}    Get JQuery Selector    ${ddlSelectDisplayItems} .icon:eq(1)
-    ${displayType}    Execute JavaScript    return $.trim($('${ddlSelectDisplayIconSelector}').attr('class').replace('icon ', '').replace(' default', ''));
+    ${displayType}    Get Display Type    ${divDisplayTabMenus}:eq(${index}) .display-icon
     [Return]    ${displayType}
 
 Get Current Display Type
-    ${ddlCurrentDisplayIconSelector}    Get JQuery Selector    ${ddlCurrentDisplayIcon}
-    ${displayType}    Execute JavaScript    return $.trim($('${ddlCurrentDisplayIconSelector}').attr('class').replace('icon ', '').replace(' default', ''));
+    ${displayType}    Get Display Type  ${tabCurrentDisplayIcon}
     [Return]    ${displayType}
 
 Display Type Should Be Equal To
@@ -183,91 +323,53 @@ Display Type Should Be Equal To
     ${currentDisplayType}    Get Current Display Type
     Should Be True    '${currentDisplayType}'=='${displayType}'
 
-#Display Dropdown
-Open Display Dropdown
-    Sleep    ${TIMEOUT_LARGEST}
-    ${isDropdownVisible} =    Is Element Visible    ${ddlSelectDisplayItemList}
-    Run Keyword If    ${isDropdownVisible} == False    Click Element    ${ddlSelectDisplayHandle}
-    Run Keyword If    ${isDropdownVisible} == False    Sleep            ${TIMEOUT_DROPDOWN}
-
-Close Display Dropdown
-    ${isDropdownVisible} =    Is Element Visible    ${ddlSelectDisplayItemList}
-    Run Keyword If    ${isDropdownVisible} == True    Click Element    ${ddlSelectDisplayHandle}
-    Run Keyword If    ${isDropdownVisible} == True    Sleep            ${TIMEOUT_DROPDOWN}
-
-Select Display From Display Dropdown
-    [Arguments]  ${displayItem}
-    Open Display Dropdown
-    ${isVisible}    Is Element Visible    ${displayItem}
-    Run Keyword If    ${isVisible} == False    Scroll Vertical To Element    ${ddlSelectDisplayItemList}    ${displayItem}
-    ${itemSelector}    Get Jquery Selector    ${displayItem}
-    Execute JavaScript    $('${itemSelector}').trigger('click');
-    #Wait Until Element Is Visible    ${displayItem}
-    #Click Element    ${displayItem}
-    Sleep            ${TIMEOUT_DROPDOWN}
-
-Click Delete Current Display
-    Mouse Over    ${ddlSelectDisplaySelectedItem}
-    Click Element    ${btnCurrentDisplayDelete}
-
 Click Confirm Delete Display
     Wait Until Page Contains    Delete Display:
     Click Element    ${btnConfirmDeleteDisplay}
     Wait Progress Bar Closed
 
-Click Delete Display
-    [Arguments]  ${displayName}
-    Mouse Over    ${ddlSelectDisplayItems}[title="${displayName}"]
-    Click Element    ${ddlSelectDisplayItems}[title="${displayName}"] .btnDelete
-
 Get Display Warning Count
-    ${count}    Get Element Count    ${ddlSelectDisplayWarningItems}
+    ${count}    Get Element Count    ${icoDisplayWarningItems}
     [Return]    ${count}
 
 Get Display Error Count
-    ${count}    Get Element Count    ${ddlSelectDisplayErrorItems}
+    ${count}    Get Element Count    ${icoDisplayErrorItems}
     [Return]    ${count}
-#End Display Dropdown
-
-Is Adhoc Angle
-    ${isAdhoc} =    Execute Javascript    return angleInfoModel.IsTemporaryAngle()!=''
-    [Return]    ${isAdhoc}
 
 Is Angle From Template
-    ${isAngleTemplate} =    Execute Javascript    return angleInfoModel.IsTemporaryAngle()!='' && angleInfoModel.GetTemplateAngle()!=null
+    ${isAngleTemplate}    Execute Javascript    return angleInfoModel.IsTemporaryAngle()!='' && angleInfoModel.GetTemplateAngle()!=null
     [Return]    ${isAngleTemplate}
 
-Check If Angle Is A Template Then Close The Popup
-    ${statusTemplate} =  Is Angle From Template
-    Run Keyword If    ${statusTemplate} == True    Wait Angle Detail Document Loaded
-    Run Keyword If    ${statusTemplate} == True    Close Angle Popup Detail
-
-Click Edit Angle
-    Click Element   ${lnkEditAngle}
-    Wait Angle Detail Document Loaded
-    Wait Until Element Is Visible    ${tabAngleGeneral}
-
 Click Edit Display
-    Click Element   ${lnkEditDisplay}
+    Click Element   ${ddlAngleActionDropdownListEditDisplay}
     Wait Display Detail Document Loaded
 
 Wait Until Notification Popup Show
     Wait Until Element Is Visible     ${popupNotification}
 
-Get Selected Display Name
-    ${ddlSelectDisplaySelector}    Get JQuery Selector    ${spanSelectedDisplay}
-    ${displayName}    Execute JavaScript    return $('${ddlSelectDisplaySelector}').text()
-    [Return]    ${displayName}
-
 Get Display Name By Index
     [Arguments]    ${index}
-    ${ddlSelectDisplaySelector}    Get JQuery Selector    ${ddlSelectDisplayItems} .name:eq(${index})
-    ${displayName}    Execute JavaScript    return $('${ddlSelectDisplaySelector}').text()
+    ${ddlSelectDisplaySelector}    Get JQuery Selector    ${divDisplayTabMenus} .name:eq(${index})
+    ${displayName}    Execute JavaScript    return $('${ddlSelectDisplaySelector}').text().trim()
     [Return]    ${displayName}
+
+Get Current Display Name
+    ${currentDsplaySelector}    Get JQuery Selector    ${tabCurrentDisplayName}
+    ${displayName}    Execute JavaScript    return $('${currentDsplaySelector}').text().trim()
+    [Return]    ${displayName}
+
+Check All Display Are Checked
+    Page Should Contain Element     ${chkDisplaysSection} input:checkbox(:checked)
+    Page Should Not Contain Element     ${chkDisplaysSection} input:checkbox:not(:checked)
 
 Open Angle Publishing Popup
     Click Element   ${btnShowPublishSettings}
     Wait Angle Publishing Popup Loaded
+
+Angle Publishing Should Get A Confirmation Popup
+    Click Element   ${btnShowPublishSettings}
+    Page Should Contain Element  ${popupNotification} .confirm
+    Click Element   ${btnCancelSavePublishSettings}
 
 Check Angle Is Published
     Page Should Contain Element    ${btnShowPublishSettings}.btn-primary
@@ -284,7 +386,3 @@ Check Angle Is Validated
 
 Check Angle Is Unvalidated
     Page Should Contain Element    ${btnShowValidateButton}.btn-light
-
-Check All Display Are Checked
-    Page Should Contain Element     ${chkDisplaysSection} input:checkbox(:checked)
-    Page Should Not Contain Element     ${chkDisplaysSection} input:checkbox:not(:checked)

@@ -1,8 +1,8 @@
 *** Variables ***
 ${breadcrumbLinkSearchResults}                      jquery=.breadcrumbLink:nth(0)
 ${breadcrumbLinkItem}                               jquery=.breadcrumbLink:nth(1)
-${breadcrumbLblItem}                                jquery=.breadcrumbLabel
-${breadcrumbLblDrilldownResults}                    jquery=.breadcrumbLabel
+${breadcrumbLabelItem}                                jquery=.breadcrumbLabel
+${breadcrumbLabelDrilldownResults}                    jquery=.breadcrumbLabel
 ${breadcrumbIconValidated}                          jquery=.icon-breadcrumb-validated
 
 *** Keywords ***
@@ -23,12 +23,12 @@ Page Should Contain Item Link
     Page Should Contain Element                     ${breadcrumbLinkItem}
 
 Page Should Contain Item Label
-    Wait Until Page Contains Element                ${breadcrumbLblItem}
-    Page Should Contain Element                     ${breadcrumbLblItem}
+    Wait Until Page Contains Element                ${breadcrumbLabelItem}
+    Page Should Contain Element                     ${breadcrumbLabelItem}
 
 Page Should Contain Drilldown Label
-    Wait Until Page Contains Element                ${breadcrumbLblDrilldownResults}
-    Page Should Contain Element                     ${breadcrumbLblDrilldownResults}
+    Wait Until Page Contains Element                ${breadcrumbLabelDrilldownResults}
+    Page Should Contain Element                     ${breadcrumbLabelDrilldownResults}
 
 Page Should Contain Validated Icon
     Wait Until Page Contains Element                ${breadcrumbIconValidated}

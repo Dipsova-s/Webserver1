@@ -15,9 +15,6 @@ window.ItemInfoHandler = function () {
         var item = searchModel.GetItemByUri(uri);
         if (!item)
             return;
-
-        requestHistoryModel.SaveLastExecute(self, self.ShowInfoPopup, arguments);
-        requestHistoryModel.ClearPopupBeforeExecute = true;
         
         var buttons = [
             {
@@ -66,14 +63,9 @@ window.ItemInfoHandler = function () {
                 }
             },
             open: function (e) {
-                if (self.HandlerAngleDetails) {
-                    self.HandlerInfoDetails.SetData(item.description, []);
-                }
-                else {
-                    self.HandlerInfoDetails = new WidgetDetailsHandler(e.sender.element, item.description, [], []);
-                    self.HandlerInfoDetails.ModelUri = item.model;
-                    self.HandlerInfoDetails.ApplyHandler();
-                }
+                self.HandlerInfoDetails = new WidgetDetailsHandler(e.sender.element, item.description, [], []);
+                self.HandlerInfoDetails.ModelUri = item.model;
+                self.HandlerInfoDetails.ApplyHandler();
 
                 var titleElement = e.sender.wrapper.find('.k-window-title');
 
@@ -210,7 +202,7 @@ window.ItemInfoHandler = function () {
                             }
                         })
                         .then(function () {
-                            return dashboardModel.LoadAngles(dashboardModel.KeyName, false, false);
+                            return dashboardModel.LoadAngles(DashboardViewModel.KeyName, false, false);
                         })
                         .done(function () {
                             //Find Label
@@ -252,7 +244,6 @@ window.ItemInfoHandler = function () {
             },
             close: function (e) {
                 e.sender.element.busyIndicator(false);
-
                 WC.Ajax.AbortAll();
                 e.sender.destroy();
             }
@@ -262,64 +253,58 @@ window.ItemInfoHandler = function () {
     };
 
     self.SetFavoriteIconCSSClass = function (target, data) {
-        target.removeClass().addClass(self.GetSignFavoriteIconCSSClass(data));
+        target.addClass(self.GetSignFavoriteIconCSSClass(data));
     };
 
     self.GetSignFavoriteIconCSSClass = function (data) {
-        var cssClass;
-        if (data.user_specific && data.user_specific.is_starred) {
-            cssClass = 'SignFavorite';
-        }
-        else {
-            cssClass = 'SignFavoriteDisable';
-        }
-
         if (!data.authorizations.update_user_specific) {
-            cssClass += ' disabled';
+            return 'always-hide';
         }
-
-        return cssClass;
+        if (data.user_specific && data.user_specific.is_starred) {
+            return 'SignFavorite';
+        }
+        return 'SignFavoriteDisable';
     };
 
     self.SetFavoriteItem = function (value, event) {
         var target = jQuery(event.currentTarget);
-        if (target.hasClass('disabled') || target.hasClass('loader-spinner-inline'))
+        if (target.hasClass('always-hide') || target.hasClass('loader-spinner-inline'))
             return;
 
         var uri = value instanceof Object ? value.uri : value;
         var model = searchModel.GetItemByUri(uri);
-        if (!model)
+        if (!model || !model.authorizations.update_user_specific)
             return;
+        
+        target.removeClass('SignFavoriteDisable SignFavorite').addClass('loader-spinner-inline');
+        searchModel.SetFavoriteItem(model)
+            .done(function (data) {
+                var isStarred = false;
+                if (data.user_specific && data.user_specific.is_starred) {
+                    isStarred = data.user_specific.is_starred;
+                }
+                if (model.user_specific) {
+                    model.user_specific.is_starred = isStarred;
+                }
+                else {
+                    var userSpecificObject = {};
+                    userSpecificObject.is_starred = isStarred;
+                    model.user_specific = userSpecificObject;
+                }
+                self.SetFavoriteIconCSSClass(target, model);
+                self.UpdateFavoriteItem(data);
 
-        if (model.authorizations.update_user_specific) {
-            target.removeClass('SignFavoriteDisable SignFavorite').addClass('loader-spinner-inline');
-            searchModel.SetFavoriteItem(model)
-                .done(function (data) {
-                    var isStarred = false;
-                    if (data.user_specific && data.user_specific.is_starred) {
-                        isStarred = data.user_specific.is_starred;
-                    }
-                    if (model.user_specific) {
-                        model.user_specific.is_starred = isStarred;
-                    }
-                    else {
-                        var userSpecificObject = {};
-                        userSpecificObject.is_starred = isStarred;
-                        model.user_specific = userSpecificObject;
-                    }
-                    self.SetFavoriteIconCSSClass(target, model);
-                    self.UpdateFavoriteItem(data);
+            })
+            .always(function () {
+                target.removeClass('loader-spinner-inline');
+            });
 
-                })
-                .always(function () {
-                    target.removeClass('loader-spinner-inline');
-                });
-
-            if (event.preventDefault) {
-                event.preventDefault();
-                event.stopPropagation();
-            }
-            else event.returnValue = false;
+        if (event.preventDefault) {
+            event.preventDefault();
+            event.stopPropagation();
+        }
+        else {
+            event.returnValue = false;
         }
     };
     self.UpdateFavoriteItem = function (model) {
@@ -395,12 +380,12 @@ window.ItemInfoHandler = function () {
         var contentHeight = maxDisplays * 26;
         var offset = target.offset();
         offset.left = offset.left - contentWidth - arrowSize;
-        offset.top = offset.top - 5;
+        offset.top = offset.top - 10;
 
         // position top top of target if no space at bottom
         if (offset.top + contentHeight > WC.Window.Height) {
             settings.arrow += ' bottom';
-            offset.top -= contentHeight - 35;
+            offset.top -= contentHeight - 30;
         }
 
         settings.offset = offset;
@@ -486,8 +471,6 @@ window.ItemInfoHandler = function () {
     };
     self.ShowAngleExecutionParameterPopup = function (angle, displayUri) {
         var executionParameter = new ExecutionParameterHandler();
-        executionParameter.ModelUri = angle.model;
-        executionParameter.ClickShowBaseClassInfoPopupString = 'searchPageHandler.ShowBaseClassInfoPopup(this, "' + angle.model + '")';
         executionParameter.ShowPopupBeforeCallback = function () {
             return jQuery.when(fieldCategoryHandler.LoadFieldCategories())
                 .then(function () {
@@ -526,6 +509,7 @@ window.ItemInfoHandler = function () {
             // M4-33874 keep parameterized to local storage (bug fixed in IE an Edge)
             jQuery.localStorage(enumHandlers.ANGLEPARAMETER.ASK_EXECUTION, option);
             if (executionParameter.Angle.is_template) {
+                q[enumHandlers.ANGLEPARAMETER.TARGET] = enumHandlers.ANGLETARGET.ANGLEPOPUP;
                 q[enumHandlers.ANGLEPARAMETER.TEMPLATE] = true;
             }
             q[enumHandlers.ANGLEPARAMETER.STARTTIMES] = jQuery.now();

@@ -12,7 +12,7 @@ Verify User Settings Details
     Verify User Tab
     Click System Tab
     Verify System Tab
-    UserSettingsPanel.Click Fields Tab
+    Click Fields Tab
     Expand All Accordion Fields
     Verify Fields Tab
     Close User Settings Panel

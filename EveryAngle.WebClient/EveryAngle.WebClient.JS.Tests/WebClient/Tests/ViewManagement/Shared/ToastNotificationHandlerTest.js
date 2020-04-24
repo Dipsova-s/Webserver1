@@ -95,7 +95,7 @@ describe("ToastNotificationHandler", function () {
                 var message = '({0})';
                 var fullMessage = ToastNotificationUtility.TruncateTextFormatting(word, message);
 
-                expect(fullMessage).toEqual("(Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy t...)");
+                expect(fullMessage).toEqual("(Lorem Ipsum is simply dummy text of the printing and type...)");
             });
 
         });

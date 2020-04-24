@@ -1,7 +1,7 @@
 ﻿/// <reference path="/Dependencies/ViewModels/Models/User/usersettingmodel.js" />
 /// <reference path="/Dependencies/viewmanagement/shared/modelclasseshandler.js" />
+/// <reference path="/Dependencies/ViewManagement/Shared/ModelFollowupsHandler.js" />
 /// <reference path="/Dependencies/viewmanagement/shared/SearchStorageHandler.js" />
-
 /// <reference path="/Dependencies/ViewManagement/Shared/Breadcrumb/BreadcrumbHandler.js" />
 /// <reference path="/Dependencies/ViewManagement/Shared/Breadcrumb/AngleBreadcrumbHandler.js" />
 
@@ -15,11 +15,20 @@ describe("AngleBreadcrumbHandler", function () {
 
     describe(".GetAngleViewModel", function () {
 
-        it("should get angle breadcrumb view model correctly", function () {
+        it("should get angle breadcrumb view model correctly when angle is not template", function () {
             spyOn(angleBreadcrumbHandlerTest, 'GetAngleUrl').and.returnValue('/test/url');
-            var viewModel = angleBreadcrumbHandlerTest.GetAngleViewModel('angle name', true);
+            var viewModel = angleBreadcrumbHandlerTest.GetAngleViewModel('angle name', true, false);
             expect(viewModel.label()).toEqual('angle name');
             expect(viewModel.url()).toEqual('/test/url');
+            expect(viewModel.itemIcon()).toEqual('icon-angle');
+        });
+
+        it("should get angle breadcrumb view model correctly when angle is template", function () {
+            spyOn(angleBreadcrumbHandlerTest, 'GetAngleUrl').and.returnValue('/test/url');
+            var viewModel = angleBreadcrumbHandlerTest.GetAngleViewModel('angle name', true, true);
+            expect(viewModel.label()).toEqual('angle name');
+            expect(viewModel.url()).toEqual('/test/url');
+            expect(viewModel.itemIcon()).toEqual('icon-template');
         });
 
     });
@@ -68,17 +77,10 @@ describe("AngleBreadcrumbHandler", function () {
     describe(".GetDrilldownResultLabel", function () {
 
         it("should get drilldown result label from class model", function () {
-            spyOn(modelClassesHandler, 'GetClassById').and.returnValue({ short_name: 'Customer' });
+            spyOn(modelClassesHandler, 'GetClassName').and.returnValue('Customer');
             
             var resultLabel = angleBreadcrumbHandlerTest.GetDrilldownResultLabel('CustomerType', '/models/1');
             expect(resultLabel).toEqual('Drilldown to item "Customer"');
-        });
-
-        it("should get drilldown result label as Id", function () {
-            spyOn(modelClassesHandler, 'GetClassById').and.returnValue(null);
-            
-            var resultLabel = angleBreadcrumbHandlerTest.GetDrilldownResultLabel('CustomerType', '/models/1');
-            expect(resultLabel).toEqual('Drilldown to item "CustomerType"');
         });
         
     });

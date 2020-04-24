@@ -32,7 +32,6 @@
                 that._setNegative(true);
             else if (character === '+')
                 that._setNegative(false);
-            that.dayPicker._keypress(e);
         });
         that.dayPicker.owner = that;
         that.dayPicker.bind('spin', that._uiChange);
@@ -117,7 +116,7 @@
             }
             else if (ui.options.name === ui.owner.dayPicker.options.name && ui.value() !== null && ui.owner.timePicker.value() === null)
                 ui.owner.timePicker.value(ui.owner._getTime(0, 0, 0));
-            
+
             ui.owner.trigger('change');
         },
 
@@ -180,11 +179,17 @@
             }
             else {
                 // setter
-                var extracted = that._extractValues(value);
-                if (extracted) {
-                    that._setNegative(extracted.negative);
-                    that.dayPicker.value(extracted.days);
-                    that.timePicker.value(extracted.time);
+                if (value == null) {
+                    that.dayPicker.value(null);
+                    that.timePicker.value(null);
+                }
+                else {
+                    var extracted = that._extractValues(value);
+                    if (extracted) {
+                        that._setNegative(extracted.negative);
+                        that.dayPicker.value(extracted.days);
+                        that.timePicker.value(extracted.time);
+                    }
                 }
             }
         },

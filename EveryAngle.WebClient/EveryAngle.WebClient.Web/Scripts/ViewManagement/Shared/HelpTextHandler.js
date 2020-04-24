@@ -121,10 +121,8 @@ function HelpTextHandler() {
     };
 
     self.ShowHelpTextPopup = function (objectId, helpType, modelUri) {
-        if (!objectId) return;
-
-        requestHistoryModel.SaveLastExecute(self, self.ShowCustomPopup, arguments);
-        requestHistoryModel.ClearPopupBeforeExecute = true;
+        if (!objectId)
+            return;
 
         // clean popup
         jQuery('.helpTextPopup .k-window-titlebar > .icon, #helpTextFootNote').remove();

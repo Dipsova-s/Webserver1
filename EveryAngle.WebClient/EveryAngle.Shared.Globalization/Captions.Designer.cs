@@ -19,7 +19,7 @@ namespace EveryAngle.Shared.Globalization {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "15.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "16.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     public class Captions {
@@ -84,15 +84,6 @@ namespace EveryAngle.Shared.Globalization {
         public static string AngleExport_TypePackage {
             get {
                 return ResourceManager.GetString("AngleExport_TypePackage", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Top/left.
-        /// </summary>
-        public static string Button_ {
-            get {
-                return ResourceManager.GetString("Button_", resourceCulture);
             }
         }
         
@@ -1825,6 +1816,15 @@ namespace EveryAngle.Shared.Globalization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Angle Information.
+        /// </summary>
+        public static string Popup_Angle_Info {
+            get {
+                return ResourceManager.GetString("Popup_Angle_Info", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Create Angle for {0}.
         /// </summary>
         public static string Popup_CreateNewAngle_DropdownText {
@@ -1848,6 +1848,24 @@ namespace EveryAngle.Shared.Globalization {
         public static string Popup_CreateNewAngle_TitleOptions {
             get {
                 return ResourceManager.GetString("Popup_CreateNewAngle_TitleOptions", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Dashboard Information.
+        /// </summary>
+        public static string Popup_Dashboard_Info {
+            get {
+                return ResourceManager.GetString("Popup_Dashboard_Info", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Display Information.
+        /// </summary>
+        public static string Popup_Display_Info {
+            get {
+                return ResourceManager.GetString("Popup_Display_Info", resourceCulture);
             }
         }
         
@@ -1983,6 +2001,24 @@ namespace EveryAngle.Shared.Globalization {
         public static string SaveAsCSV_FileName {
             get {
                 return ResourceManager.GetString("SaveAsCSV_FileName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Chart options.
+        /// </summary>
+        public static string Title_AggregationChart {
+            get {
+                return ResourceManager.GetString("Title_AggregationChart", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Pivot options.
+        /// </summary>
+        public static string Title_AggregationPivot {
+            get {
+                return ResourceManager.GetString("Title_AggregationPivot", resourceCulture);
             }
         }
         

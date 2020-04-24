@@ -1,0 +1,84 @@
+{
+  "source": {
+    "system": "nl-web2020-2.eatestad.local:60000",
+    "version": "20.999.99.546",
+    "datetime": "2020-03-20T06:16+01:00",
+    "user": "local\\EAAdmin",
+    "model": "EA2_800"
+  },
+  "angle": {
+    "assigned_labels": [
+      "S2D"
+    ],
+    "multi_lang_name": [
+      {
+        "lang": "en",
+        "text": "[ROBOT] Remove from Apply button in Display details"
+      }
+    ],
+    "multi_lang_description": [
+      {
+        "lang": "en",
+        "text": "[ROBOT] Remove from Apply button in Display details"
+      }
+    ],
+    "query_definition": [
+      {
+        "queryblock_type": "base_classes",
+        "base_classes": [
+          "DeliveryNoteHeader"
+        ]
+      }
+    ],
+    "display_definitions": [
+      {
+        "id": "dac57579b5d4a7b182c9a584680902876",
+        "display_type": "chart",
+        "is_angle_default": true,
+        "multi_lang_name": [
+          {
+            "lang": "en",
+            "text": "chart"
+          }
+        ],
+        "multi_lang_description": [],
+        "display_details": "{\"chart_type\":\"column\",\"stack\":false,\"multi_axis\":false,\"axistitle\":\"show\",\"axisvalue\":\"show\",\"datalabel\":\"mouse\",\"gridline\":\"show\",\"legend\":\"show\",\"range\":{\"start\":0,\"size\":40},\"count_index\":0}",
+        "query_blocks": [
+          {
+            "queryblock_type": "query_steps",
+            "query_steps": [
+              {
+                "step_type": "aggregation",
+                "aggregation_fields": [
+                  {
+                    "field": "count",
+                    "operator": "count"
+                  }
+                ],
+                "grouping_fields": [
+                  {
+                    "source_field": "ObjectType",
+                    "field": "individual_ObjectType",
+                    "operator": "individual"
+                  }
+                ]
+              }
+            ]
+          }
+        ],
+        "fields": [
+          {
+            "field": "individual_ObjectType",
+            "multi_lang_alias": [],
+            "field_details": "{\"pivot_area\":\"row\",\"format\":\"shn\"}"
+          },
+          {
+            "field": "count",
+            "multi_lang_alias": [],
+            "field_details": "{\"pivot_area\":\"data\",\"sorting\":\"\"}"
+          }
+        ]
+      }
+    ]
+  }
+}

@@ -6,47 +6,41 @@ Resource            ${EXECDIR}/WC/POM/Angle/FieldSettings.FieldFormatsPopup.Robo
 
 *** Variables ***
 #General
-${pgbFieldSettings}             css=#FieldListArea .k-loading-mask
-${btnFieldSettingOptions}       jquery=#ButtonDisplayOptions
-${btnCloseFieldSettingOptions}  css=#PopupChartOptions .k-window-action
-${btnAddRowAreaField}           AddRowAreaField
-${divFieldRowArea}              jquery=#FieldListRowArea ul
-${divFieldListRowArea}          jquery=#FieldListRowArea li
-${btnAddColumnAreaField}        AddColumnAreaField
-${divFieldColumnArea}           jquery=#FieldListColumnArea ul
-${divFieldListColumnArea}       jquery=#FieldListColumnArea li
-${btnAddDataAreaField}          AddDataAreaField
-${divFieldDataArea}             jquery=#FieldListDataArea ul
-${divFieldListDataArea}         jquery=#FieldListDataArea li
-${chkFieldCount}                chkCount
-${btnFieldSettingApply}         btnFieldSettingApply
+${pgbFieldSettings}             css=.section-aggregation .k-loading-mask
+${btnFieldSettingUndo}          css=.section-aggregation .action-cancel
+${btnFieldSettingOptions}       css=.section-aggregation .action-options
+${btnCloseFieldSettingOptions}  css=.k-overlay
+${btnAddRowAreaField}           jquery=.query-aggregation-row .action-add-aggregation
+${divFieldRowArea}              jquery=.query-aggregation-row ul
+${divFieldListRowArea}          jquery=.query-aggregation-row li
+${btnAddColumnAreaField}        jquery=.query-aggregation-column .action-add-aggregation
+${divFieldColumnArea}           jquery=.query-aggregation-column ul
+${divFieldListColumnArea}       jquery=.query-aggregation-column li
+${btnAddDataAreaField}          jquery=.query-aggregation-data .action-add-aggregation
+${divFieldDataArea}             jquery=.query-aggregation-data ul
+${divFieldListDataArea}         jquery=.query-aggregation-data li
+${chkFieldCount}                css=.count-field-wrapper input
+${btnFieldSettingApply}         css=.query-aggregation-buttons .btn-save
 
 #Field options
-${divFieldOptions}                  jquery=.HeaderPopup
-${btnFieldSettingsSortAscending}    jquery=.HeaderPopup .sortAsc:visible
-${btnFieldSettingsSortDecending}    jquery=.HeaderPopup .sortDesc:visible
-${btnFieldSettingsFieldFormat}      jquery=.HeaderPopup .fieldFormat:visible
-${btnFieldSettingsAddFilter}        jquery=.HeaderPopup .addFilter:visible
-${btnFieldSettingsFieldInfo}        jquery=.HeaderPopup .fieldInfo:visible
+${btnFieldSettingsSort}             jquery=.action-sorting:visible
+${btnFieldSettingsSortAscending}    jquery=.action-sorting.icon-sort-asc:visible
+${btnFieldSettingsSortDecending}    jquery=.action-sorting.icon-sort-desc:visible
+${btnFieldSettingsFieldFormat}      jquery=.action-format:visible
+${btnFieldSettingsAddFilter}        jquery=.action-filter:visible
+${btnFieldSettingsFieldInfo}        jquery=.action-info:visible
+${btnFieldSettingsDelete}           jquery=.action-delete:visible
+${btnFieldSettingsError}            jquery=.validError:visible
 
-#Add filter popup
-${btnAddFilterFromFieldSetting}     btn-popupListFilter1
-
-#Field Format Popup Field Date type
-${chkBucketGrid}                    jquery=#BucketOptionDropDown_listbox
-${chkBucketPerDay}                  li:eq(0)
-${chkBucketPerWeek}                 li:eq(1)
-${chkBucketPerMonth}                li:eq(2)
-
-#Value In Chart
-${vlDateType}                       jquery=#chart g:eq(15)
-
-${btnColumnModelDataTimestamp}      jquery=#AngleGrid .k-grid-header-wrap th:eq(2)
-${btnCreateChart}                   jquery=#AngleTableWrapper .propertyFunction .createChart
-
+# reference line
+${divFieldSettingsReferenceLinePopup}   jquery=.popupReferenceLine
+${btnFieldSettingsReferenceLine}        jquery=.action-reference-line:visible
 *** Keywords ***
 Wait Until Field Settings Loaded
     Wait Until Page Does Not Contain Element    ${pgbFieldSettings}
+
+Click Undo field Settings
+    Click Element  ${btnFieldSettingUndo}
 
 Click Show Display Option
     Wait Until Field Settings Loaded
@@ -59,8 +53,7 @@ Click Hide Display Option
 Click Apply Field Setting
     Sleep    ${TIMEOUT_GENERAL}    Wait for rendering
     Click Element    ${btnFieldSettingApply}
-    Wait Progress Bar Closed
-    Wait Until Pivot Display Loaded
+    Wait Display Executed
     Sleep    ${TIMEOUT_LARGEST}    Wait for rendering, a bit delay
 
 Click Show Field Chooser For Row Area
@@ -76,58 +69,33 @@ Click Field In Row Area By Field Index
     [Arguments]   ${index}
     Sleep    1s
     Wait Until Field Settings Loaded
-    Wait Until Element Is Enabled    ${divFieldListRowArea}:eq(${index})
-    Click Element    ${divFieldListRowArea}:eq(${index})
+    Mouse Over    ${divFieldListRowArea}:eq(${index})
 
 Click Field In Column Area By Field Index
     [Arguments]   ${index}
-    Click Element    ${divFieldListColumnArea}:eq(${index})
+    Sleep    1s
+    Wait Until Field Settings Loaded
+    Mouse Over    ${divFieldListColumnArea}:eq(${index})
 
 Click Field In Data Area By Field Index
     [Arguments]   ${index}
-    Click Element    ${divFieldListDataArea}:eq(${index})
-
-Remove Field In Row Area By Field Index
-    [Arguments]   ${index}
     Sleep    1s
-    Mouse Over    ${divFieldListRowArea}:eq(${index})
-    Wait Until Element Is Visible  ${divFieldListRowArea}:eq(${index}) .btnDelete
-    Click Element    ${divFieldListRowArea}:eq(${index}) .btnDelete
-
-Remove Field In Column Area By Field Index
-    [Arguments]   ${index}
-    Sleep    1s
-    Mouse Over    ${divFieldListColumnArea}:eq(${index})
-    Wait Until Element Is Visible   ${divFieldListColumnArea}:eq(${index}) .btnDelete
-    Click Element    ${divFieldListColumnArea}:eq(${index}) .btnDelete
-
-Remove Field In Data Area By Field Index
-    [Arguments]   ${index}
-    Sleep    1s
+    Wait Until Field Settings Loaded
     Mouse Over    ${divFieldListDataArea}:eq(${index})
-    Wait Until Element Is Visible    ${divFieldListDataArea}:eq(${index}) .btnDelete
-    Click Element    ${divFieldListDataArea}:eq(${index}) .btnDelete
+
+Click Remove Field For Field Settings
+    Click Element    ${btnFieldSettingsDelete}
 
 Click Show Field Format For Field Settings
-    Sleep    1s
-    Wait Until Page Contains Element    ${btnFieldSettingsFieldFormat}
     Click Element    ${btnFieldSettingsFieldFormat}
     Wait Until Field Formats Popup Loaded
 
-Click Show Count Field Format For Field Settings
-    Sleep    1s
-    Wait Until Page Contains Element    ${btnFieldSettingsFieldFormat}
-    Click Element    ${btnFieldSettingsFieldFormat}
-    Wait Until Count Field Formats Popup Loaded
-
-Click Show Add Filter For Field Settings
-    Click Element    ${btnFieldSettingsAddFilter}
-
 Click Add Filter To For Field Settings
-    Click Element    ${btnAddFilterFromFieldSetting}
+    Click Element    ${btnFieldSettingsAddFilter}
 
 Click Show Field Info For Field Settings
     Click Element    ${btnFieldSettingsFieldInfo}
+    Wait Until Help Text Popup Loaded
 
 Select Count Checkbox
     Select Checkbox    ${chkCount}
@@ -136,46 +104,31 @@ Unselect Count Checkbox
     Unselect Checkbox    ${chkCount}
 
 Move Field To Area
-    [Arguments]   ${source}    ${target}
-    Drag And Drop    ${source}    ${target}
+    [Arguments]   ${source}  ${target}  ${delta}
+    ${y1}  Get Vertical Position   ${source}
+    ${y2}  Get Vertical Position   ${target}
+    ${y}  Execute JavaScript  return ${y2}-${y1}+(1*${delta});
+    Drag And Drop By Offset    ${source}  10  ${y}
     Sleep    ${TIMEOUT_GENERAL}
 
 Move Field From Row To Column Area
-    Move Field To Area    ${divFieldListRowArea}:eq(0)    ${divFieldColumnArea}
+    Move Field To Area    ${divFieldListRowArea}:eq(0)    ${divFieldColumnArea}  5
 
 Move Field From Column To Row Area
-    Move Field To Area    ${divFieldListColumnArea}:eq(0)    ${divFieldRowArea}
+    Move Field To Area    ${divFieldListColumnArea}:eq(0)    ${divFieldRowArea}  -5
 
-Click Pivot Field Setting Sort Ascending
+Click Field Setting Sort Ascending
     Click Element    ${btnFieldSettingsSortAscending}
-    Wait Progress Bar Closed
-    Wait Until Pivot Display Loaded
+    Click Apply Field Setting
 
-Click Pivot Field Setting Sort Decending
+Click Field Setting Sort Decending
     Click Element    ${btnFieldSettingsSortDecending}
-    Wait Progress Bar Closed
-    Wait Until Pivot Display Loaded
+    Click Apply Field Setting
 
-Click Column Header
-    Click Element    ${btnColumnModelDataTimestamp}
+Wait Until Reference Line Popup Loaded
+    Wait Until Element Is Visible    ${divFieldSettingsReferenceLinePopup}
+    Sleep    ${TIMEOUT_GENERAL}
 
-Select Create Chart
-    Wait Until Element Is Enabled    ${btnCreateChart}
-    Click Element    ${btnCreateChart}
-
-Click Bucket Options
-    Click Element    ${ddlBucketOption}
-    Wait Until Page Contains Element    ${chkBucketGrid}
-    Wait Until Ajax Complete
-
-Select Bucket Per Day
-    Click Element    ${chkBucketGrid} ${chkBucketPerDay}
-    Wait Until Ajax Complete
-
-Select Bucket Per Week
-    Click Element    ${chkBucketGrid} ${chkBucketPerWeek}
-    Wait Until Ajax Complete
-
-Select Bucket Per Month
-    Click Element    ${chkBucketGrid} ${chkBucketPerMonth}
-    Wait Until Ajax Complete
+Click Field Setting Reference Line
+    Click Element   ${btnFieldSettingsReferenceLine}  
+    Wait Until Reference Line Popup Loaded

@@ -11,10 +11,7 @@ Verify Item Execute At Logon Work
     ${angleName}  Set Variable  [ROBOT] Test Item Execute at logon
     Create Angle From Object List And Save    PD    ${angleName}
     ${numberOfExecutedItemBefore}    Get Number Of Execute At Login Items
-    Click Edit Display
-    Click Display Detail General Tab
-    Click Checkbox Execute At Login
-    Save Display Detail From Popup
+    Set Execute On Login
     ${numberOfExecutedItemAfter}    Get Number Of Execute At Login Items
     Should Not Be Equal     ${numberOfExecutedItemBefore}    ${numberOfExecutedItemAfter}
     Logout

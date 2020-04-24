@@ -29,9 +29,6 @@ function AngleCopyHandler() {
             return;
         }
 
-        requestHistoryModel.SaveLastExecute(self, self.ShowAngleCopyPopup, arguments);
-        requestHistoryModel.ClearPopupBeforeExecute = true;
-
         var popupName = 'AngleCopy',
             popupSettings = {
                 title: Localization.CopyAngle,

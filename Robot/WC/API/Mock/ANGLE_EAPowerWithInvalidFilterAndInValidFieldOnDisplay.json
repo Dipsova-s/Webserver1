@@ -1,0 +1,2134 @@
+{
+  "id": "ROBOT_ANGLE_EAPowerWithInvalidFilterAndInValidFieldOnDisplay",
+  "angle_default_display": "d07f7a5ea4d408899dbfa578380775709",
+  "is_validated": false,
+  "is_published": true,
+  "is_template": false,
+  "assigned_labels": ["S2D"],
+  "multi_lang_name": [
+    {
+      "lang": "en",
+      "text": "[ROBOT] Angle EAPower With Invalid Filter And Invalid Field On Display"
+    }
+  ],
+  "multi_lang_description": [
+    {
+      "lang": "en",
+      "text": "<div id=\"summary\"><div class=\" section\" id=\"S1436366645567954\"><h2 class=\" topictitle2\" id=\"Hidelem4x82726\">&nbsp;</h2><p id=\"Pidelem4x82753\"></p></div></div>"
+    }
+  ],
+  "query_definition": [
+    {
+      "queryblock_type": "base_classes",
+      "base_classes": ["PurchaseOrderScheduleLine"]
+    },
+    {
+      "queryblock_type": "query_steps",
+      "query_steps": [
+        {
+          "step_type": "filter",
+          "field": "INVALIDFIELD",
+          "operator": "greater_than",
+          "arguments": [
+            {
+              "argument_type": "value",
+              "value": 0
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "display_definitions": [
+    {
+      "id": "d07f7a5ea4d408899dbfa578380775709",
+      "is_public": true,
+      "display_type": "list",
+      "is_angle_default": true,
+      "multi_lang_name": [
+        {
+          "lang": "de",
+          "text": "Basisliste"
+        },
+        {
+          "lang": "en",
+          "text": "Basic List"
+        },
+        {
+          "lang": "es",
+          "text": "Lista Básica"
+        },
+        {
+          "lang": "fr",
+          "text": "Liste De Base"
+        },
+        {
+          "lang": "nl",
+          "text": "Basislijst"
+        }
+      ],
+      "multi_lang_description": [
+        {
+          "lang": "de",
+          "text": "<div id=\"summary\" /><div class=\" section\" id=\"S1438246042240883\"><p class=\"\" id=\"P1438246042240174\" /></div>"
+        },
+        {
+          "lang": "en",
+          "text": "<div id=\"summary\" /><div class=\" section\" id=\"S1438246042240883\"><p class=\"\" id=\"P1438246042240174\" /></div>"
+        },
+        {
+          "lang": "es",
+          "text": "<div id=\"summary\" /><div class=\" section\" id=\"S1438246042240883\"><p class=\"\" id=\"P1438246042240174\" /></div>"
+        },
+        {
+          "lang": "fr",
+          "text": "<div id=\"summary\" /><div class=\" section\" id=\"S1438246042240883\"><p class=\"\" id=\"P1438246042240174\" /></div>"
+        },
+        {
+          "lang": "nl",
+          "text": "<div id=\"summary\" /><div class=\" section\" id=\"S1438246042240883\"><p class=\"\" id=\"P1438246042240174\" /></div>"
+        }
+      ],
+      "display_details": "{\"layout\":null}",
+      "query_blocks": [
+        {
+          "queryblock_type": "query_steps",
+          "query_steps": [
+            {
+              "step_type": "filter",
+              "field": "OrderedQuantity",
+              "operator": "greater_than",
+              "arguments": [
+                {
+                  "argument_type": "value",
+                  "value": 0
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "fields": [
+        {
+          "field": "ObjectType",
+          "tech_info": "",
+          "multi_lang_alias": [],
+          "field_details": "{\"width\":107,\"format\":\"shn\"}"
+        },
+        {
+          "field": "ID",
+          "tech_info": "",
+          "multi_lang_alias": [],
+          "field_details": "{\"width\":123}"
+        },
+        {
+          "field": "PurchaseOrganization__PurchaseOrganization",
+          "tech_info": "T024E-EKORG",
+          "multi_lang_alias": [],
+          "field_details": "{\"width\":107,\"format\":\"shnln\"}"
+        },
+        {
+          "field": "Plant__Plant",
+          "tech_info": "T001W-WERKS",
+          "multi_lang_alias": [],
+          "field_details": "{\"width\":93,\"format\":\"shnln\"}"
+        },
+        {
+          "field": "ExecutionStatus",
+          "tech_info": "",
+          "multi_lang_alias": [],
+          "field_details": "{\"width\":96,\"format\":\"shn\"}"
+        },
+        {
+          "field": "Material__Material",
+          "tech_info": "",
+          "multi_lang_alias": [],
+          "field_details": "{\"width\":101}"
+        },
+        {
+          "field": "Material__Description",
+          "tech_info": "MAKT-MAKTX",
+          "multi_lang_alias": [],
+          "field_details": "{\"width\":157}"
+        },
+        {
+          "field": "Quantity",
+          "tech_info": "",
+          "multi_lang_alias": [],
+          "field_details": "{\"width\":85}"
+        },
+        {
+          "field": "Material__BaseUnitOfMeasure",
+          "tech_info": "MARA-MEINS",
+          "multi_lang_alias": [],
+          "field_details": "{\"width\":29,\"format\":\"shn\"}"
+        },
+        {
+          "field": "PurchaseOrderLine__TXZ01",
+          "tech_info": "EKPO-TXZ01",
+          "multi_lang_alias": [],
+          "field_details": "{\"width\":187}"
+        },
+        {
+          "field": "Vendor__Vendor",
+          "tech_info": "LFA1-LIFNR",
+          "multi_lang_alias": [],
+          "field_details": "{\"width\":81}"
+        },
+        {
+          "field": "Vendor__Description",
+          "tech_info": "LFA1-NAME1",
+          "multi_lang_alias": [],
+          "field_details": "{\"width\":120}"
+        },
+        {
+          "field": "PurchaseOrder__PurchasingDocumentCategory",
+          "tech_info": "EKKO-BSTYP",
+          "multi_lang_alias": [],
+          "field_details": "{\"width\":105,\"format\":\"shnln\"}"
+        },
+        {
+          "field": "PurchaseOrderLine__PurchasingItemCategory",
+          "tech_info": "EKPO-PSTYP",
+          "multi_lang_alias": [],
+          "field_details": "{\"width\":88,\"format\":\"shnln\"}"
+        },
+        {
+          "field": "MaterialOnPlantLevel__DISPO",
+          "tech_info": "MARC-WERKS;MARC-DISPO",
+          "multi_lang_alias": [],
+          "field_details": "{\"width\":96,\"format\":\"shnln\"}"
+        },
+        {
+          "field": "PurchaseOrder__BKGRP",
+          "tech_info": "EKKO-EKGRP",
+          "multi_lang_alias": [],
+          "field_details": "{\"width\":102,\"format\":\"shnln\"}"
+        },
+        {
+          "field": "PurchaseOrderScheduleLineStatus",
+          "tech_info": "",
+          "multi_lang_alias": [],
+          "field_details": "{\"width\":109,\"format\":\"shn\"}"
+        },
+        {
+          "field": "OrderDueDate",
+          "tech_info": "EKES_LC-EINDT;EKES_FC-EINDT;EKET_COMMIT-EINDT;EKET-EINDT;EKET-SLFDT",
+          "multi_lang_alias": [],
+          "field_details": "{\"width\":87}"
+        },
+        {
+          "field": "DeliveryStatus",
+          "tech_info": "",
+          "multi_lang_alias": [],
+          "field_details": "{\"width\":108,\"format\":\"shn\"}"
+        },
+        {
+          "field": "RelevantForLogistics",
+          "tech_info": "",
+          "multi_lang_alias": [],
+          "field_details": "{\"width\":84}"
+        },
+        {
+          "field": "InValidField",
+          "tech_info": "",
+          "multi_lang_alias": [],
+          "field_details": "{\"width\":87}"
+        }
+      ]
+    },
+    {
+      "id": "d1613393a9c86cea908f9578380775703",
+      "display_type": "list",
+      "multi_lang_name": [
+        {
+          "lang": "de",
+          "text": "Kategorie: Planungsverträge"
+        },
+        {
+          "lang": "en",
+          "text": "Category: Scheduling Agreements"
+        },
+        {
+          "lang": "es",
+          "text": "Categoría: Planes de Entrega"
+        },
+        {
+          "lang": "fr",
+          "text": "Catégorie : Accords de planification"
+        },
+        {
+          "lang": "nl",
+          "text": "Categorie: Leveringsplannen"
+        }
+      ],
+      "multi_lang_description": [
+        {
+          "lang": "de",
+          "text": "<div id=\"summary\" /><div class=\" section\" id=\"S1438095394661803\"><p class=\"\" id=\"P1438095394661394\">In den Einkaufsbelegobjekten sind mehrere Belege/Prozesse vorhanden. Wenn wir nach „Einkaufsbelegart = L“ filtern, erhalten wir nur die Planungsverträge.</p></div>"
+        },
+        {
+          "lang": "en",
+          "text": "<div id=\"summary\" /><div class=\" section\" id=\"S1438095394661803\"><p class=\"\" id=\"P1438095394661394\">Multiple documents/processes exist in the purchase document objects. By filtering on the Purchase Document Category = L we only have the scheduling agreements.</p></div>"
+        },
+        {
+          "lang": "es",
+          "text": "<div id=\"summary\" /><div class=\" section\" id=\"S1438095394661803\"><p class=\"\" id=\"P1438095394661394\">Existen varios documentos/procesos en los objetos de documento de compras. Al filtrar por \"Tipo de Documento de Compras\" = \"L\", solo tenemos los planes de entrega.</p></div>"
+        },
+        {
+          "lang": "fr",
+          "text": "<div id=\"summary\" /><div class=\" section\" id=\"S1438095394661803\"><p class=\"\" id=\"P1438095394661394\">Des documents / processus multiples existent dans les objets de document d'achat. En filtrant par Type de Document d'Achat = L, seuls les programmes de livraisons sont affichés.</p></div>"
+        },
+        {
+          "lang": "nl",
+          "text": "<div id=\"summary\" /><div class=\" section\" id=\"S1438095394661803\"><p class=\"\" id=\"P1438095394661394\">Er bestaan meerdere documenten/processen in inkoopdocumentobjecten. Door te filteren op 'Type Inkoopdocument' = 'L' zien we alleen leveringsplannen.</p></div>"
+        }
+      ],
+      "display_details": "{\"layout\":null}",
+      "query_blocks": [
+        {
+          "queryblock_type": "query_steps",
+          "query_steps": [
+            {
+              "step_type": "filter",
+              "field": "PurchaseOrder__PurchasingDocumentCategory",
+              "tech_info": "EKKO-BSTYP",
+              "operator": "in_set",
+              "arguments": [
+                {
+                  "argument_type": "value",
+                  "value": "L"
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "fields": [
+        {
+          "field": "ObjectType",
+          "tech_info": "",
+          "multi_lang_alias": [],
+          "field_details": "{\"width\":107,\"format\":\"shn\"}"
+        },
+        {
+          "field": "ID",
+          "tech_info": "",
+          "multi_lang_alias": [],
+          "field_details": "{\"width\":123}"
+        },
+        {
+          "field": "Material__Material",
+          "tech_info": "",
+          "multi_lang_alias": [],
+          "field_details": "{\"width\":120}"
+        },
+        {
+          "field": "Material__Description",
+          "tech_info": "MAKT-MAKTX",
+          "multi_lang_alias": [],
+          "field_details": "{\"width\":120}"
+        },
+        {
+          "field": "PurchaseOrderLine__TXZ01",
+          "tech_info": "EKPO-TXZ01",
+          "multi_lang_alias": [],
+          "field_details": "{\"width\":187}"
+        },
+        {
+          "field": "Plant__Plant",
+          "tech_info": "T001W-WERKS",
+          "multi_lang_alias": [],
+          "field_details": "{\"width\":115,\"format\":\"shnln\"}"
+        },
+        {
+          "field": "PurchaseOrganization__PurchaseOrganization",
+          "tech_info": "T024E-EKORG",
+          "multi_lang_alias": [],
+          "field_details": "{\"width\":126,\"format\":\"shnln\"}"
+        },
+        {
+          "field": "PurchaseOrder__BKGRP",
+          "tech_info": "EKKO-EKGRP",
+          "multi_lang_alias": [],
+          "field_details": "{\"width\":103}"
+        },
+        {
+          "field": "MaterialOnPlantLevel__DISPO",
+          "tech_info": "MARC-WERKS;MARC-DISPO",
+          "multi_lang_alias": [],
+          "field_details": "{\"width\":95}"
+        },
+        {
+          "field": "PurchaseOrder__PurchasingDocumentCategory",
+          "tech_info": "EKKO-BSTYP",
+          "multi_lang_alias": [],
+          "field_details": "{\"width\":131,\"format\":\"shnln\"}"
+        },
+        {
+          "field": "PurchaseOrderLine__PurchasingItemCategory",
+          "tech_info": "EKPO-PSTYP",
+          "multi_lang_alias": [],
+          "field_details": "{\"width\":88,\"format\":\"shnln\"}"
+        },
+        {
+          "field": "RelevantForLogistics",
+          "tech_info": "",
+          "multi_lang_alias": [],
+          "field_details": "{\"width\":83}"
+        },
+        {
+          "field": "ExecutionStatus",
+          "tech_info": "",
+          "multi_lang_alias": [],
+          "field_details": "{\"width\":95,\"format\":\"shn\"}"
+        },
+        {
+          "field": "OrderDueDate",
+          "tech_info": "EKES_LC-EINDT;EKES_FC-EINDT;EKET_COMMIT-EINDT;EKET-EINDT;EKET-SLFDT",
+          "multi_lang_alias": [],
+          "field_details": "{\"width\":90}"
+        },
+        {
+          "field": "DeliveryStatus",
+          "tech_info": "",
+          "multi_lang_alias": [],
+          "field_details": "{\"width\":106,\"format\":\"shn\"}"
+        },
+        {
+          "field": "Vendor__Vendor",
+          "tech_info": "LFA1-LIFNR",
+          "multi_lang_alias": [],
+          "field_details": "{\"width\":79}"
+        },
+        {
+          "field": "Vendor__Description",
+          "tech_info": "LFA1-NAME1",
+          "multi_lang_alias": [],
+          "field_details": "{\"width\":120}"
+        },
+        {
+          "field": "Quantity",
+          "tech_info": "",
+          "multi_lang_alias": [],
+          "field_details": "{\"width\":85}"
+        },
+        {
+          "field": "Material__BaseUnitOfMeasure",
+          "tech_info": "MARA-MEINS",
+          "multi_lang_alias": [],
+          "field_details": "{\"width\":29,\"format\":\"shn\"}"
+        },
+        {
+          "field": "OrderedValue",
+          "tech_info": "",
+          "multi_lang_alias": [],
+          "field_details": "{\"width\":85}"
+        },
+        {
+          "field": "PurchaseOrder__ValidFromDate",
+          "tech_info": "EKKO-KDATB",
+          "multi_lang_alias": [],
+          "field_details": "{\"width\":93}"
+        },
+        {
+          "field": "PurchaseOrder__ValidToDate",
+          "tech_info": "EKKO-KDATE",
+          "multi_lang_alias": [],
+          "field_details": "{\"width\":78}"
+        }
+      ]
+    },
+    {
+      "id": "d6006a8b9295cf205eca1578380775710",
+      "display_type": "list",
+      "multi_lang_name": [
+        {
+          "lang": "de",
+          "text": "Kategorie: Bestellungen"
+        },
+        {
+          "lang": "en",
+          "text": "Category: Purchase Orders"
+        },
+        {
+          "lang": "es",
+          "text": "Categoría: Pedidos de Compra"
+        },
+        {
+          "lang": "fr",
+          "text": "Catégorie : Commandes Fournisseur"
+        },
+        {
+          "lang": "nl",
+          "text": "Categorie: Inkooporders"
+        }
+      ],
+      "multi_lang_description": [
+        {
+          "lang": "de",
+          "text": "<div id=\"summary\" /><div class=\" section\" id=\"S1438094847222113\"><p class=\"\" id=\"P1438094847222314\">In den Einkaufsbelegobjekten sind mehrere Belege/Prozesse vorhanden. Wenn wir nach „Einkaufsbelegart = F“ filtern, erhalten wir nur die (Standard-) Bestellungen.</p></div>"
+        },
+        {
+          "lang": "en",
+          "text": "<div id=\"summary\" /><div class=\" section\" id=\"S1438094847222113\"><p class=\"\" id=\"P1438094847222314\">Multiple documents/processes exist in the purchase document objects. By filtering on the Purchase Document Category = F we only have the (standard) purchase orders.</p></div>"
+        },
+        {
+          "lang": "es",
+          "text": "<div id=\"summary\" /><div class=\" section\" id=\"S1438094847222113\"><p class=\"\" id=\"P1438094847222314\">Existen varios documentos/procesos en los objetos de documento de compras. Al filtrar por \"Tipo de Documento de Compras\" = \"F\", solo tenemos los pedidos de compras (estándar).</p></div>"
+        },
+        {
+          "lang": "fr",
+          "text": "<div id=\"summary\" /><div class=\" section\" id=\"S1438094847222113\"><p class=\"\" id=\"P1438094847222314\">Des documents / processus multiples existent dans les objets de document d'achat. En filtrant par « Catégorie de Document d'Achat » = « F », seules les commandes fournisseur (standard) s'affichent.</p></div>"
+        },
+        {
+          "lang": "nl",
+          "text": "<div id=\"summary\" /><div class=\" section\" id=\"S1438094847222113\"><p class=\"\" id=\"P1440516034676624\">Er bestaan meerdere documenten/processen in de inkoopdocumentobjecten. Door te filteren op 'Type Inkoopdocument' = 'F' zien we alleen de (standaard) inkooporders.</p></div>"
+        }
+      ],
+      "display_details": "{\"layout\":null}",
+      "query_blocks": [
+        {
+          "queryblock_type": "query_steps",
+          "query_steps": [
+            {
+              "step_type": "filter",
+              "field": "PurchaseOrder__PurchasingDocumentCategory",
+              "tech_info": "EKKO-BSTYP",
+              "operator": "equal_to",
+              "arguments": [
+                {
+                  "argument_type": "value",
+                  "value": "F"
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "fields": [
+        {
+          "field": "ObjectType",
+          "tech_info": "",
+          "multi_lang_alias": [],
+          "field_details": "{\"width\":107,\"format\":\"shn\"}"
+        },
+        {
+          "field": "ID",
+          "tech_info": "",
+          "multi_lang_alias": [],
+          "field_details": "{\"width\":123}"
+        },
+        {
+          "field": "Material__Material",
+          "tech_info": "",
+          "multi_lang_alias": [],
+          "field_details": "{\"width\":120}"
+        },
+        {
+          "field": "Material__Description",
+          "tech_info": "MAKT-MAKTX",
+          "multi_lang_alias": [],
+          "field_details": "{\"width\":122}"
+        },
+        {
+          "field": "PurchaseOrderLine__TXZ01",
+          "tech_info": "EKPO-TXZ01",
+          "multi_lang_alias": [],
+          "field_details": "{\"width\":187}"
+        },
+        {
+          "field": "Plant__Plant",
+          "tech_info": "T001W-WERKS",
+          "multi_lang_alias": [],
+          "field_details": "{\"width\":92,\"format\":\"shnln\"}"
+        },
+        {
+          "field": "PurchaseOrganization__PurchaseOrganization",
+          "tech_info": "T024E-EKORG",
+          "multi_lang_alias": [],
+          "field_details": "{\"width\":122,\"format\":\"shnln\"}"
+        },
+        {
+          "field": "PurchaseOrder__BKGRP",
+          "tech_info": "EKKO-EKGRP",
+          "multi_lang_alias": [],
+          "field_details": "{\"width\":102}"
+        },
+        {
+          "field": "MaterialOnPlantLevel__DISPO",
+          "tech_info": "MARC-WERKS;MARC-DISPO",
+          "multi_lang_alias": [],
+          "field_details": "{\"width\":97}"
+        },
+        {
+          "field": "PurchaseOrder__PurchasingDocumentCategory",
+          "tech_info": "EKKO-BSTYP",
+          "multi_lang_alias": [],
+          "field_details": "{\"width\":131,\"format\":\"shnln\"}"
+        },
+        {
+          "field": "PurchaseOrderLine__PurchasingItemCategory",
+          "tech_info": "EKPO-PSTYP",
+          "multi_lang_alias": [],
+          "field_details": "{\"width\":88,\"format\":\"shnln\"}"
+        },
+        {
+          "field": "RelevantForLogistics",
+          "tech_info": "",
+          "multi_lang_alias": [],
+          "field_details": "{\"width\":86}"
+        },
+        {
+          "field": "ExecutionStatus",
+          "tech_info": "",
+          "multi_lang_alias": [],
+          "field_details": "{\"width\":95,\"format\":\"shn\"}"
+        },
+        {
+          "field": "PurchaseOrderScheduleLineStatus",
+          "tech_info": "",
+          "multi_lang_alias": [],
+          "field_details": "{\"width\":109,\"format\":\"shn\"}"
+        },
+        {
+          "field": "OrderDueDate",
+          "tech_info": "EKES_LC-EINDT;EKES_FC-EINDT;EKET_COMMIT-EINDT;EKET-EINDT;EKET-SLFDT",
+          "multi_lang_alias": [],
+          "field_details": "{\"width\":89}"
+        },
+        {
+          "field": "DeliveryStatus",
+          "tech_info": "",
+          "multi_lang_alias": [],
+          "field_details": "{\"width\":89,\"format\":\"shn\"}"
+        },
+        {
+          "field": "Vendor__Vendor",
+          "tech_info": "LFA1-LIFNR",
+          "multi_lang_alias": [],
+          "field_details": "{\"width\":81}"
+        },
+        {
+          "field": "Vendor__Description",
+          "tech_info": "LFA1-NAME1",
+          "multi_lang_alias": [],
+          "field_details": "{\"width\":137}"
+        },
+        {
+          "field": "Quantity",
+          "tech_info": "",
+          "multi_lang_alias": [],
+          "field_details": "{\"width\":88}"
+        },
+        {
+          "field": "Material__BaseUnitOfMeasure",
+          "tech_info": "MARA-MEINS",
+          "multi_lang_alias": [],
+          "field_details": "{\"width\":29,\"format\":\"shn\"}"
+        },
+        {
+          "field": "OrderedValue",
+          "tech_info": "",
+          "multi_lang_alias": [],
+          "field_details": "{\"width\":87}"
+        },
+        {
+          "field": "NeededDate",
+          "tech_info": "",
+          "multi_lang_alias": [],
+          "field_details": "{\"width\":95}"
+        }
+      ]
+    },
+    {
+      "id": "d7865bac991e940a46b13578380775707",
+      "display_type": "list",
+      "multi_lang_name": [
+        {
+          "lang": "de",
+          "text": "Nachschub-/Bedarf-Abgleich Externe Aufträge"
+        },
+        {
+          "lang": "en",
+          "text": "Supply Demand Matching External Orders"
+        },
+        {
+          "lang": "es",
+          "text": "Órdenes Externas de Coincidencia de Demanda de Suministro"
+        },
+        {
+          "lang": "fr",
+          "text": "Équilibrage de l'Offre et de la Demande pour Ordres Externes"
+        },
+        {
+          "lang": "nl",
+          "text": "Koppeling Vraag en Aanbod Externe Orders"
+        }
+      ],
+      "multi_lang_description": [
+        {
+          "lang": "de",
+          "text": "<div id=\"summary\" /><div class=\" section\" id=\"S1438091754940383\"><p class=\"\" id=\"Pidelem4x83148\">Situation offener Positionen beim Nachschub-/Bedarf-Abgleich.</p><p class=\"\" id=\"Pidelem4x83150\">Gefiltert nach Dispositionsrelevanz (nur planungsrelevante offene Aufträge) und nicht nach Kontaminierung.</p><p class=\"\" id=\"Pidelem4x83152\">Man kann geteilter Meinung darüber sein, ob die Kontaminierung hier berücksichtigt werden soll, da SAP diese Aufträge weiterhin für die Planung verwendet. Für eine „echte“ Auftragsübersicht wird die Kontaminierung ausgefiltert. Sie können sich jedoch dafür entscheiden, diesen Filter zu entfernen.</p></div>"
+        },
+        {
+          "lang": "en",
+          "text": "<div id=\"summary\" /><div class=\" section\" id=\"S1438091754940383\"><p class=\"\" id=\"Pidelem4x83148\">Open item situation for supply demand matching.</p><p class=\"\" id=\"Pidelem4x83150\">Filtered on MRP relevancy (only open order relevant for planning) and not pollution.</p><p class=\"\" id=\"Pidelem4x83152\">You can argue if pollution should or should not be in, because SAP still uses these orders in planning. For a 'real' order overview pollution is filtered out. You can decide though to remove this filter.</p></div>"
+        },
+        {
+          "lang": "es",
+          "text": "<div id=\"summary\" /><div class=\" section\" id=\"S1438091754940383\"><p class=\"\" id=\"Pidelem4x83148\">Situación de posiciones abiertas para la coincidencia de demanda de suministro.</p><p class=\"\" id=\"Pidelem4x83150\">Se filtra por relevancia para Planificación de Necesidades (solo posiciones abiertas relevantes para planificación) y sin contaminación.</p><p class=\"\" id=\"Pidelem4x83152\">Es discutible si se debe tener o no en cuenta la contaminación, ya que SAP utiliza aún estas órdenes en la planificación. Para tener una visión general real de la partida, se filtra por contaminación. Si bien, puede decidir eliminar este filtro.</p></div>"
+        },
+        {
+          "lang": "fr",
+          "text": "<div id=\"summary\" /><div class=\" section\" id=\"S1438091754940383\"><p class=\"\" id=\"Pidelem4x83148\">Situation du poste non soldé pour équilibrage de l'offre et de la demande.</p><p class=\"\" id=\"Pidelem4x83150\">Filtré par pertinence planification (seuls les ordres en cours concernant la planification) et non par pollution.</p><p class=\"\" id=\"Pidelem4x83152\">Il vous revient de décider si la pollution doit être incluse (ou non), car SAP utilise encore ces ordres pour la planification. Pour obtenir une vue d'ensemble des « vraies » commandes, la pollution doit être filtrée. Vous pouvez cependant choisir de retirer ce filtre.</p></div>"
+        },
+        {
+          "lang": "nl",
+          "text": "<div id=\"summary\" /><div class=\" section\" id=\"S1438091754940383\"><p class=\"\" id=\"Pidelem4x83148\">Open posities voor de koppeling van vraag en aanbod.</p><p class=\"\" id=\"P1444130736771240\">Gefilterd op relevantie voor de planning (alleen open orders die relevant zijn voor de planning) en geen vervuiling.</p><p class=\"\" id=\"P1444130736771941\">Of vervuiling wel of niet meegenomen moet worden is onderwerp van discussie, omdat SAP deze orders nog steeds meeneemt in de planning. Voor een 'echt' orderoverzicht wordt vervuiling uitgefilterd. U kunt er echter voor kiezen om dit filter te verwijderen.</p></div>"
+        }
+      ],
+      "display_details": "{\"layout\":null}",
+      "query_blocks": [
+        {
+          "queryblock_type": "query_steps",
+          "query_steps": [
+            {
+              "step_type": "filter",
+              "field": "RelevantForLogistics",
+              "operator": "equal_to",
+              "arguments": [
+                {
+                  "argument_type": "value",
+                  "value": true
+                }
+              ]
+            },
+            {
+              "step_type": "filter",
+              "field": "DeliveryStatus",
+              "operator": "not_equal_to",
+              "arguments": [
+                {
+                  "argument_type": "value",
+                  "value": "ds40Pollution"
+                }
+              ]
+            },
+            {
+              "step_type": "filter",
+              "field": "SupplyingPlant__Plant",
+              "tech_info": "T001W-WERKS",
+              "operator": "has_no_value"
+            }
+          ]
+        }
+      ],
+      "fields": [
+        {
+          "field": "ObjectType",
+          "tech_info": "",
+          "multi_lang_alias": [],
+          "field_details": "{\"width\":109,\"format\":\"shn\"}"
+        },
+        {
+          "field": "ID",
+          "tech_info": "",
+          "multi_lang_alias": [],
+          "field_details": "{\"width\":113}"
+        },
+        {
+          "field": "Plant__Plant",
+          "tech_info": "T001W-WERKS",
+          "multi_lang_alias": [],
+          "field_details": "{\"width\":105,\"format\":\"shnln\"}"
+        },
+        {
+          "field": "Vendor__Vendor",
+          "tech_info": "LFA1-LIFNR",
+          "multi_lang_alias": [],
+          "field_details": "{\"width\":78}"
+        },
+        {
+          "field": "Vendor__Description",
+          "tech_info": "LFA1-NAME1",
+          "multi_lang_alias": [],
+          "field_details": "{\"width\":120}"
+        },
+        {
+          "field": "Material__Material",
+          "tech_info": "",
+          "multi_lang_alias": [],
+          "field_details": "{\"width\":84}"
+        },
+        {
+          "field": "Material__Description",
+          "tech_info": "MAKT-MAKTX",
+          "multi_lang_alias": [],
+          "field_details": "{\"width\":120}"
+        },
+        {
+          "field": "Quantity",
+          "tech_info": "",
+          "multi_lang_alias": [],
+          "field_details": "{\"width\":85}"
+        },
+        {
+          "field": "Material__BaseUnitOfMeasure",
+          "tech_info": "MARA-MEINS",
+          "multi_lang_alias": [],
+          "field_details": "{\"width\":29,\"format\":\"shn\"}"
+        },
+        {
+          "field": "PurchaseOrderScheduleLineStatus",
+          "tech_info": "",
+          "multi_lang_alias": [],
+          "field_details": "{\"width\":109,\"format\":\"shn\"}"
+        },
+        {
+          "field": "OrderDueDate",
+          "tech_info": "EKES_LC-EINDT;EKES_FC-EINDT;EKET_COMMIT-EINDT;EKET-EINDT;EKET-SLFDT",
+          "multi_lang_alias": [],
+          "field_details": "{\"width\":89}"
+        },
+        {
+          "field": "DeliveryStatus",
+          "tech_info": "",
+          "multi_lang_alias": [],
+          "field_details": "{\"width\":96,\"format\":\"shn\"}"
+        },
+        {
+          "field": "ExpectedDeliveryDate",
+          "tech_info": "",
+          "multi_lang_alias": [],
+          "field_details": "{\"width\":111}"
+        },
+        {
+          "field": "BottleneckType",
+          "tech_info": "",
+          "multi_lang_alias": [],
+          "field_details": "{\"width\":120,\"format\":\"shn\"}"
+        },
+        {
+          "field": "OutputAllocation",
+          "tech_info": "",
+          "multi_lang_alias": [],
+          "field_details": "{\"width\":107}"
+        },
+        {
+          "field": "CalcDaysDemandCoverage",
+          "tech_info": "",
+          "multi_lang_alias": [],
+          "field_details": "{\"width\":141}"
+        },
+        {
+          "field": "OrderTypeDependentOrders",
+          "tech_info": "",
+          "multi_lang_alias": [],
+          "field_details": "{\"width\":140,\"format\":\"shn\"}"
+        },
+        {
+          "field": "DependentOrders",
+          "tech_info": "",
+          "multi_lang_alias": [],
+          "field_details": "{\"width\":154}"
+        },
+        {
+          "field": "DeliveryStatusDependentOrdersSingleLevel",
+          "tech_info": "",
+          "multi_lang_alias": [],
+          "field_details": "{\"width\":206,\"format\":\"shn\"}"
+        }
+      ]
+    },
+    {
+      "id": "d7d9dbe735d15b48db6b3578380775706",
+      "display_type": "chart",
+      "multi_lang_name": [
+        {
+          "lang": "de",
+          "text": "Anzahl nach Erstellungsdatum"
+        },
+        {
+          "lang": "en",
+          "text": "No. per Creation Date"
+        },
+        {
+          "lang": "es",
+          "text": "N.º por Fecha de Creación"
+        },
+        {
+          "lang": "fr",
+          "text": "Nombre par Date de Création"
+        },
+        {
+          "lang": "nl",
+          "text": "Aantal per Aanmaakdatum"
+        }
+      ],
+      "multi_lang_description": [
+        {
+          "lang": "de",
+          "text": "<div id=\"summary\" /><div class=\" section\" id=\"S1441114263490693\"><p class=\"\" id=\"P1441114263490734\" /></div>"
+        },
+        {
+          "lang": "en",
+          "text": "<div id=\"summary\" /><div class=\" section\" id=\"S1441114263490693\"><p class=\"\" id=\"P1441114263490734\" /></div>"
+        },
+        {
+          "lang": "es",
+          "text": "<div id=\"summary\" /><div class=\" section\" id=\"S1441114263490693\"><p class=\"\" id=\"P1441114263490734\" /></div>"
+        },
+        {
+          "lang": "fr",
+          "text": "<div id=\"summary\" /><div class=\" section\" id=\"S1441114263490693\"><p class=\"\" id=\"P1441114263490734\" /></div>"
+        },
+        {
+          "lang": "nl",
+          "text": "<div id=\"summary\" /><div class=\" section\" id=\"S1441114263490693\"><p class=\"\" id=\"P1441114263490734\" /></div>"
+        }
+      ],
+      "display_details": "{\"chart_type\":\"column\",\"stack\":false,\"multi_axis\":true,\"layout\":null,\"columns\":{\"header\":[],\"data\":[]},\"drilldown_display\":\"z04797670f0ef4f76ae239f0aec37a567\",\"axistitle\":\"show\",\"axisvalue\":\"show\",\"datalabel\":\"mouse\",\"gridline\":\"show\",\"legend\":\"show\",\"range\":{\"start\":0,\"size\":50},\"count_index\":0}",
+      "query_blocks": [
+        {
+          "queryblock_type": "query_steps",
+          "query_steps": [
+            {
+              "step_type": "aggregation",
+              "aggregation_fields": [
+                {
+                  "field": "count",
+                  "operator": "count"
+                },
+                {
+                  "source_field": "OrderedValue",
+                  "tech_info": "",
+                  "field": "sum_OrderedValue",
+                  "operator": "sum"
+                }
+              ],
+              "grouping_fields": [
+                {
+                  "source_field": "CreationDate",
+                  "tech_info": "EKET-BEDAT;EKKO-BEDAT;EKKO-AEDAT",
+                  "field": "quarter_CreationDate",
+                  "operator": "quarter"
+                },
+                {
+                  "source_field": "PurchaseOrganization__PurchaseOrganization",
+                  "tech_info": "T024E-EKORG",
+                  "field": "individual_PurchaseOrganization__PurchaseOrganization",
+                  "operator": "individual"
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "fields": [
+        {
+          "field": "quarter_CreationDate",
+          "multi_lang_alias": [],
+          "field_details": "{\"pivot_area\":\"row\"}"
+        },
+        {
+          "field": "individual_PurchaseOrganization__PurchaseOrganization",
+          "multi_lang_alias": [],
+          "field_details": "{\"pivot_area\":\"column\",\"format\":\"shnln\"}"
+        },
+        {
+          "field": "count",
+          "multi_lang_alias": [],
+          "field_details": "{\"pivot_area\":\"data\",\"prefix\":null,\"decimals\":0,\"thousandseparator\":true}"
+        },
+        {
+          "field": "sum_OrderedValue",
+          "multi_lang_alias": [],
+          "field_details": "{\"pivot_area\":\"data\",\"prefix\":\"K\",\"decimals\":0,\"thousandseparator\":true}"
+        }
+      ]
+    },
+    {
+      "id": "d8726b4dc4e7ac6a184ce578380775707",
+      "display_type": "list",
+      "multi_lang_name": [
+        {
+          "lang": "de",
+          "text": "Kontamination"
+        },
+        {
+          "lang": "en",
+          "text": "Pollution"
+        },
+        {
+          "lang": "es",
+          "text": "Contaminación"
+        },
+        {
+          "lang": "fr",
+          "text": "Pollution"
+        },
+        {
+          "lang": "nl",
+          "text": "Vervuiling"
+        }
+      ],
+      "multi_lang_description": [
+        {
+          "lang": "de",
+          "text": "<div id=\"summary\" /><div class=\" section\" id=\"S1441272352241863\"><p class=\"\" id=\"P1441272360296444\">Überfällige offene Aufträge Gefiltert nach „Liefertreue“ ist „Kontaminierung“.</p></div>"
+        },
+        {
+          "lang": "en",
+          "text": "<div id=\"summary\" /><div class=\" section\" id=\"S1441272352241863\"><p class=\"\" id=\"P1441272360296444\">Overdue open orders. Filtered on 'Delivery Reliability' is equal to 'Pollution'.</p></div>"
+        },
+        {
+          "lang": "es",
+          "text": "<div id=\"summary\" /><div class=\" section\" id=\"S1441272352241863\"><p class=\"\" id=\"P1441272360296444\">Pedidos Pendientes Atrasados. Cuando se filtran por \"Cumplimiento de Plazos de Entrega\" el resultado es \"Contaminación\".</p></div>"
+        },
+        {
+          "lang": "fr",
+          "text": "<div id=\"summary\" /><div class=\" section\" id=\"S1441272352241863\"><p class=\"\" id=\"P1441272360296444\">Ordres en cours en souffrance. Filtre appliqué : « Fiabilité des Livraisons » = « Pollution ».</p></div>"
+        },
+        {
+          "lang": "nl",
+          "text": "<div id=\"summary\" /><div class=\" section\" id=\"S1441272352241863\"><p class=\"\" id=\"P1441272360296444\">Vervallen open orders. Gefilterd op 'Leverbetrouwbaarheid' is gelijk aan 'Vervuiling'.</p></div>"
+        }
+      ],
+      "display_details": "{\"layout\":null}",
+      "query_blocks": [
+        {
+          "queryblock_type": "query_steps",
+          "query_steps": [
+            {
+              "step_type": "filter",
+              "field": "DeliveryStatus",
+              "operator": "equal_to",
+              "arguments": [
+                {
+                  "argument_type": "value",
+                  "value": "ds40Pollution"
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "fields": [
+        {
+          "field": "ObjectType",
+          "tech_info": "",
+          "multi_lang_alias": [],
+          "field_details": "{\"width\":109,\"format\":\"shn\"}"
+        },
+        {
+          "field": "ID",
+          "tech_info": "",
+          "multi_lang_alias": [],
+          "field_details": "{\"width\":113}"
+        },
+        {
+          "field": "Plant__Plant",
+          "tech_info": "T001W-WERKS",
+          "multi_lang_alias": [],
+          "field_details": "{\"width\":95,\"format\":\"shnln\"}"
+        },
+        {
+          "field": "Vendor__Vendor",
+          "tech_info": "LFA1-LIFNR",
+          "multi_lang_alias": [],
+          "field_details": "{\"width\":78}"
+        },
+        {
+          "field": "Vendor__Description",
+          "tech_info": "LFA1-NAME1",
+          "multi_lang_alias": [],
+          "field_details": "{\"width\":120}"
+        },
+        {
+          "field": "Material__Material",
+          "tech_info": "",
+          "multi_lang_alias": [],
+          "field_details": "{\"width\":84}"
+        },
+        {
+          "field": "Material__Description",
+          "tech_info": "MAKT-MAKTX",
+          "multi_lang_alias": [],
+          "field_details": "{\"width\":120}"
+        },
+        {
+          "field": "Quantity",
+          "tech_info": "",
+          "multi_lang_alias": [],
+          "field_details": "{\"width\":85}"
+        },
+        {
+          "field": "Material__BaseUnitOfMeasure",
+          "tech_info": "MARA-MEINS",
+          "multi_lang_alias": [],
+          "field_details": "{\"width\":29,\"format\":\"shn\"}"
+        },
+        {
+          "field": "PurchaseOrderScheduleLineStatus",
+          "tech_info": "",
+          "multi_lang_alias": [],
+          "field_details": "{\"width\":120,\"format\":\"shn\"}"
+        },
+        {
+          "field": "OrderDueDate",
+          "tech_info": "EKES_LC-EINDT;EKES_FC-EINDT;EKET_COMMIT-EINDT;EKET-EINDT;EKET-SLFDT",
+          "multi_lang_alias": [],
+          "field_details": "{\"width\":89}"
+        },
+        {
+          "field": "DeliveryStatus",
+          "tech_info": "",
+          "multi_lang_alias": [],
+          "field_details": "{\"width\":120,\"format\":\"shn\"}"
+        },
+        {
+          "field": "MaterialOnPlantLevel__DISPO",
+          "tech_info": "MARC-WERKS;MARC-DISPO",
+          "multi_lang_alias": [],
+          "field_details": "{\"width\":101}"
+        },
+        {
+          "field": "PurchaseOrder__BKGRP",
+          "tech_info": "EKKO-EKGRP",
+          "multi_lang_alias": [],
+          "field_details": "{\"width\":110}"
+        },
+        {
+          "field": "PurchaseOrganization__PurchaseOrganization",
+          "tech_info": "T024E-EKORG",
+          "multi_lang_alias": [],
+          "field_details": "{\"width\":101,\"format\":\"shnln\"}"
+        },
+        {
+          "field": "ClaimedStocksQuant",
+          "tech_info": "",
+          "multi_lang_alias": [],
+          "field_details": "{\"width\":125}"
+        },
+        {
+          "field": "OrderTypeDependentOrders",
+          "tech_info": "",
+          "multi_lang_alias": [],
+          "field_details": "{\"width\":120}"
+        },
+        {
+          "field": "DependentOrders",
+          "tech_info": "",
+          "multi_lang_alias": [],
+          "field_details": "{\"width\":120}"
+        },
+        {
+          "field": "ClaimedStocksValue",
+          "tech_info": "",
+          "multi_lang_alias": [],
+          "field_details": "{\"width\":120}"
+        }
+      ]
+    },
+    {
+      "id": "dd396c43ce526ee9681a7578380775711",
+      "display_type": "list",
+      "multi_lang_name": [
+        {
+          "lang": "de",
+          "text": "Kategorie: Angebotsanfrage"
+        },
+        {
+          "lang": "en",
+          "text": "Category: Request of Quotations"
+        },
+        {
+          "lang": "es",
+          "text": "Categoría: Peticiones de Oferta"
+        },
+        {
+          "lang": "fr",
+          "text": "Catégorie : Appel d'Offres"
+        },
+        {
+          "lang": "nl",
+          "text": "Categorie: Offerte-Aanvragen"
+        }
+      ],
+      "multi_lang_description": [
+        {
+          "lang": "de",
+          "text": "<div id=\"summary\" /><div class=\" section\" id=\"S1440516034675363\"><p class=\"\" id=\"P1440516034676624\">In den Einkaufsbelegobjekten sind mehrere Belege/Prozesse vorhanden. Wenn wir nach „Einkaufsbelegart = A“ filtern, erhalten wir nur die Angebotsanfrage.</p></div>"
+        },
+        {
+          "lang": "en",
+          "text": "<div id=\"summary\" /><div class=\" section\" id=\"S1440516034675363\"><p class=\"\" id=\"P1440516034676624\">Multiple documents/processes exist in the purchase document objects. By filtering on 'Purchase Document Category' = 'A' we only see the request for quotation.</p></div>"
+        },
+        {
+          "lang": "es",
+          "text": "<div id=\"summary\" /><div class=\" section\" id=\"S1440516034675363\"><p class=\"\" id=\"P1440516034676624\">Existen varios documentos/procesos en los objetos de documento de compras. Al filtrar por \"Tipo de Documento de Compras\" = \"A\", solo vemos las peticiones de oferta.</p></div>"
+        },
+        {
+          "lang": "fr",
+          "text": "<div id=\"summary\" /><div class=\" section\" id=\"S1440516034675363\"><p class=\"\" id=\"P1440516034676624\">Des documents / processus multiples existent dans les objets de document d'achat. En filtrant par « Catégorie de Document d'Achat » = « L », seuls les appels d'offres s'affichent.</p></div>"
+        },
+        {
+          "lang": "nl",
+          "text": "<div id=\"summary\" /><div class=\" section\" id=\"S1440516034675363\"><p class=\"\" id=\"P1440516034676624\">Er bestaan meerdere documenten/processen in de inkoopdocumentobjecten. Door te filteren op 'Type Inkoopdocument' = 'A' zien we alleen de offerte-aanvragen.</p></div>"
+        }
+      ],
+      "display_details": "{\"layout\":null}",
+      "query_blocks": [
+        {
+          "queryblock_type": "query_steps",
+          "query_steps": [
+            {
+              "step_type": "filter",
+              "field": "PurchaseOrder__PurchasingDocumentCategory",
+              "tech_info": "EKKO-BSTYP",
+              "operator": "equal_to",
+              "arguments": [
+                {
+                  "argument_type": "value",
+                  "value": "A"
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "fields": [
+        {
+          "field": "ObjectType",
+          "tech_info": "",
+          "multi_lang_alias": [],
+          "field_details": "{\"width\":107,\"format\":\"shn\"}"
+        },
+        {
+          "field": "ID",
+          "tech_info": "",
+          "multi_lang_alias": [],
+          "field_details": "{\"width\":123}"
+        },
+        {
+          "field": "Material__Material",
+          "tech_info": "",
+          "multi_lang_alias": [],
+          "field_details": "{\"width\":99}"
+        },
+        {
+          "field": "Material__Description",
+          "tech_info": "MAKT-MAKTX",
+          "multi_lang_alias": [],
+          "field_details": "{\"width\":120}"
+        },
+        {
+          "field": "PurchaseOrderLine__TXZ01",
+          "tech_info": "EKPO-TXZ01",
+          "multi_lang_alias": [],
+          "field_details": "{\"width\":187}"
+        },
+        {
+          "field": "Plant__Plant",
+          "tech_info": "T001W-WERKS",
+          "multi_lang_alias": [],
+          "field_details": "{\"width\":98,\"format\":\"shnln\"}"
+        },
+        {
+          "field": "PurchaseOrganization__PurchaseOrganization",
+          "tech_info": "T024E-EKORG",
+          "multi_lang_alias": [],
+          "field_details": "{\"width\":116,\"format\":\"shnln\"}"
+        },
+        {
+          "field": "PurchaseOrder__BKGRP",
+          "tech_info": "EKKO-EKGRP",
+          "multi_lang_alias": [],
+          "field_details": "{\"width\":104}"
+        },
+        {
+          "field": "PurchaseOrder__PurchasingDocumentCategory",
+          "tech_info": "EKKO-BSTYP",
+          "multi_lang_alias": [],
+          "field_details": "{\"width\":102,\"format\":\"shnln\"}"
+        },
+        {
+          "field": "PurchaseOrderLine__PurchasingItemCategory",
+          "tech_info": "EKPO-PSTYP",
+          "multi_lang_alias": [],
+          "field_details": "{\"width\":88,\"format\":\"shnln\"}"
+        },
+        {
+          "field": "Vendor__Vendor",
+          "tech_info": "LFA1-LIFNR",
+          "multi_lang_alias": [],
+          "field_details": "{\"width\":83}"
+        },
+        {
+          "field": "Vendor__Description",
+          "tech_info": "LFA1-NAME1",
+          "multi_lang_alias": [],
+          "field_details": "{\"width\":120}"
+        },
+        {
+          "field": "Quantity",
+          "tech_info": "",
+          "multi_lang_alias": [],
+          "field_details": "{\"width\":87}"
+        },
+        {
+          "field": "Material__BaseUnitOfMeasure",
+          "tech_info": "MARA-MEINS",
+          "multi_lang_alias": [],
+          "field_details": "{\"width\":29,\"format\":\"shn\"}"
+        },
+        {
+          "field": "ExecutionStatus",
+          "tech_info": "",
+          "multi_lang_alias": [],
+          "field_details": "{\"width\":93,\"format\":\"shn\"}"
+        },
+        {
+          "field": "OrderDueDate",
+          "tech_info": "EKES_LC-EINDT;EKES_FC-EINDT;EKET_COMMIT-EINDT;EKET-EINDT;EKET-SLFDT",
+          "multi_lang_alias": [],
+          "field_details": "{\"width\":87}"
+        },
+        {
+          "field": "OrderedValue",
+          "tech_info": "",
+          "multi_lang_alias": [],
+          "field_details": "{\"width\":87}"
+        },
+        {
+          "field": "PurchaseOrder__ANGAB",
+          "tech_info": "EKKO-ANGDT",
+          "multi_lang_alias": [],
+          "field_details": "{\"width\":94}"
+        },
+        {
+          "field": "PurchaseOrder__ValidFromDate",
+          "tech_info": "EKKO-KDATB",
+          "multi_lang_alias": [],
+          "field_details": "{\"width\":92}"
+        },
+        {
+          "field": "PurchaseOrder__ValidToDate",
+          "tech_info": "EKKO-KDATE",
+          "multi_lang_alias": [],
+          "field_details": "{\"width\":72}"
+        }
+      ]
+    },
+    {
+      "id": "dd4cfd98866d313b880e9578380775712",
+      "display_type": "list",
+      "multi_lang_name": [
+        {
+          "lang": "de",
+          "text": "Nachschub-/Bedarf-Abgleich Werksübergreifende Aufträge"
+        },
+        {
+          "lang": "en",
+          "text": "Supply Demand Matching Interplant Orders"
+        },
+        {
+          "lang": "es",
+          "text": "Coincidencia de Demanda de Suministro de Órdenes Entre Centros"
+        },
+        {
+          "lang": "fr",
+          "text": "Équilibrage de l'Offre et de la Demande pour Ordres Interdivisions"
+        },
+        {
+          "lang": "nl",
+          "text": "Koppeling Vraag en Aanbod Orders tussen Vestigingen"
+        }
+      ],
+      "multi_lang_description": [
+        {
+          "lang": "de",
+          "text": "<div id=\"summary\" /><div class=\" section\" id=\"S1438090894882183\"><p class=\"\" id=\"Pidelem4x84684\">Situation offener Positionen beim Nachschub-/Bedarf-Abgleich für werksübergreifende Aufträge.</p><p class=\"\" id=\"Pidelem4x84686\">Gefiltert nach Dispositionsrelevanz (nur planungsrelevante offene Aufträge) und nicht nach Kontaminierung.</p><p class=\"\" id=\"Pidelem4x84688\">Man kann geteilter Meinung darüber sein, ob die Kontaminierung hier berücksichtigt werden soll, da SAP diese Aufträge weiterhin für die Planung verwendet. Für eine „echte“ Auftragsübersicht wird die Kontaminierung ausgefiltert. Sie können sich jedoch dafür entscheiden, diesen Filter zu entfernen.</p></div>"
+        },
+        {
+          "lang": "en",
+          "text": "<div id=\"summary\" /><div class=\" section\" id=\"S1438090894882183\"><p class=\"\" id=\"Pidelem4x84684\">Open item situation for supply demand matching for interplant orders.</p><p class=\"\" id=\"Pidelem4x84686\">Filtered on MRP relevancy (only open order relevant for planning) and not pollution.</p><p class=\"\" id=\"Pidelem4x84688\">You can argue if pollution should or should not be in, because SAP still uses these orders in planning. For a 'real' order overview pollution is filtered out. You can decide though to remove this filter.</p></div>"
+        },
+        {
+          "lang": "es",
+          "text": "<div id=\"summary\" /><div class=\" section\" id=\"S1438090894882183\"><p class=\"\" id=\"Pidelem4x84684\">Situación de posiciones abiertas para la coincidencia de demanda de suministro de órdenes entre centros.</p><p class=\"\" id=\"Pidelem4x84686\">Se filtra por relevancia para Planificación de Necesidades (solo posiciones abiertas relevantes para planificación) y sin contaminación.</p><p class=\"\" id=\"Pidelem4x84688\">Es discutible si se debe tener o no en cuenta la contaminación, ya que SAP utiliza aún estas órdenes en la planificación. Para tener una visión general real de la partida, se filtra por contaminación. Si bien, puede decidir eliminar este filtro.</p></div>"
+        },
+        {
+          "lang": "fr",
+          "text": "<div id=\"summary\" /><div class=\" section\" id=\"S1438090894882183\"><p class=\"\" id=\"Pidelem4x84684\">Poste en cours pour équilibrage de l'offre et de la demande pour ordres interdivisions.</p><p class=\"\" id=\"Pidelem4x84686\">Filtré par pertinence planification (seuls les ordres en cours concernant la planification) et non par pollution.</p><p class=\"\" id=\"Pidelem4x84688\">Il vous revient de décider si la pollution doit être incluse (ou non), car SAP utilise encore ces ordres pour la planification. Pour obtenir une vue d'ensemble des « vraies » commandes, la pollution doit être filtrée. Vous pouvez cependant choisir de retirer ce filtre.</p></div>"
+        },
+        {
+          "lang": "nl",
+          "text": "<div id=\"summary\" /><div class=\" section\" id=\"S1438090894882183\"><p class=\"\" id=\"Pidelem4x84684\">De open posities voor het koppelen van vraag en aanbod van orders tussen vestigingen.</p><p class=\"\" id=\"P1444131309625340\">Gefilterd op de relevantie voor de planning (alleen open orders die relevant zijn voor de planning) en geen vervuiling.</p><p class=\"\" id=\"P1444131309625871\">Of vervuiling wel of niet meegenomen moet worden is onderwerp van discussie, omdat SAP deze orders nog steeds meeneemt in de planning. Voor een 'echt' orderoverzicht wordt vervuiling uitgefilterd. U kunt er echter voor kiezen om dit filter te verwijderen.</p></div>"
+        }
+      ],
+      "display_details": "{\"layout\":null}",
+      "query_blocks": [
+        {
+          "queryblock_type": "query_steps",
+          "query_steps": [
+            {
+              "step_type": "filter",
+              "field": "RelevantForLogistics",
+              "operator": "equal_to",
+              "arguments": [
+                {
+                  "argument_type": "value",
+                  "value": true
+                }
+              ]
+            },
+            {
+              "step_type": "filter",
+              "field": "DeliveryStatus",
+              "operator": "not_equal_to",
+              "arguments": [
+                {
+                  "argument_type": "value",
+                  "value": "ds40Pollution"
+                }
+              ]
+            },
+            {
+              "step_type": "filter",
+              "field": "SupplyingPlant__Plant",
+              "tech_info": "T001W-WERKS",
+              "operator": "has_value"
+            }
+          ]
+        }
+      ],
+      "fields": [
+        {
+          "field": "ObjectType",
+          "tech_info": "",
+          "multi_lang_alias": [],
+          "field_details": "{\"width\":109,\"format\":\"shn\"}"
+        },
+        {
+          "field": "ID",
+          "tech_info": "",
+          "multi_lang_alias": [],
+          "field_details": "{\"width\":113}"
+        },
+        {
+          "field": "Plant__Plant",
+          "tech_info": "T001W-WERKS",
+          "multi_lang_alias": [],
+          "field_details": "{\"width\":105,\"format\":\"shnln\"}"
+        },
+        {
+          "field": "SupplyingPlant__Plant",
+          "tech_info": "T001W-WERKS",
+          "multi_lang_alias": [],
+          "field_details": "{\"width\":172}"
+        },
+        {
+          "field": "Material__Material",
+          "tech_info": "",
+          "multi_lang_alias": [],
+          "field_details": "{\"width\":84}"
+        },
+        {
+          "field": "Material__Description",
+          "tech_info": "MAKT-MAKTX",
+          "multi_lang_alias": [],
+          "field_details": "{\"width\":120}"
+        },
+        {
+          "field": "Quantity",
+          "tech_info": "",
+          "multi_lang_alias": [],
+          "field_details": "{\"width\":85}"
+        },
+        {
+          "field": "Material__BaseUnitOfMeasure",
+          "tech_info": "MARA-MEINS",
+          "multi_lang_alias": [],
+          "field_details": "{\"width\":29,\"format\":\"shn\"}"
+        },
+        {
+          "field": "PurchaseOrderScheduleLineStatus",
+          "tech_info": "",
+          "multi_lang_alias": [],
+          "field_details": "{\"width\":109,\"format\":\"shn\"}"
+        },
+        {
+          "field": "OrderDueDate",
+          "tech_info": "EKES_LC-EINDT;EKES_FC-EINDT;EKET_COMMIT-EINDT;EKET-EINDT;EKET-SLFDT",
+          "multi_lang_alias": [],
+          "field_details": "{\"width\":89}"
+        },
+        {
+          "field": "DeliveryStatus",
+          "tech_info": "",
+          "multi_lang_alias": [],
+          "field_details": "{\"width\":96,\"format\":\"shn\"}"
+        },
+        {
+          "field": "ExpectedDeliveryDate",
+          "tech_info": "",
+          "multi_lang_alias": [],
+          "field_details": "{\"width\":111}"
+        },
+        {
+          "field": "BottleneckType",
+          "tech_info": "",
+          "multi_lang_alias": [],
+          "field_details": "{\"width\":120,\"format\":\"shn\"}"
+        },
+        {
+          "field": "OutputAllocation",
+          "tech_info": "",
+          "multi_lang_alias": [],
+          "field_details": "{\"width\":107}"
+        },
+        {
+          "field": "OrderTypeDependentOrders",
+          "tech_info": "",
+          "multi_lang_alias": [],
+          "field_details": "{\"width\":140,\"format\":\"shn\"}"
+        },
+        {
+          "field": "DependentOrders",
+          "tech_info": "",
+          "multi_lang_alias": [],
+          "field_details": "{\"width\":154}"
+        },
+        {
+          "field": "DeliveryStatusDependentOrdersSingleLevel",
+          "tech_info": "",
+          "multi_lang_alias": [],
+          "field_details": "{\"width\":206,\"format\":\"shn\"}"
+        }
+      ]
+    },
+    {
+      "id": "dd760c72b9da9713d8e9e578380775702",
+      "display_type": "chart",
+      "multi_lang_name": [
+        {
+          "lang": "de",
+          "text": "Liefertreue pro Periode"
+        },
+        {
+          "lang": "en",
+          "text": "Delivery Reliability per Period"
+        },
+        {
+          "lang": "es",
+          "text": "Cumplimiento de Plazos de Entrega por Período"
+        },
+        {
+          "lang": "fr",
+          "text": "Fiabilité des Livraisons par Période"
+        },
+        {
+          "lang": "nl",
+          "text": "Leverbetrouwbaarheid per Periode"
+        }
+      ],
+      "multi_lang_description": [
+        {
+          "lang": "de",
+          "text": "<div id=\"summary\" /><div class=\" section\" id=\"S1440682176942903\"><p class=\"\" id=\"P144068217694284\">Liefertreue nach Anzahl von Datensätzen und Bestellwert für alle Perioden. Die horizontale Achse wird pro Quartal nach Auftragsfälligkeitsdatum unterteilt.</p></div>"
+        },
+        {
+          "lang": "en",
+          "text": "<div id=\"summary\" /><div class=\" section\" id=\"S1440682176942903\"><p class=\"\" id=\"P144068217694284\">Delivery reliability per number of records and ordered value for all periods. The horizontal axis is bucketed per quarter by order due date.</p></div>"
+        },
+        {
+          "lang": "es",
+          "text": "<div id=\"summary\" /><div class=\" section\" id=\"S1440682176942903\"><p class=\"\" id=\"P144068217694284\">Cumplimiento de plazos de entrega por número de registros y valor solicitado para todos los períodos. El eje horizontal está dividido en celdas por trimestre por fecha de vencimiento de pedido.</p></div>"
+        },
+        {
+          "lang": "fr",
+          "text": "<div id=\"summary\" /><div class=\" section\" id=\"S1440682176942903\"><p class=\"\" id=\"P144068217694284\">Fiabilité des livraisons par nombre d'enregistrements et valeur commandée pour toutes périodes. L'axe horizontal est gradué en trimestres, par date d'échéance de l'ordre.</p></div>"
+        },
+        {
+          "lang": "nl",
+          "text": "<div id=\"summary\" /><div class=\" section\" id=\"S1440682176942903\"><p class=\"\" id=\"P144068217694284\">Leverbetrouwbaarheid per aantal records en bestelde waarde voor alle perioden. De horizontale as is gegroepeerd per kwartaal op MRP-datum.</p></div>"
+        }
+      ],
+      "display_details": "{\"chart_type\":\"column\",\"stack\":false,\"multi_axis\":true,\"layout\":null,\"columns\":{\"header\":[],\"data\":[]},\"drilldown_display\":\"z04797670f0ef4f76ae239f0aec37a567\"}",
+      "query_blocks": [
+        {
+          "queryblock_type": "query_steps",
+          "query_steps": [
+            {
+              "step_type": "filter",
+              "field": "PurchaseOrder__PurchasingDocumentCategory",
+              "tech_info": "EKKO-BSTYP",
+              "operator": "in_set",
+              "arguments": [
+                {
+                  "argument_type": "value",
+                  "value": "F"
+                },
+                {
+                  "argument_type": "value",
+                  "value": "L"
+                }
+              ]
+            },
+            {
+              "step_type": "filter",
+              "field": "ExecutionStatus",
+              "operator": "not_in_set",
+              "arguments": [
+                {
+                  "argument_type": "value",
+                  "value": "es3Cancelled"
+                }
+              ]
+            },
+            {
+              "step_type": "aggregation",
+              "aggregation_fields": [
+                {
+                  "field": "count",
+                  "operator": "count"
+                },
+                {
+                  "source_field": "OrderedValue",
+                  "tech_info": "",
+                  "field": "sum_OrderedValue",
+                  "operator": "sum"
+                }
+              ],
+              "grouping_fields": [
+                {
+                  "source_field": "OrderDueDate",
+                  "tech_info": "EKES_LC-EINDT;EKES_FC-EINDT;EKET_COMMIT-EINDT;EKET-EINDT;EKET-SLFDT",
+                  "field": "quarter_OrderDueDate",
+                  "operator": "quarter"
+                },
+                {
+                  "source_field": "DeliveryStatus",
+                  "tech_info": "",
+                  "field": "individual_DeliveryStatus",
+                  "operator": "individual"
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "fields": [
+        {
+          "field": "quarter_OrderDueDate",
+          "multi_lang_alias": [],
+          "field_details": "{\"pivot_area\":\"row\"}"
+        },
+        {
+          "field": "individual_DeliveryStatus",
+          "multi_lang_alias": [],
+          "field_details": "{\"pivot_area\":\"column\",\"format\":\"shn\"}"
+        },
+        {
+          "field": "count",
+          "multi_lang_alias": [],
+          "field_details": "{\"pivot_area\":\"data\",\"prefix\":null,\"decimals\":0,\"thousandseparator\":true}"
+        },
+        {
+          "field": "sum_OrderedValue",
+          "multi_lang_alias": [],
+          "field_details": "{\"pivot_area\":\"data\",\"prefix\":\"K\",\"decimals\":0,\"thousandseparator\":true}"
+        }
+      ]
+    },
+    {
+      "id": "ddeaff1cd4b22fdba8afb578380775706",
+      "display_type": "pivot",
+      "multi_lang_name": [
+        {
+          "lang": "de",
+          "text": "Kategorisierung"
+        },
+        {
+          "lang": "en",
+          "text": "Categorization"
+        },
+        {
+          "lang": "es",
+          "text": "Clasificación"
+        },
+        {
+          "lang": "fr",
+          "text": "Catégorisation"
+        },
+        {
+          "lang": "nl",
+          "text": "Categoriseren"
+        }
+      ],
+      "multi_lang_description": [
+        {
+          "lang": "de",
+          "text": "<div id=\"summary\" /><div class=\" section\" id=\"S1440665766825663\"><p class=\"\" id=\"Pidelem4x84354\">Kategorisierung der Einkaufsbelegeinteilungen nach Einkaufsbelegkategorie, Einkaufsbelegart und Positionstyp.</p><p class=\"\" id=\"Pidelem4x84363\">Für alle Kategorien wird die Anzahl nach Liefertreue angezeigt.</p></div>"
+        },
+        {
+          "lang": "en",
+          "text": "<div id=\"summary\" /><div class=\" section\" id=\"S1440665766825663\"><p class=\"\" id=\"Pidelem4x84354\">Categorization of purchase document schedule lines by purchasing document category, purchase document type, and item category.</p><p class=\"\" id=\"Pidelem4x84363\">For all categories the count per delivery reliability is displayed.</p></div>"
+        },
+        {
+          "lang": "es",
+          "text": "<div id=\"summary\" /><div class=\" section\" id=\"S1440665766825663\"><p class=\"\" id=\"Pidelem4x84354\">La clasificación de repartos de documento de compras por tipo y clase de documento de compras y tipo de posición.</p><p class=\"\" id=\"Pidelem4x84363\">Se muestra el recuento por cumplimiento de plazos de entrega de todos los tipos.</p></div>"
+        },
+        {
+          "lang": "fr",
+          "text": "<div id=\"summary\" /><div class=\" section\" id=\"S1440665766825663\"><p class=\"\" id=\"Pidelem4x84354\">Catégorisation des échéances de documents d’achat par catégorie de document d'achat, type de document d'achat et catégorie de poste.</p><p class=\"\" id=\"Pidelem4x84363\">Pour toutes les catégories, le comptage par fiabilité des livraisons est affiché.</p></div>"
+        },
+        {
+          "lang": "nl",
+          "text": "<div id=\"summary\" /><div class=\" section\" id=\"S1440665766825663\"><p class=\"\" id=\"Pidelem4x84354\">Categoriseren van inkoopdocumentindelingen op type inkoopdocument, inkoopdocumentsoort en positietype.</p><p class=\"\" id=\"P1442318606348590\">Voor alle categorieën wordt het aantal per leverbetrouwbaarheid weergegeven.</p></div>"
+        }
+      ],
+      "display_details": "{\"drilldown_display\":\"z04797670f0ef4f76ae239f0aec37a567\",\"show_total_for\":1,\"percentage_summary_type\":0,\"include_subtotals\":false,\"count_index\":0}",
+      "query_blocks": [
+        {
+          "queryblock_type": "query_steps",
+          "query_steps": [
+            {
+              "step_type": "aggregation",
+              "aggregation_fields": [
+                {
+                  "field": "count",
+                  "operator": "count"
+                }
+              ],
+              "grouping_fields": [
+                {
+                  "source_field": "PurchaseOrder__PurchasingDocumentCategory",
+                  "tech_info": "EKKO-BSTYP",
+                  "field": "individual_PurchaseOrder__PurchasingDocumentCategory",
+                  "operator": "individual"
+                },
+                {
+                  "source_field": "PurchaseOrderLine__PurchasingItemCategory",
+                  "tech_info": "EKPO-PSTYP",
+                  "field": "individual_PurchaseOrderLine__PurchasingItemCategory",
+                  "operator": "individual"
+                },
+                {
+                  "source_field": "ExecutionStatus",
+                  "tech_info": "",
+                  "field": "individual_ExecutionStatus",
+                  "operator": "individual"
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "fields": [
+        {
+          "field": "individual_PurchaseOrder__PurchasingDocumentCategory",
+          "multi_lang_alias": [],
+          "field_details": "{\"pivot_area\":\"row\",\"format\":\"shnln\",\"sorting\":\"asc\"}"
+        },
+        {
+          "field": "individual_PurchaseOrderLine__PurchasingItemCategory",
+          "multi_lang_alias": [],
+          "field_details": "{\"pivot_area\":\"row\",\"format\":\"shnln\",\"sorting\":\"asc\"}"
+        },
+        {
+          "field": "individual_ExecutionStatus",
+          "multi_lang_alias": [],
+          "field_details": "{\"pivot_area\":\"column\",\"format\":\"shn\",\"sorting\":\"asc\"}"
+        },
+        {
+          "field": "count",
+          "multi_lang_alias": [],
+          "field_details": "{\"pivot_area\":\"data\",\"sorting\":\"\"}"
+        }
+      ]
+    },
+    {
+      "id": "de94e979d1c80b523fe82578380775708",
+      "display_type": "list",
+      "multi_lang_name": [
+        {
+          "lang": "de",
+          "text": "Kategorie: Vertrag"
+        },
+        {
+          "lang": "en",
+          "text": "Category: Contract"
+        },
+        {
+          "lang": "es",
+          "text": "Categoría: Contrato"
+        },
+        {
+          "lang": "fr",
+          "text": "Catégorie : Contrat"
+        },
+        {
+          "lang": "nl",
+          "text": "Categorie: Contract"
+        }
+      ],
+      "multi_lang_description": [
+        {
+          "lang": "de",
+          "text": "<div id=\"summary\" /><div class=\" section\" id=\"S1440516034060933\"><p class=\"\" id=\"P144051603406164\">In den Einkaufsbelegobjekten sind mehrere Belege/Prozesse vorhanden. Wenn wir nach „Einkaufsbelegart = K“ filtern, erhalten wir nur die Verträge.</p></div>"
+        },
+        {
+          "lang": "en",
+          "text": "<div id=\"summary\" /><div class=\" section\" id=\"S1440516034060933\"><p class=\"\" id=\"P144051603406164\">Multiple documents/processes exist in the purchase document objects. By filtering on 'Purchase Document Category' = 'K' we only see the contracts.</p></div>"
+        },
+        {
+          "lang": "es",
+          "text": "<div id=\"summary\" /><div class=\" section\" id=\"S1440516034060933\"><p class=\"\" id=\"P144051603406164\">Existen varios documentos/procesos en los objetos de documento de compras. Al filtrar por \"Tipo de Documento de Compras\" = \"K\", solo vemos los contratos.</p></div>"
+        },
+        {
+          "lang": "fr",
+          "text": "<div id=\"summary\" /><div class=\" section\" id=\"S1440516034060933\"><p class=\"\" id=\"P144051603406164\">Des documents / processus multiples existent dans les objets de document d'achat. En filtrant par « Catégorie de Document d'Achat » = « L », seuls les contrats s'affichent.</p></div>"
+        },
+        {
+          "lang": "nl",
+          "text": "<div id=\"summary\" /><div class=\" section\" id=\"S1440516034060933\"><p class=\"\" id=\"P144051603406164\">Er bestaan meerdere documenten/processen in de inkoopdocumentobjecten. Door te filteren op 'Type Inkoopdocument' = 'K' zien we alleen contracten.</p></div>"
+        }
+      ],
+      "display_details": "{\"layout\":null}",
+      "query_blocks": [
+        {
+          "queryblock_type": "query_steps",
+          "query_steps": [
+            {
+              "step_type": "filter",
+              "field": "PurchaseOrder__PurchasingDocumentCategory",
+              "tech_info": "EKKO-BSTYP",
+              "operator": "in_set",
+              "arguments": [
+                {
+                  "argument_type": "value",
+                  "value": "K"
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "fields": [
+        {
+          "field": "ObjectType",
+          "tech_info": "",
+          "multi_lang_alias": [],
+          "field_details": "{\"width\":107,\"format\":\"shn\"}"
+        },
+        {
+          "field": "ID",
+          "tech_info": "",
+          "multi_lang_alias": [],
+          "field_details": "{\"width\":123}"
+        },
+        {
+          "field": "Material__Material",
+          "tech_info": "",
+          "multi_lang_alias": [],
+          "field_details": "{\"width\":84}"
+        },
+        {
+          "field": "Material__Description",
+          "tech_info": "MAKT-MAKTX",
+          "multi_lang_alias": [],
+          "field_details": "{\"width\":130}"
+        },
+        {
+          "field": "PurchaseOrderLine__TXZ01",
+          "tech_info": "EKPO-TXZ01",
+          "multi_lang_alias": [],
+          "field_details": "{\"width\":187}"
+        },
+        {
+          "field": "Plant__Plant",
+          "tech_info": "T001W-WERKS",
+          "multi_lang_alias": [],
+          "field_details": "{\"width\":108,\"format\":\"shnln\"}"
+        },
+        {
+          "field": "PurchaseOrganization__PurchaseOrganization",
+          "tech_info": "T024E-EKORG",
+          "multi_lang_alias": [],
+          "field_details": "{\"width\":109,\"format\":\"shnln\"}"
+        },
+        {
+          "field": "PurchaseOrder__BKGRP",
+          "tech_info": "EKKO-EKGRP",
+          "multi_lang_alias": [],
+          "field_details": "{\"width\":103}"
+        },
+        {
+          "field": "MaterialOnPlantLevel__DISPO",
+          "tech_info": "MARC-WERKS;MARC-DISPO",
+          "multi_lang_alias": [],
+          "field_details": "{\"width\":95}"
+        },
+        {
+          "field": "PurchaseOrder__PurchasingDocumentCategory",
+          "tech_info": "EKKO-BSTYP",
+          "multi_lang_alias": [],
+          "field_details": "{\"width\":131,\"format\":\"shnln\"}"
+        },
+        {
+          "field": "PurchaseOrderLine__PurchasingItemCategory",
+          "tech_info": "EKPO-PSTYP",
+          "multi_lang_alias": [],
+          "field_details": "{\"width\":88,\"format\":\"shnln\"}"
+        },
+        {
+          "field": "Vendor__Vendor",
+          "tech_info": "LFA1-LIFNR",
+          "multi_lang_alias": [],
+          "field_details": "{\"width\":83}"
+        },
+        {
+          "field": "Vendor__Description",
+          "tech_info": "LFA1-NAME1",
+          "multi_lang_alias": [],
+          "field_details": "{\"width\":141}"
+        },
+        {
+          "field": "Quantity",
+          "tech_info": "",
+          "multi_lang_alias": [],
+          "field_details": "{\"width\":88}"
+        },
+        {
+          "field": "Material__BaseUnitOfMeasure",
+          "tech_info": "MARA-MEINS",
+          "multi_lang_alias": [],
+          "field_details": "{\"width\":28,\"format\":\"shn\"}"
+        },
+        {
+          "field": "ExecutionStatus",
+          "tech_info": "",
+          "multi_lang_alias": [],
+          "field_details": "{\"width\":95,\"format\":\"shn\"}"
+        },
+        {
+          "field": "OrderedValue",
+          "tech_info": "",
+          "multi_lang_alias": [],
+          "field_details": "{\"width\":85}"
+        },
+        {
+          "field": "PurchaseOrder__ValidFromDate",
+          "tech_info": "EKKO-KDATB",
+          "multi_lang_alias": [],
+          "field_details": "{\"width\":92}"
+        },
+        {
+          "field": "PurchaseOrder__ValidToDate",
+          "tech_info": "EKKO-KDATE",
+          "multi_lang_alias": [],
+          "field_details": "{\"width\":78}"
+        }
+      ]
+    },
+    {
+      "id": "deb37fae65d9a671359fe578380775703",
+      "display_type": "list",
+      "multi_lang_name": [
+        {
+          "lang": "de",
+          "text": "Bestandsumlageraufträge"
+        },
+        {
+          "lang": "en",
+          "text": "Stock Transfer Orders"
+        },
+        {
+          "lang": "es",
+          "text": "Órdenes de Transporte de Stock"
+        },
+        {
+          "lang": "fr",
+          "text": "Ordres de Transfert de Stock"
+        },
+        {
+          "lang": "nl",
+          "text": "Voorraadtransportorders"
+        }
+      ],
+      "multi_lang_description": [
+        {
+          "lang": "de",
+          "text": "<div id=\"summary\" /><div class=\" section\" id=\"S1438096386901583\"><p class=\"\" id=\"P1438096386901484\">Bestandsumlageraufträge haben einen Wert im Feld „Lieferndes Werk“.</p></div>"
+        },
+        {
+          "lang": "en",
+          "text": "<div id=\"summary\" /><div class=\" section\" id=\"S1438096386901583\"><p class=\"\" id=\"P1438096386901484\">Stock transfer orders have a value in the Supplying Plant field.</p></div>"
+        },
+        {
+          "lang": "es",
+          "text": "<div id=\"summary\" /><div class=\" section\" id=\"S1438096386901583\"><p class=\"\" id=\"P1438096386901484\">Las órdenes de transporte de stock tienen un valor en el campo Centro Suministrador.</p></div>"
+        },
+        {
+          "lang": "fr",
+          "text": "<div id=\"summary\" /><div class=\" section\" id=\"S1438096386901583\"><p class=\"\" id=\"P1438096386901484\">Les ordres de transfert de stock disposent d'une valeur dans le champ Division Cédante.</p></div>"
+        },
+        {
+          "lang": "nl",
+          "text": "<div id=\"summary\" /><div class=\" section\" id=\"S1438096386901583\"><p class=\"\" id=\"P1438096386901484\">Voorraadtransportorders hebben een waarde in het veld 'Leverende Vestiging'.</p></div>"
+        }
+      ],
+      "display_details": "{\"layout\":null}",
+      "query_blocks": [
+        {
+          "queryblock_type": "query_steps",
+          "query_steps": [
+            {
+              "step_type": "filter",
+              "field": "SupplyingPlant__Plant",
+              "tech_info": "T001W-WERKS",
+              "operator": "has_value"
+            }
+          ]
+        }
+      ],
+      "fields": [
+        {
+          "field": "ObjectType",
+          "tech_info": "",
+          "multi_lang_alias": [],
+          "field_details": "{\"width\":107,\"format\":\"shn\"}"
+        },
+        {
+          "field": "ID",
+          "tech_info": "",
+          "multi_lang_alias": [],
+          "field_details": "{\"width\":123}"
+        },
+        {
+          "field": "Material__Material",
+          "tech_info": "",
+          "multi_lang_alias": [],
+          "field_details": "{\"width\":82}"
+        },
+        {
+          "field": "Material__Description",
+          "tech_info": "MAKT-MAKTX",
+          "multi_lang_alias": [],
+          "field_details": "{\"width\":120}"
+        },
+        {
+          "field": "PurchaseOrderLine__TXZ01",
+          "tech_info": "EKPO-TXZ01",
+          "multi_lang_alias": [],
+          "field_details": "{\"width\":178}"
+        },
+        {
+          "field": "Plant__Plant",
+          "tech_info": "T001W-WERKS",
+          "multi_lang_alias": [],
+          "field_details": "{\"width\":125,\"format\":\"shnln\"}"
+        },
+        {
+          "field": "SupplyingPlant__Plant",
+          "tech_info": "T001W-WERKS",
+          "multi_lang_alias": [],
+          "field_details": "{\"width\":112,\"format\":\"shnln\"}"
+        },
+        {
+          "field": "PurchaseOrganization__PurchaseOrganization",
+          "tech_info": "T024E-EKORG",
+          "multi_lang_alias": [],
+          "field_details": "{\"width\":128,\"format\":\"shnln\"}"
+        },
+        {
+          "field": "PurchaseOrder__BKGRP",
+          "tech_info": "EKKO-EKGRP",
+          "multi_lang_alias": [],
+          "field_details": "{\"width\":103}"
+        },
+        {
+          "field": "MaterialOnPlantLevel__DISPO",
+          "tech_info": "MARC-WERKS;MARC-DISPO",
+          "multi_lang_alias": [],
+          "field_details": "{\"width\":95}"
+        },
+        {
+          "field": "PurchaseOrder__PurchasingDocumentCategory",
+          "tech_info": "EKKO-BSTYP",
+          "multi_lang_alias": [],
+          "field_details": "{\"width\":110,\"format\":\"shnln\"}"
+        },
+        {
+          "field": "PurchaseOrderLine__PurchasingItemCategory",
+          "tech_info": "EKPO-PSTYP",
+          "multi_lang_alias": [],
+          "field_details": "{\"width\":88,\"format\":\"shnln\"}"
+        },
+        {
+          "field": "RelevantForLogistics",
+          "tech_info": "",
+          "multi_lang_alias": [],
+          "field_details": "{\"width\":83}"
+        },
+        {
+          "field": "ExecutionStatus",
+          "tech_info": "",
+          "multi_lang_alias": [],
+          "field_details": "{\"width\":95,\"format\":\"shn\"}"
+        },
+        {
+          "field": "PurchaseOrderScheduleLineStatus",
+          "tech_info": "",
+          "multi_lang_alias": [],
+          "field_details": "{\"width\":109,\"format\":\"shn\"}"
+        },
+        {
+          "field": "OrderDueDate",
+          "tech_info": "EKES_LC-EINDT;EKES_FC-EINDT;EKET_COMMIT-EINDT;EKET-EINDT;EKET-SLFDT",
+          "multi_lang_alias": [],
+          "field_details": "{\"width\":92}"
+        },
+        {
+          "field": "DateOfGoodsIssue",
+          "tech_info": "EKBE_GI-BUDAT",
+          "multi_lang_alias": [],
+          "field_details": "{\"width\":107}"
+        },
+        {
+          "field": "DateOfGoodsReceipt",
+          "tech_info": "EKBE_GR-BUDAT",
+          "multi_lang_alias": [],
+          "field_details": "{\"width\":116}"
+        },
+        {
+          "field": "DeliveryStatus",
+          "tech_info": "",
+          "multi_lang_alias": [],
+          "field_details": "{\"width\":89,\"format\":\"shn\"}"
+        },
+        {
+          "field": "Quantity",
+          "tech_info": "",
+          "multi_lang_alias": [],
+          "field_details": "{\"width\":88}"
+        },
+        {
+          "field": "Material__BaseUnitOfMeasure",
+          "tech_info": "MARA-MEINS",
+          "multi_lang_alias": [],
+          "field_details": "{\"width\":29,\"format\":\"shn\"}"
+        },
+        {
+          "field": "OrderedValue",
+          "tech_info": "",
+          "multi_lang_alias": [],
+          "field_details": "{\"width\":85}"
+        }
+      ]
+    }
+  ]
+}

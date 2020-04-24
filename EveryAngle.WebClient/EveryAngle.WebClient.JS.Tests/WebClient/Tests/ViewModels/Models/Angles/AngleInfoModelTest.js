@@ -1,5 +1,6 @@
 /// <reference path="/Dependencies/ViewModels/Shared/DataType/DataType.js" />
 /// <reference path="/Dependencies/ViewModels/Models/User/usersettingmodel.js" />
+/// <reference path="/Dependencies/ViewModels/Models/Angle/DisplayModel.js" />
 /// <reference path="/Dependencies/ViewModels/Models/Angle/AngleInfoModel.js" />
 
 describe("AngleInfoModel test", function () {
@@ -21,7 +22,6 @@ describe("AngleInfoModel test", function () {
             expect(angleInfoModel.IsStarred()).toBeDefined();
             expect(angleInfoModel.IsPublished()).toBeDefined();
             expect(angleInfoModel.IsTemplate()).toBeDefined();
-            expect(angleInfoModel.IsTempTemplate()).toBeDefined();
             expect(angleInfoModel.IsValidated()).toBeDefined();
             expect(angleInfoModel.ModelName()).toBeDefined();
             expect(angleInfoModel.ModelName().ShortName()).toBeDefined();
@@ -48,7 +48,6 @@ describe("AngleInfoModel test", function () {
 
         it(": Function of instance are not undefined", function () {
             expect(angleInfoModel.Load).toBeDefined();
-            expect(angleInfoModel.LoadAngle).toBeDefined();
             expect(angleInfoModel.SetData).toBeDefined();
             expect(angleInfoModel.DeleteReadOnlyAngleProperties).toBeDefined();
             expect(angleInfoModel.UpdateAngle).toBeDefined();
@@ -116,7 +115,7 @@ describe("AngleInfoModel test", function () {
         });
 
         it("can get executed if it is defined", function () {
-            var executed = ({ datetime: 1474284511 , full_name: 'EAAdmin'});
+            var executed = ({ datetime: 1474284511, full_name: 'EAAdmin' });
 
             angleInfoModel.SetExecutedBy(executed, undefined);
 
@@ -135,6 +134,22 @@ describe("AngleInfoModel test", function () {
 
             expect(executedBy.datetime).toContain('Sep/19/2016');
             expect(executedBy.full_name).toEqual('EAAdmin');
+        });
+    });
+
+    describe('DeleteTemporaryAngle ', function () {
+        it('should remove temp angle and display including local/session storage', function () {
+
+            spyOn(jQuery.localStorage, 'removeItem');
+            angleInfoModel.TemporaryAngle({});
+            displayModel.TemporaryDisplay({});
+
+            angleInfoModel.DeleteTemporaryAngle();
+
+            expect(jQuery.localStorage.removeItem).toHaveBeenCalledWith('temp_angle');
+            expect(jQuery.localStorage.removeItem).toHaveBeenCalledWith('temp_displays');
+            expect(angleInfoModel.TemporaryAngle()).toBeNull();
+            expect(displayModel.TemporaryDisplay()).toBeNull();
         });
     });
 });

@@ -11,16 +11,11 @@ function DisplayModel(model) {
     self.Name = ko.protectedObservable('');
     self.Description = ko.protectedObservable('');
     self.IsDefault = ko.protectedObservable(false);
-    self.ExcuteOnLogin = ko.protectedObservable(false);
     self.TemporaryDisplayName = 'temp_displays';
     self.TemporaryDisplay = ko.observable(null);
-    self.PersonalDefaultDisplay = ko.protectedObservable(false);
     self.DisplayId = ko.protectedObservable('');
-    self.KeepFilter = ko.observable(false);
     self.DisplayInfo = {
-        Name: Localization.AngleDropdownListSelectDisplay,
-        Displays: ko.observableArray([]),
-        KeepFiltersText: Localization.DisplayDropdownListKeepFilter
+        Displays: ko.observableArray([])
     };
     self.BasicListName = 'basic list';
     //EOF: View model properties
@@ -36,20 +31,12 @@ function DisplayModel(model) {
         self.Data(data);
         self.DisplayId(data.id);
         self.IsDefault(data.is_angle_default);
-        self.ExcuteOnLogin(data.user_specific && data.user_specific.execute_on_login);
-        self.PersonalDefaultDisplay(data.user_specific && data.user_specific.is_user_default);
         self.Name(WC.Utility.GetDefaultMultiLangText(data.multi_lang_name));
         self.Description(WC.Utility.GetDefaultMultiLangText(data.multi_lang_description));
         self.CommitAll();
 
-        /* M4-11731: Always set 'Keep active display filters' checked when display as ad-hoc display (still don't show if display had jump) */
-        self.KeepFilter(!!data.KeepFilter);
-
         if (typeof displayQueryBlockModel !== 'undefined') {
             self.UpdateDisplayQuerySteps(data);
-
-            if (displayQueryBlockModel.GetAllFollowupSteps().length)
-                self.KeepFilter(false);
         }
 
         //Update publications watcher
@@ -99,55 +86,46 @@ function DisplayModel(model) {
     self.CommitAll = function () {
         self.Data.commit();
         self.IsDefault.commit();
-        self.ExcuteOnLogin.commit();
         self.Name.commit();
         self.Description.commit();
-        self.PersonalDefaultDisplay.commit();
         self.DisplayId.commit();
     };
     self.ResetAll = function () {
         self.Data.reset();
         self.IsDefault.reset();
-        self.ExcuteOnLogin.reset();
         self.Name.commit();
         self.Description.reset();
-        self.PersonalDefaultDisplay.reset();
         self.DisplayId.reset();
     };
-    self.UpdateDisplay = function (uri, updateDisplay, isForced, mustUpdateAngleDefault) {
-        if (typeof mustUpdateAngleDefault === 'undefined') {
-            mustUpdateAngleDefault = false;
-        }
-
+    self.UpdateDisplay = function (uri, updateDisplay, isForced) {
         //remove readonly properties
         updateDisplay = self.DeleteReadOnlyDisplayProperties(updateDisplay);
 
-        // check has updating properties or not?
-        var hasUpdateProperties = !jQuery.isEmptyObject(updateDisplay);
+        // check is_angle_default
+        var setAngleDefaultDisplay = updateDisplay.is_angle_default;
+        delete updateDisplay.is_angle_default;
 
-        if (typeof updateDisplay.is_public !== 'undefined' && hasUpdateProperties) {
-            return self.UpdateState(self.Data().state, { is_published: updateDisplay.is_public }, isForced)
-                .then(function () {
-                    var historyData = historyModel.Get(self.Data().uri);
-                    historyData.is_public = updateDisplay.is_public;
-                    historyModel.Set(historyData.uri, historyData);
-                    historyData = historyModel.Get(self.Data().uri, false);
-                    historyData.is_public = updateDisplay.is_public;
-                    historyModel.Set(historyData.uri + historyModel.OriginalVersionSuffix, historyData);
+        // check is_public
+        var isPublic = updateDisplay.is_public;
+        delete updateDisplay.is_public;
 
-                    return angleInfoModel.LoadAngle(angleInfoModel.Data().uri);
-                })
-                .done(function () {
-                    delete updateDisplay.is_public;
-
-                    if (!jQuery.isEmptyObject(updateDisplay))
-                        return self.SendUpdateRequest(uri, hasUpdateProperties, updateDisplay, mustUpdateAngleDefault, isForced);
-                });
-        }
-        else
-            return self.SendUpdateRequest(uri, hasUpdateProperties, updateDisplay, mustUpdateAngleDefault, isForced);
+        var updateState = function (isPublic) {
+            if (typeof isPublic === 'boolean') {
+                return self.UpdateState(self.Data().state, { is_published: isPublic }, isForced)
+                    .then(function () {
+                        return angleInfoModel.LoadAngle(angleInfoModel.Data().uri);
+                    });
+            }
+            else {
+                return jQuery.when();
+            }
+        };
+        return updateState(isPublic)
+            .then(function () {
+                return self.SendUpdateRequest(uri, updateDisplay, setAngleDefaultDisplay, isForced);
+            });
     };
-    self.SendUpdateRequest = function (uri, hasUpdateProperties, updateDisplay, mustUpdateAngleDefault, isForced) {
+    self.SendUpdateRequest = function (uri, updateDisplay, setAngleDefaultDisplay, isForced) {
         var params = {};
         params[enumHandlers.PARAMETERS.MULTILINGUAL] = 'yes';
         params[enumHandlers.PARAMETERS.ACCEPT_WARNINGS] = true;
@@ -155,25 +133,14 @@ function DisplayModel(model) {
 
         var saveDisplay = function () {
             var displayUri = uri + '?' + jQuery.param(params);
-            return hasUpdateProperties ? UpdateDataToWebService(displayUri, updateDisplay) : historyModel.Get(displayUri);
+            return !jQuery.isEmptyObject(updateDisplay) ? UpdateDataToWebService(displayUri, updateDisplay) : jQuery.when(ko.toJS(self.Data()));
         };
 
         var updateGaugeDisplayDetails = function (display, model) {
             var displayDetails = WC.Utility.ParseJSON(display.display_details);
             if (display.uri !== model.uri && displayDetails && displayDetails.drilldown_display === model.id) {
                 delete displayDetails.drilldown_display;
-                return UpdateDataToWebService(display.uri + '?' + jQuery.param(params), { display_details: JSON.stringify(displayDetails) })
-                    .done(function (data) {
-                        var historyData = historyModel.Get(data.uri);
-                        var historyDataDetails = WC.Utility.ParseJSON(historyData.display_details);
-                        delete historyDataDetails.drilldown_display;
-                        historyData.display_details = JSON.stringify(historyDataDetails);
-                        historyModel.Set(historyData.uri, historyData);
-
-                        historyData = jQuery.extend({}, historyModel.Get(data.uri, false), data);
-                        historyModel.Set(historyData.uri + historyModel.OriginalVersionSuffix, historyData);
-
-                    });
+                return UpdateDataToWebService(display.uri + '?' + jQuery.param(params), { display_details: JSON.stringify(displayDetails) });
             }
             return jQuery.when();
         };
@@ -186,9 +153,10 @@ function DisplayModel(model) {
                         if (responseDisplay) {
                             responseDisplay = WC.ModelHelper.ExtendDisplayData(responseDisplay, response);
                             angleInfoModel.Data().display_definitions[index].authorizations = responseDisplay.authorizations;
-                        }
-                        if (model.uri === display.uri) {
-                            model.authorizations = responseDisplay.authorizations;
+
+                            if (model.uri === display.uri) {
+                                model.authorizations = responseDisplay.authorizations;
+                            }
                         }
                     });
                     angleInfoModel.Data().angle_default_display = model.id;
@@ -216,7 +184,7 @@ function DisplayModel(model) {
                     });
             })
             .then(function (model) {
-                if (mustUpdateAngleDefault) {
+                if (setAngleDefaultDisplay) {
                     /* M4-14163: Fixed cannot save default display when display had invalid fileds */
                     return updateAngleDefaultDisplay(model);
                 }
@@ -234,38 +202,10 @@ function DisplayModel(model) {
                 if (k !== index) {
                     if (model.is_angle_default && v.is_angle_default) {
                         v.is_angle_default = false;
-
-                        historyData = historyModel.Get(v.uri, false);
-                        if (historyData) {
-                            historyData.is_angle_default = false;
-                            historyData.authorizations = v.authorizations;
-                            historyModel.Set(historyData.uri + historyModel.OriginalVersionSuffix, historyData);
-                        }
-
-                        historyData = historyModel.Get(v.uri);
-                        if (historyData) {
-                            historyData.is_angle_default = false;
-                            historyData.authorizations = v.authorizations;
-                            historyModel.Set(historyData.uri, historyData);
-                        }
                     }
 
                     if (model.user_specific && model.user_specific.is_user_default && v.user_specific && v.user_specific.is_user_default) {
                         v.user_specific.is_user_default = false;
-
-                        historyData = historyModel.Get(v.uri, false);
-                        if (historyData) {
-                            historyData.user_specific.is_user_default = false;
-                            historyData.authorizations = v.authorizations;
-                            historyModel.Set(historyData.uri + historyModel.OriginalVersionSuffix, historyData);
-                        }
-
-                        historyData = historyModel.Get(v.uri);
-                        if (historyData) {
-                            historyData.user_specific.is_user_default = false;
-                            historyData.authorizations = v.authorizations;
-                            historyModel.Set(historyData.uri, historyData);
-                        }
                     }
                 }
             });
@@ -274,11 +214,6 @@ function DisplayModel(model) {
             angleInfoModel.SetData(angleInfoModel.Data());
         }
         self.LoadSuccess(model);
-
-        historyData = jQuery.extend({}, historyModel.Get(model.uri), self.Data());
-        historyModel.Set(historyData.uri + historyModel.OriginalVersionSuffix, historyData);
-        historyModel.Set(historyData.uri, historyData);
-
         return jQuery.when(model);
     };
     self.UpdateState = function (uri, updateState, isForced) {
@@ -290,6 +225,12 @@ function DisplayModel(model) {
                 self.Data.commit();
                 return jQuery.when(data);
             });
+    };
+    self.UpdateAdhoc = function (_uri, data) {
+        var newData = jQuery.extend({}, WC.ModelHelper.ExtendDisplayData(self.Data(), angleInfoModel.Data()), data);
+        self.SetTemporaryDisplay(newData.uri, newData);
+        self.LoadSuccess(newData);
+        return jQuery.when(newData);
     };
     self.GenerateDefaultData = function (displayType, headerFieldId, bucket, fieldDetails) {
         var defaultLanguage = userSettingModel.GetByName(enumHandlers.USERSETTINGS.DEFAULT_LANGUAGES).toLowerCase(),
@@ -344,25 +285,30 @@ function DisplayModel(model) {
                     queryblock_type: enumHandlers.QUERYBLOCKTYPE.QUERY_STEPS,
                     query_steps: [aggregation]
                 }];
+                
+                // row field details
+                var rowFieldDetails = {};
+                rowFieldDetails[enumHandlers.FIELDDETAILPROPERTIES.AREA] = AggregationFieldViewModel.Area.Row;
+                if (displayType === enumHandlers.DISPLAYTYPE.PIVOT) {
+                    rowFieldDetails[enumHandlers.FIELDDETAILPROPERTIES.SORTING] = AggregationFieldViewModel.Sorting.Ascending;
+                }
+                jQuery.extend(rowFieldDetails, fieldDetails);
+                delete rowFieldDetails.width;
 
-                var createRowFieldDetailObj = {
-                    pivot_area: fieldSettingsHandler.GetAreaById(enumHandlers.FIELDSETTINGAREA.ROW)
-                };
-                // merge field detail
-                jQuery.extend(createRowFieldDetailObj, fieldDetails);
-                delete createRowFieldDetailObj.width;
+                // data field details
+                var dataFieldDetails = {};
+                dataFieldDetails[enumHandlers.FIELDDETAILPROPERTIES.AREA] = AggregationFieldViewModel.Area.Data;
+                dataFieldDetails[enumHandlers.FIELDDETAILPROPERTIES.SORTING] = AggregationFieldViewModel.Sorting.Unsorted;
 
                 display.fields = [
                     {
                         field: defaultBucket + '_' + defaultField,
-                        field_details: JSON.stringify(createRowFieldDetailObj),
+                        field_details: JSON.stringify(rowFieldDetails),
                         valid: true
                     },
                     {
                         field: enumHandlers.AGGREGATION.COUNT.Value,
-                        field_details: JSON.stringify({
-                            pivot_area: fieldSettingsHandler.GetAreaById(enumHandlers.FIELDSETTINGAREA.DATA)
-                        }),
+                        field_details: JSON.stringify(dataFieldDetails),
                         valid: true
                     }
                 ];
@@ -374,11 +320,7 @@ function DisplayModel(model) {
 
         return display;
     };
-    self.CreateDisplay = function (data, keepHistory) {
-        if (typeof keepHistory === 'undefined') {
-            keepHistory = false;
-        }
-
+    self.CreateDisplay = function (data) {
         if (data.query_blocks === null || !data.query_blocks.length) {
             delete data.query_blocks;
         }
@@ -391,23 +333,13 @@ function DisplayModel(model) {
         params[enumHandlers.PARAMETERS.ACCEPT_WARNINGS] = true;
         params[enumHandlers.PARAMETERS.REDIRECT] = 'no';
         return CreateDataToWebService(directoryHandler.ResolveDirectoryUri(angleInfoModel.Data().displays) + '?' + jQuery.param(params), data)
-            .done(function (data, status, xhr) {
+            .done(function (data) {
                 angleInfoModel.Data().display_definitions.push(data);
                 angleInfoModel.SetData(angleInfoModel.Data());
-
-                self.LoadSuccess(data, status, xhr);
-
-                if (keepHistory) {
-                    historyModel.Set(data.uri + historyModel.OriginalVersionSuffix, data);
-                    historyModel.Set(data.uri, data);
-                }
+                self.LoadSuccess(data);
             });
     };
     self.CreateTempDisplay = function (displayType, displayObject, angleData) {
-        if (jQuery('#DisplayListSelection').is(':visible')) {
-            anglePageHandler.ShowOrHideDisplayList();
-        }
-
         angleData = angleData || angleInfoModel.Data() || {};
         var angleUri = WC.Utility.UrlParameter(enumHandlers.ANGLEPARAMETER.ANGLE) || angleData.uri || '';
         var newDisplay = jQuery.GUID();
@@ -419,6 +351,7 @@ function DisplayModel(model) {
         display.user_specific = { is_user_default: false };
         display.is_public = false;
         display.authorizations = self.GetDefaultAdhocAuthorization(angleData);
+        display.is_adhoc = true;
 
         jQuery.extend(display, displayObject);
 
@@ -433,18 +366,7 @@ function DisplayModel(model) {
 
         return jQuery.when(display);
     };
-    self.CreateNewDisplay = function () {
-        var display = self.GenerateDefaultData(null);
-        display.multi_lang_name[0].text = self.GetAdhocDisplayName(display.multi_lang_name[0].text);
-
-        jQuery.when(self.CreateTempDisplay(null, display))
-            .done(function (data) {
-                // redirect to display
-                fieldSettingsHandler.ClearFieldSettings();
-                self.GotoTemporaryDisplay(data.uri);
-            });
-    };
-    self.Copy = function (data, keepHistory) {
+    self.Copy = function (data) {
         // copy display from data and create it
         // @param data, display data object
 
@@ -452,28 +374,14 @@ function DisplayModel(model) {
         delete data.id;
 
         // create copy display
-        return self.CreateDisplay(data, keepHistory);
+        return self.CreateDisplay(data);
     };
     self.Delete = function (displayUri) {
-        return DeleteDataToWebService(directoryHandler.ResolveDirectoryUri(displayUri))
-            .done(function () {
-                historyModel.Clear(displayUri);
-            });
+        return DeleteDataToWebService(directoryHandler.ResolveDirectoryUri(displayUri));
     };
     self.ForcedDelete = function (displayUri) {
         var uri = displayUri + '?forced=true';
-        return DeleteDataToWebService(directoryHandler.ResolveDirectoryUri(uri))
-            .done(function () {
-                historyModel.Clear(displayUri);
-            });
-    };
-    self.GetDisplayDescription = function (detail) {
-        var html = '<a class="btnInfo icon icon-info" onclick="displayDetailPageHandler.ShowInfoPopup()"></a>';
-        if (detail) {
-            detail = WC.HtmlHelper.StripHTML(detail, true);
-            html = detail + html;
-        }
-        return html;
+        return DeleteDataToWebService(directoryHandler.ResolveDirectoryUri(uri));
     };
 
     self.GetDefaultListFields = function (resultData, loadMetadata, checkAllBasicList) {
@@ -695,30 +603,20 @@ function DisplayModel(model) {
             delete data[display];
         }
         else {
+            // allow one adhoc Display
+            data = {};
             data[display] = value || {};
-
-            // save historyModel for the created display
-            if (typeof historyModel !== 'undefined') {
-                historyModel.Set(display + historyModel.OriginalVersionSuffix, data[display]);
-                historyModel.Set(display, data[display]);
-            }
         }
 
         self.TemporaryDisplay(data);
         jQuery.localStorage(self.TemporaryDisplayName, data);
     };
-    self.GetTemporaryDisplay = function (display) {
-        var data = self.TemporaryDisplay() || {};
-        return historyModel.Data()[display] || data[display] || null;
-    };
-    self.GetTemporaryDisplayType = function () {
-        return self.IsNewDisplay() ? WC.HtmlHelper.DropdownList('#tempDisplayType').value() : self.Data().display_type;
-    };
     self.DeleteTemporaryDisplay = function (display, redirectDisplayUri) {
         self.SetTemporaryDisplay(display, null);
 
         if (typeof redirectDisplayUri !== 'undefined') {
-            window.location.replace(WC.Utility.GetAnglePageUri(angleInfoModel.Data().uri, redirectDisplayUri));
+            var query = anglePageHandler.CreateAngleQuery([]);
+            window.location.replace(WC.Utility.GetAnglePageUri(angleInfoModel.Data().uri, redirectDisplayUri, query));
         }
     };
     self.GotoTemporaryDisplay = function (display, query, isOpenNewWindow) {
@@ -736,11 +634,7 @@ function DisplayModel(model) {
         }
     };
     self.IsDisplayWithoutUri = function (displayUri) {
-        var displayTypeFromSearchPage = [];
-        jQuery.each(enumHandlers.DISPLAYTYPE_EXTRA, function (type, value) {
-            displayTypeFromSearchPage.push(value);
-        });
-        return jQuery.inArray(displayUri, displayTypeFromSearchPage) !== -1;
+        return displayUri === enumHandlers.DISPLAYTYPE_EXTRA.DEFAULT;
     };
     self.IsTemporaryDisplay = function (displayUri) {
         if (typeof displayUri === 'undefined') {
@@ -778,17 +672,15 @@ function DisplayModel(model) {
         return cellDetails.FieldValue;
     };
     self.CreateDrilldown = function (rowDetails, columnDetails, handler) {
-        requestHistoryModel.SaveLastExecute(self, self.CreateDrilldown, arguments);
-
         var isDashboardDrilldown = handler.DashBoardMode();
         if (!isDashboardDrilldown) {
             progressbarModel.ShowStartProgressBar(Localization.ProgressBar_DrillingDown, false);
-            anglePageHandler.DisableProgressbarCancelling = true;
             progressbarModel.SetDisableProgressBar();
-
-            // keep history before going to drilldown
-            historyModel.Save();
-            anglePageHandler.KeepHistory = false;
+            progressbarModel.CancelCustomHandler = true;
+            progressbarModel.CancelFunction = function () {
+                WC.Page.Stop();
+                WC.Ajax.AbortAll();
+            };
         }
 
         var displayDetails = self.GetDisplayDetails(handler);
@@ -802,6 +694,12 @@ function DisplayModel(model) {
         jQuery.each(handler.Models.DisplayQueryBlock.GetQueryStepByNotInType(enumHandlers.FILTERTYPE.AGGREGATION), function (index, step) {
             querySteps.push(step);
         });
+
+        if (isDashboardDrilldown) {
+            var widgetElement = jQuery(handler.ElementId).closest('.widget-display-column');
+            var dashboardFilters = dashboardPageHandler.GetExtendedFilters(widgetElement);
+            jQuery.merge(querySteps, dashboardFilters);
+        }
 
         var fieldIdName = isPivot ? 'FieldName' : 'Caption';
         jQuery.each(rowDetails, function (index, rowDetail) {
@@ -828,22 +726,17 @@ function DisplayModel(model) {
 
         var drillDownQueryBlock = [{
             queryblock_type: enumHandlers.QUERYBLOCKTYPE.QUERY_STEPS,
-            query_steps: querySteps
+            query_steps: ko.toJS(querySteps)
         }];
         if (!querySteps.length) {
-            drillDownQueryBlock = null;
+            drillDownQueryBlock = [];
             displayQueryBlockModel.QuerySteps([]);
         }
 
         var drillDownDisplay = handler.Models.Angle.Data().display_definitions.findObject('id', displayDetails.drilldown_display);
         if (displayDetails.drilldown_display && drillDownDisplay) {
             var angleData = handler.Models.Angle.Data();
-            jQuery.when(self.AdhocDrilldown(querySteps, drillDownDisplay, isDashboardDrilldown, angleData, false, angleData.model))
-                .done(function () {
-                    if (!isDashboardDrilldown) {
-                        progressbarModel.KeepCancelFunction = true;
-                    }
-                });
+            jQuery.when(self.AdhocDrilldown(querySteps, drillDownDisplay, isDashboardDrilldown, angleData, false, angleData.model));
         }
         else {
             var option = {};
@@ -871,21 +764,25 @@ function DisplayModel(model) {
                     return jQuery.when(handler.Models.Result.PostExecutionSteps(option.customExecuteStep))
                         .then(function (response) {
                             resultModel.LoadSuccess(response);
-                            resultModel.CustomProgressbar = function () { };
+                            resultModel.CustomProgressbar = jQuery.noop;
                             return resultModel.GetResult(response.uri);
                         });
                 }
                 else {
-                    progressbarModel.SetProgressBarText(null, null, Localization.ProgressBar_PostResult);
-
-                    return jQuery.when(handler.Models.Result.PostResult(option))
-                        .then(function (response) {
-                            return resultModel.GetResult(response.uri);
+                    var displayHandler = anglePageHandler.HandlerDisplay.Clone();
+                    displayHandler.SetPostExecutionSteps(option.customExecuteStep);
+                    return displayHandler.PostResult()
+                        .progress(function (data) {
+                            var rowCount = data.is_aggregated ? null : kendo.toString(data.row_count, 'n0');
+                            progressbarModel.SetProgressBarText(kendo.toString(data.progress * 100, 'n2'), rowCount, enumHandlers.POSTRESULTSTATUS.RUNNING.Text);
+                            if (data.cancelable)
+                                progressbarModel.SetEnableProgressBar();
+                            else
+                                progressbarModel.SetDisableProgressBar();
                         });
                 }
             };
 
-            var resultData = null;
             var display = self.GenerateDefaultData(enumHandlers.DISPLAYTYPE.LIST);
             if (isDashboardDrilldown) {
                 self.DisplayInfo.Displays([{ Name: self.Name() || handler.Models.Display.Data().name }]);
@@ -895,46 +792,41 @@ function DisplayModel(model) {
             display.is_angle_default = false;
             display.user_specific.is_user_default = false;
 
+            var resultData;
             return postResult()
                 .then(function (response) {
-                    if (jQuery.isArray(response)) {
-                        resultData = response[0];
-                    }
-                    else {
-                        resultData = response;
-                    }
+                    resultData = jQuery.isArray(response) ? response[0] : response;
                     return self.GetDefaultListFields(resultData, !isDashboardDrilldown);
                 })
                 .done(function (fields) {
                     jQuery.each(drilldownFields, function (index, field) {
                         // clean drilldown field_details
                         var fieldDetails = WC.Utility.ParseJSON(field.field_details);
-                        delete fieldDetails[enumHandlers.FIELDDETAILPROPERTIES.PIVOTAREA];
+                        delete fieldDetails[enumHandlers.FIELDDETAILPROPERTIES.AREA];
                         delete fieldDetails[enumHandlers.FIELDDETAILPROPERTIES.SORTING];
                         field.field_details = JSON.stringify(fieldDetails);
-
                         if (!fields.hasObject('field', field.field)) {
                             fields.push(field);
                         }
                     });
 
                     display.fields = fields;
-                    display.query_blocks = !querySteps.length ? [] : drillDownQueryBlock;
-                    display.KeepFilter = self.KeepFilter();
+                    display.query_blocks = drillDownQueryBlock;
+                    jQuery.each(display.query_blocks, function (index, block) {
+                        display.query_blocks[index] = WC.ModelHelper.RemoveReadOnlyQueryBlock(block);
+                    });
 
                     jQuery.when(self.CreateTempDisplay(enumHandlers.DISPLAYTYPE.LIST, display, handler.Models.Angle.Data()))
                         .done(function (data) {
                             if (!isDashboardDrilldown) {
-                                progressbarModel.KeepCancelFunction = true;
+                                anglePageHandler.HandlerAngle.AddDisplay(data, resultData, true);
 
                                 // initial data for drilldown
                                 self.LoadSuccess(data);
-                                resultModel.LoadSuccess(resultModel.Data());
+                                resultModel.LoadSuccess(resultData);
 
                                 // save history
                                 data.results = ko.toJS(resultModel.Data());
-                                historyModel.Set(data.uri + historyModel.OriginalVersionSuffix, data);
-                                historyModel.Set(data.uri, data);
 
                                 // clean chart
                                 if (jQuery('#ChartWrapper').length) {
@@ -945,6 +837,13 @@ function DisplayModel(model) {
                                             chart.destroy();
                                         }
                                     });
+                                }
+                            }
+                            else {
+                                // include execution parameters
+                                var executionParametersInfo = dashboardModel.GetAngleExecutionParametersInfo(handler.Models.Angle.Data(), handler.Models.Display.Data());
+                                if (!jQuery.isEmptyObject(executionParametersInfo)) {
+                                    jQuery.localStorage(enumHandlers.ANGLEPARAMETER.ASK_EXECUTION, executionParametersInfo);
                                 }
                             }
 
@@ -990,7 +889,7 @@ function DisplayModel(model) {
             jQuery.each(fields, function (index, field) {
                 var fieldDetailObject = WC.Utility.ParseJSON(field.field_details);
                 jQuery.each(fieldDetailObject, function (key) {
-                    if (key !== enumHandlers.FIELDDETAILPROPERTIES.PIVOTAREA) {
+                    if (key !== enumHandlers.FIELDDETAILPROPERTIES.AREA) {
                         delete fieldDetailObject[key];
                     }
                 });
@@ -1009,23 +908,27 @@ function DisplayModel(model) {
         self.SetSwitchDisplayName(switchDisplay, isDashboardDrilldown);
 
         // get query steps of current display
-        var currentDisplayFilters = self.GetCurrentDisplayQuerySteps(querySteps, isDashboardDrilldown);
+        var currentDisplayFilters = self.GetCurrentDisplayQuerySteps(querySteps);
 
         // get query steps of switching display
-        var switchDisplayQuerySteps = (switchDisplay.query_blocks.findObject('queryblock_type', enumHandlers.QUERYBLOCKTYPE.QUERY_STEPS) || { query_steps: [] }).query_steps;
+        var switchDisplayQuerySteps = WC.Utility.IfNothing(switchDisplay.query_blocks.findObject('queryblock_type', enumHandlers.QUERYBLOCKTYPE.QUERY_STEPS), { query_steps: [] }).query_steps;
         var newSwitchDisplayQuerySteps = self.GetSwitchDisplayQuerySteps(currentDisplayFilters, switchDisplayQuerySteps, keepDisplayFilters);
         var newSwitchDisplayQueryBlock = [{
             queryblock_type: enumHandlers.QUERYBLOCKTYPE.QUERY_STEPS,
             query_steps: newSwitchDisplayQuerySteps
         }];
 
-        // turn off keep filter if there are jump
-        if (!isDashboardDrilldown && displayQueryBlockModel.GetQueryStepByType(enumHandlers.FILTERTYPE.FOLLOWUP, newSwitchDisplayQuerySteps).length)
-            self.KeepFilter(false);
-
         var angleUri = switchDisplay.uri.substr(0, switchDisplay.uri.indexOf('/displays'));
         switchDisplay.query_blocks = self.CleanNotAcceptedExecutionParameter(newSwitchDisplayQueryBlock, modelUri);
-        switchDisplay.KeepFilter = self.KeepFilter();
+        jQuery.each(switchDisplay.query_blocks, function (index, block) {
+            switchDisplay.query_blocks[index] = WC.ModelHelper.RemoveReadOnlyQueryBlock(block);
+        });
+
+        // display drilldown
+        var details = WC.Utility.ParseJSON(switchDisplay.display_details);
+        delete details.drilldown_display;
+        switchDisplay.display_details = JSON.stringify(details);
+
         delete switchDisplay.id;
         delete switchDisplay.uri;
         delete switchDisplay.is_angle_default;
@@ -1049,7 +952,7 @@ function DisplayModel(model) {
             })
             .done(function (data) {
                 if (!isDashboardDrilldown) {
-                    historyModel.Set(data.uri, data);
+                    anglePageHandler.HandlerAngle.AddDisplay(data, null, true);
 
                     // clean chart
                     jQuery('#ChartWrapper .k-chart').each(function () {
@@ -1103,50 +1006,31 @@ function DisplayModel(model) {
             switchDisplay.multi_lang_name[index].text = name;
         });
     };
-    self.GetCurrentDisplayQuerySteps = function (querySteps, isDashboardDrilldown) {
+    self.GetCurrentDisplayQuerySteps = function (querySteps) {
         // collect filter and jump
         var newQuerySteps = [];
-        jQuery.each(querySteps, function (index, queryStep) {
+        jQuery.each(ko.toJS(querySteps), function (index, queryStep) {
             if (queryStep.step_type === enumHandlers.FILTERTYPE.FILTER) {
                 newQuerySteps.push({
                     step_type: queryStep.step_type,
                     field: queryStep.field,
                     operator: queryStep.operator,
-                    arguments: queryStep.arguments
+                    arguments: queryStep.arguments,
+                    is_adhoc_filter: queryStep.is_adhoc_filter,
+                    is_adhoc: queryStep.is_adhoc,
+                    is_applied: queryStep.is_applied
                 });
             }
             else if (queryStep.step_type === enumHandlers.FILTERTYPE.FOLLOWUP) {
                 newQuerySteps.push({
                     step_type: queryStep.step_type,
-                    followup: queryStep.followup
+                    followup: queryStep.followup,
+                    is_adhoc_filter: queryStep.is_adhoc_filter,
+                    is_adhoc: queryStep.is_adhoc,
+                    is_applied: queryStep.is_applied
                 });
             }
         });
-
-        // clean properties
-        jQuery.each(newQuerySteps, function (index, step) {
-            step.is_adhoc_filter = true;
-            step.is_execution_parameter = WC.Utility.ToBoolean(step.is_execution_parameter);
-            step.execution_parameter_id = WC.Utility.ToString(self.execution_parameter_id);
-        });
-
-        /* BOF: M4-11731: Check if keep filter from list drilldown add query steps to current display */
-        if (!isDashboardDrilldown && typeof WC.Utility.UrlParameter(enumHandlers.ANGLEPARAMETER.LISTDRILLDOWN) !== 'undefined' && self.KeepFilter()) {
-            var listDrillDown = JSON.parse(WC.Utility.UrlParameter(enumHandlers.ANGLEPARAMETER.LISTDRILLDOWN));
-            jQuery.each(listDrillDown, function (key, value) {
-                newQuerySteps.push({
-                    step_type: enumHandlers.FILTERTYPE.FILTER,
-                    field: key,
-                    operator: enumHandlers.OPERATOR.EQUALTO.Value,
-                    arguments: [WC.WidgetFilterHelper.ArgumentObject(value, enumHandlers.FILTERARGUMENTTYPE.VALUE)],
-                    is_adhoc_filter: true,
-                    is_execution_parameter: false,
-                    execution_parameter_id: ''
-                });
-            });
-        }
-        /* EOF: M4-11731: Check if keep filter from list drilldown add query steps to current display */
-
         return newQuerySteps;
     };
     self.GetSwitchDisplayQuerySteps = function (currentDisplayFilters, switchDisplayQuerySteps, keepDisplayFilters) {
@@ -1158,6 +1042,8 @@ function DisplayModel(model) {
         // clean properties
         jQuery.each(switchDisplayWithoutAggration, function (index, step) {
             step.is_adhoc_filter = true;
+            step.is_adhoc = true;
+            step.is_applied = true;
             step.is_execution_parameter = WC.Utility.ToBoolean(step.is_execution_parameter);
             step.execution_parameter_id = WC.Utility.ToString(self.execution_parameter_id);
         });
@@ -1582,7 +1468,9 @@ function DisplayModel(model) {
             field: bucket.source_field,
             operator: operator,
             arguments: argumentValue,
-            is_adhoc_filter: true
+            is_adhoc_filter: true,
+            is_adhoc: true,
+            is_applied: true
         };
 
         return result;
@@ -1630,12 +1518,6 @@ function DisplayModel(model) {
         return displayField;
     };
     //EOF: View model methods
-    self.SelectKeepFilter = function () {
-        self.Data().KeepFilter = jQuery('#KeepFilter').is(':checked');
-        self.KeepFilter(jQuery('#KeepFilter').is(':checked'));
-
-        return true;
-    };
 
     self.NormalizeDataDisplayFromChartOrPivot = function (display) {
         delete display.id;
@@ -1652,189 +1534,205 @@ function DisplayModel(model) {
     };
 
     self.CreateDisplayFromChartOrPivot = function (newDisplayType) {
-        // check change before continue
-        fieldSettingsHandler.ShowConfirmDiscardSetting(function () {
-            historyModel.Save();
+        var display = ko.toJS(self.Data());
+        var newFields = [];
+        display.query_blocks = ko.toJS(displayQueryBlockModel.CollectQueryBlocks());
+        if (display.query_blocks.length) {
+            var defaultLanguage = userSettingModel.GetByName(enumHandlers.USERSETTINGS.DEFAULT_LANGUAGES).toLowerCase();
+            var defaultFieldDetails = self.GetFieldSettings();
+            var displayDetails = {};
+            var aggrStep = display.query_blocks[0].query_steps.findObject('step_type', enumHandlers.FILTERTYPE.AGGREGATION);
 
-            var display = ko.toJS(self.Data());
-            var newFields = [];
-            display.query_blocks = ko.toJS(displayQueryBlockModel.CollectQueryBlocks());
+            if (newDisplayType === enumHandlers.DISPLAYTYPE.LIST) {
+                // chart or pivot -> list
 
-            if (display.query_blocks.length) {
-                var defaultLanguage = userSettingModel.GetByName(enumHandlers.USERSETTINGS.DEFAULT_LANGUAGES).toLowerCase();
-                var defalutFieldDetails = self.GetFieldSettings();
-                var displayDetails = {};
-                var aggrStep = display.query_blocks[0].query_steps.findObject('step_type', enumHandlers.FILTERTYPE.AGGREGATION);
-
-                if (newDisplayType === enumHandlers.DISPLAYTYPE.LIST) {
-                    // chart or pivot -> list
-
-                    jQuery.each(enumHandlers.DEFAULTFIELDS, function (key, fieldId) {
-                        newFields.push({
-                            field: fieldId,
-                            field_details: JSON.stringify(defalutFieldDetails),
-                            valid: true
-                        });
+                jQuery.each(enumHandlers.DEFAULTFIELDS, function (key, fieldId) {
+                    newFields.push({
+                        field: fieldId,
+                        field_details: JSON.stringify(defaultFieldDetails),
+                        valid: true
                     });
+                });
 
-                    var aggregationFields = aggrStep.grouping_fields.concat(aggrStep.aggregation_fields);
-                    jQuery.each(aggregationFields, function (index, aggregation) {
-                        if (aggregation.source_field && !newFields.hasObject('field', aggregation.source_field)) {
-                            var displayField = display.fields.findObject('field', aggregation.field);
-                            if (displayField) {
-                                displayField.field = aggregation.source_field;
-                            }
-                            else {
-                                displayField = { field: aggregation.source_field, valid: true };
-                            }
-
-                            var details = jQuery.extend(WC.Utility.ParseJSON(displayField.field_details), defalutFieldDetails);
-                            jQuery.each(details, function (key) {
-                                var fieldData = fieldSettingsHandler.FieldSettings.GetFields().findObject("FieldName", aggregation.field);
-                                var fieldType = fieldData ? fieldData.DataType : '';
-                                var validProperties = ['width', 'format', 'thousandseparator', 'prefix', 'decimals'];
-                                if (jQuery.inArray(key, validProperties) !== -1 || fieldType === enumHandlers.FIELDTYPE.PERIOD)
-                                    delete details[key];
-                                if (key === 'prefix' && details[key] === 'N')
-                                    details[key] = null;
-                            });
-                            details.width = self.GetFieldSettings().width;
-                            displayField.field_details = JSON.stringify(details);
-
-                            newFields.push(displayField);
-                        }
-                    });
-
-                    // set new fields
-                    display.fields = newFields;
-
-                    // remove aggregation steps
-                    display.query_blocks[0].query_steps.removeObject('step_type', enumHandlers.FILTERTYPE.AGGREGATION);
-                    if (!display.query_blocks[0].query_steps.length) {
-                        display.query_blocks = [];
-                    }
-                }
-                else if (newDisplayType === enumHandlers.DISPLAYTYPE.CHART) {
-                    // pivot -> chart
-
-                    var newAggregationFields = [];
-                    var groupingFieldsCount = aggrStep.grouping_fields.length;
-                    var rowAreaName = fieldSettingsHandler.GetAreaById(enumHandlers.FIELDSETTINGAREA.ROW);
-                    var columnAreaName = fieldSettingsHandler.GetAreaById(enumHandlers.FIELDSETTINGAREA.COLUMN);
-
-                    // set grouping_fields
-                    var rowAreaFields = [];
-                    var columnAreaFields = [];
-                    jQuery.each(aggrStep.grouping_fields, function (index, grouping) {
-                        var displayField = jQuery.extend({}, display.fields[index]);
-                        var displayFieldDetails = JSON.parse(displayField.field_details);
-
-                        if (displayFieldDetails.pivot_area === rowAreaName) {
-                            // set to row area
-                            rowAreaFields.push({
-                                field: displayField,
-                                grouping: grouping
-                            });
-                        }
-                        else if (displayFieldDetails.pivot_area === columnAreaName) {
-                            // set to column area
-                            columnAreaFields.push({
-                                field: displayField,
-                                grouping: grouping
-                            });
-                        }
-                    });
-
-                    // use column as row
-                    if (!rowAreaFields.length) {
-                        rowAreaFields = columnAreaFields.splice(0, 1);
-
-                        var displayFieldDetails = WC.Utility.ParseJSON(rowAreaFields[0].field.field_details);
-                        displayFieldDetails.pivot_area = rowAreaName;
-                        rowAreaFields[0].field.field_details = JSON.stringify(displayFieldDetails);
-                    }
-                    if (rowAreaFields.length > 1) {
-                        rowAreaFields = [rowAreaFields[0]];
-                    }
-                    if (columnAreaFields.length > 1) {
-                        columnAreaFields = [columnAreaFields[0]];
-                    }
-
-                    // set new field & grouping_fields
-                    aggrStep.grouping_fields = [];
-                    jQuery.each(rowAreaFields.concat(columnAreaFields), function (index, areaField) {
-
-                        var displayDetails = WC.Utility.ParseJSON(areaField.field.field_details);
-                        delete displayDetails.sorting;
-                        areaField.field.field_details = JSON.stringify(displayDetails);
-
-                        newFields.push(areaField.field);
-                        aggrStep.grouping_fields.push(areaField.grouping);
-                    });
-
-                    // set aggregation_fields
-                    jQuery.each(aggrStep.aggregation_fields, function (index, aggregation) {
-                        if (index <= 1) {
-                            // set to data area
-                            newFields.push(jQuery.extend({}, display.fields[groupingFieldsCount + index]));
-                            newAggregationFields.push(aggregation);
+                var aggregationFields = aggrStep.grouping_fields.concat(aggrStep.aggregation_fields);
+                jQuery.each(aggregationFields, function (index, aggregation) {
+                    if (aggregation.source_field && !newFields.hasObject('field', aggregation.source_field)) {
+                        var displayField = display.fields.findObject('field', aggregation.field);
+                        if (displayField) {
+                            displayField.field = aggregation.source_field;
                         }
                         else {
-                            // exit
-                            return false;
+                            displayField = { field: aggregation.source_field, valid: true };
                         }
-                    });
-                    aggrStep.aggregation_fields = newAggregationFields;
 
-                    // set new fields
-                    display.fields = newFields;
+                        var details = jQuery.extend(WC.Utility.ParseJSON(displayField.field_details), defaultFieldDetails);
+                        jQuery.each(details, function (key) {
+                            var fieldData = fieldSettingsHandler.FieldSettings.GetFields().findObject("FieldName", aggregation.field);
+                            var fieldType = fieldData ? fieldData.DataType : '';
+                            var validProperties = ['width', 'format', 'thousandseparator', 'prefix', 'decimals'];
+                            if (jQuery.inArray(key, validProperties) !== -1 || fieldType === enumHandlers.FIELDTYPE.PERIOD)
+                                delete details[key];
+                            if (key === 'prefix' && details[key] === 'N')
+                                details[key] = null;
+                        });
+                        details.width = self.GetFieldSettings().width;
+                        displayField.field_details = JSON.stringify(details);
 
-                    // chart display_details
-                    displayDetails.chart_type = enumHandlers.CHARTTYPE.COLUMNCHART.Code;
-                    if (newAggregationFields.length === 2) {
-                        displayDetails.stack = false;
-                        displayDetails.multi_axis = true;
+                        newFields.push(displayField);
                     }
-                    else {
-                        displayDetails.stack = true;
-                        displayDetails.multi_axis = false;
-                    }
+                });
+
+                // set new fields
+                display.fields = newFields;
+
+                // remove aggregation steps
+                display.query_blocks[0].query_steps.removeObject('step_type', enumHandlers.FILTERTYPE.AGGREGATION);
+                if (!display.query_blocks[0].query_steps.length) {
+                    display.query_blocks = [];
                 }
-                else {
-                    // chart -> pivot = do nothing
-                }
-
-                // set display_details
-                display.display_details = JSON.stringify(displayDetails);
-
-                // multi_lang_name
-                display.multi_lang_name = [{
-                    lang: defaultLanguage,
-                    text: self.GetAdhocDisplayName('New ' + Localization['DisplayType_' + newDisplayType].toLowerCase())
-                }];
-                display.multi_lang_description = [];
-
-                // created
-                var currentUser = userModel.Data();
-                display.created = {
-                    user: currentUser.uri,
-                    datetime: WC.DateHelper.GetCurrentUnixTime(),
-                    full_name: currentUser.full_name
+            }
+            else if (newDisplayType === enumHandlers.DISPLAYTYPE.CHART) {
+                // pivot -> chart
+                    
+                var groupingFieldsCount = aggrStep.grouping_fields.length;
+                var rowAreaName = AggregationFieldViewModel.Area.Row;
+                var columnAreaName = AggregationFieldViewModel.Area.Column;
+                var normalizeChartField = function (field) {
+                    var details = WC.Utility.ParseJSON(field.field_details);
+                    details[enumHandlers.FIELDDETAILPROPERTIES.SORTING] = AggregationFieldViewModel.Sorting.Unsorted;
+                    field.field_details = JSON.stringify(details);
                 };
 
-                // remove unused data
-                self.NormalizeDataDisplayFromChartOrPivot(display);
+                // set grouping_fields
+                var rowAreaFields = [];
+                var columnAreaFields = [];
+                jQuery.each(aggrStep.grouping_fields, function (index, grouping) {
+                    var displayField = jQuery.extend({}, display.fields[index]);
+                    var displayFieldDetails = JSON.parse(displayField.field_details);
 
-                // create adhoc display
-                jQuery.when(self.CreateTempDisplay(newDisplayType, display))
-                    .done(function (data) {
-                        // clean field settings
-                        fieldSettingsHandler.ClearFieldSettings();
+                    if (displayFieldDetails[enumHandlers.FIELDDETAILPROPERTIES.AREA] === rowAreaName) {
+                        // set to row area
+                        rowAreaFields.push({
+                            field: displayField,
+                            grouping: grouping
+                        });
+                    }
+                    else if (displayFieldDetails[enumHandlers.FIELDDETAILPROPERTIES.AREA] === columnAreaName) {
+                        // set to column area
+                        columnAreaFields.push({
+                            field: displayField,
+                            grouping: grouping
+                        });
+                    }
+                });
 
-                        // redirect to display
-                        self.GotoTemporaryDisplay(data.uri);
-                    });
+                // use column as row
+                if (!rowAreaFields.length) {
+                    rowAreaFields = columnAreaFields.splice(0, 1);
+
+                    var displayFieldDetails = WC.Utility.ParseJSON(rowAreaFields[0].field.field_details);
+                    displayFieldDetails[enumHandlers.FIELDDETAILPROPERTIES.AREA] = rowAreaName;
+                    rowAreaFields[0].field.field_details = JSON.stringify(displayFieldDetails);
+                }
+                if (rowAreaFields.length) {
+                    rowAreaFields = [rowAreaFields[0]];
+                }
+                if (columnAreaFields.length) {
+                    columnAreaFields = [columnAreaFields[0]];
+                }
+
+                // set new field & grouping_fields
+                aggrStep.grouping_fields = [];
+                jQuery.each(rowAreaFields.concat(columnAreaFields), function (index, areaField) {
+                    normalizeChartField(areaField.field);
+                    newFields.push(areaField.field);
+                    aggrStep.grouping_fields.push(areaField.grouping);
+                });
+
+                // set aggregation_fields
+                var newAggregationFields = [];
+                jQuery.each(aggrStep.aggregation_fields, function (index, aggregation) {
+                    if (index <= 1) {
+                        // set to data area
+                        var aggregationField = jQuery.extend({}, display.fields[groupingFieldsCount + index]);
+                        normalizeChartField(aggregationField);
+                        newFields.push(aggregationField);
+                        newAggregationFields.push(aggregation);
+                    }
+                    else {
+                        // exit
+                        return false;
+                    }
+                });
+                aggrStep.aggregation_fields = newAggregationFields;
+
+                // set new fields
+                display.fields = newFields;
+
+                // chart display_details
+                displayDetails.chart_type = enumHandlers.CHARTTYPE.COLUMNCHART.Code;
+                if (newAggregationFields.length === 2) {
+                    displayDetails.stack = false;
+                    displayDetails.multi_axis = true;
+                }
+                else {
+                    displayDetails.stack = true;
+                    displayDetails.multi_axis = false;
+                }
             }
+            else {
+                // chart -> pivot
+                jQuery.each(display.fields, function (index, field) {
+                    var details = WC.Utility.ParseJSON(field.field_details);
+                    if (details[enumHandlers.FIELDDETAILPROPERTIES.AREA] === AggregationFieldViewModel.Area.Data)
+                        details[enumHandlers.FIELDDETAILPROPERTIES.SORTING] = AggregationFieldViewModel.Sorting.Unsorted;
+                    else
+                        details[enumHandlers.FIELDDETAILPROPERTIES.SORTING] = AggregationFieldViewModel.Sorting.Ascending;
+                    field.field_details = JSON.stringify(details);
+                });
+            }
+
+            // set display_details
+            display.display_details = JSON.stringify(displayDetails);
+
+            // multi_lang_name
+            display.multi_lang_name = [{
+                lang: defaultLanguage,
+                text: self.GetAdhocDisplayName('New ' + Localization['DisplayType_' + newDisplayType].toLowerCase())
+            }];
+            display.multi_lang_description = [];
+
+            // created
+            var currentUser = userModel.Data();
+            display.created = {
+                user: currentUser.uri,
+                datetime: WC.DateHelper.GetCurrentUnixTime(),
+                full_name: currentUser.full_name
+            };
+
+            // remove unused data
+            self.NormalizeDataDisplayFromChartOrPivot(display);
+
+            // create adhoc display
+            jQuery.when(self.CreateTempDisplay(newDisplayType, display))
+                .done(function (data) {
+                    // clean field settings
+                    anglePageHandler.HandlerAngle.AddDisplay(data, null, true);
+                    fieldSettingsHandler.ClearFieldSettings();
+
+                    // redirect to display
+                    self.GotoTemporaryDisplay(data.uri);
+                });
+        }
+    };
+
+    self.ConvertDisplayFieldPrefixNoneToNull = function (displayFields) {
+        jQuery.each(WC.Utility.ToArray(displayFields), function (index, field) {
+            var fieldDetailObj = WC.Utility.ParseJSON(field.field_details);
+            if (fieldDetailObj[enumHandlers.FIELDDETAILPROPERTIES.PREFIX] && fieldDetailObj[enumHandlers.FIELDDETAILPROPERTIES.PREFIX] === enumHandlers.DISPLAYUNITSFORMAT.NONE) {
+                fieldDetailObj[enumHandlers.FIELDDETAILPROPERTIES.PREFIX] = null;
+            }
+            field.field_details = JSON.stringify(fieldDetailObj);
         });
     };
 

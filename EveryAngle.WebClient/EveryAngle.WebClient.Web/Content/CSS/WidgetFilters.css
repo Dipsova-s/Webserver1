@@ -198,14 +198,6 @@
     z-index: 3;
 }
 
-.popupAngleDetail .FilterHeader p {
-    padding-top: 3px;
-}
-
-.popupAngleDetail .FilterHeader .NoticeIcon {
-    margin-top: -6px;
-}
-
 .popupExecuteParameters .FilterHeader.Followup:before {
     background: transparent url('../../images/icons/icon_followup_addnew.svg') center no-repeat;
     background-size: 16px 16px;
@@ -295,7 +287,7 @@
 
 .FilterHeader .validError:before {
     background-image: url('../../images/icons/icon_error.svg');
-    background-size: 25px;
+    background-size: 25px 25px;
 }
 
 .definitionList.sortable .FilterHeader .validWarning:before,

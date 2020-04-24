@@ -5,6 +5,7 @@ function ListDrilldownHandler() {
 
     var self = this;
     /*BOF: Model Properties*/
+    self.DisplayHandler = null;
     self.PrimaryData = null;
     self.FacetModel = null;
     self.Facet = ko.observableArray([]);
@@ -19,6 +20,9 @@ function ListDrilldownHandler() {
     /*EOF: Model Properties*/
 
     /*BOF: Model Methods*/
+    self.SetDisplayHandler = function (handler) {
+        self.DisplayHandler = handler;
+    };
     self.GetPrimaryKeyData = function (row) {
         var result = {
             hasPkFields: true,
@@ -44,8 +48,6 @@ function ListDrilldownHandler() {
         return result;
     };
     self.Drilldown = function (row) {
-        requestHistoryModel.SaveLastExecute(self, self.Drilldown, arguments);
-
         // prepare display area
         anglePageHandler.RenderActionDropdownList();
         jQuery(document).trigger('click.outside');
@@ -173,11 +175,6 @@ function ListDrilldownHandler() {
             return;
         }
 
-        requestHistoryModel.SaveLastExecute(self, self.Apply, arguments);
-
-        var displayKey = displayModel.Data().uri + ',' + JSON.stringify(pkData),
-            displayData = historyModel.Get(displayKey);
-
         progressbarModel.ShowStartProgressBar(Localization.ProgressBar_PostResult, false);
         progressbarModel.CancelCustomHandler = true;
         progressbarModel.CancelFunction = function () {
@@ -185,114 +182,67 @@ function ListDrilldownHandler() {
         };
 
         jQuery('html').addClass('listDrilldown');
-        if (jQuery('#ToggleWrapper').hasClass('fullDetail')) {
-            anglePageHandler.TogglePanel(false);
-        }
 
         self.PrimaryData = pkData;
         self.FacetModel = new FieldsChooserModel();
 
-        if (!displayData || (displayData && !displayData.results)) {
-            // post execute_step with (id, objecttype)
-            var modelUri = angleInfoModel.Data().model;
-            var postOptions = {};
-            var executeStep = [];
-            var followupSteps = [];
-            var addFollowup = function (followupId) {
-                var followup = modelFollowupsHandler.GetFollowupById(followupId, modelUri);
-                if (followup) {
-                    followupSteps.push({
-                        step_type: enumHandlers.FILTERTYPE.FOLLOWUP,
-                        followup: followup.id
-                    });
-                }
-            };
-            jQuery.each(pkData, function (k, v) {
-                if (k.toLowerCase() === enumHandlers.ANGLEPARAMETER.FOLLOWUPS) {
-                    var followupId;
-                    if (resultModel.Data() && resultModel.Data().uri) {
-                        followupId = v[v.length - 1];
-                        addFollowup(followupId);
-                    }
-                    else {
-                        for (var loop = 0; loop < v.length; loop++) {
-                            followupId = v[loop];
-                            addFollowup(followupId);
-                        }
-                    }
-                }
-                else {
-                    executeStep.push({
-                        step_type: enumHandlers.FILTERTYPE.FILTER,
-                        field: k,
-                        operator: enumHandlers.OPERATOR.EQUALTO.Value,
-                        arguments: [WC.WidgetFilterHelper.ArgumentObject(v, enumHandlers.FILTERARGUMENTTYPE.VALUE)]
-                    });
-                }
-            });
+        var displayHandler = self.DisplayHandler.Clone();
+        var listDrilldownKey = displayHandler.Data().uri + ',' + JSON.stringify(pkData);
+        var cacheDrilldown = window.ListDrilldownCache[listDrilldownKey];
 
-            if (resultModel.Data() && resultModel.Data().uri) {
-                if (followupSteps.length) {
-                    // followup step
-                    postOptions.useExecuteStep = true;
-                    postOptions.customExecuteStep = followupSteps;
-                }
-                else {
-                    // normal step
-                    postOptions.useExecuteStep = true;
-                    postOptions.customExecuteStep = executeStep;
-                }
+        var executeSteps = [];
+        jQuery.each(pkData, function (field, value) {
+            executeSteps.push({
+                step_type: enumHandlers.FILTERTYPE.FILTER,
+                field: field,
+                operator: enumHandlers.OPERATOR.EQUALTO.Value,
+                arguments: [WC.WidgetFilterHelper.ArgumentObject(value, enumHandlers.FILTERARGUMENTTYPE.VALUE)]
+            });
+        });
+
+        if (!cacheDrilldown) {
+            // post execute_step with (id, objecttype)
+            var result = displayHandler.ResultHandler.GetData();
+            if (result.uri) {
+                // normal step
+                var extendQuerySteps = {
+                    queryblock_type: enumHandlers.QUERYBLOCKTYPE.QUERY_STEPS,
+                    query_steps: executeSteps
+                };
+                displayHandler.ResultHandler.PostExecutionSteps(extendQuerySteps)
+                    .done(function (result) {
+                        self.ApplyResult(pkData, listDrilldownKey, result);
+                    });
             }
             else {
                 // when refresh page
-                postOptions.customQueryBlocks = [{
-                    queryblock_type: enumHandlers.QUERYBLOCKTYPE.QUERY_STEPS,
-                    query_steps: executeStep.concat(followupSteps)
-                }];
-            }
-
-            return resultModel.PostResult(postOptions)
-                .then(function () {
-                    displayData = historyModel.Get(displayModel.Data().uri);
-                    displayData.query_blocks.push({
-                        queryblock_type: enumHandlers.QUERYBLOCKTYPE.QUERY_STEPS,
-                        query_steps: executeStep.concat(followupSteps) //executeStep
-                    });
-
-                    return resultModel.GetResult(resultModel.Data().uri);
-                })
-                .done(function () {
-                    displayData.results = ko.toJS(resultModel.Data());
-                    historyModel.Set(displayKey, displayData);
-
-                    self.Render(pkData, false);
-                    anglePageHandler.ApplyExecutionAngle();
+                var modelUri = displayHandler.GetModelUri();
+                jQuery.each(executeSteps, function (_index, filter) {
+                    displayHandler.QueryDefinitionHandler.Data.push(new QueryStepViewModel(filter, modelUri));
                 });
+                displayHandler.ResultHandler.PostNewResult()
+                    .done(function (result) {
+                        self.ApplyResult(pkData, listDrilldownKey, result);
+                    });
+            }
         }
         else {
-            resultModel.LoadSuccess(displayData.results);
-            return resultModel.GetResult(resultModel.Data().uri)
-                .done(function () {
-                    displayData.results = ko.toJS(resultModel.Data());
-                    historyModel.Set(displayKey, displayData);
-
-                    self.Render(pkData);
-                    anglePageHandler.ApplyExecutionAngle();
-                });
+            self.ApplyResult(pkData, listDrilldownKey, cacheDrilldown);
         }
     };
+    self.ApplyResult = function (pkData, listDrilldownKey, result) {
+        window.ListDrilldownCache[listDrilldownKey] = ko.toJS(result);
+        resultModel.LoadSuccess(result);
+        self.Render(pkData, false);
+        anglePageHandler.ApplyExecutionAngle();
+    };
     self.Render = function (pkData, isSort) {
-        if (jQuery('#ToggleWrapper').hasClass('fullDetail')) {
-            anglePageHandler.TogglePanel(false);
-        }
-
         self.PKData = pkData;
         fieldsChooserModel.PossibleToSetStar = true;
         fieldsChooserModel.GridName = enumHandlers.FIELDCHOOSERNAME.LISTDRILLDOWN;
-        requestHistoryModel.SaveLastExecute(self, self.Render, arguments);
 
         if (!isSort && !IsNullOrEmpty(pkData)) {
-            var resultRowCount = resultModel.TotalRow();
+            var resultRowCount = resultModel.Data().row_count;
             var parameter = WC.Utility.UrlParameter(enumHandlers.ANGLEPARAMETER.LISTDRILLDOWN);
             if (!parameter) {
                 return;
@@ -324,7 +274,6 @@ function ListDrilldownHandler() {
             }
         }
 
-
         // prepare html
         if (!jQuery('#ListDrilldownWrapper').length) {
             var wrapper = jQuery('<div id="ListDrilldownWrapper" />');
@@ -342,19 +291,18 @@ function ListDrilldownHandler() {
         }
 
         // if there are more space then increase page size
-        var avaliableSpace = anglePageHandler.IsCompactResult ? 0 : jQuery('#AngleTopBar').height() + jQuery('#AngleField').height();
+        var avaliableSpace = jQuery('#AngleTopBar').height() + jQuery('#AngleField').height();
         var minPageSize = systemSettingHandler.GetDefaultPageSize();
         var defaultPageSize = Math.max(minPageSize, Math.ceil((WC.Window.Height - avaliableSpace - 60) / 26));
 
         // prepare dataSource
         var totals = 0;
-        var dataSource;
         var dataSourceTmp = {};
         var grid = null;
         var tempAjaxRequests = {};
 
         // prepare kendo data source
-        dataSource = new kendo.data.DataSource({
+        var dataSource = new kendo.data.DataSource({
             transport: {
                 read: function (options) {
                     var currentPage = options.data.page,
@@ -382,9 +330,6 @@ function ListDrilldownHandler() {
                                 if (options.error) {
                                     options.error(xhr, status, error);
                                 }
-                                else if (gridObject) {
-                                    requestHistoryModel.SaveLastExecute(gridObject.dataSource, gridObject.dataSource.options.transport.read, [options]);
-                                }
                             })
                             .done(function (result) {
                                 measurePerformance.SetEndTime();
@@ -396,7 +341,6 @@ function ListDrilldownHandler() {
 
                                 // set totals
                                 totals = result.header.total;
-                                resultModel.TotalRow(totals);
 
                                 self.SortingList = WC.Utility.ToArray(result.sort_options);
 
@@ -452,9 +396,6 @@ function ListDrilldownHandler() {
                         request: getData()
                     };
                 }
-            },
-            error: function (e) {
-                requestHistoryModel.SaveLastExecute(e.sender, e.sender.read, []);
             },
             schema: {
                 data: 'data',
@@ -608,7 +549,7 @@ function ListDrilldownHandler() {
         }
 
         var virtualScroll = grid.content.data('kendoVirtualScrollable');
-        if (!!jQuery.browser.msie) {
+        if (jQuery.browser.msie) {
             grid.content
                 .off('mousewheel.iefix')
                 .on('mousewheel.iefix', function (e) {

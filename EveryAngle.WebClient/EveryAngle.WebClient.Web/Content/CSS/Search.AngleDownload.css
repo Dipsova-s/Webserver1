@@ -163,7 +163,7 @@
 
 .popupCompleteUploadReport .fail {
     background-image: url('../../images/icons/icon_error.svg');
-    background-size: 30px;
+    background-size: 30px 30px;
 }
 
 .popupCompleteUploadReport em {

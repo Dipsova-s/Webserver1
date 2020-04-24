@@ -1,13 +1,7 @@
-/// <reference path="/Dependencies/ViewModels/Models/User/usersettingmodel.js" />
-/// <reference path="/Dependencies/ViewModels/Shared/DataType/DataType.js" />
 /// <reference path="/Dependencies/ErrorHandler/ErrorHandler.js" />
 /// <reference path="/Dependencies/ViewManagement/Shared/PopupPageHandlers.js" />
 /// <reference path="/Dependencies/ViewManagement/shared/DirectoryHandler.js" />
 /// <reference path="/Dependencies/ViewModels/Models/Angle/resultmodel.js" />
-/// <reference path="/Dependencies/viewmodels/models/angle/angleinfomodel.js" />
-/// <reference path="/Dependencies/viewmanagement/shared/modelclasseshandler.js" />
-/// <reference path="/Dependencies/viewmanagement/shared/userfriendlynamehandler.js" />
-/// <reference path="/Dependencies/helper/measureperformance.js" />
 
 describe("ResultModel", function () {
     var resultModel;
@@ -24,9 +18,9 @@ describe("ResultModel", function () {
         ];
         testCases.forEach(function (testCase) {
             it(testCase.title, function () {
-                spyOn(popup, 'Alert').and.callFake($.noop);
+                spyOn(popup, 'Alert');
                 popup.OnCloseCallback = $.noop;
-                resultModel.SetRetryPostResultToErrorPopup(testCase.testValue);
+                resultModel.SetRetryPostResultToErrorPopup({ status: testCase.testValue });
                 var hasOnCloseCallback = popup.OnCloseCallback !== $.noop;
                 expect(hasOnCloseCallback).toEqual(testCase.expected);
             });
@@ -131,57 +125,6 @@ describe("ResultModel", function () {
                 expect(mockResultStatus.completed).toBeTruthy();
                 expect(mockResultStatus.fn).toEqual(t.promise_type);
             });
-        });
-
-    });
-
-    describe(".GetExecutionResultText", function () {
-
-        beforeEach(function () {
-            resultModel.ResultDateTime('Jan/01/2020 00:00');
-            spyOn(WC.FormatHelper, 'GetFormattedValue').and.callFake(function (fieldType, value) {
-                return value;
-            });
-            spyOn(angleInfoModel, 'GetAngleBaseClasses').and.callFake(function () {
-                return [
-                    { base_classes: ['id1'] }
-                ];
-            });
-            spyOn(angleInfoModel, 'Data').and.callFake(function () {
-                return {};
-            });
-            spyOn(modelClassesHandler, 'GetClassById').and.callFake(function () {
-                return 'class name';
-            });
-            spyOn(userFriendlyNameHandler, 'GetFriendlyName').and.callFake(function () {
-                return 'friendly name';
-            });
-        });
-
-        it("should get execution result text when result time is not null", function () {
-            var isTitle = true;
-            var result = resultModel.GetExecutionResultText(isTitle);
-            expect(' Jan/01/2020 00:00, 0 items in 0 sec').toEqual(result);
-        });
-
-        it("should get execution result text with i button when result time is not null", function () {
-            var isTitle = false;
-            var result = resultModel.GetExecutionResultText(isTitle);
-            expect('<span> Jan/01/2020 00:00, 0 items in 0 sec</span><a class="btnInfo icon icon-info" onclick="angleDetailPageHandler.ShowAngleResultSummary()"></a>').toEqual(result);
-        });
-
-        it("should get Angle not executed info text when result time is null", function () {
-            resultModel.ResultDateTime(null);
-            var isTitle = true;
-            var result = resultModel.GetExecutionResultText(isTitle);
-            expect('Angle is not executed').toEqual(result);
-        });
-
-        it("should get Angle not executed info text with i button when result time is null", function () {
-            resultModel.ResultDateTime(null);
-            var isTitle = false;
-            var result = resultModel.GetExecutionResultText(isTitle);
-            expect('<i class="infoText">Angle is not executed</i>').toEqual(result);
         });
 
     });

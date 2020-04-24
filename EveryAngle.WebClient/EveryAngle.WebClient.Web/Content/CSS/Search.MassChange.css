@@ -15,16 +15,9 @@
 }
 
 .popupMassChangePopup .textStatus {
-    position: relative;
     font-style: italic;
     color: #777;
-    bottom: 3px;
-    padding-left: 10px;
-}
-
-.touch.safari .popupMassChangePopup .textStatus {
-    position: relative;
-    top: -4px;
+    padding-left: 5px;
 }
 
 .sectionGeneral .input > label {
@@ -48,10 +41,6 @@
     position: absolute;
     right: 20px;
     bottom: 0;
-}
-
-.sectionStatus .row input {
-    margin-top: 4px;
 }
 
 .popupMassChangePopup input[type="text"].Dimmed {

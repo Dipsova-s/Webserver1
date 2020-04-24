@@ -1,0 +1,75 @@
+@import '../abstracts/variables';
+
+/* input, textarea
+============================================ */
+$invalid-color: #e91e3d;
+
+input::-ms-clear {
+    display: none;
+}
+
+input:disabled,
+textarea:disabled {
+    cursor: default;
+    opacity: $disabled-opacity;
+}
+
+input[type="text"],
+input[type="password"] {
+    height: 28px;
+}
+
+input[type="text"],
+input[type="password"],
+textarea {
+    -webkit-appearance: none;
+    border: 1px solid #e3e5e5;
+    background-color: #fff;
+    border-radius: 0;
+    padding: 5px;
+    margin: 0;
+    line-height: 16px;
+    box-sizing: border-box;
+
+    &.invalid {
+        border-color: $invalid-color;
+        outline: none;
+    }
+}
+
+input[type="text"].input-light,
+input[type="password"].input-light,
+textarea.input-light {
+    border-top-color: transparent;
+    border-left-color: transparent;
+    border-right-color: transparent;
+
+    &:focus {
+        border-bottom-color: #358ed7;
+        outline: none;
+    }
+}
+
+.input-fieldset {
+    position: relative;
+
+    .legend {
+        position: absolute;
+        left: 10px;
+        top: -7px;
+        padding: 0 3px;
+        background-color: #fff;
+    }
+
+    input,
+    input:hover {
+        width: 100%;
+        border-radius: 2px;
+        padding-left: 12px;
+        padding-right: 12px;
+
+        &.invalid + .legend {
+            color: $invalid-color;
+        }
+    }
+}

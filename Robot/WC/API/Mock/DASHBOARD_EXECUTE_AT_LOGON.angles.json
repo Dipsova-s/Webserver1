@@ -1,0 +1,120 @@
+{
+    "header": {
+        "total": 1
+    },
+    "angles": [
+        {
+            "multi_lang_name": [
+                {
+                    "lang": "en",
+                    "text": "[ROBOT] Angle Dashboard Execute At Logon"
+                }
+            ],
+            "multi_lang_description": [],
+            "id": "ROBOT_ANGLE_Dashboard_Execute_At_Logon",
+            "uri": "/models/1/angles/340",
+            "model": "/models/1",
+            "is_validated": false,
+            "is_parameterized": false,
+            "is_published": false,
+            "is_template": false,
+            "user_specific": {
+                "execute_on_login": false,
+                "is_starred": false,
+                "private_note": "",
+                "private_tags": [],
+                "times_executed": 3
+            },
+            "created": {
+                "user": "/users/1",
+                "datetime": 1583459505,
+                "full_name": "EAAdmin"
+            },
+            "has_warnings": false,
+            "state": "/models/1/angles/340/state",
+            "authorizations": {
+                "update": true,
+                "delete": true,
+                "publish": true,
+                "unpublish": false,
+                "validate": false,
+                "unvalidate": false,
+                "mark_template": true,
+                "unmark_template": false,
+                "create_private_display": true,
+                "create_public_display": false
+            },
+            "is_deleted": false,
+            "displays": "/models/1/angles/340/displays",
+            "allow_followups": true,
+            "allow_more_details": true,
+            "assigned_labels": [
+                "P2P",
+                "S2D"
+            ],
+            "labels": "/models/1/angles/340/labels",
+            "business_processes": "/models/1/angles/340/business_processes",
+            "grouping_labels": "/models/1/angles/340/grouping_labels",
+            "angle_default_display": "/models/1/angles/340/displays/1277",
+            "privilege_labels": "/models/1/angles/340/privilege_labels",
+            "query_definition": [
+                {
+                    "base_classes": [
+                        "DeliveryNoteLine"
+                    ],
+                    "queryblock_type": "base_classes"
+                }
+            ],
+            "display_definitions": [
+                {
+                    "multi_lang_name": [
+                        {
+                            "lang": "en",
+                            "text": "New Display"
+                        }
+                    ],
+                    "multi_lang_description": [],
+                    "fields": [
+                        {
+                            "multi_lang_alias": [],
+                            "field": "ID",
+                            "field_details": "{\"width\":120}",
+                            "valid": true
+                        },
+                        {
+                            "multi_lang_alias": [],
+                            "field": "ObjectType",
+                            "field_details": "{\"width\":120}",
+                            "valid": true
+                        }
+                    ],
+                    "query_blocks": [],
+                    "state": "/models/1/angles/340/displays/1277/state",
+                    "uri": "/models/1/angles/340/displays/1277",
+                    "display_details": "{}",
+                    "user_specific": {
+                        "is_user_default": false,
+                        "execute_on_login": false
+                    },
+                    "is_public": false,
+                    "contained_aggregation_steps": false,
+                    "used_in_task": false,
+                    "display_type": "list",
+                    "is_angle_default": true,
+                    "id": "d2c17c252c7ec65283820583459394763",
+                    "angle_id": "340"
+                }
+            ],
+            "changed": {
+                "user": "/users/1",
+                "datetime": 1583459505,
+                "full_name": "EAAdmin"
+            },
+            "executed": {
+                "user": "/users/1",
+                "datetime": 1583459557,
+                "full_name": "EAAdmin"
+            }
+        }
+    ]
+}

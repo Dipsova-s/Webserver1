@@ -1,0 +1,63 @@
+{
+    "multi_lang_name": [
+        {
+            "lang": "en",
+            "text": "[ROBOT] Dashboard Execute At Logon"
+        }
+    ],
+    "multi_lang_description": [],
+    "user_specific": {
+        "execute_on_login": false,
+        "is_starred": false,
+        "private_note": ""
+    },
+    "widget_definitions": [
+        {
+            "id": "wbf2667ad0191a9f81210583459524790",
+            "uri": "/dashboards/341/widgets/45",
+            "widget_details": "{}",
+            "widget_type": "angle_display",
+            "angle": "/models/1/angles/340",
+            "display": "/models/1/angles/340/displays/1277",
+            "multi_lang_name": [
+                {
+                    "lang": "en",
+                    "text": " "
+                }
+            ],
+            "multi_lang_description": []
+        }
+    ],
+    "filters": [],
+    "widgets": "/dashboards/341/widgets",
+    "layout": "{\"structure\":[],\"widgets\":[\"wbf2667ad0191a9f81210583459524790\"]}",
+    "assigned_labels": [
+        "P2P",
+        "S2D"
+    ],
+    "privilege_labels": "/dashboards/341/privilege_labels",
+    "grouping_labels": "/dashboards/341/grouping_labels",
+    "labels": "/dashboards/341/labels",
+    "business_processes": "/dashboards/341/business_processes",
+    "angles": "/dashboards/341/angles",
+    "id": "ROBOT_Dashboard_Execute_At_Logon",
+    "uri": "/dashboards/341",
+    "model": "/models/1",
+    "is_validated": false,
+    "is_published": false,
+    "created": {
+        "user": "/users/1",
+        "datetime": 1583459545,
+        "full_name": "EAAdmin"
+    },
+    "state": "/dashboards/341/state",
+    "has_warnings": false,
+    "authorizations": {
+        "update": true,
+        "delete": true,
+        "publish": true,
+        "unpublish": false,
+        "validate": false,
+        "unvalidate": false
+    }
+}

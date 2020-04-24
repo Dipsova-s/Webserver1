@@ -3,8 +3,8 @@
 
     var self = this;
 
-    self.GetAngleViewModel = function (angleName, isValidated) {
-        var angleViewModel = self.GetItemViewModel(angleName, isValidated);
+    self.GetAngleViewModel = function (angleName, isValidated, isTemplate) {
+        var angleViewModel = self.GetItemViewModel(angleName, isValidated, isTemplate ? 'icon-template' : 'icon-angle');
         angleViewModel.url(self.GetAngleUrl());
         return angleViewModel;
     };
@@ -27,15 +27,17 @@
     };
 
     self.GetDrilldownViewModel = function (listDrilldown, modelUri) {
+        var title = self.GetDrilldownResultLabel(listDrilldown.ObjectType, modelUri);
         var viewModel = new BreadcrumbViewModel();
         viewModel.frontIcon(self.IconChevron);
-        viewModel.label(self.GetDrilldownResultLabel(listDrilldown.ObjectType, modelUri));
+        viewModel.label(title);
+        viewModel.title(title);
         return viewModel;
     };
 
     self.GetDrilldownResultLabel = function (classId, modelUri) {
-        var object = modelClassesHandler.GetClassById(classId, modelUri) || { id: classId };
-        return kendo.format('{0} "{1}"', Localization.CellPopupMenuDrillDownTo, object.short_name || object.id);
+        var name = modelClassesHandler.GetClassName(classId, modelUri, enumHandlers.FRIENDLYNAMEMODE.SHORTNAME);
+        return kendo.format('{0} "{1}"', Localization.CellPopupMenuDrillDownTo, name);
     };
 }
 AngleBreadcrumbHandler.extend(BreadcrumbHandler);

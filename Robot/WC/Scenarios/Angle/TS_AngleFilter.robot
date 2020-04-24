@@ -14,42 +14,6 @@ Resource    		${EXECDIR}/WC/POM/Angle/AnglePage.robot
 @{ANGLE_FILTER_SET_INFO}            DeliveryStatus                  Delivery
 
 *** Keywords ***
-Verify Angle Filter On List Display
-    [Arguments]    ${angleName}    ${fieldType}    ${operator}
-    Search Angle From Search Page And Execute Angle    ${angleName}
-    Verify Filter To List Display    ${fieldType}    ${operator}
-
-Verify Filter To List Display
-    [Arguments]    ${fieldType}    ${operator}
-
-    ${fieldId}    ${fieldKeyword} =    Get Filter Info For List Display Filter    ${fieldType}
-
-    Wait Until Page Contains Element    ${btnAddColumnToListDisplay}
-    Wait Until List Display Loaded
-    Add Column By Search And Add To List Display If Not Exist    ${fieldId}    ${fieldKeyword}
-    Run Keyword If    '${operator}' != 'is empty'    Add Filter Is Not Empty To Column    ${fieldId}
-    Click Header by Data Field Angle Grid List Display    ${fieldId}
-    Click Show Add Filter Popup From List Header Column
-
-    ${chooseoption} =    Convert Operator Symbol To Dropdown Option    ${operator}    ${fieldType}
-    Choose Dropdown Filter Operator Via Add Filter Popup    ${chooseoption}
-
-    ${expect} =    Get Cell Value From List Display    ${fieldId}    ${fieldType}
-
-    Run Keyword If    '${fieldType}' == 'currency'      Verify Filter Currency To List Display      ${fieldId}    ${operator}    ${expect}
-    ...    ELSE IF    '${fieldType}' == 'date'          Verify Filter Date To List Display          ${fieldId}    ${operator}    ${expect}
-    ...    ELSE IF    '${fieldType}' == 'number'        Verify Filter Number To List Display        ${fieldId}    ${operator}    ${expect}
-    ...    ELSE IF    '${fieldType}' == 'percentage'    Verify Filter Percentage To List Display    ${fieldId}    ${operator}    ${expect}
-    ...    ELSE IF    '${fieldType}' == 'period'        Verify Filter Period To List Display        ${fieldId}    ${operator}    ${expect}
-    ...    ELSE IF    '${fieldType}' == 'text'          Verify Filter Text To List Display          ${fieldId}    ${operator}    ${expect}
-    ...    ELSE IF    '${fieldType}' == 'time'          Verify Filter Time To List Display          ${fieldId}    ${operator}    ${expect}
-    ...    ELSE IF    '${fieldType}' == 'boolean'       Verify Filter Yes/No To List Display        ${fieldId}    ${operator}    ${expect}
-    ...    ELSE IF    '${fieldType}' == 'set'           Verify Filter Set To List Display           ${fieldId}    ${operator}    ${expect}
-       ...    ELSE IF    '${fieldType}' == 'datetime'           Verify Filter Set To Datetime Display           ${fieldId}    ${operator}    ${expect}
-
-    Click Toggle Angle
-    Click Remove Last Adhoc Filter
-
 Add Column By Search And Add To List Display
     [Arguments]   ${fieldKeyword}    ${fieldId}    ${isSelfSource}
     Click Add New Column To List
@@ -71,19 +35,22 @@ Verify Operators Currency Field
     Click Header by Data Field Angle Grid List Display    ${fieldId}
     Click Show Add Filter Popup From List Header Column
     Verify All Operators Of Currency
-    Click Cancel Add Filter to list
+    Click Undo Display Filters And Jumps
 
-Add Or Change Currency Filter
-    [Arguments]    ${fieldId}    ${fieldKeyword}    ${isSelfSource}
+Add Or Change Filter
+    [Arguments]    ${fieldId}    ${fieldKeyword}    ${filterOperatorId}    ${isSelfSource}
     Add Column By Search And Add To List Display If Not Exist      ${fieldId}    ${fieldKeyword}    ${isSelfSource}
     Click Header by Data Field Angle Grid List Display    ${fieldId}
     Click Show Add Filter Popup From List Header Column
-    Choose Dropdown Filter Operator Via Add Filter Popup    is not empty
-    Click OK Add Filter to List
-    Click Angle Dropdown Actions Edit Display
-    Click Display Detail Filter And Jumps Tab
-    Expand Filter Panel    0
-    Close Display Detail Popup
+    Choose Filter Operator By Id    ${filterOperatorId}
+    Click Apply Filter On Display
+    Wait Until List Display Loaded
+
+Assert Display Filter Should Contain
+    [Arguments]    ${filterIndex}    ${expectedTitleFilter}
+    Click Display Tab
+    ${actualTitleFilter}    Get Display Filter Name By Index    ${filterIndex}
+    Should Be Equal    ${actualTitleFilter}    ${expectedTitleFilter}
 
 #Date
 Verify Operators Date Field
@@ -92,7 +59,7 @@ Verify Operators Date Field
     Click Header by Data Field Angle Grid List Display    ${fieldId}
     Click Show Add Filter Popup From List Header Column
     Verify All Operators Of Date
-    Click Cancel Add Filter to list
+    Click Undo Display Filters And Jumps
 
 #Enumerated
 Verify Operators Enumerated Field
@@ -101,7 +68,7 @@ Verify Operators Enumerated Field
     Click Header by Data Field Angle Grid List Display    ${fieldId}
     Click Show Add Filter Popup From List Header Column
     Verify All Operators Of Enumerated
-    Click Cancel Add Filter to list
+    Click Undo Display Filters And Jumps
 
 #Text
 Verify Operators Text Field
@@ -110,7 +77,7 @@ Verify Operators Text Field
     Click Header by Data Field Angle Grid List Display    ${fieldId}
     Click Show Add Filter Popup From List Header Column
     Verify All Operators Of Text
-    Click Cancel Add Filter to list
+    Click Undo Display Filters And Jumps
 
 #Boolean
 Verify Operators Boolean Field
@@ -119,7 +86,7 @@ Verify Operators Boolean Field
     Click Header by Data Field Angle Grid List Display    ${fieldId}
     Click Show Add Filter Popup From List Header Column
     Verify All Operators Of Boolean
-    Click Cancel Add Filter to list
+    Click Undo Display Filters And Jumps
 
 #Percentage
 Verify Operators Percentage Field
@@ -128,7 +95,7 @@ Verify Operators Percentage Field
     Click Header by Data Field Angle Grid List Display    ${fieldId}
     Click Show Add Filter Popup From List Header Column
     Verify All Operators Of Percentage
-    Click Cancel Add Filter to list
+    Click Undo Display Filters And Jumps
 
 #Number
 Verify Operators Number Field
@@ -137,7 +104,7 @@ Verify Operators Number Field
     Click Header by Data Field Angle Grid List Display    ${fieldId}
     Click Show Add Filter Popup From List Header Column
     Verify All Operators Of Number
-    Click Cancel Add Filter to list
+    Click Undo Display Filters And Jumps
 
 #DateTime
 Verify Operators DateTime Field     
@@ -146,7 +113,7 @@ Verify Operators DateTime Field
     Click Header by Data Field Angle Grid List Display    ${fieldId}
     Click Show Add Filter Popup From List Header Column
     Verify All Operators Of DateTime
-    Click Cancel Add Filter to list
+    Click Undo Display Filters And Jumps
 
 #Time
 Verify Operators Time Field
@@ -156,12 +123,13 @@ Verify Operators Time Field
     Click Show Add Filter Popup From List Header Column
     Verify All Operators Of Time
     Click Cancel Add Filter to list
+
 Add Filter Is Not Empty To Column
     [Arguments]    ${fieldId}
     Click Header by Data Field Angle Grid List Display    ${fieldId}
     Click Show Add Filter Popup From List Header Column
-    Choose Dropdown Filter Operator Via Add Filter Popup    is not empty
-    Click OK Add Filter to List
+    Choose Dropdown Filter Operator    0    is not empty
+    Click Apply Filter On Display
 
 Get Filter Info For List Display Filter
     [Arguments]      ${fieldType}
@@ -325,15 +293,15 @@ Verify Filter Period To List Display
     ...    ELSE                                             List Filter Number Result Should Be True    ${fieldId}    ${operator}    ${expect}
 
 Verify Filter Text To List Display
-    [Arguments]     ${fieldId}    ${operator}    ${expect}
+    [Arguments]     ${index}     ${fieldId}    ${operator}    ${expect}
 
-    Run Keyword If    '${operator}' == 'matches pattern(s)'                  Input Filter Input Text In List Via Add Filter Popup    ${expect}
-    ...    ELSE IF    '${operator}' == 'does not end on substring(s)'        Input Filter Input Text In List Via Add Filter Popup    ${expect}
-    ...    ELSE IF    '${operator}' == 'does not start with substring(s)'    Input Filter Input Text In List Via Add Filter Popup    ${expect}
-    ...    ELSE IF    '${operator}' == '<='                                  Input Filter Input Text Via Add Filter Popup    ${expect}
-    ...    ELSE IF    '${operator}' == 'is equal to'                         Input Filter Input Text Via Add Filter Popup    ${expect}
+    Run Keyword If    '${operator}' == 'matches pattern(s)'                  Input Filter Input Text In List    ${index}    ${expect}
+    ...    ELSE IF    '${operator}' == 'does not end on substring(s)'        Input Filter Input Text In List    ${index}    ${expect}
+    ...    ELSE IF    '${operator}' == 'does not start with substring(s)'    Input Filter Input Text In List    ${index}    ${expect}
+    ...    ELSE IF    '${operator}' == '<='                                  Input Filter Input Text    ${index}    ${expect}
+    ...    ELSE IF    '${operator}' == 'is equal to'                         Input Filter Input Text    ${index}    ${expect}
 
-    Click OK Add Filter to List
+    Click Apply Filter On Display
 
     Run Keyword If    '${operator}' == 'matches pattern(s)'                  List Filter Text Result Should Be True    ${fieldId}     ==    ${expect}
     ...    ELSE IF    '${operator}' == 'does not end on substring(s)'        List Filter Text Result Should Be True    ${fieldId}     !=    ${expect}
@@ -384,18 +352,14 @@ Verify Filter With Execute Parameter To List Display
     [Arguments]    ${fieldType}    ${operator}    ${fieldId}    ${fieldKeyword}
     Wait Until Page Contains Element    ${btnAddColumnToListDisplay}
     Wait Until List Display Loaded
-    Click Toggle Angle
     Add Column By Search And Add To List Display If Not Exist    ${fieldId}  ${fieldKeyword}  ${FALSE}
+    Set Editor Context: Display Tab
     Run Keyword If    '${operator}' != 'is empty'    Add Filter Is Not Empty To Column    ${fieldId}
     Click Header by Data Field Angle Grid List Display    ${fieldId}
     Click Show Add Filter Popup From List Header Column
     ${chooseoption} =    Convert Operator Symbol To Dropdown Option    ${operator}    ${fieldType}
-    Choose Dropdown Filter Operator Via Add Filter Popup    ${chooseoption}
-    Click Execute Parameter To Filter
+    Choose Dropdown Filter Operator    1    ${chooseoption}
+    Set Editor Index    1
+    Click Execute Parameter To Edit Filter
     ${expect} =    Get Cell Value From List Display    ${fieldId}    ${fieldType}
-    Run Keyword If    '${fieldType}' == 'text'          Verify Filter Text To List Display          ${fieldId}    ${operator}    ${expect}
-
-Click Execute Parameter To Filter
-    Select Radio Button    ${rdoExecuteParemeter}    true
-
-
+    Run Keyword If    '${fieldType}' == 'text'          Verify Filter Text To List Display     1     ${fieldId}    ${operator}    ${expect}

@@ -1,0 +1,51 @@
+﻿/// <reference path="/Dependencies/ViewManagement/Shared/QueryDefinition/QueryStepView.js" />
+/// <reference path="/Dependencies/ViewManagement/Shared/QueryDefinition/QueryStepViewModel.js" />
+/// <reference path="/Dependencies/ViewManagement/Shared/QueryDefinition/QueryDefinitionHandler.js" />
+/// <reference path="/Dependencies/ViewManagement/Shared/QueryDefinition/QueryStepFilterHandler.js" />
+/// <reference path="/Dependencies/ViewManagement/Shared/QueryDefinition/QueryStepJumpHandler.js" />
+/// <reference path="/Dependencies/ViewManagement/Shared/QueryDefinition/QueryStepSortableHandler.js" />
+/// <reference path="/Dependencies/ViewManagement/Shared/WidgetFilter/WidgetFilterHelper.js" />
+/// <reference path="/Dependencies/viewmanagement/shared/fieldchooserhandler.js" />
+/// <reference path="/../SharedDependencies/FieldsChooser.js" />
+/// <reference path="/Dependencies/ViewManagement/Shared/ModelFieldSourceHandler.js" />
+/// <reference path="/Dependencies/ViewManagement/Shared/ModelFieldsHandler.js" />
+/// <reference path="/Dependencies/ViewModels/Models/User/usersettingmodel.js" />
+/// <reference path="/Dependencies/ViewManagement/Shared/QueryDefinition/FilterEditors/BaseFilterEditor.js" />
+/// <reference path="/Dependencies/ViewManagement/Shared/QueryDefinition/FilterEditors/FilterBooleanEditor.js" />
+
+describe("FilterBooleanEditor", function () {
+    var editor;
+
+    beforeEach(function () {
+        handler = new QueryDefinitionHandler();
+        var queryStep = {
+            step_type: enumHandlers.FILTERTYPE.FILTER,
+            arguments: []
+        };
+        var modelUri = 'models/1';
+        var checkValid = false;
+        querysteps = new QueryStepViewModel(queryStep, modelUri, checkValid);
+    });
+
+    describe("Operator and Target Type", function () {
+        var element, booleanOperators;
+
+        beforeEach(function () {
+            $('<div class="query-oprator"> <div data-role="dropdownlist" /> <div data-role="dropdownlist" /> </div>').appendTo('body');
+            element = $('.query-oprator');
+            editor = new FilterBooleanEditor(handler, querysteps, element);
+            booleanOperators = [].concat(
+                enumHandlers.QUERYSTEPOPERATOR.DEFAULT,
+                enumHandlers.QUERYSTEPOPERATOR.GROUPONE);
+        });
+
+        it("should Get Operators correctly", function () {
+            var operators = editor.GetOperators();
+            expect(booleanOperators).toEqual(operators);
+        });
+
+        it("should Get Target type correctly", function () {
+            expect(enumHandlers.FIELDTYPE.BOOLEAN).toEqual(editor.GetCompareFieldTarget());
+        });
+    });
+});

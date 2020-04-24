@@ -46,8 +46,8 @@
                 else if (typeof anglePageHandler !== 'undefined' && anglePageHandler.TriggerWatcher) {
                     anglePageHandler.TriggerWatcher(e.originalEvent);
                 }
-                else if (typeof dashboardHandler !== 'undefined' && dashboardHandler.TriggerWatcher) {
-                    dashboardHandler.TriggerWatcher(e.originalEvent);
+                else if (typeof dashboardPageHandler !== 'undefined' && dashboardPageHandler.TriggerWatcher) {
+                    dashboardPageHandler.TriggerWatcher(e.originalEvent);
                 }
             }
         };

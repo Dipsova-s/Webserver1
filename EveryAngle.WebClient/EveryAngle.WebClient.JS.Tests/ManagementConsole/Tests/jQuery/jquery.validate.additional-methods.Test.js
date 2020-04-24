@@ -80,7 +80,6 @@ describe("$.validator.methods", function () {
             { value: 'a', expected: false },
             { value: '+', expected: false },
             { value: '#', expected: false },
-            { value: '+', expected: false },
             { value: 'ก', expected: false }
         ];
 

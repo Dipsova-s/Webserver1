@@ -253,7 +253,7 @@
 
         var tests = [
             { url: 'http://example.com', expected: true },
-            { url: 'HTTP://EXAMPLE.COM', expected: true },
+            { url: 'HTTP://EXAMPLE.COM/', expected: true },
             { url: 'https://www.exmaple.com', expected: true },
             { url: 'ftp://example.com/file.txt', expected: true },
             { url: '//cdn.example.com/lib.js', expected: true },

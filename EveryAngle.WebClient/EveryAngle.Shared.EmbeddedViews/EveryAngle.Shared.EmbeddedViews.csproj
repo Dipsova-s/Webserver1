@@ -114,6 +114,7 @@
     <None Include="packages.config">
       <SubType>Designer</SubType>
     </None>
+    <None Include="Resource\FieldsChooser\fieldschooser.scss" />
     <None Include="Resource\Shared\components\_progressbar.scss" />
     <None Include="Resource\Shared\shared.scss" />
     <EmbeddedResource Include="Resource\Shared\fonts\WebClient.json" />
@@ -135,7 +136,9 @@
     <EmbeddedResource Include="Views\Web.config" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Resource\FieldsChooser\fieldschooser.css" />
+    <Content Include="Resource\FieldsChooser\fieldschooser.css">
+      <DependentUpon>fieldschooser.scss</DependentUpon>
+    </Content>
     <EmbeddedResource Include="Resource\FieldsChooser\fieldschooser.js" />
   </ItemGroup>
   <ItemGroup>
@@ -147,26 +150,15 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Resource\FieldsChooser\grid_header_bg.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Resource\FieldsChooser\highlight.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Resource\FieldsChooser\icon_facet_collapse.png" />
-    <EmbeddedResource Include="Resource\FieldsChooser\icon_facet_expand.png" />
     <EmbeddedResource Include="Resource\FieldsChooser\icon_sort_asc.png" />
     <EmbeddedResource Include="Resource\FieldsChooser\icon_sort_desc.png" />
-    <EmbeddedResource Include="Resource\FieldsChooser\loading.gif" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Resource\BusinessProcess\bp_default_more.png" />
     <EmbeddedResource Include="Resource\ClassesChooser\classeschooser.js" />
     <EmbeddedResource Include="Resource\ClassesChooser\classeschooser.css" />
-    <EmbeddedResource Include="Resource\ClassesChooser\highlight.png" />
     <EmbeddedResource Include="Resource\ClassesChooser\icon_sort_asc.png" />
     <EmbeddedResource Include="Resource\ClassesChooser\icon_sort_desc.png" />
-    <EmbeddedResource Include="Resource\ClassesChooser\grid_header_bg.png" />
     <EmbeddedResource Include="Resource\BusinessProcess\bp_flat_more.png" />
     <EmbeddedResource Include="Resource\FieldsChooser\icon_currency.png" />
     <EmbeddedResource Include="Resource\FieldsChooser\icon_date.png" />

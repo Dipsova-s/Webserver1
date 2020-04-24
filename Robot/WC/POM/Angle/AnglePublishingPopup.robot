@@ -6,7 +6,10 @@ ${btnSavePublishSettings}   css=#SavePublishSettingsButton
 ${btnPublishAngle}          css=#PublishButton
 ${btnUnpublishAngle}        css=#UnpublishButton
 ${chkAllowUserToObtainMoreDetails}    AllowMoreDetails
-
+${chkAllowUserToGoToRelatedObjectViaJump}    AllowFollowups
+${lastdisplay}              jquery=#popupPublishSettings .displayNameContainer .name:last
+${divPublishLabelCategory}  jquery=.item-label-wrapper .multiple-select-header
+${divListPublishLabel}      jquery=.multiple-select-list-label
 
 *** Keywords ***
 Wait Angle Publishing Popup Loaded
@@ -15,15 +18,21 @@ Wait Angle Publishing Popup Loaded
 
 Wait Angle Publishing Saved
     Wait Until Page Does Not Contain Element    ${divPublishingPopup}
+	Page Should Contain Toast Success
     Wait Progress Bar Closed
     Wait Until Ajax Complete
-	Page Should Contain Toast Success
 
 Click Do Not Allow User To Obtain More Details
     Select Checkbox    ${chkAllowUserToObtainMoreDetails}
 
 Click Allow User To Obtain More Details
     Unselect Checkbox    ${chkAllowUserToObtainMoreDetails}
+
+Click Do Not Allow Users To Go To Related Objects Via The Jumps
+    Select Checkbox    ${chkAllowUserToGoToRelatedObjectViaJump}
+
+Click Allow Users To Go To Related Objects Via The Jumps
+    Unselect Checkbox    ${chkAllowUserToGoToRelatedObjectViaJump}
 
 Click Save Angle Publish Settings
     Click Element    ${btnSavePublishSettings}
@@ -41,10 +50,18 @@ Close Publish Angle Popup
     Wait Until Element Is Visible    ${btnClosePublishPopup}
     Click Element    ${btnClosePublishPopup}
 
+Verify Publishing Displays Should Contain A Display
+    [Arguments]    ${displayname}    
+    Element Text Should Be    ${lastdisplay}    ${displayname}	
+
+Verify Publishing Displays Should Not Contain A Display
+    [Arguments]    ${displayname}    
+    Element Text Should Not Be    ${lastdisplay}    ${displayname}
+
 Click Plus Icon To Add Label
     [Arguments]     ${labelCatogory}
-    Click Element   xpath=//div[contains(text(),'${labelCatogory}')]/parent::div/..//i
+    Click Element   ${divPublishLabelCategory}:contains(${labelCatogory}) + .multiple-select-button
 
 Select Label To Add
     [Arguments]     ${labelName}
-    Click Element   //span[contains(text(), '${labelName}')]
+    Click Element   ${divListPublishLabel}:contains(${labelName})

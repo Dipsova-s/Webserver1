@@ -38,6 +38,10 @@
             operator: 'eq',
             value: true
         });
+        if (dropdown.items().length)
+            dropdown.wrapper.show();
+        else
+            dropdown.wrapper.hide();
     };
 
     var onDocumentClicked = function (e) {
@@ -60,21 +64,19 @@
     };
 
     var onPageResized = function (e) {
-        if (jQuery(e.data.itemContainer).is(':hidden')) {
-            jQuery(e.data.target).css('width', '');
+        var itemContainer = jQuery(e.data.itemContainer);
+
+        // always reset expanded state
+        itemContainer.removeClass('open').css('width', '');
+
+        if (itemContainer.is(':hidden') || !e.data.responsive) {
             return;
         }
 
-        // always reset expanded state
-        jQuery(e.data.itemContainer).removeClass('open');
-
-        // get size of sibling elements
-        var target = jQuery(e.data.target);
-        var siblingsWidth = e.data.calculateSiblingsWidth(target);
-
         // get  container size + check more button
+        var target = jQuery(e.data.target);
         var containerWidth = target.parent().width();
-        var availableSpace = containerWidth - siblingsWidth;
+        var availableSpace = containerWidth;
         var buttonElement = target.find(e.data.buttonElement);
         buttonElement.removeClass('active');
 
@@ -130,16 +132,16 @@
             .on('resize.actionmenu-' + namespace, data, onPageResized);
 
         setTimeout(function () {
-            jQuery(win).trigger('resize');
+            jQuery(win).trigger('resize.actionmenu-' + namespace);
         }, 0);
     };
 
     // MenuNavigatable class
-    var actionMenu = function (target, calculateSiblingsWidth) {
+    var actionMenu = function (target, responsive) {
         // plug private function for testability
         this._data = {
             target: target,
-            calculateSiblingsWidth: calculateSiblingsWidth || function () { return 0; },
+            responsive: WC.Utility.ToBoolean(responsive),
             buttonElement: '.btnTools',
             itemContainer: '.popupAction',
             itemElement: '.actionDropdownItem'

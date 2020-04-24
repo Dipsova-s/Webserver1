@@ -21,7 +21,6 @@ function FieldSettingsModel(data) {
     self.ResultUri = '';
     self.DataRowsUri = '';
     self.RowCount = 0;
-    self.QueryFieldsUri = '';
     self.Layout = null;
     self.AnglePrivilege = '';
     self.Fields = '';
@@ -69,17 +68,6 @@ function FieldSettingsModel(data) {
 
     self.SetDisplayDetails = function (details, replace) {
         self.DisplayDetails = JSON.stringify(typeof replace === 'undefined' || !replace ? jQuery.extend({}, WC.Utility.ParseJSON(self.DisplayDetails), details) : details);
-    };
-
-    self.CanSortDataField = function () {
-        var displayDetails = self.GetDisplayDetails();
-        var validTypes = [
-            enumHandlers.CHARTTYPE.AREACHART.Code,
-            enumHandlers.CHARTTYPE.BARCHART.Code,
-            enumHandlers.CHARTTYPE.COLUMNCHART.Code,
-            enumHandlers.CHARTTYPE.LINECHART.Code
-        ];
-        return jQuery.inArray(displayDetails.chart_type, validTypes) !== -1;
     };
     //EOF: View modle methods
 }

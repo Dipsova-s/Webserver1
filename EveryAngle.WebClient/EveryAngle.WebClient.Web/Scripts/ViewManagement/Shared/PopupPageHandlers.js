@@ -113,16 +113,18 @@ function Popup() {
                 e.sender.wrapper.addClass('k-window-maximized');
                 var buttonHeight = e.sender.wrapper.find('.k-window-buttons').outerHeight();
                 var titleHeight = e.sender.wrapper.find('k-window-titlebar').outerHeight();
-                e.sender.wrapper
-                    .offset({
-                        left: 0,
-                        top: 0
-                    })
-                    .height(WC.Window.Height - titleHeight - buttonHeight - 42)
-                    .width(WC.Window.Width);
+                e.sender.wrapper.css({
+                    width: WC.Window.Width * 0.9,
+                    height: (WC.Window.Height - titleHeight - buttonHeight - 42) * 0.85
+                });
+                e.sender.wrapper.offset({
+                    left: Math.max(0, (WC.Window.Width - e.sender.wrapper.outerWidth()) / 2),
+                    top: Math.max(0, (WC.Window.Height - e.sender.wrapper.outerHeight()) / 2)
+                });
             }
 
-            if (typeof options.resize === 'function') options.resize(e);
+            if (typeof options.resize === 'function')
+                options.resize(e);
 
             // fixed editor while resizing the popup
             jQuery('.k-editor:visible [data-role="editor"]', e.sender.element).each(function (k, v) {
@@ -236,7 +238,7 @@ function Popup() {
             jQuery.each(buttons, function (k, v) {
                 v.kendoWindow = win;
                 jQuery('<a class="btn" />')
-                    .attr('id', 'btn-' + winId + k)
+                    .attr(jQuery.extend({}, v.attr, { id: 'btn-' + winId + k }))
                     .data('setting', v)
                     .click(function (e) {
                         var fn = jQuery.extend({}, e, jQuery(this).data('setting'));
@@ -412,8 +414,8 @@ function Popup() {
                             else if (typeof anglePageHandler !== 'undefined') {
                                 anglePageHandler.InitialAnglePage(anglePageHandler.ExecuteAngle);
                             }
-                            else if (typeof dashboardHandler !== 'undefined') {
-                                dashboardHandler.Initial(dashboardHandler.Execute);
+                            else if (typeof dashboardPageHandler !== 'undefined') {
+                                dashboardPageHandler.Initial(dashboardPageHandler.Execute);
                             }
                         }
                         else {

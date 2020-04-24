@@ -128,8 +128,8 @@ namespace EveryAngle.ManagementConsole.Test.Controllers
             JsonResult result = _testingController.ReadAllFolders(null, target, string.Empty, string.Empty);
 
             dynamic data = (dynamic)result.Data;
-            Assert.AreEqual(data.Data.Count, 2);
-            Assert.AreEqual(data.Total, 2);
+            Assert.AreEqual(2, data.Data.Count);
+            Assert.AreEqual(2, data.Total);
         }
 
         [TestCase(SystemLogType.AppServer)]
@@ -147,7 +147,7 @@ namespace EveryAngle.ManagementConsole.Test.Controllers
 
             FileResult file = _testingController.GetSystemlogFile(fullPath, target);
 
-            Assert.AreEqual(file.FileDownloadName, "test.log");
+            Assert.AreEqual("test.log", file.FileDownloadName);
         }
 
         [TestCase("WebClient", ".log")]
@@ -161,7 +161,7 @@ namespace EveryAngle.ManagementConsole.Test.Controllers
                 .Setup(x => x.GetLogFileDetails(It.IsAny<string>()))
                 .Returns(new FileReaderResult { ErrorMessage = "", StringContent = "Sample Data", Success = true });
             ContentResult objContentResult = _testingController.GetSystemlog(filePath, 0, 0, "", "", target);
-            Assert.AreEqual(objContentResult.Content, "Sample Data");
+            Assert.AreEqual("Sample Data", objContentResult.Content);
         }
 
         [Test]

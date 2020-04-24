@@ -1,0 +1,51 @@
+{
+  "id": "ROBOT_TEMPLATE_EDIT_DESCRIPTION",
+  "is_template": true,
+  "assigned_labels": [
+    "S2D"
+  ],
+  "multi_lang_name": [
+    {
+      "lang": "en",
+      "text": "[ROBOT] Template edit description"
+    }
+  ],
+  "multi_lang_description": [],
+  "query_definition": [
+    {
+      "queryblock_type": "base_classes",
+      "base_classes": [
+        "SalesDocumentScheduleLine"
+      ]
+    }
+  ],
+  "angle_default_display": "d2e5f21e86b2916927868521099261961",
+  "display_definitions": [
+    {
+      "id": "d2e5f21e86b2916927868521099261961",
+      "display_type": "list",
+      "is_angle_default": true,
+      "multi_lang_name": [
+        {
+          "lang": "en",
+          "text": "display"
+        }
+      ],
+      "multi_lang_description": [],
+      "display_details": "{}",
+      "query_blocks": [],
+      "fields": [
+        {
+          "field": "ID",
+          "multi_lang_alias": [],
+          "field_details": "{\"width\":120}"
+        },
+        {
+          "field": "ObjectType",
+          "multi_lang_alias": [],
+          "field_details": "{\"width\":120}"
+        }
+      ]
+    }
+  ]
+}

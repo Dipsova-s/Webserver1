@@ -23,9 +23,6 @@ function ListFormatSettingHandler() {
         if (!field)
             return;
 
-        requestHistoryModel.SaveLastExecute(self, self.ShowCustomPopup, arguments);
-        requestHistoryModel.ClearPopupBeforeExecute = true;
-
         listSortHandler.CloseCustomPopup();
 
         self.FormatList.removeAll();
@@ -254,6 +251,7 @@ function ListFormatSettingHandler() {
             displayField.multi_lang_alias = [];
             displayField.field_details = JSON.stringify(detail);
             displayModel.Data.commit();
+            listHandler.OnChanged(displayModel.Data(), false);
 
             WC.FormatHelper.ClearFormatCached();
             listHandler.ColumnInfo[field.id.toLowerCase()] = displayField;
@@ -261,7 +259,6 @@ function ListFormatSettingHandler() {
             self.UpdateAliasHeader(field, displayField);
             jQuery('#AngleGrid').data(enumHandlers.KENDOUITYPE.GRID).refresh();
             listHandler.HideHeaderPopup();
-            historyModel.Save();
         };
 
         // reset model field user setting format
@@ -290,8 +287,6 @@ function ListFormatSettingHandler() {
         }
     };
     self.SetListFormatDisplay = function (formValues, field) {
-        requestHistoryModel.SaveLastExecute(self, self.SetListFormatDisplay, arguments);
-
         var displayField = displayModel.Data().fields.findObject('field', field.id, false);
         var displayFieldDetail = displayModel.GetFieldSettings(displayField);
         var saveDefault = WC.HtmlHelper.GetCheckBoxStatus('[id="UseAsDefaultFormat"]:visible');
@@ -367,8 +362,7 @@ function ListFormatSettingHandler() {
                     modelFieldsHandler.SetFields([response]);
 
                     // update model instance field
-                    var queryFieldUrl = listHandler.GetQueryFieldUrl();
-                    modelInstanceFieldsHandler.SetFields([response], queryFieldUrl);
+                    modelInstanceFieldsHandler.SetFields([response]);
 
                     // update list handler
                     listHandler.ColumnDefinitions = listHandler.GetColumnDefinitions();
@@ -400,6 +394,7 @@ function ListFormatSettingHandler() {
         displayField.multi_lang_alias = multiAlias;
         displayField.field_details = JSON.stringify(displayFieldDetail);
         displayModel.Data.commit();
+        listHandler.OnChanged(displayModel.Data(), false);
 
         WC.FormatHelper.ClearFormatCached();
         listHandler.ColumnInfo[field.id.toLowerCase()] = displayField;
@@ -407,7 +402,6 @@ function ListFormatSettingHandler() {
         self.UpdateAliasHeader(field, displayField);
         grid.refresh();
         listHandler.HideHeaderPopup();
-        historyModel.Save();
     };
 
     //EOF: Methods

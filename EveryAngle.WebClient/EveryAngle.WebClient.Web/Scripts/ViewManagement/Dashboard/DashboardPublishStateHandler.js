@@ -1,29 +1,35 @@
 ﻿(function (handler) {
     "use strict";
 
-    handler.__GetPublishSettingsPopupOptions = handler.GetPublishSettingsPopupOptions;
+    handler.CheckShowingPublishSettingsPopup = function (showPopup) {
+        if (dashboardPageHandler.HasAnyChanged()) {
+            popup.Confirm(Localization.MessageSaveQuestionPublish, function () {
+                jQuery.when(dashboardPageHandler.SaveAll()).done(showPopup);
+            });
+        }
+        else {
+            showPopup();
+        }
+    };
+    
     handler.GetPublishSettingsPopupOptions = function (event) {
         var self = this;
-        var options = self.__GetPublishSettingsPopupOptions(event);
+        var options = self.parent.prototype.GetPublishSettingsPopupOptions.call(self, event);
         options.width = 440;
         return options;
     };
-
-    handler.__ReloadPublishingSettingsData = handler.ReloadPublishingSettingsData;
+    
     handler.ReloadPublishingSettingsData = function (hasData) {
         var self = this;
         self.SetDashboardData(dashboardModel.Data());
-        self.__ReloadPublishingSettingsData(hasData);
+        self.parent.prototype.ReloadPublishingSettingsData.call(self, hasData);
     };
     
     handler.SavePublishSettings = function (model, event) {
         var self = this;
         if (!self.CheckSavePublishSettings(self.Data.is_published()))
             return;
-
-        requestHistoryModel.SaveLastExecute(self, self.SavePublishSettings, arguments);
-        requestHistoryModel.ClearPopupBeforeExecute = true;
-
+        
         self.ShowPublishingProgressbar(event.currentTarget);
         return self.UpdateItem()
             .done(function () {
@@ -71,9 +77,6 @@
         var self = this;
         if (!self.CheckPublishItem())
             return;
-
-        requestHistoryModel.SaveLastExecute(self, self.PublishItem, arguments);
-        requestHistoryModel.ClearPopupBeforeExecute = true;
         
         self.ShowPublishingProgressbar(event.currentTarget);
         return self.UpdateItem()
@@ -89,9 +92,6 @@
     };
     handler.UnpublishItem = function (model, event) {
         var self = this;
-        requestHistoryModel.SaveLastExecute(self, self.UnpublishItem, arguments);
-        requestHistoryModel.ClearPopupBeforeExecute = true;
-
         var unpublishDashboard = function () {
             self.ShowPublishingProgressbar(event.currentTarget);
             return self.UpdateState(self.Data.state, { is_published: false })
@@ -110,7 +110,7 @@
             popup.Confirm(Localization.MessageConfirmUnpublishAngle, function () {
                 unpublishDashboard()
                     .done(function () {
-                        dashboardHandler.BackToSearch();
+                        dashboardPageHandler.BackToSearch();
                     });
             });
         }
@@ -138,8 +138,8 @@
         var self = this;
 
         // update viewmodel
-        dashboardDetailsHandler.Model.SetData(dashboardModel.GetData());
-        dashboardHandler.ApplyBindingHandler();
+        dashboardPageHandler.DashboardModel.SetData(dashboardModel.GetData());
+        dashboardPageHandler.ApplyBindingHandler();
 
         // clear stuff
         self.HidePublishingProgressbar(event.currentTarget);
@@ -153,6 +153,6 @@
     handler.ShowWidgetDefinition = function () {
         var self = this;
         self.ClosePublishSettingsPopup();
-        dashboardDetailsHandler.ShowPopup(dashboardDetailsHandler.TAB.DEFINITION);
+        dashboardPageHandler.HandlerSidePanel.SelectTab(1);
     };
 }(DashboardStateHandler.prototype));

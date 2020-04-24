@@ -16,6 +16,8 @@ function UserSettingViewModel() {
     self.OriginalAutoExecuteList = ko.observableArray([]);
     self.AutoExecuteList = ko.observableArray([]);
     self.TempRemoveList = ko.observableArray([]);
+    self.SidePanelSettingsData = {};
+    self.MinSidePanelSize = 310;
 
     var resultsText = Localization.SystemSettingResults;
 
@@ -101,8 +103,12 @@ function UserSettingViewModel() {
             return getByName();
         }
     };
+
+    self.GetClientSettings = function () {
+        return JSON.parse(self.GetByName(enumHandlers.USERSETTINGS.CLIENT_SETTINGS)) || {};
+    };
     self.GetClientSettingByPropertyName = function (propertyName) {
-        var clientSettings = WC.Utility.ParseJSON(self.GetByName(enumHandlers.USERSETTINGS.CLIENT_SETTINGS));
+        var clientSettings = self.GetClientSettings();
         if (clientSettings[propertyName]) {
             return clientSettings[propertyName];
         }
@@ -158,8 +164,48 @@ function UserSettingViewModel() {
         if (jQuery.isEmptyObject(updateClientSettings))
             return null;
 
-        var clientSettings = JSON.parse(self.GetByName(enumHandlers.USERSETTINGS.CLIENT_SETTINGS)) || {};
+        var clientSettings = self.GetClientSettings();
         jQuery.extend(clientSettings, updateClientSettings);
+
+        var data = {};
+        data[enumHandlers.USERSETTINGS.CLIENT_SETTINGS] = JSON.stringify(clientSettings);
+        return new RequestModel(RequestModel.METHOD.PUT, userModel.Data().user_settings, data);
+    };
+    self.InitialSidePanelSettingsData = function () {
+        self.SidePanelSettingsData = self.GetSidePanelSettings();
+    };
+    self.GetSidePanelSettings = function () {
+        var minSize = self.MinSidePanelSize;
+        var clientSettings = self.GetClientSettings();
+        var panelSettings = {};
+        panelSettings[enumHandlers.CLIENT_SETTINGS_PROPERTY.ANGLE_PANEL_COLLAPSED] = clientSettings[enumHandlers.CLIENT_SETTINGS_PROPERTY.ANGLE_PANEL_COLLAPSED] || false;
+        panelSettings[enumHandlers.CLIENT_SETTINGS_PROPERTY.ANGLE_PANEL_SIZE] = Math.max(clientSettings[enumHandlers.CLIENT_SETTINGS_PROPERTY.ANGLE_PANEL_SIZE] || minSize, minSize);
+        panelSettings[enumHandlers.CLIENT_SETTINGS_PROPERTY.ANGLE_PANEL_TAB] = clientSettings[enumHandlers.CLIENT_SETTINGS_PROPERTY.ANGLE_PANEL_TAB] || 0;
+        panelSettings[enumHandlers.CLIENT_SETTINGS_PROPERTY.ANGLE_PANEL_ACCORDIONS] = jQuery.extend(self.GetDefaultAnglePanelAccordions(), clientSettings[enumHandlers.CLIENT_SETTINGS_PROPERTY.ANGLE_PANEL_ACCORDIONS]);
+        panelSettings[enumHandlers.CLIENT_SETTINGS_PROPERTY.DISPLAY_PANEL_ACCORDIONS] = jQuery.extend(self.GetDefaultDisplayPanelAccordions(), clientSettings[enumHandlers.CLIENT_SETTINGS_PROPERTY.DISPLAY_PANEL_ACCORDIONS]);
+        panelSettings[enumHandlers.CLIENT_SETTINGS_PROPERTY.SEARCH_PANEL_COLLAPSED] = clientSettings[enumHandlers.CLIENT_SETTINGS_PROPERTY.SEARCH_PANEL_COLLAPSED] || false;
+        panelSettings[enumHandlers.CLIENT_SETTINGS_PROPERTY.DASHBOARD_PANEL_COLLAPSED] = clientSettings[enumHandlers.CLIENT_SETTINGS_PROPERTY.DASHBOARD_PANEL_COLLAPSED] || false;
+        panelSettings[enumHandlers.CLIENT_SETTINGS_PROPERTY.DASHBOARD_PANEL_SIZE] = Math.max(clientSettings[enumHandlers.CLIENT_SETTINGS_PROPERTY.DASHBOARD_PANEL_SIZE] || minSize, minSize);
+        panelSettings[enumHandlers.CLIENT_SETTINGS_PROPERTY.DASHBOARD_PANEL_TAB] = clientSettings[enumHandlers.CLIENT_SETTINGS_PROPERTY.DASHBOARD_PANEL_TAB] || 0;
+        panelSettings[enumHandlers.CLIENT_SETTINGS_PROPERTY.DASHBOARD_PANEL_ACCORDIONS] = jQuery.extend(self.GetDefaultDashboardPanelAccordions(), clientSettings[enumHandlers.CLIENT_SETTINGS_PROPERTY.DASHBOARD_PANEL_ACCORDIONS]);
+        panelSettings[enumHandlers.CLIENT_SETTINGS_PROPERTY.WIDGET_PANEL_ACCORDIONS] = jQuery.extend(self.GetDefaultWidgetPanelAccordions(), clientSettings[enumHandlers.CLIENT_SETTINGS_PROPERTY.WIDGET_PANEL_ACCORDIONS]);
+        return panelSettings;
+    };
+    self.SetSidePanelSettings = function (property, value) {
+        if (enumHandlers.CLIENT_SETTINGS_PROPERTY.ANGLE_PANEL_SIZE === property ||
+            enumHandlers.CLIENT_SETTINGS_PROPERTY.DASHBOARD_PANEL_SIZE === property)
+            value = Math.max(value, self.MinSidePanelSize);
+        self.SidePanelSettingsData[property] = value;
+    };
+    self.GetSidePanelSettingsData = function () {
+        var currentSidePanelSettings = self.GetSidePanelSettings();
+        if (!jQuery('.content-wrapper').length
+            || JSON.stringify(currentSidePanelSettings) === JSON.stringify(self.SidePanelSettingsData)
+            || !userModel.Data())
+            return null;
+
+        var clientSettings = self.GetClientSettings();
+        jQuery.extend(clientSettings, self.SidePanelSettingsData);
 
         var data = {};
         data[enumHandlers.USERSETTINGS.CLIENT_SETTINGS] = JSON.stringify(clientSettings);
@@ -172,6 +218,30 @@ function UserSettingViewModel() {
 
         jQuery.extend(data, clientSettings);
         self.LoadSuccess(data);
+    };
+    self.GetDefaultAnglePanelAccordions = function () {
+        var setting = {};
+        setting[enumHandlers.ACCORDION.DEFINITION] = true;
+        setting[enumHandlers.ACCORDION.DESCRIPTION] = true;
+        return setting;
+    };
+    self.GetDefaultDisplayPanelAccordions = function () {
+        var setting = {};
+        setting[enumHandlers.ACCORDION.DEFINITION] = true;
+        setting[enumHandlers.ACCORDION.AGGREGATION] = true;
+        setting[enumHandlers.ACCORDION.DESCRIPTION] = true;
+        return setting;
+    };
+    self.GetDefaultDashboardPanelAccordions = function () {
+        var setting = {};
+        setting[enumHandlers.ACCORDION.DEFINITION] = true;
+        setting[enumHandlers.ACCORDION.DESCRIPTION] = true;
+        return setting;
+    };
+    self.GetDefaultWidgetPanelAccordions = function () {
+        var setting = {};
+        setting[enumHandlers.ACCORDION.DEFINITION] = true;
+        return setting;
     };
     self.GetSearchTerms = function () {
         var searchTerms = self.GetClientSettingByPropertyName(enumHandlers.CLIENT_SETTINGS_PROPERTY.SEARCH_TERMS);
@@ -225,6 +295,7 @@ function UserSettingViewModel() {
                     }
                     else {
                         if (item.is_template) {
+                            linkParams[enumHandlers.ANGLEPARAMETER.TARGET] = enumHandlers.ANGLETARGET.ANGLEPOPUP;
                             linkParams[enumHandlers.ANGLEPARAMETER.TEMPLATE] = true;
                         }
                         jQuery.each(item.displays, function (displayIndex, display) {

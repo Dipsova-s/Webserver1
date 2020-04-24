@@ -1,607 +1,497 @@
-/* .fieldChooser
+﻿/* .fieldChooser
 ============================================ */
 #popupFieldChooser.k-window-content {
-    padding: 0;
-}
+  padding: 0; }
 
 .fieldChooserContainer {
-    padding: 20px;
-    padding-bottom: 0;
-    width: 100%;
-    box-sizing: border-box;
-}
+  padding: 20px;
+  padding-bottom: 0;
+  width: 100%;
+  box-sizing: border-box; }
 
 .fieldChooserFilter {
-    float: left;
-    width: 197px;
-    background-color: #fafcfc;
-}
+  float: left;
+  width: 197px;
+  background-color: #fcfcfc; }
 
 .fieldChooserFilter .fieldChooserFilterInner {
-    height: 100%;
-    overflow: auto;
-    overflow-x: hidden;
-    overflow: auto;
-    visibility: hidden;
-}
+  height: 100%;
+  overflow: auto;
+  overflow-x: hidden;
+  overflow: auto;
+  visibility: hidden; }
 
 .no-mouse .fieldChooserFilterInner, .fieldChooserFilterInner:hover {
-    visibility: visible;
-}
+  visibility: visible; }
 
 .fieldChooserFilter .k-loading-mask {
-    width: 217px !important;
-    position: absolute;
-    min-height: 0;
-    z-index: 9999;
-}
+  width: 217px !important;
+  position: absolute;
+  min-height: 0;
+  z-index: 9999; }
 
 .fieldChooserFilter .k-loading-text {
-    display: none;
-}
+  display: none; }
 
 .fieldChooserFilter .fieldChooserFacets {
-    position: relative;
-    min-height: 100%;
-    box-sizing: border-box;
-    margin: 0 15px;
-    visibility: visible;
-}
+  position: relative;
+  min-height: 100%;
+  box-sizing: border-box;
+  margin: 0 15px;
+  visibility: visible; }
+
+.fieldChooserFilter .fieldChooserFacets ul li .label {
+  color: #333; }
 
 .fieldChooserFilter .FilterTab {
-    display: flex;
-    align-items: center;
-    position: relative;
-    cursor: pointer;
-    z-index: 10;
-    padding: 22px 0;
-}
+  display: flex;
+  align-items: center;
+  position: relative;
+  cursor: pointer;
+  z-index: 10;
+  padding: 22px 0; }
 
 .fieldChooserFilter .FilterTab:not(:first-child) {
-    border-top: 1px solid #e4e8eb;
-}
+  border-top: 1px solid #e4e8eb; }
 
 .fieldChooserFilter .FilterTab .icon {
-    width: 10px;
-    height: 10px;
-    margin-left: auto;
-    background: transparent left center no-repeat;
-    display: none;
-}
+  width: 10px;
+  height: 10px;
+  margin-left: auto;
+  background: transparent left center no-repeat;
+  display: none; }
 
 .fieldChooserFilter .FilterTab:not(.Expand) .icon-arrow-down {
-    background-image: url(icon_arrow_down.svg);
-    display: inline-block;
-}
+  background-image: url(icon_arrow_down.svg);
+  display: inline-block; }
 
 .fieldChooserFilter .FilterTab.Expand .icon-arrow-up {
-    background-image: url(icon_arrow_up.svg);
-    display: inline-block;
-}
+  background-image: url(icon_arrow_up.svg);
+  display: inline-block; }
 
 .fieldChooserFilter .FilterTab .FilterTitle {
-    font-size: 13px;
-    font-weight: bold;
-    color: #909191;
-}
+  font-size: 13px;
+  font-weight: bold;
+  color: #909191; }
 
 .fieldChooserFilter .FilterTab span {
-    display: block;
-    color: #666666;
-    font-family: inherit;
-    font-size: 11px;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-}
+  display: block;
+  color: #666666;
+  font-family: inherit;
+  font-size: 11px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap; }
 
 .fieldChooserFilter .FilterCheckBox {
-    margin: 0 0 -1px 0;
-    position: relative;
-    height: auto;
-    z-index: 10;
-}
+  margin: 0 0 -1px 0;
+  position: relative;
+  height: auto;
+  z-index: 10; }
 
 .fieldChooserFilter .FilterCheckBox-general,
 .fieldChooserFilter .FilterTab.Expand + .FilterCheckBox {
-    margin-bottom: 0;
-}
+  margin-bottom: 0; }
 
 .fieldChooserFilter ul {
-    margin: 0;
-    padding: 0;
-}
+  margin: 0;
+  padding: 0; }
 
 .fieldChooserFilter ul li {
-    position: relative;
-    padding: 0;
-    list-style-type: none;
-    color: #333;
-    font-size: 13px;
-    font-style: normal;
-    font-weight: normal;
-    text-decoration: none;
-    margin-bottom: 19px;
-}
+  position: relative;
+  padding: 0;
+  list-style-type: none;
+  color: #333;
+  font-size: 13px;
+  font-style: normal;
+  font-weight: normal;
+  text-decoration: none;
+  margin-bottom: 12px; }
 
 .fieldChooserFilter ul li:hover {
-    color: #000;
-}
+  color: #000; }
 
 .fieldChooserFilter .toggleable {
-    display: none;
-}
+  display: none; }
 
 .fieldChooserFilter .alwaysVisible {
-    display: block !important;
-}
+  display: block !important; }
 
 .fieldChooserFilter ul li > label {
-    display: block;
-}
+  display: block; }
 
 .fieldChooserFilter ul li .label {
-    width: calc(100% - 30px);
-    margin-left: 0;
-}
+  width: calc(100% - 30px);
+  margin-left: 0; }
 
 .fieldChooserFilter ul li .label > .name {
-    font-size: 14px;
-    display: inline-flex;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    line-height: 17px;
-    margin-top: -2px;
-    width: 100%;
-}
+  font-size: 14px;
+  display: inline-flex;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  line-height: 17px;
+  margin-top: -2px;
+  width: 100%; }
 
 .fieldChooserFilter ul li .label > .name.withIcon {
-    padding-left: 20px;
-    box-sizing: border-box;
-}
+  padding-left: 20px;
+  box-sizing: border-box; }
 
 .fieldChooserFilter ul li .label .filter-name {
-    -ms-flex: 2;
-    display: inline-block;
-    overflow: hidden;
-    white-space: nowrap;
-    text-overflow: ellipsis;
-    margin-right: 10px;
-}
+  -ms-flex: 2;
+  display: inline-block;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  margin-right: 10px; }
 
 .fieldChooserFilter ul li .label .filter-count {
-    -ms-flex: 1;
-    display: inline-block;
-    margin-left: auto;
-    text-align: right;
-}
+  -ms-flex: 1;
+  display: inline-block;
+  margin-left: auto;
+  text-align: right; }
 
 .fieldChooserFilter ul li > label img {
-    position: absolute;
-    left: 0;
-    bottom: 1px;
-    margin-left: 26px;
-}
+  position: absolute;
+  left: 0;
+  bottom: 1px;
+  margin-left: 26px; }
 
 .fieldChooserContent {
-    height: 100%;
-    margin-left: 209px;
-}
+  height: 100%;
+  margin-left: 209px; }
 
 .fieldChooserContent .grid-no-data,
 .fieldChooserContent + .grid-no-data {
-    text-align: center;
-    padding: 20px;
-    font-style: italic;
-    font-size: 14px;
-}
-
+  text-align: center;
+  padding: 20px;
+  font-style: italic;
+  font-size: 14px; }
 
 .fieldsChooserMenubar {
-    display: flex;
-    padding-bottom: 12px;
-}
+  display: flex;
+  padding-bottom: 12px; }
 
 #txtFitlerAvailableProperties {
-    width: 100%;
-    max-width: 325px;
-    height: 30px;
-    border-radius: 99px;
-    border-color: transparent;
-    outline: none;
-    padding: 4px 38px;
-    padding-right: 4px;
-    margin-right: 15px;
-    background-color: #f7f7f9;
-    color: #3d4852;
-    background-image: url(icon_search.svg);
-    background-position-x: 13px;
-    background-position-y: center;
-    background-size: 14px 14px;
-    background-repeat: no-repeat;
-}
+  width: 100%;
+  max-width: 325px;
+  height: 30px;
+  border-radius: 99px;
+  border-color: transparent;
+  outline: none;
+  padding: 4px 38px;
+  padding-right: 4px;
+  margin-right: 15px;
+  background-color: #f7f7f9;
+  color: #3d4852;
+  background-image: url(icon_search.svg);
+  background-position-x: 13px;
+  background-position-y: center;
+  background-size: 14px 14px;
+  background-repeat: no-repeat; }
 
 .fieldChooserTotals {
-    font-size: 12px;
-    color: #34495e;
-    font-weight: bold;
-    margin-left: auto;
-    margin-right: 15px;
-    align-items: center;
-    display: inline-flex;
-}
+  font-size: 12px;
+  color: #34495e;
+  font-weight: bold;
+  margin-left: auto;
+  margin-right: 15px;
+  align-items: center;
+  display: inline-flex; }
 
 #totalDisplayFieldsDatarow {
-    padding-right: 5px;
-}
+  padding-right: 5px; }
 
 .fieldChooserContainer .fieldChooserViewType {
-    min-width: 94px;
-    height: 32px;
-    border-radius: 2px;
-    padding: 3px 4px;
-    border: solid 1px #d1d1d1;
-    background-color: #ffffff;
-    box-sizing: border-box;
-}
+  min-width: 94px;
+  height: 32px;
+  border-radius: 2px;
+  padding: 3px 4px;
+  border: solid 1px #d1d1d1;
+  background-color: #ffffff;
+  box-sizing: border-box; }
 
 .fieldChooserContainer .fieldChooserViewType a {
-    position: relative;
-    float: left;
-    width: 40px;
-    height: 24px;
-    border-radius: 2px;
-    transition: background-color .15s ease-in-out, box-shadow .15s ease-in-out;
-    box-sizing: border-box;
-}
+  position: relative;
+  float: left;
+  width: 40px;
+  height: 24px;
+  border-radius: 2px;
+  transition: background-color .15s ease-in-out, box-shadow .15s ease-in-out;
+  box-sizing: border-box; }
 
 .fieldChooserContainer .fieldChooserViewType a:before {
-    content: '';
-    position: absolute;
-    left: 50%;
-    top: 50%;
-    margin-top: -7px;
-    margin-left: -7px;
-    width: 14px;
-    height: 14px;
-    background: transparent none center center no-repeat;
-    background-size: 28px 28px;
-}
+  content: '';
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  margin-top: -7px;
+  margin-left: -7px;
+  width: 14px;
+  height: 14px;
+  background: transparent none center center no-repeat;
+  background-size: 28px 28px; }
 
 .fieldChooserContainer .fieldChooserViewType .typeFull {
-    margin-right: 4px;
-}
+  margin-right: 4px; }
 
 .fieldChooserContainer .fieldChooserViewType .typeFull:before {
-    background-image: url(icon_viewmode_details.svg);
-}
+  background-image: url(icon_viewmode_details.svg); }
 
 .fieldChooserContainer .fieldChooserViewType .typeFull.active:before,
 .fieldChooserContainer .fieldChooserViewType .typeFull:hover:before {
-    background-image: url(icon_viewmode_details_active.svg);
-}
+  background-image: url(icon_viewmode_details_active.svg); }
 
 .fieldChooserContainer .fieldChooserViewType .typeCompact:before {
-    background-image: url(icon_viewmode_compact.svg);
-}
+  background-image: url(icon_viewmode_compact.svg); }
 
 .fieldChooserContainer .fieldChooserViewType .typeCompact.active:before,
 .fieldChooserContainer .fieldChooserViewType .typeCompact:hover:before {
-    background-image: url(icon_viewmode_compact_active.svg);
-}
+  background-image: url(icon_viewmode_compact_active.svg); }
 
 .fieldChooserContainer .fieldChooserViewType a.active,
 .fieldChooserContainer .fieldChooserViewType a:hover {
-    background-color: #78909c;
-}
-
-
-.fieldChooserGridContainer {
-    position: relative;
-    z-index: 2;
-}
+  background-color: #78909c; }
 
 .fieldChooserContainer.no-data:before,
 .fieldChooserContainer.no-data:after,
 .fieldChooserContainer.no-data .fieldChooserFilter,
 .fieldChooserContainer.no-data .fieldChooserContent,
 .fieldChooserContainer.no-data + .fieldChooserButtons {
-    display: none;
-}
+  display: none; }
 
-.fieldChooserGridContainer > .grid-no-data {
+.DisplayAvaliablePropertiesHeaderGrid {
+  display: block;
+  font-weight: bold;
+  font-size: 12px;
+  padding: 11px 12px 12px 6px;
+  color: #34495e;
+  cursor: pointer; }
+
+#fieldtype.DisplayAvaliablePropertiesHeaderGrid {
+  text-align: center; }
+
+#starred.DisplayAvaliablePropertiesHeaderGrid:after,
+#category.DisplayAvaliablePropertiesHeaderGrid:after {
+  padding-left: 2px; }
+
+.DisplayAvaliablePropertiesHeaderGrid:after {
+  content: '';
+  background: transparent none right bottom no-repeat;
+  position: absolute;
+  width: 10px;
+  height: 13px;
+  padding-left: 10px;
+  top: 11px; }
+
+.DisplayAvaliablePropertiesHeaderGrid.asc:after {
+  background-image: url(icon_sort_asc.png); }
+
+.DisplayAvaliablePropertiesHeaderGrid.desc:after {
+  background-image: url(icon_sort_desc.png); }
+
+.fieldChooserGridContainer {
+  position: relative;
+  z-index: 2; }
+  .fieldChooserGridContainer > .grid-no-data {
     position: absolute;
     left: 0;
     top: 35px;
     width: 100%;
     padding: 20px 0;
-    color: #777;
-}
-
-.fieldChooserGridContainer .k-grid {
+    color: #777; }
+  .fieldChooserGridContainer .k-grid {
     border-radius: 0;
-    border-color: #e3e5e5;
-}
-
-.fieldChooserGridContainer .k-grid td {
-    white-space: nowrap;
-    overflow: hidden;
-}
-
-.fieldChooserGridContainer .k-grid-header tr:hover {
-    background: transparent;
-}
-
-.fieldChooserGridContainer div.k-grid-header {
+    border-color: #e3e5e5; }
+    .fieldChooserGridContainer .k-grid td {
+      white-space: nowrap;
+      overflow: hidden; }
+  .fieldChooserGridContainer div.k-grid-header {
     position: relative;
     z-index: 2;
     background-color: transparent;
-    border: 0;
-}
-
-.fieldChooserGridContainer div.k-grid-header-wrap {
+    border: 0; }
+    .fieldChooserGridContainer div.k-grid-header tr:hover {
+      background: transparent; }
+    .fieldChooserGridContainer div.k-grid-header th.k-header {
+      border-bottom: 3px solid #e3e5e5;
+      border-color: #e3e5e5;
+      background-color: transparent;
+      box-sizing: border-box;
+      height: 40px;
+      padding: 0;
+      vertical-align: middle; }
+  .fieldChooserGridContainer div.k-grid-header-wrap {
     box-shadow: none;
-    border-color: transparent;
-}
-
-.fieldChooserGridContainer div.k-grid-header th.k-header {
-    border-bottom: 3px solid #e3e5e5;
-    border-color: #e3e5e5;
-    background-color: transparent;
-    box-sizing: border-box;
-    height: 40px;
-    padding: 0;
-    vertical-align: middle;
-}
-
-.DisplayAvaliablePropertiesHeaderGrid {
-    display: block;
-    font-weight: bold;
-    font-size: 12px;
-    padding: 11px 12px 12px 6px;
-    color: #34495e;
-    cursor:pointer;
-}
-
-#fieldtype.DisplayAvaliablePropertiesHeaderGrid {
-    text-align: center;
-}
-
-#starred.DisplayAvaliablePropertiesHeaderGrid:after,
-#category.DisplayAvaliablePropertiesHeaderGrid:after {
-    padding-left: 2px;
-}
-
-.DisplayAvaliablePropertiesHeaderGrid:after {
-    content: '';
-    background: transparent none right bottom no-repeat;
-    position: absolute;
-    width: 10px;
-    height: 13px;
-    padding-left: 10px;
-    top: 11px;
-}
-
-.DisplayAvaliablePropertiesHeaderGrid.asc:after {
-    background-image: url(icon_sort_asc.png);
-}
-
-.DisplayAvaliablePropertiesHeaderGrid.desc:after {
-    background-image: url(icon_sort_desc.png);
-}
-
-.fieldChooserGridContainer tr {
+    border-color: transparent; }
+  .fieldChooserGridContainer tr {
     height: 26px;
-    color: #333;
-    font-size: 10px;
-}
-
-.fieldChooserGridContainer tr:hover {
-    background-color: #fff;
-}
-
-.fieldChooserGridContainer tr.k-alt,
-.fieldChooserGridContainer tr.k-alt:hover {
-    background-color: transparent !important;
-    background-image: none;
-}
-
-.fieldChooserGridContainer tr {
     color: rgba(0, 0, 0, 0.87);
-}
-
-.fieldChooserGridContainer tr.selected {
-    color: #bbb;
-}
-
-.fieldChooserGridContainer .k-state-focused {
-    box-shadow: none !important;
-}
-
-.fieldChooserGridContainer .k-state-selected,
-.fieldChooserGridContainer .k-state-selected > td {
-    background-color: rgba(252, 243, 215, 0.5);
+    font-size: 10px; }
+    .fieldChooserGridContainer tr:hover {
+      background-color: #fff; }
+    .fieldChooserGridContainer tr.selected {
+      color: #bbb; }
+    .fieldChooserGridContainer tr.k-alt, .fieldChooserGridContainer tr.k-alt:hover {
+      background-color: transparent !important;
+      background-image: none; }
+  .fieldChooserGridContainer .k-state-focused {
+    box-shadow: none !important; }
+  .fieldChooserGridContainer .k-state-selected,
+  .fieldChooserGridContainer .k-state-selected > td {
+    background-color: rgba(252, 243, 215, 0.8);
     background-image: none;
     border-color: #969696;
     box-shadow: none !important;
-}
-
-.fieldChooserGridContainer .k-state-selected,
-.fieldChooserGridContainer .k-state-selected:hover {
-    background-color: transparent !important;
-}
-
-.fieldChooserGridContainer div.k-grid tbody td {
+    font-weight: bold;
+    color: #000; }
+  .fieldChooserGridContainer .k-state-selected > td.column1 {
+    font-weight: normal; }
+  .fieldChooserGridContainer .k-state-selected,
+  .fieldChooserGridContainer .k-state-selected:hover {
+    background-color: transparent !important; }
+  .fieldChooserGridContainer div.k-grid tbody td {
     font-family: inherit;
     font-size: 11px;
     letter-spacing: 0.24px;
     border: 0;
     border-bottom: 1px solid #e3e5e5;
-    padding: 0 5px;
-}
-
-.fieldChooserGridContainer .iconFieldType {
+    padding: 0 5px; }
+  .fieldChooserGridContainer .iconFieldType {
     display: block;
     width: auto;
     height: 16px;
-    background: transparent none center center no-repeat;
-}
-
-.fieldChooserGridContainer .iconCategory {
+    background: transparent none center center no-repeat; }
+  .fieldChooserGridContainer .iconCategory {
     display: block;
     height: 16px;
-    background: transparent none center center no-repeat;
-}
-
-.fieldChooserGridContainer .fieldName {
+    background: transparent none center center no-repeat; }
+  .fieldChooserGridContainer .fieldName {
     vertical-align: bottom;
     display: inline-block;
     max-width: 300px;
     overflow: hidden;
     white-space: nowrap;
-    text-overflow: ellipsis;
-}
-
-.fieldChooserGridContainer .fieldName.noInfo {
-    display: block !important;
-    max-width: none !important;
-}
-
-.fieldChooserGridContainer .btnInfo {
+    text-overflow: ellipsis; }
+    .fieldChooserGridContainer .fieldName.noInfo {
+      display: block !important;
+      max-width: none !important; }
+  .fieldChooserGridContainer .btnInfo {
     vertical-align: top;
-    line-height: 16px;
-}
-
-.chrome .fieldChooserGridContainer .btnInfo {
-    display: inline-flex;
-}
-
-.fieldChooserGridContainer .FieldSource {
+    line-height: 16px; }
+  .fieldChooserGridContainer .FieldSource {
     white-space: nowrap;
     overflow: hidden;
-    text-overflow: ellipsis;
-}
+    text-overflow: ellipsis; }
+  .fieldChooserGridContainer .loader-spinner-inline {
+    margin: 0 auto;
+    display: block; }
+  .fieldChooserGridContainer .readOnly {
+    cursor: default; }
+
+.chrome .fieldChooserGridContainer .btnInfo {
+  display: inline-flex; }
 
 .DisplayPropertiesGridSignFavorite,
 .DisplayPropertiesGridSignFavoriteDisable,
 .DisplayPropertiesGridSignSuggest {
-    cursor: pointer;
-    display: block;
-    margin: auto;
-    height: 20px;
-    width: 20px;
-    background: transparent none left top no-repeat;
-}
+  cursor: pointer;
+  display: block;
+  margin: auto;
+  height: 20px;
+  width: 20px;
+  background: transparent none left top no-repeat; }
 
 .DisplayPropertiesGridSignFavorite {
-    background-image: url(icon_starred_active.svg);
-    background-size: 16px 16px;
-    background-position-y: 2px;
-}
+  background-image: url(icon_starred_active.svg);
+  background-size: 16px 16px;
+  background-position-y: 2px; }
 
 .DisplayPropertiesGridSignFavoriteDisable {
-    background-image: url(icon_starred_inactive.svg);
-    background-size: 16px 16px;
-    background-position-y: 2px;
-}
+  background-image: url(icon_starred_inactive.svg);
+  background-size: 16px 16px;
+  background-position-y: 2px; }
 
 .DisplayPropertiesGridSignSuggest {
-    background: url(icon_suggest.svg) no-repeat center;
-}
+  background-image: url(icon_suggest.svg);
+  background-position: left center; }
 
 .popupFieldChooserFieldSuggested .DisplayPropertiesGridSignFavoriteDisable {
-    background: url(icon_unsuggest.svg) no-repeat center;
-}
-
-.fieldChooserGridContainer .loader-spinner-inline {
-    margin: 0 auto;
-    display: block;
-}
-
-.fieldChooserGridContainer .readOnly {
-    cursor: default;
-}
+  background-image: url(icon_unsuggest.svg);
+  background-position: left center; }
 
 .compactDetail .fieldChooserGridContainer .detail,
 .compactDetail .fieldChooserGridContainer .detailDomain,
 .compactDetail .fieldChooserGridContainer .detailHelp {
-    display: none !important;
-}
+  display: none !important; }
 
 .fullDetail .fieldChooserGridContainer .k-grid-content td {
-    border-left: 0;
-    font-weight: bold;
-    vertical-align: top;
-    height: 55px;
-    padding-top: 5px;
-    padding-bottom: 9px;
-}
+  border-left: 0;
+  font-weight: bold;
+  vertical-align: top;
+  height: 55px;
+  padding-top: 5px;
+  padding-bottom: 9px; }
 
 .fullDetail .fieldChooserGridContainer .k-grid-content td.column1,
 .fullDetail .fieldChooserGridContainer .k-grid-content td.column2 {
-    vertical-align: middle;
-}
+  vertical-align: middle; }
 
 .fullDetail .fieldChooserGridContainer .k-grid-content td.columnDetail {
-    white-space: normal;
-    overflow: visible;
-}
+  white-space: normal;
+  overflow: visible; }
 
 .fullDetail .fieldChooserGridContainer .k-grid-content td.columnDetail > div:first-child {
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-}
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis; }
 
 .fullDetail .fieldChooserGridContainer .detail {
-    font-size: 10px;
-    line-height: 12px;
-    letter-spacing: 0.24px;
-    font-weight: normal;
-    width: 490px;
-    height: 37px;
-    padding-top: 2px;
-    overflow: hidden;
-    display: -webkit-box; /* NOSONAR: acceptable */
-    -webkit-line-clamp: 3; /* NOSONAR: acceptable */
-    -webkit-box-orient: vertical; /* NOSONAR: acceptable */
-}
+  font-size: 10px;
+  line-height: 12px;
+  letter-spacing: 0.24px;
+  font-weight: normal;
+  width: 490px;
+  height: 37px;
+  padding-top: 2px;
+  overflow: hidden;
+  display: -webkit-box;
+  /* NOSONAR: acceptable */
+  -webkit-line-clamp: 3;
+  /* NOSONAR: acceptable */
+  -webkit-box-orient: vertical;
+  /* NOSONAR: acceptable */ }
 
 .fullDetail .fieldChooserGridContainer .withDomain .detailHelp {
-    height: 25px;
-    -webkit-line-clamp: 2; /* NOSONAR: acceptable */
-}
+  height: 25px;
+  -webkit-line-clamp: 2;
+  /* NOSONAR: acceptable */ }
 
 .fullDetail .fieldChooserGridContainer .detailDomain {
-    display: none;
-}
+  display: none; }
 
 .fullDetail .fieldChooserGridContainer .withDomain .detailDomain {
-    display: block !important;
-    height: 12px;
-    -webkit-line-clamp: inherit; /* NOSONAR: acceptable */
-    -webkit-box-orient: initial; /* NOSONAR: acceptable */
-    white-space: nowrap;
-    text-overflow: ellipsis;
-}
+  display: block !important;
+  height: 12px;
+  -webkit-line-clamp: inherit;
+  /* NOSONAR: acceptable */
+  -webkit-box-orient: initial;
+  /* NOSONAR: acceptable */
+  white-space: nowrap;
+  text-overflow: ellipsis; }
 
 .fullDetail .longText {
-    display: inline;
-}
+  display: inline; }
 
 .compactDetail .longText {
-    display: none;
-}
+  display: none; }
 
 .fieldChooserButtons {
-    clear: both;
-    display: block;
-    overflow: hidden;
-    padding: 20px;
-}
+  clear: both;
+  display: block;
+  overflow: hidden;
+  padding: 20px; }
 
 .fieldChooserButtons .btn:last-child {
-    margin-right: 0;
-}
-
+  margin-right: 0; }

@@ -33,26 +33,31 @@ describe("UserSettingsPanelHandler", function () {
     var viewManagerTest;
     var userSettingsPanelHandler;
 
-    var setup = function () {
+    beforeEach(function () {
         stateManagerTest = new UserSettingsPanelStateManager();
         viewManagerTest = new UserSettingsPanelViewManager();
 
         spyOn(stateManagerTest, 'SaveSettings');
-        spyOn(stateManagerTest, 'LoadSettings');
+        spyOn(toast, 'MakeSuccessText');
 
         userSettingsPanelHandler = new UserSettingsPanelHandler(
             stateManagerTest,
             viewManagerTest
         );
-    };
 
-    beforeEach(function () {
-        spyOn(toast, 'MakeSuccessText');
-        setup();
+        createMockHandler(window, 'searchPageHandler', {});
+        createMockHandler(window, 'anglePageHandler', {
+            ExecuteAngle: $.noop
+        });
+        createMockHandler(window, 'dashboardPageHandler', {
+            ReApplyResult: $.noop
+        });
     });
-    afterEach(setup);
+    afterEach(function () {
+        restoreMockHandlers();
+    });
 
-    describe("get UpdateSampleDateSettings", function () {
+    describe(".UpdateSampleDateSettings", function () {
 
         it("should have DATEDAYFORMAT", function () {
             userSettingsPanelHandler.UpdateSampleDateSettings();
@@ -70,7 +75,7 @@ describe("UserSettingsPanelHandler", function () {
         });
     });
 
-    describe("call SetLabel ", function () {
+    describe(".SetLabel ", function () {
 
         beforeEach(function () {
             spyOn(directoryHandler, "GetDirectoryUri").and.callFake($.noop);
@@ -86,7 +91,7 @@ describe("UserSettingsPanelHandler", function () {
         });
     });
 
-    describe("call SetDataModel", function () {
+    describe(".SetDataModel", function () {
         it("have model data, option should be enabled", function () {
             spyOn(modelsHandler, "GetData").and.callFake(function () {
                 var model = [{ uri: '/models/1' }];
@@ -105,7 +110,7 @@ describe("UserSettingsPanelHandler", function () {
         });
     });
 
-    describe("call InitialControls ", function () {
+    describe(".InitialControls ", function () {
 
         beforeEach(function () {
 
@@ -141,7 +146,7 @@ describe("UserSettingsPanelHandler", function () {
         });
     });
 
-    describe("call InitialControlsModel", function () {
+    describe(".InitialControlsModel", function () {
 
         beforeEach(function () {
 
@@ -183,7 +188,7 @@ describe("UserSettingsPanelHandler", function () {
         });
     });
 
-    describe("call GetDefaulModel ", function () {
+    describe(".GetDefaulModel ", function () {
 
         beforeEach(function () {
             spyOn(userSettingsPanelHandler, "DataModels").and.callFake(function () {
@@ -205,7 +210,7 @@ describe("UserSettingsPanelHandler", function () {
 
     });
 
-    describe("call InitialControlsBusinessProcess", function () {
+    describe(".InitialControlsBusinessProcess", function () {
 
         beforeEach(function () {
 
@@ -240,7 +245,7 @@ describe("UserSettingsPanelHandler", function () {
             expect(businessProcessesModel.UserSetting.CurrentActive().O2C).toEqual(false);
         });
     });
-    describe("call InitialControlsLanguage ", function () {
+    describe(".InitialControlsLanguage ", function () {
 
         beforeEach(function () {
             spyOn(systemLanguageHandler, "GetEnableLanguages").and.callFake(function () {
@@ -262,7 +267,7 @@ describe("UserSettingsPanelHandler", function () {
         });
     });
 
-    describe("call InitialControlsRowExportToExcel", function () {
+    describe(".InitialControlsRowExportToExcel", function () {
 
         beforeEach(function () {
             spyOn(userSettingModel, "RowsExportToExcel").and.callFake(function () {
@@ -291,7 +296,7 @@ describe("UserSettingsPanelHandler", function () {
 
     });
 
-    describe("call InitialControlsFacetWarning", function () {
+    describe(".InitialControlsFacetWarning", function () {
 
         beforeEach(function () {
             $('body').append('<input id="ShowFacetAngleWarnings" type="checkbox">');
@@ -308,7 +313,7 @@ describe("UserSettingsPanelHandler", function () {
         });
     });
 
-    describe("call InitialControlsFieldChooser", function () {
+    describe(".InitialControlsFieldChooser", function () {
 
         beforeEach(function () {
             $('body').append('<input id="DefaultStarredfields" type="checkbox">');
@@ -333,7 +338,7 @@ describe("UserSettingsPanelHandler", function () {
         });
     });
 
-    describe("call InitialControlsTechnicalInfo ", function () {
+    describe(".InitialControlsTechnicalInfo ", function () {
 
         beforeEach(function () {
             $('body').append('<input id="SapFieldsInChooser" type="checkbox">');
@@ -358,7 +363,7 @@ describe("UserSettingsPanelHandler", function () {
         });
     });
 
-    describe("call InitialControlsNumberGeneral", function () {
+    describe(".InitialControlsNumberGeneral", function () {
         var decimalTemp;
         var thousanSeparatorTemp;
         beforeEach(function () {
@@ -389,7 +394,7 @@ describe("UserSettingsPanelHandler", function () {
         });
     });
 
-    describe("call InitialControlsNumber", function () {
+    describe(".InitialControlsNumber", function () {
 
         beforeEach(function () {
             spyOn(userSettingsPanelHandler, "RenderFormatSettingDropdownlist").and.callFake($.noop);
@@ -419,7 +424,7 @@ describe("UserSettingsPanelHandler", function () {
 
     });
 
-    describe("call InitialControlsCurrency", function () {
+    describe(".InitialControlsCurrency", function () {
 
         beforeEach(function () {
             spyOn(popup, "Alert").and.callFake($.noop);
@@ -463,7 +468,7 @@ describe("UserSettingsPanelHandler", function () {
 
     });
 
-    describe("call InitialControlsPercentages", function () {
+    describe(".InitialControlsPercentages", function () {
 
         beforeEach(function () {
             spyOn(userSettingsPanelHandler, "RenderFormatSettingDropdownlist").and.callFake($.noop);
@@ -493,7 +498,7 @@ describe("UserSettingsPanelHandler", function () {
 
     });
 
-    describe("call InitialControlsDate", function () {
+    describe(".InitialControlsDate", function () {
         beforeEach(function () {
             spyOn(userSettingsPanelHandler, "RenderFormatSettingDropdownlist").and.callFake($.noop);
             spyOn(WC.FormatHelper, "GetUserDefaultFormatSettings").and.callFake(function () {
@@ -511,7 +516,7 @@ describe("UserSettingsPanelHandler", function () {
         });
     });
 
-    describe("call InitialControlsTime", function () {
+    describe(".InitialControlsTime", function () {
         beforeEach(function () {
             spyOn(userSettingsPanelHandler, "RenderFormatSettingDropdownlist").and.callFake($.noop);
             spyOn(WC.FormatHelper, "GetUserDefaultFormatSettings").and.callFake(function () {
@@ -530,7 +535,7 @@ describe("UserSettingsPanelHandler", function () {
         });
     });
 
-    describe("call InitialControlsEnum", function () {
+    describe(".InitialControlsEnum", function () {
         beforeEach(function () {
             spyOn(userSettingsPanelHandler, "RenderFormatSettingDropdownlist").and.callFake($.noop);
             spyOn(WC.FormatHelper, "GetUserDefaultFormatSettings").and.callFake(function () {
@@ -546,7 +551,7 @@ describe("UserSettingsPanelHandler", function () {
         });
     });
 
-    describe("call InitialControlsExecuteLastSearch ", function () {
+    describe(".InitialControlsExecuteLastSearch ", function () {
 
         beforeEach(function () {
             $('body').append('<input id="autoExecuteLastSearch" type="checkbox">');
@@ -563,7 +568,7 @@ describe("UserSettingsPanelHandler", function () {
         });
     });
 
-    describe("call InitialControlsExecuteItem", function () {
+    describe(".InitialControlsExecuteItem", function () {
 
         beforeEach(function () {
             $('body').append('<input id="autoExecuteItemsOnLogin" type="checkbox">');
@@ -586,7 +591,7 @@ describe("UserSettingsPanelHandler", function () {
         });
     });
 
-    describe("call RenderFormatSettingDropdownlist", function () {
+    describe(".RenderFormatSettingDropdownlist", function () {
 
         beforeEach(function () {
             spyOn(WC.HtmlHelper, "DropdownList").and.callFake(function (elementId, datas, kendoDropDownOption) {
@@ -647,7 +652,7 @@ describe("UserSettingsPanelHandler", function () {
 
     });
 
-    describe("call SetDefaultItemDropdownList", function () {
+    describe(".SetDefaultItemDropdownList", function () {
 
         it("should get dropdown if element exist", function () {
             spyOn(WC.HtmlHelper, "DropdownList").and.callFake(function () { return { value: $.noop }; });
@@ -663,7 +668,7 @@ describe("UserSettingsPanelHandler", function () {
 
     });
 
-    describe("call GetDefaulModel", function () {
+    describe(".GetDefaulModel", function () {
 
         beforeEach(function () {
             userSettingsPanelHandler.DataModels = {
@@ -697,11 +702,10 @@ describe("UserSettingsPanelHandler", function () {
         });
     });
 
-    describe("call SaveUserSettings", function () {
+    describe(".SaveUserSettings", function () {
 
         beforeEach(function () {
             spyOn(popup, 'Alert').and.callFake($.noop);
-            spyOn(requestHistoryModel, 'SaveLastExecute').and.callFake($.noop);
             spyOn(userSettingModel, 'Data').and.callFake(function () { return {}; });
             spyOn(userSettingsPanelHandler, 'SetDefaultBusinessProcess').and.callFake($.noop);
             spyOn(userSettingsPanelHandler, 'SetLanguage').and.callFake($.noop);
@@ -809,7 +813,7 @@ describe("UserSettingsPanelHandler", function () {
 
     });
 
-    describe("call SetDefaultBusinessProcess", function () {
+    describe(".SetDefaultBusinessProcess", function () {
 
         beforeEach(function () {
             businessProcessesModel.UserSetting = {
@@ -834,7 +838,7 @@ describe("UserSettingsPanelHandler", function () {
             expect(userSettings[enumHandlers.USERSETTINGS.DEFAULT_BUSINESS_PROCESSES]).toEqual(undefined);
         });
     });
-    describe("call SetLanguage", function () {
+    describe(".SetLanguage", function () {
         beforeEach(function () {
             spyOn(WC.HtmlHelper, "DropdownList").and.callFake(function () {
                 var value = {
@@ -860,7 +864,7 @@ describe("UserSettingsPanelHandler", function () {
         });
     });
 
-    describe("call SetNumberExportExcel", function () {
+    describe(".SetNumberExportExcel", function () {
 
         beforeEach(function () {
             spyOn(WC.HtmlHelper, "DropdownList").and.callFake(function () {
@@ -888,7 +892,7 @@ describe("UserSettingsPanelHandler", function () {
         });
     });
 
-    describe("call SetTechnicalInfoSapFieldChooser", function () {
+    describe(".SetTechnicalInfoSapFieldChooser", function () {
 
         beforeEach(function () {
             spyOn(WC.HtmlHelper, "GetCheckBoxStatus").and.callFake(function () {
@@ -910,7 +914,7 @@ describe("UserSettingsPanelHandler", function () {
         });
     });
 
-    describe("call SetTechnicalInfoSapFieldHeader", function () {
+    describe(".SetTechnicalInfoSapFieldHeader", function () {
 
         beforeEach(function () {
             spyOn(WC.HtmlHelper, "GetCheckBoxStatus").and.callFake(function () {
@@ -933,7 +937,7 @@ describe("UserSettingsPanelHandler", function () {
         });
     });
 
-    describe("call SetEnumFormat", function () {
+    describe(".SetEnumFormat", function () {
 
         it("should set enum format", function () {
             spyOn(WC.HtmlHelper, "DropdownList").and.callFake(function () {
@@ -966,7 +970,7 @@ describe("UserSettingsPanelHandler", function () {
         });
     });
 
-    describe("call SetCurrencyType", function () {
+    describe(".SetCurrencyType", function () {
 
         it("should set currency type", function () {
             var defaultUserSetting = { default_currency: "USD" },
@@ -985,7 +989,7 @@ describe("UserSettingsPanelHandler", function () {
         });
     });
 
-    describe("call SetNumberFormat", function () {
+    describe(".SetNumberFormat", function () {
 
         beforeEach(function () {
             spyOn(WC.HtmlHelper, "GetCheckBoxStatus").and.callFake(function () {
@@ -1036,7 +1040,7 @@ describe("UserSettingsPanelHandler", function () {
         });
     });
 
-    describe("call SetCurrencyFormat", function () {
+    describe(".SetCurrencyFormat", function () {
 
         beforeEach(function () {
             spyOn(WC.HtmlHelper, "GetCheckBoxStatus").and.callFake(function () {
@@ -1085,7 +1089,7 @@ describe("UserSettingsPanelHandler", function () {
         });
     });
 
-    describe("call SetPercentFormat", function () {
+    describe(".SetPercentFormat", function () {
 
         beforeEach(function () {
             spyOn(WC.HtmlHelper, "GetCheckBoxStatus").and.callFake(function () {
@@ -1134,7 +1138,7 @@ describe("UserSettingsPanelHandler", function () {
         });
     });
 
-    describe("call SetDateFormat", function () {
+    describe(".SetDateFormat", function () {
 
         beforeEach(function () {
             spyOn(WC.HtmlHelper, "DropdownList").and.callFake(function (val) {
@@ -1173,7 +1177,7 @@ describe("UserSettingsPanelHandler", function () {
         });
     });
 
-    describe("call SetTimeFormat", function () {
+    describe(".SetTimeFormat", function () {
 
         beforeEach(function () {
             spyOn(WC.HtmlHelper, "DropdownList").and.callFake(function (val) {
@@ -1208,7 +1212,7 @@ describe("UserSettingsPanelHandler", function () {
         });
     });
 
-    describe("call SetAutoExecuteLastSearch", function () {
+    describe(".SetAutoExecuteLastSearch", function () {
 
         it("should set auto execute last search", function () {
             spyOn(WC.HtmlHelper, "GetCheckBoxStatus").and.callFake(function () {
@@ -1231,7 +1235,7 @@ describe("UserSettingsPanelHandler", function () {
         });
     });
 
-    describe("call SetAutoExecuteAtLogin", function () {
+    describe(".SetAutoExecuteAtLogin", function () {
 
         it("should set auto execute at login", function () {
             spyOn(WC.HtmlHelper, "GetCheckBoxStatus").and.callFake(function () {
@@ -1254,7 +1258,7 @@ describe("UserSettingsPanelHandler", function () {
         });
     });
 
-    describe("call SetClientSetting", function () {
+    describe(".SetClientSetting", function () {
 
         beforeEach(function () {
             spyOn(WC.HtmlHelper, "GetCheckBoxStatus").and.callFake(function (value) {
@@ -1312,28 +1316,14 @@ describe("UserSettingsPanelHandler", function () {
         });
     });
 
-    describe("call SaveUserSettingsCallback", function () {
-        var searchPageHandlerTemp;
-        var anglePageHandlerTemp;
-        var dashboardHandlerTemp;
+    describe(".SaveUserSettingsCallback", function () {
         var data;
         beforeEach(function () {
             spyOn(userSettingsPanelHandler, "ClearLocalStorageAfterChangeUserSetting").and.callFake($.noop);
             spyOn(searchQueryModel, "Search").and.callFake($.noop);
-            spyOn(searchQueryModel, "SetUIOfAdvanceSearchFromParams").and.callFake($.noop);
-            spyOn(userSettingsPanelHandler, "RenderSingleDrilldown").and.callFake($.noop);
-            spyOn(userSettingsPanelHandler, "RenderDisplayView").and.callFake($.noop);
+            spyOn(searchQueryModel, "SetUIOfAdvanceSearchFromParams");
             spyOn(window, "ReloadWebPage").and.callFake($.noop);
             data = { default_language: 'en' };
-            searchPageHandlerTemp = window.searchPageHandler;
-            anglePageHandlerTemp = window.anglePageHandler;
-            anglePageHandlerTemp = window.anglePageHandler;
-        });
-
-        afterEach(function () {
-            window.searchPageHandler = searchPageHandlerTemp;
-            window.anglePageHandler = anglePageHandlerTemp;
-            window.dashboardHandler = dashboardHandlerTemp;
         });
 
         it("reload after change, function ReloadWebPage have been called", function () {
@@ -1341,34 +1331,34 @@ describe("UserSettingsPanelHandler", function () {
             userSettingsPanelHandler.SaveUserSettingsCallback(data);
             expect(window.ReloadWebPage).toHaveBeenCalled();
         });
-        it("in angle page, function RenderDisplayView have been called", function () {
+        it("in angle page, function ExecuteAngle have been called", function () {
             spyOn(userSettingModel, "ReloadAfterChanged").and.callFake(function () { return false; });
-            window.searchPageHandler = undefined;
-            window.anglePageHandler = {};
+            spyOn(anglePageHandler, 'ExecuteAngle');
+            delete window.searchPageHandler;
             userSettingsPanelHandler.SaveUserSettingsCallback(data);
-            expect(userSettingsPanelHandler.RenderDisplayView).toHaveBeenCalled();
+            expect(anglePageHandler.ExecuteAngle).toHaveBeenCalled();
         });
         it("in dashboard page, function ReApplyResult have been called", function () {
             spyOn(userSettingModel, "ReloadAfterChanged").and.callFake(function () { return false; });
-            window.searchPageHandler = undefined;
-            window.anglePageHandler = undefined;
-            window.dashboardHandler = { ReApplyResult: $.noop };
-            spyOn(dashboardHandler, "ReApplyResult").and.callFake(function () { });
+            delete window.searchPageHandler;
+            delete window.anglePageHandler;
+            spyOn(dashboardPageHandler, "ReApplyResult");
+
             userSettingsPanelHandler.SaveUserSettingsCallback(data);
-            expect(dashboardHandler.ReApplyResult).toHaveBeenCalled();
+            expect(dashboardPageHandler.ReApplyResult).toHaveBeenCalled();
         });
         it("should do nothing if in others page", function () {
             spyOn(userSettingModel, "ReloadAfterChanged").and.callFake(function () { return false; });
-            window.searchPageHandler = undefined;
-            window.anglePageHandler = undefined;
-            window.dashboardHandler = undefined;
+            delete window.searchPageHandler;
+            delete window.anglePageHandler;
+            delete window.dashboardPageHandler;
             userSettingsPanelHandler.SaveUserSettingsCallback(data);
 
-            expect(userSettingsPanelHandler.RenderDisplayView).not.toHaveBeenCalled();
+            expect(toast.MakeSuccessText).toHaveBeenCalled();
         });
     });
 
-    describe("call ClearLocalStorageAfterChangeUserSetting", function () {
+    describe(".ClearLocalStorageAfterChangeUserSetting", function () {
 
         beforeEach(function () {
             jQuery.localStorage('mouse', 'mouse');
@@ -1384,97 +1374,8 @@ describe("UserSettingsPanelHandler", function () {
             expect(jQuery.localStorage('mouse')).toEqual(null);
         });
     });
-    describe("call RenderDisplayView", function () {
 
-        beforeEach(function () {
-            fieldsChooserModel.GridName = 'myGrid';
-            spyOn(listHandler, "GetListDisplay").and.callFake($.noop);
-            spyOn(chartHandler, "GetChartDisplay").and.callFake($.noop);
-            spyOn(pivotPageHandler, "GetPivotDisplay").and.callFake($.noop);
-            spyOn(angleInfoModel, "UpdateAngleQuerySteps").and.callFake($.noop);
-            spyOn(resultModel, "SetResultExecution").and.callFake($.noop);
-        });
-
-        it("not have model data, SetResultExecution should not becalled", function () {
-            spyOn(displayModel, "Data").and.callFake(function () { return false; });
-            userSettingsPanelHandler.RenderDisplayView();
-            expect(resultModel.SetResultExecution).not.toHaveBeenCalled();
-        });
-
-        it("grid name is drilldown, SetResultExecution should not becalled", function () {
-            fieldsChooserModel.GridName = enumHandlers.FIELDCHOOSERNAME.LISTDRILLDOWN;
-            userSettingsPanelHandler.RenderDisplayView();
-            expect(resultModel.SetResultExecution).not.toHaveBeenCalled();
-        });
-
-        it("listHandler, render should be called", function () {
-            spyOn(displayModel, "Data").and.callFake(function () { return { display_type: 'list' }; });
-            userSettingsPanelHandler.RenderDisplayView();
-            expect(listHandler.GetListDisplay).toHaveBeenCalled();
-        });
-
-        it("chartHandler, get chart display should be called", function () {
-            spyOn(displayModel, "Data").and.callFake(function () { return { display_type: 'chart' }; });
-            userSettingsPanelHandler.RenderDisplayView();
-            expect(chartHandler.GetChartDisplay).toHaveBeenCalled();
-        });
-
-        it("pivotPageHandler, get pivot display should be called", function () {
-            spyOn(displayModel, "Data").and.callFake(function () { return { display_type: 'pivot' }; });
-            userSettingsPanelHandler.RenderDisplayView();
-            expect(pivotPageHandler.GetPivotDisplay).toHaveBeenCalled();
-        });
-
-        it("other display type, render functions should not be called", function () {
-            spyOn(displayModel, "Data").and.callFake(function () { return { display_type: 'other' }; });
-            userSettingsPanelHandler.RenderDisplayView();
-            expect(listHandler.GetListDisplay).not.toHaveBeenCalled();
-            expect(chartHandler.GetChartDisplay).not.toHaveBeenCalled();
-            expect(pivotPageHandler.GetPivotDisplay).not.toHaveBeenCalled();
-        });
-    });
-
-    describe("call RenderSingleDrilldown", function () {
-        beforeEach(function () {
-            fieldsChooserModel.GridName = 'ListDrilldownGrid';
-            fieldsChooserModel.BindDataGrid = '';
-            spyOn(listDrilldownHandler, "Render").and.callFake($.noop);
-            spyOn(fieldsChooserModel, "BindDataGrid").and.callFake($.noop);
-
-        });
-        afterEach(function () {
-            $('#ListDrilldownGrid').remove();
-            $('#ListGrid').remove();
-        });
-
-        it("BindDataGrid should be called", function () {
-            $('<div id="ListDrilldownGrid"></div>').data('kendoGrid', true).appendTo('body');
-            userSettingsPanelHandler.RenderSingleDrilldown();
-            expect(fieldsChooserModel.BindDataGrid).toHaveBeenCalled();
-        });
-
-        it("BindDataGrid should be called", function () {
-            $('<div id="ListGrid"></div>').data('kendoGrid', true).appendTo('body');
-            fieldsChooserModel.GridName = 'ListGrid';
-            userSettingsPanelHandler.RenderSingleDrilldown();
-            expect(fieldsChooserModel.BindDataGrid).toHaveBeenCalled();
-        });
-
-        it("when grid name is not list drill down, should not render drilldown", function () {
-            $('<div id="ListDrilldownGrid"></div>').data('kendoGrid', false).appendTo('body');
-            userSettingsPanelHandler.RenderSingleDrilldown();
-            expect(fieldsChooserModel.BindDataGrid).not.toHaveBeenCalled();
-        });
-
-        it("when drildown grid is not visible, BindDataGrid should not be called", function () {
-            $('<div id="ListDrilldownGrid"></div>').data('kendoGrid', true).appendTo('body');
-            $('#ListDrilldownGrid').hide();
-            userSettingsPanelHandler.RenderSingleDrilldown();
-            expect(fieldsChooserModel.BindDataGrid).not.toHaveBeenCalled();
-        });
-    });
-
-    describe("call ChangeDropdownFormat", function () {
+    describe(".ChangeDropdownFormat", function () {
 
         beforeEach(function () {
             spyOn(userSettingsPanelHandler, "ChangeGeneralFormat").and.callFake($.noop);
@@ -1527,7 +1428,7 @@ describe("UserSettingsPanelHandler", function () {
         });
     });
 
-    describe("call InitialExampleFormat", function () {
+    describe(".InitialExampleFormat", function () {
         beforeEach(function () {
             spyOn(userSettingsPanelHandler, "ChangeGeneralFormat").and.callFake($.noop);
             spyOn(userSettingsPanelHandler, "ChangeNumberFormat").and.callFake($.noop);
@@ -1544,7 +1445,7 @@ describe("UserSettingsPanelHandler", function () {
         });
     });
 
-    describe("call GetCustomCulture", function () {
+    describe(".GetCustomCulture", function () {
 
         beforeEach(function () {
             spyOn(WC.HtmlHelper, "DropdownList").and.callFake(function (val) {
@@ -1574,7 +1475,7 @@ describe("UserSettingsPanelHandler", function () {
         });
     });
 
-    describe("call ChangePercentagesFormat", function () {
+    describe(".ChangePercentagesFormat", function () {
 
         var userSettingHandler2;
 
@@ -1614,7 +1515,7 @@ describe("UserSettingsPanelHandler", function () {
 
     });
 
-    describe("call ChangeDateFormat", function () {
+    describe(".ChangeDateFormat", function () {
 
         var userSettingHandler2;
 
@@ -1666,7 +1567,7 @@ describe("UserSettingsPanelHandler", function () {
 
     });
 
-    describe("call ChangeTimeFormat", function () {
+    describe(".ChangeTimeFormat", function () {
 
         var userSettingHandler2;
 
@@ -1715,7 +1616,7 @@ describe("UserSettingsPanelHandler", function () {
 
     });
 
-    describe("call ChangeGeneralFormat", function () {
+    describe(".ChangeGeneralFormat", function () {
 
         beforeEach(function () {
             spyOn(WC.HtmlHelper, "DropdownList").and.callFake(function (val) {
@@ -1745,7 +1646,7 @@ describe("UserSettingsPanelHandler", function () {
         });
     });
 
-    describe("call ChangeNumberFormat", function () {
+    describe(".ChangeNumberFormat", function () {
 
         beforeEach(function () {
             spyOn(WC.HtmlHelper, "DropdownList").and.callFake(function (val) {
@@ -1782,7 +1683,7 @@ describe("UserSettingsPanelHandler", function () {
         });
     });
 
-    describe("call ChangeCurerncyFormat", function () {
+    describe(".ChangeCurerncyFormat", function () {
 
         beforeEach(function () {
             spyOn(WC.HtmlHelper, "DropdownList").and.callFake(function (val) {
@@ -1821,7 +1722,7 @@ describe("UserSettingsPanelHandler", function () {
         });
     });
 
-    describe("call ChangeSetFormat", function () {
+    describe(".ChangeSetFormat", function () {
 
         var userSettingHandler2;
 
@@ -1874,7 +1775,7 @@ describe("UserSettingsPanelHandler", function () {
 
     });
 
-    describe("call GetHourFormat", function () {
+    describe(".GetHourFormat", function () {
 
         it("set hour HH and no second, should return format HHMM", function () {
 
@@ -1909,7 +1810,7 @@ describe("UserSettingsPanelHandler", function () {
         });
     });
 
-    describe("call GetHoursFromFieldFormat", function () {
+    describe(".GetHoursFromFieldFormat", function () {
 
         it("should get h", function () {
             var format = 'h:mm';
@@ -1930,7 +1831,7 @@ describe("UserSettingsPanelHandler", function () {
         });
     });
 
-    describe("call GetSecondsFromSetting", function () {
+    describe(".GetSecondsFromSetting", function () {
 
         it("should get value as it if have value", function () {
             var second = enumHandlers.TIME_TEMPLATE.SS;
@@ -1945,7 +1846,7 @@ describe("UserSettingsPanelHandler", function () {
         });
     });
 
-    describe("call GetSecondDropdownValue", function () {
+    describe(".GetSecondDropdownValue", function () {
 
         it("should get ss if value is string type", function () {
             var second = enumHandlers.TIME_TEMPLATE.SS;
@@ -1960,7 +1861,7 @@ describe("UserSettingsPanelHandler", function () {
         });
     });
 
-    describe("call SetSecondFormat", function () {
+    describe(".SetSecondFormat", function () {
 
         it("should set format if second is string type and not default", function () {
             var details = {};
@@ -1987,6 +1888,7 @@ describe("UserSettingsPanelHandler", function () {
     describe(".Init", function () {
 
         beforeEach(function () {
+            WC.HtmlHelper.Tab = $.noop;
             spyOn(userSettingsPanelHandler, 'TogglePanel').and.callFake(jQuery.noop);
             spyOn(stateManagerTest, 'RestoreSettings').and.callFake(jQuery.noop);
             spyOn(userSettingsPanelHandler, 'LoadData').and.callFake(jQuery.noop);
@@ -2039,35 +1941,22 @@ describe("UserSettingsPanelHandler", function () {
 
     describe(".RestoreSettings", function () {
 
-        beforeEach(function () {
-            jQuery('body')
-                .append('<input type="radio" name="settingsPanelTab" id="SettingsPanelUserTab">')
-                .append('<input type="radio" name="settingsPanelTab" id="SettingsPanelSystemTab">')
-                .append('<input type="radio" name="settingsPanelTab" id="SettingsPanelFormatTab">')
-
-                .append('<div class="settingsPanelContent" id="SettingsPanelUserContent">')
-                .append('<div class="settingsPanelContent" id="SettingsPanelSystemContent">')
-                .append('<div class="settingsPanelContent" id="SettingsPanelFormatContent">');
-        });
-
-        afterEach(function () {
-            jQuery('.settingsPanelTab, .settingsPanelContent').remove();
-        });
-
-        it("should set first tab as a active tab by default", function () {
-            stateManagerTest.RestoreSettings();
-            expect(jQuery('#SettingsPanelUserContent').hasClass('active')).toEqual(true);
-        });
-
         it("should restore tab from previously", function () {
+            spyOn($, 'localStorage').and.returnValue({
+                tab: { index: 1 },
+                accordions: { accordion1: true, accordion2: false }
+            });
+            spyOn($.fn, 'data').and.returnValue({
+                active: $.noop
+            });
+            spyOn($.fn, 'removeClass').and.returnValue($());
+            spyOn($.fn, 'addClass').and.returnValue($());
             stateManagerTest.RestoreSettings();
-            stateManagerTest.ChangeTab('SettingsPanelSystemTab', 'SettingsPanelSystemContent');
 
-            expect(jQuery('#SettingsPanelUserTab').prop('checked')).toEqual(false);
-            expect(jQuery('#SettingsPanelSystemTab').prop('checked')).toEqual(true);
-
-            expect(jQuery('#SettingsPanelUserContent').hasClass('active')).toEqual(false);
-            expect(jQuery('#SettingsPanelSystemContent').hasClass('active')).toEqual(true);
+            // assert
+            expect($.fn.data).toHaveBeenCalled();
+            expect($.fn.removeClass).toHaveBeenCalled();
+            expect($.fn.addClass).toHaveBeenCalled();
         });
 
     });

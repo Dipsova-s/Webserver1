@@ -18,13 +18,10 @@ function AngleActionMenuHandler(base) {
         WC.HtmlHelper.ActionMenu.CreateActionMenuItems('#ActionDropdownListPopup .k-window-content', '#ActionDropdownListTablet', data, self.CallActionDropdownFunction);
 
         // action menu responsive
-        WC.HtmlHelper.ActionMenu('#ActionSelect');
+        WC.HtmlHelper.ActionMenu('#ActionSelect', false);
     };
     self.GetEditModeMenu = function () {
         var actionIds = [
-            enumHandlers.ANGLEACTION.SAVE.Id,
-            enumHandlers.ANGLEACTION.SAVEAS.Id,
-            enumHandlers.ANGLEACTION.EDITDISPLAY.Id,
             enumHandlers.ANGLEACTION.PASTEDISPLAY.Id,
             enumHandlers.ANGLEACTION.EXECUTEDISPLAY.Id
         ];
@@ -72,8 +69,6 @@ function AngleActionMenuHandler(base) {
         var createDisplayData = self.GetCreateDisplayFromAggregationData();
         jQuery.extend(privileges, createDisplayData);
 
-        privileges[enumHandlers.ANGLEACTION.EDITDISPLAY.Id] = { Enable: self.CanEditDisplay(), Visible: true };
-
         // execute display will be visible in editmode, so it don't care about disable or enable
         privileges[enumHandlers.ANGLEACTION.EXECUTEDISPLAY.Id] = { Enable: self.HandlerValidation.Display.CanPostResult, Visible: self.CanExecuteDisplay() };
 
@@ -84,11 +79,8 @@ function AngleActionMenuHandler(base) {
 
         // find only available in list display
         privileges[enumHandlers.ANGLEACTION.FIND.Id] = { Enable: self.CanFindRow(), Visible: self.IsFindOptionVisible() };
-
-        privileges[enumHandlers.ANGLEACTION.NEWDISPLAY.Id] = { Enable: self.CanCreateNewDisplay(), Visible: true };
+        
         privileges[enumHandlers.ANGLEACTION.PASTEDISPLAY.Id] = { Enable: self.CanPasteDisplay(), Visible: true };
-        privileges[enumHandlers.ANGLEACTION.SAVE.Id] = { Enable: self.CanQuickSave(), Visible: true };
-        privileges[enumHandlers.ANGLEACTION.SAVEAS.Id] = { Enable: self.CanQuickSaveAs(), Visible: true };
 
         // SCHEDULEANGLE visibility will depend on priviledge and it can use for saved Display
         var scheduleAnglesData = self.GetScheduleAnglesData();
@@ -116,18 +108,6 @@ function AngleActionMenuHandler(base) {
     self.IsFindOptionVisible = function () {
         var model = modelsHandler.GetModelByUri(angleInfoModel.Data().model);
         return !aboutSystemHandler.IsRealTimeModel(model.id);
-    };
-    self.CanQuickSave = function () {
-        return displayModel.Data().authorizations.update;
-    };
-    self.CanQuickSaveAs = function () {
-        return angleInfoModel.Data().authorizations.create_private_display
-            && !self.HandlerValidation.Angle.InvalidBaseClasses
-            && angleInfoModel.AllowMoreDetails();
-    };
-    self.CanEditDisplay = function () {
-        // all user can open Display popup for set their personal things
-        return true;
     };
     self.CanExecuteDisplay = function () {
         // execute display will be visible in editmode
@@ -215,12 +195,8 @@ function AngleActionMenuHandler(base) {
         if (!jQuery(obj).hasClass('disabled')) {
             var actions = {};
             actions[enumHandlers.ANGLEACTION.ADDTODASHBOARD.Id] = [self, self.ShowAddToDashboardPopup];
-            actions[enumHandlers.ANGLEACTION.SAVE.Id] = [self, self.QuickSaveDisplay];
-            actions[enumHandlers.ANGLEACTION.SAVEAS.Id] = [self, self.QuickSaveDisplayAs];
             actions[enumHandlers.ANGLEACTION.COPYDISPLAY.Id] = [displayCopyHandler, displayCopyHandler.CopyDisplay];
             actions[enumHandlers.ANGLEACTION.PASTEDISPLAY.Id] = [displayCopyHandler, displayCopyHandler.PasteDisplay];
-            actions[enumHandlers.ANGLEACTION.EDITDISPLAY.Id] = [displayDetailPageHandler, displayDetailPageHandler.ShowPopup];
-            actions[enumHandlers.ANGLEACTION.NEWDISPLAY.Id] = [displayModel, displayModel.CreateNewDisplay];
             actions[enumHandlers.ANGLEACTION.CREATELIST.Id] = [displayModel, displayModel.CreateDisplayFromChartOrPivot, [enumHandlers.DISPLAYTYPE.LIST]];
             actions[enumHandlers.ANGLEACTION.CREATECHART.Id] = [displayModel, displayModel.CreateDisplayFromChartOrPivot, [enumHandlers.DISPLAYTYPE.CHART]];
             actions[enumHandlers.ANGLEACTION.CREATEPIVOT.Id] = [displayModel, displayModel.CreateDisplayFromChartOrPivot, [enumHandlers.DISPLAYTYPE.PIVOT]];
@@ -238,23 +214,6 @@ function AngleActionMenuHandler(base) {
                 popup.Alert(Localization.Warning_Title, Localization.NotImplement);
         }
     };
-    self.QuickSaveDisplay = function () {
-        if (angleInfoModel.IsTemporaryAngle()) {
-            popup.Alert(Localization.Warning_Title, Localization.ErrorCannotSaveDisplay);
-        }
-        else if (displayModel.IsTemporaryDisplay()) {
-            displayDetailPageHandler.IsQuickSave = true;
-            displayDetailPageHandler.ShowSaveAsPopup(false);
-        }
-        else {
-            displayDetailPageHandler.IsQuickSave = true;
-            displayDetailPageHandler.Save();
-        }
-    };
-    self.QuickSaveDisplayAs = function () {
-        displayDetailPageHandler.IsQuickSave = true;
-        displayDetailPageHandler.ShowSaveAsPopup(!displayModel.IsTemporaryDisplay());
-    };
     self.ShowListFindPopup = function () {
         self.HandlerFind = new FindPopupHandler();
         self.HandlerFind.ShowPopup();
@@ -271,23 +230,15 @@ function AngleActionMenuHandler(base) {
         exportHandler.ShowExportPopup({ ExportType: enumHandlers.ANGLEACTION.EXPORTTOCSV.Id, DisplayType: displayModel.Data().display_type });
     };
     self.ShowAddFollowupPopup = function () {
-        var filterHandler = new WidgetFilterHandler(null, []);
-        filterHandler.ModelUri = angleInfoModel.Data().model;
-        filterHandler.Data(displayQueryBlockModel.TempQuerySteps());
-        filterHandler.FilterFor = filterHandler.FILTERFOR.DISPLAY;
-        followupPageHandler.SetHandlerValues(filterHandler, angleQueryStepModel.QuerySteps(), displayQueryBlockModel.TempQuerySteps());
-
+        var options = {};
         if (WC.Utility.UrlParameter(enumHandlers.ANGLEPARAMETER.LISTDRILLDOWN)) {
-            /*
-            M4-9633: Single item view: enable Actions menu: Add Followup
-            3.When clicked Add follow up
-            3.1.Show add follow up popup
-            */
-            followupPageHandler.ShowPopup({ ListDrilldown: true });
+            options.ListDrilldown = true;
         }
         else {
-            followupPageHandler.ShowPopup({ IsAdhoc: true });
+            options.IsAdhoc = true;
         }
+        anglePageHandler.HandlerDisplay.QueryDefinitionHandler.ShowAddJumpPopup(options);
+
     };
 
     /*EOF: Model Methods*/

@@ -9,22 +9,14 @@ function ResultViewModel() {
     var fnCheckGetResult;
 
     //BOF: View model properties
-    self.BaseClassName = ko.observable('');
-    self.TotalRow = ko.observable(0);
-    self.DisplayTotalRow = ko.observable(0);
-    self.ExecutionTime = ko.observable(0);
-    self.IsMinutes = false;
-    self.ResultDateTime = ko.observable(null);
     self.Data = ko.observable(null);
     self.PostingOptions = ko.observable({});
     self.RequestUri = null;
     self.Fields = [];
-    self.ResultFromDisplayType = ko.observable(null);
     self.DataFields = [];
     self.TemporaryAnglePosted = true;
     self.LastRenderInfo = {};
     self.CustomProgressbar = false;
-    self.AngleResultSummary = {};
     //EOF: View model properties
 
     //BOF: View model methods
@@ -51,7 +43,10 @@ function ResultViewModel() {
                 customExecuteStep: null,
 
                 // default current display
-                currentDisplay: displayModel.Data()
+                currentDisplay: displayModel.Data(),
+
+                // force to use this query
+                customQueryDefinition: []
             }, options);
 
         var currentDisplayQueryBlocks = displayQueryBlockModel.CollectQueryBlocks();
@@ -229,6 +224,12 @@ function ResultViewModel() {
             }
 
             self.TemporaryAnglePosted = true;
+            
+            // force to this query which is calculated outside
+            // this is use for a new logic, it will replace logic above
+            if (settings.customQueryDefinition.length) {
+                settings.data.query_definition = settings.customQueryDefinition;
+            }
         }
 
         // check if no uri return call function
@@ -249,7 +250,7 @@ function ResultViewModel() {
             angleInfoModel.Data().user_specific.times_executed = executionTime;
             angleInfoModel.Data.commit();
             angleInfoModel.TimeExcuted(executionTime);
-
+            
             return CreateDataToWebService(directoryHandler.ResolveDirectoryUri(settings.uri), settings.data)
                 .fail(function (xhr, status, error) {
                     self.ApplyResultFail(xhr, status, error, settings.useExecuteStep);
@@ -264,41 +265,29 @@ function ResultViewModel() {
         // disable errorHandler
         errorHandlerModel.Enable(false);
         progressbarModel.SetProgressBarText(null, null, Localization.ProgressBar_PostResult);
-
-        // find existing fail result in history
-        var history = {};
-        jQuery.each(historyModel.Data(), function (k, v) {
-            if (v.results && v.results.uri === self.Data().uri) {
-                history[k] = v;
-            }
-        });
-
+        
         // re-post
         return self.PostResult(self.PostingOptions())
             .then(function (data) {
                 return self.GetResult(data.uri);
             })
             .done(function () {
-                // update history
-                jQuery.each(history, function (key, value) {
-                    value.results = ko.toJS(self.Data());
-                    historyModel.Set(key, value);
-                });
                 self.ApplyResult();
             })
             .always(function () {
                 errorHandlerModel.Enable(true);
             });
     };
-    self.SetRetryPostResultToErrorPopup = function (httpStatusCode) {
-        if (httpStatusCode === 404) {
+    self.SetRetryPostResultToErrorPopup = function (xhr) {
+        if (xhr.status === 404) {
             // M4-38478
-            errorHandlerModel.Enable(false);
+            errorHandlerModel.IgnoreAjaxError(xhr);
             popup.Alert(Localization.Warning_Title, Localization.MessageAngleNeedsToBeReExecuted);
-            popup.OnCloseCallback = self.RetryPostResult;
-            setTimeout(function () {
-                errorHandlerModel.Enable(true);
-            }, 100);
+            popup.OnCloseCallback = function () {
+                anglePageHandler.HandlerDisplay.ClearPostResultData();
+                resultModel.ClearResult();
+                anglePageHandler.ExecuteAngle();
+            };
         }
     };
     self.LoadSuccess = function (data) {
@@ -320,46 +309,11 @@ function ResultViewModel() {
         }
 
         self.RequestUri = data.uri;
-        self.SetResultExecution(data);
         self.Data(data);
         return jQuery.when(data);
     };
-    self.SetResultExecution = function (data) {
-        self.SetBaseClassName(data);
-        self.TotalRow(data.row_count || 0);
-        self.DisplayTotalRow(data.object_count || 0);
-        self.IsMinutes = data.execution_time >= 60000;
-        var executionTimeSec;
-        if (self.IsMinutes)
-            executionTimeSec = ConvertMillisToMinutesAndSeconds(data.execution_time || 0);
-        else
-            executionTimeSec = ConvertMsToSec(data.execution_time || 0);
-
-        self.ExecutionTime(executionTimeSec);
-        self.ResultDateTime(WC.DateHelper.UnixTimeToLocalDate(data.modeldata_timestamp || 0));
-    };
-    self.SetBaseClassName = function (data) {
-        /*  M4-10057: Implement state transfers for angles/displays/dashboards
-            AS59 got rid of 'results/xxx/classes',
-            WC changed to use 'results/xxx/actual_classes'
-            and if actual_classes is nothing, used potential_classes instead
-        */
-        var classes = [];
-        if (data.actual_classes && data.actual_classes.length) {
-            classes = data.actual_classes;
-        }
-        else if (data.potential_classes && data.potential_classes.length) {
-            classes = data.potential_classes;
-        }
-
-        if (classes.length === 1) {
-            var baseClassId = classes[0];
-            var classObject = modelClassesHandler.GetClassById(baseClassId, data.model || angleInfoModel.Data().model) || { id: baseClassId };
-            self.BaseClassName(userFriendlyNameHandler.GetFriendlyName(classObject, enumHandlers.FRIENDLYNAMEMODE.SHORTNAME));
-        }
-        else {
-            self.BaseClassName('');
-        }
+    self.ClearResult = function () {
+        self.Data(null);
     };
 
     self.StartToObserveResult = function () {
@@ -638,15 +592,6 @@ function ResultViewModel() {
             })
             .done(function () {
                 if (isPostResult) {
-                    // save lastest uri
-                    if (typeof historyModel !== 'undefined') {
-                        historyModel.LastResultUri(self.Data().uri);
-                    }
-
-                    if (typeof exportExcelHandler !== 'undefined') {
-                        exportExcelHandler.SetData(angleInfoModel.Data());
-                    }
-
                     self.SetLatestRenderInfo();
                 }
             });
@@ -666,71 +611,6 @@ function ResultViewModel() {
     };
     self.GetDataFieldById = function (fieldId) {
         return self.DataFields.findObject('id', fieldId, false);
-    };
-    self.CalculateChangeFieldCollection = function (modelUri) {
-        var sessionPrivileges = privilegesViewModel.GetModelPrivilegesByUri(modelUri);
-        var privilageAllowMoreDetail = sessionPrivileges.length === 0 ? false : sessionPrivileges[0].privileges.allow_more_details;
-
-        return privilageAllowMoreDetail || angleInfoModel.Data().allow_more_details;
-    };
-    self.GetExecutionResultText = function (isTitleText) {
-        var text = '';
-        if (self.ResultDateTime()) {
-            var angleResultSummaryModel = {};
-            angleResultSummaryModel.SAPSystem = angleInfoModel.ModelName().FriendlyName();
-            text += angleResultSummaryModel.SAPSystem + ' ';
-
-            var resultDateText = WC.FormatHelper.GetFormattedValue(enumHandlers.FIELDTYPE.DATETIME_WC, self.ResultDateTime());
-            angleResultSummaryModel.resultDateTime = resultDateText;
-            text += angleResultSummaryModel.resultDateTime + ', ';
-
-            angleResultSummaryModel.baseClassName = "";
-            if (self.BaseClassName()) {
-                angleResultSummaryModel.baseClassName = self.BaseClassName();
-                text += angleResultSummaryModel.baseClassName + ', ';
-            }
-            else {
-                var baseClassNameArray = angleInfoModel.GetAngleBaseClasses();
-                for (var i = 0; i < baseClassNameArray[0].base_classes.length; i++) {
-
-                    var baseClassId = baseClassNameArray[0].base_classes[i];
-                    var classObject = modelClassesHandler.GetClassById(baseClassId, angleInfoModel.Data().model) || { id: baseClassId };
-                    var baseClassFriendlyName = userFriendlyNameHandler.GetFriendlyName(classObject, enumHandlers.FRIENDLYNAMEMODE.SHORTNAME);
-
-                    angleResultSummaryModel.baseClassName += baseClassFriendlyName + "<br/>";
-                }
-            }
-            var numberOfObjectFormat = new Formatter({ thousandseparator: true }, enumHandlers.FIELDTYPE.INTEGER);
-
-            angleResultSummaryModel.displayTotalRow = WC.FormatHelper.GetFormattedValue(numberOfObjectFormat, self.DisplayTotalRow());
-            angleResultSummaryModel.totalRow = WC.FormatHelper.GetFormattedValue(numberOfObjectFormat, self.TotalRow());
-
-            text += kendo.format('{0} {1} ', angleResultSummaryModel.displayTotalRow, Localization.AngleDefinitionAreaItemsIn);
-
-            var executionTime = parseFloat(self.ExecutionTime());
-            if (self.IsMinutes) {
-                angleResultSummaryModel.executionTime = executionTime.toFixed(1) + ' ' + Localization.AngleDefinitionAreaMin;
-                text += measurePerformance.GetTimeElapsed().toFixed(0) + ' ' + Localization.AngleDefinitionAreaSec;
-            }
-            else {
-                angleResultSummaryModel.executionTime = executionTime.toFixed(1) + ' ' + Localization.AngleDefinitionAreaSec;
-                text += measurePerformance.GetTimeElapsed().toFixed(0) + ' ' + Localization.AngleDefinitionAreaSec;
-            }
-
-            if (isTitleText) {
-                return text;
-            }
-            else {
-                self.AngleResultSummary = angleResultSummaryModel;
-                return '<span>' + text + '</span><a class="btnInfo icon icon-info" onclick="angleDetailPageHandler.ShowAngleResultSummary()"></a>';
-            }
-        }
-        else {
-            if (isTitleText)
-                return Localization.Info_AngleNotExecuted;
-            else
-                return '<i class="infoText">' + Localization.Info_AngleNotExecuted + '</i>';
-        }
     };
     self.GetDefaultResultAuthorizations = function () {
         return {

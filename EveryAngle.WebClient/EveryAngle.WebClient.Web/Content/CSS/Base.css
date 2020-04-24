@@ -280,54 +280,35 @@
 /* .helpTextPopup
 ============================================ */
 .helpTextPopup .k-window-titlebar > .icon {
-    display: inline-block;
-    position: relative;
-    top: 9px;
-    left: 4px;
+    float: left;
     width: 20px;
-    height: 20px;
-    margin-left: 2px;
+    height: 16px;
+    margin-left: 0;
+    margin-top: 10px;
     z-index: 2;
-}
-
-.helpTextPopup .k-window-titlebar .iconCategory img {
-    top: -2px;
-    position: relative;
 }
 
 .helpTextPopup .k-window-titlebar .iconStatus {
     cursor: pointer;
-    background: transparent none center center no-repeat;
+    background-image: none;
+    color: #f3aa18;
+    margin-left: 15px;
+    font-size: 14px;
 }
 
-.helpTextPopup .k-window-titlebar .DisplayPropertiesGridSignFavorite {
-    background-image: url('../../images/searchpage/icn_starred_active.svg');
-}
-
-.helpTextPopup .k-window-titlebar .DisplayPropertiesGridSignFavoriteDisable {
-    background-image: url('../../images/searchpage/icn_starred_inactive.svg');
+.helpTextPopup .k-window-titlebar .iconCategory {
+    margin-right: 5px;
 }
 
 .helpTextPopup .k-window-titlebar .DisplayPropertiesGridSignSuggest {
     background-image: url('../externalresource/icon_suggest.svg');
+    background-position: left top;
 }
 
-#ToggleWrapper {
-    position: absolute;
-    width: 100%;
-    height: 30px;
-    font-size: 12px;
-    overflow: hidden;
-    padding: 0 20px;
-    box-sizing: border-box;
-    border-bottom: 1px solid transparent;
-}
-
-#ToggleWrapper.fullDetail {
-    position: relative;
-    height: auto;
-    width: auto;
-    border: none;
+.helpTextPopup .k-window-titlebar .loader-spinner-inline {
+    cursor: default;
+    width: 9px;
+    height: 9px;
 }
 
 #YourNote {
@@ -335,13 +316,13 @@
     position: absolute;
     display: block;
     left: 20px;
-    bottom: -30px;
+    bottom: 3px;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
     font-size: 14px;
     color: #999;
-    width: 420px;
+    width: calc(50% - 90px);
     height: 22px;
     line-height: 22px !important;
     font-style: italic;
@@ -371,7 +352,7 @@
     left: 0;
     top: 0;
     height: 22px;
-    width: 345px;
+    width: calc(100% - 20px);
     line-height: 22px;
     border-width: 0;
     background-color: transparent;
@@ -394,39 +375,10 @@
     width: 48.5%;
 }
 
-#ToggleWrapper.fullDetail .DescriptionWrapper {
-    visibility: visible;
-}
-
 .DescriptionWrapper .sectionDefinitions {
     border-bottom-width: 0;
     margin-bottom: 0;
     padding-bottom: 0;
-}
-
-#ToggleWrapper .DottedVertical {
-    float: left;
-    visibility: hidden;
-    vertical-align: top;
-    position: relative;
-    top: 9px;
-    width: 3%;
-    left: 0;
-    height: 232px;
-}
-
-#ToggleWrapper .DottedVertical:before {
-    content: '';
-    position: absolute;
-    width: 50%;
-    height: 100%;
-    margin-left: -1px;
-    border-right: 1px dotted #777;
-    box-sizing: border-box;
-}
-
-#ToggleWrapper.fullDetail .DottedVertical {
-    visibility: visible;
 }
 
 #ToggleAngle {
@@ -576,10 +528,12 @@
     margin-top: -2px;
 }
 
-.angleInformation > .loading16x16 {
-    display: block;
-    cursor: wait !important;
-    background-color: transparent;
+.angleInformation > .loader-spinner-inline {
+    cursor: default;
+    width: 11px;
+    height: 11px;
+    margin-top: -1px;
+    margin-left: 5px;
 }
 
 .angleInformation span {
@@ -607,9 +561,8 @@
     cursor: pointer;
 }
 
-.k-window-draggable .angleInformation > div.SignFavorite.disabled,
-.k-window-draggable .angleInformation > div.SignFavoriteDisable.disabled {
-    cursor: move !important;
+.k-window-draggable .angleInformation > .loader-spinner-inline {
+    cursor: default;
 }
 
 /* .popupAngleInfo
@@ -897,29 +850,6 @@
     margin-right: 5px;
 }
 
-/* .popupExecuteParameters
-===================================== */
-.popupExecuteParameters {
-    min-width: 748px !important;
-}
-
-.popupExecuteParameters .DefInfo > label {
-    width: 210px;
-}
-
-.popupExecuteParameters .DefInfo > div {
-    margin-left: 215px;
-}
-
-.screenMinHeight .popupExecuteParameters .definitionList {
-    max-height: 395px;
-}
-
-.popupExecuteParameters .FilterCriteriaPlaceHolder + .StatSeparate,
-.popupExecuteParameters .AskForValue {
-    display: none !important;
-}
-
 /* .displayWrapper
 ============================================ */
 .displayWrapper {
@@ -956,31 +886,15 @@
     font-size: 12px;
     position: relative;
     display: block;
-    margin-left: 410px;
     overflow: hidden;
     z-index: 2;
-}
-
-.no-touch.safari .displayArea {
-    padding-left: 10px;
-    -webkit-margin-start: 400px !important; /* NOSONAR: safari bug */
-}
-
-.no-touch.safari #ChartArea.displayArea,
-.no-touch.safari .displayWrapper.full .displayArea {
-    -webkit-margin-start: 0 !important; /* NOSONAR: safari bug */
-}
-
-.displayWrapper.full .displayArea {
-    margin-left: 10px;
-}
-
-.displayWrapper.readonly .displayArea {
-    margin-left: 0;
-    padding-left: 0;
 }
 
 .displayWrapper.readonly .fieldListToggleButton,
 .displayWrapper.readonly .fieldListArea {
     display: none;
+}
+#ReferenceLabel.disabled  {
+    pointer-events: none;
+    opacity: 0.5; 
 }

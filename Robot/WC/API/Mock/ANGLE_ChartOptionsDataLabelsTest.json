@@ -1,0 +1,93 @@
+{
+    "id": "ANGLE_ChartOptionsDataLabelsTest", 
+    "assigned_labels": [
+      "S2D"
+    ],
+    "multi_lang_name": [
+      {
+        "lang": "en",
+        "text": "[ROBOT] Chart Options Data Labels Test"
+      }
+    ],
+    "multi_lang_description": [],
+    "query_definition": [
+      {
+        "queryblock_type": "base_classes",
+        "base_classes": [
+          "DeliveryNoteLine"
+        ]
+      }
+    ],
+    "display_definitions": [
+      {
+        "id": "d6a261d264f8c641fb0d2586744268455",
+        "display_type": "chart",
+        "is_angle_default": true,
+        "multi_lang_name": [
+          {
+            "lang": "en",
+            "text": "Chart"
+          }
+        ],
+        "multi_lang_description": [],
+        "display_details": "{\"chart_type\":\"column\",\"stack\":false,\"multi_axis\":true,\"layout\":null,\"drilldown_display\":\"dce2a29c71289f542b36c586743453029\",\"axistitle\":\"show\",\"axisvalue\":\"show\",\"datalabel\":\"mouse\",\"gridline\":\"show\",\"legend\":\"show\",\"range\":{\"start\":0,\"size\":50},\"count_index\":0}",
+        "query_blocks": [
+          {
+            "queryblock_type": "query_steps",
+            "query_steps": [
+              {
+                "step_type": "aggregation",
+                "aggregation_fields": [
+                  {
+                    "field": "count",
+                    "operator": "count"
+                  },
+                  {
+                    "source_field": "SalesOrderLine__SalesValue",
+                    "field": "sum_SalesOrderLine__SalesValue",
+                    "operator": "sum"
+                  }
+                ],
+                "grouping_fields": [
+                  {
+                    "source_field": "Plant__Plant",
+                    "tech_info": "T001W-WERKS",
+                    "field": "individual_Plant__Plant",
+                    "operator": "individual"
+                  },
+                  {
+                    "source_field": "DeliveryNoteHeader__SalesDocumentCategory",
+                    "tech_info": "LIKP-VBTYP",
+                    "field": "individual_DeliveryNoteHeader__SalesDocumentCategory",
+                    "operator": "individual"
+                  }
+                ]
+              }
+            ]
+          }
+        ],
+        "fields": [
+          {
+            "field": "individual_Plant__Plant",
+            "multi_lang_alias": [],
+            "field_details": "{\"pivot_area\":\"row\",\"format\":\"shnln\"}"
+          },
+          {
+            "field": "individual_DeliveryNoteHeader__SalesDocumentCategory",
+            "multi_lang_alias": [],
+            "field_details": "{\"pivot_area\":\"column\",\"format\":\"shnln\"}"
+          },
+          {
+            "field": "count",
+            "multi_lang_alias": [],
+            "field_details": "{\"pivot_area\":\"data\",\"prefix\":null,\"decimals\":0,\"thousandseparator\":true}"
+          },
+          {
+            "field": "sum_SalesOrderLine__SalesValue",
+            "multi_lang_alias": [],
+            "field_details": "{\"pivot_area\":\"data\",\"prefix\":\"K\",\"decimals\":0}"
+          }
+        ]
+      }
+    ]
+  }

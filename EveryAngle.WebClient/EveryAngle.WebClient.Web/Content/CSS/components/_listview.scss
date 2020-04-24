@@ -1,0 +1,57 @@
+@import '../abstracts/variables';
+
+/* .listview
+============================================ */
+.listview {
+    overflow: auto;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    max-height: 200px;
+    box-sizing: border-box;
+    background-color: #fff;
+    letter-spacing: .2px;
+
+    &.listview-popup {
+        border-radius: 2px;
+        border: 1px solid #e3e5e5;
+        box-shadow: $box-shadow;
+    }
+
+    .listview-item {
+        display: flex;
+        align-items: center;
+        cursor: default;
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0 10px;
+        min-height: 24px;
+        height: 24px;
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        background-color: #fff;
+
+        &:hover, &.active {
+            background-color: $general-border-color;
+            font-weight: bold;
+            letter-spacing: .15px;
+        }
+
+        &.disabled {
+            cursor: default;
+            opacity: .3;
+        }
+    }
+
+    &.display-listview {
+        label {
+            display: flex;
+        }
+
+        .name {
+            margin-left: 5px;
+            margin-right: 5px;
+        }
+    }
+}

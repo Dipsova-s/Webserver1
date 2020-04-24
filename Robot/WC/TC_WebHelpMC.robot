@@ -8,6 +8,9 @@ Test Teardown       Test Teardown MC WebHelp
 Force Tags          webhelp  webhelp_mc
 
 *** Test Cases ***
+# Prerequisite
+# 1. 2 models in the system: EA2_800 and EA4IT
+# 2. both are licensed and the status is up
 WebHelp MC
     Crop Overview Page
     Crop Custom Icons

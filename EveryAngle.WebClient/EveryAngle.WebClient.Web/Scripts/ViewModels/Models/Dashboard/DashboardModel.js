@@ -1,6 +1,6 @@
-var dashboardModel = new DashboardViewModel();
+var dashboardModel = new DashboardViewModel({});
 
-function DashboardViewModel() {
+function DashboardViewModel(model) {
     "use strict";
 
     //BOF: View model properties
@@ -15,6 +15,13 @@ function DashboardViewModel() {
     //EOF: View model properties
 
     //BOF: View model methods
+
+    self.HasData = function () {
+        return self.Data().uri;
+    };
+    self.Initial = function (model) {
+        self.SetData(model || {}, false, false);
+    };
 
     // GetInitialData: get initial dashboard data
     self.GetInitialData = function () {
@@ -64,17 +71,36 @@ function DashboardViewModel() {
 
     // GetDefaultLayoutConfig: get initial dashboard structure
     self.GetDefaultLayoutConfig = function (widgetCount) {
-        var structure;
-
-        if (widgetCount === 1)
-            structure = [{ items: ['100%'], height: '100%' }];
-        else if (widgetCount === 2 || widgetCount === 4)
-            structure = [{ items: ['50%', '50%'], height: 2 / widgetCount * 100 + '%' }];
-        else if (widgetCount === 3 || widgetCount === 5 || widgetCount === 6 || widgetCount === 9)
-            structure = [{ items: ['33.4%', '33.3%', '33.3%'], height: 3 / (Math.ceil(widgetCount / 3) * 3) * 100 + '%' }];
-        else
-            structure = [{ items: ['25%', '25%', '25%', '25%'], height: 4 / (Math.ceil(widgetCount / 4) * 4) * 100 + '%' }];
-
+        var sizes = {
+            1: ['100%'],
+            2: ['50%', '50%'],
+            3: ['33.4%', '33.3%', '33.3%'],
+            4: ['25%', '25%', '25%', '25%']
+        };
+        var structure = [];
+        if (widgetCount === 1) {
+            structure.push({ items: sizes[1], height: '100%' });
+        }
+        else if (widgetCount === 2) {
+            structure.push({ items: sizes[2], height: '100%' });
+        }
+        else if (widgetCount === 4) {
+            structure.push({ items: sizes[2], height: '50%' });
+            structure.push({ items: sizes[2], height: '50%' });
+        }
+        else if (widgetCount > 0) {
+            var mod3 = widgetCount % 3;
+            var mod4 = widgetCount % 4;
+            var mod = mod4 === 0 ? 4 : mod3 === 0 ? 3 : mod3 > mod4 ? 3 : 4;
+            var height = Math.floor(mod / (Math.ceil(widgetCount / mod) * mod) * 100);
+            var remainHeight = 100;
+            while (widgetCount > 0) {
+                structure.push({ items: sizes[Math.min(widgetCount, mod)], height: height + '%' });
+                remainHeight -= height;
+                widgetCount -= mod;
+            }
+            structure[structure.length - 1].height = height + remainHeight + '%';
+        }
         return { structure: structure };
     };
 
@@ -136,8 +162,9 @@ function DashboardViewModel() {
         data.id = ko.observable(data.id);
         data.assigned_labels = WC.Utility.ToArray(data.assigned_labels);
 
+        data.multi_lang_name = WC.Utility.ToArray(data.multi_lang_name);
+        data.multi_lang_description = WC.Utility.ToArray(data.multi_lang_description);
         if (data.multi_lang_name.length !== data.multi_lang_description.length) {
-
             var oriDescriptions = data.multi_lang_description.slice();
             data.multi_lang_description = [];
 
@@ -151,26 +178,22 @@ function DashboardViewModel() {
                 };
             }
         }
-        data.multi_lang_name = ko.observableArray(WC.Utility.ToArray(data.multi_lang_name));
-        data.multi_lang_description = ko.observableArray(WC.Utility.ToArray(data.multi_lang_description));
+        data.multi_lang_name = ko.observableArray(data.multi_lang_name);
+        data.multi_lang_description = ko.observableArray(data.multi_lang_description);
 
         // name
         data.name = function () {
-            if (self.Data())
-                return WC.Utility.GetDefaultMultiLangText(self.Data().multi_lang_name());
-
-            return '';
+            return WC.Utility.GetDefaultMultiLangText(self.Data().multi_lang_name());
         };
 
         // description
         data.description = function () {
-            if (self.Data())
-                return WC.Utility.GetDefaultMultiLangText(self.Data().multi_lang_description());
-
-            return '';
+            return WC.Utility.GetDefaultMultiLangText(self.Data().multi_lang_description());
         };
 
         // user_specific
+        if (!data.user_specific)
+            data.user_specific = {};
         data.user_specific.private_note = ko.observable(data.user_specific.private_note || '');
         data.user_specific.private_tags = ko.observableArray(WC.Utility.ToArray(data.user_specific.private_tags));
         data.user_specific.is_starred = ko.observable(data.user_specific.is_starred || false);
@@ -222,14 +245,6 @@ function DashboardViewModel() {
             self.ExtendDashboardFilter(data.filters[index]);
         });
 
-        // custom properties
-        data.model_name = ko.computed(function () {
-            return self.GetModel();
-        });
-        data.models_name = ko.computed(function () {
-            return self.GetModels().join('; ');
-        });
-
         self.Data(data);
 
         if (watcher && data.uri)
@@ -270,22 +285,8 @@ function DashboardViewModel() {
         // remove unused properties
         delete data.name;
         delete data.description;
-        delete data.model_name;
-        delete data.models_name;
 
         return data;
-    };
-
-    // GetShortDescription: get a short description
-    // @param
-    // - detail: html string
-    self.GetShortDescription = function (detail) {
-        var html = '';
-        if (detail) {
-            detail = WC.HtmlHelper.StripHTML(detail, true);
-            html = detail + html;
-        }
-        return html;
     };
 
     // CreateDashboard: create dashboard from data
@@ -350,7 +351,7 @@ function DashboardViewModel() {
                 return jQuery.when(widget.GetData());
             }
             else {
-                return UpdateDataToWebService(widget.uri + '?multilingual=yes', data)
+                return UpdateDataToWebService(widget.uri + '?multilingual=yes&forced=true', data)
                     .then(function (data) {
                         widget.SetData(data);
 
@@ -365,53 +366,28 @@ function DashboardViewModel() {
     // - id: widget id
     // - layout: dashboard layout to be update after delete the widget
     self.DeleteWidgetById = function (id, layout) {
-        var widget = self.GetWidgetById(id);
-        var getLayoutData = function () {
-            if (typeof layout === 'string') {
-                layout = WC.Utility.ParseJSON(layout, self.GetDefaultLayoutConfig(self.Data().widget_definitions.length));
-            }
-            layout.widgets = [];
-            jQuery.each(self.Data().widget_definitions, function (index, widgetObject) {
-                layout.widgets.push(widgetObject.id);
-            });
-            return { layout: JSON.stringify(layout) };
-        };
+        if (self.IsTemporaryDashboard()) {
+            // remove widget
+            self.Data().widget_definitions.removeObject('id', id);
+            self.Data().layout = layout;
+            return jQuery.when(true);
+        }
+        else {
+            var widget = self.GetWidgetById(id);
+            return DeleteDataToWebService(widget.uri)
+                .then(function () {
+                    // remove widget
+                    self.Data().widget_definitions.removeObject('id', id);
 
-        if (widget) {
-            if (self.IsTemporaryDashboard()) {
-                // remove widget
-                self.Data().widget_definitions.removeObject('id', id);
-
-                if (typeof layout !== 'undefined') {
-                    self.Data().layout = getLayoutData();
-                }
-                return jQuery.when(true);
-            }
-            else {
-                return DeleteDataToWebService(widget.uri)
-                    .then(function () {
-                        // remove widget
-                        self.Data().widget_definitions.removeObject('id', id);
-
-                        var deferred = jQuery.Deferred();
-                        if (typeof layout !== 'undefined') {
-                            var data = getLayoutData();
-                            setTimeout(function () {
-                                self.SaveDashboard(data)
-                                    .fail(function () {
-                                        deferred.reject(false);
-                                    })
-                                    .done(function () {
-                                        deferred.resolve(true);
-                                    });
-                            }, 1000);
-                        }
-                        else {
-                            deferred.resolve(true);
-                        }
-                        return deferred.promise();
-                    });
-            }
+                    var deferred = jQuery.Deferred();
+                    var data = { layout: JSON.stringify(layout) };
+                    setTimeout(function () {
+                        self.SaveDashboard(data)
+                            .fail(deferred.reject)
+                            .done(deferred.resolve);
+                    }, 1000);
+                    return deferred.promise();
+                });
         }
     };
 
@@ -426,42 +402,36 @@ function DashboardViewModel() {
     // @param
     // - data: object
     self.SaveDashboard = function (data) {
-        if (self.Data()) {
-            self.DeleteReadOnlyProperties(data);
+        self.DeleteReadOnlyProperties(data);
+        if (typeof data.is_published !== 'undefined') {
+            return self.UpdateState(self.Data().state, { is_published: data.is_published })
+                .then(function () {
+                    //M4-12831: Fixed error message when angle is uppublished
+                    if (data.is_published === false && self.Data().created.user() !== userModel.Data().uri)
+                        dashboardPageHandler.BackToSearch();
 
-            if (typeof data.is_published !== 'undefined') {
-                return self.UpdateState(self.Data().state, { is_published: data.is_published })
+                    delete data.is_published;
+                    return self.UpdateDashboard(self.Data().uri, data);
+                });
+        }
+        else if (typeof data.is_validated !== 'undefined') {
+            if (data.is_validated === true) {
+                delete data.is_validated;
+                return self.UpdateDashboard(self.Data().uri, data)
                     .then(function () {
-                        //M4-12831: Fixed error message when angle is uppublished
-                        if (data.is_published === false && self.Data().created.user() !== userModel.Data().uri)
-                            dashboardHandler.BackToSearch();
-
-                        delete data.is_published;
+                        return self.UpdateState(self.Data().state, { is_validated: true });
+                    });
+            }
+            else {
+                delete data.is_validated;
+                return self.UpdateState(self.Data().state, { is_validated: false })
+                    .then(function () {
                         return self.UpdateDashboard(self.Data().uri, data);
                     });
             }
-            else if (typeof data.is_validated !== 'undefined') {
-                if (data.is_validated === true) {
-                    delete data.is_validated;
-                    return self.UpdateDashboard(self.Data().uri, data)
-                        .then(function () {
-                            return self.UpdateState(self.Data().state, { is_validated: true });
-                        });
-                }
-                else if (data.is_validated === false) {
-                    return self.UpdateState(self.Data().state, { is_validated: false })
-                        .then(function () {
-                            delete data.is_validated;
-                            return self.UpdateDashboard(self.Data().uri, data);
-                        });
-                }
-            }
-            else {
-                return self.UpdateDashboard(self.Data().uri, data);
-            }
         }
         else {
-            return jQuery.when(self.Data());
+            return self.UpdateDashboard(self.Data().uri, data);
         }
     };
     self.UpdateDashboard = function (uri, data) {
@@ -479,7 +449,7 @@ function DashboardViewModel() {
                 });
         }
         else {
-            return jQuery.when(self.Data());
+            return jQuery.when(self.GetData());
         }
     };
     self.UpdateState = function (uri, updateState) {
@@ -527,6 +497,19 @@ function DashboardViewModel() {
         return self.CreateDashboard(data);
     };
 
+    // SetBusinessProcesses: set business processes
+    // @param
+    // - labels: Array
+    self.SetBusinessProcesses = function (labels) {
+        if (self.IsTemporaryDashboard()) {
+            self.Data().assigned_labels = labels;
+            return jQuery.when(self.GetData());
+        }
+        else {
+            return self.SaveDashboard({ assigned_labels: labels });
+        }
+    };
+
     // SetFavorite: set is_starred
     // @param
     // - status: true | false
@@ -550,6 +533,19 @@ function DashboardViewModel() {
         }
         else {
             return self.SaveDashboard({ user_specific: { private_note: note } });
+        }
+    };
+
+    // SetExecuteOnLogin: set execute_on_login
+    // @param
+    // - status: true | false
+    self.SetExecuteOnLogin = function (executeOnLogin) {
+        if (self.IsTemporaryDashboard()) {
+            self.Data().user_specific.execute_on_login(executeOnLogin);
+            return jQuery.when(self.GetData());
+        }
+        else {
+            return self.SaveDashboard({ user_specific: { execute_on_login: executeOnLogin } });
         }
     };
 
@@ -770,16 +766,6 @@ function DashboardViewModel() {
         else if (angle.displays_summary)
             angle.display_definitions = angle.displays_summary.slice(0);
 
-        // extend upgradable properties
-        if (angle.display_definitions) {
-            jQuery.each(angle.display_definitions, function (index, display) {
-                if (!display.upgrades_properties) {
-                    display.is_upgraded = false;
-                    display.upgrades_properties = [];
-                }
-            });
-        }
-
         var defaultLanguage = userSettingModel.GetByName(enumHandlers.USERSETTINGS.DEFAULT_LANGUAGES).toLowerCase();
         jQuery.each(angle.display_definitions || [], function (indexDisplay, display) {
             jQuery.each(display.fields, function (indexField, field) {
@@ -813,8 +799,8 @@ function DashboardViewModel() {
 
     // GetModel: get model name
     self.GetModel = function () {
-        var model = self.Data() ? modelsHandler.GetModelByUri(self.Data().model) : null;
-        return model ? model.short_name : '';
+        var model = modelsHandler.GetModelByUri(self.Data().model);
+        return model ? model.short_name || model.id : '';
     };
 
     // GetModels: get name for all models from angle
@@ -991,23 +977,16 @@ function DashboardViewModel() {
     /*
     *  Dashboard Filter functionality
     */
-    self.GetDashboardFilters = function (viewModel) {
-        var dashboardFilters = self.Data()['filters'];
-        if (viewModel) {
-            // convert to view model before binding with GUI (knockoutJS)
-            dashboardFilters = jQuery.map(dashboardFilters, function (dashboardFilter) {
-                return new viewModel(dashboardFilter);
-            });
-        }
-        return dashboardFilters;
+    self.GetDashboardFilters = function () {
+        return ko.toJS(self.Data().filters);
     };
-    self.SetDashboardFilters = function (widgetFilterModels) {
+    self.SetDashboardFilters = function (filters) {
         // convert to json and remove unused properties before post/put dashboard
-        var filters = ko.toJS(widgetFilterModels);
-        jQuery.each(filters, function (i, filter) {
+        filters = ko.toJS(filters);
+        jQuery.each(filters, function (_index, filter) {
             WC.ModelHelper.RemoveReadOnlyQueryStep(filter);
         });
-        self.Data()['filters'] = filters;
+        self.Data().filters = filters;
     };
     self.ExtendDashboardFilter = function (filter) {
         // normalize object before convert to view model
@@ -1015,7 +994,7 @@ function DashboardViewModel() {
         filter.operator = WC.Utility.ToString(filter.operator);
         filter.arguments = WC.Utility.ToArray(filter.arguments);
         jQuery.each(filter.arguments, function (i, argument) {
-            if (argument.argument_type === enumHandlers.FILTERARGUMENTTYPE.VALUE && typeof argument.value === 'undefined')
+            if (argument && argument.argument_type === enumHandlers.FILTERARGUMENTTYPE.VALUE && typeof argument.value === 'undefined')
                 argument.value = null;
         });
     };
@@ -1024,7 +1003,7 @@ function DashboardViewModel() {
         var dashboardFilters = self.Data().filters;
         jQuery.each(dashboardFilters, function (i, filter) {
             var argumentFieldIds = jQuery.map(filter.arguments, function (argument) {
-                return argument.argument_type === enumHandlers.FILTERARGUMENTTYPE.FIELD ? argument.field : null;
+                return argument && argument.argument_type === enumHandlers.FILTERARGUMENTTYPE.FIELD ? argument.field : null;
             });
             filterFieldIds.push(filter.field);
             jQuery.merge(filterFieldIds, argumentFieldIds);
@@ -1056,4 +1035,8 @@ function DashboardViewModel() {
 
         return WC.ModelHelper.CanUpdateItem(name, canUpdate, isValidated, disallowedNames);
     };
+
+    // constructor
+    self.Initial(model);
 }
+DashboardViewModel.KeyName = 'uri';

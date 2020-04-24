@@ -3,7 +3,7 @@ Resource            ${EXECDIR}/resources/WCSettings.robot
 Suite Setup         Go to WC Then Login With EAPower User
 Suite Teardown      Logout WC Then Close Browser
 Test Teardown       Go to Search Page
-Force Tags          acc_wc      
+Force Tags          acc_wc
 
 *** Test Cases ***
 Verify Chart Options Are Presented
@@ -18,11 +18,16 @@ Verify Chart Display Drilldown Test
 
 Verify Chart Display Drilldown With Floating Number Test
     [Tags]  acc_wc_aci
-    @{cleanUpItems}    Create List
-    Create Context: Web    user=${Username}
-    ${angleData}    Create Angle    /models/1    ANGLE_DrilldownTesting.json
-    ${angleUri}    Get Uri From Response    ${angleData}
-    Append To List   ${cleanUpItems}    ${angleUri}?forced=true
+    [Setup]  Import Angle By API  /models/1  ANGLE_DrilldownTesting.json  user=${Username}
+    
     Drilldown Chart Display With Floating Number
-    [Teardown]  Run Keywords  Clean Up Items     Web    ${cleanUpItems}    user=${Username}
-    ...         AND           Go to Search Page
+
+    [Teardown]  Clean Up Items And Go To Search Page
+
+Verify Chart Options Data Labels Functionality
+    [Tags]      TC_432358
+    [Documentation]     This exploratory test to cover Chart options > Data Labels
+    [Setup]  Import Angle By API  /models/1  ANGLE_ChartOptionsDataLabelsTest.json  user=${Username}
+    Find Angle By ID Then Execute The First Angle    ANGLE_ChartOptionsDataLabelsTest
+    Chart Options Data Labels Functionality
+    [Teardown]  Clean Up Items And Go To Search Page

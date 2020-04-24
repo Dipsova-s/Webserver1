@@ -13,9 +13,8 @@ function AngleQueryStepModel() {
 
     /*BOF: Model Methods*/
     self.GetClassName = function (classId) {
-        var modelUri = angleInfoModel.Data() ? angleInfoModel.Data().model : '',
-            classObj = modelClassesHandler.GetClassById(classId, modelUri) || { id: classId };
-        return userFriendlyNameHandler.GetFriendlyName(classObj, enumHandlers.FRIENDLYNAMEMODE.SHORTNAME);
+        var modelUri = angleInfoModel.Data() ? angleInfoModel.Data().model : '';
+        return modelClassesHandler.GetClassName(classId, modelUri, enumHandlers.FRIENDLYNAMEMODE.SHORTNAME);
     };
     self.SetQueryStep = function (querySteps) {
         self.QuerySteps.removeAll();
@@ -39,7 +38,8 @@ function AngleQueryStepModel() {
                     arguments: queryStep.arguments,
                     valid: queryStep.valid !== false,
                     validation_details: queryStep.validation_details,
-                    is_adhoc_filter: queryStep.is_adhoc_filter
+                    is_adhoc_filter: queryStep.is_adhoc_filter,
+                    is_adhoc: queryStep.is_adhoc
                 };
                 if (queryStep.is_execution_parameter) {
                     temp.is_execution_parameter = queryStep.is_execution_parameter;
@@ -53,7 +53,8 @@ function AngleQueryStepModel() {
                     followup: queryStep.followup,
                     valid: queryStep.valid !== false,
                     validation_details: queryStep.validation_details,
-                    is_adhoc_filter: queryStep.is_adhoc_filter
+                    is_adhoc_filter: queryStep.is_adhoc_filter,
+                    is_adhoc: queryStep.is_adhoc
                 });
             }
         });

@@ -52,10 +52,7 @@ function MassChangeModel() {
                 popup.Alert(Localization.Warning_Title, Localization.Info_DashboardItemsWillNotAffect);
             }, 500);
         }
-
-        requestHistoryModel.SaveLastExecute(self, self.ShowMassChangePopup, arguments);
-        requestHistoryModel.ClearPopupBeforeExecute = true;
-
+        
         var popupName = 'MassChangePopup',
             popupSettings = {
                 title: Localization.MassChangeTitle,

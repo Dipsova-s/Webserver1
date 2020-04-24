@@ -1,0 +1,144 @@
+{
+  "id": "ROBOT_ANGLE_KeepActiveDisplayFilter",
+  "angle_default_display": "d7a9c814ed200ecc02408584431295099",
+  "is_published": true,
+  "assigned_labels": [
+    "S2D"
+  ],
+  "multi_lang_name": [
+    {
+      "lang": "en",
+      "text": "[ROBOT] Test Keep Active Display Filter"
+    }
+  ],
+  "multi_lang_description": [],
+  "query_definition": [
+    {
+      "queryblock_type": "base_classes",
+      "base_classes": [
+        "PurchaseOrder",
+        "PurchaseOrderScheduleLine"
+      ]
+    }
+  ],
+  "display_definitions": [
+    {
+      "id": "d7a9c814ed200ecc02408584431295099",
+      "display_type": "list",
+      "is_angle_default": true,
+      "is_public": true,
+      "multi_lang_name": [
+        {
+          "lang": "en",
+          "text": "New Display"
+        }
+      ],
+      "multi_lang_description": [],
+      "display_details": "{}",
+      "query_blocks": [],
+      "fields": [
+        {
+          "field": "ObjectType",
+          "tech_info": "",
+          "multi_lang_alias": [],
+          "field_details": "{\"width\":81,\"format\":\"shn\"}"
+        },
+        {
+          "field": "ID",
+          "tech_info": "",
+          "multi_lang_alias": [],
+          "field_details": "{\"width\":97}"
+        },
+        {
+          "field": "Vendor__Vendor",
+          "tech_info": "LFA1-LIFNR",
+          "multi_lang_alias": [],
+          "field_details": "{\"width\":80}"
+        },
+        {
+          "field": "Vendor__Description",
+          "tech_info": "LFA1-NAME1",
+          "multi_lang_alias": [],
+          "field_details": "{\"width\":168}"
+        },
+        {
+          "field": "PurchasingDocumentCategory",
+          "tech_info": "EKKO-BSTYP",
+          "multi_lang_alias": [],
+          "field_details": "{\"width\":105,\"format\":\"shnln\"}"
+        },
+        {
+          "field": "CompanyCode__CompanyCode",
+          "tech_info": "T001-BUKRS",
+          "multi_lang_alias": [],
+          "field_details": "{\"width\":92,\"format\":\"shn\"}"
+        },
+        {
+          "field": "PurchaseOrganization__PurchaseOrganization",
+          "tech_info": "T024E-EKORG",
+          "multi_lang_alias": [],
+          "field_details": "{\"width\":93}"
+        },
+        {
+          "field": "ExecutionStatus",
+          "tech_info": "",
+          "multi_lang_alias": [],
+          "field_details": "{\"width\":97,\"format\":\"shn\"}"
+        },
+        {
+          "field": "InvoiceReceiptStatusSimple",
+          "tech_info": "",
+          "multi_lang_alias": [],
+          "field_details": "{\"width\":81,\"format\":\"shn\"}"
+        },
+        {
+          "field": "PaymentStatus",
+          "tech_info": "",
+          "multi_lang_alias": [],
+          "field_details": "{\"width\":95,\"format\":\"shn\"}"
+        },
+        {
+          "field": "CreationDate",
+          "tech_info": "EKKO-AEDAT",
+          "multi_lang_alias": [],
+          "field_details": "{\"width\":84}"
+        },
+        {
+          "field": "DeliveryStatus",
+          "tech_info": "",
+          "multi_lang_alias": [],
+          "field_details": "{\"width\":89,\"format\":\"shn\"}"
+        },
+        {
+          "field": "OrderedValue",
+          "tech_info": "",
+          "multi_lang_alias": [],
+          "field_details": "{\"width\":97}"
+        },
+        {
+          "field": "GRValue",
+          "multi_lang_alias": [],
+          "field_details": "{\"width\":120}"
+        },
+        {
+          "field": "FirstGRdate",
+          "tech_info": "",
+          "multi_lang_alias": [],
+          "field_details": "{\"width\":107}"
+        },
+        {
+          "field": "BKGRP",
+          "tech_info": "EKKO-EKGRP",
+          "multi_lang_alias": [],
+          "field_details": "{\"width\":120}"
+        },
+        {
+          "field": "InvoiceReceiptItems",
+          "tech_info": "",
+          "multi_lang_alias": [],
+          "field_details": "{\"width\":129}"
+        }
+      ]
+    }
+  ]
+}

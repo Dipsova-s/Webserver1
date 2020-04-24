@@ -82,6 +82,9 @@ function ChartHandler(elementId, container) {
         POINTERCOLOR: '#f35800',
         COLOURS: []
     };
+    self.OnChanged = jQuery.noop;
+    self.OnRenderStart = jQuery.noop;
+    self.OnRenderEnd = jQuery.noop;
 
     if (window.kendo && window.kendo.dataviz.ui.themes[window.kendoTheme]) {
         kendo.dataviz.ui.themes[window.kendoTheme].gauge.pointer.color = '#333333';
@@ -104,30 +107,25 @@ function ChartHandler(elementId, container) {
         return jQuery(self.Container);
     };
     self.GetChartDisplay = function (isValidDisplay) {
+        self.OnRenderStart();
+
         // make sure that chart details is correct
         var displayDetails = JSON.stringify(self.GetDisplayDetails());
-        if (!self.Models.Display.Data().is_upgraded && self.Models.Display.Data().display_details !== displayDetails) {
-            self.Models.Display.Data().upgrades_properties.push('display_details');
-        }
         self.Models.Display.Data().display_details = displayDetails;
         self.Models.Display.Data.commit();
 
         if (!self.DashBoardMode()) {
             var chartTemplate = '<div id="ChartMainWrapper" class="displayWrapper">'
-                    + '<div class="fieldListToggleButton" onclick="fieldSettingsHandler.ToggleFieldListArea();"></div>'
-                    + '<div id="ChartArea" class="displayArea">'
-                        + '<div id="ChartWrapper"></div>'
-                    + '</div>'
+                + '<div id="ChartArea" class="displayArea">'
+                + '<div id="ChartWrapper"></div>'
+                + '</div>'
                 + '</div>';
             jQuery('#AngleTableWrapper').html(chartTemplate);
 
             anglePageHandler.SetWrapperHeight();
 
             fieldSettingsHandler.Handler = self;
-            fieldSettingsHandler.SetReadOnlyMode();
             fieldSettingsHandler.BuildFieldsSettings();
-            fieldSettingsHandler.BuildFieldsSettingsHtml();
-            fieldSettingsHandler.UpdateSettingsAfterChange();
         }
         else {
             var fieldSetting = new FieldSettingsHandler();
@@ -142,57 +140,72 @@ function ChartHandler(elementId, container) {
             self.ShowLoadingIndicator();
 
             // chart view
-            self.Data = {
-                fields: [],
-                rows: [],
-                metadata: []
-            };
-            jQuery.when(self.CheckUpgradeDisplay())
+            self.CheckUpgradeDisplay()
                 .then(function () {
-                    return self.Load(self.Models.Result.Data().data_rows);
+                    if (self.Models.Result.Data().data_rows !== self.Data.uri) {
+                        self.Data = {
+                            uri: self.Models.Result.Data().data_rows,
+                            fields: [],
+                            rows: [],
+                            metadata: []
+                        };
+                        return self.Load(self.Data.uri);
+                    }
+                    else {
+                        self.GenerateChartDatasource();
+                        return jQuery.when(self.Data);
+                    }
                 })
                 .done(self.GenerateChart)
-                .always(self.HideLoadingIndicator);
+                .always(self.GetChartDisplayAlways);
         }
         else {
-            self.CheckUpgradeDisplay();
-            measurePerformance.SetEndTime();
+            self.CheckUpgradeDisplay()
+                .always(self.GetChartDisplayAlways);
         }
     };
 
     self.ShowLoadingIndicator = function () {
         var container = self.GetContainer();
         container.closest('#ChartArea').busyIndicator(true);
-        if (!self.DashBoardMode()) {
-            fieldSettingsHandler.ShowLoadingIndicator();
-        }
     };
-
     self.HideLoadingIndicator = function () {
         var container = self.GetContainer();
         container.closest('#ChartArea').busyIndicator(false);
-        if (!self.DashBoardMode()) {
-            fieldSettingsHandler.HideLoadingIndicator();
-        }
+    };
+    self.GetChartDisplayAlways = function () {
+        self.HideLoadingIndicator();
+        measurePerformance.SetEndTime();
+        self.OnRenderEnd();
     };
 
     self.CheckUpgradeDisplay = function () {
-        if (!self.Models.Display.Data().is_upgraded && self.Models.Display.Data().display_details !== self.FieldSettings.DisplayDetails) {
+        if (self.Models.Display.Data().display_details !== self.FieldSettings.DisplayDetails) {
             self.Models.Display.Data().display_details = self.FieldSettings.DisplayDetails;
-            self.Models.Display.Data().upgrades_properties.push('display_details');
             self.Models.Display.Data.commit();
         }
 
         var currentDisplay = self.Models.Display.Data();
-        var sourceDisplay = self.DashBoardMode() ? currentDisplay : historyModel.Get(currentDisplay.uri, false);
+        var sourceDisplay = self.GetSourceDisplayData();
         var upgradeData = displayUpgradeHandler.GetUpgradeDisplayData(currentDisplay, sourceDisplay);
-        return displayUpgradeHandler.UpgradeDisplay(self, currentDisplay.uri, upgradeData);
+        return displayUpgradeHandler.UpgradeDisplay(currentDisplay.uri, upgradeData)
+            .then(function (display) {
+                if (display) {
+                    self.OnChanged(display, true);
+                }
+                else {
+                    self.OnChanged(self.Models.Display.Data(), WC.ModelHelper.IsAdhocUri(self.Models.Display.Data().uri));
+                }
+                return jQuery.when(display);
+            });
+    };
+    self.GetSourceDisplayData = function () {
+        return self.DashBoardMode() ? self.Models.Display.Data() : anglePageHandler.HandlerDisplay.GetRawData();
     };
 
     self.GetChartSettings = function () {
-        if (!self.FieldSettings) {
+        if (!self.FieldSettings)
             return false;
-        }
 
         var displayDetails = self.FieldSettings.GetDisplayDetails();
         var options = {};
@@ -358,8 +371,8 @@ function ChartHandler(elementId, container) {
         }
 
         // axisscale
-        if (displayDetails[fieldSettingsHandler.OptionAxisScaleId] === fieldSettingsHandler.CHARTSCALETYPE.MANUAL) {
-            options[fieldSettingsHandler.OptionAxisScaleRangesId] = displayDetails[fieldSettingsHandler.OptionAxisScaleRangesId];
+        if (displayDetails[ChartOptionsHandler.AxisScaleId] === ChartOptionsHandler.ScaleType.Manual) {
+            options[ChartOptionsHandler.AxisScaleRangesId] = displayDetails[ChartOptionsHandler.AxisScaleRangesId];
         }
 
         // datalabel
@@ -411,84 +424,6 @@ function ChartHandler(elementId, container) {
         options.show_as_percentage = displayDetails["show_as_percentage"];
     };
 
-    self.InitialFieldsSetting = function () {
-        if (jQuery('#ChartMainWrapper .rowArea ul').data('kendoDraggable')) {
-            return;
-        }
-
-        // row & column area
-        jQuery('#ChartMainWrapper .rowArea ul, #ChartMainWrapper .columnArea ul').kendoDraggable({
-            axis: 'y',
-            filter: 'li:not(.noDrag,.validError)',
-            hint: function (item) {
-                jQuery('#FieldListArea').find('.k-state-selected').removeClass('k-state-selected');
-                item.addClass('k-state-selected');
-
-                jQuery('#FieldListArea').data('state', {
-                    element: item,
-                    drag: {
-                        area: !item.parents('.rowArea').length ? enumHandlers.FIELDSETTINGAREA.COLUMN : enumHandlers.FIELDSETTINGAREA.ROW,
-                        data: fieldSettingsHandler.FieldSettings.GetFields()
-                    },
-                    drop: {
-                        area: null,
-                        data: fieldSettingsHandler.FieldSettings.GetFields()
-                    }
-                });
-
-                var helper = jQuery('<div class="draggingField" id="draggingField" />');
-
-                return helper.append(item.clone().removeClass('k-state-selected'));
-            },
-            dragstart: function () {
-                fieldSettingsHandler.RemoveAllBucketPopup();
-                jQuery('#FieldListArea .rowArea, #FieldListArea .columnArea').addClass('k-state-dragging');
-            },
-            dragend: function () {
-                jQuery('#FieldListArea .rowArea, #FieldListArea .columnArea').removeClass('k-state-dragging');
-                jQuery('#FieldListArea').find('.k-state-selected').removeClass('k-state-selected');
-
-                jQuery(document).trigger('click.outside');
-            }
-        });
-
-        jQuery('#ChartMainWrapper [id="FieldListArea"]').kendoDropTargetArea({
-            filter: '#ChartMainWrapper [id="FieldListArea"] .rowArea ul, #ChartMainWrapper [id="FieldListArea"] .columnArea ul',
-            dragenter: function (e) {
-                var state = jQuery('#FieldListArea').data('state');
-                if (state.drag.area === enumHandlers.FIELDSETTINGAREA.DATA) {
-                    return;
-                }
-
-                state.drop.area = !e.dropTarget.parents('#FieldListArea .rowArea').length ? enumHandlers.FIELDSETTINGAREA.COLUMN : enumHandlers.FIELDSETTINGAREA.ROW;
-                jQuery('#FieldListArea').data('state', state);
-            },
-            drop: function () {
-                var state = jQuery('#FieldListArea').data('state');
-                if (state.drag.area === enumHandlers.FIELDSETTINGAREA.DATA) {
-                    return;
-                }
-
-                if (state.drop.area !== null && state.drop.area !== state.drag.area) {
-                    // update layout
-                    var area0 = jQuery('#FieldListArea .rowArea li'),
-                        area1 = jQuery('#FieldListArea .columnArea li');
-
-                    jQuery('#FieldListArea .rowArea ul').append(area1.removeClass('column').addClass('row'));
-                    jQuery('#FieldListArea .columnArea ul').append(area0.removeClass('column').addClass('row'));
-
-                    // update drop data
-                    fieldSettingsHandler.UpdateFieldsSettingDataByArea(enumHandlers.FIELDSETTINGAREA.ROW);
-                    fieldSettingsHandler.UpdateFieldsSettingDataByArea(enumHandlers.FIELDSETTINGAREA.COLUMN);
-
-                    fieldSettingsHandler.UpdateFieldsSettingState();
-                }
-            }
-        });
-
-        // initial data area
-        fieldSettingsHandler.InitialFieldsSettingDataArea('#ChartMainWrapper');
-    };
     self.Load = function (datarowUri) {
         var maxPageSize = systemSettingHandler.GetMaxPageSize();
         var pageSize = Math.ceil(self.Models.Result.Data().row_count / maxPageSize);
@@ -528,7 +463,7 @@ function ChartHandler(elementId, container) {
                     self.Models.Result.RetryPostResult(requests.responseText);
                 }
                 else {
-                    self.Models.Result.SetRetryPostResultToErrorPopup(requests.status);
+                    self.Models.Result.SetRetryPostResultToErrorPopup(requests);
                 }
             })
             .done(self.GenerateChartDatasource);
@@ -1107,7 +1042,6 @@ function ChartHandler(elementId, container) {
         }
 
         self.Chart = jQuery(self.ElementId).kendoChart(chartOptions).data(enumHandlers.KENDOUITYPE.CHART);
-        measurePerformance.SetEndTime();
         self.UpdateLayout(0);
     };
     self.CreateDonutOrPieChart = function (option) {
@@ -1459,8 +1393,6 @@ function ChartHandler(elementId, container) {
             // disable animation
             self.Chart.options.transitions = false;
         }
-
-        measurePerformance.SetEndTime();
     };
     _self.CreateCustomChartLegend = function (cleanElement) {
         var chart = this;
@@ -1649,11 +1581,11 @@ function ChartHandler(elementId, container) {
 
         container.append([
             '<div class="navigatorWrapper noClicked">',
-                '<div class="toggleButton">',
-                    '<i class="icon icon-chevron-down collapse"></i>',
-                    '<i class="icon icon-chevron-up expand"></i>',
-                '</div>',
-                '<div class="navigator"></div>',
+            '<div class="toggleButton">',
+            '<i class="icon icon-chevron-down collapse"></i>',
+            '<i class="icon icon-chevron-up expand"></i>',
+            '</div>',
+            '<div class="navigator"></div>',
             '</div>'
         ].join(''));
         container.find('.toggleButton').click(function () {
@@ -1817,7 +1749,7 @@ function ChartHandler(elementId, container) {
         var chartSetting = self.GetChartSettings();
         if (!chartSetting.show_as_percentage) {
             var dataItems = self.GetDataItemsFromView(self.Chart);
-            var chartScaleSettings = chartSetting[fieldSettingsHandler.OptionAxisScaleRangesId] || {};
+            var chartScaleSettings = chartSetting[ChartOptionsHandler.AxisScaleRangesId] || {};
             jQuery.each(self.Chart._sourceSeries, function (index, serie) {
                 var isStack = serie.stack;
                 if (self.IsScatterOrBubbleChartType(baseChartType)) {
@@ -1923,10 +1855,9 @@ function ChartHandler(elementId, container) {
                 });
 
                 if (!self.DashBoardMode()) {
-                    fieldSettingsHandler.FieldSettings.SetDisplayDetails({
-                        GaugeValues: self.GaugeValues.slice()
-                    });
-                    fieldSettingsHandler.BuildFieldsSettingsHtml();
+                    anglePageHandler.HandlerDisplay.DisplayResultHandler.UpdateGaugeValues(self.GaugeValues.slice());
+                    anglePageHandler.HandlerDisplay.QueryDefinitionHandler.ApplyAggregation();
+                    return;
                 }
                 isASC = true;
             }
@@ -2001,7 +1932,6 @@ function ChartHandler(elementId, container) {
         };
 
         self.Chart = jQuery('#' + elementId).kendoRadialGauge(gaugeOption).data(enumHandlers.KENDOUITYPE.RADIALGAUGE);
-        measurePerformance.SetEndTime();
 
         // initial label status
         var labelCount = self.Chart.scale.labelsCount();
@@ -2505,33 +2435,35 @@ function ChartHandler(elementId, container) {
         }
 
     };
-    self.VisualLabel = function (e) {
-        var box = e.createVisual();
-        var setLabelPositionX = function (areabound, textWidth) {
+
+    self.SetLabelPositionX = function (box, areabound, textWidth) {
+        if (box.children[1]._position.x < areabound.x1) {
+            box.children[1]._position.x = areabound.x1 + 2;
+        }
+        else if (box.children[1]._position.x + textWidth > areabound.x2 - 2) {
+            box.children[1]._position.x = areabound.x2 - textWidth - 2;
             if (box.children[1]._position.x < areabound.x1) {
                 box.children[1]._position.x = areabound.x1 + 2;
             }
-            else if (box.children[1]._position.x + textWidth > areabound.x2 - 2) {
-                box.children[1]._position.x = areabound.x2 - textWidth - 2;
-                if (box.children[1]._position.x < areabound.x1) {
-                    box.children[1]._position.x = areabound.x1 + 2;
-                }
-            }
-        };
-        var setLabelPositionY = function (areabound, textHeight) {
+        }
+    };
+    self.SetLabelPositionY = function (box, areabound, textHeight) {
+        if (box.children[1]._position.y < areabound.y1) {
+            box.children[1]._position.y = areabound.y1 + 2;
+        }
+        else if (box.children[1]._position.y + textHeight > areabound.y2) {
+            box.children[1]._position.y = areabound.y2 - textHeight - 2;
             if (box.children[1]._position.y < areabound.y1) {
                 box.children[1]._position.y = areabound.y1 + 2;
             }
-            else if (box.children[1]._position.y + textHeight > areabound.y2) {
-                box.children[1]._position.y = areabound.y2 - textHeight - 2;
-                if (box.children[1]._position.y < areabound.y1) {
-                    box.children[1]._position.y = areabound.y1 + 2;
-                }
-            }
-        };
+        }
+    };
+
+    self.VisualLabel = function (e) {
+        var box = e.createVisual();
 
         if (e.rect.origin.x && e.rect.origin.y && self.Chart && box.children[1]) {
-            var plotArea = self.Chart._plotArea || self.Chart.plotArea;
+            var plotArea = self.Chart._plotArea;
             if (plotArea) {
                 var areabound = {
                     x1: plotArea.axisY.box.x2,
@@ -2543,10 +2475,10 @@ function ChartHandler(elementId, container) {
                 var textHeight = 12;
 
                 // check x
-                setLabelPositionX(areabound, textWidth);
+                self.SetLabelPositionX(box, areabound, textWidth);
 
                 // check y
-                setLabelPositionY(areabound, textHeight);
+                self.SetLabelPositionY(box, areabound, textHeight);
             }
         }
         return box;
@@ -2944,125 +2876,6 @@ function ChartHandler(elementId, container) {
 
         return result;
     };
-    self.MustPostNewResult = function () {
-        // clean steps
-        var stepsFilterFollowup = [];
-        var postedQuery = WC.Utility.ToArray(ko.toJS(self.Models.Result.Data().posted_display));
-        var stepsPostedFilterFollowup = [];
-        jQuery.each(ko.toJS(self.Models.DisplayQueryBlock.CollectQueryBlocks()), function (index, block) {
-            block = WC.ModelHelper.RemoveReadOnlyQueryBlock(block);
-            if (block.queryblock_type === enumHandlers.QUERYBLOCKTYPE.QUERY_STEPS) {
-                jQuery.each(block.query_steps, function (indexStep, step) {
-                    if (WC.WidgetFilterHelper.IsFilterOrJumpQueryStep(step.step_type)) {
-                        stepsFilterFollowup.push(step);
-                    }
-                });
-            }
-        });
-        jQuery.each(postedQuery, function (index, block) {
-            block = WC.ModelHelper.RemoveReadOnlyQueryBlock(block);
-            if (block.queryblock_type === enumHandlers.QUERYBLOCKTYPE.QUERY_STEPS) {
-                jQuery.each(block.query_steps, function (indexStep, step) {
-                    if (WC.WidgetFilterHelper.IsFilterOrJumpQueryStep(step.step_type)) {
-                        stepsPostedFilterFollowup.push(step);
-                    }
-                });
-            }
-        });
-
-        // clean fields and format not affect to post result
-        var fields = self.Models.Display.CleanNotAffectPostNewResultFieldProperties(self.Models.Display.Data().fields);
-        var postedFields = self.Models.Display.CleanNotAffectPostNewResultFieldProperties(self.Models.Result.Data().display_fields);
-
-        return !jQuery.deepCompare(stepsFilterFollowup, stepsPostedFilterFollowup, false, false) || !jQuery.deepCompare(fields, postedFields, false);
-    };
-    self.GetChartResult = function (isResetZoom) {
-        // apply new chart
-        requestHistoryModel.SaveLastExecute(self, self.GetChartResult, arguments);
-
-        var postNewResult = self.MustPostNewResult();
-
-        // reset range selection
-        self.CheckResetChartRange();
-
-        if (postNewResult) {
-            // post new query  block to get result
-            var option = { customQueryBlocks: ko.toJS(self.Models.DisplayQueryBlock.CollectQueryBlocks()) };
-
-            progressbarModel.ShowStartProgressBar(Localization.ProgressBar_PostResult, false);
-
-            var oldDisplayModel = historyModel.Get(self.Models.Display.Data().uri);
-            progressbarModel.CancelCustomHandler = true;
-            progressbarModel.CancelFunction = function () {
-                WC.Ajax.AbortAll();
-                self.Models.Display.LoadSuccess(oldDisplayModel);
-                self.Models.Result.LoadSuccess(oldDisplayModel.results);
-                historyModel.Save();
-                self.Models.Result.GetResult(self.Models.Result.Data().uri)
-                    .then(self.Models.Result.LoadResultFields)
-                    .done(function () {
-                        self.Models.Result.ApplyResult();
-                    });
-            };
-
-            jQuery.when(self.Models.Result.PostResult(option))
-                .then(function () {
-                    historyModel.Save();
-                    return self.Models.Result.GetResult(self.Models.Result.Data().uri);
-                })
-                .then(self.Models.Result.LoadResultFields)
-                .done(function () {
-                    self.Models.Result.ApplyResult();
-                });
-        }
-        else {
-            // save history
-            historyModel.Save();
-            resultModel.SetLatestRenderInfo();
-
-            self.ApplyChartWithOldData();
-        }
-    };
-    self.ApplyChartWithOldData = function () {
-        self.ShowLoadingIndicator();
-        setTimeout(function () {
-            if (self.Data.rows.length) {
-                var isSameFieldOrder = true,
-                    indexField = 0,
-                    fields = [], fieldsData = [];
-
-                jQuery.each(self.FieldSettings.GetFields(), function (index, field) {
-                    if (field.IsSelected) {
-                        fields.push(field.FieldName);
-                        fieldsData.push({ field: field.FieldName, index: indexField });
-
-                        if (field.FieldName.toLowerCase() !== self.Data.fields[indexField].toLowerCase()) {
-                            isSameFieldOrder = false;
-                        }
-                        if (!isSameFieldOrder) {
-                            fieldsData[fieldsData.length - 1].index = jQuery.inArray(field.FieldName, self.Data.fields);
-                        }
-                        indexField++;
-                    }
-                });
-                if (!isSameFieldOrder) {
-                    var fieldValues;
-                    jQuery.each(self.Data.rows, function (index, row) {
-                        fieldValues = [];
-                        jQuery.each(fieldsData, function (indexValue, value) {
-                            fieldValues.push(row.field_values[value.index]);
-                        });
-                        row.field_values = fieldValues;
-                    });
-                    self.Data.fields = fields;
-                }
-            }
-
-            self.GenerateChartDatasource(self.Data, self.Models.DisplayQueryBlock.CollectQueryBlocks()[0].query_steps);
-            self.GenerateChart();
-            self.HideLoadingIndicator();
-        }, 100);
-    };
     self.GetMultiAxisChartType = function (index, chartType) {
         var result = '';
 
@@ -3417,10 +3230,6 @@ function ChartHandler(elementId, container) {
             if (!self.FieldSettings)
                 return;
 
-            // adjust custom control
-            if (!self.DashBoardMode())
-                fieldSettingsHandler.UpdateSettingLayout();
-
             // clear labels visibility
             self.ValueVisible = [];
             self.CategoryVisible = {};
@@ -3504,7 +3313,9 @@ function ChartHandler(elementId, container) {
                 if (triggerResizing) {
                     if (legend.length) {
                         charts.filter(':not(.navigator)').each(function (index, element) {
-                            jQuery(element).data(enumHandlers.KENDOUITYPE.CHART).__createCustomLegend(false);
+                            var chartObj = jQuery(element).data(enumHandlers.KENDOUITYPE.CHART);
+                            if (chartObj)
+                                chartObj.__createCustomLegend(false);
                         });
                     }
 
@@ -3843,6 +3654,9 @@ function ChartHandler(elementId, container) {
 
         // set dash line
         self.SetChartPatternStyle(chart);
+
+        //set reference line
+        self.SetReferenceBand(chart);
     };
     self.UpdateDonutOrPieChartType = function (charts, chartSettings, css, legendSize) {
         var areaSize = chartSettings.datalabel.show ? 400 : 200,
@@ -4260,7 +4074,7 @@ function ChartHandler(elementId, container) {
         };
     };
     self.GetValueLabelData = function (chart) {
-        var chartScaleSettings = self.GetChartSettings()[fieldSettingsHandler.OptionAxisScaleRangesId] || {};
+        var chartScaleSettings = self.GetChartSettings()[ChartOptionsHandler.AxisScaleRangesId] || {};
         var data = [];
         var dataItems = self.GetDataItemsFromView(chart);
         var templates;
@@ -4367,7 +4181,6 @@ function ChartHandler(elementId, container) {
         if (!displayDetails.multi_axis) {
             displayDetails.multi_axis = false;
         }
-
         // chart options
         var chartOptionGroup = fieldSettingsHandler.GetChartTypeGroup(displayDetails.chart_type);
         var chartOptions = fieldSettingsHandler.GetChartOptionsByGroup(chartOptionGroup);
@@ -4449,45 +4262,7 @@ function ChartHandler(elementId, container) {
         if (!self.DashBoardMode()) {
             fieldSettingsHandler.FieldSettings.SetDisplayDetails(displayDetails, true);
         }
-    };
-    self.CheckResetChartRange = function () {
-        var resetChartRange = function () {
-            self.FILTERRANGE.START = 0;
-            self.FILTERRANGE.CURRENT = self.FILTERRANGE.DEFAULT;
-            self.SaveChartRange();
-        };
-        var displayDetails = self.FieldSettings.GetDisplayDetails();
-        if (!self.IsChartNavigatable(displayDetails.chart_type)) {
-            resetChartRange();
-        }
-        else {
-            // clean fields and format not affect to post result
-            var fields = self.Models.Display.CleanNotAffectPostNewResultFieldProperties(self.Models.Display.Data().fields);
-            var postedFields = self.Models.Display.CleanNotAffectPostNewResultFieldProperties(self.Models.Result.Data().display_fields);
-
-            // check change aggregation in data area
-            jQuery.each(fields, function (index, field) {
-                var fieldDetails = WC.Utility.ParseJSON(field.field_details);
-                var areaId = fieldSettingsHandler.GetAreaByName(fieldDetails.pivot_area);
-                if (areaId === enumHandlers.FIELDSETTINGAREA.DATA) {
-                    var fieldId = field.field;
-                    field.field = fieldId.substr(fieldId.indexOf('_') + 1);
-                }
-            });
-
-            jQuery.each(postedFields, function (index, field) {
-                var fieldDetails = WC.Utility.ParseJSON(field.field_details);
-                var areaId = fieldSettingsHandler.GetAreaByName(fieldDetails.pivot_area);
-                if (areaId === enumHandlers.FIELDSETTINGAREA.DATA) {
-                    var fieldId = field.field;
-                    field.field = fieldId.substr(fieldId.indexOf('_') + 1);
-                }
-            });
-
-            if (!jQuery.deepCompare(fields, postedFields, false)) {
-                resetChartRange();
-            }
-        }
+        self.OnChanged(self.Models.Display.Data(), false);
     };
     self.GetChartTypeByCode = function (code) {
         var result = null;
@@ -4524,18 +4299,6 @@ function ChartHandler(elementId, container) {
         }
 
         return option.Label;
-    };
-    self.ToggleFieldListArea = function () {
-        if (!jQuery('#ChartMainWrapper').hasClass('full')) {
-            fieldSettingsHandler.CollapseState[self.Models.Display.Data().uri] = true;
-            jQuery('#ChartMainWrapper').addClass('full');
-            self.UpdateLayout(0);
-        }
-        else {
-            fieldSettingsHandler.CollapseState[self.Models.Display.Data().uri] = false;
-            jQuery('#ChartMainWrapper').removeClass('full');
-            self.UpdateLayout(0);
-        }
     };
     self.GeneratePercentageTemplate = function (value, decimalPlace) {
         value = value === self.TEXT_NULL ? null : value;
@@ -4587,7 +4350,91 @@ function ChartHandler(elementId, container) {
     self.IsDonutOrPieChartType = function (type) {
         return type === enumHandlers.CHARTTYPE.PIECHART.Code || type === enumHandlers.CHARTTYPE.DONUTCHART.Code;
     };
+    self.SetReferenceBand = function (chart) {
+        var chartDetails = self.FieldSettings.GetDisplayDetails();
 
+        var rowFields = self.FieldSettings.GetFields(enumHandlers.FIELDSETTINGAREA.DATA).findObjects('IsSelected', true);
+
+        var dataItems = self.GetDataItemsFromView(chart);
+        var axisValueSettings;
+        var target = '', fieldDetails;
+        
+        if (chartDetails.show_as_percentage)
+            return;
+        target = self.IsScatterOrBubbleChartType(chartDetails.chart_type) ? chart.options.yAxis : chart.options.valueAxis;
+
+        if (chartDetails.multi_axis) {
+            for (var i = 0; i <= 1; i++) {
+                axisValueSettings = self.CalculateValuesBoundary(dataItems, rowFields[i].FieldName, false);
+                fieldDetails = WC.Utility.ParseJSON(rowFields[i].FieldDetails);
+                if (!fieldDetails.targetlinedetails)
+                    continue;
+                if (typeof fieldDetails.targetlinedetails.fromvalue === 'number') {
+                    if (typeof fieldDetails.targetlinedetails.tovalue === 'number') {
+                        self.PlotReferenceBand(i, chartDetails, fieldDetails, target);
+                    }
+                    else {
+                        self.PlotReferenceLine(i, chartDetails, fieldDetails, target, axisValueSettings);
+                    }
+                }
+            }
+        }
+        else {
+            fieldDetails = WC.Utility.ParseJSON(rowFields[0].FieldDetails);
+            if (fieldDetails.targetlinedetails && typeof fieldDetails.targetlinedetails.fromvalue === 'number') {
+                axisValueSettings = self.CalculateValuesBoundary(dataItems, rowFields[0].FieldName, false);
+                if (typeof fieldDetails.targetlinedetails.tovalue === 'number') {
+                    self.PlotReferenceBand(0, chartDetails, fieldDetails, target);
+                }
+                else {
+                    self.PlotReferenceLine(0, chartDetails, fieldDetails, target, axisValueSettings);
+                }
+            }
+        }
+
+    };
+    self.PlotReferenceLine = function (row, chartDetails, fieldDetails, target, axisValueSettings) {
+        var strlength = axisValueSettings.majorUnit.toString().length;
+        var val = strlength === axisValueSettings.max.toString().length? 2.3 : 2;
+        var tovalue = parseInt(fieldDetails.targetlinedetails.fromvalue) - (Math.pow(10, strlength - val));
+        tovalue = fieldDetails.targetlinedetails.fromvalue >= 0 ? Math.abs(tovalue) : tovalue;
+            if (chartDetails.multi_axis) {                
+                target[row].plotBands = [{
+                    from: fieldDetails.targetlinedetails.fromvalue,
+                    to: tovalue,
+                    color: "#666666",
+                    opacity: 1
+                }];
+            }
+            else {
+                target.plotBands = [{
+                    from: fieldDetails.targetlinedetails.fromvalue,
+                    to: tovalue,
+                    color: "#666666",
+                    opacity: 1
+                }];
+            }
+    };
+    self.PlotReferenceBand = function (row, chartDetails, fieldDetails, target) {
+        if (chartDetails.multi_axis) {
+            target[row].plotBands = [{
+                from: fieldDetails.targetlinedetails.fromvalue,
+                to: fieldDetails.targetlinedetails.tovalue,
+                color: "#c2c2c2",
+                opacity: 0.75
+
+            }];
+        }
+        else {
+            target.plotBands = [{
+                from: fieldDetails.targetlinedetails.fromvalue,
+                to: fieldDetails.targetlinedetails.tovalue,
+                color: "#c2c2c2",
+                opacity: 0.75
+
+            }];
+        }
+    };
     /*EOF: Model Methods*/
 }
 var chartHandler = new ChartHandler();

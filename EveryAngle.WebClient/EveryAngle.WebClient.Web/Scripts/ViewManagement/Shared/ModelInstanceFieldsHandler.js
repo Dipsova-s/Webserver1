@@ -44,11 +44,11 @@ function ModelInstanceFieldsHandler() {
 
     /*=============== custom functions ===============*/
     self.LoadFieldsByIds = function (uri, ids, params) {
-        var key = self.GetModelKey(uri);
+        var modelUri = self.GetModelUriFromData({ uri: uri });
 
         // handle missing field
         for (var i = ids.length - 1; i >= 0; i--) {
-            if (self.DataInvalid[key + '&id=' + ids[i].toLowerCase()]) {
+            if (self.DataInvalid[modelUri + '?id=' + ids[i].toLowerCase()]) {
                 ids.splice(i, 1);
             }
         }
@@ -56,44 +56,22 @@ function ModelInstanceFieldsHandler() {
         var query = {};
         query[enumHandlers.PARAMETERS.VIEWMODE] = enumHandlers.VIEWMODETYPE.BASIC;
         jQuery.extend(query, params);
-        return self.LoadByIds(uri, ids, query, false)
-            .done(function (fields) {
-                // clean data
-                var modelUri = key.split('?')[0];
-                delete self.Data[modelUri];
-
-                // set data
-                self.SetFields(fields[self.ResponseKey], uri, true);
-
+        return self.LoadByIds(uri, ids, query)
+            .done(function () {
                 // add missing fields to cache
                 jQuery.each(ids, function (index, id) {
                     if (!self.GetFieldById(id, uri)) {
-                        self.DataInvalid[key + '&id=' + id.toLowerCase()] = true;
+                        self.DataInvalid[modelUri + '?id=' + id.toLowerCase()] = true;
                     }
                 });
             });
     };
-    self.SetFields = function (fields, queryFieldUri, storage) {
-        var key = self.GetModelKey(queryFieldUri);
-        if (!self.Data[key]) {
-            self.Data[key] = {};
-        }
-        var dataModel = self.Data[key];
-        jQuery.each(fields, function (i, d) {
-            if (self.Model) fields[i] = new self.Model(d);
-            dataModel[d[self.DataKey].toLowerCase()] = fields[i];
-        });
-        if (storage !== false) {
-            jQuery.localStorage(self.Id, self.Data);
-        }
+    self.SetFields = function (fields, storage) {
+        self.SetData(fields, storage);
     };
-    self.GetFieldById = function (id, queryFieldUri) {
-        var key = self.GetModelKey(queryFieldUri);
-        return self.GetDataBy('id', id, key);
-    };
-    self.GetModelKey = function (queryFieldUri) {
-        var modelUri = self.GetModelUriFromData({ uri: queryFieldUri });
-        return modelUri + queryFieldUri.substr(queryFieldUri.indexOf('?')).toLowerCase();
+    self.GetFieldById = function (id, uri) {
+        var modelUri = self.GetModelUriFromData({ uri: uri });
+        return self.GetDataBy('id', id, modelUri);
     };
     /*================================================*/
     //EOF: Methods

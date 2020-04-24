@@ -11,6 +11,7 @@ ${pgbMC}                css=#LoaderContainer
 ${pgbMCMainContent}     css=.loadingMainContent
 ${popupError}           css=#popupNotification .notificationIcon.error
 ${btnErrorMore}         jquery=#popupNotification .more
+${ddlList}              jquery=.k-list-container:visible li
 
 *** Keywords ***
 Wait Until Page Initialized
@@ -26,7 +27,7 @@ Check Web Error
     ${isErrorShown}    Is Element Visible    ${popupError}
     Run Keyword If    ${isErrorShown} == True    Show Web Error Details
     Run Keyword If    ${isErrorShown} == True    Capture Page Screenshot
-    Run Keyword If    ${isErrorShown} == True    Fail
+    Run Keyword If    ${isErrorShown} == True    Fail  There is an error, please check a screenshot!
 
 Show Web Error Details
     ${hasErrorMore}    Is Element Visible    ${btnErrorMore}
@@ -178,11 +179,27 @@ Wait Until Dropdown Disappears
 
 Select Dropdown By Text
     [Arguments]  ${selectElement}    ${text}
-    Select Dropdown By Selector    ${selectElement}   jquery=span[title="${text}"]:visible
+    Select Dropdown By Selector    ${selectElement}    jquery=span[title="${text}"]:visible
 
 Select Dropdown By InnerText
     [Arguments]  ${selectElement}    ${text}
-    Select Dropdown By Selector    ${selectElement}   jquery=.k-item:contains("${text}"):visible
+    Select Dropdown By Selector    ${selectElement}    jquery=.k-item:contains("${text}"):visible
+
+Dropdown Should Contain Option
+    [Arguments]    ${dropdown}    ${optionName}
+    Click Element  ${dropdown}
+    Sleep          ${TIMEOUT_DROPDOWN}
+    Page Should Contain Element  ${ddlList}:contains("${optionName}")
+    Click Element  ${dropdown}
+    Sleep          ${TIMEOUT_DROPDOWN}
+
+Dropdown Should Not Contain Option
+    [Arguments]    ${dropdown}    ${optionName}
+    Click Element  ${dropdown}
+    Sleep          ${TIMEOUT_DROPDOWN}
+    Page Should Not Contain Element  ${ddlList}:contains("${optionName}")
+    Click Element  ${dropdown}
+    Sleep          ${TIMEOUT_DROPDOWN}
 
 Scroll Horizontal
     [Arguments]  ${element}    ${scrollLeft}
@@ -253,6 +270,12 @@ Is Image Exist
     [Arguments]  ${selector}
     ${jquerySelector}    Get JQuery Selector    ${selector}
     ${isExist}    Execute Javascript     return !!$('${jquerySelector}').get(0).naturalWidth
+    [Return]    ${isExist}
+
+Is Element Exist
+    [Arguments]  ${element}
+    ${selector}    Get JQuery Selector    ${element}
+    ${isExist}    Execute Javascript     return !!$('${selector}').length
     [Return]    ${isExist}
 
 Get Downloading Path
@@ -349,6 +372,11 @@ Set Checkbox
 Get Kendo Value
     [Arguments]  ${elementId}    
     ${result}    Execute Javascript    return jQuery("#${elementId}").data('handler').value()
+    [Return]    ${result}
+
+Get Kendo Text
+    [Arguments]  ${elementId}    
+    ${result}    Execute Javascript    return jQuery("#${elementId}").data('handler').text()
     [Return]    ${result}
 
 Get Grid Column Texts

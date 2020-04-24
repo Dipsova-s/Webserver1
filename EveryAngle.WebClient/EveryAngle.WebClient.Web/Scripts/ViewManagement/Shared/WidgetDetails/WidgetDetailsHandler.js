@@ -313,6 +313,9 @@ function WidgetDetailsHandler(container, description, queryblocks, modelRoles, d
         }
         return modelInfoText;
     };
+    self.GetPrivateNote = function () {
+        return self.Angle.user_specific.private_note;
+    };
 
     self.HaveFilterDisplay = function (queryBlocks) {
         return WC.ModelHelper.HasFilter(queryBlocks);
@@ -348,8 +351,7 @@ function WidgetDetailsHandler(container, description, queryblocks, modelRoles, d
     self.GetFilterText = function (data, format) {
         if (typeof data === 'string') {
             // base_classes block
-            var classObj = modelClassesHandler.GetClassById(data, self.ModelUri) || { id: data };
-            return userFriendlyNameHandler.GetFriendlyName(classObj, format);
+            return modelClassesHandler.GetClassName(data, self.ModelUri, format);
         }
         else {
             // query_steps block
@@ -403,14 +405,10 @@ function WidgetDetailsHandler(container, description, queryblocks, modelRoles, d
         });
         return messages.join(', ');
     };
-    self.DeleteQueryStep = function (index, queryStep, event) {
-        if (!jQuery(event.currentTarget).hasClass('disabled')) {
-            displayQueryBlockModel.DeleteQueryStep(index, queryStep, event);
-        }
-    };
     self.GetAngleDisplayURL = function (displayDefinition) {
         var params = {};
         if (self.Angle.is_template) {
+            params[enumHandlers.ANGLEPARAMETER.TARGET] = enumHandlers.ANGLETARGET.ANGLEPOPUP;
             params[enumHandlers.ANGLEPARAMETER.TEMPLATE] = true;
         }
         return WC.Utility.GetAnglePageUri(self.Angle.uri, displayDefinition.uri, params);
@@ -418,6 +416,7 @@ function WidgetDetailsHandler(container, description, queryblocks, modelRoles, d
     self.GetWidgetURL = function (displayDefinition, angle) {
         var params = {};
         if (angle.is_template) {
+            params[enumHandlers.ANGLEPARAMETER.TARGET] = enumHandlers.ANGLETARGET.ANGLEPOPUP;
             params[enumHandlers.ANGLEPARAMETER.TEMPLATE] = true;
         }
         return WC.Utility.GetAnglePageUri(angle.uri, displayDefinition.uri, params);

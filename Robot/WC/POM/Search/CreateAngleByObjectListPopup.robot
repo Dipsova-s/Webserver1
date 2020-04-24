@@ -8,10 +8,10 @@ ${pgbCreateAngleByObjectList}                   css=#ObjectsGrid .k-loading-mask
 ${btnCreateNewAngleByObjectList}                btn-popupCreateNewAngle0
 ${gridObjectList}                               css=#ObjectsGrid
 ${chkObjectsFromList}                           jquery=#ObjectsGrid .k-grid-content tr input
-${btnCloseAngleDetailPopup}                     //div[@id='popupAngleDetail']/..//div/a[@class='k-button k-bare k-button-icon k-window-action']/span[@class='k-icon k-i-close icon icon-close']/..
 ${trObjectsDescriptionFromList}                 jquery=#ObjectsGrid .k-grid-content tr
 ${lbNumberOfObjectBusinessProcess}              classTotals
 ${divBusinessProcess}                           CreateAngleByObjectBusinessProcess
+${chkSkipTemplate}                              SkipTemplate
 
 *** Keywords ***
 Wait Create Angle Popup Option Object List Loaded
@@ -65,9 +65,6 @@ Click Create New Angle from Object List Button
     ${selectObjectCount}    Get Element Count    ${chkObjectsFromList}:checked
     Run Keyword If    ${selectObjectCount} > 1    Click Confirm Warning Create Angle Popup Button
 
-Close Angle Popup Detail
-    Click Element    ${btnCloseAngleDetailPopup}
-
 Click Object Description From List
     [Arguments]   ${index}
     Wait Until Page Contains Element    ${trObjectsDescriptionFromList}:eq(${index}) td:eq(2)
@@ -97,3 +94,5 @@ Click Select Or Deselect Business Process In Object List
     Click Element    css=#${divBusinessProcess} .${businessProcessName}
     Wait Until Ajax Complete
 
+Click Skip Template Checkbox
+    Select Checkbox    ${chkSkipTemplate} 

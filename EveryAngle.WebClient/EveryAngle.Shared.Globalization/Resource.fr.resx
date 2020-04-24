@@ -586,7 +586,7 @@
     <value>Consulter les informations concernant ce champ</value>
   </data>
   <data name="SelectAPropertyToApplyAsFilter" xml:space="preserve">
-    <value>Sélectionner un champ à appliquer comme Filtre</value>
+    <value>Choose field</value>
   </data>
   <data name="Sort" xml:space="preserve">
     <value>Trier</value>
@@ -943,7 +943,7 @@
     <value>Maintenir l'activité des Filtres de Display</value>
   </data>
   <data name="DisplayDrilldownDefault" xml:space="preserve">
-    <value>Display Détail par défaut</value>
+    <value>Default drilldown</value>
   </data>
   <data name="None" xml:space="preserve">
     <value>[None]</value>
@@ -1248,7 +1248,7 @@
   <data name="MassChangeValidated" xml:space="preserve">
     <value>Validé</value>
   </data>
-  <data name="CompairValue" xml:space="preserve">
+  <data name="CompareValue" xml:space="preserve">
     <value>Sélectionner champ</value>
   </data>
   <data name="ExecuteAsDashboard" xml:space="preserve">
@@ -1470,8 +1470,8 @@
   <data name="AngleDetailPublishTabAngle" xml:space="preserve">
     <value>Défini sur « Angle »</value>
   </data>
-  <data name="MessageSaveQuestionPublishAngle" xml:space="preserve">
-    <value>Les détails de l'Angle contiennent des modifications non sauvegardées. Souhaitez-vous enregistrer les modifications et continuer la publication ?</value>
+  <data name="MessageSaveQuestionPublish" xml:space="preserve">
+    <value>Modifications non sauvegardées. Souhaitez-vous enregistrer les modifications et continuer la publication ?</value>
   </data>
   <data name="MessageSaveFollowupRequiredPublishAngle" xml:space="preserve">
     <value>La définition de l'Angle a été modifiée, un Jump a été ajouté ou supprimé. Ce changement doit être sauvegardé avant que l'Angle ne puisse être publié.</value>
@@ -5217,13 +5217,15 @@ Deselect this field if you do not want to show the IDs. Users will not be able t
     <value>Le Template « {0} » ne peut pas être exécuté car il ne possède aucun Display valide.</value>
   </data>
   <data name="Info_DropFilterToAngleDefinition" xml:space="preserve">
-    <value>Déposez ici pour déplacer le filtre vers la définition d'Angle.</value>
+    <value>Drop here to move filter to Angle.</value>
   </data>
   <data name="MC_ADFSRequires" xml:space="preserve">
     <value>ADFS requires the automatic creation of users</value>
   </data>
   <data name="Info_ConfirmDropFilterToAngleDefinition" xml:space="preserve">
-    <value>Ajouter un filtre à la définition d'Angle ?</value>
+    <value>Move filter to Angle?&lt;br/&gt;
+This will Save all changes to the Angle immediately.&lt;br/&gt;
+Do you want to continue?</value>
   </data>
   <data name="CellPopupSubMenuIsNotBetween" xml:space="preserve">
     <value>N'est pas compris entre {0} et {1} </value>
@@ -6175,5 +6177,91 @@ Only Active Directory (AD) and Active Directory Federation (ADFS) services are s
   </data>
   <data name="ModelDefinitionVersion" xml:space="preserve">
     <value>Model definition version</value>
+  </data>
+  <data name="AddLanguage" xml:space="preserve">
+    <value>Add language</value>
+  </data>
+  <data name="Tooltip_ApplyAndSaveAngle" xml:space="preserve">
+    <value>Apply and save Angle</value>
+  </data>
+  <data name="Tooltip_ApplyAndSaveDisplay" xml:space="preserve">
+    <value>Apply and save Display</value>
+  </data>
+  <data name="Tooltip_UndoAllChanges" xml:space="preserve">
+    <value>Undo all changes</value>
+  </data>
+  <data name="OpenEnumeratedPopup" xml:space="preserve">
+    <value>Open in a new window</value>
+  </data>
+  <data name="Dashboard" xml:space="preserve">
+    <value>Dashboard</value>
+  </data>
+  <data name="Dashboard_SideBar_Displays" xml:space="preserve">
+    <value>Displays</value>
+  </data>
+  <data name="Info_ActionNotAllowedDescription" xml:space="preserve">
+    <value>This action is not allowed.</value>
+  </data>
+  <data name="DashboardDescription" xml:space="preserve">
+    <value>Description de l'Dashboard</value>
+  </data>
+  <data name="ChartGaugeSetting" xml:space="preserve">
+    <value>Ranges and colors</value>
+  </data>
+  <data name="Toast_SetAngleToTemplate" xml:space="preserve">
+    <value>'{0}' has been set to Template</value>
+  </data>
+  <data name="Toast_SetTemplateToAngle" xml:space="preserve">
+    <value>'{0}' has been set to Angle</value>
+  </data>
+  <data name="ChartReferenceFieldName" xml:space="preserve">
+    <value>Reference Line</value>
+  </data>
+  <data name="NewDisplayType_chart" xml:space="preserve">
+    <value>Diagramme</value>
+  </data>
+  <data name="NewDisplayType_list" xml:space="preserve">
+    <value>Liste</value>
+  </data>
+  <data name="NewDisplayType_pivot" xml:space="preserve">
+    <value>Tableau croisé dynamique</value>
+  </data>
+  <data name="NoDisplayFiltersActive" xml:space="preserve">
+    <value>No Display Filters active</value>
+  </data>
+  <data name="MoreActions" xml:space="preserve">
+    <value>More actions</value>
+  </data>
+  <data name="GoToSapNotAvailable" xml:space="preserve">
+    <value>No transactions available</value>
+  </data>
+  <data name="DisplayOverview" xml:space="preserve">
+    <value>Display overview</value>
+  </data>
+  <data name="ScrollLeft" xml:space="preserve">
+    <value>Scroll left</value>
+  </data>
+  <data name="ScrollRight" xml:space="preserve">
+    <value>Scroll right</value>
+  </data>
+  <data name="Toast_CopyDisplay" xml:space="preserve">
+    <value>'{0}' has been copied!</value>
+  </data>
+  <data name="Toast_PasteDisplay" xml:space="preserve">
+    <value>'{0}' has been pasted!</value>
+  </data>
+  <data name="ReferencePopupWarning" xml:space="preserve">
+    <value>Please enter a value in a valid format</value>
+  </data>
+  <data name="ValidationForBusinessProcess" xml:space="preserve">
+    <value>You must add at least one Business Process to save the Angle</value>
+  </data>
+  <data name="CannotSaveAngle_Title" xml:space="preserve">
+    <value>Cannot save</value>
+  </data>
+  <data name="MessageSaveQuestionAngleUsedInTask" xml:space="preserve">
+    <value>You made changes to an Angle that is used in Automation tasks. This might cause failures.
+&lt;br&gt;&lt;br&gt;
+Do you want to continue saving your changes?</value>
   </data>
 </root>

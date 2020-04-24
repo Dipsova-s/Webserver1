@@ -6,7 +6,9 @@ Test Teardown       Go to Search Page
 
 *** Test Cases ***
 Verify Create Template From Angle
-    [Tags]    smk_wc
+    [Documentation]  Verify Set Angle to Template and EA icon changes to Template icon     
+    ...              Risk/Cover area: Set To Template     
+    [Tags]    smk_wc    TC_C229010
     Create Template From Angle    PD    [ROBOT] Test Create Template from Angle
 
 Verify Create New Angle From Full Object List Test

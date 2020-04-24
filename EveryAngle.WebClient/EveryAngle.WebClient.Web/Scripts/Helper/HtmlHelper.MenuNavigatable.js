@@ -74,6 +74,7 @@
             var currentScrollTop = target.scrollTop();
             target.scrollTop(itemIndex === itemCount - 1 ? itemCount * itemHeight : currentScrollTop - itemHeight);
         }
+        e.preventDefault();
     };
 
     // on DOWN key
@@ -90,6 +91,7 @@
             var currentScrollTop = target.scrollTop();
             target.scrollTop(itemIndex === 0 ? 0 : currentScrollTop + itemHeight);
         }
+        e.preventDefault();
     };
 
     // on ENTER key

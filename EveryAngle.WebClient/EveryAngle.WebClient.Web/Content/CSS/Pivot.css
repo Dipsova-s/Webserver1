@@ -536,7 +536,7 @@
     margin-right: 3px; }
   .pivotAreaContainer .dxTouchScrollHandleVisible {
     -webkit-transition-duration: 0s;
-    opacity: 0.4 !important; }
+    opacity: .4 !important; }
   .pivotAreaContainer .dxrpcontent {
     height: 100%; }
   .pivotAreaContainer .dxpgControl, .pivotAreaContainer .dxpgCustForm {
@@ -2760,3 +2760,5 @@
     opacity: .01; }
   .pivotAreaContainer .PercentageSummaryCell {
     color: #999; }
+  .pivotAreaContainer .k-loading-mask {
+    background-color: #fff; }

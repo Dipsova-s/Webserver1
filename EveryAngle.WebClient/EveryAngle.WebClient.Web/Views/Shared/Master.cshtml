@@ -15,12 +15,16 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     @RenderPage("~/Views/Shared/Top/ValidationRequestHeader.cshtml")
     <link rel="shortcut icon" href="@Url.Content("~/images/favicon.ico")" />
+	<link rel="preload" as="font" href="@Url.Content("~/content/fonts/roboto-v19-latin-regular.woff2")" type="font/woff2" crossorigin="anonymous" />
+	<link rel="preload" as="font" href="@Url.Content("~/content/fonts/roboto-v19-latin-regular.woff")" type="font/woff" crossorigin="anonymous" />
+	<link rel="preload" as="font" href="@Url.Content("~/content/externalresource/webclientico.woff")" type="font/woff" crossorigin="anonymous" />
 
     <script src='@Url.Content("~/resources/index?lang=" + Thread.CurrentThread.CurrentUICulture.TwoLetterISOLanguageName)' type="text/javascript"></script>
     <script type="text/javascript">
         var webAPIUrl = '@EveryAngle.Shared.Helpers.UrlHelper.GetRequestUrl(EveryAngle.Shared.Helpers.URLType.NOA).ToLower()';
         var webLoginUrl = '@EveryAngle.Shared.Helpers.UrlHelper.GetRequestUrl(EveryAngle.Shared.Helpers.URLType.HBA).ToLower()';
         var domainImageFolders = '@EveryAngle.WebClient.Web.Helpers.ResouceExtension.GetDomainImageFolderList().ToLower()';
+        var domainImageFiles = '@EveryAngle.WebClient.Web.Helpers.ResouceExtension.GetDomainImageList()';
         var webApiVersion = '@EveryAngle.Shared.Helpers.WebConfigHelper.GetAppSettingByKey("WebApiVersion")';
         var ajaxTimeoutExpirationInSeconds = parseInt('@EveryAngle.Shared.Helpers.WebConfigHelper.GetAppSettingByKey("Ajax-Timeout-Expiration-In-Seconds")', 10);
         var dashboardRefreshIntervalTime = parseInt('@EveryAngle.Shared.Helpers.WebConfigHelper.GetAppSettingByKey("DashboardRefreshIntervalTime")', 10);
@@ -66,6 +70,7 @@
         var enableGoToSAP = '@EveryAngle.Shared.Helpers.WebConfigHelper.GetAppSettingByKey("EnableGoToSAP").ToLower()' === 'true';
         var textDays = Localization.Days;
         var requireUserNameAndPasword = Localization.PleaseEnterYourUsernameAndPassword;
+        var editorStyleSheet = '@Styles.Url("~/content/css/main.css")';
         var copyRightUrl = '@copyRightUrl';
     </script>
 
@@ -146,7 +151,6 @@
     <div id="MainContainer">
         @RenderSection("TopBar", required: false)
         <div id="ResultContainerWrapper">
-            @RenderSection("UnderTopHeader", required: false)
             @RenderBody()
         </div>
     </div>

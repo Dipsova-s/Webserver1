@@ -28,6 +28,20 @@ SetupFiles
         - **feature/\<id>_\<short title>** for feature type
         - **bugfix/\<id>_\<short title>** for issue type
     2.  After commited/pushed, Azure DevOps will start a build process
+4. Running locally
+    1. Set "Configuration=DEVMODE" in Visual studio
+    2. Update **WebServerBackendUrl** and **WebServiceBackendNOAPort** in the Web.config file to target environment
+    3. Update trust IP address to AppServer by MC or using API, e.g.
+```javascript
+    PUT https://<WebServerBackendUrl>:<WebServiceBackendNOAPort>/system/settings
+    {
+        "trusted_webservers": [
+            "127.0.0.1",
+            "::1",
+            "192.168.2.*"   // your IP address
+        ]
+    }
+```
 
 # Work with JavaScript unit test
 WebClient uses Jasmine as unit test tool and Chutzpah is the test runner.
@@ -43,12 +57,28 @@ WebClient and MC store icons in font and use [IcoMoon](https://icomoon.io/) to g
 1. Only SVG icon with single color can be generated
 2. Download and install [Chrome extension](https://chrome.google.com/webstore/detail/icomoon/kppingdhhalimbaehfmhldppemnmlcjd?hl=en)
 3. Open the app and import **WebClient.json** file from **/EveryAngle.WebClient/EveryAngle.Shared.EmbeddedViews/Resource/Shared/fonts/** folder
-4. Click **Generate Font** tab at bottom, click setting/gear icon and make sure that they are set as below
-   -  Font name **WebClientIco**
-   -  Class prefix **icon-**
-   -  Only "Support IE 8" is checked
-   -  CSS Selector > Use a class **.icon**
-5. After updated then you must export **WebClient.json** file
+4. Import SVG, at WebClient set, click hamburger menu and **Import to Set**.
+   - Make sure that ordering is correct
+   
+   ![](/images/ordering.png)
+
+   - Removing color
+   
+   ![](/images/remove-color.png)
+
+   - Alignment
+
+   ![](/images/align-middle.png)
+
+   - Make it fit
+
+   ![](/images/fit-box.png)
+
+5. Click **Generate Font** tab at bottom, click setting/gear icon and make sure that they are set as below
+
+![](/images/download-settings.png)
+
+6. After updated then you must export **WebClient.json** file
    - At **Selection** tab, click hamburger icon on right side
    - Click **Download JSON**
    - Replace the source file with the downloaded file

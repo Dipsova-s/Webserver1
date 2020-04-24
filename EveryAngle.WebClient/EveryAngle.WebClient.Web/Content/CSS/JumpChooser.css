@@ -9,10 +9,6 @@
     height: auto;
 }
 
-.popupFollowup .k-window-titlebar {
-    border-bottom-color: #fff;
-}
-
 .popupFollowup .k-window-content {
     padding: 0;
 }
@@ -137,7 +133,8 @@
 
 .followupBlock .gridHeaderContainer.asc .sort,
 .followupBlock .gridHeaderContainer.desc .sort {
-    background-image: url('../../images/icons/icon_sorting_a_z.svg');
+    background-image: none;
+    line-height: 1;
 }
 
 .followupBlock .k-grid-content {
@@ -267,7 +264,7 @@
 #popupFollowup .k-state-selected,
 #popupFollowup .k-state-selected > td,
 #popupFollowup .k-grid td.k-state-selected.k-state-focused {
-    background-color: #e5efff;
+    background-color: #dbe9ff;
     border: #8dbeeb solid 1px;
 }
 

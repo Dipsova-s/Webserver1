@@ -8,7 +8,23 @@
     "inputFile": "Content/CSS/itemstate.scss"
   },
   {
+    "outputFile": "Content/CSS/usersettings.css",
+    "inputFile": "Content/CSS/usersettings.scss"
+  },
+  {
     "outputFile": "Content/CSS/pivot.css",
     "inputFile": "Content/CSS/pivot.scss"
+  },
+  {
+    "outputFile": "Content/CSS/Search.css",
+    "inputFile": "Content/CSS/Search.scss"
+  },
+  {
+    "outputFile": "Content/CSS/Dashboard.css",
+    "inputFile": "Content/CSS/Dashboard.scss"
+  },
+  {
+    "outputFile": "Content/CSS/Angle.css",
+    "inputFile": "Content/CSS/Angle.scss"
   }
 ]

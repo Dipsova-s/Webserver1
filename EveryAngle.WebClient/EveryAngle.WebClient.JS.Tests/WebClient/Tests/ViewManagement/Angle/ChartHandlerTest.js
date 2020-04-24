@@ -6,6 +6,9 @@
 /// <reference path="/Dependencies/ViewModels/Models/Angle/DisplayModel.js" />
 /// <reference path="/Dependencies/ViewManagement/Shared/ModelFieldDomainHandler.js" />
 /// <reference path="/Dependencies/ViewManagement/Shared/ValidationHandler.js" />
+/// <reference path="/Dependencies/ViewManagement/Angle/Chart/ChartHelper.js" />
+/// <reference path="/Dependencies/ViewManagement/Angle/Chart/ChartOptionsView.js" />
+/// <reference path="/Dependencies/ViewManagement/Angle/Chart/ChartOptionsHandler.js" />
 /// <reference path="/Dependencies/ViewManagement/Angle/FieldSettingsHandler.js" />
 /// <reference path="/Dependencies/ViewManagement/Angle/ChartHandler.js" />
 
@@ -803,5 +806,253 @@ describe("ChartHandler", function () {
         });
 
     });
+    describe(".SetReferenceBand", function () {
+        var chart;
+        beforeEach(function () {
+            chartHandler.FieldSettings = {
+                GetFields: function () {
+                    return {
+                        findObjects: function () {
+                            return [
+                                {
+                                    is_selected: true,
+                                    FieldDetails: '{"targetlinedetails": {"fromvalue": 5,"tovalue": 500}}',
+                                    FieldName: ''
+                                },
+                                {
+                                    is_selected: true,
+                                    FieldDetails: '{"targetlinedetails": {"fromvalue": 50,"tovalue": 5000}}',
+                                    FieldName: ''
+                                }
+                            ];
+                        }
 
+                    };
+                },
+                GetDisplayDetails: function () {
+                    return {
+                        show_as_percentage: false,
+                        chart_type: '',
+                        multi_axis: false,
+                        stack: false
+                    }
+                }
+            };
+            spyOn(chartHandler, 'GetDataItemsFromView');
+            spyOn(chartHandler, 'CalculateValuesBoundary');
+            spyOn(chartHandler, 'IsScatterOrBubbleChartType').and.returnValue(true);
+            chart = {
+                options: {
+                    yAxis: {},
+                    series: [
+                        {
+                            data: '', axis: 0
+                        },
+                        {
+                            data: '', axis: 1
+                        }
+                    ],
+                }
+            }
+        });
+
+        describe("reference band or line when not multi_axis", function () {
+            it("should set reference line", function () {
+                chartHandler.FieldSettings.GetFields = function () {
+                    return {
+                        findObjects: function () {
+                            return [
+                                {
+                                    is_selected: true,
+                                    FieldDetails: '{"targetlinedetails": {"fromvalue": 5,"tovalue":null}}',
+                                    FieldName: ''
+                                }
+                            ];
+                        }
+                    };
+                };
+                spyOn(chartHandler, 'PlotReferenceLine').and.returnValue(true);
+                chartHandler.SetReferenceBand(chart);
+                expect(chartHandler.PlotReferenceLine).toHaveBeenCalled();
+            });
+            it("should set reference band", function () {
+                spyOn(chartHandler, 'PlotReferenceBand').and.returnValue(true);
+                chartHandler.SetReferenceBand(chart);
+                expect(chartHandler.PlotReferenceBand).toHaveBeenCalled();
+            });
+        });
+
+        describe("reference band or line when multi_axis", function () {
+            beforeEach(function () {
+                chart.options.series = [{ data: '', axis: 0 }, { data: '', axis: 0 }];
+                chartHandler.FieldSettings.GetDisplayDetails = function () {
+                    return {
+                        show_as_percentage: false,
+                        chart_type: '',
+                        multi_axis: true,
+                        stack: false
+                    }
+                };
+            });
+            it("should set reference line for multi_axis", function () {
+                chartHandler.FieldSettings.GetFields = function () {
+                    return {
+                        findObjects: function () {
+                            return [
+                                {
+                                    is_selected: true,
+                                    FieldDetails: '{"targetlinedetails": {"fromvalue": 5,"tovalue":null}}',
+                                    FieldName: ''
+                                },
+                                {
+                                    is_selected: true,
+                                    FieldDetails: '{"targetlinedetails": {"fromvalue": 500,"tovalue":null}}',
+                                    FieldName: ''
+                                }
+                            ];
+                        }
+                    };
+                };
+                spyOn(chartHandler, 'PlotReferenceLine').and.returnValue(true);
+                chartHandler.SetReferenceBand(chart);
+                expect(chartHandler.PlotReferenceLine).toHaveBeenCalled();
+                expect(chartHandler.PlotReferenceLine.calls.count()).toEqual(2);
+            });
+            it("should set reference band for multi_axis", function () {
+                spyOn(chartHandler, 'PlotReferenceBand').and.returnValue(true);
+                chartHandler.SetReferenceBand(chart);
+                expect(chartHandler.PlotReferenceBand).toHaveBeenCalled();
+                expect(chartHandler.PlotReferenceBand.calls.count()).toEqual(2);
+            });
+        });
+    });
+    describe(".PlotReferenceLine", function () {
+        var chartDetails, fieldDetails, expectedValue;
+        beforeEach(function () {
+            chartDetails = {
+                chart_type: enumHandlers.CHARTTYPE.BUBBLECHART.Code,
+                stack: true,
+                multi_axis: true
+            };
+            fieldDetails = {
+                targetlinedetails: { fromvalue: 12 }
+            };
+        });
+        describe("set target value for scatter or bubble chart", function () {
+            var axisValueSettings, target;
+            beforeEach(function () {
+                axisValueSettings = {
+                    majorUnit: '',
+                    max: ''
+                };
+                spyOn(chartHandler, 'IsScatterOrBubbleChartType').and.returnValue(true);
+                expectedValue = {
+                    from: 12,
+                    to: 11.994988127663728,
+                    color: "#666666",
+                    opacity: 1
+                }
+            });
+            it("should set target value for multi-axis", function () {
+                target = [{ plotBands: '' }, { plotBands: '' }];
+                chartHandler.PlotReferenceLine(0, chartDetails, fieldDetails, target, axisValueSettings, 0, [], {});
+                expect(target[0].plotBands[0]).toEqual(jasmine.objectContaining(expectedValue));
+            });
+            it("should set target value for non multi-axis", function () {
+                target = { plotBands: '' };
+                chartDetails.multi_axis = false;
+                target = { plotBands: '' };
+                chartHandler.PlotReferenceLine(0, chartDetails, fieldDetails, target, axisValueSettings, 0, [], {});
+                expect(target.plotBands[0]).toEqual(jasmine.objectContaining(expectedValue));
+            });
+        });
+    });
+    describe(".PlotReferenceBand", function () {
+        var chartDetails, fieldDetails, target, row = 0, returnedValue = {
+            from: 0,
+            to: 500,
+            color: "#c2c2c2",
+            opacity: 0.75
+        };
+        beforeEach(function () {
+            chartDetails = { multi_axis: false };
+            fieldDetails = {
+                targetlinedetails: {
+                    fromvalue: 0,
+                    tovalue: 500
+                }
+            }
+        });
+        it("should set target object properties", function () {
+            target = { plotBands: '' };
+            spyOn(chartHandler, 'PlotReferenceBand').and.callThrough()
+            chartHandler.PlotReferenceBand(row, chartDetails, fieldDetails, target);
+            expect(target.plotBands[0]).toEqual(jasmine.objectContaining(returnedValue));
+        });
+        it("should set target object properties for a specific row", function () {
+            chartDetails.multi_axis = true;
+            target = [{ plotBands: '' }, { plotBands: '' }];
+            spyOn(chartHandler, 'PlotReferenceBand').and.callThrough()
+            chartHandler.PlotReferenceBand(row, chartDetails, fieldDetails, target);
+            expect(target[0].plotBands[0]).toEqual(jasmine.objectContaining(returnedValue));
+        });
+    });
+
+    describe(".VisualLabel", function () {
+
+        var e;
+        var box;
+
+        beforeEach(function () {
+            e = {
+                text: '',
+                options: {
+                    font: ''
+                },
+                rect: {
+                    origin: {
+                        x: 1,
+                        y: 1
+                    }
+                },
+                createVisual: $.noop
+            };
+
+            box = { children: [{}, {}] };
+
+            chartHandler.Chart = {
+                _plotArea: {
+                    axisX: {
+                        box: { x2: 0, y1: 0 }
+                    },
+                    axisY: {
+                        box: { x2: 0, y1: 0 }
+                    }
+                }
+            };
+
+            spyOn(WC.Utility, 'MeasureText');
+            spyOn(e, 'createVisual').and.returnValue(box);
+            spyOn(chartHandler, 'SetLabelPositionX');
+            spyOn(chartHandler, 'SetLabelPositionY');
+        });
+
+        it("should not update label position when plotArea is not exists", function () {
+            chartHandler.Chart._plotArea = null;
+
+            var result = chartHandler.VisualLabel(e);
+
+            expect(result).toEqual(box);
+            expect(chartHandler.SetLabelPositionX).not.toHaveBeenCalled();
+            expect(chartHandler.SetLabelPositionY).not.toHaveBeenCalled();
+        });
+
+        it("should update label position when plotArea is exists", function () {
+            var result = chartHandler.VisualLabel(e);
+
+            expect(result).toEqual(box);
+            expect(chartHandler.SetLabelPositionX).toHaveBeenCalled();
+            expect(chartHandler.SetLabelPositionY).toHaveBeenCalled();
+        });
+    });
 });

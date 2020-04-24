@@ -1,6 +1,7 @@
 /// <reference path="/Dependencies/ViewManagement/Shared/FieldChooserHandler.js" />
 /// <reference path="/Dependencies/ViewManagement/Shared/ModelFollowupsHandler.js" />
 /// <reference path="/Dependencies/ViewManagement/Shared/ModelsHandler.js" />
+/// <reference path="/Dependencies/ViewManagement/Shared/ModelCurrentInstanceHandler.js" />
 
 describe("ModelsHandler", function () {
     var modelsHandler;
@@ -124,4 +125,75 @@ describe("ModelsHandler", function () {
         });
     });
 
+    describe(".GetResultQueryFieldsUri", function () {
+        var tests = [
+            {
+                title: 'should get correct result query field uri when current modeld instance is null',
+                resultClasses: ['class1', 'class2'],
+                modelUri: '/models/1',
+                currentModelInstance: null,
+                modelByUri: {
+                    fields: '/models/1/instances/1/fields'
+                },
+                expected: '/models/1/instances/1/fields?classes=class1,class2'
+            },
+            {
+                title: 'should get correct result query field uri when current modeld instance is not null',
+                resultClasses: ['class3', 'class4'],
+                modelUri: '/models/1',
+                currentModelInstance: {
+                    fields: '/models/1/instances/1/fields'
+                },
+                modelByUri: null,
+                expected: '/models/1/instances/1/fields?classes=class3,class4'
+            }
+        ];
+
+        $.each(tests, function (index, test) {
+            it(test.title, function () {
+                spyOn(modelCurrentInstanceHandler, 'GetCurrentModelInstance').and.returnValue(test.currentModelInstance);
+                spyOn(modelsHandler, 'GetModelByUri').and.returnValue(test.modelByUri);
+
+                var result = modelsHandler.GetResultQueryFieldsUri(test.resultClasses, test.modelUri);
+                expect(result).toEqual(test.expected);
+            });
+        });
+
+    });
+
+    describe(".GetResultFollowupsUri", function () {
+        var tests = [
+            {
+                title: 'should get correct result query followups uri when current modeld instance is null',
+                resultClasses: ['class1', 'class2'],
+                modelUri: '/models/1',
+                currentModelInstance: null,
+                modelByUri: {
+                    followups: '/models/1/instances/1/followups'
+                },
+                expected: '/models/1/instances/1/followups?classes=class1,class2'
+            },
+            {
+                title: 'should get correct result query followups uri when current modeld instance is not null',
+                resultClasses: ['class3', 'class4'],
+                modelUri: '/models/1',
+                currentModelInstance: {
+                    followups: '/models/1/instances/1/followups'
+                },
+                modelByUri: null,
+                expected: '/models/1/instances/1/followups?classes=class3,class4'
+            }
+        ];
+
+        $.each(tests, function (index, test) {
+            it(test.title, function () {
+                spyOn(modelCurrentInstanceHandler, 'GetCurrentModelInstance').and.returnValue(test.currentModelInstance);
+                spyOn(modelsHandler, 'GetModelByUri').and.returnValue(test.modelByUri);
+
+                var result = modelsHandler.GetResultFollowupsUri(test.resultClasses, test.fieldsUri);
+                expect(result).toEqual(test.expected);
+            });
+        });
+
+    });
 });

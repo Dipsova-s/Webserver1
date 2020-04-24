@@ -88,7 +88,7 @@ namespace EveryAngle.ManagementConsole.Controllers
             ILogFileReaderService logFileReaderService
             )
             : this(globalSettingService, modelService, userService, webClientConfigService,
-                  repositoryLogService, logFileService,logFileReaderService, SessionHelper.Initialize())
+                  repositoryLogService, logFileService, logFileReaderService, SessionHelper.Initialize())
         {
         }
 

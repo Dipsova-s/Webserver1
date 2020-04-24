@@ -1,10 +1,12 @@
 ﻿/// <reference path="/Dependencies/ErrorHandler/ErrorHandler.js" />
-/// <reference path="/Dependencies/ViewModels/Models/Angle/historymodel.js" />
 /// <reference path="/Dependencies/ViewModels/Models/Angle/resultmodel.js" />
 /// <reference path="/Dependencies/ViewModels/Models/Angle/displayqueryblockmodel.js" />
 /// <reference path="/Dependencies/ViewModels/Models/Angle/AngleInfoModel.js" />
 /// <reference path="/Dependencies/ViewModels/Models/Angle/DisplayModel.js" />
 /// <reference path="/Dependencies/ViewManagement/Shared/ValidationHandler.js" />
+/// <reference path="/Dependencies/ViewManagement/Angle/Chart/ChartHelper.js" />
+/// <reference path="/Dependencies/ViewManagement/Angle/Chart/ChartOptionsView.js" />
+/// <reference path="/Dependencies/ViewManagement/Angle/Chart/ChartOptionsHandler.js" />
 /// <reference path="/Dependencies/ViewManagement/Angle/FieldSettingsHandler.js" />
 /// <reference path="/Dependencies/ViewManagement/Angle/PivotHandler.js" />
 
@@ -226,7 +228,7 @@ describe("PivotPageHandler", function () {
 
             pivotPageHandler2 = new PivotPageHandler();
             pivotPageHandler2.UpdateSortDataFromPivotTable = $.noop;
-            pivotPageHandler2.Models.Display.Data({ display_details: '{}', upgrades_properties: [] });
+            pivotPageHandler2.Models.Display.Data({ display_details: '{}', upgrade_properties: [] });
             pivotPageHandler2.Models.Display.Data.commit();
 
             fieldSettingsHandler.FieldSettings = {};
@@ -438,53 +440,53 @@ describe("PivotPageHandler", function () {
     });
 
     describe(".EnsureUpdateLayout", function () {
-        it("should update a layout (1 time)", function () {
+        it("should be forced to update a layout", function () {
             // prepare
             spyOn(pivotPageHandler, 'UpdateLayout');
-            spyOn($.fn, 'height').and.returnValues(1, 1);
             pivotPageHandler.EnsureUpdateLayout();
 
             // assert
             expect(pivotPageHandler.UpdateLayout).toHaveBeenCalledTimes(1);
         });
-        it("should update a layout (2 times)", function () {
-            // prepare
-            spyOn(pivotPageHandler, 'UpdateLayout');
-            spyOn($.fn, 'height').and.returnValues(1, 2);
-            pivotPageHandler.EnsureUpdateLayout();
-
-            // assert
-            expect(pivotPageHandler.UpdateLayout).toHaveBeenCalledTimes(2);
-        });
     });
     describe(".SetTitleforElements", function () {
-        beforeEach(CreateTableAndSetContainer);
-        afterEach(function () {
-            $('#SampleTable').remove();
-        });
-        it("should call GetCellCaptionTitle function", function () {
+        it("should set tooltip", function () {
             spyOn(pivotPageHandler, 'GetCellCaptionTitle');
+            spyOn(pivotPageHandler, 'SetTooltip');
+            spyOn($.fn, 'find').and.returnValue($('<div/>'));
             pivotPageHandler.SetTitleforElements('.dxpgRowFieldValue');
-            expect(pivotPageHandler.GetCellCaptionTitle).toHaveBeenCalled();
+            expect(pivotPageHandler.SetTooltip).toHaveBeenCalled();
         });
     });
     describe(".GetCellCaptionTitle", function () {
-        beforeEach(CreateTableAndSetContainer);
-        afterEach(function () {
-            $('#SampleTable').remove();
-        });
-        it("should set the title attribute of the element", function () {
-            var cell;
-            pivotPageHandler.GetContainer().find('.dxpgRowFieldValue').each(function (index, cell) {
-                cell = jQuery(cell);
-                cell.attr('title', pivotPageHandler.GetCellCaptionTitle(cell));
+        var tests = [
+            {
+                html: 'firstname<br>&nbsp;surname ',
+                expected: 'firstname - surname'
+            },
+            {
+                html: '<img class="dxpgCollapsedButton" alt="image">0002 (Hartmans Plant)',
+                expected: '0002 (Hartmans Plant)'
+            },
+            {
+                html: '<span class="domainIcon test"></span>my name',
+                expected: 'my name'
+            },
+            {
+                html: 'you &amp; me',
+                expected: 'you & me'
+            },
+            {
+                html: '&lt;script&gt;alert("test")&lt;/script&gt;',
+                expected: '<script>alert("test")</script>'
+            }
+        ];
+        $.each(tests, function (_index, test) {
+            it("should get title (" + test.html + " -> " + test.expected + ")", function () {
+                var result = pivotPageHandler.GetCellCaptionTitle($('<div/>').html(test.html));
+                expect(result).toEqual(test.expected);
             });
-            expect($('#column').attr('title')).toEqual('0002 (Hartmans Plant)');
         });
     });
-    function CreateTableAndSetContainer() {
-        $('<table id="SampleTable">').html('<tr><td id="column" class="dxpgRowFieldValue" title=""><img class="dxpgCollapsedButton" src="" alt="image">0002 (Hartmans Plant)</td ></tr>').show().appendTo('body');
-        pivotPageHandler.Container = '#SampleTable';
-    }
 });
 

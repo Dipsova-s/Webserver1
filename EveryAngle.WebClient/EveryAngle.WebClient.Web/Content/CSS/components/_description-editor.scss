@@ -1,0 +1,33 @@
+﻿/* .description-editor
+============================================ */
+$editor-padding: 15px;
+
+.editor-body {
+    padding: $editor-padding;
+    box-sizing: border-box;
+}
+
+.description-editor {
+    .form-col {
+        padding: 8px $editor-padding;
+
+        &.col-description {
+            position: relative;
+            padding: 8px 0 0 0;
+        }
+    }
+
+    .multiple-select-item {
+        font-size: 12px;
+    }
+
+    .k-editor {
+        .k-editor-toolbar-wrap {
+            padding: 5px $editor-padding;
+        }
+
+        .k-editable-area {
+            padding: 0;
+        }
+    }
+}

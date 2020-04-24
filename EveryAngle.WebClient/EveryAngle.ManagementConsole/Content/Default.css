@@ -195,7 +195,7 @@ button:disabled {
 }
 
 #LoaderContainer .loader-message.typeInfo .loader-message-content {
-    background-image: url(../images/icons/icon_info.png);
+    background-image: url(../images/icons/icon_info.svg);
     background-position: 10px 10px;
 }
 

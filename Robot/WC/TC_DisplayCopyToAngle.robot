@@ -21,14 +21,16 @@ ${INVALID_QUERY_STEP_DISPLAY_ANGLE_NAME}                Angle which display has 
 ${INVALID_SORTING_STEP_DISPLAY_ANGLE_NAME}              Angle which display has invalid sorting step
 
 *** Test Cases ***
-Verify Copy Display Test
+ Verify Copy Display Test
     [Tags]  acc_wc_aci
     Search Angle From Search Page And Execute Angle    ${TEST_COPY_DISPLAY_TO_ANGLE_NAME_COPIED_ANGLE}
     Wait Angle Page Document Loaded
     Click Angle Dropdown Actions Copy Display
+    Page Should Contain Toast Success
     Go to Search Page
     Search Angle From Search Page And Execute Angle    ${TEST_COPY_DISPLAY_TO_ANGLE_NAME_PASTED_ANGLE}
     Click Angle Dropdown Actions Paste Display
+    Page Should Contain Toast Success
     Wait Angle Page Document Loaded
     Check If Angle Or Display Has A Warning Then Close The Popup
 
@@ -36,6 +38,7 @@ Verify Copy Display When Angle Invalid Test
     Search Angle From Search Page And Execute Angle    ${TEST_COPY_DISPLAY_TO_INVALIE_ANGLE_NAME}
     Wait Angle Page Document Loaded
     Click Angle Dropdown Actions Copy Display
+    Page Should Contain Toast Success
     Go to Search Page
     Search Angle From Search Page And Execute Angle    ${INVALIE_ANGLE_NAME}
     Check If Angle Or Display Has A Warning Then Close The Popup
@@ -47,12 +50,14 @@ Verify Copy Display When Display Invalid Field Test
     Wait Angle Page Document Loaded
     Check If Angle Or Display Has A Warning Then Close The Popup
     Click Angle Dropdown Actions Copy Display
+    Page Should Contain Toast Success
     Go to Search Page
     Search Angle From Search Page And Execute Angle    ${TEST_COPY_INVALID_FIELD_DISPLAY_ANGLE_NAME}
     Wait Progress Bar Closed
     Check If Angle Or Display Has A Warning Then Close The Popup
     Wait Progress Bar Closed
     Click Angle Dropdown Actions Paste Display
+    Page Should Contain Toast Success
     Wait Angle Page Document Loaded
     Check If Angle Or Display Has A Warning Then Close The Popup
 
@@ -61,6 +66,7 @@ Verify Copy Display When Display Invalid Query Step Test
     Wait Angle Page Document Loaded
     Check If Angle Or Display Has A Warning Then Close The Popup
     Click Angle Dropdown Actions Copy Display
+    Page Should Contain Toast Success
     Go to Search Page
     Search Angle From Search Page And Execute Angle    ${TEST_COPY_INVALID_QUERY_STEP_DISPLAY_ANGLE_NAME}
     Wait Progress Bar Closed
@@ -76,11 +82,13 @@ Verify Copy Display When Display Invalid Sorting Step Test
     Wait Angle Page Document Loaded
     Check If Angle Or Display Has A Warning Then Close The Popup
     Click Angle Dropdown Actions Copy Display
+    Page Should Contain Toast Success
     Go to Search Page
     Search Angle From Search Page And Execute Angle    ${TEST_COPY_INVALID_SORTING_STEP_DISPLAY_ANGLE_NAME}
     Wait Progress Bar Closed
     Check If Angle Or Display Has A Warning Then Close The Popup
     Wait Progress Bar Closed
     Click Angle Dropdown Actions Paste Display
+    Page Should Contain Toast Success
     Wait Angle Page Document Loaded
     Check If Angle Or Display Has A Warning Then Close The Popup

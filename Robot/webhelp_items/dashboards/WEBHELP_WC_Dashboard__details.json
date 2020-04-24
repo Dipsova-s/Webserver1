@@ -2,20 +2,20 @@
     "executed": {
         "user": "/users/1",
         "full_name": "EAAdmin",
-        "datetime": 1567577301
+        "datetime": 1570522082
     },
-    "labels": "/dashboards/660/labels",
+    "labels": "/dashboards/566/labels",
     "assigned_labels": [
         "S2D",
-        "O2C"
+        "F2R"
     ],
     "multi_lang_name": [
         {
-            "lang": "en",
+            "lang": "nl",
             "text": "Dashboard 2"
         },
         {
-            "lang": "nl",
+            "lang": "en",
             "text": "Dashboard 2"
         },
         {
@@ -33,22 +33,23 @@
     ],
     "filters": [
         {
-            "operator": "has_value",
-            "field": "ExecutionStatus",
+            "operator": "has_no_value",
+            "field": "DedicatedPurchaseDocumentItem__NumberOfABConfirmations",
             "step_type": "filter"
         }
     ],
-    "grouping_labels": "/dashboards/660/grouping_labels",
+    "grouping_labels": "/dashboards/566/grouping_labels",
     "id": "WEBHELP_WC_Dashboard__details",
-    "layout": "{\"structure\":[{\"items\":[\"50%\",\"50%\"],\"height\":\"100%\"}],\"widgets\":[\"w10386b6a0570363981af567157185427\",\"w13e72ff00683c249e4a7567157185427\"]}",
+    "layout": "{\"structure\":[{\"items\":[\"43.95%\",\"56.04%\"],\"height\":\"100%\"}],\"widgets\":[\"wa2b6ecd8d90b36ac848c556608943417\",\"w5b9a755f5703be68909a556608943417\"]}",
     "user_specific": {
         "is_starred": false,
+        "private_note": "WEBHELP_WC_Dashboard__details",
         "execute_on_login": false
     },
-    "state": "/dashboards/660/state",
-    "widgets": "/dashboards/660/widgets",
+    "state": "/dashboards/566/state",
+    "widgets": "/dashboards/566/widgets",
     "is_validated": false,
-    "angles": "/dashboards/660/angles",
+    "angles": "/dashboards/566/angles",
     "authorizations": {
         "unvalidate": false,
         "update": true,
@@ -57,19 +58,19 @@
         "validate": false,
         "delete": true
     },
-    "business_processes": "/dashboards/660/business_processes",
-    "privilege_labels": "/dashboards/660/privilege_labels",
+    "business_processes": "/dashboards/566/business_processes",
+    "privilege_labels": "/dashboards/566/privilege_labels",
     "created": {
         "user": "/users/1",
         "full_name": "EAAdmin",
-        "datetime": 1567577244
+        "datetime": 1556608943
     },
     "changed": {
         "user": "/users/1",
         "full_name": "EAAdmin",
-        "datetime": 1567577396
+        "datetime": 1556608996
     },
-    "uri": "/dashboards/660",
+    "uri": "/dashboards/566",
     "has_warnings": false,
     "model": "/models/1",
     "multi_lang_description": [],
@@ -81,12 +82,12 @@
                     "text": " "
                 }
             ],
-            "angle": "/models/1/angles/652",
-            "uri": "/dashboards/660/widgets/21",
-            "id": "w10386b6a0570363981af567157185427",
+            "angle": "/models/1/angles/561",
+            "uri": "/dashboards/566/widgets/8",
+            "id": "wa2b6ecd8d90b36ac848c556608943417",
             "widget_type": "angle_display",
             "widget_details": "{\"model\":\"/models/1\"}",
-            "display": "/models/1/angles/652/displays/3028",
+            "display": "/models/1/angles/561/displays/2838",
             "multi_lang_description": []
         },
         {
@@ -96,12 +97,12 @@
                     "text": " "
                 }
             ],
-            "angle": "/models/1/angles/651",
-            "uri": "/dashboards/660/widgets/22",
-            "id": "w13e72ff00683c249e4a7567157185427",
+            "angle": "/models/1/angles/562",
+            "uri": "/dashboards/566/widgets/9",
+            "id": "w5b9a755f5703be68909a556608943417",
             "widget_type": "angle_display",
             "widget_details": "{\"model\":\"/models/1\"}",
-            "display": "/models/1/angles/651/displays/3023",
+            "display": "/models/1/angles/562/displays/2842",
             "multi_lang_description": []
         }
     ],

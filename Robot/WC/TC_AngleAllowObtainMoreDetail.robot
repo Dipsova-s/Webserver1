@@ -15,24 +15,20 @@ Verify Angle For Allow Obtain More Details Test
     ${fieldId}         Set Variable  OrderNumber
     ${fieldKeyword}    Set Variable  "Order Number"
 
-    @{cleanUpItems}    Create List
-    Create Context: Web    user=${Username}
-    ${angleData}    Create Angle    /models/1    ANGLE_AllowMoreDetailsTesting.json
-    ${angleUri}    Get Uri From Response    ${angleData}
-    Append To List   ${cleanUpItems}    ${angleUri}?forced=true
+    [Setup]  Import Angle By API  /models/1  ANGLE_AllowMoreDetailsTesting.json  user=${Username}
 
     Find Angle By ID Then Execute The First Angle    ROBOT_ANGLE_ALLOW_MORE_DETAILS
     Add New Column Should Be Visible
-    Click Toggle Angle
-    Verify Disable Add Filter And Jump Button In Display Popup    False
-    Verify Disable Drilldown    False    ${fieldId}    ${fieldKeyword}  ${TRUE}
-    Verify Disable Remove Column And Filter Button In Header Popop    False    ${fieldId}
+    Verify Visibility Of Adding Filter And Jump In Side Panel    ${True}
+    Verify Disable Drilldown In Context Menu    ${False}    ${fieldId}    ${fieldKeyword}    ${TRUE}
+    Verify Disable Removing Column And Adding Filter In Column Menu    ${False}    ${fieldId}
+    Click Save All
     Set Angle To Not Allow User To Obtain More Details
     Add New Column Should Not Be Visible
-    Verify Disable Add Filter And Jump Button In Display Popup    True
-    Verify Disable Drilldown    True    ${fieldId}    ${fieldKeyword}   ${TRUE}
-    Verify Disable Remove Column And Filter Button In Header Popop    True    ${fieldId}
+    Verify Visibility Of Adding Filter And Jump In Side Panel    ${False}
+    Verify Disable Drilldown In Context Menu    ${True}    ${fieldId}    ${fieldKeyword}    ${TRUE}
+    Verify Disable Removing Column And Adding Filter In Column Menu    ${True}    ${fieldId}
     Set Angle To Allow User To Obtain More Details
     Add New Column Should Be Visible
 
-    [Teardown]  Clean Up Items     Web    ${cleanUpItems}    user=${Username}
+    [Teardown]  Clean Up Items And Go To Search Page

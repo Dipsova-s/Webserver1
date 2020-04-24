@@ -15,7 +15,7 @@
                 expected: 1
             },
             {
-                title: 'can get task trigger from "triggers" property',
+                title: 'can get task trigger from another "triggers" property',
                 data: { triggers: [1, 2] },
                 expected: 1
             }

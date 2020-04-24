@@ -55,7 +55,7 @@
     self.GetPublishTemplate = function () {
         return '';
     };
-    self.GetValidateTemplate = function (localizations) {
+    self.GetValidateTemplate = function () {
         return '';
     };
 }

@@ -42,7 +42,8 @@
         // 1st display
         return displays[0];
     };
-    window.WC.Utility.GetDefaultMultiLangText = function (multiLangs) {
+    window.WC.Utility.GetDefaultMultiLangText = function (multiLangs, skipFirst) {
+        skipFirst = WC.Utility.ToBoolean(skipFirst);
         if (multiLangs && multiLangs.length) {
             // check from user settings
             var multiLang = multiLangs.findObject('lang', userSettingModel.GetByName(enumHandlers.USERSETTINGS.DEFAULT_LANGUAGES).toLowerCase());
@@ -51,7 +52,7 @@
             }
 
             // use first language
-            if (multiLangs.length) {
+            if (multiLangs.length && !skipFirst) {
                 return jQuery.trim(multiLangs[0].text);
             }
         }

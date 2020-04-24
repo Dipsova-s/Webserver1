@@ -42,15 +42,6 @@ function ErrorHandlerViewModel() {
         else
             return false;
     };
-    self.ShowLoginPopup = function () {
-        DeleteCookie('EASECTOKEN', rootWebsitePath);
-        var fnCheckDocReady = setInterval(function () {
-            if (jQuery.isReady) {
-                clearTimeout(fnCheckDocReady);
-                WC.Authentication.ShowLoginPopup();
-            }
-        }, 100);
-    };
     self.RedirectToLoginPage = function () {
         WC.Authentication.ClearAuthorizedData(false);
         ClearCookies(rootWebsitePath);
@@ -58,7 +49,7 @@ function ErrorHandlerViewModel() {
         window.location = rootWebsitePath + '?redirect=' + location.pathname + location.hash;
     };
     self.IsRequestTimeout = function (status, textStatus) {
-        return status === 408 || (status === 0 && textStatus !== 'abort');
+        return status === 408 || status === 0 && textStatus !== 'abort';
     };
     self.ShowTimeoutPopup = function (settings) {
         self.Source(null);
@@ -73,20 +64,12 @@ function ErrorHandlerViewModel() {
         }
     };
     self.BuildAjaxError = function (settings, xhr) {
-        if (typeof progressbarModel === 'undefined') {
+        if (typeof progressbarModel === 'undefined')
             return;
-        }
 
         self.CleanUnusedPopup();
-
         if (self.IsRequiredToRedirectToLoginPage(xhr)) {
             self.RedirectToLoginPage();
-        }
-        else if (xhr.statusText === 'abort') {
-            // do nothing
-        }
-        else if (self.IsRequestTimeout(xhr.status, xhr.statusText)) {
-            self.ShowTimeoutPopup(settings);
         }
         else {
             self.ShowAjaxErrorPopup(xhr, settings);
@@ -97,39 +80,73 @@ function ErrorHandlerViewModel() {
         self.BuildAjaxError(settings, xhr);
     };
     self.ShowAjaxErrorPopup = function (xhr, settings) {
-        var message = self.BuildAppServerError(settings, xhr);
-        if (message) {
-            var win = null;
-            if (xhr.status !== 403) {
-                var title = xhr.status + ': ' + xhr.statusText;
-                win = popup.Error(title, message);
+        var error = self.BuildAppServerError(settings, xhr);
+        if (error) {
+            error.callback();
+            if (error.type === 'alert') {
+                popup.Alert(error.title, error.message);
             }
-            else if (xhr.status === 403 && !(/\/models\/\d$/).test(settings.url)) {
-                win = popup.Alert(Localization.Info_ActionNotAllowed, message);
-            }
-
-            if (!showErrorSourceUri && win) {
-                win.wrapper.find('.errorSource').remove();
+            else {
+                popup.Error(error.title, error.message);
             }
         }
     };
+    self.ShowToastAjaxError = function (xhr, settings, title) {
+        self.IgnoreAjaxError(xhr);
+        if (self.IsRequiredToRedirectToLoginPage(xhr)) {
+            self.RedirectToLoginPage();
+            return;
+        }
+
+        var error = self.BuildAppServerError(settings, xhr);
+        if (error)
+            toast.MakeErrorText(error.message, title);
+    };
 
     self.BuildAppServerError = function (settings, xhr) {
-        var errorTemplate = '';
-        errorTemplate += xhr.status === 403 ? 'This action is not allowed.' : '{source} says,';
-        errorTemplate += '<br />"{message}".<br /><div class="errorSource"><strong>Request url</strong><br />{type} {url}</div>';
+        if (self.IsRequestTimeout(xhr.status, xhr.statusText)) {
+            return {
+                type: 'alert',
+                title: Localization.Info_OperationTimeout,
+                message: kendo.format(Localization.Info_OperationTimeoutDescription, settings.type, settings.url),
+                callback: function () {
+                    self.Source(null);
+                    popup.CloseAll();
+                }
+            };
+        }
 
-        var errorMessage = self.GetErrorFromResponseText(xhr.responseText);
+        var errorMessage = xhr.statusText === 'abort'  ? '' : self.GetErrorFromResponseText(xhr.responseText);
         if (errorMessage) {
+            var type = 'error';
+            var title = xhr.status + ': ' + xhr.statusText;
+            if (self.IsActionNotAllowed(xhr.status, settings.url)) {
+                type = 'alert';
+                title = Localization.Info_ActionNotAllowed;
+            }
+
+            var errorTemplate = '';
+            errorTemplate += xhr.status === 403 ? Localization.Info_ActionNotAllowedDescription : '{source} says,';
+            errorTemplate += '<br />"{message}".';
+            if (window.showErrorSourceUri)
+                errorTemplate += '<br /> <div class="errorSource"><strong>Request url</strong><br />{type} {url}</div>';
             errorTemplate = errorTemplate.replace('{source}', self.Source())
                                 .replace('{message}', errorMessage.replace(/\\n$/i, '').replace(/\\n/ig, '<br />'))
                                 .replace('{type}', settings.type.toUpperCase());
 
-            return self.ReplaceUrlAsHtmlEntity(errorTemplate, settings.url);
+            return {
+                type: type,
+                title: title,
+                message: self.ReplaceUrlAsHtmlEntity(errorTemplate, settings.url),
+                callback: jQuery.noop
+            };
         }
+
         return null;
     };
-
+    self.IsActionNotAllowed = function (status, url) {
+        return status === 403 && !(/\/models\/\d$/).test(url);
+    };
     self.GetErrorFromResponseText = function (responseText) {
         var errorMessage = '';
         try {
@@ -145,11 +162,10 @@ function ErrorHandlerViewModel() {
                 errorMessage += (errorMessage ? ', ' : '') + errorObject.message;
         }
         catch (ex) {
-            errorMessage = jQuery.trim(jQuery('<div />').html(responseText).find('h2:first').text());
+            errorMessage = jQuery('<div />').html(responseText).find('h2:first').text();
         }
-        return errorMessage;
+        return jQuery.trim(errorMessage);
     };
-
     self.ReplaceUrlAsHtmlEntity = function (errorTemplate, url) {
         // after ws throw an exception when detected a potentially dangerous, use the unescape to get the actual uri value
         // then combine text() to defined it as html entity, then replace to the errorTemplate
@@ -306,6 +322,13 @@ function ErrorHandlerViewModel() {
         }, typeof delay === 'number' ? delay : 100);
     };
 
+    self.IgnoreAjaxError = function (xhr) {
+        xhr.ignore = true;
+    };
+    self.TriggerAjaxError = function (xhr, settings, error) {
+        jQuery(document).trigger('ajaxError', [xhr, settings, error]);
+    };
+
     // initial
     if (!window.isLoginPage) {
         window.onerror = function (msg, url, line) {
@@ -317,7 +340,7 @@ function ErrorHandlerViewModel() {
             if (self.IsRequiredToRedirectToLoginPage(xhr)) {
                 self.RedirectToLoginPage();
             }
-            else if(!settings.crossDomain) {
+            else if (!settings.crossDomain && !xhr.ignore) {
                 if (self.Enable() && error !== 'abort') {
                     jQuery('.k-loading-mask').remove();
                     jQuery('.loader-container,.k-overlay').hide();

@@ -21,17 +21,17 @@
             "text": "Documento Compras (DC) Cabecera"
         }
     ],
-    "labels": "/models/1/angles/655/labels",
+    "labels": "/models/1/angles/1480/labels",
     "assigned_labels": [
         "S2D"
     ],
     "executed": {
         "user": "/users/1",
         "full_name": "EAAdmin",
-        "datetime": 1567577650
+        "datetime": 1584353118
     },
-    "displays": "/models/1/angles/655/displays",
-    "grouping_labels": "/models/1/angles/655/grouping_labels",
+    "displays": "/models/1/angles/1480/displays",
+    "grouping_labels": "/models/1/angles/1480/grouping_labels",
     "id": "WEBHELP_WC_How_to_execute_Angles_or_Dashboards",
     "authorizations": {
         "unvalidate": false,
@@ -46,29 +46,35 @@
         "delete": true
     },
     "user_specific": {
+        "times_executed": 9,
         "is_starred": false,
         "private_tags": [],
-        "times_executed": 2,
+        "private_note": "WEBHELP_WC_How_to_execute_Angles_or_Dashboards",
         "execute_on_login": false
     },
-    "state": "/models/1/angles/655/state",
+    "created": {
+        "user": "/users/1",
+        "full_name": "EAAdmin",
+        "datetime": 1569854339
+    },
+    "state": "/models/1/angles/1480/state",
     "allow_followups": true,
     "is_parameterized": true,
     "is_validated": false,
-    "business_processes": "/models/1/angles/655/business_processes",
+    "business_processes": "/models/1/angles/1480/business_processes",
     "query_definition": [
         {
             "queryblock_type": "base_classes",
             "base_classes": [
-                "PurchaseOrder",
-                "PurchaseOrderScheduleLine"
+                "PurchaseOrderScheduleLine",
+                "PurchaseOrder"
             ]
         },
         {
             "query_steps": [
                 {
                     "tech_info": "T001-BUKRS",
-                    "execution_parameter_id": "eada5db25ad8d4457681b004401438ccaf",
+                    "execution_parameter_id": "ea38f80403128c4bdfb4cf0aab7ae029a6",
                     "step_type": "filter",
                     "field": "CompanyCode__CompanyCode",
                     "is_execution_parameter": true,
@@ -78,42 +84,22 @@
             "queryblock_type": "query_steps"
         }
     ],
-    "angle_default_display": "/models/1/angles/655/displays/3038",
-    "privilege_labels": "/models/1/angles/655/privilege_labels",
+    "angle_default_display": "/models/1/angles/1480/displays/7622",
+    "privilege_labels": "/models/1/angles/1480/privilege_labels",
     "is_deleted": false,
-    "created": {
-        "user": "/users/2",
-        "full_name": "EASystem",
-        "datetime": 1567577235
-    },
+    "package": "/packages/11",
     "changed": {
         "user": "/users/1",
         "full_name": "EAAdmin",
-        "datetime": 1567577235
+        "datetime": 1569854339
     },
-    "uri": "/models/1/angles/655",
+    "uri": "/models/1/angles/1480",
     "display_definitions": [
         {
             "multi_lang_name": [
                 {
                     "lang": "en",
                     "text": "Categorization"
-                },
-                {
-                    "lang": "nl",
-                    "text": "Categoriseren"
-                },
-                {
-                    "lang": "fr",
-                    "text": "Catégorisation"
-                },
-                {
-                    "lang": "de",
-                    "text": "Kategorisierung"
-                },
-                {
-                    "lang": "es",
-                    "text": "Clasificación"
                 }
             ],
             "authorizations": {
@@ -124,9 +110,9 @@
                 "delete": false
             },
             "created": {
-                "user": "/users/2",
-                "full_name": "EASystem",
-                "datetime": 1557110542
+                "user": "/users/1",
+                "full_name": "EAAdmin",
+                "datetime": 1569854339
             },
             "fields": [
                 {
@@ -142,11 +128,16 @@
                     "field_details": "{\"pivot_area\":\"data\",\"prefix\":null,\"decimals\":0,\"thousandseparator\":false,\"sorting\":\"\"}"
                 }
             ],
-            "contained_aggregation_steps": true,
-            "uri": "/models/1/angles/655/displays/3038",
+            "changed": {
+                "user": "/users/1",
+                "full_name": "EAAdmin",
+                "datetime": 1584352135
+            },
+            "uri": "/models/1/angles/1480/displays/7622",
             "is_public": true,
+            "contained_aggregation_steps": true,
             "used_in_task": false,
-            "state": "/models/1/angles/655/displays/3038/state",
+            "state": "/models/1/angles/1480/displays/7622/state",
             "display_type": "pivot",
             "user_specific": {
                 "execute_on_login": false,
@@ -176,7 +167,7 @@
                 }
             ],
             "is_angle_default": true,
-            "angle_id": "655",
+            "angle_id": "1480",
             "id": "d08199226fa4f37b9a7b6467966061736",
             "display_details": "{\"columns\":{\"header\":[91],\"data\":[81]},\"layout\":\"{\\\"collapse\\\":\\\"/v///wAAAAAAAAAAAAAAAP7///8AAAAAAAAAAAAAAAA=\\\"}\",\"show_total_for\":1,\"percentage_summary_type\":0,\"include_subtotals\":false,\"count_index\":0}",
             "multi_lang_description": []
@@ -187,7 +178,7 @@
     "published": {
         "user": "/users/1",
         "full_name": "EAAdmin",
-        "datetime": 1567577235
+        "datetime": 1569854339
     },
     "model": "/models/1",
     "is_published": true,

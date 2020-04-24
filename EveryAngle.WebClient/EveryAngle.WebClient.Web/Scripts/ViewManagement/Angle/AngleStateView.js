@@ -86,7 +86,7 @@ AngleStateView.prototype.GetValidateTemplate = function () {
             '<div class="form-col float-right">',
                 '<div class="switch">',
                     '<label>',
-                        '<input id="ValidateCheckBox" type="checkbox" data-bind="checked: Data.is_validated, click: ValidateItem"/>',
+                        '<input id="ValidateCheckBox" type="checkbox"/>',
                         '<span class="lever" />',
                     '</label>',
                 '</div>',

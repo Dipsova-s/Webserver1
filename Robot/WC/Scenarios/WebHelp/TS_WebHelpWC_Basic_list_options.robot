@@ -4,6 +4,9 @@ Screenshot "WC_Basic_list_options" page
 
     Find Angle By ID Then Execute The First Angle    ${AngleId}
 
+    Click Display Tab
+    Set Editor Context: Display Tab
+
     Set Window Size    1300   ${WINDOW_HEIGHT}
     Sleep    ${TIMEOUT_LARGEST}
     Crop Remove List Display Column
@@ -11,35 +14,20 @@ Screenshot "WC_Basic_list_options" page
     Maximize Browser window
     Sleep    ${TIMEOUT_LARGEST}
 
-    Click Add New Column To List
     Crop Suggested Filter
-    Close Field Chooser Popup
-
-    Click Header by Data Field Angle Grid List Display    Quantity
-    Click Sort Custom From List Header Column
-    Crop Sort Custom Popup
-
-    Click Format Field From Header Column
-    Crop Format Field Popup
-
-    Click Show Add Filter Popup From List Header Column
-    Update Popup Position    css=.popupListFilter
-    Crop Add Filter Popup
-    Click Cancel Add Filter to list
-
-    Click Header by Data Field Angle Grid List Display    ObjectType
-    Click Show Add Filter Popup From List Header Column
-    Update Popup Position    css=.popupListFilter
+    Crop Add Filter Panel
     Crop Open Filter List Button
-    Click Cancel Add Filter to list
+    Crop Field Category Icons
 
 Crop Add New Column Button
     Crop WebHelp Image  WC_Plus.png  css=#AddNewColumn  ${False}
 
 Crop Suggested Filter
+    Click Add New Column To List
     ${left}    ${top}    Get Element Offset    css=#suggested + .label
     ${width}    ${height}    Get Element Size    css=#suggested + .label
     Crop WebHelp Image With Dimensions    WC_suggested.png    css=body  ${left}  ${top - 3}  ${width}  ${height + 5}
+    Close Field Chooser Popup
 
 Crop Remove List Display Column
     ${width}    ${height}    Get Element Size    css=#AngleGrid
@@ -47,17 +35,23 @@ Crop Remove List Display Column
     Crop WebHelp Image With Dimensions  WC_drop.png  css=#MainContainer    0    0    ${width}    323
     Clear Dragging WebHelp Element    jquery=#AngleGrid
 
-Crop Sort Custom Popup
-    ${menuLeft}   ${menuTop}       Get Element Offset    jquery=.HeaderPopupList:visible
-    ${popupLeft}   ${popupTop}       Get Element Offset    jquery=.customSortPopup:visible
-    Crop WebHelp Image With Dimensions  WC_custom_sort.png  css=#MainContainer  ${menuLeft}  ${popupTop}  580  411
-    
-Crop Format Field Popup
-    ${menuLeft}   ${menuTop}       Get Element Offset    jquery=.HeaderPopupList:visible
-    Crop WebHelp Image With Dimensions  WC_Format_Field.png  css=#MainContainer  ${menuLeft}  ${menuTop}  545  372
-
-Crop Add Filter Popup
-    Crop WebHelp Image  WC_AddFilter.png  css=.popupListFilter
+Crop Add Filter Panel
+    Click Header by Data Field Angle Grid List Display    Quantity
+    Click Show Add Filter Popup From List Header Column
+    Crop WebHelp Image  WC_AddFilter.png  css=#TabContentDisplay .section-definition
+    Click Undo Filters And Jumps
 
 Crop Open Filter List Button
-    Crop WebHelp Image  WC_Open_Filter_List.png  css=.btnEnumPopup  ${False}
+    Click Header by Data Field Angle Grid List Display    ObjectType
+    Click Show Add Filter Popup From List Header Column
+    Crop WebHelp Image  WC_Open_Filter_List.png  css=#TabContentDisplay .section-definition .action-popup  ${False}
+    Click Undo Filters And Jumps
+
+Crop Field Category Icons
+    Click Header by Data Field Angle Grid List Display  ObjectType
+    Click Show Field Info From List Header
+    Execute JavaScript  var img=$('#HelpTextPopup .helpHeaderContainer img').attr('src');img=img.replace('ea_32', 'sap_32');$('#HelpTextPopup .helpHeaderContainer img').attr('src', img);
+    Crop WebHelp Image  SAP_32.png  css=#HelpTextPopup .helpHeaderContainer img  ${False}
+    Execute JavaScript  var img=$('#HelpTextPopup .helpHeaderContainer img').attr('src');img=img.replace('sap_32', 'reference_32');$('#HelpTextPopup .helpHeaderContainer img').attr('src', img);
+    Crop WebHelp Image  reference_32.png  css=#HelpTextPopup .helpHeaderContainer img  ${False}
+    Close Help Text Popup

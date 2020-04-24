@@ -1,8 +1,11 @@
 *** Variables ***
-${divExecuteParametersPopup}     css=#popupExecuteParameters
-${pgbExecuteParameters}          css=#popupExecuteParameters > div.k-loading-mask
-${btnSubmitExecuteParameters}    css=#btn-popupExecuteParameters3
-${searchPageTitle}               Every Angle - Search page
+${divExecuteParametersPopup}            css=#PopupExecutionParameter
+${pgbExecuteParameters}                 css=#PopupExecutionParameter > div.k-loading-mask
+${btnCloseExecuteParametersPopup}       jquery=.popup-execution-parameter .k-window-action[aria-label="Close"]
+${btnSubmitExecuteParameters}           css=#btn-PopupExecutionParameter3
+${btnSwitchAngleExecuteParameters}      css=.btnChangeAngleParameters
+${btnSwitchDisplayExecuteParameters}    css=.btnChangeDisplayParameters
+${searchPageTitle}                      Every Angle - Search page
 
 *** Keywords ***
 Wait Until Angle Execute Parameters Popup Loaded
@@ -28,8 +31,22 @@ Check If Angle Or Display Has Execute Parameters Then Execute The Popup
     Run Keyword If    '${pageTitle}' == '${searchPageTitle}'    Check If Angle Or Display Has Execute Parameters From Search Page Then Execute The Popup
     ...    ELSE    Check If Angle Or Display Has Execute Parameters From Angle Page Then Execute The Popup
 
+Add Compare Filter From Angle Execution Parameters Popup
+    [Arguments]   ${fieldKeyword}    ${fieldId}  ${isSelfSource}
+    Click Select Field On Popup Execution Parameter
+    Add Field By Search From Field Chooser    ${fieldKeyword}    ${fieldId}  ${isSelfSource}
+
 Click Submit Angle Execution Parameters
     Wait Until Angle Execute Parameters Popup Loaded
     Wait Until Element Is Visible    ${btnSubmitExecuteParameters}
     Click Element    ${btnSubmitExecuteParameters}
     Wait Angle Page Document Loaded
+
+Switch To Angle Parameters
+    Click Element  ${btnSwitchAngleExecuteParameters}
+
+Switch To Display Parameters
+    Click Element  ${btnSwitchDisplayExecuteParameters}
+
+Close Angle Execution Parameters Popup
+    Click Element  ${btnCloseExecuteParametersPopup}

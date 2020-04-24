@@ -2,207 +2,85 @@
     "multi_lang_name": [
         {
             "lang": "de",
-            "text": "Kunden"
+            "text": "Verkaufsbeleg (VB) Kopf"
         },
         {
             "lang": "en",
-            "text": "Customers"
+            "text": "Sales Document Header"
         },
         {
             "lang": "es",
-            "text": "Clientes"
+            "text": "Documento de Ventas Cabecera"
         },
         {
             "lang": "fr",
-            "text": "Clients"
+            "text": "Document de Vente En-tête"
         },
         {
             "lang": "nl",
-            "text": "Klanten"
+            "text": "Verkoopdocument (VDoc) Kop"
         }
     ],
-    "labels": "/models/1/angles/642/labels",
+    "labels": "/models/1/angles/1505/labels",
     "assigned_labels": [
-        "P2P",
         "S2D",
         "O2C"
     ],
     "executed": {
         "user": "/users/1",
         "full_name": "EAAdmin",
-        "datetime": 1567577534
+        "datetime": 1578908780
     },
-    "displays": "/models/1/angles/642/displays",
-    "grouping_labels": "/models/1/angles/642/grouping_labels",
+    "displays": "/models/1/angles/1505/displays",
+    "grouping_labels": "/models/1/angles/1505/grouping_labels",
     "id": "WEBHELP_WC_AngleWarning3",
     "authorizations": {
         "unvalidate": false,
         "mark_template": true,
         "unmark_template": false,
         "update": true,
-        "publish": false,
-        "unpublish": true,
+        "publish": true,
+        "unpublish": false,
         "create_private_display": true,
-        "validate": true,
-        "create_public_display": true,
+        "validate": false,
+        "create_public_display": false,
         "delete": true
     },
     "user_specific": {
+        "times_executed": 6,
         "is_starred": false,
         "private_tags": [],
-        "times_executed": 1,
+        "private_note": "WEBHELP_WC_AngleWarning3",
         "execute_on_login": false
     },
-    "state": "/models/1/angles/642/state",
+    "state": "/models/1/angles/1505/state",
     "allow_followups": true,
     "is_parameterized": false,
     "is_validated": false,
-    "business_processes": "/models/1/angles/642/business_processes",
+    "business_processes": "/models/1/angles/1505/business_processes",
     "query_definition": [
         {
             "queryblock_type": "base_classes",
             "base_classes": [
-                "Customer"
+                "SalesOrder"
             ]
         }
     ],
-    "angle_default_display": "/models/1/angles/642/displays/2985",
-    "privilege_labels": "/models/1/angles/642/privilege_labels",
+    "angle_default_display": "/models/1/angles/1505/displays/7724",
+    "privilege_labels": "/models/1/angles/1505/privilege_labels",
     "is_deleted": false,
     "created": {
-        "user": "/users/2",
-        "full_name": "EASystem",
-        "datetime": 1567577215
+        "user": "/users/1",
+        "full_name": "EAAdmin",
+        "datetime": 1570522303
     },
     "changed": {
         "user": "/users/1",
         "full_name": "EAAdmin",
-        "datetime": 1567577215
+        "datetime": 1570522466
     },
-    "uri": "/models/1/angles/642",
+    "uri": "/models/1/angles/1505",
     "display_definitions": [
-        {
-            "multi_lang_name": [
-                {
-                    "lang": "de",
-                    "text": "Anzahl nach Erstellungsdatum"
-                },
-                {
-                    "lang": "en",
-                    "text": "No. per Creation Date"
-                },
-                {
-                    "lang": "es",
-                    "text": "N.º por Fecha de Creación"
-                },
-                {
-                    "lang": "fr",
-                    "text": "Nombre par Date de Création"
-                },
-                {
-                    "lang": "nl",
-                    "text": "Aantal per Aanmaakdatum"
-                }
-            ],
-            "authorizations": {
-                "make_angle_default": true,
-                "unpublish": true,
-                "update": true,
-                "publish": false,
-                "delete": true
-            },
-            "created": {
-                "user": "/users/2",
-                "full_name": "EASystem",
-                "datetime": 1557110544
-            },
-            "fields": [
-                {
-                    "field": "quarter_ERDAT_RF",
-                    "multi_lang_alias": [],
-                    "valid": true,
-                    "field_details": "{\"pivot_area\":\"row\"}"
-                },
-                {
-                    "field": "individual_BRSCH",
-                    "multi_lang_alias": [],
-                    "valid": true,
-                    "field_details": "{\"pivot_area\":\"column\",\"format\":\"shnln\"}"
-                },
-                {
-                    "field": "count",
-                    "multi_lang_alias": [],
-                    "valid": true,
-                    "field_details": "{\"pivot_area\":\"data\",\"prefix\":null,\"decimals\":0,\"thousandseparator\":true}"
-                }
-            ],
-            "contained_aggregation_steps": true,
-            "uri": "/models/1/angles/642/displays/2984",
-            "is_public": true,
-            "used_in_task": false,
-            "state": "/models/1/angles/642/displays/2984/state",
-            "display_type": "chart",
-            "user_specific": {
-                "execute_on_login": false,
-                "is_user_default": false
-            },
-            "query_blocks": [
-                {
-                    "query_steps": [
-                        {
-                            "aggregation_fields": [
-                                {
-                                    "operator": "count",
-                                    "field": "count"
-                                }
-                            ],
-                            "step_type": "aggregation",
-                            "grouping_fields": [
-                                {
-                                    "operator": "quarter",
-                                    "field": "quarter_ERDAT_RF",
-                                    "source_field": "ERDAT_RF",
-                                    "tech_info": "KNA1-ERDAT"
-                                },
-                                {
-                                    "operator": "individual",
-                                    "field": "individual_BRSCH",
-                                    "source_field": "BRSCH",
-                                    "tech_info": "KNA1-BRSCH"
-                                }
-                            ]
-                        }
-                    ],
-                    "queryblock_type": "query_steps"
-                }
-            ],
-            "is_angle_default": false,
-            "angle_id": "642",
-            "id": "dc1d32181aeecc4c3d3a801846a086574",
-            "display_details": "{\"chart_type\":\"column\",\"stack\":true,\"multi_axis\":false,\"layout\":null,\"drilldown_display\":\"df8136fed68f8ad2d36513bfa1edf9c38\"}",
-            "multi_lang_description": [
-                {
-                    "lang": "de",
-                    "text": "<div id=\"summary\" /><div class=\" section\" id=\"S1498135519847165\"><p class=\"\" id=\"P1498135519847546\">Anzahl pro Erstellungsdatum und Branche.</p></div>"
-                },
-                {
-                    "lang": "en",
-                    "text": "<div id=\"summary\" /><div class=\" section\" id=\"S1498135519847165\"><p class=\"\" id=\"P1498135519847546\">Number per creation date and industry.</p></div>"
-                },
-                {
-                    "lang": "es",
-                    "text": "<div id=\"summary\" /><div class=\" section\" id=\"S1498135519847165\"><p class=\"\" id=\"P1498135519847546\">Número por fecha de creación e industria.</p></div>"
-                },
-                {
-                    "lang": "fr",
-                    "text": "<div id=\"summary\" /><div class=\" section\" id=\"S1498135519847165\"><p class=\"\" id=\"P1498135519847546\">Nombre par date de création et secteur d'activité.</p></div>"
-                },
-                {
-                    "lang": "nl",
-                    "text": "<div id=\"summary\" /><div class=\" section\" id=\"S1498135661873755\"><p class=\"\" id=\"P1498135661873916\">Aantal per aanmaakdatum en branche.</p></div>"
-                }
-            ]
-        },
         {
             "multi_lang_name": [
                 {
@@ -230,112 +108,165 @@
                 "make_angle_default": false,
                 "unpublish": false,
                 "update": true,
-                "publish": false,
+                "publish": true,
                 "delete": false
             },
             "created": {
-                "user": "/users/2",
-                "full_name": "EASystem",
-                "datetime": 1557110544
+                "user": "/users/1",
+                "full_name": "EAAdmin",
+                "datetime": 1570522303
             },
             "fields": [
                 {
-                    "tech_info": "",
                     "field": "ObjectType",
                     "multi_lang_alias": [],
                     "valid": true,
-                    "field_details": "{\"width\":82,\"format\":\"shn\"}"
+                    "field_details": "{\"width\":84,\"format\":\"shn\"}"
                 },
                 {
-                    "tech_info": "",
-                    "field": "ID",
+                    "field": "IDInvalid",
                     "multi_lang_alias": [],
                     "valid": true,
-                    "field_details": "{\"width\":71}"
+                    "field_details": "{\"width\":70}"
                 },
                 {
-                    "tech_info": "KNA1-NAME1",
-                    "field": "Description",
-                    "multi_lang_alias": [],
-                    "valid": true,
-                    "field_details": "{\"width\":221}"
-                },
-                {
-                    "tech_info": "KNA1-STRAS",
-                    "field": "STRAS_GP",
-                    "multi_lang_alias": [],
-                    "valid": true,
-                    "field_details": "{\"width\":226}"
-                },
-                {
-                    "tech_info": "KNA1-PSTLZ",
-                    "field": "PSTLZ",
-                    "multi_lang_alias": [],
-                    "valid": true,
-                    "field_details": "{\"width\":75}"
-                },
-                {
-                    "tech_info": "KNA1-ORT01",
-                    "field": "ORT01_GP",
-                    "multi_lang_alias": [],
-                    "valid": true,
-                    "field_details": "{\"width\":97}"
-                },
-                {
-                    "tech_info": "KNA1-LAND1",
-                    "field": "LAND1_GP",
-                    "multi_lang_alias": [],
-                    "valid": true,
-                    "field_details": "{\"width\":34,\"format\":\"shn\"}"
-                },
-                {
-                    "tech_info": "KNA1-TELF1",
-                    "field": "TELF1",
-                    "multi_lang_alias": [],
-                    "valid": true,
-                    "field_details": "{\"width\":110}"
-                },
-                {
-                    "tech_info": "KNA1-KTOKD",
-                    "field": "KTOKD",
-                    "multi_lang_alias": [],
-                    "valid": true,
-                    "field_details": "{\"width\":90,\"format\":\"shn\"}"
-                },
-                {
-                    "tech_info": "KNA1-BRSCH",
-                    "field": "BRSCH",
+                    "field": "ExecutionStatus",
                     "multi_lang_alias": [],
                     "valid": true,
                     "field_details": "{\"width\":97,\"format\":\"shn\"}"
                 },
                 {
-                    "tech_info": "KNA1-LOEVM",
-                    "field": "LOEVM_X",
+                    "tech_info": "T001-BUKRS",
+                    "field": "CompanyCode__CompanyCode",
                     "multi_lang_alias": [],
                     "valid": true,
-                    "field_details": "{\"width\":114}"
+                    "field_details": "{\"width\":120}"
                 },
                 {
-                    "tech_info": "KNA1-ERDAT",
-                    "field": "ERDAT_RF",
+                    "tech_info": "TVKO-VKORG",
+                    "field": "SalesOrganization__SalesOrganization",
                     "multi_lang_alias": [],
                     "valid": true,
-                    "field_details": "{\"width\":104}"
+                    "field_details": "{\"width\":179}"
                 },
                 {
-                    "tech_info": "",
-                    "field": "NumberOfOpenSalesOrderScheduleLines",
+                    "tech_info": "KNA1-KUNNR",
+                    "field": "Customer__Customer",
                     "multi_lang_alias": [],
                     "valid": true,
-                    "field_details": "{\"width\":180}"
+                    "field_details": "{\"width\":99}"
+                },
+                {
+                    "tech_info": "KNA1-NAME1",
+                    "field": "Customer__Description",
+                    "multi_lang_alias": [],
+                    "valid": true,
+                    "field_details": "{\"width\":193}"
+                },
+                {
+                    "tech_info": "VBAK-VBTYP",
+                    "field": "SalesDocumentCategory",
+                    "multi_lang_alias": [],
+                    "valid": true,
+                    "field_details": "{\"width\":114,\"format\":\"shnln\"}"
+                },
+                {
+                    "tech_info": "VBAK-AUART",
+                    "field": "AUART",
+                    "multi_lang_alias": [],
+                    "valid": true,
+                    "field_details": "{\"width\":132,\"format\":\"shnln\"}"
+                },
+                {
+                    "tech_info": "VBAK-ERDAT",
+                    "field": "CreationDate",
+                    "multi_lang_alias": [],
+                    "valid": true,
+                    "field_details": "{\"width\":97}"
+                },
+                {
+                    "field": "SalesValue",
+                    "multi_lang_alias": [],
+                    "valid": true,
+                    "field_details": "{\"width\":98}"
+                },
+                {
+                    "field": "DeliveryStatus",
+                    "multi_lang_alias": [],
+                    "valid": true,
+                    "field_details": "{\"width\":106,\"format\":\"shn\"}"
+                },
+                {
+                    "tech_info": "VBUK-GBSTK",
+                    "field": "GBSTK",
+                    "multi_lang_alias": [],
+                    "valid": true,
+                    "field_details": "{\"width\":104,\"format\":\"shnln\"}"
+                },
+                {
+                    "tech_info": "VBAK-VKORG,VBAK-VTWEG,VBAK-SPART,VBAK-VKBUR",
+                    "field": "VKBUR",
+                    "multi_lang_alias": [],
+                    "valid": true,
+                    "field_details": "{\"width\":120,\"format\":\"ln\"}"
+                },
+                {
+                    "tech_info": "VBAK-VKBUR,VBAK-VKGRP",
+                    "field": "VKGRP",
+                    "multi_lang_alias": [],
+                    "valid": true,
+                    "field_details": "{\"width\":75,\"format\":\"shn\"}"
+                },
+                {
+                    "field": "PaymentStatus",
+                    "multi_lang_alias": [],
+                    "valid": true,
+                    "field_details": "{\"width\":87,\"format\":\"shn\"}"
+                },
+                {
+                    "field": "OpenBillingAmount",
+                    "multi_lang_alias": [],
+                    "valid": true,
+                    "field_details": "{\"width\":110}"
+                },
+                {
+                    "tech_info": "VBAK-LIFSK",
+                    "field": "DeliveryBlock",
+                    "multi_lang_alias": [],
+                    "valid": true,
+                    "field_details": "{\"width\":87,\"format\":\"shnln\"}"
+                },
+                {
+                    "tech_info": "VBAK-VDATU",
+                    "field": "EDATU_VBAK",
+                    "multi_lang_alias": [],
+                    "valid": true,
+                    "field_details": "{\"width\":98}"
+                },
+                {
+                    "tech_info": "VBKD-BSTKD",
+                    "field": "BSTKD",
+                    "multi_lang_alias": [],
+                    "valid": true,
+                    "field_details": "{\"width\":101}"
+                },
+                {
+                    "field": "IsInBillingDueList",
+                    "multi_lang_alias": [],
+                    "valid": true,
+                    "field_details": "{\"width\":82}"
                 }
             ],
+            "changed": {
+                "user": "/users/1",
+                "full_name": "EAAdmin",
+                "datetime": 1578908658
+            },
+            "uri": "/models/1/angles/1505/displays/7724",
+            "is_public": false,
             "contained_aggregation_steps": false,
-            "uri": "/models/1/angles/642/displays/2985",
-            "is_public": true,
             "used_in_task": false,
-            "state": "/models/1/angles/642/displays/2985/state",
+            "state": "/models/1/angles/1505/displays/7724/state",
             "display_type": "list",
             "user_specific": {
                 "execute_on_login": false,
@@ -343,29 +274,29 @@
             },
             "query_blocks": [],
             "is_angle_default": true,
-            "angle_id": "642",
-            "id": "df8136fed68f8ad2d36513bfa1edf9c38",
-            "display_details": "{\"layout\":null}",
+            "angle_id": "1505",
+            "id": "d1daeb64f0535deea5e1df224d5e1b4c4",
+            "display_details": "{}",
             "multi_lang_description": [
                 {
                     "lang": "de",
-                    "text": "<div id=\"summary\" />"
+                    "text": "<div id=\"summary\" /><div class=\" section\" id=\"S1438247770372513\"><p class=\"\" id=\"P1438247770372194\" /></div>"
                 },
                 {
                     "lang": "en",
-                    "text": "<div id=\"summary\" />"
+                    "text": "<div id=\"summary\" /><div class=\" section\" id=\"S1438247770372513\"><p class=\"\" id=\"P1438247770372194\" /></div>"
                 },
                 {
                     "lang": "es",
-                    "text": "<div id=\"summary\" />"
+                    "text": "<div id=\"summary\" /><div class=\" section\" id=\"S1438247770372513\"><p class=\"\" id=\"P1438247770372194\" /></div>"
                 },
                 {
                     "lang": "fr",
-                    "text": "<div id=\"summary\" />"
+                    "text": "<div id=\"summary\" /><div class=\" section\" id=\"S1438247770372513\"><p class=\"\" id=\"P1438247770372194\" /></div>"
                 },
                 {
                     "lang": "nl",
-                    "text": "<div id=\"summary\" />"
+                    "text": "<div id=\"summary\" /><div class=\" section\" id=\"S1438247770372513\"><p class=\"\" id=\"P1438247770372194\" /></div>"
                 }
             ]
         },
@@ -373,36 +304,158 @@
             "multi_lang_name": [
                 {
                     "lang": "de",
-                    "text": "Debitorenlaufzeit (Days Sales Outstanding, DSO) > 30"
+                    "text": "Pro Status"
                 },
                 {
                     "lang": "en",
-                    "text": "Days Sales Outstanding (DSO) > 30"
+                    "text": "Per Status"
                 },
                 {
                     "lang": "es",
-                    "text": "Días de Ventas Pendientes de Cobro (DSO) > 30"
+                    "text": "Por Status"
                 },
                 {
                     "lang": "fr",
-                    "text": "Délai de règlement client (DSO) >30"
+                    "text": "Par Statut"
                 },
                 {
                     "lang": "nl",
-                    "text": "Klantkrediet (DSO) > 30"
+                    "text": "Per Status"
                 }
             ],
             "authorizations": {
                 "make_angle_default": true,
-                "unpublish": true,
+                "unpublish": false,
                 "update": true,
-                "publish": false,
+                "publish": true,
                 "delete": true
             },
             "created": {
-                "user": "/users/2",
-                "full_name": "EASystem",
-                "datetime": 1557110545
+                "user": "/users/1",
+                "full_name": "EAAdmin",
+                "datetime": 1570522303
+            },
+            "fields": [
+                {
+                    "field": "individual_GBSTK",
+                    "multi_lang_alias": [],
+                    "valid": true,
+                    "field_details": "{\"pivot_area\":\"row\",\"format\":\"shnln\"}"
+                },
+                {
+                    "field": "count",
+                    "multi_lang_alias": [],
+                    "valid": true,
+                    "field_details": "{\"pivot_area\":\"data\",\"prefix\":null,\"decimals\":0}"
+                },
+                {
+                    "field": "sum_SalesValue",
+                    "multi_lang_alias": [],
+                    "valid": true,
+                    "field_details": "{\"pivot_area\":\"data\",\"prefix\":null,\"decimals\":0}"
+                }
+            ],
+            "contained_aggregation_steps": true,
+            "uri": "/models/1/angles/1505/displays/7725",
+            "is_public": false,
+            "used_in_task": false,
+            "state": "/models/1/angles/1505/displays/7725/state",
+            "display_type": "pivot",
+            "user_specific": {
+                "execute_on_login": false,
+                "is_user_default": false
+            },
+            "query_blocks": [
+                {
+                    "query_steps": [
+                        {
+                            "aggregation_fields": [
+                                {
+                                    "operator": "count",
+                                    "field": "count"
+                                },
+                                {
+                                    "operator": "sum",
+                                    "field": "sum_SalesValue",
+                                    "source_field": "SalesValue",
+                                    "tech_info": ""
+                                }
+                            ],
+                            "step_type": "aggregation",
+                            "grouping_fields": [
+                                {
+                                    "operator": "individual",
+                                    "field": "individual_GBSTK",
+                                    "source_field": "GBSTK",
+                                    "tech_info": "VBUK-GBSTK"
+                                }
+                            ]
+                        }
+                    ],
+                    "queryblock_type": "query_steps"
+                }
+            ],
+            "is_angle_default": false,
+            "angle_id": "1505",
+            "id": "d44e1901b2a6f053df2f22d2730840a9b",
+            "display_details": "{\"columns\":{\"header\":[259],\"data\":[63,159]},\"drilldown_display\":\"d1daeb64f0535deea5e1df224d5e1b4c4\"}",
+            "multi_lang_description": [
+                {
+                    "lang": "de",
+                    "text": "<div id=\"summary\" /><div class=\" section\" id=\"S1441271056648473\"><p class=\"\" id=\"P144127105664854\" /></div>"
+                },
+                {
+                    "lang": "en",
+                    "text": "<div id=\"summary\" /><div class=\" section\" id=\"S1441271056648473\"><p class=\"\" id=\"P144127105664854\" /></div>"
+                },
+                {
+                    "lang": "es",
+                    "text": "<div id=\"summary\" /><div class=\" section\" id=\"S1441271056648473\"><p class=\"\" id=\"P144127105664854\" /></div>"
+                },
+                {
+                    "lang": "fr",
+                    "text": "<div id=\"summary\" /><div class=\" section\" id=\"S1441271056648473\"><p class=\"\" id=\"P144127105664854\" /></div>"
+                },
+                {
+                    "lang": "nl",
+                    "text": "<div id=\"summary\" /><div class=\" section\" id=\"S1441271056648473\"><p class=\"\" id=\"P144127105664854\" /></div>"
+                }
+            ]
+        },
+        {
+            "multi_lang_name": [
+                {
+                    "lang": "de",
+                    "text": "Fakturierungsdaten"
+                },
+                {
+                    "lang": "en",
+                    "text": "Billing Data"
+                },
+                {
+                    "lang": "es",
+                    "text": "Datos de Facturación"
+                },
+                {
+                    "lang": "fr",
+                    "text": "Données de Facturation"
+                },
+                {
+                    "lang": "nl",
+                    "text": "Facturatie Gegevens"
+                }
+            ],
+            "authorizations": {
+                "make_angle_default": true,
+                "unpublish": false,
+                "update": true,
+                "publish": true,
+                "delete": true
+            },
+            "created": {
+                "user": "/users/1",
+                "full_name": "EAAdmin",
+                "datetime": 1570522303
             },
             "fields": [
                 {
@@ -410,7 +463,7 @@
                     "field": "ObjectType",
                     "multi_lang_alias": [],
                     "valid": true,
-                    "field_details": "{\"width\":82,\"format\":\"shn\"}"
+                    "field_details": "{\"width\":86,\"format\":\"shn\"}"
                 },
                 {
                     "tech_info": "",
@@ -420,75 +473,192 @@
                     "field_details": "{\"width\":69}"
                 },
                 {
-                    "tech_info": "KNA1-NAME1",
-                    "field": "Description",
-                    "multi_lang_alias": [],
-                    "valid": true,
-                    "field_details": "{\"width\":221}"
-                },
-                {
-                    "tech_info": "KNA1-STRAS",
-                    "field": "STRAS_GP",
-                    "multi_lang_alias": [],
-                    "valid": true,
-                    "field_details": "{\"width\":226}"
-                },
-                {
-                    "tech_info": "KNA1-PSTLZ",
-                    "field": "PSTLZ",
-                    "multi_lang_alias": [],
-                    "valid": true,
-                    "field_details": "{\"width\":75}"
-                },
-                {
-                    "tech_info": "KNA1-ORT01",
-                    "field": "ORT01_GP",
-                    "multi_lang_alias": [],
-                    "valid": true,
-                    "field_details": "{\"width\":97}"
-                },
-                {
-                    "tech_info": "KNA1-LAND1",
-                    "field": "LAND1_GP",
-                    "multi_lang_alias": [],
-                    "valid": true,
-                    "field_details": "{\"width\":34,\"format\":\"shn\"}"
-                },
-                {
-                    "field_details": "{\"width\":149}",
                     "tech_info": "",
+                    "field": "ExecutionStatus",
                     "multi_lang_alias": [],
-                    "field": "DSO",
-                    "valid": false,
-                    "validation_details": {
-                        "field": "DSO",
-                        "classes": [
-                            "Customer"
-                        ],
-                        "warning_type": "unsupported_display_field"
-                    }
+                    "valid": true,
+                    "field_details": "{\"width\":95,\"format\":\"shn\"}"
                 },
                 {
-                    "tech_info": "KNA1-UMSA1",
-                    "field": "UMSA1",
+                    "tech_info": "T001-BUKRS",
+                    "field": "CompanyCode__CompanyCode",
                     "multi_lang_alias": [],
                     "valid": true,
                     "field_details": "{\"width\":120}"
                 },
                 {
-                    "tech_info": "KNA1-ERDAT",
-                    "field": "ERDAT_RF",
+                    "tech_info": "TVKO-VKORG",
+                    "field": "SalesOrganization__SalesOrganization",
                     "multi_lang_alias": [],
                     "valid": true,
-                    "field_details": "{\"width\":104}"
+                    "field_details": "{\"width\":120}"
+                },
+                {
+                    "tech_info": "KNA1-KUNNR",
+                    "field": "Customer__Customer",
+                    "multi_lang_alias": [],
+                    "valid": true,
+                    "field_details": "{\"width\":99}"
+                },
+                {
+                    "tech_info": "KNA1-NAME1",
+                    "field": "Customer__Description",
+                    "multi_lang_alias": [],
+                    "valid": true,
+                    "field_details": "{\"width\":166}"
+                },
+                {
+                    "tech_info": "",
+                    "field": "SalesValue",
+                    "multi_lang_alias": [],
+                    "valid": true,
+                    "field_details": "{\"width\":82}"
+                },
+                {
+                    "field": "OrderedValue",
+                    "multi_lang_alias": [],
+                    "valid": true,
+                    "field_details": "{\"width\":120}"
+                },
+                {
+                    "tech_info": "",
+                    "field": "PaidAmount",
+                    "multi_lang_alias": [],
+                    "valid": true,
+                    "field_details": "{\"width\":110}"
+                },
+                {
+                    "tech_info": "",
+                    "field": "OpenBillingAmount",
+                    "multi_lang_alias": [],
+                    "valid": true,
+                    "field_details": "{\"width\":114}"
+                },
+                {
+                    "tech_info": "",
+                    "field": "IsInBillingDueList",
+                    "multi_lang_alias": [],
+                    "valid": true,
+                    "field_details": "{\"width\":107}"
+                },
+                {
+                    "tech_info": "",
+                    "field": "DeliveryStatus",
+                    "multi_lang_alias": [],
+                    "valid": true,
+                    "field_details": "{\"width\":138,\"format\":\"shn\"}"
                 }
             ],
+            "changed": {
+                "user": "/users/1",
+                "full_name": "EAAdmin",
+                "datetime": 1578908684
+            },
+            "uri": "/models/1/angles/1505/displays/7726",
+            "is_public": false,
             "contained_aggregation_steps": false,
-            "uri": "/models/1/angles/642/displays/2986",
-            "is_public": true,
             "used_in_task": false,
-            "state": "/models/1/angles/642/displays/2986/state",
+            "state": "/models/1/angles/1505/displays/7726/state",
             "display_type": "list",
+            "user_specific": {
+                "execute_on_login": false,
+                "is_user_default": false
+            },
+            "query_blocks": [],
+            "is_angle_default": false,
+            "angle_id": "1505",
+            "id": "d4e07b1191f3a1c5b0430ee18e0428964",
+            "display_details": "{}",
+            "multi_lang_description": [
+                {
+                    "lang": "de",
+                    "text": "<div id=\"summary\" /><div class=\" section\" id=\"S1440505707475543\"><p class=\"\" id=\"P1440505707475444\" /></div>"
+                },
+                {
+                    "lang": "en",
+                    "text": "<div id=\"summary\" /><div class=\" section\" id=\"S1440505707475543\"><p class=\"\" id=\"P1440505707475444\" /></div>"
+                },
+                {
+                    "lang": "es",
+                    "text": "<div id=\"summary\" /><div class=\" section\" id=\"S1440505707475543\"><p class=\"\" id=\"P1440505707475444\" /></div>"
+                },
+                {
+                    "lang": "fr",
+                    "text": "<div id=\"summary\" /><div class=\" section\" id=\"S1440505707475543\"><p class=\"\" id=\"P1440505707475444\" /></div>"
+                },
+                {
+                    "lang": "nl",
+                    "text": "<div id=\"summary\" /><div class=\" section\" id=\"S1440505707475543\"><p class=\"\" id=\"P1440505707475444\" /></div>"
+                }
+            ]
+        },
+        {
+            "multi_lang_name": [
+                {
+                    "lang": "de",
+                    "text": "Kategorisierung"
+                },
+                {
+                    "lang": "en",
+                    "text": "Categorization"
+                },
+                {
+                    "lang": "es",
+                    "text": "Clasificación"
+                },
+                {
+                    "lang": "fr",
+                    "text": "Catégorisation"
+                },
+                {
+                    "lang": "nl",
+                    "text": "Categoriseren"
+                }
+            ],
+            "authorizations": {
+                "make_angle_default": true,
+                "unpublish": false,
+                "update": true,
+                "publish": true,
+                "delete": true
+            },
+            "created": {
+                "user": "/users/1",
+                "full_name": "EAAdmin",
+                "datetime": 1570522303
+            },
+            "fields": [
+                {
+                    "field": "individual_SalesDocumentCategory",
+                    "multi_lang_alias": [],
+                    "valid": true,
+                    "field_details": "{\"pivot_area\":\"row\",\"format\":\"shnln\",\"sorting\":\"\"}"
+                },
+                {
+                    "field": "individual_AUART",
+                    "multi_lang_alias": [],
+                    "valid": true,
+                    "field_details": "{\"pivot_area\":\"row\",\"format\":\"shnln\",\"sorting\":\"\"}"
+                },
+                {
+                    "field": "individual_ExecutionStatus",
+                    "multi_lang_alias": [],
+                    "valid": true,
+                    "field_details": "{\"pivot_area\":\"column\",\"format\":\"shn\",\"sorting\":\"\"}"
+                },
+                {
+                    "field": "count",
+                    "multi_lang_alias": [],
+                    "valid": true,
+                    "field_details": "{\"pivot_area\":\"data\",\"prefix\":null,\"decimals\":0,\"thousandseparator\":false,\"sorting\":\"\"}"
+                }
+            ],
+            "contained_aggregation_steps": true,
+            "uri": "/models/1/angles/1505/displays/7727",
+            "is_public": false,
+            "used_in_task": false,
+            "state": "/models/1/angles/1505/displays/7727/state",
+            "display_type": "pivot",
             "user_specific": {
                 "execute_on_login": false,
                 "is_user_default": false
@@ -497,87 +667,791 @@
                 {
                     "query_steps": [
                         {
-                            "tech_info": "",
-                            "step_type": "filter",
-                            "field": "DSO",
-                            "valid": false,
-                            "validation_details": {
-                                "field": "DSO",
-                                "classes": [
-                                    "Customer"
-                                ],
-                                "warning_type": "unsupported_filter_field"
-                            },
-                            "arguments": [
+                            "aggregation_fields": [
                                 {
-                                    "argument_type": "value",
-                                    "value": 30
+                                    "operator": "count",
+                                    "field": "count"
                                 }
                             ],
-                            "operator": "greater_than"
+                            "step_type": "aggregation",
+                            "grouping_fields": [
+                                {
+                                    "operator": "individual",
+                                    "field": "individual_SalesDocumentCategory",
+                                    "source_field": "SalesDocumentCategory",
+                                    "tech_info": "VBAK-VBTYP"
+                                },
+                                {
+                                    "operator": "individual",
+                                    "field": "individual_AUART",
+                                    "source_field": "AUART",
+                                    "tech_info": "VBAK-AUART"
+                                },
+                                {
+                                    "operator": "individual",
+                                    "field": "individual_ExecutionStatus",
+                                    "source_field": "ExecutionStatus",
+                                    "tech_info": ""
+                                }
+                            ]
                         }
                     ],
                     "queryblock_type": "query_steps"
                 }
             ],
             "is_angle_default": false,
-            "angle_id": "642",
-            "id": "z273b6970ef6b40dab6438810cf3d71aa",
-            "display_details": "{\"layout\":null}",
+            "angle_id": "1505",
+            "id": "d5909766786daaf9d3b16ae4d76a62f7f",
+            "display_details": "{\"columns\":{\"header\":[189,196],\"data\":[63,105,63,109,63,120]},\"layout\":\"{\\\"layout\\\":\\\"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Q0FBQUFCQUFBQUFRQUFBQVFBZ0FBQUFRQUFBQUpBd0FBQUFZRUFBQUFBM0p2ZHdrRkFBQUFDQWdDQUFBQURBWUFBQUJOVTNsemRHVnRMbGRsWWl3Z1ZtVnljMmx2YmowMExqQXVNQzR3TENCRGRXeDBkWEpsUFc1bGRYUnlZV3dzSUZCMVlteHBZMHRsZVZSdmEyVnVQV0l3TTJZMVpqZG1NVEZrTlRCaE0yRUZBd0FBQUJ0VGVYTjBaVzB1VjJWaUxsVkpMa2x1WkdWNFpXUlRkSEpwYm1jQkFBQUFCbDkyWVd4MVpRRUdBQUFBQmdjQUFBQUlRM056UTJ4aGMzTUJCUUFBQUFNQUFBQUdDQUFBQUFSZklWTkNDdz09LCBudWxsLCBudWxsLCBudWxsLCBudWxsLCBudWxsLCBudWxsLCBudWxsLCBudWxsLCBudWxsLCBudWxsLCBudWxsLCAHT3B0aW9ucxJBbGxvd1NvcnRCeVN1bW1hcnkEVHJ1ZQlDZWxsU3R5bGUETmFtZQhTb3J0TW9kZQZDdXN0b20JRmllbGROYW1lIGluZGl2aWR1YWxfU2FsZXNEb2N1bWVudENhdGVnb3J5ClZhbHVlU3R5bGXMBH5YdHJhI0FycmF5MTIsIE9iamVjdCwsIFN5c3RlbS5Db2xsZWN0aW9ucy5BcnJheUxpc3QsLCwsIG1zY29ybGliLCwsLCBWZXJzaW9uPTQuMC4wLjAsLCwsIEN1bHR1cmU9bmV1dHJhbCwsLCwgUHVibGljS2V5VG9rZW49Yjc3YTVjNTYxOTM0ZTA4OSwsIH5YdHJhI0Jhc2U2NEFBRUFBQUQvLy8vL0FRQUFBQUFBQUFBRUFRQUFBQnhUZVhOMFpXMHVRMjlzYkdWamRHbHZibk11UVhKeVlYbE1hWE4wQXdBQUFBWmZhWFJsYlhNRlgzTnBlbVVJWDNabGNuTnBiMjRGQUFBSUNBa0NBQUFBQWdBQUFBSUFBQUFRQWdBQUFBUUFBQUFKQXdBQUFBZ0JBQTBDREFRQUFBQk5VM2x6ZEdWdExsZGxZaXdnVm1WeWMybHZiajAwTGpBdU1DNHdMQ0JEZFd4MGRYSmxQVzVsZFhSeVlXd3NJRkIxWW14cFkwdGxlVlJ2YTJWdVBXSXdNMlkxWmpkbU1URmtOVEJoTTJFRkF3QUFBQnRUZVhOMFpXMHVWMlZpTGxWSkxrbHVaR1Y0WldSVGRISnBibWNCQUFBQUJsOTJZV3gxWlFFRUFBQUFCZ1VBQUFBVFZHOXdRV3hwWjI1bFpGSnZkMVpoYkhWbGN3cz0sIG51bGwsIG51bGwsIG51bGwsIG51bGwsIG51bGwsIG51bGwsIG51bGwsIG51bGwsIG51bGwsIG51bGwsIG51bGwsIBNUb3BBbGlnbmVkUm93VmFsdWVzD1ZhbHVlVG90YWxTdHlsZQtWYWx1ZUZvcm1hdAxGb3JtYXRTdHJpbmcFc2hubG4KRm9ybWF0VHlwZQ1TdW1tYXJ5RmlsdGVyClN0YXJ0VmFsdWUIRW5kVmFsdWUETW9kZQlMYXN0TGV2ZWwVUm93RmllbGRDb21wb25lbnROYW1lGENvbHVtbkZpZWxkQ29tcG9uZW50TmFtZQxGaWx0ZXJWYWx1ZXMGVmFsdWVzDn5YdHJhI0FycmF5MCwgClZhbHVlc0NvcmURRGVmZXJGaWx0ZXJTdHJpbmcKU2hvd0JsYW5rcwpGaWx0ZXJUeXBlCEV4Y2x1ZGVkDEN1c3RvbVRvdGFscwpDZWxsRm9ybWF0DENhbGN1bGF0aW9ucwlBcmVhSW5kZXgOQWN0dWFsU29ydE1vZGUFSXRlbTIcKFNlbGYpIC0gU2FsZXMgRG9jdW1lbnQgVHlwZRBpbmRpdmlkdWFsX0FVQVJUBUl0ZW0zGShTZWxmKSAtIEV4ZWN1dGlvbiBTdGF0dXMKQ29sdW1uQXJlYfAEflh0cmEjQXJyYXkxMiwgT2JqZWN0LCwgU3lzdGVtLkNvbGxlY3Rpb25zLkFycmF5TGlzdCwsLCwgbXNjb3JsaWIsLCwsIFZlcnNpb249NC4wLjAuMCwsLCwgQ3VsdHVyZT1uZXV0cmFsLCwsLCBQdWJsaWNLZXlUb2tlbj1iNzdhNWM1NjE5MzRlMDg5LCwgflh0cmEjQmFzZTY0QUFFQUFBRC8vLy8vQVFBQUFBQUFBQUFFQVFBQUFCeFRlWE4wWlcwdVEyOXNiR1ZqZEdsdmJuTXVRWEp5WVhsTWFYTjBBd0FBQUFaZmFYUmxiWE1GWDNOcGVtVUlYM1psY25OcGIyNEZBQUFJQ0FrQ0FBQUFCQUFBQUFRQUFBQVFBZ0FBQUFRQUFBQUpBd0FBQUFZRUFBQUFCbU52YkhWdGJna0ZBQUFBQ0FnQ0FBQUFEQVlBQUFCTlUzbHpkR1Z0TGxkbFlpd2dWbVZ5YzJsdmJqMDBMakF1TUM0d0xDQkRkV3gwZFhKbFBXNWxkWFJ5WVd3c0lGQjFZbXhwWTB0bGVWUnZhMlZ1UFdJd00yWTFaamRtTVRGa05UQmhNMkVGQXdBQUFCdFRlWE4wWlcwdVYyVmlMbFZKTGtsdVpHVjRaV1JUZEhKcGJtY0JBQUFBQmw5MllXeDFaUUVHQUFBQUJnY0FBQUFJUTNOelEyeGhjM01CQlFBQUFBTUFBQUFHQ0FBQUFBUmZJVk5DQ3c9PSwgbnVsbCwgbnVsbCwgbnVsbCwgbnVsbCwgbnVsbCwgbnVsbCwgbnVsbCwgbnVsbCwgbnVsbCwgbnVsbCwgbnVsbCwgGmluZGl2aWR1YWxfRXhlY3V0aW9uU3RhdHVzA3NobgVJdGVtNAVDb3VudAhEYXRhQXJlYfAEflh0cmEjQXJyYXkxMiwgT2JqZWN0LCwgU3lzdGVtLkNvbGxlY3Rpb25zLkFycmF5TGlzdCwsLCwgbXNjb3JsaWIsLCwsIFZlcnNpb249NC4wLjAuMCwsLCwgQ3VsdHVyZT1uZXV0cmFsLCwsLCBQdWJsaWNLZXlUb2tlbj1iNzdhNWM1NjE5MzRlMDg5LCwgflh0cmEjQmFzZTY0QUFFQUFBRC8vLy8vQVFBQUFBQUFBQUFFQVFBQUFCeFRlWE4wWlcwdVEyOXNiR1ZqZEdsdmJuTXVRWEp5WVhsTWFYTjBBd0FBQUFaZmFYUmxiWE1GWDNOcGVtVUlYM1psY25OcGIyNEZBQUFJQ0FrQ0FBQUFCQUFBQUFRQUFBQVFBZ0FBQUFRQUFBQUpBd0FBQUFZRUFBQUFCbTV2UkhKaFp3a0ZBQUFBQ0FnQ0FBQUFEQVlBQUFCTlUzbHpkR1Z0TGxkbFlpd2dWbVZ5YzJsdmJqMDBMakF1TUM0d0xDQkRkV3gwZFhKbFBXNWxkWFJ5WVd3c0lGQjFZbXhwWTB0bGVWUnZhMlZ1UFdJd00yWTFaamRtTVRGa05UQmhNMkVGQXdBQUFCdFRlWE4wWlcwdVYyVmlMbFZKTGtsdVpHVjRaV1JUZEhKcGJtY0JBQUFBQmw5MllXeDFaUUVHQUFBQUJnY0FBQUFJUTNOelEyeGhjM01CQlFBQUFBTUFBQUFHQ0FBQUFBUmZJVk5DQ3c9PSwgbnVsbCwgbnVsbCwgbnVsbCwgbnVsbCwgbnVsbCwgbnVsbCwgbnVsbCwgbnVsbCwgbnVsbCwgbnVsbCwgbnVsbCwgBWNvdW50CkYwLGNvdW50LE4HRGVmYXVsdBRPcHRpb25zQ3VzdG9taXphdGlvbg5BbGxvd1ByZWZpbHRlchxBbGxvd0RyYWdJbkN1c3RvbWl6YXRpb25Gb3JtCUFsbG93RHJhZw9EZWZlcnJlZFVwZGF0ZXMMT3B0aW9uc1BhZ2VyC1Jvd3NQZXJQYWdlDkNvbHVtbnNQZXJQYWdlBkdyb3Vwcw==\\\",\\\"collapse\\\":\\\"/v///wAAAAAAAAAAAAAAAP7///8BAAAAIGluZGl2aWR1YWxfU2FsZXNEb2N1bWVudENhdGVnb3J5WlN5c3RlbS5TdHJpbmcsIG1zY29ybGliLCBWZXJzaW9uPTQuMC4wLjAsIEN1bHR1cmU9bmV1dHJhbCwgUHVibGljS2V5VG9rZW49Yjc3YTVjNTYxOTM0ZTA4OQABAAAAAAAAAAAAAAA=\\\"}\",\"collapse\":\"/v///wAAAAAAAAAAAAAAAP7///8BAAAAIGluZGl2aWR1YWxfU2FsZXNEb2N1bWVudENhdGVnb3J5WlN5c3RlbS5TdHJpbmcsIG1zY29ybGliLCBWZXJzaW9uPTQuMC4wLjAsIEN1bHR1cmU9bmV1dHJhbCwgUHVibGljS2V5VG9rZW49Yjc3YTVjNTYxOTM0ZTA4OQABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==\",\"drilldown_display\":\"d1daeb64f0535deea5e1df224d5e1b4c4\",\"show_total_for\":1,\"percentage_summary_type\":0,\"include_subtotals\":false}",
             "multi_lang_description": [
                 {
                     "lang": "de",
-                    "text": "<div id=\"summary\" />"
+                    "text": "<div id=\"summary\" /><div class=\" section\" id=\"S1440508401376483\"><p class=\"\" id=\"P1440508401376494\" /></div>"
                 },
                 {
                     "lang": "en",
-                    "text": "<div id=\"summary\" />"
+                    "text": "<div id=\"summary\" /><div class=\" section\" id=\"S1440508401376483\"><p class=\"\" id=\"P1440508401376494\" /></div>"
                 },
                 {
                     "lang": "es",
-                    "text": "<div id=\"summary\" />"
+                    "text": "<div id=\"summary\" /><div class=\" section\" id=\"S1440508401376483\"><p class=\"\" id=\"P1440508401376494\" /></div>"
                 },
                 {
                     "lang": "fr",
-                    "text": "<div id=\"summary\" />"
+                    "text": "<div id=\"summary\" /><div class=\" section\" id=\"S1440508401376483\"><p class=\"\" id=\"P1440508401376494\" /></div>"
                 },
                 {
                     "lang": "nl",
-                    "text": "<div id=\"summary\" />"
+                    "text": "<div id=\"summary\" /><div class=\" section\" id=\"S1440508401376483\"><p class=\"\" id=\"P1440508401376494\" /></div>"
+                }
+            ]
+        },
+        {
+            "multi_lang_name": [
+                {
+                    "lang": "de",
+                    "text": "Nach Ausführungsstatus"
+                },
+                {
+                    "lang": "en",
+                    "text": "Per Execution Status"
+                },
+                {
+                    "lang": "es",
+                    "text": "Por Status de Ejecución"
+                },
+                {
+                    "lang": "fr",
+                    "text": "Par Statut d’Avancement"
+                },
+                {
+                    "lang": "nl",
+                    "text": "Per Executiestatus"
+                }
+            ],
+            "authorizations": {
+                "make_angle_default": true,
+                "unpublish": false,
+                "update": true,
+                "publish": true,
+                "delete": true
+            },
+            "created": {
+                "user": "/users/1",
+                "full_name": "EAAdmin",
+                "datetime": 1570522303
+            },
+            "fields": [
+                {
+                    "field": "individual_ExecutionStatus",
+                    "multi_lang_alias": [],
+                    "valid": true,
+                    "field_details": "{\"pivot_area\":\"row\",\"format\":\"shnln\",\"sorting\":\"\"}"
+                },
+                {
+                    "field": "count",
+                    "multi_lang_alias": [],
+                    "valid": true,
+                    "field_details": "{\"pivot_area\":\"data\",\"prefix\":null,\"decimals\":0,\"thousandseparator\":false,\"sorting\":\"\"}"
+                }
+            ],
+            "contained_aggregation_steps": true,
+            "uri": "/models/1/angles/1505/displays/7728",
+            "is_public": false,
+            "used_in_task": false,
+            "state": "/models/1/angles/1505/displays/7728/state",
+            "display_type": "chart",
+            "user_specific": {
+                "execute_on_login": false,
+                "is_user_default": false
+            },
+            "query_blocks": [
+                {
+                    "query_steps": [
+                        {
+                            "aggregation_fields": [
+                                {
+                                    "operator": "count",
+                                    "field": "count"
+                                }
+                            ],
+                            "step_type": "aggregation",
+                            "grouping_fields": [
+                                {
+                                    "operator": "individual",
+                                    "field": "individual_ExecutionStatus",
+                                    "source_field": "ExecutionStatus",
+                                    "tech_info": ""
+                                }
+                            ]
+                        }
+                    ],
+                    "queryblock_type": "query_steps"
+                }
+            ],
+            "is_angle_default": false,
+            "angle_id": "1505",
+            "id": "d847ccc792dc9512c027013123880edd1",
+            "display_details": "{\"chart_type\":\"bar\",\"stack\":true,\"multi_axis\":false,\"columns\":{\"header\":[],\"data\":[]},\"layout\":null,\"drilldown_display\":\"d1daeb64f0535deea5e1df224d5e1b4c4\",\"axistitle\":\"show\",\"axisvalue\":\"show\",\"datalabel\":\"mouse\",\"gridline\":\"show\",\"legend\":\"show\",\"range\":{\"start\":0,\"size\":50}}",
+            "multi_lang_description": [
+                {
+                    "lang": "de",
+                    "text": "<div id=\"summary\" /><div class=\" section\" id=\"S1441271052882423\"><p class=\"\" id=\"P1441271052882704\" /></div>"
+                },
+                {
+                    "lang": "en",
+                    "text": "<div id=\"summary\" /><div class=\" section\" id=\"S1441271052882423\"><p class=\"\" id=\"P1441271052882704\" /></div>"
+                },
+                {
+                    "lang": "es",
+                    "text": "<div id=\"summary\" /><div class=\" section\" id=\"S1441271052882423\"><p class=\"\" id=\"P1441271052882704\" /></div>"
+                },
+                {
+                    "lang": "fr",
+                    "text": "<div id=\"summary\" /><div class=\" section\" id=\"S1441271052882423\"><p class=\"\" id=\"P1441271052882704\" /></div>"
+                },
+                {
+                    "lang": "nl",
+                    "text": "<div id=\"summary\" /><div class=\" section\" id=\"S1441271052882423\"><p class=\"\" id=\"P1441271052882704\" /></div>"
+                }
+            ]
+        },
+        {
+            "multi_lang_name": [
+                {
+                    "lang": "de",
+                    "text": "Anzahl nach Erstellungsdatum"
+                },
+                {
+                    "lang": "en",
+                    "text": "No. per Creation Date"
+                },
+                {
+                    "lang": "es",
+                    "text": "N.º por Fecha de Creación"
+                },
+                {
+                    "lang": "fr",
+                    "text": "Nombre par Date de Création"
+                },
+                {
+                    "lang": "nl",
+                    "text": "Aantal per Aanmaakdatum"
+                }
+            ],
+            "authorizations": {
+                "make_angle_default": true,
+                "unpublish": false,
+                "update": true,
+                "publish": true,
+                "delete": true
+            },
+            "created": {
+                "user": "/users/1",
+                "full_name": "EAAdmin",
+                "datetime": 1570522303
+            },
+            "fields": [
+                {
+                    "field": "quarter_CreationDate",
+                    "multi_lang_alias": [],
+                    "valid": true,
+                    "field_details": "{\"pivot_area\":\"row\"}"
+                },
+                {
+                    "field": "individual_SalesOrganization__SalesOrganization",
+                    "multi_lang_alias": [],
+                    "valid": true,
+                    "field_details": "{\"pivot_area\":\"column\",\"format\":\"shn\"}"
+                },
+                {
+                    "field": "count",
+                    "multi_lang_alias": [],
+                    "valid": true,
+                    "field_details": "{\"pivot_area\":\"data\",\"prefix\":null,\"decimals\":0}"
+                }
+            ],
+            "contained_aggregation_steps": true,
+            "uri": "/models/1/angles/1505/displays/7729",
+            "is_public": false,
+            "used_in_task": false,
+            "state": "/models/1/angles/1505/displays/7729/state",
+            "display_type": "chart",
+            "user_specific": {
+                "execute_on_login": false,
+                "is_user_default": false
+            },
+            "query_blocks": [
+                {
+                    "query_steps": [
+                        {
+                            "aggregation_fields": [
+                                {
+                                    "operator": "count",
+                                    "field": "count"
+                                }
+                            ],
+                            "step_type": "aggregation",
+                            "grouping_fields": [
+                                {
+                                    "operator": "quarter",
+                                    "field": "quarter_CreationDate",
+                                    "source_field": "CreationDate",
+                                    "tech_info": "VBAK-ERDAT"
+                                },
+                                {
+                                    "operator": "individual",
+                                    "field": "individual_SalesOrganization__SalesOrganization",
+                                    "source_field": "SalesOrganization__SalesOrganization",
+                                    "tech_info": "TVKO-VKORG"
+                                }
+                            ]
+                        }
+                    ],
+                    "queryblock_type": "query_steps"
+                }
+            ],
+            "is_angle_default": false,
+            "angle_id": "1505",
+            "id": "da5b4c1601393659e585398c874681e01",
+            "display_details": "{\"chart_type\":\"column\",\"stack\":true,\"multi_axis\":false,\"layout\":null,\"drilldown_display\":\"d1daeb64f0535deea5e1df224d5e1b4c4\"}",
+            "multi_lang_description": [
+                {
+                    "lang": "de",
+                    "text": "<div id=\"summary\" /><div class=\" section\" id=\"S1441114983295153\"><p class=\"\" id=\"P1441114983295214\">Anzahl pro Erstellungsdatum und Verkaufsorganisation.</p></div>"
+                },
+                {
+                    "lang": "en",
+                    "text": "<div id=\"summary\" /><div class=\" section\" id=\"S1441114983295153\"><p class=\"\" id=\"P1441114983295214\">Number per creation date and sales organization.</p></div>"
+                },
+                {
+                    "lang": "es",
+                    "text": "<div id=\"summary\" /><div class=\" section\" id=\"S1441114983295153\"><p class=\"\" id=\"P1441114983295214\">Número por fecha de creación y organización de ventas.</p></div>"
+                },
+                {
+                    "lang": "fr",
+                    "text": "<div id=\"summary\" /><div class=\" section\" id=\"S1441114983295153\"><p class=\"\" id=\"P1441114983295214\">Nombre par date de création et organisation commerciale.</p></div>"
+                },
+                {
+                    "lang": "nl",
+                    "text": "<div id=\"summary\" /><div class=\" section\" id=\"S1441114983295153\"><p class=\"\" id=\"P1441114983295214\">Aantal per aanmaakdatum en verkooporganisatie.</p></div>"
+                }
+            ]
+        },
+        {
+            "multi_lang_name": [
+                {
+                    "lang": "de",
+                    "text": "Versanddaten"
+                },
+                {
+                    "lang": "en",
+                    "text": "Shipping Data"
+                },
+                {
+                    "lang": "es",
+                    "text": "Datos de Expedición"
+                },
+                {
+                    "lang": "fr",
+                    "text": "Données d'Expédition"
+                },
+                {
+                    "lang": "nl",
+                    "text": "Verzendgegevens"
+                }
+            ],
+            "authorizations": {
+                "make_angle_default": true,
+                "unpublish": false,
+                "update": true,
+                "publish": true,
+                "delete": true
+            },
+            "created": {
+                "user": "/users/1",
+                "full_name": "EAAdmin",
+                "datetime": 1570522303
+            },
+            "fields": [
+                {
+                    "tech_info": "",
+                    "field": "ObjectType",
+                    "multi_lang_alias": [],
+                    "valid": true,
+                    "field_details": "{\"width\":83,\"format\":\"shn\"}"
+                },
+                {
+                    "tech_info": "",
+                    "field": "ID",
+                    "multi_lang_alias": [],
+                    "valid": true,
+                    "field_details": "{\"width\":56}"
+                },
+                {
+                    "tech_info": "",
+                    "field": "DeliveryStatus",
+                    "multi_lang_alias": [],
+                    "valid": true,
+                    "field_details": "{\"width\":120}"
+                },
+                {
+                    "tech_info": "",
+                    "field": "ExecutionStatus",
+                    "multi_lang_alias": [],
+                    "valid": true,
+                    "field_details": "{\"width\":91,\"format\":\"shn\"}"
+                },
+                {
+                    "tech_info": "KNA1-KUNNR",
+                    "field": "Customer__Customer",
+                    "multi_lang_alias": [],
+                    "valid": true,
+                    "field_details": "{\"width\":92}"
+                },
+                {
+                    "tech_info": "KNA1-NAME1",
+                    "field": "Customer__Description",
+                    "multi_lang_alias": [],
+                    "valid": true,
+                    "field_details": "{\"width\":187}"
+                },
+                {
+                    "tech_info": "KNA1-KUNNR",
+                    "field": "ShipToParty__Customer",
+                    "multi_lang_alias": [],
+                    "valid": true,
+                    "field_details": "{\"width\":66}"
+                },
+                {
+                    "tech_info": "KNA1-NAME1",
+                    "field": "ShipToParty__Description",
+                    "multi_lang_alias": [],
+                    "valid": true,
+                    "field_details": "{\"width\":185}"
+                },
+                {
+                    "tech_info": "KNA1-ORT01",
+                    "field": "ShipToParty__ORT01_GP",
+                    "multi_lang_alias": [],
+                    "valid": true,
+                    "field_details": "{\"width\":120}"
+                },
+                {
+                    "tech_info": "KNA1-LAND1",
+                    "field": "ShipToParty__LAND1_GP",
+                    "multi_lang_alias": [],
+                    "valid": true,
+                    "field_details": "{\"width\":80,\"format\":\"shn\"}"
+                },
+                {
+                    "tech_info": "KNA1-LOEVM",
+                    "field": "ShipToParty__LOEVM",
+                    "multi_lang_alias": [],
+                    "valid": true,
+                    "field_details": "{\"width\":120}"
+                },
+                {
+                    "tech_info": "KNA1-SPERR",
+                    "field": "ShipToParty__SPERR",
+                    "multi_lang_alias": [],
+                    "valid": true,
+                    "field_details": "{\"width\":120}"
+                }
+            ],
+            "changed": {
+                "user": "/users/1",
+                "full_name": "EAAdmin",
+                "datetime": 1578908695
+            },
+            "uri": "/models/1/angles/1505/displays/7730",
+            "is_public": false,
+            "contained_aggregation_steps": false,
+            "used_in_task": false,
+            "state": "/models/1/angles/1505/displays/7730/state",
+            "display_type": "list",
+            "user_specific": {
+                "execute_on_login": false,
+                "is_user_default": false
+            },
+            "query_blocks": [],
+            "is_angle_default": false,
+            "angle_id": "1505",
+            "id": "db67f5f974c19df208057002dafd6fa22",
+            "display_details": "{}",
+            "multi_lang_description": [
+                {
+                    "lang": "de",
+                    "text": "<div id=\"summary\" /><div class=\" section\" id=\"S1438096330405393\"><p class=\"\" id=\"P1438096330405414\" /></div>"
+                },
+                {
+                    "lang": "en",
+                    "text": "<div id=\"summary\" /><div class=\" section\" id=\"S1438096330405393\"><p class=\"\" id=\"P1438096330405414\" /></div>"
+                },
+                {
+                    "lang": "es",
+                    "text": "<div id=\"summary\" /><div class=\" section\" id=\"S1438096330405393\"><p class=\"\" id=\"P1438096330405414\" /></div>"
+                },
+                {
+                    "lang": "fr",
+                    "text": "<div id=\"summary\" /><div class=\" section\" id=\"S1438096330405393\"><p class=\"\" id=\"P1438096330405414\" /></div>"
+                },
+                {
+                    "lang": "nl",
+                    "text": "<div id=\"summary\" /><div class=\" section\" id=\"S1438096330405393\"><p class=\"\" id=\"P1438096330405414\" /></div>"
+                }
+            ]
+        },
+        {
+            "multi_lang_name": [
+                {
+                    "lang": "de",
+                    "text": "Pro Verkaufsbelegart im vergangenen Jahr"
+                },
+                {
+                    "lang": "en",
+                    "text": "Per Sales Document Type in Past Year"
+                },
+                {
+                    "lang": "es",
+                    "text": "Por Clase de Documento de Ventas el Pasado Año"
+                },
+                {
+                    "lang": "fr",
+                    "text": "Par Type de Document de Vente Au Cours De l'Année Passée"
+                },
+                {
+                    "lang": "nl",
+                    "text": "Per Verkoopdocumentsoort in Afgelopen Jaar"
+                }
+            ],
+            "authorizations": {
+                "make_angle_default": true,
+                "unpublish": false,
+                "update": true,
+                "publish": true,
+                "delete": true
+            },
+            "created": {
+                "user": "/users/1",
+                "full_name": "EAAdmin",
+                "datetime": 1570522303
+            },
+            "fields": [
+                {
+                    "field": "individual_AUART",
+                    "multi_lang_alias": [],
+                    "valid": true,
+                    "field_details": "{\"pivot_area\":\"row\",\"format\":\"shnln\",\"sorting\":\"\"}"
+                },
+                {
+                    "field": "count",
+                    "multi_lang_alias": [],
+                    "valid": true,
+                    "field_details": "{\"pivot_area\":\"data\",\"prefix\":null,\"decimals\":0,\"thousandseparator\":false,\"sorting\":\"\"}"
+                }
+            ],
+            "contained_aggregation_steps": true,
+            "uri": "/models/1/angles/1505/displays/7731",
+            "is_public": false,
+            "used_in_task": false,
+            "state": "/models/1/angles/1505/displays/7731/state",
+            "display_type": "chart",
+            "user_specific": {
+                "execute_on_login": false,
+                "is_user_default": false
+            },
+            "query_blocks": [
+                {
+                    "query_steps": [
+                        {
+                            "operator": "relative_after",
+                            "field": "CreationDate",
+                            "step_type": "filter",
+                            "arguments": [
+                                {
+                                    "valid": true,
+                                    "argument_type": "value",
+                                    "value": -365
+                                }
+                            ],
+                            "tech_info": "VBAK-ERDAT"
+                        },
+                        {
+                            "aggregation_fields": [
+                                {
+                                    "operator": "count",
+                                    "field": "count"
+                                }
+                            ],
+                            "step_type": "aggregation",
+                            "grouping_fields": [
+                                {
+                                    "operator": "individual",
+                                    "field": "individual_AUART",
+                                    "source_field": "AUART",
+                                    "tech_info": "VBAK-AUART"
+                                }
+                            ]
+                        }
+                    ],
+                    "queryblock_type": "query_steps"
+                }
+            ],
+            "is_angle_default": false,
+            "angle_id": "1505",
+            "id": "dd9e1351a919af0283fc0aab63abc94d5",
+            "display_details": "{\"chart_type\":\"column\",\"stack\":false,\"multi_axis\":false,\"layout\":null,\"drilldown_display\":\"d1daeb64f0535deea5e1df224d5e1b4c4\",\"axistitle\":\"show\",\"axisvalue\":\"show\",\"datalabel\":\"mouse\",\"gridline\":\"show\",\"legend\":\"show\",\"range\":{\"start\":0,\"size\":50}}",
+            "multi_lang_description": [
+                {
+                    "lang": "de",
+                    "text": "<div id=\"summary\" /><div class=\" section\" id=\"S1441271055565543\"><p class=\"\" id=\"P1441271055565784\" /></div>"
+                },
+                {
+                    "lang": "en",
+                    "text": "<div id=\"summary\" /><div class=\" section\" id=\"S1441271055565543\"><p class=\"\" id=\"P1441271055565784\" /></div>"
+                },
+                {
+                    "lang": "es",
+                    "text": "<div id=\"summary\" /><div class=\" section\" id=\"S1441271055565543\"><p class=\"\" id=\"P1441271055565784\" /></div>"
+                },
+                {
+                    "lang": "fr",
+                    "text": "<div id=\"summary\" /><div class=\" section\" id=\"S1441271055565543\"><p class=\"\" id=\"P1441271055565784\" /></div>"
+                },
+                {
+                    "lang": "nl",
+                    "text": "<div id=\"summary\" /><div class=\" section\" id=\"S1441271055565543\"><p class=\"\" id=\"P1441271055565784\" /></div>"
+                }
+            ]
+        },
+        {
+            "multi_lang_name": [
+                {
+                    "lang": "de",
+                    "text": "Pro Verkaufsorganisation im vergangenen Jahr"
+                },
+                {
+                    "lang": "en",
+                    "text": "Per Sales Org. in Past Year"
+                },
+                {
+                    "lang": "es",
+                    "text": "Por Org. de Ventas el Pasado Año"
+                },
+                {
+                    "lang": "fr",
+                    "text": "Par Organisation Commerciale Au Cours De l'Année Passée"
+                },
+                {
+                    "lang": "nl",
+                    "text": "Per Verkooporg. in Afgelopen Jaar"
+                }
+            ],
+            "authorizations": {
+                "make_angle_default": true,
+                "unpublish": false,
+                "update": true,
+                "publish": true,
+                "delete": true
+            },
+            "created": {
+                "user": "/users/1",
+                "full_name": "EAAdmin",
+                "datetime": 1570522303
+            },
+            "fields": [
+                {
+                    "field": "individual_CompanyCode__CompanyCode",
+                    "multi_lang_alias": [],
+                    "valid": true,
+                    "field_details": "{\"pivot_area\":\"row\",\"format\":\"shnln\",\"sorting\":\"\"}"
+                },
+                {
+                    "field": "individual_SalesOrganization__SalesOrganization",
+                    "multi_lang_alias": [],
+                    "valid": true,
+                    "field_details": "{\"pivot_area\":\"row\",\"format\":\"shnln\",\"sorting\":\"\"}"
+                },
+                {
+                    "field": "individual_SalesDocCurrency",
+                    "multi_lang_alias": [],
+                    "valid": true,
+                    "field_details": "{\"pivot_area\":\"row\",\"format\":\"shnln\",\"sorting\":\"\"}"
+                },
+                {
+                    "field": "count",
+                    "multi_lang_alias": [],
+                    "valid": true,
+                    "field_details": "{\"pivot_area\":\"data\",\"prefix\":null,\"decimals\":0,\"thousandseparator\":false,\"sorting\":\"\"}"
+                },
+                {
+                    "field": "sum_VBAK_NETWR",
+                    "multi_lang_alias": [],
+                    "valid": true,
+                    "field_details": "{\"pivot_area\":\"data\",\"prefix\":null,\"decimals\":0,\"thousandseparator\":false,\"sorting\":\"\"}"
+                }
+            ],
+            "changed": {
+                "user": "/users/1",
+                "full_name": "EAAdmin",
+                "datetime": 1578908786
+            },
+            "uri": "/models/1/angles/1505/displays/7732",
+            "is_public": false,
+            "contained_aggregation_steps": true,
+            "used_in_task": false,
+            "state": "/models/1/angles/1505/displays/7732/state",
+            "display_type": "pivot",
+            "user_specific": {
+                "execute_on_login": false,
+                "is_user_default": false
+            },
+            "query_blocks": [
+                {
+                    "query_steps": [
+                        {
+                            "operator": "relative_after",
+                            "field": "CreationDate",
+                            "step_type": "filter",
+                            "arguments": [
+                                {
+                                    "valid": true,
+                                    "argument_type": "value",
+                                    "value": -365
+                                }
+                            ],
+                            "tech_info": "VBAK-ERDAT"
+                        },
+                        {
+                            "aggregation_fields": [
+                                {
+                                    "operator": "count",
+                                    "field": "count"
+                                },
+                                {
+                                    "source_field": "VBAK_NETWR",
+                                    "tech_info": "VBAK-NETWR",
+                                    "field": "sum_VBAK_NETWR",
+                                    "valid": false,
+                                    "validation_details": {
+                                        "field": "VBAK_NETWR",
+                                        "classes": [
+                                            "SalesOrder"
+                                        ],
+                                        "warning_type": "unsupported_aggregation_field"
+                                    },
+                                    "operator": "sum"
+                                }
+                            ],
+                            "step_type": "aggregation",
+                            "grouping_fields": [
+                                {
+                                    "operator": "individual",
+                                    "field": "individual_CompanyCode__CompanyCode",
+                                    "source_field": "CompanyCode__CompanyCode",
+                                    "tech_info": "T001-BUKRS"
+                                },
+                                {
+                                    "operator": "individual",
+                                    "field": "individual_SalesOrganization__SalesOrganization",
+                                    "source_field": "SalesOrganization__SalesOrganization",
+                                    "tech_info": "TVKO-VKORG"
+                                },
+                                {
+                                    "source_field": "WAERK",
+                                    "tech_info": "VKDFS_VBELN-WAERK",
+                                    "field": "individual_SalesDocCurrency",
+                                    "valid": false,
+                                    "validation_details": {
+                                        "field": "WAERK",
+                                        "classes": [
+                                            "SalesOrder"
+                                        ],
+                                        "source": "self",
+                                        "warning_type": "unsupported_grouping_field"
+                                    },
+                                    "operator": "individual"
+                                }
+                            ]
+                        }
+                    ],
+                    "queryblock_type": "query_steps"
+                }
+            ],
+            "is_angle_default": false,
+            "angle_id": "1505",
+            "id": "de1857202ffa3318ce15373438036ae99",
+            "display_details": "{\"columns\":{\"header\":[189,168,243.5],\"data\":[63,63]},\"drilldown_display\":\"d1daeb64f0535deea5e1df224d5e1b4c4\",\"layout\":\"{\\\"layout\\\":\\\"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YXB0aW9uDENvbXBhbnkgQ29kZQRBcmVhB1Jvd0FyZWELSGVhZGVyU3R5bGUJVmlld1N0YXRl7AR+WHRyYSNBcnJheTEyLCBPYmplY3QsLCBTeXN0ZW0uQ29sbGVjdGlvbnMuQXJyYXlMaXN0LCwsLCBtc2NvcmxpYiwsLCwgVmVyc2lvbj00LjAuMC4wLCwsLCBDdWx0dXJlPW5ldXRyYWwsLCwsIFB1YmxpY0tleVRva2VuPWI3N2E1YzU2MTkzNGUwODksLCB+WHRyYSNCYXNlNjRBQUVBQUFELy8vLy9BUUFBQUFBQUFBQUVBUUFBQUJ4VGVYTjBaVzB1UTI5c2JHVmpkR2x2Ym5NdVFYSnlZWGxNYVhOMEF3QUFBQVpmYVhSbGJYTUZYM05wZW1VSVgzWmxjbk5wYjI0RkFBQUlDQWtDQUFBQUJBQUFBQVFBQUFBUUFnQUFBQVFBQUFBSkF3QUFBQVlFQUFBQUEzSnZkd2tGQUFBQUNBZ0NBQUFBREFZQUFBQk5VM2x6ZEdWdExsZGxZaXdnVm1WeWMybHZiajAwTGpBdU1DNHdMQ0JEZFd4MGRYSmxQVzVsZFhSeVlXd3NJRkIxWW14cFkwdGxlVlJ2YTJWdVBXSXdNMlkxWmpkbU1URmtOVEJoTTJFRkF3QUFBQnRUZVhOMFpXMHVWMlZpTGxWSkxrbHVaR1Y0WldSVGRISnBibWNCQUFBQUJsOTJZV3gxWlFFR0FBQUFCZ2NBQUFBSVEzTnpRMnhoYzNNQkJRQUFBQU1BQUFBR0NBQUFBQVJmSVZOQ0N3PT0sIG51bGwsIG51bGwsIG51bGwsIG51bGwsIG51bGwsIG51bGwsIG51bGwsIG51bGwsIG51bGwsIG51bGwsIG51bGwsIAdPcHRpb25zEkFsbG93U29ydEJ5U3VtbWFyeQRUcnVlCUFsbG93RHJhZwVGYWxzZQlDZWxsU3R5bGUETmFtZQhTb3J0TW9kZQZDdXN0b20JRmllbGROYW1lI2luZGl2aWR1YWxfQ29tcGFueUNvZGVfX0NvbXBhbnlDb2RlClZhbHVlU3R5bGXMBH5YdHJhI0FycmF5MTIsIE9iamVjdCwsIFN5c3RlbS5Db2xsZWN0aW9ucy5BcnJheUxpc3QsLCwsIG1zY29ybGliLCwsLCBWZXJzaW9uPTQuMC4wLjAsLCwsIEN1bHR1cmU9bmV1dHJhbCwsLCwgUHVibGljS2V5VG9rZW49Yjc3YTVjNTYxOTM0ZTA4OSwsIH5YdHJhI0Jhc2U2NEFBRUFBQUQvLy8vL0FRQUFBQUFBQUFBRUFRQUFBQnhUZVhOMFpXMHVRMjlzYkdWamRHbHZibk11UVhKeVlYbE1hWE4wQXdBQUFBWmZhWFJsYlhNRlgzTnBlbVVJWDNabGNuTnBiMjRGQUFBSUNBa0NBQUFBQWdBQUFBSUFBQUFRQWdBQUFBUUFBQUFKQXdBQUFBZ0JBQTBDREFRQUFBQk5VM2x6ZEdWdExsZGxZaXdnVm1WeWMybHZiajAwTGpBdU1DNHdMQ0JEZFd4MGRYSmxQVzVsZFhSeVlXd3NJRkIxWW14cFkwdGxlVlJ2YTJWdVBXSXdNMlkxWmpkbU1URmtOVEJoTTJFRkF3QUFBQnRUZVhOMFpXMHVWMlZpTGxWSkxrbHVaR1Y0WldSVGRISnBibWNCQUFBQUJsOTJZV3gxWlFFRUFBQUFCZ1VBQUFBVFZHOXdRV3hwWjI1bFpGSnZkMVpoYkhWbGN3cz0sIG51bGwsIG51bGwsIG51bGwsIG51bGwsIG51bGwsIG51bGwsIG51bGwsIG51bGwsIG51bGwsIG51bGwsIG51bGwsIBNUb3BBbGlnbmVkUm93VmFsdWVzD1ZhbHVlVG90YWxTdHlsZQtWYWx1ZUZvcm1hdAxGb3JtYXRTdHJpbmcFc2hubG4KRm9ybWF0VHlwZQ1TdW1tYXJ5RmlsdGVyClN0YXJ0VmFsdWUIRW5kVmFsdWUETW9kZQlMYXN0TGV2ZWwVUm93RmllbGRDb21wb25lbnROYW1lGENvbHVtbkZpZWxkQ29tcG9uZW50TmFtZQxGaWx0ZXJWYWx1ZXMGVmFsdWVzDn5YdHJhI0FycmF5MCwgClZhbHVlc0NvcmURRGVmZXJGaWx0ZXJTdHJpbmcKU2hvd0JsYW5rcwpGaWx0ZXJUeXBlCEV4Y2x1ZGVkDEN1c3RvbVRvdGFscwpDZWxsRm9ybWF0DENhbGN1bGF0aW9ucwlBcmVhSW5kZXgOQWN0dWFsU29ydE1vZGUFSXRlbTIKU2FsZXMgT3JnLi9pbmRpdmlkdWFsX1NhbGVzT3JnYW5pemF0aW9uX19TYWxlc09yZ2FuaXphdGlvbgVJdGVtMxooU2VsZikgLSBEb2N1bWVudCBjdXJyZW5jeRtpbmRpdmlkdWFsX1NhbGVzRG9jQ3VycmVuY3kFSXRlbTQFQ291bnQIRGF0YUFyZWHsBH5YdHJhI0FycmF5MTIsIE9iamVjdCwsIFN5c3RlbS5Db2xsZWN0aW9ucy5BcnJheUxpc3QsLCwsIG1zY29ybGliLCwsLCBWZXJzaW9uPTQuMC4wLjAsLCwsIEN1bHR1cmU9bmV1dHJhbCwsLCwgUHVibGljS2V5VG9rZW49Yjc3YTVjNTYxOTM0ZTA4OSwsIH5YdHJhI0Jhc2U2NEFBRUFBQUQvLy8vL0FRQUFBQUFBQUFBRUFRQUFBQnhUZVhOMFpXMHVRMjlzYkdWamRHbHZibk11UVhKeVlYbE1hWE4wQXdBQUFBWmZhWFJsYlhNRlgzTnBlbVVJWDNabGNuTnBiMjRGQUFBSUNBa0NBQUFBQkFBQUFBUUFBQUFRQWdBQUFBUUFBQUFKQXdBQUFBWUVBQUFBQkdSaGRHRUpCUUFBQUFnSUFnQUFBQXdHQUFBQVRWTjVjM1JsYlM1WFpXSXNJRlpsY25OcGIyNDlOQzR3TGpBdU1Dd2dRM1ZzZEhWeVpUMXVaWFYwY21Gc0xDQlFkV0pzYVdOTFpYbFViMnRsYmoxaU1ETm1OV1kzWmpFeFpEVXdZVE5oQlFNQUFBQWJVM2x6ZEdWdExsZGxZaTVWU1M1SmJtUmxlR1ZrVTNSeWFXNW5BUUFBQUFaZmRtRnNkV1VCQmdBQUFBWUhBQUFBQ0VOemMwTnNZWE56QVFVQUFBQURBQUFBQmdnQUFBQUVYeUZUUWdzPSwgbnVsbCwgbnVsbCwgbnVsbCwgbnVsbCwgbnVsbCwgbnVsbCwgbnVsbCwgbnVsbCwgbnVsbCwgbnVsbCwgbnVsbCwgBWNvdW50CkYwLGNvdW50LE4HRGVmYXVsdAVJdGVtNRkoU2VsZikgLSBOZXQgdmFsdWUgIFtTdW1dDnN1bV9WQkFLX05FVFdSCEYwLHN1bSxOFE9wdGlvbnNDdXN0b21pemF0aW9uDkFsbG93UHJlZmlsdGVyHEFsbG93RHJhZ0luQ3VzdG9taXphdGlvbkZvcm0PRGVmZXJyZWRVcGRhdGVzDE9wdGlvbnNQYWdlcgtSb3dzUGVyUGFnZQ5Db2x1bW5zUGVyUGFnZQZHcm91cHM=\\\",\\\"collapse\\\":\\\"/v///wAAAAAAAAAAAAAAAP7///8CAAAAI2luZGl2aWR1YWxfQ29tcGFueUNvZGVfX0NvbXBhbnlDb2RlWlN5c3RlbS5TdHJpbmcsIG1zY29ybGliLCBWZXJzaW9uPTQuMC4wLjAsIEN1bHR1cmU9bmV1dHJhbCwgUHVibGljS2V5VG9rZW49Yjc3YTVjNTYxOTM0ZTA4OQEvaW5kaXZpZHVhbF9TYWxlc09yZ2FuaXphdGlvbl9fU2FsZXNPcmdhbml6YXRpb25aU3lzdGVtLlN0cmluZywgbXNjb3JsaWIsIFZlcnNpb249NC4wLjAuMCwgQ3VsdHVyZT1uZXV0cmFsLCBQdWJsaWNLZXlUb2tlbj1iNzdhNWM1NjE5MzRlMDg5AQIAAAAAAAAAAAAAAAAAAAA=\\\"}\",\"show_total_for\":1,\"percentage_summary_type\":0,\"include_subtotals\":false,\"count_index\":0}",
+            "multi_lang_description": [
+                {
+                    "lang": "de",
+                    "text": "<div id=\"summary\" /><div class=\" section\" id=\"S1441270582099583\"><p class=\"\" id=\"P1441270582099524\" /></div>"
+                },
+                {
+                    "lang": "en",
+                    "text": "<div id=\"summary\" /><div class=\" section\" id=\"S1441270582099583\"><p class=\"\" id=\"P1441270582099524\" /></div>"
+                },
+                {
+                    "lang": "es",
+                    "text": "<div id=\"summary\" /><div class=\" section\" id=\"S1441270582099583\"><p class=\"\" id=\"P1441270582099524\" /></div>"
+                },
+                {
+                    "lang": "fr",
+                    "text": "<div id=\"summary\" /><div class=\" section\" id=\"S1441270582099583\"><p class=\"\" id=\"P1441270582099524\" /></div>"
+                },
+                {
+                    "lang": "nl",
+                    "text": "<div id=\"summary\" /><div class=\" section\" id=\"S1441270582099583\"><p class=\"\" id=\"P1441270582099524\" /></div>"
                 }
             ]
         }
     ],
     "has_warnings": true,
     "is_template": false,
-    "published": {
-        "user": "/users/1",
-        "full_name": "EAAdmin",
-        "datetime": 1567577215
-    },
     "model": "/models/1",
-    "is_published": true,
+    "is_published": false,
     "allow_more_details": true,
     "multi_lang_description": [
         {
             "lang": "de",
-            "text": "<div id=\"summary\" /><div class=\" section\" id=\"S143757900487383\"><h2 class=\" topictitle2\" id=\"Hidelem4x9\">Bezeichnung</h2><p class=\"\" id=\"Pidelem4x11\">Der Kunde ist die externe Partei, an die Produkte und/oder Dienstleistungen verkauft werden; hier finden Sie alle Informationen zu einem Kunden, die Sie benötigen, um mit ihm Geschäftsbeziehungen unterhalten zu können. </p><h2 class=\" topictitle2\" id=\"Hidelem4x13\">Maßnahmen</h2><p class=\"\" id=\"Pidelem4x15\">Zur Verwaltung der Kundenstammdaten gehören:</p><ul id=\"Pidelem4x17\" class=\"\"><li><p class=\"\" id=\"P1437579004877594\">Prüfung der Kundendaten pro Land.</p></li><li><p class=\"\" id=\"P143757900487855\">Prüfung von finanziellen Daten wie Außenständen, Kreditposition oder Debitorenlaufzeit.</p></li><li><p class=\"\" id=\"P143757900487906\">Erkennen möglicher doppelter Kundendatensätze auf der Grundlage von Bankkonto, Adresse oder normalisiertem Namen.</p></li><li><p class=\"\" id=\"P1437579004880537\">Prüfung deaktivierter Kunden.</p></li></ul><p /></div>"
+            "text": "<div id=\"summary\" /><div class=\" section\" id=\"S1436426265139984\"><h2 class=\" topictitle2\" id=\"Hidelem4x96388\">Zusammenfassung</h2><p class=\"\" id=\"Pidelem4x96391\">Der Verkaufsbelegkopf repräsentiert einen Auftrag, ein Angebot, einen Vertrag oder eine Rückgabe. Auf Kopfebene eingegebene Daten gelten für den gesamten Verkaufsbeleg.</p><h2 class=\" topictitle2\" id=\"Hidelem4x96394\">Erläuterung</h2><p class=\"\" id=\"Pidelem4x96397\">Alle Verkaufsbelege haben die gleiche grundlegende Struktur. Sie bestehen aus einem Belegkopf und einer beliebigen Anzahl von Positionen. Die Positionen können ihrerseits in eine beliebige Anzahl von Einteilungen unterteilt werden. Ein Verkaufsbelegkopf ist für die Disposition nicht relevant. Die allgemeinen Daten, die für den gesamten Beleg gelten, werden im Belegkopf aufgezeichnet. Zum Beispiel:</p><ul id=\"Pidelem4x96405\" class=\"\"><li><p class=\"\" id=\"P143642626514485\">Nummer des Auftraggebers,</p></li><li><p class=\"\" id=\"P1436426265145246\">Nummer des Lieferungsempfängers und des Zahlers,</p></li><li><p class=\"\" id=\"P1436426265146657\">Belegwährung und Wechselkurs,</p></li><li><p class=\"\" id=\"P1436426265147288\">Preisfindungselemente für den gesamten Beleg,</p></li><li><p class=\"\" id=\"P1436426265149419\">Liefertermin und Versandpunkt.</p></li></ul><p /><h2 class=\" topictitle2\" id=\"Hidelem4x96421\">Technischer Hintergrund</h2><p class=\"\" id=\"Pidelem4x96424\">Ein Objekt wird auf der Grundlage der SAP-Tabelle VBAK mit Referenzen zu Kunde, Verkaufsorganisation usw. sowie einer Unterliste von Verkaufsbelegpositionen erstellt. Die SAP-Tabellen VBUK, VBKD und VEDA sind ebenfalls daran beteiligt.</p></div>"
         },
         {
             "lang": "en",
-            "text": "<div id=\"summary\" /><div class=\" section\" id=\"S143757900487383\"><h2 class=\" topictitle2\" id=\"Hidelem4x9\">Description</h2><p class=\"\" id=\"Pidelem4x11\">The customer is the external party to which products and/or services are sold and here you will find all the \r\n   information about a customer that you need to be able to conduct business with them. </p><h2 class=\" topictitle2\" id=\"Hidelem4x13\">Actions</h2><p class=\"\" id=\"Pidelem4x15\">Managing customer master data consists of:</p><ul id=\"Pidelem4x17\" class=\"\"><li><p class=\"\" id=\"P1437579004877594\">Checking customer data per country.</p></li><li><p class=\"\" id=\"P143757900487855\">Checking financial data like receivables, credit position, days sales outstanding.</p></li><li><p class=\"\" id=\"P143757900487906\">Detecting possible duplicate customers based on bank account, address or normalized name.</p></li><li><p class=\"\" id=\"P1437579004880537\">Checking deactivated customers.</p></li></ul><p /></div>"
+            "text": "<div id=\"summary\" /><div class=\" section\" id=\"S1436426265139984\"><h2 class=\" topictitle2\" id=\"Hidelem4x96388\">Summary</h2><p class=\"\" id=\"Pidelem4x96391\">The Sales Document Header represents either an order, a quotation, a contract or a return. Data entered on header level are valid for the entire sales document.</p><h2 class=\" topictitle2\" id=\"Hidelem4x96394\">Explanation</h2><p class=\"\" id=\"Pidelem4x96397\">All sales documents have basically the same structure. They are made up of a document header and any number of items. The items can in turn be divided into any number of schedule lines. A sales document header is not relevant for MRP. The general data that is valid for the entire document is recorded in the document header. For example:</p><ul id=\"Pidelem4x96405\" class=\"\"><li><p class=\"\" id=\"P143642626514485\">number of the sold-to party,</p></li><li><p class=\"\" id=\"P1436426265145246\">number of the ship-to party and the payer,</p></li><li><p class=\"\" id=\"P1436426265146657\">document currency and exchange rate,</p></li><li><p class=\"\" id=\"P1436426265147288\">pricing elements for the entire document,</p></li><li><p class=\"\" id=\"P1436426265149419\">delivery date and shipping point.</p></li></ul><p /><h2 class=\" topictitle2\" id=\"Hidelem4x96421\">Technical background</h2><p class=\"\" id=\"Pidelem4x96424\">Based on SAP table VBAK an object is created with references to Customer, Sales Organization and more as well as a sublist of Sales Document Items. Also SAP tables VBUK, VBKD and VEDA are involved.</p></div>"
         },
         {
             "lang": "es",
-            "text": "<div id=\"summary\" /><div class=\" section\" id=\"S143757900487383\"><h2 class=\" topictitle2\" id=\"Hidelem4x9\">Texto explicativo</h2><p class=\"\" id=\"Pidelem4x11\">El cliente es la parte externa a la que se venden productos y/o servicios, y aquí encontrará toda la información que necesita sobre los clientes para poder hacer negocios con ellos. </p><h2 class=\" topictitle2\" id=\"Hidelem4x13\">Acciones</h2><p class=\"\" id=\"Pidelem4x15\">La gestión de datos maestros de clientes implica:</p><ul id=\"Pidelem4x17\" class=\"\"><li><p class=\"\" id=\"P1437579004877594\">Comprobar los datos de los clientes por país.</p></li><li><p class=\"\" id=\"P143757900487855\">Comprobar los datos financieros como cobros, posiciones de crédito y días de ventas pendientes de cobro.</p></li><li><p class=\"\" id=\"P143757900487906\">Detectar posibles clientes duplicados según la cuenta bancaria, la dirección o el nombre normalizado.</p></li><li><p class=\"\" id=\"P1437579004880537\">Comprobar los clientes desactivados.</p></li></ul><p /></div>"
+            "text": "<div id=\"summary\" /><div class=\" section\" id=\"S1436426265139984\"><h2 class=\" topictitle2\" id=\"Hidelem4x96388\">Resumen</h2><p class=\"\" id=\"Pidelem4x96391\">El Documento de Ventas Cabecera puede representar un pedido, una oferta, un contrato o una devolución. Los datos introducidos a nivel de cabecera son válidos para todo el documento de ventas.</p><h2 class=\" topictitle2\" id=\"Hidelem4x96394\">Explicación</h2><p class=\"\" id=\"Pidelem4x96397\">Básicamente, todos los documentos de ventas tienen la misma estructura. Se componen de un documento cabecera y de un número de posiciones. Sin embargo, las posiciones se pueden dividir en cualquier número de repartos. Una cabecera de documento de ventas no es relevante para la planificación de necesidades. Los datos generales que son válidos para todo el documento se registran en el documento cabecera. Por ejemplo:</p><ul id=\"Pidelem4x96405\" class=\"\"><li><p class=\"\" id=\"P143642626514485\">número del solicitante,</p></li><li><p class=\"\" id=\"P1436426265145246\">números del solicitante y del responsable de pago,</p></li><li><p class=\"\" id=\"P1436426265146657\">moneda del documento y tipo de cambio,</p></li><li><p class=\"\" id=\"P1436426265147288\">elemento de precio para todo el documento,</p></li><li><p class=\"\" id=\"P1436426265149419\">fecha de entrega y punto de expedición.</p></li></ul><p /><h2 class=\" topictitle2\" id=\"Hidelem4x96421\">Contexto técnico</h2><p class=\"\" id=\"Pidelem4x96424\">Según la tabla SAP VBAK, un objeto se crea con referencias a Cliente, Organización de Ventas y más, así como con una sublista de DDocumento de Ventas Posiciones. También intervienen las tablas SAP VBUK, VBKD y VEDA.</p></div>"
         },
         {
             "lang": "fr",
-            "text": "<div id=\"summary\" /><div class=\" section\" id=\"S143757900487383\"><h2 class=\" topictitle2\" id=\"Hidelem4x9\">Description</h2><p class=\"\" id=\"Pidelem4x11\">Un client est un tiers externe auxquels des produits et/ou des services sont vendus. Vous trouverez ici toutes les informations concernant un client et nécessaires à la conduite des affaires. </p><h2 class=\" topictitle2\" id=\"Hidelem4x13\">Actions</h2><p class=\"\" id=\"Pidelem4x15\">La gestion des données principales client comprend les activités suivantes :</p><ul id=\"Pidelem4x17\" class=\"\"><li><p class=\"\" id=\"P1437579004877594\">contrôler les données client par pays ;</p></li><li><p class=\"\" id=\"P143757900487855\">contrôler les données financières comme les comptes client, la position de crédit et le délai de règlement client ;</p></li><li><p class=\"\" id=\"P143757900487906\">détecter les clients dédoublés possibles selon le compte en banque, l'adresse ou le nom normalisé ;</p></li><li><p class=\"\" id=\"P1437579004880537\">surveiller les clients désactivés.</p></li></ul><p /></div>"
+            "text": "<div id=\"summary\" /><div class=\" section\" id=\"S1436426265139984\"><h2 class=\" topictitle2\" id=\"Hidelem4x96388\">Récapitulatif</h2><p class=\"\" id=\"Pidelem4x96391\">L'en-tête Document de vente représente une commande, un devis, un contrat ou un retour. Les données saisies au niveau de l'en-tête sont valides pour l'ensemble du document de vente.</p><h2 class=\" topictitle2\" id=\"Hidelem4x96394\">Explication</h2><p class=\"\" id=\"Pidelem4x96397\">Tous les documents de vente ont en fait la même structure. Ils sont constitués d'un en-tête et d'un certain nombre de postes. Les postes peuvent à leur tour être divisés en un certain nombre d'échéances. Un en-tête de document de vente n'est pas approprié pour la planification. Les données générales qui sont valides pour l'ensemble du document sont enregistrées dans l'en-tête du document. Par exemple :</p><ul id=\"Pidelem4x96405\" class=\"\"><li><p class=\"\" id=\"P143642626514485\">numéro du tiers acheteur,</p></li><li><p class=\"\" id=\"P1436426265145246\">numéro du destinataire et du payeur,</p></li><li><p class=\"\" id=\"P1436426265146657\">devise du document et taux de change,</p></li><li><p class=\"\" id=\"P1436426265147288\">éléments de prix pour tout le document.</p></li><li><p class=\"\" id=\"P1436426265149419\">date de livraison et lieu d'expédition.</p></li></ul><p /><h2 class=\" topictitle2\" id=\"Hidelem4x96421\">Antécédents techniques.</h2><p class=\"\" id=\"Pidelem4x96424\">D'après la table VBAK dans SAP, un objet est créé avec des références au Client, à l'Organisation commerciale et autre, ainsi qu'à une liste auxiliaire Postes de document de vente. Par ailleurs, les tables VBUK, VBKD et VEDA sont impliquées.</p></div>"
         },
         {
             "lang": "nl",
-            "text": "<div id=\"summary\" /><div class=\" section\" id=\"S143757900487383\"><h2 class=\" topictitle2\" id=\"Hidelem4x9\">Omschrijving</h2><p class=\"\" id=\"Pidelem4x11\">De klant is de externe partij waaraan producten en/of services worden verkocht. Hier vindt u alle informatie over een klant die u nodig hebt om zaken met die klant te kunnen doen. </p><h2 class=\" topictitle2\" id=\"Hidelem4x13\">Procedures</h2><p class=\"\" id=\"Pidelem4x15\">Het beheren van de stamgegevens voor klanten omvat de volgende procedures:</p><ul id=\"Pidelem4x17\" class=\"\"><li><p class=\"\" id=\"P1437579004877594\">Klantgegevens per land controleren.</p></li><li><p class=\"\" id=\"P143757900487855\">Financiële gegevens, zoals te ontvangen bedragen, kredietpositie en klantkrediet in dagen omzet, controleren.</p></li><li><p class=\"\" id=\"P143757900487906\">Duplicaten van klanten identificeren op basis van bankrekening, adres of genormaliseerde naam.</p></li><li><p class=\"\" id=\"P1437579004880537\">Gedeactiveerd klanten controleren.</p></li></ul><p /></div>"
+            "text": "<div id=\"summary\" /><div class=\" section\" id=\"S1436426265139984\"><h2 class=\" topictitle2\" id=\"Hidelem4x96388\">Samenvatting</h2><p class=\"\" id=\"Pidelem4x96391\">Verkoopdocument Kop staat voor een order, een offerte, een contract of een retournering. Gegevens die zijn ingevoerd op kopniveau zijn geldig voor het gehele verkoopdocument.</p><h2 class=\" topictitle2\" id=\"Hidelem4x96394\">Uitleg</h2><p class=\"\" id=\"Pidelem4x96397\">Alle verkoopdocumenten hebben in feite dezelfde structuur. Ze zijn samengesteld uit een documentkop en een aantal posities. De posities kunnen op hun beurt worden onderverdeeld in een onbeperkt aantal indelingen. Een verkoopdocumentkop is niet relevant voor Planning. De algemene gegevens die geldig zijn voor het gehele document, worden vastgelegd in de documentkop. Bijvoorbeeld:</p><ul id=\"Pidelem4x96405\" class=\"\"><li><p class=\"\" id=\"P143642626514485\">aantal verkocht aan,</p></li><li><p class=\"\" id=\"P1436426265145246\">aantal transporteren naar en de betaler,</p></li><li><p class=\"\" id=\"P1436426265146657\">valuta van document en wisselkoers,</p></li><li><p class=\"\" id=\"P1436426265147288\">prijselementen voor het gehele document,</p></li><li><p class=\"\" id=\"P1436426265149419\">leveringsdatum en transportpunt.</p></li></ul><p /><h2 class=\" topictitle2\" id=\"Hidelem4x96421\">Technische achtergrond</h2><p class=\"\" id=\"Pidelem4x96424\">Op basis van de SAP-tabel VBAK wordt een object aangemaakt met referenties naar Klant, Verkooporganisatie en meer, alsmede een sublijst van Verkoopdocumentposities. De SAP-tabellen VBUK, VBKD en VEDA zijn hier ook bij betrokken.</p></div>"
         }
     ]
 }

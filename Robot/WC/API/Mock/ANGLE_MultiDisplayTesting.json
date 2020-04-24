@@ -1,0 +1,634 @@
+{
+    "id": "ROBOT_ANGLE_MultiDisplayTesting",
+    "angle_default_display": "d2e9fedfab210b73ba522577954344256",
+    "assigned_labels": [
+      "P2P",
+      "PM",
+      "S2D"
+    ],
+    "multi_lang_name": [
+      {
+        "lang": "de",
+        "text": "Based on Template \"Einkaufsbeleg (EB) Einteilung\""
+      },
+      {
+        "lang": "en",
+        "text": "Based on Template \"Purchase Document (PD) Schedule Line\""
+      },
+      {
+        "lang": "es",
+        "text": "Based on Template \"Documento Compras (DC) Reparto\""
+      },
+      {
+        "lang": "fr",
+        "text": "Based on Template \"Document D’achat Échéance\""
+      },
+      {
+        "lang": "nl",
+        "text": "Based on Template \"Inkoopdocument (InkD) Indeling\""
+      }
+    ],
+    "multi_lang_description": [
+      {
+        "lang": "de",
+        "text": "<div id=\"summary\" /><div class=\" section\" id=\"S1436366645567954\"><h2 class=\" topictitle2\" id=\"Hidelem4x82726\">Zusammenfassung</h2><p class=\"\" id=\"Pidelem4x82728\">Einkaufsbelegeinteilungen sind die unterste Ebene eines Einkaufsbelegs. Sie enthalten die ausführlichsten Informationen zu Mengen und Daten. Every Angle fügt Informationen zu Lieferantenbestätigungen, angefragten Daten, Wareneingang usw. hinzu.</p><h2 class=\" topictitle2\" id=\"Hidelem4x82730\">Erläuterung</h2><p class=\"\" id=\"Pidelem4x82732\">Normalerweise enthält eine Einkaufsbelegposition nur eine Einkaufsbelegeinteilung (die Position muss vom Lieferanten vollständig in einer Lieferung geliefert werden). Wenn eine Position nur teilweise oder in mehreren Lieferungen ausgeliefert wird, erstellt Every Angle für die Position mehr als eine Einteilung. Every Angle erstellt auch bei mehrfachen Bestätigungen, mehrfachen Rechnungseingängen und Umlagerungsaufträgen mit Abweichungen von Warenausgabe vs. Eingangsmengen mehrere Einteilungen.</p><p class=\"\" id=\"Pidelem4x82735\">Eine Einkaufsbelegeinteilung kann einen der folgenden Status haben:</p><ul id=\"Pidelem4x82738\" class=\"\"><li><p class=\"\" id=\"P1436366645572915\">Bestätigt mit verschiedenen Auftragsfälligkeitsdaten.</p></li><li><p class=\"\" id=\"P1436366645573796\">Waren eingegangen (beispielsweise eine Buchung mit Bewegungsart 101 oder 105).</p></li><li><p class=\"\" id=\"P1436366645574677\">Waren eingegangen in gesperrtem Bestand (beispielsweise eine Buchung mit Bewegungsart 103).</p></li><li><p class=\"\" id=\"P14363666455771008\">Waren an das empfangende Werk ausgegeben (Umlagerungsaufträge)</p></li><li><p class=\"\" id=\"P1436366645578509\">Rückgabe (Rückgabe an Lieferant).</p></li></ul><p /><p class=\"\" id=\"Pidelem4x82749\">Eine korrekte Untersuchung der Liefertreue kann nur auf Einteilungsebene durchgeführt werden. Auf Kopf- oder Positionsebene ist die Liefertreue durch die schlechteste Liefertreue der nachfolgenden Einkaufsbelegeinteilungen definiert.</p><h2 class=\" topictitle2\" id=\"Hidelem4x82751\">Technischer Hintergrund</h2><p class=\"\" id=\"Pidelem4x82753\">Ein Objekt wird auf der Grundlage der SAP-Tabelle EKES mit Referenzen zu Einkaufsbelegposition, Lieferant, Material usw. sowie Unterlisten von Reservierungspositionen usw. erstellt. Die SAP-Tabellen EKET, EKPO, EKKO, EKBE und EKKN sind ebenfalls daran beteiligt.</p></div>"
+      },
+      {
+        "lang": "en",
+        "text": "<div id=\"summary\" /><div class=\" section\" id=\"S1436366645567954\"><h2 class=\" topictitle2\" id=\"Hidelem4x82726\">Summary</h2><p class=\"\" id=\"Pidelem4x82728\">Purchase Document Schedule Lines are the lowest level in the purchase document. They carry the most detailed information concerning quantities and dates. Every angle adds information concerning vendor confirmations, requested, GR, to it.</p><h2 class=\" topictitle2\" id=\"Hidelem4x82730\">Explanation</h2><p class=\"\" id=\"Pidelem4x82732\">Usually a Purchase Document Item (PD item) contains just one purchase document schedule line (the position is to be delivered completely in one delivery by the vendor). If an item will be delivered partially or in more than one delivery, Every Angle will create more than one schedule line for the item. Every Angle also creates multiple schedule lines in case of multiple confirmations, multiple invoice receipt and stock transfer orders with differences in goods issue v.s. good receipt quantities.</p><p class=\"\" id=\"Pidelem4x82735\">A Purchase Document Schedule Line can have the following statuses:</p><ul id=\"Pidelem4x82738\" class=\"\"><li><p class=\"\" id=\"P1436366645572915\">Confirmed with various order due dates.</p></li><li><p class=\"\" id=\"P1436366645573796\">Goods received (for example a posting with movement type 101 or 105).</p></li><li><p class=\"\" id=\"P1436366645574677\">Goods received in blocked stock (for example a posting with movement type 103).</p></li><li><p class=\"\" id=\"P14363666455771008\">Goods issued to the receiving plant (stock transfer orders).</p></li><li><p class=\"\" id=\"P1436366645578509\">Return (return to vendor).</p></li></ul><p /><p class=\"\" id=\"Pidelem4x82749\">A correct investigation of the delivery reliability can only be done at schedule line level. At header or item level the delivery reliability is defined by the worst delivery reliability of the subsequent purchase document schedule lines.</p><h2 class=\" topictitle2\" id=\"Hidelem4x82751\">Technical background</h2><p class=\"\" id=\"Pidelem4x82753\">Based on SAP table EKES an object is created with references to Purchase Document Item, Vendor, Material and more as well as sublists of Reservation Items and more. Also SAP tables EKET, EKPO, EKKO, EKBE and EKKN are involved.</p></div>"
+      },
+      {
+        "lang": "es",
+        "text": "<div id=\"summary\" /><div class=\" section\" id=\"S1436366645567954\"><h2 class=\" topictitle2\" id=\"Hidelem4x82726\">Resumen</h2><p class=\"\" id=\"Pidelem4x82728\">Los Repartos de Documentos de Compras son el nivel más bajo del documento de compras. Tienen la información más detallada en cuanto a las cantidades y fechas. Every Angle añade información sobre las confirmaciones de pedido con EM si se solicita.</p><h2 class=\" topictitle2\" id=\"Hidelem4x82730\">Explicación</h2><p class=\"\" id=\"Pidelem4x82732\">Normalmente, una Posición de Documento de Compras (DP Pos.) solo contiene un Reparto de Documento de Compras (la posición que se va a entregar en una entrega por acreedor). Si una posición se va a entregar parcialmente o en más de una entrega, Every Angle creará más de un reparto para la posición. Every Angle también crea varios repartos en caso de varias confirmaciones, varias recepciones de factura y órdenes de transporte de stock con diferencias en salida de mercancías frente a las cantidades de entrada de mercancías.</p><p class=\"\" id=\"Pidelem4x82735\">Un Documento Ventas Repartos puede tener los status siguientes:</p><ul id=\"Pidelem4x82738\" class=\"\"><li><p class=\"\" id=\"P1436366645572915\">Confirmado con varias fechas de vencimiento de pedido.</p></li><li><p class=\"\" id=\"P1436366645573796\">Entrada de mercancías (por ejemplo una contabilización con el tipo de movimiento 101 o 105).</p></li><li><p class=\"\" id=\"P1436366645574677\">Entrada de mercancías en stock bloqueado (por ejemplo una contabilización con el tipo de movimiento 103).</p></li><li><p class=\"\" id=\"P14363666455771008\">Salida de Mercancías al Centro Receptor (pedidos de traslado de stock).</p></li><li><p class=\"\" id=\"P1436366645578509\">Devolución (devolución al acreedor).</p></li></ul><p /><p class=\"\" id=\"Pidelem4x82749\">Una correcta investigación del cumplimiento de la entrega sólo se puede realizar en el nivel de reparto. En el nivel de cabecera o posición, el cumplimiento de la entrega se define por el peor cumplimiento de entrega de los repartos de documento de compras posteriores.</p><h2 class=\" topictitle2\" id=\"Hidelem4x82751\">Contexto técnico</h2><p class=\"\" id=\"Pidelem4x82753\">Según la tabla SAP EKES, se crea un objeto con referencias a Documento de Compras Posición, Acreedor, Material y más, así como sublistas de Reserva Posiciones y más. También están implicadas las tablas SAP EKET, EKPO, EKKO, EKBE y EKKN.</p></div>"
+      },
+      {
+        "lang": "fr",
+        "text": "<div id=\"summary\" /><div class=\" section\" id=\"S1436366645567954\"><h2 class=\" topictitle2\" id=\"Hidelem4x82726\">Récapitulatif</h2><p class=\"\" id=\"Pidelem4x82728\">Les Échéances Document d’achat constituent le niveau le plus faible du document d'achat. Vous y trouvez les informations sur les quantités et les dates les plus détaillées. Every angle y ajoute des informations concernant les confirmations du fournisseur, la demande et EM.</p><h2 class=\" topictitle2\" id=\"Hidelem4x82730\">Explication</h2><p class=\"\" id=\"Pidelem4x82732\">Un document d'achat poste ne contient généralement qu'une seule échéance (la livraison du poste par le fournisseur doit s'effectuer en une seule fois, dans son intégralité). Si un poste doit être livré partiellement ou en plusieurs livraisons, Every Angle crée plusieurs échéances pour ce poste. Every Angle crée également plusieurs échéances en cas de confirmations multiples, d'entrées de factures multiples et d'ordres de transfert pour lesquels des différences apparaissent entre les quantités sorties et les quantités reçues.</p><p class=\"\" id=\"Pidelem4x82735\">Une échéance de document d'achat peut avoir les statuts suivants :</p><ul id=\"Pidelem4x82738\" class=\"\"><li><p class=\"\" id=\"P1436366645572915\">confirmé avec plusieurs dates d'échéance de commande ;</p></li><li><p class=\"\" id=\"P1436366645573796\">marchandises reçues (par exemple, une comptabilisation avec type de mouvement 101 ou 105) ;</p></li><li><p class=\"\" id=\"P1436366645574677\">marchandises reçues dans stock bloqué (par exemple, une comptabilisation avec type de mouvement 103) ;</p></li><li><p class=\"\" id=\"P14363666455771008\">Marchandises sorties à destination de la division prenante (ordres de transfert de stock) ;</p></li><li><p class=\"\" id=\"P1436366645578509\">retour (retour au fournisseur).</p></li></ul><p /><p class=\"\" id=\"Pidelem4x82749\">Une vérification correcte de la fiabilité des livraisons ne peut s'effectuer qu'au niveau échéance. Au niveau en-tête ou poste, la fiabilité des livraisons se définit en tant que fiabilité des livraisons la moins satisfaisante des échéances de document d'achat suivantes.</p><h2 class=\" topictitle2\" id=\"Hidelem4x82751\">Antécédents techniques.</h2><p class=\"\" id=\"Pidelem4x82753\">Un objet est créé d'après la table EKES de SAP, avec des références au Document d’achat poste, au Fournisseur, à l'Article, et autres entités, ainsi qu'à des sous-listes de la liste Réservation postes, etc. Les tables EKET, EKPO, EKKO, EKBE et EKKN de SAP sont, par ailleurs, employées.</p></div>"
+      },
+      {
+        "lang": "nl",
+        "text": "<div id=\"summary\" /><div class=\" section\" id=\"S1436366645567954\"><h2 class=\" topictitle2\" id=\"Hidelem4x82726\">Samenvatting</h2><p class=\"\" id=\"Pidelem4x82728\">Inkoopdocument Indelingen zijn het laagste niveau van het inkoopdocument. Deze bevatten de uitgebreidste informatie over hoeveelheden en datums. Every Angle voegt informatie over bevestigingen van leveranciers toe, zoals aangevraagd, GO.</p><h2 class=\" topictitle2\" id=\"Hidelem4x82730\">Uitleg</h2><p class=\"\" id=\"Pidelem4x82732\">Doorgaans bevat een inkoopdocumentpositie maar één indeling (de positie moet volledig en in één levering worden geleverd door de leverancier). Als een positie gedeeltelijk wordt geleverd of in meer dan één levering, maakt Every Angle meer dan één indeling aan voor de positie. Every Angle maakt ook meerdere indelingen aan als er sprake is van meerdere bevestigingen, meerdere factuurontvangsten of transportorders met verschillen tussen de hoeveelheden van de goederenafgifte en de goederenontvangst.</p><p class=\"\" id=\"Pidelem4x82735\">Een indeling voor een inkoopdocument kan de volgende statussen hebben:</p><ul id=\"Pidelem4x82738\" class=\"\"><li><p class=\"\" id=\"P1436366645572915\">Bevestigd met verschillende MRP-datums.</p></li><li><p class=\"\" id=\"P1436366645573796\">Goederen ontvangen (bijvoorbeeld een boeking met bewegingssoort 101 of 105).</p></li><li><p class=\"\" id=\"P1436366645574677\">Goederen ontvangen in geblokkeerde voorraad (bijvoorbeeld een boeking met bewegingssoort 103).</p></li><li><p class=\"\" id=\"P14363666455771008\">Goederen afgegeven aan ontvangende vestiging (transportorders).</p></li><li><p class=\"\" id=\"P1436366645578509\">Retour (retourzending naar leverancier).</p></li></ul><p /><p class=\"\" id=\"Pidelem4x82749\">Een goed onderzoek van de leverbetrouwbaarheid kan alleen worden gedaan op het niveau van de indeling. Op kop- of positieniveau wordt de leverbetrouwbaarheid bepaald door de slechtste leverbetrouwbaarheid van de erop volgende indelingen van het inkoopdocument.</p><h2 class=\" topictitle2\" id=\"Hidelem4x82751\">Technische achtergrond</h2><p class=\"\" id=\"Pidelem4x82753\">Op basis van de SAP-tabel EKES wordt een object aangemaakt met referenties naar Inkoopdocumentpositie, Leverancier, Artikel en meer, alsmede sublijsten van Reserveringposities en meer. De SAP-tabellen EKET, EKPO, EKKO, EKBE en EKKN zijn hier ook bij betrokken.</p></div>"
+      }
+    ],
+    "query_definition": [
+      {
+        "queryblock_type": "base_classes",
+        "base_classes": [
+          "PurchaseOrderScheduleLine"
+        ]
+      }
+    ],
+    "display_definitions": [
+      {
+        "id": "d0cc31bc63179563df4c7577954344259",
+        "display_type": "list",
+        "multi_lang_name": [
+          {
+            "lang": "de",
+            "text": "Kategorie: Angebotsanfrage"
+          },
+          {
+            "lang": "en",
+            "text": "Category: Request of Quotations"
+          },
+          {
+            "lang": "es",
+            "text": "Categoría: Peticiones de Oferta"
+          },
+          {
+            "lang": "fr",
+            "text": "Catégorie : Appel d'Offres"
+          },
+          {
+            "lang": "nl",
+            "text": "Categorie: Offerte-Aanvragen"
+          }
+        ],
+        "multi_lang_description": [
+          {
+            "lang": "de",
+            "text": "<div id=\"summary\" /><div class=\" section\" id=\"S1440516034675363\"><p class=\"\" id=\"P1440516034676624\">In den Einkaufsbelegobjekten sind mehrere Belege/Prozesse vorhanden. Wenn wir nach „Einkaufsbelegart = A“ filtern, erhalten wir nur die Angebotsanfrage.</p></div>"
+          },
+          {
+            "lang": "en",
+            "text": "<div id=\"summary\" /><div class=\" section\" id=\"S1440516034675363\"><p class=\"\" id=\"P1440516034676624\">Multiple documents/processes exist in the purchase document objects. By filtering on 'Purchase Document Category' = 'A' we only see the request for quotation.</p></div>"
+          },
+          {
+            "lang": "es",
+            "text": "<div id=\"summary\" /><div class=\" section\" id=\"S1440516034675363\"><p class=\"\" id=\"P1440516034676624\">Existen varios documentos/procesos en los objetos de documento de compras. Al filtrar por \"Tipo de Documento de Compras\" = \"A\", solo vemos las peticiones de oferta.</p></div>"
+          },
+          {
+            "lang": "fr",
+            "text": "<div id=\"summary\" /><div class=\" section\" id=\"S1440516034675363\"><p class=\"\" id=\"P1440516034676624\">Des documents / processus multiples existent dans les objets de document d'achat. En filtrant par « Catégorie de Document d'Achat » = « L », seuls les appels d'offres s'affichent.</p></div>"
+          },
+          {
+            "lang": "nl",
+            "text": "<div id=\"summary\" /><div class=\" section\" id=\"S1440516034675363\"><p class=\"\" id=\"P1440516034676624\">Er bestaan meerdere documenten/processen in de inkoopdocumentobjecten. Door te filteren op 'Type Inkoopdocument' = 'A' zien we alleen de offerte-aanvragen.</p></div>"
+          }
+        ],
+        "display_details": "{\"layout\":null}",
+        "query_blocks": [
+          {
+            "queryblock_type": "query_steps",
+            "query_steps": [
+              {
+                "step_type": "filter",
+                "field": "PurchaseOrder__PurchasingDocumentCategory",
+                "tech_info": "EKKO-BSTYP",
+                "operator": "equal_to",
+                "arguments": [
+                  {
+                    "argument_type": "value",
+                    "value": "A"
+                  }
+                ]
+              }
+            ]
+          }
+        ],
+        "fields": [
+          {
+            "field": "ObjectType",
+            "tech_info": "",
+            "multi_lang_alias": [],
+            "field_details": "{\"width\":107,\"format\":\"shn\"}"
+          },
+          {
+            "field": "ID",
+            "tech_info": "",
+            "multi_lang_alias": [],
+            "field_details": "{\"width\":123}"
+          },
+          {
+            "field": "Material__Material",
+            "tech_info": "",
+            "multi_lang_alias": [],
+            "field_details": "{\"width\":99}"
+          },
+          {
+            "field": "Material__Description",
+            "tech_info": "MAKT-MAKTX",
+            "multi_lang_alias": [],
+            "field_details": "{\"width\":120}"
+          },
+          {
+            "field": "PurchaseOrderLine__TXZ01",
+            "tech_info": "EKPO-TXZ01",
+            "multi_lang_alias": [],
+            "field_details": "{\"width\":187}"
+          },
+          {
+            "field": "Plant__Plant",
+            "tech_info": "T001W-WERKS",
+            "multi_lang_alias": [],
+            "field_details": "{\"width\":98,\"format\":\"shnln\"}"
+          },
+          {
+            "field": "PurchaseOrganization__PurchaseOrganization",
+            "tech_info": "T024E-EKORG",
+            "multi_lang_alias": [],
+            "field_details": "{\"width\":116,\"format\":\"shnln\"}"
+          },
+          {
+            "field": "PurchaseOrder__BKGRP",
+            "tech_info": "EKKO-EKGRP",
+            "multi_lang_alias": [],
+            "field_details": "{\"width\":104}"
+          },
+          {
+            "field": "PurchaseOrder__PurchasingDocumentCategory",
+            "tech_info": "EKKO-BSTYP",
+            "multi_lang_alias": [],
+            "field_details": "{\"width\":102,\"format\":\"shnln\"}"
+          },
+          {
+            "field": "PurchaseOrderLine__PurchasingItemCategory",
+            "tech_info": "EKPO-PSTYP",
+            "multi_lang_alias": [],
+            "field_details": "{\"width\":88,\"format\":\"shnln\"}"
+          },
+          {
+            "field": "Vendor__Vendor",
+            "tech_info": "LFA1-LIFNR",
+            "multi_lang_alias": [],
+            "field_details": "{\"width\":83}"
+          },
+          {
+            "field": "Vendor__Description",
+            "tech_info": "LFA1-NAME1",
+            "multi_lang_alias": [],
+            "field_details": "{\"width\":120}"
+          },
+          {
+            "field": "Quantity",
+            "tech_info": "",
+            "multi_lang_alias": [],
+            "field_details": "{\"width\":87}"
+          },
+          {
+            "field": "Material__BaseUnitOfMeasure",
+            "tech_info": "MARA-MEINS",
+            "multi_lang_alias": [],
+            "field_details": "{\"width\":29,\"format\":\"shn\"}"
+          },
+          {
+            "field": "ExecutionStatus",
+            "tech_info": "",
+            "multi_lang_alias": [],
+            "field_details": "{\"width\":93,\"format\":\"shn\"}"
+          },
+          {
+            "field": "OrderDueDate",
+            "tech_info": "EKES_LC-EINDT;EKES_FC-EINDT;EKET_COMMIT-EINDT;EKET-EINDT;EKET-SLFDT",
+            "multi_lang_alias": [],
+            "field_details": "{\"width\":87}"
+          },
+          {
+            "field": "OrderedValue",
+            "tech_info": "",
+            "multi_lang_alias": [],
+            "field_details": "{\"width\":87}"
+          },
+          {
+            "field": "PurchaseOrder__ANGAB",
+            "tech_info": "EKKO-ANGDT",
+            "multi_lang_alias": [],
+            "field_details": "{\"width\":94}"
+          },
+          {
+            "field": "PurchaseOrder__ValidFromDate",
+            "tech_info": "EKKO-KDATB",
+            "multi_lang_alias": [],
+            "field_details": "{\"width\":92}"
+          },
+          {
+            "field": "PurchaseOrder__ValidToDate",
+            "tech_info": "EKKO-KDATE",
+            "multi_lang_alias": [],
+            "field_details": "{\"width\":72}"
+          }
+        ]
+      },
+      {
+        "id": "d2e9fedfab210b73ba522577954344256",
+        "display_type": "list",
+        "is_angle_default": true,
+        "multi_lang_name": [
+          {
+            "lang": "de",
+            "text": "Basisliste"
+          },
+          {
+            "lang": "en",
+            "text": "Basic List"
+          },
+          {
+            "lang": "es",
+            "text": "Lista Básica"
+          },
+          {
+            "lang": "fr",
+            "text": "Liste De Base"
+          },
+          {
+            "lang": "nl",
+            "text": "Basislijst"
+          }
+        ],
+        "multi_lang_description": [
+          {
+            "lang": "de",
+            "text": "<div id=\"summary\" /><div class=\" section\" id=\"S1438246042240883\"><p class=\"\" id=\"P1438246042240174\" /></div>"
+          },
+          {
+            "lang": "en",
+            "text": "<div id=\"summary\" /><div class=\" section\" id=\"S1438246042240883\"><p class=\"\" id=\"P1438246042240174\" /></div>"
+          },
+          {
+            "lang": "es",
+            "text": "<div id=\"summary\" /><div class=\" section\" id=\"S1438246042240883\"><p class=\"\" id=\"P1438246042240174\" /></div>"
+          },
+          {
+            "lang": "fr",
+            "text": "<div id=\"summary\" /><div class=\" section\" id=\"S1438246042240883\"><p class=\"\" id=\"P1438246042240174\" /></div>"
+          },
+          {
+            "lang": "nl",
+            "text": "<div id=\"summary\" /><div class=\" section\" id=\"S1438246042240883\"><p class=\"\" id=\"P1438246042240174\" /></div>"
+          }
+        ],
+        "display_details": "{\"layout\":null}",
+        "query_blocks": [],
+        "fields": [
+          {
+            "field": "ObjectType",
+            "tech_info": "",
+            "multi_lang_alias": [],
+            "field_details": "{\"width\":107,\"format\":\"shn\"}"
+          },
+          {
+            "field": "ID",
+            "tech_info": "",
+            "multi_lang_alias": [],
+            "field_details": "{\"width\":123}"
+          },
+          {
+            "field": "PurchaseOrganization__PurchaseOrganization",
+            "tech_info": "T024E-EKORG",
+            "multi_lang_alias": [],
+            "field_details": "{\"width\":107,\"format\":\"shnln\"}"
+          },
+          {
+            "field": "Plant__Plant",
+            "tech_info": "T001W-WERKS",
+            "multi_lang_alias": [],
+            "field_details": "{\"width\":93,\"format\":\"shnln\"}"
+          },
+          {
+            "field": "ExecutionStatus",
+            "tech_info": "",
+            "multi_lang_alias": [],
+            "field_details": "{\"width\":96,\"format\":\"shn\"}"
+          },
+          {
+            "field": "Material__Material",
+            "tech_info": "",
+            "multi_lang_alias": [],
+            "field_details": "{\"width\":101}"
+          },
+          {
+            "field": "Material__Description",
+            "tech_info": "MAKT-MAKTX",
+            "multi_lang_alias": [],
+            "field_details": "{\"width\":157}"
+          },
+          {
+            "field": "Quantity",
+            "tech_info": "",
+            "multi_lang_alias": [],
+            "field_details": "{\"width\":85}"
+          },
+          {
+            "field": "Material__BaseUnitOfMeasure",
+            "tech_info": "MARA-MEINS",
+            "multi_lang_alias": [],
+            "field_details": "{\"width\":29,\"format\":\"shn\"}"
+          },
+          {
+            "field": "PurchaseOrderLine__TXZ01",
+            "tech_info": "EKPO-TXZ01",
+            "multi_lang_alias": [],
+            "field_details": "{\"width\":187}"
+          },
+          {
+            "field": "Vendor__Vendor",
+            "tech_info": "LFA1-LIFNR",
+            "multi_lang_alias": [],
+            "field_details": "{\"width\":81}"
+          },
+          {
+            "field": "Vendor__Description",
+            "tech_info": "LFA1-NAME1",
+            "multi_lang_alias": [],
+            "field_details": "{\"width\":120}"
+          },
+          {
+            "field": "PurchaseOrder__PurchasingDocumentCategory",
+            "tech_info": "EKKO-BSTYP",
+            "multi_lang_alias": [],
+            "field_details": "{\"width\":105,\"format\":\"shnln\"}"
+          },
+          {
+            "field": "PurchaseOrderLine__PurchasingItemCategory",
+            "tech_info": "EKPO-PSTYP",
+            "multi_lang_alias": [],
+            "field_details": "{\"width\":88,\"format\":\"shnln\"}"
+          },
+          {
+            "field": "MaterialOnPlantLevel__DISPO",
+            "tech_info": "MARC-WERKS;MARC-DISPO",
+            "multi_lang_alias": [],
+            "field_details": "{\"width\":96,\"format\":\"shnln\"}"
+          },
+          {
+            "field": "PurchaseOrder__BKGRP",
+            "tech_info": "EKKO-EKGRP",
+            "multi_lang_alias": [],
+            "field_details": "{\"width\":102,\"format\":\"shnln\"}"
+          },
+          {
+            "field": "PurchaseOrderScheduleLineStatus",
+            "tech_info": "",
+            "multi_lang_alias": [],
+            "field_details": "{\"width\":109,\"format\":\"shn\"}"
+          },
+          {
+            "field": "OrderDueDate",
+            "tech_info": "EKES_LC-EINDT;EKES_FC-EINDT;EKET_COMMIT-EINDT;EKET-EINDT;EKET-SLFDT",
+            "multi_lang_alias": [],
+            "field_details": "{\"width\":87}"
+          },
+          {
+            "field": "DeliveryStatus",
+            "tech_info": "",
+            "multi_lang_alias": [],
+            "field_details": "{\"width\":108,\"format\":\"shn\"}"
+          },
+          {
+            "field": "RelevantForLogistics",
+            "tech_info": "",
+            "multi_lang_alias": [],
+            "field_details": "{\"width\":84}"
+          },
+          {
+            "field": "OrderedValue",
+            "tech_info": "",
+            "multi_lang_alias": [],
+            "field_details": "{\"width\":87}"
+          }
+        ]
+      },
+      {
+        "id": "d46c5b54be27fdc13bdfc577954344257",
+        "display_type": "list",
+        "multi_lang_name": [
+          {
+            "lang": "de",
+            "text": "Kategorie: Bestellungen"
+          },
+          {
+            "lang": "en",
+            "text": "Category: Purchase Orders"
+          },
+          {
+            "lang": "es",
+            "text": "Categoría: Pedidos de Compra"
+          },
+          {
+            "lang": "fr",
+            "text": "Catégorie : Commandes Fournisseur"
+          },
+          {
+            "lang": "nl",
+            "text": "Categorie: Inkooporders"
+          }
+        ],
+        "multi_lang_description": [
+          {
+            "lang": "de",
+            "text": "<div id=\"summary\" /><div class=\" section\" id=\"S1438094847222113\"><p class=\"\" id=\"P1438094847222314\">In den Einkaufsbelegobjekten sind mehrere Belege/Prozesse vorhanden. Wenn wir nach „Einkaufsbelegart = F“ filtern, erhalten wir nur die (Standard-) Bestellungen.</p></div>"
+          },
+          {
+            "lang": "en",
+            "text": "<div id=\"summary\" /><div class=\" section\" id=\"S1438094847222113\"><p class=\"\" id=\"P1438094847222314\">Multiple documents/processes exist in the purchase document objects. By filtering on the Purchase Document Category = F we only have the (standard) purchase orders.</p></div>"
+          },
+          {
+            "lang": "es",
+            "text": "<div id=\"summary\" /><div class=\" section\" id=\"S1438094847222113\"><p class=\"\" id=\"P1438094847222314\">Existen varios documentos/procesos en los objetos de documento de compras. Al filtrar por \"Tipo de Documento de Compras\" = \"F\", solo tenemos los pedidos de compras (estándar).</p></div>"
+          },
+          {
+            "lang": "fr",
+            "text": "<div id=\"summary\" /><div class=\" section\" id=\"S1438094847222113\"><p class=\"\" id=\"P1438094847222314\">Des documents / processus multiples existent dans les objets de document d'achat. En filtrant par « Catégorie de Document d'Achat » = « F », seules les commandes fournisseur (standard) s'affichent.</p></div>"
+          },
+          {
+            "lang": "nl",
+            "text": "<div id=\"summary\" /><div class=\" section\" id=\"S1438094847222113\"><p class=\"\" id=\"P1440516034676624\">Er bestaan meerdere documenten/processen in de inkoopdocumentobjecten. Door te filteren op 'Type Inkoopdocument' = 'F' zien we alleen de (standaard) inkooporders.</p></div>"
+          }
+        ],
+        "display_details": "{\"layout\":null}",
+        "query_blocks": [
+          {
+            "queryblock_type": "query_steps",
+            "query_steps": [
+              {
+                "step_type": "filter",
+                "field": "PurchaseOrder__PurchasingDocumentCategory",
+                "tech_info": "EKKO-BSTYP",
+                "operator": "equal_to",
+                "arguments": [
+                  {
+                    "argument_type": "value",
+                    "value": "F"
+                  }
+                ]
+              }
+            ]
+          }
+        ],
+        "fields": [
+          {
+            "field": "ObjectType",
+            "tech_info": "",
+            "multi_lang_alias": [],
+            "field_details": "{\"width\":107,\"format\":\"shn\"}"
+          },
+          {
+            "field": "ID",
+            "tech_info": "",
+            "multi_lang_alias": [],
+            "field_details": "{\"width\":123}"
+          },
+          {
+            "field": "Material__Material",
+            "tech_info": "",
+            "multi_lang_alias": [],
+            "field_details": "{\"width\":120}"
+          },
+          {
+            "field": "Material__Description",
+            "tech_info": "MAKT-MAKTX",
+            "multi_lang_alias": [],
+            "field_details": "{\"width\":122}"
+          },
+          {
+            "field": "PurchaseOrderLine__TXZ01",
+            "tech_info": "EKPO-TXZ01",
+            "multi_lang_alias": [],
+            "field_details": "{\"width\":187}"
+          },
+          {
+            "field": "Plant__Plant",
+            "tech_info": "T001W-WERKS",
+            "multi_lang_alias": [],
+            "field_details": "{\"width\":92,\"format\":\"shnln\"}"
+          },
+          {
+            "field": "PurchaseOrganization__PurchaseOrganization",
+            "tech_info": "T024E-EKORG",
+            "multi_lang_alias": [],
+            "field_details": "{\"width\":122,\"format\":\"shnln\"}"
+          },
+          {
+            "field": "PurchaseOrder__BKGRP",
+            "tech_info": "EKKO-EKGRP",
+            "multi_lang_alias": [],
+            "field_details": "{\"width\":102}"
+          },
+          {
+            "field": "MaterialOnPlantLevel__DISPO",
+            "tech_info": "MARC-WERKS;MARC-DISPO",
+            "multi_lang_alias": [],
+            "field_details": "{\"width\":97}"
+          },
+          {
+            "field": "PurchaseOrder__PurchasingDocumentCategory",
+            "tech_info": "EKKO-BSTYP",
+            "multi_lang_alias": [],
+            "field_details": "{\"width\":131,\"format\":\"shnln\"}"
+          },
+          {
+            "field": "PurchaseOrderLine__PurchasingItemCategory",
+            "tech_info": "EKPO-PSTYP",
+            "multi_lang_alias": [],
+            "field_details": "{\"width\":88,\"format\":\"shnln\"}"
+          },
+          {
+            "field": "RelevantForLogistics",
+            "tech_info": "",
+            "multi_lang_alias": [],
+            "field_details": "{\"width\":86}"
+          },
+          {
+            "field": "ExecutionStatus",
+            "tech_info": "",
+            "multi_lang_alias": [],
+            "field_details": "{\"width\":95,\"format\":\"shn\"}"
+          },
+          {
+            "field": "PurchaseOrderScheduleLineStatus",
+            "tech_info": "",
+            "multi_lang_alias": [],
+            "field_details": "{\"width\":109,\"format\":\"shn\"}"
+          },
+          {
+            "field": "OrderDueDate",
+            "tech_info": "EKES_LC-EINDT;EKES_FC-EINDT;EKET_COMMIT-EINDT;EKET-EINDT;EKET-SLFDT",
+            "multi_lang_alias": [],
+            "field_details": "{\"width\":89}"
+          },
+          {
+            "field": "DeliveryStatus",
+            "tech_info": "",
+            "multi_lang_alias": [],
+            "field_details": "{\"width\":89,\"format\":\"shn\"}"
+          },
+          {
+            "field": "Vendor__Vendor",
+            "tech_info": "LFA1-LIFNR",
+            "multi_lang_alias": [],
+            "field_details": "{\"width\":81}"
+          },
+          {
+            "field": "Vendor__Description",
+            "tech_info": "LFA1-NAME1",
+            "multi_lang_alias": [],
+            "field_details": "{\"width\":137}"
+          },
+          {
+            "field": "Quantity",
+            "tech_info": "",
+            "multi_lang_alias": [],
+            "field_details": "{\"width\":88}"
+          },
+          {
+            "field": "Material__BaseUnitOfMeasure",
+            "tech_info": "MARA-MEINS",
+            "multi_lang_alias": [],
+            "field_details": "{\"width\":29,\"format\":\"shn\"}"
+          },
+          {
+            "field": "OrderedValue",
+            "tech_info": "",
+            "multi_lang_alias": [],
+            "field_details": "{\"width\":87}"
+          },
+          {
+            "field": "NeededDate",
+            "tech_info": "",
+            "multi_lang_alias": [],
+            "field_details": "{\"width\":95}"
+          }
+        ]
+      }
+    ]
+}

@@ -1,48 +1,65 @@
 ﻿/// <reference path="/Dependencies/Helper/HtmlHelper.ActionMenu.js" />
 
-describe("HtmlHelper.ActionMenu test", function () {
+describe("WC.HtmlHelper.ActionMenu", function () {
 
     var actionMenu;
     var actionId = '#ActionSelect';
-    var siblingsWidth = 100;
 
     beforeEach(function () {
-        // prepare html
-        $('<div id="ActionSelect" class="compactMode" />').html([
-            '<div id="ActionDropdownList" class="btnTools disabled"></div>',
-            '<div class="k-window-titleless k-window-custom k-window-arrow-n popupAction popupActionSearch" id="ActionDropdownListPopup">',
-                '<div class= "k-window-content k-content">',
-                    '<a class="actionDropdownItem"><span>Action 1</span></a>',
-                    '<a class="actionDropdownItem"><span>Action 2</span></a>',
-                    '<a class="actionDropdownItem"><span>Action 3</span></a>',
-                    '<a class="actionDropdownItem"><span>Action 4</span></a>',
-                    '<a class="actionDropdownItem"><span>Action 5</span></a>',
-                '</div >',
-            '</div>'
-        ].join('')).appendTo('body');
-
-        // create instance
-        actionMenu = new WC.HtmlHelper.ActionMenu(actionId, function () {
-            return siblingsWidth;
-        });
+        actionMenu = new WC.HtmlHelper.ActionMenu(actionId);
     });
 
-    afterEach(function () {
-        $(actionId).remove();
-    });
-
-    describe("test initial value", function () {
-        it("._data", function () {
+    describe("constructor", function () {
+        it("should set data", function () {
+            //assert
             var result = actionMenu._data;
             expect(result.target).toEqual(actionId);
+            expect(result.responsive).toEqual(false);
             expect(result.buttonElement).toEqual('.btnTools');
             expect(result.itemContainer).toEqual('.popupAction');
             expect(result.itemElement).toEqual('.actionDropdownItem');
         });
-        it("._data.calculateSiblingsWidth", function () {
-            var result = actionMenu._data.calculateSiblingsWidth();
-            expect(result).toEqual(siblingsWidth);
-        });
     });
 
+    describe(".CreateActionMenuItems", function () {
+        var dropdown;
+        beforeEach(function () {
+            dropdown = {
+                dataSource: { filter: $.noop },
+                items: function () { return []; },
+                wrapper: $()
+            };
+            spyOn(WC.HtmlHelper, 'DropdownList').and.returnValue(dropdown);
+            spyOn(dropdown.dataSource, 'filter');
+            spyOn($.fn, 'append');
+            spyOn($.fn, 'show');
+            spyOn($.fn, 'hide');
+        });
+        it("should create menu (0 items)", function () {
+            var data = [];
+            WC.HtmlHelper.ActionMenu.CreateActionMenuItems('#MyMenu', '#MyDropdown', data, $.noop);
+
+            //assert
+            expect(WC.HtmlHelper.DropdownList).toHaveBeenCalled();
+            expect(dropdown.dataSource.filter).toHaveBeenCalled();
+            expect($.fn.append).not.toHaveBeenCalled();
+            expect($.fn.show).not.toHaveBeenCalled();
+            expect($.fn.hide).toHaveBeenCalled();
+        });
+        it("should create menu (2 items)", function () {
+            var data = [
+                { Enable: true, Visible: true },
+                { Enable: false, Visible: false }
+            ];
+            dropdown.items = function () { return [{}, {}]; };
+            WC.HtmlHelper.ActionMenu.CreateActionMenuItems('#MyMenu', '#MyDropdown', data, $.noop);
+
+            //assert
+            expect(WC.HtmlHelper.DropdownList).toHaveBeenCalled();
+            expect(dropdown.dataSource.filter).toHaveBeenCalled();
+            expect($.fn.append).toHaveBeenCalledTimes(2);
+            expect($.fn.show).toHaveBeenCalled();
+            expect($.fn.hide).not.toHaveBeenCalled();
+        });
+    });
 });

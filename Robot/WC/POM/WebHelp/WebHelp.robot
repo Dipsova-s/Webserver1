@@ -31,12 +31,11 @@ Get WebHelp Output Folder
 
 Get Localization Text
     [Arguments]    ${en}  ${nl}  ${de}  ${es}  ${fr}
-    ${language}    Get User Setting Language
     ${text}   Set Variable If
-    ...   '${language}'=='nl'    ${nl}
-    ...   '${language}'=='de'    ${de}
-    ...   '${language}'=='es'    ${es}
-    ...   '${language}'=='fr'    ${fr}    ${en}
+    ...   '${WEB_HELP_LANGUAGE_CODE}'=='nl'    ${nl}
+    ...   '${WEB_HELP_LANGUAGE_CODE}'=='de'    ${de}
+    ...   '${WEB_HELP_LANGUAGE_CODE}'=='es'    ${es}
+    ...   '${WEB_HELP_LANGUAGE_CODE}'=='fr'    ${fr}    ${en}
     [Return]    ${text}
 
 Update Popup Position
@@ -55,18 +54,27 @@ Copy Image To Webhelp Folder
     ${output}    Get WebHelp Output Folder   ${languageDependent}
     Copy File    ${WEBHELP_ITEM_PATH}${/}${path}    ${output}
 
+Get WebHelp Image Name
+    [Arguments]    ${filename}    ${languageDependent}=${True}
+    ${imageName}  Run Keyword If  ${languageDependent}==${True} and '${WEB_HELP_LANGUAGE_CODE}'!='en'  Replace String  ${filename}  .png  _${WEB_HELP_LANGUAGE_CODE}.png
+    ...             ELSE  Set variable  ${filename}
+    [Return]  ${imageName}
+
 Crop WebHelp Image
     [Arguments]    ${filename}    ${selector}    ${languageDependent}=${True}
     ${output}    Get WebHelp Output Folder   ${languageDependent}
-    Capture and crop page screenshot    ${filename}    ${selector}
-    Copy File    ${OUTPUT_DIR}${/}${filename}    ${output}
+    Execute JavaScript  $('#tooltip').hide();
+    ${imageName}  Get WebHelp Image Name  ${filename}  ${languageDependent}
+    Capture and crop page screenshot    ${imageName}    ${selector}
+    Copy File    ${OUTPUT_DIR}${/}${imageName}    ${output}
 
 Crop WebHelp Image With Dimensions
     [Arguments]    ${filename}    ${selector}    ${left}    ${top}    ${width}    ${height}    ${languageDependent}=${True}
     Crop WebHelp Image    ${filename}    ${selector}    ${languageDependent}
     ${output}    Get WebHelp Output Folder   ${languageDependent}
+    ${imageName}  Get WebHelp Image Name  ${filename}  ${languageDependent}
     @{dimensions}     Execute JavaScript    return [${left},${top},${width},${height}];
-    Crop Image        ${output}    ${filename}    @{dimensions}
+    Crop Image        ${output}    ${imageName}    @{dimensions}
 
 Highlight WebHelp Element
     [Arguments]    ${selector}   ${text}=${EMPTY}    ${textPosition}=center    ${border}=3px solid #ff0000    ${fontColor}=#ff0000    ${fontSize}=30px    ${fontWeight}=bold
@@ -135,3 +143,10 @@ Create WebHelp Box
 
 Clear WebHelp Box
     Execute JavaScript  $('#RobotBox').remove();
+
+Image To Base64
+    [Arguments]  ${image}
+    ${pngHeader}  Set Variable  data:image/png;base64,
+    ${binary}  Get Binary File  ${image}
+    ${base64Image}  Evaluate  base64.b64encode($binary)  modules=base64
+    [Return]  ${pngHeader}${base64Image}

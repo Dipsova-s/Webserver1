@@ -1,7 +1,7 @@
 *** Variables ***
-${divExecuteParametersPopup}     css=#popupExecuteParameters
-${pgbExecuteParameters}          css=#popupExecuteParameters > div.k-loading-mask
-${btnSubmitExecuteParameters}    css=#btn-popupExecuteParameters3
+${divExecuteParametersPopup}     css=#PopupExecutionParameter
+${pgbExecuteParameters}          css=#PopupExecutionParameter > div.k-loading-mask
+${btnSubmitExecuteParameters}    css=#btn-PopupExecutionParameter3
 ${searchPageTitle}               Every Angle - Search page
 
 *** Keywords ***
@@ -36,7 +36,7 @@ Click Submit Dashboard Execution Parameters
 
 Click Submit Adhoc Dashboard Execution Parameters
     Click Submit Dashboard Execution Parameters
-    Wait Dashboard Detail Document Loaded
+    Wait Dashboard Document Loaded
 
 Expand Dashboard Parameters First Filter Panel
     Expand Filter Panel    0

@@ -1,0 +1,181 @@
+@import '../abstracts/variables';
+$scrollbar-size: 10px;
+
+/*************** SCROLLBAR BASE CSS ***************/
+.scroll-wrapper {
+    overflow: hidden !important;
+    padding: 0 !important;
+    position: relative;
+
+    & > .scroll-content {
+        border: none !important;
+        box-sizing: content-box !important;
+        height: auto;
+        left: 0;
+        margin: 0;
+        max-height: none;
+        max-width: none !important;
+        overflow: scroll !important;
+        padding: 0;
+        position: relative !important;
+        top: 0;
+        width: auto !important;
+
+        &::-webkit-scrollbar {
+            height: 0;
+            width: 0;
+        }
+    }
+
+    &.scroll--rtl {
+        direction: rtl;
+    }
+}
+
+.scroll-element {
+    box-sizing: content-box;
+    display: none;
+
+    div {
+        box-sizing: content-box;
+    }
+
+    .scroll-bar,
+    .scroll-arrow {
+        cursor: default;
+    }
+
+    &.scroll-x.scroll-scrollx_visible,
+    &.scroll-y.scroll-scrolly_visible {
+        display: block;
+    }
+}
+
+.scroll-textarea {
+    border: 1px solid #ccc;
+    border-top-color: #999;
+
+    & > .scroll-content {
+        overflow: hidden !important;
+
+        & > textarea {
+            border: none !important;
+            box-sizing: border-box;
+            height: 100% !important;
+            margin: 0;
+            max-height: none !important;
+            max-width: none !important;
+            overflow: scroll !important;
+            outline: none;
+            padding: 2px;
+            position: relative !important;
+            top: 0;
+            width: 100% !important;
+
+            &::-webkit-scrollbar {
+                height: 0;
+                width: 0;
+            }
+        }
+    }
+}
+
+/*************** CSUTOMIZE SCROLLBAR ***************/
+.scrollbar-custom > .scroll-element {
+    opacity: 0;
+}
+
+.scrollbar-custom:hover > .scroll-element,
+.scrollbar-custom > .scroll-element.scroll-draggable {
+    opacity: 1;
+}
+
+.scrollbar-custom > .scroll-element,
+.scrollbar-custom > .scroll-element div {
+    background: none;
+    border: none;
+    margin: 0;
+    padding: 0;
+    position: absolute;
+    z-index: 10;
+}
+
+.scrollbar-custom > .scroll-element div {
+    display: block;
+    height: 100%;
+    left: 0;
+    top: 0;
+    width: 100%;
+}
+
+.scrollbar-custom > .scroll-element .scroll-element_size {
+    background-color: $scrollbar-track-color;
+}
+.scrollbar-custom:hover > .scroll-element .scroll-element_size {
+    background-color: $scrollbar-track-color-hover;
+}
+.scrollbar-custom > .scroll-element.scroll-draggable .scroll-element_size {
+    background-color: $scrollbar-track-color-active;
+}
+
+.scrollbar-custom > .scroll-element .scroll-bar {
+    background-color: $scrollbar-color;
+    display: block;
+}
+.scrollbar-custom:hover > .scroll-element .scroll-bar {
+    background-color: $scrollbar-color-hover;
+}
+.scrollbar-custom > .scroll-element.scroll-draggable .scroll-bar {
+    background-color: $scrollbar-color-active;
+}
+
+.scrollbar-custom > .scroll-element.scroll-x {
+    bottom: 0;
+    height: $scrollbar-size;
+    left: 0;
+    min-width: 100%;
+    overflow: visible;
+    width: 100%;
+}
+
+.scrollbar-custom > .scroll-element.scroll-y {
+    height: 100%;
+    min-height: 100%;
+    right: 0;
+    top: 0;
+    width: $scrollbar-size;
+}
+
+/* scrollbar height/width & offset from container borders */
+.scrollbar-custom > .scroll-element.scroll-x .scroll-bar {
+    min-width: $scrollbar-size;
+}
+
+.scrollbar-custom > .scroll-element.scroll-y .scroll-bar {
+    min-height: $scrollbar-size;
+}
+
+.scrollbar-custom > .scroll-element.scroll-x .scroll-element_outer {
+    left: 2px;
+}
+
+.scrollbar-custom > .scroll-element.scroll-x .scroll-element_size {
+    left: -4px;
+}
+
+.scrollbar-custom > .scroll-element.scroll-y .scroll-element_outer {
+    top: 2px;
+}
+
+.scrollbar-custom > .scroll-element.scroll-y .scroll-element_size {
+    top: -4px;
+}
+
+/* update scrollbar offset if both scrolls are visible */
+.scrollbar-custom > .scroll-element.scroll-x.scroll-scrolly_visible .scroll-element_size {
+    left: -11px;
+}
+
+.scrollbar-custom > .scroll-element.scroll-y.scroll-scrollx_visible .scroll-element_size {
+    top: -11px;
+}

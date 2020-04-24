@@ -1,28 +1,16 @@
 *** Settings ***
 Resource            ${EXECDIR}/resources/WCSettings.robot
+Resource            ${EXECDIR}/WC/Scenarios/Angle/TS_AngleState.robot
 Suite Setup         Go to WC Then Login With EAPower User
 Suite Teardown      Logout WC Then Close Browser
-Test Teardown       Go to Search Page
 Force Tags          acc_wc    smk_content
 
 *** Test Cases ***
-Verify When Angle That Used In The Dashboard Have Filter, And Dashboard Have Filter Itself
-    ${searchText}  Set Variable  Angle For General Test
-    ${dashboardName}  Set Variable  [ROBOT] Verify When Angle That Used In The Dashboard Have Filter, And Dashboard Have Filter Itself
-    
-    Create Dashboard From Specific Angle Name    ${searchText}    ${dashboardName}
-    Add Filter To Dashboard    "Execution Status"    ExecutionStatus   is equal to    Open      ${TRUE}
-    
-    First Filter In Dashboard Popup Should Be Equal    ${dashboardName}    is equal to Open
-    First Filter In Dashboard Sidebar Should Be Equal    (Self) - Execution status is equal to Open
-
-    [Teardown]  Back To Search And Delete Dashboard Are Created    ${dashboardName}
-
 Verify Apply Multi Filter To Dashboard
-    [Tags]  acc_wc_aci
+    [Documentation]     Verify applying filters to the dashboard's widget
+    [Tags]      TC_C196803  acc_wc_aci
     ${searchText}  Set Variable  Angle For Dashboard Filter
     ${dashboardName}  Set Variable  [ROBOT] Verify Apply Multi Filter To Dashboard
-
     ${orderDueDate}  Set Variable  (Self) - Order Due Date is after May/24/2016
     ${bottleneckType}  Set Variable  (Self) - Bottleneck Type is not empty
 
@@ -30,16 +18,27 @@ Verify Apply Multi Filter To Dashboard
     ${unExpectedDashboardFilter1}  Create List  ${bottleneckType}
     ${expectedDashboardFilter2}  Create List  ${orderDueDate}    ${bottleneckType}
 
-    Create Achoc Dashboard     ${searchText}
-    Input Dashboard Name    ${dashboardName} 
-    Save Dashboard
-
+    Create New Dashboard  ${searchText}  ${dashboardName}
+    Click Dashboard Tab
+    Set Editor Context: Dashboard Tab
     Add Filters To Dashboard
-    Total Filters In Dashboard Should Be Equal    4
-    Open Dashboard Popup And Remove Filter By index    4
-    Total Filters In Dashboard Should Be Equal    2
 
     Verify Filters In Angle When Open Angle From Dashboard Page    0    ${expectedDashboardFilter1}    ${unExpectedDashboardFilter1}
     Verify Filters In Angle When Open Angle From Dashboard Page    1    ${expectedDashboardFilter2}
 
     [Teardown]  Back To Search And Delete Dashboard Are Created    ${dashboardName}
+
+Verify Dashboard For Allow Obtain More Details
+    [Documentation]  Check the Add Filter icon is hidden when a Dashboard widget contains 'allow more details' is false'.
+    ...              Risk/Cover area: The addfilter, drilldown the widget should apply state correctly
+    [Tags]    TC_C228917   
+    ${dashboardID}  Set Variable  ROBOT_ANGLE_Dashboard_AllowMoreDetails  
+    [Setup]  Import Dashboard By API  /models/1  DASHBOARD_AllowMoreDetails.json  DASHBOARD_AllowMoreDetails.angles.json  user=${Username}
+    Find Angle By ID Then Execute The First Angle    ${dashboardID}
+    Set Angle To Not Allow User To Obtain More Details
+    Back To Search
+    Find Dashboard By ID Then Execute The First Dashboard    ${dashboardID}
+    Verify Visibility Of Adding Filter In Dashboard Side Panel    ${False}
+
+    [Teardown]  Clean Up Items And Go To Search Page 
+

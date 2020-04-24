@@ -54,7 +54,23 @@ function EnumHandlers() {
         FIELD_CHOOSER_VIEW_MODE: 'field_chooser_view_mode',
         SEARCH_TERMS: 'search_terms',
         SAP_LOGON_USER: 'sap_logon_user',
-        SAP_LOGON_LANGUAGE: 'sap_logon_language'
+        SAP_LOGON_LANGUAGE: 'sap_logon_language',
+        ANGLE_PANEL_COLLAPSED: 'angle_panel_collapsed',
+        ANGLE_PANEL_SIZE: 'angle_panel_size',
+        ANGLE_PANEL_TAB: 'angle_panel_tab',
+        ANGLE_PANEL_ACCORDIONS: 'angle_panel_accordions',
+        DISPLAY_PANEL_ACCORDIONS: 'display_panel_accordions',
+        SEARCH_PANEL_COLLAPSED: 'search_panel_collapsed',
+        DASHBOARD_PANEL_COLLAPSED: 'dashboard_panel_collapsed',
+        DASHBOARD_PANEL_SIZE: 'dashboard_panel_size',
+        DASHBOARD_PANEL_TAB: 'dashboard_panel_tab',
+        DASHBOARD_PANEL_ACCORDIONS: 'dashboard_panel_accordions',
+        WIDGET_PANEL_ACCORDIONS: 'widget_panel_accordions'
+    };
+    self.ACCORDION = {
+        DEFINITION: 'definition',
+        AGGREGATION: 'aggregation',
+        DESCRIPTION: 'description'
     };
 
     self.SEPARATOR_TEMPLATE = {
@@ -144,7 +160,9 @@ function EnumHandlers() {
     self.TIME_SETTINGS_FORMAT = {
         HOUR_FORMAT: 'hour',
         SECOND_FORMAT: 'second',
-        SEPARATOR: 'separator'
+        SEPARATOR: 'separator',
+        //Please use the one below from the TIME INPUT
+        DELEMITER:'timedelimiter'
     };
 
     self.TIME_DEFUALT_TEMPLATE = {
@@ -295,7 +313,7 @@ function EnumHandlers() {
         DECIMALS: 'decimals',
         THOUSANDSEPARATE: 'thousandseparator',
         SORTING: 'sorting',
-        PIVOTAREA: 'pivot_area',
+        AREA: 'pivot_area',
         HOUR: 'hour',
         SECOND: 'second',
         SEPARATOR: 'separator',
@@ -450,7 +468,8 @@ function EnumHandlers() {
 
     self.ANGLETARGET = {
         PUBLISH: 'publish',
-        VALIDATE: 'validate'
+        VALIDATE: 'validate',
+        ANGLEPOPUP: 'anglepopup'
     };
 
     // action dropdown on search page
@@ -467,12 +486,8 @@ function EnumHandlers() {
 
     // action dropdown on angle page
     self.ANGLEACTION = {
-        SAVE: { Text: Localization.SaveDisplay, Id: 'save' },
-        SAVEAS: { Text: Localization.SaveAs, Id: 'saveAs' },
         COPYDISPLAY: { Text: Localization.CopyDisplay, Id: 'copydisplay' },
         PASTEDISPLAY: { Text: Localization.PasteDisplay, Id: 'pastedisplay' },
-        EDITDISPLAY: { Text: Localization.EditDisplay, Id: 'editDisplay' },
-        NEWDISPLAY: { Text: Localization.CreateNewDisplay, Id: 'newDisplay' },
         CREATELIST: { Text: Captions.Label_ActionDropdown_CreateList, Id: 'createList' },
         CREATECHART: { Text: Captions.Label_ActionDropdown_CreateChart, Id: 'createChart' },
         CREATEPIVOT: { Text: Captions.Label_ActionDropdown_CreatePivot, Id: 'createPivot' },
@@ -487,9 +502,6 @@ function EnumHandlers() {
 
     //action dropdown on dashboard page
     self.DASHBOARDACTION = {
-        SAVE: { Text: Localization.SaveDashboard, Id: 'save' },
-        SAVEAS: { Text: Localization.SaveAsDashboard, Id: 'saveAs' },
-        EDIT: { Text: Localization.EditDashboard, Id: 'editDisplay' },
         EXECUTEDASHBOARD: { Text: Captions.Label_ActionDropdown_ExecuteDashboard, Id: 'exitEditMode' }
     };
 
@@ -579,7 +591,8 @@ function EnumHandlers() {
         COLOURPICKER: 'kendoCustomColorPicker',
         RADIALGAUGE: 'kendoRadialGauge',
         AUTOCOMPLETE: 'kendoAutoComplete',
-        COMBOBOX: 'kendoComboBox'
+        COMBOBOX: 'kendoComboBox',
+        PERIODPICKER: 'kendoPeriodPicker'
     };
     self.OPERATOR = {
         HASVALUE: { Text: Localization.OperatorHasValue, Value: 'has_value' },
@@ -830,10 +843,7 @@ function EnumHandlers() {
         PRIVILEGE: 'privilege_label'
     };
     self.DISPLAYTYPE_EXTRA = {
-        DEFAULT: 'default',
-        LIST: self.DISPLAYTYPE.LIST,
-        CHART: self.DISPLAYTYPE.CHART,
-        PIVOT: self.DISPLAYTYPE.PIVOT
+        DEFAULT: 'default'
     };
     self.VIEWMODETYPE = {
         SCHEMA: 'schema',
@@ -901,12 +911,12 @@ function EnumHandlers() {
     };
 
     self.FILTERPERIODTYPES = [
-        { Value: self.FILTERPERIODTYPE.DAY, Text: Captions.WidgetFilter_PeriodType_Days },
-        { Value: self.FILTERPERIODTYPE.WEEK, Text: Captions.WidgetFilter_PeriodType_Weeks },
-        { Value: self.FILTERPERIODTYPE.MONTH, Text: Captions.WidgetFilter_PeriodType_Months },
-        { Value: self.FILTERPERIODTYPE.QUARTER, Text: Captions.WidgetFilter_PeriodType_Quarters },
-        { Value: self.FILTERPERIODTYPE.SEMESTER, Text: Captions.WidgetFilter_PeriodType_Semesters },
-        { Value: self.FILTERPERIODTYPE.YEAR, Text: Captions.WidgetFilter_PeriodType_Years }
+        { Value: self.FILTERPERIODTYPE.DAY, Text: Captions.WidgetFilter_PeriodType_Days, Days: 1 },
+        { Value: self.FILTERPERIODTYPE.WEEK, Text: Captions.WidgetFilter_PeriodType_Weeks, Days: 7 },
+        { Value: self.FILTERPERIODTYPE.MONTH, Text: Captions.WidgetFilter_PeriodType_Months, Days: 30 },
+        { Value: self.FILTERPERIODTYPE.QUARTER, Text: Captions.WidgetFilter_PeriodType_Quarters, Days: 91 },
+        { Value: self.FILTERPERIODTYPE.SEMESTER, Text: Captions.WidgetFilter_PeriodType_Semesters, Days: 182 },
+        { Value: self.FILTERPERIODTYPE.YEAR, Text: Captions.WidgetFilter_PeriodType_Years, Days: 365 }
     ];
 
     self.FILTERPERIODVALUES = [

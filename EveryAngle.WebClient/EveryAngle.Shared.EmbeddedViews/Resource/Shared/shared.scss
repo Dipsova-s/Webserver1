@@ -1,4 +1,5 @@
-﻿
+﻿@import "fonts/webclientico";
+
 /* .highlight
 ============================================ */
 .highlight {
@@ -42,6 +43,14 @@
     background-color: #f7f9fa;
     box-sizing: border-box;
     z-index: 5;
+
+    + [type="checkbox"] {
+        margin-right: 10px;
+    }
+
+    + [type="checkbox"] + .chk-label {
+        cursor: pointer;
+    }
 }
 
 .chkIndeterminatable.yes,
@@ -53,6 +62,10 @@
 .chkIndeterminatable.disabled {
     cursor: default;
     opacity: .5;
+
+    + [type="checkbox"] + .chk-label {
+        cursor: default;
+    }
 }
 
 .chkIndeterminatable:hover {
@@ -207,7 +220,7 @@
 }
 
 input[type="checkbox"]:not(:checked) + .label {
-    color: #909191;
+    color: #333;
 }
 
 /* disabled checkbox */

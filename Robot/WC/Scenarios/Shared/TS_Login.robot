@@ -34,6 +34,9 @@ Login To WC By Power User
 Login To WC By Viewer User
     Login To WC    ${ViewerUsername}    ${Password}
 
+Login To WC By Basic User
+    Login To WC    ${BasicUsername}    ${Password}
+
 Login To WC By Admin User
     Login To WC    ${AdminUsername}    ${Password}
 
@@ -71,6 +74,11 @@ Go to WC Then Login With EAViewer User
     Open Browser in Sandbox Mode
     Go To    ${URL_WC}
     Login To WC By Viewer User
+
+Go to WC Then Login With EABasic User
+    Open Browser in Sandbox Mode
+    Go To    ${URL_WC}
+    Login To WC By Basic User
 
 Go to WC Then Login With Admin User
     Open Browser in Sandbox Mode

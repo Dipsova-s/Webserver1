@@ -6,14 +6,16 @@ ${chkValidateAngle}          css=#ValidateCheckBox
 Wait Angle Validating Popup Loaded
     Sleep    ${TIMEOUT_GENERAL}
 
-Click Validate Angle
-    Select Checkbox    ${chkValidateAngle}
+Wait Angle Validating Saved
     Wait Until Page Does Not Contain Element    ${divValidatingPopup}
     Page Should Contain Toast Success
-    Sleep    ${TIMEOUT_LARGEST}
+    Wait Progress Bar Closed
+    Wait Until Ajax Complete
+
+Click Validate Angle
+    Select Checkbox    ${chkValidateAngle}
+    Wait Angle Validating Saved
 
 Click Unvalidate Angle
     Unselect Checkbox    ${chkValidateAngle}
-    Wait Until Page Does Not Contain Element    ${divValidatingPopup}
-    Page Should Contain Toast Success
-    Sleep    ${TIMEOUT_LARGEST}
+    Wait Angle Validating Saved

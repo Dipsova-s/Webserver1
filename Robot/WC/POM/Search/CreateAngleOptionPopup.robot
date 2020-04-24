@@ -1,6 +1,5 @@
 *** Variables ***
 ${pgbCreateAngleOptions}    jquery=#popupCreateNewAngleOption .k-loading-mask
-
 ${btnButtonCreateAngleFromSchemaSimple}    ButtonCreateAngleFromSchemaSimple
 ${btnButtonCreateAngleFromSchemaDetailed}    ButtonCreateAngleFromSchemaDetailed
 ${btnButtonCreateAngleFromObjects}    ButtonCreateAngleFromObjects
@@ -23,18 +22,18 @@ Wait Create Angle Popup Document Loaded
 Click Object Activity Diagram Button
 	Wait Until Element Is Visible    ${btnButtonCreateAngleFromSchemaSimple}
 	Wait Until Page Does Not Contain Element    ${pgbCreateAngleOptions}
-	Click Link    ${btnButtonCreateAngleFromSchemaSimple}
+	Click Element    ${btnButtonCreateAngleFromSchemaSimple}
 	Wait Create Angle Popup Option Activity Diagram Loaded
 
 Click Object Diagram Button
 	Wait Until Element Is Visible    ${btnButtonCreateAngleFromSchemaDetailed}
 	Wait Until Page Does Not Contain Element    ${pgbCreateAngleOptions}
-	Click Link    ${btnButtonCreateAngleFromSchemaDetailed}
+	Click Element    ${btnButtonCreateAngleFromSchemaDetailed}
 	Wait Create Angle Popup Option Object Diagram Loaded
 
 Click Object List Button
 	Wait Until Element Is Visible    ${btnButtonCreateAngleFromObjects}
-	Click Link    ${btnButtonCreateAngleFromObjects}
+	Click Element    ${btnButtonCreateAngleFromObjects}
     Wait Create Angle Popup Option Object List Loaded
 
 Click Back Button To Back To Create Angle Options 

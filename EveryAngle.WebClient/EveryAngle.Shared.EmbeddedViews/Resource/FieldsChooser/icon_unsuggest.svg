@@ -1,3 +1,3 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="13" height="16" fill="none" style=""><rect id="backgroundrect" width="100%" height="100%" x="0" y="0" fill="none" stroke="none"/>
-    
-<g class="currentLayer" style=""><title>Layer 1</title><path fill="#78909c" d="M13.396000122070312,3.7320000012516976 L8.224000122070313,0.7460000012516976 L6.9320001220703125,1.2516975511633888e-9 l-0.38500000000000006,0.6670000000000001 l-6.547,11.34 l5.736,-2.47 l0.7300000000000001,6.202 l6.546,-11.34 l0.38500000000000006,-0.6670000000000001 z" id="svg_1" class="selected" fill-opacity="1"/></g></svg>
+<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" viewBox="0 0 16 16">
+    <path fill="#78909c" d="M14.424 3.838L9.252.852 7.96.106l-.385.667-6.547 11.34 5.736-2.47.73 6.202 6.546-11.34.385-.667z"/>
+</svg>

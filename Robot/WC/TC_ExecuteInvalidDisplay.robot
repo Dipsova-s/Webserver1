@@ -9,25 +9,20 @@ Force Tags          acc_wc
 *** Test Cases ***
 Verify Execute Invalid Angle
     [Tags]  acc_wc_aci
-    @{cleanUpItems}    Create List
-    Create Context: Web    ${Username}    ${Password}
-    ${angleData}    Create Angle    /models/1    ANGLE_Execute_Invalid.json
-    ${angleUri}    Get Uri From Response    ${angleData}
-    Append To List   ${cleanUpItems}    ${angleUri}?forced=true
+    [Setup]  Import Angle By API  /models/1  ANGLE_Execute_Invalid.json  user=${Username}
 
     Find Angle By ID Then Execute The First Angle    ROBOT_ANGLE_EXECUTE_INVALID
 
     # Check list menu
-    Check Menu In Header Popup In Case No Execution Display  ObjectType
-    Check Menu In Header Popup In Case Field Invalid  IDInvalid
+    Check Menu In Header Popup In Case Known Field  ObjectType
+    Check Menu In Header Popup In Case Unknown Field  IDInvalid
 
     # Check pivot menu
     Change Display To First Pivot
-    Check Pivot Field Settings In Case No Execution Display
+    Check Pivot Field Settings In Case Known Fields
 
     # Check chart menu
     Change Display To First Chart
-    Check Chart Field Settings In Case No Execution Display
+    Check Chart Field Settings In Case Unknown Fields
 
-    [Teardown]  Run Keywords  Clean Up Items     Web    ${cleanUpItems}
-    ...         AND           Go to Search Page
+    [Teardown]  Clean Up Items And Go To Search Page

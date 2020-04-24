@@ -26,9 +26,10 @@
 }
 @section TopBar
 {
-    <div id="TopBar">
+    <div id="TopBar" class="topBarWrapper">
         <div class="Wrapper Shadow">
             @{Html.RenderPartial("~/Views/Shared/Top/Logo.cshtml");}
+            <a class="icon icon-hamburger toggle-sidebar disabled" id="ButtonToggleSidePanel"></a>
             @{Html.RenderPartial("~/Views/Shared/Top/BusinessProcessBadge.cshtml");}
             @{Html.RenderPartial("~/Views/Shared/Top/UserPanel.cshtml");}
         </div>
@@ -36,8 +37,8 @@
 }
 
 
-<div id="MainContent" class="Wrapper">
-    <div id="LeftMenu">
+<div id="MainContent" class="Wrapper content-wrapper">
+    <div id="LeftMenu" class="hidden">
         <div class="left-menu-wrapper box-scrollable">
             <div class="left-menu-container box-scrollable-content">
                 @{Html.RenderPartial("~/Views/Search/PartialViews/CreateNewAngle.cshtml"); }
@@ -45,15 +46,15 @@
             </div>
         </div>
     </div>
-    <div id="Content">
+    <div id="Content" class="main-content">
 
         <div id="SearchBar" class="searchbar" style="display: none;" data-bind="visible: true">
             <div class="Wrapper searchbar-primary">
                 <form id="Search" class="searchBoxWrapper" autocomplete="off" onsubmit="return false">
-                    <a id="ClearSearchButton" class="clearSearch alwaysHide" onclick="searchQueryModel.ClearAdvanceSearch();" data-tooltip-title="@Resource.ClearAdvancedFilters">
+                    <a id="ClearSearchButton" class="clearSearch alwaysHide" onclick="searchQueryModel.ClearAdvanceSearch();" data-tooltip-text="@Resource.ClearAdvancedFilters">
                         <i class="icon icon-close"></i>
                     </a>
-                    <a id="SearchButton" onclick="searchPageHandler.ShowAdvancedFilters();" data-tooltip-title="@Resource.AdvancedFilters">
+                    <a id="SearchButton" onclick="searchPageHandler.ShowAdvancedFilters();" data-tooltip-text="@Resource.AdvancedFilters">
                         <i class="icon icon-caret-down"></i>
                     </a>
                     <input id="SearchInput" type="text" autocomplete="off" />

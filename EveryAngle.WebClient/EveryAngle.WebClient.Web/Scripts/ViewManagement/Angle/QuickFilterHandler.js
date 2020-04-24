@@ -45,11 +45,6 @@ function QuickFilterHandler() {
                 }
             ],
             animation: false,
-            resize: function () {
-                if (self.HandlerFilter) {
-                    self.HandlerFilter.View.AdjustLayout();
-                }
-            },
             close: function (e) {
                 setTimeout(function () {
                     e.sender.destroy();
@@ -64,30 +59,73 @@ function QuickFilterHandler() {
         if (!field)
             return;
 
-        requestHistoryModel.SaveLastExecute(self, self.ShowCustomPopup, arguments);
-        requestHistoryModel.ClearPopupBeforeExecute = true;
-
         listHandler.HideHeaderPopup();
 
         var popupSettings = self.GetPopupSettings(Localization.ListHeaderPopupAddFilter, function () {
             self.ApplyFilter();
         });
         popupSettings.open = function (e) {
-            self.HandlerFilter = new WidgetFilterHandler(e.sender.element, []);
-            self.HandlerFilter.ModelUri = modelUri;
-            self.HandlerFilter.HasExecutionParameter(true);
-            self.HandlerFilter.FilterFor = self.HandlerFilter.FILTERFOR.DISPLAY;
-            self.HandlerFilter.Sortable(false);
-            self.HandlerFilter.CanChange = function () {
-                return true;
+            e.sender.element.html(
+                '<div class="card">' +
+                    '<div class="card-body"></div>' +
+                '</div>');
+
+            var filterAngle = new QueryDefinitionHandler();
+            filterAngle.AllowExecutionParameter(true);
+
+            var groupQueryDefinitionAndBlocks = function () {
+                var result = _self.handler.Models.Angle.Data();
+                var angleQueryStep = jQuery.grep(_self.handler.Models.Angle.Data().query_definition, function (queryBlock) {
+                    return queryBlock.queryblock_type === enumHandlers.QUERYBLOCKTYPE.QUERY_STEPS;
+                });
+                var displayQueryStep = jQuery.grep(_self.handler.Models.Display.Data().query_blocks, function (queryBlock) {
+                    return queryBlock.queryblock_type === enumHandlers.QUERYBLOCKTYPE.QUERY_STEPS;
+                });
+
+                // Angle has only base class, then create empty query step.
+                if (angleQueryStep.length === 0) {
+                    _self.handler.Models.Angle.Data().query_definition.push({
+                        queryblock_type: enumHandlers.QUERYBLOCKTYPE.QUERY_STEPS,
+                        query_steps: []
+                    });
+                }
+
+                // Display has any query step, then add query step into Angle.
+                if (displayQueryStep.length) {
+                    result.query_definition[1].query_steps.push.apply(
+                        result.query_definition[1].query_steps, displayQueryStep[0].query_steps
+                    );
+                }
+
+                return result.query_definition;
             };
-            self.HandlerFilter.CanRemove = function () {
+
+            filterAngle.SetData(groupQueryDefinitionAndBlocks(), 'query_definition', modelUri);
+
+            var queryDefinitionHandler = new QueryDefinitionHandler();
+            queryDefinitionHandler.Parent(filterAngle);
+            queryDefinitionHandler.AllowExecutionParameter(true);
+            queryDefinitionHandler.Authorizations.CanChangeFilter(true);
+            queryDefinitionHandler.CanEditFilter = function () {
                 return false;
             };
+            queryDefinitionHandler.CanRemoveFilter = function () {
+                return false;
+            };
+            queryDefinitionHandler.CanApply = function () {
+                return false;
+            };
+            queryDefinitionHandler.CanSortFilter = function () {
+                return false;
+            };
+            queryDefinitionHandler.CanMoveFilter = function () {
+                return false;
+            };
+            queryDefinitionHandler.SetData([], 'query_blocks', modelUri);
+            queryDefinitionHandler.Texts().AskForExecutionParamter = Localization.AskForValueWhenTheAngleOpens;
+            queryDefinitionHandler.ApplyHandler(e.sender.element, '.card-body');
 
-            var angleBaseClassBlock = _self.handler.Models.Angle.Data().query_definition.findObject('queryblock_type', enumHandlers.QUERYBLOCKTYPE.BASE_CLASSES);
-            self.HandlerFilter.SetFieldChoooserInfo(angleBaseClassBlock ? angleBaseClassBlock.base_classes : [], angleQueryStepModel.QuerySteps(), displayQueryBlockModel.TempQuerySteps());
-
+            self.HandlerFilter = queryDefinitionHandler;
             self.ShowAddFilterPopupCallback(e, field);
         };
 
@@ -96,49 +134,11 @@ function QuickFilterHandler() {
         popup.Show(popupSettings);
     };
     self.ShowAddFilterPopupCallback = function (e, field) {
-        self.HandlerFilter.ApplyHandler();
-        self.HandlerFilter.AddFieldFilter(field);
-        self.HandlerFilter.Element.find('.FilterHeader').addClass('Disabled');
+        self.HandlerFilter.AddFilter(field);
 
         setTimeout(function () {
             listHandler.UpdateAngleGridHeaderPopup();
         }, 1);
-
-        setTimeout(function () {
-            e.sender.wrapper.find('.btn').removeClass('executing');
-        }, 10);
-    };
-    self.ShowEditDashboardFilterPopup = function (filter, modelUri, fnApplyFilter) {
-        requestHistoryModel.SaveLastExecute(self, self.ShowEditDashboardFilterPopup, arguments);
-        requestHistoryModel.ClearPopupBeforeExecute = true;
-
-        var popupSettings = self.GetPopupSettings(Localization.ListHeaderPopupEditFilter, fnApplyFilter);
-        popupSettings.open = function (e) {
-            self.HandlerFilter = new WidgetFilterHandler(e.sender.element, []);
-            self.HandlerFilter.Data([filter]);
-            self.HandlerFilter.ModelUri = modelUri;
-            self.HandlerFilter.HasExecutionParameter(false);
-            self.HandlerFilter.FilterFor = self.HandlerFilter.FILTERFOR.DASHBOARD;
-            self.HandlerFilter.Sortable(false);
-            self.HandlerFilter.CanChange = function () {
-                return true;
-            };
-            self.HandlerFilter.CanRemove = function () {
-                return false;
-            };
-            self.HandlerFilter.SetFieldChoooserInfo([]);
-
-            self.ShowEditDashboardFilterPopupCallback(e);
-        };
-
-        self.HandlerFilter = null;
-
-        popup.Show(popupSettings);
-    };
-    self.ShowEditDashboardFilterPopupCallback = function (e) {
-        self.HandlerFilter.ApplyHandler();
-        self.HandlerFilter.View.Toggle('FilterHeader-0');
-        self.HandlerFilter.Element.find('.FilterHeader').addClass('Disabled');
 
         setTimeout(function () {
             e.sender.wrapper.find('.btn').removeClass('executing');
@@ -164,13 +164,11 @@ function QuickFilterHandler() {
     self.GetFilterStep = function () {
         var filter = self.HandlerFilter.GetData()[0];
         filter.is_adhoc_filter = true;
+        filter.is_adhoc = true;
         return filter;
     };
     self.ApplyFilter = function () {
-        requestHistoryModel.SaveLastExecute(self, self.ApplyFilter, arguments);
-
         var queryStep = self.GetFilterStep();
-
         var getInsertFilterIndex = function (querySteps) {
             var index = -1;
             jQuery.each(querySteps, function (i, step) {
@@ -203,59 +201,63 @@ function QuickFilterHandler() {
                 }
                 _self.handler.Models.Display.Data.commit();
             }
-            historyModel.Save();
+
+            var tmpQueryStep = ko.toJS(queryStep);
+            var newQueryStep = {
+                step_type: enumHandlers.FILTERTYPE.FILTER,
+                field: tmpQueryStep.field,
+                operator: tmpQueryStep.operator,
+                arguments: tmpQueryStep.arguments,
+                is_execution_parameter: tmpQueryStep.is_execution_parameter,
+                is_adhoc: true,
+                is_applied: true,
+                edit_mode: false
+            };
+            anglePageHandler.HandlerSidePanel.Open(1);
+            anglePageHandler.HandlerDisplay.QueryDefinitionHandler.AddQueryFilter(newQueryStep);
         };
 
-        if (anglePageHandler.IsEditMode()) {
-            saveAddedQueryStep();
-            anglePageHandler.ApplyExecutionAngle();
-            self.CloseAddFilterPopup();
-        }
-        else {
-            measurePerformance.SetStartTime();
-            progressbarModel.ShowStartProgressBar(Localization.ProgressBar_PostResult, false);
-
-            var oldDisplayModel = historyModel.Get(_self.handler.Models.Display.Data().uri);
-            progressbarModel.CancelCustomHandler = true;
-            progressbarModel.CancelFunction = function () {
-                self.CloseAddFilterPopup();
-
-                WC.Ajax.AbortAll();
-                _self.handler.Models.Display.LoadSuccess(oldDisplayModel);
-                _self.handler.Models.Result.LoadSuccess(oldDisplayModel.results);
-                historyModel.Save();
-
-                _self.handler.Models.Result.GetResult(_self.handler.Models.Result.Data().uri)
-                    .then(_self.handler.Models.Result.LoadResultFields)
-                    .done(_self.handler.Models.Result.ApplyResult);
-            };
-
-            // refresh resule grid after add query step
-            var postQuerySteps = ko.toJS(_self.handler.Models.DisplayQueryBlock.QuerySteps());
-            postQuerySteps.push(queryStep);
-
-            var option = {};
-            option.customQueryBlocks = _self.handler.Models.DisplayQueryBlock.CollectQueryBlocks(postQuerySteps);
-
-            _self.handler.Models.Result.PostResult(option)
-                .fail(function () {
-                    errorHandlerModel.OnClickRetryErrorCallback = self.ApplyFilter;
-                })
-                .done(function () {
-                    self.CloseAddFilterPopup();
-                    saveAddedQueryStep();
-
-                    _self.handler.Models.Result.GetResult(_self.handler.Models.Result.Data().uri)
-                        .then(_self.handler.Models.Result.LoadResultFields)
-                        .done(_self.handler.Models.Result.ApplyResult);
-                });
-        }
+        self.SetCancelFunction();
+        saveAddedQueryStep();
+        self.CloseAddFilterPopup();
+        var aggregationStep = anglePageHandler.HandlerDisplay.QueryDefinitionHandler.GetAggregation();
+        var executionSteps = [queryStep];
+        if (aggregationStep)
+            executionSteps.push(aggregationStep.data());
+        anglePageHandler.HandlerDisplay.SetPostExecutionSteps(executionSteps);
+        anglePageHandler.HandlerDisplay.ExecuteQueryDefinition(QueryDefinitionHandler.ExecuteAction.Adhoc);
+    };
+    
+    self.SetCancelFunction = function () {
+        var oldResult = anglePageHandler.HandlerDisplay.ResultHandler.GetData();
+        var oldDisplay = anglePageHandler.HandlerDisplay.GetData();
+        progressbarModel.CancelCustomHandler = true;
+        progressbarModel.KeepCancelFunction = true;
+        progressbarModel.CancelFunction = function () {
+            var filters = anglePageHandler.HandlerDisplay.QueryDefinitionHandler.GetFilters();
+            WC.Page.Stop();
+            self.Models.Display.LoadSuccess(oldDisplay);
+            self.Models.Result.LoadSuccess(oldResult);
+            anglePageHandler.HandlerDisplay.ResultHandler.Cancel();
+            anglePageHandler.HandlerDisplay.QueryDefinitionHandler.Data.remove(filters[filters.length - 1]);
+            anglePageHandler.HandlerDisplay.SetPostResultData(oldResult);
+            anglePageHandler.HandlerDisplay.ExecuteQueryDefinition(QueryDefinitionHandler.ExecuteAction.Adhoc);
+        };
     };
     self.ApplyCustomFilter = function (handler, filter) {
         var queryStep = new WidgetFilterModel(filter);
         self.SetViewHandler(handler);
         self.HandlerFilter = { GetData: ko.observable([queryStep]) };
         self.ApplyFilter();
+    };
+    self.AddFilter = function (fieldId, handler) {
+        self.SetViewHandler(handler);
+        var modelUri = _self.handler.Models.Angle.Data().model;
+        var field = modelFieldsHandler.GetFieldById(fieldId, modelUri);
+        if (!field)
+            return;
+        anglePageHandler.HandlerSidePanel.Open(1);
+        anglePageHandler.HandlerDisplay.QueryDefinitionHandler.AddFilter(field);
     };
     /*EOF: Model Methods*/
 }

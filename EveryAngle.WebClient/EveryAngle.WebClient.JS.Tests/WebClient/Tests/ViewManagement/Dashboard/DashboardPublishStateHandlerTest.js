@@ -1,16 +1,30 @@
-﻿/// <reference path="/Dependencies/ViewModels/Models/Dashboard/dashboardmodel.js" />
+﻿/// <reference path="/Dependencies/ViewModels/Models/User/usermodel.js" />
+/// <reference path="/Dependencies/ViewModels/Models/User/privileges.js" />
+/// <reference path="/Dependencies/ViewManagement/Shared/ModelsHandler.js" />
+/// <reference path="/Dependencies/ViewModels/Models/Dashboard/dashboardmodel.js" />
 /// <reference path="/Dependencies/ViewManagement/Shared/PopupPageHandlers.js" />
 /// <reference path="/Dependencies/ViewManagement/Shared/ToastNotificationHandler.js" />
-
+/// <reference path="/Dependencies/ViewManagement/Shared/SidePanel/SidePanelView.js" />
+/// <reference path="/Dependencies/ViewManagement/Shared/SidePanel/SidePanelHandler.js" />
 /// <reference path="/Dependencies/ViewManagement/Shared/ItemState/itemstateview.js" />
 /// <reference path="/Dependencies/ViewManagement/Shared/ItemState/itemstatehandler.js" />
 /// <reference path="/Dependencies/ViewManagement/Shared/ItemState/itempublishstatehandler.js" />
+/// <reference path="/Dependencies/ViewManagement/Shared/QueryDefinition/QueryStepView.js" />
+/// <reference path="/Dependencies/ViewManagement/Shared/QueryDefinition/QueryDefinitionHandler.js" />
+/// <reference path="/Dependencies/ViewManagement/Shared/ItemDescription/ItemDescriptionView.js" />
+/// <reference path="/Dependencies/ViewManagement/Shared/ItemDescription/ItemDescriptionHandler.js" />
+/// <reference path="/Dependencies/ViewManagement/Dashboard/DashboardWidgetDefinitionHandler.js" />
+/// <reference path="/Dependencies/ViewManagement/Dashboard/DashboardWidgetDefinitionView.js" />
 /// <reference path="/Dependencies/ViewManagement/Dashboard/dashboardstateview.js" />
 /// <reference path="/Dependencies/ViewManagement/Dashboard/dashboardstatehandler.js" />
 /// <reference path="/Dependencies/ViewManagement/Dashboard/dashboardpublishstatehandler.js" />
-
-/// <reference path="/Dependencies/ViewManagement/Dashboard/DashboardHandler.js" />
-/// <reference path="/Dependencies/ViewManagement/Dashboard/DashboardDetailsHandler.js" />
+/// <reference path="/Dependencies/ViewManagement/Dashboard/DashboardStatisticView.js" />
+/// <reference path="/Dependencies/ViewManagement/Dashboard/DashboardStatisticHandler.js" />
+/// <reference path="/Dependencies/ViewManagement/Dashboard/DashboardSidePanelView.js" />
+/// <reference path="/Dependencies/ViewManagement/Dashboard/DashboardSidePanelHandler.js" />
+/// <reference path="/Dependencies/ViewManagement/Dashboard/DashboardUserSpecificHandler.js" />
+/// <reference path="/Dependencies/ViewManagement/Dashboard/DashboardBusinessProcessHandler.js" />
+/// <reference path="/Dependencies/ViewManagement/Dashboard/DashboardPageHandler.js" />
 
 describe("DashboardStateHandler", function () {
 
@@ -23,10 +37,33 @@ describe("DashboardStateHandler", function () {
         });
     });
 
+    describe(".CheckShowingPublishSettingsPopup", function () {
+        it("should get a confirmation popup", function () {
+            spyOn($, 'noop');
+            spyOn(popup, 'Confirm');
+            spyOn(dashboardPageHandler, 'HasAnyChanged').and.returnValue(true);
+            dashboardStateHandler.CheckShowingPublishSettingsPopup($.noop);
+
+            // assert
+            expect($.noop).not.toHaveBeenCalled();
+            expect(popup.Confirm).toHaveBeenCalled();
+        });
+        it("should show a popup", function () {
+            spyOn($, 'noop');
+            spyOn(popup, 'Confirm');
+            spyOn(dashboardPageHandler, 'HasAnyChanged').and.returnValue(false);
+            dashboardStateHandler.CheckShowingPublishSettingsPopup($.noop);
+
+            // assert
+            expect($.noop).toHaveBeenCalled();
+            expect(popup.Confirm).not.toHaveBeenCalled();
+        });
+    });
+
     describe(".GetPublishSettingsPopupOptions", function () {
 
         it('should get a new width', function () {
-            spyOn(dashboardStateHandler, '__GetPublishSettingsPopupOptions').and.returnValue({});
+            spyOn(dashboardStateHandler.parent.prototype, 'GetPublishSettingsPopupOptions').and.returnValue({});
             var result = dashboardStateHandler.GetPublishSettingsPopupOptions();
 
             // assert
@@ -39,12 +76,12 @@ describe("DashboardStateHandler", function () {
 
         it('should call all functions', function () {
             spyOn(dashboardStateHandler, 'SetDashboardData').and.callFake($.noop);
-            spyOn(dashboardStateHandler, '__ReloadPublishingSettingsData').and.callFake($.noop);
+            spyOn(dashboardStateHandler.parent.prototype, 'ReloadPublishingSettingsData').and.callFake($.noop);
             dashboardStateHandler.ReloadPublishingSettingsData();
 
             // assert
             expect(dashboardStateHandler.SetDashboardData).toHaveBeenCalled();
-            expect(dashboardStateHandler.__ReloadPublishingSettingsData).toHaveBeenCalled();
+            expect(dashboardStateHandler.parent.prototype.ReloadPublishingSettingsData).toHaveBeenCalled();
         });
 
     });
@@ -114,6 +151,8 @@ describe("DashboardStateHandler", function () {
 
         it('should get false and update html element', function (done) {
             spyOn(dashboardStateHandler, 'HasPrivateDisplays').and.returnValue(true);
+            spyOn($.fn, 'is').and.returnValue(true);
+            spyOn($.fn, 'trigger');
             spyOn($.fn, 'addClass');
             spyOn($.fn, 'removeClass');
 
@@ -122,6 +161,7 @@ describe("DashboardStateHandler", function () {
 
             // assert
             expect(result).toEqual(false);
+            expect($.fn.trigger).toHaveBeenCalled();
             expect($.fn.addClass).toHaveBeenCalled();
             expect($.fn.removeClass).not.toHaveBeenCalled();
             setTimeout(function () {
@@ -145,7 +185,6 @@ describe("DashboardStateHandler", function () {
     describe(".PublishItem", function () {
         var event = { currentTarget: null };
         beforeEach(function () {
-            spyOn(requestHistoryModel, 'SaveLastExecute').and.callFake($.noop);
             spyOn(dashboardStateHandler, 'UpdateItem').and.callFake($.when);
             spyOn(dashboardStateHandler, 'UpdateState').and.callFake($.when);
             spyOn(dashboardStateHandler, 'AfterUpdatedDashboard').and.callFake($.noop);
@@ -155,8 +194,7 @@ describe("DashboardStateHandler", function () {
         it("should publish Dashboard when values is valid", function () {
             spyOn(dashboardStateHandler, 'CheckPublishItem').and.returnValue(true);
             dashboardStateHandler.PublishItem(null, event);
-
-            expect(requestHistoryModel.SaveLastExecute).toHaveBeenCalled();
+            
             expect(dashboardStateHandler.UpdateItem).toHaveBeenCalled();
             expect(dashboardStateHandler.UpdateState).toHaveBeenCalled();
             expect(dashboardStateHandler.AfterUpdatedDashboard).toHaveBeenCalled();
@@ -165,8 +203,7 @@ describe("DashboardStateHandler", function () {
         it("should not publish Angle when values is invalid", function () {
             spyOn(dashboardStateHandler, 'CheckPublishItem').and.returnValue(false);
             dashboardStateHandler.PublishItem(null, event);
-
-            expect(requestHistoryModel.SaveLastExecute).not.toHaveBeenCalled();
+            
             expect(dashboardStateHandler.UpdateItem).not.toHaveBeenCalled();
             expect(dashboardStateHandler.UpdateState).not.toHaveBeenCalled();
             expect(dashboardStateHandler.AfterUpdatedDashboard).not.toHaveBeenCalled();
@@ -177,14 +214,13 @@ describe("DashboardStateHandler", function () {
     describe(".UnpublishItem", function () {
         var event = { currentTarget: null };
         beforeEach(function () {
-            spyOn(requestHistoryModel, 'SaveLastExecute').and.callFake($.noop);
             spyOn(popup, 'Confirm').and.callFake(function (message, callback) {
                 callback();
             });
             spyOn(dashboardStateHandler, 'UpdateItem').and.callFake($.when);
             spyOn(dashboardStateHandler, 'UpdateState').and.callFake($.when);
             spyOn(dashboardStateHandler, 'AfterUpdatedDashboard').and.callFake($.noop);
-            spyOn(dashboardHandler, 'BackToSearch').and.callFake($.noop);
+            spyOn(dashboardPageHandler, 'BackToSearch').and.callFake($.noop);
         });
 
         it("should unpublish Angle when user is Dashboard's creator", function () {
@@ -195,7 +231,7 @@ describe("DashboardStateHandler", function () {
             expect(dashboardStateHandler.UpdateItem).toHaveBeenCalled();
             expect(dashboardStateHandler.UpdateState).toHaveBeenCalled();
             expect(dashboardStateHandler.AfterUpdatedDashboard).toHaveBeenCalled();
-            expect(dashboardHandler.BackToSearch).not.toHaveBeenCalled();
+            expect(dashboardPageHandler.BackToSearch).not.toHaveBeenCalled();
         });
 
         it("should show confirmation popup before unpublish Dashboard when user is not a creator", function () {
@@ -206,9 +242,22 @@ describe("DashboardStateHandler", function () {
             expect(dashboardStateHandler.UpdateItem).toHaveBeenCalled();
             expect(dashboardStateHandler.UpdateState).toHaveBeenCalled();
             expect(dashboardStateHandler.AfterUpdatedDashboard).toHaveBeenCalled();
-            expect(dashboardHandler.BackToSearch).toHaveBeenCalled();
+            expect(dashboardPageHandler.BackToSearch).toHaveBeenCalled();
         });
 
+    });
+
+    describe(".UpdateItem", function () {
+        it("should save", function () {
+            spyOn(dashboardStateHandler, 'GetUpdatedPublishSettingsData');
+            spyOn(dashboardStateHandler, 'Update');
+
+            // act
+            dashboardStateHandler.UpdateItem();
+
+            // assert
+            expect(dashboardStateHandler.Update).toHaveBeenCalled();
+        });
     });
 
     describe(".UpdatePublishState", function () {
@@ -236,10 +285,10 @@ describe("DashboardStateHandler", function () {
 
         it("should call all functions", function () {
             var event = { currentTarget: null };
-            dashboardDetailsHandler.Model = dashboardModel;
-            spyOn(dashboardDetailsHandler.Model, 'SetData').and.callFake($.noop);
+            dashboardPageHandler.DashboardModel = dashboardModel;
+            spyOn(dashboardPageHandler.DashboardModel, 'SetData').and.callFake($.noop);
             spyOn(dashboardModel, 'GetData').and.returnValue({});
-            spyOn(dashboardHandler, 'ApplyBindingHandler').and.callFake($.noop);
+            spyOn(dashboardPageHandler, 'ApplyBindingHandler').and.callFake($.noop);
             spyOn(dashboardStateHandler, 'HidePublishingProgressbar').and.callFake($.noop);
             spyOn(dashboardStateHandler, 'ClosePublishSettingsPopup').and.callFake($.noop);
 
@@ -247,8 +296,8 @@ describe("DashboardStateHandler", function () {
             dashboardStateHandler.AfterUpdatedDashboard(event);
 
             // assert
-            expect(dashboardDetailsHandler.Model.SetData).toHaveBeenCalled();
-            expect(dashboardHandler.ApplyBindingHandler).toHaveBeenCalled();
+            expect(dashboardPageHandler.DashboardModel.SetData).toHaveBeenCalled();
+            expect(dashboardPageHandler.ApplyBindingHandler).toHaveBeenCalled();
             expect(dashboardStateHandler.HidePublishingProgressbar).toHaveBeenCalled();
             expect(dashboardStateHandler.ClosePublishSettingsPopup).toHaveBeenCalled();
         });
@@ -288,15 +337,15 @@ describe("DashboardStateHandler", function () {
     describe(".ShowWidgetDefinition", function () {
 
         it("should call all functions", function () {
-            spyOn(dashboardStateHandler, 'ClosePublishSettingsPopup').and.callFake($.noop);
-            spyOn(dashboardDetailsHandler, 'ShowPopup').and.callFake($.noop);
+            spyOn(dashboardStateHandler, 'ClosePublishSettingsPopup');
+            spyOn(dashboardPageHandler.HandlerSidePanel, 'SelectTab');
 
             // act
             dashboardStateHandler.ShowWidgetDefinition();
 
             // assert
             expect(dashboardStateHandler.ClosePublishSettingsPopup).toHaveBeenCalled();
-            expect(dashboardDetailsHandler.ShowPopup).toHaveBeenCalled();
+            expect(dashboardPageHandler.HandlerSidePanel.SelectTab).toHaveBeenCalled();
         });
 
     });

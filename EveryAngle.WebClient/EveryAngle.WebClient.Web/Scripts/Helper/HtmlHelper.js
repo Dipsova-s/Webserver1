@@ -72,11 +72,12 @@
         GetFontCss: function (element) {
             return element.css('font-style') + ' ' + element.css('font-variant') + ' ' + element.css('font-weight') + ' ' + Math.ceil(parseFloat(element.css('font-size'))) + 'px ' + element.css('font-family');
         },
-        ApplyKnockout: function (handler, element) {
-            element = jQuery(element);
-            if (typeof ko.dataFor(element.get(0)) === 'undefined') {
-                ko.applyBindings(handler, element.get(0));
-            }
+        ApplyKnockout: function (handler, element, clean) {
+            element = jQuery(element).get(0);
+            if (clean)
+                ko.cleanNode(element);
+            if (typeof ko.dataFor(element) === 'undefined')
+                ko.applyBindings(handler, element);
         },
 
         AdjustNameContainer: function (container, reserveSize, getSize) {
@@ -91,6 +92,17 @@
                     elementName.css('max-width', getSize(elementSize - frontElementSize - rearElementSize));
                 }
             });
+        },
+
+        AdjustToolbar: function () {
+            var space = 20;
+            var toolbar = jQuery('.toolbar');
+            var breaker = toolbar.children('.col-break');
+            var itemsSize = toolbar.children('.form-col').map(function () { return jQuery(this).outerWidth(); }).get().sum();
+            if (toolbar.width() < itemsSize + space)
+                breaker.removeClass('hidden');
+            else
+                breaker.addClass('hidden');
         },
 
         // kendo ui helper
@@ -137,7 +149,8 @@
                         "createTable", "addRowAbove", "addRowBelow", "addColumnLeft", "addColumnRight", "deleteRow", "deleteColumn",
                         "createLink", "unlink", "insertImage",
                         "cleanFormatting"
-                    ]
+                    ],
+                    stylesheets: [window.editorStyleSheet]
                 }, options || {});
 
                 ui = element.kendoEditor(settings).data(enumHandlers.KENDOUITYPE.EDITOR);
@@ -198,6 +211,27 @@
 
             return ui;
         },
+        DestroyDropdownList: function (element) {
+            var ui = WC.HtmlHelper.DropdownList(element);
+            if (ui) {
+                ui.destroy();
+                ui.popup.element.remove();
+            }
+        },
+        DestroyDropdownPopup: function () {
+            jQuery('[data-role="popup"]').each(function () {
+                var handler = jQuery(this).data('handler');
+                if (!handler)
+                    return;
+
+                if (typeof handler.options.anchor === 'object') {
+                    var dropdown = handler.options.anchor.find('[data-role="dropdownlist"]');
+                    if (!dropdown.length)
+                        jQuery(this).parent('.k-animation-container').remove();
+
+                }
+            });
+        },
         GridPrefetch: function (grid, i, callback) {
 
             grid.content.busyIndicator(true);
@@ -223,6 +257,59 @@
                     }
                 });
             }
+        },
+        SetFocusInput: function (input) {
+            if (!jQuery.browser.mozilla) {
+                try {
+                    // prevent error in IE
+                    input.selectionStart = 0;
+                    input.selectionEnd = 0;
+                }
+                catch (ex) {
+                    // do nothing
+                }
+            }
+            input.focus();
+        },
+        GetPastedText: function (e) {
+            var element = jQuery(e.currentTarget);
+            var dfd = jQuery.Deferred();
+            var clipboardData = e.clipboardData || e.originalEvent.clipboardData || window.clipboardData;
+            var text = '';
+            if (clipboardData && clipboardData.getData) {
+                try {
+                    text = jQuery.trim(clipboardData.getData('text') || '');
+                }
+                catch (ex) {
+                    // do nothing
+                }
+            }
+
+            if (text) {
+                dfd.resolve(text);
+            }
+            else {
+                setTimeout(function () {
+                    text = jQuery.trim(element.val()).replace(/\s/g, '\n');
+                    dfd.resolve(text);
+                }, 1);
+            }
+
+            return dfd.promise();
+        },
+        EnableMouseScrolling: function (grid) {
+            // fixed IE issue
+            if (!jQuery.browser.msie)
+                return;
+
+            var virtualScroll = grid.content.data('kendoVirtualScrollable');
+            grid.content
+                .off('mousewheel.iefix')
+                .on('mousewheel.iefix', function (e) {
+                    if (!grid.content.find('.k-loading-mask').length) {
+                        virtualScroll.verticalScrollbar.scrollTop(virtualScroll.verticalScrollbar.scrollTop() - e.deltaFactor * e.deltaY);
+                    }
+                });
         }
     };
 

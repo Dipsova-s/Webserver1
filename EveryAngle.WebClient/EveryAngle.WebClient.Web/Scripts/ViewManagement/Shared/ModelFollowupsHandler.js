@@ -106,6 +106,10 @@ function ModelFollowupsHandler() {
 
         return self.GetFollowupById(queryStep.followup, modelUri);
     };
+    self.GetResultClassesByQueryStep = function (queryStep, modelUri, fallback) {
+        var followup = queryStep ? self.GetFollowupByQueryStep(queryStep, modelUri) : null;
+        return followup ? followup.resulting_classes : fallback;
+    };
     /*================================================*/
     //EOF: Methods
 

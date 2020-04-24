@@ -72,16 +72,15 @@ function ValidationHandler() {
             && operator !== enumHandlers.OPERATOR.HASNOVALUE.Value;
     };
     _self.isValidArgumentValue = function (arg, fieldModel) {
-        if (!arg)
+        if (!arg || !arg.argument_type)
             return false;
-        else if (arg.argument_type === enumHandlers.FILTERARGUMENTTYPE.FUNCTION)
+        if (arg.argument_type === enumHandlers.FILTERARGUMENTTYPE.FUNCTION)
             return arg.parameters.length !== 0;
-        else if (arg.argument_type === enumHandlers.FILTERARGUMENTTYPE.FIELD)
+        if (arg.argument_type === enumHandlers.FILTERARGUMENTTYPE.FIELD)
             return !!arg.field;
-        else if (fieldModel && fieldModel.fieldtype === enumHandlers.FIELDTYPE.ENUM)
+        if (fieldModel && fieldModel.fieldtype === enumHandlers.FIELDTYPE.ENUM)
             return true;
-        else
-            return jQuery.trim(arg.value);
+        return jQuery.trim(arg.value);
     };
     _self.getArgumentType = function (arg) {
         return arg ? arg.argument_type : null;
@@ -387,45 +386,21 @@ function ValidationHandler() {
             }
             else if (model.validation_details.warning_type === self.WARNINGTYPE.FOLLOWUP) {
                 classesName = _self.GetFriendlyClassesName(model.validation_details.classes, modelUri);
+                
+                var followup = modelFollowupsHandler.GetFollowupById(model.followup, modelUri) || { id: model.followup };
+                var followupName = userFriendlyNameHandler.GetFriendlyName(followup, enumHandlers.FRIENDLYNAMEMODE.LONGNAME);
 
-                var followupName;
-                var followup = modelFollowupsHandler.GetFollowupById(model.followup, modelUri);
-                if (followup) {
-                    followupName = userFriendlyNameHandler.GetFriendlyName(followup, enumHandlers.FRIENDLYNAMEMODE.SHORTNAME);
-                }
-                else {
-                    followupName = model.followup;
-                }
                 template = model.validation_details.template || Localization.Error_FollowupNotAvailableInObjects;
                 message = kendo.format(template, followupName, classesName.join(', '));
             }
             else {
                 classesName = _self.GetFriendlyClassesName(model.validation_details.classes, modelUri);
 
-                var fieldName = '', fieldSource;
-                if (model.validation_details.source) {
-                    // source field
-                    fieldSource = modelFieldSourceHandler.GetFieldSourceById(model.validation_details.source, modelUri);
-                    fieldName += fieldSource ? userFriendlyNameHandler.GetFriendlyName(fieldSource, enumHandlers.FRIENDLYNAMEMODE.SHORTNAME) : model.validation_details.source;
-                    fieldName += ' - ';
-                }
+                var fieldName = '';
                 if (model.validation_details.field) {
                     // field name
-                    var field = modelFieldsHandler.GetFieldById(model.validation_details.field, modelUri);
-                    if (field) {
-                        if (!model.validation_details.source && field.source) {
-                            // re-check source field
-                            fieldSource = modelFieldSourceHandler.GetFieldSourceByUri(field.source);
-                            if (fieldSource) {
-                                fieldName += userFriendlyNameHandler.GetFriendlyName(fieldSource, enumHandlers.FRIENDLYNAMEMODE.SHORTNAME);
-                                fieldName += ' - ';
-                            }
-                        }
-                        fieldName += userFriendlyNameHandler.GetFriendlyName(field, enumHandlers.FRIENDLYNAMEMODE.SHORTNAME);
-                    }
-                    else {
-                        fieldName += model.validation_details.field;
-                    }
+                    var field = modelFieldsHandler.GetFieldById(model.validation_details.field, modelUri) || { id: model.validation_details.field, source: model.validation_details.source };
+                    fieldName = userFriendlyNameHandler.GetFriendlyName(field, enumHandlers.FRIENDLYNAMEMODE.FIELDSOURCE_AND_LONGNAME);
                 }
 
                 template = model.validation_details.template || Localization.Error_FieldNotAvailableInObjects;
@@ -522,10 +497,11 @@ function ValidationHandler() {
         }
     };
     _self.GetFriendlyClassesName = function (classes, modelUri) {
+        classes = WC.Utility.ToArray(classes);
+        var format = classes.length > 1 ? enumHandlers.FRIENDLYNAMEMODE.SHORTNAME : enumHandlers.FRIENDLYNAMEMODE.LONGNAME;
         var classesName = [];
-        jQuery.each(WC.Utility.ToArray(classes), function (index, classId) {
-            var classObject = modelClassesHandler.GetClassById(classId, modelUri);
-            var className = classObject ? userFriendlyNameHandler.GetFriendlyName(classObject, enumHandlers.FRIENDLYNAMEMODE.SHORTNAME) : classId;
+        jQuery.each(classes, function (index, classId) {
+            var className = modelClassesHandler.GetClassName(classId, modelUri, format);
             classesName.push(className);
         });
         return classesName;

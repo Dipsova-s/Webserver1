@@ -4,6 +4,9 @@
 /// <reference path="/Dependencies/ViewModels/Models/Search/searchmodel.js" />
 /// <reference path="/Dependencies/ViewManagement/Shared/SearchStorageHandler.js" />
 /// <reference path="/Dependencies/ViewModels/Models/Search/facetfiltersmodel.js" />
+/// <reference path="/Dependencies/ViewManagement/Shared/SidePanel/SidePanelView.js" />
+/// <reference path="/Dependencies/ViewManagement/Shared/SidePanel/SidePanelHandler.js" />
+/// <reference path="/Dependencies/ViewManagement/Search/SearchSidePanelHandler.js" />
 /// <reference path="/Dependencies/ViewManagement/Search/SearchPageHandler.js" />
 
 describe('SearchPageHandler', function () {
@@ -242,7 +245,7 @@ describe('SearchPageHandler', function () {
             expect($.fn.highlighter).toHaveBeenCalled();
         });
 
-        it('should call highlighter in displays viewmode', function () {
+        it('should call highlighter in compact viewmode', function () {
             searchPageHandler.DisplayType(searchPageHandler.DISPLAY_TYPE.COMPACT);
             searchPageHandler.HighlightSearchResult($());
             expect($.fn.highlighter).not.toHaveBeenCalled();
@@ -294,7 +297,7 @@ describe('SearchPageHandler', function () {
 
     describe('.SubmitSearchBySearchTerm(element, index)', function () {
         it('should switch search terms correclty', function () {
-            spyOn(searchPageHandler, 'SubmitSearchForm').and.callFake($.noop);
+            spyOn(searchPageHandler, 'SubmitSearchForm');
             spyOn(jQuery.fn, 'text').and.returnValue("c");
 
             searchPageHandler.SearchTerms = ["a", "b", "c"];

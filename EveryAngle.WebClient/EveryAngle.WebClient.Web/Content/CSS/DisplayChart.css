@@ -143,6 +143,7 @@
 
 .displayArea .navigatorWrapper.hidden {
     height: 10px;
+    display: block;
 }
 
 .displayArea .navigatorWrapper.hidden .navigator {

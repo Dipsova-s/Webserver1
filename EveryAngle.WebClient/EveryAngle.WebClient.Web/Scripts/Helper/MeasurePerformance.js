@@ -3,7 +3,7 @@ function MeasurePerformance() {
 
     var self = this;
     self.StartTime = null;
-    self.ElapsedTime = null;
+    self.ElapsedTime = ko.observable(null);
 
     // check window.performance.timing
     if (!window.performance) {
@@ -27,16 +27,10 @@ function MeasurePerformance() {
 
     self.SetEndTime = function () {
         if (self.StartTime) {
-            self.ElapsedTime = jQuery.now() - self.StartTime;
-            if (typeof resultModel !== 'undefined') {
-                resultModel.ExecutionTime.valueHasMutated();
-            }
+            self.ElapsedTime(jQuery.now() - self.StartTime);
+            self.ElapsedTime.notifySubscribers();
             self.StartTime = null;
         }
-    };
-
-    self.GetTimeElapsed = function () {
-        return self.ElapsedTime / 1000;
     };
 }
 

@@ -1,26 +1,34 @@
-﻿
+﻿@using EveryAngle.Shared.Globalization;
 <div id="UserPanel">
     <ul>
         <li class="disabled">
-            <a id="NotificationsFeed" href="javascript:void(0)">
+            <a id="NotificationsFeed" 
+               data-role="tooltip" data-tooltip-position="bottom" data-tooltip-text="@Resource.NotificationsFeed_Updates"
+               href="javascript:void(0)">
             </a>
         </li>
 
         <li>
             <a id="Help" onclick="userSettingsView.ToggleMenuHelp();">
-                <span id="HelpIcon" class="icon"></span>
+                <span id="HelpIcon" 
+                      data-role="tooltip" data-tooltip-position="bottom" data-tooltip-text="@Resource.Help"
+                      class="icon"></span>
             </a>
         </li>
 
         <li>
             <a id="Settings" onclick="userSettingsView.ToggleSettings();">
-                <span id="SettingsIcon" class="icon"></span>
+                <span id="SettingsIcon" 
+                      data-role="tooltip" data-tooltip-position="bottom" data-tooltip-text="@Resource.Settings"
+                      class="icon icon-gear"></span>
             </a>
         </li>
 
         <li>
-            <a id="UserControl" onclick="userSettingsView.ToggleMenu();">
-                <span id="UserControlName" class="textEllipsis"></span>
+            <a id="UserControl" onclick="userSettingsView.ToggleMenu();"
+               data-role="tooltip" data-tooltip-position="bottom" data-tooltip-text="@Resource.MoreActions">
+                <span id="UserControlName" 
+                      class="textEllipsis"></span>
                 <i class="icon icon-chevron-down"></i>
             </a>
         </li>

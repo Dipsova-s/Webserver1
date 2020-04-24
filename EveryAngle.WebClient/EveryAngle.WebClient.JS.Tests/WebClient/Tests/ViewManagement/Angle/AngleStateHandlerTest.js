@@ -139,4 +139,37 @@ describe("AngleStateHandler", function () {
             });
         });
     });
+
+    describe(".Displays", function () {
+        it("can get displays data correctly", function () {
+            spyOn(angleStateHandler, 'SetItemData').and.callFake($.noop);
+            spyOn(angleInfoModel, 'IsTemporaryAngle').and.returnValue(false);
+            var angle = {
+                model: "model",
+                is_published: true,
+                is_validated: true,
+                is_template: true,
+                allow_followups: true,
+                allow_more_details: true,
+                assigned_labels: ["S2D"],
+                uri: "uri",
+                state: "state",
+                multi_lang_name: ["en"],
+                authorizations: {
+                    update: true,
+                    publish: true,
+                    unpublish: true,
+                    validate: true,
+                    unvalidate: true
+                },
+                display_definitions: [{ uri: 'displays/1', id: 'id1' },
+                    { uri: 'displays/2', id: 'id2' }]
+            };
+
+            angleStateHandler.SetAngleData(angle);
+            var result = angleStateHandler.Displays();
+            expect(result.length).toEqual(2);
+        });
+    });
+
 });

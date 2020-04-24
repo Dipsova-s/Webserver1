@@ -277,6 +277,15 @@ namespace EveryAngle.Shared.Globalization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Add language.
+        /// </summary>
+        public static string AddLanguage {
+            get {
+                return ResourceManager.GetString("AddLanguage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Add new icon.
         /// </summary>
         public static string AddNewIcon {
@@ -1564,6 +1573,15 @@ namespace EveryAngle.Shared.Globalization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Cannot save.
+        /// </summary>
+        public static string CannotSaveAngle_Title {
+            get {
+                return ResourceManager.GetString("CannotSaveAngle_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Category.
         /// </summary>
         public static string Category {
@@ -2032,6 +2050,15 @@ namespace EveryAngle.Shared.Globalization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Ranges and colors.
+        /// </summary>
+        public static string ChartGaugeSetting {
+            get {
+                return ResourceManager.GetString("ChartGaugeSetting", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Line.
         /// </summary>
         public static string ChartLineLabel {
@@ -2055,6 +2082,15 @@ namespace EveryAngle.Shared.Globalization {
         public static string ChartRadarLabel {
             get {
                 return ResourceManager.GetString("ChartRadarLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Reference Line.
+        /// </summary>
+        public static string ChartReferenceFieldName {
+            get {
+                return ResourceManager.GetString("ChartReferenceFieldName", resourceCulture);
             }
         }
         
@@ -2194,15 +2230,6 @@ namespace EveryAngle.Shared.Globalization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Select field.
-        /// </summary>
-        public static string CompairValue {
-            get {
-                return ResourceManager.GetString("CompairValue", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Company logo.
         /// </summary>
         public static string CompanyLogo {
@@ -2217,6 +2244,15 @@ namespace EveryAngle.Shared.Globalization {
         public static string CompanyName {
             get {
                 return ResourceManager.GetString("CompanyName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Select field.
+        /// </summary>
+        public static string CompareValue {
+            get {
+                return ResourceManager.GetString("CompareValue", resourceCulture);
             }
         }
         
@@ -2248,7 +2284,7 @@ namespace EveryAngle.Shared.Globalization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to New Display will be created with suggested fields. &lt;br&gt;Are you sure you want to continue?.
+        ///   Looks up a localized string similar to The current Display will change to a new Display with suggested fields. &lt;br&gt;Are you sure you want to continue?.
         /// </summary>
         public static string Confirm_CreateNewFollowUp {
             get {
@@ -2689,6 +2725,24 @@ namespace EveryAngle.Shared.Globalization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Dashboard.
+        /// </summary>
+        public static string Dashboard {
+            get {
+                return ResourceManager.GetString("Dashboard", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Displays.
+        /// </summary>
+        public static string Dashboard_SideBar_Displays {
+            get {
+                return ResourceManager.GetString("Dashboard_SideBar_Displays", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
         public static string Dashboard_WidgetNotExist {
@@ -2703,6 +2757,15 @@ namespace EveryAngle.Shared.Globalization {
         public static string DashboardChangeDisplays {
             get {
                 return ResourceManager.GetString("DashboardChangeDisplays", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Dashboard description.
+        /// </summary>
+        public static string DashboardDescription {
+            get {
+                return ResourceManager.GetString("DashboardDescription", resourceCulture);
             }
         }
         
@@ -3139,7 +3202,7 @@ namespace EveryAngle.Shared.Globalization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Default Drilldown Display.
+        ///   Looks up a localized string similar to Default drilldown.
         /// </summary>
         public static string DisplayDrilldownDefault {
             get {
@@ -3180,6 +3243,15 @@ namespace EveryAngle.Shared.Globalization {
         public static string DisplayName {
             get {
                 return ResourceManager.GetString("DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Display overview.
+        /// </summary>
+        public static string DisplayOverview {
+            get {
+                return ResourceManager.GetString("DisplayOverview", resourceCulture);
             }
         }
         
@@ -4597,6 +4669,15 @@ namespace EveryAngle.Shared.Globalization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to No transactions available.
+        /// </summary>
+        public static string GoToSapNotAvailable {
+            get {
+                return ResourceManager.GetString("GoToSapNotAvailable", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Grand total.
         /// </summary>
         public static string GrandTotal {
@@ -4705,6 +4786,15 @@ namespace EveryAngle.Shared.Globalization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to This action is not allowed..
+        /// </summary>
+        public static string Info_ActionNotAllowedDescription {
+            get {
+                return ResourceManager.GetString("Info_ActionNotAllowedDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Display has been added to the Dashboard.&lt;br&gt;Click &lt;a href=&quot;{0}&quot; target=&quot;_blank&quot; onclick=&quot;popup.CloseAll();&quot;&gt;here&lt;/a&gt; to view your Dashboard..
         /// </summary>
         public static string Info_AddDisplayToDashboardSucceed {
@@ -4804,7 +4894,9 @@ namespace EveryAngle.Shared.Globalization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Add filter to Angle definition?.
+        ///   Looks up a localized string similar to Move filter to Angle?&lt;br/&gt;
+        ///This will Save all changes to the Angle immediately.&lt;br/&gt;
+        ///Do you want to continue?.
         /// </summary>
         public static string Info_ConfirmDropFilterToAngleDefinition {
             get {
@@ -4858,7 +4950,7 @@ namespace EveryAngle.Shared.Globalization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Drop here to move the filter to the Angle definition..
+        ///   Looks up a localized string similar to Drop here to move filter to Angle..
         /// </summary>
         public static string Info_DropFilterToAngleDefinition {
             get {
@@ -7519,7 +7611,7 @@ namespace EveryAngle.Shared.Globalization {
         /// <summary>
         ///   Looks up a localized string similar to In a default Active Directory hierarchy structure, users are located in the &quot;Users&quot; container. This container is always on the main level of your domain. When leaving this field empty, the Every Angle Application Server will retrieve users from this default location.&lt;br&gt;
         ///In case you want to have the users retrieved from a different container, enter the Distinguished Name (DN) of this container here.&lt;br&gt;
-        ///An Active Directory browsing tool can help you find the correct DN syntax for the container. For example [rest of string was truncated]&quot;;.
+        ///An Active Directory browsing tool can help you find the correct DN syntax for the container. For exampl [rest of string was truncated]&quot;;.
         /// </summary>
         public static string MC_AuthenticationProvidersHelpContainer {
             get {
@@ -14095,11 +14187,22 @@ namespace EveryAngle.Shared.Globalization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to You have unsaved changes in the Angle details. Do you want to save the changes and continue publishing?.
+        ///   Looks up a localized string similar to You made changes to an Angle that is used in Automation tasks. This might cause failures.
+        ///&lt;br&gt;&lt;br&gt;
+        ///Do you want to continue saving your changes?.
         /// </summary>
-        public static string MessageSaveQuestionPublishAngle {
+        public static string MessageSaveQuestionAngleUsedInTask {
             get {
-                return ResourceManager.GetString("MessageSaveQuestionPublishAngle", resourceCulture);
+                return ResourceManager.GetString("MessageSaveQuestionAngleUsedInTask", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to You have unsaved changes. Do you want to save the changes and continue publishing?.
+        /// </summary>
+        public static string MessageSaveQuestionPublish {
+            get {
+                return ResourceManager.GetString("MessageSaveQuestionPublish", resourceCulture);
             }
         }
         
@@ -14257,6 +14360,15 @@ namespace EveryAngle.Shared.Globalization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to More actions.
+        /// </summary>
+        public static string MoreActions {
+            get {
+                return ResourceManager.GetString("MoreActions", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to More users available to import..
         /// </summary>
         public static string MoreUsersAvailableToImport {
@@ -14311,6 +14423,33 @@ namespace EveryAngle.Shared.Globalization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Chart.
+        /// </summary>
+        public static string NewDisplayType_chart {
+            get {
+                return ResourceManager.GetString("NewDisplayType_chart", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to List.
+        /// </summary>
+        public static string NewDisplayType_list {
+            get {
+                return ResourceManager.GetString("NewDisplayType_list", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Pivot.
+        /// </summary>
+        public static string NewDisplayType_pivot {
+            get {
+                return ResourceManager.GetString("NewDisplayType_pivot", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to New model.
         /// </summary>
         public static string NewModel {
@@ -14361,6 +14500,15 @@ namespace EveryAngle.Shared.Globalization {
         public static string NoDecimal {
             get {
                 return ResourceManager.GetString("NoDecimal", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to No Display Filters active.
+        /// </summary>
+        public static string NoDisplayFiltersActive {
+            get {
+                return ResourceManager.GetString("NoDisplayFiltersActive", resourceCulture);
             }
         }
         
@@ -14595,6 +14743,15 @@ namespace EveryAngle.Shared.Globalization {
         public static string OneDecimal {
             get {
                 return ResourceManager.GetString("OneDecimal", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Open in a new window.
+        /// </summary>
+        public static string OpenEnumeratedPopup {
+            get {
+                return ResourceManager.GetString("OpenEnumeratedPopup", resourceCulture);
             }
         }
         
@@ -15967,6 +16124,15 @@ namespace EveryAngle.Shared.Globalization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Please enter a value in a valid format.
+        /// </summary>
+        public static string ReferencePopupWarning {
+            get {
+                return ResourceManager.GetString("ReferencePopupWarning", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Refresh cycle.
         /// </summary>
         public static string RefreshCycle {
@@ -16327,6 +16493,24 @@ namespace EveryAngle.Shared.Globalization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Scroll left.
+        /// </summary>
+        public static string ScrollLeft {
+            get {
+                return ResourceManager.GetString("ScrollLeft", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Scroll right.
+        /// </summary>
+        public static string ScrollRight {
+            get {
+                return ResourceManager.GetString("ScrollRight", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Search labels.
         /// </summary>
         public static string SearchLabels {
@@ -16399,7 +16583,7 @@ namespace EveryAngle.Shared.Globalization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Select a field to apply as Filter.
+        ///   Looks up a localized string similar to Choose field.
         /// </summary>
         public static string SelectAPropertyToApplyAsFilter {
             get {
@@ -17002,6 +17186,24 @@ namespace EveryAngle.Shared.Globalization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to &apos;{0}&apos; has been copied!.
+        /// </summary>
+        public static string Toast_CopyDisplay {
+            get {
+                return ResourceManager.GetString("Toast_CopyDisplay", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to &apos;{0}&apos; has been pasted!.
+        /// </summary>
+        public static string Toast_PasteDisplay {
+            get {
+                return ResourceManager.GetString("Toast_PasteDisplay", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to &apos;{0}&apos; has been published!.
         /// </summary>
         public static string Toast_PublishItem {
@@ -17034,6 +17236,24 @@ namespace EveryAngle.Shared.Globalization {
         public static string Toast_SaveSettings {
             get {
                 return ResourceManager.GetString("Toast_SaveSettings", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to &apos;{0}&apos; has been set to Template.
+        /// </summary>
+        public static string Toast_SetAngleToTemplate {
+            get {
+                return ResourceManager.GetString("Toast_SetAngleToTemplate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to &apos;{0}&apos; has been set to Angle.
+        /// </summary>
+        public static string Toast_SetTemplateToAngle {
+            get {
+                return ResourceManager.GetString("Toast_SetTemplateToAngle", resourceCulture);
             }
         }
         
@@ -17079,6 +17299,33 @@ namespace EveryAngle.Shared.Globalization {
         public static string Tools {
             get {
                 return ResourceManager.GetString("Tools", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Apply and save Angle.
+        /// </summary>
+        public static string Tooltip_ApplyAndSaveAngle {
+            get {
+                return ResourceManager.GetString("Tooltip_ApplyAndSaveAngle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Apply and save Display.
+        /// </summary>
+        public static string Tooltip_ApplyAndSaveDisplay {
+            get {
+                return ResourceManager.GetString("Tooltip_ApplyAndSaveDisplay", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Undo all changes.
+        /// </summary>
+        public static string Tooltip_UndoAllChanges {
+            get {
+                return ResourceManager.GetString("Tooltip_UndoAllChanges", resourceCulture);
             }
         }
         
@@ -17466,6 +17713,15 @@ namespace EveryAngle.Shared.Globalization {
         public static string ValidationFor {
             get {
                 return ResourceManager.GetString("ValidationFor", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to You must add at least one Business Process to save the Angle.
+        /// </summary>
+        public static string ValidationForBusinessProcess {
+            get {
+                return ResourceManager.GetString("ValidationForBusinessProcess", resourceCulture);
             }
         }
         

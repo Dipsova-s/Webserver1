@@ -121,4 +121,137 @@ describe("UserSettingViewModel", function () {
         });
     });
 
+    describe(".InitialSidePanelSettingsData", function () {
+        it("should set SidePanelSettingsData", function () {
+            spyOn(userSettingViewModel, 'GetSidePanelSettings').and.returnValue('test');
+            userSettingViewModel.InitialSidePanelSettingsData();
+
+            expect(userSettingViewModel.SidePanelSettingsData).toEqual('test');
+        });
+    });
+
+    describe(".GetSidePanelSettings", function () {
+        it("should get a default values", function () {
+            var settings = {};
+            spyOn(userSettingViewModel, 'GetClientSettings').and.returnValue(settings);
+            var result = userSettingViewModel.GetSidePanelSettings();
+
+            //angle sidebar
+            expect(result[enumHandlers.CLIENT_SETTINGS_PROPERTY.ANGLE_PANEL_COLLAPSED]).toEqual(false);
+            expect(result[enumHandlers.CLIENT_SETTINGS_PROPERTY.ANGLE_PANEL_SIZE]).toEqual(310);
+            expect(result[enumHandlers.CLIENT_SETTINGS_PROPERTY.ANGLE_PANEL_TAB]).toEqual(0);
+            expect(result[enumHandlers.CLIENT_SETTINGS_PROPERTY.ANGLE_PANEL_ACCORDIONS]).toEqual({ definition: true, description: true });
+            expect(result[enumHandlers.CLIENT_SETTINGS_PROPERTY.DISPLAY_PANEL_ACCORDIONS]).toEqual({ definition: true, aggregation: true, description: true });
+
+            //search
+            expect(result[enumHandlers.CLIENT_SETTINGS_PROPERTY.SEARCH_PANEL_COLLAPSED]).toEqual(false);
+
+            //dashboard sidebar
+            expect(result[enumHandlers.CLIENT_SETTINGS_PROPERTY.DASHBOARD_PANEL_COLLAPSED]).toEqual(false);
+            expect(result[enumHandlers.CLIENT_SETTINGS_PROPERTY.DASHBOARD_PANEL_SIZE]).toEqual(310);
+            expect(result[enumHandlers.CLIENT_SETTINGS_PROPERTY.DASHBOARD_PANEL_TAB]).toEqual(0);
+            expect(result[enumHandlers.CLIENT_SETTINGS_PROPERTY.DASHBOARD_PANEL_ACCORDIONS]).toEqual({ definition: true, description: true });
+            expect(result[enumHandlers.CLIENT_SETTINGS_PROPERTY.WIDGET_PANEL_ACCORDIONS]).toEqual({ definition: true });
+        });
+
+        it("should get a saved values", function () {
+            var settings = {};
+            //angle sidebar
+            settings[enumHandlers.CLIENT_SETTINGS_PROPERTY.ANGLE_PANEL_COLLAPSED] = true;
+            settings[enumHandlers.CLIENT_SETTINGS_PROPERTY.ANGLE_PANEL_SIZE] = 320;
+            settings[enumHandlers.CLIENT_SETTINGS_PROPERTY.ANGLE_PANEL_TAB] = 1;
+            settings[enumHandlers.CLIENT_SETTINGS_PROPERTY.ANGLE_PANEL_ACCORDIONS] = { definition: true, description: false };
+            settings[enumHandlers.CLIENT_SETTINGS_PROPERTY.DISPLAY_PANEL_ACCORDIONS] = { definition: true, aggregation: false, description: true };
+
+            //search
+            settings[enumHandlers.CLIENT_SETTINGS_PROPERTY.SEARCH_PANEL_COLLAPSED] = true;
+
+            //dashboard sidebar
+            settings[enumHandlers.CLIENT_SETTINGS_PROPERTY.DASHBOARD_PANEL_COLLAPSED] = true;
+            settings[enumHandlers.CLIENT_SETTINGS_PROPERTY.DASHBOARD_PANEL_SIZE] = 400;
+            settings[enumHandlers.CLIENT_SETTINGS_PROPERTY.DASHBOARD_PANEL_TAB] = 0;
+            settings[enumHandlers.CLIENT_SETTINGS_PROPERTY.DASHBOARD_PANEL_ACCORDIONS] = { definition: true, description: false };
+            settings[enumHandlers.CLIENT_SETTINGS_PROPERTY.WIDGET_PANEL_ACCORDIONS] = { definition: false };
+
+            spyOn(userSettingViewModel, 'GetClientSettings').and.returnValue(settings);
+            var result = userSettingViewModel.GetSidePanelSettings();
+
+            // angle sidebar
+            expect(result[enumHandlers.CLIENT_SETTINGS_PROPERTY.ANGLE_PANEL_COLLAPSED]).toEqual(true);
+            expect(result[enumHandlers.CLIENT_SETTINGS_PROPERTY.ANGLE_PANEL_SIZE]).toEqual(320);
+            expect(result[enumHandlers.CLIENT_SETTINGS_PROPERTY.ANGLE_PANEL_TAB]).toEqual(1);
+            expect(result[enumHandlers.CLIENT_SETTINGS_PROPERTY.ANGLE_PANEL_ACCORDIONS]).toEqual({ definition: true, description: false });
+            expect(result[enumHandlers.CLIENT_SETTINGS_PROPERTY.DISPLAY_PANEL_ACCORDIONS]).toEqual({ definition: true, aggregation: false, description: true });
+
+            // search sidebar
+            expect(result[enumHandlers.CLIENT_SETTINGS_PROPERTY.SEARCH_PANEL_COLLAPSED]).toEqual(true);
+
+            // dashboar sidebar
+            expect(result[enumHandlers.CLIENT_SETTINGS_PROPERTY.DASHBOARD_PANEL_COLLAPSED]).toEqual(true);
+            expect(result[enumHandlers.CLIENT_SETTINGS_PROPERTY.DASHBOARD_PANEL_SIZE]).toEqual(400);
+            expect(result[enumHandlers.CLIENT_SETTINGS_PROPERTY.DASHBOARD_PANEL_TAB]).toEqual(0);
+            expect(result[enumHandlers.CLIENT_SETTINGS_PROPERTY.DASHBOARD_PANEL_ACCORDIONS]).toEqual({ definition: true, description: false });
+            expect(result[enumHandlers.CLIENT_SETTINGS_PROPERTY.WIDGET_PANEL_ACCORDIONS]).toEqual({ definition: false });
+        });
+    });
+
+    describe(".SetSidePanelSettings", function () {
+        it("should set a setting", function () {
+            userSettingViewModel.SetSidePanelSettings('test', 'hello');
+
+            expect(userSettingViewModel.SidePanelSettingsData['test']).toEqual('hello');
+        });
+
+        it("should check before set size", function () {
+            userSettingViewModel.SetSidePanelSettings(enumHandlers.CLIENT_SETTINGS_PROPERTY.ANGLE_PANEL_SIZE, 100);
+            userSettingViewModel.SetSidePanelSettings(enumHandlers.CLIENT_SETTINGS_PROPERTY.DASHBOARD_PANEL_SIZE, 50);
+
+            expect(userSettingViewModel.SidePanelSettingsData[enumHandlers.CLIENT_SETTINGS_PROPERTY.ANGLE_PANEL_SIZE]).toEqual(userSettingViewModel.MinSidePanelSize);
+            expect(userSettingViewModel.SidePanelSettingsData[enumHandlers.CLIENT_SETTINGS_PROPERTY.DASHBOARD_PANEL_SIZE]).toEqual(userSettingViewModel.MinSidePanelSize);
+        });
+    });
+
+    describe(".GetSidePanelSettingsData", function () {
+
+        var element;
+        beforeEach(function () {
+            element = $('<div class="content-wrapper" />').appendTo('body');
+            spyOn(userSettingViewModel, 'GetClientSettings').and.returnValue({});
+            userModel.Data({ user_settings: '/users/1/settings' });
+        });
+        afterEach(function () {
+            element.remove();
+        });
+        
+        it("should get null if no content-wrapper element", function () {
+            var settings = {};
+            spyOn(userSettingViewModel, 'GetSidePanelSettings').and.returnValue(settings);
+            userSettingViewModel.SidePanelSettingsData = { test: 1 };
+            element.remove();
+            var result = userSettingViewModel.GetSidePanelSettingsData();
+
+            expect(result).toEqual(null);
+        });
+
+        it("should get null if no changes", function () {
+            var settings = {};
+            spyOn(userSettingViewModel, 'GetSidePanelSettings').and.returnValue(settings);
+            userSettingViewModel.SidePanelSettingsData = {};
+            var result = userSettingViewModel.GetSidePanelSettingsData();
+
+            expect(result).toEqual(null);
+        });
+
+        it("should get data if have some changes", function () {
+            var settings = {};
+            settings[enumHandlers.CLIENT_SETTINGS_PROPERTY.ANGLE_PANEL_COLLAPSED] = true;
+            settings[enumHandlers.CLIENT_SETTINGS_PROPERTY.ANGLE_PANEL_SIZE] = 320;
+            settings[enumHandlers.CLIENT_SETTINGS_PROPERTY.ANGLE_PANEL_TAB] = 1;
+            spyOn(userSettingViewModel, 'GetSidePanelSettings').and.returnValue(settings);
+            userSettingViewModel.SidePanelSettingsData = {};
+            var result = userSettingViewModel.GetSidePanelSettingsData();
+
+            expect(result).not.toEqual(null);
+        });
+    });
 });

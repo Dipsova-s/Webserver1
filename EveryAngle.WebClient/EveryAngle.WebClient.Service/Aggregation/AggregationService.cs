@@ -889,15 +889,19 @@ namespace EveryAngle.WebClient.Service.Aggregation
                     break;
             }
 
-            string decimalsPercentageFormat = GetDecimalsPercentageFromUserSetting(HttpContext.Current.Session["UserSettingsViewModel"] as UserSettingsViewModel);
+            string format = "0";
+            int decimals = GetDecimalsPercentageFromUserSetting(HttpContext.Current.Session["UserSettingsViewModel"] as UserSettingsViewModel);
+            if (decimals > 0)
+                format += new string('0', decimals);
+            format += " %";
 
             // To format field value
             summaryField.ValueFormat.FormatType = FormatType.Numeric;
-            summaryField.ValueFormat.FormatString = String.Format("p{0}", decimalsPercentageFormat);
+            summaryField.ValueFormat.FormatString = format;
 
             // To format summary cell
             summaryField.CellFormat.FormatType = FormatType.Numeric;
-            summaryField.CellFormat.FormatString = String.Format("p{0}", decimalsPercentageFormat);
+            summaryField.CellFormat.FormatString = "0 %";
 
             // adjust caption for html
             SetFieldCaption(eaField, summaryField);
@@ -1035,11 +1039,12 @@ namespace EveryAngle.WebClient.Service.Aggregation
         private static string EncodeCaption(PivotHtmlFieldValuePreparedEventArgs e, int index)
         {
             string caption = ((LiteralControl)e.Cell.Controls[index]).Text;
-            string endcodeCaption = HttpUtility.HtmlEncode(REPLACE_CAPTION_HEADER);
-            if (caption.Contains(endcodeCaption))
+            caption = caption.Replace("&amp;lt;", "&lt;").Replace("&amp;gt;", "&gt;");
+            if (caption.Contains("&lt;") || caption.Contains("&gt;"))
             {
+                caption = caption.Replace(HttpUtility.HtmlEncode(REPLACE_CAPTION_HEADER), REPLACE_CAPTION_DATA);
                 e.Cell.Controls.RemoveAt(index);
-                e.Cell.Controls.AddAt(index, new LiteralControl(caption.Replace(endcodeCaption, REPLACE_CAPTION_DATA)));
+                e.Cell.Controls.AddAt(index, new LiteralControl(caption));
             }
             return caption;
         }
@@ -1367,13 +1372,13 @@ namespace EveryAngle.WebClient.Service.Aggregation
             return dateSettings.Value<string>("year");
         }
 
-        private string GetDecimalsPercentageFromUserSetting(UserSettingsViewModel userSettings)
+        private int GetDecimalsPercentageFromUserSetting(UserSettingsViewModel userSettings)
         {
             JObject percentageSettings = string.IsNullOrEmpty(userSettings.format_percentages)
                                     ? new JObject()
                                     : JsonConvert.DeserializeObject<JObject>(userSettings.format_percentages);
             string decimals = percentageSettings.Value<string>("decimals");
-            return string.IsNullOrEmpty(decimals) ? "0" : decimals;
+            return string.IsNullOrEmpty(decimals) ? 0 : int.Parse(decimals);
         }
 
         #endregion

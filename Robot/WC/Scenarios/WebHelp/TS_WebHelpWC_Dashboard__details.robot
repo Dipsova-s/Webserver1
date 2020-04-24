@@ -4,15 +4,22 @@ Screenshot "WC_Dashboard__details" page
 
     Find Dashboard By ID Then Execute The First Dashboard    ${DashboardId}
 
-    Open Dashboard Detail Popup
-    Update Popup Position    css=.popupDashboardDetails
-    Click Dashboard Detail General Tab
-    Crop Dashboard Details "General" Tab
+    Crop Dashboard Details
+    Crop Dashboard Displays
 
-Crop Dashboard Details "General" Tab
-    ${width}    Set Variable    285
-    ${height}   Set Variable    340
-    Click Element    css=#popupDashboardDetails_wnd_title
-    Execute JavaScript    $('<div id="PopupDashboardDetailShadow" />').css({position:'absolute',left:0,top:0,width:${width},height:${height},'z-index':100000,'box-shadow':'inset -20px -20px 20px #fff'}).appendTo('.popupDashboardDetails');
-    Crop WebHelp Image    WC_Dashboard_Details.png  css=#PopupDashboardDetailShadow
-    Execute JavaScript    $('#PopupDashboardDetailShadow').remove();
+Crop Dashboard Details
+    Click Dashboard Tab
+    Collapse All Dashboard Section Panels
+    Execute JavaScript
+    ...   dashboardPageHandler.DashboardUserSpecificHandler.DashboardModel.Data().authorizations.update_user_specific=true;
+    ...   dashboardPageHandler.DashboardUserSpecificHandler.DashboardModel.Data.notifySubscribers();
+    ${width}  ${height}  Get Element Size  css=#TabContentDashboard
+    ${tabWidth}  ${tabHeight}  Get Element Size  css=#TabDetails .tab-menu-wrapper
+    Crop WebHelp Image With Dimensions  WC_Dashboard_Details.png  css=#TabDetails  0  0  ${width}  ${height}+${tabHeight}
+
+Crop Dashboard Displays
+    Click Displays Tab
+    Collapse All Displays Section Panels
+    ${width}  ${height}  Get Element Size  css=#TabContentWidgets
+    ${tabWidth}  ${tabHeight}  Get Element Size  css=#TabDetails .tab-menu-wrapper
+    Crop WebHelp Image With Dimensions  WC_Display_Details_Dashboard.png  css=#TabDetails  0  0  ${width}  ${height}+${tabHeight}

@@ -5,7 +5,7 @@ ${btnSubmitFieldChooser}    css=#btn-popupFieldChooser0 > span
 ${tblFieldList}    jquery=#DisplayPropertiesGrid .k-grid-content
 ${pgbFieldChooser}    jquery=#DisplayPropertiesGrid .k-loading-mask
 ${popupFieldChooser}    css=#popupFieldChooser
-${btnCloseFieldChooser}    css=#popupFieldChooser_wnd_title + .k-window-actions .k-i-close
+${btnCloseFieldChooser}    css=#popupFieldChooser_wnd_title + .k-window-actions .k-window-action[aria-label="Close"]
 
 ${btnFieldChooserFullMode}      LongProperty
 ${btnFiedlChooserCompactMode}     ShortProperty

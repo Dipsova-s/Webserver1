@@ -38,18 +38,53 @@
             <a id="Logo" href="@Url.Action("SearchPage", "Search")">
                 <img alt="" src="@Url.Content("~/images/master/ealogo.svg")" height="29" />
             </a>
+            <a class="icon icon-hamburger toggle-sidebar disabled" id="ButtonToggleSidePanel"></a>
 
             @{Html.RenderPartial("~/Views/Shared/Top/BusinessProcessBadge.cshtml");}
             @{Html.RenderPartial("~/Views/Shared/Top/UserPanel.cshtml");}
         </div>
     </div>
 }
-@section UnderTopHeader
-{
-    <div id="AngleField" class="detailsWrapper top">
-        <div class="Wrapper">
-            <div id="AngleSetting">
+
+<div class="content-wrapper" id="ContentWrapper">
+    <div class="side-content">
+        <div id="SectionInfo"></div>
+
+        <div class="tab tab-full tab-details section section-details" id="TabDetails">
+            <div class="tab-menu-wrapper">
+                <div class="tab-menu tab-menu-angle">
+                    @Resource.Angle
+                    <a class="action btn-info"
+                       data-role="tooltip"
+                       data-tooltip-position="bottom"
+                       data-tooltip-text="@Resource.Info"
+                       data-bind="visible: IsStatisticVisible(), click: ShowStatisticPopup, clickBubble: false">
+                        <i class="icon icon-info"></i>
+                    </a>
+                </div>
+                <div class="tab-menu tab-menu-display">
+                    @Resource.DisplayDetails
+                    <a class="action btn-info"
+                       data-role="tooltip"
+                       data-tooltip-position="bottom"
+                       data-tooltip-text="@Resource.Info"
+                       data-bind="visible: !IsAdhoc(), click: ShowStatisticPopup, clickBubble: false">
+                        <i class="icon icon-info"></i>
+                    </a>
+                </div>
+            </div>
+            <div class="tab-content-wrapper">
+                <div class="accordion tab-content tab-content-angle" id="TabContentAngle"></div>
+                <div class="accordion tab-content tab-content-display" id="TabContentDisplay"></div>
+            </div>
+        </div>
+    </div>
+    <div class="main-content">
+        <div id="AngleField" class="detailsWrapper top">
+            <div class="Wrapper">
                 <nav class="form-row toolbar">
+                    <div class="col-break flex-break hidden"></div>
+
                     <div class="form-col col-breadcrumb">
                         @{Html.RenderPartial("~/Views/Shared/Top/Breadcrumb.cshtml");}
                     </div>
@@ -68,38 +103,104 @@
                         </div>
                     </div>
 
+                    <div class="form-col col-saving" id="AngleSavingWrapper">
+                        <!-- ko stopBinding: true -->
+                        <div class="saving-wrapper" data-bind="if: SaveActions.Primary.Valid(), visible: SaveActions.Primary.Valid(), css: { 'savable' : SaveActions.Primary.Enable() }">
+                            <a class="btn btn-small btn-secondary btn-main-saving" data-bind="click: SaveActions.Primary.Action, css: { 'btn-split': SaveActions.Primary.Visible(), disabled: !SaveActions.Primary.Enable() }">
+                                <span data-bind="text: SaveActions.Primary.Label()"></span>
+                            </a>
+                            <a class="btn btn-small btn-secondary btn-saving-options" 
+                               data-tooltip-position="bottom" data-role="tooltip" data-tooltip-text="@Resource.MoreActions"
+                               data-bind="click: ToggleSaveOptions">
+                                <i class="icon icon-chevron-down"></i>
+                            </a>
+                            <ul class="listview listview-popup saving-options">
+                                <!-- ko if: SaveActions.All.Visible() && SaveActions.Primary.Label() !== SaveActions.All.Label() -->
+                                <li class="listview-item action-save-all" data-bind="text: SaveActions.All.Label, css: { disabled: !SaveActions.All.Enable() }, click: SaveActions.All.Action"></li>
+                                <!-- /ko -->
+                                <!-- ko if: SaveActions.AngleAs.Visible() && SaveActions.Primary.Label() !== SaveActions.AngleAs.Label() -->
+                                <li class="listview-item action-save-angle-as" data-bind="text: SaveActions.AngleAs.Label, css: { disabled: !SaveActions.AngleAs.Enable() }, click: SaveActions.AngleAs.Action"></li>
+                                <!-- /ko -->
+                                <!-- ko if: SaveActions.DisplayAs.Visible() && SaveActions.Primary.Label() !== SaveActions.DisplayAs.Label() -->
+                                <li class="listview-item action-save-display-as" data-bind="text: SaveActions.DisplayAs.Label, css: { disabled: !SaveActions.DisplayAs.Enable() }, click: SaveActions.DisplayAs.Action"></li>
+                                <!-- /ko -->
+                                <!-- ko if: SaveActions.Template.Visible() && SaveActions.Primary.Label() !== SaveActions.Template.Label() -->
+                                <li class="listview-item action-set-template" data-bind="text: SaveActions.Template.Label, css: { disabled: !SaveActions.Template.Enable() }, click: SaveActions.Template.Action"></li>
+                                <!-- /ko -->
+                            </ul>
+                        </div>
+                        <!-- /ko -->
+                    </div>
+
                     <div class="form-col col-states" id="AngleStatesWrapper">
                         @{Html.RenderPartial("~/Views/Shared/Top/ItemState.cshtml");}
                     </div>
                 </nav>
-                <div id="AngleName" class="angleInformation informationDetailPanel">
-                    <div data-bind="css: { 'SignType2': IsTemplate(), 'SignType1': !IsTemplate() }"></div>
-                    <div data-bind="css: { 'SignFavorite': IsStarred(), 'SignFavoriteDisable': !IsStarred(), disabled: Data() && !Data().authorizations.update_user_specific }, click: $root.SetFavoriteItem"></div>
-                    <span onclick="angleDetailPageHandler.ShowPopup()" class="Name" data-bind="text: Name, attr: { title: Name }"></span>
-                    <div data-bind="css: { 'none': IsPublished(), 'SignPrivate': !IsPublished() }"></div>
-                    <div class="SignValidated" data-bind="visible: IsValidated" style="display: none"></div>
+                <div class="form-row tab display-tab" id="DisplayTabs" data-bind="css: { 'active': CanSwitchDisplay  }, visible: true" style="display: none">
+                    <div class="tab-menu-wrapper" data-bind="foreach: { data: Displays, as: 'display' }">
+                        <div class="tab-menu" data-bind="css: { active: IsSelected }, click: $root.SwitchDisplay, attr: { 'data-title': Name }">
+                            <div class="seperator"></div>
+                            <div class="displayNameContainer small">
+                                <div class="front">
+                                    <i data-bind="attr: { 'class': 'display-icon icon ' + DisplayTypeClassName + ' ' + ExtendDisplayTypeClassName }"></i>
+                                </div>
+                                <span class="name textEllipsis" data-bind="text: Name, attr: { 'data-tooltip-text': Name }" data-role="tooltip" data-tooltip-position="bottom" data-showwhenneed="true"></span>
+                                <div class="rear">
+                                    <i class="icon" data-bind="attr: { 'class': 'icon ' + PublicClassName }"></i>
+                                    <i class="icon" data-bind="attr: { 'class': 'icon ' + ValidClassName }"></i>
+                                    <i class="icon" data-bind="attr: { 'class': 'icon ' + FilterClassName }"></i>
+                                    <i class="icon" data-bind="attr: { 'class': 'icon ' + ParameterizedClassName }"></i>
+                                    <i class="icon" data-bind="attr: { 'class': 'icon ' + UnSavedClassName }"></i>
+                                    <!-- ko if: IsSelected -->
+                                    <i class="icon icon-pencil btn-edit-description" data-bind="click: $root.ShowEditDescriptionPopup, attr: { 'data-tooltip-text': Localization.Edit }" data-role="tooltip" data-tooltip-position="bottom"></i>
+                                    <!-- /ko -->
+                                    <i class="icon icon-close" data-bind="click: $root.DeleteDisplay, clickBubble: false, css: { disabled: !IsNewAdhoc && !CanDelete }, attr: { 'data-tooltip-text': Localization.Delete }" data-role="tooltip" data-tooltip-position="bottom"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- ko if: CanCreateNewDisplay() -->
+                    <div class="add-display-wrapper">
+                        <a id="BtnNewDisplay" class="btn btn-new-display" 
+                           data-role="tooltip" data-tooltip-position="bottom" data-tooltip-text="@Resource.CreateNewDisplay"
+                           data-bind="click: ShowNewDisplay">
+                            <i class="icon icon-plus"></i>
+                        </a>
+                        <div id="NewDisplay" class="new-display-popup"></div>
+                    </div>
+                    <!-- /ko -->
+                    <div class="right-btn-wrapper">
+                        <a id="BtnScrollLeft" 
+                           data-role="tooltip" data-tooltip-position="bottom" data-tooltip-text="@Resource.ScrollLeft"
+                           class="btn btn-chevron" data-bind="click: MoveLeft">
+                            <i class="icon icon-chevron-left"></i>
+                        </a>
+                        <a id="BtnScrollRight" class="btn btn-chevron" 
+                           data-role="tooltip" data-tooltip-position="bottom" data-tooltip-text="@Resource.ScrollRight"
+                           data-bind="click: MoveRight">
+                            <i class="icon icon-chevron-right"></i>
+                        </a>
+                        <a id="BtnDisplayOverview" class="btn btn-display-badge" 
+                           data-role="tooltip" data-tooltip-position="bottom" data-tooltip-text="@Resource.DisplayOverview"
+                           data-bind="click: Show">
+                            <i class="icon icon-displays"></i>
+                            <span class="badge" data-bind="text: Displays().length"></span>
+                        </a>
+                        <div id="DisplayOverview" class="display-overview-popup"></div>
+                    </div>
                 </div>
-                <!-- ko stopBinding: true -->
-                <span id="ExecutionResults" class="executionResults" data-bind="html: $root.GetExecutionResultText(), attr: { title: $root.GetExecutionResultText(true) }"></span>
-                <!-- /ko -->
-                <div id="SelectedDisplay" onclick="anglePageHandler.ShowOrHideDisplayList();">
-                    @{Html.RenderPartial("~/Views/Angle/PartialViews/DisplayDropdownList/DisplayDropdownList.cshtml");}
+                <div class="form-row display-option-wrapper" id="DisplayOption" data-bind="visible: true" style="display: none">
+                    <div class="display-option">
+                        <label data-bind="attr: { 'data-tooltip-text': IsVisibleKeepFilter() ? '' : Localization.NoDisplayFiltersActive }" data-role="tooltip" data-tooltip-position="bottom">
+                            <input id="KeepFilter" type="checkbox" data-bind="enable: IsVisibleKeepFilter, checked: KeepFilter" />
+                            <span class="label" data-bind="text: Localization.DisplayDropdownListKeepFilter"></span>
+                        </label>
+                    </div>
                 </div>
-                <span id="YourNote" data-bind="text: !PrivateNote() && Data() && Data().authorizations.update_user_specific ? Localization.AddNote : PrivateNote, attr: { title: PrivateNote }, css: { disabled: Data() && !Data().authorizations.update_user_specific }"></span>
-            </div>
-            <div id="ToggleWrapper">
-                <div class="DescriptionWrapper AngleDescriptionWrapper" id="AngleDescriptionWrapper"></div>
-                <div class="DottedVertical"></div>
-                <div class="DescriptionWrapper DisplayDescriptionWrapper" id="DisplayDescriptionWrapper"></div>
-            </div>
-            <div id="ToggleAngle" onclick="anglePageHandler.TogglePanel()">
-                <span class="Expand"></span>
             </div>
         </div>
-    </div>
-}
-
-<div id="AngleTableWrapper" class="mainDisplayWrapper">
-    <div id="AngleGrid">
+        <div id="AngleTableWrapper" class="mainDisplayWrapper">
+            <div id="AngleGrid"></div>
+        </div>
     </div>
 </div>

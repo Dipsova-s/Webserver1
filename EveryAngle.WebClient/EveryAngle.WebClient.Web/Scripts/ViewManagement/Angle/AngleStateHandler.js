@@ -4,20 +4,24 @@
     var self = this;
     self.View = new AngleStateView();
     self.Data.is_template = ko.observable(false);
-    self.Data.allow_followups = ko.observable(false);
-    self.Data.not_allow_followups = ko.observable(false);
     self.Data.allow_more_details = ko.observable(false);
     self.Data.not_allow_more_details = ko.observable(false);
+    self.Data.not_allow_more_details.subscribe(function (newValue) {
+        if (newValue)
+            self.Data.not_allow_followups(true);
+    });
+    self.Data.allow_followups = ko.observable(false);
+    self.Data.not_allow_followups = ko.observable(false);
     self.Displays = ko.observableArray([]);
     
     // shared functions
     self.SetAngleData = function (angle) {
         self.SetItemData(angle);
         self.Data.is_template(angle.is_template);
-        self.Data.allow_followups(angle.allow_followups);
-        self.Data.not_allow_followups(!angle.allow_followups);
         self.Data.allow_more_details(angle.allow_more_details);
         self.Data.not_allow_more_details(!angle.allow_more_details);
+        self.Data.allow_followups(angle.allow_followups);
+        self.Data.not_allow_followups(!angle.allow_followups || !angle.allow_more_details);
         self.Displays(self.GetDisplaysData(angle.display_definitions));
         self.CanSetState(!angleInfoModel.IsTemporaryAngle(angle.uri));
     };
@@ -72,9 +76,10 @@
                 errorHandlerModel.Enable(true);
                 done.apply(null, arguments);
             });
+
     };
     self.UpdateState = function (uri, data, done, fail) {
-        return self.Update(angleInfoModel.UpdateState, [[uri, data, false], [uri, data, true]], done, fail);
+        return self.Update(angleInfoModel.UpdateState, [[uri, data, true], [uri, data, true]], done, fail);
     };
 }
 AngleStateHandler.extend(ItemStateHandler);

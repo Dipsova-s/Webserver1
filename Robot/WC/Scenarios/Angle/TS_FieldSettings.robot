@@ -5,11 +5,13 @@ Resource            ${EXECDIR}/WC/POM/Angle/FieldSettings.FieldFormatsPopup.Robo
 
 *** Keywords ***
 Verify Field Setting All Format
+    Click Display Tab
     Verfiy Field Format In Row Area: Enum
     Verfiy Field Format In Row Area: Text
     Verfiy Field Format In Row Area: YesNo
     Verfiy Field Format In Row Area: Time
     Verfiy Field Format In Row Area: Datetime
+    Scroll Display Tab To Vertical    500
     Verfiy Field Format In Column Area: Currency
     Verfiy Field Format In Column Area: Date
     Verfiy Field Format In Column Area: Number
@@ -24,19 +26,19 @@ Verify Field Setting All Format
 Verfiy Field Format In Row Area: Enum
     Click Field In Row Area By Field Index    0
     Click Show Field Format For Field Settings
-    ${bucketHaveLast2Character}    Dropdown Contain Option    ${optionBucketOption}    Last 2 characters
-    Should Not Be True    ${bucketHaveLast2Character}
+    Input Bucket Alias Name  my-enum
+    Dropdown Bucket Should Contain Option  First 2 characters
+    Dropdown Bucket Should Not Contain Option  Last 2 characters
     Select Bucket Option    Individual
-    Element Should Be Visible    ${ddlBucketFormat}
-    Select Bucket Format    Use default
-    Select Bucket Format    Short name (Long name)
+    Select Bucket Format Option Should Be Valid
     Select Bucket Option    First 2 characters
-    Element Should Not Be Visible    ${ddlBucketFormat}
+    Select Bucket Format Option Should Not Be Valid
     Save Field Format
 
 Verfiy Field Format In Row Area: Text
     Click Field In Row Area By Field Index    1
     Click Show Field Format For Field Settings
+    Input Bucket Alias Name  my-text
     Select Bucket Option    Individual
     Select Bucket Option    First 2 characters
     Select Bucket Option    Last 2 characters
@@ -45,12 +47,14 @@ Verfiy Field Format In Row Area: Text
 Verfiy Field Format In Row Area: YesNo
     Click Field In Row Area By Field Index    2
     Click Show Field Format For Field Settings
+    Input Bucket Alias Name  my-boolean
     Select Bucket Option    Individual
     Save Field Format
 
 Verfiy Field Format In Row Area: Time
     Click Field In Row Area By Field Index    3
     Click Show Field Format For Field Settings
+    Input Bucket Alias Name  my-time
     Select Bucket Option    Per hour
     Select Second Format    Use default
     Select Second Format    None
@@ -83,7 +87,7 @@ Verfiy Field Format In Column Area: Period
 
 Verfiy Field Format In Data Area: Count
     Click Field In Data Area By Field Index     0
-    Click Show Count Field Format For Field Settings
+    Click Show Field Format For Field Settings
     Select Display Unit    Use default
     Select Display Unit    None
     Select Display Unit    Thousands (K)
@@ -109,26 +113,36 @@ Verfiy Field Format In Data Area: Period
 
 Verify Field Format For Number Currency Percentage In Row And Column Area
     Click Show Field Format For Field Settings
+    Input Bucket Alias Name  my-double
+    Select Bucket Option    0.001
+    Dropdown Unit Should Contain Option   Use default
+    Dropdown Unit Should Contain Option   None
+    Dropdown Unit Should Not Contain Option   Thousands (K)
+    Dropdown Unit Should Not Contain Option   Millions (M)
     Select Bucket Option    1
-    ${displayUnitThousand}    Dropdown Contain Option    ${optionDisplayUnit}    Thousands (K)
-    Should Not Be True    ${displayUnitThousand}
+    Dropdown Unit Should Contain Option   Use default
+    Dropdown Unit Should Contain Option   None
+    Dropdown Unit Should Not Contain Option   Thousands (K)
+    Dropdown Unit Should Not Contain Option   Millions (M)
     Select Bucket Option    1,000
-    Select Display Unit    Use default
-    Select Display Unit    None
-    Select Display Unit    Thousands (K)
-    ${displayUnitMillions}    Dropdown Contain Option    ${optionDisplayUnit}    Millions (M)
-    Should Not Be True    ${displayUnitMillions}
+    Dropdown Unit Should Contain Option   Use default
+    Dropdown Unit Should Contain Option   None
+    Dropdown Unit Should Contain Option   Thousands (K)
+    Dropdown Unit Should Not Contain Option   Millions (M)
     Select Bucket Option    1,000,000
-    ${displayUnitMillions}    Dropdown Contain Option    ${optionDisplayUnit}    Millions (M)
-    Should Be True    ${displayUnitMillions}
-    Select Bucket Decimal    Use default
-    Select Bucket Decimal    None
-    Select Bucket Decimal    6
-    Page Should Contain Element    ${chkUseBucketThousandSeperate}
+    Dropdown Unit Should Contain Option   Use default
+    Dropdown Unit Should Contain Option   None
+    Dropdown Unit Should Contain Option   Thousands (K)
+    Dropdown Unit Should Contain Option   Millions (M)
+    Select Decimal Option    Use default
+    Select Decimal Option    None
+    Select Decimal Option    6
+    Thousands separator Option Should Be Valid
     Save Field Format
 
 Verify Field Format For Period Date Datetime
     Click Show Field Format For Field Settings
+    Input Bucket Alias Name  my-date
     Select Bucket Option    Per day
     Select Bucket Option    Per quarter
     Select Bucket Option    Per year
@@ -136,56 +150,65 @@ Verify Field Format For Period Date Datetime
 
 Verify Field Format For Number(Double) Currency Percentage In Data Area
     Click Show Field Format For Field Settings
+    Input Bucket Alias Name  my-double
     Select Bucket Option    Min
     Select Bucket Option    Sum
     Select Bucket Option    Average
     Select Display Unit    Use default
     Select Display Unit    None
     Select Display Unit    Millions (M)
-    Select Bucket Decimal    Use default
-    Select Bucket Decimal    None
-    Select Bucket Decimal    6
+    Select Decimal Option    Use default
+    Select Decimal Option    None
+    Select Decimal Option    6
     Save Field Format
 
 Verify Field Format For Number(Integer) And Set In Data Area
     Click Show Field Format For Field Settings
+    Input Bucket Alias Name  my-integer
     Select Bucket Option    Min
     Select Bucket Option    Sum
     Select Bucket Option    Average
-    Select Bucket Decimal    Use default
-    Select Bucket Decimal    None
-    Select Bucket Decimal    6
+    Select Decimal Option    Use default
+    Select Decimal Option    None
+    Select Decimal Option    6
     Select Bucket Option    Max
-    Element Should Not Be Visible    ${ddlBucketDecimal}
+    Element Should Not Be Visible    ${ddlDecimalOption}
     Select Display Unit    Use default
     Select Display Unit    None
     Select Display Unit    Millions (M)
     Save Field Format
 
-Check Chart Field Settings In Case No Execution Display
-    Page Should contain Element   jquery=#${ddlChartType} .k-dropdown-wrap.k-state-disabled
-    Page Should contain Element   ${btnFieldSettingOptions}.disabled
-    Page Should contain Element   jquery=#${btnAddRowAreaField}.disabled
-    Page Should contain Element   jquery=#${btnAddColumnAreaField}.disabled
-    Page Should contain Element   jquery=#${btnAddDataAreaField}.disabled
+Check Chart Field Settings In Case Unknown Fields
+    Page Should Contain Element         ${ddlChartType} .k-dropdown-wrap.k-state-disabled
+    Page Should Contain Element         ${btnFieldSettingOptions}.disabled
+    Page Should Not Contain Element     ${btnAddRowAreaField}
+    Page Should Not Contain Element     ${btnAddColumnAreaField}
+    Page Should Not Contain Element     ${btnAddDataAreaField}
 
     Click Field In Row Area By Field Index    0
-    Page Should contain Element   ${btnFieldSettingsFieldFormat}.disabled
-    Page Should contain Element   ${btnFieldSettingsAddFilter}.disabled
-    Page Should contain Element   ${btnFieldSettingsFieldInfo}:not(.disabled)
+    Page Should Not Contain Element   ${btnFieldSettingsFieldFormat}
+    Page Should Not Contain Element   ${btnFieldSettingsSort}
+    Page Should Not Contain Element   ${btnFieldSettingsAddFilter}
+    Page Should Contain Element       ${btnFieldSettingsFieldInfo}
+    Page Should Not Contain Element   ${btnFieldSettingsDelete}
 
     Click Field In Data Area By Field Index    0
-    Page Should contain Element   ${btnFieldSettingsFieldFormat}.disabled
+    Page Should Not Contain Element   ${btnFieldSettingsFieldFormat}
 
-Check Pivot Field Settings In Case No Execution Display
-    Page Should contain Element   ${btnFieldSettingOptions}.disabled
-    Page Should contain Element   jquery=#${btnAddRowAreaField}.disabled
-    Page Should contain Element   jquery=#${btnAddColumnAreaField}.disabled
-    Page Should contain Element   jquery=#${btnAddDataAreaField}.disabled
+Check Pivot Field Settings In Case Known Fields
+    Page Should Contain Element   ${btnFieldSettingOptions}:not(.disabled)
+    Page Should Contain Element   ${btnAddRowAreaField}:not(.disabled)
+    Page Should Contain Element   ${btnAddColumnAreaField}:not(.disabled)
+    Page Should Contain Element   ${btnAddDataAreaField}:not(.disabled)
 
     Click Field In Row Area By Field Index    0
-    Element Should Not Be Visible   ${divFieldOptions}
+    Page Should Not Contain Element   ${btnFieldSettingsFieldFormat}
+    Page Should Not Contain Element   ${btnFieldSettingsSort}
+    Page Should Not Contain Element   ${btnFieldSettingsAddFilter}
+    Page Should Contain Element       ${btnFieldSettingsFieldInfo}
+    Page Should Contain Element       ${btnFieldSettingsDelete}
+    Page Should Contain Element       ${btnFieldSettingsError}
 
     Click Field In Data Area By Field Index    0
-    Page Should contain Element   ${btnFieldSettingsFieldFormat}.disabled
+    Page Should Contain Element   ${btnFieldSettingsFieldFormat}
     
