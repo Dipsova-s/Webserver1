@@ -13,7 +13,7 @@ ${TEST_VERIFY_DISPLAY_DESCRIPTION_WITH_MULTI_LANGUAGES}    [ROBOT] Test Verify D
 Verify Set Default Display
     [Tags]              TC_C228795  acc_wc_aci
     [Documentation]     Verify the default display of the angle has been set to the default display
-    ...                 Risk/coverage area: the diplay details
+    ...                 Risk/coverage area: the display details
     Create Angle From Object List And Save    PD    ${VERIFY_SET_DEFAULT_DISPLAY}
     Create New List Display on Angle Page
     Set Angle Default Display
