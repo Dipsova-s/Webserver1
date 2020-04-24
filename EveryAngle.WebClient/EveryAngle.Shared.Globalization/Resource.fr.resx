@@ -6160,6 +6160,19 @@ Only Active Directory (AD) and Active Directory Federation (ADFS) services are s
   <data name="CopyRight" xml:space="preserve">
     <value>Copyright © {0}</value>
   </data>
+  <data name="LicenseCopyrightHeader" xml:space="preserve">
+    <value>Avis de droit d'auteur</value>
+  </data>
+  <data name="LicenseCopyrightDescription" xml:space="preserve">
+    <value>
+      Copyright © 1997–2020 Magnitude Software, Inc. Tous droits réservés.&lt;br/&gt;
+      Aucune partie de cette publication ne peut être reproduite, stockée dans un système de recherche ou transmise, sous quelque forme ou par quelque moyen que ce soit, électronique, mécanique, photocopie, enregistrement ou autre, sans la permission écrite préalable de Magnitude.&lt;br/&gt;
+      Les informations contenues dans ce document sont sujettes à modification sans préavis. Magnitude s'efforce d'assurer l'exactitude de ces informations, mais ne garantit pas que ce document est exempt d'erreurs.&lt;br/&gt;
+      Tout produit Magnitude décrit dans le présent document est concédé sous licence sous réserve exclusive des conditions énoncées dans votre contrat de licence Magnitude.&lt;br/&gt;
+      Magnitude Software et Every Angle sont des marques déposées de Magnitude Software, Inc. Le logo Magnitude et le logo Every Angle et les autres marques « Every Angle » sont des marques commerciales de Magnitude Software, Inc.&lt;br/&gt;
+      Tous les autres noms de sociétés et de produits mentionnés dans le présent document sont utilisés à des fins d'identification uniquement et peuvent être des marques commerciales ou des marques déposées de leurs propriétaires respectifs.
+    </value>
+  </data>
   <data name="AngleDefinitionAreaItemsIn" xml:space="preserve">
     <value>items in</value>
   </data>

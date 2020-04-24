@@ -46,7 +46,6 @@
             {
                 fieldCategoryPath = Url.Content("~/") + fieldCategoryPath;
             }
-            string copyRightUrl = Url.Content("~/Data/Help/" + webLanguage + "/index.htm");
         }
         var webLanguage = '@webLanguage';
         var userCulture = '@userCulture';
@@ -71,7 +70,7 @@
         var textDays = Localization.Days;
         var requireUserNameAndPasword = Localization.PleaseEnterYourUsernameAndPassword;
         var editorStyleSheet = '@Styles.Url("~/content/css/main.css")';
-        var copyRightUrl = '@copyRightUrl';
+        var copyRightUrl = '@Url.Action("Copyright", "SharedComponent").ToLower()';
     </script>
 
     <!--[if lt IE 10]>

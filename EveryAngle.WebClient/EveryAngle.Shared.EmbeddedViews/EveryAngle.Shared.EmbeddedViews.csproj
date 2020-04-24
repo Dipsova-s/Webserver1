@@ -115,6 +115,8 @@
       <SubType>Designer</SubType>
     </None>
     <None Include="Resource\FieldsChooser\fieldschooser.scss" />
+    <Content Include="Resource\Copyright\Copyright.json" />
+    <None Include="Resource\Copyright\_copyright.scss" />
     <None Include="Resource\Shared\components\_progressbar.scss" />
     <None Include="Resource\Shared\shared.scss" />
     <EmbeddedResource Include="Resource\Shared\fonts\WebClient.json" />

@@ -84,6 +84,7 @@ namespace EveryAngle.ManagementConsole.App_Start
             kernel.Bind<IComponentService>().To<ComponentService>();
             kernel.Bind<ILogFileService>().To<LogFileService>();
             kernel.Bind<ILogFileReaderService>().To<LogFileReaderService>();
+            kernel.Bind<ICopyrightService>().To<CopyrightService>();
         }
     }
 }

@@ -17,6 +17,7 @@ Resource            ${EXECDIR}/WC/Scenarios/Shared/TS_UserSettingsPanel.robot
 Resource            ${EXECDIR}/WC/Scenarios/Shared/TS_EditDescription.robot
 Resource            ${EXECDIR}/WC/Scenarios/Shared/TS_ImportItem.robot
 Resource            ${EXECDIR}/WC/Scenarios/Shared/TS_FilterEditor.robot
+Resource            ${EXECDIR}/WC/Scenarios/Shared/TS_About.robot
 Resource            ${EXECDIR}/WC/Scenarios/Search/TS_Search.robot
 Resource            ${EXECDIR}/WC/Scenarios/Search/TS_SearchFilter.robot
 Resource            ${EXECDIR}/WC/Scenarios/Search/TS_SearchBusinessProcess.robot

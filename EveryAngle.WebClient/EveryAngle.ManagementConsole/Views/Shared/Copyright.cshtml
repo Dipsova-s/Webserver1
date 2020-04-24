@@ -1,0 +1,82 @@
+﻿@using EveryAngle.Shared.Globalization
+@model EveryAngle.Core.ViewModels.About.LicenseCopyrightViewModel
+
+<!doctype html>
+<html lang="en" class="no-js">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <link rel="shortcut icon" href="@Url.Content("~/Images/favicon.ico")" />
+    <title>@Resource.ManagementConsoleSystem - Copyright</title>
+
+    @{
+        @Styles.Render("~/content/default")
+        @Styles.Render("~/content/base")
+        @Styles.Render("~/content/externalresource/css")
+    }
+</head>
+<body>
+    <div class="topWrapper" id="topWrapper">
+        <header class="header" id="header">
+            <div class="container headerInner">
+                <a href="@Url.Content("~/")" class="brand">
+                    <img id="logo" alt="logo" src="@Url.Content("~/Images/logo.svg")" />
+                </a>
+            </div>
+            <!--/.headerInner-->
+        </header>
+    </div>
+    <div class="mainContainer mainContainerFull" id="mainContainer">
+        <div class="container contentInner copyrightWrapper">
+            <h1 id="crHead" class="copyrightHeading">@Resource.LicenseCopyrightHeader</h1>
+
+            <div class="copyrightDescription">
+                @Html.Raw(Resource.LicenseCopyrightDescription)
+            </div>
+
+            <table class="licensetable" aria-describedby="crHead">
+                <tr>
+                    <th scope="col" class="tablehead">
+                        <p class="tablehead">Third-party software&nbsp;</p>
+                    </th>
+                    <th scope="col" class="tablehead">
+                        <p class="tablehead">License and Copyright&nbsp;</p>
+                        <p class="tablehead">Uses SPDX License Expression&nbsp;</p>
+                    </th>
+                </tr>
+                @foreach (var item in Model.packages)
+                {
+                    <tr>
+                        <td>
+                            <p>@item.name</p>
+                            @if (item.homepageLink != null)
+                            {
+                                <p><a href=@item.homepageLink["url"]>@item.homepageLink["text"]</a></p>
+                            }
+                        </td>
+                        <td>
+                            <p>@(item.license ?? "")</p>
+                            @if (item.licenseLink != null)
+                            {
+                                <p><a href=@item.licenseLink["url"]>@item.licenseLink["text"]</a></p>
+                            }
+                            <p>@(item.copyright ?? "")</p>
+                        </td>
+                    </tr>
+                }
+            </table>
+        </div>
+    </div>
+    @{
+        @Scripts.Render("~/bundles/modernizr", "~/bundles/jquery")
+     }
+        <script>
+            $(function () {
+                $(window).on('resize', function () {
+                    $('#mainContainer').css({ 'overflow': 'auto', 'padding': 15 }).outerHeight($(window).height() - $('#topWrapper').height());
+                }).trigger('resize');
+            });
+        </script>
+    </body>
+</html>

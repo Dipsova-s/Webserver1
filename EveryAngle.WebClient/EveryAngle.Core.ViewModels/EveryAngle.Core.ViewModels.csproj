@@ -64,6 +64,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="About\AboutViewModel.cs" />
+    <Compile Include="About\LicenseCopyrightViewModel.cs" />
     <Compile Include="Angle\AngleSchemaResource.cs" />
     <Compile Include="Angle\AreaCoordinate.cs" />
     <Compile Include="BusinessProcesses\BusinessProcessViewModel.cs" />

@@ -6170,6 +6170,19 @@ Only Active Directory (AD) and Active Directory Federation (ADFS) services are s
   <data name="CopyRight" xml:space="preserve">
     <value>Copyright © {0}</value>
   </data>
+  <data name="LicenseCopyrightHeader" xml:space="preserve">
+    <value>License and Copyright</value>
+  </data>
+  <data name="LicenseCopyrightDescription" xml:space="preserve">
+    <value>
+      Copyright © 1997 - 2020 Magnitude Software, Inc. All rights reserved.&lt;br/&gt;
+      No part of this publication may be reproduced, stored in a retrieval system, or transmitted, in any form or by any means, electronic, mechanical, photocopying, recording, or otherwise, without prior written permission from Magnitude.&lt;br/&gt;
+      The information in this document is subject to change without notice. Magnitude strives to keep this information accurate but does not warrant that this document is error-free.&lt;br/&gt;
+      Any Magnitude product described herein is licensed exclusively subject to the conditions set forth in your Magnitude license agreement.&lt;br/&gt;
+      Magnitude Software and Every Angle are trademarks of Magnitude Software, Inc. The Magnitude logo and Every Angle logo and other "Every Angle" marks are trademarks of Magnitude Software, Inc.&lt;br/&gt;
+      All other company and product names mentioned herein are used for identification purposes only and may be trademarks or registered trademarks of their respective owners.
+    </value>
+  </data>
   <data name="MC_SystemLog_Repository" xml:space="preserve">
     <value>Repository</value>
   </data>

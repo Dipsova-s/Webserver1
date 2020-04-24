@@ -1,0 +1,95 @@
+﻿@using System.Web.UI.WebControls
+@using EveryAngle.Shared.Globalization
+@{
+    ViewBag.Title = "Every Angle - Copyright";
+    Layout = "~/Views/Shared/Master.cshtml";
+}
+@section scripts
+{
+
+}
+@section TopBar
+{
+    <div id="TopBar">
+        <div class="Wrapper">
+            @{Html.RenderPartial("~/Views/Shared/Top/Logo.cshtml", Url.Action("SearchPage", "Search"));}
+            @{Html.RenderPartial("~/Views/Shared/Top/BusinessProcessBadge.cshtml");}
+        </div>
+    </div>
+}
+@section UnderTopHeader
+{
+
+}
+<div id="MainContent" class="Wrapper copyrightContainer">
+    <div class="copyrightWrapper">
+        <h1 id="crHead" class="copyrightHeading">@Resource.LicenseCopyrightHeader</h1>
+        <div class="copyrightDescription">
+            @Html.Raw(Resource.LicenseCopyrightDescription)
+        </div>
+        <table class="licensetable" aria-describedby="crHead">
+            <tr>
+                <th scope="col" class="tablehead">
+                    <p class="tablehead">Third-party software&nbsp;</p>
+                </th>
+                <th scope="col" class="tablehead">
+                    <p class="tablehead">License and Copyright&nbsp;</p>
+                    <p class="tablehead">Uses SPDX License Expression&nbsp;</p>
+                </th>
+            </tr>
+            @foreach (var item in Model.packages)
+            {
+                <tr>
+                    <td>
+                        <p>@item.name</p>
+                        @if (item.homepageLink != null)
+                        {
+                            <p><a href=@item.homepageLink["url"]>@item.homepageLink["text"]</a></p>
+                        }
+                    </td>
+                    <td>
+                        <p>@(item.license ?? "")</p>
+                        @if (item.licenseLink != null)
+                        {
+                            <p><a href=@item.licenseLink["url"]>@item.licenseLink["text"]</a></p>
+                        }
+                        <p>@(item.copyright ?? "")</p>
+                    </td>
+                </tr>
+            }
+        </table>
+    </div>
+</div>
+
+<style type="text/css">
+    #MainContent {
+        visibility: visible;
+        opacity: 1;
+        transition: opacity .3s cubic-bezier(.25, .8, .25, 1);
+    }
+
+        #MainContent.busy {
+            visibility: hidden;
+            opacity: 0;
+        }
+
+    .Wrapper.copyrightContainer {
+        padding: 15px;
+        overflow-y: auto !important;
+        height: 200px;
+        box-sizing: border-box;
+    }
+
+    .loader-container,
+    .k-overlay {
+        display: none !important;
+    }
+</style>
+<script src="@Scripts.Url("~/bundles/main")"></script>
+<script>
+    jQuery(function () {
+        jQuery(window).on('resize', function () {
+            jQuery('#MainContent').outerHeight(WC.Window.Height - jQuery('#MainContent').offset().top);
+        }).trigger('resize');
+    });
+</script>

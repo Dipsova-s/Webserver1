@@ -377,6 +377,62 @@ input[type="checkbox"]:not(:checked) + .label {
 .helpTextContainer table ol {
   margin-top: 0; }
 
+/* .CopyrightPage
+============================================ */
+.copyrightWrapper {
+  margin: 0 auto;
+  font-size: 12px;
+  line-height: 18px;
+  letter-spacing: 0.2px;
+  color: #333;
+  max-width: 1280px; }
+
+.copyrightDescription {
+  line-height: 1.8;
+  margin-bottom: 0.5em; }
+
+.copyrightHeading {
+  font-size: 24px;
+  font-weight: normal;
+  color: #006F9B;
+  margin: 1em 0; }
+
+.licensetable {
+  border-collapse: collapse;
+  width: 100%;
+  font-size: 12px;
+  color: #333; }
+
+.licensetable th, .licensetable td {
+  text-align: left;
+  vertical-align: middle;
+  padding: 4px; }
+
+.licensetable th p, .licensetable td p {
+  margin: 0.2em; }
+
+.licensetable tbody td, .licensetable tbody th {
+  border: 1px solid #006F9B; }
+
+.tablehead {
+  background-color: #f1fbff;
+  font-weight: bold; }
+
+.licensetable a {
+  text-decoration: none;
+  color: #008E91; }
+
+.licensetable a:link {
+  text-decoration: none;
+  color: #008E91; }
+
+.licensetable a:hover {
+  color: #008E91;
+  text-decoration: underline; }
+
+.licensetable a:visited {
+  color: #008E91; }
+
 .loader-spinner, .loader-spinner-inline, .k-loading-text, .k-treelist .k-i-loading {
   margin: 0 auto;
   width: 40px;

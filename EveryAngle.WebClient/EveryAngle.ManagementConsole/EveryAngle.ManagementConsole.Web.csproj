@@ -819,6 +819,7 @@
     <Content Include="Views\GlobalSettings\UploadEASets\ExportPackageForm.cshtml" />
     <Content Include="Views\Component\SystemComponent.cshtml" />
     <Content Include="Views\Component\ComponentGrid.cshtml" />
+    <Content Include="Views\Shared\Copyright.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

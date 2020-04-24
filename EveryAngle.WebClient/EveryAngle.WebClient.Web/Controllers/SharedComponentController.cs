@@ -1,17 +1,32 @@
-using System;
+using EveryAngle.Core.ViewModels.About;
 using EveryAngle.WebClient.Service.HttpHandlers;
 using EveryAngle.WebClient.Service.LogHandlers;
+using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using System.Web.Mvc;
+using EveryAngle.Core.Interfaces.Services;
+using EveryAngle.WebClient.Service.ApplicationServices;
+using System.Web.Hosting;
 
 namespace EveryAngle.WebClient.Web.Controllers
 {
     [LogExceptionHandler]
     public class SharedComponentController : Controller
     {
+        private readonly ICopyrightService copyrightService;
+        public SharedComponentController()
+        {
+            this.copyrightService = new CopyrightService();
+        }
+        public SharedComponentController(ICopyrightService copyrightService)
+        {
+            this.copyrightService = copyrightService;
+        }
+
         [HttpGet]
         public FileStreamResult Resource(string id)
         {
@@ -45,6 +60,13 @@ namespace EveryAngle.WebClient.Web.Controllers
             ViewBag.Helptext = helptextHtml;
             ViewBag.helptextName = helptextName;
             return PartialView("~/Views/Shared/Helptext.cshtml");
+        }
+
+        public ActionResult Copyright()
+        {
+            string path = HostingEnvironment.MapPath("~/Content/ExternalResource/Copyright.json");
+            LicenseCopyrightViewModel model = copyrightService.GetLicenses(path);
+            return View("~/Views/Shared/Copyright.cshtml", model);
         }
 
         private string GetMediaType(string fileId)

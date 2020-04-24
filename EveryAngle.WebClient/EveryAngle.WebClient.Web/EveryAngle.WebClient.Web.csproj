@@ -1295,6 +1295,7 @@
     <Content Include="Views\Search\PartialViews\SearchInfo.cshtml" />
     <Content Include="Views\Shared\Top\Logo.cshtml" />
     <Content Include="Views\Shared\Top\ItemState.cshtml" />
+    <Content Include="Views\Shared\Copyright.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

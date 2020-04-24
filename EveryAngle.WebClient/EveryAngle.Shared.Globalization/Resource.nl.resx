@@ -3732,6 +3732,19 @@ The value 0 means the setting is off, so the Audit Log will not be cleaned up. T
   <data name="CopyRight" xml:space="preserve">
     <value>Copyright © {0}</value>
   </data>
+  <data name="LicenseCopyrightHeader" xml:space="preserve">
+    <value>Licenties en copyright</value>
+  </data>
+  <data name="LicenseCopyrightDescription" xml:space="preserve">
+    <value>
+      Copyright © 1997–2020 Magnitude Software, Inc. Alle rechten voorbehouden.&lt;br/&gt;
+      Geen enkel onderdeel van deze publicatie mag worden gereproduceerd, opgeslagen in een opzoeksysteem of verzonden in welke vorm of op welke wijze dan ook, elektronisch of mechanisch, met inbegrip van het maken van fotokopieën en het gebruik van opnameapparatuur of andere systemen, zonder voorafgaande schriftelijke toestemming van Magnitude.&lt;br/&gt;
+      De informatie in dit document kan zonder voorafgaande kennisgeving worden gewijzigd. Magnitude streeft ernaar deze informatie accuraat te houden, maar garandeert niet dat dit document geen fouten bevat.&lt;br/&gt;
+      Voor de Magnitude-producten die hierin zijn opgenomen, is een exclusieve licentie verstrekt die onderworpen is aan de voorwaarden die zijn uiteengezet in uw Magnitude-licentieovereenkomst.&lt;br/&gt;
+      Magnitude Software en Every Angle zijn handelsmerken van Magnitude Software, Inc. Het Magnitude-logo en het Every Angle-logo en overige "Every Angle"-merkaanduidingen zijn handelsmerken van Magnitude Software, Inc.&lt;br/&gt;
+      Alle overige bedrijfs- en productnamen die in document zijn vermeld, worden alleen gebruikt voor identificatiedoeleinden en kunnen handelsmerken of gedeponeerde handelsmerken zijn van hun respectieve eigenaren.
+</value>
+  </data>
   <data name="MC_SystemSettingsHelpInstancesPerModel" xml:space="preserve">
     <value>The number of model instances that are kept in the database (as history).&lt;br/&gt;
 When this number of instances is reached, the import of a new instance will cause the instance with the oldest modeldata_timestamp to be automatically deleted.&lt;br/&gt;

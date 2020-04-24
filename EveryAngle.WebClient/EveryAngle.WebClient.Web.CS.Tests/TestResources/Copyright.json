@@ -1,0 +1,19 @@
+{
+    "title": "Copyright",
+    "magnitudeCopyright": "Copyright © 1996–2020 Magnitude Software, Inc. All rights reserved.\r\nNo part of this publication may be reproduced, stored in a retrieval system, or transmitted, in any form or by any means, electronic, mechanical, photocopying, recording, or otherwise, without prior written permission from Magnitude.\r\nThe information in this document is subject to change without notice. Magnitude strives to keep this information accurate but does not warrant that this document is error-free.\r\nAny Magnitude product described herein is licensed exclusively subject to the conditions set forth in your Magnitude license agreement.\r\nMagnitude Software and Every Angle are trademarks of Magnitude Software, Inc. The Magnitude logo and Every Angle logo and other \"Every Angle\" marks are trademarks of Magnitude Software, Inc.\r\nAll other company and product names mentioned herein are used for identification purposes only and may be trademarks or registered trademarks of their respective owners.\r\n",
+    "packages": [
+        {
+            "name": "Abbrevia",
+            "license": "MPL-1.1",
+            "copyright": "Portions are copyright (C) 1997-2002 TurboPower Software",
+            "homepageLink": {
+                "url": "https://github.com/TurboPack/Abbrevia",
+                "text": "https://github.com/TurboPack/Abbrevia"
+            },
+            "licenseLink": {
+                "url": "https://github.com/TurboPack/Abbrevia/blob/master/source/AbUtils.pas",
+                "text": "https://github.com/.../blob/master/source/AbUtils.pas"
+            }
+        }
+    ]
+}

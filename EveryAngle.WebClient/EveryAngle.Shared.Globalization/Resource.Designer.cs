@@ -5989,6 +5989,27 @@ namespace EveryAngle.Shared.Globalization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to 
+        ///      Copyright © 1997 - 2020 Magnitude Software, Inc. All rights reserved.&lt;br/&gt;
+        ///      No part of this publication may be reproduced, stored in a retrieval system, or transmitted, in any form or by any means, electronic, mechanical, photocopying, recording, or otherwise, without prior written permission from Magnitude.&lt;br/&gt;
+        ///      The information in this document is subject to change without notice. Magnitude strives to keep this information accurate but does not warrant that this document is error-free. [rest of string was truncated]&quot;;.
+        /// </summary>
+        public static string LicenseCopyrightDescription {
+            get {
+                return ResourceManager.GetString("LicenseCopyrightDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to License and Copyright.
+        /// </summary>
+        public static string LicenseCopyrightHeader {
+            get {
+                return ResourceManager.GetString("LicenseCopyrightHeader", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to License ID.
         /// </summary>
         public static string LicenseId {

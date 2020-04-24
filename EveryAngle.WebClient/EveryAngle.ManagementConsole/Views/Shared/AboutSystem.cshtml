@@ -2,7 +2,7 @@
 @using EveryAngle.Shared.Globalization
 @{
     string webLanguage = System.Threading.Thread.CurrentThread.CurrentUICulture.TwoLetterISOLanguageName;
-    string copyRightUri = "~/Data/Help/" + webLanguage + "/index.htm";
+    string copyRightUri = @Url.Action("Copyright", "SharedComponent").ToLower();
 }
 
 <div class="aboutContainer">

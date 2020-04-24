@@ -49,6 +49,7 @@
     <Compile Include="Services\IFacetService.cs" />
     <Compile Include="Services\IPackageService.cs" />
     <Compile Include="Services\IRepositoryLogService.cs" />
+    <Compile Include="Services\ICopyrightService.cs" />
     <Compile Include="Services\ISystemScriptService.cs" />
     <Compile Include="Services\ITaskService.cs" />
     <Compile Include="Services\IAutomationTaskService.cs" />

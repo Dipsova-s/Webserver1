@@ -57,10 +57,10 @@
 .popupAboutResultSummary {
     min-width: 571px !important;
     max-width: 571px !important;
-    min-height: 281px !important;
-    max-height: 281px !important;
+    min-height: 288px !important;
+    max-height: 288px !important;
     width: 571px;
-    height: 281px;
+    height: 288px;
 }
 
 .popupAboutResultSummary .k-window-title {
@@ -82,7 +82,7 @@
     background-size: 185px 185px;
     float: left;
     width: 225px;
-    height: 76px;
+    height: 83px;
     padding-top: 205px;
     text-align: center;
     border-right: 1px solid #f1f3f4;
