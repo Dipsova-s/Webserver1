@@ -477,7 +477,7 @@ describe("DisplayOverviewHandler", function () {
     });
 
     describe(".CreateNewDisplayDone", function () {
-        it('should create new display and redirect to display page', function () {
+        it('should create new display and redirect to display page when it is not adhoc display', function () {
             // prepare
             spyOn(toast, 'MakeSuccessTextFormatting');
             spyOn(displayOverviewHandler, 'Redirect');
@@ -485,6 +485,17 @@ describe("DisplayOverviewHandler", function () {
 
             // assert
             expect(toast.MakeSuccessTextFormatting).toHaveBeenCalled();
+            expect(displayOverviewHandler.Redirect).toHaveBeenCalled();
+        });
+
+        it('should create new display, store display and redirect to display page when it is adhoc display', function () {
+            // prepare
+            spyOn(displayModel, 'SetTemporaryDisplay');
+            spyOn(displayOverviewHandler, 'Redirect');
+            displayOverviewHandler.CreateNewDisplayDone({ id: '123', uri: '', is_adhoc: true });
+
+            // assert
+            expect(displayModel.SetTemporaryDisplay).toHaveBeenCalled();
             expect(displayOverviewHandler.Redirect).toHaveBeenCalled();
         });
     });

@@ -89,25 +89,29 @@ Verify Last Execute Time Angle
     ${lastExecuteTime}    Get Time From Date String    ${lastExecuteDateTimeString}
     Should Be True    ${now}<=${lastExecuteTime}
     Close Angle Statistic Popup
-
+    
 Create New Display on Angle Page
-    [Arguments]   ${displaytype}
+    [Arguments]   ${displaytype}   ${name}=${EMPTY}     ${isAdhoc}=${False}
     Select Display Type By Name    ${displaytype}
+    Run Keyword If      '${name}'!='${EMPTY}'   Add Or Edit Description     en      ${name}     ${EMPTY}
     Click Save Edit Description
     Wait Progress Bar Closed
-    Page Should Contain Toast Success
+    Run Keyword If      ${isAdhoc} == ${False}  Page Should Contain Toast Success
     Click Display Tab
 
 Create New List Display on Angle Page
-    Create New Display on Angle Page    list
+    [Arguments]   ${name}=${EMPTY}  ${isAdhoc}=${False}
+    Create New Display on Angle Page    list  ${name}   ${isAdhoc}
     Wait Until List Display Loaded
 
 Create New Pivot Display on Angle Page
-    Create New Display on Angle Page    pivot
+    [Arguments]   ${name}=${EMPTY}  ${isAdhoc}=${False}
+    Create New Display on Angle Page    pivot  ${name}  ${isAdhoc}
     Wait Until Pivot Display Loaded
 
 Create New Chart Display on Angle Page
-    Create New Display on Angle Page    chart
+    [Arguments]   ${name}=${EMPTY}  ${isAdhoc}=${False}
+    Create New Display on Angle Page    chart  ${name}  ${isAdhoc}
     Wait Until Chart Display Loaded
 
 Login And Create Angle By 2 Objects From Object List

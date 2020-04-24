@@ -8,12 +8,12 @@ Force Tags          acc_wc
 
 *** Test Cases ***
 Adhoc Display Is Removed When Go Back To Search Page
-    [Tags]      TC_229203
+    [Tags]      TC_229203       
     [Documentation]     Ad-hoc display disappear when un-save
     ...                 Risk/coverage area: Create Adhoc display by drilldown
     Search Angle From Search Page And Execute Angle    Angle For General Test
-    Create An Adhoc Chart
-    Verify Adhoc Chart Created
+    Create Chart From List Header Column    ObjectType    ObjectType  ${True}
+    Display Tab Should Be Visible By Name       New chart display
     Go to Search Page
     Search Angle From Search Page And Execute Angle    Angle For General Test
-    Verify Adhoc Chart Removed
+    Display Tab Should Not Be Visible By Name   New chart display

@@ -330,6 +330,9 @@ function DisplayOverviewHandler(angleHandler) {
             var displayHandler = self.AngleHandler.GetDisplay(display.uri);
             toast.MakeSuccessTextFormatting(displayHandler.GetName(), Localization.Toast_SaveItem);
         }
+        else {
+            displayModel.SetTemporaryDisplay(display.uri, display);
+        }
 
         // redirect
         self.Redirect(display.id);
