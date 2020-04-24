@@ -3851,4 +3851,13 @@ The minimum is 1.</value>
 &lt;br&gt;&lt;br&gt;
 Wilt u doorgaan met het opslaan van uw wijzigingen?</value>
   </data>
+  <data name="FirstInQueueMessage" xml:space="preserve">
+    <value>Het is druk op de server. Er staat nog {0} andere Angle in de wachtrij. &lt;br /&gt;Even geduld a.u.b.</value>
+  </data>
+  <data name="LaterInQueueMessage" xml:space="preserve">
+    <value>Het is druk op de server. Er staan nog {0} andere Angles in de wachtrij.  &lt;br /&gt;Even geduld a.u.b.</value>
+  </data>
+  <data name="ExecutingAngleMessage" xml:space="preserve">
+    <value>Angleresultaat wordt berekend</value>
+  </data>
 </root>

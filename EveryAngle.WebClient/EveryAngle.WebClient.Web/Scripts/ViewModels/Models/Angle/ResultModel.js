@@ -421,15 +421,15 @@ function ResultViewModel() {
                 self.CustomProgressbar(data);
             }
             else {
-                var rowCount;
-                if (self.Data()
-                    && (self.Data().display_type === enumHandlers.DISPLAYTYPE.PIVOT || self.Data().display_type === enumHandlers.DISPLAYTYPE.CHART)) {
-                    rowCount = null;
+                var queuedMessage;
+                if (data.queue_position === 0) {
+                    queuedMessage = Localization.ExecutingAngleMessage;
+                } else if (!data.queue_position) {
+                    queuedMessage = '';
+                } else {
+                    queuedMessage = kendo.format(data.queue_position === 1 ? Localization.FirstInQueueMessage : Localization.LaterInQueueMessage, data.queue_position);
                 }
-                else {
-                    rowCount = kendo.toString(data.row_count, 'n0');
-                }
-                progressbarModel.SetProgressBarText(kendo.toString(data.progress * 100, 'n2'), rowCount, enumHandlers.POSTRESULTSTATUS.RUNNING.Text);
+                progressbarModel.SetProgressBarTextAndMessage(kendo.toString(data.progress * 100, 'n2'), queuedMessage);
             }
         });
         promise.fail(self.ApplyResultFail);
@@ -629,7 +629,7 @@ function ResultViewModel() {
         var isSupport = false;
         var data = self.Data();
         if (data) {
-             isSupport = !IsNullOrEmpty(data.sap_transactions);
+            isSupport = !IsNullOrEmpty(data.sap_transactions);
         }
 
         return enableGoToSAP && isSupport;

@@ -6281,4 +6281,13 @@ Only Active Directory (AD) and Active Directory Federation (ADFS) services are s
 &lt;br&gt;&lt;br&gt;
 Do you want to continue saving your changes?</value>
   </data>
+  <data name="FirstInQueueMessage" xml:space="preserve">
+    <value>It’s busy on the server. There is {0} other Angle to finish first. &lt;br /&gt;Please wait.</value>
+  </data>
+  <data name="LaterInQueueMessage" xml:space="preserve">
+    <value>It’s busy on the server. There are {0} other Angles to finish first. &lt;br /&gt;Please wait.</value>
+  </data>
+  <data name="ExecutingAngleMessage" xml:space="preserve">
+    <value>Calculating Angle result</value>
+  </data>
 </root>

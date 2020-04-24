@@ -482,6 +482,23 @@ input[type="checkbox"]:not(:checked) + .label {
       margin: 0; }
       .loader-container .loader-button .loader-cancel-button span {
         min-width: 70px; }
+  .loader-container .loader-message-content {
+    display: inline-block;
+    padding: 10px 10px 10px 10px;
+    width: 500px;
+    height: auto;
+    min-height: 20px;
+    margin-top: -73px;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    z-index: 9999;
+    transform: translate(-50%, -50%); }
+  .loader-container .loader-message-text {
+    display: block;
+    font-size: 13px;
+    overflow: hidden;
+    text-align: center; }
 
 .k-loading-mask {
   display: flex;

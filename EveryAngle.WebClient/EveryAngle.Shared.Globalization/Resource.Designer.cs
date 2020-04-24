@@ -3913,6 +3913,15 @@ namespace EveryAngle.Shared.Globalization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Calculating Angle result.
+        /// </summary>
+        public static string ExecutingAngleMessage {
+            get {
+                return ResourceManager.GetString("ExecutingAngleMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Change Angle parameters.
         /// </summary>
         public static string ExecutionPopupChangeAngle {
@@ -4350,6 +4359,15 @@ namespace EveryAngle.Shared.Globalization {
         public static string First {
             get {
                 return ResourceManager.GetString("First", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to It’s busy on the server. There is {0} other Angle to finish first. &lt;br /&gt;Please wait..
+        /// </summary>
+        public static string FirstInQueueMessage {
+            get {
+                return ResourceManager.GetString("FirstInQueueMessage", resourceCulture);
             }
         }
         
@@ -5976,6 +5994,15 @@ namespace EveryAngle.Shared.Globalization {
         public static string LastLogin {
             get {
                 return ResourceManager.GetString("LastLogin", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to It’s busy on the server. There are {0} other Angles to finish first. &lt;br /&gt;Please wait..
+        /// </summary>
+        public static string LaterInQueueMessage {
+            get {
+                return ResourceManager.GetString("LaterInQueueMessage", resourceCulture);
             }
         }
         

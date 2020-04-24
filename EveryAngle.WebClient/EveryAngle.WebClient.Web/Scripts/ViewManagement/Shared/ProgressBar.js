@@ -7,6 +7,7 @@ function ProgressbarModel() {
     var _rootElement = '.loader-container';
     var _percentageElement = '.loader-percentage';
     var _cancelElement = '.loader-cancel-button';
+    var _messageTextElement = '.loader-message-text';
 
     //BOF: View model properties
     self.CancelCustomHandler = false;
@@ -47,6 +48,7 @@ function ProgressbarModel() {
         }
 
         jQuery(_rootElement).hide();
+        jQuery(_messageTextElement).html("");
         self.IsEndProgressBar = false;
     };
     self.IsSearchPage = function () {
@@ -121,6 +123,10 @@ function ProgressbarModel() {
             progressPercent.show();
         }
         
+    };
+    self.SetProgressBarTextAndMessage = function (percentText, description){
+        jQuery(_messageTextElement).html(description);
+        self.SetProgressBarText(percentText);
     };
     self.SetDisableProgressBar = function () {
         jQuery(_cancelElement).addClass('alwaysHide');
