@@ -1,7 +1,7 @@
 *** Settings ***
 Library             OperatingSystem
 Library             SeleniumLibrary    	timeout=${Timeout}
-Library             HttpLibrary.HTTP
+Library             httprequest.py
 Library             DateTime
 Library             String
 Library             Collections

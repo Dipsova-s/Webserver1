@@ -1,24 +1,24 @@
 @echo off
-set PATH=%PATH%;C:\Python27;C:\Python27\Scripts
+set PATH=%PATH%;C:\Python38;C:\Python38\Scripts
 ECHO ###### Checking Framework  ######
 
 set logFolder=%~dp0python
 if not exist "%logFolder%" md "%logFolder%"
 
-if exist "C:\Python27\" echo %date% %time% "C:\Python27" found. &goto python_installed
+if exist "C:\Python38\" echo %date% %time% "C:\Python38" found. &goto python_installed
 	ECHO ###### Setup Robot Framework  ######
-	ECHO  %date% %time% c:\python27 not found, downloading and installing python
-	bitsadmin.exe /transfer "Download Python" https://www.python.org/ftp/python/2.7.10/python-2.7.10.msi "%~dp0python-2.7.10.msi" >> "%logFolder%\bitsadmin.log" 2>&1
-	if not exist "%~dp0python-2.7.10.msi" Echo Download "%~dp0python-2.7.10.msi" failed& exit /b
-	ECHO  %date% %time% Successfully Downloaded Python-2.7.10.msi....
-	start /wait "" %~dp0python-2.7.10.msi /passive  >> "%logFolder%\python-2.7.10.msi.log" 2>&1
-	if not exist "C:\Python27\" Echo Installing python failed& exit /b
-	ECHO  %date% %time% Successfully Installed Python 2.7.10....
-	del  %~dp0python-2.7.10.msi >nul 2>&1
+	ECHO  %date% %time% C:\Python38 not found, downloading and installing python
+	bitsadmin.exe /transfer "Download Python" https://www.python.org/ftp/python/3.8.0/python-3.8.0.exe "%~dp0python-3.8.0.exe" >> "%logFolder%\bitsadmin.log" 2>&1
+	if not exist "%~dp0python-3.8.0.exe" Echo Download "%~dp0python-3.8.0.exe" failed& exit /b
+	ECHO  %date% %time% Successfully Downloaded Python-3.8.0.exe....
+	start /wait "" %~dp0python-3.8.0.exe /quiet InstallAllUsers=1 DefaultAllUsersTargetDir=C:\Python38  >> "%logFolder%\python-3.8.0.exe.log" 2>&1
+	if not exist "C:\Python38\" Echo Installing python failed& exit /b
+	ECHO  %date% %time% Successfully Installed Python 3.8.0....
+	del  %~dp0python-3.8.0.exe >nul 2>&1
 	ECHO %date% %time% Finished installing Robot Framework....
 :python_installed
 
-if "%7"=="webhelp" echo Check pip version... &python -m pip install pip==10.0.0
+if "%7"=="webhelp" echo Check pip version... &python -m pip install pip==20.0.2
 
 echo Check Robot Framework version...
 set updateRobot=yes
@@ -28,11 +28,11 @@ set updateSeleniumLibraryVersion="robotframework-seleniumlibrary==4.0.0"
 set updateSelenium2screenshots=yes
 set updateSelenium2screenshotsVersion="robotframework-selenium2screenshots==0.8.1"
 set updatePabot=yes
-set updatePabotVersion="robotframework-pabot==0.31"
+set updatePabotVersion="robotframework-pabot==1.2.1"
 set updateHttpLibrary=yes
 set updateHttpLibraryVersion="robotframework-httplibrary==0.4.2"
 set updatePillow=yes
-set updatePillowVersion="Pillow==5.2.0"
+set updatePillowVersion="Pillow==7.0.0"
 for /F %%i in ('pip freeze --local') do (
 	if "%%i"==%updateRobotVersion% set updateRobot=no
 	if "%%i"==%updateSeleniumLibraryVersion% set updateSeleniumLibrary=no
@@ -80,7 +80,8 @@ set TestName=Test_Suit_%TestCategory%
 
 :: **************** WC Setting ***********************
 ::chrome,firefox,ie,phantomjs
-set BROWSER=chrome
+::Mandatory-First letter capital for all browsers 
+set BROWSER=Chrome
 
 ::Branch
 set Branch=%2
