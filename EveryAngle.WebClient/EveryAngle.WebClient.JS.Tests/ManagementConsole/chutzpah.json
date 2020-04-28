@@ -27,6 +27,8 @@
         { "Path": "/Dependencies/KendoUI/kendo.timezones.min.js" },
         { "Path": "/../SharedDependencies/shared.js" },
         { "Path": "/Dependencies/jQuery/jquery.extension.js" },
+        { "Path": "/Dependencies/jQuery/jquery.deparam.js" },
+        { "Path": "/Dependencies/jQuery/jquery.validate.min.js" },
         { "Path": "/Dependencies/Custom/MC.js" },
         { "Path": "/Dependencies/Custom/MC.util.js" },
         { "Path": "/Dependencies/Custom/MC.util.date.js" },

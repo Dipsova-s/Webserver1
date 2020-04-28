@@ -226,3 +226,31 @@ function checkIp4Ip6(value) {
 function checkRequiredField(value) {
     return !!$.trim(value);
 }
+
+function checkUrlForPackageExport(value) {
+    var requiredObjectCount = 1, returnValue = true;
+    var paramString = value.split('?')[1];
+    var urlParameters = $.deparam(paramString);
+    $.each(urlParameters, function (key, element) {
+        if (key === "sort" || key === "dir") {
+            requiredObjectCount++;
+        }
+        if (jQuery.inArray(key,["sort", "dir", "fq"]) === -1) {
+            returnValue = false;
+            return false;
+        }
+        if (key === "fq") {
+            var fqValues = $.deparam(element.replace(/\sAND\s/g, "\&").replace(/:/g, "="));
+            if (fqValues.facetcat_models) {
+                if (fqValues.facetcat_models.indexOf(' ') != -1) {
+                    returnValue = false;
+                    return false;
+                }
+            }
+        }
+    });
+    if (requiredObjectCount != Object.keys(urlParameters).length) {
+        returnValue = false;
+    }
+    return returnValue;
+}

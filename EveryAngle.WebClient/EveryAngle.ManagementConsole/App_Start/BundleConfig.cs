@@ -20,6 +20,7 @@ namespace EveryAngle.ManagementConsole
                 "~/Scripts/jQuery/jquery.mousewheel.js",
                 "~/Scripts/jQuery/jquery.validate.min.js",
                 "~/Scripts/jQuery/jquery.validate.additional-methods.js",
+                "~/Scripts/jQuery/jquery.deparam.js",
                 "~/Scripts/jQuery/jquery.extension.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/clipboard").Include(

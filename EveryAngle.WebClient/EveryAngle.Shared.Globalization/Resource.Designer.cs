@@ -19,7 +19,7 @@ namespace EveryAngle.Shared.Globalization {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "16.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "15.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     public class Resource {
@@ -2145,6 +2145,15 @@ namespace EveryAngle.Shared.Globalization {
         public static string ChartType {
             get {
                 return ResourceManager.GetString("ChartType", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Check.
+        /// </summary>
+        public static string Check {
+            get {
+                return ResourceManager.GetString("Check", resourceCulture);
             }
         }
         
@@ -9693,6 +9702,17 @@ namespace EveryAngle.Shared.Globalization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Make a selection of the desired Angles, Templates, Dashboards using the filter options in the search page of the Webclient. Copy and paste the URL here to create a package containing the same selection of items.&lt;br/&gt;
+        ///Multi-model selections are not supported. In case of multiple models, please make sure to select only one model in the General filters.&lt;br/&gt;
+        ///Note: Invalid Angles are not included in the package. If the results in the package don&apos;t match the results in the Web client, please check for invalid  [rest of string was truncated]&quot;;.
+        /// </summary>
+        public static string MC_ExportPackageURlDescription {
+            get {
+                return ResourceManager.GetString("MC_ExportPackageURlDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to External.
         /// </summary>
         public static string MC_External {
@@ -10022,6 +10042,15 @@ namespace EveryAngle.Shared.Globalization {
         public static string MC_Include {
             get {
                 return ResourceManager.GetString("MC_Include", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Include attached labels.
+        /// </summary>
+        public static string MC_IncludeAttached_Labels {
+            get {
+                return ResourceManager.GetString("MC_IncludeAttached_Labels", resourceCulture);
             }
         }
         
@@ -13678,6 +13707,24 @@ namespace EveryAngle.Shared.Globalization {
         public static string MC_Validation_Email {
             get {
                 return ResourceManager.GetString("MC_Validation_Email", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Url must contain selection of one model.
+        /// </summary>
+        public static string MC_Validation_ExportPackageModel {
+            get {
+                return ResourceManager.GetString("MC_Validation_ExportPackageModel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Invalid URL: selections from multiple models and Advanced filters are not allowed..
+        /// </summary>
+        public static string MC_Validation_ExportPackageUrl {
+            get {
+                return ResourceManager.GetString("MC_Validation_ExportPackageUrl", resourceCulture);
             }
         }
         

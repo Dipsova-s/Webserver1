@@ -61,4 +61,11 @@ Activate and Deactivate the uploaded package in models
     Delete Uploaded Package  ${packageName}
     Go To Models Package Page  EA2_800
     Click All Radio Button
-    Verify Model Package not found in Model Packages grid   ${packageName}  
+    Verify Model Package not found in Model Packages grid   ${packageName}
+
+Verify selecting package content using copy and paste query url into input field on create package page
+    [Documentation]    Verifying user is able to copy and paste webclient url to Input field to select package content
+    ...                on create package page and check the existence of "Check" buttton.
+    [Tags]         TC_C229221
+    Click To Open Export Package Popup
+    Verify Selecting Package Content Using Copy And Paste Query Url

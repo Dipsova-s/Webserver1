@@ -233,6 +233,26 @@ jQuery.validator.addMethod("agent_url", function (value, element) {
     return this.optional(element) || /https?:\/\/([a-z0-9][a-z0-9\.\-_]*[a-z0-9]+)(:[0-9]+)?(.*)$/ig.test(value);
 }, Localization.MC_Validation_AgentUrl);
 
+jQuery.validator.addMethod("valid_modelinUrl", function (value, element) {
+    var paramString = value.split('?')[1];
+    var urlParameters = $.deparam(paramString);
+    if (urlParameters.fq) {
+        var fqValues = $.deparam(urlParameters.fq.replace(/\sAND\s/g, "\&").replace(/:/g, "="));
+        if (!fqValues.facetcat_models) {
+            var modelDrpDwn = $("#ModelExportSelector").data('kendoDropDownList');
+            if (modelDrpDwn.dataSource.data().length > 1) {
+                return false;
+            }
+        }
+    }
+    return true;
+}, Localization.MC_Validation_ExportPackageModel);
+
+jQuery.validator.addMethod("exportPackage_url", function (value) {
+    return checkUrlForPackageExport(value);
+}, Localization.MC_Validation_ExportPackageUrl);
+
+
 jQuery.validator.addMethod("email", function (value) {
     if (value === '')
         return true;

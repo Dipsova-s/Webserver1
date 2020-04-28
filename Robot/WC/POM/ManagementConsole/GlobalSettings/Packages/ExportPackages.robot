@@ -1,3 +1,6 @@
+*** Settings ***
+Resource            ${EXECDIR}/WC/POM/Search/SearchPage.robot
+
 *** Variables ***
 ${btnOpenExportPackagePopup}                                    jquery=#ExportPackagePopup
 ${btnExportPackagePopup}                                        jquery=#ExportPackageButton
@@ -5,7 +8,7 @@ ${btnCloseExportPackagePopup}                                   jquery=#ExportPa
 
 ${pgPopupExportPackage}                                         jquery=#PopupExportPackage .k-loading-image
 
-${rdoModelList}                                                 jquery=#ExportPackageForm .packageModel input[type=radio]
+${rdoExportPackageMode}                                         jquery=#ExportPackageForm .packageSelection input[type=radio]
 ${ddlItemTypeList}                                              jquery=#ExportPackageForm .packageFilter select#ItemExportSelector
 ${chkPrivateItems}                                              jquery=#ExportPackageForm .packageFilter input[name="has_private"]
 ${chkPublishedItems}                                            jquery=#ExportPackageForm .packageFilter input[name="has_published"]
@@ -21,6 +24,10 @@ ${dpdItemTypeList}                                              xpath=//span[@ar
 ${txtAngleExportValue}                                          AngleExport
 ${txtVersionValue}                                              1.0
 
+${radioBtnCreatePkgByUrl}                                      xpath=//div[@class='packageSelection']/div/p/label/input[@value='URL']
+${txtPackageExportUrl}                                         xpath=//input[@name='package_export_url']
+${chkExportPackageCheck}                                       xpath=//a[@id='ExportPackageCheckButton']
+${exportPackageUrl}                                            https://nl-vrushali.eatestad.local/vrushali_master/en/search/searchpage#/?sort=name&dir=asc&fq=facetcat_bp:(S2D)%20AND%20facetcat_itemtype:(facet_angle)%20AND%20facetcat_models:(EA2_800)
 *** Keywords ***
 Wait Until Export Package Popup Is Ready
     Wait Until Page Contains    Create package
@@ -50,6 +57,7 @@ Unselect Checkbox In Export Package Popup
 
 Select Content drop down value in Export Package Popup
     [Arguments]     ${dpdValue}
+    Select Radio Button     packageCreationBy       Selection
     Select Dropdown By InnerText  ${dpdItemTypeList}   ${dpdValue}
     Wait Until Export Package Popup Is Ready
 
@@ -58,3 +66,17 @@ Click on OK button in Create Package popup
     Wait Until Element Is Not Visible    ${btnExportPackagePopup}
     Wait MC Progress Bar Closed
     ${file}    Wait Until Keyword Succeeds    1 min    2 sec    Download should be done    ${DOWNLOAD_DIRECTORY}
+
+Check The Existence Of Package Export Url Input Field And Enter The Url
+    ${urlInputField}    Run Keyword And Return Status    Page Should Contain Element    ${txtPackageExportUrl}
+    Run Keyword If    ${urlInputField} == True    Enter Package Export Url Into Input Field     ${exportPackageUrl}
+
+Enter Package Export Url Into Input Field
+    [Arguments]     ${url}
+    Wait Until Element Is Visible    ${txtPackageExportUrl}
+    Input Text      ${txtPackageExportUrl}      ${url}
+
+Click On Check Button
+    ${value}     Run Keyword And Return Status    Page Should Contain Element      ${chkExportPackageCheck}
+    Run Keyword If    ${value} == True      Click Element       ${chkExportPackageCheck}
+

@@ -2469,16 +2469,24 @@ form#ImportPackageForm .contentSectionInfoItem p {
     margin-left: 0;
 }
 
-form#ExportPackageForm .packageModel p {
+form#ExportPackageForm .packageSelection {
+    float: left;
+}
+
+form#ExportPackageForm .packageSelection p {
     margin-left: 0;
 }
 
-form#ExportPackageForm .packageModel label {
+form#ExportPackageForm .packageSelection label {
     float: left;
     padding-bottom: 10px;
 }
 
-form#ExportPackageForm .packageModel label .text {
+form#ExportPackageForm .packageSelection [type="radio"] + .label {
+    padding-left: 22px;
+}
+
+form#ExportPackageForm .packageSelection label .text {
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
@@ -2512,6 +2520,29 @@ form#ExportPackageForm .packageFilter .tooltip a {
     padding-top: 3px;
     padding-bottom: 1px;
     padding-right: 15px !important;
+}
+
+form#ExportPackageForm .disabled {
+    opacity: .5;
+    pointer-events: none;
+    cursor: default;
+}
+
+form#ExportPackageForm .packageUrlFilter p {
+    margin-left: 0;
+    margin-bottom: 15px;
+}
+
+form#ExportPackageForm .packageUrlFilter input {
+    width: 42%
+}
+
+form#ExportPackageForm .packageUrlFilter .innerCheckbox {
+    left: 30px;
+}
+
+form#ExportPackageForm .packageUrlFilter .tooltip {
+    left: 410px;
 }
 
 form#ExportPackageForm .packageInfo label {

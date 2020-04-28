@@ -10,10 +10,12 @@
         self.PostExportPackageUri = '';
         self.DownloadPackageUri = '';
 
-        self.PopupExportPackageId = '#PopupExportPackage';
+            self.PopupExportPackageId = '#PopupExportPackage';
         self.ExportPackageFormId = '#ExportPackageForm';
         self.ItemExportSelectorId = '#ItemExportSelector';
+        self.ModelExportSelectorId = '#ModelExportSelector';
         self.ExportPackageButtonId = '#ExportPackageButton';
+        self.ExportPackageCountId = '#ExportPackageCount';
 
         self.Initial = function (data) {
             jQuery.extend(self, data || {});
@@ -164,6 +166,8 @@
             $('#GlobalPackagesGridFilterBox').data('defaultValue', '***********').trigger('keyup');
         };
 
+
+
         // export package
 
         // on click open export package form
@@ -175,16 +179,85 @@
                 validator.resetForm();
             });
             self.InitialExportPackageForm();
+            self.InitialPackageSelectionForm();
+        };
+
+        self.DisableExportPackageSelectionFilter = function (isEnabled) {
+            var form = $(self.ExportPackageFormId);
+            var exportPackageSelectionInput = form.find('.packageFilter input[type=checkbox]');
+            $(self.ModelExportSelectorId).data("kendoDropDownList").enable(!isEnabled);
+            $(self.ItemExportSelectorId).data("kendoDropDownList").enable(!isEnabled);
+            exportPackageSelectionInput.each(function () {
+                $(this).prop('disabled', isEnabled);
+            });
+        };
+
+        self.DisableExportUrlFilter = function (isEnabled) {
+            var form = $(self.ExportPackageFormId);
+            var exportPackageUrlInput = form.find('.packageUrlFilter :input');
+            exportPackageUrlInput.each(function () {
+                $(this).prop('disabled', isEnabled);
+            });
+        };
+
+        self.DisableExportUrlorSelectionFilters = function (isEnable) {
+            var form = $(self.ExportPackageFormId);
+            var exportPackageSelectionItems = form.find('.packageFilter');
+            var exportPackageUlrItems = form.find('.packageUrlFilter');
+            self.DisableExportUrlFilter(!isEnable);
+            self.DisableExportPackageSelectionFilter(isEnable);
+            if (isEnable) {
+                exportPackageUlrItems.removeClass('disabled');
+                exportPackageSelectionItems.addClass('disabled');
+            }
+            else {
+                exportPackageSelectionItems.removeClass('disabled');
+                exportPackageUlrItems.addClass('disabled');
+            }
+        }
+
+        //export package selection initialize
+        self.InitialPackageSelectionForm = function () {
+            var form = $(self.ExportPackageFormId);
+            var modelItems = form.find('.packageSelection input[type=radio]');
+            var filterItems = form.find('.packageFilter input[type=checkbox]');
+            // intial radio buttons
+            if (modelItems.length) {
+                modelItems.first().trigger('click');
+                self.DisableExportUrlorSelectionFilters(true);
+                $(self.ExportPackageCountId).html(Localization.No);
+                modelItems.each(function () {
+                    $(this).off('change').on('change', function () {
+                        if (this.value === "URL") {
+                            self.DisableExportUrlorSelectionFilters(true);
+                            self.EnableSubmitButton(false);
+                        }
+                        else {
+                            self.DisableExportUrlorSelectionFilters(false);
+                            self.InitialPackageSummary(filterItems, 0);
+                        }
+                    });
+                });
+            }
         };
 
         // export package form initialize
         self.InitialExportPackageForm = function () {
             var form = $(self.ExportPackageFormId);
             form.trigger('reset');
-
-            var modelItems = form.find('.packageModel input:not(:disabled)[type=radio]');
             var filterItems = form.find('.packageFilter input[type=checkbox]');
-
+            var dropdownModelElement = form.find(self.ModelExportSelectorId);
+            var dropdownModel = dropdownModelElement.data("kendoDropDownList");
+            if (dropdownModel) {
+                dropdownModel.selectedIndex = 0;
+            }
+            else {
+                dropdownModelElement.kendoDropDownList({
+                    change: function () {
+                        self.InitialPackageSummary(filterItems, 0);
+                    }
+                });
+            }
             // initial checkboxes
             filterItems.prop('checked', true);
             filterItems.prop('disabled', false);
@@ -194,16 +267,6 @@
                 .done(function () {
                     self.InitialPackageSummary(filterItems, 0);
                 });
-
-            // intial radio buttons
-            if (modelItems.length) {
-                modelItems.first().trigger('click');
-                modelItems.each(function () {
-                    $(this).off('change').on('change', function () {
-                        self.InitialPackageSummary(filterItems, 0);
-                    });
-                });
-            }
 
             // initial package id field
             self.InitialPackageIdGenerator(form);
@@ -265,13 +328,14 @@
 
                 // show loading indicator
                 var popup = $(self.PopupExportPackageId).data('kendoWindow');
+                var itemIds = self.DropdownValuesById(self.ItemExportSelectorId);
                 kendo.ui.progress(popup.element, true);
 
                 // disallow black overlay
                 MC.ui.popup('requestStart');
 
                 // start get counting items
-                self.GetPackageSummary(facetQuery).done(function (itemSummaries) {
+                self.GetPackageSummary(itemIds,facetQuery).done(function (itemSummaries) {
 
                     // binding couting items to elements
                     self.BindingPackageSummary(itemSummaries, checkboxes);
@@ -303,8 +367,16 @@
         };
         self.CheckSubmitButtonState = function (itemSummaries) {
             var hasItems = self.HasItems(itemSummaries);
-            $(self.ExportPackageButtonId).attr('disabled', !hasItems);
+            self.EnableSubmitButton(hasItems);
         };
+        self.EnableSubmitButton = function (shouldEnable) {
+            if (shouldEnable) {
+                $(self.ExportPackageButtonId).removeClass('disabled');
+            }
+            else {
+                $(self.ExportPackageButtonId).addClass('disabled');
+            }
+        }
         self.HasItems = function (itemSummaries) {
             var totalItems = itemSummaries.TotalPrivate + itemSummaries.TotalPublished + itemSummaries.TotalValidated;
             return totalItems > 0;
@@ -375,24 +447,41 @@
             var form = $(self.ExportPackageFormId);
             var formData = form.serializeArray();
             var postData = self.InitExportPostData();
-            var includeLabels = formData.findObject('name', 'has_label_categories_and_labels');
+            var packageCreationBy = formData.findObject('name', 'packageCreationBy').value;
+            var includeLabels, facetQueryString;
             var facetParameters = self.GetFacetParameters(formData);
+            var modelId = self.DropdownValuesById(self.ModelExportSelectorId);
+            if (packageCreationBy === "URL") {
+                includeLabels = formData.findObject('name', 'has_Labels');
+                var urlParams = self.GetParametersFromURL();
+                facetQueryString = urlParams.fq;
+            }
+            else {
+                includeLabels = formData.findObject('name', 'has_label_categories_and_labels');
+                facetQueryString = self.GetFacetQueryString(facetParameters);
 
+            }
             // data mapping
-            postData.modelId = formData.findObject('name', 'model_id').value;
+            postData.modelId = modelId;
             postData.packageId = formData.findObject('name', 'package_id').value;
             postData.packageName = formData.findObject('name', 'package_name').value;
             postData.packageVersion = formData.findObject('name', 'package_version').value;
             postData.packageDescription = formData.findObject('name', 'package_description').value;
-            postData.facetQuery = self.GetFacetQueryString(facetParameters);
+            postData.facetQuery = facetQueryString;
             postData.includeLabels = includeLabels ? includeLabels.value : false;
 
             return postData;
         };
+
+        self.DropdownValuesById = function (id) {
+            return $(id).data('kendoDropDownList').value();
+        }
+
         self.GetFacetParameters = function (formData) {
-            var itemType = $(self.ItemExportSelectorId).data('kendoDropDownList').value();
+            var modelId = self.DropdownValuesById(self.ModelExportSelectorId);
+            var itemType = self.DropdownValuesById(self.ItemExportSelectorId);
             return {
-                modelId: formData.findObject('name', 'model_id').value,
+                modelId: modelId,
                 itemType: itemType,
                 includePrivate: formData.hasObject('name', 'has_private'),
                 includePublished: formData.hasObject('name', 'has_published'),
@@ -446,11 +535,11 @@
         };
 
         // ajax request
-        self.GetPackageSummary = function (facetQuery) {
+        self.GetPackageSummary = function (itemIds,facetQuery) {
             var requestParams = {
                 url: self.GetPackageSummaryUri,
                 parameters: {
-                    itemIds: $(self.ItemExportSelectorId).data('kendoDropDownList').value(),
+                    itemIds: itemIds,
                     facetQueryString: facetQuery
                 },
                 type: 'GET'
@@ -485,9 +574,58 @@
             window.location = url;
         };
 
+        self.CreatejQueryObject = function (paramString) {
+            return $.deparam(paramString);
+        };
+
+        self.GetParametersFromURL = function () {
+            var form = $(self.ExportPackageFormId);
+            var formData = form.serializeArray();
+            var url = formData.findObject('name', 'package_export_url').value;
+            var paramString = url.split('?')[1];
+            var urlParameters = self.CreatejQueryObject(paramString);
+            var facetHasError = 'AND -facetcat_characteristics:(facet_has_errors)';
+            var fqValues = $.deparam(urlParameters.fq.replace(/\sAND\s/g, "\&").replace(/:/g, "="));
+            if (!fqValues.facetcat_models) {
+                var modelId = self.DropdownValuesById(self.ModelExportSelectorId);
+                facetHasError = kendo.format('AND facetcat_models:({0}) {1}', modelId, facetHasError)
+            }
+            urlParameters.fq = kendo.format('{0} {1}', urlParameters.fq, facetHasError)
+            return urlParameters;
+        };
+
+        self.PackageUrlError = function () {
+            $(self.ExportPackageCountId).html(Localization.No);
+            $(self.ExportPackageFormId).find('.packageUrlFilter input[type=text]').focus();
+        };
+
+        self.CheckPackageURL = function () {
+            var form = $(self.ExportPackageFormId);
+            if (form.valid()) {
+                var fqParams = self.GetParametersFromURL();
+                var fqValues = $.deparam(fqParams.fq.replace(/\sAND\s/g, "\&").replace(/:/g, "="));
+                var facetcat_itemtype = 'facet_angle facet_template facet_dashboard';
+                if (fqValues.facetcat_itemtype) {
+                    facetcat_itemtype = fqValues.facetcat_itemtype.replace(/[()]/g, '')
+                }
+                self.GetPackageSummary(facetcat_itemtype, fqParams.fq).done(function (response) {
+                    var totalCount = response.TotalPublished + response.TotalPrivate;
+                    $(self.ExportPackageCountId).html(totalCount === 0 ? Localization.No : totalCount);
+                    // enable - disable submit button
+                    self.CheckSubmitButtonState(response);
+                }).fail(function () {
+                    $(self.ExportPackageCountId).html(Localization.No);
+                    self.EnableSubmitButton(false);
+                });
+            }
+            else {
+                self.PackageUrlError();
+            }
+        }
+    
         // export package
 
-    }
+    };
 
     win.MC.GlobalSettings = globalSettings || {};
     jQuery.extend(win.MC.GlobalSettings, {

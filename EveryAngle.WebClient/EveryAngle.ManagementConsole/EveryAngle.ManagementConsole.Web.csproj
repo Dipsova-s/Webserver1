@@ -345,6 +345,7 @@
     <Content Include="Scripts\Custom\MC.ui.logpopup.js" />
     <Content Include="Scripts\Custom\MC.ui.masschangeuser.js" />
     <Content Include="Scripts\jQuery\jquery.base64.min.js" />
+    <Content Include="Scripts\jQuery\jquery.deparam.js" />
     <Content Include="Scripts\jQuery\jquery.extension.js" />
     <Content Include="Scripts\jstz.min.js" />
     <Content Include="Scripts\KendoUICustom\kendo.custom.js" />

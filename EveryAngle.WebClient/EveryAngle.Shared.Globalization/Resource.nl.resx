@@ -3860,4 +3860,21 @@ Wilt u doorgaan met het opslaan van uw wijzigingen?</value>
   <data name="ExecutingAngleMessage" xml:space="preserve">
     <value>Angleresultaat wordt berekend</value>
   </data>
+  <data name="Check" xml:space="preserve">
+    <value>Check</value>
+  </data>
+  <data name="MC_ExportPackageURlDescription" xml:space="preserve">
+    <value>Make a selection of the desired Angles, Templates, Dashboards using the filter options in the search page of the Webclient. Copy and paste the URL here to create a package containing the same selection of items.&lt;br/&gt;
+Multi-model selections are not supported. In case of multiple models, please make sure to select only one model in the General filters.&lt;br/&gt;
+Note: Invalid Angles are not included in the package. If the results in the package don't match the results in the Web client, please check for invalid Angles.</value>
+  </data>
+  <data name="MC_IncludeAttached_Labels" xml:space="preserve">
+    <value>Include attached labels</value>
+  </data>
+  <data name="MC_Validation_ExportPackageModel" xml:space="preserve">
+    <value>Url must contain selection of one model</value>
+  </data>
+  <data name="MC_Validation_ExportPackageUrl" xml:space="preserve">
+    <value>Invalid URL: selections from multiple models and Advanced filters are not allowed.</value>
+  </data>
 </root>

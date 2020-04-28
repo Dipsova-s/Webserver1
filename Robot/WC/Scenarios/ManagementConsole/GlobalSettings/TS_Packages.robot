@@ -28,7 +28,8 @@ Delete Uploaded Package
 
 Verify GUI Export Package Popup
     # all UI exist
-    Page Should Contain Radio Button    ${rdoModelList}
+    Select Radio Button     packageCreationBy       Selection
+    Page Should Contain Radio Button    ${rdoExportPackageMode}
     Page Should Contain List    ${ddlItemTypeList}
     Page Should Contain Checkbox    ${chkPrivateItems}
     Page Should Contain Checkbox    ${chkPublishedItems}
@@ -86,3 +87,9 @@ Verify Uploaded Package And Filter The Package
     Click Upload New Package and upload downloaded package  ${packageName}
     Input Filter Package    ${packageName}
     Element Should Contain    ${tbGridPackage}    ${packageName}
+
+Verify Selecting Package Content Using Copy And Paste Query Url
+    Check The Existence Of Package Export Url Input Field And Enter The Url
+    Click On Check Button
+    Textfield Should Contain      ${txtPackageExportUrl}      ${exportPackageUrl}
+ 

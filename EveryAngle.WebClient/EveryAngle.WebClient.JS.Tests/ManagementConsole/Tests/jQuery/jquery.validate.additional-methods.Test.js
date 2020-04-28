@@ -119,4 +119,62 @@ describe("$.validator.methods", function () {
         });
     });
 
+    describe(".exportPackage_url", function () {
+        var tests = [
+            //valid
+            { value: 'https://test.com/searchpage#/?sort=name&dir=asc&fq=facetcat_bp:(PM%20QM)%20AND%20facetcat_itemtype:(facet_angle%20facet_template)', expected: true },
+            { value: 'https://test.com/searchpage#/?sort=name&dir=asc&fq=facetcat_bp:(PM%20QM)%20AND%20facetcat_itemtype:(facet_angle%20facet_template)%20AND%20facetcat_models:(EA2_800)', expected: true },
+            { value: 'https://test.com/searchpage#/?fq=facetcat_bp:(PM%20QM)%20AND%20facetcat_itemtype:(facet_angle%20facet_template)%20AND%20facetcat_models:(EA2_800)', expected: true },
+
+            //invalid
+            { value: 'https://test.com/searchpage#/?sort=name&dir=asc&fq=facetcat_bp:(PM%20QM)%20AND%20facetcat_itemtype:(facet_angle%20facet_template)%20AND%20facetcat_models:(EA2_800%20TestServer)', expected: false },
+            { value: 'https://test.com/searchpage#/?sort=name&dir=asc&fq=facetcat_bp:(PM%20QM)%20AND%20facetcat_models:(EA2_800%20TestServer)', expected: false },
+
+        ];
+
+        $.each(tests, function (index, test) {
+            it("should be " + (test.expected ? 'valid' : 'invalid') + " for url \"" + test.value + "\"", function () {
+                var result = $.validator.methods.exportPackage_url.call($.validator.prototype, test.value);
+                expect(test.expected).toEqual(result);
+            });
+        });
+    });
+
+    describe(".valid_modelinUrl", function () {
+        var tests = [
+            //valid
+            { value: 'https://test.com/searchpage#/?fq=facetcat_bp:(PM%20QM)%20AND%20facetcat_itemtype:(facet_angle%20facet_template)%20AND%20facetcat_models:(EA2_800)', expected: true },
+            { value: 'https://test.com/searchpage#/?sort=name&dir=asc&fq=facetcat_bp:(PM%20QM)%20AND%20facetcat_itemtype:(facet_angle%20facet_template)', expected: true },
+
+
+            //invalid
+            { value: 'https://test.com/searchpage#/?sort=name&dir=asc&fq=facetcat_bp:(PM%20QM)%20AND%20facetcat_itemtype:(facet_angle%20facet_template)', expected: false },
+
+        ];
+
+        $.each(tests, function (index, test) {
+            it("should be " + (test.expected ? 'valid' : 'invalid') + " for url \"" + test.value + "\"", function () {
+                var kendoDrpDwn = {
+                    dataSource: {
+                        data: function () {
+                            return { length: 1 };
+                        }
+                    }
+                };
+                if (!test.expected) {
+                    kendoDrpDwn = {
+                        dataSource: {
+                            data: function () {
+                                return { length: 2 };
+                            }
+                        }
+                    };
+                }
+                spyOn($.fn, 'data').and.returnValue(kendoDrpDwn)
+                var result = $.validator.methods.valid_modelinUrl.call($.validator.prototype, test.value);
+                expect(test.expected).toEqual(result);
+            });
+        });
+    });
+
 });

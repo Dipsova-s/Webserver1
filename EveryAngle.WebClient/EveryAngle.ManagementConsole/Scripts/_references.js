@@ -39,6 +39,7 @@
 /// <reference path="jQuery/jquery.tagsinput.js" />
 /// <reference path="jquery/jquery.validate.additional-methods.js" />
 /// <reference path="jquery/jquery.validate.min.js" />
+/// <reference path="jquery/jquery.deparam.js" />
 /// <reference path="jstz.min.js" />
 /// <reference path="KendoUI/cultures/kendo.culture.da.min.js" />
 /// <reference path="KendoUI/cultures/kendo.culture.de.min.js" />

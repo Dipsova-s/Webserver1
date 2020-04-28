@@ -41,4 +41,27 @@
         });
     });
 
+    describe("checkUrlForPackageExport", function () {
+        var tests = [
+            //valid
+            { url: 'https://test.com/searchpage#/?sort=name&dir=asc&fq=facetcat_bp:(PM%20QM)', expected: true },
+            { url: 'https://test.com/searchpage#/?sort=name&dir=asc&fq=facetcat_bp:(PM%20QM)%20AND%20facetcat_itemtype:(facet_angle%20facet_template)', expected: true },
+            { url: 'https://test.com/searchpage#/?sort=name&dir=asc&fq=facetcat_bp:(PM%20QM)%20AND%20facetcat_itemtype:(facet_angle%20facet_template)%20AND%20facetcat_models:(EA2_800)', expected: true },
+            { url: 'https://test.com/searchpage#/?fq=facetcat_bp:(PM%20QM)%20AND%20facetcat_itemtype:(facet_angle%20facet_template)%20AND%20facetcat_models:(EA2_800)', expected: true },
+
+            //invalid
+            { url: 'https://test.com/searchpage#/?sort=name&dir=asc&fq=facetcat_bp:(PM%20QM)%20AND%20facetcat_itemtype:(facet_angle%20facet_template)%20AND%20facetcat_models:(EA2_800%20TestServer)', expected: false },
+            { url: 'https://test.com/searchpage#/?sort=name&dir=asc&fq=facetcat_bp:(PM%20QM)%20AND%20facetcat_models:(EA2_800%20TestServer)', expected: false },
+            { url: 'https://test.com/searchpage#/?sort=name&dir=asc', expected: false },
+            { url: 'https://test.com/searchpage#/?sort=name&', expected: false },
+
+        ];
+        $.each(tests, function (index, test) {
+            it("should be " + (test.expected ? 'valid' : 'invalid') + " for URL \"" + test.url + "\"", function () {
+                var result = checkUrlForPackageExport(test.url);
+                expect(test.expected).toEqual(result);
+            });
+        });
+    });
+
 });
