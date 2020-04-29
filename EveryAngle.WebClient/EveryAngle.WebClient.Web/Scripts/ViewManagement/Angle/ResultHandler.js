@@ -5,6 +5,8 @@ function ResultHandler(displayHandler) {
     _self.fnGetResult = null;
     _self.cancelable = false;
     _self.cacheDataFields = {};
+    _self.currentUri = null;
+    _self.currentData = null;
 
     // store the lastest query definitions
     // use for comparing with the current one
@@ -78,6 +80,8 @@ function ResultHandler(displayHandler) {
     self.PostResult = function (uri, data) {
         var deferred = jQuery.Deferred();
         clearTimeout(_self.fnGetResult);
+        _self.currentUri = uri;
+        _self.currentData = data;
         CreateDataToWebService(uri, data)
             .fail(deferred.reject)
             .done(jQuery.proxy(self.PostResultDone, self, deferred));
@@ -112,7 +116,7 @@ function ResultHandler(displayHandler) {
     self.GetResultFail = function (deferred, xhr, status, error) {
         if (xhr.status === 404) {
             errorHandlerModel.IgnoreAjaxError(xhr);
-            self.PostResult()
+            self.PostResult(_self.currentUri, _self.currentData)
                 .fail(deferred.reject)
                 .done(deferred.resolve);
         }
