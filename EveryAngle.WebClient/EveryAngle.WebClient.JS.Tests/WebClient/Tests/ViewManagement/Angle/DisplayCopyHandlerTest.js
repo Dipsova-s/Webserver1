@@ -68,7 +68,7 @@ describe("DisplayCopyHandler", function () {
                 execute_on_login: true,
                 is_user_default: true
             },
-            display_details: "{drilldown_display : \"e1332454fss645s009\"}"
+            display_details: "{\"drilldown_display\" : \"e1332454fss645s009\"}"
         };
 
         beforeEach(function () {
@@ -90,13 +90,13 @@ describe("DisplayCopyHandler", function () {
             expect(result.user_specific.is_user_default).toEqual(false);
         });
 
-        it("should remove default drilldown display", function () {
+        it("should store default drilldown display", function () {
             spyOn(displayCopyHandler, 'CanPasteDisplay').and.returnValue(false);
 
             displayCopyHandler.CopyDisplay();
             var result = jQuery.localStorage('copied_display');
 
-            expect(WC.Utility.ParseJSON(result).drilldown_display).not.toBeDefined();
+            expect(WC.Utility.ParseJSON(result.display_details).drilldown_display).toEqual('e1332454fss645s009');
         });
 
         it("should show the toast message when it successful", function () {
@@ -125,11 +125,44 @@ describe("DisplayCopyHandler", function () {
             spyOn(displayModel, 'GotoTemporaryDisplay');
             spyOn(fieldSettingsHandler, 'ClearFieldSettings');
             spyOn(toast, 'MakeSuccessTextFormatting');
+            spyOn(displayCopyHandler, 'PrepareDisplayForPasted');
 
             displayCopyHandler.PasteDisplay();
 
             // assert
             expect(toast.MakeSuccessTextFormatting).toHaveBeenCalled();
+        });
+    });
+
+    describe(".PrepareDisplayForPasted", function () {
+
+        var display;
+
+        beforeEach(function () {
+            display = {
+                uri: "/models/1/angles/341/displays/1195",
+                display_details: "{\"drilldown_display\" : \"e1332454fss645s009\"}"
+            };
+        });
+
+        it("should remove drilldown_display when it's angle is not this angle", function () {
+
+            spyOn(anglePageHandler.HandlerAngle, 'Data').and.returnValue({ uri: '/models/1/angles/3410' });
+
+            displayCopyHandler.PrepareDisplayForPasted(display);
+
+            expect(display.uri).toBeUndefined();
+            expect(WC.Utility.ParseJSON(display.display_details).drilldown_display).toBeUndefined();
+        });
+
+        it("should keep drilldown_display when it's angle is this angle", function () {
+
+            spyOn(anglePageHandler.HandlerAngle, 'Data').and.returnValue({ uri: '/models/1/angles/341' });
+
+            displayCopyHandler.PrepareDisplayForPasted(display);
+
+            expect(display.uri).toBeUndefined();
+            expect(WC.Utility.ParseJSON(display.display_details).drilldown_display).toEqual("e1332454fss645s009");
         });
     });
 });

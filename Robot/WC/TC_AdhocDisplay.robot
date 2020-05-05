@@ -10,7 +10,7 @@ Force Tags          acc_wc
 Adhoc Display Is Removed When Go Back To Search Page
     [Tags]      TC_229203       
     [Documentation]     Ad-hoc display disappear when un-save
-    ...                 Risk/coverage area: Create Adhoc display by drilldown
+    ...                 Risk/coverage area: Create an Adhoc display then go back to search page
     Search Angle From Search Page And Execute Angle    Angle For General Test
     Create Chart From List Header Column    ObjectType    ObjectType  ${True}
     Display Tab Should Be Visible By Name       New chart display
@@ -19,7 +19,7 @@ Adhoc Display Is Removed When Go Back To Search Page
     Display Tab Should Not Be Visible By Name   New chart display
 
 Adhoc Display Is Editable In Adhoc Angle
-    [Tags]      TC_229220       my_test
+    [Tags]      TC_229220
     [Documentation]     Able to update id,name,description to a new display on ad-hoc angle
     ...                 Risk/coverage area: Created Adhoc display in Adhoc angle should be editable
     ${angleName}  Set Variable  [ROBOT] Adhoc Display Is Editable In Adhoc Angle

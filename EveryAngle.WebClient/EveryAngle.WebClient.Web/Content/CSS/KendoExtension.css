@@ -888,7 +888,7 @@ input.eaText.k-invalid + .k-widget.k-tooltip-validation {
 .k-widget.k-dropdown .k-dropdown-wrap.k-state-border-up.k-state-focused,
 .k-widget.k-dropdown .k-dropdown-wrap.k-state-border-up.k-state-focused:hover {
     border-color: #358ed7;
-    border-top-color: transparent;
+    border-top-color: #e3e5e5;
 }
 
 .k-widget.k-dropdown .k-dropdown-wrap .k-input {

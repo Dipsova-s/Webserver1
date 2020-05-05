@@ -592,7 +592,6 @@
 
             // others
             delete data.angle_id;
-            delete data.uri;
             delete data.created;
             delete data.changed;
             delete data.authorizations;

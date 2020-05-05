@@ -1,6 +1,7 @@
 *** Settings ***
 Resource            ${EXECDIR}/WC/POM/Angle/AngleSidePanel.robot
 Resource            ${EXECDIR}/WC/POM/Angle/DisplayTabMenu.robot
+Resource            ${EXECDIR}/WC/POM/Angle/DisplayChart.robot
 Resource            ${EXECDIR}/WC/POM/Angle/DisplayDrilldown.robot
 Resource            ${EXECDIR}/WC/POM/Angle/AnglePage.robot
   
@@ -15,8 +16,7 @@ Verify Drilldown Display Value After Saving
     [Arguments]     ${displayName}      ${displayToDrilldown}
     Click Save All
     Reload Angle Page
-    ${drilldownDisplay}     Get Selected Default Drilldown Display
-    Should be equal   ${displayToDrilldown}    ${drilldownDisplay}
+    Verify Selected Default Drilldown Display   ${displayToDrilldown}
 
 Verify Asterisk Is Shown
     [Arguments]     ${displayName}
@@ -27,8 +27,7 @@ Verify Display Remember Drilldown Display
     Go To Display And Set Default Drilldown     ${displayName}     ${displayToDrilldown}
     Go To Display And Open Display Tab          ${displayToDrilldown}
     Go To Display And Open Display Tab          ${displayName}   
-    ${selectedDrilldown}      Get Selected Default Drilldown Display
-    Should be equal           ${selectedDrilldown}      ${displayToDrilldown}
+    Verify Selected Default Drilldown Display   ${displayToDrilldown}
 
 Verify Adhoc Display Drilldown Correctly
     [Arguments]     ${displayName}      ${displayToDrilldown}
@@ -37,3 +36,7 @@ Verify Adhoc Display Drilldown Correctly
     ${displayType}      Get Current Display Type
     Should Be Equal    ${displayType}    chart
  
+Verify Selected Default Drilldown Display
+    [Arguments]     ${displayToDrilldown}
+    ${drilldownDisplay}     Get Selected Default Drilldown Display
+    Should be equal   ${displayToDrilldown}    ${drilldownDisplay}

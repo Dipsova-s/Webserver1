@@ -24,10 +24,6 @@ function DisplayCopyHandler() {
         displayData.user_specific.execute_on_login = false;
         displayData.user_specific.is_user_default = false;
 
-        var displayDetails = WC.Utility.ParseJSON(displayData.display_details);
-        delete displayDetails.drilldown_display;
-        displayData.display_details = JSON.stringify(displayDetails);
-
         jQuery.localStorage('copied_display', displayData);
 
         if (self.CanPasteDisplay()) {
@@ -45,21 +41,32 @@ function DisplayCopyHandler() {
             popup.Info(Localization.Info_CannotPasteDisplayBecuaseAngleWarning);
         else {
             jQuery.when(self.CheckDisplayHaveWarning())
-               .done(function (valid, htmlMessage, displayCopy) {
-                   if (valid) {
-                       jQuery.when(displayModel.CreateTempDisplay(displayCopy.display_type, displayCopy))
-                        .done(function (data) {
-                            fieldSettingsHandler.ClearFieldSettings();
-                            anglePageHandler.HandlerValidation.ShowValidationStatus[data.uri] = true;
-                            anglePageHandler.HandlerAngle.AddDisplay(data, null, true);
-                            displayModel.GotoTemporaryDisplay(data.uri);
-                            toast.MakeSuccessTextFormatting(displayModel.Name(), Localization.Toast_PasteDisplay);
-                        });
-                   }
-                   else
-                       popup.Info(Localization.Info_DisplayCannotBeCopied + '<br><br>' + htmlMessage);
-               });
+                .done(function (valid, htmlMessage, displayCopy) {
+                    if (valid) {
+                        self.PrepareDisplayForPasted(displayCopy);
+                        jQuery.when(displayModel.CreateTempDisplay(displayCopy.display_type, displayCopy))
+                            .done(function (data) {
+                                fieldSettingsHandler.ClearFieldSettings();
+                                anglePageHandler.HandlerValidation.ShowValidationStatus[data.uri] = true;
+                                anglePageHandler.HandlerAngle.AddDisplay(data, null, true);
+                                displayModel.GotoTemporaryDisplay(data.uri);
+                                toast.MakeSuccessTextFormatting(displayModel.Name(), Localization.Toast_PasteDisplay);
+                            });
+                    }
+                    else
+                        popup.Info(Localization.Info_DisplayCannotBeCopied + '<br><br>' + htmlMessage);
+                });
         }
+    };
+
+    self.PrepareDisplayForPasted = function (displayCopy) {
+        var angleUri = anglePageHandler.HandlerAngle.Data().uri + '/';
+        if (displayCopy.uri.indexOf(angleUri) === -1) {
+            var displayDetails = WC.Utility.ParseJSON(displayCopy.display_details);
+            delete displayDetails.drilldown_display;
+            displayCopy.display_details = JSON.stringify(displayDetails);
+        }
+        delete displayCopy.uri;
     };
 
     self.CheckAngleHaveWarning = function () {
@@ -106,6 +113,6 @@ function DisplayCopyHandler() {
 
                 var canPasteDisplay = !(displayValidation.InvalidFilters || displayValidation.InvalidFollowups || displayValidation.InvalidAggregates);
                 return jQuery.when(canPasteDisplay, htmlMessage, copiedDisplay);
-          });
+            });
     };
 }
