@@ -31,7 +31,13 @@ textarea {
     line-height: 16px;
     box-sizing: border-box;
 
-    &.invalid {
+    &:focus {
+        border-color: #4d90fe;
+        outline: none;
+    }
+
+    &.invalid,
+    &.invalid:focus {
         border-color: $invalid-color;
         outline: none;
     }

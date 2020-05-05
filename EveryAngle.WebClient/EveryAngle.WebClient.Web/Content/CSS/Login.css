@@ -140,6 +140,12 @@
     background-color: #fff;
 }
 
+#LoginContainer .UserName:focus,
+#LoginContainer .Password:focus {
+    border-color: #4d90fe;
+    outline: none;
+}
+
 #LoginContainer .UserName {
     margin-top: 50px;
 }
