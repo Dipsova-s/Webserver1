@@ -6,6 +6,20 @@ Go To System Settings Page
     Go To MC Page    Global%20settings/System%20settings/
     Wait System Settings Page Ready
 
+Prepare No Manage System User
+    Create Context: Web
+    ${user}  Get User By Name  EATestUserRole
+    ${uri}  Get Uri From Response  ${user}
+    ${roles}  Get User Roles  ${user}
+    Set Test Variable  ${TEST_USER_URI}  ${uri}
+    Set Test Variable  ${TEST_USER_ROLES}  ${roles}
+    Create Context: Web
+    Update User Roles  ${uri}  [{"role_id":"EA2_800_ALL","model_id":"EA2_800"}]}]
+
+Restore No Manage System User
+    Create Context: Web
+    Update User Roles  ${TEST_USER_URI}  ${TEST_USER_ROLES}
+
 Verify System Settings Page Is Ready
     Page Should Contain Element    ${lbApplicationServerUri}
     Page Should Contain Element    ${txtDefaultPageSize}

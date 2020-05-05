@@ -37,7 +37,7 @@ ${chkEmailSettingsUseSSL}               smtp_use_ssl
 ${txtEmailSettingsUserName}             EmailSettings_username
 ${txtEmailSettingsPassword}             EmailSettings_password
 
-${btnShowTestEmailSettingPopup}         TestEmailButton
+${btnShowTestEmailSettingPopup}         css=#TestEmailButton
 ${txtEmailSettingsRecipient}            EmailSettings_recipient
 ${btnSubmitTestEmailSetting}            css=#TestEmailPopup .btnPrimary
 ${btnCloseTestEmailSetting}             css=#TestEmailPopup .btnClose
@@ -322,3 +322,7 @@ Get Username textbox field value
 Get Password textbox field value
     ${value}    Get Value    ${txtEmailSettingsPassword}
     [Return]    ${value}
+
+Verify No Manage System On System Settings Page
+    Page Should Contain Element    ${btnSaveSystemSetting}.disabled
+    Page Should Contain Element    ${btnShowTestEmailSettingPopup}.disabled

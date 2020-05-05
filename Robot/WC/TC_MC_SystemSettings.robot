@@ -1,6 +1,6 @@
 *** Settings ***
 Resource            ${EXECDIR}/resources/WCSettings.robot
-Resource            ${EXECDIR}/resources/WC/API/Mock/API_Utility.robot
+Resource            ${EXECDIR}/WC/API/API_User.robot
 Suite Setup         Go to MC Then Login With Admin User
 Suite Teardown      Logout MC Then Close Browser
 Test Setup          Go To System Settings Page
@@ -45,15 +45,25 @@ Verify Active Directory Size limit changes reflects the users list in users page
     Verify System Settings Page Is Ready
     Restore Active Directory Size Limit Value
 
-Verify Program/Scripts folder Text for info property on system settings page
-    [Documentation]     This test case verifies the Text for info property of the Program/Scripts folder in the system settings page
-    ...                 Risk Coverage:This test covers the failures in the system settings page
+Verify Program/Scripts folder
+    [Documentation]     This test case verifies the path of the Program/Scripts folder in the system settings page
+    ...                 Risk Coverage: This test covers the failures in the system settings page
     [Tags]      TC-C39021
     Verify Text for info property of Program/Script folder
-
-Input Program/Scripts folder path and save on system settings page
-    [Documentation]     This test case verifies the path of the Program/Scripts folder in the system settings page
-    ...                 Risk Coverage:This test covers the failures in the system settings page
-    [Tags]      TC-C39021
     Input Program/Script folder path and Save       ${Program/ScriptFolderPath}
     Verify Program/Script folder path saved correctly     ${Program/ScriptFolderPath}
+
+Verify No Manage System
+    [Documentation]     This test case verifies no manage system privilege in the system settings page
+    ...                 Risk Coverage: This test covers the failures in the system settings page
+    [Tags]   smk_mc_s  TC-C605
+    [Setup]  Run Keywords  Go To System Settings Page
+    ...      AND  Prepare No Manage System User
+
+    Go To MC Then Login With Test Role User
+    Go To System Settings Page
+    Verify No Manage System On System Settings Page
+    Logout MC Then Close Browser
+    Switch Browser  1
+
+    [Teardown]  Restore No Manage System User

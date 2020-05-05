@@ -1,10 +1,6 @@
-using EveryAngle.Core.ViewModels.Model;
 using EveryAngle.Core.ViewModels.SystemSettings;
 using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
 using NUnit.Framework;
-using System;
-using System.Collections.Generic;
 
 namespace EveryAngle.Core.ViewModels.Tests
 {
@@ -23,11 +19,14 @@ namespace EveryAngle.Core.ViewModels.Tests
             //assert type
             Assert.AreEqual(viewModel.max_audit_log_history.GetType(), typeof(int));
             Assert.AreEqual(viewModel.script_location.GetType(), typeof(string));
+            Assert.AreEqual(viewModel.EmailSettings.GetType(), typeof(SystemEmailSettingsViewModel));
 
             //assert json serialize
             string viewModelSerialize = JsonConvert.SerializeObject(viewModel);
             Assert.IsTrue(viewModelSerialize.Contains("max_audit_log_history"));
             Assert.IsTrue(viewModelSerialize.Contains("script_location"));
+            Assert.IsTrue(viewModelSerialize.Contains("smtp_server"));
+            Assert.IsTrue(viewModelSerialize.Contains("smtp_password"));
         }
     }
 }

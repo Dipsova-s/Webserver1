@@ -1,9 +1,6 @@
-using EveryAngle.Core.ViewModels.Model;
-using EveryAngle.Shared.Helpers;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
 
 namespace EveryAngle.Core.ViewModels.SystemSettings
 {
@@ -119,7 +116,7 @@ namespace EveryAngle.Core.ViewModels.SystemSettings
 
 
         [JsonProperty(PropertyName = "email_settings")]
-        public SystemEmailSettingsViewModel EmailSettings { get; set; }
+        public SystemEmailSettingsViewModel EmailSettings { get; set; } = new SystemEmailSettingsViewModel();
 
         public bool IsEnableProvider { get; set; }
 
