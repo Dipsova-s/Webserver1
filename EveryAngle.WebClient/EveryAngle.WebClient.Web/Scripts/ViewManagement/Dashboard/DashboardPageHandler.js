@@ -849,7 +849,7 @@ function DashboardPageHandler() {
             columnElement = jQuery(
                 '<div class="widget-display-column" id="' + self.ElementPrefix + widget.id + '-container">'
                 + '<div class="widget-display-header">'
-                + '<span class="widgetName" data-role="tooltip"></span>'
+                + '<span class="widgetName" data-role="tooltip" data-showwhenneed="true"></span>'
                 + '<div class="widgetToolbar">'
                 + '<a class="widgetButtonInfo" data-role="tooltip" data-tooltip-position="bottom" data-tooltip-text="' + Localization.DashboardWidgetInfo_Title + '"><i class="icon icon-info"></i></a>'
                 + '<a class="widgetButtonMaximize" data-role="tooltip" data-tooltip-position="bottom" data-tooltip-text="' + Captions.Button_Dashboard_WidgetMaximize + '"><i class="icon icon-maximize"></i></a>'

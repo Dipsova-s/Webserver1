@@ -179,7 +179,7 @@ Wait Until Dropdown Disappears
 
 Select Dropdown By Text
     [Arguments]  ${selectElement}    ${text}
-    Select Dropdown By Selector    ${selectElement}    jquery=span[title="${text}"]:visible
+    Select Dropdown By Selector    ${selectElement}    jquery=span[data-text="${text}"]:visible
 
 Select Dropdown By InnerText
     [Arguments]  ${selectElement}    ${text}

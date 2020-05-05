@@ -359,21 +359,6 @@ describe("AngleBusinessProcessHandler", function () {
         });
     });
 
-    describe(".Cancel", function () {
-        it("should call functions by sequence", function () {
-            angleBusinessProcessHandler.$Container = {
-                busyIndicator: $.noop
-            };
-            spyOn(angleBusinessProcessHandler.$Container, 'busyIndicator');
-            spyOn(angleBusinessProcessHandler, 'Render');
-
-            angleBusinessProcessHandler.Cancel();
-
-            expect(angleBusinessProcessHandler.$Container.busyIndicator).toHaveBeenCalledWith(false);
-            expect(angleBusinessProcessHandler.Render).toHaveBeenCalled();
-        });
-    });
-
     describe(".OnChangeComplete", function () {
         it("should show toast when the angle is not an adhoc angle", function () {
             angleBusinessProcessHandler.$Container = { busyIndicator: $.noop };

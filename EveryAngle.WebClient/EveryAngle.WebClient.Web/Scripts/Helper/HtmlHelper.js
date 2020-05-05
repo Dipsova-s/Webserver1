@@ -182,7 +182,7 @@
                         height: isLargeDropdown ? 40 * 8 : 28 * 8
                     }, options || {});
                 if (!settings.template && settings.dataValueField) {
-                    settings.template = '<span title="#= ' + settings.dataTextField + ' #">#= ' + settings.dataTextField + ' #</span>';
+                    settings.template = '<span data-text="#: ' + settings.dataTextField + ' #">#: ' + settings.dataTextField + ' #</span>';
                 }
 
                 if (data) {

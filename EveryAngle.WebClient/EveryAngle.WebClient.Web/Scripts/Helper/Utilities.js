@@ -102,9 +102,7 @@
                 }
                 else {
                     tSize = context.measureText(t).width;
-                    if (!cache[t]) {
-                        cache[t] = tSize;
-                    }
+                    cache[t] = tSize;
                 }
                 return tSize;
             };

@@ -10,7 +10,7 @@ describe("HtmlHelper.Tooltip test", function () {
             var textWidth = 99;
             spyOn(WC.HtmlHelper, 'GetFontCss').and.returnValue({});
             spyOn(WC.Utility, 'MeasureText').and.returnValue(textWidth);
-            var result = WC.HtmlHelper.Tooltip.GetTooltipTextWhenNeeded({}, text, elementWidth);
+            var result = WC.HtmlHelper.Tooltip.GetTooltipTextWhenNeeded($(), text, elementWidth);
 
             expect(result).toEqual('');
         });
@@ -21,7 +21,7 @@ describe("HtmlHelper.Tooltip test", function () {
             var textWidth = 101;
             spyOn(WC.HtmlHelper, 'GetFontCss').and.returnValue({});
             spyOn(WC.Utility, 'MeasureText').and.returnValue(textWidth);
-            var result = WC.HtmlHelper.Tooltip.GetTooltipTextWhenNeeded({}, text, elementWidth);
+            var result = WC.HtmlHelper.Tooltip.GetTooltipTextWhenNeeded($(), text, elementWidth);
 
             expect(result).toEqual('');
         });
@@ -32,7 +32,7 @@ describe("HtmlHelper.Tooltip test", function () {
             var textWidth = 101.1;
             spyOn(WC.HtmlHelper, 'GetFontCss').and.returnValue({});
             spyOn(WC.Utility, 'MeasureText').and.returnValue(textWidth);
-            var result = WC.HtmlHelper.Tooltip.GetTooltipTextWhenNeeded({}, text, elementWidth);
+            var result = WC.HtmlHelper.Tooltip.GetTooltipTextWhenNeeded($(), text, elementWidth);
 
             expect(result).toEqual(text);
         });
