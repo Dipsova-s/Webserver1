@@ -11,6 +11,7 @@ Prepare No Manage System User
     ${user}  Get User By Name  EATestUserRole
     ${uri}  Get Uri From Response  ${user}
     ${roles}  Get User Roles  ${user}
+    ${roles}  Stringify Json  ${roles}
     Set Test Variable  ${TEST_USER_URI}  ${uri}
     Set Test Variable  ${TEST_USER_ROLES}  ${roles}
     Create Context: Web
