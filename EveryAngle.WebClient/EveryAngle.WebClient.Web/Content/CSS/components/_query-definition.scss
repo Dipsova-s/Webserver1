@@ -39,6 +39,7 @@
 
             .item-header {
                 border-bottom-color: #f1f3f4;
+                text-shadow: $text-shadow-bold;
             }
         }
 
@@ -113,8 +114,13 @@
             }
         }
 
+        &:hover .item-header {
+            text-shadow: $text-shadow-bold;
+        }
+
         .text-error {
             font-size: 10px;
+            text-shadow: none !important;
         }
     }
 

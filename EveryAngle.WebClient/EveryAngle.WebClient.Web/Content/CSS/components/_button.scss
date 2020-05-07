@@ -230,13 +230,30 @@
 }
 
 .btn-split.btn-secondary {
-    + .btn:after {
-        border-left-color: $primary-color;
+    &:hover:not(.disabled) {
+        background-color: #bbd5ff;
+        border-color: #bbd5ff;
+    }
+
+    + .btn {
+        &:after {
+            border-left-color: $primary-color;
+        }
+
+        &:hover {
+            background-color: #bbd5ff;
+            border-color: #bbd5ff;
+        }
     }
 
     &.disabled + .btn {
         background-color: #f1f3f4;
         border-color: #f1f3f4;
+
+        &:hover {
+            border-color: #dcdcdc;
+            background: #dcdcdc;
+        }
     }
 }
 

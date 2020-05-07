@@ -92,19 +92,6 @@
         &:not(.btn-split) + .btn-saving-options {
             display: none;
         }
-
-        &:hover:not(.disabled) {
-            border-color: #dcdcdc;
-            background: #dcdcdc;
-        }
-    }
-
-    .btn-split.btn-secondary + .btn,
-    .btn-split.btn-secondary.disabled + .btn {
-        &:hover {
-            border-color: #dcdcdc;
-            background: #dcdcdc;
-        }
     }
 
     .btn-saving-options {
@@ -601,6 +588,10 @@
 
 .context-menu .listview-item:hover {
     background-color: #fafafb;
+}
+
+.context-menu.hover .listview-item:not(:hover) {
+    text-shadow: none;
 }
 
 .context-menu .listview-item.context-menu-submenu {

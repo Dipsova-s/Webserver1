@@ -768,12 +768,23 @@ textarea.input-light {
 .btn-split.btn-primary + .btn:after {
   border-left-color: #fff; }
 
+.btn-split.btn-secondary:hover:not(.disabled) {
+  background-color: #bbd5ff;
+  border-color: #bbd5ff; }
+
 .btn-split.btn-secondary + .btn:after {
   border-left-color: #358ed7; }
+
+.btn-split.btn-secondary + .btn:hover {
+  background-color: #bbd5ff;
+  border-color: #bbd5ff; }
 
 .btn-split.btn-secondary.disabled + .btn {
   background-color: #f1f3f4;
   border-color: #f1f3f4; }
+  .btn-split.btn-secondary.disabled + .btn:hover {
+    border-color: #dcdcdc;
+    background: #dcdcdc; }
 
 .btn-split.btn-ghost {
   border-right-width: 0; }
@@ -837,6 +848,7 @@ textarea.input-light {
   text-transform: none !important;
   line-height: 1;
   letter-spacing: 0 !important;
+  text-shadow: none !important;
   text-indent: 0;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale; }
@@ -2194,9 +2206,11 @@ a.breadcrumbLink:hover {
       color: #f3aa18; }
     .displayNameContainer .icon.icon-adhoc {
       width: auto;
+      font-size: 16px !important;
       font-style: normal;
       color: #f3aa18;
-      padding: 0 2px; }
+      padding: 0 2px;
+      margin-top: -4px; }
       .displayNameContainer .icon.icon-adhoc:before {
         content: '*'; }
     .displayNameContainer .icon.loader-spinner-inline {
@@ -2326,10 +2340,9 @@ a.breadcrumbLink:hover {
     white-space: nowrap;
     text-overflow: ellipsis;
     background-color: #fff; }
-    .listview .listview-item:hover, .listview .listview-item.active {
+    .listview .listview-item:hover, .listview .listview-item.hover, .listview .listview-item.active {
       background-color: #f3f3f3;
-      font-weight: bold;
-      letter-spacing: .15px; }
+      text-shadow: 0 0 0.65px currentColor, 0 0 0.65px currentColor; }
     .listview .listview-item.disabled {
       cursor: default;
       opacity: .3; }
@@ -2601,6 +2614,7 @@ a.breadcrumbLink:hover {
       justify-content: center;
       cursor: pointer;
       color: #818181;
+      letter-spacing: .2px;
       height: 36px;
       padding: 0 10px;
       box-sizing: border-box; }
@@ -2616,7 +2630,7 @@ a.breadcrumbLink:hover {
       .tab .tab-menu-wrapper .tab-menu.active {
         color: #333;
         background-color: #fff;
-        font-weight: bold; }
+        text-shadow: 0 0 0.65px currentColor, 0 0 0.65px currentColor; }
         .tab .tab-menu-wrapper .tab-menu.active:before {
           width: 100%;
           left: 0; }
@@ -2717,7 +2731,8 @@ a.breadcrumbLink:hover {
       background-color: #fff;
       border-color: #e6e6e6; }
       .query-definition .item.editmode .item-header {
-        border-bottom-color: #f1f3f4; }
+        border-bottom-color: #f1f3f4;
+        text-shadow: 0 0 0.65px currentColor, 0 0 0.65px currentColor; }
     .query-definition .item.item-placeholder {
       opacity: .25;
       box-shadow: none;
@@ -2760,8 +2775,11 @@ a.breadcrumbLink:hover {
           color: #ea3d2f; }
           .query-definition .item .item-header .rear .action-delete:hover {
             color: #a61c11; }
+    .query-definition .item:hover .item-header {
+      text-shadow: 0 0 0.65px currentColor, 0 0 0.65px currentColor; }
     .query-definition .item .text-error {
-      font-size: 10px; }
+      font-size: 10px;
+      text-shadow: none !important; }
   .query-definition + .btn-wrapper {
     margin-right: -10px;
     padding-bottom: 0; }
@@ -3047,6 +3065,8 @@ a.breadcrumbLink:hover {
           color: #ea3d2f; }
           .query-aggregation .item .item-header .rear .action-delete:hover {
             color: #a61c11; }
+    .query-aggregation .item:hover .item-header {
+      text-shadow: 0 0 0.65px currentColor, 0 0 0.65px currentColor; }
 
 .query-aggregation.hint .item {
   background-color: #fff;
@@ -3293,8 +3313,7 @@ a.breadcrumbLink:hover {
       max-height: 40px;
       white-space: nowrap;
       justify-content: flex-start;
-      flex-shrink: 0;
-      letter-spacing: .2px; }
+      flex-shrink: 0; }
       .display-tab .tab-menu-wrapper .tab-menu.active {
         cursor: default;
         background-color: #fff;
@@ -3302,9 +3321,8 @@ a.breadcrumbLink:hover {
         z-index: 1; }
       .display-tab .tab-menu-wrapper .tab-menu:hover:not(.active) {
         background-color: #fbfbfb;
-        letter-spacing: .15px;
-        font-weight: bold;
-        color: #000; }
+        color: #333;
+        text-shadow: 0 0 0.65px currentColor, 0 0 0.65px currentColor; }
       .display-tab .tab-menu-wrapper .tab-menu .seperator {
         display: flex;
         align-items: center;
@@ -3328,8 +3346,6 @@ a.breadcrumbLink:hover {
         position: relative; }
       .display-tab .tab-menu-wrapper .tab-menu .name {
         max-width: 280px; }
-      .display-tab .tab-menu-wrapper .tab-menu.active .name {
-        font-weight: bold; }
       .display-tab .tab-menu-wrapper .tab-menu .validWarning {
         margin: unset;
         box-sizing: border-box; }
@@ -3377,9 +3393,6 @@ a.breadcrumbLink:hover {
           overflow: visible;
           max-width: 160px;
           min-width: 80px; }
-          .display-tab .add-display-wrapper .new-display-popup .listview .listview-item:hover {
-            font-weight: bold;
-            background-color: #f3f3f3; }
   .display-tab .right-btn-wrapper {
     position: relative;
     display: inline-flex;
@@ -3409,8 +3422,6 @@ a.breadcrumbLink:hover {
           cursor: pointer;
           position: relative;
           overflow: visible; }
-          .display-tab .right-btn-wrapper .display-overview-popup .listview .listview-item:hover, .display-tab .right-btn-wrapper .display-overview-popup .listview .listview-item.hover, .display-tab .right-btn-wrapper .display-overview-popup .listview .listview-item.active {
-            background-color: #f3f3f3; }
           .display-tab .right-btn-wrapper .display-overview-popup .listview .listview-item.active {
             cursor: default;
             background-color: #fff; }
@@ -3480,7 +3491,10 @@ a.breadcrumbLink:hover {
 /* .widget-definition
 ============================================ */
 .widget-definition .item {
+  cursor: default;
   margin-bottom: 5px; }
+  .widget-definition .item:hover {
+    text-shadow: 0 0 0.65px currentColor, 0 0 0.65px currentColor; }
   .widget-definition .item .btn-definition {
     margin-left: auto;
     flex-shrink: 0; }
@@ -3638,10 +3652,14 @@ a.breadcrumbLink:hover {
 
 .toggle-sidebar {
   position: absolute;
-  left: 15px;
-  top: 16px;
+  left: 8px;
+  top: 9px;
   font-size: 18px;
-  color: #78909c; }
+  color: #78909c;
+  padding: 7px; }
+  .toggle-sidebar:hover {
+    border-radius: 50%;
+    background-color: #ebebeb; }
 
 /* .content-wrapper
 ============================================ */

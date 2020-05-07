@@ -108,8 +108,7 @@ function DashboardPageHandler() {
             // menu navigatable
             WC.HtmlHelper.MenuNavigatable('#UserControl', '#UserMenu', '.actionDropdownItem');
             WC.HtmlHelper.MenuNavigatable('#Help', '#HelpMenu', '.actionDropdownItem');
-            WC.HtmlHelper.MenuNavigatable('#btnAddLanguage', '.languageAvailableList', '.Item');
-            WC.HtmlHelper.MenuNavigatable('.btnAddLabel', '.availableLabelsList', 'li');
+            WC.HtmlHelper.MenuNavigatable('.btn-saving-options', '.saving-options', '.listview-item');
             WC.HtmlHelper.MenuNavigatable('.dxpgHeaderText', '.HeaderPopupView', 'a');
 
             //Binding knockout
@@ -2211,6 +2210,7 @@ function DashboardPageHandler() {
     };
     self.ToggleSaveOptions = function () {
         var element = jQuery('#DashboardSavingWrapper .saving-options');
+        element.children('.listview-item').removeClass('active');
         if (element.is(':visible'))
             element.hide();
         else

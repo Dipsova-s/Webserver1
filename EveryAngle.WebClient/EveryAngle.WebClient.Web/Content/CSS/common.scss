@@ -1461,10 +1461,16 @@ $dropdown-large-item-height: 20px;
 
 .toggle-sidebar {
     position: absolute;
-    left: 15px;
-    top: 16px;
+    left: 8px;
+    top: 9px;
     font-size: 18px;
     color: #78909c;
+    padding: 7px;
+
+    &:hover {
+        border-radius: 50%;
+        background-color: #ebebeb;
+    }
 }
 
 /* .content-wrapper
