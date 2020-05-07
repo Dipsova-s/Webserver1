@@ -34,4 +34,32 @@
         });
     });
 
+    describe(".DestroyNumericIfExists", function () {
+        it("should remove numerictextbox when numerictextbox is already created", function () {
+
+            var origin = {
+                insertAfter: $.noop
+            };
+
+            var numeric = {
+                element: {
+                    show: $.noop
+                },
+                wrapper: {
+                    remove: $.noop
+                },
+                destroy: $.noop
+            };
+            spyOn(numeric.element, 'show').and.returnValue(origin);
+            spyOn(numeric.wrapper, 'remove');
+            spyOn(numeric, 'destroy');
+            spyOn($.fn, 'data').and.returnValue(numeric);
+
+            WC.HtmlHelper.DestroyNumericIfExists('#id');
+
+            expect(numeric.destroy).toHaveBeenCalled();
+            expect(numeric.wrapper.remove).toHaveBeenCalled();
+        });
+    });
+
 });

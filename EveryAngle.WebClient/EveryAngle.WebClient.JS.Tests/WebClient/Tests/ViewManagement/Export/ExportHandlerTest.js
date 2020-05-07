@@ -99,6 +99,7 @@ describe("ExportHandlerTest", function () {
                 return element;
             };
 
+            spyOn(WC.HtmlHelper, 'DestroyNumericIfExists');
             var result = exportHandler.CreateAddModelDateUI();
 
             expect(result).not.toBe(null);
@@ -108,6 +109,7 @@ describe("ExportHandlerTest", function () {
             expect(typeof result.__focusin).toBe('function');
             expect(typeof result._blur).toBe('function');
             expect(typeof result.__blur).toBe('function');
+            expect(WC.HtmlHelper.DestroyNumericIfExists).toHaveBeenCalled();
         });
     });
 
