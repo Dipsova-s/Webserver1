@@ -201,7 +201,7 @@ describe("DashboardWidgetDefinitionHandler", function () {
 
             // assert
             expect(result.top).toEqual(260);
-            expect(result.left).toEqual(0);
+            expect(result.left).toEqual(5);
         });
         it("should get position at right", function () {
             // initial

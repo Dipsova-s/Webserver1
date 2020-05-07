@@ -65,13 +65,6 @@
   .saving-wrapper .btn-main-saving:after,
   .saving-wrapper .btn-main-saving:not(.btn-split) + .btn-saving-options {
     display: none; }
-  .saving-wrapper .btn-main-saving:hover:not(.disabled) {
-    border-color: #dcdcdc;
-    background: #dcdcdc; }
-  .saving-wrapper .btn-split.btn-secondary + .btn:hover,
-  .saving-wrapper .btn-split.btn-secondary.disabled + .btn:hover {
-    border-color: #dcdcdc;
-    background: #dcdcdc; }
   .saving-wrapper .btn-saving-options {
     padding-left: 7px; }
   .saving-wrapper .saving-options {
@@ -468,6 +461,9 @@
 
 .context-menu .listview-item:hover {
   background-color: #fafafb; }
+
+.context-menu.hover .listview-item:not(:hover) {
+  text-shadow: none; }
 
 .context-menu .listview-item.context-menu-submenu {
   cursor: default; }

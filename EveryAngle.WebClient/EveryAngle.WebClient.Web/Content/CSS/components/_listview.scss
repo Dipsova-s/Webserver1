@@ -32,10 +32,9 @@
         text-overflow: ellipsis;
         background-color: #fff;
 
-        &:hover, &.active {
+        &:hover, &.hover, &.active {
             background-color: $general-border-color;
-            font-weight: bold;
-            letter-spacing: .15px;
+            text-shadow: $text-shadow-bold;
         }
 
         &.disabled {

@@ -137,6 +137,10 @@
                 }
             }
         }
+
+        &:hover .item-header {
+            text-shadow: $text-shadow-bold;
+        }
     }
 }
 

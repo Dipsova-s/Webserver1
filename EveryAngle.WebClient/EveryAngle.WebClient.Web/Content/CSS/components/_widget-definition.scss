@@ -5,7 +5,12 @@
 ============================================ */
 .widget-definition {
     .item {
+        cursor: default;
         margin-bottom: 5px;
+
+        &:hover {
+            text-shadow: $text-shadow-bold;
+        }
 
         .btn-definition {
             margin-left: auto;

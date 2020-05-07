@@ -103,6 +103,7 @@ function AnglePageHandler() {
             WC.HtmlHelper.MenuNavigatable('#Help', '#HelpMenu', '.actionDropdownItem');
             WC.HtmlHelper.MenuNavigatable('#BtnDisplayOverview', '#DisplayOverview', '.listview-item', 'hover', 'active');
             WC.HtmlHelper.MenuNavigatable('.btn-saving-options', '.saving-options', '.listview-item');
+            WC.HtmlHelper.MenuNavigatable('#BtnNewDisplay', '#NewDisplay', '.listview-item');
             WC.HtmlHelper.MenuNavigatable('th.k-header', '.HeaderPopupList', 'a');
             WC.HtmlHelper.MenuNavigatable('.k-widget.chart-type', '.chart-type-dropdown', '.chart-icon');
             WC.HtmlHelper.MenuNavigatable('.dxpgHeaderText', '.HeaderPopupView', 'a');
@@ -544,6 +545,7 @@ function AnglePageHandler() {
     };
     self.ToggleSaveOptions = function () {
         var element = jQuery('#AngleSavingWrapper .saving-options');
+        element.children('.listview-item').removeClass('active');
         if (element.is(':visible'))
             element.hide();
         else

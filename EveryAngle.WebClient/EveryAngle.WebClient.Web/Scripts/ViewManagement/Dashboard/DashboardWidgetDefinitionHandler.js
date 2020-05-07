@@ -107,16 +107,18 @@
 
         // locate at bottom
         var position = row.offset();
+        position.left += row.outerWidth();
         position.top += row.outerHeight();
 
         // check bottom
         var popupHeight = e.sender.wrapper.outerHeight();
         if (position.top + popupHeight > WC.Window.Height) {
             // move to right
-            position.left += row.outerWidth() + 10;
+            position.left += 10;
             position.top -= popupHeight / 2;
         }
         else {
+            position.left = Math.max(5, position.left - e.sender.wrapper.outerWidth());
             position.top += 40;
         }
         return position;

@@ -64,7 +64,6 @@ $delete-icon-color: #ea3d2f;
             white-space: nowrap;
             justify-content: flex-start;
             flex-shrink: 0;
-            letter-spacing: .2px;
 
             &.active {
                 cursor: default;
@@ -75,9 +74,8 @@ $delete-icon-color: #ea3d2f;
 
             &:hover:not(.active) {
                 background-color: $hover-tab-color;
-                letter-spacing: .15px;
-                font-weight: bold;
-                color: #000;
+                color: #333;
+                text-shadow: $text-shadow-bold;
             }
 
             .seperator {
@@ -110,10 +108,6 @@ $delete-icon-color: #ea3d2f;
 
             .name {
                 max-width: 280px;
-            }
-
-            &.active .name {
-                font-weight: bold;
             }
 
             .validWarning {
@@ -185,11 +179,6 @@ $delete-icon-color: #ea3d2f;
                     overflow: visible;
                     max-width: 160px;
                     min-width: 80px;
-
-                    &:hover {
-                        font-weight: bold;
-                        background-color: $general-border-color;
-                    }
                 }
             }
         }
@@ -231,12 +220,6 @@ $delete-icon-color: #ea3d2f;
                     cursor: pointer;
                     position: relative;
                     overflow: visible;
-
-                    &:hover,
-                    &.hover,
-                    &.active {
-                        background-color: $general-border-color;
-                    }
 
                     &.active {
                         cursor: default;

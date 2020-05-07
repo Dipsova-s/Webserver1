@@ -1,4 +1,5 @@
-﻿@import '../abstracts/mixins';
+﻿@import '../abstracts/variables';
+@import '../abstracts/mixins';
 
 /* .tab
 ============================================ */
@@ -15,6 +16,7 @@
             justify-content: center;
             cursor: pointer;
             color: #818181;
+            letter-spacing: .2px;
             height: 36px;
             padding: 0 10px;
             box-sizing: border-box;
@@ -33,7 +35,7 @@
             &.active {
                 color: #333;
                 background-color: #fff;
-                font-weight: bold;
+                text-shadow: $text-shadow-bold;
 
                 &:before {
                     width: 100%;
