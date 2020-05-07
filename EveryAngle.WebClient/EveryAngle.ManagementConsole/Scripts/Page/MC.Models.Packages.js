@@ -127,8 +127,8 @@
                         // management console type package
                         attributes.href = '#ImportPackagePopup';
                         attributes['data-role'] = 'mcPopup';
-                        attributes['data-width'] = '400';
-                        attributes['data-height'] = '360';
+                        attributes['data-width'] = '425';
+                        attributes['data-height'] = '365';
                     }
                     else {
                         // other type package
