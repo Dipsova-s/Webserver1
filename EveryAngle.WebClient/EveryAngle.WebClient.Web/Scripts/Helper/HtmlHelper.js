@@ -310,6 +310,19 @@
                         virtualScroll.verticalScrollbar.scrollTop(virtualScroll.verticalScrollbar.scrollTop() - e.deltaFactor * e.deltaY);
                     }
                 });
+        },
+        DestroyNumericIfExists: function (selector) {
+            var numeric = $(selector).data('kendoNumericTextBox');
+            if (!numeric) {
+                return;
+            }
+
+            var origin = numeric.element.show();
+
+            origin.insertAfter(numeric.wrapper);
+
+            numeric.destroy();
+            numeric.wrapper.remove();
         }
     };
 

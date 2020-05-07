@@ -158,38 +158,37 @@ function ExportHandler() {
     };
 
     self.SetExportModelUI = function () {
-        var headerFormatDropdownlist = jQuery('#header-format-dropdownlist').kendoDropDownList({
+        var headerFormatDropdownlist = WC.HtmlHelper.DropdownList('#header-format-dropdownlist', self.CurrentExportModel.HeaderFormats, {
             dataTextField: "TEXT",
             dataValueField: "VALUE",
-            dataSource: self.CurrentExportModel.HeaderFormats,
             index: 2,
             change: function (e) {
                 self.CurrentExportModel.HeaderFormat = e.sender.value();
             }
-        }).data('handler');
+        });
         headerFormatDropdownlist.value(self.CurrentExportModel.HeaderFormat);
 
-        var enquoteDropdownlist = jQuery('#enquote-dropdownlist').kendoDropDownList({
+        var enquoteDropdownlist = WC.HtmlHelper.DropdownList('#enquote-dropdownlist', self.CurrentExportModel.EnquoteSettings,{
             dataTextField: "TEXT",
             dataValueField: "VALUE",
-            dataSource: self.CurrentExportModel.EnquoteSettings,
             index: 1,
             change: function (e) {
                 self.CurrentExportModel.EnquoteSetting = e.sender.value();
             }
-        }).data('handler');
+        });
         enquoteDropdownlist.value(self.CurrentExportModel.EnquoteSetting);
 
-        var lineSeparatorDropdownlist = jQuery('#line-separator-dropdownlist').kendoDropDownList({
+        var lineSeparatorDropdownlist = WC.HtmlHelper.DropdownList('#line-separator-dropdownlist', self.CurrentExportModel.LineSeparators,{
             dataTextField: "TEXT",
             dataValueField: "TEXT",
-            dataSource: self.CurrentExportModel.LineSeparators,
             index: 0,
             change: function (e) {
                 self.CurrentExportModel.LineSeparator = e.sender.value();
             }
-        }).data('handler');
+        });
         lineSeparatorDropdownlist.value(self.CurrentExportModel.LineSeparator);
+
+        WC.HtmlHelper.DestroyNumericIfExists('#decimal-format-text');
 
         var decimalFormatText = jQuery('#decimal-format-text').kendoNumericTextBox({
             min: 0,
@@ -208,37 +207,34 @@ function ExportHandler() {
         var decimalValue = self.CurrentExportModel.Decimal === -1 ? null : self.CurrentExportModel.Decimal;
         decimalFormatText.value(decimalValue);
 
-        var enumFormatDropdownlist = jQuery('#enum-format-dropdownlist').kendoDropDownList({
+        var enumFormatDropdownlist = WC.HtmlHelper.DropdownList('#enum-format-dropdownlist', self.CurrentExportModel.EnumFormats, {
             dataTextField: "TEXT",
             dataValueField: "VALUE",
-            dataSource: self.CurrentExportModel.EnumFormats,
             index: 0,
             change: function (e) {
                 self.CurrentExportModel.EnumFormat = e.sender.value();
             }
-        }).data('handler');
+        });
         enumFormatDropdownlist.value(self.CurrentExportModel.EnumFormat);
 
-        var dateFormatDropdownlist = jQuery('#date-format-dropdownlist').kendoDropDownList({
+        var dateFormatDropdownlist = WC.HtmlHelper.DropdownList('#date-format-dropdownlist', self.CurrentExportModel.DateFormats, {
             dataTextField: "TEXT",
             dataValueField: "VALUE",
-            dataSource: self.CurrentExportModel.DateFormats,
             index: 0,
             change: function (e) {
                 self.CurrentExportModel.DateFormat(e.sender.value());
             }
-        }).data('handler');
+        });
         dateFormatDropdownlist.value(self.CurrentExportModel.DateFormat());
 
-        var timeFormatDropdownlist = jQuery('#time-format-dropdownlist').kendoDropDownList({
+        var timeFormatDropdownlist = WC.HtmlHelper.DropdownList('#time-format-dropdownlist', self.CurrentExportModel.TimeFormats, {
             dataTextField: "TEXT",
             dataValueField: "VALUE",
-            dataSource: self.CurrentExportModel.TimeFormats,
             index: 0,
             change: function (e) {
                 self.CurrentExportModel.TimeFormat(e.sender.value());
             }
-        }).data('handler');
+        });
         timeFormatDropdownlist.value(self.CurrentExportModel.TimeFormat());
 
         // M4-33218: new modeldate ui
@@ -259,6 +255,9 @@ function ExportHandler() {
             if (setInput !== false)
                 setInputValue(value);
         };
+
+        WC.HtmlHelper.DestroyNumericIfExists('#add-model-date-at-column');
+
         addModelDateUI = jQuery('#add-model-date-at-column').kendoNumericTextBox({
             min: 0,
             max: 2147483646,
