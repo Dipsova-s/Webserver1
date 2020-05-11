@@ -7,6 +7,7 @@ Library             String
 Library             Collections
 Library             OperatingSystem
 Library             HeadlessDownload.py
+Library             ExcelLibrary.py
 Library             ${EXECDIR}/python/PythonUtility.py
 Resource            ${EXECDIR}/WC/POM/Shared/Utility.robot
 Resource            ${EXECDIR}/WC/POM/ManagementConsole/Shared/MC_Utility.robot

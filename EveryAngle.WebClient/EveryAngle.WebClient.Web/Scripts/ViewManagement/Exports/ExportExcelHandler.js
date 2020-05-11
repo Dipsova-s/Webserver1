@@ -365,8 +365,7 @@ function ExportExcelHandler() {
         progressbarModel.CancelForceStop = true;
     };
 
-    self.ExportPivotDisplay = function (e, options) {
-        e.kendoWindow.element.closest('.popupExportExcel').addClass('alwaysHide');
+    self.ExportPivotDisplay = function (e, options) {       
         progressbarModel.ShowStartProgressBar(Localization.ProgressBar_CurrentPrepareToExportData, false);
         progressbarModel.CancelCustomHandler = true;
         progressbarModel.CancelFunction = function () {
@@ -416,7 +415,7 @@ function ExportExcelHandler() {
                 "value": jQuery('[id="EnableDefinitionSheet"]:visible').is(':checked')
             }
         ];
-
+        e.kendoWindow.element.closest('.popupExportExcel').addClass('alwaysHide');
         clearTimeout(fnCheckExportProgress);
         var request = resultModel.Data().uri + '/exports/?redirect=no';
         progressbarModel.SetProgressBarText(0, null, Localization.ProgressBar_CurrentRetrievingExcelFileFromApplicationServer);
@@ -432,7 +431,6 @@ function ExportExcelHandler() {
     };
 
     self.ExportChartDisplay = function (e, options) {
-        e.kendoWindow.element.closest('.popupExportExcel').addClass('alwaysHide');
         progressbarModel.ShowStartProgressBar(Localization.ProgressBar_CurrentPrepareToExportData, false);
         progressbarModel.CancelCustomHandler = true;
         progressbarModel.CancelFunction = function () {
@@ -476,7 +474,7 @@ function ExportExcelHandler() {
                 "value": jQuery('[id="EnableDefinitionSheet"]:visible').is(':checked')
             }
         ];
-
+        e.kendoWindow.element.closest('.popupExportExcel').addClass('alwaysHide');
         clearTimeout(fnCheckExportProgress);
         var request = resultModel.Data().uri + '/exports/?redirect=no';
         progressbarModel.SetProgressBarText(0, null, Localization.ProgressBar_CurrentRetrievingExcelFileFromApplicationServer);
@@ -545,7 +543,6 @@ function ExportExcelHandler() {
         var originalFileName = fileName;
         fileName = fileName + '-' + unixTimeStamp.toString();
 
-        e.kendoWindow.element.closest('.popupExportExcel').addClass('alwaysHide');
         progressbarModel.ShowStartProgressBar(Localization.ProgressBar_CurrentPrepareToExportData, false);
         progressbarModel.CancelCustomHandler = true;
         progressbarModel.CancelFunction = function () {
@@ -581,6 +578,7 @@ function ExportExcelHandler() {
 
         self.GenerateExceljsonData = exportOptions;
 
+        e.kendoWindow.element.closest('.popupExportExcel').addClass('alwaysHide');
         clearTimeout(fnCheckExportProgress);
         var request = resultModel.Data().uri + '/exports/?redirect=no';
         progressbarModel.SetProgressBarText(0, null, Localization.ProgressBar_CurrentRetrievingExcelFileFromApplicationServer);
@@ -593,7 +591,6 @@ function ExportExcelHandler() {
     };
 
     self.ExporSingleDrilldownItem = function (e, options) {
-        e.kendoWindow.element.closest('.popupExportExcel').addClass('alwaysHide');
         progressbarModel.ShowStartProgressBar(Localization.ProgressBar_CurrentPrepareToExportData, false);
         progressbarModel.CancelCustomHandler = true;
         progressbarModel.CancelFunction = function () {
@@ -645,7 +642,7 @@ function ExportExcelHandler() {
                 ]
             }
         };
-
+        e.kendoWindow.element.closest('.popupExportExcel').addClass('alwaysHide');
         clearTimeout(fnCheckExportProgress);
         var request = resultModel.Data().uri + '/exports/?redirect=no';
         progressbarModel.SetProgressBarText(0, null, Localization.ProgressBar_CurrentRetrievingExcelFileFromApplicationServer);

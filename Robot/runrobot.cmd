@@ -18,7 +18,7 @@ if exist "C:\Python27\" echo %date% %time% "C:\Python27" found. &goto python_ins
 	ECHO %date% %time% Finished installing Robot Framework....
 :python_installed
 
-if "%7"=="webhelp" echo Check pip version... &python -m pip install pip==10.0.0
+python -m pip install pip==10.0.0
 
 echo Check Robot Framework version...
 set updateRobot=yes
@@ -33,6 +33,8 @@ set updateHttpLibrary=yes
 set updateHttpLibraryVersion="robotframework-httplibrary==0.4.2"
 set updatePillow=yes
 set updatePillowVersion="Pillow==5.2.0"
+set updateExcelLibrary=yes
+set updateExcelLibraryVersion="robotframework-excellib==1.1.0"
 for /F %%i in ('pip freeze --local') do (
 	if "%%i"==%updateRobotVersion% set updateRobot=no
 	if "%%i"==%updateSeleniumLibraryVersion% set updateSeleniumLibrary=no
@@ -40,6 +42,7 @@ for /F %%i in ('pip freeze --local') do (
 	if "%%i"==%updateHttpLibraryVersion% set updateHttpLibrary=no
 	if "%%i"==%updateSelenium2screenshotsVersion% set updateSelenium2screenshots=no
 	if "%%i"==%updatePillowVersion% set updatePillow=no
+	if "%%i"==%updateExcelLibraryVersion% set updateExcelLibrary=no
 )
 if "%updateRobot%"=="yes" pip install %updateRobotVersion%
 if "%updateSeleniumLibrary%"=="yes" pip install %updateSeleniumLibraryVersion%
@@ -47,6 +50,7 @@ if "%updatePabot%"=="yes" pip install %updatePabotVersion%
 if "%updateHttpLibrary%"=="yes" pip install %updateHttpLibraryVersion%
 if "%updateSelenium2screenshots%"=="yes" if "%7"=="webhelp" pip install %updateSelenium2screenshotsVersion%
 if "%updatePillow%"=="yes" if "%7"=="webhelp" pip install %updatePillowVersion%
+if "%updateExcelLibrary%"=="yes" pip install %updateExcelLibraryVersion%
 
 ECHO ###### Checking Chrome Driver  ######
 call :downloadChromeDriver

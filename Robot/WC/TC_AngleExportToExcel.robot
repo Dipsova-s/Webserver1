@@ -7,23 +7,26 @@ Test Teardown       Go to Search Page
 Force Tags        	acc_wc
 
 *** Variables ***
-${TEST_VERIFY_EXPORT_TO_EXCEL_NAME}                     Export Extended Charactor.Béßø<>
+${TEST_VERIFY_EXPORT_TO_EXCEL_NAME}           Angle For General Test
 ${LONG_FILE_NAME}    Export angle to excel with such a long filename. A filename of 200 characters should be allowed. Since the windows max path length is 260, this could lead to a path too long exception, when this happens, show the error message to the user.
 ${ERROR_MESSAGE}     Full name of the file exceeds Windows limitations (260 characters).
 
 *** Test Cases ***
 Verify Export To Excel From Action Menu
-    [Tags]  acc_wc_aci
+    [Documentation]     This Test Verify Export Angle To Excel and Add Definitions Sheet Checkbox.
+    [Tags]  acc_wc_aci   TC_C229226
     Search Angle From Search Page And Execute Angle    ${TEST_VERIFY_EXPORT_TO_EXCEL_NAME}
     Wait Progress Bar Closed
     Check If Angle Or Display Has A Warning Then Close The Popup
     Wait Progress Bar Closed
     Click Angle Dropdown To Export Excel
+    Click Check Add Definition Sheet
     ${fileName}    Get Value    ${txtFileName}
-    Should Be Equal    ${fileName}    Export Extended Charactor.Béßø
+    Should Be Equal    ${fileName}    Angle For General Test
     Click Export Excel Button
     ${file}    Wait Until Keyword Succeeds    1 min    2 sec    Download should be done    ${DOWNLOAD_DIRECTORY}
-    Should Contain    ${file}    Export Extended Charactor.Béßø.xlsx
+    Should Contain    ${file}    Angle For General Test.xlsx
+    Check The Existence Of Definitions Sheet In Excel File      ${file}
 
 Verify Export Item Drilldown To Excel From Action Menu
     Search Angle From Search Page And Execute Angle    Angle For General Test

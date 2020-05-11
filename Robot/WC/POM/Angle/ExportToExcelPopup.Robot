@@ -61,3 +61,9 @@ Wait Until Export Drilldown To Excel Popup Loaded
 
 Wait Unit Export Excel Popup Close
     Check And Wait Until Element Is Not Visible    ${btnOKExportDrilldownToExcel}
+
+Check The Existence Of Definitions Sheet In Excel File
+    [Arguments]     ${excelFile}
+    Open Excel Document    ${excelFile}    doc1
+    ${sheets}=	Get List Sheet Names	
+    List Should Contain Value	${sheets}	Definitions
