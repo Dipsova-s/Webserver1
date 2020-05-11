@@ -1424,8 +1424,15 @@ function AnglePageHandler() {
         progressbarModel.SetProgressBarText(null, null, Localization.ProgressBar_PostResult);
         return self.HandlerDisplay.PostResult()
             .progress(function (data) {
-                var rowCount = data.is_aggregated ? null : kendo.toString(data.row_count, 'n0');
-                progressbarModel.SetProgressBarText(kendo.toString(data.progress * 100, 'n2'), rowCount, enumHandlers.POSTRESULTSTATUS.RUNNING.Text);
+                var queuedMessage;
+                if (data.queue_position === 0) {
+                    queuedMessage = Localization.ExecutingAngleMessage;
+                } else if (!data.queue_position) {
+                    queuedMessage = '';
+                } else {
+                    queuedMessage = kendo.format(data.queue_position === 1 ? Localization.FirstInQueueMessage : Localization.LaterInQueueMessage, data.queue_position);
+                }
+                progressbarModel.SetProgressBarTextAndMessage(kendo.toString(data.progress * 100, 'n2'), queuedMessage);
                 if (data.cancelable)
                     progressbarModel.SetEnableProgressBar();
                 else
