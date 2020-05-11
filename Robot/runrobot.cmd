@@ -1,23 +1,25 @@
 @echo off
-set PATH=%PATH%;C:\Python27;C:\Python27\Scripts
-ECHO ###### Checking Framework  ######
+set PythonPath=C:\Python27
+set PATH=%PythonPath%;%PythonPath%\Scripts;%PATH%
 
+ECHO ###### Checking Framework ######
 set logFolder=%~dp0python
 if not exist "%logFolder%" md "%logFolder%"
 
-if exist "C:\Python27\" echo %date% %time% "C:\Python27" found. &goto python_installed
+if exist "%PythonPath%" echo %date% %time% "%PythonPath%" found. &goto python_installed
 	ECHO ###### Setup Robot Framework  ######
-	ECHO  %date% %time% c:\python27 not found, downloading and installing python
+	ECHO  %date% %time% %PythonPath% not found, downloading and installing python
 	bitsadmin.exe /transfer "Download Python" https://www.python.org/ftp/python/2.7.10/python-2.7.10.msi "%~dp0python-2.7.10.msi" >> "%logFolder%\bitsadmin.log" 2>&1
 	if not exist "%~dp0python-2.7.10.msi" Echo Download "%~dp0python-2.7.10.msi" failed& exit /b
 	ECHO  %date% %time% Successfully Downloaded Python-2.7.10.msi....
 	start /wait "" %~dp0python-2.7.10.msi /passive  >> "%logFolder%\python-2.7.10.msi.log" 2>&1
-	if not exist "C:\Python27\" Echo Installing python failed& exit /b
+	if not exist "%PythonPath%" Echo Installing python failed& exit /b
 	ECHO  %date% %time% Successfully Installed Python 2.7.10....
 	del  %~dp0python-2.7.10.msi >nul 2>&1
 	ECHO %date% %time% Finished installing Robot Framework....
 :python_installed
 
+echo Check pip version...
 python -m pip install pip==10.0.0
 
 echo Check Robot Framework version...
@@ -74,10 +76,11 @@ set TestCaseFile=*
 
 ::* or smoke,acceptance,dev,....
 SET TestCategory=%3
-if not defined TestCategory set TestCategory=*
+if not defined TestCategory set TestCategory=allangles
+if "%TestCategory%"=="*" set TestCategory=allangles
 
 ::\WC,\AppServer
-set RunTestCaseFolder=\WC
+set TestPath=WC/*.robot
 
 ::Test name
 set TestName=Test_Suit_%TestCategory%
@@ -106,24 +109,11 @@ set DevMode=0
 if "%7"=="webhelp" set DevMode=1
 
 ::Report folder
-Set BaseReportFolder=\report
-if "%TestCategory%"=="*" goto :set_dev_report
-if "%3"=="" goto :set_dev_report
-
-:set_prod_report
-	set ReportFolder=%BaseReportFolder%\%TestCategory%
-	set ReportFolderParallel=%ReportFolder%_parallel
-	set ReportFolderSingle=%ReportFolder%_single
-	set ReportFolderSetup=%ReportFolder%_setup
-	goto exit_set_report
-
-:set_dev_report
-	set ReportFolder=%BaseReportFolder%
-	set ReportFolderParallel=%ReportFolder%\_parallel
-	set ReportFolderSingle=%ReportFolder%\_single
-	set ReportFolderSetup=%ReportFolder%\_setup
-
-:exit_set_report
+Set BaseReportFolder=report/
+set ReportFolder=%BaseReportFolder%%TestCategory%
+set ReportFolderParallel=%ReportFolder%_parallel
+set ReportFolderSingle=%ReportFolder%_single
+set ReportFolderSetup=%ReportFolder%_setup
 
 ECHO ###### Running Robot Framework ######
 call :executeRobot
@@ -153,37 +143,37 @@ exit /b 0
 	ECHO Executing "%TestCategory%_i" tests
 	call pabot --processes 1 ^
 		-i %TestCategory%_i ^
-		-d %~dp0%ReportFolderSetup% ^
+		-d %ReportFolderSetup% ^
 		%parameters% ^
-		%~dp0%RunTestCaseFolder%\%TestCaseFile%.robot
+		%TestPath%
 
 	:: **************** Run parallel ***********************
 	ECHO Executing "%TestCategory%" tests
 	call pabot --processes 4 ^
 		-i %TestCategory% ^
-		-d %~dp0%ReportFolderParallel% ^
+		-d %ReportFolderParallel% ^
 		%parameters% ^
-		--randomize test %~dp0%RunTestCaseFolder%\%TestCaseFile%.robot
+		--randomize test %TestPath%
 
 	:: **************** Run single ***********************
 	ECHO Executing "%TestCategory%_s" tests
 	call pabot --processes 1 ^
 	    -i %TestCategory%_s ^
-	    -d %~dp0%ReportFolderSingle% ^
+	    -d %ReportFolderSingle% ^
 		%parameters% ^
-		--randomize test %~dp0%RunTestCaseFolder%\%TestCaseFile%.robot
+		--randomize test %TestPath%
 
 	:: **************** Report ***********************
-	:createReport
 	ECHO ###### Create Robot Framework Report ######
 
 	:: Create a folder
-	if not exist "%~dp0%ReportFolder%" md "%~dp0%ReportFolder%"
+	set "ReportPath=%~dp0%ReportFolder%"
+	if not exist "%ReportPath%" md "%ReportPath%"
 
 	:: Copy images
-	if exist "%~dp0%ReportFolderSetup%\*.png" copy "%~dp0%ReportFolderSetup%\*.png" "%~dp0%ReportFolder%" /Y
-	if exist "%~dp0%ReportFolderParallel%\*.png" copy "%~dp0%ReportFolderParallel%\*.png" "%~dp0%ReportFolder%" /Y
-	if exist "%~dp0%ReportFolderSingle%\*.png" copy "%~dp0%ReportFolderSingle%\*.png" "%~dp0%ReportFolder%" /Y
+	if exist "%~dp0%ReportFolderSetup%/*.png" copy "%~dp0%ReportFolderSetup%/*.png" "%ReportPath%" /Y
+	if exist "%~dp0%ReportFolderParallel%/*.png" copy "%~dp0%ReportFolderParallel%/*.png" "%ReportPath%" /Y
+	if exist "%~dp0%ReportFolderSingle%/*.png" copy "%~dp0%ReportFolderSingle%/*.png" "%ReportPath%" /Y
 
 	:: Reports to be merged
 	set reports=
@@ -191,26 +181,16 @@ exit /b 0
 	if exist "%~dp0%ReportFolderParallel%" set "reports=%reports% %~dp0%ReportFolderParallel%/output.xml"
 	if exist "%~dp0%ReportFolderSingle%" set "reports=%reports% %~dp0%ReportFolderSingle%/output.xml"
 
-	call rebot --merge -d %~dp0%ReportFolder% ^
-		--output %~dp0%ReportFolder%/output.xml ^
+	call rebot --merge -d %ReportPath% ^
+		--output %ReportPath%/output.xml ^
 		%reports%
 
 exit /b 0
 
 :downloadChromeDriver
-
-	setlocal
-	cd /d %~dp0
-
 	call powershell -file "%~dp0%download.ps1"
-
 exit /b 0
 
 :cleanupChromeDriver
-
-	setlocal
-	cd /d %~dp0
-
 	call powershell -file "%~dp0%cleanup.ps1"
-
 exit /b 0
