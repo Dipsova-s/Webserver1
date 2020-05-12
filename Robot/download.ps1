@@ -1,13 +1,13 @@
 $Target=$MyInvocation.MyCommand.Source.Replace($MyInvocation.MyCommand.Name, "")
 
-# get Chrome version
-$Version = (Get-Item (Get-ItemProperty 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\App Paths\chrome.exe').'(Default)').VersionInfo.FileVersion
-Write-Host Found Google Chrome: $Version
-$Version = $Version.Split(".")[0]
-
-# get driver version
 $DriverVersion = "2.46"
 try {
+    # get Chrome version
+    $Version = (Get-Item (Get-ItemProperty 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\App Paths\chrome.exe' -ErrorAction SilentlyContinue).'(Default)').VersionInfo.FileVersion
+    Write-Host Found Google Chrome: $Version
+    $Version = $Version.Split(".")[0]
+
+    # get driver version
     $DriverUrl = "http://chromedriver.storage.googleapis.com/LATEST_RELEASE_$Version"
     Write-Host Getting driver version information from $DriverUrl
     $response = Invoke-WebRequest $DriverUrl -UseBasicParsing
@@ -15,6 +15,7 @@ try {
 }
 catch {
     # no error
+    Write-Host Error on getting driver version!
 }
 $Storage = "$env:SystemDrive\chromedriver\$DriverVersion"
 

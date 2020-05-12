@@ -299,6 +299,7 @@ __pycache__/
 !/Robot/**/Packages/**
 /Robot/chromedriver.exe
 /Robot/chromedriver_win32.zip
+/Robot/chromedriver_win32/**
 /Robot/report/**
 /Robot/webhelp/**
 /NET/Frontend/WebDeploy
