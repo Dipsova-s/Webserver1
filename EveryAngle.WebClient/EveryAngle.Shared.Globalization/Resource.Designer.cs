@@ -12261,7 +12261,8 @@ namespace EveryAngle.Shared.Globalization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Allowed to see all non-validated Angles, Templates and Dashboards that are within the user&apos;s authorization..
+        ///   Looks up a localized string similar to Allowed to see all non-validated Angles, Templates and Dashboards that are within the user&apos;s authorization.
+        ///    When Show non-validated items is denied, a user also cannot create dashboards..
         /// </summary>
         public static string MC_ShowNonValidatedItemsDescription {
             get {
