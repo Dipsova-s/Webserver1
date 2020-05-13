@@ -519,7 +519,9 @@ namespace EveryAngle.ManagementConsole.Controllers
             {
                 var modelPrivilegesData = new List<TreeViewItemModel>();
                 var modelAuthorizations = _userService.GetModelAuthorizations(item.authorizationsUri.ToString());
+                
                 SetShortNameToConsolidateRoles(modelAuthorizations);
+                modelAuthorizations = ConsolidateRoleHelper.SortModelAuthorizations(modelAuthorizations);
 
                 if (modelAuthorizations != null)
                 {

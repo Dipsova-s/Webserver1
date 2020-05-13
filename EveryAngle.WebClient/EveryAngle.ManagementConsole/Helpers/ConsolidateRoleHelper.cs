@@ -200,5 +200,80 @@ namespace EveryAngle.ManagementConsole.Helpers
 
             return !string.IsNullOrEmpty(fieldSource) ? string.Format("{0}-{1}", fieldSource, fieldName) : fieldName;
         }
+
+        public static ModelAuthorizationsViewModel SortModelAuthorizations(ModelAuthorizationsViewModel consolidatedRole)
+        {
+            if (consolidatedRole != null && consolidatedRole.modelserver_authorization != null)
+            {
+                var modelserverAuthorization = consolidatedRole.modelserver_authorization;
+
+                // Allowed objects
+                if (modelserverAuthorization.allowed_classes != null && modelserverAuthorization.allowed_classes.Count > 0)
+                    modelserverAuthorization.allowed_classes = modelserverAuthorization.allowed_classes.OrderBy(x => x).ToList();
+
+                // Disallowed objects
+                if (modelserverAuthorization.disallowed_classes != null && modelserverAuthorization.disallowed_classes.Count > 0)
+                    modelserverAuthorization.disallowed_classes = modelserverAuthorization.disallowed_classes.OrderBy(x => x).ToList();
+
+                // Object filters
+                SortObjectFilters(modelserverAuthorization.ObjectFilter);
+
+                // Fields
+                SortFields(modelserverAuthorization.FieldAuthorizations);
+            }
+
+            return consolidatedRole;
+        }
+
+        private static void SortFieldFilter(List<FieldFilterViewModel> fieldFilterViewModels)
+        {
+            foreach (var field in fieldFilterViewModels ?? Enumerable.Empty<FieldFilterViewModel>())
+            {
+                if (field.allowed_values != null && field.allowed_values.Count > 0)
+                    field.allowed_values = field.allowed_values.OrderBy(x => x).ToList();
+
+                if (field.disallowed_values != null && field.disallowed_values.Count > 0)
+                    field.disallowed_values = field.disallowed_values.OrderBy(x => x).ToList();
+            }
+        }
+
+        private static void SortObjectFilters(List<ObjectFilterViewModel> objectFilterViewModels)
+        {
+            foreach (var filter in objectFilterViewModels ?? Enumerable.Empty<ObjectFilterViewModel>())
+            {
+                // Class
+                if (filter.Classes != null && filter.Classes.Count > 0)
+                    filter.Classes = filter.Classes.OrderBy(x => x).ToList();
+
+                // Field
+                SortFieldFilter(filter.fieldvalue_filters);
+
+                // Reference
+                SortObjectFiltersReference(filter.ReferenceFilter);
+            }
+        }
+
+        private static void SortObjectFiltersReference(List<ReferenceFilterViewModel> referenceFilterViewModels)
+        {
+            foreach (var reference in referenceFilterViewModels ?? Enumerable.Empty<ReferenceFilterViewModel>())
+            {
+                SortFieldFilter(reference.fieldvalue_filters);
+                SortFieldFilter(reference.field_filters);
+            }
+        }
+
+        private static void SortFields(List<FieldAuthorizationViewModel> fieldAuthorizationViewModels)
+        {
+            foreach (var field in fieldAuthorizationViewModels ?? Enumerable.Empty<FieldAuthorizationViewModel>())
+            {
+                // Allowed fields
+                if (field.AllowedFields != null && field.AllowedFields.Count > 0)
+                    field.AllowedFields = field.AllowedFields.OrderBy(x => x).ToList();
+
+                // Denied fields
+                if (field.DisallowedFields != null && field.DisallowedFields.Count > 0)
+                    field.DisallowedFields = field.DisallowedFields.OrderBy(x => x).ToList();
+            }
+        }
     }
 }

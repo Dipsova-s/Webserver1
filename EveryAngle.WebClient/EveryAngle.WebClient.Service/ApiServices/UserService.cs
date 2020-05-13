@@ -12,8 +12,6 @@ using EveryAngle.WebClient.Service.HttpHandlers;
 using Newtonsoft.Json;
 using RestSharp;
 using EveryAngle.WebClient.Service.Security;
-using Newtonsoft.Json.Linq;
-using System.Threading.Tasks;
 
 namespace EveryAngle.WebClient.Service.ApiServices
 {

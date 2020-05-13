@@ -216,6 +216,144 @@ namespace EveryAngle.ManagementConsole.Test.Helpers
             Assert.IsNotNullOrEmpty(fieldName);
         }
 
+        [TestCase]
+        public void Can_SortModelAuthorizations()
+        {
+            ModelAuthorizationsViewModel consolidatedRole = new ModelAuthorizationsViewModel
+            {
+                modelserver_authorization = new ModelServerAuthorizationViewModel 
+                {
+                    allowed_classes = new List<string>
+                    { 
+                        "a2",
+                        "a1"
+                    },
+                    disallowed_classes = new List<string>
+                    { 
+                        "d2",
+                        "d1"
+                    },
+                    ObjectFilter = new List<ObjectFilterViewModel>
+                    {
+                        new ObjectFilterViewModel { 
+                            Classes = new List<string>
+                            { 
+                                "c2",
+                                "c1"
+                            },
+                            fieldvalue_filters = new List<FieldFilterViewModel>
+                            { 
+                                new FieldFilterViewModel
+                                { 
+                                    allowed_values = new List<string>
+                                    { 
+                                        "fa2",
+                                        "fa1"
+                                    },
+                                    disallowed_values = new List<string>
+                                    { 
+                                        "fd2",
+                                        "fd1"
+                                    }
+                                }
+                            },
+                            ReferenceFilter = new List<ReferenceFilterViewModel>
+                            { 
+                                new ReferenceFilterViewModel
+                                {
+                                    fieldvalue_filters = new List<FieldFilterViewModel>
+                                    { 
+                                        new FieldFilterViewModel
+                                        {
+                                            allowed_values = new List<string>
+                                            {
+                                                "rfva2",
+                                                "rfva1"
+                                            },
+                                            disallowed_values = new List<string>
+                                            {
+                                                "rfvd2",
+                                                "rfvd1"
+                                            }
+                                        }
+                                    },
+                                    field_filters = new List<FieldFilterViewModel>
+                                    { 
+                                        new FieldFilterViewModel
+                                        {
+                                            allowed_values = new List<string>
+                                            {
+                                                "rffa2",
+                                                "rffa1"
+                                            },
+                                            disallowed_values = new List<string>
+                                            {
+                                                "rffd2",
+                                                "rffd1"
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    FieldAuthorizations = new List<FieldAuthorizationViewModel>
+                    { 
+                        new FieldAuthorizationViewModel
+                        { 
+                            AllowedFields = new List<string>
+                            {
+                                "faa2",
+                                "faa1"
+                            },
+                            DisallowedFields = new List<string>
+                            {
+                                "fad2",
+                                "fad1"
+                            }
+                        }
+                    }
+                }
+            };
+            var result = ConsolidateRoleHelper.SortModelAuthorizations(consolidatedRole);
+
+            Assert.IsNotNull(result);
+            var modelserver_authorization = result.modelserver_authorization;
+            // Allowed objects
+            Assert.AreEqual("a1", modelserver_authorization.allowed_classes[0]);
+            Assert.AreEqual("a2", modelserver_authorization.allowed_classes[1]);
+            // Disallowed objects
+            Assert.AreEqual("d1", modelserver_authorization.disallowed_classes[0]);
+            Assert.AreEqual("d2", modelserver_authorization.disallowed_classes[1]);
+            // Object filters: Class
+            Assert.AreEqual("c1", modelserver_authorization.ObjectFilter[0].Classes[0]);
+            Assert.AreEqual("c2", modelserver_authorization.ObjectFilter[0].Classes[1]);
+            // Object filters: Field Allowed
+            Assert.AreEqual("fa1", modelserver_authorization.ObjectFilter[0].fieldvalue_filters[0].allowed_values[0]);
+            Assert.AreEqual("fa2", modelserver_authorization.ObjectFilter[0].fieldvalue_filters[0].allowed_values[1]);
+            // Object filters: Field Disallowed
+            Assert.AreEqual("fd1", modelserver_authorization.ObjectFilter[0].fieldvalue_filters[0].disallowed_values[0]);
+            Assert.AreEqual("fd2", modelserver_authorization.ObjectFilter[0].fieldvalue_filters[0].disallowed_values[1]);
+            // Object filters: Reference -> fieldvalue_filters Allowed
+            Assert.AreEqual("rfva1", modelserver_authorization.ObjectFilter[0].ReferenceFilter[0].fieldvalue_filters[0].allowed_values[0]);
+            Assert.AreEqual("rfva2", modelserver_authorization.ObjectFilter[0].ReferenceFilter[0].fieldvalue_filters[0].allowed_values[1]);
+            // Object filters: Reference -> fieldvalue_filters Disallowed
+            Assert.AreEqual("rfvd1", modelserver_authorization.ObjectFilter[0].ReferenceFilter[0].fieldvalue_filters[0].disallowed_values[0]);
+            Assert.AreEqual("rfvd2", modelserver_authorization.ObjectFilter[0].ReferenceFilter[0].fieldvalue_filters[0].disallowed_values[1]);
+            // Object filters: Reference -> field_filters Allowed
+            Assert.AreEqual("rffa1", modelserver_authorization.ObjectFilter[0].ReferenceFilter[0].field_filters[0].allowed_values[0]);
+            Assert.AreEqual("rffa2", modelserver_authorization.ObjectFilter[0].ReferenceFilter[0].field_filters[0].allowed_values[1]);
+            // Object filters: Reference -> field_filters Disallowed
+            Assert.AreEqual("rffd1", modelserver_authorization.ObjectFilter[0].ReferenceFilter[0].field_filters[0].disallowed_values[0]);
+            Assert.AreEqual("rffd2", modelserver_authorization.ObjectFilter[0].ReferenceFilter[0].field_filters[0].disallowed_values[1]);
+            // Fields: Field Allowed
+            Assert.AreEqual("faa1", modelserver_authorization.FieldAuthorizations[0].AllowedFields[0]);
+            Assert.AreEqual("faa2", modelserver_authorization.FieldAuthorizations[0].AllowedFields[1]);
+            // Fields: Field Disallowed
+            Assert.AreEqual("fad1", modelserver_authorization.FieldAuthorizations[0].DisallowedFields[0]);
+            Assert.AreEqual("fad2", modelserver_authorization.FieldAuthorizations[0].DisallowedFields[1]);
+        }
+
         #endregion
 
         #region private functions
