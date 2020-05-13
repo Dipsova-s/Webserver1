@@ -23,6 +23,8 @@
 /// <reference path="/Dependencies/ViewManagement/Dashboard/DashboardSidePanelView.js" />
 /// <reference path="/Dependencies/ViewManagement/Dashboard/DashboardSidePanelHandler.js" />
 /// <reference path="/Dependencies/ViewManagement/Dashboard/DashboardUserSpecificHandler.js" />
+/// <reference path="/Dependencies/ViewManagement/Shared/ItemSaveActionHandler.js" />
+/// <reference path="/Dependencies/ViewManagement/Dashboard/DashboardSaveActionHandler.js" />
 /// <reference path="/Dependencies/ViewManagement/Dashboard/DashboardBusinessProcessHandler.js" />
 /// <reference path="/Dependencies/ViewManagement/Dashboard/DashboardPageHandler.js" />
 

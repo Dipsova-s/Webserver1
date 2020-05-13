@@ -158,76 +158,94 @@
 
 #ActionSelect .actionDropdownItem {
     background-color: #fff;
-}
 
+    &:before {
+        background-position: center center;
+        background-size: 16px 16px;
+    }
 
-#ActionSelect .actionDropdownItem:before {
-    background-position: center center;
-    background-size: 16px 16px;
-}
+    &.save:before {
+        background-image: url('../../images/angle/actiondropdownlist/save.svg');
+    }
 
-.actionDropdownItem.save:before {
-    background-image: url('../../images/angle/actiondropdownlist/save.svg');
-}
+    &.saveAs:before {
+        background-image: url('../../images/angle/actiondropdownlist/saveas.svg');
+    }
 
-.actionDropdownItem.saveAs:before {
-    background-image: url('../../images/angle/actiondropdownlist/saveas.svg');
-}
+    &.copydisplay:before {
+        background-image: url('../../images/angle/actiondropdownlist/copydisplay.svg');
+    }
 
-.actionDropdownItem.copydisplay:before {
-    background-image: url('../../images/angle/actiondropdownlist/copydisplay.svg');
-}
+    &.pastedisplay:before {
+        background-image: url('../../images/angle/actiondropdownlist/pastedisplay.svg');
+    }
 
-.actionDropdownItem.pastedisplay:before {
-    background-image: url('../../images/angle/actiondropdownlist/pastedisplay.svg');
-}
+    &.editDisplay:before {
+        background-image: url('../../images/angle/actiondropdownlist/editdisplay.svg');
+    }
 
-.actionDropdownItem.editDisplay:before {
-    background-image: url('../../images/angle/actiondropdownlist/editdisplay.svg');
-}
+    &.newDisplay:before {
+        background-image: url('../../images/angle/actiondropdownlist/createdisplay.svg');
+    }
 
-.actionDropdownItem.newDisplay:before {
-    background-image: url('../../images/angle/actiondropdownlist/createdisplay.svg');
-}
+    &.createList:before {
+        background-image: url('../../images/icons/icon_list_addnew.svg');
+    }
 
-.actionDropdownItem.createList:before {
-    background-image: url('../../images/icons/icon_list_addnew.svg');
-}
+    &.createChart:before {
+        background-image: url('../../images/icons/icon_chart_addnew.svg');
+    }
 
-.actionDropdownItem.createChart:before {
-    background-image: url('../../images/icons/icon_chart_addnew.svg');
-}
+    &.createPivot:before {
+        background-image: url('../../images/icons/icon_pivot_addnew.svg');
+    }
 
-.actionDropdownItem.createPivot:before {
-    background-image: url('../../images/icons/icon_pivot_addnew.svg');
-}
+    &.exportToExcel:before {
+        background-image: url('../../images/angle/actiondropdownlist/exporttoexcel.svg');
+    }
 
-.actionDropdownItem.exportToExcel:before {
-    background-image: url('../../images/angle/actiondropdownlist/exporttoexcel.svg');
-}
+    &.exportToCSV:before {
+        background-image: url('../../images/angle/actiondropdownlist/exporttocsv.svg');
+    }
 
-.actionDropdownItem.exportToCSV:before {
-    background-image: url('../../images/angle/actiondropdownlist/exporttocsv.svg');
-}
+    &.addToDashboard:before {
+        background-image: url('../../images/angle/actiondropdownlist/addtodashboard.svg');
+    }
 
-.actionDropdownItem.addToDashboard:before {
-    background-image: url('../../images/angle/actiondropdownlist/addtodashboard.svg');
-}
+    &.addFollowup:before {
+        background-image: url('../../images/icons/icon_followup_addnew.svg');
+    }
 
-.actionDropdownItem.addFollowup:before {
-    background-image: url('../../images/icons/icon_followup_addnew.svg');
-}
+    &.scheduleAngle:before {
+        background-image: url('../../images/icons/icon_schedule.svg');
+    }
 
-.actionDropdownItem.scheduleAngle:before {
-    background-image: url('../../images/icons/icon_schedule.svg');
-}
+    &.find:before {
+        background-image: url('../../images/angle/actiondropdownlist/find.svg');
+    }
 
-.actionDropdownItem.find:before {
-    background-image: url('../../images/angle/actiondropdownlist/find.svg');
-}
+    &.exitEditMode:before {
+        background-image: url('../../images/icons/icon_execute.svg');
+    }
 
-.actionDropdownItem.exitEditMode:before {
-    background-image: url('../../images/icons/icon_execute.svg');
+    &.download {
+        margin-left: 10px;
+
+        &:before {
+            background-image: url('../../images/icons/icon_download_angle.svg');
+            background-size: 20px 20px;
+        }
+
+        &:after {
+            content: '';
+            position: absolute;
+            left: -5px;
+            top: 3px;
+            height: 18px;
+            width: 0;
+            border-left: 1px solid #cbcbcb;
+        }
+    }
 }
 
 /* .popupFindAngleResult

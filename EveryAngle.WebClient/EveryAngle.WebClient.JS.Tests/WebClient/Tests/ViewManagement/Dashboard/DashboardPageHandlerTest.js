@@ -24,6 +24,9 @@
 /// <reference path="/Dependencies/ViewManagement/Dashboard/DashboardSidePanelView.js" />
 /// <reference path="/Dependencies/ViewManagement/Dashboard/DashboardSidePanelHandler.js" />
 /// <reference path="/Dependencies/ViewManagement/Dashboard/DashboardUserSpecificHandler.js" />
+/// <reference path="/Dependencies/ViewManagement/Shared/ItemDownloadHandler.js" />
+/// <reference path="/Dependencies/ViewManagement/Shared/ItemSaveActionHandler.js" />
+/// <reference path="/Dependencies/ViewManagement/Dashboard/DashboardSaveActionHandler.js" />
 /// <reference path="/Dependencies/ViewManagement/Dashboard/DashboardBusinessProcessHandler.js" />
 /// <reference path="/Dependencies/ViewManagement/Dashboard/DashboardPageHandler.js" />
 /// <reference path="/Dependencies/ViewManagement/Shared/ToastNotificationHandler.js" />
@@ -116,28 +119,99 @@ describe("DashboardPageHandler", function () {
     describe(".GetActionDropdownItems", function () {
         it("check menu visibility on editmode = true", function () {
             spyOn(dashboardPageHandler, 'IsEditMode').and.returnValue(true);
-            spyOn(dashboardModel, 'CanUpdateDashboard').and.returnValue(true);
-            spyOn(dashboardModel, 'IsTemporaryDashboard').and.returnValue(true);
+            spyOn(dashboardModel, 'IsTemporaryDashboard').and.returnValue(false);
 
             // act
             var items = dashboardPageHandler.GetActionDropdownItems();
 
             // assert
-            expect(items.length).toEqual(1);
+            expect(items.length).toEqual(2);
+            expect(items[0].Enable).toEqual(true);
             expect(items[0].Visible).toEqual(true);
+            expect(items[1].Enable).toEqual(true);
+            expect(items[1].Visible).toEqual(true);
         });
 
         it("check menu visibility on editmode = false", function () {
             spyOn(dashboardPageHandler, 'IsEditMode').and.returnValue(false);
-            spyOn(dashboardModel, 'CanUpdateDashboard').and.returnValue(true);
             spyOn(dashboardModel, 'IsTemporaryDashboard').and.returnValue(true);
 
             // act
             var items = dashboardPageHandler.GetActionDropdownItems();
 
             // assert
-            expect(items.length).toEqual(1);
+            expect(items.length).toEqual(2);
+            expect(items[0].Enable).toEqual(false);
             expect(items[0].Visible).toEqual(false);
+            expect(items[1].Enable).toEqual(false);
+            expect(items[1].Visible).toEqual(false);
+        });
+    });
+
+    describe(".CallActionDropdownFunction", function () {
+        beforeEach(function () {
+            spyOn(dashboardPageHandler, 'ExitEditMode');
+            spyOn(dashboardPageHandler, 'Download');
+        });
+        it("should not do anything", function () {
+            // prepare
+            dashboardPageHandler.CallActionDropdownFunction($('<div class="disabled"/>'), enumHandlers.DASHBOARDACTION.EXECUTEDASHBOARD.Id);
+
+            // assert
+            expect(dashboardPageHandler.ExitEditMode).not.toHaveBeenCalled();
+            expect(dashboardPageHandler.Download).not.toHaveBeenCalled();
+        });
+        it("should exit edit mode", function () {
+            // prepare
+            dashboardPageHandler.CallActionDropdownFunction($('<div/>'), enumHandlers.DASHBOARDACTION.EXECUTEDASHBOARD.Id);
+
+            // assert
+            expect(dashboardPageHandler.ExitEditMode).toHaveBeenCalled();
+            expect(dashboardPageHandler.Download).not.toHaveBeenCalled();
+        });
+        it("should download", function () {
+            // prepare
+            dashboardPageHandler.CallActionDropdownFunction($('<div/>'), enumHandlers.DASHBOARDACTION.DOWNLOAD.Id);
+
+            // assert
+            expect(dashboardPageHandler.ExitEditMode).not.toHaveBeenCalled();
+            expect(dashboardPageHandler.Download).toHaveBeenCalled();
+        });
+    });
+
+    describe(".Download", function () {
+        var downloadHandler, item;
+        beforeEach(function () {
+            downloadHandler = {
+                SetSelectedItems: $.noop,
+                StartExportItems: $.noop
+            };
+            item = {};
+            spyOn(dashboardModel, 'GetData').and.returnValue(item);
+            spyOn(downloadHandler, 'SetSelectedItems');
+            spyOn(downloadHandler, 'StartExportItems');
+            spyOn(window, 'ItemDownloadHandler').and.returnValue(downloadHandler);
+            spyOn(popup, 'Confirm');
+        });
+        it('should download', function () {
+            spyOn(dashboardPageHandler.DashboardSaveActionHandler, 'EnableSaveAll').and.returnValue(false);
+            dashboardPageHandler.Download();
+
+            // assert
+            expect(item.type).toEqual('dashboard');
+            expect(downloadHandler.SetSelectedItems).toHaveBeenCalled();
+            expect(downloadHandler.StartExportItems).toHaveBeenCalled();
+            expect(popup.Confirm).not.toHaveBeenCalled();
+        });
+        it('should show confirmation popup', function () {
+            spyOn(dashboardPageHandler.DashboardSaveActionHandler, 'EnableSaveAll').and.returnValue(true);
+            dashboardPageHandler.Download();
+
+            // assert
+            expect(item.type).not.toEqual('dashboard');
+            expect(downloadHandler.SetSelectedItems).not.toHaveBeenCalled();
+            expect(downloadHandler.StartExportItems).not.toHaveBeenCalled();
+            expect(popup.Confirm).toHaveBeenCalled();
         });
     });
 

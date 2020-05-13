@@ -383,3 +383,9 @@ Add Display To Existing Dashboard
 Verify Popup Warning For BP And Close
     Wait Until Page Contains    You must add at least one Business Process to save the Angle
     Click Close Info Button
+
+Verify Angle Downloading Confirmation
+    Click Display Tab
+    Select Checkbox Execute On Login
+    Angle Downloading Should Get A Confirmation Popup
+    Unselect Checkbox Execute On Login

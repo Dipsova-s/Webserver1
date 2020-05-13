@@ -2329,6 +2329,15 @@ namespace EveryAngle.Shared.Globalization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to You have unsaved changes, which will not be included in the download.&lt;br/&gt;Do you want to continue?.
+        /// </summary>
+        public static string Confirm_DownloadItem {
+            get {
+                return ResourceManager.GetString("Confirm_DownloadItem", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to The following Filters have no criteria or are invalid: {0}&lt;br&gt;These Filters will be removed..
         /// </summary>
         public static string Confirm_InvalidQueryWillBeRemoved {
@@ -2527,7 +2536,7 @@ namespace EveryAngle.Shared.Globalization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Download Items.
+        ///   Looks up a localized string similar to Download items.
         /// </summary>
         public static string CreateEAPackage {
             get {
@@ -3369,6 +3378,24 @@ namespace EveryAngle.Shared.Globalization {
         public static string Download_Type {
             get {
                 return ResourceManager.GetString("Download_Type", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Download Angle.
+        /// </summary>
+        public static string DownloadAngle {
+            get {
+                return ResourceManager.GetString("DownloadAngle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Download Dashboard.
+        /// </summary>
+        public static string DownloadDashboard {
+            get {
+                return ResourceManager.GetString("DownloadDashboard", resourceCulture);
             }
         }
         
@@ -16076,7 +16103,7 @@ namespace EveryAngle.Shared.Globalization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Uploading Items.
+        ///   Looks up a localized string similar to Uploading items.
         /// </summary>
         public static string ProgressBar_UploadingAngles {
             get {
@@ -17552,7 +17579,7 @@ namespace EveryAngle.Shared.Globalization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Upload Items.
+        ///   Looks up a localized string similar to Upload items.
         /// </summary>
         public static string UploadAngles {
             get {
@@ -17615,7 +17642,7 @@ namespace EveryAngle.Shared.Globalization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Select Items to upload or drop here....
+        ///   Looks up a localized string similar to Select items to upload or drop here....
         /// </summary>
         public static string UploadAngles_SelectFile {
             get {
@@ -17624,7 +17651,7 @@ namespace EveryAngle.Shared.Globalization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Upload Items successful {0} of {1}.
+        ///   Looks up a localized string similar to Upload items successful {0} of {1}.
         /// </summary>
         public static string UploadAngles_SuccessfulMessage {
             get {
@@ -17633,7 +17660,7 @@ namespace EveryAngle.Shared.Globalization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Upload Items report.
+        ///   Looks up a localized string similar to Upload items report.
         /// </summary>
         public static string UploadAnglesReport {
             get {

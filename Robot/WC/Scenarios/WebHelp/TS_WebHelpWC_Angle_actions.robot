@@ -16,8 +16,8 @@ Crop Search Action Buttons
     Crop WebHelp Image     WC_Mass_Change_Icon.png              css=#ActionDropdownListPopup .massChange    ${False}
     Crop WebHelp Image     WC_Copy_Angle_Icon.png               css=#ActionDropdownListPopup .copyAngle    ${False}
     Crop WebHelp Image     WC_Delete_Angle_Icon.png             css=#ActionDropdownListPopup .delete    ${False}
-    Crop WebHelp Image     WC_Upload_Angles_Icon.png            css=#ActionDropdownListPopup .uploadAngles    ${False}
-    Crop WebHelp Image     WC_Download_Angles_Icon.png          css=#ActionDropdownListPopup .createEAPackage    ${False}
+    Crop WebHelp Image     WC_Upload_Angles_Icon.png            css=#ActionDropdownListPopup .upload    ${False}
+    Crop WebHelp Image     WC_Download_Angles_Icon.png          css=#ActionDropdownListPopup .download    ${False}
 
 Crop Mass Change Unchange State Checkbox
     Crop WebHelp Image     WC_checkbox_unequal.png              jquery=#popupMassChangePopup .chkIndeterminatable.empty:eq(0)    ${False}

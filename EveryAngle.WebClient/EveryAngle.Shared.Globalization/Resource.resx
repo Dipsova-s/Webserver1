@@ -1216,7 +1216,7 @@
     <value>Dashboard privileges</value>
   </data>
   <data name="CreateEAPackage" xml:space="preserve">
-    <value>Download Items</value>
+    <value>Download items</value>
   </data>
   <data name="FileName" xml:space="preserve">
     <value>File name</value>
@@ -5357,13 +5357,13 @@ This setting is valid for both Export to Excel and Export to CSV, manually from 
     <value>Are you sure you want to download {0} individual Angles?</value>
   </data>
   <data name="UploadAngles" xml:space="preserve">
-    <value>Upload Items</value>
+    <value>Upload items</value>
   </data>
   <data name="UploadAnglesReport" xml:space="preserve">
-    <value>Upload Items report</value>
+    <value>Upload items report</value>
   </data>
   <data name="ProgressBar_UploadingAngles" xml:space="preserve">
-    <value>Uploading Items</value>
+    <value>Uploading items</value>
   </data>
   <data name="UploadAngles_InvalideExtension" xml:space="preserve">
     <value>invalid file extension</value>
@@ -5375,10 +5375,10 @@ This setting is valid for both Export to Excel and Export to CSV, manually from 
     <value>invalid uploaded file</value>
   </data>
   <data name="UploadAngles_SelectFile" xml:space="preserve">
-    <value>Select Items to upload or drop here...</value>
+    <value>Select items to upload or drop here...</value>
   </data>
   <data name="UploadAngles_SuccessfulMessage" xml:space="preserve">
-    <value>Upload Items successful {0} of {1}</value>
+    <value>Upload items successful {0} of {1}</value>
   </data>
   <data name="FormatSetting_UseDefault" xml:space="preserve">
     <value>Use default</value>
@@ -6307,5 +6307,14 @@ Note: Invalid Angles are not included in the package. If the results in the pack
   </data>
   <data name="MC_Validation_ExportPackageUrl" xml:space="preserve">
     <value>Invalid URL: selections from multiple models and Advanced filters are not allowed.</value>
+  </data>
+  <data name="DownloadAngle" xml:space="preserve">
+    <value>Download Angle</value>
+  </data>
+  <data name="DownloadDashboard" xml:space="preserve">
+    <value>Download Dashboard</value>
+  </data>
+  <data name="Confirm_DownloadItem" xml:space="preserve">
+    <value>You have unsaved changes, which will not be included in the download.&lt;br/&gt;Do you want to continue?</value>
   </data>
 </root>

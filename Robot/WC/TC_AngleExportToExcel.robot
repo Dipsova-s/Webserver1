@@ -2,34 +2,30 @@
 Resource    		${EXECDIR}/resources/WCSettings.robot
 Suite Setup         Initialize Download Path And Login With Power User
 Suite Teardown      Logout WC Then Close Browser
-Test Setup          Empty Download Directory
-Test Teardown       Go to Search Page
+Test Teardown       Run Keywords  Empty Download Directory  AND  Go to Search Page
 Force Tags        	acc_wc
-
-*** Variables ***
-${TEST_VERIFY_EXPORT_TO_EXCEL_NAME}           Angle For General Test
-${LONG_FILE_NAME}    Export angle to excel with such a long filename. A filename of 200 characters should be allowed. Since the windows max path length is 260, this could lead to a path too long exception, when this happens, show the error message to the user.
-${ERROR_MESSAGE}     Full name of the file exceeds Windows limitations (260 characters).
 
 *** Test Cases ***
 Verify Export To Excel From Action Menu
     [Documentation]     This Test Verify Export Angle To Excel and Add Definitions Sheet Checkbox.
     [Tags]  acc_wc_aci   TC_C229226
-    Search Angle From Search Page And Execute Angle    ${TEST_VERIFY_EXPORT_TO_EXCEL_NAME}
+    ${angleName}  Set Variable  Angle For General Test
+    Search Angle From Search Page And Execute Angle    ${angleName}
     Wait Progress Bar Closed
     Check If Angle Or Display Has A Warning Then Close The Popup
     Wait Progress Bar Closed
     Click Angle Dropdown To Export Excel
     Click Check Add Definition Sheet
-    ${fileName}    Get Value    ${txtFileName}
-    Should Be Equal    ${fileName}    Angle For General Test
+    Input Excel File Name Should Be    ${angleName}
     Click Export Excel Button
-    ${file}    Wait Until Keyword Succeeds    1 min    2 sec    Download should be done    ${DOWNLOAD_DIRECTORY}
-    Should Contain    ${file}    Angle For General Test.xlsx
-    Check The Existence Of Definitions Sheet In Excel File      ${file}
+    ${files}    Wait Until Keyword Succeeds    1 min    2 sec    Download Should Be Done
+    Wait Unit Export Excel Popup Close
+    Download Should Contain File    ${angleName}.xlsx
+    Check The Existence Of Definitions Sheet In Excel File      ${files[0]}
 
 Verify Export Item Drilldown To Excel From Action Menu
-    Search Angle From Search Page And Execute Angle    Angle For General Test
+    ${angleName}  Set Variable  Angle For General Test
+    Search Angle From Search Page And Execute Angle    ${angleName}
     Wait Progress Bar Closed
     Check If Angle Or Display Has A Warning Then Close The Popup
     Wait Progress Bar Closed
@@ -37,28 +33,32 @@ Verify Export Item Drilldown To Excel From Action Menu
     Select Filter "Reference" On Drilldown To Item
     Click Angle Dropdown To Export Drilldown To Excel
     Click Export Drilldown To Excel Button
-    ${file}    Wait Until Keyword Succeeds    1 min    2 sec    Download should be done    ${DOWNLOAD_DIRECTORY}
+    Wait Until Keyword Succeeds    1 min    2 sec    Download Should Be Done
     Wait Unit Export Excel Popup Close
 
 Verify Error Message If A Filename Is Too Long
-    Search Angle From Search Page And Execute Angle    ${TEST_VERIFY_EXPORT_TO_EXCEL_NAME}
+    ${angleName}  Set Variable  Angle For General Test
+    Search Angle From Search Page And Execute Angle    ${angleName}
     Wait Progress Bar Closed
     Check If Angle Or Display Has A Warning Then Close The Popup
     Wait Progress Bar Closed
     Click Angle Dropdown To Export Excel
-    Input Text    ${txtFileName}    ${LONG_FILE_NAME}
+    Input Excel File Name Should Be    ${angleName}
+    ${filename}   Set Variable  Export angle to excel with such a long filename. A filename of 200 characters should be allowed. Since the windows max path length is 260, this could lead to a path too long exception, when this happens, show the error message to the user.
+    Input Excel File Name    ${filename}
     Click Export Excel Button
-    Wait Until Page Contains    ${ERROR_MESSAGE}
+    Wait Until Page Contains    Full name of the file exceeds Windows limitations (260 characters).
 
 Verify Export Field Names Contain Special Charactor
     [Tags]  acc_wc_aci
-    Search Angle From Search Page And Execute Angle    ANGLE_Pivot_fields_contain_special_characters
+    ${angleName}  Set Variable  ANGLE_Pivot_fields_contain_special_characters
+    Search Angle From Search Page And Execute Angle    ${angleName}
     Wait Progress Bar Closed
     Check If Angle Or Display Has A Warning Then Close The Popup
     Wait Progress Bar Closed
     Click Angle Dropdown To Export Excel
-    ${fileName}    Get Value    ${txtFileName}
-    Should Be Equal    ${fileName}    ANGLE_Pivot_fields_contain_special_characters
+    Input Excel File Name Should Be    ${angleName}
     Click Export Excel Button
-    ${file}    Wait Until Keyword Succeeds    1 min    2 sec    Download should be done    ${DOWNLOAD_DIRECTORY}
-    Should Contain    ${file}    ANGLE_Pivot_fields_contain_special_characters.xlsx
+    Wait Until Keyword Succeeds    1 min    2 sec    Download Should Be Done
+    Wait Unit Export Excel Popup Close
+    Download Should Contain File   ${angleName}.xlsx

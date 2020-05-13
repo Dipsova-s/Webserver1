@@ -280,23 +280,23 @@ Is Element Exist
 
 Get Downloading Path
     ${now}    Get Time    epoch
-    ${download directory}    Join Path    ${OUTPUT DIR}    downloads_${now}
-    [Return]    ${download directory}
+    ${path}    Join Path    ${OUTPUT DIR}    downloads_${now}
+    [Return]    ${path}
 
 Open Browser in Sandbox Mode
     ${options}    Evaluate    sys.modules['selenium.webdriver'].ChromeOptions()    sys, selenium.webdriver
     Open Chrome Browser With Options    ${options}
 
 Set Default Downloading Path And Open Browser
-    [Arguments]  ${download_directory}
-    Create Directory    ${download_directory}
+    [Arguments]  ${path}
+    Create Directory    ${path}
     ${options}    Evaluate    sys.modules['selenium.webdriver'].ChromeOptions()    sys, selenium.webdriver
-    ${prefs}    Create Dictionary    download.default_directory=${download_directory}
+    ${prefs}    Create Dictionary    download.default_directory=${path}
     Call Method    ${options}    add_experimental_option    prefs    ${prefs}
     Open Chrome Browser With Options    ${options}
 
     ${library}       get library instance    SeleniumLibrary
-    Enable Download In Headless Chrome    ${library.driver}    ${download directory} 
+    Enable Download In Headless Chrome    ${library.driver}    ${path} 
 
 Open Chrome Browser With Options
     [Arguments]  ${options}
@@ -311,17 +311,27 @@ Open Chrome Browser With Options
     Run Keyword If      '${status}' == 'FAIL'    Sleep    5s
     Run Keyword If      '${status}' == 'FAIL'    Create WebDriver    Chrome    chrome_options=${options}
 
-Download should be done
-    [Arguments]    ${download directory}
+Download Should Be Done
+    [Arguments]    ${count}=1
     [Documentation]    Verifies that the directory has only one folder and it is not a temp file.
     ...
     ...    Returns path to the file
-    ${files}    List Files In Directory    ${download_directory}
-    Length Should Be    ${files}    1    Should be only one file in the download folder
-    Should Not Match Regexp    ${files[0]}    (?i).*\\.(tmp|crdownload)    Chrome is still downloading a file
-    ${file}    Join Path    ${download_directory}    ${files[0]}
-    Log    File was successfully downloaded to ${file}
-    [Return]    ${file}
+    ${files}    List Files In Directory    ${DOWNLOAD_DIRECTORY}
+    Length Should Be    ${files}    ${count}
+    ${index}    Set Variable    0
+    : FOR    ${file}    IN    @{files}
+    \   Should Not Match Regexp    ${file}    (?i).*\\.(tmp|crdownload)    Chrome is still downloading a file
+    \   ${fullname}   Join Path    ${DOWNLOAD_DIRECTORY}    ${file}
+    \   Set List Value  ${files}  ${index}  ${fullname}
+    \   Log    File was successfully downloaded to ${fullname}
+    \   ${index}    Evaluate    ${index} + 1
+    [Return]    ${files}
+
+Download Should Contain File
+    [Arguments]  ${filename}
+    ${files}   List Files In Directory    ${DOWNLOAD_DIRECTORY}
+    ${file}    Join Path    ${DOWNLOAD_DIRECTORY}    ${filename}
+    File Should Exist  ${file}
 
 Initialize Download Path
     ${path}    Get Downloading Path

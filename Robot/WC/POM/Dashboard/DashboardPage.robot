@@ -8,8 +8,10 @@ Resource            ${EXECDIR}/WC/POM/Dashboard/SaveDashboardAsPopup.robot
 Resource            ${EXECDIR}/WC/POM/Dashboard/DashboardWidgetDefinition.robot
 
 *** Variables ***
-${ddlDashboardActionDropdownList}       ActionDropdownList
-${ddlDashboardActionDropdownListExecuteDashboard}        css=#ActionDropdownListPopup .exitEditMode
+${ddlDashboardActionDropdownList}                   ActionDropdownList
+${ddlDashboardActionDropdownListExecuteDashboard}   css=#ActionDropdownListPopup .exitEditMode
+${ddlDashboardActionDropdownDownload}               css=#ActionDropdownListPopup .download
+
 ${divWidgetDisplayHeader}               jquery=.widget-display-header
 ${btnWidgetDelete}                      jquery=.widgetButtonDelete
 ${btnConfirmDeleteWidget}               jquery=#btn-popupNotification1
@@ -20,7 +22,7 @@ ${linkMinimizeDashboard}                jquery=.widgetButtonMinimize
 
 ${btnShowPublishSettings}               css=#ShowPublishSettingsButton
 ${btnShowValidateButton}                css=#ShowValidateButton
-${btnCancelSavePublishSettings}         css=#btn-popupNotification0
+${btnCancelConfirmation}                css=#btn-popupNotification0
 
 #Save Buttons
 ${btnDashboardSaveMain}                 jquery=#DashboardSavingWrapper .btn-main-saving
@@ -81,6 +83,20 @@ Click Execute Dashboard Action
     Wait Until Element Is Visible    ${ddlDashboardActionDropdownListExecuteDashboard}
     Click Element    ${ddlDashboardActionDropdownListExecuteDashboard}
 
+Click Download Dashboard
+    Click Element  ${ddlDashboardActionDropdownDownload}
+
+Dashboard Download Button Should Be Available
+    Element Should Be Visible    ${ddlDashboardActionDropdownDownload}
+
+Dashboard Download Button Should Not Be Available
+    Element Should Not Be Visible    ${ddlDashboardActionDropdownDownload}
+
+Dashboard Downloading Should Get A Confirmation Popup
+    Click Download Dashboard
+    Page Should Contain Element  ${popupNotification} .confirm
+    Click Element   ${btnCancelConfirmation}
+
 Open Dashboard Publishing Popup
     Click Element   ${btnShowPublishSettings}
     Wait Dashboard Publishing Popup Loaded
@@ -88,7 +104,7 @@ Open Dashboard Publishing Popup
 Dashboard Publishing Should Get A Confirmation Popup
     Click Element   ${btnShowPublishSettings}
     Page Should Contain Element  ${popupNotification} .confirm
-    Click Element   ${btnCancelSavePublishSettings}
+    Click Element   ${btnCancelConfirmation}
 
 Check Dashboard Is Published
     Page Should Contain Element    ${btnShowPublishSettings}.btn-primary
@@ -119,6 +135,9 @@ Click Drilldown Pivot Widget
 Click Dashboard Main Save
     Click Element    ${btnDashboardSaveMain}
 
+Dashboard Main Save Button Is Download
+    Element Text Should Be  ${btnDashboardSaveMain}  Download Dashboard
+
 Dashboard Save Button Should Be Disabled
     Page Should Contain Element  ${btnDashboardSaveMain}.disabled
 
@@ -132,16 +151,22 @@ Dashboard Save Button Is Save Dashboard As
     Element Text Should Be    ${btnDashboardSaveMain}  Save Dashboard as...
     
 Dashboard Save Button Should Be Available
-    Page Should Contain Element    ${btnDashboardSaveMain} 
+    Page Should Contain Element    ${btnDashboardSaveMain}
+
+Dashboard Save Button Should Not Be Available
+    Page Should Not Contain Element    ${btnDashboardSaveMain}
+
+Dashboard Save All Button Should Be Available
+    Page Should Contain Element    ${btnDashboardSaveAll}
+
+Dashboard Save All Button Should Not Be Available
+    Page Should Not Contain Element    ${btnDashboardSaveAll}
 
 Dashboard Save As Button Should Be Available
-    Page Should Contain Element    ${btnSaveDashboardAs}  
+    Page Should Contain Element    ${btnSaveDashboardAs}
 
-Dashboard Save Button Should Not Available
-    Page Should Not Contain Element    ${btnDashboardSaveMain} 
-
-Save All Dashboard Should Not Be Available
-    Page Should Not Contain Element    ${btnDashboardSaveAll}     
+Dashboard Save As Button Should Not Be Available
+    Page Should Not Contain Element    ${btnSaveDashboardAs}
 
 Click Dashboard Option Save
     [Arguments]    ${element}
@@ -161,15 +186,11 @@ Click Dashboard Save All
     Page Should Contain Toast Success
     Wait Display Executed
 
-Click Apply Dashboard Filter
-   Click Apply Filter Button
-   Wait Dashboard Document Loaded
-
 Click Save Dashboard As
     ${hasButton}  Is Element Exist  ${btnSaveDashboardAs} 
     Run Keyword If  ${hasButton}  Click Dashboard Option Save    ${btnSaveDashboardAs}  
     ...    ELSE                   Click Dashboard Main Save
-    Wait Until Save Dashboard As Popup Loaded   
+    Wait Until Save Dashboard As Popup Loaded
 
 Dashboard Name Should Be
     [Arguments]    ${dashboardName}
@@ -179,6 +200,10 @@ Dashboard Name Should Be
 Get Dashboard Name
     ${text}  Get Text  css=#SectionInfo .name
     [Return]  ${text}
+
+Click Apply Dashboard Filter
+   Click Apply Filter Button
+   Wait Dashboard Document Loaded
 
 Widget Should Be List Display
     [Arguments]  ${index}

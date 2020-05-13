@@ -1207,7 +1207,7 @@
     <value>Dashboardprivileges</value>
   </data>
   <data name="CreateEAPackage" xml:space="preserve">
-    <value>Download Angles</value>
+    <value>Items downloaden</value>
   </data>
   <data name="FileName" xml:space="preserve">
     <value>Bestandsnaam</value>
@@ -3092,10 +3092,10 @@ This setting is valid for both Export to Excel and Export to CSV, manually from 
     <value>Weet u zeker dat u {0} individuele Angles wilt downloaden?</value>
   </data>
   <data name="UploadAngles" xml:space="preserve">
-    <value>Angles uploaden</value>
+    <value>Items uploaden</value>
   </data>
   <data name="UploadAnglesReport" xml:space="preserve">
-    <value>Upload Items rapport</value>
+    <value>Upload items rapport</value>
   </data>
   <data name="ProgressBar_UploadingAngles" xml:space="preserve">
     <value>Items uploaden</value>
@@ -3876,5 +3876,14 @@ Note: Invalid Angles are not included in the package. If the results in the pack
   </data>
   <data name="MC_Validation_ExportPackageUrl" xml:space="preserve">
     <value>Invalid URL: selections from multiple models and Advanced filters are not allowed.</value>
+  </data>
+  <data name="DownloadAngle" xml:space="preserve">
+    <value>Angle downloaden</value>
+  </data>
+  <data name="DownloadDashboard" xml:space="preserve">
+    <value>Dashboard downloaden</value>
+  </data>
+  <data name="Confirm_DownloadItem" xml:space="preserve">
+    <value>U hebt niet opgeslagen wijzigingen die niet zullen worden meegenomen in de download.&lt;br/&gt;Wilt u doorgaan?</value>
   </data>
 </root>

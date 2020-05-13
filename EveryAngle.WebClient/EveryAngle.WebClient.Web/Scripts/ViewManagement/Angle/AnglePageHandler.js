@@ -28,10 +28,7 @@ function AnglePageHandler() {
     self.HandlerDisplay = new DisplayHandler({}, self.HandlerAngle);
     self.HandlerState = new AngleStateHandler();
     self.HandlerDisplayOverview = new DisplayOverviewHandler(self.HandlerAngle);
-    self.HandlerDisplayOverview.Redirect = function (displayId) {
-        var redirectUrl = self.GetRedirectUrl(displayId);
-        WC.Utility.RedirectUrl(redirectUrl);
-    };
+    self.HandlerAngleSaveAction = new AngleSaveActionHandler(self.HandlerAngle, self.HandlerState);
     self.LoadResultFieldDone = false;
     /*EOF: Model Properties*/
 
@@ -102,7 +99,6 @@ function AnglePageHandler() {
             WC.HtmlHelper.MenuNavigatable('#UserControl', '#UserMenu', '.actionDropdownItem');
             WC.HtmlHelper.MenuNavigatable('#Help', '#HelpMenu', '.actionDropdownItem');
             WC.HtmlHelper.MenuNavigatable('#BtnDisplayOverview', '#DisplayOverview', '.listview-item', 'hover', 'active');
-            WC.HtmlHelper.MenuNavigatable('.btn-saving-options', '.saving-options', '.listview-item');
             WC.HtmlHelper.MenuNavigatable('#BtnNewDisplay', '#NewDisplay', '.listview-item');
             WC.HtmlHelper.MenuNavigatable('th.k-header', '.HeaderPopupList', 'a');
             WC.HtmlHelper.MenuNavigatable('.k-widget.chart-type', '.chart-type-dropdown', '.chart-icon');
@@ -112,7 +108,6 @@ function AnglePageHandler() {
             WC.HtmlHelper.ApplyKnockout(Localization, jQuery('#HelpMenu .k-window-content'));
             WC.HtmlHelper.ApplyKnockout(Localization, jQuery('#UserMenu .k-window-content'));
             WC.HtmlHelper.ApplyKnockout(Localization, jQuery('#ActionDropdownList'));
-            WC.HtmlHelper.ApplyKnockout(self, jQuery('#AngleSavingWrapper .saving-wrapper'));
             WC.HtmlHelper.ApplyKnockout(self.HandlerState, jQuery('#AngleStatesWrapper .states-wrapper'));
 
             self.SetWrapperHeight();
@@ -225,9 +220,14 @@ function AnglePageHandler() {
         // side panel + splitter + html stuff
         self.HandlerSidePanel.InitialAngle(self.SaveSidePanelCallback);
         self.SetHandlerAngle();
-
+        
         self.HandlerAngle.InitialAngleUserSpecific();
+        self.HandlerDisplayOverview.Redirect = self.Redirect;
 
+        // save actions
+        self.InitialSaveActions();
+
+        // active!
         jQuery('#ContentWrapper').addClass('active');
     };
     self.CheckAngle = function () {
@@ -470,140 +470,9 @@ function AnglePageHandler() {
         notifyHandler(self.HandlerDisplay.QueryDefinitionHandler);
         notifyHandler(self.HandlerDisplay.QueryDefinitionHandler.Parent());
     };
-
-    self.CanSaveAny = function () {
-        var canSaveAngle = self.HandlerAngle.CanCreateOrUpdate();
-        var canSaveAnyDisplay = self.HandlerAngle.Displays.hasObject('CanCreateOrUpdate', function (valid) { return valid(); });
-        return canSaveAngle || canSaveAnyDisplay;
-    };
-    self.HasAnyChanged = function () {
-        var hasAngleChanged = self.HandlerAngle.CanCreateOrUpdate() && self.HandlerAngle.GetCreateOrUpdateData();
-        var hasAnyDisplayChanged = false;
-        jQuery.each(self.HandlerAngle.Displays, function (index, display) {
-            if (display.CanCreateOrUpdate() && display.GetCreateOrUpdateData()) {
-                hasAnyDisplayChanged = true;
-                return false;
-            }
-        });
-        return hasAngleChanged || hasAnyDisplayChanged;
-    };
-    self.VisibleSaveAll = function () {
-        return self.CanSaveAny();
-    };
-    self.EnableSaveAll = function () {
-        return self.HasAnyChanged();
-    };
-    self.VisibleSaveAngleAs = function () {
-        return !self.HandlerAngle.IsAdhoc() && self.HandlerAngle.CanCreate();
-    };
-    self.EnableSaveAngleAs = function () {
-        return self.HandlerAngle.CanUseFilter()
-            && self.HandlerAngle.CanUseJump();
-    };
-    self.VisibleSaveDisplayAs = function () {
-        return self.HandlerDisplay.CanCreate();
-    };
-    self.EnableSaveDisplayAs = function () {
-        return self.HandlerDisplay.CanUseFilter()
-            && self.HandlerDisplay.CanUseJump();
-    };
-    self.IsPrimarySaveValid = function () {
-        return self.SaveActions.All.Visible() || self.SaveActions.AngleAs.Visible()
-            || self.SaveActions.DisplayAs.Visible() || self.SaveActions.Template.Visible();
-    };
-    self.IsPrimarySaveEnable = function () {
-        if (self.SaveActions.All.Visible())
-            return self.SaveActions.All.Enable();
-        if (self.SaveActions.AngleAs.Visible())
-            return self.SaveActions.AngleAs.Enable();
-        if (self.SaveActions.DisplayAs.Visible())
-            return self.SaveActions.DisplayAs.Enable();
-        if (self.SaveActions.Template.Visible())
-            return self.SaveActions.Template.Enable();
-    };
-    self.PrimarySaveAction = function () {
-        if (self.SaveActions.All.Visible())
-            self.SaveActions.All.Action();
-        else if (self.SaveActions.AngleAs.Visible())
-            self.SaveActions.AngleAs.Action();
-        else if (self.SaveActions.DisplayAs.Visible())
-            self.SaveActions.DisplayAs.Action();
-        else if (self.SaveActions.Template.Visible())
-            return self.SaveActions.Template.Action();
-    };
-    self.VisibleToggleSaveOptions = function () {
-        var count = 0;
-        if (self.SaveActions.All.Visible())
-            count++;
-        if (self.SaveActions.AngleAs.Visible())
-            count++;
-        if (self.SaveActions.DisplayAs.Visible())
-            count++;
-        if (self.SaveActions.Template.Visible())
-            count++;
-        return count > 1;
-    };
-    self.ToggleSaveOptions = function () {
-        var element = jQuery('#AngleSavingWrapper .saving-options');
-        element.children('.listview-item').removeClass('active');
-        if (element.is(':visible'))
-            element.hide();
-        else
-            element.show();
-    };
-    self.GetPrimarySaveLabel = function () {
-        if (self.SaveActions.All.Visible())
-            return self.SaveActions.All.Label();
-        else if (self.SaveActions.AngleAs.Visible())
-            return self.SaveActions.AngleAs.Label();
-        else if (self.SaveActions.DisplayAs.Visible())
-            return self.SaveActions.DisplayAs.Label();
-        else if (self.SaveActions.Template.Visible())
-            return self.SaveActions.Template.Label();
-    };
-    self.CreateSaveAllButton = function () {
-        var button = jQuery([
-            '<a class="btn btn-small btn-secondary btn-save-all">',
-            '<span>' + Localization.Save + '</span>',
-            '</a>'
-        ].join(''));
-        button.attr('data-busy', Localization.Saving);
-        return button;
-    };
-    self.ConfirmSaveAll = function (forcedUpdateAngle) {
-        // will forced save when changing angle/display that is used in task
-        self.HandlerAngle.ConfirmSave(null, jQuery.proxy(self.SaveAll, self, forcedUpdateAngle, true));
-    };
-    self.SaveAll = function (forcedExecuteAngle, forcedSaveAngle) {
-        if (!self.HasAnyChanged()) {
-            if (forcedExecuteAngle === true) {
-                self.HandlerAngle.ForceInitial();
-                self.ExecuteAngle();
-            }
-            return;
-        }
-
-        if (!self.HandlerAngle.Validate()) {
-            return;
-        }
-
-        var isRedirect = self.HandlerAngle.IsAdhoc() || self.HandlerDisplay.IsAdhoc();
-        var displayId = self.HandlerDisplay.Data().id();
-        progressbarModel.ShowStartProgressBar();
-        progressbarModel.SetDisableProgressBar();
-        return self.HandlerAngle.SaveAll(forcedSaveAngle)
-            .always(function () {
-                if (isRedirect) {
-                    var redirectUrl = self.GetRedirectUrl(displayId);
-                    window.location.replace(redirectUrl);
-                }
-                else {
-                    if (forcedExecuteAngle === true) {
-                        self.HandlerAngle.ForceInitial();
-                    }
-                    self.ExecuteAngle();
-                }
-            });
+    self.Redirect = function (displayId) {
+        var redirectUrl = self.GetRedirectUrl(displayId);
+        WC.Utility.RedirectUrl(redirectUrl);
     };
     self.GetRedirectUrl = function (displayId) {
         var display = self.HandlerAngle.Displays.findObject('Data', function (data) { return data().id() === displayId; })
@@ -612,92 +481,26 @@ function AnglePageHandler() {
         var query = self.CreateAngleQuery([]);
         return WC.Utility.GetAnglePageUri(self.HandlerAngle.Data().uri, display.Data().uri, query);
     };
-    self.ShowSaveAngleAsPopup = function () {
-        if (!self.SaveActions.AngleAs.Enable())
-            return;
 
-        var handler = new AngleSaveAsHandler(self.HandlerAngle, self.HandlerDisplay);
-        handler.ItemSaveAsHandler.Redirect = function (displayId) {
-            var redirectUrl = self.GetRedirectUrl(displayId);
-            WC.Utility.RedirectUrl(redirectUrl);
+    // save actions
+    self.InitialSaveActions = function () {
+        self.HandlerAngleSaveAction.Initial('#AngleSavingWrapper');
+        self.HandlerAngleSaveAction.GetDisplayHandler = function () {
+            return self.HandlerDisplay;
         };
-        handler.ShowPopup();
+        self.HandlerAngleSaveAction.Redirect = self.Redirect;
+        self.HandlerAngleSaveAction.ExecuteAngle = self.ExecuteAngle;
     };
-    self.ShowSaveDisplayAsPopup = function () {
-        if (!self.SaveActions.DisplayAs.Enable())
-            return;
-
-        var handler = new DisplaySaveAsHandler(self.HandlerAngle, self.HandlerDisplay);
-        handler.ItemSaveAsHandler.Redirect = function (displayId) {
-            var redirectUrl = self.GetRedirectUrl(displayId);
-            WC.Utility.RedirectUrl(redirectUrl);
-        };
-        handler.ShowPopup();
+    self.HasAnyChanged = function () {
+        return self.HandlerAngleSaveAction.EnableSaveAll();
     };
-    self.CanCreateTemplateAngle = function () {
-        return self.HandlerAngle.CanCreateTemplateAngle();
-    };
-    self.CanSetTemplate = function () {
-        return self.HandlerAngle.CanSetTemplate();
-    };
-    self.SaveAngleAndSetTemplate = function () {
-        self.HandlerAngle.SaveAll(true).done(function () {
-            self.HandlerState.SetTemplateStatus(!self.HandlerAngle.Data().is_template());
-        });
-    };
-    self.SetTemplateStatus = function () {
-        if (!self.CanSetTemplate())
-            return;
-
-        jQuery('#AngleSavingWrapper .saving-options').hide();
-
-        self.HandlerAngle.ConfirmSave(self.HandlerAngle.IsDisplaysUsedInTask, self.SaveAngleAndSetTemplate);
-    };
-    self.SaveActions = {
-        Primary: {
-            Valid: self.IsPrimarySaveValid,
-            Enable: self.IsPrimarySaveEnable,
-            Visible: self.VisibleToggleSaveOptions,
-            Label: self.GetPrimarySaveLabel,
-            Action: self.PrimarySaveAction
-        },
-        All: {
-            Enable: ko.observable(false),
-            Visible: ko.observable(false),
-            Label: ko.observable(Localization.Save),
-            Action: jQuery.proxy(self.ConfirmSaveAll, self, false)
-        },
-        AngleAs: {
-            Enable: ko.observable(false),
-            Visible: ko.observable(false),
-            Label: ko.observable(Localization.SaveAngleAs),
-            Action: jQuery.proxy(self.ShowSaveAngleAsPopup, self)
-        },
-        DisplayAs: {
-            Enable: ko.observable(false),
-            Visible: ko.observable(false),
-            Label: ko.observable(Localization.SaveAs),
-            Action: jQuery.proxy(self.ShowSaveDisplayAsPopup, self)
-        },
-        Template:
-        {
-            Enable: ko.observable(false),
-            Visible: ko.observable(false),
-            Label: ko.observable(Localization.AngleDetailPublishTabTemplate),
-            Action: jQuery.proxy(self.SetTemplateStatus, self)
-        }
+    self.SaveAll = function (forcedExecuteAngle, forcedSaveAngle) {
+        return self.HandlerAngleSaveAction.ForceSaveAll(forcedExecuteAngle, forcedSaveAngle);
     };
     self.SetSaveActions = function () {
-        self.SaveActions.All.Visible(self.VisibleSaveAll());
-        self.SaveActions.All.Enable(self.EnableSaveAll());
-        self.SaveActions.AngleAs.Visible(self.VisibleSaveAngleAs());
-        self.SaveActions.AngleAs.Enable(self.EnableSaveAngleAs());
-        self.SaveActions.DisplayAs.Visible(self.VisibleSaveDisplayAs());
-        self.SaveActions.DisplayAs.Enable(self.EnableSaveDisplayAs());
-        self.SaveActions.Template.Enable(self.CanSetTemplate());
-        self.SaveActions.Template.Visible(self.CanCreateTemplateAngle());
-        self.SaveActions.Template.Label(self.HandlerAngle.Data().is_template() ? Localization.AngleDetailPublishTabAngle : Localization.AngleDetailPublishTabTemplate);
+        self.HandlerAngleSaveAction.UpdateActions();
     };
+
     self.IsEditMode = function () {
         return !!WC.Utility.UrlParameter(enumHandlers.ANGLEPARAMETER.EDITMODE);
     };

@@ -49,7 +49,7 @@ Verify Set Angle To Template And Template To Angle
     [Tags]    TC_C229010
     ${angleName}  Set Variable  [ROBOT] Verify Set Angle to Template and Template to Angle
     Create Adhoc Angle From Object List   PD    ${angleName}
-    Verify Set To Template Button Should Not Available In Ad-hoc Angle
+    Set To Template Button Should Not Available
     Click Save All
     Verify Set Angle To Template    ${angleName}
     Verify Set Template To Angle    ${angleName}

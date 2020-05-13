@@ -17,7 +17,7 @@ Verify EAViewer: Dashboard Save Buttons Privilege
     Dashboard Save Button Should Be Available
     Dashboard Save Button Should Be Enable
     Dashboard Save Button Is Save Dashboard As
-    Save All Dashboard Should Not Be Available
+    Dashboard Save All Button Should Not Be Available
     
     Logout WC Then Close Browser
     Switch Browser  1
@@ -26,7 +26,7 @@ Verify EABasic: Dashboard Save Buttons Privilege
     [Arguments]    ${dashboardID}
     Go to WC Then Login With EABasic User
 	Find Dashboard By ID Then Execute The First Dashboard    ${dashboardID} 
-    Dashboard Save Button Should Not Available
+    Dashboard Save Button Should Not Be Available
     Logout WC Then Close Browser
     Switch Browser  1
 

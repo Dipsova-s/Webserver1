@@ -55,10 +55,6 @@ Verify All Display Are Published
     Check All Display Are Checked
     Close Publish Angle Popup
 
-Verify Set To Template Button Should Not Available In Ad-hoc Angle
-    Click Caret Of Save Button
-    Set To Template Button Should Not Available
-
 Verify Set Angle To Template
     [Arguments]    ${angleName}
     Click Set Angle To Template

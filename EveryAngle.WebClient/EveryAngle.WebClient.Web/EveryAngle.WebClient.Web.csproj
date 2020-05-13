@@ -1021,6 +1021,7 @@
     <Content Include="Scripts\ViewManagement\Angle\DisplayOverviewHandler.js" />
     <Content Include="Scripts\ViewManagement\Angle\DisplayStatisticHandler.js" />
     <Content Include="Scripts\ViewManagement\Angle\DisplayStatisticView.js" />
+    <Content Include="Scripts\ViewManagement\Angle\AngleSaveActionHandler.js" />
     <Content Include="Scripts\ViewManagement\Angle\Pivot\PivotHelper.js" />
     <Content Include="Scripts\ViewManagement\Angle\Pivot\PivotOptionsHandler.js" />
     <Content Include="Scripts\ViewManagement\Angle\Pivot\PivotOptionsView.js" />
@@ -1028,6 +1029,7 @@
     <Content Include="Scripts\ViewManagement\Angle\DisplayHandler.js" />
     <Content Include="Scripts\ViewManagement\Angle\AngleSidePanelView.js" />
     <Content Include="Scripts\ViewManagement\Angle\AngleSidePanelHandler.js" />
+    <Content Include="Scripts\ViewManagement\Dashboard\DashboardSaveActionHandler.js" />
     <Content Include="Scripts\ViewManagement\Dashboard\DashboardWidgetDefinitionView.js" />
     <Content Include="Scripts\ViewManagement\Dashboard\DashboardWidgetDefinitionHandler.js" />
     <Content Include="Scripts\ViewManagement\Angle\TargetLineHandler.js" />
@@ -1044,6 +1046,7 @@
     <Content Include="Scripts\ViewManagement\Shared\Breadcrumb\DashboardBreadcrumbHandler.js" />
     <Content Include="Scripts\ViewManagement\Shared\ItemDescription\ItemDescriptionHandler.js" />
     <Content Include="Scripts\ViewManagement\Shared\ItemDescription\ItemDescriptionView.js" />
+    <Content Include="Scripts\ViewManagement\Shared\ItemSaveActionHandler.js" />
     <Content Include="Scripts\ViewManagement\Shared\ItemSaveAs\ItemSaveAsHandler.js" />
     <Content Include="Scripts\ViewManagement\Shared\ItemSaveAs\ItemSaveAsView.js" />
     <Content Include="Scripts\ViewManagement\Shared\QueryDefinition\FilterEditors\BaseFilterEditor.js" />
@@ -1095,7 +1098,7 @@
     <Content Include="Scripts\ViewManagement\Shared\QueryDefinition\QueryDefinitionHandler.js" />
     <Content Include="Scripts\ViewManagement\Shared\SearchStorageHandler.js" />
     <Content Include="Scripts\ViewManagement\Shared\NotificationsFeedHandler.js" />
-    <Content Include="Scripts\ViewManagement\Search\angledownloadhandler.js" />
+    <Content Include="Scripts\ViewManagement\Shared\ItemDownloadHandler.js" />
     <Content Include="Scripts\ViewManagement\Search\AngleExportHandler.js" />
     <Content Include="Scripts\ViewManagement\Search\ImportAngleHandler.js" />
     <Content Include="Scripts\ViewManagement\Search\ItemInfoHandler.js" />

@@ -113,6 +113,7 @@
     <Content Include="WebClient\Tests\Helper\HtmlHelper.MenuNavigatableTest.js" />
     <Content Include="WebClient\Tests\Helper\ModelHelperTest.js" />
     <Content Include="WebClient\Tests\User\AuthenticationTest.js" />
+    <Content Include="WebClient\Tests\ViewManagement\Angle\AngleSaveActionHandlerTest.js" />
     <Content Include="WebClient\Tests\ViewManagement\Angle\AngleStatisticHandlerTest.js" />
     <Content Include="WebClient\Tests\ViewManagement\Angle\Pivot\PivotOptionsHandlerTest.js" />
     <Content Include="WebClient\Tests\ViewManagement\Angle\Chart\ChartOptionsHandlerTest.js" />
@@ -130,6 +131,7 @@
     <Content Include="WebClient\Tests\ViewManagement\Angle\DisplayOverviewHandlerTest.js" />
     <Content Include="WebClient\Tests\ViewManagement\Angle\DisplayStatisticHandlerTest.js" />
     <Content Include="WebClient\Tests\ViewManagement\Angle\TargetLineHandlerTest.js" />
+    <Content Include="WebClient\Tests\ViewManagement\Dashboard\DashboardSaveActionHandlerTest.js" />
     <Content Include="WebClient\Tests\ViewManagement\Dashboard\DashboardStatisticHandlerTest.js" />
     <Content Include="WebClient\Tests\ViewManagement\Angle\AngleSidePanelHandlerTest.js" />
     <Content Include="WebClient\Tests\ViewManagement\Dashboard\DashboardSidePanelHandlerTest.js" />
@@ -139,6 +141,7 @@
     <Content Include="WebClient\Tests\ViewManagement\Dashboard\DashboardUserSpecificHandlerTest.js" />
     <Content Include="WebClient\Tests\ViewManagement\Angle\AngleSaveAsHandlerTest.js" />
     <Content Include="WebClient\Tests\ViewManagement\Search\DashboardExecutionHandlerTest.js" />
+    <Content Include="WebClient\Tests\ViewManagement\Shared\ItemSaveActionHandlerTest.js" />
     <Content Include="WebClient\Tests\ViewManagement\Shared\BaseItemHandlerTest.js" />
     <Content Include="WebClient\Tests\ViewManagement\Angle\DisplayHandlerTest.js" />
     <Content Include="WebClient\Tests\ViewManagement\Angle\AngleHandlerTest.js" />
@@ -166,7 +169,7 @@
     <Content Include="WebClient\Tests\ViewManagement\Export\ExportHandlerTest.js" />
     <Content Include="WebClient\Tests\ViewManagement\Export\ExportExcelHandlerTest.js" />
     <Content Include="WebClient\Tests\ViewManagement\Search\AngleCopyHandlerTest.js" />
-    <Content Include="WebClient\Tests\ViewManagement\Search\AngleDownloadHandlerTest.js" />
+    <Content Include="WebClient\Tests\ViewManagement\Shared\ItemDownloadHandlerTest.js" />
     <Content Include="WebClient\Tests\ViewManagement\Search\AngleExportHandlerTest.js" />
     <Content Include="WebClient\Tests\ViewManagement\Search\ImportAngleHandlerTest.js" />
     <Content Include="WebClient\Tests\ViewManagement\Search\ItemInfoHandlerTest.js" />

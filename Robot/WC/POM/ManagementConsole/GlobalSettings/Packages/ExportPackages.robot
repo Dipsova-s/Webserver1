@@ -65,7 +65,7 @@ Click on OK button in Create Package popup
     Click Element    ${btnExportPackagePopup}
     Wait Until Element Is Not Visible    ${btnExportPackagePopup}
     Wait MC Progress Bar Closed
-    ${file}    Wait Until Keyword Succeeds    1 min    2 sec    Download should be done    ${DOWNLOAD_DIRECTORY}
+    Wait Until Keyword Succeeds    1 min    2 sec    Download Should Be Done
 
 Check The Existence Of Package Export Url Input Field And Enter The Url
     ${urlInputField}    Run Keyword And Return Status    Page Should Contain Element    ${txtPackageExportUrl}

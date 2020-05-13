@@ -121,8 +121,8 @@ ${ddlSearchActionDeleteAngle}           css=#ActionDropdownListPopup .delete
 ${ddlSearchActionCopyAngle}             css=#ActionDropdownListPopup .copyAngle
 ${ddlSearchActionSelectAll}             css=#ActionDropdownListPopup .selectAll
 ${ddlSearchActionExecuteAsDashboard}    css=#ActionDropdownListPopup .executeDashboard
-${ddlSearchActionCreateEAPackage}       css=#ActionDropdownListPopup .createEAPackage
-${ddlSearchActionUploadAngles}          css=#ActionDropdownListPopup .uploadAngles
+${ddlSearchActionDownload}              css=#ActionDropdownListPopup .download
+${ddlSearchActionUpload}                css=#ActionDropdownListPopup .upload
 
 #View Mode
 ${btnDisplaysMode}                      DisplaysList
@@ -242,7 +242,7 @@ Click Search Action Copy Angle
     Click Search Action    ${ddlSearchActionCopyAngle}
 
 Click Search Action Download Items
-    Click Search Action    ${ddlSearchActionCreateEAPackage}
+    Click Search Action    ${ddlSearchActionDownload}
 
 Click Search Action Select All
     Click Search Action    ${ddlSearchActionSelectAll}
@@ -250,7 +250,7 @@ Click Search Action Select All
     Wait Progress Bar Search Closed
 
 Click Search Action Upload Angles
-    Click Search Action    ${ddlSearchActionUploadAngles}
+    Click Search Action    ${ddlSearchActionUpload}
     Wait Upload Angles Popup Loaded
 
 Click Search Action Execute As Dashboard

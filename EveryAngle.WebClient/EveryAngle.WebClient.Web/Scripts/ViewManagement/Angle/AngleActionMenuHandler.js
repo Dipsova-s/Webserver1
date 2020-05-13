@@ -23,7 +23,8 @@ function AngleActionMenuHandler(base) {
     self.GetEditModeMenu = function () {
         var actionIds = [
             enumHandlers.ANGLEACTION.PASTEDISPLAY.Id,
-            enumHandlers.ANGLEACTION.EXECUTEDISPLAY.Id
+            enumHandlers.ANGLEACTION.EXECUTEDISPLAY.Id,
+            enumHandlers.ANGLEACTION.DOWNLOAD.Id
         ];
         var forcePrivilege = { Visible: true };
         return self.GetDisplayMenu(actionIds, forcePrivilege);
@@ -60,6 +61,8 @@ function AngleActionMenuHandler(base) {
     };
     self.GetPrivilegeData = function () {
         var privileges = {};
+        
+        privileges[enumHandlers.ANGLEACTION.DOWNLOAD.Id] = { Enable: self.CanDownload(), Visible: self.CanDownload() };
 
         privileges[enumHandlers.ANGLEACTION.ADDFOLLOWUP.Id] = { Enable: self.CanAddFollowup(), Visible: true };
         privileges[enumHandlers.ANGLEACTION.ADDTODASHBOARD.Id] = { Enable: self.CanAddToDashboard(), Visible: true };
@@ -87,6 +90,9 @@ function AngleActionMenuHandler(base) {
         jQuery.extend(privileges, scheduleAnglesData);
 
         return privileges;
+    };
+    self.CanDownload = function () {
+        return !self.HandlerAngle.IsAdhoc();
     };
     self.CanAddToDashboard = function () {
         var isSavedItem = !angleInfoModel.IsTemporaryAngle() && !displayModel.IsTemporaryDisplay();
@@ -206,6 +212,7 @@ function AngleActionMenuHandler(base) {
             actions[enumHandlers.ANGLEACTION.EXPORTTOCSV.Id] = [self, self.ShowExportCsvPopup];
             actions[enumHandlers.ANGLEACTION.EXECUTEDISPLAY.Id] = [self, self.ExitEditMode];
             actions[enumHandlers.ANGLEACTION.SCHEDULEANGLE.Id] = [scheduleAngleHandler, scheduleAngleHandler.ShowPopup];
+            actions[enumHandlers.ANGLEACTION.DOWNLOAD.Id] = [self, self.Download];
 
             var action = actions[selectedValue];
             if (action)
@@ -237,8 +244,23 @@ function AngleActionMenuHandler(base) {
         else {
             options.IsAdhoc = true;
         }
-        anglePageHandler.HandlerDisplay.QueryDefinitionHandler.ShowAddJumpPopup(options);
+        self.HandlerDisplay.QueryDefinitionHandler.ShowAddJumpPopup(options);
+    };
+    self.Download = function () {
+        var download = function () {
+            var itemDownloadHandler = new ItemDownloadHandler();
+            var item = self.HandlerAngle.GetData();
+            item.type = enumHandlers.ITEMTYPE.ANGLE;
+            itemDownloadHandler.SetSelectedItems([item]);
+            itemDownloadHandler.StartExportItems();
+        };
 
+        if (self.HandlerAngleSaveAction.EnableSaveAll()) {
+            popup.Confirm(Localization.Confirm_DownloadItem, download);
+        }
+        else {
+            download();
+        }
     };
 
     /*EOF: Model Methods*/

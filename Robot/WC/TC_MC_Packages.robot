@@ -4,7 +4,7 @@ Suite Setup         Initialize Download Path And Login MC With Admin User
 Suite Teardown      Logout MC Then Close Browser
 Test Setup          Go To Package Page
 Test Teardown       Empty Download Directory
-Force Tags          MC    acc_mc_s
+Force Tags          acc_mc_s
 
 *** Test Cases ***
 Test Global Packages

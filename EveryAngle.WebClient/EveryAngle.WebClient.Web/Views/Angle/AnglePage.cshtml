@@ -103,34 +103,7 @@
                         </div>
                     </div>
 
-                    <div class="form-col col-saving" id="AngleSavingWrapper">
-                        <!-- ko stopBinding: true -->
-                        <div class="saving-wrapper" data-bind="if: SaveActions.Primary.Valid(), visible: SaveActions.Primary.Valid(), css: { 'savable' : SaveActions.Primary.Enable() }">
-                            <a class="btn btn-small btn-secondary btn-main-saving" data-bind="click: SaveActions.Primary.Action, css: { 'btn-split': SaveActions.Primary.Visible(), disabled: !SaveActions.Primary.Enable() }">
-                                <span data-bind="text: SaveActions.Primary.Label()"></span>
-                            </a>
-                            <a class="btn btn-small btn-secondary btn-saving-options" 
-                               data-tooltip-position="bottom" data-role="tooltip" data-tooltip-text="@Resource.MoreActions"
-                               data-bind="click: ToggleSaveOptions">
-                                <i class="icon icon-chevron-down"></i>
-                            </a>
-                            <ul class="listview listview-popup saving-options">
-                                <!-- ko if: SaveActions.All.Visible() && SaveActions.Primary.Label() !== SaveActions.All.Label() -->
-                                <li class="listview-item action-save-all" data-bind="text: SaveActions.All.Label, css: { disabled: !SaveActions.All.Enable() }, click: SaveActions.All.Action"></li>
-                                <!-- /ko -->
-                                <!-- ko if: SaveActions.AngleAs.Visible() && SaveActions.Primary.Label() !== SaveActions.AngleAs.Label() -->
-                                <li class="listview-item action-save-angle-as" data-bind="text: SaveActions.AngleAs.Label, css: { disabled: !SaveActions.AngleAs.Enable() }, click: SaveActions.AngleAs.Action"></li>
-                                <!-- /ko -->
-                                <!-- ko if: SaveActions.DisplayAs.Visible() && SaveActions.Primary.Label() !== SaveActions.DisplayAs.Label() -->
-                                <li class="listview-item action-save-display-as" data-bind="text: SaveActions.DisplayAs.Label, css: { disabled: !SaveActions.DisplayAs.Enable() }, click: SaveActions.DisplayAs.Action"></li>
-                                <!-- /ko -->
-                                <!-- ko if: SaveActions.Template.Visible() && SaveActions.Primary.Label() !== SaveActions.Template.Label() -->
-                                <li class="listview-item action-set-template" data-bind="text: SaveActions.Template.Label, css: { disabled: !SaveActions.Template.Enable() }, click: SaveActions.Template.Action"></li>
-                                <!-- /ko -->
-                            </ul>
-                        </div>
-                        <!-- /ko -->
-                    </div>
+                    <div class="form-col col-saving" id="AngleSavingWrapper"></div>
 
                     <div class="form-col col-states" id="AngleStatesWrapper">
                         @{Html.RenderPartial("~/Views/Shared/Top/ItemState.cshtml");}

@@ -6,6 +6,11 @@
 #DashboardField .Wrapper {
   position: relative; }
 
+/* #ActionSelect
+============================================ */
+#ActionSelect .actionDropdownItem.exitEditMode.alwaysHide + .actionDropdownItem.download:after {
+  display: none; }
+
 /* #dashboardWrapper
 ============================================ */
 #widgetMaximizeWrapper {

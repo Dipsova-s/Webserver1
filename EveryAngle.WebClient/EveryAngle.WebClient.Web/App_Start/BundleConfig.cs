@@ -379,7 +379,7 @@ namespace EveryAngle.WebClient.Web
 
                     // angle export (eapackage + download)
                     "~/scripts/viewmanagement/search/eapackagehandler.js",
-                    "~/scripts/viewmanagement/search/angledownloadhandler.js",
+                    "~/scripts/viewmanagement/shared/itemdownloadhandler.js",
                     "~/scripts/viewmanagement/search/angleexporthandler.js",
 
                     // execute dashboard
@@ -430,6 +430,10 @@ namespace EveryAngle.WebClient.Web
                     "~/scripts/viewmanagement/shared/breadcrumb/anglebreadcrumbhandler.js",
                     "~/scripts/viewmanagement/angle/ResolveAngleDisplayHandler.js",
                     "~/scripts/viewmanagement/angle/DisplayUpgradeHandler.js",
+
+                    // save actions
+                    "~/scripts/viewmanagement/shared/itemsaveactionhandler.js",
+                    "~/scripts/viewmanagement/angle/anglesaveactionhandler.js",
 
                     // templates
                     "~/scripts/htmltemplate/dashboard/addtodashboardhtmltemplate.js",
@@ -524,6 +528,9 @@ namespace EveryAngle.WebClient.Web
                     "~/scripts/viewmanagement/angle/displayhandler.js",
                     "~/scripts/viewmanagement/angle/resulthandler.js",
 
+                    // download
+                    "~/scripts/viewmanagement/shared/itemdownloadhandler.js",
+
                     "~/scripts/viewmanagement/angle/anglepageretainsurl.js",
                     "~/scripts/viewmanagement/angle/fieldsettingshandler.js",
                     "~/scripts/viewmanagement/angle/targetLineHandler.js",
@@ -570,6 +577,10 @@ namespace EveryAngle.WebClient.Web
                     "~/scripts/viewmodels/models/dashboard/dashboardmodel.js",
                     "~/scripts/viewmodels/models/dashboard/dashboardresultmodel.js",
 
+                    // save actions
+                    "~/scripts/viewmanagement/shared/itemsaveactionhandler.js",
+                    "~/scripts/viewmanagement/dashboard/dashboardsaveactionhandler.js",
+
                     // dashboard sidepanel
                     "~/scripts/viewmanagement/dashboard/dashboardsidepanelview.js",
                     "~/scripts/viewmanagement/dashboard/dashboardsidepanelhandler.js",
@@ -592,6 +603,9 @@ namespace EveryAngle.WebClient.Web
                     // widget definitions
                     "~/scripts/viewmanagement/dashboard/dashboardwidgetdefinitionview.js",
                     "~/scripts/viewmanagement/dashboard/dashboardwidgetdefinitionhandler.js",
+
+                    // download
+                    "~/scripts/viewmanagement/shared/itemdownloadhandler.js",
 
                     // states
                     "~/scripts/viewmanagement/dashboard/dashboardstateview.js",

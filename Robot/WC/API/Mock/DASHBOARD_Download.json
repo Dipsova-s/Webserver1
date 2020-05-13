@@ -1,0 +1,78 @@
+{
+    "multi_lang_name": [
+        {
+            "lang": "en",
+            "text": "[ROBOT] Dashboard download"
+        }
+    ],
+    "multi_lang_description": [],
+    "user_specific": {
+        "execute_on_login": false,
+        "is_starred": false,
+        "private_note": ""
+    },
+    "widget_definitions": [
+        {
+            "id": "wbf2667ad0191a9f81210583459524790",
+            "uri": "/dashboards/342/widgets/45",
+            "widget_details": "{}",
+            "widget_type": "angle_display",
+            "angle": "/models/1/angles/340",
+            "display": "/models/1/angles/340/displays/1277",
+            "multi_lang_name": [
+                {
+                    "lang": "en",
+                    "text": " "
+                }
+            ],
+            "multi_lang_description": []
+        },
+        {
+            "id": "wbf2677ad0191a9f81210583459524790",
+            "uri": "/dashboards/342/widgets/46",
+            "widget_details": "{}",
+            "widget_type": "angle_display",
+            "angle": "/models/1/angles/341",
+            "display": "/models/1/angles/341/displays/1278",
+            "multi_lang_name": [
+                {
+                    "lang": "en",
+                    "text": " "
+                }
+            ],
+            "multi_lang_description": []
+        }
+    ],
+    "filters": [],
+    "widgets": "/dashboards/342/widgets",
+    "layout": "{\"structure\":[],\"widgets\":[\"wbf2667ad0191a9f81210583459524790\"\"wbf2677ad0191a9f81210583459524790\"]}",
+    "assigned_labels": [
+        "P2P",
+        "S2D"
+    ],
+    "privilege_labels": "/dashboards/342/privilege_labels",
+    "grouping_labels": "/dashboards/342/grouping_labels",
+    "labels": "/dashboards/342/labels",
+    "business_processes": "/dashboards/342/business_processes",
+    "angles": "/dashboards/342/angles",
+    "id": "ROBOT_Dashboard_Download",
+    "uri": "/dashboards/342",
+    "model": "/models/1",
+    "is_validated": false,
+    "is_published": false,
+    "created": {
+        "user": "/users/1",
+        "datetime": 1583459545,
+        "full_name": "EAAdmin"
+    },
+    "state": "/dashboards/342/state",
+    "has_warnings": false,
+    "authorizations": {
+        "update": true,
+        "delete": true,
+        "publish": true,
+        "unpublish": false,
+        "validate": false,
+        "unvalidate": false
+    }
+}

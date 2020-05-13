@@ -1,6 +1,4 @@
-var angleDownloadHandler = new AngleDownloadHandler();
-
-function AngleDownloadHandler() {
+function ItemDownloadHandler() {
     "use strict";
 
     var self = this;
@@ -28,16 +26,9 @@ function AngleDownloadHandler() {
         var deferred = [];
         var urls = [];
         var loadDashboard = function (uri, dashboardId) {
-            return dashboardModel.LoadDashboard(uri)
-                .done(function () {
-                    // get angle for dashboard from widget definitions
-                    var dashboardAngles = [];
-                    jQuery.each(dashboardModel.Data().widget_definitions, function (index, widget) {
-                        dashboardAngles.push(widget.angle);
-                    });
-
-                    var distinctDashboardAngles = dashboardAngles.distinct();
-                    jQuery.each(distinctDashboardAngles, function (index, angle) {
+            return self.GetDashboardAngleUris(uri)
+                .done(function (angles) {
+                    jQuery.each(angles, function (index, angle) {
                         urls.push(WC.Ajax.BuildRequestUrl(angle
                             + '/download?show_angle_display_id=' + window.showAngleAndDisplayID
                             + '&as_widget=true&dashboard_id=' + dashboardId, false));
@@ -55,21 +46,30 @@ function AngleDownloadHandler() {
                 return jQuery.when(urls);
             });
     };
-    self.StartExportAngle = function () {
-        self.GetDownloadUrls(self.SelectedItems)
-            .done(function (urls) {
-                self.DownloadItems(urls);
+    self.GetDashboardAngleUris = function (uri) {
+        var angles = [];
+        var query = {};
+        query[enumHandlers.PARAMETERS.CACHING] = false;
+        return GetDataFromWebService(uri, query)
+            .then(function (dashboard) {
+                angles = jQuery.map(dashboard.widget_definitions, function (widget) {
+                    return widget.angle;
+                });
+                angles = angles.distinct();
+                return jQuery.when(angles);
             });
     };
-    self.CloseAngleExportPopup = jQuery.noop;
+    self.StartExportItems = function () {
+        progressbarModel.ShowStartProgressBar(Localization.ProgressBar_DownloadAngle, false);
+        progressbarModel.IsCancelPopup = false;
+        self.GetDownloadUrls(self.GetSelectData())
+            .done(self.DownloadItems);
+    };
 
     self.IsDownloadableItem = function (itemType) {
         return itemType === enumHandlers.ITEMTYPE.ANGLE || itemType === enumHandlers.ITEMTYPE.DASHBOARD;
     };
     self.DownloadItems = function (itemUrls) {
-        progressbarModel.ShowStartProgressBar(Localization.ProgressBar_DownloadAngle, false);
-        progressbarModel.IsCancelPopup = false;
-
         var itemCount = itemUrls.length;
         var downloadItem = function (urls) {
             if (self.IsDownloadItemDone(urls.length)) {
@@ -93,8 +93,8 @@ function AngleDownloadHandler() {
     self.DownloadItemDone = function () {
         progressbarModel.IsCancelPopup = false;
         progressbarModel.EndProgressBar();
-        self.CloseAngleExportPopup();
-        searchPageHandler.ClearAllSelectedRows();
+        self.DownloadItemDoneCallback();
     };
+    self.DownloadItemDoneCallback = jQuery.noop;
     // EOF: Methods
 }

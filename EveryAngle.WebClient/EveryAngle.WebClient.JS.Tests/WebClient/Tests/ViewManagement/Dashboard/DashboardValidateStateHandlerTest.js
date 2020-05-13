@@ -20,14 +20,14 @@
 /// <reference path="/Dependencies/ViewManagement/Dashboard/DashboardWidgetDefinitionHandler.js" />
 /// <reference path="/Dependencies/ViewManagement/Dashboard/DashboardWidgetDefinitionView.js" />
 /// <reference path="/Dependencies/ViewManagement/Dashboard/DashboardUserSpecificHandler.js" />
+/// <reference path="/Dependencies/ViewManagement/Shared/ItemSaveActionHandler.js" />
+/// <reference path="/Dependencies/ViewManagement/Dashboard/DashboardSaveActionHandler.js" />
 /// <reference path="/Dependencies/ViewManagement/Dashboard/DashboardStatisticView.js" />
 /// <reference path="/Dependencies/ViewManagement/Dashboard/DashboardStatisticHandler.js" />
 /// <reference path="/Dependencies/ViewManagement/Dashboard/DashboardBusinessProcessHandler.js" />
 /// <reference path="/Dependencies/ViewManagement/Dashboard/DashboardPageHandler.js" />
 /// <reference path="/Dependencies/ViewManagement/Shared/ToastNotificationHandler.js" />
 /// <reference path="/Dependencies/ViewModels/Models/User/UserSettingModel.js" />
-
-
 
 describe("DashboardStateHandler", function () {
 

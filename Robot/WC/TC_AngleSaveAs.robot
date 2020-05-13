@@ -58,7 +58,7 @@ Verify Save Display As
 
 Verify Set Angle To Template Privilege
     [Documentation]  Verify Set Angle to Template button on a different users 
-    ...              
+    ...              Risk/Cover area: Set to Template button
     [Tags]    TC_C229010
     ${angleName}  Set Variable  [ROBOT] Verify Set Angle To Template Privilege
     Create Adhoc Angle From Object List   PD    ${angleName}

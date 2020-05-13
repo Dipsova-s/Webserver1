@@ -27,6 +27,8 @@
 /// <reference path="/Dependencies/ViewManagement/Shared/SidePanel/SidePanelHandler.js" />
 /// <reference path="/Dependencies/ViewManagement/Angle/AngleBusinessProcessHandler.js" />
 /// <reference path="/Dependencies/ViewManagement/Angle/AngleUserSpecificHandler.js" />
+/// <reference path="/Dependencies/ViewManagement/Shared/ItemSaveActionHandler.js" />
+/// <reference path="/Dependencies/ViewManagement/Angle/AngleSaveActionHandler.js" />
 /// <reference path="/Dependencies/ViewManagement/Angle/ResultHandler.js" />
 /// <reference path="/Dependencies/ViewManagement/Shared/BaseItemHandler.js" />
 /// <reference path="/Dependencies/ViewManagement/Angle/AngleActionMenuHandler.js" />
@@ -112,85 +114,6 @@ describe("AnglePageHandler", function () {
         });
     });
 
-    describe(".CanCreateTemplateAngle", function () {
-        var tests = [
-            {
-                title: 'should return true when user can create template',
-                canCreateTemplate: true,
-                expected: true
-            },
-            {
-                title: 'should return false when user cant create template',
-                canCreateTemplate: false,
-                expected: false
-            }
-        ];
-        $.each(tests, function (index, test) {
-            it(test.title, function () {
-                spyOn(anglepageHandler.HandlerAngle, 'CanCreateTemplateAngle').and.returnValue(test.canCreateTemplate);
-
-                var actual = anglepageHandler.CanCreateTemplateAngle();
-                expect(actual).toEqual(test.expected);
-            });
-        });
-    });
-
-    describe(".CanSetTemplate", function () {
-        var tests = [
-            {
-                title: 'should return true when user can mark template',
-                cansettemplate: true,
-                expected: true
-            },
-            {
-                title: 'should return false when user can mark template',
-                cansettemplate: false,
-                expected: false
-            }
-        ];
-        $.each(tests, function (index, test) {
-            it(test.title, function () {
-
-                spyOn(anglepageHandler.HandlerAngle, 'CanSetTemplate').and.returnValue(test.cansettemplate);
-
-                var actual = anglepageHandler.CanSetTemplate();
-                expect(actual).toEqual(test.expected);
-            });
-        });
-    });
-
-    describe(".SaveAngleAndSetTemplate", function () {
-        it('should call save all', function () {
-            spyOn(anglePageHandler.HandlerAngle, 'SaveAll').and.returnValue({
-                done: $.noop
-            });
-
-            anglePageHandler.SaveAngleAndSetTemplate();
-            // assert
-            expect(anglePageHandler.HandlerAngle.SaveAll).toHaveBeenCalled();
-        });
-    });
-
-    describe(".SetTemplateStatus", function () {
-        it('should not call other functions when can set template is false', function () {
-            spyOn(anglePageHandler, 'CanSetTemplate').and.returnValue(false);
-            spyOn(anglePageHandler.HandlerAngle, 'ConfirmSave');
-            anglePageHandler.SetTemplateStatus();
-
-            // assert
-            expect(anglePageHandler.HandlerAngle.ConfirmSave).not.toHaveBeenCalled();
-        });
-
-        it('should call SaveAngleAndSetTemplate when can set template is true', function () {
-            spyOn(anglePageHandler, 'CanSetTemplate').and.returnValue(true);
-            spyOn(anglePageHandler.HandlerAngle, 'ConfirmSave');
-            anglePageHandler.SetTemplateStatus();
-
-            // assert
-            expect(anglePageHandler.HandlerAngle.ConfirmSave).toHaveBeenCalled();
-        });
-    });
-
     describe(".SaveAdhocDisplays", function () {
         it('should retrieve adhoc display and store in local storage', function () {
 
@@ -221,18 +144,6 @@ describe("AnglePageHandler", function () {
 
             // assert
             expect(anglePageHandler.HandlerDisplay.ShowEditDescriptionPopup).toHaveBeenCalled();
-        });
-    });
-
-    describe(".ConfirmSaveAll", function () {
-        it('should call confirm save', function () {
-            spyOn(anglepageHandler.HandlerAngle, 'Validate').and.returnValue(true);
-            spyOn(anglePageHandler.HandlerAngle, 'ConfirmSave');
-
-            anglePageHandler.ConfirmSaveAll();
-
-            // assert
-            expect(anglePageHandler.HandlerAngle.ConfirmSave).toHaveBeenCalled();
         });
     });
 });

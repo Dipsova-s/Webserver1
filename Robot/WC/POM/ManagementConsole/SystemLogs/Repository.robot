@@ -77,5 +77,5 @@ Verify Download Repository Log
     scroll element into view    ${gridContentFirstRow} td:eq(0)
     ${fileName} =  Get Text     ${gridContentFirstRow} td:eq(0) 
     Click Download Repository Log By Logfile Name     ${fileName}
-    ${file}    Wait Until Keyword Succeeds    1 min    2 sec    Download should be done    ${DOWNLOAD_DIRECTORY}
-    Should Contain    ${file}    ${fileName}
+    Wait Until Keyword Succeeds    1 min    2 sec    Download Should Be Done
+    Download Should Contain File    ${fileName}

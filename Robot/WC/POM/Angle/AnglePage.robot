@@ -35,7 +35,8 @@ ${btnSaveOptions}           css=#AngleSavingWrapper .btn-saving-options
 ${btnSaveAll}               css=#AngleSavingWrapper .action-save-all
 ${btnSaveangleAs}           css=#AngleSavingWrapper .action-save-angle-as
 ${btnSaveDisplayAs}         css=#AngleSavingWrapper .action-save-display-as
-${btnSetToTemplate}         css=#AngleSavingWrapper .action-set-template 
+${btnSetToTemplate}         css=#AngleSavingWrapper .action-set-template
+${btnSetToAngle}            css=#AngleSavingWrapper .action-set-angle
 ${iconTemplate}             css=#SectionInfo .icon-template
 
 ${btnAngleActionMeatBalls}                          css=#ActionDropdownList
@@ -48,6 +49,7 @@ ${ddlAngleActionDropdownListCreateList}             css=#ActionDropdownListPopup
 ${ddlAngleActionDropdownAddJump}                    css=#ActionDropdownListPopup .addFollowup
 ${ddlAngleActionDropdownListEditDisplay}            css=#ActionDropdownListPopup .editDisplay
 ${ddlAngleActionDropdownListExecuteDisplay}         css=#ActionDropdownListPopup .exitEditMode
+${ddlAngleActionDropdownDownload}                   css=#ActionDropdownListPopup .download
 ${chkDisplaysSection}                               jquery=.publish-displays .accordion-body .listview-item    
 
 ${btnNewDisplay}                                    css=.btn-new-display
@@ -55,9 +57,9 @@ ${btnConfirmDeleteDisplay}              btn-popupNotification1
 
 ${btnShowPublishSettings}           css=#ShowPublishSettingsButton
 ${btnShowValidateButton}            css=#ShowValidateButton
-${btnCancelSavePublishSettings}     css=#btn-popupNotification0
 
-${popupNotification}    css=#popupNotification
+${popupNotification}         css=#popupNotification
+${btnCancelConfirmation}     css=#btn-popupNotification0
 
 *** Keywords ***
 Get Angle Uri
@@ -137,10 +139,17 @@ Main Save Button Is Save Angle As
 Main Save Button Is Save Display As
     Element Text Should Be  ${btnSaveMain}  Save Display as...
 
+Main Save Button Is Download Angle
+    Element Text Should Be  ${btnSaveMain}  Download Angle
+
 Click Option Save
     [Arguments]    ${element}
     Click Caret Of Save Button
     Click Element  ${element}
+
+Click Caret Of Save Button
+    Click Element  ${btnSaveOptions}
+    Sleep  ${TIMEOUT_LARGEST}
 
 Click Save All
     ${hasButton}  Is Element Exist  ${btnSaveAll}
@@ -207,15 +216,6 @@ Save Display As Button Should Be Enable
 Save Display As Button Should Be Disabled
     Page Should Contain Element  ${btnSaveDisplayAs}.disabled
 
-Click Set Template To Angle
-    ${hasButton}    Is Element Exist    ${btnSetToTemplate}  
-    Run Keyword If  ${hasButton}  Click Option Save    ${btnSetToTemplate}
-    ...    ELSE                   Click Main Save
-    Wait Progress Bar Closed
-    Wait Until Ajax Complete
-    Page Should Contain Toast Success
-    Wait Display Executed
-
 Click Set Angle To Template
     ${hasButton}    Is Element Exist    ${btnSetToTemplate}  
     Run Keyword If  ${hasButton}  Click Option Save    ${btnSetToTemplate}
@@ -225,8 +225,11 @@ Click Set Angle To Template
     Page Should Contain Toast Success
     Wait Display Executed
 
+Set To Template Button Should Available
+    Page Should Contain Element    ${btnSetToTemplate}
+
 Set To Template Button Should Not Available
-    Element Should Not Be Visible    ${btnSetToTemplate}    
+    Page Should Not Contain Element    ${btnSetToTemplate}
 
 Set To Template Buttom Should Be Disabled
     Page Should Contain Element    ${btnSetToTemplate}.disabled
@@ -234,19 +237,26 @@ Set To Template Buttom Should Be Disabled
 Set To Template Buttom Should Be Enable
     Page Should Contain Element    ${btnSetToTemplate}:not(.disabled)
 
+Click Set Template To Angle
+    ${hasButton}    Is Element Exist    ${btnSetToAngle}  
+    Run Keyword If  ${hasButton}  Click Option Save    ${btnSetToAngle}
+    ...    ELSE                   Click Main Save
+    Wait Progress Bar Closed
+    Wait Until Ajax Complete
+    Page Should Contain Toast Success
+    Wait Display Executed
+
 Set To Angle Button Should Be Available
-    ${Text}    Get Text    ${btnSetToTemplate}
-    Should Be Equal    ${Text}    Set To Angle  
+    Page Should Contain Element    ${btnSetToAngle}
 
-Check Template Icon Is Visible
-    Element Should Be Visible    ${iconTemplate} 
+Set To Angle Button Should Not Be Available
+    Page Should Not Contain Element    ${btnSetToAngle}
 
-Check Template Icon Is InVisible
-    Page Should Not Contain Element    ${iconTemplate}
+Set To Angle Buttom Should Be Disabled
+    Page Should Contain Element    ${btnSetToAngle}.disabled
 
-Click Caret Of Save Button
-    Click Element  ${btnSaveOptions}
-    Sleep  ${TIMEOUT_LARGEST}
+Set To Angle Buttom Should Be Enable
+    Page Should Contain Element    ${btnSetToAngle}:not(.disabled)
 
 Click Angle Action
     [Arguments]    ${actionSelector}
@@ -254,6 +264,12 @@ Click Angle Action
     Run keyword if    ${isMeatBallsVisibled}    Click Element    ${btnAngleActionMeatBalls}
     Wait Until Page Contains Element    ${actionSelector}
     Click Element    ${actionSelector}
+
+Check Template Icon Is Visible
+    Element Should Be Visible    ${iconTemplate} 
+
+Check Template Icon Is Not Visible
+    Page Should Not Contain Element    ${iconTemplate}
 
 Click To Create New Display
     Click Angle Action    ${btnNewDisplay}
@@ -296,6 +312,20 @@ Click Angle Dropdown To Export Drilldown To Excel
 Click Angle Dropdown To Execute Display
     Click Angle Action    ${ddlAngleActionDropdownListExecuteDisplay}
     Wait Display Executed
+
+Click Download Angle
+    Click Element  ${ddlAngleActionDropdownDownload}
+
+Download Button Should Be Available
+    Element Should Be Visible  ${ddlAngleActionDropdownDownload}
+
+Download Button Should Not Be Available
+    Element Should Not Be Visible  ${ddlAngleActionDropdownDownload}
+
+Angle Downloading Should Get A Confirmation Popup
+    Click Download Angle
+    Page Should Contain Element  ${popupNotification} .confirm
+    Click Element   ${btnCancelConfirmation}
 
 Get Display Type
     [Arguments]    ${item}
@@ -369,7 +399,7 @@ Open Angle Publishing Popup
 Angle Publishing Should Get A Confirmation Popup
     Click Element   ${btnShowPublishSettings}
     Page Should Contain Element  ${popupNotification} .confirm
-    Click Element   ${btnCancelSavePublishSettings}
+    Click Element   ${btnCancelConfirmation}
 
 Check Angle Is Published
     Page Should Contain Element    ${btnShowPublishSettings}.btn-primary

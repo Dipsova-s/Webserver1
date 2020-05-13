@@ -1,23 +1,19 @@
 ﻿/// <reference path="/Dependencies/ViewModels/Models/Search/searchmodel.js" />
-/// <reference path="/Dependencies/ViewManagement/Search/AngleDownloadHandler.js" />
-/// <reference path="/Dependencies/Helper/EnumHandlers.js" />
+/// <reference path="/Dependencies/viewmanagement/shared/itemdownloadhandler.js" />
 /// <reference path="/Dependencies/ViewManagement/Search/AngleExportHandler.js" />
 
 describe("AngleExportHandler", function () {
-
     var angleExportHandler;
-
     beforeEach(function () {
-        angleExportHandler = new AngleExportHandler(new AngleDownloadHandler());
+        angleExportHandler = new AngleExportHandler(new ItemDownloadHandler());
     });
 
     describe(".DownloadItems", function () {
-
-        it("should call handler StartExportAngle", function () {
-            spyOn(angleExportHandler.Handler(), 'StartExportAngle').and.callFake($.noop);
+        it("should start downloading", function () {
+            spyOn(angleExportHandler.Handler(), 'StartExportItems');
 
             angleExportHandler.DownloadItems();
-            expect(angleExportHandler.Handler().StartExportAngle).toHaveBeenCalled();
+            expect(angleExportHandler.Handler().StartExportItems).toHaveBeenCalled();
         });
     });
 });

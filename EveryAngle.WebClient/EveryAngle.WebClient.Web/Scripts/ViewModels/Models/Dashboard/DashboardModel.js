@@ -871,6 +871,9 @@ function DashboardViewModel(model) {
         delete data.grouping_labels;
         delete data.authorizations;
         delete data.privileges;
+        delete data.state;
+        delete data.has_warnings;
+        delete data.angles;
 
         if (!IsNullOrEmpty(data.widget_definitions)) {
             jQuery.each(data.widget_definitions, function (index, widget) {

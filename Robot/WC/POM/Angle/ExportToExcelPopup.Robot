@@ -14,6 +14,15 @@ Input Excel File Name
     [Arguments]    ${name}
     Input Text    ${txtFileName}    ${name}
 
+Get Excel File Name
+    ${fileName}    Get Value    ${txtFileName}
+    [Return]  ${fileName}
+
+Input Excel File Name Should Be
+    [Arguments]    ${name}
+    ${fileName}  Get Excel File Name
+    Should Be Equal    ${fileName}    ${name}
+
 Input Excel Sheet Name
     [Arguments]    ${name}
     Input Text    ${txtSheetName}    ${name}
@@ -67,3 +76,4 @@ Check The Existence Of Definitions Sheet In Excel File
     Open Excel Document    ${excelFile}    doc1
     ${sheets}=	Get List Sheet Names	
     List Should Contain Value	${sheets}	Definitions
+    Close All Excel Documents

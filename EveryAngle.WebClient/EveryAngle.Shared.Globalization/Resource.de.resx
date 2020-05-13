@@ -6304,4 +6304,13 @@ Note: Invalid Angles are not included in the package. If the results in the pack
   <data name="MC_Validation_ExportPackageUrl" xml:space="preserve">
     <value>Invalid URL: selections from multiple models and Advanced filters are not allowed.</value>
   </data>
+  <data name="DownloadAngle" xml:space="preserve">
+    <value>Download Angle</value>
+  </data>
+  <data name="DownloadDashboard" xml:space="preserve">
+    <value>Download Dashboard</value>
+  </data>
+  <data name="Confirm_DownloadItem" xml:space="preserve">
+    <value>You have unsaved changes, which will not be included in the download.&lt;br/&gt;Do you want to continue?</value>
+  </data>
 </root>

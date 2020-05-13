@@ -65,8 +65,7 @@ Verify Template: Save Display As With Add To New Angle Option
     Save Display As
 
 Verify EAPower: Set To Template Buttons Privilege
-    Check Template Icon Is InVisible
-    Click Caret Of Save Button
+    Check Template Icon Is Not Visible
     Set To Template Buttom Should Be Enable 
 
 Verify EAViewer: Set To Template Buttons Privilege

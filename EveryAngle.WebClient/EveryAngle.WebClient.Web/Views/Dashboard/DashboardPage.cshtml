@@ -93,30 +93,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="form-col col-saving" id="DashboardSavingWrapper">
-                        <!-- ko stopBinding: true -->
-                        <div class="saving-wrapper" data-bind="if: SaveActions.Primary.Valid(), visible: SaveActions.Primary.Valid()">
-                            <a class="btn btn-small btn-secondary btn-main-saving" data-bind="click: SaveActions.Primary.Action, css: { 'btn-split': SaveActions.Primary.Visible(), disabled: !SaveActions.Primary.Enable() }">
-                                <span data-bind="text: SaveActions.Primary.Label()"></span>
-                            </a>
-                            <a class="btn btn-small btn-secondary btn-saving-options"
-                               data-tooltip-position="bottom" data-role="tooltip" data-tooltip-text="@Resource.MoreActions"
-                               data-bind="click: ToggleSaveOptions">
-                                <i class="icon icon-chevron-down"></i>
-                            </a>
-                            <ul class="listview listview-popup saving-options">
-                                <!-- ko if: SaveActions.All.Visible() && SaveActions.Primary.Label() !== SaveActions.All.Label() -->
-                                <li class="listview-item action-save-all" data-bind="text: SaveActions.All.Label, css: { disabled: !SaveActions.All.Enable() }, click: SaveActions.All.Action"></li>
-                                <!-- /ko -->
-                                <!-- ko if: SaveActions.DashboardAs.Visible() && SaveActions.Primary.Label() !== SaveActions.DashboardAs.Label() -->
-                                <li class="listview-item action-save-dashboard-as" data-bind="text: SaveActions.DashboardAs.Label, css: { disabled: !SaveActions.DashboardAs.Enable() }, click: SaveActions.DashboardAs.Action"></li>
-                                <!-- /ko -->
-
-                            </ul>
-                        </div>
-                        <!-- /ko -->
-
-                    </div>
+                    <div class="form-col col-saving" id="DashboardSavingWrapper"></div>
                     <div class="form-col col-states" id="DashboardStatesWrapper">
                         @{Html.RenderPartial("~/Views/Shared/Top/ItemState.cshtml");}
                     </div>

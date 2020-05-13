@@ -114,58 +114,54 @@
 
 #ActionSelect .actionDropdownItem {
   background-color: #fff; }
-
-#ActionSelect .actionDropdownItem:before {
-  background-position: center center;
-  background-size: 16px 16px; }
-
-.actionDropdownItem.save:before {
-  background-image: url("../../images/angle/actiondropdownlist/save.svg"); }
-
-.actionDropdownItem.saveAs:before {
-  background-image: url("../../images/angle/actiondropdownlist/saveas.svg"); }
-
-.actionDropdownItem.copydisplay:before {
-  background-image: url("../../images/angle/actiondropdownlist/copydisplay.svg"); }
-
-.actionDropdownItem.pastedisplay:before {
-  background-image: url("../../images/angle/actiondropdownlist/pastedisplay.svg"); }
-
-.actionDropdownItem.editDisplay:before {
-  background-image: url("../../images/angle/actiondropdownlist/editdisplay.svg"); }
-
-.actionDropdownItem.newDisplay:before {
-  background-image: url("../../images/angle/actiondropdownlist/createdisplay.svg"); }
-
-.actionDropdownItem.createList:before {
-  background-image: url("../../images/icons/icon_list_addnew.svg"); }
-
-.actionDropdownItem.createChart:before {
-  background-image: url("../../images/icons/icon_chart_addnew.svg"); }
-
-.actionDropdownItem.createPivot:before {
-  background-image: url("../../images/icons/icon_pivot_addnew.svg"); }
-
-.actionDropdownItem.exportToExcel:before {
-  background-image: url("../../images/angle/actiondropdownlist/exporttoexcel.svg"); }
-
-.actionDropdownItem.exportToCSV:before {
-  background-image: url("../../images/angle/actiondropdownlist/exporttocsv.svg"); }
-
-.actionDropdownItem.addToDashboard:before {
-  background-image: url("../../images/angle/actiondropdownlist/addtodashboard.svg"); }
-
-.actionDropdownItem.addFollowup:before {
-  background-image: url("../../images/icons/icon_followup_addnew.svg"); }
-
-.actionDropdownItem.scheduleAngle:before {
-  background-image: url("../../images/icons/icon_schedule.svg"); }
-
-.actionDropdownItem.find:before {
-  background-image: url("../../images/angle/actiondropdownlist/find.svg"); }
-
-.actionDropdownItem.exitEditMode:before {
-  background-image: url("../../images/icons/icon_execute.svg"); }
+  #ActionSelect .actionDropdownItem:before {
+    background-position: center center;
+    background-size: 16px 16px; }
+  #ActionSelect .actionDropdownItem.save:before {
+    background-image: url("../../images/angle/actiondropdownlist/save.svg"); }
+  #ActionSelect .actionDropdownItem.saveAs:before {
+    background-image: url("../../images/angle/actiondropdownlist/saveas.svg"); }
+  #ActionSelect .actionDropdownItem.copydisplay:before {
+    background-image: url("../../images/angle/actiondropdownlist/copydisplay.svg"); }
+  #ActionSelect .actionDropdownItem.pastedisplay:before {
+    background-image: url("../../images/angle/actiondropdownlist/pastedisplay.svg"); }
+  #ActionSelect .actionDropdownItem.editDisplay:before {
+    background-image: url("../../images/angle/actiondropdownlist/editdisplay.svg"); }
+  #ActionSelect .actionDropdownItem.newDisplay:before {
+    background-image: url("../../images/angle/actiondropdownlist/createdisplay.svg"); }
+  #ActionSelect .actionDropdownItem.createList:before {
+    background-image: url("../../images/icons/icon_list_addnew.svg"); }
+  #ActionSelect .actionDropdownItem.createChart:before {
+    background-image: url("../../images/icons/icon_chart_addnew.svg"); }
+  #ActionSelect .actionDropdownItem.createPivot:before {
+    background-image: url("../../images/icons/icon_pivot_addnew.svg"); }
+  #ActionSelect .actionDropdownItem.exportToExcel:before {
+    background-image: url("../../images/angle/actiondropdownlist/exporttoexcel.svg"); }
+  #ActionSelect .actionDropdownItem.exportToCSV:before {
+    background-image: url("../../images/angle/actiondropdownlist/exporttocsv.svg"); }
+  #ActionSelect .actionDropdownItem.addToDashboard:before {
+    background-image: url("../../images/angle/actiondropdownlist/addtodashboard.svg"); }
+  #ActionSelect .actionDropdownItem.addFollowup:before {
+    background-image: url("../../images/icons/icon_followup_addnew.svg"); }
+  #ActionSelect .actionDropdownItem.scheduleAngle:before {
+    background-image: url("../../images/icons/icon_schedule.svg"); }
+  #ActionSelect .actionDropdownItem.find:before {
+    background-image: url("../../images/angle/actiondropdownlist/find.svg"); }
+  #ActionSelect .actionDropdownItem.exitEditMode:before {
+    background-image: url("../../images/icons/icon_execute.svg"); }
+  #ActionSelect .actionDropdownItem.download {
+    margin-left: 10px; }
+    #ActionSelect .actionDropdownItem.download:before {
+      background-image: url("../../images/icons/icon_download_angle.svg");
+      background-size: 20px 20px; }
+    #ActionSelect .actionDropdownItem.download:after {
+      content: '';
+      position: absolute;
+      left: -5px;
+      top: 3px;
+      height: 18px;
+      width: 0;
+      border-left: 1px solid #cbcbcb; }
 
 /* .popupFindAngleResult
 ============================================ */

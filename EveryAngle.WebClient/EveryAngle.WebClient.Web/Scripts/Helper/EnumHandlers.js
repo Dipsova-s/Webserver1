@@ -480,8 +480,8 @@ function EnumHandlers() {
         MASSCHANGE: { Text: Localization.MassChange, Id: 'massChange' },
         COPYANGLE: { Text: Localization.CopyAngle, Id: 'copyAngle' },
         DELETE: { Text: Localization.Delete, Id: 'delete' },
-        UPLOADANGLES: { Text: Localization.UploadAngles, Id: 'uploadAngles' },
-        CREATEEAPACKAGE: { Text: Localization.CreateEAPackage, Id: 'createEAPackage' }
+        UPLOADANGLES: { Text: Localization.UploadAngles, Id: 'upload' },
+        CREATEEAPACKAGE: { Text: Localization.CreateEAPackage, Id: 'download' }
     };
 
     // action dropdown on angle page
@@ -497,12 +497,14 @@ function EnumHandlers() {
         ADDFOLLOWUP: { Text: Localization.AddFollowUp, Id: 'addFollowup' },
         SCHEDULEANGLE: { Text: Localization.ScheduleAngle, Id: 'scheduleAngle' },
         FIND: { Text: Localization.Find, Id: 'find' },
-        EXECUTEDISPLAY: { Text: Captions.Label_ActionDropdown_ExecuteDisplay, Id: 'exitEditMode' }
+        EXECUTEDISPLAY: { Text: Captions.Label_ActionDropdown_ExecuteDisplay, Id: 'exitEditMode' },
+        DOWNLOAD: { Text: Localization.DownloadAngle, Id: 'download' }
     };
 
     //action dropdown on dashboard page
     self.DASHBOARDACTION = {
-        EXECUTEDASHBOARD: { Text: Captions.Label_ActionDropdown_ExecuteDashboard, Id: 'exitEditMode' }
+        EXECUTEDASHBOARD: { Text: Captions.Label_ActionDropdown_ExecuteDashboard, Id: 'exitEditMode' },
+        DOWNLOAD: { Text: Localization.DownloadDashboard, Id: 'download' }
     };
 
     // Queryblock types
