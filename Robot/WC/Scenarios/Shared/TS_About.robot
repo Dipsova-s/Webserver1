@@ -5,9 +5,9 @@ Resource    		${EXECDIR}/WC/POM/Shared/About.robot
 Verify Copyright
     Open About Popup
     Open Copyright Page
-    Select Window    NEW
+    Switch Window    NEW
     Wait Until License and Copyright Loaded
     ${licenseCount}    Get Number of License    
     Should Be True    ${licenseCount}>2
-    SELECT WINDOW    MAIN
+    Switch Window    MAIN
    

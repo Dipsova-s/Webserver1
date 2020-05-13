@@ -34,5 +34,5 @@ Test Welcome Page
     Assert Search Page Text    Get Search Page Text 2    This for News text
     Check and Verify Customer Logo exists
     Close Window
-    Select Window    IT Management Console
+    Switch Window    IT Management Console
 

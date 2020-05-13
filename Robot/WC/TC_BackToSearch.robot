@@ -9,14 +9,14 @@ Verify Back To Search
     [Tags]  acc_wc_aci_s
     Search By Text And Expect In Search Result    Angle For General Test
     Open New Seach Page
-    Select Window    MAIN
+    Switch Window    MAIN
     Open Angle From First Angle in Search Page    Angle For General Test
     
-    ${handle2}   Select Window    NEW
+    ${handle2}   Switch Window    NEW
     Select Search Filter Is Starred
     Reload Search Page
 
-    Select Window    MAIN
+    Switch Window    MAIN
     Reload Angle Page
     Back To Search
 

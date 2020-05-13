@@ -23,12 +23,12 @@ Unvalidate Dashboard
 Publish Display From Dashboard Page
     [Arguments]    ${index}
     Click Link Open Private Display    ${index}
-    Wait Until Keyword Succeeds    30 sec    1 sec    Select Window    NEW
+    Wait Until Keyword Succeeds    30 sec    1 sec    Switch Window    NEW
     Wait Angle Page Document Loaded
     Wait Angle Publishing Popup Loaded
     Click Publish Angle
     Check Angle Is Published
-    Select Window    MAIN
+    Switch Window    MAIN
     Sleep   ${TIMEOUT_LARGEST}
 
 Verify Dashboard Publishing Confirmation

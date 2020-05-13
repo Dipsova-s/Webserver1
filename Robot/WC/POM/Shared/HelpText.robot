@@ -20,7 +20,7 @@ Wait Until Help Text Page Loaded
 Click Help Text Link
     [Arguments]  ${helpId}
     Click Link  jquery=.helpTextContainer a[href$="id=${helpId}"]
-    Select Window  NEW
+    Switch Window  NEW
     Wait Until Help Text Page Loaded
 
 Close Help Text Popup

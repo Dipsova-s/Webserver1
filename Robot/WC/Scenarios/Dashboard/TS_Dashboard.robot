@@ -83,7 +83,7 @@ Input Filter Value For Is In List For Third Dashboard Filter
 Open Angle In Dashboard Widget
     [Arguments]    ${index}
     Click Link Go To Angle    ${index}
-    Select Window    NEW
+    Switch Window    NEW
     Wait Angle Page Document Loaded
     Check If Angle Or Display Has A Warning Then Close The Popup
 
@@ -92,13 +92,13 @@ Check First Angle Should Apply Dashboard Execution Parameters
     Page Should Contain    (Self) - Execution status is equal to Partially open
     Page Should Contain    Vendor - Vendor is in list (3745, 5550)
     Close Window
-    Select Window   MAIN
+    Switch Window   MAIN
 
 Check Second Angle Should Apply Dashboard Execution Parameters
     Page Should Contain    (Self) - Purchasing Document Category is not empty
     Page Should Contain    (Self) - Execution status is equal to Partially open
     Close Window
-    Select Window   MAIN
+    Switch Window   MAIN
 
 Create Dashboard With 2 Angles
     [Arguments]   ${dashboardName}
@@ -124,7 +124,7 @@ Verify Filters In Angle When Open Angle From Dashboard Page
     Run Keyword If  ${unExpectedFilterTexts}!=''    Page Should Not Contain Text List    ${unExpectedFilterTexts}
 
     Close Window
-    Select Window   MAIN
+    Switch Window   MAIN
 
 Verify Newly Dashboard With The Filter Should Not Show Asterisk
     [Arguments]    ${searchText}    ${dashboardName}
@@ -151,7 +151,7 @@ Add Filters To Dashboard
 
 Verify A Normal Drilldown On Chart Widget
     Click Drilldown Chart Widget  0
-    Select Window    NEW
+    Switch Window    NEW
     Wait Angle Page Document Loaded
     Wait Display Executed
     Click Display Tab
@@ -160,11 +160,11 @@ Verify A Normal Drilldown On Chart Widget
     Display Filter Should Contain  Execution status is not empty
     Display Filter Should Contain  Execution status is equal to
     Close Window
-    Select Window   MAIN
+    Switch Window   MAIN
 
 Verify A Drilldown To Display On Pivot Widget
     Click Drilldown Pivot Widget  1
-    Select Window    NEW
+    Switch Window    NEW
     Wait Angle Page Document Loaded
     Wait Display Executed
     Click Display Tab
@@ -173,7 +173,7 @@ Verify A Drilldown To Display On Pivot Widget
     Display Filter Should Contain  ID is not empty
     Display Filter Should Contain  Execution status is equal to
     Close Window
-    Select Window   MAIN
+    Switch Window   MAIN
 
 Add Dashboard Personal Note
     [Arguments]  ${note}
@@ -289,7 +289,7 @@ Add And Check Widget Display
     Open Widget Display  widget #2  Test Pivot 1
     Add Display To Existing Dashboard  ${dashboardName}
     Close Window
-    Select Window   MAIN
+    Switch Window   MAIN
     Wait Dashboard Widgets Loaded
     Check All Widgets
 
