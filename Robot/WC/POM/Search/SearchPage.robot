@@ -283,7 +283,7 @@ Click Open Web Client on User Menu
     Wait Progress Bar Closed
     Click Element    ${btnWebClient}
     Wait Progress Bar Closed
-    Select Window       Every Angle - Search page
+    Switch Window       Every Angle - Search page
 
 Click Logout
     Click Link       ${btnLogout}

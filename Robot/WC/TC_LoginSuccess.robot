@@ -12,7 +12,7 @@ Verify Login Success And Currect Session
     ${cookieValueWC}    Get Cookie    EASECTOKEN
     Click User Menu
     Click IT Management Console on User Menu
-    Select Window    IT Management Console
+    Switch Window    IT Management Console
     Wait Until Page Contains Element    jquery=#UserMenuControl
     ${cookieValueMC}    Get Cookie    EASECTOKEN
     Should Be Equal    ${cookieValueWC.value}    ${cookieValueMC.value}
@@ -20,7 +20,7 @@ Verify Login Success And Currect Session
     Close Window
 
     # switch to WC window and check cookie
-    Select Window
+    Switch Window
     Wait Until Element Is Visible    btn-popupNotification0
     Click Element    btn-popupNotification0
     Wait Until Page Contains Element    jquery=#LoginForm    120s

@@ -167,22 +167,26 @@ exit /b 0
 	ECHO ###### Create Robot Framework Report ######
 
 	:: Create a folder
-	set "ReportPath=%~dp0%ReportFolder%"
+	set "ReportPath=%~dp0%ReportFolder:/=\%"
 	if not exist "%ReportPath%" md "%ReportPath%"
 
+	set "ReportPathSetup=%~dp0%ReportFolderSetup:/=\%"
+	set "ReportPathParallel=%~dp0%ReportFolderParallel:/=\%"
+	set "ReportPathSingle=%~dp0%ReportFolderSingle:/=\%"
+
 	:: Copy images
-	if exist "%~dp0%ReportFolderSetup%/*.png" copy "%~dp0%ReportFolderSetup%/*.png" "%ReportPath%" /Y
-	if exist "%~dp0%ReportFolderParallel%/*.png" copy "%~dp0%ReportFolderParallel%/*.png" "%ReportPath%" /Y
-	if exist "%~dp0%ReportFolderSingle%/*.png" copy "%~dp0%ReportFolderSingle%/*.png" "%ReportPath%" /Y
+	if exist "%ReportPathSetup%\*.png" copy "%ReportPathSetup%\*.png" "%ReportPath%" /Y
+	if exist "%ReportPathParallel%\*.png" copy "%ReportPathParallel%\*.png" "%ReportPath%" /Y
+	if exist "%ReportPathSingle%\*.png" copy "%ReportPathSingle%\*.png" "%ReportPath%" /Y
 
 	:: Reports to be merged
 	set reports=
-	if exist "%~dp0%ReportFolderSetup%" set "reports=%reports% %~dp0%ReportFolderSetup%/output.xml"
-	if exist "%~dp0%ReportFolderParallel%" set "reports=%reports% %~dp0%ReportFolderParallel%/output.xml"
-	if exist "%~dp0%ReportFolderSingle%" set "reports=%reports% %~dp0%ReportFolderSingle%/output.xml"
+	if exist "%ReportPathSetup%" set "reports=%reports% %ReportFolderSetup%/output.xml"
+	if exist "%ReportPathParallel%" set "reports=%reports% %ReportFolderParallel%/output.xml"
+	if exist "%ReportPathSingle%" set "reports=%reports% %ReportFolderSingle%/output.xml"
 
-	call rebot --merge -d %ReportPath% ^
-		--output %ReportPath%/output.xml ^
+	call rebot --merge -d %ReportFolder% ^
+		--output output.xml ^
 		%reports%
 
 exit /b 0

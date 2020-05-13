@@ -41,7 +41,7 @@ Click Link Widget Display
     [Arguments]  ${name}
     Mouse Over  ${divEditWidgetDisplayItems}:contains(${name})
     Click Element  ${divEditWidgetDisplayItems}:contains(${name}) ${btnOpenWidgetDisplay}
-    Select Window  NEW
+    Switch Window  NEW
     Wait Angle Page Document Loaded
 
 Click Apply Editing Widget

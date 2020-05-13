@@ -3,7 +3,7 @@ $Target=$MyInvocation.MyCommand.Source.Replace($MyInvocation.MyCommand.Name, "")
 $DriverVersion = "2.46"
 try {
     # get Chrome version
-    $Version = (Get-Item (Get-ItemProperty 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\App Paths\chrome.exe').'(Default)').VersionInfo.FileVersion
+    $Version = (Get-Item (Get-ItemProperty 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\App Paths\chrome.exe' -ErrorAction SilentlyContinue).'(Default)').VersionInfo.FileVersion
     Write-Host Found Google Chrome: $Version
     $Version = $Version.Split(".")[0]
 
