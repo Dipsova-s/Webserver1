@@ -46,8 +46,8 @@ Pivot Display Drilldown
     [Arguments]    ${angleJsonFilename}    ${angleName}    ${modelName}
     Upload Item And Check From Search Result    ${angleJsonFilename}    ${modelName}    ${angleName}
     Open Angle From First Angle in Search Page    ${angleName}
-
-    Wait Until Pivot Display Loaded
+    Wait Display Executed
+    
     # drilldown null value
     ${drilldownValue1}    Get Pivot Total Cell Value By Row Index    0
     Drilldown Pivot Total Cell Value By Row Index    0
