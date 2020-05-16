@@ -205,7 +205,7 @@ Scroll Horizontal
     [Arguments]  ${element}    ${scrollLeft}
     ${jquerySelector}    Get JQuery Selector    ${element}
     Execute Javascript     $('${jquerySelector}').scrollLeft(${scrollLeft})
-    Sleep    ${TIMEOUT_GENERAL}
+    Sleep    ${TIMEOUT_LARGEST}
 
 Scroll Horizontal To Element
     [Arguments]  ${scrollableElement}    ${scrolltoElement}
@@ -217,7 +217,7 @@ Scroll Vertical
     [Arguments]  ${element}    ${scrollTop}
     ${jquerySelector}    Get JQuery Selector    ${element}
     Execute Javascript     $('${jquerySelector}').scrollTop(${scrollTop})
-    Sleep    ${TIMEOUT_GENERAL}
+    Sleep    ${TIMEOUT_LARGEST}
 
 Scroll Vertical To Element
     [Arguments]  ${scrollableElement}    ${scrolltoElement}
@@ -229,7 +229,7 @@ Scroll Grid Horizontal
     [Arguments]  ${gridId}    ${scrollLeft}
     Sleep    ${TIMEOUT_GENERAL}
     Execute Javascript     $("#${gridId} .k-virtual-scrollable-wrap").scrollLeft(${scrollLeft})
-    Sleep    ${TIMEOUT_GENERAL}
+    Sleep    ${TIMEOUT_LARGEST}
 
 Scroll Grid Horizontal By Field Id
     [Arguments]  ${gridId}    ${fieldId}
