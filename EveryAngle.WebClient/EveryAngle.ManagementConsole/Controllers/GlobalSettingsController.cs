@@ -1301,19 +1301,16 @@ namespace EveryAngle.ManagementConsole.Controllers
             string requestUrl = UrlHelper.GetRequestUrl(URLType.NOA) + fullPath;
             var filename = Path.GetFileName(Uri.UnescapeDataString(requestUrl).Replace("/", "\\"));
             fullPath = Path.Combine(logDirectory.FullName, filename);
+            var requestManager = RequestManager.Initialize(requestUrl);
+            var downloadFileByte = requestManager.GetBinary();
 
-            if (!System.IO.File.Exists(fullPath))
+            if (!Path.HasExtension(fullPath))
             {
-                var requestManager = RequestManager.Initialize(requestUrl);
-                var downloadFileByte = requestManager.GetBinary();
-
-                if (!Path.HasExtension(fullPath))
-                {
-                    fullPath = fullPath + ".csl";
-                }
-
-                System.IO.File.WriteAllBytes(fullPath, downloadFileByte);
+                fullPath = fullPath + ".csl";
             }
+
+            System.IO.File.WriteAllBytes(fullPath, downloadFileByte);
+            
         }
 
         public ActionResult AllEventLog(string target)
